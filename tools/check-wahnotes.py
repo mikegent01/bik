@@ -136,6 +136,16 @@ for n in needles2:
         fail(f"index.html missing {n}")
 if src.count("census:wahCensusByPoi") < 2:
     fail("census not passed from both map mounts")
+# Batch 2c: scored wah tiers, curated filings, dashboard micro-features.
+needles3 = ["function wahScoreRemark(", "function dashFilingOrder(",
+             "dashDoor('📜','Events'", "function dashLoudest(",
+             "function dashSub(", "function dashDice(", "function dashNoteRead(",
+             "waluipediaLastRead", "waluipediaRecents", "waluipediaSeenOps",
+             "waluipediaVisits", ".dash-sub{display:flex", "Debt alarm",
+             "Surprise me", "cover-date"]
+for n in needles3:
+    if n not in src:
+        fail(f"index.html missing {n}")
 mod = (ROOT / "Reputation-Matrix2/app/pages/maps/atlas-map-v2.js").read_text()
 for n in ("modes.chatter", "ACTIVE_CHATTER", "data-token", "opts.party", "defaultMode",
            "modes.species", "modes.faiths", "ACTIVE_CENSUS"):

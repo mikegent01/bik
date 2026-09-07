@@ -410,6 +410,7 @@
 .dash-file .d{font-size:11px;color:var(--muted);white-space:nowrap}
 .dash-file b{font-size:13px;display:block;line-height:1.35}
 .dash-file span{font-size:12px;color:var(--muted);display:block;line-height:1.4}
+.dash-file .pips{font-size:11px;color:var(--accent2,#e0b400)}
 .dash-fronts{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
 .dash-front{border:1px solid var(--border);border-radius:10px;padding:8px;cursor:pointer;font-size:12px}
 .dash-front b{display:block;font-size:12.5px}
@@ -420,6 +421,8 @@
 .dash-door .e{font-size:22px;display:block}
 .dash-door b{font-size:12.5px;display:block;margin:2px 0}
 .dash-door span{font-size:11px;color:var(--muted)}
+.dash-sub{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+.dash-sub .chip{margin:0}
 .dash-mini{font-size:12.5px}
 .dash-mini .row{display:flex;justify-content:space-between;gap:8px;padding:4px 0;border-bottom:1px solid var(--border)}
 .dash-mini .row:last-child{border-bottom:0}
@@ -8212,10 +8215,16 @@ function homeCoversHtml(){
   const linkFor=(id)=>id&&INDEX[id]?`Router.go('#/article/${esc(id)}')`:'';
   const coverCards=covers.map(c=>{
     const tag=c.campaign?`<span class="cover-campaign">${esc(c.campaign)} · Current Front</span>`:'';
+    let dateLine='';
+    try{
+      const rec=c.articleId&&typeof INDEX!=='undefined'?INDEX[c.articleId]:null;
+      const dt=rec&&rec.item&&(rec.item.date||'').split('—')[0].trim();
+      if(dt) dateLine=`<span class="cover-date">🗓️ Latest: ${esc(dt)}</span>`;
+    }catch(e){}
     return `<figure class="campaign-cover-card" onclick="${linkFor(c.articleId)}" style="cursor:pointer;">
       <img src="${esc(assetPath(c.image))}" alt="${esc(c.title||'Campaign cover')}" loading="lazy"
            onerror="this.closest('figure').classList.add('broken')">
-      <figcaption>${tag}<b>${esc(c.title||'')}</b><em>${esc(c.caption||'')}</em></figcaption>
+      <figcaption>${tag}<b>${esc(c.title||'')}</b><em>${esc(c.caption||'')}</em>${dateLine}</figcaption>
     </figure>`;
   }).join('');
   const fieldItems=field.map(g=>`<figure class="field-gal-item" onclick="${linkFor(g.articleId)}">
@@ -8276,13 +8285,36 @@ function homeRecentAdventuresHtml(){
 /* =============== DASHBOARD (default home) + WHO-ARE-YOU GATE ===============
    Single screen, three columns: latest filings + fronts | door grid | minis.
    First visit picks an operator profile (persisted); the dashboard greets them. */
+/* Filing order mirrors the classic feed exactly: pinned latestUpdate, then
+   reverse file order. (Date-sorting fails here — "2374 BF (Historical
+   Record)" is older than 1040 BF, not newer.) */
+function dashFilingOrder(){
+  const events=(DATA&&DATA.events)||[];
+  const latestId=(DATA.mainPage&&DATA.mainPage.latestUpdate&&DATA.mainPage.latestUpdate.id)||'';
+  const ranked=events.slice().reverse().filter(e=>e&&e.id);
+  const pin=latestId&&ranked.find(e=>e.id===latestId);
+  const queue=pin?[pin,...ranked.filter(e=>e.id!==latestId)]:ranked;
+  return {queue,latestId};
+}
+function dashNewCount(){
+  try{
+    const queue=dashFilingOrder().queue;
+    const seen=localStorage.getItem('waluipediaDashSeen')||'';
+    const top=(queue[0]||{}).id||'';
+    let n=0;
+    if(seen&&top&&seen!==top){ const i=queue.findIndex(e=>e.id===seen); n=i<0?20:i; }
+    if(top) localStorage.setItem('waluipediaDashSeen',top);
+    return n;
+  }catch(e){ return 0; }
+}
 function dashLatestFilings(){
-  const evs=(DATA.events||[]).map((e,i)=>({e,key:mapsEventSortKey(e,i)})).filter(x=>x.key[0]!==9999)
-    .sort((a,b)=>b.key[0]-a.key[0]||b.key[1]-a.key[1]||b.key[2]-a.key[2]||b.key[3]-a.key[3]).slice(0,4);
-  return evs.map(({e})=>{
+  const {queue,latestId}=dashFilingOrder();
+  return queue.slice(0,4).map(e=>{
     const d=String(e.date||e.era||'undated').split('—')[0].trim().slice(0,26);
     const sum=String(e.summary||e.description||'').replace(/\s+/g,' ').slice(0,110);
-    return `<div class="dash-file" onclick="openId('${esc(e.id)}')"><span class="d">${esc(d)}</span><div><b>${esc(e.name||e.title||e.id)}</b><span>${esc(sum)}${sum.length>=110?'…':''}</span></div></div>`;
+    const pend=(e.status==='Generated — review'||e._generated)?' 📝':'';
+    const pips=(e.participants||[]).slice(0,4).map(p=>{ try{ return participantLabel(p); }catch(err){ return ''; } }).filter(Boolean);
+    return `<div class="dash-file" onclick="openId('${esc(e.id)}')"><span class="d">${esc(d)}</span><div><b>${esc(e.name||e.title||e.id)}${e.id===latestId?' · Latest Filing':''}${pend}</b><span>${esc(sum)}${sum.length>=110?'…':''}</span>${pips.length?`<span class="pips">${esc(pips.join(' · '))}</span>`:''}</div></div>`;
   }).join('')+`<div class="chips" style="margin-top:8px"><a class="chip" onclick="Router.go('#/list/events')">📂 All filings →</a></div>`;
 }
 function dashFronts(){
@@ -8295,7 +8327,8 @@ function dashDoors(){
   const n=(v)=>{ v=Number(v)||0; return v; };
   const songs=(DATA.songs&&(DATA.songs.songs||DATA.songs.tracks||[]))||[];
   let docket='17-A'; try{ const a=docketData(); const t=(a.targets||[]).filter(x=>x.status!=='cleared_active').length; docket=t+' open'; }catch(e){}
-  return dashDoor('🗺️','Maps',n(Object.keys(ATLAS_MAPS||{}).length)+' sheets',"Router.go('#/maps')")
+  return dashDoor('📜','Events',n((DATA.events||[]).length)+' ev · '+n((DATA.battles||[]).length)+' ba',"Router.go('#/list/events')")
+    +dashDoor('🗺️','Maps',n(Object.keys(ATLAS_MAPS||{}).length)+' sheets',"Router.go('#/maps')")
     +dashDoor('🛒','Commerce',n(((DATA.crafting||{}).recipes||[]).length)+' recipes',"Router.go('#/commerce')")
     +dashDoor('📅','Time',n((DATA.historicalTimeline||[]).length)+' entries',"Router.go('#/calendar')")
     +dashDoor('🛰️','Party',n((typeof COMPANIONS!=='undefined'?COMPANIONS:[]).length)+' cast',"Router.go('#/mission-control')")
@@ -8319,18 +8352,26 @@ function dashPurse(){
     }catch(e){}
     return `<div class="row"><span>${esc(nm)}</span><span>${esc(line)}</span></div>`;
   }).join('');
-  return `${rows}<div class="chips" style="margin-top:8px"><a class="chip" onclick="Router.go('#/currencies')">💱 Debts &amp; ledger →</a></div>`;
+  let alarm='';
+  try{
+    const bad=((DATA.banking||{}).debts||[]).filter(d=>d&&['overdue','defaulted'].includes(d.status)).length;
+    if(bad) alarm=`<div class="row"><span>🔴 Debt alarm</span><span>${bad} overdue/defaulted</span></div>`;
+  }catch(e){}
+  return `${rows}${alarm}<div class="chips" style="margin-top:8px"><a class="chip" onclick="Router.go('#/currencies')">💱 Debts &amp; ledger →</a></div>`;
 }
 function dashHeat(){
   const facs=[['wario_enterprise','💰 Wario'],['liberated_toads','🍄 Toads'],['iron_legion','⚔️ Legion'],['corvinarus_family','🦇 Corvinarus'],['mages_guild','🔮 Guild'],['mushroom_regency','👑 Regency']];
   const ops=(typeof REPUTATION_OPERATORS!=='undefined'?REPUTATION_OPERATORS:[]);
-  const rows=facs.map(([fid,label])=>{
-    let t=0,seen=0;
+  const avgs=facs.map(([fid])=>{ let t=0,seen=0;
     ops.forEach(op=>{ try{ t+=calculateOperatorStanding(op.key||op.id,fid).total||0; seen++; }catch(e){} });
-    const avg=seen?Math.round(t/seen):0;
+    return seen?Math.round(t/seen):0; });
+  const hi=Math.max(...avgs), lo=Math.min(...avgs);
+  const rows=facs.map(([fid,label],i)=>{
+    const avg=avgs[i];
     const tag=avg>=15?'allied':avg>=5?'warm':avg>-5?'watchful':avg>-15?'cold':'hostile';
     const dot=avg>=5?'🟢':avg>-5?'🟡':'🔴';
-    return `<div class="row"><span>${label}</span><span>${dot} ${avg>=0?'+':''}${avg} ${tag}</span></div>`;
+    const xt=avg===hi&&hi!==lo?' 🔥':avg===lo&&hi!==lo?' 🧊':'';
+    return `<div class="row"><span>${label}${xt}</span><span>${dot} ${avg>=0?'+':''}${avg} ${tag}</span></div>`;
   }).join('');
   return `${rows}<div class="chips" style="margin-top:8px"><a class="chip" onclick="Router.go('#/reputation')">📊 Full matrix →</a></div>`;
 }
@@ -8347,21 +8388,97 @@ function dashOTD(){
   return (items.join('')||'<div class="row"><span>Quiet day in the archive.</span><span>—</span></div>')
     +`<div class="chips" style="margin-top:8px"><a class="chip" onclick="Router.go('#/calendar')">📅 Full calendar →</a></div>`;
 }
+/* Dashboard memory: last-read dossier, recent reads, operator history, visits.
+   Written by view_article/view_hub/setCurrentUserId; read by dashSub(). */
+function dashNoteRead(id){
+  try{
+    if(!id) return;
+    localStorage.setItem('waluipediaLastRead',id);
+    const r=JSON.parse(localStorage.getItem('waluipediaRecents')||'[]').filter(x=>x&&x!==id);
+    r.unshift(id);
+    localStorage.setItem('waluipediaRecents',JSON.stringify(r.slice(0,8)));
+  }catch(e){}
+}
+function dashDice(){
+  try{
+    const ids=Object.keys(INDEX||{}).filter(id=>INDEX[id]&&INDEX[id].item);
+    if(ids.length) openId(ids[Math.floor(Math.random()*ids.length)]);
+  }catch(e){}
+}
+function dashLoudest(){
+  const facs=[['wario_enterprise','💰 Wario'],['liberated_toads','🍄 Toads'],['iron_legion','⚔️ Legion'],['corvinarus_family','🦇 Corvinarus'],['mages_guild','🔮 Guild'],['mushroom_regency','👑 Regency']];
+  const rows=[];
+  try{
+    (REPUTATION_OPERATORS||[]).forEach(op=>{
+      let best=null;
+      facs.forEach(([fid,label])=>{
+        let t=0; try{ t=calculateOperatorStanding(op.key||op.id,fid).total||0; }catch(e){ return; }
+        if(!best||Math.abs(t)>Math.abs(best.t)) best={t,label};
+      });
+      if(best) rows.push({op:op.name||op.key||op.id,t:best.t,label:best.label});
+    });
+  }catch(e){}
+  rows.sort((a,b)=>Math.abs(b.t)-Math.abs(a.t));
+  const top=rows.slice(0,3);
+  if(!top.length) return '<div class="row"><span>All quiet on every front.</span><span>—</span></div>';
+  return top.map(r=>{
+    const emo=r.t>=15?'🤝':r.t>=5?'👍':r.t>-5?'😐':r.t>-15?'👎':'🔥';
+    return `<div class="row"><span>${emo} ${esc(r.op)} → ${esc(r.label)}</span><span>${r.t>=0?'+':''}${r.t}</span></div>`;
+  }).join('')+`<div class="chips" style="margin-top:8px"><a class="chip" onclick="Router.go('#/reputation')">📊 Full matrix →</a></div>`;
+}
+function dashSub(visits){
+  const chips=[];
+  try{
+    const last=localStorage.getItem('waluipediaLastRead')||'';
+    const rec=(last&&INDEX[last])?INDEX[last]:null;
+    if(rec) chips.push(`<span class="chip" onclick="openId('${esc(last)}')">▶️ Resume: ${esc(String(displayName(rec.item)).slice(0,34))}</span>`);
+    const recents=JSON.parse(localStorage.getItem('waluipediaRecents')||'[]').filter(x=>x&&x!==last&&INDEX[x]).slice(0,3);
+    recents.forEach(id=>chips.push(`<span class="chip" onclick="openId('${esc(id)}')">📄 ${esc(String(displayName(INDEX[id].item)).slice(0,26))}</span>`));
+  }catch(e){}
+  chips.push(`<span class="chip" onclick="dashDice()">🎲 Surprise me</span>`);
+  chips.push(`<span class="chip" onclick="try{const s=document.getElementById('search');s.scrollIntoView({block:'center'});s.focus()}catch(e){}">🔍 Find…</span>`);
+  if(visits) chips.push(`<span class="chip">👣 Visit #${visits}</span>`);
+  try{
+    const ops=dashRecentOps();
+    ops.slice(-3).forEach(id=>{
+      const c=(COMPANIONS||[]).find(x=>x&&x.id===id);
+      chips.push(`<span class="chip" onclick="Router.go('#/who')">${esc((c&&c.icon)||'👤')} ${esc((c&&c.name)||prettyId(id))}</span>`);
+    });
+  }catch(e){}
+  let stats='';
+  try{
+    const nRec=Object.keys(INDEX||{}).length, nCast=(COMPANIONS||[]).length, nOps=(REPUTATION_OPERATORS||[]).length;
+    stats=`<span class="text-muted" style="font-size:12px;margin-left:auto">📊 ${nRec.toLocaleString()} records · ${nCast} cast · ${nOps} operators</span>`;
+  }catch(e){}
+  return `<div class="dash-sub">${chips.join('')}${stats}</div>`;
+}
+function dashRecentOps(){ try{ return JSON.parse(localStorage.getItem('waluipediaSeenOps')||'[]'); }catch(e){ return []; } }
 function view_home(){
   renderSidebar('home');
   if(!getCurrentUserId()){ view_whoami(); return; }
   const uid=getCurrentUserId();
   let who={name:prettyId(uid),icon:'👤'};
   try{ const c=(COMPANIONS||[]).find(x=>x&&x.id===uid); if(c) who={name:c.name,icon:c.icon||'👤'}; }catch(e){}
+  let visits=0;
+  try{ visits=(+localStorage.getItem('waluipediaVisits')||0)+1; localStorage.setItem('waluipediaVisits',String(visits)); }catch(e){}
+  const greets=['The archive missed you.','WAH! Fresh parchment, same old grudges.','Mind the Mimics on shelf nine.','New filings, old debts.','The RNN swears today is quiet. It lies.','Dust the shelves, dodge the auditors.'];
+  const greet=greets[(CUR.day+CUR.monthIndex*31+CUR.year)%greets.length];
+  let wd='';
+  try{ const w=calWeekdayForDate(getActiveCalendar(),CUR.year,CUR.monthIndex,CUR.day); if(w&&(w.name||w.label)) wd=' · '+(w.name||w.label); }catch(e){}
   const dateStr=`${(MONTHS||[])[CUR.monthIndex]||'?'} ${CUR.day}, ${CUR.year} BF`;
+  const nNew=dashNewCount();
+  const newPill=nNew?`<span class="chip" onclick="Router.go('#/list/events')">🆕 ${nNew} new</span>`:'';
   el('content').innerHTML=`<div class="dash-head"><div><h1 style="margin:0">💠 Waluipedia Campaign Hub</h1>`
-    +`<p class="text-muted" style="margin:2px 0 0">🕰️ ${esc(dateStr)} · WAH, ${esc(who.name)}. The archive missed you.</p></div>`
+    +`<p class="text-muted" style="margin:2px 0 0">🕰️ ${esc(dateStr)}${esc(wd)} · WAH, ${esc(who.name)}. ${esc(greet)}</p></div>`
     +`<span class="chip" style="margin-left:auto" onclick="Router.go('#/who')">${esc(who.icon)} ${esc(who.name)} · switch</span>`
+    +newPill
     +`<span class="chip" onclick="Router.go('#/home-classic')">📜 Classic view</span></div>`
+    +dashSub(visits)
     +`<div class="dash"><div class="card" style="margin:0"><h2>📜 Latest filings</h2><div class="dash-mini">${dashLatestFilings()}</div>${dashFronts()}</div>`
     +`<div class="card" style="margin:0"><h2>🎮 Choose your door</h2><div class="dash-doors">${dashDoors()}</div></div>`
     +`<div class="dash-right"><div class="card" style="margin:0"><h2>💰 Party purse</h2><div class="dash-mini">${dashPurse()}</div></div>`
     +`<div class="card" style="margin:12px 0 0"><h2>📈 Heat</h2><div class="dash-mini">${dashHeat()}</div></div>`
+    +`<div class="card" style="margin:12px 0 0"><h2>📣 Loudest margins</h2><div class="dash-mini">${dashLoudest()}</div></div>`
     +`<div class="card" style="margin:12px 0 0"><h2>🕰️ On this day</h2><div class="dash-mini">${dashOTD()}</div><div id="dash-cal" class="mini-calendar" style="margin-top:8px"></div></div></div></div>`;
   try{ renderMiniCalendar('dash-cal',CUR.year,CUR.monthIndex); }catch(e){}
   window.scrollTo(0,0);
@@ -8446,7 +8563,7 @@ function view_home_classic(){
   } catch(e) { dynamicOTD = []; }
 
   const otdHtml = (dynamicOTD.length ? dynamicOTD : otdStatic.map(s => ({ text: s }))).slice(0, 8).map(x => {
-    if (x.route) return `<li style="margin-bottom:6px;"><a onclick="Router.go('${x.route}')" style="cursor:pointer;text-decoration:none;">${esc(x.text)}</a></li>`;
+    if (x.route) return `<li style="margin-bottom:6px;">📄 <a onclick="Router.go('${x.route}')" style="cursor:pointer;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">${esc(x.text)}</a></li>`;
     return `<li style="margin-bottom:6px;">${esc(x.text || x)}</li>`;
   }).join('');
 
@@ -9958,18 +10075,29 @@ function wahTagset(articleId){
   const loc=String(item.location||'')+(typeKey==='locations'&&item.name?' '+item.name:'');
   return {factions,participants,blob:blob.toLowerCase(),loc:loc.toLowerCase()};
 }
+/* Match strength: pinned records and who/what filings (3/2) outrank single
+   substring guesses (1). A lone "wood" in "Hollywood" must never headline. */
+function wahScoreRemark(r,ts,articleId){
+  const so=(r&&r.showsOn)||{};
+  let s=0;
+  if((so.records||[]).includes(articleId)) s+=3;
+  if((so.factions||[]).some(f=>ts.factions.has(String(f).toLowerCase()))) s+=2;
+  if((so.participants||[]).some(p=>ts.participants.has(String(p).toLowerCase()))) s+=2;
+  if((so.eras||[]).concat(so.types||[]).some(t=>t&&ts.blob.includes(String(t).toLowerCase()))) s+=1;
+  if((so.locations||[]).some(t=>t&&ts.loc.includes(String(t).toLowerCase()))) s+=1;
+  return s;
+}
+function wahInterleave(arr){
+  const buckets=new Map();
+  arr.forEach(n=>{ const k=((n.authorId||n.author||'?')+'').toLowerCase(); if(!buckets.has(k)) buckets.set(k,[]); buckets.get(k).push(n); });
+  const mixed=[]; let guard=arr.length+1;
+  while(mixed.length<arr.length&&guard-->0){ let moved=false; buckets.forEach(b=>{ if(b.length){ mixed.push(b.shift()); moved=true; } }); if(!moved) break; }
+  return mixed;
+}
 function wahRoutedFor(articleId,tagset){
   const pool=(DATA&&DATA.wahnotes&&DATA.wahnotes.routed)||[];
   const ts=tagset||wahTagset(articleId);
-  return pool.filter(r=>{
-    const so=(r&&r.showsOn)||{};
-    if((so.records||[]).includes(articleId)) return true;
-    if((so.factions||[]).some(f=>ts.factions.has(String(f).toLowerCase()))) return true;
-    if((so.participants||[]).some(p=>ts.participants.has(String(p).toLowerCase()))) return true;
-    if((so.eras||[]).concat(so.types||[]).some(t=>t&&ts.blob.includes(String(t).toLowerCase()))) return true;
-    if((so.locations||[]).some(t=>t&&ts.loc.includes(String(t).toLowerCase()))) return true;
-    return false;
-  });
+  return pool.map(r=>({r,s:wahScoreRemark(r,ts,articleId)})).filter(x=>x.s>0).sort((a,b)=>b.s-a.s);
 }
 /* Merged + variety-interleaved notes for a record. Cap keeps rails readable. */
 function wahNotesFor(articleId){
@@ -9982,13 +10110,17 @@ function wahNotesFor(articleId){
   try{
     const w=DATA.wahnotes||{};
     ((w.pinned||{})[articleId]||[]).forEach(c=>out.push(Object.assign({source:'pinned',likes:0},c)));
-    wahRoutedFor(articleId).forEach(c=>out.push(Object.assign({source:'routed',likes:0},c)));
   }catch(e){}
-  // Round-robin by author so the first screen is always many voices.
-  const buckets=new Map();
-  out.forEach(n=>{ const k=(n.authorId||n.author||'?').toLowerCase(); if(!buckets.has(k)) buckets.set(k,[]); buckets.get(k).push(n); });
-  const mixed=[];
-  while(mixed.length<out.length){ let moved=false; buckets.forEach(b=>{ if(b.length){ mixed.push(b.shift()); moved=true; } }); if(!moved) break; }
+  // Sources keep priority (annotations, pinned, routed); voices interleave
+  // WITHIN each tier, and weak single-dimension guesses backfill only.
+  const ann=wahInterleave(out.filter(n=>n.source==='annotation'));
+  const pin=wahInterleave(out.filter(n=>n.source==='pinned'));
+  const routed=wahRoutedFor(articleId).map(x=>Object.assign({source:'routed',likes:0,_s:x.s},x.r));
+  const tiers=new Map();
+  routed.forEach(n=>{ if(!tiers.has(n._s)) tiers.set(n._s,[]); tiers.get(n._s).push(n); });
+  const strong=[...tiers.keys()].filter(s=>s>=2).sort((a,b)=>b-a).map(s=>wahInterleave(tiers.get(s))).flat();
+  const weak=wahInterleave((tiers.get(1)||[]).slice(0,4)).slice(0,2);
+  const mixed=ann.concat(pin,strong,weak);
   let guests=[];
   try{ guests=((DATA.wahnotes||{}).guests||[]).filter(g=>g&&g.recordId===articleId); }catch(e){}
   return {notes:mixed.slice(0,12),total:mixed.length,guests};
@@ -12280,6 +12412,7 @@ function view_article(id){
   }
   if(!rec){el('content').innerHTML=`<div class="card"><h2>Article not found</h2><p class="text-muted">Waluigi has no record of “${esc(id)}”. Perhaps it was stolen, like the name Disaster Inc.</p><p><a onclick="Router.go('#/home')">← Home</a></p></div>`;return;}
   const {typeKey,item}=rec;renderSidebar('list:'+typeKey);
+  try{ dashNoteRead(id); }catch(e){}
   const t=TYPE_BY_KEY[typeKey];
   LINK_YEAR_CTX = parseYear(item.date)||parseYear(item.era)||null;   // year context for dateless inline dates
   beginLinkPass(item);                                               // link context + graph/stat counters
@@ -13666,6 +13799,7 @@ function view_hub(id){
 
   const item=rec.item, typeKey=rec.typeKey;
   renderSidebar('list:'+typeKey);
+  try{ dashNoteRead(id); }catch(e){}
   LINK_YEAR_CTX=parseYear(item.date)||null;
   const title=displayName(item);
   const dateHead=String(item.date||'').split('—')[0].trim();
@@ -15742,7 +15876,10 @@ function getCurrentUserId(){
 }
 function setCurrentUserId(id){
   try{
-    if(id){ localStorage.setItem(WALU_WALLET_KEY, id); localStorage.setItem('vigilanceTerminalUser', id); }
+    if(id){ localStorage.setItem(WALU_WALLET_KEY, id); localStorage.setItem('vigilanceTerminalUser', id);
+      const ops=JSON.parse(localStorage.getItem('waluipediaSeenOps')||'[]').filter(x=>x&&x!==id);
+      ops.push(id); localStorage.setItem('waluipediaSeenOps',JSON.stringify(ops.slice(-12)));
+    }
     else { localStorage.removeItem(WALU_WALLET_KEY); localStorage.removeItem('vigilanceTerminalUser'); }
   }catch(e){}
   updateTopbarLoginBtn();

@@ -49,6 +49,7 @@
 }
 .campaign-cover-card b{font-size:14.5px;color:var(--text,#f2ecff);line-height:1.3;}
 .campaign-cover-card em{font-style:normal;font-size:12px;color:var(--muted,#b9a8d6);line-height:1.45;}
+.campaign-cover-card .cover-date{font-size:11px;color:var(--muted,#b9a8d6);}
 .campaign-cover-card.broken img{display:none;}
 .campaign-cover-card.broken figcaption{padding-top:14px;}
 
