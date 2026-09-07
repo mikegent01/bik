@@ -1,13 +1,13 @@
 /**
- * Hub pages: Injury Desk, live Collections, RNN newsdesk.
+ * Hub pages: Injury Desk, RNN newsdesk (Collections pruned).
  *
- * Three systems that existed as data but had no working surface:
+ * Systems that existed as data but had no working surface:
  *   - injuries.json had 343 entries, NO route, and its own rules text
  *     referenced an "Injury Desk" page that did not exist.
- *   - collections were static rosters; nothing on the page changed as the
- *     campaign moved, so there was no reason to open one.
  *   - the RNN had covered 17 of 113 events and nothing showed the backlog or
  *     told a reader an article had been on air.
+ * Collections were pruned by owner vote: the data file stays, but no route,
+ * view, or helper may reference it (asserted below).
  *
  * Pure-data tests: the real functions are extracted from index.html and run
  * against the real JSON, so they cannot drift from what ships.
@@ -48,15 +48,13 @@ function extract(sig) {
 const load = n => JSON.parse(fs.readFileSync(path.join(DATA, `${n}.json`), 'utf8'));
 const events = load('events').filter(e => e && e.id);
 const injuries = load('injuries');
-const collections = load('collections');
-const collList = Array.isArray(collections) ? collections : (collections.collections || []);
 
 // RNN episodes live in a .js file assigning window.RNN_BROADCASTS
 const rnnSrc = fs.readFileSync(path.join(DATA, 'rnn-broadcasts.js'), 'utf8');
 const rnn = JSON.parse(rnnSrc.slice(rnnSrc.indexOf('=') + 1).trim().replace(/;$/, ''));
 
 const sandbox = {
-  DATA: { events, collections: collList, injuries },
+  DATA: { events, injuries },
   INDEX: Object.fromEntries(events.map(e => [e.id, { typeKey: 'events', item: e }])),
   window: {},
   prettyId: s => String(s),
@@ -68,10 +66,6 @@ const src = [
   extract('function normalizeSearchText'),
   extract('function yearOf'),
   extract('function shortDateOf'),
-  extract('function collectionMemberIds'),
-  extract('function collectionTimeline'),
-  extract('function collectionStats'),
-  extract('function collectionNeighbours'),
   extract('function rnnEpisodes'),
   extract('function rnnAiredMap'),
   extract('function rnnPending'),
@@ -79,16 +73,13 @@ const src = [
 
 new Function('DATA', 'INDEX', 'window', 'prettyId', 'esc', `
   ${src};
-  this.collectionStats=collectionStats;
-  this.collectionTimeline=collectionTimeline;
-  this.collectionNeighbours=collectionNeighbours;
   this.rnnAiredMap=rnnAiredMap;
   this.rnnPending=rnnPending;
 `).call(sandbox, sandbox.DATA, sandbox.INDEX, sandbox.window, sandbox.prettyId, sandbox.esc);
 
-const { collectionStats, collectionTimeline, collectionNeighbours, rnnAiredMap, rnnPending } = sandbox;
+const { rnnAiredMap, rnnPending } = sandbox;
 
-console.log(`\n${events.length} events · ${collList.length} collections · ${rnn.episodes.length} episodes\n`);
+console.log(`\n${events.length} events · ${rnn.episodes.length} episodes\n`);
 
 // ------------------------------------------------------------ injury desk
 console.log('-- injury desk');
@@ -136,32 +127,14 @@ check('provisional entries are flagged to the reader',
   injuries.status !== 'temporary' || /inj-warn/.test(main),
   'table is marked temporary but the page does not say so');
 
-// ------------------------------------------------------------ collections
-console.log('\n-- collections are computed, not static');
+// ------------------------------------------------------------ collections pruned
+console.log('\n-- collections stay pruned');
 
-const big = collList.find(c => c.id === 'core_disaster_inc_members') || collList[0];
-const st = collectionStats(big);
-check('a collection reports member count', st.members > 0, `${st.members}`);
-check('a collection computes shared appearances', st.events > 0, `${st.events}`);
-check('a collection computes XP', st.xp >= 0);
-check('the timeline is derived from participants[]',
-  collectionTimeline(big).length === st.events);
-
-let withEvents = 0, unlinked = 0;
-for (const c of collList) {
-  const s = collectionStats(c);
-  if (s.events > 0) withEvents++;
-  unlinked += s.missing;
-}
-check('most collections resolve to real appearances', withEvents >= collList.length / 2,
-  `${withEvents}/${collList.length}`);
-console.log(`  note unlinked member ids across all collections: ${unlinked}`);
-
-check('overlapping collections are found', collectionNeighbours(big).length > 0);
-check('a collection never lists itself as a neighbour',
-  collList.every(c => collectionNeighbours(c).every(n => n.c.id !== c.id)));
-check('timeline entries all resolve to real events',
-  collectionTimeline(big).every(e => sandbox.INDEX[e.id]));
+check('no collection route', !/route==='collections?'/.test(main));
+check('no collection view', !/view_collection\(/.test(main));
+check('no collection helpers', !/function collection(MemberIds|Timeline|Stats|Neighbours|LivePanels)/.test(main));
+check('no collection search kind', !/kind==='collection'/.test(main));
+check('no collection article chips', !/#\/collection\//.test(main));
 
 // ------------------------------------------------------------------- rnn
 console.log('\n-- rnn newsdesk');

@@ -405,43 +405,13 @@
 </style>
 
 <style id="article-data-panels-skin">
-/* Data panels on article/battle pages (Participants, Session XP, reputation
-   impact, and the WAHwire feed). The WAHwire feed panel classes are only
-   styled on the standalone wahwire page; the article shell does NOT load that
-   stylesheet, so the feed rendered as raw unstyled HTML. These rules give the
-   on-page feed a real skin so battle/event pages can actually show it. */
+/* Data panels on article/battle pages (Participants, Session XP,
+   reputation impact). */
 .article-layout .event-context-panel{padding:18px}
 .article-layout .event-context-grid{grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:18px}
 .article-layout .event-context-grid>div{min-width:0}
 .event-participant-xp{display:inline-block;margin:5px 0 2px;font-size:11px;font-weight:800;letter-spacing:.3px;color:#ffd166;background:rgba(224,180,0,.14);border:1px solid rgba(224,180,0,.35);border-radius:999px;padding:2px 9px}
 
-.wahwire-panel{margin:16px 0;border:1px solid var(--border);border-radius:12px;background:var(--panel2);padding:16px 18px;overflow:hidden}
-.wahwire-panel-head{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:2px;flex-wrap:wrap}
-.wahwire-panel-head h3{margin:0;color:var(--accent2);font-size:15px}
-.wahwire-panel-tally{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;white-space:nowrap}
-.wahwire-panel-note{font-size:12px;color:var(--muted);margin:2px 0 8px;line-height:1.5}
-.ww-panel-post{display:flex;gap:11px;padding:12px 0;border-top:1px solid var(--border)}
-.ww-panel-post:first-of-type{border-top:0}
-.ww-panel-avatar{width:36px;height:36px;flex:0 0 36px;border-radius:50%;display:grid;place-items:center;font-size:17px;border:1px solid;background:#ffffff14;color:#fff}
-.ww-panel-body{flex:1;min-width:0}
-.ww-panel-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 8px}
-.ww-panel-name{font-weight:900;font-size:13.5px;text-decoration:none}
-.ww-panel-name:hover{text-decoration:underline}
-.ww-panel-handle{font-size:11px;color:var(--muted)}
-.ww-panel-when{font-size:11px;color:var(--muted)}
-.ww-panel-content{margin:5px 0 7px;font-size:13.5px;line-height:1.5;color:var(--text)}
-.ww-panel-meta{display:flex;flex-wrap:wrap;gap:10px;font-size:11px;color:var(--muted)}
-.ww-panel-tag{color:var(--accent2)}
-.ww-panel-thread{margin-top:9px;padding:8px 0 0 13px;border-left:2px solid var(--border);display:flex;flex-direction:column;gap:7px}
-.ww-panel-comment{font-size:12.5px;color:var(--text);line-height:1.45}
-.ww-panel-comment-who{font-weight:800;margin-right:6px}
-.ww-panel-comment-body{color:var(--muted)}
-.ww-panel-comment-react{margin-left:6px}
-.ww-panel-comment.is-reply{margin-left:16px;font-size:12px}
-.ww-panel-more{font-size:11px;color:var(--accent2);text-decoration:none}
-.ww-panel-more:hover{text-decoration:underline}
-.wahwire-panel-all{display:inline-block;margin-top:12px;font-size:12.5px;font-weight:700;color:var(--accent2);text-decoration:none}
-.wahwire-panel-all:hover{text-decoration:underline}
 </style>
 
 <style id="battle-article-skin">
@@ -4521,7 +4491,6 @@ const TYPES=[
  {key:'races',label:'Species & Peoples',emoji:'🧬',singular:'Species'},
  {key:'nations',label:'Nations & Realms',emoji:'🌍',singular:'Nation'},
  {key:'cultures',label:'Cultures & Laws',emoji:'⚖️',singular:'Culture'},
- {key:'collections',label:'Collections',emoji:'🗂️',singular:'Collection'},
  {key:'trials',label:'Trials',emoji:'⚖️',singular:'Trial'},
 ];
 const TYPE_BY_KEY=Object.fromEntries(TYPES.map(t=>[t.key,t]));
@@ -4892,7 +4861,6 @@ function buildIndexes(){
   // Historical chronicles — 313-record dataset that was previously unindexed.
   (DATA.historicalTimeline||[]).forEach((h,i)=>{ if(!h || h.type==='era_header' || !h.title) return; const slug=chronicleSlug(h,i); const dateLbl=h.date?.year?`${h.date.year} BF`:''; SEARCH_DOCS.push({kind:'chronicle',id:slug,typeKey:'chronicles',name:h.title,summary:(h.description||'').slice(0,180),hay:[slug,h.title,h.description,h.category,dateLbl].filter(Boolean).join(' ').toLowerCase()}); });
   // Collections — 18 curated groupings deserve dedicated routes so they don't hide inside the generic list view.
-  (DATA.collections||[]).forEach(c=>{ if(!c || !c.id) return; SEARCH_DOCS.push({kind:'collection',id:c.id,typeKey:'collections',name:c.name||prettyId(c.id),summary:c.summary||c.scope||'',hay:[c.id,c.name,c.title,c.scope,c.summary,c.criteria,(c.members||[]).map(m=>m.name+' '+m.role).join(' ')].filter(Boolean).join(' ').toLowerCase()}); });
   // What If archive — each filing is searchable, and so is every chapter inside it.
   (function(){
     const wl=(DATA.whatifs&&Array.isArray(DATA.whatifs.whatifs))?DATA.whatifs.whatifs:[];
@@ -6147,8 +6115,7 @@ function eventPeopleAndXpPanel(item){
   const awardsBlock=awards?`<div class="xp-session" id="xp-session"><div class="xp-session-head"><h3>Session XP</h3><span class="xp-session-kicker">snapshot · party +${partyTotal.toLocaleString()} · ${grouped.length} ${grouped.length===1?'person':'people'}</span></div><div class="award-list">${awards}</div></div>`:'';
   const effectsPanel = renderReputationImpactPanel(item);
   // The wire goes last, under the reputation ledger: reaction after record.
-  const wirePanel = typeof renderWahwireFeedPanel === 'function' ? renderWahwireFeedPanel(item.id, 'events') : '';
-  const tail = effectsPanel + wirePanel;
+  const tail = effectsPanel;
   if(!people && !awards && !tail) return '';
   if(!awards && !people) return tail;
   if(!awards) return `<div class="event-context-panel"><div class="event-context-grid single"><div><h3>👥 Participants</h3>${people}</div></div></div>${tail}`;
@@ -6428,8 +6395,6 @@ function crossPagePanel(articleId,typeKey,item){
   if(typeKey==='characters' && item){
     const raceId = findRaceIdForCharacter(item);
     if(raceId) links.push(`<a href="#/article/${encodeURIComponent(raceId)}">🧬 Race: ${esc(prettyId(raceId))}</a>`);
-    const memberOf = (DATA.collections||[]).filter(c => (c.members||[]).some(m => m.id===articleId) || (c.articles||[]).includes(articleId));
-    memberOf.slice(0,4).forEach(c => links.push(`<a href="#/collection/${encodeURIComponent(c.id)}">🗂️ ${esc(c.name)}</a>`));
     const annCount = (ANNOT_BY_ARTICLE&&ANNOT_BY_ARTICLE[articleId])?ANNOT_BY_ARTICLE[articleId].length:0;
     if(annCount) links.push(`<a href="#/annotations/author:${encodeURIComponent(articleId)}">💬 ${annCount} annotated passage${annCount===1?'':'s'}</a>`);
   }
@@ -6517,7 +6482,6 @@ function routeForKind(kind,id){
     case 'holiday':return '#/holiday/'+encodeURIComponent(id);
     case 'chronicle':return '#/chronicle/'+encodeURIComponent(id);
     case 'annotation':return '#/annotations';
-    case 'collection':return '#/collection/'+encodeURIComponent(id);
     case 'faith':return '#/faith/'+encodeURIComponent(id);
     case 'craftingrecipe':return '#/crafting/recipe/'+encodeURIComponent(id);
     case 'craftingmaterial':return '#/crafting/material/'+encodeURIComponent(id);
@@ -7529,7 +7493,7 @@ const SEARCH_CATEGORIES=[
 ];
 const SEARCH_CATEGORY_ALIASES={codex:'codex',codexes:'codex',ccd:'codex',mages:'codex',guild:'codex',laws:'codex',law:'codex',all:'all',any:'all',article:'articles',articles:'articles',wiki:'articles',character:'characters',characters:'characters',char:'characters',chars:'characters',people:'characters',person:'characters',faction:'factions',factions:'factions',event:'events',events:'events',sessionlog:'events',location:'locations',locations:'locations',place:'locations',places:'locations',nation:'locations',nations:'locations',item:'items',items:'items',artifact:'items',artifacts:'items',inventory:'items',currency:'currencies',currencies:'currencies',coin:'currencies',coins:'currencies',money:'currencies',battle:'battles',battles:'battles',conflict:'battles',conflicts:'battles',congress:'congress',vote:'congress',votes:'congress',member:'congress',members:'congress',book:'books',books:'books',library:'books',chronicle:'chronicles',chronicles:'chronicles',timeline:'chronicles',history:'chronicles',dynasty:'dynasties',dynasties:'dynasties',bloodline:'dynasties',vendor:'vendors',vendors:'vendors',shop:'vendors',holiday:'holidays',holidays:'holidays',calendar:'holidays',whatif:'whatifs',whatifs:'whatifs',hypothetical:'whatifs',hypotheticals:'whatifs',noncanon:'whatifs',alt:'whatifs'};
 function searchIcon(d){const m=SEARCH_META[d.kind];return typeof m==='function'?m(d.typeKey,d):(m||'🔎');}
-function searchTypeLabel(d){ if(d.kind==='article')return TYPE_BY_KEY[d.typeKey]?.singular||prettyId(d.typeKey); if(d.kind==='vote')return 'Congress Vote'; if(d.kind==='conflict')return 'Conflict'; if(d.kind==='majorbattle')return 'Battle'; if(d.kind==='artifact')return 'Artifact'; if(d.kind==='invitem')return 'Item'; if(d.kind==='bearer')return 'Star Bearer'; if(d.kind==='member')return 'Congress Member'; if(d.kind==='session')return 'Congress Session'; if(d.kind==='crisis')return 'Congress Crisis'; if(d.kind==='faction')return 'Faction'; if(d.kind==='dynasty')return 'Dynasty'; if(d.kind==='vendor')return 'Vendor'; if(d.kind==='holiday')return 'Holiday'; if(d.kind==='currency')return 'Currency'; if(d.kind==='chronicle')return 'Chronicle'; if(d.kind==='collection')return 'Collection'; if(d.kind==='book')return 'Book'; if(d.kind==='craftingrecipe')return 'Crafting Recipe'; if(d.kind==='craftingmaterial')return 'Crafting Material'; if(d.kind==='system')return 'Faction System'; if(d.kind==='docketfile')return 'Docket File'; if(d.kind==='codex')return 'Mages Codex § '+d.id; if(d.kind==='tradition')return 'Legal Tradition'; if(d.kind==='culture')return 'Cultural Sphere'; if(d.kind==='ability')return 'Ability'; if(d.kind==='whatif')return 'What If'; if(d.kind==='whatifchapter')return 'What If — Part'; return prettyId(d.kind||'record'); }
+function searchTypeLabel(d){ if(d.kind==='article')return TYPE_BY_KEY[d.typeKey]?.singular||prettyId(d.typeKey); if(d.kind==='vote')return 'Congress Vote'; if(d.kind==='conflict')return 'Conflict'; if(d.kind==='majorbattle')return 'Battle'; if(d.kind==='artifact')return 'Artifact'; if(d.kind==='invitem')return 'Item'; if(d.kind==='bearer')return 'Star Bearer'; if(d.kind==='member')return 'Congress Member'; if(d.kind==='session')return 'Congress Session'; if(d.kind==='crisis')return 'Congress Crisis'; if(d.kind==='faction')return 'Faction'; if(d.kind==='dynasty')return 'Dynasty'; if(d.kind==='vendor')return 'Vendor'; if(d.kind==='holiday')return 'Holiday'; if(d.kind==='currency')return 'Currency'; if(d.kind==='chronicle')return 'Chronicle'; if(d.kind==='book')return 'Book'; if(d.kind==='craftingrecipe')return 'Crafting Recipe'; if(d.kind==='craftingmaterial')return 'Crafting Material'; if(d.kind==='system')return 'Faction System'; if(d.kind==='docketfile')return 'Docket File'; if(d.kind==='codex')return 'Mages Codex § '+d.id; if(d.kind==='tradition')return 'Legal Tradition'; if(d.kind==='culture')return 'Cultural Sphere'; if(d.kind==='ability')return 'Ability'; if(d.kind==='whatif')return 'What If'; if(d.kind==='whatifchapter')return 'What If — Part'; return prettyId(d.kind||'record'); }
 function docCategory(d){
   if(d.kind==='article'){
     if(d.typeKey==='characters')return 'characters';
@@ -7549,7 +7513,6 @@ function docCategory(d){
   if(d.kind==='dynasty')return 'dynasties';
   if(d.kind==='vendor')return 'vendors';
   if(d.kind==='holiday')return 'holidays';
-  if(d.kind==='collection')return 'articles';
   if(d.kind==='faction')return 'factions';
   if(d.kind==='system'||d.kind==='docketfile')return 'factions';
   if(d.kind==='codex')return 'codex';
@@ -7559,7 +7522,7 @@ function docCategory(d){
 }
 function categoryMatches(d,cat){
   if(!cat||cat==='all')return true;
-  if(cat==='articles')return d.kind==='article'||d.kind==='collection';
+  if(cat==='articles')return d.kind==='article';
   return docCategory(d)===cat;
 }
 function normalizeSearchText(s){return String(s||'').toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?"'’!…‘\[\]<>]/g,' ').replace(/\s+/g,' ').trim();}
@@ -7849,7 +7812,7 @@ function highlight(text,q){
   terms.forEach(t=>{if(t.length>1)o=o.replace(new RegExp('('+t+')','ig'),'<mark>$1</mark>');});
   return o;
 }
-function openSearchResult(d){ if(d.kind==='ability'){location.href=d.href||abilityShopUrl();return;} if(d.kind==='system'||d.kind==='docketfile')Router.go(d.route||'#/home'); else if(d.kind==='craftingrecipe')Router.go('#/crafting/recipe/'+encodeURIComponent(d.id)); else if(d.kind==='craftingmaterial')Router.go('#/crafting/material/'+encodeURIComponent(d.id)); else if(d.kind==='faction')Router.go('#/reputation/faction/'+encodeURIComponent(d.id)); else if(d.kind==='dynasty')Router.go('#/dynasty/'+encodeURIComponent(d.id)); else if(d.kind==='faith')Router.go('#/faith/'+encodeURIComponent(d.id)); else if(d.kind==='vendor')Router.go('#/vendor/'+encodeURIComponent(d.id)); else if(d.kind==='holiday')Router.go('#/holiday/'+encodeURIComponent(d.id)); else if(d.kind==='currency')Router.go('#/currency/'+encodeURIComponent(d.id)); else if(d.kind==='chronicle')Router.go('#/chronicle/'+encodeURIComponent(d.id)); else if(d.kind==='collection')Router.go('#/collection/'+encodeURIComponent(d.id)); else if(d.kind==='book'){currentBookPage=0;currentBookId=d.id;if(typeof openBookReader==='function')openBookReader(d.id);else Router.go('#/books');} else if(d.kind==='article')openId(d.id); else if(d.kind==='vote')Router.go('#/vote/'+encodeURIComponent(d.id)); else if(d.kind==='conflict')Router.go('#/conflict/'+encodeURIComponent(d.id)); else if(d.kind==='majorbattle')Router.go('#/mbattle/'+encodeURIComponent(d.id)); else if(d.kind==='artifact')Router.go('#/artifact/'+encodeURIComponent(d.id)); else if(d.kind==='invitem')Router.go('#/item/'+encodeURIComponent(d.id)); else if(d.kind==='bearer')Router.go('#/bearer/'+encodeURIComponent(d.id)); else if(d.kind==='member')Router.go('#/member/'+encodeURIComponent(d.id)); else if(d.kind==='session')Router.go('#/session/'+encodeURIComponent(d.id)); else if(d.kind==='crisis')Router.go('#/crisis/'+encodeURIComponent(d.id)); else if(d.kind==='whatif')Router.go('#/whatif/'+encodeURIComponent(d.id)); else if(d.kind==='whatifchapter'){Router.go('#/whatif/'+encodeURIComponent(d.parentId));setTimeout(()=>{const t=document.getElementById(d.anchor);if(t)t.scrollIntoView({behavior:'smooth',block:'start'});},120);} }
+function openSearchResult(d){ if(d.kind==='ability'){location.href=d.href||abilityShopUrl();return;} if(d.kind==='system'||d.kind==='docketfile')Router.go(d.route||'#/home'); else if(d.kind==='craftingrecipe')Router.go('#/crafting/recipe/'+encodeURIComponent(d.id)); else if(d.kind==='craftingmaterial')Router.go('#/crafting/material/'+encodeURIComponent(d.id)); else if(d.kind==='faction')Router.go('#/reputation/faction/'+encodeURIComponent(d.id)); else if(d.kind==='dynasty')Router.go('#/dynasty/'+encodeURIComponent(d.id)); else if(d.kind==='faith')Router.go('#/faith/'+encodeURIComponent(d.id)); else if(d.kind==='vendor')Router.go('#/vendor/'+encodeURIComponent(d.id)); else if(d.kind==='holiday')Router.go('#/holiday/'+encodeURIComponent(d.id)); else if(d.kind==='currency')Router.go('#/currency/'+encodeURIComponent(d.id)); else if(d.kind==='chronicle')Router.go('#/chronicle/'+encodeURIComponent(d.id));  else if(d.kind==='book'){currentBookPage=0;currentBookId=d.id;if(typeof openBookReader==='function')openBookReader(d.id);else Router.go('#/books');} else if(d.kind==='article')openId(d.id); else if(d.kind==='vote')Router.go('#/vote/'+encodeURIComponent(d.id)); else if(d.kind==='conflict')Router.go('#/conflict/'+encodeURIComponent(d.id)); else if(d.kind==='majorbattle')Router.go('#/mbattle/'+encodeURIComponent(d.id)); else if(d.kind==='artifact')Router.go('#/artifact/'+encodeURIComponent(d.id)); else if(d.kind==='invitem')Router.go('#/item/'+encodeURIComponent(d.id)); else if(d.kind==='bearer')Router.go('#/bearer/'+encodeURIComponent(d.id)); else if(d.kind==='member')Router.go('#/member/'+encodeURIComponent(d.id)); else if(d.kind==='session')Router.go('#/session/'+encodeURIComponent(d.id)); else if(d.kind==='crisis')Router.go('#/crisis/'+encodeURIComponent(d.id)); else if(d.kind==='whatif')Router.go('#/whatif/'+encodeURIComponent(d.id)); else if(d.kind==='whatifchapter'){Router.go('#/whatif/'+encodeURIComponent(d.parentId));setTimeout(()=>{const t=document.getElementById(d.anchor);if(t)t.scrollIntoView({behavior:'smooth',block:'start'});},120);} }
 
 const searchInput=el('search'),resultsBox=el('results'),searchCategory=el('searchCategory'),searchMode=el('searchMode');let activeIdx=-1,currentResults=[];
 function searchCounts(q){const all=search(q,{category:'all',limit:600});const counts={all:all.length};all.forEach(r=>{counts[r.cat]=(counts[r.cat]||0)+1;});return counts;}
@@ -8057,7 +8020,6 @@ function renderSidebar(active){
     navLink({emoji:'🩸',label:'Injury Desk',go:"Router.go('#/injuries')",active:active==='injuries',count:((DATA.injuries&&DATA.injuries.entries)||[]).length,title:'Death saving throws and the d100 injury table'}),
     navLink({emoji:'🗣️',label:'The Wahbabel',go:"Router.go('#/wahbabel')",active:active==='wahbabel',count:(WAHBABEL&&WAHBABEL.languages?WAHBABEL.languages.length:7),title:'Translation desk — ciphers, dictionaries and glyphs'}),
     navLink({emoji:'💬',label:'Chatter Hub',go:"Router.go('#/annotations')",active:active==='annotations',count:n('annotations')}),
-    navLink({emoji:'〰️',label:'WAHwire',go:`location.href='${wahwireUrl()}'`,count:WAHWIRE_COUNT,title:'The public feed — every post, searchable, wired back to the records it talks about'})
   ];
   h+=navSection('nav-systems-world','World Systems',systemLinks,{forceOpen:hasActive(systemLinks),count:systemLinks.length});
 
@@ -8351,7 +8313,6 @@ function view_home(){
     { action: "location.href='books/library.html'", emoji: '📚', label: 'Grand Library Archive', count: '40+ books', group: 'history' },
     { action: "location.href='currency.html'", emoji: '💱', label: 'Bank & Currency Exchange', count: '48 tenders', group: 'commerce' },
     { action: "location.href='Reputation-Matrix2/app/pages/shop/shop.html'", emoji: '🛒', label: 'Wario Shop', count: '7,880+ items', group: 'commerce' },
-    { action: `location.href='${wahwireUrl()}'`, emoji: '〰️', label: 'WAHwire', count: 'the public feed', group: 'systems' }
   ];
 
   window.toggleEncyclopediaDrawer = function() {
@@ -10324,181 +10285,6 @@ function abilityByName(name,cls){
 function abilityShopUrl(id){ return 'Reputation-Matrix2/app/pages/shop/shop.html#ability-shop'+(id?'/'+encodeURIComponent(id):''); }
 function warehouseUrl(tab){ return 'Reputation-Matrix2/app/pages/shop/shop.html#warehouse'+(tab?'/'+encodeURIComponent(tab):''); }
 
-/* WAHwire — the public feed, its own page. pathPrefix keeps this correct from
-   both the repo root and from inside Reputation-Matrix2/. */
-function wahwireUrl(){ return pathPrefix + 'app/pages/wahwire/wahwire.html'; }
-
-/* The post count lives in data/wahwire/posts.json, which is nested and so is
-   not one of the flat DATA_FILES keys. Loaded on its own, after boot, without
-   blocking the render: a sidebar badge is never worth delaying the page for.
-   Null until it lands, and navLink() simply omits an empty count. */
-/* Factions minted by tools/genkit live in their own file rather than inside
-   the 251 KB LORE_FACTIONS literal below — rewriting that line from a
-   background tool is slow and an excellent way to corrupt the largest source
-   file in the repo. They are merged in here at load instead.
-
-   Hand-written entries always win: a generated stub must never overwrite a
-   real dossier, only fill a gap where none existed. Awaited during boot,
-   because the reputation matrix rendering half its roster and then quietly
-   growing is worse than a few milliseconds of delay. */
-async function loadGeneratedFactions(){
-  try{
-    const res = await fetch(pathPrefix + 'data/factionsGenerated.json', {cache:'no-cache'});
-    if(!res.ok) return;                      // absent is the normal case
-    const payload = await res.json();
-    const extra = (payload && payload.factions) || {};
-    let added = 0;
-    for(const [id, faction] of Object.entries(extra)){
-      // Source review retires labels that reputation generation mistook for
-      // institutions (people, places, generic "all" buckets). Keep those
-      // audit records in JSON, but never render them as faction dossiers.
-      if(!id || LORE_FACTIONS[id] || ['retired','removed'].includes(faction?.status)) continue;
-      LORE_FACTIONS[id] = faction;
-      added++;
-    }
-    if(added) window.__GENERATED_FACTIONS = added;
-  }catch(e){ /* the archive works fine without them */ }
-}
-
-let WAHWIRE_COUNT = '';
-
-/* The feed itself, kept in memory once it has been fetched.
-   The sidebar badge needed the file anyway; holding on to the posts instead of
-   just counting them is what lets every article render its own slice of the
-   wire without a second request. Indexed by the record the post points at,
-   because a per-article panel asks "who talked about THIS" and scanning 19
-   (soon thousands) of posts on every route change is a real cost. */
-let WAHWIRE_POSTS = null;              // null = not loaded yet, [] = none
-let WAHWIRE_BY_RECORD = null;          // Map<recordId, post[]>
-let WAHWIRE_PROFILES = {};             // account id -> {bio, follows, ...}
-
-const WAHWIRE_AUTHORS = {
-  lord_crimson:            { name: 'Lord Crimson',            handle: '@crimson',    glyph: '\u{1FA78}', tone: '#c0392b' },
-  general_marcus_ironhand: { name: 'General Marcus Ironhand', handle: '@ironhand',   glyph: '\u2694\uFE0F', tone: '#8e6b3a' },
-  colonel_vera_steelstorm: { name: 'Col. Vera Steelstorm',    handle: '@steelstorm', glyph: '\u{1F6E1}\uFE0F', tone: '#5b7c99' },
-  alpha_bloodmaw:          { name: 'Alpha Bloodmaw',          handle: '@bloodmaw',   glyph: '\u{1F43A}', tone: '#7a4b2a' },
-  wah_media_collective:    { name: 'WAH Media Collective',    handle: '@wahmedia',   glyph: '\u{1F4E1}', tone: '#b8860b' },
-  generic_toad:            { name: 'A Toad',                  handle: '@toad',       glyph: '\u{1F344}', tone: '#c0392b' },
-  chancellor_toadsworth:   { name: 'Toadsworth',              handle: '@toadsworth', glyph: '\u{1F3A9}', tone: '#8b6f47' },
-  captain_toadette:        { name: 'Toadette',                handle: '@toadette',   glyph: '\u{1F338}', tone: '#c2185b' },
-  waluigi:                 { name: 'Waluigi',                 handle: '@waluigi',    glyph: '\u{1F346}', tone: '#6a1b9a' },
-  bowser:                  { name: 'Bowser',                  handle: '@kingkoopa',  glyph: '\u{1F422}', tone: '#2e7d32' },
-  archie_miser:            { name: 'Archie Miser',            handle: '@archie',     glyph: '\u{1F4B0}', tone: '#b8860b' },
-  markop:                  { name: 'Markop',                  handle: '@markop',     glyph: '\u{1F527}', tone: '#546e7a' },
-  hjumpik:                 { name: 'Hjumpik',                 handle: '@hjumpik',    glyph: '\u{1F3AF}', tone: '#00838f' },
-  /* Widened roster - see wahwire.py KNOWN_AUTHORS. Thirteen accounts could
-     not cover what the archive records: Wario is a participant in twenty
-     events and Luigi in nineteen, and neither could post, which left one
-     voice holding 77% of the feed. */
-  wario:                   { name: 'Wario',                 handle: '@wario',      glyph: '\u{1F4B0}', tone: '#f9a825' },
-  luigi:                   { name: 'Luigi',                 handle: '@luigi',      glyph: '\u{1F47B}', tone: '#2e7d32' },
-  green_t:                 { name: 'Green T',               handle: '@greent',     glyph: '\u{1F52C}', tone: '#00695c' },
-  eager:                   { name: 'Eager',                 handle: '@eager',      glyph: '\u26A1', tone: '#ef6c00' },
-  mario:                   { name: 'Mario',                 handle: '@mario',      glyph: '\u{1F528}', tone: '#c62828' },
-  bones:                   { name: 'Bones',                 handle: '@bones',      glyph: '\u{1F480}', tone: '#78909c' },
-  salam:                   { name: 'Salam',                 handle: '@salam',      glyph: '\u{1F98E}', tone: '#5d4037' },
-  mystic_morel:            { name: 'Mystic Morel',          handle: '@morel',      glyph: '\u{1F344}', tone: '#6d4c41' },
-  toad_lee:                { name: 'Toad Lee',              handle: '@toadlee',    glyph: '\u{1F9E2}', tone: '#455a64' },
-  fawful:                  { name: 'Fawful',                handle: '@fawful',     glyph: '\u{1F453}', tone: '#7cb342' },
-  the_oracle:              { name: 'The Oracle',            handle: '@oracle',     glyph: '\u{1F52E}', tone: '#5e35b1' },
-  princess_peach:          { name: 'Princess Peach',        handle: '@peach',      glyph: '\u{1F451}', tone: '#d81b60' },
-  mossy:                   { name: 'Mossy',                 handle: '@mossy',      glyph: '\u{1FAA8}', tone: '#4e6e58' },
-  orangus_cornelius:       { name: 'Orangus Cornelius',     handle: '@orangus',    glyph: '\u{1F393}', tone: '#8d6e63' },
-  dracule_mihawk:          { name: 'Dracule Mihawk',        handle: '@mihawk',     glyph: '\u{1F5E1}\uFE0F', tone: '#37474f' },
-  sans:                    { name: 'sans',                  handle: '@sans',       glyph: '\u{1F9B4}', tone: '#546e7a' }
-};
-
-function wahwireWho(id){
-  return WAHWIRE_AUTHORS[id] || { name: prettyId(id||'unknown'), handle: '@'+(id||'unknown'),
-                                  glyph: '\u{1F464}', tone: '#7a8a99' };
-}
-
-/* Reaction glyphs are shared with the feed page via data/wahwire/reactions.json.
-   Loaded opportunistically; an unknown tone just renders without a glyph. */
-let WAHWIRE_REACTIONS = {};
-
-function indexWahwirePosts(posts){
-  const byRecord = new Map();
-  const add = (rid, post) => {
-    if(!rid) return;
-    if(!byRecord.has(rid)) byRecord.set(rid, []);
-    const bucket = byRecord.get(rid);
-    if(!bucket.includes(post)) bucket.push(post);
-  };
-  for(const post of posts){
-    if(!post) continue;
-    // Authored posts carry `links`; the 19 legacy posts carry `legacyEventId`.
-    // Both are pointers at a record, so both feed the same index.
-    for(const l of (post.links||[])){
-      add(typeof l === 'string' ? l : (l && (l.id || l.target)), post);
-    }
-    add(post.legacyEventId, post);
-  }
-  for(const bucket of byRecord.values()){
-    bucket.sort((a,b) => (Number(b.likes)||0) - (Number(a.likes)||0));
-  }
-  return byRecord;
-}
-
-async function loadWahwireFeed(){
-  try{
-    const res = await fetch(pathPrefix + 'data/wahwire/posts.json', {cache:'no-cache'});
-    if(!res.ok) throw new Error('HTTP '+res.status);
-    const j = await res.json();
-    // 'canon' is the verified stamp; 'posted'/'generated' are the documented
-    // authored statuses (docs/CROSS_SYSTEM_UPDATES.md) that posts.json actually
-    // carries. Rejecting them hid every authored post from every article panel.
-    WAHWIRE_POSTS = (j && Array.isArray(j.posts)) ? j.posts.filter(p =>
-      p && (p.status==='canon' || p.status==='posted' || p.status==='generated' || p._quality?.validator==='wahwire-v2')
-    ) : [];
-    WAHWIRE_BY_RECORD = indexWahwirePosts(WAHWIRE_POSTS);
-    const n = WAHWIRE_POSTS.length;
-    if(n !== WAHWIRE_COUNT){
-      WAHWIRE_COUNT = n;
-      // Re-render only if the sidebar is already on screen, so the badge
-      // appears without waiting for the next route change.
-      try{ if(document.getElementById('sidenav')) renderSidebar(NAV_ACTIVE); }catch(e){}
-    }
-    // The panel is rendered synchronously as part of the article HTML, so a
-    // feed that lands after the first paint has to ask for a repaint. Only
-    // when there is something to show for the record currently on screen.
-    try{ refreshWahwirePanels(); }catch(e){}
-  }catch(e){ /* feed still reachable without a badge */ }
-}
-
-/* Two side files the panel likes but can live without. Fired alongside the
-   posts, never awaited by boot. */
-async function loadWahwireSideFiles(){
-  try{
-    const res = await fetch(pathPrefix + 'data/wahwire/reactions.json', {cache:'no-cache'});
-    if(res.ok){ const d = await res.json(); WAHWIRE_REACTIONS = (d && d.reactions) || {}; }
-  }catch(e){}
-  try{
-    const res = await fetch(pathPrefix + 'data/wahwire/profiles.json', {cache:'no-cache'});
-    if(res.ok){ const d = await res.json(); WAHWIRE_PROFILES = (d && d.profiles) || {}; }
-  }catch(e){}
-  try{ refreshWahwirePanels(); }catch(e){}
-}
-
-async function loadWahwireCount(){
-  await Promise.all([loadWahwireFeed(), loadWahwireSideFiles()]);
-}
-
-/* Fill in any panel that rendered before the feed arrived. Panels announce the
-   record they belong to, so this works for whatever view is on screen. */
-function refreshWahwirePanels(){
-  document.querySelectorAll('[data-wahwire-record]').forEach(node => {
-    const rid = node.getAttribute('data-wahwire-record');
-    const html = renderWahwireFeedPanel(rid, node.getAttribute('data-wahwire-kind')||'');
-    if(html){
-      node.outerHTML = html;
-    }else if(node.classList.contains('wahwire-panel-pending')){
-      node.remove();   // nothing to say about this record after all
-    }
-  });
-}
-
-
 /* =============== IRON LEGION FULL DOSSIER (ported into the Imperial Pressure Network) ====== */
 function ilSystem(){ return DATA.ironLegionSystem||null; }
 function ilThreatTone(v){
@@ -12145,13 +11931,6 @@ function view_article(id){
     }
   }
   // Collections listing when we're viewing a character or faction.
-  if((typeKey==='characters'||typeKey==='factions') && item){
-    const memberOf = (DATA.collections||[]).filter(c => (c.members||[]).some(m => m.id===item.id) || (c.articles||[]).includes(item.id));
-    if(memberOf.length){
-      const chips = memberOf.map(c => `<a class="entity-link" href="#/collection/${encodeURIComponent(c.id)}">🗂️ ${esc(c.name)}</a>`).join(', ');
-      listBlocks.push(`<div class="event-details-section"><h4>Featured in ${memberOf.length} collection${memberOf.length===1?'':'s'}</h4><p>${chips}</p></div>`);
-    }
-  }
   const relIds=[].concat(item.relatedArticles||[],item.keyEvents||[],item.keyBattles||[],item.articles||[]);
   const seen=new Set();
   const relChips=relIds.filter(r=>{const k=typeof r==='string'?r:r.id;if(!k||seen.has(k))return false;seen.add(k);return true;}).map(r=>{const rid=resolveArticleId(typeof r==='string'?r:r.id);const ex=!!INDEX[rid];const label=ex?displayName(INDEX[rid].item):prettyId(rid);return ex?`<span class="rel-chip" onclick="openId('${esc(rid)}')"><span class="rt">${esc(relKind(rid))}</span>${esc(label)}</span>`:`<span class="rel-chip deadlink" title="No article yet"><span class="rt">?</span>${esc(label)}</span>`;}).join('');
@@ -12274,7 +12053,7 @@ function view_trial(item,t){
      <div class="article-top-xp">${xpMiniPanel(item.id)}</div>
      ${item.summary?`<div class="article-lead-card noimg"><div class="article-lead-summary"><h4>Case Summary</h4><p>${esc(item.summary)}</p></div></div>`:''}${anote}${defLink}
      ${item.description?`<div class="prose">${applyAnnotations(mdToHtml(item.description,item.id), item.id)}</div>`:''}
-     ${charges}${sections}${timelineHtml}${featuresHtml}${finalHtml}${renderReputationImpactPanel(item,'trials')}${typeof renderConnectedInvestigationsPanel === 'function' ? renderConnectedInvestigationsPanel(item.id, 'trials') : ''}${typeof renderConnectedQuestsPanel === 'function' ? renderConnectedQuestsPanel(item.id, 'trials') : ''}${typeof renderWahwireFeedPanel === 'function' ? renderWahwireFeedPanel(item.id, 'trials') : ''}${relHtml}
+     ${charges}${sections}${timelineHtml}${featuresHtml}${finalHtml}${renderReputationImpactPanel(item,'trials')}${typeof renderConnectedInvestigationsPanel === 'function' ? renderConnectedInvestigationsPanel(item.id, 'trials') : ''}${typeof renderConnectedQuestsPanel === 'function' ? renderConnectedQuestsPanel(item.id, 'trials') : ''}${relHtml}
    </div></div><div>${crossPagePanel(item.id,'trials',item)}${articleControlPanel(item.id)}${toc}</div></div>`;
   setArticleAccent('trials');
   window.scrollTo(0,0);setupScrollSpy();
@@ -13928,7 +13707,7 @@ function view_mbattle(id){
     ${b.commanders?`<h2>Commanders</h2>${keyedRows(b.commanders)}`:''}
     ${b.tacticalNotes?`<h2>Tactical Notes</h2><div class="prose">${richTextToHtml(b.tacticalNotes,b.id)}</div>`:''}
     ${chars?`<h2>Participating Characters</h2><div class="related-list">${chars}</div>`:''}
-    ${renderReputationImpactPanel(b,'majorBattles')}${typeof renderWahwireFeedPanel === 'function' ? renderWahwireFeedPanel(b.id, 'majorBattles') : ''}</div>`;
+    ${renderReputationImpactPanel(b,'majorBattles')}</div>`;
   window.scrollTo(0,0);
 }
 
@@ -16452,99 +16231,6 @@ function getPartyAverageStanding(factionKey) {
 /* Renders the "📈 Reputation Impact" panel for a single record (event/battle/trial/mbattle).
    Shows per-operator, per-faction decayed & raw deltas so the reader can see
    exactly how the record moved the matrix. */
-/* =========================================================================
-   WAHWIRE ON THE ARTICLE — what the public said about this record
-   -------------------------------------------------------------------------
-   The archive states what happened. The wire states how it landed. Putting the
-   feed at the foot of the record it belongs to is the whole point: a reader
-   finishes the account of a battle and immediately sees the city arguing about
-   it, in character, with names that lead to profiles.
-
-   Renders nothing at all when the record has no posts — an empty "0 posts"
-   box on hundreds of articles is noise, not a feature. Before the feed has
-   loaded it emits a placeholder carrying the record id, which
-   refreshWahwirePanels() swaps out (or removes) once the fetch lands.
-   ========================================================================= */
-const WAHWIRE_PANEL_LIMIT = 4;   // the loudest few; the rest are one click away
-
-function wahwireReactionGlyph(id){
-  const r = WAHWIRE_REACTIONS[id];
-  return r && r.glyph ? r.glyph : '';
-}
-
-function renderWahwirePanelComment(c, postAuthor){
-  const who = wahwireWho(c.author);
-  const glyph = wahwireReactionGlyph(c.reaction);
-  const isOp = c.author === postAuthor;
-  return `<div class="ww-panel-comment${isOp?' is-op':''}${c.replyTo?' is-reply':''}">
-    <span class="ww-panel-comment-who" style="color:${who.tone}">${esc(who.name)}</span>
-    <span class="ww-panel-comment-body">${esc(c.content||'')}</span>
-    ${glyph?`<span class="ww-panel-comment-react" title="${esc((WAHWIRE_REACTIONS[c.reaction]||{}).label||c.reaction||'')}">${glyph}</span>`:''}
-  </div>`;
-}
-
-function renderWahwireFeedPanel(recordId, kindHint){
-  if(!recordId) return '';
-
-  // Not loaded yet: leave a marker the loader can come back and fill.
-  if(!WAHWIRE_BY_RECORD){
-    return `<div class="wahwire-panel-pending" data-wahwire-record="${esc(recordId)}" data-wahwire-kind="${esc(kindHint||'')}" hidden></div>`;
-  }
-
-  const posts = WAHWIRE_BY_RECORD.get(recordId) || [];
-  if(!posts.length) return '';
-
-  const shown = posts.slice(0, WAHWIRE_PANEL_LIMIT);
-  const hidden = posts.length - shown.length;
-  const totalComments = posts.reduce((n,p) => n + ((p.comments||[]).length), 0);
-  const feedHref = wahwireUrl();
-
-  const rows = shown.map(post => {
-    const who = wahwireWho(post.author);
-    const comments = (post.comments||[]);
-    const profile = WAHWIRE_PROFILES[post.author];
-    // The author's own bio makes a genuinely useful tooltip here: the reader
-    // is meeting these accounts mid-argument, with no feed page around them.
-    const tip = profile && profile.bio ? esc(profile.bio) : esc(who.handle);
-    const top = comments.slice(0, 2).map(c => renderWahwirePanelComment(c, post.author)).join('');
-    const more = comments.length > 2
-      ? `<a class="ww-panel-more" href="${esc(feedHref)}#post/${encodeURIComponent(post.id)}">+${comments.length-2} more repl${comments.length-2===1?'y':'ies'} →</a>`
-      : '';
-    return `<article class="ww-panel-post">
-      <div class="ww-panel-avatar" style="background:${who.tone}22;border-color:${who.tone}">${who.glyph}</div>
-      <div class="ww-panel-body">
-        <div class="ww-panel-head">
-          <a class="ww-panel-name" style="color:${who.tone}" href="${esc(feedHref)}#profile/${encodeURIComponent(post.author)}" title="${tip}">${esc(who.name)}</a>
-          <span class="ww-panel-handle">${esc(who.handle)}</span>
-          ${post.timestamp?`<span class="ww-panel-when">· ${esc(String(post.timestamp))}</span>`:''}
-        </div>
-        <p class="ww-panel-content">${esc(post.content||'')}</p>
-        <div class="ww-panel-meta">
-          <span title="likes">\u2764 ${Number(post.likes||0).toLocaleString()}</span>
-          ${comments.length?`<span title="replies">\u{1F4AC} ${comments.length}</span>`:''}
-          ${(post.tags||[]).slice(0,3).map(t=>`<span class="ww-panel-tag">#${esc(t)}</span>`).join('')}
-        </div>
-        ${top?`<div class="ww-panel-thread">${top}${more}</div>`:''}
-      </div>
-    </article>`;
-  }).join('');
-
-  const tally = `${posts.length} post${posts.length===1?'':'s'}`
-    + (totalComments?` · ${totalComments} repl${totalComments===1?'y':'ies'}`:'');
-
-  return `<div class="wahwire-panel" data-wahwire-record="${esc(recordId)}" data-wahwire-kind="${esc(kindHint||'')}">
-    <div class="wahwire-panel-head">
-      <h3>\u{1F4E1} On WAHwire</h3>
-      <span class="wahwire-panel-tally">${esc(tally)}</span>
-    </div>
-    <p class="wahwire-panel-note">What the public said about this record.</p>
-    ${rows}
-    <a class="wahwire-panel-all" href="${esc(feedHref)}#record/${encodeURIComponent(recordId)}">
-      ${hidden>0?`Read all ${posts.length} posts on the wire`:'Open the wire'} \u2192
-    </a>
-  </div>`;
-}
-
 function renderReputationImpactPanel(rec, typeKeyHint){
   if(!rec) return '';
   const impact = getRecordReputationImpact(rec, typeKeyHint||'events');
@@ -17779,216 +17465,6 @@ function view_xpLeaderboard(){
    previously rendered as a bland generic list. Give them a real directory
    and per-collection page that treats their `members[]` roster as first-class
    cards with roles. */
-/* ===== Collections, made live =====
-   A collection used to be a static roster: names, roles, a paragraph. Nothing
-   on the page changed when the campaign moved, so there was never a reason to
-   open one. These helpers compute the parts that DO move -- shared appearances,
-   XP, injuries, reputation, a reading order -- from records the collection
-   already points at. No new data is invented; everything is derived. */
-
-function collectionMemberIds(c){
-  const ids=new Set();
-  (c.members||[]).forEach(m=>{ if(m&&m.id)ids.add(m.id); });
-  return [...ids];
-}
-
-/* Every event that names at least one member as a participant, newest first.
-   This is the "reading order" a collection was always implying and never had. */
-function collectionTimeline(c){
-  const ids=new Set(collectionMemberIds(c));
-  if(!ids.size)return [];
-  const out=[];
-  (DATA.events||[]).forEach(e=>{
-    if(!e||!e.id)return;
-    const who=[];
-    (e.participants||[]).forEach(p=>{
-      const pid=p&&(p.id||p);
-      if(pid&&ids.has(String(pid)))who.push(p.name||prettyId(String(pid)));
-    });
-    if(who.length)out.push({id:e.id,name:e.name||e.title||prettyId(e.id),
-      date:(typeof shortDateOf==='function'?shortDateOf(e):''),
-      year:(typeof yearOf==='function'?yearOf(e):null),who});
-  });
-  // Feyward filings run on a second clock, so sort by the extracted year and
-  // keep file order as the tiebreak rather than trusting prose dates.
-  out.sort((a,b)=>((b.year||0)-(a.year||0)));
-  return out;
-}
-
-function collectionStats(c){
-  const ids=collectionMemberIds(c);
-  const tl=collectionTimeline(c);
-  let xp=0,awards=0,injured=0,resolved=0;
-  const agg=(typeof _xpAggregate==='function')?_xpAggregate():null;
-  ids.forEach(id=>{
-    if(agg&&agg.byOp&&agg.byOp[id]){ xp+=agg.byOp[id].total||0; awards+=agg.byOp[id].count||0; }
-    const rec=INDEX[id]&&INDEX[id].item;
-    if(rec&&Array.isArray(rec.injuries)&&rec.injuries.length)injured++;
-    if(rec)resolved++;
-  });
-  return {members:ids.length,resolved,missing:ids.length-resolved,
-          events:tl.length,xp,awards,injured,timeline:tl};
-}
-
-/* Which OTHER collections share a member with this one. Turns 19 isolated
-   rosters into a graph you can actually walk. */
-function collectionNeighbours(c){
-  const mine=new Set(collectionMemberIds(c));
-  const out=[];
-  (DATA.collections||[]).forEach(o=>{
-    if(!o||o.id===c.id)return;
-    const shared=collectionMemberIds(o).filter(id=>mine.has(id));
-    if(shared.length)out.push({c:o,shared});
-  });
-  return out.sort((a,b)=>b.shared.length-a.shared.length).slice(0,6);
-}
-
-function collectionLivePanels(c){
-  const st=collectionStats(c);
-  const stat=(v,l)=>`<div class="col-stat"><div class="col-stat-v">${v}</div><div class="col-stat-l">${esc(l)}</div></div>`;
-  const bar=`<div class="col-stats">
-    ${stat(st.members,'members')}
-    ${stat(st.events,'shared appearances')}
-    ${stat(st.xp.toLocaleString(),'XP earned together')}
-    ${stat(st.awards,'award rows')}
-    ${st.missing?stat(st.missing,'unlinked ids'):''}
-  </div>`;
-
-  const tl=st.timeline.slice(0,14);
-  const timeline=tl.length?`
-    <div class="card" style="margin-top:14px">
-      <h2 style="margin-top:0">🕰️ Where this group shows up</h2>
-      <p class="text-muted" style="font-size:12.5px;margin-top:0">
-        Every filed event naming at least one member, newest first. This is the
-        reading order for the group — computed from <code>participants[]</code>,
-        not hand-maintained.
-      </p>
-      <div class="col-timeline">
-        ${tl.map(e=>`<a class="col-tl-row" href="#/article/${encodeURIComponent(e.id)}">
-          <span class="col-tl-date">${esc(e.date||'—')}</span>
-          <span class="col-tl-name">${esc(e.name)}</span>
-          <span class="col-tl-who">${esc(e.who.slice(0,3).join(', '))}${e.who.length>3?` +${e.who.length-3}`:''}</span>
-        </a>`).join('')}
-      </div>
-      ${st.timeline.length>14?`<div class="text-muted" style="font-size:12px;margin-top:8px">…and ${st.timeline.length-14} more.</div>`:''}
-    </div>`:'';
-
-  const nb=collectionNeighbours(c);
-  const linked=nb.length?`
-    <div class="card" style="margin-top:14px">
-      <h2 style="margin-top:0">🔗 Overlapping collections</h2>
-      <p class="text-muted" style="font-size:12.5px;margin-top:0">Groups that share people with this one.</p>
-      <div class="chips">
-        ${nb.map(n=>`<span class="pill" style="cursor:pointer" onclick="Router.go('#/collection/${encodeURIComponent(n.c.id)}')">
-          🗂️ ${esc(n.c.name||prettyId(n.c.id))} · ${n.shared.length} shared</span>`).join('')}
-      </div>
-    </div>`:'';
-
-  return bar+timeline+linked;
-}
-
-function view_collection(id){
-  renderSidebar('list:collections');
-  const list=DATA.collections||[];
-  if(!id){
-    // Directory grouped by type.
-    const byType={};
-    list.forEach(c=>{ const k=c.type||'Collection'; (byType[k]=byType[k]||[]).push(c); });
-    const sections=Object.entries(byType).sort().map(([type, items])=>{
-      const cards=items.map(c=>{
-        const memberCount=(c.members||[]).length;
-        return `<a class="card holiday-directory-card" href="#/collection/${encodeURIComponent(c.id)}" style="border-left:4px solid var(--accent2)">
-          <h3 style="margin:0 0 6px;font-size:15px">🗂️ ${esc(c.name||prettyId(c.id))}</h3>
-          ${c.title?`<div style="font-size:12px;color:var(--accent2);font-style:italic;margin-bottom:6px">${esc(c.title).slice(0,120)}</div>`:''}
-          <div style="font-size:12px;color:var(--muted);line-height:1.45;margin-bottom:8px">${esc((c.scope||c.summary||c.criteria||'').slice(0,140))}${(c.scope||c.summary||c.criteria||'').length>140?'…':''}</div>
-          <div class="chips">
-            <span class="pill">👥 ${memberCount} member${memberCount===1?'':'s'}</span>
-            ${(()=>{const st=collectionStats(c);return st.events?`<span class="pill">🕰️ ${st.events} appearance${st.events===1?'':'s'}</span>`:'';})()}
-            ${(c.articles||[]).length?`<span class="pill">📄 ${c.articles.length} article${c.articles.length===1?'':'s'}</span>`:''}
-          </div>
-        </a>`;
-      }).join('');
-      return `<div class="card" style="margin-top:14px"><h2 style="margin-top:0">🗂️ ${esc(type)} <span class="text-muted" style="font-size:12px;font-weight:400">— ${items.length}</span></h2><div class="holiday-directory-grid">${cards}</div></div>`;
-    }).join('');
-    el('content').innerHTML=`
-      <div class="card animate-fade-in" style="border-left:4px solid var(--accent);background:linear-gradient(135deg,rgba(138,75,255,.14),rgba(224,180,0,.08)),var(--panel)">
-        <div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › Collections</div>
-        <h1 style="margin:6px 0 4px">🗂️ Waluipedia Collections</h1>
-        <p class="text-muted" style="font-size:13.5px">${list.length} curated groupings — cast circles, faction rosters, event arcs, and thematic bundles. Each one links its member records with the role that member plays inside the collection.</p>
-      </div>
-      ${sections}`;
-    window.scrollTo(0,0); return;
-  }
-  const c=list.find(x=>x.id===id);
-  if(!c){ view_collection(); return; }
-  const memberCards=(c.members||[]).map(m=>{
-    const rec=INDEX[m.id];
-    const name=m.name||(rec?displayName(rec.item):prettyId(m.id));
-    const linkable=!!rec;
-    return `<div class="card" style="border-left:3px solid var(--accent2);cursor:${linkable?'pointer':'default'};padding:12px" ${linkable?`onclick="openId('${esc(m.id)}')"`:''}>
-      <div style="font-weight:800;font-size:14px;color:var(--text)">${esc(name)}</div>
-      ${m.role?`<div style="font-size:12.5px;color:var(--accent2);font-style:italic;margin-top:3px">${esc(m.role)}</div>`:''}
-      ${!linkable?'<div style="font-size:11px;color:var(--muted);margin-top:4px">No dedicated article</div>':''}
-    </div>`;
-  }).join('');
-  const articleChips=(c.articles||[]).map(aid=>{
-    const rec=INDEX[aid];
-    if(rec) return `<a class="chip" onclick="openId('${esc(aid)}')">${esc(displayName(rec.item))}</a>`;
-    return `<span class="chip" style="opacity:.5">${esc(prettyId(aid))} (no article)</span>`;
-  }).join('');
-  const relatedChips=(c.relatedArticles||[]).filter(x=>!(c.articles||[]).includes(x)).map(aid=>{
-    const rec=INDEX[aid];
-    if(rec) return `<a class="chip" onclick="openId('${esc(aid)}')">${esc(displayName(rec.item))}</a>`;
-    return '';
-  }).filter(Boolean).join('');
-
-  // Cross-suggest collections that share ≥ 2 members.
-  const myArticleSet=new Set([...(c.articles||[]),...(c.members||[]).map(m=>m.id)]);
-  const overlaps=list.filter(x=>x.id!==c.id).map(x=>{
-    const xSet=new Set([...(x.articles||[]),...(x.members||[]).map(m=>m.id)]);
-    let shared=0; xSet.forEach(a=>{ if(myArticleSet.has(a)) shared++; });
-    return {c:x, shared};
-  }).filter(o=>o.shared>=2).sort((a,b)=>b.shared-a.shared).slice(0,6);
-
-  el('content').innerHTML=`
-    <div class="card animate-fade-in" style="border-top:5px solid var(--accent);background:linear-gradient(135deg,rgba(138,75,255,.14),rgba(0,0,0,.05)),var(--panel)">
-      <div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › <a onclick="Router.go('#/collection')">Collections</a> › ${esc(c.name)}</div>
-      <h1 style="margin:8px 0 4px;font-size:26px">🗂️ ${esc(c.name)}</h1>
-      ${c.title?`<div style="font-size:14px;color:var(--accent2);font-style:italic;margin-bottom:8px">${esc(c.title)}</div>`:''}
-      <div class="chips">
-        <span class="pill">${esc(c.type||'Collection')}</span>
-        ${c.scope?`<span class="pill">${esc(c.scope)}</span>`:''}
-        <span class="pill">👥 ${(c.members||[]).length} members</span>
-      </div>
-    </div>
-    ${collectionLivePanels(c)}
-    ${c.summary?`<div class="card"><h2 style="margin-top:0">📖 Summary</h2><p class="prose" style="line-height:1.65">${linkify?linkify(esc(c.summary)):esc(c.summary)}</p></div>`:''}
-    ${c.criteria?`<div class="card"><h3 style="margin-top:0">📋 Criteria</h3><p style="font-size:13.5px;line-height:1.55">${esc(c.criteria)}</p></div>`:''}
-
-    ${memberCards?`<div class="card">
-      <h2 style="margin-top:0">👥 Members & Roles</h2>
-      <div class="holiday-directory-grid">${memberCards}</div>
-    </div>`:''}
-
-    ${articleChips?`<div class="card">
-      <h3 style="margin-top:0">📄 Included Articles</h3>
-      <div class="chips">${articleChips}</div>
-    </div>`:''}
-
-    ${relatedChips?`<div class="card">
-      <h3 style="margin-top:0">🔗 Related Articles</h3>
-      <div class="chips">${relatedChips}</div>
-    </div>`:''}
-
-    ${overlaps.length?`<div class="card">
-      <h3 style="margin-top:0">🗂️ Overlapping Collections</h3>
-      <p class="text-muted" style="font-size:12px">Other collections that share people or articles with this one.</p>
-      <div class="chips">${overlaps.map(o=>`<a class="chip" href="#/collection/${encodeURIComponent(o.c.id)}">${esc(o.c.name)} <span class="text-muted" style="font-size:10px">· ${o.shared} shared</span></a>`).join('')}</div>
-    </div>`:''}
-  `;
-  window.scrollTo(0,0);
-}
-
 function emojiFallbackDataUri(emoji = '📜', bg = '#2d0f42', accent = '#ffd700', title = '') {
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="300" height="400" viewBox="0 0 300 400"><rect width="300" height="400" fill="${bg}" rx="12"/><rect x="10" y="10" width="280" height="380" fill="none" stroke="${accent}" stroke-width="3" rx="8" stroke-dasharray="6,3"/><text x="150" y="180" font-size="72" text-anchor="middle" dominant-baseline="middle">${emoji}</text><text x="150" y="260" font-size="16" font-family="sans-serif" font-weight="bold" fill="${accent}" text-anchor="middle">${String(title).replace(/[&<>"']/g,'').slice(0, 24)}</text></svg>`;
   return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
@@ -19354,7 +18830,7 @@ const Router={
     LINK_GRAPH_OUT=new Set(); LINK_CONTEXT=new Set(); LINK_LAST_STATS={total:0,unique:0,scope:''}; LINK_SUPPRESSED=[];
     document.body.classList.remove('hide-walu-ambient');
     if(route==='home')view_home();
-    else if(route==='list'){ if(arg==='nations')view_atlas(); else if(arg==='collections')view_collection(); else view_list(arg); }
+    else if(route==='list'){ if(arg==='nations')view_atlas(); else view_list(arg); }
     else if(route==='field-journal'||route==='journal')view_fieldJournal();
     else if(route==='rnn'||route==='rakasha-news'||route==='broadcast')view_rakashaNews();
     else if(route==='article')view_article(arg);
@@ -19381,7 +18857,6 @@ const Router={
     else if(route==='annotations'||route==='chatter')view_annotations(arg);
     else if(route==='wanted'||route==='wanted-pages'||route==='redlinks')view_wanted();
     else if(route==='tradition'||route==='traditions'||route==='law')view_tradition(arg);
-    else if(route==='collection'||route==='collections')view_collection(arg);
     else if(route==='xp'||route==='leaderboard')view_xpLeaderboard();
     else if(route==='years')view_years();
     else if(route==='calendar')view_calendar();
@@ -19796,7 +19271,6 @@ async function boot(){
   invalidateXpAggregate(); // rebuild XP leaderboard aggregate
   el('statline').textContent = ALL_ITEMS.length+' articles · '+Object.keys(DATA.conflicts||{}).length+' conflicts · '+(DATA.majorBattles||[]).length+' battles · '+(DATA.congress_votes||[]).length+' votes · '+(((DATA.artifacts||{}).star_bearers||[]).length)+' bearers · '+window.__DATA_SOURCE+' · / search · H links · C comments';
   try{ updateTopbarLoginBtn(); }catch(e){}
-  loadWahwireCount();   // deliberately not awaited: a badge must not delay the page
   Router.render();
 }
 boot();

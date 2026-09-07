@@ -360,8 +360,7 @@ function pageUrl(relative) {
 function initQuickActions() {
     const homeBtn = document.getElementById('quick-home');
     const missionsBtn = document.getElementById('quick-missions');
-    const wahwireBtn = document.getElementById('quick-wahwire');
-    
+
     if (homeBtn) {
         homeBtn.addEventListener('click', () => {
             window.location.href = 'index.html';
@@ -374,15 +373,6 @@ function initQuickActions() {
         });
     }
     
-    if (wahwireBtn) {
-        wahwireBtn.addEventListener('click', () => {
-            // WAHwire has its own page now; it used to dump you on the Assembly.
-            // Resolved against navigation.js rather than the current document,
-            // because this tablet is injected into pages at several different
-            // depths and a bare relative href only works from one of them.
-            window.location.href = pageUrl('../wahwire/wahwire.html');
-        });
-    }
 }
 
 // ============================================
