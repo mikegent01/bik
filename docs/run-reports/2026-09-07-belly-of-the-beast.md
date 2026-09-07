@@ -568,3 +568,55 @@ collapsed), fresh visitor on an in-section page (auto-expanded), first click
 then navigate away (stays collapsed).
 
 `tools/check-all.py` passes; the main application script parses clean.
+
+## 5j. Commentary expanded to the full account + mode README
+
+The first cut covered only the newspaper clipping. Re-reading the source turned
+up a great deal of filed material the draft had simply never opened:
+`outcome`, `aftermath`, `waluigiAssessment`, `revisions[]`, and three
+`props.json` entries — including `prop_promo_mario_full_account`, which
+contains the entire second half of the story.
+
+**1,529 → 4,055 words. 7 → 10 sections.** Voice held: 24.9 Waluigi/1k, 34.3
+CAPS/1k, 8 WAH (floors are 18 and 25).
+
+Four new sections, all from records already in the archive:
+
+- **📼 The tape marked 955 BF** — the black-and-white funeral, purple and gold
+  casket, caped figure, glint of metal, Luigi drowning on every monitor, the
+  question mark in a circle, the self-ejecting tape. Waluigi reads the question
+  mark as a signature and says so with the jokes switched off.
+- **📺 The Wario Show** — through a television, singing through corridors, the
+  game-show set, the detached head, dispersed by the flashlight on a Wario Inc.
+  tablet. Underneath the comedy: everything hostile arrives *through a screen*
+  and behaves like programming, in a building built to receive.
+- **👤 The other Mario** — the counterfeit with a grudge against a father the
+  host never had, claiming "MY World"; plus Camera Three's figure in green and
+  blue with hollow black eyes and Alistair's four-word instruction.
+- **📅 The year** — expanded to carry the archive's own correction: the 955 BF
+  date was *the clue, not the error*, and the charred note of 4 Aethel pushes
+  the identical revision by an unrelated route.
+
+Existing sections deepened with filed detail that had gone unused: the "1996"
+foreign dating, the full souvenir list, *"Mario... Mario Mario?"* with
+Miyamoto's correction, and *"We kept her safe. No assassinations happened
+here"* — read as liability phrasing about a building rather than news about a
+person.
+
+**No invented facts.** All 38 concrete claims in the expansion were grepped
+back against `events.json` and the three prop bodies; every one traces to a
+source record.
+
+### New: `docs/README-COMMENTARY-MODE.md`
+
+Standalone README for the mode: quick start, the measured before/after table,
+a comparison against the three neighbouring modes, the three rules, the
+"let him be right, then make him pay for it" beat, annotated data shape, the
+enforced floors and why they are derived from `spider_grove_battle`, a
+six-step writing procedure, and the do-not-use list. Linked from the main
+`README.md` doc table above the deeper guide.
+
+The writing procedure leads with the lesson from this expansion: **read
+`outcome`, `aftermath`, `waluigiAssessment`, `revisions[]` and every referenced
+prop before drafting.** The commentary nearly tripled without inventing
+anything — the material was filed and unread.
