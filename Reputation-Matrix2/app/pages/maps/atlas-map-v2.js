@@ -267,18 +267,32 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
     overlay.style.height = `${h}px`;
     const lens = MODES[state.mode];
     const lensEl = host.querySelector('[data-legend-lens]');
-    if (lensEl) lensEl.innerHTML = `<i style="background:${lens.color}"></i>${esc(lens.label)}-weighted pins on the artwork`;
-    const max = Math.max(1, ...pois.map(p => Number(p[lens.key]) || 0));
+    /* Lens weight on a log scale: sheet values run 0..60,000 with a median
+       near 50, so a linear share of max flattens 95% of pins to one dot.
+       log(1+v)/log(1+max) spreads hamlets, towns, and cities across the
+       whole size range; the top 5 pins earn a ring so the giants pop at
+       thumbnail scale. Stacked pins size by their largest member. */
+    const values = pois.map(p => Number(p[lens.key]) || 0);
+    const max = Math.max(0, ...values);
+    const denom = Math.log1p(max) || 1;
+    const weight = v => Math.min(1, Math.log1p(Math.max(0, v)) / denom);
+    const ranked = [...pois].sort((a, b) => (Number(b[lens.key]) || 0) - (Number(a[lens.key]) || 0)).slice(0, 5);
+    const major = new Set(ranked.filter(p => (Number(p[lens.key]) || 0) > 0).map(p => p.id));
+    const min = values.length ? Math.min(...values) : 0;
+    if (lensEl) lensEl.innerHTML = `<i style="background:${lens.color}"></i>${format(min)} – ${format(max)} ${esc(lens.unit)} · pin size = ${esc(lens.label)}${major.size ? ' · ◎ top 5 ringed' : ''}`;
     overlay.innerHTML = journeyPathSvg() + clusters.map(group => {
       const poi = group[0];
       const faction = factionMeta(poi.factionId);
-      const intensity = Math.min(1, (Number(poi[lens.key]) || 0) / max);
+      const top = Math.max(0, ...group.map(g => Number(g[lens.key]) || 0));
+      const w = weight(top);
+      const diameter = Math.round(12 + w * 20);
+      const isMajor = group.some(g => major.has(g.id));
       const extra = group.length > 1 ? `<em>${group.length}</em>` : '';
       const groupStops = group.map(g => stopByPoi.get(g.id)).filter(Boolean);
       const badge = groupStops.length === 1 ? `<b class="atlas-v2-stop">${esc(groupStops[0].n)}</b>`
         : groupStops.length > 1 ? `<b class="atlas-v2-stop atlas-v2-stop-multi">${groupStops.length}</b>` : '';
       const ids = group.map(g => g.id).join(',');
-      return `<button type="button" class="atlas-v2-marker${groupStops.length ? ' journey' : ''}" data-ids="${esc(ids)}" data-poi="${esc(poi.id)}" style="left:${poi.x}%;top:${poi.y}%;--marker:${lens.color};--intensity:${intensity}" title="${esc(group.map(g => g.name).join(', '))}"><span>${faction.icon}</span>${extra}${badge}</button>`;
+      return `<button type="button" class="atlas-v2-marker${groupStops.length ? ' journey' : ''}${isMajor ? ' atlas-v2-major' : ''}" data-ids="${esc(ids)}" data-poi="${esc(poi.id)}" style="left:${poi.x}%;top:${poi.y}%;width:${diameter}px;height:${diameter}px;--marker:${lens.color};--intensity:${(0.45 + w * 0.55).toFixed(2)}" title="${esc(group.map(g => g.name).join(', '))}"><span>${faction.icon}</span>${extra}${badge}</button>`;
     }).join('');
     overlay.querySelectorAll('[data-poi]').forEach(btn => {
       btn.addEventListener('click', ev => {

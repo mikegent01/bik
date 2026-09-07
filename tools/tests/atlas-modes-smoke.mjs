@@ -70,12 +70,25 @@ const markerColor = () => lensHost.querySelector('[data-poi]').style.getProperty
 check('population pins read green', markerColor() === '#4ade80', markerColor());
 lensHost.querySelector('[data-mode="military"]').click();
 check('military pins read red', markerColor() === '#f87171', markerColor());
-check('legend names the lens', (lensHost.querySelector('[data-legend-lens]').textContent || '').includes('Military-weighted'));
+check('legend names the lens', (lensHost.querySelector('[data-legend-lens]').textContent || '').includes('pin size = Military'));
 check('military total carries its unit', (lensHost.querySelector('[data-mode-total]').textContent || '').includes('garrison'));
 lensHost.querySelector('[data-mode="economy"]').click();
 check('economy pins read gold', markerColor() === '#fbbf24', markerColor());
 lensHost.querySelector('[data-mode="influence"]').click();
 check('influence pins read violet', markerColor() === '#a78bfa', markerColor());
+
+/* ---- lens weight: log-scaled sizes, ringed giants ---- */
+lensHost.querySelector('[data-mode="population"]').click();
+const markerFor = id => lensHost.querySelector(`[data-ids*="${id}"]`);
+const diam = id => parseFloat(markerFor(id).style.width);
+check('pins size by value on a log ladder', diam('poi_lw_oakhaven') > diam('poi_lw_battle_of_ravencreek'),
+  `oakhaven ${diam('poi_lw_oakhaven')}px vs battlefield ${diam('poi_lw_battle_of_ravencreek')}px`);
+check('the sheet giant earns the major ring', markerFor('poi_lw_oakhaven').classList.contains('atlas-v2-major'));
+const majors = [...lensHost.querySelectorAll('[data-poi].atlas-v2-major')];
+check('at most five pins ringed', majors.length > 0 && majors.length <= 5, `${majors.length} ringed`);
+const legend = lensHost.querySelector('[data-legend-lens]').textContent || '';
+check('legend shows the value range', /0 – 12,000 residents/.test(legend), legend.slice(0, 60));
+check('legend explains size + rings', legend.includes('pin size = Population') && legend.includes('top 5'));
 
 /* ---- wiki-only filter ---- */
 const wikiBtn = lensHost.querySelector('[data-action="wiki"]');
