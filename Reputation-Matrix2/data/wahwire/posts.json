@@ -617,6 +617,30 @@
       "reaction": "suspicion",
       "comments": [],
       "status": "posted"
+    },
+    {
+      "id": "wahwire_promo_mario_amendment",
+      "author": "waluigi",
+      "order": 18,
+      "date": null,
+      "timestamp": "5 Aethel, 1040 BF — evening; same-day amendment",
+      "content": "The newspaper ending I filed this morning is not the ending. The full account is in: PORTAL FAILED, Luigi missing, a Mario-shaped thing out of a television, and a Wario who sings. I filed a teaser and called it a review. The archive will note that Waluigi is capable of this and will not let it happen twice. WAH.",
+      "likes": 0,
+      "links": [
+        {
+          "id": "promo_mario_newspaper",
+          "type": "event"
+        }
+      ],
+      "tags": [
+        "mario",
+        "press review",
+        "amendment",
+        "unverified"
+      ],
+      "reaction": "correction",
+      "comments": [],
+      "status": "posted"
     }
   ]
 }

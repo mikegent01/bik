@@ -178,6 +178,7 @@ Seven habits explain nearly every decision in this repository:
 | **[`docs/INVESTIGATIONS.md`](docs/INVESTIGATIONS.md)** | **The investigations system** that replaced the quest board. One accreting case file per arc; exhibits, layered analysis behind d6+1 rolls, XP, leads | Adding a session's paper to an arc |
 | [`docs/ARTICLE_ANALYSES.md`](docs/ARTICLE_ANALYSES.md) | Waluigi's **opinionated 20/80 companion analysis** for a filed article; canonical schema, voice, and canon boundaries | Writing or editing a dedicated analysis |
 | [`docs/article-analyses/README.md`](docs/article-analyses/README.md) | The implemented analysis section: discovery, renderer lifecycle, research persistence, CSS scopes, validation, troubleshooting | Maintaining or extending the analysis feature |
+| [`docs/ARTICLE_REVISIONS.md`](docs/ARTICLE_REVISIONS.md) | **Revisions on one record** — `revisions[]`, the `.vhistory` bar, when to amend instead of re-file or duplicate | Amending, expanding or correcting a filing |
 | [`docs/STORY_FORMAT_GUIDE.md`](docs/STORY_FORMAT_GUIDE.md) | Craft standard for **canon session events** — prose, asides, apparatus, exhibits, battle pages | Writing an event |
 | [`docs/WHATIF_FORMAT_GUIDE.md`](docs/WHATIF_FORMAT_GUIDE.md) | Craft standard for **non-canon What-Ifs** — decision engine, ledger, findings, verdict | Writing a What-If |
 | [`docs/RNN_BROADCAST_GUIDE.md`](docs/RNN_BROADCAST_GUIDE.md) | The news broadcast. **One episode per ~10 events**, the pending list, the voice | Cutting an episode |

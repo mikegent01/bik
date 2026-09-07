@@ -3591,7 +3591,7 @@
         "mario_disappearance"
       ],
       "opened": "4 Aethel, 1040 BF",
-      "lastFiled": "5 Aethel, 1040 BF — provisional filing date",
+      "lastFiled": "5 Aethel, 1040 BF — amended (full account received, same-day evening)",
       "archivist": "Waluigi, Auditor-General",
       "icon": "🔥",
       "accent": "#c46b32",
@@ -3618,7 +3618,11 @@
           "point": "The Promo Mario clipping is not a confirmed sighting of our Mario.",
           "detail": "The Hollywood host learns the disappearance story from Waluigi's own article on a tablet. A counterpart, a performance and a promotional fabrication remain competing readings; nobody has authenticated the claimed photographs or souvenirs."
         }
-      ],
+      ,
+        {
+          "point": "The newspaper's ending is not the ending.",
+          "detail": "The full account recovered the same evening reports a failed portal, a missing Luigi, a corrupted Mario out of a television, and a Wario Apparition dispersed by a flashlight. The clipping was a teaser; Waluigi filed the teaser and is amending the record."
+        }],
       "background": [
         {
           "id": "star_fountain_reunion",
@@ -3662,7 +3666,13 @@
           "state": "open",
           "text": "Darian asks whether the host is the missing Mario. The answer supplies a name, not a memory of the fountain or an account of how he reached Hollywood. The clipping also moves the disappearance to 955 BF, contradicting the later fountain record. A genuine journey could still have met a counterpart; a genuine counterpart would still not locate our Mario."
         }
-      ],
+      ,
+        {
+          "id": "th_cut_at_the_farewell",
+          "title": "The paper stopped before the story did",
+          "state": "open",
+          "text": "The clipped ending sold a perfect return: sixty-second portal, charms, waving, goodbye. The recovered account records PORTAL FAILED and a missing brother. A source that cuts exactly at the moment a rescue becomes a problem is not an abridged source; it is a curated one.\n\n**In plain terms:** the farewell was the tell. I filed the farewell."
+        }],
       "leads": [
         {
           "id": "lead_identify_enforcer",
@@ -3709,7 +3719,18 @@
             "ex_promo_mario_clipping"
           ]
         }
-      ],
+      ,
+        {
+          "id": "lead_find_hollywood_luigi",
+          "title": "Find the Luigi in the green and blue",
+          "state": "open",
+          "priority": "high",
+          "objective": "Obtain the original 955 BF tape, the studio security footage including Camera Three, and any record of a figure in green and blue seen after the lights came back; ask Darian and Alistair separately whether they ever saw Luigi again after the monitors showed the question mark.",
+          "why": "The full account's only confirmed casualty is a person: Luigi, last seen present and then missing without a note. Impostors can be explained by glitches; a missing brother cannot. If the account is true, this is the one thread that does not depend on identifying the studio Mario at all.",
+          "exhibits": [
+            "ex_promo_mario_full_account"
+          ]
+        }],
       "sessions": [
         {
           "id": "s_charred_note",
@@ -3723,7 +3744,13 @@
           "date": "5 Aethel, 1040 BF — provisional filing date",
           "event": "promo_mario_newspaper"
         }
-      ],
+      ,
+        {
+          "id": "s_promo_mario_full_account",
+          "label": "Promo Mario — the full account recovered",
+          "date": "5 Aethel, 1040 BF — evening; same-day amendment",
+          "event": "promo_mario_newspaper"
+        }],
       "relatedEvents": [
         "charred_note_at_waluigis_door",
         "the_eastern_passage",
@@ -3812,7 +3839,37 @@
             ]
           }
         }
-      ]
+      ,
+        {
+          "id": "ex_promo_mario_full_account",
+          "propId": "prop_promo_mario_full_account",
+          "session": "s_promo_mario_full_account",
+          "icon": "📜",
+          "kind": "note",
+          "category": "record",
+          "title": "The full account — the part the clipping cut",
+          "secured": "Read 5 Aethel, 1040 BF (evening) — same-day amendment",
+          "custody": "Archive — transcription only; no original page, film or independently held souvenir",
+          "visual": "<div role=\"img\" aria-label=\"Recovered account page marked as an amendment\" style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:linear-gradient(135deg,rgba(20,20,26,.96),rgba(8,8,12,.99));border:1px solid rgba(170,130,255,.35)\"><div style=\"position:absolute;left:12%;right:12%;top:16px;bottom:16px;border:1px dashed rgba(170,130,255,.5);background:rgba(170,130,255,.05)\"></div><div style=\"position:absolute;left:20%;right:20%;top:26px;text-align:center;font-size:12px;letter-spacing:.2em;color:#d9c8ff;font-weight:800\">FULL ACCOUNT</div><div style=\"position:absolute;left:26%;right:26%;top:52px;height:2px;background:linear-gradient(90deg,transparent,#8a4bff,transparent)\"></div><div style=\"position:absolute;left:30%;right:30%;top:64px;text-align:center;font-size:24px;color:#6b3fd4;font-weight:900\">?</div><div style=\"position:absolute;left:0;right:0;bottom:7px;text-align:center;font-size:10px;letter-spacing:.16em;font-weight:800;color:#9a7fe6\">REVISION 2 · SAME-DAY AMENDMENT</div></div>",
+          "onRecord": "The account records a portal that never opened, a tape labeled only 955 BF, a funeral, a drowning image, a question-mark cipher, Luigi's disappearance, a corrupted Mario leaving a television, and a Wario Apparition sung into the studio and dispersed by a flashlight. It also records the studio Mario answering 'do you have a brother?' with a brother — and never producing a route from the Star Fountain.",
+          "dc": 4,
+          "analysis": "## The farewell was the tell\n\nI did not file a newspaper. I filed its last paragraph. The clipping reported a successful portal and I never once asked whether the machine worked, because the paragraph was built to close. The full account reports PORTAL FAILED in capital letters on the monitor. A source with a beautiful ending deserves one question before it is filed, and I asked none. [[roll:4|the paper cut at the moment the rescue stopped being useful to print|every cut after the farewell removes either the failure or the missing brother, and it removes both|an editor may simply have run out of column space and the order of events is coincidental]].\n\n## The date is the same bad math, twice\n\nThe clipping placed the disappearance in 955 BF and I treated it as one more flaw in an unverified paper. The full account insists on the same year, and now so does the studio host, and neither of them mentions the 1039 BF fountain at all. That is not a date error any more. That is a second source telling the archive the assassination and the disappearance were one event. [[roll:5|the 955 number is being repeated to the archive on purpose|the charred note, the clipping and the full account all choose the same year, which is either one shared source or one shared instruction|different tellers of an old story can share one stale date without coordinating anything]].\n\n## What the account adds, and what it cannot do\n\nIt adds Luigi's disappearance, a figure wearing Mario's face out of a television, and a Wario Apparition that behaves like a performance rather than a person. It cannot add identity: Darian and Alistair remain the only witnesses, the studio Mario still offers no private memory, and the corrupted Mario is filed as something that wears the name, not as a Mario. The Doughnut World reading is Darian's theory inside the account, and a theory inside one source is still one source. [[roll:3|the account is internally specific where the clipping was vague|it names machines, monitors, song lines and a camera number, which is more texture than a promotional page needs unless somebody wanted it trusted|vivid specifics are exactly what a good fabrication adds, so specificity is not authentication]].\n\n## The instruction I am stealing from a steward\n\nBreak-room Camera Three showed a figure in green and blue with hollow black eyes, and Alistair said: don't go there. I am filing that instruction beside the lead. Whatever that figure was, it was not Luigi, and the account does not need it to be. [[roll:4|an impostor was placed where a missing man would be looked for|if the studio wanted the archive to believe Luigi was safe, it chose the cheapest possible stand-in — wrong hat, wrong height, no face|a frightened person behind crates on a security feed can look wrong through any camera, and this read is only as strong as the monitor's quality]].\n",
+          "links": {
+            "events": [
+              "promo_mario_newspaper",
+              "charred_note_at_waluigis_door",
+              "star_fountain_reunion",
+              "the_toad_god_interview_and_the_star_shard"
+            ],
+            "characters": [
+              "waluigi",
+              "mario",
+              "luigi",
+              "princess_peach",
+              "wario"
+            ]
+          }
+        }]
     },
     {
       "id": "dread_mansion_file",

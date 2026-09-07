@@ -2089,6 +2089,66 @@
       "stamps": [
         "evidence"
       ]
+    },
+    "prop_promo_mario_full_account": {
+      "kind": "note",
+      "icon": "📜",
+      "title": "Full Account — Promo Mario (Recovered)",
+      "subtitle": "Recovered telling · the rest of the story the clipping cut",
+      "items": [],
+      "articles": [
+        "promo_mario_newspaper"
+      ],
+      "note": "The full account reached the archive the same evening as the clipping. It begins where the review ended — and shows the review's ending never happened. Single-source: no publisher, byline, original film or independent witness.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">THE FULL ACCOUNT</div><div class=\"pd-sub\">Lord Darian Marsh, as told after the fact · archive transcription</div></div><div class=\"pd-quote\">Reader: the newspaper printed a farewell. The machine printed PORTAL FAILED. Both statements cannot be filed. I am filing the machine.</div><div class=\"pd-clause\"><b class=\"n\">I.</b> The portal never opened. Darian and Alistair stepped into warm light, blinked, and were still inside the studio. The machine ran red; Dr. Takeda said the dimensional resonance had been unstable. Nintendo’s plan became recalibration over “a few days.”</div><div class=\"pd-clause\"><b class=\"n\">II.</b> A tape labeled only 955 BF played a black-and-white funeral: Peach’s casket in purple and gold, a shadowed figure in a black cape at the edge of frame, a glint of metal. Then every monitor showed Luigi drowning, then a black question mark inside a circle, then the tape ejected itself.</div><div class=\"pd-clause\"><b class=\"n\">III.</b> Luigi was gone when the lights returned. No note, no struggle, no usable footage. Mario ran for the exit with a flashlight and did not come back before the worst of it.</div><div class=\"pd-clause\"><b class=\"n\">IV.</b> The Wario Show hijacked the studio. Wario came through a television, sang his way through the corridors, dropped the guests into a game-show set, detached his own head, and was finally dispersed by a second press of the Wario Inc. tablet — which is only a flashlight. He last sang about a rotten day.</div><div class=\"pd-clause\"><b class=\"n\">V.</b> A version of Mario walked out of the television armed with a grudge against a father the studio Mario has never had. It challenged the host to a fight and called the place “MY World.” Darian and Alistair left them fighting.</div><div class=\"pd-clause\"><b class=\"n\">VI.</b> In the break room, Camera Three showed a figure in green and blue hiding behind crates: wrong hat, wrong height, flickering edges, hollow black eyes. Alistair’s instruction was exact. Don’t go there.</div><div class=\"pd-margin\">I have filed the clipping as evidence and this as its correction. One source, twice cut. The question-mark signature worries me more than the singing head does. — W.</div><div class=\"pd-fine\">Transcription, deliberately full where the clipping was abridged. No original page, film, photograph, publisher or independent witness has been authenticated.</div>",
+      "stamps": [
+        "evidence"
+      ]
+    },
+    "prop_wario_inc_tablet": {
+      "kind": "note",
+      "icon": "📱",
+      "title": "Wario Inc. Tablet — The Slate That Read My Own Article",
+      "subtitle": "Device record · black glass, purple mark; screen contents transcribed from the full account",
+      "items": [],
+      "articles": [
+        "promo_mario_newspaper"
+      ],
+      "note": "A black glass slate marked Wario Inc. in purple. It displayed Waluigi's own biography of the missing hero to the man who may be wearing it. It also carries one unmarked button, which turned out to be a flashlight.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">WARIO INC. TABLET</div><div class=\"pd-sub\">DEVICE RECORD · SCREEN CONTENTS FROM THE FULL ACCOUNT</div></div><div class=\"pd-meta\"><span>Marking</span><b>Wario Inc., lit across the top in purple</b><span>Display</span><b>Waluipedia entry — Mario — Alternate Versions</b><span>Only button on the device</span><b>Flashlight. Pressed twice during the Apparition.</b></div><div class=\"pd-quote\">\"There might have been a Mario in our world. In our stories.\" — Lord Darian Marsh, presenting the slate</div><div class=\"pd-clause\"><b class=\"n\">I.</b> The slate's screen shows the article as the archive filed it: the most famous hero in the Mushroom Kingdom; the man who saved Peach so many times that his name became a verb; the disappearance after eighty-five years of silence; Luigi finding him at the Star Fountain; the flight on wing caps; <i>nothing can hurt us as long as we're together</i>; then gone again, with Luigi at Raventree Manor.</div><div class=\"pd-clause\"><b class=\"n\">II.</b> Searched later, amid cameras and cold coffee: <i>Mario — Alternate Versions</i>. Multiple timelines load. Some where he disappeared permanently; some where he stayed the hero. At the bottom, a section titled <b>Fallen Maris</b> with one entry: <i>955 BF — The Disappeared Hero</i>.</div><div class=\"pd-quote\">\"This record begins with the tragedy of 955 BF—not when Peach died, but when Mario vanished without explanation. No body found. No note left. Just... gone. Luigi never recovered after this day.\"</div><div class=\"pd-clause\"><b class=\"n\">III.</b> Then the screen glitched and added a line nobody had searched for: <b>WARNING — INCONSISTENT REALITY DETECTED.</b> The studio lights flickered overhead.</div><div class=\"pd-clause\"><b class=\"n\">IV.</b> The single unmarked button was pressed during the game show. It produced a blinding white flash and a sound like a corrupted file; the Apparition recoiled, and the head came apart pixel by pixel. Pressed a third time, it produced an ordinary flashlight beam.</div><div class=\"pd-margin\">The most expensive artifact in that world — purchased over my objection, feature list longer than a castle's tax roll — defeated an interdimensional game-show apparition by being a torch. The tablet did nothing. The flashlight won. I am still not over it. — W.</div><div class=\"pd-fine\">Device not recovered. Screen contents recorded from the full account only; the tablet itself remains in the Hollywood studio per that account, and the account is single-source.</div>",
+      "stamps": [
+        "evidence"
+      ]
+    },
+    "prop_tape_955_bf": {
+      "kind": "note",
+      "icon": "📼",
+      "title": "Tape — One Date: 955 BF",
+      "subtitle": "Media record · found under the studio monitors; contents transcribed from the full account",
+      "items": [],
+      "articles": [
+        "promo_mario_newspaper"
+      ],
+      "note": "A single tape with no title and one date on the label: 955 BF. It played a funeral, then a drowning, then a symbol no one searched for. When it ejected itself, the label was blank.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">TAPE · NO TITLE</div><div class=\"pd-sub\">ONE DATE ON THE LABEL: 955 BF</div></div><div class=\"pd-meta\"><span>Found</span><b>On a shelf under the studio monitors</b><span>Label before play</span><b>955 BF — nothing else</b><span>Label after play</span><b>Blank. Just plastic.</b></div><div class=\"pd-quote\">\"That's... weird. This must be from Nintendo Mania's fictional timeline.\" — Mario, before it played</div><div class=\"pd-clause\"><b class=\"n\">I.</b> The screen flickered and the studio's cheery set vanished behind black-and-white footage: a grainy castle hallway, then a funeral procession, mourners in a style no one present had ever seen, a casket draped in purple and gold — Peach's colors.</div><div class=\"pd-clause\"><b class=\"n\">II.</b> At the edge of the frame, for one second: a shadowy figure in a black cape, half the face lost in darkness, a glint of metal in hand.</div><div class=\"pd-clause\"><b class=\"n\">III.</b> Every monitor beeped once, together, and switched to a new picture: Luigi struggling in dark water, bubbles rising, his green cap floating away. Then, across every screen at once, a single symbol — a black question mark inside a circle.</div><div class=\"pd-clause\"><b class=\"n\">IV.</b> The tape shot out of the player by itself, clattered to the floor, and kept playing on the tiles. Dr. Takeda turned it over. \"This... isn't possible.\" The label was blank now.</div><div class=\"pd-margin\">The studio's own people said the date did not exist in their timeline. The tape says the assassination and the disappearance were the same year. I let the same number pass me twice. — W.</div><div class=\"pd-fine\">Tape not recovered; the account places it in the hands of Dr. Takeda's team. Contents recorded from the full account only, and the account is single-source.</div>",
+      "stamps": [
+        "evidence"
+      ]
+    },
+    "prop_studio_security_footage": {
+      "kind": "note",
+      "icon": "🎥",
+      "title": "Studio Security Footage — Camera Three",
+      "subtitle": "Feed record · the missing minutes, and the figure behind the crates; transcribed from the full account",
+      "items": [],
+      "articles": [
+        "promo_mario_newspaper"
+      ],
+      "note": "The studio's security feed. During Luigi's disappearance it showed nothing at all, and Dr. Takeda shouted about missing footage. Later, in the break room, Camera Three showed a figure in green and blue that was not Luigi.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">STUDIO SECURITY FEED</div><div class=\"pd-sub\">CAMERA THREE · BREAK-ROOM MONITORS</div></div><div class=\"pd-meta\"><span>When Luigi vanished</span><b>The feed showed nothing. No struggle, no sound.</b><span>Next known state</span><b>Dr. Takeda shouting about energy readings and missing footage</b><span>Where the feed was watched</span><b>Employee break room — four monitors, one couch, one cold coffee machine</b></div><div class=\"pd-clause\"><b class=\"n\">I.</b> One monitor showed the battle — the version of Mario from the television pinning the studio host to the floor, purple energy crackling around his fists.</div><div class=\"pd-clause\"><b class=\"n\">II.</b> Camera Three, near the prop room: a figure in green and blue hiding behind crates. Green cap. Blue overalls. Terrified but unharmed.</div><div class=\"pd-clause\"><b class=\"n\">III.</b> It was not Luigi. The hat was the wrong shade. Too tall. Too still. Its edges flickered once, like a screen losing signal. When the figure turned its head, where Luigi's face should have been were two hollow black eyes.</div><div class=\"pd-clause\"><b class=\"n\">IV.</b> Neither witness was in the same room as that camera. The one in the room reached through the monitor and waited. The other three monitors went to static, and all four showed the black question mark inside the circle — together, in sequence. Then the coffee machine went cold.</div><div class=\"pd-margin\">Alistair's instruction was exact: don't go there. An impostor stood exactly where a missing man would be looked for. That is placement, not noise. — W.</div><div class=\"pd-fine\">Footage not recovered; no frame, no tape, no server record has been authenticated. Contents transcribed from the full account only, and the account is single-source.</div>",
+      "stamps": [
+        "evidence"
+      ]
     }
   }
 }

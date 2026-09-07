@@ -1,17 +1,17 @@
 {
   "featuredArticle": {
-  "id": "promo_mario_newspaper",
-  "type": "event",
-  "excerpt": "Waluigi reads a Hollywood Mario sighting that quotes his own biography. A counterpart or a sales pitch? Open the clipping; the missing-person file stays open.",
-  "label": "New Press Review · Unverified",
-  "title": "Promo Mario — A Sighting or a Sales Pitch?"
-},
+    "id": "promo_mario_newspaper",
+    "type": "event",
+    "excerpt": "Revision 2: the clipping’s happy ending was a teaser. The full account reports a failed portal, a missing Luigi, a Mario-shaped thing in a television, and a Wario who sings. Waluigi filed the teaser; he is amending it, loudly. Mario remains missing; the missing-person file stays open.",
+    "label": "Amended Filing · Full Account",
+    "title": "Promo Mario — The Full Account (Revision 2)"
+  },
   "latestUpdate": {
-  "id": "promo_mario_newspaper",
-  "label": "New Press Review · Unverified",
-  "excerpt": "Waluigi reads a Hollywood Mario sighting that quotes his own biography. A counterpart or a sales pitch? Open the clipping; the missing-person file stays open.",
-  "title": "Promo Mario — A Sighting or a Sales Pitch?"
-},
+    "id": "promo_mario_newspaper",
+    "label": "Amended Filing · Full Account",
+    "excerpt": "Revision 2: the clipping’s happy ending was a teaser. The full account reports a failed portal, a missing Luigi, a Mario-shaped thing in a television, and a Wario who sings. Waluigi filed the teaser; he is amending it, loudly. Mario remains missing; the missing-person file stays open.",
+    "title": "Promo Mario — The Full Account (Revision 2)"
+  },
   "didYouKnow": [
     "...that Remi escaped two armed dungeon guards by drawing a goblin face on a cardboard box with a Sharpie marker and claiming to be a certified Box Guardian?",
     "...that the Mount Ebott Survey Part VII file features Sans executing Flowey in a localized time-stop after recalling a midnight tea conversation with King Asgore?",
@@ -36,5 +36,65 @@
     "1040 BF — Harvestide 28: Remi conducts Midnight Audit of Shadow Estate.",
     "1040 BF — Harvestide 29: Imp Ambush at Tymnas's Cottage.",
     "1040 BF — Harvestide 30: Remi uses Sharpie Box Disguise to escape dungeon."
+  ],
+  "campaignCovers": [
+    {
+      "id": "feyward-reclamation-cover",
+      "campaign": "Feyward",
+      "title": "FEYWARD — The Reclamation of the Library",
+      "caption": "The library mound rises behind them; the crew runs for the joists. Latest Feyward clock filing.",
+      "image": "assets/images/session-covers/feyward-title-card.png",
+      "articleId": "feyward_library_reclamation_and_the_kitchen"
+    },
+    {
+      "id": "scorncrow-skirmish-cover",
+      "campaign": "Shadeward",
+      "title": "SHADEWARD — The Scorncrow Skirmish",
+      "caption": "Wario's squad brings garlic, elixir, and one stalled motorbike to the overgrown grove.",
+      "image": "assets/images/session-covers/shadeward-title-card.png",
+      "articleId": "the_scorncrow_skirmish"
+    }
+  ],
+  "fieldGallery": [
+    {
+      "image": "assets/images/events/scorncrow-skirmish/scorncrow-01-battlefield.jpg",
+      "caption": "The grove at night: the Scorncrow's evil tree, bats at the roots, and Wario's stalled motorbike.",
+      "articleId": "the_scorncrow_skirmish"
+    },
+    {
+      "image": "assets/images/events/scorncrow-skirmish/scorncrow-03-eager-pin.jpg",
+      "caption": "Eager's critical shortbow shot pins the Scorncrow at the feet.",
+      "articleId": "the_scorncrow_skirmish"
+    },
+    {
+      "image": "assets/images/events/library-reclamation/lib-01-mound-eating-books.jpg",
+      "caption": "A shambling mound eating the Overgrown Library, one volume at a time.",
+      "articleId": "feyward_library_reclamation_and_the_kitchen"
+    },
+    {
+      "image": "assets/images/events/library-reclamation/lib-04-red-kitchen.jpg",
+      "caption": "The red kitchen, where the cook's dinner makes the overgrowth wither.",
+      "articleId": "feyward_library_reclamation_and_the_kitchen"
+    },
+    {
+      "image": "assets/images/events/promo-mario-newspaper/promo-01-main-stage.jpg",
+      "caption": "Promo Mario's main stage — the clipping Waluigi is amending, loudly.",
+      "articleId": "promo_mario_newspaper"
+    },
+    {
+      "image": "assets/images/events/promo-mario-newspaper/promo-04-tv-mario.jpg",
+      "caption": "The Mario-shaped thing in the television, from the Revision 2 account.",
+      "articleId": "promo_mario_newspaper"
+    },
+    {
+      "image": "assets/images/events/archies-return-to-shadow-estate/archie-storm-nimbus-tree-of-woe.jpg",
+      "caption": "Archie arrives on a thundercloud before the Tree of Woe.",
+      "articleId": "archies_return_to_shadow_estate"
+    },
+    {
+      "image": "assets/images/events/dread-mansion/dread-01-corridor.jpg",
+      "caption": "The Dread Mansion corridor — the order nobody signed.",
+      "articleId": "the_dread_mansion_incursion"
+    }
   ]
 }

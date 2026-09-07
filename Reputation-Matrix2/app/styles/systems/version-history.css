@@ -1,0 +1,17 @@
+/* ===== Version history — revisions[] on article records =====
+   Scoped entirely to .vhistory; nothing here is global. A record may carry
+   revisions[]; the bar lets a reader switch between the original filing and
+   later amendments, all rendered from data. No class here is used by prose.
+   See docs/ARTICLE_REVISIONS.md for the data shape and the renderer note. */
+.vhistory{margin:10px 0 16px;border:1px solid var(--border);border-radius:12px;background:var(--panel2);padding:12px 14px 13px}
+.vhistory-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:10px}
+.vhistory-kicker{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.vhistory-title{margin:2px 0 0;font-size:17px;line-height:1.25}
+.vhistory-bar{display:flex;gap:8px;flex-wrap:wrap}
+.vhistory-tab{font:inherit;font-size:12.5px;line-height:1.3;padding:7px 11px;border:1px solid var(--border);border-radius:999px;background:var(--bg2);color:var(--muted);cursor:pointer;text-align:left;max-width:340px}
+.vhistory-tab:hover{border-color:var(--accent2);color:var(--text)}
+.vhistory-tab.is-active{border-color:var(--accent2);color:var(--text);background:linear-gradient(135deg,rgba(138,75,255,.16),rgba(138,75,255,.05));font-weight:700}
+.vhistory-note{margin-top:10px;padding:8px 11px;border-left:3px solid var(--accent2);background:var(--bg2);border-radius:6px;font-size:13.5px;line-height:1.5;color:var(--text)}
+.vhistory-note b{color:var(--accent2)}
+.vhistory-summary{margin-top:8px;font-size:13.5px;line-height:1.5;color:var(--muted)}
+@media (max-width:680px){.vhistory-head{flex-direction:column}.vhistory-tab{max-width:100%}}

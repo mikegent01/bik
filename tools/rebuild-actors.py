@@ -36,6 +36,7 @@ ACTORS = os.path.join(ROOT, "Reputation-Matrix2", "actors")
 SANITIZER = os.path.join(ROOT, "tools", "sanitize-foundry-actor.py")
 BUILD_AURELIAN = os.path.join(ROOT, "tools", "build-aurelian-pc.py")
 BUILD_WALUIGI = os.path.join(ROOT, "tools", "build-waluigi-pc.py")
+BUILD_WARIO_MOTORBIKE = os.path.join(ROOT, "tools", "build-wario-motorbike.py")
 
 # Extra sanitizer flags per source file.
 OVERRIDES = {
@@ -49,6 +50,7 @@ OVERRIDES = {
 GENERATED = {
     "fvtt-Actor-lady-aurelian-corvinarus-PC.json": [sys.executable, BUILD_AURELIAN],
     "fvtt-Actor-waluigi-PC.json": [sys.executable, BUILD_WALUIGI],
+    "fvtt-Actor-wario-motorbike.json": [sys.executable, BUILD_WARIO_MOTORBIKE],
 }
 
 

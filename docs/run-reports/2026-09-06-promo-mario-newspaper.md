@@ -1,5 +1,13 @@
 # Run report — Promo Mario newspaper review
 
+> **Amended — same day.** This report documents the *morning* filing: the
+> abridged press review. That same evening the full account reached the
+> archive and the filing was amended in place as Revision 2 of the same
+> record — see **`docs/run-reports/2026-09-06-promo-mario-amendment.md`**.
+> The morning report is retained as the historical record of what was
+> filed at that time; the amendment report supersedes its open-items
+> section, including the "no expanded retelling" line below.
+
 ## Intake and purpose
 
 The supplied account becomes **one deliberately short press-review article**, not a confirmed Hollywood expedition. Waluigi has read a newspaper; he has not witnessed the trip or identified its host as the missing Mario. The duplicated paste is filed once.
