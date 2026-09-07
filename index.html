@@ -4925,6 +4925,19 @@ const words=t=>(t||'').trim().split(/\s+/).filter(Boolean).length;
 const readingTime=t=>Math.max(1,Math.round(words(t)/220));
 function factionColor(id){ return FCOLORS[id]|| (INDEX[id]&&FCOLORS[id]) || '#8a4bff'; }
 function prettyId(id){ const rec=INDEX[id]; if(rec)return displayName(rec.item); return String(id||'').replace(/_/g,' ').replace(/\b\w/g,c=>c.toUpperCase()); }
+/* Participant entries are either a plain id string or {id?, name?, role?}.
+   Reported figures with no dossier legitimately have a name and NO id, so
+   never fall back to String(p) — that is what printed "[Object Object]" on
+   the Promo Mario card. Order: linked record → declared name → id → nothing. */
+function participantLabel(p){
+  if(p==null) return '';
+  if(typeof p==='string') return INDEX[p]?displayName(INDEX[p].item):prettyId(p);
+  if(typeof p!=='object') return String(p);
+  const id=p.id||p.articleId||'';
+  if(id&&INDEX[id]) return displayName(INDEX[id].item);
+  if(p.name) return String(p.name);
+  return id?prettyId(id):'';
+}
 
 /* mini markdown */
 function slug(s){return 'h-'+String(s).toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');}
@@ -7472,10 +7485,23 @@ let NAV_COLLAPSED=(()=>{
     return new Set(saved?JSON.parse(saved):NAV_DEFAULT_COLLAPSED);
   }catch(e){ return new Set(NAV_DEFAULT_COLLAPSED); }
 })();
+/* Sections the user has toggled by hand this session. A default collapse is a
+   suggestion that forceOpen may override; a deliberate collapse is not. */
+const NAV_USER_SET=new Set();
+/* Toggle from what is actually on screen, not from the remembered flag.
+   A section containing the active page renders expanded via forceOpen while
+   NAV_COLLAPSED may still list it as collapsed. Reading the stored flag then
+   made the first click a no-op (it "closed" an already-open drawer), so
+   collapsing a highlighted category took two clicks and looked broken.
+   The DOM is the truth; write the flag to match what the user just saw. */
 function toggleNavSection(id){
-  NAV_COLLAPSED.has(id)?NAV_COLLAPSED.delete(id):NAV_COLLAPSED.add(id);
+  const nodes=document.querySelectorAll(`[data-navsec="${id}"]`);
+  const isOpen=nodes.length?!nodes[0].classList.contains('collapsed'):!NAV_COLLAPSED.has(id);
+  const nextCollapsed=isOpen;
+  NAV_USER_SET.add(id);
+  nextCollapsed?NAV_COLLAPSED.add(id):NAV_COLLAPSED.delete(id);
   try{ localStorage.setItem(NAV_COLLAPSE_KEY, JSON.stringify([...NAV_COLLAPSED])); }catch(e){}
-  document.querySelectorAll(`[data-navsec="${id}"]`).forEach(n=>n.classList.toggle('collapsed', NAV_COLLAPSED.has(id)));
+  nodes.forEach(n=>n.classList.toggle('collapsed', nextCollapsed));
 }
 function navLink(o){
   const cls=['navlink']; if(o.active) cls.push('active'); if(o.system) cls.push('is-system');
@@ -7484,8 +7510,12 @@ function navLink(o){
 }
 function navSection(id,title,links,opts={}){
   if(!links.length) return '';
-  const forceOpen=!!opts.forceOpen;
-  const collapsed=NAV_COLLAPSED.has(id)&&!opts.alwaysOpen&&!forceOpen;
+  /* forceOpen auto-expands the section holding the current page, but it must
+     not fight the user: once they have explicitly collapsed a section that
+     choice is remembered in NAV_COLLAPSED and wins on re-render. */
+  const isCollapsed=NAV_COLLAPSED.has(id);
+  const forceOpen=!!opts.forceOpen&&!(isCollapsed&&NAV_USER_SET.has(id));
+  const collapsed=isCollapsed&&!opts.alwaysOpen&&!forceOpen;
   const count=opts.count!==undefined?`<span class="rail-count">${esc(String(opts.count))}</span>`:'';
   const label=`<span>${esc(title)}</span>${count}`;
   const head=title?`<div class="navhead ${opts.alwaysOpen?'static':''}" ${opts.alwaysOpen?'':`onclick="toggleNavSection('${id}')"`}><span style="display:flex;align-items:center;gap:6px;min-width:0">${label}</span>${opts.alwaysOpen?'':`<span class="navchev">▾</span>`}</div>`:'';
@@ -7708,11 +7738,7 @@ function homeRecentAdventuresHtml(){
     const dateHead=String(ev.date||'').split('—')[0].trim();
     const pal=homeFeedAccent(ev, isLatest);
     const kicker=isLatest?(esc(dateHead)+' · Latest Filing'):esc(dateHead);
-    const people=(ev.participants||[]).slice(0,8).map(p=>{
-      const id=typeof p==='string'?p:(p&&p.id)||'';
-      const rec=id&&INDEX[id];
-      return rec?displayName(rec.item):prettyId(id||String(p));
-    }).filter(Boolean);
+    const people=(ev.participants||[]).slice(0,8).map(p=>participantLabel(p)).filter(Boolean);
     const actors=people.map(n=>`<span>${esc(n)}</span>`).join('');
     const sum=ev.summary||(ev.description||'').replace(/\s+/g,' ').slice(0,420);
     const inv=homeInvestigationForEvent(ev.id);

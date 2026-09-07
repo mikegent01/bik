@@ -521,3 +521,50 @@ to prevent.
 
 Backfill is not required — a missing code is not an error. Add one when a
 record's chain is next touched.
+
+## 5i. Two UI bugs reported from the live site
+
+### `[Object Object]` in the home-feed cast chips
+
+`promo_mario_newspaper` lists three participants; two of them — Lord Darian
+Marsh and Alistair of the Marshkeepers — legitimately have a `name` and **no
+`id`**, because they are reported figures with no dossier. The home-feed card
+built its actor chips with:
+
+```js
+return rec?displayName(rec.item):prettyId(id||String(p));
+```
+
+With no `id`, `String(p)` stringifies the object, printing `[Object Object]`.
+The data is correct; the renderer was wrong. An audit found this is the only
+record in `events.json` + `battles.json` with id-less participants (2 objects,
+1 record), so this was a latent bug waiting on exactly this shape.
+
+Fixed with a shared `participantLabel(p)` helper next to `prettyId`, resolving
+in order: linked record → declared `name` → id → empty string. Never
+stringifies an object. Verified against 9 input shapes including `{}`, `null`,
+`undefined`, bare strings, and unknown ids.
+
+### Sidebar categories took two clicks to collapse
+
+`nav-systems` and five other sections are in `NAV_DEFAULT_COLLAPSED`. When the
+current page lives inside one of them, `navSection` renders it expanded via
+`forceOpen` — but `NAV_COLLAPSED` still listed it as collapsed. Because
+`toggleNavSection` read the remembered flag rather than the screen, the first
+click "collapsed" a section the state already believed was collapsed, produced
+no visible change, and the user had to click twice.
+
+Two coordinated fixes:
+
+1. `toggleNavSection` now reads the **DOM** (`classList.contains('collapsed')`)
+   as the source of truth and writes the flag to match what the user just saw.
+2. `forceOpen` no longer overrides a **deliberate** collapse. A new
+   `NAV_USER_SET` distinguishes a default collapse (a suggestion `forceOpen`
+   may override) from a hand-toggled one (which wins on re-render).
+
+State-machine tested across seven scenarios: fresh visitor elsewhere (tidy,
+collapsed), fresh visitor on an in-section page (auto-expanded), first click
+(works), re-render on the same page (choice respected), reopen, and collapse
+then navigate away (stays collapsed).
+
+`tools/check-all.py` passes; the main application script parses clean.
