@@ -34,12 +34,25 @@ in journey mode.
   sheet selector, Survey / Journey mode toggle, and the Feyward–Shadeward
   layer toggle (visible only on sheets that file planar pins — today, the
   Midlands sheet). Routes are bookmarkable:
-  `#/maps/<mapId>/<all|material|shadow|fey|mirror>/<survey|journey>`.
+  `#/maps/<mapId>/<all|material|shadow|fey|mirror>/<survey|journey>[/<party>][/<sort>]`
+  — e.g. `#/maps/midlands_full/all/journey/disaster_inc/newest`.
 - **Journey mode** — every event that resolves to a pin on the current
   sheet and layer, in date order (filing order breaks ties), with numbered
   stop badges, a path polyline, a stepper, and play mode. Events that
   resolve elsewhere link to their sheet; events that resolve nowhere are
   listed honestly under "not on this sheet."
+- **Whose journey** — the party picker (All parties + every faction with
+  events, each labeled with its plotted stop count on this sheet). An
+  event belongs to a party's journey when the faction participates
+  directly, a roster member participates (`character.faction` plus the
+  hand-filed crew lists), or `reputationChanges` touches it. A party with
+  no stops on this sheet degrades to the unplotted list with "open that
+  sheet" chips — e.g. the Peach Loyalists' three events live on the
+  Mushroom and warp-junction sheets, not the Midlands.
+- **Stop order** — oldest first (default), newest first (the chronology
+  rewound — the stepper plays it backwards), A–Z by event, or grouped by
+  location. Stops renumber 1..N in display order; the trail-only map, the
+  stepper, and play mode all follow.
 - The World Atlas (`#/atlas`) links to the desk but is otherwise unchanged;
   the desk reuses the atlas renderer (`atlas-map-v2.js`), so atlas behavior
   with no `opts.plane`/`opts.journey` is byte-identical to before.
@@ -66,7 +79,7 @@ in journey mode.
 python3 tools/classify-location-planes.py --check          # advisory report
 python3 tools/classify-location-planes.py --check --strict # fails while gaps remain
 python3 tools/classify-location-planes.py --llm --dry-run  # LM Studio targets, no calls
-node tools/tests/test-planar-map.mjs                       # 32 assertions: tags, resolver, journey
+node tools/tests/test-planar-map.mjs                       # 49 assertions: tags, resolver, journey, parties, sorts
 python3 tools/check-all.py                                 # both registered here (advisory + test)
 ```
 

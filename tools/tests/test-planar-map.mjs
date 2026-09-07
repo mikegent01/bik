@@ -18,6 +18,8 @@ const HERE = dirname(fileURLToPath(import.meta.url));
 const html = readFileSync(resolve(HERE, '../../index.html'), 'utf8');
 const LOCATIONS = JSON.parse(readFileSync(resolve(HERE, '../../Reputation-Matrix2/data/locations.json'), 'utf8'));
 const EVENTS = JSON.parse(readFileSync(resolve(HERE, '../../Reputation-Matrix2/data/events.json'), 'utf8'));
+const FACTIONS = JSON.parse(readFileSync(resolve(HERE, '../../Reputation-Matrix2/data/factions.json'), 'utf8'));
+const CHARACTERS = JSON.parse(readFileSync(resolve(HERE, '../../Reputation-Matrix2/data/characters.json'), 'utf8'));
 const MONTHS = JSON.parse(readFileSync(resolve(HERE, '../../Reputation-Matrix2/data/calendarMonths.json'), 'utf8'));
 
 let pass = 0, fail = 0;
@@ -97,11 +99,11 @@ const parseApi = new Function('MONTH_ORD', `${parseSrc}\nreturn { parseYear, par
 const esc = v => String(v ?? '').replace(/[&<>'"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[c]));
 const assetPath = s => 'x';
 const displayName = item => item?.name || item?.title || '';
-const DATA = { locations: LOCATIONS, events: EVENTS };
+const DATA = { locations: LOCATIONS, events: EVENTS, factions: FACTIONS, characters: CHARACTERS };
 
 const api = new Function(
   'ATLAS_MAPS', 'DATA', 'esc', 'assetPath', 'displayName', 'parseYear', 'parseMonth', 'parseDay',
-  `${src}\nreturn { mapsPoiPlane, mapsPlanesOnSheet, mapsMatchKey, mapsLocationIndex, resolveEventLocationId, mapsEventSortKey, buildJourney, MAPS_PLANES };`
+  `${src}\nreturn { mapsPoiPlane, mapsPlanesOnSheet, mapsMatchKey, mapsLocationIndex, resolveEventLocationId, mapsEventSortKey, buildJourney, mapsPartyRoster, mapsEventParties, mapsShortParty, MAPS_JOURNEY_SORTS, MAPS_PLANES };`
 )(MAP_DATA, DATA, esc, assetPath, displayName, parseApi.parseYear, parseApi.parseMonth, parseApi.parseDay);
 
 const idx = api.mapsLocationIndex(LOCATIONS);
@@ -153,6 +155,33 @@ ok(sh.unpinned.some(u => u.eventId === 'planar_fracture' && /layer/.test(u.reaso
 
 const bogus = api.buildJourney('no_such_sheet', 'all', DATA, MAP_DATA);
 ok(bogus.stops.length === 0 && bogus.unpinned.length + bogus.unresolved.length === EVENTS.length, 'unknown sheet degrades to lists, never a crash');
+
+/* ---- 4. journey parties + sorts ---- */
+console.log('cartography desk — parties & sorts');
+const pIndex = api.mapsPartyRoster(DATA);
+ok(pIndex.factions.length === 21, `roster covers every faction (${pIndex.factions.length})`);
+ok(pIndex.roster.disaster_inc.has('archie_miser'), 'filed crew roster names archie');
+ok(pIndex.roster.undertale_monsters.has('sans'), 'character.faction files sans with the underground');
+ok(api.mapsShortParty(pIndex.factions.find(f => f.id === 'disaster_inc')) === 'Disaster Inc.', 'party picker shortens the disputed name');
+const surveyPar = api.mapsEventParties(EVENTS.find(e => e.id === 'mount_ebott_survey_mission'), pIndex);
+ok(surveyPar.has('undertale_monsters') && surveyPar.has('iron_legion'), 'party link blends roster (sans) and rep-touch (legion)');
+const dis = api.buildJourney('midlands_full', 'all', DATA, MAP_DATA, { party: 'disaster_inc' });
+ok(dis.stops.length === 43 && dis.stops.length < j.stops.length, `disaster inc owns a real midlands trail (${dis.stops.length} stops)`);
+const disIds = [...dis.stops, ...dis.unpinned, ...dis.unresolved].map(x => x.eventId);
+ok(disIds.length === 73 && new Set(disIds).size === 73, 'a filtered journey still buckets every party event exactly once');
+ok(dis.stops.every((s, i) => s.n === i + 1), 'filtered stops renumber 1..N in display order');
+const pea = api.buildJourney('midlands_full', 'all', DATA, MAP_DATA, { party: 'peach_loyalists' });
+ok(pea.stops.length === 0 && pea.unpinned.length + pea.unresolved.length === 3, 'a party with no midlands stops degrades to the unplotted list, honestly');
+const newJ = api.buildJourney('midlands_full', 'all', DATA, MAP_DATA, { sort: 'newest' });
+ok(newJ.stops[0].eventId === j.stops[j.stops.length - 1].eventId && newJ.stops[newJ.stops.length - 1].eventId === j.stops[0].eventId,
+  'newest-first is exactly the chronology rewound');
+const azJ = api.buildJourney('midlands_full', 'all', DATA, MAP_DATA, { sort: 'az' });
+ok(azJ.stops.every((s, i, arr) => i === 0 || String(arr[i - 1].name).localeCompare(s.name) <= 0), 'A–Z sorts by event name');
+const plJ = api.buildJourney('midlands_full', 'all', DATA, MAP_DATA, { sort: 'place' });
+ok(plJ.stops.every((s, i, arr) => i === 0 || String(arr[i - 1].locationName).localeCompare(s.locationName) <= 0), 'place sort groups the trail by location');
+const disNew = api.buildJourney('midlands_full', 'all', DATA, MAP_DATA, { party: 'disaster_inc', sort: 'newest' });
+ok(disNew.stops[0].eventId === dis.stops[dis.stops.length - 1].eventId, 'party and sort compose');
+ok(Object.keys(api.MAPS_JOURNEY_SORTS).join(',') === 'chron,newest,az,place', 'four sorts on the menu');
 
 console.log(`\n${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);
