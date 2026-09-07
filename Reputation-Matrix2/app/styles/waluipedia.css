@@ -2318,3 +2318,65 @@ input:focus, textarea:focus, select:focus, button:focus-visible {
 .rep-dormant-chip{font-size:11.5px;padding:3px 9px;border-radius:20px;border:1px solid var(--border);color:var(--muted);cursor:pointer;white-space:nowrap}
 .rep-dormant-chip:hover{color:var(--text);border-color:var(--accent)}
 .rep-fc-desc{font-size:12.5px;color:var(--muted);margin:6px 0;line-height:1.5}
+
+/* ================= READING FIRST: full-width record pages =================
+   Event and battle pages have no side rail, so every toolbox that other
+   article types tuck into that rail used to stack in the main column between
+   the headline and the first line of prose. A reader who came to read a story
+   met participants, an XP ledger, faith, a derived legal-friction table, intel
+   effects and the case-file panel before a single sentence of it.
+
+   The reading matter now runs uninterrupted. The apparatus is emitted after
+   the last line, grouped into .apparatus-band tabs. These rules do the other
+   half of the job: give the prose a comfortable measure and rhythm, and make
+   the band read as reference material rather than as more article. */
+
+/* ---- measure ----
+   Unbounded line length is the single biggest readability cost of a full-width
+   page: ~75ch is the classic comfortable target. The band, tables, figures and
+   infographics stay full-bleed — only running text is constrained. */
+.record-wide-layout .prose{max-width:75ch}
+.record-wide-layout .prose > p,
+.record-wide-layout .prose > ul,
+.record-wide-layout .prose > ol,
+.record-wide-layout .prose > blockquote{max-width:75ch}
+.record-wide-layout .art-subtitle{max-width:70ch}
+
+/* ---- rhythm ----
+   Slightly larger type, looser leading and real space between paragraphs.
+   Long sessions are read for many minutes; 1.5 leading is too tight for that. */
+.record-wide-layout .prose{font-size:17px;line-height:1.72}
+.record-wide-layout .prose p{margin:0 0 1.05em}
+.record-wide-layout .prose h2{margin-top:2.1em;margin-bottom:.55em;font-size:23px}
+.record-wide-layout .prose h3{margin-top:1.6em;margin-bottom:.4em;font-size:18.5px}
+.record-wide-layout .prose li{margin-bottom:.42em;line-height:1.65}
+.record-wide-layout .prose blockquote{margin:1.4em 0}
+/* A first paragraph that starts hard against the headline reads as a caption. */
+.record-wide-layout .prose > p:first-child{margin-top:.2em}
+
+/* ---- the apparatus band ---- */
+.apparatus-band{margin:34px 0 0;padding-top:22px;border-top:2px solid var(--border)}
+.apparatus-band--single{border-top:2px solid var(--border)}
+.app-band-head h2{margin:0 0 3px;font-size:20px;color:var(--accent)}
+.app-band-head p{margin:0 0 14px;color:var(--muted);font-size:13.5px;line-height:1.55;max-width:70ch}
+
+.app-tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px;
+  border-bottom:1px solid var(--border);padding-bottom:10px}
+.app-tab{appearance:none;cursor:pointer;font:inherit;font-size:13px;font-weight:700;
+  color:var(--muted);background:var(--panel2);border:1px solid var(--border);
+  border-radius:999px;padding:7px 14px;transition:color .12s,border-color .12s,background .12s}
+.app-tab:hover{color:var(--text);border-color:var(--accent)}
+.app-tab.is-on{color:#fff;background:var(--accent);border-color:var(--accent)}
+.app-tab:focus-visible{outline:2px solid var(--accent2);outline-offset:2px}
+
+.app-pane{display:none}
+.app-pane.is-on{display:block;animation:appFade .16s ease}
+@keyframes appFade{from{opacity:0;transform:translateY(3px)}to{opacity:1;transform:none}}
+/* Panels inside the band already carry their own card chrome; a card inside a
+   card reads as a mistake, so flatten the outer frame. */
+.app-pane > .card{margin-bottom:0;box-shadow:none}
+.app-pane > .card:only-child{border:0;padding:0;background:transparent}
+
+@media(max-width:900px){
+  .record-wide-layout .prose{font-size:16.5px;line-height:1.68}
+}

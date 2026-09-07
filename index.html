@@ -5813,6 +5813,68 @@ function recordSummaryBand(item,infoRows,toc){
   if(!toc) return '';
   return `<div class="record-summary">${toc||''}</div>`;
 }
+/* ---------- the apparatus band ----------
+   Event and battle pages are full-width, so every toolbox that other article
+   types keep in a side rail used to stack in the main column BETWEEN the
+   headline and the first line of prose: participants, the XP ledger, faith,
+   the legal-friction table, intel effects, the case file, the quest panel.
+   A reader arriving to read a story met roughly two screens of apparatus
+   first, and the two that hurt most were the ones nobody reads inline —
+   "Law in Play" (derived, not authored) and the connected-file panel.
+
+   The reading matter now runs uninterrupted from the headline to the last
+   line. The apparatus follows it, grouped into tabs so it occupies one screen
+   instead of six. Nothing is deleted and nothing moves off the page: the XP
+   ledger keeps its #xp-session anchor so the filing desk's XP tile still lands
+   on it, and every panel is one click away rather than in the way. */
+function recordApparatusBand(item,typeKey){
+  const tabs=[];
+  const add=(key,icon,label,html)=>{ if(html && String(html).trim()) tabs.push({key,icon,label,html}); };
+
+  add('session','👥','Session',  (typeof eventPeopleAndXpPanel==='function')?eventPeopleAndXpPanel(item):'');
+  add('file','🔍','Case file',   (typeof renderConnectedInvestigationsPanel==='function')?renderConnectedInvestigationsPanel(item.id,typeKey):'');
+  add('law','⚖️','Law & faith',  (faithPanel(item)||'')+(legalFrictionPanel(item,typeKey)||''));
+  add('intel','📡','Intel',      intelEffectPanel(item,typeKey)||'');
+  add('quests','🧭','Quests',    (typeof renderConnectedQuestsPanel==='function')?renderConnectedQuestsPanel(item.id,typeKey):'');
+
+  if(!tabs.length) return '';
+  /* One panel is not a tab strip — render it plainly. */
+  if(tabs.length===1) return `<div class="apparatus-band apparatus-band--single">${tabs[0].html}</div>`;
+
+  const btns=tabs.map((t,i)=>`<button type="button" class="app-tab${i?'':' is-on'}" role="tab"
+      aria-selected="${i?'false':'true'}" aria-controls="app-pane-${esc(t.key)}"
+      onclick="selectApparatusTab(this,'${esc(t.key)}')"><span aria-hidden="true">${t.icon}</span> ${esc(t.label)}</button>`).join('');
+  const panes=tabs.map((t,i)=>`<div class="app-pane${i?'':' is-on'}" id="app-pane-${esc(t.key)}" role="tabpanel">${t.html}</div>`).join('');
+
+  return `<div class="apparatus-band">
+    <div class="app-band-head">
+      <h2>🗄️ The file behind this record</h2>
+      <p>Everything the archive holds around the story — who was there, what it paid, and the paper it rests on.</p>
+    </div>
+    <div class="app-tabs" role="tablist">${btns}</div>
+    <div class="app-panes">${panes}</div>
+  </div>`;
+}
+function selectApparatusTab(btn,key){
+  const band=btn.closest('.apparatus-band'); if(!band) return;
+  band.querySelectorAll('.app-tab').forEach(b=>{ const on=b===btn;
+    b.classList.toggle('is-on',on); b.setAttribute('aria-selected',on?'true':'false'); });
+  band.querySelectorAll('.app-pane').forEach(p=>p.classList.toggle('is-on',p.id==='app-pane-'+key));
+}
+/* The XP tile on the filing desk scrolls to #xp-session, which now lives inside
+   a tab that may not be the open one. Reveal its tab before scrolling. */
+function revealApparatusAnchor(anchorId){
+  const n=document.getElementById(anchorId); if(!n) return null;
+  const pane=n.closest('.app-pane');
+  if(pane && !pane.classList.contains('is-on')){
+    const band=pane.closest('.apparatus-band');
+    const key=pane.id.replace(/^app-pane-/,'');
+    const btn=band&&band.querySelector(`.app-tab[aria-controls="app-pane-${key}"]`);
+    if(btn) selectApparatusTab(btn,key);
+  }
+  return n;
+}
+
 function articleRail(articleId,typeKey,item,infoRows,toc,opts){
   /* `wide` mode serves the full-width event/battle pages */
   const wide=!!(opts&&opts.wide);
@@ -11716,13 +11778,13 @@ function view_article(id){
      ${versionBarHtml}
      ${leadHtml}${typeKey==='races'?raceDossierPanel(item):''}${audioHtml}
      ${locationMapPreview(item,typeKey)}
-     ${(typeKey==='events'||typeKey==='battles')?eventPeopleAndXpPanel(item):''}${faithPanel(item)}${legalFrictionPanel(item,typeKey)}${intelEffectPanel(item,typeKey)}
+     ${wideRecord?'':(faithPanel(item)+legalFrictionPanel(item,typeKey)+intelEffectPanel(item,typeKey))}
      ${typeKey==='nations'?`<div class="chips" style="margin:8px 0 16px"><span class="chip active">Classic article</span><span class="chip" onclick="Router.go('#/atlas/${encodeURIComponent(item.id)}')">Open Atlas dashboard</span></div>${claimantRegimePanel(item)}${nationOverview(item)}`:''}
      ${typeKey==='factions'?factionSystemBanner(item.id):''}
      ${typeKey==='battles'?battleVsInfographic(item)+battleDossier(item):''}
      ${(typeKey==='factions'||typeKey==='characters')?relationGraph(item):''}
      ${typeKey==='factions'?`<div id="faction-power-projection-container"></div>`:''}
-${typeKey==='characters'?renderArticleOperatorReputation(item.id):''}${typeKey==='characters'?injuryPanel(item):''}${typeKey==='factions'?renderArticleFactionReputation(item.id):''}${(typeKey==='factions'||typeKey==='nations')?renderRelatedCongressVotes(item):''}${typeof renderConnectedInvestigationsPanel === 'function' ? renderConnectedInvestigationsPanel(item.id, typeKey) : ''}${typeof renderConnectedQuestsPanel === 'function' ? renderConnectedQuestsPanel(item.id, typeKey) : ''}
+${typeKey==='characters'?renderArticleOperatorReputation(item.id):''}${typeKey==='characters'?injuryPanel(item):''}${typeKey==='factions'?renderArticleFactionReputation(item.id):''}${(typeKey==='factions'||typeKey==='nations')?renderRelatedCongressVotes(item):''}${wideRecord?'':((typeof renderConnectedInvestigationsPanel === 'function' ? renderConnectedInvestigationsPanel(item.id, typeKey) : '')+(typeof renderConnectedQuestsPanel === 'function' ? renderConnectedQuestsPanel(item.id, typeKey) : ''))}
      ${summaryBand}
      <div class="prose">${applyAnnotations(mdToHtml(bodyMain,item.id), item.id)}</div>
      ${sectionsHtml}
@@ -11732,6 +11794,7 @@ ${typeKey==='characters'?renderArticleOperatorReputation(item.id):''}${typeKey==
      ${item.waluigiAssessment?`<h2 id="h-assessment">Waluigi's Assessment</h2><div class="wnote wassessment">${applyAnnotations(mdToHtml(item.waluigiAssessment,item.id), item.id)}</div>`:''}
      ${relChips?`<h2 id="h-related">Related Articles</h2><div class="related-list">${relChips}</div>`:''}
      ${typeof rnnCoveragePanel==='function'?rnnCoveragePanel(item.id):''}
+     ${wideRecord?recordApparatusBand(item,typeKey):''}
      ${sessionNavHtml(item.id)}
    </div>${exhibitTilesHtml(propsForArticle(item.id),{heading:'🗂️ Documents behind this record',blurb:'The paperwork this account is built on. Click any one to read it as filed.'})}${wideRecord?railHtml+'</div>':`</div>${railHtml}`}</div>`;
   setArticleAccent(typeKey);
@@ -12923,7 +12986,8 @@ function openHub(id){
 function hubGo(route,anchor){
   Router.go(route);
   if(!anchor) return;
-  setTimeout(()=>{ const n=document.getElementById(anchor);
+  setTimeout(()=>{ const n=(typeof revealApparatusAnchor==='function')
+      ? revealApparatusAnchor(anchor) : document.getElementById(anchor);
     if(n) n.scrollIntoView({behavior:'smooth',block:'start'}); },80);
 }
 

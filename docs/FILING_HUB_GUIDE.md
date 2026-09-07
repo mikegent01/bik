@@ -105,3 +105,53 @@ The whole panel was rebuilt from inline styles onto classes
 (`.connected-file`, `.cf-*`, `.cfx-*`) in
 `Reputation-Matrix2/app/styles/systems/investigations.css`, so row rhythm, the
 exhibit two-column grid and the zebra striping can be changed in one place.
+
+
+## Reading first: the apparatus band
+
+Event and battle pages are full-width and have no side rail, so every toolbox
+that other article types tuck into that rail used to stack in the main column
+**between the headline and the first line of prose**: participants, the XP
+ledger, faith, the derived "Law in Play" table, intel effects, the case-file
+panel and the quest panel. A reader who arrived to read a story met roughly two
+screens of apparatus before a single sentence of it.
+
+`recordApparatusBand(item, typeKey)` now emits all of it **after** the reading
+matter, grouped into tabs:
+
+| Tab | Contents |
+|---|---|
+| 👥 Session | participants + the XP ledger (`#xp-session` lives here) |
+| 🔍 Case file | the connected-investigations panel |
+| ⚖️ Law & faith | faith panel + legal friction |
+| 📡 Intel | intel effects |
+| 🧭 Quests | connected quests |
+
+Rules it follows:
+
+- **Nothing is deleted and nothing leaves the page.** Every panel is one click
+  away instead of in the way.
+- **Empty panels produce no tab.** A record with no intel effects has no Intel
+  tab, so the strip is never padded with dead ends.
+- **One panel is not a tab strip.** A single surviving panel renders plainly as
+  `.apparatus-band--single`.
+- **Only wide records defer.** Character, faction and nation pages still render
+  these inline, because they have a side rail and never had the problem. Each
+  panel is therefore emitted exactly once per page.
+- **The XP anchor still works.** The desk's XP tile scrolls to `#xp-session`,
+  which may now sit inside a closed tab, so `revealApparatusAnchor()` opens the
+  owning tab before `hubGo()` scrolls.
+
+### Reading CSS
+
+`.record-wide-layout` rules in `waluipedia.css` do the other half:
+
+- **Measure** — running text is capped at `75ch`. Unbounded line length is the
+  biggest readability cost of a full-width page. Tables, figures, infographics
+  and the band stay full-bleed; only prose is constrained.
+- **Rhythm** — 17px at 1.72 leading with `1.05em` between paragraphs, and real
+  space above headings. These sessions are read for many minutes and 1.5 leading
+  is too tight for that.
+- **Band chrome** — pill tabs, and a card inside a card is flattened
+  (`.app-pane > .card:only-child`) so the band reads as reference rather than as
+  more article.
