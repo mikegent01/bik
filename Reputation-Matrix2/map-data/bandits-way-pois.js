@@ -7,6 +7,7 @@ export const banditsWayData = {
             x: 63.5,
             y: 60.0,
             type: 'fortress',
+            articleId: 'bowsers_castle',
             name: "Bowser's Castle",
             description: "The iconic, lava-moated fortress of the Koopa King. While situated in a lawless land, the castle and its immediate territory are under the absolute authority of Bowser. The 'Law of the King' is brutally enforced here, a pocket of violent order in a sea of chaos.",
             factionId: 'koopa_troop',

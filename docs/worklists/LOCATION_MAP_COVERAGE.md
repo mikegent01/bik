@@ -165,6 +165,45 @@ Dreamland/Star Haven/Astral, Undercity, Dread Mansion, Wariocopter,
 Forgotten Temple) — the tool's `--check` output replaces the hand-counted
 list above it going forward.
 
+## Journey-cartography pass (2026-09-07)
+
+The `#/maps` journey mode only plotted events whose filed location string
+matched a record verbatim, so whole arcs (Dragon Mountain sessions, the
+Feyward/Shadeward manor arcs, the Ebott survey, the Mushroom capital
+records) fell into "not on this sheet". This pass closed that gap three ways:
+
+1. **7 new location records** (`dragon_mountain`, `ravencreek`,
+   `imperial_diet`, `ferngrove_manor`, `thornwood_ruined_manor`,
+   `bowsers_castle`, `gadd_science_laboratory`) — 62 → **69 articles**,
+   all classifier-verdict `material` / medium confidence or better.
+2. **4 pins linked** via `articleId` (Imperial Diet 82.5,2; Ravencreek
+   battlefield 34,44; Bowser's Castle 63.5,60; Gadd's lab 62,47) —
+   46 → **50 / 69 plotted**.
+3. **Filed-name alias tier** (tier 5.5, 26 entries, earliest-position):
+   "Darkland" → the castle seat, "Snowdin" → Snowdin Town, "Shadow Estate
+   Dining Hall" → the estate, and the rest. `MAPS_LOCATION_ALIASES` in
+   `index.html` MUST mirror `LOCATION_ALIASES` in
+   `tools/classify-location-planes.py` — parity is verified 115/115 events,
+   grow-only vs baseline (37 newly resolved, 0 lost).
+
+Journey coverage is now **69 pinned / 19 unpinned / 27 unresolved** (was
+40 / 11 / 64); the Midlands trail runs **55 stops**. The remaining queue is
+19, headed by the Ebott sheet-less cluster (`mount_ebott`, `snowdin_town`,
+`mount_ebot`, `the_ruins_mount_ebott`, `snowdin_police_station`,
+`the_core_underground`) — those need a painted Ebott sheet, not more records.
+
+Renderer lenses shipped in the same pass (`atlas-map-v2.js?v=map7`): journey
+mode mounts trail-only, the four stat modes tint pins/buttons per lens
+(green/red/gold/violet), the detail panel surfaces filed extras (unrest and
+antiquity /10, intel clearance incl. `{faction, level}` postings, library
+notes, non-material plane tags), and a 📖 toggle filters to wiki-linked pins.
+
+**Which tool finishes the queue?** There is no one-shot filer — x/y needs
+eyes on the painted sheet. The loop is `node
+tools/check-location-map-coverage.mjs` (the queue) plus `python3
+tools/classify-location-planes.py --check` (journey impact per missing pin),
+then the filing procedure below.
+
 ## Filing a new pin (the procedure this pass followed)
 
 ```text

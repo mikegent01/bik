@@ -50,6 +50,7 @@ export const boosWoodsData = {
             x: 62.00,
             y: 47.00,
             type: 'workshop',
+            articleId: 'gadd_science_laboratory',
             name: "E. Gadd's Abandoned Lab",
             description: "The dilapidated former laboratory of the famed paranormal researcher, Professor E. Gadd. It is filled with his early, unstable ghost-hunting inventions, many of which now activate at random, with chaotic results.",
             factionId: 'unaligned',

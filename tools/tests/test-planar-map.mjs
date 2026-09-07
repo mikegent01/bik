@@ -118,7 +118,10 @@ ok(R('Ruins of Shadow Pass, within the borders of Mordor') === 'ruins_of_shadow_
 ok(R('The False Meadow / Color-Tile Grid, Mount Ebott Underground') === 'mount_ebott', 'ebott matches; ebot stays out on the word boundary');
 ok(R('Mount Ebot') === 'mount_ebot', 'the wrong mountain still resolves to itself');
 ok(R('quantum computing core') === '', 'no fuzzy match on prose that merely sounds close');
-ok(R('Dragon Mountain') === '', 'maps without location records resolve nowhere');
+ok(R('Dragon Mountain') === 'dragon_mountain', 'newly filed records resolve (dragon mountain)');
+ok(R('Darkland') === 'bowsers_castle', 'alias tier: darkland routes to the castle seat');
+ok(R('Snowdin') === 'snowdin_town', 'alias tier: snowdin routes to snowdin town');
+ok(R('Shadow Estate Dining Hall') === 'shadow_estate', 'alias tier: dining hall routes to the estate');
 ok(R('') === '' && R(null) === '', 'empty fields resolve nowhere');
 
 /* ---- 3. journey building ---- */
@@ -131,7 +134,7 @@ ok(api.mapsPlanesOnSheet('mushroom_kingdom_full', MAP_DATA).map(l => l.id).join(
 
 const cmpKey = (x, y) => x.key[0] - y.key[0] || x.key[1] - y.key[1] || x.key[2] - y.key[2] || x.key[3] - y.key[3];
 const j = api.buildJourney('midlands_full', 'all', DATA, MAP_DATA);
-ok(j.stops.length >= 20, `midlands journey plots a real trail (${j.stops.length} stops)`);
+ok(j.stops.length >= 50, `midlands journey plots a real trail (${j.stops.length} stops)`);
 ok(j.stops.every((s, i) => s.n === i + 1), 'stop numbers run 1..N in order');
 ok(j.stops.every((s, i, arr) => i === 0 || cmpKey(arr[i - 1], s) <= 0), 'stops sort by date, filing order breaking ties');
 const belly = j.stops.find(s => s.eventId === 'the_belly_of_the_beast');

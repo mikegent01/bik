@@ -76,6 +76,7 @@ export const lockerwoodData = {
             x: 34.0,
             y: 44.0,
             type: 'battlefield',
+            articleId: 'ravencreek',
             name: "Fields of Ravencreek",
             description: "The site of a bloody battle between the Moonfang Pack and the Onyx Hand. It is a lawless no-man's-land, where the only rule is survival.",
             factionId: 'unaligned',

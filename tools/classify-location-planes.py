@@ -380,6 +380,42 @@ def _is_word_char(ch: str) -> bool:
     return ch.isalnum() or ch == "_"
 
 
+# Filed-name aliases: events were filed under strings that do not match any
+# location record's filed name ("Shadow Estate Dining Hall" vs "The Shadow
+# Estate", "Feyward Manor" vs "The Overgrown Manor", "Darkland" vs the seat
+# at Bowser's Castle). Each alias competes by earliest position like every
+# other rule, at tier 5.5 — a full filed name at the same spot always wins.
+# MUST mirror MAPS_LOCATION_ALIASES in index.html exactly.
+LOCATION_ALIASES = [
+    ("shadow estate", "shadow_estate"),
+    ("shadeward manor", "shadow_estate"),
+    ("feyward manor", "overgrown_manor"),
+    ("ferngrove", "ferngrove_manor"),
+    ("planar sanctum", "darius_sanctum"),
+    ("corvinarus sanctum", "darius_sanctum"),
+    ("aegis command", "aegis_command"),
+    ("alpine mountain inn", "alpine_mountain_inn"),
+    ("astral altar", "astral_altar"),
+    ("snowdin", "snowdin_town"),
+    ("hotland", "hotland_portals"),
+    ("ruined manor", "thornwood_ruined_manor"),
+    ("thornwood", "thornwood_ruined_manor"),
+    ("midlands diet", "imperial_diet"),
+    ("imperial diet", "imperial_diet"),
+    ("ravencreek", "ravencreek"),
+    ("dragon mountain", "dragon_mountain"),
+    ("mushroom kingdom royal capital", "ruins_of_the_mushroom_capitol"),
+    ("mushroom kingdom capital", "ruins_of_the_mushroom_capitol"),
+    ("mushroom kingdom royal palace", "peachs_castle"),
+    ("valley of bowser", "bowsers_castle"),
+    ("bowser's castle", "bowsers_castle"),
+    ("darkland", "bowsers_castle"),
+    ("gadd", "gadd_science_laboratory"),
+    ("grove of woe", "raventree_manor"),
+    ("tree of woe", "raventree_manor"),
+]
+
+
 def resolve_event_location(location_field: str, by_id: set[str],
                            by_name: dict[str, str],
                            name_keys: list[tuple[str, str]] | None = None) -> str:
@@ -420,6 +456,20 @@ def resolve_event_location(location_field: str, by_id: set[str],
                     cands.append((i, 5, -len(key), lid))
                     break
                 start = i + 1
+    for frag, lid in LOCATION_ALIASES:
+        if lid not in by_id:
+            continue
+        start = 0
+        while True:
+            i = low.find(frag, start)
+            if i < 0:
+                break
+            before = low[i - 1] if i > 0 else " "
+            after = low[i + len(frag)] if i + len(frag) < len(low) else " "
+            if not _is_word_char(before) and not _is_word_char(after):
+                cands.append((i, 5.5, -len(frag), lid))
+                break
+            start = i + 1
     if cands:
         cands.sort()
         return cands[0][3]

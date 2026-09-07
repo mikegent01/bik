@@ -15,11 +15,14 @@ const WIKI_IDS = {
   poi_mp_warp_pipe_junction: 'warp_pipe_junction',
 };
 
+/* Stat lenses: each mode tints its buttons AND its pins, so Population, */
+/* Military, Economy, and Influence read as four different maps. Faction  */
+/* identity moves to the detail panel, where it was always listed anyway. */
 const MODES = {
-  population: ['Population', 'population'],
-  military: ['Military', 'military_strength'],
-  economy: ['Economy', 'economic_value'],
-  influence: ['Influence', 'political_influence'],
+  population: { label: 'Population', key: 'population', color: '#4ade80', unit: 'residents' },
+  military: { label: 'Military', key: 'military_strength', color: '#f87171', unit: 'garrison' },
+  economy: { label: 'Economy', key: 'economic_value', color: '#fbbf24', unit: 'trade value' },
+  influence: { label: 'Influence', key: 'political_influence', color: '#a78bfa', unit: 'influence' },
 };
 
 /* Planar layers (cartography desk): a POI's `plane` tag decides which layer
@@ -76,11 +79,13 @@ function clusterPois(pois, radius = 1.15) {
   return clusters;
 }
 
-function model(mapId, plane) {
+function model(mapId, plane, onlyIds) {
   const map = MAP_DATA[mapId];
   if (!map) return null;
   let pois = (map.pointsOfInterest || []).filter(p => Number.isFinite(p.x) && Number.isFinite(p.y));
   if (plane && plane !== 'all') pois = pois.filter(p => planeOf(p) === plane);
+  /* Journey mode: hide every surveyed pin except the stops that connect. */
+  if (onlyIds) pois = pois.filter(p => onlyIds.has(p.id));
   return { map, pois, population: pois.reduce((n, poi) => n + (Number(poi.population) || 0), 0) };
 }
 
@@ -103,8 +108,22 @@ function detailHtml(poi, pois) {
     .map(other => ({ other, d: Math.hypot((other.x || 0) - (poi.x || 0), (other.y || 0) - (poi.y || 0)) }))
     .filter(x => x.d < 12).sort((a, b) => a.d - b.d).slice(0, 5);
   const article = wikiId(poi);
+  /* Filed extras surface only where the POI record files them: unrest and */
+  /* antiquity are /10 ratings, intelReq is a clearance number or a        */
+  /* {faction, level} posting, and library_summary is the archive note.    */
+  const extras = [];
+  if (Number.isFinite(poi.crime_rate)) extras.push(['Unrest', `${poi.crime_rate}/10`]);
+  if (Number.isFinite(poi.age_of_antiquity)) extras.push(['Antiquity', `${poi.age_of_antiquity}/10`]);
+  if (poi.intelReq !== undefined && poi.intelReq !== null && poi.intelReq !== '') {
+    const req = poi.intelReq;
+    const reqText = (req && typeof req === 'object')
+      ? `clearance ${req.level ?? '?'}${req.faction ? ` · ${humanize(req.faction)}` : ''}`
+      : `clearance ${req}`;
+    extras.push(['Intel req.', esc(reqText)]);
+  }
+  const planeTag = planeOf(poi) === 'material' ? '' : ` · ${PLANE_LABELS[planeOf(poi)] || planeOf(poi)}`;
   return `<article class="atlas-v2-detail">
-    <span class="atlas-v2-kicker">${esc(poi.type || 'location')}</span>
+    <span class="atlas-v2-kicker">${esc(poi.type || 'location')}${esc(planeTag)}</span>
     <h3>${esc(poi.name)}</h3>
     <p>${esc(poi.description || 'No field report filed.')}</p>
     <div class="atlas-v2-faction"><i style="background:${esc(faction.color)}"></i>${esc(faction.name)}</div>
@@ -113,7 +132,9 @@ function detailHtml(poi, pois) {
       <div><dt>Military</dt><dd>${format(poi.military_strength)}</dd></div>
       <div><dt>Economy</dt><dd>${format(poi.economic_value)}</dd></div>
       <div><dt>Influence</dt><dd>${format(poi.political_influence)}</dd></div>
+      ${extras.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${v}</dd></div>`).join('')}
     </dl>
+    ${poi.library_summary ? `<p class="atlas-v2-library">📚 ${esc(poi.library_summary)}</p>` : ''}
     ${article ? `<button class="atlas-v2-wiki" data-open-article="${esc(article)}">Open wiki article</button>` : ''}
     ${nearby.length ? `<div class="atlas-v2-nearby"><b>Nearby</b>${nearby.map(x => `<button data-jump="${esc(x.other.id)}">${esc(x.other.name)} <span>${x.d.toFixed(1)}</span></button>`).join('')}</div>` : ''}
   </article>`;
@@ -121,7 +142,13 @@ function detailHtml(poi, pois) {
 
 export function mountAtlasMapV2(host, mapId, opts = {}) {
   const plane = (opts.plane && opts.plane !== 'all') ? opts.plane : '';
-  const data = model(mapId, plane);
+  /* Journey mode mounts trail-only: every surveyed pin that is not a stop */
+  /* stays out of the model, so clusters, counts, and filters all agree.  */
+  /* With no stops on this sheet the filter would blank the map, so an    */
+  /* empty trail falls back to the full survey.                           */
+  const stopIds = new Set((opts.journey || []).filter(s => s && s.poiId).map(s => s.poiId));
+  const journeyOnly = !!opts.journeyOnly && stopIds.size > 0;
+  const data = model(mapId, plane, journeyOnly ? stopIds : null);
   if (!data) {
     host.innerHTML = '<div class="atlas-v2-error">This map record is unavailable.</div>';
     return null;
@@ -140,7 +167,8 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
      Raventree reflections are ~0.5 apart); the full-sheet radius would fuse
      the whole Feyward layer into one dot, so cluster tightly instead. */
   const clusters = clusterPois(pois, plane ? 0.3 : 1.15);
-  const pinWord = plane ? `${PLANE_LABELS[plane] || plane} pins` : 'surveyed pins';
+  const pinWord = journeyOnly ? 'journey stops · Survey holds the full survey'
+    : plane ? `${PLANE_LABELS[plane] || plane} pins` : 'surveyed pins';
 
   host.innerHTML = `<section class="atlas-v2" aria-label="${esc(map.name)} tactical map">
     <header>
@@ -158,10 +186,11 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
     <div class="atlas-v2-tools">
       <input type="search" data-search placeholder="Search mapped locations…">
       <select data-type><option value="">All types</option>${types.map(t => `<option value="${esc(t)}">${esc(humanize(t))}</option>`).join('')}</select>
+      <button type="button" data-action="wiki" title="Show only pins that open a wiki article">📖 Wiki</button>
       <span data-visible>${pois.length} markers</span>
     </div>
     <div class="atlas-v2-modes">
-      ${Object.entries(MODES).map(([id, [label]]) => `<button type="button" class="${id === 'population' ? 'active' : ''}" data-mode="${id}">${label}</button>`).join('')}
+      ${Object.entries(MODES).map(([id, m]) => `<button type="button" class="${id === 'population' ? 'active' : ''}" data-mode="${id}" style="--mode:${m.color}">${m.label}</button>`).join('')}
       <b data-mode-total>${format(population)} residents</b>
     </div>
     <div class="atlas-v2-layout">
@@ -172,7 +201,7 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
             <div class="atlas-v2-overlay" data-overlay></div>
           </div>
         </div>
-        <div class="atlas-v2-legend"><span><i></i>Faction-colored pins on the artwork</span><span>${esc(map.group || '')}</span></div>
+        <div class="atlas-v2-legend"><span data-legend-lens></span><span>${esc(map.group || '')}</span></div>
       </main>
       <aside class="atlas-v2-sidebar">${detailHtml(null, pois)}</aside>
     </div>
@@ -183,7 +212,7 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
   const world = host.querySelector('.atlas-v2-world');
   const viewport = host.querySelector('.atlas-v2-viewport');
   const sidebar = host.querySelector('.atlas-v2-sidebar');
-  const state = { scale: 1, tx: 0, ty: 0, box: { left: 0, top: 0, w: 1, h: 1 }, mode: 'population', selected: null };
+  const state = { scale: 1, tx: 0, ty: 0, box: { left: 0, top: 0, w: 1, h: 1 }, mode: 'population', selected: null, wikiOnly: false };
 
   function hull() {
     if (isFull || pois.length < 2) return { minX: 0, minY: 0, maxX: 100, maxY: 100 };
@@ -236,17 +265,20 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
     overlay.style.top = `${top}px`;
     overlay.style.width = `${w}px`;
     overlay.style.height = `${h}px`;
-    const max = Math.max(1, ...pois.map(p => Number(p[MODES[state.mode][1]]) || 0));
+    const lens = MODES[state.mode];
+    const lensEl = host.querySelector('[data-legend-lens]');
+    if (lensEl) lensEl.innerHTML = `<i style="background:${lens.color}"></i>${esc(lens.label)}-weighted pins on the artwork`;
+    const max = Math.max(1, ...pois.map(p => Number(p[lens.key]) || 0));
     overlay.innerHTML = journeyPathSvg() + clusters.map(group => {
       const poi = group[0];
       const faction = factionMeta(poi.factionId);
-      const intensity = Math.min(1, (Number(poi[MODES[state.mode][1]]) || 0) / max);
+      const intensity = Math.min(1, (Number(poi[lens.key]) || 0) / max);
       const extra = group.length > 1 ? `<em>${group.length}</em>` : '';
       const groupStops = group.map(g => stopByPoi.get(g.id)).filter(Boolean);
       const badge = groupStops.length === 1 ? `<b class="atlas-v2-stop">${esc(groupStops[0].n)}</b>`
         : groupStops.length > 1 ? `<b class="atlas-v2-stop atlas-v2-stop-multi">${groupStops.length}</b>` : '';
       const ids = group.map(g => g.id).join(',');
-      return `<button type="button" class="atlas-v2-marker${groupStops.length ? ' journey' : ''}" data-ids="${esc(ids)}" data-poi="${esc(poi.id)}" style="left:${poi.x}%;top:${poi.y}%;--marker:${esc(faction.color)};--intensity:${intensity}" title="${esc(group.map(g => g.name).join(', '))}"><span>${faction.icon}</span>${extra}${badge}</button>`;
+      return `<button type="button" class="atlas-v2-marker${groupStops.length ? ' journey' : ''}" data-ids="${esc(ids)}" data-poi="${esc(poi.id)}" style="left:${poi.x}%;top:${poi.y}%;--marker:${lens.color};--intensity:${intensity}" title="${esc(group.map(g => g.name).join(', '))}"><span>${faction.icon}</span>${extra}${badge}</button>`;
     }).join('');
     overlay.querySelectorAll('[data-poi]').forEach(btn => {
       btn.addEventListener('click', ev => {
@@ -311,7 +343,7 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
     overlay.querySelectorAll('[data-poi]').forEach(pin => {
       const ids = (pin.dataset.ids || pin.dataset.poi).split(',');
       const group = ids.map(id => pois.find(p => p.id === id)).filter(Boolean);
-      const visible = group.some(poi => (!query || `${poi.name} ${poi.description || ''}`.toLowerCase().includes(query)) && (!type || poi.type === type));
+      const visible = group.some(poi => (!query || `${poi.name} ${poi.description || ''}`.toLowerCase().includes(query)) && (!type || poi.type === type) && (!state.wikiOnly || wikiId(poi)));
       pin.hidden = !visible;
       if (visible) shown += group.length;
     });
@@ -335,10 +367,15 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
   host.querySelectorAll('[data-mode]').forEach(button => button.addEventListener('click', () => {
     state.mode = button.dataset.mode;
     host.querySelectorAll('[data-mode]').forEach(b => b.classList.toggle('active', b === button));
-    const [label, key] = MODES[state.mode];
-    host.querySelector('[data-mode-total]').textContent = `${format(pois.reduce((n, p) => n + (Number(p[key]) || 0), 0))} ${label.toLowerCase()}`;
+    const lens = MODES[state.mode];
+    host.querySelector('[data-mode-total]').textContent = `${format(pois.reduce((n, p) => n + (Number(p[lens.key]) || 0), 0))} ${lens.unit}`;
     placePins();
   }));
+  host.querySelector('[data-action="wiki"]').addEventListener('click', event => {
+    state.wikiOnly = !state.wikiOnly;
+    event.currentTarget.classList.toggle('active', state.wikiOnly);
+    applyFilter();
+  });
   host.querySelector('[data-search]').addEventListener('input', applyFilter);
   host.querySelector('[data-type]').addEventListener('change', applyFilter);
   host.querySelector('[data-action="labels"]').addEventListener('click', event => {

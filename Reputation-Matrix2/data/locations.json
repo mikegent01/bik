@@ -2980,5 +2980,194 @@
     "plane": "shadow",
     "planeConfidence": "high",
     "planeClue": "'scorncrow' x1 (region); 'shadow estate' x1 (region)"
+  },
+  {
+    "id": "dragon_mountain",
+    "name": "Dragon Mountain",
+    "type": "Location/Mountain / Crisis Ground Zero",
+    "region": "Central Midlands",
+    "controllingFaction": "unaffiliated",
+    "population": "Millions of dragons on the bad day; usually fewer",
+    "climate": "Alpine; thermally unpredictable when dragons are upset",
+    "status": "Standing; the site of the first day of the 1040 BF crisis",
+    "summary": "The mountain where Disaster Inc. established its pathological pattern on day one: millions of dragons, a Festival of Stars in nearby Edgeshade, and the Peebleton Caves underneath. Everything the group would become was already visible here, at full scale.",
+    "description": "Waluigi is documenting Dragon Mountain because the first day of the 1040 BF crisis happened on it and nobody else has documented it with the requisite combination of historical accuracy and ruthless psychological dissection. Young people without sufficient survival instincts climbed it because the Festival of Stars was scheduled that evening in nearby Edgeshade. What they found was millions of dragons, opportunistic cultists and slavers working the panic, and Hjumpik navigating a subterranean nightmare in the Peebleton Caves below. The collateral damage, the accidental heroism, and the sheer velocity of the bad decisions were all present on day one. The mountain has not apologized.",
+    "notableFeatures": [
+      "Festival of Stars (Edgeshade, nearby)",
+      "Peebleton Caves (subterranean approach)",
+      "Dragon population in the millions (event day)",
+      "First documented Disaster Inc. catastrophe"
+    ],
+    "relatedArticles": [
+      "session_1_dragon_mountain",
+      "waluigi",
+      "hjumpik",
+      "bowser"
+    ],
+    "plane": "material",
+    "planeConfidence": "medium",
+    "planeClue": "no planar markers — Material by default"
+  },
+  {
+    "id": "ravencreek",
+    "name": "Ravencreek",
+    "type": "Location/Town / Assembly Ground",
+    "region": "Central Midlands (Lockerwood approach)",
+    "controllingFaction": "unaffiliated",
+    "population": "Small town; exact count lost somewhere in the missing weeks",
+    "climate": "Temperate; mist-choked on the bad days",
+    "status": "Standing; the outskirts hosted the assembly of Disaster Inc.",
+    "summary": "The town whose outskirts hosted weeks of missing time, alchemical discovery, and bureaucratic loopholes while the core group of Disaster Inc. finally assembled into a single cohesive unit of mass destruction — before the road to Swiftsoul Keep.",
+    "description": "Waluigi is documenting Ravencreek because the transition from Ravencreek to Swiftsoul is where Disaster Inc. became Disaster Inc. The outskirts, Rakka's domicile, the Veilwood Spa, and the Mayor's Manor all feature in weeks of questionable decision-making that Waluigi has reconstructed from logistics gaps and psychological deterioration curves. The Fields of Ravencreek nearby remember an older bloodletting between the Moonfang Pack and the Onyx Hand; the town itself remembers the month the worst people it had ever met moved through and kept going. The blimp to Swiftsoul Keep departed from here, spiritually if not literally.",
+    "notableFeatures": [
+      "Ravencreek Outskirts (assembly ground)",
+      "Rakka's domicile",
+      "Veilwood Spa",
+      "Mayor's Manor",
+      "Fields of Ravencreek (older battlefield, nearby)"
+    ],
+    "relatedArticles": [
+      "session_2_ravencreek_to_swiftsoul",
+      "rakka",
+      "markop",
+      "remi_akamatsu_full_backstory"
+    ],
+    "plane": "material",
+    "planeConfidence": "medium",
+    "planeClue": "no planar markers — Material by default"
+  },
+  {
+    "id": "imperial_diet",
+    "name": "The Imperial Diet",
+    "type": "Location/Government / Parliament",
+    "region": "Mighdural, the Regal Capital (Central Midlands)",
+    "controllingFaction": "regal_empire",
+    "population": "Representatives from every Imperial province, plus staff, lobbyists, and spies",
+    "climate": "Indoors; politically humid",
+    "status": "In session; passing Imperial law under the Emperor's watchful eye",
+    "summary": "The grand parliamentary building in Mighdural where representatives from all Imperial provinces convene to debate, scheme, and formally pass Imperial law — including the Iron Mandate and the Supernatural Sovereignty Act of 1040 BF.",
+    "description": "Waluigi respects the Imperial Diet the way a tennis player respects a net: it is the obstacle the game is played around. Representatives from every province gather in Mighdural to convert intrigue into legislation, and in 1040 BF the machine produced the Iron Mandate and the Supernatural Sovereignty Act in short order. The building itself is grand, parliamentary, and stiff with protocol. Everything decided inside it eventually becomes someone else's problem outside it, usually within the week.",
+    "notableFeatures": [
+      "Grand parliamentary chamber",
+      "Provincial delegations",
+      "The Iron Mandate (1040 BF)",
+      "The Supernatural Sovereignty Act (1040 BF)",
+      "Mighdural capital district"
+    ],
+    "relatedArticles": [
+      "iron_mandate",
+      "supernatural_sovereignty_act",
+      "regal_empire"
+    ],
+    "plane": "material",
+    "planeConfidence": "medium",
+    "planeClue": "no planar markers — Material by default"
+  },
+  {
+    "id": "ferngrove_manor",
+    "name": "Ferngrove Manor",
+    "type": "Location/Manor / Haunted Grounds",
+    "region": "Eastern Midlands, near Raventree influence",
+    "controllingFaction": "unaffiliated",
+    "population": "One hag (alleged), plus guests who keep having incidents",
+    "climate": "Manor-house damp; the pond argues back",
+    "status": "Standing; site of the hag incident and the lounge paper war",
+    "summary": "A manor in the Eastern Midlands with a hedge maze of impossible geometry, a secluded pond, and a dragon grove — near enough to Raventree to catch its weather. Waluigi conducted legitimate dimensional reconnaissance here and was absolutely not hiding from anyone.",
+    "description": "Waluigi was at Ferngrove Manor conducting legitimate dimensional reconnaissance in the hedge system's eastern quadrant, where he detected anomalous spatial readings and mapped passage widths, ambient magical frequencies, and a preliminary transit topology of the hedge maze's impossible geometry. The manor itself hosted the hag incident of Harvestside 1040 BF and, days later, the lounge paper war in the L-shaped lounge. The secluded pond is the subject of an ongoing argument. The market quarter downhill hosts the Gilt Tongue press in a converted greenhouse. Everything about the grounds suggests the hedges know more than they admit.",
+    "notableFeatures": [
+      "Hedge maze (impossible geometry)",
+      "Secluded Pond (disputed)",
+      "Dragon Grove",
+      "L-shaped lounge",
+      "Gilt Tongue press (market quarter)"
+    ],
+    "relatedArticles": [
+      "the_hag_of_ferngrove_manor",
+      "the_lounge_incident_and_the_paper_war",
+      "the_wario_method_interview",
+      "raventree_manor"
+    ],
+    "plane": "material",
+    "planeConfidence": "medium",
+    "planeClue": "no planar markers — Material by default"
+  },
+  {
+    "id": "thornwood_ruined_manor",
+    "name": "Ruined Manor near Thornwood",
+    "type": "Location/Ruins / Haunted Estate",
+    "region": "Near the Thornwood",
+    "controllingFaction": "unaffiliated",
+    "population": "Formerly noble; currently haunted",
+    "climate": "Ruined; drafty in the load-bearing walls",
+    "status": "Ruined; convergence site, teleportation circle discovered",
+    "summary": "A ruined noble estate near the Thornwood, independently verified by Waluigi through cartographic records. A teleportation circle was discovered here, a warrant was involved, and the participants' accounts disagree about everything else.",
+    "description": "Waluigi must be honest about the limitations of this entry: the ruined manor convergence comes primarily from participants whose accounts he cannot fully verify, chief among them Archie Miser. What is independently verified is that the ruined manor exists near the Thornwood, that a teleportation circle was discovered there with geometric patterns Waluigi has partially sketched, and that a warrant for someone was involved. This is NOT the Ruined Manor at Raventree, whatever the misfiled Thornwood paperwork claims. Formerly a noble estate. Currently a haunted disaster zone. The distinction matters to the cartographers.",
+    "notableFeatures": [
+      "Discovered teleportation circle (partial sketches filed)",
+      "Haunted disaster zone",
+      "Noble estate (former)",
+      "The warrant (ask Archie, then verify independently)"
+    ],
+    "relatedArticles": [
+      "ruined_manor_convergence",
+      "archie_miser",
+      "luigi",
+      "bones"
+    ],
+    "plane": "material",
+    "planeConfidence": "medium",
+    "planeClue": "no planar markers — Material by default"
+  },
+  {
+    "id": "bowsers_castle",
+    "name": "Bowser's Castle",
+    "type": "Location/Fortress / Volcanic Seat",
+    "region": "Valley of Bowser",
+    "controllingFaction": "bowser",
+    "population": "Garrisoned; census-takers keep melting",
+    "climate": "Volcanic; active",
+    "status": "Standing; seat of Koopa power in Darkland territory",
+    "summary": "The volcanic fortress-seat of Bowser's power in the Valley of Bowser, at the heart of Darkland and the Koopa Kingdom territories. Waluigi has visited during active volcanic events and ranks it below Raventree Manor on the unpleasantness index, which is saying something.",
+    "description": "Waluigi has been to Bowser's Castle during active volcanic events, which he mentions here solely to establish that his low opinion of the place is evidence-based. The fortress anchors the Valley of Bowser and the wider Darkland territories contested in the First Bowser Conflict, and its maintenance tunnels featured in the Toadsmith Incident three weeks after the 955 BF assassination. It is large, hot, heavily garrisoned, and exactly as welcoming as a volcano with a garrison. Bowser is house-proud about it. Nobody else is.",
+    "notableFeatures": [
+      "Volcanic fortress construction",
+      "Valley of Bowser maintenance tunnels",
+      "Seat of the First Bowser Conflict",
+      "Toadsmith Incident site (955 BF)"
+    ],
+    "relatedArticles": [
+      "toadsmith_incident",
+      "first_bowser_conflict",
+      "bowser",
+      "mario"
+    ],
+    "plane": "material",
+    "planeConfidence": "medium",
+    "planeClue": "no planar markers — Material by default"
+  },
+  {
+    "id": "gadd_science_laboratory",
+    "name": "Gadd Science Laboratory",
+    "type": "Location/Laboratory / Abandoned Research Site",
+    "region": "Mushroom Kingdom — Guild District",
+    "controllingFaction": "unaffiliated",
+    "population": "Abandoned; formerly staffed by people with too many keys",
+    "climate": "Climate-controlled (emergency power configuration, 963 BF)",
+    "status": "Abandoned (present day); active research site in 963 BF",
+    "summary": "E. Gadd's laboratory in the Guild District, connected by corridor networks to the Maglev Terminal Undercity. In 963 BF it was the staging room for the Clockwork Spire expedition; in the present day it is an abandoned lab with the paperwork to prove it used to matter.",
+    "description": "Waluigi must begin with the laboratory because the laboratory is where the context lives. In 963 BF the Gadd Science Laboratory ran on emergency power while the expedition to the Clockwork Spire staged through its corridors, down through the network between the Guild District and the Maglev Terminal Undercity, and out onto the platforms. The present-day ruin keeps the same floor plan and none of the staff. Somewhere between the twelfth hour of Chillwind 8 and the modern era, the lights went out and nobody with a key came back.",
+    "notableFeatures": [
+      "Emergency power configuration (963 BF)",
+      "Corridor network to the Maglev Terminal Undercity",
+      "Clockwork Spire expedition staging room",
+      "Abandoned (present day)"
+    ],
+    "relatedArticles": [
+      "clockwork_spire_expedition_chillwind_963",
+      "professor_e_gadd"
+    ],
+    "plane": "material",
+    "planeConfidence": "medium",
+    "planeClue": "no planar markers — Material by default"
   }
 ]

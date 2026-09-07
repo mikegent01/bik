@@ -68,3 +68,11 @@
 .atlas-v2-full .atlas-v2-viewport{height:calc(100dvh - 340px)}
 .atlas-v2-full .atlas-v2-sidebar{max-height:calc(100dvh - 290px)}
 }
+/* Stat lenses: the active button carries its lens color; pins match. */
+.atlas-v2-modes button{--mode:#7650cf}
+.atlas-v2-modes button.active{background:color-mix(in srgb,var(--mode) 34%,#101a2b);border-color:var(--mode);color:#fff}
+/* Wiki-only filter toggle next to the search box. */
+.atlas-v2-tools button{border:1px solid #3e5072;background:#101a2b;color:#aebddd;border-radius:7px;padding:8px 10px;font:700 12px inherit;cursor:pointer}
+.atlas-v2-tools button.active,.atlas-v2-tools button:hover{background:#2c4a73;border-color:#7ea6e0;color:#fff}
+/* Filed library note in the detail panel. */
+.atlas-v2-library{border-left:3px solid #8a6d1f;background:#141007;padding:8px 10px;border-radius:0 8px 8px 0;font-size:12px}

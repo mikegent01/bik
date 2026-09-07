@@ -192,6 +192,7 @@ const midlandsData = {
             x: 82.5,
             y: 2.0,
             type: 'capital_city',
+            articleId: 'imperial_diet',
             name: "The Imperial Diet",
             description: "The grand parliamentary building where representatives from all Imperial provinces convene. A place of political intrigue, debate, and the formal passing of Imperial law under the Emperor's watchful eye.",
             factionId: 'regal_empire',
