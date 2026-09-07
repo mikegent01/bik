@@ -738,3 +738,59 @@ html[data-theme="light"] .article-analysis-layout{
   .analysis-research-card,.analysis-research-progress i::after{transition:none}
   .analysis-research-card:hover{transform:none}
 }
+
+/* =============== WALUIGI'S CUT — COMMENTARY TRACK ===============
+   Deliberately louder than the analysis dossier next door. The analysis page
+   is a signed legal opinion; this is Waluigi with a microphone talking over
+   the film. Purple, warm, slightly theatrical, and unmistakably not the
+   canonical record — the boundary note and the "read it straight" button are
+   part of the design, not decoration. */
+.wcut-layout{--wcut-purple:#8b5cf6;--wcut-gold:#e0bd69;--wcut-paper:#191423;--wcut-soft:#221a30}
+.wcut{background:linear-gradient(160deg,var(--wcut-paper),var(--wcut-soft));
+  border:1px solid rgba(139,92,246,.30);box-shadow:0 0 0 1px rgba(139,92,246,.06) inset}
+.wcut-masthead{border-bottom:2px solid rgba(139,92,246,.28);padding-bottom:14px;margin-bottom:4px}
+.wcut-hero{display:flex;gap:16px;align-items:flex-start;justify-content:space-between}
+.wcut .art-kicker{color:var(--wcut-purple);font-weight:900;letter-spacing:.14em;text-transform:uppercase;font-size:10.5px}
+.wcut .art-title{font-size:35px;line-height:1.08}
+.wcut .art-subtitle{color:var(--wcut-gold);font-style:italic}
+
+/* Stamp, tilted. The analysis seal is straight; this one is not, because the
+   whole point of the mode is that it is not being solemn. */
+.wcut-seal{flex:0 0 78px;width:78px;height:78px;border-radius:50%;
+  border:2px dashed rgba(139,92,246,.55);display:grid;place-items:center;text-align:center;
+  transform:rotate(-9deg);background:rgba(139,92,246,.07)}
+.wcut-seal-letter{font-size:27px;font-weight:1000;color:var(--wcut-purple);line-height:1}
+.wcut-seal-copy{font-size:7.5px;font-weight:900;letter-spacing:.13em;color:var(--wcut-gold);margin-top:1px}
+
+.wcut-pull{margin:14px 0 0;padding:12px 16px;border:0;border-left:4px solid var(--wcut-gold);
+  background:rgba(224,189,105,.07);color:#f3e6c8;font-size:16.5px;line-height:1.5;
+  font-style:italic;font-weight:600}
+.wcut-cta{border-color:var(--wcut-purple)!important;color:#fff!important;
+  background:rgba(139,92,246,.22)!important;font-weight:800}
+.wcut-boundary{margin:14px 0 16px;padding:10px 13px;border-radius:8px;
+  background:rgba(139,92,246,.09);border:1px solid rgba(139,92,246,.22);
+  color:var(--muted);font-size:12.5px;line-height:1.6}
+.wcut-boundary b{color:var(--wcut-purple)}
+.wcut-standfirst{font-size:16px;line-height:1.65;color:#e8e2f2;margin:0 0 22px;
+  padding-bottom:16px;border-bottom:1px dashed rgba(139,92,246,.22)}
+
+.wcut-section{margin:0 0 26px}
+.wcut-section h2{display:flex;align-items:baseline;gap:9px;flex-wrap:wrap;
+  font-size:21px;line-height:1.25;margin:0 0 11px;color:#f0ebfa}
+.wcut-num{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;
+  font-weight:900;color:var(--wcut-purple);opacity:.75}
+.wcut-body{font-size:15.5px;line-height:1.78}
+/* Waluigi's asides run as italic emphasis in the prose; give them presence
+   without turning every third line into a callout box. */
+.wcut-body em{color:var(--wcut-gold);font-style:italic}
+.wcut-body strong{color:#fff;font-weight:800}
+.wcut-body blockquote{border-left:3px solid rgba(139,92,246,.5);
+  background:rgba(139,92,246,.06);margin:12px 0;padding:9px 14px;color:#ddd4ee}
+.wcut-related h2{font-size:18px;color:#f0ebfa}
+
+@media (max-width:760px){
+  .wcut .art-title{font-size:27px}
+  .wcut-hero{flex-direction:column-reverse;align-items:flex-start}
+  .wcut-seal{transform:rotate(-6deg) scale(.85);margin-bottom:-6px}
+  .wcut-pull{font-size:15px}
+}

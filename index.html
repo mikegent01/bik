@@ -12827,6 +12827,23 @@ function articleAnalysesForSource(sourceId){
   return articleAnalysesAll().filter(a => a && a.sourceArticle === sourceId);
 }
 
+/* ---------- Waluigi's Cut: the commentary track ----------
+   Not an analysis and not an investigation. An analysis argues one thesis
+   about a filing and stays calm. A commentary RETELLS the whole story with
+   Waluigi talking over it the entire way, which is what the older articles
+   (spider_grove_battle) did naturally and the newer ones stopped doing.
+   Voice floors are enforced by tools/check-commentaries.py. */
+function commentariesAll(){
+  const d = (DATA && DATA.commentaries) || {};
+  return Array.isArray(d) ? d : (Array.isArray(d.commentaries) ? d.commentaries : []);
+}
+function commentaryGet(id){
+  return commentariesAll().find(c => c && c.id === id) || null;
+}
+function commentariesForSource(sourceId){
+  return commentariesAll().filter(c => c && c.sourceArticle === sourceId);
+}
+
 /* ---------- connected panel on record pages ----------
    "Investigate this further." Every article that the archive has actually
    filed paper against gets a way into that paper, and the paper is what makes
@@ -12860,7 +12877,8 @@ function invConnections(id){
 function renderConnectedInvestigationsPanel(id, typeKey){
   const files = invConnections(id);
   const analyses = articleAnalysesForSource(id);
-  if(!files.length && !analyses.length) return '';
+  const cuts = commentariesForSource(id);
+  if(!files.length && !analyses.length && !cuts.length) return '';
 
   const nDoc = files.reduce((n,f) => n + f.ex.length, 0);
   const blocks = files.map(f => {
@@ -12912,6 +12930,23 @@ function renderConnectedInvestigationsPanel(id, typeKey){
     <div class="kv-list">${analysisRows}</div>
   </div>` : '';
 
+  const cutRows = cuts.map(c => `<div class="kv-row">
+    <span class="k">🎙️ commentary</span>
+    <span class="v">
+      <a class="entity-link" style="font-weight:800" href="#/commentary/${encodeURIComponent(c.id)}">${esc(c.title || panelSourceTitle)}</a>
+      <span class="pill" style="margin-left:6px">${(c.sections||[]).length} parts</span>
+      <div class="text-muted" style="font-size:12.5px;line-height:1.55;margin-top:3px">${esc(c.subtitle || c.standfirst || '')}</div>
+    </span>
+  </div>`).join('');
+  const cutBlock = cutRows ? `<div style="border-top:${(files.length||analyses.length) ? '1px solid var(--border)' : '0'};padding-top:${(files.length||analyses.length) ? '16px' : '0'};margin-top:${(files.length||analyses.length) ? '4px' : '0'}">
+    <div style="display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;margin-bottom:7px">
+      <h3 style="margin:0">🎙️ Waluigi's Cut</h3>
+      <span class="pill">the whole story · told badly on purpose</span>
+    </div>
+    <p class="text-muted" style="font-size:12.5px;margin:0 0 9px">Same events, start to finish, with Waluigi talking over every one of them. Read this one if you are here for the voice rather than the record.</p>
+    <div class="kv-list">${cutRows}</div>
+  </div>` : '';
+
   const fileLine = nDoc
     ? `${nDoc} document${nDoc === 1 ? '' : 's'} in the archive ${nDoc === 1 ? 'names' : 'name'} this record.`
     : (files.length ? 'The archive has an open file covering this record.' : '');
@@ -12929,6 +12964,7 @@ function renderConnectedInvestigationsPanel(id, typeKey){
     </div>
     ${blocks}
     ${analysisBlock}
+    ${cutBlock}
   </div>`;
 }
 
@@ -13107,6 +13143,87 @@ function view_article_analysis(id){
         <div class="analysis-source-return"><span>Return to the account this argument is anchored to:</span><a class="entity-link" href="#/article/${encodeURIComponent(a.sourceArticle)}">${esc(sourceTitle)}</a></div>
       </div>
     </article></div><aside class="analysis-rail"><div class="rail"><div class="infobox"><h4>Analysis File</h4>${infoRows}</div>${toc}${sourceRail}</div></aside></div>`;
+  setArticleAccent(typeKey);
+  endLinkPass();
+  window.scrollTo(0,0);
+  setupScrollSpy();
+}
+
+/* =============== WALUIGI'S CUT — COMMENTARY TRACK ===============
+   The whole story, retold, with Waluigi refusing to shut up. Deliberately
+   loud: the masthead says it is an opinion track and the source article stays
+   one click away, so nobody mistakes the jokes for the canonical record. */
+function view_commentary(id){
+  const c = commentaryGet(id);
+  if(!c){
+    renderSidebar('list:events');
+    el('content').innerHTML=`<div class="card"><h2>Commentary not found</h2><p class="text-muted">Waluigi has not recorded a commentary track filed as “${esc(id)}”.</p><p><a onclick="Router.go('#/home')">← Home</a></p></div>`;
+    return;
+  }
+  const sourceRec = INDEX[c.sourceArticle];
+  if(!sourceRec){
+    renderSidebar('list:events');
+    el('content').innerHTML=`<div class="card"><h2>Source article not found</h2><p class="text-muted">A commentary must sit on top of a real filing, and “${esc(c.sourceArticle)}” does not resolve.</p></div>`;
+    return;
+  }
+  const source = sourceRec.item, typeKey = sourceRec.typeKey;
+  const sourceTitle = displayName(source);
+  renderSidebar('list:'+typeKey);
+  LINK_YEAR_CTX = parseYear(c.filed)||parseYear(source.date)||null;
+  beginLinkPass({id:c.id, relatedArticles:[c.sourceArticle].concat(c.relatedArticles||[])});
+
+  const sections = Array.isArray(c.sections)?c.sections:[];
+  const blob = [c.standfirst,c.pullQuote].concat(sections.map(s=>s.body)).join(' ');
+  const wordCount = words(blob), readMins = readingTime(blob);
+
+  const tocEntries = sections.map(s=>({slug:'cut-'+s.id, text:s.heading||prettyId(s.id)}));
+  if((c.relatedArticles||[]).length) tocEntries.push({slug:'cut-related',text:'Related records'});
+  const toc = `<div class="toc" id="toc"><h4>Contents</h4>${tocEntries.map(h=>`<a data-slug="${esc(h.slug)}" onclick="scrollToHeading('${esc(h.slug)}')">${esc(h.text)}</a>`).join('')}</div>`;
+
+  const media = source.image
+    ? `<figure class="article-lead-img"><img src="${esc(assetPath(source.image))}" alt="${esc(sourceTitle)}" onerror="this.closest('figure').classList.add('broken')"><figcaption class="imgcap">Image from the canonical filing. Waluigi did not draw this and takes no responsibility for it.</figcaption></figure>`
+    : autoArt(source,typeKey);
+
+  const sectionsHtml = sections.map((s,i)=>`<section class="wcut-section" aria-labelledby="cut-${esc(s.id)}">
+    <h2 id="cut-${esc(s.id)}"><span class="wcut-num">${String(i+1).padStart(2,'0')}</span> ${esc(s.icon||'🎙️')} ${esc(s.heading||prettyId(s.id))}</h2>
+    <div class="prose wcut-body">${mdToHtml(s.body||'',c.id)}</div>
+  </section>`).join('');
+
+  const seen=new Set();
+  const relatedChips=(c.relatedArticles||[]).map(resolveArticleId).filter(rid=>{
+    if(seen.has(rid))return false; seen.add(rid); return !!INDEX[rid];
+  }).map(rid=>`<span class="rel-chip" onclick="openId('${esc(rid)}')"><span class="rt">${esc(relKind(rid))}</span>${esc(displayName(INDEX[rid].item))}</span>`).join('');
+
+  const infoRows = `<div class="row"><span class="k">Track</span><span class="v">Waluigi's Cut</span></div>
+    <div class="row"><span class="k">Filed</span><span class="v">${esc(c.filed||'Undated')}</span></div>
+    ${c.timeCode?`<div class="row"><span class="k">Code</span><span class="v">${esc(c.timeCode)}</span></div>`:''}
+    <div class="row"><span class="k">Source</span><span class="v"><a class="entity-link" href="#/article/${encodeURIComponent(c.sourceArticle)}">${esc(sourceTitle)}</a></span></div>`;
+
+  el('content').innerHTML=`
+    <div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › <a onclick="Router.go('#/article/${encodeURIComponent(c.sourceArticle)}')">${esc(sourceTitle)}</a> › Waluigi's Cut</div>
+    <div class="article-layout wcut-layout"><div><article class="card animate-fade-in wcut">
+      <header class="wcut-masthead">
+        <div class="wcut-hero">
+          <div>
+            <div class="art-kicker">🎙️ ${esc(c.kicker||"Waluigi's Cut · Commentary Track")}</div>
+            <h1 class="art-title">${esc(c.title||sourceTitle)}</h1>
+            ${c.subtitle?`<div class="art-subtitle">${esc(c.subtitle)}</div>`:''}
+          </div>
+          <div class="wcut-seal" aria-hidden="true"><span class="wcut-seal-letter">W</span><span class="wcut-seal-copy">THE<br>CUT</span></div>
+        </div>
+        <div class="metabar"><span class="pill">🎙️ Commentary track</span><span class="pill">Full story, retold</span><span class="pill">Opinions throughout</span><a class="chip wcut-cta" href="#/article/${encodeURIComponent(c.sourceArticle)}">Read it straight →</a></div>
+        <div class="readtime">⏱ ${readMins} min read <span aria-hidden="true">·</span> ${wordCount} words</div>
+        ${c.pullQuote?`<blockquote class="wcut-pull">${esc(c.pullQuote)}</blockquote>`:''}
+        ${media}
+      </header>
+      <div class="wcut-reading">
+        <div class="wcut-boundary"><b>What this page is:</b> the whole event, told start to finish, with Waluigi's opinions cut into it throughout. Every fact here also appears in the canonical filing — the jokes are his, the events are not. If you want it delivered flat, <a href="#/article/${encodeURIComponent(c.sourceArticle)}">read the straight version</a>.</div>
+        ${c.standfirst?`<div class="wcut-standfirst">${mdToHtml(c.standfirst,c.id)}</div>`:''}
+        ${sectionsHtml}
+        ${relatedChips?`<section class="wcut-related" aria-labelledby="cut-related"><h2 id="cut-related">Related Records</h2><div class="related-list">${relatedChips}</div></section>`:''}
+        <div class="analysis-source-return"><span>The straight account this track is talking over:</span><a class="entity-link" href="#/article/${encodeURIComponent(c.sourceArticle)}">${esc(sourceTitle)}</a></div>
+      </div>
+    </article></div><aside class="analysis-rail"><div class="rail"><div class="infobox"><h4>Commentary Track</h4>${infoRows}</div>${toc}</div></aside></div>`;
   setArticleAccent(typeKey);
   endLinkPass();
   window.scrollTo(0,0);
@@ -18612,6 +18729,7 @@ const Router={
     else if(route==='rnn'||route==='rakasha-news'||route==='broadcast')view_rakashaNews();
     else if(route==='article')view_article(arg);
     else if(route==='article-analysis')view_article_analysis(arg);
+    else if(route==='commentary'||route==='waluigis-cut'||route==='cut')view_commentary(arg);
     else if(route==='cultures'||route==='laws')view_cultures();
     else if(route==='power'||route==='war')view_power();
     else if(route==='imperial-network'||route==='imperial'||route==='empire-network'||route==='legion'||route==='iron-legion')view_imperial_network();
@@ -18758,7 +18876,7 @@ document.addEventListener('keydown',e=>{const typing=/input|textarea|select/i.te
   }});
 /* ================= DATA LOADER (fetch ./data/*.json, fall back to embedded) ================= */
 /* Files that live in ./data/ as separate JSON. Keys map 1:1 to DATA fields. */
-const DATA_FILES = ['characters','events','articleAnalyses','battles','locations','races','nations','factions','collections',
+const DATA_FILES = ['characters','events','articleAnalyses','commentaries','battles','locations','races','nations','factions','collections',
   'trials','brosAttacks','mainPage','congress_votes','conflicts','majorBattles','factionColors','currentDate','calendarMonths','calendarWeekdays','calendarSeasons','calendarMeta','calendars','calendarHolidays','historicalTimeline','artifacts','congress','annotations','currencies','banking','wallets','books','crafting','cultures','injuries','liberatedToadsSystem','ironLegionSystem','abilityShop','itemLoreLinks','whatifs','quests','props','investigations','rolls'];
 
 async function loadData(){

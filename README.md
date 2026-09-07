@@ -186,6 +186,7 @@ Seven habits explain nearly every decision in this repository:
 | Document | Owns | Read when |
 |---|---|---|
 | **[`docs/INTAKE_DECISION_GUIDE.md`](docs/INTAKE_DECISION_GUIDE.md)** | **What to create from supplied data.** Event vs battle vs exhibit vs investigation vs shop item vs XP vs character/location/faction vs annotation vs nothing yet | **First. Before deciding the task shape** |
+| **[`docs/COMMENTARY_MODE_GUIDE.md`](docs/COMMENTARY_MODE_GUIDE.md)** | **Waluigi's Cut — the comedy commentary track.** Retell the whole story with the opinions cut in every second or third sentence, never at the end; no invented facts; voice floors enforced by `tools/check-commentaries.py` | Filing a commentary, or when an article reads flat |
 | **[`docs/DATE_FILING_GUIDE.md`](docs/DATE_FILING_GUIDE.md)** | **How to date new and backfilled articles.** Tense before dates; walk backward to the prior solid date, then forward through the chain; repair vague earlier dates when touched. Includes the mandatory **time filing code** (`TC:1040-08-30T23:50/SHD`) enforced by `tools/check-timecodes.py` | Before setting any event date |
 
 > **Date warning:** a missing timestamp is not permission to use the current clock. Resolve relative clues such as “a week ago” first; seven days before 5 Aethel is 28 Harvestide. If the clue and the chain disagree, stop and mark the date inferred or ask rather than silently filing at “now.”

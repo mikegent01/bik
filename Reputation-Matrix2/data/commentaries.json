@@ -1,0 +1,68 @@
+{
+  "_README": "Waluigi's Cut — the comedy commentary mode. NOT an analysis and NOT an investigation. An analysis argues a thesis about a filing; a commentary RETELLS the whole story in Waluigi's voice with his opinions cut into it constantly. The story must survive on its own: a reader who has never opened the source article should get the full sequence of events here. The difference is that Waluigi will not shut up while telling it. House rules in docs/COMMENTARY_MODE_GUIDE.md. Voice target measured off spider_grove_battle: >=18 'Waluigi'/1k, >=25 CAPS/1k, an interruption at least every 3rd sentence, and no invented facts.",
+  "commentaries": [
+    {
+      "id": "promo_mario_newspaper_commentary",
+      "sourceArticle": "promo_mario_newspaper",
+      "title": "Promo Mario",
+      "subtitle": "In Which Waluigi Reads A Newspaper And The Newspaper Loses",
+      "filed": "5 Aethel, 1040 BF — the morning filing, then the evening correction, then this",
+      "timeCode": "TC:1040-09-05/MAT",
+      "kicker": "Waluigi's Cut · Commentary Track",
+      "pullQuote": "A man cried reading MY article and somebody filed that as evidence. Of what? That Waluigi writes MOVINGLY? Waluigi already KNEW that.",
+      "standfirst": "Waluigi has been asked to file the Promo Mario clipping properly. Waluigi will do that. Waluigi will also be saying what he thinks about it, which is the part you are actually here for.",
+      "sections": [
+        {
+          "id": "the-headline",
+          "icon": "📰",
+          "heading": "It Starts With A Name, And The Name Is Already Insulting",
+          "body": "The clipping is headed **PROMO MARIO**.\n\nPROMO. Somebody looked at the most famous missing person in the archive, the man whose absence has bent every major filing for eighty-five years, and slapped the word PROMO on him like he was a limited-time churro. Waluigi read that headline three times. Waluigi's tea went cold. Waluigi has strong opinions about branding and this is the WORST one.\n\nAnd here is the thing that should have stopped everyone before the first paragraph: **the paper has no publisher. No byline. No issue date.** Nothing. A newspaper is a thing that tells you who printed it, because a newspaper is making a CLAIM and claims have owners. This one has churros, souvenir shirts, and a very helpful corporation, and NO NAME ANYWHERE.\n\nWaluigi has forged documents. Waluigi says this freely because the statute of limitations is a beautiful institution. And the first thing you strip off a forgery is the part that tells people where to send the complaint. *WAH! This is not journalism. This is a PAMPHLET wearing a hat.*"
+        },
+        {
+          "id": "the-visitors",
+          "icon": "🎬",
+          "heading": "Two Men Fall Onto A Television Set, Which Is Apparently Fine With Everybody",
+          "body": "Here is the story the paper tells, and Waluigi will tell all of it, because Waluigi is not going to be accused of hiding the parts that are inconvenient.\n\nLord Darian Marsh of the Dark Shores and Alistair of the Marshkeepers fell onto the set of the *Nintendo Mania* pilot. Fell. Onto a set. Two grown nobles dropped out of reality into a television studio, and the paper reports this the way you would report a bus being slightly late.\n\nTheir host introduced himself as Mario. He taught them a video game. He took them around Hollywood. Alistair — and Waluigi wants this remembered, because it becomes important — **collected souvenirs.** Darian wanted two things, in order: proof of the journey, and a way home to his province.\n\nStop there. Look at what those two men wanted. One is collecting MERCHANDISE. The other is collecting EVIDENCE and an EXIT. Those are the priorities of a tourist and the priorities of a hostage, standing in the same room, having the same afternoon. Waluigi does not know which one of them was reading the situation correctly and that BOTHERS him."
+        },
+        {
+          "id": "the-tablet",
+          "icon": "📱",
+          "heading": "The Part Where They Show Him MY Article",
+          "body": "The turn comes with a Wario Inc. tablet.\n\nOf COURSE it does. Of course the pivotal moment in the most emotionally loaded document to cross this desk in a season is brought to you by Wario Inc. Waluigi's business partner has monetized grief and Waluigi is FURIOUS he did not think of it first.\n\nDarian displayed Waluigi's account of the missing Mario. The host read it. He read about Peach's assassination. He read about the Star Fountain reunion. He dropped his phone and he **wept**.\n\nNow. Waluigi is going to be honest in a way that costs him something, because this file deserves it.\n\nThat is MY writing. Those are MY sentences that put a man on the floor of a television studio. Some part of Waluigi — the loud part, the part that has never once been thanked in a ceremony — wants to take that as the highest compliment in the archive's history. WALUIGI'S PROSE: SO POWERFUL IT DESTROYS MEN. Put it on a shirt. Put it next to the souvenir shirts.\n\nAnd then the archivist part of Waluigi has to say the unbearable thing: *WAH! A man crying at MY article is not a second witness to the events in MY article.* It is a review. It is a very good review. It is not CORROBORATION. If weeping at Waluigi's writing made a thing true, Waluigi could rewrite the history of the Mushroom Kingdom before lunch."
+        },
+        {
+          "id": "the-name",
+          "icon": "🎭",
+          "heading": "Asked If He Was That Mario, He Gave A Name",
+          "body": "They asked him directly. Are you that Mario?\n\nHe offered **a name.** Not a remembered journey. Not the fountain. Not Peach. Not one single detail from inside a life — a name, which is the cheapest thing a person owns and the only thing on that whole set that did not need a receipt.\n\nWaluigi has interviewed liars. Waluigi has BEEN the liar being interviewed, which is better training. A man who has lived a thing answers with the thing. A man who has been TOLD about a thing answers with the label. This host answered with the label.\n\nThen his Luigi arrived with pizza and said Peach was alive in the studio.\n\nPeach. Alive. In the studio. And here is the detail that should be carved over the entrance to this entire file: **Peach never appears.** Not once. Not in a doorway, not at a distance, not in a photograph. The single most extraordinary claim in the document is delivered secondhand by a man holding a pizza, and then the subject of that claim declines to walk into the room.\n\nWaluigi has been to a lot of parties he was not invited to. Waluigi knows exactly what it means when someone tells you the guest of honour is just through there. *WAH! She is never just through there.*"
+        },
+        {
+          "id": "the-ending-that-was-sold",
+          "icon": "🚪",
+          "heading": "The Paper Ends Happy, Which Is How Waluigi Knew It Was Lying",
+          "body": "The clipping ends beautifully. Miyamoto arranges help. Dr. Takeda opens a sixty-second portal. Darian and Alistair step through clutching Nintendo charms.\n\nRoll credits. Everyone goes home. Buy the shirt.\n\nExcept Waluigi read that ending in the morning, filed it, and then the FULL account turned up the same evening, and the full account says the portal **failed**. Luigi vanished during a strange tape. A corrupted Mario came out of the television. Wario's Apparition ran a song-laden game show. The whole thing was finally ended by the flashlight on a Wario Inc. tablet.\n\nNone of that is in the clipping. NONE of it.\n\nSo the morning version was not a summary. A summary is short. A summary is not WRONG. The morning version had a different ENDING, and an ending is not a detail you lose to space — it is the thing the whole document is for. Somebody cut the portal failing, the vanishing, the corrupted thing coming out of the screen, and the game show, and then printed the happy sixty seconds with merchandise in it.\n\nThat is not an abridgement. **That is a teaser.** And Waluigi filed it. Waluigi, personally, put a trailer in the permanent record and called it a filing, and Waluigi is not going to bury that on a back page. It is up here, in the loud section, where it belongs.\n\nAnd note what the paper never says, even in its happy version: **Mario stayed behind.** The document that is supposedly about finding our missing hero does not describe our missing hero coming home."
+        },
+        {
+          "id": "the-year",
+          "icon": "📅",
+          "heading": "And Then Alistair Says A Number That Breaks The Whole Thing",
+          "body": "Alistair places Mario's disappearance in **955 BF**.\n\n955 BF is the year Peach was assassinated. This archive places the Star Fountain meeting in **1039 BF**. Those are eighty-four years apart. They cannot both be describing the same man's continuous life without somebody explaining the eighty-four years, and NOBODY IN THE DOCUMENT EVEN NOTICES.\n\nWaluigi wants to be very clear about what he is and is not saying. Waluigi is not saying the man in the studio is a fake. Waluigi does not KNOW that. This world has three clocks that disagree, a manor that exists in several times at once, and a family that broke causality on purpose. An eighty-four-year gap is not automatically a lie here. It is a QUESTION, and the paper does not ask it.\n\nA matching cap and a brother do not settle it. Half the Mushroom Kingdom owns a red cap. The souvenirs and photographs Alistair collected have not been authenticated by anybody in this building — and Waluigi notes, with the specific joy of a man who has found the loose thread, that the merchandise is the only physical evidence anyone came home with. *WAH! We have got the SHIRTS. We have not got the MAN.*"
+        },
+        {
+          "id": "the-verdict",
+          "icon": "⚖️",
+          "heading": "Waluigi's Actual Position, Stated Once, Without Jokes",
+          "body": "Waluigi is going to drop the voice for four sentences and then pick it straight back up, because this part matters more than the bit.\n\nWaluigi would like Mario found. Genuinely. Even though it means another unbearable celebration in a square somewhere with a podium Waluigi is not invited onto, and speeches about courage by people who have never been in a spider grove. Waluigi has wanted the archive to be able to close that file for eighty-five years. If this clipping were real, Waluigi would file it with both hands and go home happy.\n\nIt is not enough. Not because Waluigi is bitter — Waluigi is bitter, that is well documented and Waluigi maintains it is JUSTIFIED — but because the document has no publisher, no byline, no date, a secondhand Peach who never appears, an eighty-four-year contradiction nobody addresses, an unauthenticated pile of souvenirs, a subject who answered with a name instead of a memory, and a printed ending that the full account says did not happen.\n\nLike the charred note at Waluigi's door, this is another story to TEST. Not permission to replace the old file.\n\nWaluigi is keeping the clipping. Waluigi is keeping it in the record, exactly where everyone can see it, with this attached to it. Because the useful thing about a teaser is that somebody MADE it, and somebody wanted this particular ending believed on this particular morning, and Waluigi would very much like to know who. WAH!"
+        }
+      ],
+      "relatedArticles": [
+        "promo_mario_newspaper",
+        "mario",
+        "princess_peach",
+        "star_fountain_reunion",
+        "charred_note_at_waluigis_door",
+        "wario"
+      ]
+    }
+  ]
+}
