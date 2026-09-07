@@ -7757,7 +7757,7 @@ function homeRecentAdventuresHtml(){
       const href=rec&&rec.typeKey==='events'?`#/article/${id}`:`#/article/${id}`;
       actions.push(`<span class="chip" onclick="Router.go('${esc(href)}')" style="margin:0;font-size:12px;background:var(--panel2);border-color:var(--accent);">${esc(String(nm).slice(0,40))} →</span>`);
     });
-    cards.push(`<div class="campaign-timeline-item" onclick="Router.go('#/article/${esc(ev.id)}')" style="cursor:pointer;border-left:4px solid ${pal.bar};background:linear-gradient(135deg,${pal.glow},var(--panel2));">
+    cards.push(`<div class="campaign-timeline-item" onclick="openHub('${esc(ev.id)}')" style="cursor:pointer;border-left:4px solid ${pal.bar};background:linear-gradient(135deg,${pal.glow},var(--panel2));">
          <div class="timeline-date-chip" style="color:${pal.chip};">${kicker}</div>
          <h3 class="timeline-event-title">${esc(name)}${generatedBadge}</h3>
          <div class="timeline-actors">${actors}</div>
@@ -12842,6 +12842,126 @@ function commentaryGet(id){
 }
 function commentariesForSource(sourceId){
   return commentariesAll().filter(c => c && c.sourceArticle === sourceId);
+}
+
+/* ---------- the filing hub: one record, several ways to read it ----------
+   A filing is no longer a single page. The same night in the Silent Grove can be
+   read as the story, argued about in an analysis, shouted over in a commentary,
+   worked as an investigation, or scored as a session of XP. Dropping a reader
+   straight into the prose hides the other four, so a record that owns more than
+   one of them opens a menu first.
+
+   The menu is a shortcut, never a toll gate. hubOptions() reports what actually
+   exists; hubIsWorthIt() refuses the menu when the prose is the only thing on
+   offer, and openHub() then behaves exactly like openId() always did. Greyed
+   rows are still rendered when at least one sibling exists, because "this filing
+   has no commentary yet" is information a reader wants. */
+const HUB_ART='assets/hub/';
+function hubOptions(id){
+  const rec=INDEX[id];
+  const item=rec?rec.item:null;
+  const analyses=articleAnalysesForSource(id);
+  const cuts=commentariesForSource(id);
+  let files=[]; try{ files=invConnections(id); }catch(e){ files=[]; }
+  let xp=[]; try{ xp=xpAwardsGrouped(id); }catch(e){ xp=[]; }
+  const xpTotal=xp.reduce((s,g)=>s+Number(g.total||0),0);
+  const nDocs=files.reduce((n,f)=>n+f.ex.length,0);
+
+  return [
+    { key:'story', label:'Story', icon:'📖', img:HUB_ART+'hub_story.png',
+      blurb:'The filing itself. What happened, in order, as the archive recorded it.',
+      meta:item?(readingTime((item.description||'')+' '+(item.summary||''))+' read'):'',
+      available:!!item, route:'#/article/'+encodeURIComponent(id),
+      empty:'No prose filed for this record.' },
+
+    { key:'analysis', label:'Analysis', icon:'🖋️', img:HUB_ART+'hub_analysis.png',
+      blurb:'One thesis, argued cold. Waluigi signs it and states what the record will not support.',
+      meta:analyses.length?(analyses.length+' signed '+(analyses.length===1?'analysis':'analyses')):'',
+      available:!!analyses.length,
+      route:analyses.length?'#/article-analysis/'+encodeURIComponent(analyses[0].id):'',
+      extra:analyses.slice(1).map(a=>({label:a.title||prettyId(a.id),route:'#/article-analysis/'+encodeURIComponent(a.id)})),
+      empty:'No analysis filed against this record yet.' },
+
+    { key:'commentary', label:"Commentary", icon:'🎙️', img:HUB_ART+'hub_commentary.png',
+      blurb:"Waluigi's Cut. The whole story again with him talking over every second of it.",
+      meta:cuts.length?(cuts.reduce((n,c)=>n+((c.sections||[]).length),0)+' sections · WAH'):'',
+      available:!!cuts.length,
+      route:cuts.length?'#/commentary/'+encodeURIComponent(cuts[0].id):'',
+      extra:cuts.slice(1).map(c=>({label:c.title||prettyId(c.id),route:'#/commentary/'+encodeURIComponent(c.id)})),
+      empty:'No commentary track recorded for this filing.' },
+
+    { key:'investigation', label:'Investigation', icon:'🔍', img:HUB_ART+'hub_investigation.png',
+      blurb:'The paper behind the prose: exhibits, examination DCs, and the leads still open.',
+      meta:files.length?(files.length+' case '+(files.length===1?'file':'files')+(nDocs?' · '+nDocs+' exhibit'+(nDocs===1?'':'s'):'')):'',
+      available:!!files.length,
+      route:files.length?'#/investigation/'+encodeURIComponent(files[0].iv.id):'',
+      extra:files.slice(1,4).map(f=>({label:f.iv.codename||f.iv.title||prettyId(f.iv.id),route:'#/investigation/'+encodeURIComponent(f.iv.id)})),
+      empty:'No case file touches this record.' },
+
+    { key:'xp', label:'XP', icon:'✦', img:HUB_ART+'hub_xp.png',
+      blurb:'What the session actually paid. Per-person awards, categories, and the party total.',
+      meta:xp.length?('party +'+xpTotal.toLocaleString()+' · '+xp.length+' '+(xp.length===1?'person':'people')):'',
+      available:!!xp.length,
+      route:xp.length?'#/article/'+encodeURIComponent(id)+'#xp-session':'',
+      empty:'No XP was banked against this record.' }
+  ];
+}
+/* A menu offering exactly one door is a wasted click — say so honestly. */
+function hubIsWorthIt(id){
+  return hubOptions(id).filter(o=>o.available).length >= 2;
+}
+function openHub(id){
+  const target=resolveArticleId(id);
+  if(hubIsWorthIt(target)){ Router.go('#/hub/'+encodeURIComponent(target)); return; }
+  Router.go('#/article/'+encodeURIComponent(target));
+}
+
+function view_hub(id){
+  const rec=INDEX[id];
+  if(!rec){ return view_article(id); }
+  const opts=hubOptions(id);
+  if(opts.filter(o=>o.available).length < 2){ return view_article(id); }
+
+  const item=rec.item, typeKey=rec.typeKey;
+  renderSidebar('list:'+typeKey);
+  LINK_YEAR_CTX=parseYear(item.date)||null;
+  const title=displayName(item);
+  const dateHead=String(item.date||'').split('—')[0].trim();
+
+  const tiles=opts.map(o=>{
+    const on=o.available;
+    const go=on?` onclick="Router.go('${esc(o.route)}')" tabindex="0" onkeydown="if(event.key==='Enter'){Router.go('${esc(o.route)}')}"`:' aria-disabled="true"';
+    const extras=(on&&o.extra&&o.extra.length)
+      ? `<div class="hub-extra" onclick="event.stopPropagation();">${o.extra.map(x=>`<span class="chip" onclick="Router.go('${esc(x.route)}')">${esc(String(x.label).slice(0,44))} →</span>`).join('')}</div>`
+      : '';
+    return `<div class="hub-tile ${on?'is-on':'is-off'}" data-key="${esc(o.key)}"${go}>
+      <div class="hub-tile-art"><img src="${esc(assetPath(o.img))}" alt="" loading="lazy" onerror="this.closest('.hub-tile-art').classList.add('broken')"><span class="hub-tile-badge">${esc(o.icon)}</span></div>
+      <div class="hub-tile-body">
+        <div class="hub-tile-name">${esc(o.label)}</div>
+        <div class="hub-tile-blurb">${esc(on?o.blurb:o.empty)}</div>
+        ${on&&o.meta?`<div class="hub-tile-meta">${esc(o.meta)}</div>`:''}
+        ${on?'<div class="hub-tile-go">Open →</div>':'<div class="hub-tile-go hub-tile-go--off">Nothing filed</div>'}
+      </div>
+      ${extras}
+    </div>`;
+  }).join('');
+
+  el('content').innerHTML=`<div class="hub-layout">
+    <div class="card hub-card">
+      <div class="hub-head">
+        <div class="hub-kicker">Filing desk${dateHead?' · '+esc(dateHead):''}</div>
+        <h1 class="hub-title">${esc(title)}</h1>
+        <p class="hub-sub">${esc((item.summary||'').replace(/\s+/g,' ').slice(0,240))}</p>
+        <div class="hub-instruction">Waluigi has filed this one more than once. Pick how you want it.</div>
+      </div>
+      <div class="hub-grid">${tiles}</div>
+      <div class="hub-foot">
+        <span class="chip" onclick="Router.go('#/article/${esc(id)}')">📖 Skip the menu, just read it →</span>
+        <span class="chip" onclick="Router.go('#/home')">← Home</span>
+      </div>
+    </div>
+  </div>`;
+  window.scrollTo(0,0);
 }
 
 /* ---------- connected panel on record pages ----------
@@ -18728,7 +18848,8 @@ const Router={
     else if(route==='field-journal'||route==='journal')view_fieldJournal();
     else if(route==='rnn'||route==='rakasha-news'||route==='broadcast')view_rakashaNews();
     else if(route==='article')view_article(arg);
-    else if(route==='article-analysis')view_article_analysis(arg);
+    else if(route==='article-analysis'||route==='analysis')view_article_analysis(arg);
+    else if(route==='hub'||route==='desk')view_hub(decodeURIComponent(arg||''));
     else if(route==='commentary'||route==='waluigis-cut'||route==='cut')view_commentary(arg);
     else if(route==='cultures'||route==='laws')view_cultures();
     else if(route==='power'||route==='war')view_power();
