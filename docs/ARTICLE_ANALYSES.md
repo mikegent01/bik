@@ -151,6 +151,95 @@ The 20% exists to keep the 80% honest. Waluigi may be biased; the page may not
 be unmoored. Every section names its `sourceAnchor` before Waluigi develops the
 claim.
 
+### ⚠ The 20/80 ratio is about *evidence*, not about *prose*
+
+This is the single most misread rule in the guide, and it has already produced
+several disembodied filings. Read it carefully:
+
+**20/80 governs where the page's authority comes from — not how much of the
+page you are allowed to make physical.**
+
+The 80% is Waluigi's argument. It is *not* permission for the argument to
+happen nowhere, to nobody, with no hands. An analysis is still prose, and
+prose still has to be in a room. The reverse ratio means the page spends few
+words *retelling the event*; it does not mean the page spends few words being
+concrete.
+
+The failure mode looks like this — the analyst is a disembodied voice
+adjudicating objects he never touches:
+
+> I want to be precise about what the tablet proves, because it is the only
+> honest object in the account and it is being wasted.
+
+That is a finding, not an opening. The fix is not to add story from the source
+event (that would genuinely break the 20/80). The fix is to **add the analyst's
+body to the scene he is already in** — the desk, the hour, the file, the tea:
+
+> The clipping is on my desk at a quarter past midnight, squared to the
+> blotter, and I have read it four times. The tea beside it went cold somewhere
+> around the second pass. […] So let me be precise about what the tablet proves.
+
+Same argument, same word budget for the event, same 20/80. It now exists.
+
+### The rule: Waluigi is at a desk
+
+He is a person doing archival work at an hour, in a room, with paper. Give the
+reader that person.
+
+- **Every quotation he analyzes, he is holding.** He reads it, sets it down,
+  puts a thumb on it, holds it to the lamp.
+- **Every comparison to another file, he physically pulls.** Name the file as an
+  object — shelf, cover, weight, his own old pencil marks in the margin.
+- **Every abstract count becomes a physical one.** "Four layers between me and
+  the evidence" is a number. A stack of four sheets a quarter of an inch tall,
+  with the thing he actually wants weighing nothing on top, is an argument.
+- **One physical beat before the first analytical sentence of every section.**
+  Not a scene — a sentence or two. Then argue.
+- **Close on a physical residual.** What is left on the desk when he stops.
+
+### The physical `I` is not the analytical `I`
+
+The voice section below permits **I**. Authors have been spending that
+permission entirely on *I want to be precise*, *I will grant*, *I am refusing* —
+first person that has opinions but no body. Both belong on the page, but a
+section built only from the analytical `I` reads as a memo.
+
+| Analytical `I` (keep) | Physical `I` (missing in most filings) |
+|---|---|
+| I am refusing the account. | I put my finger on that line and it is still warm. |
+| I will grant one intersection. | I sat down when I understood that. Not for long. But I sat. |
+| I built that comparison before. | I cross to the second shelf and pull the file down by its spine. |
+
+### `*WAH!*` asides belong inside body paragraphs
+
+A `sourceAnchor` is a label, not an aside. If the only Waluigi-voice interjection
+on the page is in the anchor field, the body prose has no voice in it at all.
+Put the asides in the paragraphs, where the renderer's `isWaluigiAside` styling
+will pick them up:
+
+> A name is the cheapest identity on the market. *WAH! I could teach a puppet to
+> say it. I have half a mind to build one this week and file the results.*
+
+### At least one line rendered as dialogue
+
+Most analyses quote testimony as citations embedded in a sentence. Promote the
+single most important line to actual rendered dialogue, on its own line, with
+room around it. A quoted witness who gets his own line is a witness the reader
+hears:
+
+> "That thing isn't him."
+
+### The check before you file
+
+For each paragraph ask: **what can the reader see or touch here?** If several
+paragraphs in a row answer *nothing*, the section is a memo. This is a prose
+test, not a ratio test — passing it does not change your 20/80.
+
+Run `python3 tools/check-readability.py --analysis <id>` and the analysis audit
+in [`AUDIT_SCRIPTS.md`](AUDIT_SCRIPTS.md). **Target ≥10 sensory words per 1,000
+and at least one `*WAH!*` aside in the body prose.** Filings under ~5/1k are the
+known failure mode.
+
 ### What counts as source material
 
 - A short exact quotation already in the event.
@@ -205,14 +294,23 @@ A useful section normally moves in this order:
 
 1. **Claim heading** — what Waluigi is arguing.
 2. **Source anchor** — the fact that keeps the claim attached to the event.
-3. **Immediate reaction** — what Waluigi felt or objected to.
-4. **Close reading** — two or more possible interpretations.
-5. **Cross-file consequence** — what this changes elsewhere in the archive.
-6. **Personal admission** — why Waluigi is not neutral about it.
-7. **Recommendation or unresolved question** — what the analysis buys.
+3. **Physical beat** — one or two sentences of Waluigi handling the thing he is
+   about to argue about. Not a scene from the event; the analyst at his desk.
+4. **Immediate reaction** — what Waluigi felt or objected to.
+5. **Close reading** — two or more possible interpretations.
+6. **Cross-file consequence** — what this changes elsewhere in the archive.
+7. **Personal admission** — why Waluigi is not neutral about it.
+8. **Recommendation or unresolved question** — what the analysis buys.
+
+**Step 3 is not optional and it comes before the argument, not after it.** The
+common failure is opening a section with its own conclusion, which leaves the
+reader nothing to hold. Describe the tape label before you count the dates.
+Pull the old file off the shelf before you compare it. If a section's best
+physical detail is buried in its third paragraph, lead with it instead.
 
 A section should not retell all the action between its anchor and its
 conclusion. The source event is one click away and is linked in the header.
+Grounding the analyst is not retelling the event — those are different budgets.
 
 ### Working length
 

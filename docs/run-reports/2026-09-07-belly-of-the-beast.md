@@ -302,3 +302,53 @@ dates, custody or outcomes were altered — the diff is prose only
 (9 insertions / 9 deletions, one file).
 
 `tools/check-all.py` → **54 PASS**, all requested checks passed.
+
+## 5d. Root cause — the guide, not the filings
+
+After a third filing showed the same defect, swept every analysis and the last
+twelve events instead of fixing another one by hand.
+
+**Events are mostly healthy** (9.0–31.4 sensory/1k; only `the_scorncrow_skirmish`
+is thin). **Article analyses are near-uniformly disembodied:** 11 of 15 under
+8 sensory/1k, and **0 of 15 had a single `*WAH!*` aside in body prose.** A
+defect with a 100% hit rate is not an authoring mistake; it is the guide.
+
+Two causes found in `docs/ARTICLE_ANALYSES.md`:
+
+1. **The 20/80 ratio was being read as "80% of the page may be abstract."** The
+   rule is about where the page's *authority* comes from — few words retelling
+   the event — but authors spent it as permission for the prose to happen
+   nowhere. Nothing in the guide contradicted that reading.
+2. **The "Section shape" list told authors to lead with the conclusion.** Its
+   step 3 was "Immediate reaction," straight after the anchor. No step asked for
+   an object.
+
+Compare: `STORY_FORMAT_GUIDE.md` line 166 sets "**≥8 sensory words per 1,000**"
+for events. `ARTICLE_ANALYSES.md` set no such floor — which is exactly the
+difference between the two sweeps above.
+
+### Changes
+- `docs/ARTICLE_ANALYSES.md` — new **"The 20/80 ratio is about *evidence*, not
+  about *prose*"** section with the before/after opening from the Promo Mario
+  remaster; the **"Waluigi is at a desk"** rule (holds every quote, physically
+  pulls every compared file, abstract counts become physical ones, one beat
+  before the first analytical sentence, close on a residual); the
+  **physical `I` vs analytical `I`** table; `*WAH!*` asides belong in body
+  paragraphs, not the `sourceAnchor` label; promote one quotation to rendered
+  dialogue; a **≥10 sensory/1k** floor.
+- `docs/ARTICLE_ANALYSES.md` — "Section shape" gains **step 3, Physical beat**,
+  marked not optional and explicitly *before* the argument.
+- `docs/AUDIT_SCRIPTS.md` — new **Article-analysis audit** between the event and
+  What-If audits. Deliberately does not score a story ratio (low is correct for
+  this form); flags per-section `THIN`, `opens on a finding`, and `no aside`.
+  Verified against all 15 filings.
+- `README.md` — analysis row now names the grounding rule.
+
+### Backlog this exposes (not fixed here)
+Worst first: `mount_ebott_final_log` (3.9/1k, 8 of 10 sections at 0.0),
+`hanging_tree_apple` (3.2/1k — notable, since AUDIT_SCRIPTS cites it as the
+*rhythm* exemplar; its sentence music is good and its grounding is not),
+`feyward_chop_bros_trust_accounting` (1.9/1k), `scorncrow_skirmish` (6.4/1k),
+plus the six ~150-word stubs at 0.0/1k. Also `the_scorncrow_skirmish` the event.
+
+`tools/check-all.py` → all requested checks passed.

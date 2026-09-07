@@ -111,6 +111,53 @@ PY
 
 ---
 
+## Article-analysis audit
+
+Checks whether the analyst has a body. This form deliberately runs 20/80
+(source / Waluigi), so it does **not** measure a story ratio — a low story
+ratio here is correct. It measures whether the argument is grounded: sensory
+density, `*WAH!*` asides inside body prose, rendered dialogue, and sections
+that open on a conclusion instead of on an object.
+
+```bash
+python3 - <<'PY'
+import json, re
+ANALYSIS_ID = 'your_analysis_id'   # or 'all'
+d = json.load(open('Reputation-Matrix2/data/articleAnalyses.json', encoding='utf-8'))
+rows = d['analyses'] if ANALYSIS_ID == 'all' else [x for x in d['analyses'] if x['id'] == ANALYSIS_ID]
+
+SENSE = r'\b(cold|chill|warm|heat|damp|dust|smell|reek|echo|hiss|creak|clack|thud|rattle|scrape|glint|flicker|gray|grey|breath|hand|hands|eyes|fingers|air|grit|rust|desk|paper|ink|tea|lamp|thumb|edge|corner|table|chair|weight|smudge|crease|shelf|glass|window|candle|wrist|knuckle|palm|floor|dark|midnight|clipping|spine|margin|pencil|blotter|stack)\b'
+LEADS_COLD = re.compile(r'^\s*(I want to|I think|My |The \w+ proves|Here is|Of everything|Crying is|Three objects)', re.I)
+
+for a in rows:
+    body = [a.get('thesis', '')] + [s.get('body', '') for s in a.get('sections', [])] + [a.get('verdict', '')]
+    blob = ' '.join(body); w = len(blob.split()) or 1
+    sense = len(re.findall(SENSE, blob, re.I))
+    wah = len(re.findall(r'\*WAH', blob))
+    dlg = len(re.findall(r'"[^"]{10,}"', blob))
+    print(f"\n{a['id']}  {w}w")
+    print(f"  sensory {sense/w*1000:.1f}/1k (target >=10)   WAH asides in body {wah}   dialogue {dlg/w*1000:.1f}/1k")
+    for s in a.get('sections', []):
+        b = s.get('body', ''); bw = len(b.split()) or 1
+        sd = len(re.findall(SENSE, b, re.I)) / bw * 1000
+        first = b.strip().split('\n')[0]
+        flags = []
+        if sd < 8: flags.append('THIN')
+        if LEADS_COLD.match(first): flags.append('opens on a finding')
+        if '*WAH' not in b: flags.append('no aside')
+        print(f"    {s['id'][:34]:36} {bw:4}w  {sd:5.1f}/1k  {', '.join(flags)}")
+PY
+```
+
+Targets: **≥10 sensory/1k** overall, at least one `*WAH!*` aside in body prose
+per two sections, and no section flagged `THIN`.
+
+Known-good reference: `promo_mario_newspaper_waluigi_analysis` after remaster —
+16.8 sensory/1k, 8 asides, every section grounded. Known failure shape: any
+section at 0.0/1k, or a whole filing with zero asides in its body prose.
+
+---
+
 ## What-If audit
 
 ```bash
