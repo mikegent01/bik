@@ -427,8 +427,8 @@
 @media(max-width:1100px){.dash{grid-template-columns:1fr 1fr}.dash-right{grid-column:1/-1;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}}
 @media(max-width:760px){.dash{grid-template-columns:1fr}.dash-right{display:block}.dash-right .card{margin-bottom:12px}}
 /* ---------- Who-are-you picker ---------- */
-.who-rail{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding:14px 4px 18px}
-.who-card{flex:0 0 190px;scroll-snap-align:center;border:1px solid var(--border);border-radius:12px;padding:14px 10px;text-align:center;cursor:pointer;background:rgba(255,255,255,.02)}
+.who-rail{display:grid;grid-template-columns:repeat(auto-fill,minmax(168px,1fr));gap:12px;padding:14px 4px 18px}
+.who-card{border:1px solid var(--border);border-radius:12px;padding:14px 10px;text-align:center;cursor:pointer;background:rgba(255,255,255,.02)}
 .who-card:hover{border-color:var(--accent2,#e0b400);transform:translateY(-2px)}
 .who-card.out{opacity:.45;cursor:not-allowed}
 .who-card .e{font-size:40px;display:block}
@@ -5726,6 +5726,7 @@ function mapsDeskMount(){
       journeyOnly:MAPS_DESK.mode==='journey',
       focus:centroid?{x:centroid.x,y:centroid.y,scale:3}:null,
       chatter:wantChatter?wahChatterByPoi(MAPS_DESK.mapId):null,
+      census:wahCensusByPoi(MAPS_DESK.mapId),
       defaultMode:wantChatter?'chatter':null,
       party:MAPS_DESK.showParty!==false?wahPartyTokens(MAPS_DESK.mapId):[],
     });
@@ -8302,7 +8303,8 @@ function dashDoors(){
     +dashDoor('📚','Library',n((((DATA.books||{}).books)||[]).length)+' books',"Router.go('#/books')")
     +dashDoor('🎵','Songbook',songs.length?songs.length+' songs':'ballads',"Router.go('#/songs')")
     +dashDoor('⚖️','Docket',docket,"Router.go('#/pond-docket')")
-    +dashDoor('💱','Bank',n((typeof getCurrenciesList==='function'?getCurrenciesList():[]).length)+' tenders',"Router.go('#/currencies')");
+    +dashDoor('💱','Bank',n((typeof getCurrenciesList==='function'?getCurrenciesList():[]).length)+' tenders',"Router.go('#/currencies')")
+    +dashDoor('📺','RNN',(window.RNN_BROADCASTS&&window.RNN_BROADCASTS.episodes?window.RNN_BROADCASTS.episodes.length+' eps':'broadcast'),"Router.go('#/rnn')");
 }
 function dashPurse(){
   const ids=['archie','markop','remi','hjumpik','bones','green_t'];
@@ -8360,7 +8362,7 @@ function view_home(){
     +`<div class="card" style="margin:0"><h2>🎮 Choose your door</h2><div class="dash-doors">${dashDoors()}</div></div>`
     +`<div class="dash-right"><div class="card" style="margin:0"><h2>💰 Party purse</h2><div class="dash-mini">${dashPurse()}</div></div>`
     +`<div class="card" style="margin:12px 0 0"><h2>📈 Heat</h2><div class="dash-mini">${dashHeat()}</div></div>`
-    +`<div class="card" style="margin:12px 0 0"><h2>🕰️ On this day</h2><div class="dash-mini">${dashOTD()}</div><div id="dash-cal" style="margin-top:8px"></div></div></div></div>`;
+    +`<div class="card" style="margin:12px 0 0"><h2>🕰️ On this day</h2><div class="dash-mini">${dashOTD()}</div><div id="dash-cal" class="mini-calendar" style="margin-top:8px"></div></div></div></div>`;
   try{ renderMiniCalendar('dash-cal',CUR.year,CUR.monthIndex); }catch(e){}
   window.scrollTo(0,0);
 }
@@ -8384,7 +8386,7 @@ function view_whoami(){
       +`<span class="w">${off?'⛓️ detained by the plot':esc(w)}</span><span class="seen">${esc(seen)}</span></div>`;
   };
   el('content').innerHTML=`<div class="card animate-fade-in" style="text-align:center"><div class="hub-kicker">🔐 operator session required</div>`
-    +`<h1>Who are you?</h1><p class="text-muted">The archive files differently depending on who's asking. Pick your operator — scroll sideways through the cast.</p></div>`
+    +`<h1>Who are you?</h1><p class="text-muted">The archive files differently depending on who's asking. Pick your operator from the cast below.</p></div>`
     +`<div class="who-rail">${avail.map(c=>card(c,false)).join('')}${out.map(c=>card(c,true)).join('')}</div>`
     +`<p class="text-muted" style="text-align:center">Deep links still work — only the dashboard asks. Sign-on is kept on this device.</p>`;
   window.scrollTo(0,0);
@@ -9196,7 +9198,7 @@ function mountAtlasMap(mapId, group, focusPoi){
   const host=document.getElementById('atlas-map-host'); if(!host)return;
   const prefix=(window.location.pathname.includes('/Reputation-Matrix2/')?'./':'./Reputation-Matrix2/');
   if(!document.getElementById('atlas-map-v2-css')){const css=document.createElement('link');css.id='atlas-map-v2-css';css.rel='stylesheet';css.href=prefix+'app/pages/maps/atlas-map-v2.css?v=map8';document.head.appendChild(css);}
-  import(prefix+'app/pages/maps/atlas-map-v2.js?v=map8').then(m=>m.mountAtlasMapV2(host,mapId,{focusPoi:focusPoi||''})).catch(e=>{host.innerHTML='<div class="atlas-v2-error">Map failed to load.</div>';console.error('Atlas Map v2 failed',e);});
+  import(prefix+'app/pages/maps/atlas-map-v2.js?v=map9').then(m=>m.mountAtlasMapV2(host,mapId,{focusPoi:focusPoi||'',chatter:wahChatterByPoi(mapId),census:wahCensusByPoi(mapId),party:wahPartyTokens(mapId)})).catch(e=>{host.innerHTML='<div class="atlas-v2-error">Map failed to load.</div>';console.error('Atlas Map v2 failed',e);});
 }
 
 function atlasMapApplet(id, n){
@@ -10095,6 +10097,46 @@ function wahChatterByPoi(mapId){
     });
   }catch(e){}
   return {counts,remarks};
+}
+/* ---- map census: species & faiths per POI, via characters' key events ----
+   Characters file no location, but 138/157 file keyEvents, and events file
+   locations — so the census walks character -> event -> location -> pin. */
+function wahFaithName(fid){
+  try{ const d=(typeof RELIGION!=='undefined'&&RELIGION.denominations||{})[fid]; if(d&&d.name) return d.name; }catch(e){}
+  return String(fid||'').replace(/_/g,' ').replace(/\b\w/g,c=>c.toUpperCase());
+}
+function wahCensusByPoi(mapId){
+  const species={counts:{},top:{}}, faiths={counts:{},top:{}};
+  try{
+    const rec=ATLAS_MAPS[mapId]; if(!rec) return {species,faiths};
+    const idx=mapsLocationIndex(DATA.locations||[]);
+    const locToPoi={};
+    Object.entries(wahPinIndex()).forEach(([lid,arr])=>{(arr||[]).forEach(a=>{ if(a.mapId===mapId&&!locToPoi[lid]) locToPoi[lid]=a.poi.id; });});
+    const evById={}; (DATA.events||[]).concat(DATA.battles||[]).forEach(e=>{ if(e&&e.id) evById[e.id]=e; });
+    const perPoi={};
+    (DATA.characters||[]).forEach(ch=>{
+      if(!ch) return;
+      const pins=new Set();
+      (ch.keyEvents||[]).forEach(eid=>{ const e=evById[eid]; if(!e) return;
+        let lid=null; try{ lid=resolveEventLocationId(e.location,idx); }catch(err){}
+        const pid=lid?locToPoi[lid]:null; if(pid) pins.add(pid); });
+      if(!pins.size) return;
+      const race=String(ch.race||'').trim();
+      const flist=(ch.faiths||[]).map(f=>f&&f.id).filter(Boolean);
+      pins.forEach(pid=>{
+        const slot=(perPoi[pid]=perPoi[pid]||{sp:new Map(),fa:new Map()});
+        if(race) slot.sp.set(race,(slot.sp.get(race)||0)+1);
+        flist.forEach(f=>slot.fa.set(f,(slot.fa.get(f)||0)+1));
+      });
+    });
+    Object.entries(perPoi).forEach(([pid,slot])=>{
+      const sps=[...slot.sp.entries()].sort((a,b)=>b[1]-a[1]);
+      const fas=[...slot.fa.entries()].sort((a,b)=>b[1]-a[1]);
+      if(sps.length){ species.counts[pid]=sps.length; species.top[pid]={label:sps[0][0],n:sps[0][1],list:sps.slice(0,4).map(([l,n])=>`${l} (${n})`)}; }
+      if(fas.length){ faiths.counts[pid]=fas.length; faiths.top[pid]={label:wahFaithName(fas[0][0]),n:fas[0][1],list:fas.slice(0,4).map(([l,n])=>`${wahFaithName(l)} (${n})`)}; }
+    });
+  }catch(e){}
+  return {species,faiths};
 }
 function ltSystem(){ return DATA.liberatedToadsSystem||null; }
 /* Roster statistics, computed live from the ported cohort + core-toad data. */
@@ -12142,6 +12184,10 @@ function view_rakashaNews(){
     </div>
     <div class="card journal-viewer-card rnn-viewer-card">
       <iframe id="rnnBroadcastFrame" src="${esc(rnnSrc)}" title="Rakasha News Network broadcast" allow="autoplay"></iframe>
+    </div>
+    <div class="card animate-fade-in" style="border-left:5px solid #e0b400"><div class="home-section-head"><div><h2>🗞️ The Daily Paradox — Print Edition</h2><p class="text-muted">The paper behind the broadcast: headlines, side stories, the Waluigi corner, and adverts of dubious legality.</p></div><a class="chip active" href="${esc(pathPrefix+'app/pages/newspaper/newspaper.html')}">Open full page →</a></div></div>
+    <div class="card journal-viewer-card rnn-viewer-card">
+      <iframe id="rnnPaperFrame" src="${esc(pathPrefix+'app/pages/newspaper/newspaper.html')}" title="The Daily Paradox newspaper" style="min-height:640px"></iframe>
     </div>
     ${rnnNewsdeskPanel()}`;
   window.scrollTo(0,0);

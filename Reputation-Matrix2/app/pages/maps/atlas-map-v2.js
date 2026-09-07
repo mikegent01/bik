@@ -38,6 +38,7 @@ const planeOf = poi => (poi && poi.plane) || 'material';
 /* Chatter overlay (Wah Notes map mode): set fresh on every mount, read by
    detailHtml. One map is ever mounted at a time, so module scope is safe. */
 let ACTIVE_CHATTER = null;
+let ACTIVE_CENSUS = null;
 
 function wikiId(poi) {
   return poi.articleId || poi.locationId || WIKI_IDS[poi.id] || null;
@@ -128,10 +129,13 @@ function detailHtml(poi, pois) {
   const planeTag = planeOf(poi) === 'material' ? '' : ` · ${PLANE_LABELS[planeOf(poi)] || planeOf(poi)}`;
   const chatter = (ACTIVE_CHATTER && ACTIVE_CHATTER.remarks && ACTIVE_CHATTER.remarks[poi.id]) || [];
   const chatterHtml = chatter.length ? `<div class="atlas-v2-chatter"><b>✍️ Wah Notes here</b>${chatter.map(r => `<p><b>${esc(r.icon)} ${esc(r.author)}</b> — ${esc(r.text)}${r.recordId ? ` <button class="atlas-v2-wiki" data-open-article="${esc(r.recordId)}">record</button>` : ''}</p>`).join('')}</div>` : '';
+  const spTop = ACTIVE_CENSUS && ACTIVE_CENSUS.species.top[poi.id];
+  const faTop = ACTIVE_CENSUS && ACTIVE_CENSUS.faiths.top[poi.id];
+  const censusHtml = (spTop || faTop) ? `<div class="atlas-v2-chatter"><b>📊 Filed census</b>${spTop ? `<p>🧬 ${esc(spTop.list.join(' · '))}</p>` : ''}${faTop ? `<p>🛐 ${esc(faTop.list.join(' · '))}</p>` : ''}</div>` : '';
   return `<article class="atlas-v2-detail">
     <span class="atlas-v2-kicker">${esc(poi.type || 'location')}${esc(planeTag)}</span>
     <h3>${esc(poi.name)}</h3>
-    <p>${esc(poi.description || 'No field report filed.')}</p>${chatterHtml}
+    <p>${esc(poi.description || 'No field report filed.')}</p>${censusHtml}${chatterHtml}
     <div class="atlas-v2-faction"><i style="background:${esc(faction.color)}"></i>${esc(faction.name)}</div>
     <dl>
       <div><dt>Population</dt><dd>${format(poi.population)}</dd></div>
@@ -161,9 +165,14 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
   }
   const { map, pois, population } = data;
   ACTIVE_CHATTER = opts.chatter || null;
+  ACTIVE_CENSUS = opts.census || null;
   /* Chatter lens: pin size = Wah Notes volume. A value fn instead of a key
      because loudness is computed, not filed on the POI. */
   const modes = Object.assign({}, MODES);
+  if (opts.census) {
+    modes.species = { label: 'Species', color: '#5eead4', unit: 'peoples', value: poi => ((opts.census.species.counts || {})[poi.id] || 0) };
+    modes.faiths = { label: 'Faiths', color: '#f0abfc', unit: 'faiths', value: poi => ((opts.census.faiths.counts || {})[poi.id] || 0) };
+  }
   if (opts.chatter) modes.chatter = { label: 'Chatter', color: '#f472b6', unit: 'wah notes', value: poi => ((opts.chatter.counts || {})[poi.id] || 0) };
   const startMode = (opts.defaultMode && modes[opts.defaultMode]) ? opts.defaultMode : 'population';
   /* Journey stops: [{poiId, n, eventId, name, date, plane}]. Stops whose pin

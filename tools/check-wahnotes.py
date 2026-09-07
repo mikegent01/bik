@@ -126,8 +126,19 @@ needles = ["function wahNotesFor(", "function wahNotesHtml(", "function wahLastS
 for n in needles:
     if n not in src:
         fail(f"index.html missing {n}")
+# Batch 2b: dashboard calendar scoping, who grid, census lenses, newspaper.
+needles2 = ['id="dash-cal" class="mini-calendar"', ".who-rail{display:grid",
+             "function wahCensusByPoi(", "function wahFaithName(",
+             "dashDoor('📺','RNN'", "rnnPaperFrame",
+             "app/pages/newspaper/newspaper.html"]
+for n in needles2:
+    if n not in src:
+        fail(f"index.html missing {n}")
+if src.count("census:wahCensusByPoi") < 2:
+    fail("census not passed from both map mounts")
 mod = (ROOT / "Reputation-Matrix2/app/pages/maps/atlas-map-v2.js").read_text()
-for n in ("modes.chatter", "ACTIVE_CHATTER", "data-token", "opts.party", "defaultMode"):
+for n in ("modes.chatter", "ACTIVE_CHATTER", "data-token", "opts.party", "defaultMode",
+           "modes.species", "modes.faiths", "ACTIVE_CENSUS"):
     if n not in mod:
         fail(f"atlas-map-v2.js missing {n}")
 css = (ROOT / "Reputation-Matrix2/app/pages/maps/atlas-map-v2.css").read_text()
