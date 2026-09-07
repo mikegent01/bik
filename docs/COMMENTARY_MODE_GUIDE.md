@@ -39,6 +39,18 @@ correct.
 
 ---
 
+## Length is proportional to the source
+
+Sized against the article it talks over — see the table in
+[`README-COMMENTARY-MODE.md`](README-COMMENTARY-MODE.md#length-proportional-to-the-source).
+Promo Mario ran 4.06x its source (a thin summary needing expansion); the Belly
+of the Beast ran 1.10x (an already-narrated session needing only the voice).
+
+Enforced per section, because that is the stable unit: **260–900 words each,
+whole cut >= 0.9x the source's story words.**
+
+---
+
 ## The three house rules
 
 ### 1. The story must survive on its own

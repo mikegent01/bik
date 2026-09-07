@@ -3,7 +3,9 @@
 **A commentary track for the archive.** The whole story, retold, with Waluigi
 talking over every second of it.
 
-- **Read the first one:** `#/commentary/promo_mario_newspaper_commentary`
+- **Filed so far:**
+  - `#/commentary/promo_mario_newspaper_commentary` — a contested document
+  - `#/commentary/the_belly_of_the_beast_commentary` — a full session narrative
 - **Data:** `Reputation-Matrix2/data/commentaries.json`
 - **Full house rules:** [`docs/COMMENTARY_MODE_GUIDE.md`](COMMENTARY_MODE_GUIDE.md)
 - **Checker:** `python3 tools/check-commentaries.py` (runs inside `check-all.py`)
@@ -38,6 +40,7 @@ The problem is measurable. Same yardstick, three documents:
 | `spider_grove_battle` — old, good | 1,755 | 22.8 | 36.5 |
 | `promo_mario_newspaper` — new, flat | 302 | 9.9 | 19.9 |
 | **Promo Mario — Waluigi's Cut** | **4,055** | **24.9** | **34.3** |
+| **The Belly of the Beast — Waluigi's Cut** | **5,850** | **19.1** | **29.2** |
 
 The old Spider Grove article opens *"THIS is the one. This is Waluigi's
 battle."* He is not annotating that fight — he is **narrating** it, and
@@ -61,6 +64,42 @@ the story instead of underneath it.
 
 **Do not build a commentary by pasting an analysis thesis over a summary.**
 That is the exact failure the mode was created to fix.
+
+---
+
+## Length: proportional to the source
+
+**A commentary is sized against the article it is talking over.** A long
+session gets a long cut; a short clipping does not get padded to match it.
+
+The two filed cuts show why a single multiplier would be wrong:
+
+| Source | Source words | Cut words | Ratio |
+|---|---:|---:|---:|
+| `promo_mario_newspaper` | 999 | 4,055 | **4.06x** |
+| `the_belly_of_the_beast` | 5,319 | 5,850 | **1.10x** |
+
+Promo Mario is a 302-word summary sitting on top of dense assessment and prop
+material — it needs **expanding**, because most of the story was never told in
+prose. The Belly of the Beast is already 4,400 words of finished narrative — it
+needs the **voice laid over it**, not more plot.
+
+So the rule is expressed where it is actually stable — **the section**:
+
+```text
+□ 260–900 words per section
+□ whole cut >= 0.9x the source article's story words
+□ roughly one section per source beat; 6–12 sections
+```
+
+Both are enforced by `tools/check-commentaries.py`. In practice a section lands
+around 400–600 words, which is one story beat plus the interruptions it earns.
+
+> **Watch out:** on a long narrative source the temptation is to paste beats
+> verbatim, and the density checks WILL fail — that is exactly what happened
+> drafting the Belly cut, which failed three silent-run errors on the first
+> pass. The fix is not to add more Waluigi at the end; it is to **compress the
+> retold prose** so the same events take fewer words, then interrupt them.
 
 ---
 
@@ -150,6 +189,8 @@ target is a real article the archive already liked.
 □ at least one WAH per filing
 □ every section shows first-person presence
 □ no stretch longer than 220 words without Waluigi in it
+□ each section 260–900 words
+□ whole cut >= 0.9x the source article's story words (proportional length)
 ```
 
 The last two matter most: they catch a section sliding back into flat

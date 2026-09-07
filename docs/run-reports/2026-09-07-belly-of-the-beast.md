@@ -620,3 +620,77 @@ The writing procedure leads with the lesson from this expansion: **read
 `outcome`, `aftermath`, `waluigiAssessment`, `revisions[]` and every referenced
 prop before drafting.** The commentary nearly tripled without inventing
 anything — the material was filed and unread.
+
+## 5k. Proportional length rule + Belly of the Beast commentary
+
+### Proportional length is now a rule, and it is enforced
+
+Requested: commentary length should scale with the source article. A flat
+multiplier turned out to be the wrong instrument, and the two filed cuts show
+why:
+
+| Source | Source story words | Cut words | Ratio |
+|---|---:|---:|---:|
+| `promo_mario_newspaper` | 999 | 4,055 | **4.06x** |
+| `the_belly_of_the_beast` | 5,319 | 5,850 | **1.10x** |
+
+Promo Mario is a 302-word summary over dense assessment and prop material — it
+needed **expanding**. The Belly of the Beast is already ~4,400 words of finished
+narrative — it needed the **voice laid over it**, not more plot. Applying
+Promo Mario's 3.65x to Belly would have demanded a 19,000-word commentary,
+which is absurd.
+
+The stable unit is the **section**, so the rule is expressed there:
+
+```text
+□ 260–900 words per section
+□ whole cut >= 0.9x the source article's story words
+□ roughly one section per source beat; 6–12 sections
+```
+
+`tools/check-commentaries.py` gained `source_story_words()` and both checks,
+and now prints the ratio and section range for every filing. Fault-tested by
+truncating the Belly cut to two sections: fails with
+`514w against a 5319w source (0.10x)` and `9w section (min 260) — thin`.
+
+### The Belly of the Beast — Waluigi's Cut
+
+10 sections, **5,850 words**, 19.1 Waluigi/1k, 29.2 CAPS/1k, 8 WAH.
+
+**The checker earned its keep here.** First draft failed with three silent-run
+errors and both density floors — because the source narrative is strong enough
+that whole beats got pasted in and left to carry themselves. That is precisely
+the failure the mode exists to prevent, and the fix was not bolting more
+Waluigi onto the end: it was **compressing the retold prose** so the same
+events take fewer words, then interrupting them. That lesson is now a callout
+box in the README.
+
+Argument beats the cut lands, all from filed material:
+
+- the crows crossed four people to reach **the healer** — target selection
+  across three engagements, not a swarm
+- Archie has now attacked the ground **twice** under a thing the crows carry
+- Remi's musket at zero inches: three filings called it a monster on its own
+  denial, and *the claim held* — the archive was not lied to, it was not
+  listening
+- Archie said **run** thirty seconds after the mask came off, and talked
+  himself out of the only correct plan in the file
+- *I used all of it* and *that was not half his power*, same Toad, same thirty
+  seconds, both delivered as jokes, plan unchanged
+- the Scorncrow destroyed **the wheels before the rider** — a tactician, not a
+  prankster
+- the voices in the pit said ***us*** — a plural, which is a political
+  statement, and only Remi was on the right side of the wood to hear it
+- the stump: Waluigi fought in that grove, called it his finest hour in print,
+  and it is now at the bottom of a pit inside a monster
+
+Verified: 35 concrete claims grepped against `events.json` and both battle
+records — none unsupported.
+
+### Docs
+
+- `docs/README-COMMENTARY-MODE.md` — new "Length: proportional to the source"
+  section with the ratio table and the compress-don't-pad warning; both filed
+  cuts listed at the top; floors list updated.
+- `docs/COMMENTARY_MODE_GUIDE.md` — proportional-length section cross-linking
+  the README.
