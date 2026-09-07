@@ -134,6 +134,44 @@ Static server on :8765, event JSON served and parsed clean.
 | Dynasty, currency, Bros attacks, songs, books | no trigger fired |
 | Dossier assessments | no faction changed its opinion of an operator; `check-assessments.py` PASS unchanged |
 
+## 5b. Prose remaster (third pass)
+
+The first draft of the nine section bodies failed the craft standard in
+`STORY_FORMAT_GUIDE.md` §1–3, and the event audit in `AUDIT_SCRIPTS.md` proves
+it numerically. Reported by the user against section I; confirmed archive-wide.
+
+| Metric | Before | After | Imp reference |
+|---|---:|---:|---:|
+| Sensory words / 1k | **1.8** | **9.0** | ~12 |
+| Story ratio | **58%** | **78%** | 83% |
+| Analysis ratio | **42%** | **22%** | 17% |
+| Dialogue / 1k | 12.9 | 9.8 | ~12 |
+| Banned words in story prose | 1 | **0** | 0 |
+
+**What was wrong.** The guide's §1 reject example is prose that reports a beat
+instead of showing it, and section I opened with exactly that: *"The Scorncrow's
+answer to a party that had held the field was to stop fighting people and start
+fighting one person"* — a thesis sentence, no room, no bodies. It was followed by
+*"there is no elegant way to describe what a murder of crows does to a man"*,
+which is the narrator announcing he will not do the one job the section has. At
+1.8 sensory words per 1,000 against a target of 8+, the whole filing was minutes
+with quotes pasted in.
+
+**What changed.** All nine `overview` bodies rewritten against the seven
+techniques in §2 — sound it, name the object, body over mood, one concrete
+anchor per paragraph. The crows now arrive as *"a dry, leathery clatter, a
+thousand playing cards shuffled at speed"* and land as *"the noise of hail on a
+tin roof — beaks on steel"*; Dan's gauntlet comes off; the burlap mask lands
+*"face-up in the mud six feet away with its painted stitched grin pointing at
+the sky."* Every `waluigi_note` was cut to the 40–70 band (was 55–117), which is
+what moved 20 points of ratio from analysis back to story.
+
+**What did not change:** every quoted line of table dialogue, every beat, all
+three `[[prop:]]` triggers, all five section images, the apparatus
+(`aftermath`, `waluigiAssessment`, `xpAwards`), and every id. Section lengths
+316–425 words, all inside the 350–450 aim or its tolerance. Diff is 18 lines
+changed — prose only.
+
 ## 6. Local server
 
 `start.py` (repository root) serves the archive over HTTP and opens it:
