@@ -407,3 +407,47 @@ Removed Archie Miser and his storm cloud from
 file — the ruined archway, vines and butterflies were extended over the gap.
 The other four characters, the tree, the moon and the FEYWARD lettering are
 unchanged.
+
+## 5g. Canon correction — the Skittering Grove is the Silent Grove
+
+**Reported by the table owner.** The grove at the bottom of the rope is not a
+new location. It is the Silent Grove — the same web-choked forest on Raventree
+Manor's northwestern boundary where the party fought the **Battle of the Spider
+Grove** and banished the Arachnid Matriarch. The same great dead tree. The same
+stump they stacked the loot on. **Only Markop realised it.**
+
+The archive had this wrong in a specific and damaging way. `skittering_grove`
+closed with a Waluigi assessment reading *"Either this is a second one, or
+something has learned to grow the same room twice… files both."* That hedge is
+now false: the identification was made on the spot, out loud, by a named
+witness, and the archive was treating an established fact as an open question.
+
+### Changes
+- **`events.json` — `the_belly_of_the_beast` §IX (Skittering Grove).** Rewritten
+  so the recognition is the event rather than a passing line. Markop stops the
+  way you stop in a room you have been in before; walks past the roots to the
+  broad flat stump with the axe scar; puts a hand on it; names the loot that was
+  piled there (the War Mage's Staff he claimed on Archie's behalf, the
+  Web-Woven Scale, Rodger's three healing potions, all per `spider_grove_battle`);
+  says *"This is the Silent Grove. We cleared it."* Nobody else recognises it.
+  The `waluigi_note` now carries the consequence: one centaur's memory is the
+  only reason the archive knows the Scorncrow's tree opens onto ground we
+  already own — and the Legion are standing in it.
+- **`locations.json` — `skittering_grove`.** Summary, opening line and the
+  assessment block rewritten. The hedge is replaced with the identification and
+  the real open question: not whether the grove moved, but whether it was ever
+  only in one place. Two new notable features (the loot-stump identification;
+  two approaches to one grove).
+- **`locations.json` — `silent_grove`.** Summary now records that it did not
+  stay cleared and did not stay put. Two new features (re-entry as the
+  Skittering Grove with Legion soldiers present; the loot stump still at the
+  roots). Cross-linked to `skittering_grove` and `the_belly_of_the_beast`.
+- **`battles.json` — `the_skittering_grove_descent_battle`.** Location line,
+  result, summary, description and the closing key moment all now name the
+  Silent Grove and credit the identification to Markop.
+- **`characters.json` — `markop`.** Status records that he recognised the grove
+  and was the only one who did.
+
+Preserved: all 9 sections, the section image `belly-05-skittering-grove.jpg`,
+all 3 `[[prop:]]` triggers, the block quotation of the grove description, and
+every line of dialogue already filed. `tools/check-all.py` → all checks passed.
