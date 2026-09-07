@@ -352,3 +352,58 @@ Worst first: `mount_ebott_final_log` (3.9/1k, 8 of 10 sections at 0.0),
 plus the six ~150-word stubs at 0.0/1k. Also `the_scorncrow_skirmish` the event.
 
 `tools/check-all.py` → all requested checks passed.
+
+## 5e. Remaster of all 15 article analyses
+
+Applied the new `ARTICLE_ANALYSES.md` grounding rule across the whole section.
+The sweep found two different defects, not one.
+
+**Seven substantial filings** (hanging tree, chop bros, Ebott, battalion, warp
+pipe, scorncrow, Promo Mario) had good arguments and no bodies. Treatment was
+surgical: the argument is untouched, with a physical beat added before the first
+analytical sentence of each section, `*WAH!*` asides moved into body prose, and
+a physical residual on the thesis/verdict. No canon facts, dates, custody or
+outcomes changed.
+
+**Eight were not filings at all.** They had zero sections, no verdict, and
+~150 words of generated wargame prose with "WAH." bolted on each end. These were
+authored into real analyses — grounded thesis, three sections each with
+`sourceAnchor`, icon and heading, and a verdict.
+
+Three of those eight point at source articles that **do not exist anywhere in
+the archive** (`undercity_grotto_seclusion_incident`, `ruin_recovery_1023_bf`,
+`frostfall_moonlit_mysteries`). Rather than write convincing prose over a hole,
+each was filed as an explicit **unsupported** finding that documents the missing
+source and recommends rebuild-or-retire. `ruin_recovery_1023_bf` additionally
+credits "Riders from Rohan" — a kingdom absent from this world — which is
+recorded as evidence of the page's generated origin.
+
+| Analysis | Before | After |
+|---|---:|---:|
+| hanging_tree_apple | 3.5 | 10.3 |
+| feyward_chop_bros | 3.1 | 14.6 |
+| mount_ebott_final_log | 4.2 | 11.9 |
+| battalion_of_six | 11.6 | 17.1 |
+| warp_pipe_junction | 8.6 | 12.9 |
+| scorncrow_skirmish | 6.4 | 9.9 |
+| first_snowfall_incident | 5.2 | 20.1 |
+| battle_of_the_shadow_canyon | 0.0 | 10.7 |
+| battle_of_the_sugar_swamp | 0.0 | 12.4 |
+| eldridge_hillfort_defense | 0.0 | 11.7 |
+| battle_of_the_mistral_farmstead | 0.0 | 10.4 |
+| undercity_grotto_seclusion | 7.4 | 13.1 |
+| ruin_recovery_1023_bf | 15.2 | 10.4 |
+| frostfall_moonlit_mysteries | 6.6 | 12.2 |
+| promo_mario_newspaper | 5.6 | 19.0 |
+
+Section totals: 15 filings, 0 without sections (was 8), 0 without a verdict
+(was 8), **69 `*WAH!*` asides in body prose (was 0)**, 27,330 words.
+`tools/check-all.py` → all requested checks passed.
+
+## 5f. Feyward title card
+
+Removed Archie Miser and his storm cloud from
+`assets/images/session-covers/feyward-title-card.png` by editing the existing
+file — the ruined archway, vines and butterflies were extended over the gap.
+The other four characters, the tree, the moon and the FEYWARD lettering are
+unchanged.

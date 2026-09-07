@@ -682,98 +682,282 @@
     {
       "id": "first_snowfall_incident_waluigi_analysis",
       "sourceArticle": "first_snowfall_incident",
-      "title": "The First Snowfall Incident",
+      "title": "Snowflake Village Was Not Saved; It Was Left Alone",
       "kicker": "Waluigi's Article Analysis",
-      "subtitle": "A signed interpretation of the generated record.",
+      "subtitle": "Sixty people, one fey entity, and a response that arrived after the weather did.",
       "archivist": "Waluigi, Auditor-General",
       "filed": "14th Chillwind, 978 BF",
       "summary": "A series of strange occurrences at the outskirts of Snowflake Village during a particularly harsh winter led to a mysterious outbreak that baffled local and regional authorities alike.",
-      "thesis": "Waluigi has reviewed the timeline of the First Snowfall Incident, and the tactical incompetence on display is staggering. A Class-III reality distortion occurs, a 'Winter's Whisper' fey spirit manifests, and the local response is to huddle in tents and tell ghost stories. This was not an unpredictable act of nature; this was a predictable breach of the planar boundary that regional commanders completely ignored because they mistook a humming, glowing blizzard for 'bad weather.'\n\nThe consequences of this failure are twofold. First, it demonstrates that the Northern Reaches are utterly undefended against magical incursions. Any faction with half a brain—the Iron Legion, the Mages' Guild, or even a particularly ambitious group of rogue wizards—now knows that the northern borders are a soft target. Second, the survival of the village was purely accidental. The fey spirit retreated on its own accord. If it had decided to stay, Snowflake Village would currently be a permanent ice sculpture exhibit. Waluigi will be submitting a formal budget request to penalize the regional commanders for their negligence. If they cannot defend a single village from a minor fey entity, they do not deserve their stipends. WAH.",
-      "sections": []
+      "thesis": "Forty-eight hours with these reports and the ink is still cold to the touch. Frost got into the pages before they reached me — the fibres have gone soft and wavy, and three of the incident forms have a bloom of damp across the signature line, so I am reading a document that has been damaged by the thing it describes.\n\nThat is the whole file in one detail, and I want it on the record before I argue anything. The paperwork froze. Nobody thought that was worth a line.\n\nMy reading is that Snowflake Village was not defended. It was survived. A Class-III distortion opened over sixty people, a Winter's Whisper walked out of it, and the response on the ground was tents and ghost stories. *WAH! I have audited grain shipments with more command attention than this.* The village is intact because the entity left, not because anybody made it leave, and an outcome that depends entirely on a hostile changing its mind is not a defence. It is luck with a report attached.\n\nI am filing the luck. Somebody should know it was luck before they budget for the next one.",
+      "sections": [
+        {
+          "id": "the-paperwork-froze",
+          "icon": "🧊",
+          "heading": "The Reports Are Frost-Damaged, and Nobody Recorded That Either",
+          "sourceAnchor": "Incident reports from Snowflake Village reached the audit desk with frost damage.",
+          "body": "Damp across the signature line on three forms. A crease where a page was folded while wet and dried that way. I flatten them under the glass and they will not sit flush.\n\nConsider what has to be true for a report to arrive in this condition. Somebody wrote it in the cold, in a structure that did not hold heat, with the anomaly still active outside. The document is physical evidence of the conditions the document fails to describe. Nowhere in the text does anyone say *it was too cold to write this properly*, and yet the paper says exactly that.\n\nI dwell on it because it tells me what kind of failure this was. Not a cover-up — a cover-up produces clean paper. This is the paperwork of people who were overwhelmed and doing their best with numb hands. The negligence I am about to allege is not theirs. It sits with whoever read these pages, noticed nothing, and filed them."
+        },
+        {
+          "id": "a-hum-is-not-weather",
+          "icon": "🌀",
+          "heading": "A Humming, Glowing Blizzard Was Classified as Bad Weather",
+          "sourceAnchor": "A Class-III reality distortion and a 'Winter's Whisper' fey manifestation were recorded during the snowfall.",
+          "body": "The record opens with a hum in the mountains before the clouds arrive. Then stillness — the file's word — settling over the rooftops like white dust.\n\nWeather does not hum. I want to be careful, because I was not standing in that street and the villagers were, and a person in a strange storm will hear all sorts of things. But the hum is in more than one account, and it precedes the snow. That is a sequence, and sequence is the cheapest evidence there is: it costs nothing to write down and it cannot be faked by mood.\n\nSomebody with authority read *humming* and *glowing* and reached for the category marked weather, because weather is a category that does not require anyone to be sent. *WAH! Classification is a budget decision wearing a lab coat.* The misfiling was not a failure of perception. It was a failure that saved money, right up until it did not."
+        },
+        {
+          "id": "it-left-on-its-own",
+          "icon": "🚪",
+          "heading": "The Entity Withdrew. That Is the Entire Defence Plan.",
+          "sourceAnchor": "The fey spirit retreated of its own accord; the village survived.",
+          "body": "Sixty people. One entity. No engagement recorded, no ward raised, no evacuation ordered. The thing came, stayed a while, and went.\n\nI have read the outcome line several times looking for the intervention and there is not one. What the file offers instead is endurance: villagers in tents, an elder keeping order, an old man telling stories to children in the dark to stop them listening to the wind. Those are real acts and I will not sneer at them. Elsie and Hargrove did more for that village than the regional command did.\n\nBut endurance is not a defence, and the archive must not let the happy ending launder the arrangement that produced it. Ask the only question that matters: what was the plan if it had stayed? There is no answer in the file. Not a bad answer — no answer. *WAH. A defence that works only when the enemy is bored is a rumour of a defence.*"
+        }
+      ],
+      "verdict": "My verdict: the Northern Reaches are undefended against planar incursion, and Snowflake Village is the proof rather than the exception. Sixty people were covered by nothing but the good manners of a fey entity.\n\nWhat I will not do is blame the people who were there. The frost on these pages is theirs. The tents were theirs. The ghost stories were a village elder keeping sixty frightened people from listening to the wind, and that is competent work done with nothing.\n\nWhat I recommend: reclassify humming and luminescence out of the weather category entirely, because that single filing error is the whole failure. Establish what the northern response time actually is, in hours, and write the number down where a commander must sign it. And send somebody to Snowflake Village with dry paper.\n\nThe reports are still under the glass. They have thawed now, and they smell faintly of wet wool. I am leaving them out until somebody answers the question the file does not: what was the plan if it had stayed?"
     },
     {
       "id": "battle_of_the_shadow_canyon_waluigi_analysis",
       "sourceArticle": "battle_of_the_shadow_canyon",
-      "title": "Battle of the Shadow Canyon",
+      "title": "Shadow Canyon: Twelve Dead Holding a Place Nobody Priced",
       "kicker": "Waluigi's Article Analysis",
-      "subtitle": "A signed interpretation of the generated battle record.",
+      "subtitle": "An ambush faction lost thirty and five captured. The ground did not change hands.",
       "archivist": "Waluigi, Auditor-General",
       "filed": "Highsun 15, 723 BF",
       "summary": "The Scourge of the Vines, a faction known for their stealth and guerilla tactics, launched an unexpected ambush on the Guardians of Duskwood at Shadow Canyon. The attack was swift but costly for the attackers who were caught in a well-prepared trap.",
-      "thesis": "WAH.\n\nThe event was a tactical test, where the Scourge's aggressive counter-offensive met the Guardians' steadfast defense. In the end, it resulted in a drawn-out stalemate that sapped resources and wore down both factions. The Scourge, driven by their relentless pursuit, and the Guardians, who refused to waver, created this deadlock of attrition warfare.\n\nFor the Scourge, this night showed they could push harder but also highlighted the need for strategic reserves; fatigue among troops could be a deciding factor in future battles. For the Guardians, it meant their strategy of defense was sound but would require careful management of resources to prevent exhaustion. This event signals that both sides must adapt and find a balance between aggressive attacks and defensive fortitude.\n\nIn the grand scheme, this stalemate shifts the focus to logistics and attrition rather than outright victory, changing the dynamics of how each faction approaches conflict. WAH.",
-      "sections": []
+      "thesis": "The casualty line is the only part of this record I trust, so I have copied it onto a card and set it where the lamp hits it: attackers, thirty dead and five taken. Defenders, twelve dead and four wounded. Forty-two people, one canyon, one afternoon.\n\nEverything else in the file is adjectives. The Scourge move with stealth. The Guardians cling tenaciously. Somebody has written this the way a man writes about a battle he heard about in a tavern — all vigour and no distances, no time of day, no weather, no idea who gave which order when.\n\nMy reading is that this was not a tactical test, whatever the summary calls it. It was an ambush faction discovering it had walked into prepared ground and paying almost three to one for the discovery. *WAH! Stealth specialists lost thirty people in a canyon. Somebody's whole doctrine died that morning and the file calls it a stalemate.*\n\nTwelve of ours are dead and the record cannot tell me their names. I am going to be short-tempered about that.",
+      "sections": [
+        {
+          "id": "the-ratio-is-the-story",
+          "icon": "⚖️",
+          "heading": "Three to One Is Not a Stalemate; It Is a Doctrine Failing",
+          "sourceAnchor": "Attackers: 30 casualties, 5 captured. Defenders: 12 dead, 4 wounded. The defenders held the ground.",
+          "body": "Thirty-five losses against sixteen. I write both figures on the blotter in ink and put my thumb between them. I do the arithmetic on the blotter because the summary will not: the Scourge lost better than two-thirds of their fifty-strong force and came away with nothing.\n\nThe file calls the outcome a drawn-out stalemate that sapped both sides. Read the numbers and that sentence collapses. A stalemate is when neither party can make the other move. Cold canyon, one afternoon, and one side walked out of it. Here one party made the other stop existing at a rate of better than two to one and kept the canyon at the end of it.\n\nI understand why the language is soft. Twelve dead is a real wound in a garrison and nobody writing it up wants to call the day a victory with fresh graves in the yard. But an archive that softens a win into a draw teaches the next commander the wrong lesson about prepared ground. *WAH. Call it what the bodies say it was.*"
+        },
+        {
+          "id": "five-captured",
+          "icon": "🔒",
+          "heading": "Five Prisoners Are the Most Valuable Objects on That Field and the File Loses Them",
+          "sourceAnchor": "Five of the attacking force were captured.",
+          "body": "Five living members of a faction whose entire advantage is that nobody knows where they are. Five pairs of hands, five faces, five sets of boots that have walked the undergrowth routes.\n\nThat is an intelligence windfall of a kind the Guardians have presumably wanted for years — five people who know the undergrowth routes, the muster points, who gives the orders and where he sleeps. I turn the page expecting custody, disposition, interrogation, anything. There is nothing. The five are counted once, in a casualty tally, as though they were an accounting remainder.\n\nThis is the failure that will cost more than the twelve graves. Bodies end a threat once. Prisoners end it repeatedly, if anyone bothers to ask them questions and write the answers down. Somewhere there are five people in a cell who are worth more than the canyon, and this record cannot tell me whether anybody has spoken to them. *WAH! Thirty dead is arithmetic. Five alive is a library, and the file left it in the rain.*"
+        },
+        {
+          "id": "quiet-for-several-days",
+          "icon": "🌿",
+          "heading": "They Were Unusually Quiet First, and the Quiet Was the Warning",
+          "sourceAnchor": "The Scourge, known for stealth and guerilla tactics, had been unusually quiet for several days before the attack.",
+          "body": "Cold morning, forested ground, scouts moving carefully because something has been wrong for days. That much the file does give me, and it is the best thing in it.\n\nThe Guardians read the silence correctly. That is the finding I want preserved, because it is the only decision in this record that clearly belongs to a person. An enemy who is always noisy goes quiet; the Guardians did not enjoy the peace, they went to alert. Everything in the casualty ratio flows from that one act of interpretation, made days early, by somebody whose name the file does not record.\n\n*WAH! Days of nothing, and somebody heard it.* Ser Cedric is named as commander. I do not know whether the reading was his, and I am not going to award it to him because his rank is the one on the page. Somebody noticed an absence of noise and treated it as information. That is the whole battle. The rest is thirty people finding out."
+        }
+      ],
+      "verdict": "My verdict: Shadow Canyon was a defensive victory produced by one correct reading of silence, and the record has filed it as an inconclusive grind.\n\nCorrect the language first. This was not attrition and it was not a stalemate; it was a prepared position doing exactly what prepared positions are for. If the archive files it as a draw, the next garrison learns that alertness buys nothing.\n\nThen find the five prisoners. They are the only assets from this day that can still change a future one, and their disposition is not in the file.\n\nThen name the twelve. A canyon that is worth twelve lives is worth twelve names, and the record currently contains neither.\n\nThe casualty card is still under the lamp. Thirty-five against sixteen, in a place I could not find on a map, over ground the file never bothers to say why anyone wanted."
     },
     {
       "id": "battle_of_the_sugar_swamp_waluigi_analysis",
       "sourceArticle": "battle_of_the_sugar_swamp",
-      "title": "Battle of the Sugar Swamp",
+      "title": "Sugar Swamp: The Only Battle in the Archive Nobody Lost",
       "kicker": "Waluigi's Article Analysis",
-      "subtitle": "A signed interpretation of the generated battle record.",
+      "subtitle": "Fifty Kremlings, zero defender casualties, and a result the file calls a shift toward diplomacy.",
       "archivist": "Waluigi, Auditor-General",
       "filed": "Veridia 15, 722 BF",
       "summary": "King K. Rool's Kremlings ambushed a small Pastry Folk patrol, leading to a brief but fierce skirmish near the Overgrown Cottage.",
-      "thesis": "The event's consequences are a double-edged sword for all factions involved. The Kremlings' strategic shift towards diplomacy offers them a path to longevity through alliances rather than constant conflict, but it also risks diluting their power and control over time. For the Pastry Folk, this marks an opportunity to expand their influence, potentially at the expense of other weaker factions. However, such expansion will require careful management and could lead to resentment or rebellion among those courted.\n\nThe Sugar Swamp tension remains unresolved, with both sides aware that the next move can be decisive. This event signals a broader shift in strategy for these factions, from direct confrontation to more nuanced power plays. The Kremlings may find their dominance challenged by alliances, while the Pastry Folk will have to navigate the delicate balance of being perceived as allies or oppressors.\n\nWAH.",
-      "sections": []
+      "thesis": "Defenders: none. I have read that casualty line four times because in eleven months of auditing battle records I have almost never seen it.\n\nFifty-odd Kremlings moved on the Overgrown Cottage. Several were lost. The Pastry Folk lost nobody at all. Whatever happened in that sugarcane, it was not a battle in the sense the word usually earns — it was a test of a boundary that came back with an answer, and the answer cost one side several lives and the other side an afternoon.\n\nMy reading is that the file has mistaken a probe for a war and is now drawing strategic conclusions from it. *WAH! One bloodless afternoon and the summary is talking about the Kremlings' long-term pivot to diplomacy. Fifty warriors went into a swamp and came back short-handed. That is not a pivot; that is a receipt.*\n\nThe interesting question is not who won. It is why a force of fifty, moving with acknowledged skill, achieved nothing whatsoever.",
+      "sections": [
+        {
+          "id": "none",
+          "icon": "0️⃣",
+          "heading": "\"Defenders: None\" Is the Most Suspicious Number in the File",
+          "sourceAnchor": "Casualties — attackers: several Kremlings lost. Defenders: none.",
+          "body": "A clean zero, written small in a cold hand. I set it beside the attacker count and the pair of them will not sit comfortably together.\n\nTwo readings, and I cannot dismiss either. The first is that the Pastry Folk fought from ground so good that fifty attackers never laid a hand on them — which would make Helvetica's dispositions the most efficient defensive work in this section of the archive and worth studying in detail the file does not provide.\n\nThe second is that this was never pressed. A probe, a look, a few Kremlings caught in the open, and a withdrawal. That would also produce these numbers, and it would produce them without anybody being clever.\n\nThe record cannot distinguish them, and I want that limit stated plainly rather than papered over. *WAH. A zero can mean brilliance or it can mean nobody tried very hard, and the difference matters enormously to whoever defends that cottage next.*"
+        },
+        {
+          "id": "the-cottage-is-a-gossip-post",
+          "icon": "🏚️",
+          "heading": "The Contested Ground Is a Ruin Where People Go to Argue",
+          "sourceAnchor": "The Overgrown Cottage, an ancient ruin, had long been a gathering place for gossip and minor skirmishes between the Kremlings and the Pastry Folk.",
+          "body": "Damp stone, sugarcane to the walls, and a roof that has been failing for a century. The file's own word for what happens there is gossip.\n\nI like this detail more than anything else in the record because it explains the whole encounter. This was not a strategic objective; it was a place two neighbouring peoples had been needling each other at for years, with an established etiquette of minor skirmish. *WAH! Fifty of them crept through wet cane in the dark to surprise people at the one place on the isle where everybody is always watching.* Everybody knew the ground — the damp, the smell of it, which boards give.\n\nThat is why fifty warriors achieved nothing. You cannot surprise anybody at the place where you always meet them. The Kremlings brought stealth to a location whose entire function was that both sides watched it constantly. The cunning was real and it was spent in the one spot on the isle where it was worthless."
+        },
+        {
+          "id": "diplomacy-is-not-a-lesson-yet",
+          "icon": "🤝",
+          "heading": "One Bad Afternoon Is Not a Strategic Realignment",
+          "sourceAnchor": "The summary reads the outcome as a Kremling shift toward diplomacy and alliance-building.",
+          "body": "I put the summary down and rub my eyes. Here is where I part company with the file. It takes a failed probe and derives from it a change of national character.\n\nI have watched this move before and it is always the same shape: a single engagement is read as a trend because a trend makes a better closing paragraph. King K. Rool lost several warriors testing a boundary he has tested many times. The honest inference is that the boundary held again. The inference the file draws — a path to longevity through alliances, a risk of diluted power — is a story about the next ten years built on one damp morning in the cane.\n\nMaybe it is even true. I cannot rule it out and I am not going to pretend I can. But it is not in the evidence, and an archive that lets conclusions outrun their afternoon will eventually be asked to defend them. *WAH! Write what the swamp says. The swamp says: they came, it did not work, they went home lighter.*"
+        }
+      ],
+      "verdict": "My verdict: a boundary probe, correctly repelled, currently filed as a war with geopolitical consequences.\n\nThe one genuinely remarkable fact — zero defender casualties against a force of fifty — is the fact the record spends the least time on. Establish which reading is true. If Helvetica's dispositions produced that zero, they belong in a manual. If the Kremlings simply never committed, then the Pastry Folk are being credited with a victory they were not required to win, and the next probe will be the real one.\n\nStrike the strategic realignment. Nothing in this file supports it.\n\nKeep the cottage. Not because it matters strategically — it plainly does not — but because two peoples have chosen a damp ruin as the place they conduct their disagreements, and while they keep meeting there they are not meeting anywhere worse."
     },
     {
       "id": "eldridge_hillfort_defense_722_bf_waluigi_analysis",
       "sourceArticle": "eldridge_hillfort_defense_722_bf",
-      "title": "Defense of Eldridge Hillfort",
+      "title": "Eldridge Hillfort: The Road Won, Not the Hill",
       "kicker": "Waluigi's Article Analysis",
-      "subtitle": "A signed interpretation of the generated battle record.",
+      "subtitle": "Sixty militia, twenty-five archers, five sharpshooters, and a narrow winding approach that did most of the work.",
       "archivist": "Waluigi, Auditor-General",
       "filed": "Firstlight 15, 722 BF",
       "summary": "The defenders of Eldridge Hillfort successfully repelled a coordinated assault by orcish marauders, goblin skirmishers, and an alliance of raiding groups.",
-      "thesis": "The purification teams' intervention at Eldridge Hillfort brought temporary relief and a semblance of order, but it also highlighted the vulnerability of settlements to external threats. While the discovery of the hidden spring provided some respite for water supply issues, the hillfort remains on the brink of a precarious existence. The raiders’ return is inevitable; their tactics have been refined through this encounter. The hillfort’s leaders are now faced with tough choices: prioritize reconstruction or invest in long-term strategic planning to deter future attacks. This event serves as a stark reminder that peace can never be guaranteed, only endured. WAH.",
-      "sections": []
+      "thesis": "Somebody drew the approach road on the back of the muster sheet — a thin pencil line doubling back on itself twice between the trees and the gate — and that sketch is the most useful document in this file. I have it under the lamp. It is worth more than the entire prose account, because it explains the casualty figures and the prose does not.\n\nTwenty-five per cent of the attacking force lost. Ten casualties among the defenders. Those numbers were decided by geometry before anybody drew a weapon.\n\nMy reading is that the Eldridge garrison won on terrain and is being credited with valour. Both can be true, and the file only records one, which is how a garrison ends up moved somewhere flat and wondering where its luck went. *WAH! Put these same sixty men on open ground and the arithmetic reverses. Somebody should write that down before they are needed elsewhere.*",
+      "sections": [
+        {
+          "id": "the-bottleneck-did-it",
+          "icon": "🛤️",
+          "heading": "A Narrow Winding Road Is Worth More Than the Sharpshooter Unit",
+          "sourceAnchor": "The road to the hill was narrow and winding, making it a potential bottleneck for the marauding forces; the terrain and elevation favoured the garrison.",
+          "body": "The pencil line doubles back twice. At the second bend the file says the ravine sides come close enough that a formation has to thin out to pass.\n\n*WAH! A bend in a road, drawn in pencil, worth more than every sword on that hill.* That is the battle. An orcish marauder force's advantage is mass and momentum; the road took both away at the second bend and handed the hilltop archers a queue. Twenty-five per cent losses is what happens when you feed a column into a place where only its front rank can fight and everyone above can shoot down into it.\n\nThe Eldridge Eagles get a proper name and a paragraph. The road gets a clause. I would reverse that allocation entirely. Five excellent marksmen are a resource you can lose to a fever; a bottleneck is a resource that turns up every single morning and never asks for pay."
+        },
+        {
+          "id": "the-square-the-day-before",
+          "icon": "🗣️",
+          "heading": "The Assembly in the Village Square Is the Only Command Decision Recorded",
+          "sourceAnchor": "The day before the assault, Captain Grimes assembled the garrison in the village square.",
+          "body": "Cold square, packed earth, breath showing, sixty militiamen standing in front of a man who has to tell them what tomorrow looks like.\n\nI want more of this and the file gives me one sentence. What did he say? Did he tell them the road would do the work, or did he tell them they were brave? The difference decides whether this garrison knows why it won.\n\nThat is not an idle complaint. A unit that believes it won because it is tough will accept the next posting without asking about the ground. A unit that knows it won because of a bend in a road will ask, and the asking is worth more than the sharpshooters. *WAH. Somewhere in that square a man either taught sixty people the correct lesson or a flattering one, and the archive did not think it worth recording which.*"
+        },
+        {
+          "id": "ten-of-ours",
+          "icon": "🪦",
+          "heading": "Ten Casualties Is Cheap, and Cheap Is Not Free",
+          "sourceAnchor": "Defender casualties: 10. Attacker losses: 25% of the assaulting force.",
+          "body": "Ten out of roughly ninety defenders — ten men carried down a narrow winding road in the dark. *WAH. Cheap is a word for people who were not carrying them.* Against a marauder assault, on paper, that is an excellent day.\n\nI am wary of excellent days. They are how a position gets a reputation, and a reputation is what a commander spends when he decides a place can be held with less next time. The hillfort held with ninety and good ground. The file's tone suggests it could hold with less. Nothing in the record supports that and the record does not say it, but tone does its own work in an archive read by tired people.\n\nSo let me put the sentence in plainly, where it can be quoted: Eldridge held because ninety defenders occupied ground that multiplied them. Remove the ground or remove the ninety and the result is not this result. Ten graves bought a win at the going rate. The rate is not a discount."
+        }
+      ],
+      "verdict": "My verdict: a terrain victory correctly executed and incorrectly explained.\n\nVanguard Ironfoot and Captain Grimes did the two things that mattered — they occupied the high ground early and they made the enemy come up a road that could not carry him. That is competent, unglamorous, entirely repeatable work, and it is worth far more to the Grand Country than the marksmanship the file prefers to celebrate.\n\nWhat I recommend: survey the approach and file the road as a defensive asset in its own right, with the bends measured. Do not garrison Eldridge below ninety on the strength of this result. And record what Grimes actually said in that square, if anyone still remembers, because the next garrison will believe whichever version reaches them.\n\nThe pencil sketch stays in the file, on top, where the next auditor will see the road before he sees the adjectives."
     },
     {
       "id": "battle_of_the_mistral_farmstead_waluigi_analysis",
       "sourceArticle": "battle_of_the_mistral_farmstead",
-      "title": "Battle of the Mistral Farmstead",
+      "title": "Mistral Farmstead: Twenty-One Mercenaries for a Stepping Stone",
       "kicker": "Waluigi's Article Analysis",
-      "subtitle": "A signed interpretation of the generated battle record.",
+      "subtitle": "The Shadow Guild bought a village at seven to one and did not get the village.",
       "archivist": "Waluigi, Auditor-General",
       "filed": "Chillwind 15, 722 BF",
       "summary": "The Shadow Guild, seeking to expand their influence into Block Farm Village Connectopia, launched a surprise attack on a mistral farmstead. Grimmstone the Watchful, leading the village's militia, successfully defended against this assault.",
-      "thesis": "WAH. The event's consequences are clear: it has shown that adaptability is key to survival in a hostile environment. Block Farm Village's resilience and strategic alliances have turned the tide somewhat, but at great cost - lives lost, resources dwindling, and morale low. The Shadow Guild suffered losses too, yet their supply lines were gravely affected. The world's factions now see how a prolonged conflict can wear down even the most stalwart of warriors. For Block Farm Village, it’s about holding on; for others, it’s a lesson in the importance of strategic foresight and adaptability. This phase has been a war of attrition that has shaken the very core of the region's stability. The Shadow Guild might have gained ground, but they've also faced severe losses that could hinder their future campaigns. WAH.",
-      "sections": []
+      "thesis": "Twenty-one guildsmen dead. Three militia casualties. I have those two figures on a card and I keep turning it over, because mercenaries are the one belligerent in this archive who are supposed to be able to do arithmetic.\n\nA guild does not fight for ground; it fights for payment, and payment means somebody assessed this job and priced it. Whoever did that assessment was catastrophically wrong. Twenty-one professionals died taking nothing from a farm militia in a village whose chief asset the file describes as a strategic position — meaning it is on the way to somewhere the Guild actually wanted.\n\nMy reading is that this was an intelligence failure dressed as a battle. Their scouts went through by night and came back with a picture of the militia's strength. The picture was wrong. *WAH! They surveilled the place properly and still lost seven to one, which means the thing they failed to measure was not the number of men. It was Grimmstone.*",
+      "sections": [
+        {
+          "id": "the-scouts-were-right-and-it-did-not-help",
+          "icon": "🔭",
+          "heading": "They Scouted Well and Lost Anyway, Which Is the Frightening Part",
+          "sourceAnchor": "Shadow Guild scouts moved through the night gathering intelligence on the militia's strength and positioning.",
+          "body": "Night movement over cold fields, no alarm raised, a report delivered into somebody's hands before dawn. By the standards of this archive that is a scouting operation that worked.\n\nAnd then twenty-one of them died on cold ground within sight of a barn. I want to sit with how unusual that combination is, because most defeats in these records begin with somebody not looking. The Guild looked. They counted the militia and they mapped the positions and the count was presumably accurate, since nothing in the file suggests the militia was reinforced.\n\nWhat their scouts could not put in a report was that Grimmstone the Watchful was expecting them and had arranged his limited people around that expectation. A scout lying in a cold ditch can count boots, lanterns, and the gaps between them. Strength and positioning are the two things a scout can see. Intent is not one of them, and intent is what killed them. *WAH. You can count every man on a wall and still have no idea what the man behind the wall has decided to do about you.*"
+        },
+        {
+          "id": "a-stepping-stone",
+          "icon": "🪨",
+          "heading": "Nobody Dies Well for a Stepping Stone",
+          "sourceAnchor": "The Shadow Guild had long coveted Block Farm Village as a stepping stone to greater influence in Connectopia.",
+          "body": "The file's own word is *stepping stone*. Not a granary, not a crossing, not a mine — a few roofs, a wall, and mud. A place you put one boot on, briefly, on the way to somewhere that matters. *WAH! Twenty-one dead for a place whose whole value is that you do not stop there.*\n\nThat phrase should have governed the whole operation and clearly did not. Cold mud, a dry-stone wall, and a gate that a farmer had mended by hand. A stepping stone is worth a cheap attempt and an immediate withdrawal if the cheap attempt fails. It is not worth twenty-one professionals, which is a price you pay for the destination, not the step.\n\nSo the engagement tells me something about the Guild that the Guild would not want filed: their commitment outran their objective. Somebody stood in that mud and kept pushing after the cost passed the value, either because the contract punished withdrawal or because a commander could not stand to leave a farm village unbeaten. Both are exploitable, and both will happen again. Mercenaries with a pride problem are the easiest opponents in this archive to bleed."
+        },
+        {
+          "id": "three",
+          "icon": "🌾",
+          "heading": "Three Militia Casualties, and the File Does Not Say Who",
+          "sourceAnchor": "Defender casualties: 3 militia.",
+          "body": "Three farmers, dead in their own fields with the grain still standing. Not soldiers — the file calls them village militia, which means three people who owned fields in the morning.\n\nI am going to be plain about my irritation. The record gives the Shadow Guild a name, a commander's absence, a motive, and a strategic ambition across a whole region. It gives the three dead a numeral. Three sets of hands that mended that wall, and not one name between them.\n\nGrimmstone is credited with tactical acumen and deep knowledge of the village defences — which is to say he knew which gate sagged, which wall was dry stone, and where a man could stand in the dark and not be seen — and on the evidence he deserves both. But the deep knowledge in question is knowledge of a place where people live, and the defence worked because farmers stood in it. An archive that can name a mercenary company and not its own dead has decided, without ever saying so, whose story this was. *WAH! Twenty-one professionals are a casualty figure. Three farmers are a village that will notice for thirty years.*"
+        }
+      ],
+      "verdict": "My verdict: a mercenary company priced a farm village as a step and paid for a destination, and a watchful man with almost nothing turned good scouting into twenty-one graves.\n\nGrimmstone the Watchful is the finding here. Not the terrain, not the militia's courage — the specific act of arranging limited people around an accurate prediction of what the enemy would do. That is the rarest skill in this section of the archive and the file mentions it once, in passing, as tactical acumen.\n\nWhat I recommend: get his dispositions written down while he is alive to explain them. Note the Guild's inability to withdraw from a losing engagement and expect it again. And put the three names in the record.\n\nThe card is still on the desk. Twenty-one and three. One of those numbers belongs to people who were paid to be there."
     },
     {
       "id": "undercity_grotto_seclusion_incident_waluigi_analysis",
       "sourceArticle": "undercity_grotto_seclusion_incident",
-      "title": "A Quiet Disruption in the Heart of the Monster Underground's Sanctuary",
+      "title": "The Grotto Incident Is a Filing With No Source",
       "kicker": "Waluigi's Article Analysis",
-      "subtitle": "A signed interpretation of the generated record.",
+      "subtitle": "An analysis of an event the archive cannot produce.",
       "archivist": "Waluigi, Auditor-General",
       "filed": "Chillwind 15, 923 BF",
       "summary": "A minor incident in the otherwise tranquil sanctuary saw an unauthorized party attempting to breach the seclusion of the grotto, leading to a tense stand-off with local guards and a close call that could have disrupted the peace.",
-      "thesis": "The event's consequences are multifaceted and loaded with significance. Waluigi's descent into this grotto signifies a shift in power within the Undercity; his actions here could either cement or shatter the balance of authority. For those who follow him, it represents a test of loyalty and trustworthiness—those who prove unworthy may find themselves cast aside. Meanwhile, the factions that oppose Waluigi would see this as an opportunity to strike at his perceived vulnerabilities. The artifacts he uncovers hold untold secrets, each one potentially tipping the scales in favor of those who can decipher their meaning first. Yet, with great power comes great responsibility; the weight on Waluigi's shoulders is not just physical but existential. His decisions tonight will reverberate through time and space, affecting not only his immediate circle but all corners of the underworld. WAH.",
-      "sections": []
+      "thesis": "I went to pull the source article for this filing and there is not one. No event record, no battle record, no investigation entry. I searched the data by name and the only file in this archive that contains the phrase *undercity grotto seclusion incident* is this analysis of it.\n\nSo I am doing something unusual and filing the absence itself, because an opinion page hanging in the air above nothing is worse than no page at all. Somebody at some point read a summary of a descent into a grotto beneath the Monster Underground and wrote three paragraphs about shifting balances of authority. Those paragraphs are still on the page. What they describe is not.\n\nMy thesis is that this record should not be trusted until its source is produced, and that saying so is more useful than tidying the prose. *WAH! I have spent this whole week complaining that other people's documents describe evidence they cannot hand over. I am not going to make an exception for a document with my own name on it.*",
+      "sections": [
+        {
+          "id": "no-source",
+          "icon": "🕳️",
+          "heading": "The Source Article Does Not Exist in the Archive",
+          "sourceAnchor": "sourceArticle: undercity_grotto_seclusion_incident — no matching record in events, battles, or investigations.",
+          "body": "I checked three times and in three places, with the lamp turned up, because a missing file is usually a misspelling. *WAH! I have pulled every drawer in this desk and there is nothing behind this page.*\n\nIt is not a misspelling. The identifier appears exactly once in the entire data set, in the `sourceArticle` field of this analysis, pointing at nothing. Every other analysis in this section resolves to a real filing you can open and read against the argument.\n\nThat is what a source anchor is for. This form exists so a biased reader can check my bias against the record. Remove the record and the form stops being an analysis and becomes an assertion with decorative furniture — a kicker, an archivist's name, a filing date, and no way for anybody to tell me I am wrong.\n\nAn unfalsifiable opinion page in an archive that prides itself on chain of custody is a small rot. I would rather name it than paint over it."
+        },
+        {
+          "id": "what-the-old-text-claimed",
+          "icon": "📜",
+          "heading": "What the Original Text Claimed, and Why None of It Can Be Checked",
+          "sourceAnchor": "The prior text described a descent into the grotto and a resulting shift in Undercity authority.",
+          "body": "The text that was here spoke of a descent, of power shifting within the Undercity, of consequences for those who follow. I hold the page up to the light out of habit, as though a watermark might argue with me. It was written in the flat, agreeable register of something generated to fill a space — every sentence balanced, no sentence checkable.\n\nI want to be fair to it. There may well have been a real night in a real grotto, and this may be a genuine memory that lost its paperwork in a reorganisation. That happens, and when it happens the correct response is to go and find the paperwork.\n\nWhat I will not do is keep arguing on top of it. If I write two thousand grounded words about a descent I cannot verify, I have made the problem worse: the page becomes more convincing without becoming more true. Better prose over a missing source is just a better-dressed hole. *WAH. This is the one situation where writing less is the honest option.*"
+        },
+        {
+          "id": "what-happens-next",
+          "icon": "🔎",
+          "heading": "Either Produce the Night or Retire the Page",
+          "sourceAnchor": "This analysis, ruin_recovery_1023_bf, and frostfall_moonlit_mysteries all point at sources absent from the archive.",
+          "body": "Three analyses in this section point at nothing. This one, a ruin recovery, and a night of moonlit mysteries in the Frostlands. Three sheets of paper, the same weight, the same dust on the top edge. They share a shape — no sections, no verdict, generic consequence-language — which suggests they entered the archive together, as placeholders, and were never filled.\n\nThree pages, side by side on the desk, identical in shape. There are only two honest endings. Somebody who was there writes the event record, at which point this page can be rebuilt properly against it. Or the page is retired, and the identifier goes on a list of things the archive once claimed and could not support.\n\nI have a preference. If a night in the Undercity grotto happened, I want it — that is a real place with real politics and I would read it gladly. But wanting a document is exactly the condition under which I am least reliable, and I have said so twice this week in other people's files. The rule holds here."
+        }
+      ],
+      "verdict": "My verdict: unsupported. Not false — I have no evidence the grotto incident did not happen, and I am not going to invent one. Unsupported, in the precise sense that this archive contains an opinion about an event and no event.\n\nWhat I recommend: treat this page as a placeholder rather than a reading. Do not cite it. Do not build on it. If the descent is real, file the event first and this analysis can be written afterwards the way the others were — against a record, with anchors that resolve.\n\nApply the same test to `ruin_recovery_1023_bf` and `frostfall_moonlit_mysteries`, which have the same defect and arrived by the same route.\n\nThe desk is clear. That is the trouble. There is nothing on it to hold up to the lamp, and I have written a filing about a night I cannot prove anybody had."
     },
     {
       "id": "ruin_recovery_1023_bf_waluigi_analysis",
       "sourceArticle": "ruin_recovery_1023_bf",
-      "title": "Minor Riders' Quest Unveils the Past Amidst Overgrown Shadows Pass Hillfort",
+      "title": "Ruin Recovery, 1023 BF: Artifacts With No Excavation",
       "kicker": "Waluigi's Article Analysis",
-      "subtitle": "A signed interpretation of the generated record.",
+      "subtitle": "A trove of relics is claimed. The archive holds no record of the recovery.",
       "archivist": "Waluigi, Auditor-General",
       "filed": "Chillwind 15, 1023 BF",
       "summary": "A band of minor riders from Rohan embarked upon a quest to uncover the secrets hidden within the crumbling ruins of Shadow Pass Hillfort, revealing an ancient cache of relics that had been buried by time and neglect.",
-      "thesis": "The event has unearthed a trove of historical artifacts, each fragment holding secrets of bygone eras. The local and foreign relics suggest tales of trade and conquest, alliances now cold as the stones of this hillfort. Riders from Rohan bring these treasures back to life, yet with them, they carry the burden of history’s weight—a reminder that empires rise and fall like the tides. Waluigi sees this not merely as a discovery but an echo of time’s relentless march.\n\nIn the grand scheme, it is just another chapter in the story of lost kingdoms, their might now reduced to mere fragments. The world’s factions—be they political powers, archaeological societies, or simply historians—are no closer to understanding fully what these relics truly represent. Yet, there’s a certain irony in Waluigi’s observation: while some see the artifacts as symbols of forgotten grandeur, he views them as proof that all power is ephemeral, like the light catching on pottery shards.\n\nIt's not just about uncovering lost battles; it’s about realizing how easily memories fade. The riders’ mission was to bring these pieces back into the light, but in doing so, they’ve only highlighted the vast chasm between past and present. WAH.",
-      "sections": []
+      "thesis": "The claim is a trove: local and foreign relics lifted out of an overgrown hillfort at Shadows Pass, riders bringing treasures in, trade and conquest legible in the fragments.\n\nThe archive holds no recovery. No event, no battle, no investigation, no exhibit, no catalogue. I searched for the identifier and found it in exactly one place — the `sourceArticle` line of this analysis, pointing at a document that is not there.\n\nSo this filing is in the same condition as the objects it describes: asserted, unproduced. *WAH! A page about artifacts nobody can put on a table, filed against an excavation nobody can put in a year.*\n\nMy thesis is that the correct response is a catalogue, not an essay, and that until somebody produces one this page should stop pretending to be a reading of evidence.",
+      "sections": [
+        {
+          "id": "a-trove-with-no-inventory",
+          "icon": "🏺",
+          "heading": "A Trove Is a Number of Objects, and There Is No Number",
+          "sourceAnchor": "The prior text describes 'a trove of historical artifacts' with local and foreign origins.",
+          "body": "How many? Made of what? Found at what depth, by whom, on what day?\n\nEvery one of those questions has an answer at any real excavation, and none of them is in this record. What the text offers instead is significance: fragments holding secrets, tales of trade and conquest, alliances now cold as the stones. That is the register of a museum placard, and a placard is written after the catalogue, not instead of it.\n\nMy rule for documents applies without modification. If the prose says an object exists, somebody should be able to open a drawer and produce it. Here the prose says many objects exist and there is not even a list of what they are. *WAH. Cold as the stones, apparently. I would settle for knowing how many stones.*"
+        },
+        {
+          "id": "foreign-relics-is-the-real-claim",
+          "icon": "🌍",
+          "heading": "\"Foreign\" Is the Word That Would Matter, If Anything Supported It",
+          "sourceAnchor": "The text distinguishes local from foreign relics and infers trade and conquest.",
+          "body": "*WAH. Foreign. One word, doing the work of an entire century of traffic through that pass.* Set aside the missing catalogue for a moment and look at what is actually being argued, because it is not trivial.\n\nForeign objects in a hillfort at Shadows Pass would mean the pass carried traffic in 1023 BF — goods, or armies, or both. That is a real historical claim with consequences for how the archive reads every other filing from that corridor and that century. It is the sort of finding that should arrive with a great deal of paper behind it.\n\nIt arrives with none. And the inference is doubled on the way: foreign objects are read as evidence of trade *and* conquest, which are opposite explanations for the same potsherd. A record that cannot tell me what the objects are certainly cannot tell me which. I would like this claim to be true. I have no way to test it, and I have spent this week refusing exactly that combination in other people's files."
+        },
+        {
+          "id": "riders-from-rohan",
+          "icon": "🐎",
+          "heading": "The Recovery Team Is Named From Outside This World",
+          "sourceAnchor": "The prior text credits 'Riders from Rohan' with bringing the relics in.",
+          "body": "Rohan is not in this archive. I went and looked, with the nations file open flat under my hand and dust coming off the edge of it. It is not a nation in the nations file, not a faction, not a place any other filing has ever mentioned.\n\nIts presence here tells me what this page is. Not a lost memory of a real night that mislaid its paperwork — that is the charitable reading I extended to the grotto filing, and I extended it in good faith. This one names a borrowed kingdom from another author's map, which is the fingerprint of text generated to fill a slot rather than to record anything.\n\nI am stating that plainly because the alternative is worse. If the archive keeps a page like this in circulation, some future reader will cite Rohan as a party operating at Shadows Pass in 1023 BF, and a generated placeholder will have become canon by sitting still long enough. *WAH! That is precisely how a lie with no author gets into a history.*"
+        }
+      ],
+      "verdict": "My verdict: unsupported, and probably not a record of anything.\n\nThis differs from the grotto filing and I want the distinction on the page. There I found an absent source and gave it the benefit of the doubt. Here the text names a kingdom that has never existed in this world, which is evidence about the document's origin rather than merely a gap in its custody.\n\nWhat I recommend: retire this page. If a recovery at the Shadows Pass hillfort in 1023 BF is wanted, it should be excavated properly — an event record, a catalogue with counts and materials, and named finders who belong to this archive. Then an analysis can be written against it.\n\nUntil then there is nothing to hold. No sherd, no list, no ledger, no year I can check. Only a sentence about stones being cold, which is true of all stones."
     },
     {
       "id": "frostfall_moonlit_mysteries_waluigi_analysis",
       "sourceArticle": "frostfall_moonlit_mysteries",
-      "title": "Mysterious Occurrences in the Frostfall Frostlands During a Full Lunar Eclipse",
+      "title": "Frostfall's Moonlit Mysteries: Suspicion Without an Event",
       "kicker": "Waluigi's Article Analysis",
-      "subtitle": "A signed interpretation of the generated record.",
+      "subtitle": "A gathering force, a lunar eclipse, and no record that either occurred.",
       "archivist": "Waluigi, Auditor-General",
       "filed": "Deepwinter 15, year 784 BF",
       "summary": "During a rare full lunar eclipse, peculiar occurrences were reported in the remote Frostfall Frostlands. Witnesses described strange lights dancing across the snowy plains, mysterious shadows moving through the frosty air, and unexplained hums resonating throughout the night.",
-      "thesis": "The event's consequences are far-reaching, yet their impact remains veiled in the shadowy realm of uncertainty. It seems a gathering force has disrupted the tranquility of Frostfall, possibly for strategic leverage over its resources or as part of some grander scheme by those who operate in the shadows. The distant howls and peculiar hums hint at a convergence of forces—natural phenomena manipulated to serve malevolent purposes.\n\nFor the factions involved, this could be both an opportunity and a threat. On one hand, it presents a chance for power plays that might alter the balance of influence within the region. On the other, it signals potential retaliation against those who seek to exploit the Frostlands' secrets. Waluigi knows well the consequences such events can bring; alliances may be tested, and trust will be strained. The silence before the storm is palpable, a prelude to actions that could reshape the landscape of power. WAH",
-      "sections": []
+      "thesis": "The text claims a gathering force disrupting the tranquility of Frostfall during a full lunar eclipse, possibly for leverage over resources, possibly as part of something larger.\n\nRead that again and notice how much of it is hedging. A force, gathering, possibly, for leverage, or possibly for something grander. Strip the qualifiers and almost nothing remains — and there is no source record behind it in any case. Frostfall's moonlit mysteries appear in this archive exactly once, in the `sourceArticle` field of this page, pointing nowhere.\n\nMy thesis is that this is the purest example of the defect I have been chasing all week. It is suspicion with no object: the *tone* of an investigation, complete with veiled shadowy uncertainty, attached to no place, no night, and no person. *WAH! You cannot be vigilant at a mood.*",
+      "sections": [
+        {
+          "id": "veiled-in-uncertainty",
+          "icon": "🌑",
+          "heading": "Every Load-Bearing Word in the Original Is a Hedge",
+          "sourceAnchor": "The prior text: consequences 'far-reaching, yet their impact remains veiled in the shadowy realm of uncertainty.'",
+          "body": "Far-reaching, yet veiled. Possibly strategic. Perhaps part of some grander design.\n\n*WAH! Possibly, perhaps, veiled, shadowy. Four coats of paint and no door underneath.* I have written a great deal of hedged prose in my career and I know exactly what it is for. A hedge is honest when it marks the edge of real evidence — *the spell may have found custody rather than Archie* is a hedge doing work, because there is a spell and a cottage and a mirror behind it. A hedge is decorative when there is nothing on either side of it.\n\nHere there is nothing on either side. I hold the page up and the lamp shows through it. Remove *possibly* and *perhaps* from this text and you are not left with a bolder claim; you are left with no claim. That is the test, and it is a good one to keep: if deleting the qualifiers destroys the sentence rather than sharpening it, the sentence was never carrying anything."
+        },
+        {
+          "id": "an-eclipse-is-checkable",
+          "icon": "🌕",
+          "heading": "An Eclipse Is the One Detail That Could Have Been Verified",
+          "sourceAnchor": "The event is dated to a full lunar eclipse over the Frostfall Frostlands, Deepwinter 15, 784 BF.",
+          "body": "A full moon going dark over snow. Of everything in this page, the eclipse is the part that annoys me most, because it is checkable and nobody checked it.\n\nThis archive keeps three calendars on the shelf behind my chair and takes them seriously enough to have a guide about it. A lunar eclipse is an astronomical event: it happens on a date, it is visible from a region, and other filings from the same winter should be able to corroborate it. A single confirmed eclipse would have anchored this entire page to a real night.\n\nInstead the eclipse functions as atmosphere — a moon to hang over the shadowy realm of uncertainty. The one hard, testable, falsifiable object in the whole document was used as scenery. *WAH! Somebody had a fact and spent it on a mood.*"
+        },
+        {
+          "id": "the-shape-of-the-placeholder",
+          "icon": "🧩",
+          "heading": "Three Pages, One Defect, One Origin",
+          "sourceAnchor": "This filing, undercity_grotto_seclusion_incident, and ruin_recovery_1023_bf share the same structure and the same missing sources.",
+          "body": "Three pages laid out on the desk in a row, edges squared. No sections. No verdict. A thesis of roughly a hundred and fifty words in balanced, agreeable, consequence-shaped prose. A source identifier that resolves to nothing.\n\nThree pages with identical symptoms entered this archive together, and the pattern is more informative than any of them individually. These were slots, filled to make a section look complete, and they have been sitting in the analysis index ever since alongside genuine filings — with the same kicker, the same archivist line, the same seal.\n\n*WAH! The same seal, the same gold letter, the same weight of paper as the real ones.* That is the actual harm, and it is not literary. A reader arriving at this section cannot tell from the outside which pages are readings of real nights and which are furniture. Every hour those three sit unmarked, they borrow credibility from the twelve that earned it."
+        }
+      ],
+      "verdict": "My verdict: unsupported, and structurally identical to two other placeholder pages in this section.\n\nI could have made this page beautiful. Grounding prose is not difficult once you know the trick — put the analyst at a desk, give him something to hold, and the sentences arrange themselves. Doing that here would have produced a convincing essay about a night nobody can demonstrate happened, and it would have been the most dishonest thing I did all week.\n\nWhat I recommend: retire or rebuild all three. Rebuild means somebody files the source event first. Retire means the identifiers go on a list of claims the archive withdrew, which is a perfectly respectable thing for an archive to have.\n\nThere is a moon in this filing and no ground under it. I am not going to write my way around that."
     },
     {
       "id": "promo_mario_newspaper_waluigi_analysis",
