@@ -1,7 +1,7 @@
 {
   "name": "Toad Lee",
   "type": "character",
-  "img": "npc/cfleadtoad.webp",
+  "img": "portraits/toad_lee_v3.webp",
   "system": {
     "currency": {
       "pp": 0,
@@ -753,7 +753,7 @@
     "height": 1,
     "depth": 1,
     "texture": {
-      "src": "npc/cfleadtoad.webp",
+      "src": "portraits/toad_lee_v3.webp",
       "anchorX": 0.5,
       "anchorY": 0.5,
       "fit": "contain",

@@ -1,7 +1,7 @@
 {
   "name": "Wario's Motorbike",
   "type": "npc",
-  "img": "npc/ai/wario-bike.webp",
+  "img": "Reputation-Matrix2/assets/props/wario-bike.webp",
   "system": {
     "abilities": {
       "str": {
@@ -371,7 +371,7 @@
     "width": 2,
     "height": 1,
     "texture": {
-      "src": "npc/ai/wario-bike.webp",
+      "src": "Reputation-Matrix2/assets/props/wario-bike.webp",
       "anchorX": 0.5,
       "anchorY": 0.5,
       "fit": "contain",

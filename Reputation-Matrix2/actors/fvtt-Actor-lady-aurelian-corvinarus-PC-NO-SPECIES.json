@@ -1,7 +1,7 @@
 {
   "name": "Lady Aurelian Corvinarus",
   "type": "character",
-  "img": "npc/lady_cron-removebg-preview.png",
+  "img": "portraits/lady_aurelian_corvinarus.png",
   "system": {
     "abilities": {
       "str": {
@@ -504,7 +504,7 @@
     "width": 1,
     "height": 1,
     "texture": {
-      "src": "npc/lady_cron-removebg-preview.png",
+      "src": "portraits/lady_aurelian_corvinarus.png",
       "anchorX": 0.5,
       "anchorY": 0.5,
       "fit": "contain",

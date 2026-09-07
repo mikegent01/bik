@@ -2,7 +2,7 @@
   "folder": null,
   "name": "Feyward Dan",
   "type": "character",
-  "img": "npc/danm.png",
+  "img": "portraits/dan_v2.png",
   "system": {
     "currency": {
       "pp": 0,
@@ -761,7 +761,7 @@
     "width": 1,
     "height": 1,
     "texture": {
-      "src": "npc/danm.png",
+      "src": "portraits/dan_v2.png",
       "anchorX": 0.5,
       "anchorY": 0.5,
       "fit": "contain",
