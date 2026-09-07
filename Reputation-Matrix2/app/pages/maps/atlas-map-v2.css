@@ -55,3 +55,16 @@
 .atlas-v2-stopbanner p{font-size:12px}
 .atlas-v2-stopbanner .atlas-v2-wiki{margin:8px 0 0}
 @media(max-width:850px){.atlas-v2-layout{grid-template-columns:1fr}.atlas-v2-sidebar{border-left:0;border-top:1px solid var(--line);min-height:220px}.atlas-v2-viewport{height:380px}.atlas-v2 header{flex-direction:column;align-items:flex-start}}
+/* Full-screen overlay: the host breaks out of the page card and the painted
+   sheet takes the viewport. Toggled by the renderer's ⛶ button / Escape. */
+.atlas-v2-full{position:fixed;inset:0;z-index:3000;background:rgba(4,7,14,.97);overflow:auto;padding:20px}
+.atlas-v2-full .atlas-v2{max-width:1700px;margin:0 auto;min-height:calc(100vh - 40px)}
+.atlas-v2-full .atlas-v2-layout{min-height:calc(100vh - 290px)}
+.atlas-v2-full .atlas-v2-viewport{height:calc(100vh - 340px);min-height:420px}
+.atlas-v2-full .atlas-v2-sidebar{max-height:calc(100vh - 290px)}
+@supports(height:100dvh){
+.atlas-v2-full .atlas-v2{min-height:calc(100dvh - 40px)}
+.atlas-v2-full .atlas-v2-layout{min-height:calc(100dvh - 290px)}
+.atlas-v2-full .atlas-v2-viewport{height:calc(100dvh - 340px)}
+.atlas-v2-full .atlas-v2-sidebar{max-height:calc(100dvh - 290px)}
+}

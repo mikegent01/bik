@@ -152,6 +152,7 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
       <div class="atlas-v2-actions">
         <button type="button" data-action="fit">Reset view</button>
         <button type="button" data-action="labels">Labels</button>
+        <button type="button" data-action="expand">⛶ Full screen</button>
       </div>
     </header>
     <div class="atlas-v2-tools">
@@ -344,11 +345,41 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
     host.classList.toggle('atlas-v2-labels');
     event.currentTarget.classList.toggle('active');
   });
-  host.querySelector('[data-action="fit"]').addEventListener('click', () => {
-    sidebar.innerHTML = detailHtml(null, pois);
+  function reframe() {
     if (!isFull) fitRegion();
     else { state.scale = 1; state.tx = 0; state.ty = 0; applyTransform(); }
+  }
+  host.querySelector('[data-action="fit"]').addEventListener('click', () => {
+    sidebar.innerHTML = detailHtml(null, pois);
+    reframe();
   });
+  /* Full screen: the host becomes a fixed overlay so the painted sheet fills
+     the viewport instead of a card column. Both the atlas page and the
+     cartography desk mount through here, so both inherit the button. */
+  const expandBtn = host.querySelector('[data-action="expand"]');
+  function setExpanded(on) {
+    host.classList.toggle('atlas-v2-full', on);
+    expandBtn.classList.toggle('active', on);
+    expandBtn.textContent = on ? '✕ Exit full screen' : '⛶ Full screen';
+    /* Lock the page scroll behind the overlay; the overlay itself scrolls. */
+    document.body.style.overflow = on ? 'hidden' : '';
+    placePins();
+    reframe();
+  }
+  expandBtn.addEventListener('click', () => setExpanded(!host.classList.contains('atlas-v2-full')));
+  /* Wired once per page, not once per mount: region switches re-mount the
+     renderer into the same host, and stacked document listeners would all fire. */
+  if (!window.__atlasV2ChromeWired) {
+    window.__atlasV2ChromeWired = true;
+    document.addEventListener('keydown', e => {
+      if (e.key !== 'Escape') return;
+      document.querySelectorAll('.atlas-v2-full [data-action="expand"].active').forEach(b => b.click());
+    });
+    /* Navigating away destroys the host; never leave the page scroll-locked. */
+    window.addEventListener('hashchange', () => {
+      if (!document.querySelector('.atlas-v2-full')) document.body.style.overflow = '';
+    });
+  }
   sidebar.addEventListener('click', event => {
     const jump = event.target.closest('[data-jump]');
     if (jump) {
