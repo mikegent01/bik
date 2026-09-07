@@ -162,7 +162,16 @@
 
   function schedule() {
     const ctx = ensureAudio();
-    if (!playing || !ctx) return;
+    // If the browser suspended the context mid-song, keep the scheduler alive
+    // and try to resume — never die silent with the button stuck on ⏸.
+    if (!ctx) {
+      if (playing) {
+        if (audio && audio.state === 'suspended') audio.resume().catch(() => {});
+        musicTimer = window.setTimeout(schedule, 300);
+      }
+      return;
+    }
+    if (!playing) return;
     const track = tracks[trackIndex % tracks.length];
     const beat = 60 / track.tempo;
     while (nextTime < ctx.currentTime + 0.9) {
@@ -204,9 +213,15 @@
     if (playing) return;
     const ctx = ensureAudio();
     if (!ctx) {
-      // AudioContext creation failed, likely due to missing user gesture
-      // This is fine - the user will click again after the first click enables audio
-      console.log('[WaluipediaAmbient] Waiting for user gesture to start audio');
+      // The context usually starts suspended; resume it and retry on THIS click
+      // instead of making the user press play twice.
+      if (audio && audio.state === 'suspended') {
+        audio.resume().then(() => { if (!playing) start(); }).catch(() => {
+          console.log('[WaluipediaAmbient] Waiting for user gesture to start audio');
+        });
+      } else {
+        console.log('[WaluipediaAmbient] Waiting for user gesture to start audio');
+      }
       return;
     }
     playing = true;

@@ -6258,6 +6258,8 @@ function articleRail(articleId,typeKey,item,infoRows,toc,opts){
   }
   const inv=typeKey==='characters'?inventoryPanel(articleId,item):'';
   if(inv) parts.push(railBox('🎒 Inventory & Wallet',inv,{open:true}));
+  const pond=typeKey==='characters'?pondDocketPanel(articleId):'';
+  if(pond) parts.push(railBox('⚖️ Pond Docket',pond,{open:true}));
   const law=lawCulturePanel(articleId,typeKey,item);
   if(law) parts.push(railBox('⚖️ Law & Culture',law,{open:true}));
   syncLinkStats();                                   // prose has rendered by now — capture the counts
@@ -7972,8 +7974,7 @@ function renderSidebar(active){
     emoji:s.emoji,label:s.name,go:`Router.go('${s.route}')`,
     active:active===s.id||active===(s.route||'').replace('#/',''),system:true,title:s.tagline
   }));
-  sysLinks.push(navLink({emoji:'🏬',label:"Wario's Warehouse",go:`location.href='Reputation-Matrix2/app/pages/shop/shop.html#warehouse'`,system:true,title:"Warehouse 3.0 — items, materials, abilities and your loot in one search"}));
-  sysLinks.push(navLink({emoji:'🎓',label:'Ability Shop',go:`location.href='${abilityShopUrl()}'`,system:true,title:"Wario's training wing — opens inside the warehouse"}));
+
   h+=navSection('nav-systems','⚡ Faction Systems',sysLinks,{forceOpen:hasActive(sysLinks),count:sysLinks.length});
 
   const worldLinks=[
@@ -7996,8 +7997,7 @@ function renderSidebar(active){
   const progressionLinks=[
     navLink({emoji:'✦',label:'XP Leaderboard',go:"Router.go('#/xp')",active:active==='xp',count:(()=>{try{return _xpAggregate().totalRows;}catch(e){return '';}})()}),
     navLink({emoji:'📈',label:'Reputation Matrix',go:"Router.go('#/reputation')",active:active==='reputation',count:Object.keys(LORE_FACTIONS||{}).length||100}),
-    navLink({emoji:'🎒',label:'Items',go:"Router.go('#/items')",active:active==='items',count:Object.keys(INVENTORY_SYSTEM.items||{}).length-1}),
-    navLink({emoji:'⚒️',label:'Crafting',go:"Router.go('#/crafting')",active:active==='crafting',count:((DATA.crafting&&DATA.crafting.recipes)||[]).length||0}),
+    navLink({emoji:'🛒',label:'Commerce',go:"Router.go('#/commerce')",active:['commerce','items','crafting','vendor'].includes(active),count:((DATA.crafting&&DATA.crafting.recipes)||[]).length||0}),
     navLink({emoji:'⭐',label:'Artifacts',go:"Router.go('#/artifacts')",active:active==='artifacts',count:((DATA.artifacts&&DATA.artifacts.star_bearers)||[]).length+((DATA.artifacts&&DATA.artifacts.god_toad)?1:0)}),
     navLink({emoji:'🤝',label:'Bros Attacks',go:"Router.go('#/bros-attacks')",active:active==='bros-attacks',count:((DATA.brosAttacks&&DATA.brosAttacks.attacks)||[]).length,title:'Confirmed cooperative techniques, resources, risks, and source filings'}),
     navLink({emoji:'🛒',label:"Wario's Shop",go:"location.href='Reputation-Matrix2/app/pages/shop/shop.html'"})
@@ -8006,12 +8006,9 @@ function renderSidebar(active){
 
   const systemLinks=[
     navLink({emoji:'🏛️',label:'Congress',go:"Router.go('#/congress')",active:active==='congress',count:n('congress_votes')}),
-    navLink({emoji:'💱',label:'Currencies',go:"Router.go('#/currencies')",active:active==='currencies',count:(getCurrenciesList?getCurrenciesList().length:((DATA.currencies&&(DATA.currencies.currencies||DATA.currencies))||[]).length)||45}),
-    navLink({emoji:'🏦',label:'Bank & Exchange',go:"Router.go('#/banking')",active:active==='banking'}),
-    navLink({emoji:'📅',label:'Calendar',go:"Router.go('#/calendar')",active:active==='calendar'}),
-    navLink({emoji:'🎉',label:'Holidays',go:"Router.go('#/holiday')",active:active==='holidays',count:(()=>{const g=DATA.calendarHolidays?.holidays||{};let c=0;Object.values(g).forEach(a=>c+=(a||[]).length);return c;})()}),
+    navLink({emoji:'💱',label:'Bank & Currency',go:"Router.go('#/currencies')",active:['currencies','currency','banking'].includes(active),count:(getCurrenciesList?getCurrenciesList().length:((DATA.currencies&&(DATA.currencies.currencies||DATA.currencies))||[]).length)||45}),
+    navLink({emoji:'📅',label:'Time & Calendar',go:"Router.go('#/calendar')",active:active==='calendar'||active==='holidays'||h1.includes('/calendar/timeline')||h1.includes('#/holiday')||h1.includes('#/timeline'),count:(DATA.historicalTimeline||[]).filter(x=>x&&x.type!=='era_header').length}),
     navLink({emoji:'❓',label:'What Ifs',go:"Router.go('#/whatif')",active:active==='whatifs',count:(DATA.whatifs&&DATA.whatifs.whatifs?DATA.whatifs.whatifs.length:0)}),
-    navLink({emoji:'🕰️',label:'Timeline',go:"Router.go('#/calendar/timeline')",active:h1.includes('/calendar/timeline'),count:(DATA.historicalTimeline||[]).filter(x=>x&&x.type!=='era_header').length}),
     navLink({emoji:'📚',label:'Library & Books',go:"Router.go('#/books')",active:active==='books',count:((DATA.books&&DATA.books.books)||(window.BOOKS_DATA&&window.BOOKS_DATA.books)||[]).length||50}),
     navLink({emoji:'🎵',label:'Campaign Songbook',go:"Router.go('#/songs')",active:active==='songs',count:23}),
     navLink({emoji:'🛰️',label:'Mission Control',go:"Router.go('#/mission-control')",active:active==='mission-control'}),
@@ -8311,8 +8308,8 @@ function view_home(){
     { action: "Router.go('#/whatif')", emoji: '❓', label: 'What Ifs', count: `${((DATA.whatifs&&DATA.whatifs.whatifs)||[]).length} non-canon filing${((DATA.whatifs&&DATA.whatifs.whatifs)||[]).length===1?'':'s'}`, group: 'systems' },
     { action: "Router.go('#/list/locations')", emoji: '🏰', label: 'Classic Locations Index', count: 'tucked away', group: 'history' },
     { action: "location.href='books/library.html'", emoji: '📚', label: 'Grand Library Archive', count: '40+ books', group: 'history' },
-    { action: "location.href='currency.html'", emoji: '💱', label: 'Bank & Currency Exchange', count: '48 tenders', group: 'commerce' },
-    { action: "location.href='Reputation-Matrix2/app/pages/shop/shop.html'", emoji: '🛒', label: 'Wario Shop', count: '7,880+ items', group: 'commerce' },
+    { action: "Router.go('#/currencies')", emoji: '💱', label: 'Bank & Currency', count: 'codex + ledger', group: 'commerce' },
+    { action: "Router.go('#/commerce')", emoji: '🛒', label: 'Commerce Hub', count: 'warehouse · items · crafting', group: 'commerce' },
   ];
 
   window.toggleEncyclopediaDrawer = function() {
@@ -9622,7 +9619,7 @@ const FACTION_SYSTEMS = {
     id: 'imperial_pressure_network',
     name: 'Imperial Pressure Network',
     emoji: '🕸️',
-    route: '#/imperial-network',
+    route: '#/regal-diet/ipn',
     accent: '#c81d25',
     glow: 'rgba(200,29,37,.20)',
     flag: 'Integrated Faction System',
@@ -9697,6 +9694,23 @@ function docketData(){
 function docketRoot(){
   const lt=factionRecord('liberated_toads');
   return (lt&&lt.factionDocket)||null;
+}
+/* Pond Docket panel for character articles: if the character is a docket
+   target (joined on target.articleId), show their standing, charges, and a
+   route back to the full docket. */
+function pondDocketPanel(articleId){
+  const a=docketData(); if(!a) return '';
+  const t=(a.targets||[]).find(x=>x&&(x.articleId===articleId||x.id===articleId));
+  if(!t) return '';
+  const m=(typeof DOCKET_STATUS_META!=='undefined'&&DOCKET_STATUS_META[t.status])||{};
+  const charges=(t.charges||[]).slice(0,4).map(c=>`<li>${esc(c)}</li>`).join('');
+  return `<div style="border-left:4px solid ${m.color||'#4a9c6d'};padding-left:10px">`
+    +`<div style="font-weight:700;margin-bottom:2px">${t.portrait||'🐸'} ${esc(t.name||prettyId(articleId))}</div>`
+    +`<div style="margin-bottom:6px"><span class="pill">${esc(m.label||t.status||'listed')}</span> <span class="pill">priority: ${esc(t.priority||'—')}</span></div>`
+    +(m.blurb?`<p class="text-muted" style="font-size:12.5px;margin:0 0 6px">${esc(m.blurb)}</p>`:'')
+    +(t.lastSeen?`<p style="font-size:12.5px;margin:0 0 6px">👁️ Last seen: ${esc(t.lastSeen)}</p>`:'')
+    +(charges?`<ul style="font-size:12.5px;margin:0 0 8px;padding-left:18px">${charges}</ul>`:'')
+    +`<div class="chips"><a class="chip" onclick="Router.go('#/pond-docket')">⚖️ Open full docket →</a></div></div>`;
 }
 /* Full operational data ported from the standalone Liberated Toads terminal. */
 function ltSystem(){ return DATA.liberatedToadsSystem||null; }
@@ -10400,21 +10414,17 @@ function ironLegionDossier(){
     ${rel?`<div class="card"><div class="home-section-head"><div><h2>🤝 ${esc((D.relationships||{}).title||'Relationships')}</h2><p>Click a known faction to open its live reputation standing.</p></div></div><div class="rep-table-wrap"><table style="width:100%;border-collapse:collapse;font-size:13px"><thead><tr><th style="text-align:left;padding:8px;border-bottom:1px solid var(--border)">Faction</th><th style="text-align:left;padding:8px;border-bottom:1px solid var(--border)">Stance</th><th style="text-align:left;padding:8px;border-bottom:1px solid var(--border)">Notes</th></tr></thead><tbody>${rel}</tbody></table></div></div>`:''}
     ${quotes?`<div class="card"><div class="home-section-head"><div><h2>🗣️ On The Record</h2></div></div>${quotes}</div>`:''}`;
 }
-function view_imperial_network(){
-  renderSidebar('imperial-network');
+/* Imperial Pressure Network body, shared by the Diet's Pressure tab.
+   (The old standalone #/imperial-network route now redirects there.) */
+function imperialNetworkBody(){
   const rows=REPUTATION_OPERATORS.map(op=>{
     const emp=calculateOperatorStanding(op.id,'regal_empire');
     const leg=calculateOperatorStanding(op.id,'iron_legion');
     const pressure=Math.round((Math.abs(Math.min(0,emp.total))+Math.abs(Math.min(0,leg.total)))/2);
     return `<tr onclick="Router.go('#/reputation/character/${encodeURIComponent(op.id)}')" style="cursor:pointer"><td style="padding:8px;border-bottom:1px solid var(--border)">${esc(op.icon)} ${esc(op.name)}</td><td style="padding:8px;border-bottom:1px solid var(--border)" class="${emp.total>=0?'pos':'neg'}">${emp.total>=0?'+':''}${emp.total}</td><td style="padding:8px;border-bottom:1px solid var(--border)" class="${leg.total>=0?'pos':'neg'}">${leg.total>=0?'+':''}${leg.total}</td><td style="padding:8px;border-bottom:1px solid var(--border)">${pressure>=50?'🚨':pressure>=25?'⚠️':'👁️'} ${pressure}</td></tr>`;
   }).join('');
-  el('content').innerHTML=`
-    <div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › Imperial Pressure Network</div>
-    <div class="card animate-fade-in" style="border-left:4px solid var(--accent);background:linear-gradient(135deg,rgba(138,75,255,.16),rgba(200,29,37,.10)),var(--panel)">
-      <div class="home-section-head"><div><h1>🕸️ Imperial Pressure Network</h1><p>The Regal Empire and Iron Legion integrated into Waluipedia's living systems: reputation, global power, money, shop logistics, and event history.</p></div><span class="chip active" onclick="document.getElementById('iron-legion-integrated-dossier')?.scrollIntoView({behavior:'smooth'})">Integrated Iron Legion Dossier ↓</span></div>
-      <div class="wnote" style="border-left:4px solid #c81d25"><b>Waluigi integration note:</b> This is not a copied dossier. It is a command layer that points every Imperial/Legion fact back into the main website systems, so the Empire stops being a niche side page and starts affecting how users browse reputations, banks, power, and supply lines.</div>
-      <div class="chips" style="margin-top:12px"><span class="chip" onclick="Router.go('#/regal-diet')">🏛️ Holy Midlands Diet</span><span class="chip" onclick="Router.go('#/reputation')">📈 Reputation Matrix</span><span class="chip" onclick="Router.go('#/power')">⚡ Power Projection</span><span class="chip" onclick="location.href='currency.html'">🏦 Currency / Debt</span><span class="chip" onclick="location.href='Reputation-Matrix2/app/pages/shop/shop.html'">🛒 Wario Shop Supply Lines</span><span class="chip" onclick="Router.go('#/atlas')">🍩 World Atlas</span></div>
-    </div>
+  return `
+    <div class="wnote" style="border-left:4px solid #c81d25"><b>Waluigi integration note:</b> This is not a copied dossier. It is a command layer that points every Imperial/Legion fact back into the main website systems, so the Empire stops being a niche side page and starts affecting how users browse reputations, banks, power, and supply lines.</div>
     <div class="grid2">${imperialFactionCard('regal_empire')}${imperialFactionCard('iron_legion')}</div>
     <div class="card"><div class="home-section-head"><div><h2>🔗 Cross-System Hyperlink Map</h2><p>Quick links make the Imperial system part of the whole site: reputation, banking, shop logistics, atlas, XP, books, and event records.</p></div><span class="pill">expanded hyperlinks</span></div><div class="chips">${imperialLinkCloud()}</div></div>
     <div class="card" style="border-left:4px solid #c81d25"><div class="home-section-head"><div><h2>⚙️ Iron Legion Internal Blocs</h2><p>Faction-internal politics feeding the pressure model.</p></div><span class="chip active" onclick="Router.go('#/reputation/faction/iron_legion')">Open Legion standing →</span></div><div class="grid2">${imperialInternalBlocPanel('iron_legion')}</div></div>
@@ -10422,29 +10432,40 @@ function view_imperial_network(){
     <div class="card" style="border-left:4px solid #8a4bff"><div class="home-section-head"><div><h2>👑 Regal Empire Internal System</h2><p>Imperial factions are shown alongside Legion pressure so the two systems read as one political machine.</p></div><span class="chip active" onclick="Router.go('#/reputation/faction/regal_empire')">Open Empire standing →</span></div><div class="grid2">${imperialInternalBlocPanel('regal_empire')}</div></div>
     <div class="card"><div class="home-section-head"><div><h2>Operator Pressure Table</h2><p>Live scores from the reputation engine. Click a row to inspect the operator's full standings.</p></div><span class="pill">Regal Empire ↔ Iron Legion</span></div><table style="width:100%;border-collapse:collapse;font-size:13px"><thead><tr><th style="text-align:left;padding:8px;border-bottom:1px solid var(--border)">Operator</th><th style="text-align:left;padding:8px;border-bottom:1px solid var(--border)">Empire</th><th style="text-align:left;padding:8px;border-bottom:1px solid var(--border)">Legion</th><th style="text-align:left;padding:8px;border-bottom:1px solid var(--border)">Pressure</th></tr></thead><tbody>${rows}</tbody></table></div>
     <div class="card"><div class="home-section-head"><div><h2>Recent Linked Intelligence</h2><p>Auto-pulled records mentioning Empire, Legion, Mandate, Vigilance, or Legionlance.</p></div></div><div class="update-grid">${imperialEventRail()}</div></div><div class="card"><h2>System Bridges</h2><div class="path-grid"><div class="path-card" onclick="Router.go('#/reputation/faction/regal_empire')"><h3>👑 Imperial diplomacy</h3><p>Faction standings, sub-faction modifiers, and operator penalties are calculated through the reputation engine.</p></div><div class="path-card" onclick="document.getElementById('iron-legion-integrated-dossier')?.scrollIntoView({behavior:'smooth'})"><h3>⚙️ Iron Legion intelligence</h3><p>The former standalone dossier is merged here as an integrated command panel connected to reputation, bank, shop, atlas, and power systems.</p></div><div class="path-card" onclick="Router.go('#/power')"><h3>⚡ Military projection</h3><p>Use the global-war monitor to compare Empire/Legion power with every other realm.</p></div><div class="path-card" onclick="location.href='currency.html'"><h3>🏦 Contract economy</h3><p>Follow debts, wallets, currencies, and supply costs tied to Imperial enforcement.</p></div><div class="path-card" onclick="location.href='Reputation-Matrix2/app/pages/shop/shop.html'"><h3>🛒 Wario logistics</h3><p>Shop prices and vendors become a supply-line layer for the conflict instead of isolated shopping.</p></div><div class="path-card" onclick="Router.go('#/article/the_midnight_audit_of_harvestide_28')"><h3>🌑 Recent intelligence</h3><p>Audit records and active incidents feed directly into the pressure model.</p></div></div></div>`;
-  window.scrollTo(0,0);
 }
 
-async function view_regal_diet(){
+async function view_regal_diet(tab){
   renderSidebar('holy_midlands_diet');
   const pathPrefix = (window.location.pathname.includes('/Reputation-Matrix2/') ? './' : './Reputation-Matrix2/');
+  const dietTab=(String(tab||'').split('/')[0]==='ipn')?'ipn':'diet';
   el('content').innerHTML = `
-    <div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › <a onclick="Router.go('#/imperial-network')">Imperial Pressure Network</a> › Holy Midlands Diet</div>
+    <div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › Holy Midlands Diet${dietTab==='ipn'?' › Pressure Network':''}</div>
     <div class="card animate-fade-in" style="border-left:5px solid #b8860b;background:linear-gradient(135deg,rgba(184,134,11,.18),rgba(200,29,37,.08)),var(--panel)">
       <div class="home-section-head"><div><h1>🏛️ Holy Midlands Diet</h1><p>The dormant Regal Empire system is now wired into the archive: representatives, coalitions, vote projections, expelled supernatural seats, and Legion-linked political pressure.</p></div><span class="pill">Regal Empire system</span></div>
       <div class="wnote"><b>Waluigi integration note:</b> This is the political half of the Imperial Pressure Network. The Empire votes; the Legion moves. Do not file an Imperial law, mandate, succession pressure, or Diet controversy without checking this chamber.</div>
-      <div class="chips" style="margin-top:12px"><span class="chip" onclick="Router.go('#/article/regal_empire')">👑 Regal Empire dossier</span><span class="chip" onclick="Router.go('#/imperial-network')">🕸️ Imperial Pressure Network</span><span class="chip" onclick="Router.go('#/congress')">🏛️ Grand Congress archive</span><span class="chip" onclick="Router.go('#/reputation/faction/regal_empire')">📈 Empire standings</span></div>
+      <div class="chips mb-12" style="margin-top:12px"><span class="chip ${dietTab==='diet'?'active':''}" onclick="Router.go('#/regal-diet')">🏛️ Diet Chamber</span><span class="chip ${dietTab==='ipn'?'active':''}" onclick="Router.go('#/regal-diet/ipn')">🕸️ Pressure Network</span></div>
+      <div class="chips" style="margin-top:4px"><span class="chip" onclick="Router.go('#/article/regal_empire')">👑 Regal Empire dossier</span><span class="chip" onclick="Router.go('#/congress')">🏛️ Grand Congress archive</span><span class="chip" onclick="Router.go('#/reputation/faction/regal_empire')">📈 Empire standings</span></div>
     </div>
-    <div id="regal-diet-app" class="card animate-fade-in" style="padding:0;overflow:hidden">
+    ${dietTab==='ipn'?imperialNetworkBody():`<div id="regal-diet-app" class="card animate-fade-in" style="padding:0;overflow:hidden">
       <div id="regal-diet-system" class="unique-system-container"><div class="loading-state"><span class="blink">_INITIALIZING HOLY MIDLANDS DIET...</span></div></div>
       <div id="detail-panel" class="side-panel"><button id="detail-panel-close" class="panel-close-btn">✕</button><div id="detail-panel-content"></div></div>
       <div id="parliament-tooltip" class="system-tooltip"></div>
-    </div>`;
+    </div>`}`;
+  if(dietTab==='ipn'){ window.scrollTo(0,0); return; }
   try{
     const mod = await import(pathPrefix + 'systems/regal-empire-system.js');
     const container = document.getElementById('regal-diet-system');
     if(container){
       container.innerHTML = mod.renderHolyMidlandsDiet();
+      try{
+        if(mod.dietFreshnessStamp){
+          const s=mod.dietFreshnessStamp();
+          const stamp=document.createElement('div');
+          stamp.className='chips'; stamp.style.cssText='margin:0 0 10px';
+          stamp.innerHTML=`<span class="pill" title="Diet floor vintage — see docs/DIET_UPDATE_CHECKLIST.md">🕰️ Floor: ${esc(s.date)}</span><span class="pill">${esc(String(s.decided))} decided · ${esc(String(s.scheduled))} scheduled</span><span class="pill">Now: ${esc(s.current)} (${esc(s.status)})</span>`;
+          container.prepend(stamp);
+        }
+      }catch(stampErr){ console.warn('diet stamp failed', stampErr); }
       setTimeout(()=>mod.initHolyMidlandsDietListeners && mod.initHolyMidlandsDietListeners(), 0);
     }
   }catch(err){
@@ -10603,7 +10624,7 @@ let itemsVendorFilter = 'all';
 let itemsDisplayPage = 1;
 
 async function view_items(arg) {
-  renderSidebar('items');
+  renderSidebar('commerce');
 
   const publicItems = Object.entries(INVENTORY_SYSTEM.items || {})
     .filter(([id]) => id !== 'hidden_item_slot')
@@ -10655,6 +10676,7 @@ async function view_items(arg) {
   el('content').innerHTML = `
     <div class="card animate-fade-in">
       <h1>🎒 Waluipedia Held Items & Artifacts</h1>
+      ${commerceHubChips('items')}
       <div class="species-stats">
         <div class="species-stat"><b>${publicItems.length}</b>Held Artifacts</div>
         <div class="species-stat"><b>0</b>Shop Listings Here</div>
@@ -10704,7 +10726,7 @@ function itemLorePanel(itemId){
   return `<div class="card"><div class="home-section-head"><div><h2>📖 Appears in the Story</h2><p>Records where this item is actually used or referenced.</p></div><span class="pill">${refs.length} record${refs.length===1?'':'s'}</span></div><div class="related-list">${chips}</div></div>`;
 }
 async function view_item(id) {
-  renderSidebar('items');
+  renderSidebar('commerce');
 
   const heldDef = (INVENTORY_SYSTEM.items && INVENTORY_SYSTEM.items[id]);
   
@@ -14600,7 +14622,7 @@ function view_calendar(){
 
   const tabs=['month','year','timeline','years'];
   const tabLabels={month:'📅 Month Grid', year:'🗓️ Year View', timeline:'🕰️ Full Timeline', years:'📚 All Years'};
-  const tabBar = `<div class="chips mb-12">${tabs.map(t=>`<span class="chip ${CAL_STATE.tab===t?'active':''}" onclick="Router.go('#/calendar/${CAL_STATE.calendarId}/${t}/${CAL_STATE.year}/${CAL_STATE.monthIndex}/${CAL_STATE.day}')">${tabLabels[t]}</span>`).join('')}</div>`;
+  const tabBar = `<div class="chips mb-12">${tabs.map(t=>`<span class="chip ${CAL_STATE.tab===t?'active':''}" onclick="Router.go('#/calendar/${CAL_STATE.calendarId}/${t}/${CAL_STATE.year}/${CAL_STATE.monthIndex}/${CAL_STATE.day}')">${tabLabels[t]}</span>`).join('')}<span class="chip" onclick="Router.go('#/holiday')">🎉 Holidays</span></div>`;
 
   // Calendar selector (modular)
   const allCals = (DATA.calendars && DATA.calendars.calendars) ? DATA.calendars.calendars : [];
@@ -16895,14 +16917,45 @@ function view_reputation(arg) {
 }
 
 
+/* Commerce hub: one door for the warehouse, abilities, held items, crafting,
+   vendors, and the bank. The standalone shop pages stay where they are (deep
+   links keep working); the hub just means one nav entry instead of five. */
+function commerceHubChips(active){
+  const chips=[
+    ['commerce','🛒 Hub',"#/commerce"],
+    ['items','🎒 Items',"#/items"],
+    ['crafting','⚒️ Crafting',"#/crafting"],
+    ['vendor','🏪 Vendors',"#/vendor"],
+    ['bank','💱 Bank',"#/currencies"],
+  ];
+  return `<div class="chips" style="margin:10px 0">${chips.map(([k,label,href])=>`<a class="chip${k===active?' active':''}" ${href.startsWith('#')?`onclick="Router.go('${href}')"`:`href="${href}"`}>${label}</a>`).join('')}</div>`;
+}
+function view_commerce(){
+  renderSidebar('commerce');
+  const items=Object.keys((typeof INVENTORY_SYSTEM!=='undefined'&&INVENTORY_SYSTEM.items)||{}).filter(id=>id!=='hidden_item_slot');
+  let recipes=0; try{ recipes=((typeof craftingData==='function'&&craftingData().recipes)||[]).length; }catch(e){ recipes=0; }
+  const vendors=Object.keys(window.WIKI_VENDORS||{});
+  const card=(emoji,name,count,desc,go)=>`<div class="card" style="cursor:pointer" onclick="${go}"><h2 style="margin-top:0">${emoji} ${name}</h2><p class="text-muted" style="font-size:12.5px;margin:4px 0"><b>${count}</b></p><p style="font-size:13px;margin:0">${desc}</p></div>`;
+  el('content').innerHTML=`<div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › Commerce Hub</div>`
+    +`<div class="card animate-fade-in"><h1>🛒 Commerce Hub</h1><p class="text-muted">One door for everything bought, sold, forged, or owed. Wario runs the warehouse; the archive runs the ledgers.</p>${commerceHubChips('commerce')}</div>`
+    +`<div class="grid2" style="margin-top:14px">`
+    +card('🏬','Warizon Warehouse','7,880+ listings','Items, materials, abilities, and loot in one search. Opens the warehouse.','location.href=\'Reputation-Matrix2/app/pages/shop/shop.html#warehouse\'')
+    +card('🎓','Ability Shop','training wing','Levels, perks, and training — opens inside the warehouse.','location.href=\''+abilityShopUrl()+'\'')
+    +card('🎒','Held Items',items.length+' artifacts','The archive\'s own held-item records (not shop stock).','Router.go(\'#/items\')')
+    +card('⚒️','Crafting Codex',recipes+' recipes','Scrolls, potions, enchantments, and the materials behind them.','Router.go(\'#/crafting\')')
+    +card('🏪','Vendors & Markets',vendors.length+' vendors','Commerce operators with roles, reputations, and inventory.','Router.go(\'#/vendor\')')
+    +card('💱','Bank & Currency','48 tenders','Vaults, debts, exchange, and multi-tender settlement.','Router.go(\'#/currencies\')')
+    +`</div>`;
+  window.scrollTo(0,0);
+}
 function view_vendorDirectory(id){
-  renderSidebar('items');
+  renderSidebar('commerce');
   const vendors=window.WIKI_VENDORS||{};
   const list=Object.values(vendors);
   const v=id?vendors[id]:null;
   if(id && !v){ view_vendorDirectory(); return; }
   const cards=list.map(x=>`<div class="card vendor-directory-card"><h2>🏪 ${esc(x.name||prettyId(x.id))}</h2><p class="text-muted">${esc(x.description||'Registered commerce vendor and marketplace operator.')}</p><div class="chips"><span class="pill">📍 ${esc(x.location||'Known market')}</span><span class="pill">Trust ${esc(String(x.trustLevel??'?'))}</span><span class="pill">Markup ${esc(String(x.markup??1))}×</span></div><p><b>Accepts:</b> ${(x.acceptedCurrencies||[]).map(c=>`<a class="entity-link" href="#/currency/${encodeURIComponent(c)}">${esc(currencyName(c))}</a>`).join(', ')||'Local tender / exchange rates'}</p><a class="chip" href="Reputation-Matrix2/app/pages/shop/shop.html#vendor=${encodeURIComponent(x.id)}">🛒 Browse this vendor</a></div>`).join('');
-  el('content').innerHTML=`<div class="card"><div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › Vendors & Markets</div><h1>🏪 Vendors & Markets</h1><p class="text-muted">Commerce operators have roles, reputations, locations, currencies, and inventory. They are linked here without becoming ordinary encyclopedia article clutter.</p><div class="vendor-directory-grid">${v?cards.replace(/<div class="card vendor-directory-card">/,'<div class="card vendor-directory-card selected">'):cards}</div></div>`;
+  el('content').innerHTML=`<div class="card"><div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › <a onclick="Router.go('#/commerce')">Commerce</a> › Vendors & Markets</div>${commerceHubChips('vendor')}<h1>🏪 Vendors & Markets</h1><p class="text-muted">Commerce operators have roles, reputations, locations, currencies, and inventory. They are linked here without becoming ordinary encyclopedia article clutter.</p><div class="vendor-directory-grid">${v?cards.replace(/<div class="card vendor-directory-card">/,'<div class="card vendor-directory-card selected">'):cards}</div></div>`;
 }
 function holidaySlug(name){ return String(name||'').toLowerCase().replace(/[^a-z0-9]+/g,'_').replace(/^_|_$/g,''); }
 function calendarLabel(calId){
@@ -16942,6 +16995,7 @@ function view_holiday(id){
       <div class="card animate-fade-in" style="border-left:4px solid var(--accent);background:linear-gradient(135deg,rgba(138,75,255,.14),rgba(224,180,0,.08)),var(--panel)">
         <div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › <a onclick="Router.go('#/calendar')">Calendar</a> › Holidays</div>
         <h1 style="margin:6px 0 4px">🎉 Holidays & Observances</h1>
+        <div class="chips" style="margin:8px 0"><a class="chip" onclick="Router.go('#/calendar')">📅 Month Grid</a><a class="chip" onclick="Router.go('#/calendar/timeline')">🕰️ Full Timeline</a><a class="chip active" onclick="Router.go('#/holiday')">🎉 Holidays</a></div>
         <p class="text-muted" style="font-size:13.5px">${all.length} cataloged observances across ${Object.keys(groups).length} calendars. Every entry has its own Waluipedia record.</p>
       </div>
       ${sections}`;
@@ -17054,7 +17108,7 @@ function craftingMaterialCard(m){
 function craftingAccent(cat){const m={scrolls:'#a855f7',potions:'#22c55e',enchanting:'#f472b6',smithing:'#94a3b8',alchemy:'#eab308',runecarving:'#60a5fa'};return m[cat]||'#8a4bff';}
 function materialRarityColor(r){return {common:'#94a3b8',uncommon:'#22c55e',rare:'#38bdf8',legendary:'#eab308',very_rare:'#a855f7'}[String(r||'').toLowerCase()]||'#8a4bff';}
 function view_crafting(arg){
-  renderSidebar('crafting');
+  renderSidebar('commerce');
   const parts=String(arg||'').split('/').filter(Boolean);
   if(parts[0]==='recipe'&&parts[1]) return view_craftingRecipe(parts[1]);
   if(parts[0]==='material'&&parts[1]) return view_craftingMaterial(parts[1]);
@@ -17065,7 +17119,7 @@ function view_crafting(arg){
     return `<div class="card crafting-section" style="--craft-accent:${esc(craftingAccent(cat))}"><div class="crafting-section-head"><h2>${esc(craftingCategoryIcon(cat))} ${esc(craftingCategoryLabel(cat))}</h2><span class="pill">${recipes.filter(r=>(r.category||r.type)===cat).length} recipes</span></div><div class="crafting-grid">${list.map(craftingRecipeCard).join('')}</div>${recipes.filter(r=>(r.category||r.type)===cat).length>12?`<p class="text-muted text-sm">Showing first 12. Use search below for the full recipe list.</p>`:''}</div>`;
   }).join('');
   const materialPreview=materials.slice(0,24).map(craftingMaterialCard).join('');
-  el('content').innerHTML=`<div class="card animate-fade-in crafting-hero"><div><div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › Crafting Codex</div><h1>⚒️ Waluipedia Crafting Codex</h1><p class="text-muted">Scrolls, potions, enchantments, smithing plans, and materials are first-class Waluipedia records. Buying and checkout now happen in Wario's Warehouse material market, where receipts and the basket live.</p></div><div class="species-stats"><div class="species-stat"><b>${recipes.length}</b>Recipes</div><div class="species-stat"><b>${materials.length}</b>Materials</div><div class="species-stat"><b>${cats.length}</b>Craft types</div></div><div class="chips mt-10"><a class="chip active" href="Reputation-Matrix2/app/pages/shop/shop.html#crafting-materials">Open Wario material market →</a><a class="chip" href="crafting.html">Old crafting console →</a><span class="chip" onclick="document.getElementById('craftSearch')?.focus()">Search recipes ↓</span></div></div><div class="card crafting-market-note"><h2>💰 Wario Material Market</h2><p class="text-muted">Waluipedia explains recipes and links materials. Wario's Shop handles the purchasable basket, checkout, and generated receipts. Formula: old material XP ÷ 10 = base gold, then Wario applies rarity markup because Wario is Wario.</p><div class="chips"><a class="chip active" href="Reputation-Matrix2/app/pages/shop/shop.html#crafting-materials">Open material checkout →</a></div></div><div class="card"><div class="list-toolbar"><label><span>Search crafting</span><input id="craftSearch" placeholder="Potion of Healing, arcane dust, fireball scroll…"></label><label><span>Type</span><select id="craftType"><option value="all">All types</option>${cats.map(c=>`<option value="${esc(c)}">${esc(craftingCategoryLabel(c))}</option>`).join('')}<option value="materials">Materials</option></select></label></div><div id="craftResults" class="crafting-grid"></div></div>${cards}<div class="card crafting-section"><div class="crafting-section-head"><h2>🧪 Materials Index</h2><span class="pill">${materials.length} components</span></div><div class="crafting-grid">${materialPreview}</div></div>`;
+  el('content').innerHTML=`<div class="card animate-fade-in crafting-hero"><div><div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › <a onclick="Router.go('#/commerce')">Commerce</a> › Crafting Codex</div>${commerceHubChips('crafting')}<h1>⚒️ Waluipedia Crafting Codex</h1><p class="text-muted">Scrolls, potions, enchantments, smithing plans, and materials are first-class Waluipedia records. Buying and checkout now happen in Wario's Warehouse material market, where receipts and the basket live.</p></div><div class="species-stats"><div class="species-stat"><b>${recipes.length}</b>Recipes</div><div class="species-stat"><b>${materials.length}</b>Materials</div><div class="species-stat"><b>${cats.length}</b>Craft types</div></div><div class="chips mt-10"><a class="chip active" href="Reputation-Matrix2/app/pages/shop/shop.html#crafting-materials">Open Wario material market →</a><a class="chip" href="crafting.html">Old crafting console →</a><span class="chip" onclick="document.getElementById('craftSearch')?.focus()">Search recipes ↓</span></div></div><div class="card crafting-market-note"><h2>💰 Wario Material Market</h2><p class="text-muted">Waluipedia explains recipes and links materials. Wario's Shop handles the purchasable basket, checkout, and generated receipts. Formula: old material XP ÷ 10 = base gold, then Wario applies rarity markup because Wario is Wario.</p><div class="chips"><a class="chip active" href="Reputation-Matrix2/app/pages/shop/shop.html#crafting-materials">Open material checkout →</a></div></div><div class="card"><div class="list-toolbar"><label><span>Search crafting</span><input id="craftSearch" placeholder="Potion of Healing, arcane dust, fireball scroll…"></label><label><span>Type</span><select id="craftType"><option value="all">All types</option>${cats.map(c=>`<option value="${esc(c)}">${esc(craftingCategoryLabel(c))}</option>`).join('')}<option value="materials">Materials</option></select></label></div><div id="craftResults" class="crafting-grid"></div></div>${cards}<div class="card crafting-section"><div class="crafting-section-head"><h2>🧪 Materials Index</h2><span class="pill">${materials.length} components</span></div><div class="crafting-grid">${materialPreview}</div></div>`;
   const render=()=>{const q=String(el('craftSearch')?.value||'').toLowerCase();const type=el('craftType')?.value||'all';let rows=[];if(type==='materials'){rows=materials.filter(m=>[m.name,m.id,m.description,m.category,m.rarity].join(' ').toLowerCase().includes(q)).slice(0,60).map(craftingMaterialCard);}else{rows=recipes.filter(r=>(type==='all'||(r.category||r.type)===type)&&[r.name,r.id,r.description,r.effect,r.category,r.type,r.school,(r.materials||[]).map(m=>m.id).join(' ')].join(' ').toLowerCase().includes(q)).slice(0,60).map(craftingRecipeCard);}el('craftResults').innerHTML=rows.join('')||'<p class="text-muted">No crafting records match.</p>';};
   el('craftSearch')?.addEventListener('input',render);el('craftType')?.addEventListener('change',render);render();window.scrollTo(0,0);
 }
@@ -17096,6 +17150,19 @@ function getCurrencyMeta(id){
   if(c) return c;
   return currencyDef(id);
 }
+/* Banking ledger strip: the accounts/loans/debts data previously surfaced only
+   on character sheets. Biggest debtors on top — Wario insists. */
+function bankLedgerCard(){
+  const b=(typeof bankingSource==='function'?bankingSource():{})||{};
+  const accts=b.bank_accounts||[], loans=b.loans||[], debts=b.debts||[];
+  if(!accts.length&&!loans.length&&!debts.length) return '';
+  const top=debts.slice().sort((x,y)=>(y.amountOwed||0)-(x.amountOwed||0)).slice(0,6);
+  const rows=top.map(d=>`<tr title="${esc(d.note||'')}"><td>${esc(d.creditor||'?')}</td><td>→ ${esc(d.debtor||'?')}</td><td style="text-align:right"><b>${Number(d.amountOwed||0).toLocaleString()}</b> <span class="text-muted">${esc(d.currencyKey||'')}</span></td><td><span class="pill">${esc(d.status||'active')}</span></td></tr>`).join('');
+  return `<div class="card" style="margin-top:14px"><h2 style="margin-top:0">🏦 Banking Ledger</h2>`
+    +`<div class="species-stats"><div class="species-stat"><b>${accts.length}</b>Accounts</div><div class="species-stat"><b>${loans.length}</b>Loans</div><div class="species-stat"><b>${debts.length}</b>Debts</div></div>`
+    +(rows?`<div class="table-wrap"><table class="table"><thead><tr><th>Creditor</th><th>Debtor</th><th style="text-align:right">Owed</th><th>Status</th></tr></thead><tbody>${rows}</tbody></table></div><p class="text-muted" style="font-size:12px">Hover the console for full notes — or open the <a href="currency.html">Bank &amp; Exchange Console →</a></p>`:'')
+    +`</div>`;
+}
 function view_currencies(){
   renderSidebar('currencies');
   const list=getCurrenciesList();
@@ -17117,14 +17184,16 @@ function view_currencies(){
   }).join('');
   el('content').innerHTML=`
     <div class="card animate-fade-in" style="border-left:4px solid var(--accent2);background:linear-gradient(135deg,rgba(224,180,0,.14),rgba(138,75,255,.08)),var(--panel)">
-      <div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › Currencies</div>
+      <div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › <a onclick="Router.go('#/commerce')">Commerce</a> › Bank & Currency</div>
       <h1 style="margin:6px 0 4px">💱 Currency Codex</h1>
       <p class="text-muted" style="font-size:13.5px">${list.length} cataloged tenders. Base standard: ${esc(meta.baseStandard||'Gold Piece (1.0 gold = 10 silver = 100 copper)')}.</p>
+      ${commerceHubChips('bank')}
       <div class="chips mt-10">
         <a class="chip" href="currency.html">🏦 Open Bank & Exchange Console →</a>
         <a class="chip" href="Reputation-Matrix2/app/pages/shop/shop.html">🛒 Wario Shop</a>
       </div>
     </div>
+    ${bankLedgerCard()}
     ${sections}`;
   window.scrollTo(0,0);
 }
@@ -18839,8 +18908,8 @@ const Router={
     else if(route==='commentary'||route==='waluigis-cut'||route==='cut')view_commentary(arg);
     else if(route==='cultures'||route==='laws')view_cultures();
     else if(route==='power'||route==='war')view_power();
-    else if(route==='imperial-network'||route==='imperial'||route==='empire-network'||route==='legion'||route==='iron-legion')view_imperial_network();
-    else if(route==='regal-diet'||route==='holy-midlands-diet'||route==='midlands-diet'||route==='diet')view_regal_diet();
+    else if(route==='imperial-network'||route==='imperial'||route==='empire-network'||route==='legion'||route==='iron-legion'){ Router.go('#/regal-diet/ipn'); }
+    else if(route==='regal-diet'||route==='holy-midlands-diet'||route==='midlands-diet'||route==='diet')view_regal_diet(arg);
     else if(route==='pond-docket'||route==='docket'||route==='pond-patrol'||route==='accountability-docket')view_pond_docket();
     else if(route==='ability-shop'||route==='abilities'||route==='ability'){location.href=abilityShopUrl(arg);return;}
     else if(route==='battlefield')view_list('battles');
@@ -18876,6 +18945,7 @@ const Router={
     else if(route==='injuries'||route==='injury')view_injuries(arg);
     else if(route==='wahbabel'||route==='languages')view_wahbabel();
     else if(route==='items')view_items();
+    else if(route==='commerce')view_commerce();
     else if(route==='item')view_item(arg);
     else if(route==='books'||route==='library'||route==='codex')view_books(arg);
     else if(route==='songs'||route==='song'||route==='songbook')view_songs(arg);

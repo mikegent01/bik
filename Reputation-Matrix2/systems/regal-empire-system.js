@@ -2140,6 +2140,22 @@ function hideDietDetailPanel() {
 // MAIN RENDER FUNCTION
 // ============================================
 
+/* Freshness stamp: what the chamber floor currently shows, so readers (and the
+   DIET_UPDATE_CHECKLIST) can tell at a glance whether the Diet is current. */
+export function dietFreshnessStamp() {
+    const d = (typeof getDietCurrentDate === 'function' && getDietCurrentDate()) || {};
+    const v = (typeof getCurrentVote === 'function' && getCurrentVote()) || {};
+    const st = (typeof getVoteStatus === 'function' && v.date) ? getVoteStatus(v) : (v.status || 'scheduled');
+    const date = (d.day && d.year) ? `Day ${d.day}, month ${d.monthIndex + 1}, ${d.year} BF` : 'date unknown';
+    return {
+        date,
+        decided: (typeof VOTE_HISTORY !== 'undefined' ? VOTE_HISTORY.length : 0),
+        scheduled: (typeof UPCOMING_VOTES !== 'undefined' ? UPCOMING_VOTES.length : 0),
+        current: v.title || 'no motion on the floor',
+        status: String(st).replace(/_/g, ' ')
+    };
+}
+
 export function renderHolyMidlandsDiet() {
     if (representatives.length === 0) {
         representatives = generateRepresentatives();
