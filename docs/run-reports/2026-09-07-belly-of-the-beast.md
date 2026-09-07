@@ -451,3 +451,73 @@ witness, and the archive was treating an established fact as an open question.
 Preserved: all 9 sections, the section image `belly-05-skittering-grove.jpg`,
 all 3 `[[prop:]]` triggers, the block quotation of the grove description, and
 every line of dialogue already filed. `tools/check-all.py` → all checks passed.
+
+## 5h. Date verification and time filing codes
+
+**The date is correct.** `the_belly_of_the_beast` is `30 Harvestide, 1040 BF`.
+Verified three ways: Harvestide is month 8 of 12 with 30 days, so day 30 is the
+last day of the month and legal; the event chains continuously out of
+`the_scorncrow_skirmish`, filed the same night at the same location; and the
+world clock (`currentDate.json` = 5 Aethel 1040) sits 5 days later, so the
+filing is correctly in the past.
+
+**But verifying it proved the user's point.** Measurements taken during the
+check:
+
+- **8 events** are filed on `30 Harvestide, 1040 BF` with no way to order them.
+- **8 of 115** events have any clock time in the date string at all.
+- **0** records had a `dateSort` field, despite `DATE_FILING_GUIDE.md`
+  referring to one.
+- `index.html` already carried this comment above `yearOf()`: *"date is free
+  prose on 60 of 112 events (median 44 chars, longest 647), so a plain Date
+  parse is hopeless."*
+
+Nothing in the repository could check a date. The guide was good prose with no
+enforcement behind it.
+
+### Time filing codes
+
+New `timeCode` field, carried beside the existing human `date`, which is
+unchanged and stays in Waluigi's voice:
+
+```text
+TC:1040-08-30T23:50/SHD
+   year-month-day, optional Thh:mm, clock = MAT | SHD | FEY | SUBJ
+```
+
+- **`tools/check-timecodes.py`** (new) validates parse, month/day bounds
+  (Deepwinter has 35), clock suffix, agreement between the code and the prose
+  date string, and that Material filings do not sit after the world clock
+  unless flagged `laterDated`. Fault-injection tested: wrong month vs prose,
+  day 31 in a 30-day month, and a bad clock suffix are all caught, and
+  `--strict` exits 1.
+- Wired into **`tools/check-all.py`** as `time codes`.
+- **`docs/DATE_FILING_GUIDE.md`** gains a full section: month-number table,
+  clock table, the rule that *the time is evidence, not decoration* (omit the
+  hour rather than invent one), what the checker enforces, and same-day
+  ordering.
+- **`index.html`** renders the code as a monospace `🕰` pill in the article
+  metabar, with the raw code and clock name in the tooltip. Absent or malformed
+  codes render nothing.
+- **`mainPage.json`** — Waluigi announces the standard in the editorial
+  directive slot.
+- **`README.md`** — filing block and doc table updated.
+
+### First codes filed
+
+The storm-night chain now has a real sequence, ordered from the prose:
+
+```text
+the_hanging_tree_apple…    TC:1040-08-30T21:00/SHD
+green_t_at_the_door…       TC:1040-08-30T22:40/SHD
+the_scorncrow_skirmish     TC:1040-08-30T23:20/SHD
+the_belly_of_the_beast     TC:1040-08-30T23:50/SHD
+```
+
+All four stay on 30 Harvestide. An earlier draft rolled the last one past
+midnight into 1 Aethel; that was reverted because no filed line says anybody
+saw midnight, and inventing one would be the exact failure the standard exists
+to prevent.
+
+Backfill is not required — a missing code is not an error. Add one when a
+record's chain is next touched.
