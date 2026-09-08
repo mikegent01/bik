@@ -132,7 +132,7 @@ for needle in ("'rolls','inventory','session-loot'];",
                "sheet-loot-body", "Open character sheet"):
     check(f"index.html wires {needle[:42]}", needle in src)
 sheet_files = re.findall(r"file:'(fvtt-Actor-[^']+\.json)'", src)
-check("seven actor sheets mapped", len(sheet_files) == 7, str(len(sheet_files)))
+check("thirteen actor sheets mapped", len(sheet_files) == 13, str(len(sheet_files)))
 missing = [f for f in sheet_files if not (ROOT / "Reputation-Matrix2" / "actors" / f).exists()]
 check("every mapped actor file exists", not missing, ",".join(missing))
 

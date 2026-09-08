@@ -1,8 +1,8 @@
 {
-  "folder": null,
   "name": "Waluigi",
   "type": "character",
-  "img": "icons/svg/mystery-man.svg",
+  "_id": "BmWNDwbxPQHU3Bbn",
+  "img": "npc/waluigi.png",
   "system": {
     "currency": {
       "pp": 0,
@@ -368,7 +368,7 @@
           "max": null,
           "mode": 0
         },
-        "value": 0,
+        "value": 1,
         "bonuses": {
           "check": "",
           "passive": ""
@@ -381,7 +381,7 @@
           "max": null,
           "mode": 0
         },
-        "value": 0,
+        "value": 1,
         "bonuses": {
           "check": "",
           "passive": ""
@@ -505,7 +505,20 @@
         }
       }
     },
-    "tools": {},
+    "tools": {
+      "calligrapher": {
+        "value": 1,
+        "ability": "int",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": ""
+        }
+      }
+    },
     "spells": {
       "spell1": {
         "value": 4,
@@ -629,13 +642,6 @@
       "ideal": "Recognition. Mario gets parades, Luigi gets sympathy, Wario gets paid. I get an encyclopedia and I wrote it myself. (Chaotic)",
       "bond": "Wario's ledger. I did not agree to the debt, I do not accept the debt, and I have memorised every line of it.",
       "flaw": "I cannot let a slight go, and I cannot tell the difference between a slight and a Tuesday.",
-      "habitat": {
-        "value": [],
-        "custom": ""
-      },
-      "treasure": {
-        "value": []
-      },
       "xp": {
         "value": 11911
       },
@@ -645,7 +651,12 @@
       "eyes": "Violet",
       "hair": "Black",
       "background": "ge0qtGAz6BJvGjmh",
-      "originalClass": "A19yytEFeQpC1YrF"
+      "originalClass": "A19yytEFeQpC1YrF",
+      "height": "",
+      "faith": "",
+      "weight": "",
+      "skin": "",
+      "age": ""
     },
     "resources": {
       "primary": {
@@ -670,10 +681,6 @@
         "label": ""
       }
     },
-    "source": {
-      "revision": 1,
-      "rules": "2024"
-    },
     "traits": {
       "size": "med",
       "languages": {
@@ -689,6 +696,7 @@
       "ci": {
         "value": [
           "charmed",
+          "diseased",
           "frightened"
         ],
         "custom": ""
@@ -696,6 +704,8 @@
       "dr": {
         "value": [
           "cold",
+          "necrotic",
+          "poison",
           "psychic"
         ],
         "custom": "",
@@ -715,7 +725,18 @@
         "amount": {},
         "bypasses": []
       },
-      "important": false
+      "weaponProf": {
+        "value": [],
+        "custom": "",
+        "mastery": {
+          "value": [],
+          "bonus": []
+        }
+      },
+      "armorProf": {
+        "value": [],
+        "custom": ""
+      }
     },
     "bastion": {
       "name": "",
@@ -729,8 +750,9 @@
     "actorLink": true,
     "width": 1,
     "height": 1,
+    "depth": 1,
     "texture": {
-      "src": "icons/svg/mystery-man.svg",
+      "src": "npc/waluigi.png",
       "anchorX": 0.5,
       "anchorY": 0.5,
       "fit": "contain",
@@ -776,7 +798,7 @@
       }
     },
     "sight": {
-      "enabled": false,
+      "enabled": true,
       "range": 0,
       "angle": 360,
       "visionMode": "basic",
@@ -812,8 +834,7 @@
     "flags": {},
     "randomImg": false,
     "appendNumber": false,
-    "prependAdjective": false,
-    "depth": 1
+    "prependAdjective": false
   },
   "items": [
     {
@@ -827,7 +848,7 @@
           "value": "<p>Author of the encyclopedia, reluctant employee of Wario's Enterprise, and the only person present at most of these events who took notes.</p>",
           "chat": ""
         },
-        "advancement": [],
+        "advancement": {},
         "startingEquipment": [],
         "source": {
           "custom": "Waluipedia",
@@ -841,6 +862,18 @@
       "effects": [],
       "flags": {},
       "sort": 300,
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1788578834767,
+        "modifiedTime": 1788578834767,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "folder": null,
       "ownership": {
         "default": 0
       }
@@ -875,7 +908,7 @@
           "value": "<p>Self-taught, aggressively so. Waluigi maintains that he invented ice magic and that the existing literature is plagiarism.</p>",
           "chat": ""
         },
-        "advancement": [],
+        "advancement": {},
         "properties": [],
         "startingEquipment": [],
         "source": {
@@ -890,6 +923,18 @@
       "effects": [],
       "flags": {},
       "sort": 100,
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1788578834767,
+        "modifiedTime": 1788578834767,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "folder": null,
       "ownership": {
         "default": 0
       }
@@ -906,7 +951,7 @@
           "value": "<p>Six of his eight spells deal damage and four of those are cold. Evocation is simply what he already does, written down.</p>",
           "chat": ""
         },
-        "advancement": [],
+        "advancement": {},
         "source": {
           "custom": "",
           "book": "PHB",
@@ -914,11 +959,27 @@
           "license": "",
           "revision": 1,
           "rules": "2024"
+        },
+        "spellcasting": {
+          "progression": "none",
+          "preparation": {}
         }
       },
       "effects": [],
       "flags": {},
       "sort": 200,
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1788578834767,
+        "modifiedTime": 1788578834767,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "folder": null,
       "ownership": {
         "default": 0
       }
@@ -937,10 +998,6 @@
           "value": "class",
           "subtype": ""
         },
-        "activation": {},
-        "duration": {},
-        "target": {},
-        "range": {},
         "uses": {
           "spent": 0,
           "max": "",
@@ -954,11 +1011,33 @@
           "license": "",
           "revision": 1,
           "rules": "2024"
-        }
+        },
+        "advancement": {},
+        "identifier": "",
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false
+        },
+        "properties": [],
+        "requirements": ""
       },
       "effects": [],
       "flags": {},
       "sort": 400,
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1788578834767,
+        "modifiedTime": 1788578834767,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "folder": null,
       "ownership": {
         "default": 0
       }
@@ -977,10 +1056,6 @@
           "value": "class",
           "subtype": ""
         },
-        "activation": {},
-        "duration": {},
-        "target": {},
-        "range": {},
         "uses": {
           "spent": 0,
           "max": "",
@@ -994,11 +1069,33 @@
           "license": "",
           "revision": 1,
           "rules": "2024"
-        }
+        },
+        "advancement": {},
+        "identifier": "",
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false
+        },
+        "properties": [],
+        "requirements": ""
       },
       "effects": [],
       "flags": {},
       "sort": 401,
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1788578834767,
+        "modifiedTime": 1788578834767,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "folder": null,
       "ownership": {
         "default": 0
       }
@@ -1017,10 +1114,6 @@
           "value": "class",
           "subtype": ""
         },
-        "activation": {},
-        "duration": {},
-        "target": {},
-        "range": {},
         "uses": {
           "spent": 0,
           "max": "",
@@ -1034,11 +1127,33 @@
           "license": "",
           "revision": 1,
           "rules": "2024"
-        }
+        },
+        "advancement": {},
+        "identifier": "",
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false
+        },
+        "properties": [],
+        "requirements": ""
       },
       "effects": [],
       "flags": {},
       "sort": 402,
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1788578834767,
+        "modifiedTime": 1788578834767,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "folder": null,
       "ownership": {
         "default": 0
       }
@@ -1057,10 +1172,6 @@
           "value": "class",
           "subtype": ""
         },
-        "activation": {},
-        "duration": {},
-        "target": {},
-        "range": {},
         "uses": {
           "spent": 0,
           "max": "",
@@ -1074,11 +1185,33 @@
           "license": "",
           "revision": 1,
           "rules": "2024"
-        }
+        },
+        "advancement": {},
+        "identifier": "",
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false
+        },
+        "properties": [],
+        "requirements": ""
       },
       "effects": [],
       "flags": {},
       "sort": 403,
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1788578834767,
+        "modifiedTime": 1788578834767,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "folder": null,
       "ownership": {
         "default": 0
       }
@@ -1097,10 +1230,6 @@
           "value": "class",
           "subtype": ""
         },
-        "activation": {},
-        "duration": {},
-        "target": {},
-        "range": {},
         "uses": {
           "spent": 0,
           "max": "",
@@ -1114,11 +1243,33 @@
           "license": "",
           "revision": 1,
           "rules": "2024"
-        }
+        },
+        "advancement": {},
+        "identifier": "",
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false
+        },
+        "properties": [],
+        "requirements": ""
       },
       "effects": [],
       "flags": {},
       "sort": 404,
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1788578834767,
+        "modifiedTime": 1788578834767,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "folder": null,
       "ownership": {
         "default": 0
       }
@@ -1263,7 +1414,87 @@
               "requireIdentification": false,
               "requireMagic": false
             },
-            "img": null
+            "img": null,
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityId": "",
+            "otherActivityAsParentType": true,
+            "attackMode": "oneHanded",
+            "ammunition": "",
+            "otherActivityUuid": "",
+            "attackRollPerTarget": "default",
+            "fumbleThreshold": 1
           }
         },
         "uses": {
@@ -1306,12 +1537,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "modifiedTime": 1782005284314,
-        "createdTime": 1782005284314
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "modifiedTime": 1788578834770,
+        "createdTime": 1788578834770
       },
       "effects": [],
       "folder": null,
@@ -1336,10 +1567,10 @@
           }
         }
       },
+      "_id": "sO8aRSUQ7v4olLO3",
       "ownership": {
         "default": 0
-      },
-      "_id": "sO8aRSUQ7v4olLO3"
+      }
     },
     {
       "name": "Wario's Debt Ledger",
@@ -1383,21 +1614,21 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "modifiedTime": 1782005284314,
-        "createdTime": 1782005284314
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "modifiedTime": 1788578834770,
+        "createdTime": 1788578834770
       },
       "effects": [],
       "folder": null,
       "sort": 0,
       "flags": {},
+      "_id": "E6QIDY94nZCbVkoL",
       "ownership": {
         "default": 0
-      },
-      "_id": "E6QIDY94nZCbVkoL"
+      }
     },
     {
       "name": "The Stomp (Assist Trophy)",
@@ -1480,7 +1711,82 @@
               "requireIdentification": false,
               "requireMagic": false
             },
-            "img": null
+            "img": null,
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityId": "none",
+            "otherActivityAsParentType": true
           }
         },
         "uses": {
@@ -1512,12 +1818,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "modifiedTime": 1782005284314,
-        "createdTime": 1782005284314
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "modifiedTime": 1788578834771,
+        "createdTime": 1788578834771
       },
       "effects": [],
       "folder": null,
@@ -1525,10 +1831,10 @@
       "flags": {
         "dnd5e": {}
       },
+      "_id": "gkz79pSecAWmfO3i",
       "ownership": {
         "default": 0
-      },
-      "_id": "gkz79pSecAWmfO3i"
+      }
     },
     {
       "name": "Cheater's Gambit",
@@ -1611,7 +1917,82 @@
               "requireIdentification": false,
               "requireMagic": false
             },
-            "img": null
+            "img": null,
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityId": "none",
+            "otherActivityAsParentType": true
           }
         },
         "uses": {
@@ -1641,12 +2022,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "createdTime": 1782005284314,
-        "modifiedTime": 1782005284314
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "createdTime": 1788578834771,
+        "modifiedTime": 1788578834771
       },
       "effects": [],
       "folder": null,
@@ -1654,10 +2035,10 @@
       "flags": {
         "dnd5e": {}
       },
+      "_id": "cPspZzN2mnv3dGQC",
       "ownership": {
         "default": 0
-      },
-      "_id": "cPspZzN2mnv3dGQC"
+      }
     },
     {
       "name": "Wario's Bob-ombs",
@@ -1762,7 +2143,82 @@
               "requireIdentification": false,
               "requireMagic": false
             },
-            "img": null
+            "img": null,
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityId": "none",
+            "otherActivityAsParentType": true
           }
         },
         "identifier": "",
@@ -1807,12 +2263,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "modifiedTime": 1782005284314,
-        "createdTime": 1782005284314
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "modifiedTime": 1788578834771,
+        "createdTime": 1788578834771
       },
       "effects": [],
       "folder": null,
@@ -1820,10 +2276,10 @@
       "flags": {
         "dnd5e": {}
       },
+      "_id": "GeFoGw1LsQe7ACfZ",
       "ownership": {
         "default": 0
-      },
-      "_id": "GeFoGw1LsQe7ACfZ"
+      }
     },
     {
       "name": "Identity Kit: 'Wally'",
@@ -1913,7 +2369,90 @@
               "requireIdentification": false,
               "requireMagic": false
             },
-            "img": null
+            "img": null,
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityId": "none",
+            "otherActivityAsParentType": true,
+            "damage": {
+              "onSave": "half",
+              "parts": [],
+              "critical": {
+                "allow": false
+              }
+            },
+            "friendlySave": "default"
           }
         },
         "uses": {
@@ -1953,12 +2492,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "modifiedTime": 1782005284314,
-        "createdTime": 1782005284314
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "modifiedTime": 1788578834771,
+        "createdTime": 1788578834771
       },
       "effects": [],
       "folder": null,
@@ -1972,10 +2511,10 @@
           }
         }
       },
+      "_id": "9A47PIdL8doozKW8",
       "ownership": {
         "default": 0
-      },
-      "_id": "9A47PIdL8doozKW8"
+      }
     },
     {
       "name": "The Rose of Rejection",
@@ -2099,7 +2638,82 @@
               "requireIdentification": false,
               "requireMagic": false
             },
-            "img": null
+            "img": null,
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityId": "none",
+            "otherActivityAsParentType": true
           }
         },
         "uses": {
@@ -2142,12 +2756,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "modifiedTime": 1782005284314,
-        "createdTime": 1782005284314
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "modifiedTime": 1788578834772,
+        "createdTime": 1788578834772
       },
       "effects": [],
       "folder": null,
@@ -2161,10 +2775,10 @@
           }
         }
       },
+      "_id": "RnlfKMAs3mJ6xdu1",
       "ownership": {
         "default": 0
-      },
-      "_id": "RnlfKMAs3mJ6xdu1"
+      }
     },
     {
       "name": "Sprite-Silk Leg Splint",
@@ -2224,12 +2838,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "modifiedTime": 1782005284314,
-        "createdTime": 1782005284314
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "modifiedTime": 1788578834772,
+        "createdTime": 1788578834772
       },
       "effects": [],
       "folder": null,
@@ -2242,10 +2856,10 @@
           }
         }
       },
+      "_id": "TUReo9L14lgGt5VX",
       "ownership": {
         "default": 0
-      },
-      "_id": "TUReo9L14lgGt5VX"
+      }
     },
     {
       "name": "Wario's 'Walkie-Screechie'",
@@ -2336,7 +2950,90 @@
               "requireIdentification": false,
               "requireMagic": false
             },
-            "img": null
+            "img": null,
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityId": "none",
+            "otherActivityAsParentType": true,
+            "damage": {
+              "onSave": "half",
+              "parts": [],
+              "critical": {
+                "allow": false
+              }
+            },
+            "friendlySave": "default"
           }
         },
         "uses": {
@@ -2375,12 +3072,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "modifiedTime": 1782005284314,
-        "createdTime": 1782005284314
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "modifiedTime": 1788578834772,
+        "createdTime": 1788578834772
       },
       "effects": [],
       "folder": null,
@@ -2394,10 +3091,10 @@
           }
         }
       },
+      "_id": "K8lPFnIuyUj8bDws",
       "ownership": {
         "default": 0
-      },
-      "_id": "K8lPFnIuyUj8bDws"
+      }
     },
     {
       "name": "Scale of the Guardian",
@@ -2441,21 +3138,21 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "modifiedTime": 1782005284314,
-        "createdTime": 1782005284314
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "modifiedTime": 1788578834772,
+        "createdTime": 1788578834772
       },
       "effects": [],
       "folder": null,
       "sort": 0,
       "flags": {},
+      "_id": "1dTdAo2f7aIRbKyi",
       "ownership": {
         "default": 0
-      },
-      "_id": "1dTdAo2f7aIRbKyi"
+      }
     },
     {
       "name": "Rotting Canapé (The Heir's Banquet)",
@@ -2521,21 +3218,21 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "modifiedTime": 1782005284314,
-        "createdTime": 1782005284314
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "modifiedTime": 1788578834772,
+        "createdTime": 1788578834772
       },
       "effects": [],
       "folder": null,
       "sort": 0,
       "flags": {},
+      "_id": "moO4ybzniH112qW5",
       "ownership": {
         "default": 0
-      },
-      "_id": "moO4ybzniH112qW5"
+      }
     },
     {
       "name": "Vigilance Control Chip (Broken)",
@@ -2579,21 +3276,21 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "modifiedTime": 1782005284314,
-        "createdTime": 1782005284314
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "modifiedTime": 1788578834773,
+        "createdTime": 1788578834773
       },
       "effects": [],
       "folder": null,
       "sort": 0,
       "flags": {},
+      "_id": "1Wwi6ZdErXj4ytPq",
       "ownership": {
         "default": 0
-      },
-      "_id": "1Wwi6ZdErXj4ytPq"
+      }
     },
     {
       "name": "Ace Service Balls",
@@ -2659,21 +3356,21 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "modifiedTime": 1782005284314,
-        "createdTime": 1782005284314
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "modifiedTime": 1788578834773,
+        "createdTime": 1788578834773
       },
       "effects": [],
       "folder": null,
       "sort": 0,
       "flags": {},
+      "_id": "ATKgjjvpEbEokyF3",
       "ownership": {
         "default": 0
-      },
-      "_id": "ATKgjjvpEbEokyF3"
+      }
     },
     {
       "name": "Satyr's Party Popper",
@@ -2739,21 +3436,21 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "modifiedTime": 1782005284314,
-        "createdTime": 1782005284314
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "modifiedTime": 1788578834773,
+        "createdTime": 1788578834773
       },
       "effects": [],
       "folder": null,
       "sort": 0,
       "flags": {},
+      "_id": "J1s1YT0447QajAEl",
       "ownership": {
         "default": 0
-      },
-      "_id": "J1s1YT0447QajAEl"
+      }
     },
     {
       "name": "Defaced Photo of 'The Brothers'",
@@ -2797,21 +3494,21 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "modifiedTime": 1782005284314,
-        "createdTime": 1782005284314
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "modifiedTime": 1788578834773,
+        "createdTime": 1788578834773
       },
       "effects": [],
       "folder": null,
       "sort": 0,
       "flags": {},
+      "_id": "VWmK6lPgHCfBcL9X",
       "ownership": {
         "default": 0
-      },
-      "_id": "VWmK6lPgHCfBcL9X"
+      }
     },
     {
       "name": "Gear of 'Mossy' (Steely)",
@@ -2855,21 +3552,21 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "createdTime": 1782005284314,
-        "modifiedTime": 1782005284314
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "createdTime": 1788578834773,
+        "modifiedTime": 1788578834773
       },
       "effects": [],
       "folder": null,
       "sort": 0,
       "flags": {},
+      "_id": "fxcHzSG3rVhhWUmZ",
       "ownership": {
         "default": 0
-      },
-      "_id": "fxcHzSG3rVhhWUmZ"
+      }
     },
     {
       "name": "Bag of 'Wall-nuts'",
@@ -2935,21 +3632,21 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "modifiedTime": 1782005284314,
-        "createdTime": 1782005284314
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "modifiedTime": 1788578834773,
+        "createdTime": 1788578834773
       },
       "effects": [],
       "folder": null,
       "sort": 0,
       "flags": {},
+      "_id": "La2j125Yik8gbUm2",
       "ownership": {
         "default": 0
-      },
-      "_id": "La2j125Yik8gbUm2"
+      }
     },
     {
       "name": "The Orange Invitation",
@@ -2993,21 +3690,21 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "modifiedTime": 1782005284314,
-        "createdTime": 1782005284314
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "modifiedTime": 1788578834774,
+        "createdTime": 1788578834774
       },
       "effects": [],
       "folder": null,
       "sort": 0,
       "flags": {},
+      "_id": "koUpbCkV00RA8dFQ",
       "ownership": {
         "default": 0
-      },
-      "_id": "koUpbCkV00RA8dFQ"
+      }
     },
     {
       "name": "Mustache Wax (Fey-Scented)",
@@ -3094,7 +3791,90 @@
               "requireIdentification": false,
               "requireMagic": false
             },
-            "img": null
+            "img": null,
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityId": "none",
+            "otherActivityAsParentType": true,
+            "damage": {
+              "onSave": "half",
+              "parts": [],
+              "critical": {
+                "allow": false
+              }
+            },
+            "friendlySave": "default"
           }
         },
         "uses": {
@@ -3137,12 +3917,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "modifiedTime": 1782005284314,
-        "createdTime": 1782005284314
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "modifiedTime": 1788578834774,
+        "createdTime": 1788578834774
       },
       "effects": [],
       "folder": null,
@@ -3156,10 +3936,10 @@
           }
         }
       },
+      "_id": "Wb28zkBH6ZcGtjny",
       "ownership": {
         "default": 0
-      },
-      "_id": "Wb28zkBH6ZcGtjny"
+      }
     },
     {
       "name": "Cape of the Bad Sport",
@@ -3219,12 +3999,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "modifiedTime": 1782005284314,
-        "createdTime": 1782005284314
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "modifiedTime": 1788578834774,
+        "createdTime": 1788578834774
       },
       "effects": [],
       "folder": null,
@@ -3237,10 +4017,10 @@
           }
         }
       },
+      "_id": "0TBagNRSBeEKJ6Dq",
       "ownership": {
         "default": 0
-      },
-      "_id": "0TBagNRSBeEKJ6Dq"
+      }
     },
     {
       "name": "Key to the Vine Room",
@@ -3284,21 +4064,21 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "createdTime": 1782005284314,
-        "modifiedTime": 1782005284314
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "createdTime": 1788578834774,
+        "modifiedTime": 1788578834774
       },
       "effects": [],
       "folder": null,
       "sort": 0,
       "flags": {},
+      "_id": "nlotd6L2hUmTJH5D",
       "ownership": {
         "default": 0
-      },
-      "_id": "nlotd6L2hUmTJH5D"
+      }
     },
     {
       "name": "Fey-Touched Step (Passive)",
@@ -3339,21 +4119,21 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "modifiedTime": 1782005284314,
-        "createdTime": 1782005284314
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "modifiedTime": 1788578834774,
+        "createdTime": 1788578834774
       },
       "effects": [],
       "folder": null,
       "sort": 0,
       "flags": {},
+      "_id": "tIilLakxrEYOFOrV",
       "ownership": {
         "default": 0
-      },
-      "_id": "tIilLakxrEYOFOrV"
+      }
     },
     {
       "name": "Satyr's Regret (Fey Wine)",
@@ -3419,21 +4199,21 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "modifiedTime": 1782005284314,
-        "createdTime": 1782005284314
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "modifiedTime": 1788578834774,
+        "createdTime": 1788578834774
       },
       "effects": [],
       "folder": null,
       "sort": 0,
       "flags": {},
+      "_id": "Jti3riWX9qQMBZ0k",
       "ownership": {
         "default": 0
-      },
-      "_id": "Jti3riWX9qQMBZ0k"
+      }
     },
     {
       "name": "Cone of Cold",
@@ -3553,7 +4333,10 @@
                     "formula": ""
                   }
                 }
-              ]
+              ],
+              "critical": {
+                "allow": false
+              }
             },
             "save": {
               "ability": [
@@ -3576,7 +4359,83 @@
               "requireIdentification": false,
               "requireMagic": false
             },
-            "img": null
+            "img": null,
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityId": "none",
+            "otherActivityAsParentType": true,
+            "friendlySave": "default"
           }
         },
         "identifier": "cone-of-cold",
@@ -3588,10 +4447,6 @@
       "effects": [],
       "folder": "beZ8MTpWY2cMEUlp",
       "sort": 3000000,
-      "ownership": {
-        "default": 0,
-        "0tmjbgjsJjnyOG4D": 3
-      },
       "flags": {
         "dnd5e": {
           "riders": {
@@ -3611,14 +4466,17 @@
         "duplicateSource": null,
         "exportSource": null,
         "compendiumSource": "Compendium.dnd5e.spells24.Item.phbsplConeofCold",
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "createdTime": 1782005284314,
-        "modifiedTime": 1782005284314,
-        "lastModifiedBy": "f9K62vO9hIl1GByi"
+        "createdTime": 1788578834775,
+        "modifiedTime": 1788578834775,
+        "lastModifiedBy": "7BMT1Aux3QVtq027"
       },
-      "_id": "EXeEn416FhNYY4uz"
+      "_id": "EXeEn416FhNYY4uz",
+      "ownership": {
+        "default": 0
+      }
     },
     {
       "name": "Ice Knife",
@@ -3768,7 +4626,87 @@
               "requireIdentification": false,
               "requireMagic": false
             },
-            "img": null
+            "img": null,
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityId": "",
+            "otherActivityAsParentType": true,
+            "attackMode": "oneHanded",
+            "ammunition": "",
+            "otherActivityUuid": "",
+            "attackRollPerTarget": "default",
+            "fumbleThreshold": 1
           },
           "dnd5eactivity100": {
             "_id": "dnd5eactivity100",
@@ -3838,7 +4776,10 @@
                     "formula": ""
                   }
                 }
-              ]
+              ],
+              "critical": {
+                "allow": false
+              }
             },
             "save": {
               "ability": [
@@ -3863,7 +4804,83 @@
               "requireIdentification": false,
               "requireMagic": false
             },
-            "img": null
+            "img": null,
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityId": "none",
+            "otherActivityAsParentType": true,
+            "friendlySave": "default"
           }
         },
         "identifier": "ice-knife",
@@ -3875,10 +4892,6 @@
       "effects": [],
       "folder": "pBaAAtXBCq9FVEnL",
       "sort": 1800000,
-      "ownership": {
-        "default": 0,
-        "0tmjbgjsJjnyOG4D": 3
-      },
       "flags": {
         "dnd5e": {
           "riders": {
@@ -3898,14 +4911,17 @@
         "duplicateSource": null,
         "exportSource": null,
         "compendiumSource": "Compendium.dnd5e.spells24.Item.phbsplIceKnife00",
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "createdTime": 1782005284314,
-        "modifiedTime": 1782005284314,
-        "lastModifiedBy": "f9K62vO9hIl1GByi"
+        "createdTime": 1788578834775,
+        "modifiedTime": 1788578834775,
+        "lastModifiedBy": "7BMT1Aux3QVtq027"
       },
-      "_id": "7ryYgv9xGsHtcrgZ"
+      "_id": "7ryYgv9xGsHtcrgZ",
+      "ownership": {
+        "default": 0
+      }
     },
     {
       "name": "Ice Storm",
@@ -4046,7 +5062,10 @@
                     "number": 1
                   }
                 }
-              ]
+              ],
+              "critical": {
+                "allow": false
+              }
             },
             "save": {
               "ability": [
@@ -4071,7 +5090,83 @@
               "requireIdentification": false,
               "requireMagic": false
             },
-            "img": null
+            "img": null,
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityId": "none",
+            "otherActivityAsParentType": true,
+            "friendlySave": "default"
           }
         },
         "identifier": "ice-storm",
@@ -4083,10 +5178,6 @@
       "effects": [],
       "folder": "qi3IbnEwap7mRw4b",
       "sort": 1400000,
-      "ownership": {
-        "default": 0,
-        "0tmjbgjsJjnyOG4D": 3
-      },
       "flags": {
         "dnd5e": {
           "riders": {
@@ -4106,14 +5197,17 @@
         "duplicateSource": null,
         "exportSource": null,
         "compendiumSource": "Compendium.dnd5e.spells24.Item.phbsplIceStorm00",
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "createdTime": 1782005284314,
-        "modifiedTime": 1782005284314,
-        "lastModifiedBy": "f9K62vO9hIl1GByi"
+        "createdTime": 1788578834775,
+        "modifiedTime": 1788578834775,
+        "lastModifiedBy": "7BMT1Aux3QVtq027"
       },
-      "_id": "r5unLTtWYmGNPwKx"
+      "_id": "r5unLTtWYmGNPwKx",
+      "ownership": {
+        "default": 0
+      }
     },
     {
       "name": "Wall of Ice",
@@ -4248,7 +5342,10 @@
                   }
                 }
               ],
-              "onSave": "half"
+              "onSave": "half",
+              "critical": {
+                "allow": false
+              }
             },
             "save": {
               "ability": [
@@ -4267,7 +5364,83 @@
               "requireAttunement": false,
               "requireIdentification": false,
               "requireMagic": false
-            }
+            },
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityId": "none",
+            "otherActivityAsParentType": true,
+            "friendlySave": "default"
           },
           "zjpb29Tww0iuv1P3": {
             "type": "save",
@@ -4341,7 +5514,10 @@
                   }
                 }
               ],
-              "onSave": "half"
+              "onSave": "half",
+              "critical": {
+                "allow": false
+              }
             },
             "save": {
               "ability": [
@@ -4361,7 +5537,83 @@
               "requireAttunement": false,
               "requireIdentification": false,
               "requireMagic": false
-            }
+            },
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityId": "none",
+            "otherActivityAsParentType": true,
+            "friendlySave": "default"
           },
           "D8Q85bjeZgiFky5j": {
             "type": "save",
@@ -4434,7 +5686,10 @@
                   }
                 }
               ],
-              "onSave": "half"
+              "onSave": "half",
+              "critical": {
+                "allow": false
+              }
             },
             "save": {
               "ability": [
@@ -4453,7 +5708,83 @@
               "requireAttunement": false,
               "requireIdentification": false,
               "requireMagic": false
-            }
+            },
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityId": "none",
+            "otherActivityAsParentType": true,
+            "friendlySave": "default"
           }
         },
         "identifier": "wall-of-ice",
@@ -4465,10 +5796,6 @@
       "effects": [],
       "folder": "8WmlLARx1Df3Ii9v",
       "sort": 100049,
-      "ownership": {
-        "default": 0,
-        "0tmjbgjsJjnyOG4D": 3
-      },
       "flags": {
         "dnd5e": {
           "riders": {
@@ -4488,14 +5815,17 @@
         "duplicateSource": null,
         "exportSource": null,
         "compendiumSource": "Compendium.dnd5e.spells24.Item.phbsplWallofIce0",
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "createdTime": 1782005284314,
-        "modifiedTime": 1782005284314,
-        "lastModifiedBy": "f9K62vO9hIl1GByi"
+        "createdTime": 1788578834775,
+        "modifiedTime": 1788578834775,
+        "lastModifiedBy": "7BMT1Aux3QVtq027"
       },
-      "_id": "ui7l6OXGvQFKOI1f"
+      "_id": "ui7l6OXGvQFKOI1f",
+      "ownership": {
+        "default": 0
+      }
     },
     {
       "name": "Fireball",
@@ -4621,7 +5951,10 @@
                     "formula": ""
                   }
                 }
-              ]
+              ],
+              "critical": {
+                "allow": false
+              }
             },
             "save": {
               "ability": [
@@ -4644,7 +5977,83 @@
               "requireIdentification": false,
               "requireMagic": false
             },
-            "img": null
+            "img": null,
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityId": "none",
+            "otherActivityAsParentType": true,
+            "friendlySave": "default"
           }
         },
         "identifier": "fireball",
@@ -4656,10 +6065,6 @@
       "effects": [],
       "folder": "HCovEE4VoPGlIbKi",
       "sort": 2100000,
-      "ownership": {
-        "default": 0,
-        "0tmjbgjsJjnyOG4D": 3
-      },
       "flags": {
         "dnd5e": {
           "riders": {
@@ -4679,14 +6084,17 @@
         "duplicateSource": null,
         "exportSource": null,
         "compendiumSource": "Compendium.dnd5e.spells24.Item.phbsplFireball00",
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "createdTime": 1782005284314,
-        "modifiedTime": 1782005284314,
-        "lastModifiedBy": "f9K62vO9hIl1GByi"
+        "createdTime": 1788578834776,
+        "modifiedTime": 1788578834776,
+        "lastModifiedBy": "7BMT1Aux3QVtq027"
       },
-      "_id": "b7MxC3fTjGT7sCUj"
+      "_id": "b7MxC3fTjGT7sCUj",
+      "ownership": {
+        "default": 0
+      }
     },
     {
       "name": "Fire Bolt",
@@ -4838,7 +6246,87 @@
               "requireAttunement": false,
               "requireIdentification": false,
               "requireMagic": false
-            }
+            },
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityId": "",
+            "otherActivityAsParentType": true,
+            "attackMode": "oneHanded",
+            "ammunition": "",
+            "otherActivityUuid": "",
+            "attackRollPerTarget": "default",
+            "fumbleThreshold": 1
           }
         },
         "identifier": "fire-bolt",
@@ -4850,10 +6338,6 @@
       "effects": [],
       "folder": "4FhsY9FJQd7h7MZb",
       "sort": 1400000,
-      "ownership": {
-        "default": 0,
-        "0tmjbgjsJjnyOG4D": 3
-      },
       "flags": {
         "dnd5e": {
           "riders": {
@@ -4873,14 +6357,17 @@
         "duplicateSource": null,
         "exportSource": null,
         "compendiumSource": "Compendium.dnd5e.spells24.Item.phbsplFireBolt00",
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "createdTime": 1782005284314,
-        "modifiedTime": 1782005284314,
-        "lastModifiedBy": "f9K62vO9hIl1GByi"
+        "createdTime": 1788578834776,
+        "modifiedTime": 1788578834776,
+        "lastModifiedBy": "7BMT1Aux3QVtq027"
       },
-      "_id": "qa34aIM7LDlFKJuB"
+      "_id": "qa34aIM7LDlFKJuB",
+      "ownership": {
+        "default": 0
+      }
     },
     {
       "name": "Mage Hand",
@@ -5029,7 +6516,81 @@
               "requireIdentification": false,
               "requireMagic": false
             },
-            "img": null
+            "img": null,
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "friendlySummon": false
           }
         },
         "identifier": "mage-hand",
@@ -5041,10 +6602,6 @@
       "effects": [],
       "folder": "4FhsY9FJQd7h7MZb",
       "sort": 1000000,
-      "ownership": {
-        "default": 0,
-        "0tmjbgjsJjnyOG4D": 3
-      },
       "flags": {
         "dnd5e": {
           "riders": {
@@ -5064,14 +6621,17 @@
         "duplicateSource": null,
         "exportSource": null,
         "compendiumSource": "Compendium.dnd5e.spells24.Item.phbsplMageHand00",
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "createdTime": 1782005284314,
-        "modifiedTime": 1782005284314,
-        "lastModifiedBy": "f9K62vO9hIl1GByi"
+        "createdTime": 1788578834776,
+        "modifiedTime": 1788578834776,
+        "lastModifiedBy": "7BMT1Aux3QVtq027"
       },
-      "_id": "jecwDDUaEQmCWUm0"
+      "_id": "jecwDDUaEQmCWUm0",
+      "ownership": {
+        "default": 0
+      }
     },
     {
       "name": "Magic Missile",
@@ -5212,7 +6772,80 @@
               "requireIdentification": false,
               "requireMagic": false
             },
-            "img": null
+            "img": null,
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            }
           }
         },
         "identifier": "magic-missile",
@@ -5224,10 +6857,6 @@
       "effects": [],
       "folder": "pBaAAtXBCq9FVEnL",
       "sort": 1100000,
-      "ownership": {
-        "default": 0,
-        "0tmjbgjsJjnyOG4D": 3
-      },
       "flags": {
         "dnd5e": {
           "riders": {
@@ -5247,24 +6876,26 @@
         "duplicateSource": null,
         "exportSource": null,
         "compendiumSource": "Compendium.dnd5e.spells24.Item.phbsplMagicMissi",
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "createdTime": 1782005284314,
-        "modifiedTime": 1782005284314,
-        "lastModifiedBy": "f9K62vO9hIl1GByi"
+        "createdTime": 1788578834777,
+        "modifiedTime": 1788578834777,
+        "lastModifiedBy": "7BMT1Aux3QVtq027"
       },
-      "_id": "U5knjTwtE5T4tlbb"
+      "_id": "U5knjTwtE5T4tlbb",
+      "ownership": {
+        "default": 0
+      }
     }
   ],
   "effects": [],
+  "folder": "0A40B9PdH5WzraZl",
+  "sort": 300000,
   "ownership": {
     "default": 0
   },
   "flags": {
-    "scene-packer": {
-      "hash": "328a988d620b9f9b231a9bfcd41d94e980e4811a"
-    },
     "5e-npc-combat-automation": {
       "aiProfile": {
         "archetypes": [
@@ -5284,9 +6915,18 @@
         "timestamp": 1786383977446,
         "manuallyOverridden": false
       }
+    },
+    "scene-packer": {
+      "hash": "328a988d620b9f9b231a9bfcd41d94e980e4811a"
     }
   },
   "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "dnd5e",
+    "systemVersion": "5.3.3",
+    "createdTime": 1788578834767,
+    "modifiedTime": 1788582142914,
+    "lastModifiedBy": "7BMT1Aux3QVtq027",
     "compendiumSource": null,
     "duplicateSource": null,
     "exportSource": {
@@ -5295,12 +6935,6 @@
       "coreVersion": "14.365",
       "systemId": "dnd5e",
       "systemVersion": "5.3.3"
-    },
-    "coreVersion": "14.365",
-    "systemId": "dnd5e",
-    "systemVersion": "5.3.3",
-    "createdTime": 1782005284314,
-    "modifiedTime": 1786383977468,
-    "lastModifiedBy": "f9K62vO9hIl1GByi"
+    }
   }
 }

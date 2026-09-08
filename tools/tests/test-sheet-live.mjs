@@ -52,7 +52,7 @@ const go = async hash => {
 console.log('\n-- sheet roster');
 await go('#/sheet');
 check('roster renders', content().includes('Character Sheets'));
-check('roster lists the party sheets', content().includes('waluigi') && content().includes('toad-lee'));
+check('roster lists the party sheets', content().includes('waluigi') && content().includes('toad-lee') && content().includes('wario') && content().includes('remi'));
 check('roster shows the loot section', content().includes('Latest session loot'));
 
 console.log('\n-- waluigi sheet');
@@ -64,6 +64,12 @@ check('sheet shows abilities', sheet.includes('STR') && sheet.includes('CHA'));
 check('sheet groups gear', sheet.includes('Features') && sheet.includes('Spells'));
 check('sheet links the wiki article', sheet.includes('Wiki article'));
 check('sheet carries the live loot panel', sheet.includes('Session loot'));
+
+console.log('\n-- wario sheet (npc conversion)');
+await go('#/sheet/wario');
+const wario = content();
+check('wario sheet names the actor', wario.includes('Wario'));
+check('wario sheet shows the barbarian kit', wario.includes('Barbarian'));
 
 console.log('\n-- extraction parity on the article');
 await go('#/article/waluigi');

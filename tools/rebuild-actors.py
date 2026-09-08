@@ -43,13 +43,17 @@ OVERRIDES = {
     # Dan carries two species: "Toad - Feyward Variant" (0 advancements) and
     # "Grung" (3 advancements, climb speed, full description). Keep-first
     # would discard the mechanics, so keep the later one.
-    "original-fvtt-Actor-feyward-dan-YDfvgm2dGArNeEsE.json": ["--keep-species", "last"],
+    "original-fvtt-Actor-feyward-dan-IlzuThuR8upTtqtF.json": ["--keep-species", "last"],
+    # Eager likewise doubles up ("Toad - Eager Variant"/"Grung" and
+    # "Disaster Inc. Catastrophe Scout"/"Slave"); the actor's own
+    # details pointers select Grung + Slave, i.e. the later of each.
+    "original-fvtt-Actor-eager-VudZ3W313Y4FILs0.json": ["--keep-species", "last"],
 }
 
 # Generated rather than sanitized from an original.
 GENERATED = {
     "fvtt-Actor-lady-aurelian-corvinarus-PC.json": [sys.executable, BUILD_AURELIAN],
-    "fvtt-Actor-waluigi-PC.json": [sys.executable, BUILD_WALUIGI],
+    # (waluigi-PC retired: the live Waluigi export in Players.json supersedes it)
     "fvtt-Actor-wario-motorbike.json": [sys.executable, BUILD_WARIO_MOTORBIKE],
 }
 

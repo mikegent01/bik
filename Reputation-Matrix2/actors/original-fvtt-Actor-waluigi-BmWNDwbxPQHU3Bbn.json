@@ -1,8 +1,8 @@
 {
-  "folder": null,
   "name": "Waluigi",
   "type": "character",
-  "img": "icons/svg/mystery-man.svg",
+  "_id": "BmWNDwbxPQHU3Bbn",
+  "img": "npc/waluigi.png",
   "system": {
     "currency": {
       "pp": 0,
@@ -368,7 +368,7 @@
           "max": null,
           "mode": 0
         },
-        "value": 0,
+        "value": 1,
         "bonuses": {
           "check": "",
           "passive": ""
@@ -381,7 +381,7 @@
           "max": null,
           "mode": 0
         },
-        "value": 0,
+        "value": 1,
         "bonuses": {
           "check": "",
           "passive": ""
@@ -505,7 +505,20 @@
         }
       }
     },
-    "tools": {},
+    "tools": {
+      "calligrapher": {
+        "value": 1,
+        "ability": "int",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": ""
+        }
+      }
+    },
     "spells": {
       "spell1": {
         "value": 4,
@@ -625,17 +638,10 @@
         "value": "<h1>The Scourge of Probability</h1><p>In a world tearing itself apart, Waluigi stands as a testament to the power of spite. A lanky silhouette of purple misery and surprising competence, he has carved a niche in the War-Torn Mushroom Kingdom not as a hero, but as a survivor who refuses to be ignored.</p><hr><h3>The 'Wally' Deception (1040 BF)</h3><p>For weeks, Waluigi operated under the alias <strong>'Wally,'</strong> a humble, mustache-less scout for the Iron Legion. He successfully infiltrated the party, feeding intel to the Legion until the hijacking of the airship <em>Vigilance</em>. The reveal of his identity was theatrical, devastating, and cemented his reputation as a master actor, though he lost his favorite fake mustache in the process.</p><h3>The 'Friendly Fire' Incident</h3><p>During the chaos aboard the <em>Vigilance</em> (Day 12), Waluigi unleashed a powerful <em>Cone of Cold</em> spell intended for Iron Legion boarders. However, due to his absolute lack of concern for collateral damage, he froze the toad ally <strong>Eager</strong> solid and hospitalized the newcomer <strong>FNG Remi</strong>. He maintains to this day that Eager 'walked into the crossfire' and that he actually saved them by cooling the room down.</p><h3>The Feywild Trauma</h3><p>After the <strong>Shattered Ritual</strong> at Raventree Manor (Day 21), Waluigi fell into the Feywild reflection of the estate. There, his leg was shattered by a Guardian Butterfly. He was saved by Sprites who used aggressive rapid-growth magic to knit the bone back together. The leg is now stronger but twitches with chaotic fey energy, giving him an unnatural, bouncy gait.</p>",
         "public": ""
       },
-      "race": "vjAlwzBxh6LKgaNk",
+      "race": "Bp4tPbGgSlPIdVPw",
       "ideal": "Recognition. Mario gets parades, Luigi gets sympathy, Wario gets paid. I get an encyclopedia and I wrote it myself. (Chaotic)",
       "bond": "Wario's ledger. I did not agree to the debt, I do not accept the debt, and I have memorised every line of it.",
       "flaw": "I cannot let a slight go, and I cannot tell the difference between a slight and a Tuesday.",
-      "habitat": {
-        "value": [],
-        "custom": ""
-      },
-      "treasure": {
-        "value": []
-      },
       "xp": {
         "value": 11911
       },
@@ -645,7 +651,12 @@
       "eyes": "Violet",
       "hair": "Black",
       "background": "ge0qtGAz6BJvGjmh",
-      "originalClass": "A19yytEFeQpC1YrF"
+      "originalClass": "A19yytEFeQpC1YrF",
+      "height": "",
+      "faith": "",
+      "weight": "",
+      "skin": "",
+      "age": ""
     },
     "resources": {
       "primary": {
@@ -670,10 +681,6 @@
         "label": ""
       }
     },
-    "source": {
-      "revision": 1,
-      "rules": "2024"
-    },
     "traits": {
       "size": "med",
       "languages": {
@@ -689,6 +696,7 @@
       "ci": {
         "value": [
           "charmed",
+          "diseased",
           "frightened"
         ],
         "custom": ""
@@ -696,6 +704,8 @@
       "dr": {
         "value": [
           "cold",
+          "necrotic",
+          "poison",
           "psychic"
         ],
         "custom": "",
@@ -715,7 +725,18 @@
         "amount": {},
         "bypasses": []
       },
-      "important": false
+      "weaponProf": {
+        "value": [],
+        "custom": "",
+        "mastery": {
+          "value": [],
+          "bonus": []
+        }
+      },
+      "armorProf": {
+        "value": [],
+        "custom": ""
+      }
     },
     "bastion": {
       "name": "",
@@ -729,8 +750,9 @@
     "actorLink": true,
     "width": 1,
     "height": 1,
+    "depth": 1,
     "texture": {
-      "src": "icons/svg/mystery-man.svg",
+      "src": "npc/waluigi.png",
       "anchorX": 0.5,
       "anchorY": 0.5,
       "fit": "contain",
@@ -776,7 +798,7 @@
       }
     },
     "sight": {
-      "enabled": false,
+      "enabled": true,
       "range": 0,
       "angle": 360,
       "visionMode": "basic",
@@ -812,60 +834,9 @@
     "flags": {},
     "randomImg": false,
     "appendNumber": false,
-    "prependAdjective": false,
-    "depth": 1
+    "prependAdjective": false
   },
   "items": [
-    {
-      "_id": "vjAlwzBxh6LKgaNk",
-      "name": "Human (Fey-Altered)",
-      "type": "race",
-      "img": "icons/magic/water/ice-crystal-white.webp",
-      "system": {
-        "identifier": "human-fey-altered",
-        "description": {
-          "value": "<p>Human by birth, rearranged by the Feywild. A Guardian Butterfly shattered his left leg in the Manor and Sprites rebuilt it with rapid-growth magic, leaving bone that phases in and out of the Ethereal Plane and an unshakeable sense for gold and debts.</p>",
-          "chat": ""
-        },
-        "movement": {
-          "walk": "40",
-          "climb": "30",
-          "units": "ft",
-          "hover": false,
-          "ignoredDifficultTerrain": []
-        },
-        "senses": {
-          "units": "ft",
-          "special": "Sense Gold & Debts (60 ft)",
-          "ranges": {
-            "darkvision": 60,
-            "blindsight": null,
-            "tremorsense": null,
-            "truesight": null
-          }
-        },
-        "type": {
-          "value": "humanoid",
-          "subtype": "human (fey-altered)",
-          "custom": ""
-        },
-        "advancement": [],
-        "source": {
-          "custom": "Waluipedia",
-          "book": "",
-          "page": "",
-          "license": "",
-          "revision": 1,
-          "rules": "2024"
-        }
-      },
-      "effects": [],
-      "flags": {},
-      "sort": 0,
-      "ownership": {
-        "default": 0
-      }
-    },
     {
       "_id": "ge0qtGAz6BJvGjmh",
       "name": "Field Archivist (Disaster Inc.)",
@@ -877,7 +848,7 @@
           "value": "<p>Author of the encyclopedia, reluctant employee of Wario's Enterprise, and the only person present at most of these events who took notes.</p>",
           "chat": ""
         },
-        "advancement": [],
+        "advancement": {},
         "startingEquipment": [],
         "source": {
           "custom": "Waluipedia",
@@ -891,6 +862,18 @@
       "effects": [],
       "flags": {},
       "sort": 300,
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1788578834767,
+        "modifiedTime": 1788578834767,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "folder": null,
       "ownership": {
         "default": 0
       }
@@ -925,7 +908,7 @@
           "value": "<p>Self-taught, aggressively so. Waluigi maintains that he invented ice magic and that the existing literature is plagiarism.</p>",
           "chat": ""
         },
-        "advancement": [],
+        "advancement": {},
         "properties": [],
         "startingEquipment": [],
         "source": {
@@ -940,6 +923,18 @@
       "effects": [],
       "flags": {},
       "sort": 100,
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1788578834767,
+        "modifiedTime": 1788578834767,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "folder": null,
       "ownership": {
         "default": 0
       }
@@ -956,7 +951,7 @@
           "value": "<p>Six of his eight spells deal damage and four of those are cold. Evocation is simply what he already does, written down.</p>",
           "chat": ""
         },
-        "advancement": [],
+        "advancement": {},
         "source": {
           "custom": "",
           "book": "PHB",
@@ -964,11 +959,27 @@
           "license": "",
           "revision": 1,
           "rules": "2024"
+        },
+        "spellcasting": {
+          "progression": "none",
+          "preparation": {}
         }
       },
       "effects": [],
       "flags": {},
       "sort": 200,
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1788578834767,
+        "modifiedTime": 1788578834767,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "folder": null,
       "ownership": {
         "default": 0
       }
@@ -987,10 +998,6 @@
           "value": "class",
           "subtype": ""
         },
-        "activation": {},
-        "duration": {},
-        "target": {},
-        "range": {},
         "uses": {
           "spent": 0,
           "max": "",
@@ -1004,11 +1011,33 @@
           "license": "",
           "revision": 1,
           "rules": "2024"
-        }
+        },
+        "advancement": {},
+        "identifier": "",
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false
+        },
+        "properties": [],
+        "requirements": ""
       },
       "effects": [],
       "flags": {},
       "sort": 400,
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1788578834767,
+        "modifiedTime": 1788578834767,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "folder": null,
       "ownership": {
         "default": 0
       }
@@ -1027,10 +1056,6 @@
           "value": "class",
           "subtype": ""
         },
-        "activation": {},
-        "duration": {},
-        "target": {},
-        "range": {},
         "uses": {
           "spent": 0,
           "max": "",
@@ -1044,11 +1069,33 @@
           "license": "",
           "revision": 1,
           "rules": "2024"
-        }
+        },
+        "advancement": {},
+        "identifier": "",
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false
+        },
+        "properties": [],
+        "requirements": ""
       },
       "effects": [],
       "flags": {},
       "sort": 401,
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1788578834767,
+        "modifiedTime": 1788578834767,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "folder": null,
       "ownership": {
         "default": 0
       }
@@ -1067,10 +1114,6 @@
           "value": "class",
           "subtype": ""
         },
-        "activation": {},
-        "duration": {},
-        "target": {},
-        "range": {},
         "uses": {
           "spent": 0,
           "max": "",
@@ -1084,11 +1127,33 @@
           "license": "",
           "revision": 1,
           "rules": "2024"
-        }
+        },
+        "advancement": {},
+        "identifier": "",
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false
+        },
+        "properties": [],
+        "requirements": ""
       },
       "effects": [],
       "flags": {},
       "sort": 402,
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1788578834767,
+        "modifiedTime": 1788578834767,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "folder": null,
       "ownership": {
         "default": 0
       }
@@ -1107,10 +1172,6 @@
           "value": "class",
           "subtype": ""
         },
-        "activation": {},
-        "duration": {},
-        "target": {},
-        "range": {},
         "uses": {
           "spent": 0,
           "max": "",
@@ -1124,11 +1185,33 @@
           "license": "",
           "revision": 1,
           "rules": "2024"
-        }
+        },
+        "advancement": {},
+        "identifier": "",
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false
+        },
+        "properties": [],
+        "requirements": ""
       },
       "effects": [],
       "flags": {},
       "sort": 403,
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1788578834767,
+        "modifiedTime": 1788578834767,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "folder": null,
       "ownership": {
         "default": 0
       }
@@ -1147,10 +1230,6 @@
           "value": "class",
           "subtype": ""
         },
-        "activation": {},
-        "duration": {},
-        "target": {},
-        "range": {},
         "uses": {
           "spent": 0,
           "max": "",
@@ -1164,11 +1243,33 @@
           "license": "",
           "revision": 1,
           "rules": "2024"
-        }
+        },
+        "advancement": {},
+        "identifier": "",
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false
+        },
+        "properties": [],
+        "requirements": ""
       },
       "effects": [],
       "flags": {},
       "sort": 404,
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1788578834767,
+        "modifiedTime": 1788578834767,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "folder": null,
       "ownership": {
         "default": 0
       }
@@ -1313,7 +1414,87 @@
               "requireIdentification": false,
               "requireMagic": false
             },
-            "img": null
+            "img": null,
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityId": "",
+            "otherActivityAsParentType": true,
+            "attackMode": "oneHanded",
+            "ammunition": "",
+            "otherActivityUuid": "",
+            "attackRollPerTarget": "default",
+            "fumbleThreshold": 1
           }
         },
         "uses": {
@@ -1356,12 +1537,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "modifiedTime": 1782005284314,
-        "createdTime": 1782005284314
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "modifiedTime": 1788578834770,
+        "createdTime": 1788578834770
       },
       "effects": [],
       "folder": null,
@@ -1386,15 +1567,15 @@
           }
         }
       },
+      "_id": "sO8aRSUQ7v4olLO3",
       "ownership": {
         "default": 0
-      },
-      "_id": "sO8aRSUQ7v4olLO3"
+      }
     },
     {
       "name": "Wario's Debt Ledger",
       "type": "loot",
-      "img": "icons/sundries/documents/document-bound-tan.webp",
+      "img": "icons/sundries/documents/document-bound-white-tan.webp",
       "system": {
         "description": {
           "value": "<p>A heavy, ominous tome bound in yellow leather that smells faintly of garlic and greed. The pages are filled with frantic scribblings in Waluigi's hand and aggressive red stamps from Wario.</p><p>The final page lists a current outstanding balance of <strong>900,000,000,000,000 (900 Trillion) Gold Coins</strong>. The ink seems to be enchanted to glow brighter when Waluigi is idle, serving as a constant, terrifying reminder of his obligations. Possession of this book imparts a sense of crushing anxiety, but also a desperate, manic drive to succeed.</p>",
@@ -1433,21 +1614,21 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "modifiedTime": 1782005284314,
-        "createdTime": 1782005284314
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "modifiedTime": 1788578834770,
+        "createdTime": 1788578834770
       },
       "effects": [],
       "folder": null,
       "sort": 0,
       "flags": {},
+      "_id": "E6QIDY94nZCbVkoL",
       "ownership": {
         "default": 0
-      },
-      "_id": "E6QIDY94nZCbVkoL"
+      }
     },
     {
       "name": "The Stomp (Assist Trophy)",
@@ -1530,7 +1711,82 @@
               "requireIdentification": false,
               "requireMagic": false
             },
-            "img": null
+            "img": null,
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityId": "none",
+            "otherActivityAsParentType": true
           }
         },
         "uses": {
@@ -1562,12 +1818,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "modifiedTime": 1782005284314,
-        "createdTime": 1782005284314
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "modifiedTime": 1788578834771,
+        "createdTime": 1788578834771
       },
       "effects": [],
       "folder": null,
@@ -1575,10 +1831,10 @@
       "flags": {
         "dnd5e": {}
       },
+      "_id": "gkz79pSecAWmfO3i",
       "ownership": {
         "default": 0
-      },
-      "_id": "gkz79pSecAWmfO3i"
+      }
     },
     {
       "name": "Cheater's Gambit",
@@ -1661,7 +1917,82 @@
               "requireIdentification": false,
               "requireMagic": false
             },
-            "img": null
+            "img": null,
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityId": "none",
+            "otherActivityAsParentType": true
           }
         },
         "uses": {
@@ -1691,12 +2022,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "createdTime": 1782005284314,
-        "modifiedTime": 1782005284314
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "createdTime": 1788578834771,
+        "modifiedTime": 1788578834771
       },
       "effects": [],
       "folder": null,
@@ -1704,15 +2035,15 @@
       "flags": {
         "dnd5e": {}
       },
+      "_id": "cPspZzN2mnv3dGQC",
       "ownership": {
         "default": 0
-      },
-      "_id": "cPspZzN2mnv3dGQC"
+      }
     },
     {
       "name": "Wario's Bob-ombs",
       "type": "consumable",
-      "img": "icons/sundries/documents/document-sealed-red.webp",
+      "img": "icons/sundries/documents/document-sealed-red-tan.webp",
       "system": {
         "description": {
           "value": "<p>These aren't standard military ordnance; these are WarioWare™ originals. Each black sphere has two wind-up feet and a pair of eyes that glare with malice.</p><p><strong>Action:</strong> Waluigi winds the key and throws the bomb up to 40 feet. It lands, walks 5 feet toward the nearest creature (friend or foe), and detonates. <strong>20ft Radius.</strong> <strong>DC 15 Dexterity Save</strong>. <strong>4d6 Fire + 4d6 Bludgeoning</strong> damage.</p>",
@@ -1812,7 +2143,82 @@
               "requireIdentification": false,
               "requireMagic": false
             },
-            "img": null
+            "img": null,
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityId": "none",
+            "otherActivityAsParentType": true
           }
         },
         "identifier": "",
@@ -1857,12 +2263,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "modifiedTime": 1782005284314,
-        "createdTime": 1782005284314
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "modifiedTime": 1788578834771,
+        "createdTime": 1788578834771
       },
       "effects": [],
       "folder": null,
@@ -1870,10 +2276,10 @@
       "flags": {
         "dnd5e": {}
       },
+      "_id": "GeFoGw1LsQe7ACfZ",
       "ownership": {
         "default": 0
-      },
-      "_id": "GeFoGw1LsQe7ACfZ"
+      }
     },
     {
       "name": "Identity Kit: 'Wally'",
@@ -1963,7 +2369,90 @@
               "requireIdentification": false,
               "requireMagic": false
             },
-            "img": null
+            "img": null,
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityId": "none",
+            "otherActivityAsParentType": true,
+            "damage": {
+              "onSave": "half",
+              "parts": [],
+              "critical": {
+                "allow": false
+              }
+            },
+            "friendlySave": "default"
           }
         },
         "uses": {
@@ -2003,12 +2492,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "modifiedTime": 1782005284314,
-        "createdTime": 1782005284314
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "modifiedTime": 1788578834771,
+        "createdTime": 1788578834771
       },
       "effects": [],
       "folder": null,
@@ -2022,10 +2511,10 @@
           }
         }
       },
+      "_id": "9A47PIdL8doozKW8",
       "ownership": {
         "default": 0
-      },
-      "_id": "9A47PIdL8doozKW8"
+      }
     },
     {
       "name": "The Rose of Rejection",
@@ -2149,7 +2638,82 @@
               "requireIdentification": false,
               "requireMagic": false
             },
-            "img": null
+            "img": null,
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityId": "none",
+            "otherActivityAsParentType": true
           }
         },
         "uses": {
@@ -2192,12 +2756,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "modifiedTime": 1782005284314,
-        "createdTime": 1782005284314
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "modifiedTime": 1788578834772,
+        "createdTime": 1788578834772
       },
       "effects": [],
       "folder": null,
@@ -2211,15 +2775,15 @@
           }
         }
       },
+      "_id": "RnlfKMAs3mJ6xdu1",
       "ownership": {
         "default": 0
-      },
-      "_id": "RnlfKMAs3mJ6xdu1"
+      }
     },
     {
       "name": "Sprite-Silk Leg Splint",
       "type": "equipment",
-      "img": "icons/equipment/chest/breastplate-layered-steel-pink.webp",
+      "img": "icons/equipment/chest/breastplate-layered-steel.webp",
       "system": {
         "description": {
           "value": "<p><strong>Wondrous Item, Rare.</strong> A makeshift medical device crafted by the Sprites of the Feywild Greenhouse (Day 22). After the <strong>Guardian Butterfly</strong> shattered Waluigi's leg, the sprites used aggressive rapid-growth vines and hardened silk to knit the bone back together in seconds.</p><p>The splint has fused with Waluigi's pant leg and skin. It pulses with chaotic life energy. While wearing it, Waluigi's movement speed increases by 10 feet, but he suffers a -2 penalty to Stealth checks due to the audible creaking of the magical vines.</p>",
@@ -2274,12 +2838,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "modifiedTime": 1782005284314,
-        "createdTime": 1782005284314
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "modifiedTime": 1788578834772,
+        "createdTime": 1788578834772
       },
       "effects": [],
       "folder": null,
@@ -2292,10 +2856,10 @@
           }
         }
       },
+      "_id": "TUReo9L14lgGt5VX",
       "ownership": {
         "default": 0
-      },
-      "_id": "TUReo9L14lgGt5VX"
+      }
     },
     {
       "name": "Wario's 'Walkie-Screechie'",
@@ -2386,7 +2950,90 @@
               "requireIdentification": false,
               "requireMagic": false
             },
-            "img": null
+            "img": null,
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityId": "none",
+            "otherActivityAsParentType": true,
+            "damage": {
+              "onSave": "half",
+              "parts": [],
+              "critical": {
+                "allow": false
+              }
+            },
+            "friendlySave": "default"
           }
         },
         "uses": {
@@ -2425,12 +3072,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "modifiedTime": 1782005284314,
-        "createdTime": 1782005284314
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "modifiedTime": 1788578834772,
+        "createdTime": 1788578834772
       },
       "effects": [],
       "folder": null,
@@ -2444,10 +3091,10 @@
           }
         }
       },
+      "_id": "K8lPFnIuyUj8bDws",
       "ownership": {
         "default": 0
-      },
-      "_id": "K8lPFnIuyUj8bDws"
+      }
     },
     {
       "name": "Scale of the Guardian",
@@ -2491,21 +3138,21 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "modifiedTime": 1782005284314,
-        "createdTime": 1782005284314
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "modifiedTime": 1788578834772,
+        "createdTime": 1788578834772
       },
       "effects": [],
       "folder": null,
       "sort": 0,
       "flags": {},
+      "_id": "1dTdAo2f7aIRbKyi",
       "ownership": {
         "default": 0
-      },
-      "_id": "1dTdAo2f7aIRbKyi"
+      }
     },
     {
       "name": "Rotting Canapé (The Heir's Banquet)",
@@ -2571,21 +3218,21 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "modifiedTime": 1782005284314,
-        "createdTime": 1782005284314
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "modifiedTime": 1788578834772,
+        "createdTime": 1788578834772
       },
       "effects": [],
       "folder": null,
       "sort": 0,
       "flags": {},
+      "_id": "moO4ybzniH112qW5",
       "ownership": {
         "default": 0
-      },
-      "_id": "moO4ybzniH112qW5"
+      }
     },
     {
       "name": "Vigilance Control Chip (Broken)",
@@ -2629,21 +3276,21 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "modifiedTime": 1782005284314,
-        "createdTime": 1782005284314
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "modifiedTime": 1788578834773,
+        "createdTime": 1788578834773
       },
       "effects": [],
       "folder": null,
       "sort": 0,
       "flags": {},
+      "_id": "1Wwi6ZdErXj4ytPq",
       "ownership": {
         "default": 0
-      },
-      "_id": "1Wwi6ZdErXj4ytPq"
+      }
     },
     {
       "name": "Ace Service Balls",
@@ -2709,21 +3356,21 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "modifiedTime": 1782005284314,
-        "createdTime": 1782005284314
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "modifiedTime": 1788578834773,
+        "createdTime": 1788578834773
       },
       "effects": [],
       "folder": null,
       "sort": 0,
       "flags": {},
+      "_id": "ATKgjjvpEbEokyF3",
       "ownership": {
         "default": 0
-      },
-      "_id": "ATKgjjvpEbEokyF3"
+      }
     },
     {
       "name": "Satyr's Party Popper",
@@ -2789,21 +3436,21 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "modifiedTime": 1782005284314,
-        "createdTime": 1782005284314
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "modifiedTime": 1788578834773,
+        "createdTime": 1788578834773
       },
       "effects": [],
       "folder": null,
       "sort": 0,
       "flags": {},
+      "_id": "J1s1YT0447QajAEl",
       "ownership": {
         "default": 0
-      },
-      "_id": "J1s1YT0447QajAEl"
+      }
     },
     {
       "name": "Defaced Photo of 'The Brothers'",
@@ -2847,21 +3494,21 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "modifiedTime": 1782005284314,
-        "createdTime": 1782005284314
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "modifiedTime": 1788578834773,
+        "createdTime": 1788578834773
       },
       "effects": [],
       "folder": null,
       "sort": 0,
       "flags": {},
+      "_id": "VWmK6lPgHCfBcL9X",
       "ownership": {
         "default": 0
-      },
-      "_id": "VWmK6lPgHCfBcL9X"
+      }
     },
     {
       "name": "Gear of 'Mossy' (Steely)",
@@ -2905,21 +3552,21 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "createdTime": 1782005284314,
-        "modifiedTime": 1782005284314
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "createdTime": 1788578834773,
+        "modifiedTime": 1788578834773
       },
       "effects": [],
       "folder": null,
       "sort": 0,
       "flags": {},
+      "_id": "fxcHzSG3rVhhWUmZ",
       "ownership": {
         "default": 0
-      },
-      "_id": "fxcHzSG3rVhhWUmZ"
+      }
     },
     {
       "name": "Bag of 'Wall-nuts'",
@@ -2985,21 +3632,21 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "modifiedTime": 1782005284314,
-        "createdTime": 1782005284314
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "modifiedTime": 1788578834773,
+        "createdTime": 1788578834773
       },
       "effects": [],
       "folder": null,
       "sort": 0,
       "flags": {},
+      "_id": "La2j125Yik8gbUm2",
       "ownership": {
         "default": 0
-      },
-      "_id": "La2j125Yik8gbUm2"
+      }
     },
     {
       "name": "The Orange Invitation",
@@ -3043,21 +3690,21 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "modifiedTime": 1782005284314,
-        "createdTime": 1782005284314
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "modifiedTime": 1788578834774,
+        "createdTime": 1788578834774
       },
       "effects": [],
       "folder": null,
       "sort": 0,
       "flags": {},
+      "_id": "koUpbCkV00RA8dFQ",
       "ownership": {
         "default": 0
-      },
-      "_id": "koUpbCkV00RA8dFQ"
+      }
     },
     {
       "name": "Mustache Wax (Fey-Scented)",
@@ -3144,7 +3791,90 @@
               "requireIdentification": false,
               "requireMagic": false
             },
-            "img": null
+            "img": null,
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityId": "none",
+            "otherActivityAsParentType": true,
+            "damage": {
+              "onSave": "half",
+              "parts": [],
+              "critical": {
+                "allow": false
+              }
+            },
+            "friendlySave": "default"
           }
         },
         "uses": {
@@ -3187,12 +3917,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "modifiedTime": 1782005284314,
-        "createdTime": 1782005284314
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "modifiedTime": 1788578834774,
+        "createdTime": 1788578834774
       },
       "effects": [],
       "folder": null,
@@ -3206,10 +3936,10 @@
           }
         }
       },
+      "_id": "Wb28zkBH6ZcGtjny",
       "ownership": {
         "default": 0
-      },
-      "_id": "Wb28zkBH6ZcGtjny"
+      }
     },
     {
       "name": "Cape of the Bad Sport",
@@ -3269,12 +3999,12 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "modifiedTime": 1782005284314,
-        "createdTime": 1782005284314
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "modifiedTime": 1788578834774,
+        "createdTime": 1788578834774
       },
       "effects": [],
       "folder": null,
@@ -3287,10 +4017,10 @@
           }
         }
       },
+      "_id": "0TBagNRSBeEKJ6Dq",
       "ownership": {
         "default": 0
-      },
-      "_id": "0TBagNRSBeEKJ6Dq"
+      }
     },
     {
       "name": "Key to the Vine Room",
@@ -3334,21 +4064,21 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "createdTime": 1782005284314,
-        "modifiedTime": 1782005284314
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "createdTime": 1788578834774,
+        "modifiedTime": 1788578834774
       },
       "effects": [],
       "folder": null,
       "sort": 0,
       "flags": {},
+      "_id": "nlotd6L2hUmTJH5D",
       "ownership": {
         "default": 0
-      },
-      "_id": "nlotd6L2hUmTJH5D"
+      }
     },
     {
       "name": "Fey-Touched Step (Passive)",
@@ -3389,21 +4119,21 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "modifiedTime": 1782005284314,
-        "createdTime": 1782005284314
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "modifiedTime": 1788578834774,
+        "createdTime": 1788578834774
       },
       "effects": [],
       "folder": null,
       "sort": 0,
       "flags": {},
+      "_id": "tIilLakxrEYOFOrV",
       "ownership": {
         "default": 0
-      },
-      "_id": "tIilLakxrEYOFOrV"
+      }
     },
     {
       "name": "Satyr's Regret (Fey Wine)",
@@ -3469,21 +4199,21 @@
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "modifiedTime": 1782005284314,
-        "createdTime": 1782005284314
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "modifiedTime": 1788578834774,
+        "createdTime": 1788578834774
       },
       "effects": [],
       "folder": null,
       "sort": 0,
       "flags": {},
+      "_id": "Jti3riWX9qQMBZ0k",
       "ownership": {
         "default": 0
-      },
-      "_id": "Jti3riWX9qQMBZ0k"
+      }
     },
     {
       "name": "Cone of Cold",
@@ -3603,7 +4333,10 @@
                     "formula": ""
                   }
                 }
-              ]
+              ],
+              "critical": {
+                "allow": false
+              }
             },
             "save": {
               "ability": [
@@ -3626,7 +4359,83 @@
               "requireIdentification": false,
               "requireMagic": false
             },
-            "img": null
+            "img": null,
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityId": "none",
+            "otherActivityAsParentType": true,
+            "friendlySave": "default"
           }
         },
         "identifier": "cone-of-cold",
@@ -3638,10 +4447,6 @@
       "effects": [],
       "folder": "beZ8MTpWY2cMEUlp",
       "sort": 3000000,
-      "ownership": {
-        "default": 0,
-        "0tmjbgjsJjnyOG4D": 3
-      },
       "flags": {
         "dnd5e": {
           "riders": {
@@ -3661,14 +4466,17 @@
         "duplicateSource": null,
         "exportSource": null,
         "compendiumSource": "Compendium.dnd5e.spells24.Item.phbsplConeofCold",
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "createdTime": 1782005284314,
-        "modifiedTime": 1782005284314,
-        "lastModifiedBy": "f9K62vO9hIl1GByi"
+        "createdTime": 1788578834775,
+        "modifiedTime": 1788578834775,
+        "lastModifiedBy": "7BMT1Aux3QVtq027"
       },
-      "_id": "EXeEn416FhNYY4uz"
+      "_id": "EXeEn416FhNYY4uz",
+      "ownership": {
+        "default": 0
+      }
     },
     {
       "name": "Ice Knife",
@@ -3818,7 +4626,87 @@
               "requireIdentification": false,
               "requireMagic": false
             },
-            "img": null
+            "img": null,
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityId": "",
+            "otherActivityAsParentType": true,
+            "attackMode": "oneHanded",
+            "ammunition": "",
+            "otherActivityUuid": "",
+            "attackRollPerTarget": "default",
+            "fumbleThreshold": 1
           },
           "dnd5eactivity100": {
             "_id": "dnd5eactivity100",
@@ -3888,7 +4776,10 @@
                     "formula": ""
                   }
                 }
-              ]
+              ],
+              "critical": {
+                "allow": false
+              }
             },
             "save": {
               "ability": [
@@ -3913,7 +4804,83 @@
               "requireIdentification": false,
               "requireMagic": false
             },
-            "img": null
+            "img": null,
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityId": "none",
+            "otherActivityAsParentType": true,
+            "friendlySave": "default"
           }
         },
         "identifier": "ice-knife",
@@ -3925,10 +4892,6 @@
       "effects": [],
       "folder": "pBaAAtXBCq9FVEnL",
       "sort": 1800000,
-      "ownership": {
-        "default": 0,
-        "0tmjbgjsJjnyOG4D": 3
-      },
       "flags": {
         "dnd5e": {
           "riders": {
@@ -3948,14 +4911,17 @@
         "duplicateSource": null,
         "exportSource": null,
         "compendiumSource": "Compendium.dnd5e.spells24.Item.phbsplIceKnife00",
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "createdTime": 1782005284314,
-        "modifiedTime": 1782005284314,
-        "lastModifiedBy": "f9K62vO9hIl1GByi"
+        "createdTime": 1788578834775,
+        "modifiedTime": 1788578834775,
+        "lastModifiedBy": "7BMT1Aux3QVtq027"
       },
-      "_id": "7ryYgv9xGsHtcrgZ"
+      "_id": "7ryYgv9xGsHtcrgZ",
+      "ownership": {
+        "default": 0
+      }
     },
     {
       "name": "Ice Storm",
@@ -4096,7 +5062,10 @@
                     "number": 1
                   }
                 }
-              ]
+              ],
+              "critical": {
+                "allow": false
+              }
             },
             "save": {
               "ability": [
@@ -4121,7 +5090,83 @@
               "requireIdentification": false,
               "requireMagic": false
             },
-            "img": null
+            "img": null,
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityId": "none",
+            "otherActivityAsParentType": true,
+            "friendlySave": "default"
           }
         },
         "identifier": "ice-storm",
@@ -4133,10 +5178,6 @@
       "effects": [],
       "folder": "qi3IbnEwap7mRw4b",
       "sort": 1400000,
-      "ownership": {
-        "default": 0,
-        "0tmjbgjsJjnyOG4D": 3
-      },
       "flags": {
         "dnd5e": {
           "riders": {
@@ -4156,14 +5197,17 @@
         "duplicateSource": null,
         "exportSource": null,
         "compendiumSource": "Compendium.dnd5e.spells24.Item.phbsplIceStorm00",
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "createdTime": 1782005284314,
-        "modifiedTime": 1782005284314,
-        "lastModifiedBy": "f9K62vO9hIl1GByi"
+        "createdTime": 1788578834775,
+        "modifiedTime": 1788578834775,
+        "lastModifiedBy": "7BMT1Aux3QVtq027"
       },
-      "_id": "r5unLTtWYmGNPwKx"
+      "_id": "r5unLTtWYmGNPwKx",
+      "ownership": {
+        "default": 0
+      }
     },
     {
       "name": "Wall of Ice",
@@ -4298,7 +5342,10 @@
                   }
                 }
               ],
-              "onSave": "half"
+              "onSave": "half",
+              "critical": {
+                "allow": false
+              }
             },
             "save": {
               "ability": [
@@ -4317,7 +5364,83 @@
               "requireAttunement": false,
               "requireIdentification": false,
               "requireMagic": false
-            }
+            },
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityId": "none",
+            "otherActivityAsParentType": true,
+            "friendlySave": "default"
           },
           "zjpb29Tww0iuv1P3": {
             "type": "save",
@@ -4391,7 +5514,10 @@
                   }
                 }
               ],
-              "onSave": "half"
+              "onSave": "half",
+              "critical": {
+                "allow": false
+              }
             },
             "save": {
               "ability": [
@@ -4411,7 +5537,83 @@
               "requireAttunement": false,
               "requireIdentification": false,
               "requireMagic": false
-            }
+            },
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityId": "none",
+            "otherActivityAsParentType": true,
+            "friendlySave": "default"
           },
           "D8Q85bjeZgiFky5j": {
             "type": "save",
@@ -4484,7 +5686,10 @@
                   }
                 }
               ],
-              "onSave": "half"
+              "onSave": "half",
+              "critical": {
+                "allow": false
+              }
             },
             "save": {
               "ability": [
@@ -4503,7 +5708,83 @@
               "requireAttunement": false,
               "requireIdentification": false,
               "requireMagic": false
-            }
+            },
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityId": "none",
+            "otherActivityAsParentType": true,
+            "friendlySave": "default"
           }
         },
         "identifier": "wall-of-ice",
@@ -4515,10 +5796,6 @@
       "effects": [],
       "folder": "8WmlLARx1Df3Ii9v",
       "sort": 100049,
-      "ownership": {
-        "default": 0,
-        "0tmjbgjsJjnyOG4D": 3
-      },
       "flags": {
         "dnd5e": {
           "riders": {
@@ -4538,14 +5815,17 @@
         "duplicateSource": null,
         "exportSource": null,
         "compendiumSource": "Compendium.dnd5e.spells24.Item.phbsplWallofIce0",
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "createdTime": 1782005284314,
-        "modifiedTime": 1782005284314,
-        "lastModifiedBy": "f9K62vO9hIl1GByi"
+        "createdTime": 1788578834775,
+        "modifiedTime": 1788578834775,
+        "lastModifiedBy": "7BMT1Aux3QVtq027"
       },
-      "_id": "ui7l6OXGvQFKOI1f"
+      "_id": "ui7l6OXGvQFKOI1f",
+      "ownership": {
+        "default": 0
+      }
     },
     {
       "name": "Fireball",
@@ -4671,7 +5951,10 @@
                     "formula": ""
                   }
                 }
-              ]
+              ],
+              "critical": {
+                "allow": false
+              }
             },
             "save": {
               "ability": [
@@ -4694,7 +5977,83 @@
               "requireIdentification": false,
               "requireMagic": false
             },
-            "img": null
+            "img": null,
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityId": "none",
+            "otherActivityAsParentType": true,
+            "friendlySave": "default"
           }
         },
         "identifier": "fireball",
@@ -4706,10 +6065,6 @@
       "effects": [],
       "folder": "HCovEE4VoPGlIbKi",
       "sort": 2100000,
-      "ownership": {
-        "default": 0,
-        "0tmjbgjsJjnyOG4D": 3
-      },
       "flags": {
         "dnd5e": {
           "riders": {
@@ -4729,14 +6084,17 @@
         "duplicateSource": null,
         "exportSource": null,
         "compendiumSource": "Compendium.dnd5e.spells24.Item.phbsplFireball00",
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "createdTime": 1782005284314,
-        "modifiedTime": 1782005284314,
-        "lastModifiedBy": "f9K62vO9hIl1GByi"
+        "createdTime": 1788578834776,
+        "modifiedTime": 1788578834776,
+        "lastModifiedBy": "7BMT1Aux3QVtq027"
       },
-      "_id": "b7MxC3fTjGT7sCUj"
+      "_id": "b7MxC3fTjGT7sCUj",
+      "ownership": {
+        "default": 0
+      }
     },
     {
       "name": "Fire Bolt",
@@ -4888,7 +6246,87 @@
               "requireAttunement": false,
               "requireIdentification": false,
               "requireMagic": false
-            }
+            },
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityId": "",
+            "otherActivityAsParentType": true,
+            "attackMode": "oneHanded",
+            "ammunition": "",
+            "otherActivityUuid": "",
+            "attackRollPerTarget": "default",
+            "fumbleThreshold": 1
           }
         },
         "identifier": "fire-bolt",
@@ -4900,10 +6338,6 @@
       "effects": [],
       "folder": "4FhsY9FJQd7h7MZb",
       "sort": 1400000,
-      "ownership": {
-        "default": 0,
-        "0tmjbgjsJjnyOG4D": 3
-      },
       "flags": {
         "dnd5e": {
           "riders": {
@@ -4923,14 +6357,17 @@
         "duplicateSource": null,
         "exportSource": null,
         "compendiumSource": "Compendium.dnd5e.spells24.Item.phbsplFireBolt00",
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "createdTime": 1782005284314,
-        "modifiedTime": 1782005284314,
-        "lastModifiedBy": "f9K62vO9hIl1GByi"
+        "createdTime": 1788578834776,
+        "modifiedTime": 1788578834776,
+        "lastModifiedBy": "7BMT1Aux3QVtq027"
       },
-      "_id": "qa34aIM7LDlFKJuB"
+      "_id": "qa34aIM7LDlFKJuB",
+      "ownership": {
+        "default": 0
+      }
     },
     {
       "name": "Mage Hand",
@@ -5079,7 +6516,81 @@
               "requireIdentification": false,
               "requireMagic": false
             },
-            "img": null
+            "img": null,
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "friendlySummon": false
           }
         },
         "identifier": "mage-hand",
@@ -5091,10 +6602,6 @@
       "effects": [],
       "folder": "4FhsY9FJQd7h7MZb",
       "sort": 1000000,
-      "ownership": {
-        "default": 0,
-        "0tmjbgjsJjnyOG4D": 3
-      },
       "flags": {
         "dnd5e": {
           "riders": {
@@ -5114,14 +6621,17 @@
         "duplicateSource": null,
         "exportSource": null,
         "compendiumSource": "Compendium.dnd5e.spells24.Item.phbsplMageHand00",
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "createdTime": 1782005284314,
-        "modifiedTime": 1782005284314,
-        "lastModifiedBy": "f9K62vO9hIl1GByi"
+        "createdTime": 1788578834776,
+        "modifiedTime": 1788578834776,
+        "lastModifiedBy": "7BMT1Aux3QVtq027"
       },
-      "_id": "jecwDDUaEQmCWUm0"
+      "_id": "jecwDDUaEQmCWUm0",
+      "ownership": {
+        "default": 0
+      }
     },
     {
       "name": "Magic Missile",
@@ -5262,7 +6772,80 @@
               "requireIdentification": false,
               "requireMagic": false
             },
-            "img": null
+            "img": null,
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            }
           }
         },
         "identifier": "magic-missile",
@@ -5274,10 +6857,6 @@
       "effects": [],
       "folder": "pBaAAtXBCq9FVEnL",
       "sort": 1100000,
-      "ownership": {
-        "default": 0,
-        "0tmjbgjsJjnyOG4D": 3
-      },
       "flags": {
         "dnd5e": {
           "riders": {
@@ -5297,24 +6876,1224 @@
         "duplicateSource": null,
         "exportSource": null,
         "compendiumSource": "Compendium.dnd5e.spells24.Item.phbsplMagicMissi",
-        "coreVersion": "14.360",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "createdTime": 1782005284314,
-        "modifiedTime": 1782005284314,
-        "lastModifiedBy": "f9K62vO9hIl1GByi"
+        "createdTime": 1788578834777,
+        "modifiedTime": 1788578834777,
+        "lastModifiedBy": "7BMT1Aux3QVtq027"
       },
-      "_id": "U5knjTwtE5T4tlbb"
+      "_id": "U5knjTwtE5T4tlbb",
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "_id": "qFx1uGIvhzFTPB3C",
+      "name": "Age",
+      "type": "feat",
+      "system": {
+        "source": {
+          "custom": "",
+          "book": "ToH",
+          "page": "19",
+          "license": "",
+          "rules": "2014",
+          "revision": 1
+        },
+        "description": {
+          "value": "<div class=\"ve-rd__b  ve-rd__b--3\"><p>An upper limit of darakhul age has never been discovered; most darakhul die violently.</p></div>",
+          "chat": ""
+        },
+        "requirements": "Darakhul (Human/Half-Elf Heritage)",
+        "uses": {
+          "max": "",
+          "spent": 0,
+          "recovery": []
+        },
+        "type": {
+          "value": "race",
+          "subtype": ""
+        },
+        "properties": [],
+        "advancement": {},
+        "activities": {},
+        "identifier": "age",
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false
+        }
+      },
+      "ownership": {
+        "default": 0,
+        "7BMT1Aux3QVtq027": 3
+      },
+      "img": "modules/plutonium/media/icon/family-tree.svg",
+      "flags": {
+        "plutonium": {
+          "page": "raceFeature",
+          "source": "ToH",
+          "hash": "age_darakhul%20(human%2fhalf-elf%20heritage)_toh_toh"
+        },
+        "dnd5e": {
+          "sourceId": "Actor.BmWNDwbxPQHU3Bbn.Item.qFx1uGIvhzFTPB3C",
+          "advancementOrigin": "Bp4tPbGgSlPIdVPw.tpvlqtu9a253BRr5"
+        }
+      },
+      "effects": [],
+      "_stats": {
+        "systemVersion": "5.3.3",
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "createdTime": 1788579478485,
+        "modifiedTime": 1788579481253,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "folder": null,
+      "sort": 0
+    },
+    {
+      "_id": "sDrhTK4eUULqmGfP",
+      "name": "Alignment",
+      "type": "feat",
+      "system": {
+        "source": {
+          "custom": "",
+          "book": "ToH",
+          "page": "19",
+          "license": "",
+          "rules": "2014",
+          "revision": 1
+        },
+        "description": {
+          "value": "<div class=\"ve-rd__b  ve-rd__b--3\"><p>Your alignment does not change when you become a darakhul, but most darakhul have a strong draw toward evil.</p></div>",
+          "chat": ""
+        },
+        "requirements": "Darakhul (Human/Half-Elf Heritage)",
+        "uses": {
+          "max": "",
+          "spent": 0,
+          "recovery": []
+        },
+        "type": {
+          "value": "race",
+          "subtype": ""
+        },
+        "properties": [],
+        "advancement": {},
+        "activities": {},
+        "identifier": "alignment",
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false
+        }
+      },
+      "ownership": {
+        "default": 0,
+        "7BMT1Aux3QVtq027": 3
+      },
+      "img": "modules/plutonium/media/icon/family-tree.svg",
+      "flags": {
+        "plutonium": {
+          "page": "raceFeature",
+          "source": "ToH",
+          "hash": "alignment_darakhul%20(human%2fhalf-elf%20heritage)_toh_toh"
+        },
+        "dnd5e": {
+          "sourceId": "Actor.BmWNDwbxPQHU3Bbn.Item.sDrhTK4eUULqmGfP",
+          "advancementOrigin": "Bp4tPbGgSlPIdVPw.tpvlqtu9a253BRr5"
+        }
+      },
+      "effects": [],
+      "_stats": {
+        "systemVersion": "5.3.3",
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "createdTime": 1788579478650,
+        "modifiedTime": 1788579481253,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "folder": null,
+      "sort": 0
+    },
+    {
+      "_id": "A5oemztqwjVd3TjW",
+      "name": "Speed",
+      "type": "feat",
+      "system": {
+        "source": {
+          "custom": "",
+          "book": "ToH",
+          "page": "19",
+          "license": "",
+          "rules": "2014",
+          "revision": 1
+        },
+        "description": {
+          "value": "<div class=\"ve-rd__b  ve-rd__b--3\"><p>Your base walking speed is 30 feet.</p></div>",
+          "chat": ""
+        },
+        "requirements": "Darakhul (Human/Half-Elf Heritage)",
+        "uses": {
+          "max": "",
+          "spent": 0,
+          "recovery": []
+        },
+        "type": {
+          "value": "race",
+          "subtype": ""
+        },
+        "properties": [],
+        "advancement": {},
+        "activities": {},
+        "identifier": "speed",
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false
+        }
+      },
+      "ownership": {
+        "default": 0,
+        "7BMT1Aux3QVtq027": 3
+      },
+      "img": "icons/magic/acid/projectile-needles-salvo-green.webp",
+      "flags": {
+        "plutonium": {
+          "page": "raceFeature",
+          "source": "ToH",
+          "hash": "speed_darakhul%20(human%2fhalf-elf%20heritage)_toh_toh"
+        },
+        "dnd5e": {
+          "sourceId": "Actor.BmWNDwbxPQHU3Bbn.Item.A5oemztqwjVd3TjW",
+          "advancementOrigin": "Bp4tPbGgSlPIdVPw.tpvlqtu9a253BRr5"
+        }
+      },
+      "effects": [],
+      "_stats": {
+        "systemVersion": "5.3.3",
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "createdTime": 1788579478815,
+        "modifiedTime": 1788579481253,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "folder": null,
+      "sort": 0
+    },
+    {
+      "_id": "OXUoZLv2WT3b4X5q",
+      "name": "Darkvision",
+      "type": "feat",
+      "system": {
+        "source": {
+          "custom": "",
+          "book": "ToH",
+          "page": "19",
+          "license": "",
+          "rules": "2014",
+          "revision": 1
+        },
+        "description": {
+          "value": "<div class=\"ve-rd__b  ve-rd__b--3\"><p>You can see in &amp;Reference[rule=dimlight]{dim light} within 60 feet of you as if it were &amp;Reference[rule=brightlight]{bright light}, and in &amp;Reference[rule=darkness] as if it were &amp;Reference[rule=dimlight]{dim light}. You can't discern color in darkness, only shades of gray.</p></div>",
+          "chat": ""
+        },
+        "requirements": "Darakhul (Human/Half-Elf Heritage)",
+        "uses": {
+          "max": "",
+          "spent": 0,
+          "recovery": []
+        },
+        "type": {
+          "value": "race",
+          "subtype": ""
+        },
+        "properties": [],
+        "advancement": {},
+        "activities": {},
+        "identifier": "darkvision",
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false
+        }
+      },
+      "ownership": {
+        "default": 0,
+        "7BMT1Aux3QVtq027": 3
+      },
+      "img": "icons/magic/perception/eye-ringed-glow-angry-small-red.webp",
+      "flags": {
+        "plutonium": {
+          "page": "raceFeature",
+          "source": "ToH",
+          "hash": "darkvision_darakhul%20(human%2fhalf-elf%20heritage)_toh_toh"
+        },
+        "dnd5e": {
+          "sourceId": "Actor.BmWNDwbxPQHU3Bbn.Item.OXUoZLv2WT3b4X5q",
+          "advancementOrigin": "Bp4tPbGgSlPIdVPw.tpvlqtu9a253BRr5"
+        }
+      },
+      "effects": [],
+      "_stats": {
+        "systemVersion": "5.3.3",
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "createdTime": 1788579478988,
+        "modifiedTime": 1788579481253,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "folder": null,
+      "sort": 0
+    },
+    {
+      "_id": "jexd5NFCsmB1vcMI",
+      "name": "Hunger for Flesh",
+      "type": "feat",
+      "system": {
+        "source": {
+          "custom": "",
+          "book": "ToH",
+          "page": "19",
+          "license": "",
+          "rules": "2014",
+          "revision": 1
+        },
+        "description": {
+          "value": "<div class=\"ve-rd__b  ve-rd__b--3\"><p>You must consume 1 pound of raw meat each day or suffer the effects of starvation. If you go 24 hours without such a meal, you gain one level of &amp;Reference[condition=exhaustion]. While you have any levels of exhaustion from this trait, you can't regain hit points or remove levels of exhaustion until you spend at least 1 hour consuming 10 pounds of raw meat.</p></div>",
+          "chat": ""
+        },
+        "requirements": "Darakhul (Human/Half-Elf Heritage)",
+        "uses": {
+          "max": "",
+          "spent": 0,
+          "recovery": []
+        },
+        "type": {
+          "value": "race",
+          "subtype": ""
+        },
+        "properties": [],
+        "advancement": {},
+        "activities": {},
+        "identifier": "hunger-for-flesh",
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false
+        }
+      },
+      "ownership": {
+        "default": 0,
+        "7BMT1Aux3QVtq027": 3
+      },
+      "img": "modules/plutonium/media/icon/family-tree.svg",
+      "flags": {
+        "plutonium": {
+          "page": "raceFeature",
+          "source": "ToH",
+          "hash": "hunger%20for%20flesh_darakhul%20(human%2fhalf-elf%20heritage)_toh_toh"
+        },
+        "dnd5e": {
+          "sourceId": "Actor.BmWNDwbxPQHU3Bbn.Item.jexd5NFCsmB1vcMI",
+          "advancementOrigin": "Bp4tPbGgSlPIdVPw.tpvlqtu9a253BRr5"
+        }
+      },
+      "effects": [],
+      "_stats": {
+        "systemVersion": "5.3.3",
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "createdTime": 1788579479153,
+        "modifiedTime": 1788579481253,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "folder": null,
+      "sort": 0
+    },
+    {
+      "_id": "4jUJbsLpzDnVRmSX",
+      "name": "Imperfect Undeath",
+      "type": "feat",
+      "system": {
+        "source": {
+          "custom": "",
+          "book": "ToH",
+          "page": "19",
+          "license": "",
+          "rules": "2014",
+          "revision": 1
+        },
+        "description": {
+          "value": "<div class=\"ve-rd__b  ve-rd__b--3\"><p>You transitioned into undeath, but your transition was imperfect. Though you are a humanoid, you are susceptible to effects that target undead. You can regain hit points from spells like @spell[cure wounds], but you can also be affected by game effects that specifically target undead, such as a cleric's @classFeature[Channel Divinity: Turn Undead|Cleric||2||Turn Undead] feature. Game effects that raise a creature from the dead work on you as normal, but they return you to life as a darakhul. A @spell[true resurrection] or @spell[wish] spell can restore you to life as a fully living member of your original race.</p></div>",
+          "chat": ""
+        },
+        "requirements": "Darakhul (Human/Half-Elf Heritage)",
+        "uses": {
+          "max": "",
+          "spent": 0,
+          "recovery": []
+        },
+        "type": {
+          "value": "race",
+          "subtype": ""
+        },
+        "properties": [],
+        "advancement": {},
+        "activities": {},
+        "identifier": "imperfect-undeath",
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false
+        }
+      },
+      "ownership": {
+        "default": 0,
+        "7BMT1Aux3QVtq027": 3
+      },
+      "img": "modules/plutonium/media/icon/family-tree.svg",
+      "flags": {
+        "plutonium": {
+          "page": "raceFeature",
+          "source": "ToH",
+          "hash": "imperfect%20undeath_darakhul%20(human%2fhalf-elf%20heritage)_toh_toh"
+        },
+        "dnd5e": {
+          "sourceId": "Actor.BmWNDwbxPQHU3Bbn.Item.4jUJbsLpzDnVRmSX",
+          "advancementOrigin": "Bp4tPbGgSlPIdVPw.tpvlqtu9a253BRr5"
+        }
+      },
+      "effects": [],
+      "_stats": {
+        "systemVersion": "5.3.3",
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "createdTime": 1788579479319,
+        "modifiedTime": 1788579481253,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "folder": null,
+      "sort": 0
+    },
+    {
+      "_id": "A84xiVwWWV9NOasK",
+      "name": "Powerful Jaw",
+      "type": "feat",
+      "system": {
+        "source": {
+          "custom": "",
+          "book": "ToH",
+          "page": "19",
+          "license": "",
+          "rules": "2014",
+          "revision": 1
+        },
+        "description": {
+          "value": "<div class=\"ve-rd__b  ve-rd__b--3\"><p>Your heavy jaw is powerful enough to crush bones to powder. Your bite is a natural melee weapon, which you can use to make unarmed strikes. When you hit with it, your bite deals piercing damage equal to [[/damage 1d4]] + your Strength modifier, instead of the bludgeoning damage normal for an unarmed strike.</p></div>",
+          "chat": ""
+        },
+        "requirements": "Darakhul (Human/Half-Elf Heritage)",
+        "uses": {
+          "max": "",
+          "spent": 0,
+          "recovery": []
+        },
+        "type": {
+          "value": "race",
+          "subtype": ""
+        },
+        "properties": [],
+        "advancement": {},
+        "activities": {
+          "dnd5eactivity003": {
+            "_id": "dnd5eactivity003",
+            "type": "damage",
+            "name": "",
+            "activation": {
+              "type": "",
+              "override": false
+            },
+            "consumption": {
+              "scaling": {
+                "allowed": false
+              },
+              "spellSlot": true,
+              "targets": []
+            },
+            "description": {},
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "range": {
+              "units": "self",
+              "override": false
+            },
+            "target": {
+              "template": {
+                "contiguous": false,
+                "stationary": false,
+                "units": "ft"
+              },
+              "affects": {
+                "choice": false
+              },
+              "prompt": true,
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": []
+            },
+            "damage": {
+              "critical": {
+                "allow": false
+              },
+              "parts": [
+                {
+                  "types": [
+                    "piercing"
+                  ],
+                  "number": 1,
+                  "denomination": 4,
+                  "bonus": "@abilities.str.mod",
+                  "scaling": {
+                    "mode": "",
+                    "number": 1
+                  },
+                  "custom": {
+                    "enabled": false
+                  }
+                }
+              ]
+            },
+            "img": null,
+            "sort": 0,
+            "effects": [],
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            }
+          }
+        },
+        "identifier": "powerful-jaw",
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false
+        }
+      },
+      "ownership": {
+        "default": 0,
+        "7BMT1Aux3QVtq027": 3
+      },
+      "img": "modules/plutonium/media/icon/family-tree.svg",
+      "flags": {
+        "plutonium": {
+          "page": "raceFeature",
+          "source": "ToH",
+          "hash": "powerful%20jaw_darakhul%20(human%2fhalf-elf%20heritage)_toh_toh"
+        },
+        "dnd5e": {
+          "sourceId": "Actor.BmWNDwbxPQHU3Bbn.Item.A84xiVwWWV9NOasK",
+          "advancementOrigin": "Bp4tPbGgSlPIdVPw.tpvlqtu9a253BRr5"
+        }
+      },
+      "effects": [],
+      "_stats": {
+        "systemVersion": "5.3.3",
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "createdTime": 1788579479501,
+        "modifiedTime": 1788579481253,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "folder": null,
+      "sort": 0
+    },
+    {
+      "_id": "QnD4DkbibbMacB9W",
+      "name": "Sunlight Sensitivity",
+      "type": "feat",
+      "system": {
+        "source": {
+          "custom": "",
+          "book": "ToH",
+          "page": "19",
+          "license": "",
+          "rules": "2014",
+          "revision": 1
+        },
+        "description": {
+          "value": "<div class=\"ve-rd__b  ve-rd__b--3\"><p>You have disadvantage on  attack rolls and on Wisdom (&amp;Reference[skill=Perception]) checks that rely on sight when you, the target of your attack, or whatever you are trying to perceive is in direct sunlight.</p></div>",
+          "chat": ""
+        },
+        "requirements": "Darakhul (Human/Half-Elf Heritage)",
+        "uses": {
+          "max": "",
+          "spent": 0,
+          "recovery": []
+        },
+        "type": {
+          "value": "race",
+          "subtype": ""
+        },
+        "properties": [],
+        "advancement": {},
+        "activities": {},
+        "identifier": "sunlight-sensitivity",
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false
+        }
+      },
+      "ownership": {
+        "default": 0,
+        "7BMT1Aux3QVtq027": 3
+      },
+      "img": "icons/magic/nature/root-vine-thorned-fire-purple.webp",
+      "flags": {
+        "plutonium": {
+          "page": "raceFeature",
+          "source": "ToH",
+          "hash": "sunlight%20sensitivity_darakhul%20(human%2fhalf-elf%20heritage)_toh_toh"
+        },
+        "dnd5e": {
+          "sourceId": "Actor.BmWNDwbxPQHU3Bbn.Item.QnD4DkbibbMacB9W",
+          "advancementOrigin": "Bp4tPbGgSlPIdVPw.tpvlqtu9a253BRr5"
+        }
+      },
+      "effects": [],
+      "_stats": {
+        "systemVersion": "5.3.3",
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "createdTime": 1788579479675,
+        "modifiedTime": 1788579481253,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "folder": null,
+      "sort": 0
+    },
+    {
+      "_id": "jTewbaX2gNQXVytc",
+      "name": "Undead Resilience",
+      "type": "feat",
+      "system": {
+        "source": {
+          "custom": "",
+          "book": "ToH",
+          "page": "19",
+          "license": "",
+          "rules": "2014",
+          "revision": 1
+        },
+        "description": {
+          "value": "<div class=\"ve-rd__b  ve-rd__b--3\"><p>You are infused with the dark energy of undeath, which frees you from some frailties that plague most creatures. You have resistance to necrotic damage and poison damage, you are immune to disease, and you have advantage on saving throws against being &amp;Reference[condition=charmed] or &amp;Reference[condition=poisoned]. When you finish a &amp;Reference[rule=shortrest]{short rest}, you can reduce your &amp;Reference[condition=exhaustion] level by 1, provided you have ingested at least 1 pound of raw meat in the last 24 hours (see Hunger for Flesh).</p></div>",
+          "chat": ""
+        },
+        "requirements": "Darakhul (Human/Half-Elf Heritage)",
+        "uses": {
+          "max": "1",
+          "recovery": [
+            {
+              "period": "sr",
+              "type": "recoverAll"
+            }
+          ],
+          "spent": 0
+        },
+        "type": {
+          "value": "race",
+          "subtype": ""
+        },
+        "properties": [],
+        "advancement": {},
+        "activities": {},
+        "identifier": "undead-resilience",
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false
+        }
+      },
+      "ownership": {
+        "default": 0,
+        "7BMT1Aux3QVtq027": 3
+      },
+      "img": "modules/plutonium/media/icon/family-tree.svg",
+      "flags": {
+        "plutonium": {
+          "page": "raceFeature",
+          "source": "ToH",
+          "hash": "undead%20resilience_darakhul%20(human%2fhalf-elf%20heritage)_toh_toh"
+        },
+        "dnd5e": {
+          "sourceId": "Actor.BmWNDwbxPQHU3Bbn.Item.jTewbaX2gNQXVytc",
+          "advancementOrigin": "Bp4tPbGgSlPIdVPw.tpvlqtu9a253BRr5"
+        }
+      },
+      "effects": [],
+      "_stats": {
+        "systemVersion": "5.3.3",
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "createdTime": 1788579479881,
+        "modifiedTime": 1788579481253,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "folder": null,
+      "sort": 0
+    },
+    {
+      "_id": "lSqkoviolg4yqhEC",
+      "name": "Undead Vitality",
+      "type": "feat",
+      "system": {
+        "source": {
+          "custom": "",
+          "book": "ToH",
+          "page": "19",
+          "license": "",
+          "rules": "2014",
+          "revision": 1
+        },
+        "description": {
+          "value": "<div class=\"ve-rd__b  ve-rd__b--3\"><p>You don't need to breathe, and you don't sleep the way most creatures do. Instead, you enter a dormant state that resembles death, remaining semiconscious, for 6 hours a day. While dormant, you have disadvantage on Wisdom (&amp;Reference[skill=Perception]) checks. After resting in this way, you gain the same benefit that a human does from 8 hours of sleep.</p></div>",
+          "chat": ""
+        },
+        "requirements": "Darakhul (Human/Half-Elf Heritage)",
+        "uses": {
+          "max": "",
+          "spent": 0,
+          "recovery": []
+        },
+        "type": {
+          "value": "race",
+          "subtype": ""
+        },
+        "properties": [],
+        "advancement": {},
+        "activities": {},
+        "identifier": "undead-vitality",
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false
+        }
+      },
+      "ownership": {
+        "default": 0,
+        "7BMT1Aux3QVtq027": 3
+      },
+      "img": "modules/plutonium/media/icon/family-tree.svg",
+      "flags": {
+        "plutonium": {
+          "page": "raceFeature",
+          "source": "ToH",
+          "hash": "undead%20vitality_darakhul%20(human%2fhalf-elf%20heritage)_toh_toh"
+        },
+        "dnd5e": {
+          "sourceId": "Actor.BmWNDwbxPQHU3Bbn.Item.lSqkoviolg4yqhEC",
+          "advancementOrigin": "Bp4tPbGgSlPIdVPw.tpvlqtu9a253BRr5"
+        }
+      },
+      "effects": [],
+      "_stats": {
+        "systemVersion": "5.3.3",
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "createdTime": 1788579480067,
+        "modifiedTime": 1788579481253,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "folder": null,
+      "sort": 0
+    },
+    {
+      "_id": "39hYpLRsGL43MQJa",
+      "name": "Heritage Subrace",
+      "type": "feat",
+      "system": {
+        "source": {
+          "custom": "",
+          "book": "ToH",
+          "page": "19",
+          "license": "",
+          "rules": "2014",
+          "revision": 1
+        },
+        "description": {
+          "value": "<div class=\"ve-rd__b  ve-rd__b--3\"><p>You were something else before you became a darakhul. This heritage determines some of your traits. Choose one Heritage Subrace below and apply the listed traits.</p></div>",
+          "chat": ""
+        },
+        "requirements": "Darakhul (Human/Half-Elf Heritage)",
+        "uses": {
+          "max": "",
+          "spent": 0,
+          "recovery": []
+        },
+        "type": {
+          "value": "race",
+          "subtype": ""
+        },
+        "properties": [],
+        "advancement": {},
+        "activities": {},
+        "identifier": "heritage-subrace",
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false
+        }
+      },
+      "ownership": {
+        "default": 0,
+        "7BMT1Aux3QVtq027": 3
+      },
+      "img": "modules/plutonium/media/icon/family-tree.svg",
+      "flags": {
+        "plutonium": {
+          "page": "raceFeature",
+          "source": "ToH",
+          "hash": "heritage%20subrace_darakhul%20(human%2fhalf-elf%20heritage)_toh_toh"
+        },
+        "dnd5e": {
+          "sourceId": "Actor.BmWNDwbxPQHU3Bbn.Item.39hYpLRsGL43MQJa",
+          "advancementOrigin": "Bp4tPbGgSlPIdVPw.tpvlqtu9a253BRr5"
+        }
+      },
+      "effects": [],
+      "_stats": {
+        "systemVersion": "5.3.3",
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "createdTime": 1788579480247,
+        "modifiedTime": 1788579481253,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "folder": null,
+      "sort": 0
+    },
+    {
+      "_id": "dKCXfe5AGLaBHWQo",
+      "name": "Versatility",
+      "type": "feat",
+      "system": {
+        "source": {
+          "custom": "",
+          "book": "ToH",
+          "page": "19",
+          "license": "",
+          "rules": "2014",
+          "revision": 1
+        },
+        "description": {
+          "value": "<div class=\"ve-rd__b  ve-rd__b--3\"><p>The training and experience of your early years was not lost when you became a darakhul. You have proficiency in two skills and one tool of your choice.</p></div>",
+          "chat": ""
+        },
+        "requirements": "Darakhul (Human/Half-Elf Heritage)",
+        "uses": {
+          "max": "",
+          "spent": 0,
+          "recovery": []
+        },
+        "type": {
+          "value": "race",
+          "subtype": ""
+        },
+        "properties": [],
+        "advancement": {},
+        "activities": {},
+        "identifier": "versatility",
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false
+        }
+      },
+      "ownership": {
+        "default": 0,
+        "7BMT1Aux3QVtq027": 3
+      },
+      "img": "modules/plutonium/media/icon/family-tree.svg",
+      "flags": {
+        "plutonium": {
+          "page": "raceFeature",
+          "source": "ToH",
+          "hash": "versatility_darakhul%20(human%2fhalf-elf%20heritage)_toh_toh"
+        },
+        "dnd5e": {
+          "sourceId": "Actor.BmWNDwbxPQHU3Bbn.Item.dKCXfe5AGLaBHWQo",
+          "advancementOrigin": "Bp4tPbGgSlPIdVPw.tpvlqtu9a253BRr5"
+        }
+      },
+      "effects": [],
+      "_stats": {
+        "systemVersion": "5.3.3",
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "createdTime": 1788579480435,
+        "modifiedTime": 1788579481253,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "folder": null,
+      "sort": 0
+    },
+    {
+      "_id": "Bp4tPbGgSlPIdVPw",
+      "name": "Darakhul (Human/Half-Elf Heritage)",
+      "type": "race",
+      "system": {
+        "description": {
+          "value": "<div>\n\t\t\t\t<table class=\"ve-w-100 ve-summary stripe-even\">\n\t\t\t\t<tbody><tr>\n\t\t\t\t\t<th class=\"ve-col-4 ve-text-center\">Ability Scores</th>\n\t\t\t\t\t<th class=\"ve-col-4 ve-text-center\">Size</th>\n\t\t\t\t\t<th class=\"ve-col-4 ve-text-center\">Speed</th>\n\t\t\t\t</tr>\n\t\t\t\t<tr>\n\t\t\t\t\t<td class=\"ve-text-center\"></td>\n\t\t\t\t\t<td class=\"ve-text-center\">Medium</td>\n\t\t\t\t\t<td class=\"ve-text-center\">30 ft. </td>\n\t\t\t\t</tr>\n\t\t\t</tbody></table>\n\t\t\t\t<div class=\"ve-mt-2\"><p>@UUID[Actor.BmWNDwbxPQHU3Bbn.Item.qFx1uGIvhzFTPB3C]{Age}</p><p>@UUID[Actor.BmWNDwbxPQHU3Bbn.Item.sDrhTK4eUULqmGfP]{Alignment}</p><p>@UUID[Actor.BmWNDwbxPQHU3Bbn.Item.A5oemztqwjVd3TjW]{Speed}</p><p>@UUID[Actor.BmWNDwbxPQHU3Bbn.Item.OXUoZLv2WT3b4X5q]{Darkvision}</p><p>@UUID[Actor.BmWNDwbxPQHU3Bbn.Item.jexd5NFCsmB1vcMI]{Hunger for Flesh}</p><p>@UUID[Actor.BmWNDwbxPQHU3Bbn.Item.4jUJbsLpzDnVRmSX]{Imperfect Undeath}</p><p>@UUID[Actor.BmWNDwbxPQHU3Bbn.Item.A84xiVwWWV9NOasK]{Powerful Jaw}</p><p>@UUID[Actor.BmWNDwbxPQHU3Bbn.Item.QnD4DkbibbMacB9W]{Sunlight Sensitivity}</p><p>@UUID[Actor.BmWNDwbxPQHU3Bbn.Item.jTewbaX2gNQXVytc]{Undead Resilience}</p><p>@UUID[Actor.BmWNDwbxPQHU3Bbn.Item.lSqkoviolg4yqhEC]{Undead Vitality}</p><p>@UUID[Actor.BmWNDwbxPQHU3Bbn.Item.39hYpLRsGL43MQJa]{Heritage Subrace}</p><p>@UUID[Actor.BmWNDwbxPQHU3Bbn.Item.dKCXfe5AGLaBHWQo]{Versatility}</p></div>\n\t\t\t\t<hr class=\"ve-hr-1\"><p>In the lightless depths beneath the ground, an empire of devouring ambition grows and plots and dreams. Their cities lie out of sight, their agents infiltrate the underworlds of a score of surface cities, and their goals know no limits. To them, if you are not a member of their empire, you are food. Their empire maintains complex social structures and forges serious alliances. They scheme and plot. They hunger for the flesh of the living. They are the ghoulish darakhul.</p><div data-roll-name-ancestor=\"Into the Big, Wide World\" class=\"ve-rd__b  ve-rd__b--named ve-rd__b--1\"><h2 class=\"ve-rd__h ve-rd__h--1\" data-title-index=\"1\"> <span class=\"entry-title-inner \">Into the Big, Wide World</span></h2> <p>Some darakhul venture into the wider world on the business of their empire. Maintaining their state requires envoys and ambassadors, messengers and scouts, traders and commerce, as well as knowledge of events in the surface world. These undead diplomats engage with races they might otherwise consider food out of duty to the empire and with a specific purpose.</p><p>Other members of their kind, however, have no such obligations. For adventuring darakhul, those in self-imposed exile, or those who never belonged to a darakhul empire, the quest to master their own hunger, to transcend their role as predators of sentient beings, is as much a part of their journey as the current quest. These characters typically want to grow beyond their ghoulish appetites and regain some part of their former lives in the cultures and societies of the world's surface. No one knows better than the darakhul that they can't overcome their nature unless they confront it.</p><p>But no matter how urbane or well-controlled the rare diplomat or merchant might seem to be, the prejudice of the living against the undead is powerful and visceral. Humanity views the darakhul with suspicion if not outright hostility, and it is difficult — but not impossible — for a darakhul to allay those fears.</p></div><div data-roll-name-ancestor=\"The Cut of Your Cloak\" class=\"ve-rd__b  ve-rd__b--named ve-rd__b--1\"><h2 class=\"ve-rd__h ve-rd__h--1\" data-title-index=\"2\"> <span class=\"entry-title-inner \">The Cut of Your Cloak</span></h2> <p>A quality disguise is one of the best tools for a darakhul trying to make its way among the breathing. Almost all darakhul traveling on the surface maintain a disguise kit and a concealing outfit to match their cover identity. With a good costume, a darakhul might pass unchallenged among humans for a long time. Possibilities include the wrappings of a leper, enshrouding robes, veils, or the head-to-toe garb of the desert peoples. Each of these disguises requires appropriate details to help the deception withstand scrutiny: the right language skills along with knowledge of the region and its customs.</p><p>Even a convincing disguise doesn't explain a darakhul's need to eat alone and behind closed doors. Darakhul can use cultural or religious requirements to justify such behavior in most situations. In cases where a costume and a cover identity are impractical, a skillful application of cosmetics and a few gold coins slipped into the right hands are often enough to make a request for privacy seem more reasonable. Ensuring a sufficient supply of raw meat is a challenge left to the darakhul's imagination.</p></div><div data-roll-name-ancestor=\"Darakhul Characters\" class=\"ve-rd__b  ve-rd__b--named ve-rd__b--1\"><h2 class=\"ve-rd__h ve-rd__h--1\" data-title-index=\"3\"> <span class=\"entry-title-inner \">Darakhul Characters</span></h2> <p>Both ordinary ghouls and darakhul arise from the infected corpses of other races. Most traits of the previous race are gone when the creature rises as a darakhul, although each darakhul carries some traits of their previous form (see the Heritage Subraces). Still, most of a darakhul's cosmetic features, such as supple skin or a long beard, fade over time into the gaunt, skull-like face, fanged maw, and taut, gray skin of a ghoulish undead.</p></div><div data-roll-name-ancestor=\"Heritage Subraces\" class=\"ve-rd__b  ve-rd__b--named ve-rd__b--1\"><h2 class=\"ve-rd__h ve-rd__h--1\" data-title-index=\"4\"> <span class=\"entry-title-inner \">Heritage Subraces</span></h2> <p>Before the terrible scourge of darakhul fever (see Tome of Beasts) transformed you into an undead creature, you belonged to another race. Although your undead self now rules you, some remnant of your past form clings to you, making you different from the darakhul created from other races. Sometimes you retain a trait, but more likely you now have a trait that is a corruption of one you once possessed. For example, the elemental spark in a dragonborn is perverted into one of a more necrotic bent. The luck inherent in a halfling's spirit twists into a power that brings ill fortune to their enemies.</p></div><div class=\"ve-rd__b-special ve-rd__b-inset ve-rd__b-inset--readaloud\" data-roll-name-ancestor=\"Looking Alive\"><h4 class=\"ve-rd__h ve-rd__h--2-inset\" data-title-index=\"5\"> <span class=\"entry-title-inner \">Looking Alive</span><span class=\"ve-flex-vh-center\"></span></h4> <p>To pass for a living creature, a darakhul needs a convincing costume, matching language and speech patterns, and appropriate mannerisms and behavior. The best tactic for most darakhul is to mimic the cultures they lived in while alive, because they have a lifetime (if a short one) of knowledge to draw on. Whether it's better to try to blend into the local culture is an open question. Someone who looks just like everyone else on the street draws less attention than someone who looks like an exotic foreigner—but a person who looks like everyone else yet acts oddly can rouse even more suspicion than the exotic stranger, especially in a crossroads of cultures where foreign travelers are common.</p><p>Under normal circumstances, a darakhul with a careful disguise can move among the living without rousing suspicion. As with any ability check, dice should be brought or a challenge. If, for example, a darakhul gets involved in a chase or a battle in a crowded city market, there's a chance a bystander might notice the pallor of undead flesh beneath a flapping cloak or the rictus grin inside a deep hood that's momentarily pushed back. Palace guards inspect supplicants to the Queen more carefully than an innkeeper or a merchant inspects customers. If rumors get around that there are murderers, monsters, or darakhul loose in the city, everyone is more alert.</p><p>In those situations, the GM can call for a Charisma (&amp;Reference[skill=Deception]) check and either compare it to the NPC's passive Perception score or make an active Wisdom (&amp;Reference[skill=Perception]) check for the NPC. Opposed checks should be reserved for those times when an NPC intently scrutinizes the character or is already suspicious. If a group of NPCs is involved, it's best to make one check with advantage for the group instead of one check per NPC.</p></div><div class=\"ve-rd__b-special ve-rd__b-inset\" data-roll-name-ancestor=\"Playing a Darakhul Character\"><h4 class=\"ve-rd__h ve-rd__h--2-inset\" data-title-index=\"6\"> <span class=\"entry-title-inner \">Playing a Darakhul Character</span><span class=\"ve-flex-vh-center\"></span></h4> <p>Life as the ravenous undead comes with challenges for an adventurer. People revile the darakhul universally as scavengers at best and as loathsome, murdering abominations at worst. For such a being, participating as a member of an adventuring party is complicated. To survive on the daylit surface of the world, a darakhul must be clever and thorough.</p><p>One of the touchstones that provides stability in your new form is your old life. While you have urges and thoughts that are dark and terrible, memories and feelings from your life before undeath might resurface to help you cope. Sometimes these flashes are corrupted versions of your old self, manifesting in your mind in new ways. Other times the recollections and feelings bubble up unfiltered, reminding you of a time when you were alive. Both are painful, but pain can be instructive.</p><p>A major question you have to answer when you play a darakhul is, \"How am I dealing with the change that transformed me into a darakhul?\" Have you fully accepted your new situation, embracing your new powers and hungers as a boon? Do you fight against your urges daily, seeking to return to your old self? What were your goals before your transformation, and do you still pursue them? Are your new goals simply about survival, or are those aspirations a twisted reflection of the goals you had as a living creature?</p><p>Regardless of your current monstrous state, who you once were has a powerful effect on who you are now. The carefree spirit of a halfling, the fiendish urges of a tiefling, or the creative spark of a gnome: all of these do not leave you simply because of your new form. How do those traits manifest themselves in your now?</p><p>There is a great deal of narrative, dramatic, and roleplaying potential in that tension between the old self and the new. Darakhul may be undead, but they still must function in their own society—be it on the surface or in the empires beneath the surface. Most still have jobs to do and dreams to fulfill within their societies.</p></div>\n\t\t\t</div>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "",
+          "book": "ToH",
+          "page": "19",
+          "license": "",
+          "rules": "2014",
+          "revision": 1
+        },
+        "movement": {
+          "walk": "30",
+          "units": "ft",
+          "hover": false,
+          "ignoredDifficultTerrain": []
+        },
+        "type": {
+          "value": "humanoid/undead",
+          "subtype": "Darakhul",
+          "custom": ""
+        },
+        "senses": {
+          "ranges": {
+            "darkvision": 60,
+            "blindsight": null,
+            "truesight": null,
+            "tremorsense": null
+          },
+          "units": "ft",
+          "special": ""
+        },
+        "advancement": {
+          "bbgkiYHdxbOooBFn": {
+            "_id": "bbgkiYHdxbOooBFn",
+            "type": "Size",
+            "configuration": {
+              "sizes": [
+                "med"
+              ]
+            },
+            "value": {
+              "size": "med"
+            },
+            "level": 0,
+            "title": "",
+            "flags": {},
+            "hint": ""
+          },
+          "U6DVJkVAbpXznNtl": {
+            "_id": "U6DVJkVAbpXznNtl",
+            "type": "Trait",
+            "configuration": {
+              "mode": "default",
+              "allowReplacements": false,
+              "grants": [],
+              "choices": []
+            },
+            "level": 0,
+            "title": "Skills",
+            "value": {
+              "chosen": [
+                "skills:med",
+                "skills:nat"
+              ]
+            },
+            "flags": {},
+            "hint": ""
+          },
+          "YG0siZMiN7A1Ton4": {
+            "_id": "YG0siZMiN7A1Ton4",
+            "type": "Trait",
+            "configuration": {
+              "mode": "default",
+              "allowReplacements": false,
+              "grants": [],
+              "choices": []
+            },
+            "level": 0,
+            "title": "Tool Proficiencies",
+            "value": {
+              "chosen": [
+                "tool:art:calligrapher"
+              ]
+            },
+            "flags": {},
+            "hint": ""
+          },
+          "tpvlqtu9a253BRr5": {
+            "_id": "tpvlqtu9a253BRr5",
+            "type": "ItemGrant",
+            "level": 0,
+            "title": "Features",
+            "icon": "modules/plutonium/media/icon/family-tree.svg",
+            "configuration": {
+              "items": [
+                {
+                  "uuid": "Actor.BmWNDwbxPQHU3Bbn.Item.qFx1uGIvhzFTPB3C",
+                  "optional": false
+                },
+                {
+                  "uuid": "Actor.BmWNDwbxPQHU3Bbn.Item.sDrhTK4eUULqmGfP",
+                  "optional": false
+                },
+                {
+                  "uuid": "Actor.BmWNDwbxPQHU3Bbn.Item.A5oemztqwjVd3TjW",
+                  "optional": false
+                },
+                {
+                  "uuid": "Actor.BmWNDwbxPQHU3Bbn.Item.OXUoZLv2WT3b4X5q",
+                  "optional": false
+                },
+                {
+                  "uuid": "Actor.BmWNDwbxPQHU3Bbn.Item.jexd5NFCsmB1vcMI",
+                  "optional": false
+                },
+                {
+                  "uuid": "Actor.BmWNDwbxPQHU3Bbn.Item.4jUJbsLpzDnVRmSX",
+                  "optional": false
+                },
+                {
+                  "uuid": "Actor.BmWNDwbxPQHU3Bbn.Item.A84xiVwWWV9NOasK",
+                  "optional": false
+                },
+                {
+                  "uuid": "Actor.BmWNDwbxPQHU3Bbn.Item.QnD4DkbibbMacB9W",
+                  "optional": false
+                },
+                {
+                  "uuid": "Actor.BmWNDwbxPQHU3Bbn.Item.jTewbaX2gNQXVytc",
+                  "optional": false
+                },
+                {
+                  "uuid": "Actor.BmWNDwbxPQHU3Bbn.Item.lSqkoviolg4yqhEC",
+                  "optional": false
+                },
+                {
+                  "uuid": "Actor.BmWNDwbxPQHU3Bbn.Item.39hYpLRsGL43MQJa",
+                  "optional": false
+                },
+                {
+                  "uuid": "Actor.BmWNDwbxPQHU3Bbn.Item.dKCXfe5AGLaBHWQo",
+                  "optional": false
+                }
+              ],
+              "optional": false,
+              "spell": {
+                "ability": [
+                  ""
+                ],
+                "uses": {
+                  "max": "",
+                  "per": "",
+                  "requireSlot": false
+                },
+                "prepared": 0
+              }
+            },
+            "value": {
+              "added": {
+                "qFx1uGIvhzFTPB3C": "Actor.BmWNDwbxPQHU3Bbn.Item.qFx1uGIvhzFTPB3C",
+                "sDrhTK4eUULqmGfP": "Actor.BmWNDwbxPQHU3Bbn.Item.sDrhTK4eUULqmGfP",
+                "A5oemztqwjVd3TjW": "Actor.BmWNDwbxPQHU3Bbn.Item.A5oemztqwjVd3TjW",
+                "OXUoZLv2WT3b4X5q": "Actor.BmWNDwbxPQHU3Bbn.Item.OXUoZLv2WT3b4X5q",
+                "jexd5NFCsmB1vcMI": "Actor.BmWNDwbxPQHU3Bbn.Item.jexd5NFCsmB1vcMI",
+                "4jUJbsLpzDnVRmSX": "Actor.BmWNDwbxPQHU3Bbn.Item.4jUJbsLpzDnVRmSX",
+                "A84xiVwWWV9NOasK": "Actor.BmWNDwbxPQHU3Bbn.Item.A84xiVwWWV9NOasK",
+                "QnD4DkbibbMacB9W": "Actor.BmWNDwbxPQHU3Bbn.Item.QnD4DkbibbMacB9W",
+                "jTewbaX2gNQXVytc": "Actor.BmWNDwbxPQHU3Bbn.Item.jTewbaX2gNQXVytc",
+                "lSqkoviolg4yqhEC": "Actor.BmWNDwbxPQHU3Bbn.Item.lSqkoviolg4yqhEC",
+                "39hYpLRsGL43MQJa": "Actor.BmWNDwbxPQHU3Bbn.Item.39hYpLRsGL43MQJa",
+                "dKCXfe5AGLaBHWQo": "Actor.BmWNDwbxPQHU3Bbn.Item.dKCXfe5AGLaBHWQo"
+              }
+            },
+            "flags": {},
+            "hint": ""
+          }
+        },
+        "identifier": "darakhul-human-half-elf-heritage"
+      },
+      "effects": [],
+      "flags": {
+        "plutonium": {
+          "page": "races.html",
+          "source": "ToH",
+          "hash": "darakhul%20(human%2fhalf-elf%20heritage)_toh",
+          "propDroppable": "race",
+          "isDirectImport": true
+        }
+      },
+      "img": "modules/plutonium/media/icon/family-tree.svg",
+      "ownership": {
+        "default": 0,
+        "7BMT1Aux3QVtq027": 3
+      },
+      "_stats": {
+        "systemVersion": "5.3.3",
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "createdTime": 1788579480628,
+        "modifiedTime": 1788579480815,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "folder": null,
+      "sort": 0
     }
   ],
   "effects": [],
+  "folder": "0A40B9PdH5WzraZl",
+  "sort": 300000,
   "ownership": {
-    "default": 0
+    "default": 0,
+    "7BMT1Aux3QVtq027": 3,
+    "70YmMmkjqiWErYNL": 3
   },
   "flags": {
-    "scene-packer": {
-      "hash": "328a988d620b9f9b231a9bfcd41d94e980e4811a"
-    },
     "5e-npc-combat-automation": {
       "aiProfile": {
         "archetypes": [
@@ -5334,9 +8113,18 @@
         "timestamp": 1786383977446,
         "manuallyOverridden": false
       }
+    },
+    "scene-packer": {
+      "hash": "328a988d620b9f9b231a9bfcd41d94e980e4811a"
     }
   },
   "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "dnd5e",
+    "systemVersion": "5.3.3",
+    "createdTime": 1788578834767,
+    "modifiedTime": 1788582142914,
+    "lastModifiedBy": "7BMT1Aux3QVtq027",
     "compendiumSource": null,
     "duplicateSource": null,
     "exportSource": {
@@ -5345,12 +8133,6 @@
       "coreVersion": "14.365",
       "systemId": "dnd5e",
       "systemVersion": "5.3.3"
-    },
-    "coreVersion": "14.365",
-    "systemId": "dnd5e",
-    "systemVersion": "5.3.3",
-    "createdTime": 1782005284314,
-    "modifiedTime": 1786383977468,
-    "lastModifiedBy": "f9K62vO9hIl1GByi"
+    }
   }
 }

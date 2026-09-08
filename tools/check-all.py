@@ -62,6 +62,7 @@ def main() -> int:
         ("Bros Attack sync", [py, "tools/sync_bros_attacks.py", "--check"], RM),
         ("Foundry sanitizer", [py, "tools/tests/test-sanitize-foundry-actor.py"], ROOT),
         ("session loot", [py, "tools/tests/test-session-loot.py"], ROOT),
+        ("players split", [py, "tools/tests/test-players-split.py"], ROOT),
         ("actor exports", [py, "tools/rebuild-actors.py", "--check"], ROOT),
     ]
 

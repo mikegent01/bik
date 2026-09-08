@@ -32737,7 +32737,7 @@
           "public": ""
         },
         "race": "sCxUWoCkQo9o7KeU",
-        "background": "Dimensional Escapee / Oathbound Survivor",
+        "background": "d7b8ef0d38ae40d2",
         "originalClass": "y7l5pkLwSvPqL7Ba",
         "xp": {
           "value": 1960
@@ -137738,7 +137738,7 @@
   },
   {
     "name": "Wario",
-    "type": "npc",
+    "type": "character",
     "_id": "dEhGeFofEfnIG24J",
     "img": "npc/wario.png",
     "system": {
@@ -137962,27 +137962,30 @@
         }
       },
       "details": {
-        "cr": 7,
         "alignment": "chaotic neutral",
-        "type": {
-          "value": "humanoid",
-          "subtype": "human"
-        },
         "biography": {
           "value": "<h1>Biography of Wario in This Timeline</h1>\n<p>In this alternate, war-torn Mushroom Kingdom timeline—set amid the aftermath of Princess Peach's assassination in 955 BF and the subsequent prolonged civil war—Wario emerges as the quintessential opportunistic wildcard, a greedy chaos agent who thrives in the power vacuum left by fractured kingdoms and collapsing allegiances. Where heroes seek justice and villains pursue conquest, Wario simply follows the money, laughing his distinctive \"Wah ha ha!\" while the world burns around him.</p>\n<hr>\n<h3>Physical Appearance &amp; Core Traits</h3>\n<p>Wario remains instantly recognizable as Mario's burly, inverted counterpart: massively built with a physique that combines obesity with surprising muscular power, sporting a huge head, prominent jutting chin, oversized pink triangular nose, and wild zigzag mustache that twitches when he's plotting something profitable. His signature outfit never varies—yellow cap emblazoned with a prominent purple \"W\", purple overalls over a long-sleeved yellow shirt, green pointed shoes, and white gloves marked with blue \"W\"s on the backs.</p>\n<p>His personality is equally consistent: hot-tempered, boisterous, crude, and utterly shameless in his greed. He thinks nothing of betraying allies, exploiting disasters, or causing collateral damage if there's profit in it. Unlike more ideologically-driven villains, Wario has no grand vision for the Mushroom Kingdom—he just wants to be rich, and he doesn't particularly care whose gold he's counting or whose burning city he's looting to get it.</p>\n<hr>\n<h3>Role in the Civil War Era (955 BF - Present)</h3>\n<p>Wario operates as a mercenary-treasure hunter-smuggler-pirate hybrid who drifts between factions with zero loyalty. He's worked temporary contracts for the Iron Legion when they paid well, sold intelligence to Peach Loyalists when the price was right, smuggled goods for Fawful's remnant forces, and double-crossed all of them when a better deal emerged. No faction trusts him, but many employ him because he's effective when properly motivated (i.e., paid in advance).</p>\n<p>His operation includes a loose network of agents, muscle-for-hire, and disposable recruits. Key among these is \"Wally,\" a mysterious operative who executed the dramatic extraction of Bowser during the chaotic Aftermath on the Vigilance events around Highsun 7, 1040 BF. Whether Wally is truly loyal to Wario or simply the highest bidder remains unclear—probably the latter.</p>\n<p>Wario maintains no fixed base of operations, preferring to move between safehouses, smuggler ports, and temporary camps. He's been spotted in Iron Legion territories, Regal Empire border towns, the lawless Darklands, and even popping up in supernatural hotspots when ancient treasure is rumored to be involved. His ability to appear and disappear seemingly at will has led to speculation that he has access to Warp Pipes, airship networks, or dimensional shortcuts that he's keeping to himself.</p>\n<hr>\n<h3>Notable Activities &amp; Incidents</h3>\n<p><strong>The Vigilance Barrel Incident (Highsun 11, 1040 BF):</strong> During a massive brawl aboard the airship Vigilance—which doubled as a trafficking operation reveal—Wario was discovered hiding in a barrel amid the chaos, apparently waiting for everyone to finish killing each other so he could loot the bodies and cargo. When discovered, he fought his way out, stole several crates of unknown contents, and escaped via emergency Warp Pipe he'd apparently planted beforehand \"just in case.\"</p>\n<p><strong>The Remi Recruitment (Highsun 12, 1040 BF):</strong> In one of his most characteristically cruel moves, Wario approached FNG Remi and presented her with what appeared to be a gift—a beautifully wrapped box. When she opened it, the bomb inside detonated, leaving her severely injured. As she lay bleeding, Wario laughed, tossed her a healing potion (which he charged to her account), and casually offered her a position in his crew. \"You survived! That means you're tough! Wah ha ha! You're hired!\" Whether Remi accepted or told him where to shove his job offer is unclear, but the incident perfectly encapsulates Wario's approach to recruitment: explosively terrible and entirely transactional.</p>\n<p><strong>Raventree Manor Operations (Highsun 16-22, 1040 BF):</strong> Wario inserted himself into the dimensional nightmare unfolding at Raventree Manor, claiming to be working with the Iron Legion to investigate temporal instabilities (a lie—he was there for rumored ancient treasure). During the looping dinner raid involving mirror dimensions, Oracles, vampires, hags, and the Orange Heir succession crisis, Wario set up increasingly bizarre schemes:</p>\n<ul>\n<li>In a Feywild-adjacent fairy village manifestation within the manor's fractured reality, Wario dramatically unfurled an absurdly long wish-list containing 2,361 items, ranging from mundane supplies to reality-bending artifacts. He priced a legendary Star Rod at \"900 trillion gold pieces, non-negotiable.\"</li>\n<li>He successfully extracted payment in the form of abstract \"experience\" from a confused entity named hjumpik, though what this transaction actually accomplished remains metaphysically unclear.</li>\n<li>He departed the fairy village with piles of ridiculous artifacts, including: seventeen cursed monkey paws (\"they're collectibles!\"), a mirror that shows only alternate timeline versions of yourself, three bags of \"definitely not stolen\" Koopa Troopa shells, and what he claimed was \"the original recipe for Peach's cake\" (authentication disputed).</li></ul>\n<p>Throughout the manor's escalating disasters—convergence rituals, planar fractures, vampire politics, Shadowfell bleed, and the succession war between Orangus Cornelius and various heirs—Wario remained focused exclusively on personal profit rather than any ideological position. He sold information to multiple parties, looted during dimensional breaches, and at one point tried to auction off a \"genuine piece of the Dark Moon\" (later revealed to be painted glass).</p>\n<hr>\n<h3>Current Status &amp; Operations (1040 BF)</h3>\n<p>Wario continues to operate as a freelance chaos profiteer, appearing wherever the war creates opportunities for wealth extraction. Recent intelligence suggests he's involved in:</p>\n<ul>\n<li>Smuggling operations moving restricted goods between Iron Legion and Regal Empire territories, charging exorbitant fees to both sides</li>\n<li>Treasure hunting in war-torn ruins, with particular interest in pre-war Mushroom Kingdom vaults and abandoned castles</li>\n<li>Arms dealing, selling weapons to whoever pays—he's been linked to shipments reaching Toad resistance cells, Bowser loyalists, and independent warlords</li>\n<li>Running underground gambling operations in neutral zones, rigging the games whenever possible</li>\n<li>Participating in airship hijackings, both as perpetrator and opportunistic \"rescue\" operator who charges victims for extraction</li></ul>\n<p>He has no known permanent allies, though he maintains working relationships with various criminals, smugglers, and mercenaries who share his profit-first philosophy. His relationship with Waluigi (his frequent partner in canonical timelines) is strained in this darker world—reports suggest they've had several violent falling-outs over split percentages, though they still occasionally collaborate when a job is too big for one greedy bastard to handle alone.</p>\n<hr>\n<h3>Combat Capabilities &amp; Tactics</h3>\n<p>Despite his comical appearance and greedy motivations, Wario is genuinely dangerous in combat. His massive strength allows him to wield oversized weapons and grapple opponents much larger than himself. He fights dirty—eye gouges, groin strikes, thrown improvised weapons, and tactical retreats when outmatched are all standard in his playbook.</p>\n<p>His signature moves include devastating shoulder charges that can knock enemies off airships or through walls, ground pounds that create shockwaves, and an inexplicable ability to eat almost anything and convert it into usable power (he's been documented eating bombs and turning them into explosive farts, which is horrifying but tactically effective).</p>\n<p>Wario is cowardly when the odds aren't in his favor, readily fleeing combat if victory looks expensive or unlikely. However, when cornered or when protecting a significant treasure haul, he becomes ferociously aggressive, fighting with the desperate strength of someone who refuses to give up his gold without taking several enemies with him.</p>\n<hr>\n<h3>Personality Summary</h3>\n<p>Wario is greed incarnate, a living embodiment of avarice without the sophistication or long-term planning that characterizes more traditional villains. He wants money NOW, he wants ALL of it, and he'll laugh while taking it from whoever has it. He's cruel but not sadistic for its own sake—he'll blow up Remi because it's funny and establishes dominance, then hire her because capable muscle is profitable. He'll hide in a barrel during a battle because why risk injury when you can wait and loot the winners?</p>\n<p>He has absolutely no sense of shame, honor, or loyalty beyond contractual obligations (and even those are negotiable if the breach is profitable enough). He's loud, obnoxious, and makes his signature \"Wah ha ha!\" laugh in situations where any sensible person would show restraint. He views the entire civil war as his personal treasure vault—a chaotic environment where traditional law and order have broken down, creating infinite opportunities for a sufficiently greedy and shameless opportunist.</p>\n<p>Yet despite all this, he's not entirely stupid. He knows when to cut losses, when to hide, and when to run. He's survived eighty-five years of civil war not through idealism or military genius, but through pure mercenary pragmatism: if it's not profitable, don't do it. If it might get you killed, charge triple. If everyone else is dying, hide in a barrel and loot them afterward.</p>\n<p>In a world of grand causes and terrible sacrifices, Wario remains committed to the only cause that's ever mattered to him: getting paid. Wah ha ha!</p>",
           "public": ""
         },
-        "race": "Human (Mushroom Kingdom)",
+        "race": "WHumanRace000001",
         "ideal": "",
         "bond": "",
         "flaw": "",
-        "habitat": {
-          "value": [],
-          "custom": ""
+        "background": "WCriminalBackgr0",
+        "originalClass": "WBarbarianClass0",
+        "xp": {
+          "value": 23000
         },
-        "treasure": {
-          "value": []
-        }
+        "age": "",
+        "appearance": "",
+        "eyes": "",
+        "faith": "",
+        "gender": "",
+        "hair": "",
+        "height": "",
+        "skin": "",
+        "trait": "",
+        "weight": ""
       },
       "traits": {
         "size": "med",
@@ -138034,10 +138037,6 @@
           "initiative": null,
           "inside": false
         }
-      },
-      "source": {
-        "revision": 1,
-        "rules": "2024"
       },
       "currency": {
         "pp": 0,
@@ -138432,12 +138431,17 @@
         "pact": {
           "value": 0
         }
-      }
+      },
+      "bastion": {
+        "name": "",
+        "description": ""
+      },
+      "favorites": []
     },
     "prototypeToken": {
       "name": "Wario (Mercenary Profiteer)",
       "displayName": 0,
-      "actorLink": false,
+      "actorLink": true,
       "width": 1,
       "height": 1,
       "depth": 1,
@@ -141803,6 +141807,194 @@
         },
         "sort": 300000,
         "_id": "wnOSyc1Crggm8mhL",
+        "ownership": {
+          "default": 0
+        }
+      },
+      {
+        "_id": "WHumanRace000001",
+        "name": "Human",
+        "type": "race",
+        "system": {
+          "description": {
+            "value": "<p>A Mushroom Kingdom human with an unstoppable appetite.</p>",
+            "chat": ""
+          },
+          "source": {
+            "custom": "Waluipedia campaign",
+            "rules": "2014",
+            "revision": 1
+          },
+          "movement": {
+            "walk": "30",
+            "units": "ft",
+            "hover": false,
+            "ignoredDifficultTerrain": []
+          },
+          "type": {
+            "value": "humanoid",
+            "subtype": "human",
+            "custom": ""
+          },
+          "senses": {
+            "ranges": {
+              "darkvision": null,
+              "blindsight": null,
+              "truesight": null,
+              "tremorsense": null
+            },
+            "units": "ft",
+            "special": ""
+          },
+          "advancement": [],
+          "identifier": "human"
+        },
+        "effects": [],
+        "flags": {},
+        "img": "icons/svg/mystery-man.svg",
+        "ownership": {
+          "default": 0,
+          "7BMT1Aux3QVtq027": 3
+        },
+        "_stats": {
+          "systemVersion": "5.3.3",
+          "coreVersion": "14.367",
+          "systemId": "dnd5e",
+          "createdTime": 1788579480628,
+          "modifiedTime": 1788579480815,
+          "lastModifiedBy": "7BMT1Aux3QVtq027",
+          "exportSource": null
+        },
+        "folder": null,
+        "sort": 500000
+      },
+      {
+        "name": "Barbarian",
+        "type": "class",
+        "img": "icons/svg/mystery-man.svg",
+        "system": {
+          "description": {
+            "value": "<p>Greed-fueled rage: fists, bombs, and shoulder charges.</p>",
+            "chat": ""
+          },
+          "source": {
+            "custom": "Waluipedia campaign",
+            "rules": "2014",
+            "revision": 1
+          },
+          "identifier": "barbarian",
+          "levels": 7,
+          "advancement": [],
+          "spellcasting": {
+            "progression": "none",
+            "ability": "",
+            "preparation": {}
+          },
+          "hd": {
+            "spent": 0,
+            "denomination": "d12",
+            "additional": ""
+          },
+          "startingEquipment": [],
+          "primaryAbility": {
+            "value": [
+              "str"
+            ],
+            "all": false
+          },
+          "properties": []
+        },
+        "effects": [],
+        "folder": null,
+        "sort": 600000,
+        "flags": {},
+        "_stats": {
+          "exportSource": null,
+          "coreVersion": "14.367",
+          "systemId": "dnd5e",
+          "systemVersion": "5.3.3",
+          "lastModifiedBy": "7BMT1Aux3QVtq027",
+          "modifiedTime": 1788730579529,
+          "createdTime": 1788730579529
+        },
+        "_id": "WBarbarianClass0",
+        "ownership": {
+          "default": 0
+        }
+      },
+      {
+        "name": "Path of the Berserker",
+        "type": "subclass",
+        "system": {
+          "identifier": "path-of-the-berserker",
+          "classIdentifier": "barbarian",
+          "description": {
+            "value": "<p>Frenzy first, questions never. Waaah.</p>",
+            "chat": ""
+          },
+          "source": {
+            "custom": "Waluipedia campaign",
+            "rules": "2014",
+            "revision": 1
+          },
+          "spellcasting": {
+            "progression": "none",
+            "ability": "",
+            "preparation": {}
+          },
+          "advancement": []
+        },
+        "flags": {},
+        "effects": [],
+        "img": "icons/svg/mystery-man.svg",
+        "folder": null,
+        "sort": 700000,
+        "_stats": {
+          "exportSource": null,
+          "coreVersion": "14.367",
+          "systemId": "dnd5e",
+          "systemVersion": "5.3.3",
+          "lastModifiedBy": "7BMT1Aux3QVtq027",
+          "modifiedTime": 1788730579529,
+          "createdTime": 1788730579529
+        },
+        "_id": "WBerserkerSub000",
+        "ownership": {
+          "default": 0
+        }
+      },
+      {
+        "name": "Criminal",
+        "type": "background",
+        "system": {
+          "description": {
+            "value": "<p>A rap sheet longer than a Mario golf course.</p>",
+            "chat": ""
+          },
+          "source": {
+            "custom": "Waluipedia campaign",
+            "rules": "2014",
+            "revision": 1
+          },
+          "identifier": "criminal",
+          "advancement": [],
+          "startingEquipment": []
+        },
+        "flags": {},
+        "effects": [],
+        "folder": null,
+        "sort": 800000,
+        "_id": "WCriminalBackgr0",
+        "img": "icons/svg/mystery-man.svg",
+        "_stats": {
+          "coreVersion": "14.367",
+          "systemId": "dnd5e",
+          "systemVersion": "5.3.3",
+          "createdTime": 1788730632136,
+          "modifiedTime": 1788730632136,
+          "lastModifiedBy": "7BMT1Aux3QVtq027",
+          "exportSource": null
+        },
         "ownership": {
           "default": 0
         }
