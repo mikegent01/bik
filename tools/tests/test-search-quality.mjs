@@ -12,6 +12,13 @@
  * test are pure.
  *
  * Run: node tools/tests/test-search-quality.mjs
+ *
+ * Round 2: a player typed "marios disapearance" and the archive answered
+ * with an uncorrected OR-flood that buried the Luigi/car record; "luigi car"
+ * ranked a cargo manifest above it because short terms matched substrings.
+ * So short query words now match whole words only, possessives are stripped
+ * before parsing, the typo rescue runs before the any-fallback, and strong
+ * matches pull their thread (related links follow as `via` rows).
  */
 
 import fs from 'node:fs';
@@ -54,10 +61,15 @@ const src = [
   extract('function peopleOf'),
   extract('function yearOf'),
   extract('function shortDateOf'),
+  extract('function escRx'),
+  extract('function wordHit'),
+  extract('function startsWord'),
+  extract('function boundaryWord'),
+  extract('function stripPossessives'),
 ].join('\n');
 // eslint-disable-next-line no-new-func
-new Function(`${src}; this.normalizeSearchText=normalizeSearchText; this.peopleOf=peopleOf; this.yearOf=yearOf; this.shortDateOf=shortDateOf;`).call(sandbox);
-const { normalizeSearchText, peopleOf, yearOf, shortDateOf } = sandbox;
+new Function(`${src}; this.normalizeSearchText=normalizeSearchText; this.peopleOf=peopleOf; this.yearOf=yearOf; this.shortDateOf=shortDateOf; this.escRx=escRx; this.wordHit=wordHit; this.startsWord=startsWord; this.boundaryWord=boundaryWord; this.stripPossessives=stripPossessives;`).call(sandbox);
+const { normalizeSearchText, peopleOf, yearOf, shortDateOf, escRx, wordHit, startsWord, boundaryWord, stripPossessives } = sandbox;
 
 // ------------------------------------------------------------------ data
 function load(name) {
@@ -87,7 +99,7 @@ function makeDoc(item, kind) {
     flat(item.participants), flat(item.outcome), flat(item.aftermath), flat(item.sections),
     flat(item.keyBattles), flat(item.notableFeatures), flat(item.effects), flat(item.status),
     flat(item.waluigiAssessment), flat(item.openThreads), flat(item.tags), flat(item.aliases),
-    flat(item.keyMoments), flat(item.keyEvents), flat(item.date),
+    flat(item.keyMoments), flat(item.keyEvents), flat(item.members), flat(item.articles), flat(item.date),
   ].filter(Boolean).join(' ').toLowerCase();
   return {
     kind, id: item.id, name: item.name || item.title || item.id,
@@ -98,7 +110,7 @@ function makeDoc(item, kind) {
 }
 
 const DOCS = [];
-for (const k of ['events', 'characters', 'locations', 'factions', 'battles', 'investigations']) {
+for (const k of ['events', 'characters', 'locations', 'factions', 'battles', 'investigations', 'collections']) {
   for (const it of load(k)) DOCS.push(makeDoc(it, k));
 }
 
@@ -110,7 +122,7 @@ function legacyHay(item) {
     .filter(Boolean).join(' ').toLowerCase();
 }
 const LEGACY = [];
-for (const k of ['events', 'characters', 'locations', 'factions', 'battles', 'investigations']) {
+for (const k of ['events', 'characters', 'locations', 'factions', 'battles', 'investigations', 'collections']) {
   for (const it of load(k)) {
     LEGACY.push({ id: it.id, name: it.name || it.title || it.id, hay: legacyHay(it) });
   }
@@ -207,6 +219,46 @@ check('several queries return more', improved >= 3, `${improved} improved`);
 for (const q of QUERIES) {
   check(`"${q}" returns something`, find(DOCS, q).length > 0);
 }
+
+// --------------------------------------- round 2: the disappearance thread
+console.log('\n-- short words match whole words only');
+
+check('"car" does not hit cargo', wordHit('cargo share goods', 'car') === false);
+check('"car" hits a real car', wordHit('luigi saw the car leave', 'car') === true);
+check('"war" does not hit dwarf', wordHit('a dwarf warning', 'war') === false);
+check('long terms keep substring matching', wordHit('the eastern passage', 'eastern') === true);
+check('startsWord rejects cargo', startsWord('cargo share', 'car') === false);
+check('startsWord accepts a leading car', startsWord('car trouble ahead', 'car') === true);
+check('boundaryWord rejects dwarf', boundaryWord('dwarf halls', 'war') === false);
+check('boundaryWord accepts the war', boundaryWord('the war council', 'war') === true);
+check('boundaryWord keeps long-term behavior', boundaryWord('mazebound skirmish', 'mazebound') === true);
+check('possessives are stripped before parsing',
+  stripPossessives("Mario's disappearance").includes('Mario') &&
+  !stripPossessives("Mario's disappearance").includes("'"));
+
+console.log('\n-- the mario disappearance thread');
+const collections = load('collections');
+const marioThread = collections.find(c => c.id === 'mario_brothers_collection');
+check('the mario brothers collection exists', !!marioThread);
+check('its roster names the thread',
+  !!marioThread && ['mario', 'luigi', 'star_fountain_reunion', 'star_fountain', 'the_arrangement']
+    .every(id => (marioThread.articles || []).includes(id)));
+check('its members are the two brothers',
+  !!marioThread && (marioThread.members || []).map(m => m.id || m).join(',') === 'mario,luigi');
+const threadHay = DOCS.find(d => d.id === 'mario_brothers_collection');
+check('collection members reach the hay',
+  !!threadHay && threadHay.hay.includes('star_fountain_reunion') && threadHay.hay.includes('the_arrangement'));
+const eastern = events.find(e => e.id === 'the_eastern_passage');
+check('the eastern passage is the luigi/car record',
+  !!eastern && peopleOf(eastern).join(' ').toLowerCase().includes('luigi') &&
+  !!DOCS.find(d => d.id === 'the_eastern_passage' && d.hay.includes('car')));
+check('the eastern passage carries the thread links',
+  !!eastern && ['star_fountain_reunion', 'the_arrangement'].every(id => (eastern.relatedArticles || []).includes(id)));
+const threadFound = find(DOCS, 'mario disappearance').map(d => d.id);
+check('"mario disappearance" reaches the thread record',
+  threadFound.includes('the_eastern_passage'), threadFound.slice(0, 6).join(','));
+check('"mario disappearance" reaches the collection',
+  threadFound.includes('mario_brothers_collection'), threadFound.slice(0, 6).join(','));
 
 // ------------------------------------------------------------- integrity
 console.log('\n-- index integrity');

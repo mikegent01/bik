@@ -4924,6 +4924,8 @@ function buildIndexes(){
   for(const k of Object.keys(INDEX)) delete INDEX[k];
   SEARCH_DOCS.length=0;
   TYPES.forEach(t=>(DATA[t.key]||[]).forEach(it=>{ if(it&&it.id) INDEX[it.id]={typeKey:t.key,item:it}; }));
+  // Collections ride along: curated shelves (no TYPES nav entry) that must still resolve, render, and surface in search.
+  (DATA.collections||[]).forEach(it=>{ if(it&&it.id&&!INDEX[it.id]) INDEX[it.id]={typeKey:'collections',item:it}; });
   ALL_ITEMS=Object.values(INDEX);
   // search docs: articles + congress votes + conflicts + major battles
   ALL_ITEMS.forEach(({typeKey,item})=>{
@@ -4950,7 +4952,7 @@ function buildIndexes(){
                flat(item.participants),flat(item.outcome),flat(item.aftermath),flat(item.sections),
                flat(item.keyBattles),flat(item.notableFeatures),flat(item.effects),flat(item.status),
                flat(item.waluigiAssessment),flat(item.openThreads),flat(item.tags),flat(item.aliases),
-               flat(item.keyMoments),flat(item.keyEvents),flat(item.date)
+               flat(item.keyMoments),flat(item.keyEvents),flat(item.members),flat(item.articles),flat(item.date)
               ].filter(Boolean).join(' ').toLowerCase();
     SEARCH_DOCS.push({kind:'article',id:item.id,typeKey,name:displayName(item),
                       summary:previewText(item,160),hay,people:people.join(' ').toLowerCase(),
@@ -7644,7 +7646,7 @@ const SEARCH_CATEGORIES=[
 ];
 const SEARCH_CATEGORY_ALIASES={codex:'codex',codexes:'codex',ccd:'codex',mages:'codex',guild:'codex',laws:'codex',law:'codex',all:'all',any:'all',article:'articles',articles:'articles',wiki:'articles',character:'characters',characters:'characters',char:'characters',chars:'characters',people:'characters',person:'characters',faction:'factions',factions:'factions',event:'events',events:'events',sessionlog:'events',location:'locations',locations:'locations',place:'locations',places:'locations',nation:'locations',nations:'locations',item:'items',items:'items',artifact:'items',artifacts:'items',inventory:'items',currency:'currencies',currencies:'currencies',coin:'currencies',coins:'currencies',money:'currencies',battle:'battles',battles:'battles',conflict:'battles',conflicts:'battles',congress:'congress',vote:'congress',votes:'congress',member:'congress',members:'congress',book:'books',books:'books',library:'books',chronicle:'chronicles',chronicles:'chronicles',timeline:'chronicles',history:'chronicles',dynasty:'dynasties',dynasties:'dynasties',bloodline:'dynasties',vendor:'vendors',vendors:'vendors',shop:'vendors',holiday:'holidays',holidays:'holidays',calendar:'holidays',whatif:'whatifs',whatifs:'whatifs',hypothetical:'whatifs',hypotheticals:'whatifs',noncanon:'whatifs',alt:'whatifs'};
 function searchIcon(d){const m=SEARCH_META[d.kind];return typeof m==='function'?m(d.typeKey,d):(m||'🔎');}
-function searchTypeLabel(d){ if(d.kind==='article')return TYPE_BY_KEY[d.typeKey]?.singular||prettyId(d.typeKey); if(d.kind==='vote')return 'Congress Vote'; if(d.kind==='conflict')return 'Conflict'; if(d.kind==='majorbattle')return 'Battle'; if(d.kind==='artifact')return 'Artifact'; if(d.kind==='invitem')return 'Item'; if(d.kind==='bearer')return 'Star Bearer'; if(d.kind==='member')return 'Congress Member'; if(d.kind==='session')return 'Congress Session'; if(d.kind==='crisis')return 'Congress Crisis'; if(d.kind==='faction')return 'Faction'; if(d.kind==='dynasty')return 'Dynasty'; if(d.kind==='vendor')return 'Vendor'; if(d.kind==='holiday')return 'Holiday'; if(d.kind==='currency')return 'Currency'; if(d.kind==='chronicle')return 'Chronicle'; if(d.kind==='book')return 'Book'; if(d.kind==='craftingrecipe')return 'Crafting Recipe'; if(d.kind==='craftingmaterial')return 'Crafting Material'; if(d.kind==='system')return 'Faction System'; if(d.kind==='docketfile')return 'Docket File'; if(d.kind==='codex')return 'Mages Codex § '+d.id; if(d.kind==='tradition')return 'Legal Tradition'; if(d.kind==='culture')return 'Cultural Sphere'; if(d.kind==='ability')return 'Ability'; if(d.kind==='whatif')return 'What If'; if(d.kind==='whatifchapter')return 'What If — Part'; return prettyId(d.kind||'record'); }
+function searchTypeLabel(d){ if(d.kind==='article'&&d.typeKey==='collections')return 'Collection'; if(d.kind==='article')return TYPE_BY_KEY[d.typeKey]?.singular||prettyId(d.typeKey); if(d.kind==='vote')return 'Congress Vote'; if(d.kind==='conflict')return 'Conflict'; if(d.kind==='majorbattle')return 'Battle'; if(d.kind==='artifact')return 'Artifact'; if(d.kind==='invitem')return 'Item'; if(d.kind==='bearer')return 'Star Bearer'; if(d.kind==='member')return 'Congress Member'; if(d.kind==='session')return 'Congress Session'; if(d.kind==='crisis')return 'Congress Crisis'; if(d.kind==='faction')return 'Faction'; if(d.kind==='dynasty')return 'Dynasty'; if(d.kind==='vendor')return 'Vendor'; if(d.kind==='holiday')return 'Holiday'; if(d.kind==='currency')return 'Currency'; if(d.kind==='chronicle')return 'Chronicle'; if(d.kind==='book')return 'Book'; if(d.kind==='craftingrecipe')return 'Crafting Recipe'; if(d.kind==='craftingmaterial')return 'Crafting Material'; if(d.kind==='system')return 'Faction System'; if(d.kind==='docketfile')return 'Docket File'; if(d.kind==='codex')return 'Mages Codex § '+d.id; if(d.kind==='tradition')return 'Legal Tradition'; if(d.kind==='culture')return 'Cultural Sphere'; if(d.kind==='ability')return 'Ability'; if(d.kind==='whatif')return 'What If'; if(d.kind==='whatifchapter')return 'What If — Part'; return prettyId(d.kind||'record'); }
 function docCategory(d){
   if(d.kind==='article'){
     if(d.typeKey==='characters')return 'characters';
@@ -7676,6 +7678,18 @@ function categoryMatches(d,cat){
   if(cat==='articles')return d.kind==='article';
   return docCategory(d)===cat;
 }
+/* Short query words match whole words only. Substring matching lets "car"
+   hit cargo/cards/scared and "war" hit dwarf/warning, burying the wanted
+   record under false friends. Long terms keep substring semantics (IDs and
+   compounds depend on it). Pure: covered by test-search-quality.mjs. */
+function escRx(s){return String(s).replace(/[.*+?^${}()|[\]\\]/g,'\\$&');}
+function wordHit(text,t){ if(t.length>3)return String(text).includes(t); return new RegExp('(^|\\s)'+escRx(t)+'(\\s|$)').test(String(text)); }
+function startsWord(text,t){ if(t.length>3)return String(text).startsWith(t); return new RegExp('^'+escRx(t)+'(\\s|$)').test(String(text)); }
+function boundaryWord(text,t){ if(t.length>3)return new RegExp('(^|\\s)'+escRx(t)).test(String(text)); return new RegExp('(^|\\s)'+escRx(t)+'(\\s|$)').test(String(text)); }
+/* "Mario's disappearance" is about Mario, not about the letter s. Strip
+   English possessives before tokenising so the query parses as [mario,
+   disappearance] instead of [mario, s, disappearance]. */
+function stripPossessives(q){return String(q||'').replace(/['’]s\\b/gi,' ').replace(/['’]/g,' ');}
 function normalizeSearchText(s){return String(s||'').toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?"'’!…‘\[\]<>]/g,' ').replace(/\s+/g,' ').trim();}
 function parseSearchQuery(raw,opts){
   let q=String(raw||'').trim();
@@ -7684,6 +7698,7 @@ function parseSearchQuery(raw,opts){
   let mode=(opts&&opts.mode)||modeSelect?.value||'smart';
   q=q.replace(/(?:^|\s)(?:@|(?:cat(?:egory)?|type|in):)([a-z0-9_-]+)/ig,(m,c)=>{const mapped=SEARCH_CATEGORY_ALIASES[String(c).toLowerCase()]||category;if(!(opts&&opts.keepPrefixCategory))category=mapped;return ' ';}).trim();
   const quoted=[]; q=q.replace(/"([^"]+)"|'([^']+)'/g,(m,a,b)=>{const val=(a||b||'').trim();if(val)quoted.push(normalizeSearchText(val));return ' ';}).trim();
+  q=stripPossessives(q).trim();
   const clean=normalizeSearchText(q);
   // Drop conversational filler. Somebody at the table types
   // "the session where we fought the mazebounds"; only two of those words
@@ -7696,6 +7711,8 @@ function parseSearchQuery(raw,opts){
   let terms=clean.split(/\s+/).filter(t=>t.length>0);
   const kept=terms.filter(t=>!STOP.has(t));
   if(kept.length)terms=kept;
+  const grown=terms.filter(t=>t.length>1);
+  if(grown.length)terms=grown;
   return {raw:String(raw||''),q,clean,terms,quoted,category,mode};
 }
 /* Normalising every document costs ~240ms across the corpus (13.3M chars of
@@ -7729,7 +7746,18 @@ const SEARCH_INTENT={
   meeting:['council','negotiation','parley','summit','audience'],
   trial:['court','tribunal','hearing','verdict','testimony'],
   party:['revel','feast','festival','celebration','ball'],
-  monster:['creature','beast','fiend','abomination']
+  monster:['creature','beast','fiend','abomination'],
+  disappearance:['vanished','vanish','vanishes','missing','gone','absence','lost','departure'],
+  disappear:['vanished','vanish','vanishes','missing','gone','lost'],
+  disappeared:['vanished','vanish','vanishes','missing','gone','lost'],
+  vanish:['disappearance','disappear','disappeared','missing','gone','lost'],
+  vanished:['disappearance','disappear','disappeared','missing','gone','lost'],
+  missing:['disappearance','vanished','vanish','gone','lost','absent'],
+  lost:['disappearance','vanished','vanish','missing','gone'],
+  car:['vehicle','cart','wagon','drive','drives','driving','drove','road'],
+  drive:['car','cars','vehicle','cart','wagon','road','drove','driven'],
+  driving:['car','cars','vehicle','cart','wagon','road','drove','driven'],
+  vehicle:['car','cars','cart','wagon','drive','road']
 };
 /* Returns {score, strong}. `strong` means the intent word matched the record's
    OWN CLASSIFICATION -- a doc of kind/type "battle" for the query "fought".
@@ -7772,7 +7800,6 @@ function scoreDoc(d,parsed,mode){
     }
     for(const t of terms){
       if(!t)continue;
-      const wordBoundary=new RegExp('(^|\\s)'+t.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'));
       // Fold a trailing plural/verb suffix so "mazebounds" finds "Mazebound"
       // and "fought" is at least tried as "fight". Only applied when the
       // stem is long enough that it cannot collide with a short word.
@@ -7787,20 +7814,20 @@ function scoreDoc(d,parsed,mode){
       //    a one-word typo from substring-matching 300+ records via
       //    "dispossessed" and suppressing the spell-corrector.
       const stemRaw=(t.length>5&&/(s|es)$/.test(t))?t.replace(/(ies|es|s)$/,m=>m==='ies'?'y':''):t;
-      const stem=(stemRaw!==t&&stemRaw.length>3&&SEARCH_VOCAB.has(stemRaw))?stemRaw:t;
+      const stem=(stemRaw!==t&&stemRaw.length>=3&&SEARCH_VOCAB.has(stemRaw))?stemRaw:t;
       // Stemming is safe when the stem is a known corpus word (gated above).
       // It was briefly restricted to multi-word queries to stop a typo
       // flood, but the real guard is the vocabulary check, so a plural
       // like "mazebounds" resolves on any query length.
       const useStem=(stem!==t);
-      const hit=(hs)=>hs.includes(t)||(useStem&&hs.includes(stem));
-      const inId=hit(id), starts=name.startsWith(t)||(useStem&&name.startsWith(stem)),
-            inName=hit(name), boundary=wordBoundary.test(name)||(useStem&&new RegExp('(^|\\s)'+stem.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).test(name)),
+      const hit=(hs)=>wordHit(hs,t)||(useStem&&hs.includes(stem));
+      const inId=hit(id), starts=startsWord(name,t)||(useStem&&name.startsWith(stem)),
+            inName=hit(name), boundary=boundaryWord(name,t)||(useStem&&boundaryWord(name,stem)),
             inSummary=hit(summary), inHay=hit(hay);
       // A person named in participants[] was actually IN the scene. That beats
       // a passing mention buried in prose, which is what used to bury the
       // record people were looking for.
-      const inPeople=hit(people), peopleWord=new RegExp('(^|\\s)'+t.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).test(people);
+      const inPeople=hit(people), peopleWord=boundaryWord(people,t);
       // An intent synonym is a RANKING nudge, not proof the term is present.
       // Letting it satisfy a term on a short query pulled unrelated factions
       // above the actual event for "aurelian possessed". It may only stand in
@@ -7880,8 +7907,8 @@ const SEARCH_VOCAB=new Set();
 function buildSearchVocab(){
   SEARCH_VOCAB.clear();
   for(const d of SEARCH_DOCS){
-    const blob=normalizeSearchText([d.name,d.people,d.summary].filter(Boolean).join(' '));
-    for(const t of blob.split(' ')) if(t.length>3&&t.length<24) SEARCH_VOCAB.add(t);
+    const blob=normalizeSearchText([d.name,d.people,d.summary,d.hay].filter(Boolean).join(' '));
+    for(const t of blob.split(' ')) if(t.length>=3&&t.length<24) SEARCH_VOCAB.add(t);
   }
 }
 // Bounded Levenshtein: bails out as soon as the distance exceeds max.
@@ -7927,6 +7954,45 @@ function correctQuery(parsed){
 }
 let LAST_SEARCH_CORRECTIONS=[];
 
+/* Thread expansion: a strong strict match pulls in its thread-mates. The
+   top strict hits (score>=100) contribute their related links as trailing
+   results, flagged via + viaName so the row can say which record vouched
+   for them. Capped; never fires for exact or flooded-any searches. */
+function expandRelated(out,parsed){
+  const have=new Set(out.map(r=>r.kind+':'+r.id));
+  const extra=[];
+  for(const seed of out.slice(0,5)){
+    if((seed.score||0)<100||extra.length>=12)break;
+    const item=(seed.kind==='article'&&INDEX[seed.id]?INDEX[seed.id].item:null)||seed.ref||null;
+    if(!item)continue;
+    const links=[].concat(item.relatedArticles||[],item.articles||[],item.keyEvents||[],item.keyBattles||[],item.members||[]);
+    for(const link of links){
+      const rid=resolveArticleId(typeof link==='string'?link:link.id);
+      if(!rid||have.has('article:'+rid))continue;
+      const tgt=INDEX[rid];
+      if(!tgt)continue;
+      const doc=SEARCH_DOCS.find(d=>d.kind==='article'&&d.id===rid);
+      if(!doc)continue;
+      if(parsed&&parsed.category&&parsed.category!=='all'&&docCategory(doc)!==parsed.category)continue;
+      have.add('article:'+rid);
+      extra.push({...doc,score:Math.max(1,Math.min(99,Math.round((seed.score||100)*0.25))),cat:docCategory(doc),via:seed.id,viaName:displayName(seed.ref||{name:seed.name})});
+      if(extra.length>=12)break;
+    }
+  }
+  return out.concat(extra);
+}
+/* Corrected strict pass, shared by the smart pre-rescue and the legacy
+   still-nothing block below. Sets the correction banner when it hits. */
+function runCorrected(parsed,mode){
+  const o=[];
+  const fixed=correctQuery(parsed);
+  if(!fixed)return o;
+  const reparsed={...parsed,terms:fixed.terms,clean:fixed.terms.join(' ')};
+  for(const d of SEARCH_DOCS){const sc=scoreDoc(d,reparsed,mode);if(sc!=null)o.push({...d,score:sc,cat:docCategory(d)});}
+  o.sort((a,b)=>b.score-a.score||String(a.name).localeCompare(String(b.name)));
+  if(o.length)LAST_SEARCH_CORRECTIONS=fixed.corrections;
+  return o;
+}
 function search(q,opts={}){
   const parsed=parseSearchQuery(q,opts);
   if(!parsed.clean&&!parsed.quoted.length)return[];
@@ -7938,7 +8004,14 @@ function search(q,opts={}){
   };
   LAST_SEARCH_CORRECTIONS=[];
   let out=run(parsed.mode==='smart'?'all':parsed.mode);
-  if(parsed.mode==='smart'&&!out.length&&parsed.terms.length>1)out=run('any').map(r=>Object.assign(r,{score:Math.max(1,r.score-40)}));
+  let fromAny=(parsed.mode==='any');
+  // A spelling slip should not silently become a loose OR: when the strict
+  // pass finds nothing, try corrected terms BEFORE the any-fallback, and let
+  // a corrected strict hit win over a noisy uncorrected OR.
+  if(parsed.mode==='smart'&&!out.length&&parsed.terms.length>1){
+    out=runCorrected(parsed,'all');
+    if(!out.length){out=run('any').map(r=>Object.assign(r,{score:Math.max(1,r.score-40)}));fromAny=true;}
+  }
   // Still nothing: assume a typo before declaring the archive empty.
   if(!out.length&&parsed.terms.length){
     const fixed=correctQuery(parsed);
@@ -7947,12 +8020,13 @@ function search(q,opts={}){
       out=(()=>{const o=[];for(const d of SEARCH_DOCS){const sc=scoreDoc(d,reparsed,'all');if(sc!=null)o.push({...d,score:sc,cat:docCategory(d)});}
         o.sort((a,b)=>b.score-a.score||String(a.name).localeCompare(String(b.name)));return o;})();
       if(!out.length&&fixed.terms.length>1){
-        out=(()=>{const o=[];for(const d of SEARCH_DOCS){const sc=scoreDoc(d,reparsed,'any');if(sc!=null)o.push({...d,score:Math.max(1,sc-40),cat:docCategory(d)});}
+        out=(()=>{fromAny=true;const o=[];for(const d of SEARCH_DOCS){const sc=scoreDoc(d,reparsed,'any');if(sc!=null)o.push({...d,score:Math.max(1,sc-40),cat:docCategory(d)});}
           o.sort((a,b)=>b.score-a.score||String(a.name).localeCompare(String(b.name)));return o;})();
       }
       if(out.length)LAST_SEARCH_CORRECTIONS=fixed.corrections;
     }
   }
+  if(parsed.mode!=='exact'&&!fromAny&&out.length)out=expandRelated(out,parsed);
   return out.slice(0,opts.limit||60);
 }
 function highlight(text,q){
@@ -7979,7 +8053,7 @@ function countsFromResults(list,parsed){
 function renderSearchHelp(){
   currentResults=[];activeIdx=-1;
   const chips=['characters','events','items','currencies','battles','books'].map(cat=>`<span class="search-chip" data-search-cat="${cat}">${SEARCH_CATEGORIES.find(x=>x[0]===cat)?.[1]||prettyId(cat)}</span>`).join('');
-  resultsBox.innerHTML=`<div class="search-panel-head"><div class="search-panel-title"><b>Waluipedia Search Console</b><span>/ or Ctrl+K focuses · ↑↓ selects · Enter opens</span></div><div class="search-chipbar">${chips}</div></div><div class="search-help"><b>Tips:</b> choose a category, switch Smart/Exact/Any matching, use quotes for a phrase like <b>"Mirror of True Reflection"</b>, or type quick filters like <b>@characters bowser</b>, <b>@events feyward</b>, <b>type:currency gold</b>. Waluigi has made the search less embarrassing. You are welcome.</div>`;
+  resultsBox.innerHTML=`<div class="search-panel-head"><div class="search-panel-title"><b>Waluipedia Search Console</b><span>/ or Ctrl+K focuses · ↑↓ selects · Enter opens</span></div><div class="search-chipbar">${chips}</div></div><div class="search-help"><b>Tips:</b> choose a category, switch Smart/Exact/Any matching, use quotes for a phrase like <b>"Mirror of True Reflection"</b>, or type quick filters like <b>@characters bowser</b>, <b>@events feyward</b>, <b>type:currency gold</b>. Strong matches pull their thread — related articles follow, marked <b>via</b>. Waluigi has made the search less embarrassing. You are welcome.</div>`;
   resultsBox.classList.add('show');
   bindSearchChips();
 }
@@ -8023,8 +8097,9 @@ function renderResults(list,q){
     // usually "because these people were in it", so name the ones the query
     // hit rather than making the reader open the article to find out.
     const who=matchedPeople(r,parsed);
+    const viaChip=r.via?` <span class=\"rvia\" title=\"Thread of ${esc(r.viaName||r.via)}\">via ${esc(String(r.viaName||r.via).slice(0,30))}</span>`:'';
     const whoHtml=who.length?`<div class="rwho">👥 ${who.map(n=>highlight(n,q)).join(', ')}</div>`:'';
-    return `<div class="res-item" data-i="${i}"><span class="res-icon">${esc(searchIcon(r))}</span><div style="min-width:0;flex:1"><div class="rtitle">${highlight(r.name,q)}<span class="rtype">${esc(searchTypeLabel(r))}</span><span class="rscore">${esc(SEARCH_CATEGORIES.find(x=>x[0]===r.cat)?.[1]||prettyId(r.cat))}</span>${date}${annotationBadge(r.id,'mini')}</div><div class="rsum">${highlight((r.summary||'No summary filed.').slice(0,190),q)}</div>${whoHtml}</div></div>`;
+    return `<div class="res-item" data-i="${i}"><span class="res-icon">${esc(searchIcon(r))}</span><div style="min-width:0;flex:1"><div class="rtitle">${highlight(r.name,q)}<span class="rtype">${esc(searchTypeLabel(r))}</span><span class="rscore">${esc(SEARCH_CATEGORIES.find(x=>x[0]===r.cat)?.[1]||prettyId(r.cat))}</span>${viaChip}${date}${annotationBadge(r.id,'mini')}</div><div class="rsum">${highlight((r.summary||'No summary filed.').slice(0,190),q)}</div>${whoHtml}</div></div>`;
   }).join('');
   resultsBox.classList.add('show');
   bindSearchChips();
@@ -8703,7 +8778,7 @@ function speciesSystemPanel(){
   return `<div class="species-dash"><h3>🧬 Species Groups</h3><p class="text-muted m-0">Instead of flooding Waluipedia with every census variant, imported profiles are consolidated into readable species-group hubs. Example: Empire Human, Human Trainer, Gondorian, Kivotos Human, and Mage Born all file under Humans unless a culture deserves its own article.</p><div class="species-stats"><div class="species-stat"><b>${keys.length}</b>Imported profiles</div><div class="species-stat"><b>${groups.length}</b>Species groups</div><div class="species-stat"><b>${linked}</b>Group articles</div><div class="species-stat"><b>${regions.length}</b>Demographic regions</div></div><div class="species-region-list">${regionChips}</div><h3 class="mt-14">Grouped Census Profiles</h3><div class="species-import-grid">${cards}</div></div>`;
 }
 function view_list(key){
-  const t=TYPE_BY_KEY[key];if(!t){view_home();return;}
+  const t=TYPE_BY_KEY[key]||(key==='collections'?{emoji:'🗂️',label:'Collections'}:null);if(!t){view_home();return;}
   renderSidebar('list:'+key);
   const items=(DATA[key]||[]).slice();
   const counts={};
@@ -10928,7 +11003,7 @@ const INFOBOX={
   collections:[['title','Title'],['type','Type'],['scope','Scope'],['criteria','Criteria']],
   trials:[['docket','Docket'],['date','Filed'],['era','Era'],['jurisdiction','Jurisdiction'],['prosecutor','Prosecutor'],['defendant','Defendant'],['presiding','Presiding'],['status','Status'],['outcome','Outcome']],
 };
-function relKind(id){return INDEX[id]?TYPE_BY_KEY[INDEX[id].typeKey].singular:'?';}
+function relKind(id){const k=INDEX[id]&&INDEX[id].typeKey;return k==='collections'?'Collection':(k&&TYPE_BY_KEY[k]?TYPE_BY_KEY[k].singular:'?');}
 function openId(id){Router.go('#/article/'+encodeURIComponent(resolveArticleId(id)));}
 
 /* ===== IN-WORLD VISUAL SYSTEMS (all SVG / data-driven, framed as Waluigi's instruments) ===== */
@@ -11954,7 +12029,7 @@ function view_article(id){
   if(!rec){el('content').innerHTML=`<div class="card"><h2>Article not found</h2><p class="text-muted">Waluigi has no record of “${esc(id)}”. Perhaps it was stolen, like the name Disaster Inc.</p><p><a onclick="Router.go('#/home')">← Home</a></p></div>`;return;}
   const {typeKey,item}=rec;renderSidebar('list:'+typeKey);
   try{ dashNoteRead(id); }catch(e){}
-  const t=TYPE_BY_KEY[typeKey];
+  const t=TYPE_BY_KEY[typeKey]||{emoji:'🗂️',label:'Collections',singular:'Collection'};
   LINK_YEAR_CTX = parseYear(item.date)||parseYear(item.era)||null;   // year context for dateless inline dates
   beginLinkPass(item);                                               // link context + graph/stat counters
   if(typeKey==='trials'){return view_trial(item,t);}

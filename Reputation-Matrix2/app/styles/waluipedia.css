@@ -109,6 +109,7 @@ html[data-theme="light"] header.topbar{background:linear-gradient(90deg,rgba(255
 .res-item .rtitle{font-weight:700;line-height:1.35}
 .res-item .rtype{font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:var(--accent2);margin-left:6px}
 .res-item .rscore{font-size:10px;color:var(--muted);margin-left:6px;font-weight:400}
+.res-item .rvia{font-size:10px;color:var(--muted);margin-left:6px;border:1px solid currentColor;border-radius:8px;padding:0 5px;opacity:.9;white-space:nowrap}
 .res-item .rsum{color:var(--muted);font-size:12.5px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;line-height:1.45}
 /* --- Faith pages ---------------------------------------------------------
    The faith infobox markup uses .irow, which had NO css anywhere in the
