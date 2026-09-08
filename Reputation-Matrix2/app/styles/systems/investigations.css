@@ -809,6 +809,8 @@ html[data-theme="light"] .article-analysis-layout{
 .hub-title{margin:6px 0 4px;font-size:30px;line-height:1.15}
 .hub-sub{margin:0;color:var(--muted);font-size:14px;line-height:1.55}
 .hub-instruction{margin-top:10px;font-weight:800;color:var(--hub-purple);font-size:13.5px}
+.hub-filedin{margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:12.5px;color:var(--muted)}
+.hub-filedin-label{font-weight:700;white-space:nowrap}
 
 .hub-grid{display:grid;gap:12px}
 @media(min-width:760px){.hub-grid{grid-template-columns:repeat(2,minmax(0,1fr))}

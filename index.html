@@ -13336,6 +13336,17 @@ function commentariesForSource(sourceId){
    rows are still rendered when at least one sibling exists, because "this filing
    has no commentary yet" is information a reader wants. */
 const HUB_ART='assets/hub/';   /* resolved by assetPath() under Reputation-Matrix2/ */
+/* Reverse shelf lookup: which collections file this record? A record counts
+   as filed when its id appears in the collection's articles[] roster or its
+   members[] roster (entries are ids or {id,...} objects). Mere related-links
+   are not membership. */
+function collectionsFor(id){
+  return ((DATA&&DATA.collections)||[]).filter(c=>{
+    if(!c||!c.id)return false;
+    if((c.articles||[]).some(a=>a===id||(a&&a.id===id)))return true;
+    return (c.members||[]).some(m=>m===id||(m&&m.id===id));
+  });
+}
 function hubOptions(id){
   const rec=INDEX[id];
   const item=rec?rec.item:null;
@@ -13439,13 +13450,15 @@ function view_hub(id){
     </div>`;
   }).join('');
 
+  const filedIn=collectionsFor(id);
+  const filedHtml=filedIn.length?`<div class="hub-filedin"><span class="hub-filedin-label">🗂️ Also filed in:</span>${filedIn.map(c=>`<span class="chip" title="${esc(c.type||'Collection')}" onclick="Router.go('#/article/${esc(c.id)}')">🗂️ ${esc(displayName(c))} →</span>`).join('')}</div>`:'';
   el('content').innerHTML=`<div class="hub-layout">
     <div class="card hub-card">
       <div class="hub-head">
         <div class="hub-kicker">Filing desk${dateHead?' · '+esc(dateHead):''}</div>
         <h1 class="hub-title">${esc(title)}</h1>
         <p class="hub-sub">${esc((item.summary||'').replace(/\s+/g,' ').slice(0,240))}</p>
-        <div class="hub-instruction">Waluigi has filed this one more than once. Pick how you want it.</div>
+        ${filedHtml}<div class="hub-instruction">Waluigi has filed this one more than once. Pick how you want it.</div>
       </div>
       <div class="hub-grid">${tiles}</div>
       ${(()=>{const strip=wahNotesHtml(id,{limit:3});return strip?`<div class="card" style="margin-top:12px"><h2 style="margin-top:0">✍️ Wah Notes <span class="text-muted" style="font-size:12px;font-weight:400">— the margins are talking</span></h2>${strip}</div>`:'';})()}
