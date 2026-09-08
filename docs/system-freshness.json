@@ -1,0 +1,43 @@
+{
+  "_comment": "System freshness registry — one asOf date per living system, in-world. tools/check-freshness.py compares each entry against Reputation-Matrix2/data/currentDate.json (house absDay: year*365 + monthIndex*30 + day) and re-verifies it against its source file, then prints every system stalest-first. STANDING ORDER (Reputation-Matrix2/gemini.md): run the check at the start of maintenance work and fold the stalest system into the plan. To track a new system: add label/asOf/source/verify/playbook; set enforced:true only once a playbook exists and the lag is genuinely kept. Never invent outcomes or backdate to make a number move.",
+  "now": {
+    "source": "Reputation-Matrix2/data/currentDate.json"
+  },
+  "systems": {
+    "diet": {
+      "label": "Holy Midlands Diet",
+      "asOf": { "year": 1040, "monthIndex": 8, "day": 5 },
+      "source": "Reputation-Matrix2/systems/regal-empire-system.js MIDLANDS_DIET_DATA.currentDate",
+      "verify": {
+        "file": "Reputation-Matrix2/systems/regal-empire-system.js",
+        "pattern": "currentDate: \\{ year: (\\d+), monthIndex: (\\d+), day: (\\d+) \\}"
+      },
+      "enforced": true,
+      "maxLagDays": 14,
+      "playbook": "docs/DIET_UPDATE_CHECKLIST.md"
+    },
+    "legion": {
+      "label": "Iron Legion integration (Diet dossier briefing)",
+      "asOf": { "year": 1040, "monthIndex": 6, "day": 25 },
+      "source": "Reputation-Matrix2/systems/regal-empire-system.js legionIntegration.lastMilitaryBriefing",
+      "verify": {
+        "file": "Reputation-Matrix2/systems/regal-empire-system.js",
+        "pattern": "lastMilitaryBriefing: \\{ year: (\\d+), monthIndex: (\\d+), day: (\\d+) \\}"
+      },
+      "enforced": false,
+      "note": "Fallback-only data (used when the Diet floor is unset). Refresh when the Legion moves troops; see the Legion-pressure step of docs/DIET_UPDATE_CHECKLIST.md."
+    },
+    "rnn": {
+      "label": "Rakasha News Network",
+      "asOf": { "year": 1040, "monthIndex": 8, "day": 4 },
+      "source": "tools/rnn-scripts/ep003.json huntDay (latest aired episode)",
+      "verify": {
+        "latestScript": "tools/rnn-scripts/ep*.json",
+        "field": "huntDay"
+      },
+      "enforced": true,
+      "maxLagDays": 7,
+      "playbook": "Reputation-Matrix2/gemini.md STANDING ORDER — The Rakasha News Network Weekly Broadcast"
+    }
+  }
+}

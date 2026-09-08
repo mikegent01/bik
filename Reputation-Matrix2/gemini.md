@@ -78,6 +78,28 @@ When the prose says an invoice, order, ledger, telegram, contract, or passport e
 6.  Inline trigger inside prose: `[[prop:prop_id|invoice]]`.
 7.  Verify: `props.json` parses, every `items` / `articles` key resolves, and the tile opens.
 
+## ⚠ STANDING ORDER — Stalest System First
+
+**Living systems rot. Before starting maintenance work, run the freshness check and work the stalest system into the plan.** This rule is self-executing: do not wait to be asked.
+
+### The trigger
+
+Run `python3 ../tools/check-freshness.py` (from `Reputation-Matrix2/`) at the start of any maintenance turn. It prints every tracked system stalest-first with its lag in in-world days against `data/currentDate.json`. The stalest entry is the next filing — fold it into the session's work (its `playbook` says how) instead of letting it slide another turn.
+
+### The procedure
+
+1.  **Read the report.** `python3 ../tools/check-freshness.py`. `DUE` (enforced, past `maxLagDays`) and `DRIFT` (registry disagrees with source) fail the suite — fix those first.
+2.  **File the system, not the registry.** Work the entry's `playbook` (e.g. `../docs/DIET_UPDATE_CHECKLIST.md`): advance the real date, file the real outcomes. Never invent outcomes or backdate to make the number move.
+3.  **Update the registry.** Set the entry's `asOf` in `../docs/system-freshness.json` to the date actually filed, then re-run the check — the `verify` hook confirms registry and source agree.
+4.  **Track new systems.** When a session creates a system with its own clock, add a registry entry (`label`, `asOf`, `source`, `verify`, `playbook`). `enforced: true` only once the playbook exists and the lag is genuinely kept; until then track unenforced.
+
+### Files that belong to this system
+
+| File | Role |
+|---|---|
+| `../docs/system-freshness.json` | The registry — one `asOf` date per living system. Hand-maintained, machine-verified |
+| `../tools/check-freshness.py` | Stalest-first report; fails on `DUE`/`DRIFT`. Wired into `check-all.py` |
+
 ## Adding New Map Pages
 
 To maintain application stability and a consistent user experience, all new tactical map pages **must** adhere to the standardized map grouping system. Creating custom, one-off UI or filtering logic for a single map page can conflict with the global data loaders for POIs and tactical units, causing them to fail to render.

@@ -53,6 +53,7 @@ def main() -> int:
         ("annotation variety", [py, "tools/check-annotation-variety.py"], ROOT),
         ("boot refs", [py, "tools/check-boot-refs.py"], ROOT),
         ("wah notes", [py, "tools/check-wahnotes.py"], ROOT),
+        ("freshness", [py, "tools/check-freshness.py"], ROOT),
         ("background blurbs", [py, "tools/check-background.py"], ROOT),
         ("dossier assessments", [py, "tools/check-assessments.py"], ROOT),
         ("home feed contract", [py, "tools/check-home-feed.py"], ROOT),

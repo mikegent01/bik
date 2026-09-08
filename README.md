@@ -318,6 +318,11 @@ Seven habits explain nearly every decision in this repository:
 - **Mages Guild Codex emoji spam** → `python3 tools/gen-mages-guild-code.py --check-emoji`
   (also filters new pages on every generate).
 - **Refresh update stamps** → `node generate-updates.js`.
+- **Check system freshness** → `python3 tools/check-freshness.py`
+  (stalest-first lag report for every living system vs `currentDate.json`;
+  registry: `docs/system-freshness.json`; the standing order that makes the
+  stalest system the next filing lives in
+  [`Reputation-Matrix2/gemini.md`](Reputation-Matrix2/gemini.md)).
 
 ## Never do these
 

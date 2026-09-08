@@ -132,6 +132,10 @@ what to create from new data.
   system. Update or review it when filings add Diet votes, Imperial laws,
   province pressure, representative changes, or Legion deployments justified by
   politics.
+- **Freshness** — `../docs/system-freshness.json` tracks one `asOf` date per
+  living system; `python3 ../tools/check-freshness.py` prints the stalest-first
+  report. The standing order (stalest system becomes the next filing) is in
+  [`gemini.md`](gemini.md).
 - **Annotations** — quote text that exists in the article. Do not use comments
   to add missing facts.
 
