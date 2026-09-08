@@ -151,7 +151,7 @@ for n in needles3:
         fail(f"index.html missing {n}")
 mod = (ROOT / "Reputation-Matrix2/app/pages/maps/atlas-map-v2.js").read_text()
 for n in ("modes.chatter", "ACTIVE_CHATTER", "data-token", "opts.party", "defaultMode",
-           "modes.species", "modes.faiths", "ACTIVE_CENSUS"):
+           "modes.species", "modes.religion", "modes.culture", "modes.factions", "ACTIVE_CENSUS"):
     if n not in mod:
         fail(f"atlas-map-v2.js missing {n}")
 css = (ROOT / "Reputation-Matrix2/app/pages/maps/atlas-map-v2.css").read_text()

@@ -2,6 +2,8 @@
 // Pins sit on the letterboxed image, not the empty stage. Region sheets crop
 // to their POI hull. Wiki articles open from the sidebar when an articleId is filed.
 import { MAP_DATA } from '../../../data/maps/map-data.js';
+import { getFaction, getFactionColor } from '../../../systems/faction-registry.js';
+import { hashColor, initial, isSafeLogo, topCats, legendChips } from './map-lenses.js';
 
 const esc = value => String(value ?? '').replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
 const format = value => Math.round(value || 0).toLocaleString();
@@ -45,13 +47,18 @@ function wikiId(poi) {
 }
 
 function factionMeta(factionId) {
-  try {
-    const g = window.getFactionColor || null;
-    const color = (typeof g === 'function' ? g(factionId) : null) || '#7c8aa5';
-    return { name: humanize(factionId || 'unaligned'), color, icon: '●' };
-  } catch {
-    return { name: humanize(factionId || 'unaligned'), color: '#7c8aa5', icon: '●' };
-  }
+  /* Names, colors, and logos resolve through the faction registry — the same
+     authority the demographics panel uses — so pins, legend, and detail all
+     agree. Unfiled flags fall back to a grey dot, never a thrown error. */
+  if (!factionId) return { id: '', name: 'Unaligned', color: '#7c8aa5', icon: '●', logo: '' };
+  let name = '', color = '', logo = '';
+  try { const f = getFaction(factionId); if (f) { name = f.name || ''; logo = isSafeLogo(f.logo) ? f.logo : ''; } } catch {}
+  try { color = getFactionColor(factionId) || ''; } catch {}
+  return { id: factionId, name: name || humanize(factionId), color: color || '#7c8aa5', icon: '●', logo };
+}
+
+function factionLogoHref(logo) {
+  return logo ? new URL(`../../../${logo}`, import.meta.url).href : '';
 }
 
 function containBox(stage, img) {
@@ -131,12 +138,16 @@ function detailHtml(poi, pois) {
   const chatterHtml = chatter.length ? `<div class="atlas-v2-chatter"><b>✍️ Wah Notes here</b>${chatter.map(r => `<p><b>${esc(r.icon)} ${esc(r.author)}</b> — ${esc(r.text)}${r.recordId ? ` <button class="atlas-v2-wiki" data-open-article="${esc(r.recordId)}">record</button>` : ''}</p>`).join('')}</div>` : '';
   const spTop = ACTIVE_CENSUS && ACTIVE_CENSUS.species.top[poi.id];
   const faTop = ACTIVE_CENSUS && ACTIVE_CENSUS.faiths.top[poi.id];
-  const censusHtml = (spTop || faTop) ? `<div class="atlas-v2-chatter"><b>📊 Filed census</b>${spTop ? `<p>🧬 ${esc(spTop.list.join(' · '))}</p>` : ''}${faTop ? `<p>🛐 ${esc(faTop.list.join(' · '))}</p>` : ''}</div>` : '';
+  const cuTop = ACTIVE_CENSUS && ACTIVE_CENSUS.cultures && ACTIVE_CENSUS.cultures.top[poi.id];
+  const censusHtml = (spTop || faTop || cuTop) ? `<div class="atlas-v2-chatter"><b>📊 Filed census</b>${spTop ? `<p>🧬 ${esc(spTop.list.join(' · '))}</p>` : ''}${faTop ? `<p>🛐 ${esc(faTop.list.join(' · '))}</p>` : ''}${cuTop ? `<p>🏛️ ${esc(cuTop.list.join(' · '))}</p>` : ''}</div>` : '';
+  const factionMark = faction.logo
+    ? `<span class="atlas-v2-factionmark"><i style="background:${esc(faction.color)}"></i><img src="${esc(factionLogoHref(faction.logo))}" alt="" loading="lazy"></span>`
+    : `<i style="background:${esc(faction.color)}"></i>`;
   return `<article class="atlas-v2-detail">
     <span class="atlas-v2-kicker">${esc(poi.type || 'location')}${esc(planeTag)}</span>
     <h3>${esc(poi.name)}</h3>
     <p>${esc(poi.description || 'No field report filed.')}</p>${censusHtml}${chatterHtml}
-    <div class="atlas-v2-faction"><i style="background:${esc(faction.color)}"></i>${esc(faction.name)}</div>
+    <div class="atlas-v2-faction">${factionMark}${esc(faction.name)}</div>
     <dl>
       <div><dt>Population</dt><dd>${format(poi.population)}</dd></div>
       <div><dt>Military</dt><dd>${format(poi.military_strength)}</dd></div>
@@ -169,10 +180,46 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
   /* Chatter lens: pin size = Wah Notes volume. A value fn instead of a key
      because loudness is computed, not filed on the POI. */
   const modes = Object.assign({}, MODES);
+  /* Categorical lenses: pin COLOR carries the dominant category (faith group,
+     culture, species, faction) while pin SIZE keeps the log ladder, now fed
+     by filed adherents or residents. `value` stays numeric so the existing
+     size/range/total pipeline is untouched; `catOf` adds the category. */
   if (opts.census) {
-    modes.species = { label: 'Species', color: '#5eead4', unit: 'peoples', value: poi => ((opts.census.species.counts || {})[poi.id] || 0) };
-    modes.faiths = { label: 'Faiths', color: '#f0abfc', unit: 'faiths', value: poi => ((opts.census.faiths.counts || {})[poi.id] || 0) };
+    const spTop = poi => ((opts.census.species || {}).top || {})[poi.id] || null;
+    const faTop = poi => ((opts.census.faiths || {}).top || {})[poi.id] || null;
+    const cuTop = poi => ((opts.census.cultures || {}).top || {})[poi.id] || null;
+    modes.species = {
+      label: 'Species', color: '#5eead4', unit: 'filed members', sizeLabel: 'filed members', categorical: true,
+      value: poi => (spTop(poi) || {}).n || 0,
+      catOf: poi => { const t = spTop(poi); return t ? { key: 'sp:' + t.label, label: t.label, color: hashColor('species:' + t.label), icon: initial(t.label) } : null; },
+    };
+    modes.religion = {
+      label: 'Religion', color: '#f0abfc', unit: 'filed adherents', sizeLabel: 'filed adherents', categorical: true,
+      value: poi => (faTop(poi) || {}).groupN || (faTop(poi) || {}).n || 0,
+      catOf: poi => {
+        const t = faTop(poi); if (!t) return null;
+        const g = t.group;
+        return (g && g.color)
+          ? { key: 'rel:' + g.name, label: g.name, color: g.color, icon: g.icon || '🛐' }
+          : { key: 'rel:other', label: 'Other faiths', color: '#8a94a6', icon: '🛐' };
+      },
+    };
+    modes.culture = {
+      label: 'Culture', color: '#f9a8d4', unit: 'residents', sizeLabel: 'residents', categorical: true,
+      value: poi => Number(poi.population) || 0,
+      catOf: poi => { const t = cuTop(poi); return t ? { key: 'cu:' + t.label, label: t.label, color: hashColor('culture:' + t.label), icon: initial(t.label) } : null; },
+    };
   }
+  /* Faction lens: every pin has a flag status (filed factionId or Unaligned),
+     so this mode needs no census — like population, it is POI-intrinsic. */
+  modes.factions = {
+    label: 'Factions', color: '#fb923c', unit: 'residents', sizeLabel: 'residents', categorical: true,
+    value: poi => Number(poi.population) || 0,
+    catOf: poi => {
+      const m = factionMeta(poi.factionId);
+      return { key: 'fac:' + (m.id || 'unaligned'), label: m.name, color: m.color, icon: initial(m.name), img: factionLogoHref(m.logo) };
+    },
+  };
   if (opts.chatter) modes.chatter = { label: 'Chatter', color: '#f472b6', unit: 'wah notes', value: poi => ((opts.chatter.counts || {})[poi.id] || 0) };
   const startMode = (opts.defaultMode && modes[opts.defaultMode]) ? opts.defaultMode : 'population';
   /* Journey stops: [{poiId, n, eventId, name, date, plane}]. Stops whose pin
@@ -304,12 +351,18 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
     const ranked = [...pois].sort((a, b) => lensVal(b) - lensVal(a)).slice(0, 5);
     const major = new Set(ranked.filter(p => lensVal(p) > 0).map(p => p.id));
     const min = values.length ? Math.min(...values) : 0;
-    if (lensEl) lensEl.innerHTML = `<i style="background:${lens.color}"></i>${format(min)} – ${format(max)} ${esc(lens.unit)} · pin size = ${esc(lens.label)}${major.size ? ' · ◎ top 5 ringed' : ''}${toks.length ? ` · 🛰️ ${toks.length} party` : ''}`;
+    if (lensEl) {
+      if (lens.categorical) {
+        const cats = topCats(clusters, g => lens.catOf(g[0]));
+        lensEl.innerHTML = `<i style="background:${lens.color}"></i>${format(min)} – ${format(max)} ${esc(lens.unit)} · pin size = ${esc(lens.sizeLabel || lens.label)}${major.size ? ' · ◎ top 5 ringed' : ''}${toks.length ? ` · 🛰️ ${toks.length} party` : ''} · ${legendChips(cats.cats, cats.more)}`;
+      } else lensEl.innerHTML = `<i style="background:${lens.color}"></i>${format(min)} – ${format(max)} ${esc(lens.unit)} · pin size = ${esc(lens.label)}${major.size ? ' · ◎ top 5 ringed' : ''}${toks.length ? ` · 🛰️ ${toks.length} party` : ''}`;
+    }
     overlay.innerHTML = journeyPathSvg() + clusters.map(group => {
       const poi = group[0];
       const faction = factionMeta(poi.factionId);
+      const cat = lens.categorical ? lens.catOf(poi) : null;
       const top = Math.max(0, ...group.map(g => lensVal(g)));
-      const w = weight(top);
+      const w = (lens.categorical && !cat) ? 0.06 : weight(top);
       const diameter = Math.round(12 + w * 20);
       const isMajor = group.some(g => major.has(g.id));
       const extra = group.length > 1 ? `<em>${group.length}</em>` : '';
@@ -317,7 +370,13 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
       const badge = groupStops.length === 1 ? `<b class="atlas-v2-stop">${esc(groupStops[0].n)}</b>`
         : groupStops.length > 1 ? `<b class="atlas-v2-stop atlas-v2-stop-multi">${groupStops.length}</b>` : '';
       const ids = group.map(g => g.id).join(',');
-      return `<button type="button" class="atlas-v2-marker${groupStops.length ? ' journey' : ''}${isMajor ? ' atlas-v2-major' : ''}" data-ids="${esc(ids)}" data-poi="${esc(poi.id)}" style="left:${poi.x}%;top:${poi.y}%;width:${diameter}px;height:${diameter}px;--marker:${lens.color};--intensity:${(0.45 + w * 0.55).toFixed(2)}" title="${esc(group.map(g => g.name).join(', '))}"><span>${faction.icon}</span>${extra}${badge}</button>`;
+      const tint = cat ? cat.color : (lens.categorical ? '#5b6b8a' : lens.color);
+      const glyph = !lens.categorical ? faction.icon
+        : !cat ? '●'
+        : cat.img ? `<img class="atlas-v2-glyph" data-fb="${esc(cat.icon || '●')}" src="${esc(cat.img)}" alt="">`
+        : esc(cat.icon || '●');
+      const title = esc(group.map(g => g.name).join(', ') + (cat ? ` · ${cat.label}` : ''));
+      return `<button type="button" class="atlas-v2-marker${groupStops.length ? ' journey' : ''}${isMajor ? ' atlas-v2-major' : ''}" data-ids="${esc(ids)}" data-poi="${esc(poi.id)}" style="left:${poi.x}%;top:${poi.y}%;width:${diameter}px;height:${diameter}px;--marker:${tint};--intensity:${(0.45 + w * 0.55).toFixed(2)}" title="${title}"><span>${glyph}</span>${extra}${badge}</button>`;
     }).join('');
     overlay.querySelectorAll('[data-poi]').forEach(btn => {
       btn.addEventListener('click', ev => {
@@ -325,6 +384,15 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
         const ids = (btn.dataset.ids || '').split(',').filter(Boolean);
         const picked = pois.find(p => p.id === (ids[0] || btn.dataset.poi));
         select(picked, ids);
+      });
+    });
+    /* Faction pins carry logo art; a missing file swaps to the letter glyph
+       instead of a broken-image box. (jsdom never fires this; browsers do.) */
+    overlay.querySelectorAll('img.atlas-v2-glyph').forEach(im => {
+      im.addEventListener('error', () => {
+        const s = overlay.ownerDocument.createElement('span');
+        s.textContent = im.dataset.fb || '●';
+        im.replaceWith(s);
       });
     });
     if (toks.length) {
@@ -385,6 +453,10 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
       return;
     }
     sidebar.innerHTML = stopBannerHtml(stopOverride || stopByPoi.get(poi.id)) + detailHtml(poi, pois);
+    /* A missing logo file reveals the color dot it sits on. */
+    sidebar.querySelectorAll('.atlas-v2-factionmark img').forEach(im => {
+      im.addEventListener('error', () => im.remove());
+    });
   }
 
   function applyFilter() {
@@ -419,8 +491,13 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
     state.mode = button.dataset.mode;
     host.querySelectorAll('[data-mode]').forEach(b => b.classList.toggle('active', b === button));
     const lens = modes[state.mode] || MODES.population;
-    const lv = p => lens.value ? lens.value(p) : (Number(p[lens.key]) || 0);
-    host.querySelector('[data-mode-total]').textContent = `${format(pois.reduce((n, p) => n + lv(p), 0))} ${lens.unit}`;
+    if (lens.categorical) {
+      const filed = pois.filter(p => { try { return !!lens.catOf(p); } catch { return false; } }).length;
+      host.querySelector('[data-mode-total]').textContent = `${filed} of ${pois.length} pins filed`;
+    } else {
+      const lv = p => lens.value ? lens.value(p) : (Number(p[lens.key]) || 0);
+      host.querySelector('[data-mode-total]').textContent = `${format(pois.reduce((n, p) => n + lv(p), 0))} ${lens.unit}`;
+    }
     placePins();
   }));
   host.querySelector('[data-action="wiki"]').addEventListener('click', event => {

@@ -77,6 +77,9 @@ def main() -> int:
         # Planar map layers (Feyward/Shadeward toggle + journey mode data).
         checks.append(("planar map layers", [py, "tools/classify-location-planes.py", "--check"], ROOT))
         checks.append(("planar map test", ["node", "tools/tests/test-planar-map.mjs"], ROOT))
+        # Categorical atlas lenses (species/religion/culture/factions) + census.
+        checks.append(("map lenses", ["node", "tools/tests/test-map-lenses.mjs"], ROOT))
+        checks.append(("map census", ["node", "tools/tests/test-map-census.mjs"], ROOT))
         # Sidebar drawers: the 0fr collapse needs exactly one .navbody child.
         checks.append(("sidebar collapse", ["node", "tools/tests/test-nav-collapse.mjs"], ROOT))
         checks.append(("crime and punishment", ["node", "tools/tests/test-crime-and-punishment.mjs"], ROOT))

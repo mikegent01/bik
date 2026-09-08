@@ -9937,9 +9937,9 @@ function wahFaithName(fid){
   return String(fid||'').replace(/_/g,' ').replace(/\b\w/g,c=>c.toUpperCase());
 }
 function wahCensusByPoi(mapId){
-  const species={counts:{},top:{}}, faiths={counts:{},top:{}};
+  const species={counts:{},top:{}}, faiths={counts:{},top:{}}, cultures={counts:{},top:{}};
   try{
-    const rec=ATLAS_MAPS[mapId]; if(!rec) return {species,faiths};
+    const rec=ATLAS_MAPS[mapId]; if(!rec) return {species,faiths,cultures};
     const idx=mapsLocationIndex(DATA.locations||[]);
     const locToPoi={};
     Object.entries(wahPinIndex()).forEach(([lid,arr])=>{(arr||[]).forEach(a=>{ if(a.mapId===mapId&&!locToPoi[lid]) locToPoi[lid]=a.poi.id; });});
@@ -9950,7 +9950,13 @@ function wahCensusByPoi(mapId){
       const pins=new Set();
       (ch.keyEvents||[]).forEach(eid=>{ const e=evById[eid]; if(!e) return;
         let lid=null; try{ lid=resolveEventLocationId(e.location,idx); }catch(err){}
+        /* Fallback: the event's own filed links name the place outright. */
+        if(!lid&&(e.relatedArticles||[]).length){ try{ const hit=(e.relatedArticles||[]).find(r=>idx.byId.has(r)); if(hit) lid=hit; }catch(err){} }
         const pid=lid?locToPoi[lid]:null; if(pid) pins.add(pid); });
+      /* Filed associations: a character whose relatedArticles name a pinned
+         place counts there too — the same filed-presence proxy as keyEvents,
+         so home towns and haunts join the census alongside sightings. */
+      try{ (ch.relatedArticles||[]).forEach(r=>{ const pid=locToPoi[r]; if(pid) pins.add(pid); }); }catch(err){}
       if(!pins.size) return;
       const race=String(ch.race||'').trim();
       const flist=(ch.faiths||[]).map(f=>f&&f.id).filter(Boolean);
@@ -9964,10 +9970,43 @@ function wahCensusByPoi(mapId){
       const sps=[...slot.sp.entries()].sort((a,b)=>b[1]-a[1]);
       const fas=[...slot.fa.entries()].sort((a,b)=>b[1]-a[1]);
       if(sps.length){ species.counts[pid]=sps.length; species.top[pid]={label:sps[0][0],n:sps[0][1],list:sps.slice(0,4).map(([l,n])=>`${l} (${n})`)}; }
-      if(fas.length){ faiths.counts[pid]=fas.length; faiths.top[pid]={label:wahFaithName(fas[0][0]),n:fas[0][1],list:fas.slice(0,4).map(([l,n])=>`${wahFaithName(l)} (${n})`)}; }
+      if(fas.length){
+        /* The religion lens paints dominant cosmological groups, so the top
+           entry carries its group (color + icon) and the group's summed
+           filed adherents alongside the top denomination. */
+        let grp=null, groupN=0;
+        try{
+          const frec=faithRec(fas[0][0]), fg=faithGroup(fas[0][0]);
+          if(fg) grp={id:(frec&&frec.group)||'',name:fg.name||'',color:fg.color||'',icon:fg.icon||''};
+          if(grp&&grp.id) fas.forEach(([fid,n])=>{ try{ if((faithRec(fid)||{}).group===grp.id) groupN+=n; }catch(e){} });
+        }catch(e){}
+        faiths.counts[pid]=fas.length;
+        faiths.top[pid]={label:wahFaithName(fas[0][0]),n:fas[0][1],list:fas.slice(0,4).map(([l,n])=>`${wahFaithName(l)} (${n})`),group:grp,groupN:groupN||fas[0][1]};
+      }
     });
+    /* Culture census: cultures file relatedArticles pointing at factions and
+       places, so a pin inherits the cultures linked to its faction, its
+       article, or its location's region. Filed links only — never inferred. */
+    try{
+      const cults=(DATA.cultures||[]).filter(c=>c&&c.id);
+      const locById={}; (DATA.locations||[]).forEach(l=>{ if(l&&l.id) locById[l.id]=l; });
+      const norm=s=>String(s||'').toLowerCase().replace(/[^a-z0-9]+/g,'_').replace(/^_|_$/g,'');
+      (rec.pointsOfInterest||[]).forEach(p=>{
+        if(!p||!p.id) return;
+        const loc=locById[p.articleId]||null;
+        const region=loc&&loc.region?('_'+norm(loc.region)+'_'):'';
+        const hit=cults.filter(c=>(c.relatedArticles||[]).some(r=>{
+          if(!r) return false;
+          if(r===p.factionId||r===p.articleId) return true;
+          return !!(region&&region.indexOf('_'+r+'_')>=0);
+        }));
+        if(!hit.length) return;
+        cultures.counts[p.id]=hit.length;
+        cultures.top[p.id]={label:hit[0].name||hit[0].id,n:hit.length,list:hit.slice(0,4).map(c=>c.name||c.id)};
+      });
+    }catch(e){}
   }catch(e){}
-  return {species,faiths};
+  return {species,faiths,cultures};
 }
 function ltSystem(){ return DATA.liberatedToadsSystem||null; }
 /* Roster statistics, computed live from the ported cohort + core-toad data. */

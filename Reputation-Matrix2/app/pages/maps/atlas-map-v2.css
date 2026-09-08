@@ -84,3 +84,10 @@
 .atlas-v2-library{border-left:3px solid #8a6d1f;background:#141007;padding:8px 10px;border-radius:0 8px 8px 0;font-size:12px}
 /* Top-5 lens pins: a white ring + lens glow so the giants pop at thumbnail scale. */
 .atlas-v2-major{box-shadow:0 0 0 2px #fff,0 0 12px 3px var(--marker,#7c8aa5);z-index:3}
+/* Categorical lenses: pins center their glyph (letter, faith icon, or faction
+   logo) and the legend wraps its category chips under the range readout. */
+.atlas-v2-marker{display:grid;place-items:center}
+.atlas-v2-glyph{width:74%;height:74%;border-radius:50%;object-fit:cover;display:block}
+.atlas-v2-legend{flex-wrap:wrap;gap:6px}
+.atlas-v2-factionmark{position:relative;display:inline-grid;place-items:center;width:14px;height:14px;flex:0 0 auto}
+.atlas-v2-factionmark img{position:absolute;left:-4px;top:-4px;width:22px;height:22px;border-radius:50%;object-fit:cover;border:1px solid #0009}
