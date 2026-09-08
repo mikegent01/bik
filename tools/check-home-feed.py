@@ -58,6 +58,12 @@ def main() -> int:
     if site_first and site_first != latest:
         print(f"WARN  SITE_UPDATES[0]={site_first!r} but latestUpdate={latest!r}")
 
+    m = re.search(r"\.campaign-timeline-feed\.show-all>\.campaign-timeline-item:nth-child\(n\+7\)\{([^}]*)\}", html)
+    if not m:
+        fail("show-all reveal rule for cards 7-12 is missing from index.html")
+    if "display:grid" not in m.group(1).replace(" ", ""):
+        fail(f"show-all reveal rule must set display:grid (regression: stacked thumbs), got {{{m.group(1)}}}")
+
     print(f"OK    dynamic feed wired · latestUpdate={latest} · last-appended={last} · events={len(events)}")
     return 0
 

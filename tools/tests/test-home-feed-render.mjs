@@ -51,8 +51,10 @@ check('DATA.events loaded', ev('Array.isArray(DATA.events) && DATA.events.length
 check('homeRecentAdventuresHtml is a function', ev("typeof homeRecentAdventuresHtml==='function'") === true,
   String(ev("typeof homeRecentAdventuresHtml")));
 
-ev("Router.go('#/home')");
-await sleep(1500);
+// Fresh boots land on the operator picker; seat the first operator to reach home.
+const opId = ev("(document.querySelector('.who-card')?.getAttribute('onclick')||'').match(/setCurrentUserId\\('([^']+)'\\)/)?.[1] || 'salam'");
+ev(`setCurrentUserId(${JSON.stringify(opId)});Router.go('#/home')`);
+await sleep(2000);
 const host = ev("document.getElementById('content')");
 const html = host && host.innerHTML || '';
 const text = host && host.textContent || '';
@@ -69,6 +71,17 @@ check('last-appended event is on home', html.includes(lastFiled.id), lastFiled.i
 check('feed is not the old static Charred-Note-as-Latest-File block',
   !/BEFORE DAWN · LATEST FILE/i.test(text));
 check('no "No sessions filed" empty state', !text.includes('No sessions filed.'));
+
+// Show-all regression: the reveal rule must keep cards 7-12 on the grid.
+// (It once set display:block, stacking every revealed card's thumb.)
+const hiddenBefore = ev("[...document.querySelectorAll('#home-recent-adventures .campaign-timeline-item')].slice(6).map(el=>window.getComputedStyle(el).display).join('|')");
+check('cards 7-12 hidden before show-all', hiddenBefore.split('|').length > 0 && hiddenBefore.split('|').every((d) => d === 'none'), hiddenBefore);
+check('show-all button present before expanding', ev("document.querySelector('.hm-more')!==null") === true);
+ev("document.querySelector('.hm-more')?.click()");
+await sleep(500);
+const shownAfter = ev("[...document.querySelectorAll('#home-recent-adventures .campaign-timeline-item')].slice(6).map(el=>window.getComputedStyle(el).display).join('|')");
+check('show-all reveals cards 7-12 as grid (not block)', shownAfter.split('|').length > 0 && shownAfter.split('|').every((d) => d === 'grid'), shownAfter);
+check('show-all button removes itself after expanding', ev("document.querySelector('.hm-more')===null") === true);
 
 console.log('--- PASS ---');
 ok.forEach((l) => console.log('  ok   ' + l));
