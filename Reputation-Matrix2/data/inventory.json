@@ -1,0 +1,2685 @@
+{
+  "items": {
+    "black_crystal": {
+      "name": "Black Crystal",
+      "type": "Portal Artifact / Anchor Key",
+      "rarity": "Major Artifact",
+      "icon": "◆",
+      "visibility": "known",
+      "summary": "One of the portal-relevant artifacts needed for Shadow Estate escape work. Enemy forces know it matters but misidentified Eager as carrier. Current public-known carrier: Markop.",
+      "relatedArticles": [
+        "shadow_estate_spotlight_cookie_cottage",
+        "shadow_estate_session_Harvestside_14_full",
+        "markop"
+      ],
+      "accent": "#0c0b14",
+      "color": "#7b3ff2",
+      "obtained": "Recovered during the Shadow Estate servant-corridor artifact chain after Vostolas, Rattles, Mystic Morel, and the Watermelon made the situation impossible to summarize politely.",
+      "features": [
+        "Portal-artifact key tied to Shadow Estate escape logic.",
+        "Enemy forces understand its importance but misidentified Eager as carrier.",
+        "Carrier secrecy matters; public holder is Markop, not the person Lyranth accused."
+      ],
+      "history": [
+        "Acquired in the Vostolas / servant-corridor chain.",
+        "Passed into party custody before the Spotlight Chase.",
+        "Current public-known holder: Markop.",
+        "Lyranth demanded it from Eager, proving enemy intelligence is one handoff behind."
+      ],
+      "waluigi": "This is not loot. This is an exit wearing a mineral costume. Treat it like the house wants it back, because the house very much does.",
+      "description": "Waluigi is filing the Black Crystal as portal artifact / anchor key, not because every object deserves a museum label, but because this one keeps touching decisions that later become everybody's problem. It is one of the clearest examples of a small object becoming a structural threat to an entire prison-house. The enemy knows it matters, which already elevates it above ordinary loot. Its practical value is simple enough to state and difficult enough to respect: it functions as a portal-critical key and bargaining piece, and its carrier secrecy is currently more valuable than its sparkle. The listed rarity, Major Artifact, should be read as a warning about narrative weight rather than market price. Wario would price it incorrectly on purpose; Waluigi is pricing the consequences. The item history matters too. It entered party custody through the servant-corridor artifact chain, survived confusion around Rattles, Vostolas, Mystic Morel, and the watermelon file, and then became the center of Lyranth’s wrong accusation against Eager. In this archive, an object is never only an object once it changes who runs, who lies, who survives, or who gets blamed. Current handling guidance: do not let the enemy update their carrier intelligence. Markop holding it is an advantage only while the wrong people remain wrong. If the party ignores that guidance, Waluigi will not be surprised, but Waluigi will be annoyed in advance."
+    },
+    "trowel_retrieving": {
+      "name": "Trowel of Retrieving",
+      "type": "Magic Tool",
+      "rarity": "Uncommon / Highly Useful",
+      "icon": "🛠️",
+      "visibility": "known",
+      "summary": "A practical magical trowel used by Markop to solve problems with the directness of a thrown brick. Most recently promoted a stuck window into an exit.",
+      "relatedArticles": [
+        "shadow_estate_spotlight_cookie_cottage",
+        "markop",
+        "tymnas"
+      ],
+      "accent": "#b07a3a",
+      "color": "#e0b400",
+      "obtained": "Associated with Tymnas and the Shadow Estate groundskeeping/tool chain; used by Markop during the Spotlight Chase.",
+      "features": [
+        "Retrieval-themed magic tool.",
+        "Doubles as emergency glass-negotiation device when Markop is tired of architecture.",
+        "Strong symbolic link to Tymnas, gardens, and the estate’s suspiciously useful tools."
+      ],
+      "history": [
+        "Tymnas produced or possessed practical magical tools around the grounds.",
+        "Markop used the Trowel of Retrieving to smash a stuck window and create an escape route."
+      ],
+      "waluigi": "A tool that retrieves also retrieves the party from bad architecture. Waluigi approves of promotion by impact.",
+      "description": "Waluigi is filing the Trowel of Retrieving as magic tool, not because every object deserves a museum label, but because this one keeps touching decisions that later become everybody's problem. Most magic items try to look mystical. This one looks like it has work to do, which makes it more honest than half the nobles in the Shadow Estate. Its practical value is simple enough to state and difficult enough to respect: it retrieves, digs, manipulates, and when necessary converts windows into exits by applied Markop logic. The listed rarity, Uncommon / Highly Useful, should be read as a warning about narrative weight rather than market price. Wario would price it incorrectly on purpose; Waluigi is pricing the consequences. The item history matters too. Tymnas’s tool network has always been suspiciously useful, and Markop using this trowel to smash a stuck window during the spotlight chase proved that gardening implements can become escape infrastructure. In this archive, an object is never only an object once it changes who runs, who lies, who survives, or who gets blamed. Current handling guidance: remember that tools have politics in the Shadow Estate. A useful tool from a useful groundskeeper is never just hardware. If the party ignores that guidance, Waluigi will not be surprised, but Waluigi will be annoyed in advance."
+    },
+    "oracle_deck": {
+      "name": "Oracle’s Deck",
+      "type": "Divination / Tarot Artifact",
+      "rarity": "Rare Artifact",
+      "icon": "🎴",
+      "visibility": "known",
+      "summary": "A prophetic deck linked to Mystic Morel and Remi. Useful, dangerous, and probably smiling at everyone behind the card backs.",
+      "relatedArticles": [
+        "mystic_morel",
+        "remi_akamatsu_full_backstory"
+      ],
+      "accent": "#5b239e",
+      "color": "#d4a853",
+      "obtained": "Given to Remi by Mystic Morel under circumstances Waluigi classifies as gift, burden, and suspicious homework.",
+      "features": [
+        "Prophetic card imagery tied to real events.",
+        "Useful for foreshadowing, warning, and making everyone nervous.",
+        "Likely connected to Morel’s habit of mixing help with theft."
+      ],
+      "history": [
+        "Mystic Morel offered the deck to Remi.",
+        "The deck continues to connect Remi to prophecy, danger, and Morel’s wider agenda."
+      ],
+      "waluigi": "A prophecy deck is just a problem that learned card stock.",
+      "description": "Waluigi is filing the Oracle’s Deck as divination / tarot artifact, not because every object deserves a museum label, but because this one keeps touching decisions that later become everybody's problem. A deck of prophetic cards is a terrible thing to hand a child unless one is trying to turn childhood into homework assigned by fate. Mystic Morel did exactly that. Its practical value is simple enough to state and difficult enough to respect: it presents symbolic intelligence, warnings, and future-shaped pressure in a form Remi can carry. The listed rarity, Rare Artifact, should be read as a warning about narrative weight rather than market price. Wario would price it incorrectly on purpose; Waluigi is pricing the consequences. The item history matters too. Morel offered it as gift, burden, and possibly leash; every card drawn around it should be treated as both information and manipulation. In this archive, an object is never only an object once it changes who runs, who lies, who survives, or who gets blamed. Current handling guidance: do not assume the deck is helping just because it is accurate. Accurate things can still be bait. If the party ignores that guidance, Waluigi will not be surprised, but Waluigi will be annoyed in advance."
+    },
+    "mirror_true_reflection": {
+      "name": "Mirror of True Reflection",
+      "type": "Portal Artifact / Revelation Tool",
+      "rarity": "Major Artifact",
+      "icon": "🪞",
+      "visibility": "known",
+      "summary": "Restored by Remi with Mending. Wario tried to claim it immediately. Green T held it during the current chain of events. Shows truths the party badly needs and absolutely does not deserve to handle casually.",
+      "relatedArticles": [
+        "shadow_estate_mirror_rooftop_escape",
+        "green_t",
+        "remi_akamatsu_full_backstory",
+        "wario"
+      ],
+      "accent": "#3d2a78",
+      "color": "#d8c6ff",
+      "obtained": "Recovered broken in Usk’s private chambers and restored by Remi with Mending after the missing piece was found.",
+      "features": [
+        "Shows true reflection / revelation.",
+        "One of the major portal artifacts.",
+        "Extremely theft-attractive to Wario."
+      ],
+      "history": [
+        "Found in Usk’s chambers as a broken artifact.",
+        "Remi restored it with Mending.",
+        "Wario immediately tried to claim it.",
+        "Green T held it during the escape chain."
+      ],
+      "waluigi": "The mirror proves two things: truth can be repaired, and Wario will try to monetize it before the glue dries.",
+      "description": "Waluigi is filing the Mirror of True Reflection as portal artifact / revelation tool, not because every object deserves a museum label, but because this one keeps touching decisions that later become everybody's problem. Truth normally arrives through testimony, evidence, or somebody finally admitting Waluigi was right. This mirror takes a more dangerous route. Its practical value is simple enough to state and difficult enough to respect: it reveals truths and belongs to the portal-artifact system, making it useful for escape and catastrophic for secrecy. The listed rarity, Major Artifact, should be read as a warning about narrative weight rather than market price. Wario would price it incorrectly on purpose; Waluigi is pricing the consequences. The item history matters too. It was found broken in Usk’s chambers, repaired by Remi with Mending, immediately coveted by Wario, and later held by Green T during the escape chain. In this archive, an object is never only an object once it changes who runs, who lies, who survives, or who gets blamed. Current handling guidance: keep it away from Wario unless the desired outcome is a lawsuit written on reflective glass. If the party ignores that guidance, Waluigi will not be surprised, but Waluigi will be annoyed in advance."
+    },
+    "umbral_signet": {
+      "name": "Umbral Signet",
+      "type": "Portal Artifact / Shadow Key",
+      "rarity": "Major Artifact",
+      "icon": "💍",
+      "visibility": "known",
+      "summary": "One of the major Shadow Estate portal artifacts. Public details remain incomplete because Waluigi refuses to print the entire escape keychain in large friendly letters.",
+      "relatedArticles": [
+        "shadow_estate_campaign"
+      ],
+      "accent": "#151022",
+      "color": "#8a4bff",
+      "obtained": "Known as one of the Shadow Estate portal artifacts; exact public custody kept deliberately incomplete.",
+      "features": [
+        "Shadow-key function in the portal artifact set.",
+        "Likely interacts with estate authority and umbral routing.",
+        "Public details redacted to avoid handing the enemy a checklist."
+      ],
+      "history": [
+        "Identified as part of the four-key portal problem.",
+        "Custody and exact activation conditions remain public-safe only."
+      ],
+      "waluigi": "Waluigi knows enough to say it matters and enough not to print the rest in friendly letters.",
+      "description": "Waluigi is filing the Umbral Signet as portal artifact / shadow key, not because every object deserves a museum label, but because this one keeps touching decisions that later become everybody's problem. The signet is the kind of artifact aristocratic death houses adore: small, symbolic, portable, and probably able to decide which door counts as real. Its practical value is simple enough to state and difficult enough to respect: it likely interfaces with Shadow Estate authority, umbral routing, and the escape-key set. The listed rarity, Major Artifact, should be read as a warning about narrative weight rather than market price. Wario would price it incorrectly on purpose; Waluigi is pricing the consequences. The item history matters too. The public record knows it is part of the four-key portal problem, but Waluigi refuses to print every activation detail for the benefit of enemies who can read. In this archive, an object is never only an object once it changes who runs, who lies, who survives, or who gets blamed. Current handling guidance: treat it as a key and a claim at once. Shadow keys often open obligations as well as doors. If the party ignores that guidance, Waluigi will not be surprised, but Waluigi will be annoyed in advance."
+    },
+    "green_t_revolver": {
+      "name": "Green T’s Revolver",
+      "type": "Firearm / Social Problem",
+      "rarity": "Rare in This Context",
+      "icon": "🔫",
+      "visibility": "known",
+      "summary": "A firearm with an impressive talent for making moral conversations worse. Used around Remi’s tanuki incident and Green T’s mentorship failures/successes.",
+      "relatedArticles": [
+        "green_t",
+        "shadowfell_birthday_trap_tanuki",
+        "remi_akamatsu_full_backstory"
+      ],
+      "accent": "#244b3a",
+      "color": "#2fae8a",
+      "obtained": "Carried by Green T; entered Remi’s moral crisis during the birthday/tanuki sequence.",
+      "features": [
+        "Firearm with silencer usage recorded.",
+        "Teaches trigger discipline and ethical discomfort at the same time.",
+        "Socially explosive even when not fired."
+      ],
+      "history": [
+        "Green T used or handled it during the tanuki incident.",
+        "Remi was handed the gun and told to be stronger.",
+        "Markop later confiscated or redirected the moral disaster."
+      ],
+      "waluigi": "Some weapons wound the room before the bullet leaves.",
+      "description": "Waluigi is filing Green T’s Revolver as firearm / social problem, not because every object deserves a museum label, but because this one keeps touching decisions that later become everybody's problem. Some weapons enter a scene by firing. This one enters a scene by making everyone morally worse before the trigger is pulled. Its practical value is simple enough to state and difficult enough to respect: it provides quiet lethal leverage and a terrible teaching tool in Green T’s hands. The listed rarity, Rare in This Context, should be read as a warning about narrative weight rather than market price. Wario would price it incorrectly on purpose; Waluigi is pricing the consequences. The item history matters too. It became central during Remi’s tanuki crisis, where trigger discipline, mercy, mentorship, and trauma all crowded around one gun. In this archive, an object is never only an object once it changes who runs, who lies, who survives, or who gets blamed. Current handling guidance: if Green T hands someone this weapon, ask what lesson he is teaching and whether the lesson should be illegal. If the party ignores that guidance, Waluigi will not be surprised, but Waluigi will be annoyed in advance."
+    },
+    "simple_dagger": {
+      "name": "Simple Dagger",
+      "type": "Weapon",
+      "rarity": "Common",
+      "icon": "🗡️",
+      "visibility": "known",
+      "summary": "Eager threw one during the hellhound plan. It missed and clinked on the floor, thereby contributing to history mostly as punctuation.",
+      "relatedArticles": [
+        "shadow_estate_spotlight_cookie_cottage",
+        "eager"
+      ],
+      "accent": "#777",
+      "color": "#c0c0c0",
+      "obtained": "Common field weapon in Eager’s possession during the hellhound skirmish.",
+      "features": [
+        "Can be thrown.",
+        "Can miss.",
+        "Can make a very historically useful clink on the floor."
+      ],
+      "history": [
+        "Eager threw it during the planned hellhound flank.",
+        "It missed and documented the death of the plan."
+      ],
+      "waluigi": "Not every item needs to be legendary. Some are punctuation.",
+      "description": "Waluigi is filing the Simple Dagger as weapon, not because every object deserves a museum label, but because this one keeps touching decisions that later become everybody's problem. Waluigi respects common objects that become historically funny. This dagger is one of them. Its practical value is simple enough to state and difficult enough to respect: it can cut, threaten, or be thrown with embarrassing results. The listed rarity, Common, should be read as a warning about narrative weight rather than market price. Wario would price it incorrectly on purpose; Waluigi is pricing the consequences. The item history matters too. Eager threw it during the hellhound flank plan; it missed, struck the floor, and memorialized the collapse of a perfectly reasonable tactic. In this archive, an object is never only an object once it changes who runs, who lies, who survives, or who gets blamed. Current handling guidance: do not confuse common with irrelevant. Sometimes the sound of failure is metal on stone. If the party ignores that guidance, Waluigi will not be surprised, but Waluigi will be annoyed in advance."
+    },
+    "tea_syndicate_book": {
+      "name": "Tea Leaf Syndicate Tea Book",
+      "type": "Book / Cultural Doctrine",
+      "rarity": "Uncommon",
+      "icon": "📖",
+      "visibility": "known",
+      "summary": "A refined criminal tea text found/read in Tymnas’s cottage. Eager learned nothing from it. Waluigi learned that tea people remain insufferably specific.",
+      "relatedArticles": [
+        "shadow_estate_spotlight_cookie_cottage",
+        "tea_leaf_syndicate",
+        "eager",
+        "tymnas"
+      ],
+      "accent": "#5b3a2d",
+      "color": "#c7933d",
+      "obtained": "Found/read in Tymnas’s cottage during the cookie siege rest period.",
+      "features": [
+        "Contains Tea Leaf Syndicate philosophy and recipes.",
+        "May contain specialized preparations not found in polite markets.",
+        "Teaches refinement, crime, and leaf arrogance."
+      ],
+      "history": [
+        "Eager read it while hiding in Tymnas’s cottage.",
+        "Eager learned nothing, which is also data."
+      ],
+      "waluigi": "Tea people made hot leaf water into doctrine. Waluigi is annoyed and impressed.",
+      "description": "Waluigi is filing the Tea Leaf Syndicate Tea Book as book / cultural doctrine, not because every object deserves a museum label, but because this one keeps touching decisions that later become everybody's problem. This book is what happens when criminals discover vocabulary and decide hot leaf water is civilization. Its practical value is simple enough to state and difficult enough to respect: it preserves recipes, philosophy, and possibly specialized preparations that polite markets avoid. The listed rarity, Uncommon, should be read as a warning about narrative weight rather than market price. Wario would price it incorrectly on purpose; Waluigi is pricing the consequences. The item history matters too. Eager read it in Tymnas’s cottage and learned nothing, while Waluigi learned that the Tea Leaf Syndicate remains insufferably committed to standards. In this archive, an object is never only an object once it changes who runs, who lies, who survives, or who gets blamed. One page is reproduced here — [[prop:prop_tea_syndicate_page|the third steeping]] — and clause five of it is operational security in a teacup. Current handling guidance: read for culture, not rescue. If the book starts sounding practical, check whether it is teaching poison. If the party ignores that guidance, Waluigi will not be surprised, but Waluigi will be annoyed in advance."
+    },
+    "tymnas_cookie_note": {
+      "name": "Tymnas Cookie Note",
+      "type": "Message / Social Clue",
+      "rarity": "Unique Clue",
+      "icon": "🍪",
+      "visibility": "known",
+      "summary": "Cookie delivery note from O.T. proving Tymnas has social ties inside the manor or that someone can convincingly weaponize those ties. Includes group-name confusion.",
+      "relatedArticles": [
+        "shadow_estate_spotlight_cookie_cottage",
+        "tymnas"
+      ],
+      "accent": "#6b4a2b",
+      "color": "#e0b400",
+      "obtained": "Delivered with cookies by knights to Tymnas’s cottage during the Spotlight Chase aftermath.",
+      "features": [
+        "Social clue about Tymnas’s relationships inside the manor.",
+        "Contains O.T. signature and group-name confusion.",
+        "Possibly sincere, possibly bait, definitely suspicious."
+      ],
+      "history": [
+        "Knights delivered cookies for Tymnas.",
+        "Note said his friends missed him and did not know the group name.",
+        "Triggered Local Misfits / Toad-Headed Heroes speculation."
+      ],
+      "waluigi": "A cookie note should not be evidence. The Shadow Estate disagrees.",
+      "description": "Waluigi is filing the Tymnas Cookie Note as message / social clue, not because every object deserves a museum label, but because this one keeps touching decisions that later become everybody's problem. A cookie note should be beneath serious analysis. The Shadow Estate, in its usual way, made dessert into intelligence. Its practical value is simple enough to state and difficult enough to respect: it proves Tymnas has social ties inside the manor or that someone can imitate such ties well enough to weaponize them. The listed rarity, Unique Clue, should be read as a warning about narrative weight rather than market price. Wario would price it incorrectly on purpose; Waluigi is pricing the consequences. The item history matters too. The note arrived with cookies, invoked O.T., missed the party’s group name, and sparked Local Misfits / Toad-Headed Heroes branding speculation. In this archive, an object is never only an object once it changes who runs, who lies, who survives, or who gets blamed. The [[prop:prop_tymnas_cookie_note|note itself]] is short enough to reproduce and strange enough to warrant it. Current handling guidance: preserve the crumbs and the wording. Affection and bait use similar handwriting in this house. If the party ignores that guidance, Waluigi will not be surprised, but Waluigi will be annoyed in advance."
+    },
+    "necromancer_wand": {
+      "name": "Necromancer’s Wand",
+      "type": "Death-Aspected Focus",
+      "rarity": "Rare / Dangerous",
+      "icon": "🪄",
+      "visibility": "known",
+      "summary": "Dropped by Vivian and picked up by Bowser with the curiosity of a toddler browsing a death-magic gift shop. Waluigi suspects the wand was more confused by Bowser than Bowser was by the wand.",
+      "relatedArticles": [
+        "vivian_corvinarus_corridor_fight",
+        "bowser",
+        "vivian_corvinarus"
+      ],
+      "accent": "#190b1f",
+      "color": "#b7a7ff",
+      "obtained": "Dropped by Vivian during the corridor ambush and picked up by Bowser.",
+      "features": [
+        "Death-aspected focus.",
+        "Cold to the touch.",
+        "Potentially corruptive, though Bowser may be spiritually too blunt to read the instructions."
+      ],
+      "history": [
+        "Vivian carried/dropped it during the corridor fight.",
+        "Bowser picked it up and asked if it was a magic wand.",
+        "Remi later identified the necromantic aspect."
+      ],
+      "waluigi": "Can a wand corrupt someone who does not understand corruption is on the menu? Field research continues.",
+      "description": "Waluigi is filing the Necromancer’s Wand as death-aspected focus, not because every object deserves a museum label, but because this one keeps touching decisions that later become everybody's problem. A death-aspected wand is normally dangerous because of corruption. This one is additionally dangerous because Bowser picked it up like a gift-shop item. Its practical value is simple enough to state and difficult enough to respect: it channels or focuses necromantic energy and signals Vivian’s toolkit. The listed rarity, Rare / Dangerous, should be read as a warning about narrative weight rather than market price. Wario would price it incorrectly on purpose; Waluigi is pricing the consequences. The item history matters too. It fell during the Vivian corridor fight, was handled casually by Bowser, and was later identified by Remi as cold and death-aspected. In this archive, an object is never only an object once it changes who runs, who lies, who survives, or who gets blamed. Current handling guidance: do not let curiosity-based turtle handling become standard containment procedure. If the party ignores that guidance, Waluigi will not be surprised, but Waluigi will be annoyed in advance."
+    },
+    "rattles_frog_goblet": {
+      "name": "Rattles’s Antique Frog and Goblet",
+      "type": "Personal Effects",
+      "rarity": "Oddly Specific",
+      "icon": "🐸",
+      "visibility": "known",
+      "summary": "Objects associated with Rattles when he joined the party’s orbit. Waluigi does not yet know why they matter, which means they probably will.",
+      "relatedArticles": [
+        "rattles",
+        "shadow_estate_session_Harvestside_14_full"
+      ],
+      "accent": "#3a3a3a",
+      "color": "#bfc5c8",
+      "obtained": "Found with Rattles during the servant-corridor sequence.",
+      "features": [
+        "Personal effects tied to Rattles’s old life or errands.",
+        "Potential identity anchor.",
+        "Currently more suspicious than useful."
+      ],
+      "history": [
+        "Rattles appeared with antique frog and goblet.",
+        "Objects remain filed because weird personal effects always come back later."
+      ],
+      "waluigi": "Waluigi has learned never to ignore a skeleton’s accessories.",
+      "description": "Waluigi is filing Rattles’s Antique Frog and Goblet as personal effects, not because every object deserves a museum label, but because this one keeps touching decisions that later become everybody's problem. Skeletons who carry specific accessories are either sentimental, cursed, or narratively loaded. Rattles may be all three. Its practical value is simple enough to state and difficult enough to respect: the frog and goblet may anchor identity, memory, old errands, or the exact life Rattles wants restored. The listed rarity, Oddly Specific, should be read as a warning about narrative weight rather than market price. Wario would price it incorrectly on purpose; Waluigi is pricing the consequences. The item history matters too. They were associated with Rattles when the party found and recruited him, which means they entered the larger artifact-and-escape chain as personality evidence. In this archive, an object is never only an object once it changes who runs, who lies, who survives, or who gets blamed. Current handling guidance: do not sell, drink from, lick, or dismiss them. Personal effects often become keys once everyone forgets them. If the party ignores that guidance, Waluigi will not be surprised, but Waluigi will be annoyed in advance."
+    },
+    "bowser_badge_447": {
+      "name": "Bowser Badge #447",
+      "type": "Badge / Identity Token",
+      "rarity": "Specific Evidence",
+      "icon": "🐢",
+      "visibility": "known",
+      "summary": "A Bowser Badge linked to the fractured Shadow Estate / Dan / Bowser chain. Badges should not have this much plot weight. This one does.",
+      "relatedArticles": [
+        "bowser",
+        "dan",
+        "the_grove_of_woe_incident"
+      ],
+      "accent": "#2d6a2d",
+      "color": "#ffcc33",
+      "obtained": "Connected to the Dan/Bowser/Shadow Estate chain and discovered in crisis context.",
+      "features": [
+        "Identity token / numbered badge.",
+        "Evidence object linking Bowser symbolism to unexpected locations.",
+        "Emotionally inflammatory if removed from skin, apparently."
+      ],
+      "history": [
+        "Associated with the original Dan / Bowser Badge crisis.",
+        "Badge removal contributed to spontaneous combustion consequences."
+      ],
+      "waluigi": "A numbered Bowser badge should not be able to ruin this many lives. Yet here we are.",
+      "description": "Waluigi is filing Bowser Badge #447 as badge / identity token, not because every object deserves a museum label, but because this one keeps touching decisions that later become everybody's problem. A numbered badge should be harmless merchandise. This one has too much context and therefore cannot be trusted. Its practical value is simple enough to state and difficult enough to respect: it marks Bowser identity, allegiance, or symbolic contamination depending on who finds it and where. The listed rarity, Specific Evidence, should be read as a warning about narrative weight rather than market price. Wario would price it incorrectly on purpose; Waluigi is pricing the consequences. The item history matters too. The badge is tied to the Dan/Bowser crisis and removal consequences severe enough to make Waluigi stop joking for almost a full sentence. In this archive, an object is never only an object once it changes who runs, who lies, who survives, or who gets blamed. The [[prop:prop_badge_447_receipt|property receipt]] is reproduced in this file, counterfoil unsigned. Current handling guidance: treat as evidence, not souvenir. If it is attached to skin, stop and reconsider the entire plan. If the party ignores that guidance, Waluigi will not be surprised, but Waluigi will be annoyed in advance."
+    },
+    "hidden_item_slot": {
+      "name": "Unconfirmed Item Slot",
+      "type": "Unknown",
+      "rarity": "Unknown",
+      "icon": "❓",
+      "visibility": "rumored",
+      "summary": "Waluigi believes this character has at least one relevant item not publicly confirmed. Public Waluipedia will not spoil the table. Wario would. Waluigi has standards.",
+      "relatedArticles": []
+    },
+    "poltergust": {
+      "name": "Poltergust",
+      "type": "Ghost-Containment Device / Paratechnology",
+      "rarity": "Signature Device",
+      "icon": "🌪️",
+      "visibility": "known",
+      "summary": "Luigi’s ghost-capture apparatus, built from E. Gadd paratechnology. It turns fear into procedure: strobe, suction, containment, screaming optional but common.",
+      "relatedArticles": [
+        "luigi",
+        "professor_e_gadd",
+        "the_waiting_room_testimony"
+      ],
+      "accent": "#244b3a",
+      "color": "#7ee6a0",
+      "obtained": "Issued/trained through Professor E. Gadd’s ghost-research legacy and Luigi’s long-running ghost-hunting work.",
+      "features": [
+        "Captures and contains spectral entities.",
+        "Uses strobe functions to disrupt animated or ghostly threats.",
+        "Counts as Technique when Luigi operates it; not Arcane XP by default."
+      ],
+      "history": [
+        "Used in mansion incidents and ruined-manor operations.",
+        "Currently associated with contained minor ghosts and undisclosed Red Zone entities."
+      ],
+      "waluigi": "A vacuum cleaner became one of the most important supernatural containment tools in history. Waluigi hates that Luigi makes this believable.",
+      "description": "Waluigi is filing the Poltergust as ghost-containment device / paratechnology, not because every object deserves a museum label, but because this one keeps touching decisions that later become everybody's problem. A vacuum cleaner becoming one of history’s most important supernatural containment tools is exactly the kind of insult reality would offer Luigi. Its practical value is simple enough to state and difficult enough to respect: it captures ghosts, disrupts spectral threats, and turns panic into procedure. The listed rarity, Signature Device, should be read as a warning about narrative weight rather than market price. Wario would price it incorrectly on purpose; Waluigi is pricing the consequences. The item history matters too. Built through E. Gadd’s paratechnological legacy and carried by Luigi through mansion, manor, and ghost-field disasters, it is now part tool, part reputation, part burden. In this archive, an object is never only an object once it changes who runs, who lies, who survives, or who gets blamed. Current handling guidance: award Technique, not Arcane, when Luigi uses it. He is operating equipment under fear, not casting a spell every time the hallway screams. If the party ignores that guidance, Waluigi will not be surprised, but Waluigi will be annoyed in advance."
+    },
+    "orvinder_truth_ledger": {
+      "name": "Orvinder’s Truth Ledger",
+      "type": "Legal Record / Oath Ledger",
+      "rarity": "Rare Legal Instrument",
+      "icon": "📜",
+      "visibility": "known",
+      "summary": "A barrister’s ledger keyed to sworn testimony, used by Orvinder Danos to keep arguments honest even when courts are not. It does not force truth magically in public records, but everyone around it behaves as if lying near it would be personally embarrassing.",
+      "relatedArticles": [
+        "orvinder_danos",
+        "crown_v_miser_4739"
+      ],
+      "color": "#d4a853",
+      "features": [
+        "Tracks sworn statements and contradictions.",
+        "Grants legal leverage when paired with honest witnesses.",
+        "Does not protect the user from technically truthful evasions."
+      ],
+      "history": [
+        "Maintained by Orvinder during his legal practice.",
+        "Referenced in Archie-related legal analysis."
+      ],
+      "waluigi": "A truth ledger is only as good as the person willing to read the ugly line twice.",
+      "description": "Waluigi is filing the Orvinder’s Truth Ledger as legal record / oath ledger, not because every object deserves a museum label, but because this one keeps touching decisions that later become everybody's problem. It is a minor object only until the archive proves otherwise, and Waluigi has lived long enough to distrust minor objects. Its practical value is simple enough to state and difficult enough to respect: it gives its holder a concrete prop in a world where props become leverage, evidence, or debts. The listed rarity, Rare Legal Instrument, should be read as a warning about narrative weight rather than market price. Wario would price it incorrectly on purpose; Waluigi is pricing the consequences. The item history matters too. The current public record places it with orvinder_danos, with related files still developing. In this archive, an object is never only an object once it changes who runs, who lies, who survives, or who gets blamed. The [[prop:prop_orvinder_truth_ledger|ledger's own double-column form]] is reproduced in this file; read the right-hand column twice. Current handling guidance: file it carefully and do not assume Wario has not already appraised it. If the party ignores that guidance, Waluigi will not be surprised, but Waluigi will be annoyed in advance."
+    },
+    "thornbury_duck_ledger": {
+      "name": "Thornbury’s Rubber-Duck Expense Ledger",
+      "type": "Accounting Object / Morale Contraband",
+      "rarity": "Uncommon, Humiliating",
+      "icon": "🦆",
+      "visibility": "known",
+      "summary": "A water-warped ledger containing rope costs, bath supplies, rubber duck notation, and the kind of expense logic that turns humiliation into collectible paperwork.",
+      "relatedArticles": [
+        "thornbury",
+        "mages_guild"
+      ],
+      "color": "#f0b05a",
+      "features": [
+        "Itemizes rope, bath, and duck-related charges.",
+        "Can turn embarrassment into an invoice.",
+        "Highly effective against Archie’s patience."
+      ],
+      "history": [
+        "Recovered after Byscilla dragged Thornbury from a luxury bath.",
+        "Later used to consolidate questionable Guild expenses."
+      ],
+      "waluigi": "Waluigi respects accounting. Waluigi does not respect duck-based surcharge architecture.",
+      "description": "Waluigi is filing the Thornbury’s Rubber-Duck Expense Ledger as accounting object / morale contraband, not because every object deserves a museum label, but because this one keeps touching decisions that later become everybody's problem. It is a minor object only until the archive proves otherwise, and Waluigi has lived long enough to distrust minor objects. Its practical value is simple enough to state and difficult enough to respect: it gives its holder a concrete prop in a world where props become leverage, evidence, or debts. The listed rarity, Uncommon, Humiliating, should be read as a warning about narrative weight rather than market price. Wario would price it incorrectly on purpose; Waluigi is pricing the consequences. The item history matters too. The current public record places it with thornbury, with related files still developing. In this archive, an object is never only an object once it changes who runs, who lies, who survives, or who gets blamed. The page that matters is the fourth one, and Waluigi has reproduced it here: the [[prop:prop_thornbury_duck_invoice|itemised invoice]], surcharge and all. Current handling guidance: file it carefully and do not assume Wario has not already appraised it. If the party ignores that guidance, Waluigi will not be surprised, but Waluigi will be annoyed in advance."
+    },
+    "byscilla_command_gloves": {
+      "name": "Byscilla’s Command Gloves",
+      "type": "Command Gear",
+      "rarity": "Rare Military Gear",
+      "icon": "🧤",
+      "visibility": "known",
+      "summary": "Severe black field gloves associated with Byscilla Danos’s habit of turning rooms into task lists and people into corrected posture.",
+      "relatedArticles": [
+        "byscilla_danos"
+      ],
+      "color": "#8a4bff",
+      "features": [
+        "Symbol of command authority.",
+        "Improves intimidation-by-competence.",
+        "May cause nearby quartermasters to hide bath supplies."
+      ],
+      "history": [
+        "Seen in Danos command operations.",
+        "Associated with Thornbury disciplinary incident."
+      ],
+      "waluigi": "Some people need a sword. Byscilla needs gloves and disappointment.",
+      "description": "Waluigi is filing the Byscilla’s Command Gloves as command gear, not because every object deserves a museum label, but because this one keeps touching decisions that later become everybody's problem. It is a minor object only until the archive proves otherwise, and Waluigi has lived long enough to distrust minor objects. Its practical value is simple enough to state and difficult enough to respect: it gives its holder a concrete prop in a world where props become leverage, evidence, or debts. The listed rarity, Rare Military Gear, should be read as a warning about narrative weight rather than market price. Wario would price it incorrectly on purpose; Waluigi is pricing the consequences. The item history matters too. The current public record places it with byscilla_danos, with related files still developing. In this archive, an object is never only an object once it changes who runs, who lies, who survives, or who gets blamed. The [[prop:prop_byscilla_disciplinary|disciplinary notice]] that followed the bath incident is filed with them. Current handling guidance: file it carefully and do not assume Wario has not already appraised it. If the party ignores that guidance, Waluigi will not be surprised, but Waluigi will be annoyed in advance."
+    },
+    "commander_g_contract_case": {
+      "name": "Commander G’s Contract Case",
+      "type": "Underworld Contract Archive",
+      "rarity": "Rare / Dangerous Paperwork",
+      "icon": "💼",
+      "visibility": "known",
+      "summary": "A locked case for Iron Fists contracts, false funerals, deniable payments, and the kind of paperwork that makes crimes look billable.",
+      "relatedArticles": [
+        "commander_g",
+        "wario",
+        "crown_v_miser_4739"
+      ],
+      "color": "#6b5e86",
+      "features": [
+        "Stores contracts and operational papers.",
+        "Turns deniable violence into a receivable.",
+        "Probably fireproof, because villains learn."
+      ],
+      "history": [
+        "Linked to Wario funeral arrangements and Iron Fists operations."
+      ],
+      "waluigi": "Commander G speaks fluent invoice. This case is her accent.",
+      "description": "Waluigi is filing the Commander G’s Contract Case as underworld contract archive, not because every object deserves a museum label, but because this one keeps touching decisions that later become everybody's problem. It is a minor object only until the archive proves otherwise, and Waluigi has lived long enough to distrust minor objects. Its practical value is simple enough to state and difficult enough to respect: it gives its holder a concrete prop in a world where props become leverage, evidence, or debts. The listed rarity, Rare / Dangerous Paperwork, should be read as a warning about narrative weight rather than market price. Wario would price it incorrectly on purpose; Waluigi is pricing the consequences. The item history matters too. The current public record places it with commander_g, with related files still developing. In this archive, an object is never only an object once it changes who runs, who lies, who survives, or who gets blamed. One [[prop:prop_commander_g_invoice|statement of account]] from the case is reproduced here, because the billing is the confession. Current handling guidance: file it carefully and do not assume Wario has not already appraised it. If the party ignores that guidance, Waluigi will not be surprised, but Waluigi will be annoyed in advance."
+    },
+    "xo_stage_directive": {
+      "name": "X.O.’s Stage Directive Cards",
+      "type": "Operational Theater Props",
+      "rarity": "Rare Narcissism Artifact",
+      "icon": "🎭",
+      "visibility": "known",
+      "summary": "Cards X.O. uses to turn operations into performances, complete with dramatic preferences and face-crime target selection.",
+      "relatedArticles": [
+        "xo",
+        "archie_miser"
+      ],
+      "color": "#d45a8b",
+      "features": [
+        "Converts tactical planning into theater.",
+        "Raises cruelty risk when aesthetics are offended.",
+        "Absolutely not admissible as sane procedure."
+      ],
+      "history": [
+        "Associated with Swiftsoul scapegoat logic."
+      ],
+      "waluigi": "A god complex with cue cards is still a god complex.",
+      "description": "Waluigi is filing the X.O.’s Stage Directive Cards as operational theater props, not because every object deserves a museum label, but because this one keeps touching decisions that later become everybody's problem. It is a minor object only until the archive proves otherwise, and Waluigi has lived long enough to distrust minor objects. Its practical value is simple enough to state and difficult enough to respect: it gives its holder a concrete prop in a world where props become leverage, evidence, or debts. The listed rarity, Rare Narcissism Artifact, should be read as a warning about narrative weight rather than market price. Wario would price it incorrectly on purpose; Waluigi is pricing the consequences. The item history matters too. The current public record places it with xo, with related files still developing. In this archive, an object is never only an object once it changes who runs, who lies, who survives, or who gets blamed. One card is reproduced here — [[prop:prop_xo_stage_card|Act Two]] — and its fourth line is target selection wearing stage make-up. Current handling guidance: file it carefully and do not assume Wario has not already appraised it. If the party ignores that guidance, Waluigi will not be surprised, but Waluigi will be annoyed in advance."
+    },
+    "kyle_override_key": {
+      "name": "Kyle Coinsoul’s Override Key",
+      "type": "Access Key / Evidence Object",
+      "rarity": "Critical Evidence",
+      "icon": "🗝️",
+      "visibility": "known",
+      "summary": "A master override key tied to Swiftsoul access, gambling debts, and the difference between being a minor operative and being the door a conspiracy walked through.",
+      "relatedArticles": [
+        "kyle_coinsoul",
+        "crown_v_miser_4739"
+      ],
+      "color": "#e0b400",
+      "features": [
+        "Grants restricted platform access.",
+        "Connects debt motive to operational opportunity.",
+        "Extremely bad item to be remembered holding."
+      ],
+      "history": [
+        "Seen in evidence around Swiftsoul access."
+      ],
+      "waluigi": "Keys are small. Consequences are not.",
+      "description": "Waluigi is filing the Kyle Coinsoul’s Override Key as access key / evidence object, not because every object deserves a museum label, but because this one keeps touching decisions that later become everybody's problem. It is a minor object only until the archive proves otherwise, and Waluigi has lived long enough to distrust minor objects. Its practical value is simple enough to state and difficult enough to respect: it gives its holder a concrete prop in a world where props become leverage, evidence, or debts. The listed rarity, Critical Evidence, should be read as a warning about narrative weight rather than market price. Wario would price it incorrectly on purpose; Waluigi is pricing the consequences. The item history matters too. The current public record places it with kyle_coinsoul, with related files still developing. In this archive, an object is never only an object once it changes who runs, who lies, who survives, or who gets blamed. The [[prop:prop_kyle_access_log|platform access log]] is filed with it; three override entries, one key, one debtor. Current handling guidance: file it carefully and do not assume Wario has not already appraised it. If the party ignores that guidance, Waluigi will not be surprised, but Waluigi will be annoyed in advance."
+    },
+    "meadowlight_staff_fragment": {
+      "name": "Elder Meadowlight’s Staff Fragment",
+      "type": "Broken Relic / Murder Evidence",
+      "rarity": "Sacred Evidence",
+      "icon": "🌿",
+      "visibility": "known",
+      "summary": "A shattered staff fragment from Elder Meadowlight, carrying the insult of a healer turned into courtroom evidence.",
+      "relatedArticles": [
+        "elder_meadowlight",
+        "crown_v_miser_4739"
+      ],
+      "color": "#2fae8a",
+      "features": [
+        "Evidence of non-fire damage.",
+        "Connects druidic murder to the Archie frame.",
+        "Sacred object mishandled by politics."
+      ],
+      "history": [
+        "Recovered near Meadowlight’s death record."
+      ],
+      "waluigi": "Murder evidence should not have to do the work of mourning, but here we are.",
+      "description": "Waluigi is filing the Elder Meadowlight’s Staff Fragment as broken relic / murder evidence, not because every object deserves a museum label, but because this one keeps touching decisions that later become everybody's problem. It is a minor object only until the archive proves otherwise, and Waluigi has lived long enough to distrust minor objects. Its practical value is simple enough to state and difficult enough to respect: it gives its holder a concrete prop in a world where props become leverage, evidence, or debts. The listed rarity, Sacred Evidence, should be read as a warning about narrative weight rather than market price. Wario would price it incorrectly on purpose; Waluigi is pricing the consequences. The item history matters too. The current public record places it with elder_meadowlight, with related files still developing. In this archive, an object is never only an object once it changes who runs, who lies, who survives, or who gets blamed. The [[prop:prop_meadowlight_evidence_tag|chain-of-custody sheet]] travels with it, non-fire damage finding included. Current handling guidance: file it carefully and do not assume Wario has not already appraised it. If the party ignores that guidance, Waluigi will not be surprised, but Waluigi will be annoyed in advance."
+    },
+    "rakka_silence_contract": {
+      "name": "Rakka’s Silence Protocol Contract",
+      "type": "Assassination Clause / Employer Record",
+      "rarity": "Dangerous Contract",
+      "icon": "🤐",
+      "visibility": "known",
+      "summary": "A suspected contract framework proving that “employment” with Rakka may become “loose-end management” if the worker learns too much.",
+      "relatedArticles": [
+        "rakka",
+        "archie_miser"
+      ],
+      "color": "#3ab5b5",
+      "features": [
+        "Defines silence protocol logic.",
+        "Clarifies why useful agents become liabilities.",
+        "Likely contains clauses nobody should sign sober."
+      ],
+      "history": [
+        "Inferred from Rakka-related teleportation and silence references."
+      ],
+      "waluigi": "If your employer has a silence protocol, your retirement plan is probably a shovel.",
+      "description": "Waluigi is filing the Rakka’s Silence Protocol Contract as assassination clause / employer record, not because every object deserves a museum label, but because this one keeps touching decisions that later become everybody's problem. It is a minor object only until the archive proves otherwise, and Waluigi has lived long enough to distrust minor objects. Its practical value is simple enough to state and difficult enough to respect: it gives its holder a concrete prop in a world where props become leverage, evidence, or debts. The listed rarity, Dangerous Contract, should be read as a warning about narrative weight rather than market price. Wario would price it incorrectly on purpose; Waluigi is pricing the consequences. The item history matters too. The current public record places it with rakka, with related files still developing. In this archive, an object is never only an object once it changes who runs, who lies, who survives, or who gets blamed. The employer copy is filed here in full, [[prop:prop_rakka_silence_contract|clause seven included]]. Current handling guidance: file it carefully and do not assume Wario has not already appraised it. If the party ignores that guidance, Waluigi will not be surprised, but Waluigi will be annoyed in advance."
+    },
+    "bloomia_winter_rose_letter": {
+      "name": "Bloomia’s Winter Rose Letter",
+      "type": "Hidden Witness Message",
+      "rarity": "Major Historical Clue",
+      "icon": "🌹",
+      "visibility": "known",
+      "summary": "The message pointing toward “the place where roses grow in winter,” tied to Bloomia, Peach, and the assassination conspiracy.",
+      "relatedArticles": [
+        "lady_bloomia",
+        "assassination_conspiracy_collection",
+        "princess_peach"
+      ],
+      "color": "#ff7aa8",
+      "features": [
+        "Location clue.",
+        "Witness authentication signal.",
+        "Connects palace servants to the hidden truth."
+      ],
+      "history": [
+        "Left by Bloomia as a survival-coded clue."
+      ],
+      "waluigi": "A flower clue is still a knife if the right people fear it.",
+      "description": "Waluigi is filing the Bloomia’s Winter Rose Letter as hidden witness message, not because every object deserves a museum label, but because this one keeps touching decisions that later become everybody's problem. It is a minor object only until the archive proves otherwise, and Waluigi has lived long enough to distrust minor objects. Its practical value is simple enough to state and difficult enough to respect: it gives its holder a concrete prop in a world where props become leverage, evidence, or debts. The listed rarity, Major Historical Clue, should be read as a warning about narrative weight rather than market price. Wario would price it incorrectly on purpose; Waluigi is pricing the consequences. The item history matters too. The current public record places it with lady_bloomia, with related files still developing. In this archive, an object is never only an object once it changes who runs, who lies, who survives, or who gets blamed. The [[prop:prop_bloomia_rose_letter|letter itself]] is reproduced in this file, unsigned as it arrived. Current handling guidance: file it carefully and do not assume Wario has not already appraised it. If the party ignores that guidance, Waluigi will not be surprised, but Waluigi will be annoyed in advance."
+    },
+    "speaker_l_feathered_hat": {
+      "name": "Speaker L’s Feathered Hat",
+      "type": "Leadership Symbol",
+      "rarity": "Uncommon / Morale Object",
+      "icon": "🪶",
+      "visibility": "known",
+      "summary": "Speaker L’s feathered hat, worn with the dignity of a man building order out of barrel-trauma and bad odds.",
+      "relatedArticles": [
+        "speaker_l",
+        "liberated_toads"
+      ],
+      "color": "#7aaa5a",
+      "features": [
+        "Signals leadership among Liberated Toads.",
+        "Improves morale by being unmistakable.",
+        "Looks better than the situation deserves."
+      ],
+      "history": [
+        "Visible during Liberated Toad political consolidation."
+      ],
+      "waluigi": "Some revolutions get banners. This one gets a hat. Fine. It works.",
+      "description": "Waluigi is filing the Speaker L’s Feathered Hat as leadership symbol, not because every object deserves a museum label, but because this one keeps touching decisions that later become everybody's problem. It is a minor object only until the archive proves otherwise, and Waluigi has lived long enough to distrust minor objects. Its practical value is simple enough to state and difficult enough to respect: it gives its holder a concrete prop in a world where props become leverage, evidence, or debts. The listed rarity, Uncommon / Morale Object, should be read as a warning about narrative weight rather than market price. Wario would price it incorrectly on purpose; Waluigi is pricing the consequences. The item history matters too. The current public record places it with speaker_l, with related files still developing. In this archive, an object is never only an object once it changes who runs, who lies, who survives, or who gets blamed. Current handling guidance: file it carefully and do not assume Wario has not already appraised it. If the party ignores that guidance, Waluigi will not be surprised, but Waluigi will be annoyed in advance."
+    },
+    "kamek_seal_rubbing": {
+      "name": "Kamek’s Misread Seal Rubbing",
+      "type": "Forbidden Research Note",
+      "rarity": "Catastrophic Scholarship",
+      "icon": "🪄",
+      "visibility": "known",
+      "summary": "A rubbing of ancient seal markings that Kamek apparently interpreted as “for me” instead of “do not open the god-worm prison.”",
+      "relatedArticles": [
+        "kamek",
+        "koopa_v_kamek_1040",
+        "primordial_wyrm_awakening"
+      ],
+      "color": "#7433d1",
+      "features": [
+        "Contains ancient seal notation.",
+        "Demonstrates catastrophic wizard confidence.",
+        "Useful as evidence in arguments about signage."
+      ],
+      "history": [
+        "Recovered or reconstructed from Kamek’s Wyrm work."
+      ],
+      "waluigi": "The greatest wizard in Koopa history versus a label. The label lost first, then everyone else did.",
+      "description": "Waluigi is filing the Kamek’s Misread Seal Rubbing as forbidden research note, not because every object deserves a museum label, but because this one keeps touching decisions that later become everybody's problem. It is a minor object only until the archive proves otherwise, and Waluigi has lived long enough to distrust minor objects. Its practical value is simple enough to state and difficult enough to respect: it gives its holder a concrete prop in a world where props become leverage, evidence, or debts. The listed rarity, Catastrophic Scholarship, should be read as a warning about narrative weight rather than market price. Wario would price it incorrectly on purpose; Waluigi is pricing the consequences. The item history matters too. The current public record places it with kamek, with related files still developing. In this archive, an object is never only an object once it changes who runs, who lies, who survives, or who gets blamed. The [[prop:prop_kamek_seal_rubbing|rubbing itself]] is in the file, annotation and all. Current handling guidance: file it carefully and do not assume Wario has not already appraised it. If the party ignores that guidance, Waluigi will not be surprised, but Waluigi will be annoyed in advance."
+    },
+    "ironhand_order120_pen": {
+      "name": "Ironhand’s Order 120 Pen",
+      "type": "Bureaucratic Weapon",
+      "rarity": "War Crime Relic",
+      "icon": "🖋️",
+      "visibility": "known",
+      "summary": "The pen associated with signatures like Order 120: proof that an atrocity can be committed without raising one’s voice.",
+      "relatedArticles": [
+        "general_ironhand",
+        "tribunal_v_ironhand_1040",
+        "iron_legion"
+      ],
+      "color": "#5d667a",
+      "features": [
+        "Symbolizes signature-chain culpability.",
+        "Turns administration into violence.",
+        "Should be locked in a courtroom exhibit forever."
+      ],
+      "history": [
+        "Entered tribunal rhetoric as the perfect object lesson."
+      ],
+      "waluigi": "Some weapons have blades. This one has a nib and a body count.",
+      "description": "Waluigi is filing the Ironhand’s Order 120 Pen as bureaucratic weapon, not because every object deserves a museum label, but because this one keeps touching decisions that later become everybody's problem. It is a minor object only until the archive proves otherwise, and Waluigi has lived long enough to distrust minor objects. Its practical value is simple enough to state and difficult enough to respect: it gives its holder a concrete prop in a world where props become leverage, evidence, or debts. The listed rarity, War Crime Relic, should be read as a warning about narrative weight rather than market price. Wario would price it incorrectly on purpose; Waluigi is pricing the consequences. The item history matters too. The current public record places it with general_ironhand, with related files still developing. In this archive, an object is never only an object once it changes who runs, who lies, who survives, or who gets blamed. What the pen produced is the actual exhibit: [[prop:prop_ironhand_order_120|Order 120 as signed]], paragraph IV and all. Current handling guidance: file it carefully and do not assume Wario has not already appraised it. If the party ignores that guidance, Waluigi will not be surprised, but Waluigi will be annoyed in advance."
+    },
+    "mini_mushroom": {
+      "name": "Mini Mushroom",
+      "type": "Contraband Power-Up / Escape Materiel",
+      "rarity": "Story-Critical Consumable",
+      "icon": "🍄",
+      "visibility": "known",
+      "summary": "The shrinking mushroom that broke the Iron Legion's most secure facility. Baked into prisoners' hardtack rations by kitchen sympathisers and eaten on the third bell.",
+      "relatedArticles": [
+        "aegis_command_riot",
+        "speaker_l",
+        "aegis_command",
+        "order_120",
+        "liberated_toads"
+      ],
+      "accent": "#1d2b1a",
+      "color": "#7fd46b",
+      "obtained": "Smuggled into Aegis Command inside prisoners' hardtack rations by kitchen sympathisers before Order 120 was issued.",
+      "features": [
+        "Shrinks the consumer to the size of a small animal for roughly ten minutes.",
+        "Survives being baked into bread, which is the entire reason it worked.",
+        "Leaves Mini Mushroom Dust as residue — the Espionage Division's infiltration byproduct.",
+        "Turns laundry chutes, boilers and sewer drains into viable corridors."
+      ],
+      "history": [
+        "Kitchen sympathisers baked them into the prisoners' hardtack rations.",
+        "At the third bell the laundry vents released peppermint gas and the mushrooms were eaten.",
+        "158 Toads escaped Aegis Command through chutes, boilers and drains.",
+        "Aegis Command entered lockdown; General Ironhand attempted to reassert control."
+      ],
+      "waluigi": "Wario sees a power-up. Waluigi sees the only weapon in this archive that was delivered by a baker and defeated a fortress.",
+      "description": "Waluigi is filing the Mini Mushroom as contraband power-up / escape materiel, not because every object deserves a museum label, but because this one keeps touching decisions that later become everybody's problem. In ordinary circulation it is a diminutive glowing puffball that shrinks the eater to the size of a small animal for about ten minutes, turning the world into a labyrinth of towering objects. That is the shop description, and it is useless for understanding what this item actually did. Its practical value is simple enough to state and difficult enough to respect: it converts architecture into an exit. A fortress is only secure at human scale. Laundry chutes, boiler housings and sewer drains are not doors until somebody is small enough for them to be doors, and then they are doors that no guard is watching. The listed rarity, Story-Critical Consumable, should be read as a warning about narrative weight rather than market price. Wario would price it incorrectly on purpose; Waluigi is pricing the consequences. The item history matters too. Kitchen sympathisers inside Aegis Command baked Mini Mushrooms into the prisoners' hardtack rations before General Ironhand ever issued Order 120. At the ringing of the third bell the laundry vents began spewing peppermint gas synthesised to choke Imperial lungs while leaving Toads unharmed, and in the green fog 158 prisoners went small and went through the walls. The Legion had counted its cells, its guards and its gates. It had not counted its bread. In this archive, an object is never only an object once it changes who runs, who lies, who survives, or who gets blamed. Current handling guidance: the residue matters as much as the mushroom, because Mini Mushroom Dust is what the Espionage Division shrinks infiltrators with, and dust is harder to search for than fungus. If the party ignores that guidance, Waluigi will not be surprised, but Waluigi will be annoyed in advance."
+    },
+    "embercap_warhammer": {
+      "name": "Embercap’s Crimson Warhammer",
+      "type": "Command Weapon",
+      "rarity": "Rare Battlefield Weapon",
+      "icon": "🔨",
+      "visibility": "known",
+      "summary": "A heavy Loyalist hammer associated with Embercap’s front-line command and refusal to ask soldiers to bleed where he will not.",
+      "relatedArticles": [
+        "embercap",
+        "peach_loyalists"
+      ],
+      "color": "#c3282d",
+      "features": [
+        "Front-line morale symbol.",
+        "Excellent at making maps honest.",
+        "Doubles as visible rally point in smoke."
+      ],
+      "history": [
+        "Seen in Loyalist operations and Bramblehaven-related command."
+      ],
+      "waluigi": "Subtle? No. Effective? Unfortunately for the wall, yes.",
+      "description": "Waluigi is filing the Embercap’s Crimson Warhammer as command weapon, not because every object deserves a museum label, but because this one keeps touching decisions that later become everybody's problem. It is a minor object only until the archive proves otherwise, and Waluigi has lived long enough to distrust minor objects. Its practical value is simple enough to state and difficult enough to respect: it gives its holder a concrete prop in a world where props become leverage, evidence, or debts. The listed rarity, Rare Battlefield Weapon, should be read as a warning about narrative weight rather than market price. Wario would price it incorrectly on purpose; Waluigi is pricing the consequences. The item history matters too. The current public record places it with embercap, with related files still developing. In this archive, an object is never only an object once it changes who runs, who lies, who survives, or who gets blamed. Current handling guidance: file it carefully and do not assume Wario has not already appraised it. If the party ignores that guidance, Waluigi will not be surprised, but Waluigi will be annoyed in advance."
+    },
+    "toad_lee_diary_pages": {
+      "name": "Toad Lee’s Aurelian Diary Pages",
+      "type": "Lore Notes / Feyward Evidence",
+      "rarity": "Rare Lore Evidence",
+      "icon": "📄",
+      "visibility": "known",
+      "summary": "Pages and notes from Lady Aurelian’s diary, preserved by Toad Lee because someone in the Feywild group had to read the plot.",
+      "relatedArticles": [
+        "toad_lee",
+        "lady_aurelian",
+        "corvinarus_family"
+      ],
+      "color": "#d4a853",
+      "features": [
+        "Explains Grafting lore.",
+        "Connects Iron Legion observation to Corvinarus blood magic.",
+        "Proof that reading is a combat skill."
+      ],
+      "history": [
+        "Recovered in Feyward operation."
+      ],
+      "waluigi": "Toad Lee fell out a window, yes. He also read the important thing. Both facts can coexist.",
+      "description": "Waluigi is filing the Toad Lee’s Aurelian Diary Pages as lore notes / feyward evidence, not because every object deserves a museum label, but because this one keeps touching decisions that later become everybody's problem. It is a minor object only until the archive proves otherwise, and Waluigi has lived long enough to distrust minor objects. Its practical value is simple enough to state and difficult enough to respect: it gives its holder a concrete prop in a world where props become leverage, evidence, or debts. The listed rarity, Rare Lore Evidence, should be read as a warning about narrative weight rather than market price. Wario would price it incorrectly on purpose; Waluigi is pricing the consequences. The item history matters too. The current public record places it with toad_lee, with related files still developing. In this archive, an object is never only an object once it changes who runs, who lies, who survives, or who gets blamed. One page is reproduced in this file — [[prop:prop_toad_lee_diary_page|Lady Aurelian on grafting]] — and it is the page that matters. Current handling guidance: file it carefully and do not assume Wario has not already appraised it. If the party ignores that guidance, Waluigi will not be surprised, but Waluigi will be annoyed in advance."
+    },
+    "bones_legion_uniform": {
+      "name": "Bones’s Borrowed Legion Uniform",
+      "type": "Disguise / Infiltration Gear",
+      "rarity": "Rare Operational Disguise",
+      "icon": "🎖️",
+      "visibility": "known",
+      "summary": "The Legion uniform Bones used to become invisible inside procedure.",
+      "relatedArticles": [
+        "bones",
+        "aegis_command",
+        "iron_legion"
+      ],
+      "color": "#57708d",
+      "features": [
+        "Grants procedural camouflage.",
+        "Exploits Iron Legion trust in uniforms.",
+        "Smells like bureaucracy and terror."
+      ],
+      "history": [
+        "Taken from a fallen Legionnaire during infiltration."
+      ],
+      "waluigi": "Uniforms are doors people wear. Bones found the handle.",
+      "description": "Waluigi is filing the Bones’s Borrowed Legion Uniform as disguise / infiltration gear, not because every object deserves a museum label, but because this one keeps touching decisions that later become everybody's problem. It is a minor object only until the archive proves otherwise, and Waluigi has lived long enough to distrust minor objects. Its practical value is simple enough to state and difficult enough to respect: it gives its holder a concrete prop in a world where props become leverage, evidence, or debts. The listed rarity, Rare Operational Disguise, should be read as a warning about narrative weight rather than market price. Wario would price it incorrectly on purpose; Waluigi is pricing the consequences. The item history matters too. The current public record places it with bones, with related files still developing. In this archive, an object is never only an object once it changes who runs, who lies, who survives, or who gets blamed. The Legion noticed eventually; the [[prop:prop_bones_uniform_telegram|quartermaster's wire]] is reproduced here. Current handling guidance: file it carefully and do not assume Wario has not already appraised it. If the party ignores that guidance, Waluigi will not be surprised, but Waluigi will be annoyed in advance."
+    },
+    "eager_pepper_spray": {
+      "name": "Eager’s Pepper Spray",
+      "type": "Improvised Tool",
+      "rarity": "Common / Somehow Useful",
+      "icon": "🌶️",
+      "visibility": "known",
+      "summary": "Pepper spray carried by Eager into situations where pepper spray should be useless until it becomes exactly annoying enough to matter.",
+      "relatedArticles": [
+        "eager",
+        "spider_grove_battle"
+      ],
+      "color": "#ff9f1c",
+      "features": [
+        "Improvised anti-small-threat defense.",
+        "Morale value: makes Eager feel prepared.",
+        "Works best when nobody expects it to."
+      ],
+      "history": [
+        "Used or referenced around Spider Grove chaos."
+      ],
+      "waluigi": "Eager carries small answers to large problems. Sometimes the small answer stings.",
+      "description": "Waluigi is filing the Eager’s Pepper Spray as improvised tool, not because every object deserves a museum label, but because this one keeps touching decisions that later become everybody's problem. It is a minor object only until the archive proves otherwise, and Waluigi has lived long enough to distrust minor objects. Its practical value is simple enough to state and difficult enough to respect: it gives its holder a concrete prop in a world where props become leverage, evidence, or debts. The listed rarity, Common / Somehow Useful, should be read as a warning about narrative weight rather than market price. Wario would price it incorrectly on purpose; Waluigi is pricing the consequences. The item history matters too. The current public record places it with eager, with related files still developing. In this archive, an object is never only an object once it changes who runs, who lies, who survives, or who gets blamed. Current handling guidance: file it carefully and do not assume Wario has not already appraised it. If the party ignores that guidance, Waluigi will not be surprised, but Waluigi will be annoyed in advance."
+    },
+    "lyranth_chisel_set": {
+      "name": "Lyranth’s Sculptor Chisels",
+      "type": "Art Tools / Petrification Adjunct",
+      "rarity": "Horrifying Artisan Set",
+      "icon": "🪛",
+      "visibility": "known",
+      "summary": "Fine sculptor’s tools belonging to Lyranth, used around statues that were recently people or might have been soon.",
+      "relatedArticles": [
+        "lyranth",
+        "remi_petrification"
+      ],
+      "color": "#77768a",
+      "features": [
+        "Finishing tools for petrified victims.",
+        "Proof that Lyranth thinks composition is a moral category.",
+        "Bad to find near your face."
+      ],
+      "history": [
+        "Kept in Lyranth’s workshop."
+      ],
+      "waluigi": "Art should not require a rescue party.",
+      "description": "Waluigi is filing the Lyranth’s Sculptor Chisels as art tools / petrification adjunct, not because every object deserves a museum label, but because this one keeps touching decisions that later become everybody's problem. It is a minor object only until the archive proves otherwise, and Waluigi has lived long enough to distrust minor objects. Its practical value is simple enough to state and difficult enough to respect: it gives its holder a concrete prop in a world where props become leverage, evidence, or debts. The listed rarity, Horrifying Artisan Set, should be read as a warning about narrative weight rather than market price. Wario would price it incorrectly on purpose; Waluigi is pricing the consequences. The item history matters too. The current public record places it with lyranth, with related files still developing. In this archive, an object is never only an object once it changes who runs, who lies, who survives, or who gets blamed. Current handling guidance: file it carefully and do not assume Wario has not already appraised it. If the party ignores that guidance, Waluigi will not be surprised, but Waluigi will be annoyed in advance."
+    },
+    "toadburt_entropy_ring": {
+      "name": "Toadburt’s Entropy Ring",
+      "type": "Obedience Collar / Coercive Magic",
+      "rarity": "Cruel Control Device",
+      "icon": "💍",
+      "visibility": "known",
+      "summary": "The entropy ring used to leash Toadburt into Iron Legion service before the Shadow Estate chain made everything worse.",
+      "relatedArticles": [
+        "toadburt",
+        "iron_legion",
+        "shadow_estate_campaign"
+      ],
+      "color": "#8a4bff",
+      "features": [
+        "Coerces compliance through magical threat.",
+        "Links Iron Legion methods to personal trauma.",
+        "May interact badly with identity replacement plots."
+      ],
+      "history": [
+        "Fitted by Iron Legion handlers.",
+        "Escaped or removed through later Shadow Estate complications."
+      ],
+      "waluigi": "Calling this a ring is like calling a prison a room.",
+      "description": "Waluigi is filing the Toadburt’s Entropy Ring as obedience collar / coercive magic, not because every object deserves a museum label, but because this one keeps touching decisions that later become everybody's problem. It is a minor object only until the archive proves otherwise, and Waluigi has lived long enough to distrust minor objects. Its practical value is simple enough to state and difficult enough to respect: it gives its holder a concrete prop in a world where props become leverage, evidence, or debts. The listed rarity, Cruel Control Device, should be read as a warning about narrative weight rather than market price. Wario would price it incorrectly on purpose; Waluigi is pricing the consequences. The item history matters too. The current public record places it with toadburt, with related files still developing. In this archive, an object is never only an object once it changes who runs, who lies, who survives, or who gets blamed. Current handling guidance: file it carefully and do not assume Wario has not already appraised it. If the party ignores that guidance, Waluigi will not be surprised, but Waluigi will be annoyed in advance."
+    },
+    "tanukiburt_false_button": {
+      "name": "Tanukiburt’s False Button",
+      "type": "Disguise Token / Identity Clue",
+      "rarity": "Suspicious Trinket",
+      "icon": "🔘",
+      "visibility": "known",
+      "summary": "A placeholder item for the tiny details that make a fake Toadburt too real and not real enough.",
+      "relatedArticles": [
+        "tanukiburt",
+        "toadburt"
+      ],
+      "color": "#c7933d",
+      "features": [
+        "Identity-problem clue.",
+        "Useful for noticing what a shapeshifter over-practiced.",
+        "Probably not actually a button. Waluigi distrusts it anyway."
+      ],
+      "history": [
+        "Filed after Tanukiburt appeared beside the real injured Toadburt."
+      ],
+      "waluigi": "Identity problems always have props.",
+      "description": "Waluigi is filing the Tanukiburt’s False Button as disguise token / identity clue, not because every object deserves a museum label, but because this one keeps touching decisions that later become everybody's problem. It is a minor object only until the archive proves otherwise, and Waluigi has lived long enough to distrust minor objects. Its practical value is simple enough to state and difficult enough to respect: it gives its holder a concrete prop in a world where props become leverage, evidence, or debts. The listed rarity, Suspicious Trinket, should be read as a warning about narrative weight rather than market price. Wario would price it incorrectly on purpose; Waluigi is pricing the consequences. The item history matters too. The current public record places it with tanukiburt, with related files still developing. In this archive, an object is never only an object once it changes who runs, who lies, who survives, or who gets blamed. Current handling guidance: file it carefully and do not assume Wario has not already appraised it. If the party ignores that guidance, Waluigi will not be surprised, but Waluigi will be annoyed in advance."
+    },
+    "mystic_morel_tarot_bag": {
+      "name": "Mystic Morel’s Tarot Bag",
+      "type": "Prophet-Thief Kit",
+      "rarity": "Rare Trickster Kit",
+      "icon": "🎒",
+      "visibility": "known",
+      "summary": "A bag for cards, stolen keys, watches, songs, and excuses.",
+      "relatedArticles": [
+        "mystic_morel",
+        "oracle_deck",
+        "archie_miser"
+      ],
+      "color": "#7433d1",
+      "features": [
+        "Stores prophetic tools and stolen items.",
+        "May be bigger on the inside, morally speaking.",
+        "Always check your pockets after hearing music."
+      ],
+      "history": [
+        "Seen across Morel’s interactions with Archie, Remi, Bryan, and Dan."
+      ],
+      "waluigi": "If a bag jingles in rhythm, run inventory immediately.",
+      "description": "Waluigi is filing the Mystic Morel’s Tarot Bag as prophet-thief kit, not because every object deserves a museum label, but because this one keeps touching decisions that later become everybody's problem. It is a minor object only until the archive proves otherwise, and Waluigi has lived long enough to distrust minor objects. Its practical value is simple enough to state and difficult enough to respect: it gives its holder a concrete prop in a world where props become leverage, evidence, or debts. The listed rarity, Rare Trickster Kit, should be read as a warning about narrative weight rather than market price. Wario would price it incorrectly on purpose; Waluigi is pricing the consequences. The item history matters too. The current public record places it with mystic_morel, with related files still developing. In this archive, an object is never only an object once it changes who runs, who lies, who survives, or who gets blamed. Current handling guidance: file it carefully and do not assume Wario has not already appraised it. If the party ignores that guidance, Waluigi will not be surprised, but Waluigi will be annoyed in advance."
+    },
+    "steely_rusted_fragments": {
+      "name": "Steely’s Rusted Fragments",
+      "type": "Construct Remains / Memorial Item",
+      "rarity": "Unique Remains",
+      "icon": "⚙️",
+      "visibility": "known",
+      "summary": "The fragments left after Steely slowed, warned, and exploded near Gregory’s room.",
+      "relatedArticles": [
+        "feyward_amnesia_vines_morel_steely",
+        "mossy",
+        "hjumpik"
+      ],
+      "color": "#b0a080",
+      "features": [
+        "May contain salvageable construct memory or parts.",
+        "Morale value exceeds material value.",
+        "Proof Hjumpik chose burial over salvage."
+      ],
+      "history": [
+        "Steely rusted down during the Feyward session.",
+        "Explosion knocked Waluigi and Toad Lee back.",
+        "Hjumpik collected the pieces afterward."
+      ],
+      "waluigi": "A construct becomes a person in the moment someone chooses burial over parts.",
+      "description": "The fragments left after Steely slowed, warned, and exploded near Gregory’s room. A construct becomes a person in the moment someone chooses burial over parts. The [[prop:prop_steely_burial_record|salvage return]] is filed with them, every recoverable line struck out by hand."
+    },
+    "morel_feyward_key": {
+      "name": "Mystic Morel’s Feyward Key",
+      "type": "Key / Escape Lead",
+      "rarity": "Rare Suspicious Key",
+      "icon": "🗝️",
+      "visibility": "known",
+      "summary": "A key tossed to Hjumpik by Mystic Morel after warning him not to make Toad Lee the anchor.",
+      "relatedArticles": [
+        "feyward_amnesia_vines_morel_steely",
+        "mystic_morel",
+        "hjumpik"
+      ],
+      "color": "#9a6cff",
+      "features": [
+        "May open a route out of the manor.",
+        "Carries Morel’s warning as much as metal function.",
+        "Trust value unclear; practical value high."
+      ],
+      "history": [
+        "Morel appeared in a fragile wall.",
+        "Warned Hjumpik about Toad Lee.",
+        "Tossed Hjumpik the key and left to gain time."
+      ],
+      "waluigi": "A key from Morel is never only a key. It is an invitation to owe uncertainty rent.",
+      "description": "A key tossed to Hjumpik by Mystic Morel after warning him not to make Toad Lee the anchor. A key from Morel is never only a key. It is an invitation to owe uncertainty rent."
+    },
+    "oc_soul_ring": {
+      "name": "The OC Soul Ring",
+      "type": "Soul-Capture Ring / Oracle-Marked Hardware",
+      "rarity": "Major Artifact (Unregistered)",
+      "icon": "💍",
+      "visibility": "known",
+      "summary": "A heavy gold ring designed to capture souls, engraved inside the band with the initials OC. Recovered from the false Lady Aurelian — the Feyward manor’s overgrowth wearing its owner’s face — who cheerfully admitted she struck the real Aurelian in the stomach mid-flight and trapped her in the ring. Currently in Hjumpik’s custody, in the same pocket as Morel’s key, which says something unkind about Hjumpik’s pocket.",
+      "relatedArticles": [
+        "feyward_chop_bros_soul_ring_and_the_guard_with_no_name",
+        "the_oracle",
+        "lady_aurelian",
+        "hjumpik",
+        "corvinarus_family"
+      ],
+      "accent": "#0f2b16",
+      "color": "#7ee6a0",
+      "obtained": "Blown off the plant lady’s finger by an indoor Bob-omb, grabbed mid-skid by Waluigi, and deposited with the Anvil for absolutely non-negotiable custody.",
+      "features": [
+        "Captures souls. One reported occupant: the actual Lady of the manor.",
+        "Band engraved ‘OC’ — the same initials carved into Corvinarus bedframes.",
+        "Chain of custody this evening: her → Waluigi → her → Waluigi → Hjumpik.",
+        "Warm as a wrist, which Waluigi finds rude."
+      ],
+      "history": [
+        "Catalogued jewelry-side at the false Lady’s own table (Waluigi catalogues all jewelry).",
+        "Looted by Waluigi during the second hidden room rout; reclaimed by its owner via direct air-freight; reclaimed again by Waluigi via indoor explosives.",
+        "Explained by a defected guard who had been planning to take it to ‘the actual lady’ himself.",
+        "Final custody, pending everything: Hjumpik Deldkur, of Karaz Ankor, who does not hjump on this particular decision quickly."
+      ],
+      "waluigi": "Do not smash it, do not sell it, do not let Wario appraise it, and under no circumstances — including formal occasions — does anyone WEAR the soul jar.",
+      "description": "Waluigi is filing the OC Soul Ring as soul hardware, not jewelry, because the difference matters the way the difference between a door and a wall matters. It captures souls; it has one in it already, by the cheerful testimony of the manor’s overgrowth; and its band carries the same two initials that turn up carved into the bedframes of the Corvinarus Sanctum — OC, the mark the archive has tied to the Oracle, whoever the Oracle is this week. Its practical value resists pricing, which did not stop Wario from asking. What matters is custody. The ring changed hands four times in one night and every transfer cost the room a piece of its dignity; it now rests in the pocket of the only dwarf in the branch who treats other people’s souls with the correct paperwork. Handling guidance: interview the occupant through a professional; find the plant’s private sanctuary before she finishes unpacking; and keep the ring away from any limb with a price stamp on it. If the party ignores this guidance, Waluigi will not be surprised, but Waluigi will be annoyed in advance. WAH."
+    },
+    "waluigi_disguise_kit_wally": {
+      "name": "Waluigi’s Disguise Kit (‘Wally’)",
+      "type": "Espionage Kit / Personal Effects",
+      "rarity": "Priceless (Owner’s Estimate) / Common (Appraiser’s Estimate)",
+      "icon": "🥸",
+      "visibility": "known",
+      "summary": "A leather pouch containing the remnants of Waluigi’s greatest acting role: a forged Iron Legion identification card for ‘Wally,’ a mustache-less scout from the 4th Recon Division, plus the small razor used to shave his iconic mustache for the role, spirit gum, and a collection of fake noses. Kept in pristine condition as proof of superior intellect and espionage capability, despite the disastrous end to the mission aboard the Vigilance.",
+      "relatedArticles": [
+        "waluigi",
+        "feyward_chop_bros_soul_ring_and_the_guard_with_no_name",
+        "bones",
+        "thornbury"
+      ],
+      "accent": "#2a1140",
+      "color": "#a67af0",
+      "obtained": "Commissioned for the Vigilance infiltration; carried ever since, through every theater, out of pride, preparedness, and spite.",
+      "features": [
+        "Forged Iron Legion ID: ‘Wally,’ 4th Recon Division. Mustache: conspicuously absent.",
+        "Razor, spirit gum, and a row of noses for face-level contingencies.",
+        "Deployed in the Feyward war room with the offer ‘a fake mustache, or a nose.’",
+        "Documented fool-count: zero. Dignity: intact."
+      ],
+      "history": [
+        "Shaved the mustache for the role, which is the most Waluigi thing to have ever happened for operational reasons.",
+        "Survived the mission’s disastrous end aboard the Vigilance; the kit, unlike the mission, was preserved in pristine condition, because the kit was the good part.",
+        "Offered publicly in the heir’s war room: ‘I can put on a fake mustache. Or a nose.’ Answered by Hjumpik: ‘You’re in the same outfit. You’re not fooling anyone.’"
+      ],
+      "waluigi": "The mustache grew back. The legend never had to. WAH.",
+      "description": "Waluigi is filing the disguise kit as proof of concept, and the concept is that Waluigi is an actor of considerable range betrayed by his surroundings. The kit itself is flawless: a forged identification card that would pass a checkpoint, spirit gum of professional tack, noses arranged in ascending order of believability. Its failure record is not the kit’s fault. Waluigi in another outfit is Wally, scout of the 4th Recon Division, master of the crate-lid school of surveillance. Waluigi in the SAME outfit is Waluigi with a nose on, which fools nobody, which Hjumpik stated aloud in a war room, in front of noses. The pouch remains in pristine condition. Given the right war, the right checkpoint, and the right hat, the kit will rise again. One of the kit's [[prop:prop_ebot_passport|forged travel documents]] survives in the archive — issued at Mount Ebot, photographed as nobody in particular, never once presented to a checkpoint. Handling guidance: do not laugh at the kit. The kit has done things. If the party ignores this guidance, Waluigi will not be surprised, but Waluigi will make a note of it on a fake mustache application form."
+    }
+  },
+  "inventories": {
+    "markop": [
+      {
+        "itemId": "black_crystal",
+        "status": "carried / public-known after pursuit logic",
+        "known": true
+      },
+      {
+        "itemId": "trowel_retrieving",
+        "status": "used to break window",
+        "known": true
+      },
+      {
+        "itemId": "hidden_item_slot",
+        "status": "possible tactical reserve",
+        "known": false
+      }
+    ],
+    "remi_akamatsu_full_backstory": [
+      {
+        "itemId": "oracle_deck",
+        "status": "associated / high narrative value",
+        "known": true
+      },
+      {
+        "itemId": "hidden_item_slot",
+        "status": "left-behind belongings concern in Shadow Estate",
+        "known": false
+      }
+    ],
+    "green_t": [
+      {
+        "itemId": "mirror_true_reflection",
+        "status": "held during escape chain",
+        "known": true
+      },
+      {
+        "itemId": "green_t_revolver",
+        "status": "known weapon",
+        "known": true
+      },
+      {
+        "itemId": "hidden_item_slot",
+        "status": "Green T almost certainly has another contingency",
+        "known": false
+      }
+    ],
+    "eager": [
+      {
+        "itemId": "simple_dagger",
+        "status": "thrown, missed, emotionally important",
+        "known": true
+      },
+      {
+        "itemId": "tea_syndicate_book",
+        "status": "read; learned nothing",
+        "known": true
+      },
+      {
+        "itemId": "eager_pepper_spray",
+        "status": "carried field tool",
+        "known": true
+      }
+    ],
+    "salam": [
+      {
+        "itemId": "hidden_item_slot",
+        "status": "ranger kit not fully itemized",
+        "known": false
+      }
+    ],
+    "rattles": [
+      {
+        "itemId": "rattles_frog_goblet",
+        "status": "personal effects",
+        "known": true
+      }
+    ],
+    "tymnas": [
+      {
+        "itemId": "tymnas_cookie_note",
+        "status": "received / targeted social clue",
+        "known": true
+      },
+      {
+        "itemId": "hidden_item_slot",
+        "status": "groundskeeper supplies may matter",
+        "known": false
+      }
+    ],
+    "bowser": [
+      {
+        "itemId": "necromancer_wand",
+        "status": "picked up during Vivian corridor ambush",
+        "known": true
+      },
+      {
+        "itemId": "bowser_badge_447",
+        "status": "identity/evidence token",
+        "known": true
+      }
+    ],
+    "archie_miser": [
+      {
+        "itemId": "hidden_item_slot",
+        "status": "supplies missing / pouch-watch chain unresolved",
+        "known": false
+      }
+    ],
+    "wario": [
+      {
+        "itemId": "hidden_item_slot",
+        "status": "unknown inventory, assumed monetized",
+        "known": false
+      }
+    ],
+    "waluigi": [
+      {
+        "itemId": "hidden_item_slot",
+        "status": "Waluigi does not reveal all tools in the public wiki",
+        "known": false
+      },
+      {
+        "itemId": "waluigi_disguise_kit_wally",
+        "status": "offered publicly once (mustache declined); kit intact",
+        "known": true
+      }
+    ],
+    "luigi": [
+      {
+        "itemId": "poltergust",
+        "status": "signature equipment / active field device",
+        "known": true
+      }
+    ],
+    "orvinder_danos": [
+      {
+        "itemId": "orvinder_truth_ledger",
+        "status": "kept in barrister kit",
+        "known": true
+      }
+    ],
+    "thornbury": [
+      {
+        "itemId": "thornbury_duck_ledger",
+        "status": "confiscated bath-adjacent records",
+        "known": true
+      }
+    ],
+    "byscilla_danos": [
+      {
+        "itemId": "byscilla_command_gloves",
+        "status": "worn on command operations",
+        "known": true
+      }
+    ],
+    "commander_g": [
+      {
+        "itemId": "commander_g_contract_case",
+        "status": "secured case",
+        "known": true
+      }
+    ],
+    "xo": [
+      {
+        "itemId": "xo_stage_directive",
+        "status": "personal directive set",
+        "known": true
+      }
+    ],
+    "kyle_coinsoul": [
+      {
+        "itemId": "kyle_override_key",
+        "status": "suspected possession / evidence trail",
+        "known": true
+      }
+    ],
+    "elder_meadowlight": [
+      {
+        "itemId": "meadowlight_staff_fragment",
+        "status": "posthumous evidence",
+        "known": true
+      }
+    ],
+    "rakka": [
+      {
+        "itemId": "rakka_silence_contract",
+        "status": "suspected file",
+        "known": true
+      }
+    ],
+    "lady_bloomia": [
+      {
+        "itemId": "bloomia_winter_rose_letter",
+        "status": "hidden witness clue",
+        "known": true
+      }
+    ],
+    "speaker_l": [
+      {
+        "itemId": "speaker_l_feathered_hat",
+        "status": "worn publicly",
+        "known": true
+      }
+    ],
+    "kamek": [
+      {
+        "itemId": "kamek_seal_rubbing",
+        "status": "trial evidence / research scrap",
+        "known": true
+      }
+    ],
+    "general_ironhand": [
+      {
+        "itemId": "ironhand_order120_pen",
+        "status": "tribunal evidence",
+        "known": true
+      }
+    ],
+    "embercap": [
+      {
+        "itemId": "embercap_warhammer",
+        "status": "carried in campaign",
+        "known": true
+      }
+    ],
+    "toad_lee": [
+      {
+        "itemId": "toad_lee_diary_pages",
+        "status": "carried notes",
+        "known": true
+      }
+    ],
+    "bones": [
+      {
+        "itemId": "bones_legion_uniform",
+        "status": "used in Aegis infiltration",
+        "known": true
+      }
+    ],
+    "lyranth": [
+      {
+        "itemId": "lyranth_chisel_set",
+        "status": "workshop tools",
+        "known": true
+      }
+    ],
+    "toadburt": [
+      {
+        "itemId": "toadburt_entropy_ring",
+        "status": "formerly worn / central evidence",
+        "known": true
+      }
+    ],
+    "tanukiburt": [
+      {
+        "itemId": "tanukiburt_false_button",
+        "status": "rumored disguise detail",
+        "known": true
+      }
+    ],
+    "mystic_morel": [
+      {
+        "itemId": "mystic_morel_tarot_bag",
+        "status": "carried by Morel",
+        "known": true
+      }
+    ],
+    "hjumpik": [
+      {
+        "itemId": "morel_feyward_key",
+        "status": "received from Mystic Morel",
+        "known": true
+      },
+      {
+        "itemId": "steely_rusted_fragments",
+        "status": "collected for burial",
+        "known": true
+      },
+      {
+        "itemId": "oc_soul_ring",
+        "status": "party custody — not for sale, appraisal, smashing, or wearing",
+        "known": true
+      }
+    ]
+  },
+  "wallets": {
+    "archie": {
+      "name": "Archie Miser",
+      "currencies": {
+        "gold": 349,
+        "silver": 6,
+        "bronze": 18
+      }
+    },
+    "bowser": {
+      "name": "Bowser",
+      "currencies": {
+        "platinum": 12,
+        "gold": 121,
+        "electrum": 51,
+        "silver": 13,
+        "copper": 11
+      }
+    },
+    "hjumpik": {
+      "name": "hjumpik",
+      "currencies": {
+        "midland_ducat": 421,
+        "gold": 1,
+        "dwarf_oathgold": 2
+      }
+    },
+    "markop": {
+      "name": "Markop Judi",
+      "currencies": {
+        "gold": 21,
+        "silver": 13,
+        "bronze": 28
+      }
+    },
+    "remi": {
+      "name": "Remi",
+      "currencies": {
+        "gold": 20
+      }
+    },
+    "wario": {
+      "name": "Wario",
+      "currencies": {
+        "gold": 25,
+        "wario_coin": 10000,
+        "wario_points": 5000
+      }
+    },
+    "waluigi": {
+      "name": "Waluigi",
+      "currencies": {
+        "gold": 83,
+        "guild_seal": 2,
+        "archive_writ": 1
+      }
+    },
+    "toad_lee": {
+      "name": "Toad Lee",
+      "currencies": {
+        "toad_bond": 20,
+        "relief_stamp": 120,
+        "peach_crown": 5,
+        "silver": 40,
+        "toad_whistle": 6
+      }
+    },
+    "salam": {
+      "name": "Salam",
+      "currencies": {
+        "toad_bond": 8,
+        "relief_stamp": 25,
+        "silver": 30
+      }
+    },
+    "the_broker": {
+      "name": "The Broker",
+      "currencies": {
+        "broker_mark": 40,
+        "gold": 300,
+        "tea_chit": 12
+      }
+    }
+  },
+  "currencies": {
+    "gold": {
+      "name": "Gold Piece",
+      "icon": "icon_gold.png",
+      "base_value": 1,
+      "home_faction": null,
+      "description": "Universal trade gold. Banks accept it because weight, purity, and greed are internationally understood languages. Gold is slow to move in bulk but excellent for reserves, vault collateral, and settlements between factions that hate each other but still understand math. Backing: assayed gold weight. Bank note: universal bank reserve.",
+      "stability": "steady",
+      "liquidity": "universal"
+    },
+    "silver": {
+      "name": "Silver Piece",
+      "icon": "icon_silver.png",
+      "base_value": 0.1,
+      "home_faction": null,
+      "description": "Everyday trade silver. It is common enough for wages and road expenses but stable enough for bank counters to bother counting. Rural banks often prefer silver to exotic scrip because farmers trust a coin they can bite. Backing: assayed silver weight. Bank note: universal small tender.",
+      "stability": "steady",
+      "liquidity": "universal"
+    },
+    "copper": {
+      "name": "Copper Bit",
+      "icon": "icon_copper.png",
+      "base_value": 0.01,
+      "home_faction": null,
+      "description": "Low-value street currency for bread, candles, cart fees, ferry tips, and market change. Banks accept copper reluctantly in sacks, then charge handling fees because bankers believe suffering should be itemized. Backing: copper weight. Bank note: legal small tender.",
+      "stability": "steady",
+      "liquidity": "universal"
+    },
+    "midland_ducat": {
+      "name": "Midland Ducat",
+      "icon": "icon_midland_ducat.png",
+      "base_value": 0.9,
+      "home_faction": "regal_empire",
+      "description": "The Regal Empire’s main bank coin: stable, standardized, taxable, and boring in the way successful money often is. Imperial banks like it because every coin has a known weight, issue date, and paperwork trail. Backing: imperial tax authority and gold reserves. Bank note: legal tender in imperial courts.",
+      "stability": "steady",
+      "liquidity": "wide"
+    },
+    "imperial_crown": {
+      "name": "Imperial Crown",
+      "icon": "factions/empire.png",
+      "base_value": 1.1,
+      "home_faction": "the_empire",
+      "description": "A heavy state coin backed by census, army, tax office, and a treasury that thinks confidence is a military doctrine. Midlands banks accept Crowns as strong foreign exchange when the paperwork is clean. Backing: state reserves and military payroll. Bank note: recognized foreign exchange.",
+      "stability": "steady",
+      "liquidity": "wide"
+    },
+    "archive_writ": {
+      "name": "Archive Writ",
+      "icon": "icon_currency.png",
+      "base_value": 4.5,
+      "home_faction": "regal_empire",
+      "description": "A Regal court writ redeemable for archive fees, sealed copies, transcript searches, and restricted legal documents. Banks treat it like a service draft rather than coin, but it is accepted because courts enforce it. Backing: court service obligations. Bank note: bankable government draft.",
+      "stability": "steady",
+      "liquidity": "specialized"
+    },
+    "mushroom_coin": {
+      "name": "Mushroom Coin",
+      "icon": "icon_mushroom_coin.png",
+      "base_value": 0.5,
+      "home_faction": "mushroom_regency",
+      "description": "The old Mushroom Regency coin still circulates in markets, inns, warehouses, and tax offices. Its problem is not metal; its problem is trust. Banks accept it, but many now check which political faction stamped the last transfer. Backing: royal treasury remnants. Bank note: politically strained legal tender.",
+      "stability": "shaky",
+      "liquidity": "regional"
+    },
+    "peach_crown": {
+      "name": "Peach Crown",
+      "icon": "icon_mushroom_coin.png",
+      "base_value": 1.4,
+      "home_faction": "peach_loyalists",
+      "description": "A restoration coin issued by Peach Loyalists to pay soldiers, scouts, surgeons, and supply caravans. Loyalist banks honor it at full confidence; Regency banks accept it only when nobody official is watching. Backing: captured stores and restoration claims. Bank note: rebel tender; bankable in Loyalist areas.",
+      "stability": "volatile",
+      "liquidity": "regional"
+    },
+    "toad_bond": {
+      "name": "Toad Bond",
+      "icon": "icon_mushroom_coin.png",
+      "base_value": 0.75,
+      "home_faction": "liberated_toads",
+      "description": "A serious rebuilding bond issued by Liberated Toad councils after the Vigilance barrel-trafficking crisis. It funds food, medicine, shelter, tools, prosthetics, and legal defense. Banks that refuse it are usually making a political statement. Backing: donations, recovered cargo, and community repayment. Bank note: bankable community bond in friendly markets.",
+      "stability": "shaky",
+      "liquidity": "regional"
+    },
+    "relief_stamp": {
+      "name": "Relief Stamp",
+      "icon": "icon_mushroom_coin.png",
+      "base_value": 0.2,
+      "home_faction": "liberated_toads",
+      "description": "A ration and shelter voucher used by displaced Toad communities. Banks do not love vouchers, but relief banks and Loyalist quartermasters honor them because people need soup before monetary theory. Backing: ration stores and aid ledgers. Bank note: redeemable relief voucher.",
+      "stability": "steady",
+      "liquidity": "local"
+    },
+    "decree_strip": {
+      "name": "Decree Strip",
+      "icon": "icon_currency.png",
+      "base_value": 1.25,
+      "home_faction": "liberated_toads",
+      "description": "A narrow legal note used to pay messengers, advocates, witnesses, and safehouse clerks connected to Speaker L’s resistance network. Bankers treat it as risky but real because witness networks can be stronger than kings. Backing: service promises and witness networks. Bank note: restricted resistance note.",
+      "stability": "volatile",
+      "liquidity": "specialized"
+    },
+    "beanbean_bean": {
+      "name": "Beanbean Bean",
+      "icon": "icon_currency.png",
+      "base_value": 0.55,
+      "home_faction": "beanbean_kingdom",
+      "description": "A bean-shaped regional coin accepted along Mushroom trade roads. It is cheerful, annoying to stack, and surprisingly reliable. Banks like the consistency even when they dislike the joke molded into the edge. Backing: regional taxes and crop trade. Bank note: recognized regional tender.",
+      "stability": "steady",
+      "liquidity": "regional"
+    },
+    "wario_coin": {
+      "name": "Wario Coin",
+      "icon": "faction_wario.png",
+      "base_value": 1.2,
+      "home_faction": "wario_land",
+      "description": "A private gold-weight coin stamped with Wario’s face. Wario Land banks honor it aggressively; other banks accept it after verifying weight and after sighing at the portrait. Wario insists the portrait increases value. Backing: private hoard reserves. Bank note: bankable private tender.",
+      "stability": "managed",
+      "liquidity": "regional"
+    },
+    "wario_points": {
+      "name": "Wario Points",
+      "icon": "icon_quests.png",
+      "base_value": 1,
+      "home_faction": "wario_land",
+      "description": "Quest-board points spendable at Wario’s shop economy. These are not XP and not normal coin; banks only honor them if they have a direct Wario settlement account. Wario likes this because it keeps customers trapped in his ecosystem. Backing: future shop inventory. Bank note: closed-loop shop credit.",
+      "stability": "managed",
+      "liquidity": "closed"
+    },
+    "bowser_bux": {
+      "name": "Bowser Bux",
+      "icon": "faction_koopa_troop.png",
+      "base_value": 0.4,
+      "home_faction": "koopa_troop",
+      "description": "Koopa military scrip backed by fortresses, supply depots, and Bowser’s ability to make refusal feel unwise. Koopa banks accept it cleanly; outside banks apply discounts for political risk and fire damage. Backing: military stores and royal authority. Bank note: bankable in Koopa territory.",
+      "stability": "managed",
+      "liquidity": "regional"
+    },
+    "shell_credit": {
+      "name": "Shell Credit",
+      "icon": "faction_koopa_troop.png",
+      "base_value": 0.65,
+      "home_faction": "koopa_troop",
+      "description": "A Koopa quartermaster credit redeemable for rations, repairs, ammunition, shell polish, and fortress supplies. Banks near Koopa territory accept it because supply credits can be converted into real goods quickly. Backing: warehouse inventory. Bank note: military supply credit.",
+      "stability": "steady",
+      "liquidity": "regional"
+    },
+    "banana_medallion": {
+      "name": "Banana Medallion",
+      "icon": "icon_dk_banana.png",
+      "base_value": 2.4,
+      "home_faction": "dk_crew",
+      "description": "A durable Kong Island token representing stored banana value. It exists because actual bananas vanish before long negotiations end. Banks like it more than fruit and less than gold, which is fair. Backing: stored harvest reserves. Bank note: bankable island token.",
+      "stability": "seasonal",
+      "liquidity": "regional"
+    },
+    "coconut_bar": {
+      "name": "Coconut Bar",
+      "icon": "icon_dk_banana.png",
+      "base_value": 1.1,
+      "home_faction": "dk_crew",
+      "description": "Pressed coconut oil and fiber value sealed into cargo bars for port exchange. Coastal banks accept it because it stores better than bananas and sells well to ships, kitchens, soap-makers, and potion shops. Backing: stored coconut oil and cargo demand. Bank note: bankable port commodity.",
+      "stability": "seasonal",
+      "liquidity": "port"
+    },
+    "kremling_koin": {
+      "name": "Kremling Koin",
+      "icon": "icon_kremling_koin.png",
+      "base_value": 0.6,
+      "home_faction": "kremling_krew",
+      "description": "A crude raider coin. Most banks refuse it openly, but port banks with private rooms may exchange it at punishing rates after checking whether the coins were recently stolen from their own customers. Backing: stolen metal and raider markets. Bank note: black-market exchange only.",
+      "stability": "volatile",
+      "liquidity": "black market"
+    },
+    "doubloon": {
+      "name": "Syrup Doubloon",
+      "icon": "icon_gold.png",
+      "base_value": 1.8,
+      "home_faction": "syrup_pirates",
+      "description": "A heavy coin used in pirate ports, shipyards, taverns, and cargo auctions. Legitimate banks discount it; port banks accept it because pretending pirates do not trade has never stopped pirates from trading. Backing: plunder shares and port trust. Bank note: bankable in ports; suspect inland.",
+      "stability": "volatile",
+      "liquidity": "port"
+    },
+    "cargo_share": {
+      "name": "Cargo Share",
+      "icon": "icon_currency.png",
+      "base_value": 3.2,
+      "home_faction": "syrup_pirates",
+      "description": "A draft against a specific cargo haul, prize, or warehouse lot. Banks accept it if the ship, cargo, captain, and dockmaster can all be verified, which means banks accept it less often than pirates claim. Backing: future cargo proceeds. Bank note: conditional port draft.",
+      "stability": "wild",
+      "liquidity": "port"
+    },
+    "arcane_shard": {
+      "name": "Arcane Shard",
+      "icon": "icon_magic.png",
+      "base_value": 3,
+      "home_faction": "mages_guild",
+      "description": "Crystallized magical energy used in enchanting, spellwork, repairs, and academy labs. Guild banks accept shards by grade. Ordinary banks accept them only if a mage signs that they will not explode. Backing: usable magical energy. Bank note: bankable graded component.",
+      "stability": "volatile",
+      "liquidity": "specialized"
+    },
+    "guild_seal": {
+      "name": "Guild Seal",
+      "icon": "icon_magic.png",
+      "base_value": 5,
+      "home_faction": "mages_guild",
+      "description": "A stamped Mages’ Guild credit redeemable for components, archive access, repairs, tutoring, containment circles, and sanctioned spell services. It is respectable because the Guild says so loudly. Backing: guild labor and component stock. Bank note: bankable guild credit.",
+      "stability": "steady",
+      "liquidity": "specialized"
+    },
+    "transit_stamp": {
+      "name": "Transit Stamp",
+      "icon": "icon_magic.png",
+      "base_value": 9,
+      "home_faction": "mages_guild",
+      "description": "A regulated planar transit credit used to reserve portal work, stabilize crossings, or pay emergency return fees. Banks treat it like a high-value travel draft because portal access is expensive and measurable. Backing: regulated portal services. Bank note: restricted bankable travel draft.",
+      "stability": "volatile",
+      "liquidity": "specialized"
+    },
+    "kivotos_credit": {
+      "name": "Kivotos Credit",
+      "icon": "factions/kivotos_gsu.png",
+      "base_value": 1.2,
+      "home_faction": "general_student_union",
+      "description": "A stable academy-city credit used for tuition, cafeterias, weapons maintenance, club budgets, and student government emergencies. Midlands banks accept it only through digital-clearing partners. Backing: academy budgets and digital accounts. Bank note: bankable where digital clearing exists.",
+      "stability": "steady",
+      "liquidity": "networked"
+    },
+    "data_chit": {
+      "name": "Data Chit",
+      "icon": "factions/kivotos_gsu.png",
+      "base_value": 2.6,
+      "home_faction": "millennium_science_school",
+      "description": "A Millennium Science School chit redeemable for compute time, lab hours, robotics parts, and technical services. Banks exchange it when they can verify the ledger; otherwise it is a shiny rectangle with attitude. Backing: compute access and lab inventory. Bank note: bankable digital service credit.",
+      "stability": "steady",
+      "liquidity": "networked"
+    },
+    "credstick": {
+      "name": "Credstick",
+      "icon": "icon_currency.png",
+      "base_value": 1.1,
+      "home_faction": "internet_federation",
+      "description": "Encrypted portable digital value. Excellent in networked markets, useless in a haunted swamp with no signal. Banks accept credsticks if they can authenticate the ledger and if nobody has chewed the port. Backing: encrypted account balances. Bank note: bankable digital money.",
+      "stability": "stable until offline",
+      "liquidity": "networked"
+    },
+    "tea_chit": {
+      "name": "Tea Chit",
+      "icon": "icon_currency.png",
+      "base_value": 1.6,
+      "home_faction": "tea_leaf_syndicate",
+      "description": "A coded Tea Leaf Syndicate chit. Legal banks refuse it at the counter and sometimes clear it through back doors. Big T and Chai understand the marks; that is the difference between currency and suspicious paper. Backing: syndicate ledgers and favor credit. Bank note: private-bank/black-market credit.",
+      "stability": "managed",
+      "liquidity": "black market"
+    },
+    "broker_mark": {
+      "name": "Broker Mark",
+      "icon": "icon_currency.png",
+      "base_value": 7,
+      "home_faction": "freelancer_underworld",
+      "description": "An underworld mark redeemable for information, introductions, silence, or discreet delivery. It is accepted by shadow banks because secrets are liquid assets if the Broker says they are. Backing: verified secrets and underworld trust. Bank note: black-market bankable marker.",
+      "stability": "volatile",
+      "liquidity": "black market"
+    },
+    "spirit_bead": {
+      "name": "Spirit Bead",
+      "icon": "icon_magic.png",
+      "base_value": 2.2,
+      "home_faction": "rakasha_tribes",
+      "description": "A Rakasha bead of shell, bone, amber, or spirit-touched stone. Banks near Rakasha territory accept bead strands by maker and story mark; foreign banks undervalue them because foreign banks lack manners. Backing: craft value and clan recognition. Bank note: bankable cultural token in local markets.",
+      "stability": "steady",
+      "liquidity": "regional"
+    },
+    "fey_acorn": {
+      "name": "Promise Acorn",
+      "icon": "icon_magic.png",
+      "base_value": 6,
+      "home_faction": "feywild_courts",
+      "description": "A sealed Feywild promise condensed into an acorn. Banks accept it only in branches that understand fey contracts, and yes, Waluigi knows how that sentence sounds. Backing: binding fey obligation. Bank note: restricted bankable fey contract.",
+      "stability": "wild",
+      "liquidity": "specialized"
+    },
+    "court_leaf": {
+      "name": "Court Leaf",
+      "icon": "icon_magic.png",
+      "base_value": 3.8,
+      "home_faction": "feywild_courts",
+      "description": "A gilded Feyward court leaf used for hospitality debts, formal apologies, and witnessed favors. It is bankable only when provenance is intact, because fey money without context is just a leaf with legal teeth. Backing: court favor and etiquette debt. Bank note: restricted court credit.",
+      "stability": "volatile",
+      "liquidity": "specialized"
+    },
+    "autumn_leaf": {
+      "name": "Autumnwood Mark",
+      "icon": "icon_currency.png",
+      "base_value": 0.85,
+      "home_faction": "autumnwood_province",
+      "description": "A provincial mark used in Autumnwood orchards, timber markets, harvest tolls, and local court fees. Banks accept it because Lady Toriel’s administration has made local accounts boring, which is praise in finance. Backing: harvest taxes and timber rights. Bank note: local legal tender.",
+      "stability": "seasonal",
+      "liquidity": "regional"
+    },
+    "blood_vial": {
+      "name": "Blood Vial",
+      "icon": "faction_onyx_hand.png",
+      "base_value": 2.5,
+      "home_faction": "onyx_hand",
+      "description": "A sealed vial of preserved blood used in vampire markets and certain ritual economies. Normal banks refuse it; Crimson Ledger-style banks accept it by potency, age, source, and whether the clerk survives opening the drawer. Backing: ritual potency and vampire demand. Bank note: restricted occult bank commodity.",
+      "stability": "volatile",
+      "liquidity": "black market"
+    },
+    "soul_coin": {
+      "name": "Soul Coin",
+      "icon": "faction_onyx_hand.png",
+      "base_value": 20,
+      "home_faction": null,
+      "description": "A lower-plane coin containing a trapped soul. It is bankable only in the worst banks, which means it is very bankable somewhere and should make everyone feel worse about economics. Backing: bound soul value. Bank note: banned except occult banks.",
+      "stability": "volatile",
+      "liquidity": "black market"
+    },
+    "shadow_obol": {
+      "name": "Shadow Obol",
+      "icon": "faction_onyx_hand.png",
+      "base_value": 3.5,
+      "home_faction": "shadow_estate",
+      "description": "Cold Shadow Estate scrip used by servants, hunters, archivists, imps, and other residents of a local economy that considers sunlight an auditing failure. Specialized banks accept it; cheerful banks do not. Backing: local service economy and fear. Bank note: bankable only in Shadowfell markets.",
+      "stability": "shaky",
+      "liquidity": "local"
+    },
+    "vampire_marker": {
+      "name": "Vampire Marker",
+      "icon": "faction_onyx_hand.png",
+      "base_value": 15,
+      "home_faction": "onyx_hand",
+      "description": "A formal favor marker from a vampire house. It is not cash, but old banks understand that enforceable social debt can be priced. The danger is that the price may include you. Backing: enforceable social debt. Bank note: predatory but bankable favor credit.",
+      "stability": "wild",
+      "liquidity": "specialized"
+    },
+    "index_token": {
+      "name": "Index Token",
+      "icon": "icon_currency.png",
+      "base_value": 5.5,
+      "home_faction": "shadow_estate",
+      "description": "An Archivist token redeemable for indexed records, memory files, auction proofs, and restricted documentation inside Shadow Estate systems. Banks accept it only if they already trade in blackmail. Backing: restricted records and leverage. Bank note: specialized archive credit.",
+      "stability": "shaky",
+      "liquidity": "local"
+    },
+    "dwarf_oathgold": {
+      "name": "Oathgold",
+      "icon": "factions/dwarfs.png",
+      "base_value": 4,
+      "home_faction": "kingdoms_of_the_dwarves_wh",
+      "description": "Dwarven gold stamped with enforceable oath marks. Banks love the metal and fear the cultural consequences of mishandling it, which is exactly why Dwarven clients prefer it. Backing: gold weight and oath law. Bank note: premium bank reserve.",
+      "stability": "steady",
+      "liquidity": "wide"
+    },
+    "warpstone": {
+      "name": "Warpstone Token",
+      "icon": "factions/skaven.png",
+      "base_value": 10,
+      "home_faction": "skaven",
+      "description": "A refined token of magical chaos. Almost every lawful bank refuses it at the counter; arcane black banks buy it through containment windows and charge enough fees to imply moral panic. Backing: dangerous magical power. Bank note: illegal hazardous commodity.",
+      "stability": "wild",
+      "liquidity": "black market"
+    },
+    "astral_pearl": {
+      "name": "Astral Pearl",
+      "icon": "icon_magic.png",
+      "base_value": 12,
+      "home_faction": null,
+      "description": "A pearl formed in astral currents around divine, psychic, or planar turbulence. Mages, navigators, and high-end banks value it because rarity plus utility equals collateral. Backing: rare planar navigation value. Bank note: bankable rare commodity.",
+      "stability": "volatile",
+      "liquidity": "specialized"
+    },
+    "rupee": {
+      "name": "Rupee",
+      "icon": "icon_rupee.png",
+      "base_value": 0.7,
+      "home_faction": "kingdom_of_gondor",
+      "description": "A cut gemstone currency from Hyrulean-style markets. Banks accept rupees as gem currency after grading color and clarity, then pretend they understood the color-value chart all along. Backing: cut gemstone value. Bank note: bankable foreign gem tender.",
+      "stability": "seasonal",
+      "liquidity": "regional"
+    },
+    "poke_dollar": {
+      "name": "PokéDollar",
+      "icon": "icon_pokedollar.png",
+      "base_value": 0.6,
+      "home_faction": "pokemon_league",
+      "description": "League-regulated trainer currency used for clinics, travel, prize payouts, and shops. Banks accept it where League accounts can clear; elsewhere it becomes a novelty until a trainer pays in bulk. Backing: league taxes and clinic economy. Bank note: bankable foreign fiat.",
+      "stability": "steady",
+      "liquidity": "regional"
+    },
+    "mora": {
+      "name": "Mora",
+      "icon": "icon_mora.png",
+      "base_value": 1.3,
+      "home_faction": "teyvat_hegemony",
+      "description": "Teyvat’s common mint coin. It is popular with banks because it has deep trade habits, reliable minting, and enough merchant tradition to make arguments short. Backing: continental trade confidence. Bank note: bankable foreign fiat.",
+      "stability": "steady",
+      "liquidity": "wide"
+    },
+    "toad_whistle": {
+      "name": "Courier Whistle",
+      "icon": "icon_mushroom_coin.png",
+      "base_value": 0.3,
+      "home_faction": "toad_network",
+      "description": "A Toad Network token redeemable for courier priority, route notes, civic messages, and small delivery favors. Local banks accept batches from known couriers because movement has measurable value. Backing: delivery labor and trusted routes. Bank note: bankable civic service token.",
+      "stability": "steady",
+      "liquidity": "local"
+    },
+    "platinum": {
+      "name": "Platinum Piece",
+      "icon": "💎",
+      "base_value": 10,
+      "tier": "core"
+    },
+    "electrum": {
+      "name": "Electrum Piece",
+      "icon": "⚪",
+      "base_value": 0.5,
+      "tier": "core"
+    },
+    "bronze": {
+      "name": "Bronze Piece",
+      "icon": "🟫",
+      "base_value": 0.01,
+      "tier": "core"
+    }
+  },
+  "banking": {
+    "_README": "Edit this file to update bank accounts, loans, and debts WITHOUT rebuilding. Just save and refresh the browser.",
+    "_INSTRUCTIONS": {
+      "bank_accounts": "Each account needs: id (unique), owner (player name), bankId (from bank list below), currencyKey (from currencies), balance, interestRate (annual, e.g. 0.05 = 5%), depositDate {year, monthIndex, day}",
+      "loans": "Each loan needs: id (unique), borrower (player name), bankId, currencyKey, principal, interestRate, originDate, termDays, paid (amount repaid so far), status (active/overdue/paid)",
+      "debts": "Each debt needs: id (unique), creditor, debtor, currencyKey, originalAmount, interestRate, daysBorrowed, amountOwed (current total), status (active/overdue/paid/defaulted), note",
+      "available_bankIds": [
+        "bank_ironvault",
+        "bank_crimson_ledger",
+        "bank_golden_toad",
+        "bank_wario_world",
+        "bank_deephold",
+        "bank_nexus_digital",
+        "bank_lava_credit",
+        "bank_starlight"
+      ],
+      "available_currencies": [
+        "gold",
+        "silver",
+        "copper",
+        "midland_ducat",
+        "imperial_crown",
+        "archive_writ",
+        "mushroom_coin",
+        "peach_crown",
+        "toad_bond",
+        "relief_stamp",
+        "decree_strip",
+        "beanbean_bean",
+        "wario_coin",
+        "wario_points",
+        "bowser_bux",
+        "shell_credit",
+        "banana_medallion",
+        "coconut_bar",
+        "kremling_koin",
+        "doubloon",
+        "cargo_share",
+        "arcane_shard",
+        "guild_seal",
+        "transit_stamp",
+        "kivotos_credit",
+        "data_chit",
+        "credstick",
+        "tea_chit",
+        "broker_mark",
+        "spirit_bead",
+        "fey_acorn",
+        "court_leaf",
+        "autumn_leaf",
+        "blood_vial",
+        "soul_coin",
+        "shadow_obol",
+        "vampire_marker",
+        "index_token",
+        "dwarf_oathgold",
+        "warpstone",
+        "astral_pearl",
+        "rupee",
+        "poke_dollar",
+        "mora",
+        "toad_whistle"
+      ]
+    },
+    "bank_accounts": [
+      {
+        "id": "acct_broker_gold",
+        "owner": "The Broker",
+        "bankId": "bank_crimson_ledger",
+        "marketId": "poi_freelancer_den",
+        "currencyKey": "gold",
+        "balance": 50000,
+        "interestRate": 0.045,
+        "depositDate": {
+          "year": 1040,
+          "monthIndex": 6,
+          "day": 26
+        },
+        "note": "Liquid underworld settlement account."
+      },
+      {
+        "id": "acct_broker_marks",
+        "owner": "The Broker",
+        "bankId": "bank_crimson_ledger",
+        "marketId": "poi_freelancer_den",
+        "currencyKey": "broker_mark",
+        "balance": 2000,
+        "interestRate": 0.0,
+        "depositDate": {
+          "year": 1040,
+          "monthIndex": 6,
+          "day": 26
+        },
+        "note": "Information markers. The bank does not ask what they redeem for. This is why the bank still exists."
+      },
+      {
+        "id": "acct_captain_toadette_campaign",
+        "owner": "Captain Toadette",
+        "bankId": "bank_golden_toad",
+        "marketId": "poi_peach_castle",
+        "currencyKey": "peach_crown",
+        "balance": 15000,
+        "interestRate": 0.03,
+        "depositDate": {
+          "year": 1040,
+          "monthIndex": 6,
+          "day": 22
+        },
+        "note": "Peach Loyalist campaign reserve, not personal spending money."
+      },
+      {
+        "id": "acct_tea_leaf_receivership",
+        "owner": "Tea Leaf Syndicate Receivership",
+        "bankId": "bank_crimson_ledger",
+        "marketId": "poi_freelancer_den",
+        "currencyKey": "tea_chit",
+        "balance": 1400,
+        "interestRate": 0.035,
+        "depositDate": {
+          "year": 1040,
+          "monthIndex": 6,
+          "day": 20
+        },
+        "note": "Active Tea Leaf credit line after Big T and Chai T deaths; controlled by receivers and surviving safehouse ledgers."
+      },
+      {
+        "id": "acct_elgabalus_gold",
+        "owner": "Emperor Elgabalus",
+        "bankId": "bank_ironvault",
+        "marketId": "poi_mid_capital_district",
+        "currencyKey": "gold",
+        "balance": 250000,
+        "interestRate": 0.022,
+        "depositDate": {
+          "year": 1040,
+          "monthIndex": 6,
+          "day": 15
+        },
+        "note": "Gold reserve access line for high-level state payments."
+      },
+      {
+        "id": "acct_elgabalus_treasury",
+        "owner": "Emperor Elgabalus",
+        "bankId": "bank_ironvault",
+        "marketId": "poi_mid_capital_district",
+        "currencyKey": "midland_ducat",
+        "balance": 500000,
+        "interestRate": 0.026,
+        "depositDate": {
+          "year": 1040,
+          "monthIndex": 6,
+          "day": 15
+        },
+        "note": "Accessible imperial exchange account, not the entire Regal treasury."
+      },
+      {
+        "id": "acct_jones_prize",
+        "owner": "First Mate Jones",
+        "bankId": "bank_crimson_ledger",
+        "marketId": "poi_mid_port_blackwater",
+        "currencyKey": "doubloon",
+        "balance": 2500,
+        "interestRate": 0.04,
+        "depositDate": {
+          "year": 1040,
+          "monthIndex": 6,
+          "day": 19
+        },
+        "note": "Pirate-port prize money, converted only when dock authorities look elsewhere."
+      },
+      {
+        "id": "acct_speaker_l_legal",
+        "owner": "Speaker L",
+        "bankId": "bank_golden_toad",
+        "marketId": "poi_mushroom_market",
+        "currencyKey": "decree_strip",
+        "balance": 500,
+        "interestRate": 0.02,
+        "depositDate": {
+          "year": 1040,
+          "monthIndex": 6,
+          "day": 23
+        },
+        "note": "Legal strips used to pay messengers, witnesses, and safehouse clerks."
+      },
+      {
+        "id": "acct_theron_guild",
+        "owner": "Archmage Theron",
+        "bankId": "bank_starlight",
+        "marketId": "poi_mages_tower",
+        "currencyKey": "guild_seal",
+        "balance": 300,
+        "interestRate": 0.02,
+        "depositDate": {
+          "year": 1040,
+          "monthIndex": 6,
+          "day": 18
+        },
+        "note": "Institutional Mages Guild authority account."
+      },
+      {
+        "id": "acct_theron_shards",
+        "owner": "Archmage Theron",
+        "bankId": "bank_starlight",
+        "marketId": "poi_mages_tower",
+        "currencyKey": "arcane_shard",
+        "balance": 450,
+        "interestRate": 0.018,
+        "depositDate": {
+          "year": 1040,
+          "monthIndex": 6,
+          "day": 18
+        },
+        "note": "Graded component reserve. Requires containment audit."
+      },
+      {
+        "id": "acct_toad_lee_bonds",
+        "owner": "Toad Lee",
+        "bankId": "bank_golden_toad",
+        "marketId": "poi_mushroom_market",
+        "currencyKey": "toad_bond",
+        "balance": 75,
+        "interestRate": 0.04,
+        "depositDate": {
+          "year": 1040,
+          "monthIndex": 6,
+          "day": 24
+        },
+        "note": "Community rebuilding bonds under Toad Lee custody."
+      },
+      {
+        "id": "acct_toad_lee_relief",
+        "owner": "Toad Lee",
+        "bankId": "bank_golden_toad",
+        "marketId": "poi_mushroom_market",
+        "currencyKey": "relief_stamp",
+        "balance": 400,
+        "interestRate": 0.015,
+        "depositDate": {
+          "year": 1040,
+          "monthIndex": 6,
+          "day": 24
+        },
+        "note": "Relief stamps held for Liberated Toad food, shelter, and transit needs."
+      },
+      {
+        "id": "acct_toriel_province",
+        "owner": "Lady Toriel",
+        "bankId": "bank_ironvault",
+        "marketId": "poi_mid_capital_district",
+        "currencyKey": "autumn_leaf",
+        "balance": 30000,
+        "interestRate": 0.032,
+        "depositDate": {
+          "year": 1040,
+          "monthIndex": 6,
+          "day": 17
+        },
+        "note": "Autumnwood provincial operating reserve."
+      },
+      {
+        "id": "acct_waluigi_guild_seals",
+        "owner": "Waluigi",
+        "bankId": "bank_starlight",
+        "marketId": "poi_mages_tower",
+        "currencyKey": "guild_seal",
+        "balance": 7,
+        "interestRate": 0.025,
+        "depositDate": {
+          "year": 1040,
+          "monthIndex": 6,
+          "day": 21
+        },
+        "note": "Mages Guild service credits reserved for records, components, and emergency dignity repair."
+      },
+      {
+        "id": "acct_waluigi_research",
+        "owner": "Waluigi",
+        "bankId": "bank_ironvault",
+        "marketId": "poi_mid_capital_district",
+        "currencyKey": "archive_writ",
+        "balance": 4,
+        "interestRate": 0.01,
+        "depositDate": {
+          "year": 1040,
+          "monthIndex": 6,
+          "day": 21
+        },
+        "note": "Research-access instruments, not pocket cash. Waluigi calls this civilization."
+      },
+      {
+        "id": "acct_wario_coin_reserve",
+        "owner": "Wario",
+        "bankId": "bank_wario_world",
+        "marketId": "poi_wario_warehouse",
+        "currencyKey": "wario_coin",
+        "balance": 250000,
+        "interestRate": 0.11,
+        "depositDate": {
+          "year": 1040,
+          "monthIndex": 6,
+          "day": 26
+        },
+        "note": "Private reserve backing Wario Coin circulation and shop credit settlement."
+      },
+      {
+        "id": "acct_wario_hoard_gold",
+        "owner": "Wario",
+        "bankId": "bank_wario_world",
+        "marketId": "poi_wario_casino",
+        "currencyKey": "gold",
+        "balance": 125000,
+        "interestRate": 0.035,
+        "depositDate": {
+          "year": 1040,
+          "monthIndex": 6,
+          "day": 26
+        },
+        "note": "Primary liquid hoard deposit. Wario is absolutely not poor; the small wallet entry is cash-on-hand, not his vault."
+      },
+      {
+        "id": "acct_wario_points_float",
+        "owner": "Wario Quest Board",
+        "bankId": "bank_wario_world",
+        "marketId": "poi_wario_casino",
+        "currencyKey": "wario_points",
+        "balance": 75000,
+        "interestRate": 0.0,
+        "depositDate": {
+          "year": 1040,
+          "monthIndex": 6,
+          "day": 26
+        },
+        "note": "Outstanding shop-credit float. These are liabilities if redeemed, assets if Wario successfully distracts customers."
+      },
+      {
+        "id": "acct_wario_portfolio_duck",
+        "owner": "Wario",
+        "bankId": "bank_ironvault",
+        "marketId": "poi_mid_capital_district",
+        "currencyKey": "midland_ducat",
+        "balance": 18000,
+        "interestRate": 0.028,
+        "depositDate": {
+          "year": 1040,
+          "monthIndex": 6,
+          "day": 25
+        },
+        "note": "Respectable-looking account used when Wario needs to pretend to be normal in imperial markets."
+      },
+      {
+        "id": "bank_3",
+        "owner": "Bowser",
+        "bankId": "bank_lava_credit",
+        "marketId": "poi_bowser_keep",
+        "currencyKey": "bowser_bux",
+        "balance": 25000,
+        "interestRate": 0.045,
+        "depositDate": {
+          "year": 1040,
+          "monthIndex": 5,
+          "day": 15
+        }
+      },
+      {
+        "id": "bank_5",
+        "owner": "Remi",
+        "bankId": "bank_nexus_digital",
+        "marketId": "poi_kivotos_academy",
+        "currencyKey": "kivotos_credit",
+        "balance": 3000,
+        "interestRate": 0.042,
+        "depositDate": {
+          "year": 1040,
+          "monthIndex": 6,
+          "day": 8
+        }
+      },
+      {
+        "id": "bank_7",
+        "owner": "Bowser",
+        "bankId": "bank_wario_world",
+        "marketId": "poi_wario_casino",
+        "currencyKey": "wario_coin",
+        "balance": 300,
+        "interestRate": 0.12,
+        "depositDate": {
+          "year": 1040,
+          "monthIndex": 6,
+          "day": 18
+        }
+      }
+    ],
+    "loans": [
+      {
+        "id": "loan_1",
+        "borrower": "Archie Miser",
+        "bankId": "bank_wario_world",
+        "marketId": "poi_wario_casino",
+        "currencyKey": "wario_coin",
+        "principal": 200,
+        "interestRate": 0.15,
+        "originDate": {
+          "year": 1040,
+          "monthIndex": 6,
+          "day": 3
+        },
+        "termDays": 30,
+        "paid": 50,
+        "status": "active"
+      },
+      {
+        "id": "loan_2",
+        "borrower": "Bowser",
+        "bankId": "bank_crimson_ledger",
+        "marketId": "poi_freelancer_den",
+        "currencyKey": "gold",
+        "principal": 1000,
+        "interestRate": 0.12,
+        "originDate": {
+          "year": 1040,
+          "monthIndex": 5,
+          "day": 20
+        },
+        "termDays": 60,
+        "paid": 200,
+        "status": "overdue"
+      },
+      {
+        "id": "loan_3",
+        "borrower": "Remi",
+        "bankId": "bank_nexus_digital",
+        "marketId": "poi_kivotos_academy",
+        "currencyKey": "kivotos_credit",
+        "principal": 1500,
+        "interestRate": 0.072,
+        "originDate": {
+          "year": 1040,
+          "monthIndex": 6,
+          "day": 15
+        },
+        "termDays": 45,
+        "paid": 0,
+        "status": "active"
+      },
+      {
+        "id": "loan_4",
+        "borrower": "Markop Judi",
+        "bankId": "bank_deephold",
+        "marketId": "poi_dwarf_karaz",
+        "currencyKey": "dwarf_oathgold",
+        "principal": 1,
+        "interestRate": 0.05,
+        "originDate": {
+          "year": 1040,
+          "monthIndex": 6,
+          "day": 1
+        },
+        "termDays": 90,
+        "paid": 0,
+        "status": "active"
+      },
+      {
+        "id": "loan_tea_leaf_receivership_bridge",
+        "borrower": "Tea Leaf Syndicate Receivership",
+        "bankId": "bank_crimson_ledger",
+        "marketId": "poi_freelancer_den",
+        "currencyKey": "tea_chit",
+        "principal": 600,
+        "interestRate": 0.18,
+        "originDate": {
+          "year": 1040,
+          "monthIndex": 6,
+          "day": 9
+        },
+        "termDays": 60,
+        "paid": 90,
+        "status": "active",
+        "note": "Bridge credit after Big T and Chai T deaths disrupted collections and safehouse liquidity."
+      },
+      {
+        "id": "loan_jones_refit",
+        "borrower": "First Mate Jones",
+        "bankId": "bank_crimson_ledger",
+        "marketId": "poi_mid_port_blackwater",
+        "currencyKey": "doubloon",
+        "principal": 900,
+        "interestRate": 0.22,
+        "originDate": {
+          "year": 1040,
+          "monthIndex": 5,
+          "day": 28
+        },
+        "termDays": 75,
+        "paid": 120,
+        "status": "active",
+        "note": "Ship refit and quiet dockmaster payments. The bank calls it maritime credit; everyone else calls it piracy with receipts."
+      },
+      {
+        "id": "loan_mystic_morel_tarot",
+        "borrower": "Mystic Morel",
+        "bankId": "bank_crimson_ledger",
+        "marketId": "poi_shadow_market",
+        "currencyKey": "astral_pearl",
+        "principal": 2,
+        "interestRate": 0.3,
+        "originDate": {
+          "year": 1040,
+          "monthIndex": 6,
+          "day": 5
+        },
+        "termDays": 45,
+        "paid": 0,
+        "status": "overdue",
+        "note": "Occult collateral loan backed by tarot work, questionable prophecy, and exactly nobody sensible."
+      },
+      {
+        "id": "loan_peach_campaign",
+        "borrower": "Peach Loyalists",
+        "bankId": "bank_golden_toad",
+        "marketId": "poi_peach_castle",
+        "currencyKey": "peach_crown",
+        "principal": 8000,
+        "interestRate": 0.055,
+        "originDate": {
+          "year": 1040,
+          "monthIndex": 6,
+          "day": 10
+        },
+        "termDays": 120,
+        "paid": 1200,
+        "status": "active",
+        "note": "Campaign bridge loan for Bramblehaven supply, scouts, and field hospitals."
+      },
+      {
+        "id": "loan_shadow_estate_obols",
+        "borrower": "Shadow Estate Household",
+        "bankId": "bank_crimson_ledger",
+        "marketId": "poi_shadow_market",
+        "currencyKey": "shadow_obol",
+        "principal": 2000,
+        "interestRate": 0.09,
+        "originDate": {
+          "year": 1040,
+          "monthIndex": 5,
+          "day": 30
+        },
+        "termDays": 90,
+        "paid": 300,
+        "status": "active",
+        "note": "Household servant-pay liquidity line. Waluigi dislikes every noun in that sentence."
+      },
+      {
+        "id": "loan_theron_transit",
+        "borrower": "Mages Guild Transit Office",
+        "bankId": "bank_starlight",
+        "marketId": "poi_mages_tower",
+        "currencyKey": "transit_stamp",
+        "principal": 40,
+        "interestRate": 0.04,
+        "originDate": {
+          "year": 1040,
+          "monthIndex": 6,
+          "day": 1
+        },
+        "termDays": 180,
+        "paid": 5,
+        "status": "active",
+        "note": "Planar transit stamp inventory financing after Raventree-related demand spiked."
+      },
+      {
+        "id": "loan_toad_rebuilding",
+        "borrower": "Liberated Toads",
+        "bankId": "bank_golden_toad",
+        "marketId": "poi_mushroom_market",
+        "currencyKey": "toad_bond",
+        "principal": 1000,
+        "interestRate": 0.035,
+        "originDate": {
+          "year": 1040,
+          "monthIndex": 6,
+          "day": 12
+        },
+        "termDays": 180,
+        "paid": 75,
+        "status": "active",
+        "note": "Rebuilding bond facility for food stores, shelter repairs, prosthetics, and legal paperwork after the Vigilance crisis."
+      },
+      {
+        "id": "loan_wario_shop_float",
+        "borrower": "Wario Quest Board",
+        "bankId": "bank_wario_world",
+        "marketId": "poi_wario_casino",
+        "currencyKey": "wario_points",
+        "principal": 50000,
+        "interestRate": 0.0,
+        "originDate": {
+          "year": 1040,
+          "monthIndex": 6,
+          "day": 20
+        },
+        "termDays": 120,
+        "paid": 0,
+        "status": "active",
+        "note": "Internal Wario Points float issued for quest rewards and future shop redemptions. Wario insists zero interest because it is his own scheme."
+      }
+    ],
+    "debts": [
+      {
+        "id": "debt_1",
+        "creditor": "Wario",
+        "debtor": "Bowser",
+        "currencyKey": "wario_coin",
+        "originalAmount": 5000,
+        "interestRate": 0.15,
+        "daysBorrowed": 45,
+        "amountOwed": 5925,
+        "status": "overdue",
+        "note": "Borrowed for the airship Vigilance repairs. Wario is getting impatient and has begun using larger fonts."
+      },
+      {
+        "id": "debt_2",
+        "creditor": "Wario",
+        "debtor": "Waluigi",
+        "currencyKey": "gold",
+        "originalAmount": 800,
+        "interestRate": 0.1,
+        "daysBorrowed": 30,
+        "amountOwed": 866,
+        "status": "active",
+        "note": "A 'personal loan' from brother to brother. Interest still applies."
+      },
+      {
+        "id": "debt_3",
+        "creditor": "Mages Guild",
+        "debtor": "Archie Miser",
+        "currencyKey": "arcane_shard",
+        "originalAmount": 10,
+        "interestRate": 0.2,
+        "daysBorrowed": 15,
+        "amountOwed": 10.82,
+        "status": "active",
+        "note": "Rope replacement bill plus damages, consolidated from the Guild itemization. Thornbury’s paperwork was aggressive enough to count as a weapon."
+      },
+      {
+        "id": "debt_4",
+        "creditor": "Iron Legion",
+        "debtor": "Markop Judi",
+        "currencyKey": "midland_ducat",
+        "originalAmount": 200,
+        "interestRate": 0.05,
+        "daysBorrowed": 10,
+        "amountOwed": 202.74,
+        "status": "active",
+        "note": "Equipment requisition loan. Standard military terms. Converted from obsolete Legion Scrip tracking to Midland Ducat settlement terms for current exchange compatibility."
+      },
+      {
+        "id": "debt_6",
+        "creditor": "Wario",
+        "debtor": "Captain Syrup",
+        "currencyKey": "gold",
+        "originalAmount": 3000,
+        "interestRate": 0.25,
+        "daysBorrowed": 120,
+        "amountOwed": 4070,
+        "status": "defaulted",
+        "note": "Syrup vanished after the airship incident. Wario considers this a declaration of war."
+      },
+      {
+        "id": "debt_7",
+        "creditor": "Freelancer Guild",
+        "debtor": "Bowser",
+        "currencyKey": "gold",
+        "originalAmount": 1000,
+        "interestRate": 0.12,
+        "daysBorrowed": 36,
+        "amountOwed": 1118,
+        "status": "overdue",
+        "note": "Mercenary contracts payment. The Guild is assembling a collection team."
+      },
+      {
+        "id": "debt_archivist_shadow_estate_party",
+        "creditor": "Shadow Estate Archive",
+        "debtor": "Disaster Inc.",
+        "currencyKey": "index_token",
+        "originalAmount": 5,
+        "interestRate": 0.3,
+        "daysBorrowed": 3,
+        "amountOwed": 5.1,
+        "status": "active",
+        "note": "Archive “viewing, poster, and documentation” fees. Waluigi disputes the entire category and also the tone."
+      },
+      {
+        "id": "debt_broker_bowser_contracts",
+        "creditor": "The Broker",
+        "debtor": "Bowser",
+        "currencyKey": "broker_mark",
+        "originalAmount": 30,
+        "interestRate": 0.19,
+        "daysBorrowed": 28,
+        "amountOwed": 34,
+        "status": "overdue",
+        "note": "Underworld information and mercenary-introduction fees. Bowser does not like paying in secrets because secrets do not burn well."
+      },
+      {
+        "id": "debt_tea_leaf_big_t_estate",
+        "creditor": "Tea Leaf Syndicate Receivership",
+        "debtor": "Estate of Big T",
+        "currencyKey": "tea_chit",
+        "originalAmount": 450,
+        "interestRate": 0.08,
+        "daysBorrowed": 30,
+        "amountOwed": 459,
+        "status": "active",
+        "note": "Posthumous Tea Leaf reconciliation. Big T is dead; Chai T is not an active wallet source; the books are still collectable."
+      },
+      {
+        "id": "debt_elgabalus_archive_waluigi",
+        "creditor": "Regal Archive",
+        "debtor": "Waluigi",
+        "currencyKey": "archive_writ",
+        "originalAmount": 2,
+        "interestRate": 0.0,
+        "daysBorrowed": 11,
+        "amountOwed": 2,
+        "status": "active",
+        "note": "Restricted-copy fees for imperial records Waluigi insists are necessary to correct everyone else’s terrible summaries."
+      },
+      {
+        "id": "debt_first_mate_jones_syrup",
+        "creditor": "Captain Syrup",
+        "debtor": "First Mate Jones",
+        "currencyKey": "doubloon",
+        "originalAmount": 800,
+        "interestRate": 0.05,
+        "daysBorrowed": 25,
+        "amountOwed": 808,
+        "status": "active",
+        "note": "Crew prize-share balance owed after port expenses and repairs. Jones has a list and a calm voice, which is worse than shouting."
+      },
+      {
+        "id": "debt_jones_wario_port_fees",
+        "creditor": "Wario",
+        "debtor": "First Mate Jones",
+        "currencyKey": "wario_coin",
+        "originalAmount": 900,
+        "interestRate": 0.24,
+        "daysBorrowed": 16,
+        "amountOwed": 995,
+        "status": "overdue",
+        "note": "Wario claims docking assistance, storage, and “not telling customs” fees. Jones disputes the math, not the customs part."
+      },
+      {
+        "id": "debt_liberated_toads_wario_supplies",
+        "creditor": "Wario",
+        "debtor": "Liberated Toads",
+        "currencyKey": "gold",
+        "originalAmount": 650,
+        "interestRate": 0.1,
+        "daysBorrowed": 18,
+        "amountOwed": 682,
+        "status": "active",
+        "note": "Emergency goods Wario claims were sold at a discount. The Liberated Toads claim “discount” is doing heroic labor in that sentence."
+      },
+      {
+        "id": "debt_mystic_morel_remi_ring",
+        "creditor": "Mystic Morel",
+        "debtor": "Remi",
+        "currencyKey": "shadow_obol",
+        "originalAmount": 50,
+        "interestRate": 0.25,
+        "daysBorrowed": 6,
+        "amountOwed": 52,
+        "status": "active",
+        "note": "Mystic Morel claims ongoing ring-linked consideration. Waluigi flags this as predatory and probably cursed."
+      },
+      {
+        "id": "debt_shadow_estate_remi_auction",
+        "creditor": "Shadow Estate Auction Ledger",
+        "debtor": "Mystic Morel",
+        "currencyKey": "gold",
+        "originalAmount": 12000,
+        "interestRate": 0.12,
+        "daysBorrowed": 4,
+        "amountOwed": 12016,
+        "status": "active",
+        "note": "Winning bid for petrified Remi. This is recorded as debt only because “moral crime with invoice” is not a banking status."
+      },
+      {
+        "id": "debt_speaker_l_legal_fund",
+        "creditor": "Speaker L",
+        "debtor": "Liberated Toads",
+        "currencyKey": "decree_strip",
+        "originalAmount": 300,
+        "interestRate": 0.0,
+        "daysBorrowed": 9,
+        "amountOwed": 300,
+        "status": "active",
+        "note": "Internal legal-fund ledger for witness travel, filings, and safehouse clerks. No interest because Speaker L is not Wario."
+      },
+      {
+        "id": "debt_theron_transit_archie",
+        "creditor": "Mages Guild Transit Office",
+        "debtor": "Archie Miser",
+        "currencyKey": "transit_stamp",
+        "originalAmount": 3,
+        "interestRate": 0.12,
+        "daysBorrowed": 10,
+        "amountOwed": 3.01,
+        "status": "active",
+        "note": "Transit-risk premium after Archie-related planar instability. Archie did not personally explode this invoice, which is not a defense."
+      },
+      {
+        "id": "debt_thornbury_archie_rubber_duck",
+        "creditor": "Thornbury",
+        "debtor": "Archie Miser",
+        "currencyKey": "midland_ducat",
+        "originalAmount": 2000,
+        "interestRate": 0.16,
+        "daysBorrowed": 20,
+        "amountOwed": 2175,
+        "status": "overdue",
+        "note": "Broken rope, bath-related supplies, rubber duckies, paperwork fees, and a surcharge titled “you know what you did.”"
+      },
+      {
+        "id": "debt_toad_network_waluigi_courier",
+        "creditor": "Toad Network",
+        "debtor": "Waluigi",
+        "currencyKey": "toad_whistle",
+        "originalAmount": 6,
+        "interestRate": 0.0,
+        "daysBorrowed": 5,
+        "amountOwed": 6,
+        "status": "active",
+        "note": "Courier priority owed for case-file synchronization and messages nobody else was competent enough to carry."
+      },
+      {
+        "id": "debt_toadette_broker_intel",
+        "creditor": "The Broker",
+        "debtor": "Captain Toadette",
+        "currencyKey": "broker_mark",
+        "originalAmount": 12,
+        "interestRate": 0.15,
+        "daysBorrowed": 7,
+        "amountOwed": 12.6,
+        "status": "active",
+        "note": "Intelligence packet on Regency movements. Captain Toadette paid part in coin and part by not asking where the packet came from."
+      },
+      {
+        "id": "debt_toriel_fey_court",
+        "creditor": "Lady Aurelian Court",
+        "debtor": "Lady Toriel",
+        "currencyKey": "court_leaf",
+        "originalAmount": 15,
+        "interestRate": 0.04,
+        "daysBorrowed": 40,
+        "amountOwed": 15.07,
+        "status": "active",
+        "note": "Formal hospitality balancing between Autumnwood and Feyward contacts. Polite debt, which means dangerous debt with better handwriting."
+      },
+      {
+        "id": "debt_wario_archie_general",
+        "creditor": "Wario",
+        "debtor": "Archie Miser",
+        "currencyKey": "wario_coin",
+        "originalAmount": 1200,
+        "interestRate": 0.22,
+        "daysBorrowed": 38,
+        "amountOwed": 1474,
+        "status": "overdue",
+        "note": "Accumulated Wario charges: emergency supplies, alleged theft-adjacent damages, and at least three line items labeled “because I said so.”"
+      },
+      {
+        "id": "debt_wario_disaster_shop",
+        "creditor": "Wario",
+        "debtor": "Disaster Inc.",
+        "currencyKey": "wario_points",
+        "originalAmount": 9000,
+        "interestRate": 0.0,
+        "daysBorrowed": 12,
+        "amountOwed": 9000,
+        "status": "active",
+        "note": "Quest-board Wario Points issued as future shop liabilities. Wario tracks them as debt because Wario tracks everything as debt."
+      },
+      {
+        "id": "debt_wario_mirror_claim",
+        "creditor": "Wario",
+        "debtor": "Green T / Disaster Inc.",
+        "currencyKey": "gold",
+        "originalAmount": 7500,
+        "interestRate": 0.18,
+        "daysBorrowed": 2,
+        "amountOwed": 7507,
+        "status": "active",
+        "note": "Contested Shadow Estate mirror-deal valuation. Wario says the Mirror of True Reflection is future property. Everyone else says “after Scarecrow.”"
+      }
+    ],
+    "_NOTES": {
+      "scope": "Banking records are separate from wallets.json. Wallets are what characters physically/actively hold; bank accounts are deposits, treasury access, vault balances, institutional reserves, loans, and debt ledgers.",
+      "player_wallet_warning": "Do not use this file to overwrite player cash-on-hand. Player wallet values live in wallets.json.",
+      "big_t_note": "Big T is dead. Active Tea Leaf banking is tracked under Chai and the Tea Leaf Syndicate, with legacy obligations noted as estate or syndicate debts.",
+      "quality_pass_2026_07_01": "Removed duplicate debt records for Mages Guild→Archie Miser and Wario→Bowser; kept one polished consolidated ledger entry for each.",
+      "dead_wallet_policy": "Dead people should not appear as active wallets. Use estates, receiverships, or institutional ledgers for collectible money.",
+      "currency_quality_pass_2026_07_01": "Removed redundant/weak catalog currencies: banana_bunch, oath_knot, umbral_shard, artisan_guilder. Wario Coin and Wario Points remain distinct: coin is private tender; points are shop/quest-board credit, not XP."
+    }
+  }
+}

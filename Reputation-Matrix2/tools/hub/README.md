@@ -172,6 +172,7 @@ plain so they can be inspected from a browser console during a run.
 | `/api/piles/build` | POST | Build item-pile actors |
 | `/api/character/preview` | POST | Preview a character actor plan |
 | `/api/character/build` | POST | Write a character actor JSON |
+| `/api/loot/add` | POST | File one session-loot entry (session, characterId, item required) |
 | `/api/run` | POST | Execute a registry-approved script with extra args |
 | `/api/refresh` | POST | Clear/rebuild cached registry and catalog state |
 
@@ -194,6 +195,8 @@ python tools/hub/hub_cli.py piles --preview        # who bought what
 python tools/hub/hub_cli.py piles                  # write the item piles
 python tools/hub/hub_cli.py character --from tymnas --level 3
 python tools/hub/hub_cli.py character --from waluigi --model --save
+python tools/hub/hub_cli.py loot --list             # the live session-loot log
+python tools/hub/hub_cli.py loot --session "SE 12" --char waluigi --item "Garlic Charm"
 ```
 
 ---

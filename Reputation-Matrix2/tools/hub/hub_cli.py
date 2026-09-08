@@ -18,7 +18,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from hubcore import creator, dataio, llm, paths, piles, registry  # noqa: E402
+from hubcore import creator, dataio, llm, loot, paths, piles, registry  # noqa: E402
 
 
 def cmd_list(args: argparse.Namespace) -> int:
@@ -53,6 +53,30 @@ def cmd_piles(args: argparse.Namespace) -> int:
     for pile in manifest["piles"]:
         print(f"{pile['displayName']:<24} {pile['items']:>3} items  →  {pile['relativeFile']}")
     print(f"\nManifest: {paths.relative(paths.PILES_DIR / 'manifest.json')}")
+    return 0
+
+
+def cmd_loot(args: argparse.Namespace) -> int:
+    if args.list:
+        entries = loot.load()
+        if args.session:
+            entries = [e for e in entries if e.get("session") == args.session]
+        for entry in entries:
+            print(f"{entry['id']}  {entry['session']:<22} {entry['characterId']:<10} "
+                  f"{entry.get('qty', 1)}x {entry['item']} [{entry.get('source', 'found')}]")
+        print(f"\n{len(entries)} entries")
+        return 0
+    try:
+        entry = loot.append({
+            "session": args.session, "eventId": args.event or "",
+            "characterId": args.char, "characterName": args.name or "",
+            "item": args.item, "qty": args.qty, "source": args.source,
+            "note": args.note or "",
+        })
+    except ValueError as error:
+        print(f"error: {error}")
+        return 1
+    print(f"filed {entry['id']}: {entry['qty']}x {entry['item']} → {entry['characterId']} ({entry['session']})")
     return 0
 
 
@@ -120,6 +144,18 @@ def main() -> int:
     pile.add_argument("--player", action="append", help="Limit to a player key; repeatable")
     pile.add_argument("--no-faction", action="store_true", help="Skip faction purchases")
     pile.set_defaults(func=cmd_piles)
+
+    lo = subparsers.add_parser("loot", help="File session loot to the live log")
+    lo.add_argument("--list", action="store_true", help="List entries instead of filing")
+    lo.add_argument("--session", help="Session label (required to file)")
+    lo.add_argument("--event", help="Event id, once the recap exists")
+    lo.add_argument("--char", help="Sheet slug: waluigi, dan, hjumpik, toad-lee, aurelian, azure, motorbike")
+    lo.add_argument("--name", help="Display name of the character")
+    lo.add_argument("--item", help="Item name")
+    lo.add_argument("--qty", type=int, default=1, help="Quantity (default 1)")
+    lo.add_argument("--source", default="found", help="found, bought, reward, crafted, gift, stolen")
+    lo.add_argument("--note", help="How it was gained")
+    lo.set_defaults(func=cmd_loot)
 
     character = subparsers.add_parser("character", help="Create a character actor from lore")
     character.add_argument("--from", help="Existing character id from data/characters.json")

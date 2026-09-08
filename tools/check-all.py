@@ -61,6 +61,7 @@ def main() -> int:
         ("RNN broadcast data", [py, "tools/build-rnn-broadcast.py", "--check"], ROOT),
         ("Bros Attack sync", [py, "tools/sync_bros_attacks.py", "--check"], RM),
         ("Foundry sanitizer", [py, "tools/tests/test-sanitize-foundry-actor.py"], ROOT),
+        ("session loot", [py, "tools/tests/test-session-loot.py"], ROOT),
         ("actor exports", [py, "tools/rebuild-actors.py", "--check"], ROOT),
     ]
 

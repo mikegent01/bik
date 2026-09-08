@@ -27,7 +27,7 @@ from urllib.parse import parse_qs, unquote, urlparse
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from hubcore import creator, dataio, llm, paths, piles, registry  # noqa: E402
+from hubcore import creator, dataio, llm, loot, paths, piles, registry  # noqa: E402
 
 MAX_PREVIEW_BYTES = 400_000
 # Guard rail: only scripts discovered under tools/ may be launched.
@@ -239,6 +239,13 @@ class HubHandler(BaseHTTPRequestHandler):
                     "file": paths.relative(Path(target)),
                     "relativeFile": paths.relative(Path(target)),
                 }})
+
+            if route == "loot/add":
+                try:
+                    entry = loot.append(body)
+                except ValueError as error:
+                    return self._error(str(error), 400)
+                return self._send_json({"ok": True, "data": {"entry": entry}})
 
             if route == "run":
                 return self._run_script(body)
