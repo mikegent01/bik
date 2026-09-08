@@ -747,7 +747,11 @@ const MIDLANDS_DIET_DATA = {
     status: "Crisis Session",
     currentSession: 48,
     sessionStartDate: { year: 1040, monthIndex: 6, day: 15 },
-    currentDate: { year: 1040, monthIndex: 6, day: 25 },
+    // Floor filed Aethel 5, 1040 BF (matches Reputation-Matrix2/data/currentDate.json).
+    // The six motions below it are past-due with unfiled outcomes: they render as
+    // CARRIED OVER until worked per docs/DIET_UPDATE_CHECKLIST.md. Do not advance
+    // this again without filing outcomes (see the local-snapshot note on getDietCurrentDate).
+    currentDate: { year: 1040, monthIndex: 8, day: 5 },
     description: "The Midlands are governed by a parliamentary body where provincial representatives vote on state matters. The Diet is currently in emergency session following the passage of the Supernatural Sovereignty Act. The traditional Imperial Concordat faces open revolt from the supernatural blocs, while the pragmatic Heartland Alliance desperately seeks de-escalation.",
     
     legionIntegration: {
@@ -2150,9 +2154,10 @@ export function dietFreshnessStamp() {
     return {
         date,
         decided: (typeof VOTE_HISTORY !== 'undefined' ? VOTE_HISTORY.length : 0),
-        scheduled: (typeof UPCOMING_VOTES !== 'undefined' ? UPCOMING_VOTES.length : 0),
+        scheduled: (typeof UPCOMING_VOTES !== 'undefined' ? UPCOMING_VOTES.filter(v => getDaysUntil(v.date) >= 0).length : 0),
+        carried: (typeof UPCOMING_VOTES !== 'undefined' ? UPCOMING_VOTES.filter(v => getDaysUntil(v.date) < 0).length : 0),
         current: v.title || 'no motion on the floor',
-        status: String(st).replace(/_/g, ' ')
+        status: String(st === 'missed' ? 'overdue — unresolved' : st).replace(/_/g, ' ')
     };
 }
 
@@ -2190,6 +2195,7 @@ export function renderHolyMidlandsDiet() {
         'voting_tomorrow': { label: 'VOTING TOMORROW', class: 'status-warning', icon: '⏰' },
         'imminent': { label: 'IMMINENT', class: 'status-warning', icon: '⚠️' },
         'scheduled': { label: 'SCHEDULED', class: 'status-info', icon: '📅' },
+        'missed': { label: 'OVERDUE — UNRESOLVED', class: 'status-danger', icon: '⏳' },
         'passed': { label: 'PASSED', class: 'status-success', icon: '✅' },
         'just_passed': { label: 'JUST PASSED', class: 'status-breaking', icon: '⚡' },
         'failed': { label: 'FAILED', class: 'status-danger', icon: '❌' },
@@ -2198,8 +2204,8 @@ export function renderHolyMidlandsDiet() {
     const statusInfo = statusConfig[voteStatus] || statusConfig['scheduled'];
     const daysUntil = getDaysUntil(currentVote.date);
 
-    const nextVote = UPCOMING_VOTES[0];
-    const nextVoteResults = projectVoteResults(nextVote);
+    const nextVote = [...UPCOMING_VOTES].sort((a, b) => absDay(a.date) - absDay(b.date)).find(v => getDaysUntil(v.date) >= 0) || null;
+    const nextVoteResults = nextVote ? projectVoteResults(nextVote) : { yes: 0, no: 0, abstain: 0, votes: [] };
     
     const coalitionsHTML = Object.entries(data.coalitions).map(([key, coalition]) => {
         const reps = groupedByCoalition[key] || [];
@@ -2290,6 +2296,10 @@ export function renderHolyMidlandsDiet() {
         ${renderTodaysAftermath()}
     ` : renderStandardVoteDisplay(currentVote, voteResults, statusInfo, totalActiveVotes, expelledCount, daysUntil);
 
+    const carriedVotes = UPCOMING_VOTES.filter(v => getDaysUntil(v.date) < 0)
+        .sort((a, b) => absDay(a.date) - absDay(b.date));
+    const futureVotes = UPCOMING_VOTES.filter(v => getDaysUntil(v.date) >= 0)
+        .sort((a, b) => absDay(a.date) - absDay(b.date));
     const calendarHTML = `
         <div class="legislative-calendar">
             <h4>📅 Legislative Calendar</h4>
@@ -2306,8 +2316,19 @@ export function renderHolyMidlandsDiet() {
                         </div>
                     `;
                 }).join('')}
+                ${carriedVotes.map(vote => {
+                    const days = Math.abs(getDaysUntil(vote.date));
+                    return `
+                        <div class="calendar-item historical carried ${vote.legionOperation ? 'has-legion-op' : ''}">
+                            <span class="cal-date">${formatDate(vote.date)} (${days} day${days===1?'':'s'} overdue)</span>
+                            <span class="cal-title">${vote.title}</span>
+                            <span class="cal-status status-carried">CARRIED OVER</span>
+                            ${vote.legionOperation ? `<span class="cal-legion-op">⚔️ ${vote.legionOperation}</span>` : ''}
+                        </div>
+                    `;
+                }).join('')}
                 <div class="calendar-divider">— Upcoming Votes —</div>
-                ${UPCOMING_VOTES.map(vote => {
+                ${futureVotes.length ? futureVotes.map(vote => {
                     const status = getVoteStatus(vote);
                     const days = getDaysUntil(vote.date);
                     return `
@@ -2318,12 +2339,12 @@ export function renderHolyMidlandsDiet() {
                             ${vote.legionOperation ? `<span class="cal-legion-op">⚔️ ${vote.legionOperation}</span>` : ''}
                         </div>
                     `;
-                }).join('')}
+                }).join('') : '<div class="calendar-item adjourned"><span class="cal-title">🔕 No further votes scheduled — the Diet stands adjourned until new motions are tabled.</span></div>'}
             </div>
         </div>
     `;
 
-    const nextVotePreviewHTML = `
+    const nextVotePreviewHTML = nextVote ? `
         <div class="next-vote-preview">
             <h4>⏭️ Next Vote: ${nextVote.title}</h4>
             <p class="next-vote-date">${formatDate(nextVote.date)} (in ${getDaysUntil(nextVote.date)} days)</p>
@@ -2340,6 +2361,12 @@ export function renderHolyMidlandsDiet() {
                 <span class="projection-no">NO: ${nextVoteResults.no}</span>
                 <span class="projection-abstain">ABSTAIN: ${nextVoteResults.abstain}</span>
             </div>
+        </div>
+    ` : `
+        <div class="next-vote-preview adjourned">
+            <h4>⏭️ Next Vote: none scheduled</h4>
+            <p class="next-vote-date">The order paper is empty — every tabled motion is past its date (see Legislative Calendar).</p>
+            <p class="next-vote-desc">File the next motion per docs/DIET_UPDATE_CHECKLIST.md to put the chamber back in session.</p>
         </div>
     `;
 
@@ -2384,7 +2411,7 @@ export function renderHolyMidlandsDiet() {
             </div>
             
             <h3 class="section-title" style="margin-top: 32px;">Diet Seating Chart</h3>
-            <p class="seating-subtitle">Showing predicted votes for: <strong>${nextVote.title}</strong></p>
+            <p class="seating-subtitle">Showing predicted votes for: <strong>${nextVote ? nextVote.title : "no motion on the floor (adjourned)"}</strong></p>
             
             <div class="parliament-container">
                 <div class="speaker-section">

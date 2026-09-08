@@ -1401,6 +1401,22 @@
     color: var(--vote-expelled);
 }
 
+.cal-status.status-carried {
+    background: var(--vote-abstain-bg);
+    color: var(--vote-abstain);
+    border: 1px solid var(--vote-abstain);
+}
+
+.calendar-item.carried {
+    border-left: 3px solid var(--vote-abstain);
+}
+
+.calendar-item.adourned .cal-title,
+.next-vote-preview.adourned .next-vote-date {
+    color: var(--text-muted);
+    font-style: italic;
+}
+
 .cal-days {
     font-family: var(--font-mono);
     font-size: 0.75rem;

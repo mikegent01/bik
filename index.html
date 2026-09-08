@@ -448,9 +448,9 @@
 .campaign-timeline-item .timeline-actors{display:flex;flex-wrap:wrap;gap:4px 10px;font-size:12px;font-weight:700;color:var(--accent2);margin-bottom:6px}
 .campaign-timeline-item .timeline-summary{margin:0 0 10px;font-size:13.5px;line-height:1.6;color:var(--muted)}
 .home-feed-actions{display:flex;flex-wrap:wrap;gap:8px}
-.campaign-timeline-item{display:grid;grid-template-columns:150px minmax(0,1fr);gap:14px}
-.campaign-timeline-item:not(:has(.timeline-body)){display:block}
-.timeline-thumb{position:relative;border-radius:10px;overflow:hidden;background:var(--bg2);border:1px solid var(--border);min-height:130px}
+.campaign-timeline-item:has(> .timeline-thumb):has(> .timeline-body){display:grid;grid-template-columns:150px minmax(0,1fr);gap:14px}
+.timeline-thumb{display:block;position:relative;border-radius:10px;overflow:hidden;background:var(--bg2);border:1px solid var(--border);min-height:130px}
+.timeline-thumb:not(.fallback){min-height:170px}
 .timeline-thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
 .timeline-thumb.fallback{display:grid;place-items:center;background:rgba(255,255,255,.03)}
 .timeline-thumb.fallback i{font-style:normal;font-size:44px;filter:drop-shadow(0 3px 8px rgba(0,0,0,.5))}
@@ -496,7 +496,7 @@ ul.otd li a{color:var(--text);font-weight:600}
 .hm-rise{animation:hmRise .5s ease both}
 @keyframes hmRise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 @media(max-width:1000px){.hm-grid{grid-template-columns:1fr}.dash-doors{grid-template-columns:repeat(3,1fr)}.hm-status{grid-template-columns:1fr 1fr}.hm-rail .dash-doors{grid-template-columns:repeat(4,1fr)}}
-@media(max-width:640px){.hm-hero-in{padding:26px 20px 20px}.hm-wah{font-size:15px;padding:6px 12px;top:12px;right:12px}.dash-doors{grid-template-columns:1fr 1fr}.hm-status{grid-template-columns:1fr 1fr}.hm-sec-head h2{font-size:19px}.campaign-timeline-item{grid-template-columns:1fr}.timeline-thumb{min-height:150px;max-height:170px}}
+@media(max-width:640px){.hm-hero-in{padding:26px 20px 20px}.hm-wah{font-size:15px;padding:6px 12px;top:12px;right:12px}.dash-doors{grid-template-columns:1fr 1fr}.hm-status{grid-template-columns:1fr 1fr}.hm-sec-head h2{font-size:19px}.campaign-timeline-item:has(> .timeline-thumb){grid-template-columns:1fr}.timeline-thumb{min-height:150px;max-height:170px}}
 @media(prefers-reduced-motion:reduce){.hm-ticker-in{animation:none}.hm-rise{animation:none}}
 
 /* ---------- Who-are-you picker ---------- */
@@ -10581,7 +10581,7 @@ async function view_regal_diet(tab){
           const s=mod.dietFreshnessStamp();
           const stamp=document.createElement('div');
           stamp.className='chips'; stamp.style.cssText='margin:0 0 10px';
-          stamp.innerHTML=`<span class="pill" title="Diet floor vintage — see docs/DIET_UPDATE_CHECKLIST.md">🕰️ Floor: ${esc(s.date)}</span><span class="pill">${esc(String(s.decided))} decided · ${esc(String(s.scheduled))} scheduled</span><span class="pill">Now: ${esc(s.current)} (${esc(s.status)})</span>`;
+          stamp.innerHTML=`<span class="pill" title="Diet floor vintage — see docs/DIET_UPDATE_CHECKLIST.md">🕰️ Floor: ${esc(s.date)}</span><span class="pill">${esc(String(s.decided))} decided · ${esc(String(s.scheduled))} scheduled${s.carried ? ` · ${esc(String(s.carried))} carried over` : ``}</span><span class="pill">Now: ${esc(s.current)} (${esc(s.status)})</span>`;
           container.prepend(stamp);
         }
       }catch(stampErr){ console.warn('diet stamp failed', stampErr); }

@@ -5,8 +5,8 @@ honest as its last update. After any session where the Empire votes, debates,
 deploys, or suffers planar weirdness, run this checklist. The freshness stamp
 on the Diet page (`dietFreshnessStamp()` in
 `Reputation-Matrix2/systems/regal-empire-system.js`) shows the floor date, the
-decided/scheduled counts, and the motion currently on the floor — check it
-before and after.
+decided/scheduled/carried counts, and the motion currently on the floor —
+check it before and after.
 
 ## After every relevant session
 
@@ -37,6 +37,8 @@ before and after.
 ## Smell test
 
 If the stamp's floor date is older than the latest session date, the Diet is
-stale — work the checklist top to bottom. If `scheduled` reads 0, the chamber
+stale — work the checklist top to bottom. If `carried` reads above 0,
+past-due motions need outcomes filed (they render as CARRIED OVER until
+moved to history). If `scheduled` reads 0, the chamber
 has no future; file at least the next rumored motion so readers see what's
 coming.
