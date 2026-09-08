@@ -130,8 +130,36 @@ check('a correctly spelled query is not rewritten', (() => {
   return (window.LAST_SEARCH_CORRECTIONS || []).length === 0;
 })(), 'correction fired on a valid word');
 
+console.log('\n-- round 3: complex queries + advanced filters');
+const r3 = run('wario head fight');
+const promoRank = r3.findIndex(r => r.id === 'promo_mario_newspaper');
+check('"wario head fight" links promo mario', promoRank >= 0 && promoRank < 40,
+  `rank ${promoRank} of ${r3.length}`);
+const r3at = run('wario head fight at:hollywood');
+check('at:hollywood puts promo mario first', r3at.length > 0 && r3at[0].id === 'promo_mario_newspaper',
+  r3at.slice(0, 3).map(r => r.id).join(', '));
+const r3arc = run('arc:mario wario head fight');
+const arcSet = window.arcMembers ? window.arcMembers('mario_brothers_collection') : new Set();
+const arcPromo = r3arc.findIndex(r => r.id === 'promo_mario_newspaper');
+check('arc:mario keeps promo mario near the top', arcPromo >= 0 && arcPromo < 3,
+  r3arc.slice(0, 4).map(r => r.id).join(', '));
+check('arc:mario returns arc records only',
+  r3arc.length > 0 && r3arc.every(r => arcSet.has(r.id)),
+  `${r3arc.length} results`);
+const r3who = run('fight with:wario');
+check('with:wario returns records Wario is in',
+  r3who.length > 0 && r3who.every(r => (r.people || '').includes('wario')),
+  `${r3who.length} results`);
+check('bad arc falls back to words', run('arc:zzzznothing wario').length > 0,
+  'unresolvable arc emptied the search');
+check('the arc dropdown lists the shelves',
+  (window.document.getElementById('searchArc')?.options.length || 0) >= 19,
+  'searchArc missing or empty');
+check('the Advanced row starts hidden',
+  window.document.getElementById('searchAdv')?.hidden === true);
+
 console.log('\n-- no crashes on edge cases');
-for (const q of ['', ' ', 'zzzzzznope', '"quoted phrase"', 'a', '@events aurelian']) {
+for (const q of ['', ' ', 'zzzzzznope', '"quoted phrase"', 'a', '@events aurelian', 'arc:mario', 'at:hollywood wario', 'with:wario fight']) {
   let ok = true;
   try { run(q); } catch (e) { ok = false; }
   check(`search(${JSON.stringify(q)}) does not throw`, ok);

@@ -66,10 +66,13 @@ const src = [
   extract('function startsWord'),
   extract('function boundaryWord'),
   extract('function stripPossessives'),
+  extract('function countOcc'),
+  extract('function arcMembers'),
+  extract('function resolveArc'),
 ].join('\n');
 // eslint-disable-next-line no-new-func
-new Function(`${src}; this.normalizeSearchText=normalizeSearchText; this.peopleOf=peopleOf; this.yearOf=yearOf; this.shortDateOf=shortDateOf; this.escRx=escRx; this.wordHit=wordHit; this.startsWord=startsWord; this.boundaryWord=boundaryWord; this.stripPossessives=stripPossessives;`).call(sandbox);
-const { normalizeSearchText, peopleOf, yearOf, shortDateOf, escRx, wordHit, startsWord, boundaryWord, stripPossessives } = sandbox;
+new Function(`${src}; this.normalizeSearchText=normalizeSearchText; this.peopleOf=peopleOf; this.yearOf=yearOf; this.shortDateOf=shortDateOf; this.escRx=escRx; this.wordHit=wordHit; this.startsWord=startsWord; this.boundaryWord=boundaryWord; this.stripPossessives=stripPossessives; this.countOcc=countOcc;`).call(sandbox);
+const { normalizeSearchText, peopleOf, yearOf, shortDateOf, escRx, wordHit, startsWord, boundaryWord, stripPossessives, countOcc } = sandbox;
 
 // ------------------------------------------------------------------ data
 function load(name) {
@@ -99,7 +102,7 @@ function makeDoc(item, kind) {
     flat(item.participants), flat(item.outcome), flat(item.aftermath), flat(item.sections),
     flat(item.keyBattles), flat(item.notableFeatures), flat(item.effects), flat(item.status),
     flat(item.waluigiAssessment), flat(item.openThreads), flat(item.tags), flat(item.aliases),
-    flat(item.keyMoments), flat(item.keyEvents), flat(item.members), flat(item.articles), flat(item.date),
+    flat(item.keyMoments), flat(item.keyEvents), flat(item.members), flat(item.articles), flat(item.revisions), flat(item.date),
   ].filter(Boolean).join(' ').toLowerCase();
   return {
     kind, id: item.id, name: item.name || item.title || item.id,
@@ -238,10 +241,29 @@ check('possessives are stripped before parsing',
 
 console.log('\n-- the mario disappearance thread');
 const collections = load('collections');
+// arcMembers/resolveArc read DATA + displayName, so they get their own
+// sandbox with a stub shelf file. displayName's shape is pinned: the stub
+// must match what ships.
+check('displayName shape is pinned',
+  /const displayName=it=>it\.name\|\|it\.title\|\|it\.id;/.test(main));
+const sandbox2 = {};
+const src2 = [
+  extract('function normalizeSearchText'),
+  extract('function arcMembers'),
+  extract('function resolveArc'),
+].join('\n');
+new Function('DATA', 'displayName', `
+  ${src2};
+  this.arcMembers=arcMembers;
+  this.resolveArc=resolveArc;
+`).call(sandbox2, { collections }, it => it.name || it.title || it.id);
+const { arcMembers, resolveArc } = sandbox2;
 const marioThread = collections.find(c => c.id === 'mario_brothers_collection');
 check('the mario brothers collection exists', !!marioThread);
 check('its roster names the thread',
-  !!marioThread && ['mario', 'luigi', 'star_fountain_reunion', 'star_fountain', 'the_arrangement']
+  !!marioThread && ['mario', 'luigi', 'star_fountain_reunion', 'star_fountain', 'the_arrangement',
+    'promo_mario_newspaper', 'the_eastern_passage', 'charred_note_at_waluigis_door',
+    'the_waiting_room_testimony', 'the_dread_mansion_incursion']
     .every(id => (marioThread.articles || []).includes(id)));
 check('its members are the two brothers',
   !!marioThread && (marioThread.members || []).map(m => m.id || m).join(',') === 'mario,luigi');
@@ -259,6 +281,33 @@ check('"mario disappearance" reaches the thread record',
   threadFound.includes('the_eastern_passage'), threadFound.slice(0, 6).join(','));
 check('"mario disappearance" reaches the collection',
   threadFound.includes('mario_brothers_collection'), threadFound.slice(0, 6).join(','));
+
+// --------------------------------- round 3: aboutness + arc scope
+console.log('\n-- repetition means aboutness');
+
+check('countOcc counts repeats', countOcc('wario wario wario', 'wario') === 3);
+check('countOcc singles', countOcc('the eastern passage', 'eastern') === 1);
+check('countOcc is whole-word for short terms', countOcc('car car x', 'car') === 2);
+check('countOcc rejects substrings for short terms', countOcc('cargo', 'car') === 0);
+check('countOcc zero when absent', countOcc('luigi saw plenty', 'wario') === 0);
+
+console.log('\n-- revision bodies are indexed');
+const promoDoc = DOCS.find(d => d.id === 'promo_mario_newspaper');
+check('the promo hay carries its amended filing', !!promoDoc && promoDoc.hay.length > 30000,
+  promoDoc ? `${promoDoc.hay.length} chars` : 'missing doc');
+const complexFound = find(DOCS, 'wario head fight').map(d => d.id);
+check('"wario head fight" reaches promo mario', complexFound.includes('promo_mario_newspaper'),
+  complexFound.slice(0, 4).join(','));
+
+console.log('\n-- arcs resolve');
+check('exact arc id resolves', resolveArc('mario_brothers_collection') === 'mario_brothers_collection');
+check('arc name fragment resolves', resolveArc('mario') === 'mario_brothers_collection');
+check('unknown arc resolves to empty', resolveArc('zzzznothing') === '');
+const marioArc = arcMembers('mario_brothers_collection');
+check('the mario arc covers shelf + roster', !!marioArc && marioArc.size === 11, `${marioArc ? marioArc.size : 0}`);
+check('the arc includes the thread filings',
+  !!marioArc && ['promo_mario_newspaper', 'the_eastern_passage', 'charred_note_at_waluigis_door'].every(id => marioArc.has(id)));
+check('unknown arc has no members', arcMembers('zzzznothing') === null);
 
 // ------------------------------------------------------------- integrity
 console.log('\n-- index integrity');

@@ -89,6 +89,13 @@ html[data-theme="light"] header.topbar{background:linear-gradient(90deg,rgba(255
 #search{min-width:150px;flex:1;padding:11px 12px 11px 40px;border:0;background:transparent;color:var(--text);font-size:15px;outline:none;transition:.15s}
 .search-select{height:30px;max-width:130px;border:1px solid var(--border);border-radius:9px;background:var(--panel2);color:var(--text);font-size:12px;padding:0 8px;outline:none;cursor:pointer}
 .search-select:focus{border-color:var(--accent2)}
+.search-adv-btn{height:30px;min-width:30px;border:1px solid var(--border);border-radius:9px;background:var(--panel2);color:var(--muted);font-size:13px;cursor:pointer;padding:0 7px}
+.search-adv-btn.is-active{color:var(--accent2);border-color:var(--accent2)}
+.searchadv{display:flex;gap:8px;flex-wrap:wrap;align-items:center;padding:8px 10px;border-top:1px solid var(--border)}
+.searchadv[hidden]{display:none}
+.searchadv-label{display:flex;gap:5px;align-items:center;font-size:12px;color:var(--muted)}
+.searchadv-input{height:30px;width:110px;border:1px solid var(--border);border-radius:9px;background:var(--panel2);color:var(--text);font-size:12px;padding:0 8px;outline:none}
+.searchadv-input:focus{border-color:var(--accent2)}
 .search-mode{max-width:112px}
 .searchwrap .ico{position:absolute;left:12px;top:50%;transform:translateY(-50%);opacity:.65;pointer-events:none;z-index:1}
 .searchwrap .kbd{font-size:11px;color:var(--muted);border:1px solid var(--border);border-radius:6px;padding:1px 6px;background:var(--bg2);white-space:nowrap}

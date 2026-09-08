@@ -627,7 +627,13 @@ ul.otd li a{color:var(--text);font-weight:600}
         <option value="any">Any word</option>
         <option value="exact">Exact phrase</option>
       </select>
+      <button id="searchAdvToggle" class="search-adv-btn" title="Advanced filters: arc, place, person" aria-expanded="false">⚙</button>
       <span class="kbd">/</span>
+    </div>
+    <div class="searchadv" id="searchAdv" hidden>
+      <label class="searchadv-label">Arc <select id="searchArc" class="search-select" title="Search within one story arc"><option value="">All arcs</option></select></label>
+      <label class="searchadv-label">At <input id="searchAt" class="searchadv-input" type="text" placeholder="place…" autocomplete="off" title="Only records set at this place"></label>
+      <label class="searchadv-label">With <input id="searchWith" class="searchadv-input" type="text" placeholder="person…" autocomplete="off" title="Only records this person is in"></label>
     </div>
     <div class="results" id="results"></div>
   </div>
@@ -4952,7 +4958,7 @@ function buildIndexes(){
                flat(item.participants),flat(item.outcome),flat(item.aftermath),flat(item.sections),
                flat(item.keyBattles),flat(item.notableFeatures),flat(item.effects),flat(item.status),
                flat(item.waluigiAssessment),flat(item.openThreads),flat(item.tags),flat(item.aliases),
-               flat(item.keyMoments),flat(item.keyEvents),flat(item.members),flat(item.articles),flat(item.date)
+               flat(item.keyMoments),flat(item.keyEvents),flat(item.members),flat(item.articles),flat(item.revisions),flat(item.date)
               ].filter(Boolean).join(' ').toLowerCase();
     SEARCH_DOCS.push({kind:'article',id:item.id,typeKey,name:displayName(item),
                       summary:previewText(item,160),hay,people:people.join(' ').toLowerCase(),
@@ -7683,6 +7689,17 @@ function categoryMatches(d,cat){
    record under false friends. Long terms keep substring semantics (IDs and
    compounds depend on it). Pure: covered by test-search-quality.mjs. */
 function escRx(s){return String(s).replace(/[.*+?^${}()|[\]\\]/g,'\\$&');}
+/* Aboutness: a record that says the word ten times is ABOUT it; a record
+   that says it once mentions it. Counts occurrences (whole-word for short
+   terms, substring otherwise, mirroring wordHit) so repetition can lift the
+   records a vague query is actually describing above passing mentions. */
+function countOcc(hay,t){
+  const h=String(hay||'');
+  if(!t)return 0;
+  if(t.length>3){ if(!h.includes(t))return 0; return h.split(t).length-1; }
+  const m=h.match(new RegExp('(^|\\s)'+escRx(t)+'(?=\\s|$)','g'));
+  return m?m.length:0;
+}
 function wordHit(text,t){ if(t.length>3)return String(text).includes(t); return new RegExp('(^|\\s)'+escRx(t)+'(\\s|$)').test(String(text)); }
 function startsWord(text,t){ if(t.length>3)return String(text).startsWith(t); return new RegExp('^'+escRx(t)+'(\\s|$)').test(String(text)); }
 function boundaryWord(text,t){ if(t.length>3)return new RegExp('(^|\\s)'+escRx(t)).test(String(text)); return new RegExp('(^|\\s)'+escRx(t)+'(\\s|$)').test(String(text)); }
@@ -7696,8 +7713,15 @@ function parseSearchQuery(raw,opts){
   const categorySelect=el('searchCategory'),modeSelect=el('searchMode');
   let category=(opts&&opts.category)||categorySelect?.value||'all';
   let mode=(opts&&opts.mode)||modeSelect?.value||'smart';
+  const arcSelect=el('searchArc'),atInput=el('searchAt'),withInput=el('searchWith');
+  let arc=(opts&&opts.arc)||(arcSelect&&arcSelect.value)||'';
+  let at=(opts&&opts.at)||((atInput&&atInput.value)||'').trim();
+  let who=(opts&&opts.who)||((withInput&&withInput.value)||'').trim();
   q=q.replace(/(?:^|\s)(?:@|(?:cat(?:egory)?|type|in):)([a-z0-9_-]+)/ig,(m,c)=>{const mapped=SEARCH_CATEGORY_ALIASES[String(c).toLowerCase()]||category;if(!(opts&&opts.keepPrefixCategory))category=mapped;return ' ';}).trim();
   const quoted=[]; q=q.replace(/"([^"]+)"|'([^']+)'/g,(m,a,b)=>{const val=(a||b||'').trim();if(val)quoted.push(normalizeSearchText(val));return ' ';}).trim();
+  q=q.replace(/(?:^|\s)arc:([\w-]+)/ig,(m,c)=>{const r=resolveArc(c);if(r){arc=r;return ' ';}return ' '+c+' ';}).trim();
+  q=q.replace(/(?:^|\s)(?:at|loc|location):([\w-]+)/ig,(m,c)=>{at=c;return ' ';}).trim();
+  q=q.replace(/(?:^|\s)(?:with|person):([\w-]+)/ig,(m,c)=>{who=c;return ' ';}).trim();
   q=stripPossessives(q).trim();
   const clean=normalizeSearchText(q);
   // Drop conversational filler. Somebody at the table types
@@ -7713,7 +7737,7 @@ function parseSearchQuery(raw,opts){
   if(kept.length)terms=kept;
   const grown=terms.filter(t=>t.length>1);
   if(grown.length)terms=grown;
-  return {raw:String(raw||''),q,clean,terms,quoted,category,mode};
+  return {raw:String(raw||''),q,clean,terms,quoted,category,mode,arc,at,who};
 }
 /* Normalising every document costs ~240ms across the corpus (13.3M chars of
    hay through a regex). The corpus does not change between keystrokes, so we
@@ -7773,6 +7797,7 @@ function intentBonus(t,hay,typeKey){
 }
 function scoreDoc(d,parsed,mode){
   if(!categoryMatches(d,parsed.category))return null;
+  if(!scopeMatches(d,parsed))return null;
   const _n=ensureNormalized(d);
   const name=_n.name, id=_n.id, summary=_n.summary, hay=_n.hay, people=_n.people;
   const query=parsed.clean;
@@ -7848,7 +7873,7 @@ function scoreDoc(d,parsed,mode){
         if(peopleWord)score+=90;
         else if(inPeople)score+=45;
         if(inSummary)score+=22;
-        if(inHay)score+=8;
+        if(inHay){score+=8;const extra=countOcc(hay,t)-1;if(extra>0)score+=Math.min(24,6*extra);}
       }else if(mode!=='any')return null;
     }
     if(mode==='any' && matched===0)return null;
@@ -7965,7 +7990,7 @@ function expandRelated(out,parsed){
     if((seed.score||0)<100||extra.length>=12)break;
     const item=(seed.kind==='article'&&INDEX[seed.id]?INDEX[seed.id].item:null)||seed.ref||null;
     if(!item)continue;
-    const links=[].concat(item.relatedArticles||[],item.articles||[],item.keyEvents||[],item.keyBattles||[],item.members||[]);
+    const links=[].concat(item.relatedArticles||[],item.articles||[],item.keyEvents||[],item.keyBattles||[],item.members||[],item.sourceArticle||[]);
     for(const link of links){
       const rid=resolveArticleId(typeof link==='string'?link:link.id);
       if(!rid||have.has('article:'+rid))continue;
@@ -7974,6 +7999,7 @@ function expandRelated(out,parsed){
       const doc=SEARCH_DOCS.find(d=>d.kind==='article'&&d.id===rid);
       if(!doc)continue;
       if(parsed&&parsed.category&&parsed.category!=='all'&&docCategory(doc)!==parsed.category)continue;
+      if(!scopeMatches(doc,parsed))continue;
       have.add('article:'+rid);
       extra.push({...doc,score:Math.max(1,Math.min(99,Math.round((seed.score||100)*0.25))),cat:docCategory(doc),via:seed.id,viaName:displayName(seed.ref||{name:seed.name})});
       if(extra.length>=12)break;
@@ -7993,8 +8019,57 @@ function runCorrected(parsed,mode){
   if(o.length)LAST_SEARCH_CORRECTIONS=fixed.corrections;
   return o;
 }
+/* Arc scope: collections are the archive's story arcs. arcMembers() resolves
+   an arc id to the record ids it covers: the shelf itself plus its
+   articles[] and members[] rosters. resolveArc() forgives names and fragments
+   ("mario" finds the Mario Brothers shelf); unknown input resolves to '' and
+   the caller falls back to searching the words. */
+function arcMembers(arcId){
+  const c=(DATA.collections||[]).find(x=>x&&x.id===arcId);
+  if(!c)return null;
+  const set=new Set([c.id]);
+  (c.articles||[]).forEach(a=>{const id=typeof a==='string'?a:(a&&a.id);if(id)set.add(id);});
+  (c.members||[]).forEach(m=>{const id=typeof m==='string'?m:(m&&m.id);if(id)set.add(id);});
+  return set;
+}
+function resolveArc(name){
+  const cols=(DATA.collections||[]).filter(Boolean);
+  const raw=String(name||'').trim();
+  if(!raw)return '';
+  const hit=cols.find(c=>c.id===raw);
+  if(hit)return hit.id;
+  const norm=normalizeSearchText(raw);
+  if(!norm)return '';
+  const fuzzy=cols.find(c=>normalizeSearchText(c.id).includes(norm))||cols.find(c=>normalizeSearchText(displayName(c)).includes(norm));
+  return fuzzy?fuzzy.id:'';
+}
+function arcShortName(id){
+  const c=(DATA.collections||[]).find(x=>x&&x.id===id);
+  return c?displayName(c).slice(0,28):id;
+}
+/* Location text for the at: filter. Articles carry location/region on the
+   record; everything else has no setting and never matches a place filter. */
+function locOf(d){
+  if(d._loc!==undefined)return d._loc;
+  const it=(d.kind==='article'&&INDEX[d.id])?INDEX[d.id].item:null;
+  d._loc=it?normalizeSearchText([(it.location||''),(it.region||'')].filter(Boolean).join(' ')):'';
+  return d._loc;
+}
+/* Advanced filters: arc scope, at: place, with: person. Every set filter must
+   pass; an unset filter passes everything. Defensive about missing parsed
+   fields so plain {terms} queries keep working. */
+function scopeMatches(d,parsed){
+  if(!parsed)return true;
+  if(parsed._arcSet&&!parsed._arcSet.has(d.id))return false;
+  if(parsed._at&&parsed._at.length&&!parsed._at.every(t=>wordHit(locOf(d),t)))return false;
+  if(parsed._who&&parsed._who.length&&!parsed._who.every(t=>wordHit(ensureNormalized(d).people,t)))return false;
+  return true;
+}
 function search(q,opts={}){
   const parsed=parseSearchQuery(q,opts);
+  parsed._arcSet=parsed.arc?arcMembers(parsed.arc):null;
+  parsed._at=normalizeSearchText(parsed.at||'').split(/\s+/).filter(Boolean);
+  parsed._who=normalizeSearchText(parsed.who||'').split(/\s+/).filter(Boolean);
   if(!parsed.clean&&!parsed.quoted.length)return[];
   const run=(mode)=>{
     const out=[];
@@ -8053,7 +8128,7 @@ function countsFromResults(list,parsed){
 function renderSearchHelp(){
   currentResults=[];activeIdx=-1;
   const chips=['characters','events','items','currencies','battles','books'].map(cat=>`<span class="search-chip" data-search-cat="${cat}">${SEARCH_CATEGORIES.find(x=>x[0]===cat)?.[1]||prettyId(cat)}</span>`).join('');
-  resultsBox.innerHTML=`<div class="search-panel-head"><div class="search-panel-title"><b>Waluipedia Search Console</b><span>/ or Ctrl+K focuses · ↑↓ selects · Enter opens</span></div><div class="search-chipbar">${chips}</div></div><div class="search-help"><b>Tips:</b> choose a category, switch Smart/Exact/Any matching, use quotes for a phrase like <b>"Mirror of True Reflection"</b>, or type quick filters like <b>@characters bowser</b>, <b>@events feyward</b>, <b>type:currency gold</b>. Strong matches pull their thread — related articles follow, marked <b>via</b>. Waluigi has made the search less embarrassing. You are welcome.</div>`;
+  resultsBox.innerHTML=`<div class="search-panel-head"><div class="search-panel-title"><b>Waluipedia Search Console</b><span>/ or Ctrl+K focuses · ↑↓ selects · Enter opens</span></div><div class="search-chipbar">${chips}</div></div><div class="search-help"><b>Tips:</b> choose a category, switch Smart/Exact/Any matching, use quotes for a phrase like <b>"Mirror of True Reflection"</b>, or type quick filters like <b>@characters bowser</b>, <b>@events feyward</b>, <b>type:currency gold</b>, <b>arc:mario</b>, <b>at:hollywood</b>, <b>with:wario</b>. The ⚙ Advanced row narrows by arc, place, or person. Strong matches pull their thread — related articles follow, marked <b>via</b>. Waluigi has made the search less embarrassing. You are welcome.</div>`;
   resultsBox.classList.add('show');
   bindSearchChips();
 }
@@ -8082,11 +8157,12 @@ function renderResults(list,q){
   // hand, so derive the counts from it instead.
   const counts=countsFromResults(list,parsed);
   const total=counts.all||0;
+  const scopeBits=[parsed.arc?('🗂️ '+esc(arcShortName(parsed.arc))):'',parsed.at?('at '+esc(parsed.at)):'',parsed.who?('with '+esc(parsed.who)):''].filter(Boolean).join(' · ');
   const chipHtml=SEARCH_CATEGORIES.filter(([cat])=>cat==='all'||counts[cat]||cat===parsed.category).map(([cat,label])=>`<span class="search-chip ${cat===parsed.category?'active':''}" data-search-cat="${cat}">${esc(label)}${counts[cat]?` ${counts[cat]}`:''}</span>`).join('');
   const corr=LAST_SEARCH_CORRECTIONS.length
     ? `<div class="search-corrected">Showing results for <b>${esc(LAST_SEARCH_CORRECTIONS.map(c=>c[1]).join(' '))}</b> — no matches for ${esc(LAST_SEARCH_CORRECTIONS.map(c=>c[0]).join(' '))}</div>`
     : '';
-  const headerHtml=`<div class="search-panel-head">${corr}<div class="search-panel-title"><b>${total} match${total===1?'':'es'} indexed</b><span>${esc(SEARCH_CATEGORIES.find(x=>x[0]===parsed.category)?.[1]||'All')} · ${esc((searchMode&&searchMode.options[searchMode.selectedIndex]?.text)||parsed.mode)}</span></div><div class="search-chipbar">${chipHtml}</div></div>`;
+  const headerHtml=`<div class="search-panel-head">${corr}<div class="search-panel-title"><b>${total} match${total===1?'':'es'} indexed</b><span>${esc(SEARCH_CATEGORIES.find(x=>x[0]===parsed.category)?.[1]||'All')} · ${esc((searchMode&&searchMode.options[searchMode.selectedIndex]?.text)||parsed.mode)}${scopeBits?' · '+scopeBits:''}</span></div><div class="search-chipbar">${chipHtml}</div></div>`;
   if(!list.length){resultsBox.innerHTML=headerHtml+'<div class="res-empty">No matches in this filter. Try All, Any word, or fewer words. Waluigi refuses to blame the index this time.</div>';resultsBox.classList.add('show');bindSearchChips();return;}
   // We score up to 600 so the chip counts are honest, but only draw the
   // first 60 rows -- building 600 DOM nodes per keystroke was its own stall.
@@ -8122,6 +8198,13 @@ searchInput.addEventListener('input',()=>runSearchDebounced(false));
 searchInput.addEventListener('focus',()=>runSearch(true));
 if(searchCategory)searchCategory.addEventListener('change',()=>runSearch(true));
 if(searchMode)searchMode.addEventListener('change',()=>runSearch(true));
+const searchArc=el('searchArc'),searchAt=el('searchAt'),searchWith=el('searchWith'),searchAdv=el('searchAdv'),searchAdvToggle=el('searchAdvToggle');
+function refreshAdvBtn(){ if(!searchAdvToggle)return; const on=(searchArc&&searchArc.value)||(searchAt&&searchAt.value.trim())||(searchWith&&searchWith.value.trim()); searchAdvToggle.classList.toggle('is-active',!!on); }
+if(searchAdvToggle)searchAdvToggle.addEventListener('click',()=>{ if(!searchAdv)return; searchAdv.hidden=!searchAdv.hidden; searchAdvToggle.setAttribute('aria-expanded',String(!searchAdv.hidden)); if(!searchAdv.hidden)populateSearchArc(); });
+if(searchArc)searchArc.addEventListener('change',()=>{refreshAdvBtn();runSearch(true);});
+if(searchAt)searchAt.addEventListener('input',()=>{refreshAdvBtn();runSearchDebounced(false);});
+if(searchWith)searchWith.addEventListener('input',()=>{refreshAdvBtn();runSearchDebounced(false);});
+function populateSearchArc(){ if(!searchArc||searchArc.options.length>1)return; for(const c of (DATA.collections||[])){ if(!c||!c.id)continue; const o=document.createElement('option'); o.value=c.id; o.textContent=displayName(c); searchArc.appendChild(o); } }
 searchInput.addEventListener('keydown',e=>{
   if(e.key==='ArrowDown'){e.preventDefault();activeIdx=Math.min(activeIdx+1,currentResults.length-1);paintActive();}
   else if(e.key==='ArrowUp'){e.preventDefault();activeIdx=Math.max(activeIdx-1,0);paintActive();}
@@ -19555,6 +19638,7 @@ async function boot(){
   // the data but unreachable from search.
   await loadGeneratedFactions();
   buildIndexes();
+  populateSearchArc();
   await loadMagesIntoSearch();
   buildAtlasIndex();
   invalidateRepEventCache();  // rebuild reputation event cache now that DATA is loaded
