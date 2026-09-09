@@ -532,6 +532,7 @@
 
     el('rnn-episode-select').addEventListener('change', function () {
       load(this.value);
+      try { location.hash = '#ep=' + this.value; } catch (e) { /* non-browser */ }
     });
   }
 
@@ -542,6 +543,8 @@
     if (!ep) return;
     pause();
     S.episode = ep;
+    var sel = el('rnn-episode-select');
+    if (sel) sel.value = ep.id;
     S.set = '';
     S.holdStart = -1;
     buildCues(ep);
@@ -586,7 +589,15 @@
     }
 
     wire();
-    load(data.latest || data.episodes[0].id);
+    // Deep link: #ep=<id> (or a bare #<id>) opens that episode directly.
+    var initial = data.latest || data.episodes[0].id;
+    try {
+      var h = String(location.hash || '').replace(/^#/, '');
+      if (h.indexOf('ep=') === 0) h = h.slice(3);
+      var want = decodeURIComponent(h);
+      if (want && data.episodes.some(function (e) { return e.id === want; })) initial = want;
+    } catch (e) { /* keep default */ }
+    load(initial);
   }
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
