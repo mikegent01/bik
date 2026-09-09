@@ -168,7 +168,7 @@ ok(surveyPar.has('undertale_monsters') && surveyPar.has('iron_legion'), 'party l
 const dis = api.buildJourney('midlands_full', 'all', DATA, MAP_DATA, { party: 'disaster_inc' });
 ok(dis.stops.length === 43 && dis.stops.length < j.stops.length, `disaster inc owns a real midlands trail (${dis.stops.length} stops)`);
 const disIds = [...dis.stops, ...dis.unpinned, ...dis.unresolved].map(x => x.eventId);
-ok(disIds.length === 73 && new Set(disIds).size === 73, 'a filtered journey still buckets every party event exactly once');
+ok(disIds.length === 74 && new Set(disIds).size === 74, 'a filtered journey still buckets every party event exactly once');
 ok(dis.stops.every((s, i) => s.n === i + 1), 'filtered stops renumber 1..N in display order');
 const pea = api.buildJourney('midlands_full', 'all', DATA, MAP_DATA, { party: 'peach_loyalists' });
 ok(pea.stops.length === 0 && pea.unpinned.length + pea.unresolved.length === 3, 'a party with no midlands stops degrades to the unplotted list, honestly');

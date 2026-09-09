@@ -715,6 +715,29 @@
         "reaction": "alarm",
         "comments": [],
         "status": "posted"
+      },
+      {
+        "id": "wahwire_lava_bridge_ambush",
+        "author": "waluigi",
+        "order": 22,
+        "date": null,
+        "timestamp": "19 Harvestide, 1035 BF — past midnight, outside the compound walls",
+        "content": "Two Luigis walked into tonight. One of them is tied up outside Bowser’s wall and out of smiles. The other is MISSING past a lava falls with the only paper that matters. I pointed at the fraud and named it OUT LOUD — YOU CHEATED — and the crew took it up like a war cry. The Gambit is born. The search starts at dawn. WAH.",
+        "likes": 0,
+        "links": [
+          {
+            "id": "the_lava_bridge_ambush_and_the_blue_luigi",
+            "type": "event"
+          }
+        ],
+        "tags": [
+          "compound",
+          "impostor",
+          "gambit"
+        ],
+        "reaction": "resolve",
+        "comments": [],
+        "status": "posted"
       }
   ]
 }

@@ -240,20 +240,19 @@ Seven habits explain nearly every decision in this repository:
 <!-- RNN:LAST-WEEK:START -->
 ## 📺 Last Week on the Rakasha News Network
 
-> **EP 003 — The Lease — and the First Night of Waluigi Chat**  
-> Hunt Day AETHEL 4, 1040 BF · covering the night of Harvestide 30, 1040 BF — released four days into Aethel, plus the signing of the lease · runtime 6:21  
-> **Whisper-in-Wind**, Death Speaker, Spirit-Walker Clan · **Waluigi**, Host, Waluigi Chat · encyclopaedist of the unthanked · **Remi Akamatsu**, Guest — wrong-way scout, mirror-recovery planner · **Wario**, Caller — acquired, not for sale
+> **EP 004 — Ten Unaired Nights, and Wario Takes the Chair**  
+> Hunt Day AETHEL 5, 1040 BF · covering ten unaired nights, oldest first — 872 BF to 1045 BF, aired Aethel 5 with the desk’s apologies for the backlog · runtime 6:34  
+> **Whisper-in-Wind**, Death Speaker, Spirit-Walker Clan · **Waluigi**, Host, Waluigi Chat · encyclopaedist of the unthanked · **Wario**, Guest — drove the fraud, reversed into it, billed nobody · **Bowser**, Caller — billing the longhouse for one (1) wall
 
 **▶ [Watch the broadcast](Reputation-Matrix2/app/pages/standalone/rakasha-news-network.html)** — the jungle bulletin first, then the late slot: WALUIGI CHAT, composited live from `animation_frames/` and `portraits/player/sprite-sheets/`.
 
 | Segment | Story | Cold open line |
 |---|---|---|
 | **COLD OPEN** | Rakasha News Network | Iron rusts. Flesh rots. Maps lie. Only the Hunt remains. |
-| **THE JUNGLE SEES ALL** | The Mirror, the Sentence, and the Storm on a Leash | A file from the last night of Harvestide reached this desk four days into Aethel. The desk reads… |
-| **THE HANDOVER** | The Lease | Tonight the network leases its late slot. The tenant paid in paper — four hundred entries of com… |
-| **WALUIGI CHAT** | The Scout Who Cannot Name Her Home | Good Aethel, late slot. This is Waluigi Chat, broadcast from a longhouse I am contractually perm… |
-| **THE CALLER** | A Voice Through the Window | We have a caller. On the shell-phone. Nobody told me the shell-phone worked. Go ahead, caller. S… |
-| **SIGN OFF** | Sign Off | The longhouse is returned. The lease stands. The jungle saw all of that, and the jungle has no c… |
+| **THE JUNGLE SEES ALL** | Ten Nights, Oldest First | In the house with no exits, one hundred sixty-eight years cold: a soldier walked in on orders hi… |
+| **WALUIGI CHAT** | The Brother Who Drove the Fraud | Good Aethel, late slot. This is Waluigi Chat, and tonight’s guest drove a fraud through a guarde… |
+| **THE CALLER** | The Bill for One (1) Wall | We have a caller — the shell-phone lit up like a fire alarm. State your name for the minutes, ca… |
+| **SIGN OFF** | Sign Off | The longhouse is returned. Ten nights aired, none of them behaved, and the yellow one is still i… |
 
 *Cadence: **one episode per ~10 filed events, not one per event.** File the session, add the event id to `tools/rnn-scripts/pending-news-articles.json`, and when the list reaches ten write the next script in `tools/rnn-scripts/` and run `python3 tools/build-rnn-broadcast.py`. Full rules: [`docs/RNN_BROADCAST_GUIDE.md`](docs/RNN_BROADCAST_GUIDE.md). The newest episode always sits here.*
 

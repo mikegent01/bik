@@ -3,8 +3,8 @@
    Rebuild:        python3 tools/build-rnn-broadcast.py
    Format:         the network — Rakasha bulletin, then Waluigi Chat (docs/RNN_BROADCAST_GUIDE.md). */
 window.RNN_BROADCASTS = {
-  "generated": "2026-08-17",
-  "latest": "rnn-003",
+  "generated": "2026-09-09",
+  "latest": "rnn-004",
   "cadence": "The network format: a short Rakasha bulletin, then Waluigi Chat in the late slot. One episode per ~10 filed events. See docs/RNN_BROADCAST_GUIDE.md.",
   "episodes": [
     {
@@ -979,6 +979,343 @@ window.RNN_BROADCASTS = {
         }
       ],
       "runtimeMs": 380920
+    },
+    {
+      "id": "rnn-004",
+      "number": 4,
+      "title": "Ten Unaired Nights, and Wario Takes the Chair",
+      "airWeek": "1040-AETHEL-W5",
+      "recordedOn": "2026-09-08",
+      "huntDay": "AETHEL 5, 1040 BF",
+      "covering": "ten unaired nights, oldest first — 872 BF to 1045 BF, aired Aethel 5 with the desk’s apologies for the backlog",
+      "anchorName": "Whisper-in-Wind",
+      "anchorRole": "Death Speaker, Spirit-Walker Clan",
+      "fieldName": "Acolyte Dan",
+      "fieldRole": "Runner of the Cold Roads",
+      "cast": {
+        "anchor": {
+          "name": "Whisper-in-Wind",
+          "role": "Death Speaker, Spirit-Walker Clan",
+          "art": {
+            "kind": "frames",
+            "dir": "animation_frames/"
+          }
+        },
+        "waluigi": {
+          "name": "Waluigi",
+          "role": "Host, Waluigi Chat · encyclopaedist of the unthanked",
+          "art": {
+            "kind": "pose",
+            "dir": "portraits/player/sprite-sheets/poses/waluigi/",
+            "defaultPose": "02-idle-right"
+          }
+        },
+        "wario": {
+          "name": "Wario",
+          "role": "Guest — drove the fraud, reversed into it, billed nobody",
+          "art": {
+            "kind": "pose",
+            "dir": "portraits/player/sprite-sheets/poses/wario/",
+            "defaultPose": "01-idle-front"
+          }
+        },
+        "bowser": {
+          "name": "Bowser",
+          "role": "Caller — billing the longhouse for one (1) wall",
+          "art": {
+            "kind": "pose",
+            "dir": "portraits/player/sprite-sheets/poses/bowser/",
+            "defaultPose": "01-idle-front"
+          }
+        }
+      },
+      "sourceEvents": [
+        "the_dread_mansion_incursion",
+        "feyward_battalion_of_six_and_the_bait_plan",
+        "the_mount_ebot_expedition_part_2",
+        "the_lava_bridge_ambush_and_the_blue_luigi",
+        "charred_note_at_waluigis_door",
+        "warp_pipe_junction_restricted_city",
+        "promo_mario_newspaper",
+        "the_scorncrow_skirmish",
+        "the_belly_of_the_beast",
+        "mount_ebott_survey_final_log"
+      ],
+      "ticker": [
+        "TEN NIGHTS, ONE DESK — THE BACKLOG IS CLEARED, THE JUNGLE IS TIRED",
+        "TWO LUIGIS WALKED INTO THE COMPOUND — ONE IS TIED UP, ONE IS MISSING",
+        "THE GATE OPENED FOR A SMILE — THE DESK ASKS WHAT ELSE IS ON THE GUEST LIST",
+        "GARLIC ON THE BLADES, A MOTORBIKE IN A BUSH — THE GROVE REPORTS HUMAN BLOOD",
+        "THE NEWSPAPER PROMISED A PORTAL — THE MACHINE SAYS PORTAL FAILED",
+        "A FILE FROM 1045 ARRIVED EARLY — THE DESK READS IT ANYWAY",
+        "CALLER BILLS THE LONGHOUSE FOR ONE (1) WALL — THE BILL IS DENIED"
+      ],
+      "segments": [
+        {
+          "slug": "COLD OPEN",
+          "type": "titlecard",
+          "set": "newsdesk",
+          "title": "Rakasha News Network",
+          "lines": [
+            {
+              "expression": "normal",
+              "text": "Iron rusts. Flesh rots. Maps lie. Only the Hunt remains.",
+              "duration": 4100
+            },
+            {
+              "expression": "eyebrowraised",
+              "text": "This is the Rakasha News Network. Hunt Day five of Aethel. Ten unaired nights on the desk, oldest first, the youngest posted from five years hence — and one guest who billed the longhouse for parking. The jungle has read all ten. The jungle is still chewing.",
+              "duration": 11000
+            }
+          ]
+        },
+        {
+          "slug": "THE JUNGLE SEES ALL",
+          "type": "anchor",
+          "set": "newsdesk",
+          "title": "Ten Nights, Oldest First",
+          "lines": [
+            {
+              "expression": "normal",
+              "text": "In the house with no exits, one hundred sixty-eight years cold: a soldier walked in on orders his own command never issued, and watched a green-eyed spirit lay a hand on the red one’s chest like a key sliding home into its lock. A courtyard with no door out. A director with a genuine badge and no authority behind it.",
+              "duration": 11000
+            },
+            {
+              "expression": "mouthslightlyopen",
+              "text": "One hundred eighteen years by the cold clock: an heir handed a dwarf six soldiers and a pincer. Two of the six were already dead. One was a waiter. The order lasted four minutes. The desk salutes the waiter, and only the waiter.",
+              "duration": 11000
+            },
+            {
+              "expression": "concerned",
+              "text": "On the wrong mountain — one T, the desk has checked the stencil twice — a taped-together charter flew three passengers over barrels marked for the yellow one’s company. The barrels were certain. The mountain was not. The desk sides with the barrels.",
+              "duration": 11000
+            },
+            {
+              "expression": "normal",
+              "text": "Two hours after an embassy shouting-match, the tall thin one tracked the green one to the Iron-Hide’s small compound and walked into an ambush on a bridge over the fire-river. Nine seconds of a new name. A yellow cape. A folded note. A leaf that flew too far.",
+              "duration": 11000
+            },
+            {
+              "expression": "sad",
+              "text": "The green one went over the fire-falls. The fraud in blue smiled at a gate until it opened — and was still smiling when the car hit it. One brother tied up outside the wall. One brother lost past the water-that-burns. The tall one pointed and shouted YOU CHEATED, and the night finally had one honest sentence in it.",
+              "duration": 11000
+            },
+            {
+              "expression": "concerned",
+              "text": "Before dawn at a borrowed door: a note burned neatly at the edges, titled SECRET HISTORY MARIO, claiming three days, one death, and a waking after. The desk does not eat burned paper. The desk files it — and watches to see who comes to smell the smoke.",
+              "duration": 11000
+            },
+            {
+              "expression": "mouthslightlyopen",
+              "text": "At the pipe-city: a rat went down and did not come back. A captain sat the pipe-edge. A crayfish happened — five feet of it, where the captain had been. The winch opened. The big one carried. The desk has questions about the crayfish, and the crayfish is not answering.",
+              "duration": 11000
+            },
+            {
+              "expression": "eyebrowraised",
+              "text": "A newspaper promised a portal home. The full account disagrees: the portal failed, the green one vanished mid-tape, and something wearing the red one’s shape stepped out of a television. The desk files the machine’s version. Machines do not write teasers.",
+              "duration": 11000
+            },
+            {
+              "expression": "normal",
+              "text": "In the overgrown grove: garlic on the blades, the yellow one’s elixir in the veins, a motorbike in a bush, and one old miser attempting deforestation by hand. The scarecrow bled. Human blood. The desk repeats it because the field report repeated it: human blood.",
+              "duration": 11000
+            },
+            {
+              "expression": "sad",
+              "text": "Under the tree: the scarecrow put a scout down with crows, the old miser slammed it onto a girl, and the girl — pinned, point-blank — put a musket-ball through its face and found a man underneath. Then they followed it INTO the tree. The desk does not follow things into trees.",
+              "duration": 11000
+            },
+            {
+              "expression": "eyebrowraised",
+              "text": "Last: a file from five years up the cold clock, and the desk does not ask how it arrived. The mountain-that-records ended its survey with an oath that eats voices, a machine that kept every word it was told not to keep, and a leash on the far-speaker’s calls. Recency is a luxury. Premonition is just early paperwork.",
+              "duration": 11000
+            }
+          ]
+        },
+        {
+          "slug": "WALUIGI CHAT",
+          "type": "talk",
+          "set": "talkset",
+          "title": "The Brother Who Drove the Fraud",
+          "articleId": "the_lava_bridge_ambush_and_the_blue_luigi",
+          "lines": [
+            {
+              "speaker": "waluigi",
+              "pose": "09-talk-calm",
+              "text": "Good Aethel, late slot. This is Waluigi Chat, and tonight’s guest drove a fraud through a guarded gate, reversed a car into it mid-giggle, and billed nobody — which, for him, is charity. Brother. Businessman. Backseat driver of the apocalypse: Wario.",
+              "duration": 11000
+            },
+            {
+              "speaker": "wario",
+              "pose": "09-talk",
+              "text": "I don’t do chairs for free. This chair owes me money. The cushion owes me money. Talk fast, string bean, the meter is running and I own the meter.",
+              "duration": 10560
+            },
+            {
+              "speaker": "waluigi",
+              "pose": "11-point-accuse",
+              "text": "The passes. You faked Guild passes — in crayon — and walked six intruders through the Mages’ Guild on them. I filed the pass, by the way. Exhibit A. Doorwarden line signed, and I quote, Wario.",
+              "duration": 11000
+            },
+            {
+              "speaker": "wario",
+              "pose": "14-shifty",
+              "text": "FOUND them. Found six of them. Finders keepers, that’s the whole law, I checked with my lawyer, who is me. And the door was already a suggestion. I merely suggested back.",
+              "duration": 11000
+            },
+            {
+              "speaker": "waluigi",
+              "pose": "10-talk-wild",
+              "text": "You chauffeured Bowser’s plant to the compound door and called it a rescue! He waved at the gate! He SMILED at the guard! You delivered him like a parcel with a stamp on his forehead reading PLANT!",
+              "duration": 11000
+            },
+            {
+              "speaker": "wario",
+              "pose": "13-angry",
+              "text": "He KNEW where Mario was! He was HELPFUL! Since when is helpful a crime?! You want a remorseful Wario, hire a different Wario, there’s a whole television of spares, I read the newspaper!",
+              "duration": 11000
+            },
+            {
+              "speaker": "waluigi",
+              "pose": "12-smug",
+              "text": "Mona knew. From the back seat. ‘Too easily,’ she said — on the phone, in the dark, at speed, with the bait sitting next to her. Your employee outperformed your entire operation from a moving car.",
+              "duration": 11000
+            },
+            {
+              "speaker": "wario",
+              "pose": "15-grab",
+              "text": "Mona’s smart. I hired smart. That’s leadership. That’s vision. You’re welcome, everybody — the smart one was MY idea, receipt available, no refunds.",
+              "duration": 8520
+            },
+            {
+              "speaker": "waluigi",
+              "pose": "09-talk-calm",
+              "text": "Then you reversed the car into it. Mid-giggle. THUMP. The confession ended in the dust with the fraud clutching its shoulder. I want your words on the record for the THUMP, brother. Give the longhouse the THUMP.",
+              "duration": 11000
+            },
+            {
+              "speaker": "wario",
+              "pose": "10-laugh",
+              "text": "Best parking job of my life! OW, he says. OW! Should’ve parked him SOONER. Should’ve parked him at the Guild. I park my problems now. New policy. Wario parks.",
+              "duration": 10560
+            },
+            {
+              "speaker": "waluigi",
+              "pose": "11-point-accuse",
+              "text": "And then I pointed at it and said YOU CHEATED. First Gambit ever deployed. The crew took it up like a war cry. Say it was mine. Say the words. The minutes are listening.",
+              "duration": 11000
+            },
+            {
+              "speaker": "wario",
+              "pose": "12-coin-flick",
+              "text": "It was LOUD. I’ll give it loud. Put it on my tab — the tab YOU owe ME, for the car alarm, which is still ringing, in my dreams, every night, forever.",
+              "duration": 11000
+            },
+            {
+              "speaker": "waluigi",
+              "pose": "14-shrug",
+              "text": "Different night. You crashed a motorbike into a bush, armed a squad with garlic and your own branded elixir, and the scarecrow bled human blood. Simple question, yes or no: was the bush part of the plan?",
+              "duration": 11000
+            },
+            {
+              "speaker": "wario",
+              "pose": "16-victory",
+              "text": "The bush was load-bearing. Everything I crash into is load-bearing. Ask the bush. The bush has no comment, which in my experience means yes.",
+              "duration": 8860
+            },
+            {
+              "speaker": "waluigi",
+              "pose": "09-talk-calm",
+              "text": "The real Luigi went over the fire-falls with the only paper that mattered. Your crew drove the fraud. My arithmetic let go of the arm. Step three is a search — every room, every hall, every nook. No splitting up. Mona’s rule.",
+              "duration": 11000
+            },
+            {
+              "speaker": "waluigi",
+              "pose": "15-despair",
+              "text": "So here is the one the bulletin couldn’t ask, brother. When you cracked your knuckles for step three — who were you signing with? The crew that got played… or the brother that’s missing? Don’t answer on air. The desk pays by the word and you’re overdrawn. That is the show — stay for the wire.",
+              "duration": 11000
+            }
+          ]
+        },
+        {
+          "slug": "THE CALLER",
+          "type": "talk",
+          "set": "talkset",
+          "title": "The Bill for One (1) Wall",
+          "lines": [
+            {
+              "speaker": "waluigi",
+              "pose": "13-aghast",
+              "text": "We have a caller — the shell-phone lit up like a fire alarm. State your name for the minutes, caller. Slowly. I am holding a pen the way other men hold grudges.",
+              "duration": 11000
+            },
+            {
+              "speaker": "bowser",
+              "phone": true,
+              "callerName": "CALLER",
+              "callerRole": "on the shell-phone · billing the longhouse for one (1) wall",
+              "pose": "01-idle-front",
+              "text": "BOWSER. King. You know what I want. One wall. Burst OUTWARD. Nobody fixes my wall, nobody reports my wall, and the tall one’s book says my office said NOTHING. My office says THIS: send money.",
+              "duration": 11000
+            },
+            {
+              "speaker": "waluigi",
+              "pose": "11-point-accuse",
+              "text": "Your asset smiled at your own guard until the gate opened, confessed to running spies in friendly faces, and got reversed into by a car. On YOUR road. Outside YOUR wall. And you are billing ME.",
+              "duration": 11000
+            },
+            {
+              "speaker": "bowser",
+              "phone": true,
+              "callerName": "CALLER",
+              "callerRole": "on the shell-phone · billing the longhouse for one (1) wall",
+              "pose": "01-idle-front",
+              "text": "Asset? ASSET?! I have never seen that giggling thing in my LIFE. My spies do not giggle. My spies do not get run over. My spies have DENTAL. …Send money.",
+              "duration": 10900
+            },
+            {
+              "speaker": "waluigi",
+              "pose": "12-smug",
+              "text": "The wall burst outward, caller. Outward is an exit, not an entrance. Your wall left on its own and everybody saw it go. The bill, for the record, is DENIED.",
+              "duration": 10900
+            },
+            {
+              "speaker": "bowser",
+              "phone": true,
+              "callerName": "CALLER",
+              "callerRole": "on the shell-phone · billing the longhouse for one (1) wall",
+              "pose": "01-idle-front",
+              "text": "OUTRAGEOUS. The bill doubles. The bill— *click*",
+              "duration": 3080
+            },
+            {
+              "speaker": "waluigi",
+              "pose": "13-aghast",
+              "text": "He hung up. Doubled the bill and hung up. The longhouse does not recognize the currency, the caller, or the wall. WAH! And that, herds, is Tuesday. Goodnight for real this time.",
+              "duration": 11000
+            }
+          ]
+        },
+        {
+          "slug": "SIGN OFF",
+          "type": "anchor",
+          "set": "newsdesk",
+          "title": "Sign Off",
+          "lines": [
+            {
+              "expression": "normal",
+              "text": "The longhouse is returned. Ten nights aired, none of them behaved, and the yellow one is still in the guest chair — ushers, you know the drill. The jungle saw all of it.",
+              "duration": 11000
+            },
+            {
+              "expression": "normal",
+              "text": "Count your brothers before you count your enemies. Ask which one smiled at the gate. Only the Hunt remains.",
+              "duration": 7160
+            }
+          ]
+        }
+      ],
+      "runtimeMs": 393640
     }
   ]
 };

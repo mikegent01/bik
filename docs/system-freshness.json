@@ -29,8 +29,8 @@
     },
     "rnn": {
       "label": "Rakasha News Network",
-      "asOf": { "year": 1040, "monthIndex": 8, "day": 4 },
-      "source": "tools/rnn-scripts/ep003.json huntDay (latest aired episode)",
+      "asOf": { "year": 1040, "monthIndex": 8, "day": 5 },
+      "source": "tools/rnn-scripts/ep004.json huntDay (latest aired episode)",
       "verify": {
         "latestScript": "tools/rnn-scripts/ep*.json",
         "field": "huntDay"

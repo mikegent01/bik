@@ -3168,6 +3168,35 @@
     ],
     "plane": "material",
     "planeConfidence": "medium",
+    "planeClue": "no planar markers \u2014 Material by default"
+  },
+  {
+    "id": "bowsers_mushroom_compound",
+    "name": "Bowser's Mushroom Compound",
+    "type": "Location/Fortress / Volcanic Annex",
+    "region": "Mushroom Kingdom (interior site, exact overworld position unfiled)",
+    "controllingFaction": "bowser",
+    "population": "Garrisoned — Koopa troops; exact strength unfiled",
+    "climate": "Volcanic; contained",
+    "status": "Standing; entrance wall breached on the night of 18 Harvestide, 1035 BF",
+    "summary": "The smaller of Bowser's known holdings: a walled volcanic annex inside the Mushroom Kingdom itself, run up through a warp-pipe riser to a lava bridge on the second floor, and drained below by a lava lake, a lava falls, and a calm moat at ground level. Waluigi ranks its hospitality below its parent castle's, which he did not think was physically possible.",
+    "description": "Waluigi had always assumed Bowser kept one address per kingdom out of vanity. The Mushroom Compound corrected him: a smaller fortification on Mushroom soil, close enough to the backroads that a man can drive to it in an evening and strange enough inside that the drive feels like the last normal thing that happened to him. The gate carries a security window and a guard with a button. The button opens the gate. Past it, a warp pipe rises to the second floor, where a stone bridge crosses open lava to a far ledge that holds exactly one furnishing: an axe in the stone, waiting for someone with a grievance and no plan. Below, the lava lake runs to a falls and spills out past the walls into a calm shore moat at ground level — the compound drains its own disasters outward, which is more than can be said for its owner. Neo Bowser City, by the guard's own account, is elsewhere, larger, and meaner; this place is the annex, and on the night of 18 Harvestide, 1035 BF, its entrance wall was burst open from the inside by a smiling man in blue overalls.",
+    "notableFeatures": [
+      "Gatehouse security window and the guard's button",
+      "Warp-pipe riser to the second floor",
+      "The lava bridge and its bridge axe",
+      "Lava lake and lava falls below",
+      "Calm-shore moat at ground level, outside the walls",
+      "Entrance wall breach (18 Harvestide, 1035 BF)"
+    ],
+    "relatedArticles": [
+      "bowser",
+      "bowsers_castle",
+      "the_embassy_ambush_and_luigi_interrogation",
+      "the_lava_bridge_ambush_and_the_blue_luigi"
+    ],
+    "plane": "material",
+    "planeConfidence": "medium",
     "planeClue": "no planar markers — Material by default"
   }
 ]

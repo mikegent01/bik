@@ -266,7 +266,8 @@
       "mushroom_regency",
       "the_eastern_passage",
       "ruined_manor_convergence",
-      "the_arrangement"
+      "the_arrangement",
+      "the_lava_bridge_ambush_and_the_blue_luigi"
     ],
     "faiths": [
       {
@@ -820,7 +821,8 @@
       "ruined_manor_convergence",
       "battle_of_the_brobot",
       "thornburys_field_journal",
-      "thornwood_manor_silent_field_dossier"
+      "thornwood_manor_silent_field_dossier",
+      "the_lava_bridge_ambush_and_the_blue_luigi"
     ],
     "faiths": [
       {
@@ -5361,5 +5363,62 @@
     ],
     "image": "assets/images/events/belly-of-the-beast/belly-01-the-mask.jpg",
     "imageCaption": "The mask coming off, and the human face under it."
+  },
+  {
+    "id": "mona",
+    "name": "Mona",
+    "title": "WarioWare Crew",
+    "race": "Human",
+    "status": "Active \u2014 last filed at Bowser's Mushroom Compound, 18 Harvestide, 1035 BF",
+    "affiliation": "Wario's Enterprise",
+    "summary": "One of Wario's crew. Rode with the kidnapping party that lifted a smiling Luigi out of the Mages' Guild on forged passes, then spent the drive to Bowser's compound going quietly cold about him \u2014 she told Waluigi by phone that their Luigi had given up Mario's location too easily and was not acting like himself. Held the impostor's arm while the others worked him over, and held it tighter when he refused to talk.",
+    "description": "Waluigi files Mona as the crew member whose instincts arrived before anyone else's and were ignored the longest. She was in Wario's car for the Guild job, she watched the blue-clad Luigi smile his way through a compound gate that had no business opening for him, and she was the voice on the crackling phone line saying the thing nobody in the car wanted to say: this is not him. When the fight came, she did not posture. She took an arm, twisted it behind the impostor's back, and kept it there through the headbutt, the broom, and the last chance. Waluigi trusts her grip and her read in that order.",
+    "keyEvents": [
+      "the_lava_bridge_ambush_and_the_blue_luigi"
+    ],
+    "relatedArticles": [
+      "wario",
+      "waluigi",
+      "luigi",
+      "the_lava_bridge_ambush_and_the_blue_luigi"
+    ]
+  },
+  {
+    "id": "ashley",
+    "name": "Ashley",
+    "title": "Witch of the WarioWare Crew",
+    "race": "Human (Witch)",
+    "status": "Active \u2014 last filed at Bowser's Mushroom Compound, 18 Harvestide, 1035 BF",
+    "affiliation": "Wario's Enterprise",
+    "summary": "The crew's witch. Said almost nothing at the compound and meant all of it \u2014 her two words to the exposed impostor were 'We trusted you,' delivered cold. Worked him over with an enchanted broom, mounted it when he still would not name himself, and took him for the ride that ended with him unconscious, tied up, and out of jokes.",
+    "description": "Waluigi's notes on Ashley from the compound night are short because Ashley was short. She got out of Wario's car, watched the impostor's whole grinning confession without interrupting once, and then went to work with a broom that crackles at the tip when she means it. Three sentences total on the record, four if the last chance counts double: the trust, the threat to the teeth, the ride, the terms. The impostor laughed through Wario and Waluigi both. He stopped laughing when she got on the broom. Waluigi has filed braver men than that impostor and worse fates than unconsciousness, and he ranks the ride somewhere between the two.",
+    "keyEvents": [
+      "the_lava_bridge_ambush_and_the_blue_luigi"
+    ],
+    "relatedArticles": [
+      "wario",
+      "waluigi",
+      "luigi",
+      "the_lava_bridge_ambush_and_the_blue_luigi"
+    ]
+  },
+  {
+    "id": "jimmy_t",
+    "name": "Jimmy T",
+    "title": "WarioWare Crew",
+    "race": "Human",
+    "status": "Active \u2014 last filed at Bowser's Mushroom Compound, 18 Harvestide, 1035 BF",
+    "affiliation": "Wario's Enterprise",
+    "summary": "One of Wario's crew. Rode in on the Guild job, got out of the car for the reckoning, and did the quiet work of it: crossed arms, cracked knuckles, and the impostor's second arm yanked the other way while Mona held the first. Asked the only question that mattered at the end of the night \u2014 'And step three?' \u2014 and got a plan worth grinning at.",
+    "description": "Waluigi barely heard Jimmy T all night, which is why Waluigi remembers everything he did hear. He stepped out of Wario's car with his arms crossed and his attention fixed, took the impostor's free arm when Mona took the first, and leaned down with the whole crew to deliver the night's shortest sentence: 'We're waiting.' Later, outside the walls, while Wario paced and the prisoner lay tied and senseless, Jimmy T asked for step three of the plan and grinned slyly at the answer. Few words, both arms, full attention. Waluigi has worked with louder men and learned less from all of them.",
+    "keyEvents": [
+      "the_lava_bridge_ambush_and_the_blue_luigi"
+    ],
+    "relatedArticles": [
+      "wario",
+      "waluigi",
+      "luigi",
+      "the_lava_bridge_ambush_and_the_blue_luigi"
+    ]
   }
 ]

@@ -3688,7 +3688,7 @@
         "mario_disappearance"
       ],
       "opened": "4 Aethel, 1040 BF",
-      "lastFiled": "5 Aethel, 1040 BF — amended (full account received, same-day evening)",
+      "lastFiled": "5 Aethel, 1040 BF — amended (full account received, same-day evening); second amendment, night (1035 compound session filed: Mario confirmed alive in 1035, courier’s note unrecovered, Luigi missing)",
       "archivist": "Waluigi, Auditor-General",
       "icon": "🔥",
       "accent": "#c46b32",
@@ -3718,6 +3718,14 @@
         {
           "point": "The newspaper's ending is not the ending.",
           "detail": "The full account recovered the same evening reports a failed portal, a missing Luigi, a corrupted Mario out of a television, and a Wario Apparition dispersed by a flashlight. The clipping was a teaser; Waluigi filed the teaser and is amending the record."
+        },
+        {
+          "point": "Mario was alive in 1035 — the compound session proves it.",
+          "detail": "A cell photograph plus a same-night abduction by Wario's crew: Mario in Bowser's Mushroom Compound on 18 Harvestide 1035, then extracted to an unrecorded cell. The farm's death-and-waking sits inside a longer captivity, not at its end."
+        },
+        {
+          "point": "A second staged note exists, and its only reader is missing.",
+          "detail": "The courier's note was read once, by Luigi, on a collapsing bridge — and Luigi went over the lava falls carrying the reading. The file now holds one note it cannot trust and one note it cannot read."
         }
       ],
       "background": [
@@ -3735,9 +3743,14 @@
           "id": "the_embassy_ambush_and_luigi_interrogation",
           "kicker": "the first confession that the farm existed at all",
           "why": "An emotional backseat confession from Luigi is where the farm entered the archive — the truth about Mario's disappearance on the farm, Harvestide 1035 BF. This new paper now tries to dictate what the farm meant."
+        },
+        {
+          "id": "the_lava_bridge_ambush_and_the_blue_luigi",
+          "kicker": "the night Mario was proved alive and Luigi was lost",
+          "why": "Two hours after the embassy interrogation, Waluigi tracked Luigi to Bowser's Mushroom Compound: a lava-bridge ambush, the nine seconds of Mister L, a yellow-caped courier's note that turned Luigi around mid-pursuit, and an impostor's capture — with Mario confirmed alive in a compound cell and extracted the same night to parts unknown."
         }
       ],
-      "brief": "**The short version.** An unsigned note burned neatly around the edges appeared at Waluigi's door before dawn and made the archive's least stable file worse.\n\nThe eastern farm used to be a timeline headache: too many claimed years between the Star Fountain reunion and the present day. The charred note solves that contradiction only by replacing the story entirely. According to the note, Mario reached the farm, lived there for three days, died there, woke up afterward, and later became something three Guild null cages could not hold.\n\nWaluigi is not accepting any of that merely because the note is dramatic. But dramatic lies still reveal where the liar wants the searchlight pointed. This file therefore treats the page in two ways at once: as an alleged confession and as a deliberate attempt to reorganize the Mario disappearance around Peach, the Guild, the farm, and the fountain all at once.\n\nThe archive's standing rule for this file is simple: do not ask first whether the note is true. Ask first what it is trying to replace.\n\n**Newspaper review — 5 Aethel, 1040 BF — provisional filing date.** The Promo Mario clipping adds a Hollywood host, a living Peach claimed offstage and a portal that sends two visitors home without Mario. It does not confirm either farm story. The host's grief follows a reading of Waluigi's own biography, so the archive must not count its own words as a new witness.",
+      "brief": "**The short version.** An unsigned note burned neatly around the edges appeared at Waluigi's door before dawn and made the archive's least stable file worse.\n\nThe eastern farm used to be a timeline headache: too many claimed years between the Star Fountain reunion and the present day. The charred note solves that contradiction only by replacing the story entirely. According to the note, Mario reached the farm, lived there for three days, died there, woke up afterward, and later became something three Guild null cages could not hold.\n\nWaluigi is not accepting any of that merely because the note is dramatic. But dramatic lies still reveal where the liar wants the searchlight pointed. This file therefore treats the page in two ways at once: as an alleged confession and as a deliberate attempt to reorganize the Mario disappearance around Peach, the Guild, the farm, and the fountain all at once.\n\nThe archive's standing rule for this file is simple: do not ask first whether the note is true. Ask first what it is trying to replace.\n\n**Newspaper review — 5 Aethel, 1040 BF — provisional filing date.** The Promo Mario clipping adds a Hollywood host, a living Peach claimed offstage and a portal that sends two visitors home without Mario. It does not confirm either farm story. The host's grief follows a reading of Waluigi's own biography, so the archive must not count its own words as a new witness.\n\n**Compound session — 1035 record filed 6 Aethel, 1040 BF.** The embassy night did not end at the embassy. Two hours after Luigi slipped the backseat interrogation, Waluigi tracked him to Bowser's Mushroom Compound and walked into an ambush — and the night's wreckage holds the hardest Mario fact this file has ever carried: Mario was alive in the compound in 1035, photographed in a cell, abducted by Wario's crew the same night, and extracted to a cell whose location the record does not give. Whatever the farm did to him, it did not end him. The same night also produced a second staged paper — a courier's note, read once by Luigi and never seen again — and then lost the reader past the lava falls.",
       "threads": [
         {
           "id": "th_three_days",
@@ -3768,6 +3781,12 @@
           "title": "The paper stopped before the story did",
           "state": "open",
           "text": "The clipped ending sold a perfect return: sixty-second portal, charms, waving, goodbye. The recovered account records PORTAL FAILED and a missing brother. A source that cuts exactly at the moment a rescue becomes a problem is not an abridged source; it is a curated one.\n\n**In plain terms:** the farewell was the tell. I filed the farewell."
+        },
+        {
+          "id": "th_second_note",
+          "title": "Two notes, two stagings, five years apart",
+          "state": "open",
+          "text": "The charred note was burned decoratively and left to be found; the courier's note was folded once, smoke-darkened, delivered by hand at midnight, and read exactly once before vanishing with its reader. Different staging, same signature move: the paper arrives exactly where the auditor is standing, and the auditor never gets to keep it.\n\n**In plain terms:** somebody has been mailing Waluigi the truth in envelopes that dissolve, since 1035."
         }
       ],
       "leads": [
@@ -3826,6 +3845,26 @@
           "exhibits": [
             "ex_promo_mario_full_account"
           ]
+        },
+        {
+          "id": "lead_read_cape_note",
+          "title": "Recover the courier's note — or its sole reader",
+          "state": "open",
+          "priority": "critical",
+          "objective": "Recover the courier's note, or recover Luigi, and file the first actual reading of the only paper that ever turned a pursuit around mid-stride.",
+          "why": "The note is the only object in this file that changed a decision in real time: Luigi read it and abandoned a rescue. Whatever it says outranks every other paper here, and no copy exists.",
+          "exhibits": [
+            "ex_cape_note"
+          ]
+        },
+        {
+          "id": "lead_locate_mario_cell",
+          "title": "Trace Mario's extraction route from the compound",
+          "state": "open",
+          "priority": "critical",
+          "objective": "Trace Wario's extraction route from the compound: where was Mario taken after the abduction, and who ordered the cell?",
+          "why": "The crew confessed the kidnapping on the record and named no destination. A living Mario was moved on 18 Harvestide 1035 and the file holds no arrival. Somewhere there is a cell with a history, and a ledger with a gap shaped exactly like a plumber.",
+          "exhibits": []
         }
       ],
       "sessions": [
@@ -3846,6 +3885,12 @@
           "label": "Promo Mario — the full account recovered",
           "date": "5 Aethel, 1040 BF — evening; same-day amendment",
           "event": "promo_mario_newspaper"
+        },
+        {
+          "id": "s_compound_night",
+          "label": "The compound night — Mario confirmed alive, Luigi lost past the falls",
+          "date": "18 Harvestide, 1035 BF",
+          "event": "the_lava_bridge_ambush_and_the_blue_luigi"
         }
       ],
       "relatedEvents": [
@@ -3853,7 +3898,8 @@
         "the_eastern_passage",
         "star_fountain_reunion",
         "the_embassy_ambush_and_luigi_interrogation",
-        "promo_mario_newspaper"
+        "promo_mario_newspaper",
+        "the_lava_bridge_ambush_and_the_blue_luigi"
       ],
       "exhibits": [
         {
@@ -3962,6 +4008,54 @@
               "mario",
               "luigi",
               "princess_peach",
+              "wario"
+            ]
+          }
+        },
+        {
+          "id": "ex_cape_note",
+          "propId": "prop_cape_note_still_unread",
+          "session": "s_compound_night",
+          "icon": "✉️",
+          "kind": "note",
+          "category": "discovery",
+          "title": "The note nobody filed",
+          "secured": "Never — witnessed 18 Harvestide 1035, approx. 23:00, on the lava bridge",
+          "custody": "None — object unrecovered; tag filed in absence",
+          "visual": "<div style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:linear-gradient(135deg,rgba(30,26,40,.95),rgba(10,10,14,.98));border:1px solid rgba(150,150,170,.3)\"><div style=\"position:absolute;left:38%;right:38%;top:22px;bottom:24px;background:linear-gradient(180deg,#cfc39a,#a89a72);box-shadow:0 0 0 2px rgba(0,0,0,.25) inset\"></div><div style=\"position:absolute;left:38%;right:38%;top:50%;height:2px;background:rgba(60,50,30,.6)\"></div><div style=\"position:absolute;left:0;right:0;bottom:6px;text-align:center;font-size:10px;letter-spacing:.16em;font-weight:800;color:#9a9ab0\">FOLDED ONCE · NEVER OPENED ON THE RECORD</div></div>",
+          "onRecord": "Folded once, smoke-darkened, leaf-shaped oil stain; delivered with nine spoken words; read once by Luigi; carried past the falls. Contents unfiled. [[roll:4|the stain proves the leaf rode with the note|the oil mark is leaf-shaped and sits where the Tanuki Leaf rested in the courier's palm, attested by the auditor at six feet|stains travel — smoke and lava-oil coat everything on that bridge, and shapes lie]].",
+          "dc": 5,
+          "analysis": "## The most important unread document in the building\n\nThis tag exists because the archive holds a paper it has never opened, and refuses to pretend otherwise. The courier crossed a collapsing bridge to deliver it, spoke nine words with it, and left it in Luigi's hands — and Luigi read it, and turned around mid-pursuit, and flew into the dark past screaming. [[roll:5|the note changed a decision in real time|Luigi abandoned an active rescue the moment he finished reading — no debate, no delay, mid-stride|burns, shock, and a tanuki transformation scramble decisions on their own, and the reading may have coincided with panic]]. Whatever those folds contain outranks every other paper in this file, and no copy exists.\n\n## What the delivery proves without the text\n\nNine spoken words, flatly placed, each like a tile: a name, an instruction, a verdict on everything. The courier knew Luigi by name, knew where he would be standing, and knew the bridge would not hold — and came anyway, on foot, at midnight. Delivery that precise is not a message service. It is an appointment.\n\n## Why the file waits\n\nThe recovery target is the reader, not the paper. Luigi carried the only reading past the falls, and readers can be found. [[roll:3|Luigi is the exhibit now|the note went wherever he went, and he went over the falls alive enough to be carried — missing, not confirmed dead|the falls feed a lava system that keeps nothing, and hope is not a custody chain]]. The tag stays open. The file waits. Bring any recovery to the auditor in person.",
+          "links": {
+            "events": [
+              "the_lava_bridge_ambush_and_the_blue_luigi"
+            ],
+            "characters": [
+              "waluigi",
+              "luigi"
+            ]
+          }
+        },
+        {
+          "id": "ex_forged_guild_pass",
+          "propId": "prop_forged_guild_pass_compound",
+          "session": "s_compound_night",
+          "icon": "🎫",
+          "kind": "passport",
+          "category": "forensics",
+          "title": "The pass that opened the Guild",
+          "secured": "18–19 Harvestide 1035 · surrendered at the compound gate, approx. 00:40",
+          "custody": "Archive — original in sleeve",
+          "visual": "<div style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:linear-gradient(135deg,rgba(46,32,58,.95),rgba(16,12,20,.98));border:1px solid rgba(180,130,220,.3)\"><div style=\"position:absolute;left:16%;right:16%;top:20px;bottom:26px;background:linear-gradient(180deg,#d8ccb0,#b3a684);box-shadow:0 0 0 2px rgba(0,0,0,.2) inset\"></div><div style=\"position:absolute;left:22%;right:22%;top:38px;text-align:center;font-size:11px;letter-spacing:.2em;color:#4a3a60;font-weight:800\">DAY-PASS · FORM 12-B</div><div style=\"position:absolute;left:30%;top:62px;width:34px;height:34px;border-radius:50%;background:radial-gradient(circle,rgba(150,60,150,.85),rgba(90,30,90,.9));transform:rotate(-12deg)\"></div><div style=\"position:absolute;left:0;right:0;bottom:6px;text-align:center;font-size:10px;letter-spacing:.16em;font-weight:800;color:#b48cdc\">SEAL AFFIXED (IN CRAYON)</div></div>",
+          "onRecord": "Crayon seal, misspelled form, self-signed doorwarden line; carried six intruders through the Guild's halls. Hand unidentified. [[roll:2|the pass is self-made|bearer line and doorwarden signature share one hand, the seal is crayon, and the form's own revision number is misspelled|a professional forger could imitate an amateur hand — but professionals do not sign both lines]].",
+          "dc": 2,
+          "analysis": "## Twenty seconds and a pocket crayon\n\nThis pass is the worst forgery in the archive and the most successful one on record. Six intruders walked the Mages' Guild halls on the strength of a form that misspells its own revision number, sealed in crayon, signed by its own bearer in the official's box. It worked. Nobody challenged it. The crew reached their target, took him, and left — and the Guild has never acknowledged any of it.\n\n## What the door let through\n\nA door that opens for this opens for anything with confidence and a pocket crayon. [[roll:3|the Guild's door procedure failed open|six intruders, one crayon pass, no challenge recorded anywhere in the night's account|the crew may have had help inside beyond the paper — a pass this bad surviving contact suggests either no inspection at all or inspection that looked away]]. Either reading ends in the same place: the shut door that refused Luigi and the open door that admitted Wario were operated by the same institution, on the same night.\n\n## Custody and the suspect who rhymes\n\nWario surrendered this pass without argument at the compound gate and claims he found six of them. Authorship is unestablished and the handwriting comparison is pending. The archive notes, without asserting, that the spelling errors have a distinctive voice — and that the voice is hungry.",
+          "links": {
+            "events": [
+              "the_lava_bridge_ambush_and_the_blue_luigi"
+            ],
+            "characters": [
+              "waluigi",
               "wario"
             ]
           }

@@ -2198,6 +2198,38 @@
         "evidence"
       ],
       "body": "<div class=\"pd-head\"><div class=\"pd-org\">WALUIPEDIA · FIELD EXAMINATION</div><div class=\"pd-sub\">Subject: the Scorncrow · examination unplanned, conditions adverse, examiner pinned</div></div><div class=\"pd-meta\"><span>Range</span><b>Point blank — the subject was lying on the examiner</b><span>Instrument</span><b>Musket, one discharge</b><span>Examiner</span><b>Remi Akamatsu, age 14</b><span>Stated reasoning</span><b>\"Wait a minute. I am at point-blank range.\"</b></div><div class=\"pd-clause\"><b class=\"n\">I. Finding.</b> The discharge removed the face. Beneath it: blood. Human blood.</div><div class=\"pd-clause\"><b class=\"n\">II. Prior record.</b> The subject has stated <i>I am not a monster</i> on three separate filed occasions. The archive recorded each as taunt and proceeded to describe it as a monster in the same paragraph.</div><div class=\"pd-clause\"><b class=\"n\">III. Readings available, none preferred.</b> (a) Something human is inside the scarecrow, wearing it, by choice or otherwise. (b) Something human was made into the scarecrow, and the sentence is a complaint. (c) The blood is a further costume, laid over a monster that has learned what this party finds convincing.</div><div class=\"pd-clause\"><b class=\"n\">IV. Disposition.</b> Subject withdrew into the mouth of its own tree while the examination was still open. No sample retained. No face recovered.</div><div class=\"pd-margin\">Two of the three readings make that sentence a complaint nobody answered, in a grove where the boughs are hung with wrapped people. Waluigi has stopped using the word monster in this file. &mdash; W.</div><div class=\"pd-fine\">Examination conducted under fire by a combatant, not a physician. Single observer. No custody chain exists for anything described above.</div>"
+    },
+    "prop_forged_guild_pass_compound": {
+      "kind": "passport",
+      "icon": "🎫",
+      "title": "Forged Mages' Guild Day-Pass",
+      "subtitle": "Crayon seal · one leaf · recovered from Wario's pocket at the compound gate",
+      "items": [],
+      "articles": [
+        "the_lava_bridge_ambush_and_the_blue_luigi"
+      ],
+      "note": "Surrendered without argument at the gate, approx. 00:40. Filed as evidence of the guild infiltration. Hand unidentified — Wario claims he found six of them.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">THE MAGES' GUILD &mdash; Hall of Audience</div><div class=\"pd-sub\">Office of the Doorwarden &middot; Visitor's Day-Pass &middot; Form 12-B (revishun 3)</div></div><div class=\"pd-form-grid\"><div class=\"pd-form-field\"><span>BEARER</span><b>Wario, plus five (5) assosiates</b></div><div class=\"pd-form-field\"><span>PURPOSE OF VISIT</span><b>offishal guild bizness, no questshuns</b></div><div class=\"pd-form-field\"><span>VALID</span><b>today and also tomorrow probly</b></div><div class=\"pd-form-field\"><span>SEAL OF THE GUILD</span><b>affixed below (in crayon)</b></div></div><div class=\"pd-clause\">The bearer is known to the Guild, trusted by the Guild, and definitely not here to take anything that is not his. All doors are to be opened unto him with smiles. <b>&mdash; signed, the Doorwarden (Wario)</b></div><div class=\"pd-margin\">He signed the Doorwarden's line himself. WARIO. In the same hand as the bearer line, in crayon, on a form whose own revision number is misspelled &mdash; and it WORKED. Six intruders walked the Guild's halls on the strength of this. I have framed forgeries that took craftsmen weeks, and this one took twenty seconds and a pocket crayon. The Guild's door is not a door. It is a suggestion with a form number. &mdash; W.</div><div class=\"pd-wah\">Authorship unestablished. I have a suspect and his name rhymes with Wario. The handwriting comparison is pending and so is my blood pressure. &mdash; WAH.</div>",
+      "stamps": [
+        "void",
+        "evidence"
+      ]
+    },
+    "prop_cape_note_still_unread": {
+      "kind": "note",
+      "icon": "✉️",
+      "title": "The Courier's Note (Unfiled)",
+      "subtitle": "One folded leaf · smoke-darkened · contents unknown — the sole reader is missing",
+      "items": [],
+      "articles": [
+        "the_lava_bridge_ambush_and_the_blue_luigi"
+      ],
+      "note": "Seen in the courier's hand and in the true Luigi's; recovered by nobody. This exhibit records the object, not the text — the text was read exactly once, by a man who is missing.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">EVIDENCE TAG &mdash; UNRECOVERED DOCUMENT</div><div class=\"pd-sub\">Auditor's Office &middot; filed in absence &middot; the file waits</div></div><div class=\"pd-clause\"><b>OBJECT:</b> one (1) folded note, folded once, edges smoke-darkened, bearing a leaf-shaped oil stain where the Tanuki Leaf rode against it in the courier's palm.</div><div class=\"pd-clause\"><b>ATTESTED:</b> delivered to the bridge by the yellow-caped courier at approximately 23:00; pressed into the true Luigi's hand with the words below; read once, in silence, by Luigi alone; carried by him through the lava moat, the leaf-flight, and the vanishing. Never seen again.</div><div class=\"pd-quote\">&ldquo;Luigi... read it. Read the note. This changes everything.&rdquo; &mdash; the courier's whole speech, per the auditor's own ears, at a distance of six feet.</div><div class=\"pd-margin\">I have filed ten thousand papers and this is the only one I ever filed WITHOUT READING, and I think about it every day. Somewhere there is a fold of paper that turned a pursuing brother around mid-stride and sent him flying into the dark past screaming, past rescue, past US &mdash; and the only hands that ever held it open are missing. If you find it: do not read it in the field. Bring it to me. Bring it to ME. &mdash; W.</div><div class=\"pd-fine\">Contents unfiled. The sole reader is missing. Any future recovery supersedes this tag.</div>",
+      "stamps": [
+        "sealed",
+        "evidence"
+      ]
     }
   }
 }

@@ -1,16 +1,16 @@
 {
   "featuredArticle": {
-    "id": "the_belly_of_the_beast",
+    "id": "the_lava_bridge_ambush_and_the_blue_luigi",
     "type": "event",
-    "excerpt": "30 Harvestide, 1040 BF. The Scorncrow put the paladin down with crows; Archie slammed it out of the air onto Remi; and Remi, pinned at point-blank range, fired a musket into its face and found human blood. The party followed it into the tree's mouth, Archie sealed the only exit burning it, and five descended by rope into the Skittering Grove — webs for foliage, wrapped bodies for fruit, and Legion soldiers inside.",
+    "excerpt": "18 Harvestide, 1035 BF. Two hours after the embassy interrogation, Waluigi tracked Luigi to Bowser’s Mushroom Compound and walked into an ambush on a lava bridge. What followed: nine seconds of Mister L, a yellow-caped courier’s unread note, a Tanuki Leaf flight over a lava falls — and a second, smiling, blue-clad Luigi who turned out to be Bowser’s plant. The night ended with one Luigi tied up, one Luigi lost, and the first Cheater’s Gambit.",
     "label": "Latest Filing · Session Event",
-    "title": "The Belly of the Beast — Human Blood Under the Scarecrow"
+    "title": "The Lava-Bridge Ambush and the Blue Luigi — Two Luigis, One Night"
   },
   "latestUpdate": {
-    "id": "the_belly_of_the_beast",
+    "id": "the_lava_bridge_ambush_and_the_blue_luigi",
     "label": "Latest Filing · Session Event",
-    "excerpt": "30 Harvestide, 1040 BF. The Scorncrow put the paladin down with crows; Archie slammed it out of the air onto Remi; and Remi, pinned at point-blank range, fired a musket into its face and found human blood. The party followed it into the tree's mouth, Archie sealed the only exit burning it, and five descended by rope into the Skittering Grove — webs for foliage, wrapped bodies for fruit, and Legion soldiers inside.",
-    "title": "The Belly of the Beast — Human Blood Under the Scarecrow"
+    "excerpt": "18 Harvestide, 1035 BF. Two hours after the embassy interrogation, Waluigi tracked Luigi to Bowser’s Mushroom Compound and walked into an ambush on a lava bridge. What followed: nine seconds of Mister L, a yellow-caped courier’s unread note, a Tanuki Leaf flight over a lava falls — and a second, smiling, blue-clad Luigi who turned out to be Bowser’s plant. The night ended with one Luigi tied up, one Luigi lost, and the first Cheater’s Gambit.",
+    "title": "The Lava-Bridge Ambush and the Blue Luigi — Two Luigis, One Night"
   },
   "didYouKnow": [
     "...that the Scorncrow told three separate filings it was not a monster, and when Remi Akamatsu finally tested the claim with a point-blank musket, the blood under the face was human?",
@@ -105,6 +105,21 @@
       "image": "assets/images/events/dread-mansion/dread-01-corridor.jpg",
       "caption": "The Dread Mansion corridor — the order nobody signed.",
       "articleId": "the_dread_mansion_incursion"
+    },
+    {
+      "image": "assets/images/events/lava-bridge-ambush/lava-bridge-01-the-axe.jpg",
+      "caption": "One object in an empty room: the axe, waiting, at the far end of the bridge.",
+      "articleId": "the_lava_bridge_ambush_and_the_blue_luigi"
+    },
+    {
+      "image": "assets/images/events/lava-bridge-ambush/lava-bridge-02-the-cape.jpg",
+      "caption": "Nine words, flatly placed: ‘Luigi... read it. Read the note. This changes everything.’",
+      "articleId": "the_lava_bridge_ambush_and_the_blue_luigi"
+    },
+    {
+      "image": "assets/images/events/lava-bridge-ambush/lava-bridge-03-blue-overalls.jpg",
+      "caption": "Empty blue overalls in the rubble — grinning with nobody inside.",
+      "articleId": "the_lava_bridge_ambush_and_the_blue_luigi"
     }
   ]
 }
