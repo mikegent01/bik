@@ -158,6 +158,9 @@
 }
 
 
+.province-border-layer { position:absolute; inset:0; width:100%; height:100%; z-index:1; pointer-events:none; }
+.province-border { fill-opacity:.12; stroke-width:.35; stroke-dasharray:1.2 .7; vector-effect:non-scaling-stroke; }
+
 #map-fog-overlay polygon.discovered {
     opacity: 0;
     pointer-events: none;

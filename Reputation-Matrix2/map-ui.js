@@ -69,6 +69,7 @@ export function renderTabs() {
         <span>Mode:</span>
         <button class="mode-btn ${map.activeMapMode === 'standard' ? 'active' : ''}" data-mode="standard">Standard</button>
         <button class="mode-btn ${map.activeMapMode === 'political' ? 'active' : ''}" data-mode="political">Political</button>
+        <button class="mode-btn ${map.activeMapMode === 'provinces' ? 'active' : ''}" data-mode="provinces">Province Borders</button>
         <button class="mode-btn ${map.activeMapMode === 'economic' ? 'active' : ''}" data-mode="economic">Economic</button>
         <button class="mode-btn ${map.activeMapMode === 'military' ? 'active' : ''}" data-mode="military">Military</button>
         <button class="mode-btn ${map.activeMapMode === 'tactical' ? 'active' : ''}" data-mode="tactical">Tactical</button>

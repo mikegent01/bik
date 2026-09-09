@@ -103,3 +103,6 @@ Adding a new readable book to the game world involves several steps to ensure it
 3.  **Register in `bookshelf.js` (Party Inventory):** Import the content file and add it to the `bookDataMap`. Assign a cover in `getBookCoverUrl`.
 4.  **Register in `library.js` (Public Terminal):** Repeat the registration steps from `bookshelf.js`.
 5.  **Add to Inventory/Stock:** Add the book's title to a character's inventory in `state.js` or to a library's stock file.
+### Province Borders and Census
+
+The **Province Borders** map mode is a derived political layer. It groups visible POIs by controlling faction and uses population (falling back to one census point per POI) to show each faction's share of the region. The shaded dashed hulls are intentionally an evidence-based approximation: they make dense POI fields legible without pretending that an un-drawn border is canonical. Existing hand-authored province data in `map-data/provinces.js` remains the source for named provinces; use this mode to identify where those definitions need explicit boundary geometry. Unaligned or undiscovered POIs are excluded from the census.

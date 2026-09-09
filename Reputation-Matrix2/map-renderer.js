@@ -137,6 +137,7 @@ export function renderMap(mapId) {
         map.setRenderedMapDimensions({ width: renderedWidth, height: renderedHeight });
 
         renderPois();
+        if (map.activeMapMode === 'provinces') renderProvinceBorders();
         renderFog();
         
         if (map.activeMapMode === 'tactical') {
@@ -312,6 +313,30 @@ function renderVigilance(container, svg) {
     container.appendChild(marker);
 }
 
+// Builds an evidence-based, readable political layer from the POI census. Each faction's
+// hull is a useful border approximation until hand-drawn province geometry is available.
+function renderProvinceBorders() {
+    const layer = document.getElementById('interactive-map-layer');
+    const pois = MAP_DATA[map.activeMapId]?.pointsOfInterest || [];
+    if (!layer || pois.length < 2) return;
+    const groups = {};
+    pois.filter(p => p.factionId && p.factionId !== 'unaligned').forEach(p => (groups[p.factionId] ||= []).push(p));
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.classList.add('province-border-layer'); svg.setAttribute('viewBox', '0 0 100 100');
+    Object.entries(groups).forEach(([id, points]) => {
+        if (points.length < 3) return;
+        const cx = points.reduce((n,p) => n + p.x, 0) / points.length;
+        const cy = points.reduce((n,p) => n + p.y, 0) / points.length;
+        const ordered = [...points].sort((a,b) => Math.atan2(a.y-cy,a.x-cx)-Math.atan2(b.y-cy,b.x-cx));
+        const polygon = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+        polygon.setAttribute('points', ordered.map(p => `${p.x},${p.y}`).join(' '));
+        polygon.style.fill = FACTION_COLORS[id] || '#888'; polygon.style.stroke = FACTION_COLORS[id] || '#888';
+        polygon.classList.add('province-border'); polygon.dataset.factionId = id;
+        svg.appendChild(polygon);
+    });
+    layer.insertBefore(svg, layer.firstChild);
+}
+
 export function renderPois() {
     const interactiveLayer = document.getElementById('interactive-map-layer');
     if (!interactiveLayer) return;
@@ -333,7 +358,7 @@ export function renderPois() {
         marker.dataset.poiId = poi.id;
         marker.title = poi.name;
 
-        marker.classList.remove('political-view', 'economic-view', 'military-view', 'population-view', 'laws-view');
+        marker.classList.remove('political-view', 'economic-view', 'military-view', 'population-view', 'laws-view', 'provinces-view');
         
         const iconWrapper = document.createElement('div');
         iconWrapper.className = 'icon-wrapper';
@@ -359,6 +384,11 @@ export function renderPois() {
              marker.style.height = '20px';
              iconWrapper.style.fontSize = '12px';
             switch (map.activeMapMode) {
+                case 'provinces':
+                    marker.classList.add('provinces-view');
+                    marker.style.backgroundColor = FACTION_COLORS[poi.factionId] || 'var(--text-secondary)';
+                    marker.style.width = '14px'; marker.style.height = '14px'; iconWrapper.innerHTML = '';
+                    break;
                 case 'political':
                     marker.classList.add('political-view');
                     marker.style.backgroundColor = FACTION_COLORS[poi.factionId] || 'var(--text-secondary)';
@@ -773,6 +803,13 @@ export function renderMapModeLegend() {
     let currentPois = MAP_DATA[map.activeMapId]?.pointsOfInterest || [];
     
     switch (map.activeMapMode) {
+        case 'provinces': {
+            const census = {};
+            currentPois.forEach(p => { if (p.factionId && p.factionId !== 'unaligned') census[p.factionId] = (census[p.factionId] || 0) + (p.population || 1); });
+            const total = Object.values(census).reduce((a,b) => a+b, 0) || 1;
+            legendHTML = `<div class="map-mode-legend"><h4>Province Borders & Census</h4><p>Areas are inferred from the distribution of faction-controlled POIs. Population-weighted control is shown below; click any marker for the full record.</p><ul class="legend-list">${Object.entries(census).sort((a,b)=>b[1]-a[1]).map(([id,pop]) => `<li class="legend-item"><div class="legend-color-box" style="background-color:${FACTION_COLORS[id] || '#888'}"></div><span>${LORE_DATA.factions[id]?.name || id}: ${Math.round(pop/total*100)}% census</span></li>`).join('')}</ul></div>`;
+            break;
+        }
         case 'political':
             const visibleFactions = [...new Set(currentPois
                 .map(p => p.factionId)
