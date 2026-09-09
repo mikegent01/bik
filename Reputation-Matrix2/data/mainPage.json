@@ -2,14 +2,14 @@
   "featuredArticle": {
     "id": "the_lava_bridge_ambush_and_the_blue_luigi",
     "type": "event",
-    "excerpt": "18 Harvestide, 1035 BF. Two hours after the embassy interrogation, Waluigi tracked Luigi to Bowser’s Mushroom Compound and walked into an ambush on a lava bridge. What followed: nine seconds of Mister L, a yellow-caped courier’s unread note, a Tanuki Leaf flight over a lava falls — and a second, smiling, blue-clad Luigi who turned out to be Bowser’s plant. The night ended with one Luigi tied up, one Luigi lost, and the first Cheater’s Gambit.",
+    "excerpt": "18 Harvestide, 1035 BF. Two hours after the embassy interrogation, I tracked Luigi to Bowser’s Mushroom Compound and walked into an ambush on a lava bridge. What followed: nine seconds of Mister L, a yellow-caped courier’s unread note, a Tanuki Leaf flight over a lava falls — and a second, smiling, blue-clad Luigi who turned out to be Bowser’s plant. The night ended with one Luigi tied up, one Luigi lost, and the first Cheater’s Gambit.",
     "label": "Latest Filing · Session Event",
     "title": "The Lava-Bridge Ambush and the Blue Luigi — Two Luigis, One Night"
   },
   "latestUpdate": {
     "id": "the_lava_bridge_ambush_and_the_blue_luigi",
     "label": "Latest Filing · Session Event",
-    "excerpt": "18 Harvestide, 1035 BF. Two hours after the embassy interrogation, Waluigi tracked Luigi to Bowser’s Mushroom Compound and walked into an ambush on a lava bridge. What followed: nine seconds of Mister L, a yellow-caped courier’s unread note, a Tanuki Leaf flight over a lava falls — and a second, smiling, blue-clad Luigi who turned out to be Bowser’s plant. The night ended with one Luigi tied up, one Luigi lost, and the first Cheater’s Gambit.",
+    "excerpt": "18 Harvestide, 1035 BF. Two hours after the embassy interrogation, I tracked Luigi to Bowser’s Mushroom Compound and walked into an ambush on a lava bridge. What followed: nine seconds of Mister L, a yellow-caped courier’s unread note, a Tanuki Leaf flight over a lava falls — and a second, smiling, blue-clad Luigi who turned out to be Bowser’s plant. The night ended with one Luigi tied up, one Luigi lost, and the first Cheater’s Gambit.",
     "title": "The Lava-Bridge Ambush and the Blue Luigi — Two Luigis, One Night"
   },
   "didYouKnow": [
@@ -53,6 +53,14 @@
       "caption": "Wario's squad brings garlic, elixir, and one stalled motorbike to the overgrown grove.",
       "image": "assets/images/session-covers/shadeward-title-card.png",
       "articleId": "the_scorncrow_skirmish"
+    },
+    {
+      "id": "mario-lava-bridge-cover",
+      "campaign": "Mario",
+      "title": "MARIO \u2014 The Lava-Bridge Ambush and the Blue Luigi",
+      "caption": "The courier holds the far span; Luigi and I run the bridge beneath it. First key art of the Mario front.",
+      "image": "assets/images/session-covers/mario-title-card.jpg",
+      "articleId": "the_lava_bridge_ambush_and_the_blue_luigi"
     }
   ],
   "fieldGallery": [
