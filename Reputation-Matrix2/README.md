@@ -386,6 +386,26 @@ When adding new points of interest to the map data files, please adhere to the f
     *   **Data Entry:** This `points` string **must** be included in the `fogOfWar` array within the new map data file you create (e.g., in `map-data/middle-earth/Gondor.js`). This allows the map system to render the fog correctly.
 8.  **Requests:** To keep the world feeling alive and interactive, aim to add at least one location-based "Request" quest (in `quests/quests-requests.js`) for every 50 POIs created in a region. This provides players with clear, discoverable objectives as they explore new areas.
 
+### The Province Census: every pin is also a vote
+
+The province fields above are not decoration. `app/pages/maps/map-provinces.js`
+merges neighbouring pins that fly the same flag into provinces, counts each pin's
+`political_influence`, `economic_value`, `military_strength` and `population` into
+a census for that province, crowns whoever the census decides holds it, and draws
+the borders from the same numbers — so **a pin filed without those values is a
+pin that casts no vote**, and a whole region of them reads as unaligned. The atlas
+and the Cartography Desk show the result (province layer, per-province dossier,
+and a shortlist that picks the six pins worth acting on for you), and Power
+Projection reads the crown from the same roll-up when its own >35-pins rule names
+nobody. `PROVINCE_POLITICS` in `data/support/politics-data.js` files a realm's
+named provinces by hand; the census treats that ledger as a claim and reports
+where the pins disagree with it.
+
+When you add a province, prefer the survey — a sub-region sheet with its pins —
+over a hand-drawn polygon; there is no polygon in the archive and none is needed.
+Rules, thresholds, the snapshot workflow and the "what must not be hand-edited"
+list: [`../docs/PROVINCE_CENSUS_GUIDE.md`](../docs/PROVINCE_CENSUS_GUIDE.md).
+
 ### Adding Laws & Customs
 
 Laws and customs enrich the world by defining how different societies function. There are two main types: codified **Laws** that are formally enforced by a ruling body, and unwritten **Traditions** that are socially enforced customs.

@@ -452,6 +452,11 @@ export function renderGlobalWar() {
                             <span class="stat-value">${faction.poiCount || 0}</span>
                             <span class="stat-label">POIs</span>
                         </div>
+                        <div class="stat-item-small">
+                            <span class="stat-icon">🗺️</span>
+                            <span class="stat-value">${faction.controlledProvinces || 0}</span>
+                            <span class="stat-label">Provinces Held</span>
+                        </div>
                     </div>
                     <button class="faction-detail-btn" data-faction="${key}">View Details</button>
                 </div>
@@ -471,7 +476,8 @@ export function renderGlobalWar() {
                 <div class="territory-icon">${region.isContested ? '🔥' : '🌍'}</div>
                 <div class="territory-info">
                     <span class="territory-name">${region.name}</span>
-                    <span class="territory-type">${region.isContested ? 'Contested Region' : 'Region'}</span>
+                    <span class="territory-type">${region.isContested ? 'Contested Region' : 'Region'}${region.provinceCount ? ` · ${region.provinceCount} provinces, ${region.contestedProvinces || 0} contested` : ''}</span>
+                    ${region.controllerSource === 'province-census' ? `<span class="territory-type" title="No faction cleared the pin-count threshold; the province census crowned this one">crowned by the province census (${region.sovereignProvinceShare || 0}% of provinces)</span>` : ''}
                 </div>
                 <div class="territory-controller" style="background:${controllerDef.color};">
                     ${controllerDef.icon}

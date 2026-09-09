@@ -197,6 +197,7 @@ Seven habits explain nearly every decision in this repository:
 > **Canon warning:** read the referenced character and source articles before dating from a name. Princess Peach is deceased, assassinated on Highsun 1, 955 BF; a Peach keepsake in a later scene is not a recent Peach action.
 | **[`docs/SESSION_FILING_PROCESS.md`](docs/SESSION_FILING_PROCESS.md)** | **The ordered process.** Locations → characters → XP → *then* the event → exhibits → the investigation file → index → artifacts | After intake says "this is a session/event filing" |
 | **[`docs/INVESTIGATIONS.md`](docs/INVESTIGATIONS.md)** | **The investigations system** that replaced the quest board. One accreting case file per arc; exhibits, layered analysis behind d6+1 rolls, XP, leads | Adding a session's paper to an arc |
+| **[`docs/PROVINCE_CENSUS_GUIDE.md`](docs/PROVINCE_CENSUS_GUIDE.md)** | **The province census.** POIs merged into provinces, the controller each area's filed faction data crowns, borders drawn from that census, the shortlist that helps a player pick a pin, and how Power Projection reads the same numbers | Reading the atlas or the map, filing a province, or arguing about who holds what |
 | [`docs/ARTICLE_ANALYSES.md`](docs/ARTICLE_ANALYSES.md) | Waluigi's **opinionated 20/80 companion analysis** for a filed article; canonical schema, voice, canon boundaries, and the **"Waluigi is at a desk"** grounding rule (20/80 is about evidence, not prose — the argument still has to happen in a room) | Writing or editing a dedicated analysis |
 | [`docs/article-analyses/README.md`](docs/article-analyses/README.md) | The implemented analysis section: discovery, renderer lifecycle, research persistence, CSS scopes, validation, troubleshooting | Maintaining or extending the analysis feature |
 | [`docs/ARTICLE_REVISIONS.md`](docs/ARTICLE_REVISIONS.md) | **Revisions on one record** — `revisions[]`, the `.vhistory` bar, when to amend instead of re-file or duplicate | Amending, expanding or correcting a filing |
@@ -303,6 +304,14 @@ Seven habits explain nearly every decision in this repository:
   (which location articles show a tactical-map pin, which are still unplotted; the
   survey queue and the clue that placed every pin live in
   `docs/worklists/LOCATION_MAP_COVERAGE.md`).
+- **Re-file the province census** → `node tools/build-province-census.mjs`
+  (provinces merged from the POIs + `PROVINCE_POLITICS`, borders, and the realm
+  roll-up), then `node tools/check-province-census.mjs` to prove no pin was lost,
+  every border closes inside the sheet, and the filed snapshot still matches
+  `map-provinces.js`. **Never hand-edit `data/provinceCensus.json`.** The atlas
+  and the Cartography Desk compute the same census live from that module, so the
+  table and the borders cannot drift apart. Full rules:
+  [`docs/PROVINCE_CENSUS_GUIDE.md`](docs/PROVINCE_CENSUS_GUIDE.md).
 - **Audit references site-wide** → `python3 tools/check-references.py`
   (dangling ids, missing art; `--strict` to fail on legacy links).
 - **Run the routine checker set** → `python3 tools/check-all.py` (local paths,

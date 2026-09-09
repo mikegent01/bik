@@ -2,6 +2,63 @@
 
 import { MAP_DATA } from '../../data/maps/map-data.js';
 import { getAllFactions, getAllSystemIds, toSystemId, getFaction } from '../../systems/faction-registry.js';
+import { buildProvinceCensus } from '../pages/maps/map-provinces.js';
+import { PROVINCE_POLITICS } from '../../data/support/politics-data.js';
+
+/**
+ * THE PROVINCE CENSUS (shared with the World Atlas and the Cartography Desk).
+ *
+ * Power projection used to count pins: a faction with more than 35 POIs on a
+ * full map "controlled" the whole realm, which is a headline, not a map. The
+ * census is the same data read at province scale — pins merged into provinces
+ * (from the provinces already filed in PROVINCE_POLITICS and the sub-region
+ * sheets), then counted by weighted power rather than headcount. Both numbers
+ * stay on the record: `controller` is the monitor's long-standing count, and
+ * `censusSovereign` is who the province roll-up actually crowns.
+ */
+const provinceCensusCache = new Map();
+
+export function getProvinceCensus(mapId, opts = {}) {
+    if (!opts.force && provinceCensusCache.has(mapId)) return provinceCensusCache.get(mapId);
+    const map = MAP_DATA[mapId];
+    const census = map ? buildProvinceCensus(map, MAP_DATA, { politics: PROVINCE_POLITICS }) : null;
+    provinceCensusCache.set(mapId, census);
+    return census;
+}
+
+/** The light form the monitors render: no POI objects, just the verdicts. */
+export function getProvinceSummary(mapId) {
+    const census = getProvinceCensus(mapId);
+    if (!census) return null;
+    return {
+        mapId: census.mapId,
+        group: census.group,
+        pins: census.pins,
+        population: census.census.population,
+        power: census.census.power,
+        provinces: census.provinces.map(p => ({
+            id: p.id,
+            name: p.name,
+            origin: p.origin,
+            sourceMapId: p.sourceMapId,
+            controller: p.census.controller,
+            claimant: p.census.claimant,
+            share: p.census.claimantShare,
+            margin: p.census.margin,
+            contested: p.census.contested,
+            unreadable: p.census.noLead,
+            vacant: !!p.vacant,
+            pins: p.census.pins,
+            population: p.census.population,
+            power: p.census.power,
+            seatPoiId: p.seat ? p.seat.id : null,
+            ledgerDrift: p.delta ? p.delta.drift : null,
+            ledgerAgrees: p.delta ? p.delta.agrees : null,
+        })),
+        rollup: census.rollup,
+    };
+}
+
 /**
  * Core function to get all map statistics
  * Aggregates data from all 'Full' map entries in MAP_DATA.
@@ -25,6 +82,7 @@ export function getRealTimeMapStats() {
             population: 0,
             poiCount: 0,
             controlledRegions: 0,
+            controlledProvinces: 0,
             activeRegions: 0
         };
     });
@@ -57,6 +115,7 @@ export function getRealTimeMapStats() {
                     population: 0,
                     poiCount: 0,
                     controlledRegions: 0,
+                    controlledProvinces: 0,
                     activeRegions: 0
                 };
             }
@@ -114,11 +173,45 @@ export function getRealTimeMapStats() {
             region.pointsOfInterest.length > 5
         );
 
+        /* Province census: roll the realm up from its provinces instead of
+           counting its pins. A realm whose provinces answer to several hands is
+           fragmented, and saying so is more useful than a bigger number. */
+        const summary = getProvinceSummary(region.id);
+        const rollup = summary ? summary.rollup : null;
+        let controllerSource = 'poi-count';
+        if (controller === 'unaligned' && rollup.sovereign && rollup.sovereignShare >= 25) {
+            /* The pin count found nobody; the province census did. This is the
+               remaster, not a rewrite — the count rule still wins whenever it
+               can name a hand, and the panel says which rule crowned it. */
+            controller = toSystemId(rollup.sovereign);
+            controllerSource = 'province-census';
+        }
+        if (summary) {
+            summary.provinces.forEach(prov => {
+                const crowned = toSystemId(prov.controller);
+                if (!crowned || crowned === 'unaligned') return;
+                if (!stats.global[crowned]) {
+                    stats.global[crowned] = {
+                        id: crowned, military: 0, economic: 0, political: 0, population: 0,
+                        poiCount: 0, controlledRegions: 0, controlledProvinces: 0, activeRegions: 0,
+                    };
+                }
+                stats.global[crowned].controlledProvinces += 1;
+            });
+        }
+
         stats.regions.push({
             id: region.id,
             name: region.name.replace(' (Full)', ''), // Clean name
             type: 'Region',
             controller,
+            censusSovereign: rollup ? toSystemId(rollup.sovereign) : null,
+            controllerSource,
+            provinceCount: rollup ? rollup.provinceCount : 0,
+            contestedProvinces: rollup ? rollup.contestedProvinces : 0,
+            unclaimedProvinces: rollup ? rollup.unclaimedProvinces : 0,
+            provinceFragmented: rollup ? !!rollup.fragmented : false,
+            sovereignProvinceShare: rollup ? rollup.sovereignShare : 0,
             isContested,
             totalValue: regionMil + regionEco,
             militarySum: regionMil,
@@ -154,8 +247,10 @@ export function getDetailedFactionStats(factionKey) {
         population: 0,
         poiCount: 0,
         controlledRegions: 0,
+        controlledProvinces: 0,
         activeRegions: 0,
         regions: [], // Regions
+        provinces: [],
         pois: []
     };
 
@@ -224,6 +319,30 @@ export function getDetailedFactionStats(factionKey) {
         }
     });
 
+    /* The province ledger for this faction: which provinces the census crowns to
+       it, realm by realm. Same census the atlas paints, so the two never argue. */
+    Object.keys(MAP_DATA).forEach(mapId => {
+        if (!mapId.endsWith('_full')) return;
+        const summary = getProvinceSummary(mapId);
+        if (!summary) return;
+        summary.provinces.forEach(prov => {
+            if (prov.vacant || toSystemId(prov.controller) !== factionKey) return;
+            result.controlledProvinces += 1;
+            result.provinces.push({
+                id: `${mapId}:${prov.id}`,
+                name: prov.name,
+                regionId: mapId,
+                regionName: (MAP_DATA[mapId].name || '').replace(' (Full)', ''),
+                pins: prov.pins,
+                population: prov.population,
+                share: prov.share,
+                contested: prov.contested,
+                seatPoiId: prov.seatPoiId,
+            });
+        });
+    });
+    result.provinces.sort((a, b) => (b.share - a.share) || (b.population - a.population));
+
     result.pois.sort((a, b) => (b.military_strength + b.economic_value) - (a.military_strength + a.economic_value));
     result.regions.sort((a, b) => (b.military + b.economic) - (a.military + a.economic));
 
@@ -285,11 +404,15 @@ export function getDetailedRegionStats(regionId) {
 
     pois.sort((a, b) => (b.military_strength + b.economic_value) - (a.military_strength + a.economic_value));
 
+    const summary = getProvinceSummary(regionId);
     return {
         id: region.id,
         name: region.name.replace(' (Full)', ''),
         type: 'Region',
         controller,
+        censusSovereign: summary && summary.rollup ? toSystemId(summary.rollup.sovereign) : null,
+        provinces: summary ? summary.provinces : [],
+        provinceCount: summary ? summary.provinces.length : 0,
         isContested,
         militarySum,
         economicSum,

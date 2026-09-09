@@ -82,6 +82,12 @@ def main() -> int:
         # Categorical atlas lenses (species/religion/culture/factions) + census.
         checks.append(("map lenses", ["node", "tools/tests/test-map-lenses.mjs"], ROOT))
         checks.append(("map census", ["node", "tools/tests/test-map-census.mjs"], ROOT))
+        # Province census: POIs merged into provinces, borders, and the filed
+        # snapshot that proves the atlas, the desk and power projection agree.
+        checks.append(("province census model", ["node", "tools/tests/test-map-provinces.mjs"], ROOT))
+        checks.append(("province census snapshot", ["node", "tools/build-province-census.mjs", "--check"], ROOT))
+        checks.append(("province census", ["node", "tools/check-province-census.mjs"], ROOT))
+        checks.append(("province census card", ["node", "tools/tests/test-atlas-province-card.mjs"], ROOT))
         # Sidebar drawers: the 0fr collapse needs exactly one .navbody child.
         checks.append(("sidebar collapse", ["node", "tools/tests/test-nav-collapse.mjs"], ROOT))
         checks.append(("crime and punishment", ["node", "tools/tests/test-crime-and-punishment.mjs"], ROOT))

@@ -4,6 +4,8 @@
 import { MAP_DATA } from '../../../data/maps/map-data.js';
 import { getFaction, getFactionColor } from '../../../systems/faction-registry.js';
 import { hashColor, initial, isSafeLogo, topCats, legendChips } from './map-lenses.js';
+import { buildProvinceCensus, shortlist as rankShortlist, uniquePins } from './map-provinces.js';
+import { PROVINCE_POLITICS } from '../../../data/support/politics-data.js';
 
 const esc = value => String(value ?? '').replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
 const format = value => Math.round(value || 0).toLocaleString();
@@ -40,6 +42,9 @@ const planeOf = poi => (poi && poi.plane) || 'material';
 /* Chatter overlay (Wah Notes map mode): set fresh on every mount, read by
    detailHtml. One map is ever mounted at a time, so module scope is safe. */
 let ACTIVE_CHATTER = null;
+/* One keyboard owner per page, for the same reason: a re-mount replaces the
+   renderer inside the same host, and stale arrow-key listeners would fight. */
+let BOARD_KEYS = null;
 let ACTIVE_CENSUS = null;
 
 function wikiId(poi) {
@@ -94,7 +99,9 @@ function clusterPois(pois, radius = 1.15) {
 function model(mapId, plane, onlyIds) {
   const map = MAP_DATA[mapId];
   if (!map) return null;
-  let pois = (map.pointsOfInterest || []).filter(p => Number.isFinite(p.x) && Number.isFinite(p.y));
+  /* One filed id is one place: a record listed twice would otherwise render as
+     a stack of pins, double-count the census, and be shortlisted twice. */
+  let pois = uniquePins((map.pointsOfInterest || []).filter(p => Number.isFinite(p.x) && Number.isFinite(p.y)));
   if (plane && plane !== 'all') pois = pois.filter(p => planeOf(p) === plane);
   /* Journey mode: hide every surveyed pin except the stops that connect. */
   if (onlyIds) pois = pois.filter(p => onlyIds.has(p.id));
@@ -161,6 +168,101 @@ function detailHtml(poi, pois) {
   </article>`;
 }
 
+/* ---------------- the province layer ---------------- */
+
+function polygonPoints(polygon) {
+  if (!polygon || polygon.length < 3) return '';
+  return polygon.map(pt => `${pt[0]},${pt[1]}`).join(' ');
+}
+
+/* One <path> per province: fill carries the crown, the stroke carries the
+   border, a dashed stroke is a march, and a claim with no pins is outline only
+   — the atlas draws what the census can actually prove. */
+function bordersSvg(provinces, colorOf) {
+  const paths = (provinces || []).map(prov => {
+    const pts = polygonPoints(prov.polygon);
+    if (!pts) return '';
+    const color = colorOf(prov);
+    const cls = `atlas-v2-plot${prov.census.contested ? ' contested' : ''}${prov.vacant ? ' vacant' : ''}${prov.shape === 'surveyed' ? ' surveyed' : ''}`;
+    return `<polygon class="${cls}" data-province="${esc(prov.id)}" style="--plot:${esc(color)}" points="${esc(pts)}"><title>${esc(prov.name)}${prov.census.contested ? ' — contested' : (prov.census.controller ? '' : ' — unclaimed')}</title></polygon>`;
+  }).join('');
+  if (!paths) return '';
+  return `<svg class="atlas-v2-borders" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><g>${paths}</g></svg>`;
+}
+
+function provinceBarsHtml(census, colorOf) {
+  const rows = (census.ranked || []).filter(r => r.share >= 3).slice(0, 6);
+  if (!rows.length) return '';
+  return `<div class="atlas-v2-census">${rows.map(r => {
+    const meta = colorOf(r.factionId);
+    const pins = (census.pinCount || {})[r.factionId] || 0;
+    return `<div class="atlas-v2-censusrow${r.factionId === census.controller ? ' holds' : ''}" title="${esc(meta.name)} — ${r.share}% of the census from ${pins} pin${pins === 1 ? '' : 's'}">`
+      + `<i style="background:${esc(meta.color)}"></i><b>${esc(meta.name)}</b>`
+      + `<span><em style="width:${Math.max(2, Math.min(100, r.share))}%"></em></span>`
+      + `<u>${r.share}%</u></div>`;
+  }).join('')}</div>`;
+}
+
+function provinceDossierHtml(prov, opts) {
+  if (!prov) return '';
+  const { colorOf, pins, onNation, rollup } = opts;
+  const c = prov.census;
+  const crown = c.controller ? colorOf(c.controller) : '#f0b4b4';
+  const verdict = c.contested
+    ? `<b>Contested march.</b> ${esc(colorOf(c.claimant).name)} leads by ${c.margin} points over ${esc((c.rivals[0] || {}).factionId ? colorOf(c.rivals[0].factionId).name : 'the field')} — not enough to hold it.`
+    : c.noLead
+      ? `<b>Nobody holds it.</b> The filed pins are too thin to read a government off ${prov.name}.`
+      : c.neutral
+        ? `<b>Unclaimed.</b> ${c.pins} pin${c.pins === 1 ? '' : 's'} filed here, none of them under a flag.`
+        : `<b>Held by ${esc(colorOf(c.controller).name)}</b> at ${c.claimantShare}% of the census.`;
+  const ledger = prov.delta ? `<div class="atlas-v2-ledger">
+      <b>📜 The filed ledger, checked</b>
+      ${prov.delta.rows.slice(0, 5).map(r => `<p><i style="background:${esc(colorOf(r.factionId).color)}"></i>${esc(colorOf(r.factionId).name)} — filed ${r.filed}% → census ${r.census}% <b class="${Math.abs(r.delta) >= 15 ? 'bad' : 'fine'}">${r.delta >= 0 ? '+' : ''}${r.delta}</b></p>`).join('')}
+      <p class="atlas-v2-verdict">${prov.delta.agrees
+        ? `The census agrees with ${esc(colorOf(prov.delta.filedController).name)} as the leading hand — the numbers just moved.`
+        : `The census puts a different hand on this province than the ledger does. ${esc(colorOf(c.claimant).name)} now leads.`}</p>
+    </div>` : '';
+  const here = (prov.pois || []).slice().sort((a, b) => (Number(b.population) || 0) - (Number(a.population) || 0));
+  const limit = opts.limit || 9;
+  const seat = prov.seat ? `<button data-jump="${esc(prov.seat.id)}">👑 ${esc(prov.seat.name)}</button>` : '';
+  return `<article class="atlas-v2-detail atlas-v2-province">
+    <span class="atlas-v2-kicker">${prov.origin === 'filed' ? 'province · filed in the atlas' : 'province · merged from the survey'}${prov.sourceMapId ? ` · ${esc(prov.sourceMapId)}` : ''}</span>
+    <h3>${esc(prov.name)}</h3>
+    <p class="atlas-v2-hold" style="--hold:${esc(crown)}">${verdict}</p>
+    <dl>
+      <div><dt>Pins counted</dt><dd>${c.pins}</dd></div>
+      <div><dt>Residents</dt><dd>${format(c.population)}</dd></div>
+      <div><dt>Military</dt><dd>${format(c.military)}</dd></div>
+      <div><dt>Economy</dt><dd>${format(c.economic)}</dd></div>
+      <div><dt>Influence</dt><dd>${format(c.political)}</dd></div>
+      <div><dt>Census power</dt><dd>${format(c.power)}</dd></div>
+    </dl>
+    ${provinceBarsHtml(c, colorOf)}
+    ${ledger}
+    ${rollup ? `<p class="atlas-v2-nation">${rollup.provinceCount} provinces make the realm: <b>${esc(colorOf(rollup.sovereign).name)}</b> holds ${rollup.sovereignProvinces} of them (${rollup.sovereignShare}%). ${rollup.contestedProvinces} contested, ${rollup.unclaimedProvinces} unclaimed.</p>` : ''}
+    <div class="atlas-v2-pins"><b>${here.length} pin${here.length === 1 ? '' : 's'} in this province</b>${seat}${here.filter(p => p.id !== (prov.seat || {}).id).slice(0, limit).map(x => `<button data-jump="${esc(x.id)}">${esc(x.name)} <span>${format(x.population)}</span></button>`).join('')}${here.length > limit + 1 ? `<button data-moreprovince="${esc(prov.id)}">+${here.length - limit - 1} more pins — show the whole province</button>` : ''}</div>
+    <button class="atlas-v2-wiki" data-pickprovince="${esc(prov.id)}">🎯 Choose a pin in ${esc(prov.name)}</button>
+    ${onNation ? `<button class="atlas-v2-wiki" data-open-map="${esc(onNation)}">🗺️ Open this province as its own sheet</button>` : ''}
+  </article>`;
+}
+
+/* ---------------- the shortlist ---------------- */
+
+function shortlistHtml(board, state) {
+  const rows = (board.picks || []).map((row, i) => `<button class="atlas-v2-pick${i === state.pickIndex ? ' on' : ''}" data-pick="${esc(row.id)}">
+      <b class="atlas-v2-pickrank">${i + 1}</b>
+      <span class="atlas-v2-pickname">${esc(row.name)}${row.province ? `<i>${esc(row.province)}</i>` : ''}</span>
+      <em>${esc(row.reasons.slice(0, 3).join(' · '))}</em>
+    </button>`).join('');
+  return `<article class="atlas-v2-detail atlas-v2-shortlist">
+    <span class="atlas-v2-kicker">the desk's shortlist</span>
+    <h3>${board.total} pins. Six worth choosing.</h3>
+    <p>Waluigi ranks what is on this sheet by the lens you have open, then tells you why each one is on the list. Arrow keys move, Enter picks, Esc drops it.</p>
+    ${rows || '<p class="text-muted">Nothing left after the filters.</p>'}
+    <div class="atlas-v2-picktools"><button data-pickroll>⚄ Reroll the six</button><button data-pickclose>✕ Back to the map</button></div>
+  </article>`;
+}
+
 export function mountAtlasMapV2(host, mapId, opts = {}) {
   const plane = (opts.plane && opts.plane !== 'all') ? opts.plane : '';
   /* Journey mode mounts trail-only: every surveyed pin that is not a stop */
@@ -176,6 +278,17 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
   }
   const { map, pois, population } = data;
   ACTIVE_CHATTER = opts.chatter || null;
+  /* The Province Census (map-provinces.js) merges these pins into provinces,
+     names a controller for each from the filed faction data, and hands back a
+     border polygon. Journey mode hides pins, so it must not draw borders over
+     a survey the reader cannot see; a sheet with one province gets no overlay. */
+  const census = (opts.provinces === false || journeyOnly) ? null
+    : buildProvinceCensus(map, MAP_DATA, { pois, politics: PROVINCE_POLITICS, ...(opts.provinceCensus || {}) });
+  const provinceList = census && census.provinces.length > 1 ? census.provinces : [];
+  const provinceById = new Map(provinceList.map(p => [p.id, p]));
+  const pinProvince = new Map();
+  provinceList.forEach(prov => prov.poiIds.forEach(id => pinProvince.set(id, prov)));
+
   ACTIVE_CENSUS = opts.census || null;
   /* Chatter lens: pin size = Wah Notes volume. A value fn instead of a key
      because loudness is computed, not filed on the POI. */
@@ -220,6 +333,21 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
       return { key: 'fac:' + (m.id || 'unaligned'), label: m.name, color: m.color, icon: initial(m.name), img: factionLogoHref(m.logo) };
     },
   };
+  /* Province lens: pin colour carries the province's crown, so a reader can see
+     the census walk across the sheet instead of squinting at 300 dots. */
+  if (provinceList.length) {
+    modes.provinces = {
+      label: 'Provinces', color: '#8ab4ff', unit: 'census power', sizeLabel: 'census power', categorical: true,
+      value: poi => { const pr = pinProvince.get(poi.id); return pr ? pr.census.power : 0; },
+      catOf: poi => {
+        const pr = pinProvince.get(poi.id);
+        if (!pr) return null;
+        const fid = pr.census.contested ? 'contested' : (pr.census.controller || 'unclaimed');
+        const meta = fid === 'contested' ? { name: 'Contested marches', color: '#f0b4b4' } : fid === 'unclaimed' ? { name: 'Unclaimed', color: '#5b6b8a' } : factionMeta(fid);
+        return { key: `prov:${pr.id}`, label: `${pr.name} · ${meta.name}`, color: meta.color, icon: initial(pr.name) };
+      },
+    };
+  }
   if (opts.chatter) modes.chatter = { label: 'Chatter', color: '#f472b6', unit: 'wah notes', value: poi => ((opts.chatter.counts || {})[poi.id] || 0) };
   const startMode = (opts.defaultMode && modes[opts.defaultMode]) ? opts.defaultMode : 'population';
   /* Journey stops: [{poiId, n, eventId, name, date, plane}]. Stops whose pin
@@ -238,12 +366,13 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
   const pinWord = journeyOnly ? 'journey stops · Survey holds the full survey'
     : plane ? `${PLANE_LABELS[plane] || plane} pins` : 'surveyed pins';
 
+  const plotsOn = provinceList.length > 0 && opts.showProvinces !== false;
   host.innerHTML = `<section class="atlas-v2" aria-label="${esc(map.name)} tactical map">
     <header>
       <div>
         <span class="atlas-v2-eyebrow">WORLD ATLAS · PINNED ARTWORK</span>
         <h2>${esc((map.name || map.id).replace(' (Full)', ''))}</h2>
-        <p>${pois.length} ${pinWord} · ${format(population)} mapped residents · x/y kept as percent of the painting</p>
+        <p>${pois.length} ${pinWord} · ${format(population)} mapped residents · x/y kept as percent of the painting${provinceList.length ? ` · ${provinceList.length} provinces from the filed survey` : ''}</p>
       </div>
       <div class="atlas-v2-actions">
         <button type="button" data-action="fit">Reset view</button>
@@ -255,6 +384,8 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
       <input type="search" data-search placeholder="Search mapped locations…">
       <select data-type><option value="">All types</option>${types.map(t => `<option value="${esc(t)}">${esc(humanize(t))}</option>`).join('')}</select>
       <button type="button" data-action="wiki" title="Show only pins that open a wiki article">📖 Wiki</button>
+      ${provinceList.length ? `<button type="button" data-action="plots" class="${plotsOn ? 'active' : ''}" title="Merge the pins into provinces and draw the borders the census can prove">🗺️ Provinces</button>` : ''}
+      <button type="button" data-action="shortlist" title="Rank the pins on this sheet and pick one to act on">🎯 Choose a pin</button>
       <span data-visible>${pois.length} markers</span>
     </div>
     <div class="atlas-v2-modes">
@@ -280,7 +411,13 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
   const world = host.querySelector('.atlas-v2-world');
   const viewport = host.querySelector('.atlas-v2-viewport');
   const sidebar = host.querySelector('.atlas-v2-sidebar');
-  const state = { scale: 1, tx: 0, ty: 0, box: { left: 0, top: 0, w: 1, h: 1 }, mode: startMode, selected: null, wikiOnly: false };
+  const state = {
+    scale: 1, tx: 0, ty: 0, box: { left: 0, top: 0, w: 1, h: 1 }, mode: startMode, selected: null, wikiOnly: false,
+    plots: plotsOn, province: null, board: null, pickIndex: 0, nonce: 0, dragged: false,
+  };
+  /* One colour source for the census: the same registry the pins and the
+     demographics panel already read, so a province and its capital agree. */
+  const plotColor = prov => (prov.census.contested ? '#f0b4b4' : prov.census.controller ? factionMeta(prov.census.controller).color : '#5b6b8a');
 
   function hull() {
     if (isFull || pois.length < 2) return { minX: 0, minY: 0, maxX: 100, maxY: 100 };
@@ -357,7 +494,7 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
         lensEl.innerHTML = `<i style="background:${lens.color}"></i>${format(min)} – ${format(max)} ${esc(lens.unit)} · pin size = ${esc(lens.sizeLabel || lens.label)}${major.size ? ' · ◎ top 5 ringed' : ''}${toks.length ? ` · 🛰️ ${toks.length} party` : ''} · ${legendChips(cats.cats, cats.more)}`;
       } else lensEl.innerHTML = `<i style="background:${lens.color}"></i>${format(min)} – ${format(max)} ${esc(lens.unit)} · pin size = ${esc(lens.label)}${major.size ? ' · ◎ top 5 ringed' : ''}${toks.length ? ` · 🛰️ ${toks.length} party` : ''}`;
     }
-    overlay.innerHTML = journeyPathSvg() + clusters.map(group => {
+    overlay.innerHTML = (state.plots ? bordersSvg(provinceList, plotColor) + provinceLabelsHtml() : '') + journeyPathSvg() + clusters.map(group => {
       const poi = group[0];
       const faction = factionMeta(poi.factionId);
       const cat = lens.categorical ? lens.catOf(poi) : null;
@@ -375,7 +512,8 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
         : !cat ? '●'
         : cat.img ? `<img class="atlas-v2-glyph" data-fb="${esc(cat.icon || '●')}" src="${esc(cat.img)}" alt="">`
         : esc(cat.icon || '●');
-      const title = esc(group.map(g => g.name).join(', ') + (cat ? ` · ${cat.label}` : ''));
+      const plotOf = group.map(g => pinProvince.get(g.id)).find(Boolean);
+      const title = esc(group.map(g => g.name).join(', ') + (cat ? ` · ${cat.label}` : '') + (plotOf && !cat ? ` · ${plotOf.name}` : ''));
       return `<button type="button" class="atlas-v2-marker${groupStops.length ? ' journey' : ''}${isMajor ? ' atlas-v2-major' : ''}" data-ids="${esc(ids)}" data-poi="${esc(poi.id)}" style="left:${poi.x}%;top:${poi.y}%;width:${diameter}px;height:${diameter}px;--marker:${tint};--intensity:${(0.45 + w * 0.55).toFixed(2)}" title="${title}"><span>${glyph}</span>${extra}${badge}</button>`;
     }).join('');
     overlay.querySelectorAll('[data-poi]').forEach(btn => {
@@ -395,6 +533,15 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
         im.replaceWith(s);
       });
     });
+    overlay.querySelectorAll('[data-province]').forEach(shape => {
+      if (shape.dataset.province === state.province) shape.classList.add('selected');
+      shape.addEventListener('click', ev => {
+        ev.stopPropagation();
+        if (state.dragged) return;
+        const prov = provinceById.get(shape.dataset.province);
+        if (prov) selectProvince(prov, { centre: false });
+      });
+    });
     if (toks.length) {
       overlay.insertAdjacentHTML('beforeend', toks.map((t, i) => `<button type="button" class="atlas-v2-token" data-token="${i}" style="left:${t.x}%;top:${t.y}%" title="${esc(t.name)} — last seen: ${esc(t.recordName)} (${esc(t.date || 'undated')})">${esc(t.icon)}</button>`).join(''));
       overlay.querySelectorAll('[data-token]').forEach(btn => {
@@ -409,6 +556,105 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
     }
     applyFilter();
   }
+
+  function provinceLabelsHtml() {
+    if (!provinceList.length) return '';
+    return provinceList.map(prov => {
+      const c = prov.census;
+      const crown = c.contested ? '⚔ contested' : c.controller ? `${c.claimantShare}%` : '';
+      return `<div class="atlas-v2-plotlabel${c.contested ? ' contested' : ''}${c.neutral ? ' neutral' : ''}${state.province === prov.id ? ' on' : ''}" data-plotlabel="${esc(prov.id)}" style="left:${prov.x}%;top:${prov.y}%"><b>${esc(prov.name)}</b>${crown ? `<i>${esc(crown)}</i>` : ''}</div>`;
+    }).join('');
+  }
+
+  function selectProvince(prov, how) {
+    if (!prov) return;
+    state.province = prov.id;
+    state.selected = null;
+    state.pinLimit = (how && how.allPins) ? prov.pois.length : 0;
+    overlay.querySelectorAll('[data-province]').forEach(el => el.classList.toggle('selected', el.dataset.province === prov.id));
+    overlay.querySelectorAll('[data-plotlabel]').forEach(el => el.classList.toggle('on', el.dataset.plotlabel === prov.id));
+    closeBoard();
+    const other = prov.sourceMapId && prov.sourceMapId !== map.id && MAP_DATA[prov.sourceMapId] ? prov.sourceMapId : '';
+    sidebar.innerHTML = provinceDossierHtml(prov, {
+      colorOf: factionMeta, pins: pois, rollup: census ? census.rollup : null,
+      onNation: (how && how.allPins) ? other : other, limit: state.pinLimit || 9,
+    });
+    if (how && how.centre !== false) centerOn(prov.x, prov.y, 2.1);
+  }
+
+  /* ---- the shortlist: a way to actually choose a pin ---- */
+  function visiblePins() {
+    const shown = new Set();
+    overlay.querySelectorAll('[data-poi]').forEach(pin => {
+      if (pin.hidden) return;
+      (pin.dataset.ids || pin.dataset.poi).split(',').forEach(id => shown.add(id));
+    });
+    const list = pois.filter(p => shown.has(p.id));
+    return list.length ? list : pois;
+  }
+
+  function boardFor(pool) {
+    const lens = modes[state.mode] || MODES.population;
+    const lensVal = p => (lens.value ? lens.value(p) : (Number(p[lens.key]) || 0));
+    const board = rankShortlist(pool, provinceList, {
+      top: opts.shortlistSize || 6,
+      nonce: state.nonce,
+      lensValue: lensVal,
+      lensLabel: String(lens.label || 'population').toLowerCase(),
+    });
+    return state.nonce ? Object.assign({}, board, { picks: board.reroll(state.nonce) }) : board;
+  }
+
+  function renderBoard() {
+    if (!state.board) return;
+    const pool = state.board.provinceId ? (((provinceById.get(state.board.provinceId) || {}).pois) || []) : visiblePins();
+    state.boardData = boardFor(pool);
+    state.pickIndex = Math.min(state.pickIndex, Math.max(0, state.boardData.picks.length - 1));
+    sidebar.innerHTML = shortlistHtml(state.boardData, state);
+  }
+
+  function openBoard(provinceId) {
+    state.board = { provinceId: provinceId || null };
+    state.pickIndex = 0;
+    state.province = provinceId || state.province;
+    renderBoard();
+  }
+
+  function closeBoard() {
+    if (!state.board) return;
+    state.board = null;
+    state.boardData = null;
+    state.nonce = 0;
+  }
+
+  function pickRow(row) {
+    if (!row) return;
+    const poi = pois.find(p => p.id === row.id);
+    closeBoard();
+    if (!poi) return;
+    select(poi, null, stopByPoi.get(poi.id));
+    const prov = pinProvince.get(poi.id);
+    if (prov) {
+      state.province = prov.id;
+      overlay.querySelectorAll('[data-province]').forEach(el => el.classList.toggle('selected', el.dataset.province === prov.id));
+      overlay.querySelectorAll('[data-plotlabel]').forEach(el => el.classList.toggle('on', el.dataset.plotlabel === prov.id));
+    }
+    if (ready) centerOn(poi.x, poi.y, Math.max(state.scale, 3.4));
+    else pendingFocus = { id: poi.id, z: 3.4, stop: null };
+  }
+
+  function boardKeys(event) {
+    if (!state.board || !host.isConnected) return;
+    const picks = (state.boardData || {}).picks || [];
+    if (event.key === 'Escape') { event.preventDefault(); closeBoard(); sidebar.innerHTML = detailHtml(state.selected, pois); return; }
+    if (!picks.length) return;
+    if (event.key === 'ArrowDown' || event.key === 'j') { event.preventDefault(); state.pickIndex = (state.pickIndex + 1) % picks.length; renderBoard(); }
+    else if (event.key === 'ArrowUp' || event.key === 'k') { event.preventDefault(); state.pickIndex = (state.pickIndex - 1 + picks.length) % picks.length; renderBoard(); }
+    else if (event.key === 'Enter') { event.preventDefault(); pickRow(picks[state.pickIndex]); }
+  }
+  if (BOARD_KEYS) document.removeEventListener('keydown', BOARD_KEYS);
+  BOARD_KEYS = boardKeys;
+  document.addEventListener('keydown', BOARD_KEYS);
 
   /* Deep-link focus: a location article's "Open in the World Atlas" chip lands the
      reader on this sheet with the matching pin already selected and centred.
@@ -432,6 +678,20 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
     select(poi, null, stop);
     if (!ready) { pendingFocus = { id, z: z || 3.2, stop: stop || null }; return true; }
     centerOn(poi.x, poi.y, z || 3.2);
+    return true;
+  }
+  /* A province deep link (the atlas nation page's census rows) waits for the
+     same ready flag as a pin does, so the border is drawn before it is flown to. */
+  let pendingPlot = opts.focusProvince || null;
+  function focusProvince(id) {
+    if (!id) return false;
+    const prov = provinceById.get(id);
+    if (!prov) return false;
+    state.plots = true;
+    const btn = host.querySelector('[data-action="plots"]');
+    if (btn) btn.classList.add('active');
+    placePins();
+    selectProvince(prov);
     return true;
   }
 
@@ -476,7 +736,8 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
   img.addEventListener('load', () => {
     placePins();
     ready = true;
-    if (pendingFocus) { focusOn(pendingFocus.id, pendingFocus.z, pendingFocus.stop); pendingFocus = null; }
+    if (pendingPlot) { focusProvince(pendingPlot); pendingPlot = null; }
+    else if (pendingFocus) { focusOn(pendingFocus.id, pendingFocus.z, pendingFocus.stop); pendingFocus = null; }
     else if (opts.focusPoi) focusOn(opts.focusPoi);
     else if (opts.focus && Number.isFinite(opts.focus.x) && Number.isFinite(opts.focus.y)) {
       centerOn(opts.focus.x, opts.focus.y, opts.focus.scale || 2.6);
@@ -504,6 +765,18 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
     state.wikiOnly = !state.wikiOnly;
     event.currentTarget.classList.toggle('active', state.wikiOnly);
     applyFilter();
+  });
+  const plotsBtn = host.querySelector('[data-action="plots"]');
+  if (plotsBtn) plotsBtn.addEventListener('click', event => {
+    state.plots = !state.plots;
+    event.currentTarget.classList.toggle('active', state.plots);
+    if (!state.plots) { state.province = null; }
+    placePins();
+  });
+  host.querySelector('[data-action="shortlist"]').addEventListener('click', event => {
+    if (state.board) { closeBoard(); sidebar.innerHTML = detailHtml(state.selected, pois); event.currentTarget.classList.remove('active'); return; }
+    openBoard(null);
+    event.currentTarget.classList.add('active');
   });
   host.querySelector('[data-search]').addEventListener('input', applyFilter);
   host.querySelector('[data-type]').addEventListener('change', applyFilter);
@@ -552,6 +825,32 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
       const poi = pois.find(p => p.id === jump.dataset.jump);
       if (poi) select(poi);
     }
+    const pick = event.target.closest('[data-pick]');
+    if (pick && state.boardData) {
+      pickRow(state.boardData.picks.find(r => r.id === pick.dataset.pick));
+      const btn = host.querySelector('[data-action="shortlist"]');
+      if (btn) btn.classList.remove('active');
+      return;
+    }
+    if (event.target.closest('[data-pickroll]')) { state.nonce += 1; renderBoard(); return; }
+    if (event.target.closest('[data-pickclose]')) {
+      const prov = state.province && provinceById.get(state.province);
+      closeBoard();
+      sidebar.innerHTML = prov ? provinceDossierHtml(prov, { colorOf: factionMeta, pins: pois, rollup: census ? census.rollup : null, onNation: '', limit: 9 }) : detailHtml(state.selected, pois);
+      return;
+    }
+    const pickHere = event.target.closest('[data-pickprovince]');
+    if (pickHere) { openBoard(pickHere.dataset.pickprovince); return; }
+    const more = event.target.closest('[data-moreprovince]');
+    if (more) { const prov = provinceById.get(more.dataset.moreprovince); if (prov) selectProvince(prov, { allPins: true, centre: false }); return; }
+    const openMap = event.target.closest('[data-open-map]');
+    if (openMap) {
+      const wanted = openMap.dataset.openMap;
+      const chip = [...document.querySelectorAll('.amr-chip')].find(b => b.dataset.map === wanted);
+      if (chip) chip.click();
+      else if (typeof opts.onMapSwitch === 'function') opts.onMapSwitch(wanted);
+      return;
+    }
     const open = event.target.closest('[data-open-article]');
     if (open && typeof window.openId === 'function') window.openId(open.dataset.openArticle);
   });
@@ -573,15 +872,20 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
   viewport.addEventListener('pointerdown', event => {
     if (event.target.closest('.atlas-v2-marker') || event.target.closest('.atlas-v2-token')) return;
     drag = { x: event.clientX, y: event.clientY, tx: state.tx, ty: state.ty };
+    state.dragged = false;
     viewport.setPointerCapture(event.pointerId);
   });
   viewport.addEventListener('pointermove', event => {
     if (!drag) return;
-    state.tx = drag.tx + (event.clientX - drag.x);
-    state.ty = drag.ty + (event.clientY - drag.y);
+    const dx = event.clientX - drag.x, dy = event.clientY - drag.y;
+    if (Math.abs(dx) + Math.abs(dy) > 4) state.dragged = true;
+    state.tx = drag.tx + dx;
+    state.ty = drag.ty + dy;
     applyTransform();
   });
-  viewport.addEventListener('pointerup', () => { drag = null; });
+  /* The click event fires after pointerup, so the flag cannot be cleared in
+     the same gesture — release it one task later. */
+  viewport.addEventListener('pointerup', () => { drag = null; setTimeout(() => { state.dragged = false; }, 0); });
 
   /* Control handle for the cartography desk's journey stepper. Existing
      callers ignore the return value; their behaviour is unchanged. */
@@ -591,5 +895,16 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
     select: (poiId, stop) => { const p = pois.find(q => q.id === poiId); if (p) select(p, null, stop); },
     getPois: () => pois.slice(),
     getStops: () => stops.slice(),
+    /* Province census surface: the atlas nation page and the cartography desk
+       both link straight into a province dossier with these. */
+    getProvinces: () => provinceList.map(p => ({
+      id: p.id, name: p.name, kind: p.origin, controller: p.census.controller,
+      contested: p.census.contested, pins: p.census.pins, population: p.census.population,
+      share: p.census.claimantShare, seatPoiId: p.seat ? p.seat.id : null, sourceMapId: p.sourceMapId,
+      vacant: !!p.vacant, shape: p.shape, ledger: !!p.delta,
+    })),
+    getCensus: () => (census ? { ...census, provinces: provinceList.map(p => p.id) } : null),
+    selectProvince: provinceId => focusProvince(provinceId),
+    openShortlist: () => { openBoard(null); return true; },
   };
 }
