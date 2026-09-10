@@ -77,24 +77,66 @@ function containBox(stage, img) {
   return { left: (sw - w) / 2, top: (sh - h) / 2, w, h };
 }
 
-function clusterPois(pois, radius = 1.15) {
-  const used = new Set();
+function defaultPinScore(poi) {
+  if (!poi) return 0;
+  return (Number(poi.political_influence) || 0) * 3
+    + (Number(poi.military_strength) || 0) * 2
+    + (Number(poi.economic_value) || 0)
+    + Math.log10(Math.max(1, Number(poi.population) || 1));
+}
+
+function clusterPois(pois, radius = 1.15, opts = {}) {
+  const list = (pois || []).filter(Boolean);
+  if (!list.length) return [];
+  if (radius <= 0.05) {
+    return list.map(poi => { const group = [poi]; group.x = Number(poi.x) || 0; group.y = Number(poi.y) || 0; return group; });
+  }
+  const score = typeof opts.score === 'function' ? opts.score : defaultPinScore;
+  const maxSize = Math.max(2, Number(opts.maxSize) || 80);
   const clusters = [];
-  pois.forEach((poi, i) => {
-    if (used.has(i)) return;
-    const group = [poi];
-    used.add(i);
-    pois.forEach((other, j) => {
-      if (used.has(j)) return;
-      if (Math.hypot((other.x || 0) - (poi.x || 0), (other.y || 0) - (poi.y || 0)) < radius) {
-        group.push(other);
-        used.add(j);
+  list.slice()
+    .sort((a, b) => (score(b) - score(a)) || String(a.id || '').localeCompare(String(b.id || '')))
+    .forEach(poi => {
+      const x = Number(poi.x) || 0, y = Number(poi.y) || 0;
+      let best = null, bestD = Infinity;
+      clusters.forEach(group => {
+        if (group.length >= maxSize) return;
+        const d = Math.hypot(x - group.x, y - group.y);
+        if (d <= radius && d < bestD) { best = group; bestD = d; }
+      });
+      if (!best) {
+        const group = [poi];
+        group.x = x;
+        group.y = y;
+        group.power = 1 + Math.max(0, score(poi));
+        clusters.push(group);
+        return;
       }
+      const w = 1 + Math.max(0, score(poi));
+      const total = (best.power || best.length) + w;
+      best.x = ((best.x || 0) * (best.power || best.length) + x * w) / total;
+      best.y = ((best.y || 0) * (best.power || best.length) + y * w) / total;
+      best.power = total;
+      best.push(poi);
     });
-    clusters.push(group);
-  });
   return clusters;
 }
+
+function dynamicClusterRadius(count, scale, plane, journeyOnly, densityMode) {
+  if (journeyOnly || densityMode === 'all' || count <= 60) return plane ? 0.18 : 0.05;
+  if (densityMode === 'key') return 0.05;
+  const pressure = Math.min(1, Math.max(0, (count - 60) / 520));
+  const base = 0.9 + pressure * 3.2;
+  const zoom = Math.max(0.35, Number(scale) || 1);
+  return Math.max(0.18, base / Math.pow(zoom, 1.12));
+}
+
+const PIN_DENSITY_ORDER = ['smart', 'key', 'all'];
+const PIN_DENSITY = {
+  smart: { label: '✨ Smart POIs', hint: 'auto-clustered' },
+  key: { label: '◆ Key only', hint: 'seats, articles, top pins' },
+  all: { label: '• All POIs', hint: 'everything unrolled' },
+};
 
 function model(mapId, plane, onlyIds) {
   const map = MAP_DATA[mapId];
@@ -495,10 +537,7 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
   const isFull = /_full$/.test(map.id) || /\(Full\)/i.test(map.name || '');
   const imgHref = new URL(`../../../${map.imageSrc}`, import.meta.url).href;
   const types = [...new Set(pois.map(p => p.type).filter(Boolean))].sort();
-  /* A filtered layer holds a handful of pins that sit close together (the
-     Raventree reflections are ~0.5 apart); the full-sheet radius would fuse
-     the whole Feyward layer into one dot, so cluster tightly instead. */
-  const clusters = clusterPois(pois, plane ? 0.3 : 1.15);
+  let currentVisiblePois = pois.slice();
   const pinWord = journeyOnly ? 'journey stops · Survey holds the full survey'
     : plane ? `${PLANE_LABELS[plane] || plane} pins` : 'surveyed pins';
 
@@ -521,6 +560,7 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
       <select data-type><option value="">All types</option>${types.map(t => `<option value="${esc(t)}">${esc(humanize(t))}</option>`).join('')}</select>
       <button type="button" data-action="wiki" title="Show only pins that open a wiki article">📖 Wiki</button>
       ${provinceList.length ? `<button type="button" data-action="plots" class="${plotsOn ? 'active' : ''}" title="Merge the pins into provinces and draw the borders the census can prove">🗺️ Provinces</button>` : ''}
+      <button type="button" data-action="density" data-density="smart" title="Cycle marker density: Smart clusters, key locations only, or all points unrolled">${PIN_DENSITY.smart.label}</button>
       <button type="button" data-action="shortlist" title="Rank the pins on this sheet and pick one to act on">🎯 Choose a pin</button>
       <span data-visible>${pois.length} markers</span>
     </div>
@@ -550,6 +590,7 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
   const state = {
     scale: 1, tx: 0, ty: 0, box: { left: 0, top: 0, w: 1, h: 1 }, mode: startMode, selected: null, wikiOnly: false,
     plots: plotsOn, province: null, board: null, pickIndex: 0, nonce: 0, dragged: false, labelZoom: 1,
+    pinDensity: PIN_DENSITY[opts.pinDensity] ? opts.pinDensity : 'smart',
   };
   /* One colour source for the census: the same registry the pins and the
      demographics panel already read, so a province and its capital agree. */
@@ -594,6 +635,7 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
     state.tx = vw / 2 - cx * state.scale;
     state.ty = vh / 2 - cy * state.scale;
     applyTransform();
+    placePins();
   }
 
   function journeyPathSvg() {
@@ -617,6 +659,8 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
     const lens = modes[state.mode] || MODES.population;
     const lensVal = p => lens.value ? lens.value(p) : (Number(p[lens.key]) || 0);
     const lensEl = host.querySelector('[data-legend-lens]');
+    const query = (host.querySelector('[data-search]')?.value || '').toLowerCase();
+    const type = host.querySelector('[data-type]')?.value || '';
     /* Party last-seen tokens: companions whose latest filed appearance pins
        onto this sheet. Rendered above pins, never clustered. */
     const toks = (opts.party || []).filter(t => Number.isFinite(t.x) && Number.isFinite(t.y));
@@ -631,25 +675,60 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
     const weight = v => Math.min(1, Math.log1p(Math.max(0, v)) / denom);
     const ranked = [...pois].sort((a, b) => lensVal(b) - lensVal(a)).slice(0, 5);
     const major = new Set(ranked.filter(p => lensVal(p) > 0).map(p => p.id));
+    const seatIds = new Set(provinceList.map(prov => prov.seat && prov.seat.id).filter(Boolean));
+    const stopIdsOnSheet = new Set(stops.map(s => s.poiId).filter(Boolean));
+    const chatterCounts = (opts.chatter && opts.chatter.counts) || {};
+    const isKeyPin = poi => !!(poi && (
+      major.has(poi.id)
+      || seatIds.has(poi.id)
+      || stopIdsOnSheet.has(poi.id)
+      || wikiId(poi)
+      || (chatterCounts[poi.id] || 0) > 0
+    ));
+    const matches = poi => (!query || `${poi.name} ${poi.description || ''}`.toLowerCase().includes(query))
+      && (!type || poi.type === type)
+      && (!state.wikiOnly || wikiId(poi));
+    let displayPois = pois.filter(matches);
+    const unfilteredMatches = displayPois.length;
+    if (state.pinDensity === 'key' && !journeyOnly) displayPois = displayPois.filter(isKeyPin);
+    if (!displayPois.length && unfilteredMatches) displayPois = pois.filter(matches).slice(0, 1);
+    currentVisiblePois = displayPois.slice();
     const min = values.length ? Math.min(...values) : 0;
+    const radius = dynamicClusterRadius(displayPois.length, state.scale, plane, journeyOnly, state.pinDensity);
+    const clusters = clusterPois(displayPois, radius, {
+      maxSize: state.pinDensity === 'smart' ? Math.max(18, Math.ceil(displayPois.length / 12)) : 4,
+      score: p => (lensVal(p) * 2) + defaultPinScore(p) + (isKeyPin(p) ? 999 : 0),
+    });
+    const clusterCount = clusters.filter(group => group.length > 1).length;
+    const hiddenKeyCount = Math.max(0, unfilteredMatches - displayPois.length);
+    const visibleEl = host.querySelector('[data-visible]');
+    if (visibleEl) {
+      const markerLabel = clusters.length === displayPois.length
+        ? `${displayPois.length} markers visible`
+        : `${clusters.length} clustered markers · ${displayPois.length} POIs`;
+      visibleEl.textContent = markerLabel + (displayPois.length !== pois.length ? ` · ${pois.length - displayPois.length} tucked` : '');
+    }
     /* The province overlay rides along in every lens, so the legend says what
        its ink means: how many provinces, and how many of them are marches no
        single flag holds (they are the hatched ones). */
     const contestedCount = provinceList.filter(p => p.census.contested).length;
+    const densityHint = PIN_DENSITY[state.pinDensity]?.hint || 'auto-clustered';
+    const clusterHint = clusterCount ? ` · ${clusterCount} cluster${clusterCount === 1 ? '' : 's'}` : '';
+    const keyHint = hiddenKeyCount ? ` · ${hiddenKeyCount} tucked` : '';
     const plotHint = state.plots && provinceList.length ? ` · 🗺️ ${provinceList.length} provinces${contestedCount ? ` · ⚔ ${contestedCount} contested` : ''}` : '';
     if (lensEl) {
       if (lens.categorical) {
-        const cats = topCats(clusters, g => lens.catOf(g[0]));
-        lensEl.innerHTML = `<i style="background:${lens.color}"></i>${format(min)} – ${format(max)} ${esc(lens.unit)} · pin size = ${esc(lens.sizeLabel || lens.label)}${major.size ? ' · ◎ top 5 ringed' : ''}${toks.length ? ` · 🛰️ ${toks.length} party` : ''} · ${legendChips(cats.cats, cats.more)}${plotHint}`;
-      } else lensEl.innerHTML = `<i style="background:${lens.color}"></i>${format(min)} – ${format(max)} ${esc(lens.unit)} · pin size = ${esc(lens.label)}${major.size ? ' · ◎ top 5 ringed' : ''}${toks.length ? ` · 🛰️ ${toks.length} party` : ''}${plotHint}`;
+        const cats = topCats(displayPois, p => lens.catOf(p));
+        lensEl.innerHTML = `<i style="background:${lens.color}"></i>${format(min)} – ${format(max)} ${esc(lens.unit)} · pin size = ${esc(lens.sizeLabel || lens.label)} · ${esc(densityHint)}${clusterHint}${keyHint}${major.size ? ' · ◎ top 5 ringed' : ''}${toks.length ? ` · 🛰️ ${toks.length} party` : ''} · ${legendChips(cats.cats, cats.more)}${plotHint}`;
+      } else lensEl.innerHTML = `<i style="background:${lens.color}"></i>${format(min)} – ${format(max)} ${esc(lens.unit)} · pin size = ${esc(lens.label)} · ${esc(densityHint)}${clusterHint}${keyHint}${major.size ? ' · ◎ top 5 ringed' : ''}${toks.length ? ` · 🛰️ ${toks.length} party` : ''}${plotHint}`;
     }
     overlay.innerHTML = (state.plots ? bordersSvg(provinceList, plotColor) + provinceLabelsHtml() : '') + journeyPathSvg() + clusters.map(group => {
       const poi = group[0];
       const faction = factionMeta(poi.factionId);
       const cat = lens.categorical ? lens.catOf(poi) : null;
       const top = Math.max(0, ...group.map(g => lensVal(g)));
-      const w = (lens.categorical && !cat) ? 0.06 : weight(top);
-      const diameter = Math.round(12 + w * 20);
+      const weighted = (lens.categorical && !cat) ? 0.06 : weight(top);
+      const diameter = Math.round(12 + weighted * 20 + (group.length > 1 ? Math.min(18, Math.log2(group.length) * 5) : 0));
       const isMajor = group.some(g => major.has(g.id));
       const extra = group.length > 1 ? `<em>${group.length}</em>` : '';
       const groupStops = group.map(g => stopByPoi.get(g.id)).filter(Boolean);
@@ -662,15 +741,27 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
         : cat.img ? `<img class="atlas-v2-glyph" data-fb="${esc(cat.icon || '●')}" src="${esc(cat.img)}" alt="">`
         : esc(cat.icon || '●');
       const plotOf = group.map(g => pinProvince.get(g.id)).find(Boolean);
-      const title = esc(group.map(g => g.name).join(', ') + (cat ? ` · ${cat.label}` : '') + (plotOf && !cat ? ` · ${plotOf.name}` : ''));
-      return `<button type="button" class="atlas-v2-marker${groupStops.length ? ' journey' : ''}${isMajor ? ' atlas-v2-major' : ''}" data-ids="${esc(ids)}" data-poi="${esc(poi.id)}" style="left:${poi.x}%;top:${poi.y}%;width:${diameter}px;height:${diameter}px;--marker:${tint};--intensity:${(0.45 + w * 0.55).toFixed(2)}" title="${title}"><span>${glyph}</span>${extra}${badge}</button>`;
+      const selectedStack = state.selected ? group.some(g => g.id === state.selected.id) : false;
+      const inSelectedProvince = state.province ? group.some(g => (pinProvince.get(g.id) || {}).id === state.province) : true;
+      const cx = Number.isFinite(group.x) ? group.x : poi.x;
+      const cy = Number.isFinite(group.y) ? group.y : poi.y;
+      const title = esc((group.length > 1 ? `${group.length} locations clustered: ` : '') + group.map(g => g.name).join(', ') + (cat ? ` · ${cat.label}` : '') + (plotOf && !cat ? ` · ${plotOf.name}` : ''));
+      const klass = `atlas-v2-marker${group.length > 1 ? ' atlas-v2-cluster' : ''}${groupStops.length ? ' journey' : ''}${isMajor ? ' atlas-v2-major' : ''}${selectedStack ? ' selected' : ''}${inSelectedProvince ? '' : ' atlas-v2-dimmed'}`;
+      return `<button type="button" class="${klass}" data-ids="${esc(ids)}" data-poi="${esc(poi.id)}" data-cx="${cx.toFixed(3)}" data-cy="${cy.toFixed(3)}" style="left:${cx}%;top:${cy}%;width:${diameter}px;height:${diameter}px;--marker:${tint};--intensity:${(0.45 + weighted * 0.55).toFixed(2)}" title="${title}"><span>${glyph}</span>${extra}${badge}</button>`;
     }).join('');
     overlay.querySelectorAll('[data-poi]').forEach(btn => {
       btn.addEventListener('click', ev => {
         ev.stopPropagation();
         const ids = (btn.dataset.ids || '').split(',').filter(Boolean);
+        if (ids.length > 1 && state.pinDensity !== 'all' && state.scale < 4.6) {
+          const cx = Number(btn.dataset.cx) || 50;
+          const cy = Number(btn.dataset.cy) || 50;
+          centerOn(cx, cy, Math.min(6, Math.max(state.scale + 0.9, state.scale * 1.75)));
+          placePins();
+          return;
+        }
         const picked = pois.find(p => p.id === (ids[0] || btn.dataset.poi));
-        select(picked, ids);
+        if (picked) select(picked, ids);
       });
     });
     /* Faction pins carry logo art; a missing file swaps to the letter glyph
@@ -719,7 +810,6 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
     /* Rebuilding the overlay replaces the focus ink along with everything
        else; put it back for whatever province is still selected. */
     markSelectedPlot();
-    applyFilter();
   }
 
   /* Crowded sheets stack labels into an unreadable smudge, so they declutter:
@@ -796,6 +886,11 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
       el.classList.toggle('on', el.dataset.plotlabel === prov.id);
       if (el.dataset.plotlabel === prov.id) el.classList.remove('tucked');
     });
+    overlay.querySelectorAll('[data-poi]').forEach(el => {
+      const stack = (el.dataset.ids || el.dataset.poi || '').split(',');
+      const belongs = stack.some(id => (pinProvince.get(id) || {}).id === prov.id);
+      el.classList.toggle('atlas-v2-dimmed', !belongs);
+    });
     markSelectedPlot();
     closeBoard();
     const other = prov.sourceMapId && prov.sourceMapId !== map.id && MAP_DATA[prov.sourceMapId] ? prov.sourceMapId : '';
@@ -810,13 +905,7 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
 
   /* ---- the shortlist: a way to actually choose a pin ---- */
   function visiblePins() {
-    const shown = new Set();
-    overlay.querySelectorAll('[data-poi]').forEach(pin => {
-      if (pin.hidden) return;
-      (pin.dataset.ids || pin.dataset.poi).split(',').forEach(id => shown.add(id));
-    });
-    const list = pois.filter(p => shown.has(p.id));
-    return list.length ? list : pois;
+    return currentVisiblePois.length ? currentVisiblePois.slice() : pois;
   }
 
   function boardFor(pool) {
@@ -905,6 +994,7 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
     select(poi, null, stop);
     if (!ready) { pendingFocus = { id, z: z || 3.2, stop: stop || null }; return true; }
     centerOn(poi.x, poi.y, z || 3.2);
+    placePins();
     return true;
   }
   /* A province deep link (the atlas nation page's census rows) waits for the
@@ -947,17 +1037,7 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
   }
 
   function applyFilter() {
-    const query = host.querySelector('[data-search]').value.toLowerCase();
-    const type = host.querySelector('[data-type]').value;
-    let shown = 0;
-    overlay.querySelectorAll('[data-poi]').forEach(pin => {
-      const ids = (pin.dataset.ids || pin.dataset.poi).split(',');
-      const group = ids.map(id => pois.find(p => p.id === id)).filter(Boolean);
-      const visible = group.some(poi => (!query || `${poi.name} ${poi.description || ''}`.toLowerCase().includes(query)) && (!type || poi.type === type) && (!state.wikiOnly || wikiId(poi)));
-      pin.hidden = !visible;
-      if (visible) shown += group.length;
-    });
-    host.querySelector('[data-visible]').textContent = `${shown} markers visible`;
+    placePins();
   }
 
   img.addEventListener('load', () => {
@@ -968,9 +1048,10 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
     else if (opts.focusPoi) focusOn(opts.focusPoi);
     else if (opts.focus && Number.isFinite(opts.focus.x) && Number.isFinite(opts.focus.y)) {
       centerOn(opts.focus.x, opts.focus.y, opts.focus.scale || 2.6);
+      placePins();
     }
     else if (!isFull) fitRegion();
-    else { state.scale = 1; state.tx = 0; state.ty = 0; applyTransform(); }
+    else { state.scale = 1; state.tx = 0; state.ty = 0; applyTransform(); placePins(); }
   });
   if (img.complete) img.dispatchEvent(new Event('load'));
   window.addEventListener('resize', () => { placePins(); });
@@ -1000,6 +1081,21 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
     if (!state.plots) { state.province = null; }
     placePins();
   });
+  const densityBtn = host.querySelector('[data-action="density"]');
+  function renderDensityButton() {
+    if (!densityBtn) return;
+    const d = PIN_DENSITY[state.pinDensity] || PIN_DENSITY.smart;
+    densityBtn.textContent = d.label;
+    densityBtn.dataset.density = state.pinDensity;
+    densityBtn.classList.toggle('active', state.pinDensity !== 'smart');
+  }
+  renderDensityButton();
+  if (densityBtn) densityBtn.addEventListener('click', () => {
+    const i = PIN_DENSITY_ORDER.indexOf(state.pinDensity);
+    state.pinDensity = PIN_DENSITY_ORDER[(i + 1) % PIN_DENSITY_ORDER.length];
+    renderDensityButton();
+    placePins();
+  });
   host.querySelector('[data-action="shortlist"]').addEventListener('click', event => {
     if (state.board) { closeBoard(); sidebar.innerHTML = detailHtml(state.selected, pois); event.currentTarget.classList.remove('active'); return; }
     openBoard(null);
@@ -1013,7 +1109,7 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
   });
   function reframe() {
     if (!isFull) fitRegion();
-    else { state.scale = 1; state.tx = 0; state.ty = 0; applyTransform(); }
+    else { state.scale = 1; state.tx = 0; state.ty = 0; applyTransform(); placePins(); }
   }
   host.querySelector('[data-action="fit"]').addEventListener('click', () => {
     sidebar.innerHTML = detailHtml(null, pois);
@@ -1093,6 +1189,7 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
     state.ty = my - (my - state.ty) * k;
     state.scale = next;
     applyTransform();
+    placePins();
   }, { passive: false });
 
   let drag = null;

@@ -117,6 +117,14 @@ loud where the archive's numbers and the archive's pins disagree.
   a ledger for that ground — the diff: *filed 40% → census 22%*, plus whether
   the same hand still holds it. A province surveyed on its own sheet links
   straight to that sheet.
+- **POI density is a control, not a punishment.** Dense sheets now open in
+  **✨ Smart POIs** mode: nearby locations collapse into clusters at low zoom,
+  cluster clicks dive the map instead of opening a useless wall of names, and
+  zoom progressively earns the individual pins back. The same button cycles to
+  **◆ Key only** (seats, wiki-linked pins, journey stops, chatter pins and top
+  lens values) and **• All POIs** (every filed pin unrolled) when a reader really
+  needs the raw survey. Province selection fades pins outside the selected plot
+  instead of burying the dossier under unrelated dots.
 - **`🎯 Choose a pin`** — the desk's shortlist. The answer to seven hundred pins
   is not more pins, it is six worth acting on, each with its reasons checked
   against the sheet: *top of the sheet by population · seat of Capital Province ·
@@ -125,9 +133,14 @@ loud where the archive's numbers and the archive's pins disagree.
   Arrow keys or `j`/`k` move, `Enter` picks, `Esc` drops it; picking selects the
   pin and flies the map to it. `openShortlist()` is on the mount handle, so any
   page can open it directly.
-- **The Cartography Desk** (`#/maps/<sheet>`) mounts the same renderer, so
-  borders, the lens and the shortlist arrive there too — except in journey mode,
-  where pins are hidden and therefore borders are not drawn over them.
+- **The Cartography Desk** (`#/maps/<sheet>`) mounts the same renderer as a
+  full-canvas route rather than a small card embedded in the wiki document. The
+  wiki side rail is removed on that route, the map owns the viewport, and the
+  journey/chatter panels dock beside it. Atlas nation pages keep their embedded
+  context map, but its toolbar now has **Open full map desk** so the reader can
+  jump from a dossier card to the real map workspace in one click. Borders, the
+  lens, density controls and the shortlist arrive there too — except in journey
+  mode, where pins are hidden and therefore borders are not drawn over them.
 - **Power Projection** (`#/power`) now reads the census as well as the count:
   `app/systems/global-map-analysis.js` puts `provinceCount`,
   `contestedProvinces` and `censusSovereign` on every region, counts

@@ -181,3 +181,31 @@
 .atlas-v2-picktools{display:flex;gap:8px;margin-top:10px}
 .atlas-v2-picktools button{flex:1;border:1px solid #3e5072;background:#101a2b;color:#aebddd;border-radius:7px;padding:7px 8px;font:700 11.5px inherit;cursor:pointer}
 .atlas-v2-picktools button:hover{background:#2c4a73;color:#fff}
+
+/* 2026-09-10 map-system overhaul: default maps should feel like a map, not a
+   postage stamp. The embedded nation page gets a taller viewport; the #/maps
+   shell can override these values to fill the app pane. */
+.atlas-v2-layout{min-height:clamp(620px,72vh,900px)}
+.atlas-v2-stage{display:flex;flex-direction:column;min-height:0}
+.atlas-v2-viewport{height:clamp(560px,68vh,840px);min-height:0;flex:1}
+.atlas-v2-marker{transition:transform .12s ease,opacity .16s ease,filter .16s ease,box-shadow .16s ease;backdrop-filter:blur(2px)}
+.atlas-v2-marker.atlas-v2-cluster{border-color:#e9dcff;background:radial-gradient(circle at 35% 30%,#fff8,var(--marker,#7c8aa5) 45%,#101a2b 100%);box-shadow:0 0 0 2px color-mix(in srgb,var(--marker,#7c8aa5) 45%,transparent),0 8px 22px #000d;z-index:4}
+.atlas-v2-marker.atlas-v2-cluster span{font-weight:900;text-shadow:0 1px 4px #000}
+.atlas-v2-marker.atlas-v2-cluster em{background:#050a12;color:#fff;border-color:color-mix(in srgb,var(--marker,#7c8aa5) 60%,#fff)}
+.atlas-v2-marker.atlas-v2-dimmed{opacity:.18;filter:grayscale(.85);box-shadow:none;z-index:1}
+.atlas-v2-marker.atlas-v2-dimmed:hover{opacity:.85;filter:none;z-index:5}
+.atlas-v2-tools button[data-action="density"][data-density="key"]{border-color:#ffd75e;color:#ffe7a0;background:#2a230c}
+.atlas-v2-tools button[data-action="density"][data-density="all"]{border-color:#f87171;color:#ffd1d1;background:#321616}
+.atlas-v2-tools button[data-action="plots"].active{border-color:#8ab4ff;background:#14233e;color:#dceaff}
+.atlas-v2-plot{fill:color-mix(in srgb,var(--plot,#7c8aa5) 12%,transparent)}
+.atlas-v2-plot:hover,.atlas-v2-plot.selected{fill:color-mix(in srgb,var(--plot,#7c8aa5) 28%,transparent)}
+.atlas-v2-plot.contested{fill:color-mix(in srgb,#f0b4b4 9%,transparent)}
+.atlas-v2-plot.contested:hover,.atlas-v2-plot.contested.selected{fill:color-mix(in srgb,#f0b4b4 21%,transparent)}
+.atlas-v2-focus{stroke-width:3.2;filter:drop-shadow(0 0 5px #000)}
+.atlas-v2-sidebar{min-height:0}
+.atlas-v2-full .atlas-v2-layout{min-height:calc(100vh - 250px)}
+.atlas-v2-full .atlas-v2-viewport{height:calc(100vh - 300px)}
+@supports(height:100dvh){
+  .atlas-v2-full .atlas-v2-layout{min-height:calc(100dvh - 250px)}
+  .atlas-v2-full .atlas-v2-viewport{height:calc(100dvh - 300px)}
+}

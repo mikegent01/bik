@@ -592,6 +592,37 @@ ul.otd li a{color:var(--text);font-weight:600}
 .bros-attack-card h2{padding-right:44px}.bros-attack-card h3{color:var(--accent2);font-size:14px;margin:18px 0 7px}.bros-attack-card ol{padding-left:22px;color:var(--muted)}
 .bros-attack-card li{margin:5px 0}.bros-energy-box{display:flex;flex-wrap:wrap;gap:8px;padding:11px 12px;margin:14px 0;border:1px solid rgba(224,180,0,.32);border-radius:10px;background:rgba(224,180,0,.07)}
 .bros-energy-box b{color:#ffe7a0}.bros-how{margin-top:14px;padding:14px 16px;border:1px solid rgba(150,230,179,.28);border-radius:10px;background:rgba(150,230,179,.06)}.bros-how h3{margin:0 0 6px;color:var(--green)}.bros-how ol{margin:0;padding-left:22px;color:var(--muted)}.bros-how li{margin:4px 0}.bros-source{font-size:12px;color:var(--muted);margin-top:14px}
+
+/* ===== Immersive map route (#/maps) =====
+   The cartography desk is now a map application route: no wiki side rail, no
+   document card constraining the canvas, and the renderer owns the viewport. */
+body.maps-route{overflow:hidden}
+body.maps-route .layout{display:block;max-width:none;margin:0;padding:0}
+body.maps-route aside.sidenav,body.maps-route footer{display:none!important}
+body.maps-route main.content{min-height:calc(100dvh - 65px)}
+.mapsdesk-app{height:calc(100dvh - 65px);display:grid;grid-template-rows:auto minmax(0,1fr);background:#050a12;border-top:1px solid var(--border);overflow:hidden}
+.mapsdesk-command{display:flex;justify-content:space-between;gap:18px;align-items:flex-start;padding:12px 18px;background:linear-gradient(90deg,rgba(138,75,255,.18),rgba(5,10,18,.96) 58%,rgba(224,180,0,.08));border-bottom:1px solid var(--border)}
+.mapsdesk-title h1{margin:0;font-size:22px}.mapsdesk-title p{margin:2px 0 0;color:var(--muted);font-size:12.5px;line-height:1.45;max-width:78ch}.mapsdesk-title .breadcrumb{margin:0 0 4px;font-size:11.5px}
+.mapsdesk-command .mapsdesk-bar{margin:0;justify-content:flex-end}.mapsdesk-control-stack{display:flex;flex-direction:column;gap:8px;align-items:flex-end;min-width:min(560px,48vw)}
+.mapsdesk-layout{display:grid;grid-template-columns:minmax(0,1fr);gap:0;height:100%;min-height:0;align-items:stretch}
+.mapsdesk-layout.has-desk-panel{grid-template-columns:minmax(0,1fr) minmax(300px,360px)}
+.mapsdesk-map-card{min-height:0;margin:0!important;padding:0!important;border:0!important;border-radius:0!important;background:#050a12!important;box-shadow:none!important;overflow:hidden}
+#maps-desk-map,#maps-desk-map .atlas-v2{height:100%;min-height:0}
+#maps-desk-map .atlas-v2{border:0;border-radius:0;display:flex;flex-direction:column;background:#050a12}
+#maps-desk-map .atlas-v2 header{padding:11px 18px;flex:0 0 auto}
+#maps-desk-map .atlas-v2 h2{font-size:19px}
+#maps-desk-map .atlas-v2-tools,#maps-desk-map .atlas-v2-modes{padding:8px 18px;flex:0 0 auto}
+#maps-desk-map .atlas-v2-layout{flex:1;min-height:0;grid-template-columns:minmax(0,1fr) minmax(285px,330px)}
+#maps-desk-map .atlas-v2-stage{min-height:0;padding:10px;display:flex;flex-direction:column}
+#maps-desk-map .atlas-v2-viewport{height:auto;min-height:0;flex:1;border-radius:10px}
+#maps-desk-map .atlas-v2-sidebar{max-height:none;min-height:0}
+.mapsdesk-journey{height:100%;max-height:none;border-radius:0;border-top:0;border-right:0;border-bottom:0;background:rgba(13,21,36,.98);min-height:0}
+.mapsdesk-journey .mapsdesk-stops{max-height:none}.mapsdesk-journey h3{color:#ffe7a0}
+@media(max-width:1100px){body.maps-route{overflow:auto}.mapsdesk-app{height:auto;min-height:calc(100dvh - 65px)}.mapsdesk-command{flex-direction:column}.mapsdesk-control-stack{min-width:0;width:100%;align-items:flex-start}.mapsdesk-command .mapsdesk-bar{justify-content:flex-start}.mapsdesk-layout.has-desk-panel{grid-template-columns:1fr}.mapsdesk-journey{border-left:0;border-top:1px solid var(--border)}#maps-desk-map .atlas-v2-layout{grid-template-columns:1fr}#maps-desk-map .atlas-v2-viewport{min-height:520px}}
+
+.atlas-map-open{border:1px solid rgba(224,180,0,.45);background:rgba(224,180,0,.12);color:#ffe7a0;border-radius:999px;padding:7px 12px;font-size:12px;font-weight:800;cursor:pointer}
+.atlas-map-open:hover{background:rgba(224,180,0,.22);border-color:#ffd75e;color:#fff}
+
 </style></head>
 <body>
 <header class="topbar">
@@ -5795,12 +5826,12 @@ function mapsDeskPlayLabel(){
 function mapsDeskMount(){
   const host=document.getElementById('maps-desk-map'); if(!host) return;
   const prefix=(window.location.pathname.includes('/Reputation-Matrix2/')?'./':'./Reputation-Matrix2/');
-  if(!document.getElementById('atlas-map-v2-css')){const css=document.createElement('link');css.id='atlas-map-v2-css';css.rel='stylesheet';css.href=prefix+'app/pages/maps/atlas-map-v2.css?v=map9';document.head.appendChild(css);}
+  if(!document.getElementById('atlas-map-v2-css')){const css=document.createElement('link');css.id='atlas-map-v2-css';css.rel='stylesheet';css.href=prefix+'app/pages/maps/atlas-map-v2.css?v=map11';document.head.appendChild(css);}
   const journey=(MAPS_DESK.mode==='journey')?buildJourney(MAPS_DESK.mapId,MAPS_DESK.plane,DATA,ATLAS_MAPS,{party:MAPS_DESK.party,sort:MAPS_DESK.sort}):null;
   const stops=(journey&&journey.stops)||[];
   MAPS_DESK.stops=stops;
   const centroid=(MAPS_DESK.plane&&MAPS_DESK.plane!=='all')?mapsDeskCentroid(MAPS_DESK.mapId,MAPS_DESK.plane):null;
-  import(prefix+'app/pages/maps/atlas-map-v2.js?v=map10').then(m=>{
+  import(prefix+'app/pages/maps/atlas-map-v2.js?v=map12').then(m=>{
     if(!document.getElementById('maps-desk-map')) return;
     const wantChatter=MAPS_DESK.mode==='chatter';
     MAPS_DESK.handle=m.mountAtlasMapV2(host,MAPS_DESK.mapId,{
@@ -5891,14 +5922,14 @@ function view_maps(arg){
       +`<ol class="mapsdesk-stops">${loudRows||'<li><p class="mapsdesk-note">No remarks filed on this sheet yet.</p></li>'}</ol>`
       +(tokRows?`<h3>🛰️ Party on this sheet</h3><ul class="mapsdesk-stops">${tokRows}</ul>`:`<p class="mapsdesk-note">No party filed on this sheet.</p>`)+`</aside>`;
   }
-  el('content').innerHTML=`<div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › Tactical Cartography Desk</div>`
-    +`<div class="card animate-fade-in"><h1>🗺️ Tactical Cartography Desk</h1>`
-    +`<p class="text-muted">One painted sheet, four planar layers, and the campaign's own trail across it. The Feyward / Shadeward toggle filters this sheet by each pin's filed layer — same map, different worlds.</p>`
-    +`<div class="mapsdesk-bar"><select data-map-pick aria-label="Painted sheet">${mapOptions}</select>`
+  el('content').innerHTML=`<section class="mapsdesk-app animate-fade-in" id="maps-desk-app">`
+    +`<div class="mapsdesk-command"><div class="mapsdesk-title"><div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › Tactical Cartography Desk</div><h1>🗺️ Tactical Cartography Desk</h1>`
+    +`<p>Full-canvas map system: province borders, smart POI clustering, planar layers, route replay, chatter, and party last-seen tokens all operate on the same painted sheet.</p></div>`
+    +`<div class="mapsdesk-control-stack"><div class="mapsdesk-bar"><select data-map-pick aria-label="Painted sheet">${mapOptions}</select>`
     +`<div class="mapsdesk-modes"><button class="mapsdesk-mode${mode==='survey'?' on':''}" data-mode="survey">🔭 Survey</button><button class="mapsdesk-mode${mode==='journey'?' on':''}" data-mode="journey">📍 Journey so far</button><button class="mapsdesk-mode${mode==='chatter'?' on':''}" data-mode="chatter">💬 Chatter</button><button class="mapsdesk-mode${MAPS_DESK.showParty!==false?' on':''}" data-party-toggle title="Show party last-seen tokens">🛰️ Party</button></div></div>`
     +(showPlanes?`<div class="mapsdesk-bar">${planeChips}</div>`:`<p class="mapsdesk-note">This sheet files no planar layers — every pin is Material. The Raventree cluster on the Midlands sheet is where the layers live.</p>`)
-    +`</div>`
-    +`<div class="mapsdesk-layout" id="maps-desk"><div class="card" style="margin:0"><div id="maps-desk-map"><div class="atlas-v2-loading">Loading map…</div></div></div>${journeyPanel}</div>`;
+    +`</div></div>`
+    +`<div class="mapsdesk-layout${journeyPanel?' has-desk-panel':''}" id="maps-desk"><div class="card mapsdesk-map-card"><div id="maps-desk-map"><div class="atlas-v2-loading">Loading map…</div></div></div>${journeyPanel}</div></section>`;
   const go=(m,pl,mo,pa,sr)=>{ pa=pa===undefined?MAPS_DESK.party:pa; sr=sr===undefined?MAPS_DESK.sort:sr;
     Router.go('#/maps/'+encodeURIComponent(m)+'/'+encodeURIComponent(pl)+'/'+encodeURIComponent(mo)+(pa?'/'+encodeURIComponent(pa):'')+(sr&&sr!=='chron'?'/'+encodeURIComponent(sr):'')); };
   const pick=document.querySelector('[data-map-pick]');
@@ -9088,8 +9119,8 @@ function atlasChips(arr,kind){
 function mountAtlasMap(mapId, group, focusPoi){
   const host=document.getElementById('atlas-map-host'); if(!host)return;
   const prefix=(window.location.pathname.includes('/Reputation-Matrix2/')?'./':'./Reputation-Matrix2/');
-  if(!document.getElementById('atlas-map-v2-css')){const css=document.createElement('link');css.id='atlas-map-v2-css';css.rel='stylesheet';css.href=prefix+'app/pages/maps/atlas-map-v2.css?v=map9';document.head.appendChild(css);}
-  import(prefix+'app/pages/maps/atlas-map-v2.js?v=map10').then(m=>{
+  if(!document.getElementById('atlas-map-v2-css')){const css=document.createElement('link');css.id='atlas-map-v2-css';css.rel='stylesheet';css.href=prefix+'app/pages/maps/atlas-map-v2.css?v=map11';document.head.appendChild(css);}
+  import(prefix+'app/pages/maps/atlas-map-v2.js?v=map12').then(m=>{
     const handle=m.mountAtlasMapV2(host,mapId,{focusPoi:focusPoi||'',chatter:wahChatterByPoi(mapId),census:wahCensusByPoi(mapId),party:wahPartyTokens(mapId),focusProvince:ATLAS_MOUNT_FOCUS&&ATLAS_MOUNT_FOCUS.provinceId});
     window.__atlasMapHandle=handle;
   }).catch(e=>{host.innerHTML='<div class="atlas-v2-error">Map failed to load.</div>';console.error('Atlas Map v2 failed',e);});
@@ -9101,7 +9132,7 @@ function atlasMapApplet(id, n){
   if(ATLAS_MOUNT_FOCUS&&ATLAS_MOUNT_FOCUS.mapId&&resolved.maps.some(m=>m.id===ATLAS_MOUNT_FOCUS.mapId)) activeId=ATLAS_MOUNT_FOCUS.mapId;
   if(!activeId)return `<div class="card atlas-map-empty"><h3>🗺️ No live map filed yet</h3><p class="text-muted">This realm has atlas records but no tactical map data.</p></div>`;
   const regions=resolved.maps.length>1?`<div class="atlas-map-regions"><span class="amr-label">${resolved.maps.length} regions in ${esc(resolved.group)}</span><div class="amr-chips">${resolved.maps.map(m=>`<button class="amr-chip${m.id===activeId?' on':''}" data-map="${esc(m.id)}" data-group="${esc(resolved.group)}">${esc(m.name||prettyId(m.id))}</button>`).join('')}</div></div>`:'';
-  return `<div class="card atlas-map-applet atlas-map-integrated"><div class="atlas-map-toolbar"><div><h3>🗺️ ${esc(label)} Tactical Map</h3><p>Integrated atlas map · no iframe or separate webpage.</p></div></div>${regions}<div id="atlas-map-host" data-group="${esc(resolved.group)}"><div class="atlas-v2-loading">Loading map…</div></div></div>`;
+  return `<div class="card atlas-map-applet atlas-map-integrated"><div class="atlas-map-toolbar"><div><h3>🗺️ ${esc(label)} Tactical Map</h3><p>Integrated atlas map · open the full desk when you want the map to own the screen.</p></div><button type="button" class="atlas-map-open" data-open-desk data-map="${esc(activeId)}">⛶ Open full map desk</button></div>${regions}<div id="atlas-map-host" data-group="${esc(resolved.group)}"><div class="atlas-v2-loading">Loading map…</div></div></div>`;
 }
 
 /* Swap the embedded map without reloading the atlas page. */
@@ -9111,6 +9142,7 @@ function atlasSwitchMap(mapId, group){
   const demo=document.getElementById('atlas-demographics'); if(demo)demo.outerHTML=atlasDemographics(mapId);
   const censusHost=document.getElementById('atlas-province-census'); if(censusHost)atlasRenderProvinceCensus(mapId);
   document.querySelectorAll('.amr-chip').forEach(b=>b.classList.toggle('on',b.dataset.map===mapId));
+  const openDesk=document.querySelector('[data-open-desk]'); if(openDesk) openDesk.dataset.map=mapId;
   mountAtlasMap(mapId, group);
 }
 
@@ -9133,7 +9165,11 @@ function view_atlasNation(id, opts){
   mountAtlasMap(mountedId, selected.group, focusId.poiId);
   atlasRenderProvinceCensus(mountedId);
   const integrated=document.querySelector('.atlas-map-integrated');
-  if(integrated) integrated.addEventListener('click',e=>{const b=e.target.closest('.amr-chip');if(b) atlasSwitchMap(b.dataset.map,b.dataset.group);});
+  if(integrated) integrated.addEventListener('click',e=>{
+    const full=e.target.closest('[data-open-desk]');
+    if(full){Router.go('#/maps/'+encodeURIComponent(full.dataset.map||mountedId)+'/all/survey');return;}
+    const b=e.target.closest('.amr-chip');if(b) atlasSwitchMap(b.dataset.map,b.dataset.group);
+  });
   window.scrollTo(0,0);
 }
 
@@ -19408,8 +19444,9 @@ const Router={
   },
   _render(){
     const h=location.hash||'#/home';const m=h.match(/^#\/([^\/]+)\/?(.*)$/);
-    if(!m){view_home();return;}
+    if(!m){document.body.classList.remove('maps-route');view_home();return;}
     const route=m[1],arg=decodeURIComponent(m[2]||'');
+    document.body.classList.toggle('maps-route', route==='maps'||route==='cartography');
     try{ setArticleAccent(null); }catch(e){}   // clear the article hero accent between routes
     LINK_ONCE=new Set();   // fresh per page view: each entity links only its first mention
     LINK_TOTAL_COUNT=0;    // fresh per page view for the density cap
