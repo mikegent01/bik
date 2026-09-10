@@ -170,24 +170,119 @@ function detailHtml(poi, pois) {
 
 /* ---------------- the province layer ---------------- */
 
-function polygonPoints(polygon) {
-  if (!polygon || polygon.length < 3) return '';
-  return polygon.map(pt => `${pt[0]},${pt[1]}`).join(' ');
+/* Straight borders stay straight and jagged Voronoi corners soften: the path
+   runs edge-midpoint to edge-midpoint with the vertex as its control point,
+   so the arithmetic edges read like a cartographer inked them. */
+function smoothPathD(polygon) {
+  const poly = (polygon || []).filter(pt => pt && Number.isFinite(pt[0]) && Number.isFinite(pt[1]));
+  if (poly.length < 3) return '';
+  const mid = (a, b) => `${(a[0] + b[0]) / 2} ${(a[1] + b[1]) / 2}`;
+  let d = `M ${mid(poly[poly.length - 1], poly[0])}`;
+  for (let i = 0; i < poly.length; i++) {
+    const v = poly[i];
+    d += ` Q ${v[0]} ${v[1]} ${mid(v, poly[(i + 1) % poly.length])}`;
+  }
+  return d + ' Z';
 }
 
-/* One <path> per province: fill carries the crown, the stroke carries the
-   border, a dashed stroke is a march, and a claim with no pins is outline only
-   — the atlas draws what the census can actually prove. */
+/* Border ink is display work, so it lives here and not in the model: the
+   census files each province's polygon, and this layer decides how the edges
+   between them are drawn. Neighbouring cells do not carry identical border
+   segments — a hull-clipped province cuts the bisector it shares with its
+   neighbour into a different sub-segment than the neighbour does — so edges
+   are paired by collinearity and overlap, never by endpoint identity: the
+   overlapping span is the shared border, and whatever a province keeps to
+   itself is its rim. A vacant claim (a filed province whose pins were all
+   absorbed by a smaller survey) pairs with nothing: its dotted outline is
+   drawn over the ground it claims, which is exactly what the archive filed. */
+function provinceEdgeInk(provinces, colorOf) {
+  const all = (provinces || []).filter(p => p.polygon && p.polygon.length >= 3);
+  const list = all.filter(p => !p.vacant);
+  const eps = 0.05;
+  const edgesOf = list.map(prov => (prov.polygon || []).map((pt, i, poly) => {
+    const q = poly[(i + 1) % poly.length];
+    return { prov, p: pt, q, len: Math.hypot(q[0] - pt[0], q[1] - pt[1]), shared: [] };
+  }).filter(e => e.len >= 0.02));
+  const offLine = (pt, e) => Math.abs((e.q[0] - e.p[0]) * (pt[1] - e.p[1]) - (e.q[1] - e.p[1]) * (pt[0] - e.p[0])) / (e.len || 1);
+  for (let i = 0; i < list.length; i++) {
+    for (let j = i + 1; j < list.length; j++) {
+      for (const ea of edgesOf[i]) {
+        const ux = (ea.q[0] - ea.p[0]) / ea.len, uy = (ea.q[1] - ea.p[1]) / ea.len;
+        for (const eb of edgesOf[j]) {
+          if (offLine(eb.p, ea) > eps || offLine(eb.q, ea) > eps) continue;
+          if (offLine(ea.p, eb) > eps || offLine(ea.q, eb) > eps) continue;
+          const u0 = (eb.p[0] - ea.p[0]) * ux + (eb.p[1] - ea.p[1]) * uy;
+          const u1 = (eb.q[0] - ea.p[0]) * ux + (eb.q[1] - ea.p[1]) * uy;
+          const lo = Math.max(0, Math.min(u0, u1)), hi = Math.min(ea.len, Math.max(u0, u1));
+          /* Spans under 0.4 units (≈3px on a sheet) are vertex slivers, not
+             borders — leaving them out of the pairing keeps them rim ink. */
+          if (hi - lo < 0.4) continue;
+          const wx = (eb.q[0] - eb.p[0]) / eb.len, wy = (eb.q[1] - eb.p[1]) / eb.len;
+          const s0 = (ea.p[0] - eb.p[0]) * wx + (ea.p[1] - eb.p[1]) * wy;
+          const s1 = (ea.q[0] - eb.p[0]) * wx + (ea.q[1] - eb.p[1]) * wy;
+          ea.shared.push({ other: list[j], lo, hi });
+          eb.shared.push({ other: list[i], lo: Math.max(0, Math.min(s0, s1)), hi: Math.min(eb.len, Math.max(s0, s1)) });
+        }
+      }
+    }
+  }
+  const crownOf = prov => prov.census.contested ? 'march:' + prov.id : (prov.census.controller || 'unclaimed');
+  const at = (e, t) => [e.p[0] + (e.q[0] - e.p[0]) * (t / e.len), e.p[1] + (e.q[1] - e.p[1]) * (t / e.len)];
+  const line = (p, q, cls, color) => `<line class="${cls}" x1="${p[0]}" y1="${p[1]}" x2="${q[0]}" y2="${q[1]}"${color ? ` style="--plot:${esc(color)}"` : ''} vector-effect="non-scaling-stroke"/>`;
+  const ink = [];
+  const drawn = new Set();
+  edgesOf.forEach(edges => edges.forEach(e => {
+    const rimCls = 'atlas-v2-edge rim' + (e.prov.shape === 'surveyed' ? ' surveyed' : '');
+    const rimColor = colorOf(e.prov);
+    const spans = e.shared.slice().sort((a, b) => a.lo - b.lo);
+    let cursor = 0;
+    spans.forEach(s => {
+      if (s.lo > cursor + 0.05) ink.push(line(at(e, cursor), at(e, Math.min(s.lo, e.len)), rimCls, rimColor));
+      cursor = Math.max(cursor, s.hi);
+      const key = [e.prov.id, s.other.id].sort().join('|') + '|' + s.lo.toFixed(1) + s.hi.toFixed(1);
+      if (drawn.has(key)) return;
+      drawn.add(key);
+      const same = crownOf(e.prov) === crownOf(s.other);
+      const hot = e.prov.census.contested || s.other.census.contested;
+      const cls = same ? 'atlas-v2-edge inner' : 'atlas-v2-edge frontier' + (hot ? ' hot' : '');
+      ink.push(line(at(e, s.lo), at(e, s.hi), cls));
+    });
+    if (cursor < e.len - 0.05) ink.push(line(at(e, cursor), at(e, e.len), rimCls, rimColor));
+  }));
+  all.filter(p => p.vacant).forEach(prov => {
+    (prov.polygon || []).forEach((pt, i, poly) => {
+      const q = poly[(i + 1) % poly.length];
+      if (Math.hypot(q[0] - pt[0], q[1] - pt[1]) < 0.02) return;
+      ink.push(line(pt, q, 'atlas-v2-edge rim vacant', colorOf(prov)));
+    });
+  });
+  return ink.join('');
+}
+
+let HATCH_SEQ = 0;
+
+/* The province layer, inked in three passes. The fills carry the crown (a
+   march is hatched, a claim with no pins is not filled at all); the edge layer
+   carries every border — bold between two different hands, a faint
+   administrative line inside one hand, the crown's own colour along the rim of
+   the surveyed ground, and hot dashes wherever a march touches a frontier.
+   Nothing is left undrawn: the atlas draws what the census can prove, and
+   where it cannot prove a crown it says so in ink, not by omission. */
 function bordersSvg(provinces, colorOf) {
-  const paths = (provinces || []).map(prov => {
-    const pts = polygonPoints(prov.polygon);
-    if (!pts) return '';
+  const list = (provinces || []).filter(p => p.polygon && p.polygon.length >= 3);
+  if (!list.length) return '';
+  const hatch = 'atlas-v2-hatch-' + (++HATCH_SEQ);
+  const fills = list.map(prov => {
     const color = colorOf(prov);
     const cls = `atlas-v2-plot${prov.census.contested ? ' contested' : ''}${prov.vacant ? ' vacant' : ''}${prov.shape === 'surveyed' ? ' surveyed' : ''}`;
-    return `<polygon class="${cls}" data-province="${esc(prov.id)}" style="--plot:${esc(color)}" points="${esc(pts)}"><title>${esc(prov.name)}${prov.census.contested ? ' — contested' : (prov.census.controller ? '' : ' — unclaimed')}</title></polygon>`;
+    return `<path class="${cls}" data-province="${esc(prov.id)}" style="--plot:${esc(color)}" d="${esc(smoothPathD(prov.polygon))}"><title>${esc(prov.name)}${prov.census.contested ? ' — contested march' : (prov.census.controller ? '' : ' — unclaimed')}</title></path>`;
   }).join('');
-  if (!paths) return '';
-  return `<svg class="atlas-v2-borders" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><g>${paths}</g></svg>`;
+  const hatches = list.filter(p => p.census.contested).map(p =>
+    `<path class="atlas-v2-hatchfill" d="${esc(smoothPathD(p.polygon))}" fill="url(#${hatch})"/>`).join('');
+  return `<svg class="atlas-v2-borders" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">`
+    + `<defs><pattern id="${hatch}" width="4.5" height="4.5" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">`
+    + `<rect width="4.5" height="4.5" fill="#f0b4b414"/><line x1="0" y1="0" x2="0" y2="4.5" stroke="#f0b4b4" stroke-opacity=".5" stroke-width="1.4"/></pattern></defs>`
+    + `<g class="atlas-v2-fills">${fills}</g><g class="atlas-v2-hatches">${hatches}</g><g class="atlas-v2-edges">${provinceEdgeInk(list, colorOf)}</g></svg>`;
 }
 
 function provinceBarsHtml(census, colorOf) {
@@ -203,6 +298,39 @@ function provinceBarsHtml(census, colorOf) {
   }).join('')}</div>`;
 }
 
+/* Who runs the ground the census crowned: the faction registry files the
+   leader, the key figures, and — where a realm bothered to file them — the
+   internal vote split of the court itself (the Regal Empire's Imperial Core /
+   Magitek Ascension / Silent Service / Diplomatic Corps numbers live here).
+   Realms differ in what they file, so the block shows whatever exists and
+   omits itself entirely when nothing does; a march shows the leading hand
+   under an honest label, never as a crown. */
+function governanceHtml(fid, note) {
+  if (!fid) return '';
+  let f = null;
+  try { f = getFaction(fid); } catch { f = null; }
+  if (!f) return '';
+  const hasLeader = f.leaderName && f.leaderName !== 'Unknown' && f.leaderName !== 'N/A';
+  const people = (f.notablePeople || []).slice(0, 3);
+  const ip = f.internalPolitics || {};
+  const subs = Object.entries(ip.sub_factions || {})
+    .map(([key, s]) => ({ key, name: s.name || key, influence: Number(s.influence) || 0 }))
+    .sort((a, b) => b.influence - a.influence);
+  if (!hasLeader && !people.length && !subs.length) return '';
+  const leader = hasLeader
+    ? `<p class="atlas-v2-govhead">👑 <b>${esc(f.leaderName)}</b>${f.leaderTitle && f.leaderTitle !== 'Leader' ? ` — ${esc(f.leaderTitle)}` : ''}</p>`
+    : '';
+  const court = people.length
+    ? `<ul class="atlas-v2-court">${people.map(p => `<li><b>${esc(p.name)}</b>${p.role ? `<span>${esc(p.role)}</span>` : ''}</li>`).join('')}</ul>`
+    : '';
+  const votes = subs.length
+    ? `<div class="atlas-v2-votes">${subs.map(s => `<div class="atlas-v2-voterow${ip.ruling_faction && s.key === ip.ruling_faction ? ' ruling' : ''}" title="${esc(s.name)} — ${s.influence}% of the court's filed influence">`
+        + `<b>${esc(ip.ruling_faction && s.key === ip.ruling_faction ? '⚑ ' : '')}${esc(s.name)}</b>`
+        + `<span><em style="width:${Math.max(2, Math.min(100, s.influence))}%"></em></span><u>${s.influence}%</u></div>`).join('')}</div>`
+    : '';
+  return `<div class="atlas-v2-gov"><b>🏛️ ${note || 'the hand that runs it'}</b>${leader}${court}${votes}</div>`;
+}
+
 function provinceDossierHtml(prov, opts) {
   if (!prov) return '';
   const { colorOf, pins, onNation, rollup } = opts;
@@ -215,6 +343,13 @@ function provinceDossierHtml(prov, opts) {
       : c.neutral
         ? `<b>Unclaimed.</b> ${c.pins} pin${c.pins === 1 ? '' : 's'} filed here, none of them under a flag.`
         : `<b>Held by ${esc(colorOf(c.controller).name)}</b> at ${c.claimantShare}% of the census.`;
+  /* A held province names its government; a march names the leading hand under
+     an honest label. Both only where the registry actually files one. */
+  const gov = c.controller
+    ? governanceHtml(c.controller, 'the hand that runs it')
+    : c.contested && c.claimant
+      ? governanceHtml(c.claimant, 'the leading hand — the census crowns nobody here')
+      : '';
   const ledger = prov.delta ? `<div class="atlas-v2-ledger">
       <b>📜 The filed ledger, checked</b>
       ${prov.delta.rows.slice(0, 5).map(r => `<p><i style="background:${esc(colorOf(r.factionId).color)}"></i>${esc(colorOf(r.factionId).name)} — filed ${r.filed}% → census ${r.census}% <b class="${Math.abs(r.delta) >= 15 ? 'bad' : 'fine'}">${r.delta >= 0 ? '+' : ''}${r.delta}</b></p>`).join('')}
@@ -229,6 +364,7 @@ function provinceDossierHtml(prov, opts) {
     <span class="atlas-v2-kicker">${prov.origin === 'filed' ? 'province · filed in the atlas' : 'province · merged from the survey'}${prov.sourceMapId ? ` · ${esc(prov.sourceMapId)}` : ''}</span>
     <h3>${esc(prov.name)}</h3>
     <p class="atlas-v2-hold" style="--hold:${esc(crown)}">${verdict}</p>
+    ${gov}
     <dl>
       <div><dt>Pins counted</dt><dd>${c.pins}</dd></div>
       <div><dt>Residents</dt><dd>${format(c.population)}</dd></div>
@@ -413,7 +549,7 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
   const sidebar = host.querySelector('.atlas-v2-sidebar');
   const state = {
     scale: 1, tx: 0, ty: 0, box: { left: 0, top: 0, w: 1, h: 1 }, mode: startMode, selected: null, wikiOnly: false,
-    plots: plotsOn, province: null, board: null, pickIndex: 0, nonce: 0, dragged: false,
+    plots: plotsOn, province: null, board: null, pickIndex: 0, nonce: 0, dragged: false, labelZoom: 1,
   };
   /* One colour source for the census: the same registry the pins and the
      demographics panel already read, so a province and its capital agree. */
@@ -434,6 +570,14 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
 
   function applyTransform() {
     world.style.transform = `translate(${state.tx}px, ${state.ty}px) scale(${state.scale})`;
+    /* Labels are counter-scaled against the zoom so they stay their own size
+       on screen at every depth — which is also why decluttering is re-run
+       whenever the zoom actually changes (see refreshLabels). */
+    overlay.style.setProperty('--label-zoom', String(state.scale || 1));
+    if ((state.scale || 1) !== state.labelZoom) {
+      state.labelZoom = state.scale || 1;
+      refreshLabels();
+    }
   }
 
   function fitRegion() {
@@ -488,11 +632,16 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
     const ranked = [...pois].sort((a, b) => lensVal(b) - lensVal(a)).slice(0, 5);
     const major = new Set(ranked.filter(p => lensVal(p) > 0).map(p => p.id));
     const min = values.length ? Math.min(...values) : 0;
+    /* The province overlay rides along in every lens, so the legend says what
+       its ink means: how many provinces, and how many of them are marches no
+       single flag holds (they are the hatched ones). */
+    const contestedCount = provinceList.filter(p => p.census.contested).length;
+    const plotHint = state.plots && provinceList.length ? ` · 🗺️ ${provinceList.length} provinces${contestedCount ? ` · ⚔ ${contestedCount} contested` : ''}` : '';
     if (lensEl) {
       if (lens.categorical) {
         const cats = topCats(clusters, g => lens.catOf(g[0]));
-        lensEl.innerHTML = `<i style="background:${lens.color}"></i>${format(min)} – ${format(max)} ${esc(lens.unit)} · pin size = ${esc(lens.sizeLabel || lens.label)}${major.size ? ' · ◎ top 5 ringed' : ''}${toks.length ? ` · 🛰️ ${toks.length} party` : ''} · ${legendChips(cats.cats, cats.more)}`;
-      } else lensEl.innerHTML = `<i style="background:${lens.color}"></i>${format(min)} – ${format(max)} ${esc(lens.unit)} · pin size = ${esc(lens.label)}${major.size ? ' · ◎ top 5 ringed' : ''}${toks.length ? ` · 🛰️ ${toks.length} party` : ''}`;
+        lensEl.innerHTML = `<i style="background:${lens.color}"></i>${format(min)} – ${format(max)} ${esc(lens.unit)} · pin size = ${esc(lens.sizeLabel || lens.label)}${major.size ? ' · ◎ top 5 ringed' : ''}${toks.length ? ` · 🛰️ ${toks.length} party` : ''} · ${legendChips(cats.cats, cats.more)}${plotHint}`;
+      } else lensEl.innerHTML = `<i style="background:${lens.color}"></i>${format(min)} – ${format(max)} ${esc(lens.unit)} · pin size = ${esc(lens.label)}${major.size ? ' · ◎ top 5 ringed' : ''}${toks.length ? ` · 🛰️ ${toks.length} party` : ''}${plotHint}`;
     }
     overlay.innerHTML = (state.plots ? bordersSvg(provinceList, plotColor) + provinceLabelsHtml() : '') + journeyPathSvg() + clusters.map(group => {
       const poi = group[0];
@@ -535,11 +684,24 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
     });
     overlay.querySelectorAll('[data-province]').forEach(shape => {
       if (shape.dataset.province === state.province) shape.classList.add('selected');
+      const label = () => overlay.querySelector(`[data-plotlabel="${shape.dataset.province}"]`);
+      shape.addEventListener('pointerenter', () => { const l = label(); if (l) l.classList.add('peek'); });
+      shape.addEventListener('pointerleave', () => { const l = label(); if (l) l.classList.remove('peek'); });
       shape.addEventListener('click', ev => {
         ev.stopPropagation();
         if (state.dragged) return;
         const prov = provinceById.get(shape.dataset.province);
-        if (prov) selectProvince(prov, { centre: false });
+        if (prov) selectProvince(prov);
+      });
+    });
+    /* Labels are clickable too — on a crowded sheet the label is a far bigger
+       target than the plot it names. */
+    overlay.querySelectorAll('[data-plotlabel]').forEach(el => {
+      el.addEventListener('click', ev => {
+        ev.stopPropagation();
+        if (state.dragged) return;
+        const prov = provinceById.get(el.dataset.plotlabel);
+        if (prov) selectProvince(prov);
       });
     });
     if (toks.length) {
@@ -554,16 +716,74 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
         });
       });
     }
+    /* Rebuilding the overlay replaces the focus ink along with everything
+       else; put it back for whatever province is still selected. */
+    markSelectedPlot();
     applyFilter();
+  }
+
+  /* Crowded sheets stack labels into an unreadable smudge, so they declutter:
+     the bigger provinces claim their names first, and a label that would land
+     on top of one already placed is tucked away rather than drawn over it.
+     Labels are counter-scaled against the map zoom (see applyTransform), so
+     zooming in spreads the provinces apart while the labels keep their size —
+     more labels earn their place as the reader dives in. The selected or
+     hovered province always shows its label. */
+  function labelPlan() {
+    const zoom = Math.max(0.2, state.scale || 1);
+    const wPct = px => (state.box.w ? px / state.box.w * 100 : px);
+    const hPct = px => (state.box.h ? px / state.box.h * 100 : px);
+    const items = provinceList.map(prov => {
+      const c = prov.census;
+      const sub = c.contested ? '⚔ contested' : c.controller ? `${c.claimantShare}%` : '';
+      const w = Math.max(prov.name.length * 6.6, sub.length * 5.4) + 10;
+      const h = sub ? 26 : 15;
+      return { prov, hw: wPct(w) / (2 * zoom), hh: hPct(h) / (2 * zoom) };
+    }).sort((a, b) => (b.prov.area || 0) - (a.prov.area || 0) || (b.prov.census.power || 0) - (a.prov.census.power || 0));
+    const placed = [];
+    const kept = new Set(state.province ? [state.province] : []);
+    items.forEach(it => {
+      if (kept.has(it.prov.id)) { placed.push(it); return; }
+      const x = it.prov.x, y = it.prov.y;
+      if (placed.some(b => Math.abs(b.prov.x - x) < b.hw + it.hw && Math.abs(b.prov.y - y) < b.hh + it.hh)) return;
+      placed.push(it);
+      kept.add(it.prov.id);
+    });
+    return kept;
+  }
+
+  function refreshLabels() {
+    if (!state.plots) return;
+    const kept = labelPlan();
+    overlay.querySelectorAll('[data-plotlabel]').forEach(el => {
+      el.classList.toggle('tucked', !kept.has(el.dataset.plotlabel));
+    });
   }
 
   function provinceLabelsHtml() {
     if (!provinceList.length) return '';
+    const kept = labelPlan();
     return provinceList.map(prov => {
       const c = prov.census;
       const crown = c.contested ? '⚔ contested' : c.controller ? `${c.claimantShare}%` : '';
-      return `<div class="atlas-v2-plotlabel${c.contested ? ' contested' : ''}${c.neutral ? ' neutral' : ''}${state.province === prov.id ? ' on' : ''}" data-plotlabel="${esc(prov.id)}" style="left:${prov.x}%;top:${prov.y}%"><b>${esc(prov.name)}</b>${crown ? `<i>${esc(crown)}</i>` : ''}</div>`;
+      return `<div class="atlas-v2-plotlabel${c.contested ? ' contested' : ''}${c.neutral ? ' neutral' : ''}${state.province === prov.id ? ' on' : ''}${kept.has(prov.id) ? '' : ' tucked'}" data-plotlabel="${esc(prov.id)}" style="left:${prov.x}%;top:${prov.y}%" title="${esc(prov.name)} — open its dossier"><b>${esc(prov.name)}</b>${crown ? `<i>${esc(crown)}</i>` : ''}</div>`;
     }).join('');
+  }
+
+  /* The selected province gets its own ink: a gold outline drawn above the
+     borders, so a selection among thirty neighbours reads at a glance. */
+  function markSelectedPlot() {
+    const svg = overlay.querySelector('.atlas-v2-borders');
+    if (!svg) return;
+    svg.querySelectorAll('.atlas-v2-focus').forEach(node => node.remove());
+    const prov = provinceById.get(state.province);
+    if (!prov) return;
+    const d = smoothPathD(prov.polygon);
+    if (!d) return;
+    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    path.setAttribute('class', 'atlas-v2-focus');
+    path.setAttribute('d', d);
+    svg.appendChild(path);
   }
 
   function selectProvince(prov, how) {
@@ -572,14 +792,20 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
     state.selected = null;
     state.pinLimit = (how && how.allPins) ? prov.pois.length : 0;
     overlay.querySelectorAll('[data-province]').forEach(el => el.classList.toggle('selected', el.dataset.province === prov.id));
-    overlay.querySelectorAll('[data-plotlabel]').forEach(el => el.classList.toggle('on', el.dataset.plotlabel === prov.id));
+    overlay.querySelectorAll('[data-plotlabel]').forEach(el => {
+      el.classList.toggle('on', el.dataset.plotlabel === prov.id);
+      if (el.dataset.plotlabel === prov.id) el.classList.remove('tucked');
+    });
+    markSelectedPlot();
     closeBoard();
     const other = prov.sourceMapId && prov.sourceMapId !== map.id && MAP_DATA[prov.sourceMapId] ? prov.sourceMapId : '';
     sidebar.innerHTML = provinceDossierHtml(prov, {
       colorOf: factionMeta, pins: pois, rollup: census ? census.rollup : null,
       onNation: (how && how.allPins) ? other : other, limit: state.pinLimit || 9,
     });
-    if (how && how.centre !== false) centerOn(prov.x, prov.y, 2.1);
+    /* Flying to a province never zooms the reader out — on a crowded sheet the
+       zoom they already chose is part of the answer. */
+    if (how && how.centre !== false) centerOn(prov.x, prov.y, Math.max(state.scale, 2.1));
   }
 
   /* ---- the shortlist: a way to actually choose a pin ---- */
@@ -638,6 +864,7 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
       state.province = prov.id;
       overlay.querySelectorAll('[data-province]').forEach(el => el.classList.toggle('selected', el.dataset.province === prov.id));
       overlay.querySelectorAll('[data-plotlabel]').forEach(el => el.classList.toggle('on', el.dataset.plotlabel === prov.id));
+      markSelectedPlot();
     }
     if (ready) centerOn(poi.x, poi.y, Math.max(state.scale, 3.4));
     else pendingFocus = { id: poi.id, z: 3.4, stop: null };
@@ -869,16 +1096,29 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
   }, { passive: false });
 
   let drag = null;
+  /* Capturing the pointer on pointerdown felt harmless and was not: while the
+     capture is held, every later event of that pointer — the click included —
+     is retargeted to the viewport, so nothing under the map (province plots
+     first among them) could ever be clicked. Capture is therefore taken only
+     once the gesture has proved itself a drag; a press that never moves stays
+     a click wherever it landed. */
   viewport.addEventListener('pointerdown', event => {
     if (event.target.closest('.atlas-v2-marker') || event.target.closest('.atlas-v2-token')) return;
-    drag = { x: event.clientX, y: event.clientY, tx: state.tx, ty: state.ty };
+    drag = { x: event.clientX, y: event.clientY, tx: state.tx, ty: state.ty, held: false };
     state.dragged = false;
-    viewport.setPointerCapture(event.pointerId);
   });
   viewport.addEventListener('pointermove', event => {
     if (!drag) return;
+    /* A pointerup outside the viewport (or a lost pointer) leaves a stale drag
+       behind; a move with no buttons held ends it instead of panning. */
+    if (!event.buttons) { drag = null; state.dragged = false; return; }
     const dx = event.clientX - drag.x, dy = event.clientY - drag.y;
-    if (Math.abs(dx) + Math.abs(dy) > 4) state.dragged = true;
+    if (!drag.held && Math.abs(dx) + Math.abs(dy) > 4) {
+      drag.held = true;
+      state.dragged = true;
+      try { viewport.setPointerCapture(event.pointerId); } catch { /* capture is an optimisation, not a promise */ }
+    }
+    if (!drag.held) return;
     state.tx = drag.tx + dx;
     state.ty = drag.ty + dy;
     applyTransform();
@@ -886,6 +1126,7 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
   /* The click event fires after pointerup, so the flag cannot be cleared in
      the same gesture — release it one task later. */
   viewport.addEventListener('pointerup', () => { drag = null; setTimeout(() => { state.dragged = false; }, 0); });
+  viewport.addEventListener('pointercancel', () => { drag = null; state.dragged = false; });
 
   /* Control handle for the cartography desk's journey stepper. Existing
      callers ignore the return value; their behaviour is unchanged. */

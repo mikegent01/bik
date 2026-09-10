@@ -395,7 +395,10 @@ a census for that province, crowns whoever the census decides holds it, and draw
 the borders from the same numbers — so **a pin filed without those values is a
 pin that casts no vote**, and a whole region of them reads as unaligned. The atlas
 and the Cartography Desk show the result (province layer, per-province dossier,
-and a shortlist that picks the six pins worth acting on for you), and Power
+and a shortlist that picks the six pins worth acting on for you); each province's
+dossier also names the hand that runs it — leader, key figures, and the court's
+internal vote split — read live from the faction registry wherever the realm
+filed them. Power
 Projection reads the crown from the same roll-up when its own >35-pins rule names
 nobody. `PROVINCE_POLITICS` in `data/support/politics-data.js` files a realm's
 named provinces by hand; the census treats that ledger as a claim and reports

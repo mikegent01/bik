@@ -183,3 +183,134 @@ quietly return.
 - README references `tools/check-doc-counts.py` and `docs/DOC_COUNTS.json`, which
   do not exist on this branch. Not created here — pre-existing doc drift,
   unrelated to this change.
+
+---
+
+# Follow-up — same day · review fixes: borders you can click, labels out of each other's way, the government on the dossier
+
+The province layer shipped this morning; the reader who tried it could not click
+a province, could not tell neighbours apart on a crowded sheet, and had no answer
+to "who runs this one?". This round fixes the clicking (a pointer-capture bug,
+not a styling one), re-inks the borders so each line says what it is, declutters
+the labels, and joins every dossier to the faction registry's government data —
+leader, key figures, and the court's internal vote split, wherever the realm
+filed them (the Regal Empire's are the fullest: Imperial Core 45 / Magitek
+Ascension 25 / Silent Service 20 / Diplomatic Corps 10).
+
+No canon was invented: the government block is a live read of the registry for
+whichever hand the census already crowned. The census model
+(`map-provinces.js`) and the generated snapshot are **untouched** —
+`build-province-census.mjs --check` still byte-matches.
+
+**Events filed** — none (systems work).
+**XP awarded** — none this run.
+
+## Files created or edited
+
+EDITED
+  Reputation-Matrix2/app/pages/maps/atlas-map-v2.js  ~ the whole display layer:
+    pointer capture now taken only after a gesture proves itself a drag
+    (capturing on pointerdown retargeted the click to the viewport — the real
+    reason provinces were unclickable in a browser; jsdom never reproduces the
+    retarget, which is why the old test slept through it); borders re-inked as
+    smoothed fills + a paired edge layer (provinceEdgeInk: collinear-overlap
+    matching, ~70 lines) — bold parchment frontiers between two hands, faint
+    dashed lines inside one hand, crown-coloured rims, hot red dashes where a
+    march touches a frontier, red hatch on every contested province, dotted
+    outlines for vacant claims, non-scaling strokes at every zoom; labels
+    declutter by collision (biggest province first), counter-scale against the
+    zoom, reappear on hover/selection, and are clickable; clicking a province
+    flies to it without zooming out and frames it in a gold focus ring; the
+    dossier gains the governance block (governanceHtml) and the legend counts
+    contested marches. ~+210 lines net.
+  Reputation-Matrix2/app/pages/maps/atlas-map-v2.css  ~ edge/focus/label/gov
+    styles replace the old per-polygon strokes (~40 lines changed/added)
+  index.html                                         ~ census card: crown cells
+    name their leader ("under Emperor Elagabalus · Supreme Ruler") via
+    ATLAS_FACTION_GOV, built from systems/faction-registry.js in
+    atlasProvinceCensus; atlas-map-v2.js ?v=map9→map10, css ?v=map8→map9;
+    SITE_UPDATES province_census_opens summary extended to describe the
+    clickable inked borders, decluttered labels, and governance readout
+  tools/tests/atlas-provinces-smoke.mjs              ~ polygon→path assertions,
+    +25 checks: drag pans but never selects, settled click selects, sub-4px
+    jitter still clicks, labels tuck/reappear/click, equestria's internal
+    borders, hatched marches, focus ring, governance on held and march
+    provinces (Capital Province → Emperor Elagabalus + 4-row court with the
+    Imperial Core flagged ruling; ironwood → leader but no court)
+  tools/tests/test-atlas-province-card.mjs           ~ atlasProvinceCensusHtml
+    now takes (census, gov): leader line renders, no-gov stays clean, a march
+    never gets a leader line, hostile leader names escape, page wiring checks
+  docs/PROVINCE_CENSUS_GUIDE.md                      ~ §3 reader surface
+    rewritten for the ink/click/label/governance behaviour; §4 gains the
+    "government block is a join, not a filing" boundary; §5 lists the new
+    geometry test
+  Reputation-Matrix2/README.md                       ~ one sentence: the dossier
+    names the hand that runs it, read live from the registry
+
+CREATED
+  tools/tests/atlas-borders-geometry.mjs             (130 lines) — mounts every
+    full realm in the real renderer and proves the edge pairing geometrically:
+    every frontier/inner edge has exactly one province each side, every rim
+    exactly one owner, vacant claims counted separately. 22 checks, needs jsdom,
+    same standing as the other smoke tests (not in check-all.py)
+
+GENERATED — none this round. data/provinceCensus.json and map-provinces.js are
+byte-identical to the morning filing (`--check` passes).
+
+## Bugs found by the new checks (and fixed)
+
+1. **setPointerCapture on pointerdown ate every click under the map.** The
+   capture retargets the click to the viewport, so province plots (unlike
+   markers, which the handler exempted) could never be clicked in a real
+   browser. Fixed by capturing only once the pointer has moved >4px; a
+   press-without-move stays a click where it landed, and a missed pointerup is
+   guarded by an `event.buttons` check so a stale drag cannot pan the sheet.
+2. **Endpoint-identity edge matching was fragile.** The first pairing pass
+   matched shared borders by identical endpoints; hull-clipped provinces cut
+   the same bisector into different sub-segments, which produced false rims and
+   double-inked lines (566 bad edges on the first full-realm validation, worst
+   in Equestria). Replaced by collinearity + overlap pairing; spans under 0.4
+   units are slivers and stay rim ink.
+3. **Vacant claims paired as if they were neighbours.** A vacant claim (its
+   pins absorbed by a smaller survey) can share its seed point with the
+   province that absorbed them, so the model gives both overlapping ground;
+   pairing their crossing boundaries drew nonsense "frontiers". Vacant claims
+   now pair with nothing and are drawn as dotted outlines over the ground they
+   claim — which is what the archive filed.
+
+Final geometry, all 18 full realms: **705 edges — 438 shared, 215 rim, 44 claim
+edges — 0 misclassified** (sampled off-midpoint on both sides of every edge).
+
+## Verification
+
+  node tools/tests/atlas-provinces-smoke.mjs       69 passed, 0 failed
+  node tools/tests/atlas-modes-smoke.mjs           26 passed, 0 failed
+  node tools/tests/atlas-fullscreen-smoke.mjs      16 passed, 0 failed
+  node tools/tests/atlas-borders-geometry.mjs      22 passed, 0 failed
+  node tools/tests/test-map-provinces.mjs          69 passed, 0 failed
+  node tools/check-province-census.mjs             12 passed (snapshot matches)
+  node tools/build-province-census.mjs --check     byte-identical
+  node tools/tests/test-atlas-province-card.mjs    31 passed, 0 failed
+  node tools/tests/test-map-lenses.mjs             40 passed, 0 failed
+  node tools/tests/test-map-census.mjs             17 passed, 0 failed
+  node tools/tests/test-planar-map.mjs             49 passed, 0 failed
+  python3 tools/check-all.py                       all PASS (42 checks)
+  python3 tools/check-local-paths.py               0 missing
+  index.html inline scripts                        3 blocks, 0 parse failures
+
+## Not done / open
+
+- **A human should still click through `#/atlas` once.** The capture bug is
+  fixed and now driven by synthetic pointer gestures in the smoke test, but no
+  chromium/firefox exists here and jsdom cannot boot the page's `import()`.
+- **Label sizing is estimated, not measured.** The declutter collision boxes
+  assume ≈6.6px per character at 10px bold uppercase; if a realm's names render
+  wider than that in a real browser, a tucked label could still peek into its
+  neighbour. Tunable in `labelPlan()` if it shows.
+- **Vacant claims on coincident seeds overlap their neighbour by design.** The
+  model seeds a claim and its absorber at the same point; the renderer now
+  draws the claim as a dotted outline over the holder's ground. If the archive
+  would rather re-seed vacant claims off their absorbed pins, that is a model
+  change in `map-provinces.js` with its own census re-file.
+- The morning round's open items stand: 22 overturned ledgers unamended, sparse
+  realms coarse, the legacy `count > 35` rule still outranks the census.

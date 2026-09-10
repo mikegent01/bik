@@ -83,13 +83,36 @@ loud where the archive's numbers and the archive's pins disagree.
 ## 3. Reader / player surface
 
 - **The World Atlas** (`#/atlas` → a realm) — `atlas-map-v2.js` now draws the
-  census under the pins: filled plots coloured by the crown, dashed for a march,
-  outline-only for a vacant filed claim, and a label at each province's centre.
-  The **🗺️ Provinces** button in the tools row toggles the layer; the **Provinces**
+  census under the pins, and the border ink says what the border *is*: **bold
+  parchment lines between two different hands**, faint dashed lines inside one
+  hand, the crown's own colour along the rim of the surveyed ground, and **hot
+  red dashes wherever a march touches a frontier**. Contested ground is hatched
+  in red, never merely fainter; a filed claim with no pins behind it stays on
+  the sheet as a dotted outline. Every stroke is non-scaling, so borders stay
+  hairline ink at every zoom, and the legend line counts the realm's provinces
+  and its contested marches. The **🗺️ Provinces** button in the tools row
+  toggles the layer; the **Provinces**
   lens re-colours the pins by their province's crown so the census reads across
   the sheet instead of one pin at a time.
-- **Clicking a plot** (or its label, or a census row) opens the province dossier:
-  verdict, pins counted, residents, the three pillars, the census bars, the
+- **Clicking anything opens the dossier**: a plot, its label, or a census row.
+  Crowded sheets declutter their labels — the bigger provinces claim their names
+  first, a label that would land on another is tucked away rather than drawn
+  over it, a tucked label reappears on hover, and zoom earns more of them their
+  place because labels counter-scale against the zoom while the provinces do
+  not. A click also flies to the province — never zooming you out — and frames
+  it in a gold focus ring. Pointer capture is taken only once a gesture proves
+  itself a drag, so a press that never moves is still a click on whatever it
+  landed on.
+- **The dossier names who actually runs the province**, from the faction
+  registry: the leader (👑 Emperor Elagabalus — Supreme Ruler), the key figures,
+  and — where the realm filed them — the court's internal vote split (the Regal
+  Empire's Imperial Core 45 / Magitek Ascension 25 / Silent Service 20 /
+  Diplomatic Corps 10 all live here). Regions differ in what they file, so the
+  block shows whatever exists and omits itself when nothing does; a march shows
+  the leading hand under an honest *the census crowns nobody here* label rather
+  than a crown. The nation page's census card carries the same name on every
+  crowned row (*under Emperor Elagabalus*). Below that: verdict, pins counted,
+  residents, the three pillars, the census bars, the
   province's own pins with the seat first, and — where `PROVINCE_POLITICS` files
   a ledger for that ground — the diff: *filed 40% → census 22%*, plus whether
   the same hand still holds it. A province surveyed on its own sheet links
@@ -122,6 +145,11 @@ loud where the archive's numbers and the archive's pins disagree.
 - **The census is arithmetic, not lore.** It never invents a faction, a place, or
   a war. A province is contested because the pins filed for it disagree, and the
   dossier says which pins, not what that means.
+- **The dossier's government block is a join, not a filing.** Leaders, key
+  figures, and court vote splits are read live from the faction registry
+  (`systems/faction-registry.js`) for whatever hand the census crowned; nothing
+  is copied into the census, and a realm that files no government simply shows
+  no block.
 - **A filed ledger that the census overturns is not rewritten.** `agrees:false`
   and a drift number are shown; `politics-data.js` is left alone. Amending the
   ledger is a filing decision for whoever owns that realm, and the run report
@@ -149,6 +177,9 @@ node tools/tests/test-atlas-province-card.mjs  # the nation page's card, the rea
 node tools/tests/atlas-provinces-smoke.mjs     # jsdom: mounts the real renderer,
                                                # drives borders + the shortlist
                                                # (needs npm install jsdom --no-save)
+node tools/tests/atlas-borders-geometry.mjs    # jsdom: every drawn border has the
+                                               # provinces it claims on each side,
+                                               # every realm (same jsdom note)
 python3 tools/check-all.py                     # the first four run in the routine set
 ```
 

@@ -4625,7 +4625,7 @@ const TYPES=[
  {key:'trials',label:'Trials',emoji:'⚖️',singular:'Trial'},
 ];
 const TYPE_BY_KEY=Object.fromEntries(TYPES.map(t=>[t.key,t]));
-let SITE_UPDATES=[{"id": "province_census_opens", "kind": "route", "route": "#/atlas", "label": "Systems Advanced · The Atlas", "title": "The Province Census Opens: 2,582 Pins Merge into 220 Provinces, and the Atlas Starts Drawing Borders", "summary": "The atlas had the opposite problem of an empty map. Every pin now casts a vote: neighbouring pins flying the same flag are merged into provinces, the filed population, military, economic and political values are counted into a census for each one, and whoever the census crowns gets the ground — with borders computed from that census, not painted by hand. The Mushroom Kingdom reads 24 provinces, 13 of them marches no single flag holds; the Midlands 15; Equestria 28, one for every sub-region sheet it files. Click a province for its dossier, including where the hand-filed PROVINCE_POLITICS ledger and the pins disagree (22 of 58 ledgers do). And when seven hundred pins is simply too many to read, Choose a Pin files a shortlist of six worth acting on, each with its reasons checked against the sheet. Power Projection reads the same roll-up wherever its own pin-count rule names nobody.", "tags": ["atlas", "maps", "provinces", "census", "power projection", "bordermarch", "shortlist"]},
+let SITE_UPDATES=[{"id": "province_census_opens", "kind": "route", "route": "#/atlas", "label": "Systems Advanced · The Atlas", "title": "The Province Census Opens: 2,582 Pins Merge into 220 Provinces, and the Atlas Starts Drawing Borders", "summary": "The atlas had the opposite problem of an empty map. Every pin now casts a vote: neighbouring pins flying the same flag are merged into provinces, the filed population, military, economic and political values are counted into a census for each one, and whoever the census crowns gets the ground — with borders computed from that census, not painted by hand. The Mushroom Kingdom reads 24 provinces, 13 of them marches no single flag holds; the Midlands 15; Equestria 28, one for every sub-region sheet it files. Click a province for its dossier, including where the hand-filed PROVINCE_POLITICS ledger and the pins disagree (22 of 58 ledgers do). And when seven hundred pins is simply too many to read, Choose a Pin files a shortlist of six worth acting on, each with its reasons checked against the sheet. Power Projection reads the same roll-up wherever its own pin-count rule names nobody. Every border is clickable and inked by what it means — bold between two hands, faint inside one, hatched red where a march is contested — crowded sheets tuck their labels out of each other's way until zoom or hover earns them back, and every dossier names the hand that runs the province: its leader, its key figures, and the court's own vote split wherever the registry files them.", "tags": ["atlas", "maps", "provinces", "census", "power projection", "bordermarch", "shortlist"]},
 {"id": "the_lava_bridge_ambush_and_the_blue_luigi", "kind": "event", "label": "Latest Session · Two Luigis", "title": "The Lava-Bridge Ambush and the Blue Luigi — Nine Seconds of Mister L, an Unread Note, and the First Cheater's Gambit", "summary": "18 Harvestide, 1035 BF. Two hours after the embassy interrogation, I tracked Luigi to Bowser's Mushroom Compound and walked into an ambush on a lava bridge: nine seconds of Mister L, a yellow-caped courier's unread note, a Tanuki Leaf flight over a lava falls — and a second, smiling, blue-clad Luigi who confessed he was Bowser's plant. One Luigi tied up, one Luigi lost, and the first Cheater's Gambit.", "tags": ["latest", "luigi", "impostor", "mister-l", "gambit", "wario", "compound"]},
 {"id": "the_belly_of_the_beast", "kind": "event", "label": "Latest Session · Inside the Tree", "title": "The Belly of the Beast: Human Blood Under the Scarecrow, a Door Burned Shut, and the Skittering Grove Inside the Tree", "summary": "30 Harvestide, 1040 BF. Crows put Feyward Dan down; Salam stabilised him under fire; Archie slammed the Scorncrow out of the air onto Remi, who fired a musket into its face at point-blank range and found human blood. It fled into the mouth of its own tree. Archie emptied every reserve into one fire cast, killed the tree and sealed the exit; Markop pried the jaws, tested the pit with a torch that came back out of the trunk, and rigged the rope. Five descended into the Skittering Grove — ettercaps, wrapped bodies hanging from the boughs, and Legion soldiers.", "tags": ["latest", "scorncrow", "skittering grove", "remi", "archie", "wario", "markop"]},
 {"id":"promo_mario_newspaper","kind":"event","label":"Amended Filing · Full Account","title":"Promo Mario — The Full Account (Revision 2)","summary":"Revision 2: the clipping\u2019s happy ending was a teaser. The full account reports a failed portal, a missing Luigi, a Mario-shaped thing in a television, and a Wario who sings. Waluigi filed the teaser; he is amending it, loudly. Mario remains missing. The missing-person file stays open.","tags":["mario","newspaper","amendment","unverified"]},
@@ -5795,12 +5795,12 @@ function mapsDeskPlayLabel(){
 function mapsDeskMount(){
   const host=document.getElementById('maps-desk-map'); if(!host) return;
   const prefix=(window.location.pathname.includes('/Reputation-Matrix2/')?'./':'./Reputation-Matrix2/');
-  if(!document.getElementById('atlas-map-v2-css')){const css=document.createElement('link');css.id='atlas-map-v2-css';css.rel='stylesheet';css.href=prefix+'app/pages/maps/atlas-map-v2.css?v=map8';document.head.appendChild(css);}
+  if(!document.getElementById('atlas-map-v2-css')){const css=document.createElement('link');css.id='atlas-map-v2-css';css.rel='stylesheet';css.href=prefix+'app/pages/maps/atlas-map-v2.css?v=map9';document.head.appendChild(css);}
   const journey=(MAPS_DESK.mode==='journey')?buildJourney(MAPS_DESK.mapId,MAPS_DESK.plane,DATA,ATLAS_MAPS,{party:MAPS_DESK.party,sort:MAPS_DESK.sort}):null;
   const stops=(journey&&journey.stops)||[];
   MAPS_DESK.stops=stops;
   const centroid=(MAPS_DESK.plane&&MAPS_DESK.plane!=='all')?mapsDeskCentroid(MAPS_DESK.mapId,MAPS_DESK.plane):null;
-  import(prefix+'app/pages/maps/atlas-map-v2.js?v=map9').then(m=>{
+  import(prefix+'app/pages/maps/atlas-map-v2.js?v=map10').then(m=>{
     if(!document.getElementById('maps-desk-map')) return;
     const wantChatter=MAPS_DESK.mode==='chatter';
     MAPS_DESK.handle=m.mountAtlasMapV2(host,MAPS_DESK.mapId,{
@@ -9002,27 +9002,39 @@ function atlasDemographics(mapId){const d=atlasDemographicModel(mapId),species=[
    map-provinces.js), so the card and the borders can never disagree — and each
    row is a jump: it drives the mounted map to that province's dossier. */
 const ATLAS_PROVINCE_CACHE={};
+let ATLAS_FACTION_GOV=null;
 async function atlasProvinceCensus(mapId){
   const prefix=(window.location.pathname.includes('/Reputation-Matrix2/')?'./':'./Reputation-Matrix2/');
-  const [prov,maps,politics]=await Promise.all([
+  const [prov,maps,politics,registry]=await Promise.all([
     import(prefix+'app/pages/maps/map-provinces.js?v=prov1'),
     import(prefix+'data/maps/map-data.js'),
-    import(prefix+'data/support/politics-data.js')
+    import(prefix+'data/support/politics-data.js'),
+    import(prefix+'systems/faction-registry.js')
   ]);
   const map=maps.MAP_DATA[mapId]; if(!map) return null;
   const key=mapId+':'+((map.pointsOfInterest||[]).length);
   if(!ATLAS_PROVINCE_CACHE[key]) ATLAS_PROVINCE_CACHE[key]=prov.buildProvinceCensus(map,maps.MAP_DATA,{politics:politics.PROVINCE_POLITICS});
+  /* Who leads each crowned hand, for the card's "under …" line. Read from the
+     faction registry — the same authority the map renderer names leaders with —
+     so the card and the dossier can never crown two different emperors. */
+  if(!ATLAS_FACTION_GOV){
+    ATLAS_FACTION_GOV={};
+    try{Object.values(registry.getAllFactions()).forEach(f=>{if(f&&f.id&&f.leaderName&&f.leaderName!=='Unknown'&&f.leaderName!=='N/A')ATLAS_FACTION_GOV[f.id]={leader:f.leaderName,title:f.leaderTitle||''};});}catch(e){}
+  }
   return ATLAS_PROVINCE_CACHE[key];
 }
 function atlasProvinceShareBar(fid,share){
   const color=(FCOLORS&&FCOLORS[fid])||'#718096';
   return `<span title="${esc(prettyId(fid))} holds ${share}% of the census" style="display:flex;align-items:center;gap:6px;min-width:90px"><i style="width:8px;height:8px;border-radius:2px;background:${esc(color)};flex:0 0 auto"></i><b style="flex:0 0 auto;width:38px;text-align:right">${share}%</b><span style="flex:1;height:6px;background:#1b2436;border-radius:99px;overflow:hidden"><em style="display:block;height:100%;width:${Math.max(2,Math.min(100,share))}%;background:${esc(color)}"></em></span></span>`;
 }
-function atlasProvinceCensusHtml(census){
+function atlasProvinceCensusHtml(census, gov){
+  gov=gov||{};
   const roll=census.rollup||{};
   const rows=(census.provinces||[]).map(p=>{
     const c=p.census||{};
-    const verdict=c.contested?`<span style="color:#ff9d9d">contested march</span>`:(c.controller?esc(prettyId(c.controller)):`<span style="color:var(--muted)">unclaimed</span>`);
+    const g=c.controller&&gov[c.controller];
+    const crown=g?`${esc(prettyId(c.controller))}<div class="text-muted" style="font-size:11px">under ${esc(g.leader)}${g.title&&g.title!=='Leader'?' · '+esc(g.title):''}</div>`:esc(prettyId(c.controller));
+    const verdict=c.contested?`<span style="color:#ff9d9d">contested march</span>`:(c.controller?crown:`<span style="color:var(--muted)">unclaimed</span>`);
     const drift=p.delta?`<span title="The filed ledger says ${p.delta.filedShare}% to ${esc(prettyId(p.delta.filedController))}; the pins say ${c.claimantShare}%. Drift is the gap." style="color:${p.delta.agrees?'#8ef0b4':'#ffd75e'}">ledger ${p.delta.agrees?'holds':'broken'} ±${p.delta.drift}</span>`:'<span style="color:var(--muted)">no ledger filed</span>';
     return `<tr data-province="${esc(p.id)}" onclick="atlasSelectProvince('${esc(p.id)}')" style="cursor:pointer">
       <td style="padding:8px;border-bottom:1px solid var(--border)"><b>${esc(p.name)}</b><div class="text-muted" style="font-size:11px">${p.origin==='filed'?'filed in the atlas':p.origin==='sheet'?'merged from the '+esc(p.sourceMapId||'survey')+' sheet':'merged from the survey'}${p.seat?' · seat: '+esc(p.seat.name):''}</div></td>
@@ -9044,7 +9056,7 @@ function atlasRenderProvinceCensus(mapId){
   host.innerHTML='<p class="text-muted">Counting the provinces…</p>';
   atlasProvinceCensus(mapId).then(census=>{
     if(!census){ host.innerHTML='<p class="text-muted">No survey filed for this sheet yet.</p>'; return; }
-    host.innerHTML=atlasProvinceCensusHtml(census);
+    host.innerHTML=atlasProvinceCensusHtml(census, ATLAS_FACTION_GOV||{});
   }).catch(e=>{ host.innerHTML='<p class="text-muted">The census could not be counted: '+esc(e.message)+'</p>'; });
 }
 function atlasSelectProvince(provinceId){
@@ -9076,8 +9088,8 @@ function atlasChips(arr,kind){
 function mountAtlasMap(mapId, group, focusPoi){
   const host=document.getElementById('atlas-map-host'); if(!host)return;
   const prefix=(window.location.pathname.includes('/Reputation-Matrix2/')?'./':'./Reputation-Matrix2/');
-  if(!document.getElementById('atlas-map-v2-css')){const css=document.createElement('link');css.id='atlas-map-v2-css';css.rel='stylesheet';css.href=prefix+'app/pages/maps/atlas-map-v2.css?v=map8';document.head.appendChild(css);}
-  import(prefix+'app/pages/maps/atlas-map-v2.js?v=map9').then(m=>{
+  if(!document.getElementById('atlas-map-v2-css')){const css=document.createElement('link');css.id='atlas-map-v2-css';css.rel='stylesheet';css.href=prefix+'app/pages/maps/atlas-map-v2.css?v=map9';document.head.appendChild(css);}
+  import(prefix+'app/pages/maps/atlas-map-v2.js?v=map10').then(m=>{
     const handle=m.mountAtlasMapV2(host,mapId,{focusPoi:focusPoi||'',chatter:wahChatterByPoi(mapId),census:wahCensusByPoi(mapId),party:wahPartyTokens(mapId),focusProvince:ATLAS_MOUNT_FOCUS&&ATLAS_MOUNT_FOCUS.provinceId});
     window.__atlasMapHandle=handle;
   }).catch(e=>{host.innerHTML='<div class="atlas-v2-error">Map failed to load.</div>';console.error('Atlas Map v2 failed',e);});

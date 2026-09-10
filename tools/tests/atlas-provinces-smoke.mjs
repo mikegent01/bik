@@ -1,7 +1,11 @@
 // Province census + the desk's shortlist, mounted in the REAL atlas renderer.
-// Proves the merge paints contiguous borders, that a province's dossier reports
-// the census against the filed ledger, and that the shortlist picks a pin you
-// can actually act on. Pure-model checks live in test-map-provinces.mjs.
+// Proves the merge paints contiguous borders (inked by what they mean: bold
+// frontiers, faint internal lines, hatched marches), that plots and labels are
+// actually clickable after a pointer gesture — setPointerCapture on pointerdown
+// used to retarget the click to the viewport and eat it — that labels declutter
+// without ever being lost, that the dossier names the leader and the court's
+// vote split where the registry files them, and that the shortlist picks a pin
+// you can act on. Pure-model checks live in test-map-provinces.mjs.
 //
 // Needs jsdom resolvable from the repo root (temporary install, not committed):
 //   npm install jsdom@26.1.0 --no-save
@@ -44,7 +48,7 @@ const mk = mount('mushroom_kingdom_full');
 check('mount returns a handle', !!mk.handle);
 const plots = [...mk.host.querySelectorAll('[data-province]')];
 check('every filed province gets a plot', plots.length >= 20, `${plots.length} plots`);
-check('plots are contiguous polygons', plots.every(p => p.tagName.toLowerCase() === 'polygon' && (p.getAttribute('points') || '').split(' ').length >= 3));
+check('plots are smooth closed paths', plots.every(p => p.tagName.toLowerCase() === 'path' && /^M /.test(p.getAttribute('d') || '') && /Z$/.test(p.getAttribute('d') || '')));
 check('a contested province is dashed', mk.host.querySelectorAll('.atlas-v2-plot.contested').length >= 1);
 check('province labels render at the plot centre', mk.host.querySelectorAll('[data-plotlabel]').length === plots.length);
 const labeled = [...mk.host.querySelectorAll('[data-plotlabel]')].find(el => txt(el).includes('Dry Dry Desert'));
@@ -55,6 +59,20 @@ mk.host.querySelector('[data-action="plots"]').click();
 check('the toggle clears the overlay', mk.host.querySelectorAll('[data-province]').length === 0);
 mk.host.querySelector('[data-action="plots"]').click();
 check('the toggle brings it back', mk.host.querySelectorAll('[data-province]').length === plots.length);
+
+/* ---- borders are inked by what they mean ---- */
+const contested = mk.host.querySelectorAll('.atlas-v2-plot.contested').length;
+check('frontier edges are drawn between two different hands', mk.host.querySelectorAll('.atlas-v2-edge.frontier').length >= 3, `${mk.host.querySelectorAll('.atlas-v2-edge.frontier').length} frontiers`);
+check('frontier edges touching a march are inked hot', mk.host.querySelectorAll('.atlas-v2-edge.frontier.hot').length >= 1, `${mk.host.querySelectorAll('.atlas-v2-edge.frontier.hot').length} hot`);
+check('the rim of the surveyed ground is drawn', mk.host.querySelectorAll('.atlas-v2-edge.rim').length >= 3, `${mk.host.querySelectorAll('.atlas-v2-edge.rim').length} rim`);
+check('every contested province is hatched, not just tinted', mk.host.querySelectorAll('.atlas-v2-hatchfill').length === contested, `${mk.host.querySelectorAll('.atlas-v2-hatchfill').length} hatched of ${contested} contested`);
+check('the hatch pattern is defined inside the overlay', mk.host.querySelectorAll('.atlas-v2-borders pattern').length === 1);
+check('the legend counts the contested marches', /⚔ \d+ contested/.test(txt(mk.host.querySelector('[data-legend-lens]'))), txt(mk.host.querySelector('[data-legend-lens]')).slice(-60));
+/* The Mushroom Kingdom is nearly all marches, so it has no internal borders to
+   check; Equestria's crowns hold neighbouring sheets, which is where the faint
+   administrative line inside one hand actually appears. */
+const eq = mount('equestria_full');
+check('provinces under one hand get faint internal borders', eq.host.querySelectorAll('.atlas-v2-edge.inner').length >= 5, `${eq.host.querySelectorAll('.atlas-v2-edge.inner').length} inner edges on equestria_full`);
 
 /* ---- the province lens colours pins by crown ---- */
 check('a Provinces lens joins the modes', !!mk.host.querySelector('[data-mode="provinces"]'));
@@ -82,6 +100,57 @@ check('a filed ledger is checked against the census',
   !withLedger.ledger || dossier.querySelectorAll('.atlas-v2-ledger').length === 1, `ledger for ${withLedger.name}`);
 check('the ledger row shows filed → census', !withLedger.ledger || /→ census/.test(sheet) || sheet.includes('census'));
 check('dossier links back to the survey sheet', /Open this province as its own sheet|_desert|_plains/.test(sheet));
+check('the selected province wears the gold focus ring', !!mk.host.querySelector('.atlas-v2-borders .atlas-v2-focus'));
+
+/* ---- clicking: pointer capture must not eat the click ---- */
+/* The original sin: setPointerCapture on pointerdown retargets the click to
+   the viewport, so plots could never be clicked in a real browser even though
+   a synthetic click reached them here. The gesture logic is therefore driven
+   the way a browser drives it: press, maybe move, release, then click. Any
+   selectProvince() re-renders the overlay, so plots are re-queried after each
+   one — a listener on a detached element proves nothing. */
+const vp = mk.host.querySelector('.atlas-v2-viewport');
+const world = mk.host.querySelector('.atlas-v2-world');
+const pointer = (type, el, x, y) =>
+  el.dispatchEvent(new dom.window.MouseEvent(type, { bubbles: true, clientX: x, clientY: y, buttons: 1 }));
+const second = summaries.find(p => p.id !== withLedger.id);
+const plotOf = id => mk.host.querySelector(`[data-province="${id}"]`);
+mk.handle.selectProvince(withLedger.id);
+const beforeDrag = world.style.transform;
+pointer('pointerdown', plotOf(withLedger.id), 200, 200);
+pointer('pointermove', vp, 253, 218);
+check('a real drag pans the sheet', world.style.transform !== beforeDrag, world.style.transform);
+pointer('pointerup', vp, 253, 218);
+const secondPlot = plotOf(second.id);
+secondPlot.dispatchEvent(new dom.window.MouseEvent('click', { bubbles: true }));
+check('a drag never selects a province', txt(mk.host.querySelector('.atlas-v2-sidebar h3')).includes(withLedger.name), txt(mk.host.querySelector('.atlas-v2-sidebar h3')));
+await new Promise(done => setTimeout(done, 10));
+secondPlot.dispatchEvent(new dom.window.MouseEvent('click', { bubbles: true }));
+check('a settled click selects the province', txt(mk.host.querySelector('.atlas-v2-sidebar h3')).includes(second.name), txt(mk.host.querySelector('.atlas-v2-sidebar h3')));
+/* Press, jitter under the 4px threshold, release: still a click, not a drag. */
+mk.handle.selectProvince(withLedger.id);
+const jitterPlot = plotOf(second.id);
+pointer('pointerdown', jitterPlot, 200, 200);
+pointer('pointermove', vp, 202, 201);
+pointer('pointerup', vp, 202, 201);
+jitterPlot.dispatchEvent(new dom.window.MouseEvent('click', { bubbles: true }));
+check('a press that never really moved still clicks', txt(mk.host.querySelector('.atlas-v2-sidebar h3')).includes(second.name), txt(mk.host.querySelector('.atlas-v2-sidebar h3')));
+
+/* ---- labels: decluttered, never lost, clickable ---- */
+const allLabels = [...mk.host.querySelectorAll('[data-plotlabel]')];
+check('crowded sheets tuck the small labels', allLabels.some(l => l.classList.contains('tucked')), `${allLabels.filter(l => l.classList.contains('tucked')).length} of ${allLabels.length} tucked`);
+const tuckedId = (allLabels.find(l => l.classList.contains('tucked')) || allLabels[0]).dataset.plotlabel;
+mk.handle.selectProvince(tuckedId);
+const tucked = mk.host.querySelector(`[data-plotlabel="${tuckedId}"]`);
+check("the selected province's label is never tucked", tucked.classList.contains('on') && !tucked.classList.contains('tucked'));
+const hoverable = mk.host.querySelector(`[data-province="${tuckedId}"]`);
+hoverable.dispatchEvent(new dom.window.Event('pointerenter'));
+check('hovering a plot peeks its hidden label', tucked.classList.contains('peek'));
+hoverable.dispatchEvent(new dom.window.Event('pointerleave'));
+check('leaving the plot tucks the label away again', !tucked.classList.contains('peek'));
+const labelTarget = summaries.find(p => p.id !== tuckedId);
+mk.host.querySelector(`[data-plotlabel="${labelTarget.id}"]`).dispatchEvent(new dom.window.MouseEvent('click', { bubbles: true }));
+check('clicking a label opens its dossier', txt(mk.host.querySelector('.atlas-v2-sidebar h3')).includes(labelTarget.name), txt(mk.host.querySelector('.atlas-v2-sidebar h3')));
 
 /* ---- the census roll-up: provinces make the nation ---- */
 const roll = mk.handle.getCensus();
@@ -122,6 +191,25 @@ const firstAfter = rows().findIndex(r => r.classList.contains('on'));
 check('ArrowDown moves the cursor', firstAfter === (firstBefore + 1) % rows().length, `${firstBefore} → ${firstAfter}`);
 key('Escape');
 check('Escape closes the board', !mid.host.querySelector('[data-pick]'));
+
+/* ---- governance: the dossier names who actually runs the province ---- */
+const midSide = mid.host.querySelector('.atlas-v2-sidebar');
+mid.handle.selectProvince('filed:capital_province');
+check('a held province names its leader', txt(midSide).includes('Emperor Elagabalus'), 'regal_empire holds the Capital Province');
+check('the court files its vote split', midSide.querySelectorAll('.atlas-v2-voterow').length >= 3, `${midSide.querySelectorAll('.atlas-v2-voterow').length} court rows`);
+check('the ruling court faction is flagged', midSide.querySelectorAll('.atlas-v2-voterow.ruling').length === 1);
+check('the ruling court faction is the Imperial Core', /The Imperial Core/.test(txt(midSide.querySelector('.atlas-v2-voterow.ruling'))));
+check('key figures are listed beside the leader', midSide.querySelectorAll('.atlas-v2-court li').length >= 2);
+const midSummaries = mid.handle.getProvinces();
+const march = midSummaries.find(p => p.contested && p.id === 'sheet:vemillia') || midSummaries.find(p => p.contested);
+mid.handle.selectProvince(march.id);
+check('a march shows the leading hand, never a crown', /the leading hand/.test(txt(midSide)) && /census crowns nobody/.test(txt(midSide)), march.name);
+check('the march still names who leads it', /Emperor Elagabalus|Alpha Bloodmaw|Lord Vexar Steelclad/.test(txt(midSide)), `${march.name} → ${march.controller}`);
+const noCourt = midSummaries.find(p => p.contested && p.id === 'filed:ironwood');
+if (noCourt) {
+  mid.handle.selectProvince(noCourt.id);
+  check('a court with no filed votes shows the leader and stops', txt(midSide).includes('Lord Vexar Steelclad') && midSide.querySelectorAll('.atlas-v2-voterow').length === 0, 'iron_legion files a leader but no court');
+}
 
 /* ---- a plane-filtered layer still gets a census of what is visible ---- */
 const shadow = mount('midlands_full', { plane: 'shadow' });

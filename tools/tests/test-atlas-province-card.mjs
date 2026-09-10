@@ -34,7 +34,7 @@ const sandbox = { INDEX: {}, FCOLORS: { empire: '#ff0000', horde: '#00ff00' } };
 const src = [
   extractBlock('function prettyId(id)'),
   extractBlock('function atlasProvinceShareBar(fid,share)'),
-  extractBlock('function atlasProvinceCensusHtml(census)'),
+  extractBlock('function atlasProvinceCensusHtml(census, gov)'),
 ].join('\n');
 new Function('INDEX', 'FCOLORS', 'esc', 'displayName',
   `${src}; this.atlasProvinceCensusHtml=atlasProvinceCensusHtml; this.atlasProvinceShareBar=atlasProvinceShareBar;`)
@@ -69,6 +69,15 @@ const out2 = sandbox.atlasProvinceCensusHtml(buildProvinceCensus(MAP_DATA.midlan
 check('the Midlands card renders too', (out2.match(/<tr data-province=/g) || []).length > 6, `${(out2.match(/<tr data-province=/g) || []).length} rows`);
 check('an unfiled faction id still reads as a name', !/_/.test(out2.replace(/data-province="[^"]*"|_[a-z_]+_/g, '')) || /regal empire|Regal Empire/.test(out2));
 
+/* ---------------- leaders: the crown names its hand ---------------- */
+const GOV = { regal_empire: { leader: 'Emperor Elagabalus', title: 'Supreme Ruler' } };
+const govOut = sandbox.atlasProvinceCensusHtml(buildProvinceCensus(MAP_DATA.midlands_full, MAP_DATA, { politics: PROVINCE_POLITICS }), GOV);
+check('a crowned province names its leader', /under Emperor Elagabalus/.test(govOut));
+check("the leader's title rides along", /Supreme Ruler/.test(govOut));
+check('no governance filed means no leader line', !/under [A-Z]/.test(out2), 'the Midlands card built without a gov map stays clean');
+const govRows = govOut.match(/<tr data-province=[\s\S]*?<\/tr>/g) || [];
+check('a march is never given a leader line', govRows.every(r => !/contested march/.test(r) || !/under /.test(r)), `${govRows.filter(r => /contested march/.test(r)).length} marches on the card`);
+
 /* ---------------- escaping is real, not assumed ---------------- */
 const evil = {
   mapId: 'x', mapName: 'X', group: 'G', pins: 2, rollup: { provinceCount: 2, population: 1, filedProvinces: 1, mergedProvinces: 1, contestedProvinces: 0, vacantProvinces: 0, unclaimedProvinces: 0, sovereign: 'empire', sovereignProvinces: 1, sovereignShare: 50, fragmented: false, byFaction: [] },
@@ -80,11 +89,15 @@ const evil = {
 };
 const evilOut = sandbox.atlasProvinceCensusHtml(evil);
 check('a hostile province name cannot inject markup', !/<script>alert/.test(evilOut) && !/<img src=x>/.test(evilOut), (evilOut.match(/<img[^>]*>/) || [''])[0]);
+const evilGovOut = sandbox.atlasProvinceCensusHtml(evil, { empire: { leader: 'Count <img src=y>', title: 'Ruler<script>alert(2)</script>' } });
+check('a hostile leader name cannot inject markup', !/<img src=y>/.test(evilGovOut) && !/<script>alert/.test(evilGovOut));
 
 /* ---------------- the page wires the card in ---------------- */
 check('the nation route renders the census panel', /\$\{mapIframe\}\$\{atlasProvinceCensusPanel\(\)\}/.test(main));
 check('the nation route counts the sheet it mounted', /atlasRenderProvinceCensus\(mountedId\)/.test(main));
 check('switching region recounts the census', /censusHost\)atlasRenderProvinceCensus\(mapId\)/.test(main));
+check('the card is passed the governance map', /atlasProvinceCensusHtml\(census, ATLAS_FACTION_GOV\|\|\{\}\)/.test(main));
+check('the census loader reads the faction registry for leaders', /import\(prefix\+'systems\/faction-registry\.js'\)/.test(main));
 check('the map handle is kept so a row can drive it', /window\.__atlasMapHandle=handle/.test(main));
 check('a province deep link is passed to the renderer', /focusProvince:ATLAS_MOUNT_FOCUS&&ATLAS_MOUNT_FOCUS\.provinceId/.test(main));
 check('the faction power panel imports the real analysis module', /import\(pathPrefix \+ 'app\/systems\/global-map-analysis\.js'\)/.test(main));
