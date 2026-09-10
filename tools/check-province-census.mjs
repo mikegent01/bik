@@ -39,7 +39,23 @@ if (!fs.existsSync(SNAPSHOT)) {
 /* ---------------- per-map model checks ---------------- */
 const fullIds = Object.keys(MAP_DATA).filter(id => id.endsWith('_full') && (MAP_DATA[id].pointsOfInterest || []).length).sort();
 let plotsChecked = 0, pinsChecked = 0, ledgersChecked = 0;
-const polygonFailures = [], orphanPins = [], doubleGoverned = [];
+const polygonFailures = [], orphanPins = [], doubleGoverned = [], misplacedPins = [], coverageFailures = [];
+const inside = (pt, poly) => {
+  for (let i = 0, j = poly.length - 1; i < poly.length; j = i++) {
+    const a = poly[j], b = poly[i];
+    const cross = (b[0] - a[0]) * (pt[1] - a[1]) - (b[1] - a[1]) * (pt[0] - a[0]);
+    const dot = (pt[0] - a[0]) * (pt[0] - b[0]) + (pt[1] - a[1]) * (pt[1] - b[1]);
+    if (Math.abs(cross) < 1e-7 && dot <= 1e-7) return true;
+  }
+  let hit = false;
+  for (let i = 0, j = poly.length - 1; i < poly.length; j = i++) {
+    const [xi, yi] = poly[i], [xj, yj] = poly[j];
+    if ((yi > pt[1]) !== (yj > pt[1]) && pt[0] < (xj - xi) * (pt[1] - yi) / (yj - yi) + xi) hit = !hit;
+  }
+  return hit;
+};
+const visiblePolys = prov => (prov.cells && prov.cells.length ? prov.cells : (prov.polygon ? [prov.polygon] : []));
+
 
 fullIds.forEach(mapId => {
   const map = MAP_DATA[mapId];
@@ -47,6 +63,8 @@ fullIds.forEach(mapId => {
   const pins = uniquePins(map.pointsOfInterest).filter(p => Number.isFinite(Number(p.x)) && Number.isFinite(Number(p.y)));
   pinsChecked += pins.length;
   const seen = new Map();
+  const solidArea = census.provinces.filter(prov => !prov.vacant).reduce((n, prov) => n + (Number(prov.area) || 0), 0);
+  if (Math.abs(solidArea - 10000) > 1) coverageFailures.push(`${mapId}:${solidArea.toFixed(2)}`);
   census.provinces.forEach(prov => {
     (prov.poiIds || []).forEach(id => seen.set(id, (seen.get(id) || 0) + 1));
     /* geometry: closed, on the sheet, and not degenerate */
@@ -55,8 +73,12 @@ fullIds.forEach(mapId => {
     if (poly.length >= 3) {
       const first = poly[0], last = poly[poly.length - 1];
       const closed = Math.abs(first[0] - last[0]) > 1e-6 || Math.abs(first[1] - last[1]) > 1e-6; // polygon auto-closes; a repeat would be a bug
-      const onSheet = poly.every(pt => pt[0] >= -0.01 && pt[0] <= 100.01 && pt[1] >= -0.01 && pt[1] <= 100.01);
+      const onSheet = visiblePolys(prov).flat().every(pt => pt[0] >= -0.01 && pt[0] <= 100.01 && pt[1] >= -0.01 && pt[1] <= 100.01);
       if (!closed || !onSheet || !(prov.area > 0)) polygonFailures.push(`${mapId}/${prov.name}`);
+      (prov.pois || []).forEach(poi => {
+        const pt = [Number(poi.x), Number(poi.y)];
+        if (!visiblePolys(prov).some(poly => inside(pt, poly))) misplacedPins.push(`${mapId}/${prov.name}/${poi.id}`);
+      });
     } else if (!prov.vacant) {
       polygonFailures.push(`${mapId}/${prov.name} has no polygon`);
     }
@@ -80,6 +102,8 @@ fullIds.forEach(mapId => {
 check('no pin is left without a province', orphanPins.length === 0, orphanPins.slice(0, 6).join(', '));
 check('no pin is governed twice', doubleGoverned.length === 0, doubleGoverned.slice(0, 6).join(', '));
 check('every province border closes inside the sheet', polygonFailures.length === 0, polygonFailures.slice(0, 6).join(', '));
+check('every assigned pin lands inside its visible province', misplacedPins.length === 0, misplacedPins.slice(0, 6).join(', '));
+check('non-vacant province cells cover each full sheet without holes', coverageFailures.length === 0, coverageFailures.slice(0, 6).join(', '));
 check(`the census counted ${pinsChecked} pins across ${fullIds.length} realms`, pinsChecked > 2000 && plotsChecked > 100, `${plotsChecked} plots`);
 
 /* ---------------- 2. the ledger cites things that exist ---------------- */

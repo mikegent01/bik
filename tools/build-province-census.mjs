@@ -44,6 +44,7 @@ function provinceRow(p) {
     shape: p.shape || 'tile',
     center: [round(p.x), round(p.y)],
     polygon: (p.polygon || []).map(pt => [round(pt[0]), round(pt[1])]),
+    cells: (p.cells || []).map(poly => poly.map(pt => [round(pt[0]), round(pt[1])])),
     area: round(p.area, 3),
     controller: c.controller || null,
     claimant: c.claimant || 'unaligned',

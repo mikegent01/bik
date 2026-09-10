@@ -18,6 +18,22 @@ const area = poly => {
   for (let i = 0, j = poly.length - 1; i < poly.length; j = i++) a += (poly[j][0] + poly[i][0]) * (poly[j][1] - poly[i][1]);
   return Math.abs(a / 2);
 };
+const areaOf = prov => (prov.cells && prov.cells.length ? prov.cells : [prov.polygon || []]).reduce((n, poly) => n + area(poly), 0);
+const inside = (pt, poly) => {
+  for (let i = 0, j = poly.length - 1; i < poly.length; j = i++) {
+    const a = poly[j], b = poly[i];
+    const cross = (b[0] - a[0]) * (pt[1] - a[1]) - (b[1] - a[1]) * (pt[0] - a[0]);
+    const dot = (pt[0] - a[0]) * (pt[0] - b[0]) + (pt[1] - a[1]) * (pt[1] - b[1]);
+    if (Math.abs(cross) < 1e-7 && dot <= 1e-7) return true;
+  }
+  let hit = false;
+  for (let i = 0, j = poly.length - 1; i < poly.length; j = i++) {
+    const [xi, yi] = poly[i], [xj, yj] = poly[j];
+    if ((yi > pt[1]) !== (yj > pt[1]) && pt[0] < (xj - xi) * (pt[1] - yi) / (yj - yi) + xi) hit = !hit;
+  }
+  return hit;
+};
+const insideProvince = (pt, prov) => (prov.cells && prov.cells.length ? prov.cells : [prov.polygon || []]).some(poly => inside(pt, poly));
 
 /* ---------------- weights and the census verdict ---------------- */
 check('power is the three pillars, plus logged population',
@@ -129,34 +145,20 @@ const fake = [
 ];
 const geo = provinceBorders(fake, { box });
 check('every province gets a polygon', geo.every(p => p.polygon.length >= 3));
-check('tiles are contiguous: they cover the sheet', Math.abs(geo.reduce((n, p) => n + area(p.polygon), 0) - 10000) < 25, geo.reduce((n, p) => n + area(p.polygon), 0).toFixed(1));
-check('the strong province bulges past its midpoint', (() => {
-  const a = geo.find(p => p.id === 'a').polygon;
-  return Math.max(...a.map(pt => pt[0])) > 50;
-})(), `A reaches x=${Math.max(...geo.find(p => p.id === 'a').polygon.map(pt => pt[0])).toFixed(1)}`);
-check('polygons stay inside the sheet', geo.every(p => p.polygon.every(pt => pt[0] >= -0.01 && pt[0] <= 100.01 && pt[1] >= -0.01 && pt[1] <= 100.01)));
-check('polygons are convex rings', geo.every(p => {
-  const pts = p.polygon.map(pt => [pt[0] * (p.id === 'b' ? 1 : 1), pt[1]]);
-  let sign = 0;
-  for (let i = 0; i < pts.length; i++) {
-    const a = pts[i], b = pts[(i + 1) % pts.length], c = pts[(i + 2) % pts.length];
-    const z = (b[0] - a[0]) * (c[1] - b[1]) - (b[1] - a[1]) * (c[0] - b[0]);
-    if (Math.abs(z) < 1e-9) continue;
-    if (!sign) sign = Math.sign(z);
-    else if (Math.sign(z) !== sign) return false;
-  }
-  return true;
-}));
-check('no ring repeats a vertex', geo.every(p => {
-  const pts = p.polygon;
+check('tiles are contiguous: POI-anchor cells cover the sheet', Math.abs(geo.reduce((n, p) => n + areaOf(p), 0) - 10000) < 25, geo.reduce((n, p) => n + areaOf(p), 0).toFixed(1));
+check('multi-pin provinces carry compound cells', geo.some(p => (p.cells || []).length > 1), geo.map(p => `${p.id}:${(p.cells || []).length}`).join(' | '));
+check('every province pin lands inside its visible province cells', geo.every(p => (p.pois || []).every(poi => insideProvince([poi.x, poi.y], p))));
+check('polygons stay inside the sheet', geo.every(p => (p.cells && p.cells.length ? p.cells.flat() : p.polygon).every(pt => pt[0] >= -0.01 && pt[0] <= 100.01 && pt[1] >= -0.01 && pt[1] <= 100.01)));
+check('no ring repeats a vertex', geo.every(p => (p.cells && p.cells.length ? p.cells : [p.polygon]).every(poly => {
+  const pts = poly;
   for (let i = 0; i < pts.length; i++) {
     const a = pts[i], b = pts[(i + 1) % pts.length];
     if (Math.abs(a[0] - b[0]) < 1e-7 && Math.abs(a[1] - b[1]) < 1e-7) return false;
   }
   return true;
-}));
-const oneSeed = provinceBorders([{ id: 's', name: 'S', x: 50, y: 50, census: { power: 5 }, pois: [] }], { box });
-check('a lone province owns the sheet', Math.abs(area(oneSeed[0].polygon) - 10000) < 1);
+})));
+const oneSeed = provinceBorders([{ id: 's', name: 'S', x: 50, y: 50, census: { power: 5 }, pois: [{ id: 's1', x: 50, y: 50 }] }], { box });
+check('a lone province owns the sheet', Math.abs(areaOf(oneSeed[0]) - 10000) < 1);
 check('an empty census produces no geometry', provinceBorders([], {}).length === 0);
 
 /* ---------------- roll-up: provinces make the nation ---------------- */
@@ -196,6 +198,7 @@ check('the Mushroom Kingdom finds the filed regions', real.provinces.some(p => p
 check('a civil war reads as contested marches', real.rollup.contestedProvinces >= 5, `${real.rollup.contestedProvinces} contested`);
 const mid = buildProvinceCensus(MAP_DATA.midlands_full, MAP_DATA, { politics: PROVINCE_POLITICS });
 check('the Midlands census crowns the Regal Empire somewhere', mid.provinces.some(p => p.census.controller === 'regal_empire'));
+check('the Midlands visible regions contain their assigned pins', mid.provinces.every(p => (p.pois || []).every(poi => insideProvince([poi.x, poi.y], p))));
 check('the Capital Province ledger still holds after counting', (() => {
   const cap = mid.provinces.find(p => p.name === 'Capital Province');
   return cap && cap.delta && cap.delta.agrees;
