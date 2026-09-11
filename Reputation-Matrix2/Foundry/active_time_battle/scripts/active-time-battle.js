@@ -8,6 +8,25 @@ let ACTIVE_PROMPT = null;
 let ACTIVE_PROMPT_KEY = null;
 let LAST_RENDER_WARN = 0;
 
+function escapeHtml(value) {
+  const raw = String(value ?? "");
+  const escaper = globalThis.foundry?.utils?.escapeHTML;
+  if (typeof escaper === "function") return escaper(raw);
+  return raw.replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+}
+
+function usersArray() {
+  const users = game.users?.contents ?? (game.users ? Array.from(game.users) : []);
+  return users.filter(Boolean);
+}
+
+function isPrimaryGM() {
+  if (!game.user?.isGM) return false;
+  const activeGMs = usersArray().filter(u => u?.active && u?.isGM)
+    .sort((a, b) => String(a.id || "").localeCompare(String(b.id || "")));
+  return !activeGMs.length || activeGMs[0].id === game.user.id;
+}
+
 function asElement(html) {
   if (!html) return null;
   if (html instanceof HTMLElement) return html;
@@ -103,10 +122,32 @@ function playerOwned(combatant) {
   return !!(combatant?.hasPlayerOwner || combatant?.actor?.hasPlayerOwner);
 }
 
-function userCanAct(combatant) {
-  if (!combatant) return false;
-  if (game.user.isGM) return true;
-  return !!(combatant.actor?.isOwner || combatant.actor?.testUserPermission?.(game.user, "OWNER"));
+function userCanAct(combatant, user = game.user) {
+  if (!combatant || !user) return false;
+  if (user.isGM) return true;
+  if (user.id === game.user?.id && combatant.actor?.isOwner) return true;
+  return !!combatant.actor?.testUserPermission?.(user, "OWNER");
+}
+
+function requestingUser(data = {}) {
+  const userId = data.userId;
+  if (!userId) return null;
+  return game.users?.get?.(userId)
+    ?? usersArray().find(u => u.id === userId)
+    ?? (userId === game.user?.id ? game.user : null);
+}
+
+function canRequestAction(action, combat, data = {}) {
+  const user = requestingUser(data);
+  if (!user || (user.active === false && user.id !== game.user?.id)) return false;
+  if (user.isGM) return true;
+  if (action === "activate" || action === "endTurn") {
+    const id = data.combatantId || activeId(combat);
+    if (action === "endTurn" && id !== activeId(combat)) return false;
+    const combatant = combat?.combatants?.get?.(id);
+    return userCanAct(combatant, user);
+  }
+  return false;
 }
 
 function combatantName(combatant) {
@@ -187,18 +228,25 @@ function socketSend(data) {
 }
 
 function request(action, combat, extra = {}) {
-  if (game.user.isGM) return gmAction(action, combat, extra);
-  return socketSend({ action, combatId: combat?.id, ...extra });
+  const payload = { action, combatId: combat?.id, userId: game.user?.id, ...extra };
+  if (isPrimaryGM()) return gmAction(action, combat, payload);
+  return socketSend(payload);
 }
 
 async function gmAction(action, combat, data = {}) {
-  if (!combat) return null;
+  if (!isPrimaryGM() || !combat) return null;
+  if (!canRequestAction(action, combat, data)) {
+    console.warn(`${MODULE_ID} rejected unauthorized ${action} request`, data);
+    return null;
+  }
+  const user = requestingUser(data);
+  const requestData = user?.isGM ? data : { ...data, force: false };
   if (action === "start") return startAtb(combat);
   if (action === "pause") return pauseAtb(combat, true);
   if (action === "resume") return pauseAtb(combat, false);
   if (action === "reset") return resetAtb(combat);
-  if (action === "activate") return activateCombatant(combat, data.combatantId, data);
-  if (action === "endTurn") return endActiveTurn(combat, data.combatantId, data);
+  if (action === "activate") return activateCombatant(combat, requestData.combatantId, requestData);
+  if (action === "endTurn") return endActiveTurn(combat, requestData.combatantId, requestData);
   if (action === "rollMissing") return rollMissingInitiative(combat);
   return null;
 }
@@ -223,7 +271,7 @@ async function initializeCombatants(combat) {
 }
 
 async function startAtb(combat) {
-  if (!game.user.isGM || !combat?.started) return null;
+  if (!isPrimaryGM() || !combat?.started) return null;
   await initializeCombatants(combat);
   await updateCombatFlags(combat, {
     running: true,
@@ -239,7 +287,7 @@ async function startAtb(combat) {
 }
 
 async function pauseAtb(combat, paused) {
-  if (!game.user.isGM) return null;
+  if (!isPrimaryGM()) return null;
   await updateCombatFlags(combat, { paused: !!paused, lastTick: now(), sequence: sequence(combat) + 1 });
   await chat(paused ? "ATB paused." : "ATB resumed.");
   ui.combat?.render?.(true);
@@ -247,7 +295,7 @@ async function pauseAtb(combat, paused) {
 }
 
 async function resetAtb(combat) {
-  if (!game.user.isGM) return null;
+  if (!isPrimaryGM()) return null;
   await initializeCombatants(combat);
   await updateCombatFlags(combat, {
     running: false,
@@ -264,7 +312,7 @@ async function resetAtb(combat) {
 }
 
 async function rollMissingInitiative(combat) {
-  if (!game.user.isGM || !combat) return null;
+  if (!isPrimaryGM() || !combat) return null;
   const formula = setting("initiativeFormula") || "1d20";
   const updates = [];
   for (const c of eligibleCombatants(combat)) {
@@ -272,13 +320,37 @@ async function rollMissingInitiative(combat) {
     const roll = await new Roll(formula, c.actor?.getRollData?.() ?? {}).evaluate({ async: true });
     updates.push({ _id: c.id, initiative: roll.total });
   }
-  if (updates.length) await combat.updateEmbeddedDocuments("Combatant", updates, { activeTimeBattle: true });
-  if (isRunning(combat)) await initializeCombatants(combat);
+  if (!updates.length) return 0;
+
+  await combat.updateEmbeddedDocuments("Combatant", updates, { activeTimeBattle: true });
+
+  /* If initiative was filled in after ATB already started, do not reset the
+     whole fight. Seed only those just-rolled combatants up to their initiative-
+     adjusted opening value while preserving any progress they already earned. */
+  if (isRunning(combat)) {
+    const ids = new Set(updates.map(u => u._id));
+    const members = eligibleCombatants(combat);
+    const avg = averageInitiative(members);
+    const stamp = now();
+    const gaugeUpdates = members.filter(c => ids.has(c.id)).map(c => {
+      const value = Math.max(atbOf(c), openingAtb(c, avg));
+      return {
+        _id: c.id,
+        [flagPath("atb")]: value,
+        [flagPath("readyAt")]: value >= READY ? (readyAt(c) || stamp) : null
+      };
+    });
+    await updateManyCombatants(combat, gaugeUpdates);
+  }
   return updates.length;
 }
 
 async function activateCombatant(combat, combatantId, options = {}) {
-  if (!game.user.isGM || !combat?.started) return null;
+  if (!isPrimaryGM() || !combat?.started) return null;
+  const currentActive = activeId(combat);
+  if (currentActive && currentActive !== combatantId) {
+    return ui.notifications?.warn("Another combatant is already active. End that ATB turn before activating the next one.");
+  }
   const c = combat.combatants?.get(combatantId);
   if (!c || isDefeated(combat, c)) return null;
   if (!options.force && atbOf(c) < READY) return ui.notifications?.warn(`${combatantName(c)} is not ready yet.`);
@@ -303,7 +375,7 @@ async function activateCombatant(combat, combatantId, options = {}) {
   }, { diff: false, activeTimeBattle: true });
 
   const seconds = Number(setting("actionSeconds")) || 90;
-  await chat(`<b>${combatantName(c)}</b> is active. ${seconds}s spotlight clock started.`);
+  await chat(`<b>${escapeHtml(combatantName(c))}</b> is active. ${seconds}s spotlight clock started.`);
   notifyOwners(c, `${combatantName(c)} is active — ${seconds}s to act.`);
   ui.combat?.render?.(true);
   return c;
@@ -320,7 +392,7 @@ async function advanceRoundIfComplete(combat, justActedId = null) {
 }
 
 async function endActiveTurn(combat, combatantId, options = {}) {
-  if (!game.user.isGM || !combat?.started) return null;
+  if (!isPrimaryGM() || !combat?.started) return null;
   const id = combatantId || activeId(combat);
   const c = combat.combatants?.get(id);
   if (!c) return null;
@@ -340,7 +412,7 @@ async function endActiveTurn(combat, combatantId, options = {}) {
     sequence: sequence(combat) + 1
   });
   closeActivePrompt();
-  if (!options.silent) await chat(`<b>${combatantName(c)}</b> spent their ATB turn.`);
+  if (!options.silent) await chat(`<b>${escapeHtml(combatantName(c))}</b> spent their ATB turn.`);
   await advanceRoundIfComplete(combat, c.id);
   ui.combat?.render?.(true);
   return c;
@@ -369,7 +441,7 @@ async function timeoutActiveTurn(combat, combatant) {
       sequence: sequence(combat) + 1
     });
     closeActivePrompt();
-    await chat(`<b>${combatantName(combatant)}</b> timed out and takes Guard / Dodge. The table keeps moving.`);
+    await chat(`<b>${escapeHtml(combatantName(combatant))}</b> timed out and takes Guard / Dodge. The table keeps moving.`);
     await advanceRoundIfComplete(combat, combatant.id);
     ui.combat?.render?.(true);
     return;
@@ -389,12 +461,12 @@ async function timeoutActiveTurn(combat, combatant) {
     sequence: sequence(combat) + 1
   });
   closeActivePrompt();
-  await chat(`<b>${combatantName(combatant)}</b> timed out and delays to ${delayTo}% ATB. They will cycle back soon, but they do not stop the fight.`);
+  await chat(`<b>${escapeHtml(combatantName(combatant))}</b> timed out and delays to ${delayTo}% ATB. They will cycle back soon, but they do not stop the fight.`);
   ui.combat?.render?.(true);
 }
 
 async function tickCombat(combat) {
-  if (!game.user.isGM || !combat?.started || !isRunning(combat) || isPaused(combat)) return;
+  if (!isPrimaryGM() || !combat?.started || !isRunning(combat) || isPaused(combat)) return;
   const stamp = now();
   const lastTick = Number(getFlag(combat, "lastTick", stamp)) || stamp;
   const dt = clamp((stamp - lastTick) / 1000, 0, 5);
@@ -409,7 +481,7 @@ async function tickCombat(combat) {
     if (elapsed >= actionSeconds) return timeoutActiveTurn(combat, active);
     if (warningSeconds > 0 && elapsed >= actionSeconds - warningSeconds && !warned) {
       await updateCombatantFlags(active, { warnedAt: stamp });
-      await chat(`<b>${combatantName(active)}</b> has ${fmtSeconds(actionSeconds - elapsed)} left on their ATB turn.`);
+      await chat(`<b>${escapeHtml(combatantName(active))}</b> has ${fmtSeconds(actionSeconds - elapsed)} left on their ATB turn.`);
     }
   } else if (activeId(combat)) {
     await updateCombatFlags(combat, { activeId: null, activeSince: null, lastTick: stamp, sequence: sequence(combat) + 1 });
@@ -493,7 +565,7 @@ function showActivePrompt(combat) {
   const left = fmtSeconds(total - elapsed);
   const content = `
     <div class="atb-active-dialog">
-      <p><b>${combatantName(c)}</b> is active.</p>
+      <p><b>${escapeHtml(combatantName(c))}</b> is active.</p>
       <p>You have about <b>${left}</b>. If you go idle, the module will delay you or put you on Guard based on world settings so the table keeps moving.</p>
     </div>`;
   ACTIVE_PROMPT = new Dialog({
@@ -513,6 +585,82 @@ function showActivePrompt(combat) {
   }, { width: 390 });
   ACTIVE_PROMPT_KEY = key;
   ACTIVE_PROMPT.render(true);
+}
+
+function trackerStyle() {
+  const style = setting("trackerStyle") || "bars";
+  return ["bars", "classic", "compact"].includes(style) ? style : "bars";
+}
+
+function etaSeconds(combat, combatant, avg = null) {
+  const value = atbOf(combatant);
+  if (value >= READY) return 0;
+  const baseSeconds = Math.max(5, Number(setting("baseReadySeconds")) || 45);
+  const encounterAverage = avg ?? averageInitiative(eligibleCombatants(combat));
+  const gainPerSecond = (READY / baseSeconds) * speedFactor(combatant, encounterAverage);
+  if (gainPerSecond <= 0) return Infinity;
+  return (READY - value) / gainPerSecond;
+}
+
+function queueCombatants(combat) {
+  const all = eligibleCombatants(combat);
+  const members = all.filter(c => c.id !== activeId(combat));
+  const avg = averageInitiative(all);
+  return members.sort((a, b) => {
+    const aReady = atbOf(a) >= READY;
+    const bReady = atbOf(b) >= READY;
+    const readyDiff = Number(bReady) - Number(aReady);
+    if (readyDiff) return readyDiff;
+    if (aReady && bReady) {
+      const overflow = atbOf(b) - atbOf(a);
+      if (Math.abs(overflow) > 0.01) return overflow;
+    } else {
+      const eta = etaSeconds(combat, a, avg) - etaSeconds(combat, b, avg);
+      if (Math.abs(eta) > 0.01) return eta;
+      const gauge = atbOf(b) - atbOf(a);
+      if (Math.abs(gauge) > 0.01) return gauge;
+    }
+    const init = initiativeOf(b) - initiativeOf(a);
+    if (init) return init;
+    return combatantName(a).localeCompare(combatantName(b));
+  });
+}
+
+function renderQueueStrip(panel, combat) {
+  const count = Math.max(0, Number(setting("queuePreview")) || 0);
+  if (!isRunning(combat) || !count) return;
+  const avg = averageInitiative(eligibleCombatants(combat));
+  const strip = document.createElement("div");
+  strip.className = "atb-queue";
+  const rows = queueCombatants(combat).slice(0, count);
+  if (!rows.length) return;
+  const busy = !!activeId(combat);
+  for (const c of rows) {
+    const value = atbOf(c);
+    const ready = value >= READY;
+    const row = document.createElement(!busy && ready && userCanAct(c) ? "button" : "span");
+    row.className = `atb-queue-chip${ready ? " ready" : ""}${playerOwned(c) ? " player" : " npc"}`;
+    row.title = ready
+      ? `${combatantName(c)} is READY`
+      : `${combatantName(c)} ready in about ${fmtSeconds(etaSeconds(combat, c, avg))}`;
+    if (row.tagName === "BUTTON") {
+      row.type = "button";
+      row.addEventListener("click", ev => {
+        ev.preventDefault();
+        ev.stopPropagation();
+        request("activate", combat, { combatantId: c.id });
+      });
+    }
+    const label = document.createElement("b");
+    label.textContent = combatantName(c);
+    const meta = document.createElement("i");
+    meta.textContent = ready ? "READY" : fmtSeconds(etaSeconds(combat, c, avg));
+    const bar = document.createElement("em");
+    bar.style.width = `${Math.min(100, value)}%`;
+    row.append(label, meta, bar);
+    strip.appendChild(row);
+  }
+  panel.appendChild(strip);
 }
 
 function trackerSummary(combat) {
@@ -545,7 +693,15 @@ function renderTrackerPanel(root, combat) {
 
   const panel = document.createElement("div");
   panel.className = `atb-panel${isRunning(combat) ? " running" : " stopped"}${isPaused(combat) ? " paused" : ""}`;
-  panel.innerHTML = `<div class="atb-panel-title"><b>Active Time Battle</b><span>${trackerSummary(combat)}</span></div>`;
+  const title = document.createElement("div");
+  title.className = "atb-panel-title";
+  const titleText = document.createElement("b");
+  titleText.textContent = "Active Time Battle";
+  const summary = document.createElement("span");
+  summary.textContent = trackerSummary(combat);
+  title.append(titleText, summary);
+  panel.appendChild(title);
+  renderQueueStrip(panel, combat);
   const controls = document.createElement("div");
   controls.className = "atb-panel-controls";
 
@@ -569,12 +725,14 @@ function renderTrackerPanel(root, combat) {
 
 function renderCombatantBars(root, combat) {
   const active = activeId(combat);
+  const members = eligibleCombatants(combat);
+  const avg = averageInitiative(members);
   const ready = new Set(readyCombatants(combat).map(c => c.id));
   for (const li of root.querySelectorAll("li.combatant[data-combatant-id]")) {
     const c = combat.combatants?.get(li.dataset.combatantId);
     if (!c) continue;
     const value = atbOf(c);
-    const speed = speedFactor(c, averageInitiative(eligibleCombatants(combat)));
+    const speed = speedFactor(c, avg);
     const isActive = c.id === active;
     const isReady = ready.has(c.id) || value >= READY;
     li.classList.toggle("atb-active", isActive);
@@ -586,14 +744,21 @@ function renderCombatantBars(root, combat) {
     const meter = document.createElement("div");
     meter.className = "atb-meter";
     meter.title = `ATB ${pct(value)}% · speed ×${speed.toFixed(2)} · initiative ${c.initiative ?? "?"}`;
-    meter.innerHTML = `<span style="width:${Math.min(100, value)}%"></span><b>${value >= READY ? "READY" : `${Math.round(value)}%`}</b>`;
+    const fill = document.createElement("span");
+    fill.style.width = `${Math.min(100, value)}%`;
+    const label = document.createElement("b");
+    label.textContent = value >= READY ? "READY" : `${Math.round(value)}%`;
+    const speedPill = document.createElement("small");
+    speedPill.className = "atb-speed";
+    speedPill.textContent = `×${speed.toFixed(2)}`;
+    meter.append(fill, label, speedPill);
     const name = li.querySelector(".token-name") ?? li;
     name.appendChild(meter);
 
     const controls = li.querySelector(".combatant-controls");
     if (!controls) continue;
 
-    if (!isActive && isReady && userCanAct(c)) {
+    if (!active && !isActive && isReady && userCanAct(c)) {
       const a = document.createElement("a");
       a.dataset.atb = "activate";
       a.className = "combatant-control atb-control";
@@ -709,6 +874,17 @@ function registerSettings() {
     hint: "If enabled, other gauges pause while someone is active. Leave disabled for true active-time pressure.",
     scope: "world", config: true, type: Boolean, default: false
   });
+  game.settings.register(MODULE_ID, "trackerStyle", {
+    name: "Tracker visual style",
+    hint: "Bars = full ATB bars under each combatant; Classic = chunky Final Fantasy-style badge; Compact = thin low-noise bars.",
+    scope: "world", config: true, type: String,
+    choices: { bars: "Bars", classic: "Classic badge", compact: "Compact" }, default: "bars"
+  });
+  game.settings.register(MODULE_ID, "queuePreview", {
+    name: "Queue preview size",
+    hint: "How many upcoming or READY combatants to show in the ATB panel. Set 0 to hide the preview.",
+    scope: "world", config: true, type: Number, default: 5
+  });
   game.settings.register(MODULE_ID, "announceChat", {
     name: "Announce ATB events in chat",
     scope: "world", config: true, type: Boolean, default: true
@@ -732,18 +908,21 @@ Hooks.once("ready", () => {
   };
 
   game.socket?.on(`module.${MODULE_ID}`, data => {
-    if (!game.user.isGM) return;
+    if (!isPrimaryGM() || !data?.action) return;
     const combat = game.combats?.get(data.combatId) || game.combat;
     return gmAction(data.action, combat, data);
   });
 
   if (game.user.isGM) {
+    /* Every GM client owns a harmless interval, but only the current primary GM
+       is allowed to tick. If the first GM disconnects, the next GM takes over
+       without a reload and without double-advancing gauges. */
     TICKER = window.setInterval(tickActiveCombat, DEFAULT_TICK_MS);
   }
 });
 
 Hooks.on("combatStart", async combat => {
-  if (!game.user.isGM) return;
+  if (!isPrimaryGM()) return;
   await initializeCombatants(combat);
   await updateCombatFlags(combat, {
     running: false,
@@ -775,6 +954,8 @@ Hooks.on("renderCombatTracker", (app, html) => {
   const combat = app.viewed ?? game.combat;
   if (!combat) return;
   root.classList.add("active-time-battle");
+  root.classList.remove("atb-style-bars", "atb-style-classic", "atb-style-compact");
+  root.classList.add(`atb-style-${trackerStyle()}`);
   renderTrackerPanel(root, combat);
   renderCombatantBars(root, combat);
   showActivePrompt(combat);
@@ -784,14 +965,13 @@ Hooks.on("preUpdateCombat", (combat, changed, options) => {
   if (options?.activeTimeBattle) return true;
   if (!combat?.started || !isRunning(combat)) return true;
   if (!("turn" in changed)) return true;
-  if (!activeId(combat)) return true;
 
   const stamp = now();
   if (stamp - LAST_RENDER_WARN > 1200) {
     LAST_RENDER_WARN = stamp;
-    ui.notifications?.warn("Use the ATB Activate / End ATB Turn controls so gauges, idle strikes, and laps stay in sync.");
+    ui.notifications?.warn("ATB is running: use Activate and End ATB Turn so gauges, idle strikes, and laps stay in sync.");
   }
-  return true;
+  return false;
 });
 
 Hooks.once("shutdown", () => {

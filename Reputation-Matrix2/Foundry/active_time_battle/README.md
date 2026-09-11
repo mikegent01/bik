@@ -6,8 +6,9 @@ current turn" problem with visible ATB gauges: combatants become **READY** as
 real time passes, initiative changes how fast the gauge fills, and idle actors
 are delayed or put on Guard so the rest of the fight continues.
 
-Copy this folder to `FoundryVTT/Data/modules/active_time_battle/`, restart
-Foundry, enable **Active Time Battle**, and open the Combat Tracker.
+Copy this folder as `FoundryVTT/Data/modules/active-time-battle/` (matching the
+manifest id), restart Foundry, enable **Active Time Battle**, and open the Combat
+Tracker.
 
 ---
 
@@ -74,6 +75,8 @@ For a table that wants pressure without panic:
 | Timeout result | `Delay, then Guard` | Forgiving once, firm after repeated idle. |
 | Delay fallback percent | `72` | The actor comes back soon, but loses the immediate spotlight. |
 | READY overflow cap | `60` | Waiting helps priority, but cannot stockpile infinite turns. |
+| Tracker visual style | `Bars` | Most readable; switch to Classic badge if you want old-school ATB. |
+| Queue preview size | `5` | Shows who is READY / almost READY at a glance. |
 | Wait mode | Off | Other people keep charging while the active actor acts. |
 
 If you have very fast automation, lower the spotlight timer to `45–60` seconds.
@@ -101,6 +104,43 @@ Per-combatant controls:
   the actor owner.
 
 The meter tooltip shows ATB percent, speed multiplier, and initiative value.
+
+---
+
+## Visual styles
+
+The setting **Tracker visual style** gives three table looks:
+
+| Style | Use when | What it looks like |
+|---|---|---|
+| **Bars** | Default / easiest to read | Full-width ATB bars under each combatant with READY/percent text and speed multiplier. |
+| **Classic badge** | You want an old-school ATB feel | A chunky right-side capsule, closer to classic Final Fantasy battle UI. |
+| **Compact** | Large NPC fights | Thin low-noise bars plus a two-column queue preview. |
+
+The panel also has a **queue preview**. It shows the next few READY or almost-ready
+combatants with tiny progress fills and ETA labels. READY chips owned by the
+viewer are clickable, so an attentive player can activate from the top of the
+tracker without hunting through the list.
+
+---
+
+## Bug-hunt / safety notes added after the first pass
+
+- Multiple GM clients no longer double-tick the clock. Every GM has a harmless
+  interval, but only the current primary GM writes gauge updates; if that GM
+  disconnects, the next active GM takes over.
+- Player socket requests are re-authorized on the GM side. Non-GM users can only
+  activate/end turns for combatants they own; they cannot force early activation,
+  end another combatant's active turn, or use GM-only controls.
+- A READY actor cannot overwrite someone else's active spotlight; the current ATB
+  turn must be ended or timed out first.
+- Native Foundry next-turn changes are blocked while ATB is running. Use
+  **Activate** and **End ATB Turn** so gauges, idle strikes, and ATB laps stay
+  correct.
+- Actor/combatant names are inserted into tracker UI as text nodes and escaped
+  in chat/dialog HTML.
+- The combat tracker panel is built with DOM nodes instead of string-building for
+  user-facing names.
 
 ---
 

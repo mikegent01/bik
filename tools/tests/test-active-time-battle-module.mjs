@@ -37,7 +37,8 @@ const readme = fs.readFileSync(readmePath, 'utf8');
 for (const setting of [
   'baseReadySeconds', 'initiativeSpeedWeight', 'initiativeOpeningWeight',
   'openingReadiness', 'autoActivate', 'readyGraceSeconds', 'actionSeconds',
-  'timeoutMode', 'delayPercent', 'strikesToGuard', 'overflowCap', 'waitMode'
+  'timeoutMode', 'delayPercent', 'strikesToGuard', 'overflowCap', 'waitMode',
+  'trackerStyle', 'queuePreview'
 ]) {
   check(`setting ${setting} is registered`, js.includes(`"${setting}"`));
 }
@@ -46,11 +47,22 @@ check('initiative changes fill speed', /initiativeOf\(combatant\).*avg/.test(js)
 check('initiative changes opening readiness', js.includes('openingAtb') && js.includes('initiativeOpeningWeight'));
 check('READY queue sorts by overflow and initiative', js.includes('readyCombatants') && js.includes('overflow') && js.includes('initiativeOf(b) - initiativeOf(a)'));
 check('players request GM-side actions by socket', js.includes('game.socket?.emit') && js.includes('game.socket?.on'));
+check('player socket actions are re-authorized by the GM', js.includes('function canRequestAction') && js.includes('rejected unauthorized') && js.includes('userCanAct(combatant, user)'));
+check('players cannot force early activation or end others turns', js.includes('{ ...data, force: false }') && js.includes('id !== activeId(combat)'));
+check('a ready actor cannot overwrite an active spotlight', js.includes('Another combatant is already active') && js.includes('!busy && ready && userCanAct(c)'));
+check('only one active GM mutates ATB state', js.includes('function isPrimaryGM') && js.includes('activeGMs') && js.includes('tickActiveCombat'));
+check('manual turn changes are blocked while ATB is running', js.includes('preUpdateCombat') && js.includes('use Activate and End ATB Turn'));
+check('rolling missing initiative does not reset a running fight', js.includes('do not reset the') && js.includes('Math.max(atbOf(c), openingAtb(c, avg))'));
+check('combatant names are escaped before HTML output', js.includes('function escapeHtml') && js.includes('escapeHtml(combatantName'));
+check('queue preview renders upcoming combatants', js.includes('function renderQueueStrip') && js.includes('queueCombatants') && css.includes('.atb-queue-chip'));
 check('idle timeouts can delay', js.includes('delayPercent') && js.includes('timed out and delays'));
 check('idle timeouts can guard', js.includes('Guard / Dodge') && js.includes('lastActedRound'));
 check('rounds advance as ATB laps', js.includes('advanceRoundIfComplete') && js.includes('ATB lap'));
 check('tracker shows ATB meters', css.includes('.atb-meter') && css.includes('atb-ready') && css.includes('atb-active'));
+check('tracker has bar, classic, and compact styles', css.includes('atb-style-bars') && css.includes('atb-style-classic') && css.includes('atb-style-compact'));
 check('README explains the inactivity solution', /YouTube/.test(readme) && /being absent does not freeze the table/.test(readme));
+check('README install folder matches module id', readme.includes('Data/modules/active-time-battle'));
+check('README documents visual styles and queue preview', /Visual styles/.test(readme) && /Classic badge/.test(readme) && /queue preview/.test(readme));
 
 console.log(`\n${ok.length} passed, ${fail.length} failed`);
 ok.forEach(l => console.log('  ok   ' + l));
