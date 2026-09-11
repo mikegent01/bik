@@ -1,0 +1,10 @@
+{
+  "id": "team-initiative",
+  "title": "Team Initiative",
+  "description": "Team-based initiative by token disposition with team choice UI.",
+  "version": "2.1.0",
+  "authors": [{ "name": "Your Name" }],
+  "esmodules": ["scripts/team-initiative.js"],
+  "styles": ["styles/team-initiative.css"],
+  "compatibility": { "minimum": "12", "verified": "13" }
+}
