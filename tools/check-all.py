@@ -68,6 +68,7 @@ def main() -> int:
 
     if shutil.which("node"):
         checks.append(("Bros discovery test", ["node", "tools/tests/test_bros_discovery.mjs"], RM))
+        checks.append(("Foundry ATB module", ["node", "tools/tests/test-active-time-battle-module.mjs"], ROOT))
         # Search quality: pure functions extracted from index.html, run against
         # the real data. No server needed, unlike the live jsdom counterpart
         # (tools/tests/test-search-live.mjs, which needs :8765).

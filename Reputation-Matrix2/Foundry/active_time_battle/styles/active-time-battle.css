@@ -1,0 +1,140 @@
+.active-time-battle {
+  --atb-ready: #5eead4;
+  --atb-fill: #8ab4ff;
+  --atb-active: #ffd75e;
+  --atb-idle: #f87171;
+  --atb-bg: rgba(7, 12, 24, 0.72);
+  --atb-line: rgba(160, 184, 224, 0.35);
+}
+
+.active-time-battle .atb-panel {
+  margin: 6px 8px;
+  padding: 8px;
+  border: 1px solid var(--atb-line);
+  border-radius: 8px;
+  background: linear-gradient(135deg, rgba(8, 16, 32, 0.92), rgba(21, 24, 42, 0.78));
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.04);
+}
+
+.active-time-battle .atb-panel.paused {
+  filter: grayscale(.35);
+  opacity: .82;
+}
+
+.active-time-battle .atb-panel-title {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  align-items: center;
+  font-size: 12px;
+  line-height: 1.25;
+}
+
+.active-time-battle .atb-panel-title b {
+  color: var(--atb-ready);
+  text-transform: uppercase;
+  letter-spacing: .06em;
+}
+
+.active-time-battle .atb-panel-title span {
+  text-align: right;
+  color: #d9e7ff;
+  opacity: .9;
+}
+
+.active-time-battle .atb-panel-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 7px;
+}
+
+.active-time-battle .atb-panel-controls button {
+  flex: 1 1 auto;
+  border: 1px solid rgba(138,180,255,.45);
+  border-radius: 6px;
+  padding: 4px 6px;
+  background: rgba(27, 45, 76, .85);
+  color: #eaf2ff;
+  font: 700 11px var(--font-primary, sans-serif);
+  cursor: pointer;
+}
+
+.active-time-battle .atb-panel-controls button:hover {
+  border-color: var(--atb-ready);
+  background: rgba(24, 79, 91, .9);
+}
+
+.active-time-battle li.combatant {
+  position: relative;
+}
+
+.active-time-battle li.combatant.atb-ready {
+  box-shadow: inset 3px 0 0 var(--atb-ready), inset 0 0 18px rgba(94,234,212,.12);
+}
+
+.active-time-battle li.combatant.atb-active {
+  box-shadow: inset 4px 0 0 var(--atb-active), inset 0 0 22px rgba(255,215,94,.16);
+  background: rgba(255, 215, 94, .08);
+}
+
+.active-time-battle li.combatant.atb-waiting {
+  box-shadow: inset 2px 0 0 rgba(138,180,255,.45);
+}
+
+.active-time-battle .atb-meter {
+  position: relative;
+  display: block;
+  height: 8px;
+  margin: 4px 0 1px;
+  border: 1px solid rgba(255,255,255,.18);
+  border-radius: 999px;
+  overflow: hidden;
+  background: rgba(0,0,0,.38);
+}
+
+.active-time-battle .atb-meter span {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 0;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--atb-fill), var(--atb-ready));
+  box-shadow: 0 0 9px rgba(94,234,212,.45);
+}
+
+.active-time-battle li.atb-active .atb-meter span {
+  background: linear-gradient(90deg, #fbbf24, var(--atb-active));
+}
+
+.active-time-battle li.atb-ready .atb-meter span {
+  background: linear-gradient(90deg, #34d399, var(--atb-ready));
+  animation: atbPulse 1.2s ease-in-out infinite alternate;
+}
+
+.active-time-battle .atb-meter b {
+  position: absolute;
+  inset: -1px 4px 0 auto;
+  z-index: 1;
+  color: #fff;
+  font-size: 8px;
+  line-height: 8px;
+  text-shadow: 0 1px 2px #000;
+  pointer-events: none;
+}
+
+.active-time-battle a.atb-control[data-atb="activate"] {
+  color: var(--atb-ready);
+}
+
+.active-time-battle a.atb-control[data-atb="end"] {
+  color: var(--atb-active);
+}
+
+.atb-active-dialog p {
+  margin: 0 0 8px;
+}
+
+@keyframes atbPulse {
+  from { filter: brightness(1); }
+  to { filter: brightness(1.45); }
+}

@@ -1,0 +1,26 @@
+{
+  "id": "active-time-battle",
+  "title": "Active Time Battle",
+  "description": "Real-time ATB gauges for Foundry combat: initiative affects refill speed, ready actors auto-activate, and idle turns delay or guard so the table keeps moving.",
+  "version": "1.0.0",
+  "authors": [
+    { "name": "Waluipedia" }
+  ],
+  "esmodules": [
+    "scripts/active-time-battle.js"
+  ],
+  "styles": [
+    "styles/active-time-battle.css"
+  ],
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
+    }
+  ],
+  "compatibility": {
+    "minimum": "12",
+    "verified": "13"
+  }
+}
