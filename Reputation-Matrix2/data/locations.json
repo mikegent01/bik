@@ -3178,22 +3178,24 @@
     "controllingFaction": "bowser",
     "population": "Garrisoned — Koopa troops; exact strength unfiled",
     "climate": "Volcanic; contained",
-    "status": "Standing; entrance wall breached on the night of 18 Harvestide, 1035 BF",
-    "summary": "The smaller of Bowser's known holdings: a walled volcanic annex inside the Mushroom Kingdom itself, run up through a warp-pipe riser to a lava bridge on the second floor, and drained below by a lava lake, a lava falls, and a calm moat at ground level. Waluigi ranks its hospitality below its parent castle's, which he did not think was physically possible.",
-    "description": "Waluigi had always assumed Bowser kept one address per kingdom out of vanity. The Mushroom Compound corrected him: a smaller fortification on Mushroom soil, close enough to the backroads that a man can drive to it in an evening and strange enough inside that the drive feels like the last normal thing that happened to him. The gate carries a security window and a guard with a button. The button opens the gate. Past it, a warp pipe rises to the second floor, where a stone bridge crosses open lava to a far ledge that holds exactly one furnishing: an axe in the stone, waiting for someone with a grievance and no plan. Below, the lava lake runs to a falls and spills out past the walls into a calm shore moat at ground level — the compound drains its own disasters outward, which is more than can be said for its owner. Neo Bowser City, by the guard's own account, is elsewhere, larger, and meaner; this place is the annex, and on the night of 18 Harvestide, 1035 BF, its entrance wall was burst open from the inside by a smiling man in blue overalls.",
+    "status": "Standing; entrance wall breached and lava-moat tunnel search filed after 18 Harvestide, 1035 BF",
+    "summary": "The smaller of Bowser's known holdings: a walled volcanic annex inside the Mushroom Kingdom itself, run up through a warp-pipe riser to a lava bridge on the second floor, and drained below by a lava lake, a lava falls, and a calm moat at ground level. Waluigi ranks its hospitality below its parent castle's, which he did not think was physically possible. The later Garden Above the Fire search confirms the outflow and tunnel system did not just drain the compound; it hid Luigi long enough for the rescue to reach him.",
+    "description": "Waluigi had always assumed Bowser kept one address per kingdom out of vanity. The Mushroom Compound corrected him: a smaller fortification on Mushroom soil, close enough to the backroads that a man can drive to it in an evening and strange enough inside that the drive feels like the last normal thing that happened to him. The gate carries a security window and a guard with a button. The button opens the gate. Past it, a warp pipe rises to the second floor, where a stone bridge crosses open lava to a far ledge that holds exactly one furnishing: an axe in the stone, waiting for someone with a grievance and no plan. Below, the lava lake runs to a falls and spills out past the walls into a calm shore moat at ground level — the compound drains its own disasters outward, which is more than can be said for its owner. Neo Bowser City, by the guard's own account, is elsewhere, larger, and meaner; this place is the annex, and on the night of 18 Harvestide, 1035 BF, its entrance wall was burst open from the inside by a smiling man in blue overalls.\n\n## The Lava-Moat Search\n\nThe lava bridge file left the compound owing the archive a search of the outflow. The Garden Above the Fire pays that debt: Wario's crew returned to the moat, took Kat and Ana's high-rock sighting seriously, and found Luigi alive in the volcanic tunnels beyond the falls. That search changes the compound from ambush site to rescue site too — the same drainage that nearly erased the truth preserved just enough of it to be found.",
     "notableFeatures": [
       "Gatehouse security window and the guard's button",
       "Warp-pipe riser to the second floor",
       "The lava bridge and its bridge axe",
       "Lava lake and lava falls below",
       "Calm-shore moat at ground level, outside the walls",
-      "Entrance wall breach (18 Harvestide, 1035 BF)"
+      "Entrance wall breach (18 Harvestide, 1035 BF)",
+      "Volcanic tunnel refuge where Luigi was found alive after the lava-falls drop"
     ],
     "relatedArticles": [
       "bowser",
       "bowsers_castle",
       "the_embassy_ambush_and_luigi_interrogation",
-      "the_lava_bridge_ambush_and_the_blue_luigi"
+      "the_lava_bridge_ambush_and_the_blue_luigi",
+      "the_garden_above_the_fire"
     ],
     "plane": "material",
     "planeConfidence": "medium",
@@ -3225,7 +3227,10 @@
       "wario",
       "mona",
       "ashley",
-      "jimmy_t"
+      "jimmy_t",
+      "dr_toad",
+      "kat",
+      "ana"
     ],
     "plane": "material",
     "planeConfidence": "high",
