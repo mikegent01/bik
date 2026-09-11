@@ -738,6 +738,30 @@
         "reaction": "resolve",
         "comments": [],
         "status": "posted"
-      }
+      },
+    {
+      "id": "wahwire_garden_above_fire_superstars",
+      "author": "waluigi",
+      "order": 23,
+      "date": null,
+      "timestamp": "19 Harvestide, 1035 BF — after Dr. Toad finished the bandages",
+      "content": "Luigi is alive. Burned, bandaged, banned from adventuring by a doctor actually named Dr. Toad, and still asking the one question Mario should have answered. I answered it. We are still superstars. The note says the star is not lost and to find the garden above the fire. Waluigi hates riddles that are also medical emergencies. WAH.",
+      "likes": 0,
+      "links": [
+        {
+          "id": "the_garden_above_the_fire",
+          "type": "event"
+        }
+      ],
+      "tags": [
+        "luigi",
+        "superstars",
+        "mario",
+        "garden above fire"
+      ],
+      "reaction": "relief",
+      "comments": [],
+      "status": "posted"
+    }
   ]
 }

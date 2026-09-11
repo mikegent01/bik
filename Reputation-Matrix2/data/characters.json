@@ -5420,5 +5420,73 @@
       "luigi",
       "the_lava_bridge_ambush_and_the_blue_luigi"
     ]
+  },
+  {
+    "id": "kat",
+    "name": "Kat",
+    "title": "The Ninja Twin Who Followed Anyway",
+    "race": "Human",
+    "status": "Active — found near Bowser's lava moat after following the rescue party without being assigned",
+    "affiliation": "WarioWare Crew / Kat & Ana",
+    "summary": "One of the WarioWare ninja twins. Kat was not part of the compound mission and followed anyway, which Wario called idiotic right up until she reported seeing Luigi alive, burned, limping, and repeating 'find them.'",
+    "description": "Kat enters the compound-night file from above the lava, which is exactly how Waluigi expects ninjas to enter files he did not ask them to join. She and Ana followed because their friends ran into danger; Wario yelled because that is his love language when someone makes the correct stupid decision before he approves it. Kat's useful contribution was immediate and decisive: she had seen Luigi alive, had seen the burns, and could point the searchers toward the east passage before the trail cooled.",
+    "keyEvents": [
+      "the_garden_above_the_fire"
+    ],
+    "relatedArticles": [
+      "the_garden_above_the_fire",
+      "the_lava_bridge_ambush_and_the_blue_luigi",
+      "ana",
+      "wario",
+      "waluigi",
+      "luigi",
+      "ashley",
+      "mona",
+      "jimmy_t"
+    ]
+  },
+  {
+    "id": "ana",
+    "name": "Ana",
+    "title": "The Ninja Twin Who Saw the Burns",
+    "race": "Human",
+    "status": "Active — confirmed Luigi's face was unburned and that he kept repeating 'find them'",
+    "affiliation": "WarioWare Crew / Kat & Ana",
+    "summary": "One of the WarioWare ninja twins. Ana followed the rescue party with Kat, helped confirm Luigi was alive, and supplied the detail Waluigi needed most before he admitted needing it: Luigi's face had not been burned.",
+    "description": "Ana's witness statement is short and therefore useful. She saw Luigi moving, saw burns on his arms and legs, and noticed that his face was clear. Waluigi objects to children, teenagers, ninjas, or any combination thereof following him into lava territory. Waluigi also concedes that without Ana's answer, the search would have lost minutes to panic it did not have.",
+    "keyEvents": [
+      "the_garden_above_the_fire"
+    ],
+    "relatedArticles": [
+      "the_garden_above_the_fire",
+      "the_lava_bridge_ambush_and_the_blue_luigi",
+      "kat",
+      "wario",
+      "waluigi",
+      "luigi",
+      "ashley",
+      "mona",
+      "jimmy_t"
+    ]
+  },
+  {
+    "id": "dr_toad",
+    "name": "Dr. Toad",
+    "title": "The Star Hill Physician With the Least Suspicious Name Possible",
+    "race": "Toad",
+    "status": "Active — treated Luigi after the compound rescue and ordered two weeks of rest",
+    "affiliation": "Dr. Toad's Star Hill Clinic / Mushroom Kingdom medicine",
+    "summary": "A Star Hill doctor who treated Luigi's burns after the lava-falls rescue, diagnosed pain-and-exhaustion delirium, and prescribed clean dressings, fluids, rest, and no adventuring. Waluigi remains suspicious of the name but not the treatment.",
+    "description": "Dr. Toad is, according to Dr. Toad, actually named Dr. Toad. Waluigi asked because somebody had to. The doctor treated Luigi's arm and leg burns as serious but survivable, identified confusion and trauma signs without forcing the Mario question open, and left the room quickly once he understood that the word brother was now a surgical instrument. This file credits him for competent care and an excellent instinct for retreat.",
+    "keyEvents": [
+      "the_garden_above_the_fire"
+    ],
+    "relatedArticles": [
+      "the_garden_above_the_fire",
+      "dr_toads_star_hill_clinic",
+      "luigi",
+      "waluigi",
+      "wario"
+    ]
   }
 ]

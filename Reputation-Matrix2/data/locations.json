@@ -3198,5 +3198,37 @@
     "plane": "material",
     "planeConfidence": "medium",
     "planeClue": "no planar markers — Material by default"
+  },
+  {
+    "id": "dr_toads_star_hill_clinic",
+    "name": "Dr. Toad's Star Hill Clinic",
+    "type": "Location/Clinic / Emergency Rest Stop",
+    "region": "Star Hill, Mushroom Kingdom",
+    "controllingFaction": "Independent medical practice under Mushroom Kingdom civil protection",
+    "population": "Small staff, anxious patients, and at least one doctor who insists Dr. Toad is his real name",
+    "climate": "Cool hill air outside; lamplight, clean dressings, and antiseptic inside",
+    "status": "Active — treated Luigi after the compound lava-falls rescue, 18 Harvestide, 1035 BF",
+    "summary": "A small Star Hill clinic where Wario's crew carried Luigi after recovering him from Bowser's lava outflow. Dr. Toad diagnosed serious but treatable burns, possible trauma delirium, and a strict ban on adventuring that Luigi immediately looked offended by.",
+    "description": "Dr. Toad's clinic sits close enough to the Star Hill roads that a group can reach it from the volcanic passages while still smelling of sulfur. The place is not a hospital palace; it is a practical night clinic — white sheets, glass bottles, clean bandages, a front desk that can panic at the sight of Wario carrying a limp plumber, and a physician cheerful enough to survive Waluigi asking if his name is actually Dr. Toad. On the night of 18 Harvestide, 1035 BF, it became the first quiet room after Bowser's compound: Luigi on the table, Wario blocking the doorway, Mona explaining too fast, Ashley hovering through an open window, and Waluigi pretending not to stand guard.",
+    "notableFeatures": [
+      "Front desk with a regrettably loud triage Toad",
+      "Emergency table where Luigi was treated for second-degree burns",
+      "Clean dressings and Mushroom Kingdom burn salves",
+      "Window used by Ashley rather than the door, because of course",
+      "The first room after the rescue where nobody was standing over lava"
+    ],
+    "relatedArticles": [
+      "the_garden_above_the_fire",
+      "the_lava_bridge_ambush_and_the_blue_luigi",
+      "luigi",
+      "waluigi",
+      "wario",
+      "mona",
+      "ashley",
+      "jimmy_t"
+    ],
+    "plane": "material",
+    "planeConfidence": "high",
+    "planeClue": "Star Hill is a Mushroom Kingdom location on the Material clock"
   }
 ]

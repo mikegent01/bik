@@ -3688,7 +3688,7 @@
         "mario_disappearance"
       ],
       "opened": "4 Aethel, 1040 BF",
-      "lastFiled": "5 Aethel, 1040 BF — amended (full account received, same-day evening); second amendment, night (1035 compound session filed: Mario confirmed alive in 1035, courier’s note unrecovered, Luigi missing)",
+      "lastFiled": "5 Aethel, 1040 BF — amended again (1035 clinic sequel filed: Luigi recovered, note wording recalled, garden lead opened)",
       "archivist": "Waluigi, Auditor-General",
       "icon": "🔥",
       "accent": "#c46b32",
@@ -3787,6 +3787,12 @@
           "title": "Two notes, two stagings, five years apart",
           "state": "open",
           "text": "The charred note was burned decoratively and left to be found; the courier's note was folded once, smoke-darkened, delivered by hand at midnight, and read exactly once before vanishing with its reader. Different staging, same signature move: the paper arrives exactly where the auditor is standing, and the auditor never gets to keep it.\n\n**In plain terms:** somebody has been mailing Waluigi the truth in envelopes that dissolve, since 1035."
+        },
+        {
+          "id": "th_garden_above_fire",
+          "title": "A garden above fire is a place until it proves it is a metaphor",
+          "state": "open",
+          "text": "Luigi's recalled note turns the compound-night file from a missing-person search into a destination search. 'The star is not lost' points away from death; 'the garden above the fire' points upward from a heat source. The line could be Star Hill, a chamber above Bowser's lava systems, a castle greenhouse, or bait written by someone who knows exactly which phrases make burned brothers run.\n\n**In plain terms:** the next arc has a route phrase, not a map. Treat it like a trap that may still be saving someone."
         }
       ],
       "leads": [
@@ -3849,12 +3855,13 @@
         {
           "id": "lead_read_cape_note",
           "title": "Recover the courier's note — or its sole reader",
-          "state": "open",
+          "state": "closed",
           "priority": "critical",
-          "objective": "Recover the courier's note, or recover Luigi, and file the first actual reading of the only paper that ever turned a pursuit around mid-stride.",
-          "why": "The note is the only object in this file that changed a decision in real time: Luigi read it and abandoned a rescue. Whatever it says outranks every other paper here, and no copy exists.",
+          "objective": "Recovered by proxy: Luigi survived and supplied the note's first known wording. Original paper still unrecovered.",
+          "why": "The note is the only object in this file that changed a decision in real time: Luigi read it and abandoned a rescue. Whatever it says outranks every other paper here, and no copy exists. Closed by s_garden_above_fire: the reader was recovered and the line was filed; the physical paper remains a separate custody problem.",
           "exhibits": [
-            "ex_cape_note"
+            "ex_cape_note",
+            "ex_garden_above_fire_note"
           ]
         },
         {
@@ -3865,6 +3872,18 @@
           "objective": "Trace Wario's extraction route from the compound: where was Mario taken after the abduction, and who ordered the cell?",
           "why": "The crew confessed the kidnapping on the record and named no destination. A living Mario was moved on 18 Harvestide 1035 and the file holds no arrival. Somewhere there is a cell with a history, and a ledger with a gap shaped exactly like a plumber.",
           "exhibits": []
+        },
+        {
+          "id": "lead_find_garden_above_fire",
+          "title": "Find the garden above the fire",
+          "state": "open",
+          "priority": "critical",
+          "objective": "Identify and search every plausible 'garden above the fire' tied to the compound, Bowser's castle, Star Hill, or Mario's route; prioritize sites physically above lava or heat with living growth, stars, or maintained gardens.",
+          "why": "The recovered note text is the only instruction known to have changed Luigi's course during the compound night. The rescue closed the missing-reader problem and opened a destination problem; if the sentence was aid, someone is waiting there, and if it was bait, someone expected the party to follow it after Luigi survived.",
+          "exhibits": [
+            "ex_garden_above_fire_note",
+            "ex_dr_toad_clinic_chart"
+          ]
         }
       ],
       "sessions": [
@@ -3891,6 +3910,12 @@
           "label": "The compound night — Mario confirmed alive, Luigi lost past the falls",
           "date": "18 Harvestide, 1035 BF",
           "event": "the_lava_bridge_ambush_and_the_blue_luigi"
+        },
+        {
+          "id": "s_garden_above_fire",
+          "label": "The garden above the fire — Luigi recovered and the note recalled",
+          "date": "18 Harvestide, 1035 BF",
+          "event": "the_garden_above_the_fire"
         }
       ],
       "relatedEvents": [
@@ -3899,7 +3924,8 @@
         "star_fountain_reunion",
         "the_embassy_ambush_and_luigi_interrogation",
         "promo_mario_newspaper",
-        "the_lava_bridge_ambush_and_the_blue_luigi"
+        "the_lava_bridge_ambush_and_the_blue_luigi",
+        "the_garden_above_the_fire"
       ],
       "exhibits": [
         {
@@ -4057,6 +4083,62 @@
             "characters": [
               "waluigi",
               "wario"
+            ]
+          }
+        },
+        {
+          "id": "ex_garden_above_fire_note",
+          "propId": "prop_courier_note_garden_above_fire",
+          "session": "s_garden_above_fire",
+          "icon": "✉️",
+          "kind": "note",
+          "category": "discovery",
+          "title": "The note's first recovered sentence",
+          "secured": "18 Harvestide 1035 — recalled by Luigi at Star Hill after rescue; original still unrecovered",
+          "custody": "Archive transcription only; no paper, no handwriting, no courier, one injured reader",
+          "visual": "<div role=\"img\" aria-label=\"Folded note over orange glow\" style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:linear-gradient(180deg,rgba(18,10,8,.98),rgba(72,26,6,.95));border:1px solid rgba(255,180,80,.32)\"><div style=\"position:absolute;left:31%;right:31%;top:24px;height:64px;background:linear-gradient(180deg,#d8c995,#aa9460);box-shadow:0 0 0 2px rgba(0,0,0,.3) inset;transform:rotate(-3deg)\"></div><div style=\"position:absolute;left:22%;right:22%;bottom:18px;height:12px;border-radius:50%;background:radial-gradient(ellipse,rgba(255,117,24,.75),rgba(255,117,24,0))\"></div><div style=\"position:absolute;left:0;right:0;bottom:6px;text-align:center;font-size:10px;letter-spacing:.14em;font-weight:800;color:#ffd28a\">GARDEN ABOVE FIRE · TEXT ONLY</div></div>",
+          "onRecord": "Luigi, burned and intermittently delirious but responsive, recalled the note as: 'The star is not lost. Find the garden above the fire.' The original note remains missing; this exhibit records the reading, not the document.",
+          "dc": 5,
+          "analysis": "## The old tag is now incomplete, not wrong\n\nThe earlier exhibit said the note was unread by the archive. That was true then. Luigi's rescue changes the state of the file: the note has a remembered sentence, but still no paper, no hand, and no route. [[roll:3|separate text recovery from document custody|the archive has gained words without gaining the object, so handwriting, fold marks, ink, and delivery trace remain unavailable|a remembered exact phrase from the sole reader may be enough for field action even without custody]].\n\n## The first half denies death\n\n'The star is not lost' is not a location. It is reassurance. It tells Luigi that someone or something he believed gone can still be found. The easiest reading is Mario; the dangerous reading is that someone knows Luigi will hear Mario in the word star and move before asking who wrote it. [[roll:5|the line is written for Luigi's emotional wound|it answers loss before giving directions, which means the writer expected grief to be the obstacle, not geography|stars are common Mushroom Kingdom imagery, and the wording may be ordinary poetic encouragement]].\n\n## The second half gives the next door\n\n'Garden above the fire' is a route phrase with two axes: growth and heat, up and down. Bowser's compound has fire below but no filed garden above it; Star Hill has stars and high ground but no filed fire below it; Bowser's castle may have both if one counts greenhouses over lava systems, and Waluigi resents that this sentence makes Bowser's interior design relevant. [[roll:6|start with places that physically satisfy both nouns|the courier chose concrete words under crisis conditions; concrete words usually beat metaphors in rescue notes|a manipulator may deliberately choose concrete bait because investigators over-trust nouns they can map]].",
+          "links": {
+            "events": [
+              "the_garden_above_the_fire",
+              "the_lava_bridge_ambush_and_the_blue_luigi",
+              "charred_note_at_waluigis_door"
+            ],
+            "characters": [
+              "waluigi",
+              "luigi",
+              "mario"
+            ]
+          }
+        },
+        {
+          "id": "ex_dr_toad_clinic_chart",
+          "propId": "prop_dr_toad_luigi_burn_chart",
+          "session": "s_garden_above_fire",
+          "icon": "🩺",
+          "kind": "note",
+          "category": "medical",
+          "title": "The chart that closes the rescue phase",
+          "secured": "18 Harvestide 1035 — Dr. Toad's Star Hill Clinic",
+          "custody": "Clinic copy; archive transcription filed with Waluigi margin",
+          "visual": "<div role=\"img\" aria-label=\"Clinic chart and bandage\" style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:linear-gradient(135deg,rgba(235,245,255,.95),rgba(185,215,230,.92));border:1px solid rgba(80,120,150,.38)\"><div style=\"position:absolute;left:18%;right:18%;top:18px;bottom:18px;background:rgba(255,255,255,.82);box-shadow:0 0 0 2px rgba(70,110,140,.18) inset\"></div><div style=\"position:absolute;left:25%;right:25%;top:34px;height:8px;background:#7aa7c7\"></div><div style=\"position:absolute;left:25%;right:37%;top:54px;height:6px;background:#c7d7e1\"></div><div style=\"position:absolute;left:25%;right:30%;top:69px;height:6px;background:#c7d7e1\"></div><div style=\"position:absolute;right:22%;bottom:22px;width:42px;height:14px;border-radius:999px;background:repeating-linear-gradient(45deg,#fff,#fff 5px,#e4d2c4 5px,#e4d2c4 10px);transform:rotate(-12deg)\"></div><div style=\"position:absolute;left:0;right:0;bottom:5px;text-align:center;font-size:10px;letter-spacing:.14em;font-weight:800;color:#4e758c\">NO ADVENTURING · UNDERLINED</div></div>",
+          "onRecord": "Dr. Toad records serious but treatable burns, mostly second-degree, with confusion plausibly caused by pain, heat exposure, shock, and exhaustion. Face unburned. Rest ordered for two weeks.",
+          "dc": 3,
+          "analysis": "## Why the chart matters to a disappearance file\n\nA medical chart is not usually a clue, which is why it is useful here. It establishes Luigi alive, responsive, injured in a way consistent with the falls, and not merely performing a disappearance. [[roll:3|the rescue phase has a clinical endpoint|the chart converts found-in-a-tunnel into treated-at-a-clinic, closing the immediate search objective with a dated body and diagnosis|a clinic chart proves condition at arrival, not what happened before arrival]].\n\n## Delirium cuts both ways\n\nThe chart warns that pain and exhaustion can scramble speech. That weakens the note reading if the reader wants certainty, but strengthens the superstars scene if the reader wants truth: delirium does not invent the name Mario from nothing in a room full of rivals. [[roll:4|the question exposes the wound even if the route phrase is imperfect|Luigi addresses someone absent and asks whether the bond still exists; that is not a tactical report, it is the injury underneath the burns|trauma speech can braid memory, fear, and present faces until no single target can be proved]].",
+          "links": {
+            "events": [
+              "the_garden_above_the_fire"
+            ],
+            "characters": [
+              "luigi",
+              "waluigi",
+              "wario",
+              "dr_toad"
+            ],
+            "locations": [
+              "dr_toads_star_hill_clinic"
             ]
           }
         }
