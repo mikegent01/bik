@@ -14,10 +14,11 @@ They come in three flavours:
   that flags three things can be finished. Read the output, re-read the prose,
   then decide.
 - **Committed and advisory** — the readability audit,
-  `tools/check-readability.py`. It lives in `tools/` because every new filing
-  should pass through it on the way in, but its flags stay judgement calls,
-  and the same warning applies: it cannot tell whether the prose is good —
-  only what its rhythm is made of.
+  `tools/check-readability.py`, and the living-article growth checker,
+  `tools/check-story-growth.py <id>`. They live in `tools/` because every new
+  filing should pass through them on the way in, but their flags stay judgement
+  calls: one measures rhythm, the other lists related/arc pages that may need
+  useful edits.
 - **Committed and strict** — `tools/check-exhibits.py`,
   `tools/check-investigations.py` and `tools/check-rolls.py` ask questions with
   right answers — does this class exist, does this id resolve, can a reader
@@ -32,6 +33,7 @@ shortened to hit a band.
 | [Event audit](#event-audit) | `Reputation-Matrix2/data/events.json` | [`STORY_FORMAT_GUIDE.md`](STORY_FORMAT_GUIDE.md) | Advisory |
 | [What-If audit](#what-if-audit) | `Reputation-Matrix2/data/whatifs.json` (`doc['whatifs']`) | [`WHATIF_FORMAT_GUIDE.md`](WHATIF_FORMAT_GUIDE.md) | Advisory |
 | [Readability audit](#readability-audit) | filings in `events.json`, `whatifs.json`, `articleAnalyses.json`; any draft file | Every craft guide | Advisory (`--strict` optional) |
+| [Living-article growth check](#living-article-growth-check) | related pages, participants, arc/investigation files | [`STORY_FORMAT_GUIDE.md` §9F](STORY_FORMAT_GUIDE.md#9f-living-article-growth-self-check--old-pages-grow-when-new-canon-changes-them) | Advisory; fails unresolved direct ids |
 | [Exhibit audit](#exhibit-audit) | `props.json`, `exhibits.css`, `index.html` | [`SESSION_FILING_PROCESS.md`](SESSION_FILING_PROCESS.md#step-6--exhibits-file-the-paper-the-story-mentions) | **Pass/fail** |
 | [Investigation audit](#investigation-audit) | `investigations.json`, `props.json`, `investigations.css`, `index.html` | [`INVESTIGATIONS.md`](INVESTIGATIONS.md) | **Pass/fail** |
 | [Roll registry audit](#roll-registry-audit) | `rolls.json`, `props.json`, `investigations.json`, `index.html` | [`INVESTIGATIONS.md`](INVESTIGATIONS.md#rolls-inside-the-document--datarollsjson) | **Pass/fail** |
@@ -314,6 +316,58 @@ third of the "X is not Y, it is Z" reversals cut so the survivors keep their
 weight. If a filing is kept as-is after review, record the ruling in the PR
 and move on. The checker makes rhythm a conscious choice; it does not flatten
 it.
+
+---
+
+## Living-article growth check
+
+```bash
+python3 tools/check-story-growth.py <new_event_or_article_id>
+python3 tools/check-story-growth.py --latest
+```
+
+This is the self-check for the archive as a living site. It reads the new
+article's direct links, participants, key battles, source links, matching
+investigation files and same-era arc peers, then prints a review queue.
+
+It is **advisory** except for unresolved direct ids. A queued page is not an
+instruction to add a reciprocal link. It means: open this older page and decide
+whether the new filing changes something useful there — status, summary,
+`keyEvents[]`, a revision, an investigation lead, a custody note, or a
+reader-helpful path to the sequel.
+
+Useful output looks like this:
+
+```text
+Story growth self-check: the_garden_above_the_fire — The Garden Above the Fire
+  source: event in events.json
+  era/arc text: The Mushroom Kingdom Regency Era (1030s BF) — Mario's Disappearance Arc
+
+Arc / investigation files:
+  - mario_charred_note_file — The Farm Was Not the End (active; mario_disappearance; linked)
+
+Review queue (make useful edits, not link spam):
+  - luigi [character] — Luigi
+      notes: participant, direct link, missing useful backlink/revision review,
+             possible stale status/summary language
+      useful edit: if the event changed injuries, allegiance, custody, grief,
+                   or last-seen, amend status/summary and add keyEvents
+```
+
+Good uses:
+
+- after filing a sequel, check the predecessor event for a short revision;
+- after rescuing or injuring a character, check that character's status and key
+  events;
+- after new evidence, check the arc investigation for a lead/exhibit update;
+- after a place is searched, burned, conquered, opened or sealed, check the
+  location page.
+
+Bad uses:
+
+- adding the new id to every old `relatedArticles[]` without changing a word;
+- expanding a page with a recap the event already tells;
+- treating same-era as same-story when no reader path improves.
 
 ---
 
