@@ -139,6 +139,42 @@ const PIN_DENSITY = {
   all: { label: '• All POIs', hint: 'everything unrolled' },
 };
 
+function settlementInsetKind(stack) {
+  const types = new Set((stack || []).map(p => String((p && p.type) || '').toLowerCase()));
+  if ([...types].some(t => /capital|major_city|city|district/.test(t))) return { label: 'City inset', icon: '🏙️' };
+  if ([...types].some(t => /town|port|market|guild|academy|hospital|library/.test(t))) return { label: 'Town inset', icon: '🏘️' };
+  if ([...types].some(t => /village|farm|outpost|camp|shrine/.test(t))) return { label: 'Village inset', icon: '🏡' };
+  return { label: 'Local inset', icon: '🔎' };
+}
+
+function localInsetPositions(stack, cx, cy) {
+  const items = (stack || []).filter(Boolean);
+  if (!items.length) return [];
+  const xs = items.map(p => Number(p.x) || 0);
+  const ys = items.map(p => Number(p.y) || 0);
+  const span = Math.max(0.35, Math.max(...xs) - Math.min(...xs), Math.max(...ys) - Math.min(...ys));
+  const used = [];
+  const clamp = v => Math.max(8, Math.min(92, v));
+  return items.map((poi, i) => {
+    let x = 50 + (((Number(poi.x) || 0) - cx) / span) * 72;
+    let y = 50 + (((Number(poi.y) || 0) - cy) / span) * 72;
+    const collides = () => used.some(pt => Math.hypot(x - pt.x, y - pt.y) < 13);
+    if (span < 0.9 || collides()) {
+      const ring = 19 + Math.floor(i / 8) * 13;
+      const angle = (-Math.PI / 2) + (Math.PI * 2 * (i % Math.max(3, Math.min(8, items.length))) / Math.max(3, Math.min(8, items.length)));
+      x += Math.cos(angle) * ring;
+      y += Math.sin(angle) * ring;
+      if (collides()) {
+        x += Math.cos(angle + Math.PI / 5) * 9;
+        y += Math.sin(angle + Math.PI / 5) * 9;
+      }
+    }
+    x = clamp(x); y = clamp(y);
+    used.push({ x, y });
+    return { poi, x, y };
+  });
+}
+
 function model(mapId, plane, onlyIds) {
   const map = MAP_DATA[mapId];
   if (!map) return null;
@@ -767,11 +803,12 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
       btn.addEventListener('click', ev => {
         ev.stopPropagation();
         const ids = (btn.dataset.ids || '').split(',').filter(Boolean);
-        if (ids.length > 1 && state.pinDensity !== 'all' && state.scale < 4.6) {
+        if (ids.length > 1) {
           const cx = Number(btn.dataset.cx) || 50;
           const cy = Number(btn.dataset.cy) || 50;
-          centerOn(cx, cy, Math.min(6, Math.max(state.scale + 0.9, state.scale * 1.75)));
+          centerOn(cx, cy, Math.min(7.2, Math.max(state.scale + 1.1, state.scale * 1.85, 4.8)));
           placePins();
+          openLocalInset(ids, cx, cy);
           return;
         }
         const picked = pois.find(p => p.id === (ids[0] || btn.dataset.poi));
@@ -999,6 +1036,51 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
     state.ty = vh / 2 - py * z;
     applyTransform();
   }
+
+  function openLocalInset(ids, cx, cy) {
+    const stack = (ids || []).map(id => pois.find(p => p.id === id)).filter(Boolean)
+      .sort((a, b) => defaultPinScore(b) - defaultPinScore(a) || String(a.name || '').localeCompare(String(b.name || '')));
+    if (stack.length < 2) return false;
+    const kind = settlementInsetKind(stack);
+    const positions = localInsetPositions(stack, cx, cy);
+    const typeCounts = [...stack.reduce((m, p) => m.set(humanize(p.type || 'location'), (m.get(humanize(p.type || 'location')) || 0) + 1), new Map()).entries()]
+      .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
+    const pinButtons = positions.map(({ poi, x, y }, i) => {
+      const faction = factionMeta(poi.factionId);
+      return `<button type="button" class="atlas-v2-inset-pin" data-inset-jump="${esc(poi.id)}" style="left:${x.toFixed(1)}%;top:${y.toFixed(1)}%;--marker:${esc(faction.color)}" title="${esc(poi.name)}"><span>${i + 1}</span></button>`;
+    }).join('');
+    const rows = stack.map((poi, i) => `<button type="button" data-inset-jump="${esc(poi.id)}"><b>${i + 1}</b><span>${esc(poi.name)}<i>${esc(humanize(poi.type || 'location'))} · ${format(poi.population)} residents</i></span></button>`).join('');
+    sidebar.innerHTML = `<article class="atlas-v2-detail atlas-v2-inset">
+      <span class="atlas-v2-kicker">${esc(kind.icon)} ${esc(kind.label)} · ${stack.length} crowded POIs</span>
+      <h3>${esc(stack[0].name)} and nearby filings</h3>
+      <p>These pins were too close to read on the main sheet, so the desk opened a local inset and spread them apart. The geography stays anchored to the same x/y marks; the inset is a reader's magnifier, not a new province survey.</p>
+      <div class="atlas-v2-inset-map" role="group" aria-label="${esc(kind.label)} for ${esc(stack[0].name)}">${pinButtons}</div>
+      <div class="atlas-v2-inset-meta">${typeCounts.map(([name, n]) => `<span>${esc(name)} ×${n}</span>`).join('')}</div>
+      <div class="atlas-v2-inset-list">${rows}</div>
+      <div class="atlas-v2-picktools"><button type="button" data-inset-unroll>Unroll all POIs here</button><button type="button" data-inset-close>Back to selected pin</button></div>
+    </article>`;
+    sidebar.querySelectorAll('[data-inset-jump]').forEach(button => button.addEventListener('click', () => {
+      const poi = pois.find(p => p.id === button.dataset.insetJump);
+      if (!poi) return;
+      select(poi, null, stopByPoi.get(poi.id));
+      centerOn(poi.x, poi.y, Math.max(state.scale, 6.2));
+      placePins();
+    }));
+    const unroll = sidebar.querySelector('[data-inset-unroll]');
+    if (unroll) unroll.addEventListener('click', () => {
+      state.pinDensity = 'all';
+      renderDensityButton();
+      centerOn(cx, cy, Math.max(state.scale, 7));
+      placePins();
+    });
+    const close = sidebar.querySelector('[data-inset-close]');
+    if (close) close.addEventListener('click', () => {
+      const picked = stack[0];
+      if (picked) select(picked, ids, stopByPoi.get(picked.id));
+    });
+    return true;
+  }
+
   function focusOn(id, z, stop) {
     const poi = pois.find(p => p.id === id);
     if (!poi) return false;

@@ -191,6 +191,23 @@
 .atlas-v2-tools button[data-action="density"][data-density="key"]{border-color:#ffd75e;color:#ffe7a0;background:#2a230c}
 .atlas-v2-tools button[data-action="density"][data-density="all"]{border-color:#f87171;color:#ffd1d1;background:#321616}
 .atlas-v2-tools button[data-action="plots"].active{border-color:#8ab4ff;background:#14233e;color:#dceaff}
+/* Local insets answer the crowded-city problem: click a cluster and the desk
+   opens a zoomed reader's magnifier that spreads close POIs apart without
+   claiming the geography moved. */
+.atlas-v2-inset-map{position:relative;height:220px;margin:12px 0;border:1px solid #4b5f86;border-radius:12px;overflow:hidden;background:radial-gradient(circle at 50% 48%,rgba(132,96,255,.22),transparent 58%),linear-gradient(135deg,#07101e,#101b31)}
+.atlas-v2-inset-map:before{content:"";position:absolute;inset:14px;border:1px dashed rgba(207,219,255,.22);border-radius:50%;pointer-events:none}
+.atlas-v2-inset-map:after{content:"zoomed local inset";position:absolute;left:10px;bottom:8px;color:#8fa3ca;font-size:10px;font-weight:800;letter-spacing:.7px;text-transform:uppercase}
+.atlas-v2-inset-pin{position:absolute;transform:translate(-50%,-50%);width:28px;height:28px;border-radius:50%;border:2px solid #fff;background:var(--marker,#7c8aa5);color:#fff;box-shadow:0 3px 12px #000d;cursor:pointer;z-index:2;font:800 11px inherit}
+.atlas-v2-inset-pin:hover{scale:1.22;outline:4px solid color-mix(in srgb,var(--marker,#7c8aa5) 45%,transparent);z-index:4}
+.atlas-v2-inset-pin span{display:grid;place-items:center;width:100%;height:100%}
+.atlas-v2-inset-meta{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 8px}
+.atlas-v2-inset-meta span{font-size:10.5px;font-weight:800;color:#dce7ff;background:#101a2b;border:1px solid #344766;border-radius:999px;padding:3px 7px}
+.atlas-v2-inset-list{display:grid;gap:5px;margin-top:8px}
+.atlas-v2-inset-list button{display:grid;grid-template-columns:24px minmax(0,1fr);gap:8px;align-items:center;width:100%;border:1px solid #263857;background:#0a1322;color:#e7efff;border-radius:8px;padding:7px 8px;text-align:left;cursor:pointer;font:inherit}
+.atlas-v2-inset-list button:hover{border-color:#8a6bff;background:#171233}
+.atlas-v2-inset-list b{display:grid;place-items:center;width:21px;height:21px;border-radius:50%;background:#7650cf;color:#fff;font-size:11px}
+.atlas-v2-inset-list span{font-size:12.5px;font-weight:800;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.atlas-v2-inset-list i{display:block;color:#9db0d4;font-size:10.5px;font-style:normal;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .atlas-v2-plot{fill:color-mix(in srgb,var(--plot,#7c8aa5) 12%,transparent)}
 .atlas-v2-plot:hover,.atlas-v2-plot.selected{fill:color-mix(in srgb,var(--plot,#7c8aa5) 28%,transparent)}
 .atlas-v2-plot.contested{fill:color-mix(in srgb,#f0b4b4 9%,transparent)}

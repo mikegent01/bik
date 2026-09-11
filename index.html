@@ -700,7 +700,15 @@ function assetPath(src){
 /* ================= Waluipedia mega app ================= */
 /* DATA is populated by the loader (fetch ./data/*.json, fall back to embedded).
    These are declared with let and assigned once data is ready in boot(). */
-let DATA, FCOLORS, MONTHS, CUR;
+const DEFAULT_CURRENT_DATE = Object.freeze({year:1040, monthIndex:7, day:18});
+function safeCurrentDate(src){
+  const d = (src && typeof src === 'object') ? src : DEFAULT_CURRENT_DATE;
+  const year = Number.isFinite(Number(d.year)) ? Number(d.year) : DEFAULT_CURRENT_DATE.year;
+  const monthIndex = Number.isFinite(Number(d.monthIndex)) ? Number(d.monthIndex) : DEFAULT_CURRENT_DATE.monthIndex;
+  const day = Number.isFinite(Number(d.day)) ? Number(d.day) : DEFAULT_CURRENT_DATE.day;
+  return {year, monthIndex, day};
+}
+let DATA={}, FCOLORS={}, MONTHS=[], CUR=safeCurrentDate();
 /* Culture / legal datasets. These used to be dynamically imported INSIDE view_cultures()
    only, which is why nothing else on the site could reference a tradition. They are now
    loaded once at boot and shared, so traditions can be searched, linked and cited from
@@ -19888,7 +19896,7 @@ async function boot(){
   // rebuild the derived globals + indexes now that DATA exists
   FCOLORS = DATA.factionColors||{};
   MONTHS = (DATA.calendarMonths||[]).map(m=>m.name||m);
-  CUR = DATA.currentDate||{year:1040,monthIndex:7,day:18};
+  CUR = safeCurrentDate(DATA.currentDate);
   synthesizeXpCharacterArticles();
   // Must run BEFORE buildIndexes(): the faction search docs are built from
   // LORE_FACTIONS, so merging afterwards leaves the new factions present in

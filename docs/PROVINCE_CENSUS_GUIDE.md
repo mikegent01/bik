@@ -120,12 +120,14 @@ loud where the archive's numbers and the archive's pins disagree.
   straight to that sheet.
 - **POI density is a control, not a punishment.** Dense sheets now open in
   **✨ Smart POIs** mode: nearby locations collapse into clusters at low zoom,
-  cluster clicks dive the map instead of opening a useless wall of names, and
-  zoom progressively earns the individual pins back. The same button cycles to
-  **◆ Key only** (seats, wiki-linked pins, journey stops, chatter pins and top
-  lens values) and **• All POIs** (every filed pin unrolled) when a reader really
-  needs the raw survey. Province selection fades pins outside the selected plot
-  instead of burying the dossier under unrelated dots.
+  and cluster clicks dive the map *and* open a local city/town/village inset in
+  the dossier rail. The inset is a reader's magnifier: it spreads those crowded
+  POIs apart into numbered pickable pins while keeping the real x/y geography on
+  the main map. The same density button cycles to **◆ Key only** (seats,
+  wiki-linked pins, journey stops, chatter pins and top lens values) and
+  **• All POIs** (every filed pin unrolled) when a reader really needs the raw
+  survey. Province selection fades pins outside the selected plot instead of
+  burying the dossier under unrelated dots.
 - **`🎯 Choose a pin`** — the desk's shortlist. The answer to seven hundred pins
   is not more pins, it is six worth acting on, each with its reasons checked
   against the sheet: *top of the sheet by population · seat of Capital Province ·

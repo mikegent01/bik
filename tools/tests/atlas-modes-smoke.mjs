@@ -106,6 +106,14 @@ const dense = mount('earth_land_full');
 const denseVisible = dense.host.querySelector('[data-visible]').textContent || '';
 check('dense sheets smart-cluster the POIs', dense.host.querySelectorAll('.atlas-v2-cluster').length > 20 && dense.host.querySelectorAll('[data-poi]').length < dense.handle.getPois().length / 2,
   denseVisible);
+const denseCluster = dense.host.querySelector('.atlas-v2-cluster');
+const denseClusterSize = (denseCluster?.dataset.ids || '').split(',').filter(Boolean).length;
+denseCluster?.click();
+const inset = dense.host.querySelector('.atlas-v2-inset');
+check('clicking a crowded cluster opens a zoomed local inset', !!inset && /inset/i.test(inset.textContent || ''), inset ? (inset.querySelector('h3')?.textContent || '') : 'no inset');
+check('local inset spreads the clustered POIs into pickable pins', inset && inset.querySelectorAll('[data-inset-jump]').length >= denseClusterSize,
+  `${inset ? inset.querySelectorAll('[data-inset-jump]').length : 0} controls for ${denseClusterSize} clustered ids`);
+check('cluster click also zooms the main map in', dense.host.querySelector('.atlas-v2-world').style.transform.includes('scale(4.8'), dense.host.querySelector('.atlas-v2-world').style.transform);
 const density = dense.host.querySelector('[data-action="density"]');
 check('density toggle exists', !!density);
 density.click();
