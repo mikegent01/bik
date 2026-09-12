@@ -1,8 +1,8 @@
 {
   "id": "active-time-battle",
   "title": "Active Time Battle",
-  "description": "Real-time/Baldur-style Foundry combat: initiative drives ATB readiness, NPCs keep moving, and player-owned turns pause the gauge clock with a five-minute decision window.",
-  "version": "1.1.1",
+  "description": "Foundry combat ATB for large initiatives: real-time readiness gauges, inline active timer, Foundry-pause awareness, NPC-turn gauge pause, and live player pressure.",
+  "version": "1.1.2",
   "authors": [
     {
       "name": "Waluipedia"
