@@ -33,12 +33,13 @@ check('runtime script parses as JavaScript', syntax.status === 0, syntax.stderr.
 const js = fs.readFileSync(scriptPath, 'utf8');
 const css = fs.readFileSync(cssPath, 'utf8');
 const readme = fs.readFileSync(readmePath, 'utf8');
+const activeTimerRunsBody = js.slice(js.indexOf('function activeTimerRuns'), js.indexOf('function currentActiveElapsed'));
 
 for (const setting of [
   'baseReadySeconds', 'initiativeSpeedWeight', 'initiativeOpeningWeight',
   'openingReadiness', 'autoActivate', 'readyGraceSeconds', 'actionSeconds',
   'npcActionSeconds', 'playerActionSeconds', 'warningSeconds', 'playerWarningSeconds',
-  'timeoutMode', 'delayPercent', 'strikesToGuard', 'overflowCap', 'pauseOnPlayerTurns', 'pauseOnNpcTurns', 'waitMode',
+  'timeoutMode', 'delayPercent', 'strikesToGuard', 'overflowCap', 'pauseOnPlayerTurns', 'pauseOnNpcTurns', 'nativeNpcTurnEndBridge', 'waitMode',
   'trackerStyle', 'queuePreview', 'largeEncounterCompactAt'
 ]) {
   check(`setting ${setting} is registered`, js.includes(`"${setting}"`));
@@ -47,14 +48,21 @@ for (const setting of [
 check('initiative changes fill speed', /initiativeOf\(combatant\).*avg/.test(js) && js.includes('speedFactor'));
 check('initiative changes opening readiness', js.includes('openingAtb') && js.includes('initiativeOpeningWeight'));
 check('player turns get five minutes instead of the NPC clock', js.includes('function turnSecondsFor') && js.includes('"playerActionSeconds"') && js.includes('300') && js.includes('"npcActionSeconds"'));
-check('NPC turns pause gauges while player turns stay live by default',
+check('NPC turns pause gauges while player timers stay live by default',
   js.includes('function pauseOnNpcTurn') && js.includes('pauseOnNpcTurns') &&
   js.includes('function activeTimerRuns') && js.includes('pauseOnNpcTurn(active)') &&
+  js.includes('pauseOnPlayerTurn(active)') &&
   /"pauseOnNpcTurns"[\s\S]*?default: true/.test(js) &&
-  /"pauseOnPlayerTurns"[\s\S]*?default: false/.test(js));
+  /"pauseOnPlayerTurns"[\s\S]*?default: true/.test(js) &&
+  !activeTimerRunsBody.includes('pauseOnPlayerTurn'));
 check('Foundry game pause freezes ATB clock and active timers',
   js.includes('function foundryPaused') && js.includes('game.paused') && js.includes('Hooks.on("pauseGame"') &&
   js.includes('anchorFoundryPause') && js.includes('ignoreFoundryPause'));
+check('native Foundry next-turn can end automated NPC turns',
+  js.includes('nativeNpcTurnEndBridge') && js.includes('function bridgeNativeNpcTurnEnd') &&
+  js.includes('endActiveTurn(combat, id') && js.includes('nativeTurnAdvance') &&
+  js.includes('bridgeNativeNpcTurnEnd(combat, changed)'));
+check('ready tie-breaks respect Foundry turn order', js.includes('function turnOrderIndex') && js.match(/turnOrderIndex\(combat, a\)/g)?.length >= 3);
 check('large encounters are compacted and coalesced for 50 plus initiatives',
   js.includes('largeEncounterCompactAt') && js.includes('default: 50') && js.includes('atb-large-encounter') &&
   js.includes('scheduleTrackerRefresh') && js.includes('requestAnimationFrame') && js.includes('render: false') &&
@@ -83,7 +91,8 @@ check('tracker has bar, classic, and compact styles', css.includes('atb-style-ba
 check('README explains the inactivity solution', /YouTube/.test(readme) && /being absent does not freeze the table/.test(readme));
 check('README documents player pressure, NPC pause, and Foundry pause',
   /five minutes/.test(readme) && /Pause ATB on NPC turns/.test(readme) &&
-  /Player turns stay live/.test(readme) && /Foundry pause/.test(readme));
+  /Pause gauges on player turns/.test(readme) && /does not load up at once/.test(readme) && /Foundry pause/.test(readme));
+check('README documents native NPC automation bridge', /Native next-turn ends active NPC/.test(readme) && /nativeNpcTurnEndBridge/.test(readme));
 check('README documents 50 plus large initiative support', /50\+ combatants/.test(readme) && /Large encounter compact threshold/.test(readme));
 check('README install folder matches module id', readme.includes('Data/modules/active-time-battle'));
 check('README documents visual styles and queue preview', /Visual styles/.test(readme) && /Classic badge/.test(readme) && /queue preview/.test(readme));

@@ -5513,6 +5513,16 @@ function buildLocPinIndex(){
   });
 }
 function locPinsFor(id){ if(!LOC_PIN_INDEX)buildLocPinIndex(); return (id&&LOC_PIN_INDEX[id])||[]; }
+function locPinsForItem(item){
+  const direct=locPinsFor(item&&item.id);
+  if(direct.length) return {pins:direct,parent:null};
+  const parentId=item&&(item.parentLocation||item.parentArticle||item.withinLocation);
+  if(!parentId) return {pins:[],parent:null};
+  const inherited=locPinsFor(parentId);
+  if(!inherited.length) return {pins:[],parent:null};
+  const parent=((DATA&&DATA.locations)||[]).find(l=>l&&l.id===parentId)||{id:parentId,name:parentId};
+  return {pins:inherited,parent};
+}
 /* Which nation dashboard owns a map group, so the preview can deep-link the pin. */
 const MAP_GROUP_NATION={'The Midlands':'regal_empire','Mushroom Kingdom Regions':'mushroom_kingdom','Middle-earth':'middle_earth','The Fated Place':'old_world','Earth Land':'earth_land','Kivotos':'kivotos','The Internet':'the_network','Pokémon Regions':'pokemon_regions','Animatopia':'animatopia','Equestria':'equestria','The Grand Country':'grand_country','Connectopia':'connectopia','Faerûn':'faerun','Teyvat':'teyvat','The Doughnut Hole':'doughnut_hole','Islands & Outer Realms':'kongo_bongo','L\'Eclaire Isle':'leclaire_isle','The Edge Regions':'the_edge_regions'};
 function nationForMapId(mapId){
@@ -5526,7 +5536,8 @@ function locMapAtlasRoute(pin){
 /* The preview panel itself: a cropped window onto the sheet, centred on the pin. */
 function locationMapPreview(item,typeKey){
   if(typeKey!=='locations'||!item||!item.id)return '';
-  const pins=locPinsFor(item.id);
+  const located=locPinsForItem(item);
+  const pins=located.pins;
   if(!pins.length){
     return `<div class="locmap locmap-none"><div class="locmap-head"><h2>🗺️ Not on the tactical map yet</h2></div><p class="locmap-note">No surveyed pin answers to this record${item.region?` (filed region: ${esc(String(item.region).slice(0,140))})`:''}. The archive refuses to guess a coordinate — the survey queue lives in <code>docs/worklists/LOCATION_MAP_COVERAGE.md</code>, and a pin gets filed there with context clues before it gets painted here.</p><div class="chips"><span class="chip" onclick="Router.go('#/atlas')">Open the World Atlas</span></div></div>`;
   }
@@ -5534,11 +5545,13 @@ function locationMapPreview(item,typeKey){
   const sameMap=(ATLAS_MAPS[pin.mapId]||{}).pointsOfInterest||[];
   const near=sameMap.filter(p=>p.id!==pin.poi.id&&Number.isFinite(p.x)).map(p=>({p,m:atlasMiles(pin.poi,p)})).sort((a,b)=>a.m-b.m).slice(0,3);
   const extra=pins.length>1?`<span class="pill" title="${esc(pins.map(x=>x.mapName).join(' · '))}">+${pins.length-1} more sheet${pins.length>2?'s':''}</span>`:'';
+  const inherited=located.parent?`<span class="pill" title="This room/area uses its parent location pin">inside ${esc(displayName(located.parent)||located.parent.id)}</span>`:'';
+  const pinLabel=located.parent?`${displayName(item)} — inside ${displayName(located.parent)||located.parent.id}`:(pin.poi.name||displayName(item));
   const zoom=/_full$/.test(pin.mapId)?4.2:2.6;
   return `<div class="locmap" data-map="${esc(pin.mapId)}" data-x="${pin.poi.x}" data-y="${pin.poi.y}" data-zoom="${zoom}">
-    <div class="locmap-head"><h2>🗺️ On the map</h2><span class="locmap-where"><span class="pill">${esc(pin.mapName)}</span><span class="pill">${esc(pin.group||'Atlas')}</span>${extra}</span></div>
-    <div class="locmap-frame"><div class="locmap-world"><img src="${esc(assetPath(pin.imageSrc))}" alt="${esc(pin.mapName)} — tactical sheet, cropped to ${esc(pin.poi.name||item.name)}"></div><span class="locmap-pin" aria-hidden="true"></span><span class="locmap-label">${esc(pin.poi.name||displayName(item))}</span></div>
-    <div class="locmap-meta"><span>pin <b>${pin.poi.x}, ${pin.poi.y}</b></span><span>${esc(String(pin.poi.type||'location').replace(/_/g,' '))}</span>${near.length?`<span>near ${esc(near.map(n=>n.p.name+' ('+n.m+' mi)').join(', '))}</span>`:''}</div>
+    <div class="locmap-head"><h2>🗺️ On the map</h2><span class="locmap-where"><span class="pill">${esc(pin.mapName)}</span><span class="pill">${esc(pin.group||'Atlas')}</span>${inherited}${extra}</span></div>
+    <div class="locmap-frame"><div class="locmap-world"><img src="${esc(assetPath(pin.imageSrc))}" alt="${esc(pin.mapName)} — tactical sheet, cropped to ${esc(pinLabel)}"></div><span class="locmap-pin" aria-hidden="true"></span><span class="locmap-label">${esc(pinLabel)}</span></div>
+    <div class="locmap-meta"><span>pin <b>${pin.poi.x}, ${pin.poi.y}</b></span><span>${esc(String(pin.poi.type||'location').replace(/_/g,' '))}</span>${located.parent?`<span>parent pin, not a separate overland marker</span>`:''}${near.length?`<span>near ${esc(near.map(n=>n.p.name+' ('+n.m+' mi)').join(', '))}</span>`:''}</div>
     <div class="chips"><span class="chip" onclick="Router.go('${locMapAtlasRoute(pin)}')">Open in the World Atlas</span><span class="chip" data-zoom="${(zoom*0.55).toFixed(1)}">Wider view</span><span class="chip" data-zoom="${(zoom*1.7).toFixed(1)}">Closer look</span></div>
   </div>`;
 }

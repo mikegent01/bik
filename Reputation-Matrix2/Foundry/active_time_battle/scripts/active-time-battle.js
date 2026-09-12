@@ -183,6 +183,11 @@ function readyAt(combatant) {
   return Number(getFlag(combatant, "readyAt", 0)) || 0;
 }
 
+function turnOrderIndex(combat, combatant) {
+  const idx = combat?.turns?.findIndex?.(t => t.id === combatant?.id);
+  return idx >= 0 ? idx : Number.MAX_SAFE_INTEGER;
+}
+
 function readyCombatants(combat) {
   return eligibleCombatants(combat)
     .filter(c => atbOf(c) >= READY && c.id !== activeId(combat))
@@ -191,6 +196,8 @@ function readyCombatants(combat) {
       if (Math.abs(overflow) > 0.01) return overflow;
       const init = initiativeOf(b) - initiativeOf(a);
       if (init) return init;
+      const turnOrder = turnOrderIndex(combat, a) - turnOrderIndex(combat, b);
+      if (turnOrder) return turnOrder;
       return (readyAt(a) || Infinity) - (readyAt(b) || Infinity)
         || combatantName(a).localeCompare(combatantName(b));
     });
@@ -459,7 +466,7 @@ async function activateCombatant(combat, combatantId, options = {}) {
   const pauseText = pauseOnNpcTurn(c)
     ? " NPC turn pause is on; gauges and the NPC clock wait while the GM resolves the turn."
     : (playerOwned(c)
-      ? " Player clock is live; other gauges keep filling unless Wait mode or optional player pause is enabled."
+      ? " Player clock is live; other gauges wait unless the GM disables player-turn gauge pause."
       : " NPC clock is live because NPC turn pause is disabled.");
   await chat(`<b>${escapeHtml(combatantName(c))}</b> is active. ${fmtSeconds(seconds)} spotlight clock started.${pauseText}`);
   notifyOwners(c, `${combatantName(c)} is active — ${fmtSeconds(seconds)} to act.`);
@@ -634,6 +641,8 @@ async function tickCombat(combat) {
       if (Math.abs(bv - av) > 0.01) return bv - av;
       const init = initiativeOf(b) - initiativeOf(a);
       if (init) return init;
+      const turnOrder = turnOrderIndex(combat, a) - turnOrderIndex(combat, b);
+      if (turnOrder) return turnOrder;
       return (readyAt(a) || stamp) - (readyAt(b) || stamp)
         || combatantName(a).localeCompare(combatantName(b));
     });
@@ -668,7 +677,7 @@ function activeTurnState(combat) {
   else if (isPaused(combat)) mode = "ATB is manually paused: gauges and active timers are stopped.";
   else if (pauseOnNpcTurn(c)) mode = "NPC/GM turn pause: gauges and the NPC timer wait until the turn ends.";
   else if (setting("waitMode")) mode = "Wait mode: other gauges wait, but the active timer is live.";
-  else if (pauseOnPlayerTurn(c)) mode = "Player pause setting: other gauges wait while this player decides.";
+  else if (pauseOnPlayerTurn(c)) mode = "Player clock live: other gauges wait so the initiative does not pile up.";
   else if (playerOwned(c)) mode = "Player clock live: other gauges keep filling while this player decides.";
   else mode = "NPC/default clock live: other gauges keep filling.";
   return { combatant: c, total, elapsed, left, remainingPct, mode, timerRunning, gaugesRunning };
@@ -815,6 +824,8 @@ function queueCombatants(combat) {
     }
     const init = initiativeOf(b) - initiativeOf(a);
     if (init) return init;
+    const turnOrder = turnOrderIndex(combat, a) - turnOrderIndex(combat, b);
+    if (turnOrder) return turnOrder;
     return combatantName(a).localeCompare(combatantName(b));
   });
 }
@@ -1018,6 +1029,20 @@ async function anchorFoundryPause(paused) {
   return combat;
 }
 
+function bridgeNativeNpcTurnEnd(combat, changed = {}) {
+  if (!setting("nativeNpcTurnEndBridge")) return false;
+  if (!("turn" in changed)) return false;
+  if (!isPrimaryGM()) return false;
+  const id = activeId(combat);
+  const active = id ? combat.combatants?.get(id) : null;
+  if (!active || playerOwned(active)) return false;
+  window.setTimeout(() => {
+    if (activeId(combat) !== id) return;
+    endActiveTurn(combat, id, { clearStrikes: true, silent: true, source: "nativeTurnAdvance" })
+      .catch(err => console.error(`${MODULE_ID} native NPC turn bridge failed`, err));
+  }, 0);
+  return true;
+}
 
 function registerSettings() {
   game.settings.register(MODULE_ID, "autoStart", {
@@ -1116,13 +1141,18 @@ function registerSettings() {
     scope: "world", config: true, type: Number, default: 2
   });
   game.settings.register(MODULE_ID, "pauseOnPlayerTurns", {
-    name: "Pause ATB on player turns",
-    hint: "Optional strict mode. Default off: player-owned active turns keep their timer live and let other gauges continue so players feel the time pressure.",
-    scope: "world", config: true, type: Boolean, default: false
+    name: "Pause gauges on player turns",
+    hint: "Default on: player-owned active turns keep the player's timer live but pause other gauges so long decisions do not load the whole initiative at once.",
+    scope: "world", config: true, type: Boolean, default: true
   });
   game.settings.register(MODULE_ID, "pauseOnNpcTurns", {
     name: "Pause ATB on NPC turns",
     hint: "Default on: while an NPC/GM-controlled combatant acts, other gauges and the NPC timer wait until the GM ends the turn.",
+    scope: "world", config: true, type: Boolean, default: true
+  });
+  game.settings.register(MODULE_ID, "nativeNpcTurnEndBridge", {
+    name: "Native next-turn ends active NPC",
+    hint: "Default on: if another automation advances the Foundry turn while an NPC is active, ATB translates that into End ATB Turn so automated NPCs can finish normally.",
     scope: "world", config: true, type: Boolean, default: true
   });
   game.settings.register(MODULE_ID, "waitMode", {
@@ -1242,11 +1272,12 @@ Hooks.on("preUpdateCombat", (combat, changed, options) => {
   if (options?.activeTimeBattle) return true;
   if (!combat?.started || !isRunning(combat)) return true;
   if (!("turn" in changed)) return true;
+  if (bridgeNativeNpcTurnEnd(combat, changed)) return false;
 
   const stamp = now();
   if (stamp - LAST_RENDER_WARN > 1200) {
     LAST_RENDER_WARN = stamp;
-    ui.notifications?.warn("ATB is running: use Activate and End ATB Turn so gauges, idle strikes, and laps stay in sync.");
+    ui.notifications?.warn("ATB is running: use Activate and End ATB Turn so gauges, idle strikes, and laps stay in sync. Native next-turn can still end active NPCs when that bridge setting is on.");
   }
   return false;
 });

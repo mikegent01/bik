@@ -41,7 +41,7 @@ Coverage at filing: **45 / 61 location articles plotted** (was 14 by honest matc
 | `tymnas_cottage_and_hedge_maze` | 74.4, 11.2 | "at the edge of Raventree Manor … entropic perimeter" |
 | `silent_grove` | 72.7, 11.4 | "on Raventree Manor's grounds" (Material plane) |
 | `overgrown_manor` | 74.1, 13.0 | "Raventree Manor's Feywild reflection" |
-| `overgrown_library` | 74.5, 13.3 | "the Feywild reflection of Raventree Manor's library" |
+| `overgrown_library` | uses `overgrown_manor` parent pin | interior room; filed separately, but not a second overland location |
 | `feyward_grove` | 74.6, 12.2 | "reflection of the Raventree grounds" (Feyward) |
 | `deep_mirror` | 73.5, 13.7 | Mirror-Dimension reflection of the same manor |
 | `darius_sanctum` | 73.3, 14.0 | "Deep Mirror layer" above the reflection |

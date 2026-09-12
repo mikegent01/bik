@@ -14,7 +14,7 @@
     "vacantClaims": 11,
     "ledgersFiled": 58,
     "ledgersOverturned": 22,
-    "population": 4652935
+    "population": 4652923
   },
   "maps": {
     "almost_edge_full": {
@@ -58866,10 +58866,10 @@
     "midlands_full": {
       "name": "The Midlands",
       "group": "The Midlands",
-      "pins": 206,
+      "pins": 205,
       "duplicatePins": 1,
-      "censusPower": 3964.99,
-      "population": 300556,
+      "censusPower": 3953.7,
+      "population": 300544,
       "rollup": {
         "provinceCount": 15,
         "filedProvinces": 15,
@@ -58878,8 +58878,8 @@
         "unreadableProvinces": 0,
         "vacantProvinces": 0,
         "unclaimedProvinces": 11,
-        "population": 300556,
-        "power": 3964.99,
+        "population": 300544,
+        "power": 3953.7,
         "byFaction": [
           {
             "factionId": "regal_empire",
@@ -58887,9 +58887,9 @@
             "shareOfProvinces": 13.3,
             "shareOfArea": 13,
             "shareOfPopulation": 54.1,
-            "population": 162460,
-            "power": 1433.14,
-            "pins": 66,
+            "population": 162448,
+            "power": 1421.84,
+            "pins": 65,
             "seats": [
               {
                 "provinceId": "filed:capital_province",
@@ -58962,8 +58962,8 @@
           "vacant": false,
           "shape": "network",
           "center": [
-            79.44,
-            9.39
+            79.53,
+            9.32
           ],
           "polygon": [
             [
@@ -59204,12 +59204,12 @@
                 9.75
               ],
               [
-                82.36,
-                9.95
+                82.42,
+                9.92
               ],
               [
-                80.99,
-                8.49
+                80.87,
+                8.27
               ],
               [
                 80.22,
@@ -59226,12 +59226,12 @@
                 8.88
               ],
               [
-                77.6,
-                9.52
+                77.76,
+                9.7
               ],
               [
-                78.66,
-                11.46
+                78.71,
+                11.4
               ],
               [
                 77.47,
@@ -59438,12 +59438,8 @@
             ],
             [
               [
-                74.83,
-                13.15
-              ],
-              [
                 74.3,
-                13.15
+                13.66
               ],
               [
                 74.3,
@@ -59452,6 +59448,14 @@
               [
                 74.55,
                 12.6
+              ],
+              [
+                75.57,
+                14.64
+              ],
+              [
+                75.56,
+                14.67
               ]
             ],
             [
@@ -59483,7 +59487,7 @@
             [
               [
                 81.6,
-                11.41
+                11.43
               ],
               [
                 81.96,
@@ -59498,8 +59502,8 @@
                 12.88
               ],
               [
-                78.66,
-                11.46
+                78.71,
+                11.4
               ]
             ],
             [
@@ -59557,11 +59561,11 @@
               ],
               [
                 81.6,
-                11.41
+                11.43
               ],
               [
-                82.36,
-                9.95
+                82.42,
+                9.92
               ],
               [
                 82.75,
@@ -59616,12 +59620,12 @@
                 17.26
               ],
               [
-                75.43,
-                15.16
+                75.56,
+                14.67
               ],
               [
-                76.02,
-                14.11
+                75.57,
+                14.64
               ],
               [
                 76.95,
@@ -59914,8 +59918,8 @@
             ],
             [
               [
-                74.01,
-                13.53
+                74.04,
+                13.56
               ],
               [
                 73.5,
@@ -59939,33 +59943,7 @@
               ],
               [
                 74.3,
-                13.15
-              ]
-            ],
-            [
-              [
-                74.03,
-                13.57
-              ],
-              [
-                74.01,
-                13.53
-              ],
-              [
-                74.3,
-                13.15
-              ],
-              [
-                74.83,
-                13.15
-              ],
-              [
-                76.02,
-                14.11
-              ],
-              [
-                75.43,
-                15.16
+                13.66
               ]
             ],
             [
@@ -60016,22 +59994,14 @@
                 13.1
               ],
               [
-                74.01,
-                13.53
-              ],
-              [
-                74.03,
-                13.57
+                74.04,
+                13.56
               ]
             ],
             [
               [
-                76.02,
-                14.11
-              ],
-              [
-                74.83,
-                13.15
+                75.57,
+                14.64
               ],
               [
                 74.55,
@@ -60126,8 +60096,8 @@
             ],
             [
               [
-                77.6,
-                9.52
+                77.76,
+                9.7
               ],
               [
                 77.03,
@@ -60142,8 +60112,8 @@
                 7.14
               ],
               [
-                80.99,
-                8.49
+                80.87,
+                8.27
               ]
             ],
             [
@@ -60286,12 +60256,16 @@
                 13.92
               ],
               [
-                74.03,
-                13.57
+                74.04,
+                13.56
               ],
               [
-                75.43,
-                15.16
+                74.3,
+                13.66
+              ],
+              [
+                75.56,
+                14.67
               ],
               [
                 74.87,
@@ -60319,40 +60293,40 @@
             [
               [
                 81.6,
-                11.41
+                11.43
               ],
               [
-                78.66,
-                11.46
+                78.71,
+                11.4
               ],
               [
-                77.6,
-                9.52
+                77.76,
+                9.7
               ],
               [
-                80.99,
-                8.49
+                80.87,
+                8.27
               ],
               [
-                82.36,
-                9.95
+                82.42,
+                9.92
               ]
             ]
           ],
           "area": 689.56,
           "controller": "regal_empire",
           "claimant": "regal_empire",
-          "share": 45.1,
-          "margin": 30.3,
+          "share": 45.6,
+          "margin": 30.6,
           "contested": false,
           "unreadable": false,
           "neutral": false,
-          "pins": 52,
-          "population": 112519,
-          "military": 235,
-          "economic": 218,
-          "political": 229,
-          "power": 1157,
+          "pins": 51,
+          "population": 112507,
+          "military": 233,
+          "economic": 215,
+          "political": 227,
+          "power": 1145.7,
           "seatPoiId": "poi_mid_ironhold",
           "poiIds": [
             "poi_mid_aegis_command",
@@ -60393,7 +60367,6 @@
             "poi_mid_noble_district",
             "poi_mid_onyx_embassy",
             "poi_mid_orange_deer_shrine",
-            "poi_mid_overgrown_library",
             "poi_mid_overgrown_manor",
             "poi_mid_planar_sanctum_belfry",
             "poi_mid_raventree_manor",
@@ -60412,31 +60385,31 @@
             "agrees": true,
             "filedController": "regal_empire",
             "filedShare": 70,
-            "drift": 24.9,
+            "drift": 24.4,
             "rows": [
               {
                 "factionId": "regal_empire",
                 "filed": 70,
-                "census": 45.1,
-                "delta": -24.9
+                "census": 45.6,
+                "delta": -24.4
               },
               {
                 "factionId": "iron_legion",
                 "filed": 15,
-                "census": 14.9,
-                "delta": -0.1
+                "census": 15,
+                "delta": 0
               },
               {
                 "factionId": "unaligned",
                 "filed": 0,
-                "census": 14.8,
-                "delta": 14.8
+                "census": 13.9,
+                "delta": 13.9
               },
               {
                 "factionId": "onyx_hand",
                 "filed": 5,
-                "census": 7.4,
-                "delta": 2.4
+                "census": 7.5,
+                "delta": 2.5
               },
               {
                 "factionId": "oathbound_judges",
@@ -60483,8 +60456,8 @@
               {
                 "factionId": "kingdom_of_gondor",
                 "filed": 0,
-                "census": 1.6,
-                "delta": 1.6
+                "census": 1.7,
+                "delta": 1.7
               },
               {
                 "factionId": "cosmic_jesters",
