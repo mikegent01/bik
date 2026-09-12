@@ -5,6 +5,8 @@ const DEFAULT_TICK_MS = 1000;
 
 let TICKER = null;
 let TIMER_TICKER = null;
+let TRACKER_REFRESH_FRAME = null;
+let TRACKER_REFRESH_COMBAT = null;
 let LAST_RENDER_WARN = 0;
 
 function escapeHtml(value) {
@@ -72,9 +74,9 @@ async function updateCombatantFlags(combatant, data, options = {}) {
   return combatant.update(update, { diff: false, activeTimeBattle: true, ...options });
 }
 
-async function updateManyCombatants(combat, updates) {
+async function updateManyCombatants(combat, updates, options = {}) {
   if (!updates?.length) return null;
-  return combat.updateEmbeddedDocuments("Combatant", updates, { diff: false, activeTimeBattle: true });
+  return combat.updateEmbeddedDocuments("Combatant", updates, { diff: false, activeTimeBattle: true, ...options });
 }
 
 function isRunning(combat) {
@@ -201,12 +203,60 @@ function canAutoActivate(combatant) {
   return true;
 }
 
+function foundryPaused() {
+  return !!game.paused;
+}
+
+function clockPaused(combat) {
+  return isPaused(combat) || foundryPaused();
+}
+
 function pauseOnPlayerTurn(combatant) {
   return !!(combatant && playerOwned(combatant) && setting("pauseOnPlayerTurns"));
 }
 
+function pauseOnNpcTurn(combatant) {
+  return !!(combatant && !playerOwned(combatant) && setting("pauseOnNpcTurns"));
+}
+
+function activeElapsed(combat) {
+  return Number(getFlag(combat, "activeElapsed", 0)) || 0;
+}
+
+function activeTimerRuns(combat, active = null, options = {}) {
+  if (!active) return false;
+  if (!options.ignoreManualPause && isPaused(combat)) return false;
+  if (!options.ignoreFoundryPause && foundryPaused()) return false;
+  if (pauseOnNpcTurn(active)) return false;
+  return true;
+}
+
+function currentActiveElapsed(combat, active = null, stamp = now(), options = {}) {
+  const c = active || (activeId(combat) ? combat.combatants?.get(activeId(combat)) : null);
+  if (!c) return 0;
+  const base = activeElapsed(combat);
+  const anchor = Number(getFlag(combat, "lastTick", activeSince(combat) || stamp)) || activeSince(combat) || stamp;
+  if (!activeTimerRuns(combat, c, options)) return base;
+  return base + Math.max(0, (stamp - anchor) / 1000);
+}
+
 function shouldTickGauges(combat, active = null) {
-  return !(activeId(combat) && (setting("waitMode") || pauseOnPlayerTurn(active)));
+  if (clockPaused(combat)) return false;
+  if (!activeId(combat)) return true;
+  if (!active) return true;
+  if (setting("waitMode")) return false;
+  if (pauseOnNpcTurn(active)) return false;
+  if (pauseOnPlayerTurn(active)) return false;
+  return true;
+}
+
+function largeEncounterCompactAt() {
+  return Math.max(0, Number(setting("largeEncounterCompactAt")) || 0);
+}
+
+function largeEncounter(combat) {
+  const threshold = largeEncounterCompactAt();
+  return !!(threshold && eligibleCombatants(combat).length >= threshold);
 }
 
 function turnSecondsFor(combatant) {
@@ -298,6 +348,7 @@ async function startAtb(combat) {
     paused: false,
     activeId: null,
     activeSince: null,
+    activeElapsed: null,
     lastTick: now(),
     sequence: sequence(combat) + 1
   });
@@ -308,7 +359,15 @@ async function startAtb(combat) {
 
 async function pauseAtb(combat, paused) {
   if (!isPrimaryGM()) return null;
-  await updateCombatFlags(combat, { paused: !!paused, lastTick: now(), sequence: sequence(combat) + 1 });
+  const stamp = now();
+  const active = activeId(combat) ? combat.combatants?.get(activeId(combat)) : null;
+  const data = { paused: !!paused, lastTick: stamp, sequence: sequence(combat) + 1 };
+  if (active) {
+    data.activeElapsed = paused
+      ? currentActiveElapsed(combat, active, stamp, { ignoreManualPause: true })
+      : activeElapsed(combat);
+  }
+  await updateCombatFlags(combat, data);
   await chat(paused ? "ATB paused." : "ATB resumed.");
   ui.combat?.render?.(true);
   return combat;
@@ -322,6 +381,7 @@ async function resetAtb(combat) {
     paused: false,
     activeId: null,
     activeSince: null,
+    activeElapsed: null,
     lastTick: now(),
     sequence: sequence(combat) + 1
   });
@@ -388,6 +448,7 @@ async function activateCombatant(combat, combatantId, options = {}) {
     turn: idx,
     [flagPath("activeId")]: c.id,
     [flagPath("activeSince")]: stamp,
+    [flagPath("activeElapsed")]: 0,
     [flagPath("running")]: true,
     [flagPath("paused")]: false,
     [flagPath("lastTick")]: stamp,
@@ -395,7 +456,11 @@ async function activateCombatant(combat, combatantId, options = {}) {
   }, { diff: false, activeTimeBattle: true });
 
   const seconds = turnSecondsFor(c);
-  const pauseText = pauseOnPlayerTurn(c) ? " Player turn pause is on; other ATB gauges wait while they decide." : "";
+  const pauseText = pauseOnNpcTurn(c)
+    ? " NPC turn pause is on; gauges and the NPC clock wait while the GM resolves the turn."
+    : (playerOwned(c)
+      ? " Player clock is live; other gauges keep filling unless Wait mode or optional player pause is enabled."
+      : " NPC clock is live because NPC turn pause is disabled.");
   await chat(`<b>${escapeHtml(combatantName(c))}</b> is active. ${fmtSeconds(seconds)} spotlight clock started.${pauseText}`);
   notifyOwners(c, `${combatantName(c)} is active — ${fmtSeconds(seconds)} to act.`);
   ui.combat?.render?.(true);
@@ -435,6 +500,7 @@ async function endActiveTurn(combat, combatantId, options = {}) {
   await updateCombatFlags(combat, {
     activeId: null,
     activeSince: null,
+    activeElapsed: null,
     lastTick: stamp,
     sequence: sequence(combat) + 1
   });
@@ -464,6 +530,7 @@ async function timeoutActiveTurn(combat, combatant) {
     await updateCombatFlags(combat, {
       activeId: null,
       activeSince: null,
+      activeElapsed: null,
       lastTick: stamp,
       sequence: sequence(combat) + 1
     });
@@ -484,6 +551,7 @@ async function timeoutActiveTurn(combat, combatant) {
   await updateCombatFlags(combat, {
     activeId: null,
     activeSince: null,
+    activeElapsed: null,
     lastTick: stamp,
     sequence: sequence(combat) + 1
   });
@@ -493,25 +561,34 @@ async function timeoutActiveTurn(combat, combatant) {
 }
 
 async function tickCombat(combat) {
-  if (!isPrimaryGM() || !combat?.started || !isRunning(combat) || isPaused(combat)) return;
+  if (!isPrimaryGM() || !combat?.started || !isRunning(combat)) return;
   const stamp = now();
   const lastTick = Number(getFlag(combat, "lastTick", stamp)) || stamp;
   const dt = clamp((stamp - lastTick) / 1000, 0, 5);
   if (dt <= 0.05) return;
 
   const active = activeId(combat) ? combat.combatants?.get(activeId(combat)) : null;
+  if (clockPaused(combat)) {
+    await updateCombatFlags(combat, { lastTick: stamp }, { render: false });
+    scheduleTrackerRefresh(combat);
+    return;
+  }
+
+  let activeElapsedNow = active ? activeElapsed(combat) : null;
   if (active && !isDefeated(combat, active)) {
-    const elapsed = (stamp - activeSince(combat)) / 1000;
+    const timerRuns = activeTimerRuns(combat, active);
+    activeElapsedNow += timerRuns ? dt : 0;
     const actionSeconds = turnSecondsFor(active);
     const warningSeconds = warningSecondsFor(active);
     const warned = Number(getFlag(active, "warnedAt", 0)) || 0;
-    if (elapsed >= actionSeconds) return timeoutActiveTurn(combat, active);
-    if (warningSeconds > 0 && elapsed >= actionSeconds - warningSeconds && !warned) {
-      await updateCombatantFlags(active, { warnedAt: stamp });
-      await chat(`<b>${escapeHtml(combatantName(active))}</b> has ${fmtSeconds(actionSeconds - elapsed)} left on their ATB turn.`);
+    if (timerRuns && activeElapsedNow >= actionSeconds) return timeoutActiveTurn(combat, active);
+    if (timerRuns && warningSeconds > 0 && activeElapsedNow >= actionSeconds - warningSeconds && !warned) {
+      await updateCombatantFlags(active, { warnedAt: stamp }, { render: false });
+      await chat(`<b>${escapeHtml(combatantName(active))}</b> has ${fmtSeconds(actionSeconds - activeElapsedNow)} left on their ATB turn.`);
     }
   } else if (activeId(combat)) {
-    await updateCombatFlags(combat, { activeId: null, activeSince: null, lastTick: stamp, sequence: sequence(combat) + 1 });
+    await updateCombatFlags(combat, { activeId: null, activeSince: null, activeElapsed: null, lastTick: stamp, sequence: sequence(combat) + 1 });
+    scheduleTrackerRefresh(combat);
     return;
   }
 
@@ -541,8 +618,12 @@ async function tickCombat(combat) {
     }
   }
 
-  if (updates.length) await updateManyCombatants(combat, updates);
-  await updateCombatFlags(combat, { lastTick: stamp }, { render: false });
+  if (updates.length) await updateManyCombatants(combat, updates, { render: false });
+  const combatUpdate = { lastTick: stamp };
+  if (active) combatUpdate.activeElapsed = activeElapsedNow;
+  else combatUpdate.activeElapsed = null;
+  await updateCombatFlags(combat, combatUpdate, { render: false });
+  scheduleTrackerRefresh(combat);
 
   if (activeId(combat)) return;
   const ready = eligibleCombatants(combat)
@@ -577,14 +658,20 @@ function activeTurnState(combat) {
   const c = activeId(combat) ? combat.combatants?.get(activeId(combat)) : null;
   if (!c) return null;
   const total = turnSecondsFor(c);
-  const started = activeSince(combat) || now();
-  const elapsed = (now() - started) / 1000;
+  const elapsed = currentActiveElapsed(combat, c);
   const left = Math.max(0, total - elapsed);
   const remainingPct = total > 0 ? clamp((left / total) * 100, 0, 100) : 0;
-  const mode = pauseOnPlayerTurn(c)
-    ? "Player decision pause: other gauges are waiting."
-    : (setting("waitMode") ? "Wait mode: other gauges are waiting." : "NPC/default turn: other gauges keep filling.");
-  return { combatant: c, total, elapsed, left, remainingPct, mode };
+  const timerRunning = activeTimerRuns(combat, c);
+  const gaugesRunning = shouldTickGauges(combat, c);
+  let mode = "";
+  if (foundryPaused()) mode = "Foundry pause is on: ATB gauges and active timers are stopped.";
+  else if (isPaused(combat)) mode = "ATB is manually paused: gauges and active timers are stopped.";
+  else if (pauseOnNpcTurn(c)) mode = "NPC/GM turn pause: gauges and the NPC timer wait until the turn ends.";
+  else if (setting("waitMode")) mode = "Wait mode: other gauges wait, but the active timer is live.";
+  else if (pauseOnPlayerTurn(c)) mode = "Player pause setting: other gauges wait while this player decides.";
+  else if (playerOwned(c)) mode = "Player clock live: other gauges keep filling while this player decides.";
+  else mode = "NPC/default clock live: other gauges keep filling.";
+  return { combatant: c, total, elapsed, left, remainingPct, mode, timerRunning, gaugesRunning };
 }
 
 function renderActiveTimer(panel, combat) {
@@ -592,7 +679,7 @@ function renderActiveTimer(panel, combat) {
   if (!state) return;
   const c = state.combatant;
   const timer = document.createElement("div");
-  timer.className = `atb-active-timer${playerOwned(c) ? " player" : " npc"}`;
+  timer.className = `atb-active-timer${playerOwned(c) ? " player" : " npc"}${state.timerRunning ? "" : " timer-paused"}${state.gaugesRunning ? "" : " gauges-paused"}`;
   timer.dataset.combatId = combat.id;
 
   const row = document.createElement("div");
@@ -645,6 +732,8 @@ function refreshActiveTimers(defaultCombat = game.combat) {
     const c = state.combatant;
     timer.classList.toggle("player", playerOwned(c));
     timer.classList.toggle("npc", !playerOwned(c));
+    timer.classList.toggle("timer-paused", !state.timerRunning);
+    timer.classList.toggle("gauges-paused", !state.gaugesRunning);
     const name = timer.querySelector("[data-atb-timer-name]");
     const left = timer.querySelector("[data-atb-timer-left]");
     const bar = timer.querySelector("[data-atb-timer-bar]");
@@ -666,8 +755,33 @@ function stopTimerTicker() {
   TIMER_TICKER = null;
 }
 
-function trackerStyle() {
+function refreshCombatTrackerDisplay(combat = game.combat) {
+  if (!combat || typeof document === "undefined") return;
+  for (const root of document.querySelectorAll(".active-time-battle")) {
+    root.classList.remove("atb-style-bars", "atb-style-classic", "atb-style-compact");
+    root.classList.add(`atb-style-${trackerStyle(combat)}`);
+    root.classList.toggle("atb-large-encounter", largeEncounter(combat));
+    renderTrackerPanel(root, combat);
+    renderCombatantBars(root, combat);
+  }
+  refreshActiveTimers(combat);
+}
+
+function scheduleTrackerRefresh(combat = game.combat) {
+  TRACKER_REFRESH_COMBAT = combat || TRACKER_REFRESH_COMBAT;
+  if (TRACKER_REFRESH_FRAME) return;
+  const raf = window.requestAnimationFrame || (fn => window.setTimeout(fn, 50));
+  TRACKER_REFRESH_FRAME = raf(() => {
+    TRACKER_REFRESH_FRAME = null;
+    const c = TRACKER_REFRESH_COMBAT || game.combat;
+    TRACKER_REFRESH_COMBAT = null;
+    refreshCombatTrackerDisplay(c);
+  });
+}
+
+function trackerStyle(combat = game.combat) {
   const style = setting("trackerStyle") || "bars";
+  if (largeEncounter(combat)) return "compact";
   return ["bars", "classic", "compact"].includes(style) ? style : "bars";
 }
 
@@ -711,7 +825,8 @@ function renderQueueStrip(panel, combat) {
   const avg = averageInitiative(eligibleCombatants(combat));
   const strip = document.createElement("div");
   strip.className = "atb-queue";
-  const rows = queueCombatants(combat).slice(0, count);
+  const queued = queueCombatants(combat);
+  const rows = queued.slice(0, count);
   if (!rows.length) return;
   const busy = !!activeId(combat);
   for (const c of rows) {
@@ -739,6 +854,12 @@ function renderQueueStrip(panel, combat) {
     row.append(label, meta, bar);
     strip.appendChild(row);
   }
+  if (queued.length > rows.length) {
+    const more = document.createElement("span");
+    more.className = "atb-queue-more";
+    more.textContent = `+${queued.length - rows.length} more in initiative`;
+    strip.appendChild(more);
+  }
   panel.appendChild(strip);
 }
 
@@ -746,15 +867,19 @@ function trackerSummary(combat) {
   const running = isRunning(combat);
   if (!combat?.started) return "Start combat, then start ATB.";
   if (!running) return "ATB stopped. Initiative can still be rolled before start.";
+  if (foundryPaused()) return "Foundry paused — ATB clock stopped.";
   if (isPaused(combat)) return "ATB paused.";
   const active = activeId(combat) ? combat.combatants?.get(activeId(combat)) : null;
   if (active) {
-    const left = turnSecondsFor(active) - ((now() - activeSince(combat)) / 1000);
-    const paused = pauseOnPlayerTurn(active) ? " · player pause" : "";
-    return `${combatantName(active)} acting · ${fmtSeconds(left)} left${paused}`;
+    const state = activeTurnState(combat);
+    const gauge = state?.gaugesRunning ? "gauges moving" : "gauges paused";
+    const timer = state?.timerRunning ? `${fmtSeconds(state.left)} left` : `${fmtSeconds(state?.left ?? turnSecondsFor(active))} held`;
+    return `${combatantName(active)} acting · ${timer} · ${gauge}`;
   }
   const queue = readyCombatants(combat).slice(0, 3).map(combatantName).join(", ");
-  return queue ? `Ready: ${queue}` : "Gauges filling.";
+  const count = eligibleCombatants(combat).length;
+  const large = largeEncounter(combat) ? ` · ${count} in initiative` : "";
+  return queue ? `Ready: ${queue}${large}` : `Gauges filling.${large}`;
 }
 
 function button(label, action, title = "") {
@@ -773,7 +898,7 @@ function renderTrackerPanel(root, combat) {
 
   const panel = document.createElement("div");
   const active = activeId(combat) ? combat.combatants?.get(activeId(combat)) : null;
-  panel.className = `atb-panel${isRunning(combat) ? " running" : " stopped"}${isPaused(combat) ? " paused" : ""}${pauseOnPlayerTurn(active) ? " player-paused" : ""}`;
+  panel.className = `atb-panel${isRunning(combat) ? " running" : " stopped"}${clockPaused(combat) ? " paused" : ""}${foundryPaused() ? " foundry-paused" : ""}${pauseOnPlayerTurn(active) ? " player-paused" : ""}${pauseOnNpcTurn(active) ? " npc-paused" : ""}${largeEncounter(combat) ? " large" : ""}`;
   const title = document.createElement("div");
   title.className = "atb-panel-title";
   const titleText = document.createElement("b");
@@ -870,6 +995,30 @@ function renderCombatantBars(root, combat) {
   }
 }
 
+async function anchorFoundryPause(paused) {
+  const combat = game.combat;
+  if (!combat?.started || !isRunning(combat)) {
+    scheduleTrackerRefresh(combat);
+    return null;
+  }
+  if (!isPrimaryGM()) {
+    scheduleTrackerRefresh(combat);
+    return null;
+  }
+  const stamp = now();
+  const active = activeId(combat) ? combat.combatants?.get(activeId(combat)) : null;
+  const data = { lastTick: stamp, sequence: sequence(combat) + 1 };
+  if (active) {
+    data.activeElapsed = paused
+      ? currentActiveElapsed(combat, active, stamp, { ignoreFoundryPause: true })
+      : activeElapsed(combat);
+  }
+  await updateCombatFlags(combat, data, { render: false });
+  scheduleTrackerRefresh(combat);
+  return combat;
+}
+
+
 function registerSettings() {
   game.settings.register(MODULE_ID, "autoStart", {
     name: "Start ATB when combat starts",
@@ -932,7 +1081,7 @@ function registerSettings() {
   });
   game.settings.register(MODULE_ID, "npcActionSeconds", {
     name: "NPC spotlight seconds",
-    hint: "How long a GM/NPC turn has before timeout handling fires. NPC turns keep the ATB clock moving by default.",
+    hint: "How long a GM/NPC turn has before timeout handling fires when NPC-turn pause is disabled. With the default NPC pause, this timer is held.",
     scope: "world", config: true, type: Number, default: 90
   });
   game.settings.register(MODULE_ID, "playerActionSeconds", {
@@ -968,12 +1117,17 @@ function registerSettings() {
   });
   game.settings.register(MODULE_ID, "pauseOnPlayerTurns", {
     name: "Pause ATB on player turns",
-    hint: "Baldur-style pacing: player-owned active turns pause other gauges while the player decides; NPC turns keep moving.",
+    hint: "Optional strict mode. Default off: player-owned active turns keep their timer live and let other gauges continue so players feel the time pressure.",
+    scope: "world", config: true, type: Boolean, default: false
+  });
+  game.settings.register(MODULE_ID, "pauseOnNpcTurns", {
+    name: "Pause ATB on NPC turns",
+    hint: "Default on: while an NPC/GM-controlled combatant acts, other gauges and the NPC timer wait until the GM ends the turn.",
     scope: "world", config: true, type: Boolean, default: true
   });
   game.settings.register(MODULE_ID, "waitMode", {
     name: "Wait mode",
-    hint: "If enabled, other gauges pause while anyone is active. Leave disabled to pause only on player turns.",
+    hint: "Full traditional pause: other gauges pause while anyone is active. Player active timers still count down unless ATB or Foundry itself is paused.",
     scope: "world", config: true, type: Boolean, default: false
   });
   game.settings.register(MODULE_ID, "trackerStyle", {
@@ -984,8 +1138,13 @@ function registerSettings() {
   });
   game.settings.register(MODULE_ID, "queuePreview", {
     name: "Queue preview size",
-    hint: "How many upcoming or READY combatants to show in the ATB panel. Set 0 to hide the preview.",
-    scope: "world", config: true, type: Number, default: 5
+    hint: "How many upcoming or READY combatants to show in the ATB panel. Large encounters show a +more count instead of flooding the tracker.",
+    scope: "world", config: true, type: Number, default: 8
+  });
+  game.settings.register(MODULE_ID, "largeEncounterCompactAt", {
+    name: "Large encounter compact threshold",
+    hint: "At this many active combatants, force Compact tracker visuals and summarize overflow so 50+ person initiatives remain usable. Set 0 to disable.",
+    scope: "world", config: true, type: Number, default: 50
   });
   game.settings.register(MODULE_ID, "announceChat", {
     name: "Announce ATB events in chat",
@@ -1036,6 +1195,7 @@ Hooks.on("combatStart", async combat => {
     paused: false,
     activeId: null,
     activeSince: null,
+    activeElapsed: null,
     lastTick: now(),
     sequence: sequence(combat) + 1
   });
@@ -1046,12 +1206,21 @@ Hooks.on("deleteCombat", () => {
   document.querySelectorAll(".active-time-battle .atb-active-timer").forEach(el => el.remove());
 });
 
-Hooks.on("updateCombat", (combat, changed) => {
+Hooks.on("pauseGame", paused => {
+  anchorFoundryPause(!!paused).catch(err => console.error(`${MODULE_ID} Foundry pause anchor failed`, err));
+});
+
+Hooks.on("updateCombatant", (combatant, changed, options) => {
+  if (!options?.activeTimeBattle) return;
+  const moduleFlags = foundry.utils.getProperty(changed, FLAG) || {};
+  if (Object.keys(moduleFlags).length) scheduleTrackerRefresh(combatant?.combat || game.combat);
+});
+
+Hooks.on("updateCombat", (combat, changed, options) => {
   if (!combat?.started) return;
   const moduleFlags = foundry.utils.getProperty(changed, FLAG) || {};
-  if ("activeId" in moduleFlags || "activeSince" in moduleFlags || "sequence" in moduleFlags) {
-    ui.combat?.render?.(false);
-    refreshActiveTimers(combat);
+  if (options?.activeTimeBattle || ["activeId", "activeSince", "activeElapsed", "lastTick", "paused", "sequence"].some(k => k in moduleFlags)) {
+    scheduleTrackerRefresh(combat);
   }
 });
 
@@ -1062,7 +1231,8 @@ Hooks.on("renderCombatTracker", (app, html) => {
   if (!combat) return;
   root.classList.add("active-time-battle");
   root.classList.remove("atb-style-bars", "atb-style-classic", "atb-style-compact");
-  root.classList.add(`atb-style-${trackerStyle()}`);
+  root.classList.add(`atb-style-${trackerStyle(combat)}`);
+  root.classList.toggle("atb-large-encounter", largeEncounter(combat));
   renderTrackerPanel(root, combat);
   renderCombatantBars(root, combat);
   refreshActiveTimers(combat);

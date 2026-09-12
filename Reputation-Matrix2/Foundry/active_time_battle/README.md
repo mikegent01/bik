@@ -4,8 +4,8 @@ A drop-in Foundry VTT module for combats where the table should keep moving but
 player turns should still feel fair. It replaces the "everyone waits for the
 current turn" problem with visible ATB gauges: combatants become **READY** as
 real time passes, initiative changes how fast the gauge fills, NPCs can be
-called over automatically, and player-owned turns pause the gauge clock with a
-five-minute decision window.
+called over automatically, NPC/GM turns can pause the gauge clock while the GM
+resolves them, and player-owned turns run on a live five-minute decision timer.
 
 Copy this folder as `FoundryVTT/Data/modules/active-time-battle/` (matching the
 manifest id), restart Foundry, enable **Active Time Battle**, and open the Combat
@@ -26,21 +26,24 @@ Every combatant has an ATB gauge from `0` to `100`.
    or let owners click **Activate**. With the default settings, NPCs get called
    over automatically and player turns are also called up instead of waiting for
    a player to notice a button.
-4. An activated NPC/default combatant gets a `90` second spotlight. A
-   player-owned combatant gets `300` seconds — five minutes — and **Pause ATB on
-   player turns** stops the other gauges while that player decides.
-5. If the active timer expires, timeout policy fires:
+4. An activated NPC/default combatant keeps the `90` second spotlight setting for
+   worlds that want an NPC timeout, but **Pause ATB on NPC turns** is on by
+   default: while the GM/NPC turn is active, other gauges and the NPC countdown
+   are held until **End ATB Turn**.
+5. A player-owned combatant gets `300` seconds — five minutes. Player turns are
+   live by default: the player's timer counts down and other gauges keep filling,
+   so players feel the pressure instead of NPC bookkeeping feeling rushed.
+6. If a live active timer expires, timeout policy fires:
    - **Delay**: drop the actor back to a configured ATB percent, so they cycle
      back soon but do not block the fight.
    - **Guard / Dodge**: spend the turn defensively and reset the gauge.
    - **Escalate**: delay once, then Guard after repeated idle timeouts.
-6. Other gauges keep filling by default during NPC turns. Enable **Wait mode**
-   only if you want traditional pause-while-anyone-acts ATB.
+7. If Foundry's global game pause is on — or the GM presses **Pause ATB** — the
+   entire ATB clock stops: gauges, active timers, and warnings all wait until the
+   game/ATB resumes.
 
-That is the incentive structure: NPCs keep going, the table does not wait on a
-90-second player panic clock, and a player turn pauses like a Baldur-style
-decision point. being absent does not freeze the table forever; repeated absence
-still costs turns through the timeout policy.
+That is the incentive structure: NPCs do not have to race the timer while the GM
+resolves them and players do have a visible decision clock. being absent does not freeze the table forever; repeated absence still costs turns through the timeout policy.
 
 ---
 
@@ -58,10 +61,10 @@ still stall the side. ATB changes the pressure:
   GM's setting.
 - Ready overflow caps, so a player cannot disappear for ten minutes and return
   with infinite priority banked.
-- NPCs can auto-activate, which keeps GM-run opponents moving without extra
-  tracker clicking.
-- Player turns can auto-activate too, but with a separate five-minute decision
-  timer and automatic gauge pause so the player is not punished by the NPC pace.
+- NPCs can auto-activate, and their active turns pause the ATB clock by default
+  while the GM resolves them.
+- Player turns can auto-activate too, but the player gets a separate five-minute
+  live decision timer and the rest of the table can keep filling gauges.
 
 The goal is not to punish a bathroom break. The goal is to make attention worth
 something while keeping the encounter fair enough to play.
@@ -80,20 +83,22 @@ For a table that wants pressure without panic:
 | Opening initiative weight | `2.5` | High initiative starts meaningfully closer to READY. |
 | Auto-activate | `All ready combatants` | NPCs go and player turns get called over automatically. |
 | Ready grace seconds | `3` | Gives owners a breath before auto-pick. |
-| NPC spotlight seconds | `90` | Keeps GM-run turns moving. |
+| NPC spotlight seconds | `90` | Kept as a configurable fallback; default NPC-turn pause holds it. |
 | Player decision seconds | `300` | Five minutes for a real player turn instead of a 90-second scramble. |
 | Player warning seconds | `60` | Gives a fair one-minute warning before timeout handling. |
-| Pause ATB on player turns | On | Baldur-style pause: other gauges wait while a player decides. |
+| Pause ATB on NPC turns | On | Gauges and the NPC timer wait while the GM resolves an NPC. |
+| Pause ATB on player turns | Off | Player turns stay live so players, not NPCs, worry about the clock. |
 | Timeout result | `Delay, then Guard` | Forgiving once, firm after repeated idle. |
 | Delay fallback percent | `72` | The actor comes back soon, but loses the immediate spotlight. |
 | READY overflow cap | `60` | Waiting helps priority, but cannot stockpile infinite turns. |
-| Tracker visual style | `Bars` | Most readable; switch to Classic badge if you want old-school ATB. |
-| Queue preview size | `5` | Shows who is READY / almost READY at a glance. |
-| Wait mode | Off | NPC turns keep the pressure moving; player turns already pause by default. |
+| Tracker visual style | `Bars` | Most readable; automatically becomes Compact at 50+ combatants. |
+| Queue preview size | `8` | Shows who is READY / almost READY at a glance without listing everyone. |
+| Large encounter compact threshold | `50` | Forces compact tracker visuals and a +more queue summary for 50+ initiatives. |
+| Wait mode | Off | Leave off unless you want other gauges paused while anyone acts. |
 
-If you have very fast automation, lower the NPC spotlight timer to `45–60`
-seconds. If your table needs more conversation per player turn, raise the player
-decision timer above `300`; the default is intentionally generous.
+If your table needs more conversation per player turn, raise the player decision
+timer above `300`; the default is intentionally generous. If you want NPC turns
+to time out automatically, turn **Pause ATB on NPC turns** off.
 
 ---
 
@@ -105,8 +110,8 @@ turns use an inline countdown timer in that panel; there is no modal turn popup.
 GM controls:
 
 - **Start ATB** — initialize gauges and start the clock.
-- **Pause / Resume ATB** — pause real-time filling without ending combat. This
-  is the manual/full pause; the player-turn pause happens automatically.
+- **Pause / Resume ATB** — pause real-time filling and active timers without
+  ending combat. Foundry's global pause does the same automatically.
 - **Roll Missing Initiative** — rolls the configured fallback formula only for
   combatants with no initiative value.
 - **Reset ATB** — re-seed gauges from current initiative and stop the clock.
@@ -125,7 +130,7 @@ multiplier, and initiative value.
 
 ---
 
-## Visual styles
+## Visual styles and large initiatives
 
 The setting **Tracker visual style** gives three table looks:
 
@@ -140,6 +145,13 @@ combatants with tiny progress fills and ETA labels. READY chips owned by the
 viewer are clickable, so an attentive player can activate from the top of the
 tracker without hunting through the list. Once someone is active, the same panel
 shows a live countdown bar and remaining time instead of opening a popup.
+
+For very crowded initiatives, the module is designed around 50+ combatants:
+combatant updates are batched, tick renders are coalesced instead of forcing a
+full tracker rebuild per combatant, the queue preview shows only the configured
+front of the line, and the panel adds a `+more in initiative` summary for the
+rest. At the default threshold of `50`, the tracker automatically uses Compact
+visuals even if the normal style is Bars or Classic.
 
 ---
 
@@ -160,6 +172,8 @@ shows a live countdown bar and remaining time instead of opening a popup.
   in chat HTML.
 - The combat tracker panel, active timer, and queue preview are built with DOM
   nodes instead of string-building for user-facing names.
+- Foundry's global game pause anchors the ATB clock so gauges and active timers
+  do not jump ahead when the game is unpaused.
 
 ---
 
@@ -177,7 +191,7 @@ The intended contract is simple: ATB calls the actor over by setting the Foundry
 active combatant; an external automation module may resolve that NPC; when it is
 done, it should call ATB's `endTurn()` API instead of native `nextTurn()`. Native
 turn-skipping stays blocked while ATB is running so gauges, laps, idle strikes,
-and player pauses remain in sync. If no external automation is installed, ATB
+and NPC-turn pauses remain in sync. If no external automation is installed, ATB
 keeps running with its own tracker controls.
 
 ## Foundry/system notes
@@ -223,16 +237,20 @@ second repeated idle   -> Guard / Dodge and gauge resets
 A player who is briefly distracted is not destroyed. A player who leaves the
 keyboard stops consuming the table's time.
 
-### Active vs player-pause vs Wait mode
+### Active vs NPC-pause vs player pressure vs Wait mode
 
-Default **Active mode** keeps gauges filling during NPC/default turns. This is
-the answer to "everyone else checked out": the encounter still has forward
-pressure while the GM resolves monsters.
+Default **player-pressure mode** keeps gauges filling during player-owned active
+turns. The active player gets a five-minute live timer; if they disappear, the
+usual timeout policy eventually delays or guards them.
 
-Default **Pause ATB on player turns** changes only player-owned turns. When a
-player combatant is active, the module keeps counting that player's decision
-timer but stops everyone else's gauges until the player ends the turn or times
-out. That is the Baldur-style compromise: NPCs go, player decisions pause.
+Default **Pause ATB on NPC turns** changes only NPC/GM-controlled active turns.
+When an NPC is active, the module holds other gauges and the NPC timer until the
+GM or automation bridge ends the turn. NPCs are not the ones racing the clock.
 
-**Wait mode** is the full traditional pause: gauges stop while anyone acts. It is
-safer for rules-heavy games but less effective at solving dead air.
+**Foundry pause** and the module's own **Pause ATB** button are stronger than both
+of those modes: they freeze gauges and active timers for everyone until resumed.
+
+**Wait mode** is the full traditional pause for gauges: other gauges stop while
+anyone acts. Player active timers still count down unless Foundry/ATB is paused.
+If you want the previous Baldur-style player pause, turn **Pause ATB on player
+turns** back on.
