@@ -99,7 +99,8 @@ decision timer above `300`; the default is intentionally generous.
 
 ## Combat Tracker controls
 
-The module adds an **Active Time Battle** panel to the Combat Tracker.
+The module adds an **Active Time Battle** panel to the Combat Tracker. Active
+turns use an inline countdown timer in that panel; there is no modal turn popup.
 
 GM controls:
 
@@ -118,7 +119,9 @@ Per-combatant controls:
 - **Hourglass / End ATB Turn** — appears on the active combatant for the GM and
   the actor owner.
 
-The meter tooltip shows ATB percent, speed multiplier, and initiative value.
+The panel's active-turn timer also has an **End ATB Turn** button for whoever can
+control the active combatant. The meter tooltip shows ATB percent, speed
+multiplier, and initiative value.
 
 ---
 
@@ -135,7 +138,8 @@ The setting **Tracker visual style** gives three table looks:
 The panel also has a **queue preview**. It shows the next few READY or almost-ready
 combatants with tiny progress fills and ETA labels. READY chips owned by the
 viewer are clickable, so an attentive player can activate from the top of the
-tracker without hunting through the list.
+tracker without hunting through the list. Once someone is active, the same panel
+shows a live countdown bar and remaining time instead of opening a popup.
 
 ---
 
@@ -153,9 +157,9 @@ tracker without hunting through the list.
   **Activate** and **End ATB Turn** so gauges, idle strikes, and ATB laps stay
   correct.
 - Actor/combatant names are inserted into tracker UI as text nodes and escaped
-  in chat/dialog HTML.
-- The combat tracker panel is built with DOM nodes instead of string-building for
-  user-facing names.
+  in chat HTML.
+- The combat tracker panel, active timer, and queue preview are built with DOM
+  nodes instead of string-building for user-facing names.
 
 ---
 

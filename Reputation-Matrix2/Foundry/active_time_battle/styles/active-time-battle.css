@@ -130,8 +130,81 @@
   color: var(--atb-active);
 }
 
-.atb-active-dialog p {
-  margin: 0 0 8px;
+
+.active-time-battle .atb-active-timer {
+  display: grid;
+  gap: 6px;
+  margin-top: 8px;
+  padding: 8px;
+  border: 1px solid rgba(255, 215, 94, .42);
+  border-radius: 8px;
+  background: rgba(0,0,0,.28);
+}
+
+.active-time-battle .atb-active-timer.player {
+  border-color: rgba(94, 234, 212, .65);
+}
+
+.active-time-battle .atb-active-timer-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  align-items: baseline;
+}
+
+.active-time-battle .atb-active-timer-row b {
+  color: #fff7d6;
+  font-size: 12px;
+}
+
+.active-time-battle .atb-active-timer.player .atb-active-timer-row b {
+  color: #d7fffb;
+}
+
+.active-time-battle .atb-active-timer-row span {
+  color: var(--atb-active);
+  font: 800 14px/1 var(--font-primary, sans-serif);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.active-time-battle .atb-active-countdown {
+  position: relative;
+  height: 9px;
+  border: 1px solid rgba(255,255,255,.18);
+  border-radius: 999px;
+  overflow: hidden;
+  background: rgba(0,0,0,.45);
+}
+
+.active-time-battle .atb-active-countdown span {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #f87171, #fbbf24, #5eead4);
+  transition: width .25s linear;
+}
+
+.active-time-battle .atb-active-timer small {
+  color: #c8d6f0;
+  font-size: 10px;
+  line-height: 1.25;
+}
+
+.active-time-battle .atb-active-end {
+  border: 1px solid rgba(255, 215, 94, .45);
+  border-radius: 6px;
+  padding: 4px 6px;
+  background: rgba(76, 55, 19, .8);
+  color: #fff3c4;
+  font: 800 11px var(--font-primary, sans-serif);
+  cursor: pointer;
+}
+
+.active-time-battle .atb-active-end:hover {
+  border-color: var(--atb-active);
+  background: rgba(113, 79, 20, .92);
 }
 
 @keyframes atbPulse {

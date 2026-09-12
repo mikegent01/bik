@@ -4,8 +4,7 @@ const READY = 100;
 const DEFAULT_TICK_MS = 1000;
 
 let TICKER = null;
-let ACTIVE_PROMPT = null;
-let ACTIVE_PROMPT_KEY = null;
+let TIMER_TICKER = null;
 let LAST_RENDER_WARN = 0;
 
 function escapeHtml(value) {
@@ -326,7 +325,7 @@ async function resetAtb(combat) {
     lastTick: now(),
     sequence: sequence(combat) + 1
   });
-  closeActivePrompt();
+  refreshActiveTimers(combat);
   await chat("ATB reset.");
   ui.combat?.render?.(true);
   return combat;
@@ -439,7 +438,7 @@ async function endActiveTurn(combat, combatantId, options = {}) {
     lastTick: stamp,
     sequence: sequence(combat) + 1
   });
-  closeActivePrompt();
+  refreshActiveTimers(combat);
   if (!options.silent) await chat(`<b>${escapeHtml(combatantName(c))}</b> spent their ATB turn.`);
   await advanceRoundIfComplete(combat, c.id);
   ui.combat?.render?.(true);
@@ -468,7 +467,7 @@ async function timeoutActiveTurn(combat, combatant) {
       lastTick: stamp,
       sequence: sequence(combat) + 1
     });
-    closeActivePrompt();
+    refreshActiveTimers(combat);
     await chat(`<b>${escapeHtml(combatantName(combatant))}</b> timed out and takes Guard / Dodge. The table keeps moving.`);
     await advanceRoundIfComplete(combat, combatant.id);
     ui.combat?.render?.(true);
@@ -488,7 +487,7 @@ async function timeoutActiveTurn(combat, combatant) {
     lastTick: stamp,
     sequence: sequence(combat) + 1
   });
-  closeActivePrompt();
+  refreshActiveTimers(combat);
   await chat(`<b>${escapeHtml(combatantName(combatant))}</b> timed out and delays to ${delayTo}% ATB. They will cycle back soon, but they do not stop the fight.`);
   ui.combat?.render?.(true);
 }
@@ -573,50 +572,98 @@ function tickActiveCombat() {
   });
 }
 
-function closeActivePrompt() {
-  try { ACTIVE_PROMPT?.close(); } catch (err) {}
-  ACTIVE_PROMPT = null;
-  ACTIVE_PROMPT_KEY = null;
+function activeTurnState(combat) {
+  if (!combat?.started || !isRunning(combat)) return null;
+  const c = activeId(combat) ? combat.combatants?.get(activeId(combat)) : null;
+  if (!c) return null;
+  const total = turnSecondsFor(c);
+  const started = activeSince(combat) || now();
+  const elapsed = (now() - started) / 1000;
+  const left = Math.max(0, total - elapsed);
+  const remainingPct = total > 0 ? clamp((left / total) * 100, 0, 100) : 0;
+  const mode = pauseOnPlayerTurn(c)
+    ? "Player decision pause: other gauges are waiting."
+    : (setting("waitMode") ? "Wait mode: other gauges are waiting." : "NPC/default turn: other gauges keep filling.");
+  return { combatant: c, total, elapsed, left, remainingPct, mode };
 }
 
-function showActivePrompt(combat) {
-  if (!combat?.started || !isRunning(combat)) return;
-  const c = activeId(combat) ? combat.combatants?.get(activeId(combat)) : null;
-  if (!c || !userCanAct(c)) return;
-  const key = `${combat.id}:${sequence(combat)}:${c.id}`;
-  if (ACTIVE_PROMPT && ACTIVE_PROMPT_KEY === key) return;
-  closeActivePrompt();
+function renderActiveTimer(panel, combat) {
+  const state = activeTurnState(combat);
+  if (!state) return;
+  const c = state.combatant;
+  const timer = document.createElement("div");
+  timer.className = `atb-active-timer${playerOwned(c) ? " player" : " npc"}`;
+  timer.dataset.combatId = combat.id;
 
-  const started = activeSince(combat) || now();
-  const total = turnSecondsFor(c);
-  const elapsed = (now() - started) / 1000;
-  const left = fmtSeconds(total - elapsed);
-  const pauseLine = pauseOnPlayerTurn(c)
-    ? "The ATB clock pauses around player decisions: other gauges wait while this player chooses, then NPCs resume moving."
-    : "NPC/default turns do not pause other gauges unless Wait mode is enabled.";
-  const content = `
-    <div class="atb-active-dialog">
-      <p><b>${escapeHtml(combatantName(c))}</b> is active.</p>
-      <p>You have about <b>${left}</b>. ${pauseLine}</p>
-      <p>If the timer expires, the module will delay you or put you on Guard based on world settings so the table keeps moving.</p>
-    </div>`;
-  ACTIVE_PROMPT = new Dialog({
-    title: "Active Time Battle",
-    content,
-    buttons: {
-      end: {
-        label: game.i18n.localize("ATB.EndTurn"),
-        callback: () => request("endTurn", combat, { combatantId: c.id, clearStrikes: true })
-      },
-      close: { label: "Close" }
-    },
-    close: () => {
-      ACTIVE_PROMPT = null;
-      ACTIVE_PROMPT_KEY = null;
+  const row = document.createElement("div");
+  row.className = "atb-active-timer-row";
+  const name = document.createElement("b");
+  name.dataset.atbTimerName = "";
+  name.textContent = `${combatantName(c)} is active`;
+  const left = document.createElement("span");
+  left.dataset.atbTimerLeft = "";
+  left.textContent = fmtSeconds(state.left);
+  row.append(name, left);
+
+  const bar = document.createElement("div");
+  bar.className = "atb-active-countdown";
+  const fill = document.createElement("span");
+  fill.dataset.atbTimerBar = "";
+  fill.style.width = `${state.remainingPct}%`;
+  bar.appendChild(fill);
+
+  const mode = document.createElement("small");
+  mode.dataset.atbTimerMode = "";
+  mode.textContent = state.mode;
+
+  timer.append(row, bar, mode);
+
+  if (userCanAct(c)) {
+    const end = document.createElement("button");
+    end.type = "button";
+    end.className = "atb-active-end";
+    end.textContent = game.i18n.localize("ATB.EndTurn");
+    end.addEventListener("click", ev => {
+      ev.preventDefault();
+      ev.stopPropagation();
+      request("endTurn", combat, { combatantId: c.id, clearStrikes: true });
+    });
+    timer.appendChild(end);
+  }
+
+  panel.appendChild(timer);
+}
+
+function refreshActiveTimers(defaultCombat = game.combat) {
+  for (const timer of document.querySelectorAll(".active-time-battle .atb-active-timer")) {
+    const combat = game.combats?.get?.(timer.dataset.combatId) || defaultCombat;
+    const state = activeTurnState(combat);
+    if (!state) {
+      timer.remove();
+      continue;
     }
-  }, { width: 390 });
-  ACTIVE_PROMPT_KEY = key;
-  ACTIVE_PROMPT.render(true);
+    const c = state.combatant;
+    timer.classList.toggle("player", playerOwned(c));
+    timer.classList.toggle("npc", !playerOwned(c));
+    const name = timer.querySelector("[data-atb-timer-name]");
+    const left = timer.querySelector("[data-atb-timer-left]");
+    const bar = timer.querySelector("[data-atb-timer-bar]");
+    const mode = timer.querySelector("[data-atb-timer-mode]");
+    if (name) name.textContent = `${combatantName(c)} is active`;
+    if (left) left.textContent = fmtSeconds(state.left);
+    if (bar) bar.style.width = `${state.remainingPct}%`;
+    if (mode) mode.textContent = state.mode;
+  }
+}
+
+function startTimerTicker() {
+  if (TIMER_TICKER) return;
+  TIMER_TICKER = window.setInterval(() => refreshActiveTimers(), 500);
+}
+
+function stopTimerTicker() {
+  if (TIMER_TICKER) window.clearInterval(TIMER_TICKER);
+  TIMER_TICKER = null;
 }
 
 function trackerStyle() {
@@ -735,6 +782,7 @@ function renderTrackerPanel(root, combat) {
   summary.textContent = trackerSummary(combat);
   title.append(titleText, summary);
   panel.appendChild(title);
+  renderActiveTimer(panel, combat);
   renderQueueStrip(panel, combat);
   const controls = document.createElement("div");
   controls.className = "atb-panel-controls";
@@ -970,6 +1018,8 @@ Hooks.once("ready", () => {
     return gmAction(data.action, combat, data);
   });
 
+  startTimerTicker();
+
   if (game.user.isGM) {
     /* Every GM client owns a harmless interval, but only the current primary GM
        is allowed to tick. If the first GM disconnects, the next GM takes over
@@ -992,16 +1042,16 @@ Hooks.on("combatStart", async combat => {
   if (setting("autoStart")) await startAtb(combat);
 });
 
-Hooks.on("deleteCombat", combat => {
-  if (combat?.id === game.combat?.id) closeActivePrompt();
+Hooks.on("deleteCombat", () => {
+  document.querySelectorAll(".active-time-battle .atb-active-timer").forEach(el => el.remove());
 });
 
 Hooks.on("updateCombat", (combat, changed) => {
   if (!combat?.started) return;
   const moduleFlags = foundry.utils.getProperty(changed, FLAG) || {};
-  if ("activeId" in moduleFlags || "sequence" in moduleFlags) {
-    if (!activeId(combat)) closeActivePrompt();
-    else showActivePrompt(combat);
+  if ("activeId" in moduleFlags || "activeSince" in moduleFlags || "sequence" in moduleFlags) {
+    ui.combat?.render?.(false);
+    refreshActiveTimers(combat);
   }
 });
 
@@ -1015,7 +1065,7 @@ Hooks.on("renderCombatTracker", (app, html) => {
   root.classList.add(`atb-style-${trackerStyle()}`);
   renderTrackerPanel(root, combat);
   renderCombatantBars(root, combat);
-  showActivePrompt(combat);
+  refreshActiveTimers(combat);
 });
 
 Hooks.on("preUpdateCombat", (combat, changed, options) => {
@@ -1034,4 +1084,5 @@ Hooks.on("preUpdateCombat", (combat, changed, options) => {
 Hooks.once("shutdown", () => {
   if (TICKER) window.clearInterval(TICKER);
   TICKER = null;
+  stopTimerTicker();
 });

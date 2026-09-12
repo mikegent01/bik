@@ -60,6 +60,10 @@ check('manual turn changes are blocked while ATB is running', js.includes('preUp
 check('rolling missing initiative does not reset a running fight', js.includes('do not reset the') && js.includes('Math.max(atbOf(c), openingAtb(c, avg))'));
 check('combatant names are escaped before HTML output', js.includes('function escapeHtml') && js.includes('escapeHtml(combatantName'));
 check('queue preview renders upcoming combatants', js.includes('function renderQueueStrip') && js.includes('queueCombatants') && css.includes('.atb-queue-chip'));
+check('active turns use inline timer instead of modal dialog',
+  js.includes('function renderActiveTimer') && js.includes('function refreshActiveTimers') &&
+  js.includes('atb-active-timer') && css.includes('.atb-active-timer') &&
+  !js.includes('new Dialog') && !js.includes('atb-active-dialog') && !js.includes('showActivePrompt'));
 check('idle timeouts can delay', js.includes('delayPercent') && js.includes('timed out and delays'));
 check('idle timeouts can guard', js.includes('Guard / Dodge') && js.includes('lastActedRound'));
 check('rounds advance as ATB laps', js.includes('advanceRoundIfComplete') && js.includes('ATB lap'));
@@ -69,6 +73,7 @@ check('README explains the inactivity solution', /YouTube/.test(readme) && /bein
 check('README documents Baldur-style player pause', /Baldur-style/.test(readme) && /five minutes/.test(readme) && /NPCs go, player decisions pause/.test(readme));
 check('README install folder matches module id', readme.includes('Data/modules/active-time-battle'));
 check('README documents visual styles and queue preview', /Visual styles/.test(readme) && /Classic badge/.test(readme) && /queue preview/.test(readme));
+check('README documents inline timer and no popup', /inline countdown timer/.test(readme) && /no modal turn popup/.test(readme));
 
 console.log(`\n${ok.length} passed, ${fail.length} failed`);
 ok.forEach(l => console.log('  ok   ' + l));
