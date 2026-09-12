@@ -44,14 +44,15 @@ const expectLayer = (ids, plane) => ids.every(id => planeOf(id) === plane);
 ok(expectLayer(['poi_mid_shadow_estate', 'poi_mid_shadow_estate_gardens', 'poi_mid_mazebound_grove',
   'poi_mid_orange_deer_shrine', 'poi_mid_tymnas_cottage', 'poi_mid_skittering_grove'], 'shadow'),
   'the six Shadeward pins sit on the shadow layer');
-ok(expectLayer(['poi_mid_overgrown_manor', 'poi_mid_overgrown_library', 'poi_mid_dreaming_tree_grove'], 'fey'),
-  'the three Feyward pins sit on the fey layer');
+ok(expectLayer(['poi_mid_overgrown_manor', 'poi_mid_dreaming_tree_grove'], 'fey'),
+  'the Feyward overland pins sit on the fey layer');
 ok(expectLayer(['poi_mid_deep_mirror', 'poi_mid_darius_sanctum', 'poi_mid_planar_sanctum_belfry'], 'mirror'),
   'the three Deep Mirror pins sit on the mirror layer');
 ok(expectLayer(['poi_mid_raventree_manor', 'poi_mid_silent_grove', 'poi_mid_alpine_bank_raventree'], 'material'),
   'the Material anchor pins stay on the material layer');
 const skit = midlands.find(p => p.id === 'poi_mid_skittering_grove');
 ok(skit && skit.articleId === 'skittering_grove' && Number.isFinite(skit.x), 'skittering_grove pin filed with articleId + coordinates');
+ok(!midlands.some(p => p.id === 'poi_mid_overgrown_library'), 'overgrown_library is an interior sublocation, not a separate overland pin');
 
 /* Every tagged non-material pin must point at a real location whose own
    filed plane agrees (locations.json carries the classifier verdicts). */
@@ -168,7 +169,7 @@ ok(surveyPar.has('undertale_monsters') && surveyPar.has('iron_legion'), 'party l
 const dis = api.buildJourney('midlands_full', 'all', DATA, MAP_DATA, { party: 'disaster_inc' });
 ok(dis.stops.length === 43 && dis.stops.length < j.stops.length, `disaster inc owns a real midlands trail (${dis.stops.length} stops)`);
 const disIds = [...dis.stops, ...dis.unpinned, ...dis.unresolved].map(x => x.eventId);
-ok(disIds.length === 74 && new Set(disIds).size === 74, 'a filtered journey still buckets every party event exactly once');
+ok(disIds.length === 75 && new Set(disIds).size === 75, 'a filtered journey still buckets every party event exactly once');
 ok(dis.stops.every((s, i) => s.n === i + 1), 'filtered stops renumber 1..N in display order');
 const pea = api.buildJourney('midlands_full', 'all', DATA, MAP_DATA, { party: 'peach_loyalists' });
 ok(pea.stops.length === 0 && pea.unpinned.length + pea.unresolved.length === 3, 'a party with no midlands stops degrades to the unplotted list, honestly');

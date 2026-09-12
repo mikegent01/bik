@@ -47,6 +47,7 @@ ok(api.locPinsFor('peachs_castle')[0].poi.id === 'poi_mk_castle', 'legacy specia
 ok(api.locPinsFor('ruins_of_the_mushroom_kingdom_capitol').length === 1, 'duplicate-capitol pair shares one pin');
 ok(api.locPinsFor('mount_ebott').length === 0, 'mount_ebott honestly reports no pin');
 ok(api.locPinsFor('the_core_underground').length === 0, 'no fuzzy match resurrects the quantum-core false positive');
+ok(api.locPinsFor('overgrown_library').length === 0, 'overgrown_library has no separate overland pin');
 
 console.log('location map preview — rendered panel');
 const plotted = api.locationMapPreview(byId.get('shadow_estate'), 'locations');
@@ -57,6 +58,8 @@ ok(plotted.includes('The Shadow Estate'), 'panel labels the pin');
 ok(plotted.includes('#/atlas/regal_empire/midlands_full/'), 'deep link routes into the regal atlas with sheet + pin');
 ok(api.locationMapPreview(byId.get('mount_ebott'), 'locations').includes('Not on the tactical map yet'), 'unplotted location gets the honest dashed panel');
 ok(api.locationMapPreview(byId.get('mount_ebott'), 'locations').includes('The Old World'), 'unplotted panel quotes the filed region');
+const libraryPreview = api.locationMapPreview(byId.get('overgrown_library'), 'locations');
+ok(libraryPreview.includes('inside The Overgrown Manor') && libraryPreview.includes('parent pin, not a separate overland marker'), 'interior sublocations inherit their parent map pin');
 ok(api.locationMapPreview(byId.get('mario') || { id: 'mario', name: 'Mario' }, 'characters') === '', 'non-location articles render nothing');
 
 console.log('location map preview — deep links');

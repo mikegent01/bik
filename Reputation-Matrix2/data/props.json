@@ -2230,6 +2230,41 @@
         "sealed",
         "evidence"
       ]
+    },
+    "prop_courier_note_garden_above_fire": {
+      "kind": "note",
+      "icon": "✉️",
+      "title": "Courier's Note — Recalled Reading",
+      "subtitle": "Unrecovered paper · text recovered from Luigi's testimony at Star Hill",
+      "items": [],
+      "articles": [
+            "the_garden_above_the_fire",
+            "the_lava_bridge_ambush_and_the_blue_luigi"
+      ],
+      "note": "The paper itself is still missing. Luigi supplied the first known wording after the rescue: 'The star is not lost. Find the garden above the fire.'",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">EVIDENCE ADDENDUM &mdash; COURIER NOTE</div><div class=\"pd-sub\">Unrecovered original &middot; recalled by Luigi after rescue &middot; 18 Harvestide 1035</div></div><div class=\"pd-label\">TEXT RECOVERED FROM READER</div><div class=\"pd-clause\"><b>Original custody:</b> yellow-caped courier to Luigi on the lava bridge; folded once; carried through the fall and never surrendered to the archive.</div><div class=\"pd-clause\"><b>Recovered wording:</b></div><div class=\"pd-quote\">The star is not lost. Find the garden above the fire.</div><div class=\"pd-clause\"><b>Witness condition:</b> Luigi was burned, exhausted, and intermittently delirious, but responsive to direct questions and consistent on this phrase.</div><div class=\"pd-margin\">The note is no longer unread. It is also not in my hand. Those are different problems. Waluigi files the sentence and keeps the old evidence tag open until the paper itself stops hiding like a coward. &mdash; W.</div><div class=\"pd-fine\">This addendum supersedes only the statement that the text is unknown. It does not establish author, courier identity, destination, or whether \"star\" refers to Mario, Star Hill, the Star Rod, or something worse.</div>",
+      "stamps": [
+            "sealed",
+            "evidence"
+      ]
+    },
+    "prop_dr_toad_luigi_burn_chart": {
+      "kind": "note",
+      "icon": "🩺",
+      "title": "Clinic Chart — Luigi",
+      "subtitle": "Dr. Toad's Star Hill Clinic · emergency burn treatment",
+      "items": [],
+      "articles": [
+            "the_garden_above_the_fire",
+            "dr_toads_star_hill_clinic",
+            "dr_toad",
+            "luigi"
+      ],
+      "note": "Diagnosis filed because the medical line decides the arc boundary: rescue complete, recovery begins, no adventuring ordered.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">DR. TOAD'S STAR HILL CLINIC</div><div class=\"pd-sub\">Emergency chart &middot; patient: Luigi &middot; brought by Wario's party</div></div><div class=\"pd-meta\"><span>Condition</span><b>Conscious, exhausted, intermittently confused</b><span>Burns</span><b>Serious but treatable; mostly second-degree</b><span>Face</span><b>No burn trauma observed</b><span>Disposition</span><b>Rest, fluids, clean dressings, no adventuring</b></div><div class=\"pd-clause\"><b>Physician note:</b> Pain, heat exposure, emotional shock, and exhaustion likely contribute to confusion. Monitor overnight. Change dressings daily. Reassess if fever, worsening pain, or repeated disorientation occurs.</div><div class=\"pd-quote\">NO ADVENTURING. Underlined twice by the doctor and ignored immediately by the patient's facial expression.</div><div class=\"pd-margin\">A medical document with the rare virtue of being correct and annoying. Waluigi endorses the no-adventuring order for Luigi and reserves the right to ignore any similar order written for Waluigi. &mdash; W.</div>",
+      "stamps": [
+            "evidence"
+      ]
     }
   }
 }

@@ -1,6 +1,6 @@
 // Province census + the desk's shortlist, mounted in the REAL atlas renderer.
 // Proves the merge paints contiguous borders (inked by what they mean: bold
-// frontiers, faint internal lines, hatched marches), that plots and labels are
+// frontiers, faint internal lines, plain claimant/grey contested fills), that plots and labels are
 // actually clickable after a pointer gesture — setPointerCapture on pointerdown
 // used to retarget the click to the viewport and eat it — that labels declutter
 // without ever being lost, that the dossier names the leader and the court's
@@ -48,8 +48,8 @@ const mk = mount('mushroom_kingdom_full');
 check('mount returns a handle', !!mk.handle);
 const plots = [...mk.host.querySelectorAll('[data-province]')];
 check('every filed province gets a plot', plots.length >= 20, `${plots.length} plots`);
-check('plots are smooth closed paths', plots.every(p => p.tagName.toLowerCase() === 'path' && /^M /.test(p.getAttribute('d') || '') && /Z$/.test(p.getAttribute('d') || '')));
-check('a contested province is dashed', mk.host.querySelectorAll('.atlas-v2-plot.contested').length >= 1);
+check('plots are straight closed paths', plots.every(p => p.tagName.toLowerCase() === 'path' && /^M /.test(p.getAttribute('d') || '') && /Z$/.test(p.getAttribute('d') || '')));
+check('a contested province gets a plain contested fill', mk.host.querySelectorAll('.atlas-v2-plot.contested').length >= 1);
 check('province labels render at the plot centre', mk.host.querySelectorAll('[data-plotlabel]').length === plots.length);
 const labeled = [...mk.host.querySelectorAll('[data-plotlabel]')].find(el => txt(el).includes('Dry Dry Desert'));
 check('labels name a real filed province', !!labeled, labeled ? txt(labeled) : 'none');
@@ -64,9 +64,9 @@ check('the toggle brings it back', mk.host.querySelectorAll('[data-province]').l
 const contested = mk.host.querySelectorAll('.atlas-v2-plot.contested').length;
 check('frontier edges are drawn between two different hands', mk.host.querySelectorAll('.atlas-v2-edge.frontier').length >= 3, `${mk.host.querySelectorAll('.atlas-v2-edge.frontier').length} frontiers`);
 check('frontier edges touching a march are inked hot', mk.host.querySelectorAll('.atlas-v2-edge.frontier.hot').length >= 1, `${mk.host.querySelectorAll('.atlas-v2-edge.frontier.hot').length} hot`);
-check('the rim of the surveyed ground is drawn', mk.host.querySelectorAll('.atlas-v2-edge.rim').length >= 3, `${mk.host.querySelectorAll('.atlas-v2-edge.rim').length} rim`);
-check('every contested province is hatched, not just tinted', mk.host.querySelectorAll('.atlas-v2-hatchfill').length === contested, `${mk.host.querySelectorAll('.atlas-v2-hatchfill').length} hatched of ${contested} contested`);
-check('the hatch pattern is defined inside the overlay', mk.host.querySelectorAll('.atlas-v2-borders pattern').length === 1);
+check('the outside rim of the tiled sheet is drawn', mk.host.querySelectorAll('.atlas-v2-edge.rim').length >= 3, `${mk.host.querySelectorAll('.atlas-v2-edge.rim').length} rim`);
+check('contested provinces are not hatched', mk.host.querySelectorAll('.atlas-v2-hatchfill').length === 0, `${mk.host.querySelectorAll('.atlas-v2-hatchfill').length} hatch fills`);
+check('no hatch pattern is injected into the overlay', mk.host.querySelectorAll('.atlas-v2-borders pattern').length === 0);
 check('the legend counts the contested marches', /⚔ \d+ contested/.test(txt(mk.host.querySelector('[data-legend-lens]'))), txt(mk.host.querySelector('[data-legend-lens]')).slice(-60));
 /* The Mushroom Kingdom is nearly all marches, so it has no internal borders to
    check; Equestria's crowns hold neighbouring sheets, which is where the faint
@@ -100,7 +100,7 @@ check('a filed ledger is checked against the census',
   !withLedger.ledger || dossier.querySelectorAll('.atlas-v2-ledger').length === 1, `ledger for ${withLedger.name}`);
 check('the ledger row shows filed → census', !withLedger.ledger || /→ census/.test(sheet) || sheet.includes('census'));
 check('dossier links back to the survey sheet', /Open this province as its own sheet|_desert|_plains/.test(sheet));
-check('the selected province wears the gold focus ring', !!mk.host.querySelector('.atlas-v2-borders .atlas-v2-focus'));
+check('the selected province wears the gold focus ring', !!mk.host.querySelector('.atlas-v2-borders .atlas-v2-edge.focused'));
 
 /* ---- clicking: pointer capture must not eat the click ---- */
 /* The original sin: setPointerCapture on pointerdown retargets the click to

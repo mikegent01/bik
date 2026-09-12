@@ -55,14 +55,14 @@ loud where the archive's numbers and the archive's pins disagree.
              logged so a city cannot outvote the citadel that commands it.
 5. Crowning  a flag is the province's controller at ≥12% of the census AND
              either ≥45% of it or a lead of ≥28 points, and never with a rival
-             within 14 points. Below that it is a MARCH: several flags, dashed
-             border, no crown. A province with flags but no readable leader is
-             unclaimed, not quietly given to the biggest pile.
-6. Bordering every province takes the ground it is the strongest claim on — a
-             power-weighted (Laguerre) Voronoi cell, so a hegemon's edge bulges.
-             A province whose surveyed pins cover under 55% of that tile is
-             clipped back to its own hull instead, and the gap left behind is
-             no-man's-land, drawn rather than hidden.
+             within 14 points. Below that it is a MARCH: several flags, no crown.
+             A province with flags but no readable leader is unclaimed, not
+             quietly given to the biggest pile.
+6. Bordering the sheet is tiled from the actual POI anchors, not one loose blob
+             per label. Every filed pin becomes evidence for its province, cells
+             from the same province merge visually, and blank ground falls to the
+             nearest anchor. There are no holes between shapes; unreadable or
+             unaligned control is shown as claimant colour or grey.
 7. Rolling   provinces roll into the realm: who holds how many, what share of the
              area and the people that is, and where the weight sits (the capital
              province). `nationRollup()` is the only place "the nation" is decided.
@@ -71,8 +71,8 @@ loud where the archive's numbers and the archive's pins disagree.
 ## 2. Generated outputs
 
 - **`Reputation-Matrix2/data/provinceCensus.json`** — the census as filed: every
-  `*_full` realm, its provinces with control shares, border polygons, seat, the
-  filed-ledger diff, and the nation roll-up. Written only by
+  `*_full` realm, its provinces with control shares, border polygons / compound
+  cells, seat, the filed-ledger diff, and the nation roll-up. Written only by
   `node tools/build-province-census.mjs`. It exists so the census is a document a
   reader can cite when nobody has the map open — not so the atlas can read it:
   the atlas computes live from the same module.
@@ -83,14 +83,15 @@ loud where the archive's numbers and the archive's pins disagree.
 ## 3. Reader / player surface
 
 - **The World Atlas** (`#/atlas` → a realm) — `atlas-map-v2.js` now draws the
-  census under the pins, and the border ink says what the border *is*: **bold
-  parchment lines between two different hands**, faint dashed lines inside one
-  hand, the crown's own colour along the rim of the surveyed ground, and **hot
-  red dashes wherever a march touches a frontier**. Contested ground is hatched
-  in red, never merely fainter; a filed claim with no pins behind it stays on
-  the sheet as a dotted outline. Every stroke is non-scaling, so borders stay
-  hairline ink at every zoom, and the legend line counts the realm's provinces
-  and its contested marches. The **🗺️ Provinces** button in the tools row
+  census under the pins, and the border ink says what the border *is*: **solid
+  parchment lines between two different hands**, faint solid administrative
+  lines inside one hand, and claimant-coloured rim ink around the tiled sheet.
+  Contested ground is no longer hatched or dashed; it keeps a plain fill using
+  the leading claimant's colour when the census can name one, or grey when it
+  cannot. A filed claim with no pins behind it stays on the sheet as a small
+  grey claim outline. Every stroke is non-scaling, so borders stay hairline ink
+  at every zoom, and the legend line counts the realm's provinces and its
+  contested marches. The **🗺️ Provinces** button in the tools row
   toggles the layer; the **Provinces**
   lens re-colours the pins by their province's crown so the census reads across
   the sheet instead of one pin at a time.
@@ -99,8 +100,8 @@ loud where the archive's numbers and the archive's pins disagree.
   first, a label that would land on another is tucked away rather than drawn
   over it, a tucked label reappears on hover, and zoom earns more of them their
   place because labels counter-scale against the zoom while the provinces do
-  not. A click also flies to the province — never zooming you out — and frames
-  it in a gold focus ring. Pointer capture is taken only once a gesture proves
+  not. A click also flies to the province — never zooming you out — and brightens
+  its real border segments in gold, without drawing fake internal cell seams. Pointer capture is taken only once a gesture proves
   itself a drag, so a press that never moves is still a click on whatever it
   landed on.
 - **The dossier names who actually runs the province**, from the faction
@@ -117,6 +118,16 @@ loud where the archive's numbers and the archive's pins disagree.
   a ledger for that ground — the diff: *filed 40% → census 22%*, plus whether
   the same hand still holds it. A province surveyed on its own sheet links
   straight to that sheet.
+- **POI density is a control, not a punishment.** Dense sheets now open in
+  **✨ Smart POIs** mode: nearby locations collapse into clusters at low zoom,
+  and cluster clicks dive the map *and* open a local city/town/village inset in
+  the dossier rail. The inset is a reader's magnifier: it spreads those crowded
+  POIs apart into numbered pickable pins while keeping the real x/y geography on
+  the main map. The same density button cycles to **◆ Key only** (seats,
+  wiki-linked pins, journey stops, chatter pins and top lens values) and
+  **• All POIs** (every filed pin unrolled) when a reader really needs the raw
+  survey. Province selection fades pins outside the selected plot instead of
+  burying the dossier under unrelated dots.
 - **`🎯 Choose a pin`** — the desk's shortlist. The answer to seven hundred pins
   is not more pins, it is six worth acting on, each with its reasons checked
   against the sheet: *top of the sheet by population · seat of Capital Province ·
@@ -125,9 +136,14 @@ loud where the archive's numbers and the archive's pins disagree.
   Arrow keys or `j`/`k` move, `Enter` picks, `Esc` drops it; picking selects the
   pin and flies the map to it. `openShortlist()` is on the mount handle, so any
   page can open it directly.
-- **The Cartography Desk** (`#/maps/<sheet>`) mounts the same renderer, so
-  borders, the lens and the shortlist arrive there too — except in journey mode,
-  where pins are hidden and therefore borders are not drawn over them.
+- **The Cartography Desk** (`#/maps/<sheet>`) mounts the same renderer as a
+  full-canvas route rather than a small card embedded in the wiki document. The
+  wiki side rail is removed on that route, the map owns the viewport, and the
+  journey/chatter panels dock beside it. Atlas nation pages keep their embedded
+  context map, but its toolbar now has **Open full map desk** so the reader can
+  jump from a dossier card to the real map workspace in one click. Borders, the
+  lens, density controls and the shortlist arrive there too — except in journey
+  mode, where pins are hidden and therefore borders are not drawn over them.
 - **Power Projection** (`#/power`) now reads the census as well as the count:
   `app/systems/global-map-analysis.js` puts `provinceCount`,
   `contestedProvinces` and `censusSovereign` on every region, counts

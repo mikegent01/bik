@@ -36,6 +36,7 @@ different narrator stance — see **[`WHATIF_FORMAT_GUIDE.md`](WHATIF_FORMAT_GUI
 | 9C | [Investigate this further](#9c-investigate-this-further--the-connected-panel-hook) | The connected-panel hook |
 | 9D | [WAHwire](#9d-wahwire--every-filing-posts) | Every filing posts |
 | 9E | [Dossier assessments](#9e-dossier-assessments--update-what-the-factions-say) | Update what the factions say about the party |
+| 9F | [Living-article growth self-check](#9f-living-article-growth-self-check--old-pages-grow-when-new-canon-changes-them) | Make older related/arc pages useful again |
 | 10 | [Battle and campaign pages](#10-battle-and-campaign-pages) | The tactical variant |
 | 11 | [Pacing tells](#11-pacing-tells) | Nine things good filings do — steal deliberately |
 | 12 | [Pre-flight](#12-pre-flight) | Craft judgement + mechanical pass/fail |
@@ -64,6 +65,8 @@ APPARATUS    ledger + findings + verdict          (what-if)
 EXHIBITS     the prose names paper → props.json files it → [[prop:id|text]]
              written as the ISSUER · Waluigi only in the margin
              every ## Addendum: → an addendum slip: what / who / why late
+GROWTH       python3 tools/check-story-growth.py <new_id>
+             review related pages + arc files; useful edits only, never link spam
 HTML         markdown + blockquotes only — never raw <div>
 
 Quote it. Name the object. Sound it. Body over mood.
@@ -710,6 +713,81 @@ everywhere or leave the faction out entirely rather than half-filling it.
 
 ---
 
+## 9F. Living-article growth self-check — old pages grow when new canon changes them
+
+A new filing should not strand the older pages around it. Characters, places,
+predecessor events and arc files are **living articles**: when canon moves, the
+pages that already carried that canon should either grow or be deliberately left
+alone.
+
+This is not a license to add every new id to every old `relatedArticles[]`.
+That is link spam, and link spam makes the archive look alive while saying
+nothing. The rule is narrower:
+
+> **Edit an older page only when the new filing changes what that page knows,
+> where it should send a reader, or how its arc should now be understood.**
+
+Run the advisory checker after the event exists and before the run report:
+
+```bash
+python3 tools/check-story-growth.py <new_event_or_article_id>
+# or, for the newest event:
+python3 tools/check-story-growth.py --latest
+```
+
+The checker reads the website data and prints a review queue from:
+
+- the new article's `participants[]`, `relatedArticles[]`, `keyBattles[]` and
+  source links;
+- pages that already point back to the new article;
+- investigation / arc files whose `sessions[]` or `relatedEvents[]` contain it;
+- same-era arc peers that share people, places or predecessor links.
+
+It exits nonzero only for unresolved direct ids. Everything else is a **review
+prompt**, because usefulness is a story judgement, not a linter rule.
+
+### What counts as a useful growth edit
+
+| Page type | Useful edit | Not useful |
+|---|---|---|
+| Character | Status, injury, allegiance, custody, grief, last-seen, `keyEvents[]` when the event genuinely changed them | Adding the event id to every participant with no changed sentence |
+| Location | Damage, control, newly searched rooms, new notable feature, new open route, one reader-helpful backlink | Listing every scene that merely passed through |
+| Older event / battle | `revisions[]`, aftermath note, changed interpretation, custody correction, or a reciprocal link to a direct sequel | "See also newest session" on an unrelated same-era page |
+| Investigation / arc file | New `sessions[]`, exhibits, threads, leads, closed/reframed leads | Retelling the event in the case file with no evidence or decision |
+| Faction / nation | Official stance, law, territory, leader, warrant, assessment line | Churning faction prose because a member appeared in the room |
+| Commentary | New cut/correction only if the source story changed enough to deserve Waluigi talking over it again | Commentary for every minor cross-link |
+
+A good growth edit is small but consequential. Examples:
+
+```text
+□ Luigi page: status now says recovered alive and under Dr. Toad's rest order;
+  keyEvents gains the rescue event.
+□ Predecessor event: revision notes that the "Luigi lost past the falls" hook is
+  now resolved by a sequel, while Mario and the courier note remain open.
+□ Arc investigation: old lead is closed or reframed, new lead opens with why it
+  is worth pursuing.
+□ Location page: Bowser's compound notes the searched lava-moat tunnel if that
+  changes how the place is read later.
+```
+
+### How to use the checker without letting it write junk
+
+```
+1. Run python3 tools/check-story-growth.py <id>.
+2. Read the review queue from the top.
+3. For each old page, ask: what changed that a reader of THIS page needs now?
+4. Make that sentence-level edit: status, summary, keyEvents, relatedArticles,
+   revision, investigation lead, or dossier line.
+5. If the answer is "nothing useful," skip it and say so in the run report.
+6. Re-run the checker. The goal is not an empty queue; the goal is no missed
+   useful edits and no unresolved ids.
+```
+
+The checker is intentionally not part of `check-all.py`: it needs the id of the
+new filing and it cannot know whether an edit is good. It is a **self-check for
+agents** before they call a filing done.
+
+---
 ## 10. Battle and campaign pages
 
 A session event tells the story. A battle page explains **how the fight moved**.
@@ -877,6 +955,8 @@ at it without explaining it. Readers finish the filing themselves.
 □ Event added to the home feed, SITE_UPDATES, and the RNN pending list
 □ Dossier assessments updated for any faction whose opinion this filing moved —
   both copies in sync, kill-order phrasing only where meant (§9E)
+□ Living-article growth pass run: python3 tools/check-story-growth.py <id>;
+  useful related/arc edits made or deliberately skipped (§9F)
 ```
 
 Run the numbers: [`AUDIT_SCRIPTS.md` → Event audit](AUDIT_SCRIPTS.md#event-audit).

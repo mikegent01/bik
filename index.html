@@ -592,6 +592,37 @@ ul.otd li a{color:var(--text);font-weight:600}
 .bros-attack-card h2{padding-right:44px}.bros-attack-card h3{color:var(--accent2);font-size:14px;margin:18px 0 7px}.bros-attack-card ol{padding-left:22px;color:var(--muted)}
 .bros-attack-card li{margin:5px 0}.bros-energy-box{display:flex;flex-wrap:wrap;gap:8px;padding:11px 12px;margin:14px 0;border:1px solid rgba(224,180,0,.32);border-radius:10px;background:rgba(224,180,0,.07)}
 .bros-energy-box b{color:#ffe7a0}.bros-how{margin-top:14px;padding:14px 16px;border:1px solid rgba(150,230,179,.28);border-radius:10px;background:rgba(150,230,179,.06)}.bros-how h3{margin:0 0 6px;color:var(--green)}.bros-how ol{margin:0;padding-left:22px;color:var(--muted)}.bros-how li{margin:4px 0}.bros-source{font-size:12px;color:var(--muted);margin-top:14px}
+
+/* ===== Immersive map route (#/maps) =====
+   The cartography desk is now a map application route: no wiki side rail, no
+   document card constraining the canvas, and the renderer owns the viewport. */
+body.maps-route{overflow:hidden}
+body.maps-route .layout{display:block;max-width:none;margin:0;padding:0}
+body.maps-route aside.sidenav,body.maps-route footer{display:none!important}
+body.maps-route main.content{min-height:calc(100dvh - 65px)}
+.mapsdesk-app{height:calc(100dvh - 65px);display:grid;grid-template-rows:auto minmax(0,1fr);background:#050a12;border-top:1px solid var(--border);overflow:hidden}
+.mapsdesk-command{display:flex;justify-content:space-between;gap:18px;align-items:flex-start;padding:12px 18px;background:linear-gradient(90deg,rgba(138,75,255,.18),rgba(5,10,18,.96) 58%,rgba(224,180,0,.08));border-bottom:1px solid var(--border)}
+.mapsdesk-title h1{margin:0;font-size:22px}.mapsdesk-title p{margin:2px 0 0;color:var(--muted);font-size:12.5px;line-height:1.45;max-width:78ch}.mapsdesk-title .breadcrumb{margin:0 0 4px;font-size:11.5px}
+.mapsdesk-command .mapsdesk-bar{margin:0;justify-content:flex-end}.mapsdesk-control-stack{display:flex;flex-direction:column;gap:8px;align-items:flex-end;min-width:min(560px,48vw)}
+.mapsdesk-layout{display:grid;grid-template-columns:minmax(0,1fr);gap:0;height:100%;min-height:0;align-items:stretch}
+.mapsdesk-layout.has-desk-panel{grid-template-columns:minmax(0,1fr) minmax(300px,360px)}
+.mapsdesk-map-card{min-height:0;margin:0!important;padding:0!important;border:0!important;border-radius:0!important;background:#050a12!important;box-shadow:none!important;overflow:hidden}
+#maps-desk-map,#maps-desk-map .atlas-v2{height:100%;min-height:0}
+#maps-desk-map .atlas-v2{border:0;border-radius:0;display:flex;flex-direction:column;background:#050a12}
+#maps-desk-map .atlas-v2 header{padding:11px 18px;flex:0 0 auto}
+#maps-desk-map .atlas-v2 h2{font-size:19px}
+#maps-desk-map .atlas-v2-tools,#maps-desk-map .atlas-v2-modes{padding:8px 18px;flex:0 0 auto}
+#maps-desk-map .atlas-v2-layout{flex:1;min-height:0;grid-template-columns:minmax(0,1fr) minmax(285px,330px)}
+#maps-desk-map .atlas-v2-stage{min-height:0;padding:10px;display:flex;flex-direction:column}
+#maps-desk-map .atlas-v2-viewport{height:auto;min-height:0;flex:1;border-radius:10px}
+#maps-desk-map .atlas-v2-sidebar{max-height:none;min-height:0}
+.mapsdesk-journey{height:100%;max-height:none;border-radius:0;border-top:0;border-right:0;border-bottom:0;background:rgba(13,21,36,.98);min-height:0}
+.mapsdesk-journey .mapsdesk-stops{max-height:none}.mapsdesk-journey h3{color:#ffe7a0}
+@media(max-width:1100px){body.maps-route{overflow:auto}.mapsdesk-app{height:auto;min-height:calc(100dvh - 65px)}.mapsdesk-command{flex-direction:column}.mapsdesk-control-stack{min-width:0;width:100%;align-items:flex-start}.mapsdesk-command .mapsdesk-bar{justify-content:flex-start}.mapsdesk-layout.has-desk-panel{grid-template-columns:1fr}.mapsdesk-journey{border-left:0;border-top:1px solid var(--border)}#maps-desk-map .atlas-v2-layout{grid-template-columns:1fr}#maps-desk-map .atlas-v2-viewport{min-height:520px}}
+
+.atlas-map-open{border:1px solid rgba(224,180,0,.45);background:rgba(224,180,0,.12);color:#ffe7a0;border-radius:999px;padding:7px 12px;font-size:12px;font-weight:800;cursor:pointer}
+.atlas-map-open:hover{background:rgba(224,180,0,.22);border-color:#ffd75e;color:#fff}
+
 </style></head>
 <body>
 <header class="topbar">
@@ -669,7 +700,15 @@ function assetPath(src){
 /* ================= Waluipedia mega app ================= */
 /* DATA is populated by the loader (fetch ./data/*.json, fall back to embedded).
    These are declared with let and assigned once data is ready in boot(). */
-let DATA, FCOLORS, MONTHS, CUR;
+const DEFAULT_CURRENT_DATE = Object.freeze({year:1040, monthIndex:7, day:18});
+function safeCurrentDate(src){
+  const d = (src && typeof src === 'object') ? src : DEFAULT_CURRENT_DATE;
+  const year = Number.isFinite(Number(d.year)) ? Number(d.year) : DEFAULT_CURRENT_DATE.year;
+  const monthIndex = Number.isFinite(Number(d.monthIndex)) ? Number(d.monthIndex) : DEFAULT_CURRENT_DATE.monthIndex;
+  const day = Number.isFinite(Number(d.day)) ? Number(d.day) : DEFAULT_CURRENT_DATE.day;
+  return {year, monthIndex, day};
+}
+let DATA={}, FCOLORS={}, MONTHS=[], CUR=safeCurrentDate();
 /* Culture / legal datasets. These used to be dynamically imported INSIDE view_cultures()
    only, which is why nothing else on the site could reference a tradition. They are now
    loaded once at boot and shared, so traditions can be searched, linked and cited from
@@ -4625,7 +4664,8 @@ const TYPES=[
  {key:'trials',label:'Trials',emoji:'⚖️',singular:'Trial'},
 ];
 const TYPE_BY_KEY=Object.fromEntries(TYPES.map(t=>[t.key,t]));
-let SITE_UPDATES=[{"id": "province_census_opens", "kind": "route", "route": "#/atlas", "label": "Systems Advanced · The Atlas", "title": "The Province Census Opens: 2,582 Pins Merge into 220 Provinces, and the Atlas Starts Drawing Borders", "summary": "The atlas had the opposite problem of an empty map. Every pin now casts a vote: neighbouring pins flying the same flag are merged into provinces, the filed population, military, economic and political values are counted into a census for each one, and whoever the census crowns gets the ground — with borders computed from that census, not painted by hand. The Mushroom Kingdom reads 24 provinces, 13 of them marches no single flag holds; the Midlands 15; Equestria 28, one for every sub-region sheet it files. Click a province for its dossier, including where the hand-filed PROVINCE_POLITICS ledger and the pins disagree (22 of 58 ledgers do). And when seven hundred pins is simply too many to read, Choose a Pin files a shortlist of six worth acting on, each with its reasons checked against the sheet. Power Projection reads the same roll-up wherever its own pin-count rule names nobody. Every border is clickable and inked by what it means — bold between two hands, faint inside one, hatched red where a march is contested — crowded sheets tuck their labels out of each other's way until zoom or hover earns them back, and every dossier names the hand that runs the province: its leader, its key figures, and the court's own vote split wherever the registry files them.", "tags": ["atlas", "maps", "provinces", "census", "power projection", "bordermarch", "shortlist"]},
+let SITE_UPDATES=[{"id": "the_garden_above_the_fire", "kind": "event", "label": "Latest Session · Still Superstars", "title": "The Garden Above the Fire — Luigi Found, Still Superstars", "summary": "The sequel to the lava-bridge ambush closes the rescue arc: the fake Luigi gives enough truth to chase, Kat and Ana confirm Luigi alive, Dr. Toad treats the burns, and Waluigi answers the question Luigi meant for Mario — 'We are still superstars.' The recovered note line opens the next arc: find the garden above the fire.", "tags": ["latest", "luigi", "mario", "superstars", "star-hill", "yellow-cape", "garden-above-fire"]},
+{"id": "province_census_opens", "kind": "route", "route": "#/atlas", "label": "Systems Advanced · The Atlas", "title": "The Province Census Opens: 2,582 Pins Merge into 220 Provinces, and the Atlas Starts Drawing Borders", "summary": "The atlas had the opposite problem of an empty map. Every pin now casts a vote: neighbouring pins flying the same flag are merged into provinces, the filed population, military, economic and political values are counted into a census for each one, and whoever the census crowns gets the ground — with borders computed from that census, not painted by hand. The Mushroom Kingdom reads 24 provinces, 13 of them marches no single flag holds; the Midlands 15; Equestria 28, one for every sub-region sheet it files. Click a province for its dossier, including where the hand-filed PROVINCE_POLITICS ledger and the pins disagree (22 of 58 ledgers do). And when seven hundred pins is simply too many to read, Choose a Pin files a shortlist of six worth acting on, each with its reasons checked against the sheet. Power Projection reads the same roll-up wherever its own pin-count rule names nobody. Every border is clickable and inked by what it means — bold between two hands, faint inside one, hatched red where a march is contested — crowded sheets tuck their labels out of each other's way until zoom or hover earns them back, and every dossier names the hand that runs the province: its leader, its key figures, and the court's own vote split wherever the registry files them.", "tags": ["atlas", "maps", "provinces", "census", "power projection", "bordermarch", "shortlist"]},
 {"id": "the_lava_bridge_ambush_and_the_blue_luigi", "kind": "event", "label": "Latest Session · Two Luigis", "title": "The Lava-Bridge Ambush and the Blue Luigi — Nine Seconds of Mister L, an Unread Note, and the First Cheater's Gambit", "summary": "18 Harvestide, 1035 BF. Two hours after the embassy interrogation, I tracked Luigi to Bowser's Mushroom Compound and walked into an ambush on a lava bridge: nine seconds of Mister L, a yellow-caped courier's unread note, a Tanuki Leaf flight over a lava falls — and a second, smiling, blue-clad Luigi who confessed he was Bowser's plant. One Luigi tied up, one Luigi lost, and the first Cheater's Gambit.", "tags": ["latest", "luigi", "impostor", "mister-l", "gambit", "wario", "compound"]},
 {"id": "the_belly_of_the_beast", "kind": "event", "label": "Latest Session · Inside the Tree", "title": "The Belly of the Beast: Human Blood Under the Scarecrow, a Door Burned Shut, and the Skittering Grove Inside the Tree", "summary": "30 Harvestide, 1040 BF. Crows put Feyward Dan down; Salam stabilised him under fire; Archie slammed the Scorncrow out of the air onto Remi, who fired a musket into its face at point-blank range and found human blood. It fled into the mouth of its own tree. Archie emptied every reserve into one fire cast, killed the tree and sealed the exit; Markop pried the jaws, tested the pit with a torch that came back out of the trunk, and rigged the rope. Five descended into the Skittering Grove — ettercaps, wrapped bodies hanging from the boughs, and Legion soldiers.", "tags": ["latest", "scorncrow", "skittering grove", "remi", "archie", "wario", "markop"]},
 {"id":"promo_mario_newspaper","kind":"event","label":"Amended Filing · Full Account","title":"Promo Mario — The Full Account (Revision 2)","summary":"Revision 2: the clipping\u2019s happy ending was a teaser. The full account reports a failed portal, a missing Luigi, a Mario-shaped thing in a television, and a Wario who sings. Waluigi filed the teaser; he is amending it, loudly. Mario remains missing. The missing-person file stays open.","tags":["mario","newspaper","amendment","unverified"]},
@@ -5473,6 +5513,16 @@ function buildLocPinIndex(){
   });
 }
 function locPinsFor(id){ if(!LOC_PIN_INDEX)buildLocPinIndex(); return (id&&LOC_PIN_INDEX[id])||[]; }
+function locPinsForItem(item){
+  const direct=locPinsFor(item&&item.id);
+  if(direct.length) return {pins:direct,parent:null};
+  const parentId=item&&(item.parentLocation||item.parentArticle||item.withinLocation);
+  if(!parentId) return {pins:[],parent:null};
+  const inherited=locPinsFor(parentId);
+  if(!inherited.length) return {pins:[],parent:null};
+  const parent=((DATA&&DATA.locations)||[]).find(l=>l&&l.id===parentId)||{id:parentId,name:parentId};
+  return {pins:inherited,parent};
+}
 /* Which nation dashboard owns a map group, so the preview can deep-link the pin. */
 const MAP_GROUP_NATION={'The Midlands':'regal_empire','Mushroom Kingdom Regions':'mushroom_kingdom','Middle-earth':'middle_earth','The Fated Place':'old_world','Earth Land':'earth_land','Kivotos':'kivotos','The Internet':'the_network','Pokémon Regions':'pokemon_regions','Animatopia':'animatopia','Equestria':'equestria','The Grand Country':'grand_country','Connectopia':'connectopia','Faerûn':'faerun','Teyvat':'teyvat','The Doughnut Hole':'doughnut_hole','Islands & Outer Realms':'kongo_bongo','L\'Eclaire Isle':'leclaire_isle','The Edge Regions':'the_edge_regions'};
 function nationForMapId(mapId){
@@ -5486,7 +5536,8 @@ function locMapAtlasRoute(pin){
 /* The preview panel itself: a cropped window onto the sheet, centred on the pin. */
 function locationMapPreview(item,typeKey){
   if(typeKey!=='locations'||!item||!item.id)return '';
-  const pins=locPinsFor(item.id);
+  const located=locPinsForItem(item);
+  const pins=located.pins;
   if(!pins.length){
     return `<div class="locmap locmap-none"><div class="locmap-head"><h2>🗺️ Not on the tactical map yet</h2></div><p class="locmap-note">No surveyed pin answers to this record${item.region?` (filed region: ${esc(String(item.region).slice(0,140))})`:''}. The archive refuses to guess a coordinate — the survey queue lives in <code>docs/worklists/LOCATION_MAP_COVERAGE.md</code>, and a pin gets filed there with context clues before it gets painted here.</p><div class="chips"><span class="chip" onclick="Router.go('#/atlas')">Open the World Atlas</span></div></div>`;
   }
@@ -5494,11 +5545,13 @@ function locationMapPreview(item,typeKey){
   const sameMap=(ATLAS_MAPS[pin.mapId]||{}).pointsOfInterest||[];
   const near=sameMap.filter(p=>p.id!==pin.poi.id&&Number.isFinite(p.x)).map(p=>({p,m:atlasMiles(pin.poi,p)})).sort((a,b)=>a.m-b.m).slice(0,3);
   const extra=pins.length>1?`<span class="pill" title="${esc(pins.map(x=>x.mapName).join(' · '))}">+${pins.length-1} more sheet${pins.length>2?'s':''}</span>`:'';
+  const inherited=located.parent?`<span class="pill" title="This room/area uses its parent location pin">inside ${esc(displayName(located.parent)||located.parent.id)}</span>`:'';
+  const pinLabel=located.parent?`${displayName(item)} — inside ${displayName(located.parent)||located.parent.id}`:(pin.poi.name||displayName(item));
   const zoom=/_full$/.test(pin.mapId)?4.2:2.6;
   return `<div class="locmap" data-map="${esc(pin.mapId)}" data-x="${pin.poi.x}" data-y="${pin.poi.y}" data-zoom="${zoom}">
-    <div class="locmap-head"><h2>🗺️ On the map</h2><span class="locmap-where"><span class="pill">${esc(pin.mapName)}</span><span class="pill">${esc(pin.group||'Atlas')}</span>${extra}</span></div>
-    <div class="locmap-frame"><div class="locmap-world"><img src="${esc(assetPath(pin.imageSrc))}" alt="${esc(pin.mapName)} — tactical sheet, cropped to ${esc(pin.poi.name||item.name)}"></div><span class="locmap-pin" aria-hidden="true"></span><span class="locmap-label">${esc(pin.poi.name||displayName(item))}</span></div>
-    <div class="locmap-meta"><span>pin <b>${pin.poi.x}, ${pin.poi.y}</b></span><span>${esc(String(pin.poi.type||'location').replace(/_/g,' '))}</span>${near.length?`<span>near ${esc(near.map(n=>n.p.name+' ('+n.m+' mi)').join(', '))}</span>`:''}</div>
+    <div class="locmap-head"><h2>🗺️ On the map</h2><span class="locmap-where"><span class="pill">${esc(pin.mapName)}</span><span class="pill">${esc(pin.group||'Atlas')}</span>${inherited}${extra}</span></div>
+    <div class="locmap-frame"><div class="locmap-world"><img src="${esc(assetPath(pin.imageSrc))}" alt="${esc(pin.mapName)} — tactical sheet, cropped to ${esc(pinLabel)}"></div><span class="locmap-pin" aria-hidden="true"></span><span class="locmap-label">${esc(pinLabel)}</span></div>
+    <div class="locmap-meta"><span>pin <b>${pin.poi.x}, ${pin.poi.y}</b></span><span>${esc(String(pin.poi.type||'location').replace(/_/g,' '))}</span>${located.parent?`<span>parent pin, not a separate overland marker</span>`:''}${near.length?`<span>near ${esc(near.map(n=>n.p.name+' ('+n.m+' mi)').join(', '))}</span>`:''}</div>
     <div class="chips"><span class="chip" onclick="Router.go('${locMapAtlasRoute(pin)}')">Open in the World Atlas</span><span class="chip" data-zoom="${(zoom*0.55).toFixed(1)}">Wider view</span><span class="chip" data-zoom="${(zoom*1.7).toFixed(1)}">Closer look</span></div>
   </div>`;
 }
@@ -5795,12 +5848,12 @@ function mapsDeskPlayLabel(){
 function mapsDeskMount(){
   const host=document.getElementById('maps-desk-map'); if(!host) return;
   const prefix=(window.location.pathname.includes('/Reputation-Matrix2/')?'./':'./Reputation-Matrix2/');
-  if(!document.getElementById('atlas-map-v2-css')){const css=document.createElement('link');css.id='atlas-map-v2-css';css.rel='stylesheet';css.href=prefix+'app/pages/maps/atlas-map-v2.css?v=map9';document.head.appendChild(css);}
+  if(!document.getElementById('atlas-map-v2-css')){const css=document.createElement('link');css.id='atlas-map-v2-css';css.rel='stylesheet';css.href=prefix+'app/pages/maps/atlas-map-v2.css?v=map13';document.head.appendChild(css);}
   const journey=(MAPS_DESK.mode==='journey')?buildJourney(MAPS_DESK.mapId,MAPS_DESK.plane,DATA,ATLAS_MAPS,{party:MAPS_DESK.party,sort:MAPS_DESK.sort}):null;
   const stops=(journey&&journey.stops)||[];
   MAPS_DESK.stops=stops;
   const centroid=(MAPS_DESK.plane&&MAPS_DESK.plane!=='all')?mapsDeskCentroid(MAPS_DESK.mapId,MAPS_DESK.plane):null;
-  import(prefix+'app/pages/maps/atlas-map-v2.js?v=map10').then(m=>{
+  import(prefix+'app/pages/maps/atlas-map-v2.js?v=map14').then(m=>{
     if(!document.getElementById('maps-desk-map')) return;
     const wantChatter=MAPS_DESK.mode==='chatter';
     MAPS_DESK.handle=m.mountAtlasMapV2(host,MAPS_DESK.mapId,{
@@ -5891,14 +5944,14 @@ function view_maps(arg){
       +`<ol class="mapsdesk-stops">${loudRows||'<li><p class="mapsdesk-note">No remarks filed on this sheet yet.</p></li>'}</ol>`
       +(tokRows?`<h3>🛰️ Party on this sheet</h3><ul class="mapsdesk-stops">${tokRows}</ul>`:`<p class="mapsdesk-note">No party filed on this sheet.</p>`)+`</aside>`;
   }
-  el('content').innerHTML=`<div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › Tactical Cartography Desk</div>`
-    +`<div class="card animate-fade-in"><h1>🗺️ Tactical Cartography Desk</h1>`
-    +`<p class="text-muted">One painted sheet, four planar layers, and the campaign's own trail across it. The Feyward / Shadeward toggle filters this sheet by each pin's filed layer — same map, different worlds.</p>`
-    +`<div class="mapsdesk-bar"><select data-map-pick aria-label="Painted sheet">${mapOptions}</select>`
+  el('content').innerHTML=`<section class="mapsdesk-app animate-fade-in" id="maps-desk-app">`
+    +`<div class="mapsdesk-command"><div class="mapsdesk-title"><div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › Tactical Cartography Desk</div><h1>🗺️ Tactical Cartography Desk</h1>`
+    +`<p>Full-canvas map system: province borders, smart POI clustering, planar layers, route replay, chatter, and party last-seen tokens all operate on the same painted sheet.</p></div>`
+    +`<div class="mapsdesk-control-stack"><div class="mapsdesk-bar"><select data-map-pick aria-label="Painted sheet">${mapOptions}</select>`
     +`<div class="mapsdesk-modes"><button class="mapsdesk-mode${mode==='survey'?' on':''}" data-mode="survey">🔭 Survey</button><button class="mapsdesk-mode${mode==='journey'?' on':''}" data-mode="journey">📍 Journey so far</button><button class="mapsdesk-mode${mode==='chatter'?' on':''}" data-mode="chatter">💬 Chatter</button><button class="mapsdesk-mode${MAPS_DESK.showParty!==false?' on':''}" data-party-toggle title="Show party last-seen tokens">🛰️ Party</button></div></div>`
     +(showPlanes?`<div class="mapsdesk-bar">${planeChips}</div>`:`<p class="mapsdesk-note">This sheet files no planar layers — every pin is Material. The Raventree cluster on the Midlands sheet is where the layers live.</p>`)
-    +`</div>`
-    +`<div class="mapsdesk-layout" id="maps-desk"><div class="card" style="margin:0"><div id="maps-desk-map"><div class="atlas-v2-loading">Loading map…</div></div></div>${journeyPanel}</div>`;
+    +`</div></div>`
+    +`<div class="mapsdesk-layout${journeyPanel?' has-desk-panel':''}" id="maps-desk"><div class="card mapsdesk-map-card"><div id="maps-desk-map"><div class="atlas-v2-loading">Loading map…</div></div></div>${journeyPanel}</div></section>`;
   const go=(m,pl,mo,pa,sr)=>{ pa=pa===undefined?MAPS_DESK.party:pa; sr=sr===undefined?MAPS_DESK.sort:sr;
     Router.go('#/maps/'+encodeURIComponent(m)+'/'+encodeURIComponent(pl)+'/'+encodeURIComponent(mo)+(pa?'/'+encodeURIComponent(pa):'')+(sr&&sr!=='chron'?'/'+encodeURIComponent(sr):'')); };
   const pick=document.querySelector('[data-map-pick]');
@@ -9088,8 +9141,8 @@ function atlasChips(arr,kind){
 function mountAtlasMap(mapId, group, focusPoi){
   const host=document.getElementById('atlas-map-host'); if(!host)return;
   const prefix=(window.location.pathname.includes('/Reputation-Matrix2/')?'./':'./Reputation-Matrix2/');
-  if(!document.getElementById('atlas-map-v2-css')){const css=document.createElement('link');css.id='atlas-map-v2-css';css.rel='stylesheet';css.href=prefix+'app/pages/maps/atlas-map-v2.css?v=map9';document.head.appendChild(css);}
-  import(prefix+'app/pages/maps/atlas-map-v2.js?v=map10').then(m=>{
+  if(!document.getElementById('atlas-map-v2-css')){const css=document.createElement('link');css.id='atlas-map-v2-css';css.rel='stylesheet';css.href=prefix+'app/pages/maps/atlas-map-v2.css?v=map13';document.head.appendChild(css);}
+  import(prefix+'app/pages/maps/atlas-map-v2.js?v=map14').then(m=>{
     const handle=m.mountAtlasMapV2(host,mapId,{focusPoi:focusPoi||'',chatter:wahChatterByPoi(mapId),census:wahCensusByPoi(mapId),party:wahPartyTokens(mapId),focusProvince:ATLAS_MOUNT_FOCUS&&ATLAS_MOUNT_FOCUS.provinceId});
     window.__atlasMapHandle=handle;
   }).catch(e=>{host.innerHTML='<div class="atlas-v2-error">Map failed to load.</div>';console.error('Atlas Map v2 failed',e);});
@@ -9101,7 +9154,7 @@ function atlasMapApplet(id, n){
   if(ATLAS_MOUNT_FOCUS&&ATLAS_MOUNT_FOCUS.mapId&&resolved.maps.some(m=>m.id===ATLAS_MOUNT_FOCUS.mapId)) activeId=ATLAS_MOUNT_FOCUS.mapId;
   if(!activeId)return `<div class="card atlas-map-empty"><h3>🗺️ No live map filed yet</h3><p class="text-muted">This realm has atlas records but no tactical map data.</p></div>`;
   const regions=resolved.maps.length>1?`<div class="atlas-map-regions"><span class="amr-label">${resolved.maps.length} regions in ${esc(resolved.group)}</span><div class="amr-chips">${resolved.maps.map(m=>`<button class="amr-chip${m.id===activeId?' on':''}" data-map="${esc(m.id)}" data-group="${esc(resolved.group)}">${esc(m.name||prettyId(m.id))}</button>`).join('')}</div></div>`:'';
-  return `<div class="card atlas-map-applet atlas-map-integrated"><div class="atlas-map-toolbar"><div><h3>🗺️ ${esc(label)} Tactical Map</h3><p>Integrated atlas map · no iframe or separate webpage.</p></div></div>${regions}<div id="atlas-map-host" data-group="${esc(resolved.group)}"><div class="atlas-v2-loading">Loading map…</div></div></div>`;
+  return `<div class="card atlas-map-applet atlas-map-integrated"><div class="atlas-map-toolbar"><div><h3>🗺️ ${esc(label)} Tactical Map</h3><p>Integrated atlas map · open the full desk when you want the map to own the screen.</p></div><button type="button" class="atlas-map-open" data-open-desk data-map="${esc(activeId)}">⛶ Open full map desk</button></div>${regions}<div id="atlas-map-host" data-group="${esc(resolved.group)}"><div class="atlas-v2-loading">Loading map…</div></div></div>`;
 }
 
 /* Swap the embedded map without reloading the atlas page. */
@@ -9111,6 +9164,7 @@ function atlasSwitchMap(mapId, group){
   const demo=document.getElementById('atlas-demographics'); if(demo)demo.outerHTML=atlasDemographics(mapId);
   const censusHost=document.getElementById('atlas-province-census'); if(censusHost)atlasRenderProvinceCensus(mapId);
   document.querySelectorAll('.amr-chip').forEach(b=>b.classList.toggle('on',b.dataset.map===mapId));
+  const openDesk=document.querySelector('[data-open-desk]'); if(openDesk) openDesk.dataset.map=mapId;
   mountAtlasMap(mapId, group);
 }
 
@@ -9133,7 +9187,11 @@ function view_atlasNation(id, opts){
   mountAtlasMap(mountedId, selected.group, focusId.poiId);
   atlasRenderProvinceCensus(mountedId);
   const integrated=document.querySelector('.atlas-map-integrated');
-  if(integrated) integrated.addEventListener('click',e=>{const b=e.target.closest('.amr-chip');if(b) atlasSwitchMap(b.dataset.map,b.dataset.group);});
+  if(integrated) integrated.addEventListener('click',e=>{
+    const full=e.target.closest('[data-open-desk]');
+    if(full){Router.go('#/maps/'+encodeURIComponent(full.dataset.map||mountedId)+'/all/survey');return;}
+    const b=e.target.closest('.amr-chip');if(b) atlasSwitchMap(b.dataset.map,b.dataset.group);
+  });
   window.scrollTo(0,0);
 }
 
@@ -19408,8 +19466,9 @@ const Router={
   },
   _render(){
     const h=location.hash||'#/home';const m=h.match(/^#\/([^\/]+)\/?(.*)$/);
-    if(!m){view_home();return;}
+    if(!m){document.body.classList.remove('maps-route');view_home();return;}
     const route=m[1],arg=decodeURIComponent(m[2]||'');
+    document.body.classList.toggle('maps-route', route==='maps'||route==='cartography');
     try{ setArticleAccent(null); }catch(e){}   // clear the article hero accent between routes
     LINK_ONCE=new Set();   // fresh per page view: each entity links only its first mention
     LINK_TOTAL_COUNT=0;    // fresh per page view for the density cap
@@ -19850,7 +19909,7 @@ async function boot(){
   // rebuild the derived globals + indexes now that DATA exists
   FCOLORS = DATA.factionColors||{};
   MONTHS = (DATA.calendarMonths||[]).map(m=>m.name||m);
-  CUR = DATA.currentDate||{year:1040,monthIndex:7,day:18};
+  CUR = safeCurrentDate(DATA.currentDate);
   synthesizeXpCharacterArticles();
   // Must run BEFORE buildIndexes(): the faction search docs are built from
   // LORE_FACTIONS, so merging afterwards leaves the new factions present in

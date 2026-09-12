@@ -14862,7 +14862,7 @@
     "era": "The Mushroom Kingdom Regency Era (1030s BF) — Mario's Disappearance Arc",
     "location": "Bowser's Mushroom Compound (Mushroom Kingdom interior) — the gatehouse, the second-floor lava bridge, the lava lake and falls, and the calm-shore moat",
     "type": "Session Event / Ambush / Impostor Capture",
-    "status": "Unresolved — the impostor is bound and nameless, the real Luigi is hurt and missing somewhere past the falls, and the caped figure's note has never been read",
+    "status": "Sequel filed — this event still ends with the real Luigi hurt and missing past the falls, but The Garden Above the Fire recovers him alive; Mario, the yellow-caped courier, and the unrecovered physical note remain open.",
     "summary": "Two hours after Luigi slipped out of the backseat interrogation, I tracked him to Bowser's smaller Mushroom Kingdom compound and walked into an ambush on a lava bridge. Luigi — refused by the Mages' Guild, sheltered by a Koopa — named himself Mister L, dropped the axe, and fell. A yellow-caped figure handed him a note; a Tanuki Leaf inside it flew them both toward a lava falls. Meanwhile Wario's crew kidnapped a second, smiling, blue-clad Luigi out of the Guild on forged passes, delivered him to the compound, and beat him bloody when he confessed he was Bowser's plant. The night ended with one Luigi tied up, one Luigi lost, and a three-step plan.",
     "description": "*I had already filed the embassy job as a fiasco with a body count of zero and a dignity count below that. Then the night kept going. What follows is the second half of the worst evening of my career as an auditor: a locked gate, a borrowed axe, a leaf that should not have flown that far, and two of the same man in the same compound at the same hour, one of them burnt half to the bone and the other one smiling. WAH!*",
     "image": "assets/images/events/lava-bridge-ambush/lava-bridge-01-the-axe.jpg",
@@ -14996,7 +14996,7 @@
         "role": "Rode the Guild job; held the impostor's second arm; asked for step three and grinned at the answer"
       }
     ],
-    "outcome": "The impostor is captured — beaten, broomed, unconscious, and tied outside the compound walls, still nameless. The real Luigi is missing past the lava falls with severe burns and an unread note. The yellow-caped figure is unidentified and at large. Mario's location (near the compound, via the impostor's bait) is unverified. The crew holds together under my three-step plan: interrogate, pull the footage, search the compound.",
+    "outcome": "The impostor is captured — beaten, broomed, unconscious, and tied outside the compound walls, still nameless. The real Luigi is missing past the lava falls with severe burns and an unread note. The yellow-caped figure is unidentified and at large. Mario's location (near the compound, via the impostor's bait) is unverified. The crew holds together under my three-step plan: interrogate, pull the footage, search the compound.\n\nSequel status: The Garden Above the Fire completes the third step of the plan — the compound search — by finding Luigi alive, recovering his remembered line from the note, and moving the open lead from the falls to the garden above the fire.",
     "notableFeatures": [
       "The nine seconds of Mister L — the name spoken aloud on the bridge, then dropped with the axe",
       "A yellow-caped courier who walks collapsing bridges, speaks seven words, and delivers one note",
@@ -15005,7 +15005,8 @@
       "Two Luigis in one compound: one burnt half to the bone, one smiling in blue",
       "The gate that opened for a smile after refusing Waluigi's knocking",
       "The first Cheater's Gambit, deployed at midnight on a pile of rubble",
-      "Ashley's broom ride — the interrogation's last chance, taken"
+      "Ashley's broom ride — the interrogation's last chance, taken",
+      "Sequel hook resolved: Luigi is later found alive in the lava-moat tunnel system and carried to Dr. Toad's Star Hill clinic."
     ],
     "keyBattles": [
       {
@@ -15029,10 +15030,11 @@
       "mario",
       "bowser",
       "bowsers_castle",
-      "wario_enterprise"
+      "wario_enterprise",
+      "the_garden_above_the_fire"
     ],
-    "aftermath": "The compound keeps its breached entrance wall and its missing bridge; nobody has filed a repair order, and Bowser's office has said nothing about the night at all. The impostor sits bound outside the walls with five witnesses to everything except his name. The real Luigi is owed a search of the falls' outflow and the moat system — the three-step plan's third step — and the archive notes with alarm that no such search has yet been filed. The caped figure's note remains unread, its contents known only to a missing burn victim. The Mages' Guild has not acknowledged the forged passes, the abduction from its halls, or the shut door that started it. My boots still smell of sulfur.",
-    "waluigiAssessment": "1. The night had two operations, not one. Luigi's ambush was desperation with a borrowed axe; the impostor's helpfulness was tradecraft with a rehearsed smile. They share a compound and an hour but not a commander — unless the commander is Bowser running both sides of the board, which the file cannot prove and I cannot stop suspecting. 2. Mister L lasted nine seconds. Whatever that name becomes later — warrant, warning, wardrobe — it began as a drowning man's last grab at agency, and the archive should never let the Regency pretend otherwise. 3. The note is the most important unread document in this building. A courier that capable does not deliver trivia, and the Tanuki Leaf inside was transport, not message — which means the message is still in play, in the pocket of a missing man. 4. Mona was right first and Ashley finished it. The crew's instincts outperformed its leadership all night; Wario drove the fraud to the door and I walked into the trap, and the women in the car are the reason anyone has a prisoner instead of a crater. 5. Recommendation: run the three steps in order, starting with the prisoner before Bowser's people come back for him — because a smile that opens gates is an asset, and assets get retrieved.",
+    "aftermath": "The compound keeps its breached entrance wall and its missing bridge; nobody has filed a repair order, and Bowser's office has said nothing about the night at all. The impostor sits bound outside the walls with five witnesses to everything except his name. The real Luigi was owed a search of the falls' outflow and the moat system — the three-step plan's third step — and that sequel search is now filed: Luigi survived long enough to be found in the volcanic tunnels and carried to treatment. The caped figure's note remains unread, its contents known only to a missing burn victim. The Mages' Guild has not acknowledged the forged passes, the abduction from its halls, or the shut door that started it. My boots still smell of sulfur.",
+    "waluigiAssessment": "1. The night had two operations, not one. Luigi's ambush was desperation with a borrowed axe; the impostor's helpfulness was tradecraft with a rehearsed smile. They share a compound and an hour but not a commander — unless the commander is Bowser running both sides of the board, which the file cannot prove and I cannot stop suspecting. 2. Mister L lasted nine seconds. Whatever that name becomes later — warrant, warning, wardrobe — it began as a drowning man's last grab at agency, and the archive should never let the Regency pretend otherwise. 3. The note is the most important unread document in this building. A courier that capable does not deliver trivia, and the Tanuki Leaf inside was transport, not message — which means the message is still in play, in the pocket of a missing man. 4. Mona was right first and Ashley finished it. The crew's instincts outperformed its leadership all night; Wario drove the fraud to the door and I walked into the trap, and the women in the car are the reason anyone has a prisoner instead of a crater. 5. Recommendation: run the three steps in order, starting with the prisoner before Bowser's people come back for him — because a smile that opens gates is an asset, and assets get retrieved. 6. Addendum after the sequel: the recommendation was correct. The prisoner led to the right search path, Luigi lived, and the note finally gained a remembered sentence. That does not make the prisoner trustworthy. It makes the next door legible.",
     "timeWindow": "18 Harvestide, 1035 BF — one continuous night running straight out of the embassy interrogation: two hours to the gate, the bridge, the falls, the reckoning, and the plan; no calendar day passed.",
     "xpAwards": [
       {
@@ -15088,5 +15090,205 @@
     "reputationNotes": {
       "wario": "Wario's crew entered the Mages' Guild on forged passes and abducted a man from its halls; the Guild has not forgotten, even if it has not said so aloud."
     }
+  },
+  {
+    "id": "the_garden_above_the_fire",
+    "timeCode": "TC:1035-08-18/MAT",
+    "name": "The Garden Above the Fire",
+    "title": "The Garden Above the Fire: Luigi Recovered, the Superstars Answer, and Dr. Toad's Clinic",
+    "date": "18 Harvestide, 1035 BF — night, immediately after the lava-bridge ambush and the blue-Luigi interrogation",
+    "era": "The Mushroom Kingdom Regency Era (1030s BF) — Mario's Disappearance Arc",
+    "location": "Bowser's Mushroom Compound lava moat and volcanic tunnels; Dr. Toad's Star Hill Clinic",
+    "type": "Session Event / Rescue / Arc Close",
+    "status": "Resolved — Luigi is found alive and treated; the courier note's wording is recovered; the yellow-caped sender and the garden above the fire remain open for the next arc",
+    "summary": "Immediately after the blue-Luigi impostor was tied outside Bowser's compound, Waluigi's crew woke him, extracted the story of Mario and Luigi's hallway argument, and followed the yellow-cape lead back to the lava moat. Kat and Ana, who had followed without permission, confirmed Luigi was alive and burned. The party found him delirious in the volcanic tunnels, recovered the first spoken text of the courier's note — 'The star is not lost. Find the garden above the fire' — and carried him to Dr. Toad's Star Hill clinic. The rescue ends the compound arc on the line Luigi needed answered: 'We are still superstars.'",
+    "description": "*The plan had three steps: interrogate, pull the footage, search the compound. We got as far as step one before step three ran bleeding out of the dark. This is the sequel to the lava-bridge file and the close of that arc: one prisoner talking too easily, two ninja witnesses who should not have been there, one burned Luigi asking a question meant for someone else, and one clinic where the word brother hurt worse than the bandages. WAH.*",
+    "image": "assets/images/events/garden-above-fire/garden-above-fire-01-superstars.jpg",
+    "imageCaption": "The clinic after the rescue: no faces, no speeches, just the cap, the bandages, and the sentence that points above the fire.",
+    "sections": [
+      {
+        "name": "I. Water on the Wrong Luigi",
+        "icon": "💧",
+        "overview": "Mona poured the water with the expression of a person who had decided mercy and irritation could use the same bottle. It hit the fake Luigi in the face and ran under his green cap, and he came up coughing against the rope with the whole crew standing over him. Wario loomed first. Wario always looms first when the room needs a wall with a mustache.\n\n*\"Wake up. Now.\"*\n\nThe impostor blinked at Wario, then at Mona, then at Ashley's broom. Jimmy T cracked his knuckles once, a small dry sound in the scorched air outside the compound. I had my pen out. I do not know when I had taken it out. There are nights when the hand reaches for a weapon and nights when the hand reaches for a record. This was both.\n\nMona planted both hands on her hips. *\"You've got some explaining to do.\"*\n\nHe tried to sit up, winced, and discovered the knot. The bravado went out of his face one feature at a time: smile first, chin second, eyes last. He was still wearing enough of Luigi to make the sight insulting. Blue cloth lay in the rubble behind him from the reveal, empty and bright like a joke nobody had survived.\n\n*\"Alright, alright... I get it,\"* he said. *\"I'll talk.\"*\n\n*WAH! Prisoners who agree too quickly are either broken or beginning the next lie. I marked both readings before he reached the second sentence. That is not cynicism. That is craft learned in Wario's accounting office.*",
+        "waluigi_note": "The first plan did exactly what it was supposed to do: wake the false Luigi, keep him outnumbered, and make him spend words. Wario wanted to hit him again. Ashley wanted the broom ready. Mona wanted answers. I wanted one sentence he could not have learned from smiling at Wario in a car. We got more than one. That was not automatically good news."
+      },
+      {
+        "name": "II. The Brothers in the Hall",
+        "icon": "🎭",
+        "overview": "The impostor said the fight had happened before Bowser sent him to us. Mario and Luigi, in the castle halls, screaming loud enough for enemies to stop pretending not to listen.\n\n*\"You thought Koopa worked alone,\"* he said, and my stomach turned because I had heard Luigi throw that line at me on the bridge.\n\nThen he gave us pieces. Not clean testimony; nobody recalls a brother breaking in clean lines. He remembered Mario pleading through it — *\"Luigi, what do you mean by that? I have fought-a far too much, and you stand against me... you're my brother, that's not something that'll go away.\"* He remembered Luigi spitting back that being a brother meant little when the world used him as a step. He remembered them talking over each other until the words stopped sounding like sentences and started sounding like furniture breaking in another room.\n\nMario tried to say the memories mattered. Luigi answered that something inside him had already been paid for in neglect. Then came the line that made Mona put a hand over her mouth and made Ashley's broom drop half an inch.\n\n*\"You were never my brother.\"*\n\nThe impostor looked down when he said it, which is the first human thing I had seen him do. He claimed both of them were crying near the end. He claimed Mario still tried to reach through the masquerade, still said Koopa had made Luigi insane and that he could relieve the pain. He claimed Luigi pushed him away anyway.\n\nWario did not interrupt. Wario, who interrupts weather, debt collectors, and occasionally gravity, stood silent while the rope creaked around the prisoner.\n\n*WAH! I do not trust tears reported by a spy. I trust a phrase repeated in the wrong mouth, because phrases leave fingerprints. The bridge gave us 'Koopa worked alone.' The prisoner gave it back with a hallway around it.*",
+        "waluigi_note": "The argument is not filed here as truth in every word. It is filed as a witness statement from a compromised source, backed by one phrase Luigi had already said where the impostor was not supposed to have heard it unless the hallway story had a real spine. That is enough to pursue. It is not enough to forgive anyone."
+      },
+      {
+        "name": "III. Yellow Cape, East Passage",
+        "icon": "🟨",
+        "overview": "I asked about the yellow-caped figure because the file had started to revolve around that color. The impostor's head came up too fast.\n\n*\"A yellow cape, you say?\"*\n\nHe had seen someone leaving the castle. He had seen them give Luigi something. He pointed east, toward the passage under the compound where the heat breathed out in pulses. Wario grabbed my arm before I could run.\n\n*\"You really believe this guy?\"*\n\nI tried to tear free. *\"That yellow cape handed Luigi a note today. That is important!\"*\n\nWario shook me once, hard enough to make my teeth click. *\"He tricked us. He could be feeding us Bowser's next trap.\"*\n\nHe was not wrong. That was the worst part. He almost never is when he is being annoying at close range. But the phrase had already done its work in my head. Luigi had used it on the bridge. The fake knew it. Bowser had overheard the fight, or the spy had, or both. Either way, the prisoner was not improvising from nothing.\n\n*\"Besides,\"* I said, breath scraping, *\"how would he know Luigi was working for the Koopa?\"*\n\nThat stopped Wario better than strength did. Mona stepped in with her voice low and urgent, saying we could not ignore the lead. Ashley nodded, eyes narrowed toward the tunnel. Jimmy T muttered something that sounded like a curse doing stretches.\n\nWario let go.\n\n*\"Let's find Luigi,\"* he said.\n\nWe did not thank the prisoner. We did not untie him. We ran.",
+        "waluigi_note": "The decision point matters. The party did not trust the impostor; the party trusted the overlap between his story and facts already heard in blood, smoke, and falling stone. That is the difference between gullibility and investigation. Wario will deny I made that distinction out loud because it makes me sound reasonable."
+      },
+      {
+        "name": "IV. The Moat Witnesses",
+        "icon": "🌋",
+        "overview": "We chose the lava moat before the east passage swallowed the whole night. I had last seen Luigi near the falls. If he was hurt, the waterless river of fire would have carried him somewhere, and if he was dead I did not want the prisoner choosing where I learned it.\n\nThe heat hit us in the face before the glow did. Lava fell in sheets, orange and white, throwing light against black stone. Wario shouted Luigi's name over the roar until the word broke apart. Mona cupped her hands and called too. Ashley flew higher, because witches are useful in exactly the ways tall men hate admitting.\n\nFrom above, Ashley saw smoke and two shapes. Kat and Ana stood on the high rocks, small against the glow, waving like this was the least convenient rooftop in the kingdom.\n\n*\"What are you two doing here?\"* Wario bellowed.\n\nThey had followed us. Of course they had followed us. They were not part of the mission. They had no business near a lava moat. They were our friends, which is the most dangerous kind of credential because nobody stamps it and everybody obeys it. Wario yelled anyway. Mona rubbed her temples. I saved my breath because the next question mattered more.\n\n*\"Did you see Luigi?\"*\n\nKat shouted yes. Ana shouted that he was limping but alive. Burns on his arms and legs. Exhausted. Face not burned.\n\nI did not realize I had been holding my breath until Ana said his face was fine. It left me all at once, hot and ugly. Then came the part that made the note feel colder than the lava. Luigi had not said much. He had kept repeating two words.\n\n*\"Find them.\"*\n\n*WAH! WarioWare loyalty is a medical condition. Kat and Ana caught it early and brought it to the lava moat. I should reprimand them. I am filing their witness statements instead, which is how the archive admits gratitude without making it a habit.*",
+        "waluigi_note": "Kat and Ana were not supposed to be there, but their sighting saved the search. The detail that Luigi's face was unburned is not cosmetic. It told us he had been shielded from the worst of the fall, turned away from the heat, or lucky in a way that deserves its own shrine and a tax form."
+      },
+      {
+        "name": "V. The Green Cap in the Tunnel",
+        "icon": "🟩",
+        "image": "assets/images/events/garden-above-fire/garden-above-fire-01-superstars.jpg",
+        "imageCaption": "After the fire: clean bandages, a soot-smudged green cap, and the folded sentence that turned the whole night toward the next arc.",
+        "overview": "Kat pointed. Ana ran. Jimmy T yelled *\"wait up\"* while hopping the safer rocks, which were safer only by the standard of not being actively molten. Mona grabbed his hand and dragged him through the last stretch. Ashley circled back, then shot ahead. Wario and I ran like the tunnel owed us money.\n\nThen I saw the cap.\n\nGreen, familiar, slumped against the cavern wall above a smear of smoke. Luigi sat under it with his back to the stone, burned arms wrapped in strips torn from his own shirt, sweat shining on a face gone pale from heat and pain. He was conscious. Not well. Conscious. His lips moved before we reached him.\n\n*\"Are we-a still superstars?\"*\n\nWario dropped beside him. Mona touched his arm and Luigi flinched away so violently that the whole group froze.\n\n*\"Don't-a touch me...\"*\n\nHis eyes opened, glassy and unfocused. *\"M-Mario?\"*\n\nThe name cracked in the middle. Wario leaned in with the least gentle bedside manner ever issued to a rescue. *\"It's not Mario, idiot. It's Wario.\"*\n\nLuigi blinked until he found me. Relief crossed his face so nakedly I looked away from it.\n\n*\"W-Waluigi... You... you came for me.\"*\n\nI crouched before my knees could ask permission. The question came out sharper than I meant it. *\"Luigi, what did that letter say? Please tell me.\"*\n\nHe coughed and let Wario brace him upright. The words came slowly, each one dragged over broken glass.\n\n*\"The star is not lost. Find the garden above the fire.\"*\n\nThat was the reading. Not the paper — the paper was gone, still unrecovered — but the first text of [[prop:prop_courier_note_garden_above_fire|the courier's note]] ever spoken into the archive. Luigi did not understand it. He only knew someone had handed it to him before everything fell apart.",
+        "waluigi_note": "This is the hinge. Previous filing: unread note, missing reader. This filing: living reader, remembered text, still no paper. The phrase is too neat to be a direction and too useful to be poetry. Garden above the fire is where the next search begins, but do not let the romance of a clue erase the fact that it arrived after a brother was broken open by someone who knew exactly where to hand it to him."
+      },
+      {
+        "name": "VI. Still Superstars",
+        "icon": "⭐",
+        "overview": "Luigi's eyes drifted past us, past the tunnel, past every face that had run itself ragged to reach him. He was not speaking to the group. He was not speaking to himself. He was speaking to someone absent, and the absence filled the cavern more completely than Bowser's lava ever could.\n\n*\"We are still superstars, right?\"*\n\nNobody answered because the wrong person was supposed to answer. The lava bubbled below us, slow and bright. Mona's hand hovered near Luigi's unburned arm and stopped there, not touching. Ashley sat beside him anyway, quiet as a candle. Jimmy T looked down at his shoes. Wario turned his face away first.\n\nI should have said something clever. I am excellent at clever. Clever is armor with polish on it. Instead my throat closed until every word had to climb out.\n\n*\"Luigi... focus on us. Talk to me.\"*\n\nHe did not. He whispered it again, smaller. *\"Are we still superstars... Please come-a back to me...\"*\n\nThere are moments a man can dodge and moments he cannot. I knelt beside my rival, close enough to touch, hands trembling at my sides like useless flags.\n\n*\"We are still superstars,\"* I whispered. The lava nearly swallowed it. I said it again, because the first time was for him and the second time was for the record. *\"...We're still superstars.\"*\n\nA single tear slipped down Luigi's soot-streaked cheek. It caught the orange light, hung at his jaw, and dropped onto the hot stone with a tiny hiss. Gone.\n\nSomething in me did not hiss away. It stayed. It hurt. I reached out and gripped his shoulder, not shaking, not demanding, just holding on.\n\n*\"Hey. You're gonna be fine. We got you. You hear me? You're NOT gone.\"*",
+        "waluigi_note": "The quote stays exactly as filed because it is the session's spine. Luigi asked a question meant for Mario. I answered it anyway. That does not make me Mario, and thank every star in every registered sky for that. It means somebody in the room refused to let the question go unanswered while Luigi was bleeding hope onto a lava rock."
+      },
+      {
+        "name": "VII. Home Means Carried",
+        "icon": "🏥",
+        "overview": "*\"Let's go home.\"*\n\nThe words did not solve anything. They did not find Mario, name the yellow cape, or explain why a garden would sit above fire. They did what useful words do when grand words fail: they gave feet a direction.\n\nWario lifted Luigi with a care that would have embarrassed him if anyone pointed at it. Mona took the other side until the burns made gripping impossible, then shifted to steady him by the back. Ashley flew ahead, checking the tunnels before we reached them. Kat and Ana kept to the high route when they could and dropped down when the rocks narrowed. Jimmy T brought up the rear, quieter now, hat pulled low.\n\nI walked behind them all, watching every shadow. The fake Luigi had talked. That did not mean Bowser's compound had finished talking back. Every bend looked like another trap, every pipe like a mouth. Luigi winced with every few steps. Wario adjusted without being asked. Mona murmured encouragement. Ashley called back once that the path ahead was clear and then said it again louder because nobody believed in clear paths anymore.\n\nThe tunnel finally opened into cooler air. The night sky spread over us, star-pale through smoke. Luigi breathed like a man surfacing.\n\n*\"Fresh air... that's-a nice.\"*\n\nWe let him rest on a flat rock beyond the exit. The heat still glowed behind us. The question had changed: not *is Luigi alive* anymore, but *what happened to him, who wrote the note, and how fast can we get burns treated before Waluigi commits medical malpractice by glaring at them.*\n\n*\"Rest up,\"* I told him. *\"We need to figure what the hell happened to you. And who wrote that note.\"*",
+        "waluigi_note": "This is why the arc ends here. The rescue objective closes on the rock outside the tunnel. The mystery does not close; it turns into the next file. A clean ending is not the same thing as a solved problem. It is the place where the party stops dying long enough to choose the next problem on purpose."
+      },
+      {
+        "name": "VIII. Dr. Toad, Apparently",
+        "icon": "🩺",
+        "overview": "Jimmy T asked the practical question first, which is why he is valuable even when hopping badly over lava rocks.\n\n*\"What about getting him to a hospital?\"*\n\nMona snapped into motion. Star Hill had a clinic close enough to reach before the burns stiffened further. Ashley flew ahead to guide the route. Wario put Luigi on his back, and Luigi held on with the miserable discipline of a man trying not to scream into someone else's neck.\n\nWe reached the clinic without an ambush, which felt suspicious but was medically convenient. A front-desk Toad saw Wario carrying a limp Luigi and began to inhale for a scream. I stepped in front of him.\n\n*\"He's ALIVE, you idiot!\"*\n\nThe doctor arrived smiling. *\"Dr. Toad, at your service!\"*\n\nI squinted. *\"Doctor Toad. Is that really your name?\"*\n\nIt certainly was, according to the only witness professionally motivated to insist. He moved fast after that: scissors through filthy bandages, clean water, salve, fresh wrapping. Luigi's face tightened every time the cloth lifted from a burn. Wario looked at the wall like he could intimidate pain by refusing to watch it. Mona explained too quickly. Ashley used the window instead of the door.\n\nThe verdict was better than it could have been and worse than anyone wanted. Serious but treatable. Mostly second-degree burns on arms and legs. Exhaustion, pain, and trauma delirium explaining the confusion. Fluids. Clean dressings. Two weeks of rest. Absolutely no adventuring.\n\nLuigi winced at that last part harder than at some of the bandages. The doctor wrote [[prop:prop_dr_toad_luigi_burn_chart|the chart]] anyway.",
+        "waluigi_note": "I am suspicious of anyone whose profession and species produce the same business card. I am not suspicious of the treatment. Dr. Toad knew burns, knew delirium, and knew when the word Mario was a loaded hammer best left on the table for someone else to pick up."
+      },
+      {
+        "name": "IX. Better Than This",
+        "icon": "🛏️",
+        "overview": "Then Dr. Toad asked why Luigi had been at the castle alone. Did he not usually travel with his brother?\n\nThe room went quiet so abruptly even the bottles on the shelf seemed to stop clinking. Luigi looked at me without turning his head, then at the sheets.\n\n*\"We... had an argument. I left on my own.\"*\n\nThe doctor apologized himself out of the room. Wise man, suspicious name. Ashley drifted toward the door to give space. Mona stayed close enough to help and far enough not to corner anyone. Wario leaned against the wall with his arms crossed, which is Wario for I am emotionally present and hate it.\n\nI stood at the window for too long deciding whether to say Mario's name. Not yet. Luigi was burned, bandaged, and still half speaking to a person who was not there. A file can wait. A wound cannot.\n\n*\"Luigi,\"* I said finally. *\"I'm not... great at this.\"*\n\nHe laughed. A real laugh, short and broken at the end by pain.\n\n*\"Of course not. You're my rival, after all.\"*\n\nI almost smiled. Wario saw it, because Wario sees weakness the way rats see kitchens. He pushed off the wall and came to the foot of the bed.\n\n*\"For what it's worth,\"* he grunted, *\"Mario's gone. We all know it. That doesn't mean you gotta be stupid about it.\"*\n\nHe looked from Luigi to me.\n\n*\"You two are both idiots, but... you're better than this.\"*\n\nMona's eyes shone. Luigi stared at the ceiling and did not argue. I swallowed what I wanted to say and filed what was true: the night had ended. The rescue was done. The next door was not Bowser's gate. It was a garden above fire, and a brother missing from a room where his name still hurt.",
+        "waluigi_note": "Wario's bedside speeches are short because if they get longer than four sentences they become invoices. This one did the job. Luigi heard it. I heard it. Neither of us thanked him, which is how Wario knows it mattered."
+      }
+    ],
+    "participants": [
+      {
+        "id": "waluigi",
+        "name": "Waluigi",
+        "role": "Interrogated the impostor, chose the lava-moat lead despite Wario's warning, recovered Luigi, answered the superstars question, and filed the note's first text"
+      },
+      {
+        "id": "luigi",
+        "name": "Luigi",
+        "role": "Survived the falls and volcanic tunnels with serious burns; repeated 'find them'; recalled the courier note; asked whether he and Mario were still superstars"
+      },
+      {
+        "id": "wario",
+        "name": "Wario",
+        "role": "Held the prisoner under pressure, challenged Waluigi's trust in the lead, carried Luigi to Star Hill, and gave the clinic-room warning that the rivals were better than this"
+      },
+      {
+        "id": "mona",
+        "name": "Mona",
+        "role": "Woke the impostor, pressed for answers, steadied Luigi through the rescue, and explained the burns to Dr. Toad"
+      },
+      {
+        "id": "ashley",
+        "name": "Ashley",
+        "role": "Kept broom-watch on the impostor, scouted from above the lava moat, found Kat and Ana, and cleared the clinic route"
+      },
+      {
+        "id": "jimmy_t",
+        "name": "Jimmy T",
+        "role": "Kept pace through the lava rocks, asked the practical hospital question, and stayed with the crew through the clinic-room reckoning"
+      },
+      {
+        "id": "kat",
+        "name": "Kat",
+        "role": "Followed the mission without permission and confirmed Luigi had been seen alive, limping, burned, and moving east"
+      },
+      {
+        "id": "ana",
+        "name": "Ana",
+        "role": "Confirmed Luigi's face was not burned and that he kept repeating 'find them'"
+      },
+      {
+        "id": "dr_toad",
+        "name": "Dr. Toad",
+        "role": "Treated Luigi's burns, diagnosed trauma-and-exhaustion delirium, and ordered two weeks of rest with no adventuring"
+      },
+      {
+        "name": "The blue-Luigi impostor",
+        "role": "Still unnamed; woke tied, repeated the Mario-Luigi argument, identified the yellow-caped courier's direction, and remained untrusted"
+      },
+      {
+        "id": "mario",
+        "name": "Mario",
+        "role": "Absent center of the room: named in the brothers' argument, possibly tied to the courier note, and the person Luigi's superstars question was meant for"
+      }
+    ],
+    "outcome": "The real Luigi is no longer missing from the compound night: he was recovered alive from the volcanic tunnel system and delivered to Dr. Toad's Star Hill clinic. His burns are serious but treatable, his confusion is attributed to pain, exhaustion, and trauma, and the courier note now has a recalled text: 'The star is not lost. Find the garden above the fire.' The blue-Luigi impostor remains unnamed and unreliable but his testimony sent the party to the correct search path. The arc closes with Luigi alive, Mario still absent, and the next lead pointing upward from fire to a garden.",
+    "notableFeatures": [
+      "The impostor's hallway testimony: Mario and Luigi's argument, including 'You were never my brother'",
+      "The yellow-caped courier seen leaving the castle after giving Luigi the note",
+      "Kat and Ana entering the file by following the mission they were not assigned to",
+      "Luigi found alive in the volcanic tunnels with burns on arms and legs, face unburned",
+      "The recovered note text: 'The star is not lost. Find the garden above the fire'",
+      "The superstars answer — Waluigi answering a question meant for Mario: 'We are still superstars... We're still superstars'",
+      "Dr. Toad's diagnosis: serious but treatable burns, delirium from pain and exhaustion, no adventuring",
+      "Wario's clinic-room line: 'You two are both idiots, but... you're better than this'"
+    ],
+    "keyBattles": [],
+    "relatedArticles": [
+      "the_lava_bridge_ambush_and_the_blue_luigi",
+      "the_embassy_ambush_and_luigi_interrogation",
+      "charred_note_at_waluigis_door",
+      "promo_mario_newspaper",
+      "bowsers_mushroom_compound",
+      "bowsers_castle",
+      "dr_toads_star_hill_clinic",
+      "waluigi",
+      "wario",
+      "luigi",
+      "mario",
+      "mr_l",
+      "mona",
+      "ashley",
+      "jimmy_t",
+      "kat",
+      "ana",
+      "dr_toad",
+      "bowser"
+    ],
+    "aftermath": "The compound search objective is closed enough to move: Luigi was found, treated, and kept alive. The blue-Luigi impostor still needs a name and a custody decision, but the urgent question is no longer whether the real Luigi went over the falls to die. He did not. The courier note is no longer unread, but it is still unrecovered; the archive holds Luigi's recalled line, not the paper. Mario remains missing, now heavier in the room because Luigi's delirium addressed him directly. The next arc begins wherever 'the garden above the fire' is, and Waluigi recommends starting before anyone else decides to deliver another helpful little note over open lava.",
+    "waluigiAssessment": "1. The arc ends here because the rescue objective resolves here: prisoner questioned, lead tested, Luigi recovered, clinic reached. Continuing without a break would make the next clue feel like the same chase when it is a new door. 2. The note has graduated from unread object to partial testimony. That improves the file but does not complete custody. A remembered sentence from a delirious burn victim is evidence; it is not the paper. 3. The superstars line is the emotional center and must stay in the archive unchanged. Luigi asked Mario whether they were still superstars. I answered. That is not a replacement; it is a refusal to leave him alone with silence. 4. Wario's skepticism saved us from trusting the prisoner too easily, and Wario's decision to move anyway saved Luigi from waiting on our pride. Both facts may coexist, despite Wario's best efforts to make coexistence expensive. 5. Next objective: identify every place in Bowser's compound, Bowser's castle, or Star Hill that can honestly be called a garden above fire. Start with altitude, heat source, and who knew Luigi would understand the phrase.",
+    "timeWindow": "18 Harvestide, 1035 BF — immediately after the lava-bridge ambush; prisoner interrogation, lava-moat search, tunnel recovery, and Star Hill clinic treatment in one continuous night. No calendar day confirmed to pass.",
+    "xpAwards": [
+      {
+        "xpKey": "waluigi",
+        "articleId": "waluigi",
+        "name": "Waluigi",
+        "cat": "loyalty",
+        "xp": 250,
+        "title": "Event — The Garden Above the Fire — Superstars Answer",
+        "desc": "Chose the live lead despite the impostor's unreliability, found Luigi, and answered the superstars question when Mario was absent.",
+        "date": "18 Harvestide, 1035 BF",
+        "dateSort": 10351800
+      },
+      {
+        "xpKey": "luigi",
+        "articleId": "luigi",
+        "name": "Luigi",
+        "cat": "survival",
+        "xp": 200,
+        "title": "Event — The Garden Above the Fire — Burned but Speaking",
+        "desc": "Survived the lava-falls aftermath long enough to guide the rescue and recall the courier note's key line.",
+        "date": "18 Harvestide, 1035 BF",
+        "dateSort": 10351800
+      },
+      {
+        "xpKey": "wario",
+        "articleId": "wario",
+        "name": "Wario",
+        "cat": "loyalty",
+        "xp": 150,
+        "title": "Event — The Garden Above the Fire — Carried to the Clinic",
+        "desc": "Kept the crew skeptical but moving, physically carried Luigi to treatment, and forced the clinic-room truth without grandstanding.",
+        "date": "18 Harvestide, 1035 BF",
+        "dateSort": 10351800
+      }
+    ]
   }
 ]

@@ -1,0 +1,28 @@
+{
+  "TEAM_INITIATIVE.ModuleTitle": "Team Initiative",
+  
+  "TEAM_INITIATIVE.AllyTeam": "Ally Team",
+  "TEAM_INITIATIVE.EnemyTeam": "Enemy Team",
+  
+  "TEAM_INITIATIVE.TeamGoesFirst": "{team} wins initiative and goes first!",
+  "TEAM_INITIATIVE.TeamTurn": "It's now {team}'s turn!",
+  "TEAM_INITIATIVE.CurrentTeamTurn": "{team}'s Turn",
+  "TEAM_INITIATIVE.NewRound": "Round {round} begins! Roll initiative!",
+  
+  "TEAM_INITIATIVE.Activate": "Activate",
+  "TEAM_INITIATIVE.EndTurn": "End Turn",
+  "TEAM_INITIATIVE.ResetActed": "Reset Acted Status",
+  
+  "TEAM_INITIATIVE.NotYourTeamTurn": "It's not your team's turn!",
+  "TEAM_INITIATIVE.AlreadyActed": "This combatant has already acted this round.",
+  "TEAM_INITIATIVE.RollInitiativePrompt": "All combatants should now roll initiative for the new round.",
+  "TEAM_INITIATIVE.RollAllInitiative": "Roll Initiative for All",
+  "TEAM_INITIATIVE.InitiativeResults": "Initiative Results",
+  
+  "TEAM_INITIATIVE.Initiative": "Initiative",
+  
+  "TEAM_INITIATIVE.SETTINGS.InitiativeFormula": "Initiative Formula",
+  "TEAM_INITIATIVE.SETTINGS.InitiativeFormulaHint": "The dice formula used for initiative rolls (e.g., 1d20, 2d6, 1d20+@abilities.dex.mod)",
+  "TEAM_INITIATIVE.SETTINGS.AutoEndTurn": "Auto End Turn",
+  "TEAM_INITIATIVE.SETTINGS.AutoEndTurnHint": "Automatically end a combatant's turn when they perform an action"
+}

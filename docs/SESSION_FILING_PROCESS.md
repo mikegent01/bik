@@ -427,7 +427,13 @@ In this order:
    — leave those alone.
 5. **Any other artifact** — images, standalone pages, map entries, book
    entries. All downstream, all cheap to redo.
-6. **Write the run report.** Format:
+6. **Run the living-article growth self-check** — `python3 tools/check-story-growth.py <event_id>`.
+   Review related pages, participants, predecessor events and arc files. Make
+   useful edits only: status, key events, a revision/addendum, an investigation
+   lead, or a reader-helpful backlink. If a queued page gains nothing, skip it;
+   do not spray reciprocal links. Craft rule:
+   [`STORY_FORMAT_GUIDE.md` §9F](STORY_FORMAT_GUIDE.md#9f-living-article-growth-self-check--old-pages-grow-when-new-canon-changes-them).
+7. **Write the run report.** Format:
    [`RUN_REPORT_FORMAT.md`](RUN_REPORT_FORMAT.md). Every JSON touched, every
    event filed, every XP award, in one block at the end of the run.
 
@@ -449,7 +455,9 @@ In this order:
 9  SYSTEMS     → CROSS_SYSTEM_UPDATES.md pass: Pond Patrol, Regal Diet, maps,
                  currencies, WAHwire, books, songs, Bros, shop logistics
                  dossier assessments if any faction's opinion moved (both copies)
-10 ARTIFACTS   → pending-news-articles.json → broadcast if owed → run report
+10 ARTIFACTS   → pending-news-articles.json → broadcast if owed
+                 → tools/check-story-growth.py <event_id> → useful old-page edits
+                 → run report
 
 The event is written last. The paper it mentions is filed right after.
 The news is written after that.

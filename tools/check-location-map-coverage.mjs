@@ -60,6 +60,9 @@ const unplotted = [];
 for (const loc of locations) {
   const hits = pins.get(loc.id);
   if (hits && hits.length) plotted.push({ id: loc.id, name: loc.name, region: loc.region || '', pins: hits });
+  else if (loc.parentLocation && pins.get(loc.parentLocation)?.length) {
+    plotted.push({ id: loc.id, name: loc.name, region: loc.region || '', pins: pins.get(loc.parentLocation), inheritedFrom: loc.parentLocation });
+  }
   else unplotted.push({ id: loc.id, name: loc.name, region: loc.region || '' });
 }
 
@@ -72,7 +75,8 @@ if (args.includes('--json')) {
   for (const p of plotted.sort((a, b) => a.name.localeCompare(b.name))) {
     const first = p.pins[0];
     const more = p.pins.length > 1 ? ` (+${p.pins.length - 1} sheet${p.pins.length > 2 ? 's' : ''})` : '';
-    console.log(`  ${p.id.padEnd(42)} ${first.mapName.padEnd(26)} ${first.poiName.padEnd(42)} @${first.x},${first.y}${more}`);
+    const inherited = p.inheritedFrom ? ` (inside ${p.inheritedFrom})` : '';
+    console.log(`  ${p.id.padEnd(42)} ${first.mapName.padEnd(26)} ${first.poiName.padEnd(42)} @${first.x},${first.y}${more}${inherited}`);
   }
   console.log(`\nUNPLOTTED — the map owes these ${unplotted.length} articles a pin (see docs/worklists/LOCATION_MAP_COVERAGE.md)`);
   for (const u of unplotted.sort((a, b) => a.id.localeCompare(b.id))) {

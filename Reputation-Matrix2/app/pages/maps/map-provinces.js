@@ -40,7 +40,7 @@ const PROVINCE_CENSUS = {
   /* …or a lead big enough that nobody is filing a protest: 14 points over the
      runner-up is a government; 28 points over a runner-up is a government no
      matter how many third parties survived the survey. Below both lines the
-     province is a march: several flags, dashed border, nobody's census. */
+     province is a march: several flags, no crowned census. */
   holdMargin: 14,
   holdLead: 28,
   /* A rival only counts when it is worth mentioning. */
@@ -48,14 +48,10 @@ const PROVINCE_CENSUS = {
   /* Weights per pillar (see the canon dossier above). Mirrors the per-POI
      power the Cartography Desk sums, so the two surfaces agree. */
   wPolitics: 2, wMilitary: 1.5, wEconomy: 1, wPopulation: 1.2,
-  /* How loudly power bulges a border: 0 gives every province an equal cell,
-     larger values let the hegemon swallow the map. */
-  borderBias: 26,
-  /* When a province's surveyed pins cover far less ground than its share of the
-     sheet, it is drawn tight around those pins instead — the gap between it and
-     its neighbours then reads as no-man's-land, which is what it is. */
-  hullKeepRatio: 0.55,
-  hullPad: 3.2,
+  /* Vacant hand-filed claims (a ledger row with no pins left on the sheet)
+     are still shown as a small claim box, but they no longer cut holes out of
+     the real province tessellation. */
+  claimPad: 3.2,
   /* Smallest filed sheet worth calling a province, and smallest pile a
      leftover pin can start. One stray pin is an annotation, not a territory. */
   minFiledPins: 3,
@@ -425,10 +421,10 @@ export function provinceName(group, census, seatPoi) {
   return `${root} ${PROVINCE_SUFFIX[hash32((group && group.key) || root) % PROVINCE_SUFFIX.length]}`;
 }
 
-/* ---------------- geometry: hull, area, and a power-weighted Voronoi ---------------- */
+/* ---------------- geometry: hull, area, and POI-anchor Voronoi ---------------- */
 
 function convexHull(points) {
-  const pts = (points || []).map(p => [Number(p.x), Number(p.y)])
+  const pts = (points || []).map(p => Array.isArray(p) ? [Number(p[0]), Number(p[1])] : [Number(p.x), Number(p.y)])
     .filter(p => Number.isFinite(p[0]) && Number.isFinite(p[1]))
     .sort((a, b) => (a[0] - b[0]) || (a[1] - b[1]));
   if (pts.length < 3) return pts;
@@ -517,71 +513,126 @@ function rectPolygon(box) {
 /**
  * Province borders as one contiguous tile map.
  *
- * Each province owns the ground it is the strongest claim on: a power-weighted
- * (Laguerre) Voronoi cell, so a hegemon's border bulges and a client province's
- * does not. A province whose surveyed pins cover far less ground than its share
- * of the sheet is then clipped back to its own hull, and the gap left between
- * it and its neighbours is no-man's-land — drawn, not hidden.
+ * The old renderer made one power-weighted cell per province center. That was
+ * tidy math, but it could put a province's own POI on the wrong side of the
+ * visible border and it left clipped no-man's-land holes between hulls. The
+ * atlas now tiles the sheet from the actual POI evidence: every filed pin is an
+ * anchor, anchors of the same province are merged visually, and blank ground is
+ * awarded to the nearest anchor. Unaligned or unreadable control is expressed
+ * as grey/claimant colour by the renderer, never as an empty gap.
  */
+function clampToBox(n, lo, hi) {
+  return Math.max(lo, Math.min(hi, Number(n) || 0));
+}
+
+function boxAround(seed, box, pad) {
+  const x = clampToBox(seed && seed.x, box.minX, box.maxX);
+  const y = clampToBox(seed && seed.y, box.minY, box.maxY);
+  const r = Math.max(0.8, Number(pad) || 2.5);
+  const minX = clampToBox(x - r, box.minX, box.maxX);
+  const maxX = clampToBox(x + r, box.minX, box.maxX);
+  const minY = clampToBox(y - r, box.minY, box.maxY);
+  const maxY = clampToBox(y + r, box.minY, box.maxY);
+  if (maxX - minX < 0.4 || maxY - minY < 0.4) return rectPolygon(box);
+  return [[minX, minY], [maxX, minY], [maxX, maxY], [minX, maxY]];
+}
+
+function provinceAnchors(provinces, box) {
+  const raw = [];
+  const add = (prov, x, y, key) => {
+    if (!Number.isFinite(Number(x)) || !Number.isFinite(Number(y))) return;
+    raw.push({
+      prov,
+      key,
+      x: clampToBox(x, box.minX, box.maxX),
+      y: clampToBox(y, box.minY, box.maxY),
+    });
+  };
+
+  (provinces || []).forEach(prov => {
+    const pins = uniquePins(prov.pois || []).filter(finite);
+    pins.forEach(poi => add(prov, poi.x, poi.y, `${prov.id}|${idOf(poi)}`));
+    /* A center anchor stitches a multi-pin province into one territory instead
+       of leaving only detached POI islands. */
+    if (pins.length > 1) add(prov, prov.x, prov.y, `${prov.id}|center`);
+  });
+
+  const seen = new Set();
+  const anchors = raw.filter(a => {
+    const k = `${a.prov.id}|${round(a.x, 4)}|${round(a.y, 4)}`;
+    if (seen.has(k)) return false;
+    seen.add(k);
+    return true;
+  });
+
+  /* Exact coordinate collisions happen on shared towns. Split them by a tiny,
+     deterministic amount so the Voronoi math does not give two provinces the
+     same infinite claim. The offset is far below marker size. */
+  const byCoord = new Map();
+  anchors.forEach(a => {
+    const k = `${round(a.x, 4)}|${round(a.y, 4)}`;
+    if (!byCoord.has(k)) byCoord.set(k, []);
+    byCoord.get(k).push(a);
+  });
+  byCoord.forEach(group => {
+    if (group.length < 2) return;
+    group.sort((a, b) => a.key < b.key ? -1 : a.key > b.key ? 1 : 0);
+    const r = 0.06;
+    group.forEach((a, i) => {
+      const theta = (Math.PI * 2 * i) / group.length;
+      a.x = clampToBox(a.x + Math.cos(theta) * r, box.minX, box.maxX);
+      a.y = clampToBox(a.y + Math.sin(theta) * r, box.minY, box.maxY);
+    });
+  });
+  return anchors;
+}
+
+function anchorCells(anchors, box) {
+  const bounds = rectPolygon(box);
+  return (anchors || []).map((anchor, i) => {
+    let cell = bounds;
+    for (let j = 0; j < anchors.length; j++) {
+      if (i === j || cell.length < 3) continue;
+      const other = anchors[j];
+      const a = other.x - anchor.x, b = other.y - anchor.y;
+      if (Math.abs(a) < 1e-9 && Math.abs(b) < 1e-9) continue;
+      /* nearest-anchor Voronoi: p·(sj-si) <= (|sj|²-|si|²)/2 */
+      const k = (other.x ** 2 + other.y ** 2 - anchor.x ** 2 - anchor.y ** 2) / 2;
+      cell = clipHalfPlane(cell, a, b, k);
+    }
+    return { anchor, polygon: cell && cell.length >= 3 ? cell : [] };
+  }).filter(c => c.polygon.length >= 3 && Math.abs(polygonArea(c.polygon)) > 0.0001);
+}
+
 export function provinceBorders(provinces, opts = {}) {
   const c = Object.assign({}, PROVINCE_CENSUS, opts && opts.census);
   const list = (provinces || []).filter(p => p && Number.isFinite(p.x) && Number.isFinite(p.y));
   if (!list.length) return [];
-  const all = uniquePins(list.flatMap(p => p.pois || []));
-  const box = opts.box || (() => {
-    const xs = all.length ? all.map(p => Number(p.x)) : list.map(p => p.x);
-    const ys = all.length ? all.map(p => Number(p.y)) : list.map(p => p.y);
-    const pad = Number.isFinite(opts.pad) ? opts.pad : 3;
-    return {
-      minX: Math.max(0, Math.min.apply(null, xs) - pad),
-      maxX: Math.min(100, Math.max.apply(null, xs) + pad),
-      minY: Math.max(0, Math.min.apply(null, ys) - pad),
-      maxY: Math.min(100, Math.max.apply(null, ys) + pad),
-    };
-  })();
-
-  const maxPower = Math.max(1, ...list.map(p => (p.census && p.census.power) || 0));
-  const weight = p => c.borderBias * (Math.log1p(Math.max(0, (p.census && p.census.power) || 0)) / Math.log1p(maxPower));
+  const box = opts.box || { minX: 0, minY: 0, maxX: 100, maxY: 100 };
+  const solid = list.filter(p => !p.vacant && (p.pois || []).length);
+  const cellsByProvince = new Map();
+  anchorCells(provinceAnchors(solid, box), box).forEach(cell => {
+    const id = cell.anchor.prov.id;
+    if (!cellsByProvince.has(id)) cellsByProvince.set(id, []);
+    cellsByProvince.get(id).push(cell.polygon);
+  });
 
   return list.map(prov => {
-    const si = [prov.x, prov.y], wi = weight(prov);
-    let cell = rectPolygon(box);
-    list.forEach(other => {
-      if (other === prov || cell.length < 3) return;
-      const sj = [other.x, other.y], wj = weight(other);
-      /* |p-si|² - wi <= |p-sj|² - wj  ⟺  p·(sj-si) <= (|sj|²-|si|²-wj+wi)/2 */
-      const a = sj[0] - si[0], b = sj[1] - si[1];
-      if (!a && !b) return;
-      const k = (sj[0] ** 2 + sj[1] ** 2 - si[0] ** 2 - si[1] ** 2 - wj + wi) / 2;
-      cell = clipHalfPlane(cell, a, b, k);
-    });
-    if (cell.length < 3) {
-      const r = c.hullPad;
-      cell = [[si[0] - r, si[1] - r], [si[0] + r, si[1] - r], [si[0] + r, si[1] + r], [si[0] - r, si[1] + r]];
+    if (prov.vacant || !(prov.pois || []).length) {
+      const polygon = boxAround({ x: prov.x, y: prov.y }, box, c.claimPad);
+      return { ...prov, shape: 'claim', cells: [], polygon: polygon.map(pt => [round(pt[0], 3), round(pt[1], 3)]), area: round(Math.abs(polygonArea(polygon))) };
     }
 
-    let shape = 'tile', polygon = cell;
-    const hull = convexHull(prov.pois);
-    if (hull.length >= 3) {
-      const oriented = orientForClip(hull);
-      let surveyed = oriented;
-      for (let i = 0, j = oriented.length - 1; i < oriented.length; j = i++) {
-        const p1 = oriented[j], p2 = oriented[i];
-        const dx = p2[0] - p1[0], dy = p2[1] - p1[1];
-        surveyed = clipHalfPlane(surveyed, -dy, dx, (-dy) * p1[0] + dx * p1[1] + c.hullPad * (Math.hypot(dx, dy) || 1));
-        if (surveyed.length < 3) break;
-      }
-      if (surveyed.length >= 3) {
-        const tight = intersectConvex(cell, surveyed);
-        if (tight && tight.length >= 3) {
-          const keep = Math.abs(polygonArea(tight)) / (Math.abs(polygonArea(cell)) || 1);
-          if (keep < c.hullKeepRatio) { polygon = tight; shape = 'surveyed'; }
-        }
-      }
-    }
-    return { ...prov, shape, polygon: polygon.map(pt => [round(pt[0], 3), round(pt[1], 3)]), area: round(Math.abs(polygonArea(polygon))) };
+    let cells = (cellsByProvince.get(prov.id) || []).filter(poly => poly && poly.length >= 3);
+    if (!cells.length) cells = [boxAround({ x: prov.x, y: prov.y }, box, c.claimPad)];
+    const roundedCells = cells.map(poly => poly.map(pt => [round(pt[0], 3), round(pt[1], 3)]));
+    const hull = convexHull(roundedCells.flat());
+    const polygon = (hull.length >= 3 ? hull : roundedCells[0]).map(pt => [round(pt[0], 3), round(pt[1], 3)]);
+    const area = roundedCells.reduce((sum, poly) => sum + Math.abs(polygonArea(poly)), 0);
+    return { ...prov, shape: roundedCells.length > 1 ? 'network' : 'tile', cells: roundedCells, polygon, area: round(area) };
   });
 }
+
 
 /* ---------------- filed ledger vs. census ---------------- */
 

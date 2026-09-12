@@ -1,0 +1,98 @@
+:root {
+  --ti-player:   #4caf50;
+  --ti-friendly: #44abe0;
+  --ti-neutral:  #9e9e9e;
+  --ti-enemy:    #d98f30;
+  --ti-secret:   #a855f7;
+
+  --ti-acted: #888;
+  --ti-can:   #44ff44;
+}
+
+/* Works if .team-initiative is on the wrapper OR on the #combat-tracker list */
+.team-initiative li.combatant.team-player,
+#combat-tracker.team-initiative li.combatant.team-player { border-left: 4px solid var(--ti-player); }
+
+.team-initiative li.combatant.team-friendly,
+#combat-tracker.team-initiative li.combatant.team-friendly { border-left: 4px solid var(--ti-friendly); }
+
+.team-initiative li.combatant.team-neutral,
+#combat-tracker.team-initiative li.combatant.team-neutral { border-left: 4px solid var(--ti-neutral); }
+
+.team-initiative li.combatant.team-enemy,
+#combat-tracker.team-initiative li.combatant.team-enemy { border-left: 4px solid var(--ti-enemy); }
+
+.team-initiative li.combatant.team-secret,
+#combat-tracker.team-initiative li.combatant.team-secret { border-left: 4px solid var(--ti-secret); }
+
+/* acted */
+.team-initiative li.combatant.has-acted,
+#combat-tracker.team-initiative li.combatant.has-acted { opacity: 0.55; }
+
+.team-initiative li.combatant.has-acted .token-name,
+#combat-tracker.team-initiative li.combatant.has-acted .token-name {
+  text-decoration: line-through;
+  color: var(--ti-acted);
+}
+
+/* can activate */
+.team-initiative li.combatant.can-activate,
+#combat-tracker.team-initiative li.combatant.can-activate { background: rgba(68,255,68,0.10); }
+
+.team-initiative li.combatant.can-activate:hover,
+#combat-tracker.team-initiative li.combatant.can-activate:hover { background: rgba(68,255,68,0.18); }
+
+/* buttons */
+.team-initiative a.combatant-control[data-ti="activate"],
+#combat-tracker.team-initiative a.combatant-control[data-ti="activate"] { color: var(--ti-can); }
+
+.team-initiative a.combatant-control[data-ti="endturn"],
+#combat-tracker.team-initiative a.combatant-control[data-ti="endturn"] { color: #ff6b6b; }
+
+/* indicator */
+.team-initiative .team-initiative-indicator {
+  margin: 6px 8px;
+  padding: 6px 8px;
+  border-radius: 4px;
+  font-weight: 700;
+  text-align: center;
+  font-size: 12px;
+  border: 1px solid #666;
+}
+
+/* group headers you insert */
+.team-initiative .ti-team-header,
+#combat-tracker.team-initiative .ti-team-header {
+  padding: 4px 8px;
+  margin: 6px 0 2px 0;
+  font-weight: 800;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-radius: 3px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  list-style: none;
+}
+
+.team-initiative .ti-team-header.is-current,
+#combat-tracker.team-initiative .ti-team-header.is-current {
+  background: rgba(255,255,255,0.10);
+}
+
+.team-initiative .ti-team-header.team-player,
+#combat-tracker.team-initiative .ti-team-header.team-player { border-left: 4px solid var(--ti-player); }
+
+.team-initiative .ti-team-header.team-friendly,
+#combat-tracker.team-initiative .ti-team-header.team-friendly { border-left: 4px solid var(--ti-friendly); }
+
+.team-initiative .ti-team-header.team-neutral,
+#combat-tracker.team-initiative .ti-team-header.team-neutral { border-left: 4px solid var(--ti-neutral); }
+
+.team-initiative .ti-team-header.team-enemy,
+#combat-tracker.team-initiative .ti-team-header.team-enemy { border-left: 4px solid var(--ti-enemy); }
+
+.team-initiative .ti-team-header.team-secret,
+#combat-tracker.team-initiative .ti-team-header.team-secret { border-left: 4px solid var(--ti-secret); }
+
+.ti-muted { opacity: 0.7; font-size: 12px; }

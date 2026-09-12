@@ -43,17 +43,19 @@ for (const mapId of realms) {
   mountAtlasMapV2(host, mapId, {});
   host.querySelector('[data-map-art]').dispatchEvent(new dom.window.Event('load'));
   const lines = [...host.querySelectorAll('.atlas-v2-edge')];
-  /* The plotted <path> is midpoint-smoothed: "M mx my Q vx vy mx my Q …" — the
-     vertices are the Q control points, which is what the edge pairing works
-     from and what this check reconstructs. */
-  const polys = [...host.querySelectorAll('[data-province]')].map(el => {
-    const parts = el.getAttribute('d').replace(/^M /, '').split(' Q ');
-    return {
-      id: el.dataset.province,
-      poly: parts.slice(1).map(seg => seg.trim().split(' ').slice(0, 2).map(Number)),
-      vacant: el.classList.contains('vacant'),
-    };
-  });
+  /* Province paths are straight and may be compound: "M x y L x y … Z M …".
+     Parse every subpath so side sampling sees the same tiled cells the browser
+     fills. */
+  const pathPolys = d => String(d || '').match(/M [^Z]+Z/g)?.map(part => part
+    .replace(/^M\s*/, '').replace(/\s*Z$/, '').split(/\s+L\s+/)
+    .map(pair => pair.trim().split(/\s+/).slice(0, 2).map(Number))
+    .filter(pt => Number.isFinite(pt[0]) && Number.isFinite(pt[1]))
+  ).filter(poly => poly.length >= 3) || [];
+  const polys = [...host.querySelectorAll('[data-province]')].map(el => ({
+    id: el.dataset.province,
+    polys: pathPolys(el.getAttribute('d')),
+    vacant: el.classList.contains('vacant'),
+  }));
   /* A vacant claim is filed over ground the survey gave to somebody else — its
      polygon intentionally overlaps the holder's, so claims are exempt from the
      one-owner-per-side rule and counted separately. */
@@ -69,7 +71,7 @@ for (const mapId of realms) {
     if (len < 0.4) return; /* sub-visible slivers are rim ink, not borders */
     const mx = (x1 + x2) / 2, my = (y1 + y2) / 2;
     const nx = -(y2 - y1) / len * 0.15, ny = (x2 - x1) / len * 0.15;
-    const side = (sx, sy) => solid.filter(p => inside([sx, sy], p.poly)).map(p => p.id);
+    const side = (sx, sy) => solid.filter(p => p.polys.some(poly => inside([sx, sy], poly))).map(p => p.id);
     const left = side(mx + nx, my + ny), right = side(mx - nx, my - ny);
     if (cls.includes('rim')) {
       totalRim++;

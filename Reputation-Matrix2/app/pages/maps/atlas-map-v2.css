@@ -91,32 +91,26 @@
 .atlas-v2-legend{flex-wrap:wrap;gap:6px}
 .atlas-v2-factionmark{position:relative;display:inline-grid;place-items:center;width:14px;height:14px;flex:0 0 auto}
 .atlas-v2-factionmark img{position:absolute;left:-4px;top:-4px;width:22px;height:22px;border-radius:50%;object-fit:cover;border:1px solid #0009}
-/* Province census (map-provinces.js): the merge of pins into provinces, drawn
-   as contiguous plots. The fill carries the crown (a march is hatched, a filed
-   claim with no pins is not filled at all); a separate edge layer carries every
-   border — bold between two different hands, a faint administrative line
-   inside one hand, the crown's own colour along the rim of the surveyed
-   ground, and hot dashes wherever a march touches a frontier. Strokes are
-   non-scaling, so borders stay hairline ink at every zoom. Everything is
-   percent-of-sheet space, like the pins. */
+/* Province census (map-provinces.js): pins are merged into provinces, then the
+   sheet is tiled from the actual POI anchors. There are no diagonal hatches,
+   dashed squiggles, or holes between regions: blank ground falls to the nearest
+   province, and unreadable/unclaimed control reads as grey or claimant colour.
+   Strokes are non-scaling, so borders stay hairline ink at every zoom. */
 .atlas-v2-borders{position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none;overflow:visible}
 .atlas-v2-fills{pointer-events:auto}
-.atlas-v2-plot{fill:color-mix(in srgb,var(--plot,#7c8aa5) 17%,transparent);cursor:pointer;transition:fill .15s ease}
-.atlas-v2-plot:hover,.atlas-v2-plot.selected{fill:color-mix(in srgb,var(--plot,#7c8aa5) 34%,transparent)}
-.atlas-v2-plot.contested{fill:color-mix(in srgb,#f0b4b4 12%,transparent)}
-.atlas-v2-plot.contested:hover,.atlas-v2-plot.contested.selected{fill:color-mix(in srgb,#f0b4b4 24%,transparent)}
+.atlas-v2-plot{fill:color-mix(in srgb,var(--plot,#7c8aa5) 19%,transparent);cursor:pointer;transition:fill .15s ease}
+.atlas-v2-plot:hover,.atlas-v2-plot.selected{fill:color-mix(in srgb,var(--plot,#7c8aa5) 38%,transparent)}
+.atlas-v2-plot.contested{fill:color-mix(in srgb,var(--plot,#7c8aa5) 16%,#f0b4b422)}
+.atlas-v2-plot.contested:hover,.atlas-v2-plot.contested.selected{fill:color-mix(in srgb,var(--plot,#7c8aa5) 34%,#f0b4b433)}
 .atlas-v2-plot.vacant{fill:transparent}
-.atlas-v2-hatches{pointer-events:none}
-.atlas-v2-hatchfill{pointer-events:none}
 .atlas-v2-edges{pointer-events:none}
 .atlas-v2-edge{stroke-linecap:round}
-.atlas-v2-edge.inner{stroke:#cfd8ea;stroke-opacity:.32;stroke-width:1;stroke-dasharray:3 3}
-.atlas-v2-edge.frontier{stroke:#f2e3b3;stroke-opacity:.85;stroke-width:2}
-.atlas-v2-edge.frontier.hot{stroke:#f0a3a3;stroke-width:2.3;stroke-dasharray:7 4}
-.atlas-v2-edge.rim{stroke:color-mix(in srgb,var(--plot,#7c8aa5) 75%,transparent);stroke-width:1.6}
-.atlas-v2-edge.rim.surveyed{stroke-dasharray:2 3}
-.atlas-v2-edge.rim.vacant{stroke:#93a3c0;stroke-width:1.4;stroke-dasharray:1 4}
-.atlas-v2-focus{fill:none;stroke:#ffd75e;stroke-width:2.6;pointer-events:none}
+.atlas-v2-edge.inner{stroke:#dbe7ff;stroke-opacity:.24;stroke-width:.95}
+.atlas-v2-edge.frontier{stroke:#fff1bd;stroke-opacity:.9;stroke-width:1.9}
+.atlas-v2-edge.frontier.hot{stroke:#f3b2b2;stroke-width:2.05}
+.atlas-v2-edge.rim{stroke:color-mix(in srgb,var(--plot,#7c8aa5) 72%,#dbe7ff);stroke-width:1.35;stroke-opacity:.82}
+.atlas-v2-edge.rim.vacant{stroke:#9aa8bd;stroke-width:1.15;stroke-opacity:.72}
+.atlas-v2-edge.focused{stroke:#ffd75e;stroke-width:2.75;stroke-opacity:1}
 .atlas-v2-plotlabel{position:absolute;transform:translate(-50%,-50%) scale(calc(1/var(--label-zoom,1)));z-index:2;display:flex;flex-direction:column;align-items:center;gap:1px;pointer-events:auto;cursor:pointer;text-align:center;max-width:150px;text-shadow:0 1px 3px #000,0 0 8px #000c}
 .atlas-v2-plotlabel b{font-size:10px;letter-spacing:.4px;text-transform:uppercase;color:#e8f0ff;font-weight:800}
 .atlas-v2-plotlabel i{font-size:9px;font-style:normal;color:#b9c8e6}
@@ -181,3 +175,48 @@
 .atlas-v2-picktools{display:flex;gap:8px;margin-top:10px}
 .atlas-v2-picktools button{flex:1;border:1px solid #3e5072;background:#101a2b;color:#aebddd;border-radius:7px;padding:7px 8px;font:700 11.5px inherit;cursor:pointer}
 .atlas-v2-picktools button:hover{background:#2c4a73;color:#fff}
+
+/* 2026-09-10 map-system overhaul: default maps should feel like a map, not a
+   postage stamp. The embedded nation page gets a taller viewport; the #/maps
+   shell can override these values to fill the app pane. */
+.atlas-v2-layout{min-height:clamp(620px,72vh,900px)}
+.atlas-v2-stage{display:flex;flex-direction:column;min-height:0}
+.atlas-v2-viewport{height:clamp(560px,68vh,840px);min-height:0;flex:1}
+.atlas-v2-marker{transition:transform .12s ease,opacity .16s ease,filter .16s ease,box-shadow .16s ease;backdrop-filter:blur(2px)}
+.atlas-v2-marker.atlas-v2-cluster{border-color:#e9dcff;background:radial-gradient(circle at 35% 30%,#fff8,var(--marker,#7c8aa5) 45%,#101a2b 100%);box-shadow:0 0 0 2px color-mix(in srgb,var(--marker,#7c8aa5) 45%,transparent),0 8px 22px #000d;z-index:4}
+.atlas-v2-marker.atlas-v2-cluster span{font-weight:900;text-shadow:0 1px 4px #000}
+.atlas-v2-marker.atlas-v2-cluster em{background:#050a12;color:#fff;border-color:color-mix(in srgb,var(--marker,#7c8aa5) 60%,#fff)}
+.atlas-v2-marker.atlas-v2-dimmed{opacity:.18;filter:grayscale(.85);box-shadow:none;z-index:1}
+.atlas-v2-marker.atlas-v2-dimmed:hover{opacity:.85;filter:none;z-index:5}
+.atlas-v2-tools button[data-action="density"][data-density="key"]{border-color:#ffd75e;color:#ffe7a0;background:#2a230c}
+.atlas-v2-tools button[data-action="density"][data-density="all"]{border-color:#f87171;color:#ffd1d1;background:#321616}
+.atlas-v2-tools button[data-action="plots"].active{border-color:#8ab4ff;background:#14233e;color:#dceaff}
+/* Local insets answer the crowded-city problem: click a cluster and the desk
+   opens a zoomed reader's magnifier that spreads close POIs apart without
+   claiming the geography moved. */
+.atlas-v2-inset-map{position:relative;height:220px;margin:12px 0;border:1px solid #4b5f86;border-radius:12px;overflow:hidden;background:radial-gradient(circle at 50% 48%,rgba(132,96,255,.22),transparent 58%),linear-gradient(135deg,#07101e,#101b31)}
+.atlas-v2-inset-map:before{content:"";position:absolute;inset:14px;border:1px dashed rgba(207,219,255,.22);border-radius:50%;pointer-events:none}
+.atlas-v2-inset-map:after{content:"zoomed local inset";position:absolute;left:10px;bottom:8px;color:#8fa3ca;font-size:10px;font-weight:800;letter-spacing:.7px;text-transform:uppercase}
+.atlas-v2-inset-pin{position:absolute;transform:translate(-50%,-50%);width:28px;height:28px;border-radius:50%;border:2px solid #fff;background:var(--marker,#7c8aa5);color:#fff;box-shadow:0 3px 12px #000d;cursor:pointer;z-index:2;font:800 11px inherit}
+.atlas-v2-inset-pin:hover{scale:1.22;outline:4px solid color-mix(in srgb,var(--marker,#7c8aa5) 45%,transparent);z-index:4}
+.atlas-v2-inset-pin span{display:grid;place-items:center;width:100%;height:100%}
+.atlas-v2-inset-meta{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 8px}
+.atlas-v2-inset-meta span{font-size:10.5px;font-weight:800;color:#dce7ff;background:#101a2b;border:1px solid #344766;border-radius:999px;padding:3px 7px}
+.atlas-v2-inset-list{display:grid;gap:5px;margin-top:8px}
+.atlas-v2-inset-list button{display:grid;grid-template-columns:24px minmax(0,1fr);gap:8px;align-items:center;width:100%;border:1px solid #263857;background:#0a1322;color:#e7efff;border-radius:8px;padding:7px 8px;text-align:left;cursor:pointer;font:inherit}
+.atlas-v2-inset-list button:hover{border-color:#8a6bff;background:#171233}
+.atlas-v2-inset-list b{display:grid;place-items:center;width:21px;height:21px;border-radius:50%;background:#7650cf;color:#fff;font-size:11px}
+.atlas-v2-inset-list span{font-size:12.5px;font-weight:800;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.atlas-v2-inset-list i{display:block;color:#9db0d4;font-size:10.5px;font-style:normal;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.atlas-v2-plot{fill:color-mix(in srgb,var(--plot,#7c8aa5) 12%,transparent)}
+.atlas-v2-plot:hover,.atlas-v2-plot.selected{fill:color-mix(in srgb,var(--plot,#7c8aa5) 28%,transparent)}
+.atlas-v2-plot.contested{fill:color-mix(in srgb,#f0b4b4 9%,transparent)}
+.atlas-v2-plot.contested:hover,.atlas-v2-plot.contested.selected{fill:color-mix(in srgb,#f0b4b4 21%,transparent)}
+.atlas-v2-focus{stroke-width:3.2;filter:drop-shadow(0 0 5px #000)}
+.atlas-v2-sidebar{min-height:0}
+.atlas-v2-full .atlas-v2-layout{min-height:calc(100vh - 250px)}
+.atlas-v2-full .atlas-v2-viewport{height:calc(100vh - 300px)}
+@supports(height:100dvh){
+  .atlas-v2-full .atlas-v2-layout{min-height:calc(100dvh - 250px)}
+  .atlas-v2-full .atlas-v2-viewport{height:calc(100dvh - 300px)}
+}

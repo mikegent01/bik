@@ -1,6 +1,7 @@
 // Atlas Map v3 — keep every existing POI x/y (percent of the painted artwork).
 // Pins sit on the letterboxed image, not the empty stage. Region sheets crop
-// to their POI hull. Wiki articles open from the sidebar when an articleId is filed.
+// to their POI hull; province overlays tile the visible sheet. Wiki articles
+// open from the sidebar when an articleId is filed.
 import { MAP_DATA } from '../../../data/maps/map-data.js';
 import { getFaction, getFactionColor } from '../../../systems/faction-registry.js';
 import { hashColor, initial, isSafeLogo, topCats, legendChips } from './map-lenses.js';
@@ -77,23 +78,101 @@ function containBox(stage, img) {
   return { left: (sw - w) / 2, top: (sh - h) / 2, w, h };
 }
 
-function clusterPois(pois, radius = 1.15) {
-  const used = new Set();
+function defaultPinScore(poi) {
+  if (!poi) return 0;
+  return (Number(poi.political_influence) || 0) * 3
+    + (Number(poi.military_strength) || 0) * 2
+    + (Number(poi.economic_value) || 0)
+    + Math.log10(Math.max(1, Number(poi.population) || 1));
+}
+
+function clusterPois(pois, radius = 1.15, opts = {}) {
+  const list = (pois || []).filter(Boolean);
+  if (!list.length) return [];
+  if (radius <= 0.05) {
+    return list.map(poi => { const group = [poi]; group.x = Number(poi.x) || 0; group.y = Number(poi.y) || 0; return group; });
+  }
+  const score = typeof opts.score === 'function' ? opts.score : defaultPinScore;
+  const maxSize = Math.max(2, Number(opts.maxSize) || 80);
   const clusters = [];
-  pois.forEach((poi, i) => {
-    if (used.has(i)) return;
-    const group = [poi];
-    used.add(i);
-    pois.forEach((other, j) => {
-      if (used.has(j)) return;
-      if (Math.hypot((other.x || 0) - (poi.x || 0), (other.y || 0) - (poi.y || 0)) < radius) {
-        group.push(other);
-        used.add(j);
+  list.slice()
+    .sort((a, b) => (score(b) - score(a)) || String(a.id || '').localeCompare(String(b.id || '')))
+    .forEach(poi => {
+      const x = Number(poi.x) || 0, y = Number(poi.y) || 0;
+      let best = null, bestD = Infinity;
+      clusters.forEach(group => {
+        if (group.length >= maxSize) return;
+        const d = Math.hypot(x - group.x, y - group.y);
+        if (d <= radius && d < bestD) { best = group; bestD = d; }
+      });
+      if (!best) {
+        const group = [poi];
+        group.x = x;
+        group.y = y;
+        group.power = 1 + Math.max(0, score(poi));
+        clusters.push(group);
+        return;
       }
+      const w = 1 + Math.max(0, score(poi));
+      const total = (best.power || best.length) + w;
+      best.x = ((best.x || 0) * (best.power || best.length) + x * w) / total;
+      best.y = ((best.y || 0) * (best.power || best.length) + y * w) / total;
+      best.power = total;
+      best.push(poi);
     });
-    clusters.push(group);
-  });
   return clusters;
+}
+
+function dynamicClusterRadius(count, scale, plane, journeyOnly, densityMode) {
+  if (journeyOnly || densityMode === 'all' || count <= 60) return plane ? 0.18 : 0.05;
+  if (densityMode === 'key') return 0.05;
+  const pressure = Math.min(1, Math.max(0, (count - 60) / 520));
+  const base = 0.9 + pressure * 3.2;
+  const zoom = Math.max(0.35, Number(scale) || 1);
+  return Math.max(0.18, base / Math.pow(zoom, 1.12));
+}
+
+const PIN_DENSITY_ORDER = ['smart', 'key', 'all'];
+const PIN_DENSITY = {
+  smart: { label: '✨ Smart POIs', hint: 'auto-clustered' },
+  key: { label: '◆ Key only', hint: 'seats, articles, top pins' },
+  all: { label: '• All POIs', hint: 'everything unrolled' },
+};
+
+function settlementInsetKind(stack) {
+  const types = new Set((stack || []).map(p => String((p && p.type) || '').toLowerCase()));
+  if ([...types].some(t => /capital|major_city|city|district/.test(t))) return { label: 'City inset', icon: '🏙️' };
+  if ([...types].some(t => /town|port|market|guild|academy|hospital|library/.test(t))) return { label: 'Town inset', icon: '🏘️' };
+  if ([...types].some(t => /village|farm|outpost|camp|shrine/.test(t))) return { label: 'Village inset', icon: '🏡' };
+  return { label: 'Local inset', icon: '🔎' };
+}
+
+function localInsetPositions(stack, cx, cy) {
+  const items = (stack || []).filter(Boolean);
+  if (!items.length) return [];
+  const xs = items.map(p => Number(p.x) || 0);
+  const ys = items.map(p => Number(p.y) || 0);
+  const span = Math.max(0.35, Math.max(...xs) - Math.min(...xs), Math.max(...ys) - Math.min(...ys));
+  const used = [];
+  const clamp = v => Math.max(8, Math.min(92, v));
+  return items.map((poi, i) => {
+    let x = 50 + (((Number(poi.x) || 0) - cx) / span) * 72;
+    let y = 50 + (((Number(poi.y) || 0) - cy) / span) * 72;
+    const collides = () => used.some(pt => Math.hypot(x - pt.x, y - pt.y) < 13);
+    if (span < 0.9 || collides()) {
+      const ring = 19 + Math.floor(i / 8) * 13;
+      const angle = (-Math.PI / 2) + (Math.PI * 2 * (i % Math.max(3, Math.min(8, items.length))) / Math.max(3, Math.min(8, items.length)));
+      x += Math.cos(angle) * ring;
+      y += Math.sin(angle) * ring;
+      if (collides()) {
+        x += Math.cos(angle + Math.PI / 5) * 9;
+        y += Math.sin(angle + Math.PI / 5) * 9;
+      }
+    }
+    x = clamp(x); y = clamp(y);
+    used.push({ x, y });
+    return { poi, x, y };
+  });
 }
 
 function model(mapId, plane, onlyIds) {
@@ -120,7 +199,7 @@ function stopBannerHtml(stop) {
 
 function detailHtml(poi, pois) {
   if (!poi) {
-    return `<div class="atlas-v2-empty"><span>◎</span><b>Select a location</b><p>Pins sit on the painted map. Scroll to zoom. Drag to pan. Region sheets start cropped to their surveyed hull so a plains sheet does not look like the whole kingdom.</p></div>`;
+    return `<div class="atlas-v2-empty"><span>◎</span><b>Select a location</b><p>Pins sit on the painted map. Scroll to zoom. Drag to pan. Region sheets start cropped to their POI hull so a plains sheet does not look like the whole kingdom.</p></div>`;
   }
   const faction = factionMeta(poi.factionId);
   const nearby = pois.filter(other => other.id !== poi.id)
@@ -170,119 +249,115 @@ function detailHtml(poi, pois) {
 
 /* ---------------- the province layer ---------------- */
 
-/* Straight borders stay straight and jagged Voronoi corners soften: the path
-   runs edge-midpoint to edge-midpoint with the vertex as its control point,
-   so the arithmetic edges read like a cartographer inked them. */
-function smoothPathD(polygon) {
+/* Province paths are now straight polygon paths. The fill and border ink share
+   the same points, so the visible border is the actual boundary and selected
+   POIs do not appear to sit outside a softened/smoothed blob. */
+function polygonPathD(polygon) {
   const poly = (polygon || []).filter(pt => pt && Number.isFinite(pt[0]) && Number.isFinite(pt[1]));
   if (poly.length < 3) return '';
-  const mid = (a, b) => `${(a[0] + b[0]) / 2} ${(a[1] + b[1]) / 2}`;
-  let d = `M ${mid(poly[poly.length - 1], poly[0])}`;
-  for (let i = 0; i < poly.length; i++) {
-    const v = poly[i];
-    d += ` Q ${v[0]} ${v[1]} ${mid(v, poly[(i + 1) % poly.length])}`;
-  }
-  return d + ' Z';
+  return `M ${poly.map(pt => `${pt[0]} ${pt[1]}`).join(' L ')} Z`;
 }
 
-/* Border ink is display work, so it lives here and not in the model: the
-   census files each province's polygon, and this layer decides how the edges
-   between them are drawn. Neighbouring cells do not carry identical border
-   segments — a hull-clipped province cuts the bisector it shares with its
-   neighbour into a different sub-segment than the neighbour does — so edges
-   are paired by collinearity and overlap, never by endpoint identity: the
-   overlapping span is the shared border, and whatever a province keeps to
-   itself is its rim. A vacant claim (a filed province whose pins were all
-   absorbed by a smaller survey) pairs with nothing: its dotted outline is
-   drawn over the ground it claims, which is exactly what the archive filed. */
+function provincePolygons(prov) {
+  const cells = (prov && Array.isArray(prov.cells)) ? prov.cells.filter(poly => poly && poly.length >= 3) : [];
+  if (cells.length) return cells;
+  return prov && prov.polygon && prov.polygon.length >= 3 ? [prov.polygon] : [];
+}
+
+function provincePathD(prov) {
+  return provincePolygons(prov).map(polygonPathD).filter(Boolean).join(' ');
+}
+
+/* Border ink is display work, so it lives here and not in the model. The
+   model may hand back a compound province made of many POI-anchor cells; this
+   layer pairs the cell edges, drops edges inside the same province, and inks
+   only real shared borders plus the outside rim. */
 function provinceEdgeInk(provinces, colorOf) {
-  const all = (provinces || []).filter(p => p.polygon && p.polygon.length >= 3);
+  const all = (provinces || []).filter(p => provincePolygons(p).length || (p.polygon && p.polygon.length >= 3));
   const list = all.filter(p => !p.vacant);
-  const eps = 0.05;
-  const edgesOf = list.map(prov => (prov.polygon || []).map((pt, i, poly) => {
+  const eps = 0.055;
+  const edgesOf = list.map(prov => provincePolygons(prov).flatMap(poly => (poly || []).map((pt, i) => {
     const q = poly[(i + 1) % poly.length];
     return { prov, p: pt, q, len: Math.hypot(q[0] - pt[0], q[1] - pt[1]), shared: [] };
-  }).filter(e => e.len >= 0.02));
+  }).filter(e => e.len >= 0.02)));
   const offLine = (pt, e) => Math.abs((e.q[0] - e.p[0]) * (pt[1] - e.p[1]) - (e.q[1] - e.p[1]) * (pt[0] - e.p[0])) / (e.len || 1);
+  const sameSegKey = (provA, provB, p, q) => {
+    const a = `${p[0].toFixed(2)},${p[1].toFixed(2)}`;
+    const b = `${q[0].toFixed(2)},${q[1].toFixed(2)}`;
+    const pts = [a, b].sort().join('~');
+    return [provA.id, provB.id].sort().join('|') + '|' + pts;
+  };
   for (let i = 0; i < list.length; i++) {
-    for (let j = i + 1; j < list.length; j++) {
+    for (let j = i; j < list.length; j++) {
       for (const ea of edgesOf[i]) {
         const ux = (ea.q[0] - ea.p[0]) / ea.len, uy = (ea.q[1] - ea.p[1]) / ea.len;
         for (const eb of edgesOf[j]) {
+          if (ea === eb) continue;
+          if (i === j && ea.prov.id !== eb.prov.id) continue;
           if (offLine(eb.p, ea) > eps || offLine(eb.q, ea) > eps) continue;
           if (offLine(ea.p, eb) > eps || offLine(ea.q, eb) > eps) continue;
           const u0 = (eb.p[0] - ea.p[0]) * ux + (eb.p[1] - ea.p[1]) * uy;
           const u1 = (eb.q[0] - ea.p[0]) * ux + (eb.q[1] - ea.p[1]) * uy;
           const lo = Math.max(0, Math.min(u0, u1)), hi = Math.min(ea.len, Math.max(u0, u1));
-          /* Spans under 0.4 units (≈3px on a sheet) are vertex slivers, not
-             borders — leaving them out of the pairing keeps them rim ink. */
-          if (hi - lo < 0.4) continue;
+          if (hi - lo < 0.18) continue;
           const wx = (eb.q[0] - eb.p[0]) / eb.len, wy = (eb.q[1] - eb.p[1]) / eb.len;
           const s0 = (ea.p[0] - eb.p[0]) * wx + (ea.p[1] - eb.p[1]) * wy;
           const s1 = (ea.q[0] - eb.p[0]) * wx + (ea.q[1] - eb.p[1]) * wy;
-          ea.shared.push({ other: list[j], lo, hi });
-          eb.shared.push({ other: list[i], lo: Math.max(0, Math.min(s0, s1)), hi: Math.min(eb.len, Math.max(s0, s1)) });
+          ea.shared.push({ other: eb.prov, lo, hi });
+          eb.shared.push({ other: ea.prov, lo: Math.max(0, Math.min(s0, s1)), hi: Math.min(eb.len, Math.max(s0, s1)) });
         }
       }
     }
   }
-  const crownOf = prov => prov.census.contested ? 'march:' + prov.id : (prov.census.controller || 'unclaimed');
+  const crownOf = prov => prov.census.controller || prov.census.claimant || 'unclaimed';
   const at = (e, t) => [e.p[0] + (e.q[0] - e.p[0]) * (t / e.len), e.p[1] + (e.q[1] - e.p[1]) * (t / e.len)];
-  const line = (p, q, cls, color) => `<line class="${cls}" x1="${p[0]}" y1="${p[1]}" x2="${q[0]}" y2="${q[1]}"${color ? ` style="--plot:${esc(color)}"` : ''} vector-effect="non-scaling-stroke"/>`;
+  const line = (p, q, cls, color, attrs = '') => `<line class="${cls}" ${attrs}x1="${p[0]}" y1="${p[1]}" x2="${q[0]}" y2="${q[1]}"${color ? ` style="--plot:${esc(color)}"` : ''} vector-effect="non-scaling-stroke"/>`;
   const ink = [];
   const drawn = new Set();
   edgesOf.forEach(edges => edges.forEach(e => {
-    const rimCls = 'atlas-v2-edge rim' + (e.prov.shape === 'surveyed' ? ' surveyed' : '');
+    const rimCls = 'atlas-v2-edge rim';
     const rimColor = colorOf(e.prov);
     const spans = e.shared.slice().sort((a, b) => a.lo - b.lo);
     let cursor = 0;
     spans.forEach(s => {
-      if (s.lo > cursor + 0.05) ink.push(line(at(e, cursor), at(e, Math.min(s.lo, e.len)), rimCls, rimColor));
+      if (s.lo > cursor + 0.05) ink.push(line(at(e, cursor), at(e, Math.min(s.lo, e.len)), rimCls, rimColor, `data-edge-owner="${esc(e.prov.id)}" `));
+      const p = at(e, s.lo), q = at(e, s.hi);
       cursor = Math.max(cursor, s.hi);
-      const key = [e.prov.id, s.other.id].sort().join('|') + '|' + s.lo.toFixed(1) + s.hi.toFixed(1);
+      if (s.other.id === e.prov.id) return; // same province: do not ink cell seams
+      const key = sameSegKey(e.prov, s.other, p, q);
       if (drawn.has(key)) return;
       drawn.add(key);
       const same = crownOf(e.prov) === crownOf(s.other);
       const hot = e.prov.census.contested || s.other.census.contested;
       const cls = same ? 'atlas-v2-edge inner' : 'atlas-v2-edge frontier' + (hot ? ' hot' : '');
-      ink.push(line(at(e, s.lo), at(e, s.hi), cls));
+      ink.push(line(p, q, cls, '', `data-edge-provinces="${esc(e.prov.id)} ${esc(s.other.id)}" `));
     });
-    if (cursor < e.len - 0.05) ink.push(line(at(e, cursor), at(e, e.len), rimCls, rimColor));
+    if (cursor < e.len - 0.05) ink.push(line(at(e, cursor), at(e, e.len), rimCls, rimColor, `data-edge-owner="${esc(e.prov.id)}" `));
   }));
   all.filter(p => p.vacant).forEach(prov => {
     (prov.polygon || []).forEach((pt, i, poly) => {
       const q = poly[(i + 1) % poly.length];
       if (Math.hypot(q[0] - pt[0], q[1] - pt[1]) < 0.02) return;
-      ink.push(line(pt, q, 'atlas-v2-edge rim vacant', colorOf(prov)));
+      ink.push(line(pt, q, 'atlas-v2-edge rim vacant', colorOf(prov), `data-edge-owner="${esc(prov.id)}" `));
     });
   });
   return ink.join('');
 }
 
-let HATCH_SEQ = 0;
-
-/* The province layer, inked in three passes. The fills carry the crown (a
-   march is hatched, a claim with no pins is not filled at all); the edge layer
-   carries every border — bold between two different hands, a faint
-   administrative line inside one hand, the crown's own colour along the rim of
-   the surveyed ground, and hot dashes wherever a march touches a frontier.
-   Nothing is left undrawn: the atlas draws what the census can prove, and
-   where it cannot prove a crown it says so in ink, not by omission. */
+/* The province layer is filled first and inked second. Contested/unreadable
+   provinces no longer get diagonal hatching or dashed squiggles; the fill uses
+   the leading/nearest faction colour when one exists, and grey when the census
+   cannot name a hand. */
 function bordersSvg(provinces, colorOf) {
-  const list = (provinces || []).filter(p => p.polygon && p.polygon.length >= 3);
+  const list = (provinces || []).filter(p => provincePathD(p));
   if (!list.length) return '';
-  const hatch = 'atlas-v2-hatch-' + (++HATCH_SEQ);
   const fills = list.map(prov => {
     const color = colorOf(prov);
-    const cls = `atlas-v2-plot${prov.census.contested ? ' contested' : ''}${prov.vacant ? ' vacant' : ''}${prov.shape === 'surveyed' ? ' surveyed' : ''}`;
-    return `<path class="${cls}" data-province="${esc(prov.id)}" style="--plot:${esc(color)}" d="${esc(smoothPathD(prov.polygon))}"><title>${esc(prov.name)}${prov.census.contested ? ' — contested march' : (prov.census.controller ? '' : ' — unclaimed')}</title></path>`;
+    const cls = `atlas-v2-plot${prov.census.contested ? ' contested' : ''}${prov.vacant ? ' vacant' : ''}`;
+    return `<path class="${cls}" data-province="${esc(prov.id)}" style="--plot:${esc(color)}" d="${esc(provincePathD(prov))}"><title>${esc(prov.name)}${prov.census.contested ? ' — contested' : (prov.census.controller ? '' : ' — unclaimed')}</title></path>`;
   }).join('');
-  const hatches = list.filter(p => p.census.contested).map(p =>
-    `<path class="atlas-v2-hatchfill" d="${esc(smoothPathD(p.polygon))}" fill="url(#${hatch})"/>`).join('');
   return `<svg class="atlas-v2-borders" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">`
-    + `<defs><pattern id="${hatch}" width="4.5" height="4.5" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">`
-    + `<rect width="4.5" height="4.5" fill="#f0b4b414"/><line x1="0" y1="0" x2="0" y2="4.5" stroke="#f0b4b4" stroke-opacity=".5" stroke-width="1.4"/></pattern></defs>`
-    + `<g class="atlas-v2-fills">${fills}</g><g class="atlas-v2-hatches">${hatches}</g><g class="atlas-v2-edges">${provinceEdgeInk(list, colorOf)}</g></svg>`;
+    + `<g class="atlas-v2-fills">${fills}</g><g class="atlas-v2-edges">${provinceEdgeInk(list, colorOf)}</g></svg>`;
 }
 
 function provinceBarsHtml(census, colorOf) {
@@ -495,10 +570,7 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
   const isFull = /_full$/.test(map.id) || /\(Full\)/i.test(map.name || '');
   const imgHref = new URL(`../../../${map.imageSrc}`, import.meta.url).href;
   const types = [...new Set(pois.map(p => p.type).filter(Boolean))].sort();
-  /* A filtered layer holds a handful of pins that sit close together (the
-     Raventree reflections are ~0.5 apart); the full-sheet radius would fuse
-     the whole Feyward layer into one dot, so cluster tightly instead. */
-  const clusters = clusterPois(pois, plane ? 0.3 : 1.15);
+  let currentVisiblePois = pois.slice();
   const pinWord = journeyOnly ? 'journey stops · Survey holds the full survey'
     : plane ? `${PLANE_LABELS[plane] || plane} pins` : 'surveyed pins';
 
@@ -521,6 +593,7 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
       <select data-type><option value="">All types</option>${types.map(t => `<option value="${esc(t)}">${esc(humanize(t))}</option>`).join('')}</select>
       <button type="button" data-action="wiki" title="Show only pins that open a wiki article">📖 Wiki</button>
       ${provinceList.length ? `<button type="button" data-action="plots" class="${plotsOn ? 'active' : ''}" title="Merge the pins into provinces and draw the borders the census can prove">🗺️ Provinces</button>` : ''}
+      <button type="button" data-action="density" data-density="smart" title="Cycle marker density: Smart clusters, key locations only, or all points unrolled">${PIN_DENSITY.smart.label}</button>
       <button type="button" data-action="shortlist" title="Rank the pins on this sheet and pick one to act on">🎯 Choose a pin</button>
       <span data-visible>${pois.length} markers</span>
     </div>
@@ -550,10 +623,14 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
   const state = {
     scale: 1, tx: 0, ty: 0, box: { left: 0, top: 0, w: 1, h: 1 }, mode: startMode, selected: null, wikiOnly: false,
     plots: plotsOn, province: null, board: null, pickIndex: 0, nonce: 0, dragged: false, labelZoom: 1,
+    pinDensity: PIN_DENSITY[opts.pinDensity] ? opts.pinDensity : 'smart',
   };
   /* One colour source for the census: the same registry the pins and the
      demographics panel already read, so a province and its capital agree. */
-  const plotColor = prov => (prov.census.contested ? '#f0b4b4' : prov.census.controller ? factionMeta(prov.census.controller).color : '#5b6b8a');
+  const plotColor = prov => {
+    const fid = prov.census.controller || (prov.census.claimant !== 'unaligned' ? prov.census.claimant : null);
+    return fid ? factionMeta(fid).color : '#64748b';
+  };
 
   function hull() {
     if (isFull || pois.length < 2) return { minX: 0, minY: 0, maxX: 100, maxY: 100 };
@@ -594,6 +671,7 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
     state.tx = vw / 2 - cx * state.scale;
     state.ty = vh / 2 - cy * state.scale;
     applyTransform();
+    placePins();
   }
 
   function journeyPathSvg() {
@@ -617,6 +695,8 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
     const lens = modes[state.mode] || MODES.population;
     const lensVal = p => lens.value ? lens.value(p) : (Number(p[lens.key]) || 0);
     const lensEl = host.querySelector('[data-legend-lens]');
+    const query = (host.querySelector('[data-search]')?.value || '').toLowerCase();
+    const type = host.querySelector('[data-type]')?.value || '';
     /* Party last-seen tokens: companions whose latest filed appearance pins
        onto this sheet. Rendered above pins, never clustered. */
     const toks = (opts.party || []).filter(t => Number.isFinite(t.x) && Number.isFinite(t.y));
@@ -631,25 +711,74 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
     const weight = v => Math.min(1, Math.log1p(Math.max(0, v)) / denom);
     const ranked = [...pois].sort((a, b) => lensVal(b) - lensVal(a)).slice(0, 5);
     const major = new Set(ranked.filter(p => lensVal(p) > 0).map(p => p.id));
+    const seatIds = new Set(provinceList.map(prov => prov.seat && prov.seat.id).filter(Boolean));
+    const stopIdsOnSheet = new Set(stops.map(s => s.poiId).filter(Boolean));
+    const chatterCounts = (opts.chatter && opts.chatter.counts) || {};
+    const isKeyPin = poi => !!(poi && (
+      major.has(poi.id)
+      || seatIds.has(poi.id)
+      || stopIdsOnSheet.has(poi.id)
+      || wikiId(poi)
+      || (chatterCounts[poi.id] || 0) > 0
+    ));
+    const matches = poi => (!query || `${poi.name} ${poi.description || ''}`.toLowerCase().includes(query))
+      && (!type || poi.type === type)
+      && (!state.wikiOnly || wikiId(poi));
+    let displayPois = pois.filter(matches);
+    const unfilteredMatches = displayPois.length;
+    if (state.pinDensity === 'key' && !journeyOnly) displayPois = displayPois.filter(isKeyPin);
+    if (!displayPois.length && unfilteredMatches) displayPois = pois.filter(matches).slice(0, 1);
+    currentVisiblePois = displayPois.slice();
     const min = values.length ? Math.min(...values) : 0;
+    const radius = dynamicClusterRadius(displayPois.length, state.scale, plane, journeyOnly, state.pinDensity);
+    const clusterOpts = {
+      maxSize: state.pinDensity === 'smart' ? Math.max(18, Math.ceil(displayPois.length / 12)) : 4,
+      score: p => (lensVal(p) * 2) + defaultPinScore(p) + (isKeyPin(p) ? 999 : 0),
+    };
+    const clusters = provinceList.length
+      ? [...displayPois.reduce((buckets, poi) => {
+          const key = (pinProvince.get(poi.id) || {}).id || '';
+          if (!buckets.has(key)) buckets.set(key, []);
+          buckets.get(key).push(poi);
+          return buckets;
+        }, new Map()).values()].flatMap(bucket => clusterPois(bucket, radius, clusterOpts))
+      : clusterPois(displayPois, radius, clusterOpts);
+    if (provinceList.length) {
+      clusters.forEach(group => {
+        const rep = group[0];
+        if (rep) { group.x = Number(rep.x) || group.x; group.y = Number(rep.y) || group.y; }
+      });
+    }
+    const clusterCount = clusters.filter(group => group.length > 1).length;
+    const hiddenKeyCount = Math.max(0, unfilteredMatches - displayPois.length);
+    const visibleEl = host.querySelector('[data-visible]');
+    if (visibleEl) {
+      const markerLabel = clusters.length === displayPois.length
+        ? `${displayPois.length} markers visible`
+        : `${clusters.length} clustered markers · ${displayPois.length} POIs`;
+      visibleEl.textContent = markerLabel + (displayPois.length !== pois.length ? ` · ${pois.length - displayPois.length} tucked` : '');
+    }
     /* The province overlay rides along in every lens, so the legend says what
-       its ink means: how many provinces, and how many of them are marches no
-       single flag holds (they are the hatched ones). */
+       its ink means: how many provinces, and how many of them are contested —
+       now shown by plain fill/labels instead of hatch marks. */
     const contestedCount = provinceList.filter(p => p.census.contested).length;
+    const densityHint = PIN_DENSITY[state.pinDensity]?.hint || 'auto-clustered';
+    const clusterHint = clusterCount ? ` · ${clusterCount} cluster${clusterCount === 1 ? '' : 's'}` : '';
+    const keyHint = hiddenKeyCount ? ` · ${hiddenKeyCount} tucked` : '';
     const plotHint = state.plots && provinceList.length ? ` · 🗺️ ${provinceList.length} provinces${contestedCount ? ` · ⚔ ${contestedCount} contested` : ''}` : '';
     if (lensEl) {
       if (lens.categorical) {
-        const cats = topCats(clusters, g => lens.catOf(g[0]));
-        lensEl.innerHTML = `<i style="background:${lens.color}"></i>${format(min)} – ${format(max)} ${esc(lens.unit)} · pin size = ${esc(lens.sizeLabel || lens.label)}${major.size ? ' · ◎ top 5 ringed' : ''}${toks.length ? ` · 🛰️ ${toks.length} party` : ''} · ${legendChips(cats.cats, cats.more)}${plotHint}`;
-      } else lensEl.innerHTML = `<i style="background:${lens.color}"></i>${format(min)} – ${format(max)} ${esc(lens.unit)} · pin size = ${esc(lens.label)}${major.size ? ' · ◎ top 5 ringed' : ''}${toks.length ? ` · 🛰️ ${toks.length} party` : ''}${plotHint}`;
+        const cats = topCats(displayPois, p => lens.catOf(p));
+        lensEl.innerHTML = `<i style="background:${lens.color}"></i>${format(min)} – ${format(max)} ${esc(lens.unit)} · pin size = ${esc(lens.sizeLabel || lens.label)} · ${esc(densityHint)}${clusterHint}${keyHint}${major.size ? ' · ◎ top 5 ringed' : ''}${toks.length ? ` · 🛰️ ${toks.length} party` : ''} · ${legendChips(cats.cats, cats.more)}${plotHint}`;
+      } else lensEl.innerHTML = `<i style="background:${lens.color}"></i>${format(min)} – ${format(max)} ${esc(lens.unit)} · pin size = ${esc(lens.label)} · ${esc(densityHint)}${clusterHint}${keyHint}${major.size ? ' · ◎ top 5 ringed' : ''}${toks.length ? ` · 🛰️ ${toks.length} party` : ''}${plotHint}`;
     }
     overlay.innerHTML = (state.plots ? bordersSvg(provinceList, plotColor) + provinceLabelsHtml() : '') + journeyPathSvg() + clusters.map(group => {
       const poi = group[0];
       const faction = factionMeta(poi.factionId);
       const cat = lens.categorical ? lens.catOf(poi) : null;
       const top = Math.max(0, ...group.map(g => lensVal(g)));
-      const w = (lens.categorical && !cat) ? 0.06 : weight(top);
-      const diameter = Math.round(12 + w * 20);
+      const weighted = (lens.categorical && !cat) ? 0.06 : weight(top);
+      const diameter = Math.round(12 + weighted * 20 + (group.length > 1 ? Math.min(18, Math.log2(group.length) * 5) : 0));
       const isMajor = group.some(g => major.has(g.id));
       const extra = group.length > 1 ? `<em>${group.length}</em>` : '';
       const groupStops = group.map(g => stopByPoi.get(g.id)).filter(Boolean);
@@ -662,15 +791,28 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
         : cat.img ? `<img class="atlas-v2-glyph" data-fb="${esc(cat.icon || '●')}" src="${esc(cat.img)}" alt="">`
         : esc(cat.icon || '●');
       const plotOf = group.map(g => pinProvince.get(g.id)).find(Boolean);
-      const title = esc(group.map(g => g.name).join(', ') + (cat ? ` · ${cat.label}` : '') + (plotOf && !cat ? ` · ${plotOf.name}` : ''));
-      return `<button type="button" class="atlas-v2-marker${groupStops.length ? ' journey' : ''}${isMajor ? ' atlas-v2-major' : ''}" data-ids="${esc(ids)}" data-poi="${esc(poi.id)}" style="left:${poi.x}%;top:${poi.y}%;width:${diameter}px;height:${diameter}px;--marker:${tint};--intensity:${(0.45 + w * 0.55).toFixed(2)}" title="${title}"><span>${glyph}</span>${extra}${badge}</button>`;
+      const selectedStack = state.selected ? group.some(g => g.id === state.selected.id) : false;
+      const inSelectedProvince = state.province ? group.some(g => (pinProvince.get(g.id) || {}).id === state.province) : true;
+      const cx = Number.isFinite(group.x) ? group.x : poi.x;
+      const cy = Number.isFinite(group.y) ? group.y : poi.y;
+      const title = esc((group.length > 1 ? `${group.length} locations clustered: ` : '') + group.map(g => g.name).join(', ') + (cat ? ` · ${cat.label}` : '') + (plotOf && !cat ? ` · ${plotOf.name}` : ''));
+      const klass = `atlas-v2-marker${group.length > 1 ? ' atlas-v2-cluster' : ''}${groupStops.length ? ' journey' : ''}${isMajor ? ' atlas-v2-major' : ''}${selectedStack ? ' selected' : ''}${inSelectedProvince ? '' : ' atlas-v2-dimmed'}`;
+      return `<button type="button" class="${klass}" data-ids="${esc(ids)}" data-poi="${esc(poi.id)}" data-cx="${cx.toFixed(3)}" data-cy="${cy.toFixed(3)}" style="left:${cx}%;top:${cy}%;width:${diameter}px;height:${diameter}px;--marker:${tint};--intensity:${(0.45 + weighted * 0.55).toFixed(2)}" title="${title}"><span>${glyph}</span>${extra}${badge}</button>`;
     }).join('');
     overlay.querySelectorAll('[data-poi]').forEach(btn => {
       btn.addEventListener('click', ev => {
         ev.stopPropagation();
         const ids = (btn.dataset.ids || '').split(',').filter(Boolean);
+        if (ids.length > 1) {
+          const cx = Number(btn.dataset.cx) || 50;
+          const cy = Number(btn.dataset.cy) || 50;
+          centerOn(cx, cy, Math.min(7.2, Math.max(state.scale + 1.1, state.scale * 1.85, 4.8)));
+          placePins();
+          openLocalInset(ids, cx, cy);
+          return;
+        }
         const picked = pois.find(p => p.id === (ids[0] || btn.dataset.poi));
-        select(picked, ids);
+        if (picked) select(picked, ids);
       });
     });
     /* Faction pins carry logo art; a missing file swaps to the letter glyph
@@ -719,7 +861,6 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
     /* Rebuilding the overlay replaces the focus ink along with everything
        else; put it back for whatever province is still selected. */
     markSelectedPlot();
-    applyFilter();
   }
 
   /* Crowded sheets stack labels into an unreadable smudge, so they declutter:
@@ -770,20 +911,17 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
     }).join('');
   }
 
-  /* The selected province gets its own ink: a gold outline drawn above the
-     borders, so a selection among thirty neighbours reads at a glance. */
+  /* The selected province gets its own ink by brightening the real border
+     segments that already outline it. That avoids drawing the internal seams of
+     compound POI cells as a fake gold web. */
   function markSelectedPlot() {
     const svg = overlay.querySelector('.atlas-v2-borders');
     if (!svg) return;
-    svg.querySelectorAll('.atlas-v2-focus').forEach(node => node.remove());
     const prov = provinceById.get(state.province);
-    if (!prov) return;
-    const d = smoothPathD(prov.polygon);
-    if (!d) return;
-    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-    path.setAttribute('class', 'atlas-v2-focus');
-    path.setAttribute('d', d);
-    svg.appendChild(path);
+    svg.querySelectorAll('.atlas-v2-edge').forEach(edge => {
+      const ids = `${edge.dataset.edgeOwner || ''} ${edge.dataset.edgeProvinces || ''}`.trim().split(/\s+/).filter(Boolean);
+      edge.classList.toggle('focused', !!(prov && ids.includes(prov.id)));
+    });
   }
 
   function selectProvince(prov, how) {
@@ -795,6 +933,11 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
     overlay.querySelectorAll('[data-plotlabel]').forEach(el => {
       el.classList.toggle('on', el.dataset.plotlabel === prov.id);
       if (el.dataset.plotlabel === prov.id) el.classList.remove('tucked');
+    });
+    overlay.querySelectorAll('[data-poi]').forEach(el => {
+      const stack = (el.dataset.ids || el.dataset.poi || '').split(',');
+      const belongs = stack.some(id => (pinProvince.get(id) || {}).id === prov.id);
+      el.classList.toggle('atlas-v2-dimmed', !belongs);
     });
     markSelectedPlot();
     closeBoard();
@@ -810,13 +953,7 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
 
   /* ---- the shortlist: a way to actually choose a pin ---- */
   function visiblePins() {
-    const shown = new Set();
-    overlay.querySelectorAll('[data-poi]').forEach(pin => {
-      if (pin.hidden) return;
-      (pin.dataset.ids || pin.dataset.poi).split(',').forEach(id => shown.add(id));
-    });
-    const list = pois.filter(p => shown.has(p.id));
-    return list.length ? list : pois;
+    return currentVisiblePois.length ? currentVisiblePois.slice() : pois;
   }
 
   function boardFor(pool) {
@@ -899,12 +1036,58 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
     state.ty = vh / 2 - py * z;
     applyTransform();
   }
+
+  function openLocalInset(ids, cx, cy) {
+    const stack = (ids || []).map(id => pois.find(p => p.id === id)).filter(Boolean)
+      .sort((a, b) => defaultPinScore(b) - defaultPinScore(a) || String(a.name || '').localeCompare(String(b.name || '')));
+    if (stack.length < 2) return false;
+    const kind = settlementInsetKind(stack);
+    const positions = localInsetPositions(stack, cx, cy);
+    const typeCounts = [...stack.reduce((m, p) => m.set(humanize(p.type || 'location'), (m.get(humanize(p.type || 'location')) || 0) + 1), new Map()).entries()]
+      .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
+    const pinButtons = positions.map(({ poi, x, y }, i) => {
+      const faction = factionMeta(poi.factionId);
+      return `<button type="button" class="atlas-v2-inset-pin" data-inset-jump="${esc(poi.id)}" style="left:${x.toFixed(1)}%;top:${y.toFixed(1)}%;--marker:${esc(faction.color)}" title="${esc(poi.name)}"><span>${i + 1}</span></button>`;
+    }).join('');
+    const rows = stack.map((poi, i) => `<button type="button" data-inset-jump="${esc(poi.id)}"><b>${i + 1}</b><span>${esc(poi.name)}<i>${esc(humanize(poi.type || 'location'))} · ${format(poi.population)} residents</i></span></button>`).join('');
+    sidebar.innerHTML = `<article class="atlas-v2-detail atlas-v2-inset">
+      <span class="atlas-v2-kicker">${esc(kind.icon)} ${esc(kind.label)} · ${stack.length} crowded POIs</span>
+      <h3>${esc(stack[0].name)} and nearby filings</h3>
+      <p>These pins were too close to read on the main sheet, so the desk opened a local inset and spread them apart. The geography stays anchored to the same x/y marks; the inset is a reader's magnifier, not a new province survey.</p>
+      <div class="atlas-v2-inset-map" role="group" aria-label="${esc(kind.label)} for ${esc(stack[0].name)}">${pinButtons}</div>
+      <div class="atlas-v2-inset-meta">${typeCounts.map(([name, n]) => `<span>${esc(name)} ×${n}</span>`).join('')}</div>
+      <div class="atlas-v2-inset-list">${rows}</div>
+      <div class="atlas-v2-picktools"><button type="button" data-inset-unroll>Unroll all POIs here</button><button type="button" data-inset-close>Back to selected pin</button></div>
+    </article>`;
+    sidebar.querySelectorAll('[data-inset-jump]').forEach(button => button.addEventListener('click', () => {
+      const poi = pois.find(p => p.id === button.dataset.insetJump);
+      if (!poi) return;
+      select(poi, null, stopByPoi.get(poi.id));
+      centerOn(poi.x, poi.y, Math.max(state.scale, 6.2));
+      placePins();
+    }));
+    const unroll = sidebar.querySelector('[data-inset-unroll]');
+    if (unroll) unroll.addEventListener('click', () => {
+      state.pinDensity = 'all';
+      renderDensityButton();
+      centerOn(cx, cy, Math.max(state.scale, 7));
+      placePins();
+    });
+    const close = sidebar.querySelector('[data-inset-close]');
+    if (close) close.addEventListener('click', () => {
+      const picked = stack[0];
+      if (picked) select(picked, ids, stopByPoi.get(picked.id));
+    });
+    return true;
+  }
+
   function focusOn(id, z, stop) {
     const poi = pois.find(p => p.id === id);
     if (!poi) return false;
     select(poi, null, stop);
     if (!ready) { pendingFocus = { id, z: z || 3.2, stop: stop || null }; return true; }
     centerOn(poi.x, poi.y, z || 3.2);
+    placePins();
     return true;
   }
   /* A province deep link (the atlas nation page's census rows) waits for the
@@ -947,17 +1130,7 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
   }
 
   function applyFilter() {
-    const query = host.querySelector('[data-search]').value.toLowerCase();
-    const type = host.querySelector('[data-type]').value;
-    let shown = 0;
-    overlay.querySelectorAll('[data-poi]').forEach(pin => {
-      const ids = (pin.dataset.ids || pin.dataset.poi).split(',');
-      const group = ids.map(id => pois.find(p => p.id === id)).filter(Boolean);
-      const visible = group.some(poi => (!query || `${poi.name} ${poi.description || ''}`.toLowerCase().includes(query)) && (!type || poi.type === type) && (!state.wikiOnly || wikiId(poi)));
-      pin.hidden = !visible;
-      if (visible) shown += group.length;
-    });
-    host.querySelector('[data-visible]').textContent = `${shown} markers visible`;
+    placePins();
   }
 
   img.addEventListener('load', () => {
@@ -968,9 +1141,10 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
     else if (opts.focusPoi) focusOn(opts.focusPoi);
     else if (opts.focus && Number.isFinite(opts.focus.x) && Number.isFinite(opts.focus.y)) {
       centerOn(opts.focus.x, opts.focus.y, opts.focus.scale || 2.6);
+      placePins();
     }
     else if (!isFull) fitRegion();
-    else { state.scale = 1; state.tx = 0; state.ty = 0; applyTransform(); }
+    else { state.scale = 1; state.tx = 0; state.ty = 0; applyTransform(); placePins(); }
   });
   if (img.complete) img.dispatchEvent(new Event('load'));
   window.addEventListener('resize', () => { placePins(); });
@@ -1000,6 +1174,21 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
     if (!state.plots) { state.province = null; }
     placePins();
   });
+  const densityBtn = host.querySelector('[data-action="density"]');
+  function renderDensityButton() {
+    if (!densityBtn) return;
+    const d = PIN_DENSITY[state.pinDensity] || PIN_DENSITY.smart;
+    densityBtn.textContent = d.label;
+    densityBtn.dataset.density = state.pinDensity;
+    densityBtn.classList.toggle('active', state.pinDensity !== 'smart');
+  }
+  renderDensityButton();
+  if (densityBtn) densityBtn.addEventListener('click', () => {
+    const i = PIN_DENSITY_ORDER.indexOf(state.pinDensity);
+    state.pinDensity = PIN_DENSITY_ORDER[(i + 1) % PIN_DENSITY_ORDER.length];
+    renderDensityButton();
+    placePins();
+  });
   host.querySelector('[data-action="shortlist"]').addEventListener('click', event => {
     if (state.board) { closeBoard(); sidebar.innerHTML = detailHtml(state.selected, pois); event.currentTarget.classList.remove('active'); return; }
     openBoard(null);
@@ -1013,7 +1202,7 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
   });
   function reframe() {
     if (!isFull) fitRegion();
-    else { state.scale = 1; state.tx = 0; state.ty = 0; applyTransform(); }
+    else { state.scale = 1; state.tx = 0; state.ty = 0; applyTransform(); placePins(); }
   }
   host.querySelector('[data-action="fit"]').addEventListener('click', () => {
     sidebar.innerHTML = detailHtml(null, pois);
@@ -1093,6 +1282,7 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
     state.ty = my - (my - state.ty) * k;
     state.scale = next;
     applyTransform();
+    placePins();
   }, { passive: false });
 
   let drag = null;

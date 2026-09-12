@@ -597,22 +597,6 @@ const midlandsData = {
             plane: 'fey'
         },
         {
-            id: 'poi_mid_overgrown_library',
-            x: 74.5,
-            y: 13.3,
-            type: 'library',
-            name: "The Overgrown Library",
-            description: "The Feywild reflection of Raventree's library, propped up by giant tree roots. The head librarian is an immobile tree with a humanoid face that grows books like fruit.",
-            factionId: 'unaligned',
-            intelReq: 30,
-            political_influence: 2,
-            economic_value: 3,
-            military_strength: 2,
-            population: 12,
-            articleId: 'overgrown_library',
-            plane: 'fey'
-        },
-        {
             id: 'poi_mid_dreaming_tree_grove',
             x: 74.6,
             y: 12.2,

@@ -1,16 +1,16 @@
 {
   "featuredArticle": {
-    "id": "the_lava_bridge_ambush_and_the_blue_luigi",
+    "id": "the_garden_above_the_fire",
     "type": "event",
-    "excerpt": "18 Harvestide, 1035 BF. Two hours after the embassy interrogation, I tracked Luigi to Bowser’s Mushroom Compound and walked into an ambush on a lava bridge. What followed: nine seconds of Mister L, a yellow-caped courier’s unread note, a Tanuki Leaf flight over a lava falls — and a second, smiling, blue-clad Luigi who turned out to be Bowser’s plant. The night ended with one Luigi tied up, one Luigi lost, and the first Cheater’s Gambit.",
+    "excerpt": "18 Harvestide, 1035 BF. The compound night finally stops running: the fake Luigi talks, Kat and Ana point the crew back to the lava moat, and Luigi is found alive in the volcanic tunnels asking whether he and Mario are still superstars. The note now has its first words — 'The star is not lost. Find the garden above the fire' — and Dr. Toad's clinic closes the rescue phase while opening the next door.",
     "label": "Latest Filing · Session Event",
-    "title": "The Lava-Bridge Ambush and the Blue Luigi — Two Luigis, One Night"
+    "title": "The Garden Above the Fire — Luigi Found, Still Superstars"
   },
   "latestUpdate": {
-    "id": "the_lava_bridge_ambush_and_the_blue_luigi",
+    "id": "the_garden_above_the_fire",
     "label": "Latest Filing · Session Event",
-    "excerpt": "18 Harvestide, 1035 BF. Two hours after the embassy interrogation, I tracked Luigi to Bowser’s Mushroom Compound and walked into an ambush on a lava bridge. What followed: nine seconds of Mister L, a yellow-caped courier’s unread note, a Tanuki Leaf flight over a lava falls — and a second, smiling, blue-clad Luigi who turned out to be Bowser’s plant. The night ended with one Luigi tied up, one Luigi lost, and the first Cheater’s Gambit.",
-    "title": "The Lava-Bridge Ambush and the Blue Luigi — Two Luigis, One Night"
+    "excerpt": "18 Harvestide, 1035 BF. The compound night finally stops running: the fake Luigi talks, Kat and Ana point the crew back to the lava moat, and Luigi is found alive in the volcanic tunnels asking whether he and Mario are still superstars. The note now has its first words — 'The star is not lost. Find the garden above the fire' — and Dr. Toad's clinic closes the rescue phase while opening the next door.",
+    "title": "The Garden Above the Fire — Luigi Found, Still Superstars"
   },
   "didYouKnow": [
     "...that the Scorncrow told three separate filings it was not a monster, and when Remi Akamatsu finally tested the claim with a point-blank musket, the blood under the face was human?",
@@ -57,13 +57,18 @@
     {
       "id": "mario-lava-bridge-cover",
       "campaign": "Mario",
-      "title": "MARIO \u2014 The Lava-Bridge Ambush and the Blue Luigi",
-      "caption": "The courier holds the far span; Luigi and I run the bridge beneath it. First key art of the Mario front.",
-      "image": "assets/images/session-covers/mario-title-card.jpg",
-      "articleId": "the_lava_bridge_ambush_and_the_blue_luigi"
+      "title": "MARIO — The Garden Above the Fire",
+      "caption": "Luigi is found alive after the lava-falls fall; the first words of the courier note point above the fire.",
+      "image": "assets/images/events/garden-above-fire/garden-above-fire-01-superstars.jpg",
+      "articleId": "the_garden_above_the_fire"
     }
   ],
   "fieldGallery": [
+    {
+      "image": "assets/images/events/garden-above-fire/garden-above-fire-01-superstars.jpg",
+      "caption": "After the compound rescue: Luigi's cap, clean bandages, and the note line that points toward the next arc.",
+      "articleId": "the_garden_above_the_fire"
+    },
     {
       "image": "assets/images/events/belly-of-the-beast/belly-01-the-mask.jpg",
       "caption": "The Scorncrow's mask knocked away — and a human face underneath it.",

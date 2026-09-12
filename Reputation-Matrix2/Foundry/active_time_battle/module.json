@@ -1,0 +1,28 @@
+{
+  "id": "active-time-battle",
+  "title": "Active Time Battle",
+  "description": "Foundry combat ATB for large initiatives: real-time readiness gauges, inline player pressure timer, Foundry-pause awareness, NPC-turn gauge pause, and native NPC end-turn bridging.",
+  "version": "1.1.3",
+  "authors": [
+    {
+      "name": "Waluipedia"
+    }
+  ],
+  "esmodules": [
+    "scripts/active-time-battle.js"
+  ],
+  "styles": [
+    "styles/active-time-battle.css"
+  ],
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
+    }
+  ],
+  "compatibility": {
+    "minimum": "12",
+    "verified": "13"
+  }
+}

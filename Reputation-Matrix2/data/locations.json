@@ -1386,14 +1386,15 @@
   {
     "id": "overgrown_library",
     "name": "The Overgrown Library",
-    "type": "Location/Supernatural Archive",
-    "region": "Overgrown Manor (Feywild)",
+    "type": "Location/Interior Sublocation",
+    "region": "Inside the Overgrown Manor (Feywild)",
+    "parentLocation": "overgrown_manor",
     "controllingFaction": "The Wooded Giant / Lady Aurelian",
     "population": "Sprites, Goblin librarians, and one massive tree with a face",
     "climate": "Musty, humid, smells of old paper and autumn leaves",
-    "status": "Active archive; Structurally unsound",
-    "summary": "The Feywild reflection of Raventree Manor's library is a structural disaster propped up by giant tree roots. The head librarian is literally a massive, immobile tree with a humanoid face that grows books like fruit. Waluigi tried to borrow a book here and an entire bookshelf collapsed on him. Waluigi gives this library zero stars and demands a public apology.",
-    "description": "Waluigi appreciates a good library, mostly because quiet places are excellent for plotting. The Overgrown Library, however, is a hazard. The original flooring has rotted away, leaving only bare joists and foundation stonework supported by massive, coiling tree roots. \n\n**The Wooded Giant**\nAt the west end of the room sits the head librarian: a massive animated tree with golden-red autumn leaves, a humanoid face, and long bough-like arms. He is rooted directly into the floor and walls, allowing him to physically rearrange the bookcases by shifting his roots. Books hang from his branches like fruit, tended to by dozens of flitting sprites and goblin servants. Birds roost in his canopy, chirping local gossip to him.\n\n**The Hazard of Reading**\nEverything in the Feywild is a trap, including literacy. When Waluigi innocently reached out to grab a book to pass the time, the entire shelf detached from the wall and collapsed on top of him. Toad Lee had to help him dig out of the literature. Waluigi suspects the Tree Librarian did this on purpose. \n\nThe library also features an alcove 'stage' where sprites perform reenactments of the books for the staff. It was here that Rakasha (Azure) became hypnotized by a theatrical performance, resulting in her dragging Hjumpik around the room with unnatural, magical strength.\n\n**The Reclamation (1 Aethel, 922 BF, Feyward clock)** A shambling mound walked into the reading floor and began eating the collection. Not the shelves and not the librarian: the books, one after another, the way a cow works a hedge. Hjumpik Deldkur saw it from the doorway while re-reading his own Waluipedia dossier, said \"not my library,\" and abandoned a standing order to go upstairs in order to take the room back. The mound was killed by a goblin staff, a warhammer and a magic missile in that order, and was already half-dead when the party reached it. The library is the first room in the manor anybody chose to defend for its own sake rather than as a route to somewhere else.",
+    "status": "Interior archive inside the Overgrown Manor; structurally unsound",
+    "summary": "The Overgrown Library is not a separate overland destination; it is the Feywild reflection of Raventree Manor's library inside the Overgrown Manor. The room is a structural disaster propped up by giant tree roots, ruled day-to-day by a massive immobile tree with a humanoid face that grows books like fruit. Waluigi tried to borrow a book here and an entire bookshelf collapsed on him. Waluigi gives this library zero stars and demands a public apology.",
+    "description": "Waluigi appreciates a good library, mostly because quiet places are excellent for plotting. The Overgrown Library, however, is a hazard. The original flooring has rotted away, leaving only bare joists and foundation stonework supported by massive, coiling tree roots. It is filed separately because enough incidents happened in this one room to deserve its own record, but on the map it belongs under the Overgrown Manor pin rather than pretending to be a second building. \n\n**The Wooded Giant**\nAt the west end of the room sits the head librarian: a massive animated tree with golden-red autumn leaves, a humanoid face, and long bough-like arms. He is rooted directly into the floor and walls, allowing him to physically rearrange the bookcases by shifting his roots. Books hang from his branches like fruit, tended to by dozens of flitting sprites and goblin servants. Birds roost in his canopy, chirping local gossip to him.\n\n**The Hazard of Reading**\nEverything in the Feywild is a trap, including literacy. When Waluigi innocently reached out to grab a book to pass the time, the entire shelf detached from the wall and collapsed on top of him. Toad Lee had to help him dig out of the literature. Waluigi suspects the Tree Librarian did this on purpose. \n\nThe library also features an alcove 'stage' where sprites perform reenactments of the books for the staff. It was here that Rakasha (Azure) became hypnotized by a theatrical performance, resulting in her dragging Hjumpik around the room with unnatural, magical strength.\n\n**The Reclamation (1 Aethel, 922 BF, Feyward clock)** A shambling mound walked into the reading floor and began eating the collection. Not the shelves and not the librarian: the books, one after another, the way a cow works a hedge. Hjumpik Deldkur saw it from the doorway while re-reading his own Waluipedia dossier, said \"not my library,\" and abandoned a standing order to go upstairs in order to take the room back. The mound was killed by a goblin staff, a warhammer and a magic missile in that order, and was already half-dead when the party reached it. The library is the first room in the manor anybody chose to defend for its own sake rather than as a route to somewhere else.",
     "notableFeatures": [
       "Head Librarian is a giant sentient tree",
       "Books grow from branches like fruit",
@@ -3178,25 +3179,62 @@
     "controllingFaction": "bowser",
     "population": "Garrisoned — Koopa troops; exact strength unfiled",
     "climate": "Volcanic; contained",
-    "status": "Standing; entrance wall breached on the night of 18 Harvestide, 1035 BF",
-    "summary": "The smaller of Bowser's known holdings: a walled volcanic annex inside the Mushroom Kingdom itself, run up through a warp-pipe riser to a lava bridge on the second floor, and drained below by a lava lake, a lava falls, and a calm moat at ground level. Waluigi ranks its hospitality below its parent castle's, which he did not think was physically possible.",
-    "description": "Waluigi had always assumed Bowser kept one address per kingdom out of vanity. The Mushroom Compound corrected him: a smaller fortification on Mushroom soil, close enough to the backroads that a man can drive to it in an evening and strange enough inside that the drive feels like the last normal thing that happened to him. The gate carries a security window and a guard with a button. The button opens the gate. Past it, a warp pipe rises to the second floor, where a stone bridge crosses open lava to a far ledge that holds exactly one furnishing: an axe in the stone, waiting for someone with a grievance and no plan. Below, the lava lake runs to a falls and spills out past the walls into a calm shore moat at ground level — the compound drains its own disasters outward, which is more than can be said for its owner. Neo Bowser City, by the guard's own account, is elsewhere, larger, and meaner; this place is the annex, and on the night of 18 Harvestide, 1035 BF, its entrance wall was burst open from the inside by a smiling man in blue overalls.",
+    "status": "Standing; entrance wall breached and lava-moat tunnel search filed after 18 Harvestide, 1035 BF",
+    "summary": "The smaller of Bowser's known holdings: a walled volcanic annex inside the Mushroom Kingdom itself, run up through a warp-pipe riser to a lava bridge on the second floor, and drained below by a lava lake, a lava falls, and a calm moat at ground level. Waluigi ranks its hospitality below its parent castle's, which he did not think was physically possible. The later Garden Above the Fire search confirms the outflow and tunnel system did not just drain the compound; it hid Luigi long enough for the rescue to reach him.",
+    "description": "Waluigi had always assumed Bowser kept one address per kingdom out of vanity. The Mushroom Compound corrected him: a smaller fortification on Mushroom soil, close enough to the backroads that a man can drive to it in an evening and strange enough inside that the drive feels like the last normal thing that happened to him. The gate carries a security window and a guard with a button. The button opens the gate. Past it, a warp pipe rises to the second floor, where a stone bridge crosses open lava to a far ledge that holds exactly one furnishing: an axe in the stone, waiting for someone with a grievance and no plan. Below, the lava lake runs to a falls and spills out past the walls into a calm shore moat at ground level — the compound drains its own disasters outward, which is more than can be said for its owner. Neo Bowser City, by the guard's own account, is elsewhere, larger, and meaner; this place is the annex, and on the night of 18 Harvestide, 1035 BF, its entrance wall was burst open from the inside by a smiling man in blue overalls.\n\n## The Lava-Moat Search\n\nThe lava bridge file left the compound owing the archive a search of the outflow. The Garden Above the Fire pays that debt: Wario's crew returned to the moat, took Kat and Ana's high-rock sighting seriously, and found Luigi alive in the volcanic tunnels beyond the falls. That search changes the compound from ambush site to rescue site too — the same drainage that nearly erased the truth preserved just enough of it to be found.",
     "notableFeatures": [
       "Gatehouse security window and the guard's button",
       "Warp-pipe riser to the second floor",
       "The lava bridge and its bridge axe",
       "Lava lake and lava falls below",
       "Calm-shore moat at ground level, outside the walls",
-      "Entrance wall breach (18 Harvestide, 1035 BF)"
+      "Entrance wall breach (18 Harvestide, 1035 BF)",
+      "Volcanic tunnel refuge where Luigi was found alive after the lava-falls drop"
     ],
     "relatedArticles": [
       "bowser",
       "bowsers_castle",
       "the_embassy_ambush_and_luigi_interrogation",
-      "the_lava_bridge_ambush_and_the_blue_luigi"
+      "the_lava_bridge_ambush_and_the_blue_luigi",
+      "the_garden_above_the_fire"
     ],
     "plane": "material",
     "planeConfidence": "medium",
     "planeClue": "no planar markers — Material by default"
+  },
+  {
+    "id": "dr_toads_star_hill_clinic",
+    "name": "Dr. Toad's Star Hill Clinic",
+    "type": "Location/Clinic / Emergency Rest Stop",
+    "region": "Star Hill, Mushroom Kingdom",
+    "controllingFaction": "Independent medical practice under Mushroom Kingdom civil protection",
+    "population": "Small staff, anxious patients, and at least one doctor who insists Dr. Toad is his real name",
+    "climate": "Cool hill air outside; lamplight, clean dressings, and antiseptic inside",
+    "status": "Active — treated Luigi after the compound lava-falls rescue, 18 Harvestide, 1035 BF",
+    "summary": "A small Star Hill clinic where Wario's crew carried Luigi after recovering him from Bowser's lava outflow. Dr. Toad diagnosed serious but treatable burns, possible trauma delirium, and a strict ban on adventuring that Luigi immediately looked offended by.",
+    "description": "Dr. Toad's clinic sits close enough to the Star Hill roads that a group can reach it from the volcanic passages while still smelling of sulfur. The place is not a hospital palace; it is a practical night clinic — white sheets, glass bottles, clean bandages, a front desk that can panic at the sight of Wario carrying a limp plumber, and a physician cheerful enough to survive Waluigi asking if his name is actually Dr. Toad. On the night of 18 Harvestide, 1035 BF, it became the first quiet room after Bowser's compound: Luigi on the table, Wario blocking the doorway, Mona explaining too fast, Ashley hovering through an open window, and Waluigi pretending not to stand guard.",
+    "notableFeatures": [
+      "Front desk with a regrettably loud triage Toad",
+      "Emergency table where Luigi was treated for second-degree burns",
+      "Clean dressings and Mushroom Kingdom burn salves",
+      "Window used by Ashley rather than the door, because of course",
+      "The first room after the rescue where nobody was standing over lava"
+    ],
+    "relatedArticles": [
+      "the_garden_above_the_fire",
+      "the_lava_bridge_ambush_and_the_blue_luigi",
+      "luigi",
+      "waluigi",
+      "wario",
+      "mona",
+      "ashley",
+      "jimmy_t",
+      "dr_toad",
+      "kat",
+      "ana"
+    ],
+    "plane": "material",
+    "planeConfidence": "high",
+    "planeClue": "Star Hill is a Mushroom Kingdom location on the Material clock"
   }
 ]
