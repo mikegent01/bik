@@ -2265,6 +2265,63 @@
       "stamps": [
             "evidence"
       ]
-    }
+    },
+    "prop_accords_900_20_containment": {
+        "kind": "contract",
+        "icon": "\ud83d\udcdc",
+        "title": "Autumnwood Accords \u00a7 900.20 \u2014 Reporting and Remediation Protocols for Unplanned Arcane Interference",
+        "subtitle": "The Mages' Guild \u00b7 handed to a dwarf in a besieged corridor and required to be read on the spot",
+        "items": [],
+        "articles": [
+          "feyward_i_cant_afford_not_to_care",
+          "hjumpik",
+          "color_division",
+          "mages_guild"
+        ],
+        "note": "Six pages. Three thousand seven hundred and twenty-six words. Read to a man with a warhammer in his hand while trees ate the floor below him. None of it was about him.",
+        "body": "<div class=\"pd-head\"><div class=\"pd-org\">THE MAGES' GUILD &middot; AUTUMNWOOD ACCORDS</div><div class=\"pd-sub\">Part 900 &middot; Unplanned Arcane Interference &middot; \u00a7 900.20 Additional Provisions</div></div><div class=\"pd-meta\"><span>Extent</span><b>3,726 words &middot; 6 pages</b><span>Authority</span><b>\u00a7 900.12, incorporated in full</b><span>Served on</span><b>Hjumpik Deldkur, in the field</b><span>Served by</span><b>Colour Division, Iron Legion</b></div><div class=\"pd-clause\"><b>(a) Containment and isolation.</b> In the context of unplanned arcane interference, maintaining containment and isolation zones is paramount to ensuring public safety and minimising collateral damage. This section outlines procedures for the ongoing maintenance and monitoring of critical areas established under \u00a7 900.20. Proper management ensures that containment measures remain effective over extended periods, reducing the risk of breaches or accidental release of hazardous arcane energies.</div><div class=\"pd-clause\"><b>(b) Dual focus.</b> Maintenance protocols address <i>structural integrity</i> \u2014 the physical state of containment barriers, inspected regularly for deterioration \u2014 and <i>environmental stability</i> \u2014 monitoring for changes in ambient arcane conditions within and adjacent to isolation zones. Any breach is an immediate threat requiring prompt mitigation under \u00a7 1.15.</div><div class=\"pd-clause\"><b>(c) Instrumentation.</b> Continuous monitoring tools and technologies \u2014 arcane sensors, environmental data loggers \u2014 shall provide real-time feedback on zone conditions (see \u00a7 800.19), permitting early detection of anomalies or shifts in ambient magic levels that could indicate potential breaches.</div><div class=\"pd-clause\"><b>(d) Personnel.</b> Maintenance personnel designated by the Guild undergo rigorous training. Regular staff rotations and cross-training are mandated under \u00a7 1.20 to prevent burnout and skill decay. Containment zone isolation is not a one-time event but an ongoing process requiring periodic re-evaluation (see \u00a7 1001.8 for thresholds relating to precious ores).</div><div class=\"pd-clause\"><b>(e) Emergency protocols.</b> Immediate response plans for breaches or unanticipated surges in arcane energy levels (see \u00a7 1.19). Regular drills and simulations are mandated. Any detected anomaly must be reported immediately to the appropriate authorities (see \u00a7 800.18), and detailed records of all maintenance activity archived for audit.</div><div class=\"pd-quote\">Compliance with these procedures not only upholds the integrity of containment zones but also reinforces trust between the Guild and its constituents.</div><div class=\"pd-fine\">Nothing in this Part shall be construed to limit or impair the full force and effect of any other provision contained herein or in the Autumnwood Accords generally.</div><div class=\"pd-margin\">Six pages on how to <i>monitor</i> a containment zone, served on a man standing inside one that nobody has declared. He read it. He asked, reasonably, whether they wanted him to monitor this place. They said no &mdash; that is what <i>we</i> are tasked to do. Which means the Guild has already classified this manor and did not tell the contractor it left inside it. &mdash; W.</div>",
+        "stamps": [
+          "sealed"
+        ]
+      },
+    "prop_aegis_magi_recall_clause": {
+        "kind": "order",
+        "icon": "\u26d3\ufe0f",
+        "title": "Aegis Magi Retrieval Clause \u2014 Bound Objects, Recall, and Collateral That Can Walk Away",
+        "subtitle": "The clause the Colour Division actually came to enforce",
+        "items": [],
+        "articles": [
+          "feyward_i_cant_afford_not_to_care",
+          "hjumpik",
+          "color_division",
+          "color_division_black",
+          "mages_guild"
+        ],
+        "note": "The short document. Two paragraphs, read after the six pages, and the only part of the reading that was about Hjumpik.",
+        "body": "<div class=\"pd-head\"><div class=\"pd-org\">THE AEGIS MAGI &middot; OFFICE OF BOUND ASSETS</div><div class=\"pd-sub\">Retrieval clause &middot; extract served under the Autumnwood Accords</div></div><div class=\"pd-clause\">In the event that a bound object flees its designated location, the Aegis Magi may be authorised to track and retrieve it using <b>&ldquo;Recall&rdquo;</b> magic, the costs of which shall be borne by the owner.</div><div class=\"pd-clause\">Transactions involving objects with high levels of agency \u2014 such as golems or sentient constructs \u2014 must be overseen by a Guild Notary to ensure that the &ldquo;binding&rdquo; is sufficient to prevent the asset from abandoning its legal obligations.</div><div class=\"pd-quote\">Collateral that can walk away requires extraordinary security; failure to provide such security is a violation of the Accord.</div><div class=\"pd-meta\"><span>Contract term</span><b>Five nights</b><span>Elapsed</span><b>Overdue; contractor reckons three months, then five</b><span>Finding</span><b>Mission over. Failed.</b><span>Held against</span><b>Two associates, as insurance</b></div><div class=\"pd-margin\">Read the three underlined words and then read them again. <i>Collateral that can walk away.</i> They did not send four operatives across a planar boundary for a report. They sent them for an asset with legs. The dwarf is not the Guild's contractor in this document. He is its security. &mdash; W.</div>",
+        "stamps": [
+          "overdue",
+          "evidence"
+        ]
+      },
+    "prop_revel_engagement_ledger": {
+        "kind": "ledger",
+        "icon": "\u2694\ufe0f",
+        "title": "Engagement Ledger \u2014 The Revel Room, Three Rounds",
+        "subtitle": "44 NPC turns &middot; 24 attack actions &middot; 13 spells &middot; no decision",
+        "items": [],
+        "articles": [
+          "feyward_i_cant_afford_not_to_care",
+          "overgrown_manor",
+          "waluigi",
+          "hjumpik",
+          "toad_lee"
+        ],
+        "note": "Filed because the tally is the argument: the Revel's heaviest hitters spent the engagement on each other, and the treant spent it reproducing.",
+        "body": "<div class=\"pd-head\"><div class=\"pd-org\">FIELD COMBAT LEDGER &middot; OVERGROWN MANOR</div><div class=\"pd-sub\">The Revel room &middot; 2 Aethel, 922 BF (Feyward clock)</div></div><div class=\"pd-meta\"><span>Rounds</span><b>3</b><span>NPC turns</span><b>44</b><span>Attack actions</span><b>24</b><span>Spells</span><b>13</b><span>Busiest</span><b>Satyr Swordfighter</b><span>Most targeted</span><b>Treant</b></div><table class=\"pd-table\"><tr><th>Combatant</th><th>Actions</th><th>Focused on</th></tr><tr><td>Satyr Swordfighter</td><td>8 multiattacks</td><td>House Guard</td></tr><tr><td>House Guard</td><td>6 multiattacks</td><td>Treant</td></tr><tr><td>Satyr Sorcerer</td><td>4 spells</td><td>Satyr Swordfighter</td></tr><tr><td>Satyr</td><td>3 attacks, 2 spells</td><td>Waluigi (The Roses' Thorn)</td></tr><tr><td>Satyr Bard</td><td>3 spells</td><td>Treant</td></tr><tr><td>Treant</td><td>1 multiattack, 1 spell</td><td>Satyr</td></tr><tr><td>Goblin Line Cook</td><td>4 attacks</td><td>Satyr Swordfighter</td></tr><tr><td>Satyr Druid</td><td>1 attack, 1 spell</td><td>Satyr Swordfighter</td></tr><tr><td>Satyr Rogue</td><td>1 multiattack</td><td>Satyr Bard</td></tr><tr><td>Sprite Caster</td><td>1 spell</td><td>Wyght</td></tr><tr><td>Treant (animated)</td><td>1 spell</td><td>House Guard</td></tr><tr><td>Red Scullion</td><td>no actions</td><td>&mdash;</td></tr><tr><td>Shambling Mound</td><td>no actions &middot; incapacitated</td><td>&mdash;</td></tr></table><div class=\"pd-clause\"><b>Party damage taken.</b> Heavy crossbow bolts from the manor's own House Guard: Hjumpik Deldkur &minus;7, then &minus;10. Toad Lee targeted twice in the same exchange. Interception used once as a reaction to reduce a hit to 0. Total logged against the party: nineteen, all of it from the house.</div><div class=\"pd-clause\"><b>Reproduction.</b> Animate Trees cast twice by the Treant. Each animated tree uses the Treant stat block and acts immediately after it on the same initiative count. The engagement ended with more treants standing than it began with.</div><div class=\"pd-quote\">Most fighting is standstill. The sleeping one died.</div><div class=\"pd-margin\">Eight multiattacks from the best blade in the room, every one of them into the house guard. Four sorcerer spells into their own swordfighter. A rogue emptying a hand crossbow and two shortswords into their own bard. Either the Revel has come apart, or some of them are not theirs any more. After what we found upstairs I am no longer willing to call it a discipline problem. &mdash; W.</div>",
+        "stamps": [
+          "evidence"
+        ]
+      }
   }
 }

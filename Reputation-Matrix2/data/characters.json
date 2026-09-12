@@ -5509,5 +5509,59 @@
       "waluigi",
       "wario"
     ]
+  },
+  {
+    "id": "the_plant_lady",
+    "name": "The Plant of the Manor",
+    "title": "The Thing Wearing Lady Aurelian, and What Was Under the Face",
+    "race": "Plant (fey overgrowth; shape of a Corvinarus noblewoman)",
+    "status": "Destroyed as a face, ascendant as a thing - the glamour broke in the sanctuary room; the floor opened under it",
+    "affiliation": "The overgrowth of the Overgrown Manor / claimant to the manor by right of growth",
+    "summary": "The overgrowth's masterpiece: a plant that wore Lady Aurelian Corvinarus well enough to hold a conversation over cold tea, run a household, and issue standing orders to guards who never questioned them. Confronted in its own sanctuary, it explained its plan - collapse the manor, let trees grow in the ruins - took a bowl of Red's poisoned kitchen slop to the chest, and came apart into something with roots in its eye sockets.",
+    "description": "It sits. That is the first thing to record, because everything else follows from it. The party found it seated on a pale flower in a sealed room, perfectly composed, inviting them in, and the archive would like the reader to hold onto the image of a monster that receives visitors.\n\nIts account of itself, given freely and without being asked twice: it intends to rule the manor; it intends the manor to collapse; it considers those two statements compatible, because once the house comes down trees grow in the rubble and the trees will be its. Asked why it bothered impersonating the lady rather than simply killing everyone, it said it needed to *move some puzzle pieces into place*, and then it said the line this archive will be quoting for a year - *the beauty of nature is slow*.\n\nIt was undone by furniture. Hjumpik asked, twice, whether it was certain that the plant it was sitting on was a good plant to sit on. It did not understand the question. It said *plants are carnivorous, right* - and then it heard itself, and said *that's my name*, and the archivist filing this still does not know whether that was a confession, a malfunction, or a joke.\n\nThen Hjumpik threw the kitchen's dinner at it. Red's slop - the poison that has been withering the overgrowth by hand all week - hit it in the chest. It was damaged, which is not the same as beaten. Its eyes bled black. Plants came out of the sockets. The mouth went hollow and kept going. The floor opened, and the thing that had been a lady said *the show can begin*.\n\nFiled as a face that is finished and a thing that is not.",
+    "relatedArticles": [
+      "overgrown_manor",
+      "lady_aurelian",
+      "hjumpik",
+      "waluigi",
+      "red_the_kitchen_commander",
+      "feyward_i_cant_afford_not_to_care"
+    ]
+  },
+  {
+    "id": "color_division_black",
+    "name": "Black",
+    "title": "Colour Division, Iron Legion Special Forces - the One Who Recognised the Onesie",
+    "race": "Unrecorded - presents as a man-shaped shadow on command",
+    "status": "Active - holding the upstairs landing of the Overgrown Manor with Hjumpik's friends in handcuffs",
+    "affiliation": "The Colour Division / Iron Legion special forces",
+    "summary": "The fourth of the Colour Division, who turns into a shadow when he introduces himself and who was the one who actually made the identification: nobody else in the manor is wearing a wolf-pelt onesie. He is polite, he is correct, and he is the reason the party's night stopped being about plants.",
+    "description": "Four operatives came through the door of a room the house guard had locked, and they introduced themselves in sequence, by colour, with a flourish each. *I'm Red. I'm Green. I'm Yellow.* And the fourth one said *I'm Black*, and became a shadow, and the archive notes that Waluigi opened his mouth to ask a question and then closed it again, which has happened perhaps four times in his recorded life.\n\nBlack is the one who did the work. Hjumpik tried the oldest trick available - *I can relay that information to him* - and it very nearly took, because the other three wanted it to. Black looked at the dwarf for slightly too long and said it: *you ARE Hjumpik. You have the signature wolf-pelt onesie on.*\n\nHjumpik's defence, filed in full because it is the funniest sentence in the session: *you know, a lot of dwarves use this stuff, it's kind of racist, all dwarves use wolf pelt.* It did not work. He closed the door slowly and ran upstairs.\n\nWhat Black wants is simple and nasty. Hjumpik's mission ran past five nights; the Aegis Magi want their contractor back; the Division was sent to collect. When the dwarf asked for time to investigate, Black granted it - and took Toad Lee and Waluigi as leverage while he was granting it. Handcuffs, not mage cages, and only because Hjumpik put a hand on his warhammer and said *they're not animals*.\n\nThe archive files him as reasonable, which in this arc is a threat assessment rather than a compliment.",
+    "relatedArticles": [
+      "hjumpik",
+      "waluigi",
+      "toad_lee",
+      "color_division",
+      "iron_legion",
+      "overgrown_manor",
+      "feyward_i_cant_afford_not_to_care"
+    ]
+  },
+  {
+    "id": "the_hallway_reinforcement_guard",
+    "name": "The Hallway Guard",
+    "title": "The One Who Counted the Wounds",
+    "race": "Fey (unrecorded)",
+    "status": "Active - still standing in the hallway he was told to guard",
+    "affiliation": "Household of the Overgrown Manor",
+    "summary": "A house guard left holding a corridor, and the only witness in the manor to notice that the reinforcements who died in it were not killed by plants. They had sword slashes. He is also the man who suggested putting the kitchen's soup inside a bomb, which is the best tactical idea anybody has had in this house.",
+    "description": "He was guarding a hallway. He is still guarding the hallway. Asked what happened to the reinforcements, he answered without dressing it up: they died.\n\nThen he said the part that matters, and said it as though it were an ordinary detail rather than the single most important sentence filed this session. *Not from plants. From other people. They had sword slashes.*\n\nThe overgrowth does not carry swords. Treants do not slash. Something in this manor is killing the manor's own reinforcements with edged weapons while the household's attention is entirely on the vegetation, and the only person who has noticed is a guard nobody has relieved.\n\nHis second contribution was practical. Told that Red's cooking withers the plants on contact, he asked the obvious question that four adventurers had failed to ask in two days: why not put the soup in a bomb? Hjumpik said they would need a bomb specialist. Waluigi said Wario is one. The archive notes the shape of that exchange - a guard supplies the idea, the party supplies the contacts, and nobody has yet supplied the bomb.",
+    "relatedArticles": [
+      "overgrown_manor",
+      "red_the_kitchen_commander",
+      "hjumpik",
+      "wario",
+      "feyward_i_cant_afford_not_to_care"
+    ]
   }
 ]
