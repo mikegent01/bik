@@ -3439,3 +3439,1737 @@ than if there that weak than we should take them on
 he opens the door the monster stands there surrended by people it spots them and roars 
 since when did you care hjumpik says 
 I can't afford not to care anymore waluigi says 
+the fight begins the revel seems to control some of them 
+hjumpik wants to leave this dosent look really good kinda pointless he is not able to tell how damaged it is 
+im going to drag waluigi out of this hjumpik decides dragging waluigi out the door nah 
+the spirits says wait our plan the ambush were are you going! 
+its not an bmush if its right here so... unless you know how strong this guy is i wont fight them 
+ugg 
+why are you pulling me away from the action 
+well there is a giant tree you ran into the room im trying to save your life strategy 
+bah i hear you but think of it the glory think about the manor we have been running away for so long whats the point this manor will collapse 
+hjumpik says you pick your fights 
+you pick your fights than why are we in the mess because you let someone get away because you took inaction that guy ran away and you healing him into a giant plant im tired of running toad lee follows you like a giant stub 
+hjumpik lets him go 
+what should we do than since you love fighting ill follow what you say and see if your right 
+i have been leading you guys what do you think mr bossman 
+he points to toad lee throws a bomb into his hand 
+we need something theatrical toad lee throw the bomb 
+the bomb is thrown missed picked up by the veteran 
+chaos breaks loose 
+your a deserter deserters get killed 
+you didnt say you will fight this battle your attacking me attack the tree hjumpik says 
+well i guess its uhh theres a bomb in there and people starting going crazy now theres TWO there multiplying thats not good 
+a gaurd says its stronger than you three combined 
+the tree creates another tree 
+waluigi stands there stonefaced as another tree forms 
+are these guys weak to fire damage 
+there wood so probably 
+hjumpik decides to help the guys upstairs ill do that thats ummm win win ill help you and ill take out more tree monsters 
+lets go find the others hjumpik says strategy right 
+waluigi says he likes theater more than stragey hjumpik says put your own theatrics into it so we dont die and you get your theatrics 
+okay for now i still want that thing dead if you run away ill stay and fight 
+the same refonfrcemnts guy standing in hallway says he was gaurding the hallway 
+what happened to the reinforcements 
+they died not from plants but from other people they had sword slashes 
+the gaurd suggests putting the soup (last session the chef ) in the bomb 
+hjumpik says we need a bomb specilist 
+oh wario is one 
+hjumpik shakes coins a shadow appears he walks up its the purple thing from the toilet the satyr kills it 
+he wants to go upstairs but this guy swayed me to go over here lets see what the lady wants they head to the kitchen 
+he enters the kitchen a giant pot of the stuff from eralier 
+
+
+Combat Debrief
+Busiest: Satyr Swordfighter
+
+Most-targeted: Treant
+
+3 rounds, 44 NPC turns, 24 attack actions, 13 spells.
+
+Satyr Swordfighter: 8 multiattacks, focused House Guard
+House Guard: 6 multiattacks, focused Treant
+Satyr Sorcerer: 4 spells, focused Satyr Swordfighter
+Satyr: 3 attacks, 2 spells, focused Waluigi (The Roses' Thorn)
+Satyr Bard: 3 spells, focused Treant
+Treant: 1 multiattack, 1 spell, focused Satyr
+Goblin Line Cook: 4 attacks, focused Satyr Swordfighter
+Satyr Druid: 1 attack, 1 spell, focused Satyr Swordfighter
+Satyr Rogue: 1 multiattack, focused Satyr Bard
+Sprite Caster: 1 spell, focused Wyght
+Treant: 1 spell, focused House Guard
+Red Scullion: no actions
+Shambling Mound: no actions
+most fighting is standstill 
+the sleeping one died 
+⚔ NPC Automation
+Satyr Rogue uses Multiattack (3 attacks)!
+⚔ NPC Automation
+Satyr Rogue rushes toward Satyr Bard!
+⚔ NPC Automation
+Satyr Rogue attacks Satyr Bard with Hand Crossbow!
+Hand Crossbow
+Hand Crossbow
+Martial Ranged
+Attack
+
+Satyr Bard
+ 14
+Damage
+Action
+Instantaneous
+30/120 ft
+Equipped
+Proficient
+⚔ NPC Automation
+Satyr Rogue attacks Satyr Bard with Shortsword!
+Shortsword
+Shortsword
+Martial Melee
+Attack
+
+Satyr Bard
+ 14
+Damage
+Action
+Instantaneous
+reach 5 ft
+Equipped
+Proficient
+⚔ NPC Automation
+Satyr Rogue attacks Satyr Bard with Shortsword!
+Shortsword
+Shortsword
+Martial Melee
+Attack
+
+Satyr Bard
+ 14
+Damage
+Action
+Instantaneous
+reach 5 ft
+Equipped
+Proficient
+Cunning Action
+Cunning Action
+Feature
+
+Satyr Rogue
+Bonus Action
+Instantaneous
+Self
+Satyr Rogue spent their ATB turn.
+Satyr Swordfighter is active. 1m 30s spotlight clock started. NPC turn pause is on; gauges and the NPC clock wait while the GM resolves the turn.
+Satyr Swordfighter morale: BOLD (84).
+⚔ NPC Automation
+Satyr Swordfighter uses Multiattack (3 attacks)!
+⚔ NPC Automation
+Satyr Swordfighter dashes toward Bramblefly!
+Satyr Swordfighter spent their ATB turn.
+Sprite Archer is active. 1m 30s spotlight clock started. NPC turn pause is on; gauges and the NPC clock wait while the GM resolves the turn.
+Sprite Archer morale: BOLD (84).
+⚔ NPC Automation
+Sprite Archer casts Heart Sight at Waluigi (The Roses' Thorn)!
+Heart Sight
+Heart Sight
+Feature
+
+DC 0 Charisma Saving Throw
+DC 0 Charisma Saving Throw
+
+Waluigi (The Roses' Thorn)
+Action
+Instantaneous
+Touch
+Waluigi (The Roses' Thorn) is active. 5m spotlight clock started. Player clock is live; other gauges keep filling unless Wait mode or optional player pause is enabled.
+Tiny Dagger
+Tiny Dagger
+Martial Melee
+Attack
+
+Treant
+ 16
+Damage
+Action
+Instantaneous
+reach 5 ft
+Equipped
+Proficient
+Waluigi (The Roses' Thorn) spent their ATB turn.
+House Guard is active. 1m 30s spotlight clock started. NPC turn pause is on; gauges and the NPC clock wait while the GM resolves the turn.
+Quarterstaff
+Quarterstaff
+Simple Melee • Topple
+Attack 
+Action
+Instantaneous
+reach 5 ft
+Equipped
+Proficient
+Wario's Bob-ombs
+Wario's Bob-ombs
+Consumable
+
+Refund Resource
+
+Satyr
+
+Satyr Swordfighter
+
+Feyward House Guard
+
+Treant
+
+The Ravenous Host
+
+Satyr Sorcerer
+
+Satyr
+
+House Guard
+Action
+Instantaneous
+Self
+Not Equipped
+lYu
+
+-27
+
+⚔ NPC Automation
+Satyr Bard uses Multiattack (2 attacks)!
+⚔ NPC Automation
+Satyr Bard casts Sleep at Treant!
+Sleep
+Sleep
+1st Level • Enchantment
+
+DC 13 Wisdom Saving Throw
+
+Refund Resource
+DC 13 Wisdom Saving Throw
+
+Treant
+Materials a pinch of sand or rose petals
+
+Concentration
+V, S, M
+Action
+1 minute
+60 ft
+5 ft sphere
+⚔ NPC Automation
+Treant uses Multiattack (2 attacks)!
+⚔ NPC Automation
+Treant casts Animate Trees at Treant!
+Animate Trees
+Animate Trees
+Feature
+
+Summon
+
+Refund Resource
+
+Treant
+Action
+Instantaneous
+60 ft
+2 objects
+Satyr Swordfighter morale: BOLD (84).
+⚔ NPC Automation
+Satyr Swordfighter uses Multiattack (3 attacks)!
+⚔ NPC Automation
+Satyr Swordfighter rushes toward House Guard!
+⚔ NPC Automation
+Satyr Swordfighter attacks House Guard with Scimitar!
+Scimitar
+Scimitar
+Martial Melee
+Attack
+
+Feyward House Guard
+ 17
+Damage
+Action
+Instantaneous
+reach 5 ft
+Equipped
+Proficient
+⚔ NPC Automation
+Satyr Swordfighter attacks House Guard with Scimitar!
+Scimitar
+Scimitar
+Martial Melee
+Attack
+
+Feyward House Guard
+ 17
+Damage
+Action
+Instantaneous
+reach 5 ft
+Equipped
+Proficient
+⚔ NPC Automation
+Satyr Swordfighter attacks House Guard with Ram!
+Ram
+Ram
+Natural
+Attack
+
+Feyward House Guard
+ 17
+Damage
+Action
+Instantaneous
+reach 5 ft
+Equipped
+Proficient
+⚔ NPC Automation
+Feyward House Guard uses Multiattack (2 attacks)!
+⚔ NPC Automation
+Feyward House Guard attacks Treant with Heavy Crossbow!
+Heavy Crossbow
+Heavy Crossbow
+Simple Melee
+Attack
+
+Treant
+ 16
+Damage
+Action
+Instantaneous
+reach 100 ft
+Equipped
+Proficient
+⚔ NPC Automation
+Feyward House Guard attacks Treant with Heavy Crossbow!
+Heavy Crossbow
+Heavy Crossbow
+Simple Melee
+Attack
+
+Treant
+ 16
+Damage
+Action
+Instantaneous
+reach 100 ft
+Equipped
+Proficient
+Satyr Druid morale: BOLD (84).
+⚔ NPC Automation
+Satyr Druid rushes toward Satyr Swordfighter!
+⚔ NPC Automation
+Satyr Druid casts Thunderwave at Satyr Swordfighter!
+Thunderwave
+Thunderwave
+2nd Level • Evocation
+
+Refund Resource
+
+Satyr Swordfighter
+Damage
+V, S
+Action
+Instantaneous
+Self
+15 ft cube
+Shillelagh
+Shillelagh
+Transmutation
+
+Satyr Druid
+Damage
+Materials A shamrock leaf, and a club or quarterstaff
+
+V, S, M
+Bonus Action
+1 minute
+Touch
+Satyr Swordfighter morale: BOLD (84).
+⚔ NPC Automation
+Satyr Swordfighter uses Multiattack (3 attacks)!
+⚔ NPC Automation
+Satyr Swordfighter attacks Toad Lee with Scimitar!
+Scimitar
+Scimitar
+Martial Melee
+Attack
+
+Toad Lee
+ 15
+Damage
+Action
+Instantaneous
+reach 5 ft
+Equipped
+Proficient
+⚔ NPC Automation
+Satyr Swordfighter attacks Toad Lee with Scimitar!
+Scimitar
+Scimitar
+Martial Melee
+Attack
+
+Toad Lee
+ 15
+Damage
+Action
+Instantaneous
+reach 5 ft
+Equipped
+Proficient
+⚔ NPC Automation
+Satyr Swordfighter attacks Toad Lee with Ram!
+Ram
+Ram
+Natural
+Attack
+
+Toad Lee
+ 15
+Damage
+Action
+Instantaneous
+reach 5 ft
+Equipped
+Proficient
+Satyr morale: BOLD (84).
+⚔ NPC Automation
+Satyr rushes toward Waluigi (The Roses' Thorn)!
+⚔ NPC Automation
+Satyr casts Mockery at Waluigi (The Roses' Thorn)!
+Mockery
+Mockery
+Feature
+
+DC 12 Wisdom Saving Throw
+Damage
+DC 12 Wisdom Saving Throw
+Damage 0
+
+Waluigi (The Roses' Thorn)
+Action
+Instantaneous
+90 ft
+1 creature
+⚔ NPC Automation
+Satyr Sorcerer casts Color Spray at Satyr Swordfighter!
+Color Spray
+Color Spray
+2nd Level • Illusion
+You launch a dazzling array of flashing, colorful light. Each creature in a 15-foot Cone originating from you must succeed on a Constitution saving throw or have the  condition until the end of your next turn.
+
+
+Refund Resource
+DC 13 Constitution Saving Throws
+
+Treant
+18
+
+Satyr Druid
+11
+Materials a pinch of colorful sand
+
+V, S, M
+Action
+Instantaneous
+Self
+15 ft cone
+⚔ NPC Automation
+House Guard uses Multiattack (2 attacks)!
+⚔ NPC Automation
+House Guard attacks Toad Lee with Heavy Crossbow!
+Heavy Crossbow
+Heavy Crossbow
+Simple Melee
+The Veteran attacks with its Heavy Crossbow.
+
+Attack
+
+Toad Lee
+ 15
+Damage
+Action
+Instantaneous
+reach 100 ft
+Equipped
+Proficient
+⚔ NPC Automation
+House Guard uses Multiattack (2 attacks)!
+⚔ NPC Automation
+House Guard attacks Hjumpik Deldkur with Heavy Crossbow!
+Heavy Crossbow
+Heavy Crossbow
+Simple Melee
+The Veteran attacks with its Heavy Crossbow.
+
+Attack
+
+Hjumpik Deldkur
+ 18
+Damage
+Action
+Instantaneous
+reach 100 ft
+Equipped
+Proficient
+ HP Updated
+
+-7
+3225
+
+
+⚔ NPC Automation
+House Guard attacks Toad Lee with Heavy Crossbow!
+Heavy Crossbow
+Heavy Crossbow
+Simple Melee
+The Veteran attacks with its Heavy Crossbow.
+
+Attack
+
+Toad Lee
+ 15
+Damage
+Action
+Instantaneous
+reach 100 ft
+Equipped
+Proficient
+⚔ NPC Automation
+Satyr casts Mockery at Satyr Swordfighter!
+ HP Updated
+
+-11
+6554
+
+
+Mockery
+Mockery
+Feature
+Wisdom Saving Throw: DC 12, one creature the satyr can see within 90 feet.
+
+Failure: 5 (1d6 + 2) Psychic damage.
+
+Damage
+DC 12 Wisdom Saving Throw
+Damage 0
+
+Hjumpik Deldkur
+11
+Action
+Instantaneous
+90 ft
+1 creature
+⚔ NPC Automation
+House Guard attacks Hjumpik Deldkur with Heavy Crossbow!
+Heavy Crossbow
+Heavy Crossbow
+Simple Melee
+The Veteran attacks with its Heavy Crossbow.
+
+Attack
+
+Hjumpik Deldkur
+ 18
+Damage
+Action
+Instantaneous
+reach 100 ft
+Equipped
+Proficient
+ HP Updated
+
+-10
+2515
+
+
+Interception
+Interception
+Fighting Style
+When a creature you can see hits a target, other than you, within 5 feet of you with an attack, you can use your reaction to reduce the damage the target takes by 1d10 + your proficiency bonus (to a minimum of 0 damage). You must be wielding a  or a simple or martial weapon to use this reaction.
+
+
+House Guard
+Damage
+Trigger When a creature you can see hits a target, other than you, within 5 feet of you with an attack, you can use
+
+Reaction
+Instantaneous
+Self
+ HP Updated
+
+(0)
+
+
+ HP Updated
+
+-11
+5443
+
+
+ HP Updated
+
+-5
+4338
+
+
+⚔ NPC Automation
+Satyr Swordfighter uses Multiattack (3 attacks)!
+⚔ NPC Automation
+Satyr Swordfighter attacks Treant with Scimitar!
+Scimitar
+Scimitar
+Martial Melee
+The Satyr Swordfighter attacks with their Scimitar.
+
+Attack
+
+Treant
+ 16
+Damage
+Action
+Instantaneous
+reach 5 ft
+Equipped
+Proficient
+⚔ NPC Automation
+Satyr Swordfighter attacks Treant with Scimitar!
+Scimitar
+Scimitar
+Martial Melee
+The Satyr Swordfighter attacks with their Scimitar.
+
+Attack
+
+Treant
+ 16
+Damage
+Action
+Instantaneous
+reach 5 ft
+Equipped
+Proficient
+⚔ NPC Automation
+Satyr Swordfighter attacks Treant with Ram!
+Ram
+Ram
+Natural
+The Satyr attacks with its Ram.
+
+Attack 
+
+Treant
+ 16
+Damage
+Action
+Instantaneous
+reach 5 ft
+Equipped
+Proficient
+ HP Updated
+
+-4
+2925
+
+
+⚔ NPC Automation
+Satyr Swordfighter uses Multiattack (3 attacks)!
+⚔ NPC Automation
+Satyr Swordfighter attacks Treant with Scimitar!
+Scimitar
+Scimitar
+Martial Melee
+The Satyr Swordfighter attacks with their Scimitar.
+
+Attack
+
+Treant
+ 16
+Damage
+Action
+Instantaneous
+reach 5 ft
+Equipped
+Proficient
+ HP Updated
+
+-6
+2519
+
+
+⚔ NPC Automation
+Satyr Swordfighter attacks Treant with Scimitar!
+Scimitar
+Scimitar
+Martial Melee
+The Satyr Swordfighter attacks with their Scimitar.
+
+Attack
+
+Treant
+ 16
+Damage
+Action
+Instantaneous
+reach 5 ft
+Equipped
+Proficient
+ HP Updated
+
+-9
+1910
+
+
+⚔ NPC Automation
+Satyr Swordfighter attacks Treant with Ram!
+Ram
+Ram
+Natural
+The Satyr attacks with its Ram.
+
+Attack
+
+Treant
+ 16
+Damage
+Action
+Instantaneous
+reach 5 ft
+Equipped
+Proficient
+ HP Updated
+
+-3
+107
+
+
+⚔ NPC Automation
+Satyr Swordfighter uses Multiattack (3 attacks)!
+⚔ NPC Automation
+Satyr Swordfighter attacks House Guard with Scimitar!
+Scimitar
+Scimitar
+Martial Melee
+The Satyr Swordfighter attacks with their Scimitar.
+
+Attack
+
+House Guard
+ 17
+Damage
+Action
+Instantaneous
+reach 5 ft
+Equipped
+Proficient
+ HP Updated
+
+-4
+2824
+
+
+⚔ NPC Automation
+Satyr Swordfighter attacks House Guard with Scimitar!
+Scimitar
+Scimitar
+Martial Melee
+The Satyr Swordfighter attacks with their Scimitar.
+
+Attack
+
+House Guard
+ 17
+Damage
+Action
+Instantaneous
+reach 5 ft
+Equipped
+Proficient
+⚔ NPC Automation
+Satyr Swordfighter attacks House Guard with Ram!
+Ram
+Ram
+Natural
+The Satyr attacks with its Ram.
+
+Attack
+
+House Guard
+ 17
+Damage
+Action
+Instantaneous
+reach 5 ft
+Equipped
+Proficient
+Animate Trees
+Animate Trees
+Feature
+The Treant magically animates up to two trees it can see within 60 feet of itself. Each tree uses the Treant stat block, except it has Intelligence and Charisma scores of 1, it can't speak, and it lacks this action. The tree takes its turn immediately after the treant on the same initiative count, and it obeys the treant. A tree remains animate for 1 day or until it dies, the treant dies, or it is more than 120 feet from the treant. The tree then takes root if possible.
+
+Action
+Instantaneous
+60 ft
+2 objects
+Sprite Archer morale: BOLD (85).
+Satyr Swordfighter morale: BOLD (82).
+Satyr Swordfighter morale: BOLD (82).
+Satyr Druid morale: BOLD (82).
+Satyr Sorcerer morale: BOLD (85).
+Satyr Bard morale: BOLD (85).
+Satyr morale: BOLD (85).
+Hobgoblin morale: BOLD (85).
+Satyr Sorcerer morale: BOLD (85).
+Satyr Sorcerer morale: BOLD (85).
+Sprite Caster morale: BOLD (85).
+Goblin Line Cook morale: BOLD (85).
+Satyr Rogue morale: BOLD (83).
+Satyr morale: BOLD (83).
+Goblin Staff morale: BOLD (85).
+Satyr morale: BOLD (87).
+Satyr Sorcerer morale: BOLD (87).
+Treant morale: BOLD (85).
+Goblin Line Cook morale: BOLD (85).
+Goblin Line Cook morale: BOLD (85).
+Goblin Line Cook morale: BOLD (85).
+Goblin Line Cook morale: BOLD (85).
+Red Scullion morale: BOLD (85).
+Goblin Line Cook morale: BOLD (85).
+⚔ NPC Automation
+House Guard uses Multiattack (2 attacks)!
+⚔ NPC Automation
+House Guard attacks Treant with Heavy Crossbow!
+Heavy Crossbow
+Heavy Crossbow
+Simple Melee
+The Veteran attacks with its Heavy Crossbow.
+
+Attack
+
+Treant
+ 16
+Damage
+Action
+Instantaneous
+reach 100 ft
+Equipped
+Proficient
+⚔ NPC Automation
+House Guard attacks Treant with Heavy Crossbow!
+Heavy Crossbow
+Heavy Crossbow
+Simple Melee
+The Veteran attacks with its Heavy Crossbow.
+
+Attack
+
+Treant
+ 16
+Damage
+Action
+Instantaneous
+reach 100 ft
+Equipped
+Proficient
+⚔ NPC Automation
+Satyr Bard uses Multiattack (2 attacks)!
+⚔ NPC Automation
+Satyr Bard casts Sleep at Shambling Mound!
+Sleep
+Sleep
+1st Level • Enchantment
+Each creature of your choice in a 5-foot-radius Sphere centered on a point within range must succeed on a Wisdom saving throw or have the  condition until the end of its next turn, at which point it must repeat the save. If the target fails the second save, the target has the  condition for the duration. The spell ends on a target if it takes damage or someone within 5 feet of it takes an action to shake it out of the spell's effect.
+
+Creatures that don't sleep, such as elves, or that have Immunity to the Exhaustion condition automatically succeed on saves against this spell.
+
+
+Refund Resource
+DC 13 Wisdom Saving Throw
+
+Treant
+14
+Materials a pinch of sand or rose petals
+
+Concentration
+V, S, M
+Action
+1 minute
+60 ft
+5 ft sphere
+⚔ NPC Automation
+Satyr Rogue uses Multiattack (3 attacks)!
+⚔ NPC Automation
+Satyr Rogue attacks Satyr Bard with Shortsword!
+Shortsword
+Shortsword
+Martial Melee
+The Spy attacks with their Shortsword.
+
+Attack
+
+Satyr Bard
+ 14
+Damage
+Action
+Instantaneous
+reach 5 ft
+Equipped
+Proficient
+ HP Updated
+
+-7
+2619
+
+
+DC 10 Concentration Roll
+⚔ NPC Automation
+Satyr Rogue attacks Satyr Bard with Shortsword!
+Shortsword
+Shortsword
+Martial Melee
+The Spy attacks with their Shortsword.
+
+Attack
+
+Satyr Bard
+ 14
+Damage
+Action
+Instantaneous
+reach 5 ft
+Equipped
+Proficient
+ HP Updated
+
+-4
+1915
+
+
+⚔ NPC Automation
+Satyr Rogue attacks Satyr Bard with Shortsword!
+Shortsword
+Shortsword
+Martial Melee
+The Spy attacks with their Shortsword.
+
+Attack
+
+Satyr Bard
+ 14
+Damage
+Action
+Instantaneous
+reach 5 ft
+Equipped
+Proficient
+Cunning Action
+Cunning Action
+Feature
+On each of its turns, the Satyr Rogue can use a bonus action to take the dash, disengage, or hide action.
+
+
+Satyr Rogue
+Bonus Action
+Instantaneous
+Self
+⚔ NPC Automation
+Satyr Swordfighter uses Multiattack (3 attacks)!
+⚔ NPC Automation
+Satyr Swordfighter rushes toward Violet Fungus!
+⚔ NPC Automation
+Satyr Swordfighter attacks Violet Fungus with Scimitar!
+Scimitar
+Scimitar
+Martial Melee
+The Satyr Swordfighter attacks with their Scimitar.
+
+Attack
+
+Violet Fungus
+ 5
+Damage
+Action
+Instantaneous
+reach 5 ft
+Equipped
+Proficient
+ HP Updated
+
+-7
+1811
+
+
+⚔ NPC Automation
+Satyr Swordfighter attacks Violet Fungus with Scimitar!
+Scimitar
+Scimitar
+Martial Melee
+The Satyr Swordfighter attacks with their Scimitar.
+
+Attack
+
+Violet Fungus
+ 5
+Damage
+Action
+Instantaneous
+reach 5 ft
+Equipped
+Proficient
+ HP Updated
+
+-4
+117
+
+
+⚔ NPC Automation
+Satyr Swordfighter attacks Violet Fungus with Ram!
+Ram
+Ram
+Natural
+The Satyr attacks with its Ram.
+
+Attack
+
+Violet Fungus
+ 5
+Damage
+Action
+Instantaneous
+reach 5 ft
+Equipped
+Proficient
+ HP Updated
+
+-9
+70
+
+
+⚔ NPC Automation
+Satyr dashes toward House Guard!
+⚔ NPC Automation
+Goblin Line Cook rushes toward Satyr Swordfighter!
+⚔ NPC Automation
+Goblin Line Cook attacks Satyr Swordfighter with Assorted Cutlery!
+Assorted Cutlery
+Assorted Cutlery
+Simple Ranged
+The Goblin Line Cook attacks by throwing assorted cutlery from its apron pockets or snatched from nearby work surfaces.
+
+Attack
+
+Satyr Swordfighter
+ 15
+Damage
+Action
+Instantaneous
+80/320 ft
+Equipped
+Proficient
+⚔ NPC Automation
+Satyr Swordfighter uses Parry as a reaction!
+Parry
+Parry
+Feature
+The Satyr Swordfighter adds 2 to its AC against one melee attack that would hit it. To do so, the Satyr must see the attacker and be wielding a melee weapon.
+
+
+Satyr Swordfighter
+Reaction
+Instantaneous
+Self
+ HP Updated
+
+-6
+3832
+
+
+"Seasoning"
+"Seasoning"
+Feature
+The Goblin Line Cook consumes a small packet of questionable  looking powder. They seem to grow stronger as a result!
+
+
+Refund Resource
+
+Fley
+Healing
+Bonus Action
+Instantaneous
+Self
+ HP Updated
+
++0
+010
+
+
+⚔ NPC Automation
+Satyr Bard uses Multiattack (2 attacks)!
+⚔ NPC Automation
+Satyr Bard casts Sleep at Treant!
+Sleep
+Sleep
+1st Level • Enchantment
+Each creature of your choice in a 5-foot-radius Sphere centered on a point within range must succeed on a Wisdom saving throw or have the  condition until the end of its next turn, at which point it must repeat the save. If the target fails the second save, the target has the  condition for the duration. The spell ends on a target if it takes damage or someone within 5 feet of it takes an action to shake it out of the spell's effect.
+
+Creatures that don't sleep, such as elves, or that have Immunity to the Exhaustion condition automatically succeed on saves against this spell.
+
+
+Refund Resource
+DC 13 Wisdom Saving Throw
+
+Shambling Mound
+3
+Materials a pinch of sand or rose petals
+
+Concentration
+V, S, M
+Action
+1 minute
+60 ft
+5 ft sphere
+⚔ NPC Automation
+Treant uses Multiattack (2 attacks)!
+⚔ NPC Automation
+Treant attacks Satyr with Hail of Bark!
+Hail of Bark
+Hail of Bark
+Natural
+Ranged Attack Roll: +10, range 180 ft. Hit: 28 (4d10 + 6) Piercing damage.
+
+Disadvantage 
+
+Satyr
+ 13
+Damage
+Action
+Instantaneous
+180 ft
+reach 5 ft
+Equipped
+Proficient
+ HP Updated
+
+-22
+40
+
+
+⚔ NPC Automation
+Satyr Swordfighter uses Multiattack (3 attacks)!
+⚔ NPC Automation
+Satyr Swordfighter attacks House Guard with Scimitar!
+Scimitar
+Scimitar
+Martial Melee
+The Satyr Swordfighter attacks with their Scimitar.
+
+Attack 
+
+House Guard
+ 17
+Damage
+Action
+Instantaneous
+reach 5 ft
+Equipped
+Proficient
+⚔ NPC Automation
+Satyr Swordfighter attacks House Guard with Scimitar!
+Scimitar
+Scimitar
+Martial Melee
+The Satyr Swordfighter attacks with their Scimitar.
+
+Attack
+
+House Guard
+ 17
+Damage
+Action
+Instantaneous
+reach 5 ft
+Equipped
+Proficient
+ HP Updated
+
+-7
+2417
+
+
+⚔ NPC Automation
+Satyr Swordfighter attacks House Guard with Ram!
+Ram
+Ram
+Natural
+The Satyr attacks with its Ram.
+
+Attack 
+
+House Guard
+ 17
+Damage
+Action
+Instantaneous
+reach 5 ft
+Equipped
+Proficient
+⚔ NPC Automation
+Feyward House Guard uses Multiattack (2 attacks)!
+⚔ NPC Automation
+Feyward House Guard attacks Treant with Heavy Crossbow!
+Heavy Crossbow
+Heavy Crossbow
+Simple Melee
+The Veteran attacks with its Heavy Crossbow.
+
+Disadvantage 
+
+Treant
+ 16
+Damage
+Action
+Instantaneous
+reach 100 ft
+Equipped
+Proficient
+⚔ NPC Automation
+Feyward House Guard attacks Treant with Heavy Crossbow!
+Heavy Crossbow
+Heavy Crossbow
+Simple Melee
+The Veteran attacks with its Heavy Crossbow.
+
+Disadvantage 
+
+Treant
+ 16
+Damage
+Action
+Instantaneous
+reach 100 ft
+Equipped
+Proficient
+⚔ NPC Automation
+Goblin Line Cook attacks Wyght with Assorted Cutlery!
+Assorted Cutlery
+Assorted Cutlery
+Simple Ranged
+The Goblin Line Cook attacks by throwing assorted cutlery from its apron pockets or snatched from nearby work surfaces.
+
+Attack
+
+Wyght
+ 14
+Damage
+Action
+Instantaneous
+80/320 ft
+Equipped
+Proficient
+ HP Updated
+
+-6
+93
+
+
+"Seasoning"
+"Seasoning"
+Feature
+The Goblin Line Cook consumes a small packet of questionable  looking powder. They seem to grow stronger as a result!
+
+
+Refund Resource
+
+Ramsee
+Healing
+Bonus Action
+Instantaneous
+Self
+ HP Updated
+
++0
+010
+
+
+⚔ NPC Automation
+Satyr Druid rushes toward Satyr Swordfighter!
+⚔ NPC Automation
+Satyr Druid attacks Satyr Swordfighter with Quarterstaff!
+Quarterstaff
+Quarterstaff
+Simple Melee
+The Druid attacks with its Quarterstaff.
+
+Attack
+
+Satyr Swordfighter
+ 15
+Damage
+Action
+Instantaneous
+reach 5 ft
+Equipped
+Proficient
+Shillelagh
+Shillelagh
+Transmutation
+The wood of a club or quarterstaff you are holding is imbued with nature's power. For the duration, you can use your spellcasting ability instead of Strength for the attack and damage rolls of melee attacks using that weapon, and the weapon's damage die becomes a d8. The weapon also becomes magical, if it isn't already. The spell ends if you cast it again or if you let go of the weapon.
+
+
+Satyr Druid
+Damage
+Materials A shamrock leaf, and a club or quarterstaff
+
+V, S, M
+Bonus Action
+1 minute
+Touch
+ HP Updated
+
+-8
+3224
+
+
+Satyr Swordfighter morale: BOLD (81).
+⚔ NPC Automation
+Satyr Swordfighter uses Multiattack (3 attacks)!
+Satyr morale: BOLD (81).
+⚔ NPC Automation
+Sprite Caster rushes toward Wyght!
+⚔ NPC Automation
+Sprite Caster casts Sleep at Wyght!
+Sleep
+Sleep
+1st Level • Enchantment
+Each creature of your choice in a 5-foot-radius Sphere centered on a point within range must succeed on a Wisdom saving throw or have the  condition until the end of its next turn, at which point it must repeat the save. If the target fails the second save, the target has the  condition for the duration. The spell ends on a target if it takes damage or someone within 5 feet of it takes an action to shake it out of the spell's effect.
+
+Creatures that don't sleep, such as elves, or that have Immunity to the Exhaustion condition automatically succeed on saves against this spell.
+
+
+Refund Resource
+DC 14 Wisdom Saving Throw
+
+Treant
+10
+Materials a pinch of sand or rose petals
+
+Concentration
+V, S, M
+Action
+1 minute
+60 ft
+5 ft sphere
+⚔ NPC Automation
+Satyr Sorcerer casts Sleep at Satyr Swordfighter!
+Sleep
+Sleep
+2nd Level • Enchantment
+Each creature of your choice in a 5-foot-radius Sphere centered on a point within range must succeed on a Wisdom saving throw or have the  condition until the end of its next turn, at which point it must repeat the save. If the target fails the second save, the target has the  condition for the duration. The spell ends on a target if it takes damage or someone within 5 feet of it takes an action to shake it out of the spell's effect.
+
+Creatures that don't sleep, such as elves, or that have Immunity to the Exhaustion condition automatically succeed on saves against this spell.
+
+
+Refund Resource
+DC 13 Wisdom Saving Throw
+
+Treant
+21
+Materials a pinch of sand or rose petals
+
+Concentration
+V, S, M
+Action
+1 minute
+60 ft
+5 ft sphere
+⚔ NPC Automation
+Satyr Sorcerer rushes toward Red!
+⚔ NPC Automation
+Satyr Sorcerer casts Sleep at Red!
+Sleep
+Sleep
+2nd Level • Enchantment
+Each creature of your choice in a 5-foot-radius Sphere centered on a point within range must succeed on a Wisdom saving throw or have the  condition until the end of its next turn, at which point it must repeat the save. If the target fails the second save, the target has the  condition for the duration. The spell ends on a target if it takes damage or someone within 5 feet of it takes an action to shake it out of the spell's effect.
+
+Creatures that don't sleep, such as elves, or that have Immunity to the Exhaustion condition automatically succeed on saves against this spell.
+
+
+Refund Resource
+DC 13 Wisdom Saving Throw
+
+Treant
+12
+Materials a pinch of sand or rose petals
+
+Concentration
+V, S, M
+Action
+1 minute
+60 ft
+5 ft sphere
+⚔ NPC Automation
+House Guard uses Multiattack (2 attacks)!
+⚔ NPC Automation
+House Guard rushes toward Treant!
+⚔ NPC Automation
+House Guard attacks Treant with Heavy Crossbow!
+Heavy Crossbow
+Heavy Crossbow
+Simple Melee
+The Veteran attacks with its Heavy Crossbow.
+
+Attack
+
+Treant
+ 16
+Damage
+Action
+Instantaneous
+reach 100 ft
+Equipped
+Proficient
+⚔ NPC Automation
+House Guard attacks Treant with Heavy Crossbow!
+Heavy Crossbow
+Heavy Crossbow
+Simple Melee
+The Veteran attacks with its Heavy Crossbow.
+
+Attack 
+
+Treant
+ 16
+Damage
+Action
+Instantaneous
+reach 100 ft
+Equipped
+Proficient
+ HP Updated
+
+-6
+138132
+
+
+⚔ NPC Automation
+Goblin Line Cook attacks Fley with Assorted Cutlery!
+Assorted Cutlery
+Assorted Cutlery
+Simple Ranged
+The Goblin Line Cook attacks by throwing assorted cutlery from its apron pockets or snatched from nearby work surfaces.
+
+Attack 
+
+Fley
+ 14
+Damage
+Action
+Instantaneous
+80/320 ft
+Equipped
+Proficient
+ HP Updated
+
+-9
+101
+
+
+"Seasoning"
+"Seasoning"
+Feature
+The Goblin Line Cook consumes a small packet of questionable  looking powder. They seem to grow stronger as a result!
+
+
+Refund Resource
+
+Boardayn
+Healing
+Bonus Action
+Instantaneous
+Self
+ HP Updated
+
++0
+010
+
+
+⚔ NPC Automation
+House Guard uses Multiattack (2 attacks)!
+⚔ NPC Automation
+House Guard rushes toward Treant!
+⚔ NPC Automation
+House Guard attacks Treant with Heavy Crossbow!
+⚔ NPC Automation
+House Guard attacks Treant with Heavy Crossbow!
+⚔ NPC Automation
+Shambling Mound is incapacitated and cannot act.
+⚔ NPC Automation
+Treant uses Multiattack (2 attacks)!
+⚔ NPC Automation
+Treant casts Animate Trees at Treant!
+Animate Trees
+Animate Trees
+Feature
+The Treant magically animates up to two trees it can see within 60 feet of itself. Each tree uses the Treant stat block, except it has Intelligence and Charisma scores of 1, it can't speak, and it lacks this action. The tree takes its turn immediately after the treant on the same initiative count, and it obeys the treant. A tree remains animate for 1 day or until it dies, the treant dies, or it is more than 120 feet from the treant. The tree then takes root if possible.
+
+
+Summon
+
+Refund Resource
+
+Treant
+Action
+Instantaneous
+60 ft
+2 objects
+Shambling Mound morale: BOLD (85).
+⚔ NPC Automation
+Goblin Line Cook attacks Ramsee with Assorted Cutlery!
+Assorted Cutlery
+Assorted Cutlery
+Simple Ranged
+The Goblin Line Cook attacks by throwing assorted cutlery from its apron pockets or snatched from nearby work surfaces.
+
+Attack 
+
+Ramsee
+ 14
+Damage
+Action
+Instantaneous
+80/320 ft
+Equipped
+Proficient
+"Seasoning"
+"Seasoning"
+Feature
+The Goblin Line Cook consumes a small packet of questionable  looking powder. They seem to grow stronger as a result!
+
+
+Refund Resource
+
+Battolee
+Healing
+Bonus Action
+Instantaneous
+Self
+ HP Updated
+
++0
+010
+
+
+⚔ NPC Automation
+Satyr Sorcerer casts Color Spray at Wyght!
+Color Spray
+Color Spray
+2nd Level • Illusion
+You launch a dazzling array of flashing, colorful light. Each creature in a 15-foot Cone originating from you must succeed on a Constitution saving throw or have the  condition until the end of your next turn.
+
+
+Refund Resource
+DC 13 Constitution Saving Throw
+
+Treant
+12
+Materials a pinch of colorful sand
+
+V, S, M
+Action
+Instantaneous
+Self
+15 ft cone
+⚔ NPC Automation
+Goblin Line Cook attacks Wyght with Assorted Cutlery!
+Assorted Cutlery
+Assorted Cutlery
+Simple Ranged
+The Goblin Line Cook attacks by throwing assorted cutlery from its apron pockets or snatched from nearby work surfaces.
+
+Attack
+
+Wyght
+ 14
+Damage
+Action
+Instantaneous
+80/320 ft
+summary of battle from eralier 
+let me close the door i need to change after getting my clothes dirty red says 
+hjumpik says why 
+i need privacy 
+but you have cooks in there 
+were all woman here 
+they close 
+the door opens 
+red is now human no longer a red bugbear deamon  she says 
+hjumpik says who are you 
+no no its me the trees are multioplying 
+we need an actaul solution how did this happen red ask 
+from a guy with mushroom growing on it 
+we need to take it out on the source 
+i didnt want to kill an innoccent 
+sometimes we have to kill for the greater good 
+hjumpik tries at a door locked 
+red says that there was fighitng in there slashing sounds she opened it after the plants left than hand 
+hjumpik asks to check it 
+she agrees to unlock it 
+three gaurds stand there 
+magical girls sequences 
+im red and im green and im yellow and im black he turns into a shadow 
+like a black person or- 
+okay so there are mosnters over here have you fought any 
+yeah we got the mosnters 
+this goblin guy and demon guy (satyr )
+who are you guys you dont look like gaurds here 
+were part of the color divisoin 
+color diviosn?
+special forces 
+for who 
+the iron legionaries we were sent here to look for a dwarf named hjumpoo 
+hjumpik you stupid were looking for a dwarf 
+why 
+he took longer than five nights his times up they want him back for the mission 
+i can relay that information to him 
+really 
+black says hey you ARE HJUMPIK you have the sginiature wolf pelt onesie one yeah 
+uhh you know alot of dwarves use this stuff its kinda racist all dwarves yse wolf pelt 
+hjumpik slowly clsoes the door and run upstairs 
+he looks below during the chase 
+by the order of the lady of the house you can't go in 
+what if shes a fake hjumpik says 
+i dont have time if you close the door bring us in we can talk 
+fine fine the gaurds stand down they all run in legion bangs on door 
+by the order of the legion open the door 
+alright listen keep this quick people downstairs are getting killed by the trees 
+the other trees battles are gone 
+he looks around same room him and waluigi used the freezing spell 
+why is the room empty 
+hjumpik has questions 
+say if the plant monster wanted to take out the lady of the manor but couldnt 
+to get this manor you destroy the manor or take control of the leader common sense lets say this plant monster wanted to take control of the lady but she couldn't 
+so what if they changed into the lady themselcves can we rule that out 
+what but we have been wining some battles right we cleared all these room why would a plant want to remove other plants from itself 
+good question i dont have a complete answer why were we struggling but now were not 
+waluigi buts in what if the fake lady wanted to control the manor from the outside 
+a house divided against itself cant stand hjumpik says why would the kill themsleves to hide themselves 
+well it could a vegeful spirit 
+could be but dosen't make 
+you were there when the fake one fought us 
+no no maybe they realized they cant beat us 
+but they were and conituesfly beating us 
+what im saying is something fishy and i dont like it these gaurds are cahsing me 
+just keep your eyes open were losing and there retreating use your brain 
+toad lee says maybe an ambush 
+yeah maybe maybe an ambush actually 
+what happened recntly hjumpik asks 
+well we were at the hot spa and we planned a push so we killed some tree monsters and cut some leaves but by the time we reached this room we found some frozen statues in ehre and no plants to be seen soon the lady returend she asksed us to gaurd the room while she does some prepariton to kill the plants so we have been doing that 
+no one else came in and out because were gaurds 
+sure 
+hjumpik realizes how long they have been there as he mongoluges over 3 months 
+five months....he looks at his cowbell recalls his past relearns it waluigi waves his hand in hjumpiks face no reaction 
+1.
+ran from downstairs guys running after me they want me because i failed quest
+2. 
+fake arulean is in the room doing whatever i need to confront her 
+
+supprise ambush time the stair doors burst open the color crew is there they promptly apprehend toad lee and waluigi 
+you got me im hjumpik 
+can i get more time he thinks of asking 
+no i dont want to get any time just let me investigate first 
+well YOU can but your friends there apprhended right now 
+why dont you just want me why them in crossfire 
+well leverage 
+waluigi dosent want to kill mages guild but still...
+you know what fine sure ill see whats in this room 
+wait please read this 
+In the context of unplanned arcane interference, maintaining containment and isolation zones is paramount to ensuring public safety and minimizing collateral damage. This section outlines procedures for the ongoing maintenance and monitoring of these critical areas established under § 900.20. Proper management ensures that containment measures remain effective over extended periods, reducing the risk of breaches or accidental release of hazardous arcane energies.
+
+Maintenance protocols are designed with a dual focus: structural integrity and environmental stability. Structural integrity refers to the physical state of containment barriers, which must be regularly inspected for signs of deterioration or compromise. Under § 900.20, any breach in these barriers is considered an immediate threat that requires prompt mitigation under § 1.15. Environmental stability encompasses monitoring for changes in ambient arcane conditions within and adjacent to isolation zones, ensuring that no additional hazards are introduced.
+
+The Mages' Guild accords emphasize the importance of continuous monitoring tools and technologies, such as arcane sensors and environmental data loggers, which provide real-time feedback on zone conditions (see § 800.19). These instruments are crucial for early detection of anomalies or shifts in ambient magic levels that could indicate potential breaches.
+
+Maintenance personnel, designated by the Guild, undergo rigorous training to ensure they can perform their duties proficiently and safely. Regular staff rotations and cross-training are mandated under § 1.20 to prevent burnout and skill decay. During maintenance operations, all personnel must adhere strictly to safety protocols outlined in § 900.20 and supplementary guidelines provided by the Guild.
+
+Containment zone isolation is not a one-time event but an ongoing process that requires periodic reevaluation and adjustment of parameters based on new data or changes in environmental conditions (see § 1001.8 for thresholds related to precious ores). Expansion of isolation zones, if necessary, must be carried out meticulously to ensure that any expansion does not inadvertently disrupt adjacent areas or introduce further risks.
+
+Emergency protocols are integral to maintaining containment and isolation zones. These include immediate response plans for unexpected developments such as breaches or unanticipated surges in arcane energy levels (see § 1.19). The Guild mandates regular drills and simulations to test the effectiveness of these plans, ensuring that all involved parties can respond swiftly and effectively.
+
+Continuous communication channels between maintenance personnel, monitoring stations, and higher command structures are essential for effective zone management. Any detected anomalies or breaches must be reported immediately to the appropriate authorities (see § 800.18). Furthermore, detailed records of all maintenance activities and adjustments must be maintained and archived for future reference and audit purposes.
+
+In conclusion, the maintenance and monitoring of containment and isolation zones are vital components in the broader strategy for managing unplanned arcane interference. By adhering to established protocols and leveraging advanced technologies, the Mages' Guild can ensure that these critical areas remain effective in safeguarding public welfare and maintaining compliance with the Accords. Compliance with these procedures not only upholds the integrity of containment zones but also reinforces trust between the Guild and its constituents.
+
+§ 900.20  Reporting and Remediation Protocols for Unplanned Arcane InterferenceCopy §3,726w · 6p−
+(a) Reporting and Remediation Protocols for Unplanned Arcane Interference
+Under § 900.12 Additional Provisions it has been established that nothing in this Part shall be construed to limit or impair the full force and effect of any other provision contained herein or in the Autumnwood Accords generally. The present section is intended to provide additional clarity on reporting and remediation protocols for unplanned arcane interference, ensuring practitioners are prepared for unforeseen circumstances.
+
+The Autumnwood Accords require that all mages and practitioners are mindful of potential ancillary effects and sub-layered magic when casting spells or conducting experiments. Under § 900.13 Reporting of Ancillary and Sub-Layered Arcane Effects, it is incumbent upon any practitioner to report such effects immediately if they occur during a casting or experiment. Section 900.14 Reporting Ancillary Effects and Sub-Layered Magic further specifies the protocols for reporting these effects, detailing the necessary information that must be included in the report.
+
+However, it is inevitable that in certain instances, unplanned arcane interference may occur despite adherence to all due diligence. § 900.20 Additional Provisions aims to provide a framework for responding to such events, focusing on both immediate remediation and long-term safety measures. The protocols outlined here are designed to ensure that practitioners can address any unintended consequences swiftly and effectively.
+
+you want me to monitor this place
+no thats what we are tasked to do 
+In the event that a bound object flees its designated location, the Aegis Magi may be authorized to track and retrieve it using "Recall" magic, the costs of which shall be borne by the owner. Transactions involving objects with high levels of agency (such as golems or sentient constructs) must be overseen by a Guild Notary to ensure that the "binding" is sufficient to prevent the asset from abandoning its legal obligations. Collateral that can walk away requires extraordinary security; failure to provide such security is a violation of the Accord.
+your mission is over hjumpik you failed 
+you said it was simple look what happened plants came other stuff no flack 
+well what have you achivest something tangible 
+im getting to the bottom of this place 
+anythign tangiable to show the ageis magi and maybe they will hold off a bit 
+hjumpik clutches the ring with arulean in his pocket 
+how about this since you got me cornered and ill just check the room over there ill come back out and hold me back for a bit 
+toad lee is acptured 
+maybe something in there will appeal for you 
+we want something than 
+insurance 
+give us one item and 
+you have my friends your lucky im not blasting you guys 
+fine 
+go get the mage cages 
+no no dont mage cages 
+no no hjumpik grabs his warhammer 
+no cages there not animals just hold them 
+fine he produces handcuffs 
+hjumpik signals to waluigi to escape if things get bad waluigi easily slips out of handcuffs 
+he gently opens the door 
+read to go hjumpik the satyr from earlier says that was here the whole time 
+hjumpik says sure why not  
+they take a step in 
+the doors close vines lock the door 
+yes yes come in arulean says we need to talk 
+yeah....sure
+hjumpik heads forwards come face me 
+wait why did i come in here actually this was a horrible idea hjumpik sys 
+the vines cover every door 
+the full room is crwaling hjumpik walks over yeah you so 
+who are you 
+im the one that will ruler of the manor 
+your collapsing this place 
+yes and once it collapses trees will grow anew 
+than why impersonate the lady 
+i needed to move some puzzle pieces put them into place 
+why not just why waste our time go out and kill everyone 
+well the beutry of natural is slow have you smelt the fungus spores yet 
+since were dying anyway what plant your sitting on 
+oh this sadly its just a foflower is it 
+yes 
+ever wondered if sitting on this is bad for plants 
+hjumpik takes another step you sure 
+hmmm what do you mean 
+hjumpik smirts are you sure that plant is good to sit on 
+plants are converious right 
+thats....my name.....
+i have something for you since its my last day why dont i give you something special 
+hjumpik throws the food right at her 
+she is damaged but her eyes start bleeding and become black plants come out of here eyes her mouth hallow hjumpik is horrified 
+the floor opens she says the show can begin 
+the saytr runs says ill stop this and fails horribly 
+the plants on the floor shreik 
+hjumpik rings the bell 
+arulean glew orange and her eyes rolled back hjumpiks ring glowed and the satyr sstood there 
+hjumpik runs away from her right into the violet fungus 
+he runs jumps over a fungus barley gets it arrives at the locked bathroom door the bathroom is locked 
+the saytr is locked in battle while hjumpiks run 
+mages guild people bangs on door yelling 
