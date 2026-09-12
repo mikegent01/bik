@@ -319,6 +319,16 @@ Hooks.on("pauseGame", async (paused) => {
   await maybeAutomateCurrentTurn(game.combat, "unpause resume");
 });
 
+
+function _activeTimeBattleApi(combat) {
+  try {
+    const api = game.modules?.get("active-time-battle")?.api;
+    return api?.isRunning?.(combat) ? api : null;
+  } catch {
+    return null;
+  }
+}
+
 async function maybeAutomateCurrentTurn(combat, reason = "turn check") {
   // Never begin a turn while a persistent banner (legendary pause) is held —
   // covers every entry point, including the unpause-resume path.
@@ -326,6 +336,15 @@ async function maybeAutomateCurrentTurn(combat, reason = "turn check") {
 
   // Only the GM should trigger automation (prevents double-execution in multiplayer)
   if (!game.user.isGM) return;
+
+  // If Active Time Battle owns initiative, let its elected primary GM be the
+  // only client that runs the NPC automation handoff. This keeps multi-GM
+  // sessions from double-running an NPC when ATB calls the turn over.
+  const atbApi = _activeTimeBattleApi(combat);
+  if (atbApi?.isPrimaryGM && !atbApi.isPrimaryGM()) {
+    log(`${reason}: ATB primary GM owns NPC automation handoff — skipping this GM.`);
+    return;
+  }
 
   // Automation must be toggled on
   if (!isAutomationActive()) return;

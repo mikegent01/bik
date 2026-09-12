@@ -1,10 +1,12 @@
 {
   "id": "active-time-battle",
   "title": "Active Time Battle",
-  "description": "Real-time ATB gauges for Foundry combat: initiative affects refill speed, ready actors auto-activate, and idle turns delay or guard so the table keeps moving.",
-  "version": "1.0.0",
+  "description": "Real-time/Baldur-style Foundry combat: initiative drives ATB readiness, NPCs keep moving, and player-owned turns pause the gauge clock with a five-minute decision window.",
+  "version": "1.1.0",
   "authors": [
-    { "name": "Waluipedia" }
+    {
+      "name": "Waluipedia"
+    }
   ],
   "esmodules": [
     "scripts/active-time-battle.js"

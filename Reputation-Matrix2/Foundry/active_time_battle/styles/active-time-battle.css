@@ -292,3 +292,14 @@
 .active-time-battle.atb-style-compact .atb-speed {
   display: none;
 }
+
+.active-time-battle .atb-panel.player-paused {
+  border-color: rgba(94, 234, 212, .72);
+  box-shadow: inset 0 0 0 1px rgba(94,234,212,.10), 0 0 18px rgba(94,234,212,.12);
+}
+
+.active-time-battle .atb-panel.player-paused .atb-panel-title span::after {
+  content: " · gauges paused";
+  color: var(--atb-ready);
+  font-weight: 700;
+}

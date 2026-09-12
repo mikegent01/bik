@@ -526,12 +526,36 @@ export async function executeNPCTurn(combatant, combat, { overrideGates = false 
   ) {
     await delay(400);
     try {
+      if (await _endActiveTimeBattleTurn(combat, combatant)) return;
       await game.combat.nextTurn();
     } catch (e) {
       log("Could not advance turn automatically: " + e.message, "warn");
     }
   } else if (!automationSucceeded && isNPC) {
     log(`Turn NOT advanced for ${combatant.name} — automation did not complete.`);
+  }
+}
+
+
+/**
+ * Active Time Battle bridge. When ATB owns initiative, native nextTurn() is
+ * intentionally blocked so gauges and laps do not desync. If the optional ATB
+ * module is active, hand the completed NPC turn back to its End ATB Turn API
+ * instead of advancing Foundry's native queue directly.
+ */
+async function _endActiveTimeBattleTurn(combat, combatant) {
+  try {
+    const api = game.modules?.get("active-time-battle")?.api;
+    if (!api?.endTurn || !api?.isRunning?.(combat)) return false;
+    if (api.isPrimaryGM && !api.isPrimaryGM()) return true;
+    const active = api.activeId?.(combat);
+    if (active !== combatant.id) return false;
+    log(`[ATB] ${combatant.name} completed by NPC automation — ending ATB turn.`);
+    const ended = await api.endTurn(combat, combatant.id, { clearStrikes: true, silent: true });
+    return !!ended;
+  } catch (err) {
+    log(`[ATB] Could not end ATB turn after NPC automation: ${err.message}`, "warn");
+    return false;
   }
 }
 
