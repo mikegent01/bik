@@ -159,20 +159,22 @@ tracker without hunting through the list.
 
 ---
 
-## Optional NPC Combat Automation bridge
+## External automation bridge
 
-The temporary `combat/` module in this branch exposes the NPC automation API as
-`game.modules.get("5e-npc-combat-automation").api`. ATB does not depend on that
-folder existing, but the two modules now cooperate when both are enabled:
+ATB publishes a small API for private or table-local automation modules that want
+to let ATB own initiative while another module resolves an NPC's actions:
 
-- ATB owns initiative and active-turn state.
-- Starting an NPC ATB turn still changes Foundry's active combatant, so the NPC
-  automation module sees its normal `combatTurnChange` hook and runs the NPC.
-- When the NPC automation finishes, it calls ATB's public `endTurn()` API instead
-  of native `nextTurn()`. Native turn-skipping stays blocked while ATB is
-  running, so gauges, laps, idle strikes, and player pauses remain in sync.
-- If the temp combat folder is removed or the module is disabled, ATB simply
-  keeps running with its own tracker controls.
+- `start(combat)` / `pause(combat, paused)` / `reset(combat)`
+- `activate(combat, combatantId, { force: true })`
+- `endTurn(combat, combatantId, { clearStrikes: true, silent: true })`
+- `isRunning(combat)` / `activeId(combat)` / `isPrimaryGM()`
+
+The intended contract is simple: ATB calls the actor over by setting the Foundry
+active combatant; an external automation module may resolve that NPC; when it is
+done, it should call ATB's `endTurn()` API instead of native `nextTurn()`. Native
+turn-skipping stays blocked while ATB is running so gauges, laps, idle strikes,
+and player pauses remain in sync. If no external automation is installed, ATB
+keeps running with its own tracker controls.
 
 ## Foundry/system notes
 

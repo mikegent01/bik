@@ -1,4 +1,4 @@
-# Run report — ATB player pause and NPC combat automation bridge
+# Run report — ATB player pause and external automation bridge
 
 Date: 2026-09-11
 Branch: `arena/01a08916-bik`
@@ -22,14 +22,9 @@ EDITED
 - `Reputation-Matrix2/Foundry/active_time_battle/module.json`
   - Bumps the module to `1.1.0` and updates the description for the Baldur-style player pause behavior.
 - `Reputation-Matrix2/Foundry/active_time_battle/README.md`
-  - Documents the five-minute player decision window, NPC/default `90` second spotlight, player-turn gauge pause, and optional bridge to the temp `combat/` NPC automation module.
-- `combat/scripts/automation.js`
-  - When Active Time Battle owns initiative, completed automated NPC turns now call `game.modules.get("active-time-battle").api.endTurn(...)` instead of native `nextTurn()`, keeping ATB gauges/laps/idle strikes/player pauses synchronized.
-  - If ATB is disabled or absent, the old native `nextTurn()` fallback remains.
-- `combat/scripts/main.js`
-  - When ATB is running, non-primary GM clients defer the NPC automation handoff to ATB's elected primary GM so multi-GM sessions do not double-run a called-over NPC.
+  - Documents the five-minute player decision window, NPC/default `90` second spotlight, player-turn gauge pause, and generic external automation API contract.
 - `tools/tests/test-active-time-battle-module.mjs`
-  - Extends the static smoke test to cover player five-minute turns, player-pause gauge behavior, exported bridge API, and the optional temp-combat bridge when that folder is present.
+  - Extends the static smoke test to cover player five-minute turns, player-pause gauge behavior, and exported external automation bridge API.
 
 GENERATED
 
@@ -41,8 +36,9 @@ GENERATED
 - NPC/default turns keep the active-time clock moving and use a `90` second spotlight by default.
 - Player-owned turns are called over automatically with the existing auto-activate flow, but now get `300` seconds by default.
 - While a player-owned combatant is active, other ATB gauges pause by default. The active player's timer still counts down, so the table is fair without freezing forever.
-- The temp `combat/` automation system can now run NPC turns under ATB control: ATB activates the NPC, the combat automation module performs the NPC turn, then hands control back to ATB's `endTurn()` API.
-- If the temp `combat/` folder is removed later, ATB does not depend on it and continues operating through its own tracker controls.
+- ATB now exposes the stable API needed by a private/local automation module: `isRunning`, `activeId`, `isPrimaryGM`, and `endTurn`.
+- External automation should let ATB own initiative, resolve the NPC's actions, then call ATB's `endTurn()` API instead of native `nextTurn()`.
+- No private automation source folder is committed; ATB continues operating through its own tracker controls when no external automation is installed.
 
 ## 3. Events filed
 
@@ -57,8 +53,7 @@ No XP awarded this run.
 | Command | Result |
 |---|---|
 | `node --check Reputation-Matrix2/Foundry/active_time_battle/scripts/active-time-battle.js` | PASS |
-| `for f in combat/scripts/*.js; do node --check "$f" || exit 1; done` | PASS |
-| `node tools/tests/test-active-time-battle-module.mjs` | PASS — 55 passed, 0 failed |
+| `node tools/tests/test-active-time-battle-module.mjs` | PASS — 53 passed, 0 failed |
 | `git diff --check` | PASS |
 | `python3 tools/check-all.py` | PASS — all requested checks passed |
 
@@ -67,4 +62,5 @@ Note: `npm install jsdom@26.1.0 --no-save` was needed locally before `check-all.
 ## 6. Not done / open
 
 - Not live-tested inside Foundry. The checks are static/smoke coverage; final feel still needs a live Foundry world with one GM client and at least one player-owned combatant.
-- The `combat/` folder is treated as temporary reference/integration code. ATB now degrades safely if that folder or module is removed.
+- Direct edits to the private/temp automation folder were scrubbed before the branch was force-pushed; that source is not part of this git history.
+- Not live-tested with a private external automation module after the scrub. The public ATB API is in place for that integration.
