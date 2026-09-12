@@ -37,7 +37,8 @@ const readme = fs.readFileSync(readmePath, 'utf8');
 for (const setting of [
   'baseReadySeconds', 'initiativeSpeedWeight', 'initiativeOpeningWeight',
   'openingReadiness', 'autoActivate', 'readyGraceSeconds', 'actionSeconds',
-  'timeoutMode', 'delayPercent', 'strikesToGuard', 'overflowCap', 'waitMode',
+  'npcActionSeconds', 'playerActionSeconds', 'warningSeconds', 'playerWarningSeconds',
+  'timeoutMode', 'delayPercent', 'strikesToGuard', 'overflowCap', 'pauseOnPlayerTurns', 'waitMode',
   'trackerStyle', 'queuePreview'
 ]) {
   check(`setting ${setting} is registered`, js.includes(`"${setting}"`));
@@ -45,6 +46,10 @@ for (const setting of [
 
 check('initiative changes fill speed', /initiativeOf\(combatant\).*avg/.test(js) && js.includes('speedFactor'));
 check('initiative changes opening readiness', js.includes('openingAtb') && js.includes('initiativeOpeningWeight'));
+check('player turns get five minutes instead of the NPC clock', js.includes('function turnSecondsFor') && js.includes('"playerActionSeconds"') && js.includes('300') && js.includes('"npcActionSeconds"'));
+check('player turns pause other gauges without pausing NPC turns', js.includes('function pauseOnPlayerTurn') && js.includes('pauseOnPlayerTurns') && js.includes('shouldTickGauges(combat, active)'));
+check('player decision warnings are separate from NPC warnings', js.includes('function warningSecondsFor') && js.includes('"playerWarningSeconds"'));
+check('ATB API exposes state for external automation bridges', js.includes('isRunning,') && js.includes('activeId') && js.includes('isPrimaryGM') && js.includes('That combatant is not the active ATB turn'));
 check('READY queue sorts by overflow and initiative', js.includes('readyCombatants') && js.includes('overflow') && js.includes('initiativeOf(b) - initiativeOf(a)'));
 check('players request GM-side actions by socket', js.includes('game.socket?.emit') && js.includes('game.socket?.on'));
 check('player socket actions are re-authorized by the GM', js.includes('function canRequestAction') && js.includes('rejected unauthorized') && js.includes('userCanAct(combatant, user)'));
@@ -61,6 +66,7 @@ check('rounds advance as ATB laps', js.includes('advanceRoundIfComplete') && js.
 check('tracker shows ATB meters', css.includes('.atb-meter') && css.includes('atb-ready') && css.includes('atb-active'));
 check('tracker has bar, classic, and compact styles', css.includes('atb-style-bars') && css.includes('atb-style-classic') && css.includes('atb-style-compact'));
 check('README explains the inactivity solution', /YouTube/.test(readme) && /being absent does not freeze the table/.test(readme));
+check('README documents Baldur-style player pause', /Baldur-style/.test(readme) && /five minutes/.test(readme) && /NPCs go, player decisions pause/.test(readme));
 check('README install folder matches module id', readme.includes('Data/modules/active-time-battle'));
 check('README documents visual styles and queue preview', /Visual styles/.test(readme) && /Classic badge/.test(readme) && /queue preview/.test(readme));
 

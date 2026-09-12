@@ -202,12 +202,33 @@ function canAutoActivate(combatant) {
   return true;
 }
 
-function shouldTickGauges(combat) {
-  return !(activeId(combat) && setting("waitMode"));
+function pauseOnPlayerTurn(combatant) {
+  return !!(combatant && playerOwned(combatant) && setting("pauseOnPlayerTurns"));
+}
+
+function shouldTickGauges(combat, active = null) {
+  return !(activeId(combat) && (setting("waitMode") || pauseOnPlayerTurn(active)));
+}
+
+function turnSecondsFor(combatant) {
+  const key = playerOwned(combatant) ? "playerActionSeconds" : "npcActionSeconds";
+  const fallback = playerOwned(combatant) ? 300 : Number(setting("actionSeconds")) || 90;
+  const floor = playerOwned(combatant) ? 30 : 5;
+  return Math.max(floor, Number(setting(key)) || fallback);
+}
+
+function warningSecondsFor(combatant) {
+  const key = playerOwned(combatant) ? "playerWarningSeconds" : "warningSeconds";
+  const fallback = playerOwned(combatant) ? 60 : 20;
+  return Math.max(0, Number(setting(key)) || fallback);
 }
 
 function fmtSeconds(seconds) {
-  return `${Math.max(0, Math.ceil(seconds))}s`;
+  const total = Math.max(0, Math.ceil(seconds));
+  if (total < 60) return `${total}s`;
+  const minutes = Math.floor(total / 60);
+  const remainder = total % 60;
+  return remainder ? `${minutes}m ${remainder}s` : `${minutes}m`;
 }
 
 function pct(value) {
@@ -374,9 +395,10 @@ async function activateCombatant(combat, combatantId, options = {}) {
     [flagPath("sequence")]: sequence(combat) + 1
   }, { diff: false, activeTimeBattle: true });
 
-  const seconds = Number(setting("actionSeconds")) || 90;
-  await chat(`<b>${escapeHtml(combatantName(c))}</b> is active. ${seconds}s spotlight clock started.`);
-  notifyOwners(c, `${combatantName(c)} is active — ${seconds}s to act.`);
+  const seconds = turnSecondsFor(c);
+  const pauseText = pauseOnPlayerTurn(c) ? " Player turn pause is on; other ATB gauges wait while they decide." : "";
+  await chat(`<b>${escapeHtml(combatantName(c))}</b> is active. ${fmtSeconds(seconds)} spotlight clock started.${pauseText}`);
+  notifyOwners(c, `${combatantName(c)} is active — ${fmtSeconds(seconds)} to act.`);
   ui.combat?.render?.(true);
   return c;
 }
@@ -393,7 +415,13 @@ async function advanceRoundIfComplete(combat, justActedId = null) {
 
 async function endActiveTurn(combat, combatantId, options = {}) {
   if (!isPrimaryGM() || !combat?.started) return null;
-  const id = combatantId || activeId(combat);
+  const active = activeId(combat);
+  if (!active) return null;
+  const id = combatantId || active;
+  if (id !== active) {
+    if (!options.silent) ui.notifications?.warn("That combatant is not the active ATB turn.");
+    return null;
+  }
   const c = combat.combatants?.get(id);
   if (!c) return null;
   const stamp = now();
@@ -475,8 +503,8 @@ async function tickCombat(combat) {
   const active = activeId(combat) ? combat.combatants?.get(activeId(combat)) : null;
   if (active && !isDefeated(combat, active)) {
     const elapsed = (stamp - activeSince(combat)) / 1000;
-    const actionSeconds = Number(setting("actionSeconds")) || 90;
-    const warningSeconds = Number(setting("warningSeconds")) || 20;
+    const actionSeconds = turnSecondsFor(active);
+    const warningSeconds = warningSecondsFor(active);
     const warned = Number(getFlag(active, "warnedAt", 0)) || 0;
     if (elapsed >= actionSeconds) return timeoutActiveTurn(combat, active);
     if (warningSeconds > 0 && elapsed >= actionSeconds - warningSeconds && !warned) {
@@ -496,7 +524,7 @@ async function tickCombat(combat) {
   const projected = new Map();
   const updates = [];
 
-  if (shouldTickGauges(combat)) {
+  if (shouldTickGauges(combat, active)) {
     for (const c of members) {
       if (active && c.id === active.id) continue;
       const old = atbOf(c);
@@ -560,13 +588,17 @@ function showActivePrompt(combat) {
   closeActivePrompt();
 
   const started = activeSince(combat) || now();
-  const total = Number(setting("actionSeconds")) || 90;
+  const total = turnSecondsFor(c);
   const elapsed = (now() - started) / 1000;
   const left = fmtSeconds(total - elapsed);
+  const pauseLine = pauseOnPlayerTurn(c)
+    ? "The ATB clock pauses around player decisions: other gauges wait while this player chooses, then NPCs resume moving."
+    : "NPC/default turns do not pause other gauges unless Wait mode is enabled.";
   const content = `
     <div class="atb-active-dialog">
       <p><b>${escapeHtml(combatantName(c))}</b> is active.</p>
-      <p>You have about <b>${left}</b>. If you go idle, the module will delay you or put you on Guard based on world settings so the table keeps moving.</p>
+      <p>You have about <b>${left}</b>. ${pauseLine}</p>
+      <p>If the timer expires, the module will delay you or put you on Guard based on world settings so the table keeps moving.</p>
     </div>`;
   ACTIVE_PROMPT = new Dialog({
     title: "Active Time Battle",
@@ -670,8 +702,9 @@ function trackerSummary(combat) {
   if (isPaused(combat)) return "ATB paused.";
   const active = activeId(combat) ? combat.combatants?.get(activeId(combat)) : null;
   if (active) {
-    const left = (Number(setting("actionSeconds")) || 90) - ((now() - activeSince(combat)) / 1000);
-    return `${combatantName(active)} acting · ${fmtSeconds(left)} left`;
+    const left = turnSecondsFor(active) - ((now() - activeSince(combat)) / 1000);
+    const paused = pauseOnPlayerTurn(active) ? " · player pause" : "";
+    return `${combatantName(active)} acting · ${fmtSeconds(left)} left${paused}`;
   }
   const queue = readyCombatants(combat).slice(0, 3).map(combatantName).join(", ");
   return queue ? `Ready: ${queue}` : "Gauges filling.";
@@ -692,7 +725,8 @@ function renderTrackerPanel(root, combat) {
   if (!anchor) return;
 
   const panel = document.createElement("div");
-  panel.className = `atb-panel${isRunning(combat) ? " running" : " stopped"}${isPaused(combat) ? " paused" : ""}`;
+  const active = activeId(combat) ? combat.combatants?.get(activeId(combat)) : null;
+  panel.className = `atb-panel${isRunning(combat) ? " running" : " stopped"}${isPaused(combat) ? " paused" : ""}${pauseOnPlayerTurn(active) ? " player-paused" : ""}`;
   const title = document.createElement("div");
   title.className = "atb-panel-title";
   const titleText = document.createElement("b");
@@ -844,14 +878,29 @@ function registerSettings() {
     scope: "world", config: true, type: Number, default: 3
   });
   game.settings.register(MODULE_ID, "actionSeconds", {
-    name: "Spotlight seconds",
-    hint: "How long an activated combatant has before timeout handling fires.",
+    name: "Legacy/default spotlight seconds",
+    hint: "Fallback used by older worlds and NPC turns if the NPC setting is unset.",
     scope: "world", config: true, type: Number, default: 90
   });
+  game.settings.register(MODULE_ID, "npcActionSeconds", {
+    name: "NPC spotlight seconds",
+    hint: "How long a GM/NPC turn has before timeout handling fires. NPC turns keep the ATB clock moving by default.",
+    scope: "world", config: true, type: Number, default: 90
+  });
+  game.settings.register(MODULE_ID, "playerActionSeconds", {
+    name: "Player decision seconds",
+    hint: "How long a player-owned combatant gets on their active turn. Default is 300 seconds: five minutes.",
+    scope: "world", config: true, type: Number, default: 300
+  });
   game.settings.register(MODULE_ID, "warningSeconds", {
-    name: "Warning seconds",
-    hint: "Warn this many seconds before an active timeout. Set 0 to disable warnings.",
+    name: "NPC warning seconds",
+    hint: "Warn this many seconds before an NPC/default active timeout. Set 0 to disable warnings.",
     scope: "world", config: true, type: Number, default: 20
+  });
+  game.settings.register(MODULE_ID, "playerWarningSeconds", {
+    name: "Player warning seconds",
+    hint: "Warn this many seconds before a player decision timeout. Set 0 to disable warnings.",
+    scope: "world", config: true, type: Number, default: 60
   });
   game.settings.register(MODULE_ID, "timeoutMode", {
     name: "Idle timeout result",
@@ -869,9 +918,14 @@ function registerSettings() {
     hint: "Only used by Escalate mode.",
     scope: "world", config: true, type: Number, default: 2
   });
+  game.settings.register(MODULE_ID, "pauseOnPlayerTurns", {
+    name: "Pause ATB on player turns",
+    hint: "Baldur-style pacing: player-owned active turns pause other gauges while the player decides; NPC turns keep moving.",
+    scope: "world", config: true, type: Boolean, default: true
+  });
   game.settings.register(MODULE_ID, "waitMode", {
     name: "Wait mode",
-    hint: "If enabled, other gauges pause while someone is active. Leave disabled for true active-time pressure.",
+    hint: "If enabled, other gauges pause while anyone is active. Leave disabled to pause only on player turns.",
     scope: "world", config: true, type: Boolean, default: false
   });
   game.settings.register(MODULE_ID, "trackerStyle", {
@@ -904,7 +958,10 @@ Hooks.once("ready", () => {
     rollMissingInitiative,
     readyCombatants,
     atbOf,
-    speedFactor
+    speedFactor,
+    isRunning,
+    activeId,
+    isPrimaryGM
   };
 
   game.socket?.on(`module.${MODULE_ID}`, data => {
