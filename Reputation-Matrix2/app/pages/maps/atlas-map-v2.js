@@ -139,6 +139,36 @@ function clusterPois(pois, radius = 1.15, opts = {}) {
    where the hit targets would fight. */
 const MARKER_FOOTPRINT_PX = 15;
 
+/* ---------------- deep zoom ----------------
+   The sheet zooms like a real atlas rather than a picture: all the way down,
+   until two provinces that touch on the continent view are a long drag apart.
+   This is the actual cure for crowding. Clutter is not a property of the map,
+   it is a property of the SCALE you read it at — a hundred pins inside one
+   province is a pile at 1x and a comfortable scatter at 30x, because at 30x
+   that province is the whole screen.
+   Two things have to hold for that to work, and only the first was true here:
+     1. the artwork grows with the zoom (it already did), and
+     2. the MARKERS DO NOT. A pin that grows with the world keeps the same
+        neighbours at every depth, so zooming magnified the crowding instead
+        of relieving it. Pins are now counter-scaled against the zoom (see
+        --pin-zoom), so they hold their size on screen while the ground slides
+        apart underneath them. */
+const MAX_ZOOM = 160;
+const MIN_ZOOM = 1;
+
+/* Name the depth in the reader's terms. "12.4x" is a number; "street" is a
+   place. The thresholds are eyeballed against the Midlands sheet, where the
+   whole continent is ~100 percent across and a town occupies about one. */
+function scaleWord(zoom) {
+  const z = Number(zoom) || 1;
+  if (z < 1.6) return 'continent';
+  if (z < 4) return 'kingdom';
+  if (z < 10) return 'province';
+  if (z < 26) return 'district';
+  if (z < 65) return 'town';
+  return 'street';
+}
+
 function dynamicClusterRadius(count, scale, plane, journeyOnly, densityMode, box, forceGather) {
   if (journeyOnly || densityMode === 'all') return plane ? 0.18 : 0.05;
   if (densityMode === 'key') return 0.05;
@@ -229,7 +259,36 @@ function model(mapId, plane, onlyIds) {
   if (plane && plane !== 'all') pois = pois.filter(p => planeOf(p) === plane);
   /* Journey mode: hide every surveyed pin except the stops that connect. */
   if (onlyIds) pois = pois.filter(p => onlyIds.has(p.id));
+  pois = spreadCoincident(pois);
   return { map, pois, population: pois.reduce((n, poi) => n + (Number(poi.population) || 0), 0) };
+}
+
+/* Deep zoom separates everything EXCEPT pins filed at the identical
+   coordinate: those stay welded together at 1x and at 160x alike, because no
+   magnification can divide a distance of zero. (On the Midlands sheet that is
+   Veridia Estate and the Forgotten Barrow, both filed at the same point.)
+   Nudge such a stack onto a tiny ring around its shared point — small enough
+   to be invisible at continent scale and a lie about nothing, big enough that
+   pushing in eventually pulls them apart like every other pair. */
+function spreadCoincident(list) {
+  const buckets = new Map();
+  list.forEach(p => {
+    const key = `${p.x.toFixed(3)}:${p.y.toFixed(3)}`;
+    if (!buckets.has(key)) buckets.set(key, []);
+    buckets.get(key).push(p);
+  });
+  const moved = new Map();
+  buckets.forEach(group => {
+    if (group.length < 2) return;
+    /* 0.05% of the sheet: under a tenth of a pixel at rest, a comfortable gap
+       by the time the reader is at town scale. */
+    const r = 0.05;
+    group.forEach((p, i) => {
+      const a = (i / group.length) * Math.PI * 2;
+      moved.set(p.id, { ...p, x: p.x + Math.cos(a) * r, y: p.y + Math.sin(a) * r });
+    });
+  });
+  return moved.size ? list.map(p => moved.get(p.id) || p) : list;
 }
 
 function stopBannerHtml(stop) {
@@ -656,6 +715,12 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
             <img data-map-art alt="${esc(map.name)} map" src="${imgHref}">
             <div class="atlas-v2-overlay" data-overlay></div>
           </div>
+          <div class="atlas-v2-zoomer">
+            <button type="button" data-action="zoomin" title="Zoom in">+</button>
+            <button type="button" data-action="zoomout" title="Zoom out">−</button>
+            <button type="button" data-action="zoomreset" title="Back to the whole sheet">⤢</button>
+          </div>
+          <div class="atlas-v2-depth" data-depth>1× continent</div>
         </div>
         <div class="atlas-v2-legend"><span data-legend-lens></span><span>${esc(map.group || '')}</span></div>
       </main>
@@ -708,10 +773,15 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
        on screen at every depth — which is also why decluttering is re-run
        whenever the zoom actually changes (see refreshLabels). */
     overlay.style.setProperty('--label-zoom', String(state.scale || 1));
+    /* Pins hold their size on screen at every depth. Without this the dots
+       grow with the ground and the sheet is exactly as crowded at 40x as it
+       was at 1x — zooming would move the pile closer rather than spread it. */
+    overlay.style.setProperty('--pin-zoom', String(state.scale || 1));
     if ((state.scale || 1) !== state.labelZoom) {
       state.labelZoom = state.scale || 1;
       refreshLabels();
     }
+    showDepth();
   }
 
   function fitRegion() {
@@ -736,6 +806,17 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
      hides everything else, so the next click is a decision about THAT place
      rather than about the whole continent again. Repeat until single pins
      remain. The breadcrumb walks back out. */
+
+  /* Say how deep we are, and offer the way back. Without a readout a reader at
+     60x on an unfamiliar corner has no idea whether they are lost or just
+     close. */
+  function showDepth() {
+    const el = host.querySelector('[data-depth]');
+    if (!el) return;
+    const z = state.scale || 1;
+    el.textContent = `${z < 1.05 ? '1' : z.toFixed(z < 10 ? 1 : 0)}×  ${scaleWord(z)}`;
+    el.classList.toggle('deep', z > 3);
+  }
 
   function drillTop() {
     return state.drill.length ? state.drill[state.drill.length - 1] : null;
@@ -785,7 +866,7 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
     const fit = Math.min(vw / Math.max(wantW, 1), vh / Math.max(wantH, 1));
     /* Deep zoom is the whole point of drilling; the art gets soft long before
        the geometry does, and a blurry readable pin beats a crisp pile. */
-    const maxZoom = opts.maxZoom ?? 40;
+    const maxZoom = opts.maxZoom ?? MAX_ZOOM;
     state.scale = Math.max(1, Math.min(fit, maxZoom));
 
     const cx = box.left + box.w * ((minX + maxX) / 200);
@@ -877,6 +958,23 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
     }));
   }
 
+  /* Fold companions filed at (near enough) the same coordinate into one mark.
+     Order inside a group is stable so the sidebar does not reshuffle. */
+  function groupTokens(list) {
+    const buckets = new Map();
+    list.forEach(t => {
+      const key = `${t.x.toFixed(1)}:${t.y.toFixed(1)}`;
+      if (!buckets.has(key)) buckets.set(key, []);
+      buckets.get(key).push(t);
+    });
+    return [...buckets.values()].map(members => ({
+      ...members[0],
+      x: members.reduce((n, m) => n + m.x, 0) / members.length,
+      y: members.reduce((n, m) => n + m.y, 0) / members.length,
+      members,
+    }));
+  }
+
   function journeyPathSvg() {
     if (stops.length < 2) return '';
     const pts = stops.map(s => {
@@ -902,7 +1000,12 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
     const type = host.querySelector('[data-type]')?.value || '';
     /* Party last-seen tokens: companions whose latest filed appearance pins
        onto this sheet. Rendered above pins, never clustered. */
-    const toks = (opts.party || []).filter(t => Number.isFinite(t.x) && Number.isFinite(t.y));
+    /* Companions standing in the same place are ONE marker. Two tokens filed
+       at the same tavern used to draw two 30px discs on top of each other,
+       which is both a lie about the geography and a pile the reader has to
+       pick apart. Rounding to a tenth of a percent is tight enough that
+       genuinely separate places stay separate. */
+    const toks = groupTokens((opts.party || []).filter(t => Number.isFinite(t.x) && Number.isFinite(t.y)));
     /* Lens weight on a log scale: sheet values run 0..60,000 with a median
        near 50, so a linear share of max flattens 95% of pins to one dot.
        log(1+v)/log(1+max) spreads hamlets, towns, and cities across the
@@ -1057,7 +1160,9 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
           const cx = Number(btn.dataset.cx) || 50;
           const cy = Number(btn.dataset.cy) || 50;
           if (drillInto(group, drillLabelFor(group))) return;
-          centerOn(cx, cy, Math.min(7.2, Math.max(state.scale + 1.1, state.scale * 1.85, 4.8)));
+          /* No ceiling: stepping into a group always goes meaningfully
+             deeper, however deep the reader already is. */
+          centerOn(cx, cy, Math.max(state.scale * 1.85, 4.8));
           placePins();
           openLocalInset(ids, cx, cy);
           return;
@@ -1098,14 +1203,27 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
       });
     });
     if (toks.length) {
-      overlay.insertAdjacentHTML('beforeend', toks.map((t, i) => `<button type="button" class="atlas-v2-token" data-token="${i}" style="left:${t.x}%;top:${t.y}%" title="${esc(t.name)} — last seen: ${esc(t.recordName)} (${esc(t.date || 'undated')})">${esc(t.icon)}</button>`).join(''));
+      /* A party token is now the same size as the places it stands among, and
+         it PULSES. Size was the wrong way to say "someone is here" — it just
+         buried the map under the marker. A small mark that blinks is louder
+         than a big one that sits still, and it costs the sheet nothing. */
+      overlay.insertAdjacentHTML('beforeend', toks.map((t, i) => {
+        const title = t.members.length > 1
+          ? `${t.members.length} here: ` + t.members.map(m => `${m.name} (${m.recordName})`).join(', ')
+          : `${t.name} — last seen: ${t.recordName} (${t.date || 'undated'})`;
+        const stack = t.members.length > 1 ? `<em>${t.members.length}</em>` : '';
+        return `<button type="button" class="atlas-v2-token" data-token="${i}" style="left:${t.x}%;top:${t.y}%" title="${esc(title)}"><span>${esc(t.icon)}</span>${stack}</button>`;
+      }).join(''));
       overlay.querySelectorAll('[data-token]').forEach(btn => {
         btn.addEventListener('click', ev => {
           ev.stopPropagation();
           const t = toks[Number(btn.dataset.token)];
           if (!t) return;
           overlay.querySelectorAll('[data-token]').forEach(b => b.classList.toggle('selected', b === btn));
-          sidebar.innerHTML = `<article class="atlas-v2-detail"><span class="atlas-v2-kicker">🛰️ party last seen</span><h3>${esc(t.icon)} ${esc(t.name)}</h3><p>Last filed appearance: <b>${esc(t.recordName)}</b><br>${esc(t.date || 'undated')}</p>${t.recordId ? `<button class="atlas-v2-wiki" data-open-article="${esc(t.recordId)}">Open the record</button>` : ''}</article>`;
+          /* A grouped token opens everyone standing there, not just whoever
+             happened to sort first. */
+          const who = t.members.map(m => `<article class="atlas-v2-detail"><h3>${esc(m.icon)} ${esc(m.name)}</h3><p>Last filed appearance: <b>${esc(m.recordName)}</b><br>${esc(m.date || 'undated')}</p>${m.recordId ? `<button class="atlas-v2-wiki" data-open-article="${esc(m.recordId)}">Open the record</button>` : ''}</article>`).join('');
+          sidebar.innerHTML = `<span class="atlas-v2-kicker">🛰️ party last seen${t.members.length > 1 ? ` · ${t.members.length} together` : ''}</span>${who}`;
         });
       });
     }
@@ -1282,7 +1400,7 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
     const box = state.box;
     const px = box.left + box.w * x / 100;
     const py = box.top + box.h * y / 100;
-    state.scale = z;
+    state.scale = Math.min(MAX_ZOOM, Math.max(MIN_ZOOM, Number(z) || 1));
     state.tx = vw / 2 - px * z;
     state.ty = vh / 2 - py * z;
     applyTransform();
@@ -1469,6 +1587,28 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
     sidebar.innerHTML = detailHtml(null, pois);
     reframe();
   });
+  /* Zoom buttons: the wheel is not available to every reader or every device,
+     and holding a deep-zoom map should not require a mouse. Each press is the
+     same proportional step the wheel takes, about the centre of the view. */
+  function zoomBy(factor) {
+    const vw = viewport.clientWidth || 1;
+    const vh = viewport.clientHeight || 1;
+    const next = Math.min(MAX_ZOOM, Math.max(MIN_ZOOM, state.scale * factor));
+    const k = next / state.scale;
+    state.tx = vw / 2 - (vw / 2 - state.tx) * k;
+    state.ty = vh / 2 - (vh / 2 - state.ty) * k;
+    state.scale = next;
+    applyTransform();
+    placePins();
+  }
+  host.querySelector('[data-action="zoomin"]').addEventListener('click', () => zoomBy(1.6));
+  host.querySelector('[data-action="zoomout"]').addEventListener('click', () => zoomBy(1 / 1.6));
+  host.querySelector('[data-action="zoomreset"]').addEventListener('click', () => {
+    state.drill.length = 0;
+    renderBreadcrumb();
+    reframe();
+  });
+
   /* Full screen: the host becomes a fixed overlay so the painted sheet fills
      the viewport instead of a card column. Both the atlas page and the
      cartography desk mount through here, so both inherit the button. */
@@ -1546,7 +1686,12 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
     const rect = viewport.getBoundingClientRect();
     const mx = event.clientX - rect.left;
     const my = event.clientY - rect.top;
-    const next = Math.min(6, Math.max(1, state.scale * (event.deltaY < 0 ? 1.12 : 0.89)));
+    /* Zoom compounds, so the wheel keeps its feel at every depth: one notch is
+       always the same PROPORTION of the current scale, whether the reader is
+       looking at a continent or at one street of a town. A fixed step would
+       crawl at 1x and teleport at 100x. */
+    const step = event.deltaY < 0 ? 1.16 : 1 / 1.16;
+    const next = Math.min(MAX_ZOOM, Math.max(MIN_ZOOM, state.scale * step));
     const k = next / state.scale;
     state.tx = mx - (mx - state.tx) * k;
     state.ty = my - (my - state.ty) * k;

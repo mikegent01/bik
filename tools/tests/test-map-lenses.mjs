@@ -251,6 +251,90 @@ plainHost.querySelector('[data-action="bigpins"]').dispatchEvent(new dom.window.
 check('the big-dot toggle enlarges the targets',
   plainHost.classList.contains('atlas-v2-bigpins'));
 
+/* ---------------- deep zoom is what actually cures crowding ----------------
+   Clutter is a property of the SCALE you read a map at, not of the map. A
+   hundred pins inside one province is a pile at 1x and a comfortable scatter
+   at 30x, because at 30x that province IS the screen. For that to hold, the
+   ground must spread while the pins keep their size — so the test measures
+   the nearest-neighbour distance in SCREEN pixels as the zoom rises. */
+const zoomHost = dom.window.document.createElement('div');
+dom.window.document.body.appendChild(zoomHost);
+const zoomHandle = mountAtlasMapV2(zoomHost, 'midlands_full', {});
+zoomHost.querySelector('[data-map-art]').dispatchEvent(new dom.window.Event('load'));
+
+/* Screen separation of the tightest pair, and how many pins have a neighbour
+   closer than a comfortable 12px, at a given zoom. */
+function crowdingAt(zoom) {
+  zoomHandle.center(50, 50, zoom);
+  const pts = [...zoomHost.querySelectorAll('.atlas-v2-marker')].map(m => ({
+    x: parseFloat(m.style.left) / 100 * ART_W * zoom,
+    y: parseFloat(m.style.top) / 100 * ART_H * zoom,
+  }));
+  let worst = Infinity, tight = 0;
+  for (let i = 0; i < pts.length; i++) {
+    let best = Infinity;
+    for (let j = 0; j < pts.length; j++) {
+      if (i === j) continue;
+      const d = Math.hypot(pts[i].x - pts[j].x, pts[i].y - pts[j].y);
+      if (d < best) best = d;
+    }
+    if (best < worst) worst = best;
+    if (best < 12) tight++;
+  }
+  return { worst, tight, markers: pts.length };
+}
+
+const near = crowdingAt(1);
+const far = crowdingAt(40);
+check('zooming in spreads the ground apart',
+  far.worst > near.worst * 30, `tightest pair ${near.worst.toFixed(1)}px at 1x -> ${far.worst.toFixed(1)}px at 40x`);
+check('zooming in actually relieves the crowding',
+  far.tight === 0 && near.tight > 10, `${near.tight} crowded pins at 1x -> ${far.tight} at 40x`);
+check('zooming hides nothing — every pin survives the descent',
+  far.markers === near.markers, `${near.markers} markers at both depths`);
+
+/* No amount of magnification divides a distance of zero, so pins filed at the
+   identical coordinate must be nudged apart or they stay welded forever. */
+check('pins filed at the same point still come apart',
+  crowdingAt(160).worst > 100, `${crowdingAt(160).worst.toFixed(1)}px at 160x`);
+
+/* The reader has to be able to get that deep, and to know where they are. */
+/* The old ceiling was 6x, which is why the sheet could never be uncrowded by
+   zooming. Ask for far more than that and check it is honoured rather than
+   silently clamped: at 6x the tightest pair would be ~5px, at 150x ~135px. */
+check('the sheet zooms far past the old 6x ceiling',
+  crowdingAt(150).worst > 100, `tightest pair ${crowdingAt(150).worst.toFixed(1)}px at 150x`);
+const depthEl = zoomHost.querySelector('[data-depth]');
+check('a depth readout says how deep the reader is', !!depthEl && /continent|kingdom|province|district|town|street/.test(depthEl.textContent), depthEl && depthEl.textContent);
+check('zoom controls are offered for readers without a wheel',
+  !!zoomHost.querySelector('[data-action="zoomin"]') && !!zoomHost.querySelector('[data-action="zoomout"]'));
+
+/* ---------------- party tokens ----------------
+   They were 30px discs — bigger than the places they stood among. */
+const partyHost = dom.window.document.createElement('div');
+dom.window.document.body.appendChild(partyHost);
+mountAtlasMapV2(partyHost, 'midlands_full', {
+  party: [
+    { name: 'Waluigi', icon: '🟣', x: 40, y: 40, recordName: 'A record', recordId: 'r1', date: '1e' },
+    { name: 'Toad Lee', icon: '🍄', x: 40, y: 40, recordName: 'A record', recordId: 'r1', date: '1e' },
+    { name: 'Hjumpik', icon: '🔵', x: 70, y: 20, recordName: 'Another', recordId: 'r2', date: '2e' },
+  ],
+});
+partyHost.querySelector('[data-map-art]').dispatchEvent(new dom.window.Event('load'));
+const tokens = [...partyHost.querySelectorAll('.atlas-v2-token')];
+check('companions in the same place share one mark',
+  tokens.length === 2, `${tokens.length} marks for 3 companions`);
+check('a shared mark counts its companions',
+  tokens.some(t => t.querySelector('em')?.textContent === '2'));
+check('a shared mark names everyone standing there',
+  tokens.some(t => /Waluigi/.test(t.title) && /Toad Lee/.test(t.title)));
+check('clicking a shared mark opens everyone, not just the first', (() => {
+  const shared = tokens.find(t => t.querySelector('em'));
+  shared.dispatchEvent(new dom.window.MouseEvent('click', { bubbles: true }));
+  const side = partyHost.querySelector('.atlas-v2-sidebar').textContent;
+  return /Waluigi/.test(side) && /Toad Lee/.test(side);
+})());
+
 /* A sparse sheet must NOT be gathered — clustering there only hides detail. */
 const sparseHost = dom.window.document.createElement('div');
 dom.window.document.body.appendChild(sparseHost);
