@@ -180,13 +180,77 @@ about that is committed.
 
 ---
 
+## 3c. Second correction — I was editing a renderer the page never loads
+
+Still no visual change. The user gave the URL: `index.html#/maps`.
+
+That route does **not** use `map-renderer.js` at all. `index.html` line 5857
+mounts a different module entirely:
+
+```js
+import(prefix + 'app/pages/maps/atlas-map-v2.js?v=map14')
+  .then(m => m.mountAtlasMapV2(host, MAPS_DESK.mapId, {...}))
+```
+
+`map-renderer.js` (and the whole `maps-view.html` desk it belongs to) is a
+second, older map implementation. Both exist; only `atlas-map-v2.js` is what
+`#/maps` renders. Everything in sections 3 and 3b was real work on the wrong
+file — it changes nothing the user can see from that URL. The lesson, applied
+late: **find the module the route actually loads before writing any code.**
+
+**The actual bug.** `atlas-map-v2.js` already clusters, via
+`dynamicClusterRadius()`. But the radius is expressed in **map-percent** while
+markers are drawn in **pixels** (`width:${diameter}px`, 18px base, ~50px for a
+big cluster). Those two units only agree at one specific viewport size and zoom
+level. At rest on the Midlands the radius came out at 1.798% — far smaller than
+a marker's own footprint — so the clusterer thought pins were comfortably apart
+while on screen they were drawn straight on top of each other.
+
+**The fix.** Derive the radius from the marker footprint, converting pixels to
+percent using `state.box` (the measured art size), and divide by zoom so groups
+unroll as the reader pushes in:
+
+```js
+const footprint = MARKER_FOOTPRINT_PX / Math.min(boxW, boxH) * 100 / zoom;
+const radius = footprint * crowd * clusterGrowth;   // clamped to [0.18, 8]
+```
+
+`crowd` gathers harder on very dense sheets; `clusterGrowth` allows for the
+fact that a gathered marker is drawn wider than the footprint that gathered it.
+Sheets of ≤60 pins keep the old bypass and stay fully unrolled.
+
+Measured by mounting the real atlas in jsdom at a 900×558 art box:
+
+| | Before | After |
+|---|---|---|
+| Markers drawn (205 POIs) | 205 | **65** |
+| Overlapping marker pairs | 130 | **2** |
+| Markers around Capital Province | 51 | **6** |
+| POIs still reachable | 205 | **205** |
+
+Radius by zoom: 8.00% at rest → 5.07% at 2× → 2.54% at 4× → 1.27% at 8×, so
+groups unroll smoothly as you zoom rather than snapping.
+
+**Guarded by a real test.** `test-map-lenses.mjs` now mounts `midlands_full`
+with a measured art box and asserts the sheet is *legible* — marker count,
+zero-ish overlap in screen pixels, a readable Capital Province, every POI still
+reachable, and sparse sheets left unrolled. Reverting the fix fails three of
+those checks, so this cannot silently regress again.
+
+---
+
 ## 4. Verification
 
 ```
 python3 tools/check-commentaries.py --strict     PASS (6 filed)
 node tools/tests/test-map-tiers.mjs              63 passed, 0 failed
+node tools/tests/test-map-lenses.mjs             45 passed, 0 failed
 python3 tools/check-all.py                       All requested checks passed.
 ```
+
+The `#/maps` fix is the one that changes what the user sees. The territory
+stacking in 3b applies to the separate `maps-view.html` desk and is kept
+because that desk had the same class of bug, but it was not the reported one.
 
 `map lenses` is a **pre-existing environment failure**, not a regression: it
 needs `jsdom`, which is not installed here. This was proved earlier in the

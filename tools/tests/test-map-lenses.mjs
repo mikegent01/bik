@@ -133,6 +133,74 @@ check('detail adds the culture line', side.includes('🏛️') && side.includes(
 const oakFaction = (MAP_DATA.lockerwood.pointsOfInterest.find(p => p.id === 'poi_lw_oakhaven') || {}).factionId;
 if (oakFaction) check('detail names the registry faction', host.querySelector('.atlas-v2-sidebar').textContent.includes((getFaction(oakFaction) || {}).name || oakFaction));
 
+/* ---------------- crowded-sheet legibility (regression) ----------------
+   The bug: cluster radius was measured in map-PERCENT while markers are drawn
+   in PIXELS, so the two only agreed at one viewport size. On the Midlands at
+   rest that left ~51 markers piled around the Capital Province and 130
+   overlapping pairs — a smudge, not a map. dynamicClusterRadius now derives
+   the radius from the marker footprint, so this asserts the sheet is actually
+   readable rather than that some code ran. */
+
+const ART_W = 900, ART_H = 558;
+const proto = dom.window.HTMLElement.prototype;
+const owned = (o, k) => Object.getOwnPropertyDescriptor(o, k);
+const savedW = owned(proto, 'clientWidth'), savedH = owned(proto, 'clientHeight');
+const savedRect = proto.getBoundingClientRect;
+Object.defineProperty(proto, 'clientWidth', { configurable: true, get() { return ART_W; } });
+Object.defineProperty(proto, 'clientHeight', { configurable: true, get() { return ART_H; } });
+proto.getBoundingClientRect = function () {
+  return { width: ART_W, height: ART_H, top: 0, left: 0, right: ART_W, bottom: ART_H, x: 0, y: 0 };
+};
+
+const denseHost = dom.window.document.createElement('div');
+dom.window.document.body.appendChild(denseHost);
+mountAtlasMapV2(denseHost, 'midlands_full', {});
+denseHost.querySelector('[data-map-art]').dispatchEvent(new dom.window.Event('load'));
+
+const denseMarkers = [...denseHost.querySelectorAll('.atlas-v2-marker')];
+const densePois = MAP_DATA.midlands_full.pointsOfInterest.filter(Boolean);
+
+const seenIds = new Set();
+denseMarkers.forEach(m => (m.dataset.ids || '').split(',').filter(Boolean).forEach(i => seenIds.add(i)));
+const uniquePoiIds = new Set(densePois.map(p => p.id));
+
+check('a crowded sheet gathers its pins',
+  denseMarkers.length > 0 && denseMarkers.length < uniquePoiIds.size * 0.6,
+  `${uniquePoiIds.size} pois -> ${denseMarkers.length} markers`);
+check('gathering reaches every filed pin',
+  seenIds.size === uniquePoiIds.size, `${seenIds.size} of ${uniquePoiIds.size} reachable`);
+
+/* Overlap measured the way the eye sees it: drawn diameters in screen px. */
+const placed = denseMarkers.map(m => ({
+  x: parseFloat(m.style.left), y: parseFloat(m.style.top), d: parseFloat(m.style.width) || 18,
+}));
+let touching = 0;
+for (let i = 0; i < placed.length; i++) {
+  for (let j = i + 1; j < placed.length; j++) {
+    const dx = (placed[i].x - placed[j].x) / 100 * ART_W;
+    const dy = (placed[i].y - placed[j].y) / 100 * ART_H;
+    if (Math.hypot(dx, dy) < (placed[i].d + placed[j].d) / 2 * 0.8) touching++;
+  }
+}
+check('a crowded sheet is not a pile of overlapping markers', touching <= 3, `${touching} overlapping pairs`);
+
+const nearCapital = placed.filter(p => Math.hypot(p.x - 81, p.y - 8) < 12).length;
+check('the Capital Province reads as a few markers, not a smudge',
+  nearCapital <= 10, `${nearCapital} markers within 12% of (81, 8)`);
+
+/* A sparse sheet must NOT be gathered — clustering there only hides detail. */
+const sparseHost = dom.window.document.createElement('div');
+dom.window.document.body.appendChild(sparseHost);
+mountAtlasMapV2(sparseHost, 'lockerwood', {});
+sparseHost.querySelector('[data-map-art]').dispatchEvent(new dom.window.Event('load'));
+const sparseCount = sparseHost.querySelectorAll('.atlas-v2-marker').length;
+const sparsePois = new Set(MAP_DATA.lockerwood.pointsOfInterest.filter(Boolean).map(p => p.id)).size;
+check('a sparse sheet is left unrolled', sparseCount === sparsePois, `${sparseCount} of ${sparsePois}`);
+
+if (savedW) Object.defineProperty(proto, 'clientWidth', savedW); else delete proto.clientWidth;
+if (savedH) Object.defineProperty(proto, 'clientHeight', savedH); else delete proto.clientHeight;
+proto.getBoundingClientRect = savedRect;
+
 errors.forEach(e => fail.push(e));
 console.log(`\n${ok.length} passed, ${fail.length} failed`);
 ok.forEach(l => console.log('  ok   ' + l));

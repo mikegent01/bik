@@ -123,13 +123,44 @@ function clusterPois(pois, radius = 1.15, opts = {}) {
   return clusters;
 }
 
-function dynamicClusterRadius(count, scale, plane, journeyOnly, densityMode) {
+/* A marker is drawn in PIXELS (18px base, up to ~50px for a big cluster) but
+   the cluster radius is measured in map-PERCENT. Those two only agree at one
+   particular viewport size and zoom, which is why dense sheets still drew a
+   pile: on the Midlands at rest the old radius left 29 markers stacked around
+   the Capital Province with 86 overlapping pairs.
+   So the radius is derived from the marker footprint instead. boxW/boxH are
+   the rendered art size in CSS px; dividing the footprint by them converts a
+   pixel gap into the percent gap the clusterer actually uses, and dividing by
+   the zoom lets groups unroll as the reader pushes in. */
+const MARKER_FOOTPRINT_PX = 34;
+
+function dynamicClusterRadius(count, scale, plane, journeyOnly, densityMode, box) {
+  /* A sparse sheet is legible as-is; gathering there only hides detail. */
   if (journeyOnly || densityMode === 'all' || count <= 60) return plane ? 0.18 : 0.05;
   if (densityMode === 'key') return 0.05;
-  const pressure = Math.min(1, Math.max(0, (count - 60) / 520));
-  const base = 0.9 + pressure * 3.2;
+
   const zoom = Math.max(0.35, Number(scale) || 1);
-  return Math.max(0.18, base / Math.pow(zoom, 1.12));
+  const boxW = Math.max(1, Number(box && box.w) || 900);
+  const boxH = Math.max(1, Number(box && box.h) || boxW * 0.62);
+
+  /* Percent-of-sheet occupied by one marker, on the tighter axis, at this
+     zoom. Two markers closer than this cannot both be read. */
+  const footprint = MARKER_FOOTPRINT_PX / Math.min(boxW, boxH) * 100 / zoom;
+
+  /* Crowding still matters: a sheet with 500 pins needs to gather harder than
+     the footprint alone demands, or the reader gets a uniform carpet. */
+  const pressure = Math.min(1, Math.max(0, (count - 60) / 520));
+  const crowd = 1 + pressure * 1.35;
+
+  /* A cluster marker grows with its membership (up to ~50px vs the 18px base),
+     so the gathered group is drawn WIDER than the footprint that gathered it.
+     Allow for that or the biggest groups still touch their neighbours. */
+  const clusterGrowth = 1 + Math.min(0.55, pressure * 0.75);
+
+  const radius = footprint * crowd * clusterGrowth;
+  /* Ceiling keeps a dense sheet from collapsing into a handful of blobs;
+     floor keeps a sparse one from gathering at all. */
+  return Math.max(0.18, Math.min(radius, 8));
 }
 
 const PIN_DENSITY_ORDER = ['smart', 'key', 'all'];
@@ -730,7 +761,7 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
     if (!displayPois.length && unfilteredMatches) displayPois = pois.filter(matches).slice(0, 1);
     currentVisiblePois = displayPois.slice();
     const min = values.length ? Math.min(...values) : 0;
-    const radius = dynamicClusterRadius(displayPois.length, state.scale, plane, journeyOnly, state.pinDensity);
+    const radius = dynamicClusterRadius(displayPois.length, state.scale, plane, journeyOnly, state.pinDensity, state.box);
     const clusterOpts = {
       maxSize: state.pinDensity === 'smart' ? Math.max(18, Math.ceil(displayPois.length / 12)) : 4,
       score: p => (lensVal(p) * 2) + defaultPinScore(p) + (isKeyPin(p) ? 999 : 0),
