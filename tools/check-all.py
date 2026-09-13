@@ -68,6 +68,9 @@ def main() -> int:
         # authority on what is at that coordinate. This caught the whole
         # Raventree Manor district floating in Aona's Scorn.
         ("POI placement", [py, "tools/check-poi-placement.py", "--check"], ROOT),
+        # The VHS-tape session: event + line-by-line analysis + commentary all
+        # come out of one generator, so none of them can drift from the others.
+        ("tape session", [py, "tools/build-tape-and-files-session.py", "--check"], ROOT),
     ]
 
     if shutil.which("node"):

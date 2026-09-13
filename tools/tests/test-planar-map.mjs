@@ -169,7 +169,13 @@ ok(surveyPar.has('undertale_monsters') && surveyPar.has('iron_legion'), 'party l
 const dis = api.buildJourney('midlands_full', 'all', DATA, MAP_DATA, { party: 'disaster_inc' });
 ok(dis.stops.length === 44 && dis.stops.length < j.stops.length, `disaster inc owns a real midlands trail (${dis.stops.length} stops)`);
 const disIds = [...dis.stops, ...dis.unpinned, ...dis.unresolved].map(x => x.eventId);
-ok(disIds.length === 76 && new Set(disIds).size === 76, 'a filtered journey still buckets every party event exactly once');
+/* The point of this check is the PARTITION, not the total: every event the
+   party touches lands in exactly one of the three buckets, none twice, none
+   dropped. Hardcoding 76 made it a tripwire that fires whenever a session is
+   filed, which is a false alarm about new canon rather than a real defect. */
+const disTouched = EVENTS.filter(e => api.mapsEventParties(e, pIndex).has('disaster_inc')).length;
+ok(disIds.length === disTouched && new Set(disIds).size === disIds.length,
+  `a filtered journey still buckets every party event exactly once (${disIds.length} of ${disTouched})`);
 ok(dis.stops.every((s, i) => s.n === i + 1), 'filtered stops renumber 1..N in display order');
 const pea = api.buildJourney('midlands_full', 'all', DATA, MAP_DATA, { party: 'peach_loyalists' });
 ok(pea.stops.length === 0 && pea.unpinned.length + pea.unresolved.length === 3, 'a party with no midlands stops degrades to the unplotted list, honestly');

@@ -15586,5 +15586,176 @@
     ],
     "image": "assets/images/events/ambush-in-the-doorway/amb-01-drag-him-out.jpg",
     "imageCaption": "The doorway, resolved. Waluigi braced across the frame refusing to leave, Hjumpik with both hands on the sleeve hauling him out, Toad Lee looking back at a treant at full height with a second one already budding beside it. The whole session is in this grip."
+  },
+  {
+    "id": "the_tape_and_the_wario_files",
+    "name": "The Tape and the Wario Files",
+    "title": "The Tape and the Wario Files: Two Days in a Dark Room, a Notebook Read Aloud, and the Perspective of Greed",
+    "date": "20 Harvestide, 1035 BF - two days after the Star Hill clinic delivery",
+    "timeCode": "TC:1035-08-20/MAT",
+    "era": "The Search for Mario / Post-Compound Fallout / The Garden Above the Fire",
+    "location": "Waluigi's room and the adjoining kitchen, WarioWare company housing",
+    "type": "Downtime / Evidence Review / Character Session",
+    "status": "Filed",
+    "summary": "Two days after Luigi was carried into Dr. Toad's Star Hill clinic, Waluigi did not leave his room. He sat in front of a VHS tape of the brothers' hallway argument and played it on loop - six times by the count in this filing, more by his own - with the curtains drawn and the sound low. Wario came in without knocking, ostensibly about a company meeting in the morning, and stayed for two days instead.\n\nWhat that visit produced, in order: a notebook read aloud that turned out to contain poetry rather than scribbles; a glass of water and some garlic clippings offered as research; a search of the room that turned up never-sent letters and newspaper clippings with one name circled; and a single gold coin taped under a sticky note, drawn on the Star Festival fund, left on Waluigi's bed the year he won nothing.\n\nThe coin pulled the Mario Kart Massacre back up, and with it Wario's account of the phone calls he made to get out of it - the recordings the media later called the Wario Files. Then Wario, who had been told he learned nothing from the tapes, said what he had actually learned, and reframed the courier's note. 'The garden above the fire.' 'The star is not lost.' Read from the perspective of greed rather than heroism, the note stops describing a rescue and starts describing a hiding place. The star is not lost because it was taken. It is lost because somebody kept it.",
+    "description": "A downtime filing with no combat in it, filed at full length because the arc turns here. The previous session ended with Luigi alive, Mario absent, and a note nobody could read: 'The star is not lost. Find the garden above the fire.' This session does not find Mario. It changes what the sentence means, which is worth more.\n\nIt also puts a primary source in the archive for the first time. The brothers' hallway argument has existed in these files only as the recalled testimony of a blue-painted impostor who was not in the room and had every reason to shade it. There is now a tape. The line-by-line reading of that tape is filed separately as an article analysis, because it deserves the room.",
+    "sections": [
+      {
+        "name": "I. Six Rewinds",
+        "icon": "\ud83d\udcfc",
+        "subtitle": "a man, a chair, and the same ninety seconds",
+        "overview": "The room had been dark for two days. Curtains drawn tight enough that nobody outside could tell whether the light was on. Coffee cups stacked on the nightstand in a column that had stopped being about coffee. The television on, the sound low, the tape running.\n\n[Waluigi](https://mikegent01.github.io/bik/index.html#/article/waluigi) sat in the chair with his knees pulled up and his arms around them, cap tilted sideways, eyes dry and open. The tape had played three times. Maybe four. He had lost count, which is the detail that matters: this is an archivist, and archivists count things. He had stopped counting.\n\nThe screen cut to black. He stared at the dead screen for a full minute. Then he reached over and hit rewind, and [Luigi](https://mikegent01.github.io/bik/index.html#/article/luigi)'s voice filled the room again like a ghost with a grudge.\n\n*\"You thought that Koopa worked alone...\"*\n\nThat is the opening line of the tape, and it is also the line Luigi threw at Waluigi on the lava bridge. The archive has had that sentence in it for two filings. This is the first time anyone has heard who said it first.",
+        "waluigi_note": "*I am not going to pretend to be objective about this section.* I was in the chair. I know what the room smelled like. Stale coffee and regret, and I am filing that phrase because it is accurate and because if I do not write it down somebody else will write something kinder and the record will be wrong.\n\nSix rewinds. Wario says six. I would have said four. **He was counting and I was not, and that is the entire difference between us this week.**"
+      },
+      {
+        "name": "II. The Door Opens Without Knocking",
+        "icon": "\ud83d\udeaa",
+        "subtitle": "\"you alright, its pretty late\"",
+        "overview": "[Wario](https://mikegent01.github.io/bik/index.html#/article/wario) does not knock. He came in and said there was a company meeting in the morning, which is the kind of thing a person says when they have come for another reason and want a door out of the conversation.\n\n*\"Go away.\"*\n\n*\"I said I'm fine.\"*\n\nHe did not go away. He picked up the notebook off the desk, read the title, and started flipping. Waluigi came out of the chair fast enough to nearly tip it - and then stopped mid-lunge, hand out, because Wario had paused. Flipped back two pages. Forward again. The expression on him had gone from amusement to something quieter.\n\n*\"...The hell is this?\"*\n\nHe read a line of it out loud. *\"The stars don't shine without the dark. And I don't shine without-\"* and then he stopped and asked *without what*, and got told to give it back, and did not.\n\nThen he tossed it onto a pile of similar books in the corner and asked if it was a diary, which is the single most Wario way to handle another man's poetry.",
+        "waluigi_note": "It is NOT a diary. It is a **working notebook**. There is a difference and the difference is that a diary is for feelings and a notebook is for *evidence*, and the fact that some of the evidence rhymes is nobody's business.\n\nHe said he would not share it. I am choosing, for reasons I decline to examine, to believe him."
+      },
+      {
+        "name": "III. Water and Garlic",
+        "icon": "\ud83d\udca7",
+        "subtitle": "the worst research in the archive, offered sincerely",
+        "overview": "The intervention, such as it was, was not a speech. It was: *you gotta talk to someone eventually*, and *you've been locked in here for two days*, and - the part that actually landed - *even I think that's messed up, and I lock myself in rooms too*.\n\nThen he yelled at an empty hallway to clear the room, discovered [Mona](https://mikegent01.github.io/bik/index.html#/article/mona) had already left, and scratched the back of his head.\n\n*\"Luigi's gonna be okay.\"* Not a joke. Not a provocation. Stated like a fact, by a man who does not state comforting things.\n\nIn the kitchen he put the kettle on and produced garlic clippings, explaining that he had been doing his own research and that garlic is supposed to be good for stress. Also that it keeps vampires away, and that if he was going to help with this he might as well keep the creepy stuff at bay.\n\nWaluigi drank the water. The notebook went on the counter between them like a truce flag, with one condition attached: *don't read any more of it.*",
+        "waluigi_note": "For the record the garlic research is **worthless**. Garlic does nothing for stress. It does nothing for vampires either, and I say that as somebody who has been inside [Raventree Manor](https://mikegent01.github.io/bik/index.html#/article/raventree_manor) and watched what actually works.\n\nHe looked it up though. That is the part I cannot get around. **He went and looked something up, badly, on purpose, for me.**"
+      },
+      {
+        "name": "IV. The Room, Searched",
+        "icon": "\ud83d\udd0d",
+        "subtitle": "clippings, letters, and one name circled",
+        "overview": "Wario came back into the room later and went over it properly, the way he goes over a vault.\n\nWhat was on the walls: newspaper clippings, old tournament results from the Mushroom Kingdom, each one circled where Waluigi's name appeared. What was on the desk: a half-eaten plate of spaghetti and a stack of handwritten letters, crumpled, none of them sent.\n\nHe unfolded one. *\"I know you probably don't care about any of this but I had to say something before I lost my mind.\"*\n\nHe put it back exactly where he found it. That is filed deliberately - *exactly where he found it* - because it is out of character and because it is the second time in two days he handled something of Waluigi's more carefully than he handles gold.\n\nThen he backed toward the door, got caught, turned around, and said *\"Your handwriting's terrible,\"* and dropped the letter like it had burned him.",
+        "waluigi_note": "My handwriting is **fine**.\n\nThe letters are not addressed to anybody. That is not a coincidence and I am not going to explain it in a public filing."
+      },
+      {
+        "name": "V. The Coin",
+        "icon": "\ud83e\ude99",
+        "subtitle": "Star Festival fund, no note, left on a bed",
+        "overview": "Taped under the corner of a sticky note on the notepad: a single gold coin. Wario found it because Wario finds coins.\n\nWaluigi took it off him and flipped it over and went pale, because the coin is drawn on the **Star Festival fund** - and that is a real fund with real accounting attached to it, not a keepsake.\n\nThe story came out slowly, sitting on the edge of the bed, the coin rolling between his fingers:\n\n> It was after the tournament. Everyone won something. Mario had his trophy. Luigi had his trophy. Waluigi did not win anything that year. And afterward somebody left this on his bed. No note. Just the coin.\n\nWario, trying to be helpful, called it a participation trophy. That went about as well as it deserved to.\n\n*\"Someone went out of their way to-\"* and then he stopped himself, and swallowed, and said it did not matter.\n\nHe also said, earlier and more quietly, the thing this section is actually filed for: **\"It was the last time things made sense.\"**",
+        "waluigi_note": "The coin is evidence. I want that established in the record because the moment it becomes sentiment it stops being useful.\n\n**Somebody with access to the Star Festival fund knew I had won nothing and knew which bed was mine.** That is a very short list of people. I have had this coin for years and I have never once written that sentence down. It is written down now."
+      },
+      {
+        "name": "VI. The Wario Files",
+        "icon": "\u260e\ufe0f",
+        "subtitle": "the Mario Kart Massacre, the faked death, and the phone calls",
+        "overview": "The coin pulled the Mario Kart Massacre up with it, and Wario's own history with it: he had to fake his own death to get clear, and he had to pull strings to manage that.\n\nThe recordings the media later called the Wario Files are a matter of public record and this filing will not reproduce them in full. The load-bearing facts for this archive's purposes:\n\n- A televised Mario Kart broadcast became a mass-casualty event on the eleventh of September, two years before the trial.\n- President Wario, drunk and driving, called his daughter first - before authorities, before medics - to arrange the aftermath.\n- The plan was a faked death: the comatose angle, then waking while the medics were distracted, then out through the ambulance.\n- His daughter, who controlled the network the massacre was airing on, spent the rest of that day making calls: a lawyer to stall the press, a contract killer for four named targets, and a supplier.\n- The cover story - President Wario dead by his own hand, in terror of facing justice - was accepted by the kingdom without a serious question.\n- At trial she interrupted the court to insist, on the record, that her father was not dead. Then the judge was shot.\n\n*\"Seems like her coverup worked,\"* Wario said, and laughed.\n\n*\"Yeah, real comedy genius over there.\"*",
+        "waluigi_note": "Two things and then I will leave this alone.\n\n**One.** The whole kingdom just *accepted* it. A president dies conveniently, on the day of a televised massacre, and nobody pulls the thread. I have spent my career being told I am paranoid by people who swallowed that whole.\n\n**Two.** He laughed. I want to be angry about that and I cannot entirely manage it, because I have listened to the tape in my own room six times and laughing is one of the two available options."
+      },
+      {
+        "name": "VII. The Perspective of Greed",
+        "icon": "\ud83d\udcb0",
+        "subtitle": "what Wario actually learned, and what it does to the note",
+        "overview": "Waluigi told Wario he had learned nothing from the tapes. Wario smiled and said that Luigi was still in hospital, that Waluigi had locked himself in a room, and that *he* had learned something.\n\nThen he explained it, and the room changed.\n\nThe courier's note has been read in this archive as a rescue instruction since the day it was recovered: *The star is not lost. Find the garden above the fire.* A heroic sentence. Mario, hiding to protect something, leaving a trail for someone to follow.\n\nWario's reading: **run it as greed instead.**\n\nUnder that reading the sentence inverts. *The star is not lost* stops being reassurance and becomes an inventory note. The star is not lost because it was stolen or destroyed or hidden by an enemy. It is not lost because somebody still **has** it. And if Mario went east after the fountain, and has stayed gone this long, then *the garden above the fire* is not a description of where he was taken.\n\nIt is a description of where he is keeping it.\n\n*\"Greed. Of course that's your angle.\"* But Waluigi did not look away, and he had the pencil out, and he was running the numbers.\n\n*\"And make it good - I'm not chasing another wild Wario theory across a lava field.\"*",
+        "waluigi_note": "I believe him.\n\nI have written that sentence three times tonight and deleted it twice. **For once in my miserable life I believe someone who isn't me,** and that should frighten me considerably more than it does.\n\nHere is the part I keep circling. If the note is a hiding place and not a rescue, then everything downstream of it is wrong - the search pattern, the assumption that Mario is a victim in this, the reason we have been reading the fountain as an ambush site instead of a *departure* point. How many people have died because nobody asked the right question until a disgraced dead man in a basement pointed his finger and laughed?\n\nI hate that it makes sense."
+      }
+    ],
+    "participants": [
+      {
+        "id": "waluigi",
+        "name": "Waluigi",
+        "role": "Field Archivist / Six Rewinds / Owner of the Coin and the Notebook"
+      },
+      {
+        "id": "wario",
+        "name": "Wario",
+        "role": "Uninvited Visitor / Reader of Poetry / Author of the Greed Reading"
+      },
+      {
+        "id": "mona",
+        "name": "Mona",
+        "role": "Watched From the Doorway and Left Without Being Asked Twice"
+      },
+      {
+        "id": "ashley",
+        "name": "Ashley",
+        "role": "Present for the Notebook, Silent Throughout"
+      },
+      {
+        "id": "luigi",
+        "name": "Luigi",
+        "role": "On the Tape / In the Clinic / Absent From the Room"
+      },
+      {
+        "id": "mario",
+        "name": "Mario",
+        "role": "On the Tape / Still Missing / Subject of the Greed Reading"
+      }
+    ],
+    "outcome": "No combat, no travel, no recovery of a person or an object. What changed is the reading of the courier's note, and the reading is the whole arc.\n\nFiled as settled: the brothers' hallway argument now has a primary source in the archive - a VHS tape - where before it had only the recalled testimony of a blue-painted impostor who was not present. The line-by-line reading is filed separately.\n\nFiled as open: the identity of whoever left a Star Festival coin on Waluigi's bed the year he won nothing. The current location of the garden above the fire. Whether Mario went east to hide rather than to save, and what he is keeping there.\n\nAlso filed, because it is true and because nobody else will write it down: Waluigi came out of the room. Not because he was argued out of it. Because somebody brought him a glass of water and would not leave.",
+    "notableFeatures": [
+      "\"You thought that Koopa worked alone...\" - the tape's first line, and the line Luigi threw on the lava bridge",
+      "Six rewinds - Wario counted, Waluigi had stopped counting",
+      "\"The stars don't shine without the dark. And I don't shine without-\" - the notebook, read aloud, unfinished",
+      "Garlic clippings offered as stress research, and as vampire deterrent, sincerely",
+      "Newspaper clippings with Waluigi's name circled; a stack of letters addressed to nobody",
+      "A gold coin from the Star Festival fund, left on a bed with no note, the year he won nothing",
+      "\"It was the last time things made sense.\"",
+      "The Wario Files - a faked death, four contract targets, and a kingdom that asked no questions",
+      "\"We need to look at this from a perspective of greed\" - the reframing the arc turns on",
+      "The star is not lost because somebody kept it"
+    ],
+    "keyBattles": [],
+    "relatedArticles": [
+      "the_garden_above_the_fire",
+      "the_lava_bridge_ambush_and_the_blue_luigi",
+      "the_belly_of_the_beast",
+      "waluigi",
+      "wario",
+      "luigi",
+      "mario",
+      "mona",
+      "ashley"
+    ],
+    "aftermath": "Waluigi left the room. The company meeting in the morning went ahead and is not recorded here because nothing happened at it worth filing.\n\nThe tape stays in Waluigi's possession and is now logged as an exhibit rather than a personal effect, which means it can be cited and has to be produced on request. The notebook is not logged, by agreement.\n\nThe search for Mario continues on a changed premise. Every previous sweep assumed a man who had been taken or who was hiding to protect somebody. The greed reading assumes a man who left with something and does not intend to give it back. Those two searches do not look in the same places.",
+    "waluigiAssessment": "**1. I lost two days and I am not going to pretend otherwise.** The tape does not change when you watch it again. I knew that by the third rewind and I did it three more times, and the only honest reason is that while the tape is running the argument is not over yet.\n\n**2. Wario did the single most competent thing anybody has done in this arc, and he did it with garlic.** He did not talk me out of the room. He brought water, stood in the doorway being annoying, refused to leave, and waited. I have been on the other side of a dozen interventions run by professionals and not one of them worked. This one worked because it did not announce itself.\n\n**3. The coin is the oldest open case in my own files and I have never once worked it.** Someone with access to the Star Festival fund knew I had won nothing and knew which bed was mine. I have had years to pull that thread. I have never pulled it, because I preferred the version where it meant something to the version where it turns out to be an accounting error. That is not archival practice. That is cowardice with a filing system.\n\n**4. The greed reading is correct and I resent it.** For two filings this note has been a rescue instruction, because we read it as people who wanted Mario to be worth rescuing. Wario read it as a man who wanted to know where the valuable thing was, and got a cleaner answer in one evening than the rest of us managed in a month. *The star is not lost* is not comfort. It is an inventory line.\n\n**5. Luigi is still burning in a hospital bed.** I have spent this filing on a coin, a notebook and a tape, and the whole time there has been a man in Star Hill with burns down one side who asked, at the end of the last session, whether we are still superstars. I do not have an answer. I am filing the question again so that it stays open and so that nobody gets to quietly stop asking it.",
+    "xpAwards": [
+      {
+        "xpKey": "wario",
+        "articleId": "wario",
+        "name": "Wario",
+        "cat": "social",
+        "xp": 340,
+        "title": "Event - The Tape and the Wario Files",
+        "desc": "Walked into a two-day depressive lock-in without a plan, refused to leave, and got a man out of a dark room with a glass of water and some badly-researched garlic.",
+        "date": "20 Harvestide, 1035 BF - two days after the Star Hill clinic delivery",
+        "dateSort": 10350820
+      },
+      {
+        "xpKey": "wario",
+        "articleId": "wario",
+        "name": "Wario",
+        "cat": "exploration",
+        "xp": 420,
+        "title": "Event - The Tape and the Wario Files",
+        "desc": "Reframed the courier's note from a rescue instruction to a hiding place by reading it as greed, changing the entire search premise for Mario in a single evening.",
+        "date": "20 Harvestide, 1035 BF - two days after the Star Hill clinic delivery",
+        "dateSort": 10350820
+      },
+      {
+        "xpKey": "waluigi",
+        "articleId": "waluigi",
+        "name": "Waluigi",
+        "cat": "social",
+        "xp": 280,
+        "title": "Event - The Tape and the Wario Files",
+        "desc": "Let somebody read the notebook, drank the water, said thanks, and came out of the room - then filed the coin as an open case instead of a keepsake.",
+        "date": "20 Harvestide, 1035 BF - two days after the Star Hill clinic delivery",
+        "dateSort": 10350820
+      },
+      {
+        "xpKey": "waluigi",
+        "articleId": "waluigi",
+        "name": "Waluigi",
+        "cat": "exploration",
+        "xp": 300,
+        "title": "Event - The Tape and the Wario Files",
+        "desc": "Secured the first primary source for the brothers' hallway argument and logged it as a citable exhibit rather than a personal effect.",
+        "date": "20 Harvestide, 1035 BF - two days after the Star Hill clinic delivery",
+        "dateSort": 10350820
+      }
+    ],
+    "image": "assets/images/events/the-tape-and-the-files/tape-01-midnight-rewind.jpg",
+    "imageCaption": "Midnight, second day, sixth rewind. The curtains have not been opened since the clinic. The coffee cups on the nightstand stopped being about coffee some time yesterday, and the only light in the room is a dead man's argument playing back at low volume."
   }
 ]

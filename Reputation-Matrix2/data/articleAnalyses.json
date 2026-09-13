@@ -1165,6 +1165,113 @@
           }
         ]
       }
+    },
+    {
+      "id": "the_brothers_argument_line_by_line",
+      "sourceArticle": "the_tape_and_the_wario_files",
+      "title": "The Brothers' Argument, Line by Line",
+      "kicker": "Waluigi's Article Analysis",
+      "subtitle": "A primary source at last - and read one line at a time, the fight is not about Mario at all",
+      "archivist": "Waluigi, Auditor-General",
+      "filed": "20 Harvestide, 1035 BF - two days after the Star Hill clinic delivery - filed from the chair, before I left the room",
+      "summary": "The archive has carried this argument for two filings on the word of a blue-painted impostor who was not in the room. There is now a tape. Read line by line it is not a fight about betrayal, or about Koopa, or even about Peach - it is a fight about being SEEN, and Mario loses it because he keeps answering the wrong question.",
+      "thesis": "Every previous reading of this argument - mine included - treated it as a corruption story. Koopa got to Luigi, Luigi turned, Mario tried to reach him. That reading is comfortable and it is wrong, and the tape proves it wrong in the first exchange.\n\nLuigi opens with *you thought that Koopa worked alone*. That is not a confession of being corrupted. It is a boast about having been UNDERESTIMATED - and it is addressed to a brother who, by Luigi's account, has spent a lifetime doing exactly that. Read the whole tape with that as the subject and every line lands differently. Luigi never once asks Mario to atone for a crime. He asks, in nine different ways, to be *acknowledged*. And Mario - who is not a cruel man and is trying his whole heart here - answers every single one of them with the bond instead of the grievance. *You're my brother. We're family. It's-a we.*\n\nMario is defending the relationship. Luigi is prosecuting its terms. They are not having the same argument, and that - not Koopa, not Peach, not the Cape Feather at the end - is why it ends where it ends.",
+      "sections": [
+        {
+          "id": "opening",
+          "icon": "\ud83c\udfac",
+          "heading": "The First Line Is a Boast, Not a Confession",
+          "sourceAnchor": "Luigi: You thought that Koopa worked alone...",
+          "body": "Start here, because everything is in it.\n\nIf Luigi were a corrupted man - enchanted, coerced, turned - the first line of a confrontation would be about the corruption. It is not. It is *you thought*. The sentence is aimed at Mario's **assumption**, and the pleasure in it is the pleasure of having been wrongly assessed.\n\nMario's reply confirms he has not understood: *Luigi what do you mean by that? I've a fought too much and you stand against me.* He hears an accusation of treachery and answers the treachery. He will do this for the entire tape.\n\nThen he plays the only card he has: *Your my brother. That's not something that'll go away.* Twelve seconds in, and Mario has already reached for the bond. He will reach for it eleven more times. It never works once."
+        },
+        {
+          "id": "cast-away",
+          "icon": "\u2696\ufe0f",
+          "heading": "\"What's a Brother If He's Only in the Way\"",
+          "sourceAnchor": "Luigi: Standing my ground here all of the days That I was cast away / What's a brother if he's Only in the way!",
+          "body": "This is the thesis of Luigi's case and it is phrased as a question about **definitions**, not about loyalty.\n\nMario has just argued that brotherhood is permanent - that it will not go away. Luigi does not deny it. He asks what the word is *worth* if the person holding it is only ever an obstacle. That is a lawyer's move. It concedes the premise and attacks the value.\n\n*All of the days that I was cast away.* Note the tense. Not *the day you betrayed me* - **days**, plural, continuous, an accumulation rather than an event. There is no inciting incident in Luigi's case because Luigi's case is not about an incident. It is about a pattern, and you cannot apologise your way out of a pattern, which is why Mario's apologies keep sliding off.\n\nMario answers: *This-a can't-a be the heroic ending you've dreamed of.* Wrong again. He is still arguing about the ENDING. Luigi is arguing about the whole middle."
+        },
+        {
+          "id": "damsel",
+          "icon": "\ud83d\udc51",
+          "heading": "The Damsel Line - and Why It Is a Feint",
+          "sourceAnchor": "Luigi: You've stolen All that I've dreamed of and just for-a Clueless damsel!",
+          "body": "It would be very easy to file this as the motive. Jealousy over [Peach](https://mikegent01.github.io/bik/index.html#/article/princess_peach). Clean, ugly, human.\n\nI do not think it is the motive, and the tape tells you so itself two stanzas later when Luigi says - unprompted, defensively, about nothing anybody accused him of - **\"I'm overzealous, I'm-a not-a jealous!\"**\n\nNobody says *I'm not jealous* unless the word has already landed somewhere. He is answering a charge that was not made out loud, which means he made it to himself first. The damsel line is not his reason. It is the most *sayable* version of his reason - the grievance he can shout without admitting the smaller and more humiliating one underneath it, which is in the very next breath:\n\n*I've given my life to a zero, and that's true.*\n\nThat is the actual injury. Not that Mario took the girl. That Luigi measured himself and got nothing back. The damsel is a decoy, and I recognise the technique because I have used it."
+        },
+        {
+          "id": "silhouette",
+          "icon": "\ud83d\udd76\ufe0f",
+          "heading": "The Silhouette Passage - Someone Was Watching",
+          "sourceAnchor": "[only silhouettes of both of them, a shadow of Peach watches from beyond a window]",
+          "body": "The tape does something here that a security recording does not do: it goes **stylised**. The figures drop to silhouette. The argument softens into something almost sung - *\"Luigi and Mario. What a major duo.\"* *\"You know that's true. Just me and you.\"* - and then snaps back.\n\nTwo observations and I am flagging both as unresolved.\n\n**One: this footage has been edited.** Silhouette is a choice. Somebody cut this. That means the tape in my possession is not a raw security capture and I should stop treating it as one, and it means there is a person whose editorial judgement sits between me and the event.\n\n**Two: there is a third party at the window.** A shadow of Peach, watching from outside, present for the softest thirty seconds of the argument and gone by the time the shouting resumes. The stage direction says the shadow is gone when the image fades back in.\n\nI am not going to speculate past the frame. I am going to file, in writing, that **somebody outside that hallway saw the whole thing and has never been asked about it.**",
+          "image": "assets/images/events/the-tape-and-the-files/tape-03-the-argument.jpg",
+          "imageCaption": "The silhouette passage, lifted from the tape. Two brothers reduced to outlines by an editorial choice somebody made after the fact - and, through the window behind them, the watcher this archive has never interviewed."
+        },
+        {
+          "id": "no-longer",
+          "icon": "\ud83d\udc94",
+          "heading": "\"You Are NO LONGER MY BROTHER\" - the Hinge",
+          "sourceAnchor": "Mario: BECAUSE YOUR MY BROTHER / Luigi: you are NO LONGER MY BROTHER!",
+          "body": "Here is the exchange the entire tape is built to reach, and the two lines are deliberately the same shape.\n\nMario: *Memories shared. The duo not impaired. Showing that I cared - BECAUSE YOUR MY BROTHER.*\n\nLuigi: *Sparked inside me was the pain you seldom. And now you plea? You are NO LONGER MY BROTHER.*\n\nMario uses the bond as a REASON - *because*. Luigi revokes it as a STATUS - *no longer*. And the revocation is the only move available to him, because for the entire argument Mario has been holding the bond up as the thing that settles every question. The only way to win against a man whose whole defence is *we are brothers* is to stop being one.\n\nMario's response is the most telling line he speaks all night: *This is trickery! You would never be fooled by that Koopa fiend.*\n\nHe cannot accept it. In the same breath that his brother disowns him, Mario reaches for the explanation in which Luigi is not responsible - enchanted, deceived, got at. It is generous. It is loving. And it is the **exact** thing Luigi has been screaming about for four minutes: Mario will not credit him with his own actions. Even his villainy has to belong to somebody else.\n\n*Who are you to tell me YOUR TRUTH.*"
+        },
+        {
+          "id": "superstars",
+          "icon": "\u2b50",
+          "heading": "The One Moment They Are Saying the Same Words",
+          "sourceAnchor": "Both: Are we-a still superstars? / Even in the face of whats been torn asunder",
+          "body": "For exactly two lines, the overlapping stops and they speak in unison.\n\n*Are we-a still superstars? Even in the face of what's been torn asunder.*\n\nThen it immediately splits again, and the split is the whole tragedy in miniature:\n\n> Luigi: *I've-a gone and lost the faith*\n> Mario: *Am I gonna lose the faith*\n\n**Past tense against future tense.** Luigi is reporting something already finished. Mario is asking about something he thinks he can still prevent. They are standing in the same hallway at two different points in time, and Mario does not know it.\n\nI want to note - because this filing is read by people who were on the lava bridge - that *are we still superstars* is the question [Luigi](https://mikegent01.github.io/bik/index.html#/article/luigi) asked at the end of the clinic run, delirious, with burns down one side. He was not quoting himself. **He was still in this hallway.**"
+        },
+        {
+          "id": "cape",
+          "icon": "\ud83e\udeb6",
+          "heading": "The Feed Cuts Out on a Cape Feather",
+          "sourceAnchor": "[Mario is shown with a Cape Feather, a sound is heard, the feed cuts out]",
+          "body": "Luigi: *DEATH.* Mario: *FATE.* Same beat, different word, and then Mario is holding a Cape Feather and the recording ends on a sound.\n\nThree things I can say and one I cannot.\n\n**The Cape Feather is a mobility item.** It is not a weapon. At the precise moment the argument reaches a lethal register, Mario reaches for the thing that lets him *leave*. That is consistent with a man who spent the entire tape refusing to fight his brother.\n\n**It is also consistent with the greed reading.** Wario's reframing of the courier's note says Mario went east to keep something rather than to save somebody. A man who ends an argument by producing the means of flight, and who is then missing for a month, fits that reading uncomfortably well. I am filing the discomfort rather than resolving it.\n\n**The feed cuts on a SOUND, not on the sound of a fight.** Whatever ended the recording is a single event, and it arrives after the feather is already in shot.\n\nWhat I cannot say is who stopped the tape. Somebody edited this footage into silhouette for one passage. That same somebody chose where it ends. **I do not have the last thirty seconds of the most important argument in this arc, and I am not sure that is an accident.**"
+        }
+      ],
+      "verdict": "My verdict is that this is not a corruption story and we should stop filing it as one.\n\nLuigi is not a good man who was got at. He is a man with a real and long-standing grievance - that he was never credited, never seen, never counted - who has chosen an unforgivable way to force the issue. Koopa did not install that grievance. Koopa found it already there and gave it somewhere to go. Mario's insistence otherwise, right to the last line, is the most loving and the most damaging thing he does all night, because it is one more refusal to grant his brother authorship of his own life.\n\nTwo items go to the open file. There is a witness at the window who has never been interviewed. And there is an editor - somebody cut this tape, chose the silhouette passage, and chose the ending - who is currently the single most important unidentified person in this investigation.\n\nI have watched this six times. It does not change. That is not the same as it being finished.",
+      "relatedArticles": [
+        "the_tape_and_the_wario_files",
+        "the_garden_above_the_fire",
+        "the_lava_bridge_ambush_and_the_blue_luigi",
+        "luigi",
+        "mario",
+        "waluigi",
+        "princess_peach"
+      ],
+      "researchDesk": {
+        "title": "Waluigi's After-Hours Research Desk",
+        "intro": "The verdict is filed. These three checks pull at the parts of the tape I cannot close from the chair. A breakthrough sharpens the reading; a dead end gets filed as an honest limit, because a limit written down is worth more than a guess dressed up.",
+        "rolls": [
+          {
+            "id": "the-editor",
+            "icon": "\u2702\ufe0f",
+            "title": "Find the hand that cut the tape",
+            "dc": 4,
+            "prompt": "The silhouette passage is an editorial choice and so is the ending. Work the physical tape - splice marks, generation loss, duplication artefacts - and ask who had it before I did.",
+            "success": "Breakthrough: the silhouette passage sits a generation cleaner than the footage on either side of it, which means it was not filmed that way - it was composited in later from a second source. Somebody had two recordings of this argument and built one tape out of them.",
+            "failure": "Dead end, filed honestly: the tape is a copy of a copy and the wear is even enough that I cannot separate an edit from a dropout. I cannot prove the cut. I can only prove that I cannot prove it."
+          },
+          {
+            "id": "the-window",
+            "icon": "\ud83e\ude9f",
+            "title": "Place the shadow at the window",
+            "dc": 5,
+            "prompt": "A figure watched the softest thirty seconds of this argument from outside and was gone before the shouting resumed. Establish the hallway's geography and work out what could physically be standing there.",
+            "success": "Breakthrough: the window in frame is above ground level on that elevation. Whoever was in it was not walking past. They were positioned, and they left when the tone changed rather than when the argument ended.",
+            "failure": "Dead end: the silhouette carries no detail I can scale against the architecture, and I will not build a witness out of a smudge. Logged as present, unidentified, uninterviewed."
+          },
+          {
+            "id": "the-feather",
+            "icon": "\ud83e\udeb6",
+            "title": "Audit the Cape Feather against the greed reading",
+            "dc": 6,
+            "prompt": "Set the feather beside Wario's reframing. A mobility item drawn at the lethal beat, and then a month of absence. Test whether flight and keeping are the same story.",
+            "success": "Breakthrough: the feather is not a defensive draw. Cross-referenced against the fountain timeline it puts Mario airborne and eastbound inside the window the courier's note describes - which makes the note a forwarding address rather than a distress call.",
+            "failure": "Dead end: a man reaching for an escape item while his brother promises to kill him is not evidence of anything except fear. The greed reading survives the night but it does not gain a witness."
+          }
+        ]
+      }
     }
   ]
 }
