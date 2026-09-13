@@ -258,22 +258,41 @@
 }
 .atlas-v2-marker.atlas-v2-dot span{display:none}
 
-/* The hit target is the honest problem with a 5px dot: it is nearly
-   unclickable and nearly unhoverable. A transparent pad around it makes the
-   dot behave like a ~15px target while still LOOKING like a dot. */
+/* A dot sits at z-index 2, above the province fills at z-index 1. That is
+   right for the 5px dot itself, but the whole point of the plots is that they
+   are big soft click targets, so a dot must give back everything it is not
+   actually covering. Keeping the pad tiny (above) is half of it; the other
+   half is that dots never raise themselves above the plots except while
+   hovered. */
+.atlas-v2-marker.atlas-v2-dot{z-index:2}
+
+/* A small padded target, NOT the 15px one this first shipped with. An
+   invisible pad is a hole punched in everything underneath: at 15px the dots
+   covered the province plots and the map stopped being clickable. 3px is
+   enough to forgive an imprecise click without stealing the sheet. Use the
+   "Big dots" toggle when a fatter target is genuinely wanted. */
 .atlas-v2-marker.atlas-v2-dot::before{
   content:"";
   position:absolute;
-  inset:-6px;
+  inset:-3px;
   border-radius:50%;
 }
 
+/* Grow on hover, but only visually: `scale` does not enlarge the hit box, so
+   a hovered dot never starts swallowing its neighbours' clicks. */
 .atlas-v2-marker.atlas-v2-dot:hover,
 .atlas-v2-marker.atlas-v2-dot.selected{
-  scale:2.4;
+  scale:2.2;
   z-index:6;
   outline:.5px solid #fff;
 }
+
+/* Big dots: opt-in fat targets for touch, or for anyone who wants to aim at a
+   disc instead of a point. */
+.atlas-v2-bigpins .atlas-v2-marker.atlas-v2-dot{scale:1.9}
+.atlas-v2-bigpins .atlas-v2-marker.atlas-v2-dot::before{inset:-7px}
+.atlas-v2-bigpins .atlas-v2-marker.atlas-v2-dot:hover,
+.atlas-v2-bigpins .atlas-v2-marker.atlas-v2-dot.selected{scale:3.2}
 
 /* Journey stops and top-5 pins still need to be findable among the scatter. */
 .atlas-v2-marker.atlas-v2-dot.journey{outline:1px solid #ffd75e}

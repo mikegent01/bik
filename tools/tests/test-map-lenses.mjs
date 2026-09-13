@@ -154,7 +154,7 @@ proto.getBoundingClientRect = function () {
 
 const denseHost = dom.window.document.createElement('div');
 dom.window.document.body.appendChild(denseHost);
-mountAtlasMapV2(denseHost, 'midlands_full', {});
+mountAtlasMapV2(denseHost, 'midlands_full', { pinDensity: 'smart' });
 denseHost.querySelector('[data-map-art]').dispatchEvent(new dom.window.Event('load'));
 
 const denseMarkers = [...denseHost.querySelectorAll('.atlas-v2-marker')];
@@ -216,6 +216,41 @@ const nearCapital = placed.filter(p => Math.hypot(p.x - 81, p.y - 8) < 12).lengt
 check('the Capital Province reads as a few markers, not a smudge',
   nearCapital <= 18, `${nearCapital} markers within 12% of (81, 8)`);
 
+/* ---------------- the default sheet does not cluster ----------------
+   Fat cluster badges sat on top of the province plots and made the map hard
+   to click. The default is now every location as its own dot, and markers
+   must cover only a small fraction of the sheet so the plots underneath stay
+   reachable. */
+const plainHost = dom.window.document.createElement('div');
+dom.window.document.body.appendChild(plainHost);
+mountAtlasMapV2(plainHost, 'midlands_full', {});
+plainHost.querySelector('[data-map-art]').dispatchEvent(new dom.window.Event('load'));
+
+const plainMarkers = [...plainHost.querySelectorAll('.atlas-v2-marker')];
+check('the default sheet clusters nothing',
+  plainMarkers.every(m => !m.classList.contains('atlas-v2-cluster')),
+  `${plainMarkers.filter(m => m.classList.contains('atlas-v2-cluster')).length} clusters`);
+check('the default sheet draws every filed location',
+  plainMarkers.length === new Set(MAP_DATA.midlands_full.pointsOfInterest.filter(Boolean).map(p => p.id)).size,
+  `${plainMarkers.length} markers`);
+
+/* The real complaint: markers were eating the map. Hit area must stay small. */
+const blocked = plainMarkers.reduce((n, m) => {
+  const d = parseFloat(m.style.width) || 5;
+  const r = d / 2 + (m.classList.contains('atlas-v2-dot') ? 3 : 0);
+  return n + Math.PI * r * r;
+}, 0);
+check('markers leave the map clickable underneath',
+  blocked / (ART_W * ART_H) < 0.06, `${(blocked / (ART_W * ART_H) * 100).toFixed(1)}% of the sheet covered`);
+
+check('a big-dot toggle is offered for fatter targets',
+  !!plainHost.querySelector('[data-action="bigpins"]'));
+check('big dots are off unless asked for',
+  !plainHost.classList.contains('atlas-v2-bigpins'));
+plainHost.querySelector('[data-action="bigpins"]').dispatchEvent(new dom.window.MouseEvent('click', { bubbles: true }));
+check('the big-dot toggle enlarges the targets',
+  plainHost.classList.contains('atlas-v2-bigpins'));
+
 /* A sparse sheet must NOT be gathered — clustering there only hides detail. */
 const sparseHost = dom.window.document.createElement('div');
 dom.window.document.body.appendChild(sparseHost);
@@ -233,7 +268,9 @@ check('a sparse sheet is left unrolled', sparseCount === sparsePois, `${sparseCo
 const MouseEvt = dom.window.MouseEvent;
 const drillHost = dom.window.document.createElement('div');
 dom.window.document.body.appendChild(drillHost);
-mountAtlasMapV2(drillHost, 'midlands_full', {});
+/* Clustering is opt-in now (the default 'all' draws every location as its own
+   dot), so ask for it explicitly before testing what clicking a cluster does. */
+mountAtlasMapV2(drillHost, 'midlands_full', { pinDensity: 'smart' });
 drillHost.querySelector('[data-map-art]').dispatchEvent(new dom.window.Event('load'));
 
 const markersNow = () => [...drillHost.querySelectorAll('.atlas-v2-marker')];

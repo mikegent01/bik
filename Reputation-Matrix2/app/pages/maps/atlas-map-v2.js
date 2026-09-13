@@ -171,11 +171,17 @@ function dynamicClusterRadius(count, scale, plane, journeyOnly, densityMode, box
   return Math.max(0.18, Math.min(radius, 8));
 }
 
-const PIN_DENSITY_ORDER = ['smart', 'key', 'all'];
+/* Clustering is OFF by default and 'all' leads the cycle. Gathering pins into
+   fat badges buried the province plots underneath them and made the map
+   genuinely hard to click — a marker that hides the thing you were aiming at
+   is worse than a crowded sheet. Every location draws as its own dot; 'key'
+   thins the sheet by importance if the reader wants that, and clustering is
+   available but no longer the default anyone lands on. */
+const PIN_DENSITY_ORDER = ['all', 'key', 'smart'];
 const PIN_DENSITY = {
-  smart: { label: '✨ Smart POIs', hint: 'auto-clustered' },
+  all: { label: '• All POIs', hint: 'every location, one dot each' },
   key: { label: '◆ Key only', hint: 'seats, articles, top pins' },
-  all: { label: '• All POIs', hint: 'everything unrolled' },
+  smart: { label: '✨ Cluster', hint: 'auto-clustered' },
 };
 
 function settlementInsetKind(stack) {
@@ -632,7 +638,8 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
       <select data-type><option value="">All types</option>${types.map(t => `<option value="${esc(t)}">${esc(humanize(t))}</option>`).join('')}</select>
       <button type="button" data-action="wiki" title="Show only pins that open a wiki article">📖 Wiki</button>
       ${provinceList.length ? `<button type="button" data-action="plots" class="${plotsOn ? 'active' : ''}" title="Merge the pins into provinces and draw the borders the census can prove">🗺️ Provinces</button>` : ''}
-      <button type="button" data-action="density" data-density="smart" title="Cycle marker density: Smart clusters, key locations only, or all points unrolled">${PIN_DENSITY.smart.label}</button>
+      <button type="button" data-action="density" data-density="all" title="Cycle marker density: every location, key locations only, or auto-clustered">${PIN_DENSITY.all.label}</button>
+      <button type="button" data-action="bigpins" title="Bigger, easier-to-hit dots — for touch, or when precision aiming is a nuisance">⬤ Big dots</button>
       <button type="button" data-action="shortlist" title="Rank the pins on this sheet and pick one to act on">🎯 Choose a pin</button>
       <span data-visible>${pois.length} markers</span>
     </div>
@@ -670,7 +677,10 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
     drill: [],
     scale: 1, tx: 0, ty: 0, box: { left: 0, top: 0, w: 1, h: 1 }, mode: startMode, selected: null, wikiOnly: false,
     plots: plotsOn, province: null, board: null, pickIndex: 0, nonce: 0, dragged: false, labelZoom: 1,
-    pinDensity: PIN_DENSITY[opts.pinDensity] ? opts.pinDensity : 'smart',
+    pinDensity: PIN_DENSITY[opts.pinDensity] ? opts.pinDensity : 'all',
+    /* Big-target mode: same dots, bigger hit areas, for touch and for anyone
+       who would rather aim at a disc than a point. Opt-in, off by default. */
+    bigPins: false,
   };
   /* One colour source for the census: the same registry the pins and the
      demographics panel already read, so a province and its capital agree. */
@@ -1415,6 +1425,13 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
     if (!state.plots) { state.province = null; }
     placePins();
   });
+  const bigPinsBtn = host.querySelector('[data-action="bigpins"]');
+  if (bigPinsBtn) bigPinsBtn.addEventListener('click', event => {
+    state.bigPins = !state.bigPins;
+    event.currentTarget.classList.toggle('active', state.bigPins);
+    host.classList.toggle('atlas-v2-bigpins', state.bigPins);
+  });
+
   const densityBtn = host.querySelector('[data-action="density"]');
   function renderDensityButton() {
     if (!densityBtn) return;
