@@ -427,6 +427,24 @@ The analysis may display the source event's existing lead image as a reference. 
 8. End the verdict with an actionable recommendation.
 9. Add a research desk only if chance produces useful supplemental readings.
 10. Add only related IDs that already resolve in the archive.
+11. Cross-reference at least one other record, or an earlier passage of this one, so the analysis reads as part of a continuous archive.
+
+### Revising an analysis that is already filed
+
+Analyses are living records. A cleaner source, a fuller dub, or simply a closer
+second reading will sometimes overturn something already published. **Revise the
+record in the archivist's own voice rather than silently rewriting it** — see
+[Self-correction is part of the voice](../ARTICLE_ANALYSES.md#self-correction-is-part-of-the-voice)
+for the editorial rules. Mechanically, a revision commit should touch:
+
+1. The section that changed — name the miss where the reader meets the new reading.
+2. `filed` — note that this is a revision and what prompted it.
+3. `verdict` — say whether the earlier judgement is confirmed, strengthened, narrowed, or overturned.
+4. `summary` / `thesis` — only if the headline argument itself moved.
+
+Keep the analysis `id` and `sourceArticle` unchanged; a revision is the same
+record, not a new one. Anything the new evidence raises but does not settle is
+filed as still open rather than tidied into a resolution.
 
 No renderer edit is normally required. A new valid data record automatically gains:
 
@@ -550,6 +568,10 @@ hard to see from a JSON diff alone.
 - Waluigi names his stake or bias where it matters.
 - A competing reading is preserved where the evidence is incomplete.
 - The verdict ends with a concrete recommendation or refusal to recommend.
+- Ledger and audit vocabulary is doing argumentative work rather than decorating.
+- At least one cross-reference points at another record or an earlier passage.
+- If the entry is a revision, the miss is named, `filed` says what prompted it, and the verdict states what happened to the earlier judgement.
+- No prior error is invented to perform humility, and no admission is longer than the correction it makes.
 
 ### Research desk safety
 

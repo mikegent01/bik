@@ -111,7 +111,7 @@ array.
 | `kicker` | yes | Normally `Waluigi's Article Analysis` |
 | `subtitle` | yes | State the angle without inventing a second event title |
 | `archivist` | yes | The accountable speaker; normally Waluigi |
-| `filed` | yes | In-world filing date or an honest relative filing note |
+| `filed` | yes | In-world filing date or an honest relative filing note; if the record was revised, say so and say what prompted it |
 | `summary` | yes | Approximately 35–80 words; thesis, not plot recap |
 | `thesis` | yes | Opening argument; first person is encouraged |
 | `sections[]` | yes | Five to nine sections for a substantial event |
@@ -119,7 +119,7 @@ array.
 | `sections[].heading` | yes | A claim Waluigi will argue, not a plot beat |
 | `sections[].sourceAnchor` | yes | One concise fact or quotation already present in the source |
 | `sections[].body` | yes | The argument, in markdown; no raw HTML |
-| `verdict` | yes | What Waluigi concludes and what he recommends doing next |
+| `verdict` | yes | What Waluigi concludes and what he recommends doing next; on a revision, state whether the new material confirms, strengthens, narrows, or overturns the earlier judgement |
 | `researchDesk` | no | Optional, clearly separated checks shown only after the verdict |
 | `researchDesk.rolls[].id` | if used | Stable within the analysis; it is the browser save key |
 | `researchDesk.rolls[].dc` | if used | Integer 2–6; plain d6 with no modifier |
@@ -286,6 +286,71 @@ The permission is not a license for unsupported omniscience.
 Waluigi may be unfair. The page must show the reader enough of the source to
 notice that he is being unfair.
 
+### The register is audit, not essay
+
+Waluigi is the Auditor-General. The prose should sound like someone who keeps
+books for a living and has opinions about them, not like a critic writing an
+appreciation. That means the vocabulary of the ledger is available and should
+be used where it is doing work: a claim is *filed*, a question is *open*, a
+reading is *ruled* on, an item is *entered*, a total is *recounted*, a document
+is *audited*, a grievance is *itemised*, a verdict is *updated*.
+
+The test is whether the metaphor is carrying an argument. *He has been keeping
+the same book for years and arriving at opposite totals* is a reading of two
+characters' method. Calling a sad moment "a debit" because ledger words sound
+good is decoration, and decoration is the failure mode of this voice.
+
+### Self-correction is part of the voice
+
+An archivist who is never wrong is not an archivist, he is a fan. When a later
+pass catches something the first pass missed, **say so in the analysis rather
+than quietly fixing it.** The admission is evidence that the file is being kept
+honestly, and it is far more persuasive than a document that pretends to have
+arrived complete.
+
+Four places this belongs, and it is normal for one analysis to use all four:
+
+1. **Inside the section that changed.** Name the miss where the reader meets
+   the new reading, not in a footnote. *I nearly filed past this exchange
+   entirely the first time, which I am not proud of.* *The line I missed
+   entirely on my first filing is Luigi's.* *I want to flag this on this
+   revision, because I skipped past it the first time and it is doing real
+   work.*
+2. **In `filed`.** If the record has been revised, the filing note should say
+   what prompted the revision — a cleaner source, a fuller dub, a second
+   witness — and should not read as though the original date still covers the
+   whole document.
+3. **In the `verdict`.** State plainly whether the new material **confirms,
+   strengthens, narrows, or overturns** the earlier judgement. A verdict that
+   silently absorbs a correction is the one failure this rule exists to
+   prevent.
+4. **As a running count.** Where Waluigi has tallied something across a source
+   — how many times a card is played, how many witnesses go uninterviewed — he
+   is allowed to admit the tally changed. *He plays that card so many times
+   across this tape that I lost count on my first filing and have had to
+   recount on this one.*
+
+Two limits. **Do not invent a prior error to perform humility** — the correction
+must correspond to a real earlier state of the file. And **do not let the
+apology become the content**; one clean admission beats three paragraphs of
+throat-clearing, and the reader is here for the corrected reading rather than
+the contrition.
+
+### Cross-reference the archive, including himself
+
+Waluigi has filed a great deal and should behave like it. Where a claim touches
+another record — or an earlier passage of the one in hand — point at it:
+*set this beside `damn it luigi` from the silhouette passage*, *this closes the
+question the break section left open*, *the archive has carried this for two
+filings on the word of a witness who was not in the room*.
+
+This does three things a bare assertion cannot: it shows the reading was tested
+against something, it lets a sceptical reader check the work, and it makes the
+archive feel like one continuous body of evidence rather than a pile of
+unrelated essays. Self-citation counts — an analyst quoting his own earlier
+verdict back at himself, and then disagreeing with it, is the strongest form
+this takes.
+
 ---
 
 ## Section shape
@@ -444,6 +509,12 @@ investigation rather than creating a quest here.
 □ every section has a sourceAnchor grounded in the event
 □ approximately 20% source / 80% analysis, judged by reading rather than padding
 □ Waluigi states preferences as preferences, not facts
+□ ledger/audit vocabulary is carrying an argument, not decorating a sentence
+□ at least one cross-reference to another record or an earlier passage
+□ if this is a revision: the miss is named in the section that changed,
+  `filed` says what prompted the revision, and the verdict states whether the
+  earlier judgement is confirmed, strengthened, narrowed, or overturned
+□ no invented prior error, and no admission longer than the correction it makes
 □ no new chronology, custody, dialogue, XP, or reputation is invented
 □ core thesis, sections, and verdict contain no dice or roll tokens
 □ optional research checks appear only after the verdict
