@@ -87,6 +87,9 @@ def main() -> int:
         # Planar map layers (Feyward/Shadeward toggle + journey mode data).
         checks.append(("planar map layers", [py, "tools/classify-location-planes.py", "--check"], ROOT))
         checks.append(("planar map test", ["node", "tools/tests/test-planar-map.mjs"], ROOT))
+        # The alliance solve behind political/factions map mode. It used to be
+        # recomputed per render and froze the page; these pin the caches.
+        checks.append(("alliance cache", ["node", "tools/tests/test-alliance-cache.mjs"], ROOT))
         # Categorical atlas lenses (species/religion/culture/factions) + census.
         checks.append(("map lenses", ["node", "tools/tests/test-map-lenses.mjs"], ROOT))
         checks.append(("map census", ["node", "tools/tests/test-map-census.mjs"], ROOT))

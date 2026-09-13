@@ -1684,11 +1684,24 @@ function getAllianceRegions(alliance) {
 // ALLIANCE CALCULATION
 // ============================================
 
+/* The alliance solve is a pure function of the faction roster: same factions
+   in, same alliances out. It costs an O(n^2) compatibility matrix over ~143
+   factions, and the map's political mode asks for it on every territory
+   render. Memoise on the roster so repeated renders are free, and rebuild
+   automatically if the registry ever gains or loses a faction. */
+let ALLIANCE_SOLVE_CACHE = null;
+let ALLIANCE_SOLVE_KEY = '';
+
 export function calculateAllAlliances() {
     const allFactions = getAllFactions();
     const factionIds = Object.keys(allFactions).filter(id => 
         id !== 'unaligned' && !isExcludedFromAlliances(id)
     );
+
+    const cacheKey = factionIds.join('|');
+    if (ALLIANCE_SOLVE_CACHE && ALLIANCE_SOLVE_KEY === cacheKey) {
+        return ALLIANCE_SOLVE_CACHE;
+    }
     
     // Build compatibility matrix
     const compatMatrix = {};
@@ -1912,7 +1925,7 @@ export function calculateAllAlliances() {
         .filter(f => f.poiCount > 0)
         .sort((a, b) => b.totalPower - a.totalPower);
     
-    return {
+    const solved = {
         alliances,
         factionToAlliance,
         compatMatrix,
@@ -1922,6 +1935,9 @@ export function calculateAllAlliances() {
         totalOrganic: alliances.filter(a => !a.isScripted).length,
         totalIndependent: independentFactions.length
     };
+    ALLIANCE_SOLVE_CACHE = solved;
+    ALLIANCE_SOLVE_KEY = cacheKey;
+    return solved;
 }
 function renderAllianceMemberChip(memberId, alliance, showStats = false) {
     const member = getFaction(memberId);

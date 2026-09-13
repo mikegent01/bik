@@ -1765,6 +1765,18 @@ function stringToSeed(str) {
     return Math.abs(hash);
 }
 
+/* Keyword matching is the hot path of the whole alliance calculation, and it
+   used to compile one RegExp per keyword on every single call. The keyword
+   table is a module constant, so the patterns can be built once and reused. */
+let KEYWORD_PATTERNS = null;
+function keywordPatterns() {
+    if (!KEYWORD_PATTERNS) {
+        KEYWORD_PATTERNS = Object.entries(KEYWORD_VALUE_MODIFIERS)
+            .map(([keyword, modifiers]) => ({ re: new RegExp(`\\b${keyword}`, 'i'), modifiers }));
+    }
+    return KEYWORD_PATTERNS;
+}
+
 /**
  * Generate faction values with randomization
  */
@@ -1802,9 +1814,8 @@ function generateFactionValuesWithSeed(faction) {
     });
 
     // Check keywords and apply modifiers
-    Object.entries(KEYWORD_VALUE_MODIFIERS).forEach(([keyword, modifiers]) => {
-        const regex = new RegExp(`\\b${keyword}`, 'i');
-        if (regex.test(textsToAnalyze)) {
+    keywordPatterns().forEach(({ re, modifiers }) => {
+        if (re.test(textsToAnalyze)) {
             Object.entries(modifiers).forEach(([axisId, modifier]) => {
                 if (VALUE_AXES[axisId]) {
                     appliedModifiers[axisId].push(modifier);
@@ -1848,17 +1859,24 @@ function generateFactionValuesWithSeed(faction) {
 }
 
 // Update the getFactionValues function to use seeded randomization
+/* Generated values are a pure function of the faction record and a fixed seed,
+   so the same id always yields the same numbers. The alliance matrix asks for
+   them O(n^2) times; memoising turns that into O(n) real work. */
+const FACTION_VALUES_CACHE = new Map();
 function getFactionValues(factionId) {
     // Check preset values first
     if (FACTION_VALUES[factionId]) {
         return FACTION_VALUES[factionId];
     }
 
-    const faction = getFaction(factionId);
-    if (!faction) return generateDefaultValues();
+    if (FACTION_VALUES_CACHE.has(factionId)) {
+        return FACTION_VALUES_CACHE.get(factionId);
+    }
 
-    // Use seeded generation
-    return generateFactionValuesWithSeed(faction);
+    const faction = getFaction(factionId);
+    const values = faction ? generateFactionValuesWithSeed(faction) : generateDefaultValues();
+    FACTION_VALUES_CACHE.set(factionId, values);
+    return values;
 }
 
 // ============================================
