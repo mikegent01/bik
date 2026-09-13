@@ -4231,3 +4231,221 @@
 .demographic-legend b { color:var(--map-text-primary); text-align:right; font-weight:600; }
 .demographic-swatch { display:block; height:8px; border-radius:2px; }
 .demographic-empty { color:var(--map-text-muted); font-size:.7rem; }
+
+/* =============================================================================
+   TIERED GROUPS  —  City / Town / Village / Site
+   -----------------------------------------------------------------------------
+   Pins filed on top of each other collapse into one marker, ranked by the
+   biggest settlement inside it. The tier sets the ring colour and weight, so a
+   capital district reads as a capital district at a glance and a couple of
+   shacks does not shout as loudly. See map-tiers.js for the model.
+   ============================================================================= */
+
+.poi-cluster-marker.tier-city    { border-color: #f0b132; box-shadow: 0 0 0 2px rgba(240, 177, 50, 0.22), var(--shadow-md); }
+.poi-cluster-marker.tier-town    { border-color: #58a6ff; box-shadow: 0 0 0 2px rgba(88, 166, 255, 0.18), var(--shadow-md); }
+.poi-cluster-marker.tier-village { border-color: #3fb950; }
+.poi-cluster-marker.tier-site    { border-color: var(--map-border-light); opacity: 0.92; }
+
+.poi-cluster-marker.tier-city    { border-width: 4px; z-index: 18; }
+.poi-cluster-marker.tier-town    { border-width: 3px; z-index: 17; }
+.poi-cluster-marker.tier-village { border-width: 2px; z-index: 16; }
+.poi-cluster-marker.tier-site    { border-width: 2px; z-index: 15; }
+
+.cluster-marker-legend.tier-city    { border-color: #f0b132; border-width: 3px; }
+.cluster-marker-legend.tier-town    { border-color: #58a6ff; }
+.cluster-marker-legend.tier-village { border-color: #3fb950; }
+.cluster-marker-legend.tier-site    { border-color: var(--map-border-light); }
+
+/* -----------------------------------------------------------------------------
+   The hyper-zoomed sheet for one group.
+   -------------------------------------------------------------------------- */
+
+.group-zoom-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 120;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 18px;
+    background: rgba(3, 6, 12, 0.78);
+    backdrop-filter: blur(2px);
+}
+
+.group-zoom-frame {
+    display: flex;
+    flex-direction: column;
+    width: min(720px, 100%);
+    max-height: 100%;
+    overflow: hidden;
+    background: var(--map-bg);
+    border: 1px solid var(--map-border);
+    border-radius: var(--border-radius-md);
+    box-shadow: var(--shadow-lg);
+}
+
+.group-zoom-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--map-border);
+}
+
+.group-zoom-header h3 {
+    margin: 0;
+    font-size: 0.98rem;
+    color: var(--map-text);
+}
+
+.group-zoom-sub {
+    margin: 3px 0 0;
+    font-size: 0.72rem;
+    color: var(--map-text-muted);
+}
+
+.group-zoom-actions { display: flex; gap: 6px; flex-shrink: 0; }
+
+.group-zoom-btn {
+    padding: 4px 10px;
+    font-size: 0.72rem;
+    color: var(--map-text);
+    background: var(--map-bg-secondary);
+    border: 1px solid var(--map-border-light);
+    border-radius: var(--border-radius-sm);
+    cursor: pointer;
+}
+
+.group-zoom-btn:hover:not(:disabled) { border-color: var(--map-accent); color: var(--map-accent); }
+.group-zoom-btn:disabled { opacity: 0.4; cursor: default; }
+
+.group-zoom-stage {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    background-repeat: no-repeat;
+    background-color: var(--map-bg-secondary);
+    border-bottom: 1px solid var(--map-border);
+}
+
+.group-zoom-pins { position: absolute; inset: 0; }
+
+.group-zoom-pin {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    padding: 0;
+    background: none;
+    border: 0;
+    cursor: pointer;
+}
+
+.group-zoom-pin-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    font-size: 13px;
+    background: var(--map-bg);
+    border: 2px solid var(--pin-color, var(--map-accent));
+    border-radius: var(--border-radius-full);
+    box-shadow: var(--shadow-sm);
+}
+
+.group-zoom-pin.tier-city .group-zoom-pin-icon { width: 34px; height: 34px; font-size: 17px; border-width: 3px; }
+.group-zoom-pin.tier-town .group-zoom-pin-icon { width: 30px; height: 30px; font-size: 15px; }
+
+.group-zoom-pin-label {
+    max-width: 110px;
+    padding: 1px 5px;
+    font-size: 0.63rem;
+    line-height: 1.3;
+    color: var(--map-text);
+    text-align: center;
+    background: rgba(13, 17, 23, 0.85);
+    border-radius: var(--border-radius-sm);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.group-zoom-pin:hover { z-index: 5; }
+.group-zoom-pin:hover .group-zoom-pin-icon { border-color: var(--map-accent-hover); transform: scale(1.1); }
+.group-zoom-pin:hover .group-zoom-pin-label { max-width: none; }
+
+.group-zoom-list {
+    margin: 0;
+    padding: 6px;
+    list-style: none;
+    overflow-y: auto;
+}
+
+.group-zoom-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    padding: 6px 8px;
+    font-size: 0.76rem;
+    color: var(--map-text);
+    text-align: left;
+    background: none;
+    border: 0;
+    border-radius: var(--border-radius-sm);
+    cursor: pointer;
+}
+
+.group-zoom-row:hover { background: var(--map-accent-muted); }
+.group-zoom-row-name { flex: 1; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.group-zoom-row-tier { font-size: 0.66rem; color: var(--map-text-muted); }
+
+/* -----------------------------------------------------------------------------
+   Territory stacks — one marker standing in for several overlapping
+   states/provinces. Without this the Capital Province draws 19 circles on top
+   of each other, one per faction, and the sheet is unreadable.
+   -------------------------------------------------------------------------- */
+
+.territory-stack-marker {
+    border: 3px solid var(--map-accent) !important;
+    box-shadow: 0 0 0 3px rgba(13, 17, 23, 0.85), var(--shadow-lg) !important;
+    z-index: 30 !important;
+}
+
+.territory-stack-marker:hover {
+    border-color: var(--map-accent-hover) !important;
+    z-index: 40 !important;
+}
+
+.territory-stack-marker.contested {
+    border-style: dashed !important;
+    border-color: var(--map-negative) !important;
+}
+
+.territory-stack-badge {
+    position: absolute;
+    top: -7px;
+    right: -7px;
+    min-width: 20px;
+    height: 20px;
+    padding: 0 5px;
+    font-size: 11px;
+    font-weight: 700;
+    color: #fff;
+    background: var(--map-accent);
+    border: 2px solid var(--map-bg);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 6;
+    box-shadow: var(--shadow-sm);
+}
+
+.territory-stack-marker.contested .territory-stack-badge { background: var(--map-negative); }
+
+.territory-stack-item { cursor: pointer; }
+.territory-stack-item:hover { background: var(--map-accent-muted); }

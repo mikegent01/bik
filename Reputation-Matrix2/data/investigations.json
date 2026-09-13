@@ -166,7 +166,7 @@
         "raventree_manor"
       ],
       "opened": "23 Harvestide, 1040 BF",
-      "lastFiled": "30 Harvestide, 1040 BF (Material) — Feyward clock 1 Aethel, 922 BF",
+      "lastFiled": "2 Aethel, 922 BF (Feyward clock) — amended: the doorway, the Colour Division retrieval, and the name Carnivorous",
       "archivist": "Waluigi, Auditor-General",
       "icon": "🏚️",
       "accent": "#8a4bff",
@@ -540,6 +540,57 @@
           "events": [
             "the_belly_of_the_beast"
           ]
+        },
+        {
+          "id": "lead_sword_slashes_second_killer",
+          "title": "Examine the manor's dead — something in this house is killing with a blade",
+          "status": "open",
+          "why": "A house guard who was never debriefed reports that the manor's dead reinforcements carry sword slashes rather than plant wounds. Every casualty this file has recorded in three sessions has been attributed to vegetation on the assumption that vegetation is the only hostile present. The overgrowth crushes, engulfs and rots; it does not cut. If the report is accurate, the household has been fighting one enemy with its full attention while a second one works behind it — and the two combatants in the building known to carry blades, the Satyr Swordfighter and the Satyr Rogue, spent the Revel engagement attacking the house and their own side rather than the treant. Nobody has examined a body. That is a one-scene action with a decisive answer at the end of it.",
+          "exhibits": [
+            "ex_sword_slashes",
+            "ex_revel_friendly_fire"
+          ],
+          "events": [
+            "feyward_i_cant_afford_not_to_care"
+          ]
+        },
+        {
+          "id": "lead_carnivorous_binding",
+          "title": "Test the name Carnivorous against the ring and the bell before the manor comes down",
+          "status": "open",
+          "why": "The overgrowth answered to a name it was not asked for, in a sealed room, from a creature that had otherwise controlled every word of the conversation. The party is already carrying two fey instruments that operate on identity rather than force — the soul ring holding Lady Aurelian, and Hjumpik's cowbell, which has now produced an inexplicable effect in two consecutive filings, one of them in the same room as the name. Red's poison damages the thing; nothing the party holds can currently hold it. A name is the first binding-shaped object this arc has produced, and it has a shelf life: the creature stated its objective is to collapse the manor, and it does not need to win a fight to achieve that.",
+          "exhibits": [
+            "ex_carnivorous_name"
+          ],
+          "events": [
+            "feyward_i_cant_afford_not_to_care"
+          ]
+        },
+        {
+          "id": "lead_soup_bomb",
+          "title": "Build the soup bomb — the supplier, the specialist and the delivery problem are all already named",
+          "status": "open",
+          "why": "Red's kitchen produces a substance that withers the overgrowth on contact; Hjumpik proved it works as a thrown weapon by putting a bowl of it into the false lady's chest and breaking her glamour. The hallway guard proposed the obvious escalation — put the soup in a bomb — and Waluigi named a bomb specialist the party already knows in Wario. That is a complete supply chain with nothing built at the end of it. The manor cannot out-stab the overgrowth's growth rate and has proved it over three sessions; a poison with an area delivery is the only proposal on the table that scales.",
+          "exhibits": [
+            "ex_sword_slashes"
+          ],
+          "events": [
+            "feyward_i_cant_afford_not_to_care",
+            "feyward_library_reclamation_and_the_kitchen"
+          ]
+        },
+        {
+          "id": "lead_hjumpik_missing_months",
+          "title": "Account for the two months Hjumpik lost between one sentence and the next",
+          "status": "open",
+          "why": "Hjumpik stated his time in the manor as three months, continued the same monologue, and arrived at five. He then looked at his cowbell, recalled and relearned his own past, and did not respond to a hand waved in front of his face. The Aegis Magi contract he is being retrieved on ran five nights. The gap between five nights and five months is not a rounding error in a party member's memory — it is the same category of missing time this file already holds against the Feyward branch under the amnesia session, and it is happening to the person making the tactical decisions.",
+          "exhibits": [
+            "ex_carnivorous_name"
+          ],
+          "events": [
+            "feyward_i_cant_afford_not_to_care",
+            "feyward_amnesia_vines_morel_steely"
+          ]
         }
       ],
       "sessions": [
@@ -620,6 +671,12 @@
           "label": "The Belly of the Beast: Human Blood Under the Scarecrow, a Door Burned Shut, and the Skittering Grove Inside the Tree",
           "date": "30 Harvestide, 1040 BF — the overgrown grove into the interior of the Scorncrow's tree",
           "event": "the_belly_of_the_beast"
+        },
+        {
+          "id": "s_a02_cant_afford_not_to_care",
+          "label": "I Can't Afford Not to Care Anymore: The Doorway, the Colour Division, and the Lady Who Answered to Carnivorous",
+          "date": "2 Aethel, 922 BF (Feyward clock) - from the doorway through the kitchen and the landing into the sealed sanctuary",
+          "event": "feyward_i_cant_afford_not_to_care"
         }
       ],
       "relatedEvents": [
@@ -637,7 +694,8 @@
         "green_t_at_the_door_and_the_scorncrow_underfoot",
         "feyward_battalion_of_six_and_the_bait_plan",
         "the_scorncrow_skirmish",
-        "the_belly_of_the_beast"
+        "the_belly_of_the_beast",
+        "feyward_i_cant_afford_not_to_care"
       ],
       "exhibits": [
         {
@@ -1217,6 +1275,51 @@
           "onRecord": "A torch was thrown into the pit to measure it. Outside, the torch came back out of the trunk and the sounding returned nothing. Inside, Remi Akamatsu heard voices: *there's a fire, someone is causing a fire, they're going to burn us all down.* [[roll:3|the objection is grammatical, collective and correctly reasoned|whatever is in there can hear, can speak, can identify a fire as a fire and can refer to itself as a group, which puts a population in the pit rather than a hazard|panicked speech carries in a confined space and a few intelligible words prove intelligence in the speaker, not numbers]] The torch returned by a route the party did not throw it down. [[roll:5|it came out of the trunk, not the jaws|the interior has at least one opening the party has not found, which is also the likeliest answer to how a Legion detachment reached ground with no marched route|an object thrown into a pit inside a hollow tree can be pushed back up any number of ways by anything strong enough, and no second opening is required]]",
           "dc": 3,
           "analysis": "## Somebody in there said *us*\n\n**The word doing all the work is a pronoun.** Not *me*, not a scream, not noise. *They're going to burn us all down.* That single word converts the pit from a hazard into a population, and it does it with grammar the party never asked for and cannot have supplied.\n\nWork out what the sentence requires of its speakers. They perceived a fire. They identified it as deliberate — *someone is causing a fire*. They inferred an intention held by parties outside a wall they cannot see through. And they described themselves as a plural body with a shared fate. That is four cognitive operations, performed under stress, by things the party has been calling scenery.\n\n**Set it beside the inner grove and the reading gets worse.** The heart of the Skittering Grove is hung with the forms of wrapped creatures, beast and man, dangling from the boughs like fruit. The file is not going to assert that the wrapped are the speakers, because one witness heard voices through wood and nobody has cut anything down. But the archive holds a location with hanging people in it and a recording of people in that location objecting to being burned, and it would be a strange kind of rigour to file those on separate pages and never mention it.\n\n**What it costs the party.** Archie's fire cast was the largest single expenditure of the night, and the fire it answered is the fire those voices were already panicking about — the test torch, thrown minutes earlier. From inside, the sequence reads: a fire arrives, they raise the alarm, and then a wizard empties his reserves into the walls. Whatever is in that grove now has a first impression of this party, and it is arson.\n\n**The plainer finding, and the one worth acting on.** The torch came back out of the trunk. It went in at the jaws. Something moved an object between two openings, and the party only knows about one of them."
+        },
+        {
+          "id": "ex_sword_slashes",
+          "propId": "prop_revel_engagement_ledger",
+          "session": "s_a02_cant_afford_not_to_care",
+          "icon": "🗡️",
+          "kind": "ledger",
+          "category": "testimony",
+          "title": "The manor's dead reinforcements were killed with edged weapons, and only the unrelieved guard noticed",
+          "secured": "2 Aethel, 922 BF (Feyward clock) · the hallway post, from a guard who was never debriefed",
+          "custody": "Archive — single witness, uncorroborated, unpursued by anybody present",
+          "visual": "<div style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:linear-gradient(180deg,rgba(18,24,20,.96),rgba(9,12,10,.98));border:1px solid rgba(180,60,60,.3)\"><div style=\"position:absolute;left:16px;top:18px;font:12px/1.7 ui-monospace,monospace;color:rgba(232,224,208,.86)\">CAUSE OF DEATH &mdash; REINFORCEMENT DETAIL<br>expected: crush / engulf / rot<br><span style=\"color:rgba(230,120,120,.95)\">observed: sword slashes</span></div><div style=\"position:absolute;right:18px;top:26px;width:2px;height:76px;background:linear-gradient(180deg,transparent,rgba(230,120,120,.8),transparent);transform:rotate(18deg)\"></div><div style=\"position:absolute;right:38px;top:20px;width:2px;height:84px;background:linear-gradient(180deg,transparent,rgba(230,120,120,.6),transparent);transform:rotate(24deg)\"></div><div style=\"position:absolute;left:16px;bottom:12px;font:10px ui-monospace,monospace;color:rgba(212,168,83,.75)\">ONE WITNESS &middot; NO FOLLOW-UP</div></div>",
+          "onRecord": "A house guard, still holding a hallway nobody has relieved him from, was asked what happened to the reinforcements. He said they died. Asked whether the plants killed them, he said: *not from plants, from other people, they had sword slashes.* [[roll:3|the overgrowth does not carry edged weapons|every vegetation casualty in three sessions of filings presents as crushing, engulfing or rot; the treants club and throw bark, the mound engulfs, the fungus rots, and none of them cut|a panicking guard describing wounds he saw briefly in poor light is not a coroner, and torn bark-strike wounds on soft tissue can look like anything you already expect to see]] The same guard, told that the kitchen's cooking withers the overgrowth on contact, proposed loading it into a bomb. [[roll:5|the man holding the corridor is also the only one running the problem|three sessions of planning rooms, war tables and marching orders have produced no weapon test; the unrelieved sentry produced a delivery mechanism in one sentence, which says something uncomfortable about where this household keeps its thinking|it is an obvious idea and obvious ideas occur to everybody; the reason nobody built it is that nobody has a bomb specialist, not that nobody thought of it]]",
+          "dc": 3,
+          "analysis": "## There is a second killer in this house and it uses a sword\n\n**The file has been prosecuting the wrong case.** Every page in this arc treats the Overgrown Manor as a siege by vegetation: one hostile, many bodies, a plant problem with a plant solution. The hallway guard's sentence breaks that frame in nine words, and the archive is going to treat it as a break rather than as colour.\n\nThe evidentiary value is in the *mismatch*, not the wound. A witness who wanted to be useful would have said the plants did it — that is the answer the house is primed for, the answer his officers expect, and the answer that requires no further conversation. He gave the inconvenient answer instead, unprompted, to a dwarf who was not his superior and who had not asked a leading question. Testimony that costs the witness something is worth more than testimony that costs him nothing, and this cost him the rest of his shift being wrong in front of strangers.\n\n**Who is holding a sword in this building.** The manor's own guards carry heavy crossbows and quarterstaves; the ledger from the Revel room logs them firing bolts at a hundred feet, not cutting. The Satyr Swordfighter carries a scimitar and, over three rounds, put eight multiattacks into the *House Guard* — not into the treant. The Satyr Rogue carries shortswords and spent its entire engagement stabbing the Satyr Bard. The file notes, without yet asserting, that the two combatants in this house who are armed with blades are also the two combatants who spent the engagement killing the house and its own.\n\n**Against that reading.** A fey Revel that has been drinking for three sessions and has now had its party invaded does not need to be infiltrated to start swinging at the wrong people. Chaos is the Revel's native state. The archive has repeatedly mistaken fey indifference for fey conspiracy and has had to amend the filing afterwards.\n\n**What decides it.** Nobody has examined a body. Not one. Three sessions, a mounting casualty list, and the only forensic observation in the entire file came from a man who was not asked and was not listened to. The lead is not *who has a sword* — it is *go and look at the dead*."
+        },
+        {
+          "id": "ex_carnivorous_name",
+          "propId": "prop_aegis_magi_recall_clause",
+          "session": "s_a02_cant_afford_not_to_care",
+          "icon": "🪴",
+          "kind": "note",
+          "category": "testimony",
+          "title": "The thing wearing Lady Aurelian answered to a word nobody had used as a name",
+          "secured": "2 Aethel, 922 BF (Feyward clock) · the sealed sanctuary, doors vined shut, one witness inside",
+          "custody": "Hjumpik Deldkur — sole witness; recorded to the archive immediately after",
+          "visual": "<div style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:radial-gradient(circle at 50% 55%,rgba(140,40,60,.22),transparent 70%),linear-gradient(180deg,rgba(22,16,20,.96),rgba(10,8,10,.98));border:1px solid rgba(212,168,83,.26)\"><div style=\"position:absolute;left:16px;top:22px;font:12px/1.8 ui-monospace,monospace;color:rgba(232,224,208,.86)\">&ldquo;plants are carnivorous, right&mdash;&rdquo;<br><span style=\"color:rgba(226,160,180,.95)\">&ldquo;that&hellip;. my name&hellip;..&rdquo;</span></div><div style=\"position:absolute;right:20px;top:24px;width:64px;height:64px;border:2px solid rgba(226,160,180,.5);border-radius:50% 50% 50% 8%\"></div><div style=\"position:absolute;left:16px;bottom:12px;font:10px ui-monospace,monospace;color:rgba(212,168,83,.75)\">NAME OBTAINED &middot; NOT SOUGHT</div></div>",
+          "onRecord": "Hjumpik, stalling inside a sealed room, asked the false Aurelian twice whether the plant it was sitting on was a good plant to sit on, then said *plants are carnivorous, right—*. The thing replied, with pauses transcribed as heard: *that's.... my name.....* [[roll:4|a fey answered to a true name by accident and then stopped talking about it|it did not correct him, did not laugh, and did not continue the sentence it had been enjoying; a creature that has held a perfect impersonation through three sessions of conversation dropped its cadence on one word, which is the behaviour of a name and not of a vocabulary error|it is a plant creature being condescended to about botany by a dwarf; 'that's my name' is exactly the sort of flat joke a thing makes when a mortal explains its own biology to it, and the pauses are menace, not malfunction]] Immediately before the slip it had volunteered its entire strategy unprompted: rule the manor, let the manor collapse, trees grow anew, *the beauty of nature is slow*. [[roll:6|the confession and the slip are the same failure|it talked freely because it had already sealed the doors and counted the room as won; the same confidence that produced a full statement of intent produced an unguarded answer to a name, and both are artefacts of a creature that stopped performing once it believed nobody would be leaving|a monster monologuing before it wins is the oldest behaviour in the archive and proves nothing about what its name is]]",
+          "dc": 4,
+          "analysis": "## A name is the only thing in this arc that can be acted on\n\n**Everything else this file holds about the overgrowth is descriptive.** It grows. It impersonates. It withers when fed Red's cooking. None of that is leverage. A name, in the Feyward, is a different category of object entirely, and the file has to decide how much weight to put on five syllables spoken with ellipses in them.\n\n**The case for taking it seriously starts with what preceded it.** Hjumpik was not conducting an interrogation. He was talking about *furniture* — an absurd, sustained, deliberately trivial line about whether it is bad manners to sit on a flower — and he ran it twice, which is the part that matters. The first pass got a straight answer (*it's just a foflower*). The second pass got *hmmm, what do you mean*. The creature had stopped tracking the conversation as an attack, which is precisely when the word landed.\n\n**The competing reading deserves its due.** Fey are fond of flat, affectless jokes, and *that's my name* is a serviceable one. This file has been embarrassed before by treating fey wordplay as a revelation. If the archive stakes an action on a name that turns out to be a pun, it will have handed a creature that plans in months a way to waste the party's only remaining session.\n\n**What tips it.** The transcription. Hjumpik recorded pauses — *that's.... my name.....* — and pauses are the thing a joke does not have. A joke lands on the beat. This did not land; it trailed, and then the conversation did not go back to it, and a creature that had answered every other question in the room at length declined to expand on this one. The overgrowth explained its objective, its timetable, and its reason for wearing a dead woman's face, and the only subject it would not elaborate on was its own name.\n\n**Practical consequence.** Red's dinner damages it physically; the file already knows that. What the file did not have until now is anything to *bind* it with. Every fey instrument in this campaign — the soul ring, the bell, the Accords' own language about bound objects — runs on names. The party is carrying a ring that holds a person and a bell that has done something inexplicable twice, and it now has a name to put in front of both."
+        },
+        {
+          "id": "ex_revel_friendly_fire",
+          "propId": "prop_revel_engagement_ledger",
+          "session": "s_a02_cant_afford_not_to_care",
+          "icon": "⚔️",
+          "kind": "ledger",
+          "category": "record",
+          "title": "Forty-four turns in which the Revel's best fighters attacked their own side",
+          "secured": "2 Aethel, 922 BF (Feyward clock) · the Revel room, three rounds, logged in full",
+          "custody": "Archive — complete action ledger",
+          "visual": "<div style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:linear-gradient(180deg,rgba(16,20,26,.96),rgba(8,10,14,.98));border:1px solid rgba(212,168,83,.26)\"><div style=\"position:absolute;left:16px;top:16px;font:11px/1.6 ui-monospace,monospace;color:rgba(232,224,208,.86)\">Swordfighter &rarr; <span style=\"color:rgba(230,140,140,.95)\">House Guard</span> &times;8<br>Sorcerer &rarr; <span style=\"color:rgba(230,140,140,.95)\">Swordfighter</span> &times;4<br>Rogue &rarr; <span style=\"color:rgba(230,140,140,.95)\">Bard</span> &times;3<br>Druid &rarr; <span style=\"color:rgba(230,140,140,.95)\">Swordfighter</span></div><div style=\"position:absolute;right:16px;bottom:12px;font:10px ui-monospace,monospace;color:rgba(212,168,83,.78)\">3 ROUNDS &middot; 44 TURNS &middot; NO DECISION</div></div>",
+          "onRecord": "Three rounds, forty-four NPC turns, twenty-four attack actions and thirteen spells produced no decision. The Satyr Swordfighter, busiest combatant in the room, spent eight multiattacks on the House Guard. The Satyr Sorcerer spent four spells on the Satyr Swordfighter. The Satyr Rogue put a hand crossbow and two shortswords into the Satyr Bard. [[roll:4|this is not a melee getting confused, it is a pattern with direction|the same attackers returned to the same targets round after round, and morale stayed BOLD in the eighties throughout; troops who have lost cohesion break or scatter, they do not calmly re-engage the same friendly target for three consecutive rounds|a fey revel is not a military unit and was never cohesive; expecting formation discipline from a party that has been drinking for three sessions is a category error]] Meanwhile the Treant cast Animate Trees twice, adding combatants that act on its own initiative count. [[roll:3|the treant was not trying to win the fight|it spent its actions reproducing rather than killing while everything else in the room spent its actions on everything else in the room, which is what an organism does when it is not in danger|it is a plant with two actions and a multiattack; using one on summoning is ordinary monster tactics and implies no strategy at all]]",
+          "dc": 3,
+          "analysis": "## A faction attacking itself, or a faction already taken\n\n**The interesting number is not forty-four. It is eight.** Eight multiattacks from the single most active combatant in the room, every one of them aimed at the manor's own House Guard, while a treant stood in the middle of the floor growing more treants. If the Revel were merely chaotic, the targeting would be *scattered* — it is not. Each attacker returned to the same target across rounds. That is selection, and selection has a cause.\n\n**Morale forecloses the easiest explanation.** The ledger stamps morale readings throughout: BOLD, in the eighties, for almost every combatant, round after round. Panic produces flight and mis-targeting; it does not produce confident, repeated, accurate engagement of a chosen friendly. Whatever the Satyr Swordfighter thought it was doing, it was not frightened, and it did not change its mind.\n\n**Set it against the upstairs finding.** The party established, in the same session, that the lady of the manor is a plant wearing a dead woman, that it has been moving pieces into position deliberately, and that it is patient on a scale of months. A creature with that much control over the household's chain of command does not need to fight the Revel. It needs the Revel pointed at the house.\n\n**The honest counterweight.** No compulsion effect was observed, named, or saved against. The ledger shows Sleep, Colour Spray, Mockery and Thunderwave — nothing that dominates. If some of these fey are controlled, the mechanism is not in this log, and a file that concludes control from targeting alone is guessing with a table of numbers in front of it to look rigorous.\n\n**What the file will say.** Not that the Revel is compromised. That the Revel can no longer be counted as an ally in planning, because on the evidence of three full rounds it cannot be predicted to attack the enemy, and a party that plans an ambush around it is planning around a variable it does not control."
         }
       ]
     },

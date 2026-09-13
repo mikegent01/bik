@@ -18,7 +18,7 @@
 .atlas-v2-world{position:absolute;inset:0;transform-origin:0 0}
 .atlas-v2-world>img{width:100%;height:100%;object-fit:contain;display:block;pointer-events:none;user-select:none}
 .atlas-v2-overlay{position:absolute}
-.atlas-v2-marker{position:absolute;transform:translate(-50%,-50%);width:18px;height:18px;border-radius:50%;border:2px solid #fff;background:var(--marker,#7c8aa5);color:#fff;box-shadow:0 2px 8px #000a;cursor:pointer;padding:0;opacity:calc(.35 + var(--intensity,1)*.65);z-index:2}
+.atlas-v2-marker{position:absolute;transform:translate(-50%,-50%) scale(calc(1/var(--pin-zoom,1)));width:18px;height:18px;border-radius:50%;border:2px solid #fff;background:var(--marker,#7c8aa5);color:#fff;box-shadow:0 2px 8px #000a;cursor:pointer;padding:0;opacity:calc(.35 + var(--intensity,1)*.65);z-index:2}
 .atlas-v2-marker span{font-size:10px;line-height:1}
 .atlas-v2-marker em{position:absolute;top:-7px;right:-7px;background:#111;border:1px solid #fff;border-radius:99px;font-size:9px;min-width:14px;padding:0 3px;font-style:normal}
 .atlas-v2-marker:hover,.atlas-v2-marker.selected{scale:1.35;z-index:5;outline:4px solid color-mix(in srgb,var(--marker),transparent 65%)}
@@ -49,8 +49,25 @@
 .atlas-v2-stop{position:absolute;bottom:-9px;left:-9px;background:#ffd75e;color:#111;border:1px solid #0009;border-radius:99px;font-size:9px;font-weight:800;min-width:15px;height:15px;line-height:14px;text-align:center;font-style:normal;z-index:6;font-family:inherit}
 .atlas-v2-stop-multi{background:#8a4bff;color:#fff}
 /* Chatter mode + party tokens (Wah Notes): loud pins + last-seen companions. */
-.atlas-v2-token{position:absolute;transform:translate(-50%,-130%);width:30px;height:30px;border-radius:50%;border:2px solid #7ee6a0;background:#0b1a12ee;font-size:16px;line-height:1;cursor:pointer;padding:0;z-index:5;box-shadow:0 2px 8px #000c}
-.atlas-v2-token:hover,.atlas-v2-token.selected{scale:1.25;outline:3px solid #7ee6a066}
+/* Party tokens: small marks that PULSE. Size was the wrong way to say
+   "someone is standing here" — a 30px disc just buried the sheet. A 13px mark
+   that breathes is louder than a big one that sits still, and it leaves the
+   map underneath readable. Counter-scaled like the pins so it stays this size
+   at every depth. */
+.atlas-v2-token{position:absolute;transform:translate(-50%,-50%) scale(calc(1/var(--pin-zoom,1)));display:grid;place-items:center;width:13px;height:13px;border-radius:50%;border:1.5px solid #7ee6a0;background:#0b1a12ee;font-size:8px;line-height:1;cursor:pointer;padding:0;z-index:5;animation:atlas-v2-ping 1.9s ease-in-out infinite}
+.atlas-v2-token>span{display:block;transform:scale(.9)}
+.atlas-v2-token em{position:absolute;top:-5px;right:-5px;background:#7ee6a0;color:#07160d;border-radius:99px;font:800 8px/1.35 inherit;min-width:11px;height:11px;padding:0 2px;font-style:normal;text-align:center}
+/* The halo is drawn on a pseudo-element so the pulse never changes the hit
+   box — a blinking marker that grows would flicker the map's click targets. */
+.atlas-v2-token::after{content:"";position:absolute;inset:-4px;border-radius:50%;border:1.5px solid #7ee6a0;opacity:0;animation:atlas-v2-halo 1.9s ease-out infinite;pointer-events:none}
+.atlas-v2-token:hover,.atlas-v2-token.selected{outline:2px solid #7ee6a0aa;animation-play-state:paused;z-index:7}
+@keyframes atlas-v2-ping{0%,100%{box-shadow:0 0 0 0 #7ee6a000}50%{box-shadow:0 0 7px 2px #7ee6a077}}
+@keyframes atlas-v2-halo{0%{opacity:.85;transform:scale(.65)}70%{opacity:0;transform:scale(1.9)}100%{opacity:0;transform:scale(1.9)}}
+/* Readers who have asked for less motion get a steady mark instead. */
+@media(prefers-reduced-motion:reduce){
+  .atlas-v2-token,.atlas-v2-token::after{animation:none}
+  .atlas-v2-token{box-shadow:0 0 6px 2px #7ee6a066}
+}
 .atlas-v2-chatter{margin:10px 0;padding:8px 10px;border-left:3px solid #f472b6;background:#ffffff08;border-radius:0 8px 8px 0}
 .atlas-v2-chatter p{font-size:12.5px;line-height:1.45;margin:6px 0}
 .atlas-v2-chatter .atlas-v2-wiki{font-size:11px;padding:1px 7px;margin-left:4px}
@@ -220,3 +237,96 @@
   .atlas-v2-full .atlas-v2-layout{min-height:calc(100dvh - 250px)}
   .atlas-v2-full .atlas-v2-viewport{height:calc(100dvh - 300px)}
 }
+
+/* ---------------------------------------------------------------------------
+   Drill-down trail. Clicking a cluster steps INTO it: the sheet reframes on
+   that group and hides the rest, so the reader walks continent → region →
+   town → building instead of squinting at one flat pile. This bar is the way
+   back out, and the proof of where you are.
+   ------------------------------------------------------------------------ */
+.atlas-v2-drill{display:flex;gap:10px;align-items:center;flex-wrap:wrap;padding:8px 22px;border-bottom:1px solid var(--line);background:#0d1830}
+.atlas-v2-drill[hidden]{display:none}
+.atlas-v2-drill-trail{display:flex;gap:6px;align-items:center;flex-wrap:wrap;min-width:0}
+.atlas-v2-drill-trail i{color:#5b6b8a;font-style:normal;font-size:11px}
+.atlas-v2-drill button{border:1px solid #3e5072;background:#101a2b;color:#aebddd;border-radius:7px;padding:5px 9px;font:700 11px inherit;cursor:pointer;max-width:230px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.atlas-v2-drill button:hover{border-color:#6f86b8;color:#e7efff}
+.atlas-v2-drill button.on{background:#1d2f52;border-color:#6f86b8;color:#fff;cursor:default}
+.atlas-v2-drill-up{margin-left:auto;flex:0 0 auto}
+
+/* A cluster is a door — say so on hover. */
+.atlas-v2-marker.atlas-v2-cluster{cursor:zoom-in}
+
+/* ---------------------------------------------------------------------------
+   Dots. A lone filed location is a plain coloured point — no ring, no glyph,
+   no drop shadow. A printed atlas marks a place with a dot and lets the reader
+   hover for the name; anything more turns 200 locations into 200 badges and
+   the sheet stops being a map. Colour is the only channel a dot has, so it
+   carries the building family (see map-poi-types.js).
+   ------------------------------------------------------------------------ */
+.atlas-v2-marker.atlas-v2-dot{
+  border:0;
+  border-radius:50%;
+  box-shadow:none;
+  opacity:1;
+  /* A hairline dark edge keeps a pale dot legible on pale terrain without
+     reading as a ring at normal zoom. */
+  outline:.5px solid #0b121fcc;
+  outline-offset:0;
+}
+.atlas-v2-marker.atlas-v2-dot span{display:none}
+
+/* A dot sits at z-index 2, above the province fills at z-index 1. That is
+   right for the 5px dot itself, but the whole point of the plots is that they
+   are big soft click targets, so a dot must give back everything it is not
+   actually covering. Keeping the pad tiny (above) is half of it; the other
+   half is that dots never raise themselves above the plots except while
+   hovered. */
+.atlas-v2-marker.atlas-v2-dot{z-index:2}
+
+/* A small padded target, NOT the 15px one this first shipped with. An
+   invisible pad is a hole punched in everything underneath: at 15px the dots
+   covered the province plots and the map stopped being clickable. 3px is
+   enough to forgive an imprecise click without stealing the sheet. Use the
+   "Big dots" toggle when a fatter target is genuinely wanted. */
+.atlas-v2-marker.atlas-v2-dot::before{
+  content:"";
+  position:absolute;
+  inset:-3px;
+  border-radius:50%;
+}
+
+/* Grow on hover, but only visually: `scale` does not enlarge the hit box, so
+   a hovered dot never starts swallowing its neighbours' clicks. */
+.atlas-v2-marker.atlas-v2-dot:hover,
+.atlas-v2-marker.atlas-v2-dot.selected{
+  scale:2.2;
+  z-index:6;
+  outline:.5px solid #fff;
+}
+
+/* Big dots: opt-in fat targets for touch, or for anyone who wants to aim at a
+   disc instead of a point. */
+.atlas-v2-bigpins .atlas-v2-marker.atlas-v2-dot{scale:1.9}
+.atlas-v2-bigpins .atlas-v2-marker.atlas-v2-dot::before{inset:-7px}
+.atlas-v2-bigpins .atlas-v2-marker.atlas-v2-dot:hover,
+.atlas-v2-bigpins .atlas-v2-marker.atlas-v2-dot.selected{scale:3.2}
+
+/* Journey stops and top-5 pins still need to be findable among the scatter. */
+.atlas-v2-marker.atlas-v2-dot.journey{outline:1px solid #ffd75e}
+.atlas-v2-marker.atlas-v2-dot.atlas-v2-major{outline:1px solid #ffffffcc}
+
+/* Type legend: the key to what the dot colours mean. */
+.atlas-v2-typekey{display:flex;gap:10px;align-items:center;flex-wrap:wrap;padding:7px 22px;border-bottom:1px solid var(--line);background:#0a1120}
+.atlas-v2-typekey b{color:#9db0d4;font:700 10px inherit;text-transform:uppercase;letter-spacing:.06em}
+.atlas-v2-typekey span{display:inline-flex;gap:5px;align-items:center;color:#aebddd;font-size:11px}
+.atlas-v2-typekey i{width:7px;height:7px;border-radius:50%;outline:.5px solid #0b121fcc;flex:0 0 auto}
+
+/* ---------------- deep-zoom chrome ----------------
+   Buttons for readers without a wheel, and a readout so nobody is lost at
+   80x. Both sit inside the viewport, over the art, out of the way of the
+   drag surface. */
+.atlas-v2-zoomer{position:absolute;right:10px;top:10px;display:flex;flex-direction:column;gap:4px;z-index:20}
+.atlas-v2-zoomer button{width:30px;height:30px;border-radius:8px;border:1px solid #4a5b80;background:#0b1322e8;color:#dce7ff;font:700 15px/1 inherit;cursor:pointer;display:grid;place-items:center;padding:0}
+.atlas-v2-zoomer button:hover{background:#1d2b47;border-color:#8ab4ff;color:#fff}
+.atlas-v2-depth{position:absolute;left:10px;bottom:10px;z-index:20;background:#0b1322e8;border:1px solid #3e5072;border-radius:7px;padding:4px 9px;color:#9db0d4;font:700 10.5px/1.3 inherit;letter-spacing:.05em;text-transform:uppercase;pointer-events:none}
+.atlas-v2-depth.deep{color:#ffd75e;border-color:#7a6526}

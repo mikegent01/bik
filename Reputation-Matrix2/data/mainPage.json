@@ -1,16 +1,16 @@
 {
   "featuredArticle": {
-    "id": "the_garden_above_the_fire",
+    "id": "feyward_i_cant_afford_not_to_care",
     "type": "event",
-    "excerpt": "18 Harvestide, 1035 BF. The compound night finally stops running: the fake Luigi talks, Kat and Ana point the crew back to the lava moat, and Luigi is found alive in the volcanic tunnels asking whether he and Mario are still superstars. The note now has its first words — 'The star is not lost. Find the garden above the fire' — and Dr. Toad's clinic closes the rescue phase while opening the next door.",
+    "excerpt": "2 Aethel, 922 BF (Feyward clock). The door Waluigi opened contained a treant at full height and a Revel that spent three rounds attacking itself. Hjumpik dragged him out by the sleeve, a Toad missed a bomb throw, and a hallway guard nobody debriefed reported that the manor's dead had sword slashes, not plant wounds. Then four Iron Legion operatives introduced themselves by colour, identified Hjumpik by his wolf-pelt onesie, and took Toad Lee and Waluigi as leverage — and the thing wearing Lady Aurelian explained its whole plan before answering to the name Carnivorous.",
     "label": "Latest Filing · Session Event",
-    "title": "The Garden Above the Fire — Luigi Found, Still Superstars"
+    "title": "I Can't Afford Not to Care Anymore — the Doorway, the Colour Division, and the Name"
   },
   "latestUpdate": {
-    "id": "the_garden_above_the_fire",
+    "id": "feyward_i_cant_afford_not_to_care",
     "label": "Latest Filing · Session Event",
-    "excerpt": "18 Harvestide, 1035 BF. The compound night finally stops running: the fake Luigi talks, Kat and Ana point the crew back to the lava moat, and Luigi is found alive in the volcanic tunnels asking whether he and Mario are still superstars. The note now has its first words — 'The star is not lost. Find the garden above the fire' — and Dr. Toad's clinic closes the rescue phase while opening the next door.",
-    "title": "The Garden Above the Fire — Luigi Found, Still Superstars"
+    "excerpt": "2 Aethel, 922 BF (Feyward clock). The door Waluigi opened contained a treant at full height and a Revel that spent three rounds attacking itself. Hjumpik dragged him out by the sleeve, a Toad missed a bomb throw, and a hallway guard nobody debriefed reported that the manor's dead had sword slashes, not plant wounds. Then four Iron Legion operatives introduced themselves by colour, identified Hjumpik by his wolf-pelt onesie, and took Toad Lee and Waluigi as leverage — and the thing wearing Lady Aurelian explained its whole plan before answering to the name Carnivorous.",
+    "title": "I Can't Afford Not to Care Anymore — the Doorway, the Colour Division, and the Name"
   },
   "didYouKnow": [
     "...that the Scorncrow told three separate filings it was not a monster, and when Remi Akamatsu finally tested the claim with a point-blank musket, the blood under the face was human?",
@@ -64,6 +64,11 @@
     }
   ],
   "fieldGallery": [
+    {
+      "image": "assets/images/events/ambush-in-the-doorway/amb-01-drag-him-out.jpg",
+      "caption": "The doorway, resolved: Hjumpik hauling Waluigi out by the sleeve while a second treant buds behind them.",
+      "articleId": "feyward_i_cant_afford_not_to_care"
+    },
     {
       "image": "assets/images/events/garden-above-fire/garden-above-fire-01-superstars.jpg",
       "caption": "After the compound rescue: Luigi's cap, clean bandages, and the note line that points toward the next arc.",

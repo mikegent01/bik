@@ -5,6 +5,7 @@
 import { MAP_DATA } from '../../../data/maps/map-data.js';
 import { getFaction, getFactionColor } from '../../../systems/faction-registry.js';
 import { hashColor, initial, isSafeLogo, topCats, legendChips } from './map-lenses.js';
+import { typeColor, typeLabel, familiesPresent } from './map-poi-types.js';
 import { buildProvinceCensus, shortlist as rankShortlist, uniquePins } from './map-provinces.js';
 import { PROVINCE_POLITICS } from '../../../data/support/politics-data.js';
 
@@ -123,20 +124,94 @@ function clusterPois(pois, radius = 1.15, opts = {}) {
   return clusters;
 }
 
-function dynamicClusterRadius(count, scale, plane, journeyOnly, densityMode) {
-  if (journeyOnly || densityMode === 'all' || count <= 60) return plane ? 0.18 : 0.05;
-  if (densityMode === 'key') return 0.05;
-  const pressure = Math.min(1, Math.max(0, (count - 60) / 520));
-  const base = 0.9 + pressure * 3.2;
-  const zoom = Math.max(0.35, Number(scale) || 1);
-  return Math.max(0.18, base / Math.pow(zoom, 1.12));
+/* A marker is drawn in PIXELS (18px base, up to ~50px for a big cluster) but
+   the cluster radius is measured in map-PERCENT. Those two only agree at one
+   particular viewport size and zoom, which is why dense sheets still drew a
+   pile: on the Midlands at rest the old radius left 29 markers stacked around
+   the Capital Province with 86 overlapping pairs.
+   So the radius is derived from the marker footprint instead. boxW/boxH are
+   the rendered art size in CSS px; dividing the footprint by them converts a
+   pixel gap into the percent gap the clusterer actually uses, and dividing by
+   the zoom lets groups unroll as the reader pushes in. */
+/* Sized to the DOT, not to the old badge markers: a lone pin draws at 4-6px
+   with a ~15px transparent hit pad, so two dots are distinct and clickable far
+   closer together than two 34px discs ever were. Gathering only has to start
+   where the hit targets would fight. */
+const MARKER_FOOTPRINT_PX = 15;
+
+/* ---------------- deep zoom ----------------
+   The sheet zooms like a real atlas rather than a picture: all the way down,
+   until two provinces that touch on the continent view are a long drag apart.
+   This is the actual cure for crowding. Clutter is not a property of the map,
+   it is a property of the SCALE you read it at — a hundred pins inside one
+   province is a pile at 1x and a comfortable scatter at 30x, because at 30x
+   that province is the whole screen.
+   Two things have to hold for that to work, and only the first was true here:
+     1. the artwork grows with the zoom (it already did), and
+     2. the MARKERS DO NOT. A pin that grows with the world keeps the same
+        neighbours at every depth, so zooming magnified the crowding instead
+        of relieving it. Pins are now counter-scaled against the zoom (see
+        --pin-zoom), so they hold their size on screen while the ground slides
+        apart underneath them. */
+const MAX_ZOOM = 160;
+const MIN_ZOOM = 1;
+
+/* Name the depth in the reader's terms. "12.4x" is a number; "street" is a
+   place. The thresholds are eyeballed against the Midlands sheet, where the
+   whole continent is ~100 percent across and a town occupies about one. */
+function scaleWord(zoom) {
+  const z = Number(zoom) || 1;
+  if (z < 1.6) return 'continent';
+  if (z < 4) return 'kingdom';
+  if (z < 10) return 'province';
+  if (z < 26) return 'district';
+  if (z < 65) return 'town';
+  return 'street';
 }
 
-const PIN_DENSITY_ORDER = ['smart', 'key', 'all'];
+function dynamicClusterRadius(count, scale, plane, journeyOnly, densityMode, box, forceGather) {
+  if (journeyOnly || densityMode === 'all') return plane ? 0.18 : 0.05;
+  if (densityMode === 'key') return 0.05;
+  /* A sparse sheet is legible as-is; gathering there only hides detail.
+     Scoped views (drill-down) opt out via `forceGather`, because there the
+     small count is the RESULT of zooming in, not evidence the sheet is quiet. */
+  if (count <= 60 && !forceGather) return plane ? 0.18 : 0.05;
+
+  const zoom = Math.max(0.35, Number(scale) || 1);
+  const boxW = Math.max(1, Number(box && box.w) || 900);
+  const boxH = Math.max(1, Number(box && box.h) || boxW * 0.62);
+
+  /* Percent-of-sheet occupied by one marker, on the tighter axis, at this
+     zoom. Two markers closer than this cannot both be read. */
+  const footprint = MARKER_FOOTPRINT_PX / Math.min(boxW, boxH) * 100 / zoom;
+
+  /* Crowding still matters: a sheet with 500 pins needs to gather harder than
+     the footprint alone demands, or the reader gets a uniform carpet. */
+  const pressure = Math.min(1, Math.max(0, (count - 60) / 520));
+  const crowd = 1 + pressure * 1.35;
+
+  /* A cluster marker grows with its membership (up to ~50px vs the 18px base),
+     so the gathered group is drawn WIDER than the footprint that gathered it.
+     Allow for that or the biggest groups still touch their neighbours. */
+  const clusterGrowth = 1 + Math.min(0.55, pressure * 0.75);
+
+  const radius = footprint * crowd * clusterGrowth;
+  /* Ceiling keeps a dense sheet from collapsing into a handful of blobs;
+     floor keeps a sparse one from gathering at all. */
+  return Math.max(0.18, Math.min(radius, 8));
+}
+
+/* Clustering is OFF by default and 'all' leads the cycle. Gathering pins into
+   fat badges buried the province plots underneath them and made the map
+   genuinely hard to click — a marker that hides the thing you were aiming at
+   is worse than a crowded sheet. Every location draws as its own dot; 'key'
+   thins the sheet by importance if the reader wants that, and clustering is
+   available but no longer the default anyone lands on. */
+const PIN_DENSITY_ORDER = ['all', 'key', 'smart'];
 const PIN_DENSITY = {
-  smart: { label: '✨ Smart POIs', hint: 'auto-clustered' },
+  all: { label: '• All POIs', hint: 'every location, one dot each' },
   key: { label: '◆ Key only', hint: 'seats, articles, top pins' },
-  all: { label: '• All POIs', hint: 'everything unrolled' },
+  smart: { label: '✨ Cluster', hint: 'auto-clustered' },
 };
 
 function settlementInsetKind(stack) {
@@ -184,7 +259,36 @@ function model(mapId, plane, onlyIds) {
   if (plane && plane !== 'all') pois = pois.filter(p => planeOf(p) === plane);
   /* Journey mode: hide every surveyed pin except the stops that connect. */
   if (onlyIds) pois = pois.filter(p => onlyIds.has(p.id));
+  pois = spreadCoincident(pois);
   return { map, pois, population: pois.reduce((n, poi) => n + (Number(poi.population) || 0), 0) };
+}
+
+/* Deep zoom separates everything EXCEPT pins filed at the identical
+   coordinate: those stay welded together at 1x and at 160x alike, because no
+   magnification can divide a distance of zero. (On the Midlands sheet that is
+   Veridia Estate and the Forgotten Barrow, both filed at the same point.)
+   Nudge such a stack onto a tiny ring around its shared point — small enough
+   to be invisible at continent scale and a lie about nothing, big enough that
+   pushing in eventually pulls them apart like every other pair. */
+function spreadCoincident(list) {
+  const buckets = new Map();
+  list.forEach(p => {
+    const key = `${p.x.toFixed(3)}:${p.y.toFixed(3)}`;
+    if (!buckets.has(key)) buckets.set(key, []);
+    buckets.get(key).push(p);
+  });
+  const moved = new Map();
+  buckets.forEach(group => {
+    if (group.length < 2) return;
+    /* 0.05% of the sheet: under a tenth of a pixel at rest, a comfortable gap
+       by the time the reader is at town scale. */
+    const r = 0.05;
+    group.forEach((p, i) => {
+      const a = (i / group.length) * Math.PI * 2;
+      moved.set(p.id, { ...p, x: p.x + Math.cos(a) * r, y: p.y + Math.sin(a) * r });
+    });
+  });
+  return moved.size ? list.map(p => moved.get(p.id) || p) : list;
 }
 
 function stopBannerHtml(stop) {
@@ -593,10 +697,13 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
       <select data-type><option value="">All types</option>${types.map(t => `<option value="${esc(t)}">${esc(humanize(t))}</option>`).join('')}</select>
       <button type="button" data-action="wiki" title="Show only pins that open a wiki article">📖 Wiki</button>
       ${provinceList.length ? `<button type="button" data-action="plots" class="${plotsOn ? 'active' : ''}" title="Merge the pins into provinces and draw the borders the census can prove">🗺️ Provinces</button>` : ''}
-      <button type="button" data-action="density" data-density="smart" title="Cycle marker density: Smart clusters, key locations only, or all points unrolled">${PIN_DENSITY.smart.label}</button>
+      <button type="button" data-action="density" data-density="all" title="Cycle marker density: every location, key locations only, or auto-clustered">${PIN_DENSITY.all.label}</button>
+      <button type="button" data-action="bigpins" title="Bigger, easier-to-hit dots — for touch, or when precision aiming is a nuisance">⬤ Big dots</button>
       <button type="button" data-action="shortlist" title="Rank the pins on this sheet and pick one to act on">🎯 Choose a pin</button>
       <span data-visible>${pois.length} markers</span>
     </div>
+    <div class="atlas-v2-drill" data-drill hidden></div>
+    <div class="atlas-v2-typekey" data-typekey></div>
     <div class="atlas-v2-modes">
       ${Object.entries(modes).map(([id, m]) => `<button type="button" class="${id === startMode ? 'active' : ''}" data-mode="${id}" style="--mode:${m.color}">${m.label}</button>`).join('')}
       <b data-mode-total>${format(population)} residents</b>
@@ -608,6 +715,12 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
             <img data-map-art alt="${esc(map.name)} map" src="${imgHref}">
             <div class="atlas-v2-overlay" data-overlay></div>
           </div>
+          <div class="atlas-v2-zoomer">
+            <button type="button" data-action="zoomin" title="Zoom in">+</button>
+            <button type="button" data-action="zoomout" title="Zoom out">−</button>
+            <button type="button" data-action="zoomreset" title="Back to the whole sheet">⤢</button>
+          </div>
+          <div class="atlas-v2-depth" data-depth>1× continent</div>
         </div>
         <div class="atlas-v2-legend"><span data-legend-lens></span><span>${esc(map.group || '')}</span></div>
       </main>
@@ -621,9 +734,18 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
   const viewport = host.querySelector('.atlas-v2-viewport');
   const sidebar = host.querySelector('.atlas-v2-sidebar');
   const state = {
+    /* drill: the zoom-in stack. Empty = the whole sheet. Each entry scopes the
+       map to one group of pins and remembers how to draw its way back out:
+       { ids:Set, label, x, y, scale }. Clicking a cluster pushes; the
+       breadcrumb pops. This is what makes the sheet behave like a real atlas —
+       continent, then region, then town — instead of one flat pile. */
+    drill: [],
     scale: 1, tx: 0, ty: 0, box: { left: 0, top: 0, w: 1, h: 1 }, mode: startMode, selected: null, wikiOnly: false,
     plots: plotsOn, province: null, board: null, pickIndex: 0, nonce: 0, dragged: false, labelZoom: 1,
-    pinDensity: PIN_DENSITY[opts.pinDensity] ? opts.pinDensity : 'smart',
+    pinDensity: PIN_DENSITY[opts.pinDensity] ? opts.pinDensity : 'all',
+    /* Big-target mode: same dots, bigger hit areas, for touch and for anyone
+       who would rather aim at a disc than a point. Opt-in, off by default. */
+    bigPins: false,
   };
   /* One colour source for the census: the same registry the pins and the
      demographics panel already read, so a province and its capital agree. */
@@ -651,10 +773,15 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
        on screen at every depth — which is also why decluttering is re-run
        whenever the zoom actually changes (see refreshLabels). */
     overlay.style.setProperty('--label-zoom', String(state.scale || 1));
+    /* Pins hold their size on screen at every depth. Without this the dots
+       grow with the ground and the sheet is exactly as crowded at 40x as it
+       was at 1x — zooming would move the pile closer rather than spread it. */
+    overlay.style.setProperty('--pin-zoom', String(state.scale || 1));
     if ((state.scale || 1) !== state.labelZoom) {
       state.labelZoom = state.scale || 1;
       refreshLabels();
     }
+    showDepth();
   }
 
   function fitRegion() {
@@ -672,6 +799,180 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
     state.ty = vh / 2 - cy * state.scale;
     applyTransform();
     placePins();
+  }
+
+  /* ---------------- drill-down ----------------
+     The reader clicks a cluster; the sheet zooms to exactly that group and
+     hides everything else, so the next click is a decision about THAT place
+     rather than about the whole continent again. Repeat until single pins
+     remain. The breadcrumb walks back out. */
+
+  /* Say how deep we are, and offer the way back. Without a readout a reader at
+     60x on an unfamiliar corner has no idea whether they are lost or just
+     close. */
+  function showDepth() {
+    const el = host.querySelector('[data-depth]');
+    if (!el) return;
+    const z = state.scale || 1;
+    el.textContent = `${z < 1.05 ? '1' : z.toFixed(z < 10 ? 1 : 0)}×  ${scaleWord(z)}`;
+    el.classList.toggle('deep', z > 3);
+  }
+
+  function drillTop() {
+    return state.drill.length ? state.drill[state.drill.length - 1] : null;
+  }
+
+  /* Name a level after its most significant place, the way an atlas names a
+     region after its capital: "Mighdural +7" reads, "8 locations" does not. */
+  function drillLabelFor(group) {
+    const lead = [...group].sort((a, b) =>
+      defaultPinScore(b) - defaultPinScore(a) || String(a.name || '').localeCompare(String(b.name || '')))[0];
+    if (!lead) return `${group.length} locations`;
+    const rest = group.length - 1;
+    return rest > 0 ? `${lead.name} +${rest}` : lead.name;
+  }
+
+  /* The pins currently in scope: the whole sheet, or the innermost drill. */
+  function scopedPois() {
+    const top = drillTop();
+    if (!top) return pois;
+    return pois.filter(p => top.ids.has(p.id));
+  }
+
+  /* Frame a set of pins: centre them and zoom so they fill the viewport with
+     a margin. This is what makes each click feel like it went somewhere. */
+  function framePois(list, opts = {}) {
+    const pts = (list || []).filter(p => Number.isFinite(p.x) && Number.isFinite(p.y));
+    if (!pts.length) return;
+    const box = state.box;
+    const vw = viewport.clientWidth || 1;
+    const vh = viewport.clientHeight || 1;
+
+    const xs = pts.map(p => p.x), ys = pts.map(p => p.y);
+    const minX = Math.min(...xs), maxX = Math.max(...xs);
+    const minY = Math.min(...ys), maxY = Math.max(...ys);
+
+    /* Pad proportionally to the group's own extent, so a tight pair gets a
+       tight window and can actually be zoomed apart, while a sprawling region
+       still gets breathing room. A floor stops a zero-extent group (pins filed
+       at the identical coordinate) dividing into infinite zoom. */
+    const extent = Math.max(maxX - minX, maxY - minY);
+    const padPct = opts.pad ?? Math.max(0.25, Math.min(3.5, extent * 0.18));
+    const spanX = Math.max(maxX - minX, 0) + padPct * 2;
+    const spanY = Math.max(maxY - minY, 0) + padPct * 2;
+
+    const wantW = box.w * spanX / 100;
+    const wantH = box.h * spanY / 100;
+    const fit = Math.min(vw / Math.max(wantW, 1), vh / Math.max(wantH, 1));
+    /* Deep zoom is the whole point of drilling; the art gets soft long before
+       the geometry does, and a blurry readable pin beats a crisp pile. */
+    const maxZoom = opts.maxZoom ?? MAX_ZOOM;
+    state.scale = Math.max(1, Math.min(fit, maxZoom));
+
+    const cx = box.left + box.w * ((minX + maxX) / 200);
+    const cy = box.top + box.h * ((minY + maxY) / 200);
+    state.tx = vw / 2 - cx * state.scale;
+    state.ty = vh / 2 - cy * state.scale;
+    applyTransform();
+  }
+
+  /* Push one level in, scoped to `group` (an array of POIs). */
+  function drillInto(group, label) {
+    const members = (group || []).filter(Boolean);
+    if (members.length < 2) return false;
+    /* Refuse a level that would show exactly what is already on screen.
+       Pins filed at the identical coordinate can never be separated by zoom,
+       so without this the reader can drill forever into the same two dots. */
+    const top = drillTop();
+    if (top && top.ids.size === members.length && members.every(p => top.ids.has(p.id))) {
+      return openLocalInset(members.map(p => p.id), members[0].x, members[0].y);
+    }
+    state.drill.push({
+      ids: new Set(members.map(p => p.id)),
+      label: label || `${members.length} locations`,
+      count: members.length,
+    });
+    state.selected = null;
+    framePois(members);
+    placePins();
+    renderBreadcrumb();
+    sidebar.innerHTML = drillHtml(members);
+    bindDrillList();
+    return true;
+  }
+
+  /* Pop back out to depth `n` (0 = the whole sheet). */
+  function drillTo(n) {
+    state.drill.length = Math.max(0, Math.min(n, state.drill.length));
+    state.selected = null;
+    const scope = scopedPois();
+    if (state.drill.length) framePois(scope);
+    else reframe();
+    placePins();
+    renderBreadcrumb();
+    sidebar.innerHTML = state.drill.length ? drillHtml(scope) : detailHtml(null, pois);
+    if (state.drill.length) bindDrillList();
+  }
+
+  function renderBreadcrumb() {
+    const bar = host.querySelector('[data-drill]');
+    if (!bar) return;
+    if (!state.drill.length) { bar.innerHTML = ''; bar.hidden = true; return; }
+    bar.hidden = false;
+    const crumbs = [`<button type="button" data-drill-to="0">🌍 ${esc(map.name)}</button>`]
+      .concat(state.drill.map((d, i) =>
+        `<button type="button" data-drill-to="${i + 1}"${i === state.drill.length - 1 ? ' class="on" aria-current="true"' : ''}>${esc(d.label)}</button>`));
+    bar.innerHTML = `<span class="atlas-v2-drill-trail">${crumbs.join('<i>›</i>')}</span>`
+      + `<button type="button" class="atlas-v2-drill-up" data-drill-to="${state.drill.length - 1}">↩ Back out</button>`;
+    bar.querySelectorAll('[data-drill-to]').forEach(b =>
+      b.addEventListener('click', () => drillTo(Number(b.dataset.drillTo))));
+  }
+
+  /* Sidebar for a drilled group: what is in here, and a way into each one. */
+  function drillHtml(list) {
+    const top = drillTop();
+    const rows = [...list]
+      .sort((a, b) => defaultPinScore(b) - defaultPinScore(a) || String(a.name || '').localeCompare(String(b.name || '')))
+      .map(poi => `<button type="button" data-drill-jump="${esc(poi.id)}">
+          <b>${esc(humanize(poi.type || 'location').slice(0, 1))}</b>
+          <span>${esc(poi.name)}<i>${esc(humanize(poi.type || 'location'))} · ${format(poi.population)} residents</i></span>
+        </button>`).join('');
+    const types = [...list.reduce((m, p) => m.set(humanize(p.type || 'location'), (m.get(humanize(p.type || 'location')) || 0) + 1), new Map()).entries()]
+      .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
+    return `<article class="atlas-v2-detail atlas-v2-inset">
+      <span class="atlas-v2-kicker">🔍 Zoomed in · depth ${state.drill.length}</span>
+      <h3>${esc(top ? top.label : 'Selection')}</h3>
+      <p>${list.length} locations in view. Click a cluster on the map to go deeper, a single pin to open it, or use the trail above to come back out.</p>
+      <div class="atlas-v2-inset-meta">${types.map(([n, c]) => `<span>${esc(n)} ×${c}</span>`).join('')}</div>
+      <div class="atlas-v2-inset-list">${rows}</div>
+    </article>`;
+  }
+
+  function bindDrillList() {
+    sidebar.querySelectorAll('[data-drill-jump]').forEach(b => b.addEventListener('click', () => {
+      const poi = pois.find(p => p.id === b.dataset.drillJump);
+      if (!poi) return;
+      select(poi, null, stopByPoi.get(poi.id));
+      centerOn(poi.x, poi.y, Math.max(state.scale, 6));
+      placePins();
+    }));
+  }
+
+  /* Fold companions filed at (near enough) the same coordinate into one mark.
+     Order inside a group is stable so the sidebar does not reshuffle. */
+  function groupTokens(list) {
+    const buckets = new Map();
+    list.forEach(t => {
+      const key = `${t.x.toFixed(1)}:${t.y.toFixed(1)}`;
+      if (!buckets.has(key)) buckets.set(key, []);
+      buckets.get(key).push(t);
+    });
+    return [...buckets.values()].map(members => ({
+      ...members[0],
+      x: members.reduce((n, m) => n + m.x, 0) / members.length,
+      y: members.reduce((n, m) => n + m.y, 0) / members.length,
+      members,
+    }));
   }
 
   function journeyPathSvg() {
@@ -699,7 +1000,12 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
     const type = host.querySelector('[data-type]')?.value || '';
     /* Party last-seen tokens: companions whose latest filed appearance pins
        onto this sheet. Rendered above pins, never clustered. */
-    const toks = (opts.party || []).filter(t => Number.isFinite(t.x) && Number.isFinite(t.y));
+    /* Companions standing in the same place are ONE marker. Two tokens filed
+       at the same tavern used to draw two 30px discs on top of each other,
+       which is both a lie about the geography and a pile the reader has to
+       pick apart. Rounding to a tenth of a percent is tight enough that
+       genuinely separate places stay separate. */
+    const toks = groupTokens((opts.party || []).filter(t => Number.isFinite(t.x) && Number.isFinite(t.y)));
     /* Lens weight on a log scale: sheet values run 0..60,000 with a median
        near 50, so a linear share of max flattens 95% of pins to one dot.
        log(1+v)/log(1+max) spreads hamlets, towns, and cities across the
@@ -721,16 +1027,20 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
       || wikiId(poi)
       || (chatterCounts[poi.id] || 0) > 0
     ));
+    /* Drilling in narrows the sheet to the group the reader chose, so every
+       later count, cluster and legend describes THAT place and not the
+       continent it sits on. */
+    const inScope = scopedPois();
     const matches = poi => (!query || `${poi.name} ${poi.description || ''}`.toLowerCase().includes(query))
       && (!type || poi.type === type)
       && (!state.wikiOnly || wikiId(poi));
-    let displayPois = pois.filter(matches);
+    let displayPois = inScope.filter(matches);
     const unfilteredMatches = displayPois.length;
     if (state.pinDensity === 'key' && !journeyOnly) displayPois = displayPois.filter(isKeyPin);
-    if (!displayPois.length && unfilteredMatches) displayPois = pois.filter(matches).slice(0, 1);
+    if (!displayPois.length && unfilteredMatches) displayPois = inScope.filter(matches).slice(0, 1);
     currentVisiblePois = displayPois.slice();
     const min = values.length ? Math.min(...values) : 0;
-    const radius = dynamicClusterRadius(displayPois.length, state.scale, plane, journeyOnly, state.pinDensity);
+    const radius = dynamicClusterRadius(displayPois.length, state.scale, plane, journeyOnly, state.pinDensity, state.box, state.drill.length > 0);
     const clusterOpts = {
       maxSize: state.pinDensity === 'smart' ? Math.max(18, Math.ceil(displayPois.length / 12)) : 4,
       score: p => (lensVal(p) * 2) + defaultPinScore(p) + (isKeyPin(p) ? 999 : 0),
@@ -758,6 +1068,20 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
         : `${clusters.length} clustered markers · ${displayPois.length} POIs`;
       visibleEl.textContent = markerLabel + (displayPois.length !== pois.length ? ` · ${pois.length - displayPois.length} tucked` : '');
     }
+    /* Dot colours are only useful if the reader can decode them, and only in
+       the lenses where dots actually carry type (the categorical lenses paint
+       pins by their own category instead). */
+    const typeKeyEl = host.querySelector('[data-typekey]');
+    if (typeKeyEl) {
+      if (lens.categorical) {
+        typeKeyEl.hidden = true;
+        typeKeyEl.innerHTML = '';
+      } else {
+        typeKeyEl.hidden = false;
+        typeKeyEl.innerHTML = '<b>Dot colour</b>' + familiesPresent(displayPois)
+          .map(f => `<span><i style="background:${f.color}"></i>${esc(f.label)} ×${f.count}</span>`).join('');
+      }
+    }
     /* The province overlay rides along in every lens, so the legend says what
        its ink means: how many provinces, and how many of them are contested —
        now shown by plain fill/labels instead of hatch marks. */
@@ -778,15 +1102,35 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
       const cat = lens.categorical ? lens.catOf(poi) : null;
       const top = Math.max(0, ...group.map(g => lensVal(g)));
       const weighted = (lens.categorical && !cat) ? 0.06 : weight(top);
-      const diameter = Math.round(12 + weighted * 20 + (group.length > 1 ? Math.min(18, Math.log2(group.length) * 5) : 0));
+      /* Dots stay dots. A lone pin gets a few pixels that barely grow with the
+         lens, so a sheet reads as a scatter of points rather than a field of
+         badges; only groups earn real size, because a group has a number to
+         show and a door to be. */
+      const diameter = group.length > 1
+        ? Math.round(12 + weighted * 20 + Math.min(18, Math.log2(group.length) * 5))
+        : Math.round(4 + weighted * 3);
       const isMajor = group.some(g => major.has(g.id));
       const extra = group.length > 1 ? `<em>${group.length}</em>` : '';
       const groupStops = group.map(g => stopByPoi.get(g.id)).filter(Boolean);
       const badge = groupStops.length === 1 ? `<b class="atlas-v2-stop">${esc(groupStops[0].n)}</b>`
         : groupStops.length > 1 ? `<b class="atlas-v2-stop atlas-v2-stop-multi">${groupStops.length}</b>` : '';
       const ids = group.map(g => g.id).join(',');
-      const tint = cat ? cat.color : (lens.categorical ? '#5b6b8a' : lens.color);
-      const glyph = !lens.categorical ? faction.icon
+      /* A lone location is a DOT: no ring, no glyph, no label — just a
+         coloured point at its filed coordinate, the way a printed atlas marks
+         a place. Colour carries the one fact a dot has room for: what kind of
+         place it is. The lens still tints groups and categorical views, where
+         the reader has explicitly asked to see something else. */
+      /* Dots are for the plain numeric lenses. A categorical lens (Species,
+         Religion, Culture, Factions, Provinces) exists precisely to show WHICH
+         category a pin belongs to, so there it keeps its glyph and its
+         category colour — turning those into anonymous dots would delete the
+         only thing the lens is for. */
+      const isDot = group.length === 1 && !lens.categorical;
+      const tint = isDot ? typeColor(poi)
+        : cat ? cat.color
+        : (lens.categorical ? '#5b6b8a' : lens.color);
+      const glyph = isDot ? ''
+        : !lens.categorical ? faction.icon
         : !cat ? '●'
         : cat.img ? `<img class="atlas-v2-glyph" data-fb="${esc(cat.icon || '●')}" src="${esc(cat.img)}" alt="">`
         : esc(cat.icon || '●');
@@ -795,8 +1139,12 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
       const inSelectedProvince = state.province ? group.some(g => (pinProvince.get(g.id) || {}).id === state.province) : true;
       const cx = Number.isFinite(group.x) ? group.x : poi.x;
       const cy = Number.isFinite(group.y) ? group.y : poi.y;
-      const title = esc((group.length > 1 ? `${group.length} locations clustered: ` : '') + group.map(g => g.name).join(', ') + (cat ? ` · ${cat.label}` : '') + (plotOf && !cat ? ` · ${plotOf.name}` : ''));
-      const klass = `atlas-v2-marker${group.length > 1 ? ' atlas-v2-cluster' : ''}${groupStops.length ? ' journey' : ''}${isMajor ? ' atlas-v2-major' : ''}${selectedStack ? ' selected' : ''}${inSelectedProvince ? '' : ' atlas-v2-dimmed'}`;
+      /* Hover is the only thing a dot can say, so say the useful part: the
+         name, then what kind of place it is. */
+      const title = isDot
+        ? esc(`${poi.name} · ${typeLabel(poi.type)}`)
+        : esc(`${group.length} locations — click to zoom in: ` + group.map(g => g.name).join(', ') + (cat ? ` · ${cat.label}` : '') + (plotOf && !cat ? ` · ${plotOf.name}` : ''));
+      const klass = `atlas-v2-marker${isDot ? ' atlas-v2-dot' : ''}${group.length > 1 ? ' atlas-v2-cluster' : ''}${groupStops.length ? ' journey' : ''}${isMajor ? ' atlas-v2-major' : ''}${selectedStack ? ' selected' : ''}${inSelectedProvince ? '' : ' atlas-v2-dimmed'}`;
       return `<button type="button" class="${klass}" data-ids="${esc(ids)}" data-poi="${esc(poi.id)}" data-cx="${cx.toFixed(3)}" data-cy="${cy.toFixed(3)}" style="left:${cx}%;top:${cy}%;width:${diameter}px;height:${diameter}px;--marker:${tint};--intensity:${(0.45 + weighted * 0.55).toFixed(2)}" title="${title}"><span>${glyph}</span>${extra}${badge}</button>`;
     }).join('');
     overlay.querySelectorAll('[data-poi]').forEach(btn => {
@@ -804,9 +1152,17 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
         ev.stopPropagation();
         const ids = (btn.dataset.ids || '').split(',').filter(Boolean);
         if (ids.length > 1) {
+          /* A cluster is a door, not a dead end: step INTO it. The sheet
+             reframes on just these pins and everything else drops away, so
+             the next click is about this place. Keep stepping until single
+             pins remain; the breadcrumb walks back out. */
+          const group = ids.map(id => pois.find(p => p.id === id)).filter(Boolean);
           const cx = Number(btn.dataset.cx) || 50;
           const cy = Number(btn.dataset.cy) || 50;
-          centerOn(cx, cy, Math.min(7.2, Math.max(state.scale + 1.1, state.scale * 1.85, 4.8)));
+          if (drillInto(group, drillLabelFor(group))) return;
+          /* No ceiling: stepping into a group always goes meaningfully
+             deeper, however deep the reader already is. */
+          centerOn(cx, cy, Math.max(state.scale * 1.85, 4.8));
           placePins();
           openLocalInset(ids, cx, cy);
           return;
@@ -847,14 +1203,27 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
       });
     });
     if (toks.length) {
-      overlay.insertAdjacentHTML('beforeend', toks.map((t, i) => `<button type="button" class="atlas-v2-token" data-token="${i}" style="left:${t.x}%;top:${t.y}%" title="${esc(t.name)} — last seen: ${esc(t.recordName)} (${esc(t.date || 'undated')})">${esc(t.icon)}</button>`).join(''));
+      /* A party token is now the same size as the places it stands among, and
+         it PULSES. Size was the wrong way to say "someone is here" — it just
+         buried the map under the marker. A small mark that blinks is louder
+         than a big one that sits still, and it costs the sheet nothing. */
+      overlay.insertAdjacentHTML('beforeend', toks.map((t, i) => {
+        const title = t.members.length > 1
+          ? `${t.members.length} here: ` + t.members.map(m => `${m.name} (${m.recordName})`).join(', ')
+          : `${t.name} — last seen: ${t.recordName} (${t.date || 'undated'})`;
+        const stack = t.members.length > 1 ? `<em>${t.members.length}</em>` : '';
+        return `<button type="button" class="atlas-v2-token" data-token="${i}" style="left:${t.x}%;top:${t.y}%" title="${esc(title)}"><span>${esc(t.icon)}</span>${stack}</button>`;
+      }).join(''));
       overlay.querySelectorAll('[data-token]').forEach(btn => {
         btn.addEventListener('click', ev => {
           ev.stopPropagation();
           const t = toks[Number(btn.dataset.token)];
           if (!t) return;
           overlay.querySelectorAll('[data-token]').forEach(b => b.classList.toggle('selected', b === btn));
-          sidebar.innerHTML = `<article class="atlas-v2-detail"><span class="atlas-v2-kicker">🛰️ party last seen</span><h3>${esc(t.icon)} ${esc(t.name)}</h3><p>Last filed appearance: <b>${esc(t.recordName)}</b><br>${esc(t.date || 'undated')}</p>${t.recordId ? `<button class="atlas-v2-wiki" data-open-article="${esc(t.recordId)}">Open the record</button>` : ''}</article>`;
+          /* A grouped token opens everyone standing there, not just whoever
+             happened to sort first. */
+          const who = t.members.map(m => `<article class="atlas-v2-detail"><h3>${esc(m.icon)} ${esc(m.name)}</h3><p>Last filed appearance: <b>${esc(m.recordName)}</b><br>${esc(m.date || 'undated')}</p>${m.recordId ? `<button class="atlas-v2-wiki" data-open-article="${esc(m.recordId)}">Open the record</button>` : ''}</article>`).join('');
+          sidebar.innerHTML = `<span class="atlas-v2-kicker">🛰️ party last seen${t.members.length > 1 ? ` · ${t.members.length} together` : ''}</span>${who}`;
         });
       });
     }
@@ -1031,7 +1400,7 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
     const box = state.box;
     const px = box.left + box.w * x / 100;
     const py = box.top + box.h * y / 100;
-    state.scale = z;
+    state.scale = Math.min(MAX_ZOOM, Math.max(MIN_ZOOM, Number(z) || 1));
     state.tx = vw / 2 - px * z;
     state.ty = vh / 2 - py * z;
     applyTransform();
@@ -1174,6 +1543,13 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
     if (!state.plots) { state.province = null; }
     placePins();
   });
+  const bigPinsBtn = host.querySelector('[data-action="bigpins"]');
+  if (bigPinsBtn) bigPinsBtn.addEventListener('click', event => {
+    state.bigPins = !state.bigPins;
+    event.currentTarget.classList.toggle('active', state.bigPins);
+    host.classList.toggle('atlas-v2-bigpins', state.bigPins);
+  });
+
   const densityBtn = host.querySelector('[data-action="density"]');
   function renderDensityButton() {
     if (!densityBtn) return;
@@ -1205,9 +1581,34 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
     else { state.scale = 1; state.tx = 0; state.ty = 0; applyTransform(); placePins(); }
   }
   host.querySelector('[data-action="fit"]').addEventListener('click', () => {
+    /* Reset view means all the way out, including out of every drill level. */
+    state.drill.length = 0;
+    renderBreadcrumb();
     sidebar.innerHTML = detailHtml(null, pois);
     reframe();
   });
+  /* Zoom buttons: the wheel is not available to every reader or every device,
+     and holding a deep-zoom map should not require a mouse. Each press is the
+     same proportional step the wheel takes, about the centre of the view. */
+  function zoomBy(factor) {
+    const vw = viewport.clientWidth || 1;
+    const vh = viewport.clientHeight || 1;
+    const next = Math.min(MAX_ZOOM, Math.max(MIN_ZOOM, state.scale * factor));
+    const k = next / state.scale;
+    state.tx = vw / 2 - (vw / 2 - state.tx) * k;
+    state.ty = vh / 2 - (vh / 2 - state.ty) * k;
+    state.scale = next;
+    applyTransform();
+    placePins();
+  }
+  host.querySelector('[data-action="zoomin"]').addEventListener('click', () => zoomBy(1.6));
+  host.querySelector('[data-action="zoomout"]').addEventListener('click', () => zoomBy(1 / 1.6));
+  host.querySelector('[data-action="zoomreset"]').addEventListener('click', () => {
+    state.drill.length = 0;
+    renderBreadcrumb();
+    reframe();
+  });
+
   /* Full screen: the host becomes a fixed overlay so the painted sheet fills
      the viewport instead of a card column. Both the atlas page and the
      cartography desk mount through here, so both inherit the button. */
@@ -1271,12 +1672,26 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
     if (open && typeof window.openId === 'function') window.openId(open.dataset.openArticle);
   });
 
+  /* Escape steps back out one drill level — the cheap way out of a deep dive
+     without hunting for the breadcrumb. Only while this map is on screen. */
+  host.addEventListener('keydown', event => {
+    if (event.key !== 'Escape' || !state.drill.length) return;
+    event.stopPropagation();
+    drillTo(state.drill.length - 1);
+  });
+  if (!host.hasAttribute('tabindex')) host.setAttribute('tabindex', '-1');
+
   viewport.addEventListener('wheel', event => {
     event.preventDefault();
     const rect = viewport.getBoundingClientRect();
     const mx = event.clientX - rect.left;
     const my = event.clientY - rect.top;
-    const next = Math.min(6, Math.max(1, state.scale * (event.deltaY < 0 ? 1.12 : 0.89)));
+    /* Zoom compounds, so the wheel keeps its feel at every depth: one notch is
+       always the same PROPORTION of the current scale, whether the reader is
+       looking at a continent or at one street of a town. A fixed step would
+       crawl at 1x and teleport at 100x. */
+    const step = event.deltaY < 0 ? 1.16 : 1 / 1.16;
+    const next = Math.min(MAX_ZOOM, Math.max(MIN_ZOOM, state.scale * step));
     const k = next / state.scale;
     state.tx = mx - (mx - state.tx) * k;
     state.ty = my - (my - state.ty) * k;

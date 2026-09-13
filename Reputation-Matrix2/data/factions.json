@@ -1523,5 +1523,33 @@
         "note": "The Order's chaplains are Flamekeep-ordained because the Regal Lion's are. The Order's standing instruction to those chaplains — do not raise the Edict of Purification against a tenant of the Rise — is not, and has never been, in writing."
       }
     ]
+  },
+  {
+    "id": "color_division",
+    "name": "The Colour Division",
+    "title": "Iron Legion Special Forces - Four Operatives, Four Colours, One Retrieval",
+    "type": "Special Forces Detachment / Retrieval Unit",
+    "region": "Regal Empire - deployed across planar boundaries; currently inside the Overgrown Manor (Feywild)",
+    "status": "Active - four operatives deployed to the Overgrown Manor on a single-contractor retrieval",
+    "leader": "Not disclosed to the party; Black did the talking that mattered",
+    "headquarters": "Unknown - the unit gave the Iron Legion as its parent and the Aegis Magi as its client",
+    "motto": "Not offered. They introduce themselves by colour and consider that sufficient.",
+    "affiliation": "Iron Legion; contracted through the Aegis Magi of the Mages' Guild",
+    "allies": [
+      "iron_legion",
+      "mages_guild"
+    ],
+    "enemies": [],
+    "summary": "A four-operative special forces unit - Red, Green, Yellow and Black - sent into the Feywild to retrieve one overdue dwarf. They introduce themselves in sequence with a flourish each, the fourth by turning into a shadow. They apprehended Toad Lee and Waluigi as leverage inside ten minutes of meeting them, which is faster than anything else in this manor has managed.",
+    "description": "The Colour Division walked into the middle of a plant war and did not care about the plant war, and the archive wants that on the record first, because it is the whole character of the unit.\n\nThey were found behind a locked door on the manor's lower floor, in a room where the household had heard fighting. Three stood, one introduced himself and stopped being a person shape. Their colours are their names, their names are their ranks as far as anybody outside can tell, and when asked who they serve the answer was *special forces* and then, when pressed, *the Iron Legion*.\n\nThe deployment order is small and specific: find a dwarf named Hjumpik - rendered, at the point of asking, as *Hjumpoo* - because his time is up. Five nights was the contract. It ran long. The Aegis Magi want their contractor back for the mission, and rather than send a letter they sent four operatives across a planar boundary into a house being eaten by trees.\n\nTheir method, observed once and sufficient to characterise them: apprehend the associates, offer the principal a window, and call the associates *insurance*. They arrived with mage cages and put them away when Hjumpik objected; they produced handcuffs instead; they granted an investigation window and started a clock on it. Nothing they did was cruel and nothing they did was negotiable.\n\nWaluigi notes, with an archivist's professional hatred, that the Division is the first organisation in this arc to state its objective plainly, meet its objective efficiently, and leave the party with fewer options than it found them with.",
+    "relatedArticles": [
+      "iron_legion",
+      "hjumpik",
+      "waluigi",
+      "toad_lee",
+      "color_division_black",
+      "overgrown_manor",
+      "feyward_i_cant_afford_not_to_care"
+    ]
   }
 ]

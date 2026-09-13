@@ -83,6 +83,11 @@ def main() -> int:
         # Categorical atlas lenses (species/religion/culture/factions) + census.
         checks.append(("map lenses", ["node", "tools/tests/test-map-lenses.mjs"], ROOT))
         checks.append(("map census", ["node", "tools/tests/test-map-census.mjs"], ROOT))
+        # Settlement tiering: co-located pins grouped under City/Town/Village,
+        # and the hyper-zoom window that keeps every member clickable.
+        checks.append(("map tiers", ["node", "tools/tests/test-map-tiers.mjs"], ROOT))
+        # Dot colour: every filed POI type resolves to a legible family.
+        checks.append(("map poi types", ["node", "tools/tests/test-map-poi-types.mjs"], ROOT))
         # Province census: POIs merged into provinces, borders, and the filed
         # snapshot that proves the atlas, the desk and power projection agree.
         checks.append(("province census model", ["node", "tools/tests/test-map-provinces.mjs"], ROOT))
