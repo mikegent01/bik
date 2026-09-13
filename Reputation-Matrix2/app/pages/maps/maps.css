@@ -4402,3 +4402,50 @@
 .group-zoom-row:hover { background: var(--map-accent-muted); }
 .group-zoom-row-name { flex: 1; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
 .group-zoom-row-tier { font-size: 0.66rem; color: var(--map-text-muted); }
+
+/* -----------------------------------------------------------------------------
+   Territory stacks — one marker standing in for several overlapping
+   states/provinces. Without this the Capital Province draws 19 circles on top
+   of each other, one per faction, and the sheet is unreadable.
+   -------------------------------------------------------------------------- */
+
+.territory-stack-marker {
+    border: 3px solid var(--map-accent) !important;
+    box-shadow: 0 0 0 3px rgba(13, 17, 23, 0.85), var(--shadow-lg) !important;
+    z-index: 30 !important;
+}
+
+.territory-stack-marker:hover {
+    border-color: var(--map-accent-hover) !important;
+    z-index: 40 !important;
+}
+
+.territory-stack-marker.contested {
+    border-style: dashed !important;
+    border-color: var(--map-negative) !important;
+}
+
+.territory-stack-badge {
+    position: absolute;
+    top: -7px;
+    right: -7px;
+    min-width: 20px;
+    height: 20px;
+    padding: 0 5px;
+    font-size: 11px;
+    font-weight: 700;
+    color: #fff;
+    background: var(--map-accent);
+    border: 2px solid var(--map-bg);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 6;
+    box-shadow: var(--shadow-sm);
+}
+
+.territory-stack-marker.contested .territory-stack-badge { background: var(--map-negative); }
+
+.territory-stack-item { cursor: pointer; }
+.territory-stack-item:hover { background: var(--map-accent-muted); }

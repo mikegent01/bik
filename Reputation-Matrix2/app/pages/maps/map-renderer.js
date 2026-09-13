@@ -9,7 +9,7 @@ import * as map from './maps.js';
 import { resetTransform, getZoomLevel } from './map-transform.js';
 import {
     TIERS, tierOf, groupPois, groupLabel, groupBreakdown,
-    groupWindow, windowScale, windowLayout, sortedMembers,
+    groupWindow, windowScale, windowLayout, sortedMembers, stackMarkers,
 } from './map-tiers.js';
 import { QUEST_DATA } from '../../../data/quest-system/index.js';
 import { FACTION_COLORS } from '../../../factions/faction-colors.js';
@@ -159,7 +159,12 @@ const TERRITORY_CONFIG = {
         minPoiDistance: 5,
         defaultRadius: 6,
         maxStates: 300,
-        minPoisPerState: 1
+        minPoisPerState: 1,
+        // Markers closer together than this (map-percent) cannot both be read,
+        // so they are stacked into one. A state marker runs 24-64px on a
+        // ~1100px sheet, i.e. up to ~5.8% wide, so 5.0 is the footprint rather
+        // than an arbitrary number. See map-tiers.stackMarkers.
+        stackGap: 5.0
     },
     // Province settings (groups of states)
     province: {
@@ -167,6 +172,7 @@ const TERRITORY_CONFIG = {
         minStatesPerProvince: 1, // Changed from 2 to 1 - no orphan states
         maxStatesPerProvince: 100,
         mergeDistance: 20,
+        stackGap: 6.0,
         mergeThreshold: 0.20 // Lowered to group more states together
     },
     // Region settings (groups of provinces) - NEW
@@ -174,7 +180,8 @@ const TERRITORY_CONFIG = {
         enabled: true,
         minProvincesPerRegion: 1,
         maxProvincesPerRegion: 8,
-        mergeDistance: 35
+        mergeDistance: 35,
+        stackGap: 7.0
     },
     renderMode: 'state', // 'state', 'province', or 'region'
     showAllTerritories: true,
@@ -1530,8 +1537,184 @@ function renderRegionDetailPanel(region) {
         });
     });
 }
+// ============================================================================
+// TERRITORY STACK MARKERS
+// ============================================================================
+//
+// One marker standing in for several overlapping territories. It shows the
+// combined faction control as a single pie, badges how many territories are
+// underneath, and opens a list of them on click. The territories themselves
+// are untouched — this is purely about not drawing nineteen circles on top of
+// each other around the Capital Province.
+
+function createTerritoryStackMarker(stack, allPois, kind) {
+    const members = stack.members;
+
+    // Combined control across everything in the stack, weighted by how many
+    // POIs each territory actually holds.
+    const combined = {};
+    let poiTotal = 0;
+    members.forEach(t => {
+        const control = kind === 'state'
+            ? calculateStateControl(t, allPois)
+            : (t.control || calculateProvinceControl(t, allPois));
+        const n = Math.max(1, kind === 'state' ? countPoisInState(t, allPois) : (t.poiIds || []).length);
+        poiTotal += n;
+        Object.entries(control).forEach(([fid, pct]) => {
+            combined[fid] = (combined[fid] || 0) + pct * n;
+        });
+    });
+    const grand = Object.values(combined).reduce((a, b) => a + b, 0) || 1;
+    Object.keys(combined).forEach(fid => { combined[fid] = (combined[fid] / grand) * 100; });
+
+    const isContested = isTerritoryContested(combined);
+    const size = Math.min(64, 34 + members.length * 2.5);
+
+    const marker = document.createElement('div');
+    marker.className = `state-marker territory-stack-marker${isContested ? ' contested' : ''}`;
+    marker.style.left = `${stack.x}%`;
+    marker.style.top = `${stack.y}%`;
+    marker.style.width = `${size}px`;
+    marker.style.height = `${size}px`;
+    marker.dataset.stackSize = members.length;
+
+    const label = `${members.length} territories`;
+    marker.innerHTML = createPieChartSVG(combined, size)
+        + `<div class="territory-stack-badge">${members.length}</div>`
+        + `<div class="state-label">${label}</div>`;
+
+    marker.onmouseenter = (e) => showTerritoryStackTooltip(e, stack, combined, poiTotal, kind, allPois);
+    marker.onmousemove = (e) => updateTooltipPosition(e);
+    marker.onmouseleave = () => hideTooltip();
+    marker.onclick = (e) => {
+        e.stopPropagation();
+        playSound('../../../assets/audio/ui/click.mp3');
+        showTerritoryStackPanel(stack, combined, kind, allPois);
+    };
+
+    return marker;
+}
+
+function showTerritoryStackTooltip(event, stack, combined, poiTotal, kind, allPois) {
+    const rows = Object.entries(combined)
+        .sort(([, a], [, b]) => b - a)
+        .slice(0, 5)
+        .map(([fid, pct]) => {
+            const f = getFactionData(fid);
+            return `<div style="display:flex;justify-content:space-between;gap:10px;">
+                        <span style="color:${f.color}">${f.name}</span><span>${Math.round(pct)}%</span>
+                    </div>`;
+        }).join('');
+
+    const names = stack.members.slice(0, 6).map(t => `<li>${t.name}</li>`).join('');
+    const more = stack.members.length > 6 ? `<li>+${stack.members.length - 6} more</li>` : '';
+
+    showTooltip(event, `
+        <div style="border-bottom:1px solid #30363d;padding-bottom:6px;margin-bottom:8px;">
+            <strong>${stack.members.length} overlapping ${kind === 'state' ? 'states' : 'provinces'}</strong>
+        </div>
+        <div style="font-size:0.8rem;">${rows}</div>
+        <ul style="margin:8px 0 0;padding-left:16px;font-size:0.75rem;color:#8b949e;">${names}${more}</ul>
+        <div style="margin-top:8px;padding-top:6px;border-top:1px dashed #30363d;font-size:0.75rem;color:#6e7681;text-align:center;font-style:italic;">Click to open the stack</div>
+    `);
+}
+
+function showTerritoryStackPanel(stack, combined, kind, allPois) {
+    if (!detailPanel) initDOMReferences();
+    if (!detailPanel) return;
+
+    const factionRows = Object.entries(combined)
+        .sort(([, a], [, b]) => b - a)
+        .map(([fid, pct]) => {
+            const f = getFactionData(fid);
+            return `<div class="faction-breakdown-row">
+                        <div class="faction-info">
+                            ${f.logo ? `<img src="${f.logo}" class="faction-mini-logo">` : ''}
+                            <span style="color:${f.color}">${f.name}</span>
+                        </div>
+                        <div class="faction-stats-mini"><span class="poi-count">${Math.round(pct)}%</span></div>
+                    </div>`;
+        }).join('');
+
+    const territoryRows = [...stack.members]
+        .sort((a, b) => (b.poiIds || []).length - (a.poiIds || []).length)
+        .map(t => {
+            const control = kind === 'state'
+                ? calculateStateControl(t, allPois)
+                : (t.control || calculateProvinceControl(t, allPois));
+            const dom = getDominantFactionFromControl(control);
+            const f = getFactionData(dom.factionId);
+            const n = kind === 'state' ? countPoisInState(t, allPois) : (t.poiIds || []).length;
+            return `<div class="cluster-poi-item territory-stack-item" data-territory-id="${t.id}" style="border-left-color:${f.color}">
+                        <div class="poi-item-header">
+                            <span class="poi-item-name">${t.name}</span>
+                        </div>
+                        <div class="poi-item-stats">
+                            <span style="color:${f.color}">${f.name}</span>
+                            <span>${n} POIs</span>
+                        </div>
+                    </div>`;
+        }).join('');
+
+    detailPanel.innerHTML = `
+        <div class="cluster-detail-panel">
+            <div class="cluster-header">
+                <h3>Overlapping Territories</h3>
+                <p class="cluster-subtitle">${stack.members.length} ${kind === 'state' ? 'states' : 'provinces'} drawn on the same ground</p>
+            </div>
+            <h4>Combined Control</h4>
+            <div class="cluster-faction-breakdown">${factionRows}</div>
+            <h4>Territories</h4>
+            <div class="cluster-poi-list">${territoryRows}</div>
+        </div>
+    `;
+
+    detailPanel.querySelectorAll('.territory-stack-item').forEach(item => {
+        item.addEventListener('click', () => {
+            playSound('../../../assets/audio/ui/click.mp3');
+            const t = stack.members.find(m => m.id === item.dataset.territoryId);
+            if (!t) return;
+            const pois = allPois.filter(p => (t.poiIds || []).includes(p.id)
+                || Math.hypot(p.x - t.x, p.y - t.y) <= (t.radius || TERRITORY_CONFIG.state.defaultRadius));
+            if (pois.length > 1) {
+                openGroupZoom({
+                    tierIcon: '🗺️',
+                    tier: 'city',
+                    anchor: { name: t.name },
+                    members: pois,
+                    isGroup: true,
+                });
+            } else if (pois.length === 1) {
+                showDetailPanel(pois[0].id);
+            }
+        });
+    });
+}
+
 function renderStateMarkers(fragment, states, allPois) {
-    states.forEach(state => {
+    // States are generated per faction, so a contested district emits one
+    // marker per faction on nearly the same coordinate. Drawn as-is that is a
+    // pile of overlapping circles. Stack the overlaps into one marker that
+    // reports what is underneath it, and let the reader open the stack.
+    const drawable = states.filter(state => {
+        const control = calculateStateControl(state, allPois);
+        const total = Object.values(control).reduce((a, b) => a + b, 0);
+        if (total === 0) return false;
+        return getDominantFactionFromControl(control).factionId !== 'unaligned';
+    });
+
+    const stacks = stackMarkers(drawable, {
+        gap: TERRITORY_CONFIG.state.stackGap,
+        idOf: st => st.id,
+        weightOf: st => countPoisInState(st, allPois) * 10 + (st.isDefined ? 500 : 0),
+    });
+
+    stacks.forEach(stack => {
+        if (stack.isStack) {
+            fragment.appendChild(createTerritoryStackMarker(stack, allPois, 'state'));
+            return;
+        }
+        const state = stack.lead;
         const control = calculateStateControl(state, allPois);
         const totalControl = Object.values(control).reduce((a, b) => a + b, 0);
         if (totalControl === 0) return;
@@ -1608,7 +1791,25 @@ function renderStateMarkers(fragment, states, allPois) {
     });
 }
 function renderProvinceMarkers(fragment, provinces, allPois) {
-    provinces.forEach(province => {
+    // Same stacking rule as states: overlapping provinces collapse into one
+    // readable marker rather than a pile of circles.
+    const drawable = provinces.filter(pr => {
+        const control = pr.control || {};
+        const total = Object.values(control).reduce((a, b) => a + b, 0);
+        if (total === 0) return false;
+        return getDominantFactionFromControl(control).factionId !== 'unaligned';
+    });
+
+    stackMarkers(drawable, {
+        gap: TERRITORY_CONFIG.province.stackGap,
+        idOf: pr => pr.id,
+        weightOf: pr => (pr.poiIds || []).length,
+    }).forEach(stack => {
+        if (stack.isStack) {
+            fragment.appendChild(createTerritoryStackMarker(stack, allPois, 'province'));
+            return;
+        }
+        const province = stack.lead;
         const control = province.control || {};
         const totalControl = Object.values(control).reduce((a, b) => a + b, 0);
         if (totalControl === 0) return;

@@ -122,12 +122,70 @@ scale, not a wall between the reader and the data.
 
 ---
 
+## 3b. Correction — the first attempt did not change the map
+
+The user photographed the Capital Province and the pile was still there. They
+were right, and the first pass was wrong in two separate ways.
+
+**Bug 1 — the tiering never ran on that view.** `renderPoisLayer` returns early
+for the territory submodes:
+
+```js
+if (map.activeMapMode === 'political' &&
+    (submode === 'state' || submode === 'province' || submode === 'region')) {
+    renderTerritories(container, stateData);
+    return;                 // <- everything below, including the tiering, is skipped
+}
+```
+
+The big translucent circles in the screenshot are `.state-marker` elements from
+`renderTerritories`, not POI pins. Tiering POI pins could not possibly have
+changed them.
+
+**Bug 2 — territory markers are generated per faction.** `generateStatesFromPois`
+buckets POIs by `factionId` and clusters each bucket *independently*, so ground
+held by several factions emits one fat circle per faction at almost the same
+coordinate. Measured around Capital Province (81, 8): 52 POIs spread across
+**13 factions**, producing **19 state markers inside a 12% radius** — which is
+exactly the smudge in the screenshot. The per-faction split is deliberate (it
+is how contested control is modelled), so the fix is at the drawing step, not
+the generation step.
+
+**The fix.** `stackMarkers()` in `map-tiers.js` collapses markers whose
+footprints overlap into one marker that carries all of them. It is seeded by
+the heaviest territory so the stack sits on the most significant ground, and
+sorted totally so the map does not reshuffle between renders. The drawn marker
+shows *combined* faction control as a single pie (weighted by how many POIs
+each territory actually holds), badges the count, and opens the full list on
+click; clicking a row opens that territory's POIs in the hyper-zoom sheet.
+
+`stackGap` is calibrated, not guessed: a state marker renders 24–64px on a
+~1100px sheet, so a big one is ~5.8% wide. Gap 5.0 for states, 6.0 provinces,
+7.0 regions.
+
+Measured in a real DOM (jsdom, `midlands_full`, political → States):
+
+| | Before | After |
+|---|---|---|
+| State markers drawn | 95 | **62** |
+| Overlapping marker pairs | 60 | **0** |
+| Markers around Capital Province | **18** | **5** |
+
+No territory is lost — the tests assert member counts survive stacking exactly.
+
+**jsdom is now installed**, so `map lenses` passes and `check-all.py` is fully
+green for the first time this session. It is `npm install jsdom --no-save`;
+`node_modules` is gitignored and the repo has no `package.json`, so nothing
+about that is committed.
+
+---
+
 ## 4. Verification
 
 ```
 python3 tools/check-commentaries.py --strict     PASS (6 filed)
-node tools/tests/test-map-tiers.mjs              47 passed, 0 failed
-python3 tools/check-all.py                       all PASS except "map lenses"
+node tools/tests/test-map-tiers.mjs              63 passed, 0 failed
+python3 tools/check-all.py                       All requested checks passed.
 ```
 
 `map lenses` is a **pre-existing environment failure**, not a regression: it

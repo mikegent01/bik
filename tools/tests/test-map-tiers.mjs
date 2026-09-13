@@ -8,6 +8,7 @@ import { MAP_DATA } from '../../Reputation-Matrix2/data/maps/map-data.js';
 import {
   TIERS, tierOf, tierRank, poiWeight, groupPois, groupLabel, groupBreakdown,
   groupWindow, windowScale, windowLayout, sortedMembers, uniquePins,
+  stackMarkers, MARKER_GAP,
 } from '../../Reputation-Matrix2/app/pages/maps/map-tiers.js';
 
 const fail = [], ok = [];
@@ -154,6 +155,71 @@ check('the Midlands capital district collapses into one readable marker', (() =>
   return g && g.members.length > 1;
 })());
 check('the biggest group is still a group, not the whole sheet', biggest && biggest.members.length <= 12, biggest ? `${biggest.members.length} members in ${biggest.id}` : '');
+
+/* ---------------- territory stacking ---------------- */
+//
+// The bug this guards: territory markers are generated PER FACTION, so a
+// contested district emits one fat circle per faction on nearly the same
+// coordinate. Around the Capital Province that was 19 markers inside a 12%
+// radius — the pile the reader photographed.
+
+check('non-overlapping markers are left alone',
+  stackMarkers([{ id: 'a', x: 10, y: 10 }, { id: 'b', x: 50, y: 50 }]).every(s => !s.isStack));
+check('overlapping markers collapse into one stack', (() => {
+  const st = stackMarkers([{ id: 'a', x: 10, y: 10 }, { id: 'b', x: 11, y: 10 }, { id: 'c', x: 10.5, y: 10.4 }]);
+  return st.length === 1 && st[0].members.length === 3;
+})());
+check('a stack keeps every member', (() => {
+  const marks = Array.from({ length: 9 }, (_, i) => ({ id: `m${i}`, x: 40 + i * 0.3, y: 40 }));
+  return stackMarkers(marks).reduce((n, s) => n + s.members.length, 0) === 9;
+})());
+check('the heaviest territory leads the stack',
+  stackMarkers([{ id: 'small', x: 10, y: 10, weight: 1 }, { id: 'big', x: 10.4, y: 10, weight: 90 }])[0].lead.id === 'big');
+check('stacking is order-independent', (() => {
+  const marks = [{ id: 'a', x: 5, y: 5, weight: 3 }, { id: 'b', x: 5.5, y: 5, weight: 9 }, { id: 'c', x: 30, y: 30, weight: 1 }];
+  const key = list => stackMarkers(list).map(s => s.lead.id + ':' + s.members.map(m => m.id).sort().join(',')).join('|');
+  return key(marks) === key([...marks].reverse());
+})());
+check('an empty marker list stacks to nothing', stackMarkers([]).length === 0);
+check('the marker gap is a readable footprint', MARKER_GAP >= 2 && MARKER_GAP <= 6, String(MARKER_GAP));
+
+/* The real regression: rebuild the per-faction state markers the renderer
+   generates around the Capital Province and prove they now collapse. */
+const capital = { x: 81, y: 8 };
+const midPois = uniquePins(MAP_DATA.midlands_full.pointsOfInterest);
+const byFaction = {};
+midPois.filter(p => p.factionId && p.factionId !== 'unaligned')
+  .forEach(p => (byFaction[p.factionId] = byFaction[p.factionId] || []).push(p));
+
+const fakeStates = [];
+Object.entries(byFaction).forEach(([fid, list]) => {
+  const cs = [];
+  [...list].sort((a, b) => poiWeight(b) - poiWeight(a)).forEach(poi => {
+    const near = cs.find(c => Math.hypot(poi.x - c.x, poi.y - c.y) < 5);
+    if (near) { near.pois.push(poi); near.x = near.pois.reduce((n, q) => n + q.x, 0) / near.pois.length; near.y = near.pois.reduce((n, q) => n + q.y, 0) / near.pois.length; }
+    else cs.push({ x: poi.x, y: poi.y, pois: [poi] });
+  });
+  cs.forEach((c, i) => fakeStates.push({ id: `state_${fid}_${i}`, name: `${fid} ${i}`, x: c.x, y: c.y, poiIds: c.pois.map(q => q.id) }));
+});
+
+const capBefore = fakeStates.filter(s => Math.hypot(s.x - capital.x, s.y - capital.y) < 12);
+const capAfter = stackMarkers(capBefore, { gap: 5.0, idOf: s => s.id, weightOf: s => s.poiIds.length });
+check(`the Capital Province pile is condensed (${capBefore.length} markers → ${capAfter.length})`,
+  capAfter.length < capBefore.length / 2, `${capBefore.length} → ${capAfter.length}`);
+check('condensing the Capital Province loses no territory',
+  capAfter.reduce((n, s) => n + s.members.length, 0) === capBefore.length);
+check('no two drawn Capital Province markers still overlap', (() => {
+  for (let i = 0; i < capAfter.length; i++) for (let j = i + 1; j < capAfter.length; j++) {
+    if (Math.hypot(capAfter[i].x - capAfter[j].x, capAfter[i].y - capAfter[j].y) < 5.0) return false;
+  }
+  return true;
+})());
+
+const allStacked = stackMarkers(fakeStates, { gap: 5.0, idOf: s => s.id, weightOf: s => s.poiIds.length });
+check(`the whole Midlands state layer condenses (${fakeStates.length} → ${allStacked.length})`,
+  allStacked.length < fakeStates.length, `${fakeStates.length} → ${allStacked.length}`);
+check('condensing the Midlands loses no state',
+  allStacked.reduce((n, s) => n + s.members.length, 0) === fakeStates.length);
 
 console.log(`\n${ok.length} passed, ${fail.length} failed`);
 ok.forEach(l => console.log('  ok   ' + l));

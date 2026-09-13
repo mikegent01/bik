@@ -296,3 +296,70 @@ export function windowLayout(group, win, opts = {}) {
 export function sortedMembers(group) {
   return [...group.members].sort(anchorOrder);
 }
+
+/* ---------------- territory marker stacking ---------------- */
+//
+// Territory markers (states/provinces/regions) are generated PER FACTION and
+// then drawn independently, so a contested district produces one fat circle
+// per faction all sitting on the same few percent of the sheet. Around the
+// Capital Province that is 19 markers inside a 12% radius: a smudge, not a
+// map. The POI tiering above cannot help, because the territory path never
+// reaches it.
+//
+// So overlapping territory markers are stacked: they keep their own data, but
+// they are drawn as ONE marker that reports what is underneath it.
+
+/* Marker footprint in map-percent. Markers are sized in px and the sheet is
+   sized in %, so this is the practical overlap distance rather than a
+   geometric one: two markers closer than this cannot both be read. */
+export const MARKER_GAP = 5.0;
+
+/**
+ * Collapse markers that overlap into stacks.
+ *
+ * Greedy, seeded by the heaviest marker, so the stack sits on the most
+ * significant territory rather than on whichever was generated first. Sorted
+ * totally (weight, then id) so the map does not reshuffle between renders.
+ *
+ * @param {Array} markers each needs {x, y}; weight read from weightOf
+ * @param {Object} opts  gap {number}, weightOf {fn}, idOf {fn}, max {number}
+ * @returns {Array} stacks {x, y, members, isStack, lead}
+ */
+export function stackMarkers(markers, opts = {}) {
+  const gap = opts.gap > 0 ? opts.gap : MARKER_GAP;
+  const max = opts.max > 1 ? opts.max : 24;
+  const weightOf = opts.weightOf || (m => m.weight || 0);
+  const idOf = opts.idOf || (m => m.id || '');
+
+  const ordered = [...(markers || [])].sort((a, b) => {
+    const w = weightOf(b) - weightOf(a);
+    if (w) return w;
+    return String(idOf(a)).localeCompare(String(idOf(b)));
+  });
+
+  const taken = new Set();
+  const stacks = [];
+
+  ordered.forEach((lead, i) => {
+    if (taken.has(i)) return;
+    taken.add(i);
+    const members = [lead];
+
+    ordered.forEach((other, j) => {
+      if (taken.has(j) || members.length >= max) return;
+      if (Math.hypot(other.x - lead.x, other.y - lead.y) > gap) return;
+      members.push(other);
+      taken.add(j);
+    });
+
+    stacks.push({
+      x: lead.x,
+      y: lead.y,
+      lead,
+      members,
+      isStack: members.length > 1,
+    });
+  });
+
+  return stacks;
+}
