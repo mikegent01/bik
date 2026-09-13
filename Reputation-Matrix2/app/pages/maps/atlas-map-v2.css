@@ -238,3 +238,49 @@
 
 /* A cluster is a door — say so on hover. */
 .atlas-v2-marker.atlas-v2-cluster{cursor:zoom-in}
+
+/* ---------------------------------------------------------------------------
+   Dots. A lone filed location is a plain coloured point — no ring, no glyph,
+   no drop shadow. A printed atlas marks a place with a dot and lets the reader
+   hover for the name; anything more turns 200 locations into 200 badges and
+   the sheet stops being a map. Colour is the only channel a dot has, so it
+   carries the building family (see map-poi-types.js).
+   ------------------------------------------------------------------------ */
+.atlas-v2-marker.atlas-v2-dot{
+  border:0;
+  border-radius:50%;
+  box-shadow:none;
+  opacity:1;
+  /* A hairline dark edge keeps a pale dot legible on pale terrain without
+     reading as a ring at normal zoom. */
+  outline:.5px solid #0b121fcc;
+  outline-offset:0;
+}
+.atlas-v2-marker.atlas-v2-dot span{display:none}
+
+/* The hit target is the honest problem with a 5px dot: it is nearly
+   unclickable and nearly unhoverable. A transparent pad around it makes the
+   dot behave like a ~15px target while still LOOKING like a dot. */
+.atlas-v2-marker.atlas-v2-dot::before{
+  content:"";
+  position:absolute;
+  inset:-6px;
+  border-radius:50%;
+}
+
+.atlas-v2-marker.atlas-v2-dot:hover,
+.atlas-v2-marker.atlas-v2-dot.selected{
+  scale:2.4;
+  z-index:6;
+  outline:.5px solid #fff;
+}
+
+/* Journey stops and top-5 pins still need to be findable among the scatter. */
+.atlas-v2-marker.atlas-v2-dot.journey{outline:1px solid #ffd75e}
+.atlas-v2-marker.atlas-v2-dot.atlas-v2-major{outline:1px solid #ffffffcc}
+
+/* Type legend: the key to what the dot colours mean. */
+.atlas-v2-typekey{display:flex;gap:10px;align-items:center;flex-wrap:wrap;padding:7px 22px;border-bottom:1px solid var(--line);background:#0a1120}
+.atlas-v2-typekey b{color:#9db0d4;font:700 10px inherit;text-transform:uppercase;letter-spacing:.06em}
+.atlas-v2-typekey span{display:inline-flex;gap:5px;align-items:center;color:#aebddd;font-size:11px}
+.atlas-v2-typekey i{width:7px;height:7px;border-radius:50%;outline:.5px solid #0b121fcc;flex:0 0 auto}

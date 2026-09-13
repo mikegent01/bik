@@ -5,6 +5,7 @@
 import { MAP_DATA } from '../../../data/maps/map-data.js';
 import { getFaction, getFactionColor } from '../../../systems/faction-registry.js';
 import { hashColor, initial, isSafeLogo, topCats, legendChips } from './map-lenses.js';
+import { typeColor, typeLabel, familiesPresent } from './map-poi-types.js';
 import { buildProvinceCensus, shortlist as rankShortlist, uniquePins } from './map-provinces.js';
 import { PROVINCE_POLITICS } from '../../../data/support/politics-data.js';
 
@@ -132,7 +133,11 @@ function clusterPois(pois, radius = 1.15, opts = {}) {
    the rendered art size in CSS px; dividing the footprint by them converts a
    pixel gap into the percent gap the clusterer actually uses, and dividing by
    the zoom lets groups unroll as the reader pushes in. */
-const MARKER_FOOTPRINT_PX = 34;
+/* Sized to the DOT, not to the old badge markers: a lone pin draws at 4-6px
+   with a ~15px transparent hit pad, so two dots are distinct and clickable far
+   closer together than two 34px discs ever were. Gathering only has to start
+   where the hit targets would fight. */
+const MARKER_FOOTPRINT_PX = 15;
 
 function dynamicClusterRadius(count, scale, plane, journeyOnly, densityMode, box, forceGather) {
   if (journeyOnly || densityMode === 'all') return plane ? 0.18 : 0.05;
@@ -632,6 +637,7 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
       <span data-visible>${pois.length} markers</span>
     </div>
     <div class="atlas-v2-drill" data-drill hidden></div>
+    <div class="atlas-v2-typekey" data-typekey></div>
     <div class="atlas-v2-modes">
       ${Object.entries(modes).map(([id, m]) => `<button type="button" class="${id === startMode ? 'active' : ''}" data-mode="${id}" style="--mode:${m.color}">${m.label}</button>`).join('')}
       <b data-mode-total>${format(population)} residents</b>
@@ -949,6 +955,20 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
         : `${clusters.length} clustered markers · ${displayPois.length} POIs`;
       visibleEl.textContent = markerLabel + (displayPois.length !== pois.length ? ` · ${pois.length - displayPois.length} tucked` : '');
     }
+    /* Dot colours are only useful if the reader can decode them, and only in
+       the lenses where dots actually carry type (the categorical lenses paint
+       pins by their own category instead). */
+    const typeKeyEl = host.querySelector('[data-typekey]');
+    if (typeKeyEl) {
+      if (lens.categorical) {
+        typeKeyEl.hidden = true;
+        typeKeyEl.innerHTML = '';
+      } else {
+        typeKeyEl.hidden = false;
+        typeKeyEl.innerHTML = '<b>Dot colour</b>' + familiesPresent(displayPois)
+          .map(f => `<span><i style="background:${f.color}"></i>${esc(f.label)} ×${f.count}</span>`).join('');
+      }
+    }
     /* The province overlay rides along in every lens, so the legend says what
        its ink means: how many provinces, and how many of them are contested —
        now shown by plain fill/labels instead of hatch marks. */
@@ -969,15 +989,35 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
       const cat = lens.categorical ? lens.catOf(poi) : null;
       const top = Math.max(0, ...group.map(g => lensVal(g)));
       const weighted = (lens.categorical && !cat) ? 0.06 : weight(top);
-      const diameter = Math.round(12 + weighted * 20 + (group.length > 1 ? Math.min(18, Math.log2(group.length) * 5) : 0));
+      /* Dots stay dots. A lone pin gets a few pixels that barely grow with the
+         lens, so a sheet reads as a scatter of points rather than a field of
+         badges; only groups earn real size, because a group has a number to
+         show and a door to be. */
+      const diameter = group.length > 1
+        ? Math.round(12 + weighted * 20 + Math.min(18, Math.log2(group.length) * 5))
+        : Math.round(4 + weighted * 3);
       const isMajor = group.some(g => major.has(g.id));
       const extra = group.length > 1 ? `<em>${group.length}</em>` : '';
       const groupStops = group.map(g => stopByPoi.get(g.id)).filter(Boolean);
       const badge = groupStops.length === 1 ? `<b class="atlas-v2-stop">${esc(groupStops[0].n)}</b>`
         : groupStops.length > 1 ? `<b class="atlas-v2-stop atlas-v2-stop-multi">${groupStops.length}</b>` : '';
       const ids = group.map(g => g.id).join(',');
-      const tint = cat ? cat.color : (lens.categorical ? '#5b6b8a' : lens.color);
-      const glyph = !lens.categorical ? faction.icon
+      /* A lone location is a DOT: no ring, no glyph, no label — just a
+         coloured point at its filed coordinate, the way a printed atlas marks
+         a place. Colour carries the one fact a dot has room for: what kind of
+         place it is. The lens still tints groups and categorical views, where
+         the reader has explicitly asked to see something else. */
+      /* Dots are for the plain numeric lenses. A categorical lens (Species,
+         Religion, Culture, Factions, Provinces) exists precisely to show WHICH
+         category a pin belongs to, so there it keeps its glyph and its
+         category colour — turning those into anonymous dots would delete the
+         only thing the lens is for. */
+      const isDot = group.length === 1 && !lens.categorical;
+      const tint = isDot ? typeColor(poi)
+        : cat ? cat.color
+        : (lens.categorical ? '#5b6b8a' : lens.color);
+      const glyph = isDot ? ''
+        : !lens.categorical ? faction.icon
         : !cat ? '●'
         : cat.img ? `<img class="atlas-v2-glyph" data-fb="${esc(cat.icon || '●')}" src="${esc(cat.img)}" alt="">`
         : esc(cat.icon || '●');
@@ -986,8 +1026,12 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
       const inSelectedProvince = state.province ? group.some(g => (pinProvince.get(g.id) || {}).id === state.province) : true;
       const cx = Number.isFinite(group.x) ? group.x : poi.x;
       const cy = Number.isFinite(group.y) ? group.y : poi.y;
-      const title = esc((group.length > 1 ? `${group.length} locations — click to zoom in: ` : '') + group.map(g => g.name).join(', ') + (cat ? ` · ${cat.label}` : '') + (plotOf && !cat ? ` · ${plotOf.name}` : ''));
-      const klass = `atlas-v2-marker${group.length > 1 ? ' atlas-v2-cluster' : ''}${groupStops.length ? ' journey' : ''}${isMajor ? ' atlas-v2-major' : ''}${selectedStack ? ' selected' : ''}${inSelectedProvince ? '' : ' atlas-v2-dimmed'}`;
+      /* Hover is the only thing a dot can say, so say the useful part: the
+         name, then what kind of place it is. */
+      const title = isDot
+        ? esc(`${poi.name} · ${typeLabel(poi.type)}`)
+        : esc(`${group.length} locations — click to zoom in: ` + group.map(g => g.name).join(', ') + (cat ? ` · ${cat.label}` : '') + (plotOf && !cat ? ` · ${plotOf.name}` : ''));
+      const klass = `atlas-v2-marker${isDot ? ' atlas-v2-dot' : ''}${group.length > 1 ? ' atlas-v2-cluster' : ''}${groupStops.length ? ' journey' : ''}${isMajor ? ' atlas-v2-major' : ''}${selectedStack ? ' selected' : ''}${inSelectedProvince ? '' : ' atlas-v2-dimmed'}`;
       return `<button type="button" class="${klass}" data-ids="${esc(ids)}" data-poi="${esc(poi.id)}" data-cx="${cx.toFixed(3)}" data-cy="${cy.toFixed(3)}" style="left:${cx}%;top:${cy}%;width:${diameter}px;height:${diameter}px;--marker:${tint};--intensity:${(0.45 + weighted * 0.55).toFixed(2)}" title="${title}"><span>${glyph}</span>${extra}${badge}</button>`;
     }).join('');
     overlay.querySelectorAll('[data-poi]').forEach(btn => {

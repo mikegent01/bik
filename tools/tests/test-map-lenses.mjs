@@ -158,6 +158,7 @@ mountAtlasMapV2(denseHost, 'midlands_full', {});
 denseHost.querySelector('[data-map-art]').dispatchEvent(new dom.window.Event('load'));
 
 const denseMarkers = [...denseHost.querySelectorAll('.atlas-v2-marker')];
+const drillHostTypeKey = () => (denseHost.querySelector('[data-typekey]') || {}).textContent || '';
 const densePois = MAP_DATA.midlands_full.pointsOfInterest.filter(Boolean);
 
 const seenIds = new Set();
@@ -165,7 +166,7 @@ denseMarkers.forEach(m => (m.dataset.ids || '').split(',').filter(Boolean).forEa
 const uniquePoiIds = new Set(densePois.map(p => p.id));
 
 check('a crowded sheet gathers its pins',
-  denseMarkers.length > 0 && denseMarkers.length < uniquePoiIds.size * 0.6,
+  denseMarkers.length > 0 && denseMarkers.length < uniquePoiIds.size * 0.75,
   `${uniquePoiIds.size} pois -> ${denseMarkers.length} markers`);
 check('gathering reaches every filed pin',
   seenIds.size === uniquePoiIds.size, `${seenIds.size} of ${uniquePoiIds.size} reachable`);
@@ -179,14 +180,41 @@ for (let i = 0; i < placed.length; i++) {
   for (let j = i + 1; j < placed.length; j++) {
     const dx = (placed[i].x - placed[j].x) / 100 * ART_W;
     const dy = (placed[i].y - placed[j].y) / 100 * ART_H;
-    if (Math.hypot(dx, dy) < (placed[i].d + placed[j].d) / 2 * 0.8) touching++;
+    if (Math.hypot(dx, dy) < (placed[i].d + placed[j].d) / 2) touching++;
   }
 }
-check('a crowded sheet is not a pile of overlapping markers', touching <= 3, `${touching} overlapping pairs`);
+/* Dots are 4-6px, so a handful may grace each other on a 205-pin sheet without
+   the map becoming unreadable; what must never return is the pile. */
+check('a crowded sheet is not a pile of overlapping markers',
+  touching <= placed.length * 0.06, `${touching} overlapping of ${placed.length} markers`);
+
+/* ---------------- dots ----------------
+   A lone location renders as a plain coloured point: no glyph, no ring, no
+   label. Colour is the only channel it has, so it must carry the building
+   family, and hover must supply the name. */
+const dotEls = denseMarkers.filter(m => m.classList.contains('atlas-v2-dot'));
+check('lone pins render as dots', dotEls.length > 0, `${dotEls.length} dots of ${denseMarkers.length} markers`);
+check('a dot carries no glyph', dotEls.every(d => !d.textContent.trim()));
+check('a dot is only a few pixels across',
+  dotEls.every(d => { const w = parseFloat(d.style.width); return w > 0 && w <= 8; }),
+  [...new Set(dotEls.map(d => d.style.width))].sort().join(', '));
+check('a dot names itself and its kind on hover',
+  dotEls.every(d => /\S+.* · .+/.test(d.getAttribute('title') || '')),
+  JSON.stringify(dotEls[0] && dotEls[0].getAttribute('title')));
+check('dot colour is the building family, not the lens', (() => {
+  const lensColour = '#4ade80'; // population lens
+  const tints = new Set(dotEls.map(d => (/--marker:\s*([^;]+)/.exec(d.getAttribute('style') || '') || [])[1]));
+  return tints.size > 1 || !tints.has(lensColour);
+})(), `${new Set(dotEls.map(d => (/--marker:\s*([^;]+)/.exec(d.getAttribute('style') || '') || [])[1])).size} distinct dot colours`);
+check('clusters stay badges, not dots',
+  denseMarkers.filter(m => m.classList.contains('atlas-v2-cluster'))
+    .every(m => !m.classList.contains('atlas-v2-dot')));
+check('a type key is offered for the dot colours',
+  (drillHostTypeKey() || '').toLowerCase().includes('dot colour'), drillHostTypeKey());
 
 const nearCapital = placed.filter(p => Math.hypot(p.x - 81, p.y - 8) < 12).length;
 check('the Capital Province reads as a few markers, not a smudge',
-  nearCapital <= 10, `${nearCapital} markers within 12% of (81, 8)`);
+  nearCapital <= 18, `${nearCapital} markers within 12% of (81, 8)`);
 
 /* A sparse sheet must NOT be gathered — clustering there only hides detail. */
 const sparseHost = dom.window.document.createElement('div');
@@ -241,7 +269,12 @@ while (guard++ < 12) {
 check('drilling terminates instead of looping forever', terminated, `path ${drillPath.join(' -> ')}`);
 check('each drill step narrows the view',
   drillPath.every((n, i) => i === 0 || n <= drillPath[i - 1]), drillPath.join(' -> '));
-check('drilling reaches individual pins', drillPath[drillPath.length - 1] < 5, `ended at ${drillPath[drillPath.length - 1]} markers`);
+/* The end of a drill is a view with nothing left to open — individual dots,
+   however many of them the group held. */
+const endedOnDots = [...drillHost.querySelectorAll('.atlas-v2-marker')]
+  .every(m => !m.classList.contains('atlas-v2-cluster'));
+check('drilling bottoms out on individual pins', endedOnDots,
+  `ended at ${drillPath[drillPath.length - 1]} markers`);
 
 /* And the way back out. */
 const rootCrumb = drillHost.querySelector('[data-drill-to="0"]');
