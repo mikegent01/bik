@@ -193,3 +193,53 @@ the data files. It now splices an updated object in place over the existing one,
 leaving every byte outside that object's braces untouched, and reports
 `updated`. The small-diff rule still holds: the three data files changed by 14
 lines each rather than being re-dumped.
+
+## Follow-up 2: the transcript is now a primary source, and the reading is genuinely line by line
+
+**The tape is filed in full.** Section VIII of the event, *The Tape, In Full*,
+carries the complete transcript as spoken, held in a single `TRANSCRIPT`
+constant in the generator. Transcription conventions, all deliberate: speech
+exactly as delivered including stumbles and broken metre; Mario's accent written
+as it sounds, because smoothing it is already an edit; stage business in italics
+limited to what is visible on the recording; overlap markers preserved where the
+tape carries them. The silhouette passage and the final frame are marked where
+they occur rather than repaired — both are evidence, not transcription failures.
+
+**The analysis now walks the tape in order.** It went from 7 selected moments to
+**13 sections**, each anchored to the exact exchange it reads, covering the
+recording start to finish with no gaps:
+
+| # | Section | Anchor |
+|---|---|---|
+| 01 | The Boast, and the Answer That Misses It | opening two lines |
+| 02 | "Only in the Way" — the Complaint Is Geometric | lines 3–5 |
+| 03 | First Overlap: the Damsel Line Is a Feint | first overlap block |
+| 04 | "I've Given My Life To A Zero" | the zero / YOUR TRUTH exchange |
+| 05 | The Air Clears: "Finally Awakened TO MOCKERY" | overlap ends |
+| 06 | Second Overlap: "Surpass" Enters the Record | second overlap block |
+| 07 | Shouting: Mario Blames Koopa | masquerade / fees |
+| 08 | The Silhouette Passage | the composited passage |
+| 09 | The Hinge | BROTHER / NO LONGER MY BROTHER |
+| 10 | "My Own Shine Dimmed Far Blind" | galaxies / setback quoting |
+| 11 | "Are We-a Still Superstars?" | the four-second convergence |
+| 12 | "So!" / "No!" | the break |
+| 13 | "DEATH" / "FATE" | final construction + Cape Feather |
+
+New findings that only became visible by reading in sequence rather than by
+selection: Mario reaches for the bond **twelve times** and it never once works;
+Luigi's grievance is consistently *spatial* (in the way, step upon, shadowed)
+rather than moral; `Is-a that clear?` is Mario checking his own point landed
+immediately after being told his conduct was thoughtless; Luigi quotes Mario's
+comfort back inside quotation marks, the most sophisticated move either brother
+makes; and the tense split in the convergence — Luigi's `I've-a gone and lost
+the faith` is completed past, Mario's `Am I gonna lose the faith` is
+interrogative future, in the same shared breath.
+
+`damn it luigi` is the only line Mario speaks with no accent, rhyme or metre —
+the one moment he stops performing.
+
+**Commentary** gained a ninth section on the decision to file the source raw,
+and holds its relative floor at **4811 words, 0.90x**, Waluigi/1k 41.4, CAPS/1k
+40.7. Event is now ~6,300 words on the page, analysis ~4,640.
+
+All checks pass; `article-analysis-smoke.mjs` 28/28.

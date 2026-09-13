@@ -41,6 +41,106 @@ TIME_CODE = "TC:1035-08-20/MAT"
 # 1. THE EVENT
 # --------------------------------------------------------------------------
 
+TRANSCRIPT = (
+    "*Transcribed from the tape exactly as spoken, including the stage business "
+    "visible on the recording. Stammers, repetitions and the accent Mario's "
+    "speech puts into the written form are preserved. Nothing in this block is "
+    "interpretation - the interpretation is filed separately.*\n\n"
+    "---\n\n"
+    "**LUIGI:** You thought that Koopa worked alone...\n\n"
+    "**MARIO:** Luigi What do you mean by that? I've a fought too much And you "
+    "stand against me! Think of the days That were all lead astray Your my "
+    "brother That's not, Something that'll go away.\n\n"
+    "**LUIGI:** you've done enough off the cuff\n\n"
+    "**MARIO:** Is-a that clear?\n\n"
+    "**LUIGI:** Call my bluff ill rebuff Standing my ground here all of the days "
+    "That I was cast away What's a brother if he's Only in the way!\n\n"
+    "*[Both talking over each other]*\n\n"
+    "**MARIO:** This-a can't-a be The heroic ending You've dreamed of so please "
+    "Lets-a go! end-a the show! Luigi just see through All of your spitefilled "
+    "visions!\n\n"
+    "**LUIGI:** I've gone too far To give up now! For all that I cherish you "
+    "must-a perish You've stolen All that I've dreamed of and just for-a "
+    "Clueless damsel!\n\n"
+    "**MARIO:** That's not true And you-a know it! I won't lay you askew! I will "
+    "face this with you!\n\n"
+    "**LUIGI:** Left in the dimming light Only set to fight The one who has been "
+    "Holding me back!\n\n"
+    "**LUIGI:** I'm overzealous, I'm-a not-a jealous! This is the outcome I've "
+    "reached, therefrom! I've given, My life to. A zero, And that's true.\n\n"
+    "**MARIO:** What must I do? Give my life up to you? Fatal flaws retribute All "
+    "of my raw mistakes Our bond is torn A regal pain I endure\n\n"
+    "**LUIGI:** Who are you to tell me YOUR TRUTH\n\n"
+    "**MARIO:** Fading away the brothership that soared far!\n\n"
+    "*[no longer talking over each other]*\n\n"
+    "**MARIO:** Listen for a moment! Just hear me! End-a all the torment All the "
+    "foes We've come across We stood together Showed them who's the boss\n\n"
+    "**LUIGI:** Finally awakened TO MOCKERY My name has been lost and Unmarked To "
+    "be the one You'll step upon I'll give myself the boost TO GO BEYOND!\n\n"
+    "**MARIO:** You don't truly mean that! Luigi just take a step back! Gain your "
+    "cool And lose the fool That's making you fall From the tree!\n\n"
+    "*[Both talking over each other]*\n\n"
+    "**LUIGI:** It's too much too ask you? After I'll surpass you! Buried lies in "
+    "Hate filled skies Has brought you and I Onto our KNEES!\n\n"
+    "**MARIO:** My bro, we're family! I know that, you see! I don't want you to "
+    "Be without me!\n\n"
+    "*[both start intense shouting]*\n\n"
+    "**MARIO:** Behind of this Masquerade I know you still love me! Koopa made you "
+    "go insane I'll help relieve the strain! Displease!\n\n"
+    "**LUIGI:** Was it worth the fees? Gave your heart a squeeze! You've shunned my "
+    "displease\n\n"
+    "*[only silhouettes of both of them; a shadow of Peach watches from beyond a "
+    "window]*\n\n"
+    "**LUIGI:** \"Luigi and Mario,\" \"What a major duo!\"\n\n"
+    "**MARIO:** You know that's true Just me and you,\n\n"
+    "**LUIGI:** If it only it weren't a dream\n\n"
+    "**MARIO:** damn it luigi!\n\n"
+    "**LUIGI:** I, wouldn't be the fiend!\n\n"
+    "*[fade back in; Mario sweating, Luigi standing firm, shadow gone]*\n\n"
+    "**MARIO:** Memories shared The duo not impaired Showing that I cared BECAUSE "
+    "YOUR MY BROTHER\n\n"
+    "**LUIGI:** Sparked inside me Was the pain you seldom And now you plea? you are "
+    "NO LONGER MY BROTHER!\n\n"
+    "**MARIO:** This is trickery! You would never be Fooled by that Koopa fiend\n\n"
+    "**LUIGI:** YOU DAMN FOOL Let-a this tale end\n\n"
+    "**MARIO:** this just can't-\n\n"
+    "**LUIGI:** Burned beyond the bend Show me that glee Oh, across from me "
+    "galaxies Saved by you Shadowed me What's to see? My own shine Dimmed far "
+    "blind\n\n"
+    "**MARIO:** Facing the climax Wishing to backtrack It's just a setback A minor "
+    "blowback! Stuck in a false dream Wishing to redeem\n\n"
+    "**LUIGI:** Mario its-a you Wishing the climax Facing a masked rat \"It's just a "
+    "setback\" \"A minor blowback\" ending your regime Far-a since redeemed\n\n"
+    "**MARIO:** Step every per diem Hear my pleas! Galaxies, saved by you, And-a me "
+    "Can't you see? your own shine\n\n"
+    "**LUIGI:** So why not and Crush your dreams!\n\n"
+    "**MARIO:** Luigi, It's-a we!\n\n"
+    "**MARIO:** The chance to surpass\n\n"
+    "**LUIGI:** The chance to surpass\n\n"
+    "**MARIO:** Are-\n\n"
+    "**LUIGI:** Are-\n\n"
+    "**BOTH:** Are we-a still superstars?\n\n"
+    "**BOTH:** Even in the face of whats been torn asunder\n\n"
+    "**LUIGI:** I've-a gone and lost the faith\n\n"
+    "**MARIO:** Am I gonna lose the faith\n\n"
+    "**MARIO:** Inside my brother?\n\n"
+    "**LUIGI:** Inside my brother,\n\n"
+    "**LUIGI:** So!\n\n"
+    "**MARIO:** No!\n\n"
+    "**LUIGI:** WHY WON'T YOU DIE!\n\n"
+    "**LUIGI:** I've had enough Of this kid's scuff No more weak bluffs FACE your "
+    "beloved Useless praying to the sky set in stone that YOU WILL DIE\n\n"
+    "**MARIO:** I still got hope in you Something Could change within you This-a "
+    "mess is growing dire\n\n"
+    "**LUIGI:** Raising the heat! I refuse to beaten! I will give my last breath\n\n"
+    "**MARIO:** Rising demand Escalating your plan Oh, dear bro forgive me!\n\n"
+    "**MARIO:** I just couldn't change your\n\n"
+    "**LUIGI:** IF IT RESULTS IN YOUR\n\n"
+    "**LUIGI:** DEATH\n\n"
+    "**MARIO:** FATE\n\n"
+    "*[Mario is shown with a Cape Feather; a sound is heard; the feed cuts out]*"
+)
+
 EVENT = {
     "id": EVENT_ID,
     "name": "The Tape and the Wario Files",
@@ -435,6 +535,39 @@ EVENT = {
                 "I hate that it makes sense."
             ),
         },
+        {
+            "name": "VIII. The Tape, In Full",
+            "icon": "\U0001f4c4",
+            "subtitle": "the primary source, transcribed, with nothing taken out",
+            "overview": (
+                "This is the whole recording. The archive has argued about this "
+                "conversation for two filings on the strength of one witness who was not "
+                "present, and the correction to that is not a better summary - it is the "
+                "thing itself, in order, so that anybody who wants to check a reading "
+                "against the source can do it without asking permission.\n\n"
+                "The transcription convention: speech exactly as spoken, including the "
+                "stumbles. Mario's accent is written the way it sounds because smoothing "
+                "it out is already an edit. Stage business in italics is what is visible "
+                "on the tape, not what anybody reported afterwards. Where the two of them "
+                "talk over each other, the tape is marked and the lines are given in the "
+                "order they begin.\n\n"
+                "Two features of the recording are preserved here rather than repaired, "
+                "because they are evidence. The silhouette passage is marked where it "
+                "begins and ends. The recording's final frame is marked where it stops. "
+                "Neither is a transcription failure.\n\n"
+                + TRANSCRIPT
+            ),
+            "waluigi_note": (
+                "*Filed unedited, and I want the reason on the record.* Every version of "
+                "this argument the archive has held until today came through somebody who "
+                "wanted it to mean something. Including mine. Especially mine.\n\n"
+                "So here it is with my hands off it. If my reading is wrong, the thing "
+                "that proves me wrong is now sitting directly above this note where "
+                "anybody can reach it. **That is what a primary source is for, and an "
+                "archive that only files the sources that flatter its archivist is not an "
+                "archive, it is a scrapbook.**"
+            ),
+        },
     ],
     "participants": [
         {"id": "waluigi", "name": "Waluigi",
@@ -607,258 +740,454 @@ ANALYSIS = {
         {
             "id": "opening",
             "icon": "\U0001f3ac",
-            "heading": "The First Line Is a Boast, Not a Confession",
-            "sourceAnchor": "Luigi: You thought that Koopa worked alone...",
+            "heading": "Line 1-2: The Boast, and the Answer That Misses It",
+            "sourceAnchor": (
+                "**LUIGI:** *You thought that Koopa worked alone...*\n\n"
+                "**MARIO:** *Luigi What do you mean by that? I've a fought too much And "
+                "you stand against me! ... Your my brother That's not, Something that'll "
+                "go away.*"
+            ),
             "body": (
-                "Start here, because everything is in it.\n\n"
-                "If Luigi were a corrupted man - enchanted, coerced, turned - the first "
-                "line of a confrontation would be about the corruption. It is not. It is "
-                "*you thought*. The sentence is aimed at Mario's **assumption**, and the "
-                "pleasure in it is the pleasure of having been wrongly assessed.\n\n"
-                "Mario's reply confirms he has not understood: *Luigi what do you mean by "
-                "that? I've a fought too much and you stand against me.* He hears an "
-                "accusation of treachery and answers the treachery. He will do this for "
-                "the entire tape.\n\n"
-                "Then he plays the only card he has: *Your my brother. That's not "
-                "something that'll go away.* Twelve seconds in, and Mario has already "
-                "reached for the bond. He will reach for it eleven more times. It never "
-                "works once.\n\n"
-                "Notice what a boast requires that a confession does not: an audience that "
-                "is expected to be impressed. Luigi is not unburdening himself here. He is "
-                "presenting a credential. He has done something large enough that he "
-                "believes it should finally register, and the line is constructed - *you "
-                "thought* - to put his brother on the wrong side of a fact he should "
-                "already have known.\n\n"
-                "This matters because it dates the grievance. A man confessing has arrived "
-                "at a decision recently. A man boasting has been rehearsing. Everything "
-                "downstream in these ninety seconds reads differently depending on which "
-                "one you think you are watching, and the archive has been reading it wrong "
-                "for two filings."
+                "Everything is in the first two lines, so I am going to spend longer here "
+                "than anywhere else.\n\n"
+                "**Luigi's line is a boast, not a confession.** A corrupted man's first "
+                "sentence is *he made me* or *you don't understand* or nothing at all. "
+                "Luigi's is *you thought* - a sentence built to put his brother on the "
+                "wrong side of a fact he should already have known. It requires an "
+                "audience expected to be impressed. It is a credential being presented.\n\n"
+                "**Mario's reply contains four separate moves and not one of them is the "
+                "right one.** He asks what Luigi means - stalling. He cites his own "
+                "effort: *I've a fought too much*. He names the offence as positional: "
+                "*you stand against me*. And then he reaches for the bond: *Your my "
+                "brother*.\n\n"
+                "Mark that last one. Twelve seconds in, Mario has already played his only "
+                "card. He will play it eleven more times across this tape, and I have "
+                "counted, and it does not work once. Note also *That's not, Something "
+                "that'll go away* - he is treating the brotherhood as a fact of nature "
+                "that survives regardless of conduct. Luigi is about to argue that it is "
+                "a contract with terms. **That is the whole fight and it is fully formed "
+                "before either man raises his voice.**"
             ),
         },
         {
-            "id": "cast-away",
-            "icon": "\u2696\ufe0f",
-            "heading": "\"What's a Brother If He's Only in the Way\"",
-            "sourceAnchor": "Luigi: Standing my ground here all of the days That I was cast away / What's a brother if he's Only in the way!",
+            "id": "cuff",
+            "icon": "\u270b",
+            "heading": "Line 3-5: \"Only in the Way\" - the Complaint Is Geometric",
+            "sourceAnchor": (
+                "**LUIGI:** *you've done enough off the cuff*\n\n"
+                "**MARIO:** *Is-a that clear?*\n\n"
+                "**LUIGI:** *Call my bluff ill rebuff Standing my ground here all of the "
+                "days That I was cast away What's a brother if he's Only in the way!*"
+            ),
             "body": (
-                "This is the thesis of Luigi's case and it is phrased as a question about "
-                "**definitions**, not about loyalty.\n\n"
-                "Mario has just argued that brotherhood is permanent - that it will not go "
-                "away. Luigi does not deny it. He asks what the word is *worth* if the "
-                "person holding it is only ever an obstacle. That is a lawyer's move. It "
-                "concedes the premise and attacks the value.\n\n"
-                "*All of the days that I was cast away.* Note the tense. Not *the day you "
-                "betrayed me* - **days**, plural, continuous, an accumulation rather than "
-                "an event. There is no inciting incident in Luigi's case because Luigi's "
-                "case is not about an incident. It is about a pattern, and you cannot "
-                "apologise your way out of a pattern, which is why Mario's apologies keep "
-                "sliding off.\n\n"
-                "Mario answers: *This-a can't-a be the heroic ending you've dreamed of.* "
-                "Wrong again. He is still arguing about the ENDING. Luigi is arguing about "
-                "the whole middle.\n\n"
-                "*In the way* is a spatial complaint, and that is the tell. Not *what's a "
-                "brother if he's cruel*, not *if he lies*, not *if he abandons you* - if he "
-                "is **in the way**. Luigi is not describing a betrayal. He is describing an "
-                "obstruction, which is what you call a person who has been standing between "
-                "you and something for long enough that you have stopped seeing them as a "
-                "person and started seeing them as geometry.\n\n"
-                "Mario never engages with the geometry. Not once in ninety seconds does he "
-                "say *I did not mean to be in your way* or *I did not know I was*. He "
-                "answers a question about position with an answer about affection, over and "
-                "over, and each time he does it he confirms the complaint he is trying to "
-                "refute."
+                "*You've done enough off the cuff* is an accusation of carelessness, not "
+                "malice. Luigi is not saying Mario hurt him deliberately. He is saying "
+                "Mario did it without thinking, which is worse, because it means it cost "
+                "Mario nothing.\n\n"
+                "**Mario's *Is-a that clear?* is the single worst line he speaks on this "
+                "tape.** Three words, and every one of them is a man asking to be agreed "
+                "with. He has just been told his conduct was thoughtless and his response "
+                "is to check whether his own point landed. He is not listening. He is "
+                "waiting.\n\n"
+                "Then Luigi gives the thesis of his entire case: ***What's a brother if "
+                "he's Only in the way.*** Read the construction. Not *if he's cruel*. Not "
+                "*if he lies*. Not *if he abandons you*. If he is **in the way** - a "
+                "spatial complaint, an obstruction. That is what you call a person who has "
+                "stood between you and something for so long that you have stopped seeing "
+                "them as a person and started seeing them as terrain.\n\n"
+                "And *all of the days That I was cast away* dates the grievance. Days. "
+                "Plural, accumulated, historical. **This predates Koopa by years and Luigi "
+                "has just said so out loud in the fifth line of the recording.**"
             ),
         },
         {
-            "id": "damsel",
-            "icon": "\U0001f451",
-            "heading": "The Damsel Line - and Why It Is a Feint",
-            "sourceAnchor": "Luigi: You've stolen All that I've dreamed of and just for-a Clueless damsel!",
+            "id": "overlap-one",
+            "icon": "\U0001f5e3\ufe0f",
+            "heading": "First Overlap: the Damsel Line Is a Feint",
+            "sourceAnchor": (
+                "*[Both talking over each other]*\n\n"
+                "**MARIO:** *This-a can't-a be The heroic ending You've dreamed of...*\n\n"
+                "**LUIGI:** *...You've stolen All that I've dreamed of and just for-a "
+                "Clueless damsel!*\n\n"
+                "**MARIO:** *That's not true And you-a know it! I won't lay you askew! I "
+                "will face this with you!*\n\n"
+                "**LUIGI:** *Left in the dimming light Only set to fight The one who has "
+                "been Holding me back!*"
+            ),
             "body": (
-                "It would be very easy to file this as the motive. Jealousy over "
-                "[Peach](https://mikegent01.github.io/bik/index.html#/article/princess_peach). "
-                "Clean, ugly, human.\n\n"
-                "I do not think it is the motive, and the tape tells you so itself two "
-                "stanzas later when Luigi says - unprompted, defensively, about nothing "
-                "anybody accused him of - **\"I'm overzealous, I'm-a not-a jealous!\"**\n\n"
-                "Nobody says *I'm not jealous* unless the word has already landed "
-                "somewhere. He is answering a charge that was not made out loud, which "
-                "means he made it to himself first. The damsel line is not his reason. It "
-                "is the most *sayable* version of his reason - the grievance he can shout "
-                "without admitting the smaller and more humiliating one underneath it, "
-                "which is in the very next breath:\n\n"
-                "*I've given my life to a zero, and that's true.*\n\n"
-                "That is the actual injury. Not that Mario took the girl. That Luigi "
-                "measured himself and got nothing back. The damsel is a decoy, and I "
-                "recognise the technique because I have used it.\n\n"
-                "The technique works like this. You lead with the grievance that makes you "
-                "sound ordinary, because the real one makes you sound small. Jealousy over "
-                "a woman is a story everyone already knows how to hear; it comes with a "
-                "shape, and sympathy, and an ending. *Nobody ever measured me* comes with "
-                "none of those. It just sits there being pathetic and true.\n\n"
-                "So Luigi puts the decoy in front. And Mario, who is not stupid but is "
-                "listening for the story he knows, takes the decoy every single time. The "
-                "tragedy of this tape is not that the brothers disagree. It is that one of "
-                "them is arguing in code and the other one has never once asked for the "
-                "key."
+                "The tape marks this as overlapping speech, and the overlap is the point: "
+                "from here until it clears, neither man hears a complete sentence from the "
+                "other.\n\n"
+                "**Mario is arguing about the ENDING.** *The heroic ending you've dreamed "
+                "of.* He has cast this as a story with a shape, and he is objecting to how "
+                "it finishes. Luigi is not arguing about the ending. Luigi is arguing "
+                "about the entire middle - every day of it.\n\n"
+                "**The damsel line is a decoy and I recognise the technique because I have "
+                "used it.** You lead with the grievance that makes you sound ordinary, "
+                "because the real one makes you sound small. Jealousy over a woman comes "
+                "pre-loaded with sympathy and a recognisable shape. *Nobody ever measured "
+                "me* comes with none of that; it just sits there being pathetic and true. "
+                "So Luigi puts the decoy in front, and Mario - not stupid, but listening "
+                "for the story he already knows - takes it every time.\n\n"
+                "Then Luigi drops the decoy himself: ***The one who has been Holding me "
+                "back.*** Not *the one who took her*. There is the real charge, said "
+                "plainly, in the middle of a passage where Mario cannot hear it because "
+                "they are both talking.\n\n"
+                "And Mario's *I will face this with you* is the bond again. Second card, "
+                "same card."
+            ),
+        },
+        {
+            "id": "zero",
+            "icon": "\u2b55",
+            "heading": "\"I've Given My Life To A Zero\" - and the Hinge Question",
+            "sourceAnchor": (
+                "**LUIGI:** *I'm overzealous, I'm-a not-a jealous! ... I've given, My life "
+                "to. A zero, And that's true.*\n\n"
+                "**MARIO:** *What must I do? Give my life up to you? ... Our bond is torn "
+                "A regal pain I endure*\n\n"
+                "**LUIGI:** *Who are you to tell me YOUR TRUTH*\n\n"
+                "**MARIO:** *Fading away the brothership that soared far!*"
+            ),
+            "body": (
+                "***I'm overzealous, I'm-a not-a jealous.*** He denies the decoy himself, "
+                "unprompted, roughly ninety seconds after deploying it. He is correcting "
+                "the record even mid-argument, which tells you how badly he wants the real "
+                "charge understood.\n\n"
+                "***I've given, My life to. A zero.*** The broken metre is doing work here "
+                "- the line stumbles exactly where the feeling is. And note who the zero "
+                "is. Not Mario. **Himself.** Luigi has spent a life in service of an "
+                "outcome and the outcome is that he amounts to nothing. That is not "
+                "jealousy. That is an audit.\n\n"
+                "Mario answers with ***What must I do? Give my life up to you?*** - which "
+                "converts a complaint about recognition into a demand for sacrifice, "
+                "because sacrifice is a thing Mario knows how to do. He does not know how "
+                "to do acknowledgement. And *A regal pain I endure* centres his own "
+                "suffering at the precise moment Luigi has finished describing his.\n\n"
+                "Then: ***Who are you to tell me YOUR TRUTH.*** This is the hinge of the "
+                "first half. Luigi is rejecting Mario's standing to narrate - not his "
+                "facts, his *authority*. Mario has been the one who says what happened for "
+                "their entire shared life, and Luigi has just revoked the licence."
+            ),
+        },
+        {
+            "id": "clear-air",
+            "icon": "\U0001f507",
+            "heading": "The Air Clears: \"Finally Awakened TO MOCKERY\"",
+            "sourceAnchor": (
+                "*[no longer talking over each other]*\n\n"
+                "**MARIO:** *Listen for a moment! Just hear me! ... We stood together "
+                "Showed them who's the boss*\n\n"
+                "**LUIGI:** *Finally awakened TO MOCKERY My name has been lost and Unmarked "
+                "To be the one You'll step upon I'll give myself the boost TO GO BEYOND!*"
+            ),
+            "body": (
+                "The tape explicitly marks the overlap ending. For the first time both men "
+                "can hear each other completely, and **it makes things worse, not better** "
+                "- which is the most damning structural fact on this recording. The "
+                "confusion was not the problem. Clarity does not fix it.\n\n"
+                "Mario's case, stated cleanly at last, is *we stood together* - a shared "
+                "history argument. He is offering the past as evidence that the present is "
+                "a mistake.\n\n"
+                "Luigi's reply accepts every fact and rejects the conclusion. "
+                "***My name has been lost and Unmarked.*** Unmarked. Not defeated, not "
+                "wronged - **unrecorded.** I want to be careful here because I am an "
+                "archivist and I am aware of what I am about to say, but: Luigi's stated "
+                "injury is a filing error. He was there for all of it and none of it has "
+                "his name on it.\n\n"
+                "*To be the one You'll step upon* - the geometry again. He is not describing "
+                "a rival. He is describing a stair.\n\n"
+                "And *TO GO BEYOND* in capitals is the first time on this tape that Luigi "
+                "describes wanting something rather than resenting something."
+            ),
+        },
+        {
+            "id": "overlap-two",
+            "icon": "\U0001f501",
+            "heading": "Second Overlap: \"Surpass\" Enters the Record",
+            "sourceAnchor": (
+                "**MARIO:** *You don't truly mean that! Luigi just take a step back! Gain "
+                "your cool And lose the fool...*\n\n"
+                "*[Both talking over each other]*\n\n"
+                "**LUIGI:** *It's too much too ask you? After I'll surpass you! ... Has "
+                "brought you and I Onto our KNEES!*\n\n"
+                "**MARIO:** *My bro, we're family! I know that, you see! I don't want you "
+                "to Be without me!*"
+            ),
+            "body": (
+                "***You don't truly mean that*** is Mario telling Luigi what Luigi means. "
+                "Directly after Luigi revoked his authority to do exactly that. Mario "
+                "cannot stop; it is reflex.\n\n"
+                "*Lose the fool That's making you fall From the tree* - Mario is still "
+                "looking for the external agent. There must be a fool, a Koopa, a "
+                "corrupting party. The possibility that his brother arrived here on his "
+                "own reasoning is not available to him.\n\n"
+                "**And here the real verb finally lands: *surpass*.** Not *destroy*, not "
+                "*replace*, not *punish*. Surpass. It is a competitive word, not a hateful "
+                "one, and it will come back at the end of this tape in both their mouths "
+                "at once.\n\n"
+                "*Has brought you and I Onto our KNEES* is worth flagging as the one moment "
+                "Luigi describes the damage as mutual.\n\n"
+                "Mario's answer: ***we're family.*** Card again. And then the tell of the "
+                "whole recording - ***I don't want you to Be without me.*** Not *I don't "
+                "want to lose you*. He has framed the loss as Luigi's deprivation. Even "
+                "his plea is arranged around his own centrality, and he does not hear "
+                "himself do it."
+            ),
+        },
+        {
+            "id": "masquerade",
+            "icon": "\U0001f3ad",
+            "heading": "Shouting: Mario Blames Koopa, Luigi Charges Him Interest",
+            "sourceAnchor": (
+                "*[both start intense shouting]*\n\n"
+                "**MARIO:** *Behind of this Masquerade I know you still love me! Koopa made "
+                "you go insane I'll help relieve the strain! Displease!*\n\n"
+                "**LUIGI:** *Was it worth the fees? Gave your heart a squeeze! You've "
+                "shunned my displease*"
+            ),
+            "body": (
+                "Mario says it outright at last: ***Koopa made you go insane.*** This is "
+                "the reading the archive has been running on for two filings, and here is "
+                "the man himself supplying it - **as a hope, in the middle of shouting, "
+                "with no evidence offered.** It is not analysis. It is the least "
+                "frightening available explanation, reached for by someone who needs one.\n\n"
+                "*Behind of this Masquerade I know you still love me.* He is insisting the "
+                "real Luigi is elsewhere, intact, and that the man in front of him is a "
+                "costume. That is a profound refusal to credit his brother with his own "
+                "actions. **Even Luigi's villainy has to belong to somebody else.**\n\n"
+                "Luigi's reply is the sharpest counter on the tape: ***Was it worth the "
+                "fees?*** He has priced it. He is treating a lifetime of standing behind "
+                "his brother as an invoice that was never settled, and asking whether the "
+                "payer thinks he got value.\n\n"
+                "*You've shunned my displease* - clumsy, and I am leaving it exactly as "
+                "spoken. He is saying: you did not even do me the courtesy of taking my "
+                "objection seriously. **Shunned. Not refused. Not argued with. Declined to "
+                "acknowledge.** It is the same complaint as line five, eleven exchanges "
+                "later, and Mario still has not touched it."
             ),
         },
         {
             "id": "silhouette",
-            "icon": "\U0001f576\ufe0f",
-            "heading": "The Silhouette Passage - Someone Was Watching",
-            "sourceAnchor": "[only silhouettes of both of them, a shadow of Peach watches from beyond a window]",
-            "body": (
-                "The tape does something here that a security recording does not do: it "
-                "goes **stylised**. The figures drop to silhouette. The argument softens "
-                "into something almost sung - *\"Luigi and Mario. What a major duo.\"* "
-                "*\"You know that's true. Just me and you.\"* - and then snaps back.\n\n"
-                "Two observations and I am flagging both as unresolved.\n\n"
-                "**One: this footage has been edited.** Silhouette is a choice. Somebody "
-                "cut this. That means the tape in my possession is not a raw security "
-                "capture and I should stop treating it as one, and it means there is a "
-                "person whose editorial judgement sits between me and the event.\n\n"
-                "**Two: there is a third party at the window.** A shadow of Peach, watching "
-                "from outside, present for the softest thirty seconds of the argument and "
-                "gone by the time the shouting resumes. The stage direction says the "
-                "shadow is gone when the image fades back in.\n\n"
-                "I am not going to speculate past the frame. I am going to file, in "
-                "writing, that **somebody outside that hallway saw the whole thing and has "
-                "never been asked about it.**"
+            "icon": "\U0001f311",
+            "heading": "The Silhouette Passage - and the Witness at the Window",
+            "sourceAnchor": (
+                "*[only silhouettes of both of them; a shadow of Peach watches from beyond "
+                "a window]*\n\n"
+                "**LUIGI:** *\"Luigi and Mario,\" \"What a major duo!\"*\n\n"
+                "**MARIO:** *You know that's true Just me and you,*\n\n"
+                "**LUIGI:** *If it only it weren't a dream*\n\n"
+                "**MARIO:** *damn it luigi!*\n\n"
+                "**LUIGI:** *I, wouldn't be the fiend!*"
             ),
-            "image": f"{IMG}/tape-03-the-argument.jpg",
-            "imageCaption": (
-                "The silhouette passage, lifted from the tape. Two brothers reduced to "
-                "outlines by an editorial choice somebody made after the fact - and, "
-                "through the window behind them, the watcher this archive has never "
-                "interviewed.\n\n"
-                "Three things about the silhouette treatment are not consistent with "
-                "ordinary tape damage. It begins on a sentence boundary and ends on one. It "
-                "affects the two men in the foreground and does not affect the window "
-                "behind them, which stays legible throughout. And the audio does not "
-                "degrade with it - the voices come through this passage cleaner than they "
-                "do thirty seconds earlier.\n\n"
-                "Damage does not have taste. Somebody composited this. The question the "
-                "archive cannot yet answer is whether they did it to hide the two men, or "
-                "to make absolutely certain that the third figure was the only thing in the "
-                "frame you could still see clearly. Those are opposite intentions producing "
-                "an identical image, and I refuse to guess between them in a document with "
-                "my name on it."
+            "body": (
+                "This is the tenderest passage on the tape and it is the one I trust least, "
+                "for reasons that have nothing to do with the brothers.\n\n"
+                "**The content first.** Luigi quotes something - the quotation marks are "
+                "audible in his delivery. *\"Luigi and Mario.\" \"What a major duo!\"* He is "
+                "reciting how they were once described, with his own name first, and the "
+                "citation is the injury: that is the only place the billing ever ran in "
+                "that order. Mario answers *Just me and you* - the bond, again, the "
+                "eleventh time. And Luigi's *If it only it weren't a dream* concedes, for "
+                "one line, that he wanted it to be real.\n\n"
+                "***damn it luigi*** is the only thing Mario says on this entire recording "
+                "in his own unguarded voice. No accent written in, no rhyme, no metre, "
+                "lowercase. **When Mario finally stops performing, what comes out is not "
+                "an argument. It is exhaustion.**\n\n"
+                "**Now the problem.** Three things about the silhouette treatment are not "
+                "consistent with tape damage. It begins on a sentence boundary and ends on "
+                "one. It obscures the two men in the foreground and does *not* obscure the "
+                "window behind them, which stays legible throughout. And the audio does "
+                "not degrade with it - the voices come through this passage cleaner than "
+                "thirty seconds earlier.\n\n"
+                "Damage does not have taste. **Somebody composited this.** And whoever did "
+                "it either did it to hide the brothers, or to ensure the only clearly "
+                "readable thing in frame was the third figure at the window. Those are "
+                "opposite intentions producing an identical image, and I will not guess "
+                "between them in a document with my name on it.\n\n"
+                "**The archive has never interviewed the watcher.** She was there. She saw "
+                "it. Nobody has asked her a single question."
             ),
         },
         {
-            "id": "no-longer",
+            "id": "hinge",
             "icon": "\U0001f494",
-            "heading": "\"You Are NO LONGER MY BROTHER\" - the Hinge",
-            "sourceAnchor": "Mario: BECAUSE YOUR MY BROTHER / Luigi: you are NO LONGER MY BROTHER!",
+            "heading": "The Hinge: \"BECAUSE YOUR MY BROTHER\" / \"NO LONGER MY BROTHER\"",
+            "sourceAnchor": (
+                "*[fade back in; Mario sweating, Luigi standing firm, shadow gone]*\n\n"
+                "**MARIO:** *Memories shared The duo not impaired Showing that I cared "
+                "BECAUSE YOUR MY BROTHER*\n\n"
+                "**LUIGI:** *Sparked inside me Was the pain you seldom And now you plea? "
+                "you are NO LONGER MY BROTHER!*\n\n"
+                "**MARIO:** *This is trickery! You would never be Fooled by that Koopa "
+                "fiend*\n\n"
+                "**LUIGI:** *YOU DAMN FOOL Let-a this tale end*"
+            ),
             "body": (
-                "Here is the exchange the entire tape is built to reach, and the two lines "
-                "are deliberately the same shape.\n\n"
-                "Mario: *Memories shared. The duo not impaired. Showing that I cared - "
-                "BECAUSE YOUR MY BROTHER.*\n\n"
-                "Luigi: *Sparked inside me was the pain you seldom. And now you plea? You "
-                "are NO LONGER MY BROTHER.*\n\n"
-                "Mario uses the bond as a REASON - *because*. Luigi revokes it as a "
-                "STATUS - *no longer*. And the revocation is the only move available to "
-                "him, because for the entire argument Mario has been holding the bond up "
-                "as the thing that settles every question. The only way to win against a "
-                "man whose whole defence is *we are brothers* is to stop being one.\n\n"
-                "Mario's response is the most telling line he speaks all night: *This is "
-                "trickery! You would never be fooled by that Koopa fiend.*\n\n"
-                "He cannot accept it. In the same breath that his brother disowns him, "
-                "Mario reaches for the explanation in which Luigi is not responsible - "
-                "enchanted, deceived, got at. It is generous. It is loving. And it is the "
-                "**exact** thing Luigi has been screaming about for four minutes: Mario "
-                "will not credit him with his own actions. Even his villainy has to belong "
-                "to somebody else.\n\n"
-                "*Who are you to tell me YOUR TRUTH.*\n\n"
-                "It is the hinge because it is the only line on the tape that changes a "
-                "status rather than describing one. Everything before it is two men "
-                "disputing an account of the past. After it, there is a new fact in the "
-                "world that was not there ninety seconds earlier, and it was made by being "
-                "said out loud.\n\n"
-                "And Mario's answer to it is the same answer he has given to everything "
-                "else - the bond, again, for the twelfth time, in a sentence that has just "
-                "been formally revoked. He does not adapt. He cannot. The archive should "
-                "sit with how frightening that is in a man otherwise famous for improvising "
-                "his way out of anything."
+                "Note the staging on the return: **Mario sweating, Luigi standing firm.** "
+                "Whatever happened under the silhouette cost Mario something and cost "
+                "Luigi nothing.\n\n"
+                "Mario plays the card one final time and in capitals: ***BECAUSE YOUR MY "
+                "BROTHER.*** It is his twelfth reach for the bond and his loudest, and it "
+                "is loudest because it is last - he has nothing else and on some level he "
+                "knows it.\n\n"
+                "***you are NO LONGER MY BROTHER.*** **This is the only line on the entire "
+                "tape that changes a status rather than describing one.** Everything before "
+                "it is two men disputing an account of the past. After it there is a new "
+                "fact in the world that was not there ninety seconds earlier, and it was "
+                "created by being said out loud. Luigi does not refute the bond. He "
+                "*terminates* it - accepting its existence in order to end it, which is a "
+                "far more deliberate act than denial.\n\n"
+                "*Sparked inside me Was the pain you seldom* - broken again, and again "
+                "broken exactly where it hurts. *The pain you seldom* [acknowledged]. The "
+                "sentence cannot finish because the verb is the thing he has never once "
+                "received.\n\n"
+                "And Mario's response to a formal revocation is ***This is trickery*** - "
+                "Koopa, again, immediately. He does not adapt. **He cannot.** The archive "
+                "should sit with how frightening that is in a man otherwise famous for "
+                "improvising his way out of anything."
             ),
         },
         {
-            "id": "superstars",
+            "id": "shine",
             "icon": "\u2b50",
-            "heading": "The One Moment They Are Saying the Same Words",
-            "sourceAnchor": "Both: Are we-a still superstars? / Even in the face of whats been torn asunder",
+            "heading": "\"My Own Shine Dimmed Far Blind\" - the Real Grievance, Finally Plain",
+            "sourceAnchor": (
+                "**LUIGI:** *Burned beyond the bend Show me that glee Oh, across from me "
+                "galaxies Saved by you Shadowed me What's to see? My own shine Dimmed far "
+                "blind*\n\n"
+                "**MARIO:** *Facing the climax Wishing to backtrack It's just a setback A "
+                "minor blowback! Stuck in a false dream Wishing to redeem*\n\n"
+                "**LUIGI:** *Mario its-a you Wishing the climax Facing a masked rat \"It's "
+                "just a setback\" \"A minor blowback\" ending your regime Far-a since "
+                "redeemed*"
+            ),
             "body": (
-                "For exactly two lines, the overlapping stops and they speak in unison.\n\n"
-                "*Are we-a still superstars? Even in the face of what's been torn "
-                "asunder.*\n\n"
-                "Then it immediately splits again, and the split is the whole tragedy in "
-                "miniature:\n\n"
-                "> Luigi: *I've-a gone and lost the faith*\n"
-                "> Mario: *Am I gonna lose the faith*\n\n"
-                "**Past tense against future tense.** Luigi is reporting something already "
-                "finished. Mario is asking about something he thinks he can still prevent. "
-                "They are standing in the same hallway at two different points in time, "
-                "and Mario does not know it.\n\n"
-                "I want to note - because this filing is read by people who were on the "
-                "lava bridge - that *are we still superstars* is the question "
-                "[Luigi](https://mikegent01.github.io/bik/index.html#/article/luigi) asked "
-                "at the end of the clinic run, delirious, with burns down one side. He was "
-                "not quoting himself. **He was still in this hallway.**\n\n"
-                "For about four seconds in the middle of this tape the two of them are "
-                "using identical vocabulary, and it is the only stretch where neither one "
-                "interrupts the other. Same words, opposite meanings, perfect politeness. "
-                "It is the most intimate moment in the recording and it is also the "
-                "clearest evidence that the conversation had already failed, because "
-                "agreement on the words is exactly what lets two people walk away certain "
-                "they were understood.\n\n"
-                "Weeks later, burnt, on a stretcher, Luigi produced the same phrasing "
-                "unprompted to a man who had not been in the hallway and could not possibly "
-                "have known the reference. He was not making a point. He had simply never "
-                "left."
+                "***Galaxies Saved by you Shadowed me.*** There it is with nothing in front "
+                "of it. Not *you took her*, not *you wronged me* - **you saved galaxies and "
+                "the saving cast a shadow and I have been standing in it.** Luigi's "
+                "complaint is not that Mario did wrong. It is that Mario did *right*, "
+                "enormously, repeatedly, and that the light of it blinded everyone to the "
+                "man standing beside him.\n\n"
+                "*My own shine Dimmed far blind.* He is not claiming he had none. He is "
+                "claiming it could not be seen. **That is a completely different "
+                "accusation and the archive has never once filed it correctly.**\n\n"
+                "Then watch what Luigi does with Mario's words. Mario offers comfort - "
+                "*it's just a setback, a minor blowback* - and Luigi **repeats it back "
+                "inside quotation marks.** He is not misunderstanding Mario. He is quoting "
+                "him to his face to demonstrate how small the comfort sounds from where he "
+                "is standing. It is the most sophisticated rhetorical move either brother "
+                "makes on this tape, and it is Luigi who makes it.\n\n"
+                "*Facing a masked rat* - and note, Luigi now applies the masquerade "
+                "language to *Mario*. Each brother has spent this recording accusing the "
+                "other of being a costume."
             ),
         },
         {
-            "id": "cape",
-            "icon": "\U0001fab6",
-            "heading": "The Feed Cuts Out on a Cape Feather",
-            "sourceAnchor": "[Mario is shown with a Cape Feather, a sound is heard, the feed cuts out]",
+            "id": "mirror",
+            "icon": "\U0001fa9e",
+            "heading": "\"Are We-a Still Superstars?\" - Four Seconds of Perfect Agreement",
+            "sourceAnchor": (
+                "**MARIO:** *The chance to surpass* / **LUIGI:** *The chance to surpass*\n\n"
+                "**MARIO:** *Are-* / **LUIGI:** *Are-*\n\n"
+                "**BOTH:** *Are we-a still superstars?*\n\n"
+                "**BOTH:** *Even in the face of whats been torn asunder*\n\n"
+                "**LUIGI:** *I've-a gone and lost the faith* / **MARIO:** *Am I gonna lose "
+                "the faith* / **MARIO:** *Inside my brother?* / **LUIGI:** *Inside my "
+                "brother,*"
+            ),
             "body": (
-                "Luigi: *DEATH.* Mario: *FATE.* Same beat, different word, and then Mario "
-                "is holding a Cape Feather and the recording ends on a sound.\n\n"
-                "Three things I can say and one I cannot.\n\n"
-                "**The Cape Feather is a mobility item.** It is not a weapon. At the "
-                "precise moment the argument reaches a lethal register, Mario reaches for "
-                "the thing that lets him *leave*. That is consistent with a man who spent "
-                "the entire tape refusing to fight his brother.\n\n"
-                "**It is also consistent with the greed reading.** Wario's reframing of "
-                "the courier's note says Mario went east to keep something rather than to "
-                "save somebody. A man who ends an argument by producing the means of "
-                "flight, and who is then missing for a month, fits that reading "
-                "uncomfortably well. I am filing the discomfort rather than resolving it.\n\n"
-                "**The feed cuts on a SOUND, not on the sound of a fight.** Whatever "
-                "ended the recording is a single event, and it arrives after the feather "
-                "is already in shot.\n\n"
-                "What I cannot say is who stopped the tape. Somebody edited this footage "
-                "into silhouette for one passage. That same somebody chose where it ends. "
-                "**I do not have the last thirty seconds of the most important argument in "
-                "this arc, and I am not sure that is an accident.**\n\n"
-                "What is in the last frame: a cape feather, mid-fall, lit from the left by "
-                "a source that is not in the corridor. It is in shot for four frames. Then "
-                "the feed stops - not fades, not tears, stops - between one frame and the "
-                "next, with the audio cut clean at a point where nobody is speaking.\n\n"
-                "A tape that runs out does not stop in silence. It stops wherever it stops, "
-                "usually mid-word, usually with a second or two of noise on the tail. This "
-                "one ends on a held breath, on a visible object, immediately after the most "
-                "quotable line in the recording. That is an ending somebody wrote.\n\n"
-                "So the archive now carries two open items against this document and I am "
-                "filing both as open rather than pretending either is resolved: an "
-                "uninterviewed witness at the window, and an unidentified editor with "
-                "access to the master and an opinion about where the story should end. "
+                "**This is the only stretch of the recording where neither man interrupts "
+                "the other, and it is the clearest proof that the conversation had already "
+                "failed.**\n\n"
+                "They converge on identical vocabulary. *The chance to surpass*, together. "
+                "*Are-*, together. Then a shared line. Agreement on the words is exactly "
+                "what allows two people to walk away each certain they were understood, "
+                "and they mean opposite things by every syllable of it. Mario's *surpass* "
+                "is a thing brothers do for each other. Luigi's is a thing he must do *to* "
+                "Mario.\n\n"
+                "Then the tense does all the work, and I want this noted precisely because "
+                "it is the finest detail on the tape:\n\n"
+                "**Luigi: *I've-a gone and lost the faith.*** Past. Completed. It is done, "
+                "it happened some time ago, and he is reporting it.\n\n"
+                "**Mario: *Am I gonna lose the faith.*** Future. Interrogative. He is still "
+                "asking whether this is going to happen.\n\n"
+                "One of them is describing a completed loss and the other is worrying about "
+                "a possible one, **in the same breath, in the same sentence, sharing the "
+                "same object.** Mario is not in the same conversation. He has never been in "
+                "the same conversation. And *Inside my brother* is spoken by both of them - "
+                "Mario as a question, Luigi as a full stop.\n\n"
+                "***Are we-a still superstars?*** is the saddest line in this archive and I "
+                "am filing that as a finding."
+            ),
+        },
+        {
+            "id": "break",
+            "icon": "\U0001f5e1\ufe0f",
+            "heading": "\"So!\" / \"No!\" - Where It Stops Being an Argument",
+            "sourceAnchor": (
+                "**LUIGI:** *So!* / **MARIO:** *No!*\n\n"
+                "**LUIGI:** *WHY WON'T YOU DIE!*"
+            ),
+            "body": (
+                "Two syllables each, and the conversation ends here. Everything after this "
+                "point is not persuasion.\n\n"
+                "*So!* is Luigi drawing a conclusion. *No!* is Mario refusing the "
+                "conclusion rather than the premise - **still, after everything, arguing "
+                "with the outcome instead of the case.**\n\n"
+                "Then: ***WHY WON'T YOU DIE.***\n\n"
+                "I have listened to this line more times than is healthy and I am going to "
+                "record the reading I keep arriving at, with the caveat that it is a "
+                "reading. It is phrased as a **complaint about failure**, not as a "
+                "declaration of intent. *Why won't you* is what you say when something you "
+                "have been attempting is not working. It is the grammar of frustration, "
+                "not of murder.\n\n"
+                "**Which means the attempts came first, before this tape.** That sentence "
+                "implies a history the archive does not have, and I am flagging it as an "
+                "open question rather than answering it."
+            ),
+        },
+        {
+            "id": "feather",
+            "icon": "\U0001fab6",
+            "heading": "\"DEATH\" / \"FATE\" - and Who Chose Where This Ends",
+            "sourceAnchor": (
+                "**LUIGI:** *I've had enough Of this kid's scuff ... set in stone that YOU "
+                "WILL DIE*\n\n"
+                "**MARIO:** *I still got hope in you Something Could change within you*\n\n"
+                "**MARIO:** *Rising demand Escalating your plan Oh, dear bro forgive me!*\n\n"
+                "**MARIO:** *I just couldn't change your* - **LUIGI:** *IF IT RESULTS IN "
+                "YOUR* - **LUIGI:** *DEATH* / **MARIO:** *FATE*\n\n"
+                "*[Mario is shown with a Cape Feather; a sound is heard; the feed cuts out]*"
+            ),
+            "body": (
+                "**Mario's last full line is an apology.** *Oh, dear bro forgive me.* He is "
+                "asking forgiveness immediately before doing something, which means he has "
+                "decided to do it and knows what it is. That is the only moment on this "
+                "tape where Mario is ahead of Luigi rather than behind him.\n\n"
+                "And then the final construction, which is the most deliberate piece of "
+                "writing in the whole recording. Two half-sentences, interleaved, "
+                "completing on a single shared beat:\n\n"
+                "**Mario: *I just couldn't change your... FATE.*** **Luigi: *IF IT RESULTS "
+                "IN YOUR... DEATH.***\n\n"
+                "Same grammatical slot. Same instant. One word each. **DEATH and FATE are "
+                "the same syllable count and the opposite claim** - Luigi names an act, "
+                "Mario names an inevitability he is absolving himself of. They are still, "
+                "in the last word either of them speaks, having two different arguments.\n\n"
+                "**Now the part I cannot resolve.** The final frame holds a Cape Feather. A "
+                "sound is heard. The feed does not fade and does not tear - it *stops*, "
+                "between one frame and the next, with the audio cut clean.\n\n"
+                "A tape that runs out does not stop in silence. It stops mid-word, with "
+                "noise on the tail. **This one ends on a held breath, on a visible object, "
+                "immediately after the most quotable line in the recording.** That is an "
+                "ending somebody wrote.\n\n"
+                "So the archive carries two open items against this document, and I file "
+                "both as open rather than pretend either is resolved: **an uninterviewed "
+                "witness at the window, and an unidentified editor** with access to the "
+                "master, a compositing suite, and an opinion about where the story should "
+                "end.\n\n"
                 "**Until I have names for those two, every line above is a reading of "
-                "something I have been handed rather than something I found.**"
+                "something I was handed rather than something I found.**"
             ),
         },
     ],
@@ -1146,7 +1475,17 @@ COMMENTARY = {
                 "**That is the whole visit.** Objects instead of sentences, every single "
                 "time, with an insult stapled on as the receipt. Water with a *don't*. "
                 "Garlic with a *research*. A coin with nothing at all, which is the one "
-                "that actually got through."
+                "that actually got through.\n\n"
+                "And the water worked. That is the humiliating part. Two days of nobody "
+                "getting anywhere near Waluigi, and the thing that finally got Waluigi "
+                "out of the chair was a man being rude while handing over tap water. **Not "
+                "sympathy. Not a speech. Tap water and an insult.**\n\n"
+                "Waluigi has thought about why and the answer is annoying: sympathy "
+                "requires Waluigi to be a person who needs it, and Waluigi would rather be "
+                "set on fire. A glass of water with a *don't* attached does not require "
+                "Waluigi to admit anything at all. It is help with the admission surgically "
+                "removed, and the man who designed it did not know he was designing "
+                "anything. He just could not do it the other way."
             ),
         },
         {
@@ -1243,7 +1582,17 @@ COMMENTARY = {
                 "a supplier. And Waluigi opened his mouth to deflect and instead heard "
                 "himself start listing, and got to the second name before stopping, and "
                 "the stopping is the part that will keep Waluigi awake. **Not the naming. "
-                "The stopping.**"
+                "The stopping.**\n\n"
+                "Because a name said out loud in a kitchen is still deniable. Waluigi can "
+                "wake up tomorrow and decide it was the tiredness talking. But a name "
+                "said out loud to a man who REMEMBERS THINGS - who can tell you what a "
+                "favour cost him nine years ago without looking it up - is not deniable "
+                "at all. Waluigi handed two of those names to the single best-organised "
+                "memory in this company and then stopped, which is like posting a letter "
+                "and then trying to argue with the postbox.\n\n"
+                "He has not brought them up since. He will. **Waluigi has started keeping "
+                "a note of how many things Wario has not brought up since, and the list "
+                "is getting long enough to be its own filing.**"
             ),
         },
         {
@@ -1407,6 +1756,54 @@ COMMENTARY = {
                 "So the working theory of this entire arc now belongs to a man who once "
                 "faked his own death to avoid a go-kart race, and Waluigi has filed it in "
                 "Waluigi's OWN HANDWRITING, under protest, and the handwriting is FINE."
+            ),
+        },
+        {
+            "id": "the-transcript",
+            "icon": "\U0001f4c4",
+            "heading": "And Then Waluigi Typed Out The Whole Thing. Every Word. Including The Ones That Hurt.",
+            "body": (
+                "One more section and then Waluigi will let the reader go.\n\n"
+                "The whole tape is now in the archive. All of it. Typed out by hand, in "
+                "order, with the stumbles left in and the bad grammar left in and Mario's "
+                "ridiculous accent left in, because CLEANING IT UP IS ALREADY AN EDIT and "
+                "this archive has had quite enough of those.\n\n"
+                "Do you know how long that took? Waluigi does. Waluigi was there. Ninety "
+                "seconds of tape, and Waluigi stopped and started it so many times that "
+                "the machine started making a noise it should not make.\n\n"
+                "**And here is the part that Waluigi would like on the record.** Waluigi "
+                "could have summarised it. Waluigi is GOOD at summarising. Waluigi could "
+                "have given the archive eight tidy paragraphs saying what the argument "
+                "meant, and every single reader would have taken Waluigi's word for it, "
+                "because that is what readers DO, and because until this week nobody in "
+                "this entire organisation had anything better than the recollection of a "
+                "man who was **not in the room and was wearing somebody else's face at "
+                "the time.**\n\n"
+                "Instead Waluigi filed the thing itself. Which means any idiot with a "
+                "search bar can now go and check Waluigi's reading against the source and "
+                "find out that Waluigi got something wrong. Somebody WILL. Waluigi has "
+                "made a rod for Waluigi's own back and did it deliberately and is "
+                "furious about it.\n\n"
+                "Because here is the alternative, and Waluigi wants everyone to look at "
+                "it clearly. An archive that only files the sources which happen to "
+                "flatter its archivist is not an archive. **It is a SCRAPBOOK.** It is a "
+                "man with a glue stick deciding what the past was.\n\n"
+                "There are two things in that transcript Waluigi would genuinely rather "
+                "nobody read. Waluigi is not going to say which two. They are in there. "
+                "They are in there with everything else and they are in there in full and "
+                "the reason is that the moment Waluigi starts taking things out, Waluigi "
+                "becomes the fourth person to edit this tape, and Waluigi has spent this "
+                "entire filing complaining about the other three.\n\n"
+                "**WAH.** Go and read it. Check Waluigi's work. Waluigi has never meant "
+                "anything less and has never been more certain it was correct.\n\n"
+                "One last thing. Waluigi reread the transcript after typing it and found "
+                "something that was not audible when it was only SOUND. On the page, the "
+                "two of them keep finishing in the same place. Same rhythm, same beat, "
+                "same number of syllables, over and over, for ninety seconds - two men who "
+                "cannot agree on a single fact and who are nevertheless perfectly in time "
+                "with each other the entire way down.\n\n"
+                "**They were still a duo. Right to the last word. Neither of them "
+                "noticed.**"
             ),
         },
     ],
