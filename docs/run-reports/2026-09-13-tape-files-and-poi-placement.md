@@ -151,3 +151,45 @@ frozen a value which legitimately changes:
   nothing and knew which bed was his. Filed as an open case for the first time.
 - **The editor and the watcher.** Both went to the analysis's open file with
   research-desk rolls attached; neither is resolved.
+
+## Follow-up: the analysis was unreachable, and all three filings grew
+
+**The bug.** `The Brothers' Argument, Line by Line` was filed correctly and the
+route worked, but no reader could find it. Two things hid it:
+
+1. `renderConnectedInvestigationsPanel()` has a compact mode for records that
+   own a filing desk. In that mode it collapsed every analysis to an unlabelled
+   `🖋️ Analysis` chip — the title and summary were dropped, so the panel never
+   said what the analysis was or what it argued.
+2. Events are `wideRecord`, so the panel is not inline; it is the `🔍 Case file`
+   tab of `recordApparatusBand()`, and that band always opened on `👥 Session`.
+   The chip was therefore behind a tab nobody had a reason to click.
+
+Fixed both: compact mode now renders named analysis rows (title, summary,
+research-desk pill) and keeps the commentary/desk chips as a door strip below;
+the apparatus band opens on `🔍 Case file` when the record carries an analysis
+or a Waluigi's Cut. The `Investigate this further` heading now also announces
+the analysis on desk records, not just on deskless ones.
+
+This also fixed the three long-standing failures in
+`tools/tests/article-analysis-smoke.mjs` (`analysis panel present`, `summary
+preview shown`, `research pill reports 3 checks`) — they had been failing on
+the base commit too, for exactly this reason. **28 passed, 0 failed.**
+
+**Length.** The event narrative was the thing to grow, so every one of its seven
+sections gained a closing movement: the tape's physical description and the
+archivist's reflex (I), Wario's entrance and the flattening voice (II), the
+objects-instead-of-sentences grammar (III), the room inventory and the
+unmentioned thing at the bottom of the box (IV), the coin's provenance and the
+unrecorded pause (V), how the Wario Files were actually placed (VI), and the
+greed reading set out line by line (VII). The analysis gained a third beat in
+each of its seven sections. The commentary was then re-expanded to hold its
+relative floor against the bigger source: **4094 words, 0.97x, sections
+464–598w**, Waluigi/1k 40.8, CAPS/1k 44.2.
+
+**Generator.** `append_entry()` was id-guarded and returned "already filed"
+without writing, which meant edits to the generator's prose could never reach
+the data files. It now splices an updated object in place over the existing one,
+leaving every byte outside that object's braces untouched, and reports
+`updated`. The small-diff rule still holds: the three data files changed by 14
+lines each rather than being re-dumped.

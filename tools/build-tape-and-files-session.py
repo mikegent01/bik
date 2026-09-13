@@ -108,7 +108,24 @@ EVENT = {
                 "That is the opening line of the tape, and it is also the line Luigi threw "
                 "at Waluigi on the lava bridge. The archive has had that sentence in it "
                 "for two filings. This is the first time anyone has heard who said it "
-                "first."
+                "first.\n\n"
+                "The tape itself is ninety seconds of corridor. A camera mounted high in "
+                "the corner, the kind installed to watch a door rather than a "
+                "conversation, so the two men in the frame are small and the ceiling is "
+                "enormous. There is no establishing shot and no ending. It begins with "
+                "both brothers already mid-sentence and it stops while one of them is "
+                "still talking. Somebody chose both of those edges, and nothing in the "
+                "footage explains who.\n\n"
+                "By the fourth pass Waluigi had stopped watching the brothers at all. He "
+                "was watching the parts of the frame nobody was supposed to look at - the "
+                "reflection in the glass at the end of the hall, the timecode ticking in "
+                "the corner, the half-second where the image tears and reassembles. That "
+                "is not grief. That is an archivist's reflex surviving inside a man who "
+                "has otherwise stopped functioning, and it is the reason this filing "
+                "exists at all.\n\n"
+                "He rewound it a fifth time. The cups did not move. Outside, somewhere "
+                "below the window, the company yard ran a shift change and nobody in the "
+                "room noticed."
             ),
             "waluigi_note": (
                 "*I am not going to pretend to be objective about this section.* I was in "
@@ -142,7 +159,24 @@ EVENT = {
                 "what*, and got told to give it back, and did not.\n\n"
                 "Then he tossed it onto a pile of similar books in the corner and asked if "
                 "it was a diary, which is the single most Wario way to handle another "
-                "man's poetry."
+                "man's poetry.\n\n"
+                "The door had not been locked. That is worth recording, because Waluigi "
+                "locks doors, and for two days he had not. "
+                "[Wario](https://mikegent01.github.io/bik/index.html#/article/wario) came "
+                "in the way he comes into every room he intends to own - shoulder first, "
+                "talking before the hinge had finished swinging, a clipboard in one hand "
+                "that he never once looked at. The company meeting was at nine. The "
+                "company meeting was the excuse and both of them knew it inside four "
+                "seconds.\n\n"
+                "What he did next is the part that matters. He did not open the curtains. "
+                "He did not turn on the overhead light, or turn off the tape, or say any "
+                "of the six sentences a person is supposed to say to somebody sitting in "
+                "the dark. He crossed the room, looked at the screen for a while without "
+                "comment, and then picked up the nearest object on the desk, which "
+                "happened to be a notebook, and started reading it out loud in the flat "
+                "voice of a man reading a delivery manifest.\n\n"
+                "It was not a manifest. Three lines in, the flatness came off his voice on "
+                "its own, and he slowed down, and he did not seem to notice that he had."
             ),
             "waluigi_note": (
                 "It is NOT a diary. It is a **working notebook**. There is a difference "
@@ -174,7 +208,22 @@ EVENT = {
                 "stuff at bay.\n\n"
                 "Waluigi drank the water. The notebook went on the counter between them "
                 "like a truce flag, with one condition attached: *don't read any more of "
-                "it.*"
+                "it.*\n\n"
+                "The kitchen is four steps from the bed and it is where this session "
+                "actually turns. Wario filled a glass from the tap, put it down hard "
+                "enough to be deniable as kindness, and then went through the cupboard "
+                "and came back with garlic clippings - the dried outer skins nobody keeps "
+                "- and set those down too, and announced that they were for research. "
+                "Neither man defined the research. Neither man had to.\n\n"
+                "This is the whole grammar of the visit. Wario does not have the "
+                "vocabulary for the thing he came to do, so he substitutes objects for it: "
+                "a glass, a handful of skins, later a coin. Each one is delivered with an "
+                "insult attached as packaging, and the insult is the receipt that lets "
+                "both of them pretend the delivery was a transaction.\n\n"
+                "Waluigi drank the whole glass without stopping, which told the room how "
+                "long it had been since he had drunk anything. Then he said thank you, "
+                "and Wario said *\"don't,\"* and that was the closest either of them got "
+                "to naming it."
             ),
             "waluigi_note": (
                 "For the record the garlic research is **worthless**. Garlic does nothing "
@@ -205,7 +254,22 @@ EVENT = {
                 "carefully than he handles gold.\n\n"
                 "Then he backed toward the door, got caught, turned around, and said "
                 "*\"Your handwriting's terrible,\"* and dropped the letter like it had "
-                "burned him."
+                "burned him.\n\n"
+                "The search was not subtle and was not meant to be. Wario went through the "
+                "room the way he goes through a vault: drawers out and stacked on the "
+                "floor, the wardrobe emptied onto the bed, the loose board by the radiator "
+                "found in under a minute by a man who has spent a career finding loose "
+                "boards. Waluigi did not stop him. He stayed in the chair with the tape "
+                "running and let it happen, which is its own kind of statement.\n\n"
+                "The inventory, as filed: eleven letters, none of them sent, none of them "
+                "addressed to anyone in the room. A stack of newspaper clippings going "
+                "back years, folded to the same column each time, with one name circled in "
+                "pencil hard enough to emboss the page behind it. A tournament bracket with "
+                "every round filled in except the last. And, at the bottom of the box, "
+                "under all of it, a thing Wario looked at for a long moment and then put "
+                "back exactly as he had found it, face down, and did not mention again.\n\n"
+                "He has still not mentioned it. This filing notes the omission and does "
+                "not fill it."
             ),
             "waluigi_note": (
                 "My handwriting is **fine**.\n\n"
@@ -233,7 +297,23 @@ EVENT = {
                 "*\"Someone went out of their way to-\"* and then he stopped himself, and "
                 "swallowed, and said it did not matter.\n\n"
                 "He also said, earlier and more quietly, the thing this section is "
-                "actually filed for: **\"It was the last time things made sense.\"**"
+                "actually filed for: **\"It was the last time things made sense.\"**\n\n"
+                "The coin was taped to the underside of a sticky note, and the sticky note "
+                "was blank. One gold piece, Star Festival mint, drawn on the festival fund "
+                "in a year when Waluigi placed in nothing and won nothing and was, by the "
+                "official record, not a participant. Somebody had signed it out of a fund "
+                "they were entitled to spend, walked it up a flight of stairs, and left it "
+                "on a bed in an empty room.\n\n"
+                "Waluigi has kept it for years without spending it and without explaining "
+                "it. He did not explain it now either. He turned it over twice, put it on "
+                "the nightstand between them, and said nothing, and let Wario read the "
+                "mint mark himself.\n\n"
+                "Wario read it. The archive would like to record what his face did at that "
+                "moment, and cannot, because the only witness was sitting behind him and "
+                "has declined to characterise it. What is on the record is that he did not "
+                "make a joke, and that the gap before he spoke again was long enough that "
+                "the tape in the other room reached the end of its loop and cut to black "
+                "unattended."
             ),
             "waluigi_note": (
                 "The coin is evidence. I want that established in the record because the "
@@ -269,7 +349,21 @@ EVENT = {
                 "- At trial she interrupted the court to insist, on the record, that her "
                 "father was not dead. Then the judge was shot.\n\n"
                 "*\"Seems like her coverup worked,\"* Wario said, and laughed.\n\n"
-                "*\"Yeah, real comedy genius over there.\"*"
+                "*\"Yeah, real comedy genius over there.\"*\n\n"
+                "The Wario Files, as the media eventually named them, are not one recording "
+                "but a run of phone calls placed over a single afternoon by a man trying "
+                "very hard not to be on a starting grid. He made them from a company line, "
+                "which is why they exist: the line logged everything, and nobody thought to "
+                "stop it. He called in a debt, then a favour, then a threat, in that order, "
+                "escalating politely until something moved.\n\n"
+                "His account of them here is unusually complete and unusually unashamed. He "
+                "did not present the calls as a scandal he survived. He presented them as a "
+                "procedure that worked, which is a considerably stranger thing to sit "
+                "across a kitchen from. He listed who he called. He listed what each one "
+                "cost him. He remembered the costs to the coin, years later, without "
+                "checking a ledger.\n\n"
+                "Waluigi wrote the list down. That is the first time in this session that "
+                "he picked up a pencil, and he has not put it down since."
             ),
             "waluigi_note": (
                 "Two things and then I will leave this alone.\n\n"
@@ -306,7 +400,26 @@ EVENT = {
                 "*\"Greed. Of course that's your angle.\"* But Waluigi did not look away, "
                 "and he had the pencil out, and he was running the numbers.\n\n"
                 "*\"And make it good - I'm not chasing another wild Wario theory across a "
-                "lava field.\"*"
+                "lava field.\"*\n\n"
+                "The reframing is worth setting out slowly, because the whole arc now rests "
+                "on it. The courier's note reads: *\"The star is not lost. Find the garden "
+                "above the fire.\"* Every reading the archive has filed so far treated that "
+                "as a rescue instruction written by an ally - a location, a reassurance, a "
+                "map fragment addressed to people who intend to go and get something back.\n\n"
+                "Wario read it as an inventory line. He has written notes like this. He has "
+                "written them about property. *The star is not lost* is not comfort, in his "
+                "reading; it is a status. It is the sentence you write when an asset is "
+                "still on the books and still where you left it, and the reason you write "
+                "it down at all is that somebody paid to have it moved and wants "
+                "confirmation the move held.\n\n"
+                "Under that reading the second sentence stops being a riddle and starts "
+                "being an address, and the first sentence stops being hope and starts being "
+                "a receipt. The star is not lost because it was taken. It is lost because "
+                "somebody still has it, and is keeping it somewhere warm and high and "
+                "difficult to reach, and has written to confirm it is still there.\n\n"
+                "Waluigi ran the numbers for six minutes and did not find the hole. He has "
+                "filed the reading as the working theory of the arc, under protest, in his "
+                "own handwriting, which he maintains is fine."
             ),
             "waluigi_note": (
                 "I believe him.\n\n"
@@ -509,7 +622,18 @@ ANALYSIS = {
                 "Then he plays the only card he has: *Your my brother. That's not "
                 "something that'll go away.* Twelve seconds in, and Mario has already "
                 "reached for the bond. He will reach for it eleven more times. It never "
-                "works once."
+                "works once.\n\n"
+                "Notice what a boast requires that a confession does not: an audience that "
+                "is expected to be impressed. Luigi is not unburdening himself here. He is "
+                "presenting a credential. He has done something large enough that he "
+                "believes it should finally register, and the line is constructed - *you "
+                "thought* - to put his brother on the wrong side of a fact he should "
+                "already have known.\n\n"
+                "This matters because it dates the grievance. A man confessing has arrived "
+                "at a decision recently. A man boasting has been rehearsing. Everything "
+                "downstream in these ninety seconds reads differently depending on which "
+                "one you think you are watching, and the archive has been reading it wrong "
+                "for two filings."
             ),
         },
         {
@@ -532,7 +656,18 @@ ANALYSIS = {
                 "sliding off.\n\n"
                 "Mario answers: *This-a can't-a be the heroic ending you've dreamed of.* "
                 "Wrong again. He is still arguing about the ENDING. Luigi is arguing about "
-                "the whole middle."
+                "the whole middle.\n\n"
+                "*In the way* is a spatial complaint, and that is the tell. Not *what's a "
+                "brother if he's cruel*, not *if he lies*, not *if he abandons you* - if he "
+                "is **in the way**. Luigi is not describing a betrayal. He is describing an "
+                "obstruction, which is what you call a person who has been standing between "
+                "you and something for long enough that you have stopped seeing them as a "
+                "person and started seeing them as geometry.\n\n"
+                "Mario never engages with the geometry. Not once in ninety seconds does he "
+                "say *I did not mean to be in your way* or *I did not know I was*. He "
+                "answers a question about position with an answer about affection, over and "
+                "over, and each time he does it he confirms the complaint he is trying to "
+                "refute."
             ),
         },
         {
@@ -556,7 +691,17 @@ ANALYSIS = {
                 "*I've given my life to a zero, and that's true.*\n\n"
                 "That is the actual injury. Not that Mario took the girl. That Luigi "
                 "measured himself and got nothing back. The damsel is a decoy, and I "
-                "recognise the technique because I have used it."
+                "recognise the technique because I have used it.\n\n"
+                "The technique works like this. You lead with the grievance that makes you "
+                "sound ordinary, because the real one makes you sound small. Jealousy over "
+                "a woman is a story everyone already knows how to hear; it comes with a "
+                "shape, and sympathy, and an ending. *Nobody ever measured me* comes with "
+                "none of those. It just sits there being pathetic and true.\n\n"
+                "So Luigi puts the decoy in front. And Mario, who is not stupid but is "
+                "listening for the story he knows, takes the decoy every single time. The "
+                "tragedy of this tape is not that the brothers disagree. It is that one of "
+                "them is arguing in code and the other one has never once asked for the "
+                "key."
             ),
         },
         {
@@ -587,7 +732,19 @@ ANALYSIS = {
                 "The silhouette passage, lifted from the tape. Two brothers reduced to "
                 "outlines by an editorial choice somebody made after the fact - and, "
                 "through the window behind them, the watcher this archive has never "
-                "interviewed."
+                "interviewed.\n\n"
+                "Three things about the silhouette treatment are not consistent with "
+                "ordinary tape damage. It begins on a sentence boundary and ends on one. It "
+                "affects the two men in the foreground and does not affect the window "
+                "behind them, which stays legible throughout. And the audio does not "
+                "degrade with it - the voices come through this passage cleaner than they "
+                "do thirty seconds earlier.\n\n"
+                "Damage does not have taste. Somebody composited this. The question the "
+                "archive cannot yet answer is whether they did it to hide the two men, or "
+                "to make absolutely certain that the third figure was the only thing in the "
+                "frame you could still see clearly. Those are opposite intentions producing "
+                "an identical image, and I refuse to guess between them in a document with "
+                "my name on it."
             ),
         },
         {
@@ -615,7 +772,17 @@ ANALYSIS = {
                 "**exact** thing Luigi has been screaming about for four minutes: Mario "
                 "will not credit him with his own actions. Even his villainy has to belong "
                 "to somebody else.\n\n"
-                "*Who are you to tell me YOUR TRUTH.*"
+                "*Who are you to tell me YOUR TRUTH.*\n\n"
+                "It is the hinge because it is the only line on the tape that changes a "
+                "status rather than describing one. Everything before it is two men "
+                "disputing an account of the past. After it, there is a new fact in the "
+                "world that was not there ninety seconds earlier, and it was made by being "
+                "said out loud.\n\n"
+                "And Mario's answer to it is the same answer he has given to everything "
+                "else - the bond, again, for the twelfth time, in a sentence that has just "
+                "been formally revoked. He does not adapt. He cannot. The archive should "
+                "sit with how frightening that is in a man otherwise famous for improvising "
+                "his way out of anything."
             ),
         },
         {
@@ -639,7 +806,18 @@ ANALYSIS = {
                 "lava bridge - that *are we still superstars* is the question "
                 "[Luigi](https://mikegent01.github.io/bik/index.html#/article/luigi) asked "
                 "at the end of the clinic run, delirious, with burns down one side. He was "
-                "not quoting himself. **He was still in this hallway.**"
+                "not quoting himself. **He was still in this hallway.**\n\n"
+                "For about four seconds in the middle of this tape the two of them are "
+                "using identical vocabulary, and it is the only stretch where neither one "
+                "interrupts the other. Same words, opposite meanings, perfect politeness. "
+                "It is the most intimate moment in the recording and it is also the "
+                "clearest evidence that the conversation had already failed, because "
+                "agreement on the words is exactly what lets two people walk away certain "
+                "they were understood.\n\n"
+                "Weeks later, burnt, on a stretcher, Luigi produced the same phrasing "
+                "unprompted to a man who had not been in the hallway and could not possibly "
+                "have known the reference. He was not making a point. He had simply never "
+                "left."
             ),
         },
         {
@@ -666,7 +844,21 @@ ANALYSIS = {
                 "What I cannot say is who stopped the tape. Somebody edited this footage "
                 "into silhouette for one passage. That same somebody chose where it ends. "
                 "**I do not have the last thirty seconds of the most important argument in "
-                "this arc, and I am not sure that is an accident.**"
+                "this arc, and I am not sure that is an accident.**\n\n"
+                "What is in the last frame: a cape feather, mid-fall, lit from the left by "
+                "a source that is not in the corridor. It is in shot for four frames. Then "
+                "the feed stops - not fades, not tears, stops - between one frame and the "
+                "next, with the audio cut clean at a point where nobody is speaking.\n\n"
+                "A tape that runs out does not stop in silence. It stops wherever it stops, "
+                "usually mid-word, usually with a second or two of noise on the tail. This "
+                "one ends on a held breath, on a visible object, immediately after the most "
+                "quotable line in the recording. That is an ending somebody wrote.\n\n"
+                "So the archive now carries two open items against this document and I am "
+                "filing both as open rather than pretending either is resolved: an "
+                "uninterviewed witness at the window, and an unidentified editor with "
+                "access to the master and an opinion about where the story should end. "
+                "**Until I have names for those two, every line above is a reading of "
+                "something I have been handed rather than something I found.**"
             ),
         },
     ],
@@ -829,7 +1021,20 @@ COMMENTARY = {
                 "reheated version.\n\n"
                 "The room smelled like stale coffee and regret. Waluigi WROTE THAT DOWN. "
                 "Waluigi filed it. Somebody was going to describe that room eventually and "
-                "Waluigi was not going to let it be somebody kind."
+                "Waluigi was not going to let it be somebody kind.\n\n"
+                "Here is what the event filing will not tell you, because the event filing "
+                "is written in the voice of a man pretending to be a department. The tape "
+                "is ninety seconds long. Waluigi watched it for two days. Do that "
+                "arithmetic and then come back and tell Waluigi that this was research.\n\n"
+                "It was not research. Research has a QUESTION in it. Waluigi had no "
+                "question. Waluigi had a loop, and the loop had a man in it who used to be "
+                "somebody Waluigi could describe in one word and now needs seven hundred, "
+                "and the seven hundred do not agree with each other.\n\n"
+                "The honest version is that Waluigi was waiting for the tape to say "
+                "something different. Six times. **It did not say anything different. It "
+                "is a tape.** And Waluigi - archivist, professional, allegedly the only "
+                "rational operator in this entire arc - sat in a chair in the dark and "
+                "kept checking, like a man rattling a locked door in case this time."
             ),
         },
         {
@@ -872,7 +1077,22 @@ COMMENTARY = {
                 "that got through the door when nothing else had. Not *you should get "
                 "help* - Waluigi has been told that by PROFESSIONALS and it bounces off - "
                 "but *I recognise this because I do it.* You cannot argue with that. There "
-                "is no leverage against it. Waluigi tried and there was nothing to push on."
+                "is no leverage against it. Waluigi tried and there was nothing to push on.\n\n"
+                "And he read it FLAT. That is the detail Waluigi keeps returning to. He "
+                "did not do a voice. He did not do the SNEERING thing, he did not do the "
+                "*ooooh, feelings* thing, he read it the way you read out a parts order, "
+                "and three lines in his voice changed on its own and **he did not notice "
+                "it change.**\n\n"
+                "Waluigi noticed. Waluigi has spent a professional lifetime noticing "
+                "exactly that category of thing in other people and filing it as leverage. "
+                "This is the first time the noticing produced nothing usable, because what "
+                "would Waluigi even DO with it. Blackmail a man for accidentally "
+                "respecting a poem?\n\n"
+                "*It is not a diary.* Waluigi said it twice. The second time was not a "
+                "correction, it was a plea, and Wario - who is many things, most of them "
+                "billable - had the decency to put the book down on the counter instead of "
+                "back on the pile. **On the counter. Between us. Face down.** He has never "
+                "once done anything that considerate with money."
             ),
         },
         {
@@ -911,7 +1131,22 @@ COMMENTARY = {
                 "and he is cheap.\n\n"
                 "Waluigi has no idea whether it is true. **Neither does he.** He said it "
                 "anyway. Waluigi is choosing to file that as generosity rather than as a "
-                "lie, which for Waluigi is practically a religious conversion."
+                "lie, which for Waluigi is practically a religious conversion.\n\n"
+                "GARLIC SKINS. The dried outer papery ones. The part you THROW AWAY. He "
+                "went to a cupboard, in a house he does not live in, and found the single "
+                "least valuable object in it, and carried it across a room, and put it "
+                "down next to a glass of tap water, and called the arrangement "
+                "*research*.\n\n"
+                "Waluigi wants to be extremely clear that this is not touching. This is a "
+                "grown man who could not say one sentence, so he brought GARBAGE as a "
+                "substitute for the sentence. That is pathetic. Waluigi drank the water "
+                "and it was the best thing that has happened to Waluigi this month, so "
+                "Waluigi is also pathetic, and the two pathetic men in the kitchen agreed "
+                "by mutual silence never to raise it again.\n\n"
+                "**That is the whole visit.** Objects instead of sentences, every single "
+                "time, with an insult stapled on as the receipt. Water with a *don't*. "
+                "Garlic with a *research*. A coin with nothing at all, which is the one "
+                "that actually got through."
             ),
         },
         {
@@ -945,7 +1180,22 @@ COMMENTARY = {
                 "nothing and knew WHICH BED WAS WALUIGI'S. That is a SHORT list. Waluigi "
                 "has had that coin for YEARS and has never once worked the case, and "
                 "Waluigi knows exactly why, and Waluigi is not putting THAT in the "
-                "commentary."
+                "commentary.\n\n"
+                "One coin. Star Festival mint. The year Waluigi entered eleven events and "
+                "placed in none of them and was recorded in the official programme as a "
+                "line of text with the wrong number of Ls in it.\n\n"
+                "Somebody signed a gold piece out of a fund that was theirs to spend, "
+                "carried it up a flight of stairs into an empty room, taped it under a "
+                "sticky note, and wrote NOTHING on the note. No name. No gloat. Nothing to "
+                "sign it. Which means whoever did it specifically did not want credit for "
+                "it, and Waluigi would like to point out that in this entire archive there "
+                "is exactly one category of person who does a kind thing and then "
+                "aggressively destroys the evidence.\n\n"
+                "And he said the quiet thing QUIETLY, which Wario does not do, and then he "
+                "moved straight on to a joke about the mint mark and Waluigi let him. "
+                "**Waluigi let him.** Write that down. Somebody handed Waluigi a confession "
+                "and Waluigi handed it back, because looking at it directly would have "
+                "ended the evening."
             ),
         },
         {
@@ -977,7 +1227,23 @@ COMMENTARY = {
                 "of a JOKE. So Waluigi kept it in a drawer taped to a sticky note where it "
                 "could stay meaningful forever.\n\n"
                 "That is not archival practice. That is **cowardice with a filing "
-                "system.** It took a man with garlic to get that out of Waluigi's mouth."
+                "system.** It took a man with garlic to get that out of Waluigi's mouth.\n\n"
+                "Four names. Waluigi has carried four names for long enough that they have "
+                "worn smooth, the way a coin does. Waluigi can recite them in order. "
+                "Waluigi can tell you what each one was doing that week, and which of the "
+                "four has an alibi that is too good, and which of the four has an alibi so "
+                "bad it is probably real.\n\n"
+                "And it has never touched paper. Not in a ledger, not in a margin, not in "
+                "the encrypted section of a notebook that Waluigi absolutely maintains, "
+                "thank you. Because the instant it touches paper it becomes a DOCUMENT, "
+                "and documents get read, and a document with four names on it is a "
+                "document that eventually requires Waluigi to go and knock on four "
+                "doors.\n\n"
+                "Wario asked who did it. Not rhetorically. He asked like a man asking for "
+                "a supplier. And Waluigi opened his mouth to deflect and instead heard "
+                "himself start listing, and got to the second name before stopping, and "
+                "the stopping is the part that will keep Waluigi awake. **Not the naming. "
+                "The stopping.**"
             ),
         },
         {
@@ -1018,7 +1284,23 @@ COMMENTARY = {
                 "it against her own interest, and she was held in CONTEMPT for it.\n\n"
                 "Waluigi thinks about that more than Waluigi would like. **Being right is "
                 "not a defence.** Waluigi has built an entire career on the assumption "
-                "that it is."
+                "that it is.\n\n"
+                "He made the calls from a COMPANY LINE. Waluigi needs everyone to sit with "
+                "that. The Wario Files exist as evidence in the public record of this "
+                "continent because the man committing them did it on a phone that "
+                "helpfully wrote everything down for him, and when Waluigi pointed this "
+                "out he SHRUGGED. He shrugged! *It worked, didn't it.*\n\n"
+                "A debt, then a favour, then a threat. In that order. Escalating POLITELY. "
+                "He remembers what each one cost to the exact coin, years later, no "
+                "ledger, no notes, while Waluigi cannot reliably remember whether Waluigi "
+                "has eaten. There is a kind of monstrousness that is really just extremely "
+                "good bookkeeping, and Waluigi is looking directly at it across a kitchen "
+                "table.\n\n"
+                "And he was not ASHAMED. That is the thing. He did not tell it as a "
+                "scandal he survived, he told it as a PROCEDURE THAT WORKED, with a little "
+                "pride in the sequencing, and Waluigi wrote the whole list down and has "
+                "not put the pencil down since. **Waluigi picked up a pencil.** For the "
+                "first time in two days. Because of THAT story."
             ),
         },
         {
@@ -1053,7 +1335,26 @@ COMMENTARY = {
                 "RECOGNISE.\n\n"
                 "The letters are not addressed to anybody. Waluigi is not going to explain "
                 "that in a commentary and Waluigi would ask the reader to notice that "
-                "Wario did not ask either."
+                "Wario did not ask either.\n\n"
+                "Drawers out. Wardrobe onto the bed. The loose board by the radiator found "
+                "in UNDER A MINUTE, which tells the reader everything about how this man "
+                "has spent his professional life. Eleven letters nobody was ever going to "
+                "receive. Clippings folded to the same column for years, with one name "
+                "pressed into the paper hard enough to emboss the sheet behind it.\n\n"
+                "Waluigi sat in the chair and LET HIM. That is not nothing. Waluigi has "
+                "thrown people out of this room for looking at the desk. Waluigi watched a "
+                "man empty a wardrobe onto a bed and said nothing, because saying "
+                "something would have required admitting there was something in there "
+                "worth protecting.\n\n"
+                "He got to the bottom of the box. He looked at the thing at the bottom of "
+                "the box for a long time. And then he put it back FACE DOWN, exactly as he "
+                "found it, and stood up and insulted the handwriting on a letter he had "
+                "already read.\n\n"
+                "**He has still not mentioned it.** Not a hint, not a leverage play, not "
+                "one cheap shot in an argument where it would have won him the argument "
+                "instantly. Waluigi keeps waiting for the invoice. Waluigi is starting to "
+                "suspect there is not going to be one, and does not know what to do with a "
+                "world that works like that."
             ),
         },
         {
@@ -1087,7 +1388,25 @@ COMMENTARY = {
                 "Waluigi considerably more than it does.\n\n"
                 "How many people have died because nobody asked the right question until "
                 "a disgraced dead man in a basement pointed his finger and LAUGHED?\n\n"
-                "Waluigi hates that it makes sense. **WAH.**"
+                "Waluigi hates that it makes sense. **WAH.**\n\n"
+                "*The star is not lost.* Everyone in this archive, Waluigi INCLUDED, read "
+                "that as comfort. As a stranger being kind on paper. Because that is how "
+                "you read a sentence when you are hoping, and everybody involved in this "
+                "arc has been hoping so hard for so long that nobody checked the "
+                "grammar.\n\n"
+                "Wario read it as a STATUS LINE. An inventory note. The sentence you write "
+                "when the item is still on the books and still where you left it, and the "
+                "only reason to write it down at all is that somebody PAID to have it put "
+                "there and wants confirmation the arrangement held.\n\n"
+                "Waluigi spent six minutes trying to break it. Six. Waluigi has broken "
+                "better theories than this in under thirty seconds, from across a room, "
+                "while eating. There is no hole in it. *Not lost* is not hope, it is a "
+                "RECEIPT. *The garden above the fire* is not a riddle, it is an ADDRESS. "
+                "The star is not lost because somebody HAS it, and is keeping it somewhere "
+                "warm and high and very difficult to walk into.\n\n"
+                "So the working theory of this entire arc now belongs to a man who once "
+                "faked his own death to avoid a go-kart race, and Waluigi has filed it in "
+                "Waluigi's OWN HANDWRITING, under protest, and the handwriting is FINE."
             ),
         },
     ],
@@ -1135,11 +1454,36 @@ def append_entry(name, entry, list_key=None, indent=2):
     path = DATA / name
     text = path.read_text(encoding="utf-8")
 
-    # Never file the same id twice.
-    if f'"{entry["id"]}"' in text:
-        return "already filed"
-
     body = json.dumps(entry, indent=indent, ensure_ascii=True)
+
+    # Already filed: replace that one object in place rather than appending a
+    # duplicate, so the generator stays the source of truth when its prose is
+    # edited. Everything outside this object's braces is left byte-identical.
+    hit = text.find(f'"id": "{entry["id"]}"')
+    if hit < 0:
+        hit = text.find(f'"{entry["id"]}"')
+    if hit >= 0:
+        start = text.rindex("{", 0, hit)
+        depth, i = 0, start
+        while i < len(text):
+            c = text[i]
+            if c == "{":
+                depth += 1
+            elif c == "}":
+                depth -= 1
+                if depth == 0:
+                    break
+            elif c == '"':
+                i += 1
+                while text[i] != '"':
+                    i += 2 if text[i] == "\\" else 1
+            i += 1
+        pad = " " * (len(text[:start].split("\n")[-1]))
+        spliced = "\n".join((pad + ln if n else ln)
+                            for n, ln in enumerate(body.splitlines()))
+        path.write_text(text[:start] + spliced + text[i + 1:], encoding="utf-8")
+        return "updated"
+
     if list_key is None:
         # Top-level array: splice before the final ']'.
         close = text.rindex("]")

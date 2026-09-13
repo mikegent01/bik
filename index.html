@@ -6423,10 +6423,20 @@ function recordApparatusBand(item,typeKey){
   /* One panel is not a tab strip — render it plainly. */
   if(tabs.length===1) return `<div class="apparatus-band apparatus-band--single">${tabs[0].html}</div>`;
 
-  const btns=tabs.map((t,i)=>`<button type="button" class="app-tab${i?'':' is-on'}" role="tab"
-      aria-selected="${i?'false':'true'}" aria-controls="app-pane-${esc(t.key)}"
+  /* A companion reading of this record is the most perishable thing in the
+     band: nobody hunts for a tab they cannot see. When the case file carries
+     an analysis or a Waluigi's Cut, open on it instead of on Session. */
+  let openIdx = 0;
+  if((typeof articleAnalysesForSource==='function' && articleAnalysesForSource(item.id).length)
+   ||(typeof commentariesForSource==='function' && commentariesForSource(item.id).length)){
+    const fi = tabs.findIndex(t=>t.key==='file');
+    if(fi>=0) openIdx = fi;
+  }
+
+  const btns=tabs.map((t,i)=>`<button type="button" class="app-tab${i===openIdx?' is-on':''}" role="tab"
+      aria-selected="${i===openIdx?'true':'false'}" aria-controls="app-pane-${esc(t.key)}"
       onclick="selectApparatusTab(this,'${esc(t.key)}')"><span aria-hidden="true">${t.icon}</span> ${esc(t.label)}</button>`).join('');
-  const panes=tabs.map((t,i)=>`<div class="app-pane${i?'':' is-on'}" id="app-pane-${esc(t.key)}" role="tabpanel">${t.html}</div>`).join('');
+  const panes=tabs.map((t,i)=>`<div class="app-pane${i===openIdx?' is-on':''}" id="app-pane-${esc(t.key)}" role="tabpanel">${t.html}</div>`).join('');
 
   return `<div class="apparatus-band">
     <div class="app-band-head">
@@ -13908,16 +13918,32 @@ function renderConnectedInvestigationsPanel(id, typeKey){
   /* ---- compact mode: the desk already owns these doors ---- */
   let siblingBlock = '';
   if(hasDesk){
+    /* The desk owns the full set of doors, but a bare "🖋️ Analysis" chip hides
+       the one thing a reader needs to decide whether to click: what the
+       analysis is called and what it argues. Name the analyses properly here;
+       the commentary and the desk stay as chips. */
+    const deskAnalysisRows = analyses.map(a => `<div class="cfx-row">
+      <span class="cfx-kind">🖋️ opinion filing</span>
+      <span class="cfx-body">
+        <a class="entity-link cfx-link" href="#/article-analysis/${encodeURIComponent(a.id)}">${esc(a.title || panelSourceTitle)}</a>
+        ${a.researchDesk&&Array.isArray(a.researchDesk.rolls)&&a.researchDesk.rolls.length?`<span class="pill cfx-read">🎲 ${a.researchDesk.rolls.length} optional after-hours checks</span>`:''}
+        <span class="cfx-excerpt">${esc(a.summary || '')}</span>
+      </span>
+    </div>`).join('');
+    const deskAnalysisBlock = deskAnalysisRows ? `<div class="cf-sub${files.length?' cf-sub--ruled':''}">
+      <div class="cf-sub-head"><h3>🖋️ Waluigi's Article Analysis</h3><span class="pill">same event · a signed interpretation</span></div>
+      <p class="cf-sub-note">The event is the canonical account. This companion is Waluigi arguing with what it means.</p>
+      <div class="cfx-list">${deskAnalysisRows}</div>
+    </div>` : '';
+
     const doors = [];
-    analyses.forEach(a => doors.push(`<a class="chip cf-door" href="#/article-analysis/${encodeURIComponent(a.id)}">🖋️ Analysis</a>`));
     cuts.forEach(c => doors.push(`<a class="chip cf-door" href="#/commentary/${encodeURIComponent(c.id)}">🎙️ Waluigi's Cut · ${(c.sections||[]).length} parts</a>`));
-    if(doors.length){
-      siblingBlock = `<div class="cf-doors">
-        <span class="cf-doors-label">Also filed as</span>
-        ${doors.join('')}
-        <a class="chip cf-door cf-door--desk" href="#/hub/${encodeURIComponent(id)}">🗂️ All ways to read this →</a>
-      </div>`;
-    }
+    const doorStrip = `<div class="cf-doors">
+      <span class="cf-doors-label">Also filed as</span>
+      ${doors.join('')}
+      <a class="chip cf-door cf-door--desk" href="#/hub/${encodeURIComponent(id)}">🗂️ All ways to read this →</a>
+    </div>`;
+    siblingBlock = deskAnalysisBlock + doorStrip;
   } else {
     /* ---- full mode: no desk, so this panel is the only signpost ---- */
     const analysisRows = analyses.map(a => `<div class="cfx-row">
@@ -13953,7 +13979,7 @@ function renderConnectedInvestigationsPanel(id, typeKey){
   const fileLine = nDoc
     ? `${nDoc} document${nDoc === 1 ? '' : 's'} in the archive ${nDoc === 1 ? 'names' : 'name'} this record.`
     : (files.length ? 'The archive has an open file covering this record.' : '');
-  const analysisLine = (!hasDesk && analyses.length)
+  const analysisLine = (analyses.length)
     ? ` Waluigi has filed ${analyses.length === 1 ? 'a dedicated reading' : `${analyses.length} dedicated readings`} of the article itself.`
     : '';
 
