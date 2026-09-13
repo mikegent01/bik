@@ -197,6 +197,59 @@ const sparseCount = sparseHost.querySelectorAll('.atlas-v2-marker').length;
 const sparsePois = new Set(MAP_DATA.lockerwood.pointsOfInterest.filter(Boolean).map(p => p.id)).size;
 check('a sparse sheet is left unrolled', sparseCount === sparsePois, `${sparseCount} of ${sparsePois}`);
 
+/* ---------------- drill-down navigation ----------------
+   Clicking a cluster must step INTO it — reframe on that group, hide the rest,
+   leave a breadcrumb — so the reader walks continent -> region -> town rather
+   than staring at one flat pile. */
+
+const MouseEvt = dom.window.MouseEvent;
+const drillHost = dom.window.document.createElement('div');
+dom.window.document.body.appendChild(drillHost);
+mountAtlasMapV2(drillHost, 'midlands_full', {});
+drillHost.querySelector('[data-map-art]').dispatchEvent(new dom.window.Event('load'));
+
+const markersNow = () => [...drillHost.querySelectorAll('.atlas-v2-marker')];
+const clustersNow = () => markersNow().filter(m => m.classList.contains('atlas-v2-cluster'))
+  .sort((a, b) => (b.dataset.ids || '').split(',').length - (a.dataset.ids || '').split(',').length);
+const crumbs = () => [...drillHost.querySelectorAll('[data-drill-to]')];
+
+check('a fresh sheet shows no drill trail', crumbs().length === 0);
+
+const beforeCount = markersNow().length;
+const firstCluster = clustersNow()[0];
+const firstSize = (firstCluster.dataset.ids || '').split(',').filter(Boolean).length;
+firstCluster.dispatchEvent(new MouseEvt('click', { bubbles: true }));
+
+const afterCount = markersNow().length;
+check('clicking a cluster drills into it', afterCount < beforeCount && afterCount > 0,
+  `${beforeCount} -> ${afterCount} markers`);
+check('a drilled view shows only that group',
+  afterCount <= firstSize, `${afterCount} markers for a group of ${firstSize}`);
+check('drilling leaves a breadcrumb trail', crumbs().length >= 2, `${crumbs().length} crumbs`);
+
+/* Keep drilling: each step must strictly narrow, and must terminate. */
+const drillPath = [beforeCount, afterCount];
+let guard = 0, terminated = false;
+while (guard++ < 12) {
+  const cl = clustersNow();
+  if (!cl.length) { terminated = true; break; }
+  const before = crumbs().length;
+  cl[0].dispatchEvent(new MouseEvt('click', { bubbles: true }));
+  if (crumbs().length === before) { terminated = true; break; }
+  drillPath.push(markersNow().length);
+}
+check('drilling terminates instead of looping forever', terminated, `path ${drillPath.join(' -> ')}`);
+check('each drill step narrows the view',
+  drillPath.every((n, i) => i === 0 || n <= drillPath[i - 1]), drillPath.join(' -> '));
+check('drilling reaches individual pins', drillPath[drillPath.length - 1] < 5, `ended at ${drillPath[drillPath.length - 1]} markers`);
+
+/* And the way back out. */
+const rootCrumb = drillHost.querySelector('[data-drill-to="0"]');
+rootCrumb.dispatchEvent(new MouseEvt('click', { bubbles: true }));
+check('the trail walks back out to the whole sheet',
+  markersNow().length === beforeCount && crumbs().length === 0,
+  `${markersNow().length} markers, ${crumbs().length} crumbs`);
+
 if (savedW) Object.defineProperty(proto, 'clientWidth', savedW); else delete proto.clientWidth;
 if (savedH) Object.defineProperty(proto, 'clientHeight', savedH); else delete proto.clientHeight;
 proto.getBoundingClientRect = savedRect;

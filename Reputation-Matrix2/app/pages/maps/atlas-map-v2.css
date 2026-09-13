@@ -220,3 +220,21 @@
   .atlas-v2-full .atlas-v2-layout{min-height:calc(100dvh - 250px)}
   .atlas-v2-full .atlas-v2-viewport{height:calc(100dvh - 300px)}
 }
+
+/* ---------------------------------------------------------------------------
+   Drill-down trail. Clicking a cluster steps INTO it: the sheet reframes on
+   that group and hides the rest, so the reader walks continent → region →
+   town → building instead of squinting at one flat pile. This bar is the way
+   back out, and the proof of where you are.
+   ------------------------------------------------------------------------ */
+.atlas-v2-drill{display:flex;gap:10px;align-items:center;flex-wrap:wrap;padding:8px 22px;border-bottom:1px solid var(--line);background:#0d1830}
+.atlas-v2-drill[hidden]{display:none}
+.atlas-v2-drill-trail{display:flex;gap:6px;align-items:center;flex-wrap:wrap;min-width:0}
+.atlas-v2-drill-trail i{color:#5b6b8a;font-style:normal;font-size:11px}
+.atlas-v2-drill button{border:1px solid #3e5072;background:#101a2b;color:#aebddd;border-radius:7px;padding:5px 9px;font:700 11px inherit;cursor:pointer;max-width:230px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.atlas-v2-drill button:hover{border-color:#6f86b8;color:#e7efff}
+.atlas-v2-drill button.on{background:#1d2f52;border-color:#6f86b8;color:#fff;cursor:default}
+.atlas-v2-drill-up{margin-left:auto;flex:0 0 auto}
+
+/* A cluster is a door — say so on hover. */
+.atlas-v2-marker.atlas-v2-cluster{cursor:zoom-in}

@@ -134,10 +134,13 @@ function clusterPois(pois, radius = 1.15, opts = {}) {
    the zoom lets groups unroll as the reader pushes in. */
 const MARKER_FOOTPRINT_PX = 34;
 
-function dynamicClusterRadius(count, scale, plane, journeyOnly, densityMode, box) {
-  /* A sparse sheet is legible as-is; gathering there only hides detail. */
-  if (journeyOnly || densityMode === 'all' || count <= 60) return plane ? 0.18 : 0.05;
+function dynamicClusterRadius(count, scale, plane, journeyOnly, densityMode, box, forceGather) {
+  if (journeyOnly || densityMode === 'all') return plane ? 0.18 : 0.05;
   if (densityMode === 'key') return 0.05;
+  /* A sparse sheet is legible as-is; gathering there only hides detail.
+     Scoped views (drill-down) opt out via `forceGather`, because there the
+     small count is the RESULT of zooming in, not evidence the sheet is quiet. */
+  if (count <= 60 && !forceGather) return plane ? 0.18 : 0.05;
 
   const zoom = Math.max(0.35, Number(scale) || 1);
   const boxW = Math.max(1, Number(box && box.w) || 900);
@@ -628,6 +631,7 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
       <button type="button" data-action="shortlist" title="Rank the pins on this sheet and pick one to act on">🎯 Choose a pin</button>
       <span data-visible>${pois.length} markers</span>
     </div>
+    <div class="atlas-v2-drill" data-drill hidden></div>
     <div class="atlas-v2-modes">
       ${Object.entries(modes).map(([id, m]) => `<button type="button" class="${id === startMode ? 'active' : ''}" data-mode="${id}" style="--mode:${m.color}">${m.label}</button>`).join('')}
       <b data-mode-total>${format(population)} residents</b>
@@ -652,6 +656,12 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
   const viewport = host.querySelector('.atlas-v2-viewport');
   const sidebar = host.querySelector('.atlas-v2-sidebar');
   const state = {
+    /* drill: the zoom-in stack. Empty = the whole sheet. Each entry scopes the
+       map to one group of pins and remembers how to draw its way back out:
+       { ids:Set, label, x, y, scale }. Clicking a cluster pushes; the
+       breadcrumb pops. This is what makes the sheet behave like a real atlas —
+       continent, then region, then town — instead of one flat pile. */
+    drill: [],
     scale: 1, tx: 0, ty: 0, box: { left: 0, top: 0, w: 1, h: 1 }, mode: startMode, selected: null, wikiOnly: false,
     plots: plotsOn, province: null, board: null, pickIndex: 0, nonce: 0, dragged: false, labelZoom: 1,
     pinDensity: PIN_DENSITY[opts.pinDensity] ? opts.pinDensity : 'smart',
@@ -705,6 +715,152 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
     placePins();
   }
 
+  /* ---------------- drill-down ----------------
+     The reader clicks a cluster; the sheet zooms to exactly that group and
+     hides everything else, so the next click is a decision about THAT place
+     rather than about the whole continent again. Repeat until single pins
+     remain. The breadcrumb walks back out. */
+
+  function drillTop() {
+    return state.drill.length ? state.drill[state.drill.length - 1] : null;
+  }
+
+  /* Name a level after its most significant place, the way an atlas names a
+     region after its capital: "Mighdural +7" reads, "8 locations" does not. */
+  function drillLabelFor(group) {
+    const lead = [...group].sort((a, b) =>
+      defaultPinScore(b) - defaultPinScore(a) || String(a.name || '').localeCompare(String(b.name || '')))[0];
+    if (!lead) return `${group.length} locations`;
+    const rest = group.length - 1;
+    return rest > 0 ? `${lead.name} +${rest}` : lead.name;
+  }
+
+  /* The pins currently in scope: the whole sheet, or the innermost drill. */
+  function scopedPois() {
+    const top = drillTop();
+    if (!top) return pois;
+    return pois.filter(p => top.ids.has(p.id));
+  }
+
+  /* Frame a set of pins: centre them and zoom so they fill the viewport with
+     a margin. This is what makes each click feel like it went somewhere. */
+  function framePois(list, opts = {}) {
+    const pts = (list || []).filter(p => Number.isFinite(p.x) && Number.isFinite(p.y));
+    if (!pts.length) return;
+    const box = state.box;
+    const vw = viewport.clientWidth || 1;
+    const vh = viewport.clientHeight || 1;
+
+    const xs = pts.map(p => p.x), ys = pts.map(p => p.y);
+    const minX = Math.min(...xs), maxX = Math.max(...xs);
+    const minY = Math.min(...ys), maxY = Math.max(...ys);
+
+    /* Pad proportionally to the group's own extent, so a tight pair gets a
+       tight window and can actually be zoomed apart, while a sprawling region
+       still gets breathing room. A floor stops a zero-extent group (pins filed
+       at the identical coordinate) dividing into infinite zoom. */
+    const extent = Math.max(maxX - minX, maxY - minY);
+    const padPct = opts.pad ?? Math.max(0.25, Math.min(3.5, extent * 0.18));
+    const spanX = Math.max(maxX - minX, 0) + padPct * 2;
+    const spanY = Math.max(maxY - minY, 0) + padPct * 2;
+
+    const wantW = box.w * spanX / 100;
+    const wantH = box.h * spanY / 100;
+    const fit = Math.min(vw / Math.max(wantW, 1), vh / Math.max(wantH, 1));
+    /* Deep zoom is the whole point of drilling; the art gets soft long before
+       the geometry does, and a blurry readable pin beats a crisp pile. */
+    const maxZoom = opts.maxZoom ?? 40;
+    state.scale = Math.max(1, Math.min(fit, maxZoom));
+
+    const cx = box.left + box.w * ((minX + maxX) / 200);
+    const cy = box.top + box.h * ((minY + maxY) / 200);
+    state.tx = vw / 2 - cx * state.scale;
+    state.ty = vh / 2 - cy * state.scale;
+    applyTransform();
+  }
+
+  /* Push one level in, scoped to `group` (an array of POIs). */
+  function drillInto(group, label) {
+    const members = (group || []).filter(Boolean);
+    if (members.length < 2) return false;
+    /* Refuse a level that would show exactly what is already on screen.
+       Pins filed at the identical coordinate can never be separated by zoom,
+       so without this the reader can drill forever into the same two dots. */
+    const top = drillTop();
+    if (top && top.ids.size === members.length && members.every(p => top.ids.has(p.id))) {
+      return openLocalInset(members.map(p => p.id), members[0].x, members[0].y);
+    }
+    state.drill.push({
+      ids: new Set(members.map(p => p.id)),
+      label: label || `${members.length} locations`,
+      count: members.length,
+    });
+    state.selected = null;
+    framePois(members);
+    placePins();
+    renderBreadcrumb();
+    sidebar.innerHTML = drillHtml(members);
+    bindDrillList();
+    return true;
+  }
+
+  /* Pop back out to depth `n` (0 = the whole sheet). */
+  function drillTo(n) {
+    state.drill.length = Math.max(0, Math.min(n, state.drill.length));
+    state.selected = null;
+    const scope = scopedPois();
+    if (state.drill.length) framePois(scope);
+    else reframe();
+    placePins();
+    renderBreadcrumb();
+    sidebar.innerHTML = state.drill.length ? drillHtml(scope) : detailHtml(null, pois);
+    if (state.drill.length) bindDrillList();
+  }
+
+  function renderBreadcrumb() {
+    const bar = host.querySelector('[data-drill]');
+    if (!bar) return;
+    if (!state.drill.length) { bar.innerHTML = ''; bar.hidden = true; return; }
+    bar.hidden = false;
+    const crumbs = [`<button type="button" data-drill-to="0">🌍 ${esc(map.name)}</button>`]
+      .concat(state.drill.map((d, i) =>
+        `<button type="button" data-drill-to="${i + 1}"${i === state.drill.length - 1 ? ' class="on" aria-current="true"' : ''}>${esc(d.label)}</button>`));
+    bar.innerHTML = `<span class="atlas-v2-drill-trail">${crumbs.join('<i>›</i>')}</span>`
+      + `<button type="button" class="atlas-v2-drill-up" data-drill-to="${state.drill.length - 1}">↩ Back out</button>`;
+    bar.querySelectorAll('[data-drill-to]').forEach(b =>
+      b.addEventListener('click', () => drillTo(Number(b.dataset.drillTo))));
+  }
+
+  /* Sidebar for a drilled group: what is in here, and a way into each one. */
+  function drillHtml(list) {
+    const top = drillTop();
+    const rows = [...list]
+      .sort((a, b) => defaultPinScore(b) - defaultPinScore(a) || String(a.name || '').localeCompare(String(b.name || '')))
+      .map(poi => `<button type="button" data-drill-jump="${esc(poi.id)}">
+          <b>${esc(humanize(poi.type || 'location').slice(0, 1))}</b>
+          <span>${esc(poi.name)}<i>${esc(humanize(poi.type || 'location'))} · ${format(poi.population)} residents</i></span>
+        </button>`).join('');
+    const types = [...list.reduce((m, p) => m.set(humanize(p.type || 'location'), (m.get(humanize(p.type || 'location')) || 0) + 1), new Map()).entries()]
+      .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
+    return `<article class="atlas-v2-detail atlas-v2-inset">
+      <span class="atlas-v2-kicker">🔍 Zoomed in · depth ${state.drill.length}</span>
+      <h3>${esc(top ? top.label : 'Selection')}</h3>
+      <p>${list.length} locations in view. Click a cluster on the map to go deeper, a single pin to open it, or use the trail above to come back out.</p>
+      <div class="atlas-v2-inset-meta">${types.map(([n, c]) => `<span>${esc(n)} ×${c}</span>`).join('')}</div>
+      <div class="atlas-v2-inset-list">${rows}</div>
+    </article>`;
+  }
+
+  function bindDrillList() {
+    sidebar.querySelectorAll('[data-drill-jump]').forEach(b => b.addEventListener('click', () => {
+      const poi = pois.find(p => p.id === b.dataset.drillJump);
+      if (!poi) return;
+      select(poi, null, stopByPoi.get(poi.id));
+      centerOn(poi.x, poi.y, Math.max(state.scale, 6));
+      placePins();
+    }));
+  }
+
   function journeyPathSvg() {
     if (stops.length < 2) return '';
     const pts = stops.map(s => {
@@ -752,16 +908,20 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
       || wikiId(poi)
       || (chatterCounts[poi.id] || 0) > 0
     ));
+    /* Drilling in narrows the sheet to the group the reader chose, so every
+       later count, cluster and legend describes THAT place and not the
+       continent it sits on. */
+    const inScope = scopedPois();
     const matches = poi => (!query || `${poi.name} ${poi.description || ''}`.toLowerCase().includes(query))
       && (!type || poi.type === type)
       && (!state.wikiOnly || wikiId(poi));
-    let displayPois = pois.filter(matches);
+    let displayPois = inScope.filter(matches);
     const unfilteredMatches = displayPois.length;
     if (state.pinDensity === 'key' && !journeyOnly) displayPois = displayPois.filter(isKeyPin);
-    if (!displayPois.length && unfilteredMatches) displayPois = pois.filter(matches).slice(0, 1);
+    if (!displayPois.length && unfilteredMatches) displayPois = inScope.filter(matches).slice(0, 1);
     currentVisiblePois = displayPois.slice();
     const min = values.length ? Math.min(...values) : 0;
-    const radius = dynamicClusterRadius(displayPois.length, state.scale, plane, journeyOnly, state.pinDensity, state.box);
+    const radius = dynamicClusterRadius(displayPois.length, state.scale, plane, journeyOnly, state.pinDensity, state.box, state.drill.length > 0);
     const clusterOpts = {
       maxSize: state.pinDensity === 'smart' ? Math.max(18, Math.ceil(displayPois.length / 12)) : 4,
       score: p => (lensVal(p) * 2) + defaultPinScore(p) + (isKeyPin(p) ? 999 : 0),
@@ -826,7 +986,7 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
       const inSelectedProvince = state.province ? group.some(g => (pinProvince.get(g.id) || {}).id === state.province) : true;
       const cx = Number.isFinite(group.x) ? group.x : poi.x;
       const cy = Number.isFinite(group.y) ? group.y : poi.y;
-      const title = esc((group.length > 1 ? `${group.length} locations clustered: ` : '') + group.map(g => g.name).join(', ') + (cat ? ` · ${cat.label}` : '') + (plotOf && !cat ? ` · ${plotOf.name}` : ''));
+      const title = esc((group.length > 1 ? `${group.length} locations — click to zoom in: ` : '') + group.map(g => g.name).join(', ') + (cat ? ` · ${cat.label}` : '') + (plotOf && !cat ? ` · ${plotOf.name}` : ''));
       const klass = `atlas-v2-marker${group.length > 1 ? ' atlas-v2-cluster' : ''}${groupStops.length ? ' journey' : ''}${isMajor ? ' atlas-v2-major' : ''}${selectedStack ? ' selected' : ''}${inSelectedProvince ? '' : ' atlas-v2-dimmed'}`;
       return `<button type="button" class="${klass}" data-ids="${esc(ids)}" data-poi="${esc(poi.id)}" data-cx="${cx.toFixed(3)}" data-cy="${cy.toFixed(3)}" style="left:${cx}%;top:${cy}%;width:${diameter}px;height:${diameter}px;--marker:${tint};--intensity:${(0.45 + weighted * 0.55).toFixed(2)}" title="${title}"><span>${glyph}</span>${extra}${badge}</button>`;
     }).join('');
@@ -835,8 +995,14 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
         ev.stopPropagation();
         const ids = (btn.dataset.ids || '').split(',').filter(Boolean);
         if (ids.length > 1) {
+          /* A cluster is a door, not a dead end: step INTO it. The sheet
+             reframes on just these pins and everything else drops away, so
+             the next click is about this place. Keep stepping until single
+             pins remain; the breadcrumb walks back out. */
+          const group = ids.map(id => pois.find(p => p.id === id)).filter(Boolean);
           const cx = Number(btn.dataset.cx) || 50;
           const cy = Number(btn.dataset.cy) || 50;
+          if (drillInto(group, drillLabelFor(group))) return;
           centerOn(cx, cy, Math.min(7.2, Math.max(state.scale + 1.1, state.scale * 1.85, 4.8)));
           placePins();
           openLocalInset(ids, cx, cy);
@@ -1236,6 +1402,9 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
     else { state.scale = 1; state.tx = 0; state.ty = 0; applyTransform(); placePins(); }
   }
   host.querySelector('[data-action="fit"]').addEventListener('click', () => {
+    /* Reset view means all the way out, including out of every drill level. */
+    state.drill.length = 0;
+    renderBreadcrumb();
     sidebar.innerHTML = detailHtml(null, pois);
     reframe();
   });
@@ -1301,6 +1470,15 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
     const open = event.target.closest('[data-open-article]');
     if (open && typeof window.openId === 'function') window.openId(open.dataset.openArticle);
   });
+
+  /* Escape steps back out one drill level — the cheap way out of a deep dive
+     without hunting for the breadcrumb. Only while this map is on screen. */
+  host.addEventListener('keydown', event => {
+    if (event.key !== 'Escape' || !state.drill.length) return;
+    event.stopPropagation();
+    drillTo(state.drill.length - 1);
+  });
+  if (!host.hasAttribute('tabindex')) host.setAttribute('tabindex', '-1');
 
   viewport.addEventListener('wheel', event => {
     event.preventDefault();
