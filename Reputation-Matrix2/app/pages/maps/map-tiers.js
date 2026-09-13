@@ -29,6 +29,11 @@ export const TIERS = [
 
 const BY_KEY = TIERS.reduce((acc, t) => (acc[t.key] = t, acc), {});
 
+// Peer-protection cutoff for groupPois: tiers at or above this rank keep
+// same-tier neighbours as distinct pins instead of consolidating. Currently
+// city (4) and town (3).
+const TOWN_TIER_RANK = BY_KEY.town.rank;
+
 /* Building types that are settlements outright, regardless of headcount. */
 const TYPE_TIER = {
   capital_city: 'city',
@@ -141,9 +146,14 @@ export function groupPois(pois, opts = {}) {
     ordered.forEach(other => {
       if (members.length >= max) return;
       if (taken.has(other.id)) return;
-      // An equal-or-lower tier neighbour inside the anchor's catchment joins
-      // it. A peer city never gets swallowed: two cities stay two pins.
-      if (tierRank(other) >= tier.rank) return;
+      // Ties are the whole reason this pass exists: a pile of shrines is all
+      // 'site' tier, and if ties never joined, none of them would ever
+      // consolidate. Cities and towns keep their peers as separate pins —
+      // two capitals (or two towns) shouldn't merge into one blob just
+      // because they're close on the sheet. Village and site tiers are
+      // exactly the case this function is meant to declutter, ties included.
+      const protectsPeers = tier.rank >= TOWN_TIER_RANK;
+      if (protectsPeers ? tierRank(other) >= tier.rank : tierRank(other) > tier.rank) return;
       if (Math.hypot(other.x - anchor.x, other.y - anchor.y) > reach) return;
       members.push(other);
       taken.add(other.id);
@@ -330,6 +340,12 @@ export function stackMarkers(markers, opts = {}) {
   const max = opts.max > 1 ? opts.max : 24;
   const weightOf = opts.weightOf || (m => m.weight || 0);
   const idOf = opts.idOf || (m => m.id || '');
+  // Optional: (memberCount) => rendered radius in the same map-percent units
+  // as x/y. A marker drawn bigger for having more members needs more
+  // clearance than the flat `gap` used to decide the first pass — without
+  // this, two large stacks that just cleared `gap` apart still visually
+  // collide once they're actually drawn at size. See stackOverlapPass below.
+  const radiusOf = typeof opts.radiusOf === 'function' ? opts.radiusOf : null;
 
   const ordered = [...(markers || [])].sort((a, b) => {
     const w = weightOf(b) - weightOf(a);
@@ -338,7 +354,7 @@ export function stackMarkers(markers, opts = {}) {
   });
 
   const taken = new Set();
-  const stacks = [];
+  let stacks = [];
 
   ordered.forEach((lead, i) => {
     if (taken.has(i)) return;
@@ -361,5 +377,45 @@ export function stackMarkers(markers, opts = {}) {
     });
   });
 
+  if (radiusOf) {
+    stacks = stackOverlapPass(stacks, { max, radiusOf });
+  }
+
   return stacks;
+}
+
+/* Re-merge already-formed stacks whose real rendered footprint overlaps,
+ * even though their centres cleared the flat `gap` in the first pass. Runs
+ * to a fixed point: merging can only shrink the stack count, so this always
+ * terminates, but it is capped anyway in case radiusOf is misbehaved. */
+function stackOverlapPass(stacks, { max, radiusOf }) {
+  let current = stacks;
+  for (let pass = 0; pass < 8; pass++) {
+    current = current.sort((a, b) => b.members.length - a.members.length);
+    const taken = new Set();
+    const next = [];
+    let merged = false;
+
+    current.forEach((stack, i) => {
+      if (taken.has(i)) return;
+      taken.add(i);
+      const members = [...stack.members];
+
+      current.forEach((other, j) => {
+        if (taken.has(j) || i === j) return;
+        if (members.length + other.members.length > max) return;
+        const reach = radiusOf(members.length) + radiusOf(other.members.length);
+        if (Math.hypot(other.x - stack.x, other.y - stack.y) > reach) return;
+        members.push(...other.members);
+        taken.add(j);
+        merged = true;
+      });
+
+      next.push({ x: stack.x, y: stack.y, lead: stack.lead, members, isStack: members.length > 1 });
+    });
+
+    current = next;
+    if (!merged) break;
+  }
+  return current;
 }

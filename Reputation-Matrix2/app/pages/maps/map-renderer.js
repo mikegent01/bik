@@ -189,6 +189,40 @@ const TERRITORY_CONFIG = {
 };
 
 
+// Markers are sized in px, the sheet in map-percent. TERRITORY_CONFIG's
+// stackGap comments already assume a ~1100px-wide sheet for that
+// conversion (see state.stackGap above) — reuse the same assumption here so
+// the overlap pass in map-tiers.stackMarkers knows how big a marker will
+// actually be drawn, not just how far apart its members were culled at.
+const MAP_SHEET_PX_WIDTH = 1100;
+const pxToPct = px => px * (100 / MAP_SHEET_PX_WIDTH);
+
+// .territory-stack-marker (maps.css) draws a 3px border plus a 3px
+// box-shadow ring outside the element's own width/height — real visible
+// pixels the div's box model doesn't report. Left out, two stacks can clear
+// the width/height check and still visibly collide by this margin.
+const STACK_HALO_PX = 12; // 3px border + 3px shadow ring, both sides
+const SINGLE_HALO_PX = 4;  // .state-marker/.province-marker's plain 2px border, both sides
+
+// Mirrors createTerritoryStackMarker's `size` formula for n>1. For a single
+// (unstacked) marker we don't know the real size without recomputing control
+// totals, so use a conservative ceiling — slightly over-estimating clearance
+// just means two markers merge a hair earlier, never that they're allowed to
+// visually collide.
+function stateMarkerRadiusPct(memberCount) {
+    const sizePx = memberCount > 1
+        ? Math.min(64, 34 + memberCount * 2.5) + STACK_HALO_PX
+        : 40 + SINGLE_HALO_PX; // single-state ceiling
+    return pxToPct(sizePx) / 2;
+}
+
+function provinceMarkerRadiusPct(memberCount) {
+    const sizePx = memberCount > 1
+        ? Math.min(64, 34 + memberCount * 2.5) + STACK_HALO_PX
+        : 80 + SINGLE_HALO_PX; // single-province ceiling
+    return pxToPct(sizePx) / 2;
+}
+
 function isTerritoryContested(control, threshold = 60) {
     const sortedFactions = Object.entries(control)
         .filter(([fid]) => fid !== 'unaligned')
@@ -1707,6 +1741,7 @@ function renderStateMarkers(fragment, states, allPois) {
         gap: TERRITORY_CONFIG.state.stackGap,
         idOf: st => st.id,
         weightOf: st => countPoisInState(st, allPois) * 10 + (st.isDefined ? 500 : 0),
+        radiusOf: stateMarkerRadiusPct,
     });
 
     stacks.forEach(stack => {
@@ -1804,6 +1839,7 @@ function renderProvinceMarkers(fragment, provinces, allPois) {
         gap: TERRITORY_CONFIG.province.stackGap,
         idOf: pr => pr.id,
         weightOf: pr => (pr.poiIds || []).length,
+        radiusOf: provinceMarkerRadiusPct,
     }).forEach(stack => {
         if (stack.isStack) {
             fragment.appendChild(createTerritoryStackMarker(stack, allPois, 'province'));
