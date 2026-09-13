@@ -64,6 +64,10 @@ def main() -> int:
         ("session loot", [py, "tools/tests/test-session-loot.py"], ROOT),
         ("players split", [py, "tools/tests/test-players-split.py"], ROOT),
         ("actor exports", [py, "tools/rebuild-actors.py", "--check"], ROOT),
+        # A pin's x/y is a percent of the painting, so the painting is the
+        # authority on what is at that coordinate. This caught the whole
+        # Raventree Manor district floating in Aona's Scorn.
+        ("POI placement", [py, "tools/check-poi-placement.py", "--check"], ROOT),
     ]
 
     if shutil.which("node"):

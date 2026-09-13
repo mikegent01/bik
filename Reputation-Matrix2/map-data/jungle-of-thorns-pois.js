@@ -50,8 +50,8 @@ export const jungleOfThornsData = {
         // #114
         {
             id: 'poi_jt_thorn_choked_crypts',
-            x: 22.00,
-            y: 88.00,
+            x: 21.71,
+            y: 85.27,
             type: 'dungeon_entrance',
             name: "Thorn-Choked Crypts",
             description: "A sprawling network of ancient crypts and catacombs that runs beneath the entire jungle. It serves as the resting place for lesser vampires and is guarded by hordes of undead.",
@@ -80,8 +80,8 @@ export const jungleOfThornsData = {
         // #116
         {
             id: 'poi_jt_silver_flame_outpost',
-            x: 5.00,
-            y: 78.00,
+            x: 7.28,
+            y: 76.98,
             type: 'outpost',
             name: "Silver Flame Watchpost",
             description: "A small, besieged watchpost of the Order of the Silver Flame. They are hopelessly outmatched, but they hold their ground, serving as the only bastion of light in this dark land.",
@@ -110,8 +110,8 @@ export const jungleOfThornsData = {
         // #118
         {
             id: 'poi_jt_bloodrose_thicket',
-            x: 18.00,
-            y: 92.00,
+            x: 17.39,
+            y: 90.63,
             type: 'forest',
             name: "The Bloodrose Thicket",
             description: "A section of the jungle where the thorns are unnaturally sharp and the roses are a deep, blood red. The plants themselves seem to be carnivorous, grasping at any who pass too close.",
@@ -140,8 +140,8 @@ export const jungleOfThornsData = {
         // #120
         {
             id: 'poi_jt_webbed_pass',
-            x: 4.00,
-            y: 85.00,
+            x: 2.01,
+            y: 84.79,
             type: 'mountain_pass',
             name: "The Webbed Pass",
             description: "The only 'safe' path through the jungle is a series of high stone ridges, but they are now covered in the thick, sticky webs of giant spiders who serve the vampire coven.",

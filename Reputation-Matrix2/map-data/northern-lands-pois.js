@@ -102,8 +102,8 @@ export const northernLandsData = {
         },
         {
             id: 'poi_nl_northern_watchtower',
-            x: 15.00,
-            y: 12.00,
+            x: 15.62,
+            y: 13.9,
             type: 'watchtower',
             name: "Northern Watchtower",
             description: "A tall, isolated watchtower manned by Iron Legion sharpshooters. It provides a commanding view of the surrounding tundra, watching for signs of rebel activity.",

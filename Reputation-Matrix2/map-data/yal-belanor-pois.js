@@ -80,8 +80,8 @@ export const yalBelanorData = {
         // #57
         {
             id: 'poi_yb_whisperwood_edge',
-            x: 41.0,
-            y: 20.0,
+            x: 41.08,
+            y: 20.75,
             type: 'forest',
             name: "Whisperwood Glade",
             description: "The easternmost edge of the vast Whisperwood. While claimed by the Empire under its Edicts, this area is frequently contested by Moonfang Pack werewolves, making it a dangerous and lawless frontier.",

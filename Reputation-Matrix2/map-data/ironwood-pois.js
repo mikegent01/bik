@@ -132,8 +132,8 @@ export const ironwoodData = {
         },
         {
             id: 'poi_iw_poachers_camp',
-            x: 36.0,
-            y: 20.0,
+            x: 37.52,
+            y: 20.88,
             type: 'bandit_camp',
             name: "Poacher's Camp",
             description: "A hidden camp of poachers who illegally hunt the rare and magical beasts of the Ironwood for the black market. They are a thorn in the side of both the Empire and the Rakasha.",

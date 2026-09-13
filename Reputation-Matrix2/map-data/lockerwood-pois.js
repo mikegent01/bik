@@ -125,8 +125,8 @@ export const lockerwoodData = {
         // #45
         {
             id: 'poi_lw_howling_den',
-            x: 31.0,
-            y: 50.0,
+            x: 30.87,
+            y: 48.76,
             type: 'cave_entrance',
             name: "The Howling Den",
             description: "The primary lair of a powerful Moonfang Pack warband. It is a place of primal law, where the pack's internal hierarchy dictates all.",

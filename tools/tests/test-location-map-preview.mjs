@@ -53,7 +53,12 @@ console.log('location map preview — rendered panel');
 const plotted = api.locationMapPreview(byId.get('shadow_estate'), 'locations');
 ok(plotted.includes('class="locmap"'), 'plotted location renders the preview shell');
 ok(plotted.includes('data-map="midlands_full"'), 'panel carries its sheet id');
-ok(plotted.includes('data-x="72.9"'), 'panel carries the pin coordinate');
+/* 72.31, not 72.9: the estate was filed in the middle of Aona's Scorn and was
+   moved ashore by tools/fix-poi-placement.py. Read the coordinate from the
+   data rather than restating it, so the next placement fix does not fail a
+   test that is only meant to prove the panel carries the pin through. */
+const estatePin = api.locPinsFor('shadow_estate')[0].poi;
+ok(plotted.includes(`data-x="${estatePin.x}"`), 'panel carries the pin coordinate');
 ok(plotted.includes('The Shadow Estate'), 'panel labels the pin');
 ok(plotted.includes('#/atlas/regal_empire/midlands_full/'), 'deep link routes into the regal atlas with sheet + pin');
 ok(api.locationMapPreview(byId.get('mount_ebott'), 'locations').includes('Not on the tactical map yet'), 'unplotted location gets the honest dashed panel');

@@ -21,7 +21,7 @@
 .atlas-v2-marker{position:absolute;transform:translate(-50%,-50%) scale(calc(1/var(--pin-zoom,1)));width:18px;height:18px;border-radius:50%;border:2px solid #fff;background:var(--marker,#7c8aa5);color:#fff;box-shadow:0 2px 8px #000a;cursor:pointer;padding:0;opacity:calc(.35 + var(--intensity,1)*.65);z-index:2}
 .atlas-v2-marker span{font-size:10px;line-height:1}
 .atlas-v2-marker em{position:absolute;top:-7px;right:-7px;background:#111;border:1px solid #fff;border-radius:99px;font-size:9px;min-width:14px;padding:0 3px;font-style:normal}
-.atlas-v2-marker:hover,.atlas-v2-marker.selected{scale:1.35;z-index:5;outline:4px solid color-mix(in srgb,var(--marker),transparent 65%)}
+.atlas-v2-marker:hover,.atlas-v2-marker.selected{z-index:5;outline:4px solid color-mix(in srgb,var(--marker),transparent 65%)}
 .atlas-v2-labels .atlas-v2-marker:after{content:attr(title);position:absolute;top:calc(100% + 4px);left:50%;transform:translateX(-50%);white-space:nowrap;background:#07101de8;border:1px solid #667899;padding:2px 5px;border-radius:4px;color:#fff;font:10px sans-serif;max-width:180px;overflow:hidden;text-overflow:ellipsis}
 .atlas-v2-legend{display:flex;justify-content:space-between;padding:8px 2px 0;color:var(--muted);font-size:11px}
 .atlas-v2-legend i{display:inline-block;width:8px;height:8px;border-radius:50%;background:#fff;margin-right:4px}
@@ -297,11 +297,16 @@
 
 /* Grow on hover, but only visually: `scale` does not enlarge the hit box, so
    a hovered dot never starts swallowing its neighbours' clicks. */
+/* Dots do NOT move. A dot that swells under the cursor makes the sheet feel
+   like it is squirming, and on a dense map the growth shoves the thing you
+   were aiming at out from under the pointer. Hover is signalled by ink only —
+   a ring and full opacity — so the geometry on screen never changes. */
 .atlas-v2-marker.atlas-v2-dot:hover,
 .atlas-v2-marker.atlas-v2-dot.selected{
-  scale:2.2;
   z-index:6;
-  outline:.5px solid #fff;
+  opacity:1;
+  outline:1.5px solid #fff;
+  outline-offset:1px;
 }
 
 /* Big dots: opt-in fat targets for touch, or for anyone who wants to aim at a
@@ -309,7 +314,7 @@
 .atlas-v2-bigpins .atlas-v2-marker.atlas-v2-dot{scale:1.9}
 .atlas-v2-bigpins .atlas-v2-marker.atlas-v2-dot::before{inset:-7px}
 .atlas-v2-bigpins .atlas-v2-marker.atlas-v2-dot:hover,
-.atlas-v2-bigpins .atlas-v2-marker.atlas-v2-dot.selected{scale:3.2}
+.atlas-v2-bigpins .atlas-v2-marker.atlas-v2-dot.selected{outline-width:2px}
 
 /* Journey stops and top-5 pins still need to be findable among the scatter. */
 .atlas-v2-marker.atlas-v2-dot.journey{outline:1px solid #ffd75e}

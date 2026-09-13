@@ -51,8 +51,8 @@ const midlandsData = {
         // #69
         {
             id: 'poi_mid_magitek_foundries',
-            x: 75.0,
-            y: 8.0,
+            x: 75.75,
+            y: 6.7,
             type: 'workshop',
             name: "Magitek Foundries",
             description: "A district of immense forges and workshops that produce the Empire's magitek war machines. The sky above is perpetually choked with arcane smog and the sound of ethereal hammers.",
@@ -97,8 +97,8 @@ const midlandsData = {
         // --- NEW POINT OF INTEREST ---
         {
             id: 'poi_mid_raventree_manor',
-            x: 73.5,
-            y: 12.0,
+            x: 74.8,
+            y: 13.17,
             type: 'landmark',
             name: "Raventree Manor",
             description: "A decaying, haunted manor located in the misty woods southwest of the capital. It is the domain of the enigmatic Oracle and is currently being used by Waluigi and Bowser as a hideout to stash their 'relocated' treasures. The estate is known to have strange temporal properties and is a nexus of powerful, unpredictable magic.",
@@ -129,8 +129,8 @@ const midlandsData = {
         // #73
         {
             id: 'poi_mid_undercroft',
-            x: 76.5,
-            y: 11.0,
+            x: 77.12,
+            y: 12.9,
             type: 'dungeon_entrance',
             name: "The Undercroft",
             description: "The entrance to the capital's ancient sewer system, which has become the domain of the Freelancer Underworld. A hidden city of black markets, smugglers' dens, and secret guild halls.",
@@ -311,8 +311,8 @@ const midlandsData = {
         // #85
         {
             id: 'poi_mid_artificers_guild',
-            x: 73.5,
-            y: 10.5,
+            x: 70.99,
+            y: 11.62,
             type: 'academy',
             name: "Artificer's Guildhall",
             description: "The guildhall for civilian magitek engineers and inventors. While they often work on Imperial contracts, they maintain a degree of independence and are a source of non-military technological innovation.",
@@ -341,8 +341,8 @@ const midlandsData = {
         // #87
         {
             id: 'poi_mid_imperial_menagerie',
-            x: 92.0,
-            y: 12.5,
+            x: 92.5,
+            y: 11.63,
             type: 'landmark',
             name: "The Imperial Menagerie",
             description: "A vast, enchanted park that houses exotic and magical creatures captured from across the world. A symbol of the Empire's reach and power, though some see it as a cruel prison.",
@@ -470,8 +470,8 @@ const midlandsData = {
         // Checked by tools/classify-location-planes.py --check.
         {
             id: 'poi_mid_shadow_estate',
-            x: 72.9,
-            y: 13.1,
+            x: 72.31,
+            y: 13.91,
             type: 'lair',
             name: "The Shadow Estate",
             description: "The Shadowfell's reflection of Raventree Manor: same architecture, same layout, drained of colour and warmth. Held by the Onyx Hand's vampiric court. Plotted at its Material anchor — the two estates occupy the same ground on different planes.",
@@ -486,8 +486,8 @@ const midlandsData = {
         },
         {
             id: 'poi_mid_shadow_estate_gardens',
-            x: 73.1,
-            y: 12.5,
+            x: 74.31,
+            y: 13.38,
             type: 'landmark',
             name: "Shadow Estate Gardens",
             description: "The ruined gardens of the Shadow Estate, once a sanctuary of peace and beauty on the Raventree grounds. Now ash-grey beds under an entropic perimeter, kept only by habit and grief.",
@@ -534,8 +534,8 @@ const midlandsData = {
         },
         {
             id: 'poi_mid_tymnas_cottage',
-            x: 74.4,
-            y: 11.2,
+            x: 75.28,
+            y: 12.72,
             type: 'farm',
             name: "Tymnas's Cottage & The Hedge Maze",
             description: "The Groundskeeper's stone homestead at the entropic perimeter of Raventree Manor, ringed by the grey hedge maze. In the Shadowfell's ash wastes the cottage alone keeps its colour.",
@@ -550,8 +550,8 @@ const midlandsData = {
         },
         {
             id: 'poi_mid_skittering_grove',
-            x: 74.9,
-            y: 10.7,
+            x: 75.92,
+            y: 12.98,
             type: 'forest',
             name: "The Skittering Grove",
             description: "The grove inside the Scorncrow's tree, past Tymnas's cottage on the Shadow Estate grounds: ettercaps, giant green spiders, and voices that answer back from within.",
@@ -566,8 +566,8 @@ const midlandsData = {
         },
         {
             id: 'poi_mid_silent_grove',
-            x: 72.7,
-            y: 11.4,
+            x: 71.04,
+            y: 11.94,
             type: 'forest',
             name: "The Silent Grove",
             description: "A web-choked forest on Raventree Manor's Material grounds, former seat of the Arachnid Matriarch until her banishment. Sound does not carry here; neither do screams.",
@@ -598,8 +598,8 @@ const midlandsData = {
         },
         {
             id: 'poi_mid_dreaming_tree_grove',
-            x: 74.6,
-            y: 12.2,
+            x: 75.19,
+            y: 13.01,
             type: 'forest',
             name: "The Dreaming Tree Grove",
             description: "The gold-and-orange Feyward reflection of the Raventree grounds, looping on bliss and revelry. Home of the Dreaming Tree and a fairy village that pays in Weird Fish.",

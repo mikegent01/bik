@@ -251,6 +251,20 @@ plainHost.querySelector('[data-action="bigpins"]').dispatchEvent(new dom.window.
 check('the big-dot toggle enlarges the targets',
   plainHost.classList.contains('atlas-v2-bigpins'));
 
+/* ---------------- dots hold still ----------------
+   A marker that swells under the cursor makes the sheet feel like it is
+   squirming, and on a dense map the growth shoves the thing you were aiming
+   at out from under the pointer. Hover may change INK (a ring, opacity) but
+   never GEOMETRY. `scale` is the property that moves things, so the rule is
+   simply that no marker rule may set it on :hover. */
+const css = fs.readFileSync(new URL('../../Reputation-Matrix2/app/pages/maps/atlas-map-v2.css', import.meta.url), 'utf8');
+const hoverRules = css.split('}').filter(block => /\.atlas-v2-(marker|dot|token)[^{]*:hover/.test(block));
+check('a hovered marker does not resize', hoverRules.length > 0
+  && hoverRules.every(rule => !/(^|[;{\s])scale\s*:/.test(rule.split('{')[1] || '')),
+  `${hoverRules.length} hover rules checked`);
+check('hover still says something — it just says it in ink',
+  hoverRules.some(rule => /outline/.test(rule)));
+
 /* ---------------- deep zoom is what actually cures crowding ----------------
    Clutter is a property of the SCALE you read a map at, not of the map. A
    hundred pins inside one province is a pile at 1x and a comfortable scatter

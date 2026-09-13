@@ -4,8 +4,8 @@ export const autumnwoodData = {
     pointsOfInterest: [
         {
             id: 'poi_aw_mages_spire',
-            x: 35.00,
-            y: 65.00,
+            x: 35.46,
+            y: 63.57,
             type: 'mages_tower',
             name: "Spire of the Mages' Guild",
             description: "The provincial headquarters of the Mages' Guild. A gleaming, impossibly tall tower that serves as a center for arcane research, learning, and the enforcement of 'The Autumnwood Accords,' the strict magical laws that supersede all Imperial statutes in this region.",
