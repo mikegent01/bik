@@ -24,7 +24,7 @@
   <link rel="stylesheet" href="Reputation-Matrix2/app/styles/ui-fixes.css">
   <link rel="stylesheet" href="Reputation-Matrix2/app/styles/reputation-fixes.css">
   <link rel="stylesheet" href="Reputation-Matrix2/app/styles/commerce-event-fixes.css?v=rep-lede1">
-  <link rel="stylesheet" href="Reputation-Matrix2/app/styles/wahwire.css?v=ww2-reopening">
+  <link rel="stylesheet" href="Reputation-Matrix2/app/styles/wahwire.css?v=ww3-portraits">
   <link rel="stylesheet" href="Reputation-Matrix2/app/styles/crisis-reputation-fixes.css">
   <link rel="stylesheet" href="Reputation-Matrix2/app/styles/clean-pass.css">
   <!-- Battlefield-specific styles (Wikipedia-style military conflict theme) -->
@@ -6193,8 +6193,15 @@ function characterVisualProfile(i){
 function characterVisual(i){
   const v=characterVisualProfile(i);
   const status=(i.status||'Active file').split('—')[0].trim();
+  /* Portraits used to be gated on a hardcoded 28-id "bone line" array, so a
+     record with art sitting in portraits/ still rendered an emoji unless its
+     id happened to be on that list. The gate is now the data: a record shows
+     art when it carries an `image`, and tools/link-portraits.py fills that in
+     for every id with a matching file. The bone-line ids are kept purely as a
+     fallback for records that predate the field. The onerror handler below is
+     what makes this safe -- a missing file degrades to the emoji, as before. */
   const boneLineIds = ['sans', 'papyrus', 'grandpa_semi', 'lazybones', 'baby_bones', 'dirty_brother', 'will', 'cursive', 'has_a_very_special_attack', 'times_new_roman', 'prunsel', 'real_star', 'brother_killer', 'my_little_brother', 'ness', 'wing_gaster', 'my_brother', 'pretty_soon', 'helvetica', 'gee_lady', 'garbage_brother', 'starman', 'quantity', 'speen_kind_of_down_lately', 'pet_rock', 'dedan', 'mystery_man', 'sans_deltarune'];
-  const hasLocalImg = boneLineIds.includes(i.id) || i.image;
+  const hasLocalImg = i.image || boneLineIds.includes(i.id);
   const avatarImg = hasLocalImg 
     ? `<img src="${esc(assetPath(i.image || `portraits/${i.id}.png`))}" style="width: 100%; height: 100%; object-fit: cover; display: block;" onerror="this.outerHTML='<span class=\"char-primary\">${esc(v.primary)}</span>'">`
     : `<span class="char-primary">${esc(v.primary)}</span>`;
@@ -12214,7 +12221,21 @@ function wwAuthor(id){
   const rec=(typeof INDEX!=='undefined'&&INDEX[id])?INDEX[id].item:null;
   const name=rec?displayName(rec):(prof&&prof.name)||prettyId(id);
   const initials=String(name||'?').split(/\s+/).filter(Boolean).slice(0,2).map(x=>x[0]).join('').toUpperCase()||'?';
-  return { id, name, initials, prof, hasRecord:!!rec };
+  /* Face, if the archive has one. A wire account that is also a character
+     inherits the character portrait so the two can never drift apart; an
+     account with no record (the house desk, a nameless Toad) may carry its own
+     `avatar`. Initials stay as the fallback and as the onerror target. */
+  const src=(rec&&rec.image)||(prof&&prof.avatar)||'';
+  return { id, name, initials, prof, hasRecord:!!rec, avatar:src?assetPath(src):'' };
+}
+/* One avatar renderer for every size on the wire, so a post, a reply, a quoted
+   card and the article rail can never disagree about someone's face. */
+function wwAvatar(a,cls,attrs){
+  const c='ww-avatar'+(cls?' '+cls:'');
+  const extra=attrs||'';
+  if(!a.avatar) return `<div class="${c}"${extra}>${esc(a.initials)}</div>`;
+  return `<div class="${c} has-img"${extra}><img src="${esc(a.avatar)}" alt="" loading="lazy"
+    onerror="this.parentNode.classList.remove('has-img');this.outerHTML='${esc(a.initials)}'"></div>`;
 }
 function wwReaction(key){
   const r=(WAHWIRE&&WAHWIRE.reactions[key])||null;
@@ -12292,7 +12313,7 @@ function wwPostBody(p){
     if(src){
       const sa=wwAuthor(src.author);
       return said+`<div class="ww-quoted" onclick="_wwState.q='';_wwState.author='';document.getElementById('wwp_${esc(src.id)}')&&document.getElementById('wwp_${esc(src.id)}').scrollIntoView({behavior:'smooth',block:'center'})">
-        <div class="ww-quoted-head"><span class="ww-avatar xs">${esc(sa.initials)}</span>
+        <div class="ww-quoted-head">${wwAvatar(sa,'xs')}
           <b>${esc(sa.name)}</b><span class="ww-handle">@${esc(src.author)}</span></div>
         <div class="ww-quoted-text">${esc(src.content||'')}</div></div>`;
     }
@@ -12319,7 +12340,7 @@ function wwPostCard(p,opts){
   const top=comments.find(c=>c&&c.topReply);
   const topHtml=top?(()=>{ const ta=wwAuthor(top.author);
     return `<div class="ww-topreply">
-      <div class="ww-avatar sm" title="${esc(ta.name)}">${esc(ta.initials)}</div>
+      ${wwAvatar(ta,'sm',` title="${esc(ta.name)}"`)}
       <div class="ww-reply-body">
         <div class="ww-reply-head"><b>${esc(ta.name)}</b>
           <span class="ww-top-flag">top reply</span>
@@ -12335,7 +12356,7 @@ function wwPostCard(p,opts){
     <div class="ww-replies" id="${cid}">${comments.map(c=>{
       const ca=wwAuthor(c.author);
       return `<div class="ww-reply">
-        <div class="ww-avatar sm" title="${esc(ca.name)}">${esc(ca.initials)}</div>
+        ${wwAvatar(ca,'sm',` title="${esc(ca.name)}"`)}
         <div class="ww-reply-body">
           <div class="ww-reply-head"><b>${esc(ca.name)}</b>${c.likes?`<span class="ww-mini">♥ ${Number(c.likes).toLocaleString()}</span>`:''}</div>
           <div class="ww-reply-text">${esc(c.content||'')}</div>
@@ -12345,7 +12366,7 @@ function wwPostCard(p,opts){
   const badge=WW_TYPE_BADGE[p.type||'text'];
   return `<article class="ww-post ww-t-${esc(p.type||'text')}${draft?' is-draft':''}" id="wwp_${esc(p.id||'')}" style="--ww-tone:${esc(rx.tone||'#8b90a8')}">
     <div class="ww-post-head">
-      <div class="ww-avatar"${a.hasRecord?` onclick="openId('${esc(a.id)}')" title="Open ${esc(a.name)}'s record"`:''}>${esc(a.initials)}</div>
+      ${wwAvatar(a,'',a.hasRecord?` onclick="openId('${esc(a.id)}')" title="Open ${esc(a.name)}'s record"`:'')}
       <div class="ww-ident">
         <div class="ww-name">${a.hasRecord
           ? `<span class="ww-name-link" onclick="openId('${esc(a.id)}')">${esc(a.name)}</span>`
@@ -12532,7 +12553,7 @@ async function hydrateWahwireRail(){
     ${show.map(p=>{
       const a=wwAuthor(p.author), rx=wwReaction(p.reaction);
       return `<div class="ww-rail-post" style="--ww-tone:${esc(rx.tone||'#8b90a8')}">
-        <div class="ww-rail-author"><span class="ww-avatar xs">${esc(a.initials)}</span>
+        <div class="ww-rail-author">${wwAvatar(a,'xs')}
           <b>${esc(a.name)}</b><span class="ww-rail-tone" title="${esc(rx.label)}">${rx.glyph}</span></div>
         <div class="ww-rail-text">${esc(p.content||'')}</div>
         <div class="ww-rail-meta">♥ ${Number(p.likes||0).toLocaleString()}</div>

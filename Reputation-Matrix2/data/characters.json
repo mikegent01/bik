@@ -244,7 +244,8 @@
         "role": "Heretical reading",
         "note": "The Toad God ascended by fusing with a Crystal Star shard in the ashes of Edgeshade. Bryan's theology is therefore a Star Spirits heresy: the wish-granting stars are real, and one of them is now a person with a grievance."
       }
-    ]
+    ],
+    "image": "portraits/bryan.png"
   },
   {
     "id": "mr_l",
@@ -370,7 +371,8 @@
       "speakerNote": "The purple one is chaos incarnate. Approach with extreme caution.",
       "restorationPath": "Grant the Cohort lawful access to Raventree Manor and compensate Eager's care. The archive notes that the subject wrote this encyclopedia entry himself.",
       "portrait": "💜"
-    }
+    },
+    "image": "portraits/waluigi.png"
   },
   {
     "id": "hargram_fidger",
@@ -587,7 +589,8 @@
       "oc_soul_ring",
       "supernatural_sovereignty_act",
       "feyward_battalion_of_six_and_the_bait_plan"
-    ]
+    ],
+    "image": "portraits/hjumpik.png"
   },
   {
     "id": "byscilla_danos",
@@ -820,7 +823,8 @@
         "role": "Practising, cruelly",
         "note": "Mystic Morel sings while he works. He robbed Archie while Archie was pinned, bought a petrified fourteen-year-old at auction for twelve thousand gold, and put an invisible ring on her finger that would tighten daily and cut if she told anyone. The Cosmic Punchline holds that existence is a joke; Morel's contribution is insisting on an audience."
       }
-    ]
+    ],
+    "image": "portraits/purple_t.png"
   },
   {
     "id": "luigi",
@@ -870,7 +874,7 @@
     "name": "Chief Thornpaw",
     "title": "The Rakasha Who Loved a Princess",
     "race": "Rakasha",
-    "image": "",
+    "image": "portraits/chief_thornpaw.png",
     "status": "Active — still leading his people after eighty-five years, which raises questions about Rakasha lifespans",
     "affiliation": "Rakasha Tribes (Chief)",
     "summary": "Chief Thornpaw is the leader of the Rakasha and—according to his own testimony at Fawful's gala—was involved in a secret relationship with Princess Peach before her assassination. He claims to have been shown the secret hatch in her chambers, to have visited her privately through that passage, and to have fathered a child with her. If his testimony is accurate, he is one of the most important witnesses to the events surrounding the assassination. If his testimony is fabricated or manipulated, he may be something else entirely—a plant, a patsy, or a participant in whatever actually happened. Waluigi has learned to be careful about accepting testimony at face value, even testimony that seems emotionally authentic. Especially testimony that seems emotionally authentic. Grief can be performed. Love can be invented. And Thornpaw has had eighty-five years to construct whatever narrative serves his purposes. WAH.",
@@ -1060,7 +1064,8 @@
         "role": "Private code, no congregation",
         "note": "Green T ran a criminal empire with the manners of a garden-party host and executes with the same tidiness — every account settled, nothing left ragged. Maat's weighing is the closest published doctrine to what he actually does, and he has never once called it a faith. He handed a fourteen-year-old a silenced revolver to close a loose end."
       }
-    ]
+    ],
+    "image": "portraits/green_t.png"
   },
   {
     "id": "commander_g",
@@ -1272,7 +1277,8 @@
         "role": "Drifting toward",
         "note": "The war anthems are new. Speaker L would reject the label furiously and the drift is visible anyway: violence reframed as the only remaining honest transaction, and a vow to hunt the Green Decoy that is not about intelligence value. Nobody in the Pond Patrol has named what he is becoming, which is how these things proceed."
       }
-    ]
+    ],
+    "image": "portraits/speaker_l.png"
   },
   {
     "id": "kamek",
@@ -1296,7 +1302,8 @@
         "role": "Devout, catastrophically",
         "note": "Kamek decided Bowser's methods were obsolete and dug under the castle to wake a world-eating space worm. There is no more literal act of Maw worship in the archive. He has been reduced to an avatar and captured, and the doctrine has not been noticeably inconvenienced."
       }
-    ]
+    ],
+    "image": "portraits/kamek.png"
   },
   {
     "id": "general_ironhand",
@@ -1324,7 +1331,8 @@
         "role": "Doctrinal authority",
         "note": "Ironhand does not preach the Gospel of the Cog; he administers it. The doctrine that flesh is weak and steel eternal is useful to him precisely because it converts people into materiel on paper before anyone has to do it in person. Order 120 was signed by a man who had already filed the prisoners under a category that does not require grief."
       }
-    ]
+    ],
+    "image": "portraits/general_ironhand.png"
   },
   {
     "id": "dan",
@@ -1380,7 +1388,8 @@
       "speakerNote": "His spirit is unbroken. He fights for us still.",
       "restorationPath": "Complete the review. The Chroniclers already recommend full clearance.",
       "portrait": "🐸⚔️"
-    }
+    },
+    "image": "portraits/dan.png"
   },
   {
     "id": "embercap",
@@ -1406,7 +1415,8 @@
         "role": "Front-rank observance",
         "note": "Embercap leads assaults from the front and says the wish before the door goes in. The Field Commander's version of the faith is short, practical, and addressed mostly to the people behind him."
       }
-    ]
+    ],
+    "image": "portraits/embercap.png"
   },
   {
     "id": "king_k_rool",
@@ -1432,7 +1442,8 @@
         "role": "Patron",
         "note": "K. Rool's schemes run on machinery — ships, weapons, and an information operation at the Second Summit that baited Lanky Kong on camera. The Cult venerates the perpetual motion that keeps the world running. K. Rool venerates the part where it can be aimed."
       }
-    ]
+    ],
+    "image": "portraits/king_k_rool.png"
   },
   {
     "id": "the_oracle",
@@ -1520,7 +1531,8 @@
         "role": "Structurally, whatever it professes",
         "note": "The Oracle is a role wearing whoever was convenient, custodian of bleeding timelines, and the entity that talked a volatile pyromancer into anchoring a reality-altering ritual. The Path of Change venerates the schemer whose plans nest inside other plans. The Oracle has never claimed the faith and behaves indistinguishably from its ideal practitioner."
       }
-    ]
+    ],
+    "image": "portraits/the_oracle.png"
   },
   {
     "id": "remi_akamatsu_full_backstory",
@@ -1671,7 +1683,8 @@
       "randell_vampire",
       "wario",
       "the_scorncrow_skirmish"
-    ]
+    ],
+    "image": "portraits/remi.png"
   },
   {
     "id": "lyranth",
@@ -1799,14 +1812,15 @@
       "randell_vampire",
       "tymnas_cottage_and_hedge_maze",
       "the_scorncrow_skirmish"
-    ]
+    ],
+    "image": "portraits/markop.png"
   },
   {
     "id": "bowser",
     "name": "Bowser",
     "title": "The King Who Held the Door",
     "race": "Koopa (King-sized)",
-    "image": "",
+    "image": "portraits/bowser.png",
     "status": "Active — operating in the Shadow Estate; carrying necromantic evidence; royal war chest active; illegal under hostile mandates and still completely unbothered",
     "affiliation": "Koopa Troop (King) / Disaster Inc. (current situation)",
     "summary": "Bowser is the King of the Koopa Troop, a giant fire-breathing turtle-dragon who was cast into the Shadowfell during the Planar Fracture alongside Archie Miser. Since then, he has attended a vampire dinner party where he presumably sat wherever he wanted, tackled a vampire lord through a gothic window, bit a giant bat's wing, and most recently held a door shut against an axe-wielding succession claimant while Markop was unconscious—then punched said claimant in the head and picked up a necromancer's wand asking 'Is this a magic wand?' with the innocent curiosity of a child finding a toy. Waluigi has arm-wrestled Bowser and LOST. Waluigi has also competed against Bowser in every sport imaginable. Bowser is not complicated. Bowser is EFFECTIVE. The current party pass identifies Bowser as Disaster Inc.'s blunt-force sovereign: door-holder, threat magnet, and walking siege engine whose honesty remains more reliable than most alliances.",
@@ -1930,7 +1944,8 @@
         "role": "Practical adherent",
         "note": "Toad Lee is the reason Disaster Inc. was not wholly consumed by the Feywild, and the reason is that he reads things. The Millennium doctrine — that method beats intuition and a checked answer beats a confident one — describes his entire contribution to the crisis."
       }
-    ]
+    ],
+    "image": "portraits/toad_lee.png"
   },
   {
     "id": "ryan",
@@ -1955,12 +1970,13 @@
         "role": "Arrived at, not chosen",
         "note": "Ryan jumped off the Vigilance during the Iron Sky Breach rather than be taken. Void Nihilism holds that the end is inevitable and the only question is your posture on the way. Nobody recruited Ryan to this. He worked it out mid-air."
       }
-    ]
+    ],
+    "image": "portraits/ryan.png"
   },
   {
     "id": "bones",
     "name": "Bones",
-    "image": "",
+    "image": "portraits/bones.png",
     "title": "The Infiltrator Who Triggered the Massacre & Master of the Planar Sanctum Discovery",
     "race": "Unknown (skilled at disguise, so identification is uncertain)",
     "status": "Active — resting at an Alpine Mountain Inn near Mighdural/Regal Capital after escaping the Planar Sanctum, meeting the Toad God, and discovering Thornbury's betrayal",
@@ -2042,7 +2058,8 @@
       "tea_leaf_syndicate",
       "green_t",
       "vigilance"
-    ]
+    ],
+    "image": "portraits/earl_grey.png"
   },
   {
     "id": "dan_the_toad",
@@ -2085,7 +2102,8 @@
         "role": "Involuntary congregation",
         "note": "There are too many Dans. The Glitch venerates data corruption and reality errors, and this Dan is one — a dimensional duplicate who admitted shoving the original into a Mages' Guild null cage to stop the question being asked out loud. He does not worship the Glitch. He is evidence for it."
       }
-    ]
+    ],
+    "image": "portraits/dan.png"
   },
   {
     "id": "eager",
@@ -2159,7 +2177,8 @@
       "speakerNote": "Eager's heart was in the right place. His body paid the price, and he paid it again.",
       "restorationPath": "Charges functionally spent. The file stays open only so the precedent is recorded.",
       "portrait": "🐸🗡️"
-    }
+    },
+    "image": "portraits/eager.png"
   },
   {
     "id": "smoking_j",
@@ -2266,7 +2285,8 @@
       "orangus_cornelius",
       "feyward_chop_bros_soul_ring_and_the_guard_with_no_name",
       "oc_soul_ring"
-    ]
+    ],
+    "image": "portraits/lady_aurelian_corvinarus.png"
   },
   {
     "id": "azure_rakasha",
@@ -2324,7 +2344,8 @@
         "role": "Founder-adjacent",
         "note": "Wario's ledger tracks debts owed by generals, bosses and at least one deceased dragon, and he has offered to forgive one in exchange for a man's kidneys. Corporate Policy's trinity is profit, innovation and the Master Ball. Wario has never needed the third."
       }
-    ]
+    ],
+    "image": "portraits/wario.png"
   },
   {
     "id": "jory_dobbs",
@@ -2382,7 +2403,8 @@
     "relatedArticles": [
       "fawful_forces",
       "peach_loyalists"
-    ]
+    ],
+    "image": "portraits/fawful.png"
   },
   {
     "id": "usk",
@@ -2418,7 +2440,8 @@
       "tea_leaf_syndicate",
       "earl_grey",
       "disaster_inc"
-    ]
+    ],
+    "image": "portraits/roger.png"
   },
   {
     "id": "mossy",
@@ -2437,7 +2460,8 @@
       "mages_guild",
       "disaster_inc",
       "tymnas_cottage_and_hedge_maze"
-    ]
+    ],
+    "image": "portraits/mossy_toad.png"
   },
   {
     "id": "toadburt",
@@ -2556,7 +2580,7 @@
     "name": "Chancellor Toadsworth",
     "title": "The Son Who Inherited Everything",
     "race": "Toad",
-    "image": "",
+    "image": "portraits/chancellor_toadsworth.png",
     "status": "Active — under house arrest following Loyalist seizure of Toad Town",
     "affiliation": "Mushroom Regency (Current Chancellor) / Toadsworth Family Legacy",
     "summary": "Chancellor Toadsworth is the current head of the Mushroom Regency and the son of Toadsworth the Elder—the man whose journals allegedly confess to enabling Princess Peach's assassination. If those journals are authentic, the Chancellor inherited not just power but COMPLICITY. His father's final written words reportedly state: 'My son inherits what I built. He inherits the secrets with it.' The Chancellor has spent his career maintaining the Regency's official narrative, suppressing investigation leads, and continuing relationships with the Mages' Guild and Iron Legion—both implicated in various aspects of the assassination and its aftermath. He is either a man desperately protecting his father's reputation against terrorist fabrications, or a man actively perpetuating an eighty-five-year cover-up. Captain Toadette's Loyalists recently placed him under house arrest. What they extract from him—through interrogation, coercion, or whatever methods Toadette considers appropriate—may finally answer questions that have haunted the kingdom for generations. Waluigi is not optimistic that the truth will emerge cleanly. WAH.",
@@ -2645,7 +2669,8 @@
       "shadow_estate",
       "shadow_estate_mirror_rooftop_escape",
       "planar_fracture"
-    ]
+    ],
+    "image": "portraits/tanuki_burt.png"
   },
   {
     "id": "vaxillus_the_beastmaster",
@@ -2828,7 +2853,7 @@
     "name": "Archie Archbold Miser",
     "title": "The Indebted Pyromaniac Who Bleeds Entropy",
     "race": "Human",
-    "image": "",
+    "image": "portraits/archie.png",
     "status": "Active — emptied every reserve of magic into one fire cast inside the Scorncrow's tree, eyes turned to fire, and sealed the only exit doing it; descended into the Skittering Grove on Markop's rope",
     "affiliation": "Disaster Inc. / Mages' Guild (coerced employee, effective immediately, no severance package)",
     "backstory": {
@@ -4381,7 +4406,8 @@
         "role": "Ordained in practice",
         "note": "Sans names Toriel as one of the only authorities who can grant personal royal approval through the Underground. The Sanctum's emphasis on healing and protection describes her function exactly, and she has exercised it without any of the institution that usually comes attached."
       }
-    ]
+    ],
+    "image": "portraits/toriel.png"
   },
   {
     "id": "asgore",
@@ -4451,7 +4477,8 @@
     "powerLevel": 3,
     "fameScore": 20,
     "fameTier": "Local",
-    "expandedAt": "overnight"
+    "expandedAt": "overnight",
+    "image": "portraits/boss_knuckles.png"
   },
   {
     "id": "high_inquisitor_vale",
@@ -4485,7 +4512,8 @@
         "role": "Inquisitorial commission",
         "note": "Vale holds an Oathbound commission under a faith whose Edict of Purification supplies the legal theory for most of what the Mandate now permits. The Flame provides the authority; the Oathbound provide the paperwork."
       }
-    ]
+    ],
+    "image": "portraits/high_inquisitor_vale.png"
   },
   {
     "id": "skullcap_murphy",
@@ -4512,7 +4540,8 @@
     "powerLevel": 3,
     "fameScore": 34,
     "fameTier": "Local",
-    "expandedAt": "overnight"
+    "expandedAt": "overnight",
+    "image": "portraits/skull_cap_murphy.png"
   },
   {
     "id": "elder_mudcap",
@@ -4544,7 +4573,8 @@
         "role": "First seat, oldest observance",
         "note": "Mudcap treats survivor testimony as law and the liturgy as the oldest surviving testimony of all. He is the last member of the council who remembers the rite as something done in a kingdom rather than in a barrel."
       }
-    ]
+    ],
+    "image": "portraits/elder_mudcap.png"
   },
   {
     "id": "captain_fernback",
@@ -4576,7 +4606,8 @@
         "role": "Sworn to a person, not a realm",
         "note": "Fernback took the chivalric oath and pointed it at Speaker L rather than at any crown. The Lady's doctrine does not permit this substitution. Fernback has not noticed, and the distinction is going to matter."
       }
-    ]
+    ],
+    "image": "portraits/captain_fernback.png"
   },
   {
     "id": "scribe_dewdrop",
@@ -4608,7 +4639,8 @@
         "role": "Convert by temperament",
         "note": "Dewdrop found a desert doctrine about weighing truth and recognised her own job in it. She compares testimony, refuses to let emergency language erase inconvenient facts, and has told Speaker L to his face that a record altered for morale is a record destroyed. Maat's scales are the only authority she has ever cited approvingly."
       }
-    ]
+    ],
+    "image": "portraits/scribe_dewdrop.png"
   },
   {
     "id": "forgemaster_ironspore",
@@ -4672,7 +4704,8 @@
         "role": "Unacknowledged",
         "note": "Thornshell argues for direct action every time and frames it as defence every time. The Blood God does not require you to know his name; he requires you to keep reaching the same conclusion. Dewdrop has started keeping a tally of the votes."
       }
-    ]
+    ],
+    "image": "portraits/warden_thornshell.png"
   },
   {
     "id": "healer_mistpetal",
@@ -4704,7 +4737,8 @@
         "role": "Practising",
         "note": "Mistpetal measures every proposed operation against the casualty list it implies, which is the Sanctum's actual doctrine rather than its decorative one. The Menders pray over the wounded and then argue with the council, in that order."
       }
-    ]
+    ],
+    "image": "portraits/healer_mistpetal.png"
   },
   {
     "id": "kyrn",
@@ -4808,7 +4842,8 @@
         "role": "Resigned on principle",
         "note": "Rivers walked out of the Midlands Diet at 09:00 on the 21st of Highsun over the Iron Mandate. Maat's balance is the only frame in which that act reads as duty rather than desertion, and Rivers has been quietly citing it since."
       }
-    ]
+    ],
+    "image": "portraits/speaker_rivers.png"
   },
   {
     "id": "creek_medic",
@@ -4845,7 +4880,8 @@
         "role": "Hospital-trained",
         "note": "Creek learned the Holy Light's healing rites in a hospital before the barrels, which means he learned them as procedure with a prayer attached. He stabilised Dan after Dan lost an arm. He has not said which half of the training did it."
       }
-    ]
+    ],
+    "image": "portraits/creek.png"
   },
   {
     "id": "robinson",
@@ -4877,7 +4913,8 @@
         "role": "Centaur inheritance",
         "note": "Markop's father stood in the Dragon's Den at Dragon Mountain at 10:00 on the 21st of Highsun. The Hunt's doctrine — that the pursuit is the relationship, and both roles are honourable — is the frame a centaur brings to a room like that."
       }
-    ]
+    ],
+    "image": "portraits/robinson.png"
   },
   {
     "id": "the_mole",
@@ -4910,7 +4947,8 @@
         "role": "Functionally, if not confessed",
         "note": "The Mole held the Scouts' elected seat and reported to the Iron Legion, and sustained that for long enough that the two loyalties stopped being distinguishable from inside. The Path of Change does not ask which one was real. That is the doctrine's whole appeal."
       }
-    ]
+    ],
+    "image": "portraits/the_mole.png"
   },
   {
     "id": "boundy",
@@ -5430,7 +5468,8 @@
       "overgrown_manor",
       "hjumpik",
       "the_orange_heir"
-    ]
+    ],
+    "image": "portraits/red_the_kitchen_commander.png"
   },
   {
     "id": "the_mushroom_room_guard",
