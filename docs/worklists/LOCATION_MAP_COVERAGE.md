@@ -48,19 +48,19 @@ Coverage at filing: **45 / 61 location articles plotted** (was 14 by honest matc
 | `planar_sanctum_belfry_and_atrium` | 73.7, 14.0 | same sanctum, belfry & central chamber |
 | `alpine_bank_raventree_outskirts` | 74.9, 12.8 | "just outside the sprawling grounds of Raventree Manor" |
 
-### The Midlands sheet — Regal capital, Midgruals & periphery
+### The Midlands sheet — Regal capital, Mighdurals & periphery
 
 | Location | Pin | Clue |
 |---|---|---|
 | `ironhold` | 80.6, 5.4 | "capital of the Regal Empire … heart of Iron Legion power", beside the Imperial District (81.28, 4.29) and Aegis Command (78.5, 2.5) |
-| `alpine_bank` | 82.2, 6.2 | "built high in the mountains near Midgrual, the Regal Capital" |
+| `alpine_bank` | 82.2, 6.2 | "built high in the mountains near Mighdural, the Regal Capital" |
 | `alpine_bank_subterranean_chambers` | 82.5, 6.6 | "deep within the Alpine Bank's Regal Capital Branch" |
 | `alpine_mountain_inn` | 79.2, 8.6 | "freezing slopes outside the Regal Capital" |
 | `arunedeal_goblin_camp` | 78.3, 7.1 | "between the Alpine Mountain Inn and the … Checkpoint Wall" |
-| `legion_wall_checkpoint` | 77.4, 5.5 | "cutting entirely across the Midgrual Mountain pass", north border |
+| `legion_wall_checkpoint` | 77.4, 5.5 | "cutting entirely across the Mighdural Mountain pass", north border |
 | `gamma_high_command_spire` | 85.9, 5.1 | "High Command airspace" east of the palace; approach classified, pin approximate |
 | `alpine_bay_ranch` | 75.5, 10.5 | "edge of a vast grassland … Regal Capital Outskirts" |
-| `vellanet_rise` | 70.6, 9.2 | "Midlands periphery, upriver of the Midgrual foothill roads", west of the Sunstone Gate |
+| `vellanet_rise` | 70.6, 9.2 | "Midlands periphery, upriver of the Mighdural foothill roads", west of the Sunstone Gate |
 | `raventree_manor` | 73.5, 12 | backfilled `articleId` on the existing pin |
 | `aegis_command` | 78.5, 2.5 | backfilled `articleId` on the existing pin |
 | `vigilance` | 81.0, 4 | backfilled `articleId` on *The 'Vigilance' Airship* pin (mobile landmark; pin is its last filed position) |

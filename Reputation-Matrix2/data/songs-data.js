@@ -566,7 +566,7 @@ For resting his head in the shadowfell haze!
 Your magical wand is so shiny and neat,  
 And those silver-tipped boots look so nice on my feet!  
 Don't worry about paying your transit-stamp bills,  
-I'll spend all your coins in the Midgrual hills!  
+I'll spend all your coins in the Mighdural hills!  
   
 [Pre-Chorus - fingers walking pocket to pocket]  
 One for the road, and one for the door,  
@@ -712,7 +712,7 @@ NO TOAD SHALL PASS WITHOUT A WRIT,
 IN GENERAL IRONHAND'S IRON PIT!  
   
 [Verse 2]  
-From Blackfen Pass to Midgrual snow,  
+From Blackfen Pass to Mighdural snow,  
 We crush the chaos down below.  
 Your magic rings and rebel cries,  
 Dissolve beneath Imperial skies!  

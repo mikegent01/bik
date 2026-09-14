@@ -230,7 +230,7 @@ Rules of thumb:
 
 1. **`status` must be a location + situation**, not a one-word state.
    `"Active"` alone is a stub. `"Active — resting at an Alpine Mountain Inn
-   near Midgrual after escaping the Planar Sanctum"` is a dossier.
+   near Mighdural after escaping the Planar Sanctum"` is a dossier.
 2. **`summary` answers two questions:** who are they, and what is happening to
    them *now*. It is not a biography dump — that is `description`'s job.
 3. **`description` uses markdown sections** (`## Combat and Demeanor`,
