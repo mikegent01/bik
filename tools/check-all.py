@@ -60,6 +60,7 @@ def main() -> int:
         ("cover gallery", [py, "tools/check-covers.py"], ROOT),
         ("campaign fronts", [py, "tools/build-campaign-fronts.py", "--check"], ROOT),
         ("filing updates", [py, "tools/track-filing-updates.py", "--check"], ROOT),
+        ("pond patrol docket", [py, "tools/migrate-pond-patrol-to-characters.py", "--check"], ROOT),
         ("mighdural spelling", [py, "tools/unify-mighdural-spelling.py", "--check"], ROOT),
         ("RNN broadcast data", [py, "tools/build-rnn-broadcast.py", "--check"], ROOT),
         ("Bros Attack sync", [py, "tools/sync_bros_attacks.py", "--check"], RM),

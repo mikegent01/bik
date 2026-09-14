@@ -124,7 +124,8 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/events/archive-sheets/collapse-of-blackfen-pass.jpg"
   },
   {
     "id": "mount_ebott_survey_mission",
@@ -371,7 +372,7 @@
     "location": "Mushroom Kingdom Royal Capital and surrounding territories",
     "type": "Propaganda Failure / Cover-Up Complication / Political Analysis",
     "status": "Historical — the Fawthful Narrative was superseded by the Bowser Narrative within approximately thirty days of the assassination",
-    "image": "",
+    "image": "assets/images/events/archive-sheets/the-fawthful-narrative-failure.jpg",
     "imageCaption": "No copies of the original Fawthful Narrative pamphlet are known to survive. Waluigi suspects this is not accidental.",
     "audioTitle": "",
     "audio": "",
@@ -493,7 +494,7 @@
     "location": "Mushroom Kingdom Royal Capital — Palace Chambers, City Streets, Print Shop, Hospital",
     "type": "Political Crisis / Cover-Up Initiation / Combat Incident / Historical Turning Point",
     "status": "Historical — events of this 72-hour window determined the shape of the next eighty-five years",
-    "image": "",
+    "image": "assets/images/events/archive-sheets/highsun-1-955-bf-the-day-of.jpg",
     "imageCaption": "Only 575 copies of Chancellor Toadsworth's account were ever printed. None are known to survive in their original form. The official record that replaced them named a different killer entirely.",
     "audioTitle": "",
     "audio": "",
@@ -691,7 +692,7 @@
     "location": "Ravencreek Outskirts, Rakka's Domicile, Veilwood Spa, Mayor's Manor, Swiftsoul Keep Lower Levels, The Arena",
     "type": "Operational Transition / Faction Interaction / Boss Encounter / Party Convergence / Alchemical Discovery",
     "status": "Historical — the events spanning these weeks consolidated the party's criminal status, catalyzed factional warfare, and finalized their roster",
-    "image": "",
+    "image": "assets/images/events/archive-sheets/session-2-ravencreek-to-swiftsoul.jpg",
     "imageCaption": "The water in the Mayor's fountain turned to blood during the God Toad's ritual. Local authorities still refuse to discuss the cleanup costs. The plumbing infrastructure of Ravencreek required complete, devastating excavation, plummeting Archie Miser's reputation with the Townsfolk faction to an irrecoverable 'Hated'.",
     "audioTitle": "",
     "audio": "",
@@ -858,7 +859,7 @@
     "location": "Kongo Bongo — Public Funeral Hall",
     "type": "State Funeral / Cabinet Emergency / Political Reckoning / Grief in Public / Wario Being Surprisingly Decent / Lanky Being Removed From Everything / The Part Where Funky Steps Down And Nobody Understands Why Yet",
     "status": "Concluded — Chunky Kong is dead, publicly mourned, and privately alive in a room that Diddy did not know about — Diddy has assumed Chunky's cabinet position in good faith — Lanky has been excommunicated from the Kongo Bongo state apparatus effective immediately — Funky Kong has stepped down from his position under circumstances he has not fully explained — Diddy has reluctantly inherited a joint position he did not want — Cranky Kong attended, said something terrible, was removed in chains, and asked for water — Wario gave a eulogy that made people feel things they were not prepared to feel — Admiral Link of the Great Sea sent soup — the war is coming — Lanky may have been trying to warn them about Funky the entire time and nobody listened",
-    "image": "",
+    "image": "assets/images/events/archive-sheets/funeral-of-junimus-gorolini-bongo-jr.jpg",
     "imageCaption": "No visual documentation cleared for public release. The funeral was attended by figures whose presence raises questions that Waluigi is still in the process of answering. Wario was recorded without his knowledge and has requested to be edited out of the final cut. This request has been noted and will not be honored.",
     "audioTitle": "",
     "audio": "",
@@ -1081,7 +1082,8 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/events/archive-sheets/star-shard-caves-tanuki-origin.jpg"
   },
   {
     "id": "session_1_dragon_mountain",
@@ -1092,7 +1094,7 @@
     "location": "Dragon Mountain, Edgeshade, Peebleton Caves — Central Midlands",
     "type": "Origin Event / Dragon Awakening / Party Formation / Festival Catastrophe",
     "status": "Historical — the events of this day set every subsequent disaster, dimensional fracture, and divine retribution in motion",
-    "image": "",
+    "image": "assets/images/events/archive-sheets/session-1-dragon-mountain.jpg",
     "imageCaption": "Edgeshade no longer exists. Later reports confirmed the ruins were being systematically looted by pirates. No reconstruction has been attempted. The crater left by Dragon Mountain's eruption still glows with residual heat.",
     "audioTitle": "",
     "audio": "",
@@ -1410,7 +1412,7 @@
     "location": "Raventree Manor Interior / Tymnas's Lodge / The Fracture Grove / The Midnight Portal / The Fracture Atrium / Corvinarus Sanctum",
     "type": "Tactical Catastrophe / Forced Party Split / Involuntary Matrimonial Summons / Identity Violence / Dimensional Stranding",
     "status": "Ongoing — Party Fractured Across Multiple Planes — Situation Critical — Wedding Still Scheduled",
-    "image": "",
+    "image": "assets/images/events/archive-sheets/the-grove-of-woe-incident.jpg",
     "imageCaption": "No photographs survive. Bowser destroyed the camera he was carrying when he fell through the portal. The wedding invitation disintegrated at sunrise, as promised in the fine print that nobody read carefully enough.",
     "audioTitle": "",
     "audio": "",
@@ -1915,7 +1917,8 @@
         "reputationChanges",
         "effects"
       ]
-    }
+    },
+    "image": "assets/images/events/archive-sheets/fazbear-seven-nights.jpg"
   },
   {
     "id": "glazed_congress_founding",
@@ -2016,7 +2019,8 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/events/archive-sheets/glazed-congress-founding.jpg"
   },
   {
     "id": "the_blorbs_crisis",
@@ -2139,7 +2143,8 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/events/archive-sheets/the-blorbs-crisis.jpg"
   },
   {
     "id": "the_neighbor_incident",
@@ -2224,7 +2229,7 @@
     "location": "Unnamed medical facility — possibly Ironmend Bastion, possibly a Sarasaland-affiliated hospital, possibly neither",
     "type": "Unverified Testimony / Rumor Analysis / Identity Crisis / Medical Emergency",
     "status": "Unverified — Waluigi has fragments from multiple unreliable sources",
-    "image": "",
+    "image": "assets/images/events/archive-sheets/the-waiting-room-testimony.jpg",
     "imageCaption": "No photographs. No records. No one will confirm this event happened at all, which is exactly why Waluigi believes it did.",
     "audioTitle": "",
     "audio": "",
@@ -2427,7 +2432,8 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/events/archive-sheets/the-shadeward-ritual.jpg"
   },
   {
     "id": "ruined_manor_convergence",
@@ -2438,7 +2444,7 @@
     "location": "Ruined Manor near Thornwood — formerly a noble estate, currently a haunted disaster zone",
     "type": "Multi-Faction Collision / Ghost Encounter / Warrant Drama / Alliance Formation",
     "status": "Concluded — resulted in formation of the Cells of the Third Eye",
-    "image": "",
+    "image": "assets/images/events/archive-sheets/ruined-manor-convergence.jpg",
     "imageCaption": "No images survive. Waluigi asked. Multiple times.",
     "audioTitle": "",
     "audio": "",
@@ -2709,7 +2715,7 @@
     "location": "Feyward Manor — Workshop Level / Poetry Reading Room / Library (Woodfellow's Domain) / Guest Gangway / Former Guest Rooms (Satyr Encampment) / Dining Hall Overlook / Wherever Rakasha's Group Was While All This Was Happening",
     "type": "Fey Diplomacy / Library Theft Recovery / Revel Investigation / Floor Structural Planning / Goblin Introduction / Pixie Vision / Party Split / Waluigi Being Right About Sylvan And Present In The Room When He Was Right And Still Not Being Listened To",
     "status": "Ongoing — the floor-drop plan is in preparation but has not been executed — the Feyward Book of Many Things has been returned to Woodfellow's shelves by Wario with its pages ripped out — the revel remains active and biological — the heir's motives remain ambiguous — the satyr's plan is in motion — Goblius Gobnilun knows more than he is presenting — Pixie Prixie saw everyone die and said nothing — Steely has not been returned to Remi — the hag remains uncured — Waluigi was in the room when the book was read correctly and was redirected to Rakasha anyway and considers this an ongoing institutional failure with compounding consequences and personal dimensions",
-    "image": "",
+    "image": "assets/images/events/archive-sheets/the-feyward-revel-and-the-book-of-many-things.jpg",
     "imageCaption": "No visual documentation. Waluigi was present for much of this and did not photograph it because Waluigi was busy being correct about things and having that correctness ignored. The documentation exists in the archive. The archive is Waluigi's photograph.",
     "audioTitle": "",
     "audio": "",
@@ -3270,7 +3276,8 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/events/archive-sheets/feyward-dark-rooms-and-balcony-planning.jpg"
   },
   {
     "id": "shadowfell_birthday_trap_tanuki",

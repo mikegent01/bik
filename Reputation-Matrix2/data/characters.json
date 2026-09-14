@@ -349,7 +349,28 @@
         "role": "Unwilling object of worship",
         "note": "The Cult of WAH holds that everyone is cheating but you. Waluigi did not found it, does not collect from it, and has filed a formal objection to the name in his own encyclopedia — but he did articulate the doctrine, at length, to a god, while strapped to an electric chair. The congregation considers this scripture. WAH."
       }
-    ]
+    ],
+    "pondPatrol": {
+      "docketId": "waluigi",
+      "status": "at_large",
+      "priority": "medium",
+      "added": "Day 18",
+      "lastSeen": "Day 20 — fleeing Raventree Manor on a summoned wyvern",
+      "charges": [
+        "Jester's Sin — chaotic magical behaviour",
+        "Breach of Lab and Discipline",
+        "The Cone of Cold Incident — nearly killed Eager"
+      ],
+      "evidence": [
+        "Frost injury records held by the Menders",
+        "Laboratory breach evidence",
+        "Eager's medical file"
+      ],
+      "notes": "Departed with Green T. Owns the cursed manor at the centre of the crisis, which the Patrol considers relevant and Waluigi considers slander. Unclear whether genuinely malicious or simply chaotic.",
+      "speakerNote": "The purple one is chaos incarnate. Approach with extreme caution.",
+      "restorationPath": "Grant the Cohort lawful access to Raventree Manor and compensate Eager's care. The archive notes that the subject wrote this encyclopedia entry himself.",
+      "portrait": "💜"
+    }
   },
   {
     "id": "hargram_fidger",
@@ -1341,7 +1362,25 @@
         "role": "Organiser's faith",
         "note": "Dan helped build a faction out of people who had been shipped in barrels, and kept the observances because a shared rite was the cheapest structure available. He was a competent organiser before he was anything else."
       }
-    ]
+    ],
+    "pondPatrol": {
+      "docketId": "dan_docket",
+      "status": "probationary_active",
+      "priority": "low",
+      "added": "Day 18",
+      "lastSeen": "Day 21 — Raventree Manor (combat)",
+      "charges": [
+        "Unstable Hand — magical endangerment"
+      ],
+      "evidence": [
+        "Witness accounts",
+        "Community inquiry record: Liberated Toads v. Dan, 1040 BF"
+      ],
+      "notes": "Returned to active duty during the wraith attack despite the loss of his arm. Demonstrated control and loyalty under fire. Charges suspended pending review.",
+      "speakerNote": "His spirit is unbroken. He fights for us still.",
+      "restorationPath": "Complete the review. The Chroniclers already recommend full clearance.",
+      "portrait": "🐸⚔️"
+    }
   },
   {
     "id": "embercap",
@@ -1800,7 +1839,26 @@
         "role": "Refuses the title",
         "note": "The Maw's doctrine of the insatiable is exactly what eighty-five years of Regency propaganda has accused Bowser of embodying, and it is the one accusation he actually resents. He ate raw dripping meat in one bite at a vampire's table and then stopped a fourteen-year-old executing a prisoner because it was brutal even for him. The Maw has no clause for that."
       }
-    ]
+    ],
+    "pondPatrol": {
+      "docketId": "bowser",
+      "status": "complicated",
+      "priority": "medium",
+      "added": "Day 18",
+      "lastSeen": "Day 20 — Raventree Manor area",
+      "charges": [
+        "Flame without Restraint — collateral fire damage",
+        "Destruction of infrastructure aboard the Vigilance"
+      ],
+      "evidence": [
+        "Burn damage assessment filed by the Crafters",
+        "Witness accounts from the Barrel Survivors"
+      ],
+      "notes": "Whereabouts unknown; may be travelling with Waluigi. Politically complicated — he is a foreign monarch, a current ally, and an entity the Iron Mandate has already declared illegal. His cooperation during the X.O. confrontation is formally noted in his favour.",
+      "speakerNote": "Bowser is an ally, but his flames have cost us. Accountability, not vengeance.",
+      "restorationPath": "Fund or supply the Crafters' repair backlog. No apprehension attempt is authorised while the Iron Legion hunts him.",
+      "portrait": "🐢"
+    }
   },
   {
     "id": "valorian_stormweave",
@@ -2082,7 +2140,26 @@
         "role": "Sincere, and statistically doomed",
         "note": "Eager consults omens before choosing a direction and has a supernatural gift for choosing the worst available one. The Church of Helix teaches that the fossil's guidance is real and its interpretation is your problem. Eager is the strongest evidence for both halves of that claim."
       }
-    ]
+    ],
+    "pondPatrol": {
+      "docketId": "eager_docket",
+      "status": "cleared_active",
+      "priority": "low",
+      "added": "Day 18",
+      "lastSeen": "Day 21 — the Silent Grove / Feywild fracture",
+      "charges": [
+        "Blind Loyalty — crossing the Line of Engagement",
+        "Disobeying direct orders in combat"
+      ],
+      "evidence": [
+        "After-action reports",
+        "Witness accounts"
+      ],
+      "notes": "Woke from his coma and rejoined combat operations the same day. Currently beyond the perimeter in the Feywild fracture, which the Patrol classifies as 'out of reach, not at large'.",
+      "speakerNote": "Eager's heart was in the right place. His body paid the price, and he paid it again.",
+      "restorationPath": "Charges functionally spent. The file stays open only so the precedent is recorded.",
+      "portrait": "🐸🗡️"
+    }
   },
   {
     "id": "smoking_j",
@@ -2864,7 +2941,28 @@
     "aliases": [
       "Archie",
       "Archie Miser"
-    ]
+    ],
+    "pondPatrol": {
+      "docketId": "archie",
+      "status": "at_large",
+      "priority": "high",
+      "added": "Day 18",
+      "lastSeen": "Day 20 — dimensional breach at Raventree Manor",
+      "charges": [
+        "Reckless Mind — loss of magical control",
+        "Greenhouse Inferno — destruction of property, injury to allies",
+        "Casualties resulting from uncontrolled spellcasting"
+      ],
+      "evidence": [
+        "Multiple witness accounts recorded by the Chroniclers",
+        "Physical damage assessment of Raventree Manor",
+        "Archie's own public confession on WAHwire"
+      ],
+      "notes": "Escaped custody with help from an Iron Legion spy calling himself 'Jerry'. Last observed traversing alien dimensions via his Third Eye. Considered magically unstable and dangerous, but not malicious.",
+      "speakerNote": "Archie is not evil. He is broken. We seek to help him, not destroy him.",
+      "restorationPath": "Submit to a Chronicler interview, fund the greenhouse rebuild, and accept a Mender's binding on uncontrolled casting.",
+      "portrait": "🧙"
+    }
   },
   {
     "id": "papyrus",

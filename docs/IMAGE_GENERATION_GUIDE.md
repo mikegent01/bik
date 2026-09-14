@@ -511,3 +511,48 @@ sixty-one feet — and it is the right place for the archive's dry verdict.
 - [ ] All files under ~300 KB
 - [ ] Paths wired into the JSON and confirmed to exist on disk
 - [ ] Article loaded in a browser; every figure renders
+
+---
+
+## Contact sheets — filling a large art backlog
+
+102 of the archive's 120 events had no art, which is why the events page read
+as a flat purple grid while the front page looked designed. Generating those
+one at a time is not practical.
+
+So art can be produced as a **contact sheet**: one generation renders a grid
+of scenes, and `tools/slice-event-sheet.py` cuts it into per-event images and
+wires them into `events.json`.
+
+```bash
+python3 tools/slice-event-sheet.py tools/sheets/sheet-02.png \
+  --cols 2 --rows 2 --ids event_a,event_b,event_c,event_d \
+  --out-dir Reputation-Matrix2/assets/images/events/archive-sheets --write
+```
+
+Cells map to ids in **reading order**, so the id list must match the order the
+scenes were described in the prompt. Slicing uses ImageMagick v6 (no new
+dependency) and insets a few pixels per edge to drop the gutter.
+
+**The rules above still apply, and one of them matters more here:**
+
+- **Pass the real `portraits/` references for the cast of those events.** Group
+  a sheet by shared cast so one set of references serves every cell. Do not
+  describe a known figure.
+- **References are for PEOPLE only.** Never pass a scene or location image —
+  on a sheet that mistake is multiplied, and every cell comes back with the
+  same background.
+- **Name each background explicitly and differently** in the prompt. The cells
+  share a style; they must not share a place.
+- **2x2 keeps faces on-model.** Denser grids shrink each cell and the likeness
+  degrades — which is the whole point of using the portraits. Prefer several
+  small sheets over one large one.
+- Say "no text, no letters, no numbers" — grids invite the model to caption.
+
+```
+□ Every id in --ids is a real event and in prompt order
+□ Cast references passed from portraits/, people only
+□ Each cell has its own named setting
+□ Eyeball the sheet BEFORE slicing — one bad cell means regenerate the sheet
+□ After --write: python3 tools/check-covers.py
+```

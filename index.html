@@ -9866,29 +9866,12 @@ function legalCodexSection(){
    Systems are not separate tabs. Each one is bolted onto the faction(s) that
    operate it, so opening a faction article surfaces its system immediately. */
 const FACTION_SYSTEMS = {
-  imperial_pressure_network: {
-    id: 'imperial_pressure_network',
-    name: 'Imperial Pressure Network',
-    emoji: '🕸️',
-    route: '#/regal-diet/ipn',
-    accent: '#c81d25',
-    glow: 'rgba(200,29,37,.20)',
-    flag: 'Integrated Faction System',
-    tagline: 'Regal Empire + Iron Legion fused into one operational command layer.',
-    body: 'Reputation, global power projection, bank ledgers, shop supply lines, and event history all read from the same Imperial pressure model. If either faction leans on someone, this is where the weight shows up.',
-    factions: ['regal_empire', 'iron_legion'],
-    operators: { regal_empire: 'Political authority — issues the mandates.', iron_legion: 'Executing arm — enforces the mandates.' },
-    metrics(){
-      const ops = REPUTATION_OPERATORS.length;
-      const pressure = Math.round(REPUTATION_OPERATORS.reduce((s,op)=>{
-        const e=calculateOperatorStanding(op.id,'regal_empire').total, l=calculateOperatorStanding(op.id,'iron_legion').total;
-        return s + (Math.abs(Math.min(0,e))+Math.abs(Math.min(0,l)))/2;
-      },0)/Math.max(1,ops));
-      const blocs = Object.keys(LORE_FACTIONS.regal_empire?.internal_politics?.sub_factions||{}).length
-                  + Object.keys(LORE_FACTIONS.iron_legion?.internal_politics?.sub_factions||{}).length;
-      return [['Mean party pressure', pressure], ['Internal blocs', blocs], ['Tracked operators', ops]];
-    }
-  },
+/* The Imperial Pressure Network is deliberately NOT registered here.
+   The Empire and the Legion were merged into a single operational layer, so
+   the Network is now a tab inside the Diet (#/regal-diet/ipn) rather than a
+   system of its own. Listing it again in this registry put a duplicate entry
+   in the Faction Systems sidebar for a system the Diet already owns.
+   imperialNetworkBody() still renders it; only the second door is gone. */
   holy_midlands_diet: {
     id: 'holy_midlands_diet',
     name: 'Holy Midlands Diet',
@@ -9940,7 +9923,26 @@ function factionRecord(fid){
 }
 function docketData(){
   const lt=factionRecord('liberated_toads');
-  return (lt&&lt.factionDocket&&lt.factionDocket.accountability)||null;
+  const acc=(lt&&lt.factionDocket&&lt.factionDocket.accountability)||null;
+  if(!acc) return null;
+  /* The register is COMPOSED, not stored. Per-person docket data lives on the
+     character records (characters.json -> pondPatrol), because a person's
+     standing with the Pond Patrol is a fact about the person. Keeping it in
+     factions.json meant it was edited nowhere near where sessions are filed,
+     which is how the register went stale while docket members were on the
+     page. factions.json now keeps only identity-unknown entries (the Green
+     Decoy) plus the genuinely faction-level material.
+     Every existing a.targets reader keeps working unchanged. */
+  const fromChars=((DATA&&DATA.characters)||[]).filter(c=>c&&c.pondPatrol).map(c=>{
+    const pp=c.pondPatrol||{};
+    return Object.assign({}, pp, {
+      id: pp.docketId||c.id,
+      articleId: c.id,
+      name: c.name||prettyId(c.id)
+    });
+  });
+  const own=(acc.targets||[]).slice();
+  return Object.assign({}, acc, {targets: fromChars.concat(own)});
 }
 function docketRoot(){
   const lt=factionRecord('liberated_toads');
