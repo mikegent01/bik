@@ -58,8 +58,9 @@ def main() -> int:
 
     print("DUPLICATE AUDIT")
     print("=" * 72)
-    print(f"\n{len(chars)} character records, "
-          f"{len(list(PORTRAITS.glob('*.png')))} portraits\n")
+    n_files = sum(len(list(PORTRAITS.glob(e)))
+                  for e in ("*.png", "*.webp", "*.jpg", "*.jpeg"))
+    print(f"\n{len(chars)} character records, {n_files} portrait files\n")
 
     findings = 0
 
@@ -105,8 +106,13 @@ def main() -> int:
 
     # ---- 2. portrait duplicates -----------------------------------------
     print("\n2. PORTRAITS — identical file content")
+    # All raster formats, not just PNG. The library also holds .webp and .jpg
+    # (luigi.png vs luigi_operative.webp), and scanning one extension hid
+    # near-duplicate art that renders identically to a reader.
     digests = defaultdict(list)
-    for f in sorted(PORTRAITS.glob("*.png")):
+    files = [f for ext in ("*.png", "*.webp", "*.jpg", "*.jpeg")
+             for f in PORTRAITS.glob(ext)]
+    for f in sorted(files):
         digests[hashlib.md5(f.read_bytes()).hexdigest()].append(f.name)
 
     # who references each file
@@ -133,6 +139,44 @@ def main() -> int:
             print(f"      {n:34} {tag}")
         if len(live) == 0:
             print("      -> both unreferenced: safe to collapse to one file")
+
+    # Same character across FOLDERS or formats. The repo keeps a second copy of
+    # the library at the root `portraits/`, and art also exists as .webp -- so
+    # luigi.png and luigi_operative.webp are two Luigis that no byte-hash and
+    # no single-folder scan will ever put side by side.
+    ROOT_PORTRAITS = ROOT / "portraits"
+    alt = [f for ext in ("*.png", "*.webp", "*.jpg", "*.jpeg")
+           for f in ROOT_PORTRAITS.glob(ext)] if ROOT_PORTRAITS.is_dir() else []
+
+    def variants(stem: str) -> str:
+        """Strip trailing qualifiers so luigi_operative groups with luigi."""
+        return re.sub(r"_(operative|scarred|clean|wide|armoured|armored|alt|"
+                      r"v\d+|real|hooded|full|old|new|\d+)$", "", stem)
+
+    fam = defaultdict(set)
+    for f in files:
+        fam[variants(f.stem)].add(f"Reputation-Matrix2/portraits/{f.name}")
+    for f in alt:
+        fam[variants(f.stem)].add(f"portraits/{f.name}")
+
+    # The root `portraits/` is a full mirror of the library, so "same filename
+    # in both folders" is expected and reporting it would bury the real signal.
+    # What matters is a family holding genuinely DIFFERENT filenames -- an
+    # alternate take, a second costume, another format -- because then a reader
+    # can meet the same character wearing two different faces.
+    claimed = {c.get("image", "").split("/")[-1] for c in chars if c.get("image")}
+    alts = {}
+    for k, v in fam.items():
+        distinct = {Path(x).name for x in v}
+        if len(distinct) > 1:
+            alts[k] = sorted(v, key=lambda x: (Path(x).name not in claimed, x))
+    print(f"\n   characters with ALTERNATE art ({len(alts)}) — "
+          f"one is live, the rest are unused takes:")
+    for k, v in sorted(alts.items()):
+        names = sorted({Path(x).name for x in v})
+        live = [n for n in names if n in claimed]
+        print(f"      {k:26} {names}"
+              f"{'' if live else '   (NONE in use)'}")
 
     # ---- 3. wire accounts ------------------------------------------------
     print("\n3. WAHWIRE ACCOUNTS")

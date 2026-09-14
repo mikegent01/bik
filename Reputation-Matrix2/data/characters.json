@@ -212,7 +212,8 @@
         "role": "Namesake",
         "note": "The denomination is named for his method and he finds the elevation slightly embarrassing, in the manner of a man who would rather be read than believed. E. Gadd's Method holds that ghosts are a fluid-dynamics problem with opinions. Its founder invented a vacuum cleaner on that basis and was correct."
       }
-    ]
+    ],
+    "image": "portraits/professor_e_gadd.png"
   },
   {
     "id": "bryan",
@@ -309,7 +310,8 @@
         "role": "Sovereign",
         "note": "The Dark Moon drives ghosts mad and King Boo governs the ones it has finished with. He is one of the few entities in the crisis operating outside every known faction structure, which the Clan would say is not independence but seniority."
       }
-    ]
+    ],
+    "image": "portraits/king_boo.png"
   },
   {
     "id": "waluigi",
@@ -412,7 +414,8 @@
         "role": "Private, unadmitted",
         "note": "The tattoos map a career through gangs, bandits and sailing vessels, and the thing Hargram actually believes in happens in the pit: that a fight settles a question no argument can, and that the settling is owed to something. He would deny this in the Legion's own chapel, standing up, in daylight."
       }
-    ]
+    ],
+    "image": "portraits/hargram_fidger.png"
   },
   {
     "id": "king_dedede",
@@ -490,7 +493,8 @@
         "role": "Sarasaland's own",
         "note": "Maat's balance came out of desert regions and Sarasaland is one of them — this is Daisy's inherited state faith rather than a discovery. She hosted the Second Diplomatic Summit on its principles and watched delegations walk out of it anyway."
       }
-    ]
+    ],
+    "image": "portraits/princess_daisy.png"
   },
   {
     "id": "kremlings",
@@ -525,7 +529,8 @@
         "role": "Institutional",
         "note": "The Krew's reverence for the Engine is indistinguishable from its logistics: the machines are maintained, the crews are drilled, and the doctrine supplies a reason to keep both going between campaigns against Kongo Bongo."
       }
-    ]
+    ],
+    "image": "portraits/kremlings.png"
   },
   {
     "id": "kirby",
@@ -627,7 +632,8 @@
         "role": "Observant, impatient",
         "note": "Byscilla keeps the forms because the forms are how the Legion knows you are one of theirs. She has also dragged a Mages' Guild quartermaster out of a bath by the ear while her soldiers took heatstroke outside, which is not in the liturgy. Her faith is in the chain of command working; the theology is packaging."
       }
-    ]
+    ],
+    "image": "portraits/byscilla_danos.png"
   },
   {
     "id": "rhak_the_lost",
@@ -654,7 +660,8 @@
         "role": "Lapsed by geography",
         "note": "Rhak carries the gestalt the way an expatriate carries an accent — it strengthens when there are enough of his own around and is nearly inaudible on Byscilla's team, where he is the only orc. 'The Lost' is not a battlefield title. It is what the WAAAGH! sounds like from too far away."
       }
-    ]
+    ],
+    "image": "portraits/rhak_the_lost.png"
   },
   {
     "id": "manderaz_the_mad",
@@ -681,7 +688,8 @@
         "role": "Aristocratic reading",
         "note": "Manderaz gives the Blood God the bearing of a courtier: violence as a discipline with etiquette, owed to a peer and wasted on a lesser. The hobgoblin khanates produce this reading regularly and the Legion finds it very convenient, since a man who thinks slaughter has manners will follow orders about who is worth killing."
       }
-    ]
+    ],
+    "image": "portraits/manderaz_the_mad.png"
   },
   {
     "id": "aemenor_evenflight",
@@ -737,7 +745,8 @@
         "role": "Appeared under it",
         "note": "Spriggon showed Hargram's team a keychain with an Iron Legion rank ring and then departed into darkness, which is the entirety of the record. The Clan's theology concerns what the moon sends and does not take back. The archive files him here for want of anything firmer."
       }
-    ]
+    ],
+    "image": "portraits/darno_spriggon.png"
   },
   {
     "id": "warol_creeton",
@@ -792,7 +801,8 @@
         "role": "Suspected",
         "note": "A well-tailored man with a cane he does not need, plain clothing chosen to be forgettable, and dimensional interests nobody has mapped. Every visible choice Orvinder makes is about controlling what other people conclude. The archive files him here provisionally and expects to be surprised."
       }
-    ]
+    ],
+    "image": "portraits/orvinder_danos.png"
   },
   {
     "id": "mystic_morel",
@@ -995,7 +1005,8 @@
         "role": "Medical Division rite",
         "note": "Pellinost calls himself a doctor and the Guild calls what he does charity. Both terms survive because the bill arrives afterwards. The Corporate Policy reading of mercy is that it is a service, and an unbilled service is a service nobody valued."
       }
-    ]
+    ],
+    "image": "portraits/parson_pellinost.png"
   },
   {
     "id": "thornbury",
@@ -1028,7 +1039,8 @@
         "role": "Devout",
         "note": "Thornbury charged Archie two thousand gold for a broken rope. This is not avarice in Thornbury's understanding — it is doctrine: value must be recognised, recorded, and invoiced, or the world drifts into the sin of the unpriced favour. He also brought rubber duckies for a bubble bath, which he almost certainly itemised."
       }
-    ]
+    ],
+    "image": "portraits/thornbury.png"
   },
   {
     "id": "green_t",
@@ -1169,7 +1181,8 @@
         "role": "Circle elder",
         "note": "Rowan Meadowlight was a respected druid of the Veridian Grove and died on the same day as the Swiftsoul explosion. The Grove's practice was Pact orthodoxy: the trees connect the realms, and the realms are therefore each other's responsibility."
       }
-    ]
+    ],
+    "image": "portraits/elder_meadowlight.png"
   },
   {
     "id": "rakka",
@@ -1193,7 +1206,8 @@
         "role": "Temple of one",
         "note": "Rakka employs agents for retrieval missions from a hidden temple and has never explained what the retrieved things are for. Gematria Gnosis seeks the sublime through the abstract and the horrific, and every commission Rakka has issued fits that description from the outside."
       }
-    ]
+    ],
+    "image": "portraits/rakka.png"
   },
   {
     "id": "miles_edgeworth",
@@ -1217,7 +1231,8 @@
         "role": "Professional creed",
         "note": "Edgeworth prosecutes, and Maat's scales are the oldest available statement of what a prosecution is supposed to be for. He is handling the case against Archie Miser in a court where Waluigi introduced a Wheel of Regret, which has tested the doctrine considerably."
       }
-    ]
+    ],
+    "image": "portraits/miles_edgeworth.png"
   },
   {
     "id": "lady_bloomia",
@@ -1243,7 +1258,8 @@
         "role": "Devout, and a witness",
         "note": "Bloomia served Peach personally and kept the observances beside her. She is also the missing link in the assassination — a woman who knew the household's rites, the household's doors, and which of the two mattered on the morning of Highsun 1."
       }
-    ]
+    ],
+    "image": "portraits/lady_bloomia.png"
   },
   {
     "id": "speaker_l",
@@ -1717,7 +1733,8 @@
         "role": "Aesthetic devotion",
         "note": "Lyranth makes sculptures of stunning beauty out of people who were alive that morning, told Remi to smile, and exhibited her under a title crediting someone who was not there. The Cult of Excess teaches that sensation justifies itself. Lyranth's practice is the doctrine with the apologies removed."
       }
-    ]
+    ],
+    "image": "portraits/lyranth.png"
   },
   {
     "id": "the_archivist",
@@ -1772,7 +1789,8 @@
         "role": "Orthodox",
         "note": "Ashford represents the Onyx Hand and the Sanguine Path is the Hand's official cosmology: blood as hierarchy, undeath as promotion. He arrived mid-confrontation to remind everyone present which rung they occupied."
       }
-    ]
+    ],
+    "image": "portraits/marcus_ashford.png"
   },
   {
     "id": "markop",
@@ -1909,7 +1927,8 @@
         "role": "Senior Enforcer",
         "note": "Stormweave's faith is in method: that a properly constructed procedure produces a defensible outcome and the outcome's morality is somebody else's department. Lady Bloomia places him at the Royal Vault on the morning of the assassination, delaying a crown delivery and knowing a name he should not have known. He would call that operational."
       }
-    ]
+    ],
+    "image": "portraits/valorian_stormweave.png"
   },
   {
     "id": "toad_lee",
@@ -2199,7 +2218,8 @@
     "relatedArticles": [
       "disaster_inc",
       "raventree_manor"
-    ]
+    ],
+    "image": "portraits/smoking_j.png"
   },
   {
     "id": "captain_syrup",
@@ -2247,7 +2267,8 @@
         "role": "Fraudulent",
         "note": "Vivian is not blood-related to the Corvinarus family, was not the woman the dinner guests met, and claimed an inheritance on the strength of a bloodline he does not have. The Sanguine Path is a faith entirely about blood as legitimacy, which made it the exact doctrine worth counterfeiting."
       }
-    ]
+    ],
+    "image": "portraits/vivian_corvinarus.png"
   },
   {
     "id": "orangus_cornelius",
@@ -2298,7 +2319,7 @@
     "name": "Azure (Rakasha)",
     "title": "The Intoxicated Mystic",
     "race": "Rakasha (Spirit-Walker)",
-    "image": "",
+    "image": "portraits/azure_rakasha.png",
     "status": "Active — Rakasha faction member, situationally allied with the party but not owned by their disaster",
     "affiliation": "Rakasha Tribes / party-adjacent ally of Disaster Inc. (not a core member)",
     "summary": "Azure is a Rakasha spirit-walker who is currently operating under the influence of extreme Feywild theatrical magic. She is abnormally strong, prone to speaking in rhyming couplets, and can manifest giant glowing ghost-hands. She saved Toad Lee from a lethal fall and squished a goblin guard without noticing. Waluigi is slightly terrified of her.",
@@ -2375,7 +2396,8 @@
       "wario"
     ],
     "needsReview": true,
-    "waluigiComment": "Character anchor for the hired man on the Mount Ebot expedition, so the filing does not leave a named casualty unlinked. He was twenty-two in 1032 BF, unpaid, uninsured, and better at rope than anyone who has ever employed him. The filing was released eight years later; his whereabouts were not. WAH."
+    "waluigiComment": "Character anchor for the hired man on the Mount Ebot expedition, so the filing does not leave a named casualty unlinked. He was twenty-two in 1032 BF, unpaid, uninsured, and better at rope than anyone who has ever employed him. The filing was released eight years later; his whereabouts were not. WAH.",
+    "image": "portraits/jory_dobbs.png"
   },
   {
     "id": "princess_peach",
@@ -2428,7 +2450,8 @@
       "archie_miser",
       "onyx_hand",
       "disaster_inc"
-    ]
+    ],
+    "image": "portraits/usk.png"
   },
   {
     "id": "roger",
@@ -2557,7 +2580,8 @@
         "role": "Chamberlain's observance",
         "note": "Toadsworth the Elder kept the palace liturgy for a Princess whose death he may have enabled. If the journals recovered in 1010 BF are authentic, he went on lighting Star Altars for eighty-five years afterwards, which is either penance or the most sustained act of institutional composure on record."
       }
-    ]
+    ],
+    "image": "portraits/toadsworth_sr.png"
   },
   {
     "id": "unknown_assassin",
@@ -2579,7 +2603,8 @@
       "mages_guild",
       "bowser",
       "mario"
-    ]
+    ],
+    "image": "portraits/unknown_assassin.png"
   },
   {
     "id": "chancellor_toadsworth",
@@ -2633,7 +2658,8 @@
       "princess_peach",
       "the_arrangement",
       "embercap"
-    ]
+    ],
+    "image": "portraits/mistveil.png"
   },
   {
     "id": "merric",
@@ -2655,7 +2681,8 @@
       "remi_akamatsu_full_backstory",
       "green_t",
       "disaster_inc"
-    ]
+    ],
+    "image": "portraits/merric.png"
   },
   {
     "id": "tanukiburt",
@@ -2695,7 +2722,8 @@
       "shadow_estate",
       "shadow_estate_mirror_rooftop_escape",
       "remi_akamatsu_full_backstory"
-    ]
+    ],
+    "image": "portraits/vaxillus_the_beastmaster.png"
   },
   {
     "id": "rattles",
@@ -2719,7 +2747,8 @@
       "mystic_morel",
       "tymnas_cottage_and_hedge_maze",
       "randell_vampire"
-    ]
+    ],
+    "image": "portraits/rattles.png"
   },
   {
     "id": "salam",
@@ -2771,7 +2800,8 @@
       "toad_lee",
       "speaker_l",
       "disaster_inc"
-    ]
+    ],
+    "image": "portraits/rodger.png"
   },
   {
     "id": "teacher_t",
@@ -4300,7 +4330,8 @@
         "role": "Doctrinally pure",
         "note": "Sans identifies Flowey as the twisted remnant of Asgore's dead firstborn. Void Nihilism teaches that entropy is inevitable and meaning is a comforting error. Flowey did not adopt this position. He was returned without the capacity to hold any other."
       }
-    ]
+    ],
+    "image": "portraits/flowey.png"
   },
   {
     "id": "koffin_k",
@@ -4342,7 +4373,8 @@
         "role": "Aspiring",
         "note": "A lonely theatrical would-be supervillain with a fake notebook, real maps and real minions. The Cosmic Punchline teaches that existence is a joke and laughter is the only response. Koffin-K has assembled all the apparatus of a villain and produced, so far, only the laughter."
       }
-    ]
+    ],
+    "image": "portraits/koffin_k.png"
   },
   {
     "id": "crossbones",
@@ -4458,7 +4490,8 @@
         "role": "Compromised",
         "note": "Asgore is barrier authority and the father of the dead child who became Flowey. The Sanctum teaches protection as the highest duty. He is the archive's clearest case of a man who kept the doctrine and lost the thing it was for."
       }
-    ]
+    ],
+    "image": "portraits/asgore.png"
   },
   {
     "id": "boss_knuckles",
@@ -4677,7 +4710,8 @@
         "role": "Working creed",
         "note": "Ironspore maintains a diaspora's equipment out of salvage, and the Scrapper's Code — that a discarded thing retains its potential until someone proves otherwise — is less a religion to him than an accurate description of his supply chain."
       }
-    ]
+    ],
+    "image": "portraits/forgemaster_ironspore.png"
   },
   {
     "id": "warden_thornshell",
@@ -5059,7 +5093,8 @@
         "role": "Senior orthodoxy",
         "note": "Jamesly's belief is procedural: the Protocols are correct because they are the Protocols, and an operative who invokes one outside its intended use has committed something closer to blasphemy than error. He entered the debriefing room to correct a heresy, not a mistake."
       }
-    ]
+    ],
+    "image": "portraits/jamesly.png"
   },
   {
     "id": "daniel_gamma_command",
@@ -5219,7 +5254,8 @@
         "role": "Inherited",
         "note": "Big R keeps the faith the way he keeps the line — without commentary, and further forward than anyone asked him to. The field tally writes Black Bear. The after-action writes ANCHOR. Neither notes that he says the wish for the whole squad because nobody else has time."
       }
-    ]
+    ],
+    "image": "portraits/big_r.png"
   },
   {
     "id": "liam",
@@ -5304,7 +5340,8 @@
       "the_dread_mansion",
       "mario",
       "luigi"
-    ]
+    ],
+    "image": "portraits/riba.png"
   },
   {
     "id": "director_vale",
@@ -5562,7 +5599,8 @@
       "the_lava_bridge_ambush_and_the_blue_luigi",
       "the_garden_above_the_fire",
       "dr_toads_star_hill_clinic"
-    ]
+    ],
+    "image": "portraits/ashley.png"
   },
   {
     "id": "jimmy_t",
@@ -5584,7 +5622,8 @@
       "the_lava_bridge_ambush_and_the_blue_luigi",
       "the_garden_above_the_fire",
       "dr_toads_star_hill_clinic"
-    ]
+    ],
+    "image": "portraits/jimmy_t.png"
   },
   {
     "id": "kat",
@@ -5671,7 +5710,8 @@
       "waluigi",
       "red_the_kitchen_commander",
       "feyward_i_cant_afford_not_to_care"
-    ]
+    ],
+    "image": "portraits/the_plant_lady.png"
   },
   {
     "id": "color_division_black",
