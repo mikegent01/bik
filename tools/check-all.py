@@ -71,6 +71,9 @@ def main() -> int:
         # The VHS-tape session: event + line-by-line analysis + commentary all
         # come out of one generator, so none of them can drift from the others.
         ("tape session", [py, "tools/build-tape-and-files-session.py", "--check"], ROOT),
+        # Green T's playable Foundry sheet is generated, not hand-edited; this
+        # also re-validates every icon path against the image-path library.
+        ("green t actor", [py, "tools/build-green-t-actor.py", "--check"], ROOT),
     ]
 
     if shutil.which("node"):

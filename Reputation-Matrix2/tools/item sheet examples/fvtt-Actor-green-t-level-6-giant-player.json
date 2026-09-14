@@ -1,0 +1,1561 @@
+{
+  "name": "Green T — Level 6 Giant-Blooded Player",
+  "type": "character",
+  "img": "icons/creatures/amphibians/treefrog-leaf-green.webp",
+  "system": {
+    "currency": {
+      "pp": 0,
+      "gp": 240,
+      "ep": 0,
+      "sp": 0,
+      "cp": 0
+    },
+    "abilities": {
+      "str": {
+        "value": 17,
+        "proficient": 1,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "max": null,
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "dex": {
+        "value": 12,
+        "proficient": 0,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "max": null,
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "con": {
+        "value": 16,
+        "proficient": 1,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "max": null,
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "int": {
+        "value": 14,
+        "proficient": 0,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "max": null,
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "wis": {
+        "value": 15,
+        "proficient": 0,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "max": null,
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "cha": {
+        "value": 16,
+        "proficient": 0,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "max": null,
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      }
+    },
+    "bonuses": {
+      "mwak": {
+        "attack": "",
+        "damage": ""
+      },
+      "rwak": {
+        "attack": "",
+        "damage": ""
+      },
+      "msak": {
+        "attack": "",
+        "damage": ""
+      },
+      "rsak": {
+        "attack": "",
+        "damage": ""
+      },
+      "abilities": {
+        "check": "",
+        "save": "",
+        "skill": ""
+      },
+      "spell": {
+        "dc": ""
+      }
+    },
+    "skills": {
+      "7CR1Hpx2Po8spit0": {
+        "value": 0,
+        "ability": "dex",
+        "bonuses": {
+          "passive": "",
+          "check": ""
+        },
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        }
+      },
+      "acr": {
+        "value": 0,
+        "ability": "dex",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "ani": {
+        "value": 0,
+        "ability": "wis",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "15jTCrWVxnN40NP8": {
+        "value": 0,
+        "ability": "wis",
+        "bonuses": {
+          "passive": "",
+          "check": ""
+        },
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        }
+      },
+      "arc": {
+        "value": 0,
+        "ability": "int",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "ath": {
+        "value": 1,
+        "ability": "str",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "JXS0f4ka71qKB2h3": {
+        "value": 0,
+        "ability": "int",
+        "bonuses": {
+          "check": "-3",
+          "passive": ""
+        },
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        }
+      },
+      "HosVywGhVnGaF5lI": {
+        "value": 0,
+        "ability": "int",
+        "bonuses": {
+          "check": "-1",
+          "passive": ""
+        },
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        }
+      },
+      "dec": {
+        "value": 1,
+        "ability": "cha",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "ZZNb2z3t0wdcMgNJ": {
+        "value": 0,
+        "ability": "int",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "6fCmMl31VtsqwENr": {
+        "value": 0,
+        "ability": "cha",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "his": {
+        "value": 0,
+        "ability": "int",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "ins": {
+        "value": 1,
+        "ability": "wis",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "itm": {
+        "value": 0,
+        "ability": "cha",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "inv": {
+        "value": 0,
+        "ability": "int",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "med": {
+        "value": 0,
+        "ability": "wis",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "nat": {
+        "value": 0,
+        "ability": "int",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "prc": {
+        "value": 1,
+        "ability": "wis",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "prf": {
+        "value": 0,
+        "ability": "cha",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "per": {
+        "value": 1,
+        "ability": "cha",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "rel": {
+        "value": 0,
+        "ability": "int",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "slt": {
+        "value": 0,
+        "ability": "dex",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "ste": {
+        "value": 1,
+        "ability": "dex",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "UreduGlabi2z8Vvm": {
+        "value": 0,
+        "ability": "cha",
+        "bonuses": {
+          "check": "2",
+          "passive": ""
+        },
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        }
+      },
+      "sur": {
+        "value": 0,
+        "ability": "wis",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "hQUumf2MfKPzcpDd": {
+        "value": 0,
+        "ability": "int",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      }
+    },
+    "tools": {},
+    "spells": {
+      "spell0": {
+        "value": 3,
+        "override": null
+      },
+      "spell1": {
+        "value": 2,
+        "override": null
+      },
+      "spell2": {
+        "value": 0,
+        "override": null
+      },
+      "spell3": {
+        "value": 0,
+        "override": null
+      },
+      "spell4": {
+        "value": 0,
+        "override": null
+      },
+      "spell5": {
+        "value": 0,
+        "override": null
+      },
+      "spell6": {
+        "value": 0,
+        "override": null
+      },
+      "spell7": {
+        "value": 0,
+        "override": null
+      },
+      "spell8": {
+        "value": 0,
+        "override": null
+      },
+      "spell9": {
+        "value": 0,
+        "override": null
+      },
+      "pact": {
+        "value": 0,
+        "override": null
+      }
+    },
+    "attributes": {
+      "ac": {
+        "flat": 14,
+        "calc": "default",
+        "formula": ""
+      },
+      "hp": {
+        "value": 52,
+        "max": 52,
+        "temp": 0,
+        "tempmax": 0,
+        "bonuses": {}
+      },
+      "init": {
+        "bonus": "0",
+        "ability": "dex",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        }
+      },
+      "movement": {
+        "walk": "30",
+        "units": "ft",
+        "hover": false,
+        "burrow": "0",
+        "climb": "0",
+        "fly": "0",
+        "swim": "20",
+        "ignoredDifficultTerrain": []
+      },
+      "senses": {
+        "units": "ft",
+        "special": "Mirror-transited; unusually hard to surprise in a seated room.",
+        "ranges": {
+          "darkvision": 60,
+          "blindsight": 0,
+          "tremorsense": 0,
+          "truesight": 0
+        }
+      },
+      "spellcasting": "",
+      "death": {
+        "success": 0,
+        "failure": 0,
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "save": ""
+        }
+      },
+      "exhaustion": 0,
+      "inspiration": true,
+      "attunement": {
+        "max": 3
+      },
+      "concentration": {
+        "ability": "",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "save": ""
+        },
+        "limit": 1
+      },
+      "loyalty": {}
+    },
+    "bastion": {
+      "name": "",
+      "description": ""
+    },
+    "details": {
+      "alignment": "Lawful Neutral (private code, tidy accounts, no congregation)",
+      "biography": {
+        "value": "<h2>Green T — The Giant from the Children's Table</h2><p><strong>Level 6; Toad (transformation capabilities); independent, formerly of the Tea Leaf Syndicate.</strong> A tea merchant who ran a criminal empire with the manners of a garden-party host, and who has never once raised his voice to do it.</p><h3>The comeback</h3><p>Green T was lost at the Siege of Raventree Manor when a glass entity took hold of him and pulled him bodily through a mirror. Witnesses agree on the detail that matters: one moment he was there with his feet on solid ground, the next the surface rippled and went still and reflected an empty hallway. He was filed as a casualty.</p><p>He came back through the Shadowfell. The route is not established and he has not been forthcoming about it; the working reading is that the mirror dimension is a transit layer between planes rather than a grave. He reappeared at the Shadow Estate dinner intact and ready to cause problems, was seated at the children's table as a deliberate insult, used the insult as cover to map the room, and shot Orangus Cornelius with a silver bullet in front of every vampire lord present.</p><p>Since then: custodian of the repaired Mirror of True Reflection under a bargain in which Wario expects to claim it once Scarecrow is dealt with, and a giant observation tower in the grove beyond Tymnas's cottage, where he lifted Remi to his shoulder to spot the Scorncrow and learned in public that the giant form spends the body that holds it.</p><h3>How he plays</h3><p>Green T treats a fight as a problem of angles, visibility, and how long a body can hold a shape before the shape starts spending the body back. He is patient to the point that people mistake it for harmlessness, which is the whole method. The giant form is a resource with a cost curve, not a win condition — at the grove the bats swarmed his face until his scale became a disadvantage, more target and not more clarity.</p><p><em>Being underestimated is a weapon. He has never corrected anyone who was wrong about him in a useful direction.</em></p>",
+        "public": ""
+      },
+      "race": "bb00c9339a204b51",
+      "background": "a01588c74bc740d6",
+      "originalClass": "tea-merchant-giant-blooded",
+      "xp": {
+        "value": 14000
+      },
+      "appearance": "A composed green Toad in a well-cut coat, entirely unremarkable until he is not.",
+      "trait": "I am never in a hurry, and people read that as harmless.",
+      "ideal": "Every account settled. Nothing left ragged.",
+      "bond": "The surviving Tea Leaf Syndicate, and the mirror I agreed to hold.",
+      "flaw": "I let people underestimate me for so long that I sometimes let a situation get worse to keep the advantage.",
+      "eyes": "Dark, steady",
+      "height": "Small — or Huge, at will",
+      "faith": "Order of Maat in practice; he has never called it a faith",
+      "hair": "None",
+      "weight": "Variable",
+      "gender": "Male-presenting Toad",
+      "skin": "Green",
+      "age": "Unknown"
+    },
+    "traits": {
+      "size": "sm",
+      "languages": {
+        "value": [
+          "common"
+        ],
+        "custom": "Toad dialect; Syndicate trade cant; the register of a host who is about to have someone removed.",
+        "communication": {}
+      },
+      "di": {
+        "value": [],
+        "custom": "",
+        "bypasses": []
+      },
+      "dr": {
+        "value": [],
+        "custom": "",
+        "bypasses": []
+      },
+      "dv": {
+        "value": [],
+        "custom": "",
+        "bypasses": []
+      },
+      "ci": {
+        "value": [],
+        "custom": ""
+      },
+      "armorProf": {
+        "value": [
+          "lgt"
+        ],
+        "custom": "Light armor."
+      },
+      "weaponProf": {
+        "value": [
+          "sim"
+        ],
+        "custom": "Simple weapons; firearms."
+      },
+      "dm": {
+        "amount": {},
+        "bypasses": []
+      }
+    },
+    "resources": {
+      "primary": {
+        "label": "Rage",
+        "sr": false,
+        "lr": true,
+        "value": 3,
+        "max": 3
+      },
+      "secondary": {
+        "label": "Warden Guard",
+        "sr": true,
+        "lr": false,
+        "value": 2,
+        "max": 2
+      },
+      "tertiary": {
+        "label": "Inspiration",
+        "sr": false,
+        "lr": false,
+        "value": 1,
+        "max": 1
+      }
+    },
+    "favorites": [],
+    "spellcasting": "cha",
+    "biography": {
+      "value": "<h2>Feyward Dan — Player Character Dossier</h2><p><strong>Level 3 One-Armed Feyward Paladin / Dimensional Escapee.</strong> This is the parallel Feyward Dan, not the original Dan who led the Liberated Toads and lost his arm to the corrupted mage staff. Feyward Dan woke in a yellow bed at Prismari's school, survived goblin betrayal, escaped through a window, was dragged through the Mazebound, slept through multiple dimensional emergencies, and opened his third sensory eye during the Imp Ambush.</p><p><strong>Ledger:</strong> 1,960 XP, 11 entries, Level 3, Power 5 Mortal. The actor is a playable translation of the lore; the XP ledger remains authoritative.</p><p><strong>Confirmed carried inventory:</strong> one sword of uncertain provenance, chain mail, Shield +1, Holy Symbol of Ravenkind, and ten gold pieces. The sword is the blade Dan used when he charged Professor Prismari after the explosion on Estragon's Island. The school journal, Prismari, Mazebound, and other events remain in the biography and source records rather than being invented as carried loot.</p><p><strong>Inventory rule:</strong> this actor deliberately contains only gear and abilities Dan actually has or was explicitly assigned. Memories, event records, and things he merely saw are not added to the inventory as fake loot.</p><h3>How to play Feyward Dan</h3><p>Use charm, improvisation, and sensory magic before force. Dan is not a polished wizard. He is a displaced player character who survives by testing doors, apologizing, fleeing when necessary, and returning when the party needs his eye.</p><h3>One-armed paladin rules</h3><p>Dan uses a longsword in his remaining hand and a shield in the other available hand. He cannot dual-wield or make two-handed weapon attacks. Divine Sense, Divine Smite, and the Aura of Life campaign item are included as documents. Aura of Life is recorded as a story/boon item and should be level-gated by the GM if standard 5e progression is being enforced.</p>",
+      "public": "Feyward Dan is a parallel Toad with a colorful Feywild aura, an unreliable itinerary, and one extra eye that sees what invisible enemies hoped would remain unseen."
+    }
+  },
+  "prototypeToken": {
+    "name": "Green T",
+    "displayName": 30,
+    "actorLink": true,
+    "width": 1,
+    "height": 1,
+    "texture": {
+      "src": "icons/creatures/amphibians/treefrog-leaf-green.webp",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "fit": "contain",
+      "scaleX": 1,
+      "scaleY": 1,
+      "tint": null,
+      "alphaThreshold": 0.75
+    },
+    "lockRotation": false,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": 1,
+    "displayBars": 20,
+    "bar1": {
+      "attribute": "attributes.hp"
+    },
+    "bar2": {
+      "attribute": null
+    },
+    "light": {
+      "negative": false,
+      "priority": 0,
+      "alpha": 1,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      }
+    },
+    "sight": {
+      "enabled": true,
+      "range": 60,
+      "angle": 360,
+      "visionMode": "darkvision",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": {},
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 0,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null,
+    "flags": {
+      "patrol": {
+        "enablePatrol": false,
+        "enableSpotting": false,
+        "makePatroller": false,
+        "multiPath": false,
+        "patrolPathName": "",
+        "pathNodeIndex": "0"
+      },
+      "monks-enhanced-journal": {
+        "chatbubble": ""
+      },
+      "dnd5e": {},
+      "about-face": {
+        "indicatorDisabled": false,
+        "flipOrRotate": "global",
+        "facingDirection": "global",
+        "rotationOffset": 0,
+        "direction": 90,
+        "prevPos": {
+          "x": 4400,
+          "y": 7400
+        }
+      },
+      "monks-tokenbar": {
+        "include": "default",
+        "movement": null
+      },
+      "tokenflip": {
+        "tokenfaces": [
+          {
+            "actorId": "UAPdHaUIPkgR8KWC",
+            "img": "player/archiereforemd.webp",
+            "id": "B4v8ZIqnlIhWqJZPaAOV",
+            "scaleX": -1,
+            "scaleY": 1,
+            "width": 1,
+            "height": 1,
+            "model3d": "",
+            "subject": "",
+            "autoFlip": 0,
+            "transition": "flip",
+            "autoFlipMacro": null
+          }
+        ],
+        "currentId": "b3WyhTA3DBqBWkCBbnZJ"
+      },
+      "wall-height": {
+        "tokenHeight": 0
+      },
+      "torch": {
+        "lightSourceState": "off"
+      },
+      "tagger": {},
+      "ATL": {
+        "originals": {}
+      },
+      "custom-dnd5e": {
+        "tint": "#ffffff"
+      }
+    },
+    "randomImg": false,
+    "appendNumber": false,
+    "prependAdjective": false,
+    "depth": 1
+  },
+  "items": [
+    {
+      "name": "Tea Merchant — Giant-Blooded, Level 6",
+      "type": "class",
+      "img": "icons/consumables/drinks/tea-jug-gourd-brown.webp",
+      "system": {
+        "description": {
+          "value": "<p>Green T's build is a martial/social hybrid the campaign has no published class for. Hit Die d10. Runs on three pillars: the giant form, the concealed firearm, and a calm that reads as harmlessness. Proficiency bonus +3.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "rules": "2014",
+          "revision": 1
+        },
+        "identifier": "tea-merchant---giant-blooded,-level-6",
+        "quantity": 1,
+        "weight": 0,
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "equipped": false,
+        "proficient": true,
+        "properties": [],
+        "levels": 6,
+        "hd": {
+          "spent": 0,
+          "denomination": "d10",
+          "additional": ""
+        },
+        "spellcasting": {
+          "progression": "none",
+          "ability": ""
+        },
+        "primaryAbility": {
+          "value": [
+            "str",
+            "cha"
+          ],
+          "all": false
+        }
+      },
+      "flags": {
+        "bik": {
+          "source": "Green T player-character dossier",
+          "ledgerLinked": true
+        }
+      },
+      "effects": [],
+      "folder": null,
+      "ownership": {
+        "default": 0
+      },
+      "sort": 0,
+      "_id": "grnt000000000000"
+    },
+    {
+      "name": "Toad — Giant-Blooded",
+      "type": "race",
+      "img": "icons/creatures/amphibians/treefrog-leaf-green.webp",
+      "system": {
+        "description": {
+          "value": "<p>Outwardly an ordinary Toad, which is the point. Carries a latent capacity for enormous physical growth that nobody suspected across an entire criminal career.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "rules": "2014",
+          "revision": 1
+        },
+        "identifier": "toad---giant-blooded",
+        "quantity": 1,
+        "weight": 0,
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "equipped": false,
+        "proficient": true,
+        "properties": []
+      },
+      "flags": {
+        "bik": {
+          "source": "Green T player-character dossier",
+          "ledgerLinked": true
+        }
+      },
+      "effects": [],
+      "folder": null,
+      "ownership": {
+        "default": 0
+      },
+      "sort": 10000,
+      "_id": "grnt010000000000"
+    },
+    {
+      "name": "Syndicate Host",
+      "type": "background",
+      "img": "icons/skills/social/diplomacy-handshake.webp",
+      "system": {
+        "description": {
+          "value": "<p>You ran an organisation where threats were delivered politely and the tea was genuinely excellent. Proficiencies: Deception and Insight; surviving Tea Leaf Syndicate contacts; you know how a room is seated and why.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "rules": "2014",
+          "revision": 1
+        },
+        "identifier": "syndicate-host",
+        "quantity": 1,
+        "weight": 0,
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "equipped": false,
+        "proficient": true,
+        "properties": []
+      },
+      "flags": {
+        "bik": {
+          "source": "Green T player-character dossier",
+          "ledgerLinked": true
+        }
+      },
+      "effects": [],
+      "folder": null,
+      "ownership": {
+        "default": 0
+      },
+      "sort": 20000,
+      "_id": "grnt020000000000"
+    },
+    {
+      "name": "Giant Form",
+      "type": "feat",
+      "img": "icons/creatures/magical/humanoid-giant-forest-blue.webp",
+      "system": {
+        "description": {
+          "value": "<p><strong>Bonus Action; 2/Long Rest; up to 10 minutes.</strong> Your size becomes Huge or larger. Gain +4 Strength for the duration, your reach increases by 10 feet, your melee attacks deal an extra 1d8 bludgeoning, and you can attempt to shake terrain within 30 feet (DC 14 Dexterity save or prone). You count as difficult terrain for enemies who try to pass you.</p><p><strong>The cost curve.</strong> Each round after the third, take 1d6 unavoidable exhaustion-track damage and make a DC 12 Constitution save; on a failure the form ends. Being Huge is also being a larger target — attacks against you from Small or smaller swarms have advantage. Established at the Syndicate Showdown and paid for publicly in the Scorncrow grove.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "rules": "2014",
+          "revision": 1
+        },
+        "identifier": "giant-form",
+        "quantity": 1,
+        "weight": 0,
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "equipped": false,
+        "proficient": true,
+        "properties": []
+      },
+      "flags": {
+        "bik": {
+          "source": "Green T player-character dossier",
+          "ledgerLinked": true
+        }
+      },
+      "effects": [],
+      "folder": null,
+      "ownership": {
+        "default": 0
+      },
+      "sort": 30000,
+      "_id": "grnt030000000000"
+    },
+    {
+      "name": "Observation Tower",
+      "type": "feat",
+      "img": "icons/tools/navigation/spyglass-telescope-brass.webp",
+      "system": {
+        "description": {
+          "value": "<p>While in Giant Form you may lift a willing ally to your shoulder as part of your movement. They gain a 30-foot vantage, advantage on Perception checks to spot at range, and cover from ground-level attacks. Used at the grove to lift Remi to spot the Scorncrow.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "rules": "2014",
+          "revision": 1
+        },
+        "identifier": "observation-tower",
+        "quantity": 1,
+        "weight": 0,
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "equipped": false,
+        "proficient": true,
+        "properties": []
+      },
+      "flags": {
+        "bik": {
+          "source": "Green T player-character dossier",
+          "ledgerLinked": true
+        }
+      },
+      "effects": [],
+      "folder": null,
+      "ownership": {
+        "default": 0
+      },
+      "sort": 40000,
+      "_id": "grnt040000000000"
+    },
+    {
+      "name": "The Children's Table",
+      "type": "feat",
+      "img": "icons/skills/social/diplomacy-handshake.webp",
+      "system": {
+        "description": {
+          "value": "<p>When an enemy has dismissed, demoted, or underestimated you in a social scene, your first attack against them in the following combat has advantage and scores a critical on 19–20. You may also make one Perception or Investigation check to map a room while apparently doing nothing. Orangus Cornelius seated him with the children and did not survive the decision.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "rules": "2014",
+          "revision": 1
+        },
+        "identifier": "the-childrens-table",
+        "quantity": 1,
+        "weight": 0,
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "equipped": false,
+        "proficient": true,
+        "properties": []
+      },
+      "flags": {
+        "bik": {
+          "source": "Green T player-character dossier",
+          "ledgerLinked": true
+        }
+      },
+      "effects": [],
+      "folder": null,
+      "ownership": {
+        "default": 0
+      },
+      "sort": 50000,
+      "_id": "grnt050000000000"
+    },
+    {
+      "name": "Unhurried",
+      "type": "feat",
+      "img": "icons/skills/social/diplomacy-handshake.webp",
+      "system": {
+        "description": {
+          "value": "<p>Advantage on saves against being frightened or goaded, and on Deception checks to appear harmless, unarmed, or uninterested. He has never once raised his voice to make a threat land.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "rules": "2014",
+          "revision": 1
+        },
+        "identifier": "unhurried",
+        "quantity": 1,
+        "weight": 0,
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "equipped": false,
+        "proficient": true,
+        "properties": []
+      },
+      "flags": {
+        "bik": {
+          "source": "Green T player-character dossier",
+          "ledgerLinked": true
+        }
+      },
+      "effects": [],
+      "folder": null,
+      "ownership": {
+        "default": 0
+      },
+      "sort": 60000,
+      "_id": "grnt060000000000"
+    },
+    {
+      "name": "Problem of Angles",
+      "type": "feat",
+      "img": "icons/tools/navigation/spyglass-telescope-brass.webp",
+      "system": {
+        "description": {
+          "value": "<p>Once per turn, if you have not moved this turn, add +1d6 to a ranged attack's damage against a target you can see clearly. He remembers a fight as sightlines and timing, not as a sequence of blows.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "rules": "2014",
+          "revision": 1
+        },
+        "identifier": "problem-of-angles",
+        "quantity": 1,
+        "weight": 0,
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "equipped": false,
+        "proficient": true,
+        "properties": []
+      },
+      "flags": {
+        "bik": {
+          "source": "Green T player-character dossier",
+          "ledgerLinked": true
+        }
+      },
+      "effects": [],
+      "folder": null,
+      "ownership": {
+        "default": 0
+      },
+      "sort": 70000,
+      "_id": "grnt070000000000"
+    },
+    {
+      "name": "Settle the Account",
+      "type": "feat",
+      "img": "icons/magic/life/cross-beam-green.webp",
+      "system": {
+        "description": {
+          "value": "<p>Reaction, 1/short rest. When an ally within 30 feet is reduced to 0 hit points, you may move up to your speed toward them without provoking opportunity attacks and make one attack against the creature responsible. Everything gets settled; nothing is left ragged.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "rules": "2014",
+          "revision": 1
+        },
+        "identifier": "settle-the-account",
+        "quantity": 1,
+        "weight": 0,
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "equipped": false,
+        "proficient": true,
+        "properties": []
+      },
+      "flags": {
+        "bik": {
+          "source": "Green T player-character dossier",
+          "ledgerLinked": true
+        }
+      },
+      "effects": [],
+      "folder": null,
+      "ownership": {
+        "default": 0
+      },
+      "sort": 80000,
+      "_id": "grnt080000000000"
+    },
+    {
+      "name": "The Dinner Party Revolver",
+      "type": "weapon",
+      "img": "icons/weapons/guns/gun-pistol-flintlock-metal.webp",
+      "system": {
+        "description": {
+          "value": "<p>A concealable firearm Green T has repeatedly smuggled into rooms where weapons were categorically not permitted. How remains unexplained and he declines to explain it.</p><p><strong>Ranged Weapon Attack:</strong> Dexterity, range 40/120, 1d10 piercing, loading, reload 1. Loaded with silver by default.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "rules": "2014",
+          "revision": 1
+        },
+        "identifier": "the-dinner-party-revolver",
+        "quantity": 1,
+        "weight": {
+          "value": 3,
+          "units": "lb"
+        },
+        "price": {
+          "value": 150,
+          "denomination": "gp"
+        },
+        "equipped": true,
+        "proficient": true,
+        "properties": [
+          "amm",
+          "lod"
+        ],
+        "rarity": "",
+        "identified": true,
+        "range": {
+          "value": 40,
+          "long": 120,
+          "units": "ft",
+          "reach": null
+        },
+        "damage": {
+          "base": {
+            "number": 1,
+            "denomination": 10,
+            "bonus": "",
+            "types": [
+              "piercing"
+            ],
+            "custom": {
+              "enabled": false,
+              "formula": ""
+            },
+            "scaling": {
+              "mode": "",
+              "number": null,
+              "formula": ""
+            }
+          }
+        },
+        "type": {
+          "value": "martialR",
+          "baseItem": ""
+        }
+      },
+      "flags": {
+        "bik": {
+          "source": "Green T player-character dossier",
+          "ledgerLinked": true
+        }
+      },
+      "effects": [],
+      "folder": null,
+      "ownership": {
+        "default": 0
+      },
+      "sort": 90000,
+      "_id": "grnt090000000000"
+    },
+    {
+      "name": "Silver Bullets",
+      "type": "consumable",
+      "img": "icons/commodities/metal/ingot-stack-teal.webp",
+      "system": {
+        "description": {
+          "value": "<p>Ammunition for the revolver. Silver overcomes the resistances of vampires, lycanthropes, and several things at the Shadow Estate that assumed they were safe. One of these ended Orangus Cornelius's evening.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "rules": "2014",
+          "revision": 1
+        },
+        "identifier": "silver-bullets",
+        "quantity": 12,
+        "weight": 0,
+        "price": {
+          "value": 5,
+          "denomination": "gp"
+        },
+        "equipped": false,
+        "proficient": true,
+        "properties": [],
+        "type": {
+          "value": "ammo",
+          "subtype": ""
+        }
+      },
+      "flags": {
+        "bik": {
+          "source": "Green T player-character dossier",
+          "ledgerLinked": true
+        }
+      },
+      "effects": [],
+      "folder": null,
+      "ownership": {
+        "default": 0
+      },
+      "sort": 100000,
+      "_id": "grnt100000000000"
+    },
+    {
+      "name": "Mirror of True Reflection (custody)",
+      "type": "equipment",
+      "img": "icons/sundries/survival/mirror-plain.webp",
+      "system": {
+        "description": {
+          "value": "<p><strong>Held in custody, not owned.</strong> One of the four portal artifacts, broken in a ghost's bedroom and mended by Remi Akamatsu casting Mending. Green T requested the components, Markop supplied the base, Remi supplied the fragment.</p><p>Wario attempted immediate theft and was stopped by Markop. Under the resulting bargain Wario helps with Scarecrow and expects the mirror afterward. <em>GM note: this is an open obligation, not settled property — it should cost him something.</em></p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "rules": "2014",
+          "revision": 1
+        },
+        "identifier": "mirror-of-true-reflection-(custody)",
+        "quantity": 1,
+        "weight": {
+          "value": 6,
+          "units": "lb"
+        },
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "equipped": true,
+        "proficient": true,
+        "properties": [],
+        "rarity": "rare",
+        "identified": true
+      },
+      "flags": {
+        "bik": {
+          "source": "Green T player-character dossier",
+          "ledgerLinked": true
+        }
+      },
+      "effects": [],
+      "folder": null,
+      "ownership": {
+        "default": 0
+      },
+      "sort": 110000,
+      "_id": "grnt110000000000"
+    },
+    {
+      "name": "Merchant's Coat",
+      "type": "equipment",
+      "img": "icons/equipment/chest/breastplate-banded-leather-brown.webp",
+      "system": {
+        "description": {
+          "value": "<p>Tasteful, well cut, quietly reinforced, and possessed of more pockets than its silhouette can account for. AC 12 + Dexterity modifier.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "rules": "2014",
+          "revision": 1
+        },
+        "identifier": "merchants-coat",
+        "quantity": 1,
+        "weight": {
+          "value": 8,
+          "units": "lb"
+        },
+        "price": {
+          "value": 45,
+          "denomination": "gp"
+        },
+        "equipped": true,
+        "proficient": true,
+        "properties": [],
+        "identified": true,
+        "armor": {
+          "value": 12,
+          "dex": null
+        },
+        "type": {
+          "value": "light",
+          "baseItem": "leather"
+        }
+      },
+      "flags": {
+        "bik": {
+          "source": "Green T player-character dossier",
+          "ledgerLinked": true
+        }
+      },
+      "effects": [],
+      "folder": null,
+      "ownership": {
+        "default": 0
+      },
+      "sort": 120000,
+      "_id": "grnt120000000000"
+    },
+    {
+      "name": "Tea Service, Travelling",
+      "type": "consumable",
+      "img": "icons/consumables/drinks/tea-jug-gourd-brown.webp",
+      "system": {
+        "description": {
+          "value": "<p>Genuinely excellent tea and the equipment to serve it properly. Used to open negotiations, stall for time, and establish that the person pouring is not in a hurry. During a short rest, one ally who drinks gains advantage on their next Charisma check.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "rules": "2014",
+          "revision": 1
+        },
+        "identifier": "tea-service,-travelling",
+        "quantity": 1,
+        "weight": 0,
+        "price": {
+          "value": 25,
+          "denomination": "gp"
+        },
+        "equipped": false,
+        "proficient": true,
+        "properties": []
+      },
+      "flags": {
+        "bik": {
+          "source": "Green T player-character dossier",
+          "ledgerLinked": true
+        }
+      },
+      "effects": [],
+      "folder": null,
+      "ownership": {
+        "default": 0
+      },
+      "sort": 130000,
+      "_id": "grnt130000000000"
+    }
+  ],
+  "effects": [],
+  "folder": null,
+  "flags": {
+    "bik": {
+      "characterId": "green_t",
+      "playerCharacter": true,
+      "npc": false,
+      "class": "Tea Merchant (Giant-Blooded)",
+      "level": 6,
+      "status": "Active — returning this session; holds the Mirror of True Reflection under the Wario bargain",
+      "comeback": "Lost through a mirror at the Siege of Raventree Manor; returned via the Shadowfell at the Shadow Estate dinner.",
+      "source": "data/characters.json + data/events.json + data/battles.json",
+      "keyEvents": [
+        "tea_party_incident",
+        "syndicate_showdown",
+        "siege_raventree",
+        "dinner_climax_vote",
+        "shadow_estate_mirror_rooftop_escape",
+        "the_scorncrow_skirmish"
+      ],
+      "openObligations": [
+        "Wario expects the Mirror of True Reflection once Scarecrow is dealt with.",
+        "The route he took back through the mirror dimension is unestablished; he will not explain it."
+      ],
+      "generator": "tools/build-green-t-actor.py"
+    }
+  },
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": "bik/green-t-player",
+    "coreVersion": "14.360",
+    "systemId": "dnd5e",
+    "systemVersion": "4.3.9",
+    "lastModifiedBy": "bikGreenT00000001",
+    "modifiedTime": 1785687848098,
+    "createdTime": 1785686374932
+  },
+  "ownership": {
+    "default": 0
+  }
+}
