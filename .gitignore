@@ -16,3 +16,8 @@ __pycache__/
 
 # jsdom + deps for tools/tests render checks (installed with npm i --no-save)
 node_modules/
+
+# Contact-sheet sources: intermediate art. The sliced per-event JPEGs under
+# assets/images/events/ are the real assets and ARE committed; the 2.7MB PNG
+# grids they were cut from are scratch and would bloat the repo.
+tools/sheets/
