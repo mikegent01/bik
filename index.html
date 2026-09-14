@@ -24,6 +24,7 @@
   <link rel="stylesheet" href="Reputation-Matrix2/app/styles/ui-fixes.css">
   <link rel="stylesheet" href="Reputation-Matrix2/app/styles/reputation-fixes.css">
   <link rel="stylesheet" href="Reputation-Matrix2/app/styles/commerce-event-fixes.css?v=rep-lede1">
+  <link rel="stylesheet" href="Reputation-Matrix2/app/styles/wahwire.css?v=ww1">
   <link rel="stylesheet" href="Reputation-Matrix2/app/styles/crisis-reputation-fixes.css">
   <link rel="stylesheet" href="Reputation-Matrix2/app/styles/clean-pass.css">
   <!-- Battlefield-specific styles (Wikipedia-style military conflict theme) -->
@@ -6651,6 +6652,14 @@ function articleRail(articleId,typeKey,item,infoRows,toc,opts){
   }
   const wahCount=wahNotesFor(articleId);
   if(wahCount.notes.length||wahCount.guests.length) parts.push(railBox('✍️ Wah Notes',wahNotesHtml(articleId),{open:true,count:wahCount.total+wahCount.guests.length}));
+  /* WAHwire sits BELOW Wah Notes and does not replace it. They are different
+     objects: a note is the archivist's private margin remark, the wire is the
+     public reaction in many voices. The slot is a placeholder filled by
+     hydrateWahwireRail() once the lazily-fetched store arrives; it removes
+     itself when the record has no coverage. */
+  if(['events','battles','majorBattles','trials','characters','factions'].includes(typeKey)){
+    parts.push(wahwireRailSlot(articleId));
+  }
   const inv=typeKey==='characters'?inventoryPanel(articleId,item):'';
   if(inv) parts.push(railBox('🎒 Inventory & Wallet',inv,{open:true}));
   const pond=typeKey==='characters'?pondDocketPanel(articleId):'';
@@ -8562,6 +8571,7 @@ function renderSidebar(active){
     navLink({emoji:'⚖️',label:'Crime & Punishment',go:"location.href='Reputation-Matrix2/app/pages/crime-and-punishment/crime-and-punishment.html'",title:'Sentencing reel and the consequence table — 89 punishments'}),
     navLink({emoji:'🩸',label:'Injury Desk',go:"Router.go('#/injuries')",active:active==='injuries',count:((DATA.injuries&&DATA.injuries.entries)||[]).length,title:'Death saving throws and the d100 injury table'}),
     navLink({emoji:'🗣️',label:'The Wahbabel',go:"Router.go('#/wahbabel')",active:active==='wahbabel',count:(WAHBABEL&&WAHBABEL.languages?WAHBABEL.languages.length:7),title:'Translation desk — ciphers, dictionaries and glyphs'}),
+    navLink({emoji:'📡',label:'WAHwire',go:"Router.go('#/wahwire')",active:active==='wahwire',count:(WAHWIRE&&WAHWIRE.posts?WAHWIRE.posts.length:23),title:'The public wire — every filing gets a reaction'}),
     navLink({emoji:'💬',label:'Chatter Hub',go:"Router.go('#/annotations')",active:active==='annotations',count:n('annotations')}),
   ];
   h+=navSection('nav-systems-world','World Systems',systemLinks,{forceOpen:hasActive(systemLinks),count:systemLinks.length});
@@ -12138,6 +12148,277 @@ function view_fieldJournal(){
   window.scrollTo(0,0);
 }
 
+/* =========================================================================
+   WAHWIRE — the archive's public wire
+   -------------------------------------------------------------------------
+   Data: Reputation-Matrix2/data/wahwire/{posts,profiles,reactions}.json,
+   written by tools/genkit/systems/wahwire.py. The store had no reader: the
+   path every doc names, app/pages/wahwire/, does not exist and is not
+   recoverable from history. This is that reader, built as a route rather
+   than a standalone page so posts can link into the article router.
+
+   Lazily fetched — not in DATA_FILES, so it costs nothing until opened.
+
+   PROVENANCE IS THE WHOLE DESIGN. Two layers that never mix:
+     · the wire  — posts.json, canon, a filing obligation (CROSS_SYSTEM_UPDATES)
+     · the desk  — localStorage, the reader's own drafts, never canon
+   A reader draft is never written to posts.json. It can be exported in
+   store shape for someone with commit rights to file deliberately.
+   See docs/notes/WAHWIRE_INTEGRATION_DESIGN.md.
+========================================================================= */
+let WAHWIRE=null;
+const WAHWIRE_DRAFT_KEY='waluipedia-wahwire-drafts-v1';
+
+async function loadWahwire(){
+  if(WAHWIRE) return WAHWIRE;
+  const grab=async(n)=>{
+    try{ const r=await fetch(pathPrefix+'data/wahwire/'+n+'.json',{cache:'no-cache'});
+      return r.ok?await r.json():null; }catch(e){ return null; }
+  };
+  const [p,pr,rx]=await Promise.all([grab('posts'),grab('profiles'),grab('reactions')]);
+  WAHWIRE={
+    posts:(p&&p.posts)||[],
+    profiles:(pr&&pr.profiles)||{},
+    reactions:(rx&&rx.reactions)||{}
+  };
+  return WAHWIRE;
+}
+
+function wwDrafts(){
+  try{ const r=JSON.parse(localStorage.getItem(WAHWIRE_DRAFT_KEY)||'[]'); return Array.isArray(r)?r:[]; }
+  catch(e){ return []; }
+}
+function wwSaveDrafts(list){
+  try{ localStorage.setItem(WAHWIRE_DRAFT_KEY,JSON.stringify(list)); }catch(e){}
+}
+
+/* An author id may be a real character record, a WAHwire-only account, or
+   neither. Resolve a display name and avatar from whatever exists. */
+function wwAuthor(id){
+  const prof=(WAHWIRE&&WAHWIRE.profiles[id])||null;
+  const rec=(typeof INDEX!=='undefined'&&INDEX[id])?INDEX[id].item:null;
+  const name=rec?displayName(rec):(prof&&prof.name)||prettyId(id);
+  const initials=String(name||'?').split(/\s+/).filter(Boolean).slice(0,2).map(x=>x[0]).join('').toUpperCase()||'?';
+  return { id, name, initials, prof, hasRecord:!!rec };
+}
+function wwReaction(key){
+  const r=(WAHWIRE&&WAHWIRE.reactions[key])||null;
+  return r||{glyph:'💬',label:prettyId(key||'note'),tone:'#8b90a8'};
+}
+function wwLinkChips(links){
+  return (links||[]).map(l=>{
+    const id=(l&&typeof l==='object')?l.id:l;
+    if(!id) return '';
+    const known=(typeof INDEX!=='undefined')&&!!INDEX[id];
+    const label=known?displayName(INDEX[id].item):prettyId(id);
+    return known
+      ? `<span class="ww-link" onclick="openId('${esc(id)}')" title="Open ${esc(label)}">🔗 ${esc(label)}</span>`
+      : `<span class="ww-link is-dead" title="No record filed under this id yet">🔗 ${esc(label)}</span>`;
+  }).join('');
+}
+
+function wwPostCard(p,opts){
+  opts=opts||{};
+  const a=wwAuthor(p.author);
+  const rx=wwReaction(p.reaction);
+  const draft=!!p._draft;
+  const likes=Number(p.likes||0);
+  const comments=(p.comments||[]);
+  const cid='wwc_'+String(p.id||Math.random()).replace(/[^a-z0-9_]/gi,'');
+  const replies=comments.length?`
+    <button type="button" class="ww-replies-toggle" aria-expanded="false"
+      onclick="const d=document.getElementById('${cid}');d.classList.toggle('is-open');
+               const on=d.classList.contains('is-open');this.setAttribute('aria-expanded',on);
+               this.textContent=on?'Hide ${comments.length} ${comments.length===1?'reply':'replies'}':'${comments.length} ${comments.length===1?'reply':'replies'}';">
+      ${comments.length} ${comments.length===1?'reply':'replies'}</button>
+    <div class="ww-replies" id="${cid}">${comments.map(c=>{
+      const ca=wwAuthor(c.author);
+      return `<div class="ww-reply">
+        <div class="ww-avatar sm" title="${esc(ca.name)}">${esc(ca.initials)}</div>
+        <div class="ww-reply-body">
+          <div class="ww-reply-head"><b>${esc(ca.name)}</b>${c.likes?`<span class="ww-mini">♥ ${Number(c.likes).toLocaleString()}</span>`:''}</div>
+          <div class="ww-reply-text">${esc(c.content||'')}</div>
+        </div></div>`;
+    }).join('')}</div>`:'';
+
+  return `<article class="ww-post${draft?' is-draft':''}" style="--ww-tone:${esc(rx.tone||'#8b90a8')}">
+    <div class="ww-post-head">
+      <div class="ww-avatar"${a.hasRecord?` onclick="openId('${esc(a.id)}')" title="Open ${esc(a.name)}'s record"`:''}>${esc(a.initials)}</div>
+      <div class="ww-ident">
+        <div class="ww-name">${a.hasRecord
+          ? `<span class="ww-name-link" onclick="openId('${esc(a.id)}')">${esc(a.name)}</span>`
+          : esc(a.name)}
+          <span class="ww-handle">@${esc(a.id)}</span></div>
+        <div class="ww-time">${esc(p.timestamp||p.date||'undated')}</div>
+      </div>
+      <span class="ww-tone" title="${esc(rx.label)}">${rx.glyph} ${esc(rx.label)}</span>
+    </div>
+    <div class="ww-body">${esc(p.content||'')}</div>
+    ${(p.links&&p.links.length)?`<div class="ww-links">${wwLinkChips(p.links)}</div>`:''}
+    ${(p.tags&&p.tags.length)?`<div class="ww-tags">${p.tags.map(t=>`<span class="ww-tag">#${esc(t)}</span>`).join('')}</div>`:''}
+    <div class="ww-foot">
+      <span class="ww-likes" title="In-world engagement">♥ ${likes.toLocaleString()}</span>
+      ${replies?`<span class="ww-foot-sep">·</span>`:''}${replies}
+      ${draft?`<span class="ww-draft-badge" title="Saved in this browser only. Never written to posts.json.">DRAFT — this browser only</span>
+        <button type="button" class="ww-draft-del" onclick="wwDeleteDraft('${esc(p.id)}')">delete</button>`:''}
+    </div>
+  </article>`;
+}
+
+function wwDeleteDraft(id){
+  wwSaveDrafts(wwDrafts().filter(d=>d.id!==id));
+  view_wahwire();
+}
+function wwExportDrafts(){
+  const d=wwDrafts();
+  if(!d.length){ alert('No drafts to export.'); return; }
+  const clean=d.map(x=>({id:x.id,author:x.author,order:x.order||999,date:null,timestamp:x.timestamp,
+    content:x.content,likes:0,links:x.links||[],tags:x.tags||[],reaction:x.reaction,comments:[],status:'draft'}));
+  const blob=new Blob([JSON.stringify({version:1,source:'reader drafts — review before filing',posts:clean},null,2)],
+    {type:'application/json'});
+  const u=URL.createObjectURL(blob);
+  const a=document.createElement('a'); a.href=u; a.download='wahwire-drafts.json'; a.click();
+  setTimeout(()=>URL.revokeObjectURL(u),2000);
+}
+
+const _wwState={q:'',author:'',reaction:'',record:'',sort:'new',compose:false};
+
+function wwSubmitDraft(){
+  const body=(document.getElementById('wwComposeBody')||{}).value||'';
+  if(!body.trim()){ alert('Write something first.'); return; }
+  const author=(document.getElementById('wwComposeAuthor')||{}).value||'waluigi';
+  const reaction=(document.getElementById('wwComposeTone')||{}).value||'deadpan';
+  const link=(document.getElementById('wwComposeLink')||{}).value||'';
+  const d=wwDrafts();
+  d.unshift({ id:'draft_'+Date.now(), author, reaction, content:body.trim(),
+    timestamp:(typeof CUR!=='undefined'&&CUR.display)?CUR.display:'filed just now',
+    links:link?[{id:link,type:'record'}]:[], tags:['draft'], _draft:true, likes:0, comments:[] });
+  wwSaveDrafts(d);
+  _wwState.compose=false;
+  view_wahwire();
+}
+
+async function view_wahwire(arg){
+  renderSidebar('wahwire');
+  const W=await loadWahwire();
+  if(arg && typeof arg==='string' && arg.trim()) _wwState.record=arg.trim();
+
+  const canon=W.posts.map(p=>({...p}));
+  const drafts=wwDrafts().map(p=>({...p,_draft:true}));
+  let all=[...drafts,...canon];
+
+  if(_wwState.record) all=all.filter(p=>(p.links||[]).some(l=>((l&&typeof l==='object')?l.id:l)===_wwState.record));
+  if(_wwState.author) all=all.filter(p=>p.author===_wwState.author);
+  if(_wwState.reaction) all=all.filter(p=>p.reaction===_wwState.reaction);
+  if(_wwState.q){
+    const q=_wwState.q.toLowerCase();
+    all=all.filter(p=>(String(p.content||'')+' '+String(p.author||'')+' '+(p.tags||[]).join(' ')).toLowerCase().includes(q));
+  }
+  all.sort((a,b)=> a._draft&&!b._draft ? -1 : (!a._draft&&b._draft ? 1 :
+    (_wwState.sort==='top' ? Number(b.likes||0)-Number(a.likes||0) : Number(a.order||999)-Number(b.order||999))));
+
+  const authors=[...new Set(W.posts.map(p=>p.author))].sort((x,y)=>wwAuthor(x).name.localeCompare(wwAuthor(y).name));
+  const tones=[...new Set(W.posts.map(p=>p.reaction))].filter(Boolean).sort();
+
+  const recordChip=_wwState.record
+    ? `<div class="ww-scope">Showing the wire on
+        <b>${esc((typeof INDEX!=='undefined'&&INDEX[_wwState.record])?displayName(INDEX[_wwState.record].item):prettyId(_wwState.record))}</b>
+        <span class="ww-scope-clear" onclick="_wwState.record='';Router.go('#/wahwire')">clear ✕</span></div>`
+    : '';
+
+  const composer=_wwState.compose?`
+    <div class="ww-composer">
+      <div class="ww-comp-head">✍️ Post to the wire
+        <span class="ww-comp-note">Saved in this browser only — the canon store is written by the archive, not by the page.</span></div>
+      <div class="ww-comp-row">
+        <select id="wwComposeAuthor" class="ww-input">${
+          authors.map(a=>`<option value="${esc(a)}">${esc(wwAuthor(a).name)}</option>`).join('')}</select>
+        <select id="wwComposeTone" class="ww-input">${
+          tones.map(t=>`<option value="${esc(t)}">${wwReaction(t).glyph} ${esc(wwReaction(t).label)}</option>`).join('')}</select>
+      </div>
+      <textarea id="wwComposeBody" class="ww-input ww-textarea" rows="3"
+        placeholder="Say it in character. WAH."></textarea>
+      <div class="ww-comp-row">
+        <input id="wwComposeLink" class="ww-input" placeholder="attach a record id (optional)"
+          value="${esc(_wwState.record||'')}">
+        <button type="button" class="ww-btn primary" onclick="wwSubmitDraft()">Post</button>
+        <button type="button" class="ww-btn" onclick="_wwState.compose=false;view_wahwire()">Cancel</button>
+      </div>
+    </div>`:'';
+
+  const draftCount=wwDrafts().length;
+
+  el('content').innerHTML=`
+    <div class="ww-page">
+      <div class="ww-hero">
+        <div>
+          <h1>📡 WAHwire</h1>
+          <p class="ww-sub">The archive's public wire. ${W.posts.length} filed posts across
+            ${authors.length} accounts — every one of them in world, and every link a real record.</p>
+        </div>
+        <div class="ww-hero-actions">
+          <button type="button" class="ww-btn primary" onclick="_wwState.compose=!_wwState.compose;view_wahwire()">✍️ Post</button>
+          ${draftCount?`<button type="button" class="ww-btn" onclick="wwExportDrafts()" title="Download your drafts in posts.json shape">⬇ Export ${draftCount} draft${draftCount===1?'':'s'}</button>`:''}
+        </div>
+      </div>
+      ${recordChip}
+      ${composer}
+      <div class="ww-controls">
+        <input class="ww-input ww-search" placeholder="Search the wire…" value="${esc(_wwState.q)}"
+          oninput="_wwState.q=this.value;clearTimeout(window.__wwT);window.__wwT=setTimeout(view_wahwire,220)">
+        <select class="ww-input" onchange="_wwState.author=this.value;view_wahwire()">
+          <option value="">All accounts</option>
+          ${authors.map(a=>`<option value="${esc(a)}"${_wwState.author===a?' selected':''}>${esc(wwAuthor(a).name)}</option>`).join('')}
+        </select>
+        <select class="ww-input" onchange="_wwState.reaction=this.value;view_wahwire()">
+          <option value="">Every tone</option>
+          ${tones.map(t=>`<option value="${esc(t)}"${_wwState.reaction===t?' selected':''}>${wwReaction(t).glyph} ${esc(wwReaction(t).label)}</option>`).join('')}
+        </select>
+        <div class="ww-sorts">
+          <span class="ww-sort${_wwState.sort==='new'?' on':''}" onclick="_wwState.sort='new';view_wahwire()">Newest</span>
+          <span class="ww-sort${_wwState.sort==='top'?' on':''}" onclick="_wwState.sort='top';view_wahwire()">Most liked</span>
+        </div>
+      </div>
+      <div class="ww-count">${all.length} post${all.length===1?'':'s'}${draftCount?` · ${draftCount} of them yours`:''}</div>
+      <div class="ww-feed">${all.length?all.map(p=>wwPostCard(p)).join('')
+        :'<div class="card">Nothing on the wire matches that. <span class="ww-scope-clear" onclick="_wwState.q=\'\';_wwState.author=\'\';_wwState.reaction=\'\';_wwState.record=\'\';view_wahwire()">Reset filters</span></div>'}</div>
+    </div>`;
+  window.scrollTo(0,0);
+}
+
+/* The article rail strip. Renders only when the record actually has wire
+   coverage, below WAH NOTES — different object, different voice, so the two
+   are not merged. Async because the store is lazily fetched; it injects into
+   a placeholder rather than blocking the article render. */
+function wahwireRailSlot(recordId){
+  if(!recordId) return '';
+  return `<div id="ww-rail-slot" data-record="${esc(recordId)}"></div>`;
+}
+async function hydrateWahwireRail(){
+  const slot=document.getElementById('ww-rail-slot');
+  if(!slot) return;
+  const id=slot.getAttribute('data-record');
+  const W=await loadWahwire();
+  const hits=W.posts.filter(p=>(p.links||[]).some(l=>((l&&typeof l==='object')?l.id:l)===id));
+  if(!hits.length){ slot.remove(); return; }
+  const show=hits.slice(0,3);
+  slot.className='ww-rail';
+  slot.innerHTML=`
+    <div class="ww-rail-head">📡 On the wire
+      <span class="ww-rail-count">${hits.length} post${hits.length===1?'':'s'}</span></div>
+    ${show.map(p=>{
+      const a=wwAuthor(p.author), rx=wwReaction(p.reaction);
+      return `<div class="ww-rail-post" style="--ww-tone:${esc(rx.tone||'#8b90a8')}">
+        <div class="ww-rail-author"><span class="ww-avatar xs">${esc(a.initials)}</span>
+          <b>${esc(a.name)}</b><span class="ww-rail-tone" title="${esc(rx.label)}">${rx.glyph}</span></div>
+        <div class="ww-rail-text">${esc(p.content||'')}</div>
+        <div class="ww-rail-meta">♥ ${Number(p.likes||0).toLocaleString()}</div>
+      </div>`;
+    }).join('')}
+    <div class="ww-rail-more" onclick="_wwState.record='${esc(id)}';Router.go('#/wahwire/'+encodeURIComponent('${esc(id)}'))">
+      See all ${hits.length} on WAHwire →</div>`;
+}
+
 /* ===== The Wahbabel — the archive's translation desk =====
    Data: Reputation-Matrix2/data/wahbabel.json (built by tools/build-wahbabel.py).
    Cipher + lexicon: lexicon words win, everything else falls through the
@@ -12965,6 +13246,9 @@ ${typeKey==='characters'?renderArticleOperatorReputation(item.id):''}${typeKey==
   else { window.scrollTo(0,0); }
   setupScrollSpy();applyCustomCss(item.customCss);
   if(typeKey==='factions'){ renderFactionPowerProjection(item.id); }
+  /* Fills the rail's wire slot once the lazily-fetched store arrives, or
+     removes it when this record has no coverage. Never blocks the article. */
+  if(typeof hydrateWahwireRail==='function') hydrateWahwireRail();
 }
 /* Version-history selector: re-renders the same article with another
    revision's body active. The chosen revision lives only in memory. */
@@ -19972,6 +20256,7 @@ const Router={
     else if(route==='crafting')view_crafting(arg);
     else if(route==='injuries'||route==='injury')view_injuries(arg);
     else if(route==='wahbabel'||route==='languages')view_wahbabel();
+    else if(route==='wahwire'||route==='wire')view_wahwire(arg);
     else if(route==='items')view_items();
     else if(route==='commerce')view_commerce();
     else if(route==='item')view_item(arg);
