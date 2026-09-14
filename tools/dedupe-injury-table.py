@@ -145,6 +145,42 @@ def renumber(entries: list) -> list:
     return entries
 
 
+def lone_roman_rows(entries: list) -> list:
+    """Names carrying a numeral that no longer disambiguates anything."""
+    counts = Counter(family_of(e.get("injuryType")) for e in entries)
+    return [str(e.get("injuryType")) for e in entries
+            if ROMAN_SUFFIX.search(str(e.get("injuryType") or ""))
+            and counts[family_of(e.get("injuryType"))] == 1]
+
+
+def strip_roman_suffixes(entries: list) -> list:
+    """Drop the trailing roman numeral from any name that no longer needs one.
+
+    The numerals only ever existed to disambiguate members of an over-used
+    family. Once culling has left a single member, "Mendacious Veil Corruption
+    IV" is just a name with a roll artefact welded to the end of it - the GM
+    reported it as a number that "isn't like an actual thing". A suffix is
+    removed only when the stripped name is unique in the table, so a genuine
+    surviving pair keeps its I/II.
+    """
+    stripped = []
+    counts = Counter(family_of(e.get("injuryType")) for e in entries)
+    seen = set()
+    for e in entries:
+        name = str(e.get("injuryType") or "")
+        if not ROMAN_SUFFIX.search(name):
+            seen.add(name)
+            continue
+        base = family_of(name)
+        if counts[base] == 1 and base not in seen:
+            e["injuryType"] = base
+            seen.add(base)
+            stripped.append((name, base))
+        else:
+            seen.add(name)
+    return stripped
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -179,6 +215,10 @@ def main() -> int:
                             f"(worst: {worst[1]} x{worst[0]})")
         if m["exact_duplicates"]:
             problems.append(f"{len(m['exact_duplicates'])} duplicate names")
+        lone = lone_roman_rows(entries)
+        if lone:
+            problems.append(f"{len(lone)} rows keep a roman numeral with no sibling "
+                            f"(e.g. {lone[0]!r})")
         for p in problems:
             print(f"  FAIL {p}")
         if problems:
@@ -191,13 +231,17 @@ def main() -> int:
         kept, dropped = entries, []
     else:
         kept, dropped = cull(entries)
+    stripped = strip_roman_suffixes(kept)
     kept = renumber(kept)
 
     data["entries"] = kept
+    # Preserve the cumulative cull count: re-running the tool to strip a
+    # suffix must not rewrite the history of how many rows were culled.
+    prior_removed = int((data.get("_repair") or {}).get("removed") or 0)
     data["_repair"] = {
         "tool": "tools/dedupe-injury-table.py",
         "no_ai": True,
-        "removed": len(dropped),
+        "removed": prior_removed + len(dropped),
         "familyCap": FAMILY_CAP,
         "prefixCap": PREFIX_CAP,
         "note": ("Rows were removed, never rewritten. The generator had collapsed onto one "
@@ -209,6 +253,8 @@ def main() -> int:
     after = measure(kept)
     print(f"removed {len(dropped)} rows: {before['count']} -> {after['count']}")
     print(f"roman-numeral rows : {before['roman_rows']} -> {after['roman_rows']}")
+    for was, now in stripped:
+        print(f"  stripped suffix  : {was!r} -> {now!r}")
     print(f"distinct names     : {before['distinct_names']} -> {after['distinct_names']}")
     print(f"consecutive d100   : {after['consecutive']}")
     reasons = Counter(r for _, r in dropped)

@@ -3036,7 +3036,7 @@
     {
       "d100": 190,
       "category": "Severe injury",
-      "injuryType": "Echoing Veil Corruption IV",
+      "injuryType": "Echoing Veil Corruption",
       "description": "Your body's cells begin to mutate under the influence of the veiled realm. Tissue becomes brittle and discolored.",
       "cure": "Major surgery or successful casting of Greater Restoration spell",
       "duration": "2d8 weeks",
@@ -3132,7 +3132,7 @@
     {
       "d100": 196,
       "category": "Severe injury",
-      "injuryType": "Phantom Veil Affliction IV",
+      "injuryType": "Phantom Veil Affliction",
       "description": "Your body begins to shift between realities, causing you to hallucinate and suffer from spatial disorientation.",
       "cure": "A successful DC 18 Medicine check or a full rest in the Veilbound realm.",
       "duration": "2d8 weeks",
@@ -3196,7 +3196,7 @@
     {
       "d100": 200,
       "category": "Severe injury",
-      "injuryType": "Mendacious Veil Corruption IV",
+      "injuryType": "Mendacious Veil Corruption",
       "description": "Your skin begins to warp and twist, distorting the appearance of your body. The deformity is both visible and unsettling.",
       "cure": "Major surgery or a successful Restoration spell",
       "duration": "2d8 weeks",
