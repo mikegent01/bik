@@ -8788,6 +8788,53 @@ function dashNoteRead(id){
     localStorage.setItem('waluipediaRecents',JSON.stringify(r.slice(0,8)));
   }catch(e){}
 }
+/* ---- "what else is attached to this filing" ---------------------------
+   74 of the 120 filings carry extra material - a commentary, an archivist
+   analysis, an investigation thread, a battle record, exhibit props - and
+   none of it was visible from the list. A reader had to open a filing to
+   discover it had a commentary, which meant most of it went unread.
+
+   Built once per render and cached: each of these joins scans a whole data
+   file, and doing that per-card across 120 cards is 600 scans for one list. */
+let ATTACH_INDEX=null;
+function attachmentIndex(){
+  if(ATTACH_INDEX) return ATTACH_INDEX;
+  const idx={};
+  const add=(id,kind)=>{ if(!id) return; (idx[id]=idx[id]||{})[kind]=(idx[id][kind]||0)+1; };
+  const D=(typeof DATA!=='undefined'&&DATA)||{};
+  const rows=x=>Array.isArray(x)?x:(x&&typeof x==='object'?(x.commentaries||x.analyses||x.investigations||x.props||[]):[]);
+  try{ rows(D.commentaries).forEach(c=>add(c&&c.sourceArticle,'commentary')); }catch(e){}
+  try{ rows(D.articleAnalyses).forEach(a=>add(a&&a.sourceArticle,'analysis')); }catch(e){}
+  try{ rows(D.investigations).forEach(v=>{
+        (v.sessions||[]).forEach(sn=>add(sn&&sn.event,'investigation'));
+        (v.relatedEvents||[]).forEach(e=>add(typeof e==='string'?e:(e&&e.id),'investigation'));
+      }); }catch(e){}
+  try{ (Array.isArray(D.battles)?D.battles:[]).forEach(b=>
+        (b.relatedArticles||[]).forEach(r=>{ if(INDEX[r]&&INDEX[r].typeKey==='events') add(r,'battle'); })); }catch(e){}
+  try{ const pr=(D.props&&D.props.props)||D.props||{};
+        Object.keys(pr).forEach(k=>(pr[k].articles||[]).forEach(a=>{
+          if(INDEX[a]&&INDEX[a].typeKey==='events') add(a,'exhibit'); })); }catch(e){}
+  ATTACH_INDEX=idx; return idx;
+}
+const ATTACH_META={
+  commentary:   {icon:'🎙️', label:'Commentary',    cls:'att-comm'},
+  analysis:     {icon:'🔬', label:'Analysis',      cls:'att-anal'},
+  investigation:{icon:'🔍', label:'Investigation', cls:'att-inv'},
+  battle:       {icon:'⚔️', label:'Battle',        cls:'att-bat'},
+  exhibit:      {icon:'📎', label:'Exhibits',      cls:'att-exh'}
+};
+/* Order is fixed so a row of cards reads consistently, not in join order. */
+const ATTACH_ORDER=['commentary','analysis','investigation','battle','exhibit'];
+function attachmentTags(id){
+  const a=attachmentIndex()[id]; if(!a) return '';
+  const out=ATTACH_ORDER.filter(k=>a[k]).map(k=>{
+    const m=ATTACH_META[k];
+    const n=a[k]>1?` ${a[k]}`:'';
+    return `<span class="atag ${m.cls}" title="${esc(m.label)} available for this filing">${m.icon} ${esc(m.label)}${n}</span>`;
+  });
+  return out.length?`<div class="atags">${out.join('')}</div>`:'';
+}
+
 /* Which campaign a filing belongs to, from its timeCode suffix - the same
    signal tools/build-campaign-fronts.py uses for the Current fronts strip.
    Used to colour-code the events grid so the three campaigns are tellable
@@ -9218,6 +9265,7 @@ function view_list(key){
             ${kick}
             <h3 class="evcard-title">${esc(displayName(i))}${annotationBadge(i.id,'mini')}${filingBadge(i.id)}</h3>
             <p class="evcard-sum">${esc(previewText(i))}</p>
+            ${attachmentTags(i.id)}
             ${meta.length?`<div class="tmeta">${meta.join('')}</div>`:''}
           </div>
         </article>`;

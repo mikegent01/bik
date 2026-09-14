@@ -49,7 +49,8 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/events/archive-sheets/campaign-songs-archive.jpg"
   },
   {
     "id": "collapse_of_blackfen_pass",
@@ -239,7 +240,7 @@
     "location": "Gnash-Town Dormitories / Silverquill Boarding House / Estragon's Island / Lorehold Campus Grounds / The Crater",
     "type": "Involuntary Exile / Academic Hostility / Identity Confrontation / Theological Blink / Catastrophic Detonation / Dual Abandonment",
     "status": "Both Dans at large on island — Fey Dan wounded and fleeing — Original Dan walking away from crater — Professor alive and unconcerned — Island lockdown implied — Neither Dan has money",
-    "image": "",
+    "image": "assets/images/events/archive-sheets/the-estragon-island-incident.jpg",
     "imageCaption": "No photographs exist. The dormitory window Dan broke on his second attempt is reportedly still broken. The crater where the goblins stood has been cordoned off by campus groundskeeping staff who have filed the damage under 'student dispute — elemental,' which is technically accurate in the way that calling a hurricane 'weather' is technically accurate.",
     "audioTitle": "",
     "audio": "",
@@ -1402,7 +1403,8 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/events/archive-sheets/baldi-schoolhouse-ghost-brick-insertion.jpg"
   },
   {
     "id": "the_grove_of_woe_incident",
@@ -2706,7 +2708,8 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/events/archive-sheets/baldi-schoolhouse-extraction-failed.jpg"
   },
   {
     "id": "the_feyward_revel_and_the_book_of_many_things",
@@ -3952,7 +3955,8 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/events/archive-sheets/the-planar-sanctum-revelation.jpg"
   },
   {
     "id": "overgrown_manor_campaign",
@@ -4124,7 +4128,7 @@
     "location": "Fawful's Fortress — location undisclosed, allegedly mobile, definitely ostentatious",
     "type": "Diplomatic Event / Intelligence Catastrophe / Waluigi's Missed Opportunity",
     "status": "Concluded — but the revelations continue to reshape everything",
-    "image": "",
+    "image": "assets/images/events/archive-sheets/fawful-gala-revelations.jpg",
     "imageCaption": "No photographs permitted. Fawful confiscated all recording devices at the door.",
     "audioTitle": "",
     "audio": "",
@@ -4896,7 +4900,8 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/events/archive-sheets/remi-shadeward-arc.jpg"
   },
   {
     "id": "shadow_estate_session_Harvestside_8",
@@ -5077,7 +5082,8 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/events/archive-sheets/sarasaland-incident-1033.jpg"
   },
   {
     "id": "first_bowser_conflict",
@@ -5420,7 +5426,8 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/events/archive-sheets/luigis-mansion-incident.jpg"
   },
   {
     "id": "the_beanbean_incident",
@@ -5496,7 +5503,8 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/events/archive-sheets/the-beanbean-incident.jpg"
   },
   {
     "id": "the_tree_of_woe_engagement",
@@ -5908,7 +5916,7 @@
     "location": "Unknown eastern territories — or somewhere else entirely — or nowhere — Waluigi is losing his mind",
     "type": "Voluntary Exile / Personal Journey / Documented Mystery / Possible Fabrication / Waluigi's Obsession",
     "status": "COMPLETELY UNCERTAIN — Waluigi has never been less sure of anything",
-    "image": "",
+    "image": "assets/images/events/archive-sheets/the-eastern-passage.jpg",
     "imageCaption": "No images exist. This may be because Mario did not want to be found. Or because none of this happened. Or because Waluigi is chasing ghosts.",
     "audioTitle": "",
     "audio": "",
@@ -6009,7 +6017,7 @@
     "location": "Entire Mushroom Kingdom — no territory was spared",
     "type": "Infrastructure Catastrophe / Economic Collapse / Defining Trauma",
     "status": "Historical — ended approximately 965 BF when alternative systems were established",
-    "image": "",
+    "image": "assets/images/events/archive-sheets/the-long-dark.jpg",
     "imageCaption": "No images survive from this period. Most recording equipment required fountain power.",
     "audioTitle": "",
     "audio": "",
@@ -6097,7 +6105,7 @@
     "location": "The Star Fountain — or possibly another Star Road waypoint, accounts vary",
     "type": "Reunion / Mystery / Conflicting Accounts",
     "status": "Occurred — but details remain contested and Waluigi has more questions than answers",
-    "image": "",
+    "image": "assets/images/events/archive-sheets/star-fountain-reunion.jpg",
     "imageCaption": "No verified images exist. Several claimed sketches have been proven fraudulent.",
     "audioTitle": "",
     "audio": "",
@@ -6301,7 +6309,8 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/events/archive-sheets/clockwork-spire-expedition-chillwind-963.jpg"
   },
   {
     "id": "the_lounge_incident_and_the_paper_war",
@@ -6906,7 +6915,7 @@
     "location": "The Shadow Estate — Usk’s Private Chambers, Upper Corridors, Rooftop, Master Bedroom (viewed from outside), Exterior Grounds",
     "type": "Session Log / Artifact Recovery / Espionage Discovery / Rooftop Pursuit / Feather Fall Evacuation",
     "status": "Ongoing — Mirror of True Reflection recovered and mended, all four portal artifacts now secured, Tanukiburt and Toadburt and Mystic Morel discovered gathered at the portal circle, Lyranth and Vaxillus in active pursuit, party escaped off the roof, Merric the sheep recruited, heading toward the grounds",
-    "image": "",
+    "image": "assets/images/events/archive-sheets/shadow-estate-mirror-rooftop-escape.jpg",
     "imageCaption": "No reliable image exists. Wario attempted to claim the mirror before anyone could draw it.",
     "audioTitle": "",
     "audio": "",
@@ -7087,7 +7096,8 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/events/archive-sheets/maglev-express-incident-night-one.jpg"
   },
   {
     "id": "the_arrangement",
@@ -7905,7 +7915,8 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/events/archive-sheets/shattering-shadow-anchor.jpg"
   },
   {
     "id": "vivian_corvinarus_corridor_fight",
@@ -8550,7 +8561,8 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/events/archive-sheets/shadow-estate-spotlight-cookie-cottage.jpg"
   },
   {
     "id": "archie_frog_god_dream_duel",
@@ -8730,7 +8742,8 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/events/archive-sheets/feyward-amnesia-vines-morel-steely.jpg"
   },
   {
     "id": "the_midnight_audit_of_harvestide_28",
@@ -8875,7 +8888,8 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/events/archive-sheets/the-midnight-audit-of-harvestide-28.jpg"
   },
   {
     "id": "portal_artifacts_collection",
@@ -8923,7 +8937,8 @@
         "reputationNotes"
       ]
     },
-    "date": "Harvestide 30, 1040 BF — compiled after the Mirror recovery"
+    "date": "Harvestide 30, 1040 BF — compiled after the Mirror recovery",
+    "image": "assets/images/events/archive-sheets/portal-artifacts-collection.jpg"
   },
   {
     "id": "black_crystal_item",
@@ -8961,7 +8976,8 @@
         "reputationNotes"
       ]
     },
-    "date": "Harvestide 28, 1040 BF — filed from the Midnight Audit chain"
+    "date": "Harvestide 28, 1040 BF — filed from the Midnight Audit chain",
+    "image": "assets/images/events/archive-sheets/black-crystal-item.jpg"
   },
   {
     "id": "the_awakening_in_planar_sanctum_and_veins_of_the_tapestry",
@@ -9036,7 +9052,8 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/events/archive-sheets/the-awakening-in-planar-sanctum-and-veins-of-the-tapestry.jpg"
   },
   {
     "id": "bones_alpine_bank_eavesdropping_and_inn_refuge",
@@ -9158,7 +9175,8 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/events/archive-sheets/bones-alpine-bank-eavesdropping-and-inn-refuge.jpg"
   },
   {
     "id": "national_power_projection",
@@ -9201,7 +9219,8 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/events/archive-sheets/national-power-projection.jpg"
   },
   {
     "id": "thornburys_field_journal",
@@ -9339,7 +9358,8 @@
         "amount": 2,
         "reason": "Thornbury's notes detail Mages' Guild operations and backup plans."
       }
-    ]
+    ],
+    "image": "assets/images/events/archive-sheets/thornburys-field-journal.jpg"
   },
   {
     "id": "mount_ebott_survey_part_2",
@@ -9375,7 +9395,8 @@
         "amount": 5,
         "reason": "Observations of censored calendars and the Great Void."
       }
-    ]
+    ],
+    "image": "assets/images/events/archive-sheets/mount-ebott-survey-part-2.jpg"
   },
   {
     "id": "mount_ebott_survey_part_3",
@@ -9632,7 +9653,8 @@
         "faction": "undertale_monsters",
         "assessment": "Sans’s war-memory contradiction, royal barrier control, Flowey’s lineage, and Snowdin’s absent visible authority make the Underground’s internal legitimacy central to the mission."
       }
-    ]
+    ],
+    "image": "assets/images/events/archive-sheets/mount-ebott-survey-part-3.jpg"
   },
   {
     "id": "thornwood_manor_silent_field_dossier",
@@ -9728,7 +9750,8 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/events/archive-sheets/thornwood-manor-silent-field-dossier.jpg"
   },
   {
     "id": "the_conductors_mutiny",
@@ -9806,7 +9829,8 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/events/archive-sheets/the-conductors-mutiny.jpg"
   },
   {
     "id": "the_imp_ambush_of_harvestide_29",
@@ -9908,7 +9932,8 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/events/archive-sheets/the-imp-ambush-of-harvestide-29.jpg"
   },
   {
     "id": "mount_ebott_survey_part_4",
@@ -10088,7 +10113,8 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/events/archive-sheets/mount-ebott-survey-part-4.jpg"
   },
   {
     "id": "mount_ebott_survey_part_5",
@@ -10268,7 +10294,8 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/events/archive-sheets/mount-ebott-survey-part-5.jpg"
   },
   {
     "id": "bones_alpine_flight_goblin_camp_and_legion_wall",
@@ -10310,7 +10337,8 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/events/archive-sheets/bones-alpine-flight-goblin-camp-and-legion-wall.jpg"
   },
   {
     "id": "the_embassy_ambush_and_luigi_interrogation",
@@ -10364,7 +10392,8 @@
         "reputationChanges",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/events/archive-sheets/the-embassy-ambush-and-luigi-interrogation.jpg"
   },
   {
     "id": "the_imp_ambush_aftermath_and_kyrn_cell_escape",
@@ -10923,7 +10952,8 @@
         "reputationChanges",
         "effects"
       ]
-    }
+    },
+    "image": "assets/images/events/archive-sheets/mount-ebott-survey-part-6.jpg"
   },
   {
     "id": "feyward_chop_bros_soul_ring_and_the_guard_with_no_name",
@@ -11288,7 +11318,8 @@
         "reputationChanges",
         "effects"
       ]
-    }
+    },
+    "image": "assets/images/events/archive-sheets/mount-ebott-survey-part-7.jpg"
   },
   {
     "id": "the_box_guardian_sharpie_disguise_and_the_soot_barrel",
@@ -11427,7 +11458,8 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/events/archive-sheets/the-box-guardian-sharpie-disguise-and-the-soot-barrel.jpg"
   },
   {
     "id": "the_mount_ebot_expedition",
@@ -11820,7 +11852,8 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/events/archive-sheets/order-120.jpg"
   },
   {
     "id": "iron_mandate",
@@ -11912,7 +11945,8 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/events/archive-sheets/iron-mandate.jpg"
   },
   {
     "id": "accountability_docket",
@@ -12003,7 +12037,8 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/events/archive-sheets/accountability-docket.jpg"
   },
   {
     "id": "fractured_heart",
@@ -12080,7 +12115,8 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/events/archive-sheets/fractured-heart.jpg"
   },
   {
     "id": "supernatural_sovereignty_act",
@@ -12174,7 +12210,8 @@
         "reputationChanges",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/events/archive-sheets/supernatural-sovereignty-act.jpg"
   },
   {
     "id": "the_hanging_tree_apple_mirror_theft_and_invited_vampire",
@@ -12944,7 +12981,8 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/events/archive-sheets/charred-note-at-waluigis-door.jpg"
   },
   {
     "id": "green_t_at_the_door_and_the_scorncrow_underfoot",
@@ -13373,7 +13411,8 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/events/archive-sheets/feyward-battalion-of-six-and-the-bait-plan.jpg"
   },
   {
     "id": "warp_pipe_junction_restricted_city",
@@ -14016,7 +14055,8 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/events/archive-sheets/shadow-pass-siege-728-bf.jpg"
   },
   {
     "id": "strange_moonlight_incident",
@@ -14069,7 +14109,8 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/events/archive-sheets/strange-moonlight-incident.jpg"
   },
   {
     "id": "shadow_maze_encounter",
@@ -14121,7 +14162,8 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/events/archive-sheets/shadow-maze-encounter.jpg"
   },
   {
     "id": "ruins_of_the_battlefield_blight",
@@ -14173,7 +14215,8 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/events/archive-sheets/ruins-of-the-battlefield-blight.jpg"
   },
   {
     "id": "first_snowfall_incident",
@@ -14258,7 +14301,8 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/events/archive-sheets/first-snowfall-incident.jpg"
   },
   {
     "id": "feyward_library_reclamation_and_the_kitchen",

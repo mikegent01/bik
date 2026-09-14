@@ -409,14 +409,13 @@ So **one image per new filing, generated as part of filing it.** That is the
 steady state, and it means the archive's art keeps pace with the archive
 instead of needing rescue passes.
 
-The backlog left over from before this rule is worked down in **3x3 contact
-sheets** — nine events per generation, grouped by shared cast, sliced by
-`tools/slice-event-sheet.py`. See `docs/IMAGE_GENERATION_GUIDE.md`. Generation
-budget is the real constraint, so:
+**The backlog is cleared — all 120 filings are illustrated.** Keeping it that
+way is now just the one-image-per-filing rule above; `check-event-art.py`
+reports 120/120 and will name any filing that slips.
 
-- a new filing always gets its plate (one image, never batched away)
-- the backlog moves in sheets, opportunistically, nine at a time
-- `python3 tools/check-event-art.py` reports coverage and what is next
+If a batch is ever needed again, the machinery is still there: 3x3 contact
+sheets, nine events per generation, grouped by shared cast, sliced by
+`tools/slice-event-sheet.py`. See `docs/IMAGE_GENERATION_GUIDE.md`.
 
 ---
 

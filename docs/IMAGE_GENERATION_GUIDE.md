@@ -568,3 +568,15 @@ dependency) and insets a few pixels per edge to drop the gutter.
 □ Eyeball the sheet BEFORE slicing — one bad cell means regenerate the sheet
 □ After --write: python3 tools/check-covers.py
 ```
+
+### Sheets without a cast
+
+Not every filing has people in it. Roughly a third of this archive's events
+are places, objects or aftermaths — a frozen field, a shattered anchor, a
+charred note on floorboards. Those sheets take **no portrait references at
+all** and say so explicitly ("no people in any cell"), which produces cleaner
+results than forcing a character into a scene that never had one.
+
+Reserve the portrait references for filings whose cast is actually the
+subject. Mixing the two on one sheet is what causes a character to wander
+into a cell where the prompt only asked for a room.

@@ -1115,6 +1115,17 @@ mark{background:var(--accent2);color:#111;border-radius:3px;padding:0 2px}
 .archupd-top{display:flex;align-items:center;justify-content:space-between;gap:8px}
 .archupd-name{font-weight:800;font-size:13.5px;color:var(--link)}
 .archupd-sum{color:var(--muted);font-size:12px;line-height:1.45;margin-top:4px}
+/* Attachment tags - what else a filing carries (commentary, analysis,
+   investigation, battle record, exhibits). Colour-coded per kind so the
+   row is scannable rather than five identical grey pills. */
+.atags{display:flex;flex-wrap:wrap;gap:5px;margin-top:2px}
+.atag{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:800;letter-spacing:.3px;
+  padding:2px 7px;border-radius:999px;border:1px solid;white-space:nowrap;line-height:1.5}
+.att-comm{color:#f0abfc;border-color:rgba(240,171,252,.42);background:rgba(240,171,252,.11)}
+.att-anal{color:#7dd3fc;border-color:rgba(125,211,252,.42);background:rgba(125,211,252,.11)}
+.att-inv {color:#fbbf24;border-color:rgba(251,191,36,.42);background:rgba(251,191,36,.11)}
+.att-bat {color:#fb7185;border-color:rgba(251,113,133,.42);background:rgba(251,113,133,.11)}
+.att-exh {color:#5eead4;border-color:rgba(94,234,212,.42);background:rgba(94,234,212,.11)}
 /* ===== Events grid: the illustrated treatment =====
    The events list used to be the same purple text tile as every other list,
    with a small thumbnail glued on top. Now the art leads the card, the
