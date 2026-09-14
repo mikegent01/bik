@@ -40,6 +40,11 @@ RETYPES = {
     "poi_mid_imperial_diet": ("capital_city", "landmark"),
     # A walled district of the capital is not a village.
     "poi_mid_diplomatic_quarter": ("village", "town"),
+    # GM ruling: the Imperial District is a district OF Ironhold, not a city in
+    # its own right. Ironhold keeps `capital_city`; its districts are typed
+    # `district`, which resolves to the settlement colour family already.
+    "poi_mid_capital_district": ("capital_city", "district"),
+    "poi_mid_noble_district": ("town", "district"),
     # Estates and villas are not villages.
     "poi_bp_imperial_villa": ("village", "town"),
     "poi_yb_veridia_estate": ("village", "town"),
@@ -52,6 +57,24 @@ SPIRE_OLD = ("A massive, magically-powered watchtower that overlooks the great I
              "bandits.")
 SPIRE_NEW = ("A massive, magically-powered watchtower that overlooks the great Imperial roads, "
              "manned by the Imperial Guard and monitoring the highways for bandits.")
+
+# GM ruling: Mighdural and Ironhold are the same capital, and the Imperial
+# District is a district within it. The two descriptions are made to say so,
+# so a reader is not left inferring it from coordinates.
+DISTRICT_OLD = ("The administrative and symbolic heart of the Regal Empire. This central district "
+                "houses the ministries, high courts, and the residences of the most powerful "
+                "non-noble bureaucrats.")
+DISTRICT_NEW = ("The administrative and symbolic heart of the Regal Empire, and the central "
+                "district of Ironhold. It houses the ministries, high courts, and the residences "
+                "of the most powerful non-noble bureaucrats.")
+
+IRONHOLD_OLD = ("Capital of the Regal Empire and heart of Iron Legion power: grey stone, straight "
+                "lines, absolute order. Efficiency replaced aesthetics here; documentation "
+                "replaced culture.")
+IRONHOLD_NEW = ("Capital of the Regal Empire, also known as Mighdural, and the heart of Iron "
+                "Legion power: grey stone, straight lines, absolute order. Its inner quarters "
+                "include the Imperial District and the Gilded Quarter. Efficiency replaced "
+                "aesthetics here; documentation replaced culture.")
 
 ID_RE = re.compile(r"""id:\s*['"]poi_[A-Za-z0-9_]+['"]""")
 
@@ -116,10 +139,16 @@ def apply_to_text(text):
     out.append(text[last:])
     text = "".join(out)
 
-    # 3. The Road Warden's Spire description.
-    if SPIRE_OLD in text:
-        text = text.replace(SPIRE_OLD, SPIRE_NEW, 1)
-        changes.append("poi_vm_road_wardens_spire: removed the duplicated watchtower clause")
+    # 3. Descriptions.
+    for old, new, note in ((SPIRE_OLD, SPIRE_NEW,
+                            "poi_vm_road_wardens_spire: removed the duplicated watchtower clause"),
+                           (DISTRICT_OLD, DISTRICT_NEW,
+                            "poi_mid_capital_district: named Ironhold as its parent city"),
+                           (IRONHOLD_OLD, IRONHOLD_NEW,
+                            "poi_mid_ironhold: recorded the Mighdural name and its districts")):
+        if old in text:
+            text = text.replace(old, new, 1)
+            changes.append(note)
 
     return text, changes
 

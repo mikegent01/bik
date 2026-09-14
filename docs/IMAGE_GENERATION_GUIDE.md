@@ -51,11 +51,57 @@ is deliberately built this way: two composite key arts plus a strip of
 **already-filed event images**. When a story already has art, the gallery
 reuses it; nothing is rendered again just because a new section wants pixels.
 
+### Bases are for PEOPLE only — never for backgrounds
+
+**Pass reference images to lock a *character*. Never pass one to lock a
+*setting*.** This rule exists because the Judgement in the Grove set broke it:
+all four plates were generated with the same Skittering Grove image passed as a
+setting reference, and the result was four pictures with effectively the same
+background — same dead tree dead-centre, same cocoons, same framing. Four
+illustrations of one wall.
+
+```text
+□ portraits/<id>.png in images:[]        → YES. That is what bases are for.
+□ a scene/location plate in images:[]    → NO, unless you are EDITING that exact
+                                           image (ladder rung 3) or compositing
+                                           a cover from supplied parts (rung 2).
+```
+
+The setting is carried in **words**, not in a reference image. Describe the
+place from the prose, and vary the shot deliberately between slots:
+
+| Vary this | Across the set |
+|---|---|
+| Camera | Wide establishing / mid / close on hands and faces / over-the-shoulder |
+| Distance | Do not shoot every beat from the same twenty feet back |
+| Framing | The subject is not always dead-centre |
+| Light | Different source, direction and colour per beat |
+| What fills the frame | A face, a weapon, a floor, a crowd — not always the same tree |
+
+> **The test:** lay the set out side by side. If two images could swap captions
+> without a reader noticing, the backgrounds are doing no work. Regenerate with
+> a different camera, not a different reference.
+
+Consistency of *place* comes from consistent prose nouns (the grey earth, the
+web canopy, the ribbed trunk wall with no sky) and the fixed house register at
+the top of every prompt. It does not require — and is actively damaged by —
+feeding the model the same picture five times.
+
 **Composites always register in data.** A cover or montage that reaches the
 site goes into `mainPage.json` with `campaignCovers` (composites) and
 `fieldGallery` (reused archive images), each entry carrying `image`,
 `caption`, and `articleId`. `tools/check-covers.py` proves every path exists
 and every link lands — add new gallery entries there, not in hard-coded HTML.
+
+**Current fronts is ONE cover per campaign.** The strip answers "where is each
+campaign right now", so a campaign must never hold two cards — a second
+Shadeward card pushes another campaign off the strip entirely. When you file a
+session, its cover **replaces** that campaign's existing cover rather than
+stacking on top of it. The newest filing for a campaign wins, and "newest" is
+the order events were filed, so the strip re-points itself as sessions land
+instead of being curated by hand. `index.html`'s `homeCoversHtml()` enforces
+this at render time as well, so a stale duplicate in the data cannot reach the
+page.
 
 ---
 
@@ -428,6 +474,8 @@ sixty-one feet — and it is the right place for the archive's dry verdict.
 ## Final checklist
 
 - [ ] **Rule 0 applied** — archive searched for existing art before any prompt; reuse or edit chosen where possible
+- [ ] **Bases used for people only** — portraits passed as references; no scene image passed to lock a background
+- [ ] **Backgrounds vary across the set** — camera, distance, framing and light differ per slot; no two plates could swap captions
 - [ ] Composites built from supplied project files, never newly invented figures
 - [ ] Cover/montage additions registered in `mainPage.json` (+ `tools/check-covers.py` green)
 - [ ] Prompt sheet written and reviewed **before** any generation

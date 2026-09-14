@@ -41,6 +41,28 @@ const PLANE_LABELS = {
 };
 const planeOf = poi => (poi && poi.plane) || 'material';
 
+/* Intel clearance. `intelReq` is filed either as a bare number or as
+   { faction, level }; both are read, and anything unparseable is 0 (open)
+   rather than a thrown error. */
+function intelLevel(poi) {
+  const req = poi && poi.intelReq;
+  if (req === undefined || req === null || req === '') return 0;
+  const n = (typeof req === 'object') ? Number(req.level) : Number(req);
+  return Number.isFinite(n) ? n : 0;
+}
+function intelFaction(poi) {
+  const req = poi && poi.intelReq;
+  return (req && typeof req === 'object' && req.faction) ? req.faction : '';
+}
+/* Bands, low to high. A reader remembers four tiers; they cannot remember 90
+   distinct clearance numbers. */
+const INTEL_BANDS = [
+  { key: 'low', max: 19, label: 'Clearance 1-19 · routine', color: '#a3e635', icon: '·' },
+  { key: 'mid', max: 39, label: 'Clearance 20-39 · restricted', color: '#fbbf24', icon: ':' },
+  { key: 'high', max: 59, label: 'Clearance 40-59 · secret', color: '#fb923c', icon: '∷' },
+  { key: 'top', max: Infinity, label: 'Clearance 60+ · black', color: '#ef4444', icon: '▲' },
+];
+
 /* Chatter overlay (Wah Notes map mode): set fresh on every mount, read by
    detailHtml. One map is ever mounted at a time, so module scope is safe. */
 let ACTIVE_CHATTER = null;
@@ -646,6 +668,21 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
     catOf: poi => {
       const m = factionMeta(poi.factionId);
       return { key: 'fac:' + (m.id || 'unaligned'), label: m.name, color: m.color, icon: initial(m.name), img: factionLogoHref(m.logo) };
+    },
+  };
+  /* Intel lens: pin colour is the clearance BAND, pin size the level, so a
+     reader can see at a glance how much of a sheet is gated and by whom. Like
+     factions this is POI-intrinsic and needs no census. `intelReq` is filed in
+     two shapes - a bare number, or { faction, level } - so both are read here
+     rather than assuming the normalised form. */
+  modes.intel = {
+    label: 'Intel', color: '#f472b6', unit: 'clearance', sizeLabel: 'clearance', categorical: true,
+    value: poi => intelLevel(poi),
+    catOf: poi => {
+      const lv = intelLevel(poi);
+      if (!Number.isFinite(lv) || lv <= 0) return { key: 'int:open', label: 'Open · no clearance', color: '#5eead4', icon: '○' };
+      const band = INTEL_BANDS.find(b => lv <= b.max) || INTEL_BANDS[INTEL_BANDS.length - 1];
+      return { key: 'int:' + band.key, label: band.label, color: band.color, icon: band.icon };
     },
   };
   /* Province lens: pin colour carries the province's crown, so a reader can see

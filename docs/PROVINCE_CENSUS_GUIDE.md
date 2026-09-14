@@ -95,6 +95,13 @@ loud where the archive's numbers and the archive's pins disagree.
   toggles the layer; the **Provinces**
   lens re-colours the pins by their province's crown so the census reads across
   the sheet instead of one pin at a time.
+- **The Intel lens** reads `intelReq` and colours each pin by clearance band —
+  routine (1-19), restricted (20-39), secret (40-59), black (60+), with
+  ungated pins in open teal — so a reader can see how much of a sheet is
+  classified, and where the gated sites cluster, without opening 300 dossiers.
+  `intelReq` is filed either as a bare number or as `{ faction, level }`; the
+  lens reads both, and the object form is preferred because it also names the
+  gating faction in the dossier.
 - **Clicking anything opens the dossier**: a plot, its label, or a census row.
   Crowded sheets declutter their labels — the bigger provinces claim their names
   first, a label that would land on another is tucked away rather than drawn

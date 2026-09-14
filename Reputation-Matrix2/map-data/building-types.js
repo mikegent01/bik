@@ -6,6 +6,9 @@ export const BUILDING_TYPES = {
     town: { name: 'Town', icon: '🏡' },
     village: { name: 'Village', icon: '🏘️' },
     hamlet: { name: 'Hamlet', icon: '🏠' },
+    // A named quarter inside a larger settlement (e.g. the Imperial District,
+    // which is part of Ironhold rather than a city of its own).
+    district: { name: 'District', icon: '🏙️' },
     outpost: { name: 'Outpost', icon: '🏕️' },
     ruins: { name: 'Ruins', icon: '🏛️' },
 

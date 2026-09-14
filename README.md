@@ -298,6 +298,14 @@ Seven habits explain nearly every decision in this repository:
   `python3 tools/check-home-feed.py` and
   `node tools/tests/test-home-feed-render.mjs`.
   `python3 tools/update-index-home.py` is a no-op on the live feed.
+- **Update the "Current fronts" strip** → `mainPage.json` `campaignCovers`,
+  **one cover per campaign**. The strip answers "where is each campaign right
+  now", so a new session's cover *replaces* that campaign's existing cover
+  rather than stacking on it — two covers for one campaign push another
+  campaign off the strip. The newest filing wins, ordered by position in
+  `events.json`, so the strip re-points itself as sessions land.
+  `homeCoversHtml()` also de-duplicates by campaign at render time.
+  Prove it: `python3 tools/check-covers.py`.
 - **Cut the news** → only when ~10 events are pending;
   `python3 tools/build-rnn-broadcast.py` (see the cadence rule above).
 - **Check what the news owes** → `python3 tools/build-rnn-broadcast.py --unaired`.
@@ -341,6 +349,10 @@ Seven habits explain nearly every decision in this repository:
   (rnn-broadcasts.js · the RNN:LAST-WEEK README blocks)
 · Never paste a session card into the home Recent Adventures HTML —
   the feed is rendered from events.json. Update mainPage.latestUpdate.
+· Never let one campaign hold two Current-fronts covers — one per campaign,
+  newest filing wins; a second card evicts another campaign from the strip
+· Never pass a scene/location image as a generation reference — bases are for
+  PEOPLE (portraits/) only, or every plate comes back the same background
 · Never date a filing by the clock before placing the story in time —
   tense first, then the chain (docs/DATE_FILING_GUIDE.md)
 · Never cut story-critical content to hit a word count

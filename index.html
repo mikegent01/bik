@@ -8516,8 +8516,23 @@ function homeCoversHtml(){
      key art for the current fronts) + mainPage.fieldGallery (existing archive
      imagery — reuse, not renders). */
   const mp=DATA&&DATA.mainPage||{};
-  const covers=Array.isArray(mp.campaignCovers)?mp.campaignCovers:[];
+  /* ONE cover per campaign. "Current fronts" answers "where is each campaign
+     right now", so a campaign must never occupy two cards - a second Shadeward
+     card pushes another campaign's front off the strip entirely. The newest
+     filing for a campaign wins, and "newest" is the order events were filed,
+     so the strip re-points itself as sessions land instead of being curated by
+     hand. Order of appearance follows the campaign's newest filing. */
+  const allCovers=Array.isArray(mp.campaignCovers)?mp.campaignCovers:[];
   const field=Array.isArray(mp.fieldGallery)?mp.fieldGallery:[];
+  const filedOrder=new Map(((DATA&&DATA.events)||[]).map((e,i)=>[e&&e.id,i]));
+  const rankOf=c=>{const r=filedOrder.get(c&&c.articleId);return r===undefined?-1:r;};
+  const bestPerCampaign=new Map();
+  allCovers.forEach(c=>{
+    const key=(c&&c.campaign)||c&&c.id||'';
+    const prev=bestPerCampaign.get(key);
+    if(!prev||rankOf(c)>rankOf(prev)) bestPerCampaign.set(key,c);
+  });
+  const covers=[...bestPerCampaign.values()].sort((a,b)=>rankOf(b)-rankOf(a));
   const linkFor=(id)=>id&&INDEX[id]?`Router.go('#/article/${esc(id)}')`:'';
   const coverCards=covers.map(c=>{
     const tag=c.campaign?`<span class="cover-campaign">${esc(c.campaign)} · Current Front</span>`:'';

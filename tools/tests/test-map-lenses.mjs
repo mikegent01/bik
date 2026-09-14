@@ -82,9 +82,13 @@ const clickMode = id => host.querySelector(`[data-mode="${id}"]`).click();
 const legend = () => host.querySelector('[data-legend-lens]').textContent || '';
 const total = () => host.querySelector('[data-mode-total]').textContent || '';
 
-check('all eight lenses mount in order',
+check('all nine lenses mount in order',
   [...host.querySelectorAll('[data-mode]')].map(b => b.dataset.mode).join(',') ===
-  'population,military,economy,influence,species,religion,culture,factions');
+  'population,military,economy,influence,species,religion,culture,factions,intel');
+
+clickMode('intel');
+check('intel lens bands a routine clearance', markerColor('poi_lw_great_granary') === '#a3e635', markerColor('poi_lw_great_granary'));
+check('intel lens bands a black-clearance site', markerColor('poi_lw_crimson_wing_aerie') === '#fb923c', markerColor('poi_lw_crimson_wing_aerie'));
 
 clickMode('religion');
 check('religion pins read the group color', markerColor('poi_lw_oakhaven') === '#FFD700', markerColor('poi_lw_oakhaven'));

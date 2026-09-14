@@ -670,19 +670,6 @@ COVER = {
     "articleId": EVENT_ID,
 }
 
-# The previous session was filed but never reached the front page. It gets a
-# cover too, so the fronts reflect the actual chain rather than skipping it.
-PRIOR_COVER = {
-    "id": "belly-of-the-beast-cover",
-    "campaign": "Shadeward",
-    "title": "SHADEWARD — The Belly of the Beast",
-    "caption": ("A musket at point-blank range takes the mask off and finds human blood; the party "
-                "goes down the rope into the Skittering Grove."),
-    "image": f"{IMG}/belly-01-the-mask.jpg",
-    "articleId": "the_belly_of_the_beast",
-}
-
-
 def load(name):
     return json.loads((DATA / name).read_text(encoding="utf-8"))
 
@@ -783,11 +770,20 @@ def build(check=False):
         if (mainpage.get("featuredArticle") or {}).get("id") != EVENT_ID:
             print("judgement in the grove: mainPage.featuredArticle is not this event")
             return 1
-        covers = {c.get("articleId") for c in (mainpage.get("campaignCovers") or [])}
-        for need in (EVENT_ID, "the_belly_of_the_beast"):
-            if need not in covers:
-                print(f"judgement in the grove: Current fronts is missing {need}")
+        cover_rows = mainpage.get("campaignCovers") or []
+        covers = {c.get("articleId") for c in cover_rows}
+        if EVENT_ID not in covers:
+            print(f"judgement in the grove: Current fronts is missing {EVENT_ID}")
+            return 1
+        # One front per campaign, or a campaign crowds the others off the strip.
+        seen = {}
+        for c in cover_rows:
+            camp = c.get("campaign") or ""
+            if camp in seen:
+                print(f"judgement in the grove: Current fronts has two {camp} covers "
+                      f"({seen[camp]} and {c.get('articleId')})")
                 return 1
+            seen[camp] = c.get("articleId")
         html = INDEX.read_text(encoding="utf-8")
         if f'"id": "{EVENT_ID}"' not in html.split("let SITE_UPDATES=[", 1)[-1][:4000]:
             print("judgement in the grove: SITE_UPDATES does not lead with this event")
@@ -830,12 +826,14 @@ def build(check=False):
         "title": TITLE,
     }
 
-    # Current fronts. Newest Shadeward first; the stale Scorncrow Skirmish cover
-    # is replaced by the two filings that actually followed it.
+    # Current fronts: exactly ONE cover per campaign, newest filing first.
+    # A campaign occupying two cards pushes another campaign off the strip, so
+    # this filing REPLACES the Shadeward cover rather than stacking on top of
+    # it. The Belly of the Beast and the Scorncrow Skirmish are both Shadeward
+    # and both older, so both drop out.
     covers = [c for c in (mainpage.get("campaignCovers") or [])
-              if c.get("articleId") not in {EVENT_ID, "the_belly_of_the_beast",
-                                            "the_scorncrow_skirmish"}]
-    mainpage["campaignCovers"] = [COVER, PRIOR_COVER] + covers
+              if (c.get("campaign") or "") != COVER["campaign"]]
+    mainpage["campaignCovers"] = [COVER] + covers
     dump("mainPage.json", mainpage)
 
     # SITE_UPDATES, newest first.
@@ -852,7 +850,8 @@ def build(check=False):
     print(f"events.json   {a1}   {EVENT_ID}")
     print(f"battles.json  {a2}   {BATTLE_ID}")
     print(f"mainPage.json latestUpdate + featuredArticle -> {EVENT_ID}")
-    print(f"mainPage.json Current fronts  -> {EVENT_ID}, the_belly_of_the_beast (+{len(covers)} kept)")
+    print(f"mainPage.json Current fronts  -> {COVER['campaign']}: {EVENT_ID} "
+          f"(one per campaign, {len(covers)} other campaign(s) kept)")
     print(f"index.html    SITE_UPDATES prepended")
     for n in notes:
         print("  note:", n)
