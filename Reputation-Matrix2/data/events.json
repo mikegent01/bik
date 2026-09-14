@@ -227,7 +227,8 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/events/archive-sheets/mount-ebott-survey-mission.jpg"
   },
   {
     "id": "the_estragon_island_incident",
@@ -2218,7 +2219,8 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/events/archive-sheets/the-neighbor-incident.jpg"
   },
   {
     "id": "the_waiting_room_testimony",
@@ -2865,7 +2867,7 @@
     "location": "Administrative Claims Office (unnamed — appears to function as a bounty coordination or investigative intake point) / Interview Room / The Window and the Street Below It / Departure Route Toward Raventree Manor",
     "type": "Witness Interviews / Fraud Detection / Paternal Investigation / Mole Interception / Intelligence Recovery / Raventree Recruitment / Archie Hunt Convergence / Coalition Formation Through Mutual Suspicion Rather Than Mutual Trust",
     "status": "Ongoing — Kaelor Judi has identified Raventree Manor as the convergence point for all current leads related to Markop, Archie, the Vigilance, the barrel toads, and the broader Disaster Inc. orbit — the fraudulent goomba witness was ejected through a window and did not join the expedition — Slick the koopa, Ryan, Luigi, and the remaining viable members of the witness list have aligned around a plan to infiltrate Raventree — Sprig the Mole was confronted, searched, and his intercepted Pond Patrol documents recovered — his two goblin note-takers escaped before anyone could question them — Luigi has an undisclosed second reason for going in that he has not shared — Kaelor has formally revealed his true name",
-    "image": "",
+    "image": "assets/images/events/archive-sheets/kaelor-judi-witness-line-and-the-road-to-raventree.jpg",
     "imageCaption": "No visual documentation. Waluigi was not present for this sequence and is reconstructing it from testimony, recovered papers, and the kind of witness descriptions that become less reliable every time someone tries to retell them in a tavern. The wanted poster for Markop Judi has been described to Waluigi but not photographed. The Pond Patrol documents were recovered by Kaelor and their contents have been relayed through channels. The goomba's newspaper clippings were presumably in the street below the window along with the goomba.",
     "audioTitle": "",
     "audio": "",
@@ -3026,7 +3028,7 @@
     "location": "Feyward Manor — Satyr Encampment Planning Room / Woodfellow's Library (briefly) / Exterior Flower Garden / Sedeia's Chambers / The Mushroom Coat Room (which became the goblin spy's tomb) / Lord's Chambers (on fire) / Upper Mezzanine Overlooking the Dance Hall / Survivor's Room (Moss-Covered Sanctuary) / The Sauna Hot Spring / Various Corridors Choked with Hundred-Foot Vines",
     "type": "Crisis Management / Revel Containment Brainstorming / Goblin Espionage and Pursuit / The Pursued Becoming the Substrate / Accidental Ecological Catastrophe / Manor Fire / Evacuation / Library Research / Diplomatic Failure with Lady Arulean / Party Reunification / Ice Storm Deployment with Civilian Casualties / Waluigi Being in a Sauna When the Manor Was on Fire and Then Solving the Fire Problem with Excessive Force — Which Is to Say a Standard Disaster Inc. Tuesday",
     "status": "Ongoing — the giant flower has been partially contained by Waluigi's ice storm — the fire in the Lord's Chambers is extinguished — at least one person is dead from the ice storm — the Revel is actively consuming the giant plant growth and may be growing larger as a result — the treecutters have formed as an organized resistance group but their effectiveness is unknown — the ritual table is covered in leaves and Lady Arulean has evacuated from it — Sedeia fought a shambling mound and claims it ran away which Hjumpik does not fully believe and Waluigi does not believe at all — the goblin spy is dead, having barricaded himself into a room full of parasitic mushrooms and been consumed by them — the spy's body became the substrate that Sedeia attempted to heal which is what generated the hundred-foot flower — Steely has still not been returned to Remi — the hag remains uncured — the Book of Many Things pages remain on Woodfellow's shelf — Waluigi was in the sauna and then froze people and considers this a proportionate sequence of events",
-    "image": "",
+    "image": "assets/images/events/archive-sheets/the-feyward-revel-crisis-poison-plants-and-frozen-diplomacy.jpg",
     "imageCaption": "No visual documentation. The manor was on fire for a significant portion of this session and Waluigi was in a hot spring for a different significant portion and neither of these conditions is conducive to photography. Waluigi's Wahwire tablet survived the sauna environment because Wario's hardware is waterproof by design — Wario spills things on everything he owns and the engineering reflects this — and the Wahwire's screen was displaying this very wiki entry's predecessor article when Hjumpik walked in, which means Hjumpik saw Waluigi reading about the Feyward Revel and the Book of Many Things on a tablet in a hot spring surrounded by a red demon satyr and a beaten-up goblin and did not comment on the tablet, which is either remarkable restraint or remarkable inattention or the kind of normalized weirdness that Disaster Inc. members have developed as a survival adaptation to operating inside a campaign where one of their members regularly sets airships on fire.",
     "audioTitle": "",
     "audio": "",
@@ -3438,7 +3440,8 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/events/archive-sheets/shadowfell-birthday-trap-tanuki.jpg"
   },
   {
     "id": "the_hag_of_ferngrove_manor",
@@ -3547,7 +3550,8 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/events/archive-sheets/the-hag-of-ferngrove-manor.jpg"
   },
   {
     "id": "shadow_estate_campaign",
@@ -3673,7 +3677,8 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/events/archive-sheets/shadow-estate-campaign.jpg"
   },
   {
     "id": "shroob_temporal_incursion",
@@ -3778,7 +3783,8 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/events/archive-sheets/shroob-temporal-incursion.jpg"
   },
   {
     "id": "the_medical_extortion_incident",
@@ -3874,7 +3880,8 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/events/archive-sheets/the-medical-extortion-incident.jpg"
   },
   {
     "id": "the_planar_sanctum_revelation",
