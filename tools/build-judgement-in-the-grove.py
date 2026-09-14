@@ -15,6 +15,7 @@ from __future__ import annotations
 
 import json
 import re
+import subprocess
 import sys
 from pathlib import Path
 
@@ -831,10 +832,18 @@ def build(check=False):
     # this filing REPLACES the Shadeward cover rather than stacking on top of
     # it. The Belly of the Beast and the Scorncrow Skirmish are both Shadeward
     # and both older, so both drop out.
-    covers = [c for c in (mainpage.get("campaignCovers") or [])
-              if (c.get("campaign") or "") != COVER["campaign"]]
-    mainpage["campaignCovers"] = [COVER] + covers
     dump("mainPage.json", mainpage)
+    # Current fronts are DERIVED, not written here. This generator used to
+    # hand-place its own cover row, which is exactly how the Mario and Feyward
+    # fronts went stale - a filing only ever fixed its own campaign and left
+    # the others pointing at whatever was curated last. Delegate to
+    # build-campaign-fronts.py, which picks the newest imaged filing per
+    # campaign from the timeCode suffix and rewrites the whole strip.
+    subprocess.run([sys.executable, str(ROOT / "tools" / "build-campaign-fronts.py"),
+                    "--write"], check=True)
+    mainpage = load("mainPage.json")
+    covers = [c for c in mainpage.get("campaignCovers") or []
+              if (c.get("campaign") or "") != COVER["campaign"]]
 
     # SITE_UPDATES, newest first.
     html = INDEX.read_text(encoding="utf-8")

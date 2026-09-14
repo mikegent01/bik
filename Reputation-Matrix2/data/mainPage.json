@@ -42,25 +42,25 @@
       "id": "judgement-in-the-grove-cover",
       "campaign": "Shadeward",
       "title": "SHADEWARD — Judgement in the Grove",
-      "caption": "The Scorncrow dies on its knees asking a paladin for mercy; the grove fills from every direction and Salam does not get up.",
+      "caption": "The moment before judgement. The Scorncrow on its knees with the scythe fallen out of reach, hood off, the face underneath plainly human and still asking; Markop at the top of the swing.",
       "image": "assets/images/events/judgement-in-the-grove/jig-01-warhammer.jpg",
       "articleId": "judgement_in_the_grove"
     },
     {
-      "id": "feyward-reclamation-cover",
-      "campaign": "Feyward",
-      "title": "FEYWARD — The Reclamation of the Library",
-      "caption": "The library mound rises behind them; the crew runs for the joists. Latest Feyward clock filing.",
-      "image": "assets/images/session-covers/feyward-title-card.png",
-      "articleId": "feyward_library_reclamation_and_the_kitchen"
+      "id": "the-tape-and-the-wario-files-cover",
+      "campaign": "Mario",
+      "title": "MARIO — The Tape and the Wario Files",
+      "caption": "Midnight, second day, sixth rewind. The curtains have not been opened since the clinic.",
+      "image": "assets/images/events/the-tape-and-the-files/tape-01-midnight-rewind.jpg",
+      "articleId": "the_tape_and_the_wario_files"
     },
     {
-      "id": "mario-lava-bridge-cover",
-      "campaign": "Mario",
-      "title": "MARIO — The Garden Above the Fire",
-      "caption": "Luigi is found alive after the lava-falls fall; the first words of the courier note point above the fire.",
-      "image": "assets/images/events/garden-above-fire/garden-above-fire-01-superstars.jpg",
-      "articleId": "the_garden_above_the_fire"
+      "id": "feyward-i-cant-afford-not-to-care-cover",
+      "campaign": "Feyward",
+      "title": "FEYWARD — I Can't Afford Not to Care Anymore",
+      "caption": "The doorway, resolved. Waluigi braced across the frame refusing to leave, Hjumpik with both hands on the sleeve hauling him out, Toad Lee looking back at a treant at full height with a second one already…",
+      "image": "assets/images/events/ambush-in-the-doorway/amb-01-drag-him-out.jpg",
+      "articleId": "feyward_i_cant_afford_not_to_care"
     }
   ],
   "fieldGallery": [
