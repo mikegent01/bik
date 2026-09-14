@@ -205,6 +205,7 @@ Seven habits explain nearly every decision in this repository:
 | [`docs/WHATIF_FORMAT_GUIDE.md`](docs/WHATIF_FORMAT_GUIDE.md) | Craft standard for **non-canon What-Ifs** — decision engine, ledger, findings, verdict | Writing a What-If |
 | [`docs/RNN_BROADCAST_GUIDE.md`](docs/RNN_BROADCAST_GUIDE.md) | The news broadcast. **One episode per ~10 events**, the pending list, the voice | Cutting an episode |
 | [`docs/BATTLES_GUIDE.md`](docs/BATTLES_GUIDE.md) | **Battle records** — `data/battles.json` + `data/majorBattles.json`: what earns a record, schema, ledger-truth rules, the home feed item | Filing a battle |
+| [`docs/BETWEEN_TURNS_GUIDE.md`](docs/BETWEEN_TURNS_GUIDE.md) | **Dead time at the table** — why adding options to a sheet makes it worse, and the four levers (reactions, reaction shots, readied actions, companions on their own initiative) that fill the gap between turns | A player says they have nothing to do on their turn |
 | [`docs/BATTLE_STORY_FORMAT_GUIDE.md`](docs/BATTLE_STORY_FORMAT_GUIDE.md) | **Battle craft** — the six-part war-report shape, mechanics→consequences translation, pacing tells | Writing a battle article |
 | [`docs/ARTICLE_QA.md`](docs/ARTICLE_QA.md) | **Content QA** — the six checks over every article before it ships; the Hanging-Tree exemplar | Reviewing any article |
 | [`docs/CROSS_SYSTEM_UPDATES.md`](docs/CROSS_SYSTEM_UPDATES.md) | **Cross-system triggers** — Pond Patrol, dynasties, POIs, bros attacks, currencies, WAHwire, songs, books: what every filing must also touch | After any filing |

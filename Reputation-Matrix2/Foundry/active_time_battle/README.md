@@ -129,6 +129,11 @@ is obvious why nothing is filling.
 
 ---
 
+> **The table-side half of this problem** is covered in
+> [`docs/BETWEEN_TURNS_GUIDE.md`](../../../docs/BETWEEN_TURNS_GUIDE.md): reactions,
+> reaction shots, readied actions and companions on their own initiative. Settings
+> shorten the gap between turns; that guide gives players something to do inside it.
+
 ## Team captains
 
 Everyone still rolls initiative. With **Team captains order their side** on, the
