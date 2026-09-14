@@ -8571,7 +8571,7 @@ function renderSidebar(active){
     navLink({emoji:'⚖️',label:'Crime & Punishment',go:"location.href='Reputation-Matrix2/app/pages/crime-and-punishment/crime-and-punishment.html'",title:'Sentencing reel and the consequence table — 89 punishments'}),
     navLink({emoji:'🩸',label:'Injury Desk',go:"Router.go('#/injuries')",active:active==='injuries',count:((DATA.injuries&&DATA.injuries.entries)||[]).length,title:'Death saving throws and the d100 injury table'}),
     navLink({emoji:'🗣️',label:'The Wahbabel',go:"Router.go('#/wahbabel')",active:active==='wahbabel',count:(WAHBABEL&&WAHBABEL.languages?WAHBABEL.languages.length:7),title:'Translation desk — ciphers, dictionaries and glyphs'}),
-    navLink({emoji:'📡',label:'WAHwire',go:"Router.go('#/wahwire')",active:active==='wahwire',count:(WAHWIRE&&WAHWIRE.posts?WAHWIRE.posts.length:23),title:'The public wire — every filing gets a reaction'}),
+    navLink({emoji:'📡',label:'WAHwire',go:"Router.go('#/wahwire')",active:active==='wahwire',count:(WAHWIRE&&WAHWIRE.posts?WAHWIRE.posts.length:null),title:'The public wire — every filing gets a reaction'}),
     navLink({emoji:'💬',label:'Chatter Hub',go:"Router.go('#/annotations')",active:active==='annotations',count:n('annotations')}),
   ];
   h+=navSection('nav-systems-world','World Systems',systemLinks,{forceOpen:hasActive(systemLinks),count:systemLinks.length});
@@ -8900,6 +8900,12 @@ function attachmentIndex(){
   try{ const pr=(D.props&&D.props.props)||D.props||{};
         Object.keys(pr).forEach(k=>(pr[k].articles||[]).forEach(a=>{
           if(INDEX[a]&&INDEX[a].typeKey==='events') add(a,'exhibit'); })); }catch(e){}
+  /* WAHwire lives in its own store and is fetched separately, so this only
+     counts once the wire has landed. Until then the badge is simply absent
+     rather than wrong — boot() invalidates this index when it arrives. */
+  try{ ((typeof WAHWIRE!=='undefined'&&WAHWIRE&&WAHWIRE.posts)||[]).forEach(p=>
+        (p.links||[]).forEach(l=>{ const id=(l&&typeof l==='object')?l.id:l;
+          if(id&&INDEX[id]&&INDEX[id].typeKey==='events') add(id,'wire'); })); }catch(e){}
   ATTACH_INDEX=idx; return idx;
 }
 const ATTACH_META={
@@ -8907,15 +8913,21 @@ const ATTACH_META={
   analysis:     {icon:'🔬', label:'Analysis',      cls:'att-anal'},
   investigation:{icon:'🔍', label:'Investigation', cls:'att-inv'},
   battle:       {icon:'⚔️', label:'Battle',        cls:'att-bat'},
-  exhibit:      {icon:'📎', label:'Exhibits',      cls:'att-exh'}
+  exhibit:      {icon:'📎', label:'Exhibits',      cls:'att-exh'},
+  wire:         {icon:'📡', label:'On the wire',  cls:'att-wire'}
 };
 /* Order is fixed so a row of cards reads consistently, not in join order. */
-const ATTACH_ORDER=['commentary','analysis','investigation','battle','exhibit'];
+const ATTACH_ORDER=['commentary','analysis','investigation','battle','exhibit','wire'];
 function attachmentTags(id){
   const a=attachmentIndex()[id]; if(!a) return '';
   const out=ATTACH_ORDER.filter(k=>a[k]).map(k=>{
     const m=ATTACH_META[k];
     const n=a[k]>1?` ${a[k]}`:'';
+    /* The wire tag is the one attachment with somewhere to go: send it to the
+       feed already filtered to this record, rather than making the reader
+       find it. stopPropagation so it does not also open the article. */
+    if(k==='wire') return `<span class="atag ${m.cls}" title="${a[k]} post${a[k]>1?'s':''} on WAHwire about this filing"
+      onclick="event.stopPropagation();_wwState.record='${esc(id)}';Router.go('#/wahwire/'+encodeURIComponent('${esc(id)}'))">${m.icon} ${esc(m.label)}${n}</span>`;
     return `<span class="atag ${m.cls}" title="${esc(m.label)} available for this filing">${m.icon} ${esc(m.label)}${n}</span>`;
   });
   return out.length?`<div class="atags">${out.join('')}</div>`:'';
@@ -20768,6 +20780,17 @@ async function boot(){
   el('statline').textContent = ALL_ITEMS.length+' articles · '+Object.keys(DATA.conflicts||{}).length+' conflicts · '+(DATA.majorBattles||[]).length+' battles · '+(DATA.congress_votes||[]).length+' votes · '+(((DATA.artifacts||{}).star_bearers||[]).length)+' bearers · '+window.__DATA_SOURCE+' · / search · H links · C comments';
   try{ updateTopbarLoginBtn(); }catch(e){}
   Router.render();
+  /* Warm the wire in the background. It is 65 KB against a 4 MB events.json,
+     and having it resident is what lets the events grid show a "on the wire"
+     badge without every card firing its own fetch. Deliberately NOT awaited:
+     the first paint must not wait on it. When it lands, drop the attachment
+     index and repaint only if the user is sitting on a view that shows the
+     badge. */
+  loadWahwire().then(()=>{
+    ATTACH_INDEX=null;
+    const h=location.hash||'';
+    if(/^#\/(list\/events|home|article\/)/.test(h)) Router.render();
+  }).catch(()=>{});
 }
 boot();
 </script>

@@ -1126,6 +1126,10 @@ mark{background:var(--accent2);color:#111;border-radius:3px;padding:0 2px}
 .att-inv {color:#fbbf24;border-color:rgba(251,191,36,.42);background:rgba(251,191,36,.11)}
 .att-bat {color:#fb7185;border-color:rgba(251,113,133,.42);background:rgba(251,113,133,.11)}
 .att-exh {color:#5eead4;border-color:rgba(94,234,212,.42);background:rgba(94,234,212,.11)}
+/* The wire tag is the one attachment that is also a link — it routes to the
+   feed filtered to this record, so it gets a pointer and a hover state. */
+.att-wire{color:#c4b5fd;border-color:rgba(196,181,253,.45);background:rgba(196,181,253,.12);cursor:pointer}
+.att-wire:hover{color:#ddd6fe;border-color:rgba(196,181,253,.85);background:rgba(196,181,253,.22)}
 /* ===== Events grid: the illustrated treatment =====
    The events list used to be the same purple text tile as every other list,
    with a small thumbnail glued on top. Now the art leads the card, the

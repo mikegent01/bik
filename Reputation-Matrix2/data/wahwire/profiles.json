@@ -675,6 +675,112 @@
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-16T02:15:54+00:00"
       }
+    },
+    "dan": {
+      "bio": "Former co-leader, Liberated Toads. One arm, one bad year, and a field kit. Patches people up and declines to discuss it.",
+      "location": "Liberated Toads",
+      "joined": "Year of the Uprising",
+      "follows": [
+        "speaker_l",
+        "salam",
+        "bones"
+      ],
+      "followReasons": {
+        "speaker_l": "He is the reason there is still a faction to lead.",
+        "salam": "Somebody should be watching, and it is usually me.",
+        "bones": "He was in the courtyard. So was I."
+      },
+      "status": "filed"
+    },
+    "mona": {
+      "bio": "WarioWare crew. Rides with the jobs, reads the paperwork first, takes the job anyway. Wario pays on time.",
+      "location": "Wario's Enterprise",
+      "joined": "Year of the Koopa",
+      "follows": [
+        "wario",
+        "waluigi"
+      ],
+      "followReasons": {
+        "wario": "Employer. Volume is part of the package.",
+        "waluigi": "He files the parts the invoice leaves out."
+      },
+      "status": "filed"
+    },
+    "remi_akamatsu_full_backstory": {
+      "bio": "Fourteen. From Kivotos. Was in the barrel. Card bearer, Disaster Inc. Escaped a guarded cage wearing a cardboard box and will not be letting anyone forget it.",
+      "location": "Disaster Inc.",
+      "joined": "Harvestide, 1040 BF",
+      "follows": [
+        "markop",
+        "eager",
+        "wario"
+      ],
+      "followReasons": {
+        "markop": "He checks the door. I have stopped resenting it.",
+        "eager": "He apologises more than he needs to.",
+        "wario": "The storm-watch deterrent did not deter. Watching for a refund."
+      },
+      "status": "filed"
+    },
+    "scribe_dewdrop": {
+      "bio": "Chroniclers Councilor, Liberated Toads. Keeps the archive, compares testimony, refuses to let emergency language erase inconvenient facts. Unconscious twice in one afternoon and still filed the report.",
+      "location": "Liberated Toads",
+      "joined": "Year of the Uprising",
+      "follows": [
+        "speaker_l",
+        "captain_toadette",
+        "waluigi"
+      ],
+      "followReasons": {
+        "speaker_l": "I minute him. That is not the same as agreeing.",
+        "captain_toadette": "She reads the warnings out loud.",
+        "waluigi": "Rival archivist. Annoyingly rigorous."
+      },
+      "status": "filed"
+    },
+    "speaker_l": {
+      "bio": "Mastermind of the First Cohort. Issued ED-001. 'This is not retribution's art, but the mending of the fractured heart.' Held to that line through a decoy, an interrogation and Order 120.",
+      "location": "Liberated Toads / Pond Patrol",
+      "joined": "Year of the Uprising",
+      "follows": [
+        "bones",
+        "dan",
+        "scribe_dewdrop"
+      ],
+      "followReasons": {
+        "bones": "He stood in the corridor. By name.",
+        "dan": "He built the thing I am now responsible for.",
+        "scribe_dewdrop": "Somebody has to write it down honestly, and it cannot be me."
+      },
+      "status": "filed"
+    },
+    "dr_toad": {
+      "bio": "Star Hill physician with the least suspicious name possible. Treated Luigi's burns after the lava-falls rescue. Diagnoses delirium; declines to diagnose anything political.",
+      "location": "Dr. Toad's Star Hill Clinic",
+      "joined": "Year of the Koopa",
+      "follows": [
+        "luigi",
+        "toad_lee"
+      ],
+      "followReasons": {
+        "luigi": "Patient. Recovering. Still talking about the longjump.",
+        "toad_lee": "Sends me the ones who will not come in on their own."
+      },
+      "status": "filed"
+    },
+    "liam": {
+      "bio": "DGK field agent sent to the wrong mansion. Authorization disputed. Went in for samples, came out with a question about who the central contact actually was.",
+      "location": "DGK (assignment disputed)",
+      "joined": "Year of the Koopa",
+      "follows": [
+        "waluigi",
+        "mystic_morel"
+      ],
+      "followReasons": {
+        "waluigi": "He files receipts. I need one.",
+        "mystic_morel": "She reads paperwork the way I should have."
+      },
+      "status": "filed"
     }
   }
 }

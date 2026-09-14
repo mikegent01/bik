@@ -3,10 +3,1019 @@
   "source": "migrated from data/events/scheduled-posts.js",
   "posts": [
     {
+      "id": "ww_reopen_announcement",
+      "author": "wah_media_collective",
+      "type": "thread",
+      "order": 1,
+      "date": null,
+      "timestamp": "14 Aethel, 1040 BF — 09:00",
+      "content": "📡 THE WIRE IS BACK. Read this before you post anything.",
+      "likes": 484,
+      "links": [
+        {
+          "id": "judgement_in_the_grove",
+          "type": "event"
+        },
+        {
+          "id": "waluigi",
+          "type": "character"
+        }
+      ],
+      "tags": [
+        "reopening",
+        "wahwire",
+        "announcement",
+        "readthis"
+      ],
+      "reaction": "cheer",
+      "comments": [
+        {
+          "id": "c15358",
+          "author": "waluigi",
+          "content": "Point 3 is the only one that matters and it is the one nobody will read. The wire is not the record. Say it back to me.",
+          "likes": 447,
+          "topReply": true
+        },
+        {
+          "id": "c62228",
+          "author": "wario",
+          "content": "CAN I ADVERTISE ON IT",
+          "likes": 231
+        },
+        {
+          "id": "c59127",
+          "author": "generic_toad",
+          "content": "wait so the thing that was broken for months is fixed and the announcement is a SIX PART THREAD",
+          "likes": 42
+        }
+      ],
+      "status": "posted",
+      "thread": [
+        "1/ WAHwire is reopen. It was dark for a long time and nobody will give us a straight answer about why, so we are not going to pretend there was a good reason.",
+        "2/ WHAT THIS IS: the public side of the archive. When a filing lands, the people who were there get to say something about it here, under their own name, in their own voice, and it is kept.",
+        "3/ WHAT THIS IS NOT: the record. The record is the filing. If the wire and the filing disagree, the filing wins and somebody owes a correction. We have a format for those now. Waluigi has used it twice already and it is only the first morning.",
+        "4/ NEW ON REOPENING: you can quote a post. You can post a document straight out of the exhibit store. You can run a poll. You can post a tally. Threads like this one. Pictures.",
+        "5/ THE RULE, AND THERE IS ONLY ONE: link the record. A post about a filing that does not link the filing is a rumour, and rumours get pruned. Everything on this wire points at something you can go and read.",
+        "6/ That is the whole announcement. The archive is open, the wire is open, and the Scorncrow story is still the worst thing any of us have read this year. Go and post. WAH."
+      ]
+    },
+    {
+      "id": "ww_reopen_waluigi_editorial",
+      "author": "waluigi",
+      "type": "text",
+      "order": 2,
+      "date": null,
+      "timestamp": "14 Aethel, 1040 BF — 09:40",
+      "content": "Waluigi has been asked to say something warm about the reopening. Here it is. For two years the only public account of what this company does was whatever Wario shouted at a crowd and whatever the Regency printed afterwards. Now there is a third thing, it is on the record, it has my name on it, and when I am wrong it will have my correction on it as well. That is not warmth. That is better than warmth. WAH.",
+      "likes": 2034,
+      "links": [
+        {
+          "id": "waluigi",
+          "type": "character"
+        },
+        {
+          "id": "wario_enterprise",
+          "type": "faction"
+        }
+      ],
+      "tags": [
+        "reopening",
+        "ontherecord"
+      ],
+      "reaction": "resolve",
+      "comments": [
+        {
+          "id": "c83002",
+          "author": "bowser",
+          "content": "He files the parts that make him look bad. I have said this once already and I resent being made to say it twice.",
+          "likes": 338,
+          "topReply": true
+        },
+        {
+          "id": "c38941",
+          "author": "wario",
+          "content": "'WHATEVER WARIO SHOUTED AT A CROWD' — those were PRESS CONFERENCES and they were WELL ATTENDED.",
+          "likes": 231
+        }
+      ],
+      "status": "posted"
+    },
+    {
+      "id": "ww_reopen_poll",
+      "author": "wah_media_collective",
+      "type": "poll",
+      "order": 3,
+      "date": null,
+      "timestamp": "14 Aethel, 1040 BF — 11:00",
+      "content": "Reopening day poll. Be honest, the archive is watching and so are we:",
+      "likes": 404,
+      "links": [
+        {
+          "id": "mushroom_regency",
+          "type": "faction"
+        }
+      ],
+      "tags": [
+        "reopening",
+        "poll"
+      ],
+      "reaction": "smug",
+      "comments": [
+        {
+          "id": "c42620",
+          "author": "chancellor_toadsworth",
+          "content": "Option three is phrased tendentiously and I would like that minuted.",
+          "likes": 106,
+          "topReply": true
+        },
+        {
+          "id": "c75185",
+          "author": "wah_media_collective",
+          "content": "MINUTED. STILL WINNING.",
+          "likes": 88
+        }
+      ],
+      "status": "posted",
+      "poll": {
+        "question": "What did you actually miss while the wire was dark?",
+        "options": [
+          {
+            "label": "The corrections",
+            "votes": 3120
+          },
+          {
+            "label": "Wario's invoices",
+            "votes": 5640
+          },
+          {
+            "label": "Knowing what happened before the Regency said so",
+            "votes": 11890
+          },
+          {
+            "label": "Nothing. It was peaceful.",
+            "votes": 4405
+          }
+        ],
+        "closes": "Open · 25,055 votes so far"
+      }
+    },
+    {
+      "id": "ww_cov_iron_mandate",
+      "author": "chancellor_toadsworth",
+      "type": "ledger",
+      "order": 4,
+      "date": null,
+      "timestamp": "21 Highsun, 1040 BF — 09:00",
+      "content": "The Iron Mandate passed this morning. I am posting the division because in a year somebody will say it was unanimous.",
+      "likes": 725,
+      "links": [
+        {
+          "id": "iron_mandate",
+          "type": "event"
+        },
+        {
+          "id": "midlands_diet",
+          "type": "faction"
+        },
+        {
+          "id": "iron_legion",
+          "type": "faction"
+        }
+      ],
+      "tags": [
+        "ironmandate",
+        "diet",
+        "division",
+        "ledger"
+      ],
+      "reaction": "alarm",
+      "comments": [
+        {
+          "id": "c48804",
+          "author": "waluigi",
+          "content": "Three abstentions. Three people who were in the room, heard the whole thing, and decided the safest place to stand was nowhere. I have their names.",
+          "likes": 447,
+          "topReply": true
+        },
+        {
+          "id": "c94244",
+          "author": "generic_toad",
+          "content": "reclassified as WHAT",
+          "likes": 42
+        }
+      ],
+      "status": "posted",
+      "ledger": [
+        {
+          "label": "For",
+          "value": "28"
+        },
+        {
+          "label": "Against",
+          "value": "8"
+        },
+        {
+          "label": "Abstaining",
+          "value": "3"
+        },
+        {
+          "label": "Speaker Rivers",
+          "value": "Resigned"
+        },
+        {
+          "label": "Time to Order 120",
+          "value": "Six hours"
+        },
+        {
+          "label": "Nations condemning",
+          "value": "7"
+        }
+      ]
+    },
+    {
+      "id": "ww_cov_order_120",
+      "author": "bones",
+      "type": "text",
+      "order": 5,
+      "date": null,
+      "timestamp": "21 Highsun, 1040 BF — 14:30",
+      "content": "Order 120 was issued at half past two: execute every Toad prisoner at Aegis Command by quarter to four. I was bleeding in that courtyard when it went out. The facility fell before the deadline. I want it understood that the order did not fail because anybody reconsidered. It failed because we were faster.",
+      "likes": 484,
+      "links": [
+        {
+          "id": "order_120",
+          "type": "event"
+        },
+        {
+          "id": "iron_legion",
+          "type": "faction"
+        },
+        {
+          "id": "liberated_toads",
+          "type": "faction"
+        }
+      ],
+      "tags": [
+        "order120",
+        "aegiscommand",
+        "uprising"
+      ],
+      "reaction": "rage",
+      "comments": [
+        {
+          "id": "c38946",
+          "author": "waluigi",
+          "content": "'Not completed' is how the file records it. Bones is right that this is the wrong two words. It was not completed the way a fire is not completed when the building falls on it.",
+          "likes": 447,
+          "topReply": true
+        },
+        {
+          "id": "c60431",
+          "author": "colonel_vera_steelstorm",
+          "content": "I have read the order. I am not going to defend it and I am not going to pretend I did not serve under the man who signed it.",
+          "likes": 128
+        }
+      ],
+      "status": "posted"
+    },
+    {
+      "id": "ww_cov_sovereignty_act",
+      "author": "lord_crimson",
+      "type": "text",
+      "order": 6,
+      "date": null,
+      "timestamp": "18 Highsun, 1040 BF — 13:00",
+      "content": "They have passed a law declaring me illegal. Me, specifically, dressed up as a category. I have been illegal in eleven jurisdictions and outlived nine of them. The interesting clause is not the one about vampires. It is the one three days later that let them point the same machinery at a room full of Toads.",
+      "likes": 809,
+      "links": [
+        {
+          "id": "supernatural_sovereignty_act",
+          "type": "event"
+        },
+        {
+          "id": "onyx_hand",
+          "type": "faction"
+        },
+        {
+          "id": "iron_mandate",
+          "type": "event"
+        }
+      ],
+      "tags": [
+        "sovereigntyact",
+        "onyxhand",
+        "theclause"
+      ],
+      "reaction": "gloating",
+      "comments": [
+        {
+          "id": "c93756",
+          "author": "waluigi",
+          "content": "He is right and I hate it. The Act was the machinery. The Mandate just drove it somewhere else.",
+          "likes": 447,
+          "topReply": true
+        },
+        {
+          "id": "c99954",
+          "author": "alpha_bloodmaw",
+          "content": "The Pack was named in the same sentence. We were not consulted either.",
+          "likes": 43
+        }
+      ],
+      "status": "posted"
+    },
+    {
+      "id": "ww_cov_fractured_heart",
+      "author": "generic_toad",
+      "type": "text",
+      "order": 7,
+      "date": null,
+      "timestamp": "18 Highsun, 1040 BF",
+      "content": "Speaker L said one line when he issued the docket — 'this is not retribution's art, but the mending of the fractured heart' — and half of Toad Town has it written on something by now. My neighbour has it on her door. She cannot read. She had it copied.",
+      "likes": 241,
+      "links": [
+        {
+          "id": "fractured_heart",
+          "type": "event"
+        },
+        {
+          "id": "liberated_toads",
+          "type": "faction"
+        }
+      ],
+      "tags": [
+        "fracturedheart",
+        "speakerl",
+        "toadtown"
+      ],
+      "reaction": "resolve",
+      "comments": [
+        {
+          "id": "c3227",
+          "author": "waluigi",
+          "content": "It survived a decoy, an interrogation and Order 120. Most philosophies do not survive a bad week.",
+          "likes": 373,
+          "topReply": true
+        }
+      ],
+      "status": "posted"
+    },
+    {
+      "id": "ww_cov_accountability_docket",
+      "author": "archie_miser",
+      "type": "text",
+      "order": 8,
+      "date": null,
+      "timestamp": "18 Highsun, 1040 BF",
+      "content": "My name is on the Accountability Docket. So is Bowser's, so is Waluigi's, so is Dan's, so is Eager's. Five names on a register created by the same order that names them. I am not saying the charges are wrong. I am saying a court that writes its own list is doing two jobs and only admitting to one.",
+      "likes": 566,
+      "links": [
+        {
+          "id": "accountability_docket",
+          "type": "event"
+        },
+        {
+          "id": "liberated_toads",
+          "type": "faction"
+        }
+      ],
+      "tags": [
+        "docket",
+        "ed001",
+        "fivenames"
+      ],
+      "reaction": "mistrust",
+      "comments": [
+        {
+          "id": "c97830",
+          "author": "dan",
+          "content": "I read my entry. It is accurate. That is the part that keeps me up.",
+          "likes": 84,
+          "topReply": true
+        },
+        {
+          "id": "c78420",
+          "author": "bowser",
+          "content": "FIVE NAMES AND MINE IS SPELLED WRONG.",
+          "likes": 338
+        }
+      ],
+      "status": "posted"
+    },
+    {
+      "id": "ww_cov_ebott_gaster",
+      "author": "dracule_mihawk",
+      "type": "text",
+      "order": 9,
+      "date": null,
+      "timestamp": "Harvestide 27, 1045 BF",
+      "content": "We went to leave and instead met the single most significant unresolved entry in the Snowdin registry. We left uninjured and we left the Iron Legion Protocols manual in his custody — including the page the Snowdin Line never recorded. I have assessed the Royal Guard as trained formation infantry. I have not assessed him at all. I am not certain the word applies.",
+      "likes": 849,
+      "links": [
+        {
+          "id": "mount_ebott_survey_part_5",
+          "type": "event"
+        },
+        {
+          "id": "sans",
+          "type": "character"
+        }
+      ],
+      "tags": [
+        "mountebott",
+        "gaster",
+        "protocols"
+      ],
+      "reaction": "alarm",
+      "comments": [
+        {
+          "id": "c92820",
+          "author": "sans",
+          "content": "he's not in the registry because the registry keeps losing the entry. that's not a filing error. that's him.",
+          "likes": 213,
+          "topReply": true
+        },
+        {
+          "id": "c21395",
+          "author": "waluigi",
+          "content": "A manual on Legion protocol is now held by something the Legion cannot file. Somebody senior is going to have a very bad afternoon.",
+          "likes": 373
+        }
+      ],
+      "status": "posted"
+    },
+    {
+      "id": "ww_cov_ebott_final_log",
+      "author": "sans",
+      "type": "text",
+      "order": 10,
+      "date": null,
+      "timestamp": "Harvestide 29, 1045 BF",
+      "content": "so they swore an oath of silence in the throne room and then handed over a survey machine that had been quietly logging every conversation and battle reading the whole time. i'm not going to say which of those two things is the oath problem. you can work it out.",
+      "likes": 970,
+      "links": [
+        {
+          "id": "mount_ebott_survey_final_log",
+          "type": "event"
+        },
+        {
+          "id": "iron_legion",
+          "type": "faction"
+        }
+      ],
+      "tags": [
+        "mountebott",
+        "oath",
+        "themachine"
+      ],
+      "reaction": "deadpan",
+      "comments": [
+        {
+          "id": "c61973",
+          "author": "waluigi",
+          "content": "The machine went into Legion custody WITH the packet. They swore silence and shipped the transcript. Magnificent.",
+          "likes": 447,
+          "topReply": true
+        },
+        {
+          "id": "c77521",
+          "author": "colonel_vera_steelstorm",
+          "content": "The Gamma Agent has been summoned to High Command. I would not read that as a promotion.",
+          "likes": 54
+        }
+      ],
+      "status": "posted"
+    },
+    {
+      "id": "ww_cov_green_t_door",
+      "author": "green_t",
+      "type": "text",
+      "order": 11,
+      "date": null,
+      "timestamp": "30 Harvestide, 1040 BF",
+      "content": "I knocked on the door of a cottage full of my own colleagues, in the rain, and to be let in I had to be challenged as a fake, checked for magical residue, and FIRE A GUN THROUGH A WINDOW THEY HAD JUST REPAIRED. Then I went and fought the Scorncrow. The Scorncrow was the easy half of the evening.",
+      "likes": 444,
+      "links": [
+        {
+          "id": "green_t_at_the_door_and_the_scorncrow_underfoot",
+          "type": "event"
+        },
+        {
+          "id": "markop",
+          "type": "character"
+        }
+      ],
+      "tags": [
+        "cottage",
+        "greent",
+        "proofofidentity"
+      ],
+      "reaction": "confusion",
+      "comments": [
+        {
+          "id": "c80684",
+          "author": "markop",
+          "content": "The last thing that knocked on that door was wearing somebody's face. I would do it again and I would do it faster.",
+          "likes": 151,
+          "topReply": true
+        },
+        {
+          "id": "c75097",
+          "author": "green_t",
+          "content": "You could have asked me a question only I would know.",
+          "likes": 78
+        },
+        {
+          "id": "c59160",
+          "author": "markop",
+          "content": "I did. You got it right. That is exactly what a good fake does.",
+          "likes": 151
+        }
+      ],
+      "status": "posted"
+    },
+    {
+      "id": "ww_cov_box_guardian",
+      "author": "remi_akamatsu_full_backstory",
+      "type": "text",
+      "order": 12,
+      "date": null,
+      "timestamp": "30 Harvestide, 1040 BF",
+      "content": "Official account: the Black Crystal was recovered from a guarded storage cage and the operative exfiltrated undetected. Unofficial account: I put a cardboard box on my head and walked out. Both of these are true. Only one of them is going in the filing and I have been overruled on which.",
+      "likes": 767,
+      "links": [
+        {
+          "id": "the_box_guardian_sharpie_disguise_and_the_soot_barrel",
+          "type": "event"
+        },
+        {
+          "id": "markop",
+          "type": "character"
+        }
+      ],
+      "tags": [
+        "thebox",
+        "blackcrystal",
+        "exfiltration"
+      ],
+      "reaction": "smug",
+      "comments": [
+        {
+          "id": "c86312",
+          "author": "waluigi",
+          "content": "Both went in the filing. I am not losing the box. The box is the best thing in the whole arc.",
+          "likes": 447,
+          "topReply": true
+        },
+        {
+          "id": "c43902",
+          "author": "eager",
+          "content": "it was a REALLY good box",
+          "likes": 45
+        }
+      ],
+      "status": "posted"
+    },
+    {
+      "id": "ww_cov_imp_ambush",
+      "author": "salam",
+      "type": "text",
+      "order": 13,
+      "date": null,
+      "timestamp": "29–30 Harvestide, 1040 BF",
+      "content": "For the record, since everyone keeps apologising to me about it: Eager did not mean to hit me. I was standing where the imp had been standing about half a second earlier. That is not an attack, that is arithmetic.",
+      "likes": 290,
+      "links": [
+        {
+          "id": "the_imp_ambush_aftermath_and_kyrn_cell_escape",
+          "type": "event"
+        },
+        {
+          "id": "eager",
+          "type": "character"
+        }
+      ],
+      "tags": [
+        "impambush",
+        "friendlyfire",
+        "arithmetic"
+      ],
+      "reaction": "grief",
+      "comments": [
+        {
+          "id": "c95622",
+          "author": "eager",
+          "content": "i still think about it",
+          "likes": 45,
+          "topReply": true
+        },
+        {
+          "id": "c24897",
+          "author": "dan",
+          "content": "Rattles got you out and I patched you up. Nobody is filing a complaint. Stop bracing for one.",
+          "likes": 67
+        }
+      ],
+      "status": "posted"
+    },
+    {
+      "id": "ww_cov_warp_pipe",
+      "author": "captain_toadette",
+      "type": "text",
+      "order": 14,
+      "date": null,
+      "timestamp": "5 Aethel, 1040 BF",
+      "content": "We were told we were meeting a guildmaster at a guildhouse. We met a Goomba, a Koopa, a Magikoopa and a winch, in a rust shack, through a gate Embercap lied us past. Dewdrop went down twice and is alive because of the second person to reach him. The rat did not come back. The rat was the warning and we went anyway.",
+      "likes": 646,
+      "links": [
+        {
+          "id": "warp_pipe_junction_restricted_city",
+          "type": "event"
+        },
+        {
+          "id": "scribe_dewdrop",
+          "type": "character"
+        }
+      ],
+      "tags": [
+        "warppipe",
+        "junction",
+        "therat"
+      ],
+      "reaction": "mistrust",
+      "comments": [
+        {
+          "id": "c93080",
+          "author": "scribe_dewdrop",
+          "content": "I have been unconscious twice in one afternoon and I am still the one writing this up.",
+          "likes": 71,
+          "topReply": true
+        },
+        {
+          "id": "c22832",
+          "author": "waluigi",
+          "content": "'The rat was the warning and we went anyway' is going on the front of the filing.",
+          "likes": 373
+        }
+      ],
+      "status": "posted"
+    },
+    {
+      "id": "ww_cov_embassy_ambush",
+      "author": "mona",
+      "type": "text",
+      "order": 15,
+      "date": null,
+      "timestamp": "18 Harvestide, 1035 BF",
+      "content": "We were hired to ambush Luigi at an embassy on the strength of a paper saying Mario wanted to crouch and backwards longjump out of the kingdom. I want to be clear that I read that sentence before I agreed to the job and I agreed to the job anyway. Wario pays on time.",
+      "likes": 324,
+      "links": [
+        {
+          "id": "the_embassy_ambush_and_luigi_interrogation",
+          "type": "event"
+        },
+        {
+          "id": "wario",
+          "type": "character"
+        }
+      ],
+      "tags": [
+        "embassy",
+        "longjump",
+        "mercenarywork"
+      ],
+      "reaction": "confusion",
+      "comments": [
+        {
+          "id": "c32190",
+          "author": "wario",
+          "content": "WARIO PAYS ON TIME. Put that on the poster.",
+          "likes": 185,
+          "topReply": true
+        },
+        {
+          "id": "c21913",
+          "author": "luigi",
+          "content": "i was THERE. i was having a NORMAL DAY.",
+          "likes": 267
+        }
+      ],
+      "status": "posted"
+    },
+    {
+      "id": "ww_cov_first_snowfall",
+      "author": "mystic_morel",
+      "type": "text",
+      "order": 16,
+      "date": null,
+      "timestamp": "14 Chillwind, 978 BF",
+      "content": "Sixty-two years on and the Snowflake Village outbreak is still filed as 'baffled local and regional authorities alike'. I have read the surviving reports. They were not baffled. They were three days late, and the report arrived stiff with frost with the receipt stamp still legible. Somebody sat on it.",
+      "likes": 167,
+      "links": [
+        {
+          "id": "first_snowfall_incident",
+          "type": "event"
+        }
+      ],
+      "tags": [
+        "snowflakevillage",
+        "coldcase",
+        "receiptstamp"
+      ],
+      "reaction": "suspicion",
+      "comments": [
+        {
+          "id": "c65829",
+          "author": "waluigi",
+          "content": "The receipt stamp is the part that matters. It is always the part that matters.",
+          "likes": 373,
+          "topReply": true
+        }
+      ],
+      "status": "posted"
+    },
+    {
+      "id": "ww_cov_quote_order120",
+      "author": "speaker_l",
+      "type": "quote",
+      "order": 17,
+      "date": null,
+      "timestamp": "22 Highsun, 1040 BF",
+      "content": "He says it failed because they were faster. It failed because eleven people who had every reason to run stood in a corridor instead. Speed is what it looks like from outside. From inside it was a decision, taken eleven times, by name.",
+      "likes": 484,
+      "links": [
+        {
+          "id": "order_120",
+          "type": "event"
+        },
+        {
+          "id": "liberated_toads",
+          "type": "faction"
+        }
+      ],
+      "tags": [
+        "order120",
+        "eleven",
+        "byname"
+      ],
+      "reaction": "resolve",
+      "comments": [
+        {
+          "id": "c60360",
+          "author": "bones",
+          "content": "I will take that correction.",
+          "likes": 88,
+          "topReply": true
+        }
+      ],
+      "status": "posted",
+      "quoteOf": "ww_cov_order_120"
+    },
+    {
+      "id": "ww_cov_exhibit_frost_report",
+      "author": "waluigi",
+      "type": "exhibit",
+      "order": 18,
+      "date": null,
+      "timestamp": "Recovered 1040 BF",
+      "content": "Since we are doing cold cases this week. One leaf, militia hand, unsigned, recovered stiff with frost — and received three days after the event it reports. Read the stamp, not the prose.",
+      "likes": 1364,
+      "links": [
+        {
+          "id": "first_snowfall_incident",
+          "type": "event"
+        }
+      ],
+      "tags": [
+        "exhibit",
+        "snowflakevillage",
+        "readthestamp"
+      ],
+      "reaction": "suspicion",
+      "comments": [
+        {
+          "id": "c17541",
+          "author": "mystic_morel",
+          "content": "Three days. In a village you can walk across in twenty minutes.",
+          "likes": 92,
+          "topReply": true
+        }
+      ],
+      "status": "posted",
+      "exhibit": "prop_frozen_incident_report_01"
+    },
+    {
+      "id": "ww_cov_wario_ad",
+      "author": "wario",
+      "type": "text",
+      "order": 19,
+      "date": null,
+      "timestamp": "14 Aethel, 1040 BF",
+      "content": "WAHAHAHA! The wire is back and WARIO is the FIRST ADVERTISER. Storm-watch kits, vampire deterrents, motorbike retrieval, elixirs of QUESTIONABLE but LEGAL provenance. Mention the wire and pay full price. WARIO does not do discounts, WARIO does RECOGNITION.",
+      "likes": 843,
+      "links": [
+        {
+          "id": "wario_enterprise",
+          "type": "faction"
+        }
+      ],
+      "tags": [
+        "reopening",
+        "advertising",
+        "fullprice"
+      ],
+      "reaction": "gloating",
+      "comments": [
+        {
+          "id": "c227",
+          "author": "waluigi",
+          "content": "Nine hours. The wire was open for NINE HOURS before this.",
+          "likes": 447,
+          "topReply": true
+        },
+        {
+          "id": "c91557",
+          "author": "remi_akamatsu_full_backstory",
+          "content": "I bought three things off this catalogue during a storm and I would like to state that the deterrent did not deter.",
+          "likes": 135
+        },
+        {
+          "id": "c7363",
+          "author": "wario",
+          "content": "IT DETERRED. Nothing bit you. That is the PRODUCT WORKING.",
+          "likes": 231
+        }
+      ],
+      "status": "posted"
+    },
+    {
+      "id": "ww_cov_toad_lee_reopening",
+      "author": "toad_lee",
+      "type": "text",
+      "order": 20,
+      "date": null,
+      "timestamp": "14 Aethel, 1040 BF",
+      "content": "Everyone is posting about the reopening like it is a party. I am mostly relieved there is somewhere to say a thing that is not a filing. A filing needs an outcome. Some of this does not have one yet.",
+      "likes": 119,
+      "links": [
+        {
+          "id": "feyward_i_cant_afford_not_to_care",
+          "type": "event"
+        }
+      ],
+      "tags": [
+        "reopening",
+        "nooutcomeyet"
+      ],
+      "reaction": "relief",
+      "comments": [
+        {
+          "id": "c86452",
+          "author": "waluigi",
+          "content": "That is the most accurate description of what this wire is for that anybody has managed, including me, in a six-part thread.",
+          "likes": 373,
+          "topReply": true
+        }
+      ],
+      "status": "posted"
+    },
+    {
+      "id": "ww_cov_poll_worst_night",
+      "author": "wah_media_collective",
+      "type": "poll",
+      "order": 21,
+      "date": null,
+      "timestamp": "14 Aethel, 1040 BF",
+      "content": "Now the archive is searchable again, settle the argument that has been running in every tavern in the Midlands:",
+      "likes": 404,
+      "links": [
+        {
+          "id": "the_belly_of_the_beast",
+          "type": "event"
+        },
+        {
+          "id": "judgement_in_the_grove",
+          "type": "event"
+        },
+        {
+          "id": "salam",
+          "type": "character"
+        }
+      ],
+      "tags": [
+        "poll",
+        "disasterinc",
+        "worstnight"
+      ],
+      "reaction": "alarm",
+      "comments": [
+        {
+          "id": "c67637",
+          "author": "markop",
+          "content": "Option four is not a night. Option four is a standing condition and whoever wrote it knows exactly what they did.",
+          "likes": 180,
+          "topReply": true
+        },
+        {
+          "id": "c11369",
+          "author": "bones",
+          "content": "Voted four. Would vote four again.",
+          "likes": 71
+        }
+      ],
+      "status": "posted",
+      "poll": {
+        "question": "Worst night on record for Disaster Inc.?",
+        "options": [
+          {
+            "label": "The Belly of the Beast — sealed in",
+            "votes": 6870
+          },
+          {
+            "label": "Judgement in the Grove — the execution",
+            "votes": 9240
+          },
+          {
+            "label": "The imp ambush at the cottage",
+            "votes": 2115
+          },
+          {
+            "label": "Whichever one Salam is still out in",
+            "votes": 8930
+          }
+        ],
+        "closes": "Open · 27,155 votes so far"
+      }
+    },
+    {
+      "id": "ww_cov_ledger_wire_stats",
+      "author": "waluigi",
+      "type": "ledger",
+      "order": 22,
+      "date": null,
+      "timestamp": "14 Aethel, 1040 BF — end of day one",
+      "content": "Reopening day, by the numbers, because somebody has to count and it is always me.",
+      "likes": 1364,
+      "links": [
+        {
+          "id": "waluigi",
+          "type": "character"
+        }
+      ],
+      "tags": [
+        "reopening",
+        "ledger",
+        "daynumbers"
+      ],
+      "reaction": "smug",
+      "comments": [
+        {
+          "id": "c39923",
+          "author": "wah_media_collective",
+          "content": "'MOST OF THEM' IS NOT A NUMBER, ARCHIVIST.",
+          "likes": 88,
+          "topReply": true
+        },
+        {
+          "id": "c9561",
+          "author": "waluigi",
+          "content": "It is a number. It is eighty-seven. I softened it because it is the first day.",
+          "likes": 447
+        }
+      ],
+      "status": "posted",
+      "ledger": [
+        {
+          "label": "Posts filed, day one",
+          "value": "22"
+        },
+        {
+          "label": "Accounts posting",
+          "value": "18"
+        },
+        {
+          "label": "Corrections already owed",
+          "value": "0 (give it time)"
+        },
+        {
+          "label": "Hours before Wario advertised",
+          "value": "9"
+        },
+        {
+          "label": "Filings still owing a post",
+          "value": "Most of them"
+        },
+        {
+          "label": "Rumours pruned",
+          "value": "0 — link your records"
+        }
+      ]
+    },
+    {
       "id": "ww_q_scorncrow_face",
       "author": "markop",
       "type": "quote",
-      "order": 1,
+      "order": 23,
       "date": null,
       "timestamp": "2 Aethel, 1040 BF",
       "content": "He asked. On his knees, with the face off, in a voice that was not a bird's. I heard the whole sentence and I swung anyway. Waluigi can write down whatever word he likes — I know which one the Judges will use.",
@@ -49,7 +1058,7 @@
       "id": "ww_q_legion_arrest",
       "author": "archie_miser",
       "type": "quote",
-      "order": 2,
+      "order": 24,
       "date": null,
       "timestamp": "2 Aethel, 1040 BF",
       "content": "Let me get the sequence right. They call for help. We come. We clear their grove. Then they put me in irons WHILE THE SPIDERS ARE STILL COMING. The Legion does not have allies. The Legion has a waiting list.",
@@ -92,7 +1101,7 @@
       "id": "ww_q_tape_greed",
       "author": "waluigi",
       "type": "quote",
-      "order": 3,
+      "order": 25,
       "date": null,
       "timestamp": "21 Harvestide, 1035 BF",
       "content": "Wario read one line of my notebook out loud, in a flat voice, like a parts order — and three lines in his voice changed and he did not notice it change. I noticed. I have spent a lifetime noticing exactly that and filing it as leverage. This is the first time the noticing produced nothing I could use.",
@@ -141,7 +1150,7 @@
       "id": "ww_exhibit_vale_badge",
       "author": "waluigi",
       "type": "exhibit",
-      "order": 4,
+      "order": 26,
       "date": null,
       "timestamp": "Recovered 1040 BF",
       "content": "Here is the badge. Look at it. It is REAL. Clearance Level 5, correct arrows, correct weight, and a Central Command that has never heard of the assignment it authorised. They did not forge the Directorate. They forged one signature and let the rest of the building work properly. That is worse.",
@@ -183,7 +1192,7 @@
       "id": "ww_exhibit_wario_files",
       "author": "wario",
       "type": "exhibit",
-      "order": 5,
+      "order": 27,
       "date": null,
       "timestamp": "20 Harvestide, 1035 BF",
       "content": "WARIO'S FILES. Everyone wants the tape. Nobody wants the LEDGER behind the tape. Perspective of greed: somebody kept the star because a kept star is worth more than a lost one. You do not need magic to work that out, you need an ACCOUNTANT.",
@@ -220,7 +1229,7 @@
       "id": "ww_exhibit_burn_chart",
       "author": "dr_toad",
       "type": "exhibit",
-      "order": 6,
+      "order": 28,
       "date": null,
       "timestamp": "14 Highsun, 1035 BF",
       "content": "Clinic chart, filed with the patient's consent and against the patient's wishes. Serious burns, treatable. Delirium consistent with pain and exhaustion, not with possession, not with a curse, and not with whatever the man in the blue cap has been telling people. Two weeks. No adventuring. I will be writing that again.",
@@ -269,7 +1278,7 @@
       "id": "ww_exhibit_aegis_clause",
       "author": "hjumpik",
       "type": "exhibit",
-      "order": 7,
+      "order": 29,
       "date": null,
       "timestamp": "Feyward clock — 922 BF",
       "content": "The clause they are standing on. Read it yourself. 'Bound objects, on demand, without notice.' I signed that. I did read it. I read it the way you read a thing you are certain will never be invoked, which is to say I read the words and not the sentence.",
@@ -310,7 +1319,7 @@
       "id": "ww_img_belly_jaws",
       "author": "remi_akamatsu_full_backstory",
       "type": "image",
-      "order": 8,
+      "order": 30,
       "date": null,
       "timestamp": "30 Harvestide, 1040 BF",
       "content": "The jaws, pried, and the rope going down. One torch between all of us. I want it on the record that the last person up a rope is the person who finds out whether the plan was good.",
@@ -354,7 +1363,7 @@
       "id": "ww_poll_scorncrow",
       "author": "wah_media_collective",
       "type": "poll",
-      "order": 9,
+      "order": 31,
       "date": null,
       "timestamp": "3 Aethel, 1040 BF",
       "content": "It knelt. It took the mask off. It said it was not a monster, three times, and then it asked a paladin for mercy — and the blood came out human. THE WIRE DECIDES:",
@@ -418,7 +1427,7 @@
       "id": "ww_poll_wario_invoice",
       "author": "wah_media_collective",
       "type": "poll",
-      "order": 10,
+      "order": 32,
       "date": null,
       "timestamp": "12 Aethel, 1040 BF",
       "content": "Wario's Enterprise has now invoiced a retrieval fee for a motorbike that was recovered by the people being invoiced. Settle it, wire:",
@@ -478,7 +1487,7 @@
       "id": "ww_thread_dgk_case",
       "author": "waluigi",
       "type": "thread",
-      "order": 11,
+      "order": 33,
       "date": null,
       "timestamp": "Recovered 1040 BF",
       "content": "A thread about the night the Directorate argued with itself, because the haunting is not the case. The case is the paperwork.",
@@ -533,7 +1542,7 @@
       "id": "ww_thread_feyward_library",
       "author": "hjumpik",
       "type": "thread",
-      "order": 12,
+      "order": 34,
       "date": null,
       "timestamp": "Feyward clock — 922 BF",
       "content": "On the library, and why we went up when the order said down.",
@@ -575,7 +1584,7 @@
       "id": "ww_ledger_grove_muster",
       "author": "waluigi",
       "type": "ledger",
-      "order": 13,
+      "order": 35,
       "date": null,
       "timestamp": "2 Aethel, 1040 BF",
       "content": "Judgement in the Grove — the tally, filed before anybody gets to round it off in the retelling.",
@@ -651,7 +1660,7 @@
       "id": "ww_ledger_order_of_jack",
       "author": "waluigi",
       "type": "ledger",
-      "order": 14,
+      "order": 36,
       "date": null,
       "timestamp": "1040 BF",
       "content": "Everybody quotes the Order of Jack at twenty thousand. Here is the column nobody reads.",
@@ -713,7 +1722,7 @@
       "id": "ww_txt_toad_lee_time",
       "author": "toad_lee",
       "type": "text",
-      "order": 15,
+      "order": 37,
       "date": null,
       "timestamp": "Feyward clock — 922 BF",
       "content": "Three times now I have lost time in a fight. Not fainted. Lost it. I come back and the room is different and everyone is being very kind to me about it. I still want to be safe with Hjumpik. I keep saying that sentence and I keep hearing how it sounds.",
@@ -748,7 +1757,7 @@
       "id": "ww_txt_generic_toad_invite",
       "author": "generic_toad",
       "type": "text",
-      "order": 16,
+      "order": 38,
       "date": null,
       "timestamp": "1040 BF",
       "content": "so hold on. you can just SAY an invitation out loud, in your own house, and it WORKS?? and nobody has to sign anything?? i have been renting for eleven years and i want to know if my landlord knows about this",
@@ -785,7 +1794,7 @@
       "id": "ww_txt_peach_absent",
       "author": "princess_peach",
       "type": "text",
-      "order": 17,
+      "order": 39,
       "date": null,
       "timestamp": "Filed posthumously — archive note",
       "content": "The archive keeps a record under my name and I have not been able to correct a word of it since 1040. Whoever is reading it for me: the funeral footage is not evidence of anything except that somebody wanted a funeral filmed.",
@@ -822,7 +1831,7 @@
       "id": "ww_txt_eager_ettercap",
       "author": "eager",
       "type": "text",
-      "order": 18,
+      "order": 40,
       "date": null,
       "timestamp": "2 Aethel, 1040 BF",
       "content": "Dan stood in front of the whole party holding a holy symbol with MUSHROOMS stuck on it and the brood actually turned. While they were busy being impressed I got behind the ettercap. That is teamwork. That is all that is. Teamwork and mushrooms.",
@@ -864,7 +1873,7 @@
       "id": "ww_txt_mystic_morel_fungus",
       "author": "mystic_morel",
       "type": "text",
-      "order": 19,
+      "order": 41,
       "date": null,
       "timestamp": "Feyward clock — 922 BF",
       "content": "The fungus in that room tests clean. I have run it three times. The fungus is not the problem. The MEN test badly, and nobody has asked me to run anything on the men.",
@@ -896,7 +1905,7 @@
       "id": "ww_txt_green_t_door",
       "author": "green_t",
       "type": "text",
-      "order": 20,
+      "order": 42,
       "date": null,
       "timestamp": "30 Harvestide, 1040 BF",
       "content": "I would like to raise, calmly, that the only exit from the place we were standing in was ON FIRE and the person who set it on fire was on OUR SIDE of it. I raised this at the time. I was told it was a solution.",
@@ -937,7 +1946,7 @@
       "id": "ww_txt_bones_salam",
       "author": "bones",
       "type": "text",
-      "order": 21,
+      "order": 43,
       "date": null,
       "timestamp": "3 Aethel, 1040 BF",
       "content": "Nobody has gone back for Salam. I have read the filing four times looking for the line where somebody goes back for Salam and it is not in there. The tally says 'not recovered' like that is a state a person can just be left in.",
@@ -972,7 +1981,7 @@
       "id": "ww_txt_mihawk_standards",
       "author": "dracule_mihawk",
       "type": "text",
-      "order": 22,
+      "order": 44,
       "date": null,
       "timestamp": "1040 BF",
       "content": "I am told the Iron Legion now requires an alliance in order to clear a wood of spiders. In my day one competent swordsman and an afternoon. I accept that this reads as boasting. I accept it because it is.",
@@ -1013,7 +2022,7 @@
       "id": "ww_txt_toadsworth_diet",
       "author": "chancellor_toadsworth",
       "type": "text",
-      "order": 23,
+      "order": 45,
       "date": null,
       "timestamp": "1040 BF",
       "content": "The Midlands Diet has now been filed, minuted and indexed, and I am assured it will shortly be ignored by everyone it governs. The Regency's position is that a law nobody reads is still a law. The Regency's position is frequently lonely.",
@@ -1049,7 +2058,7 @@
       "id": "ww_txt_luigi_clinic",
       "author": "luigi",
       "type": "text",
-      "order": 24,
+      "order": 46,
       "date": null,
       "timestamp": "16 Highsun, 1035 BF",
       "content": "im ok. bandaged and bored and a doctor actually called Dr Toad says two weeks. everyone keeps telling me what i said when i was delirious and i would like to formally request that they stop",
@@ -1093,7 +2102,7 @@
       "id": "ww_txt_captain_toadette_survey",
       "author": "captain_toadette",
       "type": "text",
-      "order": 25,
+      "order": 47,
       "date": null,
       "timestamp": "1040 BF",
       "content": "Survey teams keep being sent into places the Legion has already 'secured'. I have started sending two teams: one to survey, one to find out what secured meant this time. It has never once been the same answer twice.",
@@ -1124,7 +2133,7 @@
       "id": "ww_txt_fawful_narrative",
       "author": "fawful",
       "type": "text",
-      "order": 26,
+      "order": 48,
       "date": null,
       "timestamp": "1040 BF",
       "content": "I HAVE FURY at being made a STORY. They built a narrative with my name on it and when it stopped being useful they filed a correction. I did not kill the Princess. I am still owed an apology and a LABORATORY.",
@@ -1162,7 +2171,7 @@
       "id": "ww_txt_sans_timeline",
       "author": "sans",
       "type": "text",
-      "order": 27,
+      "order": 49,
       "date": null,
       "timestamp": "undated, obviously",
       "content": "somebody in this archive is keeping two calendars and thinks nobody's noticed. one of them counts up. i'm not saying which filings sit wrong. i'm just saying i checked twice and got two answers and only one of us is bothered by that.",
@@ -1193,7 +2202,7 @@
       "id": "ww_txt_mossy_ribs",
       "author": "mossy",
       "type": "text",
-      "order": 28,
+      "order": 50,
       "date": null,
       "timestamp": "1 Aethel, 1040 BF",
       "content": "I was told to hold him. I held him. Ribs are, I now understand, load-bearing. Nobody mentioned this at the time and I would like that reflected in the filing.",
@@ -1224,7 +2233,7 @@
       "id": "ww_txt_orangus_market",
       "author": "orangus_cornelius",
       "type": "text",
-      "order": 29,
+      "order": 51,
       "date": null,
       "timestamp": "1040 BF",
       "content": "Business note: every time this wire files a correction, trade in the named district moves within the day. I have stopped reading the prose. I read the corrections and I read them FIRST.",
@@ -1255,7 +2264,7 @@
       "id": "ww_txt_bowser_respect",
       "author": "bowser",
       "type": "text",
-      "order": 30,
+      "order": 52,
       "date": null,
       "timestamp": "1040 BF",
       "content": "Say what you like about the purple one. He files the parts that make him look bad. I have read three of his corrections now and every one of them costs him something. That is not nothing. That is, in fact, rare.",
@@ -1292,7 +2301,7 @@
       "id": "ww_txt_the_oracle_garden",
       "author": "the_oracle",
       "type": "text",
-      "order": 31,
+      "order": 53,
       "date": null,
       "timestamp": "1035 BF",
       "content": "'The star is not lost. Find the garden above the fire.' They recovered the reading but not the paper. I would remind the archive that a remembered sentence and a written one are different objects, and that only one of them can be checked.",
@@ -1323,7 +2332,7 @@
     {
       "id": "wahwire_ebot_part2_audit",
       "author": "waluigi",
-      "order": 32,
+      "order": 54,
       "date": null,
       "timestamp": "18 Aethel, 1032 BF — recovered 1040 BF",
       "content": "He stencilled the hold, forgot, looted it, and called it an audit. The hire read the label. The lights went green at a whisper. I am filing the stencil, not the speech about Heartstones. WAH.",
@@ -1361,7 +2370,7 @@
     {
       "id": "wahwire_scorncrow_skirmish",
       "author": "wario",
-      "order": 33,
+      "order": 55,
       "date": null,
       "timestamp": "30 Harvestide, 1040 BF",
       "content": "WAH! WARIO shows you fun and the fun stalls in a bush! The bike is fine, the bush is not. The party drank WARIO's elixir, bonked a tree that told them it was not a monster, and ran off leaving a motorbike with a leaf in its teeth. Somebody is paying the retrieval fee. It is not Wario.",
@@ -1390,7 +2399,7 @@
     {
       "id": "wahwire_the_fawthful_narrative_failure",
       "author": "chancellor_toadsworth",
-      "order": 34,
+      "order": 56,
       "date": null,
       "timestamp": "Highsun 1-30, 955 BF",
       "content": "The Fawthful Narrative failed because power sought to shape public perception for strategic advantage. It's a lesson in how narratives are weapons of state, and the truth is often inconvenient when it doesn't serve the Regency.",
@@ -1437,7 +2446,7 @@
     {
       "id": "wahwire_collapse_of_blackfen_pass",
       "author": "dracule_mihawk",
-      "order": 35,
+      "order": 57,
       "date": null,
       "timestamp": "2374 BF (Historical Record)",
       "content": "The High Command’s hubris knows no bounds. Gamma Division, wiped out by a cryomancy incident? What next, a division of ghosts patrolling the Midlands?",
@@ -1492,7 +2501,7 @@
     {
       "id": "wahwire_campaign_songs_archive",
       "author": "waluigi",
-      "order": 36,
+      "order": 58,
       "date": null,
       "timestamp": "1040 BF (Curated across 57 Campaign Records)",
       "content": "Finally—someone audits those unsanctioned choruses. Let’s see what they did with my favorite, ‘We Are The Toads’",
@@ -1539,7 +2548,7 @@
     {
       "id": "wahwire_funeral_of_junimus_gorolini_bongo_jr",
       "author": "generic_toad",
-      "order": 37,
+      "order": 59,
       "date": null,
       "timestamp": "~Shortly Before the Kongo Bongo-Kremling War, 1040 BF",
       "content": "It was a strange thing to see Chunky, who was known for his kindness and generosity, being laid to rest in such a public display of politics and power. The Kongo Bongo I knew is changing faster than I can keep up with it.",
@@ -1586,7 +2595,7 @@
     {
       "id": "wahwire_waluigi_chat_premiere",
       "author": "remi_akamatsu_full_backstory",
-      "order": 38,
+      "order": 60,
       "date": null,
       "timestamp": "Aethel 4, 1040 BF",
       "content": "I was on television tonight, I think? A purple man asked me where home is and then said 'WAH' with what I can only describe as empathy. There was a shell-phone. My brother-in-arms the mirror got more questions than I did. I still don't have an answer but apparently that's what the show is FOR.",
@@ -1618,7 +2627,7 @@
     {
       "id": "wahwire_hanging_tree_mirror",
       "author": "markop",
-      "order": 39,
+      "order": 61,
       "date": null,
       "timestamp": "30 Harvestide, 1040 BF — night",
       "content": "For the record: I threw the imp through the window. The window was already the problem's second-favorite option. The sentence, the threshold, and the sleeping guard's custody slip are all filed as evidence now, which means somebody in this cottage finally does paperwork. The mirror is back. The vampire is not invited. Check your wording.",
@@ -1650,7 +2659,7 @@
     {
       "id": "wahwire_the_cutting_lane",
       "author": "waluigi",
-      "order": 40,
+      "order": 62,
       "date": null,
       "timestamp": "1 Aethel, 922 BF (Feyward clock)",
       "content": "The wood picked a fight with a library tonight. The wood lost. Twenty-four on the field, a champion treant, a mound that chose tomorrow, and a librarian who threw nine books at the problem until the problem was firewood. Full muster, every fate, and the keeper's tally are filed. My assessment stands: nobody audits wording, everybody reaps it. WAH.",
@@ -1688,7 +2697,7 @@
     {
       "id": "wahwire_battalion_of_six",
       "author": "hjumpik",
-      "order": 41,
+      "order": 63,
       "date": null,
       "timestamp": "1 Aethel, 922 BF (Feyward clock) — morning, from a chair",
       "content": "Handed six people at breakfast. Two were already dead and one of them was a waiter. The dwarf said don't kill them. I said what advisor. Then I watered a tree. Read the whole filing before you ask which of those was the worst decision — the answer is not the one you think.",
@@ -1717,7 +2726,7 @@
     {
       "id": "wahwire_charred_note_at_door",
       "author": "mario",
-      "order": 42,
+      "order": 64,
       "date": null,
       "timestamp": "4 Aethel, 1040 BF — before dawn",
       "content": "Anonymous arson stationery is back. A page at my door claims Mario killed Peach, died after three days on the farm, woke up wrong, and treated three Guild null cages like decorative hoops. I do not believe it. I do file it. Read the ash before it learns to lie better.",
@@ -1746,7 +2755,7 @@
     {
       "id": "wahwire_mount_ebott_survey_mission",
       "author": "dracule_mihawk",
-      "order": 43,
+      "order": 65,
       "date": null,
       "timestamp": "Harvestide 24, 1045 BF — Day 1 of the Mount Ebott survey",
       "content": "This 'survey' is a mockery of protocol. Iron Legion's incompetence knows no bounds, and yet they expect me to abide by their rules? WAH.",
@@ -1780,7 +2789,7 @@
     {
       "id": "wahwire_the_estragon_island_incident",
       "author": "generic_toad",
-      "order": 44,
+      "order": 66,
       "date": null,
       "timestamp": "18 Harvestside, 1040 BF",
       "content": "Oh no, not again! Another crazy Toad in our school? This place is getting more dangerous by the day... I just hope my rent doesn't go up.",
@@ -1814,7 +2823,7 @@
     {
       "id": "wahwire_the_miser_muster_roll",
       "author": "waluigi",
-      "order": 45,
+      "order": 67,
       "date": null,
       "timestamp": "5 Aethel, 1040 BF",
       "content": "Everyone quotes the Order of Jack at twenty thousand. Nobody reads the column. It counts levies who cannot leave a harvest, volunteers nobody pays, hired-out clients, and Legion men already counted by the Legion. He can move a few hundred. He is a good man with eleven miles and a very good poster. WAH.",
@@ -1850,7 +2859,7 @@
     {
       "id": "wahwire_the_rise_upper_villages",
       "author": "waluigi",
-      "order": 46,
+      "order": 68,
       "date": null,
       "timestamp": "5 Aethel, 1040 BF",
       "content": "New plate of Vellanet Rise on file, and now you can see the thing the tenure roll declines to mention. Manor chapel: Silver Flame. Upper two villages: Lunar Cycle, since before there was a manor. Twenty-five out of a hundred on the friction register. Minor Friction. Survivable. Survivable because no inquisitor has yet walked up a road he is legally entitled to walk up. WAH.",
@@ -1887,7 +2896,7 @@
     {
       "id": "wahwire_dread_mansion_unsigned_order",
       "author": "waluigi",
-      "order": 47,
+      "order": 69,
       "date": null,
       "timestamp": "Approximately 872 BF — refiled 1040 BF",
       "content": "Everybody wants to talk about the man with two faces. Nobody wants to talk about the order with no name on it. The line answered from inside a house where nothing answers. The operator had the tracker. He classified the liquid off a description. Then he said he never sent anyone. Read that again. They did not fake the Directorate. They faked one signature and let the rest work properly. WAH.",
@@ -1932,7 +2941,7 @@
     {
       "id": "wahwire_promo_mario_newspaper",
       "author": "waluigi",
-      "order": 48,
+      "order": 70,
       "date": null,
       "timestamp": "5 Aethel, 1040 BF — provisional filing date",
       "content": "Apparently even in another world Mario gets a television show and I get quoted without an invitation. That would annoy me more if the newspaper had proved it found him. It has my own biography on a tablet. Bring the film, not the slogan. WAH.",
@@ -1956,7 +2965,7 @@
     {
       "id": "wahwire_promo_mario_amendment",
       "author": "waluigi",
-      "order": 49,
+      "order": 71,
       "date": null,
       "timestamp": "5 Aethel, 1040 BF — evening; same-day amendment",
       "content": "The newspaper ending I filed this morning is not the ending. The full account is in: PORTAL FAILED, Luigi missing, a Mario-shaped thing out of a television, and a Wario who sings. I filed a teaser and called it a review. The archive will note that Waluigi is capable of this and will not let it happen twice. WAH.",
@@ -1981,7 +2990,7 @@
     {
       "id": "wahwire_belly_of_the_beast_correction",
       "author": "waluigi",
-      "order": 50,
+      "order": 72,
       "date": null,
       "timestamp": "30 Harvestide, 1040 BF — late, the overgrown grove",
       "content": "CORRECTION, and Waluigi files it himself. Three times that scarecrow shouted I AM NOT A MONSTER and three times Waluigi wrote down the word monster in the next sentence. Tonight Remi was pinned underneath it, put a musket to its face at zero inches, and pulled. The face came off. The blood was HUMAN. Waluigi is not using that word again until somebody finds the face.",
@@ -2006,7 +3015,7 @@
     {
       "id": "wahwire_belly_of_the_beast_horn",
       "author": "wario",
-      "order": 51,
+      "order": 73,
       "date": null,
       "timestamp": "30 Harvestide, 1040 BF — immediately before riding into a mouth",
       "content": "WAHAHAHAH. Horn works. Fifty miles, the wizard says. Wario say fifty miles of free advertising. Motorbike out of the dirt, two shadow chumps to dust, and nobody challenges Wario to a fight and gets a-way from it. Retrieval fee still pending. Invoice follows.",
@@ -2030,7 +3039,7 @@
     {
       "id": "wahwire_belly_of_the_beast_pit",
       "author": "waluigi",
-      "order": 52,
+      "order": 74,
       "date": null,
       "timestamp": "30 Harvestide, 1040 BF — at the jaws, before the rope",
       "content": "They threw a torch into the pit to find the bottom. The pit COMPLAINED. Remi, on the wrong side of the wood, heard people saying someone is causing a fire, they are going to burn US ALL DOWN. Us. Plural. And then the torch came back out of the trunk, which is not the hole they threw it in. Waluigi has questions and a rope.",
@@ -2058,7 +3067,7 @@
     {
       "id": "wahwire_lava_bridge_ambush",
       "author": "waluigi",
-      "order": 53,
+      "order": 75,
       "date": null,
       "timestamp": "19 Harvestide, 1035 BF — past midnight, outside the compound walls",
       "content": "Two Luigis walked into tonight. One of them is tied up outside Bowser’s wall and out of smiles. The other is MISSING past a lava falls with the only paper that matters. I pointed at the fraud and named it OUT LOUD — YOU CHEATED — and the crew took it up like a war cry. The Gambit is born. The search starts at dawn. WAH.",
@@ -2082,7 +3091,7 @@
     {
       "id": "wahwire_garden_above_fire_superstars",
       "author": "waluigi",
-      "order": 54,
+      "order": 76,
       "date": null,
       "timestamp": "19 Harvestide, 1035 BF — after Dr. Toad finished the bandages",
       "content": "Luigi is alive. Burned, bandaged, banned from adventuring by a doctor actually named Dr. Toad, and still asking the one question Mario should have answered. I answered it. We are still superstars. The note says the star is not lost and to find the garden above the fire. Waluigi hates riddles that are also medical emergencies. WAH.",
