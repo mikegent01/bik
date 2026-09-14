@@ -622,6 +622,29 @@ EVENT = {
         "mona",
         "ashley",
     ],
+    # No combat, no travel, no recovery. What this session bought was a primary
+    # source and a changed premise, and both of those are Enterprise assets —
+    # so the only standing that moves is Wario's own house closing ranks.
+    "reputationChanges": {
+        "waluigi": {"wario_enterprise": 4},
+        "wario": {"wario_enterprise": 6},
+    },
+    "effects": {"wario_enterprise": 5},
+    "reputationNotes": {
+        "waluigi": (
+            "Logged the tape as an exhibit rather than a personal effect, which means "
+            "it can be cited and has to be produced on request."
+        ),
+        "wario": (
+            "Came in without knocking about a company meeting and stayed two days "
+            "instead; the greed reading he produced is the premise the whole search "
+            "now runs on."
+        ),
+        "_record": (
+            "Wario's Enterprise closes ranks around its own. Nothing was recovered and "
+            "nothing was fought; the asset gained was a primary source and a changed premise."
+        ),
+    },
     "aftermath": (
         "Waluigi left the room. The company meeting in the morning went ahead and is not "
         "recorded here because nothing happened at it worth filing.\n\n"

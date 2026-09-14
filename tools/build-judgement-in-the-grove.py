@@ -491,6 +491,49 @@ def event_record():
         "notableFeatures": NOTABLE,
         "keyBattles": [BATTLE_ID],
         "relatedArticles": RELATED,
+        # The Iron Legion is authored NEGATIVE despite the alliance. It called
+        # for pest control, retreated, took the party's help, and served a
+        # warrant on Archie mid-battle. Heavy engagement belongs on the
+        # Pressure axis; it is not approval. The personal deltas live here on
+        # the event; the battle record carries `effects` only, so the session
+        # is not counted twice into anyone's standing.
+        "reputationChanges": {
+            "markop": {"disaster_inc": 5, "oathbound_judges": -9, "liberated_toads": -4},
+            "remi_akamatsu_full_backstory": {"disaster_inc": 6, "iron_legion": -3},
+            "archie_miser": {"iron_legion": -12, "disaster_inc": 3},
+            "dan": {"liberated_toads": 7},
+            "eager": {"liberated_toads": 4},
+        },
+        "effects": {"iron_legion": -8, "disaster_inc": 6},
+        "reputationNotes": {
+            "markop": (
+                "Executed the Scorncrow on its knees, unmasked, after it identified "
+                "itself as human and formally asked a paladin for mercy. The archive is "
+                "not recording that as clean, and neither are the Judges."
+            ),
+            "remi_akamatsu_full_backstory": (
+                "Two direct musket hits through the smoke, reloading in the open between "
+                "them; armour destroyed, and she stood."
+            ),
+            "archie_miser": (
+                "Negotiated the temporary alliance that ends in his own arrest. The "
+                "Legion took the help and served the warrant anyway."
+            ),
+            "dan": (
+                "Stood in front of the entire party including Markop and turned the "
+                "brood with a mushroom-studded holy symbol."
+            ),
+            "eager": (
+                "Concerted kill on the ettercap with Dan, after a sneak attack into the "
+                "distraction Dan bought him."
+            ),
+            "_record": (
+                "The Iron Legion called for pest control, retreated, accepted an "
+                "alliance, and used it to attempt an arrest mid-battle. The relationship "
+                "is worse than before it started; the heavy engagement belongs on the "
+                "Pressure axis, not on Standing."
+            ),
+        },
         "aftermath": AFTERMATH,
         "waluigiAssessment": ASSESSMENT,
         "timeWindow": ("1 Aethel, 1040 BF — one continuous engagement inside the Skittering Grove, past "
@@ -646,6 +689,18 @@ def battle_record():
                       "on her order. The Legion alliance is temporary and ends in Archie's arrest."),
         "relatedArticles": [EVENT_ID, "the_belly_of_the_beast", "scorncrow", "markop",
                             "remi_akamatsu_full_backstory", "skittering_grove"],
+        # Record-level only. Personal deltas are filed on the event above; the
+        # engine sums events and battles alike, so authoring both halves of a
+        # session would count every operator twice.
+        "reputationChanges": {},
+        "effects": {"iron_legion": -6, "disaster_inc": 5},
+        "reputationNotes": {
+            "_record": (
+                "Personal deltas for this engagement are filed on its event, "
+                "judgement_in_the_grove. This record carries the factional outcome only, "
+                "so the session is not counted twice into any operator's standing."
+            ),
+        },
         "image": f"{JIG}/jig-01-warhammer.jpg",
         "imageCaption": "The Skittering Grove, where the Scorncrow was brought down on its knees.",
     }

@@ -5441,6 +5441,11 @@
     "relatedArticles": [
       "battle_of_the_mirror_room"
     ],
+    "reputationChanges": {},
+    "effects": {},
+    "reputationNotes": {
+      "_record": "Deliberate abstention. Chillwind 15, 722 BF — three centuries before any filed operator existed, fought between a militia and a guild that hold no record in the faction registry. There is nobody for this to move."
+    },
     "status": "Generated — review",
     "participants": [
       {
@@ -5749,6 +5754,14 @@
       "eager",
       "mossy"
     ],
+    "reputationChanges": {},
+    "effects": {
+      "disaster_inc": 6,
+      "iron_legion": -3
+    },
+    "reputationNotes": {
+      "_record": "Personal deltas for this engagement are filed on its event, the_belly_of_the_beast. This record carries the factional outcome only, so the session is not counted twice into any operator's standing."
+    },
     "image": "assets/images/events/belly-of-the-beast/belly-02-jaws-and-rope.jpg",
     "imageCaption": "The descent: the tree's jaws pried open, the rope going down into the pit, and the only torch anybody brought."
   },
@@ -5952,6 +5965,14 @@
       "remi_akamatsu_full_backstory",
       "skittering_grove"
     ],
+    "reputationChanges": {},
+    "effects": {
+      "iron_legion": -6,
+      "disaster_inc": 5
+    },
+    "reputationNotes": {
+      "_record": "Personal deltas for this engagement are filed on its event, judgement_in_the_grove. This record carries the factional outcome only, so the session is not counted twice into any operator's standing."
+    },
     "image": "assets/images/events/judgement-in-the-grove/jig-01-warhammer.jpg",
     "imageCaption": "The Skittering Grove, where the Scorncrow was brought down on its knees."
   }

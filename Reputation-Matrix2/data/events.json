@@ -13788,6 +13788,18 @@
       "wario",
       "waluigi"
     ],
+    "reputationChanges": {
+      "waluigi": {
+        "dgk": -3
+      }
+    },
+    "effects": {
+      "dgk": -12
+    },
+    "reputationNotes": {
+      "waluigi": "Filed the Central Command contradiction as the case rather than the haunting, which is not how the Directorate would have preferred it written up.",
+      "_record": "The DGK ends the night with a Level 5 director and its own Central Command in open contradiction on a recorded line, an operator ordered to stand down by a superior running nothing, and a confiscated phone that has never been recovered. The damage is institutional and lands on the Directorate, not on any individual."
+    },
     "aftermath": "Nothing in this file closed. Mario remained under Alice's influence, in the building, unrecovered. The diary was reached, set on a desk corner, looked at, and never opened — it is presumed still there.\n\nCustody, since the archive keeps losing track of it: the Spirit Residue vial was expended in the lower hall and is gone. Peach's handkerchief was destroyed with it. Liam's phone left with Director Vale and has never been recovered, along with the call log that would identify who actually briefed the retrieval. Bowser's note and the childhood photograph both stayed in Luigi's pocket. The sack that crossed the back lawn was never inventoried.\n\nStanding: DGK Central Command and Director Vale ended the night in open contradiction on a live line, with an operator ordered to stand down by a superior his own house says was running nothing. That dispute is now the case rather than the haunting. Injuries were minor — a turned ankle for Liam, a shoulder Vale will feel for a fortnight, and Luigi's sweater. The mansion's exits still loop, the emergency line still connects from inside it, and both facts remain unexplained.",
     "waluigiAssessment": "Waluigi was on the grounds that night and not in the rooms, and this filing keeps the distinction: the garden beat is his own testimony and the interior scenes are reconstructed from the account. He is not going to claim a corridor he was not standing in.\n\n**One. The mission was not forged. The sender was.** Every other part of the DGK worked correctly all night — the emergency line connected from inside a building where nothing else did, the operator had Liam's tracker history, and he named the containment class of the liquid on sight. A fabricated organisation does not pass its own security check. Somebody with real access inserted a real-looking order into a real system, and the only object that could name them left the property in Vale's coat pocket.\n\n**Two. Vale never actually claimed authorisation.** Read the exchange again. Central says the mission was never authorised; he answers *\"It is now.\"* Present tense. That is not a man producing a permission, it is a man converting a denial into one by outranking the person holding it. His badge is genuine enough to change a Central operator's voice mid-sentence, and that should worry the reader considerably more than a forgery would.\n\n**Three. Alice was not hunting.** She closed the house, let two men out of it, and spent her only sentence on a third party who was not present: *\"He will return to me.\"* She recognised Mario before either brother could establish how. Whatever the diary contains, she is working from a copy she already had.\n\n**Four. The door was pity, and pity is not detectable.** Mario was not cursed, tricked, or ambushed. He read a dead woman's account of what was done to her, and he was sorry for her, and that was the whole key. There is no ward against a decent reaction. File that under things this archive cannot issue a countermeasure for.\n\n**Five. The duplicate's weapon was the position swap, not the face.** A copy of a man can be sorted out by a friend with a good memory. A thing that trades places with him mid-grapple cannot be sorted out by anybody, including the man. Luigi froze because freezing was the only honest option available to him.\n\n**Recommendation: go back for the book.** Not for Alice, not for Vale, not for the sack — for the diary, which is on a desk in a second-floor study behind a cracked blue handle, and which is the only object in this file that anybody has a reason to want. Everything else in the record is people arguing about who is allowed to be in the building. WAH.",
     "xpAwards": [
@@ -14490,6 +14502,22 @@
       "red_the_kitchen_commander",
       "the_mushroom_room_guard"
     ],
+    "reputationChanges": {
+      "hjumpik": {
+        "connectopia_pioneers_guild": 4
+      },
+      "waluigi": {
+        "connectopia_pioneers_guild": 3
+      }
+    },
+    "effects": {
+      "connectopia_pioneers_guild": 6
+    },
+    "reputationNotes": {
+      "hjumpik": "Abandoned the standing order to go upstairs, set a marching order with the battered fairy at the front, and retook the Overgrown Library as a room worth holding.",
+      "waluigi": "Argued the plants were weak enough to take and was right; the collection survived the shambling mound.",
+      "_record": "The first reclamation in the manor undertaken for the room's own sake rather than as a route somewhere else."
+    },
     "aftermath": "The library is held and nobody is holding it. The party retook a room, looted a corpse for a pointy stick, and walked out of it toward the planning room without leaving a guard, which means the reclamation is currently a sentence in this filing rather than a fact on the ground.\n\nThree threads leave this session open. The first is Red: she has a working counter-strategy, an operating supply line, and a key to the main room, and nobody has yet asked her the obvious question, which is whether the heir knows what she is cooking. The second is the mushroom room, where the fungus tests clean and the men do not, and where a guard misjudged how long he had. The third is Toad Lee, who has now lost time in combat three times, and whose \"I still want to be safe with Hjumpik\" was delivered with nothing at all behind the eyes.\n\nThe violet fungus is uncatalogued and untranslated. The circular passage has not been re-entered. And the standing order - upstairs, the main room, the heir, the plan built on a tactical map over a whole night - has now been abandoned for a full session and replaced with nothing.",
     "waluigiAssessment": "**1. The victory was not one, and I used that against him and then against myself.** A shambling mound already fought by the fey residents, then stabbed by a goblin staff, then hit by a warhammer, then detonated by me, is not a trophy. It is a queue. I said so, and I was right. Then Hjumpik said *we can't fight every battle* - the dwarf, the one who hjumps on things, counselling restraint at me - and I answered *if they're that weak we should take them on*, which is the exact reasoning that gets parties killed, and which I had disproved myself ninety seconds earlier. He put a hand out. I opened the door anyway. The thing behind it was not weak at all. The archive records that the Auditor-General won the argument on the facts and lost it on the only question that mattered.\n\n**2. Hjumpik abandoned a night's planning for a room full of books and it was the right call.** *Not my library.* Three words, no deliberation. The archive has spent four sessions watching this house treat every room as a corridor to somewhere better, and the dwarf is the first person in it to defend a place because it was worth defending. It cost us the upstairs plan. File it as a loss in the ledger and a gain in every other column.\n\n**3. The cook is winning and nobody upstairs knows.** Red has what the war room does not: a delivery system the enemy already trusts. The heir has pins. She has a poison the overgrowth eats voluntarily, at scale, on a schedule. If this manor survives, it will not be because of the sixth and seventh divisions. It will be because somebody kept making dinner. RECOMMENDATION: get her a second cook and get out of her way.\n\n**4. Toad Lee, third instance.** The missing hours. *I swung out of instinct.* And now a question asked twice over a body he was looting. Three is not a pattern the archive can keep calling a coincidence, and Morel's warning about anchors was specific. Somebody needs to sit down with him while he is definitely himself, and somebody needs to decide what we do if that stops being a thing we can schedule.\n\n**5. The passage went in a circle and the house meant it.** Three knocks the dwarf was taught and could not reproduce. Others already waiting in the dark. Everyone deposited back on their own doorstep. This house has a functioning hidden infrastructure that opens for its own people and returns strangers to where they started, and we have been walking around inside it for weeks congratulating ourselves on our stealth.\n\n**6. On the sentence.** I said I could not afford not to care anymore. I said it in a corridor, over a roar, to a dwarf who had just asked me since when - and he asked it *because* I had spent the whole night telling him caution was killing us and had then opened a door to prove it. The question was not rhetorical. It was a man looking at somebody who had just behaved completely out of character and asking, reasonably, what had changed. What changed was volume eleven, and a finger under the line. RECOMMENDATION: none. There is no recommendation. WAH.",
     "xpAwards": [
@@ -14622,6 +14650,11 @@
       "the_dread_mansion_incursion",
       "waluigi"
     ],
+    "reputationChanges": {},
+    "effects": {},
+    "reputationNotes": {
+      "_record": "Deliberate abstention. This is a review of an abridged clipping, amended by a recovered account Waluigi did not witness; the encounter itself is undated and unverified, and the record's own status is unverified. No faction can be said to have changed its opinion of anyone on this evidence. Left empty on purpose — do not fill it without a confirming filing."
+    },
     "waluigiAssessment": "**The mistake, filed honestly.** This is the assessment I should have written this morning, and I could not write it then because I did not know the morning was incomplete. I filed a reading of a reading. The newspaper was itself abridged — it ended at the first happy beat — and I treated a headline as a source. That is the whole failure, and I will not dilute it by blaming the paper alone.\n\n1. **I never asked for the rest of the article.** A clipping with a clean ending is a bid, not a report. The full account shows the paper cut the portal failure, the tape, the missing brother, the corrupted Mario and an entire Wario song cycle. One question — *what happened after the farewell?* — was the whole file.\n2. **The date error was a clue, not the error.** I filed 955 BF as a flaw in an unverified clipping. The full account treats 955 BF as the disappearance year, and it does so insistently. That is a claim, not a typo. Somebody in that world has been told the assassination and the disappearance were the same event — which is exactly what the charred note wants the archive to believe, and exactly what the archive does not believe about the 1039 BF fountain.\n3. **The ending was the tell.** A corporate rescue with a sixty-second portal, crying staff and a generous goodbye is a good ending. It is so good that I stopped checking whether the machine worked. The portal did not open. I filed the goodbye and left the machine out of the record.\n4. **What the fuller account does not fix.** Darian and Alistair remain one source. The studio Mario is still not proven to be our Mario. The Doughnut World reading is Darian's theory, not a documented plane. The figure that came out of the television is not filed as a Mario at all — it is filed as something that wears the name.\n5. **What I actually learned.** I am not the only person who can be misled by my own archive. A man in another layer of the world read my article and cried at it. I will spend some time deciding whether that makes my article good.\n\n**Recommendation:** find Luigi; obtain the original tape and the security footage; interview Darian and Alistair separately; and do not go to the exit, because every exit in that building is a trap.",
     "revisions": [
       {
@@ -14811,6 +14844,38 @@
       "silent_grove",
       "tymnas_cottage_and_hedge_maze"
     ],
+    "reputationChanges": {
+      "remi_akamatsu_full_backstory": {
+        "disaster_inc": 6,
+        "iron_legion": -3
+      },
+      "archie_miser": {
+        "disaster_inc": 4,
+        "iron_legion": -5
+      },
+      "markop": {
+        "disaster_inc": 5,
+        "liberated_toads": 3
+      },
+      "wario": {
+        "wario_enterprise": -3
+      },
+      "dan": {
+        "liberated_toads": 4
+      }
+    },
+    "effects": {
+      "disaster_inc": 8,
+      "iron_legion": -4
+    },
+    "reputationNotes": {
+      "remi_akamatsu_full_backstory": "Pinned under the Scorncrow at point-blank range, fired a musket into its face and produced the single piece of hard intelligence the arc turns on: it bleeds human blood.",
+      "archie_miser": "Emptied every reserve into one fire cast that killed the tree — and sealed the party's only exit doing it. The Legion inside the grove now has an arsonist on the same side of a door that no longer opens.",
+      "markop": "Solved the door twice, pried the jaws, rigged the descent rope, and wrote his reasoning down.",
+      "wario": "Took four Murder of Crows attacks and retreated on morale, having sold the party the elixir that brought them there.",
+      "dan": "Went down first under the crows and spent every point he owned healing himself back onto the front of the marching order.",
+      "_record": "Disaster Inc. came out of the night with the Scorncrow unmasked and no way home; the Iron Legion was found inside a place with one mouth and no marched route that accounts for it."
+    },
     "aftermath": "**Position:** the party is inside the Skittering Grove and cannot leave by the route they entered. Archie's explosion sealed the exit; Markop's bark removal shut the jaws; the rope goes down, and nothing in the record says it comes back up.\n\n**Condition:** Archie has spent all of his magic. Feyward Dan has spent all of his on himself. Remi is webbed and separated with Wario, who has already retreated once on the log. The motorbike has been recovered and is useless — Markop is a centaur. That is a party with no reserves, no mobility, and no door.\n\n**Intelligence gained:** the Scorncrow bleeds human blood; it opens fights by removing mobility and healers; it Shadow Jumps out of reprisal; and by Feyward Dan's estimate the party has not seen half its power. The pit contains people who can speak and who are afraid of fire. The Iron Legion is inside a place with one mouth, and nobody knows how.\n\n**Exposure:** the horn. Fifty miles, by Archie's own estimate, into a grove the party then walked into.",
     "waluigiAssessment": "**The archive was wrong and this filing corrects it.** *I am not a monster* was a claim, not a taunt, and the only person who ever tested it did so because she was pinned underneath it with no other options. Waluigi filed three articles calling that thing a monster. Waluigi is not going to file a fourth.\n\n**Every door problem in this session was solved by making the door worse.** Archie burned it shut. Markop pulled a bark plate and the jaws closed. The tree responds to intervention by closing, which is not a door's behaviour — it is a throat's. The party is not besieging a fortress. They have been swallowed, and the correct model going forward is digestion, not siege.\n\n**Feyward Dan gave the report and nobody adjusted.** *That was not half his power*, from the one man who took a full engagement from it, delivered in the same breath as *I used all of my magic*. Two facts that should have ended the plan. The plan proceeded, on a motorbike, through a mouth.\n\n**The withdrawal was the right call and it lost to arson.** Archie proposed it: we cannot win this, run, get Dan to safety. He was correct. He then talked himself into going inside and setting the thing on fire, because that is who he is, and the archive should stop being surprised. The cost of that reversal is a split party under a sealed exit.\n\n**The unnamed guard held the only line.** One spear, five damage, into a bold ettercap that had already webbed and reeled him. Waluigi will not invent a name for him. He would like one supplied.\n\n**Recommendation:** find the second mouth. Something let the Legion in, the torch came back out of the trunk rather than the jaws, and voices in the pit heard a fire nobody outside could hear. There is another opening in that tree, and it is currently the party's only way home. WAH.",
     "timeWindow": "30 Harvestide, 1040 BF — one continuous engagement running straight out of the grove skirmish, from the crows taking Feyward Dan to the descent into the Skittering Grove; several hours at most, no calendar day passed, still 1040 BF on the Shadowfell/Material chain.",
@@ -15326,6 +15391,24 @@
       "dr_toad",
       "bowser"
     ],
+    "reputationChanges": {
+      "waluigi": {
+        "wario_enterprise": 5,
+        "mushroom_regency": 4
+      },
+      "wario": {
+        "wario_enterprise": 4
+      }
+    },
+    "effects": {
+      "mushroom_regency": 6,
+      "wario_enterprise": 5
+    },
+    "reputationNotes": {
+      "waluigi": "Chose the lava-moat lead over Wario's objection, recovered Luigi alive from the volcanic tunnels, and answered the question Luigi meant for Mario.",
+      "wario": "Held the prisoner, argued against the lead, then carried Luigi to Star Hill himself and settled the clinic.",
+      "_record": "A Mushroom Kingdom favourite was recovered alive and burned rather than lost over the falls, and the crew that did it was Wario's."
+    },
     "aftermath": "The compound search objective is closed enough to move: Luigi was found, treated, and kept alive. The blue-Luigi impostor still needs a name and a custody decision, but the urgent question is no longer whether the real Luigi went over the falls to die. He did not. The courier note is no longer unread, but it is still unrecovered; the archive holds Luigi's recalled line, not the paper. Mario remains missing, now heavier in the room because Luigi's delirium addressed him directly. The next arc begins wherever 'the garden above the fire' is, and Waluigi recommends starting before anyone else decides to deliver another helpful little note over open lava.",
     "waluigiAssessment": "1. The arc ends here because the rescue objective resolves here: prisoner questioned, lead tested, Luigi recovered, clinic reached. Continuing without a break would make the next clue feel like the same chase when it is a new door. 2. The note has graduated from unread object to partial testimony. That improves the file but does not complete custody. A remembered sentence from a delirious burn victim is evidence; it is not the paper. 3. The superstars line is the emotional center and must stay in the archive unchanged. Luigi asked Mario whether they were still superstars. I answered. That is not a replacement; it is a refusal to leave him alone with silence. 4. Wario's skepticism saved us from trusting the prisoner too easily, and Wario's decision to move anyway saved Luigi from waiting on our pride. Both facts may coexist, despite Wario's best efforts to make coexistence expensive. 5. Next objective: identify every place in Bowser's compound, Bowser's castle, or Star Hill that can honestly be called a garden above fire. Start with altitude, heat source, and who knew Luigi would understand the phrase.",
     "timeWindow": "18 Harvestide, 1035 BF — immediately after the lava-bridge ambush; prisoner interrogation, lava-moat search, tunnel recovery, and Star Hill clinic treatment in one continuous night. No calendar day confirmed to pass.",
@@ -15599,6 +15682,24 @@
       "lady_aurelian",
       "iron_legion"
     ],
+    "reputationChanges": {
+      "hjumpik": {
+        "color_division": -8,
+        "mages_guild": -10
+      },
+      "waluigi": {
+        "color_division": -5
+      }
+    },
+    "effects": {
+      "color_division": -6,
+      "mages_guild": -8
+    },
+    "reputationNotes": {
+      "hjumpik": "His Aegis Magi engagement was declared failed and over; the Division took two of his people as leverage against the overdue contract, and he refused to surrender the only asset that would have satisfied them.",
+      "waluigi": "Taken into Colour Division custody as leverage, was out of the cuffs before anybody noticed, and has not mentioned it.",
+      "_record": "A Mages' Guild contract failed publicly and the Colour Division took hostages over it — cuffs rather than mage cages, agreed without argument, which is the part worth filing."
+    },
     "aftermath": "**Standing.** Nothing in the Overgrown Manor is held. The Revel room contains at least two treants and a fey faction that spent three rounds unable to agree on a target. The lady's sanctuary has an open floor in it and something in the middle of finishing its transformation. The corridor between them is unguarded, as every corridor in this house has been since the first filing.\n\n**Custody.** Toad Lee and Waluigi are held by the Colour Division on the upper landing, cuffed, as leverage. The cuffs are cuffs and not mage cages because Hjumpik put a hand on a warhammer and said they are not animals; the Division agreed without argument, which should worry the reader more than a refusal would have. Waluigi is out of his and has not mentioned it.\n\n**Contract.** Hjumpik's Aegis Magi engagement is declared failed and over. The Division wants one tangible item as insurance against the window he negotiated. He has the soul ring with Lady Aurelian in it in his pocket and did not offer it, and the archive notes that the only asset he has that would satisfy them is the only asset he will not surrender.\n\n**Open threads.** The sword slashes on the manor's dead reinforcements are unexplained and unpursued. The soup-in-a-bomb proposal has a supplier (Red), a specialist named (Wario), and no bomb. The fire question was asked and never tested. The two missing months in Hjumpik's reckoning have no account attached. And the thing in the sanctuary answered to Carnivorous, which means the archive now has a name for the overgrowth and no idea what holds the name.",
     "waluigiAssessment": "**1. I opened the door and the bill arrived immediately.** I spent the last filing arguing that these plants are weak and that thinking is what has been killing us. I opened a door on that argument and found a treant at full height, a room that could not be read, and a dwarf who told me - correctly - that you cannot assess a thing you cannot see the damage on. I was pulled out of that room by the sleeve. The archive will record that I was not grateful at the time and that I am, in writing, now.\n\n**2. The argument was settled by a rate of exchange, not by anybody being right.** *Put your own theatrics into it, so we don't die and you get your theatrics.* That is not a concession, it is a currency conversion, and it is the most competent thing Hjumpik has done in this campaign. I have been managed. I noticed at the time. I allowed it.\n\n**3. The most important sentence of the night was said by a man nobody has relieved.** Sword slashes. Not plants. The manor has been fighting vegetation for a week with its entire attention, and its own dead are turning up with edged wounds, and the witness is a guard standing in a hallway waiting for orders that are not coming. I have filed that as a lead. If the next session does not pull that thread I will pull it myself and I will be insufferable about it.\n\n**4. Forty-four turns of a faction fighting itself is not a battle report, it is a diagnosis.** The Revel's best swordsman spent eight multiattacks on the house guard. Its sorcerer spent four spells on its own swordfighter. Its rogue emptied three attacks into its own bard. Either the Revel has lost cohesion entirely, or - and I want this considered seriously - some of them are being controlled, and the ones fighting the house are the ones already taken. Given what we learned upstairs about who has been wearing the lady's face, I am no longer confident that a fey attacking another fey is a mistake.\n\n**5. The Colour Division was the only professional organisation in the building.** They stated their objective, identified their target by a garment, took hostages they called insurance, granted a window they intend to close, and read a dwarf two paragraphs of regulation in the middle of a siege. Nothing they did was cruel. Everything they did worked. I file institutions I cannot outmanoeuvre with a particular kind of loathing and this is that entry.\n\n**6. Hjumpik killed a monster's composure with a question about furniture, and then threw soup at it.** *Are you sure that plant is good to sit on? Plants are carnivorous, right—* *That's.... my name.....* I have spent three sessions demanding that this party be more theatrical. The dwarf who hates theatre out-staged me with a bowl of kitchen slop and a question about seating, and the archive is obliged to say so.\n\n**7. Two months are missing and nobody has looked for them.** Three months became five months in the middle of his own sentence, in front of a cowbell that has now done something inexplicable in two consecutive filings, while I waved a hand in his face and got nothing back. He is the party's strategist and his own timeline has a hole in it. That is not a character note. That is a security problem.",
     "xpAwards": [
@@ -15788,6 +15889,22 @@
       "mona",
       "ashley"
     ],
+    "reputationChanges": {
+      "waluigi": {
+        "wario_enterprise": 4
+      },
+      "wario": {
+        "wario_enterprise": 6
+      }
+    },
+    "effects": {
+      "wario_enterprise": 5
+    },
+    "reputationNotes": {
+      "waluigi": "Logged the tape as an exhibit rather than a personal effect, which means it can be cited and has to be produced on request.",
+      "wario": "Came in without knocking about a company meeting and stayed two days instead; the greed reading he produced is the premise the whole search now runs on.",
+      "_record": "Wario's Enterprise closes ranks around its own. Nothing was recovered and nothing was fought; the asset gained was a primary source and a changed premise."
+    },
     "aftermath": "Waluigi left the room. The company meeting in the morning went ahead and is not recorded here because nothing happened at it worth filing.\n\nThe tape stays in Waluigi's possession and is now logged as an exhibit rather than a personal effect, which means it can be cited and has to be produced on request. The notebook is not logged, by agreement.\n\nThe search for Mario continues on a changed premise. Every previous sweep assumed a man who had been taken or who was hiding to protect somebody. The greed reading assumes a man who left with something and does not intend to give it back. Those two searches do not look in the same places.",
     "waluigiAssessment": "**1. I lost two days and I am not going to pretend otherwise.** The tape does not change when you watch it again. I knew that by the third rewind and I did it three more times, and the only honest reason is that while the tape is running the argument is not over yet.\n\n**2. Wario did the single most competent thing anybody has done in this arc, and he did it with garlic.** He did not talk me out of the room. He brought water, stood in the doorway being annoying, refused to leave, and waited. I have been on the other side of a dozen interventions run by professionals and not one of them worked. This one worked because it did not announce itself.\n\n**3. The coin is the oldest open case in my own files and I have never once worked it.** Someone with access to the Star Festival fund knew I had won nothing and knew which bed was mine. I have had years to pull that thread. I have never pulled it, because I preferred the version where it meant something to the version where it turns out to be an accounting error. That is not archival practice. That is cowardice with a filing system.\n\n**4. The greed reading is correct and I resent it.** For two filings this note has been a rescue instruction, because we read it as people who wanted Mario to be worth rescuing. Wario read it as a man who wanted to know where the valuable thing was, and got a cleaner answer in one evening than the rest of us managed in a month. *The star is not lost* is not comfort. It is an inventory line.\n\n**5. Luigi is still burning in a hospital bed.** I have spent this filing on a coin, a notebook and a tape, and the whole time there has been a man in Star Hill with burns down one side who asked, at the end of the last session, whether we are still superstars. I do not have an answer. I am filing the question again so that it stays open and so that nobody gets to quietly stop asking it.",
     "xpAwards": [
@@ -16010,6 +16127,39 @@
       "silent_grove",
       "iron_legion"
     ],
+    "reputationChanges": {
+      "markop": {
+        "disaster_inc": 5,
+        "oathbound_judges": -9,
+        "liberated_toads": -4
+      },
+      "remi_akamatsu_full_backstory": {
+        "disaster_inc": 6,
+        "iron_legion": -3
+      },
+      "archie_miser": {
+        "iron_legion": -12,
+        "disaster_inc": 3
+      },
+      "dan": {
+        "liberated_toads": 7
+      },
+      "eager": {
+        "liberated_toads": 4
+      }
+    },
+    "effects": {
+      "iron_legion": -8,
+      "disaster_inc": 6
+    },
+    "reputationNotes": {
+      "markop": "Executed the Scorncrow on its knees, unmasked, after it identified itself as human and formally asked a paladin for mercy. The archive is not recording that as clean, and neither are the Judges.",
+      "remi_akamatsu_full_backstory": "Two direct musket hits through the smoke, reloading in the open between them; armour destroyed, and she stood.",
+      "archie_miser": "Negotiated the temporary alliance that ends in his own arrest. The Legion took the help and served the warrant anyway.",
+      "dan": "Stood in front of the entire party including Markop and turned the brood with a mushroom-studded holy symbol.",
+      "eager": "Concerted kill on the ettercap with Dan, after a sneak attack into the distraction Dan bought him.",
+      "_record": "The Iron Legion called for pest control, retreated, accepted an alliance, and used it to attempt an arrest mid-battle. The relationship is worse than before it started; the heavy engagement belongs on the Pressure axis, not on Standing."
+    },
     "aftermath": "**The Scorncrow is dead.** It was killed on its knees, unmasked, after identifying itself as human and formally asking a paladin for mercy. Markop took the scythe. The claim it made four times across four engagements — *I am not a monster* — was tested by musket last filing and found to be true, and it was killed anyway. The archive is not going to record that as clean.\n\n**Salam is down** with his face opened and has not been recovered. Feyward Dan, the only healer on the field, spent every point of magic he owned on himself an hour ago.\n\n**Markop's skull is split** and he continued fighting through it. **Remi** is separated in the woods, her armour destroyed, standing over an unconscious man whose ribs her steel defender has just cracked on her instruction. She believes she may have killed him in his sleep.\n\n**The Iron Legion alliance is explicitly temporary** and ends with Archie Miser's arrest. Archie's own assessment: *this won't last.* At least one guard is dead.\n\n**The grove is still surrounded.** Embercap and giant spiders came in from every direction as the Scorncrow fell, so killing the thing that owned the place did not empty it.\n\n**Unresolved:** the man with the red punch mark. Where the party actually is — rope-lair, undergrowth, or ruined manor, with Markop's teleporter reading unconfirmed. And what the Scorncrow meant by growing up in a tree the party has been standing inside all night.",
     "waluigiAssessment": "**The execution is the filing and everything else is weather.** Waluigi has written the word *monster* about that thing in three separate articles and had to retract it last filing when a fourteen-year-old put a musket against its face and found a man underneath. This filing it knelt. It said it was human. It asked a paladin, by his office, to spare it. Markop killed it and took its scythe.\n\n**Waluigi is not calling that murder and he is not calling it justice.** The thing had four engagements of casualties behind it and had opened Markop's skull ninety seconds earlier. But the archive got caught once assuming this creature was lying, and the correction does not become free just because the creature is now dead. Both facts go in the same paragraph or neither of them is honest.\n\n**Remi Akamatsu is not the youngest member any more and the archive should stop filing her that way.** She changed weapons under contact because the crossbow was wrong for the target, reloaded a musket in the open twice, and read her spellbook while tied up with something descending on her. She also ordered a steel dog to stand on a sleeping man until he cracked. Both of those are the same person and Waluigi declines to separate them.\n\n**Feyward Dan stood in front of Markop.** The smallest combatant put himself ahead of the largest. Waluigi has been unkind about this Toad in print for four filings and is revising it here rather than letting it quietly lapse.\n\n**The position is worse than when they came down the rope.** The Scorncrow is dead, and the grove is surrounded, Salam is down, Markop is bleeding from the head, Remi is separated, the exit is still sealed, and the party's allies are the people who intend to arrest one of them. Killing the landlord did not clear the building.",
     "timeWindow": "1 Aethel, 1040 BF — one continuous engagement inside the Skittering Grove, past running out of the descent and ending with Salam unconscious and the grove encircled",
