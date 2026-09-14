@@ -1495,8 +1495,22 @@ FRONT_TITLE = ("The Tape and the Wario Files: Two Days in a Dark Room, a Noteboo
                "Aloud, and the Perspective of Greed")
 
 
+def is_newest_filing():
+    """True when this event is still the last-appended event.
+
+    The front page has exactly one 'Latest Filing' slot. This generator may only
+    claim it while this really is the newest session; once a later session is
+    filed, that session owns the slot and this one must not take it back.
+    """
+    events = load("events.json")
+    rows = events["events"] if isinstance(events, dict) else events
+    return bool(rows) and rows[-1].get("id") == EVENT_ID
+
+
 def update_front_page():
-    """Point featuredArticle / latestUpdate at this filing."""
+    """Point featuredArticle / latestUpdate at this filing, if it is still newest."""
+    if not is_newest_filing():
+        return "skipped (a later session owns the front page)"
     path = DATA / "mainPage.json"
     page = json.loads(path.read_text(encoding="utf-8"))
     before = json.dumps(page, sort_keys=True)
@@ -1516,6 +1530,9 @@ def update_front_page():
 
 
 def front_page_ok():
+    # Only this generator's own claim is checked, and only while it is newest.
+    if not is_newest_filing():
+        return True
     page = json.loads((DATA / "mainPage.json").read_text(encoding="utf-8"))
     return (page["featuredArticle"].get("id") == EVENT_ID
             and page["latestUpdate"].get("id") == EVENT_ID)

@@ -1,16 +1,16 @@
 {
   "featuredArticle": {
-    "id": "the_tape_and_the_wario_files",
+    "id": "judgement_in_the_grove",
     "type": "event",
-    "excerpt": "20 Harvestide, 1035 BF. Two days after the clinic, Waluigi had not left his room and the tape of the brothers' argument had played six times. Wario came in without knocking, read the notebook out loud, found a Star Festival coin taped to a notepad, and told the story of how he faked his own death after the Mario Kart Massacre. Then he reread the courier's note as greed instead of heroism - and the star stopped being lost and started being kept.",
+    "excerpt": "The party fought its way out of the web canopy and into an execution. Remi swapped the crossbow for the musket and landed two direct hits through the smoke; Dan planted himself in front of everyone including Markop and turned the spiders with a mushroom-studded holy symbol; Eager and Dan killed the ettercap between them. The Iron Legion called for pest control, retreated, and then tried to arrest Archie mid-battle, which produced a temporary alliance nobody expects to hold. Markop called down divine favour, took a scythe to the skull, and split the Scorncrow's head open while it was on its knees asking a paladin for mercy. Remi, thrown clear by Mossy, found a breathing man with a red punch mark on his forehead and had the steel defender stand on his chest. Salam went down and did not get up.",
     "label": "Latest Filing · Session Event",
-    "title": "The Tape and the Wario Files: Two Days in a Dark Room, a Notebook Read Aloud, and the Perspective of Greed"
+    "title": "Judgement in the Grove: A Musket in the Smoke, the Warhammer That Would Not Hear an Appeal, and the Man Remi Found Asleep"
   },
   "latestUpdate": {
-    "id": "the_tape_and_the_wario_files",
+    "id": "judgement_in_the_grove",
     "label": "Latest Filing · Session Event",
-    "excerpt": "20 Harvestide, 1035 BF. Two days after the clinic, Waluigi had not left his room and the tape of the brothers' argument had played six times. Wario came in without knocking, read the notebook out loud, found a Star Festival coin taped to a notepad, and told the story of how he faked his own death after the Mario Kart Massacre. Then he reread the courier's note as greed instead of heroism - and the star stopped being lost and started being kept.",
-    "title": "The Tape and the Wario Files: Two Days in a Dark Room, a Notebook Read Aloud, and the Perspective of Greed"
+    "excerpt": "The party fought its way out of the web canopy and into an execution. Remi swapped the crossbow for the musket and landed two direct hits through the smoke; Dan planted himself in front of everyone including Markop and turned the spiders with a mushroom-studded holy symbol; Eager and Dan killed the ettercap between them. The Iron Legion called for pest control, retreated, and then tried to arrest Archie mid-battle, which produced a temporary alliance nobody expects to hold. Markop called down divine favour, took a scythe to the skull, and split the Scorncrow's head open while it was on its knees asking a paladin for mercy. Remi, thrown clear by Mossy, found a breathing man with a red punch mark on his forehead and had the steel defender stand on his chest. Salam went down and did not get up.",
+    "title": "Judgement in the Grove: A Musket in the Smoke, the Warhammer That Would Not Hear an Appeal, and the Man Remi Found Asleep"
   },
   "didYouKnow": [
     "...that the Scorncrow told three separate filings it was not a monster, and when Remi Akamatsu finally tested the claim with a point-blank musket, the blood under the face was human?",
@@ -39,20 +39,28 @@
   ],
   "campaignCovers": [
     {
+      "id": "judgement-in-the-grove-cover",
+      "campaign": "Shadeward",
+      "title": "SHADEWARD — Judgement in the Grove",
+      "caption": "The Scorncrow dies on its knees asking a paladin for mercy; the grove fills from every direction and Salam does not get up.",
+      "image": "assets/images/events/belly-of-the-beast/belly-05-skittering-grove.jpg",
+      "articleId": "judgement_in_the_grove"
+    },
+    {
+      "id": "belly-of-the-beast-cover",
+      "campaign": "Shadeward",
+      "title": "SHADEWARD — The Belly of the Beast",
+      "caption": "A musket at point-blank range takes the mask off and finds human blood; the party goes down the rope into the Skittering Grove.",
+      "image": "assets/images/events/belly-of-the-beast/belly-01-the-mask.jpg",
+      "articleId": "the_belly_of_the_beast"
+    },
+    {
       "id": "feyward-reclamation-cover",
       "campaign": "Feyward",
       "title": "FEYWARD — The Reclamation of the Library",
       "caption": "The library mound rises behind them; the crew runs for the joists. Latest Feyward clock filing.",
       "image": "assets/images/session-covers/feyward-title-card.png",
       "articleId": "feyward_library_reclamation_and_the_kitchen"
-    },
-    {
-      "id": "scorncrow-skirmish-cover",
-      "campaign": "Shadeward",
-      "title": "SHADEWARD — The Scorncrow Skirmish",
-      "caption": "Wario's squad brings garlic, elixir, and one stalled motorbike to the overgrown grove.",
-      "image": "assets/images/session-covers/shadeward-title-card.png",
-      "articleId": "the_scorncrow_skirmish"
     },
     {
       "id": "mario-lava-bridge-cover",

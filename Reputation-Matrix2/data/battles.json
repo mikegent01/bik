@@ -5751,5 +5751,208 @@
     ],
     "image": "assets/images/events/belly-of-the-beast/belly-02-jaws-and-rope.jpg",
     "imageCaption": "The descent: the tree's jaws pried open, the rope going down into the pit, and the only torch anybody brought."
+  },
+  {
+    "id": "judgement_in_the_grove_battle",
+    "name": "Judgement in the Grove",
+    "date": "1 Aethel, 1040 BF — just past midnight on the Shadowfell clock, the Skittering Grove inside the Scorncrow's tree, continuing straight out of the descent",
+    "location": "The Skittering Grove, inside the Scorncrow's tree (Shadowfell)",
+    "type": "Grove battle / execution",
+    "result": "Scorncrow killed; party position deteriorated. The grove was reinforced from every direction as the Scorncrow fell.",
+    "engagement": {
+      "combatants": 16,
+      "ledgerWindow": "the Skittering Grove inside the Scorncrow's tree, continuous from the descent on 30 Harvestide, 1040 BF and running past midnight onto 1 Aethel on the Shadowfell clock",
+      "scale": "A squad-level engagement in three phases: a disorganised fight in smoke and web, a duel closed by divine favour, and an execution followed immediately by reinforcement from every direction."
+    },
+    "belligerents": {
+      "attackers": {
+        "name": "Disaster Inc. & the Liberated Toads",
+        "factionId": "disaster_inc",
+        "commander": "Markop",
+        "combatants": [
+          {
+            "name": "Markop",
+            "leader": true,
+            "fate": "wounded",
+            "role": "closed the distance under the scythe, called thunder into the warhammer, and executed the kneeling Scorncrow",
+            "fateNote": "skull split by the scythe and fought on; took the scythe from the body"
+          },
+          {
+            "name": "Remi Akamatsu",
+            "fate": "stood",
+            "role": "swapped the crossbow for the musket and landed two direct hits, reloading in the open between them",
+            "fateNote": "webbed and clawed, armour destroyed, rammed clear by Mossy and separated in the woods"
+          },
+          {
+            "name": "Feyward Dan",
+            "fate": "stood",
+            "role": "stood in front of the entire party including Markop and turned the brood with a mushroom-studded holy symbol",
+            "fateNote": "killed the ettercap in concert with Eager"
+          },
+          {
+            "name": "Eager",
+            "fate": "wounded",
+            "role": "sneak attack into Dan's distraction; concerted kill on the ettercap",
+            "fateNote": "grazed by the scythe wake; ran into a spidery bush; healed himself with duct tape"
+          },
+          {
+            "name": "Archie Miser",
+            "fate": "stood",
+            "role": "faked a fireball and delivered a firebolt; refused the Scorncrow's recruitment offer",
+            "fateNote": "grazed by the scythe wake; negotiated the temporary Legion alliance that ends in his own arrest"
+          },
+          {
+            "name": "Salam",
+            "fate": "fell",
+            "role": "missed the ettercap, then held position as the second wave came in",
+            "fateNote": "clawed across the face and unconscious; the wound will scar; not recovered"
+          },
+          {
+            "name": "Wario",
+            "fate": "stood",
+            "role": "an off-screen punch and a declaration that he was tired of running",
+            "fateNote": "had been running for approximately six seconds"
+          },
+          {
+            "name": "Mossy",
+            "fate": "stood",
+            "role": "rammed Remi clear of a killing bite at a dead run",
+            "fateNote": "later stood on an unconscious man's ribcage on Remi's instruction until something cracked"
+          },
+          {
+            "name": "Embercap",
+            "fate": "stood",
+            "role": "arrived with the encircling wave; fire past Markop's shoulder into the ettercap"
+          }
+        ]
+      },
+      "defenders": {
+        "name": "The Scorncrow and the brood of the Skittering Grove",
+        "factionId": "unaligned",
+        "commander": "The Scorncrow",
+        "combatants": [
+          {
+            "name": "The Scorncrow",
+            "leader": true,
+            "fate": "fell",
+            "role": "hurled the cleaving scythe, split Markop's skull, and offered Archie a place on the tree of love",
+            "fateNote": "killed on its knees, unmasked, identifying itself as human and asking a paladin for mercy"
+          },
+          {
+            "name": "Ettercap",
+            "fate": "fell",
+            "role": "webbed and clawed Remi; broke off to meet Dan and Eager",
+            "fateNote": "killed by a concerted strike from Feyward Dan and Eager"
+          },
+          {
+            "name": "Giant green spiders",
+            "fate": "stood",
+            "role": "web and claw across the canopy; two dropped by Remi's musket",
+            "fateNote": "reinforced from every direction as the Scorncrow fell"
+          }
+        ]
+      },
+      "thirdParty": {
+        "name": "Iron Legion grove detachment",
+        "factionId": "iron_legion",
+        "commander": "Unnamed guard",
+        "combatants": [
+          {
+            "name": "Iron Legion guards",
+            "fate": "withdrew",
+            "role": "called for pest control and retreated, then attempted to arrest Archie Miser mid-battle",
+            "fateNote": "negotiated a temporary alliance; at least one guard killed by a spider"
+          }
+        ]
+      }
+    },
+    "casualties": "The Scorncrow killed. At least one ettercap killed by Dan and Eager in concert; two more dropped by Remi's musket. At least one Iron Legion guard killed. Salam unconscious with a facial wound that will scar. Markop's skull split. Remi webbed, clawed and separated; armour destroyed.",
+    "summary": "Remi swapped to the musket and hit twice through the smoke. The Scorncrow's thrown scythe grazed Eager, Archie and Dan on one line. Dan stood in front of the whole party and turned the brood with a holy symbol; he and Eager killed the ettercap. Markop called thunder into his warhammer, took a scythe to the skull, and killed the Scorncrow while it knelt asking a paladin for mercy. Mossy rammed Remi clear of a killing bite. Embercap and a second wave encircled the grove and Salam fell.",
+    "description": "The engagement had three distinct phases. The first was a disorganised fight in smoke and web where nobody could hold direction and Remi walked into the enemy by accident. The second was the Scorncrow choosing to spread its cleaving scythe across three bodies rather than kill one, and the Iron Legion breaking and calling for pest control. The third was Markop closing the distance and refusing to be talked to — through the recruitment offer, through the childhood claim, through the surrender, and through the appeal to his office. The kill did not end the battle. Reinforcements arrived from every direction as the body fell, and the session ended with Salam unconscious.",
+    "keyMoments": [
+      {
+        "time": "opening",
+        "who": "Remi Akamatsu",
+        "act": "Returns the crossbow arrow to her pocket and takes the musket instead",
+        "result": "two direct hits through the smoke, with a reload in the open between them"
+      },
+      {
+        "time": "opening",
+        "who": "The Scorncrow",
+        "act": "Hurls the cleaving scythe, shrouded in magic, trailing a chilling cold",
+        "result": "grazes Eager, Archie and Dan on one line rather than killing any of them"
+      },
+      {
+        "time": "collapse",
+        "who": "Iron Legion guards",
+        "act": "Break and call for pest control",
+        "result": "'We gotta call pest control. RETREAT!'"
+      },
+      {
+        "time": "turn",
+        "who": "Feyward Dan",
+        "act": "Stands in front of the entire party, including Markop, and raises a mushroom-studded holy symbol",
+        "result": "the brood is turned; he and Eager kill the ettercap together"
+      },
+      {
+        "time": "turn",
+        "who": "Markop",
+        "act": "Calls divine favour held since before the rope; thunder comes through a ceiling with no sky",
+        "result": "the warhammer lands, the Scorncrow's block fails, and it flinches for the first time in four engagements"
+      },
+      {
+        "time": "turn",
+        "who": "The Scorncrow",
+        "act": "Splits Markop's skull with the scythe and claims the tree as its childhood home",
+        "result": "'Made it my treehouse when I was little' — the second physical claim after the human blood"
+      },
+      {
+        "time": "parley",
+        "who": "The Scorncrow",
+        "act": "Offers Archie a place on the tree of love: 'Do you think the worst person can change?'",
+        "result": "refused — 'I'm on the side of good, despite all my accidental crimes'"
+      },
+      {
+        "time": "parley",
+        "who": "Iron Legion guards",
+        "act": "Attempt to arrest Archie Miser in the middle of a losing fight",
+        "result": "a temporary alliance instead, ending with Archie's arrest — 'this won't last'"
+      },
+      {
+        "time": "rescue",
+        "who": "Mossy",
+        "act": "Rams Remi side-on at a dead run as a spider comes down to bite",
+        "result": "she is thrown clear through the branches and lands alone in the woods"
+      },
+      {
+        "time": "decision",
+        "who": "The Scorncrow",
+        "act": "Kneels, says it is human and not a monster, and asks a paladin by his office to spare it",
+        "result": "Markop kills it and picks up the scythe"
+      },
+      {
+        "time": "aftermath",
+        "who": "Remi Akamatsu",
+        "act": "Finds a breathing man with a red punch mark and has Mossy stand on his chest to wake him",
+        "result": "a crack is heard — 'welp, I killed a guy in his sleep'"
+      },
+      {
+        "time": "aftermath",
+        "who": "The brood",
+        "act": "Embercap and giant spiders encircle the grove from every direction",
+        "result": "Salam is clawed across the face and falls; a Legion guard is killed"
+      }
+    ],
+    "aftermath": "The Scorncrow is dead and the grove is not cleared. Salam is unconscious and unrecovered. Remi is separated with an unconscious man whose ribs Mossy cracked on her order. The Legion alliance is temporary and ends in Archie's arrest.",
+    "relatedArticles": [
+      "judgement_in_the_grove",
+      "the_belly_of_the_beast",
+      "scorncrow",
+      "markop",
+      "remi_akamatsu_full_backstory",
+      "skittering_grove"
+    ],
+    "image": "assets/images/events/belly-of-the-beast/belly-05-skittering-grove.jpg",
+    "imageCaption": "The Skittering Grove, where the Scorncrow was brought down on its knees."
   }
 ]

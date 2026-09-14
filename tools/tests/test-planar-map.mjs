@@ -167,7 +167,10 @@ ok(api.mapsShortParty(pIndex.factions.find(f => f.id === 'disaster_inc')) === 'D
 const surveyPar = api.mapsEventParties(EVENTS.find(e => e.id === 'mount_ebott_survey_mission'), pIndex);
 ok(surveyPar.has('undertale_monsters') && surveyPar.has('iron_legion'), 'party link blends roster (sans) and rep-touch (legion)');
 const dis = api.buildJourney('midlands_full', 'all', DATA, MAP_DATA, { party: 'disaster_inc' });
-ok(dis.stops.length === 44 && dis.stops.length < j.stops.length, `disaster inc owns a real midlands trail (${dis.stops.length} stops)`);
+/* Not pinned to an exact count: filing a new Disaster Inc. session legitimately
+   grows this trail. What must hold is that the party owns a substantial trail
+   that is still a strict subset of the unfiltered journey. */
+ok(dis.stops.length >= 40 && dis.stops.length < j.stops.length, `disaster inc owns a real midlands trail (${dis.stops.length} stops)`);
 const disIds = [...dis.stops, ...dis.unpinned, ...dis.unresolved].map(x => x.eventId);
 /* The point of this check is the PARTITION, not the total: every event the
    party touches lands in exactly one of the three buckets, none twice, none

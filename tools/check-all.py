@@ -74,6 +74,11 @@ def main() -> int:
         # Green T's playable Foundry sheet is generated, not hand-edited; this
         # also re-validates every icon path against the image-path library.
         ("green t actor", [py, "tools/build-green-t-actor.py", "--check"], ROOT),
+        # Judgement in the Grove: the event, its battle, and the front-page
+        # wiring (latestUpdate/featured/Current fronts/SITE_UPDATES) all come
+        # out of one generator, because the previous session was filed and
+        # never reached the front page.
+        ("judgement in the grove", [py, "tools/build-judgement-in-the-grove.py", "--check"], ROOT),
     ]
 
     if shutil.which("node"):
