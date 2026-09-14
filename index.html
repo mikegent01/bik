@@ -8522,7 +8522,11 @@ function renderSidebar(active){
   h+=navSection('nav-top','',[
     navLink({emoji:'🏠',label:'Home',go:"Router.go('#/home')",active:(!h1||h1.startsWith('#/home'))}),
     navLink({emoji:'🔎',label:'Search & Index',go:"document.getElementById('search').focus()",title:'Focus the search bar ( / )'}),
-    navLink({emoji:'🖼️',label:'Field Plates',go:"Router.go('#/plates')",active:active==='plates',title:'Art recovered by reading filings'})
+    navLink({emoji:'🖼️',label:'Field Plates',go:"Router.go('#/plates')",active:active==='plates',title:'Art recovered by reading filings'}),
+    /* WAHwire is pinned rather than filed under World Systems: that section is
+       collapsed by default, so the wire was invisible unless the reader already
+       knew to go looking for it. A feed nobody can find is a feed nobody reads. */
+    navLink({emoji:'📡',label:'WAHwire',go:"Router.go('#/wahwire')",active:active==='wahwire',count:(typeof WAHWIRE!=='undefined'&&WAHWIRE&&WAHWIRE.posts?WAHWIRE.posts.length:undefined),title:'The public wire — every filing gets a reaction'})
   ],{alwaysOpen:true});
 
   const sysLinks=Object.values(FACTION_SYSTEMS).map(s=>navLink({
@@ -8571,7 +8575,6 @@ function renderSidebar(active){
     navLink({emoji:'⚖️',label:'Crime & Punishment',go:"location.href='Reputation-Matrix2/app/pages/crime-and-punishment/crime-and-punishment.html'",title:'Sentencing reel and the consequence table — 89 punishments'}),
     navLink({emoji:'🩸',label:'Injury Desk',go:"Router.go('#/injuries')",active:active==='injuries',count:((DATA.injuries&&DATA.injuries.entries)||[]).length,title:'Death saving throws and the d100 injury table'}),
     navLink({emoji:'🗣️',label:'The Wahbabel',go:"Router.go('#/wahbabel')",active:active==='wahbabel',count:(WAHBABEL&&WAHBABEL.languages?WAHBABEL.languages.length:7),title:'Translation desk — ciphers, dictionaries and glyphs'}),
-    navLink({emoji:'📡',label:'WAHwire',go:"Router.go('#/wahwire')",active:active==='wahwire',count:(WAHWIRE&&WAHWIRE.posts?WAHWIRE.posts.length:null),title:'The public wire — every filing gets a reaction'}),
     navLink({emoji:'💬',label:'Chatter Hub',go:"Router.go('#/annotations')",active:active==='annotations',count:n('annotations')}),
   ];
   h+=navSection('nav-systems-world','World Systems',systemLinks,{forceOpen:hasActive(systemLinks),count:systemLinks.length});
@@ -20788,6 +20791,10 @@ async function boot(){
      badge. */
   loadWahwire().then(()=>{
     ATTACH_INDEX=null;
+    /* The pinned WAHwire nav link carries a post count that does not exist
+       until the wire lands, so the sidebar has to be repainted too — otherwise
+       the link sits there permanently countless while every neighbour has one. */
+    try{ if(typeof renderSidebar==='function') renderSidebar(NAV_ACTIVE); }catch(e){}
     const h=location.hash||'';
     if(/^#\/(list\/events|home|article\/)/.test(h)) Router.render();
   }).catch(()=>{});
