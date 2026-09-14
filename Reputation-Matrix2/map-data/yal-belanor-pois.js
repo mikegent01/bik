@@ -37,7 +37,7 @@ export const yalBelanorData = {
             id: 'poi_yb_veridia_estate',
             x: 60.0,
             y: 8.0,
-            type: 'village',
+            type: 'town',
             name: "Veridia Estate",
             description: "The ancestral home of Lady Elara Veridia, Speaker of the Diet. The estate is a bastion of high society and traditionalist politics, a place where the Provincial Edicts are both written and enforced.",
             factionId: 'regal_empire',

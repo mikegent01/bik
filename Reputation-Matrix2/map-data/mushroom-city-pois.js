@@ -167,7 +167,7 @@ export const mushroomCityData = {
             name: "Regal Empire Embassy",
             description: "A stern, imposing building of black marble and gold trim that stands in stark contrast to the whimsical local architecture. It serves as the Regal Empire's official diplomatic presence, a place of rigid protocol and ever-watchful eyes.",
             factionId: 'regal_empire',
-            intelReq: 30,
+            intelReq: { faction: 'regal_empire', level: 30 },
             political_influence: 7,
             economic_value: 3,
             military_strength: 5,

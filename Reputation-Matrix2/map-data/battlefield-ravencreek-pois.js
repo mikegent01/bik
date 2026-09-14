@@ -32,7 +32,7 @@ export const ravencreekPois = [
         name: "Imperial Observation Post",
         description: "A fortified observation post on a southern ridge, manned by Sir Reginald Stonebridge and his Legionnaires. Their official orders are to observe and contain the conflict, not to intervene.",
         factionId: 'regal_empire',
-        intelReq: 20,
+        intelReq: { faction: 'regal_empire', level: 20 },
         political_influence: 4,
         economic_value: 1,
         military_strength: 5

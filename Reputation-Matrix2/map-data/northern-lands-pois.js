@@ -24,7 +24,7 @@ export const northernLandsData = {
             name: "The Frost-Spire Quarry",
             description: "A vast quarry where political prisoners and conquered clan members are forced into hard labor, mining rare ice-vein crystals for the Empire's magitek engines. Conditions are brutal.",
             factionId: 'regal_empire',
-            intelReq: 40,
+            intelReq: { faction: 'regal_empire', level: 40 },
             political_influence: 3,
             economic_value: 8,
             military_strength: 5,

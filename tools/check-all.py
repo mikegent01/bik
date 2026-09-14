@@ -80,6 +80,7 @@ def main() -> int:
         # never reached the front page.
         ("judgement in the grove", [py, "tools/build-judgement-in-the-grove.py", "--check"], ROOT),
         ("judgement commentary", [py, "tools/build-judgement-commentary.py", "--check"], ROOT),
+        ("regal empire POIs", [py, "tools/fix-regal-empire-pois.py", "--check"], ROOT),
     ]
 
     if shutil.which("node"):

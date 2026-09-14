@@ -6,8 +6,21 @@
 exist or be merged, (2) does it belong here or should it move, (3) is the data
 sound, (4) next.
 
-**Nothing in this document has been changed yet.** It is findings and
-recommendations only, so the merge/move calls can be approved before any data moves.
+> **Status: partially applied.** The findings that needed no canon ruling have
+> since been applied by `tools/fix-regal-empire-pois.py` (run `--check`; it is
+> registered in `check-all.py` as `regal empire POIs`):
+> the 18 bare `intelReq` numbers, the six retypes, and the Road Warden's Spire
+> description. Everything still marked as needing a ruling below — the
+> Midgrual/Mighdural spelling, the three-way `capital_city` collision including
+> Ironhold, the two merge candidates, and the two cross-faction intel gates —
+> remains **untouched and open**.
+>
+> **Correction to this audit:** the count of bare `intelReq` values was 18, not
+> 17, and the total Empire POI count is **38, not 37**. This document surveyed
+> eight region files and missed `poi_bf_regal_observation` ("Imperial
+> Observation Post") in `battlefield-ravencreek-pois.js`, which carries
+> `factionId: 'regal_empire'`. Scoping the sweep to `*-pois.js` by content
+> rather than by a hand-listed set of regions is what surfaced it.
 
 ---
 
