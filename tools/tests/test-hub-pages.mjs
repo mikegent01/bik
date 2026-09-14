@@ -122,10 +122,16 @@ check('three failures kill', /fail>=3/.test(saveFn));
     `${worstFam[0]} x${worstFam[1]}`);
   check('no two-word prefix dominates the table', worstPre[1] <= 12,
     `${worstPre[0]} x${worstPre[1]}`);
+  /* The roll numerals were a generator artefact, not lore, so the table now
+     carries none at all rather than merely few. Stripping them deliberately
+     lets a mild and a severe form share one name, so names are no longer
+     unique; d100 is the identifier everywhere in the app, so that is checked
+     instead. */
   const romans = entries.filter(e => /\s[IVXLCDM]{2,}$/.test(e.injuryType || '')).length;
-  check('roman-numeral variants are rare', romans <= 10, `${romans}`);
-  check('every injury name is unique',
-    new Set(entries.map(e => e.injuryType)).size === entries.length);
+  check('no injury name carries a roll numeral', romans === 0, `${romans}`);
+  const rolls = entries.map(e => e.d100);
+  check('every injury is uniquely addressable by d100',
+    new Set(rolls).size === entries.length);
 }
 
 check('provisional entries are flagged to the reader',

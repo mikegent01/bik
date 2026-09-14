@@ -154,31 +154,35 @@ def lone_roman_rows(entries: list) -> list:
 
 
 def strip_roman_suffixes(entries: list) -> list:
-    """Drop the trailing roman numeral from any name that no longer needs one.
+    """Drop the trailing roman numeral from every name that carries one.
 
-    The numerals only ever existed to disambiguate members of an over-used
-    family. Once culling has left a single member, "Mendacious Veil Corruption
-    IV" is just a name with a roll artefact welded to the end of it - the GM
-    reported it as a number that "isn't like an actual thing". A suffix is
-    removed only when the stripped name is unique in the table, so a genuine
-    surviving pair keeps its I/II.
+    The numerals are a generator artefact, not lore. The GM was explicit: the
+    number "is what he rolled but it isn't like an actual thing - remove the
+    number". That applies to all of them, including the two survivors of an
+    earlier cull, so this strips unconditionally rather than only when the
+    stripped base happens to be unique.
+
+    Stripping can leave two rows sharing a name (a mild and a severe form of
+    the same injury). That is allowed: rows are addressed by d100 everywhere in
+    the app and in xpAwards-style references, never by name, so a shared name
+    breaks no lookup. Collisions are returned so the caller can report them.
     """
     stripped = []
-    counts = Counter(family_of(e.get("injuryType")) for e in entries)
-    seen = set()
     for e in entries:
         name = str(e.get("injuryType") or "")
         if not ROMAN_SUFFIX.search(name):
-            seen.add(name)
             continue
         base = family_of(name)
-        if counts[base] == 1 and base not in seen:
-            e["injuryType"] = base
-            seen.add(base)
-            stripped.append((name, base))
-        else:
-            seen.add(name)
+        e["injuryType"] = base
+        stripped.append((name, base))
     return stripped
+
+
+def name_collisions(entries: list) -> list:
+    """Names held by more than one row, worst first."""
+    counts = Counter(str(e.get("injuryType") or "") for e in entries)
+    return sorted(((n, c) for n, c in counts.items() if c > 1),
+                  key=lambda t: (-t[1], t[0]))
 
 
 def main() -> int:
@@ -213,12 +217,14 @@ def main() -> int:
             worst = m["prefixes_over_cap"][0]
             problems.append(f"{len(m['prefixes_over_cap'])} prefixes exceed {PREFIX_CAP} "
                             f"(worst: {worst[1]} x{worst[0]})")
-        if m["exact_duplicates"]:
-            problems.append(f"{len(m['exact_duplicates'])} duplicate names")
-        lone = lone_roman_rows(entries)
-        if lone:
-            problems.append(f"{len(lone)} rows keep a roman numeral with no sibling "
-                            f"(e.g. {lone[0]!r})")
+        # Duplicate names are no longer a failure. Stripping the roll artefact
+        # off every name deliberately merges mild/severe pairs onto one name;
+        # rows are addressed by d100, so this breaks nothing.
+        roman = [str(e.get("injuryType")) for e in entries
+                 if ROMAN_SUFFIX.search(str(e.get("injuryType") or ""))]
+        if roman:
+            problems.append(f"{len(roman)} rows still carry a roman numeral "
+                            f"(e.g. {roman[0]!r})")
         for p in problems:
             print(f"  FAIL {p}")
         if problems:
@@ -255,6 +261,8 @@ def main() -> int:
     print(f"roman-numeral rows : {before['roman_rows']} -> {after['roman_rows']}")
     for was, now in stripped:
         print(f"  stripped suffix  : {was!r} -> {now!r}")
+    for name, n in name_collisions(kept):
+        print(f"  shared name      : {name!r} x{n} (distinct rows, addressed by d100)")
     print(f"distinct names     : {before['distinct_names']} -> {after['distinct_names']}")
     print(f"consecutive d100   : {after['consecutive']}")
     reasons = Counter(r for _, r in dropped)

@@ -2908,7 +2908,7 @@
     {
       "d100": 182,
       "category": "Severe injury",
-      "injuryType": "Echoing Veil Paralysis II",
+      "injuryType": "Echoing Veil Paralysis",
       "description": "Your body's movements are increasingly hindered; even simple tasks require conscious effort.",
       "cure": "2d8 days of rest and a successful Medicine check (DC 15)",
       "duration": "4d6 weeks",
@@ -2988,7 +2988,7 @@
     {
       "d100": 187,
       "category": "Severe injury",
-      "injuryType": "Bone Shatter Syndrome II",
+      "injuryType": "Bone Shatter Syndrome",
       "description": "Your bones are permanently misaligned, causing chronic pain and reducing your movement speed by one step.",
       "cure": "Major surgery or a level 50 healer's intervention lasting no less than 4 weeks.",
       "duration": "Forever",
