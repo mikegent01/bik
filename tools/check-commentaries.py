@@ -60,7 +60,8 @@ def load(name):
     with open(p, encoding='utf-8') as fh:
         d = json.load(fh)
     if isinstance(d, dict):
-        for k in ('events', 'battles', 'commentaries'):
+        for k in ('events', 'battles', 'commentaries',
+                  'characters', 'locations', 'factions'):
             if k in d:
                 return d[k]
         return []
@@ -95,8 +96,9 @@ def main():
         if isinstance(rec, dict) and rec.get('id'):
             ids.add(rec['id'])
             by_id[rec['id']] = rec
-    # characters etc. may be referenced in relatedArticles
-    for extra in ('characters.json', 'locations.json'):
+    # characters etc. may be referenced in relatedArticles. factions belong in
+    # this list too - a cut that links the Iron Legion is linking a real article.
+    for extra in ('characters.json', 'locations.json', 'factions.json'):
         for rec in load(extra):
             if isinstance(rec, dict) and rec.get('id'):
                 ids.add(rec['id'])

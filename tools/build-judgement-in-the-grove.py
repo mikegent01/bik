@@ -25,6 +25,9 @@ INDEX = ROOT / "index.html"
 EVENT_ID = "judgement_in_the_grove"
 BATTLE_ID = "judgement_in_the_grove_battle"
 IMG = "assets/images/events/belly-of-the-beast"
+# This session's own plates. Setting and cast are drawn from the prior
+# session's grove plate and the portraits folder, never invented.
+JIG = "assets/images/events/judgement-in-the-grove"
 
 DATE = ("1 Aethel, 1040 BF — just past midnight on the Shadowfell clock, the Skittering Grove "
         "inside the Scorncrow's tree, continuing straight out of the descent")
@@ -59,6 +62,8 @@ DESCRIPTION = (
 SECTIONS = [
     {
         "name": "I. Smoke, and the Wrong Way Out",
+        "image": f"{JIG}/jig-02-musket.jpg",
+        "imageCaption": ("She put the arrow back in her pocket and took the musket instead, then reloaded it slowly, in the open, with the brood already coming. Two direct hits. The bow stayed on her back."),
         "icon": "🌫️",
         "overview": (
             "\"It's a little smoky in here,\" Remi said.\n\n"
@@ -122,6 +127,8 @@ SECTIONS = [
     },
     {
         "name": "III. A Book in Full View, and a Paladin in Front of Everyone",
+        "image": f"{JIG}/jig-03-dan-front.jpg",
+        "imageCaption": ("Feyward Dan put himself in front of everyone - including Markop, who is a head-and-shoulders taller and armoured - and turned the brood with a mushroom-studded holy symbol."),
         "icon": "📖",
         "overview": (
             "\"Come on, I'm looking at my spells,\" Remi said.\n\n"
@@ -312,6 +319,8 @@ SECTIONS = [
     },
     {
         "name": "IX. Every Grove at Once, and Salam",
+        "image": f"{JIG}/jig-04-salam-falls.jpg",
+        "imageCaption": ("Salam clawed across the face and down, crossbow fallen beside him, as the grove closes from every direction at once and Embercap's fire goes up behind. He was not recovered. The wound scars."),
         "icon": "🕷️",
         "overview": (
             "It was not over. It was arithmetic.\n\n"
@@ -466,9 +475,11 @@ def event_record():
                    "killed, and the Legion alliance ends in Archie's arrest"),
         "summary": SUMMARY,
         "description": DESCRIPTION,
-        "image": f"{IMG}/belly-05-skittering-grove.jpg",
-        "imageCaption": ("The Skittering Grove: webs where foliage should be, wrapped shapes hanging "
-                         "from the boughs, and the ground the Scorncrow claims it grew up on."),
+        "image": f"{JIG}/jig-01-warhammer.jpg",
+        "imageCaption": ("The moment before judgement. The Scorncrow on its knees with the scythe "
+                         "fallen out of reach, hood off, the face underneath plainly human and "
+                         "still asking; Markop at the top of the swing. The archive files this as "
+                         "neither murder nor justice."),
         "sections": SECTIONS,
         "participants": PARTICIPANTS,
         "outcome": ("The Scorncrow is dead — executed while kneeling and asking for mercy — and Markop "
@@ -634,7 +645,7 @@ def battle_record():
                       "on her order. The Legion alliance is temporary and ends in Archie's arrest."),
         "relatedArticles": [EVENT_ID, "the_belly_of_the_beast", "scorncrow", "markop",
                             "remi_akamatsu_full_backstory", "skittering_grove"],
-        "image": f"{IMG}/belly-05-skittering-grove.jpg",
+        "image": f"{JIG}/jig-01-warhammer.jpg",
         "imageCaption": "The Skittering Grove, where the Scorncrow was brought down on its knees.",
     }
 
@@ -655,7 +666,7 @@ COVER = {
     "title": "SHADEWARD — Judgement in the Grove",
     "caption": ("The Scorncrow dies on its knees asking a paladin for mercy; the grove fills from "
                 "every direction and Salam does not get up."),
-    "image": f"{IMG}/belly-05-skittering-grove.jpg",
+    "image": f"{JIG}/jig-01-warhammer.jpg",
     "articleId": EVENT_ID,
 }
 
@@ -690,6 +701,21 @@ def upsert(container, key, record):
     return "appended"
 
 
+# Salam is clawed across the face in section IX and the record says the wound
+# scars. The archive therefore carries a post-injury likeness for him from this
+# filing forward, and his status line stops describing him as on his feet.
+SALAM_PORTRAIT = "portraits/salam_scarred.png"
+SALAM_STATUS = ("Fallen and unrecovered — clawed across the face in the Skittering Grove on "
+                "1 Aethel, 1040 BF and left unconscious as the brood closed from every direction. "
+                "The wound scars; the archive carries a post-injury likeness from this filing on.")
+
+
+def salam_row(chars):
+    rows = chars["characters"] if isinstance(chars, dict) else chars
+    return next((c for c in rows if c.get("id") == "salam"), None)
+
+
+
 def build(check=False):
     problems, notes = [], []
 
@@ -698,6 +724,7 @@ def build(check=False):
     battles = load("battles.json")
     ba_list = battles["battles"] if isinstance(battles, dict) else battles
     mainpage = load("mainPage.json")
+    chars = load("characters.json")
 
     ev = event_record()
     ba = battle_record()
@@ -719,9 +746,20 @@ def build(check=False):
         if p["id"] not in known:
             notes.append(f"participant id not in a registry (ok for groups): {p['id']}")
 
-    img = ROOT / "Reputation-Matrix2" / ev["image"]
-    if not img.exists():
-        problems.append(f"event image missing: {ev['image']}")
+    # Every image this filing claims must exist on disk. A wrong path fails
+    # silently to a placeholder in the browser, so it is checked here instead.
+    for label, rel in ([("event image", ev["image"]),
+                        ("battle image", ba["image"]),
+                        ("cover image", COVER["image"])]
+                       + [(f"section image ({sec['name']})", sec["image"])
+                          for sec in ev["sections"] if sec.get("image")]):
+        if not (ROOT / "Reputation-Matrix2" / rel).exists():
+            problems.append(f"{label} missing: {rel}")
+
+    # Salam takes a permanent facial scar in this session, so the archive
+    # carries a post-injury likeness from here on.
+    if not (ROOT / "portraits" / "salam_scarred.png").exists():
+        problems.append("portraits/salam_scarred.png missing (Salam's post-injury portrait)")
 
     if problems:
         for p in problems:
@@ -754,7 +792,15 @@ def build(check=False):
         if f'"id": "{EVENT_ID}"' not in html.split("let SITE_UPDATES=[", 1)[-1][:4000]:
             print("judgement in the grove: SITE_UPDATES does not lead with this event")
             return 1
-        print("judgement in the grove: event, battle and front page all match the generator.")
+        row = salam_row(chars)
+        if not row:
+            print("judgement in the grove: salam is missing from characters.json")
+            return 1
+        if row.get("image") != SALAM_PORTRAIT or row.get("status") != SALAM_STATUS:
+            print("judgement in the grove: Salam's portrait/status do not match the generator")
+            return 1
+        print("judgement in the grove: event, battle, front page and Salam all match "
+              "the generator.")
         return 0
 
     # --- write ---------------------------------------------------------------
@@ -762,6 +808,12 @@ def build(check=False):
     a2 = upsert(ba_list, "id", ba)
     dump("events.json", events)
     dump("battles.json", battles)
+
+    row = salam_row(chars)
+    if row is not None:
+        row["image"] = SALAM_PORTRAIT
+        row["status"] = SALAM_STATUS
+        dump("characters.json", chars)
 
     # Latest filing + featured.
     mainpage["latestUpdate"] = {

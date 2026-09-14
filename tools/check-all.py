@@ -79,6 +79,7 @@ def main() -> int:
         # out of one generator, because the previous session was filed and
         # never reached the front page.
         ("judgement in the grove", [py, "tools/build-judgement-in-the-grove.py", "--check"], ROOT),
+        ("judgement commentary", [py, "tools/build-judgement-commentary.py", "--check"], ROOT),
     ]
 
     if shutil.which("node"):
