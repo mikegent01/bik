@@ -647,9 +647,9 @@
         "value": "<h2>Green T — The Giant from the Children's Table</h2><p><strong>Level 6; Toad (transformation capabilities); independent, formerly of the Tea Leaf Syndicate.</strong> A tea merchant who ran a criminal empire with the manners of a garden-party host, and who has never once raised his voice to do it.</p><h3>The comeback</h3><p>Green T was lost at the Siege of Raventree Manor when a glass entity took hold of him and pulled him bodily through a mirror. Witnesses agree on the detail that matters: one moment he was there with his feet on solid ground, the next the surface rippled and went still and reflected an empty hallway. He was filed as a casualty.</p><p>He came back through the Shadowfell. The route is not established and he has not been forthcoming about it; the working reading is that the mirror dimension is a transit layer between planes rather than a grave. He reappeared at the Shadow Estate dinner intact and ready to cause problems, was seated at the children's table as a deliberate insult, used the insult as cover to map the room, and shot Orangus Cornelius with a silver bullet in front of every vampire lord present.</p><p>Since then: custodian of the repaired Mirror of True Reflection under a bargain in which Wario expects to claim it once Scarecrow is dealt with, and a giant observation tower in the grove beyond Tymnas's cottage, where he lifted Remi to his shoulder to spot the Scorncrow and learned in public that the giant form spends the body that holds it.</p><h3>How he plays</h3><p>Green T treats a fight as a problem of angles, visibility, and how long a body can hold a shape before the shape starts spending the body back. He is patient to the point that people mistake it for harmlessness, which is the whole method. The giant form is a resource with a cost curve, not a win condition — at the grove the bats swarmed his face until his scale became a disadvantage, more target and not more clarity.</p><p><em>Being underestimated is a weapon. He has never corrected anyone who was wrong about him in a useful direction.</em></p>",
         "public": ""
       },
-      "race": "bb00c9339a204b51",
-      "background": "a01588c74bc740d6",
-      "originalClass": "tea-merchant-giant-blooded",
+      "race": "grnt010000000000",
+      "background": "grnt020000000000",
+      "originalClass": "tea-merchant-giant-blooded-level-6",
       "xp": {
         "value": 14000
       },
@@ -909,7 +909,7 @@
           "rules": "2014",
           "revision": 1
         },
-        "identifier": "tea-merchant---giant-blooded,-level-6",
+        "identifier": "tea-merchant-giant-blooded-level-6",
         "quantity": 1,
         "weight": 0,
         "price": {
@@ -965,7 +965,7 @@
           "rules": "2014",
           "revision": 1
         },
-        "identifier": "toad---giant-blooded",
+        "identifier": "toad-giant-blooded",
         "quantity": 1,
         "weight": 0,
         "price": {
@@ -1121,7 +1121,7 @@
           "rules": "2014",
           "revision": 1
         },
-        "identifier": "the-childrens-table",
+        "identifier": "the-children-s-table",
         "quantity": 1,
         "weight": 0,
         "price": {
@@ -1396,7 +1396,7 @@
           "rules": "2014",
           "revision": 1
         },
-        "identifier": "mirror-of-true-reflection-(custody)",
+        "identifier": "mirror-of-true-reflection-custody",
         "quantity": 1,
         "weight": {
           "value": 6,
@@ -1440,7 +1440,7 @@
           "rules": "2014",
           "revision": 1
         },
-        "identifier": "merchants-coat",
+        "identifier": "merchant-s-coat",
         "quantity": 1,
         "weight": {
           "value": 8,
@@ -1491,7 +1491,7 @@
           "rules": "2014",
           "revision": 1
         },
-        "identifier": "tea-service,-travelling",
+        "identifier": "tea-service-travelling",
         "quantity": 1,
         "weight": 0,
         "price": {
@@ -1551,7 +1551,7 @@
     "coreVersion": "14.360",
     "systemId": "dnd5e",
     "systemVersion": "4.3.9",
-    "lastModifiedBy": "bikGreenT00000001",
+    "lastModifiedBy": "bikGreenT0000001",
     "modifiedTime": 1785687848098,
     "createdTime": 1785686374932
   },

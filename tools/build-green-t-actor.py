@@ -14,8 +14,21 @@ Every img path is checked against `image paths.txt` before the file is written.
 
 Run:  python3 tools/build-green-t-actor.py [--check]
 """
-import json, sys
+import json, re, sys
 from pathlib import Path
+
+# Foundry requires every document ID to be exactly 16 alphanumeric characters.
+# An ID of any other length is rejected at import with a SchemaField validation
+# error, so these are generated and then re-checked before the file is written.
+FOUNDRY_ID = re.compile(r"^[A-Za-z0-9]{16}$")
+
+
+def fid(prefix, n):
+    """Build a valid 16-character alphanumeric Foundry document ID."""
+    stem = f"{prefix}{n}"
+    out = (stem + "0" * 16)[:16]
+    assert FOUNDRY_ID.match(out), out
+    return out
 
 ROOT = Path(__file__).resolve().parents[1]
 EX = ROOT / "Reputation-Matrix2" / "tools" / "item sheet examples"
@@ -69,11 +82,21 @@ BIOGRAPHY = (
 
 # ---------------------------------------------------------------- items
 
+IDENTIFIER = re.compile(r"^[a-z0-9]+(-[a-z0-9]+)*$")
+
+
+def slugify(name):
+    """dnd5e identifiers must be lowercase kebab-case with no punctuation."""
+    out = re.sub(r"[^a-z0-9]+", "-", name.lower()).strip("-")
+    assert IDENTIFIER.match(out), f"bad identifier from {name!r}: {out!r}"
+    return out
+
+
 def base(name, itype, img, desc, **system):
     s = {
         "description": {"value": desc, "chat": ""},
         "source": {"custom": "Waluipedia campaign", "rules": "2014", "revision": 1},
-        "identifier": name.lower().replace(" ", "-").replace("—", "-").replace("'", ""),
+        "identifier": slugify(name),
         "quantity": 1, "weight": 0,
         "price": {"value": 0, "denomination": "gp"},
         "equipped": False, "proficient": True, "properties": [],
@@ -219,7 +242,7 @@ def build_items():
 
     for i, it in enumerate(I):
         it["sort"] = i * 10000
-        it["_id"] = f"grnt{i:02d}" + "0" * 10
+        it["_id"] = fid("grnt", f"{i:02d}")
         it["system"].pop("img_override", None)
     return I
 
@@ -250,14 +273,12 @@ def build():
     det.update({
         "alignment": "Lawful Neutral (private code, tidy accounts, no congregation)",
         "biography": {"value": BIOGRAPHY, "public": ""},
-        "originalClass": "tea-merchant-giant-blooded",
         "xp": {"value": 14000},
         "appearance": "A composed green Toad in a well-cut coat, entirely unremarkable until he is not.",
         "trait": "I am never in a hurry, and people read that as harmless.",
         "ideal": "Every account settled. Nothing left ragged.",
         "bond": "The surviving Tea Leaf Syndicate, and the mirror I agreed to hold.",
         "flaw": "I let people underestimate me for so long that I sometimes let a situation get worse to keep the advantage.",
-        "race": "bb00c9339a204b51", "background": "a01588c74bc740d6",
         "eyes": "Dark, steady", "height": "Small — or Huge, at will",
         "faith": "Order of Maat in practice; he has never called it a faith",
         "hair": "None", "weight": "Variable", "gender": "Male-presenting Toad",
@@ -282,6 +303,15 @@ def build():
     tok["height"] = 1
 
     actor["items"] = build_items()
+    # Point the sheet's race/background slots at THIS actor's own documents.
+    # Inheriting the template's ids made the sheet reference items that do not
+    # exist in this export.
+    by_type = {i["type"]: i["_id"] for i in actor["items"]}
+    det["race"] = by_type["race"]
+    det["background"] = by_type["background"]
+    # dnd5e links class levels through the class item's identifier.
+    det["originalClass"] = next(
+        i["system"]["identifier"] for i in actor["items"] if i["type"] == "class")
     actor["flags"] = {"bik": {
         "characterId": CHARACTER_ID,
         "playerCharacter": True,
@@ -302,7 +332,7 @@ def build():
     }}
     actor["_stats"].update({
         "exportSource": "bik/green-t-player",
-        "lastModifiedBy": "bikGreenT00000001",
+        "lastModifiedBy": "bikGreenT0000001",
         "compendiumSource": None, "duplicateSource": None,
     })
     return actor
@@ -319,6 +349,45 @@ def validate(actor):
     ids = [i["_id"] for i in actor["items"]]
     if len(ids) != len(set(ids)):
         problems.append("duplicate item _id")
+
+    # Foundry rejects the whole import if any document ID is not exactly 16
+    # alphanumeric characters, so check every field that carries one.
+    def check_id(label, value, allow_null=True):
+        if value is None or value == "":
+            if not allow_null:
+                problems.append(f"{label} must be set")
+            return
+        if not FOUNDRY_ID.match(str(value)):
+            problems.append(
+                f"{label} is not a valid 16-character alphanumeric Foundry ID: {value!r}"
+                f" (length {len(str(value))})")
+
+    check_id("_stats.lastModifiedBy", actor["_stats"].get("lastModifiedBy"), allow_null=False)
+    check_id("_stats.compendiumSource", actor["_stats"].get("compendiumSource"))
+    check_id("_stats.duplicateSource", actor["_stats"].get("duplicateSource"))
+    check_id("actor._id", actor.get("_id"))
+    check_id("actor.folder", actor.get("folder"))
+    check_id("details.race", actor["system"]["details"].get("race"), allow_null=False)
+    check_id("details.background", actor["system"]["details"].get("background"), allow_null=False)
+
+    for it in actor["items"]:
+        ident = it["system"].get("identifier")
+        if ident is not None and not IDENTIFIER.match(ident):
+            problems.append(f"item[{it['name']}].identifier is not lowercase kebab-case: {ident!r}")
+        check_id(f"item[{it['name']}]._id", it["_id"], allow_null=False)
+        check_id(f"item[{it['name']}].folder", it.get("folder"))
+        check_id(f"item[{it['name']}].system.container", it["system"].get("container"))
+        for key in ("lastModifiedBy", "compendiumSource", "duplicateSource"):
+            check_id(f"item[{it['name']}]._stats.{key}", (it.get("_stats") or {}).get(key))
+        for act_id in (it["system"].get("activities") or {}):
+            check_id(f"item[{it['name']}].activity", act_id, allow_null=False)
+
+    # Every id the sheet points at must actually be present in items[].
+    item_ids = set(ids)
+    for label in ("race", "background"):
+        ref = actor["system"]["details"].get(label)
+        if ref and ref not in item_ids:
+            problems.append(f"details.{label} references {ref!r}, which is not an item in this export")
     for req in ("class", "race", "background"):
         if sum(1 for i in actor["items"] if i["type"] == req) != 1:
             problems.append(f"expected exactly one {req} item")
