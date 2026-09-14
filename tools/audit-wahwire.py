@@ -158,7 +158,13 @@ def main() -> int:
             text = path.read_text(encoding="utf-8", errors="replace")
         except OSError:
             continue
-        if re.search(r"wahwire/(posts|profiles|reactions)\.json", text):
+        # A literal path is the obvious case. But a loader that builds the
+        # path from a prefix and a name -- `pathPrefix+'data/wahwire/'+n+
+        # '.json'` -- is just as real a consumer, and matching only literals
+        # reported the live #/wahwire route as "nothing renders this".
+        if (re.search(r"wahwire/(posts|profiles|reactions)\.json", text)
+                or re.search(r"data/wahwire/['\"]?\s*\+", text)
+                or "loadWahwire" in text):
             consumers.append(str(path.relative_to(ROOT)))
     page = RM / "app" / "pages" / "wahwire" / "wahwire.html"
 

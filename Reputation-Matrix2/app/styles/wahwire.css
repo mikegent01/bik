@@ -121,3 +121,91 @@
   .ww-sorts{margin-left:0;width:100%}
   .ww-controls .ww-input{flex:1 1 100%}
 }
+
+/* ===========================================================================
+   POST FORMATS — the grand reopening
+   ---------------------------------------------------------------------------
+   A post is no longer only a paragraph. Each format gets a body treatment;
+   `text` keeps the original look so nothing that already existed shifts.
+=========================================================================== */
+
+.ww-type-badge{display:inline-block;margin-left:6px;font-size:10px;font-weight:800;letter-spacing:.03em;
+  padding:1px 7px;border-radius:999px;border:1px solid var(--border);color:var(--muted);vertical-align:1px}
+
+/* ---------- format filter chips + trending ---------- */
+.ww-formats{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:9px}
+.ww-fchip{font-size:12px;font-weight:700;padding:5px 11px;border-radius:999px;cursor:pointer;
+  border:1px solid var(--border);background:var(--bg2);color:var(--muted);white-space:nowrap}
+.ww-fchip b{color:var(--text);margin-left:3px}
+.ww-fchip:hover{border-color:var(--accent);color:var(--link)}
+.ww-fchip.on{background:var(--accent);border-color:var(--accent);color:#fff}
+.ww-fchip.on b{color:#fff}
+.ww-trending{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-bottom:10px;padding:9px 12px;
+  border:1px dashed var(--border);border-radius:12px;background:var(--panel2)}
+.ww-trending-lab{font-size:10.5px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;color:var(--accent2)}
+.ww-trend{font-size:12px;color:var(--link);cursor:pointer;font-weight:600}
+.ww-trend b{color:var(--muted);font-weight:700;font-size:10.5px}
+.ww-trend:hover{color:var(--accent2)}
+
+/* ---------- thread ---------- */
+.ww-thread{list-style:none;margin:11px 0 0;padding:0;counter-reset:ww}
+.ww-thread li{position:relative;padding:0 0 13px 20px;font-size:14px;line-height:1.62;overflow-wrap:anywhere}
+.ww-thread li:last-child{padding-bottom:0}
+.ww-thread li::before{content:'';position:absolute;left:5px;top:7px;width:7px;height:7px;border-radius:50%;
+  background:var(--ww-tone,var(--accent2))}
+.ww-thread li::after{content:'';position:absolute;left:8px;top:18px;bottom:0;width:1px;background:var(--border)}
+.ww-thread li:last-child::after{display:none}
+
+/* ---------- ledger ---------- */
+.ww-ledger{margin-top:11px;border:1px solid var(--border);border-radius:11px;overflow:hidden;background:var(--bg2)}
+.ww-ledger-row{display:flex;justify-content:space-between;gap:14px;padding:8px 13px;font-size:13px;
+  border-top:1px solid var(--border)}
+.ww-ledger-row:first-child{border-top:0}
+.ww-ledger-row span{color:var(--muted);min-width:0}
+.ww-ledger-row b{color:var(--text);text-align:right;white-space:nowrap}
+
+/* ---------- poll ---------- */
+.ww-poll{margin-top:11px}
+.ww-poll-q{font-size:13.5px;font-weight:800;margin-bottom:9px}
+.ww-poll-opt{position:relative;display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:9px 13px;margin-bottom:6px;border:1px solid var(--border);border-radius:10px;overflow:hidden;
+  font-size:13px;background:var(--bg2)}
+.ww-poll-bar{position:absolute;inset:0 auto 0 0;background:color-mix(in srgb,var(--ww-tone,#8a4bff) 26%,transparent);
+  border-right:1px solid color-mix(in srgb,var(--ww-tone,#8a4bff) 55%,transparent)}
+.ww-poll-opt.is-top{border-color:var(--ww-tone,var(--accent))}
+.ww-poll-opt.is-top .ww-poll-pct{color:var(--text)}
+.ww-poll-label,.ww-poll-pct{position:relative;z-index:1}
+.ww-poll-pct{font-weight:900;color:var(--muted);white-space:nowrap}
+.ww-poll-foot{font-size:11.5px;color:var(--muted);margin-top:7px}
+
+/* ---------- exhibit ---------- */
+.ww-exhibit{margin-top:11px;padding:13px 15px;border:1px solid var(--border);border-left:4px solid var(--accent2);
+  border-radius:11px;background:linear-gradient(135deg,rgba(224,180,0,.07),transparent),var(--bg2);cursor:pointer}
+.ww-exhibit:hover{border-color:var(--accent2)}
+.ww-exhibit-chip{font-size:10.5px;font-weight:900;letter-spacing:.05em;text-transform:uppercase;color:var(--accent2)}
+.ww-exhibit-title{font-size:14.5px;font-weight:800;margin-top:4px;line-height:1.4}
+.ww-exhibit-sub{font-size:12px;color:var(--muted);margin-top:3px;line-height:1.5}
+.ww-exhibit-note{font-size:12.5px;margin-top:7px;line-height:1.55;font-style:italic;color:var(--text);opacity:.88}
+.ww-exhibit-open{font-size:12px;font-weight:800;color:var(--link);margin-top:9px}
+
+/* ---------- image ---------- */
+.ww-figure{margin:11px 0 0;border:1px solid var(--border);border-radius:12px;overflow:hidden;background:var(--bg2)}
+.ww-figure img{display:block;width:100%;height:auto}
+.ww-figure figcaption{font-size:12px;color:var(--muted);padding:9px 13px;line-height:1.5;border-top:1px solid var(--border)}
+
+/* ---------- quoted post ---------- */
+.ww-quoted{margin-top:11px;padding:11px 13px;border:1px solid var(--border);border-radius:11px;
+  background:var(--bg2);cursor:pointer}
+.ww-quoted:hover{border-color:var(--accent)}
+.ww-quoted-head{display:flex;align-items:center;gap:7px;font-size:12.5px;margin-bottom:5px}
+.ww-quoted-text{font-size:13px;line-height:1.58;color:var(--text);opacity:.9;overflow-wrap:anywhere;
+  display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
+
+/* ---------- top reply, lifted out of the thread ---------- */
+.ww-topreply{display:flex;gap:9px;margin-top:11px;padding:10px 12px;border:1px solid var(--border);
+  border-radius:11px;background:color-mix(in srgb,var(--accent2) 5%,var(--bg2))}
+.ww-top-flag{font-size:9.5px;font-weight:900;letter-spacing:.05em;text-transform:uppercase;color:var(--accent2);
+  border:1px solid rgba(224,180,0,.4);border-radius:999px;padding:1px 6px}
+
+/* A correction should look like a correction. */
+.ww-post.ww-t-correction{border-left-style:double;border-left-width:6px}

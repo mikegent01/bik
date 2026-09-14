@@ -24,7 +24,7 @@
   <link rel="stylesheet" href="Reputation-Matrix2/app/styles/ui-fixes.css">
   <link rel="stylesheet" href="Reputation-Matrix2/app/styles/reputation-fixes.css">
   <link rel="stylesheet" href="Reputation-Matrix2/app/styles/commerce-event-fixes.css?v=rep-lede1">
-  <link rel="stylesheet" href="Reputation-Matrix2/app/styles/wahwire.css?v=ww1">
+  <link rel="stylesheet" href="Reputation-Matrix2/app/styles/wahwire.css?v=ww2-reopening">
   <link rel="stylesheet" href="Reputation-Matrix2/app/styles/crisis-reputation-fixes.css">
   <link rel="stylesheet" href="Reputation-Matrix2/app/styles/clean-pass.css">
   <!-- Battlefield-specific styles (Wikipedia-style military conflict theme) -->
@@ -12217,6 +12217,79 @@ function wwLinkChips(links){
   }).join('');
 }
 
+/* ---------------------------------------------------------------------------
+   POST FORMATS
+
+   A post is no longer only a paragraph. `type` selects a body treatment;
+   everything without one is `text`, so every legacy post stays valid. Each
+   format renders from data the archive already holds — props.json for an
+   exhibit, a record's own image for a photo, another post for a quote — so
+   nothing here invents canon.
+--------------------------------------------------------------------------- */
+function wwPropRecord(id){
+  const props=(DATA&&DATA.props&&DATA.props.props)||{};
+  return props[id]||null;
+}
+function wwPostBody(p){
+  const t=p.type||'text';
+  const said=p.content?`<div class="ww-body">${esc(p.content)}</div>`:'';
+
+  if(t==='thread'&&Array.isArray(p.thread)&&p.thread.length){
+    return said+`<ol class="ww-thread">${p.thread.map(s=>`<li>${esc(s)}</li>`).join('')}</ol>`;
+  }
+  if(t==='ledger'&&Array.isArray(p.ledger)&&p.ledger.length){
+    return said+`<div class="ww-ledger">${p.ledger.map(r=>
+      `<div class="ww-ledger-row"><span>${esc(r.label)}</span><b>${esc(r.value)}</b></div>`).join('')}</div>`;
+  }
+  if(t==='poll'&&p.poll){
+    const opts=p.poll.options||[];
+    const total=opts.reduce((n,o)=>n+Number(o.votes||0),0)||1;
+    const top=Math.max(...opts.map(o=>Number(o.votes||0)));
+    return said+`<div class="ww-poll">
+      <div class="ww-poll-q">${esc(p.poll.question||'')}</div>
+      ${opts.map(o=>{const v=Number(o.votes||0),pct=Math.round(100*v/total);
+        return `<div class="ww-poll-opt${v===top?' is-top':''}">
+          <div class="ww-poll-bar" style="width:${pct}%"></div>
+          <span class="ww-poll-label">${esc(o.label)}</span>
+          <span class="ww-poll-pct">${pct}%</span></div>`;}).join('')}
+      <div class="ww-poll-foot">${esc(p.poll.closes||'')}</div></div>`;
+  }
+  if(t==='exhibit'&&p.exhibit){
+    const pr=wwPropRecord(p.exhibit);
+    const title=pr?(pr.title||prettyId(p.exhibit)):prettyId(p.exhibit);
+    const sub=pr?(pr.subtitle||''):'';
+    const note=pr?(pr.note||''):'';
+    return said+`<div class="ww-exhibit" ${pr?`onclick="openId('${esc((pr.articles&&pr.articles[0])||'')}')"`:''}>
+      <div class="ww-exhibit-chip">${esc((pr&&pr.icon)||'📄')} Exhibit${pr&&pr.kind?' · '+esc(pr.kind):''}</div>
+      <div class="ww-exhibit-title">${esc(title)}</div>
+      ${sub?`<div class="ww-exhibit-sub">${esc(sub)}</div>`:''}
+      ${note?`<div class="ww-exhibit-note">${esc(note)}</div>`:''}
+      ${pr?'<div class="ww-exhibit-open">Open the document →</div>':'<div class="ww-exhibit-sub">Document not in the prop store.</div>'}
+    </div>`;
+  }
+  if(t==='image'&&p.image){
+    return said+`<figure class="ww-figure">
+      <img src="${esc(assetPath(p.image))}" alt="${esc(p.imageCaption||'')}" loading="lazy" onerror="this.closest('.ww-figure').remove()">
+      ${p.imageCaption?`<figcaption>${esc(p.imageCaption)}</figcaption>`:''}</figure>`;
+  }
+  if(t==='quote'&&p.quoteOf){
+    const src=((WAHWIRE&&WAHWIRE.posts)||[]).find(x=>x.id===p.quoteOf);
+    if(src){
+      const sa=wwAuthor(src.author);
+      return said+`<div class="ww-quoted" onclick="_wwState.q='';_wwState.author='';document.getElementById('wwp_${esc(src.id)}')&&document.getElementById('wwp_${esc(src.id)}').scrollIntoView({behavior:'smooth',block:'center'})">
+        <div class="ww-quoted-head"><span class="ww-avatar xs">${esc(sa.initials)}</span>
+          <b>${esc(sa.name)}</b><span class="ww-handle">@${esc(src.author)}</span></div>
+        <div class="ww-quoted-text">${esc(src.content||'')}</div></div>`;
+    }
+  }
+  return said;
+}
+const WW_TYPE_BADGE={
+  quote:{g:'🔁',l:'Quoted'}, exhibit:{g:'🗂️',l:'Exhibit'}, image:{g:'🖼️',l:'Image'},
+  poll:{g:'📊',l:'Poll'}, thread:{g:'🧵',l:'Thread'}, correction:{g:'✏️',l:'Correction'},
+  ledger:{g:'📋',l:'Ledger'}
+};
+
 function wwPostCard(p,opts){
   opts=opts||{};
   const a=wwAuthor(p.author);
@@ -12225,6 +12298,19 @@ function wwPostCard(p,opts){
   const likes=Number(p.likes||0);
   const comments=(p.comments||[]);
   const cid='wwc_'+String(p.id||Math.random()).replace(/[^a-z0-9_]/gi,'');
+  /* On a real wire the reply is often the best part, and burying all of them
+     behind a toggle wastes the funniest writing in the store. A reply flagged
+     `topReply` is lifted out and shown next to the post. */
+  const top=comments.find(c=>c&&c.topReply);
+  const topHtml=top?(()=>{ const ta=wwAuthor(top.author);
+    return `<div class="ww-topreply">
+      <div class="ww-avatar sm" title="${esc(ta.name)}">${esc(ta.initials)}</div>
+      <div class="ww-reply-body">
+        <div class="ww-reply-head"><b>${esc(ta.name)}</b>
+          <span class="ww-top-flag">top reply</span>
+          ${top.likes?`<span class="ww-mini">♥ ${Number(top.likes).toLocaleString()}</span>`:''}</div>
+        <div class="ww-reply-text">${esc(top.content||'')}</div>
+      </div></div>`; })():'';
   const replies=comments.length?`
     <button type="button" class="ww-replies-toggle" aria-expanded="false"
       onclick="const d=document.getElementById('${cid}');d.classList.toggle('is-open');
@@ -12241,7 +12327,8 @@ function wwPostCard(p,opts){
         </div></div>`;
     }).join('')}</div>`:'';
 
-  return `<article class="ww-post${draft?' is-draft':''}" style="--ww-tone:${esc(rx.tone||'#8b90a8')}">
+  const badge=WW_TYPE_BADGE[p.type||'text'];
+  return `<article class="ww-post ww-t-${esc(p.type||'text')}${draft?' is-draft':''}" id="wwp_${esc(p.id||'')}" style="--ww-tone:${esc(rx.tone||'#8b90a8')}">
     <div class="ww-post-head">
       <div class="ww-avatar"${a.hasRecord?` onclick="openId('${esc(a.id)}')" title="Open ${esc(a.name)}'s record"`:''}>${esc(a.initials)}</div>
       <div class="ww-ident">
@@ -12249,13 +12336,14 @@ function wwPostCard(p,opts){
           ? `<span class="ww-name-link" onclick="openId('${esc(a.id)}')">${esc(a.name)}</span>`
           : esc(a.name)}
           <span class="ww-handle">@${esc(a.id)}</span></div>
-        <div class="ww-time">${esc(p.timestamp||p.date||'undated')}</div>
+        <div class="ww-time">${esc(p.timestamp||p.date||'undated')}${badge?` <span class="ww-type-badge">${badge.g} ${esc(badge.l)}</span>`:''}</div>
       </div>
       <span class="ww-tone" title="${esc(rx.label)}">${rx.glyph} ${esc(rx.label)}</span>
     </div>
-    <div class="ww-body">${esc(p.content||'')}</div>
+    ${wwPostBody(p)}
     ${(p.links&&p.links.length)?`<div class="ww-links">${wwLinkChips(p.links)}</div>`:''}
-    ${(p.tags&&p.tags.length)?`<div class="ww-tags">${p.tags.map(t=>`<span class="ww-tag">#${esc(t)}</span>`).join('')}</div>`:''}
+    ${(p.tags&&p.tags.length)?`<div class="ww-tags">${p.tags.map(t=>`<span class="ww-tag" onclick="_wwState.q='${esc(t)}';view_wahwire()">#${esc(t)}</span>`).join('')}</div>`:''}
+    ${topHtml}
     <div class="ww-foot">
       <span class="ww-likes" title="In-world engagement">♥ ${likes.toLocaleString()}</span>
       ${replies?`<span class="ww-foot-sep">·</span>`:''}${replies}
@@ -12281,7 +12369,7 @@ function wwExportDrafts(){
   setTimeout(()=>URL.revokeObjectURL(u),2000);
 }
 
-const _wwState={q:'',author:'',reaction:'',record:'',sort:'new',compose:false};
+const _wwState={q:'',author:'',reaction:'',record:'',type:'',sort:'new',compose:false};
 
 function wwSubmitDraft(){
   const body=(document.getElementById('wwComposeBody')||{}).value||'';
@@ -12310,6 +12398,7 @@ async function view_wahwire(arg){
   if(_wwState.record) all=all.filter(p=>(p.links||[]).some(l=>((l&&typeof l==='object')?l.id:l)===_wwState.record));
   if(_wwState.author) all=all.filter(p=>p.author===_wwState.author);
   if(_wwState.reaction) all=all.filter(p=>p.reaction===_wwState.reaction);
+  if(_wwState.type) all=all.filter(p=>(p.type||'text')===_wwState.type);
   if(_wwState.q){
     const q=_wwState.q.toLowerCase();
     all=all.filter(p=>(String(p.content||'')+' '+String(p.author||'')+' '+(p.tags||[]).join(' ')).toLowerCase().includes(q));
@@ -12348,6 +12437,23 @@ async function view_wahwire(arg){
 
   const draftCount=wwDrafts().length;
 
+  /* Format filters, built from what the store actually contains rather than
+     from a hard-coded list, so a new type appears here the day it is filed. */
+  const typeCounts={};
+  W.posts.forEach(p=>{ const t=p.type||'text'; typeCounts[t]=(typeCounts[t]||0)+1; });
+  const typeChips=Object.keys(typeCounts).sort((x,y)=>typeCounts[y]-typeCounts[x]).map(t=>{
+    const b=WW_TYPE_BADGE[t]||{g:'💬',l:'Text'};
+    return `<span class="ww-fchip${_wwState.type===t?' on':''}"
+      onclick="_wwState.type=(_wwState.type==='${t}'?'':'${t}');view_wahwire()">${b.g} ${esc(b.l)} <b>${typeCounts[t]}</b></span>`;
+  }).join('');
+
+  /* Trending: the tags the wire is actually using, most-used first. */
+  const tagCount={};
+  W.posts.forEach(p=>(p.tags||[]).forEach(t=>{ tagCount[t]=(tagCount[t]||0)+1; }));
+  const trending=Object.entries(tagCount).filter(([,n])=>n>1)
+    .sort((a,b)=>b[1]-a[1]).slice(0,10)
+    .map(([t,n])=>`<span class="ww-trend" onclick="_wwState.q='${esc(t)}';view_wahwire()">#${esc(t)} <b>${n}</b></span>`).join('');
+
   el('content').innerHTML=`
     <div class="ww-page">
       <div class="ww-hero">
@@ -12379,9 +12485,11 @@ async function view_wahwire(arg){
           <span class="ww-sort${_wwState.sort==='top'?' on':''}" onclick="_wwState.sort='top';view_wahwire()">Most liked</span>
         </div>
       </div>
+      <div class="ww-formats">${typeChips}</div>
+      ${trending?`<div class="ww-trending"><span class="ww-trending-lab">Trending</span>${trending}</div>`:''}
       <div class="ww-count">${all.length} post${all.length===1?'':'s'}${draftCount?` · ${draftCount} of them yours`:''}</div>
       <div class="ww-feed">${all.length?all.map(p=>wwPostCard(p)).join('')
-        :'<div class="card">Nothing on the wire matches that. <span class="ww-scope-clear" onclick="_wwState.q=\'\';_wwState.author=\'\';_wwState.reaction=\'\';_wwState.record=\'\';view_wahwire()">Reset filters</span></div>'}</div>
+        :'<div class="card">Nothing on the wire matches that. <span class="ww-scope-clear" onclick="_wwState.q=\'\';_wwState.author=\'\';_wwState.reaction=\'\';_wwState.record=\'\';_wwState.type=\'\';view_wahwire()">Reset filters</span></div>'}</div>
     </div>`;
   window.scrollTo(0,0);
 }
