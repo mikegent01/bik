@@ -4317,7 +4317,8 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/events/archive-sheets/chaos-heart-crisis.jpg"
   },
   {
     "id": "archie_god_sermon",
@@ -4421,7 +4422,8 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/events/archive-sheets/archie-god-sermon.jpg"
   },
   {
     "id": "shadow_estate_session_Harvestside_14_full",
@@ -4804,7 +4806,8 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/events/archive-sheets/shadeward-arc.jpg"
   },
   {
     "id": "remi_shadeward_arc",
@@ -5000,7 +5003,8 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/events/archive-sheets/shadow-estate-session-Harvestside-8.jpg"
   },
   {
     "id": "sarasaland_incident_1033",
@@ -5149,7 +5153,8 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/events/archive-sheets/first-bowser-conflict.jpg"
   },
   {
     "id": "the_telescope_and_the_tennis_match",
@@ -5160,7 +5165,7 @@
     "location": "Corvinarus Sanctum — Collapsing Library / Clockwork Observatory / Telescope Platforms / The Void Between Platforms That Bowser Fell Into",
     "type": "Extradimensional Traversal / Careless Banishment / Temporal Observation / Identity Trauma / Luigi Competency Revelation / Bowser Emotional Catastrophe / Architectural Self-Destruction Through Ego",
     "status": "Ongoing — Bowser and the Oracle proceeded deeper into the sanctum after the telescope vision — both Dans remain banished to unknown destinations across a three-plane system — Bones status unchanged — party remains fractured — wedding still scheduled — Waluigi is issuing a formal correction to all prior retellings that got the floor incident wrong",
-    "image": "",
+    "image": "assets/images/events/archive-sheets/the-telescope-and-the-tennis-match.jpg",
     "imageCaption": "No visual documentation exists. Bowser destroyed his camera when he originally fell through the midnight portal. Early retellings incorrectly stated that the Oracle fell through the cracked observatory floor. Bowser has corrected this point with unusual personal emphasis in every retelling since, which Waluigi considers significant: Bowser will accept many misattributions of his actions but apparently draws a firm line at having his falls credited to someone else.",
     "audioTitle": "",
     "audio": "",
@@ -7090,7 +7095,7 @@
     "location": "Mushroom Kingdom Royal Palace, Mages' Guild headquarters, and allegedly elsewhere",
     "type": "Alleged Conspiracy / Historical Controversy / Waluigi's Headache",
     "status": "Partially exposed according to Loyalists — officially denied by Regency — Waluigi has theories",
-    "image": "",
+    "image": "assets/images/events/archive-sheets/the-arrangement.jpg",
     "imageCaption": "Conspiracies do not pose for portraits.",
     "audioTitle": "",
     "audio": "",
@@ -7716,7 +7721,8 @@
         "reputationChanges",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/events/archive-sheets/toadsmith-incident.jpg"
   },
   {
     "id": "dinner_climax_vote",
@@ -7805,7 +7811,8 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/events/archive-sheets/dinner-climax-vote.jpg"
   },
   {
     "id": "shattering_shadow_anchor",

@@ -544,10 +544,22 @@ dependency) and insets a few pixels per edge to drop the gutter.
   same background.
 - **Name each background explicitly and differently** in the prompt. The cells
   share a style; they must not share a place.
-- **2x2 keeps faces on-model.** Denser grids shrink each cell and the likeness
-  degrades — which is the whole point of using the portraits. Prefer several
-  small sheets over one large one.
+- **3x3 is the working density.** Nine cells per generation, tested. Cards crop
+  to 16:7, so a 341px cell is more resolution than a tile ever displays.
+- **Density does NOT govern likeness — the prompt does.** An earlier note here
+  claimed 2x2 was needed to keep faces on-model. That was wrong and backwards:
+  the 3x3 test reproduced `portraits/wario.png` exactly, flame armour and all,
+  while 2x2 sheets ignored the reference and drew a generic classic Wario. What
+  works is **naming the character inside the cell description** ("the heavy
+  flame-armoured horned figure is Wario"), not shrinking the grid. Listing
+  references without naming them per cell lets the model treat them as loose
+  style hints.
+- **A portrait may not look the way you assume.** Check it with `read_file`
+  before writing the prompt — several of this archive's portraits are armoured
+  or alternate forms, not the familiar version of the character.
 - Say "no text, no letters, no numbers" — grids invite the model to caption.
+- Beyond ~9 cells the sheet also tends to go wide (the 20-up pilot came back
+  1376x768, ~275x192 per cell) and drifts toward emblems rather than scenes.
 
 ```
 □ Every id in --ids is a real event and in prompt order

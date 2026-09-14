@@ -390,11 +390,33 @@ node tools/tests/test-home-feed-render.mjs
 □ SITE_UPDATES has a new entry at the front
 □ check-home-feed.py exits 0
 □ build-campaign-fronts.py --check exits 0 (this campaign's front is this filing)
+□ this filing has an `image` (its field plate) — see below
 □ track-filing-updates.py reviewed, then --write (see ARTICLE_REVISIONS.md)
   the changed list must match the edits you meant to make
 □ test-home-feed-render.mjs shows the new card on #/home
 □ #/article/<event_id> resolves
 ```
+
+---
+
+### Every filing brings its own plate
+
+Event art is not decoration — it is the **field plate** a reader recovers by
+reading the filing (`#/plates`). A filing with no image is a filing with no
+reward at the end of it.
+
+So **one image per new filing, generated as part of filing it.** That is the
+steady state, and it means the archive's art keeps pace with the archive
+instead of needing rescue passes.
+
+The backlog left over from before this rule is worked down in **3x3 contact
+sheets** — nine events per generation, grouped by shared cast, sliced by
+`tools/slice-event-sheet.py`. See `docs/IMAGE_GENERATION_GUIDE.md`. Generation
+budget is the real constraint, so:
+
+- a new filing always gets its plate (one image, never batched away)
+- the backlog moves in sheets, opportunistically, nine at a time
+- `python3 tools/check-event-art.py` reports coverage and what is next
 
 ---
 

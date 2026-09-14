@@ -8381,7 +8381,8 @@ function renderSidebar(active){
   // the sidebar starts short instead of becoming a second table of contents.
   h+=navSection('nav-top','',[
     navLink({emoji:'🏠',label:'Home',go:"Router.go('#/home')",active:(!h1||h1.startsWith('#/home'))}),
-    navLink({emoji:'🔎',label:'Search & Index',go:"document.getElementById('search').focus()",title:'Focus the search bar ( / )'})
+    navLink({emoji:'🔎',label:'Search & Index',go:"document.getElementById('search').focus()",title:'Focus the search bar ( / )'}),
+    navLink({emoji:'🖼️',label:'Field Plates',go:"Router.go('#/plates')",active:active==='plates',title:'Art recovered by reading filings'})
   ],{alwaysOpen:true});
 
   const sysLinks=Object.values(FACTION_SYSTEMS).map(s=>navLink({
@@ -8732,6 +8733,82 @@ function dashNoteRead(id){
     localStorage.setItem('waluipediaRecents',JSON.stringify(r.slice(0,8)));
   }catch(e){}
 }
+/* ---- Field Plates: art is earned by reading -------------------------
+   Event art is a reward, not a thumbnail wall. If every plate is visible
+   from the grid, players browse pictures and skip the filings - so the
+   gallery only ever shows plates the reader has actually unlocked, and a
+   plate unlocks by READING its filing, not by opening it.
+
+   "Read" deliberately means: the article was open, the reader reached the
+   lower part of the page, and enough time passed to have read something.
+   Opening and bouncing does not count. It is a local-only honour system -
+   it gates a reward, not access, so a determined player can obviously
+   scroll fast, and that is fine. */
+const PLATES_KEY='waluipediaPlates';
+const PLATE_DWELL_MS=20000;   /* time on page before a plate can unlock */
+const PLATE_SCROLL=0.55;      /* fraction of the article that must be reached */
+function platesUnlocked(){
+  try{ return JSON.parse(localStorage.getItem(PLATES_KEY)||'{}')||{}; }catch(e){ return {}; }
+}
+function plateIsUnlocked(id){ return !!platesUnlocked()[id]; }
+function plateUnlock(id){
+  if(!id||plateIsUnlocked(id)) return false;
+  try{
+    const m=platesUnlocked(); m[id]=Date.now();
+    localStorage.setItem(PLATES_KEY,JSON.stringify(m));
+  }catch(e){ return false; }
+  return true;
+}
+/* Watch the open article; unlock once both conditions are met. */
+let PLATE_WATCH=null;
+function plateWatch(id,hasImage){
+  if(PLATE_WATCH){ window.removeEventListener('scroll',PLATE_WATCH.fn); PLATE_WATCH=null; }
+  if(!id||!hasImage||plateIsUnlocked(id)) return;
+  const started=Date.now();
+  const fn=()=>{
+    const doc=document.documentElement;
+    const max=Math.max(1,(doc.scrollHeight-window.innerHeight));
+    const frac=window.scrollY/max;
+    if(frac<PLATE_SCROLL) return;
+    if(Date.now()-started<PLATE_DWELL_MS) return;
+    if(plateUnlock(id)) plateToast();
+    window.removeEventListener('scroll',fn); PLATE_WATCH=null;
+  };
+  PLATE_WATCH={id,fn};
+  window.addEventListener('scroll',fn,{passive:true});
+}
+function plateToast(){
+  try{
+    const d=document.createElement('div');
+    d.className='plate-toast';
+    d.innerHTML='🖼️ <b>Field plate recovered.</b> Added to your gallery.';
+    document.body.appendChild(d);
+    setTimeout(()=>{ d.classList.add('out'); setTimeout(()=>d.remove(),400); },3200);
+  }catch(e){}
+}
+/* The gallery itself: only unlocked plates, newest first. */
+function view_plates(){
+  renderSidebar('plates');
+  const unlocked=platesUnlocked();
+  const evs=((DATA&&DATA.events)||[]).filter(e=>e&&e.image);
+  const mine=evs.filter(e=>unlocked[e.id])
+                .sort((a,b)=>(unlocked[b.id]||0)-(unlocked[a.id]||0));
+  const total=evs.length;
+  const cards=mine.map(e=>`<figure class="plate-card" onclick="Router.go('#/article/${esc(e.id)}')">
+      <img src="${esc(assetPath(e.image))}" alt="${esc(displayName(e))}" loading="lazy">
+      <figcaption><b>${esc(displayName(e))}</b>${e.imageCaption?`<span>${esc(String(e.imageCaption).slice(0,90))}</span>`:''}</figcaption>
+    </figure>`).join('');
+  const pct=total?Math.round(mine.length/total*100):0;
+  el('content').innerHTML=`<div class="card animate-fade-in">
+    <div class="listhead"><h2>🖼️ Field Plates <span style="color:var(--muted);font-size:15px">(${mine.length}/${total})</span></h2></div>
+    <div class="wnote" style="margin-bottom:14px"><b>Plates are recovered by reading.</b> Every illustrated filing carries one. Read the filing through and its plate is added here. Waluigi does not hand out pictures to people who skim.</div>
+    <div class="plate-bar"><span style="width:${pct}%"></span></div>
+    ${mine.length?`<div class="plate-grid">${cards}</div>`
+      :`<p class="text-muted">No plates recovered yet. Open a filing and actually read it — the plate is yours at the bottom of the page.</p>`}
+  </div>`;
+  window.scrollTo(0,0);
+}
+
 function dashDice(){
   try{
     const ids=Object.keys(INDEX||{}).filter(id=>INDEX[id]&&INDEX[id].item);
@@ -12488,6 +12565,7 @@ function view_article(id){
   if(!rec){el('content').innerHTML=`<div class="card"><h2>Article not found</h2><p class="text-muted">Waluigi has no record of “${esc(id)}”. Perhaps it was stolen, like the name Disaster Inc.</p><p><a onclick="Router.go('#/home')">← Home</a></p></div>`;return;}
   const {typeKey,item}=rec;renderSidebar('list:'+typeKey);
   try{ dashNoteRead(id); }catch(e){}
+  try{ plateWatch(id, typeKey==='events' && !!item.image); }catch(e){}
   const t=TYPE_BY_KEY[typeKey]||{emoji:'🗂️',label:'Collections',singular:'Collection'};
   LINK_YEAR_CTX = parseYear(item.date)||parseYear(item.era)||null;   // year context for dateless inline dates
   beginLinkPass(item);                                               // link context + graph/stat counters
@@ -19606,6 +19684,7 @@ const Router={
     else if(route==='cultures'||route==='laws')view_cultures();
     else if(route==='power'||route==='war')view_power();
     else if(route==='imperial-network'||route==='imperial'||route==='empire-network'||route==='legion'||route==='iron-legion'){ Router.go('#/regal-diet/ipn'); }
+    else if(route==='plates'||route==='gallery'){ view_plates(); }
     else if(route==='regal-diet'||route==='holy-midlands-diet'||route==='midlands-diet'||route==='diet')view_regal_diet(arg);
     else if(route==='pond-docket'||route==='docket'||route==='pond-patrol'||route==='accountability-docket')view_pond_docket();
     else if(route==='ability-shop'||route==='abilities'||route==='ability'){location.href=abilityShopUrl(arg);return;}
