@@ -98,6 +98,26 @@ check('README install folder matches module id', readme.includes('Data/modules/a
 check('README documents visual styles and queue preview', /Visual styles/.test(readme) && /Classic badge/.test(readme) && /queue preview/.test(readme));
 check('README documents inline timer and no popup', /inline countdown timer/.test(readme) && /no modal turn popup/.test(readme));
 
+// --- Ready batch cap + team captains -------------------------------------
+// Large fights (20+) turned table discussion into a pile of simultaneous
+// READYs. These pin the two mechanics that fix it.
+for (const setting of ['readyBatchLimit', 'teamCaptains']) {
+  check(`setting ${setting} is registered`, js.includes(`"${setting}"`));
+}
+check('batch cap gates gauge ticking', /function shouldTickGauges[\s\S]{0,400}readyBatchFull\(combat\)/.test(js));
+check('batch cap counts the active combatant', /function readyBatchFull[\s\S]{0,400}c\.id === active/.test(js));
+check('batch limit of 0 disables the cap', /function readyBatchFull[\s\S]{0,200}if \(!limit\) return false/.test(js));
+check('captain is highest initiative on each side', /function captainFor[\s\S]{0,400}initiativeOf\(b\) - initiativeOf\(a\)/.test(js));
+check('captain order outranks dice in the READY queue', /function readyCombatants[\s\S]{0,500}teamSlotRank\(a\) - teamSlotRank\(b\)/.test(js));
+check('queue preview uses the same captain order', /function queueCombatants[\s\S]{0,900}teamSlotRank\(a\) - teamSlotRank\(b\)/.test(js));
+// Number(null) === 0, which would make every unplaced combatant tie with the
+// captain's first pick. This regression was caught in simulation.
+check('unassigned team slots are not treated as slot 0', /function teamSlot[\s\S]{0,300}raw === null \|\| raw === undefined/.test(js));
+check('only the captain or a GM may reorder a team', /setTeamOrder[\s\S]{0,300}captainFor\(combat, data\.team\)/.test(js));
+check('team slots reset when combat initialises', /initializeCombatants[\s\S]{0,600}teamSlot"\)\]: null/.test(js));
+check('README documents the batch cap', /READY batch limit/.test(readme));
+check('README documents team captains', /[Tt]eam captain/.test(readme));
+
 console.log(`\n${ok.length} passed, ${fail.length} failed`);
 ok.forEach(l => console.log('  ok   ' + l));
 fail.forEach(l => console.log('  FAIL ' + l));

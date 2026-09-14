@@ -99,11 +99,54 @@ For a table that wants pressure without panic:
 | Large encounter compact threshold | `50` | Forces compact tracker visuals and a +more queue summary for 50+ initiatives. |
 | Native next-turn ends active NPC | On | Lets automation that calls Foundry's native next-turn finish an active NPC's ATB turn. |
 | Wait mode | Off | Leave off unless you want other gauges paused while anyone acts. |
+| READY batch limit | `0` (small fights) / `3`–`4` (20+) | Stops filling gauges once this many are READY, so discussion cannot load the whole table at once. |
+| Team captains order their side | Off | Turn on if you want the top roller on each side to choose their team's running order. |
 
 If your table needs more conversation per player turn, raise the player decision
 timer above `300`; the default is intentionally generous. If you want other gauges
 to keep filling during player turns, turn **Pause gauges on player turns** off. If
 you want NPC turns to time out automatically, turn **Pause ATB on NPC turns** off.
+
+### Large fights (20+ combatants)
+
+The defaults are tuned for a small encounter. At twenty-plus combatants a
+`45`-second base refill means the whole table reaches READY during a single
+round of discussion, and the ATB collapses back into the long queue it was
+meant to replace. Gauges only pause while somebody is *actively taking a turn* —
+the gap between turns, which is where the talking happens, fills everyone.
+
+For a big fight:
+
+| Setting | Large-fight value | Why |
+|---|---|---|
+| READY batch limit | `3`–`4` | The core fix. Once three or four are READY the gauges freeze until that batch has acted, so the line can never grow to twenty. |
+| Base seconds to READY | `90`–`120` | Halves the arrival rate. With many combatants you do not need fast individual refills to keep the table busy. |
+| READY overflow cap | `10`–`20` | Stops anyone banking a deep priority lead while the batch clears. |
+| Auto-activate | `NPCs only` | Players act when they choose; only NPCs are force-queued. |
+
+The tracker shows `batch full (N) — gauges held` while the cap is holding, so it
+is obvious why nothing is filling.
+
+---
+
+## Team captains
+
+Everyone still rolls initiative. With **Team captains order their side** on, the
+highest roller on each side becomes that side's captain and chooses the order
+their own team acts in. The roll still matters — it decides *who* captains and
+how fast gauges fill — but the team can coordinate instead of being scattered
+through the order by the dice.
+
+- The captain assigns each team-mate a batting position; anyone the captain does
+  not place keeps their dice order behind those who were placed.
+- The captain's order outranks raw initiative **within that team only**. It
+  never reorders the opposing side.
+- Only that team's captain or a GM may set the order.
+- Positions reset whenever combat is initialised.
+
+This pairs well with the batch cap: the cap decides *how many* act before the
+gauges resume, and the captain decides *in what order* their side spends those
+slots.
 
 ---
 

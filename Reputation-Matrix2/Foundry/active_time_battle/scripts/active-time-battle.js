@@ -148,6 +148,11 @@ function canRequestAction(action, combat, data = {}) {
     const combatant = combat?.combatants?.get?.(id);
     return userCanAct(combatant, user);
   }
+  if (action === "setTeamOrder") {
+    // Only that team's captain (or a GM) may reorder the team.
+    const captain = captainFor(combat, data.team);
+    return !!captain && userCanAct(captain, user);
+  }
   return false;
 }
 
@@ -194,6 +199,9 @@ function readyCombatants(combat) {
     .sort((a, b) => {
       const overflow = atbOf(b) - atbOf(a);
       if (Math.abs(overflow) > 0.01) return overflow;
+      // The captain's chosen running order outranks the raw dice within a team.
+      const slot = teamSlotRank(a) - teamSlotRank(b);
+      if (slot) return slot;
       const init = initiativeOf(b) - initiativeOf(a);
       if (init) return init;
       const turnOrder = turnOrderIndex(combat, a) - turnOrderIndex(combat, b);
@@ -201,6 +209,85 @@ function readyCombatants(combat) {
       return (readyAt(a) || Infinity) - (readyAt(b) || Infinity)
         || combatantName(a).localeCompare(combatantName(b));
     });
+}
+
+// ---------------------------------------------------------------------------
+// Team captains
+//
+// Everyone still rolls initiative. The highest roller on each side becomes that
+// side's captain and chooses the order their own team acts in, instead of the
+// order being dictated purely by the dice. This keeps the roll meaningful while
+// letting a team coordinate ("heal him first, then I shove it prone").
+//
+// A captain expresses the order by assigning each of their team a batting
+// position; combatants with an assigned slot sort ahead of unassigned ones.
+// ---------------------------------------------------------------------------
+
+function teamOf(combatant) {
+  return playerOwned(combatant) ? "players" : "npcs";
+}
+
+function captainsEnabled() {
+  return !!setting("teamCaptains");
+}
+
+// The captain is the highest initiative on each side, ties broken by name so
+// the choice is stable across re-renders.
+function captainFor(combat, team) {
+  if (!captainsEnabled()) return null;
+  const members = eligibleCombatants(combat).filter(c => teamOf(c) === team);
+  if (!members.length) return null;
+  return members.sort((a, b) => {
+    const init = initiativeOf(b) - initiativeOf(a);
+    if (init) return init;
+    return combatantName(a).localeCompare(combatantName(b));
+  })[0];
+}
+
+function isCaptain(combat, combatant) {
+  if (!combatant) return false;
+  return captainFor(combat, teamOf(combatant))?.id === combatant.id;
+}
+
+// Batting position set by the captain; unassigned members sort last.
+function teamSlot(combatant) {
+  const raw = getFlag(combatant, "teamSlot", null);
+  // Guard null/undefined/"" explicitly: Number(null) is 0, which would make
+  // every unplaced combatant look like the captain's first pick.
+  if (raw === null || raw === undefined || raw === "") return null;
+  const value = Number(raw);
+  return Number.isFinite(value) && value >= 0 ? value : null;
+}
+
+function teamSlotRank(combatant) {
+  const slot = teamSlot(combatant);
+  return slot === null ? Number.MAX_SAFE_INTEGER : slot;
+}
+
+// Can `user` set the running order for `combatant`'s team?
+function userCanOrderTeam(combat, combatant, user = game.user) {
+  if (!captainsEnabled() || !combatant) return false;
+  if (user?.isGM) return true;
+  const captain = captainFor(combat, teamOf(combatant));
+  return !!captain && userCanAct(captain, user);
+}
+
+async function setTeamOrder(combat, team, orderedIds = []) {
+  if (!isPrimaryGM() || !combat) return 0;
+  const members = eligibleCombatants(combat).filter(c => teamOf(c) === team);
+  const byId = new Map(members.map(c => [c.id, c]));
+  const updates = [];
+  let slot = 0;
+  for (const id of orderedIds) {
+    if (!byId.has(id)) continue;
+    updates.push({ _id: id, [flagPath("teamSlot")]: slot++ });
+    byId.delete(id);
+  }
+  // Anything the captain did not place keeps its dice order behind the picks.
+  for (const c of byId.values()) updates.push({ _id: c.id, [flagPath("teamSlot")]: null });
+  if (updates.length) await updateManyCombatants(combat, updates);
+  scheduleTrackerRefresh(combat);
+  return updates.length;
 }
 
 function canAutoActivate(combatant) {
@@ -249,12 +336,32 @@ function currentActiveElapsed(combat, active = null, stamp = now(), options = {}
 
 function shouldTickGauges(combat, active = null) {
   if (clockPaused(combat)) return false;
+  // Batch cap: once enough combatants are READY, stop filling everyone else.
+  // Without this, a 20+ person fight converts table discussion straight into a
+  // pile of simultaneous READYs and the ATB degenerates back into a long queue.
+  if (readyBatchFull(combat)) return false;
   if (!activeId(combat)) return true;
   if (!active) return true;
   if (setting("waitMode")) return false;
   if (pauseOnNpcTurn(active)) return false;
   if (pauseOnPlayerTurn(active)) return false;
   return true;
+}
+
+function readyBatchLimit() {
+  return Math.max(0, Number(setting("readyBatchLimit")) || 0);
+}
+
+// True when the READY pool has reached the configured batch size. The active
+// combatant counts toward the batch, so the table clears the current group
+// before any new gauges resume filling.
+function readyBatchFull(combat) {
+  const limit = readyBatchLimit();
+  if (!limit) return false;
+  const active = activeId(combat);
+  const ready = eligibleCombatants(combat)
+    .filter(c => atbOf(c) >= READY || c.id === active);
+  return ready.length >= limit;
 }
 
 function largeEncounterCompactAt() {
@@ -325,6 +432,7 @@ async function gmAction(action, combat, data = {}) {
   if (action === "activate") return activateCombatant(combat, requestData.combatantId, requestData);
   if (action === "endTurn") return endActiveTurn(combat, requestData.combatantId, requestData);
   if (action === "rollMissing") return rollMissingInitiative(combat);
+  if (action === "setTeamOrder") return setTeamOrder(combat, requestData.team, requestData.orderedIds || []);
   return null;
 }
 
@@ -341,7 +449,8 @@ async function initializeCombatants(combat) {
       [flagPath("idleStrikes")]: 0,
       [flagPath("lastActedAt")]: null,
       [flagPath("lastActedRound")]: 0,
-      [flagPath("warnedAt")]: null
+      [flagPath("warnedAt")]: null,
+      [flagPath("teamSlot")]: null
     };
   });
   await updateManyCombatants(combat, updates);
@@ -822,6 +931,8 @@ function queueCombatants(combat) {
       const gauge = atbOf(b) - atbOf(a);
       if (Math.abs(gauge) > 0.01) return gauge;
     }
+    const slot = teamSlotRank(a) - teamSlotRank(b);
+    if (slot) return slot;
     const init = initiativeOf(b) - initiativeOf(a);
     if (init) return init;
     const turnOrder = turnOrderIndex(combat, a) - turnOrderIndex(combat, b);
@@ -890,7 +1001,8 @@ function trackerSummary(combat) {
   const queue = readyCombatants(combat).slice(0, 3).map(combatantName).join(", ");
   const count = eligibleCombatants(combat).length;
   const large = largeEncounter(combat) ? ` · ${count} in initiative` : "";
-  return queue ? `Ready: ${queue}${large}` : `Gauges filling.${large}`;
+  const held = readyBatchFull(combat) ? ` · batch full (${readyBatchLimit()}) — gauges held` : "";
+  return queue ? `Ready: ${queue}${large}${held}` : `Gauges filling.${large}`;
 }
 
 function button(label, action, title = "") {
@@ -1154,6 +1266,16 @@ function registerSettings() {
     name: "Native next-turn ends active NPC",
     hint: "Default on: if another automation advances the Foundry turn while an NPC is active, ATB translates that into End ATB Turn so automated NPCs can finish normally.",
     scope: "world", config: true, type: Boolean, default: true
+  });
+  game.settings.register(MODULE_ID, "readyBatchLimit", {
+    name: "READY batch limit",
+    hint: "Stop filling gauges once this many combatants are READY (the active one counts). The table clears the batch before anyone else fills, so discussion time cannot load 20 people to READY at once. Set 0 to disable. Recommended 3-4 for large fights.",
+    scope: "world", config: true, type: Number, default: 0
+  });
+  game.settings.register(MODULE_ID, "teamCaptains", {
+    name: "Team captains order their side",
+    hint: "Everyone still rolls initiative, but the highest roller on each side chooses the order their own team acts in. The captain's running order outranks the raw dice within that team.",
+    scope: "world", config: true, type: Boolean, default: false
   });
   game.settings.register(MODULE_ID, "waitMode", {
     name: "Wait mode",
