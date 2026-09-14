@@ -125,7 +125,10 @@ check("session-loot.json is a list", isinstance(json.loads(loot_path.read_text(e
 
 # ---------------- static wiring in index.html ----------------
 src = (ROOT / "index.html").read_text(encoding="utf-8")
-for needle in ("'rolls','inventory','session-loot'];",
+# Assert session-loot is REGISTERED in DATA_FILES, not that it sits last in the
+# list. Pinning the closing "];" made any later data file a test failure - which
+# is what happened when the filing-updates ledger was appended.
+for needle in ("'rolls','inventory','session-loot'",
                "Object.assign(INVENTORY_SYSTEM, DATA.inventory",
                "const INVENTORY_SYSTEM={items:{},inventories:{}};",
                "route==='sheet'", "function view_sheet(",

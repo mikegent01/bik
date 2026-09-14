@@ -375,9 +375,11 @@ and pins `mainPage.latestUpdate.id`.
 | **Recent Adventures feed** | built at render time | Append the event to `events.json`. Do **not** paste a card into `index.html` or `tools/update-index-home.py`. That script is a no-op on the live feed. |
 | **`mainPage.json`** | `Reputation-Matrix2/data/mainPage.json` | Set `latestUpdate` and `featuredArticle` to this event's id. That is what puts **Latest Filing** on the first card. |
 | **`SITE_UPDATES`** | `let SITE_UPDATES=[…]` in `index.html` | Prepend `{id, kind:"event", label, title, summary, tags[]}`. Newest first. |
+| **Current fronts** | derived — do not hand-edit | Run `python3 tools/build-campaign-fronts.py --write`. It picks the newest imaged filing per campaign off the `timeCode` suffix. Hand-curating this strip is what left the Mario and Feyward fronts stale. |
 
 ```bash
 python3 tools/check-home-feed.py
+python3 tools/build-campaign-fronts.py --check
 # with a local static server on :8765:
 node tools/tests/test-home-feed-render.mjs
 ```
@@ -387,6 +389,9 @@ node tools/tests/test-home-feed-render.mjs
 □ mainPage.latestUpdate.id is this event
 □ SITE_UPDATES has a new entry at the front
 □ check-home-feed.py exits 0
+□ build-campaign-fronts.py --check exits 0 (this campaign's front is this filing)
+□ track-filing-updates.py reviewed, then --write (see ARTICLE_REVISIONS.md)
+  the changed list must match the edits you meant to make
 □ test-home-feed-render.mjs shows the new card on #/home
 □ #/article/<event_id> resolves
 ```

@@ -59,6 +59,7 @@ def main() -> int:
         ("home feed contract", [py, "tools/check-home-feed.py"], ROOT),
         ("cover gallery", [py, "tools/check-covers.py"], ROOT),
         ("campaign fronts", [py, "tools/build-campaign-fronts.py", "--check"], ROOT),
+        ("filing updates", [py, "tools/track-filing-updates.py", "--check"], ROOT),
         ("mighdural spelling", [py, "tools/unify-mighdural-spelling.py", "--check"], ROOT),
         ("RNN broadcast data", [py, "tools/build-rnn-broadcast.py", "--check"], ROOT),
         ("Bros Attack sync", [py, "tools/sync_bros_attacks.py", "--check"], RM),

@@ -5982,6 +5982,47 @@ function claimantRegimePanel(item){
   const cards=arr.map(c=>{const target=INDEX[c.id];return `<div class="claimant-card"><h4>${esc(c.name)}</h4><div class="ctype">${esc(c.type||'Claimant')}</div><p>${esc(c.role||'')}</p>${target?`<a class="poi-link" onclick="openId('${esc(c.id)}')">Open article →</a>`:''}</div>`;}).join('');
   return `<div class="nation-atlas"><h3>⚔️ Claimant Regimes / Territorial Powers</h3><p class="text-muted mb-10">These are not all nations. They are the powers currently carving the civil-war theater into zones of law, occupation, restoration, and intervention.</p><div class="claimant-grid">${cards}</div></div>`;
 }
+/* ---- filing update ledger (data/filing-updates.json) ------------------
+   Filing a session rarely touches only its own record: older filings get
+   corrected, foreshadowing gets planted, outcomes get walked back. That used
+   to be invisible - a reader who had already read a page had no way to know
+   it had been rewritten. tools/track-filing-updates.py fingerprints the
+   readable fields of every event each pass, so these helpers can answer
+   "what changed, and when".
+
+   Pass 1 is the baseline import of all 120 existing filings, so it is NOT
+   treated as an update - otherwise every card in the archive would light up
+   at once and the badge would mean nothing. Real signal starts at pass 2. */
+function filingLedger(){ return (DATA && DATA['filing-updates']) || {}; }
+function filingEntry(id){ const e=(filingLedger().entries)||{}; return e[String(id||'')]||null; }
+function filingPass(){ return Number(filingLedger().pass||0); }
+function filingBaseline(){ return Number(filingLedger().baselinePass||1); }
+/* How many passes ago a record last changed. null if untracked. */
+function filingAge(id){ const e=filingEntry(id); if(!e) return null; return filingPass()-Number(e.lastChanged||0); }
+/* "Recently touched" = changed in the current or previous pass, never the
+   baseline, and never a record's own first appearance (that is New, not
+   Updated). */
+function filingIsUpdated(id){
+  const e=filingEntry(id); if(!e) return false;
+  const last=Number(e.lastChanged||0);
+  if(last<=filingBaseline()) return false;
+  if(Number(e.firstSeen||0)===last) return false;
+  return (filingPass()-last)<=1;
+}
+function filingIsNew(id){
+  const e=filingEntry(id); if(!e) return false;
+  const first=Number(e.firstSeen||0);
+  if(first<=filingBaseline()) return false;
+  return (filingPass()-first)<=1;
+}
+function filingBadge(id){
+  if(filingIsNew(id)) return `<span class="filingmark is-new" title="Filed in the latest archive pass.">New</span>`;
+  if(!filingIsUpdated(id)) return '';
+  const e=filingEntry(id);
+  const n=Number(e.revision||1);
+  return `<span class="filingmark is-updated" title="This filing was revised in the latest archive pass - revision ${n}. Other records were amended when the newest session was filed.">Updated</span>`;
+}
+
 function expansionMark(item){const w=words((item&&item.description)||''); return w<900?`<span class="expandmark" title="${w} words — candidate for later expansion">Expand later</span>`:'';}
 
 function nationOverview(item){
@@ -8555,6 +8596,39 @@ function homeCoversHtml(){
   </figure>`).join('');
   return {covers:coverCards, field:fieldItems};
 }
+/* "What changed in the archive" - the companion to the Updated badge.
+   The badge tells you a page you are looking at was revised; this tells you
+   which pages those were without having to stumble onto them. Reads the same
+   ledger, lists the current pass only, and renders nothing at all on the
+   baseline pass or a pass where only the new session was added. */
+function homeArchiveUpdatesHtml(){
+  const led=filingLedger();
+  const cur=led.currentPass||{};
+  if(!cur.pass || cur.baseline) return '';
+  const changed=(cur.changed||[]).filter(id=>INDEX[id]);
+  if(!changed.length) return '';
+  const added=(cur.added||[]).filter(id=>INDEX[id]);
+  const row=id=>{
+    const rec=INDEX[id]; const item=rec&&rec.item;
+    const nm=item?displayName(item):prettyId(id);
+    const e=filingEntry(id)||{};
+    const rev=Number(e.revision||1);
+    const sum=item?String(item.summary||item.description||'').replace(/\s+/g,' ').slice(0,150):'';
+    return `<li class="archupd-row" onclick="Router.go('#/article/${esc(id)}')">
+      <div class="archupd-top"><span class="archupd-name">${esc(nm)}</span><span class="filingmark is-updated">Rev ${esc(String(rev))}</span></div>
+      ${sum?`<div class="archupd-sum">${esc(sum)}…</div>`:''}
+    </li>`;
+  };
+  const note=added.length
+    ? `Filing <strong>${esc(added.map(id=>INDEX[id]?displayName(INDEX[id].item):prettyId(id)).join(', '))}</strong> also amended ${changed.length} existing record${changed.length===1?'':'s'}.`
+    : `${changed.length} existing record${changed.length===1?'':'s'} amended in the latest pass.`;
+  return `<div class="card archupd">
+    <div class="archupd-head"><h3>📝 What changed in the archive</h3><span class="pill">Pass ${esc(String(cur.pass))}</span></div>
+    <p class="archupd-note">${note} Filing a session rarely touches only its own page.</p>
+    <ul class="archupd-list">${changed.map(row).join('')}</ul>
+  </div>`;
+}
+
 function homeRecentAdventuresHtml(){
   const events=(DATA&&DATA.events)||[];
   const latestId=(DATA.mainPage&&DATA.mainPage.latestUpdate&&DATA.mainPage.latestUpdate.id)||'';
@@ -8778,12 +8852,13 @@ function view_home(){
     +homeTickerHtml(nNew)
     +homeStatusBand(nNew)
     +`<section class="hm-sec hm-rise"><div class="hm-sec-head"><div><div class="hm-sec-kick">Front desk · this season</div><h2>🎬 Current fronts</h2></div><span class="hm-sec-link" onclick="Router.go('#/list/events')">📂 All filings →</span></div><div id="home-campaign-covers" class="campaign-covers-grid"></div><div style="margin-top:10px;font-size:11px;font-weight:900;letter-spacing:.7px;text-transform:uppercase;color:var(--muted)">📷 From the archive — same stories, filed art</div><div id="home-field-gallery" class="field-gallery-strip"></div></section>`
-    +`<div class="hm-grid"><div class="hm-main"><section class="hm-sec hm-rise"><div class="hm-sec-head"><div><div class="hm-sec-kick">Session logs &amp; chronicle</div><h2>📜 Latest filings</h2></div><div style="display:flex;gap:8px;flex-wrap:wrap">${newPill}<span class="hm-sec-link" onclick="Router.go('#/list/events')">Browse all →</span></div></div><div id="home-recent-adventures" class="campaign-timeline-feed"></div><span class="hm-more" onclick="document.getElementById('home-recent-adventures').classList.add('show-all');this.remove()">Show all 12 filings ↓</span></section>`
+    +`<div class="hm-grid"><div class="hm-main"><section class="hm-sec hm-rise"><div class="hm-sec-head"><div><div class="hm-sec-kick">Session logs &amp; chronicle</div><h2>📜 Latest filings</h2></div><div style="display:flex;gap:8px;flex-wrap:wrap">${newPill}<span class="hm-sec-link" onclick="Router.go('#/list/events')">Browse all →</span></div></div><div id="home-recent-adventures" class="campaign-timeline-feed"></div><span class="hm-more" onclick="document.getElementById('home-recent-adventures').classList.add('show-all');this.remove()">Show all 12 filings ↓</span></section><div id="home-archive-updates"></div>`
     +`</div>`
     +`<aside class="hm-rail hm-rise"><div class="card"><h2>🕰️ On this day — ${esc(mdName)} ${CUR.day}</h2><div id="home-cal" class="mini-calendar"></div><ul class="otd">${homeOtdList()}</ul><div class="chips" style="margin-top:10px"><a class="chip" onclick="Router.go('#/calendar')">📅 Full calendar →</a></div></div><div class="card"><h2>🧭 Explore</h2><div class="dash-doors">${dashDoors()}</div></div><div class="card"><h2>🆕 Latest updates</h2>${homeUpdatesCard()}<div class="chips" style="margin-top:10px"><a class="chip" onclick="Router.go('#/updates')">📋 All updates →</a></div></div></aside></div>`
     +`<footer class="hm-foot hm-rise"><span class="wah-line">“Every filing is mine. This one is ESPECIALLY mine.”</span>${esc(stats)} · <a onclick="Router.go('#/currencies')" style="cursor:pointer">💱 debts &amp; ledger</a></footer>`;
   try{ const h=homeCoversHtml(); const m=document.getElementById('home-campaign-covers'); if(m) m.innerHTML=h.covers||''; const g=document.getElementById('home-field-gallery'); if(g) g.innerHTML=h.field||''; }catch(e){ console.warn('home covers failed',e); }
   try{ const f=document.getElementById('home-recent-adventures'); if(f) f.innerHTML=homeRecentAdventuresHtml(); }catch(e){ console.warn('home feed failed',e); }
+  try{ const u=document.getElementById('home-archive-updates'); if(u) u.innerHTML=homeArchiveUpdatesHtml(); }catch(e){ console.warn('archive updates failed',e); }
   try{ renderMiniCalendar('home-cal',CUR.year,CUR.monthIndex); }catch(e){ console.warn('mini cal failed',e); }
   window.scrollTo(0,0);
 }
@@ -8987,7 +9062,7 @@ function view_list(key){
       const visual=(key==='events'&&i.image)?`<figure class="article-lead-img event-thumb"><img src="${esc(assetPath(i.image))}" alt="${esc(displayName(i))}" loading="lazy" onerror="this.onerror=null;this.style.display='none'"></figure>`:cardVisual(i,key);
       const kick=(key==='events'&&i.date)?`<div class="tkick">${esc(String(i.date).split('—')[0].trim())}</div>`:'';
       const sysMark=key==='factions'?systemMark(i.id):'';
-      return `<div class="arttile ${key==='characters'?'character-tile':''}" onclick="openId('${esc(i.id)}')">${visual}${kick}<div class="tt">${esc(displayName(i))}${sysMark}${annotationBadge(i.id,'mini')}${microBadge(i)}${expansionMark(i)}</div>${showSub?`<div class="tsub">${esc(showSub)}</div>`:''}<div class="tsum">${esc(previewText(i))}</div>${meta.length?`<div class="tmeta">${meta.join('')}</div>`:''}</div>`;
+      return `<div class="arttile ${key==='characters'?'character-tile':''}" onclick="openId('${esc(i.id)}')">${visual}${kick}<div class="tt">${esc(displayName(i))}${sysMark}${annotationBadge(i.id,'mini')}${microBadge(i)}${expansionMark(i)}${filingBadge(i.id)}</div>${showSub?`<div class="tsub">${esc(showSub)}</div>`:''}<div class="tsum">${esc(previewText(i))}</div>${meta.length?`<div class="tmeta">${meta.join('')}</div>`:''}</div>`;
     }).join('');
     const qid=`listSearch_${key}`, gid=`listGroup_${key}`, sid=`listSort_${key}`;
     const activeBits=[];
@@ -19676,7 +19751,7 @@ document.addEventListener('keydown',e=>{const typing=/input|textarea|select/i.te
 /* ================= DATA LOADER (fetch ./data/*.json, fall back to embedded) ================= */
 /* Files that live in ./data/ as separate JSON. Keys map 1:1 to DATA fields. */
 const DATA_FILES = ['characters','events','articleAnalyses','commentaries','battles','locations','races','nations','factions','collections',
-  'trials','brosAttacks','mainPage','congress_votes','conflicts','majorBattles','factionColors','currentDate','calendarMonths','calendarWeekdays','calendarSeasons','calendarMeta','calendars','calendarHolidays','historicalTimeline','artifacts','congress','annotations','wahnotes','currencies','banking','wallets','books','crafting','cultures','injuries','liberatedToadsSystem','ironLegionSystem','abilityShop','itemLoreLinks','whatifs','quests','props','investigations','rolls','inventory','session-loot'];
+  'trials','brosAttacks','mainPage','congress_votes','conflicts','majorBattles','factionColors','currentDate','calendarMonths','calendarWeekdays','calendarSeasons','calendarMeta','calendars','calendarHolidays','historicalTimeline','artifacts','congress','annotations','wahnotes','currencies','banking','wallets','books','crafting','cultures','injuries','liberatedToadsSystem','ironLegionSystem','abilityShop','itemLoreLinks','whatifs','quests','props','investigations','rolls','inventory','session-loot','filing-updates'];
 
 async function loadData(){
   const embedded = window.WALUPEDIA_EMBEDDED || {};

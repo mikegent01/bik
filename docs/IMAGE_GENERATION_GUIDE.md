@@ -282,6 +282,27 @@ requires. It is not an argument for emptying the frame.
 
 ---
 
+## PENDING — party portrait refresh, after the battle
+
+**Status: deferred on purpose. Do not action this yet.**
+
+The party portraits are due a regeneration pass, but the characters' physical
+state is still volatile — the current battle is unresolved, injuries are still
+landing, and anything generated now would be reshot as soon as the fight ends.
+Refreshing mid-fight means doing the work twice and leaving a set of portraits
+that contradict the next filing.
+
+So it waits for the story beat. **When the battle resolves, the filing that
+resolves it owns this job:** regenerate the affected party portraits from the
+`portraits/` bases per the rules below, wire them in, and **delete this section
+in that same commit.** A pending note that outlives its trigger is worse than
+no note at all — it goes stale and starts lying about the state of the art.
+
+Scope when it comes due: party members whose appearance the fight actually
+changed. Not a blanket re-render of every character in the archive.
+
+---
+
 ## Characters — never describe a known figure, pull the portrait
 
 **If a generation includes a named character from the archive, you MUST use

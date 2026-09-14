@@ -111,3 +111,58 @@ In the browser:
 A revision is **not** a new event: it never enters `events.json` as a second
 record, never hits the RNN pending list twice, and does not move
 `mainPage.latestUpdate` on its own.
+
+---
+
+## Showing the reader that *other* filings changed
+
+`revisions[]` above handles a record that deliberately keeps several readable
+versions. It does not answer the quieter question: **when a new session is
+filed, which existing pages were edited along with it?**
+
+Filing a session rarely touches only its own record. Older filings get
+corrected, foreshadowing gets planted, an outcome gets walked back. None of
+that used to be visible — the archive silently became a different archive, and
+a reader who had already read a page had no way to know it had been rewritten.
+
+Git cannot answer this. The generators reserialise `events.json` wholesale, so
+a one-line correction and a pure reformat produce diffs of the same shape.
+
+So the content is fingerprinted instead. `tools/track-filing-updates.py`
+hashes the reader-visible fields of every event and stores the hashes in
+`Reputation-Matrix2/data/filing-updates.json`:
+
+```bash
+python3 tools/track-filing-updates.py           # what drifted since last pass
+python3 tools/track-filing-updates.py --write   # stamp a new pass
+python3 tools/track-filing-updates.py --check   # CI (in check-all.py)
+```
+
+Per filing the ledger keeps `firstSeen`, `lastChanged` and `revision`, numbered
+by **pass** rather than date — in-world dates can be back-dated, pass numbers
+cannot.
+
+Two things read it:
+
+| Surface | What it shows |
+|---|---|
+| **`Updated` / `New` badge** | On event cards. `filingBadge()` in `index.html`. Amber `Updated` = an existing record was revised in the latest pass; teal `New` = it first appeared. |
+| **"What changed in the archive"** | Panel under Latest filings on the home page. `homeArchiveUpdatesHtml()`. Lists the amended records for the current pass and links each one. |
+
+**Pass 1 is a baseline** — all 120 pre-existing filings entered the ledger at
+once. That is not "120 filings were updated", so `baselinePass` is recorded and
+both surfaces suppress themselves for it. Real signal starts at pass 2.
+
+Run `--write` as part of Step 8 when filing a session, after `events.json` is
+final. Stamping it before the prose is finished just records a half-written
+record and burns a pass number.
+
+```
+□ events.json final
+□ python3 tools/track-filing-updates.py       → review the changed list
+□ the changed list matches the edits you meant to make
+□ python3 tools/track-filing-updates.py --write
+```
+
+The review step matters: an unexpected id in that list means a filing was
+edited by accident, which is exactly the drift this ledger exists to catch.
