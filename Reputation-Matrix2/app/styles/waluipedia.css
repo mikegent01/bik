@@ -1115,6 +1115,35 @@ mark{background:var(--accent2);color:#111;border-radius:3px;padding:0 2px}
 .archupd-top{display:flex;align-items:center;justify-content:space-between;gap:8px}
 .archupd-name{font-weight:800;font-size:13.5px;color:var(--link)}
 .archupd-sum{color:var(--muted);font-size:12px;line-height:1.45;margin-top:4px}
+/* ===== Events grid: the illustrated treatment =====
+   The events list used to be the same purple text tile as every other list,
+   with a small thumbnail glued on top. Now the art leads the card, the
+   campaign is colour-coded down the left edge, and the plate state is shown. */
+.evgrid{grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:16px}
+.evcard{display:flex;flex-direction:column;background:linear-gradient(160deg,var(--panel2),rgba(20,14,38,.92));
+  border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:14px;overflow:hidden;cursor:pointer;
+  transition:transform .16s ease,border-color .16s ease,box-shadow .16s ease}
+.evcard:hover{transform:translateY(-4px);border-color:var(--accent2);box-shadow:0 14px 34px rgba(0,0,0,.45)}
+.evcard.camp-shd{border-left-color:#8a4bff}
+.evcard.camp-fey{border-left-color:#2fae8a}
+.evcard.camp-mat{border-left-color:#e5484d}
+.evcard.camp-subj{border-left-color:#e0b400}
+.evcard-art{position:relative;line-height:0;background:var(--bg2)}
+.evcard-art figure{margin:0;border:0;border-radius:0;aspect-ratio:16/9}
+.evcard-art figure img,.evcard-art svg{width:100%;height:100%;object-fit:cover;display:block}
+.evcard-art::after{content:"";position:absolute;inset:auto 0 0 0;height:52%;pointer-events:none;
+  background:linear-gradient(180deg,rgba(0,0,0,0),rgba(12,8,24,.80))}
+.evcard-camp{position:absolute;left:10px;top:10px;z-index:2;font-size:10px;font-weight:900;letter-spacing:.6px;
+  text-transform:uppercase;padding:3px 9px;border-radius:999px;background:rgba(10,6,20,.72);
+  border:1px solid rgba(255,255,255,.22);color:#fff;backdrop-filter:blur(3px)}
+.ev-plate{position:absolute;right:10px;top:10px;z-index:2;font-size:12px;line-height:1;padding:4px 7px;border-radius:8px;
+  background:rgba(10,6,20,.72);border:1px solid rgba(255,255,255,.18);opacity:.55}
+.ev-plate.got{opacity:1;border-color:rgba(94,234,212,.65);box-shadow:0 0 10px rgba(94,234,212,.25)}
+.evcard-body{padding:13px 15px 15px;display:flex;flex-direction:column;gap:6px;flex:1}
+.evcard-body .tkick{margin:0;font-size:10.5px;font-weight:900;letter-spacing:.7px;text-transform:uppercase;color:var(--accent2)}
+.evcard-title{margin:0;font-size:15.5px;line-height:1.32;color:var(--link);font-weight:800}
+.evcard-sum{margin:0;color:var(--muted);font-size:12.5px;line-height:1.5}
+.evcard-body .tmeta{margin-top:auto;padding-top:8px}
 /* Field Plates - event art recovered by reading. */
 .plate-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px}
 .plate-card{margin:0;border:1px solid var(--border);border-radius:10px;overflow:hidden;background:var(--bg2);cursor:pointer;transition:transform .15s,border-color .15s}
