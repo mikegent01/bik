@@ -23,7 +23,7 @@
   </script>
   <link rel="stylesheet" href="Reputation-Matrix2/app/styles/ui-fixes.css">
   <link rel="stylesheet" href="Reputation-Matrix2/app/styles/reputation-fixes.css">
-  <link rel="stylesheet" href="Reputation-Matrix2/app/styles/commerce-event-fixes.css?v=rep-impact2">
+  <link rel="stylesheet" href="Reputation-Matrix2/app/styles/commerce-event-fixes.css?v=rep-lede1">
   <link rel="stylesheet" href="Reputation-Matrix2/app/styles/crisis-reputation-fixes.css">
   <link rel="stylesheet" href="Reputation-Matrix2/app/styles/clean-pass.css">
   <!-- Battlefield-specific styles (Wikipedia-style military conflict theme) -->
@@ -6420,9 +6420,14 @@ function eventPeopleAndXpPanel(item){
   const partyTotal=grouped.reduce((s,g)=>s+Number(g.total||0),0);
   const awards=grouped.map((g,i)=>xpAwardRowHtml(g,{eventId:item.id,partyTotal,rank:i+1})).join('');
   const awardsBlock=awards?`<div class="xp-session" id="xp-session"><div class="xp-session-head"><h3>Session XP</h3><span class="xp-session-kicker">snapshot · party +${partyTotal.toLocaleString()} · ${grouped.length} ${grouped.length===1?'person':'people'}</span></div><div class="award-list">${awards}</div></div>`:'';
-  const effectsPanel = renderReputationImpactPanel(item);
-  // The wire goes last, under the reputation ledger: reaction after record.
-  const tail = effectsPanel;
+  /* The Reputation Impact panel used to be returned from here, which put it
+     inside the Session tab of the apparatus band — and the band opens on
+     "Case file" whenever the record has an analysis or a commentary, which
+     every recent filing does. The consequence was that on the newest articles
+     the reader could not see what the filing had changed without knowing to
+     click a tab. It is now rendered above the prose by articleHtml() instead.
+     See recordReputationLede(). */
+  const tail = '';
   if(!people && !awards && !tail) return '';
   if(!awards && !people) return tail;
   if(!awards) return `<div class="event-context-panel"><div class="event-context-grid single"><div><h3>👥 Participants</h3>${people}</div></div></div>${tail}`;
@@ -6505,6 +6510,77 @@ function recordSummaryBand(item,infoRows,toc){
    instead of six. Nothing is deleted and nothing moves off the page: the XP
    ledger keeps its #xp-session anchor so the filing desk's XP tile still lands
    on it, and every panel is one click away rather than in the way. */
+/* ---------------------------------------------------------------------------
+   The reputation lede.
+
+   Reputation is the one thing on a filing that changes the world outside the
+   article, and it was the hardest thing on the page to find: buried in the
+   Session tab of a band that opens on Case file. This renders it above the
+   prose, where a reader meets it before reading rather than after hunting.
+
+   It is a placement change, not a new system — same panel, same numbers, same
+   `renderReputationImpactPanel()`. The only addition is a one-line summary so
+   the impact is legible at a glance without expanding anything.
+--------------------------------------------------------------------------- */
+function recordReputationLede(item, typeKey){
+  if(!item) return '';
+  const tk = typeKey||'events';
+  if(!['events','battles','majorBattles','trials'].includes(tk)) return '';
+  const panel = renderReputationImpactPanel(item, tk);
+
+  /* A record can carry a reasoned abstention: empty deltas plus a note saying
+     why nothing moved. That is a decision and it should read as one, not as an
+     absent panel that looks like unfinished filing. */
+  if(!panel){
+    const note = item.reputationNotes && item.reputationNotes._record;
+    const declared = item.reputationChanges !== undefined || item.effects !== undefined;
+    if(note && declared){
+      return `<div class="rep-lede rep-lede--none">
+        <div class="rep-lede-head"><span class="rep-lede-kicker">📈 What this record changed</span>
+        <span class="rep-lede-verdict neutral">Nothing — on purpose</span></div>
+        <p class="rep-lede-note">${esc(note)}</p>
+      </div>`;
+    }
+    return '';
+  }
+
+  /* Summarise: how many factions moved, and which way, at raw weight — raw is
+     what this filing did, which is the question the reader is asking. */
+  const impact = getRecordReputationImpact(item, tk);
+  const seen = {};
+  Object.values(impact.ops||{}).forEach(fm => {
+    Object.entries(fm).forEach(([fid, v]) => {
+      seen[fid] = (seen[fid]||0) + Number(v.raw||0);
+    });
+  });
+  const entries = Object.entries(seen).filter(([,v]) => v!==0);
+  const up   = entries.filter(([,v]) => v>0).sort((a,b)=>b[1]-a[1]);
+  const down = entries.filter(([,v]) => v<0).sort((a,b)=>a[1]-b[1]);
+  const opCount = Object.keys(impact.ops||{}).length;
+
+  const chip = (fid, v) => {
+    const m = repFactionMeta(fid);
+    return `<span class="rep-lede-chip ${v>0?'pos':'neg'}">${esc(m.name)} <b>${v>0?'+':''}${v}</b></span>`;
+  };
+  const chips = [...up.slice(0,4).map(([f,v])=>chip(f,v)), ...down.slice(0,4).map(([f,v])=>chip(f,v))].join('');
+  const verdict = (up.length && down.length) ? 'Gained ground and lost it'
+                : up.length ? 'Gained ground'
+                : down.length ? 'Lost ground' : 'Recorded';
+
+  return `<div class="rep-lede">
+    <div class="rep-lede-head">
+      <span class="rep-lede-kicker">📈 What this record changed</span>
+      <span class="rep-lede-verdict ${up.length&&!down.length?'pos':(down.length&&!up.length?'neg':'mixed')}">${verdict}</span>
+    </div>
+    <div class="rep-lede-chips">${chips}</div>
+    <p class="rep-lede-meta">${entries.length} faction${entries.length===1?'':'s'} moved across ${opCount} ${opCount===1?'person':'people'}.
+      <button type="button" class="rep-lede-toggle" aria-expanded="false"
+        onclick="this.setAttribute('aria-expanded', this.getAttribute('aria-expanded')==='true'?'false':'true'); this.closest('.rep-lede').querySelector('.rep-lede-detail').classList.toggle('is-open'); this.textContent=this.getAttribute('aria-expanded')==='true'?'Hide the breakdown':'Show the full breakdown';">Show the full breakdown</button>
+    </p>
+    <div class="rep-lede-detail">${panel}</div>
+  </div>`;
+}
+
 function recordApparatusBand(item,typeKey){
   const tabs=[];
   const add=(key,icon,label,html)=>{ if(html && String(html).trim()) tabs.push({key,icon,label,html}); };
@@ -12870,6 +12946,7 @@ function view_article(id){
      ${typeKey==='factions'?`<div id="faction-power-projection-container"></div>`:''}
 ${typeKey==='characters'?renderArticleOperatorReputation(item.id):''}${typeKey==='characters'?injuryPanel(item):''}${typeKey==='factions'?renderArticleFactionReputation(item.id):''}${(typeKey==='factions'||typeKey==='nations')?renderRelatedCongressVotes(item):''}${wideRecord?'':((typeof renderConnectedInvestigationsPanel === 'function' ? renderConnectedInvestigationsPanel(item.id, typeKey) : '')+(typeof renderConnectedQuestsPanel === 'function' ? renderConnectedQuestsPanel(item.id, typeKey) : ''))}
      ${summaryBand}
+     ${typeof recordReputationLede==='function'?recordReputationLede(item,typeKey):''}
      <div class="prose">${applyAnnotations(mdToHtml(bodyMain,item.id), item.id)}</div>
      ${sectionsHtml}
      ${engagementsHtml}
@@ -17154,6 +17231,19 @@ function getPartyAverageStanding(factionKey) {
 /* Renders the "📈 Reputation Impact" panel for a single record (event/battle/trial/mbattle).
    Shows per-operator, per-faction decayed & raw deltas so the reader can see
    exactly how the record moved the matrix. */
+/* A faction id may be filed in `factions.json` without ever being added to the
+   embedded `LORE_FACTIONS` literal. That used to render as a `prettyId()`
+   string pointing at a route that does not resolve. Resolve the display name
+   from whichever registry actually holds it, and report whether the faction
+   has a standings page worth linking to. */
+function repFactionMeta(fid){
+  const lore = (typeof LORE_FACTIONS!=='undefined') ? LORE_FACTIONS[fid] : null;
+  if(lore) return { name: lore.name || prettyId(fid), linkable: true };
+  const filed = (typeof factionRecord==='function') ? factionRecord(fid) : null;
+  if(filed) return { name: filed.name || filed.title || prettyId(fid), linkable: false };
+  return { name: prettyId(fid), linkable: false };
+}
+
 function renderReputationImpactPanel(rec, typeKeyHint){
   if(!rec) return '';
   const impact = getRecordReputationImpact(rec, typeKeyHint||'events');
@@ -17168,31 +17258,55 @@ function renderReputationImpactPanel(rec, typeKeyHint){
 
   const opBlocks = opIds.map(opId => {
     const op = REPUTATION_OPERATORS.find(o => o.id===opId) || {name:prettyId(opId), icon:'👤'};
-    const factionRows = Object.entries(ops[opId]).sort((a,b)=>Math.abs(b[1].decayed)-Math.abs(a[1].decayed)).map(([fid, val]) => {
-      const f = LORE_FACTIONS[fid];
-      const label = f?f.name:prettyId(fid);
-      const sign = val.decayed>=0?'+':'';
+    /* Off-roster keys (`wario`, `eager`, …) render here but reach no standings
+       sheet, because only REPUTATION_OPERATORS are ever summed. Say so rather
+       than implying the number went somewhere. */
+    const onRoster = REPUTATION_OPERATORS.some(o => o.id===opId);
+    const opName0 = op.name || prettyId(opId);
+    const factionRows = Object.entries(ops[opId]).sort((a,b)=>Math.abs(b[1].raw)-Math.abs(a[1].raw)).map(([fid, val]) => {
+      const fm = repFactionMeta(fid);
       const rawSign = val.raw>=0?'+':'';
-      return `<a class="rep-effect-row" href="#/reputation/faction/${encodeURIComponent(fid)}"><span>⚔️ ${esc(label)}</span><b class="${val.decayed>=0?'pos':'neg'}">${sign}${val.decayed} <span class="text-muted" style="font-weight:400;font-size:11px">(raw ${rawSign}${val.raw})</span></b></a>`;
+      const sign = val.decayed>=0?'+':'';
+      /* What this record DID is `raw`; `decayed` is only what still counts
+         toward a standing today. Leading with the decayed number meant a
+         filing that moved a faction by +6 displayed "0" once it was a year
+         old, which is not a fade, it is a disappearance. Lead with raw —
+         the thing the article actually caused — and show the faded weight
+         beside it, only when it differs. */
+      const faded = (val.decayed !== val.raw)
+        ? `<span class="rep-eff-faded" title="Still counted toward ${esc(opName0)}'s standing today, after ${yearsAgo} year${yearsAgo===1?'':'s'} of fade at ${decPct}% weight">carries ${sign}${val.decayed} now</span>`
+        : '';
+      const inner = `<span>⚔️ ${esc(fm.name)}${fm.linkable?'':' <span class="rep-eff-nolink" title="Filed in factions.json but not in the reputation registry — no standings page yet">no standings page</span>'}</span><b class="${val.raw>=0?'pos':'neg'}">${rawSign}${val.raw}${faded?' ':''}${faded}</b>`;
+      return fm.linkable
+        ? `<a class="rep-effect-row" href="#/reputation/faction/${encodeURIComponent(fid)}">${inner}</a>`
+        : `<div class="rep-effect-row is-flat">${inner}</div>`;
     }).join('');
     /* The operator is a person, not a label. Link the name to their article and
        give a direct route into their full standings sheet in the matrix. */
-    const opName = op.name || prettyId(opId);
+    const opName = opName0;
     const hasArticle = (typeof INDEX!=='undefined') && !!INDEX[opId];
     const nameHtml = hasArticle
       ? `<a class="rep-op-link" href="#/article/${encodeURIComponent(opId)}" onclick="event.preventDefault();Router.go(this.getAttribute('href'))" title="Open ${esc(opName)}'s record">${esc(op.icon||'👤')} ${esc(opName)}</a>`
       : `<span class="rep-op-link is-flat">${esc(op.icon||'👤')} ${esc(opName)}</span>`;
+    const standingsHtml = onRoster
+      ? `<a class="rep-op-standings" href="#/reputation/character/${encodeURIComponent(opId)}" onclick="event.preventDefault();Router.go(this.getAttribute('href'))" title="Full faction standings for ${esc(opName)}">standings →</a>`
+      : `<span class="rep-op-standings is-flat" title="Not on the reputation roster — this filing is recorded against them, but it is not summed into a standings sheet">recorded only</span>`;
     return `<div class="rep-op-block">
       <div class="rep-op-head">
         ${nameHtml}
-        <a class="rep-op-standings" href="#/reputation/character/${encodeURIComponent(opId)}" onclick="event.preventDefault();Router.go(this.getAttribute('href'))" title="Full faction standings for ${esc(opName)}">standings →</a>
+        ${standingsHtml}
       </div>
       ${factionRows}
     </div>`;
   }).join('');
 
-  return `<div class="event-reputation-panel"><h3>📈 Reputation Impact</h3>
-    <p class="text-muted" style="font-size:12.5px">This record contributes to every listed operator's standing with the factions below. The <b>decayed</b> value is what currently applies (${meta.year||'?'} BF · ${yearsAgo===0?'this year':(yearsAgo+' years ago')} · ${decPct}% weight). ${memBadge}</p>
+  /* The fade note is only worth a sentence when something actually faded. */
+  const fadeNote = (meta.decay!==undefined && meta.decay<1)
+    ? ` Filed ${meta.year||'?'} BF — ${yearsAgo===0?'this year':(yearsAgo+' year'+(yearsAgo===1?'':'s')+' ago')}, so it now carries <b>${decPct}%</b> of its original weight toward present-day standings. ${memBadge}`
+    : ` Filed ${meta.year||'?'} BF — current, carrying full weight. ${memBadge}`;
+
+  return `<div class="event-reputation-panel"><h3>📈 What this record changed</h3>
+    <p class="text-muted" style="font-size:12.5px">The numbers below are what <b>this filing did</b> to each operator's standing with each faction.${fadeNote}</p>
     ${opBlocks}
   </div>`;
 }
@@ -17444,7 +17558,13 @@ function renderArticleOperatorReputation(opId) {
 }
 
 function renderArticleFactionReputation(factionId) {
-  const fac = LORE_FACTIONS[factionId];
+  /* Fall back to the filed `factions.json` record when the embedded registry
+     has no entry. Six filed factions — color_division, dgk, order_of_jack,
+     midlands_diet, council_of_seven, undertale_monsters — used to return ''
+     here and render no standings panel at all, despite being the subject of
+     recent filings. Fixing the cause rather than the six also covers every
+     faction filed in future. */
+  const fac = LORE_FACTIONS[factionId] || (typeof factionRecord==='function' ? factionRecord(factionId) : null);
   if (!fac) return '';
 
   const partyAvg = getPartyAverageStanding(factionId);
