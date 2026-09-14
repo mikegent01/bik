@@ -121,6 +121,14 @@
 .ww-rail-more{margin-top:10px;padding-top:9px;border-top:1px solid var(--border);font-size:12px;font-weight:800;
   color:var(--link);cursor:pointer;text-align:center}
 .ww-rail-more:hover{color:var(--accent2)}
+/* Wah Notes folded into the wire box. A note is not a post -- it is the
+   archivist's margin scribble -- so it is set quieter and indented behind a
+   rule, rather than styled to look like wire content. */
+.ww-rail-margin{margin-top:12px;padding-top:10px;border-top:1px dashed var(--border)}
+.ww-rail-margin-head{font-size:11.5px;font-weight:900;letter-spacing:.03em;text-transform:uppercase;
+  color:var(--muted);display:flex;align-items:center;gap:7px;margin-bottom:8px}
+.ww-rail-margin .wah-note,.ww-rail-margin .wah-guest{font-size:12px;opacity:.92}
+.ww-rail-margin .wah-more{font-size:11.5px}
 
 @media(max-width:680px){
   .ww-hero{flex-direction:column}

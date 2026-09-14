@@ -64,7 +64,6 @@ GENERATOR_OWNED = {"salam"}
 # ---------------------------------------------------------------------------
 ALIASES = {
     # Spelling drift between the file and the record.
-    "skullcap_murphy":  "skull_cap_murphy",
     "tanukiburt":       "tanuki_burt",
     "lady_aurelian":    "lady_aurelian_corvinarus",
 
@@ -80,6 +79,9 @@ ALIASES = {
     "dan_the_toad":     "dan",
     "archie_miser":     "archie",
     "creek_medic":      "creek",
+    # NOT aliased: portraits/skull_cap_murphy.png is a byte-identical copy of
+    # purple_t.png -- it is Mystic Morel's face mis-filed under Murphy's name,
+    # not a portrait of Murphy. Giving him that face would be a false claim.
     # NOT aliased: `the_archivist` is a Shadow Estate operator, while
     # portraits/legion_archivist.png is an Iron Legion figure. Similar word,
     # different person — left unresolved rather than given the wrong face.

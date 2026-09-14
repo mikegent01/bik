@@ -99,7 +99,7 @@ export const CHARACTERS = {
     salam: {
         name: "Salam",
         role: "Ranger With Damaged Trust",
-        portrait: "portraits/salam.png",
+        portrait: "portraits/salam_scarred.png",
         description: "A quiet, sharpshooting Toad ranger who landed a legendary eye-shot on the Arachnid Matriarch. Following many trials, his trust in outsiders is deeply fractured, but his vigilance remains unwavering."
     },
     ryan: {
