@@ -201,3 +201,68 @@ with apps — would let the tools leave the sidebar without being buried:
 Filed for a later run.
 
 **Commit:** `feat: Faiths & Doctrinal Tension gets its own stylesheet`
+
+---
+
+# Run log — what actually shipped
+
+Written after the fact. Where the plan above and this section disagree, this
+section is what is in the repository.
+
+| # | Item | State | Commit |
+|---|---|---|---|
+| 1 | Remi portrait reattached | done | portrait commit |
+| 2 | Feyward clock is the present | done | `feat: the Feyward clock is the present…` |
+| 3 | Two portrait variants per character | done | portrait + heraldry commits |
+| 4 | No externally hosted art | done | `fix: no externally hosted art…` |
+| 5 | Dynasties surface on characters | done | `feat: a character's house reaches their own page` |
+| 5b | Wahinterface | **discussion only, as asked** | `docs: two proposals…` |
+| 6 | Conflicts & battle records | done | `feat: battles file under their conflict` |
+| 7 | Main cast regenerated | done | portrait + heraldry commits |
+| 8 | New fronts | **proposal only** | `docs: two proposals…` |
+| 9 | Hide `+0` | done | `fix: hide +0 in standing…` |
+| 10 | Faction banner sheets | done, 1 cell withheld | `feat: faction heraldry…` |
+| 11 | Faiths CSS | done | `feat: Faiths & Doctrinal Tension…` |
+| 12 | Investigations rewrite | done | `docs: rewrite the investigations guide…` |
+
+## Deviations from the plan, and why
+
+**Item 10 was planned as one banner per generation.** It shipped as three 3x3
+contact sheets sliced by `tools/slice-banner-sheet.py`. Two reasons, one
+practical and one not: 26 single generations does not fit in a turn, and a
+sheet drawn in one pass is *internally consistent* in a way that 26 separate
+generations are not. Shared frame weight and palette discipline matter more
+for a set of heraldry than any single emblem does.
+
+Larger grids were tested and rejected. At a ~1024px canvas, 9x9 gives each
+banner 113px and coherence fails long before that — emblems bleed motifs into
+neighbours. 3x3 gives ~340px per cell. This is recorded in the tool's
+docstring so it is not retried.
+
+**One banner was withheld.** The Colour Division cell came back as effectively
+the *Dark Side of the Moon* cover. `--skip` dropped it; that faction has no
+banner until it is regenerated. Worth knowing that prism/spectrum prompts
+converge there.
+
+**Item 11 grew past CSS.** Writing the stylesheet surfaced that
+`religion-data.js` carries `tension_consequences` — the mechanical effects of
+each friction band — and nothing had ever rendered them. Styling a register
+that withholds its own consequences is decorating a dead end, so those ship
+too.
+
+**Item 5 was planned as a `dynasty:{}` key added to `characters.json`.** It
+shipped as a computed index instead. The link is derivable from id and name,
+and duplicating it into 34 records would mean every future house edit needs a
+matching character edit. The interesting half was never the link anyway — it
+was that the 25/45/65/85 intel thresholds in the dynasty data had never once
+been read against what the party had actually earned.
+
+## Still open
+
+- **Colour Division banner** — regenerate without prism/spectrum imagery.
+- **~60 factions still without heraldry.** The registry and both renderers
+  handle their absence; they need sheets. Roughly seven more 3x3 passes.
+- **Advisory hotlinks** — four records still point at remote CDNs
+  (`characters.json[26]`, `[59]`, `locations.json[23]`, `nations.json[20]`).
+  Non-fatal; `check-external-art.py --strict` fails on them.
+- **Items 8 and 5b** are awaiting a decision, not awaiting work.
