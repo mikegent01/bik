@@ -8814,7 +8814,24 @@ function homeCoversHtml(){
      so the strip re-points itself as sessions land instead of being curated by
      hand. Order of appearance follows the campaign's newest filing. */
   const allCovers=Array.isArray(mp.campaignCovers)?mp.campaignCovers:[];
-  const field=Array.isArray(mp.fieldGallery)?mp.fieldGallery:[];
+  let field=Array.isArray(mp.fieldGallery)?mp.fieldGallery:[];
+  /* Battle plates join the field strip. 69 battles carry art and none of it
+     reached the homepage, because the strip only read the hand-curated
+     mainPage.fieldGallery list. Newest battles first, de-duplicated against
+     whatever is already curated, and capped so the strip stays a strip. The
+     caption is the record's own imageCaption, which the battle store requires
+     anyway -- no new prose, no new art. */
+  try{
+    const have=new Set(field.map(g=>String(g&&g.image||'')));
+    const bats=((DATA&&DATA.battles)||[]).filter(b=>b&&b.image&&!have.has(String(b.image)));
+    const order=new Map(((DATA&&DATA.events)||[]).map((e,i)=>[e&&e.id,i]));
+    bats.sort((a,b)=>(order.get(b.id)??-1)-(order.get(a.id)??-1));
+    field=field.concat(bats.slice(0,12).map(b=>({
+      image:b.image,
+      caption:b.imageCaption||b.name||'',
+      articleId:b.id
+    })));
+  }catch(e){}
   const filedOrder=new Map(((DATA&&DATA.events)||[]).map((e,i)=>[e&&e.id,i]));
   const rankOf=c=>{const r=filedOrder.get(c&&c.articleId);return r===undefined?-1:r;};
   const bestPerCampaign=new Map();
@@ -12961,6 +12978,25 @@ async function view_wahbabel(){
       </p>
     </div>
     <div class="wb-tabs">${tabs}</div>
+    ${(()=>{
+      /* The page rendered one language at a time, so seven tongues with full
+         cipher charts and dictionaries read as a thin page with a row of tabs.
+         The register is the point -- show all seven at once with what each one
+         actually has, then let the tabs drill in. No invented content: every
+         number here is counted off the data that was already loaded. */
+      const cards=langs.map(x=>{
+        const words=Object.keys(x.lexicon||{}).length;
+        const on=x.id===L.id;
+        return `<div class="wb-card${on?' on':''}" style="--wbc:${esc(x.colour)}"
+          onclick="_wbState.lang='${esc(x.id)}';view_wahbabel()">
+          <div class="wb-card-glyphs">${(WAHBABEL.alphabet||'').slice(0,6).split('').map(ch=>wbGlyphSvg(ch,x,22)).join('')}</div>
+          <b>${esc(x.name)}</b>
+          <span class="wb-card-fam">${esc(x.family||'')}</span>
+          <span class="wb-card-n">${words} word${words===1?'':'s'} known · ${esc(x.script||'')} script</span>
+        </div>`;
+      }).join('');
+      return `<div class="wb-grid">${cards}</div>`;
+    })()}
     <div class="card">
       <div class="wb-head">
         <div>
