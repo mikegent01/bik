@@ -1567,7 +1567,7 @@ export const MAJOR_BATTLES = [
     "id": "battle_of_the_mirror_room",
     "name": "Battle of the Mirror Room",
     "date": "Highsun 21, 1040 BF",
-    "image": "https://i.postimg.cc/MG5b2QSL/Gemini-Generated-Image-vbxfhnvbxfhnvbxf.png",
+    "image": "assets/images/battles/battle-of-the-mirror-room/mirror-room-solarium-01.png",
     "imageCaption": "Mages surveying the scene after the battle",
     "location": "The Solarium, Raventree Manor",
     "type": "Supernatural Containment",
