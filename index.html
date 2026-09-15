@@ -14344,7 +14344,13 @@ function view_investigations(){
         <div class="species-stat"><b>${totals.leads}</b>Open Questions</div>
         <div class="species-stat"><b>${totals.read}</b>Read Closely</div>
       </div>
-      <p style="color:var(--muted);margin-top:8px">One open file per arc, instead of seventy-three errands. Documents pile up as sessions are played; each one is a real piece of paper, and the file records who has been holding it. Examining an exhibit is a roll, because analysis is a skill and the archive is not going to pretend otherwise. Rolling costs nothing and buys nothing but information — and it happens once.</p>
+      <p style="color:var(--muted);margin-top:8px"><b>An investigation is a folder of evidence about one storyline.</b> Each folder holds the actual documents a session produced — a key, a receipt, a page torn out of a diary — and it gets thicker every time the party plays. Open one and you can read what any of those documents plainly says, for free.</p>
+      <div class="inv-howto">
+        <div class="inv-howto-step"><b>1 · Open a folder</b><span>Each card below is one storyline. The number of documents in it is on the card.</span></div>
+        <div class="inv-howto-step"><b>2 · Read a document</b><span>What the paper plainly says is always visible. No roll, no cost.</span></div>
+        <div class="inv-howto-step"><b>3 · Roll to read deeper</b><span>What it <i>proves</i> is hidden. Roll a d6+1 against a small number on that document to open Waluigi's reading of it.</span></div>
+        <div class="inv-howto-step"><b>4 · Live with the result</b><span>The roll is free, and it happens <b>once</b>. Fail and you get a fair but less useful reading — permanently. There is no re-roll.</span></div>
+      </div>
       <div class="wnote mt-12"><b>Waluigi's note:</b> Do not believe me. Roll against the paper. The paper does not want anything from you, which is more than can be said for anyone else in this campaign.</div>
       <div class="chips mt-12">
         <button class="chip active" onclick="Router.go('#/investigations')">🔍 Open Files (${active.length})</button>
