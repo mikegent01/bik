@@ -14031,7 +14031,7 @@ function view_article(id){
      ${typeKey==='battles'?battleVsInfographic(item)+battleDossier(item):''}
      ${(typeKey==='factions'||typeKey==='characters')?relationGraph(item):''}
      ${typeKey==='factions'?`<div id="faction-power-projection-container"></div>`:''}
-${typeKey==='characters'?tokenSheetPanel(item):''}${typeKey==='characters'?dynastyPanel(item):''}${typeKey==='characters'?renderArticleOperatorReputation(item.id):''}${typeKey==='characters'?injuryPanel(item):''}${typeKey==='factions'?renderArticleFactionReputation(item.id):''}${(typeKey==='factions'||typeKey==='nations')?renderRelatedCongressVotes(item):''}${wideRecord?'':((typeof renderConnectedInvestigationsPanel === 'function' ? renderConnectedInvestigationsPanel(item.id, typeKey) : '')+(typeof renderConnectedQuestsPanel === 'function' ? renderConnectedQuestsPanel(item.id, typeKey) : ''))}
+${typeKey==='characters'?tokenSheetPanel(item):''}${typeKey==='characters'?dynastyPanel(item):''}${typeKey==='characters'?renderArticleOperatorReputation(item.id):''}${typeKey==='characters'?injuryPanel(item):''}${typeKey==='factions'?factionBannerPanel(item):''}${typeKey==='factions'?renderArticleFactionReputation(item.id):''}${(typeKey==='factions'||typeKey==='nations')?renderRelatedCongressVotes(item):''}${wideRecord?'':((typeof renderConnectedInvestigationsPanel === 'function' ? renderConnectedInvestigationsPanel(item.id, typeKey) : '')+(typeof renderConnectedQuestsPanel === 'function' ? renderConnectedQuestsPanel(item.id, typeKey) : ''))}
      ${summaryBand}
      ${typeof recordReputationLede==='function'?recordReputationLede(item,typeKey):''}
      <div class="prose">${applyAnnotations(mdToHtml(bodyMain,item.id), item.id)}</div>
@@ -18758,6 +18758,26 @@ function renderArticleOperatorReputation(opId) {
   `;
 }
 
+/* The heraldry, on the faction's own page. Renders nothing when a faction has
+   no banner, so the 60-odd factions still without one are unaffected. */
+function factionBannerPanel(item){
+  if(!item||!item.id) return '';
+  const src=factionBannerSrc(item.id);
+  if(!src) return '';
+  const fac=LORE_FACTIONS[item.id]||(typeof factionRecord==='function'?factionRecord(item.id):null)||{};
+  const accent=(typeof FCOLORS!=='undefined'&&FCOLORS[item.id])||'var(--accent2)';
+  const bits=[fac.region,fac.category].filter(Boolean).map(x=>`<span class="pill">${esc(x)}</span>`).join('');
+  return `<section class="fbanner-panel" style="--fb-accent:${esc(accent)}">
+    <div class="fbanner-frame">${factionBannerImg(item.id,displayName(item),'fbanner-art')}</div>
+    <div class="fbanner-meta">
+      <span class="fbanner-kicker">Colours &amp; Heraldry</span>
+      <h3>${esc(displayName(item))}</h3>
+      ${bits?`<div class="metabar">${bits}</div>`:''}
+      <p class="fbanner-note">Field standard as flown. Square format, suitable for a token or a map marker.</p>
+    </div>
+  </section>`;
+}
+
 function renderArticleFactionReputation(factionId) {
   /* Fall back to the filed `factions.json` record when the embedded registry
      has no entry. Six filed factions — color_division, dgk, order_of_jack,
@@ -18815,6 +18835,42 @@ let currentRepTab = 'grid';
 let currentRepSelectedOp = 'bowser';
 let currentRepRegion = 'all';
 let currentRepSearch = '';
+
+/* ---------- faction banners ----------
+   The banners/ directory is a flat pile of PNGs with no manifest, and the
+   only consumer was profile-themes.js. A file that exists but is never
+   rendered is indistinguishable from a missing one, so this registers which
+   faction ids have real heraldry and gives every renderer one way to ask.
+
+   Deliberately an explicit set rather than an <img onerror> probe: a probe
+   fires a failing request for every faction without art, on every render.
+   When a banner is added, add its id here — that is the whole contract. */
+const FACTION_BANNERS=new Set([
+  'iron_legion','koopa_troop','liberated_toads','mages_guild','onyx_hand',
+  'corvinarus_family','order_of_jack','purple_legion','wario_enterprise',
+  'gamma_division','mazebounds','disaster_inc','pond_patrol','fawful_forces',
+  'tea_leaf_syndicate','undertale_monsters','council_of_seven','midlands_diet',
+  'dgk','regal_empire','mushroom_regency','rakasha_clans','silver_flame',
+  'oathbound_judges','crimson_fleet','cosmic_jesters',
+  'beanbean_kingdom','dk_crew','flower_kingdom','kremling_krew','yoshi_clans'
+]);
+/* A few pre-existing files don't follow the <id>.png convention. */
+const FACTION_BANNER_ALIASES={
+  peach_loyalists:'peach_loyalists_banner',
+  knights_of_the_gilded_lily:'gilded_lily',
+  equestria:'equestria_banner'
+};
+function factionBannerSrc(id){
+  if(!id) return '';
+  const key=FACTION_BANNER_ALIASES[id]||id;
+  if(!FACTION_BANNERS.has(id)&&!FACTION_BANNER_ALIASES[id]) return '';
+  return assetPath('banners/'+key+'.png');
+}
+function factionBannerImg(id,name,cls){
+  const src=factionBannerSrc(id);
+  if(!src) return '';
+  return `<img class="${cls||'fbanner'}" src="${esc(src)}" alt="${esc(name||prettyId(id))} banner" loading="lazy" decoding="async">`;
+}
 
 function view_reputation(arg) {
   renderSidebar('reputation');
@@ -18915,8 +18971,9 @@ function view_reputation(arg) {
       }).join('');
 
       return `
-        <div class="rep-faction-card">
+        <div class="rep-faction-card${factionBannerSrc(f.key)?' has-banner':''}">
           <div class="rep-fc-head">
+            ${factionBannerImg(f.key,f.name,'rep-fc-banner')}
             <div class="rep-fc-title">
               <h3>${esc(f.name)}</h3>
               <div class="region">${esc(f.region||'Known Realms')} · ${esc(f.category||'Faction')}</div>

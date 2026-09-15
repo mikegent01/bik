@@ -2674,3 +2674,28 @@ a.front-title:hover{color:var(--accent2)}
 .dyn-secret--sealed span:last-child{font-style:italic;color:var(--muted)}
 .dyn-secret--sealed .dyn-gate{background:rgba(255,255,255,.05);color:var(--muted);border:1px solid var(--border)}
 .dyn-secrets-note{margin:9px 0 0;font-size:11.5px;color:var(--muted)}
+
+/* ===== Faction heraldry =====
+   The banners/ directory existed with no renderer other than profile themes.
+   Both treatments below no-op when a faction has no banner, so the factions
+   still without art are unchanged rather than showing a broken frame. */
+.rep-fc-banner{width:46px;height:46px;flex:0 0 46px;border-radius:9px;object-fit:cover;
+  border:1px solid var(--border);background:#0b0713}
+.rep-faction-card.has-banner .rep-fc-head{display:flex;gap:11px;align-items:center}
+.rep-faction-card.has-banner .rep-fc-title{min-width:0;flex:1}
+
+.fbanner-panel{display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin:18px 0;
+  padding:16px;border:1px solid var(--border);border-left:4px solid var(--fb-accent,var(--accent2));
+  border-radius:12px;background:var(--panel2)}
+.fbanner-frame{flex:0 0 auto;padding:6px;border-radius:12px;background:#0b0713;
+  border:1px solid var(--border);box-shadow:var(--shadow)}
+.fbanner-art{display:block;width:132px;height:132px;border-radius:8px;object-fit:cover}
+.fbanner-meta{min-width:200px;flex:1}
+.fbanner-kicker{font-size:10.5px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--fb-accent,var(--accent2))}
+.fbanner-meta h3{margin:3px 0 7px;font-size:19px}
+.fbanner-note{margin:9px 0 0;font-size:12px;color:var(--muted)}
+@media(max-width:560px){
+  .fbanner-panel{gap:12px}
+  .fbanner-art{width:96px;height:96px}
+}
