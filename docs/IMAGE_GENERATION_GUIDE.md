@@ -574,9 +574,16 @@ dependency) and insets a few pixels per edge to drop the gutter.
 - **An edit pass can change the crop and the pixel size.** The Piktor edit
   returned 1024x1024 while its sheet siblings were 325x325. Re-`convert`ed to
   match. Always `identify` a repaired portrait against its neighbours.
-- **The older 3D portraits and the new drawn ones do not match.** 133 portraits
-  predate this decision. That is a known, accepted inconsistency to be worked
-  down sheet by sheet, not a bug to report.
+- **A sheet can arrive with a painted border.** Sheet 07 came back as a framed
+  picture: a white paper margin and a rough dark painted edge around the grid.
+  Slicing that untrimmed puts border in every cell. `convert -crop WxH+X+Y
+  +repage` to the live grid, resize back to square, then slice.
+- **Mixed-count sheets are fine.** A 3x2 six-cell sheet slices correctly with
+  `--cols 3 --rows 2`; there is no need to pad a batch out to nine.
+- **Renaming a portrait orphans the old file.** Remi's row moved from
+  `portraits/remi.png` to `portraits/remi_akamatsu_full_backstory.png` because
+  the slicer names files after the character id. Grep the old path across json,
+  js and html before assuming nothing else pointed at it.
 - **Superseded 3D guidance, kept for context.** Pass
   `portraits/luigi_operative.webp`, `portraits/waluigi.png` and
   `portraits/markop.png` as image references — describing the style in words
