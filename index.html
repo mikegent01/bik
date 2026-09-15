@@ -9444,15 +9444,26 @@ function view_list(key){
       const g=filterGroup(key,i);
       if(g&&g!==sub)meta.push(`<span class="pill">${esc(g)}</span>`);
       const wc=wordCount(i); if(wc>600)meta.push(`<span class="pill">${wc.toLocaleString()} words</span>`);
-      const visual=(key==='events'&&i.image)?`<figure class="article-lead-img event-thumb"><img src="${esc(assetPath(i.image))}" alt="${esc(displayName(i))}" loading="lazy" onerror="this.onerror=null;this.style.display='none'"></figure>`:cardVisual(i,key);
-      const kick=(key==='events'&&i.date)?`<div class="tkick">${esc(String(i.date).split('—')[0].trim())}</div>`:'';
+      /* The illustrated card used to be gated on `key==='events'`, so a battle
+         could carry a filed plate and still render the generated VS gradient.
+         69 battle plates were invisible for exactly that reason. The gate is
+         now the data: any record with an `image` gets the illustrated card,
+         and anything else falls through to its generated visual as before. */
+      const hasPlate=Boolean(i.image)&&['events','battles','majorBattles','trials','locations','factions'].includes(key);
+      const plateSrc=hasPlate?(/^(?:https?:|data:|\/)/i.test(i.image)?i.image:assetPath(i.image)):'';
+      const visual=hasPlate?`<figure class="article-lead-img event-thumb"><img src="${esc(plateSrc)}" alt="${esc(displayName(i))}" loading="lazy" onerror="this.onerror=null;this.style.display='none'"></figure>`:cardVisual(i,key);
+      const kick=(['events','battles','majorBattles'].includes(key)&&i.date)?`<div class="tkick">${esc(String(i.date).split('—')[0].trim())}</div>`:'';
       const sysMark=key==='factions'?systemMark(i.id):'';
       /* Events get the illustrated treatment: the art is the top of the card
          rather than a thumbnail glued above text, the campaign is colour-coded
          down the left edge, and a filing that has a plate says so. */
-      if(key==='events'){
-        const camp=eventCampaign(i);
-        const plate=i.image?`<span class="ev-plate${plateIsUnlocked(i.id)?' got':''}" title="${plateIsUnlocked(i.id)?'Field plate recovered':'Field plate — read this filing to recover it'}">${plateIsUnlocked(i.id)?'🖼️':'🔒'}</span>`:'';
+      /* Battles that carry a plate get the same illustrated card as events --
+         art on top, not a thumbnail glued above text. They have no campaign
+         colour and no plate-unlock mechanic, so those two decorations are
+         simply omitted rather than faked. */
+      if(key==='events'||(hasPlate&&(key==='battles'||key==='majorBattles'))){
+        const camp=key==='events'?eventCampaign(i):null;
+        const plate=(key==='events'&&i.image)?`<span class="ev-plate${plateIsUnlocked(i.id)?' got':''}" title="${plateIsUnlocked(i.id)?'Field plate recovered':'Field plate — read this filing to recover it'}">${plateIsUnlocked(i.id)?'🖼️':'🔒'}</span>`:'';
         return `<article class="evcard${camp?' camp-'+camp.key:''}" onclick="openId('${esc(i.id)}')">
           <div class="evcard-art">${visual}${camp?`<span class="evcard-camp">${esc(camp.label)}</span>`:''}${plate}</div>
           <div class="evcard-body">

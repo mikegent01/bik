@@ -674,7 +674,9 @@
         "reputationChanges",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/battles/aegis-command-riot/aegis-command-riot-01.jpg",
+    "imageCaption": "158 out through the gate on peppermint gas and a decoy, with the whole fortress already rigged behind them."
   },
   {
     "id": "delfino_exile_final",
@@ -2297,7 +2299,9 @@
         "reputationChanges",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/battles/iron-sky-breach/iron-sky-breach-01.jpg",
+    "imageCaption": "Grapples across, planks down, and the Legion boarding the ship everybody lived on. Ryan is the shape going over the rail."
   },
   {
     "id": "skirmish_manor_parlor",
@@ -4033,6 +4037,8 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/battles/battle-imp-ambush-shadow-estate/battle-imp-ambush-shadow-estate-01.jpg",
+    "imageCaption": "Nine imps around Tymnas's cottage at dawn, come for the dead Archivist's ledger."
   }
 ]
