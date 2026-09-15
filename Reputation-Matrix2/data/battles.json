@@ -127,7 +127,9 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/battles/fall-bramblehaven/fall-bramblehaven-01.jpg",
+    "imageCaption": "A day-long siege ending in a breach, and Toadette's Loyalists coming through it in formation. The no-prisoners order is what this filing is really about."
   },
   {
     "id": "battle_of_lineland_road",
@@ -138,7 +140,7 @@
     "location": "Lineland Road — primary supply route to Count Bleck's territory",
     "type": "Ambush / Supply Line Interdiction / Mr. L's Debut",
     "status": "Concluded — Mushroom Kingdom forces devastated",
-    "image": "",
+    "image": "assets/images/battles/battle-of-lineland-road/battle-of-lineland-road-01.jpg",
     "imageCaption": "No images survive. The lone survivor was not carrying recording equipment.",
     "audioTitle": "",
     "audio": "",
@@ -213,7 +215,7 @@
     "location": "Outer Limits — dimensional boundary zone near Count Bleck's territory",
     "type": "Mechanized Combat / Mario vs. Mr. L / First Direct Confrontation",
     "status": "Concluded — Brobot damaged, Mr. L withdrew",
-    "image": "",
+    "image": "assets/images/battles/brobot-engagement-one/brobot-engagement-one-01.jpg",
     "imageCaption": "Witnesses describe a mechanical monstrosity with Luigi's face painted on it.",
     "audioTitle": "",
     "audio": "",
@@ -281,7 +283,7 @@
     "location": "Gloam Valley supply route — contested territory",
     "type": "Mechanized Assault / Supply Line Interdiction / No Survivors",
     "status": "Concluded — complete destruction of convoy",
-    "image": "",
+    "image": "assets/images/battles/supply-convoy-massacre/supply-convoy-massacre-01.jpg",
     "imageCaption": "The Brobot left nothing usable behind.",
     "audioTitle": "",
     "audio": "",
@@ -356,7 +358,7 @@
     "location": "Sarasaland Royal Palace — Princess Daisy's residence",
     "type": "Psychological Episode / Security Crisis / Contained Emergence",
     "status": "Classified — Waluigi obtained information through irregular channels",
-    "image": "",
+    "image": "assets/images/battles/sarasaland-incident/sarasaland-incident-01.jpg",
     "imageCaption": "No official images exist. The incident was aggressively suppressed.",
     "audioTitle": "",
     "audio": "",
@@ -434,7 +436,7 @@
     "location": "Displaced persons camp — location classified, possibly Flipside border region",
     "type": "Psychological Warfare / Interrogation / Unknown Outcome",
     "status": "Classified — records deliberately incomplete",
-    "image": "",
+    "image": "assets/images/battles/refugee-camp-visitation/refugee-camp-visitation-01.jpg",
     "imageCaption": "No images exist. The camp was found abandoned.",
     "audioTitle": "",
     "audio": "",
@@ -506,7 +508,7 @@
     "location": "Sarasaland Royal Palace — Princess Daisy hosting, and thank the STARS for that",
     "type": "Diplomatic Summit / Humanitarian Achievement / Public Relations Catastrophe",
     "status": "Concluded — relief program operational, everything else on fire",
-    "image": "",
+    "image": "assets/images/battles/second-summit/second-summit-01.jpg",
     "imageCaption": "Official summit photographs exist but nobody looks happy in them.",
     "audioTitle": "",
     "audio": "",
@@ -952,7 +954,9 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/battles/syndicate-showdown/syndicate-showdown-01.jpg",
+    "imageCaption": "Green T at full size in the tea lounge, which is the moment the Tea Leaf Syndicate stopped existing. The porcelain did not survive either."
   },
   {
     "id": "spider_grove_battle",
@@ -1127,7 +1131,9 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/battles/iron-sky-breach/iron-sky-breach-01.jpg",
+    "imageCaption": "Grapples across, planks down, and the Legion boarding the ship everybody lived on. Ryan is the shape going over the rail."
   },
   {
     "id": "massacre_aegis",
@@ -1743,7 +1749,9 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/battles/prison-infiltration/prison-infiltration-01.jpg",
+    "imageCaption": "The prison district by night: a disguise going past the gate, a logbook leaving, and a sack nobody wants to account for."
   },
   {
     "id": "raventree_exploration",
@@ -5439,7 +5447,9 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/battles/eldridge-hillfort-defense-722-bf/eldridge-hillfort-defense-722-bf-01.jpg",
+    "imageCaption": "Orcish marauders and goblin skirmishers up the slope, ladders on the palisade, watchfires still burning at the end of it. The fort held."
   },
   {
     "id": "battle_of_the_mistral_farmstead",
@@ -5517,7 +5527,9 @@
       "system": "battles",
       "model": "qwen2.5-7b-instruct-1m",
       "at": "2026-09-02T02:35:18+00:00"
-    }
+    },
+    "image": "assets/images/battles/battle-of-the-mistral-farmstead/battle-of-the-mistral-farmstead-01.jpg",
+    "imageCaption": "The Shadow Guild came for the farmstead and met Grimmstone's militia in the yard. Pitchforks held the ground."
   },
   {
     "id": "library_reclamation",
