@@ -9475,13 +9475,147 @@ function speciesGroupFor(key,s){
   if(/toad|koopa|goomba|shy guy|monty mole/.test(n)||/toad|koopa|goomba|shy_guy|monty_mole/.test(k))return ['species_mushroom_kingdom_peoples','Mushroom Kingdom Peoples'];
   return ['species_other','Other / Needs Review'];
 }
-function battleHubPanel(){
-  const conflicts=DATA.conflicts||{}, mb=DATA.majorBattles||[];
-  const conflictCards=Object.keys(conflicts).map(name=>{const c=conflicts[name];return `<div class="claimant-card"><h4>${esc(name)}</h4><div class="ctype">${esc(c.status||'Conflict')}</div><p>${esc((c.summary||c.rootCause||'').slice(0,220))}${(c.summary||'').length>220?'…':''}</p><a class="poi-link" onclick="Router.go('#/conflict/${encodeURIComponent(name)}')">Open conflict →</a></div>`;}).join('');
-  const mbCards=mb.slice(0,18).map(b=>`<div class="claimant-card"><h4>${esc(b.name)}</h4><div class="ctype">${esc(valText(b.date)||'Major Battle')} · ${esc(b.location||'')}</div><p>${esc(htmlishToMarkdown(b.description||b.summary||'').slice(0,190))}…</p><a class="poi-link" onclick="Router.go('#/mbattle/${encodeURIComponent(b.id)}')">Open battle →</a></div>`).join('');
-  return `<div class="species-dash"><h3>💥 Battlefield Layer</h3><p class="text-muted m-0">The old Battlefield page is merged here. Battles now include article battles, global conflicts, and major battle records.</p><div class="species-stats"><div class="species-stat"><b>${Object.keys(conflicts).length}</b>Conflicts</div><div class="species-stat"><b>${mb.length}</b>Major battles</div></div><h3 class="mt-14">Conflicts</h3><div class="claimant-grid">${conflictCards||'<p class="text-muted">No conflicts.</p>'}</div><h3 class="mt-14">Major Battle Records</h3><div class="claimant-grid">${mbCards||'<p class="text-muted">No major battle records.</p>'}</div></div>`;
-}
+/* ---------- the battlefield layer ----------
+   This panel used to be two flat grids of identical tiles: nine conflicts,
+   then eighteen battles, each a title and 190 clipped characters. Two things
+   were wrong with it beyond the styling.
 
+   1. `mb.slice(0,18)` — 33 of the 51 filed battle records were simply not
+      rendered. There was no "and 33 more", so the page quietly claimed the
+      archive held eighteen battles.
+   2. A battle names its war in `conflict`, and nothing used that. The Isle
+      Delfino Conflict has eleven battles; they sat scattered through an
+      alphabetical wall with no way to see they belonged to each other.
+
+   Battles now file UNDER their conflict, which is what the data already said.
+   A conflict becomes a front: its status, its factions, its battles with
+   outcome chips, and a win/loss/stalemate roll-up COMPUTED from the records
+   rather than asserted in prose.
+
+   Battles name 17 distinct conflicts but conflicts.json holds 9. The other 8
+   are real wars with filed battles and no conflict record. They are not
+   hidden — they render as "unwritten fronts" with the battles they own and a
+   note that the conflict record is missing, which turns a data gap into a
+   worklist. The same goes for battles naming no conflict at all. */
+const BATTLE_OUTCOMES={
+  victory:{label:'Victory',cls:'win',icon:'✔'},
+  decisive_victory_a:{label:'Decisive victory',cls:'win',icon:'✔'},
+  pyrrhic_victory:{label:'Pyrrhic victory',cls:'pyrrhic',icon:'✔'},
+  defeat:{label:'Defeat',cls:'loss',icon:'✘'},
+  retreat:{label:'Retreat',cls:'loss',icon:'↩'},
+  stalemate:{label:'Stalemate',cls:'draw',icon:'='},
+  ongoing:{label:'Ongoing',cls:'open',icon:'…'}
+};
+function battleOutcomeMeta(o){
+  const key=String(o||'').toLowerCase();
+  return BATTLE_OUTCOMES[key]||{label:o?prettyId(String(o)):'Unrecorded',cls:'unknown',icon:'?'};
+}
+function battleYear(b){
+  if(!b) return null;
+  const d=b.date;
+  if(d&&typeof d==='object'&&d.year!=null) return Number(d.year);
+  return parseYear(valText(d))||null;
+}
+/* Group every filed battle by the conflict it names. */
+function battleFronts(){
+  const conflicts=DATA.conflicts||{};
+  const mb=(DATA.majorBattles||[]).filter(Boolean);
+  const byName={};
+  Object.keys(conflicts).forEach(name=>{
+    byName[name]={name,record:conflicts[name],battles:[],written:true};
+  });
+  const UNFILED='__unfiled__';
+  mb.forEach(b=>{
+    const name=(b.conflict||'').trim();
+    const key=name||UNFILED;
+    if(!byName[key]) byName[key]={name:name||'Battles with no conflict filed',record:null,battles:[],written:false};
+    byName[key].battles.push(b);
+  });
+  const fronts=Object.values(byName).map(f=>{
+    const tally={win:0,loss:0,draw:0,open:0,pyrrhic:0,unknown:0};
+    f.battles.forEach(b=>{ tally[battleOutcomeMeta(b.outcome).cls]=(tally[battleOutcomeMeta(b.outcome).cls]||0)+1; });
+    const years=f.battles.map(battleYear).filter(Boolean).sort((a,b)=>a-b);
+    f.tally=tally;
+    f.span=years.length?(years[0]===years[years.length-1]?`${years[0]} BF`:`${years[0]}–${years[years.length-1]} BF`):'';
+    f.battles.sort((a,b)=>(battleYear(a)||0)-(battleYear(b)||0)||String(a.name||'').localeCompare(String(b.name||'')));
+    f.isUnfiled=f.name==='Battles with no conflict filed';
+    return f;
+  });
+  /* Written fronts first, biggest first; the unfiled bucket always last. */
+  fronts.sort((a,b)=>
+    (a.isUnfiled?1:0)-(b.isUnfiled?1:0)
+    || (b.written?1:0)-(a.written?1:0)
+    || b.battles.length-a.battles.length
+    || String(a.name).localeCompare(String(b.name)));
+  return fronts;
+}
+function battleTallyChips(t){
+  const order=[['win','won'],['pyrrhic','pyrrhic'],['draw','drawn'],['loss','lost'],['open','ongoing'],['unknown','unrecorded']];
+  const chips=order.filter(([k])=>t[k]).map(([k,label])=>
+    `<span class="front-tally front-tally--${k}">${t[k]} ${label}</span>`).join('');
+  return chips||'<span class="front-tally front-tally--unknown">no battles filed</span>';
+}
+function battleRowHtml(b){
+  const m=battleOutcomeMeta(b.outcome);
+  const when=valText(b.date);
+  const where=b.location?` · 📍 ${esc(b.location)}`:'';
+  const detail=esc(String(b.outcomeDetail||htmlishToMarkdown(b.summary||b.description||'')).slice(0,150));
+  return `<a class="front-battle" href="#/mbattle/${encodeURIComponent(b.id)}">
+    <span class="front-battle-outcome front-battle-outcome--${m.cls}" title="${esc(m.label)}">${m.icon}</span>
+    <span class="front-battle-body">
+      <b>${esc(b.name||b.id)}</b>
+      <span class="front-battle-meta">${esc(when||'undated')}${where}</span>
+      ${detail?`<span class="front-battle-detail">${detail}${detail.length>=150?'…':''}</span>`:''}
+    </span>
+    <span class="front-battle-tag front-battle-outcome--${m.cls}">${esc(m.label)}</span>
+  </a>`;
+}
+function battleFrontCard(f){
+  const c=f.record||{};
+  const facs=(c.keyFactions||[]).slice(0,6).map(combatantChip).join('');
+  const open=f.battles.length<=6?' open':'';
+  const head=f.written
+    ? `<a class="front-title" href="#/conflict/${encodeURIComponent(f.name)}">${esc(f.name)}</a>`
+    : `<span class="front-title front-title--unwritten">${esc(f.name)}</span>`;
+  const status=c.status?`<span class="status-tag ${statusClass(c.status)}">${esc(c.status)}</span>`:'';
+  const gap=f.written?'':`<div class="front-gap">${f.isUnfiled
+      ? 'These records name no conflict. Give each one a <code>conflict</code> and it files itself under the right front.'
+      : 'No record for this front in <code>conflicts.json</code> — the battles below are filed, the war around them is not. Add it and this card gains a summary, a root cause and phases.'}</div>`;
+  return `<details class="front"${open}>
+    <summary class="front-head">
+      <span class="front-head-main">${head}${status}</span>
+      <span class="front-head-meta">${f.span?`<span class="front-span">${esc(f.span)}</span>`:''}<span class="front-count">${f.battles.length} battle${f.battles.length===1?'':'s'}</span></span>
+    </summary>
+    <div class="front-body">
+      ${c.summary?`<p class="front-summary">${esc(c.summary)}</p>`:''}
+      ${gap}
+      <div class="front-tallies">${battleTallyChips(f.tally)}</div>
+      ${facs?`<div class="front-factions">${facs}</div>`:''}
+      <div class="front-battles">${f.battles.map(battleRowHtml).join('')||'<p class="text-muted">No battle records filed under this front yet.</p>'}</div>
+      ${f.written?`<a class="poi-link" href="#/conflict/${encodeURIComponent(f.name)}">Open the conflict record →</a>`:''}
+    </div>
+  </details>`;
+}
+function battleHubPanel(){
+  const fronts=battleFronts();
+  const mb=(DATA.majorBattles||[]).filter(Boolean);
+  const written=fronts.filter(f=>f.written).length;
+  const unwritten=fronts.filter(f=>!f.written&&!f.isUnfiled).length;
+  const totals=fronts.reduce((a,f)=>{Object.keys(f.tally).forEach(k=>a[k]=(a[k]||0)+f.tally[k]);return a;},{});
+  return `<div class="species-dash battlefield-layer">
+    <h3>💥 Battlefield Layer</h3>
+    <p class="text-muted m-0">Every filed battle, grouped under the war it belongs to. A battle names its conflict in the record; this page finally reads that field, so the eleven battles of one campaign sit together instead of scattered through an alphabetical list.</p>
+    <div class="species-stats">
+      <div class="species-stat"><b>${fronts.filter(f=>!f.isUnfiled).length}</b>Fronts</div>
+      <div class="species-stat"><b>${mb.length}</b>Battle records</div>
+      <div class="species-stat"><b>${written}</b>Conflicts written</div>
+      <div class="species-stat"><b>${unwritten}</b>Fronts still unwritten</div>
+    </div>
+    <div class="front-tallies front-tallies--global">${battleTallyChips(totals)}</div>
+    ${unwritten?`<div class="wnote mt-12"><b>${unwritten} front${unwritten===1?' has':'s have'} battles but no conflict record.</b> The battles are filed and readable; the war around them is not written yet. They are listed below rather than hidden, because a gap you can see is a gap that gets closed.</div>`:''}
+    <div class="front-list">${fronts.map(battleFrontCard).join('')}</div>
+  </div>`;
+}
 /* Faction index → surface the factions that carry an integrated system. */
 function factionSystemsPanel(){
   const cards=Object.values(FACTION_SYSTEMS).map(s=>{
@@ -15491,8 +15625,18 @@ function view_conflict(name){
   const facs=(c.keyFactions||[]).map(combatantChip).join('');
   const phases=(c.majorPhases||[]).map((p,i)=>`<div class="phase crisis-phase"><span class="phase-number">${i+1}</span><div><b>${esc(p.name)}</b><p>${esc(p.description)}</p></div></div>`).join('');
   const crisisRep = renderReputationImpactPanel(c, 'events');
-  const rel=(DATA.majorBattles||[]).filter(b=>b.conflict===name);
-  const relHtml=rel.map(b=>`<span class="rel-chip" onclick="Router.go('#/mbattle/${encodeURIComponent(b.id)}')"><span class="rt">Battle</span>${esc(b.name)}</span>`).join('');
+  /* The battles under this conflict were a row of undifferentiated chips: you
+     could see that five battles existed and nothing about how any of them
+     went. They are now the same ordered ledger the hub uses — chronological,
+     each with its outcome — plus a computed roll-up, so the conflict page can
+     answer "how is this war actually going" from its own records. */
+  const rel=(DATA.majorBattles||[]).filter(b=>b&&b.conflict===name)
+    .sort((a,b)=>(battleYear(a)||0)-(battleYear(b)||0)||String(a.name||'').localeCompare(String(b.name||'')));
+  const relTally=rel.reduce((t,b)=>{const k=battleOutcomeMeta(b.outcome).cls;t[k]=(t[k]||0)+1;return t;},{});
+  const relHtml=rel.length
+    ? `<div class="front-tallies">${battleTallyChips(relTally)}</div>
+       <div class="front-battles">${rel.map(battleRowHtml).join('')}</div>`
+    : `<p class="text-muted">No battle records name this conflict yet. A battle joins this list by setting its <code>conflict</code> to “${esc(name)}”.</p>`;
   el('content').innerHTML=`<div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › <a onclick="Router.go('#/battlefield')">Battlefield</a> › ${esc(name)}</div>
     <div class="card animate-fade-in"><div class="flex-between-start"><h1 class="art-title">${esc(name)}</h1><span class="status-tag ${statusClass(c.status)}">${esc(c.status||'')}</span></div>
     <blockquote>${esc(c.summary||'')}</blockquote>
@@ -15501,7 +15645,7 @@ function view_conflict(name){
     ${phases?`<h2>Major Phases</h2><div class="crisis-phases">${phases}</div>`:''}
     ${crisisRep}
     ${c.estimatedCasualties?`<p class="imgcap mt-12">Estimated casualties: ${esc(c.estimatedCasualties)} · Started ${esc(String(c.startYear||''))}</p>`:''}
-    ${relHtml?`<h2>Battles In This Conflict</h2><div class="related-list">${relHtml}</div>`:''}</div>`;
+    <h2>Battles in this conflict</h2>${relHtml}</div>`;
   window.scrollTo(0,0);
 }
 function sideBox(title,side){
