@@ -64,6 +64,37 @@ def fingerprint(ev):
     return hashlib.sha256(blob.encode("utf-8")).hexdigest()[:16]
 
 
+def field_prints(ev):
+    """Per-field hashes, so the ledger can say WHICH parts were rewritten.
+
+    The whole-record hash answers "did this change". A reader who has already
+    read the filing needs the next question answered too -- "what do I need to
+    re-read" -- and re-reading 6,000 words to find one amended paragraph is
+    exactly the thing the Updated badge was supposed to save them from.
+
+    Field-level is as fine as this can honestly go: the ledger stores hashes,
+    not prior text, so a sentence-level diff is not recoverable. Storing the
+    old prose would mean a generated file that carries a second copy of the
+    archive, which is a much larger and worse change.
+    """
+    out = {}
+    for k in TRACKED:
+        v = ev.get(k)
+        if v is None:
+            continue
+        blob = json.dumps(v, ensure_ascii=False, sort_keys=True)
+        out[k] = hashlib.sha256(blob.encode("utf-8")).hexdigest()[:8]
+    return out
+
+
+def changed_fields(prev_fields, now_fields):
+    """Which tracked fields differ between two field-print maps."""
+    if not isinstance(prev_fields, dict):
+        return []
+    names = set(prev_fields) | set(now_fields)
+    return sorted(n for n in names if prev_fields.get(n) != now_fields.get(n))
+
+
 def read_ledger():
     if not LEDGER.exists():
         return {"pass": 0, "entries": {}}
@@ -133,15 +164,29 @@ def main():
         if not eid:
             continue
         fp = fingerprint(ev)
+        fields = field_prints(ev)
         prev = entries.get(eid)
         if prev is None:
             entries[eid] = {"hash": fp, "firstSeen": nxt,
-                            "lastChanged": nxt, "revision": 1}
+                            "lastChanged": nxt, "revision": 1,
+                            "fields": fields}
         elif prev["hash"] != fp:
             entries[eid] = {"hash": fp,
                             "firstSeen": prev.get("firstSeen", nxt),
                             "lastChanged": nxt,
-                            "revision": int(prev.get("revision", 1)) + 1}
+                            "revision": int(prev.get("revision", 1)) + 1,
+                            "fields": fields,
+                            # What a returning reader actually needs: the names
+                            # of the parts that moved in this pass.
+                            "changedFields": changed_fields(
+                                prev.get("fields"), fields)}
+        else:
+            # Unchanged, but backfill field prints for records stamped before
+            # this tool tracked them, so the NEXT edit can report field names.
+            if not prev.get("fields"):
+                prev = dict(prev)
+                prev["fields"] = fields
+                entries[eid] = prev
 
     # Pass 1 is a baseline: every existing record enters the ledger at once.
     # That is not "120 filings were just updated", so it is flagged and the

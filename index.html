@@ -393,6 +393,19 @@
 .wah-note-head{display:flex;align-items:center;gap:7px;font-size:12.5px;margin-bottom:3px}
 .wah-note-ava{font-size:17px;line-height:1}
 /* The passage a merged margin comment hangs off. */
+/* "Revised: Overview and Outcome were rewritten" - top of a filing that
+   changed in the last pass, so a returning reader knows what to re-read. */
+.release-banner{display:flex;gap:14px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin:0 0 16px;padding:12px 16px;border:1px solid var(--accent2);border-radius:12px;background:linear-gradient(135deg,rgba(224,180,0,.16),rgba(138,75,255,.10)),var(--panel)}
+.release-banner .rb-main{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;min-width:0}
+.release-banner .rb-tag{font-size:10.5px;font-weight:900;letter-spacing:1px;text-transform:uppercase;color:var(--accent2)}
+.release-banner .rb-name{font-size:15px;color:var(--text)}
+.release-banner .rb-sub{font-size:12.5px;color:var(--muted)}
+.release-banner .rb-acts{display:flex;gap:8px;align-items:center}
+.release-banner .rb-open{border:0;cursor:pointer;font-weight:800;font-size:12.5px;padding:7px 14px;border-radius:999px;background:linear-gradient(180deg,#ffd94d,#e0b400);color:#2a1350}
+.release-banner .rb-x{border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;border-radius:8px;padding:5px 9px;font-size:12px}
+.release-banner .rb-x:hover{color:var(--text);border-color:var(--accent2)}
+.filing-changed{margin:8px 0 2px;padding:8px 12px;border-left:3px solid var(--accent2);background:rgba(224,180,0,.08);border-radius:0 8px 8px 0;font-size:12.5px;color:var(--muted);line-height:1.5}
+.filing-changed b{color:var(--accent2)}
 .battle-plate img{width:100%;aspect-ratio:64/30;object-fit:cover;display:block;border-radius:10px;border:1px solid var(--border)}
 .auto-art.tile.battle-plate{border:0;background:none}
 .auto-art.tile.battle-plate img{aspect-ratio:64/30;border-radius:9px}
@@ -6086,6 +6099,35 @@ function filingIsNew(id){
   if(first<=filingBaseline()) return false;
   return (filingPass()-first)<=1;
 }
+/* Which parts of a filing moved in the last pass, in reader language.
+   The ledger stores per-field hashes plus the names that differed, so the
+   badge can stop saying only "this changed" and start saying "re-read the
+   Overview". Empty when the pass predates field tracking. */
+const FILING_FIELD_LABEL={
+  title:'Title', name:'Title', summary:'Summary', description:'Overview',
+  body:'Body', sections:'Sections', outcome:'Outcome', status:'Status',
+  era:'Era', location:'Location', date:'Date', timeCode:'Timeline',
+  revisions:'Revision notes', imageCaption:'Image caption'
+};
+function filingChangedFields(id){
+  const e=filingEntry(id); if(!e) return [];
+  const raw=Array.isArray(e.changedFields)?e.changedFields:[];
+  const seen=new Set(), out=[];
+  raw.forEach(f=>{ const l=FILING_FIELD_LABEL[f]||prettyId(f);
+    if(!seen.has(l)){ seen.add(l); out.push(l); } });
+  return out;
+}
+/* A line a returning reader can act on, instead of re-reading 6,000 words. */
+function filingChangeNote(id){
+  if(!filingIsUpdated(id)) return '';
+  const f=filingChangedFields(id);
+  if(!f.length) return '';
+  const list=f.length===1?f[0]
+    :f.length===2?`${f[0]} and ${f[1]}`
+    :`${f.slice(0,-1).join(', ')} and ${f[f.length-1]}`;
+  return `<div class="filing-changed" title="Changed in the latest archive pass">`
+    +`<b>Revised:</b> ${esc(list)}${f.length>1?' were':' was'} rewritten since you last read this.</div>`;
+}
 function filingBadge(id){
   if(filingIsNew(id)) return `<span class="filingmark is-new" title="Filed in the latest archive pass.">New</span>`;
   if(!filingIsUpdated(id)) return '';
@@ -9224,6 +9266,7 @@ function view_home(){
   const newPill=nNew?`<span class="hm-sec-link ghost" onclick="Router.go('#/list/events')">🆕 ${nNew} new</span>`:'';
   el('content').innerHTML=
     homeHeroHtml({who,dateStr,wd,greet,feat,heroArt,resume})
+    +releaseBannerHtml()
     +homeTickerHtml(nNew)
     +homeStatusBand(nNew)
     +`<section class="hm-sec hm-rise"><div class="hm-sec-head"><div><div class="hm-sec-kick">Front desk · this season</div><h2>🎬 Current fronts</h2></div><span class="hm-sec-link" onclick="Router.go('#/list/events')">📂 All filings →</span></div><div id="home-campaign-covers" class="campaign-covers-grid"></div><div id="home-field-gallery-label" class="field-gallery-label">📷 From the archive — same stories, filed art</div><div id="home-field-gallery" class="field-gallery-strip"></div></section>`
@@ -9256,6 +9299,38 @@ function updatesGo(id){
     if(typeof INDEX!=='undefined'&&INDEX[id]){ openId(id); return; }
     Router.go('#/'+id);
   }catch(e){ try{ Router.go('#/'+id); }catch(_){} }
+}
+/* Release banner. The archive ships in passes and a reader arriving after one
+   had no way to know a pass had landed, let alone what it was called. The name
+   comes from SITE_UPDATES[0] -- the repo's own curated changelog head -- rather
+   than a hand-typed string that would rot the moment the next pass shipped.
+   Dismissal is per-release and per-browser, so it reappears when the name
+   changes and never nags after it has been read once. */
+function releaseBannerHtml(){
+  try{
+    const u=(typeof SITE_UPDATES!=='undefined'?SITE_UPDATES:[])[0];
+    if(!u) return '';
+    const name=String(u.label||'').split('·').pop().trim()||u.title||u.id||'';
+    if(!name) return '';
+    const key='waluipediaRelease:'+name;
+    if(localStorage.getItem(key)) return '';
+    let nUpd=0;
+    try{ const E=(filingLedger().entries)||{};
+      Object.keys(E).forEach(id=>{ if(filingIsUpdated(id)) nUpd++; }); }catch(e){}
+    const amended=nUpd?` · ${nUpd} older filing${nUpd===1?'':'s'} amended`:'';
+    return `<div class="release-banner hm-rise" id="release-banner">
+      <div class="rb-main">
+        <span class="rb-tag">This update</span>
+        <b class="rb-name">${esc(name)}</b>
+        <span class="rb-sub">${esc(String(u.title||'').slice(0,110))}${amended}</span>
+      </div>
+      <div class="rb-acts">
+        <button type="button" class="rb-open" onclick="updatesGo('${esc(u.id||'')}')">Read it →</button>
+        <button type="button" class="rb-x" title="Dismiss"
+          onclick="try{localStorage.setItem('${esc(key)}','1')}catch(e){};document.getElementById('release-banner').remove()">✕</button>
+      </div>
+    </div>`;
+  }catch(e){ return ''; }
 }
 function homeUpdatesCard(){
   const ups=(typeof SITE_UPDATES!=='undefined'?SITE_UPDATES:[]).slice(0,6);
@@ -13538,6 +13613,7 @@ function view_article(id){
      ${item.title&&item.title!==item.name?`<div class="art-subtitle">${esc(item.title)}</div>`:''}
      <div class="metabar"><span class="pill">${t.emoji} ${esc(t.singular)}</span>${timeCodePill(item)}${typeKey==='factions'?systemsForFaction(item.id).map(s=>`<span class="pill" style="border-color:${s.accent};color:${s.accent};cursor:pointer" onclick="Router.go('${s.route}')">${s.emoji} ${esc(s.name)} — integrated system</span>`).join(''):''}${annotationBadge(item.id)}${microBadge(item)}${xpPill(item.id)}${item.status?`<span class="pill">${esc(String(item.status).split('—')[0].trim())}</span>`:''}${metaPills}</div>
      <div class="readtime">⏱ ${rtFull} min read · ${totalWords} words</div>
+     ${filingChangeNote(item.id)}
      <div class="article-top-xp">${xpMiniPanel(item.id)}</div>
      ${versionBarHtml}
      ${leadHtml}${typeKey==='races'?raceDossierPanel(item):''}${audioHtml}

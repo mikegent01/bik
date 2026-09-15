@@ -17,721 +17,2098 @@
       "hash": "427b02ea46d68d16",
       "firstSeen": 1,
       "lastChanged": 2,
-      "revision": 2
+      "revision": 2,
+      "fields": {
+        "title": "bbeb2a8c",
+        "name": "55186407",
+        "summary": "74ea55ca",
+        "description": "ebde5102",
+        "outcome": "56e17e3e",
+        "status": "eb2f83ae",
+        "era": "1052265c",
+        "location": "887aef80",
+        "date": "c727f144",
+        "imageCaption": "873f4b6f"
+      }
     },
     "accountability_docket": {
       "hash": "54a0ebdfa2ee885b",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "d2cabdb4",
+        "name": "9542eef8",
+        "summary": "55c24b07",
+        "description": "76ef010d",
+        "outcome": "c2c1f397",
+        "status": "5f08c027",
+        "era": "3232038b",
+        "location": "14562e5b",
+        "date": "9f61295c"
+      }
     },
     "archie_frog_god_dream_duel": {
       "hash": "4738ea58e0c37193",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "a5f6b8fc",
+        "name": "e16f8483",
+        "summary": "0838b44f",
+        "description": "1917b02a",
+        "outcome": "eaaa87e0",
+        "status": "4c2c4408",
+        "era": "a284fa11",
+        "location": "ad30fbb2",
+        "date": "8f266b14"
+      }
     },
     "archie_god_sermon": {
       "hash": "2f95b2cabb2d3323",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "d43285af",
+        "name": "50122363",
+        "summary": "75db622a",
+        "description": "4b5b9f79",
+        "outcome": "582b81bb",
+        "status": "5f8165a4",
+        "era": "9a4a289d",
+        "location": "130ce3f8",
+        "date": "eaf09e43"
+      }
     },
     "archies_return_to_shadow_estate": {
       "hash": "8886523501b615d9",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "94d34a7e",
+        "name": "b111bdcc",
+        "summary": "f9d670fa",
+        "description": "b59f2c4a",
+        "outcome": "83b88e66",
+        "status": "eea7a5d3",
+        "era": "16a61453",
+        "location": "258f7bfb",
+        "date": "bb8bf096",
+        "imageCaption": "954b50e0"
+      }
     },
     "baldi_schoolhouse_extraction_failed": {
       "hash": "af3bc97aa377a81e",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "c88e0345",
+        "name": "1f7b9a3b",
+        "summary": "8b437fdf",
+        "description": "c7269bc4",
+        "outcome": "78c8b454",
+        "status": "2df7148b",
+        "era": "18381e19",
+        "location": "c3667e37",
+        "date": "a1f207ea"
+      }
     },
     "baldi_schoolhouse_ghost_brick_insertion": {
       "hash": "fee6dcfd521fe895",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "6b8d121a",
+        "name": "f5044b03",
+        "summary": "6fa8a9c9",
+        "description": "d5dd50e6",
+        "outcome": "1039a4db",
+        "status": "0c3c60bc",
+        "era": "7104e007",
+        "location": "9f3fd943",
+        "date": "7ed2ecab"
+      }
     },
     "black_crystal_item": {
       "hash": "9d6e0eb597565536",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "name": "9c083d75",
+        "summary": "0187b67b",
+        "description": "3b112971",
+        "date": "61112fe2"
+      }
     },
     "bones_alpine_bank_eavesdropping_and_inn_refuge": {
       "hash": "0bce586e37d9d245",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "80682136",
+        "name": "9c30d48a",
+        "summary": "22718949",
+        "description": "dbc994c7",
+        "outcome": "1f64214a",
+        "location": "b3f2528e",
+        "date": "9e282b3c"
+      }
     },
     "bones_alpine_flight_goblin_camp_and_legion_wall": {
       "hash": "e722d46acd139fde",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "d726d3f2",
+        "name": "23d3d8a4",
+        "summary": "0bf0fe65",
+        "description": "2231c4b9",
+        "location": "6b765d2f",
+        "date": "253dd274"
+      }
     },
     "campaign_songs_archive": {
       "hash": "5d166bff07000054",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "18f1dcad",
+        "name": "43daeb48",
+        "summary": "aeb9ff27",
+        "description": "7940a733",
+        "status": "2ba775a1",
+        "era": "a897b8f8",
+        "location": "b2193ebd",
+        "date": "c4815200"
+      }
     },
     "chaos_heart_crisis": {
       "hash": "3ad7ca4dde076989",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "2b2e6033",
+        "name": "18b10f7f",
+        "summary": "86b66645",
+        "description": "f4301438",
+        "outcome": "15df1b72",
+        "status": "670ac81e",
+        "era": "a251c543",
+        "location": "186e2735",
+        "date": "0d588456",
+        "imageCaption": "a6bc21d7"
+      }
     },
     "charred_note_at_waluigis_door": {
       "hash": "25c419a08a3de086",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "f5ed554b",
+        "name": "d479c04e",
+        "summary": "ff3971db",
+        "description": "34ba056d",
+        "outcome": "f6c2d6a4",
+        "status": "9d32f026",
+        "era": "5c388a8e",
+        "location": "efcb7d7e",
+        "date": "345c257b"
+      }
     },
     "clockwork_spire_expedition_chillwind_963": {
       "hash": "1380c7f00d0efc88",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "f9ae5996",
+        "name": "7f7e8614",
+        "summary": "22a51be8",
+        "description": "a7364ddf",
+        "outcome": "4cd06440",
+        "status": "4c8869b8",
+        "era": "ce023961",
+        "location": "8e9daf6c",
+        "date": "8bccfdd3"
+      }
     },
     "collapse_of_blackfen_pass": {
       "hash": "958da0de74cf6521",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "4e1b2979",
+        "name": "8080a700",
+        "summary": "0827ec0f",
+        "description": "0ef3e33c",
+        "status": "7965b62f",
+        "era": "ceb4346c",
+        "location": "06a6e755",
+        "date": "0cd3b736"
+      }
     },
     "dinner_climax_vote": {
       "hash": "3e87d3cc660c1fbb",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "7fffd8c8",
+        "name": "0580a955",
+        "summary": "d43e491d",
+        "description": "f0546618",
+        "outcome": "0866c708",
+        "status": "0fcd223d",
+        "era": "a521626c",
+        "location": "ba6f3f63",
+        "date": "aa15735e",
+        "imageCaption": "e7d22e6f"
+      }
     },
     "disaster_inc_naming_dispute": {
       "hash": "98e61806930b485d",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "fd5020cf",
+        "name": "b707dba9",
+        "summary": "75c301f7",
+        "description": "994eb844",
+        "outcome": "94784b41",
+        "status": "3257f283",
+        "era": "9ed8f268",
+        "location": "3bd3e358",
+        "date": "943dadf1",
+        "imageCaption": "4e179e62"
+      }
     },
     "fawful_gala_revelations": {
       "hash": "1daa8851d2654958",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "3c10953c",
+        "name": "15b345b7",
+        "summary": "1503c1d7",
+        "description": "1c30260b",
+        "outcome": "c240535f",
+        "status": "6bcd7e95",
+        "era": "f69a0460",
+        "location": "e807c73e",
+        "date": "0953a7d8",
+        "imageCaption": "a2647563"
+      }
     },
     "fazbear_seven_nights": {
       "hash": "5c84d29815440ac3",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "81585331",
+        "name": "c64865d1",
+        "summary": "1db2fc2d",
+        "description": "00e10467",
+        "sections": "aa38438f",
+        "outcome": "18d51e01",
+        "status": "96bcc50e",
+        "era": "e2ca0a7d",
+        "location": "9ec4ea7b",
+        "date": "c901b449"
+      }
     },
     "feyward_amnesia_vines_morel_steely": {
       "hash": "1adaa014cb8f8654",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "b32843f2",
+        "name": "bbfab8f8",
+        "summary": "301687c9",
+        "description": "c8989fc3",
+        "outcome": "a8f2e0cb",
+        "status": "96401337",
+        "era": "b5fa70c4",
+        "location": "44526b43",
+        "date": "c7a2eff2"
+      }
     },
     "feyward_battalion_of_six_and_the_bait_plan": {
       "hash": "52acb7d0b645007c",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "7f4edca1",
+        "name": "c600bfb6",
+        "summary": "7af22f88",
+        "description": "fab9f81c",
+        "sections": "8d1b5842",
+        "outcome": "fbb255fa",
+        "status": "969edc4a",
+        "era": "cc542fd4",
+        "location": "f6d772f1",
+        "date": "65795213"
+      }
     },
     "feyward_chop_bros_soul_ring_and_the_guard_with_no_name": {
       "hash": "73aa264fe00f87c5",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "eb21d85f",
+        "name": "a3f8f43d",
+        "summary": "cedaad0a",
+        "description": "58b0311f",
+        "sections": "c1e5a874",
+        "outcome": "8533c4bc",
+        "status": "8632d9ad",
+        "era": "3952dea6",
+        "location": "3913e849",
+        "date": "f9d98e6e"
+      }
     },
     "feyward_dark_rooms_and_balcony_planning": {
       "hash": "35ba8179038c74d3",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "593dd727",
+        "name": "6bbee88e",
+        "summary": "cad92515",
+        "description": "1a9c382f",
+        "outcome": "ada7ed84",
+        "status": "0d65e872",
+        "era": "49a3f1da",
+        "location": "8a6a75d7",
+        "date": "73267c68"
+      }
     },
     "feyward_i_cant_afford_not_to_care": {
       "hash": "84c8c4b2d9d9ecb0",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "1cf00aee",
+        "name": "31f3dc36",
+        "summary": "5e1830fc",
+        "description": "55f042c9",
+        "sections": "c633b356",
+        "outcome": "4e219a3c",
+        "status": "bada9197",
+        "era": "b43a8ac2",
+        "location": "432e9ce7",
+        "date": "abd81967",
+        "timeCode": "f39ca1b5",
+        "imageCaption": "01572c58"
+      }
     },
     "feyward_library_reclamation_and_the_kitchen": {
       "hash": "afabd16bce5c1d27",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "bfe8d74d",
+        "name": "6d4dd93e",
+        "summary": "d337f722",
+        "description": "25ac6fac",
+        "sections": "59a2d14c",
+        "outcome": "83eafb7d",
+        "status": "bada9197",
+        "era": "f4cfa57e",
+        "location": "68f5f7ee",
+        "date": "1afbfd65",
+        "imageCaption": "70a117dd"
+      }
     },
     "first_bowser_conflict": {
       "hash": "686a0f43d028e9fb",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "cb840881",
+        "name": "de173d4d",
+        "summary": "5dccd725",
+        "description": "696f112a",
+        "outcome": "430ff4e1",
+        "status": "55522cf1",
+        "era": "cea9a5a2",
+        "location": "50fb838d",
+        "date": "9f8da7ea",
+        "imageCaption": "780755c8"
+      }
     },
     "first_month_incidents": {
       "hash": "b617eafca8747776",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "b020d1ee",
+        "name": "c7dc5ba3",
+        "summary": "92cde980",
+        "description": "6f3b8cbd",
+        "outcome": "82c19551",
+        "status": "cf0bb629",
+        "era": "7e3f0534",
+        "location": "2fd95ac7",
+        "date": "25f9a151"
+      }
     },
     "first_snowfall_incident": {
       "hash": "3cdcc9a86ab5567d",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "cfbfb3dd",
+        "name": "f3f0dfbd",
+        "summary": "caeb7931",
+        "description": "68a1d412",
+        "status": "4dc80fab",
+        "era": "0cf6486b",
+        "location": "6300227c",
+        "date": "7705bd63"
+      }
     },
     "fractured_heart": {
       "hash": "7cead1e586d36a80",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "f84d85f8",
+        "name": "12a1547b",
+        "summary": "a0a7c969",
+        "description": "5f6bbd6e",
+        "outcome": "39754fa0",
+        "status": "2817f03e",
+        "era": "3232038b",
+        "location": "94bc28dd",
+        "date": "877d8340"
+      }
     },
     "funeral_of_junimus_gorolini_bongo_jr": {
       "hash": "13f917054ab4d391",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "6c78d307",
+        "name": "6874684b",
+        "summary": "f2f0fa43",
+        "description": "1a3d3eee",
+        "outcome": "e5562300",
+        "status": "1958e40e",
+        "era": "097c176b",
+        "location": "cd6af65e",
+        "date": "0e09a2b2",
+        "imageCaption": "099ff0f5"
+      }
     },
     "glazed_congress_founding": {
       "hash": "de95c24044072677",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "b5c30051",
+        "name": "a22d0ab8",
+        "summary": "2835af3b",
+        "description": "6f68c753",
+        "outcome": "63e68b1c",
+        "status": "a82f55ef",
+        "era": "d2002e32",
+        "location": "8f0a1e95",
+        "date": "fa2893f3",
+        "imageCaption": "1a1531af"
+      }
     },
     "green_t_at_the_door_and_the_scorncrow_underfoot": {
       "hash": "11b1de4451123dc8",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "6d0e77b2",
+        "name": "6d0e77b2",
+        "summary": "addf9eee",
+        "description": "72f8de27",
+        "outcome": "f879d214",
+        "status": "23dba015",
+        "era": "a815e241",
+        "location": "efcb7d7e",
+        "date": "13fe4abb",
+        "timeCode": "4b5aad62",
+        "imageCaption": "41f0c216"
+      }
     },
     "highsun_1_955_bf_the_day_of": {
       "hash": "6ab1691c0f73b335",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "c66de96d",
+        "name": "cc89b0ac",
+        "summary": "21f2e601",
+        "description": "6ab057a9",
+        "outcome": "46ff7a5e",
+        "status": "4d24e0be",
+        "era": "b6bc3220",
+        "location": "24f1ad99",
+        "date": "9bfb0334",
+        "imageCaption": "ff839429"
+      }
     },
     "iron_mandate": {
       "hash": "39071ea609f42701",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "a0d2f05a",
+        "name": "d5f14920",
+        "summary": "94fc1071",
+        "description": "c1c6dc56",
+        "outcome": "2c0ea124",
+        "status": "002a5d26",
+        "era": "3232038b",
+        "location": "131136ab",
+        "date": "4365f4a4"
+      }
     },
     "judgement_in_the_grove": {
       "hash": "79d595eabdab7687",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "a409a5d2",
+        "name": "315bba55",
+        "summary": "fdacf100",
+        "description": "ba96fead",
+        "sections": "6c8d091b",
+        "outcome": "5a69c767",
+        "status": "a8e1fe30",
+        "era": "a815e241",
+        "location": "7cec19b7",
+        "date": "db9e4b4f",
+        "timeCode": "4fc123cd",
+        "imageCaption": "78176e0b"
+      }
     },
     "kaelor_judi_witness_line_and_the_road_to_raventree": {
       "hash": "418a43cca4af7671",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "b50e6f3d",
+        "name": "bd44f94a",
+        "summary": "b91cc409",
+        "description": "b468d11f",
+        "outcome": "507430f4",
+        "status": "85e17184",
+        "era": "9bb1f694",
+        "location": "822323c7",
+        "date": "867a3061",
+        "imageCaption": "5fa69f65"
+      }
     },
     "luigis_mansion_incident": {
       "hash": "390cbbf7e97b4cef",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "c04ca69a",
+        "name": "889375fa",
+        "summary": "0d1d0ea1",
+        "description": "cd7233d1",
+        "outcome": "d0c6e4d2",
+        "status": "7699f9b3",
+        "era": "63fe1cb9",
+        "location": "b5742375",
+        "date": "6aaf7c9a",
+        "imageCaption": "fe67725c"
+      }
     },
     "maglev_express_incident_night_one": {
       "hash": "50a07041a978c2e1",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "9706c93d",
+        "name": "fa2933b9",
+        "summary": "a30c05fc",
+        "description": "b5705e2e",
+        "outcome": "374250f4",
+        "status": "a118ae4b",
+        "era": "1cc258d6",
+        "location": "5f291b4d",
+        "date": "7e7ad455"
+      }
     },
     "mount_ebott_survey_final_log": {
       "hash": "8f084a29dee0f9f7",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "1e2279dd",
+        "name": "1e2279dd",
+        "summary": "5c62fca3",
+        "description": "c64761a1",
+        "sections": "98922a53",
+        "outcome": "b815b6b0",
+        "status": "c8326bfc",
+        "era": "5d647957",
+        "location": "d9332cf9",
+        "date": "c6d8dbd7",
+        "imageCaption": "415a8c96"
+      }
     },
     "mount_ebott_survey_mission": {
       "hash": "3266797a376b5a93",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "7f70d724",
+        "name": "ff1fc2ed",
+        "summary": "6906dd09",
+        "description": "0cba1c91",
+        "outcome": "0782753f",
+        "status": "8c061eaa",
+        "era": "2ab2b46a",
+        "location": "c453e42a",
+        "date": "89b1182c"
+      }
     },
     "mount_ebott_survey_part_2": {
       "hash": "0d1f44ddafb936f3",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "a63a35cb",
+        "name": "f00e9624",
+        "summary": "da4cb031",
+        "description": "aa84ae61",
+        "location": "9e71aa73",
+        "date": "105f9a97"
+      }
     },
     "mount_ebott_survey_part_3": {
       "hash": "acbfae9870eec7ac",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "e3fd8211",
+        "name": "960a1ade",
+        "summary": "f6be9f5c",
+        "description": "6eac7bec",
+        "status": "16abdd7a",
+        "era": "2ab2b46a",
+        "location": "ed9ef0ff",
+        "date": "c2cbf897"
+      }
     },
     "mount_ebott_survey_part_4": {
       "hash": "536ddcfa829a96de",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "c121acca",
+        "name": "a74ad95a",
+        "summary": "8b9fc1e7",
+        "description": "f6e2f0ed",
+        "sections": "5238591c",
+        "outcome": "27998b01",
+        "status": "e2f4d346",
+        "era": "2ab2b46a",
+        "location": "a725a6b6",
+        "date": "54a481db"
+      }
     },
     "mount_ebott_survey_part_5": {
       "hash": "f4283ab6e58d427d",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "272e141d",
+        "name": "d0b84f20",
+        "summary": "b0f0f76b",
+        "description": "4ea44223",
+        "sections": "e04ad079",
+        "outcome": "2f361bbf",
+        "status": "bf0e215b",
+        "era": "2ab2b46a",
+        "location": "2f5f3385",
+        "date": "d57b95b2"
+      }
     },
     "mount_ebott_survey_part_6": {
       "hash": "a721f378f85eb0ee",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "53a65a60",
+        "name": "c4a7eb55",
+        "summary": "42dc5df9",
+        "description": "decb1619",
+        "outcome": "b5792373",
+        "status": "8891b5a8",
+        "era": "2ab2b46a",
+        "location": "7350a0c5",
+        "date": "8375ebc6"
+      }
     },
     "mount_ebott_survey_part_7": {
       "hash": "071d608a4578932c",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "9602e8c0",
+        "name": "9602e8c0",
+        "summary": "527c3847",
+        "description": "6cc5eaf6",
+        "sections": "59de901e",
+        "outcome": "91f5e973",
+        "status": "a147a60e",
+        "era": "59f4c5a7",
+        "location": "2fa4a7c3",
+        "date": "85079247"
+      }
     },
     "national_power_projection": {
       "hash": "2b1e5d760afb5eaf",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "65803346",
+        "name": "766583a8",
+        "summary": "a3b2dc30",
+        "description": "ab814f55",
+        "location": "a7524e92",
+        "date": "878006ab"
+      }
     },
     "order_120": {
       "hash": "98a710d976d04d5d",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "cb90499b",
+        "name": "3109d1fe",
+        "summary": "7d5ce9a9",
+        "description": "9c0181b2",
+        "outcome": "680c3c64",
+        "status": "9d6f8d62",
+        "era": "3232038b",
+        "location": "4e653417",
+        "date": "090ac3bd"
+      }
     },
     "overgrown_manor_campaign": {
       "hash": "fa195047047bf062",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "976beecd",
+        "name": "af3101e2",
+        "summary": "5224695c",
+        "description": "a9a1bc45",
+        "outcome": "fd5bdc80",
+        "status": "d29b3b36",
+        "era": "e6f0f829",
+        "location": "4b8b1446",
+        "date": "90d6774c",
+        "imageCaption": "ab73dd8c"
+      }
     },
     "planar_fracture": {
       "hash": "0e8b933669198504",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "9c5e08e6",
+        "name": "8ad19d6a",
+        "summary": "4460ee4d",
+        "description": "05817c17",
+        "outcome": "875fca92",
+        "status": "0a071912",
+        "era": "9a4a289d",
+        "location": "b30aa945",
+        "date": "0d6ce19d",
+        "imageCaption": "bdbc3ce2"
+      }
     },
     "pony_halo_concordant_and_crimson_veil": {
       "hash": "0b5d6c3e40819c82",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "58b436ef",
+        "name": "c30df557",
+        "summary": "c68d059a",
+        "description": "ad002066",
+        "outcome": "2a25b2d1",
+        "status": "5971b010",
+        "era": "7e3f0534",
+        "location": "1e2c9cb2",
+        "date": "38da2f82"
+      }
     },
     "portal_artifacts_collection": {
       "hash": "5bbb4b529b1278c1",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "1ee352af",
+        "name": "5279a667",
+        "summary": "5e47c2e1",
+        "description": "bc324efa",
+        "date": "f0a71df1"
+      }
     },
     "promo_mario_newspaper": {
       "hash": "f974e6e5f9619cc3",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "dbd0bfb3",
+        "name": "58727322",
+        "summary": "3393cc3c",
+        "description": "edd5a13b",
+        "outcome": "2d10da1d",
+        "status": "b3a913e3",
+        "era": "a56a3ef7",
+        "location": "d6e622bb",
+        "date": "a5f6a9f4",
+        "revisions": "df9963ac",
+        "imageCaption": "bd2c0c20"
+      }
     },
     "remi_birthday_12_Harvestside_ghost_gallery_climb": {
       "hash": "9471a1bf01a98e6f",
       "firstSeen": 1,
       "lastChanged": 2,
-      "revision": 2
+      "revision": 2,
+      "fields": {
+        "title": "4b0845e1",
+        "name": "73f52119",
+        "summary": "a9b8da12",
+        "description": "3739a03f",
+        "outcome": "8beb570b",
+        "status": "f587891c",
+        "era": "7fc08704",
+        "location": "3cc18a6c",
+        "date": "433a8dff",
+        "imageCaption": "e5b30a6e"
+      }
     },
     "remi_shadeward_arc": {
       "hash": "e21c7329a12de500",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "72460b8c",
+        "name": "f20128fd",
+        "summary": "9df57024",
+        "description": "164d7a63",
+        "outcome": "b582bdca",
+        "status": "29b6efca",
+        "era": "9a4a289d",
+        "location": "cf2a8e4b",
+        "date": "2aac4f00"
+      }
     },
     "ruined_manor_convergence": {
       "hash": "19d219572fca81cd",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "8bedf5fa",
+        "name": "784ff30d",
+        "summary": "125aea15",
+        "description": "54257e0f",
+        "outcome": "287b789d",
+        "status": "e0ab1c23",
+        "era": "94cbc419",
+        "location": "dc49c543",
+        "date": "1de1c521",
+        "imageCaption": "ca1ead84"
+      }
     },
     "ruins_of_the_battlefield_blight": {
       "hash": "7fe5d4c4e70bb02c",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "9ae6c980",
+        "name": "61820a73",
+        "summary": "f725e615",
+        "description": "f7242fe7",
+        "status": "4dc80fab",
+        "era": "03f35345",
+        "location": "4f930f1b",
+        "date": "13fffa62"
+      }
     },
     "sarasaland_incident_1033": {
       "hash": "d6144a559ef1f69f",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "13e6017d",
+        "name": "3403a96a",
+        "summary": "079ff7f0",
+        "description": "c2a869fa",
+        "outcome": "628fe7bb",
+        "status": "1a59c798",
+        "era": "63fe1cb9",
+        "location": "387cc229",
+        "date": "c3e4e983",
+        "imageCaption": "8727f170"
+      }
     },
     "session_1_dragon_mountain": {
       "hash": "acd88cc0546a5584",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "3da9ad3a",
+        "name": "cd72d054",
+        "summary": "89ed3603",
+        "description": "862543b6",
+        "outcome": "a9f3f893",
+        "status": "7a1accb1",
+        "era": "10d18bc1",
+        "location": "65652722",
+        "date": "9d2c0692",
+        "imageCaption": "221b66af"
+      }
     },
     "session_2_ravencreek_to_swiftsoul": {
       "hash": "93ba43b69a3e218e",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "0df3e9fe",
+        "name": "7d89ae1b",
+        "summary": "69fb719f",
+        "description": "7f437e32",
+        "outcome": "aa295d90",
+        "status": "f3fe1b68",
+        "era": "17ded545",
+        "location": "b4ffe701",
+        "date": "4530d0c6",
+        "imageCaption": "85d5469b"
+      }
     },
     "shadeward_arc": {
       "hash": "a592a4ad49d1b6ef",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "917249fd",
+        "name": "cea1ffef",
+        "summary": "b159ddb3",
+        "description": "aa9e5b2b",
+        "outcome": "b9ec0084",
+        "status": "935e4fab",
+        "era": "9a4a289d",
+        "location": "c66dcabf",
+        "date": "5cd02a4c"
+      }
     },
     "shadow_estate_campaign": {
       "hash": "8e6349a1d8cc8b67",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "4a2d2fba",
+        "name": "95c5515e",
+        "summary": "c3745f3e",
+        "description": "0cfd295f",
+        "outcome": "024d6c09",
+        "status": "a5f7bd5d",
+        "era": "a521626c",
+        "location": "6c5b87a5",
+        "date": "8ed78fe6"
+      }
     },
     "shadow_estate_mirror_rooftop_escape": {
       "hash": "c35ccb825641c22c",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "83f673db",
+        "name": "4cd491b1",
+        "summary": "d3cda461",
+        "description": "732327a8",
+        "outcome": "be375bce",
+        "status": "51518d37",
+        "era": "2b69c3bd",
+        "location": "f4844054",
+        "date": "df012afc",
+        "imageCaption": "85be05cb"
+      }
     },
     "shadow_estate_session_Harvestside_14_continued": {
       "hash": "81d6a623525b3c5e",
       "firstSeen": 1,
       "lastChanged": 2,
-      "revision": 2
+      "revision": 2,
+      "fields": {
+        "title": "a6f88adf",
+        "name": "afc20c02",
+        "summary": "3cd3119f",
+        "description": "99c2055b",
+        "outcome": "b9b017c8",
+        "status": "22504a44",
+        "era": "a521626c",
+        "location": "d4aa6a0b",
+        "date": "f253fe05"
+      }
     },
     "shadow_estate_session_Harvestside_14_full": {
       "hash": "27797ec4e3819fdb",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "f797b04b",
+        "name": "489de99d",
+        "summary": "b6049ba5",
+        "description": "c04e9744",
+        "outcome": "cead964a",
+        "status": "3f946131",
+        "era": "a521626c",
+        "location": "a408eaec",
+        "date": "cfbda49d"
+      }
     },
     "shadow_estate_session_Harvestside_8": {
       "hash": "005655581169a7fe",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "3922b1e5",
+        "name": "0c5e336a",
+        "summary": "76e37f9a",
+        "description": "615c7914",
+        "outcome": "464b5c9d",
+        "status": "d106c428",
+        "era": "a521626c",
+        "location": "27d5a4dd",
+        "date": "8f7c72e6"
+      }
     },
     "shadow_estate_spotlight_cookie_cottage": {
       "hash": "31b6fa1f5f848cbf",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "b6ae970e",
+        "name": "79b7c1c8",
+        "summary": "2ae24eb3",
+        "description": "336c5f1a",
+        "outcome": "46b61258",
+        "status": "43aa5265",
+        "era": "da68fa24",
+        "location": "93d46bdb",
+        "date": "cfbda49d"
+      }
     },
     "shadow_maze_encounter": {
       "hash": "4e6a052a8e893235",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "997c2ec3",
+        "name": "12469f62",
+        "summary": "df52186b",
+        "description": "eacd975c",
+        "status": "4dc80fab",
+        "era": "904ee23a",
+        "location": "6ca11804",
+        "date": "436031df"
+      }
     },
     "shadow_pass_siege_728_bf": {
       "hash": "9f130eadfc8e345e",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "92281140",
+        "name": "693b7c52",
+        "summary": "8c23d7d3",
+        "description": "dcb65d8e",
+        "status": "4dc80fab",
+        "era": "24e1fb8c",
+        "location": "fd40c01d",
+        "date": "07e2371b"
+      }
     },
     "shadowfell_birthday_trap_tanuki": {
       "hash": "7065e57a63107719",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "70cc3543",
+        "name": "96c46b70",
+        "summary": "5c9f43a2",
+        "description": "072191b5",
+        "outcome": "38b750dc",
+        "status": "a31851bd",
+        "era": "9a4a289d",
+        "location": "42eab4e0",
+        "date": "4ca5ce7b"
+      }
     },
     "shattering_shadow_anchor": {
       "hash": "a66402f506619c95",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "c7225116",
+        "name": "6f512d1e",
+        "summary": "4bce97a8",
+        "description": "d2e3427b",
+        "outcome": "df753997",
+        "status": "79c8cd37",
+        "era": "a521626c",
+        "location": "27de9ec4",
+        "date": "e51e57ca",
+        "imageCaption": "44808263"
+      }
     },
     "shroob_temporal_incursion": {
       "hash": "592f0560d97ab5b6",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "e062c2f3",
+        "name": "a4fcc1e3",
+        "summary": "a180bd19",
+        "description": "20ba00cd",
+        "outcome": "48906ba2",
+        "status": "02f1d51c",
+        "era": "34b3666a",
+        "location": "e72a48e6",
+        "date": "6626f832"
+      }
     },
     "skirmish_mazebound": {
       "hash": "82a9145fd888a749",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "908c7e83",
+        "name": "38cd13f3",
+        "summary": "8ee9247e",
+        "description": "c5c4ee72",
+        "outcome": "2c3a2d2e",
+        "status": "924b9fa2",
+        "era": "a521626c",
+        "location": "4b2eb334",
+        "date": "e02c2237",
+        "imageCaption": "0545defe"
+      }
     },
     "star_fountain_reunion": {
       "hash": "fb4ba3d7feaa4bb3",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "9b3fb165",
+        "name": "5f3d08db",
+        "summary": "22d0a481",
+        "description": "79056240",
+        "outcome": "bc626c9b",
+        "status": "5299c7f2",
+        "era": "63a3af0a",
+        "location": "52f88c59",
+        "date": "f611f390",
+        "imageCaption": "b005ab16"
+      }
     },
     "star_shard_caves_tanuki_origin": {
       "hash": "9406d568cf3c4433",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "7843a788",
+        "name": "061d539b",
+        "summary": "6d4647c0",
+        "description": "b2dda843",
+        "outcome": "7fdd6995",
+        "status": "28426438",
+        "era": "7c537f6f",
+        "location": "0e4202b4",
+        "date": "89854a17"
+      }
     },
     "stone_auction": {
       "hash": "bcbc36b17bd02c36",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "b64d8ce7",
+        "name": "4b72a1a5",
+        "summary": "f9c6ae3c",
+        "description": "d07b7997",
+        "outcome": "343aef37",
+        "status": "5108e70f",
+        "era": "9a4a289d",
+        "location": "a6574390",
+        "date": "bdbdb083"
+      }
     },
     "strange_moonlight_incident": {
       "hash": "965ab6f1c325c89a",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "3acc1929",
+        "name": "3446c21d",
+        "summary": "92bff25c",
+        "description": "060500da",
+        "status": "4dc80fab",
+        "era": "e5d0d975",
+        "location": "3979e8c7",
+        "date": "b93b1e4e"
+      }
     },
     "supernatural_sovereignty_act": {
       "hash": "12937974650eaffa",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "ac478b62",
+        "name": "d96fbfa0",
+        "summary": "62a6d74b",
+        "description": "091afff0",
+        "outcome": "4c429137",
+        "status": "10772b1a",
+        "era": "3232038b",
+        "location": "1bc11c64",
+        "date": "8141382d"
+      }
     },
     "the_arrangement": {
       "hash": "d390740288e94d18",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "a4688d46",
+        "name": "86b7433d",
+        "summary": "63dedf50",
+        "description": "3ba14755",
+        "outcome": "45053e52",
+        "status": "bb512379",
+        "era": "e2ff9c1e",
+        "location": "50bbf9a7",
+        "date": "e345d653",
+        "imageCaption": "bb4d2c59"
+      }
     },
     "the_awakening_in_planar_sanctum_and_veins_of_the_tapestry": {
       "hash": "6320cdd30544f921",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "510ae750",
+        "name": "1cbe08f8",
+        "summary": "0493925b",
+        "description": "e5a29979",
+        "location": "dbe0dc73",
+        "date": "e7da3846"
+      }
     },
     "the_beanbean_incident": {
       "hash": "3cd0185d834c0c60",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "8790f3c5",
+        "name": "7e46f889",
+        "summary": "25d00b78",
+        "description": "81a2d762",
+        "outcome": "87544e0d",
+        "status": "8a4fecb5",
+        "era": "63fe1cb9",
+        "location": "bd6f2793",
+        "date": "62861a79",
+        "imageCaption": "b25afee6"
+      }
     },
     "the_belly_of_the_beast": {
       "hash": "9d51265207284792",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "21908347",
+        "name": "a47afd3c",
+        "summary": "765ef34d",
+        "description": "5659d329",
+        "sections": "e1528452",
+        "outcome": "be10f045",
+        "status": "94289c72",
+        "era": "a815e241",
+        "location": "34b8912b",
+        "date": "44718aca",
+        "timeCode": "89bda207",
+        "imageCaption": "f16ebbbe"
+      }
     },
     "the_blorbs_crisis": {
       "hash": "048693a911cfd04a",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "8ad9b833",
+        "name": "9625dada",
+        "summary": "c27f97f1",
+        "description": "8e353032",
+        "outcome": "42551da1",
+        "status": "ee629b77",
+        "era": "270d638f",
+        "location": "a2f57aeb",
+        "date": "26a2294b",
+        "imageCaption": "83414e0e"
+      }
     },
     "the_box_guardian_sharpie_disguise_and_the_soot_barrel": {
       "hash": "94df4f1035f46204",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "f272cc1c",
+        "name": "f272cc1c",
+        "summary": "f79f50da",
+        "description": "1fd64e09",
+        "sections": "5dbf307d",
+        "outcome": "ae14cea6",
+        "status": "a147a60e",
+        "era": "59f4c5a7",
+        "location": "bb3f9874",
+        "date": "5f0d6295"
+      }
     },
     "the_conductors_mutiny": {
       "hash": "40474799c57182d6",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "00633c4b",
+        "name": "edfd2ac2",
+        "summary": "0aec77fc",
+        "description": "718ba034",
+        "outcome": "4bf9107e",
+        "status": "0f839b16",
+        "era": "ff1fc2ed",
+        "location": "3c72b961",
+        "date": "5f0d6295",
+        "imageCaption": "930c8aa5"
+      }
     },
     "the_dread_mansion_incursion": {
       "hash": "088adc31a6d974a0",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "23eac0b9",
+        "name": "2284a186",
+        "summary": "3ad87026",
+        "description": "fda8ec76",
+        "sections": "9974b12e",
+        "outcome": "c4aa54b0",
+        "status": "81004a43",
+        "era": "27c07126",
+        "location": "1cef6ddc",
+        "date": "a99cf70f",
+        "imageCaption": "3d4351b1"
+      }
     },
     "the_eastern_passage": {
       "hash": "58e254d671258e8b",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "458b0b87",
+        "name": "f262cb08",
+        "summary": "f5a587b7",
+        "description": "421141c6",
+        "outcome": "f33ab003",
+        "status": "f454dfa7",
+        "era": "249f5021",
+        "location": "71fc176d",
+        "date": "7b96abe7",
+        "imageCaption": "6a15385e"
+      }
     },
     "the_embassy_ambush_and_luigi_interrogation": {
       "hash": "055ebebc8674fdb8",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "8c42fc97",
+        "name": "b99c9113",
+        "summary": "77db6c60",
+        "description": "d2995d65",
+        "status": "5bb47b90",
+        "era": "30536f43",
+        "location": "da10ed1b",
+        "date": "fa277973",
+        "timeCode": "b1651107"
+      }
     },
     "the_estragon_island_incident": {
       "hash": "96a709c674aa6e09",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "2263185c",
+        "name": "061fff88",
+        "summary": "e67dc6c3",
+        "description": "2ebe59fc",
+        "outcome": "01d8319e",
+        "status": "16e3e10f",
+        "era": "6c524214",
+        "location": "7407c532",
+        "date": "39a20ba5",
+        "imageCaption": "c9db2d01"
+      }
     },
     "the_fawthful_narrative_failure": {
       "hash": "da3b409601f60c00",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "bca0e12f",
+        "name": "a843ebd2",
+        "summary": "e8d2ad70",
+        "description": "33433891",
+        "outcome": "4b972d27",
+        "status": "cf10c442",
+        "era": "229fbc8f",
+        "location": "bbeeb7e1",
+        "date": "7fe57e68",
+        "imageCaption": "d2956536"
+      }
     },
     "the_feyward_revel_and_the_book_of_many_things": {
       "hash": "afd3e584e5f01c76",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "cc7b0a83",
+        "name": "b1dd42b3",
+        "summary": "6e580cd5",
+        "description": "749e3230",
+        "outcome": "9e179de8",
+        "status": "ed3e3e4a",
+        "era": "fbe89c3d",
+        "location": "4b3a40c4",
+        "date": "7d016bc2",
+        "imageCaption": "85fec4ac"
+      }
     },
     "the_feyward_revel_crisis_poison_plants_and_frozen_diplomacy": {
       "hash": "8c39ce411deb78ea",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "2277a1f6",
+        "name": "247b7cc0",
+        "summary": "05c40f89",
+        "description": "03b2f6d2",
+        "outcome": "9eebd67f",
+        "status": "25d995ac",
+        "era": "a27fc1b3",
+        "location": "2007ddb6",
+        "date": "c5b90158",
+        "imageCaption": "5cad5ece"
+      }
     },
     "the_garden_above_the_fire": {
       "hash": "646103cba8557cfa",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "2a762c15",
+        "name": "a5793cf2",
+        "summary": "0bde1e70",
+        "description": "253b687c",
+        "sections": "ffad756a",
+        "outcome": "8ed2a614",
+        "status": "6c6dce6a",
+        "era": "30536f43",
+        "location": "4ef43d2f",
+        "date": "733a33d0",
+        "timeCode": "b1651107",
+        "imageCaption": "36bd3d2c"
+      }
     },
     "the_grove_of_woe_incident": {
       "hash": "896f01d7738d954f",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "c9756a06",
+        "name": "bfbf73db",
+        "summary": "2b9aa0af",
+        "description": "93c55a9d",
+        "outcome": "5c4588e4",
+        "status": "dcdbc7d7",
+        "era": "771f84de",
+        "location": "16f79dd5",
+        "date": "a4168104",
+        "imageCaption": "b9b82111"
+      }
     },
     "the_hag_of_ferngrove_manor": {
       "hash": "23fa29dc05ef5d93",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "3dd7dc86",
+        "name": "9b1093f7",
+        "summary": "0dc54ca5",
+        "description": "b641bbd7",
+        "outcome": "0754368a",
+        "status": "238973bb",
+        "era": "bee7ae9b",
+        "location": "2bb6fd24",
+        "date": "5bf30c36"
+      }
     },
     "the_hanging_tree_apple_mirror_theft_and_invited_vampire": {
       "hash": "27f1d03a2c1da998",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "dc885408",
+        "name": "dc885408",
+        "summary": "7de55807",
+        "description": "02c8f961",
+        "outcome": "ae156062",
+        "status": "97e5d942",
+        "era": "59f4c5a7",
+        "location": "efcb7d7e",
+        "date": "009cc675",
+        "timeCode": "7d03abb3",
+        "imageCaption": "782fc1c8"
+      }
     },
     "the_imp_ambush_aftermath_and_kyrn_cell_escape": {
       "hash": "4bebffef9409b0a8",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "c2ffdbd7",
+        "name": "c2ffdbd7",
+        "summary": "eefcd2af",
+        "description": "879bd6e5",
+        "outcome": "bb326fe2",
+        "status": "b5da14e4",
+        "era": "3d0fef21",
+        "location": "063575ec",
+        "date": "6a253593",
+        "imageCaption": "8826f564"
+      }
     },
     "the_imp_ambush_of_harvestide_29": {
       "hash": "dc0e111c76a5b823",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "255c48b3",
+        "name": "2b8d3f1d",
+        "summary": "b32484d8",
+        "description": "194fa528",
+        "outcome": "ee9707e5",
+        "status": "ec94b00b",
+        "era": "d7a12a63",
+        "location": "88fa8ebf",
+        "date": "9e282b3c"
+      }
     },
     "the_lava_bridge_ambush_and_the_blue_luigi": {
       "hash": "14417e2ac9f5d7c7",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "baf23dbc",
+        "name": "560c450f",
+        "summary": "f91e6851",
+        "description": "f56ed503",
+        "sections": "f31c5e55",
+        "outcome": "d31f436c",
+        "status": "f80b56f8",
+        "era": "30536f43",
+        "location": "4461629e",
+        "date": "d1b8a2f0",
+        "timeCode": "b1651107",
+        "imageCaption": "414c095d"
+      }
     },
     "the_long_dark": {
       "hash": "9af71ab84f26fa70",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "aded8bfa",
+        "name": "5b4dd9b4",
+        "summary": "242659d9",
+        "description": "ddea35b0",
+        "outcome": "9b8bb584",
+        "status": "d3fd9011",
+        "era": "1a23ee74",
+        "location": "0a3ee6a4",
+        "date": "1618c51e",
+        "imageCaption": "681d2675"
+      }
     },
     "the_lounge_incident_and_the_paper_war": {
       "hash": "e89f6cb6452f5045",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "1e7e0d86",
+        "name": "eff4ba4b",
+        "summary": "261fb86a",
+        "description": "120bc4fd",
+        "outcome": "df35c636",
+        "status": "0c657261",
+        "era": "c40a8a38",
+        "location": "acbce2ce",
+        "date": "8c25913b",
+        "imageCaption": "06517b32"
+      }
     },
     "the_medical_extortion_incident": {
       "hash": "22167d439f739e81",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "37c6148c",
+        "name": "9e610087",
+        "summary": "fe946c9b",
+        "description": "9e1d030a",
+        "outcome": "6bcc1d2e",
+        "status": "2970cb39",
+        "era": "9a4a289d",
+        "location": "28292f65",
+        "date": "063ac920",
+        "imageCaption": "7e9d9684"
+      }
     },
     "the_midnight_audit_of_harvestide_28": {
       "hash": "16a55cf575963aec",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "53c03685",
+        "name": "a1501025",
+        "summary": "2838721c",
+        "description": "ddab3136",
+        "outcome": "243d4460",
+        "status": "192b9db6",
+        "era": "d7a12a63",
+        "location": "796b1ac1",
+        "date": "c34883ea"
+      }
     },
     "the_mount_ebot_expedition": {
       "hash": "6652c104b433f663",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "276a1398",
+        "name": "98e51220",
+        "summary": "4c5485f9",
+        "description": "e15a5d71",
+        "sections": "cf896616",
+        "outcome": "df44438a",
+        "status": "b8d18e2c",
+        "era": "e19a6dea",
+        "location": "12445853",
+        "date": "b3ce60d8",
+        "imageCaption": "213ff21f"
+      }
     },
     "the_mount_ebot_expedition_part_2": {
       "hash": "eba5cbbf982a7f62",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "64551210",
+        "name": "64551210",
+        "summary": "6e1a23a5",
+        "description": "248ede98",
+        "sections": "16d3fe39",
+        "outcome": "6b9cb5f3",
+        "status": "95f055e2",
+        "era": "e19a6dea",
+        "location": "2c859a4a",
+        "date": "f3221f38",
+        "imageCaption": "3f0a8ff2"
+      }
     },
     "the_neighbor_incident": {
       "hash": "55e4223bf4cbb514",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "e2e60e43",
+        "name": "b91df3dc",
+        "summary": "e64e7334",
+        "description": "685d64c8",
+        "outcome": "dec6e73c",
+        "status": "5f64ee93",
+        "era": "1d145c49",
+        "location": "7a67f869",
+        "date": "ba014f04"
+      }
     },
     "the_planar_sanctum_revelation": {
       "hash": "705bedc725b27a7f",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "efbb5395",
+        "name": "da781036",
+        "summary": "a3518679",
+        "description": "bb188a51",
+        "outcome": "e1332920",
+        "status": "40c8d76e",
+        "era": "9a4a289d",
+        "location": "f8ea56b9",
+        "date": "881df855",
+        "imageCaption": "0edd3109"
+      }
     },
     "the_scorncrow_skirmish": {
       "hash": "57a3b7478b4a4717",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "62284488",
+        "name": "be56c5b6",
+        "summary": "d4664f47",
+        "description": "a41bac37",
+        "sections": "eb775bf6",
+        "outcome": "f4e869b0",
+        "status": "e30c7615",
+        "era": "a815e241",
+        "location": "e3191865",
+        "date": "3aabf4f7",
+        "timeCode": "6cd16347",
+        "imageCaption": "784f8b65"
+      }
     },
     "the_shadeward_ritual": {
       "hash": "d8b8ba5d24014a97",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "19706a71",
+        "name": "15b6bdd3",
+        "summary": "0b40c2c2",
+        "description": "d5f72725",
+        "outcome": "d9bb477a",
+        "status": "f03f1cd8",
+        "era": "9a4a289d",
+        "location": "21b672a2",
+        "date": "881df855",
+        "imageCaption": "bc09cffd"
+      }
     },
     "the_tape_and_the_wario_files": {
       "hash": "0956dae93be349f6",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "775f9023",
+        "name": "77eea828",
+        "summary": "7b203985",
+        "description": "ecd6c03a",
+        "sections": "621ed423",
+        "outcome": "c9498c6b",
+        "status": "bada9197",
+        "era": "8a7fd05d",
+        "location": "a2e7113f",
+        "date": "60542c8d",
+        "timeCode": "01223d83",
+        "imageCaption": "56e40cea"
+      }
     },
     "the_telescope_and_the_tennis_match": {
       "hash": "993ee52acd00301b",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "12c40d37",
+        "name": "72c2bfd8",
+        "summary": "dc8df84a",
+        "description": "31f1ce26",
+        "outcome": "85d11798",
+        "status": "2a110630",
+        "era": "ee5478a6",
+        "location": "12d196a7",
+        "date": "b2907759",
+        "imageCaption": "82fb97b5"
+      }
     },
     "the_toad_god_interview_and_the_star_shard": {
       "hash": "8a7c0a72708e2cc6",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "0b42956c",
+        "name": "1707da09",
+        "summary": "0ce1facd",
+        "description": "6333ba4e",
+        "outcome": "66f6e577",
+        "status": "dfa40f5f",
+        "era": "0d68ff00",
+        "location": "503e7459",
+        "date": "af0560b6",
+        "imageCaption": "65fc27f0"
+      }
     },
     "the_tree_of_woe_engagement": {
       "hash": "0e9be8481018d153",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "8583b2bb",
+        "name": "1f68b901",
+        "summary": "f38b6aa4",
+        "description": "d876eadc",
+        "outcome": "366e603c",
+        "status": "975e8b09",
+        "era": "969c4a74",
+        "location": "a75638b8",
+        "date": "f0dcef9c",
+        "imageCaption": "69d042c2"
+      }
     },
     "the_waiting_room_testimony": {
       "hash": "e147a31db33d5b5b",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "d4b53878",
+        "name": "2a427a9f",
+        "summary": "dc4dbc2f",
+        "description": "d29ce4ca",
+        "outcome": "a2e749d4",
+        "status": "fb16d1e1",
+        "era": "98f4b605",
+        "location": "c1b94bf9",
+        "date": "c5df72b3",
+        "imageCaption": "d840b908"
+      }
     },
     "the_wario_method_interview": {
       "hash": "50d11001eef8f027",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "794ecd1a",
+        "name": "e2dd91e6",
+        "summary": "83651c31",
+        "description": "d09dea01",
+        "outcome": "988b8348",
+        "status": "db44945a",
+        "era": "d6c344b9",
+        "location": "0be50893",
+        "date": "2a1dfd1a",
+        "imageCaption": "3a59c128"
+      }
     },
     "thornburys_field_journal": {
       "hash": "da8e6d071cbc2b9d",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "6fc5aee9",
+        "name": "51b195a9",
+        "summary": "53054650",
+        "description": "cc1c3a4a",
+        "sections": "d9a1629f",
+        "location": "775dbbe2",
+        "date": "878006ab"
+      }
     },
     "thornwood_manor_silent_field_dossier": {
       "hash": "2f55fd5577294349",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "1a165fc6",
+        "name": "6e2ab4e7",
+        "summary": "749af82f",
+        "description": "8c8a1008",
+        "outcome": "891995c4",
+        "status": "71467ebc",
+        "era": "db32f957",
+        "location": "a62db771",
+        "date": "9ae9b7cc"
+      }
     },
     "toadsmith_incident": {
       "hash": "379401a0171ad4ed",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "139fea1e",
+        "name": "d6b37cbb",
+        "summary": "6dcc6554",
+        "description": "1a906278",
+        "outcome": "a41a120b",
+        "status": "d25b0335",
+        "era": "7e3f0534",
+        "location": "756143ce",
+        "date": "807255e1"
+      }
     },
     "vivian_corvinarus_corridor_fight": {
       "hash": "24e06722633fb54e",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "75d66562",
+        "name": "cf7051de",
+        "summary": "f16838cd",
+        "description": "5389adbe",
+        "outcome": "0c093130",
+        "status": "2734a199",
+        "era": "a521626c",
+        "location": "c7aa7189",
+        "date": "bb7a86ca",
+        "imageCaption": "c28843a5"
+      }
     },
     "warp_pipe_junction_restricted_city": {
       "hash": "ea9433603016361c",
       "firstSeen": 1,
       "lastChanged": 1,
-      "revision": 1
+      "revision": 1,
+      "fields": {
+        "title": "8c78af21",
+        "name": "62779a02",
+        "summary": "ef3e5984",
+        "description": "12ae32cb",
+        "sections": "8b994aed",
+        "outcome": "14d25504",
+        "status": "e9df510f",
+        "era": "7551227c",
+        "location": "3051348b",
+        "date": "85b1fc2b"
+      }
     }
   }
 }
