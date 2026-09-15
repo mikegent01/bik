@@ -1,0 +1,203 @@
+# Remaster Plan — Portraits, Records, and the Systems That Do Nothing
+
+**Status:** in progress · **Branch:** `arena/01a0a756-bik`
+
+This plan covers a single operator brief with eleven requests. It is written
+before the work so the order is arguable, and each numbered section below ends
+with the commit that closes it.
+
+---
+
+## 0. Ground rules carried from the README
+
+- **Remaster, don't rewrite.** Nothing that works is deleted to make room.
+- **Never describe a known character from scratch** — every portrait
+  regeneration passes the operator's own reference art from
+  `UpdatedMostuptodateplayer/` as the base image.
+- **Never hand-edit a generated file.** Where a generator owns the output, the
+  generator is edited.
+- **No externally hosted art.** Temporary image hosts rot; a dead link in a
+  battle record is a battle record that lies.
+
+---
+
+## 1. The Feyward clock is present tense
+
+**Problem.** The archive treats the Feyward line as a flashback because its
+dates read 722–922 BF while the world clock reads 1040 BF. It is not a
+flashback. Feyward is **stuck** in its own year; the party is experiencing it
+*now*, in session order.
+
+**Fix.** A documented clock rule, not a date rewrite:
+
+- `calendarMeta.json` gains a `pocketClocks` block naming the Feyward clock,
+  the year it is stuck at, and the statement that filings on that clock are
+  **present-tense sessions**, not history.
+- `docs/DATE_FILING_GUIDE.md` gains a short section: *a pocket clock is
+  present*. Tense comes from the session, not from the number.
+
+**Commit:** `docs: the Feyward clock is present tense, not a flashback`
+
+---
+
+## 2 & 6. Portraits — two files per character, from the operator's own art
+
+**Problem.** The archive has one portrait per character, sized for a web card,
+and several of the main cast are drawn from art that predates the players'
+current designs. Markop in particular has been rendered as a two-legged human;
+he is a **centaur**.
+
+**Fix.** Every main-cast character gets **two** files:
+
+| File | Purpose | Shape |
+|---|---|---|
+| `portraits/player/fullbody/<id>.png` | Foundry VTT token/actor art | Full body, head to feet/hooves, transparent-ish plain field |
+| `portraits/<id>.png` | The website portrait | The same figure, in scene, with background |
+
+Generated from `UpdatedMostuptodateplayer/` as reference — **similar, not
+identical**. Each plate puts the character in the situation their current
+filings place them in (the Feyward overgrowth, the Shadow Estate corridor, the
+Skittering Grove), with pose and kit drawn from the prose rather than copied
+from the reference sheet.
+
+Cast in scope: Remi, Markop, Archie, Hjumpik. **Bowser is left alone** — his
+design has not changed.
+
+**Commits:** one per character, so a bad plate can be reverted alone.
+
+---
+
+## 3. Externally hosted images are removed and replaced
+
+Three live offsite links, all on temporary hosts:
+
+| Link | Used by |
+|---|---|
+| `i.postimg.cc/MG5b2QSL/…` | `battles.json`, `battlefield.js` — **operator supplied the file**, no generation needed |
+| `i.postimg.cc/pLtSY4J6/ageis-command.jpg` | `locations.json` — Aegis Command |
+| `i.postimg.cc/9fyFgv6b/afternatg.png` | `locations.json` |
+
+Plus two dead `i.imgur.com` icons in `shop-items/items_world_generated.js`.
+
+**Fix.** The supplied file is committed to the repo and wired; the other two
+are regenerated locally from the surrounding record's prose; the imgur icons
+fall back to the local icon set. Then a checker so this cannot recur.
+
+**Commit:** `fix: no externally hosted art in the archive`
+
+---
+
+## 4. Dynasties and Bloodlines earn their page
+
+**Problem.** `DYNASTY_SYSTEM` is a large, good dataset that touches nothing.
+A character record does not know what house it belongs to, and the Intel Board
+scores confidence in secrets that no record reads.
+
+**Fix (this pass).** Make the link bidirectional and visible in the data:
+
+- `characters.json` records gain a `dynasty` field (`{ house, branch,
+  memberId, standing }`) for everyone the dynasty archive already names.
+- The character page renders a **House** panel: sigil, motto, seat, the
+  member's position in the line, and the secrets the party's current intel
+  score has actually unlocked.
+- The dynasty page renders the reverse: which houses have *filed characters*,
+  linked.
+
+**Deferred and argued, not built:** the tablet. See §11.
+
+**Commit:** `feat: dynasties reach characters.json and render on the record`
+
+---
+
+## 5. Conflicts and Major Battle Records
+
+**Problem.** Both render as a flat grid of truncated cards inside the
+Battlefield Layer panel — 9 conflicts and 51 battles as identical tiles with a
+190-character clipped blurb and no sense of which war a battle belongs to.
+
+**Fix.** Battles group **under their conflict**. A conflict card becomes a
+front: status, belligerents, the battles filed under it with their outcome
+chips, and a casualty/outcome roll-up computed from the records rather than
+asserted. Unattached battles collect in an "Unassigned" block, which is a
+worklist rather than an embarrassment.
+
+**Commit:** `feat: battles file under their conflict`
+
+---
+
+## 7. More fronts than the Mushroom Kingdom
+
+**Problem.** The Mushroom Kingdom and the Regal Empire carry the campaign. The
+atlas already holds regions with filed lore, faction data and open threads
+that no session has opened.
+
+**Deliverable:** a written shortlist — `docs/worklists/OPEN_FRONTS.md` — of
+regions the archive can already support, each with what is filed, what thread
+is dangling, and the first session hook. Options, not a decision.
+
+**Commit:** `docs: candidate fronts outside the Mushroom Kingdom`
+
+---
+
+## 8. The investigation system, explained like you are five
+
+**Problem.** `docs/INVESTIGATIONS.md` opens with a migration argument and a
+schema. A reader who has never seen the system does not learn what an
+investigation *is*, what a DC does, or why a roll happens once.
+
+**Fix.** The guide is re-shaped: a plain-language opening ("what this is, in
+one minute"), a worked example that follows one real exhibit from paper to
+analysis, then the schema — which is reference material and belongs last. The
+in-app blurbs on `#/investigations` get the same treatment.
+
+**Commit:** `docs: rewrite the investigations guide for a first-time reader`
+
+---
+
+## 9. Hide `+0`
+
+Standing and reputation factor chips print every factor including the ones
+contributing nothing, so a neutral faction shows four `+0` chips and a formula
+of zeroes. Zero-valued factors are dropped; if every factor is zero the row
+says so once in words.
+
+**Commit:** `fix: hide zero-valued factors in standing and the matrix`
+
+---
+
+## 10. Faction banners
+
+Nine faction banners exist; twenty-two factions are filed. Generate square
+banner plates for the factions that have none, wire them to the faction
+record, and check coverage.
+
+**Commit:** `feat: faction banner sheets`
+
+---
+
+## 11. Faiths & Doctrinal Tension CSS — and the tablet idea
+
+The `#/faiths` index has almost no styling of its own: the compatibility matrix
+is a raw `<table>` with inline `rgba()` on each cell, the group blocks are
+undifferentiated cards, and nothing reads as a *register*. It gets a scoped
+stylesheet following `docs/CSS_STYLE_GUIDE.md` — no invented global classes,
+everything under a `.faiths-*` prefix.
+
+**The tablet (discussion, not work).** The Wahbook sidebar currently mixes
+reference (articles, atlas, calendar) with *operator tools* (shop, bank, XP,
+injuries, translation). Those are different jobs. A "WAHpad" — a tablet shell
+with apps — would let the tools leave the sidebar without being buried:
+
+- **For it:** the sidebar is 40+ links; tools have state (a wallet, a party, a
+  roll history) that a sidebar link cannot express; an app grid is honest about
+  the fact that the shop is a *thing you use*, not a page you read.
+- **Against it:** a second navigation system is a second thing to maintain, and
+  a modal shell breaks deep links unless every app keeps its own route.
+- **The version worth building:** keep the routes exactly as they are, and add
+  the tablet as a *launcher* over them. Nothing moves; the sidebar loses its
+  tool section; every app is still a URL. That is reversible, which the
+  alternative is not.
+
+Filed for a later run.
+
+**Commit:** `feat: Faiths & Doctrinal Tension gets its own stylesheet`
