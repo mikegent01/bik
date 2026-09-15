@@ -5,5 +5,21 @@
   "bfMeaning": "BF is the in-world chronicle designation. Waluigi translates it as 'Before Fracture' in footnotes, but the annalists filed it as sequential — earliest entry is 722 BF, present is 1040 BF, so year numbers increase toward now. Intuition: It's a log number, not a countdown.",
   "daysPerYear": 365,
   "weekdaysPerWeek": 7,
-  "note": "Deepwinter has 35 days to make 365. Rest days are Venerias and Saturias."
+  "note": "Deepwinter has 35 days to make 365. Rest days are Venerias and Saturias.",
+  "pocketClocksNote": "A pocket clock is a place whose year is STUCK while the party lives through it. Its filings are PRESENT-TENSE SESSIONS, not flashbacks or recovered history — the low year number describes where the room is, not when the reading happened. Never sort a pocket-clock filing into the archive's past, and never date one by walking back from currentDate.json: chain it against the prior session on ITS OWN clock. The Material Plane clock in currentDate.json keeps running the whole time.",
+  "pocketClocks": [
+    {
+      "id": "feyward",
+      "name": "The Feyward clock",
+      "realm": "Feywild — the Feyward manor and the Eternal Bloom around it",
+      "stuckAt": 722,
+      "displayYear": "722 BF (Feyward clock)",
+      "laterReadings": [922],
+      "tense": "present",
+      "heldBy": "Lady Aurelian, who is attempting to lock her own timeline down rather than let the Planar Fracture take it",
+      "summary": "Feyward is not a memory the party is reading. It is a room they are standing in, and the room's year stopped. Sessions filed on the Feyward clock are happening NOW in session order, concurrently with Material Plane sessions dated 1040 BF. The party walks between the two and the numbers do not reconcile; that is the horror of the place, not a filing error.",
+      "filingRule": "Date on the Feyward clock, always with the '(Feyward clock)' qualifier, and chain forward from the previous Feyward session. Do not convert to a Material date. Do not label it 'historical', 'recovered', 'backfilled' or 'flashback'.",
+      "materialConcurrency": "Feyward sessions play alongside the Material present. Where a filing needs to state both, write the Feyward date first and note the Material standing in the same line."
+    }
+  ]
 }

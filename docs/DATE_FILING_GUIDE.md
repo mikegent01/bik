@@ -27,6 +27,50 @@ current clock to be correct — it needs to sit where its events happened.
 
 ---
 
+## Pocket clocks — a low year number is not a flashback
+
+**The Feyward filings read `922 BF` and `722 BF`. They are the present.**
+
+Some places in this world have a **stuck year**. The party walks into one, and
+the room's calendar simply does not advance. Feyward is the worked example:
+Lady Aurelian is trying to lock her own timeline down against the Planar
+Fracture, and the Eternal Bloom around the manor has been holding at **722 BF**
+ever since. That is where the room is. It is not when the session happened.
+
+```
+Feyward sessions are PRESENT-TENSE SESSIONS played at the table now,
+concurrently with Material Plane sessions dated 1040 BF.
+The party crosses between the two. The numbers do not reconcile.
+That is the horror of the place, not a filing error.
+```
+
+The failure this prevents is real and has happened: an agent sees `922 BF`,
+decides it is 118 years before the present, and files a live session as
+*recovered history* — sorted into the archive's past, described in the
+retrospective voice, and cut out of the recency feed the players actually read.
+
+### The rules
+
+| Do | Don't |
+|---|---|
+| Date on the pocket clock, with the qualifier: `1 Aethel, 922 BF (Feyward clock)` | Convert it to a Material date |
+| Chain forward from the **previous session on that same clock** | Walk backward from `currentDate.json` |
+| Write it in the same tense as any other session just played | Call it *historical*, *recovered*, *backfilled*, or *a flashback* |
+| Let it show in the home feed as a current filing | Sort it into the archive's past because the number is small |
+
+Where a filing needs both clocks — the Material party is doing something at the
+same time — write the pocket-clock date first and note the Material standing in
+the same line. The existing Battalion of Six filing is the model: *“the Material
+stood in 1040 BF, and the cutting lane outside was having its own night on the
+same clock.”*
+
+The registry of pocket clocks is data, not lore memory:
+`Reputation-Matrix2/data/calendarMeta.json` → `pocketClocks[]`. If a session
+establishes another stuck realm, add it there in the same shape and this rule
+covers it automatically.
+
+---
+
 ## The rule
 
 > **If the log has no date, walk backward through the prior filed events until

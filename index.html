@@ -16352,6 +16352,61 @@ function getHolidayForDay(calId, monthOrdinal, day){
   return list.filter(h=>h.month===monthOrdinal && h.day===day);
 }
 
+/* ---------- pocket clocks ----------
+   A pocket clock is a place whose YEAR IS STUCK while the party lives through
+   it. Feyward is the worked example: Lady Aurelian is holding the Eternal
+   Bloom at 722 BF against the Fracture, and the party is walking around
+   inside it right now.
+
+   This panel used to be three hand-typed divs that said Feyward was "Year 995
+   BF (Fey-Shifted)" and had "diverged back" — a year that appears in no
+   filing, and a framing that reads as a flashback. Both were wrong. The party
+   is THERE. The session is PRESENT. The small number describes where the room
+   is, not when the reading happened.
+
+   The registry is data: calendarMeta.json → pocketClocks[]. Add a stuck realm
+   there and it renders here without touching this function.
+   Filing rules: docs/DATE_FILING_GUIDE.md → "Pocket clocks". */
+function pocketClockPanel(){
+  const meta = DATA.calendarMeta || {};
+  const clocks = Array.isArray(meta.pocketClocks) ? meta.pocketClocks : [];
+  const cur = CUR || {year:1040};
+
+  const material = `<div class="pclock pclock--material">
+    <div class="pclock-head"><span class="pclock-icon">🌍</span><b>The Material clock</b></div>
+    <div class="pclock-year">${esc(formatFullDate(cur.year, cur.monthIndex, cur.day))}</div>
+    <div class="pclock-note">The world clock in <code>currentDate.json</code>. It runs normally and it never stops, including while the party is standing inside a clock that has.</div>
+  </div>`;
+
+  const cards = clocks.map(c=>{
+    const stuck = c.displayYear || (c.stuckAt!=null ? `${c.stuckAt} BF` : 'Unknown');
+    const readings = (c.laterReadings||[]).length
+      ? `<div class="pclock-row"><span>Also filed at</span><b>${esc((c.laterReadings||[]).map(y=>y+' BF').join(', '))}</b></div>` : '';
+    return `<div class="pclock pclock--stuck">
+      <div class="pclock-head"><span class="pclock-icon">⏸️</span><b>${esc(c.name||prettyId(c.id||'clock'))}</b>
+        <span class="pclock-tag">${esc((c.tense||'present').toUpperCase())}</span></div>
+      <div class="pclock-year">${esc(stuck)}</div>
+      <div class="pclock-row"><span>Realm</span><b>${esc(c.realm||'—')}</b></div>
+      ${c.heldBy?`<div class="pclock-row"><span>Held by</span><b>${esc(c.heldBy)}</b></div>`:''}
+      ${readings}
+      <div class="pclock-note">${esc(c.summary||'')}</div>
+      ${c.filingRule?`<div class="pclock-rule"><b>Filing rule</b> ${esc(c.filingRule)}</div>`:''}
+    </div>`;
+  }).join('');
+
+  if(!clocks.length){
+    return `<div class="card mt-12"><div class="section-title" style="margin-top:0">🕰️ Clocks</div>
+      <p class="text-muted">No pocket clocks are registered. The Material clock is the only clock.</p>${material}</div>`;
+  }
+
+  return `<div class="card mt-12 pclock-card">
+    <div class="section-title" style="margin-top:0">🕰️ Clocks — the present is in more than one year at once</div>
+    <p class="text-muted pclock-lede">The party is split across realms whose clocks disagree. <b>Every clock below is the present.</b> A stuck year describes where a room is, not how long ago the session happened — a Feyward filing dated on the Feyward clock is a session played now, alongside the Material sessions dated ${esc(String(cur.year))} BF.</p>
+    <div class="pclock-grid">${material}${cards}</div>
+    <div class="wnote pclock-warn"><b>Do not file a pocket-clock session as history.</b> It is not a flashback, not a recovered record, and not a backfill. Chain it forward from the previous session on its own clock and leave the qualifier in the date. Full rule: <code>docs/DATE_FILING_GUIDE.md</code> → Pocket clocks.</div>
+  </div>`;
+}
+
 function view_calendar(){
   initCalendarState();
   renderSidebar('calendar');
@@ -16668,45 +16723,7 @@ function view_calendar(){
       ${calSelector}
       ${tabBar}
     </div>
-    <!-- 🕰️ Active Campaign Timelines Card -->
-    <div class="card mt-12" style="border-left: 5px solid var(--accent2); background: rgba(255,215,0,0.03);">
-      <div class="section-title" style="margin-top:0">🕰️ Active Campaign Timelines & Team Positions</div>
-      <p class="text-muted" style="font-size:12.5px; margin-bottom:12px;">
-        The party is currently fractured across three distinct dimensional timelines. The calendar renders relative absolute days, but the temporal flow is localized.
-      </p>
-      <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:12px;">
-        <div style="background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; padding:12px;">
-          <div style="display:flex; align-items:center; gap:6px; margin-bottom:6px;">
-            <span style="font-size:18px">🌍</span>
-            <b style="color:#5a9af0; font-size:14px">Real-World Team</b>
-          </div>
-          <div style="font-size:13px; font-weight:bold; margin-bottom:4px;">Date: Aethel 9, 1040 BF</div>
-          <div style="font-size:11.5px; color:var(--muted); line-height:1.4">
-            Active in the Prime Material realm. Operating with standard imperial clockwork and seasonal progressions.
-          </div>
-        </div>
-        <div style="background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; padding:12px;">
-          <div style="display:flex; align-items:center; gap:6px; margin-bottom:6px;">
-            <span style="font-size:18px">🌱</span>
-            <b style="color:#45d99a; font-size:14px">Feyward Team</b>
-          </div>
-          <div style="font-size:13px; font-weight:bold; margin-bottom:4px;">Date: Year 995 BF (Fey-Shifted)</div>
-          <div style="font-size:11.5px; color:var(--muted); line-height:1.4">
-            Navigating the unstable, ancient magic of the Feywild. Time here flows sluggishly and has diverged back to 995 BF.
-          </div>
-        </div>
-        <div style="background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; padding:12px;">
-          <div style="display:flex; align-items:center; gap:6px; margin-bottom:6px;">
-            <span style="font-size:18px">🌑</span>
-            <b style="color:#a67af0; font-size:14px">Shadeward Team</b>
-          </div>
-          <div style="font-size:13px; font-weight:bold; margin-bottom:4px;">Date: 29 Harvestide, 1040 BF</div>
-          <div style="font-size:11.5px; color:var(--muted); line-height:1.4">
-            Trapped in the entropic decay of the Shadow Estate. Currently defending Tymnas's cottage under active imp siege!
-          </div>
-        </div>
-      </div>
-    </div>
+    ${pocketClockPanel()}
     ${mainContent}
     ${localSection}
   `;
