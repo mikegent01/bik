@@ -392,6 +392,18 @@
 .wah-note:last-child{margin-bottom:0}
 .wah-note-head{display:flex;align-items:center;gap:7px;font-size:12.5px;margin-bottom:3px}
 .wah-note-ava{font-size:17px;line-height:1}
+/* The passage a merged margin comment hangs off. */
+.ww-anno-quote{margin:0 0 8px;padding:6px 12px;border-left:3px solid var(--accent);font-style:italic;font-size:13px;color:var(--muted);background:rgba(138,75,255,.06);border-radius:0 8px 8px 0;cursor:pointer}
+.ww-anno-quote:hover{color:var(--text);border-left-color:var(--accent2)}
+.ww-merge-note{margin:10px 0 0;padding:9px 13px;border:1px solid var(--border);border-radius:10px;background:rgba(138,75,255,.10);font-size:12.5px;color:var(--muted);line-height:1.5;cursor:pointer}
+.ww-merge-note:hover{border-color:var(--accent2);color:var(--text)}
+.ww-merge-note b{color:var(--text)}
+.ww-merge-go{color:var(--accent2);font-weight:800;white-space:nowrap}
+/* Portrait avatars in the margins. The emoji version is unchanged; when a
+   face resolves it becomes a small round plate cropped to the eyeline, same
+   bias as the character cards. */
+.wah-note-ava.has-face{width:26px;height:26px;border-radius:50%;overflow:hidden;flex:0 0 26px;display:inline-block;border:1px solid var(--border);background:var(--panel2);vertical-align:middle}
+.wah-note-ava.has-face img{width:100%;height:100%;object-fit:cover;object-position:50% 16%;display:block}
 .wah-note-who{font-weight:700}
 .wah-note-fac{color:var(--muted);font-size:11.5px}
 .wah-note-when{margin-left:auto;color:var(--muted);font-size:11px;white-space:nowrap}
@@ -9115,7 +9127,29 @@ function homeStatusBand(nNew){
     +`<div class="hm-stat${bad?' alarm':''}" onclick="Router.go('#/currencies')"><span class="l">💰 Party purse</span><span class="v">${wallets||'—'} purses${bad?` · ${bad} red debts`:''}</span><span class="s">${bad?'🔴 Debt alarm — the ledger needs you':'debts quiet · ledger balanced'}</span></div>`
     +`<div class="hm-stat" onclick="Router.go('#/reputation')"><span class="l">📈 Faction heat</span><span class="v">${hot?`🔥 ${esc(hot.label)} ${f1(hot.v)}`:'📈 Heat'}</span><span class="s">${cold?`🧊 Coldest: ${esc(cold.label)} ${f1(cold.v)}`:'—'}</span></div>`
     +`<div class="hm-stat" onclick="Router.go('#/reputation')"><span class="l">📣 Loudest margin</span><span class="v">${loud?`${loud.t>=0?'🤝':'🔥'} ${f1(loud.t)}`:'📣 Quiet'}</span><span class="s">${loud?`${esc(loud.op)} → ${esc(loud.label)}`:'no margins yet'}</span></div>`
-    +`<div class="hm-stat" onclick="Router.go('#/list/events')"><span class="l">🆕 New filings</span><span class="v">${nNew?nNew+' fresh':'All caught up'}</span><span class="s">${nNew?'since your last visit':'no new filings'}</span></div>`
+    +(()=>{
+      /* "All caught up" was a lie whenever a session amended older filings
+         instead of adding one. nNew only tracks whether the NEWEST id changed
+         since your last visit, so a pass that revised three existing records
+         and added nothing read as empty. The revision ledger already knows
+         exactly which records were rewritten -- surface it. */
+      let nUpd=0, sample=[];
+      try{
+        const E=(filingLedger().entries)||{};
+        Object.keys(E).forEach(id=>{ if(filingIsUpdated(id)){ nUpd++; if(sample.length<2) sample.push(id); } });
+      }catch(e){}
+      const label=nNew?`${nNew} fresh`:(nUpd?`${nUpd} revised`:'All caught up');
+      let sub='no new filings';
+      if(nNew&&nUpd) sub=`since your last visit · ${nUpd} amended`;
+      else if(nNew) sub='since your last visit';
+      else if(nUpd) sub=sample.map(id=>{
+        const rec=(typeof INDEX!=='undefined'&&INDEX[id])||null;
+        const t=(rec&&rec.item&&(rec.item.title||rec.item.name))||prettyId(id);
+        return String(t).slice(0,34);
+      }).join(' · ')+(nUpd>sample.length?` +${nUpd-sample.length} more`:'');
+      const go=nUpd&&!nNew?"Router.go('#/updates')":"Router.go('#/list/events')";
+      return `<div class="hm-stat" onclick="${go}"><span class="l">🆕 New filings</span><span class="v">${label}</span><span class="s">${esc(sub)}</span></div>`;
+    })()
     +`</div>`;
 }
 function homeOtdList(){
@@ -10338,6 +10372,34 @@ function wahAuthorMeta(id){
   if(WAH_VOICES[id]) return WAH_VOICES[id];
   return null;
 }
+/* Every character now carries a portrait, so a margin remark can show the face
+   of the person making it instead of a generic pen glyph. Author ids in
+   wahnotes.json are short handles (`archie`, `remi`) while characters.json uses
+   full record ids (`archie_miser`, `remi_akamatsu_full_backstory`) -- WAH_ALIASES
+   already holds that mapping for the pin index, so reuse it rather than
+   inventing a second one. Returns '' when nothing resolves, and the caller
+   falls back to the emoji exactly as before. */
+function wahAuthorPortrait(id){
+  if(!id) return '';
+  try{
+    const chars=(DATA&&DATA.characters)||[];
+    const want=[String(id).toLowerCase()].concat((WAH_ALIASES[id]||[]).map(x=>String(x).toLowerCase()));
+    for(const cand of want){
+      const rec=chars.find(c=>c&&String(c.id||'').toLowerCase()===cand);
+      /* A few records point `image` at an off-site URL. assetPath() would
+         prefix those into a broken path, so hand them through untouched. */
+      if(rec&&rec.image) return /^(?:https?:|data:|\/)/i.test(rec.image)?rec.image:assetPath(rec.image);
+    }
+  }catch(e){}
+  return '';
+}
+/* The avatar for a margin remark: portrait when we have one, emoji when not. */
+function wahAvatarHtml(id,emoji){
+  const src=wahAuthorPortrait(id);
+  if(!src) return `<span class="wah-note-ava">${esc(emoji||'🖊️')}</span>`;
+  return `<span class="wah-note-ava has-face"><img src="${esc(src)}" alt="" loading="lazy"`
+    +` onerror="this.closest('.wah-note-ava').classList.remove('has-face');this.outerHTML='${esc(emoji||'🖊️')}'"></span>`;
+}
 /* Everything a routed remark can match on for one record. */
 function wahTagset(articleId){
   const rec=(typeof INDEX!=='undefined'&&INDEX[articleId])||{};
@@ -10410,7 +10472,7 @@ function wahNotesFor(articleId){
 function wahNoteCard(n){
   const meta=wahAuthorMeta(n.authorId)||{};
   const ava=meta.icon||'🖊️', who=n.author||meta.name||prettyId(n.authorId||'anon');
-  return `<div class="wah-note"><div class="wah-note-head"><span class="wah-note-ava">${esc(ava)}</span>`
+  return `<div class="wah-note"><div class="wah-note-head">${wahAvatarHtml(n.authorId,ava)}`
     +`<span class="wah-note-who">${esc(who)}</span>${n.faction?`<span class="wah-note-fac">· ${esc(n.faction)}</span>`:''}`
     +`${n.timestamp?`<span class="wah-note-when">${esc(n.timestamp)}</span>`:''}</div>`
     +`<p class="wah-note-text">${esc(n.text||'')}</p>`
@@ -12349,7 +12411,10 @@ function wwPostBody(p){
 const WW_TYPE_BADGE={
   quote:{g:'🔁',l:'Quoted'}, exhibit:{g:'🗂️',l:'Exhibit'}, image:{g:'🖼️',l:'Image'},
   poll:{g:'📊',l:'Poll'}, thread:{g:'🧵',l:'Thread'}, correction:{g:'✏️',l:'Correction'},
-  ledger:{g:'📋',l:'Ledger'}
+  ledger:{g:'📋',l:'Ledger'},
+  /* Margin comments adapted in from annotations.json. Badged distinctly so a
+     reader can see the remark lives on an article passage, not on the wire. */
+  comment:{g:'💬',l:'Margin'}
 };
 
 function wwPostCard(p,opts){
@@ -12402,6 +12467,7 @@ function wwPostCard(p,opts){
       </div>
       <span class="ww-tone" title="${esc(rx.label)}">${rx.glyph} ${esc(rx.label)}</span>
     </div>
+    ${p._anno&&p._quote?`<blockquote class="ww-anno-quote" onclick="openId('${esc(p._articleId)}')" title="Open ${esc(p._articleName)}">${esc(String(p._quote).slice(0,240))}${String(p._quote).length>240?'…':''}</blockquote>`:''}
     ${wwPostBody(p)}
     ${(p.links&&p.links.length)?`<div class="ww-links">${wwLinkChips(p.links)}</div>`:''}
     ${(p.tags&&p.tags.length)?`<div class="ww-tags">${p.tags.map(t=>`<span class="ww-tag" onclick="_wwState.q='${esc(t)}';view_wahwire()">#${esc(t)}</span>`).join('')}</div>`:''}
@@ -12448,6 +12514,48 @@ function wwSubmitDraft(){
   view_wahwire();
 }
 
+/* ---- the Comment Log is the wire -------------------------------------
+   annotations.json and wahwire/posts.json were two stores doing one job: a
+   named voice reacting to a record, with a faction, a timestamp and a like
+   count. The Comment Log page rendered one, the wire rendered the other, and
+   a reader had to know both existed. These are now one feed.
+
+   The annotations keep their own store and their own page -- nothing is moved
+   or rewritten -- they are adapted into post shape at render time and marked
+   `_anno` so the card can show where the remark actually lives and what
+   passage it hangs off. A reply becomes its own post quoting the passage,
+   because in a feed a thread reads as a conversation rather than a footnote. */
+function wwAnnotationPosts(){
+  const out=[];
+  try{
+    (DATA.annotations||[]).forEach((a,ai)=>{
+      if(!a||!Array.isArray(a.comments)) return;
+      const rec=(typeof INDEX!=='undefined'&&INDEX[a.articleId])||null;
+      const title=(rec&&rec.item&&(rec.item.title||rec.item.name))||prettyId(a.articleId||'');
+      a.comments.forEach((c,ci)=>{
+        if(!c||!c.text) return;
+        out.push({
+          id:`anno-${ai}-${ci}`,
+          author:c.authorId||c.author||'anon',
+          authorName:c.author||'',
+          content:c.text,
+          faction:c.faction||'',
+          likes:Number(c.likes||0),
+          timestamp:c.timestamp||'',
+          type:'comment',
+          links:a.articleId?[{id:a.articleId,label:title}]:[],
+          tags:[],
+          order:900+ai,
+          _anno:true,
+          _quote:a.quote||'',
+          _articleId:a.articleId||'',
+          _articleName:title
+        });
+      });
+    });
+  }catch(e){}
+  return out;
+}
 async function view_wahwire(arg){
   renderSidebar('wahwire');
   const W=await loadWahwire();
@@ -12455,7 +12563,7 @@ async function view_wahwire(arg){
 
   const canon=W.posts.map(p=>({...p}));
   const drafts=wwDrafts().map(p=>({...p,_draft:true}));
-  let all=[...drafts,...canon];
+  let all=[...drafts,...canon,...wwAnnotationPosts()];
 
   if(_wwState.record) all=all.filter(p=>(p.links||[]).some(l=>((l&&typeof l==='object')?l.id:l)===_wwState.record));
   if(_wwState.author) all=all.filter(p=>p.author===_wwState.author);
@@ -18874,6 +18982,12 @@ function view_annotations(mode){
     <div class="card animate-fade-in" style="border-left:4px solid var(--accent2);background:linear-gradient(135deg,rgba(224,180,0,.14),rgba(138,75,255,.08)),var(--panel)">
       <div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › Annotations Hub</div>
       <h1 style="margin:6px 0 4px">💬 Waluipedia Comment Log</h1>
+      <div class="ww-merge-note" onclick="Router.go('#/wahwire')" title="Open these remarks in the wire">
+        📡 <b>These remarks are also on WAHwire.</b> The Comment Log and the wire are one
+        conversation now — every margin comment below appears in the feed, badged
+        “Margin” and carrying the passage it answers. This page keeps the
+        passage-by-passage view; the wire shows it as it happened. <span class="ww-merge-go">Open the wire →</span>
+      </div>
       <p class="text-muted" style="font-size:13.5px">${all.length} annotated passages · ${totalComments} threaded comments · ${totalLikes.toLocaleString()} total likes. Every quote links back into its host article; click a character or faction name to filter the feed.</p>
       <div class="chips mt-10">${filterChips}</div>
     </div>
