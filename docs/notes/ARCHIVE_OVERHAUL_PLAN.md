@@ -214,3 +214,48 @@ data rewrite.
 8. Investigations (item 12), phone/settings (item 9).
 
 Each step commits separately with checks green.
+
+
+---
+
+# Outcome log
+
+Written after the work. What shipped, what changed from the plan, and what was
+deliberately left.
+
+| # | Item | Result |
+|---|------|--------|
+| 1 | majorBattles images | **Declined.** 3 shared ids reuse existing plates; 0 generations. |
+| 1b | Merge the two battle stores | **Declined.** Different schemas, different jobs. |
+| 2 | Battle cards showed VS placeholder | **Fixed.** Two bugs: `battleThumb()` ignored `image`, and the illustrated card was gated on `key==='events'`. |
+| 3 | Multi-view hub for battles | **Shipped**, with battle-specific doors. |
+| 4 | Homepage field plates | **Shipped** for battles (15 → 27 strip items). Factions deferred. |
+| 5 | Release banner | **Shipped**, named from `SITE_UPDATES[0]`. |
+| 6 | Highlight what changed | **Shipped** at field level. |
+| 7 | `(full)` for every region | **Shipped.** 7 groups added, all 24 now have one. |
+| 8 | Midlands → Mushroom Kingdom zoom | **Deferred.** Needs a hotspot table that does not exist. |
+| 9 | Phone mode / settings cog | **Shipped.** Secondary controls behind a cog. |
+| 10 | Merges | **Shipped.** XP+Reputation, Commerce+Bank+Shop. |
+| 11 | Thin Wahbabel / Bros Attacks | **Wahbabel shipped.** Bros Attacks left alone — already grids correctly. |
+| 12 | Investigations overhaul | **Shipped** as an ordering fix. |
+
+## Things worth knowing next time
+
+- **The battle art was invisible for two separate reasons.** Both were
+  renderer gates, not data problems. This is exactly what Rule 00 in the image
+  guide now exists to catch.
+- **Checking before building changed three answers.** majorBattles looked like
+  a duplicate store and is not. Bros Attacks looked thin and is correctly
+  built. The generic hub looked reusable for battles and would have produced
+  five greyed tiles out of six.
+- **`plainSummary` already existed on all 17 investigations.** The fix was
+  moving it above the dense part, not writing anything.
+- **Two generated files were rebuilt with their own tools**, never hand-edited:
+  `provinceCensus.json` (after the new full maps widened it from 15 to 22 maps)
+  and `filing-updates.json` (field-print backfill).
+
+## Still open
+
+- Faction field plates — needs a heraldry/banner art register decision first.
+- Map-to-map zoom hotspots.
+- Sentence-level change highlighting — needs the tracker to store prior text.
