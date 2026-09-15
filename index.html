@@ -6665,7 +6665,7 @@ function recordReputationLede(item, typeKey){
                 : up.length ? 'Gained ground'
                 : down.length ? 'Lost ground' : 'Recorded';
 
-  return `<div class="rep-lede">
+  return `<div class="rep-lede" id="reputation-impact">
     <div class="rep-lede-head">
       <span class="rep-lede-kicker">📈 What this record changed</span>
       <span class="rep-lede-verdict ${up.length&&!down.length?'pos':(down.length&&!up.length?'neg':'mixed')}">${verdict}</span>
@@ -9555,10 +9555,14 @@ function view_list(key){
          art on top, not a thumbnail glued above text. They have no campaign
          colour and no plate-unlock mechanic, so those two decorations are
          simply omitted rather than faked. */
+      /* Battles route through openHub() like events do: 68 of 69 now offer two
+         or more doors, and openHub falls straight through to the article when
+         a record does not. */
+      const openFn=(['events','battles','majorBattles'].includes(key))?'openHub':'openId';
       if(key==='events'||(hasPlate&&(key==='battles'||key==='majorBattles'))){
         const camp=key==='events'?eventCampaign(i):null;
         const plate=(key==='events'&&i.image)?`<span class="ev-plate${plateIsUnlocked(i.id)?' got':''}" title="${plateIsUnlocked(i.id)?'Field plate recovered':'Field plate — read this filing to recover it'}">${plateIsUnlocked(i.id)?'🖼️':'🔒'}</span>`:'';
-        return `<article class="evcard${camp?' camp-'+camp.key:''}" onclick="openId('${esc(i.id)}')">
+        return `<article class="evcard${camp?' camp-'+camp.key:''}" onclick="${openFn}('${esc(i.id)}')">
           <div class="evcard-art">${visual}${camp?`<span class="evcard-camp">${esc(camp.label)}</span>`:''}${plate}</div>
           <div class="evcard-body">
             ${kick}
@@ -12063,7 +12067,7 @@ function battleDossier(b){
     return `<div class="bd-tl-item${m.decisive?' decisive':''}${silence?' silence':''}"><div class="bd-tl-watch">${esc(m.time||'')}</div><div class="bd-tl-card"><b>${esc(m.who||'')}</b><span class="bd-tl-act">${esc(m.act||'')}</span><span class="bd-tl-res">${esc(m.result||'')}</span></div></div>`;
   }).join('')}</div>`:'';
   if(!meta.length&&!timeline)return '';
-  return `<div class="bd"><div class="bd-title">\ud83d\udff9 Battle Dossier \u2014 ${esc(b.name||b.id)}</div>
+  return `<div class="bd" id="key-moments"><div class="bd-title">\ud83d\udff9 Battle Dossier \u2014 ${esc(b.name||b.id)}</div>
     ${meta.length?`<div class="bd-meta">${meta.join(' <span class="bd-dot">\u00b7</span> ')}</div>`:''}
     <div class="wsys-note">${e.scale?esc(e.scale):'The muster and the watches, as the tally kept them.'} Hover a name for its role and fate.</div>
     <div class="bd-board">${board(b.belligerents.attackers,'att','Attackers')}${board(b.belligerents.defenders,'def','Defenders')}</div>
@@ -12090,7 +12094,7 @@ function battleVsInfographic(b){
     if(b.casualties.defenders)parts.push(`<b style="color:var(--green)">Defenders:</b> ${esc(String(b.casualties.defenders).slice(0,120))}`);
     if(parts.length)cas=`<div class="cas-bar">${parts.join('<br>')}</div>`;
   } else if(b.casualties){ cas=`<div class="cas-bar"><b>Casualties:</b> ${esc(String(b.casualties).slice(0,160))}</div>`; }
-  return `<div class="wsys"><div class="wsys-title">⚔️ Waluigi's Order of Battle</div>
+  return `<div class="wsys" id="belligerents"><div class="wsys-title">⚔️ Waluigi's Order of Battle</div>
     <div class="wsys-note">Who stood where, and who Waluigi blames for it.</div>
     <div class="vs-wrap">${side(bel.attackers,'att','Attackers')}<div class="vs-mid">VS</div>${side(bel.defenders,'def','Defenders')}</div>
     ${b.result?`<div class="vs-outcome">Outcome: ${esc(b.result)}</div>`:''}${cas}</div>`;
@@ -14863,7 +14867,50 @@ function hubOptions(id){
       route:xp.length?'#/article/'+encodeURIComponent(id):'',
       after:xp.length?'xp-session':'',
       empty:'No XP was banked against this record.' }
-  ];
+  ].concat(hubBattleOptions(id,item,rec));
+}
+/* Battle-shaped doors.
+   The five generic tiles are built for event filings, and battles have almost
+   none of that apparatus -- 0 of 69 carry an analysis or a commentary track,
+   6 carry XP. Pointing the same menu at a battle would show five greyed
+   tiles and one live one, which is worse than no menu.
+   So battles contribute their own doors, from the fields they actually have:
+   the order of battle, the beat-by-beat tally, and the standing the fight
+   moved. Each is only offered when that record carries the data. */
+function hubBattleOptions(id,item,rec){
+  if(!item||!rec||!['battles','majorBattles'].includes(rec.typeKey)) return [];
+  const out=[];
+  const sides=item.belligerents;
+  const nSides=sides?(Array.isArray(sides)?sides.length:Object.keys(sides).length):0;
+  if(nSides){
+    const names=[];
+    try{ (battleSideEntries(sides)||[]).forEach(x=>{ if(x&&x.name) names.push(x.name); }); }catch(e){}
+    out.push({ key:'orbat', label:'Order of Battle', icon:'⚔️', img:HUB_ART+'hub_investigation.png',
+      blurb:'Who stood on which side, who commanded, and what each side brought to it.',
+      meta:nSides+' side'+(nSides===1?'':'s')+(names.length?' · '+names.slice(0,2).join(' vs '):''),
+      available:true, route:'#/article/'+encodeURIComponent(id), after:'belligerents',
+      empty:'No order of battle filed.' });
+  }
+  const moments=(item.keyMoments||[]).length;
+  if(moments){
+    out.push({ key:'tally', label:'The Tally', icon:'⏱️', img:HUB_ART+'hub_story.png',
+      blurb:'The fight beat by beat: who acted, when, and what it cost them.',
+      meta:moments+' logged moment'+(moments===1?'':'s'),
+      available:true, route:'#/article/'+encodeURIComponent(id), after:'key-moments',
+      empty:'No round-by-round tally survives.' });
+  }
+  let repCount=0;
+  try{ const rc=item.reputationChanges;
+    if(rc&&typeof rc==='object') Object.values(rc).forEach(m=>{ if(m&&typeof m==='object') repCount+=Object.keys(m).length; });
+  }catch(e){}
+  if(repCount){
+    out.push({ key:'standing', label:'Standing', icon:'📈', img:HUB_ART+'hub_analysis.png',
+      blurb:'What this fight did to the ledger — who gained, who lost, and with whom.',
+      meta:repCount+' faction shift'+(repCount===1?'':'s'),
+      available:true, route:'#/article/'+encodeURIComponent(id), after:'reputation-impact',
+      empty:'This fight moved no standing.' });
+  }
+  return out;
 }
 /* A menu offering exactly one door is a wasted click — say so honestly. */
 function hubIsWorthIt(id){
