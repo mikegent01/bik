@@ -2994,7 +2994,9 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/battles/the-protocol-duel/the-protocol-duel-01.jpg",
+    "imageCaption": "Protocol 12-A meets Dracule Mihawk at the Snowdin gate. He sidestepped every strike and never drew."
   },
   {
     "id": "the_midnight_skirmish",
@@ -3050,7 +3052,9 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/battles/the-midnight-skirmish/the-midnight-skirmish-01.jpg",
+    "imageCaption": "A sword at Markop's throat, a guard through the window, and Remi already awake and telling him to keep it down."
   },
   {
     "id": "blackfen_pass_collapse",
@@ -3118,7 +3122,9 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/battles/blackfen-pass-collapse/blackfen-pass-collapse-01.jpg",
+    "imageCaption": "The Legion's show of force in Blackfen Pass. The Vampire Courts answered by dropping the temperature."
   },
   {
     "id": "battle_of_the_black_moonblossoms",
@@ -3174,7 +3180,9 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/battles/battle-of-the-black-moonblossoms/battle-of-the-black-moonblossoms-01.jpg",
+    "imageCaption": "Burning a lane through the Black Moonblossoms. The flora was magically active and did not agree to be cleared."
   },
   {
     "id": "battle_of_bob_omb_battlefield",
@@ -3234,7 +3242,9 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/battles/battle-of-bob-omb-battlefield/battle-of-bob-omb-battlefield-01.jpg",
+    "imageCaption": "Bob-ombs in numbers that broke every treaty of magical warfare, from both sides at once."
   },
   {
     "id": "dragon_war_simulation",
@@ -3289,7 +3299,9 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/battles/dragon-war-simulation/dragon-war-simulation-01.jpg",
+    "imageCaption": "The dragon that justified the expansion, seen from inside the sky-dome: canvas, brass ribbing and sound-wave horns."
   },
   {
     "id": "crimson_fields_massacre",
@@ -3339,7 +3351,9 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/battles/crimson-fields-massacre/crimson-fields-massacre-01.jpg",
+    "imageCaption": "The fields the Rosewood Lands are named for, photographed empty. Lord Crimson called a labour strike a military uprising."
   },
   {
     "id": "siege_of_dreadful_grove",
@@ -3387,7 +3401,9 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/battles/siege-of-dreadful-grove/siege-of-dreadful-grove-01.jpg",
+    "imageCaption": "Archie woke from drowning in the Dream-Duel to find the Onyx Hand closing in on the grove around him."
   },
   {
     "id": "battle_of_east_vanguard",
@@ -3440,7 +3456,9 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/battles/battle-of-east-vanguard/battle-of-east-vanguard-01.jpg",
+    "imageCaption": "Gamma Division's first strike into the Old World. It worked, which is where High Command's overconfidence came from."
   },
   {
     "id": "battle_planar_sanctum_canoloth",
@@ -5668,7 +5686,9 @@
     },
     "reputationNotes": {
       "waluigi": "Destroyed a second impostor in a single exchange, without hesitation and without asking it a question first."
-    }
+    },
+    "image": "assets/images/battles/the-bathroom-door-impostor/the-bathroom-door-impostor-01.jpg",
+    "imageCaption": "Fifteen to twenty minutes guarding a bathroom door for the lady of the manor. Note the window at the end of the hall."
   },
   {
     "id": "the_skittering_grove_descent_battle",
