@@ -1071,7 +1071,9 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/battles/siege-raventree/siege-raventree-01.jpg",
+    "imageCaption": "Pond Patrol ringed around the manor, and the manor answering by spawning wraiths into besieger and defender alike. Nobody won this."
   },
   {
     "id": "iron_sky_breach",
@@ -1186,7 +1188,9 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/battles/massacre-aegis/massacre-aegis-01.jpg",
+    "imageCaption": "The corridor after Order 120 was issued. The archive photographs the floor and the keys and leaves the rest of it alone."
   },
   {
     "id": "vigilance_crisis",
@@ -1315,7 +1319,9 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/battles/behir-ambush/behir-ambush-01.jpg",
+    "imageCaption": "The lava vat chamber, and the thing the Iron Legion had been filing as a blue dragon. It was not a blue dragon."
   },
   {
     "id": "battle_of_the_brobot",
@@ -1437,7 +1443,7 @@
     "location": "Prison Island — Underground colony near the Forgotten Temple of the Stars",
     "type": "Prison Riot / Moral Crisis / Temple Exploration",
     "status": "Concluded — Bryan made his choice, star shard acquired",
-    "image": "",
+    "image": "assets/images/battles/prison-island-liberation/prison-island-liberation-01.jpg",
     "imageCaption": "No images survive. Bryan was too busy making difficult decisions.",
     "audioTitle": "",
     "audio": "",
@@ -1516,7 +1522,7 @@
     "location": "Ruined Manor Greenhouse — Restored frame, fresh growth, echoes of fire",
     "type": "Reconnaissance / Rust Monster Elimination / Intelligence Gathering",
     "status": "Concluded — Site surveyed, Legion Arcane Field Analyzer readings submitted",
-    "image": "",
+    "image": "assets/images/battles/greenhouse-reconnaissance/greenhouse-reconnaissance-01.jpg",
     "imageCaption": "The greenhouse remembers what burned here.",
     "audioTitle": "",
     "audio": "",
@@ -1798,7 +1804,9 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/battles/raventree-exploration/raventree-exploration-01.jpg",
+    "imageCaption": "The first night: a ghost offering tea in the hall while the wardrobe goes for Markop and the corridor behind them finishes collapsing."
   },
   {
     "id": "auction_room_brawl",
@@ -1875,7 +1883,9 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/battles/auction-room-brawl/auction-room-brawl-01.jpg",
+    "imageCaption": "The window going in over the auction gallery. Covert observation post at one moment, entry point the next, and not a subtle entry."
   },
   {
     "id": "skirmish_mazebound",
@@ -2073,7 +2083,9 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/battles/reclamation-of-the-vigilance/reclamation-of-the-vigilance-01.jpg",
+    "imageCaption": "The ship retaken, the ranks on deck, and the hat raised at the front of them. The archive files this as a victory and declines to call it one."
   },
   {
     "id": "siege_toad_town",
@@ -2272,7 +2284,9 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/battles/remi-petrification/remi-petrification-01.jpg",
+    "imageCaption": "Lyranth's workshop with one more statue in it than it had that morning. The Oracle's Deck is somewhere in this room."
   },
   {
     "id": "the_assassination_of_peach",
@@ -2714,7 +2728,9 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/battles/vivian-corvinarus-corridor-fight/vivian-corvinarus-corridor-fight-01.jpg",
+    "imageCaption": "The maintenance corridors, the axe, and Bowser hauling Markop backward out of the beam's line. Vivesna is not in this picture; Vivian Corvinarus is."
   },
   {
     "id": "the_spotlight_chase_hellhound_skirmish",
@@ -5217,7 +5233,9 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/battles/battle-of-the-shadow-canyon/battle-of-the-shadow-canyon-01.jpg",
+    "imageCaption": "The Scourge coming down the canyon walls into a trap the Guardians had already finished setting."
   },
   {
     "id": "battle_of_the_sugar_swamp",
@@ -5320,7 +5338,9 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/battles/battle-of-the-sugar-swamp/battle-of-the-sugar-swamp-01.jpg",
+    "imageCaption": "Kremlings out of the reeds onto a Pastry Folk patrol, three paces from the cottage. Brief, and not gentle."
   },
   {
     "id": "eldridge_hillfort_defense_722_bf",
