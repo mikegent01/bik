@@ -2556,3 +2556,28 @@ input:focus, textarea:focus, select:focus, button:focus-visible {
 /* Shown only when a pairing has no contributing factor at all — replaces the
    four "+0" chips that used to stand in for "nothing happened". */
 .rep-factor-chip.quiet{font-style:italic;font-weight:600;opacity:.7}
+
+/* ===== Foundry token sheet (characters.json → fullBody) =====
+   Shown on a character page under the reputation block. The site portrait is
+   a crop of the scene plate; this is the same figure full-body on a plain
+   field, for import into Foundry. Renders only when fullBody is present. */
+.tokensheet{margin:18px 0;border:1px solid var(--border);border-left:4px solid var(--accent2);
+  border-radius:12px;background:var(--panel2);padding:14px 16px}
+.tokensheet-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:4px}
+.tokensheet-head h2{margin:0;font-size:16px}
+.tokensheet-head .chip{margin-left:auto}
+.tokensheet-blurb{font-size:12.5px;color:var(--muted);line-height:1.55;margin:0 0 12px}
+.tokensheet-body{display:grid;grid-template-columns:minmax(0,220px) minmax(0,1fr);gap:16px;align-items:start}
+.tokensheet-fig{margin:0;border:1px solid var(--border);border-radius:10px;overflow:hidden;
+  background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(0,0,0,.18))}
+.tokensheet-fig img{display:block;width:100%;height:auto}
+.tokensheet-meta .irow{display:grid;grid-template-columns:82px 1fr;gap:10px;align-items:baseline;
+  font-size:12px;padding:5px 0;border-bottom:1px solid var(--border)}
+.tokensheet-meta .irow>span{color:var(--muted);text-transform:uppercase;letter-spacing:.04em;font-size:10.5px}
+.tokensheet-path{font-family:var(--font-mono,monospace);font-size:11px;word-break:break-all;font-weight:600}
+.tokensheet-note{font-size:11.5px;color:var(--muted);line-height:1.55;margin:10px 0 0}
+@media (max-width:640px){
+  .tokensheet-body{grid-template-columns:1fr}
+  .tokensheet-fig{max-width:260px}
+  .tokensheet-head .chip{margin-left:0}
+}

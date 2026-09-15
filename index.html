@@ -13489,6 +13489,48 @@ function sessionNavHtml(articleId){
     +`<div class="snav-row">${cell(n.prev,'prev')}${cell(n.next,'next')}</div>`
   +`</nav>`;
 }
+/* ---------- token sheet ----------
+   A character carries TWO pictures, and they are the same picture.
+
+     item.image     the square the site shows — the figure IN SCENE, in the
+                    situation their current filings put them in.
+     item.fullBody  the Foundry VTT sheet — the same figure, head to feet
+                    (or hooves), on a plain field, nothing cropped.
+
+   The scene plate is generated once from the player's own reference art; the
+   square is cut out of it with tools/crop-portrait.py. That is why the two
+   match: same brushwork, same light, same face.
+
+   The site portrait was the only one the archive knew about, so the full-body
+   sheets the table actually imports lived nowhere. This panel makes the sheet
+   a thing you can see and right-click-save from the character's own page.
+   Records without a fullBody render nothing at all. */
+function tokenSheetPanel(item){
+  if(!item || !item.fullBody) return '';
+  const src = assetPath(item.fullBody);
+  const name = displayName(item);
+  return `<section class="tokensheet">
+    <div class="tokensheet-head">
+      <h2>🎲 Foundry token sheet</h2>
+      <a class="chip" href="${esc(src)}" target="_blank" rel="noopener">Open full size →</a>
+    </div>
+    <p class="tokensheet-blurb">Full body on a plain field, sized for import as actor and token art. Same figure as the portrait above — the portrait is a crop of the scene plate, this is the same character standing clear of it.</p>
+    <div class="tokensheet-body">
+      <figure class="tokensheet-fig">
+        <img src="${esc(src)}" alt="${esc(name)} — full body token sheet" loading="lazy"
+             onerror="this.closest('.tokensheet').style.display='none'">
+      </figure>
+      <div class="tokensheet-meta">
+        <div class="irow"><span>Use</span><b>Actor portrait &amp; token</b></div>
+        <div class="irow"><span>Framing</span><b>Full body, uncropped</b></div>
+        <div class="irow"><span>Field</span><b>Plain, no scenery</b></div>
+        <div class="irow"><span>File</span><b class="tokensheet-path">${esc(item.fullBody)}</b></div>
+        <p class="tokensheet-note">Drop the file straight onto an actor. The pose reflects where this character stands in the current filings, so it will date — regenerate it from the same reference sheet when the arc moves on.</p>
+      </div>
+    </div>
+  </section>`;
+}
+
 function view_article(id){
   if(id==='the_midlands'){ Router.go('#/article/regal_empire'); return; }
   if(id==='thornburys_field_journal'){ view_fieldJournal(); return; }
@@ -13674,7 +13716,7 @@ function view_article(id){
      ${typeKey==='battles'?battleVsInfographic(item)+battleDossier(item):''}
      ${(typeKey==='factions'||typeKey==='characters')?relationGraph(item):''}
      ${typeKey==='factions'?`<div id="faction-power-projection-container"></div>`:''}
-${typeKey==='characters'?renderArticleOperatorReputation(item.id):''}${typeKey==='characters'?injuryPanel(item):''}${typeKey==='factions'?renderArticleFactionReputation(item.id):''}${(typeKey==='factions'||typeKey==='nations')?renderRelatedCongressVotes(item):''}${wideRecord?'':((typeof renderConnectedInvestigationsPanel === 'function' ? renderConnectedInvestigationsPanel(item.id, typeKey) : '')+(typeof renderConnectedQuestsPanel === 'function' ? renderConnectedQuestsPanel(item.id, typeKey) : ''))}
+${typeKey==='characters'?tokenSheetPanel(item):''}${typeKey==='characters'?renderArticleOperatorReputation(item.id):''}${typeKey==='characters'?injuryPanel(item):''}${typeKey==='factions'?renderArticleFactionReputation(item.id):''}${(typeKey==='factions'||typeKey==='nations')?renderRelatedCongressVotes(item):''}${wideRecord?'':((typeof renderConnectedInvestigationsPanel === 'function' ? renderConnectedInvestigationsPanel(item.id, typeKey) : '')+(typeof renderConnectedQuestsPanel === 'function' ? renderConnectedQuestsPanel(item.id, typeKey) : ''))}
      ${summaryBand}
      ${typeof recordReputationLede==='function'?recordReputationLede(item,typeKey):''}
      <div class="prose">${applyAnnotations(mdToHtml(bodyMain,item.id), item.id)}</div>
