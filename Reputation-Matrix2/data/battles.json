@@ -661,7 +661,9 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/battles/shattering-shadow-anchor/shattering-shadow-anchor-01.jpg",
+    "imageCaption": "The courtyard below the defenestration: the bat wheeling, and the purple crystal cracked through."
   },
   {
     "id": "solarium_detonation",
@@ -780,7 +782,9 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/battles/duel-of-thistle/duel-of-thistle-01.jpg",
+    "imageCaption": "Hjumpik's warhammer into the duelling ground, Thistle off balance, and a fey knight yielding alive."
   },
   {
     "id": "rescue_of_steely",
@@ -895,7 +899,9 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/battles/tea-party-incident/tea-party-incident-01.jpg",
+    "imageCaption": "A fireball, indoors, aboard a wooden airship. Archie was handling the diplomacy."
   },
   {
     "id": "syndicate_showdown",
@@ -1679,7 +1685,9 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/battles/thunderdome-kidnapping/thunderdome-kidnapping-01.jpg",
+    "imageCaption": "The pit, the wagon, and two captives carried off. The figure watching from behind the wagon has two eyes."
   },
   {
     "id": "prison_infiltration",
@@ -2159,7 +2167,9 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/battles/siege-toad-town/siege-toad-town-01.jpg",
+    "imageCaption": "The fountain smashed, the market burnt, three banners over one square. Less a battle than a condition."
   },
   {
     "id": "vow_ceremony",
@@ -2219,7 +2229,9 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/battles/vow-ceremony/vow-ceremony-01.jpg",
+    "imageCaption": "The engine room again, scorch marks still on the bulkheads, and 78 to 59 becoming a binding vow."
   },
   {
     "id": "remi_petrification",
@@ -2355,7 +2367,9 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/battles/the-assassination-of-peach/the-assassination-of-peach-01.jpg",
+    "imageCaption": "The throne room, the crown on the carpet, and nobody in the frame. The circumstances remain unclear."
   },
   {
     "id": "the_orange_alignment",
@@ -2415,7 +2429,9 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/battles/the-orange-alignment/the-orange-alignment-01.jpg",
+    "imageCaption": "The circles lit, the rings turning, and Hjumpik standing in the middle of something the archive cannot yet explain."
   },
   {
     "id": "battle_of_the_mirror_room",
@@ -2905,7 +2921,9 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/battles/feyward-bramblyfly-hallway-incident/feyward-bramblyfly-hallway-incident-01.jpg",
+    "imageCaption": "The Bramblyfly loose in the overgrown corridor. Nothing is won here; a key changes hands and a warning gets delivered."
   },
   {
     "id": "the_protocol_duel",
@@ -3455,7 +3473,9 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/battles/battle-planar-sanctum-canoloth/battle-planar-sanctum-canoloth-01.jpg",
+    "imageCaption": "Floating rock in space-time, the Canoloth's tongue already out, and the Oracle answering with a tuning fork."
   },
   {
     "id": "battle_imp_ambush_shadow_estate",
@@ -3523,7 +3543,9 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/battles/battle-imp-ambush-shadow-estate/battle-imp-ambush-shadow-estate-01.jpg",
+    "imageCaption": "Nine imps around Tymnas's cottage at dawn, come for the dead Archivist's ledger."
   },
   {
     "id": "battle_second_imp_offensive_kyrn_facility_breakout",
@@ -4639,7 +4661,9 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/battles/feyward-sixth-detachment-house-defense/feyward-sixth-detachment-house-defense-01.jpg",
+    "imageCaption": "Six along the outside wall walk with the garden heaving below. Twenty-seven turns of falling back started here."
   },
   {
     "id": "warp_pipe_junction_ladder_fight",
