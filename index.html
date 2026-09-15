@@ -404,6 +404,14 @@
 .release-banner .rb-open{border:0;cursor:pointer;font-weight:800;font-size:12.5px;padding:7px 14px;border-radius:999px;background:linear-gradient(180deg,#ffd94d,#e0b400);color:#2a1350}
 .release-banner .rb-x{border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;border-radius:8px;padding:5px 9px;font-size:12px}
 .release-banner .rb-x:hover{color:var(--text);border-color:var(--accent2)}
+/* The plain-english summary leads an investigation now, so it gets the
+   emphasis the hook used to take. */
+.inv-plain--first{border:1px solid var(--accent2);border-left:4px solid var(--accent2);background:linear-gradient(135deg,rgba(224,180,0,.10),transparent),var(--panel2);border-radius:12px;padding:14px 16px;margin:14px 0}
+.inv-plain--first h4{margin:0 0 4px;color:var(--accent2);font-size:13px;text-transform:uppercase;letter-spacing:.7px}
+.inv-plain--first ol{margin:10px 0 0;padding-left:20px}
+.inv-plain--first li{margin:8px 0;line-height:1.55}
+.inv-plain--first li b{display:block;color:var(--text);font-size:13.5px}
+.inv-plain--first li span{color:var(--muted);font-size:13px}
 .filing-changed{margin:8px 0 2px;padding:8px 12px;border-left:3px solid var(--accent2);background:rgba(224,180,0,.08);border-radius:0 8px 8px 0;font-size:12.5px;color:var(--muted);line-height:1.5}
 .filing-changed b{color:var(--accent2)}
 .battle-plate img{width:100%;aspect-ratio:64/30;object-fit:cover;display:block;border-radius:10px;border:1px solid var(--border)}
@@ -14274,16 +14282,22 @@ function view_investigation(id){
         ${p.found?`<span class="pill">${p.found} fact${p.found===1?'':'s'} you have turned up</span>`:''}
       </div>
 
+      ${/* Plain english FIRST. Every one of the 17 files carries a
+            plainSummary written precisely so a reader can understand the case
+            without decoding archive voice -- and it was rendered underneath
+            the hook and the caption, which is to say after the dense part.
+            A reader who bounced off the hook never reached the thing written
+            to rescue them. Order reversed; nothing rewritten. */
+        (iv.plainSummary||[]).length ? `
+      <div class="event-details-section inv-plain inv-plain--first">
+        <h4>Start here — the case in plain english</h4>
+        <p class="inv-plain-lede">No archive voice, no jargon. The full brief follows; this is the same case told straight.</p>
+        <ol>${iv.plainSummary.map(p => `<li><b>${esc(p.point)}</b><span>${esc(p.detail)}</span></li>`).join('')}</ol>
+      </div>` : ''}
+
       ${iv.hook?`<div class="article-lead-card noimg"><div class="article-lead-summary">
         <h4>The Hook</h4><p>${esc(iv.hook)}</p></div></div>`:''}
       ${iv.imageCaption?`<p class="imgcap">${esc(iv.imageCaption)}</p>`:''}
-
-      ${(iv.plainSummary||[]).length ? `
-      <div class="event-details-section inv-plain">
-        <h4>The story in plain english</h4>
-        <p class="inv-plain-lede">No archive voice, no jargon. If the brief below reads as dense, this is the same case told straight.</p>
-        <ol>${iv.plainSummary.map(p => `<li><b>${esc(p.point)}</b><span>${esc(p.detail)}</span></li>`).join('')}</ol>
-      </div>` : ''}
 
       ${(() => {
         /* Background reading. Every entry is checked against INDEX so a
