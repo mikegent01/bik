@@ -17449,21 +17449,39 @@ function explainInfamy(heat){
 }
 
 /** One-line formula for a standing object from calculateOperatorStanding. */
+/* Zero-valued factors are noise. A neutral pairing used to print
+   "base +0 + subfactions +0 + events +0 + ally/enemy ripple +0" and four
+   grey "+0" chips, which is four pieces of furniture telling you nothing
+   happened. Contributing terms only; if nothing contributes, say that once
+   in words. The maths is unchanged — only what gets printed. */
 function standingFormulaLine(st){
   if(!st) return '';
   const f = (n)=>{ const v=Number(n)||0; return (v>=0?'+':'')+v; };
-  const sum = `clamp( base ${f(st.base)} + subfactions ${f(st.subfactions)} + events ${f(st.rumors)} + ally/enemy ripple ${f(st.propagation)} )`;
+  const terms = [
+    ['base', st.base],
+    ['subfactions', st.subfactions],
+    ['events', st.rumors],
+    ['ally/enemy ripple', st.propagation]
+  ].filter(([,v])=>(Number(v)||0)!==0);
+  const body = terms.length
+    ? terms.map(([label,v],i)=> i===0 ? `${label} ${f(v)}` : `${label} ${f(v)}`).join(' + ')
+    : 'nothing on the record';
+  const sum = `clamp( ${body} )`;
   if(st.cappedFrom!==null && st.cappedFrom!==undefined){
     return `Total ${st.total>=0?'+':''}${st.total} = min( −20, ${sum} = ${st.cappedFrom>=0?'+':''}${st.cappedFrom} ) — hostility ceiling`;
   }
+  if(!terms.length) return `Total ${st.total>=0?'+':''}${st.total} — no filed history between these two`;
   return `Total ${st.total>=0?'+':''}${st.total} = ${sum}`;
 }
 
 function standingFactorChips(st){
   if(!st) return '';
+  /* A factor worth 0 is not a fact, it is a blank. Return '' and let the row
+     collapse; see standingFormulaLine() above for the same rule in prose. */
   const chip = (label, val, tip) => {
     const v = Number(val)||0;
-    const cls = v>0?'pos':v<0?'neg':'zero';
+    if(v===0) return '';
+    const cls = v>0?'pos':'neg';
     return `<span class="rep-factor-chip ${cls}" title="${esc(tip)}"><b>${esc(label)}</b> ${v>=0?'+':''}${v}</span>`;
   };
   const p = st.pressure || {score:0, band:'None'};
@@ -17471,13 +17489,24 @@ function standingFactorChips(st){
   const capNote = st.cappedFrom!==null && st.cappedFrom!==undefined
     ? `<span class="rep-factor-chip capped" title="This faction has declared hostility (enemy relation, warrant, or a dossier that reads as a kill-order). Standing is capped at −20 so accumulated involvement cannot read as approval. Uncapped sum was ${st.cappedFrom>=0?'+':''}${st.cappedFrom}."><b>Capped</b> from ${st.cappedFrom>=0?'+':''}${st.cappedFrom} → −20</span>`
     : '';
+  const factorChips = [
+    chip('Base', st.base, 'Starting relationship before events and internal politics.'),
+    chip('Events', st.rumors, 'Decayed sum of catalogued events/battles/trials involving both parties.'),
+    chip('Blocs', st.subfactions, 'Internal sub-faction modifiers (royalists, technocrats, etc.).'),
+    chip('Ripple', st.propagation, 'Ally/enemy network: friends of friends, enemies of enemies.')
+  ].filter(Boolean).join('\n    ');
+  /* Pressure 0 means nobody is leaning on anybody — also a blank, also hidden. */
+  const pressureChip = p.score
+    ? `<span class="rep-factor-chip pressure ${pcls}" title="Pressure 0…100 — how hard this faction is leaning on them: shared history, hostile history, declared enmity and warrants. Pressure is attention, not approval."><b>Pressure</b> ${p.score} · ${esc(p.band)}</span>`
+    : '';
+  const quiet = (!factorChips && !pressureChip && !capNote)
+    ? `<span class="rep-factor-chip quiet" title="No filed event, battle, trial or network relation connects these two.">Nothing filed between them</span>`
+    : '';
   return `<div class="rep-factor-row">
-    ${chip('Base', st.base, 'Starting relationship before events and internal politics.')}
-    ${chip('Events', st.rumors, 'Decayed sum of catalogued events/battles/trials involving both parties.')}
-    ${chip('Blocs', st.subfactions, 'Internal sub-faction modifiers (royalists, technocrats, etc.).')}
-    ${chip('Ripple', st.propagation, 'Ally/enemy network: friends of friends, enemies of enemies.')}
+    ${factorChips}
     ${capNote}
-    <span class="rep-factor-chip pressure ${pcls}" title="Pressure 0…100 — how hard this faction is leaning on them: shared history, hostile history, declared enmity and warrants. Pressure is attention, not approval."><b>Pressure</b> ${p.score} · ${esc(p.band)}</span>
+    ${pressureChip}
+    ${quiet}
     <span class="rep-factor-chip total" title="Clamped to −100…+100">${esc(standingFormulaLine(st))}</span>
   </div>
   <div class="rep-relation-read" title="The two axes read together.">${esc(st.summary||'')}${p.reasons&&p.reasons.length?` — ${esc(p.reasons[0])}`:''}</div>`;
@@ -18498,9 +18527,18 @@ function view_reputation(arg) {
       const partyAvg = getPartyAverageStanding(f.key);
       const avgClass = getStandingClass(partyAvg);
 
+      /* An operator sitting at exactly 0 with a faction has no relationship
+         with it — that is the absence of a number, not the number zero. The
+         pill keeps its place in the row (so operators stay in a stable order
+         and the modal is still reachable) but drops the "+0" and reads as a
+         blank. A row of "+0"s used to imply four measured neutralities. */
       const opPillsHtml = REPUTATION_OPERATORS.map(op => {
         const st = calculateOperatorStanding(op.id, f.key);
-        return `<span class="rep-op-pill ${st.total>=0?'pos':'neg'}" onclick="renderWhyModal('${f.key}', '${op.id}')" title="${esc(op.name)}: ${st.total}">${op.icon} ${st.total>=0?'+':''}${st.total}</span>`;
+        const zero = st.total === 0;
+        const cls = zero ? 'zero' : (st.total>0?'pos':'neg');
+        const label = zero ? '' : ` ${st.total>0?'+':''}${st.total}`;
+        const tip = zero ? `${op.name}: nothing filed with this faction` : `${op.name}: ${st.total}`;
+        return `<span class="rep-op-pill ${cls}" onclick="renderWhyModal('${f.key}', '${op.id}')" title="${esc(tip)}">${op.icon}${label}</span>`;
       }).join('');
 
       return `
