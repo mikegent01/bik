@@ -42,6 +42,7 @@
   <link rel="stylesheet" href="Reputation-Matrix2/app/styles/archive-prose-format.css">
   <link rel="stylesheet" href="Reputation-Matrix2/app/styles/systems/exhibits.css">
   <link rel="stylesheet" href="Reputation-Matrix2/app/styles/systems/investigations.css">
+  <link rel="stylesheet" href="Reputation-Matrix2/app/styles/systems/faiths.css">
   <link rel="stylesheet" href="Reputation-Matrix2/app/styles/systems/version-history.css">
   <link rel="stylesheet" href="Reputation-Matrix2/app/styles/systems/campaign-covers.css">
   <link rel="stylesheet" href="Reputation-Matrix2/app/styles/systems/regal-parliament.css">
@@ -7079,6 +7080,20 @@ function articlesInFaith(fid){
   }));
   return out;
 }
+/* Friction 0–100 between two cosmological groups, in six readable bands.
+   The matrix used to paint each cell with an inline rgba() alpha of score/160,
+   which is a gradient nobody can read a value off. Bands are named, coloured
+   in the stylesheet, and legended under the grid. */
+function faithBandIndex(score){
+  if(score==null) return null;
+  if(score<=10) return 0;
+  if(score<=30) return 1;
+  if(score<=50) return 2;
+  if(score<=70) return 3;
+  if(score<=89) return 4;
+  return 5;
+}
+const FAITH_BAND_LABELS=['Harmonious','Minor friction','Tension','Serious friction','Hostile','Open war'];
 function view_faiths(){
   renderSidebar('faiths');
   const groups=Object.entries(RELIGION.groups||{});
@@ -7086,29 +7101,69 @@ function view_faiths(){
   if(!dens.length){ el('content').innerHTML=`<div class="card"><h1>✧ Faiths</h1><p class="text-muted">The denomination register did not load.</p></div>`; return; }
   const byGroup={}; dens.forEach(d=>(byGroup[d.group]=byGroup[d.group]||[]).push(d));
   const attached={}; dens.forEach(d=>attached[d.id]=articlesInFaith(d.id).length);
+  const declared=dens.filter(d=>attached[d.id]).length;
+
   const blocks=groups.map(([gid,g])=>{
     const items=(byGroup[gid]||[]).sort((a,b)=>(attached[b.id]-attached[a.id])||a.name.localeCompare(b.name));
-    const rows=items.map(d=>`<div class="faith-card" style="border-left-color:${esc(g.color)}">
+    const rows=items.map(d=>`<div class="faith-card">
       <div class="faith-name"><span>${esc(g.icon)}</span><a class="entity-link" href="#/faith/${encodeURIComponent(d.id)}">${esc(d.name)}</a>${attached[d.id]?`<span class="faith-role">${attached[d.id]} record${attached[d.id]===1?'':'s'}</span>`:''}</div>
       <div class="faith-line">${esc(d.description||'')}</div>
-      <div class="faith-line"><b>Seat</b> ${esc(d.seat||'—')}</div></div>`).join('');
-    return `<div class="card"><h2 style="color:${esc(g.color)}">${esc(g.icon)} ${esc(g.name)} <span class="text-muted" style="font-size:13px">· ${items.length} faiths</span></h2>
-      <p class="text-muted">${esc(g.description||'')}</p><div class="faith-row">${rows}</div></div>`;
+      <div class="faith-line faith-line--seat"><b>Seat</b> ${esc(d.seat||'—')}</div></div>`).join('');
+    return `<div class="card faiths-group" style="--faith-accent:${esc(g.color||'#8a4bff')}">
+      <div class="faiths-group-head"><h2>${esc(g.icon)} ${esc(g.name)}</h2>
+        <span class="faiths-group-count">${items.length} faith${items.length===1?'':'s'}</span></div>
+      <p class="faiths-group-desc">${esc(g.description||'')}</p>
+      <div class="faiths-grid">${rows}</div></div>`;
   }).join('');
-  const mrows=groups.map(([gid,g])=>`<tr><th style="text-align:left;color:${esc(g.color)}">${esc(g.icon)} ${esc(g.name)}</th>${groups.map(([oid])=>{
+
+  /* The grid. Diagonal cells compare a group with itself and are marked
+     rather than scored — that is not a finding. */
+  const mrows=groups.map(([gid,g])=>`<tr><th style="color:${esc(g.color)}"><span class="fm-icon">${esc(g.icon)}</span>${esc(g.name)}</th>${groups.map(([oid,og])=>{
     const s=(RELIGION.compatibility_matrix?.[gid]?.[oid]);
-    const band=tensionBand(s);
-    return `<td title="${esc(band?band.title:'')}" style="text-align:center;padding:4px 8px;background:rgba(229,72,77,${(s||0)/160})">${s==null?'—':s}</td>`;
+    const self=gid===oid;
+    const bi=faithBandIndex(s);
+    const cls=self?'faiths-cell--self':(bi==null?'faiths-cell--none':`faiths-cell--b${bi}`);
+    const tip=self?`${g.name} with itself`
+      :(s==null?`No friction score filed between ${g.name} and ${og.name}`
+        :`${g.name} → ${og.name}: ${s}/100 · ${FAITH_BAND_LABELS[bi]}`);
+    return `<td class="faiths-cell ${cls}" title="${esc(tip)}"><span>${self?'—':(s==null?'·':s)}</span></td>`;
   }).join('')}</tr>`).join('');
+
+  const legend=FAITH_BAND_LABELS.map((l,i)=>`<span class="faiths-key faiths-key--b${i}"><i></i>${esc(l)}</span>`).join('');
+
+  /* religion-data.js has always carried tension_consequences — the actual
+     table effects of each band — and the register never rendered them. A
+     friction score the players cannot act on is decoration. */
+  const bands=(RELIGION.tension_consequences||[]).map(b=>{
+    const bi=faithBandIndex(b.min);
+    const accent=['#4ade80','#bef264','#fde047','#fb923c','#f87171','#ef4444'][bi==null?2:bi];
+    const fx=(b.effects||[]).map(e=>`<li>${esc(e)}</li>`).join('');
+    return `<div class="faiths-band" style="--fb-accent:${accent}">
+      <div class="faiths-band-head"><b>${esc(b.title||'')}</b><span class="faiths-band-range">${b.min}–${b.max}</span></div>
+      <p>${esc(b.description||'')}</p>${fx?`<ul>${fx}</ul>`:''}</div>`;
+  }).join('');
+
   el('content').innerHTML=`
     <div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › Faiths &amp; Doctrinal Tension</div>
-    <div class="card animate-fade-in">
+    <div class="card animate-fade-in faiths-hero">
       <h1>✧ Faiths &amp; Doctrinal Tension</h1>
-      <p class="text-muted">${dens.length} denominations across ${groups.length} cosmological groups. Records that declare a faith carry it on their page; where a record declares two, the archive computes the friction between them instead of asserting one.</p>
+      <p class="faiths-lede">${dens.length} denominations across ${groups.length} cosmological groups. A record that declares a faith carries it on its page; where a record declares two, the archive <b>computes</b> the friction between them instead of asserting one.</p>
+      <div class="faiths-statrow">
+        <div class="faiths-stat"><b>${dens.length}</b><span>Denominations</span></div>
+        <div class="faiths-stat"><b>${groups.length}</b><span>Cosmological groups</span></div>
+        <div class="faiths-stat"><b>${declared}</b><span>Declared on a record</span></div>
+        <div class="faiths-stat"><b>${(RELIGION.tension_consequences||[]).length}</b><span>Friction bands</span></div>
+      </div>
       <div class="chips"><span class="chip" onclick="Router.go('#/cultures')">⚖️ Cultures &amp; Laws</span><a class="chip" href="${esc(pathPrefix)}app/pages/religion/religion.html">📊 Open the full faith dashboard →</a></div>
+
       <h3 style="margin-top:18px">Group compatibility matrix</h3>
-      <p class="text-muted" style="font-size:12.5px">Friction score 0–100 between cosmological groups. Higher is worse; 100 is open war.</p>
-      <div style="overflow-x:auto"><table style="border-collapse:collapse;font-size:13px"><tr><th></th>${groups.map(([,g])=>`<th style="padding:4px 8px;color:${esc(g.color)}">${esc(g.icon)}</th>`).join('')}</tr>${mrows}</table></div>
+      <p class="text-muted" style="font-size:12.5px">Read a row against a column: how hard the row's group finds the column's. 0 is harmony, 100 is open war. The diagonal is a group against itself and is not scored.</p>
+      <div class="faiths-matrix-wrap"><table class="faiths-matrix"><thead><tr><th></th>${groups.map(([,g])=>`<th style="color:${esc(g.color)}" title="${esc(g.name)}">${esc(g.icon)}</th>`).join('')}</tr></thead><tbody>${mrows}</tbody></table></div>
+      <div class="faiths-legend"><b>Bands</b>${legend}</div>
+
+      ${bands?`<h3 style="margin-top:20px">What a band means at the table</h3>
+      <p class="text-muted" style="font-size:12.5px">The friction score is not flavour. Each band carries filed mechanical consequences for a character standing in front of that faith's people.</p>
+      <div class="faiths-bands">${bands}</div>`:''}
     </div>${blocks}`;
   window.scrollTo(0,0);
 }
@@ -7121,8 +7176,17 @@ function view_faith(id){
   const others=Object.values(RELIGION.denominations||{}).filter(d=>d.id!==id);
   const worst=others.map(d=>({d,s:faithTension(id,d.id)})).filter(x=>x.s!=null).sort((a,b)=>b.s-a.s).slice(0,4);
   const best=others.map(d=>({d,s:faithTension(id,d.id)})).filter(x=>x.s!=null).sort((a,b)=>a.s-b.s).slice(0,4);
-  const chip=x=>`<a class="entity-link" href="#/faith/${encodeURIComponent(x.d.id)}">${esc(x.d.name)} · ${x.s}</a>`;
-  const list=(title,arr)=>arr.length?`<li><b>${title}</b> ${arr.join(', ')}</li>`:'';
+  /* Friction was one line of comma-separated links with a bare number glued
+     to each name — a ranking rendered as a sentence. It is a ranking, so it
+     is now rendered as one: two columns, scored, with a bar you can compare
+     at a glance. */
+  const frictRow=(x,kind)=>`<a class="faith-frict faith-frict--${kind}" href="#/faith/${encodeURIComponent(x.d.id)}" title="${esc(x.d.name)}: ${x.s}/100">
+    <span class="faith-frict-name">${esc(x.d.name)}</span>
+    <span class="faith-frict-bar"><i style="width:${Math.max(4,Math.min(100,x.s))}%"></i></span>
+    <span class="faith-frict-score">${x.s}</span></a>`;
+  const frictCol=(title,arr,kind)=>arr.length
+    ? `<div class="faith-friction-col"><h4>${title}</h4>${arr.map(x=>frictRow(x,kind)).join('')}</div>`
+    : '';
   const obs=(f.weekly_observances||[]).map(o=>`<li><b>${esc(o.day)}</b> — ${esc(o.text)}</li>`).join('');
   const recRows=recs.map(({typeKey,item})=>{
     const role=(faithsFor(item).find(x=>x.id===id)||{}).role;
@@ -7145,8 +7209,8 @@ function view_faith(id){
       </ul>
       ${obs?`<h2>Weekly observance</h2><ul>${obs}</ul>`:''}
       <h2>Doctrinal friction</h2>
-      <ul class="faith-friction">${list('Most hostile toward',worst.map(chip))}${list('Most compatible with',best.map(chip))}</ul>
-      <p class="text-muted" style="font-size:12.5px">Computed from the group compatibility matrix — <a class="entity-link" href="#/faiths">see the full grid</a>.</p>
+      <div class="faith-friction-cols">${frictCol('Most hostile toward',worst,'hostile')}${frictCol('Most compatible with',best,'warm')}</div>
+      <p class="text-muted" style="font-size:12.5px">Scored 0–100 and computed from the group compatibility matrix, not asserted — <a class="entity-link" href="#/faiths">see the full grid and what each band costs at the table</a>.</p>
       ${recRows?`<h2>Records that declare this faith</h2><div class="related-list">${recRows}</div>`:''}
     </div></div><div><div class="rail"><div class="infobox"><h4>${esc(f.name)}</h4>
       <div class="irow"><span>Group</span><b style="color:${esc(g.color||'')}">${esc(g.name||'')}</b></div>
