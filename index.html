@@ -8657,18 +8657,20 @@ function renderSidebar(active){
   h+=navSection('nav-encyclopedia','Encyclopedia',encyclopediaLinks,{forceOpen:hasActive(encyclopediaLinks),count:encyclopediaLinks.length});
 
   const progressionLinks=[
-    navLink({emoji:'✦',label:'XP Leaderboard',go:"Router.go('#/xp')",active:active==='xp',count:(()=>{try{return _xpAggregate().totalRows;}catch(e){return '';}})()}),
-    navLink({emoji:'📈',label:'Reputation Matrix',go:"Router.go('#/reputation')",active:active==='reputation',count:Object.keys(LORE_FACTIONS||{}).length||100}),
-    navLink({emoji:'🛒',label:'Commerce',go:"Router.go('#/commerce')",active:['commerce','items','crafting','vendor'].includes(active),count:((DATA.crafting&&DATA.crafting.recipes)||[]).length||0}),
+    /* XP and Reputation are one question -- how does this person stand -- asked
+       two ways, and they were two sidebar rows and two navigations apart. One
+       entry now; each page carries chips across to the other. */
+    navLink({emoji:'✦',label:'Standing — XP & Reputation',go:"Router.go('#/xp')",active:['xp','reputation'].includes(active),count:(()=>{try{return _xpAggregate().totalRows;}catch(e){return '';}})(),title:'XP leaderboard, awards ledger, faction standings and infamy heat'}),
+    navLink({emoji:'🛒',label:'Commerce, Bank & Shop',go:"Router.go('#/commerce')",active:['commerce','items','crafting','vendor','currencies','currency','banking'].includes(active),count:((DATA.crafting&&DATA.crafting.recipes)||[]).length||0,title:'Items, crafting, vendors, the bank, 48 tenders, and Wario\u2019s Shop'}),
     navLink({emoji:'⭐',label:'Artifacts',go:"Router.go('#/artifacts')",active:active==='artifacts',count:((DATA.artifacts&&DATA.artifacts.star_bearers)||[]).length+((DATA.artifacts&&DATA.artifacts.god_toad)?1:0)}),
     navLink({emoji:'🤝',label:'Bros Attacks',go:"Router.go('#/bros-attacks')",active:active==='bros-attacks',count:((DATA.brosAttacks&&DATA.brosAttacks.attacks)||[]).length,title:'Confirmed cooperative techniques, resources, risks, and source filings'}),
-    navLink({emoji:'🛒',label:"Wario's Shop",go:"location.href='Reputation-Matrix2/app/pages/shop/shop.html'"})
+    /* Wario's Shop moved into the Commerce hub chips: it is a standalone page,
+       so as a sidebar row it left the app with no way back. */
   ];
   h+=navSection('nav-progression','Progression & Gear',progressionLinks,{forceOpen:hasActive(progressionLinks),count:progressionLinks.length});
 
   const systemLinks=[
     navLink({emoji:'🏛️',label:'Congress',go:"Router.go('#/congress')",active:active==='congress',count:n('congress_votes')}),
-    navLink({emoji:'💱',label:'Bank & Currency',go:"Router.go('#/currencies')",active:['currencies','currency','banking'].includes(active),count:(getCurrenciesList?getCurrenciesList().length:((DATA.currencies&&(DATA.currencies.currencies||DATA.currencies))||[]).length)||45}),
     navLink({emoji:'📅',label:'Time & Calendar',go:"Router.go('#/calendar')",active:active==='calendar'||active==='holidays'||h1.includes('/calendar/timeline')||h1.includes('#/holiday')||h1.includes('#/timeline'),count:(DATA.historicalTimeline||[]).filter(x=>x&&x.type!=='era_header').length}),
     navLink({emoji:'❓',label:'What Ifs',go:"Router.go('#/whatif')",active:active==='whatifs',count:(DATA.whatifs&&DATA.whatifs.whatifs?DATA.whatifs.whatifs.length:0)}),
     navLink({emoji:'📚',label:'Library & Books',go:"Router.go('#/books')",active:active==='books',count:((DATA.books&&DATA.books.books)||(window.BOOKS_DATA&&window.BOOKS_DATA.books)||[]).length||50}),
@@ -18344,7 +18346,8 @@ function view_reputation(arg) {
     <div class="rep-header">
       <div class="rep-topbar">
         <div class="rep-title-box">
-          <h1>📈 Faction Directory & Reputation Matrix</h1>
+          <h1>📈 Standing — Faction Directory & Reputation Matrix</h1>
+          <div class="chips" style="margin:6px 0 0"><a class="chip" onclick="Router.go('#/xp')">✦ XP &amp; awards</a><a class="chip active">📈 Faction standing</a></div>
           <p>100 factions · click a faction or operator to follow links across dossiers, standings, warrants, and event records</p>
           <p style="font-size:12px;color:var(--muted);margin-top:6px">📡 <b>Live scoring:</b> every catalogued event, battle, and trial contributes a signed delta that decays with time (1-year half-life; ⭐ memorable records keep a 25% memory floor — history still talks about them). Currently indexing ${(typeof _buildRepEventCache==='function'?_buildRepEventCache().length:0)} historical records into the ${REPUTATION_OPERATORS.length}×${Object.keys(LORE_FACTIONS||{}).length} matrix.</p>
         </div>
@@ -18631,6 +18634,9 @@ function commerceHubChips(active){
     ['crafting','⚒️ Crafting',"#/crafting"],
     ['vendor','🏪 Vendors',"#/vendor"],
     ['bank','💱 Bank',"#/currencies"],
+    /* The shop is a standalone page, not a router view, so it joins the hub as
+       a link rather than a merged view -- same front door, no code merge. */
+    ['shop','🟡 Wario\u2019s Shop',"Reputation-Matrix2/app/pages/shop/shop.html"],
   ];
   return `<div class="chips" style="margin:10px 0">${chips.map(([k,label,href])=>`<a class="chip${k===active?' active':''}" ${href.startsWith('#')?`onclick="Router.go('${href}')"`:`href="${href}"`}>${label}</a>`).join('')}</div>`;
 }
@@ -19206,8 +19212,9 @@ function view_xpLeaderboard(){
 
   el('content').innerHTML=`
     <div class="card animate-fade-in" style="border-left:4px solid var(--accent2);background:linear-gradient(135deg,rgba(224,180,0,.14),rgba(138,75,255,.08)),var(--panel)">
-      <div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › XP Leaderboard</div>
-      <h1 style="margin:6px 0 4px">✦ XP Leaderboard & Awards Ledger</h1>
+      <div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › Standing</div>
+      <h1 style="margin:6px 0 4px">✦ Standing — XP & Awards Ledger</h1>
+      <div class="chips" style="margin:6px 0 0"><a class="chip active">✦ XP &amp; awards</a><a class="chip" onclick="Router.go('#/reputation')">📈 Faction standing</a></div>
       <p class="text-muted" style="font-size:13.5px">${agg.totalRows} award rows across ${Object.keys(agg.byEvent).length} events · ${totalXpNum} total XP distributed across ${characters.length} characters. Click a row to open the character or event; This page is the live ledger. Award boxes on events are the session snapshot only.</p>
       <div class="chips mt-10">
         <a class="chip" href="Reputation-Matrix2/app/pages/standalone/xp.html">🎮 Per-player XP tool →</a>
