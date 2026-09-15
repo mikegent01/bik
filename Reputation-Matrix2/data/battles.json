@@ -64,7 +64,9 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/battles/the-lounge-brawl/the-lounge-brawl-01.jpg",
+    "imageCaption": "Five in the morning in the L-shaped lounge, papers loose on the floor and both men still in the room. Waluigi filed this one against himself."
   },
   {
     "id": "fall_bramblehaven",
@@ -957,8 +959,8 @@
     "name": "Battle of the Spider Grove",
     "date": "Day 20-21, 1040 BF",
     "location": "The Silent Grove, Raventree Manor Grounds",
-    "image": "",
-    "imageCaption": "Mages surveying the scene after the battle",
+    "image": "assets/images/battles/spider-grove-battle/spider-grove-battle-01.jpg",
+    "imageCaption": "The Silent Grove at the height of it: the Matriarch over the egg field, and the three who went in after Eager.",
     "type": "Monster Hunt / Multi-phase Battle",
     "result": "Victory — Arachnid Matriarch banished (you are WELCOME)",
     "belligerents": {
@@ -1245,7 +1247,9 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/battles/vigilance-crisis/vigilance-crisis-01.jpg",
+    "imageCaption": "The engine room at the moment the fireball went off. Thirteen toads were in this space; the staff is the bright thing at the centre."
   },
   {
     "id": "behir_ambush",
@@ -1322,8 +1326,8 @@
     "location": "Ruined Manor — Upper Floors and Collapsed Hallways",
     "type": "Mechanized Assault / Dimensional Destabilization / Mr. L Emergence",
     "status": "Concluded — Brobot disabled, Mr. L subdued, Archie severely injured",
-    "image": "",
-    "imageCaption": "No photographs survived. The ceiling was collapsing at the time.",
+    "image": "assets/images/battles/battle-of-the-brobot/battle-of-the-brobot-01.jpg",
+    "imageCaption": "No photographs survived; the ceiling was collapsing at the time. Reconstructed from Archie's account and the Legion's.",
     "audioTitle": "",
     "audio": "",
     "audioCaption": "",
@@ -2641,7 +2645,9 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/battles/dinner-climax-vote/dinner-climax-vote-01.jpg",
+    "imageCaption": "The dining hall as the vote came apart. Reconstructed from three accounts that agree on the table and on nothing else."
   },
   {
     "id": "vivian_corvinarus_corridor_fight",
@@ -4354,7 +4360,9 @@
         "reputationNotes"
       ]
     },
-    "timeWindow": "roughly 1–2 hours, same night; no calendar day passed (still 1040 BF)"
+    "timeWindow": "roughly 1–2 hours, same night; no calendar day passed (still 1040 BF)",
+    "image": "assets/images/battles/green-t-and-archie-vs-the-scorncrow/green-t-and-archie-vs-the-scorncrow-01.jpg",
+    "imageCaption": "The grove under the controlled storm: the giant mid-stride, the scythe coming out of the dark, and nothing about it resolved."
   },
   {
     "id": "feyward_sixth_detachment_house_defense",
