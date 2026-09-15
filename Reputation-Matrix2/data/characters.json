@@ -1713,7 +1713,14 @@
       "wario",
       "the_scorncrow_skirmish"
     ],
-    "image": "portraits/remi_akamatsu_full_backstory.png"
+    "image": "portraits/remi_akamatsu_full_backstory.png",
+    "imageAlternates": [
+      {
+        "src": "portraits/alternates/remi-pre-grove.png",
+        "caption": "Before the Skittering Grove: armour whole, and she had not yet stood over a sleeping man.",
+        "credit": "Superseded 1 Aethel, 1040 BF — judgement_in_the_grove"
+      }
+    ]
   },
   {
     "id": "lyranth",
@@ -1845,7 +1852,14 @@
       "tymnas_cottage_and_hedge_maze",
       "the_scorncrow_skirmish"
     ],
-    "image": "portraits/markop.png"
+    "image": "portraits/markop.png",
+    "imageAlternates": [
+      {
+        "src": "portraits/alternates/markop-pre-grove.png",
+        "caption": "Before the Skittering Grove: helm on, skull unsplit.",
+        "credit": "Superseded 1 Aethel, 1040 BF — judgement_in_the_grove"
+      }
+    ]
   },
   {
     "id": "bowser",
@@ -2792,7 +2806,14 @@
       "geek_t",
       "the_box_guardian_sharpie_disguise_and_the_soot_barrel"
     ],
-    "image": "portraits/salam_scarred.png"
+    "image": "portraits/salam_grove_fallen.png",
+    "imageAlternates": [
+      {
+        "src": "portraits/alternates/salam-pre-grove.png",
+        "caption": "Before the Skittering Grove: on his feet, face unmarked by the brood.",
+        "credit": "Superseded 1 Aethel, 1040 BF — judgement_in_the_grove"
+      }
+    ]
   },
   {
     "id": "rodger",

@@ -725,3 +725,58 @@ This is not only a workaround — it is usually the better illustration, because
 this archive's battle records are about consequence rather than choreography.
 If a sheet is refused, rewrite the offending cell toward aftermath before
 rewriting anything else.
+
+### State sheets — redrawing a character after a filing changes them
+
+When a session leaves people maimed, ruined or transformed, their portraits
+should catch up. The rules for *when* live in
+[`Reputation-Matrix2/README.md`](../Reputation-Matrix2/README.md) under
+"Updating the portrait when the character changes". This is the how.
+
+**Check the year first, every time.** Only a filing at or near
+`currentDate.json` may change a portrait. The front strip is not a clock: at
+time of writing it carries Shadeward at 1040 BF, the Mario files at 1035 BF,
+and Feyward at 922 BF. Of those three only Shadeward is the present, so only
+Shadeward may touch a face. A filing that is recent to *read* is not
+necessarily recent in the *world*.
+
+**One sheet per front, everyone in the same room.** Collect the characters a
+filing materially changed and regenerate them together. A shared sheet keeps
+the light, the palette and the background consistent for a cast who were all
+in the same place, which is the entire point — the reader should see a group
+that has been through one night, not three unrelated re-renders.
+
+**Pass the existing portraits as `images` references.** This is what keeps the
+likeness. The prompt then says, explicitly: *keep the face, the build, the
+species and the silhouette; change only the condition, the gear damage and the
+background.* Without that sentence the model redesigns the character and the
+result reads as a stranger.
+
+Worked example — `tools/sheets/state-judgement-grove.png`, a 3x1 sheet for
+Markop, Remi and Salam after the Skittering Grove. Same faces, same armour
+design, new damage: a bandaged split skull, a chest plate cracked through and
+hanging by a strap, an unconscious Toad carried out of the webs. Background is
+one location for all three.
+
+**Filing the result:**
+
+1. Copy the current plate to `portraits/alternates/<id>-pre-<event>.png`.
+2. Slice the sheet over the live portraits.
+3. Add the old plate to `imageAlternates[]` with a caption naming the state it
+   showed and a credit naming the filing that superseded it.
+
+**Two traps, both hit while writing this:**
+
+- **`slice-portrait-sheet.py` will refuse a generator-owned portrait, and it is
+  right to.** Salam's likeness belongs to
+  `tools/build-judgement-in-the-grove.py`. The change went into the generator's
+  `SALAM_PORTRAIT` constant and the file was regenerated; hand-slicing over it
+  would have been reverted by the next `--check`.
+- **Do not borrow an unrelated id to get a cell sliced.** Passing a spare id to
+  the slicer to extract a third cell overwrites that character's portrait.
+  Crop the odd cell with `convert` instead.
+
+**Moderation.** A literal wound description ("deep bleeding gash", "eye swollen
+shut") gets refused. Bandages, blood already dried, unconsciousness and
+exhaustion all pass and read better anyway — the archive's register is
+aftermath, not gore.

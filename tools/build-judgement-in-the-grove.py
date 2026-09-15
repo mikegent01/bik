@@ -747,7 +747,19 @@ def upsert(container, key, record):
 # Salam is clawed across the face in section IX and the record says the wound
 # scars. The archive therefore carries a post-injury likeness for him from this
 # filing forward, and his status line stops describing him as on his feet.
-SALAM_PORTRAIT = "portraits/salam_scarred.png"
+#
+# The likeness is now the grove plate: unconscious, bandaged across the face,
+# carried out of the webs he fell in. This filing is dated 1 Aethel 1040 BF,
+# which is the archive's present, so it is allowed to set the portrait a reader
+# sees today -- see "Updating the portrait when the character changes" in
+# Reputation-Matrix2/README.md. The earlier scarred likeness is kept on the
+# record as an alternate rather than deleted.
+SALAM_PORTRAIT = "portraits/salam_grove_fallen.png"
+SALAM_PORTRAIT_PRIOR = {
+    "src": "portraits/alternates/salam-pre-grove.png",
+    "caption": "Before the Skittering Grove: on his feet, face unmarked by the brood.",
+    "credit": "Superseded 1 Aethel, 1040 BF — judgement_in_the_grove",
+}
 SALAM_STATUS = ("Fallen and unrecovered — clawed across the face in the Skittering Grove on "
                 "1 Aethel, 1040 BF and left unconscious as the brood closed from every direction. "
                 "The wound scars; the archive carries a post-injury likeness from this filing on.")
@@ -865,6 +877,10 @@ def build(check=False):
     if row is not None:
         row["image"] = SALAM_PORTRAIT
         row["status"] = SALAM_STATUS
+        # Keep the superseded likeness reachable instead of dropping it.
+        alts = [a for a in (row.get("imageAlternates") or [])
+                if isinstance(a, dict) and a.get("src") != SALAM_PORTRAIT_PRIOR["src"]]
+        row["imageAlternates"] = alts + [dict(SALAM_PORTRAIT_PRIOR)]
         dump("characters.json", chars)
 
     # Latest filing + featured.

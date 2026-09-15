@@ -239,6 +239,68 @@ Dossiers must be evidence-bound: name the actions, objects, places, relationship
 
 A major session event is not complete when the event record alone is changed. Review every named character whose status, inventory, relationship, injury, reputation, or current objective changed. Update the canonical record in `data/characters.json` with a concise dated or clearly labeled “Latest Filing” paragraph, append the event ID to `keyEvents`, and add the event, important item, faction, or location IDs to `relatedArticles` when they resolve. Update only characters materially affected; do not copy the whole plot into every profile. Keep the event as the detailed narrative source and the character page as the durable state change. Validate that every new ID resolves and that the profile update does not overwrite existing lore.
 
+#### Updating the portrait when the character changes
+
+A profile update is prose *and* picture. If a filing leaves someone maimed,
+promoted, exiled, transformed or newly armoured, the portrait on their card
+should show it — a reader looking at a face should be seeing the person as
+they are now, not as they were when the library was first illustrated.
+
+**The present-tense rule, and it is the whole rule.** A portrait shows a
+character's **current** state. The archive's fronts are not all in the same
+year: at time of writing Shadeward is 1040 BF, the Mario files are 1035 BF,
+and Feyward runs on its own clock at 922 BF. A filing being *recent to read*
+does not make it *recent in the world*.
+
+```
+· Only a filing at or near currentDate.json may change a portrait.
+· A filing set in the past NEVER changes the portrait, however dramatic.
+  Waluigi at 922 BF in the Feyward manor does not get to put mud on the
+  Waluigi a reader meets in 1040 BF. That is a flashback, not a change.
+· If the character is dead, departed or petrified in the present, the
+  portrait stays at their last living state unless the filing explicitly
+  describes the body or the statue. A closed record is not a blank one.
+· Check the year before you open the image tool. Not the filing order,
+  not the front strip position — the year on the record.
+```
+
+**Keep the likeness, change the circumstance.** The point is that the same
+person is visibly in a new situation, so the reader recognises them and then
+notices what happened. Change the *background*, the *lighting*, the *costume
+wear*, and the *new physical facts the record states* — a split skull, a
+destroyed set of armour, a face opened by a scythe. Do not redesign the face,
+the build or the silhouette; that reads as a different character, not a
+changed one.
+
+Source every change from the filing's own prose, exactly as with any other
+plate. If the record does not say the armour was destroyed, the armour is not
+destroyed.
+
+**Where the new art goes.** A present-state portrait is canon, so it replaces
+`image` on the record. Move the previous plate into `imageAlternates[]` with a
+caption naming the state it showed and the filing it belonged to, so the
+earlier likeness stays reachable and nothing is deleted:
+
+```json
+"image": "portraits/markop.png",
+"imageAlternates": [
+  { "src": "portraits/alternates/markop-pre-grove.png",
+    "caption": "Before the Skittering Grove: helm intact, no scar.",
+    "credit": "Superseded 1 Aethel, 1040 BF — judgement_in_the_grove" }
+]
+```
+
+Note this is the one exception to `assets/backlog/README.md`'s rule that
+`imageAlternates[]` holds non-canon studies: a superseded canon plate is
+history, not a draft, and it belongs on the record rather than in the backlog.
+
+**Batch them by front.** When a session lands, collect every character it
+materially changed and regenerate them as one contact sheet, in the style the
+image guide specifies. One sheet per front keeps the lighting and the register
+consistent across a cast who were all in the same room, and it is the cheapest
+way to do this — see the sheet workflow at the end of
+[`docs/IMAGE_GENERATION_GUIDE.md`](../docs/IMAGE_GENERATION_GUIDE.md).
+
 #### Character lifecycle after an arc
 
 Characters are canon, not temporary cache entries. **Never delete a character who is linked from a filed event merely because the arc ended.** Closing an arc instead triggers a cast-closeout pass:
