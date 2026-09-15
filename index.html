@@ -6203,7 +6203,7 @@ function characterVisual(i){
   const boneLineIds = ['sans', 'papyrus', 'grandpa_semi', 'lazybones', 'baby_bones', 'dirty_brother', 'will', 'cursive', 'has_a_very_special_attack', 'times_new_roman', 'prunsel', 'real_star', 'brother_killer', 'my_little_brother', 'ness', 'wing_gaster', 'my_brother', 'pretty_soon', 'helvetica', 'gee_lady', 'garbage_brother', 'starman', 'quantity', 'speen_kind_of_down_lately', 'pet_rock', 'dedan', 'mystery_man', 'sans_deltarune'];
   const hasLocalImg = i.image || boneLineIds.includes(i.id);
   const avatarImg = hasLocalImg 
-    ? `<img src="${esc(assetPath(i.image || `portraits/${i.id}.png`))}" style="width: 100%; height: 100%; object-fit: cover; display: block;" onerror="this.outerHTML='<span class=\"char-primary\">${esc(v.primary)}</span>'">`
+    ? `<img src="${esc(assetPath(i.image || `portraits/${i.id}.png`))}" style="width:100%;height:100%;object-fit:cover;object-position:50% 18%;display:block;" onerror="this.outerHTML='<span class=\"char-primary\">${esc(v.primary)}</span>'">`
     : `<span class="char-primary">${esc(v.primary)}</span>`;
   return `<div class="character-card-visual theme-${esc(v.theme)}" style="--char-a:${v.colors[0]};--char-b:${v.colors[1]}"><div class="char-bg-emoji">${esc(v.primary)}${esc(v.badges[0]||'')}</div><div class="char-avatar">${avatarImg}</div><div class="char-visual-text"><span>${esc(v.label).slice(0,42)}</span><b>${esc(status).slice(0,32)}</b><div class="char-badge-row">${v.badges.map(b=>`<i>${esc(b)}</i>`).join('')}</div></div></div>`;
 }
@@ -9156,12 +9156,22 @@ function view_home(){
     homeHeroHtml({who,dateStr,wd,greet,feat,heroArt,resume})
     +homeTickerHtml(nNew)
     +homeStatusBand(nNew)
-    +`<section class="hm-sec hm-rise"><div class="hm-sec-head"><div><div class="hm-sec-kick">Front desk · this season</div><h2>🎬 Current fronts</h2></div><span class="hm-sec-link" onclick="Router.go('#/list/events')">📂 All filings →</span></div><div id="home-campaign-covers" class="campaign-covers-grid"></div><div style="margin-top:10px;font-size:11px;font-weight:900;letter-spacing:.7px;text-transform:uppercase;color:var(--muted)">📷 From the archive — same stories, filed art</div><div id="home-field-gallery" class="field-gallery-strip"></div></section>`
+    +`<section class="hm-sec hm-rise"><div class="hm-sec-head"><div><div class="hm-sec-kick">Front desk · this season</div><h2>🎬 Current fronts</h2></div><span class="hm-sec-link" onclick="Router.go('#/list/events')">📂 All filings →</span></div><div id="home-campaign-covers" class="campaign-covers-grid"></div><div id="home-field-gallery-label" class="field-gallery-label">📷 From the archive — same stories, filed art</div><div id="home-field-gallery" class="field-gallery-strip"></div></section>`
     +`<div class="hm-grid"><div class="hm-main"><section class="hm-sec hm-rise"><div class="hm-sec-head"><div><div class="hm-sec-kick">Session logs &amp; chronicle</div><h2>📜 Latest filings</h2></div><div style="display:flex;gap:8px;flex-wrap:wrap">${newPill}<span class="hm-sec-link" onclick="Router.go('#/list/events')">Browse all →</span></div></div><div id="home-recent-adventures" class="campaign-timeline-feed"></div><span class="hm-more" onclick="document.getElementById('home-recent-adventures').classList.add('show-all');this.remove()">Show all 12 filings ↓</span></section><div id="home-archive-updates"></div>`
     +`</div>`
     +`<aside class="hm-rail hm-rise"><div class="card"><h2>🕰️ On this day — ${esc(mdName)} ${CUR.day}</h2><div id="home-cal" class="mini-calendar"></div><ul class="otd">${homeOtdList()}</ul><div class="chips" style="margin-top:10px"><a class="chip" onclick="Router.go('#/calendar')">📅 Full calendar →</a></div></div><div class="card"><h2>🧭 Explore</h2><div class="dash-doors">${dashDoors()}</div></div><div class="card"><h2>🆕 Latest updates</h2>${homeUpdatesCard()}<div class="chips" style="margin-top:10px"><a class="chip" onclick="Router.go('#/updates')">📋 All updates →</a></div></div></aside></div>`
     +`<footer class="hm-foot hm-rise"><span class="wah-line">“Every filing is mine. This one is ESPECIALLY mine.”</span>${esc(stats)} · <a onclick="Router.go('#/currencies')" style="cursor:pointer">💱 debts &amp; ledger</a></footer>`;
-  try{ const h=homeCoversHtml(); const m=document.getElementById('home-campaign-covers'); if(m) m.innerHTML=h.covers||''; const g=document.getElementById('home-field-gallery'); if(g) g.innerHTML=h.field||''; }catch(e){ console.warn('home covers failed',e); }
+  try{ const h=homeCoversHtml(); const m=document.getElementById('home-campaign-covers'); if(m) m.innerHTML=h.covers||'';
+    /* An empty grid is still a grid: it keeps its margins and the "From the
+       archive" label keeps its own, so a section with no field art rendered as
+       a band of dead space under the covers. Only show the label and the strip
+       when there is something in them. */
+    const g=document.getElementById('home-field-gallery'); const gl=document.getElementById('home-field-gallery-label');
+    const hasField=!!(h.field&&h.field.trim());
+    if(g){ g.innerHTML=h.field||''; g.hidden=!hasField; }
+    if(gl) gl.hidden=!hasField;
+    if(m) m.hidden=!(h.covers&&h.covers.trim());
+  }catch(e){ console.warn('home covers failed',e); }
   try{ const f=document.getElementById('home-recent-adventures'); if(f) f.innerHTML=homeRecentAdventuresHtml(); }catch(e){ console.warn('home feed failed',e); }
   try{ const u=document.getElementById('home-archive-updates'); if(u) u.innerHTML=homeArchiveUpdatesHtml(); }catch(e){ console.warn('archive updates failed',e); }
   try{ renderMiniCalendar('home-cal',CUR.year,CUR.monthIndex); }catch(e){ console.warn('mini cal failed',e); }

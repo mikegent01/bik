@@ -53,12 +53,31 @@
 .campaign-cover-card.broken img{display:none;}
 .campaign-cover-card.broken figcaption{padding-top:14px;}
 
+/* The label is a real element now (it used to be an inline-styled div) so the
+   renderer can hide it when the strip is empty. */
+.field-gallery-label{
+  margin-top:10px;
+  font-size:11px;
+  font-weight:900;
+  letter-spacing:.7px;
+  text-transform:uppercase;
+  color:var(--muted,#b9a8d6);
+}
 .field-gallery-strip{
   display:grid;
   grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
   gap:12px;
   margin-top:16px;
 }
+/* `hidden` loses to `display:grid`/`display:block` on specificity, which is the
+   classic way an "empty" container keeps reserving its margins. Force it. */
+.field-gallery-strip[hidden],
+.field-gallery-label[hidden],
+.campaign-covers-grid[hidden]{display:none!important;}
+/* Belt and braces: a grid with no children still contributes its own margins,
+   so collapse those too if the renderer ever leaves one in the page. */
+.campaign-covers-grid:empty,
+.field-gallery-strip:empty{display:none;margin:0;}
 .field-gal-item{
   position:relative;
   margin:0;
