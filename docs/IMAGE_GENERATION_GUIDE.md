@@ -544,7 +544,29 @@ dependency) and insets a few pixels per edge to drop the gutter.
   same background.
 - **Name each background explicitly and differently** in the prompt. The cells
   share a style; they must not share a place.
-- **3x3 is the working density.** Nine cells per generation, tested. Cards crop
+- **5x5 is the working density for PORTRAIT sheets.** Twenty-five cells per
+  generation, tested and shipped (`tools/sheets/portrait-sheet-02.png`,
+  `-03.png`). An earlier note here capped sheets at 3x3 after a sheet came back
+  5x3 with duplicated cells. That was a prompt failure, not a density limit:
+  the fix is to say **"a SQUARE 1:1 image, exactly 5 columns and 5 rows, every
+  cell a DIFFERENT character, do not repeat any character"** and to number the
+  cells in the prompt. At 1024x1024 a 5x5 cell is ~204px, which is more than an
+  avatar or a card thumbnail ever displays.
+- **Portrait sheets have a house style, and it is narrow.** Pass
+  `portraits/luigi_operative.webp`, `portraits/waluigi.png` and
+  `portraits/markop.png` as image references — describing the style in words
+  does not work. The target is a **polished stylized 3D character render**:
+  cartoon proportions, large expressive eyes, smooth stylized skin, with
+  grimy realistic material detail on cloth, leather and metal, lit dark and
+  low-key against a near-black background. Two failure modes, both seen:
+  a bright glossy Nintendo mascot (too clean), and a painterly oil portrait
+  (reads as "regular people", not this world). It is a 3D render, always.
+- **Not every character should be darkened.** This is the Doughnut World, so
+  Mario is a ruined man holding a crushed cap and Peach is a dead queen — but
+  the clean, bright 3D model is the RIGHT answer for some of the cast. Toad
+  and Peach were both reverted to their glossy 3D versions on review. When a
+  character reads better clean, keep them clean; grim is a tool, not a tax.
+- **3x3 remains the density for EVENT scene sheets.** Nine cells per generation, tested. Cards crop
   to 16:7, so a 341px cell is more resolution than a tile ever displays.
 - **Density does NOT govern likeness — the prompt does.** An earlier note here
   claimed 2x2 was needed to keep faces on-model. That was wrong and backwards:
