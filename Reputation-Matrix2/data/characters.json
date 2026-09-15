@@ -5141,7 +5141,8 @@
       "feyward_battalion_of_six_and_the_bait_plan",
       "overgrown_manor",
       "hjumpik"
-    ]
+    ],
+    "image": "portraits/hank_the_goblin_butler.png"
   },
   {
     "id": "timmy_the_house_guard",
@@ -5157,7 +5158,8 @@
       "feyward_battalion_of_six_and_the_bait_plan",
       "overgrown_manor",
       "hjumpik"
-    ]
+    ],
+    "image": "portraits/timmy_the_house_guard.png"
   },
   {
     "id": "wyatt_the_white_haired_goblin",
@@ -5173,7 +5175,8 @@
       "feyward_battalion_of_six_and_the_bait_plan",
       "overgrown_manor",
       "toad_lee"
-    ]
+    ],
+    "image": "portraits/wyatt_the_white_haired_goblin.png"
   },
   {
     "id": "brad_the_waiter",
@@ -5188,7 +5191,8 @@
     "relatedArticles": [
       "feyward_battalion_of_six_and_the_bait_plan",
       "overgrown_manor"
-    ]
+    ],
+    "image": "portraits/brad_the_waiter.png"
   },
   {
     "id": "randall_the_house_guard",
@@ -5203,7 +5207,8 @@
     "relatedArticles": [
       "feyward_battalion_of_six_and_the_bait_plan",
       "overgrown_manor"
-    ]
+    ],
+    "image": "portraits/randall_the_house_guard.png"
   },
   {
     "id": "piktor_deldkur_the_third",
@@ -5225,7 +5230,8 @@
         "role": "House Deldkur",
         "note": "Hjumpik's grandfather, named in the war room of the Overgrown Manor on the morning of 1 Aethel, 922 BF. The Steel Creed's instinct — that dangerous knowledge should be held rather than shared, for everyone's protection — is a dwarven house's default posture rendered as theology."
       }
-    ]
+    ],
+    "image": "portraits/piktor_deldkur_the_third.png"
   },
   {
     "id": "big_r",
@@ -5494,7 +5500,8 @@
       "hjumpik",
       "overgrown_manor",
       "overgrown_library"
-    ]
+    ],
+    "image": "portraits/the_veteran_fairy.png"
   },
   {
     "id": "red_the_kitchen_commander",
@@ -5527,7 +5534,8 @@
       "overgrown_manor",
       "hjumpik",
       "orangus_cornelius"
-    ]
+    ],
+    "image": "portraits/the_mushroom_room_guard.png"
   },
   {
     "id": "scorncrow",
@@ -5747,6 +5755,7 @@
       "hjumpik",
       "wario",
       "feyward_i_cant_afford_not_to_care"
-    ]
+    ],
+    "image": "portraits/the_hallway_reinforcement_guard.png"
   }
 ]

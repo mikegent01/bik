@@ -552,7 +552,32 @@ dependency) and insets a few pixels per edge to drop the gutter.
   cell a DIFFERENT character, do not repeat any character"** and to number the
   cells in the prompt. At 1024x1024 a 5x5 cell is ~204px, which is more than an
   avatar or a card thumbnail ever displays.
-- **Portrait sheets have a house style, and it is narrow.** Pass
+- **THE PORTRAIT STYLE IS DRAWN, NOT RENDERED (current, chosen by review).**
+  A nine-style bake-off was run for Mario and Luigi and the verdict was a
+  **dark gritty drawn comic illustration**: bold inked linework with visible
+  varying line weight, heavy black ink shadows, cross-hatching and stipple,
+  hard-edged cel flats under the inks, a muted desaturated palette (grimy
+  browns, sickly greens, cold greys, dried-blood reds), harsh single-side
+  lighting, deep shadow in the eye sockets, near-black background. Faces stay
+  stylized and characterful with exaggerated readable features, but carry
+  dirt, scars, sweat and exhaustion. Worked example, nine cells:
+  `portraits/hank_the_goblin_butler.png` and the rest of the Overgrown Manor
+  household. Explicitly rejected on review: smooth 3D renders of any kind
+  ("too cartoonish"), and painterly oil ("too realistic, just regular people").
+  Say **NOT a 3D render, NOT a smooth cartoon, NOT photorealistic** in the
+  prompt -- the model drifts back to 3D without it.
+- **Generators will not remove a limb.** Piktor Deldkur the Third is defined by
+  having lost an arm, and came back with two arms across three attempts,
+  including an explicit single-portrait edit pass. Amputations, missing eyes
+  and similar subtractions need a targeted edit and then a visual check; do not
+  assume the instruction took. Budget a retry and verify by eye every time.
+- **An edit pass can change the crop and the pixel size.** The Piktor edit
+  returned 1024x1024 while its sheet siblings were 325x325. Re-`convert`ed to
+  match. Always `identify` a repaired portrait against its neighbours.
+- **The older 3D portraits and the new drawn ones do not match.** 133 portraits
+  predate this decision. That is a known, accepted inconsistency to be worked
+  down sheet by sheet, not a bug to report.
+- **Superseded 3D guidance, kept for context.** Pass
   `portraits/luigi_operative.webp`, `portraits/waluigi.png` and
   `portraits/markop.png` as image references — describing the style in words
   does not work. The target is a **polished stylized 3D character render**:
