@@ -2044,3 +2044,43 @@ export const MAP_DATA = {
     weldrhom: { id: 'weldrhom', name: 'Weldrhom', imageSrc: 'assets/illustrations/earth_land.png', group: 'Oceanic & Islands', pointsOfInterest: weldrhomData.pointsOfInterest, fogOfWar: weldrhomData.fogOfWar, poiSourceFile: 'map-data/earth-land-pois.js' },
     formosa_ultima: { id: 'formosa_ultima', name: 'Formosa Ultima', imageSrc: 'assets/illustrations/earth_land.png', group: 'Oceanic & Islands', pointsOfInterest: formosaUltimaData.pointsOfInterest, fogOfWar: formosaUltimaData.fogOfWar, poiSourceFile: 'map-data/earth-land-pois.js' },
 };
+
+/* ---- Group overviews ("(Full)") -------------------------------------------
+   Seven groups had regional maps but no aggregate sheet, so there was no way
+   to see a realm whole -- you had to know which sub-region a pin lived in
+   before you could look at it. These are built the same way the existing
+   `_full` entries are: every POI in the group, de-duplicated by id, drawn on
+   the image the group's regions already share, with `order: 0` so the
+   overview sorts to the front of its group.
+
+   Derived at load rather than hand-listed. A new region added to any of these
+   groups appears on its overview automatically, which is the only way this
+   stays true. */
+const FULL_GROUP_OVERVIEWS = [{"id": "divine_kingdoms_full", "name": "Divine Kingdoms (Full)", "group": "Divine Kingdoms", "imageSrc": "assets/illustrations/earth_land.png"}, {"id": "earth_continents_full", "name": "Earth Continents (Full)", "group": "Earth Continents", "imageSrc": "assets/illustrations/earth_land.png"}, {"id": "islands_outer_realms_full", "name": "Islands & Outer Realms (Full)", "group": "Islands & Outer Realms", "imageSrc": "assets/maps/mushroom_kingdom.jpg"}, {"id": "lost_continents_full", "name": "Lost Continents & Myths (Full)", "group": "Lost Continents & Myths", "imageSrc": "assets/illustrations/earth_land.png"}, {"id": "norse_realms_full", "name": "Norse Realms (Full)", "group": "Norse Realms", "imageSrc": "assets/illustrations/earth_land.png"}, {"id": "oceanic_islands_full", "name": "Oceanic & Islands (Full)", "group": "Oceanic & Islands", "imageSrc": "assets/illustrations/earth_land.png"}, {"id": "outer_realms_full", "name": "Outer Realms (Full)", "group": "Outer Realms", "imageSrc": "assets/illustrations/earth_land.png"}];
+for (const spec of FULL_GROUP_OVERVIEWS) {
+    const members = Object.values(MAP_DATA).filter(m => m && m.group === spec.group);
+    if (!members.length) continue;
+    const seen = new Set();
+    const pois = [];
+    for (const m of members) {
+        for (const p of (m.pointsOfInterest || [])) {
+            if (!p) continue;
+            const key = p.id || (p.name + ':' + p.x + ',' + p.y);
+            if (seen.has(key)) continue;
+            seen.add(key);
+            pois.push(p);
+        }
+    }
+    MAP_DATA[spec.id] = {
+        id: spec.id,
+        name: spec.name,
+        imageSrc: spec.imageSrc,
+        order: 0,
+        group: spec.group,
+        pointsOfInterest: pois,
+        /* No fog on an overview: the sub-region sheets own the fog shapes and
+           stacking seven of them produces a solid black map. */
+        fogOfWar: [],
+        poiSourceFile: members[0].poiSourceFile || ''
+    };
+}
