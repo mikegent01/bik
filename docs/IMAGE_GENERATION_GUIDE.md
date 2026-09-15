@@ -15,6 +15,34 @@ nonsense word `CRERA` on the tail. None of it was wrong, exactly. It was
 
 ---
 
+## Rule 00 — wire the renderer BEFORE you fill the store
+
+**Check that the page can display an image before you generate fifty of them.**
+
+`battles.json` sat at 5 illustrated records out of 69 for a long time, and
+`majorBattles.json` sat at 0 out of 51. The cause was not laziness about art.
+`battleThumb()` returned its generated versus-gradient SVG *unconditionally* —
+it never looked at `image` at all — so a battle could carry a perfectly good
+filed plate and still render a coloured swatch. Nobody filled the store because
+filling it visibly did nothing.
+
+Before starting an art pass on any record type, run the three-line check:
+
+1. Find the render function for that type (`cardVisual()` routes them).
+2. Confirm it reads `item.image` and has a fallback when the file 404s.
+3. File ONE image, load the page, and look at it.
+
+If step 3 does not show your picture, stop and fix the renderer. An art backlog
+is cheap to clear; fifty images wired to nothing is a wasted afternoon and a
+store that lies about its own coverage.
+
+**Coverage must be visible in a check, not in someone's memory.** Any store
+that can carry art reports a coverage bar in its checker — see
+`tools/check-battles.py`, which prints `battles.json` and `majorBattles.json`
+side by side every run. A drought you can see is a drought that gets fixed.
+
+---
+
 ## Rule 0 — reuse the archive before spending a generation
 
 **The project's own files are the art department. Check them first.** The
@@ -634,3 +662,66 @@ results than forcing a character into a scene that never had one.
 Reserve the portrait references for filings whose cast is actually the
 subject. Mixing the two on one sheet is what causes a character to wander
 into a cell where the prompt only asked for a room.
+
+### Battle sheets — 3x2, and why not denser
+
+Battles use `tools/slice-battle-sheet.py`, the third sibling of the event and
+portrait slicers. It validates ids against **both** `battles.json` and
+`majorBattles.json`, reports which store each id landed in, and writes back to
+the right one.
+
+**The density is 3x2 (six cells), and that is a resolution floor, not taste.**
+Battle art fills `battleThumb()`'s `viewBox="0 0 640 300"` — four times the
+pixels of a 325px portrait, and a wide crop, so cells lose height twice over.
+The model returns ~1408x768 regardless of the grid asked for:
+
+| grid | cells | usable after the 16:7 crop | vs the 640x300 card |
+|------|-------|----------------------------|---------------------|
+| 3x2  | 6     | 469x205                    | upscaled 1.36x      |
+| 4x3  | 12    | 352x154                    | upscaled 1.82x      |
+| 5x5  | 25    | 281x122                    | upscaled 2.28x      |
+| 6x6  | 36    | 234x102                    | upscaled 2.74x      |
+
+5x5 is right for **portraits** (a 204px cell into a 58px avatar has enormous
+headroom) and wrong for **battles** (no headroom at all). Same reasoning,
+opposite answer. Do not raise battle density to save calls: the per-sheet cost
+is writing six lore-accurate cell descriptions and six captions, which is
+per-*record* work that a denser grid does not reduce.
+
+**`--gravity` matters.** Cells are cropped to 16:7 before saving. The default
+`north` decapitated the spider grove — it kept the Matriarch and cut out the
+three adventurers fighting her. `center` is the right default for scenes where
+the threat and the people are at different heights. Check one crop by eye
+before slicing the rest.
+
+**Captions are mandatory, so write them in the same pass.** `check-battles.py`
+FAILS any record with an `image` and no `imageCaption`. Discovering that after
+the fact costs a second editing pass over twelve records; writing the caption
+while the cell description is still in your head costs nothing. A caption says
+what the plate shows, in the archive's voice, sourced from the record.
+
+Two caption traps worth knowing:
+
+- **An existing caption can be invalidated by adding art.** The Brobot caption
+  read "No photographs survived" and the spider grove's described mages
+  surveying an aftermath. Both were true of a record with no picture and false
+  printed under one. Reframe rather than delete: "No photographs survived;
+  reconstructed from Archie's account and the Legion's."
+- **Some plates should be empty on purpose.** The assassination of Peach is a
+  throne room with a crown on the carpet and nobody in frame, because the
+  record says the circumstances remain unclear and drawing a killer would
+  invent one. Crimson Fields is a deserted harvest. Absence is a legitimate
+  composition and often the honest one.
+
+### Content moderation — frame the place, not the violence
+
+Two battle sheets were refused outright. Both recovered by describing **the
+room and the aftermath** instead of the act: a vampire dinner became "a ritual
+interrupted, a room turning on itself"; a massacre became a corridor with
+dropped keys and a long dark smear; a convoy massacre became burning wagons
+and one figure walking away.
+
+This is not only a workaround — it is usually the better illustration, because
+this archive's battle records are about consequence rather than choreography.
+If a sheet is refused, rewrite the offending cell toward aftermath before
+rewriting anything else.

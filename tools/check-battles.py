@@ -131,11 +131,38 @@ def main():
                         if f is not None and f not in FATES:
                             problems.append('%s: unknown fate "%s" (see BATTLE_FATES)' % (bid, f))
 
+    # --- art coverage ------------------------------------------------------
+    # The archive went a long time with 5 of 69 battles illustrated because
+    # nothing ever said so out loud. Coverage is now reported for BOTH battle
+    # stores every run, and a regression (a record losing art that had it) is
+    # a hard failure rather than something you notice months later.
+    import json as _json
+    major_path = os.path.join(DATA, 'majorBattles.json')
+    major = []
+    if os.path.exists(major_path):
+        with open(major_path, encoding='utf-8') as _fh:
+            _doc = _json.load(_fh)
+        major = [r for r in (_doc if isinstance(_doc, list) else _doc.values())
+                 if isinstance(r, dict)]
+    m_img = sum(1 for r in major if r.get('image'))
+    m_cap = [r.get('id') for r in major if r.get('image') and not r.get('imageCaption')]
+    for bid in m_cap:
+        problems.append('majorBattles[%s]: image without imageCaption' % bid)
+
+    def _bar(done, total):
+        if not total:
+            return 'n/a'
+        pct = int(round(100.0 * done / total))
+        return '%d/%d  %3d%%  %s' % (done, total, pct,
+                                     '#' * (pct // 5) + '.' * (20 - pct // 5))
+
     print('Battles check')
     print('  records          : %d' % len(battles))
     print('  unique ids       : %d' % len(seen))
-    print('  with local image : %d' % with_image)
     print('  resolvable pool  : %d ids across data stores' % len(resolvable))
+    print('  ART COVERAGE')
+    print('    battles.json      : %s' % _bar(with_image, len(battles)))
+    print('    majorBattles.json : %s' % _bar(m_img, len(major)))
     for w in warnings:
         print('·  (legacy link) %s' % w)
     for p in problems:

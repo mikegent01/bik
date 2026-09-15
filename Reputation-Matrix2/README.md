@@ -259,6 +259,14 @@ Every local/supporting character should carry `arcId`, `lastSeenEvent`, and a sh
 
 Every new session event or long narrative filing ships **with images**. This is a step of the process, not a favour to be requested. A filing that reads well and shows nothing is not finished.
 
+**Before any of this:** if you are starting an art pass on a whole record type,
+confirm the renderer actually reads `image`. `battles.json` stalled at 5 of 69
+illustrated because `battleThumb()` never looked at the field — art could be
+filed and still not appear. File one image, load the page, look at it, *then*
+start the pass. Coverage is printed per store by that store's checker
+(`tools/check-battles.py`), so a drought is visible instead of assumed. Rule 00
+in [`docs/IMAGE_GENERATION_GUIDE.md`](../docs/IMAGE_GENERATION_GUIDE.md).
+
 **Step by step:**
 
 1. **Pick the beats.** One lead image for the record, plus one image for each section that contains a *place, an object, or a piece of evidence a reader would want to look at*. Three to six section images for a long filing is the working band. Do not illustrate every section — illustrate the ones where seeing the thing changes how the paragraph lands.
