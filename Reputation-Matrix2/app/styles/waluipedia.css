@@ -2639,3 +2639,38 @@ a.front-title:hover{color:var(--accent2)}
   .front-head-meta{margin-left:0;width:100%}
   .front-battle-tag{display:none}
 }
+
+/* ===== House panel on a character page (dynasties ↔ characters) =====
+   DYNASTY_SYSTEM held 159 member records that no character page ever
+   mentioned. This renders the house a character belongs to, and opens the
+   bloodline secrets the party's live intel score has actually paid for. */
+.dyn-panel{border:1px solid var(--border);border-top:3px solid var(--dyn-accent,#b55cff);
+  border-radius:12px;background:var(--panel2);padding:14px 16px;margin:16px 0}
+.dyn-head{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.dyn-sigil{font-size:30px;line-height:1;filter:drop-shadow(0 2px 6px rgba(0,0,0,.45))}
+.dyn-head-text{display:flex;flex-direction:column;gap:2px;min-width:0;flex:1}
+.dyn-house{font-weight:800;font-size:16px;color:var(--dyn-accent,#b55cff);text-decoration:none}
+.dyn-house:hover{text-decoration:underline}
+.dyn-branch{font-size:12px;color:var(--muted);font-weight:700}
+.dyn-motto{font-size:12.5px;color:var(--muted);font-style:italic}
+.dyn-status{font-size:10.5px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;
+  border:1px solid var(--border);border-radius:999px;padding:3px 9px;color:var(--muted);white-space:nowrap}
+.dyn-rows{margin-top:11px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:4px 16px}
+.dyn-rows .irow{display:flex;justify-content:space-between;gap:10px;font-size:12.5px;
+  padding:4px 0;border-bottom:1px dashed var(--border)}
+.dyn-rows .irow span{color:var(--muted)}
+.dyn-secrets{margin-top:13px;border-top:1px solid var(--border);padding-top:11px}
+.dyn-secrets-head{display:flex;justify-content:space-between;align-items:baseline;gap:10px;
+  flex-wrap:wrap;margin-bottom:7px}
+.dyn-secrets-head b{font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--dyn-accent,#b55cff)}
+.dyn-intel{font-size:11.5px;color:var(--muted)}
+.dyn-secret{display:flex;gap:9px;align-items:flex-start;font-size:12.5px;line-height:1.5;
+  padding:6px 0;border-bottom:1px dashed var(--border)}
+.dyn-secret:last-child{border-bottom:0}
+.dyn-gate{flex:0 0 30px;text-align:center;font-weight:800;font-size:10.5px;border-radius:5px;
+  padding:2px 0;font-variant-numeric:tabular-nums}
+.dyn-secret--open .dyn-gate{background:rgba(120,200,140,.16);color:#7fd39a;border:1px solid rgba(120,200,140,.3)}
+.dyn-secret--sealed{opacity:.6}
+.dyn-secret--sealed span:last-child{font-style:italic;color:var(--muted)}
+.dyn-secret--sealed .dyn-gate{background:rgba(255,255,255,.05);color:var(--muted);border:1px solid var(--border)}
+.dyn-secrets-note{margin:9px 0 0;font-size:11.5px;color:var(--muted)}

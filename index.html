@@ -10319,6 +10319,123 @@ function visualDynastyMap(h){
 }
 function dynastyIntelPolicy(){return `<div class="intel-policy"><b>Intel policy:</b> Waluipedia is public. Dynasty secrets are not revealed here. Locked entries show required intel thresholds only; full secret text belongs in the private Intel Dossiers / GM view, not the public encyclopedia.</div>`;}
 
+/* ---------- dynasties ↔ characters ----------
+   DYNASTY_SYSTEM is a large, carefully written dataset — 159 member records
+   across a dozen houses, each with a motto, a seat, a claim strength and a
+   ladder of secrets gated behind intel scores. It touched nothing. A
+   character's page never said what house they belonged to, and the dynasty
+   archive never said which of its members had a filed article.
+
+   34 of those members ARE characters in characters.json. The link was always
+   derivable; nothing derived it.
+
+   This index computes the bridge once, by id and then by normalised name, so
+   the relationship lives in neither file as duplicated data. Adding a member
+   to a house, or a character to the registry, links them automatically.
+
+   The house panel then renders on the character's own page: sigil, motto,
+   seat, where they sit in the line — and the secrets the party's CURRENT
+   intel score has actually bought, which is the point. A secret at intel 85
+   stays sealed until the party has earned 85. The dynasty archive has always
+   held those thresholds; nothing had ever read them against live intel. */
+let DYNASTY_INDEX_CACHE=null;
+function dynastyIndex(){
+  if(DYNASTY_INDEX_CACHE) return DYNASTY_INDEX_CACHE;
+  const byChar={}, byHouse={};
+  const norm=x=>String(x||'').toLowerCase().replace(/[^a-z0-9]+/g,'');
+  const charsById={}, charsByName={};
+  (DATA.characters||[]).forEach(c=>{ if(!c||!c.id) return;
+    charsById[c.id]=c; const n=norm(c.name); if(n&&!charsByName[n]) charsByName[n]=c; });
+
+  const attach=(houseKey,house,branch,member)=>{
+    if(!member||!member.name) return;
+    const c=charsById[member.id]||charsByName[norm(member.name)];
+    if(!c) return;
+    if(byChar[c.id]) return;                   // first house wins; no double-claiming
+    const entry={charId:c.id,houseKey,house,branch,member};
+    byChar[c.id]=entry;
+    (byHouse[houseKey]=byHouse[houseKey]||[]).push(entry);
+  };
+
+  Object.entries(DYNASTY_SYSTEM.houses||{}).forEach(([hk,h])=>{
+    (h.members||[]).forEach(m=>attach(hk,h,null,m));
+    (h.cadetBranches||[]).forEach(cb=>{
+      if(cb.currentHead) attach(hk,h,cb,cb.currentHead);
+      (cb.members||[]).forEach(m=>attach(hk,h,cb,m));
+    });
+  });
+  return (DYNASTY_INDEX_CACHE={byChar,byHouse});
+}
+/* What the party currently knows about this person, on the intel scale the
+   dynasty secrets are written against. */
+function dynastyIntelScore(charId){
+  try{ const r=partyIntel()[charId]; return r?Math.max(0,Math.round(r.score)):0; }
+  catch(e){ return 0; }
+}
+function dynastyPanel(item){
+  if(!item||!item.id) return '';
+  const e=dynastyIndex().byChar[item.id];
+  if(!e) return '';
+  const h=e.house, br=e.branch, m=e.member;
+  const accent=(h.colors&&h.colors[0])||'#b55cff';
+  const seat=(br&&br.seat)||h.seat||'—';
+  const motto=(br&&br.motto)||h.motto||'';
+  const status=(br&&br.status)||h.status||'';
+  const claim=(br&&br.claimStrength!=null)?br.claimStrength:null;
+
+  const known=dynastyIntelScore(item.id);
+  const secrets=(m.secrets||[]).slice().sort((a,b)=>(a.intel||0)-(b.intel||0));
+  const unlocked=secrets.filter(s=>known>=(s.intel||0));
+  const sealed=secrets.filter(s=>known<(s.intel||0));
+  const nextGate=sealed.length?Math.min(...sealed.map(s=>s.intel||0)):null;
+
+  const secretHtml=secrets.length?`
+    <div class="dyn-secrets">
+      <div class="dyn-secrets-head">
+        <b>Bloodline file</b>
+        <span class="dyn-intel">Party intel on ${esc(displayName(item))}: <b>${known}</b></span>
+      </div>
+      ${unlocked.map(s=>`<div class="dyn-secret dyn-secret--open"><span class="dyn-gate">${s.intel}</span><span>${esc(s.text)}</span></div>`).join('')}
+      ${sealed.map(s=>`<div class="dyn-secret dyn-secret--sealed"><span class="dyn-gate">${s.intel}</span><span>Sealed — the archive holds something here, and the party has not earned it.</span></div>`).join('')}
+      ${nextGate!=null?`<p class="dyn-secrets-note">Next disclosure at intel <b>${nextGate}</b>. Intel is earned by filings that name this person; see the <a class="entity-link" href="#/dynasties">Intel Board</a>.</p>`:''}
+    </div>`:'';
+
+  return `<section class="dyn-panel" style="--dyn-accent:${esc(accent)}">
+    <div class="dyn-head">
+      <span class="dyn-sigil">${esc((br&&br.sigil)||h.sigil||'👑')}</span>
+      <div class="dyn-head-text">
+        <a class="dyn-house" href="#/dynasty/${encodeURIComponent(e.houseKey)}">${esc(h.name)}</a>
+        ${br?`<span class="dyn-branch">${esc(br.name)}</span>`:''}
+        ${motto?`<span class="dyn-motto">“${esc(motto)}”</span>`:''}
+      </div>
+      ${status?`<span class="dyn-status">${esc(status)}</span>`:''}
+    </div>
+    <div class="dyn-rows">
+      ${m.epithet?`<div class="irow"><span>Known as</span><b>${esc(m.epithet)}</b></div>`:''}
+      <div class="irow"><span>Seat</span><b>${esc(seat)}</b></div>
+      ${m.generation!=null?`<div class="irow"><span>Generation</span><b>${esc(String(m.generation))}</b></div>`:''}
+      ${(m.born||m.died)?`<div class="irow"><span>Dates</span><b>${esc(String(m.born||'?'))}${m.died?` – ${esc(String(m.died))}`:' – present'}</b></div>`:''}
+      ${claim!=null?`<div class="irow"><span>Claim strength</span><b>${claim===0?'No claim':`${claim} / 5`}</b></div>`:''}
+      ${br&&br.relationship?`<div class="irow"><span>Branch</span><b>${esc(br.relationship)}</b></div>`:''}
+    </div>
+    ${secretHtml}
+    <a class="poi-link" href="#/dynasty/${encodeURIComponent(e.houseKey)}">Open the house archive →</a>
+  </section>`;
+}
+/* The reverse view, for the dynasty page: which members have a filed article. */
+function dynastyFiledMembers(houseKey){
+  const rows=dynastyIndex().byHouse[houseKey]||[];
+  if(!rows.length) return '';
+  const chips=rows.map(e=>{
+    const c=INDEX[e.charId];
+    const name=c?displayName(c.item):e.member.name;
+    return `<a class="entity-link" href="#/article/${encodeURIComponent(e.charId)}">${esc(e.member.icon||'👤')} ${esc(name)}${e.branch?` · ${esc(e.branch.name)}`:''}</a>`;
+  }).join(' ');
+  return `<div class="card"><h2>📇 Members with a filed record</h2>
+    <p class="text-muted">${rows.length} member${rows.length===1?'':'s'} of this house ${rows.length===1?'has':'have'} a full Waluipedia article. Their pages now carry the house back, with whichever bloodline secrets the party's intel has bought.</p>
+    <div class="related-list">${chips}</div></div>`;
+}
+
 function view_dynasties(){
   renderSidebar('dynasties');
   const houses=Object.values(DYNASTY_SYSTEM.houses||{});
@@ -11807,7 +11924,7 @@ function view_dynasty(id){
   const branches=(h.cadetBranches||[]).map(b=>`<span class="branch-chip">${esc(b.name)} · ${esc(b.status||'unknown')} · Claim ${esc(String(b.claimStrength??'?'))}</span>`).join('');
   const gens={}; (h.members||[]).forEach(m=>{const g=m.generation||'?';(gens[g]=gens[g]||[]).push(m);});
   const tree=Object.keys(gens).sort((a,b)=>Number(a)-Number(b)).map(g=>`<div class="dynasty-gen"><h3>Generation ${esc(g)}</h3><div class="dynasty-members">${gens[g].map(m=>`<div class="dynasty-member ${m.status==='deceased'?'dead':''}"><div class="dm-head"><span class="dm-icon">${((m_id)=>{const boneLineIds = ['sans', 'papyrus', 'grandpa_semi', 'lazybones', 'baby_bones', 'dirty_brother', 'will', 'cursive', 'has_a_very_special_attack', 'times_new_roman', 'prunsel', 'real_star', 'brother_killer', 'my_little_brother', 'ness', 'wing_gaster', 'my_brother', 'pretty_soon', 'helvetica', 'gee_lady', 'garbage_brother', 'starman', 'quantity', 'speen_kind_of_down_lately', 'pet_rock', 'dedan', 'mystery_man', 'sans_deltarune']; return boneLineIds.includes(m_id) ? `<img src="${esc(assetPath('portraits/'+m_id+'.png'))}" style="width: 32px; height: 32px; object-fit: cover; border-radius: 50%; display: inline-block; vertical-align: middle;" onerror="this.outerHTML='${esc(m.icon||m.portrait||'👤')}'">` : esc(m.icon||m.portrait||'👤');})(m.id)}</span><span>${esc(m.name)}</span></div>${m.epithet?`<div class="dm-epi">${esc(m.epithet)}</div>`:''}<p>${esc((m.summary||'No summary filed.').slice(0,260))}${(m.summary||'').length>260?'…':''}</p><div class="dynasty-meta">${m.born?`b. ${esc(String(m.born))}`:''}${m.died?` · d. ${esc(String(m.died))}`:''}${m.reign?` · reign ${esc(m.reign)}`:''}</div>${(m.intelLocks||[]).length?`<div class="intel-locks">${m.intelLocks.map(x=>{const ok=intelScore(id)>=Number(x.intel||999);return `<span class="intel-lock ${ok?'unlocked':''}">Intel ${esc(String(x.intel||'?'))} ${ok?'unlocked privately':'locked'}</span>`}).join('')}</div>`:''}</div>`).join('')}</div></div>`).join('');
-  el('content').innerHTML=`<div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › <a onclick="Router.go('#/dynasties')">Dynasties</a> › ${esc(h.name)}</div><div class="card animate-fade-in" style="border-top:4px solid ${esc(c[0])}"><div style="display:flex;gap:14px;align-items:center"><div class="dynasty-sigil">${esc(h.sigil||'🏰')}</div><div><h1 class="art-title">${esc(h.name)}</h1><div class="art-subtitle">${esc(h.motto||'')}${h.altMotto?` · ${esc(h.altMotto)}`:''}</div></div></div><div class="metabar"><span class="pill">Seat: ${esc(h.seat||'Unknown')}</span><span class="pill">Founded ${esc(String(h.founded||'?'))}</span><span class="pill">${esc(h.status||'Status unknown')}</span></div>${h.waluigiComment?`<div class="waluigi-dynasty-note"><b>🟣 Waluigi’s Margin Note</b><br>${esc(h.waluigiComment)}</div>`:''}<h2>Dynasty Codes & Bloodline Unlocks</h2>${dynastyIntelUnlockPanel(id)}<div class="dynasty-perks">${perks}</div>${branches?`<h2>Cadet Branches</h2><div class="branch-list">${branches}</div>`:''}${dynastyLinks(id)?`<h2>Related Waluipedia Articles</h2><div class="related-list">${dynastyLinks(id)}</div>`:''}</div><div class="card"><h2>Visual Family Tree</h2>${visualDynastyMap(h)}</div><div class="card"><h2>Family Records</h2>${dynastyIntelPolicy()}<div class="dynasty-tree">${tree}</div></div>`;
+  el('content').innerHTML=`<div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › <a onclick="Router.go('#/dynasties')">Dynasties</a> › ${esc(h.name)}</div><div class="card animate-fade-in" style="border-top:4px solid ${esc(c[0])}"><div style="display:flex;gap:14px;align-items:center"><div class="dynasty-sigil">${esc(h.sigil||'🏰')}</div><div><h1 class="art-title">${esc(h.name)}</h1><div class="art-subtitle">${esc(h.motto||'')}${h.altMotto?` · ${esc(h.altMotto)}`:''}</div></div></div><div class="metabar"><span class="pill">Seat: ${esc(h.seat||'Unknown')}</span><span class="pill">Founded ${esc(String(h.founded||'?'))}</span><span class="pill">${esc(h.status||'Status unknown')}</span></div>${h.waluigiComment?`<div class="waluigi-dynasty-note"><b>🟣 Waluigi’s Margin Note</b><br>${esc(h.waluigiComment)}</div>`:''}<h2>Dynasty Codes & Bloodline Unlocks</h2>${dynastyIntelUnlockPanel(id)}<div class="dynasty-perks">${perks}</div>${branches?`<h2>Cadet Branches</h2><div class="branch-list">${branches}</div>`:''}${dynastyLinks(id)?`<h2>Related Waluipedia Articles</h2><div class="related-list">${dynastyLinks(id)}</div>`:''}</div><div class="card"><h2>Visual Family Tree</h2>${visualDynastyMap(h)}</div><div class="card"><h2>Family Records</h2>${dynastyIntelPolicy()}<div class="dynasty-tree">${tree}</div></div>${dynastyFiledMembers(id)}`;
   window.scrollTo(0,0);
 }
 
@@ -13914,7 +14031,7 @@ function view_article(id){
      ${typeKey==='battles'?battleVsInfographic(item)+battleDossier(item):''}
      ${(typeKey==='factions'||typeKey==='characters')?relationGraph(item):''}
      ${typeKey==='factions'?`<div id="faction-power-projection-container"></div>`:''}
-${typeKey==='characters'?tokenSheetPanel(item):''}${typeKey==='characters'?renderArticleOperatorReputation(item.id):''}${typeKey==='characters'?injuryPanel(item):''}${typeKey==='factions'?renderArticleFactionReputation(item.id):''}${(typeKey==='factions'||typeKey==='nations')?renderRelatedCongressVotes(item):''}${wideRecord?'':((typeof renderConnectedInvestigationsPanel === 'function' ? renderConnectedInvestigationsPanel(item.id, typeKey) : '')+(typeof renderConnectedQuestsPanel === 'function' ? renderConnectedQuestsPanel(item.id, typeKey) : ''))}
+${typeKey==='characters'?tokenSheetPanel(item):''}${typeKey==='characters'?dynastyPanel(item):''}${typeKey==='characters'?renderArticleOperatorReputation(item.id):''}${typeKey==='characters'?injuryPanel(item):''}${typeKey==='factions'?renderArticleFactionReputation(item.id):''}${(typeKey==='factions'||typeKey==='nations')?renderRelatedCongressVotes(item):''}${wideRecord?'':((typeof renderConnectedInvestigationsPanel === 'function' ? renderConnectedInvestigationsPanel(item.id, typeKey) : '')+(typeof renderConnectedQuestsPanel === 'function' ? renderConnectedQuestsPanel(item.id, typeKey) : ''))}
      ${summaryBand}
      ${typeof recordReputationLede==='function'?recordReputationLede(item,typeKey):''}
      <div class="prose">${applyAnnotations(mdToHtml(bodyMain,item.id), item.id)}</div>
