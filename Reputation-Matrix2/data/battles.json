@@ -723,7 +723,9 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/battles/solarium-detonation/solarium-detonation-01.jpg",
+    "imageCaption": "Wario's gift-wrapped bomb, Hjumpik's axe meeting it mid-air, and the dragonfly's hoard going up with the glass."
   },
   {
     "id": "duel_of_thistle",
@@ -838,7 +840,9 @@
         "reputationChanges",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/battles/rescue-of-steely/rescue-of-steely-01.jpg",
+    "imageCaption": "The servants' quarters, the toilet ambushes, and the mechanical dog the staff had already started taking apart for scrap."
   },
   {
     "id": "tea_party_incident",
@@ -1965,7 +1969,9 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/battles/skirmish-mazebound/skirmish-mazebound-01.jpg",
+    "imageCaption": "The Mazebound come down the petrified hedge in formation, singing. The chorus line is not a figure of speech."
   },
   {
     "id": "aegis_command_riot",
@@ -2029,7 +2035,9 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/battles/aegis-command-riot/aegis-command-riot-01.jpg",
+    "imageCaption": "158 out through the gate on peppermint gas and a decoy, with the whole fortress already rigged behind them."
   },
   {
     "id": "reclamation_of_the_vigilance",
@@ -2560,7 +2568,9 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/battles/primordial-wyrm-awakening/primordial-wyrm-awakening-01.jpg",
+    "imageCaption": "What Kamek dug up under the castle. The Koopa Dynasty was founded to keep this locked away."
   },
   {
     "id": "escape_from_the_hag",
@@ -2618,7 +2628,9 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/battles/escape-from-the-hag/escape-from-the-hag-01.jpg",
+    "imageCaption": "The hag's kitchen: the cauldron on, the bear trap sprung, and Hjumpik negotiating a price for Waluigi."
   },
   {
     "id": "dinner_climax_vote",
@@ -2810,7 +2822,9 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/battles/the-spotlight-chase-hellhound-skirmish/the-spotlight-chase-hellhound-skirmish-01.jpg",
+    "imageCaption": "The trophy room under one light: Rattles holding the hellhound while everybody else misses."
   },
   {
     "id": "dream_duel_burning_vigilance",
@@ -2870,7 +2884,9 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/battles/dream-duel-burning-vigilance/dream-duel-burning-vigilance-01.jpg",
+    "imageCaption": "Archie's contaminated dream: a repaired Vigilance, Original Dan across the deck, and the ship already sinking."
   },
   {
     "id": "feyward_bramblyfly_hallway_incident",
@@ -3910,7 +3926,9 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/battles/feyward-second-hidden-room-rout/feyward-second-hidden-room-rout-01.jpg",
+    "imageCaption": "The parlour door, the crawlspace above it and the second hidden room beyond — the Lady running, the leaves advancing."
   },
   {
     "id": "feyward_woodfellow_vs_the_treant",
@@ -4844,7 +4862,9 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/battles/warp-pipe-junction-ladder-fight/warp-pipe-junction-ladder-fight-01.jpg",
+    "imageCaption": "Ladders on the wall, Dewdrop going down on the climb, and Toadette five feet of crayfish on the parapet."
   },
   {
     "id": "the_scorncrow_skirmish_battle",
@@ -5164,7 +5184,9 @@
         "dateSort": 10400830
       }
     ],
-    "timeWindow": "roughly 1–2 hours, same night; no calendar day passed (still 1040 BF)"
+    "timeWindow": "roughly 1–2 hours, same night; no calendar day passed (still 1040 BF)",
+    "image": "assets/images/battles/the-scorncrow-skirmish-battle/the-scorncrow-skirmish-battle-01.jpg",
+    "imageCaption": "Garlic-coated weapons, Wario-branded elixir, and the bat swarm coming out of the tree Remi shot."
   },
   {
     "id": "battle_of_the_shadow_canyon",
@@ -5599,7 +5621,9 @@
     },
     "reputationNotes": {
       "hjumpik": "Broke from a planned objective to defend a room for its own sake - the first time anyone in the manor has done so."
-    }
+    },
+    "image": "assets/images/battles/library-reclamation/library-reclamation-01.jpg",
+    "imageCaption": "Hjumpik broke the standing order to go upstairs, because the mound was eating the library."
   },
   {
     "id": "the_bathroom_door_impostor",
