@@ -257,11 +257,39 @@ matching character edit. The interesting half was never the link anyway — it
 was that the 25/45/65/85 intel thresholds in the dynasty data had never once
 been read against what the party had actually earned.
 
+## Item 10, finished
+
+Nine more sheets took the archive to **107 banners and 100/100 faction
+coverage**. Two things worth keeping from that pass:
+
+**Group sheets by setting, not by registry order.** Because nine emblems
+drawn in one pass share palette and frame weight, putting the grimdark
+factions on one sheet, the academies on another and so on makes each family
+read as a coherent set. The Animatopia predator/prey pair was specified as
+matched cells in one sheet and came back mirroring each other — that would
+have been luck if generated separately.
+
+**Prism prompts converge on album art.** The Colour Division's first attempt
+was effectively the Dark Side of the Moon cover. The fix was to respecify the
+emblem entirely (five brushes in a steel hexagon) *and* name prism, triangle
+and rainbow-beam as explicit negatives. Describing what you don't want is not
+enough on its own; the concept has to move.
+
+The alias map for the three legacy `*_banner.png` files is **retired** — each
+has a properly named replacement, so the contract is once again just "the id
+is the filename".
+
+`tools/check-banners.py` now guards the three failure modes, including the
+subtle one: a banner file nobody registered is invisible, which looks exactly
+like no banner at all. It also found 27 pre-existing dangling banner paths in
+profile themes and scheduled posts; 13 were repointed at real art, 14 remain
+genuinely art-less.
+
 ## Still open
 
-- **Colour Division banner** — regenerate without prism/spectrum imagery.
-- **~60 factions still without heraldry.** The registry and both renderers
-  handle their absence; they need sheets. Roughly seven more 3x3 passes.
+- **14 art-less legacy banner names** (`default_banner`, `star_church`,
+  `stonecarvers`, `deephold`, `iron_crown`, …). These are concepts without
+  designs, reported as advisory by `check-banners.py`.
 - **Advisory hotlinks** — four records still point at remote CDNs
   (`characters.json[26]`, `[59]`, `locations.json[23]`, `nations.json[20]`).
   Non-fatal; `check-external-art.py --strict` fails on them.
