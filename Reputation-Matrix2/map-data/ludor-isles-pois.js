@@ -39,6 +39,7 @@ export const ludorIslesData = {
         // #93
         {
             id: 'poi_li_forgotten_temple',
+            articleId: 'forgotten_temple_stars',
             x: 90.00,
             y: 60.00,
             type: 'ruins',

@@ -21,6 +21,63 @@ const WIKI_IDS = {
   poi_mp_warp_pipe_junction: 'warp_pipe_junction',
 };
 
+/* ---------------- location records ----------------
+   Every POI that files an articleId points at a record in locations.json,
+   and those records now carry painted plates. The atlas used to ignore the
+   file entirely, so a pin could only ever show the POI's own one-line
+   description -- the art, the canon summary, the region and the controlling
+   faction were all sitting unused one lookup away.
+
+   Fetched once, lazily, and cached. A failure here must never break the map:
+   LOC_BY_ID stays empty and every consumer falls back to POI fields, which
+   is exactly the behaviour before this existed. */
+let LOC_BY_ID = new Map();
+let locLoadPromise = null;
+
+function locationsHref() {
+  return new URL('../../../data/locations.json', import.meta.url).href;
+}
+
+export function loadLocationRecords() {
+  if (locLoadPromise) return locLoadPromise;
+  locLoadPromise = fetch(locationsHref())
+    .then(r => (r.ok ? r.json() : []))
+    .then(rows => {
+      const list = Array.isArray(rows) ? rows : Object.values(rows || {});
+      const map = new Map();
+      list.forEach(rec => {
+        if (!rec || typeof rec !== 'object' || !rec.id) return;
+        map.set(rec.id, rec);
+        /* Merged duplicates keep their old id in `aliases`, so links and POI
+           articleId lists written before the merge still resolve. */
+        (rec.aliases || []).forEach(alias => { if (!map.has(alias)) map.set(alias, rec); });
+      });
+      LOC_BY_ID = map;
+      return map;
+    })
+    .catch(() => LOC_BY_ID);
+  return locLoadPromise;
+}
+
+/* A POI may file articleId as a string or as a list of candidate ids. */
+function locationRecord(poi) {
+  if (!poi || !LOC_BY_ID.size) return null;
+  const raw = poi.articleId || poi.locationId || WIKI_IDS[poi.id];
+  const candidates = Array.isArray(raw) ? raw : [raw];
+  for (const id of candidates) {
+    if (id && LOC_BY_ID.has(id)) return LOC_BY_ID.get(id);
+  }
+  return null;
+}
+
+function locationImageHref(rec) {
+  if (!rec || !rec.image) return '';
+  const src = String(rec.image);
+  /* Records may file an absolute URL or a path relative to Reputation-Matrix2. */
+  if (/^https?:\/\//i.test(src)) return src;
+  return new URL(`../../../${src}`, import.meta.url).href;
+}
+
 /* Stat lenses: each mode tints its buttons AND its pins, so Population, */
 /* Military, Economy, and Influence read as four different maps. Faction  */
 /* identity moves to the detail panel, where it was always listed anyway. */
@@ -355,10 +412,30 @@ function detailHtml(poi, pois) {
   const factionMark = faction.logo
     ? `<span class="atlas-v2-factionmark"><i style="background:${esc(faction.color)}"></i><img src="${esc(factionLogoHref(faction.logo))}" alt="" loading="lazy"></span>`
     : `<i style="background:${esc(faction.color)}"></i>`;
+  /* The filed location record, when the POI links to one, supplies the
+     painted plate and the canon prose. The POI's own description stays as
+     the fallback so unlinked pins are unchanged. */
+  const rec = locationRecord(poi);
+  const plate = locationImageHref(rec);
+  const plateHtml = plate
+    ? `<figure class="atlas-v2-plate">`
+      + `<img src="${esc(plate)}" alt="" loading="lazy"`
+      + ` onerror="this.closest('.atlas-v2-plate').remove()">`
+      + (article ? `<figcaption>${esc(rec.name || poi.name)}</figcaption>` : '')
+      + `</figure>`
+    : '';
+  const blurb = (rec && rec.summary) || poi.description || 'No field report filed.';
+  const regionLine = rec && rec.region
+    ? `<p class="atlas-v2-region">📍 ${esc(rec.region)}</p>` : '';
+  const statusLine = rec && rec.status
+    ? `<p class="atlas-v2-status">${esc(rec.status)}</p>` : '';
+
   return `<article class="atlas-v2-detail">
+    ${plateHtml}
     <span class="atlas-v2-kicker">${esc(poi.type || 'location')}${esc(planeTag)}</span>
     <h3>${esc(poi.name)}</h3>
-    <p>${esc(poi.description || 'No field report filed.')}</p>${censusHtml}${chatterHtml}
+    ${regionLine}
+    <p>${esc(blurb)}</p>${statusLine}${censusHtml}${chatterHtml}
     <div class="atlas-v2-faction">${factionMark}${esc(faction.name)}</div>
     <dl>
       <div><dt>Population</dt><dd>${format(poi.population)}</dd></div>
@@ -614,6 +691,10 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
     return null;
   }
   const { map, pois, population } = data;
+  /* Warm the location cache as the map mounts so the first pin a reader
+     opens already has its plate. Fire-and-forget: the panel redraws itself
+     if this lands late, and the map works unchanged if it never lands. */
+  loadLocationRecords();
   ACTIVE_CHATTER = opts.chatter || null;
   /* The Province Census (map-provinces.js) merges these pins into provinces,
      names a controller for each from the filed faction data, and hands back a
@@ -1529,6 +1610,19 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
       return;
     }
     sidebar.innerHTML = stopBannerHtml(stopOverride || stopByPoi.get(poi.id)) + detailHtml(poi, pois);
+    /* Location records load asynchronously. If a pin is opened before the
+       fetch settles, redraw that same pin once -- and only if it is still the
+       selected one, so a fast clicker never gets a stale panel. */
+    if (!LOC_BY_ID.size) {
+      loadLocationRecords().then(() => {
+        if (state.selected && state.selected.id === poi.id && LOC_BY_ID.size) {
+          sidebar.innerHTML = stopBannerHtml(stopOverride || stopByPoi.get(poi.id)) + detailHtml(poi, pois);
+          sidebar.querySelectorAll('.atlas-v2-factionmark img').forEach(im => {
+            im.addEventListener('error', () => im.remove());
+          });
+        }
+      });
+    }
     /* A missing logo file reveals the color dot it sits on. */
     sidebar.querySelectorAll('.atlas-v2-factionmark img').forEach(im => {
       im.addEventListener('error', () => im.remove());
