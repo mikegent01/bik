@@ -111,7 +111,8 @@
     ],
     "plane": "material",
     "planeConfidence": "medium",
-    "planeClue": "no planar markers — Material by default"
+    "planeClue": "no planar markers — Material by default",
+    "image": "assets/images/locations/fountain_of_dreams.jpg"
   },
   {
     "id": "star_fountain",
@@ -1417,7 +1418,8 @@
     ],
     "plane": "fey",
     "planeConfidence": "high",
-    "planeClue": "'feywild' x1 (region); 'overgrown manor' x1 (region)"
+    "planeClue": "'feywild' x1 (region); 'overgrown manor' x1 (region)",
+    "image": "assets/images/locations/overgrown_library.jpg"
   },
   {
     "id": "raventree_manor",
@@ -1484,7 +1486,8 @@
     ],
     "plane": "material",
     "planeConfidence": "medium",
-    "planeClue": "no planar markers — Material by default"
+    "planeClue": "no planar markers — Material by default",
+    "image": "assets/images/locations/vigilance.jpg"
   },
   {
     "id": "rogueport_bay",
@@ -1510,7 +1513,8 @@
     ],
     "plane": "material",
     "planeConfidence": "medium",
-    "planeClue": "no planar markers — Material by default"
+    "planeClue": "no planar markers — Material by default",
+    "image": "assets/images/locations/rogueport_bay.jpg"
   },
   {
     "id": "shadow_estate",
@@ -1817,12 +1821,13 @@
     ],
     "plane": "material",
     "planeConfidence": "medium",
-    "planeClue": "no planar markers — Material by default"
+    "planeClue": "no planar markers — Material by default",
+    "image": "assets/images/locations/mushroom_regency.jpg"
   },
   {
     "id": "star_rod",
     "name": "The Star Rod",
-    "image": "",
+    "image": "assets/images/locations/star_rod.jpg",
     "type": "Location / Magical Artifact",
     "region": "Star Haven / Connected to Fountain of Dreams",
     "controllingFaction": "Star Spirits (guardians)",
@@ -2241,7 +2246,8 @@
     ],
     "plane": "material",
     "planeConfidence": "medium",
-    "planeClue": "no planar markers — Material by default"
+    "planeClue": "no planar markers — Material by default",
+    "image": "assets/images/locations/mount_ebot.jpg"
   },
   {
     "id": "legion_embassy_old_world",
@@ -2270,7 +2276,8 @@
     ],
     "plane": "material",
     "planeConfidence": "medium",
-    "planeClue": "no planar markers — Material by default"
+    "planeClue": "no planar markers — Material by default",
+    "image": "assets/images/locations/legion_embassy_old_world.jpg"
   },
   {
     "id": "gamma_high_command_spire",
@@ -2521,7 +2528,8 @@
     },
     "plane": "material",
     "planeConfidence": "medium",
-    "planeClue": "no planar markers — Material by default"
+    "planeClue": "no planar markers — Material by default",
+    "image": "assets/images/locations/overgrown_rider_camp.jpg"
   },
   {
     "id": "the_mushroom_regency_hall_of_records",
@@ -2582,7 +2590,8 @@
     },
     "plane": "material",
     "planeConfidence": "medium",
-    "planeClue": "no planar markers — Material by default"
+    "planeClue": "no planar markers — Material by default",
+    "image": "assets/images/locations/ruins_of_the_mushroom_capitol.jpg"
   },
   {
     "id": "ruins_of_the_koopa_troop_barracks",
@@ -2611,7 +2620,8 @@
     },
     "plane": "material",
     "planeConfidence": "medium",
-    "planeClue": "no planar markers — Material by default"
+    "planeClue": "no planar markers — Material by default",
+    "image": "assets/images/locations/ruins_of_the_koopa_troop_barracks.jpg"
   },
   {
     "id": "block_farm_village_connectopia",
@@ -2703,7 +2713,8 @@
     },
     "plane": "material",
     "planeConfidence": "medium",
-    "planeClue": "no planar markers — Material by default"
+    "planeClue": "no planar markers — Material by default",
+    "image": "assets/images/locations/isle_delfino_overgrown_cottage.jpg"
   },
   {
     "id": "ruins_of_shadow_pass",
@@ -2733,7 +2744,8 @@
     },
     "plane": "material",
     "planeConfidence": "medium",
-    "planeClue": "no planar markers — Material by default"
+    "planeClue": "no planar markers — Material by default",
+    "image": "assets/images/locations/ruins_of_shadow_pass.jpg"
   },
   {
     "id": "grand_country_eldridge_hillfort",
@@ -2763,7 +2775,8 @@
     },
     "plane": "material",
     "planeConfidence": "medium",
-    "planeClue": "no planar markers — Material by default"
+    "planeClue": "no planar markers — Material by default",
+    "image": "assets/images/locations/grand_country_eldridge_hillfort.jpg"
   },
   {
     "id": "alpine_bank_raventree_outskirts",
@@ -2793,7 +2806,8 @@
     },
     "plane": "material",
     "planeConfidence": "medium",
-    "planeClue": "no planar markers — Material by default"
+    "planeClue": "no planar markers — Material by default",
+    "image": "assets/images/locations/alpine_bank_raventree_outskirts.jpg"
   },
   {
     "id": "alpine_bank_subterranean_chambers",
@@ -2914,7 +2928,8 @@
     },
     "plane": "material",
     "planeConfidence": "medium",
-    "planeClue": "no planar markers — Material by default"
+    "planeClue": "no planar markers — Material by default",
+    "image": "assets/images/locations/forgotten_coastal_cove.jpg"
   },
   {
     "id": "ruins_of_the_mushroom_capitol",
@@ -3051,7 +3066,8 @@
     ],
     "plane": "material",
     "planeConfidence": "medium",
-    "planeClue": "no planar markers — Material by default"
+    "planeClue": "no planar markers — Material by default",
+    "image": "assets/images/locations/dragon_mountain.jpg"
   },
   {
     "id": "ravencreek",
@@ -3164,7 +3180,8 @@
     ],
     "plane": "material",
     "planeConfidence": "medium",
-    "planeClue": "no planar markers — Material by default"
+    "planeClue": "no planar markers — Material by default",
+    "image": "assets/images/locations/thornwood_ruined_manor.jpg"
   },
   {
     "id": "bowsers_castle",
@@ -3249,7 +3266,8 @@
     ],
     "plane": "material",
     "planeConfidence": "medium",
-    "planeClue": "no planar markers — Material by default"
+    "planeClue": "no planar markers — Material by default",
+    "image": "assets/images/locations/bowsers_mushroom_compound.jpg"
   },
   {
     "id": "dr_toads_star_hill_clinic",
