@@ -78,6 +78,48 @@ function locationImageHref(rec) {
   return new URL(`../../../${src}`, import.meta.url).href;
 }
 
+/* ---------------- archetype art ----------------
+   Only 29 of ~500 pins link to a location record, so record art alone leaves
+   the overwhelming majority of panels with no image at all. The pins do,
+   however, all file a `type`, and 50 types cover every pin on every sheet.
+
+   So each of the most common types gets one painted archetype plate: a
+   generic village, a generic ruin, a generic lair. It is explicitly NOT a
+   portrait of that specific place -- it is scene-setting for a pin that has
+   no filed art, and it is captioned as such so nobody mistakes it for canon.
+   The top 18 types cover roughly 69% of unlinked pins for 2 generations.
+
+   Filed record art always wins; this is only ever the fallback. */
+const TYPE_ART = new Set([
+  'landmark', 'ruins', 'village', 'lair', 'outpost', 'fortress', 'shrine',
+  'cosmic_anomaly', 'haunted_place', 'workshop', 'port', 'mountain_pass',
+  'forest', 'dungeon_entrance', 'ley_line', 'market', 'shipwreck',
+  'cave_entrance', 'battlefield', 'mine', 'farm', 'barracks', 'watchtower',
+  'capital_city', 'waterfall', 'swamp', 'portal',
+]);
+
+/* Types with no plate of their own borrow a close relative rather than
+   showing nothing. Kept deliberately small and obvious -- a town reads as a
+   village, a castle as a fortress. Anything genuinely unlike the set (a
+   black hole, a crystal entity) is left imageless on purpose. */
+const TYPE_ALIASES = {
+  town: 'village', hamlet: 'village', major_city: 'capital_city',
+  district: 'capital_city', castle: 'fortress', siege_camp: 'barracks',
+  bandit_camp: 'outpost', ambush: 'outpost', prison: 'fortress',
+  tower: 'watchtower', mages_tower: 'watchtower', observatory: 'watchtower',
+  temple: 'shrine', monastery: 'shrine', graveyard: 'haunted_place',
+  quarry: 'mine', trade_post: 'market', inn: 'market', resource: 'farm',
+  river: 'waterfall', oasis: 'waterfall', volcano: 'mountain_pass',
+  ancient_circle: 'ley_line', academy: 'workshop', library: 'workshop',
+};
+
+function typeArtHref(poi) {
+  const raw = String((poi && poi.type) || '').toLowerCase();
+  const t = TYPE_ART.has(raw) ? raw : TYPE_ALIASES[raw];
+  if (!t || !TYPE_ART.has(t)) return '';
+  return new URL(`../../../assets/images/poi-types/${t}.jpg`, import.meta.url).href;
+}
+
 /* Stat lenses: each mode tints its buttons AND its pins, so Population, */
 /* Military, Economy, and Influence read as four different maps. Faction  */
 /* identity moves to the detail panel, where it was always listed anyway. */
@@ -416,12 +458,20 @@ function detailHtml(poi, pois) {
      painted plate and the canon prose. The POI's own description stays as
      the fallback so unlinked pins are unchanged. */
   const rec = locationRecord(poi);
-  const plate = locationImageHref(rec);
+  /* Filed art for this exact place wins. Failing that, the archetype plate
+     for the pin's type dresses the panel -- flagged as a type illustration,
+     never captioned as if it were a picture of this location. */
+  const filed = locationImageHref(rec);
+  const plate = filed || typeArtHref(poi);
+  const isArchetype = !filed && !!plate;
+  const caption = isArchetype
+    ? `${esc(typeLabel(poi.type) || humanize(poi.type))} · archetype`
+    : esc((rec && rec.name) || poi.name);
   const plateHtml = plate
-    ? `<figure class="atlas-v2-plate">`
+    ? `<figure class="atlas-v2-plate${isArchetype ? ' is-archetype' : ''}">`
       + `<img src="${esc(plate)}" alt="" loading="lazy"`
       + ` onerror="this.closest('.atlas-v2-plate').remove()">`
-      + (article ? `<figcaption>${esc(rec.name || poi.name)}</figcaption>` : '')
+      + `<figcaption>${caption}</figcaption>`
       + `</figure>`
     : '';
   const blurb = (rec && rec.summary) || poi.description || 'No field report filed.';
