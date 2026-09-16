@@ -24,7 +24,8 @@
       "noki_shellfish",
       "pianta_syndicate"
     ],
-    "estimatedCasualties": "Low mortality, high property damage to resorts"
+    "estimatedCasualties": "Low mortality, high property damage to resorts",
+    "image": "assets/images/conflicts/isle-delfino-conflict.jpg"
   },
   "Mushroom Kingdom Civil War": {
     "summary": "A 45-year conflict sparked by the assassination of Princess Peach, with no end in sight.",
@@ -55,7 +56,8 @@
       "koopa_troop",
       "fawfuls_furious_freaks"
     ],
-    "estimatedCasualties": "400,000+ military and civilian deaths over 45 years"
+    "estimatedCasualties": "400,000+ military and civilian deaths over 45 years",
+    "image": "assets/images/conflicts/mushroom-kingdom-civil-war.jpg"
   },
   "Kong-Kremling Cold War": {
     "summary": "Decades of espionage and proxy conflicts between DK Island's two dominant powers, now erupting into open hostility.",
@@ -80,7 +82,8 @@
       "dk_crew",
       "kremling_krew"
     ],
-    "estimatedCasualties": "Unknown - both sides suppress casualty figures"
+    "estimatedCasualties": "Unknown - both sides suppress casualty figures",
+    "image": "assets/images/conflicts/kong-kremling-cold-war.jpg"
   },
   "Raventree Manor Crisis": {
     "summary": "A supernatural containment crisis at a haunted mansion that has drawn in multiple factions.",
@@ -107,7 +110,8 @@
       "mages_guild",
       "raventree_curse"
     ],
-    "estimatedCasualties": "Dozens of toads, multiple Legion agents, unknown supernatural entities"
+    "estimatedCasualties": "Dozens of toads, multiple Legion agents, unknown supernatural entities",
+    "image": "assets/images/conflicts/raventree-manor-crisis.jpg"
   },
   "Vigilance Crew Incidents": {
     "summary": "The ongoing adventures and conflicts surrounding the airship Vigilance and its liberator crew.",
@@ -133,7 +137,8 @@
       "crimson_fleet",
       "iron_legion"
     ],
-    "estimatedCasualties": "Estimated 70+ across all incidents"
+    "estimatedCasualties": "Estimated 70+ across all incidents",
+    "image": "assets/images/conflicts/vigilance-crew-incidents.jpg"
   },
   "The Dragon Conspiracy": {
     "summary": "A covert operation revealing that the Dragon-Empire war is fabricated.",
@@ -155,7 +160,8 @@
       "dragons",
       "regal_empire"
     ],
-    "estimatedCasualties": "Unknown"
+    "estimatedCasualties": "Unknown",
+    "image": "assets/images/conflicts/the-dragon-conspiracy.jpg"
   },
   "The Aegis Uprising": {
     "summary": "A massive, coordinated prison break within the Regal Empire's primary processing facility.",
@@ -181,7 +187,8 @@
       "liberated_toads",
       "noki_shellfish"
     ],
-    "estimatedCasualties": "40+ Legionnaires, 34 Toads missing/displaced"
+    "estimatedCasualties": "40+ Legionnaires, 34 Toads missing/displaced",
+    "image": "assets/images/conflicts/the-aegis-uprising.jpg"
   },
   "The Primordial Wyrm Crisis": {
     "summary": "An existential threat to all kingdoms triggered by Kamek's betrayal and awakening of an ancient entity imprisoned beneath the Valley of Bowser.",
@@ -228,7 +235,8 @@
       "primordial_wyrm"
     ],
     "estimatedCasualties": "348 Koopa forces KIA (including corrupted), ~50 corrupted troops destroyed, 4 Iron Legion KIA. Significant property damage throughout the Valley.",
-    "historicalSignificance": "The crisis revealed the true purpose of the Koopa Dynasty—guardians of the Wyrm's prison, not mere conquerors. It also demonstrated that former enemies could unite against existential threats, potentially reshaping political alignments across the Mushroom Kingdom region."
+    "historicalSignificance": "The crisis revealed the true purpose of the Koopa Dynasty—guardians of the Wyrm's prison, not mere conquerors. It also demonstrated that former enemies could unite against existential threats, potentially reshaping political alignments across the Mushroom Kingdom region.",
+    "image": "assets/images/conflicts/the-primordial-wyrm-crisis.jpg"
   },
   "koopa_resistance": {
     "id": "koopa_resistance",
@@ -288,7 +296,8 @@
       "peach_loyalists",
       "mushroom_regency"
     ],
-    "estimatedCasualties": "No battlefield deaths filed. The losses in this conflict are of sovereignty, and they are recorded in ledgers rather than casualty lists."
+    "estimatedCasualties": "No battlefield deaths filed. The losses in this conflict are of sovereignty, and they are recorded in ledgers rather than casualty lists.",
+    "image": "assets/images/conflicts/the-sarasaland-stabilisation.jpg"
   },
   "The Underground Breach": {
     "summary": "Gamma Division's penetration of the treaty layers of Mount Ebott, and the collapse of the only defence the Monster Underground has ever had — not being found.",
@@ -315,6 +324,7 @@
       "undertale_monsters",
       "regal_empire"
     ],
-    "estimatedCasualties": "Unestablished. Gamma Division does not file casualty returns for operations it classifies as surveys."
+    "estimatedCasualties": "Unestablished. Gamma Division does not file casualty returns for operations it classifies as surveys.",
+    "image": "assets/images/conflicts/the-underground-breach.jpg"
   }
 }

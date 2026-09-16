@@ -8722,6 +8722,7 @@ function renderSidebar(active){
     navLink({emoji:'🏠',label:'Home',go:"Router.go('#/home')",active:(!h1||h1.startsWith('#/home'))}),
     navLink({emoji:'🔎',label:'Search & Index',go:"document.getElementById('search').focus()",title:'Focus the search bar ( / )'}),
     navLink({emoji:'🖼️',label:'Field Plates',go:"Router.go('#/plates')",active:active==='plates',title:'Art recovered by reading filings'}),
+    navLink({emoji:'⚙️',label:'Settings',go:"Router.go('#/settings')",active:active==='settings',title:'Theme, ambient music and reading preferences'}),
     /* WAHwire is pinned rather than filed under World Systems: that section is
        collapsed by default, so the wire was invisible unless the reader already
        knew to go looking for it. A feed nobody can find is a feed nobody reads. */
@@ -9220,6 +9221,68 @@ function plateToast(){
   }catch(e){}
 }
 /* The gallery itself: only unlocked plates, newest first. */
+/* ===== Settings =====
+   The ambient music controls used to live in a floating pill that hovered over
+   the bottom-right of every page. It was draggable, collapsible and
+   dismissible -- three separate affordances invented to work around the fact
+   that a persistent overlay covers content it has no business covering. A
+   preferences surface is not something you need one tap away on every page;
+   it is something you visit, adjust and leave. So it is a page now.
+   The widget still exists and still owns the audio graph (window.WaluipediaAmbient);
+   this view is a front-end onto that same API, so nothing about playback moved. */
+function view_settings(){
+  renderSidebar('settings');
+  const A = window.WaluipediaAmbient || {};
+  const theme = document.documentElement.getAttribute('data-theme')==='light' ? 'light' : 'dark';
+  let vol = 0.5; try{ vol = Number(localStorage.getItem('waluipedia-ambient-volume')); if(!Number.isFinite(vol)) vol=0.5; }catch(e){}
+  const playing = !!A.playing;
+  const mobile  = !!A.mobileMode;
+  const track   = A.track || '—';
+
+  const row=(icon,title,desc,control)=>`<div class="set-row"><div class="set-row-ico">${icon}</div>
+    <div class="set-row-text"><b>${esc(title)}</b><span>${esc(desc)}</span></div>
+    <div class="set-row-ctl">${control}</div></div>`;
+
+  el('content').innerHTML = `
+    <div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › Settings</div>
+    <div class="card animate-fade-in set-hero">
+      <h1>⚙️ Settings</h1>
+      <p class="set-sub">Appearance, sound and reading preferences. Changes save immediately and persist in this browser.</p>
+    </div>
+
+    <div class="card set-card">
+      <h2 class="set-h">🎨 Appearance</h2>
+      ${row('◐','Theme','Dark is the default. Light is easier in a bright room.',
+        `<div class="set-seg" role="group">
+           <button type="button" class="${theme==='dark'?'on':''}" onclick="setTheme('dark');Router.go('#/settings')">Dark</button>
+           <button type="button" class="${theme==='light'?'on':''}" onclick="setTheme('light');Router.go('#/settings')">Light</button>
+         </div>`)}
+      ${row('📱','Easy mobile mode','Bigger tap targets, single-column pages and phone-sized dialogs.',
+        `<button type="button" class="set-toggle ${mobile?'on':''}" onclick="WaluipediaAmbient&&WaluipediaAmbient.toggleMobileMode();Router.go('#/settings')"><i></i></button>`)}
+    </div>
+
+    <div class="card set-card">
+      <h2 class="set-h">🎵 Ambient music</h2>
+      ${row('▶','Playback', playing?('Now playing — '+track):'Stopped.',
+        `<button type="button" class="set-btn" onclick="WaluipediaAmbient&&WaluipediaAmbient.toggle();Router.go('#/settings')">${playing?'Pause':'Play'}</button>`)}
+      ${row('🔊','Volume','Applies to every generated loop.',
+        `<input class="set-range" type="range" min="0" max="1" step="0.01" value="${vol}"
+           oninput="WaluipediaAmbient&&WaluipediaAmbient.setVolume(this.value)">`)}
+      ${row('⏭','Track','Skip to the next loop, or pick one at random.',
+        `<span class="set-pair">
+           <button type="button" class="set-btn" onclick="WaluipediaAmbient&&WaluipediaAmbient.nextTrack();Router.go('#/settings')">Next</button>
+           <button type="button" class="set-btn" onclick="WaluipediaAmbient&&WaluipediaAmbient.randomTrack();Router.go('#/settings')">Shuffle</button>
+         </span>`)}
+    </div>
+
+    <div class="card set-card">
+      <h2 class="set-h">🧭 Navigation</h2>
+      ${row('📟','WAH-Tablet','Wario\u2019s device. The system pages \u2014 shop, intel, maps, quests \u2014 are apps on it.',
+        `<a class="set-btn" href="Reputation-Matrix2/quests.html">Open a system page</a>`)}
+      ${row('🗺️','World Atlas','Nations and realms, each with its painted crest.',
+        `<button type="button" class="set-btn" onclick="Router.go('#/atlas')">Open atlas</button>`)}
+    </div>`;
+}
 function view_plates(){
   renderSidebar('plates');
   const unlocked=platesUnlocked();
@@ -9968,7 +10031,7 @@ function view_atlas(){
   renderSidebar('atlas'); buildAtlasIndex();
   const cards=Object.values(ATLAS_INDEX).sort((a,b)=>displayName(a.nation).localeCompare(displayName(b.nation))).map(x=>{
     const n=x.nation; const total=x.locations.length+x.events.length+x.battles.length+x.trials.length;
-    return `<div class="arttile" onclick="Router.go('#/atlas/${encodeURIComponent(n.id)}')">${flagArt(n,'tile')}<div class="tt">${esc(displayName(n))}</div><div class="tsub">${esc(n.status||n.type||'Realm')}</div><div class="tsum">${esc(n.summary||previewText(n))}</div><div class="tmeta"><span class="pill">${x.locations.length} locations</span><span class="pill">${x.events.length} events</span><span class="pill">${x.battles.length} battles</span><span class="pill">${x.factions.length} factions</span></div></div>`;
+    return `<div class="arttile" onclick="Router.go('#/atlas/${encodeURIComponent(n.id)}')">${nationThumb(n,'tile')}<div class="tt">${esc(displayName(n))}</div><div class="tsub">${esc(n.status||n.type||'Realm')}</div><div class="tsum">${esc(n.summary||previewText(n))}</div><div class="tmeta"><span class="pill">${x.locations.length} locations</span><span class="pill">${x.events.length} events</span><span class="pill">${x.battles.length} battles</span><span class="pill">${x.factions.length} factions</span></div></div>`;
   }).join('');
   el('content').innerHTML=`<div class="card animate-fade-in"><h1>🍩 World Atlas</h1><p class="text-muted">Top-down doughnut-world mode: nations and realms act as containers for locations, events, battles, trials, factions, species, and POIs. Classic wiki categories remain available in the sidebar.</p><div class="chips" style="margin-top: 15px;"><span class="chip active" onclick="Router.go('#/power')" style="cursor: pointer; background: rgba(255, 215, 0, 0.1); border-color: rgba(255, 215, 0, 0.4); color: #ffd700;">⚡ Open Global Power Projection Monitor</span><span class="chip" onclick="Router.go('#/cultures')" style="cursor: pointer; background: rgba(138, 75, 255, 0.1); border-color: rgba(138, 75, 255, 0.4); color: #a78bfa;">⚖️ View Cultures & Laws</span><span class="chip" onclick="Router.go('#/maps')" style="cursor: pointer; background: rgba(255, 215, 0, 0.1); border-color: rgba(255, 215, 0, 0.4); color: #ffd700;">🧭 Open the Cartography Desk</span></div></div><div class="card"><div class="artgrid">${cards}</div></div>`;
   window.scrollTo(0,0);
@@ -10022,7 +10085,7 @@ function view_atlasNation(id, opts){
   const mapIframe = atlasMapApplet(id, n);
   const atlasDemographicsPanel = atlasDemographics(atlasMapsFor(id).activeId);
 
-  el('content').innerHTML=`<div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › <a onclick="Router.go('#/atlas')">World Atlas</a> › ${esc(displayName(n))}</div><div class="card animate-fade-in"><h1>${esc(displayName(n))}</h1><div class="metabar"><span class="pill">🍩 Atlas Dashboard</span><span class="pill">${esc(n.type||'Nation/Realm')}</span>${n.status?`<span class="pill">${esc(String(n.status).slice(0,80))}</span>`:''}</div>${flagArt(n)}<p style="color:var(--muted);font-size:15px;line-height:1.65">${esc(n.summary||'')}</p><div class="species-stats">${stats}</div><div class="chips"><span class="chip" onclick="openId('${esc(n.id)}')">Read classic article</span>${atlasFullScreenChip(id)}</div>${claimantRegimePanel(n)}${nationOverview(n)}</div>${atlasDemographicsPanel}${mapIframe}${atlasProvinceCensusPanel()}<div class="card"><h2>📖 Nation Dossier</h2><div class="prose">${dossier}</div></div><div class="card"><h2>🏰 Locations</h2><div class="related-list">${atlasChips(x.locations,'Location')}</div><h2>📜 Events</h2><div class="related-list">${atlasChips(x.events,'Event')}</div><h2>🗡️ Battles / Battlefield</h2><div class="related-list">${atlasChips(x.battles,'Battle')}</div><h2>⚖️ Trials</h2><div class="related-list">${atlasChips(x.trials,'Trial')}</div><h2>⚔️ Active Factions</h2><div class="related-list">${atlasChips(x.factions,'Faction')}</div><h2>🧬 Species & Peoples</h2><div class="related-list">${atlasChips(x.species,'Species')}</div></div>`;
+  el('content').innerHTML=`<div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › <a onclick="Router.go('#/atlas')">World Atlas</a> › ${esc(displayName(n))}</div><div class="card animate-fade-in"><h1>${esc(displayName(n))}</h1><div class="metabar"><span class="pill">🍩 Atlas Dashboard</span><span class="pill">${esc(n.type||'Nation/Realm')}</span>${n.status?`<span class="pill">${esc(String(n.status).slice(0,80))}</span>`:''}</div>${nationThumb(n,'full')}<p style="color:var(--muted);font-size:15px;line-height:1.65">${esc(n.summary||'')}</p><div class="species-stats">${stats}</div><div class="chips"><span class="chip" onclick="openId('${esc(n.id)}')">Read classic article</span>${atlasFullScreenChip(id)}</div>${claimantRegimePanel(n)}${nationOverview(n)}</div>${atlasDemographicsPanel}${mapIframe}${atlasProvinceCensusPanel()}<div class="card"><h2>📖 Nation Dossier</h2><div class="prose">${dossier}</div></div><div class="card"><h2>🏰 Locations</h2><div class="related-list">${atlasChips(x.locations,'Location')}</div><h2>📜 Events</h2><div class="related-list">${atlasChips(x.events,'Event')}</div><h2>🗡️ Battles / Battlefield</h2><div class="related-list">${atlasChips(x.battles,'Battle')}</div><h2>⚖️ Trials</h2><div class="related-list">${atlasChips(x.trials,'Trial')}</div><h2>⚔️ Active Factions</h2><div class="related-list">${atlasChips(x.factions,'Faction')}</div><h2>🧬 Species & Peoples</h2><div class="related-list">${atlasChips(x.species,'Species')}</div></div>`;
   const selected=atlasMapsFor(id);
   const focusId=ATLAS_MOUNT_FOCUS||{};
   const mountedId=(focusId.mapId&&selected.maps.some(m=>m.id===focusId.mapId))?focusId.mapId:selected.activeId;
@@ -15919,6 +15982,7 @@ function view_conflict(name){
     : `<p class="text-muted">No battle records name this conflict yet. A battle joins this list by setting its <code>conflict</code> to “${esc(name)}”.</p>`;
   el('content').innerHTML=`<div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › <a onclick="Router.go('#/battlefield')">Battlefield</a> › ${esc(name)}</div>
     <div class="card animate-fade-in"><div class="flex-between-start"><h1 class="art-title">${esc(name)}</h1><span class="status-tag ${statusClass(c.status)}">${esc(c.status||'')}</span></div>
+    ${c.image?`<figure class="conflict-lead"><img src="${esc(assetPath(c.image))}" alt="${esc(name)}" loading="lazy" decoding="async" onerror="this.closest('figure').remove()"></figure>`:''}
     <blockquote>${esc(c.summary||'')}</blockquote>
     ${c.rootCause?`<h2>Root Cause</h2><p>${esc(c.rootCause)}</p>`:''}
     ${facs?`<h2>Key Factions</h2><div>${facs}</div>`:''}
@@ -21337,6 +21401,7 @@ const Router={
     else if(route==='power'||route==='war')view_power();
     else if(route==='imperial-network'||route==='imperial'||route==='empire-network'||route==='legion'||route==='iron-legion'){ Router.go('#/regal-diet/ipn'); }
     else if(route==='plates'||route==='gallery'){ view_plates(); }
+    else if(route==='settings'||route==='preferences'||route==='prefs')view_settings();
     else if(route==='regal-diet'||route==='holy-midlands-diet'||route==='midlands-diet'||route==='diet')view_regal_diet(arg);
     else if(route==='pond-docket'||route==='docket'||route==='pond-patrol'||route==='accountability-docket')view_pond_docket();
     else if(route==='ability-shop'||route==='abilities'||route==='ability'){location.href=abilityShopUrl(arg);return;}
