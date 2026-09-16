@@ -1,0 +1,152 @@
+/* ============================================================
+   FAITHS & DOCTRINAL TENSION
+   Scope: #/faiths (the register) and #/faith/<id> (one denomination).
+
+   Why this file exists
+   --------------------
+   The faith register shipped with no styling of its own. The compatibility
+   matrix was a bare <table> with an inline rgba() on every cell, so the only
+   way to read a friction score was to read the number; the colour said
+   "reddish" and nothing else. Group blocks were undifferentiated cards, and
+   fifty denominations rendered as fifty identical boxes.
+
+   What the styling has to do, in order:
+     1. Make the matrix legible as a MATRIX — a grid you read by position,
+        with banded colour that means something and a legend that says what.
+     2. Give each cosmological group its own visual identity, driven by the
+        colour already in religion-data.js rather than a palette invented here.
+     3. Make a denomination card scannable: name, group, seat, how many
+        records declare it.
+     4. Make doctrinal friction on a single faith page read as a RANKING,
+        not a sentence with commas in it.
+
+   Conventions (docs/CSS_STYLE_GUIDE.md)
+   -------------------------------------
+   · Everything is prefixed .faiths- or .faith- and nests under those two
+     views. No global class is invented or redefined here.
+   · Group colour arrives as the inline custom property --faith-accent, set
+     from the data. Nothing hardcodes a group's colour.
+   · Fluid layouts only — no fixed pixel widths that can overflow the rail.
+   ============================================================ */
+
+/* ---------- register header ---------- */
+.faiths-hero{border-left:5px solid var(--accent2)}
+.faiths-lede{font-size:13px;line-height:1.65;color:var(--muted);margin:0 0 4px}
+.faiths-statrow{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 4px}
+.faiths-stat{flex:1 1 130px;border:1px solid var(--border);border-radius:10px;
+  background:var(--panel2);padding:9px 12px;min-width:0}
+.faiths-stat b{display:block;font-family:var(--font-display);font-size:20px;line-height:1.15}
+.faiths-stat span{font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+
+/* ---------- the compatibility matrix ----------
+   Read by position: row group vs column group. The diagonal is a group
+   against itself and is marked rather than coloured, because "a faith agrees
+   with itself" is not a finding. */
+.faiths-matrix-wrap{overflow-x:auto;margin-top:10px;padding-bottom:4px;
+  border:1px solid var(--border);border-radius:11px;background:var(--panel2)}
+.faiths-matrix{border-collapse:separate;border-spacing:0;font-size:12.5px;width:100%;min-width:420px}
+.faiths-matrix th,.faiths-matrix td{padding:0;text-align:center}
+.faiths-matrix thead th{position:sticky;top:0;z-index:1;background:var(--panel2);
+  padding:10px 8px;font-size:15px;line-height:1;border-bottom:1px solid var(--border)}
+.faiths-matrix tbody th{text-align:left;white-space:nowrap;padding:8px 12px;font-weight:700;
+  font-size:12px;border-right:1px solid var(--border);background:var(--panel2);
+  position:sticky;left:0;z-index:1}
+.faiths-matrix tbody th .fm-icon{margin-right:6px}
+.faiths-cell{position:relative;padding:0}
+.faiths-cell>span{display:block;padding:11px 10px;font-weight:700;font-variant-numeric:tabular-nums;
+  border-bottom:1px solid rgba(255,255,255,.04);cursor:help;transition:filter .12s}
+.faiths-cell:hover>span{filter:brightness(1.35)}
+/* Friction bands. Colour carries the reading; the number is still printed. */
+.faiths-cell--b0>span{background:rgba(34,197,94,.16);color:#86efac}
+.faiths-cell--b1>span{background:rgba(163,230,53,.14);color:#bef264}
+.faiths-cell--b2>span{background:rgba(250,204,21,.15);color:#fde047}
+.faiths-cell--b3>span{background:rgba(251,146,60,.17);color:#fdba74}
+.faiths-cell--b4>span{background:rgba(239,68,68,.20);color:#fca5a5}
+.faiths-cell--b5>span{background:rgba(239,68,68,.34);color:#fecaca}
+.faiths-cell--self>span{background:repeating-linear-gradient(135deg,
+  rgba(255,255,255,.03) 0 6px,transparent 6px 12px);color:var(--muted);font-weight:500}
+.faiths-cell--none>span{color:var(--muted);opacity:.5}
+
+.faiths-legend{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:10px;
+  font-size:11px;color:var(--muted)}
+.faiths-legend b{color:var(--text);text-transform:uppercase;letter-spacing:.05em;font-size:10px;
+  margin-right:2px}
+.faiths-key{display:inline-flex;align-items:center;gap:5px;border:1px solid var(--border);
+  border-radius:20px;padding:2px 9px;white-space:nowrap}
+.faiths-key i{width:9px;height:9px;border-radius:2px;display:inline-block;font-style:normal}
+.faiths-key--b0 i{background:rgba(34,197,94,.65)}
+.faiths-key--b1 i{background:rgba(163,230,53,.6)}
+.faiths-key--b2 i{background:rgba(250,204,21,.6)}
+.faiths-key--b3 i{background:rgba(251,146,60,.65)}
+.faiths-key--b4 i{background:rgba(239,68,68,.6)}
+.faiths-key--b5 i{background:rgba(239,68,68,.95)}
+
+/* ---------- what a band MEANS at the table ----------
+   religion-data.js carries tension_consequences with real mechanical effects
+   per band, and the register never showed them. A friction score you cannot
+   act on is decoration. */
+.faiths-bands{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));
+  gap:10px;margin-top:12px}
+.faiths-band{border:1px solid var(--border);border-left:4px solid var(--fb-accent,var(--border));
+  border-radius:10px;background:var(--panel2);padding:10px 12px}
+.faiths-band-head{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;margin-bottom:4px}
+.faiths-band-head b{font-size:13px}
+.faiths-band-range{font-size:10.5px;color:var(--muted);font-variant-numeric:tabular-nums;
+  border:1px solid var(--border);border-radius:20px;padding:0 7px;margin-left:auto}
+.faiths-band p{font-size:12px;color:var(--muted);line-height:1.55;margin:0}
+.faiths-band ul{list-style:none;padding:0;margin:8px 0 0}
+.faiths-band li{font-size:11.5px;line-height:1.55;padding:2px 0;color:var(--muted)}
+
+/* ---------- group blocks ---------- */
+.faiths-group{border-left:5px solid var(--faith-accent,var(--accent2))}
+.faiths-group-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:2px}
+.faiths-group-head h2{margin:0;font-size:17px;color:var(--faith-accent,var(--accent2))}
+.faiths-group-count{margin-left:auto;font-size:11px;color:var(--muted);border:1px solid var(--border);
+  border-radius:20px;padding:1px 9px;white-space:nowrap}
+.faiths-group-desc{font-size:12.5px;color:var(--muted);line-height:1.6;margin:0 0 12px}
+
+/* ---------- denomination cards ----------
+   Overrides the shared .faith-card sizing only inside the register, so the
+   panel version used on record pages is untouched. */
+.faiths-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,260px),1fr));gap:10px}
+.faiths-grid .faith-card{flex:none;display:flex;flex-direction:column;gap:2px;
+  border-left-color:var(--faith-accent,var(--accent2));transition:border-color .12s,transform .12s}
+.faiths-grid .faith-card:hover{transform:translateY(-1px);
+  border-color:color-mix(in srgb,var(--faith-accent,var(--accent2)) 55%,var(--border))}
+.faiths-grid .faith-name{font-size:13.5px;line-height:1.35;align-items:flex-start}
+.faiths-grid .faith-name>span:first-child{flex:0 0 auto;line-height:1.35}
+.faiths-grid .faith-role{flex:0 0 auto;align-self:flex-start;
+  border-color:color-mix(in srgb,var(--faith-accent,var(--accent2)) 45%,var(--border))}
+.faiths-grid .faith-line{margin-top:5px}
+.faiths-grid .faith-line--seat{margin-top:auto;padding-top:7px;border-top:1px dashed var(--border);
+  font-size:11.5px}
+
+/* ---------- one faith's page: friction as a ranking ---------- */
+.faith-friction-cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));
+  gap:12px;margin-top:8px}
+.faith-friction-col h4{margin:0 0 7px;font-size:11px;text-transform:uppercase;letter-spacing:.06em;
+  color:var(--muted)}
+.faith-frict{display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:8px;
+  border:1px solid var(--border);background:var(--panel2);text-decoration:none;color:inherit;
+  margin-bottom:5px}
+.faith-frict:hover{border-color:var(--accent2)}
+.faith-frict-name{flex:1 1 auto;min-width:0;font-size:12.5px;overflow:hidden;text-overflow:ellipsis;
+  white-space:nowrap}
+.faith-frict-score{flex:0 0 auto;font-size:11.5px;font-weight:800;font-variant-numeric:tabular-nums;
+  border-radius:20px;padding:1px 8px;border:1px solid var(--border)}
+.faith-frict--hostile .faith-frict-score{border-color:rgba(239,68,68,.45);color:#fca5a5;
+  background:rgba(239,68,68,.1)}
+.faith-frict--warm .faith-frict-score{border-color:rgba(74,222,128,.45);color:#86efac;
+  background:rgba(34,197,94,.1)}
+.faith-frict-bar{flex:0 0 52px;height:4px;border-radius:2px;background:var(--bg2);overflow:hidden}
+.faith-frict-bar>i{display:block;height:100%;background:currentColor;font-style:normal}
+.faith-frict--hostile .faith-frict-bar>i{background:#f87171}
+.faith-frict--warm .faith-frict-bar>i{background:#4ade80}
+
+@media (max-width:640px){
+  .faiths-matrix{font-size:11.5px}
+  .faiths-cell>span{padding:9px 7px}
+  .faiths-matrix tbody th{padding:7px 9px;font-size:11px}
+  .faiths-group-count{margin-left:0}
+  .faiths-band-range{margin-left:0}
+}

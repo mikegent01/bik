@@ -602,6 +602,7 @@
       "supernatural_sovereignty_act",
       "feyward_battalion_of_six_and_the_bait_plan"
     ],
+    "fullBody": "portraits/player/fullbody/hjumpik.png",
     "image": "portraits/hjumpik.png"
   },
   {
@@ -1714,6 +1715,7 @@
       "the_scorncrow_skirmish"
     ],
     "image": "portraits/remi_akamatsu_full_backstory.png",
+    "fullBody": "portraits/player/fullbody/remi_akamatsu_full_backstory.png",
     "imageAlternates": [
       {
         "src": "portraits/alternates/remi-pre-grove.png",
@@ -1853,6 +1855,7 @@
       "the_scorncrow_skirmish"
     ],
     "image": "portraits/markop.png",
+    "fullBody": "portraits/player/fullbody/markop.png",
     "imageAlternates": [
       {
         "src": "portraits/alternates/markop-pre-grove.png",
@@ -2925,6 +2928,7 @@
     "title": "The Indebted Pyromaniac Who Bleeds Entropy",
     "race": "Human",
     "image": "portraits/archie.png",
+    "fullBody": "portraits/player/fullbody/archie_miser.png",
     "status": "Active — emptied every reserve of magic into one fire cast inside the Scorncrow's tree, eyes turned to fire, and sealed the only exit doing it; descended into the Skittering Grove on Markop's rope",
     "affiliation": "Disaster Inc. / Mages' Guild (coerced employee, effective immediately, no severance package)",
     "backstory": {

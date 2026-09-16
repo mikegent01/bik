@@ -262,5 +262,59 @@
     ],
     "status": "Integrated into reformed Koopa Troop",
     "historicalNote": "The Resistance's motto became the rallying cry for Koopa loyalists: 'For the Kingdom. For the King.' A memorial carved with 348 names stands at the crater rim."
+  },
+  "The Sarasaland Stabilisation": {
+    "summary": "The Regal Empire's attempt to absorb the last functioning government in the Mushroom sphere without firing on it, by making Sarasaland's competence into a security problem only the Empire can solve.",
+    "startYear": 1040,
+    "status": "active",
+    "rootCause": "Sarasaland's government kept working while every neighbour collapsed, so the refugees, exiled Loyalists and Legion defectors all went there. A small independent kingdom holding that many displaced people is, in Imperial language, an unmanaged concentration of destabilising actors — and the Empire does not need to invade a country it can offer to help.",
+    "majorPhases": [
+      {
+        "name": "The Intake (Harvestide 1040)",
+        "description": "Refugee columns from the civil war reach Sarasan border posts faster than they can be processed. Daisy's government houses them rather than turning them back, which is the decision every later phase is built on."
+      },
+      {
+        "name": "The Offer (Duskmonth 1040)",
+        "description": "An Imperial delegation arrives with a stabilisation assistance package: Legion personnel to administer the camps, Imperial credit to pay for them, and an advisory presence in the Sarasan interior ministry. Nothing in the document uses the word occupation."
+      },
+      {
+        "name": "The Clause (ongoing)",
+        "description": "The assistance agreement contains a reciprocity provision that makes Imperial advisors permanent once invoked. Whether anyone in Daisy's cabinet has read it to the end is, at the time of filing, unestablished."
+      }
+    ],
+    "keyFactions": [
+      "regal_empire",
+      "iron_legion",
+      "peach_loyalists",
+      "mushroom_regency"
+    ],
+    "estimatedCasualties": "No battlefield deaths filed. The losses in this conflict are of sovereignty, and they are recorded in ledgers rather than casualty lists."
+  },
+  "The Underground Breach": {
+    "summary": "Gamma Division's penetration of the treaty layers of Mount Ebott, and the collapse of the only defence the Monster Underground has ever had — not being found.",
+    "startYear": 1040,
+    "status": "active",
+    "rootCause": "The Underground's security was never a wall, an army or a treaty that anyone outside honoured. It was secrecy. The Iron Legion's Gamma Division breached the treaty layers and the kingdom's existence stopped being a myth, which means every strategic assumption the King and Queen have governed under for centuries expired in a single afternoon.",
+    "majorPhases": [
+      {
+        "name": "The Survey (pre-breach)",
+        "description": "Gamma Division catalogues the mountain under the cover of a mineral survey. No monster is contacted and no law is broken, which is precisely the methodology the Legion's own files describe as preferable."
+      },
+      {
+        "name": "The Breach",
+        "description": "The treaty layers are penetrated. The archive records that this happened and records no response to it, which is itself the finding: a sovereign kingdom was entered and nobody filed a protest, because there was no body left to file one with."
+      },
+      {
+        "name": "The Question of the Surface (ongoing)",
+        "description": "With secrecy gone, the Underground must choose between sealing what remains, negotiating from a position it has no leverage in, or coming up. Each option costs something the King and Queen have said they will not spend."
+      }
+    ],
+    "keyFactions": [
+      "gamma_division",
+      "iron_legion",
+      "undertale_monsters",
+      "regal_empire"
+    ],
+    "estimatedCasualties": "Unestablished. Gamma Division does not file casualty returns for operations it classifies as surveys."
   }
 }

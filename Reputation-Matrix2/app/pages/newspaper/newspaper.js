@@ -3,7 +3,7 @@ const NEWS_ARTICLES = {
         {
             id: 'headline_1',
             title: "Ape-palling Behavior! Lanky Kong's Summit Shenanigans Cause Diplomatic and Economic Crisis!",
-            image: 'assets/illustrations/remaining/dk_crew.png',
+            image: '../../../assets/illustrations/remaining/dk_crew.png',
             image_alt: "A formal diplomatic stage in chaos. A long-armed ape can be seen flying through the air like a deflating balloon while dignitaries flee in terror.",
             date: "OCTOBER 28, YEAR 42",
             author: "By The Daily Paradox Political Desk",
@@ -51,7 +51,7 @@ The recapturing of the _Vigilance_ is a significant blow to X.O.'s mysterious ag
         {
             id: 'side_2',
             title: "Princess Peach Dead: Mushroom Kingdom Plunges into Crisis",
-            image: 'assets/illustrations/remaining/falling_figures.png', // Re-purposing an existing asset
+            image: '../../../assets/illustrations/remaining/falling_figures.png', // Re-purposing an existing asset
             image_alt: "Three figures falling through a colorful, striped sky, one a sorcerer, another cloaked in wolf fur, and a small mushroom-shaped figure. Symbolizes chaos and peril.",
             date: "OCTOBER 25, YEAR 42",
             author: "Crisis Desk Report",
@@ -83,7 +83,7 @@ Remember, peace is boring. **CHAOS** is profitable! And nobody does chaos better
         {
             id: 'advert_1',
             title: "Reliable Barrel Transport!",
-            image: 'assets/portraits/party/wario.png', // Assuming Wario asset will be created soon, or a barrel.
+            image: '../../../assets/portraits/party/wario.png', // Assuming Wario asset will be created soon, or a barrel.
             image_alt: "A sturdy wooden barrel.",
             content: "Need to make a quick getaway? Or perhaps transport a valuable (or ghostly) cargo? **Bongo's Barrels** offers discreet and surprisingly sturdy barrel-based transport solutions. Fast, reliable, and almost impossible to track! (Not responsible for dimensional shifts or accidental resurrections.)",
             cta: "Call Now!",
@@ -92,7 +92,7 @@ Remember, peace is boring. **CHAOS** is profitable! And nobody does chaos better
         {
             id: 'advert_2',
             title: "Need a new Staff? Or two?",
-            image: 'staff.png', // Assuming a staff asset will be created or used
+            image: '../../../assets/misc/asset_staff.png', // Assuming a staff asset will be created or used
             image_alt: "A gleaming magical staff.",
             content: "Lost your powerful arcane artifact in a scuffle? **Lario's Workshop** has a wide selection of ethically sourced (mostly) magical staves, wands, and other pointy bits! Trade-ins welcome, no questions asked. Special discounts for 'liberated' magical items!",
             cta: "Visit Lario's!",
@@ -101,7 +101,7 @@ Remember, peace is boring. **CHAOS** is profitable! And nobody does chaos better
         {
             id: 'advert_3',
             title: "Secure Your Secrets! (or steal others')",
-            image: 'assets/icons/navigation/dossier',
+            image: '../../../assets/icons/navigation/icon_dossier.png',
             image_alt: "An open folder icon.",
             content: "**The Shadowbrokers' Guild** offers top-tier information gathering and protection services. From secure data vaults to discreet asset acquisition, we ensure your secrets are safe... or that your enemies' secrets are not. Blackmail and counter-espionage a specialty.",
             cta: "Inquire Within",
@@ -110,7 +110,7 @@ Remember, peace is boring. **CHAOS** is profitable! And nobody does chaos better
         {
             id: 'advert_4',
             title: "Don't Be a Victim! Hire The Iron Fists!",
-            image: 'assets/factions/faction_iron_fists.png',
+            image: '../../../assets/factions/faction_iron_fists.png',
             image_alt: "Iron Fists faction logo.",
             content: "Trouble with rivals? Need a 'package' delivered discreetly? **The Iron Fists** offer comprehensive protection and enforcement services. We'll make sure your 'competitors' understand who's boss. Discreet, effective, and always gets the job done. (Payment upfront.)",
             cta: "Contact Us",

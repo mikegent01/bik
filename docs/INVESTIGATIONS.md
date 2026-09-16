@@ -1,31 +1,164 @@
-# The Investigations System — Authoring Guide
+# The Investigations System
 
-**What replaced the quest board, why, and exactly how to add to it.**
+**Start here. This page explains what an investigation is before it explains
+how to write one.**
 
-The quest board carried **73 entries**. Twenty-five of them had no description
-at all — a title, a location, a notional reward, and nothing else. Several more
-were of the form *a farmer has lost a screw*, filed on the same page as the
-destruction of a bloodline. The board answered the question *what could we do
-next*, and the party has never once been short of things to do next.
-
-The question the party is short of is **what is happening to us**. That question
-is not answered by a list. It is answered by paper.
-
-> **One investigation per arc. It accretes.**
-> Sessions add exhibits. Exhibits carry analysis behind a die.
-> Rolling costs nothing and pays nothing but information, and it happens once.
-> Objectives that survive become **leads** inside the file.
-
-| | Old | New |
-|---|---|---|
-| Unit | A quest | An investigation (one per arc) |
-| Growth | New quests are appended forever | The same file gets new exhibits |
-| Reward | A flat listed reward | Information. Rolling costs and pays no XP |
-| Reader action | Read a description | **Roll once against a DC and read further — or don't, permanently** |
-| Balance | Story summary | **Heavy Waluigi analysis, light story prose** |
-| Route | `#/quests` | `#/investigations` |
+An earlier version of this guide opened with a migration argument and went
+straight into a JSON schema. That is fine if you already know what the system
+is. If you don't, it reads as a wall of jargon — *exhibit*, *DC*, *lead*,
+*layer*, *prop* — with no explanation of what any of them are for. So:
 
 ---
+
+## In one minute — what is this?
+
+**An investigation is a folder of evidence about one storyline.**
+
+That's it. That's the whole idea. Everything below is detail.
+
+Imagine a detective's case file. It has a name on the cover, a short statement
+of what the case is about, and inside it: **documents**. A key with an evidence
+tag on it. A salvage receipt. A page torn from somebody's diary. The folder
+grows every time the party plays a session that produces more paper.
+
+The archive keeps **one folder per storyline**, and it is never finished.
+It gets thicker.
+
+### The four words you need
+
+| Word | What it actually means |
+|---|---|
+| **Investigation** | The folder. One per storyline. It has a name, a question it's trying to answer, and everything below lives inside it. |
+| **Exhibit** | One piece of evidence in the folder — a key, a note, a receipt. It's a real object from the story, not a summary of the story. |
+| **Analysis** | Waluigi's opinion about what an exhibit *proves*. This is hidden until you roll for it (see below). |
+| **Lead** | Something the party could actually go and do, that would add evidence to this folder. Not an errand — a next step for *this case*. |
+
+### Why you have to roll
+
+Every exhibit shows you two things:
+
+1. **What anyone can see.** Look at the key. It's brass. It's warm. Free, no
+   roll, always visible.
+2. **What it means.** Why does *warm* matter? That part is hidden.
+
+To read the second part, you **roll a die** — d6 + 1 — against a small target
+number on that exhibit. Beat it and the analysis opens up.
+
+Three rules make this work, and they're the unusual bit:
+
+> **The roll is free.** It costs no XP and awards no XP. You are not farming.
+>
+> **The roll happens once.** Ever. Whatever you get, that's the permanent state
+> of that exhibit for you. There is no "examine again" button.
+>
+> **Failing is a real outcome, not a wall.** A failed reading gives you a
+> *plausible but less revealing* interpretation. Never "you learn nothing."
+
+That third rule is why failure is safe. About a third of readers only ever see
+the failure text, so it has to be worth reading. And because failure is
+permanent, the target numbers stay low — 2 to 7, on a die that rolls 2 to 7.
+
+### Why not just a quest list?
+
+The archive used to have a quest board with 73 entries. Twenty-five had no
+description at all. Several were *a farmer has lost a screw*, sitting on the
+same page as the destruction of a bloodline.
+
+A quest board answers **"what could we do next?"** The party has never once
+been short of things to do next.
+
+The question they're actually short of is **"what is happening to us?"** You
+cannot answer that with a to-do list. You answer it with paper.
+
+| | Quest board | Investigation |
+|---|---|---|
+| The unit | A task | A folder of evidence |
+| How it grows | New tasks pile up forever | The same folder gets more documents |
+| What you get | A listed reward | Information, and only information |
+| What you do | Read a description | Roll once, read further — or don't, permanently |
+| Where | `#/quests` *(now redirects)* | `#/investigations` |
+
+Nothing was deleted. The old board is still readable at `#/quest-log`, and the
+22 entries that were doing real work became **leads** inside the new files.
+
+---
+
+## A real example, start to finish
+
+Here is one actual exhibit from the archive, so the words above have something
+attached to them. It is in the file **SHADEWARD FEYWARD RUINED**.
+
+**1. The story happened.** During a session, a character called Mystic Morel
+stepped out of a wall and threw a brass key at the party underarm, without
+stopping, and kept walking. Hjumpik caught it.
+
+**2. The key became an exhibit.** Not the story of the key — the *thing*. The
+exhibit is filed as `ex_key_thrown`, titled *"Evidence Tag — The Key That Was
+Thrown"*, and it records the chain of custody like real evidence does:
+
+> **Secured:** 23 Harvestide, 1040 BF · Feyward manor, mid-corridor, in flight
+> **Custody:** Hjumpik
+
+**3. Anyone can read the surface.** The `onRecord` text describes what
+happened, plainly. No roll needed.
+
+**4. One detail inside it is rollable.** Embedded in that description is a
+small check on the phrase *"a warm brass key"* — because whether *warm* means
+anything is a judgement call:
+
+- **Success:** "Warm means carried against a body, not lifted off a hook on the
+  way past. Morel had been holding it for a while."
+- **Failure:** "Brass takes heat off anything. It proves nothing on its own."
+
+Notice that the failure is a *reasonable position*. Someone who rolls badly
+still has a coherent read of the evidence. They just have the less useful one.
+
+**5. The analysis is the real payload.** Beat the exhibit's target number and
+Waluigi's full reading opens. Its argument, in his voice:
+
+> The exhibit is not the key. The key is in Hjumpik's pocket. The exhibit is
+> the **tag** — and the tag records a *method of transfer*, which is the part
+> everybody skips. Morel did not hand the key over. Handing something over
+> creates a moment: two people, one object, an exchange that can be witnessed.
+> Throwing it does not.
+
+That is what an analysis is for. The event already told you what happened. The
+investigation tells you **what the paper proves, what it fails to prove, and
+why that failure matters**.
+
+**6. What's left becomes a lead.** If the party could go and verify something —
+find out where Morel got the key — that is a lead, with a one-sentence `why`
+explaining how it would change what the file can prove.
+
+---
+
+## The shortest possible authoring recipe
+
+Adding a session to an existing investigation is **a JSON edit**. No
+JavaScript. No CSS.
+
+1. Add a row to `sessions[]` — id, label, date, the event it came from.
+2. Add **two or three exhibits**. For each one, ask: *what physical object or
+   document did this session produce?* If the answer is "nothing", don't force
+   one; a session can add a lead and no exhibits.
+3. For each exhibit write: what anyone can see (`onRecord`), a target number
+   (`dc`, 2–7), and what it proves (`analysis`).
+4. Add any **leads** the session created, each with its `why`.
+
+That's the job. The rest of this document is reference material for when you
+need the exact field names and the rules that catch mistakes.
+
+**Before you start, read the tone section** — [Tone](#tone) — because the
+single most common failure here is not a broken field. It is an analysis that
+recaps the story instead of arguing about the evidence.
+
+---
+
+## Reference
+
+Everything from here down is the specification: exact schema, dice internals,
+CSS scopes, validation, and process. Dip in; you do not need to read it
+straight through.
 
 ## Files
 

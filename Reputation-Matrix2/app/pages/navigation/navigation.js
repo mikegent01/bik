@@ -244,6 +244,77 @@ function initTabletControls() {
 }
 
 // ============================================
+// SPRINGBOARD
+// ============================================
+// The home screen is a grid of app icons; the old grouped list is kept
+// behind "All apps" because 40+ destinations do not belong on a home
+// screen. The choice is remembered, so a player who prefers the full list
+// is not made to re-open it on every page.
+
+// Every destination, as a path relative to the Reputation-Matrix2 root.
+// The pages are scattered (some at the root, some under app/pages/<name>/,
+// some under app/pages/standalone/), and the tablet is injected into host
+// pages sitting at several different depths -- so a bare "quests.html" only
+// resolves correctly from some of them. We anchor on navigation.js's own
+// URL, which is always .../app/pages/navigation/, and resolve from there.
+const APP_TARGETS = {
+    waluipedia: '../../../index.html',
+    calendar:   '../../../index.html#/calendar',
+    mission:    'app/pages/standalone/liberated-toads-event.html',
+    quests:     'quests.html',
+    shop:       'app/pages/shop/shop.html',
+    currency:   'currency.html',
+    maps:       'app/pages/maps/maps.html',
+    globalwar:  'app/pages/standalone/global-war.html',
+    assembly:   'app/pages/assembly/assembly.html',
+    intel:      'app/pages/intel/intel.html',
+    directory:  'app/pages/directory/directory.html',
+    dynasty:    'app/pages/family-tree/family-tree.html',
+    religion:   'app/pages/religion/religion.html',
+    artifacts:  'app/pages/artifacts/artifacts.html',
+    library:    'app/pages/library/library.html',
+    alliances:  'app/pages/alliances/alliances.html',
+    crafting:   'app/pages/crafting/crafting.html'
+};
+
+function resolveAppTargets(root) {
+    const script = document.querySelector('script[src*="navigation.js"]');
+    if (!script) return;
+    // .../Reputation-Matrix2/app/pages/navigation/navigation.js -> repo-relative base
+    const rmRoot = new URL('../../../', script.src);
+
+    root.querySelectorAll('[data-app]').forEach(a => {
+        const rel = APP_TARGETS[a.getAttribute('data-app')];
+        if (!rel) return;
+        // index.html lives one level ABOVE Reputation-Matrix2
+        a.href = new URL(rel.startsWith('../') ? rel.replace('../../../', '../') : rel, rmRoot).href;
+    });
+}
+
+function initSpringboard() {
+    const btn = document.getElementById('sb-more');
+    const nav = document.getElementById('main-nav-bar');
+    const board = document.getElementById('springboard');
+    if (!btn || !nav) return;
+
+    const apply = (open) => {
+        nav.classList.toggle('is-collapsed', !open);
+        btn.classList.toggle('open', open);
+        btn.querySelector('span').textContent = open ? 'Hide list' : 'All apps';
+        if (board) board.style.display = '';
+    };
+
+    apply(localStorage.getItem('tabletAllApps') === 'true');
+
+    btn.addEventListener('click', () => {
+        const open = nav.classList.contains('is-collapsed');
+        apply(open);
+        localStorage.setItem('tabletAllApps', String(open));
+        if (open) nav.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+}
+
+// ============================================
 // SEARCH FUNCTIONALITY
 // ============================================
 
@@ -429,6 +500,8 @@ async function initializeTablet() {
         initSearch();
         initCollapsibleGroups();
         initQuickActions();
+        resolveAppTargets(tabletContainer);
+        initSpringboard();
         
         // Start time updates
         updateTabletTime();

@@ -540,7 +540,7 @@ export const WIDESPREAD_FACTIONS = {
     knights_of_the_gilded_lily: {
         name: "Knights of the Gilded Lily",
         description: "A chivalric order of knights from the swampy kingdom of Chramalot. They value honor and courtly love, but their kingdom is beset by internal political strife.",
-        logo: 'banners/gilded_lily.png',
+        logo: 'banners/knights_of_the_gilded_lily.png',
         relations: {
             allies: ['mushroom_regency'],
             enemies: ['onyx_hand']

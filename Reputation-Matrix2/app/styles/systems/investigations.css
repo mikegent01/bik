@@ -208,7 +208,14 @@
 }
 
 /* ---------- exhibit stage furniture (was inline style= in index.html) ---- */
-.inv-doc-head{padding:14px 16px 2px}
+.inv-doc-head{padding:14px 16px 2px;display:flex;flex-wrap:wrap;align-items:baseline;gap:8px}
+/* The three spans inside the close-reading head had no rules at all, so the
+   title, the counter and the hint ran together as one line of body text.
+   The hint takes the full second row; title and count share the first. */
+.inv-doc-title{font-size:12.5px;font-weight:700;letter-spacing:.03em;color:var(--accent2)}
+.inv-doc-count{font-size:11px;padding:1px 8px;border-radius:999px;border:1px solid var(--border);
+  background:var(--bg2);color:var(--muted);white-space:nowrap}
+.inv-doc-hint{flex:1 0 100%;font-size:11.5px;line-height:1.5;color:var(--muted)}
 .inv-visual-card{padding:14px}
 .inv-ex-icon{font-size:22px;line-height:1}
 .inv-exam-idle{margin:0 0 10px}
@@ -904,3 +911,14 @@ html[data-theme="light"] .article-analysis-layout{
   .cfx-row{grid-template-columns:1fr;gap:2px}
   .cfx-kind{padding-top:0}
 }
+
+/* ===== "How this works" strip on the investigations index =====
+   The index used to explain the system in one dense paragraph using words
+   the reader had not been given yet — exhibit, examination, DC. Four numbered
+   steps in plain language replace it. Same information, readable cold. */
+.inv-howto{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));
+  gap:9px;margin-top:12px}
+.inv-howto-step{border:1px solid var(--border);border-left:3px solid var(--accent2);
+  border-radius:9px;background:var(--panel2);padding:9px 11px;display:flex;flex-direction:column;gap:3px}
+.inv-howto-step b{font-size:11.5px;letter-spacing:.03em;color:var(--accent2)}
+.inv-howto-step span{font-size:12px;line-height:1.5;color:var(--muted)}

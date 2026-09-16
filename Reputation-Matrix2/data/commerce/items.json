@@ -2,19 +2,48 @@
   "meta": {
     "version": "2.0",
     "lastUpdated": "Harvestide 30, 1040 BF",
-    "totalItems": 22
+    "totalItems": 23,
+    "ownerIdAdded": "Every item carries ownerId (a wallets.json key) alongside the human-readable obtainedBy. null means deliberately unowned — see ownerUnresolved."
   },
   "categories": [
-    { "id": "scraps", "label": "Scraps & Papers", "icon": "📜", "color": "#c9a96e" },
-    { "id": "artifacts", "label": "Artifacts & Relics", "icon": "🔮", "color": "#9b59b6" },
-    { "id": "evidence", "label": "Evidence", "icon": "🔍", "color": "#e74c3c" },
-    { "id": "keys", "label": "Keys & Tools", "icon": "🔑", "color": "#f39c12" },
-    { "id": "curiosities", "label": "Curiosities", "icon": "✨", "color": "#1abc9c" },
-    { "id": "consumables", "label": "Consumables", "icon": "🧪", "color": "#2ecc71" }
+    {
+      "id": "scraps",
+      "label": "Scraps & Papers",
+      "icon": "📜",
+      "color": "#c9a96e"
+    },
+    {
+      "id": "artifacts",
+      "label": "Artifacts & Relics",
+      "icon": "🔮",
+      "color": "#9b59b6"
+    },
+    {
+      "id": "evidence",
+      "label": "Evidence",
+      "icon": "🔍",
+      "color": "#e74c3c"
+    },
+    {
+      "id": "keys",
+      "label": "Keys & Tools",
+      "icon": "🔑",
+      "color": "#f39c12"
+    },
+    {
+      "id": "curiosities",
+      "label": "Curiosities",
+      "icon": "✨",
+      "color": "#1abc9c"
+    },
+    {
+      "id": "consumables",
+      "label": "Consumables",
+      "icon": "🧪",
+      "color": "#2ecc71"
+    }
   ],
   "items": [
-   
-    
     {
       "id": "green-t-battle-plan",
       "name": "Battle Plan Napkin",
@@ -22,6 +51,7 @@
       "subcategory": "plans",
       "rarity": "rare",
       "obtainedBy": "FNG Remi",
+      "ownerId": "remi",
       "obtainedDate": "Highsun 26, 1040 BF",
       "obtainedTime": "19:50",
       "obtainedLocation": "Shadeward Manor — Dining Hall",
@@ -36,25 +66,99 @@
       "model3d": {
         "shape": "folded-cloth",
         "params": {
-          "width": 1.6, "height": 1.2, "segments": 28, "foldPosition": 0, "foldAmount": 0.1, "wrinkle": 1.5,
+          "width": 1.6,
+          "height": 1.2,
+          "segments": 28,
+          "foldPosition": 0,
+          "foldAmount": 0.1,
+          "wrinkle": 1.5,
           "stains": [
-            { "x": 0.3, "y": 0.2, "radius": 0.12, "color": "#8b1a1a", "opacity": 0.35 },
-            { "x": -0.4, "y": -0.1, "radius": 0.06, "color": "#8b1a1a", "opacity": 0.2 },
-            { "x": 0.1, "y": -0.3, "radius": 0.04, "color": "#6b1010", "opacity": 0.25 }
+            {
+              "x": 0.3,
+              "y": 0.2,
+              "radius": 0.12,
+              "color": "#8b1a1a",
+              "opacity": 0.35
+            },
+            {
+              "x": -0.4,
+              "y": -0.1,
+              "radius": 0.06,
+              "color": "#8b1a1a",
+              "opacity": 0.2
+            },
+            {
+              "x": 0.1,
+              "y": -0.3,
+              "radius": 0.04,
+              "color": "#6b1010",
+              "opacity": 0.25
+            }
           ]
         },
-        "material": { "color": "#f0e8d8", "roughness": 0.9, "metalness": 0.0 },
-        "scale": 1.0,
-        "position": { "x": 0, "y": 0, "z": 0 },
-        "rotation": { "x": 0.002, "y": 0.003, "z": 0 },
-        "camera": { "fov": 40, "position": [0, 1.2, 1.8], "lookAt": [0, 0, 0] },
-        "controls": { "autoRotate": true, "autoRotateSpeed": 1, "enableZoom": true },
-        "lighting": {
-          "ambient": { "color": "#3a2020", "intensity": 0.5 },
-          "directional": { "color": "#ffddcc", "intensity": 1.2, "position": [2, 5, 3] },
-          "points": [{ "color": "#ff6644", "intensity": 0.3, "position": [0, 1, 2] }]
+        "material": {
+          "color": "#f0e8d8",
+          "roughness": 0.9,
+          "metalness": 0.0
         },
-        "environment": { "backgroundColor": "#140a0a" }
+        "scale": 1.0,
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "rotation": {
+          "x": 0.002,
+          "y": 0.003,
+          "z": 0
+        },
+        "camera": {
+          "fov": 40,
+          "position": [
+            0,
+            1.2,
+            1.8
+          ],
+          "lookAt": [
+            0,
+            0,
+            0
+          ]
+        },
+        "controls": {
+          "autoRotate": true,
+          "autoRotateSpeed": 1,
+          "enableZoom": true
+        },
+        "lighting": {
+          "ambient": {
+            "color": "#3a2020",
+            "intensity": 0.5
+          },
+          "directional": {
+            "color": "#ffddcc",
+            "intensity": 1.2,
+            "position": [
+              2,
+              5,
+              3
+            ]
+          },
+          "points": [
+            {
+              "color": "#ff6644",
+              "intensity": 0.3,
+              "position": [
+                0,
+                1,
+                2
+              ]
+            }
+          ]
+        },
+        "environment": {
+          "backgroundColor": "#140a0a"
+        }
       },
       "interactionStyle": {
         "containerBg": "linear-gradient(180deg, rgba(90,20,20,0.15) 0%, rgba(30,10,10,0.9) 100%)",
@@ -126,11 +230,29 @@
         "customCSS": ""
       },
       "animations": {
-        "onReveal": { "type": "slideUp", "duration": 600 },
-        "onHover": { "type": "pulse-border", "duration": 1500, "css": "box-shadow: 0 0 15px rgba(139, 26, 26, 0.5); transition: box-shadow 0.3s ease;" },
-        "idle": { "type": "subtle-pulse", "duration": 3000, "css": "@keyframes subtlePulseGT { 0%, 100% { box-shadow: 0 0 5px rgba(139,26,26,0.2); } 50% { box-shadow: 0 0 12px rgba(139,26,26,0.4); } } animation: subtlePulseGT 3s infinite;" }
+        "onReveal": {
+          "type": "slideUp",
+          "duration": 600
+        },
+        "onHover": {
+          "type": "pulse-border",
+          "duration": 1500,
+          "css": "box-shadow: 0 0 15px rgba(139, 26, 26, 0.5); transition: box-shadow 0.3s ease;"
+        },
+        "idle": {
+          "type": "subtle-pulse",
+          "duration": 3000,
+          "css": "@keyframes subtlePulseGT { 0%, 100% { box-shadow: 0 0 5px rgba(139,26,26,0.2); } 50% { box-shadow: 0 0 12px rgba(139,26,26,0.4); } } animation: subtlePulseGT 3s infinite;"
+        }
       },
-      "tags": ["green-t", "vampires", "crystals", "beast", "assault-plan", "shadeward-manor"]
+      "tags": [
+        "green-t",
+        "vampires",
+        "crystals",
+        "beast",
+        "assault-plan",
+        "shadeward-manor"
+      ]
     },
     {
       "id": "gray-stone-pendant",
@@ -139,6 +261,7 @@
       "subcategory": "jewelry",
       "rarity": "uncommon",
       "obtainedBy": "Archie Miser",
+      "ownerId": "archie",
       "obtainedDate": "Highsun 28, 1040 BF",
       "obtainedTime": "17:15",
       "obtainedLocation": "Raventree Manor — Curio Collection Room",
@@ -153,32 +276,120 @@
       "model3d": {
         "shape": "pendant",
         "params": {
-          "stoneRadius": 0.35, "stoneSquash": 0.85,
-          "frameRadius": 0.42, "frameThickness": 0.035,
-          "bailRadius": 0.1, "bailThickness": 0.02,
-          "runeCount": 8, "runeColor": "#ffdd44",
-          "frameMaterial": { "color": "#b8860b", "metalness": 0.85, "roughness": 0.25 },
+          "stoneRadius": 0.35,
+          "stoneSquash": 0.85,
+          "frameRadius": 0.42,
+          "frameThickness": 0.035,
+          "bailRadius": 0.1,
+          "bailThickness": 0.02,
+          "runeCount": 8,
+          "runeColor": "#ffdd44",
+          "frameMaterial": {
+            "color": "#b8860b",
+            "metalness": 0.85,
+            "roughness": 0.25
+          },
           "innerGlowPoints": [
-            { "x": 0.05, "y": 0.02, "z": 0.12, "size": 0.015, "color": "#ffdd44", "opacity": 0.9 },
-            { "x": -0.08, "y": -0.04, "z": 0.1, "size": 0.01, "color": "#ffcc33", "opacity": 0.7 },
-            { "x": 0.02, "y": 0.08, "z": 0.08, "size": 0.012, "color": "#ffee55", "opacity": 0.8 }
+            {
+              "x": 0.05,
+              "y": 0.02,
+              "z": 0.12,
+              "size": 0.015,
+              "color": "#ffdd44",
+              "opacity": 0.9
+            },
+            {
+              "x": -0.08,
+              "y": -0.04,
+              "z": 0.1,
+              "size": 0.01,
+              "color": "#ffcc33",
+              "opacity": 0.7
+            },
+            {
+              "x": 0.02,
+              "y": 0.08,
+              "z": 0.08,
+              "size": 0.012,
+              "color": "#ffee55",
+              "opacity": 0.8
+            }
           ]
         },
-        "material": { "color": "#888899", "roughness": 0.3, "metalness": 0.1, "emissive": "#333344", "emissiveIntensity": 0.2 },
+        "material": {
+          "color": "#888899",
+          "roughness": 0.3,
+          "metalness": 0.1,
+          "emissive": "#333344",
+          "emissiveIntensity": 0.2
+        },
         "scale": 2.0,
-        "position": { "x": 0, "y": 0, "z": 0 },
-        "rotation": { "x": 0, "y": 0.005, "z": 0 },
-        "camera": { "fov": 40, "position": [0, 0.5, 2.5], "lookAt": [0, 0, 0] },
-        "controls": { "autoRotate": true, "autoRotateSpeed": 2, "enableZoom": true },
-        "lighting": {
-          "ambient": { "color": "#404060", "intensity": 0.5 },
-          "directional": { "color": "#ffeedd", "intensity": 1.2, "position": [5, 5, 5] },
-          "points": [
-            { "color": "#ffdd44", "intensity": 0.8, "position": [0, 0, 1.5] },
-            { "color": "#aabbcc", "intensity": 0.4, "position": [-2, 1, 0] }
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0.005,
+          "z": 0
+        },
+        "camera": {
+          "fov": 40,
+          "position": [
+            0,
+            0.5,
+            2.5
+          ],
+          "lookAt": [
+            0,
+            0,
+            0
           ]
         },
-        "environment": { "backgroundColor": "#0f0f1e" }
+        "controls": {
+          "autoRotate": true,
+          "autoRotateSpeed": 2,
+          "enableZoom": true
+        },
+        "lighting": {
+          "ambient": {
+            "color": "#404060",
+            "intensity": 0.5
+          },
+          "directional": {
+            "color": "#ffeedd",
+            "intensity": 1.2,
+            "position": [
+              5,
+              5,
+              5
+            ]
+          },
+          "points": [
+            {
+              "color": "#ffdd44",
+              "intensity": 0.8,
+              "position": [
+                0,
+                0,
+                1.5
+              ]
+            },
+            {
+              "color": "#aabbcc",
+              "intensity": 0.4,
+              "position": [
+                -2,
+                1,
+                0
+              ]
+            }
+          ]
+        },
+        "environment": {
+          "backgroundColor": "#0f0f1e"
+        }
       },
       "interactionStyle": {
         "containerBg": "radial-gradient(ellipse at center, rgba(26,26,46,0.95) 0%, rgba(15,15,30,0.98) 100%)",
@@ -232,11 +443,29 @@
         "customCSS": ".item-gray-stone-pendant .card-title { text-shadow: 0 0 10px rgba(184,134,11,0.5); }"
       },
       "animations": {
-        "onReveal": { "type": "fadeGlow", "duration": 1200 },
-        "onHover": { "type": "glow-intensify", "duration": 300, "css": "filter: brightness(1.1); box-shadow: 0 0 25px rgba(184,134,11,0.6); transition: all 0.3s ease;" },
-        "idle": { "type": "pulse-glow", "duration": 4000, "css": "@keyframes pendantPulse { 0%, 100% { box-shadow: 0 0 8px rgba(184,134,11,0.2); } 50% { box-shadow: 0 0 20px rgba(184,134,11,0.5); } } animation: pendantPulse 4s infinite ease-in-out;" }
+        "onReveal": {
+          "type": "fadeGlow",
+          "duration": 1200
+        },
+        "onHover": {
+          "type": "glow-intensify",
+          "duration": 300,
+          "css": "filter: brightness(1.1); box-shadow: 0 0 25px rgba(184,134,11,0.6); transition: all 0.3s ease;"
+        },
+        "idle": {
+          "type": "pulse-glow",
+          "duration": 4000,
+          "css": "@keyframes pendantPulse { 0%, 100% { box-shadow: 0 0 8px rgba(184,134,11,0.2); } 50% { box-shadow: 0 0 20px rgba(184,134,11,0.5); } } animation: pendantPulse 4s infinite ease-in-out;"
+        }
       },
-      "tags": ["pendant", "runes", "cartography", "waypoint", "curio-room", "raventree-manor"]
+      "tags": [
+        "pendant",
+        "runes",
+        "cartography",
+        "waypoint",
+        "curio-room",
+        "raventree-manor"
+      ]
     },
     {
       "id": "iron-legion-insignia",
@@ -245,6 +474,8 @@
       "subcategory": "faction-item",
       "rarity": "uncommon",
       "obtainedBy": "Creek (Surgeon)",
+      "ownerId": null,
+      "ownerUnresolved": "No wallet record exists for Creek.",
       "obtainedDate": "Highsun 16, 1040 BF",
       "obtainedTime": "21:00",
       "obtainedLocation": "The Vigilance — Medical Bay",
@@ -259,23 +490,81 @@
       "model3d": {
         "shape": "insignia",
         "params": {
-          "radius": 0.4, "depth": 0.06, "sides": 6,
+          "radius": 0.4,
+          "depth": 0.06,
+          "sides": 6,
           "symbol": "fist",
-          "symbolMaterial": { "color": "#aaaaaa", "metalness": 0.95, "roughness": 0.15 },
-          "showPin": true, "pinLength": 0.5
+          "symbolMaterial": {
+            "color": "#aaaaaa",
+            "metalness": 0.95,
+            "roughness": 0.15
+          },
+          "showPin": true,
+          "pinLength": 0.5
         },
-        "material": { "color": "#555555", "metalness": 0.9, "roughness": 0.2 },
+        "material": {
+          "color": "#555555",
+          "metalness": 0.9,
+          "roughness": 0.2
+        },
         "scale": 2.5,
-        "position": { "x": 0, "y": 0, "z": 0 },
-        "rotation": { "x": 0, "y": 0.008, "z": 0 },
-        "camera": { "fov": 40, "position": [0, 0.3, 2.5], "lookAt": [0, 0, 0] },
-        "controls": { "autoRotate": true, "autoRotateSpeed": 3 },
-        "lighting": {
-          "ambient": { "color": "#222222", "intensity": 0.4 },
-          "directional": { "color": "#ffffff", "intensity": 1.5, "position": [3, 5, 4], "castShadow": true },
-          "points": [{ "color": "#ff4444", "intensity": 0.3, "position": [0, 1, 2] }]
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
         },
-        "environment": { "backgroundColor": "#0d0d0d" }
+        "rotation": {
+          "x": 0,
+          "y": 0.008,
+          "z": 0
+        },
+        "camera": {
+          "fov": 40,
+          "position": [
+            0,
+            0.3,
+            2.5
+          ],
+          "lookAt": [
+            0,
+            0,
+            0
+          ]
+        },
+        "controls": {
+          "autoRotate": true,
+          "autoRotateSpeed": 3
+        },
+        "lighting": {
+          "ambient": {
+            "color": "#222222",
+            "intensity": 0.4
+          },
+          "directional": {
+            "color": "#ffffff",
+            "intensity": 1.5,
+            "position": [
+              3,
+              5,
+              4
+            ],
+            "castShadow": true
+          },
+          "points": [
+            {
+              "color": "#ff4444",
+              "intensity": 0.3,
+              "position": [
+                0,
+                1,
+                2
+              ]
+            }
+          ]
+        },
+        "environment": {
+          "backgroundColor": "#0d0d0d"
+        }
       },
       "interactionStyle": {
         "containerBg": "linear-gradient(135deg, rgba(20,20,20,0.95) 0%, rgba(30,30,30,0.95) 100%)",
@@ -342,11 +631,25 @@
         "customCSS": ".item-iron-legion-insignia .rarity-badge { background: #ff4444; color: #000; font-weight: bold; }"
       },
       "animations": {
-        "onReveal": { "type": "metalSlide", "duration": 500 },
-        "onHover": { "type": "metallic-glint", "duration": 400, "css": "background: linear-gradient(135deg, #222 0%, #3a3a3a 50%, #222 100%); transition: background 0.4s ease;" },
+        "onReveal": {
+          "type": "metalSlide",
+          "duration": 500
+        },
+        "onHover": {
+          "type": "metallic-glint",
+          "duration": 400,
+          "css": "background: linear-gradient(135deg, #222 0%, #3a3a3a 50%, #222 100%); transition: background 0.4s ease;"
+        },
         "idle": null
       },
-      "tags": ["iron-legion", "infiltration", "surgery", "transponder", "redthorn", "vigilance"]
+      "tags": [
+        "iron-legion",
+        "infiltration",
+        "surgery",
+        "transponder",
+        "redthorn",
+        "vigilance"
+      ]
     },
     {
       "id": "xo-staff-fragment",
@@ -355,6 +658,9 @@
       "subcategory": "weapon",
       "rarity": "legendary",
       "obtainedBy": "Party (Collective)",
+      "ownerId": null,
+      "ownerUnresolved": "Held collectively or by an unrecorded party.",
+      "custodyNote": "Held in common by the party.",
       "obtainedDate": "Highsun 7, 1040 BF",
       "obtainedTime": "09:00",
       "obtainedLocation": "The Vigilance — Engine Room",
@@ -369,28 +675,104 @@
       "model3d": {
         "shape": "staff",
         "params": {
-          "length": 2.8, "topRadius": 0.025, "bottomRadius": 0.04, "shaftSegments": 16,
-          "headShape": "crystal", "headSize": 0.18,
-          "headMaterial": { "color": "#9966ff", "emissive": "#6633cc", "emissiveIntensity": 0.8, "roughness": 0.05, "metalness": 0.2 },
-          "gripPosition": -0.5, "gripRadius": 0.045, "gripLength": 0.35,
-          "gripMaterial": { "color": "#221100", "roughness": 0.95, "metalness": 0.05 },
-          "scorchMark": { "x": 0.035, "y": 0.4, "z": 0.035 }
+          "length": 2.8,
+          "topRadius": 0.025,
+          "bottomRadius": 0.04,
+          "shaftSegments": 16,
+          "headShape": "crystal",
+          "headSize": 0.18,
+          "headMaterial": {
+            "color": "#9966ff",
+            "emissive": "#6633cc",
+            "emissiveIntensity": 0.8,
+            "roughness": 0.05,
+            "metalness": 0.2
+          },
+          "gripPosition": -0.5,
+          "gripRadius": 0.045,
+          "gripLength": 0.35,
+          "gripMaterial": {
+            "color": "#221100",
+            "roughness": 0.95,
+            "metalness": 0.05
+          },
+          "scorchMark": {
+            "x": 0.035,
+            "y": 0.4,
+            "z": 0.035
+          }
         },
-        "material": { "color": "#0a0a0a", "roughness": 0.3, "metalness": 0.7 },
+        "material": {
+          "color": "#0a0a0a",
+          "roughness": 0.3,
+          "metalness": 0.7
+        },
         "scale": 0.8,
-        "position": { "x": 0, "y": 0, "z": 0 },
-        "rotation": { "x": 0.001, "y": 0.008, "z": 0.15 },
-        "camera": { "fov": 45, "position": [0, 0.5, 3], "lookAt": [0, 0.3, 0] },
-        "controls": { "autoRotate": true, "autoRotateSpeed": 2.5 },
-        "lighting": {
-          "ambient": { "color": "#1a0033", "intensity": 0.4 },
-          "directional": { "color": "#9966ff", "intensity": 1.0, "position": [2, 4, 3] },
-          "points": [
-            { "color": "#cc66ff", "intensity": 1.5, "position": [0, 2, 1] },
-            { "color": "#6633cc", "intensity": 0.5, "position": [-1, -1, 2] }
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "rotation": {
+          "x": 0.001,
+          "y": 0.008,
+          "z": 0.15
+        },
+        "camera": {
+          "fov": 45,
+          "position": [
+            0,
+            0.5,
+            3
+          ],
+          "lookAt": [
+            0,
+            0.3,
+            0
           ]
         },
-        "environment": { "backgroundColor": "#06000f" }
+        "controls": {
+          "autoRotate": true,
+          "autoRotateSpeed": 2.5
+        },
+        "lighting": {
+          "ambient": {
+            "color": "#1a0033",
+            "intensity": 0.4
+          },
+          "directional": {
+            "color": "#9966ff",
+            "intensity": 1.0,
+            "position": [
+              2,
+              4,
+              3
+            ]
+          },
+          "points": [
+            {
+              "color": "#cc66ff",
+              "intensity": 1.5,
+              "position": [
+                0,
+                2,
+                1
+              ]
+            },
+            {
+              "color": "#6633cc",
+              "intensity": 0.5,
+              "position": [
+                -1,
+                -1,
+                2
+              ]
+            }
+          ]
+        },
+        "environment": {
+          "backgroundColor": "#06000f"
+        }
       },
       "interactionStyle": {
         "containerBg": "radial-gradient(ellipse at 50% 30%, rgba(26,0,51,0.95) 0%, rgba(6,0,15,0.98) 100%)",
@@ -449,11 +831,29 @@
         "customCSS": ""
       },
       "animations": {
-        "onReveal": { "type": "energyBurst", "duration": 1500 },
-        "onHover": { "type": "energy-intensify", "duration": 300, "css": "box-shadow: 0 0 30px rgba(153,102,255,0.7), inset 0 0 20px rgba(153,102,255,0.2); transform: scale(1.02); transition: all 0.3s ease;" },
-        "idle": { "type": "energy-pulse", "duration": 2500, "css": "@keyframes energyPulseXO { 0%, 100% { box-shadow: 0 0 10px rgba(153,102,255,0.3); } 25% { box-shadow: 0 0 20px rgba(204,102,255,0.5); } 50% { box-shadow: 0 0 15px rgba(153,102,255,0.4); } 75% { box-shadow: 0 0 25px rgba(204,102,255,0.6); } } animation: energyPulseXO 2.5s infinite;" }
+        "onReveal": {
+          "type": "energyBurst",
+          "duration": 1500
+        },
+        "onHover": {
+          "type": "energy-intensify",
+          "duration": 300,
+          "css": "box-shadow: 0 0 30px rgba(153,102,255,0.7), inset 0 0 20px rgba(153,102,255,0.2); transform: scale(1.02); transition: all 0.3s ease;"
+        },
+        "idle": {
+          "type": "energy-pulse",
+          "duration": 2500,
+          "css": "@keyframes energyPulseXO { 0%, 100% { box-shadow: 0 0 10px rgba(153,102,255,0.3); } 25% { box-shadow: 0 0 20px rgba(204,102,255,0.5); } 50% { box-shadow: 0 0 15px rgba(153,102,255,0.4); } 75% { box-shadow: 0 0 25px rgba(204,102,255,0.6); } } animation: energyPulseXO 2.5s infinite;"
+        }
       },
-      "tags": ["x.o.", "staff", "power-core", "vigilance", "betrayal", "phase-two"]
+      "tags": [
+        "x.o.",
+        "staff",
+        "power-core",
+        "vigilance",
+        "betrayal",
+        "phase-two"
+      ]
     },
     {
       "id": "mirror-warning-note",
@@ -462,6 +862,7 @@
       "subcategory": "notes",
       "rarity": "common",
       "obtainedBy": "Markop",
+      "ownerId": "markop",
       "obtainedDate": "Highsun 15, 1040 BF",
       "obtainedTime": "15:30",
       "obtainedLocation": "Raventree Manor — East Wing",
@@ -475,18 +876,65 @@
       "image": null,
       "model3d": {
         "shape": "folded-note",
-        "params": { "width": 1.2, "height": 0.8, "segments": 20, "foldPosition": 0, "foldAmount": 0.2, "wrinkle": 0.8 },
-        "material": { "color": "#d4c49a", "roughness": 0.95, "metalness": 0.0 },
-        "scale": 1.2,
-        "position": { "x": 0, "y": 0, "z": 0 },
-        "rotation": { "x": 0.001, "y": 0.004, "z": 0 },
-        "camera": { "fov": 40, "position": [0, 0.8, 1.5], "lookAt": [0, 0, 0] },
-        "controls": { "autoRotate": true, "autoRotateSpeed": 1 },
-        "lighting": {
-          "ambient": { "color": "#3d3522", "intensity": 0.6 },
-          "directional": { "color": "#ffeedd", "intensity": 1.0, "position": [3, 4, 4] }
+        "params": {
+          "width": 1.2,
+          "height": 0.8,
+          "segments": 20,
+          "foldPosition": 0,
+          "foldAmount": 0.2,
+          "wrinkle": 0.8
         },
-        "environment": { "backgroundColor": "#151008" }
+        "material": {
+          "color": "#d4c49a",
+          "roughness": 0.95,
+          "metalness": 0.0
+        },
+        "scale": 1.2,
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "rotation": {
+          "x": 0.001,
+          "y": 0.004,
+          "z": 0
+        },
+        "camera": {
+          "fov": 40,
+          "position": [
+            0,
+            0.8,
+            1.5
+          ],
+          "lookAt": [
+            0,
+            0,
+            0
+          ]
+        },
+        "controls": {
+          "autoRotate": true,
+          "autoRotateSpeed": 1
+        },
+        "lighting": {
+          "ambient": {
+            "color": "#3d3522",
+            "intensity": 0.6
+          },
+          "directional": {
+            "color": "#ffeedd",
+            "intensity": 1.0,
+            "position": [
+              3,
+              4,
+              4
+            ]
+          }
+        },
+        "environment": {
+          "backgroundColor": "#151008"
+        }
       },
       "interactionStyle": {
         "containerBg": "linear-gradient(180deg, rgba(61,53,34,0.9) 0%, rgba(30,25,15,0.95) 100%)",
@@ -543,11 +991,25 @@
         "customCSS": ""
       },
       "animations": {
-        "onReveal": { "type": "unfurl", "duration": 700 },
-        "onHover": { "type": "slight-lift", "duration": 200, "css": "transform: translateY(-3px) rotate(-0.5deg); box-shadow: 0 6px 20px rgba(0,0,0,0.4); transition: all 0.2s ease;" },
+        "onReveal": {
+          "type": "unfurl",
+          "duration": 700
+        },
+        "onHover": {
+          "type": "slight-lift",
+          "duration": 200,
+          "css": "transform: translateY(-3px) rotate(-0.5deg); box-shadow: 0 6px 20px rgba(0,0,0,0.4); transition: all 0.2s ease;"
+        },
         "idle": null
       },
-      "tags": ["mirror", "warning", "doors", "dimensions", "raventree-manor", "F.C."]
+      "tags": [
+        "mirror",
+        "warning",
+        "doors",
+        "dimensions",
+        "raventree-manor",
+        "F.C."
+      ]
     },
     {
       "id": "entropy-ring",
@@ -556,6 +1018,8 @@
       "subcategory": "cursed",
       "rarity": "rare",
       "obtainedBy": "Toadburt (Forced)",
+      "ownerId": "toadburt",
+      "custodyNote": "Taken under duress; Toadburt did not acquire this willingly.",
       "obtainedDate": "Highsun 21, 1040 BF",
       "obtainedTime": "03:00",
       "obtainedLocation": "Physical Antechamber — Iron Legion Interrogation",
@@ -570,21 +1034,77 @@
       "model3d": {
         "shape": "ring",
         "params": {
-          "radius": 0.3, "tubeRadius": 0.055, "radialSegments": 32, "tubularSegments": 64,
-          "sigilCount": 12, "sigilColor": "#00ff00"
+          "radius": 0.3,
+          "tubeRadius": 0.055,
+          "radialSegments": 32,
+          "tubularSegments": 64,
+          "sigilCount": 12,
+          "sigilColor": "#00ff00"
         },
-        "material": { "color": "#0a0a0a", "metalness": 0.95, "roughness": 0.1, "emissive": "#001a00", "emissiveIntensity": 0.3 },
+        "material": {
+          "color": "#0a0a0a",
+          "metalness": 0.95,
+          "roughness": 0.1,
+          "emissive": "#001a00",
+          "emissiveIntensity": 0.3
+        },
         "scale": 3.0,
-        "position": { "x": 0, "y": 0, "z": 0 },
-        "rotation": { "x": 0.003, "y": 0.01, "z": 0.001 },
-        "camera": { "fov": 40, "position": [0, 0.8, 2], "lookAt": [0, 0, 0] },
-        "controls": { "autoRotate": true, "autoRotateSpeed": 3 },
-        "lighting": {
-          "ambient": { "color": "#0a0a0a", "intensity": 0.3 },
-          "directional": { "color": "#44ff44", "intensity": 0.8, "position": [2, 3, 4] },
-          "points": [{ "color": "#00ff00", "intensity": 1.0, "position": [0, 0, 1.5] }]
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
         },
-        "environment": { "backgroundColor": "#030303" }
+        "rotation": {
+          "x": 0.003,
+          "y": 0.01,
+          "z": 0.001
+        },
+        "camera": {
+          "fov": 40,
+          "position": [
+            0,
+            0.8,
+            2
+          ],
+          "lookAt": [
+            0,
+            0,
+            0
+          ]
+        },
+        "controls": {
+          "autoRotate": true,
+          "autoRotateSpeed": 3
+        },
+        "lighting": {
+          "ambient": {
+            "color": "#0a0a0a",
+            "intensity": 0.3
+          },
+          "directional": {
+            "color": "#44ff44",
+            "intensity": 0.8,
+            "position": [
+              2,
+              3,
+              4
+            ]
+          },
+          "points": [
+            {
+              "color": "#00ff00",
+              "intensity": 1.0,
+              "position": [
+                0,
+                0,
+                1.5
+              ]
+            }
+          ]
+        },
+        "environment": {
+          "backgroundColor": "#030303"
+        }
       },
       "interactionStyle": {
         "containerBg": "linear-gradient(135deg, rgba(5,5,5,0.95) 0%, rgba(5,15,5,0.95) 100%)",
@@ -649,11 +1169,30 @@
         "customCSS": ".item-entropy-ring { border-style: dashed; }"
       },
       "animations": {
-        "onReveal": { "type": "glitchIn", "duration": 800 },
-        "onHover": { "type": "glitch-shake", "duration": 150, "css": "transform: translate(1px, -1px); transition: transform 0.05s; border-color: #44ff44;" },
-        "idle": { "type": "decay-flicker", "duration": 5000, "css": "@keyframes decayFlicker { 0%, 90%, 100% { opacity: 1; } 92% { opacity: 0.8; } 94% { opacity: 1; } 96% { opacity: 0.7; } 98% { opacity: 1; } } animation: decayFlicker 5s infinite;" }
+        "onReveal": {
+          "type": "glitchIn",
+          "duration": 800
+        },
+        "onHover": {
+          "type": "glitch-shake",
+          "duration": 150,
+          "css": "transform: translate(1px, -1px); transition: transform 0.05s; border-color: #44ff44;"
+        },
+        "idle": {
+          "type": "decay-flicker",
+          "duration": 5000,
+          "css": "@keyframes decayFlicker { 0%, 90%, 100% { opacity: 1; } 92% { opacity: 0.8; } 94% { opacity: 1; } 96% { opacity: 0.7; } 98% { opacity: 1; } } animation: decayFlicker 5s infinite;"
+        }
       },
-      "tags": ["iron-legion", "cursed", "toadburt", "malissia", "tracking", "kill-switch", "sleeper-agent"]
+      "tags": [
+        "iron-legion",
+        "cursed",
+        "toadburt",
+        "malissia",
+        "tracking",
+        "kill-switch",
+        "sleeper-agent"
+      ]
     },
     {
       "id": "markop-father-photo",
@@ -662,6 +1201,7 @@
       "subcategory": "personal",
       "rarity": "common",
       "obtainedBy": "Markop",
+      "ownerId": "markop",
       "obtainedDate": "Highsun 16, 1040 BF",
       "obtainedTime": "02:00",
       "obtainedLocation": "Raventree Manor — Bedroom",
@@ -676,21 +1216,64 @@
       "model3d": {
         "shape": "photo",
         "params": {
-          "width": 0.9, "height": 0.65, "depth": 0.004,
+          "width": 0.9,
+          "height": 0.65,
+          "depth": 0.004,
           "imageColor": "#7a6b55",
-          "damagedCorner": true, "damageColor": "#5a4a33"
+          "damagedCorner": true,
+          "damageColor": "#5a4a33"
         },
-        "material": { "color": "#f5f0e0", "roughness": 0.95, "metalness": 0.0 },
+        "material": {
+          "color": "#f5f0e0",
+          "roughness": 0.95,
+          "metalness": 0.0
+        },
         "scale": 2.0,
-        "position": { "x": 0, "y": 0, "z": 0 },
-        "rotation": { "x": 0, "y": 0.004, "z": 0 },
-        "camera": { "fov": 35, "position": [0, 0.3, 2], "lookAt": [0, 0, 0] },
-        "controls": { "autoRotate": true, "autoRotateSpeed": 1 },
-        "lighting": {
-          "ambient": { "color": "#2a2520", "intensity": 0.6 },
-          "directional": { "color": "#ffeedd", "intensity": 1.0, "position": [2, 4, 3] }
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
         },
-        "environment": { "backgroundColor": "#120e0a" }
+        "rotation": {
+          "x": 0,
+          "y": 0.004,
+          "z": 0
+        },
+        "camera": {
+          "fov": 35,
+          "position": [
+            0,
+            0.3,
+            2
+          ],
+          "lookAt": [
+            0,
+            0,
+            0
+          ]
+        },
+        "controls": {
+          "autoRotate": true,
+          "autoRotateSpeed": 1
+        },
+        "lighting": {
+          "ambient": {
+            "color": "#2a2520",
+            "intensity": 0.6
+          },
+          "directional": {
+            "color": "#ffeedd",
+            "intensity": 1.0,
+            "position": [
+              2,
+              4,
+              3
+            ]
+          }
+        },
+        "environment": {
+          "backgroundColor": "#120e0a"
+        }
       },
       "interactionStyle": {
         "containerBg": "linear-gradient(135deg, rgba(42,37,32,0.95) 0%, rgba(30,26,22,0.95) 100%)",
@@ -747,11 +1330,25 @@
         "customCSS": ""
       },
       "animations": {
-        "onReveal": { "type": "fadeIn", "duration": 1500 },
-        "onHover": { "type": "slight-tilt", "duration": 300, "css": "transform: rotate(1deg) scale(1.02); transition: all 0.3s ease;" },
+        "onReveal": {
+          "type": "fadeIn",
+          "duration": 1500
+        },
+        "onHover": {
+          "type": "slight-tilt",
+          "duration": 300,
+          "css": "transform: rotate(1deg) scale(1.02); transition: all 0.3s ease;"
+        },
         "idle": null
       },
-      "tags": ["markop", "father", "personal", "smithy", "1018-bf", "raventree-manor"]
+      "tags": [
+        "markop",
+        "father",
+        "personal",
+        "smithy",
+        "1018-bf",
+        "raventree-manor"
+      ]
     },
     {
       "id": "stolen-compass",
@@ -760,6 +1357,8 @@
       "subcategory": "navigation",
       "rarity": "rare",
       "obtainedBy": "Archie Miser (via Agent L)",
+      "ownerId": "archie",
+      "custodyNote": "Recovered for Archie by Agent L.",
       "obtainedDate": "Highsun 26, 1040 BF",
       "obtainedTime": "14:20",
       "obtainedLocation": "Mages' Guild Forward Post",
@@ -774,21 +1373,76 @@
       "model3d": {
         "shape": "compass",
         "params": {
-          "caseRadius": 0.5, "caseDepth": 0.1, "markings": 12, "markingColor": "#ccaa66",
-          "cracked": true, "needleColor": "#4488ff", "needleAngle": 0.4
+          "caseRadius": 0.5,
+          "caseDepth": 0.1,
+          "markings": 12,
+          "markingColor": "#ccaa66",
+          "cracked": true,
+          "needleColor": "#4488ff",
+          "needleAngle": 0.4
         },
-        "material": { "color": "#b8860b", "metalness": 0.8, "roughness": 0.25 },
+        "material": {
+          "color": "#b8860b",
+          "metalness": 0.8,
+          "roughness": 0.25
+        },
         "scale": 2.0,
-        "position": { "x": 0, "y": 0, "z": 0 },
-        "rotation": { "x": 0, "y": 0.005, "z": 0 },
-        "camera": { "fov": 40, "position": [0, 0.8, 2], "lookAt": [0, 0, 0] },
-        "controls": { "autoRotate": true, "autoRotateSpeed": 1.5 },
-        "lighting": {
-          "ambient": { "color": "#332200", "intensity": 0.5 },
-          "directional": { "color": "#ffddaa", "intensity": 1.2, "position": [3, 4, 5] },
-          "points": [{ "color": "#4488ff", "intensity": 0.6, "position": [0, 0.5, 1.5] }]
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
         },
-        "environment": { "backgroundColor": "#100a04" }
+        "rotation": {
+          "x": 0,
+          "y": 0.005,
+          "z": 0
+        },
+        "camera": {
+          "fov": 40,
+          "position": [
+            0,
+            0.8,
+            2
+          ],
+          "lookAt": [
+            0,
+            0,
+            0
+          ]
+        },
+        "controls": {
+          "autoRotate": true,
+          "autoRotateSpeed": 1.5
+        },
+        "lighting": {
+          "ambient": {
+            "color": "#332200",
+            "intensity": 0.5
+          },
+          "directional": {
+            "color": "#ffddaa",
+            "intensity": 1.2,
+            "position": [
+              3,
+              4,
+              5
+            ]
+          },
+          "points": [
+            {
+              "color": "#4488ff",
+              "intensity": 0.6,
+              "position": [
+                0,
+                0.5,
+                1.5
+              ]
+            }
+          ]
+        },
+        "environment": {
+          "backgroundColor": "#100a04"
+        }
       },
       "interactionStyle": {
         "containerBg": "linear-gradient(135deg, rgba(26,16,8,0.95) 0%, rgba(40,26,12,0.95) 100%)",
@@ -829,7 +1483,6 @@
         "revealEasing": "cubic-bezier(0.34, 1.56, 0.64, 1)",
         "customRevealCSS": "@keyframes compassSpin { 0% { transform: rotate(-180deg) scale(0.8); opacity:0; } 100% { transform: rotate(0) scale(1); opacity:1; } }"
       },
-      
       "style": {
         "cardBackground": "linear-gradient(135deg, #1a1008 0%, #2d1d10 50%, #3a2815 100%)",
         "borderColor": "#cc9933",
@@ -842,19 +1495,39 @@
         "customCSS": ""
       },
       "animations": {
-        "onReveal": { "type": "spinIn", "duration": 900 },
-        "onHover": { "type": "needle-twitch", "duration": 200, "css": "transform: rotate(2deg); transition: transform 0.2s cubic-bezier(0.68, -0.55, 0.27, 1.55);" },
-        "idle": { "type": "needle-search", "duration": 6000, "css": "@keyframes needleSearch { 0%, 100% { transform: rotate(0deg); } 15% { transform: rotate(3deg); } 30% { transform: rotate(-2deg); } 45% { transform: rotate(1deg); } 60% { transform: rotate(-3deg); } 75% { transform: rotate(2deg); } } animation: needleSearch 6s infinite ease-in-out;" }
+        "onReveal": {
+          "type": "spinIn",
+          "duration": 900
+        },
+        "onHover": {
+          "type": "needle-twitch",
+          "duration": 200,
+          "css": "transform: rotate(2deg); transition: transform 0.2s cubic-bezier(0.68, -0.55, 0.27, 1.55);"
+        },
+        "idle": {
+          "type": "needle-search",
+          "duration": 6000,
+          "css": "@keyframes needleSearch { 0%, 100% { transform: rotate(0deg); } 15% { transform: rotate(3deg); } 30% { transform: rotate(-2deg); } 45% { transform: rotate(1deg); } 60% { transform: rotate(-3deg); } 75% { transform: rotate(2deg); } } animation: needleSearch 6s infinite ease-in-out;"
+        }
       },
-      "tags": ["compass", "portal", "divination", "e-gadd", "agent-l", "purple-toad", "stolen"]
+      "tags": [
+        "compass",
+        "portal",
+        "divination",
+        "e-gadd",
+        "agent-l",
+        "purple-toad",
+        "stolen"
+      ]
     },
-     {
+    {
       "id": "crumpled-receipt",
       "name": "Crumpled Receipt",
       "category": "scraps",
       "subcategory": "trash",
       "rarity": "common",
       "obtainedBy": "Archie Miser",
+      "ownerId": "archie",
       "obtainedDate": "Highsun 9, 1040 BF",
       "obtainedTime": "20:15",
       "obtainedLocation": "Tea Leaf Syndicate Meeting Point",
@@ -868,19 +1541,75 @@
       "image": null,
       "model3d": {
         "shape": "crumpled-paper",
-        "params": { "size": 1.4, "segments": 40, "crumpleIntensity": 0.5 },
-        "material": { "color": "#d4c49a", "roughness": 0.95, "metalness": 0.0 },
-        "scale": 1.0,
-        "position": { "x": 0, "y": 0, "z": 0 },
-        "rotation": { "x": 0.001, "y": 0.004, "z": 0 },
-        "camera": { "fov": 45, "position": [0, 0.5, 2], "lookAt": [0, 0, 0] },
-        "controls": { "autoRotate": true, "autoRotateSpeed": 1.5, "enableZoom": true, "enablePan": false },
-        "lighting": {
-          "ambient": { "color": "#4a3f2f", "intensity": 0.6 },
-          "directional": { "color": "#ffeedd", "intensity": 1.0, "position": [3, 5, 4] },
-          "points": [{ "color": "#aa8855", "intensity": 0.5, "position": [-2, 1, 2] }]
+        "params": {
+          "size": 1.4,
+          "segments": 40,
+          "crumpleIntensity": 0.5
         },
-        "environment": { "backgroundColor": "#1a1610" }
+        "material": {
+          "color": "#d4c49a",
+          "roughness": 0.95,
+          "metalness": 0.0
+        },
+        "scale": 1.0,
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "rotation": {
+          "x": 0.001,
+          "y": 0.004,
+          "z": 0
+        },
+        "camera": {
+          "fov": 45,
+          "position": [
+            0,
+            0.5,
+            2
+          ],
+          "lookAt": [
+            0,
+            0,
+            0
+          ]
+        },
+        "controls": {
+          "autoRotate": true,
+          "autoRotateSpeed": 1.5,
+          "enableZoom": true,
+          "enablePan": false
+        },
+        "lighting": {
+          "ambient": {
+            "color": "#4a3f2f",
+            "intensity": 0.6
+          },
+          "directional": {
+            "color": "#ffeedd",
+            "intensity": 1.0,
+            "position": [
+              3,
+              5,
+              4
+            ]
+          },
+          "points": [
+            {
+              "color": "#aa8855",
+              "intensity": 0.5,
+              "position": [
+                -2,
+                1,
+                2
+              ]
+            }
+          ]
+        },
+        "environment": {
+          "backgroundColor": "#1a1610"
+        }
       },
       "interactionStyle": {
         "containerBg": "linear-gradient(135deg, rgba(58,52,40,0.9) 0%, rgba(42,36,24,0.95) 100%)",
@@ -948,845 +1677,24 @@
         "customCSS": ".item-crumpled-receipt .item-content { transform: rotate(-1.5deg); }"
       },
       "animations": {
-        "onReveal": { "type": "unfurl", "duration": 800 },
-        "onHover": { "type": "tremble", "duration": 200, "css": "transform: translateX(1px) rotate(-2deg); transition: transform 0.2s ease;" },
+        "onReveal": {
+          "type": "unfurl",
+          "duration": 800
+        },
+        "onHover": {
+          "type": "tremble",
+          "duration": 200,
+          "css": "transform: translateX(1px) rotate(-2deg); transition: transform 0.2s ease;"
+        },
         "idle": null
       },
-      "tags": ["tavern", "tea-leaf-syndicate", "password", "dead-drop"]
+      "tags": [
+        "tavern",
+        "tea-leaf-syndicate",
+        "password",
+        "dead-drop"
+      ]
     },
-    {
-      "id": "green-t-battle-plan",
-      "name": "Battle Plan Napkin",
-      "category": "evidence",
-      "subcategory": "plans",
-      "rarity": "rare",
-      "obtainedBy": "FNG Remi",
-      "obtainedDate": "Highsun 26, 1040 BF",
-      "obtainedTime": "19:50",
-      "obtainedLocation": "Shadeward Manor — Dining Hall",
-      "loreRelevance": "critical",
-      "shortDescription": "A linen napkin with Green T's frantic battle plan scrawled in what appears to be cranberry sauce.",
-      "fullDescription": "A fine linen dinner napkin, now ruined by frantic scrawling in dark red sauce. Green T's unmistakable block lettering details an assault plan: arrows pointing to 'CRYSTAL POINTS', X marks over 'VAMPIRE LORDS', and a crude drawing of what might be a beast breaking free from chains. The napkin is still slightly damp.",
-      "interactable": true,
-      "interactionType": "flip",
-      "interactionPrompt": "Turn the napkin over...",
-      "hiddenContent": "The reverse side has a hastily drawn map of the manor's lower levels. Three locations are circled and labeled: 'ANCHOR 1 — Ballroom', 'ANCHOR 2 — Cellar', 'ANCHOR 3 — Tower'. A note reads: 'Break ALL THREE or it means nothing. The Beast will handle the rest. — GT'",
-      "image": null,
-      "model3d": {
-        "shape": "folded-cloth",
-        "params": {
-          "width": 1.6, "height": 1.2, "segments": 28, "foldPosition": 0, "foldAmount": 0.1, "wrinkle": 1.5,
-          "stains": [
-            { "x": 0.3, "y": 0.2, "radius": 0.12, "color": "#8b1a1a", "opacity": 0.35 },
-            { "x": -0.4, "y": -0.1, "radius": 0.06, "color": "#8b1a1a", "opacity": 0.2 },
-            { "x": 0.1, "y": -0.3, "radius": 0.04, "color": "#6b1010", "opacity": 0.25 }
-          ]
-        },
-        "material": { "color": "#f0e8d8", "roughness": 0.9, "metalness": 0.0 },
-        "scale": 1.0,
-        "position": { "x": 0, "y": 0, "z": 0 },
-        "rotation": { "x": 0.002, "y": 0.003, "z": 0 },
-        "camera": { "fov": 40, "position": [0, 1.2, 1.8], "lookAt": [0, 0, 0] },
-        "controls": { "autoRotate": true, "autoRotateSpeed": 1, "enableZoom": true },
-        "lighting": {
-          "ambient": { "color": "#3a2020", "intensity": 0.5 },
-          "directional": { "color": "#ffddcc", "intensity": 1.2, "position": [2, 5, 3] },
-          "points": [{ "color": "#ff6644", "intensity": 0.3, "position": [0, 1, 2] }]
-        },
-        "environment": { "backgroundColor": "#140a0a" }
-      },
-      "interactionStyle": {
-        "containerBg": "linear-gradient(180deg, rgba(90,20,20,0.15) 0%, rgba(30,10,10,0.9) 100%)",
-        "containerBorder": "1px solid rgba(139,26,26,0.4)",
-        "containerBorderRadius": "8px",
-        "containerPadding": "22px",
-        "containerShadow": "0 0 20px rgba(139,26,26,0.15)",
-        "overlayEffect": "sauce-splatter",
-        "overlayOpacity": 0.2,
-        "stampText": "⚔️ CLASSIFIED",
-        "stampColor": "#8b1a1a",
-        "stampFont": "'Share Tech Mono', monospace",
-        "stampSize": "0.7rem",
-        "stampPosition": "top-right",
-        "stampRotation": "-12deg",
-        "stampBorder": "2px solid rgba(139,26,26,0.4)",
-        "stampPadding": "3px 8px",
-        "stampOpacity": 0.5,
-        "buttonBg": "rgba(139,26,26,0.12)",
-        "buttonBorder": "1px solid rgba(139,26,26,0.5)",
-        "buttonColor": "#cc4444",
-        "buttonFont": "'Patrick Hand', cursive",
-        "buttonFontSize": "0.9rem",
-        "buttonRadius": "6px",
-        "buttonPadding": "10px 22px",
-        "buttonIcon": "🔄",
-        "contentBg": "rgba(20,8,8,0.7)",
-        "contentBorderLeft": "3px solid #8b1a1a",
-        "contentRadius": "6px",
-        "contentPadding": "16px",
-        "contentFont": "'Patrick Hand', cursive",
-        "contentFontSize": "0.95rem",
-        "contentColor": "#ddbbbb",
-        "contentLineHeight": "1.8",
-        "contentLetterSpacing": "0.5px",
-        "contentShadow": "inset 0 0 15px rgba(139,26,26,0.1)",
-        "contentMaxWidth": "100%",
-        "contentTextShadow": "none",
-        "headerText": "⬛ REVERSE SIDE — TACTICAL MAP ⬛",
-        "headerFont": "'Share Tech Mono', monospace",
-        "headerColor": "#cc4444",
-        "headerSize": "0.7rem",
-        "headerStyle": "normal",
-        "headerBorderBottom": "1px solid rgba(139,26,26,0.5)",
-        "headerPaddingBottom": "8px",
-        "headerMarginBottom": "12px",
-        "headerAlign": "center",
-        "headerGlow": "0 0 8px rgba(139,26,26,0.4)",
-        "footerText": "The sauce is still wet. Written within the last hour.",
-        "footerFont": "'Caveat', cursive",
-        "footerColor": "#884444",
-        "footerSize": "0.75rem",
-        "footerStyle": "italic",
-        "footerMarginTop": "14px",
-        "revealAnimation": "napkin-flip",
-        "revealDuration": "0.6s",
-        "revealEasing": "ease-out",
-        "customRevealCSS": "@keyframes napkinFlip { 0% { transform: perspective(600px) rotateY(180deg); opacity:0; } 50% { transform: perspective(600px) rotateY(90deg); opacity:0.5; } 100% { transform: perspective(600px) rotateY(0); opacity:1; } }"
-      },
-      "style": {
-        "cardBackground": "linear-gradient(135deg, #1a0a0a 0%, #2a1010 100%)",
-        "borderColor": "#8b1a1a",
-        "textColor": "#ddbbbb",
-        "accentColor": "#cc4444",
-        "fontFamily": "'Patrick Hand', cursive",
-        "specialEffect": "blood-splatter",
-        "glowColor": "rgba(139, 26, 26, 0.3)",
-        "paperTexture": true,
-        "customCSS": ""
-      },
-      "animations": {
-        "onReveal": { "type": "slideUp", "duration": 600 },
-        "onHover": { "type": "pulse-border", "duration": 1500, "css": "box-shadow: 0 0 15px rgba(139, 26, 26, 0.5); transition: box-shadow 0.3s ease;" },
-        "idle": { "type": "subtle-pulse", "duration": 3000, "css": "@keyframes subtlePulseGT { 0%, 100% { box-shadow: 0 0 5px rgba(139,26,26,0.2); } 50% { box-shadow: 0 0 12px rgba(139,26,26,0.4); } } animation: subtlePulseGT 3s infinite;" }
-      },
-      "tags": ["green-t", "vampires", "crystals", "beast", "assault-plan", "shadeward-manor"]
-    },
-    {
-      "id": "gray-stone-pendant",
-      "name": "Gray Stone Pendant",
-      "category": "artifacts",
-      "subcategory": "jewelry",
-      "rarity": "uncommon",
-      "obtainedBy": "Archie Miser",
-      "obtainedDate": "Highsun 28, 1040 BF",
-      "obtainedTime": "17:15",
-      "obtainedLocation": "Raventree Manor — Curio Collection Room",
-      "loreRelevance": "moderate",
-      "shortDescription": "A smooth, warm gray stone in a brass pendant frame. It pulses with faint inner light.",
-      "fullDescription": "A perfectly smooth gray stone, slightly warm to the touch, set within a tarnished brass pendant frame. Faint light pulses from deep within the stone at irregular intervals, like a slow heartbeat. Archaic inscriptions ring the brass frame — location-marking runes used by pre-war cartographers. The chain is missing.",
-      "interactable": true,
-      "interactionType": "rotate",
-      "interactionPrompt": "Examine the inscriptions closely...",
-      "hiddenContent": "The runes, when translated, read: 'WHERE THE BEARER STANDS, THE STONE REMEMBERS.' This is a waypoint marker — it records geographic locations when activated. Currently, it holds three saved locations, visible as tiny pinpricks of light within the stone.",
-      "image": null,
-      "model3d": {
-        "shape": "pendant",
-        "params": {
-          "stoneRadius": 0.35, "stoneSquash": 0.85,
-          "frameRadius": 0.42, "frameThickness": 0.035,
-          "bailRadius": 0.1, "bailThickness": 0.02,
-          "runeCount": 8, "runeColor": "#ffdd44",
-          "frameMaterial": { "color": "#b8860b", "metalness": 0.85, "roughness": 0.25 },
-          "innerGlowPoints": [
-            { "x": 0.05, "y": 0.02, "z": 0.12, "size": 0.015, "color": "#ffdd44", "opacity": 0.9 },
-            { "x": -0.08, "y": -0.04, "z": 0.1, "size": 0.01, "color": "#ffcc33", "opacity": 0.7 },
-            { "x": 0.02, "y": 0.08, "z": 0.08, "size": 0.012, "color": "#ffee55", "opacity": 0.8 }
-          ]
-        },
-        "material": { "color": "#888899", "roughness": 0.3, "metalness": 0.1, "emissive": "#333344", "emissiveIntensity": 0.2 },
-        "scale": 2.0,
-        "position": { "x": 0, "y": 0, "z": 0 },
-        "rotation": { "x": 0, "y": 0.005, "z": 0 },
-        "camera": { "fov": 40, "position": [0, 0.5, 2.5], "lookAt": [0, 0, 0] },
-        "controls": { "autoRotate": true, "autoRotateSpeed": 2, "enableZoom": true },
-        "lighting": {
-          "ambient": { "color": "#404060", "intensity": 0.5 },
-          "directional": { "color": "#ffeedd", "intensity": 1.2, "position": [5, 5, 5] },
-          "points": [
-            { "color": "#ffdd44", "intensity": 0.8, "position": [0, 0, 1.5] },
-            { "color": "#aabbcc", "intensity": 0.4, "position": [-2, 1, 0] }
-          ]
-        },
-        "environment": { "backgroundColor": "#0f0f1e" }
-      },
-      "interactionStyle": {
-        "containerBg": "radial-gradient(ellipse at center, rgba(26,26,46,0.95) 0%, rgba(15,15,30,0.98) 100%)",
-        "containerBorder": "1px solid rgba(184,134,11,0.3)",
-        "containerBorderRadius": "12px",
-        "containerPadding": "24px",
-        "containerShadow": "0 0 30px rgba(184,134,11,0.1), inset 0 0 20px rgba(0,0,0,0.5)",
-        "overlayEffect": "starfield-micro",
-        "overlayOpacity": 0.5,
-        "buttonBg": "rgba(184,134,11,0.1)",
-        "buttonBorder": "1px solid rgba(184,134,11,0.4)",
-        "buttonColor": "#d4a844",
-        "buttonFont": "'Cinzel', serif",
-        "buttonFontSize": "0.85rem",
-        "buttonRadius": "8px",
-        "buttonPadding": "10px 24px",
-        "buttonIcon": "🔮",
-        "contentBg": "rgba(10,10,20,0.6)",
-        "contentBorderLeft": "3px solid #b8860b",
-        "contentRadius": "8px",
-        "contentPadding": "16px",
-        "contentFont": "'Cinzel', serif",
-        "contentFontSize": "0.9rem",
-        "contentColor": "#d4c5a9",
-        "contentLineHeight": "1.8",
-        "contentLetterSpacing": "0.5px",
-        "contentTextShadow": "0 0 8px rgba(184,134,11,0.2)",
-        "headerText": "✦ RUNIC TRANSLATION ✦",
-        "headerFont": "'Cinzel', serif",
-        "headerColor": "#b8860b",
-        "headerSize": "0.7rem",
-        "headerBorderBottom": "1px solid rgba(184,134,11,0.3)",
-        "headerPaddingBottom": "8px",
-        "headerMarginBottom": "12px",
-        "headerAlign": "center",
-        "headerGlow": "0 0 12px rgba(184,134,11,0.4)",
-        "revealAnimation": "rune-glow",
-        "revealDuration": "1.2s",
-        "revealEasing": "ease-in-out",
-        "customRevealCSS": "@keyframes runeGlow { 0% { opacity:0; filter: brightness(3) blur(8px); } 40% { opacity:0.7; filter: brightness(1.5) blur(2px); } 100% { opacity:1; filter: brightness(1) blur(0); } }"
-      },
-      "style": {
-        "cardBackground": "linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)",
-        "borderColor": "#b8860b",
-        "textColor": "#d4c5a9",
-        "accentColor": "#b8860b",
-        "fontFamily": "'Cinzel', serif",
-        "specialEffect": "inner-glow",
-        "glowColor": "rgba(184, 134, 11, 0.4)",
-        "paperTexture": false,
-        "customCSS": ".item-gray-stone-pendant .card-title { text-shadow: 0 0 10px rgba(184,134,11,0.5); }"
-      },
-      "animations": {
-        "onReveal": { "type": "fadeGlow", "duration": 1200 },
-        "onHover": { "type": "glow-intensify", "duration": 300, "css": "filter: brightness(1.1); box-shadow: 0 0 25px rgba(184,134,11,0.6); transition: all 0.3s ease;" },
-        "idle": { "type": "pulse-glow", "duration": 4000, "css": "@keyframes pendantPulse { 0%, 100% { box-shadow: 0 0 8px rgba(184,134,11,0.2); } 50% { box-shadow: 0 0 20px rgba(184,134,11,0.5); } } animation: pendantPulse 4s infinite ease-in-out;" }
-      },
-      "tags": ["pendant", "runes", "cartography", "waypoint", "curio-room", "raventree-manor"]
-    },
-    {
-      "id": "iron-legion-insignia",
-      "name": "Iron Legion Insignia",
-      "category": "evidence",
-      "subcategory": "faction-item",
-      "rarity": "uncommon",
-      "obtainedBy": "Creek (Surgeon)",
-      "obtainedDate": "Highsun 16, 1040 BF",
-      "obtainedTime": "21:00",
-      "obtainedLocation": "The Vigilance — Medical Bay",
-      "loreRelevance": "critical",
-      "shortDescription": "A small iron pin found surgically embedded beneath a toad's skin. Proof of infiltration.",
-      "fullDescription": "A tiny iron pin in the shape of a gauntleted fist, discovered during emergency surgery on a rescued toad. The pin was surgically implanted beneath the skin of the forearm, invisible to the naked eye. It bears micro-engravings: a serial number and the words 'LOYAL UNTO IRON'.",
-      "interactable": true,
-      "interactionType": "examine",
-      "interactionPrompt": "Hold the pin up to the light...",
-      "hiddenContent": "Under magnification, the serial number reads 'IL-7749-REDTHORN'. Cross-referencing with captured Legion documents reveals this designation belongs to Unit 'Redthorn' — a deep-cover infiltration squad specializing in toad communities. The pin also functions as a low-range magical transponder.",
-      "image": null,
-      "model3d": {
-        "shape": "insignia",
-        "params": {
-          "radius": 0.4, "depth": 0.06, "sides": 6,
-          "symbol": "fist",
-          "symbolMaterial": { "color": "#aaaaaa", "metalness": 0.95, "roughness": 0.15 },
-          "showPin": true, "pinLength": 0.5
-        },
-        "material": { "color": "#555555", "metalness": 0.9, "roughness": 0.2 },
-        "scale": 2.5,
-        "position": { "x": 0, "y": 0, "z": 0 },
-        "rotation": { "x": 0, "y": 0.008, "z": 0 },
-        "camera": { "fov": 40, "position": [0, 0.3, 2.5], "lookAt": [0, 0, 0] },
-        "controls": { "autoRotate": true, "autoRotateSpeed": 3 },
-        "lighting": {
-          "ambient": { "color": "#222222", "intensity": 0.4 },
-          "directional": { "color": "#ffffff", "intensity": 1.5, "position": [3, 5, 4], "castShadow": true },
-          "points": [{ "color": "#ff4444", "intensity": 0.3, "position": [0, 1, 2] }]
-        },
-        "environment": { "backgroundColor": "#0d0d0d" }
-      },
-      "interactionStyle": {
-        "containerBg": "linear-gradient(135deg, rgba(20,20,20,0.95) 0%, rgba(30,30,30,0.95) 100%)",
-        "containerBorder": "1px solid #444",
-        "containerBorderRadius": "4px",
-        "containerPadding": "20px",
-        "containerShadow": "inset 0 0 20px rgba(0,0,0,0.6)",
-        "overlayEffect": "scan-lines",
-        "overlayOpacity": 0.3,
-        "stampText": "CLASSIFIED — REDTHORN",
-        "stampColor": "#ff4444",
-        "stampFont": "'Share Tech Mono', monospace",
-        "stampSize": "0.65rem",
-        "stampPosition": "top-right",
-        "stampRotation": "0deg",
-        "stampBorder": "1px solid rgba(255,68,68,0.4)",
-        "stampPadding": "2px 6px",
-        "stampOpacity": 0.6,
-        "buttonBg": "rgba(255,68,68,0.08)",
-        "buttonBorder": "1px solid rgba(255,68,68,0.3)",
-        "buttonColor": "#ff6666",
-        "buttonFont": "'Share Tech Mono', monospace",
-        "buttonFontSize": "0.8rem",
-        "buttonRadius": "3px",
-        "buttonPadding": "8px 20px",
-        "buttonIcon": "🔬",
-        "contentBg": "rgba(0,0,0,0.5)",
-        "contentBorderLeft": "3px solid #ff4444",
-        "contentRadius": "3px",
-        "contentPadding": "14px",
-        "contentFont": "'Share Tech Mono', monospace",
-        "contentFontSize": "0.82rem",
-        "contentColor": "#cccccc",
-        "contentLineHeight": "1.7",
-        "contentLetterSpacing": "0.5px",
-        "headerText": "── MAGNIFIED ANALYSIS ──",
-        "headerFont": "'Share Tech Mono', monospace",
-        "headerColor": "#ff4444",
-        "headerSize": "0.65rem",
-        "headerBorderBottom": "1px solid #444",
-        "headerPaddingBottom": "6px",
-        "headerMarginBottom": "10px",
-        "headerAlign": "center",
-        "footerText": "⚠ TRANSPONDER STILL ACTIVE — Handle with care",
-        "footerFont": "'Share Tech Mono', monospace",
-        "footerColor": "#ff4444",
-        "footerSize": "0.65rem",
-        "footerBlink": true,
-        "footerMarginTop": "12px",
-        "revealAnimation": "scan-reveal",
-        "revealDuration": "0.6s",
-        "revealEasing": "linear",
-        "customRevealCSS": "@keyframes scanReveal { 0% { clip-path: inset(0 100% 0 0); opacity:0; } 100% { clip-path: inset(0 0 0 0); opacity:1; } }"
-      },
-      "style": {
-        "cardBackground": "linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%)",
-        "borderColor": "#666666",
-        "textColor": "#cccccc",
-        "accentColor": "#ff4444",
-        "fontFamily": "'Share Tech Mono', monospace",
-        "specialEffect": "metallic-sheen",
-        "glowColor": "rgba(255, 68, 68, 0.3)",
-        "paperTexture": false,
-        "customCSS": ".item-iron-legion-insignia .rarity-badge { background: #ff4444; color: #000; font-weight: bold; }"
-      },
-      "animations": {
-        "onReveal": { "type": "metalSlide", "duration": 500 },
-        "onHover": { "type": "metallic-glint", "duration": 400, "css": "background: linear-gradient(135deg, #222 0%, #3a3a3a 50%, #222 100%); transition: background 0.4s ease;" },
-        "idle": null
-      },
-      "tags": ["iron-legion", "infiltration", "surgery", "transponder", "redthorn", "vigilance"]
-    },
-    {
-      "id": "xo-staff-fragment",
-      "name": "X.O.'s Staff (Power Core)",
-      "category": "artifacts",
-      "subcategory": "weapon",
-      "rarity": "legendary",
-      "obtainedBy": "Party (Collective)",
-      "obtainedDate": "Highsun 7, 1040 BF",
-      "obtainedTime": "09:00",
-      "obtainedLocation": "The Vigilance — Engine Room",
-      "loreRelevance": "critical",
-      "shortDescription": "The staff that X.O. used to seize the Vigilance. Now repurposed as the ship's emergency power source.",
-      "fullDescription": "A sleek, obsidian-black staff approximately four feet in length, crowned with a crystalline matrix that hums with contained energy. Originally wielded by X.O. during her betrayal, the staff was confiscated after her defeat and jury-rigged into the Vigilance's power core. The crystal pulses with a deep violet light.",
-      "interactable": true,
-      "interactionType": "channel",
-      "interactionPrompt": "Place your hand on the crystal...",
-      "hiddenContent": "The crystal responds to touch with a flash of imagery: a floating fortress above clouds, rows of identical soldiers, and a woman's voice saying 'Phase Two is inevitable.' The staff contains residual memories of X.O.'s plans — plans that extend far beyond the Vigilance.",
-      "image": null,
-      "model3d": {
-        "shape": "staff",
-        "params": {
-          "length": 2.8, "topRadius": 0.025, "bottomRadius": 0.04, "shaftSegments": 16,
-          "headShape": "crystal", "headSize": 0.18,
-          "headMaterial": { "color": "#9966ff", "emissive": "#6633cc", "emissiveIntensity": 0.8, "roughness": 0.05, "metalness": 0.2 },
-          "gripPosition": -0.5, "gripRadius": 0.045, "gripLength": 0.35,
-          "gripMaterial": { "color": "#221100", "roughness": 0.95, "metalness": 0.05 },
-          "scorchMark": { "x": 0.035, "y": 0.4, "z": 0.035 }
-        },
-        "material": { "color": "#0a0a0a", "roughness": 0.3, "metalness": 0.7 },
-        "scale": 0.8,
-        "position": { "x": 0, "y": 0, "z": 0 },
-        "rotation": { "x": 0.001, "y": 0.008, "z": 0.15 },
-        "camera": { "fov": 45, "position": [0, 0.5, 3], "lookAt": [0, 0.3, 0] },
-        "controls": { "autoRotate": true, "autoRotateSpeed": 2.5 },
-        "lighting": {
-          "ambient": { "color": "#1a0033", "intensity": 0.4 },
-          "directional": { "color": "#9966ff", "intensity": 1.0, "position": [2, 4, 3] },
-          "points": [
-            { "color": "#cc66ff", "intensity": 1.5, "position": [0, 2, 1] },
-            { "color": "#6633cc", "intensity": 0.5, "position": [-1, -1, 2] }
-          ]
-        },
-        "environment": { "backgroundColor": "#06000f" }
-      },
-      "interactionStyle": {
-        "containerBg": "radial-gradient(ellipse at 50% 30%, rgba(26,0,51,0.95) 0%, rgba(6,0,15,0.98) 100%)",
-        "containerBorder": "1px solid rgba(153,102,255,0.3)",
-        "containerBorderRadius": "12px",
-        "containerPadding": "24px",
-        "containerShadow": "0 0 40px rgba(153,102,255,0.15), inset 0 0 30px rgba(0,0,0,0.6)",
-        "overlayEffect": "energy-particles",
-        "overlayOpacity": 0.4,
-        "buttonBg": "rgba(153,102,255,0.12)",
-        "buttonBorder": "1px solid rgba(153,102,255,0.5)",
-        "buttonColor": "#cc88ff",
-        "buttonFont": "'Cinzel Decorative', cursive",
-        "buttonFontSize": "0.85rem",
-        "buttonRadius": "10px",
-        "buttonPadding": "12px 28px",
-        "buttonIcon": "⚡",
-        "contentBg": "rgba(10,0,20,0.7)",
-        "contentBorderLeft": "3px solid #9966ff",
-        "contentRadius": "8px",
-        "contentPadding": "18px",
-        "contentFont": "'Cinzel', serif",
-        "contentFontSize": "0.9rem",
-        "contentColor": "#d4b3ff",
-        "contentLineHeight": "1.9",
-        "contentTextShadow": "0 0 6px rgba(153,102,255,0.3)",
-        "headerText": "⟐ RESIDUAL MEMORY FRAGMENT ⟐",
-        "headerFont": "'Cinzel', serif",
-        "headerColor": "#cc88ff",
-        "headerSize": "0.7rem",
-        "headerBorderBottom": "1px solid rgba(153,102,255,0.3)",
-        "headerPaddingBottom": "8px",
-        "headerMarginBottom": "12px",
-        "headerAlign": "center",
-        "headerGlow": "0 0 15px rgba(153,102,255,0.5)",
-        "footerText": "The crystal grows warm. Something stirs within.",
-        "footerFont": "'Crimson Text', serif",
-        "footerColor": "#9966cc",
-        "footerSize": "0.75rem",
-        "footerStyle": "italic",
-        "footerMarginTop": "14px",
-        "revealAnimation": "energy-surge",
-        "revealDuration": "1.5s",
-        "revealEasing": "cubic-bezier(0.16, 1, 0.3, 1)",
-        "customRevealCSS": "@keyframes energySurge { 0% { opacity:0; transform: scale(0.95); filter: brightness(3) hue-rotate(30deg) blur(5px); } 40% { opacity:0.8; filter: brightness(1.5) hue-rotate(10deg) blur(1px); } 100% { opacity:1; transform: scale(1); filter: brightness(1) hue-rotate(0) blur(0); } }"
-      },
-      "style": {
-        "cardBackground": "linear-gradient(135deg, #0a0015 0%, #1a0033 50%, #2d0052 100%)",
-        "borderColor": "#9966ff",
-        "textColor": "#d4b3ff",
-        "accentColor": "#cc66ff",
-        "fontFamily": "'Cinzel Decorative', cursive",
-        "specialEffect": "energy-crackle",
-        "glowColor": "rgba(153, 102, 255, 0.6)",
-        "paperTexture": false,
-        "customCSS": ""
-      },
-      "animations": {
-        "onReveal": { "type": "energyBurst", "duration": 1500 },
-        "onHover": { "type": "energy-intensify", "duration": 300, "css": "box-shadow: 0 0 30px rgba(153,102,255,0.7), inset 0 0 20px rgba(153,102,255,0.2); transform: scale(1.02); transition: all 0.3s ease;" },
-        "idle": { "type": "energy-pulse", "duration": 2500, "css": "@keyframes energyPulseXO { 0%, 100% { box-shadow: 0 0 10px rgba(153,102,255,0.3); } 25% { box-shadow: 0 0 20px rgba(204,102,255,0.5); } 50% { box-shadow: 0 0 15px rgba(153,102,255,0.4); } 75% { box-shadow: 0 0 25px rgba(204,102,255,0.6); } } animation: energyPulseXO 2.5s infinite;" }
-      },
-      "tags": ["x.o.", "staff", "power-core", "vigilance", "betrayal", "phase-two"]
-    },
-    {
-      "id": "mirror-warning-note",
-      "name": "Mirror Warning Note",
-      "category": "scraps",
-      "subcategory": "notes",
-      "rarity": "common",
-      "obtainedBy": "Markop",
-      "obtainedDate": "Highsun 15, 1040 BF",
-      "obtainedTime": "15:30",
-      "obtainedLocation": "Raventree Manor — East Wing",
-      "loreRelevance": "high",
-      "shortDescription": "A hastily written note warning: 'DO NOT CLEAN THE MIRRORS.'",
-      "fullDescription": "A small, yellowed piece of parchment found tucked behind a crumbling baseboard in the east wing. The handwriting is shaky but deliberate. The ink is old but the paper is surprisingly well-preserved, as if the warning itself resists decay.",
-      "interactable": true,
-      "interactionType": "unfurl",
-      "interactionPrompt": "Unfold the note carefully...",
-      "hiddenContent": "The full note reads: 'DO NOT CLEAN THE MIRRORS. They are not reflections. They are DOORS. If the glass is clear, THEY can see you. If THEY see you, THEY reach. The dust is the only thing keeping them blind. — F.C., Year 1012'\n\nF.C. — likely a former resident or servant. This predates the party's arrival by nearly 30 years.",
-      "image": null,
-      "model3d": {
-        "shape": "folded-note",
-        "params": { "width": 1.2, "height": 0.8, "segments": 20, "foldPosition": 0, "foldAmount": 0.2, "wrinkle": 0.8 },
-        "material": { "color": "#d4c49a", "roughness": 0.95, "metalness": 0.0 },
-        "scale": 1.2,
-        "position": { "x": 0, "y": 0, "z": 0 },
-        "rotation": { "x": 0.001, "y": 0.004, "z": 0 },
-        "camera": { "fov": 40, "position": [0, 0.8, 1.5], "lookAt": [0, 0, 0] },
-        "controls": { "autoRotate": true, "autoRotateSpeed": 1 },
-        "lighting": {
-          "ambient": { "color": "#3d3522", "intensity": 0.6 },
-          "directional": { "color": "#ffeedd", "intensity": 1.0, "position": [3, 4, 4] }
-        },
-        "environment": { "backgroundColor": "#151008" }
-      },
-      "interactionStyle": {
-        "containerBg": "linear-gradient(180deg, rgba(61,53,34,0.9) 0%, rgba(30,25,15,0.95) 100%)",
-        "containerBorder": "1px solid #5a4e3a",
-        "containerBorderRadius": "6px",
-        "containerPadding": "20px",
-        "containerShadow": "inset 0 0 25px rgba(0,0,0,0.5)",
-        "overlayEffect": "aged-paper",
-        "overlayOpacity": 0.15,
-        "buttonBg": "rgba(122,107,78,0.15)",
-        "buttonBorder": "1px solid #7a6b4e",
-        "buttonColor": "#d4c49a",
-        "buttonFont": "'Caveat', cursive",
-        "buttonFontSize": "0.9rem",
-        "buttonRadius": "4px",
-        "buttonPadding": "8px 20px",
-        "buttonIcon": "📋",
-        "contentBg": "rgba(20,16,8,0.6)",
-        "contentBorderLeft": "3px solid #7a6b4e",
-        "contentRadius": "4px",
-        "contentPadding": "14px",
-        "contentFont": "'Caveat', cursive",
-        "contentFontSize": "1.05rem",
-        "contentColor": "#d4c49a",
-        "contentLineHeight": "1.9",
-        "contentLetterSpacing": "0.5px",
-        "headerText": "— FULL TEXT —",
-        "headerFont": "'Share Tech Mono', monospace",
-        "headerColor": "#7a6b4e",
-        "headerSize": "0.6rem",
-        "headerBorderBottom": "1px dotted #5a4e3a",
-        "headerPaddingBottom": "6px",
-        "headerMarginBottom": "10px",
-        "footerText": "The paper crumbles slightly at the edges as you handle it.",
-        "footerFont": "'Lora', serif",
-        "footerColor": "#5a4e3a",
-        "footerSize": "0.7rem",
-        "footerStyle": "italic",
-        "footerMarginTop": "12px",
-        "revealAnimation": "unfold-gentle",
-        "revealDuration": "0.7s",
-        "revealEasing": "ease-out",
-        "customRevealCSS": "@keyframes unfoldGentle { 0% { transform: scaleY(0.1) rotate(2deg); opacity:0.3; } 100% { transform: scaleY(1) rotate(0); opacity:1; } }"
-      },
-      "style": {
-        "cardBackground": "linear-gradient(135deg, #3d3522 0%, #2b2618 100%)",
-        "borderColor": "#7a6b4e",
-        "textColor": "#d4c49a",
-        "accentColor": "#e8d5a3",
-        "fontFamily": "'Caveat', cursive",
-        "specialEffect": "aged-paper",
-        "glowColor": null,
-        "paperTexture": true,
-        "customCSS": ""
-      },
-      "animations": {
-        "onReveal": { "type": "unfurl", "duration": 700 },
-        "onHover": { "type": "slight-lift", "duration": 200, "css": "transform: translateY(-3px) rotate(-0.5deg); box-shadow: 0 6px 20px rgba(0,0,0,0.4); transition: all 0.2s ease;" },
-        "idle": null
-      },
-      "tags": ["mirror", "warning", "doors", "dimensions", "raventree-manor", "F.C."]
-    },
-    {
-      "id": "entropy-ring",
-      "name": "Entropy Ring",
-      "category": "artifacts",
-      "subcategory": "cursed",
-      "rarity": "rare",
-      "obtainedBy": "Toadburt (Forced)",
-      "obtainedDate": "Highsun 21, 1040 BF",
-      "obtainedTime": "03:00",
-      "obtainedLocation": "Physical Antechamber — Iron Legion Interrogation",
-      "loreRelevance": "critical",
-      "shortDescription": "A black iron ring that burns with cold. Fitted to Toadburt by Agent Malissia as a control device.",
-      "fullDescription": "A ring of black iron so dark it seems to absorb light. The inner surface is inscribed with entropy-class sigils that glow a sickly green when the ring is active. It serves as both a tracking device and a kill-switch.",
-      "interactable": true,
-      "interactionType": "examine",
-      "interactionPrompt": "Study the sigils on the inner band...",
-      "hiddenContent": "The sigils translate to a binding contract: 'THE BEARER SERVES. THE BEARER REPORTS. THE BEARER EXPIRES AT THE HOLDER'S WILL. Duration: 72 hours from activation. Handler: MALISSIA, AGENT CLASS VII.' A countdown is etched into the band in magical script, though it has since expired. The ring is now inert — but still cannot be removed.",
-      "image": null,
-      "model3d": {
-        "shape": "ring",
-        "params": {
-          "radius": 0.3, "tubeRadius": 0.055, "radialSegments": 32, "tubularSegments": 64,
-          "sigilCount": 12, "sigilColor": "#00ff00"
-        },
-        "material": { "color": "#0a0a0a", "metalness": 0.95, "roughness": 0.1, "emissive": "#001a00", "emissiveIntensity": 0.3 },
-        "scale": 3.0,
-        "position": { "x": 0, "y": 0, "z": 0 },
-        "rotation": { "x": 0.003, "y": 0.01, "z": 0.001 },
-        "camera": { "fov": 40, "position": [0, 0.8, 2], "lookAt": [0, 0, 0] },
-        "controls": { "autoRotate": true, "autoRotateSpeed": 3 },
-        "lighting": {
-          "ambient": { "color": "#0a0a0a", "intensity": 0.3 },
-          "directional": { "color": "#44ff44", "intensity": 0.8, "position": [2, 3, 4] },
-          "points": [{ "color": "#00ff00", "intensity": 1.0, "position": [0, 0, 1.5] }]
-        },
-        "environment": { "backgroundColor": "#030303" }
-      },
-      "interactionStyle": {
-        "containerBg": "linear-gradient(135deg, rgba(5,5,5,0.95) 0%, rgba(5,15,5,0.95) 100%)",
-        "containerBorder": "1px dashed rgba(0,255,0,0.3)",
-        "containerBorderRadius": "4px",
-        "containerPadding": "20px",
-        "containerShadow": "0 0 20px rgba(0,255,0,0.08), inset 0 0 30px rgba(0,0,0,0.8)",
-        "overlayEffect": "matrix-rain",
-        "overlayOpacity": 0.4,
-        "stampText": "⛔ CURSED",
-        "stampColor": "#00ff00",
-        "stampFont": "'Share Tech Mono', monospace",
-        "stampSize": "0.7rem",
-        "stampPosition": "top-right",
-        "stampRotation": "0deg",
-        "stampOpacity": 0.5,
-        "buttonBg": "rgba(0,255,0,0.05)",
-        "buttonBorder": "1px solid rgba(0,255,0,0.3)",
-        "buttonColor": "#44ff44",
-        "buttonFont": "'Share Tech Mono', monospace",
-        "buttonFontSize": "0.8rem",
-        "buttonRadius": "3px",
-        "buttonPadding": "8px 20px",
-        "buttonIcon": "👁",
-        "contentBg": "rgba(0,5,0,0.6)",
-        "contentBorderLeft": "3px solid #00ff00",
-        "contentRadius": "3px",
-        "contentPadding": "14px",
-        "contentFont": "'Share Tech Mono', monospace",
-        "contentFontSize": "0.82rem",
-        "contentColor": "#88ff88",
-        "contentLineHeight": "1.7",
-        "contentTextShadow": "0 0 3px rgba(0,255,0,0.3)",
-        "headerText": ">> SIGIL TRANSLATION <<",
-        "headerFont": "'Share Tech Mono', monospace",
-        "headerColor": "#00ff00",
-        "headerSize": "0.65rem",
-        "headerBorderBottom": "1px solid rgba(0,255,0,0.2)",
-        "headerPaddingBottom": "6px",
-        "headerMarginBottom": "10px",
-        "headerAlign": "center",
-        "footerText": "STATUS: EXPIRED — Ring remains bonded to host tissue.",
-        "footerFont": "'Share Tech Mono', monospace",
-        "footerColor": "#44aa44",
-        "footerSize": "0.65rem",
-        "footerBlink": true,
-        "footerMarginTop": "12px",
-        "revealAnimation": "glitch-decode",
-        "revealDuration": "0.8s",
-        "revealEasing": "steps(8, end)",
-        "customRevealCSS": "@keyframes glitchDecode { 0% { transform: translateX(-5px); opacity:0; filter: hue-rotate(90deg) blur(2px); } 25% { transform: translateX(3px); opacity:0.5; filter: hue-rotate(45deg); } 50% { transform: translateX(-2px); opacity:0.8; filter: hue-rotate(20deg); } 100% { transform: translateX(0); opacity:1; filter: hue-rotate(0); } }"
-      },
-      "style": {
-        "cardBackground": "linear-gradient(135deg, #050505 0%, #0a1a0a 50%, #051505 100%)",
-        "borderColor": "#00ff00",
-        "textColor": "#88ff88",
-        "accentColor": "#00ff00",
-        "fontFamily": "'Share Tech Mono', monospace",
-        "specialEffect": "entropy-decay",
-        "glowColor": "rgba(0, 255, 0, 0.4)",
-        "paperTexture": false,
-        "customCSS": ".item-entropy-ring { border-style: dashed; }"
-      },
-      "animations": {
-        "onReveal": { "type": "glitchIn", "duration": 800 },
-        "onHover": { "type": "glitch-shake", "duration": 150, "css": "transform: translate(1px, -1px); transition: transform 0.05s; border-color: #44ff44;" },
-        "idle": { "type": "decay-flicker", "duration": 5000, "css": "@keyframes decayFlicker { 0%, 90%, 100% { opacity: 1; } 92% { opacity: 0.8; } 94% { opacity: 1; } 96% { opacity: 0.7; } 98% { opacity: 1; } } animation: decayFlicker 5s infinite;" }
-      },
-      "tags": ["iron-legion", "cursed", "toadburt", "malissia", "tracking", "kill-switch", "sleeper-agent"]
-    },
-    {
-      "id": "markop-father-photo",
-      "name": "Faded Photograph",
-      "category": "scraps",
-      "subcategory": "personal",
-      "rarity": "common",
-      "obtainedBy": "Markop",
-      "obtainedDate": "Highsun 16, 1040 BF",
-      "obtainedTime": "02:00",
-      "obtainedLocation": "Raventree Manor — Bedroom",
-      "loreRelevance": "personal",
-      "shortDescription": "A water-damaged photograph of a man who looks remarkably like Markop. His father?",
-      "fullDescription": "A small, dog-eared photograph with severe water damage along the bottom edge. The image shows a broad-shouldered man standing in front of what appears to be a smithy. The resemblance to Markop is unmistakable. The back is blank except for a faded date: '1018 BF'.",
-      "interactable": true,
-      "interactionType": "flip",
-      "interactionPrompt": "Turn the photograph over...",
-      "hiddenContent": "Under the date, barely visible in pencil: 'Last day at the forge. They came for me at dawn. Tell M— I tried.' The writing trails off as if interrupted. The pencil lead broke mid-sentence.",
-      "image": null,
-      "model3d": {
-        "shape": "photo",
-        "params": {
-          "width": 0.9, "height": 0.65, "depth": 0.004,
-          "imageColor": "#7a6b55",
-          "damagedCorner": true, "damageColor": "#5a4a33"
-        },
-        "material": { "color": "#f5f0e0", "roughness": 0.95, "metalness": 0.0 },
-        "scale": 2.0,
-        "position": { "x": 0, "y": 0, "z": 0 },
-        "rotation": { "x": 0, "y": 0.004, "z": 0 },
-        "camera": { "fov": 35, "position": [0, 0.3, 2], "lookAt": [0, 0, 0] },
-        "controls": { "autoRotate": true, "autoRotateSpeed": 1 },
-        "lighting": {
-          "ambient": { "color": "#2a2520", "intensity": 0.6 },
-          "directional": { "color": "#ffeedd", "intensity": 1.0, "position": [2, 4, 3] }
-        },
-        "environment": { "backgroundColor": "#120e0a" }
-      },
-      "interactionStyle": {
-        "containerBg": "linear-gradient(135deg, rgba(42,37,32,0.95) 0%, rgba(30,26,22,0.95) 100%)",
-        "containerBorder": "1px solid #6a5a45",
-        "containerBorderRadius": "8px",
-        "containerPadding": "20px",
-        "containerShadow": "inset 0 0 20px rgba(0,0,0,0.4)",
-        "overlayEffect": "sepia-damage",
-        "overlayOpacity": 0.2,
-        "buttonBg": "rgba(138,122,101,0.1)",
-        "buttonBorder": "1px solid #8a7a65",
-        "buttonColor": "#bfad94",
-        "buttonFont": "'Lora', serif",
-        "buttonFontSize": "0.85rem",
-        "buttonRadius": "6px",
-        "buttonPadding": "10px 22px",
-        "buttonIcon": "🔄",
-        "contentBg": "rgba(15,12,8,0.6)",
-        "contentBorderLeft": "3px solid #8a7a65",
-        "contentRadius": "6px",
-        "contentPadding": "14px",
-        "contentFont": "'Caveat', cursive",
-        "contentFontSize": "1.1rem",
-        "contentColor": "#bfad94",
-        "contentLineHeight": "1.8",
-        "contentLetterSpacing": "0.3px",
-        "headerText": "— REVERSE SIDE —",
-        "headerFont": "'Share Tech Mono', monospace",
-        "headerColor": "#6a5a45",
-        "headerSize": "0.6rem",
-        "headerBorderBottom": "1px dotted #6a5a45",
-        "headerPaddingBottom": "6px",
-        "headerMarginBottom": "10px",
-        "footerText": "The pencil lead broke here. He didn't finish.",
-        "footerFont": "'Lora', serif",
-        "footerColor": "#5a4a35",
-        "footerSize": "0.7rem",
-        "footerStyle": "italic",
-        "footerMarginTop": "12px",
-        "revealAnimation": "photo-flip",
-        "revealDuration": "0.8s",
-        "revealEasing": "ease-out",
-        "customRevealCSS": "@keyframes photoFlip { 0% { transform: perspective(600px) rotateY(-90deg); opacity:0; } 100% { transform: perspective(600px) rotateY(0); opacity:1; } }"
-      },
-      "style": {
-        "cardBackground": "linear-gradient(135deg, #2a2520 0%, #1e1a16 100%)",
-        "borderColor": "#8a7a65",
-        "textColor": "#bfad94",
-        "accentColor": "#d4bc94",
-        "fontFamily": "'Lora', serif",
-        "specialEffect": "water-damage",
-        "glowColor": null,
-        "paperTexture": true,
-        "customCSS": ""
-      },
-      "animations": {
-        "onReveal": { "type": "fadeIn", "duration": 1500 },
-        "onHover": { "type": "slight-tilt", "duration": 300, "css": "transform: rotate(1deg) scale(1.02); transition: all 0.3s ease;" },
-        "idle": null
-      },
-      "tags": ["markop", "father", "personal", "smithy", "1018-bf", "raventree-manor"]
-    },
-    {
-      "id": "stolen-compass",
-      "name": "Cracked Brass Compass",
-      "category": "keys",
-      "subcategory": "navigation",
-      "rarity": "rare",
-      "obtainedBy": "Archie Miser (via Agent L)",
-      "obtainedDate": "Highsun 26, 1040 BF",
-      "obtainedTime": "14:20",
-      "obtainedLocation": "Mages' Guild Forward Post",
-      "loreRelevance": "critical",
-      "shortDescription": "A brass compass radiating faint divination magic. Its needle doesn't point north — it points to portals.",
-      "fullDescription": "A pocket-sized brass compass with a cracked glass face. The needle is made of an unknown silvery metal that vibrates when near planar boundaries. Agent L provided it to Archie. Later stolen by Purple Toad, who used it to open a portal and escape.",
-      "interactable": true,
-      "interactionType": "rotate",
-      "interactionPrompt": "Watch the needle carefully...",
-      "hiddenContent": "The compass has a secondary function: when the glass is pressed three times in rapid succession, it emits a high-pitched tone inaudible to most species but painful to fey creatures. The back panel is engraved: 'PROPERTY OF E. GADD LABORATORIES — PROTOTYPE 7.' It was never meant to leave the lab.",
-      "image": null,
-      "model3d": {
-        "shape": "compass",
-        "params": {
-          "caseRadius": 0.5, "caseDepth": 0.1, "markings": 12, "markingColor": "#ccaa66",
-          "cracked": true, "needleColor": "#4488ff", "needleAngle": 0.4
-        },
-        "material": { "color": "#b8860b", "metalness": 0.8, "roughness": 0.25 },
-        "scale": 2.0,
-        "position": { "x": 0, "y": 0, "z": 0 },
-        "rotation": { "x": 0, "y": 0.005, "z": 0 },
-        "camera": { "fov": 40, "position": [0, 0.8, 2], "lookAt": [0, 0, 0] },
-        "controls": { "autoRotate": true, "autoRotateSpeed": 1.5 },
-        "lighting": {
-          "ambient": { "color": "#332200", "intensity": 0.5 },
-          "directional": { "color": "#ffddaa", "intensity": 1.2, "position": [3, 4, 5] },
-          "points": [{ "color": "#4488ff", "intensity": 0.6, "position": [0, 0.5, 1.5] }]
-        },
-        "environment": { "backgroundColor": "#100a04" }
-      },
-      "interactionStyle": {
-        "containerBg": "linear-gradient(135deg, rgba(26,16,8,0.95) 0%, rgba(40,26,12,0.95) 100%)",
-        "containerBorder": "1px solid rgba(184,134,11,0.4)",
-        "containerBorderRadius": "10px",
-        "containerPadding": "22px",
-        "containerShadow": "0 0 20px rgba(68,136,255,0.1)",
-        "buttonBg": "linear-gradient(135deg, rgba(184,134,11,0.15), rgba(184,134,11,0.05))",
-        "buttonBorder": "1px solid #b8860b",
-        "buttonColor": "#e8d4a8",
-        "buttonFont": "'Spectral', serif",
-        "buttonFontSize": "0.85rem",
-        "buttonRadius": "8px",
-        "buttonPadding": "10px 24px",
-        "buttonIcon": "🧭",
-        "contentBg": "rgba(10,6,2,0.6)",
-        "contentBorderLeft": "3px solid #4488ff",
-        "contentRadius": "8px",
-        "contentPadding": "16px",
-        "contentFont": "'Spectral', serif",
-        "contentFontSize": "0.9rem",
-        "contentColor": "#e8d4a8",
-        "contentLineHeight": "1.8",
-        "headerText": "🔬 SECONDARY FUNCTION DETECTED",
-        "headerFont": "'Share Tech Mono', monospace",
-        "headerColor": "#4488ff",
-        "headerSize": "0.65rem",
-        "headerBorderBottom": "1px solid rgba(68,136,255,0.3)",
-        "headerPaddingBottom": "6px",
-        "headerMarginBottom": "10px",
-        "footerText": "E. GADD LABORATORIES — Not for field deployment.",
-        "footerFont": "'Share Tech Mono', monospace",
-        "footerColor": "#886622",
-        "footerSize": "0.65rem",
-        "footerMarginTop": "12px",
-        "revealAnimation": "compass-spin",
-        "revealDuration": "0.9s",
-        "revealEasing": "cubic-bezier(0.34, 1.56, 0.64, 1)",
-        "customRevealCSS": "@keyframes compassSpin { 0% { transform: rotate(-180deg) scale(0.8); opacity:0; } 100% { transform: rotate(0) scale(1); opacity:1; } }"
-      },
-      "style": {
-        "cardBackground": "linear-gradient(135deg, #1a100a 0%, #28180c 100%)",
-        "borderColor": "#b8860b",
-        "textColor": "#e8d4a8",
-        "accentColor": "#4488ff",
-        "fontFamily": "'Spectral', serif",
-        "specialEffect": "compass-glow",
-        "glowColor": "rgba(68, 136, 255, 0.3)",
-        "paperTexture": false,
-        "customCSS": ""
-      },
-      "animations": {
-        "onReveal": { "type": "spin-in", "duration": 900 },
-        "onHover": { "type": "needle-twitch", "duration": 200, "css": "transform: rotate(2deg); box-shadow: 0 0 15px rgba(68,136,255,0.4); transition: all 0.2s ease;" },
-        "idle": { "type": "needle-pulse", "duration": 3000, "css": "@keyframes needlePulse { 0%, 100% { box-shadow: 0 0 5px rgba(68,136,255,0.2); } 50% { box-shadow: 0 0 12px rgba(68,136,255,0.4); } } animation: needlePulse 3s infinite;" }
-      },
-      "tags": ["compass", "portal", "e-gadd", "purple-toad", "agent-l", "divination"]
-    },
-
     {
       "id": "rope-replacement-bill",
       "name": "Absurd Rope Bill",
@@ -1794,6 +1702,7 @@
       "subcategory": "trash",
       "rarity": "common",
       "obtainedBy": "Archie Miser",
+      "ownerId": "archie",
       "obtainedDate": "Highsun 29, 1040 BF",
       "obtainedTime": "05:06",
       "obtainedLocation": "Raventree Manor — Upper Floor",
@@ -1808,20 +1717,68 @@
       "model3d": {
         "shape": "bill",
         "params": {
-          "width": 1.4, "height": 1.0, "lineCount": 10, "inkColor": "#1a3a6a",
-          "seal": { "radius": 0.1, "color": "#1a3a6a", "x": 0.45, "y": -0.35 }
+          "width": 1.4,
+          "height": 1.0,
+          "lineCount": 10,
+          "inkColor": "#1a3a6a",
+          "seal": {
+            "radius": 0.1,
+            "color": "#1a3a6a",
+            "x": 0.45,
+            "y": -0.35
+          }
         },
-        "material": { "color": "#f5f0e0", "roughness": 0.85, "metalness": 0.0 },
+        "material": {
+          "color": "#f5f0e0",
+          "roughness": 0.85,
+          "metalness": 0.0
+        },
         "scale": 1.2,
-        "position": { "x": 0, "y": 0, "z": 0 },
-        "rotation": { "x": 0.001, "y": 0.003, "z": 0 },
-        "camera": { "fov": 40, "position": [0, 0.5, 2], "lookAt": [0, 0, 0] },
-        "controls": { "autoRotate": true, "autoRotateSpeed": 1 },
-        "lighting": {
-          "ambient": { "color": "#444444", "intensity": 0.7 },
-          "directional": { "color": "#ffffff", "intensity": 1.0, "position": [2, 5, 3] }
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
         },
-        "environment": { "backgroundColor": "#111115" }
+        "rotation": {
+          "x": 0.001,
+          "y": 0.003,
+          "z": 0
+        },
+        "camera": {
+          "fov": 40,
+          "position": [
+            0,
+            0.5,
+            2
+          ],
+          "lookAt": [
+            0,
+            0,
+            0
+          ]
+        },
+        "controls": {
+          "autoRotate": true,
+          "autoRotateSpeed": 1
+        },
+        "lighting": {
+          "ambient": {
+            "color": "#444444",
+            "intensity": 0.7
+          },
+          "directional": {
+            "color": "#ffffff",
+            "intensity": 1.0,
+            "position": [
+              2,
+              5,
+              3
+            ]
+          }
+        },
+        "environment": {
+          "backgroundColor": "#111115"
+        }
       },
       "interactionStyle": {
         "containerBg": "linear-gradient(135deg, rgba(240,236,224,0.95) 0%, rgba(220,216,200,0.95) 100%)",
@@ -1887,11 +1844,25 @@
         "customCSS": ".item-rope-replacement-bill .card-title { color: #1a3a6a; text-transform: uppercase; letter-spacing: 2px; }"
       },
       "animations": {
-        "onReveal": { "type": "paperDrop", "duration": 600 },
-        "onHover": { "type": "crumple-temptation", "duration": 200, "css": "transform: rotate(-1deg) scale(0.98); cursor: grabbing; transition: all 0.2s ease;" },
+        "onReveal": {
+          "type": "paperDrop",
+          "duration": 600
+        },
+        "onHover": {
+          "type": "crumple-temptation",
+          "duration": 200,
+          "css": "transform: rotate(-1deg) scale(0.98); cursor: grabbing; transition: all 0.2s ease;"
+        },
         "idle": null
       },
-      "tags": ["mages-guild", "bureaucracy", "comedy", "invoice", "rope", "scam"]
+      "tags": [
+        "mages-guild",
+        "bureaucracy",
+        "comedy",
+        "invoice",
+        "rope",
+        "scam"
+      ]
     },
     {
       "id": "star-shard",
@@ -1900,6 +1871,7 @@
       "subcategory": "divine",
       "rarity": "legendary",
       "obtainedBy": "The Oracle",
+      "ownerId": "the_oracle",
       "obtainedDate": "Highsun 21, 1040 BF",
       "obtainedTime": "00:45",
       "obtainedLocation": "Raventree Manor — Ritual Chamber",
@@ -1914,29 +1886,127 @@
       "model3d": {
         "shape": "crystal",
         "params": {
-          "baseRadius": 0.3, "height": 0.9, "facets": 6,
+          "baseRadius": 0.3,
+          "height": 0.9,
+          "facets": 6,
           "secondaryShards": [
-            { "radius": 0.12, "height": 0.45, "facets": 5, "x": 0.2, "y": -0.15, "z": 0.1, "rx": 0.3, "ry": 0.5, "rz": -0.2 },
-            { "radius": 0.08, "height": 0.3, "facets": 4, "x": -0.15, "y": -0.2, "z": -0.08, "rx": -0.4, "ry": -0.3, "rz": 0.1 },
-            { "radius": 0.1, "height": 0.35, "facets": 6, "x": -0.05, "y": -0.18, "z": 0.18, "rx": 0.2, "ry": 0.8, "rz": 0.3 }
+            {
+              "radius": 0.12,
+              "height": 0.45,
+              "facets": 5,
+              "x": 0.2,
+              "y": -0.15,
+              "z": 0.1,
+              "rx": 0.3,
+              "ry": 0.5,
+              "rz": -0.2
+            },
+            {
+              "radius": 0.08,
+              "height": 0.3,
+              "facets": 4,
+              "x": -0.15,
+              "y": -0.2,
+              "z": -0.08,
+              "rx": -0.4,
+              "ry": -0.3,
+              "rz": 0.1
+            },
+            {
+              "radius": 0.1,
+              "height": 0.35,
+              "facets": 6,
+              "x": -0.05,
+              "y": -0.18,
+              "z": 0.18,
+              "rx": 0.2,
+              "ry": 0.8,
+              "rz": 0.3
+            }
           ],
-          "innerGlow": { "radius": 0.1, "color": "#ffdd44", "opacity": 0.9, "y": 0.1 }
+          "innerGlow": {
+            "radius": 0.1,
+            "color": "#ffdd44",
+            "opacity": 0.9,
+            "y": 0.1
+          }
         },
-        "material": { "color": "#ffffaa", "emissive": "#ffcc33", "emissiveIntensity": 0.6, "roughness": 0.05, "metalness": 0.1, "transparent": true, "opacity": 0.85 },
+        "material": {
+          "color": "#ffffaa",
+          "emissive": "#ffcc33",
+          "emissiveIntensity": 0.6,
+          "roughness": 0.05,
+          "metalness": 0.1,
+          "transparent": true,
+          "opacity": 0.85
+        },
         "scale": 1.8,
-        "position": { "x": 0, "y": 0, "z": 0 },
-        "rotation": { "x": 0.002, "y": 0.006, "z": 0.001 },
-        "camera": { "fov": 40, "position": [0, 0.5, 2.5], "lookAt": [0, 0.1, 0] },
-        "controls": { "autoRotate": true, "autoRotateSpeed": 1.5 },
-        "lighting": {
-          "ambient": { "color": "#ffffcc", "intensity": 0.6 },
-          "directional": { "color": "#ffffff", "intensity": 1.0, "position": [0, 5, 0] },
-          "points": [
-            { "color": "#ffdd44", "intensity": 2.0, "position": [0, 0.3, 0], "distance": 3 },
-            { "color": "#ffaa22", "intensity": 0.5, "position": [1, -0.5, 1] }
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "rotation": {
+          "x": 0.002,
+          "y": 0.006,
+          "z": 0.001
+        },
+        "camera": {
+          "fov": 40,
+          "position": [
+            0,
+            0.5,
+            2.5
+          ],
+          "lookAt": [
+            0,
+            0.1,
+            0
           ]
         },
-        "environment": { "backgroundColor": "#06060f" }
+        "controls": {
+          "autoRotate": true,
+          "autoRotateSpeed": 1.5
+        },
+        "lighting": {
+          "ambient": {
+            "color": "#ffffcc",
+            "intensity": 0.6
+          },
+          "directional": {
+            "color": "#ffffff",
+            "intensity": 1.0,
+            "position": [
+              0,
+              5,
+              0
+            ]
+          },
+          "points": [
+            {
+              "color": "#ffdd44",
+              "intensity": 2.0,
+              "position": [
+                0,
+                0.3,
+                0
+              ],
+              "distance": 3
+            },
+            {
+              "color": "#ffaa22",
+              "intensity": 0.5,
+              "position": [
+                1,
+                -0.5,
+                1
+              ]
+            }
+          ]
+        },
+        "environment": {
+          "backgroundColor": "#06060f"
+        }
       },
       "interactionStyle": {
         "containerBg": "radial-gradient(ellipse at center, rgba(26,26,58,0.95) 0%, rgba(6,6,15,0.98) 70%)",
@@ -1995,11 +2065,29 @@
         "customCSS": ".item-star-shard .card-title { text-shadow: 0 0 12px rgba(255,221,68,0.5); }"
       },
       "animations": {
-        "onReveal": { "type": "divineDescend", "duration": 2000 },
-        "onHover": { "type": "divine-radiance", "duration": 400, "css": "box-shadow: 0 0 40px rgba(255,221,68,0.8), 0 0 80px rgba(255,221,68,0.3); transform: scale(1.03); transition: all 0.4s ease;" },
-        "idle": { "type": "celestial-float", "duration": 6000, "css": "@keyframes celestialFloat { 0%, 100% { transform: translateY(0); box-shadow: 0 0 15px rgba(255,221,68,0.4); } 50% { transform: translateY(-5px); box-shadow: 0 0 25px rgba(255,221,68,0.6); } } animation: celestialFloat 6s infinite ease-in-out;" }
+        "onReveal": {
+          "type": "divineDescend",
+          "duration": 2000
+        },
+        "onHover": {
+          "type": "divine-radiance",
+          "duration": 400,
+          "css": "box-shadow: 0 0 40px rgba(255,221,68,0.8), 0 0 80px rgba(255,221,68,0.3); transform: scale(1.03); transition: all 0.4s ease;"
+        },
+        "idle": {
+          "type": "celestial-float",
+          "duration": 6000,
+          "css": "@keyframes celestialFloat { 0%, 100% { transform: translateY(0); box-shadow: 0 0 15px rgba(255,221,68,0.4); } 50% { transform: translateY(-5px); box-shadow: 0 0 25px rgba(255,221,68,0.6); } } animation: celestialFloat 6s infinite ease-in-out;"
+        }
       },
-      "tags": ["toad-god", "divine", "oracle", "bearer", "planar-anchor", "starlight"]
+      "tags": [
+        "toad-god",
+        "divine",
+        "oracle",
+        "bearer",
+        "planar-anchor",
+        "starlight"
+      ]
     },
     {
       "id": "fortune-song-transcript",
@@ -2008,6 +2096,8 @@
       "subcategory": "cryptic",
       "rarity": "uncommon",
       "obtainedBy": "Archie Miser (transcribed from memory)",
+      "ownerId": "archie",
+      "custodyNote": "Transcribed from memory by Archie; not a recovered physical object.",
       "obtainedDate": "Harvestide 30, 1040 BF",
       "obtainedTime": "00:30",
       "obtainedLocation": "Unknown Location — Post-Recovery",
@@ -2022,21 +2112,73 @@
       "model3d": {
         "shape": "card",
         "params": {
-          "width": 0.7, "height": 1.0, "depth": 0.008,
+          "width": 0.7,
+          "height": 1.0,
+          "depth": 0.008,
           "imageColor": "#2a1a3a"
         },
-        "material": { "color": "#3a1a4a", "roughness": 0.6, "metalness": 0.2 },
-        "scale": 2.0,
-        "position": { "x": 0, "y": 0, "z": 0 },
-        "rotation": { "x": 0, "y": 0.006, "z": 0 },
-        "camera": { "fov": 35, "position": [0, 0.3, 2.2], "lookAt": [0, 0, 0] },
-        "controls": { "autoRotate": true, "autoRotateSpeed": 2 },
-        "lighting": {
-          "ambient": { "color": "#2a1a3a", "intensity": 0.5 },
-          "directional": { "color": "#cc88ff", "intensity": 1.0, "position": [2, 4, 3] },
-          "points": [{ "color": "#aa44dd", "intensity": 0.6, "position": [0, 0, 1.5] }]
+        "material": {
+          "color": "#3a1a4a",
+          "roughness": 0.6,
+          "metalness": 0.2
         },
-        "environment": { "backgroundColor": "#0a0515" }
+        "scale": 2.0,
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0.006,
+          "z": 0
+        },
+        "camera": {
+          "fov": 35,
+          "position": [
+            0,
+            0.3,
+            2.2
+          ],
+          "lookAt": [
+            0,
+            0,
+            0
+          ]
+        },
+        "controls": {
+          "autoRotate": true,
+          "autoRotateSpeed": 2
+        },
+        "lighting": {
+          "ambient": {
+            "color": "#2a1a3a",
+            "intensity": 0.5
+          },
+          "directional": {
+            "color": "#cc88ff",
+            "intensity": 1.0,
+            "position": [
+              2,
+              4,
+              3
+            ]
+          },
+          "points": [
+            {
+              "color": "#aa44dd",
+              "intensity": 0.6,
+              "position": [
+                0,
+                0,
+                1.5
+              ]
+            }
+          ]
+        },
+        "environment": {
+          "backgroundColor": "#0a0515"
+        }
       },
       "interactionStyle": {
         "containerBg": "radial-gradient(ellipse at 50% 50%, rgba(42,26,58,0.95) 0%, rgba(15,8,25,0.98) 100%)",
@@ -2103,11 +2245,31 @@
         "customCSS": ""
       },
       "animations": {
-        "onReveal": { "type": "cardFlip", "duration": 1000 },
-        "onHover": { "type": "mystic-glow", "duration": 300, "css": "box-shadow: 0 0 20px rgba(170,68,221,0.5), 0 0 40px rgba(204,102,255,0.2); transition: box-shadow 0.3s ease;" },
-        "idle": { "type": "fortune-shimmer", "duration": 5000, "css": "@keyframes fortuneShimmer { 0%, 100% { border-color: #aa44dd; } 33% { border-color: #cc66ff; } 66% { border-color: #8833bb; } } animation: fortuneShimmer 5s infinite;" }
+        "onReveal": {
+          "type": "cardFlip",
+          "duration": 1000
+        },
+        "onHover": {
+          "type": "mystic-glow",
+          "duration": 300,
+          "css": "box-shadow: 0 0 20px rgba(170,68,221,0.5), 0 0 40px rgba(204,102,255,0.2); transition: box-shadow 0.3s ease;"
+        },
+        "idle": {
+          "type": "fortune-shimmer",
+          "duration": 5000,
+          "css": "@keyframes fortuneShimmer { 0%, 100% { border-color: #aa44dd; } 33% { border-color: #cc66ff; } 66% { border-color: #8833bb; } } animation: fortuneShimmer 5s infinite;"
+        }
       },
-      "tags": ["purple-toad", "prophecy", "song", "three-eyes", "archie", "compass", "portal", "fortune"]
+      "tags": [
+        "purple-toad",
+        "prophecy",
+        "song",
+        "three-eyes",
+        "archie",
+        "compass",
+        "portal",
+        "fortune"
+      ]
     },
     {
       "id": "mini-mushroom",
@@ -2116,6 +2278,7 @@
       "subcategory": "consumable-key",
       "rarity": "uncommon",
       "obtainedBy": "Hjumpik",
+      "ownerId": "hjumpik",
       "obtainedDate": "Highsun 12, 1040 BF",
       "obtainedTime": "15:00",
       "obtainedLocation": "The Vigilance — Cargo Hold",
@@ -2130,28 +2293,110 @@
       "model3d": {
         "shape": "mushroom",
         "params": {
-          "capRadius": 0.35, "stemHeight": 0.3, "stemTopRadius": 0.1, "stemBottomRadius": 0.13,
-          "stemMaterial": { "color": "#f5f0e0", "roughness": 0.85, "metalness": 0.05 },
+          "capRadius": 0.35,
+          "stemHeight": 0.3,
+          "stemTopRadius": 0.1,
+          "stemBottomRadius": 0.13,
+          "stemMaterial": {
+            "color": "#f5f0e0",
+            "roughness": 0.85,
+            "metalness": 0.05
+          },
           "spots": [
-            { "radius": 0.06, "color": "#ffffff", "theta": 0.4, "phi": 0 },
-            { "radius": 0.05, "color": "#ffffff", "theta": 0.6, "phi": 1.5 },
-            { "radius": 0.04, "color": "#ffffff", "theta": 0.3, "phi": 3.0 },
-            { "radius": 0.055, "color": "#ffffff", "theta": 0.5, "phi": 4.5 },
-            { "radius": 0.035, "color": "#ffffff", "theta": 0.7, "phi": 2.2 }
+            {
+              "radius": 0.06,
+              "color": "#ffffff",
+              "theta": 0.4,
+              "phi": 0
+            },
+            {
+              "radius": 0.05,
+              "color": "#ffffff",
+              "theta": 0.6,
+              "phi": 1.5
+            },
+            {
+              "radius": 0.04,
+              "color": "#ffffff",
+              "theta": 0.3,
+              "phi": 3.0
+            },
+            {
+              "radius": 0.055,
+              "color": "#ffffff",
+              "theta": 0.5,
+              "phi": 4.5
+            },
+            {
+              "radius": 0.035,
+              "color": "#ffffff",
+              "theta": 0.7,
+              "phi": 2.2
+            }
           ]
         },
-        "material": { "color": "#3366cc", "roughness": 0.4, "metalness": 0.1 },
-        "scale": 3.0,
-        "position": { "x": 0, "y": -0.3, "z": 0 },
-        "rotation": { "x": 0, "y": 0.008, "z": 0 },
-        "camera": { "fov": 35, "position": [0, 0.8, 2.5], "lookAt": [0, 0.2, 0] },
-        "controls": { "autoRotate": true, "autoRotateSpeed": 2 },
-        "lighting": {
-          "ambient": { "color": "#111133", "intensity": 0.5 },
-          "directional": { "color": "#aaccff", "intensity": 1.0, "position": [2, 4, 3] },
-          "points": [{ "color": "#4488ff", "intensity": 0.8, "position": [0, 0.5, 1.5] }]
+        "material": {
+          "color": "#3366cc",
+          "roughness": 0.4,
+          "metalness": 0.1
         },
-        "environment": { "backgroundColor": "#060610" }
+        "scale": 3.0,
+        "position": {
+          "x": 0,
+          "y": -0.3,
+          "z": 0
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0.008,
+          "z": 0
+        },
+        "camera": {
+          "fov": 35,
+          "position": [
+            0,
+            0.8,
+            2.5
+          ],
+          "lookAt": [
+            0,
+            0.2,
+            0
+          ]
+        },
+        "controls": {
+          "autoRotate": true,
+          "autoRotateSpeed": 2
+        },
+        "lighting": {
+          "ambient": {
+            "color": "#111133",
+            "intensity": 0.5
+          },
+          "directional": {
+            "color": "#aaccff",
+            "intensity": 1.0,
+            "position": [
+              2,
+              4,
+              3
+            ]
+          },
+          "points": [
+            {
+              "color": "#4488ff",
+              "intensity": 0.8,
+              "position": [
+                0,
+                0.5,
+                1.5
+              ]
+            }
+          ]
+        },
+        "environment": {
+          "backgroundColor": "#060610"
+        }
       },
       "interactionStyle": {
         "containerBg": "linear-gradient(135deg, rgba(8,8,24,0.95) 0%, rgba(16,16,48,0.95) 100%)",
@@ -2200,11 +2445,30 @@
         "customCSS": ".item-mini-mushroom:hover .card-title { font-size: 0.85rem; transition: font-size 0.3s ease; }"
       },
       "animations": {
-        "onReveal": { "type": "growIn", "duration": 600 },
-        "onHover": { "type": "shrink-tease", "duration": 300, "css": "transform: scale(0.9); transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);" },
-        "idle": { "type": "magical-bob", "duration": 3000, "css": "@keyframes magicalBob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } } animation: magicalBob 3s infinite ease-in-out;" }
+        "onReveal": {
+          "type": "growIn",
+          "duration": 600
+        },
+        "onHover": {
+          "type": "shrink-tease",
+          "duration": 300,
+          "css": "transform: scale(0.9); transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);"
+        },
+        "idle": {
+          "type": "magical-bob",
+          "duration": 3000,
+          "css": "@keyframes magicalBob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } } animation: magicalBob 3s infinite ease-in-out;"
+        }
       },
-      "tags": ["mushroom", "shrink", "trafficking", "barrels", "vigilance", "iron-legion", "toad-rescue"]
+      "tags": [
+        "mushroom",
+        "shrink",
+        "trafficking",
+        "barrels",
+        "vigilance",
+        "iron-legion",
+        "toad-rescue"
+      ]
     },
     {
       "id": "war-mage-staff",
@@ -2213,6 +2477,8 @@
       "subcategory": "weapon",
       "rarity": "rare",
       "obtainedBy": "Markop (for Archie)",
+      "ownerId": "markop",
+      "custodyNote": "Held by Markop on Archie's behalf.",
       "obtainedDate": "Highsun 21, 1040 BF",
       "obtainedTime": "00:15",
       "obtainedLocation": "Silent Grove — Matriarch's Hoard",
@@ -2227,28 +2493,104 @@
       "model3d": {
         "shape": "staff",
         "params": {
-          "length": 3.0, "topRadius": 0.02, "bottomRadius": 0.035, "shaftSegments": 12,
-          "headShape": "gem", "headSize": 0.15,
-          "headMaterial": { "color": "#cc3300", "emissive": "#881100", "emissiveIntensity": 0.6, "roughness": 0.15, "metalness": 0.2 },
-          "gripPosition": -0.6, "gripRadius": 0.04, "gripLength": 0.3,
-          "gripMaterial": { "color": "#442200", "roughness": 0.9, "metalness": 0.05 },
-          "scorchMark": { "x": 0.03, "y": 0.5, "z": 0.03 }
+          "length": 3.0,
+          "topRadius": 0.02,
+          "bottomRadius": 0.035,
+          "shaftSegments": 12,
+          "headShape": "gem",
+          "headSize": 0.15,
+          "headMaterial": {
+            "color": "#cc3300",
+            "emissive": "#881100",
+            "emissiveIntensity": 0.6,
+            "roughness": 0.15,
+            "metalness": 0.2
+          },
+          "gripPosition": -0.6,
+          "gripRadius": 0.04,
+          "gripLength": 0.3,
+          "gripMaterial": {
+            "color": "#442200",
+            "roughness": 0.9,
+            "metalness": 0.05
+          },
+          "scorchMark": {
+            "x": 0.03,
+            "y": 0.5,
+            "z": 0.03
+          }
         },
-        "material": { "color": "#2a1a0a", "roughness": 0.7, "metalness": 0.15 },
+        "material": {
+          "color": "#2a1a0a",
+          "roughness": 0.7,
+          "metalness": 0.15
+        },
         "scale": 0.7,
-        "position": { "x": 0, "y": 0, "z": 0 },
-        "rotation": { "x": 0.001, "y": 0.006, "z": 0.2 },
-        "camera": { "fov": 45, "position": [0, 0.5, 3], "lookAt": [0, 0.3, 0] },
-        "controls": { "autoRotate": true, "autoRotateSpeed": 2 },
-        "lighting": {
-          "ambient": { "color": "#1a0500", "intensity": 0.4 },
-          "directional": { "color": "#ff6633", "intensity": 1.2, "position": [3, 5, 2] },
-          "points": [
-            { "color": "#ff3300", "intensity": 1.0, "position": [0, 2, 1] },
-            { "color": "#ff6600", "intensity": 0.3, "position": [-1, -1, 2] }
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "rotation": {
+          "x": 0.001,
+          "y": 0.006,
+          "z": 0.2
+        },
+        "camera": {
+          "fov": 45,
+          "position": [
+            0,
+            0.5,
+            3
+          ],
+          "lookAt": [
+            0,
+            0.3,
+            0
           ]
         },
-        "environment": { "backgroundColor": "#0a0300" }
+        "controls": {
+          "autoRotate": true,
+          "autoRotateSpeed": 2
+        },
+        "lighting": {
+          "ambient": {
+            "color": "#1a0500",
+            "intensity": 0.4
+          },
+          "directional": {
+            "color": "#ff6633",
+            "intensity": 1.2,
+            "position": [
+              3,
+              5,
+              2
+            ]
+          },
+          "points": [
+            {
+              "color": "#ff3300",
+              "intensity": 1.0,
+              "position": [
+                0,
+                2,
+                1
+              ]
+            },
+            {
+              "color": "#ff6600",
+              "intensity": 0.3,
+              "position": [
+                -1,
+                -1,
+                2
+              ]
+            }
+          ]
+        },
+        "environment": {
+          "backgroundColor": "#0a0300"
+        }
       },
       "interactionStyle": {
         "containerBg": "radial-gradient(ellipse at 50% 30%, rgba(40,15,0,0.95) 0%, rgba(10,3,0,0.98) 100%)",
@@ -2301,11 +2643,31 @@
         "customCSS": ".item-war-mage-staff .card-title { color: #ff6633; text-shadow: 0 0 10px rgba(255,68,0,0.5); }"
       },
       "animations": {
-        "onReveal": { "type": "ignite", "duration": 900 },
-        "onHover": { "type": "flame-border", "duration": 300, "css": "box-shadow: 0 0 20px rgba(255,68,0,0.5), 0 0 40px rgba(255,68,0,0.2); transition: box-shadow 0.3s ease;" },
-        "idle": { "type": "ember-glow", "duration": 3000, "css": "@keyframes emberGlow { 0%, 100% { box-shadow: 0 0 5px rgba(255,68,0,0.2); } 50% { box-shadow: 0 0 15px rgba(255,102,51,0.4); } } animation: emberGlow 3s infinite ease-in-out;" }
+        "onReveal": {
+          "type": "ignite",
+          "duration": 900
+        },
+        "onHover": {
+          "type": "flame-border",
+          "duration": 300,
+          "css": "box-shadow: 0 0 20px rgba(255,68,0,0.5), 0 0 40px rgba(255,68,0,0.2); transition: box-shadow 0.3s ease;"
+        },
+        "idle": {
+          "type": "ember-glow",
+          "duration": 3000,
+          "css": "@keyframes emberGlow { 0%, 100% { box-shadow: 0 0 5px rgba(255,68,0,0.2); } 50% { box-shadow: 0 0 15px rgba(255,102,51,0.4); } } animation: emberGlow 3s infinite ease-in-out;"
+        }
       },
-      "tags": ["staff", "fire-magic", "archie", "markop", "garnet", "evocation", "matriarch-hoard", "dragonscale"]
+      "tags": [
+        "staff",
+        "fire-magic",
+        "archie",
+        "markop",
+        "garnet",
+        "evocation",
+        "matriarch-hoard",
+        "dragonscale"
+      ]
     },
     {
       "id": "green-t-key",
@@ -2314,6 +2676,7 @@
       "subcategory": "key",
       "rarity": "rare",
       "obtainedBy": "Green T",
+      "ownerId": "green_t",
       "obtainedDate": "Highsun 23, 1040 BF",
       "obtainedTime": "05:20",
       "obtainedLocation": "Shadeward Manor — Bathroom",
@@ -2328,26 +2691,92 @@
       "model3d": {
         "shape": "key",
         "params": {
-          "handleShape": "serpent", "handleThickness": 0.022,
-          "shaftWidth": 0.035, "shaftLength": 0.6, "shaftDepth": 0.018,
-          "teeth": [0.07, 0.11, 0.05, 0.09, 0.04, 0.08],
+          "handleShape": "serpent",
+          "handleThickness": 0.022,
+          "shaftWidth": 0.035,
+          "shaftLength": 0.6,
+          "shaftDepth": 0.018,
+          "teeth": [
+            0.07,
+            0.11,
+            0.05,
+            0.09,
+            0.04,
+            0.08
+          ],
           "eyeColor": "#ff3333"
         },
-        "material": { "color": "#2a2a2a", "metalness": 0.85, "roughness": 0.25 },
+        "material": {
+          "color": "#2a2a2a",
+          "metalness": 0.85,
+          "roughness": 0.25
+        },
         "scale": 2.5,
-        "position": { "x": 0, "y": 0, "z": 0 },
-        "rotation": { "x": 0, "y": 0.007, "z": 0 },
-        "camera": { "fov": 40, "position": [0, 0.5, 2.5], "lookAt": [0, 0.1, 0] },
-        "controls": { "autoRotate": true, "autoRotateSpeed": 2 },
-        "lighting": {
-          "ambient": { "color": "#1a0505", "intensity": 0.4 },
-          "directional": { "color": "#ffcccc", "intensity": 1.0, "position": [3, 4, 5] },
-          "points": [
-            { "color": "#ff0000", "intensity": 0.5, "position": [0, 0.5, 1] },
-            { "color": "#ff3333", "intensity": 0.3, "position": [-0.5, 0.5, 0.5] }
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0.007,
+          "z": 0
+        },
+        "camera": {
+          "fov": 40,
+          "position": [
+            0,
+            0.5,
+            2.5
+          ],
+          "lookAt": [
+            0,
+            0.1,
+            0
           ]
         },
-        "environment": { "backgroundColor": "#060303" }
+        "controls": {
+          "autoRotate": true,
+          "autoRotateSpeed": 2
+        },
+        "lighting": {
+          "ambient": {
+            "color": "#1a0505",
+            "intensity": 0.4
+          },
+          "directional": {
+            "color": "#ffcccc",
+            "intensity": 1.0,
+            "position": [
+              3,
+              4,
+              5
+            ]
+          },
+          "points": [
+            {
+              "color": "#ff0000",
+              "intensity": 0.5,
+              "position": [
+                0,
+                0.5,
+                1
+              ]
+            },
+            {
+              "color": "#ff3333",
+              "intensity": 0.3,
+              "position": [
+                -0.5,
+                0.5,
+                0.5
+              ]
+            }
+          ]
+        },
+        "environment": {
+          "backgroundColor": "#060303"
+        }
       },
       "interactionStyle": {
         "containerBg": "linear-gradient(135deg, rgba(10,5,5,0.95) 0%, rgba(25,10,10,0.95) 100%)",
@@ -2398,11 +2827,30 @@
         "customCSS": ".item-green-t-key .card-title::before { content: '🔑 '; }"
       },
       "animations": {
-        "onReveal": { "type": "keyTurn", "duration": 800 },
-        "onHover": { "type": "red-eye-glow", "duration": 300, "css": "box-shadow: 0 0 15px rgba(255,51,51,0.5); transition: box-shadow 0.3s ease;" },
-        "idle": { "type": "eye-pulse", "duration": 5000, "css": "@keyframes eyePulse { 0%, 80%, 100% { box-shadow: 0 0 5px rgba(255,51,51,0.1); } 85%, 95% { box-shadow: 0 0 12px rgba(255,51,51,0.4); } } animation: eyePulse 5s infinite;" }
+        "onReveal": {
+          "type": "keyTurn",
+          "duration": 800
+        },
+        "onHover": {
+          "type": "red-eye-glow",
+          "duration": 300,
+          "css": "box-shadow: 0 0 15px rgba(255,51,51,0.5); transition: box-shadow 0.3s ease;"
+        },
+        "idle": {
+          "type": "eye-pulse",
+          "duration": 5000,
+          "css": "@keyframes eyePulse { 0%, 80%, 100% { box-shadow: 0 0 5px rgba(255,51,51,0.1); } 85%, 95% { box-shadow: 0 0 12px rgba(255,51,51,0.4); } } animation: eyePulse 5s infinite;"
+        }
       },
-      "tags": ["green-t", "orangus", "key", "serpent", "map", "cellar", "shadeward-manor"]
+      "tags": [
+        "green-t",
+        "orangus",
+        "key",
+        "serpent",
+        "map",
+        "cellar",
+        "shadeward-manor"
+      ]
     },
     {
       "id": "poltergust-tank",
@@ -2411,6 +2859,7 @@
       "subcategory": "equipment",
       "rarity": "rare",
       "obtainedBy": "Agent L (Luigi)",
+      "ownerId": "luigi",
       "obtainedDate": "Highsun 26, 1040 BF",
       "obtainedTime": "15:10",
       "obtainedLocation": "Raventree Manor — Dance Hall",
@@ -2425,21 +2874,73 @@
       "model3d": {
         "shape": "vacuum",
         "params": {
-          "tankRadius": 0.25, "tankHeight": 0.6,
-          "glassColor": "#44ff88", "gaugeColor": "#ff4444"
+          "tankRadius": 0.25,
+          "tankHeight": 0.6,
+          "glassColor": "#44ff88",
+          "gaugeColor": "#ff4444"
         },
-        "material": { "color": "#446644", "metalness": 0.6, "roughness": 0.3 },
+        "material": {
+          "color": "#446644",
+          "metalness": 0.6,
+          "roughness": 0.3
+        },
         "scale": 1.5,
-        "position": { "x": 0, "y": 0, "z": 0 },
-        "rotation": { "x": 0, "y": 0.005, "z": 0 },
-        "camera": { "fov": 45, "position": [0.5, 0.8, 2.5], "lookAt": [0, 0.2, 0] },
-        "controls": { "autoRotate": true, "autoRotateSpeed": 1.5 },
-        "lighting": {
-          "ambient": { "color": "#224422", "intensity": 0.5 },
-          "directional": { "color": "#ffffff", "intensity": 1.2, "position": [4, 5, 3] },
-          "points": [{ "color": "#44ff88", "intensity": 0.8, "position": [0, 0.3, 1.5] }]
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
         },
-        "environment": { "backgroundColor": "#060f06" }
+        "rotation": {
+          "x": 0,
+          "y": 0.005,
+          "z": 0
+        },
+        "camera": {
+          "fov": 45,
+          "position": [
+            0.5,
+            0.8,
+            2.5
+          ],
+          "lookAt": [
+            0,
+            0.2,
+            0
+          ]
+        },
+        "controls": {
+          "autoRotate": true,
+          "autoRotateSpeed": 1.5
+        },
+        "lighting": {
+          "ambient": {
+            "color": "#224422",
+            "intensity": 0.5
+          },
+          "directional": {
+            "color": "#ffffff",
+            "intensity": 1.2,
+            "position": [
+              4,
+              5,
+              3
+            ]
+          },
+          "points": [
+            {
+              "color": "#44ff88",
+              "intensity": 0.8,
+              "position": [
+                0,
+                0.3,
+                1.5
+              ]
+            }
+          ]
+        },
+        "environment": {
+          "backgroundColor": "#060f06"
+        }
       },
       "interactionStyle": {
         "containerBg": "linear-gradient(135deg, rgba(10,26,10,0.95) 0%, rgba(6,15,6,0.95) 100%)",
@@ -2489,11 +2990,30 @@
         "customCSS": ".item-poltergust-tank::after { content: '👻'; position: absolute; bottom: 10px; right: 15px; font-size: 1.5em; animation: ghostBobPG 2s infinite ease-in-out; } @keyframes ghostBobPG { 0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.6; } 50% { transform: translateY(-8px) rotate(5deg); opacity: 1; } }"
       },
       "animations": {
-        "onReveal": { "type": "suctionIn", "duration": 700 },
-        "onHover": { "type": "tank-rattle", "duration": 300, "css": "transform: translateX(1px); transition: transform 0.1s ease;" },
-        "idle": { "type": "ghost-glow", "duration": 4000, "css": "@keyframes ghostGlowPG { 0%, 100% { box-shadow: 0 0 8px rgba(68,255,136,0.2); } 50% { box-shadow: 0 0 18px rgba(68,255,136,0.5); } } animation: ghostGlowPG 4s infinite ease-in-out;" }
+        "onReveal": {
+          "type": "suctionIn",
+          "duration": 700
+        },
+        "onHover": {
+          "type": "tank-rattle",
+          "duration": 300,
+          "css": "transform: translateX(1px); transition: transform 0.1s ease;"
+        },
+        "idle": {
+          "type": "ghost-glow",
+          "duration": 4000,
+          "css": "@keyframes ghostGlowPG { 0%, 100% { box-shadow: 0 0 8px rgba(68,255,136,0.2); } 50% { box-shadow: 0 0 18px rgba(68,255,136,0.5); } } animation: ghostGlowPG 4s infinite ease-in-out;"
+        }
       },
-      "tags": ["luigi", "e-gadd", "poltergust", "ghosts", "vacuum", "full-tank", "raventree-manor"]
+      "tags": [
+        "luigi",
+        "e-gadd",
+        "poltergust",
+        "ghosts",
+        "vacuum",
+        "full-tank",
+        "raventree-manor"
+      ]
     },
     {
       "id": "spy-field-notes",
@@ -2502,6 +3022,7 @@
       "subcategory": "intelligence",
       "rarity": "rare",
       "obtainedBy": "Bones",
+      "ownerId": "bones",
       "obtainedDate": "Highsun 27, 1040 BF",
       "obtainedTime": "23:10",
       "obtainedLocation": "Pond Patrol Safe House",
@@ -2516,22 +3037,80 @@
       "model3d": {
         "shape": "notebook",
         "params": {
-          "width": 0.5, "height": 0.7, "depth": 0.06,
-          "spineMaterial": { "color": "#3a2a1a", "roughness": 0.8, "metalness": 0.1 },
-          "titleEmboss": { "color": "#888866" }
+          "width": 0.5,
+          "height": 0.7,
+          "depth": 0.06,
+          "spineMaterial": {
+            "color": "#3a2a1a",
+            "roughness": 0.8,
+            "metalness": 0.1
+          },
+          "titleEmboss": {
+            "color": "#888866"
+          }
         },
-        "material": { "color": "#4a3a2a", "roughness": 0.85, "metalness": 0.1 },
+        "material": {
+          "color": "#4a3a2a",
+          "roughness": 0.85,
+          "metalness": 0.1
+        },
         "scale": 2.0,
-        "position": { "x": 0, "y": 0, "z": 0 },
-        "rotation": { "x": 0.002, "y": 0.005, "z": 0 },
-        "camera": { "fov": 40, "position": [0, 0.5, 2], "lookAt": [0, 0, 0] },
-        "controls": { "autoRotate": true, "autoRotateSpeed": 1.5 },
-        "lighting": {
-          "ambient": { "color": "#1a1a1a", "intensity": 0.5 },
-          "directional": { "color": "#ffddaa", "intensity": 1.2, "position": [3, 4, 4] },
-          "points": [{ "color": "#ff8800", "intensity": 0.3, "position": [-1, 1, 2] }]
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
         },
-        "environment": { "backgroundColor": "#080808" }
+        "rotation": {
+          "x": 0.002,
+          "y": 0.005,
+          "z": 0
+        },
+        "camera": {
+          "fov": 40,
+          "position": [
+            0,
+            0.5,
+            2
+          ],
+          "lookAt": [
+            0,
+            0,
+            0
+          ]
+        },
+        "controls": {
+          "autoRotate": true,
+          "autoRotateSpeed": 1.5
+        },
+        "lighting": {
+          "ambient": {
+            "color": "#1a1a1a",
+            "intensity": 0.5
+          },
+          "directional": {
+            "color": "#ffddaa",
+            "intensity": 1.2,
+            "position": [
+              3,
+              4,
+              4
+            ]
+          },
+          "points": [
+            {
+              "color": "#ff8800",
+              "intensity": 0.3,
+              "position": [
+                -1,
+                1,
+                2
+              ]
+            }
+          ]
+        },
+        "environment": {
+          "backgroundColor": "#080808"
+        }
       },
       "interactionStyle": {
         "containerBg": "linear-gradient(135deg, rgba(15,15,15,0.95) 0%, rgba(8,8,8,0.95) 100%)",
@@ -2593,11 +3172,26 @@
         "customCSS": ""
       },
       "animations": {
-        "onReveal": { "type": "dossierOpen", "duration": 700 },
-        "onHover": { "type": "classified-stamp", "duration": 200, "css": "border-color: #ff4400; box-shadow: inset 0 0 30px rgba(255,68,0,0.1); transition: all 0.2s ease;" },
+        "onReveal": {
+          "type": "dossierOpen",
+          "duration": 700
+        },
+        "onHover": {
+          "type": "classified-stamp",
+          "duration": 200,
+          "css": "border-color: #ff4400; box-shadow: inset 0 0 30px rgba(255,68,0,0.1); transition: all 0.2s ease;"
+        },
         "idle": null
       },
-      "tags": ["spy", "surveillance", "archie", "bones", "third-eye", "coded", "field-notes"]
+      "tags": [
+        "spy",
+        "surveillance",
+        "archie",
+        "bones",
+        "third-eye",
+        "coded",
+        "field-notes"
+      ]
     },
     {
       "id": "wario-debt-ledger",
@@ -2606,6 +3200,7 @@
       "subcategory": "commercial",
       "rarity": "uncommon",
       "obtainedBy": "Hjumpik",
+      "ownerId": "hjumpik",
       "obtainedDate": "Highsun 22, 1040 BF",
       "obtainedTime": "09:15",
       "obtainedLocation": "Feywild — Fairy Village",
@@ -2620,21 +3215,78 @@
       "model3d": {
         "shape": "scroll",
         "params": {
-          "rollRadius": 0.08, "width": 1.2, "unrolledLength": 0.8,
-          "capRadius": 0.1, "capMaterial": { "color": "#aa8800", "roughness": 0.5, "metalness": 0.6 }
+          "rollRadius": 0.08,
+          "width": 1.2,
+          "unrolledLength": 0.8,
+          "capRadius": 0.1,
+          "capMaterial": {
+            "color": "#aa8800",
+            "roughness": 0.5,
+            "metalness": 0.6
+          }
         },
-        "material": { "color": "#e8d8a0", "roughness": 0.9, "metalness": 0.0 },
+        "material": {
+          "color": "#e8d8a0",
+          "roughness": 0.9,
+          "metalness": 0.0
+        },
         "scale": 1.5,
-        "position": { "x": 0, "y": 0, "z": 0 },
-        "rotation": { "x": 0, "y": 0.004, "z": 0 },
-        "camera": { "fov": 40, "position": [0, 0.5, 2.5], "lookAt": [0, 0, 0] },
-        "controls": { "autoRotate": true, "autoRotateSpeed": 1 },
-        "lighting": {
-          "ambient": { "color": "#3a3a00", "intensity": 0.6 },
-          "directional": { "color": "#ffee88", "intensity": 1.0, "position": [3, 4, 3] },
-          "points": [{ "color": "#ffcc00", "intensity": 0.5, "position": [0, 1, 2] }]
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
         },
-        "environment": { "backgroundColor": "#100e00" }
+        "rotation": {
+          "x": 0,
+          "y": 0.004,
+          "z": 0
+        },
+        "camera": {
+          "fov": 40,
+          "position": [
+            0,
+            0.5,
+            2.5
+          ],
+          "lookAt": [
+            0,
+            0,
+            0
+          ]
+        },
+        "controls": {
+          "autoRotate": true,
+          "autoRotateSpeed": 1
+        },
+        "lighting": {
+          "ambient": {
+            "color": "#3a3a00",
+            "intensity": 0.6
+          },
+          "directional": {
+            "color": "#ffee88",
+            "intensity": 1.0,
+            "position": [
+              3,
+              4,
+              3
+            ]
+          },
+          "points": [
+            {
+              "color": "#ffcc00",
+              "intensity": 0.5,
+              "position": [
+                0,
+                1,
+                2
+              ]
+            }
+          ]
+        },
+        "environment": {
+          "backgroundColor": "#100e00"
+        }
       },
       "interactionStyle": {
         "containerBg": "linear-gradient(135deg, rgba(58,58,0,0.95) 0%, rgba(26,26,0,0.95) 100%)",
@@ -2685,11 +3337,25 @@
         "customCSS": ".item-wario-debt-ledger .card-title { color: #ffcc00; text-shadow: 2px 2px 0 #aa8800; }"
       },
       "animations": {
-        "onReveal": { "type": "unrollScroll", "duration": 1200 },
-        "onHover": { "type": "gold-flash", "duration": 300, "css": "box-shadow: 0 0 20px rgba(255,204,0,0.5); border-color: #ffee44; transition: all 0.3s ease;" },
+        "onReveal": {
+          "type": "unrollScroll",
+          "duration": 1200
+        },
+        "onHover": {
+          "type": "gold-flash",
+          "duration": 300,
+          "css": "box-shadow: 0 0 20px rgba(255,204,0,0.5); border-color: #ffee44; transition: all 0.3s ease;"
+        },
         "idle": null
       },
-      "tags": ["wario", "catalogue", "star-rod", "commerce", "coded-messages", "feywild"]
+      "tags": [
+        "wario",
+        "catalogue",
+        "star-rod",
+        "commerce",
+        "coded-messages",
+        "feywild"
+      ]
     },
     {
       "id": "knockout-incense",
@@ -2698,6 +3364,8 @@
       "subcategory": "alchemical",
       "rarity": "rare",
       "obtainedBy": "Purple T",
+      "ownerId": null,
+      "ownerUnresolved": "No wallet record exists for Purple T.",
       "obtainedDate": "Highsun 27, 1040 BF",
       "obtainedTime": "03:30",
       "obtainedLocation": "Mages' Guild Supply Closet",
@@ -2713,28 +3381,105 @@
         "shape": "candle",
         "params": {
           "count": 3,
-          "positions": [[-0.15, 0], [0, 0.05], [0.15, -0.02]],
-          "heights": [0.5, 0.42, 0.46],
+          "positions": [
+            [
+              -0.15,
+              0
+            ],
+            [
+              0,
+              0.05
+            ],
+            [
+              0.15,
+              -0.02
+            ]
+          ],
+          "heights": [
+            0.5,
+            0.42,
+            0.46
+          ],
           "candleRadius": 0.035,
-          "waxMaterial": { "color": "#5522aa", "roughness": 0.6, "metalness": 0.1 },
+          "waxMaterial": {
+            "color": "#5522aa",
+            "roughness": 0.6,
+            "metalness": 0.1
+          },
           "flameColor": "#cc88ff",
           "lit": true
         },
-        "material": { "color": "#5522aa", "roughness": 0.6, "metalness": 0.1 },
+        "material": {
+          "color": "#5522aa",
+          "roughness": 0.6,
+          "metalness": 0.1
+        },
         "scale": 2.5,
-        "position": { "x": 0, "y": -0.2, "z": 0 },
-        "rotation": { "x": 0, "y": 0.005, "z": 0 },
-        "camera": { "fov": 35, "position": [0, 0.8, 2], "lookAt": [0, 0.2, 0] },
-        "controls": { "autoRotate": true, "autoRotateSpeed": 1.5 },
-        "lighting": {
-          "ambient": { "color": "#1a0a2a", "intensity": 0.4 },
-          "directional": { "color": "#cc88ff", "intensity": 0.8, "position": [2, 4, 3] },
-          "points": [
-            { "color": "#cc88ff", "intensity": 1.0, "position": [0, 0.8, 0.5] },
-            { "color": "#8844cc", "intensity": 0.4, "position": [-0.5, 0.3, 1] }
+        "position": {
+          "x": 0,
+          "y": -0.2,
+          "z": 0
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0.005,
+          "z": 0
+        },
+        "camera": {
+          "fov": 35,
+          "position": [
+            0,
+            0.8,
+            2
+          ],
+          "lookAt": [
+            0,
+            0.2,
+            0
           ]
         },
-        "environment": { "backgroundColor": "#0a0515" }
+        "controls": {
+          "autoRotate": true,
+          "autoRotateSpeed": 1.5
+        },
+        "lighting": {
+          "ambient": {
+            "color": "#1a0a2a",
+            "intensity": 0.4
+          },
+          "directional": {
+            "color": "#cc88ff",
+            "intensity": 0.8,
+            "position": [
+              2,
+              4,
+              3
+            ]
+          },
+          "points": [
+            {
+              "color": "#cc88ff",
+              "intensity": 1.0,
+              "position": [
+                0,
+                0.8,
+                0.5
+              ]
+            },
+            {
+              "color": "#8844cc",
+              "intensity": 0.4,
+              "position": [
+                -0.5,
+                0.3,
+                1
+              ]
+            }
+          ]
+        },
+        "environment": {
+          "backgroundColor": "#0a0515"
+        }
       },
       "interactionStyle": {
         "containerBg": "radial-gradient(ellipse at 50% 80%, rgba(42,15,58,0.95) 0%, rgba(15,5,25,0.98) 100%)",
@@ -2786,11 +3531,26 @@
         "customCSS": ""
       },
       "animations": {
-        "onReveal": { "type": "smokeIn", "duration": 1000 },
-        "onHover": { "type": "smoke-intensify", "duration": 300, "css": "filter: brightness(1.1) contrast(1.1); box-shadow: 0 0 20px rgba(136,68,170,0.4); transition: all 0.3s ease;" },
+        "onReveal": {
+          "type": "smokeIn",
+          "duration": 1000
+        },
+        "onHover": {
+          "type": "smoke-intensify",
+          "duration": 300,
+          "css": "filter: brightness(1.1) contrast(1.1); box-shadow: 0 0 20px rgba(136,68,170,0.4); transition: all 0.3s ease;"
+        },
         "idle": null
       },
-      "tags": ["incense", "divination", "knockout", "purple-t", "archie", "mages-guild", "alchemical"]
+      "tags": [
+        "incense",
+        "divination",
+        "knockout",
+        "purple-t",
+        "archie",
+        "mages-guild",
+        "alchemical"
+      ]
     },
     {
       "id": "dan-guild-tracker",
@@ -2799,6 +3559,8 @@
       "subcategory": "surveillance",
       "rarity": "uncommon",
       "obtainedBy": "Dan (Parallel)",
+      "ownerId": null,
+      "ownerUnresolved": "Ambiguous: six 'dan' wallets exist and the parallel-world Dan is not clearly any of them.",
       "obtainedDate": "Highsun 27, 1040 BF",
       "obtainedTime": "03:20",
       "obtainedLocation": "Mages' Guild Barracks",
@@ -2813,23 +3575,82 @@
       "model3d": {
         "shape": "insignia",
         "params": {
-          "radius": 0.3, "depth": 0.04, "sides": 0,
+          "radius": 0.3,
+          "depth": 0.04,
+          "sides": 0,
           "symbol": "book",
-          "symbolMaterial": { "color": "#ff8800", "metalness": 0.4, "roughness": 0.5, "emissive": "#cc6600", "emissiveIntensity": 0.3 },
-          "showPin": true, "pinLength": 0.3
+          "symbolMaterial": {
+            "color": "#ff8800",
+            "metalness": 0.4,
+            "roughness": 0.5,
+            "emissive": "#cc6600",
+            "emissiveIntensity": 0.3
+          },
+          "showPin": true,
+          "pinLength": 0.3
         },
-        "material": { "color": "#888888", "metalness": 0.7, "roughness": 0.3 },
+        "material": {
+          "color": "#888888",
+          "metalness": 0.7,
+          "roughness": 0.3
+        },
         "scale": 3.0,
-        "position": { "x": 0, "y": 0, "z": 0 },
-        "rotation": { "x": 0, "y": 0.006, "z": 0 },
-        "camera": { "fov": 35, "position": [0, 0.3, 2], "lookAt": [0, 0, 0] },
-        "controls": { "autoRotate": true, "autoRotateSpeed": 2 },
-        "lighting": {
-          "ambient": { "color": "#1a1a3a", "intensity": 0.5 },
-          "directional": { "color": "#ffffff", "intensity": 1.2, "position": [3, 4, 5] },
-          "points": [{ "color": "#ff6644", "intensity": 0.4, "position": [0, 0, 1.5] }]
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
         },
-        "environment": { "backgroundColor": "#0a0a15" }
+        "rotation": {
+          "x": 0,
+          "y": 0.006,
+          "z": 0
+        },
+        "camera": {
+          "fov": 35,
+          "position": [
+            0,
+            0.3,
+            2
+          ],
+          "lookAt": [
+            0,
+            0,
+            0
+          ]
+        },
+        "controls": {
+          "autoRotate": true,
+          "autoRotateSpeed": 2
+        },
+        "lighting": {
+          "ambient": {
+            "color": "#1a1a3a",
+            "intensity": 0.5
+          },
+          "directional": {
+            "color": "#ffffff",
+            "intensity": 1.2,
+            "position": [
+              3,
+              4,
+              5
+            ]
+          },
+          "points": [
+            {
+              "color": "#ff6644",
+              "intensity": 0.4,
+              "position": [
+                0,
+                0,
+                1.5
+              ]
+            }
+          ]
+        },
+        "environment": {
+          "backgroundColor": "#0a0a15"
+        }
       },
       "interactionStyle": {
         "containerBg": "linear-gradient(135deg, rgba(15,15,40,0.95) 0%, rgba(8,8,25,0.95) 100%)",
@@ -2889,11 +3710,30 @@
         "customCSS": ".item-dan-guild-tracker::after { content: '📡'; position: absolute; top: 5px; right: 10px; font-size: 1.2em; animation: trackingBlinkDG 2s infinite; } @keyframes trackingBlinkDG { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }"
       },
       "animations": {
-        "onReveal": { "type": "scanLine", "duration": 600 },
-        "onHover": { "type": "alert-flash", "duration": 200, "css": "border-color: #ff6644; box-shadow: 0 0 15px rgba(255,102,68,0.5); transition: all 0.2s ease;" },
-        "idle": { "type": "ping", "duration": 3000, "css": "@keyframes trackingPingDG { 0%, 85%, 100% { box-shadow: 0 0 5px rgba(68,102,170,0.2); } 90% { box-shadow: 0 0 15px rgba(68,102,170,0.6); } 95% { box-shadow: 0 0 8px rgba(68,102,170,0.3); } } animation: trackingPingDG 3s infinite;" }
+        "onReveal": {
+          "type": "scanLine",
+          "duration": 600
+        },
+        "onHover": {
+          "type": "alert-flash",
+          "duration": 200,
+          "css": "border-color: #ff6644; box-shadow: 0 0 15px rgba(255,102,68,0.5); transition: all 0.2s ease;"
+        },
+        "idle": {
+          "type": "ping",
+          "duration": 3000,
+          "css": "@keyframes trackingPingDG { 0%, 85%, 100% { box-shadow: 0 0 5px rgba(68,102,170,0.2); } 90% { box-shadow: 0 0 15px rgba(68,102,170,0.6); } 95% { box-shadow: 0 0 8px rgba(68,102,170,0.3); } } animation: trackingPingDG 3s infinite;"
+        }
       },
-      "tags": ["mages-guild", "surveillance", "tracking", "dan", "purple-t", "burn", "badge"]
+      "tags": [
+        "mages-guild",
+        "surveillance",
+        "tracking",
+        "dan",
+        "purple-t",
+        "burn",
+        "badge"
+      ]
     },
     {
       "id": "blackite-wand",
@@ -2902,6 +3742,8 @@
       "subcategory": "surveillance",
       "rarity": "uncommon",
       "obtainedBy": "Dan (Parallel)",
+      "ownerId": null,
+      "ownerUnresolved": "Ambiguous: six 'dan' wallets exist and the parallel-world Dan is not clearly any of them.",
       "obtainedDate": "Highsun 27, 1040 BF",
       "obtainedTime": "03:20",
       "obtainedLocation": "Mages' Guild Barracks",
@@ -2916,24 +3758,92 @@
       "model3d": {
         "shape": "wand",
         "params": {
-          "length": 0.8, "baseRadius": 0.02, "tipRadius": 0.008,
+          "length": 0.8,
+          "baseRadius": 0.02,
+          "tipRadius": 0.008,
           "crystalInclusions": [
-            { "x": 0, "y": 0.15, "z": 0, "radius": 0.015, "color": "#6644aa", "opacity": 0.5 },
-            { "x": 0, "y": -0.1, "z": 0, "radius": 0.012, "color": "#5533aa", "opacity": 0.4 }
+            {
+              "x": 0,
+              "y": 0.15,
+              "z": 0,
+              "radius": 0.015,
+              "color": "#6644aa",
+              "opacity": 0.5
+            },
+            {
+              "x": 0,
+              "y": -0.1,
+              "z": 0,
+              "radius": 0.012,
+              "color": "#5533aa",
+              "opacity": 0.4
+            }
           ]
         },
-        "material": { "color": "#1a1a2a", "roughness": 0.15, "metalness": 0.3, "emissive": "#110022", "emissiveIntensity": 0.2 },
-        "scale": 2.5,
-        "position": { "x": 0, "y": 0, "z": 0 },
-        "rotation": { "x": 0, "y": 0.006, "z": 0.3 },
-        "camera": { "fov": 40, "position": [0, 0.3, 2], "lookAt": [0, 0, 0] },
-        "controls": { "autoRotate": true, "autoRotateSpeed": 2 },
-        "lighting": {
-          "ambient": { "color": "#0a0a15", "intensity": 0.4 },
-          "directional": { "color": "#ccbbff", "intensity": 1.0, "position": [3, 4, 4] },
-          "points": [{ "color": "#6644aa", "intensity": 0.6, "position": [0, 0, 1.5] }]
+        "material": {
+          "color": "#1a1a2a",
+          "roughness": 0.15,
+          "metalness": 0.3,
+          "emissive": "#110022",
+          "emissiveIntensity": 0.2
         },
-        "environment": { "backgroundColor": "#050508" }
+        "scale": 2.5,
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0.006,
+          "z": 0.3
+        },
+        "camera": {
+          "fov": 40,
+          "position": [
+            0,
+            0.3,
+            2
+          ],
+          "lookAt": [
+            0,
+            0,
+            0
+          ]
+        },
+        "controls": {
+          "autoRotate": true,
+          "autoRotateSpeed": 2
+        },
+        "lighting": {
+          "ambient": {
+            "color": "#0a0a15",
+            "intensity": 0.4
+          },
+          "directional": {
+            "color": "#ccbbff",
+            "intensity": 1.0,
+            "position": [
+              3,
+              4,
+              4
+            ]
+          },
+          "points": [
+            {
+              "color": "#6644aa",
+              "intensity": 0.6,
+              "position": [
+                0,
+                0,
+                1.5
+              ]
+            }
+          ]
+        },
+        "environment": {
+          "backgroundColor": "#050508"
+        }
       },
       "interactionStyle": {
         "containerBg": "linear-gradient(135deg, rgba(8,8,8,0.95) 0%, rgba(15,15,25,0.95) 100%)",
@@ -2983,11 +3893,26 @@
         "customCSS": ".item-blackite-wand .card-description { border-left: 3px solid #6644aa; padding-left: 10px; }"
       },
       "animations": {
-        "onReveal": { "type": "drainIn", "duration": 800 },
-        "onHover": { "type": "suppression-pulse", "duration": 300, "css": "filter: brightness(0.85); border-color: #6644aa; transition: all 0.3s ease;" },
+        "onReveal": {
+          "type": "drainIn",
+          "duration": 800
+        },
+        "onHover": {
+          "type": "suppression-pulse",
+          "duration": 300,
+          "css": "filter: brightness(0.85); border-color: #6644aa; transition: all 0.3s ease;"
+        },
         "idle": null
       },
-      "tags": ["mages-guild", "surveillance", "blackite", "dan", "leash", "energy-drain", "suppression"]
+      "tags": [
+        "mages-guild",
+        "surveillance",
+        "blackite",
+        "dan",
+        "leash",
+        "energy-drain",
+        "suppression"
+      ]
     },
     {
       "id": "dragonus-cornelius-statuette",
@@ -2996,6 +3921,7 @@
       "subcategory": "statuette",
       "rarity": "rare",
       "obtainedBy": "Thornbury",
+      "ownerId": "thornbury",
       "obtainedDate": "Highsun 28, 1040 BF",
       "obtainedTime": "17:10",
       "obtainedLocation": "Raventree Manor — Curio Collection Room",
@@ -3010,26 +3936,90 @@
       "model3d": {
         "shape": "statuette",
         "params": {
-          "baseWidth": 0.25, "baseDepth": 0.25, "baseHeight": 0.08,
-          "figureHeight": 0.6, "figureWidth": 0.2,
-          "orbRadius": 0.04, "orbColor": "#ffdd44",
-          "baseMaterial": { "color": "#e8d8c0", "roughness": 0.5, "metalness": 0.2 }
+          "baseWidth": 0.25,
+          "baseDepth": 0.25,
+          "baseHeight": 0.08,
+          "figureHeight": 0.6,
+          "figureWidth": 0.2,
+          "orbRadius": 0.04,
+          "orbColor": "#ffdd44",
+          "baseMaterial": {
+            "color": "#e8d8c0",
+            "roughness": 0.5,
+            "metalness": 0.2
+          }
         },
-        "material": { "color": "#d4c4a0", "roughness": 0.45, "metalness": 0.15 },
+        "material": {
+          "color": "#d4c4a0",
+          "roughness": 0.45,
+          "metalness": 0.15
+        },
         "scale": 2.5,
-        "position": { "x": 0, "y": -0.3, "z": 0 },
-        "rotation": { "x": 0, "y": 0.006, "z": 0 },
-        "camera": { "fov": 35, "position": [0, 0.8, 2.5], "lookAt": [0, 0.2, 0] },
-        "controls": { "autoRotate": true, "autoRotateSpeed": 1.5 },
-        "lighting": {
-          "ambient": { "color": "#2a1a0a", "intensity": 0.5 },
-          "directional": { "color": "#ffcc88", "intensity": 1.3, "position": [4, 6, 3] },
-          "points": [
-            { "color": "#ff6600", "intensity": 0.4, "position": [0, 0.8, 1.5] },
-            { "color": "#ffdd44", "intensity": 0.3, "position": [0, 0.4, 0.5] }
+        "position": {
+          "x": 0,
+          "y": -0.3,
+          "z": 0
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0.006,
+          "z": 0
+        },
+        "camera": {
+          "fov": 35,
+          "position": [
+            0,
+            0.8,
+            2.5
+          ],
+          "lookAt": [
+            0,
+            0.2,
+            0
           ]
         },
-        "environment": { "backgroundColor": "#0f0a04" }
+        "controls": {
+          "autoRotate": true,
+          "autoRotateSpeed": 1.5
+        },
+        "lighting": {
+          "ambient": {
+            "color": "#2a1a0a",
+            "intensity": 0.5
+          },
+          "directional": {
+            "color": "#ffcc88",
+            "intensity": 1.3,
+            "position": [
+              4,
+              6,
+              3
+            ]
+          },
+          "points": [
+            {
+              "color": "#ff6600",
+              "intensity": 0.4,
+              "position": [
+                0,
+                0.8,
+                1.5
+              ]
+            },
+            {
+              "color": "#ffdd44",
+              "intensity": 0.3,
+              "position": [
+                0,
+                0.4,
+                0.5
+              ]
+            }
+          ]
+        },
+        "environment": {
+          "backgroundColor": "#0f0a04"
+        }
       },
       "interactionStyle": {
         "containerBg": "linear-gradient(135deg, rgba(26,15,5,0.95) 0%, rgba(45,26,10,0.95) 100%)",
@@ -3082,11 +4072,26 @@
         "customCSS": ".item-dragonus-cornelius-statuette .card-title { background: linear-gradient(90deg, #cc8833, #ffcc66, #cc8833); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }"
       },
       "animations": {
-        "onReveal": { "type": "riseFromShadow", "duration": 1000 },
-        "onHover": { "type": "warm-glow", "duration": 300, "css": "box-shadow: 0 0 30px rgba(255,153,51,0.5); transition: box-shadow 0.3s ease;" },
+        "onReveal": {
+          "type": "riseFromShadow",
+          "duration": 1000
+        },
+        "onHover": {
+          "type": "warm-glow",
+          "duration": 300,
+          "css": "box-shadow: 0 0 30px rgba(255,153,51,0.5); transition: box-shadow 0.3s ease;"
+        },
         "idle": null
       },
-      "tags": ["corvinarus", "dragon", "dragonbone", "graft", "family-crest", "mirror", "curio-room"]
+      "tags": [
+        "corvinarus",
+        "dragon",
+        "dragonbone",
+        "graft",
+        "family-crest",
+        "mirror",
+        "curio-room"
+      ]
     },
     {
       "id": "web-woven-scale-armor",
@@ -3095,6 +4100,7 @@
       "subcategory": "armor",
       "rarity": "rare",
       "obtainedBy": "FNG Remi",
+      "ownerId": "remi",
       "obtainedDate": "Highsun 21, 1040 BF",
       "obtainedTime": "00:15",
       "obtainedLocation": "Silent Grove — Matriarch's Hoard",
@@ -3109,26 +4115,86 @@
       "model3d": {
         "shape": "armor",
         "params": {
-          "chestWidth": 0.5, "chestHeight": 0.6, "chestDepth": 0.25,
-          "scaleCount": 40, "scaleSize": 0.04,
-          "threadColor": "#88ff88", "threadOpacity": 0.4,
+          "chestWidth": 0.5,
+          "chestHeight": 0.6,
+          "chestDepth": 0.25,
+          "scaleCount": 40,
+          "scaleSize": 0.04,
+          "threadColor": "#88ff88",
+          "threadOpacity": 0.4,
           "shoulderPads": true
         },
-        "material": { "color": "#2a4a2a", "roughness": 0.35, "metalness": 0.6 },
+        "material": {
+          "color": "#2a4a2a",
+          "roughness": 0.35,
+          "metalness": 0.6
+        },
         "scale": 1.8,
-        "position": { "x": 0, "y": 0, "z": 0 },
-        "rotation": { "x": 0, "y": 0.005, "z": 0 },
-        "camera": { "fov": 45, "position": [0, 0.5, 2.5], "lookAt": [0, 0.1, 0] },
-        "controls": { "autoRotate": true, "autoRotateSpeed": 1.5 },
-        "lighting": {
-          "ambient": { "color": "#1a2a1a", "intensity": 0.5 },
-          "directional": { "color": "#aaffaa", "intensity": 1.0, "position": [3, 5, 4] },
-          "points": [
-            { "color": "#9944cc", "intensity": 0.5, "position": [-2, 1, 3] },
-            { "color": "#44aa44", "intensity": 0.4, "position": [2, -1, 2] }
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0.005,
+          "z": 0
+        },
+        "camera": {
+          "fov": 45,
+          "position": [
+            0,
+            0.5,
+            2.5
+          ],
+          "lookAt": [
+            0,
+            0.1,
+            0
           ]
         },
-        "environment": { "backgroundColor": "#080f08" }
+        "controls": {
+          "autoRotate": true,
+          "autoRotateSpeed": 1.5
+        },
+        "lighting": {
+          "ambient": {
+            "color": "#1a2a1a",
+            "intensity": 0.5
+          },
+          "directional": {
+            "color": "#aaffaa",
+            "intensity": 1.0,
+            "position": [
+              3,
+              5,
+              4
+            ]
+          },
+          "points": [
+            {
+              "color": "#9944cc",
+              "intensity": 0.5,
+              "position": [
+                -2,
+                1,
+                3
+              ]
+            },
+            {
+              "color": "#44aa44",
+              "intensity": 0.4,
+              "position": [
+                2,
+                -1,
+                2
+              ]
+            }
+          ]
+        },
+        "environment": {
+          "backgroundColor": "#080f08"
+        }
       },
       "interactionStyle": {
         "containerBg": "linear-gradient(135deg, rgba(15,26,15,0.95) 0%, rgba(8,15,8,0.95) 100%)",
@@ -3179,11 +4245,25 @@
         "customCSS": ".item-web-woven-scale-armor .card-title { background: linear-gradient(90deg, #44aa44, #9944cc, #44aa44); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; background-size: 200% 100%; animation: silkShimmerArmor 3s infinite; } @keyframes silkShimmerArmor { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }"
       },
       "animations": {
-        "onReveal": { "type": "weaveIn", "duration": 1000 },
-        "onHover": { "type": "thread-glow", "duration": 300, "css": "box-shadow: 0 0 15px rgba(68,170,68,0.4), 0 0 30px rgba(153,68,204,0.2); transition: box-shadow 0.3s ease;" },
+        "onReveal": {
+          "type": "weaveIn",
+          "duration": 1000
+        },
+        "onHover": {
+          "type": "thread-glow",
+          "duration": 300,
+          "css": "box-shadow: 0 0 15px rgba(68,170,68,0.4), 0 0 30px rgba(153,68,204,0.2); transition: box-shadow 0.3s ease;"
+        },
         "idle": null
       },
-      "tags": ["armor", "spider-silk", "matriarch", "remi", "silent-grove", "dwarven"]
+      "tags": [
+        "armor",
+        "spider-silk",
+        "matriarch",
+        "remi",
+        "silent-grove",
+        "dwarven"
+      ]
     }
   ]
 }

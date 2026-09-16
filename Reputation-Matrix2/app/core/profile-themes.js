@@ -21,7 +21,7 @@ export const PROFILE_THEMES = {
         ]
     },
     'colonel_vera_steelstorm': {
-        bannerImage: 'banners/iron_legion_banner.png',
+        bannerImage: 'banners/iron_legion.png',
         accentColor: '#ADB5BD', // Iron Legion Grey
         backgroundColor: '#1a1d20',
         fontColor: '#f0f0f0',
@@ -33,7 +33,7 @@ export const PROFILE_THEMES = {
         ]
     },
     'fawful': {
-        bannerImage: 'banners/fawful_banner.png',
+        bannerImage: 'banners/fawful_forces.png',
         accentColor: '#32CD32', // Fawful Green
         backgroundColor: '#1a3d1a',
         fontColor: '#f0f0f0',
@@ -45,7 +45,7 @@ export const PROFILE_THEMES = {
         ]
     },
     'dan': {
-        bannerImage: 'banners/rakasha_banner.png',
+        bannerImage: 'banners/rakasha_clans.png',
         accentColor: '#D2B48C', // Rakasha Tan
         backgroundColor: '#3d352a',
         fontColor: '#f5f5dc',
@@ -64,7 +64,7 @@ export const PROFILE_THEMES = {
         ]
     },
     'lario': {
-        bannerImage: 'banners/ratchet_raiders_banner.png',
+        bannerImage: 'banners/ratchet_raiders.png',
         accentColor: '#D2691E', // Raider Orange
         backgroundColor: '#4a321e',
         fontColor: '#f0e6d6',
@@ -76,42 +76,42 @@ export const PROFILE_THEMES = {
         ]
     },
     'donkey_kong': {
-        bannerImage: 'banners/dk_crew_banner.png',
+        bannerImage: 'banners/dk_crew.png',
         accentColor: '#FFE135', // DK Yellow
         backgroundColor: '#4a3a1e',
         fontColor: '#f0f0f0',
         customSections: []
     },
     'diddy_kong': {
-        bannerImage: 'banners/dk_crew_banner.png',
+        bannerImage: 'banners/dk_crew.png',
         accentColor: '#e53935', // Diddy Red
         backgroundColor: '#4a2a2a',
         fontColor: '#f0f0f0',
         customSections: []
     },
     'lanky_kong': {
-        bannerImage: 'banners/dk_crew_banner.png',
+        bannerImage: 'banners/dk_crew.png',
         accentColor: '#fd7e14', // Lanky Orange
         backgroundColor: '#4a321e',
         fontColor: '#f0f0f0',
         customSections: []
     },
     'candy_kong': {
-        bannerImage: 'banners/dk_crew_banner.png',
+        bannerImage: 'banners/dk_crew.png',
         accentColor: '#FF69B4', // Candy Pink
         backgroundColor: '#4d1a3d',
         fontColor: '#f5e6f5',
         customSections: []
     },
     'chunky_kong': {
-        bannerImage: 'banners/dk_crew_banner.png',
+        bannerImage: 'banners/dk_crew.png',
         accentColor: '#4169E1', // Chunky Blue
         backgroundColor: '#2a2d3d',
         fontColor: '#f0f0f0',
         customSections: []
     },
     'king_k_rool': {
-        bannerImage: 'banners/kremling_banner.png',
+        bannerImage: 'banners/kremling_krew.png',
         accentColor: '#808000', // Kremling Green
         backgroundColor: '#3d3d1e',
         fontColor: '#f0f0f0',
@@ -126,56 +126,56 @@ export const PROFILE_THEMES = {
     },
     // Adding fallbacks for other posters
     'general_marcus_ironhand': {
-        bannerImage: 'banners/iron_legion_banner.png',
+        bannerImage: 'banners/iron_legion.png',
         accentColor: '#ADB5BD',
         backgroundColor: '#1a1d20',
         fontColor: '#f0f0f0',
         customSections: []
     },
     'kamek': {
-        bannerImage: 'banners/koopa_banner.png',
+        bannerImage: 'banners/koopa_troop.png',
         accentColor: '#4169E1', // Koopa Blue
         backgroundColor: '#2a2d3d',
         fontColor: '#f0f0f0',
         customSections: []
     },
     'giggling_pete': {
-        bannerImage: 'banners/jester_banner.png',
+        bannerImage: 'banners/cosmic_jesters.png',
         accentColor: '#FF69B4', // Jester Pink
         backgroundColor: '#4d1a3d',
         fontColor: '#f5e6f5',
         customSections: []
     },
     'toad_lee': {
-        bannerImage: 'banners/liberated_toads_banner.png',
+        bannerImage: 'banners/liberated_toads.png',
         accentColor: '#87CEEB', // Sky Blue
         backgroundColor: '#2a3d45',
         fontColor: '#e6f0f5',
         customSections: []
     },
     'chief_thornpaw': {
-        bannerImage: 'banners/rakasha_banner.png',
+        bannerImage: 'banners/rakasha_clans.png',
         accentColor: '#D2B48C',
         backgroundColor: '#3d352a',
         fontColor: '#f5f5dc',
         customSections: []
     },
     'captain_syrup': {
-        bannerImage: 'banners/crimson_fleet_banner.png',
+        bannerImage: 'banners/crimson_fleet.png',
         accentColor: '#DC143C', // Crimson
         backgroundColor: '#4d1a1a',
         fontColor: '#f5e6e6',
         customSections: []
     },
     'detective_penny': {
-        bannerImage: 'banners/dci_banner.png',
+        bannerImage: 'banners/diamond_city_investigators.png',
         accentColor: '#8B4513', // Saddle Brown
         backgroundColor: '#3d2a1e',
         fontColor: '#f0e6d6',
         customSections: []
     },
     'captain_toad': {
-        bannerImage: 'banners/mushroom_regency_banner.png',
+        bannerImage: 'banners/mushroom_regency.png',
         accentColor: '#4169E1',
         backgroundColor: '#2a2d3d',
         fontColor: '#f0f0f0',

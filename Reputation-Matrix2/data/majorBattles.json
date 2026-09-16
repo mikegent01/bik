@@ -4040,5 +4040,322 @@
     },
     "image": "assets/images/battles/battle-imp-ambush-shadow-estate/battle-imp-ambush-shadow-estate-01.jpg",
     "imageCaption": "Nine imps around Tymnas's cottage at dawn, come for the dead Archivist's ledger."
+  },
+  {
+    "id": "sarasa_border_intake",
+    "name": "The Intake at Muda Crossing",
+    "conflict": "The Sarasaland Stabilisation",
+    "arc": "sarasaland_stabilisation",
+    "date": {
+      "year": 1040,
+      "monthIndex": 8,
+      "day": 9,
+      "hour": 6,
+      "minute": 0
+    },
+    "location": "Muda Crossing, western Sarasan border",
+    "belligerents": {
+      "side_a": {
+        "name": "Sarasan Border Service",
+        "factions": [
+          "regal_empire"
+        ]
+      },
+      "side_b": {
+        "name": "Refugee columns out of the Mushroom civil war",
+        "factions": [
+          "peach_loyalists",
+          "mushroom_regency"
+        ]
+      }
+    },
+    "commanders": {
+      "side_a": [
+        "Captain of the Muda Post (name withheld in the Sarasan filing)"
+      ],
+      "side_b": [
+        "None — the columns had no command"
+      ]
+    },
+    "outcome": "victory",
+    "outcomeDetail": "The crossing stayed open. Four thousand one hundred people were admitted in nine days by a post built to process two hundred a week.",
+    "casualties": {
+      "side_a": "None",
+      "side_b": "31 dead before reaching the post, of exposure and untreated wounds"
+    },
+    "strategicValue": "high",
+    "description": "<p>This is filed as a battle because the archive has no better category for a decision that cost a kingdom its independence, and because everyone involved understood at the time that it was one.</p><p>The Muda post had standing orders to turn back unregistered crossings. The captain did not. Over nine days the post admitted four thousand one hundred people it had no authority to admit, no housing for, and no budget to feed, and Daisy's government ratified the decision retroactively rather than hang the officer who made it.</p><p>Waluigi wants the reader to hold two things at once. The first is that this was the right call and almost nobody else in this archive would have made it. The second is that it is the exact fact the Empire needed. A small kingdom holding four thousand undocumented foreign nationals is no longer a well-run neighbour. It is, in the language of the assistance package that arrived eleven weeks later, an unmanaged concentration of destabilising actors.</p><p>They did not lose Sarasaland at Muda Crossing. They simply wrote the sentence the Empire would later read back to them.</p>",
+    "tacticalNotes": "No shots were fired and no ground changed hands. The strategic value is rated high because every clause of the later assistance agreement cites conditions created in these nine days.",
+    "participatingCharacters": [
+      "princess_daisy"
+    ],
+    "reputationChanges": {},
+    "reputationNotes": {},
+    "effects": {
+      "regal_empire": 5
+    }
+  },
+  {
+    "id": "sarasa_the_offer",
+    "name": "The Stabilisation Offer",
+    "conflict": "The Sarasaland Stabilisation",
+    "arc": "sarasaland_stabilisation",
+    "date": {
+      "year": 1040,
+      "monthIndex": 10,
+      "day": 3,
+      "hour": 11,
+      "minute": 0
+    },
+    "location": "The Chrysanthemum Hall, Sarasaland",
+    "belligerents": {
+      "side_a": {
+        "name": "Imperial delegation",
+        "factions": [
+          "regal_empire",
+          "iron_legion"
+        ]
+      },
+      "side_b": {
+        "name": "Government of Sarasaland",
+        "factions": []
+      }
+    },
+    "commanders": {
+      "side_a": [
+        "Imperial Diplomatic Corps, lead envoy unnamed in the Sarasan minute"
+      ],
+      "side_b": [
+        "Princess Daisy"
+      ]
+    },
+    "outcome": "stalemate",
+    "outcomeDetail": "The package was neither signed nor refused. It was taken under advisement, which is the outcome the delegation arrived hoping for.",
+    "casualties": {
+      "side_a": "None",
+      "side_b": "None"
+    },
+    "strategicValue": "critical",
+    "description": "<p>The offer was generous, and that is the problem with it. Legion personnel to administer the refugee camps at no cost to the Sarasan treasury. Imperial credit against the winter shortfall. Technical advisors seconded to the interior ministry for the duration of the emergency.</p><p>Every line of it solves a real problem that Sarasaland actually has. This is what makes it difficult to refuse and dangerous to accept, and the delegation knew that when they drafted it. The Iron Legion does not write documents that only work if the other party is stupid.</p><p>Waluigi has read the package. The trap is not hidden in it. It is in clause nine, in plain language, where the advisory presence is described as continuing until the conditions that necessitated it are jointly determined to have ended — and the Empire is one of the two parties doing the determining. An emergency that only ends when the occupier agrees it has ended is not an emergency. It is a tenancy.</p><p>Daisy did not sign. She also did not refuse, because refusing means telling four thousand people in the Muda camps that the food is not coming. The delegation left the package on the table and went home, which is what a delegation does when it expects to be called back.</p>",
+    "tacticalNotes": "Filed as a stalemate rather than a defeat. Nothing was conceded. But the offer cannot now be un-made, and every week the camps go underfunded is a week that argues for it.",
+    "participatingCharacters": [
+      "princess_daisy"
+    ],
+    "reputationChanges": {},
+    "reputationNotes": {},
+    "effects": {
+      "regal_empire": 10,
+      "iron_legion": 5
+    }
+  },
+  {
+    "id": "sarasa_rosewood_letter",
+    "name": "The Rosewood Correspondence",
+    "conflict": "The Sarasaland Stabilisation",
+    "arc": "sarasaland_stabilisation",
+    "date": {
+      "year": 1040,
+      "monthIndex": 10,
+      "day": 21,
+      "hour": 23,
+      "minute": 30
+    },
+    "location": "Rose Manor, Eastern Mushroom Marches — and a Sarasan reply that has not been recovered",
+    "belligerents": {
+      "side_a": {
+        "name": "House Rosewood",
+        "factions": []
+      },
+      "side_b": {
+        "name": "Government of Sarasaland",
+        "factions": []
+      }
+    },
+    "commanders": {
+      "side_a": [
+        "Lady Petal Rosewood"
+      ],
+      "side_b": [
+        "Princess Daisy"
+      ]
+    },
+    "outcome": null,
+    "outcomeDetail": "Unresolved. The archive holds one half of a correspondence and can prove only that the other half exists.",
+    "casualties": {
+      "side_a": "None",
+      "side_b": "None"
+    },
+    "strategicValue": "high",
+    "description": "<p>The dynasty archive has recorded for some time that Lady Petal Rosewood maintains a secret correspondence with Princess Daisy, and that the two of them are planning something. That entry has sat at intel threshold forty-five doing nothing for the whole of the campaign.</p><p>It stops being trivia now. Rosewood is the house financing the Regency while meeting Iron Legion envoys, and she has stated privately that she believes the Toadstools are finished and wants to be prime minister of a constitutional republic. Daisy is the last monarch in the sphere with an army and a functioning treasury, and she has just been handed an Imperial package she cannot accept or refuse.</p><p>Two people in that position do not write to each other about the weather.</p><p>Waluigi cannot tell the reader what the letters say. He can tell them that the correspondence is deniable on both ends, that it predates the stabilisation offer, and that whatever Petal Rosewood is planning, she is planning it with the only person in the Mushroom sphere who still has something left to bargain with.</p>",
+    "tacticalNotes": "No engagement. Filed under this conflict because the correspondence is the one asset in play that the Empire does not appear to know about.",
+    "participatingCharacters": [
+      "princess_daisy",
+      "lady_petal_current"
+    ],
+    "reputationChanges": {},
+    "reputationNotes": {},
+    "effects": {}
+  },
+  {
+    "id": "ebott_mineral_survey",
+    "name": "The Mineral Survey",
+    "conflict": "The Underground Breach",
+    "arc": "underground_breach",
+    "date": {
+      "year": 1040,
+      "monthIndex": 5,
+      "day": 2,
+      "hour": 9,
+      "minute": 0
+    },
+    "location": "Mount Ebott, upper slopes",
+    "belligerents": {
+      "side_a": {
+        "name": "Gamma Division survey element",
+        "factions": [
+          "gamma_division",
+          "iron_legion"
+        ]
+      },
+      "side_b": {
+        "name": "The Monster Underground — unaware",
+        "factions": [
+          "undertale_monsters"
+        ]
+      }
+    },
+    "commanders": {
+      "side_a": [
+        "Gamma Division survey lead (designation only)"
+      ],
+      "side_b": [
+        "None — no contact was made"
+      ]
+    },
+    "outcome": "victory",
+    "outcomeDetail": "The mountain was mapped to a depth no surface expedition had previously reached. Nobody underground knew it had happened.",
+    "casualties": {
+      "side_a": "None",
+      "side_b": "None"
+    },
+    "strategicValue": "critical",
+    "description": "<p>No law was broken on the upper slopes of Mount Ebott, and that is the methodology, not an accident of it. Gamma Division filed a mineral survey, conducted a mineral survey, and produced a mineral survey — which happened to establish the depth, orientation and probable access points of the treaty layers.</p><p>Waluigi has written before that the Iron Legion commits atrocities and then updates a spreadsheet. This is the stage before the atrocity, and it is the one nobody notices, because there is nothing to notice. A lawful survey of an uninhabited mountainside is not an act of war under any tradition filed in this archive.</p><p>It is only an act of war in retrospect, which is exactly how the Legion prefers its acts of war to be legible.</p>",
+    "tacticalNotes": "Rated critical because every subsequent operation in this conflict depends on the survey data, and because the Underground's counter-intelligence had no mechanism that could have detected a party doing nothing illegal.",
+    "participatingCharacters": [],
+    "reputationChanges": {},
+    "reputationNotes": {},
+    "effects": {
+      "gamma_division": 5
+    }
+  },
+  {
+    "id": "ebott_treaty_layer_breach",
+    "name": "The Breach of the Treaty Layers",
+    "conflict": "The Underground Breach",
+    "arc": "underground_breach",
+    "date": {
+      "year": 1040,
+      "monthIndex": 6,
+      "day": 14,
+      "hour": 4,
+      "minute": 40
+    },
+    "location": "Mount Ebott, the treaty layers",
+    "belligerents": {
+      "side_a": {
+        "name": "Gamma Division breach element",
+        "factions": [
+          "gamma_division",
+          "iron_legion"
+        ]
+      },
+      "side_b": {
+        "name": "The Monster Underground",
+        "factions": [
+          "undertale_monsters"
+        ]
+      }
+    },
+    "commanders": {
+      "side_a": [
+        "Gamma Division breach lead (designation only)"
+      ],
+      "side_b": [
+        "The King and Queen, by title; no field command was exercised"
+      ]
+    },
+    "outcome": "victory",
+    "outcomeDetail": "The layers were penetrated. A sovereign kingdom that had not been entered from the surface in centuries was entered, and no protest was filed anywhere, because there was no longer anybody to file one with.",
+    "casualties": {
+      "side_a": "None reported. Gamma Division does not file casualty returns for operations it classifies as surveys.",
+      "side_b": "Unestablished"
+    },
+    "strategicValue": "catastrophic",
+    "description": "<p>The nations register has carried this sentence for as long as it has existed: the Underground's existence was thought to be a myth until the Iron Legion's Gamma Division breached the treaty layers. The archive stated that a sovereign kingdom had been invaded, and then filed no conflict record about it, which means for the entire campaign to date the invasion has been a piece of scene-setting.</p><p>It is not scene-setting. It is the single most consequential thing done to a neighbouring state in this archive, and the reason it reads as small is that the victim had built its whole security posture on not being worth reporting.</p><p>The Underground's defence was never the mountain. It was never the treaty either — no surface power that signed it still exists in a form that could be held to it. The defence was that nobody was looking, and the correct way to understand this engagement is that the defence did not fail. It expired. It had been expiring since the first surface state started keeping proper survey records, and everyone underground who might have said so was outranked by everyone who found the myth comfortable.</p><p>Waluigi notes that a kingdom whose entire strategy is secrecy has no second strategy by definition. The King and Queen are now governing a nation that has to invent one, in public, with a Legion element already inside the layers.</p>",
+    "tacticalNotes": "No engagement took place. The breach is rated catastrophic on strategic value because it terminated a defensive posture that cannot be rebuilt — secrecy, once lost, is not recoverable by any action available to the losing party.",
+    "participatingCharacters": [
+      "sans",
+      "papyrus"
+    ],
+    "reputationChanges": {},
+    "reputationNotes": {},
+    "effects": {
+      "gamma_division": 10,
+      "iron_legion": 5,
+      "undertale_monsters": -15
+    }
+  },
+  {
+    "id": "ebott_question_of_the_surface",
+    "name": "The Question of the Surface",
+    "conflict": "The Underground Breach",
+    "arc": "underground_breach",
+    "date": {
+      "year": 1040,
+      "monthIndex": 7,
+      "day": 1,
+      "hour": 19,
+      "minute": 0
+    },
+    "location": "The distant castle, the Monster Underground",
+    "belligerents": {
+      "side_a": {
+        "name": "The Crown of the Underground",
+        "factions": [
+          "undertale_monsters"
+        ]
+      },
+      "side_b": {
+        "name": "Those arguing to come up",
+        "factions": [
+          "undertale_monsters"
+        ]
+      }
+    },
+    "commanders": {
+      "side_a": [
+        "The King and Queen"
+      ],
+      "side_b": [
+        "Unnamed in the filing — the argument has no leader, which is part of why it is winning"
+      ]
+    },
+    "outcome": "ongoing",
+    "outcomeDetail": "Unresolved. Three options are on the table and each costs something the Crown has said it will not spend.",
+    "casualties": {
+      "side_a": "None",
+      "side_b": "None"
+    },
+    "strategicValue": "high",
+    "description": "<p>This is a battle between monsters and no monster has raised a hand. It is filed because the Underground's next century is being decided in it and because the archive has a bad habit of only recording arguments once somebody dies in them.</p><p>Three options. Seal what remains, and accept that a kingdom which seals itself against a power that has already been inside is not sealing anything, only agreeing not to look. Negotiate, from a position with no leverage, with an institution whose own files describe negotiation as a phase of compliance enforcement. Or come up — end the concealment on their own terms rather than on the Legion's, and walk onto a surface currently hosting a civil war, an imperial annexation and a planar fracture.</p><p>Waluigi has no advice here and says so plainly. Every option is bad. What he will record is that the Crown's position — wait, and see what the Legion does next — is not a fourth option. It is the first one with better manners, and the Bone Line families in Snowdin appear to have worked that out considerably before the castle did.</p>",
+    "tacticalNotes": "Filed as ongoing. The archive expects this record to be amended rather than closed.",
+    "participatingCharacters": [
+      "sans",
+      "papyrus",
+      "grandpa_semi"
+    ],
+    "reputationChanges": {},
+    "reputationNotes": {},
+    "effects": {}
   }
 ]

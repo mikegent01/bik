@@ -31,7 +31,7 @@ export const SCHEDULED_POSTS = [
         characterKey: 'wah_media_collective',
         timestamp: 'Harvestide 10th',
         content: `**SHOCKING BETRAYAL!** Onyx Hand forces have launched a surprise assault on Regal Empire positions across the southern Midlands, shattering the centuries-old truce. Imperial command was caught completely off-guard. Reports indicate rapid vampire advances.`,
-        image: 'banners/onyx_hand_banner.png',
+        image: 'banners/onyx_hand.png',
         likes: 2100,
         eventId: 'vampire_war'
     },
@@ -159,7 +159,7 @@ export const SCHEDULED_POSTS = [
         characterKey: 'wah_media_collective',
         timestamp: 'Frostfall 17th',
         content: `**TREATY OF TWO TYRANTS!** Our sources confirm that Bowser and Fawful have signed a non-aggression pact, effectively partitioning the former Mushroom Kingdom. Fawful retains control of Peach's Castle and its immediate surroundings, while Bowser's Koopa Troop now controls the vast majority of the outer territories. The age of the Regency is officially over.`,
-        image: 'banners/koopa_banner.png',
+        image: 'banners/koopa_troop.png',
         likes: 3800,
         eventId: 'regency_fall'
     },

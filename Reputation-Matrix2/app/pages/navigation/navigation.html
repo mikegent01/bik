@@ -1,6 +1,11 @@
 <link rel="stylesheet" href="../../styles/tablet.css">
 <!-- WAH-TABLET DEVICE - FULLSCREEN OVERLAY -->
-<div class="wah-tablet-overlay" id="wah-tablet-overlay" style="display: none !important;">
+<!-- The overlay and the toggle button both carried an inline
+     style="display:none !important" that nothing ever removed, so the whole
+     tablet was unreachable: openTablet() added the .open class to an element
+     that an inline !important rule kept hidden. Visibility is handled by the
+     .open class in tablet.css, which is what the JS actually toggles. -->
+<div class="wah-tablet-overlay" id="wah-tablet-overlay">
     <!-- The Tablet Device -->
     <div class="wah-tablet" id="wah-tablet">
         <!-- Physical Hardware Frame -->
@@ -104,8 +109,91 @@
                             <div class="search-results" id="tablet-search-results"></div>
                         </div>
 
+                        <!-- ============================================
+                             SPRINGBOARD (home screen)
+                             The tablet already had the hardware, the boot
+                             screen and the app list; what it did not have was
+                             a HOME. A collapsible list of text links is a
+                             navigation menu wearing a tablet costume, and it
+                             buried Waluipedia -- the main archive -- as one
+                             text row labelled after its filename.
+
+                             These are the same destinations as the list
+                             below, as icons. Nothing is reimplemented: each
+                             tile opens the page that already exists.
+                             ============================================ -->
+                        <div class="springboard" id="springboard">
+                          <div class="sb-page">
+
+                            <div class="sb-hero">
+                              <a class="sb-hero-tile" href="#" data-app="waluipedia">
+                                <span class="sb-hero-mark">W</span>
+                                <span class="sb-hero-text">
+                                  <b>Waluipedia</b>
+                                  <i>The objective encyclopedia. Every article, battle, dynasty and faith.</i>
+                                </span>
+                              </a>
+                            </div>
+
+                            <div class="sb-grid">
+                              <a class="sb-app" href="#" data-app="mission">
+                                <span class="sb-icon sb-live"><img src="../../../icons/nav_mission.png" alt=""><i class="sb-dot"></i></span>
+                                <span class="sb-label">Mission</span></a>
+                              <a class="sb-app" href="#" data-app="quests">
+                                <span class="sb-icon"><img src="../../../icons/nav_quests.png" alt=""></span>
+                                <span class="sb-label">Quests</span></a>
+                              <a class="sb-app" href="#" data-app="shop">
+                                <span class="sb-icon sb-tint-gold">🛒</span>
+                                <span class="sb-label">Shop</span></a>
+                              <a class="sb-app" href="#" data-app="currency">
+                                <span class="sb-icon"><img src="../../../icons/nav_currency.png" alt=""></span>
+                                <span class="sb-label">Wallet</span></a>
+                              <a class="sb-app" href="#" data-app="maps">
+                                <span class="sb-icon"><img src="../../../icons/nav_maps.png" alt=""></span>
+                                <span class="sb-label">Maps</span></a>
+                              <a class="sb-app" href="#" data-app="globalwar">
+                                <span class="sb-icon sb-tint-red">⚡</span>
+                                <span class="sb-label">Power</span></a>
+                              <a class="sb-app" href="#" data-app="assembly">
+                                <span class="sb-icon"><img src="../../../icons/nav_feed.png" alt=""></span>
+                                <span class="sb-label">WAHwire</span></a>
+                              <a class="sb-app" href="#" data-app="intel">
+                                <span class="sb-icon"><img src="../../../icons/nav_intel.png" alt=""></span>
+                                <span class="sb-label">Intel</span></a>
+                              <a class="sb-app" href="#" data-app="directory">
+                                <span class="sb-icon"><img src="../../../icons/nav_directory.png" alt=""></span>
+                                <span class="sb-label">Directory</span></a>
+                              <a class="sb-app" href="#" data-app="dynasty">
+                                <span class="sb-icon sb-tint-violet">👑</span>
+                                <span class="sb-label">Dynasty</span></a>
+                              <a class="sb-app" href="#" data-app="religion">
+                                <span class="sb-icon"><img src="../../../icons/nav_religion.png" alt=""></span>
+                                <span class="sb-label">Faiths</span></a>
+                              <a class="sb-app" href="#" data-app="artifacts">
+                                <span class="sb-icon"><img src="../../../icons/nav_artifacts.png" alt=""></span>
+                                <span class="sb-label">Artifacts</span></a>
+                              <a class="sb-app" href="#" data-app="library">
+                                <span class="sb-icon"><img src="../../../icons/nav_library.png" alt=""></span>
+                                <span class="sb-label">Evidence</span></a>
+                              <a class="sb-app" href="#" data-app="calendar">
+                                <span class="sb-icon"><img src="../../../icons/nav_calendar.png" alt=""></span>
+                                <span class="sb-label">Calendar</span></a>
+                              <a class="sb-app" href="#" data-app="alliances">
+                                <span class="sb-icon"><img src="../../../icons/nav_relations.png" alt=""></span>
+                                <span class="sb-label">Alliances</span></a>
+                              <a class="sb-app" href="#" data-app="crafting">
+                                <span class="sb-icon sb-tint-teal">⚗️</span>
+                                <span class="sb-label">Crafting</span></a>
+                            </div>
+
+                            <button class="sb-more" id="sb-more" type="button">
+                              <span>All apps</span><span class="sb-more-chev">▾</span>
+                            </button>
+                          </div>
+                        </div>
+
                         <!-- Navigation Content -->
-                        <nav id="main-nav-bar" class="tablet-nav">
+                        <nav id="main-nav-bar" class="tablet-nav is-collapsed">
                             <!-- GROUP 1: OPERATIONS -->
                             <div class="nav-group">
                                 <h4 class="nav-group-title">
@@ -124,8 +212,8 @@
                                         <span>Quest Log</span>
                                     </a>
                                     <a href="xp.html" class="nav-button">
-                                        <img src="../../../icons/nav_quests.png" alt="Quests Icon">
-                                        <span>Quest Log</span>
+                                        <img src="../../../icons/nav_quests.png" alt="Experience Icon">
+                                        <span>Experience &amp; Levels</span>
                                     </a>                                    
                                     <a href="global-war.html" class="nav-button">
                                         <img src="../../../icons/nav_maps.png" alt="Global Icon" style="filter: hue-rotate(240deg);">
@@ -394,7 +482,7 @@
 </div>
 
 <!-- Toggle Button (Fixed Bottom Right) -->
-<button class="tablet-toggle-btn" id="tablet-toggle-btn" title="Open WAH-Tablet" style="display: none !important;">
+<button class="tablet-toggle-btn" id="tablet-toggle-btn" title="Open WAH-Tablet (T)">
     <div class="toggle-logo">
         <span class="toggle-w">W</span>
     </div>
