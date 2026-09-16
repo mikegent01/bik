@@ -58,6 +58,7 @@ def main() -> int:
         ("dossier assessments", [py, "tools/check-assessments.py"], ROOT),
         ("home feed contract", [py, "tools/check-home-feed.py"], ROOT),
         ("cover gallery", [py, "tools/check-covers.py"], ROOT),
+        ("faction banners", [py, "tools/check-banners.py"], ROOT),
         ("campaign fronts", [py, "tools/build-campaign-fronts.py", "--check"], ROOT),
         ("filing updates", [py, "tools/track-filing-updates.py", "--check"], ROOT),
         ("event art", [py, "tools/check-event-art.py", "--check"], ROOT),
