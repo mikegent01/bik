@@ -1441,7 +1441,8 @@
     ],
     "plane": "material",
     "planeConfidence": "medium",
-    "planeClue": "no planar markers — Material by default"
+    "planeClue": "no planar markers — Material by default",
+    "image": "assets/images/locations/raventree_manor.jpg"
   },
   {
     "id": "vigilance",
@@ -1572,13 +1573,13 @@
       "The lower service hall — the muster point of the sixth detachment, 1 Aethel, 922 BF",
       "The mushroom coat room, which has now eaten one spy and been used as a mortuary",
       "The mushroom room leaves bloodshot eyes and lost time; the mushrooms themselves test clean",
-   "The kitchen cooks plant-poison as dinner under a commander called Red",
-   "A locked kitchen door is a shortcut to the main room",
-   "The lady's sealed sanctuary — vines lock every door from inside; the floor opens on command",
-   "The manor's dead reinforcements carry sword slashes, not plant wounds — a second hostile nobody has accounted for",
-   "The overgrowth answers to the name Carnivorous",
-   "Held, as of 2 Aethel 922 BF, by four Iron Legion Colour Division operatives on the upper landing"
-  ],
+      "The kitchen cooks plant-poison as dinner under a commander called Red",
+      "A locked kitchen door is a shortcut to the main room",
+      "The lady's sealed sanctuary — vines lock every door from inside; the floor opens on command",
+      "The manor's dead reinforcements carry sword slashes, not plant wounds — a second hostile nobody has accounted for",
+      "The overgrowth answers to the name Carnivorous",
+      "Held, as of 2 Aethel 922 BF, by four Iron Legion Colour Division operatives on the upper landing"
+    ],
     "relatedArticles": [
       "planar_fracture",
       "raventree_manor",
@@ -3173,7 +3174,7 @@
     ],
     "plane": "material",
     "planeConfidence": "medium",
-    "planeClue": "no planar markers \u2014 Material by default"
+    "planeClue": "no planar markers — Material by default"
   },
   {
     "id": "bowsers_mushroom_compound",
