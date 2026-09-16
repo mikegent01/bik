@@ -26,3 +26,7 @@ tools/sheets/
 # *.N.N.tmp form, so a 6.4 MB mages-guild-code.json.tmp was committed and
 # shipped to every clone. Any *.tmp is debris, never content.
 *.tmp
+
+# Location contact sheets: intermediate art. The sliced per-location JPEGs
+# are the deliverable; the 3.7 MB source sheet is not.
+Reputation-Matrix2/assets/images/locations/_sheets/

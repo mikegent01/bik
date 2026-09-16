@@ -1381,7 +1381,8 @@
     ],
     "plane": "shadow",
     "planeConfidence": "high",
-    "planeClue": "'shadow estate' x1 (region); 'shadowfell' x1 (region)"
+    "planeClue": "'shadow estate' x1 (region); 'shadowfell' x1 (region)",
+    "image": "assets/images/locations/mazebound_grove.jpg"
   },
   {
     "id": "overgrown_library",
@@ -1548,7 +1549,8 @@
     ],
     "plane": "shadow",
     "planeConfidence": "high",
-    "planeClue": "'shadowfell' x1 (region); 'shadow estate' x11 (description)"
+    "planeClue": "'shadowfell' x1 (region); 'shadow estate' x11 (description)",
+    "image": "assets/images/locations/shadow_estate.jpg"
   },
   {
     "id": "overgrown_manor",
@@ -1589,7 +1591,8 @@
     ],
     "plane": "fey",
     "planeConfidence": "high",
-    "planeClue": "'feywild' x1 (region); 'feywild' x14 (description)"
+    "planeClue": "'feywild' x1 (region); 'feywild' x14 (description)",
+    "image": "assets/images/locations/overgrown_manor.jpg"
   },
   {
     "id": "feyward_grove",
@@ -1618,7 +1621,8 @@
     "microArticleFlag": "expanded",
     "plane": "fey",
     "planeConfidence": "high",
-    "planeClue": "'feyward' x1 (region); 'dreaming tree' x3 (description)"
+    "planeClue": "'feyward' x1 (region); 'dreaming tree' x3 (description)",
+    "image": "assets/images/locations/feyward_grove.jpg"
   },
   {
     "id": "deep_mirror",
@@ -1646,7 +1650,8 @@
     ],
     "plane": "mirror",
     "planeConfidence": "high",
-    "planeClue": "'mirror dimension' x1 (region); 'deep mirror' x24 (description)"
+    "planeClue": "'mirror dimension' x1 (region); 'deep mirror' x24 (description)",
+    "image": "assets/images/locations/deep_mirror.jpg"
   },
   {
     "id": "bramblehaven",
@@ -1739,7 +1744,8 @@
     ],
     "plane": "material",
     "planeConfidence": "medium",
-    "planeClue": "no planar markers — Material by default"
+    "planeClue": "no planar markers — Material by default",
+    "image": "assets/images/locations/silent_grove.jpg"
   },
   {
     "id": "toad_town",
@@ -1888,7 +1894,8 @@
     ],
     "plane": "shadow",
     "planeConfidence": "high",
-    "planeClue": "'shadow estate' x1 (region); 'shadowfell' x1 (region)"
+    "planeClue": "'shadow estate' x1 (region); 'shadowfell' x1 (region)",
+    "image": "assets/images/locations/orange_deer_shrine.jpg"
   },
   {
     "id": "planar_sanctum_belfry_and_atrium",
@@ -2128,7 +2135,8 @@
     ],
     "plane": "shadow",
     "planeConfidence": "high",
-    "planeClue": "'entropic' x1 (region); 'shadowfell' x1 (region)"
+    "planeClue": "'entropic' x1 (region); 'shadowfell' x1 (region)",
+    "image": "assets/images/locations/tymnas_cottage_and_hedge_maze.jpg"
   },
   {
     "id": "arunedeal_goblin_camp",
@@ -2459,7 +2467,8 @@
     },
     "plane": "shadow",
     "planeConfidence": "high",
-    "planeClue": "'entropic' x1 (region); 'shadowfell' x1 (region)"
+    "planeClue": "'entropic' x1 (region); 'shadowfell' x1 (region)",
+    "image": "assets/images/locations/shadow_estate_gardens.jpg"
   },
   {
     "id": "overgrown_rider_camp",
