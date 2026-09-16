@@ -25,7 +25,8 @@
     ],
     "plane": "material",
     "planeConfidence": "medium",
-    "planeClue": "no planar markers — Material by default"
+    "planeClue": "no planar markers — Material by default",
+    "image": "assets/images/locations/mount_ebott.jpg"
   },
   {
     "id": "snowdin_town",
@@ -80,7 +81,8 @@
     ],
     "plane": "mirror",
     "planeConfidence": "high",
-    "planeClue": "'deep mirror' x1 (region); 'fractured atrium' x1 (name)"
+    "planeClue": "'deep mirror' x1 (region); 'fractured atrium' x1 (name)",
+    "image": "assets/images/locations/darius_sanctum.jpg"
   },
   {
     "id": "fountain_of_dreams",
@@ -165,7 +167,8 @@
     ],
     "plane": "material",
     "planeConfidence": "medium",
-    "planeClue": "no planar markers — Material by default"
+    "planeClue": "no planar markers — Material by default",
+    "image": "assets/images/locations/forgotten_temple_stars.jpg"
   },
   {
     "id": "aegis_command",
@@ -1927,7 +1930,8 @@
     ],
     "plane": "mirror",
     "planeConfidence": "high",
-    "planeClue": "'corvinarus sanctum' x1 (region); 'deep mirror' x1 (region)"
+    "planeClue": "'corvinarus sanctum' x1 (region); 'deep mirror' x1 (region)",
+    "image": "assets/images/locations/planar_sanctum_belfry_and_atrium.jpg"
   },
   {
     "id": "astral_altar",
@@ -1954,7 +1958,8 @@
     "planeConfidence": "low",
     "planeClue": "extraplanar (astral) — outside the four mapped layers",
     "needsReview": true,
-    "reviewNote": "Planar layer unresolved: extraplanar (astral) — outside the four mapped layers"
+    "reviewNote": "Planar layer unresolved: extraplanar (astral) — outside the four mapped layers",
+    "image": "assets/images/locations/astral_altar.jpg"
   },
   {
     "id": "alpine_bank",
@@ -2034,7 +2039,8 @@
     ],
     "plane": "material",
     "planeConfidence": "medium",
-    "planeClue": "no planar markers — Material by default"
+    "planeClue": "no planar markers — Material by default",
+    "image": "assets/images/locations/the_ruins_mount_ebott.jpg"
   },
   {
     "id": "hotland_portals",
@@ -2056,7 +2062,8 @@
     ],
     "plane": "material",
     "planeConfidence": "medium",
-    "planeClue": "no planar markers — Material by default"
+    "planeClue": "no planar markers — Material by default",
+    "image": "assets/images/locations/hotland_portals.jpg"
   },
   {
     "id": "the_core_underground",
@@ -2103,7 +2110,8 @@
     ],
     "plane": "material",
     "planeConfidence": "medium",
-    "planeClue": "no planar markers — Material by default"
+    "planeClue": "no planar markers — Material by default",
+    "image": "assets/images/locations/snowdin_police_station.jpg"
   },
   {
     "id": "tymnas_cottage_and_hedge_maze",
@@ -2323,7 +2331,8 @@
     ],
     "plane": "material",
     "planeConfidence": "medium",
-    "planeClue": "no planar markers — Material by default"
+    "planeClue": "no planar markers — Material by default",
+    "image": "assets/images/locations/wariocopter.jpg"
   },
   {
     "id": "warp_pipe_junction",
@@ -2542,7 +2551,8 @@
     },
     "plane": "material",
     "planeConfidence": "medium",
-    "planeClue": "no planar markers — Material by default"
+    "planeClue": "no planar markers — Material by default",
+    "image": "assets/images/locations/the_mushroom_regency_hall_of_records.jpg"
   },
   {
     "id": "ruins_of_the_mushroom_kingdom_capitol",
@@ -2630,7 +2640,8 @@
     },
     "plane": "material",
     "planeConfidence": "medium",
-    "planeClue": "no planar markers — Material by default"
+    "planeClue": "no planar markers — Material by default",
+    "image": "assets/images/locations/block_farm_village_connectopia.jpg"
   },
   {
     "id": "the_undercity_grotto",
@@ -2661,7 +2672,8 @@
     "planeConfidence": "low",
     "planeClue": "'deep mirror' x1 (region) (region claim only — confirm)",
     "needsReview": true,
-    "reviewNote": "Planar layer unresolved: 'deep mirror' x1 (region) (region claim only — confirm) candidates: mirror"
+    "reviewNote": "Planar layer unresolved: 'deep mirror' x1 (region) (region claim only — confirm) candidates: mirror",
+    "image": "assets/images/locations/the_undercity_grotto.jpg"
   },
   {
     "id": "isle_delfino_overgrown_cottage",
@@ -2810,7 +2822,8 @@
     },
     "plane": "material",
     "planeConfidence": "medium",
-    "planeClue": "no planar markers — Material by default"
+    "planeClue": "no planar markers — Material by default",
+    "image": "assets/images/locations/alpine_bank_subterranean_chambers.jpg"
   },
   {
     "id": "overgrown_hillfort_shadow_pass",
@@ -2840,7 +2853,8 @@
     },
     "plane": "material",
     "planeConfidence": "medium",
-    "planeClue": "no planar markers — Material by default"
+    "planeClue": "no planar markers — Material by default",
+    "image": "assets/images/locations/overgrown_hillfort_shadow_pass.jpg"
   },
   {
     "id": "alpine_bay_ranch",
@@ -2869,7 +2883,8 @@
     },
     "plane": "material",
     "planeConfidence": "medium",
-    "planeClue": "no planar markers — Material by default"
+    "planeClue": "no planar markers — Material by default",
+    "image": "assets/images/locations/alpine_bay_ranch.jpg"
   },
   {
     "id": "forgotten_coastal_cove",
@@ -3064,7 +3079,8 @@
     ],
     "plane": "material",
     "planeConfidence": "medium",
-    "planeClue": "no planar markers — Material by default"
+    "planeClue": "no planar markers — Material by default",
+    "image": "assets/images/locations/ravencreek.jpg"
   },
   {
     "id": "imperial_diet",
@@ -3120,7 +3136,8 @@
     ],
     "plane": "material",
     "planeConfidence": "medium",
-    "planeClue": "no planar markers — Material by default"
+    "planeClue": "no planar markers — Material by default",
+    "image": "assets/images/locations/ferngrove_manor.jpg"
   },
   {
     "id": "thornwood_ruined_manor",
@@ -3267,6 +3284,7 @@
     ],
     "plane": "material",
     "planeConfidence": "high",
-    "planeClue": "Star Hill is a Mushroom Kingdom location on the Material clock"
+    "planeClue": "Star Hill is a Mushroom Kingdom location on the Material clock",
+    "image": "assets/images/locations/dr_toads_star_hill_clinic.jpg"
   }
 ]
