@@ -10384,6 +10384,72 @@ function dynastyIntelScore(charId){
   try{ const r=partyIntel()[charId]; return r?Math.max(0,Math.round(r.score)):0; }
   catch(e){ return 0; }
 }
+/* ---- INTEL GATING (shared) --------------------------------------------
+   Intel used to be decorative: the faction dossier printed a percentage
+   derived from which FIELDS EXISTED, which is a measure of how much the
+   archivist typed, not of what the party has earned. These helpers put
+   every gated surface on one scale — partyIntel() — so that a number the
+   party moves by doing things is the number that opens doors.            */
+function intelScoreFor(id){
+  try{ const r=partyIntel()[id]; return r?Math.max(0,Math.round(r.score)):0; }
+  catch(e){ return 0; }
+}
+/* Gate thresholds, named so the prose can refer to them.
+   Deliberately lower than the dynasty secret gates: a faction is a public
+   institution and a bloodline secret is not. */
+const INTEL_GATES={ blocs:15, opinion:35, figures:55, leverage:75 };
+/* Faction intel is EARNED FROM THE ARCHIVE ITSELF.
+   There are only eleven hand-written INTEL_RULES, so scoring factions on
+   partyIntel() alone would seal a hundred dossiers behind rules nobody
+   ever wrote. Instead a faction's score is evidence-based: it counts the
+   filings that actually name the faction, because a filing naming them IS
+   the party having learned something. Fighting them teaches more than
+   reading about them, and being in the room teaches most of all. */
+let FACTION_INTEL_CACHE=null;
+function factionIntelScore(fid){
+  if(!fid) return 0;
+  if(!FACTION_INTEL_CACHE){
+    const raw={};
+    const bump=(id,n)=>{ if(id) raw[id]=(raw[id]||0)+n; };
+    (DATA.majorBattles||[]).forEach(b=>{
+      const bel=b.belligerents||{};
+      ['side_a','side_b'].forEach(k=>((bel[k]||{}).factions||[]).forEach(id=>bump(id,8)));
+      Object.keys(b.effects||{}).forEach(id=>bump(id,4));
+    });
+    (DATA.battles||[]).forEach(b=>{
+      const bel=b.belligerents||{};
+      ['side_a','side_b'].forEach(k=>((bel[k]||{}).factions||[]).forEach(id=>bump(id,4)));
+    });
+    (DATA.events||[]).forEach(e=>(e.factions||e.involvedFactions||[]).forEach(id=>bump(typeof id==='string'?id:id&&id.id,3)));
+    (DATA.characters||[]).forEach(c=>{ bump(c.faction,2); (c.factions||[]).forEach(id=>bump(typeof id==='string'?id:id&&id.id,2)); });
+    // Direct party standing is first-hand contact and worth the most.
+    try{
+      (REPUTATION_OPERATORS||[]).forEach(o=>{
+        Object.keys(LORE_FACTIONS||{}).forEach(id=>{
+          let t=0; try{ t=calculateOperatorStanding(o.key||o.id,id).total||0; }catch(e){ return; }
+          if(t) bump(id, Math.min(20, Math.abs(t)/2));
+        });
+      });
+    }catch(e){}
+    FACTION_INTEL_CACHE={};
+    Object.keys(raw).forEach(id=>{
+      // Diminishing returns: the tenth battle against the Iron Legion
+      // teaches far less than the first. Caps out below 100 on purpose —
+      // nobody has a complete file on anybody.
+      FACTION_INTEL_CACHE[id]=Math.round(96*(1-Math.exp(-raw[id]/45)));
+    });
+  }
+  // A hand-written intel target always wins if it scores higher.
+  return Math.max(FACTION_INTEL_CACHE[fid]||0, intelScoreFor(fid));
+}
+function intelGateNote(need,have,what){
+  return `<div class="intel-sealed"><span class="intel-gate">${need}</span><span>Sealed — ${what} The party is at <b>${have}</b>.</span></div>`;
+}
+function intelMeter(score){
+  const tier=intelTier(score);
+  const pct=Math.max(0,Math.min(100,score));
+  return `<div class="intel-meter"><div class="intel-meter-bar"><i style="width:${pct}%"></i></div><span class="intel-meter-label">${esc(tier)} · <b>${score}</b></span></div>`;
+}
 function dynastyPanel(item){
   if(!item||!item.id) return '';
   const e=dynastyIndex().byChar[item.id];
@@ -18542,11 +18608,10 @@ function renderWhyModal(factionKey, opKey) {
                              || null;
   const heat = INFAMY_PROFILES[op.key] || { score: 30, icon: '👁️', label: 'Watched File', tags: [], warrants: [] };
 
-  let intelPct = 40;
-  if (faction.internal_politics) intelPct += 25;
-  if (faction.waluigi_tip) intelPct += 20;
-  if (narrativeAssessment) intelPct += 15;
-  intelPct = Math.min(100, intelPct);
+  /* The party's actual intel on this faction, from filings that name it.
+     Not a completeness score for the article. */
+  const intelScore = factionIntelScore(factionKey);
+  const intelPct = Math.max(0, Math.min(100, intelScore));
 
   const modal = document.createElement('div');
   modal.id = 'repWhyModalOverlay';
@@ -18616,7 +18681,8 @@ function renderWhyModal(factionKey, opKey) {
 
   let intelContent = `
     <div id="modalTabIntel" class="hidden">
-      <h3 class="mt-0">🔍 Faction Intelligence Level: ${intelPct}%</h3>
+      <h3 class="mt-0">🔍 What the party actually knows: ${esc(intelTier(intelScore))} (${intelPct})</h3>
+      <p class="text-muted text-sm" style="margin:-4px 0 10px">This is the party's earned intel on ${esc(faction.name)}, not a measure of how complete the article is. It moves when a filing names them.</p>
       <div style="background:var(--bg2);height:12px;border-radius:999px;overflow:hidden;border:1px solid var(--border);margin-bottom:14px">
         <div style="background:linear-gradient(90deg,var(--accent2),var(--accent));height:100%;width:${intelPct}%"></div>
       </div>
@@ -18663,20 +18729,32 @@ function renderWhyModal(factionKey, opKey) {
     </div>
   `;
 
+  /* Internal politics is now a graded disclosure. Knowing that a faction
+     HAS factions is cheap. Knowing what each bloc thinks of you, and who
+     signs its letters, is what an intelligence operation is for. */
   let politicsContent = faction.internal_politics ? `
     <div id="modalTabPolitics" class="hidden">
       <h3 class="mt-0">🏛️ Internal Politics of ${esc(faction.name)}</h3>
-      <p class="text-muted">Ruling Faction: <b>${esc(faction.internal_politics.ruling_faction || 'Executive Council')}</b></p>
-      ${Object.values(faction.internal_politics.sub_factions||{}).map(sf => `
+      ${intelMeter(intelScore)}
+      <p class="text-muted">Ruling Faction: <b>${intelScore>=INTEL_GATES.blocs ? esc(faction.internal_politics.ruling_faction || 'Executive Council') : 'Not established'}</b></p>
+      ${intelScore < INTEL_GATES.blocs ? intelGateNote(INTEL_GATES.blocs, intelScore, `the party knows this organisation is not a monolith and knows nothing else about it. File something that names ${esc(faction.name)}.`) : Object.values(faction.internal_politics.sub_factions||{}).map(sf => `
         <div class="modal-politics-card">
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
             <b style="font-size:14px;color:var(--accent2)">${esc(sf.name)}</b>
             <span class="chip" style="font-size:11px">Influence: ${sf.influence}%</span>
           </div>
           <p style="font-size:12.5px;color:var(--text);margin:0 0 6px">${esc(sf.description)}</p>
-          <p style="font-size:12px;color:var(--muted);margin:0"><i>Opinion: "${esc(sf.opinion)}"</i></p>
+          ${intelScore>=INTEL_GATES.opinion
+            ? `<p style="font-size:12px;color:var(--muted);margin:0 0 6px"><i>Opinion: "${esc(sf.opinion)}"</i></p>`
+            : intelGateNote(INTEL_GATES.opinion, intelScore, 'this bloc has a settled view of the party and the party has not heard it.')}
+          ${intelScore>=INTEL_GATES.figures
+            ? ((sf.key_figures||[]).length ? `<div class="intel-figures"><b class="intel-figures-head">Named officers</b>${(sf.key_figures||[]).map(kf=>`<div class="intel-figure"><b>${esc(kf.name)}</b> <span class="text-muted">— ${esc(kf.role||'')}</span>${kf.description?`<div class="intel-figure-desc">${esc(kf.description)}</div>`:''}</div>`).join('')}</div>` : '')
+            : intelGateNote(INTEL_GATES.figures, intelScore, 'the people who actually run this bloc are not yet named in the party\'s files.')}
         </div>
       `).join('')}
+      ${intelScore>=INTEL_GATES.leverage
+        ? `<div class="intel-leverage"><b>Leverage read</b><p>${esc(faction.waluigi_tip || 'Waluigi has no shortcut filed for this one, which he wants noted as their failing and not his.')}</p></div>`
+        : intelGateNote(INTEL_GATES.leverage, intelScore, 'Waluigi will not hand over a working angle on an organisation the party has barely looked at.')}
     </div>
   ` : '';
 
