@@ -7,34 +7,42 @@
 <!--
   THE WAHINTERFACE — standalone prototype.
 
-  Self-contained by design: one HTML file, no build step, no framework, no
-  dependency on index.html. Open it directly or serve it; it works either way.
+  Self-contained: one HTML file, no build step, no framework, no dependency
+  on index.html. Open it directly or serve it; it works either way.
 
-  WHY THIS EXISTS, AND WHAT IT IS TRYING TO PROVE
-  ----------------------------------------------
-  docs/worklists/WAHINTERFACE_NOTES.md argued that a tablet is only worth
-  building if it is a CONTEXT rather than a CONTAINER. A container is a
-  launcher: icons that open the pages you already had, plus one extra click.
-  A context is different — the apps know about each other, and the thing you
-  do in one is visible in another without navigating.
+  WHAT IT IS TRYING TO PROVE
+  --------------------------
+  docs/worklists/WAHINTERFACE_NOTES.md argued a tablet is only worth building
+  if it is a CONTEXT (apps that know about each other) rather than a
+  CONTAINER (a launcher that adds one click in front of pages you already
+  had). Round one shipped the shell and one app to test that. The finding
+  was that the thing which actually sells it is the DOCK BADGE — the only
+  element that is right about something while you are looking elsewhere.
 
-  So this prototype deliberately does NOT ship six app icons. It ships the
-  shell and ONE app, Inventory & Wallet, because that is the cheapest
-  honest test of the thesis. If a wallet and an inventory don't feel better
-  together than apart, the premise is wrong and we found out in one file
-  instead of in a refactor.
+  Round two acts on that finding. The Shop is live, and the point of it is
+  not "the shop, in a tablet" — it is that putting something in the basket
+  changes the wallet badge, the affordability line, and the Carry app's
+  projected balance immediately, with no navigation. If that interaction
+  were absent the shop would just be a page again.
 
-  The other five apps appear as locked icons on purpose. They are the
-  roadmap, visible but not faked.
+  ROUTING
+  -------
+  Every app is addressable: #/carry, #/shop, #/atlas. The notes were firm
+  that deep links must be designed in from the first commit rather than
+  retrofitted, so the hash is read on load and written on every app change.
 
   DATA
   ----
-  Reads the real canon JSON out of ../Reputation-Matrix2/data/ — wallets,
-  items, currencies, banking. Nothing is duplicated here, because a
-  prototype with its own copy of the numbers is a prototype that lies.
-  When opened from file:// the fetches are blocked by the browser, so it
-  falls back to a small embedded sample and says so in the banner rather
-  than silently showing fake data.
+  Reads real canon JSON from ../Reputation-Matrix2/data/. Nothing is
+  duplicated. Opened from file:// the fetches are blocked, so it falls back
+  to a small embedded sample and SAYS SO in the status bar rather than
+  quietly showing invented numbers.
+
+  WRITES
+  ------
+  None to canon. The basket is in-memory only and is explicitly a proposal,
+  not a purchase — buying is a DM-approved flow (see shop-purchases.json,
+  which records approvedBy) and a prototype must not forge that.
 -->
 <style>
 :root{
@@ -42,7 +50,6 @@
   --border:#2a3142; --text:#e8ecf5; --muted:#8b93a7;
   --accent:#b55cff; --accent2:#5ce1ff; --gold:#ffc94d;
   --bad:#ff6b6b; --good:#4ade80;
-  --shell-radius:34px;
 }
 *{box-sizing:border-box}
 html,body{margin:0;height:100%}
@@ -54,186 +61,208 @@ body{
   font:15px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
   display:flex; align-items:center; justify-content:center; padding:26px;
 }
-
-/* ---- THE SHELL -------------------------------------------------------
-   The bezel is a desktop luxury. Below 820px it dissolves completely and
-   the app becomes a plain full-screen column — see the media query at the
-   bottom. A tablet chrome rendered inside a phone is a tablet inside a
-   tablet, and the notes called that out as a thing to answer up front. */
 .tablet{
-  width:min(1180px,100%); height:min(780px,calc(100vh - 52px));
+  width:min(1240px,100%); height:min(820px,calc(100vh - 52px));
   background:linear-gradient(160deg,#1a1f2e,#0e1119);
-  border:1px solid var(--border); border-radius:var(--shell-radius);
+  border:1px solid var(--border); border-radius:34px;
   box-shadow:0 40px 90px rgba(0,0,0,.6), inset 0 1px 0 rgba(255,255,255,.05);
   padding:14px; display:flex; flex-direction:column; position:relative; overflow:hidden;
 }
-.statusbar{
-  display:flex; align-items:center; gap:10px; padding:2px 12px 10px;
-  font-size:11.5px; color:var(--muted); letter-spacing:.04em; flex:0 0 auto;
-}
+.statusbar{display:flex; align-items:center; gap:10px; padding:2px 12px 10px;
+  font-size:11.5px; color:var(--muted); letter-spacing:.04em; flex:0 0 auto}
 .statusbar .brand{color:var(--accent); font-weight:700; letter-spacing:.1em}
 .statusbar .spacer{flex:1}
 .statusbar .pill{border:1px solid var(--border); border-radius:999px; padding:1px 9px; background:var(--bg2)}
-
+.statusbar .pill.warn{border-color:var(--gold); color:var(--gold)}
 .body{flex:1; display:flex; gap:12px; min-height:0}
 
 /* ---- DOCK ---- */
-.dock{
-  flex:0 0 74px; background:var(--bg2); border:1px solid var(--border);
+.dock{flex:0 0 76px; background:var(--bg2); border:1px solid var(--border);
   border-radius:20px; padding:10px 8px; display:flex; flex-direction:column;
-  gap:8px; align-items:center; overflow-y:auto;
-}
-.appicon{
-  width:54px; height:54px; border-radius:16px; border:1px solid var(--border);
+  gap:8px; align-items:center; overflow-y:auto}
+.appicon{width:56px; height:56px; border-radius:16px; border:1px solid var(--border);
   background:var(--bg3); display:flex; flex-direction:column; align-items:center;
   justify-content:center; gap:2px; cursor:pointer; position:relative;
-  font-size:20px; transition:transform .12s ease, border-color .12s ease;
-  flex:0 0 auto;
-}
+  font-size:20px; transition:transform .12s, border-color .12s; flex:0 0 auto}
 .appicon:hover{transform:translateY(-2px); border-color:var(--accent)}
 .appicon .lbl{font-size:8px; color:var(--muted); letter-spacing:.03em}
-.appicon.active{border-color:var(--accent); background:linear-gradient(180deg,rgba(181,92,255,.22),transparent)}
-.appicon.locked{opacity:.38; cursor:not-allowed}
+.appicon.active{border-color:var(--accent); background:linear-gradient(180deg,rgba(181,92,255,.24),transparent)}
+.appicon.active .lbl{color:var(--text)}
+.appicon.locked{opacity:.34; cursor:not-allowed}
 .appicon.locked:hover{transform:none; border-color:var(--border)}
-/* Live badge — the whole point of the context thesis. The wallet's badge
-   changes while you are looking at a different app. */
-.appicon .badge{
-  position:absolute; top:-5px; right:-5px; min-width:19px; height:19px; padding:0 5px;
+.appicon .badge{position:absolute; top:-5px; right:-5px; min-width:19px; height:19px; padding:0 5px;
   border-radius:999px; background:var(--bad); color:#fff; font-size:10px; font-weight:700;
-  display:flex; align-items:center; justify-content:center; border:2px solid var(--bg2);
-}
+  display:flex; align-items:center; justify-content:center; border:2px solid var(--bg2)}
 .appicon .badge.ok{background:var(--good); color:#07240f}
+.appicon .badge.cart{background:var(--accent2); color:#03252e}
+/* the badge pulses when its number changes — the cross-app signal */
+@keyframes badgePop{0%{transform:scale(1)}40%{transform:scale(1.42)}100%{transform:scale(1)}}
+.appicon .badge.pop{animation:badgePop .42s ease-out}
 
 /* ---- SCREEN ---- */
-.screen{
-  flex:1; background:var(--bg2); border:1px solid var(--border); border-radius:20px;
-  overflow:hidden; display:flex; flex-direction:column; min-width:0;
-}
-.screenhead{
-  padding:13px 18px; border-bottom:1px solid var(--border); display:flex;
-  align-items:center; gap:12px; flex:0 0 auto; background:var(--bg3);
-}
-.screenhead h1{margin:0; font-size:16px; letter-spacing:.02em}
+.screen{flex:1; background:var(--bg2); border:1px solid var(--border); border-radius:20px;
+  overflow:hidden; display:flex; flex-direction:column; min-width:0}
+.screenhead{padding:12px 18px; border-bottom:1px solid var(--border); display:flex;
+  align-items:center; gap:12px; flex:0 0 auto; background:var(--bg3)}
+.screenhead h1{margin:0; font-size:16px}
 .screenhead .sub{font-size:11.5px; color:var(--muted)}
 .screenhead .spacer{flex:1}
 .screenbody{flex:1; overflow-y:auto; padding:16px 18px}
 
-.who{display:flex; gap:6px; flex-wrap:wrap; margin-bottom:14px}
-.who button{
-  border:1px solid var(--border); background:var(--bg3); color:var(--muted);
+.who{display:flex; gap:6px; flex-wrap:wrap; margin-bottom:14px; align-items:center}
+.who button{border:1px solid var(--border); background:var(--bg3); color:var(--muted);
   border-radius:999px; padding:5px 13px; font-size:12.5px; cursor:pointer;
-  font-family:inherit; transition:all .12s ease;
-}
+  font-family:inherit; transition:all .12s}
 .who button:hover{color:var(--text); border-color:var(--accent2)}
 .who button.on{background:var(--accent); border-color:var(--accent); color:#fff; font-weight:600}
+.who .purse{margin-left:auto; font-size:12px; color:var(--muted); font-variant-numeric:tabular-nums}
+.who .purse b{color:var(--gold)}
+.who .purse b.neg{color:var(--bad)}
 
 .split{display:grid; grid-template-columns:minmax(0,340px) minmax(0,1fr); gap:16px; align-items:start}
-@media(max-width:900px){ .split{grid-template-columns:1fr} }
-
+@media(max-width:940px){.split{grid-template-columns:1fr}}
 .card{border:1px solid var(--border); border-radius:14px; background:var(--bg3); padding:14px; margin-bottom:14px}
 .card h2{margin:0 0 10px; font-size:11px; letter-spacing:.09em; text-transform:uppercase; color:var(--muted); font-weight:700}
 
-/* ---- WALLET ---- */
 .networth{font-size:29px; font-weight:800; letter-spacing:-.02em; line-height:1.1}
 .networth.neg{color:var(--bad)}
-.networth small{display:block; font-size:11px; font-weight:500; color:var(--muted); letter-spacing:.04em; margin-top:3px}
+.networth small{display:block; font-size:11px; font-weight:500; color:var(--muted); margin-top:3px}
 .coins{display:flex; flex-direction:column; gap:5px; margin-top:12px}
 .coin{display:flex; align-items:center; gap:9px; font-size:13px; padding:4px 7px; border-radius:8px}
 .coin:hover{background:rgba(255,255,255,.035)}
 .coin .ic{width:19px; text-align:center}
-.coin .nm{flex:1; color:var(--muted); min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.coin .nm{flex:1; color:var(--muted); overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
 .coin .amt{font-variant-numeric:tabular-nums; font-weight:700}
 .coin .amt.neg{color:var(--bad)}
 .coin .gv{font-size:10.5px; color:var(--muted); font-variant-numeric:tabular-nums; min-width:58px; text-align:right}
 
 .debt{border-left:3px solid var(--bad); background:rgba(255,107,107,.07); border-radius:0 8px 8px 0;
-      padding:8px 11px; margin-bottom:7px; font-size:12.5px}
+  padding:8px 11px; margin-bottom:7px; font-size:12.5px}
 .debt .top{display:flex; justify-content:space-between; gap:8px; font-weight:600}
 .debt .amt{color:var(--bad); font-variant-numeric:tabular-nums; white-space:nowrap}
 .debt .note{color:var(--muted); font-size:11.5px; margin-top:3px; line-height:1.45}
 .debt.overdue{border-left-color:#ff3b3b; background:rgba(255,59,59,.11)}
 .tag{display:inline-block; font-size:9.5px; letter-spacing:.05em; text-transform:uppercase;
-     padding:1px 6px; border-radius:4px; background:var(--bad); color:#fff; font-weight:700; margin-left:6px}
+  padding:1px 6px; border-radius:4px; background:var(--bad); color:#fff; font-weight:700; margin-left:6px}
+.tag.inst{background:var(--bg2); color:var(--muted); border:1px solid var(--border)}
 
-/* ---- INVENTORY ---- */
 .invgrid{display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:10px}
-.item{
-  border:1px solid var(--border); border-radius:12px; background:var(--bg2); padding:11px;
-  cursor:pointer; transition:transform .12s, border-color .12s; position:relative; overflow:hidden;
-}
-.item:hover{transform:translateY(-2px)}
-.item .nm{font-size:12.5px; font-weight:700; line-height:1.3; margin-bottom:5px}
+.item{border:1px solid var(--border); border-radius:12px; background:var(--bg2); padding:11px;
+  cursor:pointer; transition:transform .12s, border-color .12s; position:relative; overflow:hidden}
+.item:hover{transform:translateY(-2px); border-color:var(--accent2)}
+.item .nm{font-size:12.5px; font-weight:700; line-height:1.3; margin-bottom:5px; padding-right:46px}
 .item .meta{font-size:10.5px; color:var(--muted); line-height:1.45}
-.item .rar{
-  position:absolute; top:0; right:0; font-size:8.5px; letter-spacing:.07em; text-transform:uppercase;
-  padding:2px 7px; border-bottom-left-radius:8px; font-weight:700;
-}
+.item .rar{position:absolute; top:0; right:0; font-size:8.5px; letter-spacing:.07em; text-transform:uppercase;
+  padding:2px 7px; border-bottom-left-radius:8px; font-weight:700}
 .r-common{background:#3d4354; color:#c3cad9}
 .r-uncommon{background:#1d5c3a; color:#8ff0bb}
 .r-rare{background:#1d3f6e; color:#8fc6ff}
 .r-legendary{background:#6b4a10; color:var(--gold)}
-.item.sealed{opacity:.55}
-
+.r-mythic,.r-artifact{background:#5c1d4a; color:#ffa8e8}
 .empty{color:var(--muted); font-size:13px; text-align:center; padding:26px 12px; line-height:1.6}
 
-/* ---- ITEM SHEET (the flip interaction, kept because it is canon) ---- */
+/* ---- SHOP ---- */
+.filters{display:flex; gap:7px; flex-wrap:wrap; margin-bottom:12px; align-items:center}
+.filters input,.filters select{background:var(--bg3); border:1px solid var(--border); color:var(--text);
+  border-radius:9px; padding:7px 11px; font-family:inherit; font-size:12.5px; min-width:0}
+.filters input{flex:1; min-width:150px}
+.filters input:focus,.filters select:focus{outline:none; border-color:var(--accent)}
+.shopgrid{display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:10px}
+.sitem{border:1px solid var(--border); border-radius:12px; background:var(--bg2); padding:11px;
+  display:flex; flex-direction:column; gap:7px; position:relative}
+.sitem .ic{font-size:21px}
+.sitem .nm{font-size:12.5px; font-weight:700; line-height:1.3}
+.sitem .vd{font-size:10.5px; color:var(--muted)}
+.sitem .row{display:flex; align-items:center; gap:8px; margin-top:auto}
+.sitem .pr{font-weight:800; font-variant-numeric:tabular-nums; color:var(--gold)}
+.sitem .pr.cant{color:var(--bad)}
+.sitem button{margin-left:auto; background:rgba(181,92,255,.14); border:1px solid var(--accent);
+  color:var(--accent); border-radius:8px; padding:4px 11px; cursor:pointer; font-family:inherit; font-size:12px}
+.sitem button:hover{background:var(--accent); color:#fff}
+.sitem button:disabled{opacity:.4; cursor:not-allowed; border-color:var(--border); color:var(--muted); background:none}
+.sitem.unafford{opacity:.72}
+
+.basket{position:sticky; top:0}
+.brow{display:flex; align-items:center; gap:8px; font-size:12.5px; padding:6px 0; border-bottom:1px solid var(--border)}
+.brow:last-of-type{border-bottom:none}
+.brow .bn{flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.brow .bp{font-variant-numeric:tabular-nums; color:var(--gold)}
+.brow .bx{background:none; border:none; color:var(--muted); cursor:pointer; font-size:15px; line-height:1; font-family:inherit}
+.brow .bx:hover{color:var(--bad)}
+.btot{display:flex; justify-content:space-between; font-weight:800; margin-top:10px; padding-top:9px; border-top:1px solid var(--border)}
+.btot .v{font-variant-numeric:tabular-nums}
+.after{font-size:12px; color:var(--muted); margin-top:7px; display:flex; justify-content:space-between}
+.after b{font-variant-numeric:tabular-nums}
+.after b.neg{color:var(--bad)}
+.after b.ok{color:var(--good)}
+.warn{margin-top:10px; font-size:11.5px; line-height:1.55; color:var(--gold);
+  border:1px dashed rgba(255,201,77,.45); border-radius:9px; padding:8px 10px; background:rgba(255,201,77,.06)}
+
+/* ---- ATLAS ---- */
+.atlasgrid{display:grid; grid-template-columns:repeat(auto-fill,minmax(168px,1fr)); gap:12px}
+.nat{border:1px solid var(--border); border-radius:14px; background:var(--bg2); padding:13px;
+  text-align:center; cursor:pointer; transition:transform .12s, border-color .12s}
+.nat:hover{transform:translateY(-3px); border-color:var(--accent)}
+.nat img{width:84px; height:84px; object-fit:contain; display:block; margin:0 auto 9px}
+.nat .nm{font-size:12.5px; font-weight:700; line-height:1.3}
+.nat .rg{font-size:10.5px; color:var(--muted); margin-top:3px}
+.nat .noart{width:84px;height:84px;margin:0 auto 9px;border-radius:12px;border:1px dashed var(--border);
+  display:flex;align-items:center;justify-content:center;font-size:26px;color:var(--muted)}
+
+/* ---- SHEET ---- */
 .sheet{position:absolute; inset:0; background:rgba(6,8,13,.82); backdrop-filter:blur(5px);
-       display:flex; align-items:center; justify-content:center; padding:26px; z-index:40}
-.sheetbox{background:var(--bg2); border:1px solid var(--accent); border-radius:18px; max-width:560px;
-          width:100%; max-height:100%; overflow-y:auto; padding:20px 22px; position:relative}
+  display:flex; align-items:center; justify-content:center; padding:26px; z-index:40}
+.sheetbox{background:var(--bg2); border:1px solid var(--accent); border-radius:18px; max-width:580px;
+  width:100%; max-height:100%; overflow-y:auto; padding:20px 22px; position:relative}
 .sheetbox h3{margin:0 0 3px; font-size:18px}
 .sheetbox .sub{color:var(--muted); font-size:11.5px; margin-bottom:13px}
 .sheetbox p{font-size:13.5px; line-height:1.65}
+.sheetbox img.crest{width:120px;height:120px;object-fit:contain;float:right;margin:0 0 10px 14px}
 .closex{position:absolute; top:11px; right:13px; background:none; border:none; color:var(--muted);
-        font-size:20px; cursor:pointer; line-height:1; font-family:inherit}
+  font-size:20px; cursor:pointer; line-height:1; font-family:inherit}
 .closex:hover{color:var(--text)}
 .flipbtn{background:rgba(181,92,255,.13); border:1px solid var(--accent); color:var(--accent);
-         border-radius:8px; padding:9px 18px; cursor:pointer; font-family:inherit; font-size:13px; margin-top:8px}
+  border-radius:8px; padding:9px 18px; cursor:pointer; font-family:inherit; font-size:13px; margin-top:8px}
 .hidden-content{margin-top:13px; padding:13px 15px; border-left:3px solid var(--accent);
   background:rgba(181,92,255,.07); border-radius:0 8px 8px 0; font-size:13px; line-height:1.7;
   animation:revealUp .45s ease-out}
 @keyframes revealUp{from{opacity:0; transform:translateY(9px)}to{opacity:1; transform:none}}
+.kv{display:grid; grid-template-columns:auto 1fr; gap:4px 12px; font-size:12.5px; margin:10px 0}
+.kv dt{color:var(--muted)}
+.kv dd{margin:0}
 
 .notice{font-size:11.5px; color:var(--muted); padding:7px 11px; border:1px dashed var(--border);
-        border-radius:9px; margin-bottom:13px; line-height:1.55}
+  border-radius:9px; margin-bottom:13px; line-height:1.55}
 .notice b{color:var(--gold)}
+.roadmap{font-size:11.5px; color:var(--muted); line-height:1.6}
+.count{font-size:11px; color:var(--muted); margin-bottom:9px}
 
-.roadmap{font-size:11.5px; color:var(--muted); line-height:1.6; margin-top:6px}
-
-/* ---- NARROW: the bezel dissolves entirely ---- */
 @media(max-width:820px){
   body{padding:0; display:block}
   .tablet{width:100%; height:100vh; height:100dvh; border-radius:0; border:none; padding:0}
   .body{flex-direction:column-reverse; gap:0}
   .screen{border-radius:0; border:none}
   .statusbar{padding:9px 13px}
-  /* dock becomes a bottom bar, which is what a phone actually wants */
   .dock{flex:0 0 auto; flex-direction:row; border-radius:0; border:none;
-        border-top:1px solid var(--border); justify-content:space-around; padding:7px 4px;
-        overflow-x:auto; overflow-y:hidden}
-  .appicon{width:48px; height:48px; font-size:18px}
+    border-top:1px solid var(--border); justify-content:space-around; padding:7px 4px;
+    overflow-x:auto; overflow-y:hidden}
+  .appicon{width:50px; height:50px; font-size:18px}
 }
 </style>
 </head>
 <body>
-
 <div class="tablet">
   <div class="statusbar">
-    <span class="brand">WAH-OS</span>
-    <span>v0.1 · prototype</span>
+    <span class="brand">WAH-OS</span><span>v0.2 · prototype</span>
     <span class="spacer"></span>
-    <span class="pill" id="datePill">Harvestide 30, 1040 BF</span>
+    <span class="pill">Harvestide 30, 1040 BF</span>
     <span class="pill" id="srcPill">loading…</span>
   </div>
-
   <div class="body">
     <div class="dock" id="dock"></div>
     <div class="screen">
       <div class="screenhead">
-        <div>
-          <h1 id="appTitle">Inventory &amp; Wallet</h1>
-          <div class="sub" id="appSub">What this character is carrying, and what they owe.</div>
-        </div>
+        <div><h1 id="appTitle">Inventory &amp; Wallet</h1><div class="sub" id="appSub"></div></div>
         <span class="spacer"></span>
       </div>
       <div class="screenbody" id="screen"></div>
@@ -242,259 +271,323 @@ body{
 </div>
 
 <script>
-/* ======================================================================
-   THE ONE IDEA BEING TESTED
-   A container opens pages. A context lets apps see each other's state.
-   Here, STATE is a single object every app reads, and the dock badge for
-   the wallet recomputes from it on every render — so the badge is correct
-   while you are looking at the inventory, without a navigation.
-   ====================================================================== */
+const PARTY=['archie','markop','hjumpik','remi','bowser'];
 
-const PARTY = ['archie','markop','hjumpik','remi','bowser'];
-
-/* Only the five player wallets matter for this app; the file also holds
-   ~100 NPC and institutional wallets, which are world economy, not "your
-   file". That distinction is the whole taxonomy argument from the notes. */
-const STATE = {
-  who: 'archie',
-  wallets: null, items: null, currencies: null, banking: null,
-  live: false,      // did we get the real canon JSON?
-  openItem: null,
-  flipped: false
+const STATE={
+  app:'carry', who:'archie',
+  wallets:null, items:null, currencies:null, banking:null, shop:null, nations:null,
+  live:false, openItem:null, openNation:null, flipped:false,
+  basket:[],            // in-memory ONLY — a proposal, never a purchase
+  q:'', cat:'', maxPrice:'', lastBadge:{}
 };
 
-/* Fallback used ONLY when opened from file:// where fetch is blocked.
-   Small, clearly marked, and the banner says so — a prototype that
-   silently shows invented numbers is worse than one that fails loudly. */
-const SAMPLE = {
-  wallets:{
-    archie:{name:'Archie Miser',title:'Pyromaniac Merchant',currencies:{gold:-34,silver:6,bronze:18}},
-    markop:{name:'Markop',title:'Legion Associate',currencies:{gold:21,silver:13,bronze:28}},
+const SAMPLE={
+  wallets:{archie:{name:'Archie Miser',title:'Pyromaniac Merchant',currencies:{gold:-34,silver:6,bronze:18}},
+    markop:{name:'Markop Judi',title:'Legion Associate',currencies:{gold:21,silver:13,bronze:28}},
     hjumpik:{name:'Hjumpik',title:'Axe Enthusiast',currencies:{midland_ducat:421,gold:120,silver:180}},
     remi:{name:'Remi',title:'FNG Smith',currencies:{kivotos_credit:5500,gold:180,silver:220}},
-    bowser:{name:'Bowser',title:'Koopa King',currencies:{bowser_bux:75000,gold:8500}}
-  },
-  currencies:[
-    {id:'gold',name:'Gold Piece',icon:'💰',base_value:1},
-    {id:'silver',name:'Silver',icon:'🪙',base_value:.1},
-    {id:'bronze',name:'Bronze',icon:'🟫',base_value:.01},
-    {id:'midland_ducat',name:'Midland Ducat',icon:'🎫',base_value:.8},
-    {id:'kivotos_credit',name:'Kivotos Credit',icon:'💳',base_value:.05},
-    {id:'bowser_bux',name:'Bowser Bux',icon:'🐢',base_value:.02}
-  ],
-  items:{items:[
-    {id:'s1',name:'Battle Plan Napkin',category:'evidence',rarity:'rare',obtainedBy:'FNG Remi',
-     obtainedDate:'Highsun 26, 1040 BF',obtainedLocation:'Shadeward Manor',
-     shortDescription:"Green T's battle plan, scrawled in cranberry sauce.",
-     interactable:true,interactionType:'flip',interactionPrompt:'Turn the napkin over…',
-     hiddenContent:'A map of the lower levels. Three anchors circled.'}
-  ]},
-  banking:{debts:[{id:'d1',creditor:'Wario',debtor:'Archie Miser',currencyKey:'gold',
-     amountOwed:420,status:'overdue',note:'Sample data — the real ledger did not load.'}],
-     bank_accounts:[],loans:[]}
+    bowser:{name:'Bowser',title:'Koopa King',currencies:{bowser_bux:75000,gold:8500}}},
+  currencies:[{id:'gold',name:'Gold Piece',icon:'💰',base_value:1},{id:'silver',name:'Silver',icon:'🪙',base_value:.1},
+    {id:'bronze',name:'Bronze',icon:'🟫',base_value:.01},{id:'midland_ducat',name:'Midland Ducat',icon:'🎫',base_value:.8},
+    {id:'kivotos_credit',name:'Kivotos Credit',icon:'💳',base_value:.05},{id:'bowser_bux',name:'Bowser Bux',icon:'🐢',base_value:.02}],
+  items:{items:[{id:'s1',name:'Battle Plan Napkin',category:'evidence',rarity:'rare',ownerId:'remi',
+    obtainedBy:'FNG Remi',obtainedDate:'Highsun 26, 1040 BF',obtainedLocation:'Shadeward Manor',
+    shortDescription:"Green T's battle plan, in cranberry sauce.",interactable:true,interactionType:'flip',
+    interactionPrompt:'Turn the napkin over…',hiddenContent:'A map of the lower levels. Three anchors circled.'}]},
+  banking:{debts:[{id:'d1',creditor:'Wario',creditorId:'wario',debtor:'Archie Miser',debtorId:'archie',
+    currencyKey:'gold',amountOwed:420,status:'overdue',note:'Sample data — the real ledger did not load.'}],loans:[],bank_accounts:[]},
+  shop:{vendors:{},items:[{id:'x1',name:'Garlic Bread',price:12,category:'consumables',rarity:'common',vendor:'toad_town_market',icon:'🥖'}]},
+  nations:[{id:'mushroom_kingdom',name:'The Mushroom Kingdom',region:'Western Territories'}]
 };
 
-const $ = s => document.querySelector(s);
-const esc = s => String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const $=s=>document.querySelector(s);
+const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const fmt=n=>{const r=Math.round(n*100)/100;return r.toLocaleString(undefined,{maximumFractionDigits:2});};
 
-/* Names in banking.json are display strings ("Archie Miser"), while the
-   wallet keys are ids ("archie"). Matching them is the join that makes the
-   debts panel work at all, so it is fuzzy on purpose and documented. */
-function ownsDebt(walletKey, debtorName){
-  const w = STATE.wallets[walletKey]; if(!w) return false;
-  const a = String(debtorName||'').toLowerCase();
-  const full = String(w.name||'').toLowerCase();
-  return a === full || a === walletKey || a.split(' ')[0] === full.split(' ')[0];
-}
+function currency(id){return (STATE.currencies||[]).find(c=>c.id===id)||{id,name:String(id||'').replace(/_/g,' '),icon:'◈',base_value:0};}
+function goldValue(k){const w=STATE.wallets[k];if(!w)return 0;
+  return Object.entries(w.currencies||{}).reduce((t,[c,v])=>t+v*(currency(c).base_value||0),0);}
 
-function currency(id){
-  return (STATE.currencies||[]).find(c=>c.id===id) || {id,name:id.replace(/_/g,' '),icon:'◈',base_value:0};
-}
-function goldValue(walletKey){
-  const w = STATE.wallets[walletKey]; if(!w) return 0;
-  return Object.entries(w.currencies||{}).reduce((t,[k,v])=>t + v*(currency(k).base_value||0), 0);
-}
-function debtsFor(walletKey){
-  return ((STATE.banking||{}).debts||[]).filter(d=>ownsDebt(walletKey,d.debtor));
-}
-function itemsFor(walletKey){
-  const w = STATE.wallets[walletKey]; if(!w) return [];
-  const first = String(w.name||walletKey).split(' ')[0].toLowerCase();
-  return ((STATE.items||{}).items||[]).filter(i=>{
-    const by = String(i.obtainedBy||'').toLowerCase();
-    return by.includes(first) || by.includes(walletKey);
-  });
-}
-function fmt(n){
-  const r = Math.round(n*100)/100;
-  return r.toLocaleString(undefined,{maximumFractionDigits:2});
-}
+/* The joins are now ID-based. items.json carries ownerId and banking.json
+   carries debtorId etc, both added in the commit before this one, precisely
+   because guessing from display names picked the wrong Archie. */
+function debtsFor(k){return ((STATE.banking||{}).debts||[]).filter(d=>d.debtorId===k);}
+function itemsFor(k){return ((STATE.items||{}).items||[]).filter(i=>i.ownerId===k);}
 
-/* ---- APPS ----------------------------------------------------------
-   Five are locked. They are the roadmap from the notes, shown rather
-   than faked, so the shape of the finished thing is legible without
-   pretending any of it works yet. */
-const APPS = [
-  {id:'inv', icon:'🎒', label:'Carry', title:'Inventory & Wallet',
-   sub:'What this character is carrying, and what they owe.', live:true},
-  {id:'shop', icon:'🛒', label:'Shop', title:'Shop', sub:'Locked in this prototype.'},
-  {id:'standing', icon:'⚖️', label:'Stand', title:'Standing', sub:'Locked in this prototype.'},
-  {id:'intel', icon:'🔍', label:'Intel', title:'Intel Board', sub:'Locked in this prototype.'},
-  {id:'party', icon:'👥', label:'Party', title:'Party', sub:'Locked in this prototype.'},
-  {id:'dice', icon:'🎲', label:'Dice', title:'Dice', sub:'Locked in this prototype.'}
+const APPS=[
+  {id:'carry',icon:'🎒',label:'Carry',title:'Inventory & Wallet',sub:'What this character is carrying, and what they owe.',live:true},
+  {id:'shop', icon:'🛒',label:'Shop', title:'Shop',sub:'Wario\u2019s catalogue. Basket is a proposal, not a purchase.',live:true},
+  {id:'atlas',icon:'🗺️',label:'Atlas',title:'World Atlas',sub:'Every nation in the archive, by crest.',live:true},
+  {id:'standing',icon:'⚖️',label:'Stand',title:'Standing',sub:'Not built yet.'},
+  {id:'intel',icon:'🔍',label:'Intel',title:'Intel Board',sub:'Not built yet.'},
+  {id:'party',icon:'👥',label:'Party',title:'Party',sub:'Not built yet.'},
+  {id:'dice', icon:'🎲',label:'Dice', title:'Dice',sub:'Not built yet.'}
 ];
 
+function basketTotal(){return STATE.basket.reduce((t,b)=>t+(b.price||0),0);}
+
 function renderDock(){
-  const gv = goldValue(STATE.who);
-  const dn = debtsFor(STATE.who).length;
-  $('#dock').innerHTML = APPS.map(a=>{
-    const locked = !a.live;
-    // The badge is computed at render time from shared STATE, which is
-    // precisely the "apps know about each other" behaviour under test.
-    let badge = '';
-    if(a.id==='inv'){
-      if(dn) badge = `<span class="badge">${dn}</span>`;
-      else if(gv>0) badge = `<span class="badge ok">✓</span>`;
+  const gv=goldValue(STATE.who), dn=debtsFor(STATE.who).length, bt=basketTotal();
+  const html=APPS.map(a=>{
+    const locked=!a.live;
+    let badge='';
+    /* These badges are the whole context thesis: each is computed from the
+       shared STATE on every render, so the Carry badge is correct while you
+       are standing in the Shop, and the Shop badge is correct from Carry. */
+    if(a.id==='carry'){
+      if(dn) badge=`<span class="badge" data-k="carry">${dn}</span>`;
+      else if(gv>0) badge=`<span class="badge ok" data-k="carry">✓</span>`;
     }
-    return `<div class="appicon ${locked?'locked':''} ${a.id==='inv'?'active':''}"
-       title="${esc(locked?a.title+' — not built yet':a.title)}"
-       ${locked?'':`onclick="openApp('${a.id}')"`}>
-      <span>${a.icon}</span><span class="lbl">${esc(a.label)}</span>${badge}</div>`;
+    if(a.id==='shop' && STATE.basket.length)
+      badge=`<span class="badge cart" data-k="shop">${STATE.basket.length}</span>`;
+    return `<div class="appicon ${locked?'locked':''} ${a.id===STATE.app?'active':''}"
+      title="${esc(locked?a.title+' — not built yet':a.title)}"
+      ${locked?'':`onclick="go('${a.id}')"`}><span>${a.icon}</span>
+      <span class="lbl">${esc(a.label)}</span>${badge}</div>`;
   }).join('');
+  $('#dock').innerHTML=html;
+  // pulse any badge whose value changed since the last render
+  document.querySelectorAll('#dock .badge').forEach(b=>{
+    const k=b.dataset.k, v=b.textContent;
+    if(STATE.lastBadge[k]!==undefined && STATE.lastBadge[k]!==v) b.classList.add('pop');
+    STATE.lastBadge[k]=v;
+  });
 }
 
-function openApp(){ render(); }
+function go(app){ STATE.app=app; STATE.openItem=null; STATE.openNation=null;
+  location.hash='#/'+app; render(); }
 
-function render(){
-  renderDock();
-  const w = STATE.wallets[STATE.who] || {};
-  const gv = goldValue(STATE.who);
-  const debts = debtsFor(STATE.who);
-  const items = itemsFor(STATE.who);
+function whoBar(){
+  const gv=goldValue(STATE.who);
+  return `<div class="who">${PARTY.filter(p=>STATE.wallets[p]).map(p=>
+    `<button class="${p===STATE.who?'on':''}" onclick="pick('${p}')">${esc(STATE.wallets[p].name||p)}</button>`).join('')}
+    <span class="purse">purse <b class="${gv<0?'neg':''}">${fmt(gv)}g</b></span></div>`;
+}
+function pick(p){STATE.who=p; STATE.openItem=null; render();}
 
-  const who = `<div class="who">${PARTY.filter(p=>STATE.wallets[p]).map(p=>
-    `<button class="${p===STATE.who?'on':''}" onclick="pick('${p}')">${esc((STATE.wallets[p]||{}).name||p)}</button>`
-  ).join('')}</div>`;
+/* ---------- CARRY ---------- */
+function viewCarry(){
+  const w=STATE.wallets[STATE.who]||{}, gv=goldValue(STATE.who);
+  const debts=debtsFor(STATE.who), items=itemsFor(STATE.who), bt=basketTotal();
+  const coins=Object.entries(w.currencies||{})
+    .sort((a,b)=>Math.abs(b[1]*(currency(b[0]).base_value||0))-Math.abs(a[1]*(currency(a[0]).base_value||0)))
+    .map(([k,v])=>{const c=currency(k),g=v*(c.base_value||0);
+      return `<div class="coin"><span class="ic">${c.icon||'◈'}</span><span class="nm">${esc(c.name||k)}</span>
+        <span class="amt ${v<0?'neg':''}">${fmt(v)}</span><span class="gv">${g?fmt(g)+'g':'—'}</span></div>`;}).join('')
+    ||'<div class="empty">No currency recorded.</div>';
 
-  const notice = STATE.live ? '' :
-    `<div class="notice"><b>Sample data.</b> The canon JSON under
-     <code>../Reputation-Matrix2/data/</code> could not be read — this usually means the
-     file was opened directly from disk rather than served. Run <code>python3 start.py</code>
-     and open it over http to see the real wallets, items and ledger.</div>`;
-
-  const coins = Object.entries(w.currencies||{})
-    .sort((a,b)=>Math.abs(b[1]*(currency(b[0]).base_value||0)) - Math.abs(a[1]*(currency(a[0]).base_value||0)))
-    .map(([k,v])=>{
-      const c = currency(k), g = v*(c.base_value||0);
-      return `<div class="coin"><span class="ic">${c.icon||'◈'}</span>
-        <span class="nm">${esc(c.name||k)}</span>
-        <span class="amt ${v<0?'neg':''}">${fmt(v)}</span>
-        <span class="gv">${g?fmt(g)+'g':'—'}</span></div>`;
-    }).join('') || '<div class="empty">No currency recorded.</div>';
-
-  const debtHtml = debts.length ? debts.map(d=>{
-    const c = currency(d.currencyKey||'gold');
-    return `<div class="debt ${d.status==='overdue'?'overdue':''}">
-      <div class="top"><span>to ${esc(d.creditor)}${d.status==='overdue'?'<span class="tag">overdue</span>':''}</span>
+  const debtHtml=debts.length?debts.map(d=>{const c=currency(d.currencyKey||'gold');
+    return `<div class="debt ${d.status==='overdue'?'overdue':''}"><div class="top">
+      <span>to ${esc(d.creditor)}${d.creditorId?'':'<span class="tag inst">institution</span>'}${d.status==='overdue'?'<span class="tag">overdue</span>':''}</span>
       <span class="amt">${c.icon||''} ${fmt(d.amountOwed||d.originalAmount||0)}</span></div>
-      ${d.note?`<div class="note">${esc(d.note)}</div>`:''}</div>`;
-  }).join('') : '<div class="empty">Owes nothing. Rare, and probably temporary.</div>';
+      ${d.note?`<div class="note">${esc(d.note)}</div>`:''}</div>`;}).join('')
+    :'<div class="empty">Owes nothing. Rare, and probably temporary.</div>';
 
-  const itemHtml = items.length ? `<div class="invgrid">${items.map(i=>`
+  const itemHtml=items.length?`<div class="invgrid">${items.map(i=>`
     <div class="item" onclick="openItem('${esc(i.id)}')">
       <span class="rar r-${esc(i.rarity||'common')}">${esc(i.rarity||'common')}</span>
       <div class="nm">${esc(i.name)}</div>
       <div class="meta">${esc(i.obtainedDate||'')}<br>${esc(i.obtainedLocation||'')}</div>
     </div>`).join('')}</div>`
-    : `<div class="empty">Nothing in the item ledger is recorded as obtained by
-       ${esc(w.name||STATE.who)}.<br>Items are matched on <code>obtainedBy</code>, so anything
-       filed to "Party (Collective)" shows under nobody.</div>`;
+    :`<div class="empty">Nothing in the item ledger is owned by ${esc(w.name||STATE.who)}.</div>`;
 
-  $('#screen').innerHTML = `
-    ${notice}
-    ${who}
-    <div class="split">
-      <div>
-        <div class="card">
-          <h2>Net worth</h2>
-          <div class="networth ${gv<0?'neg':''}">${fmt(gv)}<small>gold equivalent · ${esc(w.title||'')}</small></div>
-          <div class="coins">${coins}</div>
-        </div>
-        <div class="card">
-          <h2>Owed${debts.length?` · ${debts.length}`:''}</h2>
-          ${debtHtml}
-        </div>
-      </div>
-      <div>
-        <div class="card">
-          <h2>Carried${items.length?` · ${items.length}`:''}</h2>
-          ${itemHtml}
-        </div>
-        <div class="card">
-          <h2>Why these two are one app</h2>
-          <div class="roadmap">
-            The notes argued a tablet is only worth building as a context, not a launcher.
-            This is the test: the money and the things are the same question — what does this
-            character actually have? Archie's net worth is negative <em>and</em> he is carrying
-            four recovered items <em>and</em> Wario is owed money by him, and those three facts
-            live in three different files that no page currently shows together.
-            Watch the 🎒 badge in the dock: it counts his debts and turns green when a
-            character is solvent, and it is correct without navigating anywhere.
-          </div>
-        </div>
-      </div>
+  /* The basket shows up HERE, in a different app, which is the point. */
+  const proj=bt?`<div class="card"><h2>Pending in the shop</h2>
+    <div class="after"><span>${STATE.basket.length} item${STATE.basket.length>1?'s':''} in the basket</span><b>${fmt(bt)}g</b></div>
+    <div class="after"><span>purse if approved</span><b class="${gv-bt<0?'neg':'ok'}">${fmt(gv-bt)}g</b></div>
+    <div class="roadmap" style="margin-top:8px">Nothing has been bought. A basket is a proposal a DM approves.</div></div>`:'';
+
+  return `${whoBar()}<div class="split">
+    <div>
+      <div class="card"><h2>Net worth</h2>
+        <div class="networth ${gv<0?'neg':''}">${fmt(gv)}<small>gold equivalent · ${esc(w.title||'')}</small></div>
+        <div class="coins">${coins}</div></div>
+      ${proj}
+      <div class="card"><h2>Owed${debts.length?` · ${debts.length}`:''}</h2>${debtHtml}</div>
     </div>
-    ${STATE.openItem?itemSheet():''}
-  `;
+    <div><div class="card"><h2>Carried${items.length?` · ${items.length}`:''}</h2>${itemHtml}</div></div>
+  </div>`;
 }
 
-function pick(p){ STATE.who=p; STATE.openItem=null; STATE.flipped=false; render(); }
-function openItem(id){
-  STATE.openItem = ((STATE.items||{}).items||[]).find(i=>i.id===id)||null;
-  STATE.flipped=false; render();
+/* ---------- SHOP ---------- */
+function shopItems(){
+  const all=(STATE.shop||{}).items||[];
+  const q=STATE.q.trim().toLowerCase(), cat=STATE.cat, mx=parseFloat(STATE.maxPrice);
+  let out=all;
+  if(q) out=out.filter(i=>i.name.toLowerCase().includes(q)||String(i.vendor||'').toLowerCase().includes(q));
+  if(cat) out=out.filter(i=>i.category===cat);
+  if(!isNaN(mx)) out=out.filter(i=>(i.price||0)<=mx);
+  return out;
 }
-function closeItem(){ STATE.openItem=null; STATE.flipped=false; render(); }
-function flip(){ STATE.flipped=true; render(); }
+function viewShop(){
+  const gv=goldValue(STATE.who), bt=basketTotal(), spend=gv-bt;
+  const all=(STATE.shop||{}).items||[];
+  const cats=[...new Set(all.map(i=>i.category).filter(Boolean))].sort();
+  const found=shopItems();
+  const shown=found.slice(0,60);   // 7,722 items; render a page, not the lot
+  const vend=(STATE.shop||{}).vendors||{};
 
+  const grid=shown.map(i=>{
+    const afford=(i.price||0)<=spend;
+    const v=vend[i.vendor];
+    return `<div class="sitem ${afford?'':'unafford'}">
+      <span class="ic">${i.icon||'📦'}</span>
+      <div class="nm">${esc(i.name)}</div>
+      <div class="vd">${esc(v?v.name:(i.vendor||'unlisted vendor'))}${i.rarity?' · '+esc(i.rarity):''}</div>
+      <div class="row"><span class="pr ${afford?'':'cant'}">${fmt(i.price||0)}g</span>
+      <button ${afford?'':'disabled'} onclick="addBasket('${esc(i.id)}')">${afford?'Add':'Too dear'}</button></div></div>`;
+  }).join('');
+
+  const bl=STATE.basket.length?STATE.basket.map((b,n)=>`<div class="brow">
+      <span class="bn">${esc(b.name)}</span><span class="bp">${fmt(b.price)}g</span>
+      <button class="bx" onclick="rmBasket(${n})" title="remove">✕</button></div>`).join('')
+    :'<div class="empty">Basket empty.</div>';
+
+  return `${whoBar()}
+  <div class="split">
+    <div class="basket">
+      <div class="card"><h2>Basket</h2>${bl}
+        ${STATE.basket.length?`<div class="btot"><span>Total</span><span class="v">${fmt(bt)}g</span></div>
+        <div class="after"><span>${esc((STATE.wallets[STATE.who]||{}).name||'')} has</span><b>${fmt(gv)}g</b></div>
+        <div class="after"><span>after</span><b class="${spend<0?'neg':'ok'}">${fmt(spend)}g</b></div>
+        ${spend<0?`<div class="warn">This basket costs more than the purse holds. In the archive that is not a blocked button, it is a debt — and Wario keeps a ledger.</div>`:''}
+        <div class="roadmap" style="margin-top:9px">Watch the 🎒 badge and the Carry app: both already know about this basket.</div>`:''}
+      </div>
+      <div class="card"><h2>Why a basket, not a buy</h2>
+        <div class="roadmap">Purchases in this archive are DM-approved — <code>shop-purchases.json</code>
+        records <code>approvedBy</code> and an <code>approvedAt</code> timestamp. A prototype that wrote
+        straight to a wallet would be forging that approval, so this proposes and never commits.</div></div>
+    </div>
+    <div>
+      <div class="filters">
+        <input id="q" placeholder="Search ${all.length.toLocaleString()} items…" value="${esc(STATE.q)}"
+          oninput="STATE.q=this.value;softRender('q')">
+        <select onchange="STATE.cat=this.value;render()">
+          <option value="">All categories</option>
+          ${cats.map(c=>`<option value="${esc(c)}" ${c===STATE.cat?'selected':''}>${esc(c)}</option>`).join('')}
+        </select>
+        <select onchange="STATE.maxPrice=this.value;render()">
+          <option value="">Any price</option>
+          ${['50','100','500','1000','5000'].map(p=>`<option value="${p}" ${p===STATE.maxPrice?'selected':''}>under ${p}g</option>`).join('')}
+        </select>
+        <select onchange="STATE.maxPrice=String(Math.max(0,Math.floor(${spend})));render()">
+          <option>…</option><option value="afford">Only what they can afford</option>
+        </select>
+      </div>
+      <div class="count">${found.length.toLocaleString()} match${found.length===1?'':'es'}${found.length>shown.length?` · showing first ${shown.length}`:''}</div>
+      <div class="shopgrid">${grid||'<div class="empty">Nothing matches.</div>'}</div>
+    </div>
+  </div>`;
+}
+function addBasket(id){
+  const i=((STATE.shop||{}).items||[]).find(x=>x.id===id); if(!i)return;
+  STATE.basket.push({id:i.id,name:i.name,price:i.price||0}); render();
+}
+function rmBasket(n){STATE.basket.splice(n,1); render();}
+
+/* ---------- ATLAS ---------- */
+function viewAtlas(){
+  const nats=STATE.nations||[];
+  const q=STATE.q.trim().toLowerCase();
+  const list=q?nats.filter(n=>String(n.name||'').toLowerCase().includes(q)||String(n.region||'').toLowerCase().includes(q)):nats;
+  return `<div class="filters">
+      <input placeholder="Search ${nats.length} nations…" value="${esc(STATE.q)}" oninput="STATE.q=this.value;softRender('q')">
+    </div>
+    <div class="count">${list.length} of ${nats.length}</div>
+    <div class="atlasgrid">${list.map(n=>`
+      <div class="nat" onclick="openNation('${esc(n.id)}')">
+        <img src="../Reputation-Matrix2/banners/${esc(n.id)}.png" alt="${esc(n.name)} crest" loading="lazy"
+             onerror="this.outerHTML='<div class=&quot;noart&quot;>🏳️</div>'">
+        <div class="nm">${esc(n.name)}</div>
+        <div class="rg">${esc(n.region||n.nationCategory||'')}</div>
+      </div>`).join('')}</div>`;
+}
+function openNation(id){STATE.openNation=(STATE.nations||[]).find(n=>n.id===id)||null; render();}
+
+/* ---------- SHEETS ---------- */
 function itemSheet(){
-  const i = STATE.openItem;
-  return `<div class="sheet" onclick="if(event.target===this)closeItem()">
-    <div class="sheetbox">
-      <button class="closex" onclick="closeItem()">✕</button>
-      <h3>${esc(i.name)}</h3>
-      <div class="sub">${esc(i.rarity||'')} · ${esc(i.category||'')} · obtained by ${esc(i.obtainedBy||'?')}
-        ${i.obtainedDate?' · '+esc(i.obtainedDate):''}</div>
-      <p>${esc(i.fullDescription||i.shortDescription||'')}</p>
-      ${i.interactable&&i.hiddenContent ? (
-        STATE.flipped
-          ? `<div class="hidden-content">${esc(i.hiddenContent)}</div>`
-          : `<button class="flipbtn" onclick="flip()">${esc(i.interactionPrompt||'Examine…')}</button>`
-      ) : ''}
-    </div></div>`;
+  const i=STATE.openItem;
+  return `<div class="sheet" onclick="if(event.target===this)closeSheet()"><div class="sheetbox">
+    <button class="closex" onclick="closeSheet()">✕</button>
+    <h3>${esc(i.name)}</h3>
+    <div class="sub">${esc(i.rarity||'')} · ${esc(i.category||'')} · obtained by ${esc(i.obtainedBy||'?')}${i.obtainedDate?' · '+esc(i.obtainedDate):''}</div>
+    ${i.custodyNote?`<div class="notice">${esc(i.custodyNote)}</div>`:''}
+    <p>${esc(i.fullDescription||i.shortDescription||'')}</p>
+    ${i.interactable&&i.hiddenContent?(STATE.flipped
+      ?`<div class="hidden-content">${esc(i.hiddenContent)}</div>`
+      :`<button class="flipbtn" onclick="STATE.flipped=true;render()">${esc(i.interactionPrompt||'Examine…')}</button>`):''}
+  </div></div>`;
+}
+function nationSheet(){
+  const n=STATE.openNation;
+  return `<div class="sheet" onclick="if(event.target===this)closeSheet()"><div class="sheetbox">
+    <button class="closex" onclick="closeSheet()">✕</button>
+    <img class="crest" src="../Reputation-Matrix2/banners/${esc(n.id)}.png" alt="" onerror="this.remove()">
+    <h3>${esc(n.name)}</h3>
+    <div class="sub">${esc(n.region||'')}${n.nationCategory?' · '+esc(n.nationCategory):''}</div>
+    <dl class="kv">
+      ${n.population?`<dt>Population</dt><dd>${esc(n.population)}</dd>`:''}
+      ${n.status?`<dt>Status</dt><dd>${esc(n.status)}</dd>`:''}
+      ${n.controllingFaction?`<dt>Control</dt><dd>${esc(n.controllingFaction)}</dd>`:''}
+    </dl>
+    <p>${esc(n.summary||n.description||'')}</p>
+  </div></div>`;
+}
+function openItem(id){STATE.openItem=((STATE.items||{}).items||[]).find(i=>i.id===id)||null;STATE.flipped=false;render();}
+function closeSheet(){STATE.openItem=null;STATE.openNation=null;STATE.flipped=false;render();}
+
+/* ---------- RENDER ---------- */
+function render(){
+  renderDock();
+  const a=APPS.find(x=>x.id===STATE.app)||APPS[0];
+  $('#appTitle').textContent=a.title;
+  $('#appSub').textContent=a.sub;
+  const notice=STATE.live?'':`<div class="notice"><b>Sample data.</b> The canon JSON under
+    <code>../Reputation-Matrix2/data/</code> could not be read — usually because the file was opened
+    from disk rather than served. Run <code>python3 start.py</code> and open it over http.</div>`;
+  let body='';
+  if(STATE.app==='carry') body=viewCarry();
+  else if(STATE.app==='shop') body=viewShop();
+  else if(STATE.app==='atlas') body=viewAtlas();
+  $('#screen').innerHTML=notice+body+(STATE.openItem?itemSheet():'')+(STATE.openNation?nationSheet():'');
+}
+/* Re-render without stealing focus from the box being typed in. */
+let _t=null;
+function softRender(focusId){
+  clearTimeout(_t);
+  _t=setTimeout(()=>{
+    const el=document.getElementById(focusId);
+    const pos=el?el.selectionStart:null;
+    render();
+    const n=document.getElementById(focusId)||document.querySelector('.filters input');
+    if(n){n.focus(); if(pos!=null&&n.setSelectionRange)n.setSelectionRange(pos,pos);}
+  },160);
 }
 
-/* ---- BOOT ---- */
 async function boot(){
-  const base = '../Reputation-Matrix2/data/';
+  const base='../Reputation-Matrix2/data/';
   try{
-    const [w,it,cu,bk] = await Promise.all([
-      fetch(base+'commerce/wallets.json').then(r=>r.json()),
-      fetch(base+'commerce/items.json').then(r=>r.json()),
-      fetch(base+'currencies.json').then(r=>r.json()),
-      fetch(base+'banking.json').then(r=>r.json())
-    ]);
+    const j=u=>fetch(u).then(r=>{if(!r.ok)throw new Error(r.status);return r.json();});
+    const [w,it,cu,bk,sh,na]=await Promise.all([
+      j(base+'commerce/wallets.json'), j(base+'commerce/items.json'), j(base+'currencies.json'),
+      j(base+'banking.json'), j(base+'commerce/shop-index.json'), j(base+'nations.json')]);
     STATE.wallets=w; STATE.items=it; STATE.currencies=cu.currencies||cu; STATE.banking=bk;
-    STATE.live=true;
-    $('#srcPill').textContent='canon data';
+    STATE.shop=sh; STATE.nations=Array.isArray(na)?na:(na.nations||[]);
+    STATE.live=true; $('#srcPill').textContent='canon data';
   }catch(e){
-    STATE.wallets=SAMPLE.wallets; STATE.items=SAMPLE.items;
-    STATE.currencies=SAMPLE.currencies; STATE.banking=SAMPLE.banking;
-    STATE.live=false;
-    $('#srcPill').textContent='sample data';
+    Object.assign(STATE,{wallets:SAMPLE.wallets,items:SAMPLE.items,currencies:SAMPLE.currencies,
+      banking:SAMPLE.banking,shop:SAMPLE.shop,nations:SAMPLE.nations,live:false});
+    $('#srcPill').textContent='sample data'; $('#srcPill').classList.add('warn');
   }
-  if(!STATE.wallets[STATE.who]) STATE.who = PARTY.find(p=>STATE.wallets[p]) || Object.keys(STATE.wallets)[0];
+  if(!STATE.wallets[STATE.who]) STATE.who=PARTY.find(p=>STATE.wallets[p])||Object.keys(STATE.wallets)[0];
+  const h=(location.hash||'').replace(/^#\//,'');
+  if(APPS.some(a=>a.id===h&&a.live)) STATE.app=h;
   render();
 }
+addEventListener('hashchange',()=>{
+  const h=(location.hash||'').replace(/^#\//,'');
+  if(APPS.some(a=>a.id===h&&a.live)&&h!==STATE.app){STATE.app=h;render();}
+});
 boot();
 </script>
 </body>
