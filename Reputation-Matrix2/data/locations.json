@@ -2264,7 +2264,10 @@
       "Rooftop helicopter pad used after the Mount Ebott surface extraction",
       "Debriefing Level 3, with sterile corridors and camera coverage",
       "Command briefing room with mirrored glass and document intake staff",
-      "Secondary holding/interview chamber used for Mihawk's debrief"
+      "Secondary holding/interview chamber used for Mihawk's debrief",
+      "Decayed iron gates",
+      "Ancient murals depicting old battles",
+      "Overgrown with local flora"
     ],
     "relatedArticles": [
       "mount_ebott_survey_final_log",
@@ -2277,7 +2280,13 @@
     "plane": "material",
     "planeConfidence": "medium",
     "planeClue": "no planar markers — Material by default",
-    "image": "assets/images/locations/legion_embassy_old_world.jpg"
+    "image": "assets/images/locations/legion_embassy_old_world.jpg",
+    "aliases": [
+      "iron_legion_old_world_embassy"
+    ],
+    "mergedFrom": [
+      "iron_legion_old_world_embassy"
+    ]
   },
   {
     "id": "gamma_high_command_spire",
@@ -2410,36 +2419,6 @@
     "planeClue": "no planar markers — Material by default"
   },
   {
-    "id": "iron_legion_old_world_embassy",
-    "name": "Iron Legion Old World Embassy",
-    "type": "Embassy/Fortress",
-    "region": "Regal Empire (Central) / Old World (Northern Reach)",
-    "status": "Generated — review",
-    "summary": "The Iron Legion Old World Embassy stands as a relic of ancient alliances and rivalries, its stone walls now crumbling under the elements and potential warlord attentions.",
-    "description": "The Iron Legion Old World Embassy: A Monument to Forgotten Alliances Set amidst a vast expanse of rolling hills that stretch into the horizon, where the winds whisper tales of bygone eras and forgotten wars, stands the Iron Legion Old World Embassy. This structure is a testament to an age long past when the world was young, its history etched deeply into the very stones that make up its walls. The embassy's foundation dates back to the early years of the Old World, a time when nations were still forming and alliances were as fragile as they were powerful. The Iron Legion, a formidable military force known for its iron discipline and unyielding loyalty, was instrumental in shaping the political landscape during this tumultuous period. The embassy itself served as a diplomatic hub where representatives from various factions came to forge peace treaties and negotiate terms of mutual benefit. The building's architecture is an amalgamation of styles that reflect the diverse cultures it has witnessed over centuries. Its exterior is dominated by towering stone columns that support an elaborate frieze depicting scenes from battles fought in the distant past. The walls, once a vibrant hue of red and gold, have faded with time to a dull gray, but they still retain their imposing presence. Windows, now partially obscured by ivy and other climbing plants, offer glimpses into rooms where many important decisions were made. Inside, the embassy is a labyrinthine structure, with corridors lined with portraits of past leaders and maps that trace the routes of ancient armies. The grand hall, once the site of elaborate banquets and diplomatic discussions, now echoes with silence save for the occasional creaking of old timbers. Statues of Iron Legion heroes stand guard, their expressions stern and unwavering, embodying the legacy they represent. Despite its historical significance, the embassy has seen better days. The ravages of time have taken their toll, leaving the structure in a state of disrepair. Cracks snake through the walls, and patches of moss grow where once there was only stone. Yet, it remains a place of reverence for those who understand its importance. The Iron Legion Old World Embassy has been the target of several attempts by various factions seeking to exploit its historical value. Warlords and mercenaries have shown interest in acquiring this relic, hoping to use its prestige to bolster their own standing or as leverage in future negotiations. However, these endeavors have thus far met with little success due to its remote location and the complex security measures put into place by former guardians. In recent times, there has been increased activity around the area, drawing the attention of curious visitors and potential threats alike. Scholars from various disciplines visit regularly to study the artifacts found within, piecing together the stories of those who have come before. Local legends speak of hidden treasures buried beneath the embassy's foundations, but these tales remain unverified by modern exploration. The embassy has seen many changes throughout its existence. During one significant period, it was used as a training ground for young members of the Iron Legion, where they were taught not only military strategy but also the importance of diplomacy in times of conflict and peace. The courtyard became a space for parades and ceremonies marking important events both domestic and international. The structure's significance extends beyond mere historical interest; it serves as an educational tool for studying the evolution of architecture and engineering techniques employed during its construction era. Specialists from all over have come to examine its design, noting advancements in building materials and construction methods that set it apart from contemporaries. Despite its current state, efforts are underway to preserve this landmark. Restoration projects aim to stabilize the structure before it collapses completely, ensuring that future generations can appreciate its beauty and learn from its past. Volunteers work tirelessly under the supervision of experts, restoring not just the physical aspects but also preserving oral histories passed down through generations about the embassy’s role in shaping the Old World. Visitors today who choose to explore this historic site are invited to step back into a world where power was forged through alliances and diplomacy rather than sheer military might. They can walk among the remnants of agreements that shaped empires, marvel at the craftsmanship evident in every pillar and architrave, and reflect on the lessons learned from those who walked these halls centuries ago. As twilight approaches, the embassy becomes even more striking against the backdrop of a fading sky. Shadows stretch long across the courtyard, casting an almost ethereal glow over the structures' remains. It is during these moments that one feels closest to the spirit of the place, where past and present converge in a shared reverence for history. In conclusion, the Iron Legion Old World Embassy stands as more than just a relic; it embodies resilience against time’s relentless march while offering valuable insights into how diplomacy has played crucial roles throughout history. Its enduring presence serves as both a reminder of what once was and an inspiration towards understanding the complexities of human interaction across different eras.",
-    "notableFeatures": [
-      "Decayed iron gates",
-      "Ancient murals depicting old battles",
-      "Overgrown with local flora"
-    ],
-    "relatedArticles": [
-      "iron_legion_old_world_embassy"
-    ],
-    "population": "Rarely inhabited, but occasional patrols or Skaven raiders",
-    "climate": "Temperate to cold, depending on the time of year and specific location within the embassy.",
-    "controllingFaction": "Unrecorded; possibly under Skaven control due to recent disturbances.",
-    "_generated": {
-      "by": "tools/genkit",
-      "system": "locations",
-      "model": "qwen2.5-7b-instruct-1m",
-      "at": "2026-08-31T04:43:34+00:00"
-    },
-    "plane": "material",
-    "planeConfidence": "medium",
-    "planeClue": "no planar markers — Material by default",
-    "image": "assets/images/locations/iron_legion_old_world_embassy.jpg"
-  },
-  {
     "id": "ruins_of_rohan_hillfort",
     "name": "Ruinsof Rohan Hillfort",
     "type": "Location",
@@ -2561,37 +2540,6 @@
     "planeConfidence": "medium",
     "planeClue": "no planar markers — Material by default",
     "image": "assets/images/locations/the_mushroom_regency_hall_of_records.jpg"
-  },
-  {
-    "id": "ruins_of_the_mushroom_kingdom_capitol",
-    "name": "Ruins of the Mushroom Capitol",
-    "type": "Location/Abandoned Capital City",
-    "region": "Underrepresented region of former Eastern Marches, Mushroom Kingdom",
-    "status": "Generated — review",
-    "summary": "The Ruins of the Mushroom Capitol stand as a testament to the grandeur and eventual fall of Princess Peach's monarchy. Once bustling with activity, it now lies in shambles, with remnants of its former glory scattered across the landscape.",
-    "description": "**The Ruins of the Mushroom Capitol** Deep within the heart of the vast Mushroom Kingdom territory lie the remains of what was once known as the Mushroom Capitol, the grand and opulent seat of power for Princess Peach's monarchy. This once-thriving city is a relic from a bygone era, its glory long since faded but still vivid in the minds of those who visited it at its peak. ### Origins The Mushroom Capitol began as a modest village with humble beginnings under the rule of the first known monarch, King Toadstool I. Over time, this small settlement grew into a bustling metropolis that housed an array of citizens and visitors from all corners of the Mushroom Kingdom. The city was strategically built around a central hub where the most important buildings stood: the Royal Palace, the Council Chambers, and the Great Market Square. Princess Peach, who ascended to the throne after King Toadstool's passing, took great pride in expanding upon her father’s legacy. She envisioned a grand city that would not only serve as the administrative heart of the Mushroom Kingdom but also as an international hub for trade and diplomacy. Under her guidance, architects and craftsmen were brought from all over to contribute their skills, resulting in a unique blend of styles that reflected the diverse cultures within the kingdom. The cornerstone of this expansion was the Royal Palace itself, which stood majestically at the center of the city. Its architecture was a marvel of engineering, featuring towering spires that reached towards the sky and intricate carvings adorning every surface. The interiors were equally impressive, with grand halls adorned with golden chandeliers and ornate tapestries. Princess Peach’s personal apartments, located in one wing, were rumored to be even more luxurious, filled with rare artifacts and priceless works of art. ### Prosperity and Splendor During the Golden Age of the Mushroom Capitol, the city thrived under the leadership of Princess Peach. Trade routes from distant lands brought exotic goods that enriched the kingdom’s coffers, while advancements in agriculture and industry increased the populace's standard of living. The city became a beacon of progress and innovation, attracting scholars, artists, and entrepreneurs from far beyond the Mushroom Kingdom borders. The Great Market Square was the bustling epicenter of this prosperity. Here, merchants from across the land set up stalls selling everything from rare fruits to intricate machinery. Festivals held in the square were legendary affairs, drawing visitors not just from within the kingdom but also from neighboring lands eager to celebrate and partake in the festivities. ### The Decline Unfortunately, all good things must come to an end. The prosperity of the Mushroom Capitol was short-lived due to a series of events that would ultimately lead to its downfall. A series of internal disputes over succession and power led to a period of civil unrest, threatening the stability of the monarchy itself. Princess Peach, though beloved by many, found herself embroiled in bitter feuds with those who sought to undermine her authority. The external pressures did not help matters either. The Mushroom Kingdom faced a series of invasions from neighboring kingdoms that were envious of its wealth and prosperity. While the kingdom managed to fend off these threats for some time, the constant strain on resources and manpower began to wear down the city’s defenses. ### The Final Fall The turning point came with the invasion led by Bowser III, the King of Koopa Land. Despite the valiant efforts of the Mushroom Kingdom's military forces, the sheer numerical superiority and superior tactics of the invaders proved too much for them. The Royal Palace was besieged, and after a fierce but ultimately unsuccessful defense, it fell into enemy hands. Bowser’s army proceeded to loot and burn, leaving the once-great city in ruins. Princess Peach was captured during this chaotic period, leading to an extended period of occupation by Koopa forces. During this time, many citizens fled or were forcibly removed from their homes, abandoning the city to its fate. ### Preservation and Ruin In the decades that followed, the Mushroom Capitol became a ghost town, gradually falling into ruin. The once-proud structures now stood as silent witnesses to the city’s decline. Overgrowth took root in the streets, vines wrapping around columns and crumbling walls. Weathering over time further eroded what little remained of the grand architecture. Today, the Ruins of the Mushroom Capitol stand as a haunting reminder of the city's past glory. Visitors are often struck by the sheer scale of destruction, with towering spires now half-buried in debris or leaning precariously toward collapse. The Great Market Square is overrun by nature, grass and shrubs growing through cracks in the stone paving. Ruins of buildings dot the landscape, some still partially standing while others lie completely in rubble. ### Cultural Significance Despite its current state, the Ruins of the Mushroom Capitol hold immense cultural significance for the Mushroom Kingdom. It serves as a poignant symbol of resilience and recovery. Local folklore recounts tales of brave heroes who emerged from these ruins to reclaim their homeland’s honor. Many believe that within these walls lies untold treasure, treasures not just in terms of wealth but also in history and heritage. ### Exploration Exploring the ruins is an experience that offers visitors a unique insight into the grandeur of the past. The structures are vast and varied; some rooms still hold remnants of the luxurious decor they once boasted—tapestries now tattered, gold leaf peeling from walls. The air carries a mix of nostalgia and melancholy, as one walks through spaces where bustling markets once thrived. Despite the challenges posed by the deteriorating condition of the ruins, efforts are being made to preserve what remains of this historical site. Archaeologists work tirelessly to uncover artifacts that can provide insights into daily life in the city during its peak years. These discoveries enrich our understanding not only of the Mushroom Capitol but also of the broader cultural context within which it existed. ### Conclusion The Ruins of the Mushroom Capitol are more than just a place of historical importance; they are a testament to the cyclical nature of power and prosperity. They stand as a reminder that even in times of triumph, caution is necessary, for without careful management, even the grandest cities can fall into ruin. Yet, they also offer hope: every brick, every stone tells a story of resilience and the enduring spirit of those who once called this place home.",
-    "notableFeatures": [
-      "Imposing stone walls that still show traces of golden paint",
-      "The Star Fountain, partially buried under rubble",
-      "Peach's Castle, barely standing"
-    ],
-    "relatedArticles": [
-      "mushroom_regency",
-      "peach_s_castle"
-    ],
-    "population": "None",
-    "climate": "Variable due to the region's proximity to various weather patterns and the entropy of the Shadowfell",
-    "controllingFaction": "Unrecorded",
-    "_generated": {
-      "by": "tools/genkit",
-      "system": "locations",
-      "model": "qwen2.5-7b-instruct-1m",
-      "at": "2026-08-31T04:47:31+00:00"
-    },
-    "plane": "material",
-    "planeConfidence": "medium",
-    "planeClue": "no planar markers — Material by default",
-    "image": "assets/images/locations/ruins_of_the_mushroom_capitol.jpg"
   },
   {
     "id": "ruins_of_the_koopa_troop_barracks",
@@ -2942,11 +2890,14 @@
     "notableFeatures": [
       "Once-magnificent central spire partially collapsed",
       "Scattered statues of former monarchs and nobility",
-      "Overgrown gardens with remnants of formal design"
+      "Overgrown gardens with remnants of formal design",
+      "Imposing stone walls that still show traces of golden paint",
+      "The Star Fountain, partially buried under rubble",
+      "Peach's Castle, barely standing"
     ],
     "relatedArticles": [
       "mushroom_regency",
-      "ruins_of_the_mushroom_kingdom_capitol"
+      "peach_s_castle"
     ],
     "population": "None",
     "climate": "Moderate, influenced by the surrounding Mushroom Regency",
@@ -2960,7 +2911,13 @@
     "plane": "material",
     "planeConfidence": "medium",
     "planeClue": "no planar markers — Material by default",
-    "image": "assets/images/locations/ruins_of_the_mushroom_capitol.jpg"
+    "image": "assets/images/locations/ruins_of_the_mushroom_capitol.jpg",
+    "aliases": [
+      "ruins_of_the_mushroom_kingdom_capitol"
+    ],
+    "mergedFrom": [
+      "ruins_of_the_mushroom_kingdom_capitol"
+    ]
   },
   {
     "id": "vellanet_rise",

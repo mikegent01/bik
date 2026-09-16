@@ -11,7 +11,16 @@ DATA = ROOT / "Reputation-Matrix2" / "data"
 # Keep this focused on event/battle surfaces, where duplicate records confuse
 # chronology and home/index feeds. Character stub title duplication is legacy
 # debt and not a reliable duplicate signal.
-STORES = ["events.json", "battles.json", "majorBattles.json"]
+STORES = ["events.json", "battles.json", "majorBattles.json",
+          # locations.json was added after two genkit-generated records
+          # ("Iron Legion Old World Embassy", "Ruins of the Mushroom
+          # Capitol") shipped alongside the hand-written canon records they
+          # duplicated and rendered side by side in the directory.
+          "locations.json", "trials.json", "conflicts.json"]
+
+# Records that legitimately share a display name link to each other here;
+# the pair is then exempt from the title check.
+ALIAS_FIELD = "aliases"
 
 errors: list[str] = []
 checked = 0
@@ -34,16 +43,31 @@ for name in STORES:
         if count > 1:
             errors.append(f"{name}: duplicate id {rid!r} ×{count}")
     titles: dict[str, list[str]] = defaultdict(list)
+    aliases: dict[str, set[str]] = {}
     for r in rows:
         if not isinstance(r, dict):
             continue
         title = str(r.get("title") or r.get("name") or "").strip().lower()
         title = title.removeprefix("the ")
         if title:
-            titles[title].append(str(r.get("id") or "<no id>"))
+            rid = str(r.get("id") or "<no id>")
+            titles[title].append(rid)
+            aliases[rid] = set(r.get(ALIAS_FIELD) or [])
     for title, ids_for_title in titles.items():
-        if len(ids_for_title) > 1:
-            errors.append(f"{name}: duplicate title {title!r} -> {', '.join(ids_for_title)}")
+        if len(ids_for_title) <= 1:
+            continue
+        # A deliberate same-name pair (a planar reflection, say) declares the
+        # other record's id in `aliases`. The link must be MUTUAL -- a
+        # one-sided alias is what a merged record leaves behind, and treating
+        # that as consent would re-exempt the very duplicate we just removed
+        # if a generator recreated it.
+        mutual = any(
+            b in aliases.get(a, set()) and a in aliases.get(b, set())
+            for a in ids_for_title for b in ids_for_title if a != b
+        )
+        if mutual:
+            continue
+        errors.append(f"{name}: duplicate title {title!r} -> {', '.join(ids_for_title)}")
 
 print(f"duplicate audit: {checked} records across {len(STORES)} stores")
 for e in errors:
