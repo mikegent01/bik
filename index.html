@@ -5509,7 +5509,7 @@ function articleLead(item,typeKey){
   const summary=item.summary?`<div class="article-lead-summary"><h4>Article Summary</h4><p>${esc(item.summary)}</p></div>`:'';
   const rot=leadRotatorHtml(item);
   if(rot) return `<div class="article-lead-card">${summary||'<div></div>'}${rot}</div>`;
-  const img=item.image?`<figure class="article-lead-img"><img src="${esc(assetPath(item.image))}" alt="${esc(displayName(item))}" onerror="this.onerror=null;this.src='data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22300%22%20height%3D%22200%22%20viewBox%3D%220%200%20300%20200%22%3E%3Crect%20width%3D%22300%22%20height%3D%22200%22%20fill%3D%22%232d0f42%22%20rx%3D%228%22%2F%3E%3Ctext%20x%3D%22150%22%20y%3D%22100%22%20font-size%3D%2248%22%20text-anchor%3D%22middle%22%20dominant-baseline%3D%22middle%22%3E🖼️%3C%2Ftext%3E%3C%2Fsvg%3E'">${item.imageCaption?`<figcaption class="imgcap">${esc(item.imageCaption)}</figcaption>`:''}</figure>`:(typeKey==='nations'?flagArt(item):autoArt(item,typeKey));
+  const img=item.image?`<figure class="article-lead-img"><img src="${esc(assetPath(item.image))}" alt="${esc(displayName(item))}" onerror="this.onerror=null;this.src='data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22300%22%20height%3D%22200%22%20viewBox%3D%220%200%20300%20200%22%3E%3Crect%20width%3D%22300%22%20height%3D%22200%22%20fill%3D%22%232d0f42%22%20rx%3D%228%22%2F%3E%3Ctext%20x%3D%22150%22%20y%3D%22100%22%20font-size%3D%2248%22%20text-anchor%3D%22middle%22%20dominant-baseline%3D%22middle%22%3E🖼️%3C%2Ftext%3E%3C%2Fsvg%3E'">${item.imageCaption?`<figcaption class="imgcap">${esc(item.imageCaption)}</figcaption>`:''}</figure>`:(typeKey==='nations'?flagArt(item):(typeKey==='factions'?factionThumb(item,'full'):autoArt(item,typeKey)));
   if(!summary&&!img) return '';
   return `<div class="article-lead-card">${summary||'<div></div>'}${img}</div>`;
 }
@@ -6306,7 +6306,19 @@ function characterVisual(i){
     : '';
   return `<div class="character-card-visual theme-${esc(v.theme)}${artSrc?' has-art':''}" style="--char-a:${v.colors[0]};--char-b:${v.colors[1]}">${artLayer}<div class="char-bg-emoji">${esc(v.primary)}${esc(v.badges[0]||'')}</div><div class="char-visual-text"><span>${esc(v.label).slice(0,42)}</span><b>${esc(status).slice(0,32)}</b><div class="char-badge-row">${v.badges.map(b=>`<i>${esc(b)}</i>`).join('')}</div></div></div>`;
 }
-function cardVisual(i,key){ if(key==='characters')return characterVisual(i); if(key==='nations')return flagArt(i,'tile'); if(key==='battles')return battleThumb(i,'tile'); if(key==='locations')return locationThumb(i,'tile'); if(key==='races')return raceThumb(i,'tile'); if(['events','trials','factions','collections'].includes(key))return autoArt(i,key,'tile'); return ''; }
+/* A faction card showed procedural placeholder art even when the faction had
+   real heraldry on disk, because the factions branch went straight to
+   autoArt(). Every faction now has a banner, so the generated stand-in was
+   hiding the actual art on every browse page. Prefer the banner; fall back to
+   the procedural cover only for a faction that genuinely has none. */
+function factionThumb(i,mode){
+  const src=factionBannerSrc(i&&i.id);
+  if(!src) return autoArt(i,'factions',mode==='tile'?'tile':'full');
+  return `<figure class="article-lead-img faction-thumb${mode==='tile'?' tile':''}">
+    <img src="${esc(src)}" alt="${esc(displayName(i))} banner" loading="lazy" decoding="async"
+         onerror="this.closest('.faction-thumb').remove()"></figure>`;
+}
+function cardVisual(i,key){ if(key==='characters')return characterVisual(i); if(key==='nations')return flagArt(i,'tile'); if(key==='battles')return battleThumb(i,'tile'); if(key==='locations')return locationThumb(i,'tile'); if(key==='races')return raceThumb(i,'tile'); if(key==='factions')return factionThumb(i,'tile'); if(['events','trials','collections'].includes(key))return autoArt(i,key,'tile'); return ''; }
 function raceThumb(i,mode){
   const small=mode==='tile';
   const src=i.image||'';

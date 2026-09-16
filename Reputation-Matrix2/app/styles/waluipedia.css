@@ -2699,3 +2699,14 @@ a.front-title:hover{color:var(--accent2)}
   .fbanner-panel{gap:12px}
   .fbanner-art{width:96px;height:96px}
 }
+
+/* Faction banner used as a card cover / article lead. Heights match the
+   procedural .auto-art it replaces (112px tile) so cards keep their rhythm
+   whether a faction has real heraldry or a generated stand-in. The emblems
+   are square and the slot is wide, so the tile crops to the centre band. */
+.faction-thumb{margin:0 0 10px;overflow:hidden;border-radius:9px;
+  border:1px solid var(--border);background:#0b0713;box-shadow:none}
+.faction-thumb img{display:block;width:100%;object-fit:cover;object-position:center}
+.faction-thumb.tile img{height:112px}
+.faction-thumb:not(.tile){margin:0}
+.faction-thumb:not(.tile) img{max-height:300px;border-radius:10px}
