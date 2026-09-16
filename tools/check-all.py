@@ -60,6 +60,7 @@ def main() -> int:
         ("cover gallery", [py, "tools/check-covers.py"], ROOT),
         ("faction banners", [py, "tools/check-banners.py"], ROOT),
         ("css coverage", [py, "tools/check-css-coverage.py"], ROOT),
+        ("commerce joins", [py, "tools/check-commerce-joins.py"], ROOT),
         ("campaign fronts", [py, "tools/build-campaign-fronts.py", "--check"], ROOT),
         ("filing updates", [py, "tools/track-filing-updates.py", "--check"], ROOT),
         ("event art", [py, "tools/check-event-art.py", "--check"], ROOT),

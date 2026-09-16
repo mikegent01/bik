@@ -18,17 +18,45 @@ Advisory by default; --strict makes unstyled classes a failure.
 import re, sys, glob, os
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-WATCHED = ('dyn-', 'fbanner-', 'faction-thumb', 'pclock', 'tokensheet',
-           'front-', 'inv-', 'faiths-', 'faith-', 'intel-', 'rep-op-pill',
-           'rep-factor-chip')
+WATCHED = ('dyn-', 'fbanner-', 'faction-thumb', 'nation-crest', 'pclock',
+           'tokensheet', 'front-', 'inv-', 'faiths-', 'faith-', 'intel-',
+           'rep-op-pill', 'rep-factor-chip')
 
 def main():
     html = open(os.path.join(ROOT, 'index.html'), encoding='utf-8').read()
 
+    # Read the stylesheets first so the interpolation scan can tell a real
+    # class from a truncated stem like "faiths-key--b" (completed to
+    # "faiths-key--b0".."b5" at runtime).
+    css_early = ''
+    for f in glob.glob(os.path.join(ROOT, 'Reputation-Matrix2/app/styles/**/*.css'), recursive=True):
+        css_early += open(f, encoding='utf-8', errors='ignore').read()
+    css_early += ''.join(re.findall(r'<style[^>]*>([\s\S]*?)</style>', html))
+    defined_guess = set(re.findall(r'\.([a-z][a-z0-9-]*)', css_early))
+
     used = {}
+    # Plain class attributes.
     for m in re.finditer(r'class="([^"{}]*)"', html):
         for c in m.group(1).split():
-            # skip template-interpolated names; they cannot be checked statically
+            if re.fullmatch(r'[a-z][a-z0-9-]*', c):
+                used.setdefault(c, html[:m.start()].count('\n') + 1)
+
+    # Class attributes built by template interpolation, e.g.
+    #     class="nation-crest${mode==='tile'?' tile':''}"
+    # These are invisible to the plain scan above, which means a whole panel
+    # can be unstyled and still report PASS -- that is how .nation-crest
+    # slipped through on its first pass. Pull the literal leading run of
+    # class names off the front of any interpolated attribute.
+    for m in re.finditer(r'class="([a-z0-9 _-]+)\$\{', html):
+        names = m.group(1).split()
+        for idx, c in enumerate(names):
+            # The LAST name may be a partial stem that the interpolation
+            # completes -- `front-tally--${k}` yields "front-tally--". Those
+            # are not real class names, so only trust a trailing token if it
+            # looks complete (no dangling separator).
+            if idx == len(names) - 1 and re.search(r'(--?|_)[a-z0-9]{0,2}$', c) \
+               and c not in defined_guess:
+                continue
             if re.fullmatch(r'[a-z][a-z0-9-]*', c):
                 used.setdefault(c, html[:m.start()].count('\n') + 1)
 

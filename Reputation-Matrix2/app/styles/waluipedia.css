@@ -2738,3 +2738,11 @@ a.front-title:hover{color:var(--accent2)}
   background:color-mix(in srgb,var(--accent2) 8%,transparent)}
 .intel-leverage b{display:block;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent2);margin-bottom:5px}
 .intel-leverage p{margin:0;font-size:12.5px;line-height:1.6}
+
+/* ---- NATION CRESTS -----------------------------------------------------
+   Companion to .faction-thumb. Crests are square emblems rather than wide
+   banners, so they are centred and capped instead of cropped to fill. */
+.nation-crest{display:flex;justify-content:center;margin:0 0 12px}
+.nation-crest img{width:100%;max-width:260px;height:auto;border-radius:12px;display:block}
+.nation-crest.tile{margin:0 0 10px}
+.nation-crest.tile img{max-width:none;height:112px;width:112px;object-fit:contain;margin:0 auto;border-radius:9px}
