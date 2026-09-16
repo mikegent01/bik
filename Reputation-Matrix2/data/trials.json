@@ -251,7 +251,8 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/trials/crown-v-miser-4739.jpg"
   },
   {
     "id": "delfino_v_mario_0955",
@@ -514,7 +515,8 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/trials/delfino-v-mario-0955.jpg"
   },
   {
     "id": "crown_v_bowser_0955",
@@ -770,7 +772,8 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/trials/crown-v-bowser-0955.jpg"
   },
   {
     "id": "tribunal_v_ironhand_1040",
@@ -962,7 +965,8 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/trials/tribunal-v-ironhand-1040.jpg"
   },
   {
     "id": "koopa_v_kamek_1040",
@@ -1151,7 +1155,8 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/trials/koopa-v-kamek-1040.jpg"
   },
   {
     "id": "liberated_toads_v_dan_1040",
@@ -1328,7 +1333,8 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/trials/liberated-toads-v-dan-1040.jpg"
   },
   {
     "id": "onyx_hand_v_mages_guild_1040",
@@ -1517,6 +1523,7 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "image": "assets/images/trials/onyx-hand-v-mages-guild-1040.jpg"
   }
 ]
