@@ -10540,7 +10540,10 @@ async function view_cultures() {
   if(!Object.keys(CULTURES).length) await loadCultureSystem();
   const CULTURE_DATA=CULTURES, LEGAL_DATA=LEGAL, SPECIES_DATA=SPECIES, REGIONAL_DEMOGRAPHICS=REGIONAL_DEMO;
   let MAP_DATA={};
-  try{ ({ MAP_DATA } = await import(pathPrefix + 'map-data.js')); }catch(e){ MAP_DATA={}; }
+  // map-data.js lives under data/maps/, not at the Reputation-Matrix2 root.
+  // The old path 404'd on every visit to Cultures & Laws and silently fell
+  // back to an empty map, so the regional column rendered blank.
+  try{ ({ MAP_DATA } = await import(pathPrefix + 'data/maps/map-data.js')); }catch(e){ MAP_DATA={}; }
   
   el('content').innerHTML = `
     <div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › Cultures & Laws</div>

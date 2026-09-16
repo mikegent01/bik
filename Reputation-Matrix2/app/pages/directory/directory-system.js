@@ -335,7 +335,7 @@ function renderPartyMemberList() {
 
         return `
             <div class="party-member-item ${isSelected ? 'selected' : ''}" data-player="${playerKey}">
-                <img src="${player?.portrait || 'portraits/unknown.png'}" alt="${player?.name}" class="party-member-portrait">
+                <img src="${player?.portrait || '../../../portraits/unknown.png'}" alt="${player?.name}" class="party-member-portrait">
                 <div class="party-member-info">
                     <span class="party-member-name">${player?.name || playerKey}</span>
                     <span class="party-member-status">${isSelected ? 'Viewing' : ''}</span>
@@ -406,7 +406,7 @@ function renderFigureItem(target) {
 
     return `
         <div class="figure-item ${isSelected ? 'selected' : ''}" data-target="${target.id}">
-            <img src="${portraitPath}" alt="${entity.name}" class="figure-portrait" onerror="this.src='portraits/unknown.png'">
+            <img src="${portraitPath}" alt="${entity.name}" class="figure-portrait" onerror="this.src='../../../portraits/unknown.png'">
             <div class="figure-info">
                 <span class="figure-name">${entity.name}</span>
                 <span class="figure-meta">
@@ -451,12 +451,12 @@ function renderFigureItem(target) {
 
     const portraitSrc = entity?.portrait
         ? `portraits/${entity.portrait.split('/').pop()}`
-        : 'portraits/unknown.png';
+        : '../../../portraits/unknown.png';
 
     const headerHTML = `
         <div id="perspective-header" class="perspective-header">
             <div class="perspective-info">
-                <img src="${portraitSrc}" alt="${entity?.name}" class="perspective-portrait" onerror="this.src='portraits/unknown.png'">
+                <img src="${portraitSrc}" alt="${entity?.name}" class="perspective-portrait" onerror="this.src='../../../portraits/unknown.png'">
                 <div class="perspective-text">
                     <span class="perspective-label">Viewing as ${entityType}</span>
                     <span class="perspective-name">${entity?.name || selectedTarget || selectedPlayer}</span>
@@ -498,12 +498,12 @@ function renderGridView() {
 
         const portraitSrc = entity?.portrait
             ? `portraits/${entity.portrait.split('/').pop()}`
-            : 'portraits/unknown.png';
+            : '../../../portraits/unknown.png';
 
         headerHTML = `
             <div class="perspective-header">
                 <div class="perspective-info">
-                    <img src="${portraitSrc}" alt="${entity?.name}" class="perspective-portrait" onerror="this.src='portraits/unknown.png'">
+                    <img src="${portraitSrc}" alt="${entity?.name}" class="perspective-portrait" onerror="this.src='../../../portraits/unknown.png'">
                     <div class="perspective-text">
                         <span class="perspective-label">Viewing as ${entityType}</span>
                         <span class="perspective-name">${entity?.name || selectedTarget || selectedPlayer}</span>
@@ -1371,7 +1371,7 @@ function renderPlayerView() {
     container.innerHTML = `
         <div class="player-view">
             <div class="pv-header">
-                <img src="${player?.portrait || 'portraits/unknown.png'}" alt="${player?.name}" class="pv-portrait">
+                <img src="${player?.portrait || '../../../portraits/unknown.png'}" alt="${player?.name}" class="pv-portrait">
                 <div class="pv-info">
                     <h3 class="pv-name">${player?.name || selectedPlayer}</h3>
                     <p class="pv-title">${player?.title || 'Party Member'}</p>
@@ -1444,7 +1444,7 @@ function renderStandingsMatrix() {
                             ${state.party.map(p => {
                                 const char = LORE_DATA.characters[p];
                                 return `<th class="matrix-player-header">
-                                    <img src="${char?.portrait || 'portraits/unknown.png'}" alt="${char?.name}" class="matrix-portrait">
+                                    <img src="${char?.portrait || '../../../portraits/unknown.png'}" alt="${char?.name}" class="matrix-portrait">
                                     <span>${char?.name?.split(' ')[0] || p}</span>
                                 </th>`;
                             }).join('')}
@@ -1551,7 +1551,7 @@ function renderFactionDetailModal(factionKey) {
         return `
             <div class="modal-player-assessment">
                 <div class="mpa-header">
-                    <img src="${player?.portrait || 'portraits/unknown.png'}" alt="${player?.name}" class="mpa-portrait">
+                    <img src="${player?.portrait || '../../../portraits/unknown.png'}" alt="${player?.name}" class="mpa-portrait">
                     <div class="mpa-info">
                         <span class="mpa-name">${player?.name || playerKey}</span>
                         <div class="mpa-stats">
@@ -2249,7 +2249,7 @@ function resolveTargetEntity(targetId) {
             type: 'auxiliary',
             id: targetId,
             name: member.name,
-            portrait: member.portrait || 'portraits/unknown.png',
+            portrait: member.portrait || '../../../portraits/unknown.png',
             status: member.status,
             weapon: member.weapon,
             level: member.level,
@@ -2266,7 +2266,7 @@ function resolveTargetEntity(targetId) {
             type: 'character',
             id: targetId,
             name: char.name,
-            portrait: char.portrait || 'portraits/unknown.png',
+            portrait: char.portrait || '../../../portraits/unknown.png',
             title: char.title,
             description: char.description
         };
@@ -2290,7 +2290,7 @@ function resolveTargetEntity(targetId) {
         type: 'unknown',
         id: targetId,
         name: formatTargetName(targetId),
-        portrait: 'portraits/unknown.png'
+        portrait: '../../../portraits/unknown.png'
     };
 }
 /**
