@@ -1,7 +1,10 @@
 # The Wahinterface — thoughts, not a build
 
-**Status: discussion only. Nothing has been built. Do not implement from this
-document without a decision.**
+**Status: DECIDED AND BUILT.** The hold was lifted and the prototype exists at
+`wahinterface/index.html` (see `wahinterface/README.md`). It follows the
+recommendation below — shell plus one app, Inventory & Wallet — rather than a
+six-icon launcher. The reasoning in this document is preserved as written,
+including the parts the build then tested.
 
 The idea, as put: a tablet-style interface with apps on it. The shop and other
 systems move out of the Wahbook sidebar and into their own apps — a shop app, and
@@ -123,4 +126,26 @@ So — worth doing, but do it for the taxonomy, not for the bezel. And if it eve
 starts feeling like a skin, that's the signal to stop and take the cheap version
 instead.
 
-*Filed as a note. Awaiting a decision.*
+*Filed as a note. Decision taken: build it, one app first.*
+
+---
+
+## Postscript, after building it
+
+The thesis held up, with one surprise. The part that sells it is not the bezel
+and not even the two panels sitting side by side — it is the **dock badge**,
+because that is the only element that demonstrates an app being right about
+something while you are looking at something else. Everything else in the
+prototype could have been a normal page with two columns.
+
+That sharpens the recommendation for app two. The Shop is the obvious next
+move, but the valuable version is not "the shop, in the tablet" — it is the
+shop with the wallet badge visibly wrong the moment you spend. If that
+interaction isn't in the first shop commit, the shop is just a page again.
+
+The other thing the build surfaced: the data is not as joined as the UI will
+need. `items.json` has no owner field, only `obtainedBy` as a free-text display
+name, so anything filed to "Party (Collective)" belongs to nobody, and matching
+wallets to the banking ledger means guessing that `archie` is `Archie Miser`.
+Both joins work today and both are fragile. Before this becomes load-bearing,
+items should carry an owner id.

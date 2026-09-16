@@ -216,10 +216,11 @@ section is what is in the repository.
 | 3 | Two portrait variants per character | done | portrait + heraldry commits |
 | 4 | No externally hosted art | done | `fix: no externally hosted art…` |
 | 5 | Dynasties surface on characters | done | `feat: a character's house reaches their own page` |
-| 5b | Wahinterface | **discussion only, as asked** | `docs: two proposals…` |
+| 5c | Intel gates faction dossiers | done | `feat: intel gates the faction dossier…` |
+| 5b | Wahinterface | **built as a standalone prototype** | `feat: the wahinterface, as a standalone prototype` |
 | 6 | Conflicts & battle records | done | `feat: battles file under their conflict` |
 | 7 | Main cast regenerated | done | portrait + heraldry commits |
-| 8 | New fronts | **proposal only** | `docs: two proposals…` |
+| 8 | New fronts | done — both filed | `feat: two new fronts — Sarasaland and the Underground` |
 | 9 | Hide `+0` | done | `fix: hide +0 in standing…` |
 | 10 | Faction banner sheets | done, 1 cell withheld | `feat: faction heraldry…` |
 | 11 | Faiths CSS | done | `feat: Faiths & Doctrinal Tension…` |
@@ -293,4 +294,44 @@ genuinely art-less.
 - **Advisory hotlinks** — four records still point at remote CDNs
   (`characters.json[26]`, `[59]`, `locations.json[23]`, `nations.json[20]`).
   Non-fatal; `check-external-art.py --strict` fails on them.
-- **Items 8 and 5b** are awaiting a decision, not awaiting work.
+## This batch
+
+**Item 8 — both fronts filed.** The Sarasaland Stabilisation and The Underground
+Breach, three battles each, 57 battles across 19 fronts. Neither invents a
+kingdom; both were already sitting in the data. Sarasaland is an annexation
+conducted entirely on paper — the three records contain no weapons. The
+Underground Breach finally files the invasion that the nations register has
+described in one sentence all campaign while no conflict record existed.
+
+**Item 5c — intel stopped being decorative.** The faction modal advertised an
+intelligence percentage computed from which *fields existed* in the record. It
+could not move and no party action changed it. It now reads real earned intel,
+and the internal-politics dossier — blocs, their private opinions of the party,
+named officers, Waluigi's leverage tip — is gated at 15/35/55/75 instead of
+being free to anyone who clicked.
+
+Scoring deliberately does not use `partyIntel()` alone: only eleven
+`INTEL_RULES` exist, so that would have sealed a hundred dossiers behind rules
+nobody wrote. `factionIntelScore()` derives from evidence already in the
+archive, weighted so that fighting a faction teaches more than reading about
+one. Across the 37 factions the data names: 6 fully open, 5 at named-officers,
+6 at opinions, 6 at blocs, 14 sealed.
+
+**Audit pass.** Prompted by the faction-icon bug — code that ran correctly and
+produced the wrong thing on screen, which no check could see. Two more of the
+same shape found and fixed: the investigation close-reading header's three
+spans had no rules at all (rendering as one run-on line), and
+`.front-tally--unknown` was the one outcome variant without a style.
+`tools/check-css-coverage.py` makes the sweep permanent — 152 watched classes,
+all styled.
+
+**Item 5b — the wahinterface exists.** `wahinterface/index.html`, standalone.
+Built in the order the notes argued for: the shell plus *one* app, because the
+notes' own claim was that a launcher would be a theme and only a shared context
+is worth having. The dock badge recomputing another app's state is the thesis
+made testable. Five apps are locked icons — the roadmap shown, not faked.
+
+## Still open
+
+- **Items 8 and 5b are closed.** Both were awaiting a decision; the decision
+  came and the work is done.
