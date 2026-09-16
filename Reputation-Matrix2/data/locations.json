@@ -52,7 +52,8 @@
     ],
     "plane": "material",
     "planeConfidence": "medium",
-    "planeClue": "no planar markers — Material by default"
+    "planeClue": "no planar markers — Material by default",
+    "image": "assets/images/locations/snowdin_town.jpg"
   },
   {
     "id": "darius_sanctum",
@@ -139,7 +140,8 @@
     ],
     "plane": "material",
     "planeConfidence": "medium",
-    "planeClue": "no planar markers — Material by default"
+    "planeClue": "no planar markers — Material by default",
+    "image": "assets/images/locations/star_fountain.jpg"
   },
   {
     "id": "forgotten_temple_stars",
@@ -1354,7 +1356,8 @@
     ],
     "plane": "material",
     "planeConfidence": "medium",
-    "planeClue": "no planar markers — Material by default"
+    "planeClue": "no planar markers — Material by default",
+    "image": "assets/images/locations/peachs_castle.jpg"
   },
   {
     "id": "mazebound_grove",
@@ -1710,7 +1713,8 @@
     ],
     "plane": "material",
     "planeConfidence": "medium",
-    "planeClue": "no planar markers — Material by default"
+    "planeClue": "no planar markers — Material by default",
+    "image": "assets/images/locations/ironhold.jpg"
   },
   {
     "id": "silent_grove",
@@ -1775,7 +1779,8 @@
     ],
     "plane": "material",
     "planeConfidence": "medium",
-    "planeClue": "no planar markers — Material by default"
+    "planeClue": "no planar markers — Material by default",
+    "image": "assets/images/locations/toad_town.jpg"
   },
   {
     "id": "mushroom_regency",
@@ -1975,7 +1980,8 @@
     ],
     "plane": "material",
     "planeConfidence": "medium",
-    "planeClue": "no planar markers — Material by default"
+    "planeClue": "no planar markers — Material by default",
+    "image": "assets/images/locations/alpine_bank.jpg"
   },
   {
     "id": "alpine_mountain_inn",
@@ -2003,7 +2009,8 @@
     ],
     "plane": "material",
     "planeConfidence": "medium",
-    "planeClue": "no planar markers — Material by default"
+    "planeClue": "no planar markers — Material by default",
+    "image": "assets/images/locations/alpine_mountain_inn.jpg"
   },
   {
     "id": "the_ruins_mount_ebott",
@@ -2071,7 +2078,8 @@
     ],
     "plane": "material",
     "planeConfidence": "medium",
-    "planeClue": "no planar markers — Material by default"
+    "planeClue": "no planar markers — Material by default",
+    "image": "assets/images/locations/the_core_underground.jpg"
   },
   {
     "id": "snowdin_police_station",
@@ -2162,7 +2170,8 @@
     ],
     "plane": "material",
     "planeConfidence": "medium",
-    "planeClue": "no planar markers — Material by default"
+    "planeClue": "no planar markers — Material by default",
+    "image": "assets/images/locations/arunedeal_goblin_camp.jpg"
   },
   {
     "id": "legion_wall_checkpoint",
@@ -2188,7 +2197,8 @@
     ],
     "plane": "material",
     "planeConfidence": "medium",
-    "planeClue": "no planar markers — Material by default"
+    "planeClue": "no planar markers — Material by default",
+    "image": "assets/images/locations/legion_wall_checkpoint.jpg"
   },
   {
     "id": "mount_ebot",
@@ -2282,7 +2292,8 @@
     ],
     "plane": "material",
     "planeConfidence": "medium",
-    "planeClue": "no planar markers — Material by default"
+    "planeClue": "no planar markers — Material by default",
+    "image": "assets/images/locations/gamma_high_command_spire.jpg"
   },
   {
     "id": "wariocopter",
@@ -2343,7 +2354,8 @@
     ],
     "plane": "material",
     "planeConfidence": "medium",
-    "planeClue": "no planar markers — Material by default"
+    "planeClue": "no planar markers — Material by default",
+    "image": "assets/images/locations/warp_pipe_junction.jpg"
   },
   {
     "id": "the_dread_mansion",
@@ -2408,7 +2420,8 @@
     },
     "plane": "material",
     "planeConfidence": "medium",
-    "planeClue": "no planar markers — Material by default"
+    "planeClue": "no planar markers — Material by default",
+    "image": "assets/images/locations/iron_legion_old_world_embassy.jpg"
   },
   {
     "id": "ruins_of_rohan_hillfort",
@@ -2437,7 +2450,8 @@
     },
     "plane": "material",
     "planeConfidence": "medium",
-    "planeClue": "no planar markers — Material by default"
+    "planeClue": "no planar markers — Material by default",
+    "image": "assets/images/locations/ruins_of_rohan_hillfort.jpg"
   },
   {
     "id": "shadow_estate_gardens",
@@ -2915,7 +2929,8 @@
     },
     "plane": "material",
     "planeConfidence": "medium",
-    "planeClue": "no planar markers — Material by default"
+    "planeClue": "no planar markers — Material by default",
+    "image": "assets/images/locations/ruins_of_the_mushroom_capitol.jpg"
   },
   {
     "id": "vellanet_rise",
@@ -3076,7 +3091,8 @@
     ],
     "plane": "material",
     "planeConfidence": "medium",
-    "planeClue": "no planar markers — Material by default"
+    "planeClue": "no planar markers — Material by default",
+    "image": "assets/images/locations/imperial_diet.jpg"
   },
   {
     "id": "ferngrove_manor",
@@ -3158,7 +3174,8 @@
     ],
     "plane": "material",
     "planeConfidence": "medium",
-    "planeClue": "no planar markers — Material by default"
+    "planeClue": "no planar markers — Material by default",
+    "image": "assets/images/locations/bowsers_castle.jpg"
   },
   {
     "id": "gadd_science_laboratory",
@@ -3183,7 +3200,8 @@
     ],
     "plane": "material",
     "planeConfidence": "medium",
-    "planeClue": "no planar markers — Material by default"
+    "planeClue": "no planar markers — Material by default",
+    "image": "assets/images/locations/gadd_science_laboratory.jpg"
   },
   {
     "id": "bowsers_mushroom_compound",
