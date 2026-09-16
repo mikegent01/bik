@@ -43,7 +43,7 @@ export const CHARACTERS = {
     waluigi: {
         name: "Waluigi",
         role: "Agent of Chaos / Evil Genius",
-        portrait: "portraits/waluigi.png",
+        portrait: "portraits/waluigi.jpg",
         description: "Narcissistic evil genius and master hacker. A lanky, dramatic villain who thrives on chaos and attention. His schemes are often as bizarre as they are destructive."
     },
     wario: {
@@ -61,7 +61,7 @@ export const CHARACTERS = {
     king_k_rool: {
         name: "King K. Rool",
         role: "Tyrant King of the Kremling Krew",
-        portrait: "portraits/king_k_rool.png",
+        portrait: "portraits/king_k_rool.jpg",
         description: "The bombastic and egotistical king of the Kremlings. He is obsessed with stealing the Crystal Coconut and Donkey Kong's banana hoard."
     },
     captain_syrup: {
@@ -73,7 +73,7 @@ export const CHARACTERS = {
     boss_knuckles: {
         name: "Boss Knuckles",
         role: "Leader of the Iron Fists",
-        portrait: "portraits/boss_knuckles.png",
+        portrait: "portraits/boss_knuckles.jpg",
         description: "The brutal and vengeful leader of the Iron Fists gang. After the party dismantled one of his most profitable smuggling operations, Knuckles has made it his personal mission to see them all dead."
     },
     
@@ -131,7 +131,7 @@ export const CHARACTERS = {
     emperor_elagabalus: {
         name: "Emperor Elagabalus",
         role: "Supreme Ruler of the Regal Empire",
-        portrait: "portraits/emperor_elagabalus.png",
+        portrait: "portraits/emperor_elagabalus.jpg",
         description: "The divine and eternal ruler of the Regal Empire. Elagabalus is a figure of immense power and cold calculation, viewing the maintenance of absolute order as a sacred duty."
     },
     general_marcus_ironhand: {
@@ -161,7 +161,7 @@ export const CHARACTERS = {
     the_broker: {
         name: "The Broker",
         role: "Information Kingpin",
-        portrait: "portraits/the_broker.png",
+        portrait: "portraits/the_broker.jpg",
         description: "A mysterious, ghost-like figure who sits at the center of the Freelancer Underworld's web of information. They trade in secrets as the only true currency."
     },
     skull_cap_murphy: {
@@ -173,19 +173,19 @@ export const CHARACTERS = {
     donkey_kong: {
         name: "Donkey Kong",
         role: "Leader of the DK Crew",
-        portrait: "portraits/donkey_kong.png",
+        portrait: "portraits/donkey_kong.jpg",
         description: "The powerful but easy-going leader of the Kong family. He enjoys a simple life of bananas and sunshine, but will fly into a rage if his friends or hoard are threatened."
     },
     kamek: {
         name: "Kamek",
         role: "Chief Advisor to Bowser",
-        portrait: "portraits/kamek.png",
+        portrait: "portraits/kamek.jpg",
         description: "The ancient and powerful Magikoopa who serves as Bowser's most trusted advisor. With Bowser away, Kamek commands the scattered Koopa Troop remnants."
     },
     archmage_theron: {
         name: "Archmage Theron",
         role: "Conservator Leader, Mages' Guild",
-        portrait: "portraits/archmage_theron.png",
+        portrait: "portraits/archmage_theron.jpg",
         description: "The stern and traditionalist former leader of the Mages' Guild. Theron believes that magic is a dangerous force that must be strictly controlled and regulated."
     },
     chief_thornpaw: {
@@ -197,19 +197,19 @@ export const CHARACTERS = {
     high_inquisitor_vale: {
         name: "High Inquisitor Vale",
         role: "Leader of the Silver Flame",
-        portrait: "portraits/high_inquisitor_vale.png",
+        portrait: "portraits/high_inquisitor_vale.jpg",
         description: "The zealous and unwavering leader of the Order of the Silver Flame. Vale sees the world in stark black and white, a corruption that must be purged with holy fire."
     },
     lord_crimson: {
         name: "Lord Crimson",
         role: "Elder Vampire of the Onyx Hand",
-        portrait: "portraits/lord_crimson.png",
+        portrait: "portraits/lord_crimson.jpg",
         description: "An ancient and manipulative vampire who plays the long game of politics with centuries of experience. He views mortals as pawns in his grand designs."
     },
     lady_toriel: {
         name: "Lady Toriel",
         role: "Representative of Lockerwood",
-        portrait: "portraits/lady_toriel.png",
+        portrait: "portraits/lady_toriel.jpg",
         description: "A kind-hearted and motherly goat-like woman who represents the independent province of Lockerwood. Despite her gentle demeanor, she is a shrewd diplomat."
     },
 
@@ -241,7 +241,7 @@ export const CHARACTERS = {
     'battle-mage_kovar': {
         name: "Battle-Mage Kovar",
         role: "Commander of the Aegis Magi",
-        portrait: "portraits/battle_mage_kovar.png",
+        portrait: "portraits/battle_mage_kovar.jpg",
         description: "The hardened and battle-scarred leader of the Mages' Guild's military wing. Kovar has little patience for politics or research, viewing arcane power as a weapon."
     },
     first_mate_jones: {
@@ -253,7 +253,7 @@ export const CHARACTERS = {
     'janna_brightspark': {
         name: "Janna Brightspark",
         role: "Innovator Leader, Mages' Guild",
-        portrait: "portraits/janna_brightspark.png",
+        portrait: "portraits/janna_brightspark.jpg",
         description: "A brilliant but reckless mage who leads the radical Innovator faction. She believes that magical progress should be pursued at any cost, viewing tradition as a cage."
     },
     embercap: {
@@ -265,7 +265,7 @@ export const CHARACTERS = {
     mistveil: {
         name: "Mistveil",
         role: "Toad Scout, Peach Loyalists",
-        portrait: "portraits/mistveil.png",
+        portrait: "portraits/mistveil.jpg",
         description: "A nimble scout with pale gray-green skin and a lavender cap. He moves silently, his keen eyes observing enemy movements for Captain Toadette's next strike."
     },
     dewdrop: {
@@ -277,37 +277,37 @@ export const CHARACTERS = {
     detective_penny: {
         name: "Detective Penny",
         role: "Lead Investigator, Diamond City",
-        portrait: "portraits/detective_penny.png",
+        portrait: "portraits/detective_penny.jpg",
         description: "A sharp-witted detective with a passion for puzzles and justice. She has made it her personal mission to dismantle Wario's criminal empire."
     },
     master_goodstyle: {
         name: "Master Goodstyle",
         role: "Patron, The Goodstyle Artisans",
-        portrait: "portraits/master_goodstyle.png",
+        portrait: "portraits/master_goodstyle.jpg",
         description: "An ancient and revered artisan who believes that beauty is the world's most valuable currency. He despises Wario for his crude materialism."
     },
     lanky_kong: {
         name: "Lanky Kong",
         role: "Disgraced Member of the DK Crew",
-        portrait: "portraits/lanky_kong.png",
+        portrait: "portraits/lanky_kong.jpg",
         description: "A goofy, long-armed member of the DK crew. His recent conduct at the Democratic Summit has put him in hot water with the rest of the crew."
     },
     diddy_kong: {
         name: "Diddy Kong",
         role: "Heir Apparent of the DK Crew",
-        portrait: "portraits/diddy_kong.png",
+        portrait: "portraits/diddy_kong.jpg",
         description: "Donkey Kong's energetic and loyal nephew. He is a capable adventurer but is growing frustrated with Lanky's irresponsible behavior."
     },
     chunky_kong: {
         name: "Chunky Kong",
         role: "Mediator of the DK Crew",
-        portrait: "portraits/chunky_kong.png",
+        portrait: "portraits/chunky_kong.jpg",
         description: "The strong, gentle giant of the Kong family. Despite his immense power, he is often timid, but he is fiercely loyal and has been asked by DK to mediate the current family crisis."
     },
     candy_kong: {
         name: "Candy Kong",
         role: "Key Advocate of the DK Crew",
-        portrait: "portraits/candy_kong.png",
+        portrait: "portraits/candy_kong.jpg",
         description: "A key member of the DK crew and Donkey Kong's partner. Once Lanky's strongest supporter, his actions at the summit have left her appalled."
     },
     'iggy_koopa': {
@@ -322,7 +322,7 @@ export const CHARACTERS = {
         name: "X.O.",
         role: "Rogue Mage",
         status: "MIA / Presumed Deceased",
-        portrait: "portraits/xo.png",
+        portrait: "portraits/xo.jpg",
         description: "A powerful magic user who betrayed the party. After her defeat, she was last seen dying inside a giant worm, cryptically stating 'my jokes never land' before disappearing."
     },
     bigt: {
@@ -351,7 +351,7 @@ export const CHARACTERS = {
     koopa_troop: {
         name: "Koopa Troop",
         role: "Generic Koopa Soldier",
-        portrait: "portraits/koopa.png",
+        portrait: "portraits/koopa.jpg",
         description: "A loyal soldier of the Koopa Troop, awaiting the return of King Bowser."
     },
     generic_toad: {

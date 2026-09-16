@@ -172,7 +172,7 @@ function getCharacterData(characterKey) {
         },
         'delfino_reporter': {
             name: "Delfino Daily Reporter",
-            portrait: 'portraits/delfino_reporter.png',
+            portrait: 'portraits/delfino_reporter.jpg',
             faction: { name: "Delfino Press" },
             bio: "Independent journalist.",
             isDefined: true

@@ -117,7 +117,7 @@ const LOCATIONS = {
         camPos: {x: 10, y: 10, z: 10},
         characters: [
             { id: 'oracle', name: "The Oracle", status: "Watching", pos: { x: 0, y: 2, z: -5 }, portrait: "portraits/oracle.png", scale: 1.8 },
-            { id: 'waluigi', name: "Waluigi", status: "Scheming", pos: { x: 5, y: 3, z: 0 }, portrait: "portraits/waluigi.png", scale: 1.7 },
+            { id: 'waluigi', name: "Waluigi", status: "Scheming", pos: { x: 5, y: 3, z: 0 }, portrait: "portraits/waluigi.jpg", scale: 1.7 },
             { id: 'eager', name: "Eager", status: "Injured", pos: { x: 6, y: 3, z: 1 }, portrait: "toads/eager.png", scale: 1.4 }
         ]
     },

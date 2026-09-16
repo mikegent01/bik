@@ -30,7 +30,7 @@
         "note": "The Hawk of Blackfen Pass watches the Old World and intervenes rarely. Maat's weighing is a doctrine for judging without ruling, which is precisely the position Mihawk has taken up and declined to explain."
       }
     ],
-    "image": "portraits/dracule_mihawk.png"
+    "image": "portraits/dracule_mihawk.jpg"
   },
   {
     "id": "sans",
@@ -140,7 +140,7 @@
         "note": "Gamma Division's version of the Gospel is older and stricter than the Legion's current text — martial codes written before Chaos spilled into the world, followed by a man whose division was declared dead eighty-seven years ago. He recites Protocols to empty rooms. Nobody has told him which clauses were repealed."
       }
     ],
-    "image": "portraits/gamma_agent.png"
+    "image": "portraits/gamma_agent.jpg"
   },
   {
     "id": "tymnas",
@@ -173,7 +173,7 @@
         "note": "Tymnas has tended the Shadow Estate's grounds long enough to stop asking who owns them. The Circle's teaching that rot is a stage rather than a failure is, for a satyr gardening in the Shadowfell, simply the observed behaviour of the soil."
       }
     ],
-    "image": "portraits/tymnas.png"
+    "image": "portraits/tymnas.jpg"
   },
   {
     "id": "professor_e_gadd",
@@ -213,7 +213,7 @@
         "note": "The denomination is named for his method and he finds the elevation slightly embarrassing, in the manner of a man who would rather be read than believed. E. Gadd's Method holds that ghosts are a fluid-dynamics problem with opinions. Its founder invented a vacuum cleaner on that basis and was correct."
       }
     ],
-    "image": "portraits/professor_e_gadd.png"
+    "image": "portraits/professor_e_gadd.jpg"
   },
   {
     "id": "bryan",
@@ -281,7 +281,7 @@
         "note": "The Regency says Mr. L was a temporary condition — Luigi brainwashed and weaponised. The Path of Change teaches that the self is a draft. Both accounts explain the evidence, and only one of them lets Luigi off, which is precisely why the archive declines to choose."
       }
     ],
-    "image": "portraits/mr_l.png"
+    "image": "portraits/mr_l.jpg"
   },
   {
     "id": "king_boo",
@@ -312,7 +312,7 @@
         "note": "The Dark Moon drives ghosts mad and King Boo governs the ones it has finished with. He is one of the few entities in the crisis operating outside every known faction structure, which the Clan would say is not independence but seniority."
       }
     ],
-    "image": "portraits/king_boo.png"
+    "image": "portraits/king_boo.jpg"
   },
   {
     "id": "waluigi",
@@ -378,7 +378,7 @@
       "restorationPath": "Grant the Cohort lawful access to Raventree Manor and compensate Eager's care. The archive notes that the subject wrote this encyclopedia entry himself.",
       "portrait": "💜"
     },
-    "image": "portraits/waluigi.png"
+    "image": "portraits/waluigi.jpg"
   },
   {
     "id": "hargram_fidger",
@@ -416,7 +416,7 @@
         "note": "The tattoos map a career through gangs, bandits and sailing vessels, and the thing Hargram actually believes in happens in the pit: that a fight settles a question no argument can, and that the settling is owed to something. He would deny this in the Legion's own chapel, standing up, in daylight."
       }
     ],
-    "image": "portraits/hargram_fidger.png"
+    "image": "portraits/hargram_fidger.jpg"
   },
   {
     "id": "king_dedede",
@@ -444,7 +444,7 @@
         "note": "Dedede venerates the wish-granting vegetable star with the sincerity of a monarch who has never had a wish refused and the doctrinal precision of a man who mainly noticed it was food-adjacent. His Second Summit conduct suggests the wishes are not about the kingdom."
       }
     ],
-    "image": "portraits/king_dedede.png"
+    "image": "portraits/king_dedede.jpg"
   },
   {
     "id": "meta_knight",
@@ -471,7 +471,7 @@
         "note": "Meta Knight actually runs Dreamland while Dedede holds the title, and the chivalric code is the only thing that makes that arrangement bearable: honour is owed to the office, service is owed to the realm, and neither requires the officeholder to deserve it."
       }
     ],
-    "image": "portraits/meta_knight.png"
+    "image": "portraits/meta_knight.jpg"
   },
   {
     "id": "princess_daisy",
@@ -497,7 +497,7 @@
         "note": "Maat's balance came out of desert regions and Sarasaland is one of them — this is Daisy's inherited state faith rather than a discovery. She hosted the Second Diplomatic Summit on its principles and watched delegations walk out of it anyway."
       }
     ],
-    "image": "portraits/princess_daisy.png"
+    "image": "portraits/princess_daisy.jpg"
   },
   {
     "id": "kremlings",
@@ -533,7 +533,7 @@
         "note": "The Krew's reverence for the Engine is indistinguishable from its logistics: the machines are maintained, the crews are drilled, and the doctrine supplies a reason to keep both going between campaigns against Kongo Bongo."
       }
     ],
-    "image": "portraits/kremlings.png"
+    "image": "portraits/kremlings.jpg"
   },
   {
     "id": "kirby",
@@ -562,7 +562,7 @@
         "note": "Kirby solves problems by eating them, and the problems have included cosmic horrors and galaxy-enders. By every doctrinal test the Great Maw applies, Kirby qualifies as its highest expression. The Maw's clergy find this intolerable, because Kirby is demonstrably kind and the doctrine has no provision for that."
       }
     ],
-    "image": "portraits/kirby.png"
+    "image": "portraits/kirby.jpg"
   },
   {
     "id": "hjumpik",
@@ -603,7 +603,7 @@
       "feyward_battalion_of_six_and_the_bait_plan"
     ],
     "fullBody": "portraits/player/fullbody/hjumpik.png",
-    "image": "portraits/hjumpik.png"
+    "image": "portraits/hjumpik.jpg"
   },
   {
     "id": "byscilla_danos",
@@ -638,7 +638,7 @@
         "note": "Byscilla keeps the forms because the forms are how the Legion knows you are one of theirs. She has also dragged a Mages' Guild quartermaster out of a bath by the ear while her soldiers took heatstroke outside, which is not in the liturgy. Her faith is in the chain of command working; the theology is packaging."
       }
     ],
-    "image": "portraits/byscilla_danos.png"
+    "image": "portraits/byscilla_danos.jpg"
   },
   {
     "id": "rhak_the_lost",
@@ -666,7 +666,7 @@
         "note": "Rhak carries the gestalt the way an expatriate carries an accent — it strengthens when there are enough of his own around and is nearly inaudible on Byscilla's team, where he is the only orc. 'The Lost' is not a battlefield title. It is what the WAAAGH! sounds like from too far away."
       }
     ],
-    "image": "portraits/rhak_the_lost.png"
+    "image": "portraits/rhak_the_lost.jpg"
   },
   {
     "id": "manderaz_the_mad",
@@ -694,7 +694,7 @@
         "note": "Manderaz gives the Blood God the bearing of a courtier: violence as a discipline with etiquette, owed to a peer and wasted on a lesser. The hobgoblin khanates produce this reading regularly and the Legion finds it very convenient, since a man who thinks slaughter has manners will follow orders about who is worth killing."
       }
     ],
-    "image": "portraits/manderaz_the_mad.png"
+    "image": "portraits/manderaz_the_mad.jpg"
   },
   {
     "id": "aemenor_evenflight",
@@ -722,7 +722,7 @@
         "note": "Aemenor observes the Phoenix flame in a Legion detachment that has no idea what the observance is for and would file it as a foreign superstition if it noticed. The cloak shifts colour; the practice does not. The scar predates the enlistment and Aemenor has never said which the faith was meant to answer."
       }
     ],
-    "image": "portraits/aemenor_evenflight.png"
+    "image": "portraits/aemenor_evenflight.jpg"
   },
   {
     "id": "darno_spriggon",
@@ -752,7 +752,7 @@
         "note": "Spriggon showed Hargram's team a keychain with an Iron Legion rank ring and then departed into darkness, which is the entirety of the record. The Clan's theology concerns what the moon sends and does not take back. The archive files him here for want of anything firmer."
       }
     ],
-    "image": "portraits/darno_spriggon.png"
+    "image": "portraits/darno_spriggon.jpg"
   },
   {
     "id": "warol_creeton",
@@ -779,7 +779,7 @@
         "note": "Warol greets survey teams at a greenhouse gate. Whatever the WAAAGH! is doing in the Badlands, it is not reaching the Raventree perimeter, and Warol's practice has thinned to a few phrases he uses when startled."
       }
     ],
-    "image": "portraits/warol_creeton.png"
+    "image": "portraits/warol_creeton.jpg"
   },
   {
     "id": "orvinder_danos",
@@ -809,7 +809,7 @@
         "note": "A well-tailored man with a cane he does not need, plain clothing chosen to be forgettable, and dimensional interests nobody has mapped. Every visible choice Orvinder makes is about controlling what other people conclude. The archive files him here provisionally and expects to be surprised."
       }
     ],
-    "image": "portraits/orvinder_danos.png"
+    "image": "portraits/orvinder_danos.jpg"
   },
   {
     "id": "mystic_morel",
@@ -888,7 +888,7 @@
         "note": "Whatever E. Gadd's Method is, Luigi is its most experienced field practitioner and its least willing one. He has operated the Poltergust in conditions the Method's own literature calls theoretical. The contract is with the Guild now, which has not improved the working relationship with the doctrine."
       }
     ],
-    "image": "portraits/luigi.png"
+    "image": "portraits/luigi.jpg"
   },
   {
     "id": "chief_thornpaw",
@@ -964,7 +964,7 @@
     "affiliation": "Mushroom Kingdom (Former Hero) / Unknown",
     "summary": "Mario is—or WAS—the most famous hero in the Mushroom Kingdom. The man who saved Princess Peach countless times before her assassination in 955 BF. The red-capped plumber who could jump higher than physics should allow, who stomped Bowser's schemes into the ground repeatedly, who was so synonymous with heroism that his NAME became a verb. And then, after eighty-five years of diminished appearances and growing silence, he DISAPPEARED entirely. Luigi found him at the Star Fountain. They flew together on wing caps. Luigi said 'Nothing can hurt us... as long as we're together.' And then Mario was GONE again, and Luigi is working alone for the Mages' Guild at Raventree Manor, sucking up ghosts with a vacuum cleaner and refusing to explain ANYTHING. Waluigi has spent considerable effort piecing together what happened. The picture that emerges is worse than a simple disappearance. WAH. The Garden Above the Fire does not return Mario; it makes his absence louder, because Luigi's rescue ends with Luigi asking the brother who is not in the room whether they are still superstars.",
     "description": "Waluigi needs to be upfront about something: Waluigi does not LIKE Mario. Waluigi has never liked Mario. Mario gets the invitations. Mario gets the glory. Mario gets the PARADE while Waluigi gets told the event is at capacity. Their rivalry is well-documented and entirely one-sided in terms of public perception—Mario is the hero, Waluigi is the guy who loses to the hero at tennis and then complains about the net height.\n\nBut Waluigi RESPECTS competence, and Mario was competent. Past tense now feels appropriate, and that bothers Waluigi more than he wants to admit.\n\n## The Timeline of Absence\n\nWaluigi has reconstructed the following from fragmentary sources: Luigi's occasional muttering when he thinks no one is listening, Toad gossip networks that span the kingdom's ruins, Regency public records (which are SUSPICIOUSLY incomplete for anything involving Mario after 955 BF), testimony from Thornpaw at Fawful's gala, and one very illuminating conversation Waluigi overheard between two Mages' Guild operatives who didn't realize Waluigi was behind a curtain. Waluigi was behind the curtain because Waluigi was avoiding a conversation about unpaid tournament fees. This is not relevant but Waluigi believes in transparency about his investigative methods.\n\n### 955 BF — The Assassination\n\nMario was NOT in the Mushroom Kingdom when Princess Peach was killed. This is the first and most damning anomaly.\n\nMario was ALWAYS near Peach. Always. Either protecting her, rescuing her from Bowser's latest scheme, or attending events where she was present. The man's entire CAREER was built around Princess Peach's continued existence and periodic endangerment. He had rescued her from Bowser so many times that it had become almost ROUTINE—Bowser kidnaps Peach, Mario stomps through eight worlds, Mario defeats Bowser, Peach bakes Mario a cake. The cycle was predictable, comfortable, almost domestic in its repetition.\n\nSo where was he on Highsun 1, 955 BF?\n\nThe Regency's official record states Mario was 'conducting operations abroad on behalf of the Crown.' No specification of WHERE abroad. No details of WHAT operations. No documentation of who authorized his absence during a period when—as Lady Bloomia's recovered testimony now confirms—Peach KNEW she was in danger and was preparing for the worst.\n\nToadsworth the Elder's private journals, recovered by Captain Toadette in 1010 BF, reference 'the arrangement'—the conspiracy between the Regency and the Mages' Guild that enabled the assassination. The guard rotation gap. The suppressed evidence. The controlled investigation.\n\nWaluigi believes Mario was deliberately sent away. Someone with authority—someone involved in 'the arrangement'—ensured that the one person most capable of preventing the assassination would be nowhere near the Princess when the blade found her throat.\n\nThe alternative is that Mario left VOLUNTARILY, knowing Peach was in danger, and chose not to protect her. Waluigi does not believe this. Waluigi has competed against Mario for DECADES. The man is annoyingly heroic to his core. He would not have abandoned Peach willingly.\n\nSomeone MADE him leave. Someone with enough authority to give Mario orders. Someone who knew exactly when the killing would happen and needed the hero removed from the equation.\n\n### 955–985 BF — The Quiet Deterioration\n\nAfter Peach's death, Mario returned to the Mushroom Kingdom. Multiple sources confirm he was present for the funeral, though accounts differ on his behavior. One Toad who served refreshments at the wake told Waluigi that Mario sat in a corner for four hours holding a plate of food he never ate, staring at a wall. His cap was in his hands, not on his head. She had never seen him without the cap before.\n\nThe years following the assassination saw Mario continue to operate publicly, but something fundamental had CHANGED. He still accepted heroic missions. He still attended sporting events—though his participation became increasingly sporadic. He still showed up when Bowser's occasional schemes required intervention, though Bowser's schemes during this period were notably less ambitious. Waluigi suspects even Bowser noticed something was different and dialed back his villainy accordingly, which is an ASTONISHING display of emotional intelligence from a turtle who is currently in the Shadowfell examining necromancer wands with childlike curiosity.\n\nBut the JOY was gone. The 'wahoo' became mechanical. The victory poses were performed out of obligation rather than enthusiasm. Mario stopped accepting cake from grateful citizens. He stopped staying for the celebrations after rescues. He did the job and then he LEFT, vanishing into whatever life he maintained outside the spotlight.\n\nWaluigi noticed this at the time but attributed it to arrogance. 'Oh, Mario is too GOOD for us now. Mario doesn't need to celebrate with the common folk.' Waluigi was wrong. Mario wasn't avoiding celebration out of superiority. He was avoiding it because celebration felt HOLLOW when the person he had spent his career protecting was dead and her killers walked free.\n\nWaluigi believes Mario spent these decades conducting a private investigation. Not publicly—he couldn't accuse the Regency without evidence, and Toadsworth the Elder controlled the official investigation. But quietly. Carefully. Following the same threads that Lady Bloomia followed when she fled with the Princess's leather case. Asking questions about the guard rotation gap. About the Mages' Guild's involvement. About the secret hatch that the assassin used to enter the Royal Suite.\n\nThe same secret hatch that Princess Peach had shown to Chief Thornpaw—her forbidden lover—as their private entrance. Someone ELSE learned about that hatch. Someone close enough to the Princess to discover a secret shared only with the man she loved.\n\n### 985 BF — The Breaking Point (Waluigi's Theory)\n\nWaluigi has NO direct evidence for what happened in 985 BF. This is THEORY. But Waluigi's theories are better than most people's documented facts, so hear Waluigi out.\n\nWaluigi believes Mario found something. A piece of evidence. A witness. A document. SOMETHING that confirmed what he suspected—that Peach's assassination was orchestrated from within the Mushroom Kingdom, that the Regency and the Mages' Guild were complicit, that the entire political structure Mario had spent his career defending was built on the murder of the woman he loved.\n\nWaluigi believes Mario confronted someone with this evidence.\n\nThe basis for this theory is a Regency Council emergency session held on the 14th of Bloomtide, 985 BF. The session was classified. The minutes were sealed. The EXISTENCE of the session was scrubbed from public records—Waluigi only knows about it because one of Wario's business contacts bribed a records clerk for financial documents from that fiscal quarter, and the emergency session appeared as an unexplained budget line item for 'Security Consultation and Personnel Reallocation.'\n\n'Personnel Reallocation.'\n\nThat's bureaucratic language. That's the kind of language you use when you're moving someone. Reassigning them. Sending them somewhere they can't cause problems. Or REMOVING them from the situation entirely.\n\nWaluigi does not know what 'Personnel Reallocation' means in this context. But he knows that Mario's public appearances dropped to near-zero after Bloomtide 985 BF. He knows that the Regency stopped mentioning Mario in official communications. He knows that Mario's face remained on old recruitment posters—the ones from before Peach's death—but no new promotional material featured him.\n\nThe hero of the Mushroom Kingdom was being quietly ERASED from public memory.\n\n### 985–1039 BF — The Vanishing\n\nMario didn't disappear all at once. He FADED. Like a photograph left too long in sunlight—the colors bleeding out slowly, the image becoming harder to see, until one day you look and there's nothing left but blank space.\n\nLuigi continued to operate publicly during this period. Taking contracts. Attending events. Maintaining the 'Mario Brothers' brand as a solo act while everyone politely didn't ask where the other brother was. When questioned about Mario, Luigi's responses were consistent: 'He's fine. He's busy. He's working on something.'\n\nWaluigi has seen Luigi's face when he says these things. Luigi is a TERRIBLE liar. His mustache twitches. His eyes drift leftward. His voice climbs approximately one octave. Whatever 'He's fine' means, it does NOT mean Mario is fine.\n\nThe last CONFIRMED public sighting of Mario was in 1038 BF—a Toad merchant traveling through the Midlands reported seeing a man matching Mario's description in a border town between the Mushroom Kingdom and the Regal Empire. The man was wearing civilian clothes—no red cap, no blue overalls, no white gloves. He was alone. He was asking about routes EAST, toward territories that don't appear on standard Mushroom Kingdom maps.\n\nThe merchant tried to speak with him. The man walked away without responding.\n\nWaluigi cannot fully confirm this sighting. Merchants see what they want to see, and a short man with a mustache is not exactly UNIQUE in regions where humans are common. But the detail about civilian clothes is significant. Mario without his cap is like Waluigi without his... magnificence. You don't abandon your identity unless you're trying to become someone else. Or unless someone MADE you abandon it.\n\n## The Star Fountain Reunion\n\nThen came the Star Fountain.\n\nWaluigi does not know the full circumstances of how Luigi found Mario there. The Star Fountain is a location of significance—connected to the Star Road network that once linked the kingdom's major settlements before its destruction in 962 BF. The Star Spirits have historical associations with that place. It is not somewhere you stumble upon by accident.\n\nLuigi found Mario at the Star Fountain. The reunion—witnessed by sources Waluigi cannot name—was emotional. Luigi reportedly said:\n\n**'I missed you, Mario! I thought I would never see you again.'**\n\nThe word 'never' carries WEIGHT in that sentence. You don't say 'never' about someone who's been traveling. You don't say 'never' about someone who's been busy with work. You say 'never' about someone you believed was GONE—dead, vanished, erased from existence. Luigi thought he had lost his brother permanently.\n\nThey flew together afterward. Wing caps—magical artifacts that allow sustained flight when combined with proper technique. Mario reportedly told Luigi about his journey during the flight, though the content of that conversation has not been documented by any source Waluigi can access.\n\nWhat Waluigi DOES know is what Luigi said at the end:\n\n**'Nothing can hurt us... as long as we're together.'**\n\nThat statement haunts Waluigi.\n\nIt's not a greeting. It's not relief at reunion. It's a PRAYER. It's the desperate assertion of someone who has been APART from the person who makes them feel safe, who has been operating alone in a world full of ghosts and vampires and dimensional fractures, who has been telling himself every night that Mario is alive somewhere and they'll find each other again.\n\nAnd the qualifier—'as long as we're together'—implies that APART, things CAN hurt them. Things HAVE hurt them. The separation itself was a wound, and Luigi is speaking from inside that wound, trying to believe that reunion makes them invulnerable again.\n\n## The Second Separation\n\nAnd then Mario was GONE again.\n\nWaluigi does not know what happened between the Star Fountain reunion and Luigi's solo appearance at Raventree Manor. The timeline is unclear. The accounts STOP after the wing cap flight. Mario and Luigi flew together, Luigi expressed desperate hope that togetherness would protect them, and then—\n\nNothing.\n\nLuigi shows up at Raventree Manor working a Mages' Guild contract. ALONE. Armed with the Poltergust—a mechanical vacuum device designed to capture spectral entities. He clears ghosts from the ruined ballroom. He takes bubble baths in haunted chambers. He picks locks with Iron Legion currency. He does the JOB with professional competence while carrying the weight of his brother's absence on his shoulders.\n\nWhen Agent L of the Mages' Guild refers to Luigi's contract, the terms are specific: clear the ghosts, stabilize the planar anomalies, report findings to Guild operatives. Standard work-for-hire arrangement. Nothing in the contract explains WHY Luigi accepted it. Nothing explains where Mario went. Nothing explains the gap between 'nothing can hurt us as long as we're together' and Luigi standing alone in a haunted corridor with a vacuum cleaner.\n\nIf nothing could hurt them together, and Luigi is operating solo in a nightmare dimension where Archie Miser overheard Guild operatives casually agreeing that certain deaths would be acceptable... then either something SEPARATED them again, or Luigi CHOSE to separate.\n\nWaluigi does not believe Luigi chose separation. Luigi's behavior at Raventree—the obsessive checking of the Poltergust's integrity seals, the bubble bath that he claimed helped him 'expel ectoplasm,' the way he jumped at shadows in the ruined dance hall—suggests someone operating under enormous stress. Someone coping. Someone making the best of a terrible situation because the alternative is collapse.\n\nSomething pulled them apart after the Star Fountain. The reunion was BRIEF. The joy of finding each other was real, but it didn't LAST.\n\nAnd now Luigi works for the Mages' Guild—the same Mages' Guild that Toadsworth the Elder's journals implicate in 'the arrangement.' The same Guild whose operative Valorian Stormweave was present at the vault on the morning of the assassination, delaying the crown delivery, KNOWING Bloomia's name without being told. The same Guild that took control of the investigation and suppressed the evidence and sent operatives to hunt Lady Bloomia through the servant passages.\n\nIs Luigi's employment coincidental? Is he working for the Guild because he needs the money? Or is he working for them because they're the ones who know where Mario is, and Luigi's cooperation is the price of keeping Mario alive?\n\n## The Regency Connection\n\nWaluigi's investigation has led him to believe that the Mushroom Regency—specifically, elements connected to 'the arrangement' that enabled Peach's assassination—played a direct role in Mario's situation. The evidence:\n\n**1. Mario was sent away before the assassination.** Someone authorized 'operations abroad' that removed the one person most capable of preventing the killing. This implies foreknowledge and deliberate removal. The same authority structure that created the guard rotation gap also ensured Mario would be absent.\n\n**2. Mario's investigation was obstructed.** During the decades following the assassination, Mario's requests for access to sealed documents and investigation materials were systematically denied by Regency officials. Toadsworth the Elder controlled the official inquiry. The same man whose journals reference 'the arrangement' ensured that Mario could not access the evidence that would have exposed the conspiracy.\n\n**3. The 985 BF emergency session.** 'Personnel Reallocation' following what Waluigi believes was Mario's confrontation with Regency leadership. Something happened in that meeting that changed Mario's status from 'inconvenient investigator' to 'problem requiring administrative solution.'\n\n**4. The propaganda erasure.** The Regency kept using Mario's IMAGE on old materials while the actual Mario was absent. They needed the SYMBOL—the heroic plumber who protected the kingdom—but not the MAN who was asking uncomfortable questions about the Princess's death. This is consistent with an institution that has neutralized a threat while preserving the brand value.\n\n**5. Luigi's Guild employment.** The Mages' Guild works closely with the Regency. Agent L's operation at Raventree involves both Guild resources and Regency coordination. If the Guild knows where Mario is—if they have leverage over Luigi through Mario's situation—then Luigi's 'voluntary' contract work takes on a different character entirely.\n\n## Thornpaw's Revelation\n\nChief Thornpaw of the Rakasha provided crucial intelligence at Fawful's gala. He confirmed what Lady Bloomia's testimony only implied: Princess Peach showed him the secret hatch personally. It was their private entrance—the lover's passage through which Thornpaw could visit the Princess without the court's knowledge.\n\nSomeone ELSE learned about that hatch. Someone close enough to the Princess—or to Thornpaw—to discover a secret shared between lovers. The assassin used that hatch to enter the Royal Suite, bypassing the seventeen magical wards and the four elite guards. The killing required inside knowledge. The killing required BETRAYAL at the most intimate level.\n\nMario may have discovered who else knew about the hatch. Mario may have traced the betrayal to its source. And that discovery may have made him dangerous enough to require 'Personnel Reallocation.'\n\nThe third column of Princess Peach's list—the one headed 'HELD THE BLADE'—contains only one name, according to Lady Bloomia. A name she refuses to write. A name that is 'not the name anyone expects.' Someone the Princess LOVED. Someone she FORGAVE even as they killed her.\n\nWaluigi wonders if Mario found that name. Waluigi wonders if knowing that name is what got him disappeared.\n\n## What Waluigi Knows vs. What Waluigi Suspects\n\n**KNOWS:**\n- Mario was absent during Peach's assassination under suspicious 'abroad operations'\n- Mario investigated the assassination privately for approximately three decades\n- Mario's public presence declined dramatically after 985 BF\n- The Regency held a classified emergency session in 985 BF involving 'Personnel Reallocation'\n- Mario was possibly sighted in civilian clothes near the Regal Empire border in 1038 BF\n- Mario and Luigi reunited at the Star Fountain; Luigi believed he would 'never' see Mario again\n- They flew together on wing caps; Mario told Luigi about his journey\n- Luigi said 'Nothing can hurt us as long as we're together'\n- Luigi is now operating ALONE under Mages' Guild contract at Raventree Manor\n- The Mages' Guild was complicit in 'the arrangement' that enabled the assassination\n\n**SUSPECTS:**\n- Mario found evidence of the Regency's involvement in Peach's assassination\n- Mario confronted the Regency and was neutralized—exiled, imprisoned, or displaced\n- The Star Fountain reunion was interrupted by forces that wanted them separated\n- Luigi's Guild employment is connected to Mario's situation, possibly as leverage\n- Mario may be searching for Lady Bloomia or the evidence she carries\n- Mario may know the name of Peach's killer—the name in the third column\n- The Mages' Guild and the Regency have a cooperative arrangement regarding Mario's status\n- Something in the Regal Empire territories drew Mario eastward in 1038 BF\n\n## The Bloomia Connection\n\nLady Bloomia's cipher remains unsolved in practical terms: 'I AM ALIVE. I AM WATCHING. FIND ME IN THE PLACE WHERE ROSES GROW IN WINTER.'\n\nIf Mario was investigating the assassination, he may have found the same cipher. He may have decoded the location. He may be SEARCHING for Bloomia—the one witness who escaped with the Princess's evidence, the leather case containing the list of names, the proof of who knew and who helped and who held the blade.\n\nAlternatively, Mario may have already FOUND Bloomia. He may be protecting her. The Regal Empire territories he was asking about in 1038 BF—territories that don't appear on standard Mushroom Kingdom maps—might be where Bloomia has hidden for eight decades.\n\nAnd there's another possibility that makes Waluigi's chest tight: Peach's secret child.\n\nBloomia's testimony and Thornpaw's revelations confirm that Peach had a forbidden relationship with the Rakasha chief. The conspiracy that killed Peach was partly motivated by preventing a half-Rakasha heir from taking the throne. If that child SURVIVED—if Bloomia smuggled out the heir alongside the evidence—then somewhere in the world, there exists a living descendant of Princess Peach.\n\nMario might know about the child. Mario might be PROTECTING the child. A secret heir to the Mushroom Kingdom throne, hidden in foreign territory, guarded by the one man loyal enough to abandon everything else.\n\nThis theory makes Waluigi uncomfortable. Mario giving up his identity—his cap, his overalls, his LIFE—to protect Peach's child in anonymity? That's not the Mario who Waluigi competed against. That's someone who loved a person more than he loved being a hero. Waluigi did not think Mario was capable of that kind of sacrifice.\n\nWaluigi may have been wrong about Mario in fundamental ways.\n\n## Luigi's Burden\n\nLuigi KNOWS what happened. Waluigi is certain of this.\n\nLuigi's behavior—taking solo contracts, working for the organization implicated in his beloved Princess's murder, maintaining a brave face while clearly carrying enormous emotional weight—is consistent with someone who knows something terrible and has been told not to share it.\n\nThe bubble bath incident at Raventree is illustrative. While Archie and the party were engaged in life-or-death espionage, Luigi took a luxurious soak in a haunted manor's bathtub, claiming it helped him 'expel ectoplasm.' Waluigi initially found this infuriating—typical Luigi cowardice, prioritizing comfort over duty.\n\nBut Waluigi has reconsidered. That bubble bath wasn't cowardice. It was COPING. It was a man who has lost his brother multiple times, who doesn't know if the current separation is temporary or permanent, who is working for people he has every reason to distrust, finding one small moment of normalcy in a world that has gone completely insane.\n\nLuigi picks locks with Iron Legion currency because 'local currency draws less suspicion'—practical tradecraft that suggests experience operating in hostile territory. Luigi checks the Poltergust's integrity seals obsessively because the machine contains entities he 'absolutely refuses to talk about'—Red Zone ghosts whose nature frightens even someone who hunts spirits professionally. Luigi does the work. Luigi survives. Luigi maintains the mission while his heart breaks.\n\nWaluigi does NOT like Luigi. This has been established. But Waluigi... understands him. More than Waluigi wants to.\n\nThe particular pain of being the one who is PRESENT while someone else gets to be mysterious and absent—Waluigi knows that pain. Waluigi has been the one who shows up to every event, every competition, every party he can get into, while others receive credit for existing ELSEWHERE. Luigi shows up. Luigi does the work. Luigi carries the Poltergust and clears the ghosts and takes the Mages' Guild contracts and says 'He's fine, he's busy' with his twitching mustache and his lying eyes.\n\nWaluigi does not like Luigi. But Waluigi RESPECTS what Luigi is carrying. And Waluigi wants to know the truth—not for Luigi's sake, but because the mystery is UNACCEPTABLE. Because a hero of the Mushroom Kingdom does not simply VANISH without explanation. Because something HAPPENED and the people responsible for it are still walking free.\n\n## Waluigi's Promise\n\nWaluigi did not start this investigation out of affection for Mario. Waluigi started it because a MYSTERY was irritating him and Waluigi does not tolerate being irritated by things he doesn't understand.\n\nBut the investigation has changed Waluigi's perspective. Not about Mario—Waluigi still thinks Mario is overrated, over-celebrated, and annoyingly good at jumping. But about what happened TO Mario. Because what happened to Mario is part of the same rot that killed Peach, that created the Regency, that enabled the Iron Legion's trafficking, that fractured the planes themselves.\n\nIt's all CONNECTED. The conspiracy that murdered a princess also silenced the one person who might have exposed it. The arrangement that created a guard rotation gap also arranged for the hero to be absent. The cover-up that buried the truth also buried Mario—metaphorically or literally, Waluigi does not yet know.\n\nWaluigi is going to find out what happened. Not for Mario. Not for Luigi. For the TRUTH, which Waluigi believes deserves to be known even when—ESPECIALLY when—powerful institutions want it buried.\n\nLady Bloomia is hiding 'in the place where roses grow in winter.' Waluigi intends to find that place. The leather case she carries contains the evidence that could expose the entire conspiracy. The name in the third column—'HELD THE BLADE'—could identify Peach's killer after eighty-five years of mystery.\n\nAnd somewhere in the tangled threads of this investigation, Waluigi believes he will find Mario. Or find what happened to Mario. Or find the people responsible for Mario's disappearance and ensure they face CONSEQUENCES.\n\nWaluigi is currently trapped in the Feywild dealing with Lady Aurelian Corvinarus and fairy court politics that make Mushroom Kingdom diplomacy look straightforward. But Waluigi will escape. Waluigi will continue the investigation. Waluigi will find the answers.\n\nAnd if Mario IS alive—wherever he is, whatever he's become—Waluigi intends to challenge him to a tennis match IMMEDIATELY upon discovery. Waluigi has been practicing. The rivalry does not pause for dimensional crises or conspiracy investigations.\n\nWAH.\n\n## The Question Mario Did Not Answer\n\nDuring the Garden Above the Fire rescue, Luigi was found alive but delirious enough to speak through the rescuers toward Mario. The question — *are we still superstars?* — belongs on Mario's page precisely because Mario did not answer it. Waluigi did. That does not replace Mario in the record; it marks the size of the empty chair he left behind.",
-    "image": "portraits/mario.png",
+    "image": "portraits/mario.jpg",
     "keyEvents": [
       "the_assassination_of_peach",
       "star_fountain_reunion",
@@ -1013,7 +1013,7 @@
         "note": "Pellinost calls himself a doctor and the Guild calls what he does charity. Both terms survive because the bill arrives afterwards. The Corporate Policy reading of mercy is that it is a service, and an unbilled service is a service nobody valued."
       }
     ],
-    "image": "portraits/parson_pellinost.png"
+    "image": "portraits/parson_pellinost.jpg"
   },
   {
     "id": "thornbury",
@@ -1047,7 +1047,7 @@
         "note": "Thornbury charged Archie two thousand gold for a broken rope. This is not avarice in Thornbury's understanding — it is doctrine: value must be recognised, recorded, and invoiced, or the world drifts into the sin of the unpriced favour. He also brought rubber duckies for a bubble bath, which he almost certainly itemised."
       }
     ],
-    "image": "portraits/thornbury.png"
+    "image": "portraits/thornbury.jpg"
   },
   {
     "id": "green_t",
@@ -1115,7 +1115,7 @@
         "note": "The Iron Fists run the Swiftsoul Chapter as a business and Commander G runs it ruthlessly. Corporate Policy's teaching that price discovers truth is the whole of the Chapter's ethics, and it is the reason a bounty on a confessed arsonist counts as a market signal rather than a moral position."
       }
     ],
-    "image": "portraits/commander_g.png"
+    "image": "portraits/commander_g.jpg"
   },
   {
     "id": "xo",
@@ -1141,7 +1141,7 @@
         "note": "X.O. is Commander G's daughter and the Chapter's internal problem. The Abyss hates imposed order specifically, which is a precise description of a person whose disruption is aimed at her own father's structure rather than at anything outside it."
       }
     ],
-    "image": "portraits/xo.png"
+    "image": "portraits/xo.jpg"
   },
   {
     "id": "kyle_coinsoul",
@@ -1166,7 +1166,7 @@
         "note": "Coinsoul dealt with Archie shortly before Swiftsoul and priced the interaction the way the Chapter prices everything. The doctrine reaches the bottom of the org chart intact, which is more than most faiths manage."
       }
     ],
-    "image": "portraits/kyle_coinsoul.png"
+    "image": "portraits/kyle_coinsoul.jpg"
   },
   {
     "id": "elder_meadowlight",
@@ -1192,7 +1192,7 @@
         "note": "Rowan Meadowlight was a respected druid of the Veridian Grove and died on the same day as the Swiftsoul explosion. The Grove's practice was Pact orthodoxy: the trees connect the realms, and the realms are therefore each other's responsibility."
       }
     ],
-    "image": "portraits/elder_meadowlight.png"
+    "image": "portraits/elder_meadowlight.jpg"
   },
   {
     "id": "rakka",
@@ -1217,7 +1217,7 @@
         "note": "Rakka employs agents for retrieval missions from a hidden temple and has never explained what the retrieved things are for. Gematria Gnosis seeks the sublime through the abstract and the horrific, and every commission Rakka has issued fits that description from the outside."
       }
     ],
-    "image": "portraits/rakka.png"
+    "image": "portraits/rakka.jpg"
   },
   {
     "id": "miles_edgeworth",
@@ -1242,7 +1242,7 @@
         "note": "Edgeworth prosecutes, and Maat's scales are the oldest available statement of what a prosecution is supposed to be for. He is handling the case against Archie Miser in a court where Waluigi introduced a Wheel of Regret, which has tested the doctrine considerably."
       }
     ],
-    "image": "portraits/miles_edgeworth.png"
+    "image": "portraits/miles_edgeworth.jpg"
   },
   {
     "id": "lady_bloomia",
@@ -1269,7 +1269,7 @@
         "note": "Bloomia served Peach personally and kept the observances beside her. She is also the missing link in the assassination — a woman who knew the household's rites, the household's doors, and which of the two mattered on the morning of Highsun 1."
       }
     ],
-    "image": "portraits/lady_bloomia.png"
+    "image": "portraits/lady_bloomia.jpg"
   },
   {
     "id": "speaker_l",
@@ -1333,7 +1333,7 @@
         "note": "Kamek decided Bowser's methods were obsolete and dug under the castle to wake a world-eating space worm. There is no more literal act of Maw worship in the archive. He has been reduced to an avatar and captured, and the doctrine has not been noticeably inconvenienced."
       }
     ],
-    "image": "portraits/kamek.png"
+    "image": "portraits/kamek.jpg"
   },
   {
     "id": "general_ironhand",
@@ -1362,7 +1362,7 @@
         "note": "Ironhand does not preach the Gospel of the Cog; he administers it. The doctrine that flesh is weak and steel eternal is useful to him precisely because it converts people into materiel on paper before anyone has to do it in person. Order 120 was signed by a man who had already filed the prisoners under a category that does not require grief."
       }
     ],
-    "image": "portraits/general_ironhand.png"
+    "image": "portraits/general_ironhand.jpg"
   },
   {
     "id": "dan",
@@ -1473,7 +1473,7 @@
         "note": "K. Rool's schemes run on machinery — ships, weapons, and an information operation at the Second Summit that baited Lanky Kong on camera. The Cult venerates the perpetual motion that keeps the world running. K. Rool venerates the part where it can be aimed."
       }
     ],
-    "image": "portraits/king_k_rool.png"
+    "image": "portraits/king_k_rool.jpg"
   },
   {
     "id": "the_oracle",
@@ -1714,7 +1714,7 @@
       "wario",
       "the_scorncrow_skirmish"
     ],
-    "image": "portraits/remi_akamatsu_full_backstory.png",
+    "image": "portraits/remi_akamatsu_full_backstory.jpg",
     "fullBody": "portraits/player/fullbody/remi_akamatsu_full_backstory.png",
     "imageAlternates": [
       {
@@ -1752,7 +1752,7 @@
         "note": "Lyranth makes sculptures of stunning beauty out of people who were alive that morning, told Remi to smile, and exhibited her under a title crediting someone who was not there. The Cult of Excess teaches that sensation justifies itself. Lyranth's practice is the doctrine with the apologies removed."
       }
     ],
-    "image": "portraits/lyranth.png"
+    "image": "portraits/lyranth.jpg"
   },
   {
     "id": "the_archivist",
@@ -1780,7 +1780,7 @@
         "note": "The Archivist controls the library and trades healing for indentured service — knowledge as a currency with a body attached. Gematria Gnosis seeks the sublime through the horrific and abstract, and the Archivist has organised an entire estate's suffering into a catalogue."
       }
     ],
-    "image": "portraits/the_archivist.png"
+    "image": "portraits/the_archivist.jpg"
   },
   {
     "id": "marcus_ashford",
@@ -1809,7 +1809,7 @@
         "note": "Ashford represents the Onyx Hand and the Sanguine Path is the Hand's official cosmology: blood as hierarchy, undeath as promotion. He arrived mid-confrontation to remind everyone present which rung they occupied."
       }
     ],
-    "image": "portraits/marcus_ashford.png"
+    "image": "portraits/marcus_ashford.jpg"
   },
   {
     "id": "markop",
@@ -1854,7 +1854,7 @@
       "tymnas_cottage_and_hedge_maze",
       "the_scorncrow_skirmish"
     ],
-    "image": "portraits/markop.png",
+    "image": "portraits/markop.jpg",
     "fullBody": "portraits/player/fullbody/markop.png",
     "imageAlternates": [
       {
@@ -1869,7 +1869,7 @@
     "name": "Bowser",
     "title": "The King Who Held the Door",
     "race": "Koopa (King-sized)",
-    "image": "portraits/bowser.png",
+    "image": "portraits/bowser.jpg",
     "status": "Active — operating in the Shadow Estate; carrying necromantic evidence; royal war chest active; illegal under hostile mandates and still completely unbothered",
     "affiliation": "Koopa Troop (King) / Disaster Inc. (current situation)",
     "summary": "Bowser is the King of the Koopa Troop, a giant fire-breathing turtle-dragon who was cast into the Shadowfell during the Planar Fracture alongside Archie Miser. Since then, he has attended a vampire dinner party where he presumably sat wherever he wanted, tackled a vampire lord through a gothic window, bit a giant bat's wing, and most recently held a door shut against an axe-wielding succession claimant while Markop was unconscious—then punched said claimant in the head and picked up a necromancer's wand asking 'Is this a magic wand?' with the innocent curiosity of a child finding a toy. Waluigi has arm-wrestled Bowser and LOST. Waluigi has also competed against Bowser in every sport imaginable. Bowser is not complicated. Bowser is EFFECTIVE. The current party pass identifies Bowser as Disaster Inc.'s blunt-force sovereign: door-holder, threat magnet, and walking siege engine whose honesty remains more reliable than most alliances.",
@@ -1955,7 +1955,7 @@
         "note": "Stormweave's faith is in method: that a properly constructed procedure produces a defensible outcome and the outcome's morality is somebody else's department. Lady Bloomia places him at the Royal Vault on the morning of the assassination, delaying a crown delivery and knowing a name he should not have known. He would call that operational."
       }
     ],
-    "image": "portraits/valorian_stormweave.png"
+    "image": "portraits/valorian_stormweave.jpg"
   },
   {
     "id": "toad_lee",
@@ -2246,7 +2246,7 @@
       "disaster_inc",
       "raventree_manor"
     ],
-    "image": "portraits/smoking_j.png"
+    "image": "portraits/smoking_j.jpg"
   },
   {
     "id": "captain_syrup",
@@ -2295,7 +2295,7 @@
         "note": "Vivian is not blood-related to the Corvinarus family, was not the woman the dinner guests met, and claimed an inheritance on the strength of a bloodline he does not have. The Sanguine Path is a faith entirely about blood as legitimacy, which made it the exact doctrine worth counterfeiting."
       }
     ],
-    "image": "portraits/vivian_corvinarus.png"
+    "image": "portraits/vivian_corvinarus.jpg"
   },
   {
     "id": "orangus_cornelius",
@@ -2317,7 +2317,7 @@
       "bowser",
       "vivian_corvinarus"
     ],
-    "image": "portraits/orangus_cornelius.png"
+    "image": "portraits/orangus_cornelius.jpg"
   },
   {
     "id": "lady_aurelian",
@@ -2346,7 +2346,7 @@
     "name": "Azure (Rakasha)",
     "title": "The Intoxicated Mystic",
     "race": "Rakasha (Spirit-Walker)",
-    "image": "portraits/azure_rakasha.png",
+    "image": "portraits/azure_rakasha.jpg",
     "status": "Active — Rakasha faction member, situationally allied with the party but not owned by their disaster",
     "affiliation": "Rakasha Tribes / party-adjacent ally of Disaster Inc. (not a core member)",
     "summary": "Azure is a Rakasha spirit-walker who is currently operating under the influence of extreme Feywild theatrical magic. She is abnormally strong, prone to speaking in rhyming couplets, and can manifest giant glowing ghost-hands. She saved Toad Lee from a lethal fall and squished a goblin guard without noticing. Waluigi is slightly terrified of her.",
@@ -2398,7 +2398,7 @@
         "note": "Wario's ledger tracks debts owed by generals, bosses and at least one deceased dragon, and he has offered to forgive one in exchange for a man's kidneys. Corporate Policy's trinity is profit, innovation and the Master Ball. Wario has never needed the third."
       }
     ],
-    "image": "portraits/wario.png"
+    "image": "portraits/wario.jpg"
   },
   {
     "id": "jory_dobbs",
@@ -2424,7 +2424,7 @@
     ],
     "needsReview": true,
     "waluigiComment": "Character anchor for the hired man on the Mount Ebot expedition, so the filing does not leave a named casualty unlinked. He was twenty-two in 1032 BF, unpaid, uninsured, and better at rope than anyone who has ever employed him. The filing was released eight years later; his whereabouts were not. WAH.",
-    "image": "portraits/jory_dobbs.png"
+    "image": "portraits/jory_dobbs.jpg"
   },
   {
     "id": "princess_peach",
@@ -2441,7 +2441,7 @@
       "captain_toadette",
       "mushroom_kingdom"
     ],
-    "image": "portraits/princess_peach.png"
+    "image": "portraits/princess_peach.jpg"
   },
   {
     "id": "fawful",
@@ -2478,7 +2478,7 @@
       "onyx_hand",
       "disaster_inc"
     ],
-    "image": "portraits/usk.png"
+    "image": "portraits/usk.jpg"
   },
   {
     "id": "roger",
@@ -2541,7 +2541,7 @@
       "shadow_estate_mirror_rooftop_escape",
       "planar_fracture"
     ],
-    "image": "portraits/toadburt.png"
+    "image": "portraits/toadburt.jpg"
   },
   {
     "id": "rakasha",
@@ -2578,7 +2578,7 @@
         "note": "The tribes are warriors as well as spirit-walkers, and the Hunt's predator-and-prey theology accounts for the half of Rakasha practice that the Pact's gentler reading keeps leaving out."
       }
     ],
-    "image": "portraits/rakasha.png"
+    "image": "portraits/rakasha.jpg"
   },
   {
     "id": "toadsworth_sr",
@@ -2610,7 +2610,7 @@
         "note": "Toadsworth the Elder kept the palace liturgy for a Princess whose death he may have enabled. If the journals recovered in 1010 BF are authentic, he went on lighting Star Altars for eighty-five years afterwards, which is either penance or the most sustained act of institutional composure on record."
       }
     ],
-    "image": "portraits/toadsworth_sr.png"
+    "image": "portraits/toadsworth_sr.jpg"
   },
   {
     "id": "unknown_assassin",
@@ -2633,14 +2633,14 @@
       "bowser",
       "mario"
     ],
-    "image": "portraits/unknown_assassin.png"
+    "image": "portraits/unknown_assassin.jpg"
   },
   {
     "id": "chancellor_toadsworth",
     "name": "Chancellor Toadsworth",
     "title": "The Son Who Inherited Everything",
     "race": "Toad",
-    "image": "portraits/chancellor_toadsworth.png",
+    "image": "portraits/chancellor_toadsworth.jpg",
     "status": "Active — under house arrest following Loyalist seizure of Toad Town",
     "affiliation": "Mushroom Regency (Current Chancellor) / Toadsworth Family Legacy",
     "summary": "Chancellor Toadsworth is the current head of the Mushroom Regency and the son of Toadsworth the Elder—the man whose journals allegedly confess to enabling Princess Peach's assassination. If those journals are authentic, the Chancellor inherited not just power but COMPLICITY. His father's final written words reportedly state: 'My son inherits what I built. He inherits the secrets with it.' The Chancellor has spent his career maintaining the Regency's official narrative, suppressing investigation leads, and continuing relationships with the Mages' Guild and Iron Legion—both implicated in various aspects of the assassination and its aftermath. He is either a man desperately protecting his father's reputation against terrorist fabrications, or a man actively perpetuating an eighty-five-year cover-up. Captain Toadette's Loyalists recently placed him under house arrest. What they extract from him—through interrogation, coercion, or whatever methods Toadette considers appropriate—may finally answer questions that have haunted the kingdom for generations. Waluigi is not optimistic that the truth will emerge cleanly. WAH.",
@@ -2688,7 +2688,7 @@
       "the_arrangement",
       "embercap"
     ],
-    "image": "portraits/mistveil.png"
+    "image": "portraits/mistveil.jpg"
   },
   {
     "id": "merric",
@@ -2711,7 +2711,7 @@
       "green_t",
       "disaster_inc"
     ],
-    "image": "portraits/merric.png"
+    "image": "portraits/merric.jpg"
   },
   {
     "id": "tanukiburt",
@@ -2752,7 +2752,7 @@
       "shadow_estate_mirror_rooftop_escape",
       "remi_akamatsu_full_backstory"
     ],
-    "image": "portraits/vaxillus_the_beastmaster.png"
+    "image": "portraits/vaxillus_the_beastmaster.jpg"
   },
   {
     "id": "rattles",
@@ -2777,7 +2777,7 @@
       "tymnas_cottage_and_hedge_maze",
       "randell_vampire"
     ],
-    "image": "portraits/rattles.png"
+    "image": "portraits/rattles.jpg"
   },
   {
     "id": "salam",
@@ -2837,7 +2837,7 @@
       "speaker_l",
       "disaster_inc"
     ],
-    "image": "portraits/rodger.png"
+    "image": "portraits/rodger.jpg"
   },
   {
     "id": "teacher_t",
@@ -2857,7 +2857,7 @@
       "rodger",
       "disaster_inc"
     ],
-    "image": "portraits/teacher_t.png"
+    "image": "portraits/teacher_t.jpg"
   },
   {
     "id": "bully_t",
@@ -2879,14 +2879,14 @@
       "waluigi",
       "wario"
     ],
-    "image": "portraits/bully_t.png"
+    "image": "portraits/bully_t.jpg"
   },
   {
     "id": "nerd_t",
     "name": "Nerd T",
     "title": "The Spreadsheet Toad of Brand Warfare",
     "race": "Toad",
-    "image": "portraits/nerd_t.png",
+    "image": "portraits/nerd_t.jpg",
     "status": "Active — Liberated Toad analyst and Class of T record keeper",
     "affiliation": "Liberated Toads / Class of T",
     "summary": "Nerd T is one of the Liberated Toads now tracking the Disaster Inc. naming dispute with charts, tallies, legal notes, faction reactions, and a growing confidence that nobody involved should be allowed near branding decisions.",
@@ -2906,7 +2906,7 @@
     "name": "Geek T",
     "title": "The Button-Maker of the Naming War",
     "race": "Toad",
-    "image": "portraits/geek_t.png",
+    "image": "portraits/geek_t.jpg",
     "status": "Active — Liberated Toad tinkerer, morale crafter, and Class of T menace",
     "affiliation": "Liberated Toads / Class of T",
     "summary": "Geek T is a Liberated Toad who saw three competing names for one disaster party and immediately began thinking about badges, signs, tablets, slogans, and possible merchandising. Waluigi is horrified. Wario is interested. This is the worst possible combination.",
@@ -2927,7 +2927,7 @@
     "name": "Archie Archbold Miser",
     "title": "The Indebted Pyromaniac Who Bleeds Entropy",
     "race": "Human",
-    "image": "portraits/archie.png",
+    "image": "portraits/archie.jpg",
     "fullBody": "portraits/player/fullbody/archie_miser.png",
     "status": "Active — emptied every reserve of magic into one fire cast inside the Scorncrow's tree, eyes turned to fire, and sealed the only exit doing it; descended into the Skittering Grove on Markop's rope",
     "affiliation": "Disaster Inc. / Mages' Guild (coerced employee, effective immediately, no severance package)",
@@ -3843,7 +3843,7 @@
       "dedan"
     ],
     "expandedAt": "overnight",
-    "image": "portraits/sans_family.png"
+    "image": "portraits/sans_family.jpg"
   },
   {
     "id": "has_a_very_special_attack",
@@ -4371,7 +4371,7 @@
         "note": "Sans identifies Flowey as the twisted remnant of Asgore's dead firstborn. Void Nihilism teaches that entropy is inevitable and meaning is a comforting error. Flowey did not adopt this position. He was returned without the capacity to hold any other."
       }
     ],
-    "image": "portraits/flowey.png"
+    "image": "portraits/flowey.jpg"
   },
   {
     "id": "koffin_k",
@@ -4414,7 +4414,7 @@
         "note": "A lonely theatrical would-be supervillain with a fake notebook, real maps and real minions. The Cosmic Punchline teaches that existence is a joke and laughter is the only response. Koffin-K has assembled all the apparatus of a villain and produced, so far, only the laughter."
       }
     ],
-    "image": "portraits/koffin_k.png"
+    "image": "portraits/koffin_k.jpg"
   },
   {
     "id": "crossbones",
@@ -4442,7 +4442,7 @@
     "fameScore": 24,
     "fameTier": "Local",
     "expandedAt": "overnight",
-    "image": "portraits/crossbones.png"
+    "image": "portraits/crossbones.jpg"
   },
   {
     "id": "toriel",
@@ -4486,7 +4486,7 @@
         "note": "Sans names Toriel as one of the only authorities who can grant personal royal approval through the Underground. The Sanctum's emphasis on healing and protection describes her function exactly, and she has exercised it without any of the institution that usually comes attached."
       }
     ],
-    "image": "portraits/toriel.png"
+    "image": "portraits/toriel.jpg"
   },
   {
     "id": "asgore",
@@ -4532,7 +4532,7 @@
         "note": "Asgore is barrier authority and the father of the dead child who became Flowey. The Sanctum teaches protection as the highest duty. He is the archive's clearest case of a man who kept the doctrine and lost the thing it was for."
       }
     ],
-    "image": "portraits/asgore.png"
+    "image": "portraits/asgore.jpg"
   },
   {
     "id": "boss_knuckles",
@@ -4558,7 +4558,7 @@
     "fameScore": 20,
     "fameTier": "Local",
     "expandedAt": "overnight",
-    "image": "portraits/boss_knuckles.png"
+    "image": "portraits/boss_knuckles.jpg"
   },
   {
     "id": "high_inquisitor_vale",
@@ -4593,7 +4593,7 @@
         "note": "Vale holds an Oathbound commission under a faith whose Edict of Purification supplies the legal theory for most of what the Mandate now permits. The Flame provides the authority; the Oathbound provide the paperwork."
       }
     ],
-    "image": "portraits/high_inquisitor_vale.png"
+    "image": "portraits/high_inquisitor_vale.jpg"
   },
   {
     "id": "skullcap_murphy",
@@ -4621,7 +4621,7 @@
     "fameScore": 34,
     "fameTier": "Local",
     "expandedAt": "overnight",
-    "image": "portraits/skullcap_murphy.png"
+    "image": "portraits/skullcap_murphy.jpg"
   },
   {
     "id": "elder_mudcap",
@@ -4687,7 +4687,7 @@
         "note": "Fernback took the chivalric oath and pointed it at Speaker L rather than at any crown. The Lady's doctrine does not permit this substitution. Fernback has not noticed, and the distinction is going to matter."
       }
     ],
-    "image": "portraits/captain_fernback.png"
+    "image": "portraits/captain_fernback.jpg"
   },
   {
     "id": "scribe_dewdrop",
@@ -4720,7 +4720,7 @@
         "note": "Dewdrop found a desert doctrine about weighing truth and recognised her own job in it. She compares testimony, refuses to let emergency language erase inconvenient facts, and has told Speaker L to his face that a record altered for morale is a record destroyed. Maat's scales are the only authority she has ever cited approvingly."
       }
     ],
-    "image": "portraits/scribe_dewdrop.png"
+    "image": "portraits/scribe_dewdrop.jpg"
   },
   {
     "id": "forgemaster_ironspore",
@@ -4753,7 +4753,7 @@
         "note": "Ironspore maintains a diaspora's equipment out of salvage, and the Scrapper's Code — that a discarded thing retains its potential until someone proves otherwise — is less a religion to him than an accurate description of his supply chain."
       }
     ],
-    "image": "portraits/forgemaster_ironspore.png"
+    "image": "portraits/forgemaster_ironspore.jpg"
   },
   {
     "id": "warden_thornshell",
@@ -4819,7 +4819,7 @@
         "note": "Mistpetal measures every proposed operation against the casualty list it implies, which is the Sanctum's actual doctrine rather than its decorative one. The Menders pray over the wounded and then argue with the council, in that order."
       }
     ],
-    "image": "portraits/healer_mistpetal.png"
+    "image": "portraits/healer_mistpetal.jpg"
   },
   {
     "id": "kyrn",
@@ -4883,7 +4883,7 @@
         "note": "mike — lower-case, and he will tell you it is on his papers before you finish asking — took one expedition's casual labour for Wario's Enterprise. The Scrapper's Code holds that discarded things retain their potential. mike has heard this applied to himself and did not care for it."
       }
     ],
-    "image": "portraits/mike.png"
+    "image": "portraits/mike.jpg"
   },
   {
     "id": "speaker_rivers",
@@ -4925,7 +4925,7 @@
         "note": "Rivers walked out of the Midlands Diet at 09:00 on the 21st of Highsun over the Iron Mandate. Maat's balance is the only frame in which that act reads as duty rather than desertion, and Rivers has been quietly citing it since."
       }
     ],
-    "image": "portraits/speaker_rivers.png"
+    "image": "portraits/speaker_rivers.jpg"
   },
   {
     "id": "creek_medic",
@@ -4963,7 +4963,7 @@
         "note": "Creek learned the Holy Light's healing rites in a hospital before the barrels, which means he learned them as procedure with a prayer attached. He stabilised Dan after Dan lost an arm. He has not said which half of the training did it."
       }
     ],
-    "image": "portraits/creek.png"
+    "image": "portraits/creek.jpg"
   },
   {
     "id": "robinson",
@@ -4996,7 +4996,7 @@
         "note": "Markop's father stood in the Dragon's Den at Dragon Mountain at 10:00 on the 21st of Highsun. The Hunt's doctrine — that the pursuit is the relationship, and both roles are honourable — is the frame a centaur brings to a room like that."
       }
     ],
-    "image": "portraits/robinson.png"
+    "image": "portraits/robinson.jpg"
   },
   {
     "id": "the_mole",
@@ -5067,7 +5067,7 @@
         "note": "The Mazebounds were blighted into what they are. Boundy negotiates, remembers, and sings, which is more personhood than the doctrine of decay usually leaves behind — and the Circle would call the singing part of the cycle rather than a remnant of the person. Boundy has not been asked which reading he prefers."
       }
     ],
-    "image": "portraits/boundy.png"
+    "image": "portraits/boundy.jpg"
   },
   {
     "id": "randell_vampire",
@@ -5107,7 +5107,7 @@
         "note": "Randell followed Remi and Eager to Tymnas's cottage and claimed authorisation for both the trampoline and the arrest. The Path's doctrine of rightful precedence is extremely convenient to a vampire whose authorisation nobody can verify."
       }
     ],
-    "image": "portraits/randell_vampire.png"
+    "image": "portraits/randell_vampire.jpg"
   },
   {
     "id": "jamesly",
@@ -5139,7 +5139,7 @@
         "note": "Jamesly's belief is procedural: the Protocols are correct because they are the Protocols, and an operative who invokes one outside its intended use has committed something closer to blasphemy than error. He entered the debriefing room to correct a heresy, not a mistake."
       }
     ],
-    "image": "portraits/jamesly.png"
+    "image": "portraits/jamesly.jpg"
   },
   {
     "id": "daniel_gamma_command",
@@ -5171,7 +5171,7 @@
         "note": "Daniel's object of worship is the command structure itself. He confronted the Gamma Agent not over what was learned in the embassy but over who authorized the learning — a distinction that only matters if the hierarchy is the sacred thing and the intelligence is incidental."
       }
     ],
-    "image": "portraits/daniel_gamma_command.png"
+    "image": "portraits/daniel_gamma_command.jpg"
   },
   {
     "id": "hank_the_goblin_butler",
@@ -5188,7 +5188,7 @@
       "overgrown_manor",
       "hjumpik"
     ],
-    "image": "portraits/hank_the_goblin_butler.png"
+    "image": "portraits/hank_the_goblin_butler.jpg"
   },
   {
     "id": "timmy_the_house_guard",
@@ -5205,7 +5205,7 @@
       "overgrown_manor",
       "hjumpik"
     ],
-    "image": "portraits/timmy_the_house_guard.png"
+    "image": "portraits/timmy_the_house_guard.jpg"
   },
   {
     "id": "wyatt_the_white_haired_goblin",
@@ -5222,7 +5222,7 @@
       "overgrown_manor",
       "toad_lee"
     ],
-    "image": "portraits/wyatt_the_white_haired_goblin.png"
+    "image": "portraits/wyatt_the_white_haired_goblin.jpg"
   },
   {
     "id": "brad_the_waiter",
@@ -5238,7 +5238,7 @@
       "feyward_battalion_of_six_and_the_bait_plan",
       "overgrown_manor"
     ],
-    "image": "portraits/brad_the_waiter.png"
+    "image": "portraits/brad_the_waiter.jpg"
   },
   {
     "id": "randall_the_house_guard",
@@ -5254,7 +5254,7 @@
       "feyward_battalion_of_six_and_the_bait_plan",
       "overgrown_manor"
     ],
-    "image": "portraits/randall_the_house_guard.png"
+    "image": "portraits/randall_the_house_guard.jpg"
   },
   {
     "id": "piktor_deldkur_the_third",
@@ -5277,7 +5277,7 @@
         "note": "Hjumpik's grandfather, named in the war room of the Overgrown Manor on the morning of 1 Aethel, 922 BF. The Steel Creed's instinct — that dangerous knowledge should be held rather than shared, for everyone's protection — is a dwarven house's default posture rendered as theology."
       }
     ],
-    "image": "portraits/piktor_deldkur_the_third.png"
+    "image": "portraits/piktor_deldkur_the_third.jpg"
   },
   {
     "id": "big_r",
@@ -5307,7 +5307,7 @@
         "note": "Big R keeps the faith the way he keeps the line — without commentary, and further forward than anyone asked him to. The field tally writes Black Bear. The after-action writes ANCHOR. Neither notes that he says the wish for the whole squad because nobody else has time."
       }
     ],
-    "image": "portraits/big_r.png"
+    "image": "portraits/big_r.jpg"
   },
   {
     "id": "liam",
@@ -5338,7 +5338,7 @@
         "note": "Liam entered the Dread Mansion to collect Spirit Residue on an assignment his own organisation says it never issued. Millennium Logic teaches that a documented procedure is a sufficient reason to act. Liam followed one all the way into a haunting."
       }
     ],
-    "image": "portraits/liam.png"
+    "image": "portraits/liam.jpg"
   },
   {
     "id": "alice",
@@ -5370,7 +5370,7 @@
         "note": "Alice is a spirit in a tattered Victorian dress whose anger drives the mansion's pursuit. The Dark Moon is the doctrine that explains a ghost kept lucid enough to recognise faces and furious enough to hunt them, which is a worse condition than madness."
       }
     ],
-    "image": "portraits/alice.png"
+    "image": "portraits/alice.jpg"
   },
   {
     "id": "riba",
@@ -5393,7 +5393,7 @@
       "mario",
       "luigi"
     ],
-    "image": "portraits/riba.png"
+    "image": "portraits/riba.jpg"
   },
   {
     "id": "director_vale",
@@ -5423,7 +5423,7 @@
         "note": "Vale appeared with a silver Director's badge after DGK Central denied sending Liam anywhere. State Atheism worships the System and the credential that proves you are inside it. Vale has produced the credential. Central has produced a denial. Only one of these is portable."
       }
     ],
-    "image": "portraits/director_vale.png"
+    "image": "portraits/director_vale.jpg"
   },
   {
     "id": "jack_melvus_miser",
@@ -5431,7 +5431,7 @@
     "title": "Commander of the Order of Jack; Knight of the Regal Lion",
     "race": "Human",
     "age": "26 (turns 27 this year) — born c. 1013 BF",
-    "image": "portraits/jack_melvus_miser.png",
+    "image": "portraits/jack_melvus_miser.jpg",
     "status": "Active — minor landed knight-commander at Vellanet Rise; Regal Lion second-in-command on detached service; unaware his brother Archie is missing",
     "affiliation": "The Order of Jack (founder and commander) / the Regal Lion (knight, formerly second-in-command) / the Iron Legion (by the Regal Lion's subordination, not by oath)",
     "aliases": [
@@ -5495,7 +5495,7 @@
     "race": "Human",
     "type": "Family / Household Record",
     "region": "Regal Empire — Midlands periphery (Vellanet Rise and its parish)",
-    "image": "portraits/miser_family.png",
+    "image": "portraits/miser_family.jpg",
     "status": "Active — four of six accounted for at Vellanet Rise; Archie missing across planes; the name remains provincial and largely unknown outside its home province",
     "affiliation": "No faction. A household — currently attached to the Order of Jack by kinship rather than by oath",
     "summary": "Six people: Wanda (Wandella) Miser and her five children — Jack, July, Archie, Spring and Hark. A single-mother household on the Regal Empire's Midlands periphery that produced one landed knight-commander, one wandering witch, one arcane disaster, and two young adults still deciding. The family is not famous. Within its own parish the Miser name now opens doors; a hundred miles away it opens nothing, and the middle child has spent years making sure it stays that way. Waluipedia held no Miser family file at all until Jack's record forced one.",
@@ -5547,7 +5547,7 @@
       "overgrown_manor",
       "overgrown_library"
     ],
-    "image": "portraits/the_veteran_fairy.png"
+    "image": "portraits/the_veteran_fairy.jpg"
   },
   {
     "id": "red_the_kitchen_commander",
@@ -5564,7 +5564,7 @@
       "hjumpik",
       "the_orange_heir"
     ],
-    "image": "portraits/red_the_kitchen_commander.png"
+    "image": "portraits/red_the_kitchen_commander.jpg"
   },
   {
     "id": "the_mushroom_room_guard",
@@ -5581,7 +5581,7 @@
       "hjumpik",
       "orangus_cornelius"
     ],
-    "image": "portraits/the_mushroom_room_guard.png"
+    "image": "portraits/the_mushroom_room_guard.jpg"
   },
   {
     "id": "scorncrow",
@@ -5631,7 +5631,7 @@
       "the_garden_above_the_fire",
       "dr_toads_star_hill_clinic"
     ],
-    "image": "portraits/mona.png"
+    "image": "portraits/mona.jpg"
   },
   {
     "id": "ashley",
@@ -5654,7 +5654,7 @@
       "the_garden_above_the_fire",
       "dr_toads_star_hill_clinic"
     ],
-    "image": "portraits/ashley.png"
+    "image": "portraits/ashley.jpg"
   },
   {
     "id": "jimmy_t",
@@ -5677,7 +5677,7 @@
       "the_garden_above_the_fire",
       "dr_toads_star_hill_clinic"
     ],
-    "image": "portraits/jimmy_t.png"
+    "image": "portraits/jimmy_t.jpg"
   },
   {
     "id": "kat",
@@ -5702,7 +5702,7 @@
       "mona",
       "jimmy_t"
     ],
-    "image": "portraits/kat.png"
+    "image": "portraits/kat.jpg"
   },
   {
     "id": "ana",
@@ -5727,7 +5727,7 @@
       "mona",
       "jimmy_t"
     ],
-    "image": "portraits/ana.png"
+    "image": "portraits/ana.jpg"
   },
   {
     "id": "dr_toad",
@@ -5748,7 +5748,7 @@
       "waluigi",
       "wario"
     ],
-    "image": "portraits/dr_toad.png"
+    "image": "portraits/dr_toad.jpg"
   },
   {
     "id": "the_plant_lady",
@@ -5767,7 +5767,7 @@
       "red_the_kitchen_commander",
       "feyward_i_cant_afford_not_to_care"
     ],
-    "image": "portraits/the_plant_lady.png"
+    "image": "portraits/the_plant_lady.jpg"
   },
   {
     "id": "color_division_black",
@@ -5787,7 +5787,7 @@
       "overgrown_manor",
       "feyward_i_cant_afford_not_to_care"
     ],
-    "image": "portraits/color_division_black.png"
+    "image": "portraits/color_division_black.jpg"
   },
   {
     "id": "the_hallway_reinforcement_guard",
@@ -5805,6 +5805,6 @@
       "wario",
       "feyward_i_cant_afford_not_to_care"
     ],
-    "image": "portraits/the_hallway_reinforcement_guard.png"
+    "image": "portraits/the_hallway_reinforcement_guard.jpg"
   }
 ]

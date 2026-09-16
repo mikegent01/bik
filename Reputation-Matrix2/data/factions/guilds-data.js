@@ -658,7 +658,7 @@ Currently, the Brigade is focused on the Mushroom Kingdom, where they've success
         leader: {
             name: "Viceroy Hammer Forgeheart",
             title: "Viceroy",
-            portrait: "portraits/forgeheart.png",
+            portrait: "portraits/forgeheart.jpg",
             description: "A calculating strategist who views the Kingdom as a puzzle to be solved. Known for patience and ruthlessness in equal measure."
         },
 
