@@ -2827,6 +2827,7 @@ a.front-title:hover{color:var(--accent2)}
   grid-auto-rows:120px;
 }
 .cs-plate{
+  display:block; text-decoration:none; color:inherit;
   position:relative; margin:0; border-radius:14px; overflow:hidden; cursor:pointer;
   border:1px solid var(--border,rgba(255,255,255,.1));
   box-shadow:0 8px 22px rgba(0,0,0,.34);
@@ -2836,14 +2837,14 @@ a.front-title:hover{color:var(--accent2)}
 .cs-plate img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease}
 .cs-plate:hover{transform:translateY(-3px); box-shadow:0 16px 34px rgba(0,0,0,.46); border-color:rgba(255,215,106,.55)}
 .cs-plate:hover img{transform:scale(1.05)}
-.cs-plate figcaption{
+.cs-plate .cs-cap{
   position:absolute; inset:auto 0 0 0; padding:20px 12px 10px;
   display:flex; flex-direction:column; gap:2px;
   background:linear-gradient(to top, rgba(6,3,14,.92), rgba(6,3,14,.55) 55%, transparent);
 }
-.cs-plate figcaption b{font-size:12.5px;color:#fff;line-height:1.25;text-shadow:0 1px 4px rgba(0,0,0,.8)}
-.cs-plate.lead figcaption b{font-size:17px}
-.cs-plate figcaption span{font-size:10.5px;color:rgba(255,255,255,.72);text-transform:uppercase;letter-spacing:.06em}
+.cs-plate .cs-cap b{font-size:12.5px;color:#fff;line-height:1.25;text-shadow:0 1px 4px rgba(0,0,0,.8)}
+.cs-plate.lead .cs-cap b{font-size:17px}
+.cs-plate .cs-cap span{font-size:10.5px;color:rgba(255,255,255,.72);text-transform:uppercase;letter-spacing:.06em}
 @media(max-width:900px){
   .cs-strip{grid-template-columns:repeat(2,1fr);grid-auto-rows:110px}
   .cs-plate.lead{grid-column:span 2;grid-row:span 2}

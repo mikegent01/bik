@@ -395,7 +395,16 @@
        get it out of the way -- lives on the Settings page, which is a place
        you go rather than something parked over the content on every view. */
     ui.innerHTML = `<button type="button" data-walu-music-play title="Play / pause ambient music">▶</button><a data-walu-settings-link href="#/settings" title="Sound & appearance settings" aria-label="Settings">⚙</a>`;
-    document.body.appendChild(ui);
+    /* Deliberately NOT appended to the page. The floating play/cog pill sat in
+       the middle of the viewport on top of content, and everything it offered
+       now has a real home: the header Music button toggles playback and
+       #/settings owns volume, tracks and appearance.
+
+       The element is still constructed because ~15 handlers, the collapse and
+       drag logic, and the public API all reference `ui`; building it and
+       leaving it detached keeps every one of those paths null-safe without
+       unpicking the widget. It is a no-op that renders nothing. */
+    ui.hidden = true;
     panel = document.createElement('div');
     panel.className = 'walu-music-panel';
     panel.setAttribute('data-walu-music-panel', 'true');
@@ -408,7 +417,8 @@
     restoreButton.textContent = '🎧 Show music';
     restoreButton.title = 'Restore the hidden music widget';
     restoreButton.hidden = !dismissed;
-    document.body.appendChild(restoreButton);
+    /* Not appended either: it only existed to bring back the floating pill. */
+    restoreButton.hidden = true;
     applyMobileMode(mobileMode);
     ui.hidden = dismissed;
     setCollapsed(collapsed);
@@ -440,8 +450,10 @@
     else if (target.matches('[data-walu-music-dismiss]')) hideWidget();
     else if (target.matches('[data-walu-music-restore]')) showWidget();
     else if (target.matches('[data-walu-music-track]')) { trackIndex = Number(target.dataset.waluMusicTrack) || 0; step = 0; loopsOnTrack = 0; if (audio) nextTime = audio.currentTime + 0.12; updateUi(); if (!playing) start(); else confirmation('next'); }
-    else { showWidget(); toggle(); }
-    if (target.id === 'musicBtn') showWidget();
+    /* The header 🎧 button is now the only playback control on the page, so it
+       just toggles. showWidget() used to un-hide the floating pill, which no
+       longer exists. */
+    else { toggle(); }
   }, true);
 
   // Dragging is limited to the ⠿ handle so music buttons never steal pointer

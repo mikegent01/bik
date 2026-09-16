@@ -9553,11 +9553,11 @@ function colourShowcaseHtml(){
     let seen = false; try{ seen = !!localStorage.getItem(key); }catch(e){}
 
     const big = plates.slice(0,5).map((p,idx)=>`
-      <figure class="cs-plate${idx===0?' lead':''}" onclick="Router.go('#/conflict/'+encodeURIComponent(${JSON.stringify(p.name)}))" title="${esc(p.name)}">
+      <a class="cs-plate${idx===0?' lead':''}" href="#/conflict/${encodeURIComponent(p.name)}" title="${esc(p.name)}">
         <img src="${esc(assetPath(p.image))}" alt="${esc(p.name)}" loading="lazy" decoding="async"
-             onerror="this.closest('figure').remove()">
-        <figcaption><b>${esc(p.name)}</b>${p.status?`<span>${esc(p.status)}</span>`:''}</figcaption>
-      </figure>`).join('');
+             onerror="this.closest('.cs-plate').remove()">
+        <span class="cs-cap"><b>${esc(p.name)}</b>${p.status?`<span>${esc(p.status)}</span>`:''}</span>
+      </a>`).join('');
 
     return `<section class="hm-sec hm-rise colour-showcase${seen?'':' is-fresh'}" id="colour-showcase">
       <div class="hm-sec-head">
