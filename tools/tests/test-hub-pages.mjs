@@ -94,7 +94,16 @@ check('the table has entries', entries.length >= 150, `${entries.length}`);
 check('the Injury Desk has a route', /route==='injuries'/.test(main),
   'injuries.json still has no page');
 check('death saves are implemented', /function rollDeathSave/.test(main));
-check('the table is reachable from the sidebar', /label:'Injury Desk'/.test(main));
+// The Injury Desk left the sidebar when everything rollable moved into
+// Wario's Casino. The route stays as a redirect for old links, so what must
+// hold is that the consequence table is reachable in ONE click from the
+// sidebar -- now via the casino, which owns the searchable copy.
+check('the consequence table is reachable from the sidebar',
+  /crime-and-punishment\.html/.test(main) && /Wario's Casino/.test(main),
+  'nothing in the sidebar leads to the consequence table');
+check('the old Injury Desk route still redirects rather than 404ing',
+  /route==='injuries'/.test(main) && /Casino/.test(main),
+  'the retired page must still point somewhere useful');
 // Renamed to Wario's Casino; what matters is that the sentencing/consequence
 // page is still reachable from the sidebar, so assert on the destination
 // rather than the label, which is branding and free to change.

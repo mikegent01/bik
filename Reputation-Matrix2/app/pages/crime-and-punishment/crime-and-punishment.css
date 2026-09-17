@@ -75,6 +75,40 @@
 .cap-verdictline.dead{color:var(--cap-severe)}
 .cap-verdictline.revived{color:var(--cap-gold)}
 
+/* ---- the reference table ---- */
+.cap-tabletools{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+.cap-tabletools input,.cap-tabletools select{
+  background:#1b1628;border:1px solid var(--cap-line);border-radius:8px;
+  color:var(--cap-fg);padding:9px 12px;font:400 13px 'Roboto Mono',monospace}
+.cap-tabletools input{flex:1;min-width:220px}
+.cap-tabletools input::placeholder{color:var(--cap-muted)}
+.cap-tabletools input:focus,.cap-tabletools select:focus{
+  outline:none;border-color:var(--cap-gold);box-shadow:0 0 0 2px rgba(212,168,83,.18)}
+.cap-tablecount{font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--cap-muted);margin-bottom:10px}
+.cap-tablewrap{max-height:620px;overflow:auto;border:1px solid var(--cap-line);
+  border-radius:12px;background:var(--cap-panel)}
+.cap-table{width:100%;border-collapse:collapse;font-size:13px}
+.cap-table thead th{position:sticky;top:0;z-index:2;background:#1b1628;
+  color:var(--cap-gold);text-align:left;padding:10px 12px;font-size:11px;
+  letter-spacing:.08em;text-transform:uppercase;border-bottom:1px solid var(--cap-line)}
+.cap-table td{padding:10px 12px;border-bottom:1px solid rgba(255,255,255,.055);
+  vertical-align:top}
+.cap-table tbody tr:hover{background:rgba(212,168,83,.06)}
+.cap-table .n{white-space:nowrap;font-family:'Orbitron',sans-serif;color:var(--cap-fg)}
+.cap-table .n .sw{display:inline-block;width:6px;height:14px;border-radius:3px;
+  margin-right:8px;vertical-align:-2px}
+.cap-table .c{color:var(--cap-muted);font-size:11.5px;white-space:nowrap}
+.cap-table .d{color:var(--cap-muted);font-size:12px;line-height:1.5;margin-top:3px;
+  max-width:60ch}
+.cap-table .cu,.cap-table .du{font-size:12px;color:#cfc4dd;white-space:nowrap}
+/* The row a table roll landed on. */
+.cap-table tr.hit{background:rgba(212,168,83,.16);animation:capHit 1.6s ease-out}
+@keyframes capHit{0%{background:rgba(212,168,83,.55)}100%{background:rgba(212,168,83,.16)}}
+@media (max-width:620px){
+  .cap-table .du,.cap-table thead th:nth-child(5){display:none}
+}
+
 /* ---- phase strip ---- */
 .cap-phases{display:flex;gap:10px;margin-bottom:18px;flex-wrap:wrap}
 .cap-phase{flex:1;min-width:210px;padding:10px 14px;border-radius:10px;background:var(--cap-panel);

@@ -48,6 +48,7 @@
   <div class="cap-tabs" role="tablist">
     <button class="cap-tab on" id="capTabFloor" role="tab" aria-selected="true">&#127920; The Floor</button>
     <button class="cap-tab" id="capTabWard" role="tab" aria-selected="false">&#129658; The Ward</button>
+    <button class="cap-tab" id="capTabTable" role="tab" aria-selected="false">&#129460; The Table</button>
   </div>
 
   <section id="capPaneFloor">
@@ -173,6 +174,36 @@
       </div>
 
       <div class="cap-log" id="capWardLog"></div>
+    </div>
+  </section>
+
+  <!-- ==================== THE TABLE ==================== -->
+  <!-- The reference side of the house. The drums decide; this is where you
+       look things up, which is the one thing a spinning reel is bad at. -->
+  <section id="capPaneTable" hidden>
+    <div class="cap-houserule">
+      <b>The Table.</b> Every consequence in the book, searchable. The drums
+      out front pull from exactly these rows &mdash; this is the same
+      <code>injuries.json</code> the house rolls on, not a copy. Use it to look
+      up a cure, check a duration, or settle an argument about what someone
+      rolled three sessions ago.
+    </div>
+
+    <div class="cap-tabletools">
+      <input id="capSearch" placeholder="Search injury, effect, cure, or category…">
+      <select id="capFilter"><option value="">All categories</option></select>
+      <button class="cap-btn ghost" id="capTableRoll">&#127922; Roll this table</button>
+    </div>
+    <div class="cap-tablecount" id="capTableCount"></div>
+
+    <div class="cap-tablewrap">
+      <table class="cap-table">
+        <thead><tr>
+          <th>d100</th><th>Category</th><th>Injury</th>
+          <th>Lowest cure</th><th>Duration</th>
+        </tr></thead>
+        <tbody id="capTableBody"></tbody>
+      </table>
     </div>
   </section>
 

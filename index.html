@@ -8777,8 +8777,7 @@ function renderSidebar(active){
     navLink({emoji:'🎵',label:'Campaign Songbook',go:"Router.go('#/songs')",active:active==='songs',count:23}),
     navLink({emoji:'🛰️',label:'Mission Control',go:"Router.go('#/mission-control')",active:active==='mission-control'}),
     navLink({emoji:'🔍',label:'Investigations',go:"Router.go('#/investigations')",active:active==='investigations',count:(((DATA.investigations||{}).investigations)||[]).length}),
-    navLink({emoji:'🎰',label:"Wario's Casino",go:"location.href='Reputation-Matrix2/app/pages/crime-and-punishment/crime-and-punishment.html'",title:'Crime and Punishment — the sentencing reel and the consequence drum'}),
-    navLink({emoji:'🩸',label:'Injury Desk',go:"Router.go('#/injuries')",active:active==='injuries',count:((DATA.injuries&&DATA.injuries.entries)||[]).length,title:'Death saving throws and the d100 injury table'}),
+    navLink({emoji:'🎰',label:"Wario's Casino",go:"location.href='Reputation-Matrix2/app/pages/crime-and-punishment/crime-and-punishment.html'",count:((DATA.injuries&&DATA.injuries.entries)||[]).length,title:'Sentencing reel, death saves and the d100 consequence table — everything rollable'}),
     navLink({emoji:'🗣️',label:'The Wahbabel',go:"Router.go('#/wahbabel')",active:active==='wahbabel',count:(WAHBABEL&&WAHBABEL.languages?WAHBABEL.languages.length:7),title:'Translation desk — ciphers, dictionaries and glyphs'}),
     navLink({emoji:'💬',label:'Chatter Hub',go:"Router.go('#/annotations')",active:active==='annotations',count:n('annotations')}),
   ];
@@ -13802,13 +13801,17 @@ function view_injuries(tab){
 
   el('content').innerHTML=`
     <div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › Injury Desk</div>
-    <div class="card animate-fade-in" style="border-left:5px solid #c0392b;background:linear-gradient(135deg,rgba(192,57,43,.14),rgba(120,20,20,.08)),var(--panel)">
-      <h1 style="margin:6px 0 4px">🩸 The Injury Desk</h1>
-      <p class="text-muted" style="font-size:13.5px;margin:0">
-        Death saving throws and the ${table.length}-entry consequence table, in one place.
-        The sentencing side of the docket lives on
-        <a onclick="location.href='Reputation-Matrix2/app/pages/crime-and-punishment/crime-and-punishment.html'" style="cursor:pointer;text-decoration:underline">Crime and Punishment</a>.
+    <div class="card animate-fade-in" style="border-left:5px solid #d4a853;background:linear-gradient(135deg,rgba(212,168,83,.16),rgba(120,90,20,.08)),var(--panel)">
+      <h1 style="margin:6px 0 4px">🎰 This desk has moved to Wario's Casino</h1>
+      <p class="text-muted" style="font-size:13.5px;margin:0 0 10px">
+        Everything rollable now lives under one roof: the sentencing reel, the
+        death saves, and this ${table.length}-entry consequence table as a
+        searchable reference. This page stays put so old links keep working.
       </p>
+      <div class="inj-btns">
+        <button class="inj-btn" onclick="location.href='Reputation-Matrix2/app/pages/crime-and-punishment/crime-and-punishment.html'">🎰 Open the Casino</button>
+        <button class="inj-btn ghost" onclick="location.href='Reputation-Matrix2/app/pages/crime-and-punishment/crime-and-punishment.html#table'">🗒 Straight to the table</button>
+      </div>
     </div>
     ${warn}
     <div class="inj-tabs">

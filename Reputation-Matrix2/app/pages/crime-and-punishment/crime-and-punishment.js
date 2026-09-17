@@ -48,6 +48,8 @@
         state.injuries = (inj.entries || []).filter(function (e) { return e && e.injuryType; });
         renderReel();
         renderInjuryReel();
+        renderFilter();
+        renderTable();
         renderShop();
         paint();
         log('Docket loaded. ' + state.sentences.length + ' sentences on the reel, ' +
@@ -686,21 +688,104 @@
     });
   }
 
+  // ----------------------------------------------------------- the table
+  // The reference half of the house, moved here from the wiki's Injury Desk
+  // so that everything rollable lives behind one door. The drums and this
+  // table read the same state.injuries array -- there is no second copy to
+  // drift out of sync.
+  function tableRows() {
+    var q = (el('capSearch').value || '').trim().toLowerCase();
+    var cat = el('capFilter').value || '';
+    return state.injuries.filter(function (e) {
+      if (cat && (e.category || '') !== cat) return false;
+      if (!q) return true;
+      return [e.injuryType, e.description, e.cure, e.category, e.duration]
+        .join(' ').toLowerCase().indexOf(q) > -1;
+    });
+  }
+
+  function renderTable() {
+    var rows = tableRows();
+    var body = el('capTableBody');
+    if (!body) return;
+    // Cap the DOM at a few hundred rows; the search is the way to reach the
+    // rest, and rendering 204 full descriptions at once is already plenty.
+    body.innerHTML = rows.slice(0, 400).map(function (e) {
+      return '<tr data-d100="' + esc(String(e.d100)) + '">' +
+        '<td class="n"><span class="sw" style="background:' + esc(injuryColor(e.category)) + '"></span>' +
+        esc(String(e.d100 != null ? e.d100 : '')) + '</td>' +
+        '<td class="c">' + esc(e.category || '') + '</td>' +
+        '<td><b>' + esc(e.injuryType || '') + '</b>' +
+        (e.description ? '<div class="d">' + esc(e.description) + '</div>' : '') + '</td>' +
+        '<td class="cu">' + esc(e.cure || '—') + '</td>' +
+        '<td class="du">' + esc(e.duration || '—') + '</td>' +
+        '</tr>';
+    }).join('');
+    el('capTableCount').textContent =
+      rows.length === state.injuries.length
+        ? state.injuries.length + ' consequences on file'
+        : rows.length + ' of ' + state.injuries.length + ' shown';
+  }
+
+  function renderFilter() {
+    var seen = {}, out = [];
+    state.injuries.forEach(function (e) {
+      var c = e.category || '';
+      if (c && !seen[c]) { seen[c] = 1; out.push(c); }
+    });
+    out.sort();
+    var sel = el('capFilter');
+    sel.innerHTML = '<option value="">All categories</option>' +
+      out.map(function (c) { return '<option>' + esc(c) + '</option>'; }).join('');
+  }
+
+  // Rolling from the table scrolls the winning row into view and flashes it,
+  // rather than opening a card -- you are already looking at the list.
+  function rollFromTable() {
+    if (!state.injuries.length) return;
+    var e = state.injuries[Math.floor(Math.random() * state.injuries.length)];
+    el('capSearch').value = '';
+    el('capFilter').value = '';
+    renderTable();
+    var tr = el('capTableBody').querySelector('[data-d100="' + e.d100 + '"]');
+    if (tr) {
+      el('capTableBody').querySelectorAll('.hit').forEach(function (n) { n.classList.remove('hit'); });
+      tr.classList.add('hit');
+      tr.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      tick(1);
+    }
+    log('Table roll: d' + e.d100 + ' — ' + (e.injuryType || '?') + '.', true);
+  }
+
   // ------------------------------------------------------------------ tabs
+  var TABS = [
+    ['floor', 'capTabFloor', 'capPaneFloor'],
+    ['ward', 'capTabWard', 'capPaneWard'],
+    ['table', 'capTabTable', 'capPaneTable']
+  ];
+
   function showTab(which) {
-    var floor = which === 'floor';
-    el('capPaneFloor').hidden = !floor;
-    el('capPaneWard').hidden = floor;
-    el('capTabFloor').classList.toggle('on', floor);
-    el('capTabWard').classList.toggle('on', !floor);
-    el('capTabFloor').setAttribute('aria-selected', String(floor));
-    el('capTabWard').setAttribute('aria-selected', String(!floor));
+    TABS.forEach(function (t) {
+      var on = t[0] === which;
+      el(t[2]).hidden = !on;
+      el(t[1]).classList.toggle('on', on);
+      el(t[1]).setAttribute('aria-selected', String(on));
+    });
+    if (which === 'table') location.hash = '#table';
+    else if (location.hash === '#table') location.hash = '';
   }
 
   // ------------------------------------------------------------------ wire
   document.addEventListener('DOMContentLoaded', function () {
     el('capTabFloor').addEventListener('click', function () { showTab('floor'); });
     el('capTabWard').addEventListener('click', function () { showTab('ward'); });
+    el('capTabTable').addEventListener('click', function () { showTab('table'); });
+    el('capSearch').addEventListener('input', renderTable);
+    el('capFilter').addEventListener('change', renderTable);
+    el('capTableRoll').addEventListener('click', rollFromTable);
+    // The wiki sidebar links straight to the reference table, so honour the
+    // deep link on load.
+    if (location.hash === '#table') showTab('table');
     el('capSaveBtn').addEventListener('click', rollDeathSave);
     el('capWardReset').addEventListener('click', resetWard);
     el('capWardCost').addEventListener('click', wardCost);
