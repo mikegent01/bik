@@ -28,6 +28,53 @@
   font-size:12.5px;line-height:1.65;color:var(--cap-muted);margin-bottom:18px}
 .cap-houserule b{color:var(--cap-gold)}
 
+/* ---- house tabs ---- */
+.cap-tabs{display:flex;gap:8px;margin-bottom:16px}
+.cap-tab{flex:0 0 auto;padding:9px 18px;border-radius:10px 10px 0 0;cursor:pointer;
+  background:transparent;border:1px solid transparent;border-bottom:2px solid var(--cap-line);
+  color:var(--cap-muted);font:700 13px 'Roboto Mono',monospace;letter-spacing:.03em;
+  transition:background .18s,color .18s}
+.cap-tab:hover{color:var(--cap-fg);background:rgba(212,168,83,.07)}
+.cap-tab.on{background:var(--cap-panel);border-color:var(--cap-line);
+  border-bottom-color:transparent;color:var(--cap-gold)}
+
+/* ---- the ward ---- */
+.cap-ward{background:var(--cap-panel);border:1px solid var(--cap-line);
+  border-radius:14px;padding:18px}
+.cap-d20wrap{display:flex;justify-content:center;margin:6px 0 18px}
+/* The ward's die is deliberately unlike the drums: a single object you act
+   on, not a wheel that acts on you. */
+.cap-d20{width:116px;height:116px;display:grid;place-items:center;
+  font-family:'Orbitron',sans-serif;font-size:38px;color:var(--cap-gold);
+  background:radial-gradient(circle at 34% 28%,#3a2f52,#241d33);
+  border:2px solid var(--cap-line);
+  clip-path:polygon(50% 0,93% 25%,93% 75%,50% 100%,7% 75%,7% 25%);
+  text-shadow:0 0 14px rgba(212,168,83,.5)}
+.cap-d20.rolling{animation:capD20 .82s cubic-bezier(.3,.1,.2,1)}
+@keyframes capD20{
+  0%{transform:rotate(0) scale(1)}
+  70%{transform:rotate(680deg) scale(1.1)}
+  100%{transform:rotate(720deg) scale(1)}
+}
+.cap-track{max-width:420px;margin:0 auto}
+.cap-trackrow{display:flex;align-items:center;gap:12px;margin:8px 0}
+.cap-tlab{font-size:11px;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--cap-muted);width:92px;flex:0 0 auto}
+.cap-tlab.succ{color:var(--cap-mild)}
+.cap-tlab.fail{color:var(--cap-severe)}
+.cap-pips{display:flex;gap:8px}
+.cap-pip{width:22px;height:22px;border-radius:50%;background:#1b1628;
+  border:1px solid rgba(255,255,255,.14);transition:.2s}
+.cap-pip.on.succ{background:var(--cap-mild);border-color:var(--cap-mild);
+  box-shadow:0 0 10px rgba(46,204,113,.5)}
+.cap-pip.on.fail{background:var(--cap-severe);border-color:var(--cap-severe);
+  box-shadow:0 0 10px rgba(231,76,60,.5)}
+.cap-verdictline{text-align:center;margin:14px 0 4px;font-size:13px;font-weight:700;
+  line-height:1.5;min-height:1px}
+.cap-verdictline.stable{color:var(--cap-mild)}
+.cap-verdictline.dead{color:var(--cap-severe)}
+.cap-verdictline.revived{color:var(--cap-gold)}
+
 /* ---- phase strip ---- */
 .cap-phases{display:flex;gap:10px;margin-bottom:18px;flex-wrap:wrap}
 .cap-phase{flex:1;min-width:210px;padding:10px 14px;border-radius:10px;background:var(--cap-panel);
@@ -172,6 +219,11 @@
   .cap-meta{margin-left:0;width:100%;text-align:left}
 }
 @media (prefers-reduced-motion:reduce){
-  .cap-strip{transition:none!important}
+  /* NOTE: do NOT put `transition:none!important` on .cap-strip here. An
+     !important author rule is the one declaration that outranks an element's
+     inline style, so it silently nullified the transition the script writes
+     for every spin -- the drum jumped straight to its target and the spin
+     looked instant no matter what duration or easing was set. The script
+     already checks prefersReducedMotion() and shortens the spin itself. */
   .cap-verdict.show,.cap-cons.show{animation:none}
 }

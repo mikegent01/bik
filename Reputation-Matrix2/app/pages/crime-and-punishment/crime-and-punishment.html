@@ -44,6 +44,14 @@
     are worth precisely what you would expect.
   </div>
 
+  <!-- house tabs: the casino floor, and the medical wing next door -->
+  <div class="cap-tabs" role="tablist">
+    <button class="cap-tab on" id="capTabFloor" role="tab" aria-selected="true">&#127920; The Floor</button>
+    <button class="cap-tab" id="capTabWard" role="tab" aria-selected="false">&#129658; The Ward</button>
+  </div>
+
+  <section id="capPaneFloor">
+
   <!-- phases -->
   <div class="cap-phases">
     <div class="cap-phase" id="capPhase1">
@@ -122,6 +130,51 @@
   </div>
 
   <div class="cap-log" id="capLog"></div>
+
+  </section><!-- /capPaneFloor -->
+
+  <!-- ==================== THE WARD ==================== -->
+  <!-- The Ward is not a third drum. The floor decides things FOR you; the
+       ward is where you push your luck yourself, one save at a time, and it
+       is the only place on the page where a roll can go your way. -->
+  <section id="capPaneWard" hidden>
+
+    <div class="cap-houserule">
+      <b>The Ward.</b> Out on the floor the house decides what happens to you.
+      In here you get a say, briefly. Roll a d20 at the start of each turn while
+      dying: 10 or higher is a success. Three successes and you stabilise, three
+      failures and you do not. A natural 1 costs two failures. A natural 20 puts
+      you straight back on your feet at 1 hit point &mdash; the only outright win
+      in the building.
+    </div>
+
+    <div class="cap-ward">
+      <div class="cap-d20wrap">
+        <div class="cap-d20" id="capD20">d20</div>
+      </div>
+
+      <div class="cap-track">
+        <div class="cap-trackrow">
+          <span class="cap-tlab succ">Successes</span>
+          <div class="cap-pips" id="capSucc"></div>
+        </div>
+        <div class="cap-trackrow">
+          <span class="cap-tlab fail">Failures</span>
+          <div class="cap-pips" id="capFail"></div>
+        </div>
+      </div>
+
+      <div class="cap-verdictline" id="capWardVerdict"></div>
+
+      <div class="cap-controls">
+        <button class="cap-btn" id="capSaveBtn">Roll d20</button>
+        <button class="cap-btn ghost" id="capWardReset">Reset</button>
+        <button class="cap-btn r" id="capWardCost" disabled>Roll what it cost</button>
+      </div>
+
+      <div class="cap-log" id="capWardLog"></div>
+    </div>
+  </section>
 
   <div class="cap-note">
     <b>On this docket.</b> The sentencing reel carries 89 punishments ported from

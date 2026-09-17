@@ -141,5 +141,36 @@ check('the page is scoped so it cannot leak styles',
   css.trim().startsWith('/*') && css.includes('#cap-root'),
   'CSS is not scoped under #cap-root');
 
+console.log('\n-- the drums actually animate');
+
+// This one is scar tissue. A `transition:none!important` rule on .cap-strip
+// inside the reduced-motion block silently beat the inline transition the
+// script writes for every spin -- !important in an author sheet is the one
+// declaration that outranks an element's inline style. The drums jumped
+// straight to their target, so the spin looked instant and no amount of
+// re-tuning the duration or easing in JS could have any effect.
+check('no !important transition override on the reel strip',
+  !/\.cap-strip\s*\{[^}]*transition\s*:[^;}]*!important/.test(css),
+  'an !important transition on .cap-strip will outrank the inline one and kill the spin');
+
+check('reduced motion is handled in script, not by force-disabling transitions',
+  /prefersReducedMotion\(\)/.test(js),
+  'the script must shorten the spin itself now that CSS no longer forces it');
+
+check('the spin commits its start state before animating',
+  /getComputedStyle\([^)]*\)\.transform/.test(js),
+  'without a forced style flush the two transforms can coalesce and snap');
+
+console.log('\n-- the ward');
+
+check('the ward is a separate tab, not a third drum',
+  /id="capPaneWard"/.test(html) && /id="capTabWard"/.test(html));
+check('death saves are implemented here', /function rollDeathSave/.test(js));
+check('a natural 1 costs two failures', /r === 1[\s\S]{0,80}fail \+= 2/.test(js));
+check('a natural 20 revives', /r === 20[\s\S]{0,60}revived/.test(js));
+check('only survivors roll a consequence',
+  /ward\.done === 'stable' \|\| ward\.done === 'revived'/.test(js),
+  'the dead should not be handed an injury roll');
+
 console.log(`\n${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);

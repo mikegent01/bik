@@ -141,13 +141,21 @@
     var h = reel ? reel.clientHeight : 270;
     var target = (landIdx * ROW_H) - (h / 2) + (ROW_H / 2);
 
+    // Park at the top with no transition, then force the browser to COMMIT
+    // that state before the animated move is written. Reading offsetHeight
+    // alone flushes layout but not necessarily the transition property, so
+    // the two writes could be coalesced into one style recalculation and the
+    // drum would snap. Reading the computed transform is the reliable flush.
     setOffset(strip, 0, false);
-    void strip.offsetHeight;                      // force reflow
+    void window.getComputedStyle(strip).transform;
 
-    var dur = 5200 + Math.floor(Math.random() * 1200);
-    var mainMs = Math.round(dur * 0.88);
-    var settleMs = 620;
-    var overshoot = prefersReducedMotion() ? 0 : ROW_H * 0.62;
+    // Reduced motion is honoured here, in script, rather than by an
+    // !important CSS rule -- see the note in the stylesheet.
+    var reduced = prefersReducedMotion();
+    var dur = reduced ? 320 : 5200 + Math.floor(Math.random() * 1200);
+    var mainMs = reduced ? 320 : Math.round(dur * 0.88);
+    var settleMs = reduced ? 0 : 620;
+    var overshoot = reduced ? 0 : ROW_H * 0.62;
 
     if (reel) {
       reel.classList.add('spinning');
@@ -565,8 +573,138 @@
       .replace(/"/g, '&quot;');
   }
 
+  // ----------------------------------------------------------- the ward
+  // Death saves. Deliberately NOT a drum: the floor decides things for you,
+  // the ward is the one place you act and the one place a roll can go your
+  // way. Same house rules as the Injury Desk in the wiki shell, so a table
+  // that learns them here already knows them there.
+  var ward = { succ: 0, fail: 0, done: '', rolling: false, log: [] };
+
+  function wardPips(n, cls) {
+    var h = '';
+    for (var i = 0; i < 3; i++) h += '<span class="cap-pip' + (i < n ? ' on ' + cls : '') + '"></span>';
+    return h;
+  }
+
+  function wardLog(roll, note) {
+    ward.log.unshift({ r: roll, note: note });
+    ward.log = ward.log.slice(0, 8);
+    var n = el('capWardLog');
+    if (n) n.innerHTML = ward.log.map(function (l) {
+      return '<div><b>' + esc(String(l.r)) + '</b> — ' + esc(l.note) + '</div>';
+    }).join('');
+  }
+
+  function paintWard() {
+    el('capSucc').innerHTML = wardPips(ward.succ, 'succ');
+    el('capFail').innerHTML = wardPips(ward.fail, 'fail');
+    var v = el('capWardVerdict');
+    v.className = 'cap-verdictline' + (ward.done ? ' ' + ward.done : '');
+    v.textContent = ward.done === 'stable'
+      ? 'STABLE — three successes. Unconscious, no longer dying, and not walking away clean.'
+      : ward.done === 'dead'
+        ? 'DEAD — three failures. The house does not offer a rematch.'
+        : ward.done === 'revived'
+          ? 'CONSCIOUS — natural 20. Back up at 1 hit point, and something still gave.'
+          : '';
+    el('capSaveBtn').disabled = !!ward.done || ward.rolling;
+    // Surviving is what earns a consequence roll; dying does not, because the
+    // saves already answered the question.
+    el('capWardCost').disabled =
+      !(ward.done === 'stable' || ward.done === 'revived') || ward.rolling || !!state.consequence;
+  }
+
+  function rollDeathSave() {
+    if (ward.done || ward.rolling) return;
+    ward.rolling = true;
+    var die = el('capD20');
+    die.classList.add('rolling');
+    paintWard();
+
+    // Spin the numerals briefly so the result is not simply printed.
+    var flick = window.setInterval(function () {
+      die.textContent = 1 + Math.floor(Math.random() * 20);
+    }, 55);
+
+    window.setTimeout(function () {
+      window.clearInterval(flick);
+      var r = 1 + Math.floor(Math.random() * 20);
+      die.textContent = r;
+      die.classList.remove('rolling');
+      tick(1);
+
+      if (r === 20) { ward.done = 'revived'; wardLog(r, 'Natural 20. Back on your feet at 1 hit point.'); }
+      else if (r === 1) { ward.fail += 2; wardLog(r, 'Natural 1. Counts as two failures.'); }
+      else if (r >= 10) { ward.succ += 1; wardLog(r, 'Success.'); }
+      else { ward.fail += 1; wardLog(r, 'Failure.'); }
+
+      if (!ward.done && ward.succ >= 3) ward.done = 'stable';
+      if (!ward.done && ward.fail >= 3) ward.done = 'dead';
+
+      ward.rolling = false;
+      paintWard();
+    }, 820);
+  }
+
+  function resetWard() {
+    ward = { succ: 0, fail: 0, done: '', rolling: false, log: [] };
+    el('capD20').textContent = 'd20';
+    el('capWardLog').innerHTML = '';
+    paintWard();
+  }
+
+  // Survivors roll the same consequence drum the floor uses.
+  function wardCost() {
+    if (!(ward.done === 'stable' || ward.done === 'revived')) return;
+    if (state.spinning || !state.injuries.length) return;
+    showTab('floor');
+    // The floor's roller needs a sentence to bias from; a ward survivor has
+    // none, so roll the table flat.
+    var entry = state.injuries[Math.floor(Math.random() * state.injuries.length)];
+    state.spinning = true;
+    el('capConsequence').classList.remove('show');
+    var wrap = el('capInjWrap');
+    if (wrap) wrap.classList.add('show');
+    paint();
+    spinDrum({
+      reel: el('capInjReel'), strip: el('capInjStrip'),
+      count: state.injuries.length, landIndex: state.injuries.indexOf(entry),
+      accent: injuryColor(entry.category),
+      onDone: function () {
+        state.spinning = false;
+        state.consequence = entry;
+        el('capRoll').textContent = 'd' + (entry.d100 != null ? entry.d100 : '?');
+        el('capCat').textContent = entry.category || '';
+        el('capInj').textContent = entry.injuryType || '';
+        el('capDesc').textContent = entry.description || '';
+        el('capCure').innerHTML = 'Lowest cure: <b>' + esc(entry.cure || 'unrecorded') + '</b>' +
+          (entry.duration ? ' &middot; duration <b>' + esc(entry.duration) + '</b>' : '');
+        el('capConsequence').classList.add('show');
+        log('You lived. It cost you: ' + (entry.injuryType || '?') + '.', true);
+        paint(); paintWard();
+      }
+    });
+  }
+
+  // ------------------------------------------------------------------ tabs
+  function showTab(which) {
+    var floor = which === 'floor';
+    el('capPaneFloor').hidden = !floor;
+    el('capPaneWard').hidden = floor;
+    el('capTabFloor').classList.toggle('on', floor);
+    el('capTabWard').classList.toggle('on', !floor);
+    el('capTabFloor').setAttribute('aria-selected', String(floor));
+    el('capTabWard').setAttribute('aria-selected', String(!floor));
+  }
+
   // ------------------------------------------------------------------ wire
   document.addEventListener('DOMContentLoaded', function () {
+    el('capTabFloor').addEventListener('click', function () { showTab('floor'); });
+    el('capTabWard').addEventListener('click', function () { showTab('ward'); });
+    el('capSaveBtn').addEventListener('click', rollDeathSave);
+    el('capWardReset').addEventListener('click', resetWard);
+    el('capWardCost').addEventListener('click', wardCost);
+    paintWard();
     el('capSpinBtn').addEventListener('click', spin);
     el('capConsBtn').addEventListener('click', rollConsequence);
     el('capAcceptBtn').addEventListener('click', accept);
