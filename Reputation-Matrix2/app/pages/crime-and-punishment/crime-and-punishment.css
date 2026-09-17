@@ -36,17 +36,31 @@
    so the moment of landing reads without sound. */
 .cap-reel.spinning .cap-window{animation:capPulse .55s ease-in-out infinite}
 @keyframes capPulse{0%,100%{box-shadow:0 0 0 0 rgba(212,168,83,.35)}50%{box-shadow:0 0 16px 3px rgba(212,168,83,.45)}}
-.cap-reel.landed .cap-window{animation:capLand .7s ease-out}
+/* The landing flash takes the colour of the band that was just decided
+   (--cap-land, set by the script), so a Capital sentence lands red and a
+   Minor one lands green. The reel says how bad it is before the card opens. */
+.cap-reel.landed .cap-window{animation:capLand .9s cubic-bezier(.2,.8,.2,1)}
 @keyframes capLand{
-  0%{box-shadow:0 0 30px 8px rgba(212,168,83,.85);background:rgba(212,168,83,.22)}
+  0%{box-shadow:0 0 44px 14px var(--cap-land,rgba(212,168,83,.85));
+     background:color-mix(in srgb,var(--cap-land,#d4a853) 34%,transparent);
+     border-color:var(--cap-land,#d4a853)}
+  55%{box-shadow:0 0 18px 5px var(--cap-land,rgba(212,168,83,.5))}
   100%{box-shadow:none;background:rgba(212,168,83,.07)}
 }
-.cap-reel.spinning .cap-strip{filter:blur(.4px)}
+/* The whole drum kicks on impact -- a small, fast shunt, not a wobble. */
+.cap-reel.landed{animation:capKick .32s cubic-bezier(.3,1.4,.4,1)}
+@keyframes capKick{0%{transform:translateY(0)}38%{transform:translateY(3px)}100%{transform:translateY(0)}}
+/* Motion blur scales with the spin: heavy while the drum is at speed. The
+   strip also lifts slightly so the rows feel like they are on a curved face. */
+.cap-reel.spinning .cap-strip{filter:blur(1.4px) brightness(.88)}
+.cap-reel .cap-strip{transition:filter .45s ease}
 .cap-verdict.show{animation:capIn .32s cubic-bezier(.2,.9,.3,1.2)}
 .cap-btn:active:not(:disabled){transform:translateY(1px) scale(.985)}
 @media (prefers-reduced-motion:reduce){
   .cap-reel.spinning .cap-window,.cap-reel.landed .cap-window{animation:none}
   .cap-reel.spinning .cap-strip{filter:none}
+  /* no kick, no blur, and the script drops the overshoot and the ratchet */
+  .cap-reel.landed{animation:none}
 }
 .cap-reel{position:relative;height:270px;overflow:hidden;border-radius:10px;
   background:linear-gradient(180deg,#1b1628,#241d33);border:1px solid rgba(255,255,255,.07)}

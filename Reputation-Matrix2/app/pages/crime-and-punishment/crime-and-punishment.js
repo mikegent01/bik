@@ -62,8 +62,12 @@
   // ------------------------------------------------------------------- reel
   // The strip holds every sentence twice so a spin can travel a long way
   // without running off the end of the list.
+  // Three passes, not two. The landing row is always in the SECOND pass, so
+  // the third exists purely as runway: the overshoot on the very last entry
+  // used to travel past the end of the strip and expose empty space under
+  // the window before rocking back.
   function reelItems() {
-    return state.sentences.concat(state.sentences);
+    return state.sentences.concat(state.sentences, state.sentences);
   }
 
   function rowHtml(s) {
@@ -82,13 +86,61 @@
     setStripOffset(0, false);
   }
 
-  function setStripOffset(px, animate, ms) {
+  // The reel used to ease straight to its stop on one transition, which reads
+  // as a list sliding rather than a drum turning. A real wheel arrives: it
+  // overshoots the winning row, hangs, then rocks back into the window. Two
+  // chained transitions give that, and the settle is what sells the landing.
+  function setStripOffset(px, animate, ms, easing) {
     var strip = el('capReelStrip');
     if (!strip) return;
     strip.style.transition = animate
-      ? 'transform ' + (ms || 3600) + 'ms cubic-bezier(.12,.62,.16,1)'
+      ? 'transform ' + (ms || 3600) + 'ms ' + (easing || 'cubic-bezier(.12,.62,.16,1)')
       : 'none';
     strip.style.transform = 'translateY(' + (-px) + 'px)';
+  }
+
+  // Ratchet: a tick fires each time a new row crosses the window, rapid at
+  // first and thinning out as the drum slows. Audio is optional and silent
+  // failure is fine -- this is flavour, not function.
+  var audioCtx = null;
+  function tick(strength) {
+    if (prefersReducedMotion()) return;
+    try {
+      var AC = window.AudioContext || window.webkitAudioContext;
+      if (!AC) return;
+      audioCtx = audioCtx || new AC();
+      if (audioCtx.state === 'suspended') audioCtx.resume();
+      var t = audioCtx.currentTime;
+      var osc = audioCtx.createOscillator();
+      var gain = audioCtx.createGain();
+      osc.type = 'square';
+      osc.frequency.setValueAtTime(140 + 90 * (strength || 0), t);
+      gain.gain.setValueAtTime(0.0001, t);
+      gain.gain.exponentialRampToValueAtTime(0.05 * (0.4 + (strength || 0)), t + 0.004);
+      gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.055);
+      osc.connect(gain); gain.connect(audioCtx.destination);
+      osc.start(t); osc.stop(t + 0.06);
+    } catch (e) { /* no audio, no problem */ }
+  }
+
+  function prefersReducedMotion() {
+    return !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  }
+
+  // Schedule ticks along the spin so the ratchet thins out as the drum slows.
+  // Uses the same ease-out shape as the transition, sampled, so the clicks
+  // stay roughly in step with the rows actually passing the window.
+  function scheduleTicks(rows, dur) {
+    if (prefersReducedMotion()) return [];
+    var ids = [];
+    var n = Math.min(rows, 26);
+    for (var i = 1; i <= n; i++) {
+      var p = i / n;
+      // inverse of a decelerating curve: early ticks close together
+      var at = dur * (1 - Math.pow(1 - p, 2.1));
+      ids.push(window.setTimeout(tick.bind(null, 1 - p), at));
+    }
+    return ids;
   }
 
   // Centre of the window sits at half the reel height; offset so row `i`
@@ -153,20 +205,51 @@
 
     var dur = 3200 + Math.floor(Math.random() * 900);
     var reel = el('capReel');
-    if (reel) { reel.classList.add('spinning'); reel.classList.remove('landed'); }
-    setStripOffset(offsetForIndex(landIdx), true, dur);
+    if (reel) {
+      reel.classList.add('spinning');
+      reel.classList.remove('landed');
+      // Colour the window to the band being decided, so the reel itself is
+      // already telling you how bad this is before the verdict card opens.
+      reel.style.setProperty('--cap-land', severityColor(chosen.severity));
+    }
+
+    var target = offsetForIndex(landIdx);
+    // Overshoot by most of a row, then rock back. A wheel that stops dead on
+    // the number looks like a list; one that rebounds looks like a mechanism.
+    var overshoot = prefersReducedMotion() ? 0 : ROW_H * 0.62;
+    var mainMs = Math.round(dur * 0.88);
+    var settleMs = 620;
+
+    var tickIds = scheduleTicks(landIdx, mainMs);
+    setStripOffset(target + overshoot, true, mainMs, 'cubic-bezier(.08,.72,.12,1)');
 
     window.setTimeout(function () {
+      // settle back into the window with a soft elastic finish
+      setStripOffset(target, true, settleMs, 'cubic-bezier(.22,1.5,.36,1)');
+      tick(1);
+    }, mainMs + 10);
+
+    window.setTimeout(function () {
+      tickIds.forEach(function (id) { window.clearTimeout(id); });
       if (reel) {
         reel.classList.remove('spinning');
         reel.classList.add('landed');
-        window.setTimeout(function () { reel.classList.remove('landed'); }, 750);
+        window.setTimeout(function () { reel.classList.remove('landed'); }, 900);
       }
       state.spinning = false;
       state.sentence = chosen;
       showVerdict(chosen);
       paint();
-    }, dur + 90);
+    }, mainMs + settleMs + 40);
+  }
+
+  // The four bands each own a colour, reused by the reel glow and the verdict
+  // card so severity reads the same way in both places.
+  function severityColor(sev) {
+    if (sev >= 9) return '#e74c3c';
+    if (sev >= 7) return '#e67e22';
+    if (sev >= 4) return '#f39c12';
+    return '#2ecc71';
   }
 
   function showVerdict(s) {
@@ -183,29 +266,40 @@
 
   function tag(t) { return '<span class="cap-tag">' + esc(String(t)) + '</span>'; }
 
-  // Waluigi's commentary is selected from the severity band, not generated.
+  // Waluigi's commentary. Written as a court clerk who has watched this reel
+  // land a thousand times and has opinions about all of them -- specific,
+  // procedural, and increasingly unwilling to make jokes as the band climbs.
+  // The severe bands deliberately stop being funny; that contrast is the gag.
   function quoteFor(s, band) {
     var n = band ? band.name : 'Minor';
     var lines = {
       'Minor': [
-        'That is not a punishment, that is an errand. Waluigi has done worse for free.',
-        'The court has sentenced you to being mildly inconvenienced. Devastating.',
-        'You will be bored. Waluigi files boredom under survivable.'
+        'Waluigi has served this one. Twice. Once on purpose, to get out of a wedding.',
+        'The clerk did not look up while reading this out. That is the correct amount of ceremony.',
+        'You will be bored, mildly damp, and home by the weekend. Waluigi files that under acquittal.',
+        'This is the sentence they hand down when the paperwork costs more than the crime.',
+        'Somewhere a magistrate is very pleased with himself. Let him have it.'
       ],
       'Serious': [
-        'Real work, real hours, real chance of something going wrong. Pace yourself.',
-        'Waluigi has seen people come back from this. Not all of them. Most.',
-        'This is the band where the paperwork starts mattering.'
+        'Real hours, real labour, real chance you come back with a limp and a story.',
+        'This is the band where people start asking who your lawyer was. Answer carefully.',
+        'Waluigi has seen four people serve this. Three finished. The fourth opened a tavern.',
+        'Survivable, but it will be on your record longer than it is on your body.',
+        'The court is no longer making a point. It is extracting a cost.'
       ],
       'Grave': [
         'Waluigi would like the record to show he advised against whatever you did.',
-        'People have not come back from this one. Bring garlic. Bring a will.',
-        'The court has stopped pretending this is corrective.'
+        'They stop reading these aloud in full. You get the title and a date.',
+        'Bring garlic, bring a will, and bring someone who can carry you.',
+        'The court has stopped pretending this is corrective. This is removal.',
+        'Waluigi knows the name of everyone who came back from this. It is a short list and he has memorised it.'
       ],
       'Capital': [
-        'WAH. Waluigi is not writing a joke here. Roll the consequence and hope.',
-        'This is the part of the docket the clerks do not read aloud.',
-        'Waluigi will file the obituary himself. Free of charge. Reluctantly.'
+        'WAH. No joke here. Roll the consequence and hope the table is kind.',
+        'The clerks do not read this part of the docket aloud. They just file it.',
+        'Waluigi will write the obituary himself. Free of charge. Deeply reluctantly.',
+        'There is no appeal, no bribe, and no version of this where Wario can help.',
+        'Whatever you are about to roll, it is the second-worst thing happening to you today.'
       ]
     };
     var pool = lines[n] || lines['Minor'];
