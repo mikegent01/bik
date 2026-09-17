@@ -47,6 +47,7 @@
         state.bands = cap.severityBands || [];
         state.injuries = (inj.entries || []).filter(function (e) { return e && e.injuryType; });
         renderReel();
+        renderInjuryReel();
         renderShop();
         paint();
         log('Docket loaded. ' + state.sentences.length + ' sentences on the reel, ' +
@@ -86,17 +87,97 @@
     setStripOffset(0, false);
   }
 
-  // The reel used to ease straight to its stop on one transition, which reads
-  // as a list sliding rather than a drum turning. A real wheel arrives: it
-  // overshoots the winning row, hangs, then rocks back into the window. Two
-  // chained transitions give that, and the settle is what sells the landing.
-  function setStripOffset(px, animate, ms, easing) {
-    var strip = el('capReelStrip');
+  // ------------------------------------------------------- the injury drum
+  // The consequence used to appear fully formed, which made the second half
+  // of the docket feel like a footnote to the first. It is the same kind of
+  // decision -- a random draw off a filed table -- so it gets the same
+  // mechanism. Both drums share spinDrum() below.
+  function injuryRowHtml(e) {
+    return '<div class="cap-row">' +
+      '<span class="sw" style="background:' + esc(injuryColor(e.category)) + '"></span>' +
+      '<span class="lb">' + esc(e.injuryType || '') + '</span>' +
+      '<span class="sv">' + esc(e.category || '') + ' &middot; ' + (e.d100 != null ? e.d100 : '') +
+      '</span></div>';
+  }
+
+  // Categories are free text in injuries.json, so match on what they mean
+  // rather than trying to enumerate all sixteen.
+  function injuryColor(cat) {
+    var c = String(cat || '').toLowerCase();
+    if (c.indexOf('death') > -1) return '#c0392b';
+    if (c.indexOf('boon') > -1 || c.indexOf('surviv') > -1) return '#2ecc71';
+    if (c.indexOf('severe') > -1 || c.indexOf('limb') > -1) return '#e74c3c';
+    if (c.indexOf('major') > -1) return '#e67e22';
+    if (c.indexOf('mental') > -1) return '#9b59b6';
+    if (c.indexOf('special') > -1 || c.indexOf('flavour') > -1) return '#3498db';
+    if (c.indexOf('scar') > -1) return '#d4a853';
+    return '#7f8c8d';
+  }
+
+  function renderInjuryReel() {
+    var strip = el('capInjStrip');
+    if (!strip || !state.injuries.length) return;
+    var items = state.injuries.concat(state.injuries, state.injuries);
+    strip.innerHTML = items.map(injuryRowHtml).join('');
+    setOffset(strip, 0, false);
+  }
+
+  // ------------------------------------------------------ shared drum core
+  // One implementation, two drums. Everything that made the sentencing reel
+  // feel mechanical -- the long ease-out, the ratchet, the overshoot and
+  // settle -- now belongs to whichever reel is being spun.
+  function setOffset(strip, px, animate, ms, easing) {
     if (!strip) return;
     strip.style.transition = animate
-      ? 'transform ' + (ms || 3600) + 'ms ' + (easing || 'cubic-bezier(.12,.62,.16,1)')
+      ? 'transform ' + (ms || 3600) + 'ms ' + (easing || 'cubic-bezier(0,0,.58,1)')
       : 'none';
     strip.style.transform = 'translateY(' + (-px) + 'px)';
+  }
+
+  /* opts: {reel, strip, count, landIndex, height, onDone, accent} */
+  function spinDrum(opts) {
+    var reel = opts.reel, strip = opts.strip;
+    var landIdx = opts.count + opts.landIndex;   // land in the second pass
+    var h = reel ? reel.clientHeight : 270;
+    var target = (landIdx * ROW_H) - (h / 2) + (ROW_H / 2);
+
+    setOffset(strip, 0, false);
+    void strip.offsetHeight;                      // force reflow
+
+    var dur = 5200 + Math.floor(Math.random() * 1200);
+    var mainMs = Math.round(dur * 0.88);
+    var settleMs = 620;
+    var overshoot = prefersReducedMotion() ? 0 : ROW_H * 0.62;
+
+    if (reel) {
+      reel.classList.add('spinning');
+      reel.classList.remove('landed');
+      if (opts.accent) reel.style.setProperty('--cap-land', opts.accent);
+    }
+
+    var tickIds = scheduleTicks(landIdx, mainMs);
+    setOffset(strip, target + overshoot, true, mainMs, 'cubic-bezier(0,0,.58,1)');
+
+    window.setTimeout(function () {
+      setOffset(strip, target, true, settleMs, 'cubic-bezier(.22,1.5,.36,1)');
+      tick(1);
+    }, mainMs + 10);
+
+    window.setTimeout(function () {
+      tickIds.forEach(function (id) { window.clearTimeout(id); });
+      if (reel) {
+        reel.classList.remove('spinning');
+        reel.classList.add('landed');
+        window.setTimeout(function () { reel.classList.remove('landed'); }, 900);
+      }
+      if (opts.onDone) opts.onDone();
+    }, mainMs + settleMs + 40);
+  }
+
+  // Thin wrapper kept for the two places that only need to park the main
+  // reel at the top; the drums themselves go through setOffset/spinDrum.
+  function setStripOffset(px, animate, ms, easing) {
+    setOffset(el('capReelStrip'), px, animate, ms, easing);
   }
 
   // Ratchet: a tick fires each time a new row crosses the window, rapid at
@@ -133,23 +214,19 @@
   function scheduleTicks(rows, dur) {
     if (prefersReducedMotion()) return [];
     var ids = [];
-    var n = Math.min(rows, 26);
+    var n = Math.min(rows, 44);
     for (var i = 1; i <= n; i++) {
+      // `p` is progress through the DISTANCE, not the time. Inverting the
+      // ease-out gives the moment each row actually crosses the window, so
+      // the clicks stay glued to the rows instead of drifting ahead of them
+      // as the drum slows.
       var p = i / n;
-      // inverse of a decelerating curve: early ticks close together
-      var at = dur * (1 - Math.pow(1 - p, 2.1));
+      var at = dur * (1 - Math.sqrt(1 - p));
       ids.push(window.setTimeout(tick.bind(null, 1 - p), at));
     }
     return ids;
   }
 
-  // Centre of the window sits at half the reel height; offset so row `i`
-  // lands inside it.
-  function offsetForIndex(i) {
-    var reel = el('capReel');
-    var h = reel ? reel.clientHeight : 270;
-    return (i * ROW_H) - (h / 2) + (ROW_H / 2);
-  }
 
   function bandFor(sev) {
     for (var i = 0; i < state.bands.length; i++) {
@@ -191,56 +268,27 @@
     state.consequence = null;
     el('capVerdict').classList.remove('show');
     el('capConsequence').classList.remove('show');
+    var iw = el('capInjWrap');
+    if (iw) iw.classList.remove('show');
     paint();
 
     var chosen = pickSentence();
-    var baseIdx = state.sentences.indexOf(chosen);
-    // Land on the copy in the second pass of the list so the strip visibly
-    // travels rather than snapping backwards.
-    var landIdx = state.sentences.length + baseIdx;
 
-    setStripOffset(0, false);
-    // force reflow so the browser does not collapse the two transforms
-    void el('capReelStrip').offsetHeight;
-
-    var dur = 3200 + Math.floor(Math.random() * 900);
-    var reel = el('capReel');
-    if (reel) {
-      reel.classList.add('spinning');
-      reel.classList.remove('landed');
+    spinDrum({
+      reel: el('capReel'),
+      strip: el('capReelStrip'),
+      count: state.sentences.length,
+      landIndex: state.sentences.indexOf(chosen),
       // Colour the window to the band being decided, so the reel itself is
       // already telling you how bad this is before the verdict card opens.
-      reel.style.setProperty('--cap-land', severityColor(chosen.severity));
-    }
-
-    var target = offsetForIndex(landIdx);
-    // Overshoot by most of a row, then rock back. A wheel that stops dead on
-    // the number looks like a list; one that rebounds looks like a mechanism.
-    var overshoot = prefersReducedMotion() ? 0 : ROW_H * 0.62;
-    var mainMs = Math.round(dur * 0.88);
-    var settleMs = 620;
-
-    var tickIds = scheduleTicks(landIdx, mainMs);
-    setStripOffset(target + overshoot, true, mainMs, 'cubic-bezier(.08,.72,.12,1)');
-
-    window.setTimeout(function () {
-      // settle back into the window with a soft elastic finish
-      setStripOffset(target, true, settleMs, 'cubic-bezier(.22,1.5,.36,1)');
-      tick(1);
-    }, mainMs + 10);
-
-    window.setTimeout(function () {
-      tickIds.forEach(function (id) { window.clearTimeout(id); });
-      if (reel) {
-        reel.classList.remove('spinning');
-        reel.classList.add('landed');
-        window.setTimeout(function () { reel.classList.remove('landed'); }, 900);
+      accent: severityColor(chosen.severity),
+      onDone: function () {
+        state.spinning = false;
+        state.sentence = chosen;
+        showVerdict(chosen);
+        paint();
       }
-      state.spinning = false;
-      state.sentence = chosen;
-      showVerdict(chosen);
-      paint();
-    }, mainMs + settleMs + 40);
+    });
   }
 
   // The four bands each own a colour, reused by the reel glow and the verdict
@@ -320,18 +368,37 @@
     roll = Math.min(max, roll + (Math.random() < 0.65 ? bias : 0));
 
     var entry = state.injuries[roll - 1] || state.injuries[state.injuries.length - 1];
-    state.consequence = entry;
 
-    el('capRoll').textContent = 'd' + (entry.d100 != null ? entry.d100 : roll);
-    el('capCat').textContent = entry.category || '';
-    el('capInj').textContent = entry.injuryType || '';
-    el('capDesc').textContent = entry.description || '';
-    el('capCure').innerHTML = 'Lowest cure: <b>' + esc(entry.cure || 'unrecorded') + '</b>' +
-      (entry.duration ? ' &middot; duration <b>' + esc(entry.duration) + '</b>' : '');
-    el('capConsequence').classList.add('show');
-    setPhase(3);
-    log('Consequence: ' + (entry.category || '?') + ' — ' + (entry.injuryType || '?') + '.', true);
+    // Lock the controls for the duration of the spin, exactly as the
+    // sentencing reel does, then reveal the card when the drum settles.
+    state.spinning = true;
+    el('capConsequence').classList.remove('show');
     paint();
+
+    var wrap = el('capInjWrap');
+    if (wrap) wrap.classList.add('show');
+
+    spinDrum({
+      reel: el('capInjReel'),
+      strip: el('capInjStrip'),
+      count: state.injuries.length,
+      landIndex: state.injuries.indexOf(entry),
+      accent: injuryColor(entry.category),
+      onDone: function () {
+        state.spinning = false;
+        state.consequence = entry;
+        el('capRoll').textContent = 'd' + (entry.d100 != null ? entry.d100 : roll);
+        el('capCat').textContent = entry.category || '';
+        el('capInj').textContent = entry.injuryType || '';
+        el('capDesc').textContent = entry.description || '';
+        el('capCure').innerHTML = 'Lowest cure: <b>' + esc(entry.cure || 'unrecorded') + '</b>' +
+          (entry.duration ? ' &middot; duration <b>' + esc(entry.duration) + '</b>' : '');
+        el('capConsequence').classList.add('show');
+        setPhase(3);
+        log('Consequence: ' + (entry.category || '?') + ' — ' + (entry.injuryType || '?') + '.', true);
+        paint();
+      }
+    });
   }
 
   // ------------------------------------------------------------------- taps
@@ -445,7 +512,10 @@
     state.accepted = false; state.buffs = {}; state.log = [];
     el('capVerdict').classList.remove('show');
     el('capConsequence').classList.remove('show');
+    var iw = el('capInjWrap');
+    if (iw) iw.classList.remove('show');
     setStripOffset(0, false);
+    setOffset(el('capInjStrip'), 0, false);
     setPhase(1);
     renderShop();
     paint();

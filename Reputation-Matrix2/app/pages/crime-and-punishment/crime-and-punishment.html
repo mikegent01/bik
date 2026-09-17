@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Crime and Punishment | Waluipedia</title>
+<title>Wario's Casino — Crime and Punishment | Waluipedia</title>
 <link rel="stylesheet" href="../../styles/global.css">
 <link rel="stylesheet" href="../../styles/layout.css">
 <link rel="stylesheet" href="../../styles/components.css">
@@ -17,8 +17,8 @@
   <div style="display: flex; align-items: center; gap: 10px;">
     <span style="font-size: 20px;">&#9878;&#65039;</span>
     <div>
-      <b style="color: #ffd700; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; font-family: 'Orbitron', sans-serif;">Crime and Punishment</b>
-      <div style="color: #a78bfa; font-size: 11px;">Sentencing Reel &amp; Consequence Table &middot; Part of the Unified Waluigi Terminal Ecosystem</div>
+      <b style="color: #ffd700; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; font-family: 'Orbitron', sans-serif;">Wario's Casino</b>
+      <div style="color: #a78bfa; font-size: 11px;">Crime and Punishment &middot; Sentencing Reel &amp; Consequence Table &middot; Part of the Unified Waluigi Terminal Ecosystem</div>
     </div>
   </div>
   <div style="display: flex; gap: 10px;">
@@ -29,10 +29,19 @@
 
 <div id="cap-root">
 
-  <h1>Crime and Punishment</h1>
+  <h1>&#127920; Wario's Casino</h1>
   <div class="cap-sub">
+    Crime and Punishment &middot; two drums, one docket.
     "The court does two things to you. It tells you what you have to do, and then
-    the world tells you what it cost. Waluigi has been on the receiving end of both."
+    the world tells you what it cost. Wario charges admission to watch both.
+    Waluigi has been on the receiving end of each and has never once been paid."
+  </div>
+  <div class="cap-houserule">
+    <b>House rules.</b> The first drum passes sentence off 89 filed punishments.
+    The second rolls the d100 consequence table &mdash; 204 entries, read live
+    from the archive. Severity on the first drum biases the second upward, but
+    the house guarantees nothing in either direction. Chips are Wario Coins and
+    are worth precisely what you would expect.
   </div>
 
   <!-- phases -->
@@ -83,6 +92,15 @@
     <div class="cap-quote" id="capVerdictQuote"></div>
   </div>
 
+  <!-- the injury drum: same mechanism as the sentencing reel, second table -->
+  <div class="cap-reel-wrap cap-injwrap" id="capInjWrap">
+    <div class="cap-drumlabel">&#129701; The Consequence Table &middot; d100</div>
+    <div class="cap-reel" id="capInjReel">
+      <div class="cap-window"></div>
+      <div class="cap-strip" id="capInjStrip"></div>
+    </div>
+  </div>
+
   <!-- consequence -->
   <div class="cap-cons" id="capConsequence">
     <div class="roll" id="capRoll"></div>
@@ -94,7 +112,7 @@
 
   <!-- shop -->
   <div class="cap-shop">
-    <h2>&#129433; Wario's Leftovers</h2>
+    <h2>&#129433; The Gift Shop</h2>
     <div class="blurb">
       Tap to earn coins, then spend them on merchandise of famously inconsistent
       quality. At least one item on this shelf is a straightforward swindle. That

@@ -21,6 +21,13 @@
 #cap-root h1{font-family:'Orbitron',sans-serif;font-size:26px;margin:0 0 4px;color:var(--cap-gold);letter-spacing:.5px}
 #cap-root .cap-sub{color:var(--cap-muted);font-size:13px;margin-bottom:18px;font-style:italic}
 
+/* House-rules card under the masthead: says what the two drums are and what
+   the odds actually do, before anyone pulls the lever. */
+.cap-houserule{background:var(--cap-panel);border:1px solid var(--cap-line);
+  border-left:3px solid var(--cap-gold);border-radius:10px;padding:12px 14px;
+  font-size:12.5px;line-height:1.65;color:var(--cap-muted);margin-bottom:18px}
+.cap-houserule b{color:var(--cap-gold)}
+
 /* ---- phase strip ---- */
 .cap-phases{display:flex;gap:10px;margin-bottom:18px;flex-wrap:wrap}
 .cap-phase{flex:1;min-width:210px;padding:10px 14px;border-radius:10px;background:var(--cap-panel);
@@ -111,6 +118,21 @@
   border-left:3px solid var(--cap-gold);padding-left:12px;margin-top:10px}
 
 /* ---- consequence ---- */
+/* The injury drum only appears once a sentence has been passed -- showing an
+   empty second reel before it is relevant just clutters the docket. */
+.cap-injwrap{display:none;margin-top:16px}
+.cap-injwrap.show{display:block;animation:capIn .3s ease}
+.cap-drumlabel{font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--cap-muted);margin-bottom:10px}
+/* The consequence drum is a red house, not a gold one. */
+.cap-injwrap .cap-reel{background:linear-gradient(180deg,#1f1414,#2a1c1c)}
+.cap-injwrap .cap-reel::before{background:linear-gradient(180deg,#1f1414 10%,rgba(31,20,20,0))}
+.cap-injwrap .cap-reel::after{background:linear-gradient(0deg,#1f1414 10%,rgba(31,20,20,0))}
+.cap-injwrap .cap-window{border-top-color:#e74c3c;border-bottom-color:#e74c3c;
+  background:rgba(231,76,60,.08)}
+.cap-injwrap .cap-window::before{border-left-color:#e74c3c}
+.cap-injwrap .cap-window::after{border-right-color:#e74c3c}
+
 .cap-cons{margin-top:16px;padding:16px 18px;border-radius:12px;background:#2a1c1c;
   border:1px solid rgba(231,76,60,.4);display:none}
 .cap-cons.show{display:block;animation:capIn .28s ease}

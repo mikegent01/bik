@@ -95,7 +95,12 @@ check('the Injury Desk has a route', /route==='injuries'/.test(main),
   'injuries.json still has no page');
 check('death saves are implemented', /function rollDeathSave/.test(main));
 check('the table is reachable from the sidebar', /label:'Injury Desk'/.test(main));
-check('Crime & Punishment is in the sidebar', /label:'Crime & Punishment'/.test(main));
+// Renamed to Wario's Casino; what matters is that the sentencing/consequence
+// page is still reachable from the sidebar, so assert on the destination
+// rather than the label, which is branding and free to change.
+check("Wario's Casino is in the sidebar",
+  /crime-and-punishment\/crime-and-punishment\.html'\},?\)/.test(main)
+  || /label:"Wario's Casino"/.test(main));
 
 // 5e death save rules, asserted against the implementation text
 const saveFn = extract('function rollDeathSave');
