@@ -143,3 +143,87 @@ to purpose. The advisor's one-line characterisation of the Resistance is filed a
 and `the_tape_and_the_wario_files` still belong to no investigation file, so neither
 page can offer *Investigate this further*. That was the user's step 2 and is
 untouched by this run.
+
+---
+
+# Addendum — second pass (same day)
+
+User feedback after review: the art was too anime and too dark/gritty in the
+wrong way, reference images were supplied for the cast, the crops were bad, and
+`portraits/mossy_toad.png` was the wrong character. Plus: file the investigations
+and analyses for the other pages.
+
+## 1. Art regenerated in the house style
+
+The first sheets were bright anime cel art. Wrong register — the archive's own
+house style is the gritty inked comic look of `portraits/wario.jpg`. Both sheets
+were regenerated as inked comic illustration: heavy linework, cross-hatching,
+muted desaturated palette, grainy paper, semi-realistic proportions.
+
+Likenesses were corrected against the supplied references. Several were badly
+wrong in v1: Mari is a fox-eared redhead (was dark-haired), Yoshimi is blonde
+with twin-tails (was dark-haired), Azusa is silver-haired and winged (was
+dark-haired), Hanae is a purple-haired nurse (was a bespectacled schoolgirl),
+Sensei is a young manga type, and **Lord Verity has a yellow smiley-face head**,
+not a human one. All eleven were re-cut from the new sheet.
+
+## 2. The crop bug, fixed properly
+
+The v1 slicer used a fixed 8px inset against evenly divided cells. The generated
+sheets do not have perfectly even cells, so several portraits carried a slice of
+the neighbouring cell — `kenzaki_tsurugi.png` had a strip of the cell above it.
+
+Fix: detect the real gutters instead of assuming them. `/tmp/grid2.py` computes a
+per-column and per-row **maximum** brightness profile (a true gutter is dark
+across its entire length, whereas a mean profile is fooled by dark artwork) and
+reports exact gutter spans. Cells are then cut between measured boundaries. Every
+crop was re-checked by eye afterwards.
+
+## 3. Mossy
+
+`portraits/mossy_toad.png` showed a mushroom fairy. Mossy is a **Mages' Guild
+steel-defender construct** that "clamps mechanical jaws onto giant spider legs".
+Regenerated as an armoured quadruped construct with moss in its plate seams,
+saved as `portraits/mossy.png`; the character record was repointed and the wrong
+file deleted.
+
+## 4. Investigations — the standing gap, closed
+
+| filing | investigation | added |
+|---|---|---|
+| `judgement_in_the_grove` | `shadeward_feyward_ruined` (existing arc) | session, 2 exhibits, thread, critical lead |
+| `the_tape_and_the_wario_files` | `mario_charred_note_file` (existing arc) | session, 1 exhibit, thread, lead |
+| `the_roll_call_at_trinity` | **`trinity_schale_file`** (new) | 4 threads, 4 leads, 3 exhibits |
+
+Standing gap #2 is now closed: all three filings can show *Investigate this
+further*. Six new props back the exhibits; `props.json` was edited by surgical
+string insertion since it does not round-trip.
+
+## 5. Article analyses
+
+Three new, all 20/80 and embodied at the desk per `docs/ARTICLE_ANALYSES.md`:
+
+* `the_roll_call_at_trinity_waluigi_analysis` — 7 sections
+* `judgement_in_the_grove_waluigi_analysis` — 5 sections
+* `the_tape_and_the_wario_files_provenance_analysis` — 5 sections
+
+The grove analysis argues the kill was defensible *and* the timing catastrophic,
+and does not let those two findings collapse into each other. The tape analysis
+deliberately does **not** reopen the existing line-by-line reading — it firewalls
+it — and instead files the provenance gap nobody had asked about.
+
+## 6. Verification (second pass)
+
+`check-all.py` **55/57**, unchanged — still only the two jsdom failures.
+`check-investigations.py`: **0 errors** (18 files, 101 exhibits, 315 insight
+rolls); the 7 warnings all pre-date this work. `check-exhibits.py`: **0 errors**,
+154 props. HTTP spot-check: all 12 portraits, 4 scene plates and 5 data files
+200; the deleted `mossy_toad.png` correctly 404s.
+
+## 7. Notes
+
+* The reference images were visible in conversation but not written to the
+  sandbox, so they could not be passed as generation references. Likenesses were
+  transcribed into detailed prompt descriptions instead — worth re-checking by eye.
+* "Add a new front" was confirmed as the Kivotos front already added in pass one;
+  its cover art is now the re-cut classroom plate.
