@@ -171,6 +171,13 @@
       "origin": "generated",
       "by": "qwen2.5-7b-instruct-1m",
       "source": ""
+    },
+    "unanswered": {
+      "glyph": "❔",
+      "label": "Left unanswered",
+      "tone": "#7e57c2",
+      "origin": "handwritten",
+      "source": "the_roll_call_at_trinity — two questions asked aloud in a full classroom, neither answered"
     }
   }
 }

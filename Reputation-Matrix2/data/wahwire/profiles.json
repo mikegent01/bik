@@ -785,6 +785,17 @@
         "mystic_morel": "She reads paperwork the way I should have."
       },
       "status": "filed"
+    },
+    "sensei": {
+      "bio": "Advisor, Classroom 2-B, Trinity General School. SCHALE attachment. I answer questions. Report liaison sightings to me directly.",
+      "location": "Trinity General School, Kivotos",
+      "joined": "Aethel 1040 BF",
+      "follows": [
+        "waluigi"
+      ],
+      "followReasons": {
+        "waluigi": "Filed a commentary on my first morning before I had finished the deployment briefing."
+      }
     }
   }
 }

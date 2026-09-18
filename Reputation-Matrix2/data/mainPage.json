@@ -7,10 +7,10 @@
     "title": "Judgement in the Grove: A Musket in the Smoke, the Warhammer That Would Not Hear an Appeal, and the Man Remi Found Asleep"
   },
   "latestUpdate": {
-    "id": "judgement_in_the_grove",
+    "id": "the_roll_call_at_trinity",
     "label": "Latest Filing · Session Event",
-    "excerpt": "The party fought its way out of the web canopy and into an execution. Remi swapped the crossbow for the musket and landed two direct hits through the smoke; Dan planted himself in front of everyone including Markop and turned the spiders with a mushroom-studded holy symbol; Eager and Dan killed the ettercap between them. The Iron Legion called for pest control, retreated, and then tried to arrest Archie mid-battle, which produced a temporary alliance nobody expects to hold. Markop called down divine favour, took a scythe to the skull, and split the Scorncrow's head open while it was on its knees asking a paladin for mercy. Remi, thrown clear by Mossy, found a breathing man with a red punch mark on his forehead and had the steel defender stand on his chest. Salam went down and did not get up.",
-    "title": "Judgement in the Grove: A Musket in the Smoke, the Warhammer That Would Not Hear an Appeal, and the Man Remi Found Asleep"
+    "excerpt": "A new advisor took Classroom 2-B at Trinity General School and ran a roll call, and the roll call turned into the archive's first look inside Kivotos. Eleven students answered to their names: the one who arrived first and claimed the front desk, the one with the chocolate, the one who quieted the room without raising her voice, the one in the corner who is classified supplementary, the one who finished page six of the pamphlet, the one who found gaps in the documentation overnight, the one in the back row with weapons clearance, the one who kept asking what words meant, the one who declared himself lord of the classroom, and the one who admitted nobody had ever explained any of this to him. Asked a direct question, the advisor confirmed the class is attached to SCHALE, spelled the acronym out, conceded it sounds stupid, and explained what it does. A follow-up question about an Equestrian liaison seen walking the school produced an admission that a diplomatic programme had been mishandled. A question about weapons produced a refusal — and the public disclosure of one student's existing clearance. No combat, no travel, no casualties. Eleven people were introduced and one institution said out loud what it wants from them.",
+    "title": "The Roll Call at Trinity: A New Advisor, Eleven Names, and the Word Nobody Was Supposed to Explain"
   },
   "didYouKnow": [
     "...that the Scorncrow told three separate filings it was not a monster, and when Remi Akamatsu finally tested the claim with a point-blank musket, the blood under the face was human?",
@@ -38,6 +38,14 @@
     "1040 BF — Harvestide 30: the party descends by rope into the Skittering Grove inside the Scorncrow's tree."
   ],
   "campaignCovers": [
+    {
+      "id": "the-roll-call-at-trinity-cover",
+      "campaign": "Kivotos",
+      "title": "KIVOTOS — The Roll Call at Trinity",
+      "caption": "Classroom 2-B on the morning of the new advisor's first roll call: the sliding door, the window row, the contested front desk, and the back row that behaves like a separate country.",
+      "image": "assets/images/events/trinity-roll-call/trc-01-classroom.jpg",
+      "articleId": "the_roll_call_at_trinity"
+    },
     {
       "id": "judgement-in-the-grove-cover",
       "campaign": "Shadeward",

@@ -16275,5 +16275,274 @@
         "dateSort": 10409010
       }
     ]
+  },
+  {
+    "id": "the_roll_call_at_trinity",
+    "timeCode": "TC:1040-09-05T09:00/KIV",
+    "name": "The Roll Call at Trinity",
+    "title": "The Roll Call at Trinity: A New Advisor, Eleven Names, and the Word Nobody Was Supposed to Explain",
+    "date": "5 Aethel, 1040 BF — morning, Classroom 2-B, Trinity General School, Kivotos (Kivotos academy clock)",
+    "era": "Aethel 1040 BF — the Kivotos intake",
+    "location": "Classroom 2-B, Trinity General School, Kivotos",
+    "type": "Session Event / Introductions / Disclosure",
+    "status": "Filed — the class is introduced, the SCHALE attachment is disclosed, the Equestrian liaison breach is admitted and under internal query, and the deployment briefing for Sectors 7 through 12 is unfinished",
+    "campaignLabel": "Kivotos",
+    "summary": "A new advisor took Classroom 2-B at Trinity General School and ran a roll call, and the roll call turned into the archive's first look inside Kivotos. Eleven students answered to their names: the one who arrived first and claimed the front desk, the one with the chocolate, the one who quieted the room without raising her voice, the one in the corner who is classified supplementary, the one who finished page six of the pamphlet, the one who found gaps in the documentation overnight, the one in the back row with weapons clearance, the one who kept asking what words meant, the one who declared himself lord of the classroom, and the one who admitted nobody had ever explained any of this to him. Asked a direct question, the advisor confirmed the class is attached to SCHALE, spelled the acronym out, conceded it sounds stupid, and explained what it does. A follow-up question about an Equestrian liaison seen walking the school produced an admission that a diplomatic programme had been mishandled. A question about weapons produced a refusal — and the public disclosure of one student's existing clearance. No combat, no travel, no casualties. Eleven people were introduced and one institution said out loud what it wants from them.",
+    "description": "*Waluigi was not in this room and has never been to Kivotos, which has not stopped him before. What follows is assembled from the classroom record of a single morning at [Trinity General School](#/article/trinity_general_school), and Waluigi files it because of what it is: an intake. Eleven children, one advisor, and the moment an institution stopped pretending it was a school.*\n\n*[Kivotos](#/article/kivotos) is not new to this archive. It is where [Remi Akamatsu](#/article/remi_akamatsu_full_backstory) was born — Residential District Seven, 12th Harvestide 1026 BF — it is the issuer of the credits in her field wallet, and its four-term academic year has been sitting in the archive's calendar data the whole time. What the archive has never had is an interior. Now it has one, and it is a classroom with a sliding door and a contested front row.*\n\n*Nothing is fought here. Waluigi wants that stated plainly, because the temptation with an introductions session is to apologise for it. Do not. This is the filing where the cast gets their names, the seating chart turns out to be politics, and a man with a clipboard answers a question he could have dodged.*",
+    "image": "assets/images/events/trinity-roll-call/trc-01-classroom.jpg",
+    "imageCaption": "Classroom 2-B on the morning of the new advisor's first roll call: the sliding door, the window row, the contested front desk, and the back row that behaves like a separate country.",
+    "sections": [
+      {
+        "name": "I. The Door Slides Open",
+        "image": "assets/images/events/trinity-roll-call/trc-02-mika-desk.jpg",
+        "imageCaption": "Ten seconds before anyone else had processed that the door had opened: both palms down on the advisor's desk, the pencil holder still rattling, the halo spinning like a top.",
+        "icon": "🚪",
+        "overview": "The door slides rather than swings, and it opened with a click that the record calls satisfying. The new advisor stepped through it adjusting a pair of glasses that — the record is specific — he does not need for vision.\n\n**\"Alright everyone, settle down! I'm your new advisor — you can call me Sensei. Think of me as… the glue holding this whole operation together.\"**\n\nHe spun around once and pointed at nothing in particular. Then he laid out the deal: follow the rules, behave like proper students, everything goes smoothly. *We cool?*\n\nThe answers arrived in the order that tells you the room. From the window seats, a hand straight up and a grin: **\"Sensei~! So does this mean you'll be around to chat during break too?\"** From the front row, hair tucked behind an ear and a warm, formal welcome, with the Sisterhood Club's help offered before anyone had asked for it.\n\nAnd then the door again, because [Misono Mika](#/article/misono_mika) had not finished arriving. She came through roughly ten seconds before the rest of the class had processed that anything was happening, pink hair bouncing, skidded to a halt at the advisor's desk and slammed both palms down on it hard enough to rattle the pencil holder.\n\n**\"SENSEI! I got here first! Does that mean I'm your favorite student now~?\"**\n\nHer halo spun above her head like an excited top. Behind her, other students were still filing in; Mika had already claimed the desk directly opposite his and sat down in it with a very deliberate, princess-like posture — back straight, hands folded, chin slightly elevated.\n\nThen she offered him tea.\n\n**\"Also I brought you tea! Well… I didn't bring tea. But I *thought* about bringing tea.\"** A pause. **\"…The thought counts.\"**\n\nSomewhere in the middle of this, a newcomer turned to the person in the next seat and asked, with feeling, whether this was really the right place. The answer came back cheerful and immediate: yes, definitely, Mika-senpai does this with every new teacher, and you will get used to it after — *oh, probably never, actually.*\n\nThe advisor noticed the whispering, raised an eyebrow, and turned back to the room with a smirk.\n\n**\"Something to share? Because if you're comparing me to your last advisor who 'mysteriously disappeared,' I assure you — I'm much harder to get rid of.\"**\n\nHe tapped the desk twice with a knuckle. **\"So! Roll call. Let's see who actually shows up on time.\"**",
+        "waluigi_note": "Waluigi wishes to flag the throwaway line, because throwaway lines are where institutions confess. *Your last advisor who mysteriously disappeared.* He said it as a joke, in air quotes, on his first morning, to eleven children who did not laugh. Nobody in the room asked a follow-up question. Waluigi is asking it: what happened to the last advisor of Classroom 2-B, and why is the replacement already making jokes about it?"
+      },
+      {
+        "name": "II. Eleven Names Off a Clipboard",
+        "icon": "📋",
+        "overview": "He picked up the clipboard and read, finger trailing down the page with practiced efficiency, and the roll call did what roll calls do in a first session: it introduced everybody by showing how each of them answers to their own name.\n\n[Kurimura Airi](#/article/kurimura_airi) — present, with an enthusiastic little wave.\n\n[Shirasu Azusa](#/article/shirasu_azusa) — silence, then a tiny voice from the corner mumbling something inaudible. *I'll take that as a yes.* Her desk is in the far corner, angled slightly away from the room, as far from everyone else as a desk can be while still being a desk. Her posture was immaculate, her hands folded, her pen aligned perfectly parallel to her notebook's edge. A breeze from a cracked window pushed a strand of hair across her face. She did not move to fix it.\n\n[Ibaragi Yoshimi](#/article/ibaragi_yoshimi) — a sharp intake of breath from the middle row. The advisor glanced up, said nothing, marked a check and moved on. She was hunched in her seat like she was trying to physically shrink, gripping the desk edge hard enough to whiten her knuckles. *I'm here.* Her eyes scanned the room to see who was watching, landed on the advisor looking directly at her, and she flinched and looked away fast.\n\nSomewhere in here, [Airi](#/article/kurimura_airi) held out a small wrapped chocolate with both hands. *A little something to start the day off sweetly. You looked like you needed it!* The advisor examined it with exaggerated suspicion for a full three seconds, then ate it. **\"Mmh. Not bad.\"**\n\n[Iochi Mari](#/article/iochi_mari) — a polite nod from the front row.\n\n**\"…Shaggy.\"**\n\nDead silence. Everyone looked around. The advisor scanned the room slowly and sighed through his nose. **\"Alrighty, so we're either missing Shaggy, or he's hiding behind that sleeping kid in the back row.\"**\n\nA hand rose slowly from behind a desk near the window, where [Shaggy](#/article/shaggy) had been crouched low trying to make himself invisible. He stood with his characteristic slouch, green shirt hanging off one shoulder. **\"Uh… yo. Present. Like, hi.\"** His voice cracked on *hi*.\n\nThen the clipboard produced a name the advisor had to squint at. **\"…Lord Verity.\"** He looked around the classroom with genuine curiosity, found nobody obviously matching the description, and his eyes landed on the newcomer sitting right there. One eyebrow arched. **\"Huh. You're Lord Verity? …Alright then.\"** He made a checkmark with a confident flick of the wrist and moved on.\n\nHe was wrong, and the correction was not quiet. [Lord Verity](#/article/lord_verity) stood up abruptly, chair scraping loud against the floor. Every head turned.\n\n**\"YES I AM LORD VERITY. AND I SHALL BE YOUR MASTER FROM THIS DAY FORWARD — KNEEL BEFORE ME, MORTALS!\"**\n\nA beat of stunned silence. Someone in the back coughed. Mika started giggling. Airi covered her mouth. The advisor blinked once, twice, and turned calmly back to his clipboard. **\"…Right. Next.\"**\n\nIt still took a second prompt — *sensei what about me!* — before he found the right line and produced the name that had been missed: **\"You're… Asa Hanko?\"** Curious, not unkind, like tasting an unfamiliar word and deciding how it fits in the mouth.\n\n[Kenzaki Tsurugi](#/article/kenzaki_tsurugi) did not raise her hand when called. She sat in the back with her arms crossed and her legs kicked up on the desk, dark hair falling across one eye, and let out a low chuckle. *Keheh.* Then she looked away. **\"…What a pain.\"**\n\n[Asagao Hanae](#/article/asagao_hanae) raised a hand slowly, fingers trembling, and gave a small shy wave. **\"I-I'm here… Sensei…\"** Barely above a whisper, eyes on the floor, sleeve pulled over the knuckles. **\"P-Please take care of me…\"**\n\nAnd near the back, one more student sat without leaning toward anybody — not confused, not excited, simply watching, which in that room made them more noticeable than everyone being loud.\n\nThe newcomer's assessment of the whole procedure, filed verbatim: *a lot of students.*",
+        "waluigi_note": "Eleven names and eleven completely different ways of answering to one. The girl in the corner nods so faintly it barely registers. The boy behind the desk hides until the roll reaches him. One of them announces himself as a lord. One of them apologises for existing. Waluigi has covered war councils with less character in them than this register. The advisor read the list in about four minutes and every one of those four minutes is load-bearing."
+      },
+      {
+        "name": "III. The Room Gets Away From Him",
+        "image": "assets/images/events/trinity-roll-call/trc-03-mari-front.jpg",
+        "imageCaption": "Shouting had failed. She stood up, walked to the front, positioned herself slightly behind his desk, and asked. The record says they complied like dominoes falling.",
+        "icon": "🔊",
+        "overview": "Between the roll call and the lesson, the classroom stopped being a classroom.\n\nAiri got up and walked the aisle to the back with a second chocolate, weaving between desks with practiced ease, and slid into the seat next to [Shaggy](#/article/shaggy). *Here you go~ Don't let Sensei see you eating candy during his speech though, okay?* He unwrapped it, put it in his mouth, and slouched lower — as though going sideways would make him less visible.\n\n**\"Like… thanks for the chocolate, Airi. You're like, way too nice to me.\"** Then, leaning in at a volume the record notes was *not remotely quiet enough:* **\"Uh… why's Lord Verity acting all weird again? Like, is today a cosmic alignment or something?\"** His leg bounced under the desk hard enough to vibrate the furniture.\n\nAt the front, the advisor raised the clipboard like a shield.\n\n**\"ALRIGHT! SEATS! NOW!\"**\n\nThe room did not obey. Chairs kept scraping. Mika had somehow ended up sitting on top of her desk rather than in her chair. He pinched the bridge of his nose, exhaled slowly through his teeth, and tried being specific instead of loud:\n\n**\"Let me make one thing perfectly clear: I don't care who you are or what club you're in. You sit down, you pay attention, and you behave like students. Not… *whatever* this is.\"**\n\nHis eyes swept the room — Lord Verity mid-pose, Shaggy half-swallowed by his hoodie, Azusa staring at a wall, Mika spinning on her chair for no reason anyone could identify.\n\nFrom the back row, [Tsurugi](#/article/kenzaki_tsurugi) watched the whole thing with her chin tilted down and her eyes narrowed to razor slits. She pulled out her phone under the desk, thumb hovering, visibly weighing whether this was worth documenting. **\"…What a circus.\"**\n\nLord Verity, meanwhile, had escalated. He slammed both fists on the desk hard enough to rattle every pencil within two feet. **\"THIS CLASS WILL COME TO ATTENTION OR FACE THE WRATH OF LORD VERITY HIMSELF!\"** Airi giggled. Mika kept spinning. Someone in the back row did not look up.\n\nThen [Iochi Mari](#/article/iochi_mari) stood up.\n\nShe did not shout. She walked to the front, positioned herself slightly behind the advisor's desk, gave a small nod to the students nearest her — a silent signal — and said, in a voice the record describes as soft but carrying clearly:\n\n**\"If everyone could take their seats properly, that would be wonderful~\"**\n\nThe record: *cutting through the noise more effectively than any shouting ever could. A few students glance her way and begin complying, chairs clicking into place one by one like dominoes falling.*\n\nWhat finally settled Lord Verity was a last warning: sit down or be removed. His fist was still in the air. The words died on his lips. He lowered the fist slowly, and the hoodie-cape slid off one shoulder and pooled on the desk behind him *like a deflated balloon.*\n\n**\"…You can't kick ME out. I'm not even IN anything yet.\"**\n\nHe stood in the middle of the aisle, suddenly looking less like an emperor and more like someone who had wandered into the wrong building. **\"…Fine.\"** Through gritted teeth, jaw tight.\n\nThe advisor watched him go back to his seat with the quiet satisfaction of a man who had just defused a bomb using nothing but volume and posture. **\"Thank you for your cooperation, Lord Verity.\"** The sarcasm, the record notes, was *barely thin enough to pass through a colander.*",
+        "waluigi_note": "Note who actually restored order, because it was not the adult. The advisor shouted twice and got nothing. Mari stood up, asked nicely, and the room folded like wet paper. She has no authority in that room whatsoever. She has something better, which is that everybody likes her and nobody wants to be the one who ignored her. Waluigi has watched generals fail to do what that girl did with one sentence and a hair-tuck."
+      },
+      {
+        "name": "IV. The Word He Did Not Have To Explain",
+        "image": "assets/images/events/trinity-roll-call/trc-04-sector-map.jpg",
+        "imageCaption": "THE RESISTANCE in underlined block capitals, and a rough map of the eastern perimeter — warehouses, supply routes, and abandoned industrial buildings that make good hiding places.",
+        "icon": "🗺️",
+        "overview": "With the room finally seated, he leaned against the desk and started on what the class actually *is*. Students of Trinity General School. Here to learn, grow, and be prepared for whatever comes next.\n\n**\"SCHALE operations, academy life, the whole package.\"**\n\nAnd then a voice from the floor: **\"SCHALE operations?\"**\n\nThe session changed shape at that line. [Lord Verity](#/article/lord_verity)'s eyes snapped to attention — *actual* attention, not the theatrical kind. The dramatic pose melted like frost in sunlight. His fingers tightened on the desk edge.\n\n**\"Wait. You're saying this class — THIS class — is connected to SCHALE? As in… actual missions? Real-world operations?\"**\n\nHis voice cracked on *real-world.* The record catches what was underneath the theatrics for exactly one second: *something raw — something hungry. Something that sounds like a kid who's been waiting for exactly this his entire life.* He started to say *I thought we were just—*, stopped himself, swallowed, and put the mask back on. It no longer fit properly.\n\nIn the corner, [Azusa](#/article/shirasu_azusa)'s eyes sharpened — the record's simile is *like a blade being drawn from a sheath so smooth you'd miss it if you blinked.* The name landed in her chest and stayed there, heavy and cold. She knows what SCHALE means better than most students at Trinity, because she has felt the weight of systems that sort people into categories they did not choose, into boxes labelled *supplementary* like it is a diagnosis rather than a circumstance.\n\n[Yoshimi](#/article/ibaragi_yoshimi) tensed, shoulders to her ears. **\"…What does that have to do with ANY of us?\"** — sharper than she meant it, which is saying something.\n\n[Hanae](#/article/asagao_hanae) whispered the word to herself, held the advisor's gaze for exactly two seconds, and said **\"I… I know what that is.\"** Then her courage ran out.\n\n[Shaggy](#/article/shaggy) said what nobody else was willing to: **\"Uh… like, yeah. What exactly IS SCHALE? Sounds like some kinda… I dunno, video game thing or whatever?\"** And then the sentence that turns this filing from a briefing into an indictment:\n\n**\"Like… okay, real talk. I've been at Trinity for a while now and nobody EVER explained this stuff to me. I get that there's Knights, I get that there's the Resistance, I even get that there's some kinda war going on — but 'operations?' Like… combat operations? Because if you're telling me I gotta fight something, I need to know where the nearest exit is first.\"**\n\nThe advisor set the clipboard down with a deliberate click and turned to face the room fully. He held up a hand when Lord Verity opened his mouth. *Nope. I'm talking. You're listening.*\n\n**\"SCHALE isn't some secret club or a video game. It stands for Strategic Counter Hazard Activation League Execution.\"**\n\nHe let the acronym sit. Then came the question that got the honest answer — *sounds stupid, what does it actually do?*\n\n**\"It does sound stupid. I'll give you that.\"**\n\nA few nervous laughs. He held up a finger before anyone got comfortable.\n\n**\"But here's the thing — it's not really an acronym people throw around for fun. SCHALE is the backbone of everything that keeps this city breathing. It decides which Knights respond to hazards, how resources get allocated, who gets support when things go sideways.\"**\n\n[Mari](#/article/iochi_mari) translated it for the students too embarrassed to ask, opening with the line that let them off the hook — *most people don't fully understand it until they're told directly* — and laying it out in three clean sentences: the framework that keeps Kivotos stable, coordinating Knight responses and Resistance intelligence, turning strategic decisions into actual missions. *In essence… it's the difference between knowing there's a threat and actually doing something about it.*\n\nThen the whiteboard came out, and with it the geography. Sectors 7 through 12, along Kivotos's eastern perimeter: warehouses, supply routes, a couple of abandoned industrial buildings that make great hiding spots for people who do not want to be found. The Resistance had been spotted moving supply lines through those corridors. Exact numbers unknown.\n\nAsked what any of that meant, he wrote **THE RESISTANCE** on the board in block letters and underlined it twice.\n\n**\"They're criminals who want to tear down everything Kivotos stands for — the academies, the peace agreements, all of it.\"**\n\nHe turned around and looked directly at the student who had asked. **\"The short version: we're going there because someone's been moving weapons through those sectors, and SCHALE is the group that stops that from happening. You — all of you — are part of that.\"**",
+        "waluigi_note": "Waluigi is going to be careful here, because this is the paragraph where an archivist earns his keep. *They're criminals who want to tear down everything Kivotos stands for* is not a finding. It is a description of an armed political faction, delivered in one sentence, to a room of children, by an employee of the body they are fighting. It may even be true. Waluigi does not know, and neither does anyone in that classroom, and that is the point: not one student in the room had the information to test it. The archive files it as the advisor's characterisation. Ask again in twenty sessions."
+      },
+      {
+        "name": "V. The Ponies, the Guns, and the Thing He Should Not Have Said",
+        "icon": "⚠️",
+        "overview": "Two more questions landed before the briefing could resume, and both of them opened something.\n\nThe first came almost in passing — a question about external threats versus internal ones, and then: *what about the pony liaison that came from Equestrian earlier, I saw some walking around the school, was that meant to be private?*\n\nThe advisor's expression shifted. Just barely, just enough for anyone paying attention. His jaw tightened a fraction. He set the clipboard down on the desk with a deliberate click, and chose his words like stepping over a tripwire he could not see.\n\n**\"That's… a separate matter.\"**\n\nThen he confirmed it: a diplomatic initiative between Kivotos and Canterlot. Small groups, cultural exchange, building goodwill before things get messy enough to need actual military coordination. *It was supposed to be handled quietly.*\n\nHe exhaled through his nose.\n\n**\"So the fact that you saw them walking around openly tells me someone dropped the ball on security protocols somewhere along the line.\"** His eyes swept the room. **\"I'll look into it. If any of you see more of those liaisons wandering where they shouldn't be, report it to me — not to social media, not to your friends, to me. Directly.\"**\n\nIn the corner, Azusa's pen stopped mid-notation. Two pieces that did not fit: an organisation that runs on need-to-know, and diplomatic personnel walking a school corridor in plain view. She wrote something brief in the margin that was not part of the lecture, said **\"…Understood\"** to nobody in particular, straightened a page that was already perfectly aligned, and resumed writing.\n\n[Airi](#/article/kurimura_airi) had three questions and no filter: are there snacks in Sector 7, are the ponies friendly, can she hug one, and do they get breaks. [Shaggy](#/article/shaggy) followed with the sensible objection nobody else made — *if we're dealing with bad guys AND ponies showing up uninvited, that's like… two different problems, right?*\n\nIt was correct, and the advisor said so. The Resistance is an internal threat operating out of Kivotos itself. The Equestrian liaisons are an external diplomatic situation *that someone mishandled* — his tone carrying an edge that suggested opinions about who. **\"The fact that those two things intersected at this school without proper coordination is exactly why SCHALE exists.\"**\n\nOn the ponies, he was blunt: they are not your friends, they are diplomatic personnel operating under an agreement *that does NOT include hugging.*\n\nThen the second question: **\"We can all use guns at least right?\"**\n\nThe silence lasted exactly two seconds before [Tsurugi](#/article/kenzaki_tsurugi) spoke, and she did not look at whoever had asked. She kept her eyes on the advisor. She uncrossed her arms slowly, deliberately, leaned forward, and pointed at him like a blade.\n\n**\"…Seriously? If you're about to say 'yes' to that, then this class is just an excuse for a shooting range and I'm filing paperwork.\"** Her expression hardened. **\"I've handled weapons since before most of you were old enough to stop putting them in your mouths.\"**\n\nShe leaned back, arms recrossing with finality. **\"Sensei. What's the actual plan?\"**\n\nShaggy put himself on the record immediately and defensively — *I just want it on the record that I said nothing about wanting guns* — describing himself and Scooby as diplomatic solution kind of guys, and offering a bag of Scooby Snacks as his contribution to the mission.\n\nThe advisor exhaled slowly through his nose.\n\n**\"Nobody is handing out guns.\"**\n\nStone-cold finality. The room went quiet for exactly one second. And then he held up a finger to preempt an objection Tsurugi had not made and did not appear about to make.\n\n**\"—except Tsurugi. You already have clearance.\"** A beat. **\"Everyone else: no.\"**\n\nHe turned back to the whiteboard and wrote **need-to-know** in block letters, underlining it twice: SCHALE tells you what you need for your assignment, and you do not ask about things outside it. Anyone whose role requires a firearm will be briefed separately, with proper safety training, by certified personnel. *Not me. Not YouTube.*",
+        "waluigi_note": "He disclosed a student's weapons clearance to ten of her classmates in order to win an argument he had already won. She had not volunteered it. She had, in fact, just spent her only real contribution of the session arguing AGAINST arming children — which is the most responsible position anybody takes in this entire filing, and it is taken by the girl with her boots on the furniture. The record does not show her reacting. Waluigi finds that the most informative non-reaction of the morning, and notes for the file that the man explaining need-to-know had, ninety seconds earlier, told the room something it did not need to know."
+      },
+      {
+        "name": "VI. Cute Outfits, and the Question He Did Not Answer",
+        "icon": "🎀",
+        "overview": "What the class did with all of this was form a committee about clothes.\n\nIt started when he said there would be no cool gadgets and no matching outfits — *at least… not yet* — and let it hang. That was a mistake. **\"not yet! does that mean we get cool outfits!\"**\n\nAiri nearly knocked over a juice box getting out of her seat. **\"WE'RE GETTING OUTFITS?! Oh my gosh oh my gosh—\"** What colour, what style, matching or pick-your-own, and could hers have chocolate mint on it somehow.\n\nFrom the back row, Tsurugi's mouth twitched upward — not quite a smile, the precursor to one. **\"…Not yet, huh. How long do we have to wait? …Days? Weeks?\"** Low, direct, two syllables cutting through the noise.\n\n[Yoshimi](#/article/ibaragi_yoshimi)'s eye twitched. **\"…Outfits?\"** — said as though he had announced they would be dissecting cats. **\"If this is about uniforms, I'm opting out. I don't do group matching. Last time the school made me wear anything I looked like a kid playing dress-up.\"** She looked sideways at Airi's bouncing with the expression of someone watching a person pour gasoline on themselves, and asked how much of the actual briefing Airi was hearing. Airi was not hearing a single word. Yoshimi exhaled through her nose like a frustrated bull.\n\nThe advisor tried to reclaim it. The outfits comment was a joke. *Mostly.* SCHALE is not glamorous — it is paperwork and logistics and making sure the right people are in the right places when things go wrong. **\"But it IS important. The Resistance runs through this system. Every Knight deployment, every supply line, every evacuation order during a hazard event — it all flows through SCHALE.\"**\n\nIn the corner, Azusa delivered her verdict flat, like reporting a weather condition. **\"Cute outfits. …Who cares about outfits.\"** A barely perceptible shrug. And then the question underneath the entire session:\n\n**\"The question is whether SCHALE actually works. Or if it's just another thing that sounds important but doesn't do anything for people who are already at the bottom of every list.\"**\n\nHer gaze dropped to her desk — notebook closed, pen aligned parallel to its edge.\n\n**\"…Doesn't matter though. I'm not on any list. Supplementary students don't count for much either way.\"**\n\nNobody answered her.\n\nThe committee formed anyway, and it formed around the newcomer, who had declared a preference for cute clothes and recruited Airi on the spot. Lord Verity, whose hoodie Airi had been modelling as a ball gown without permission, rose to bless the arrangement — *BEHOLD! The Lord of Verity graces this humble girl—* — while Airi waved and mouthed THANKS with exaggerated enthusiasm, and he pivoted mid-sentence into *an alliance that shakes the very FOUNDATIONS of… SCHALE training readiness!* He pointed at the advisor, retracted, pointed again but lower, then settled for crossing his arms and nodding sagely.\n\nYoshimi watched it with an expression the record says could curdle milk. **\"An alliance. They're forming an *alliance* over a cape.\"** Then, flatly: **\"…I'm not joining any alliance.\"** And then, in the very next breath: **\"But if Sensei needs someone who actually reads the handouts…\"**\n\nShe pulled a crumpled SCHALE pamphlet from her bag and slapped it on the desk with more force than necessary.\n\n**\"I finished page six.\"**\n\n[Hanae](#/article/asagao_hanae) raised her hand hesitantly, like asking permission to speak at a town hall. **\"…I want to join the alliance too.\"** She introduced herself properly, said she does not do loud things, and offered logistics and scheduling — paperwork stuff. Then she held up a small notebook filled with neat handwriting and colour-coded tabs.\n\n**\"I already started organizing the SCHALE information Sensei shared. There were gaps in the documentation so I cross-referenced it with the school's emergency protocols…\"**\n\nNobody had asked her to. It had been a matter of hours. She found gaps.\n\nThe newcomer's response to the offer of paperwork was *what no eww* and a counter-proposal to design cute outfits for the class instead — and Hanae, who by every expectation should have folded, lit up instead *like someone just turned on a lamp inside her chest cavity.* She offered to help pick colours and check uniform modifications against school regulations, trailed off when she heard herself volunteering detailed logistical support for a committee that did not exist, and went pink at the ears. **\"…I'll do whatever helps!\"**\n\nAiri called her a genius and a hidden treasure, grabbed her hands and shook them gently. Hanae looked startled and did not pull away.\n\nThen Airi turned the whole thing on the least approachable person in the room: they would make everyone look so good that even Kenzaki could not complain. Group photos. Props. Maybe balloons.\n\n**\"…You want to put BALLOONS on SCHALE tactical gear.\"**\n\n**\"It would LOOK SO CUTE—\"**\n\nTsurugi stared at her for a long, uncomfortable beat. Then — so quietly the record says it almost did not exist — the corner of her mouth twitched.\n\n**\"Keheh.\"**\n\nAiri screamed with joy.\n\nAnd in the middle of all of it, [Mari](#/article/iochi_mari) raised her hand, though she had already been looking at him, and asked the only question that went to the point:\n\n**\"I think what everyone here is actually asking — underneath all the outfit requests and snack searches — is whether SCHALE means we'll get to DO something meaningful. People don't care about gadgets or uniforms. They care about purpose. So… will it?\"**\n\nThe record does not show him answering.\n\nHe dropped into his chair with the bone-tired slump of a man who had survived a natural disaster and was now filling out paperwork about it, observed that nobody had mentioned the classroom would treat every meeting like a variety show, and set the order of business: deployment rotation first. Then fashion.\n\nThe word came out, the record says, *like he's chewing glass.*",
+        "waluigi_note": "Two questions were asked in this room and neither was answered. Azusa asked whether the system does anything for people at the bottom of every list, and said, out loud, that she is not on any list. Mari asked whether any of this amounts to purpose. Eleven people and one adult heard both. The reply to the first was silence and the reply to the second was a deployment rotation.\n\nWaluigi is going to drop the voice for a moment, because this is the part that matters and the jokes can wait. An institution that will not answer *does this do anything for me* has told you the answer. The archive will be asking both questions again, in writing, every session, until somebody in that building says something."
+      }
+    ],
+    "participants": [
+      {
+        "id": "sensei",
+        "name": "Sensei",
+        "role": "New advisor to Classroom 2-B; ran the roll call, disclosed the class's SCHALE attachment, admitted the Equestrian liaison security breach, refused to arm the class, and publicly disclosed Tsurugi's existing weapons clearance"
+      },
+      {
+        "id": "asa_hanko",
+        "name": "Asa Hanko",
+        "role": "Asked what SCHALE was, what the acronym did, what the sectors and the Resistance were, about the Equestrian liaison seen in the school, and whether the class would be armed; proposed the outfit committee"
+      },
+      {
+        "id": "kurimura_airi",
+        "name": "Kurimura Airi",
+        "role": "Welcomed the advisor with chocolate, briefed the newcomer, carried a second chocolate to Shaggy at the back of the room, and escalated the outfit proposal into a fashion show"
+      },
+      {
+        "id": "iochi_mari",
+        "name": "Iochi Mari",
+        "role": "Quieted the classroom without raising her voice, translated SCHALE into plain language for the students who would not ask, and asked whether any of it amounts to purpose"
+      },
+      {
+        "id": "misono_mika",
+        "name": "Misono Mika",
+        "role": "Arrived first, claimed the desk opposite the advisor's, offered tea she had only thought about bringing, and stopped spinning when SCHALE was mentioned"
+      },
+      {
+        "id": "shirasu_azusa",
+        "name": "Shirasu Azusa",
+        "role": "Took notes from the corner desk; named her supplementary classification aloud and asked whether SCHALE does anything for people at the bottom of every list"
+      },
+      {
+        "id": "ibaragi_yoshimi",
+        "name": "Ibaragi Yoshimi",
+        "role": "Flinched at her own name, refused the alliance and group uniforms, and revealed she was the only student who had read the SCHALE pamphlet"
+      },
+      {
+        "id": "asagao_hanae",
+        "name": "Asagao Hanae",
+        "role": "Volunteered logistics and scheduling, and produced a colour-coded notebook cross-referencing the SCHALE briefing against school emergency protocols, having found gaps in the documentation"
+      },
+      {
+        "id": "kenzaki_tsurugi",
+        "name": "Kenzaki Tsurugi",
+        "role": "Objected to arming the class and demanded the actual plan; had her existing weapons clearance disclosed publicly by the advisor without her consent"
+      },
+      {
+        "id": "lord_verity",
+        "name": "Lord Verity",
+        "role": "Declared dominion over the classroom twice, stood down after a final warning, and dropped the performance entirely when the SCHALE attachment was disclosed"
+      },
+      {
+        "id": "shaggy",
+        "name": "Shaggy",
+        "role": "Hid from roll call, disclosed that years at Trinity had passed without anyone explaining SCHALE to him, and identified the Resistance and the Equestrian liaisons as two separate problems"
+      }
+    ],
+    "outcome": "No combat, no travel, no casualties, and nothing physically changed hands except two chocolates and a crumpled pamphlet. What changed is what the class knows.\n\nFiled as settled: Classroom 2-B is attached to SCHALE operations; the acronym is Strategic Counter Hazard Activation League Execution; the body coordinates Knight deployments, resource allocation and hazard response, and runs on need-to-know. A deployment rotation covering Sectors 7 through 12 on Kivotos's eastern perimeter is in preparation, justified by reported Resistance movement of weapons and supply lines. The class will not be armed; one student already is.\n\nFiled as admitted: an Equestrian liaison programme with Canterlot exists, was intended to be conducted quietly, and was observed by students walking the school openly. The advisor characterised this as a failure of security protocol and opened an internal query.\n\nFiled as open: what happened to the previous advisor of Classroom 2-B, referred to in a joke as having 'mysteriously disappeared'. Whether SCHALE does anything for students classified supplementary. Whether any of this amounts to purpose — asked directly, and not answered.",
+    "notableFeatures": [
+      "The archive's first interior in Kivotos — a city previously present only as Remi Akamatsu's birthplace, a wallet currency, and a calendar",
+      "SCHALE spelled out in full for the first time: Strategic Counter Hazard Activation League Execution",
+      "A student of several years' standing revealed that nobody had ever explained SCHALE to him",
+      "The Equestrian liaison programme with Canterlot, disclosed as a mishandled security matter rather than as a diplomatic announcement",
+      "One student's weapons clearance disclosed publicly by the advisor, seconds before he explained the need-to-know principle",
+      "Two questions asked and neither answered: whether the system helps students at the bottom of every list, and whether any of it amounts to purpose",
+      "A joke about the previous advisor having 'mysteriously disappeared', which no student followed up"
+    ],
+    "relatedArticles": [
+      "trinity_general_school",
+      "kivotos",
+      "sensei",
+      "asa_hanko",
+      "kurimura_airi",
+      "iochi_mari",
+      "misono_mika",
+      "shirasu_azusa",
+      "ibaragi_yoshimi",
+      "asagao_hanae",
+      "kenzaki_tsurugi",
+      "lord_verity",
+      "shaggy",
+      "remi_akamatsu_full_backstory"
+    ],
+    "aftermath": "**Eleven students have names in the archive and one institution has stated its terms.** That is the whole of it, and for an intake filing it is enough.\n\nThe alliance that formed over an oversized hoodie is, on paper, an outfit-design committee: Asa Hanko proposing, Airi escalating, Hanae supplying logistics, Lord Verity blessing it, Yoshimi refusing to join while volunteering to do the reading. It has no standing and no remit. It is also the only structure in that classroom that anybody chose.\n\nThe deployment briefing did not finish. Sectors 7 through 12 are named, the Resistance is characterised, and the rotation itself is still unread when the record ends.\n\nThree things are owed. The previous advisor of Classroom 2-B is unaccounted for and was joked about on the replacement's first morning. The Equestrian liaison breach is under an internal query with no stated deadline. And Shirasu Azusa said, in a full classroom, that supplementary students do not count for much either way, and nobody contradicted her.",
+    "waluigiAssessment": "**The session is an introduction and the disclosure is an accident.** Waluigi wants both halves of that sentence taken seriously.\n\nThe advisor came in to run a roll call and set expectations. What he actually did was answer a question a confused student asked because they did not know it was the kind of question you are supposed to already know the answer to. And once he started answering he did not stop: the acronym, the function, the sectors, the Resistance, the ponies, the clearance. A more careful man lets the first SCHALE question die in the noise. Waluigi has covered enough institutions to say that the careful man is the more common one, and to note, grudgingly, that this one is better than that.\n\nBut look at what the honesty cost. He told a room of children that the people in the eastern sectors are criminals who want to tear it all down, in one sentence, with no evidence offered and none available to them. He confirmed a diplomatic programme was being run badly by confirming that seeing it was the problem. And he named a student's weapons clearance out loud, to ten classmates, moments before writing NEED-TO-KNOW on a whiteboard and underlining it twice.\n\nThe children, meanwhile, sorted themselves faster than any institution could have. Mika took the front. Tsurugi took the back and watched only him. Azusa angled her desk toward the door. Airi crossed the room twice to reach whoever was alone. Mari stood up and stopped a riot by asking politely. Hanae went home and audited the documentation. Yoshimi read page six and waited all session for a reason to say so.\n\nAnd Lord Verity, who had spent the morning demanding that mortals kneel, said *I'm not even IN anything yet*, and then heard the word SCHALE and forgot to perform.\n\n**Waluigi's finding:** this is a good room. It is also a room where a fourteen-year-old said she is not on any list and eleven people let it pass. Waluigi has filed that in two places so it cannot be lost. WAH.",
+    "timeWindow": "5 Aethel, 1040 BF — one continuous morning in Classroom 2-B, from the advisor's entrance through the roll call to an unfinished deployment briefing",
+    "xpAwards": [
+      {
+        "xpKey": "asa_hanko",
+        "articleId": "asa_hanko",
+        "name": "Asa Hanko",
+        "cat": "discovery",
+        "xp": 260,
+        "title": "Event — The Roll Call at Trinity",
+        "desc": "Asked what SCHALE was and would not let the term pass unexplained, producing the session's central disclosure.",
+        "date": "5 Aethel, 1040 BF",
+        "dateSort": 10409050
+      },
+      {
+        "xpKey": "asa_hanko",
+        "articleId": "asa_hanko",
+        "name": "Asa Hanko",
+        "cat": "social",
+        "xp": 180,
+        "title": "Event — The Roll Call at Trinity",
+        "desc": "Named the Equestrian liaison sighting in open class and drew an admission that the programme's security had been mishandled.",
+        "date": "5 Aethel, 1040 BF",
+        "dateSort": 10409050
+      },
+      {
+        "xpKey": "iochi_mari",
+        "articleId": "iochi_mari",
+        "name": "Iochi Mari",
+        "cat": "social",
+        "xp": 300,
+        "title": "Event — The Roll Call at Trinity",
+        "desc": "Restored order to a classroom that had ignored two rounds of shouting, using one sentence and no authority.",
+        "date": "5 Aethel, 1040 BF",
+        "dateSort": 10409050
+      },
+      {
+        "xpKey": "kenzaki_tsurugi",
+        "articleId": "kenzaki_tsurugi",
+        "name": "Kenzaki Tsurugi",
+        "cat": "loyalty",
+        "xp": 240,
+        "title": "Event — The Roll Call at Trinity",
+        "desc": "Objected to arming the class, citing her own weapons experience, and demanded the actual plan.",
+        "date": "5 Aethel, 1040 BF",
+        "dateSort": 10409050
+      },
+      {
+        "xpKey": "asagao_hanae",
+        "articleId": "asagao_hanae",
+        "name": "Asagao Hanae",
+        "cat": "discovery",
+        "xp": 220,
+        "title": "Event — The Roll Call at Trinity",
+        "desc": "Cross-referenced the SCHALE briefing against school emergency protocols unprompted and found gaps in the documentation.",
+        "date": "5 Aethel, 1040 BF",
+        "dateSort": 10409050
+      },
+      {
+        "xpKey": "shirasu_azusa",
+        "articleId": "shirasu_azusa",
+        "name": "Shirasu Azusa",
+        "cat": "discovery",
+        "xp": 200,
+        "title": "Event — The Roll Call at Trinity",
+        "desc": "Identified the contradiction between a need-to-know organisation and liaisons walking the school openly, and put the supplementary classification on the record.",
+        "date": "5 Aethel, 1040 BF",
+        "dateSort": 10409050
+      },
+      {
+        "xpKey": "kurimura_airi",
+        "articleId": "kurimura_airi",
+        "name": "Kurimura Airi",
+        "cat": "social",
+        "xp": 200,
+        "title": "Event — The Roll Call at Trinity",
+        "desc": "Crossed the room twice to reach the two students nobody was talking to, and recruited Hanae by praising her.",
+        "date": "5 Aethel, 1040 BF",
+        "dateSort": 10409050
+      },
+      {
+        "xpKey": "shaggy",
+        "articleId": "shaggy",
+        "name": "Shaggy",
+        "cat": "social",
+        "xp": 160,
+        "title": "Event — The Roll Call at Trinity",
+        "desc": "Admitted in open class that years at Trinity had passed without anyone explaining SCHALE, and separated the Resistance and Equestrian problems correctly.",
+        "date": "5 Aethel, 1040 BF",
+        "dateSort": 10409050
+      },
+      {
+        "xpKey": "ibaragi_yoshimi",
+        "articleId": "ibaragi_yoshimi",
+        "name": "Ibaragi Yoshimi",
+        "cat": "discovery",
+        "xp": 140,
+        "title": "Event — The Roll Call at Trinity",
+        "desc": "The only student who had read the SCHALE pamphlet before the briefing.",
+        "date": "5 Aethel, 1040 BF",
+        "dateSort": 10409050
+      },
+      {
+        "xpKey": "lord_verity",
+        "articleId": "lord_verity",
+        "name": "Lord Verity",
+        "cat": "social",
+        "xp": 140,
+        "title": "Event — The Roll Call at Trinity",
+        "desc": "Stood down from the claim of dominion when given a final warning, and asked the first real question about who in the room SCHALE covers.",
+        "date": "5 Aethel, 1040 BF",
+        "dateSort": 10409050
+      },
+      {
+        "xpKey": "misono_mika",
+        "articleId": "misono_mika",
+        "name": "Misono Mika",
+        "cat": "social",
+        "xp": 120,
+        "title": "Event — The Roll Call at Trinity",
+        "desc": "Claimed the front of the room on arrival and held it, and gave the session its best line about tea that did not exist.",
+        "date": "5 Aethel, 1040 BF",
+        "dateSort": 10409050
+      }
+    ]
   }
 ]

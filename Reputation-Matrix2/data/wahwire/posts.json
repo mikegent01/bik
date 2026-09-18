@@ -3112,6 +3112,32 @@
       "comments": [],
       "status": "posted",
       "type": "text"
+    },
+    {
+      "id": "wahwire_roll_call_trinity",
+      "author": "waluigi",
+      "order": 77,
+      "date": null,
+      "timestamp": "5 Aethel, 1040 BF — after the bell, before the deployment rotation was read",
+      "content": "New classroom in Kivotos. Eleven kids, one advisor, one acronym nobody had ever bothered to explain to them — Strategic Counter Hazard Activation League Execution. He admits it sounds stupid. Credit where due: he answered. Then he told a room of fourteen-year-olds who the enemy is in one sentence with no evidence, announced one student's weapons clearance to her ten classmates, and wrote NEED-TO-KNOW on the whiteboard ninety seconds later. Two questions got asked in that room. Does this system do anything for people at the bottom of every list. Does any of this mean something. Both audible. Neither answered. Waluigi is writing them down and Waluigi will keep writing them down. WAH.",
+      "likes": 1187,
+      "links": [
+        {
+          "id": "the_roll_call_at_trinity",
+          "type": "event"
+        }
+      ],
+      "tags": [
+        "kivotos",
+        "trinity",
+        "schale",
+        "roll call",
+        "need to know"
+      ],
+      "reaction": "unanswered",
+      "comments": [],
+      "status": "posted",
+      "type": "text"
     }
   ]
 }

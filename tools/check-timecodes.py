@@ -7,7 +7,13 @@ A time code is a machine-checkable stamp on a filing:
 
     year 1040 · month 08 (Harvestide, 1-indexed) · day 30
     T22:15 = in-world clock, 24h, optional
-    /MAT   = which clock (MAT, SHD, FEY, SUBJ)
+    /MAT   = which clock (MAT, SHD, FEY, SUBJ, KIV)
+
+Kivotos keeps imperial months and years - Remi Akamatsu's record dates her
+birth "12th Harvestide, 1026 BF - Kivotos, Residential District Seven" - so KIV
+filings validate against the Regal calendar like MAT ones. The separate suffix
+exists because Kivotos is its own campaign front, not because its months
+differ; see tools/build-campaign-fronts.py.
 
 Codes live in the `timeCode` field of an event/battle record. The human `date`
 string stays exactly as it is — the code is the sortable, checkable twin.
@@ -38,12 +44,13 @@ CLOCKS = {
     'SHD': 'Shadowfell drift',
     'FEY': 'Feyward clock',
     'SUBJ': 'Subjective / unverified duration',
+    'KIV': 'Kivotos academy clock',
 }
 
 CODE_RE = re.compile(
     r'^TC:(?P<y>\d{3,4})-(?P<m>\d{2})-(?P<d>\d{2})'
     r'(?:T(?P<hh>\d{2}):(?P<mm>\d{2}))?'
-    r'/(?P<clock>MAT|SHD|FEY|SUBJ)$'
+    r'/(?P<clock>MAT|SHD|FEY|SUBJ|KIV)$'
 )
 
 

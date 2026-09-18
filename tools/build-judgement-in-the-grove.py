@@ -832,12 +832,21 @@ def build(check=False):
             print("judgement in the grove: filed battle does not match the generator")
             return 1
         # Front-page wiring - the part that was missed last time.
-        if (mainpage.get("latestUpdate") or {}).get("id") != EVENT_ID:
-            print("judgement in the grove: mainPage.latestUpdate is not this event")
-            return 1
-        if (mainpage.get("featuredArticle") or {}).get("id") != EVENT_ID:
-            print("judgement in the grove: mainPage.featuredArticle is not this event")
-            return 1
+        #
+        # These three only bind while this filing is still the newest one in
+        # the archive. A later session is SUPPOSED to take latestUpdate, the
+        # featured slot and the head of SITE_UPDATES; asserting otherwise made
+        # this generator fail the moment anything was filed after it. The
+        # campaign-cover check below is unconditional, because the Shadeward
+        # front stays this event's until another Shadeward session replaces it.
+        is_newest = bool(ev_list) and ev_list[-1].get("id") == EVENT_ID
+        if is_newest:
+            if (mainpage.get("latestUpdate") or {}).get("id") != EVENT_ID:
+                print("judgement in the grove: mainPage.latestUpdate is not this event")
+                return 1
+            if (mainpage.get("featuredArticle") or {}).get("id") != EVENT_ID:
+                print("judgement in the grove: mainPage.featuredArticle is not this event")
+                return 1
         cover_rows = mainpage.get("campaignCovers") or []
         covers = {c.get("articleId") for c in cover_rows}
         if EVENT_ID not in covers:
@@ -853,8 +862,13 @@ def build(check=False):
                 return 1
             seen[camp] = c.get("articleId")
         html = INDEX.read_text(encoding="utf-8")
-        if f'"id": "{EVENT_ID}"' not in html.split("let SITE_UPDATES=[", 1)[-1][:4000]:
-            print("judgement in the grove: SITE_UPDATES does not lead with this event")
+        updates_blob = html.split("let SITE_UPDATES=[", 1)[-1]
+        if is_newest:
+            if f'"id": "{EVENT_ID}"' not in updates_blob[:4000]:
+                print("judgement in the grove: SITE_UPDATES does not lead with this event")
+                return 1
+        elif f'"id": "{EVENT_ID}"' not in updates_blob[:40000]:
+            print("judgement in the grove: SITE_UPDATES has dropped this event")
             return 1
         row = salam_row(chars)
         if not row:
