@@ -6031,5 +6031,39 @@
       "sensei"
     ],
     "image": "portraits/shaggy.png"
+  },
+  {
+    "id": "orange_t",
+    "name": "Orange T",
+    "title": "The Toad Who Is Always Already There",
+    "race": "Toad",
+    "status": "Active — last confirmed in the Feyward basement of the Cornivours estate, keeping a bowl of blood he declined to explain",
+    "affiliation": "Unaligned — claims friendship with Hjumpik; describes himself as not an Oracle",
+    "summary": "Orange T is the orange Toad who is never seen arriving. He was already in the collapsing library of the Corvinarus Sanctum treating Bones when Bowser looked up from beating the original Dan; he was already in the Feyward basement when Bowser turned from the cold storage. He banished both Dans on a technicality of consent — Bowser said 'not particularly' and Orange T treated it as permission — then said 'oh oops.' Waluigi does not believe the oops. He answers direct questions with deflections he has clearly used before, and he is the only person in this archive who has repeatedly been in a room before the room mattered.",
+    "description": "Waluigi has been putting off this record because writing it requires admitting how little the archive has.\n\nHere is the whole of it. Orange T is an orange Toad. He treats the wounded — Bones in the sanctum library, competently and without being asked. He carries a healer's staff. He is on friendly terms with [Hjumpik](https://mikegent01.github.io/bik/index.html#/article/hjumpik) and introduces himself by that friendship before anything else. He is not, by his own flat statement, an Oracle. And he is never observed entering a room.\n\nThat last point is not a joke and Waluigi is tired of people treating it as one. Two separate filings now record the same structure: a violent, alert, extremely large person is doing something in a room, finishes doing it, looks up or turns around, and Orange T is there and has been there. In the sanctum he had been treating Bones through the entire fight with the original Dan. In the Feyward basement he spoke from behind Bowser while Bowser was inspecting the honey, and his first words were a correction about jam.\n\n## The banishment, which was not an accident\n\nIn the sanctum Orange T asked Bowser whether he cared what was done with the two unconscious Dans. Bowser, exhausted, said 'not particularly.' Both Dans were banished immediately. Bowser's objection arrived while the Shadowfell Dan was already disappearing. Orange T said 'oh oops.'\n\nWaluigi has documented enough manipulation to recognise the shape of this one. The question was casual, the consent was imprecise, and the spell was ready. A man who needed permission obtained permission from someone too tired to parse what he was granting.\n\n## The basement, and what he said when he thought it did not matter\n\nIn the Feyward basement he was more forthcoming than he has ever been, and it is worth recording exactly how forthcoming that is: he confirmed the bowl of blood was his while confirming the blood was not, he asked whether Bowser had touched anything in the room, and he left.\n\nBut he also stated a position. On [Archie Miser](https://mikegent01.github.io/bik/index.html#/article/archie_miser) — whom Bowser called a destructive force, wanted by the Mages' Guild, and kind of crazy — Orange T said he does not really care. On vengeance, when Bowser described losing his purpose in an instant after an incident with a kingdom, Orange T identified a shared goal. And he set the terms of their relationship with a precision that reads as rehearsed: as long as you do not get in my way, you are NOT an enemy.\n\nWaluigi notes that this is not the same sentence as 'you are a friend,' and that Orange T chose the more careful one.\n\n## What the archive does not know\n\nHow he travels. Why he was in the sanctum. Why he is in the Feyward. What the blood is for. What he wants with the Dans. Whether 'I'm a friend of Hjumpik' is true, and whether Hjumpik would say the same sentence back.\n\nWAH.",
+    "notableFeatures": [
+      "Never observed arriving — twice now, present in a room before anyone registers him entering",
+      "Treated Bones in the collapsing sanctum library without being asked, and carries a healer's staff",
+      "Banished both Dans on Bowser's 'not particularly', then said 'oh oops'",
+      "Deflects questions about his own presence with 'I'm here now and that's what matters'",
+      "Denies being an Oracle; introduces himself as a friend of Hjumpik",
+      "Keeps a bowl of blood in the Feyward basement — his, but not his blood",
+      "'As long as you don't get in my way, you're NOT an enemy' — the terms, stated precisely",
+      "Indifferent to Archie Miser and to the Mages' Guild's interest in him",
+      "Prefers jam to honey"
+    ],
+    "relatedArticles": [
+      "bowser",
+      "hjumpik",
+      "bones",
+      "the_oracle",
+      "archie_miser",
+      "mystic_morel",
+      "feyward_manor_basement",
+      "the_telescope_and_the_tennis_match"
+    ],
+    "keyEvents": [
+      "the_telescope_and_the_tennis_match"
+    ]
   }
 ]

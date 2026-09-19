@@ -7,10 +7,9 @@
     "title": "Judgement in the Grove: A Musket in the Smoke, the Warhammer That Would Not Hear an Appeal, and the Man Remi Found Asleep"
   },
   "latestUpdate": {
-    "id": "the_roll_call_at_trinity",
+    "id": "the_shepherds_garden_and_the_three_week_clock",
     "label": "Latest Filing · Session Event",
-    "excerpt": "A new advisor took Classroom 2-B at Trinity General School and ran a roll call, and the roll call turned into the archive's first look inside Kivotos. Eleven students answered to their names: the one who arrived first and claimed the front desk, the one with the chocolate, the one who quieted the room without raising her voice, the one in the corner who is classified supplementary, the one who finished page six of the pamphlet, the one who found gaps in the documentation overnight, the one in the back row with weapons clearance, the one who kept asking what words meant, the one who declared himself lord of the classroom, and the one who admitted nobody had ever explained any of this to him. Asked a direct question, the advisor confirmed the class is attached to SCHALE, spelled the acronym out, conceded it sounds stupid, and explained what it does. A follow-up question about an Equestrian liaison seen walking the school produced an admission that a diplomatic programme had been mishandled. A question about weapons produced a refusal — and the public disclosure of one student's existing clearance. No combat, no travel, no casualties. Eleven people were introduced and one institution said out loud what it wants from them.",
-    "title": "The Roll Call at Trinity: A New Advisor, Eleven Names, and the Word Nobody Was Supposed to Explain"
+    "excerpt": "Bowser and the Oracle finally talk instead of fighting, and the Oracle gives up more than he has in the entire operation: that both Oracles are fated to die and he means to be the last, that the seals break without the world ending, and that he warned Princess Peach before the assassination and believes she wanted to die. He describes the room — five or six mages' locks broken, the door untouched, a comb still in her hand, every responding guard dead of no stated cause. Bowser refuses a rigged shortcut to the Astral Shore on king's intuition, catches the Oracle spying on Peach through a floating eyeball, and talks a one-week ultimatum up to three weeks. Then he teleports alone into the Feyward basement, finds two different Toads, five labelled honeys, a satyr running a bar for the Revel, and nine Goombas caged as freight for a Mushroom Regency weapons trade. He calls it intolerable. He leaves them in the cages. The clock is running."
   },
   "didYouKnow": [
     "...that the Scorncrow told three separate filings it was not a monster, and when Remi Akamatsu finally tested the claim with a point-blank musket, the blood under the face was human?",
@@ -39,20 +38,20 @@
   ],
   "campaignCovers": [
     {
+      "id": "the-shepherds-garden-and-the-three-week-clock-cover",
+      "campaign": "Shadeward",
+      "title": "SHADEWARD — The Shepherd's Garden and the Three-Week Clock",
+      "caption": "The Planar Sanctum, mid-negotiation. Bowser with both arms out demanding to know why he is in a dumb space garden; the Oracle seated on a floating slab with a fishing rod, having just pulled a sodden boot out…",
+      "image": "assets/images/events/shepherds-garden/shg-01-the-boot.jpg",
+      "articleId": "the_shepherds_garden_and_the_three_week_clock"
+    },
+    {
       "id": "the-roll-call-at-trinity-cover",
       "campaign": "Kivotos",
       "title": "KIVOTOS — The Roll Call at Trinity",
       "caption": "Classroom 2-B on the morning of the new advisor's first roll call: the sliding door, the window row, the contested front desk, and the back row that behaves like a separate country.",
       "image": "assets/images/events/trinity-roll-call/trc-01-classroom.jpg",
       "articleId": "the_roll_call_at_trinity"
-    },
-    {
-      "id": "judgement-in-the-grove-cover",
-      "campaign": "Shadeward",
-      "title": "SHADEWARD — Judgement in the Grove",
-      "caption": "The moment before judgement. The Scorncrow on its knees with the scythe fallen out of reach, hood off, the face underneath plainly human and still asking; Markop at the top of the swing.",
-      "image": "assets/images/events/judgement-in-the-grove/jig-01-warhammer.jpg",
-      "articleId": "judgement_in_the_grove"
     },
     {
       "id": "the-tape-and-the-wario-files-cover",

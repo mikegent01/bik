@@ -849,7 +849,20 @@ def build(check=False):
                 return 1
         cover_rows = mainpage.get("campaignCovers") or []
         covers = {c.get("articleId") for c in cover_rows}
-        if EVENT_ID not in covers:
+        # The Shadeward front is this event's only until a NEWER Shadeward
+        # session takes it. "One cover per campaign; newest filing replaces,
+        # never stacks" is the house rule, so demanding this event hold the
+        # front forever would make every later Shadeward filing fail this
+        # check. Only assert the front while no newer Shadeward filing exists.
+        ids = [e.get("id") for e in ev_list]
+        here = ids.index(EVENT_ID) if EVENT_ID in ids else -1
+        newer_shadeward = [
+            e for i, e in enumerate(ev_list)
+            if i > here
+            and str(e.get("timeCode") or "").endswith("/SHD")
+            and e.get("image")
+        ]
+        if EVENT_ID not in covers and not newer_shadeward:
             print(f"judgement in the grove: Current fronts is missing {EVENT_ID}")
             return 1
         # One front per campaign, or a campaign crowds the others off the strip.
