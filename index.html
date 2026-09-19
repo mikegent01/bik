@@ -12120,12 +12120,12 @@ async function view_regal_diet(tab){
 async function view_power() {
   renderSidebar('power');
   const pathPrefix = (window.location.pathname.includes('/Reputation-Matrix2/') ? './' : './Reputation-Matrix2/');
-  const { renderGlobalWar, initGlobalWarListeners } = await import(pathPrefix + 'app/systems/global-war.js');
+  const { renderGlobalWar, initGlobalWarListeners, hydrateMomentum } = await import(pathPrefix + 'app/systems/global-war.js');
   el('content').innerHTML = `
     <div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › Power Projection</div>
     <div class="card animate-fade-in">
       <h1 class="art-title">⚡ Multiverse Power Projection Monitor</h1>
-      <p class="text-muted">A live, real-time tactical intelligence feed displaying military, economic, and political power balances across 100+ polities and 14 dimensional realms. Governed under the watchful, critical eye of Auditor-General Waluigi. WAH!</p>
+      <p class="text-muted">Military, economic and political standing across 100+ polities and 14 dimensional realms — every figure computed from filed map pins, the province census and the reputation ledger, never hand-typed. The Momentum board tracks who is climbing and who is bleeding, and it advances every time a session is filed. Audited, grudgingly, by Auditor-General Waluigi. WAH!</p>
       <div class="chips" style="margin-top: 15px;">
         <span class="chip" onclick="Router.go('#/atlas')" style="cursor: pointer; background: rgba(138, 75, 255, 0.1); border-color: rgba(138, 75, 255, 0.4); color: #a78bfa;">🍩 Open World Atlas</span>
         <span class="chip" onclick="Router.go('#/cultures')" style="cursor: pointer; background: rgba(138, 75, 255, 0.1); border-color: rgba(138, 75, 255, 0.4); color: #a78bfa;">⚖️ View Cultures & Laws</span>
@@ -12136,6 +12136,7 @@ async function view_power() {
     </div>
   `;
   initGlobalWarListeners();
+  hydrateMomentum();
   window.scrollTo(0,0);
 }
 

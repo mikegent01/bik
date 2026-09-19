@@ -46,7 +46,8 @@
       "consequence": "The planar tether between the Feyward and the Material sanctum is severed, closing the route between the Feyward party and the sanctum.",
       "grace": "Bowser twice asked that it not be cut exactly at three weeks and was hinted at a margin. The agreed figure is a hard 21 days; any grace is the Oracle's to give and is not promised.",
       "rewardIfMet": "Three unnamed rewards: one that smells like peaches, one involving arts and crafts, and one Bowser said he wanted today.",
-      "note": "The countdown started on Bowser's teleport into the basement, not on the handshake. It falls by itself as Feyward sessions are filed, because the remaining time is measured against the newest Feyward filing's own date. The party upstairs does not know it exists."
+      "note": "The countdown started on Bowser's teleport into the basement, not on the handshake. It falls by itself as Feyward sessions are filed, because the remaining time is measured against the newest Feyward filing's own date and hour. The party upstairs does not know it exists.",
+      "startedOnNote": "The teleport hour is not established by the record. Midnight on 3 Aethel is used as the floor, which is the earliest the term can have begun; the only clock reading anyone gives in the basement is the goblin's '2 AM', and that comes after Bowser has already arrived, crossed the hall and reached the cold storage. The term is therefore counted from 00:00 and already reads short."
     }
   ]
 }

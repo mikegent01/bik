@@ -243,7 +243,32 @@ export function dateFromAbsolute(calendar, absDay){
 }
 
 // ---- Backward compat for old imperial-only code ----
-export const CURRENT_GAME_DATE = { year:1040, monthIndex:7, day:18 };
+// The world clock. 210 call sites across the app import this, and it is a
+// SYNCHRONOUS export, so it cannot fetch currentDate.json at module load.
+// It was therefore hand-maintained, and it drifted: it sat at Harvestide 18
+// while data/currentDate.json had already moved to Aethel 5 — seventeen days
+// of staleness quietly feeding every page that shows a date.
+//
+// `currentDate.json` remains the single source of truth. This object is
+// seeded from it and then PATCHED IN PLACE as soon as the JSON lands, so late
+// readers get the real date and early readers get a value that is at worst a
+// frame behind instead of weeks. tools/check-world-clock.py asserts the
+// literal below still matches the JSON, so the two cannot silently diverge
+// again.
+export const CURRENT_GAME_DATE = { year:1040, monthIndex:8, day:5 };
+(async () => {
+  try {
+    const here = new URL('.', import.meta.url);
+    const res = await fetch(new URL('../currentDate.json', here), { cache: 'no-cache' });
+    if (!res.ok) return;
+    const live = await res.json();
+    if (typeof live?.year === 'number') {
+      CURRENT_GAME_DATE.year = live.year;
+      CURRENT_GAME_DATE.monthIndex = live.monthIndex ?? CURRENT_GAME_DATE.monthIndex;
+      CURRENT_GAME_DATE.day = live.day ?? CURRENT_GAME_DATE.day;
+    }
+  } catch { /* offline or file:// — the seeded literal stands */ }
+})();
 export const CURRENT_GAME_TIME = { hour: new Date().getHours(), minute: new Date().getMinutes() };
 // Shared magical weather definitions. Keep this export in the root calendar module because
 // login.js and several page modules import it directly (the game/ calendar is a separate

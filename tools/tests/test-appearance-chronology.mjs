@@ -230,8 +230,14 @@ if (deadlines.length) {
   check('remaining is anchored to a real filing on its own clock',
         !!r0.anchor && String(r0.anchor.timeCode || '').endsWith('/' + dl.clock),
         String(r0.anchor && r0.anchor.timeCode));
-  check('a fresh deadline shows its full term in hours',
-        r0.hh === Number(dl.lengthDays) * 24, `${r0.hh}h`);
+  // Time has already passed inside the session that started the timer, so the
+  // clock must NOT read the full term — that was the bug. It should sit at or
+  // below the term, and above zero while the term is live.
+  const fullTermHours = Number(dl.lengthDays) * 24;
+  check('the countdown has already begun to burn (never reads the full term)',
+        r0.hh < fullTermHours, `${r0.hh}h of ${fullTermHours}h`);
+  check('but it has not overrun the term either',
+        r0.hh > 0 && r0.hh <= fullTermHours, `${r0.hh}h`);
 
   const bump = tc => mkDl(events.concat([{id:'__sim', timeCode: tc}])).deadlineRemaining(dl);
   check('filing a later session on the clock reduces the remaining time',
