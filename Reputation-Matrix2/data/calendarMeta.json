@@ -24,28 +24,29 @@
       "materialConcurrency": "Feyward sessions play alongside the Material present. Where a filing needs to state both, write the Feyward date first and note the Material standing in the same line."
     }
   ],
-  "deadlinesNote": "A deadline is an in-world timer that is RUNNING. It is not flavour and it is not a plot note: when the remaining days reach zero the stated consequence happens. Deadlines are declared here so the site can render them and so no filing has to re-derive the arithmetic. Each one records the clock it is measured on, the session that started it, the length agreed in play, and what breaks when it expires. Update `elapsedDays` when a session advances the clock; do not silently move `startedOn`.",
+  "deadlinesNote": "A deadline is an in-world timer that is RUNNING. It is not flavour: when it reaches zero the stated consequence happens. Deadlines are declared here so the site can render them and so no filing has to re-derive the arithmetic.\n\nRemaining time is DERIVED, never stored. It is measured from the deadline's own clock: the site finds the newest filed session on `clock`, reads its in-world date, and subtracts. That is why the countdown falls on its own every time a session on that clock is filed — nobody has to remember to decrement a counter, and the clock can never disagree with the filings. `startedOn` is the moment the timer began and must not be moved.",
   "deadlines": [
     {
       "id": "feyward_tether_cut",
       "name": "The Feyward tether cut",
-      "clock": "MAT",
+      "clock": "FEY",
       "status": "running",
       "startedOn": {
-        "year": 1040,
+        "year": 922,
         "monthIndex": 8,
-        "day": 5
+        "day": 3,
+        "hour": 0,
+        "minute": 0
       },
       "startedBy": "the_shepherds_garden_and_the_three_week_clock",
       "lengthDays": 21,
-      "elapsedDays": 0,
       "setBy": "the_oracle",
       "negotiatedBy": "bowser",
       "summary": "The Oracle gives Bowser three weeks before he manually cuts the planar tether joining the Feyward to the Material sanctum. Bowser talked him up from one week and asked twice not to have it cut exactly on the mark.",
       "consequence": "The planar tether between the Feyward and the Material sanctum is severed, closing the route between the Feyward party and the sanctum.",
       "grace": "Bowser twice asked that it not be cut exactly at three weeks and was hinted at a margin. The agreed figure is a hard 21 days; any grace is the Oracle's to give and is not promised.",
       "rewardIfMet": "Three unnamed rewards: one that smells like peaches, one involving arts and crafts, and one Bowser said he wanted today.",
-      "note": "The countdown starts on Bowser's teleport, not on the conversation. The Feyward party upstairs does not know it exists."
+      "note": "The countdown started on Bowser's teleport into the basement, not on the handshake. It falls by itself as Feyward sessions are filed, because the remaining time is measured against the newest Feyward filing's own date. The party upstairs does not know it exists."
     }
   ]
 }

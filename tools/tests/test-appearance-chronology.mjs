@@ -196,5 +196,77 @@ for (const e of events) {
 check('no event produces an oversized pill anywhere in the archive',
       oversized.length === 0, oversized.join(', '));
 
+console.log('\n-- running deadlines');
+const calMeta = JSON.parse(fs.readFileSync(path.join(DATA_DIR, 'calendarMeta.json'), 'utf8'));
+const deadlines = Array.isArray(calMeta.deadlines) ? calMeta.deadlines : [];
+check('calendarMeta declares at least one deadline', deadlines.length > 0);
+for (const d of deadlines) {
+  check(`${d.id}: has a length in days`, Number(d.lengthDays) > 0);
+  check(`${d.id}: names the consequence of hitting zero`, !!d.consequence);
+  check(`${d.id}: declares which clock it runs on`, !!d.clock);
+  check(`${d.id}: stores no elapsed counter (remaining must be derived)`,
+        !('elapsedDays' in d), 'elapsedDays is stored and will drift');
+  if (d.startedBy) {
+    check(`${d.id}: the session that started it is a real event`,
+          events.some(e => e.id === d.startedBy), d.startedBy);
+  }
+}
+
+// The countdown is DERIVED from the newest filing on the deadline's own clock,
+// so it has to fall by itself as sessions are filed. These build synthetic
+// event lists to prove that, rather than trusting a stored number.
+const dlCode = ['deadlineDayNumber','tcDayNumber','newestOnClock','deadlineRemaining',
+                'pad2','deadlinePanel','deadlineBannerHtml'].map(grab).join('\n');
+const mkDl = (evs, meta) => new Function('DATA','INDEX','esc','displayName','Router',
+  [grab('parseTimeCode'), dlCode].join('\n') +
+  ';return {deadlineRemaining,deadlinePanel,deadlineBannerHtml,newestOnClock};'
+)({events: evs, calendarMeta: meta === undefined ? calMeta : meta},
+  INDEX, esc, displayName, {go(){}});
+
+if (deadlines.length) {
+  const dl = deadlines[0];
+  const api0 = mkDl(events);
+  const r0 = api0.deadlineRemaining(dl);
+  check('remaining is anchored to a real filing on its own clock',
+        !!r0.anchor && String(r0.anchor.timeCode || '').endsWith('/' + dl.clock),
+        String(r0.anchor && r0.anchor.timeCode));
+  check('a fresh deadline shows its full term in hours',
+        r0.hh === Number(dl.lengthDays) * 24, `${r0.hh}h`);
+
+  const bump = tc => mkDl(events.concat([{id:'__sim', timeCode: tc}])).deadlineRemaining(dl);
+  check('filing a later session on the clock reduces the remaining time',
+        bump('TC:0922-09-13/FEY').leftMin < r0.leftMin);
+  check('hours honour the in-world hour, not just the day',
+        bump('TC:0922-09-04T06:00/FEY').leftMin < bump('TC:0922-09-04T00:00/FEY').leftMin);
+  const atTerm = bump('TC:0922-09-24/FEY');
+  check('the countdown reaches zero exactly at the end of the term',
+        atTerm.leftMin === 0 && atTerm.expired);
+  check('it never goes negative past the term', bump('TC:0922-09-28/FEY').leftMin === 0);
+  check('a session on a DIFFERENT clock does not move this countdown',
+        bump('TC:1040-09-20/SHD').leftMin === r0.leftMin);
+
+  const dlHtml = api0.deadlinePanel();
+  check('deadline panel renders when a deadline exists', dlHtml.includes('dline'));
+  check('deadline panel shows an hours:minutes:seconds clock',
+        (dlHtml.match(/dline-seg/g) || []).length >= 3);
+  check('deadline panel leaks no undefined/NaN', !/undefined|NaN/.test(dlHtml));
+  const banner = api0.deadlineBannerHtml();
+  check('home banner renders the countdown prominently', banner.includes('dline-banner'));
+  check('home banner leaks no undefined/NaN', !/undefined|NaN/.test(banner));
+  check('deadline panel is empty when nothing is running',
+        mkDl(events, {}).deadlinePanel() === '');
+}
+
+console.log('\n-- commentary track');
+const commDoc = JSON.parse(fs.readFileSync(path.join(DATA_DIR, 'commentaries.json'), 'utf8'));
+const comms = commDoc.commentaries || [];
+const evIds = new Set(events.map(e => e.id));
+check('every commentary points at a real filing',
+      comms.every(c => evIds.has(c.sourceArticle) || !c.sourceArticle),
+      String(comms.filter(c => c.sourceArticle && !evIds.has(c.sourceArticle)).map(c => c.id)));
+const newest = events[events.length - 1];
+check('the newest filing has a commentary track',
+      comms.some(c => c.sourceArticle === newest.id), newest.id);
+
 console.log(`\n${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);
