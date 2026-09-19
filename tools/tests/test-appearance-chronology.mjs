@@ -274,5 +274,29 @@ const newest = events[events.length - 1];
 check('the newest filing has a commentary track',
       comms.some(c => c.sourceArticle === newest.id), newest.id);
 
+// A commentary that cross-references other filings is only worth anything if
+// the references resolve. Every inline #/article/<id> link in every cut is
+// checked against the real id set — a dead link in a cross-reference is worse
+// than no cross-reference, because it looks like corroboration and isn't.
+const allIds = new Set();
+for (const f of ['events','battles','characters','locations','factions','nations','races','trials','cultures']) {
+  const p = path.join(DATA_DIR, f + '.json');
+  if (!fs.existsSync(p)) continue;
+  const rows = JSON.parse(fs.readFileSync(p, 'utf8'));
+  (Array.isArray(rows) ? rows : []).forEach(r => { if (r && r.id) allIds.add(r.id); });
+}
+const deadLinks = [];
+for (const c of comms) {
+  const body = (c.sections || []).map(x => x.body || '').join(' ');
+  for (const m of body.matchAll(/#\/article\/([a-z0-9_]+)\)/g)) {
+    if (!allIds.has(m[1])) deadLinks.push(`${c.id} -> ${m[1]}`);
+  }
+  for (const rid of c.relatedArticles || []) {
+    if (!allIds.has(rid)) deadLinks.push(`${c.id} relatedArticles -> ${rid}`);
+  }
+}
+check('every cross-reference in every commentary resolves',
+      deadLinks.length === 0, deadLinks.slice(0, 5).join(', '));
+
 console.log(`\n${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);
