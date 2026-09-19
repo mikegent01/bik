@@ -244,10 +244,23 @@ if (deadlines.length) {
         bump('TC:0922-09-13/FEY').leftMin < r0.leftMin);
   check('hours honour the in-world hour, not just the day',
         bump('TC:0922-09-04T06:00/FEY').leftMin < bump('TC:0922-09-04T00:00/FEY').leftMin);
-  const atTerm = bump('TC:0922-09-24/FEY');
+  // The term ends lengthDays after startedOn — including its HOUR, which is not
+  // midnight. Compute the end instead of hardcoding a date, so moving the start
+  // time (as the record is refined) does not falsely fail this.
+  const st = dl.startedOn || {};
+  const endDay = (Number(st.day) || 0) + Number(dl.lengthDays);
+  const pad = n => String(n).padStart(2, '0');
+  const endTc = `TC:0${st.year}-${pad(Number(st.monthIndex) + 1)}-${pad(endDay)}`
+              + `T${pad(Number(st.hour) || 0)}:${pad(Number(st.minute) || 0)}/${dl.clock}`;
+  const atTerm = bump(endTc);
   check('the countdown reaches zero exactly at the end of the term',
-        atTerm.leftMin === 0 && atTerm.expired);
-  check('it never goes negative past the term', bump('TC:0922-09-28/FEY').leftMin === 0);
+        atTerm.leftMin === 0 && atTerm.expired, endTc);
+  const justBefore = bump(`TC:0${st.year}-${pad(Number(st.monthIndex) + 1)}-${pad(endDay - 1)}`
+                        + `T${pad(Number(st.hour) || 0)}:${pad(Number(st.minute) || 0)}/${dl.clock}`);
+  check('one day before the end it still has exactly a day left',
+        justBefore.leftMin === 1440, String(justBefore.leftMin));
+  check('it never goes negative past the term',
+        bump(`TC:0${st.year}-${pad(Number(st.monthIndex) + 1)}-${pad(endDay + 4)}/${dl.clock}`).leftMin === 0);
   check('a session on a DIFFERENT clock does not move this countdown',
         bump('TC:1040-09-20/SHD').leftMin === r0.leftMin);
 
