@@ -345,23 +345,35 @@ def rule_orphan_subclass(actor, report, opts):
     dnd5e links them by `system.classIdentifier`. When only one class is
     present the link is unambiguous, so repair it rather than dropping a
     subclass the player actually has.
+
+    A class exported with an empty `system.identifier` is common in live
+    Foundry exports (the field is only populated when the class is created
+    from a compendium). Treat the slugified class NAME as the identifier so
+    a correctly-linked subclass is not mistaken for an orphan and deleted --
+    losing a subclass silently deletes real, played character features.
     """
     items = actor.get("items") or []
     classes = [it for it in items if it.get("type") == "class"]
     subs = [it for it in items if it.get("type") == "subclass"]
     if not subs:
         return
-    idents = {
-        (c.get("system") or {}).get("identifier")
-        for c in classes
-        if (c.get("system") or {}).get("identifier")
-    }
+
+    def class_ident(cls):
+        """The class's identifier, falling back to its slugified name."""
+        sysd = cls.get("system") or {}
+        ident = sysd.get("identifier")
+        if ident:
+            return ident
+        name = (cls.get("name") or "").strip().lower()
+        return re.sub(r"[^a-z0-9]+", "-", name).strip("-") or None
+
+    idents = {i for i in (class_ident(c) for c in classes) if i}
     for sub in list(subs):
         want = (sub.get("system") or {}).get("classIdentifier")
         if want and want in idents:
             continue
         if len(classes) == 1:
-            ident = (classes[0].get("system") or {}).get("identifier")
+            ident = class_ident(classes[0])
             if ident:
                 sub.setdefault("system", {})["classIdentifier"] = ident
                 report.add(

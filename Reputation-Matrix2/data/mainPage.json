@@ -7,10 +7,9 @@
     "title": "Judgement in the Grove: A Musket in the Smoke, the Warhammer That Would Not Hear an Appeal, and the Man Remi Found Asleep"
   },
   "latestUpdate": {
-    "id": "judgement_in_the_grove",
+    "id": "the_shepherds_garden_and_the_three_week_clock",
     "label": "Latest Filing · Session Event",
-    "excerpt": "The party fought its way out of the web canopy and into an execution. Remi swapped the crossbow for the musket and landed two direct hits through the smoke; Dan planted himself in front of everyone including Markop and turned the spiders with a mushroom-studded holy symbol; Eager and Dan killed the ettercap between them. The Iron Legion called for pest control, retreated, and then tried to arrest Archie mid-battle, which produced a temporary alliance nobody expects to hold. Markop called down divine favour, took a scythe to the skull, and split the Scorncrow's head open while it was on its knees asking a paladin for mercy. Remi, thrown clear by Mossy, found a breathing man with a red punch mark on his forehead and had the steel defender stand on his chest. Salam went down and did not get up.",
-    "title": "Judgement in the Grove: A Musket in the Smoke, the Warhammer That Would Not Hear an Appeal, and the Man Remi Found Asleep"
+    "excerpt": "Bowser and the Oracle finally talk instead of fighting, and the Oracle gives up more than he has in the entire operation: that both Oracles are fated to die and he means to be the last, that the seals break without the world ending, and that he warned Princess Peach before the assassination and believes she wanted to die. He describes the room — five or six mages' locks broken, the door untouched, a comb still in her hand, every responding guard dead of no stated cause. Bowser refuses a rigged shortcut to the Astral Shore on king's intuition, catches the Oracle spying on Peach through a floating eyeball, and talks a one-week ultimatum up to three weeks. Then he teleports alone into the Feyward basement, finds two different Toads, five labelled honeys, a satyr running a bar for the Revel, and nine Goombas caged as freight for a Mushroom Regency weapons trade. He calls it intolerable. He leaves them in the cages. The clock is running."
   },
   "didYouKnow": [
     "...that the Scorncrow told three separate filings it was not a monster, and when Remi Akamatsu finally tested the claim with a point-blank musket, the blood under the face was human?",
@@ -39,6 +38,22 @@
   ],
   "campaignCovers": [
     {
+      "id": "the-shepherds-garden-and-the-three-week-clock-cover",
+      "campaign": "Feyward",
+      "title": "FEYWARD — The Shepherd's Garden and the Three-Week Clock",
+      "caption": "The Planar Sanctum, mid-negotiation. Bowser with both arms out demanding to know why he is in a dumb space garden; the Oracle seated on a floating slab with a fishing rod, having just pulled a sodden boot out…",
+      "image": "assets/images/events/shepherds-garden/shg-01-the-boot.jpg",
+      "articleId": "the_shepherds_garden_and_the_three_week_clock"
+    },
+    {
+      "id": "the-roll-call-at-trinity-cover",
+      "campaign": "Kivotos",
+      "title": "KIVOTOS — The Roll Call at Trinity",
+      "caption": "Classroom 2-B on the morning of the new advisor's first roll call: the sliding door, the window row, the contested front desk, and the back row that behaves like a separate country.",
+      "image": "assets/images/events/trinity-roll-call/trc-01-classroom.jpg",
+      "articleId": "the_roll_call_at_trinity"
+    },
+    {
       "id": "judgement-in-the-grove-cover",
       "campaign": "Shadeward",
       "title": "SHADEWARD — Judgement in the Grove",
@@ -53,14 +68,6 @@
       "caption": "Midnight, second day, sixth rewind. The curtains have not been opened since the clinic.",
       "image": "assets/images/events/the-tape-and-the-files/tape-01-midnight-rewind.jpg",
       "articleId": "the_tape_and_the_wario_files"
-    },
-    {
-      "id": "feyward-i-cant-afford-not-to-care-cover",
-      "campaign": "Feyward",
-      "title": "FEYWARD — I Can't Afford Not to Care Anymore",
-      "caption": "The doorway, resolved. Waluigi braced across the frame refusing to leave, Hjumpik with both hands on the sleeve hauling him out, Toad Lee looking back at a treant at full height with a second one already…",
-      "image": "assets/images/events/ambush-in-the-doorway/amb-01-drag-him-out.jpg",
-      "articleId": "feyward_i_cant_afford_not_to_care"
     }
   ],
   "fieldGallery": [

@@ -2322,6 +2322,105 @@
         "stamps": [
           "evidence"
         ]
-      }
+      },
+    "prop_trinity_2b_roll_sheet": {
+      "kind": "note",
+      "icon": "📋",
+      "title": "Roll Sheet — Classroom 2-B",
+      "subtitle": "Trinity General School · advisor's clipboard copy · 5 Aethel, 1040 BF",
+      "items": [],
+      "articles": [
+        "the_roll_call_at_trinity",
+        "trinity_general_school",
+        "sensei",
+        "lord_verity",
+        "asa_hanko"
+      ],
+      "note": "Filed because the sheet is wrong in a way the morning never corrected: one name is printed against no face, and the advisor assigned it by guessing.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">TRINITY GENERAL SCHOOL</div><div class=\"pd-sub\">Homeroom register &middot; Class 2-B &middot; advisor's working copy</div></div><div class=\"pd-meta\"><span>Enrolled</span><b>11</b><span>Present</span><b>11</b><span>Read by</span><b>Advisor (first day)</b><span>Corrections</span><b>1, made from the floor</b></div><div class=\"pd-table\"><div class=\"pd-row\"><span>Kurimura Airi</span><b>Present &middot; waved</b></div><div class=\"pd-row\"><span>Shirasu Azusa</span><b>Inaudible &middot; recorded as yes</b></div><div class=\"pd-row\"><span>Ibaragi Yoshimi</span><b>Present &middot; sharp intake of breath</b></div><div class=\"pd-row\"><span>Iochi Mari</span><b>Present &middot; nodded</b></div><div class=\"pd-row\"><span>Shaggy</span><b>Located behind a desk</b></div><div class=\"pd-row\"><span>Lord Verity</span><b>Assigned in error, then claimed</b></div><div class=\"pd-row\"><span>Asa Hanko</span><b>Missed &middot; answered on second prompt</b></div><div class=\"pd-row\"><span>Kenzaki Tsurugi</span><b>Did not raise hand</b></div><div class=\"pd-row\"><span>Asagao Hanae</span><b>Present &middot; whispered</b></div><div class=\"pd-row\"><span>Misono Mika</span><b>Arrived first &middot; front desk</b></div></div><div class=\"pd-clause\"><b>Advisor's own annotation:</b> names read in listed order; one entry checked against the wrong student and corrected by the student concerned, loudly, while standing.</div><div class=\"pd-margin\">Eleven children and not one briefing note attached to any of them. The man was handed a list of names and no faces and sent into a room that had already lost one advisor. &mdash; W.</div>",
+      "stamps": []
+    },
+    "prop_schale_pamphlet_p6": {
+      "kind": "note",
+      "icon": "📄",
+      "title": "SCHALE Orientation Pamphlet — page six",
+      "subtitle": "Crumpled; recovered from Ibaragi Yoshimi's bag",
+      "items": [],
+      "articles": [
+        "the_roll_call_at_trinity",
+        "ibaragi_yoshimi",
+        "kivotos",
+        "sensei"
+      ],
+      "note": "The only copy in the room anybody had read. Page six is where the pamphlet stops explaining and starts assuming.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">SCHALE &middot; STUDENT ORIENTATION</div><div class=\"pd-sub\">Strategic Counter Hazard Activation League Execution &middot; p.6 of 6</div></div><div class=\"pd-clause\"><b>6.1</b> Students attached to an operational classroom may be assigned to field rotations at the discretion of their advisor.</div><div class=\"pd-clause\"><b>6.2</b> Information is distributed on a <b>need-to-know</b> basis. Students receive the briefing relevant to their assignment.</div><div class=\"pd-clause\"><b>6.3</b> Equipment, including any restricted equipment, is issued only to students holding current clearance, following separate certified instruction.</div><div class=\"pd-quote\">Questions regarding the scope of an assignment should be directed to your advisor.</div><div class=\"pd-fine\">Pages 1&ndash;5 cover uniform standards, attendance, club registration, cafeteria hours and the academy anthem.</div><div class=\"pd-margin\">Five pages of lunch hours and one page, at the back, that quietly says we will tell you what we decide you need and you will ask nobody else. One girl read it. She read it before the man who wrote nothing on the board had said a word. &mdash; W.</div>",
+      "stamps": []
+    },
+    "prop_kivotos_canterlot_liaison_memo": {
+      "kind": "order",
+      "icon": "🐴",
+      "title": "Liaison Programme — Conduct and Visibility",
+      "subtitle": "Kivotos · Canterlot cultural exchange · internal circulation",
+      "items": [],
+      "articles": [
+        "the_roll_call_at_trinity",
+        "kivotos",
+        "trinity_general_school",
+        "sensei"
+      ],
+      "note": "The programme the students were not told about, described in the words of the people who intended them not to be.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">JOINT LIAISON OFFICE</div><div class=\"pd-sub\">Kivotos &ndash; Canterlot cultural exchange &middot; conduct note</div></div><div class=\"pd-meta\"><span>Programme</span><b>Small-group cultural exchange</b><span>Purpose</span><b>Goodwill in advance of coordination needs</b><span>Handling</span><b>Quiet &mdash; not announced to student bodies</b><span>Status</span><b>Visibility failure reported</b></div><div class=\"pd-clause\"><b>Conduct:</b> liaison personnel are guests of the host academy and operate under an agreement covering movement, escort and scheduling. Personnel are not to be treated as visiting students.</div><div class=\"pd-clause\"><b>Visibility:</b> movement through shared academy space should be escorted and scheduled outside general circulation hours.</div><div class=\"pd-quote\">The programme was intended to build goodwill before the situation required anything more formal.</div><div class=\"pd-margin\">Read the failure they actually logged. Not that the students were kept ignorant &mdash; that the students SAW. The breach is the seeing. Whoever wrote this considered an unbriefed school the working state and a pair of eyes the incident. &mdash; W.</div>",
+      "stamps": []
+    },
+    "prop_grove_scythe_transfer": {
+      "kind": "ledger",
+      "icon": "⚖️",
+      "title": "Field Transfer — One Scythe, Taken From a Body",
+      "subtitle": "Skittering Grove · 1 Aethel, 1040 BF · recorded after the fact",
+      "items": [],
+      "articles": [
+        "judgement_in_the_grove",
+        "markop",
+        "scorncrow"
+      ],
+      "note": "The only paperwork the execution generated. It records a weapon changing hands and says nothing about the hands.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">DISASTER INC. &middot; FIELD LEDGER</div><div class=\"pd-sub\">Acquisition entry &middot; Skittering Grove</div></div><div class=\"pd-meta\"><span>Item</span><b>Scythe, stolen origin, long-hafted</b><span>Taken from</span><b>The Scorncrow (deceased)</b><span>Taken by</span><b>Markop</b><span>Condition of prior holder</b><b>Disarmed, kneeling, unmasked</b></div><div class=\"pd-clause\"><b>Circumstance of transfer:</b> prior holder had released the weapon before the transfer occurred. Cause of death recorded as a single warhammer strike to the skull.</div><div class=\"pd-quote\">I am not a monster.</div><div class=\"pd-clause\"><b>Note on the quoted line:</b> spoken by the prior holder during the transfer window, addressed to the acquiring party, in the form of a request.</div><div class=\"pd-margin\">A ledger entry is a terrible container for this and it is the only container anyone made. Item in, item out, and in the condition field a word &mdash; kneeling &mdash; doing more work than any inventory has ever asked of one. &mdash; W.</div>",
+      "stamps": [
+        "evidence"
+      ]
+    },
+    "prop_grove_unmasked_face_note": {
+      "kind": "note",
+      "icon": "🩸",
+      "title": "Observation Note — The Face Under the Hood",
+      "subtitle": "Skittering Grove · recorded by the archive from party account",
+      "items": [],
+      "articles": [
+        "judgement_in_the_grove",
+        "scorncrow",
+        "remi_akamatsu_full_backstory"
+      ],
+      "note": "Filed to fix, in writing, the one physical fact nobody disputes and nobody has explained.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">WALUIPEDIA &middot; OBSERVATION</div><div class=\"pd-sub\">Physical finding &middot; Scorncrow &middot; two occasions</div></div><div class=\"pd-meta\"><span>First occasion</span><b>30 Harvestide 1040 &mdash; musket, point blank</b><span>Finding</span><b>Face came away; blood beneath was human</b><span>Second occasion</span><b>1 Aethel 1040 &mdash; hood off, grove</b><span>Finding</span><b>Human face, visible, speaking</b></div><div class=\"pd-clause\"><b>Consistency:</b> the two findings agree. No ichor, no sap, no smoke, no dissolution at death. The remains stayed remains.</div><div class=\"pd-quote\">Said four times across four engagements, and tested twice with a weapon: I am not a monster.</div><div class=\"pd-margin\">Three readings survive and the archive can no longer choose between them: something human wearing the scarecrow, something human MADE into it, or a monster clever enough to bleed convincingly. What killed the question was not the warhammer. It was that nobody asked before the swing. &mdash; W.</div>",
+      "stamps": [
+        "evidence"
+      ]
+    },
+    "prop_wario_files_custody_slip": {
+      "kind": "invoice",
+      "icon": "📼",
+      "title": "Custody Slip — The Tape and the Wario Files",
+      "subtitle": "Chain of custody reconstructed after the fact",
+      "items": [],
+      "articles": [
+        "the_tape_and_the_wario_files",
+        "wario",
+        "waluigi",
+        "luigi"
+      ],
+      "note": "The tape is the archive's only primary source on the brothers' argument, and its custody chain has a hole in it big enough to drive a motorbike through.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">WALUIPEDIA &middot; CUSTODY</div><div class=\"pd-sub\">Object: one recorded tape, plus associated Wario files</div></div><div class=\"pd-meta\"><span>Object</span><b>Audio tape &mdash; brothers' argument</b><span>Held by</span><b>Wario, prior to disclosure</b><span>Duration held</span><b>Unstated</b><span>Provenance before Wario</b><b>Unestablished</b></div><div class=\"pd-clause\"><b>Gap:</b> no record establishes who recorded the argument, on whose instruction, or how the recording reached the holder. The tape enters the archive already in someone's possession.</div><div class=\"pd-clause\"><b>Second copy:</b> a cleaner dub surfaced after first filing, materially better in audio quality, source unstated. The archive amended its reading rather than its custody note.</div><div class=\"pd-quote\">A primary source with no beginning is a primary source with an author you have not met.</div><div class=\"pd-margin\">I revised my own analysis when the better dub arrived and I still cannot tell you who was holding the microphone. Somebody chose to be in that room with a recorder running. That somebody is not in the file. &mdash; W.</div>",
+      "stamps": []
+    }
   }
 }

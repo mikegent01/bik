@@ -257,6 +257,35 @@ out, rep = S.sanitize(a, Opts())
 check("correctly linked subclass untouched", "orphan-subclass" not in rules_fired(rep)
       and "subclass-relinked" not in rules_fired(rep))
 
+# Live Foundry exports frequently leave system.identifier empty on the class
+# (it is only filled in when the class comes from a compendium). The class
+# NAME still identifies it, so subclasses must survive. Bowser's live export
+# hit exactly this: one Fighter with a blank identifier, and BOTH of his
+# subclasses -- Rune Knight and Champion -- were being deleted.
+a = actor([
+    item("c1aaaaaaaaaaaaaa", "Fighter", "class", system={"identifier": ""}),
+    item("s1aaaaaaaaaaaaaa", "Rune Knight", "subclass",
+         system={"classIdentifier": "fighter"}),
+    item("s2aaaaaaaaaaaaaa", "Champion", "subclass",
+         system={"classIdentifier": "fighter"}),
+])
+out, rep = S.sanitize(a, Opts())
+subs = [i["name"] for i in out["items"] if i["type"] == "subclass"]
+check("blank class identifier: subclasses survive via the class name",
+      sorted(subs) == ["Champion", "Rune Knight"])
+check("blank class identifier: no orphan-subclass fired",
+      "orphan-subclass" not in rules_fired(rep))
+
+# A multi-word class name still resolves through its slug.
+a = actor([
+    item("c1aaaaaaaaaaaaaa", "Blood Hunter", "class", system={"identifier": ""}),
+    item("s1aaaaaaaaaaaaaa", "Order of the Ghostslayer", "subclass",
+         system={"classIdentifier": "blood-hunter"}),
+])
+out, rep = S.sanitize(a, Opts())
+check("blank identifier on a multi-word class slugifies",
+      [i for i in out["items"] if i["type"] == "subclass"])
+
 
 # ------------------------------------------------------------- advancement
 print("\n-- advancement grants ('returned items did not match')")

@@ -64,6 +64,8 @@ def main() -> int:
         ("commerce joins", [py, "tools/check-commerce-joins.py"], ROOT),
         ("campaign fronts", [py, "tools/build-campaign-fronts.py", "--check"], ROOT),
         ("filing updates", [py, "tools/track-filing-updates.py", "--check"], ROOT),
+        # calendar.js hard-codes the world clock for 210 sync call sites; it drifted 17 days.
+        ("world clock", [py, "tools/check-world-clock.py"], ROOT),
         ("event art", [py, "tools/check-event-art.py", "--check"], ROOT),
         ("event titles", [py, "tools/retitle-date-prefixed-events.py", "--check"], ROOT),
         ("pond patrol docket", [py, "tools/migrate-pond-patrol-to-characters.py", "--check"], ROOT),
@@ -129,6 +131,9 @@ def main() -> int:
         checks.append(("crime and punishment", ["node", "tools/tests/test-crime-and-punishment.mjs"], ROOT))
         checks.append(("hub pages", ["node", "tools/tests/test-hub-pages.mjs"], ROOT))
         checks.append(("wahbabel", ["node", "tools/tests/test-wahbabel.mjs"], ROOT))
+        # first-seen/last-seen chronology: clock separation + the 2374 BF flag.
+        checks.append(("appearance chronology",
+                       ["node", "tools/tests/test-appearance-chronology.mjs"], ROOT))
         # search relevance needs a static server on 8765; run it manually.
     else:
         print("\n=== Bros discovery test ===\nSKIP: node is not on PATH")

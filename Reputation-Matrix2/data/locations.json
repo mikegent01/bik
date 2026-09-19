@@ -3261,5 +3261,97 @@
     "planeConfidence": "high",
     "planeClue": "Star Hill is a Mushroom Kingdom location on the Material clock",
     "image": "assets/images/locations/dr_toads_star_hill_clinic.jpg"
+  },
+  {
+    "id": "trinity_general_school",
+    "name": "Trinity General School",
+    "type": "Location / Academy / SCHALE-affiliated School",
+    "region": "Kivotos",
+    "controllingFaction": "Trinity General School administration; advisory authority delegated to SCHALE",
+    "population": "A full student body; the filed roll for Classroom 2-B runs to eleven named students and an advisor",
+    "climate": "Interior, temperate, fluorescent",
+    "status": "Active — mid-term, newly assigned advisor, Classroom 2-B",
+    "summary": "Trinity General School is the Kivotos academy where the archive's newest campaign opens. Kivotos was already in the record as Remi Akamatsu's birthplace — Residential District Seven, 12th Harvestide 1026 BF — and as a calendar the archive already carries; Trinity is the first building in it the archive has actually been inside. The relevant room is Classroom 2-B, which on the day of filing received a new advisor and discovered, mid-roll-call, that its curriculum is attached to SCHALE.",
+    "description": "The archive has held Kivotos at arm's length for a long time. It appears in Remi Akamatsu's file as the place she was born and left, in the wallet data as the issuer of Kivotos Credits, and in `calendars.json` as a four-term academic year with a six-day week and no true rest day. What it has not had is an interior.\n\nClassroom 2-B is that interior.\n\n**The room**\nDesks in rows, a window line along one side, a whiteboard at the front, and a back row that functions as a separate jurisdiction. There is a door that slides rather than swings. The fluorescent lights are positioned such that a student standing directly in front of them can throw a silhouette across the room, which at least one student has worked out and uses deliberately.\n\n**What the room is for**\nOn the evidence of the filing: roll call, announcements, and the delivery of information the students were evidently not briefed on beforehand. The advisor's stated remit is discipline and scheduling. The actual remit, disclosed in the same session, is SCHALE — deployment rotations, sector assignments, and hazard response.\n\n**The seating, which is politics**\nThe front row is contested and was claimed by force of arrival. The window seats are sociable. The far corner is occupied by a student whose desk is angled away from the room. The back row holds the two students who do not participate and watch everything. Nobody assigned any of this.\n\n**Waluigi's note:** a school where the timetable is a deployment rotation is not a school, it is a staging area with homework. Waluigi has read the roll. Eleven names, one advisor, and not one of those children was told what they were enrolled in until somebody asked a question the advisor answered honestly. WAH.",
+    "notableFeatures": [
+      "Classroom 2-B — sliding door, window row, contested front row, and a back row that behaves as a separate jurisdiction",
+      "The whiteboard, on which the advisor drew a sector map of Kivotos's eastern perimeter and wrote THE RESISTANCE in underlined block capitals",
+      "The advisor's clipboard — carried constantly, tapped twice as a tell, and the physical object the roll call was read from",
+      "Fluorescent light bank at the front, used by at least one student as backlighting for declarations"
+    ],
+    "relatedArticles": [
+      "kivotos",
+      "the_roll_call_at_trinity",
+      "sensei",
+      "remi_akamatsu_full_backstory"
+    ],
+    "image": "assets/images/events/trinity-roll-call/trc-01-classroom.jpg",
+    "plane": "material",
+    "planeConfidence": "medium",
+    "planeClue": "Kivotos is reached by the same transit network Remi Akamatsu crossed to arrive in the campaign; no planar markers in the filing itself"
+  },
+  {
+    "id": "kivotos",
+    "name": "Kivotos",
+    "type": "Location / City-Region / Academy Federation",
+    "region": "Kivotos",
+    "controllingFaction": "No single authority — an academy federation with SCHALE as the coordinating body; the Resistance contests it from inside",
+    "population": "Unrecorded; large enough to be divided into numbered residential districts and lettered operational sectors",
+    "climate": "Urban temperate",
+    "status": "Active — eastern perimeter sectors 7 through 12 under SCHALE deployment review after reported Resistance supply movement",
+    "summary": "Kivotos is the academy city Remi Akamatsu was born in and left, and it has been in the archive's data for far longer than it has been in its prose — a calendar, a currency, a birthplace on one character sheet. The roll-call filing at Trinity General School is the first time the archive has stood inside it. Governance runs through academies rather than a crown, coordination runs through SCHALE, and the city is divided into numbered residential districts and lettered operational sectors.",
+    "description": "Kivotos has been quietly load-bearing in this archive for a long time without ever being written up.\n\n**What the archive already held**\n`Reputation-Matrix2/data/calendars.json` carries `kivotos_academic`: four ninety-day terms, a six-day week whose days are named Study, Lecture, Club, Field, Exam and Rest, five exam void days called Founder's Break, and a leap day every four years called Kaiser Day. Remi Akamatsu's file gives a birthplace — Kivotos, Residential District Seven, 12th Harvestide 1026 BF — and a wallet that carries Kivotos Credits, Credsticks and Data Chits alongside Midland Ducats. A city with its own calendar, its own money and an emigrant in the party is not a background detail.\n\n**How it is organised**\nAcademies, not provinces. Trinity, Millennium and Shanhaijing are named in the calendar's `localTo` field as the bodies the academic year is local to. Remi's file names Gehenna Academy as a school she enrolled in and departed without formal withdrawal. The city is divided residentially into numbered districts and operationally into sectors; sectors 7 through 12 run along the eastern perimeter and hold warehouses, supply routes and abandoned industrial buildings.\n\n**SCHALE**\nStrategic Counter Hazard Activation League Execution. On the advisor's account it is the body that coordinates Knight deployments, allocates resources, and runs evacuation and hazard response — the difference, as he put it, between knowing there is a threat and doing something about it. It operates on a need-to-know basis. Student classes are attached to it, and at least one class did not know that until it was said out loud.\n\n**The Resistance**\nDescribed by the advisor, in the plainest terms he could manage for a room of confused students, as the bad guys: an internal threat operating from inside Kivotos, moving weapons through the eastern sectors. The archive records that as the advisor's characterisation and not as a finding. It is a one-sentence description of an armed political faction delivered to fourteen-year-olds, and no student in the room had the information to challenge it.\n\n**The Equestrian question**\nA diplomatic liaison programme exists between Kivotos and Canterlot — cultural exchange, small groups, intended to be quiet. Students saw liaisons walking the school openly. The advisor's reaction to being told this was not surprise at the programme but irritation at the breach, which is its own disclosure.\n\n**Waluigi's note:** Kivotos has been sitting in this archive's calendar file for months like a folded map nobody opened. It has a six-day week with one rest day and the other five are named after work. Waluigi is not going to pretend that is subtle. WAH.",
+    "notableFeatures": [
+      "Sectors 7 through 12 — the eastern perimeter: warehouses, supply routes, and abandoned industrial buildings described as good hiding places",
+      "Numbered residential districts — Remi Akamatsu was born in Residential District Seven",
+      "The Kivotos academic calendar: four 90-day terms, a six-day week (Study, Lecture, Club, Field, Exam, Rest), Founder's Break, and Kaiser Day every fourth year",
+      "Kivotos Credits, Credsticks and Data Chits — the city's tender, already carried in Remi Akamatsu's field wallet",
+      "The Equestrian liaison programme — a Canterlot diplomatic exchange that was supposed to be conducted quietly and was not"
+    ],
+    "relatedArticles": [
+      "trinity_general_school",
+      "the_roll_call_at_trinity",
+      "remi_akamatsu_full_backstory",
+      "sensei"
+    ],
+    "image": "assets/images/events/trinity-roll-call/trc-04-sector-map.jpg",
+    "plane": "material",
+    "planeConfidence": "low",
+    "planeClue": "reached via the transit network in Remi Akamatsu's backstory rather than a planar crossing; filed Material pending a better clue"
+  },
+  {
+    "id": "feyward_manor_basement",
+    "name": "The Feyward Basement (Cornivours Estate, Lower Level)",
+    "type": "Location/Sub-level of a Planar Structure",
+    "region": "Feywild — beneath the Overgrown Manor",
+    "controllingFaction": "Nominally Lady Aurelian and the Fey Court; functionally the Revel's kitchen staff and whatever the Orange Heir is organising",
+    "population": "A satyr cellarer, a green hag, at least one goblin handler, and a stack of cages containing Goombas",
+    "climate": "Warm candlelight, clear dripping water, the muffled noise of the party overhead",
+    "status": "Structurally intact — the one part of the manor the overgrowth has not taken",
+    "summary": "The level below the Overgrown Manor, and the Oracle's chosen drop point for Bowser because almost nobody lives down here and the building above is still standing. It holds a teleport circle on a sigil-marked floor, a drinks operation that supplies the Revel, a knight's statue, a corridor mouth with body parts in it, and a room of caged Goombas awaiting shipment.",
+    "description": "The Oracle picked this room for a reason and said the reason out loud: not much people reside down there and the building should still be in tact. Both halves of that sentence are true, and both are the point. The basement is the only part of the Overgrown Manor that is not being actively eaten.\n\nBowser arrived standing on a teleport circle set into a sigil carved in the floor. Beside it: a table, a bowl of blood, and candles that light the room warmly rather than ominously, which is somehow worse. A lever sits on the wall in what Bowser described as a state of begging to be touched. He did not touch it. The archive notes this as the single most restrained act of his career.\n\nThe blood in the bowl is not abandoned ritual scenery. It belongs to Mystic Morel — Purple T — who was using the room, came back for it, and was mildly put out to find a Koopa king standing in his workspace. He did not say what it was for.\n\nBeyond the circle the level runs: a shield bearing the crest of Raventree, bones and candles underfoot, a locked door whose knob came off in Bowser's hand, cold storage stacked with labelled honey, a hallway containing a mouth with body parts inside it that Bowser edged around while calling it gross, a stairwell with ARULEAN'S FIRST KNIGHT engraved in stone beneath a statue holding a rusted sword, a cellar where a satyr plays cards against himself and keeps the drinks going up to the Revel, and a room of cages.\n\nThe cages are the part that matters. They hold Goombas — nine, by the handler's count — and they are inventory. A goblin directs their movement and a guard treats delivery as a chore to be handed to whoever is strong enough to carry it.",
+    "notableFeatures": [
+      "Teleport circle on a carved floor sigil — the Oracle's delivery point, and the only confirmed route in",
+      "A table, a bowl of blood, and candles — an active workspace, not abandoned scenery; Mystic Morel claims the bowl",
+      "A lever on the wall that Bowser did not pull",
+      "A shield bearing the crest of Raventree — the estate names itself even in its Feywild mirror",
+      "Cold storage holding five labelled honeys: Warrior Honey, Honey of the Norn-Blessed, Honey of the Hearth Fire, Honey of the Hive Warden, Honey of the Sacred Bear",
+      "A corridor mouth with body parts inside it",
+      "A stairwell statue engraved ARULEAN'S FIRST KNIGHT, holding a rusted sword",
+      "The satyr's cellar — cards, drink production for the Revel above, and chained personal chests that resisted two punches",
+      "Cages of Goombas held as shipping inventory, handled by a goblin and guarded as routine freight",
+      "The building is intact; the overgrowth above has not reached this level"
+    ],
+    "relatedArticles": [
+      "overgrown_manor",
+      "the_oracle",
+      "bowser",
+      "hjumpik",
+      "mystic_morel",
+      "lady_aurelian"
+    ],
+    "plane": "Feywild",
+    "planeConfidence": "confirmed",
+    "planeClue": "Reached by the Oracle's teleport circle from the Planar Sanctum; the estate is named on site as the Cornivours estate and the crest is Raventree's."
   }
 ]

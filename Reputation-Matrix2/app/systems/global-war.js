@@ -16,6 +16,10 @@ let currentSort = 'power';  // 'power', 'military', 'economic', 'political', 'po
 // ============================================
 // HELPER
 // ============================================
+// The header showed "Year 1040" and nothing else, which is the same string for
+// an entire in-world year. It now shows the actual world-clock date.
+const MONTH_NAMES = ['Firstlight','Chillwind','Veridia','Bloom','Floria','Efferd',
+                     'Highsun','Harvestide','Aethel','Darkmoon','Frostfall','Deepwinter'];
 function formatPop(num) {
     if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
     if (num >= 1000) return (num / 1000).toFixed(1) + 'k';
@@ -60,6 +64,129 @@ function sortFactions(factions, sortBy) {
                 return bPower - aPower;
         }
     });
+}
+
+// ============================================
+// MOMENTUM — what has actually MOVED lately
+// ============================================
+// The monitor showed absolute standings and nothing else, which is why it read
+// as static: the same three bars sat at the same three lengths no matter what
+// happened at the table. Meanwhile 116 filed events carry `reputationChanges`
+// — a per-faction ledger of gains and losses nobody was rendering.
+//
+// This reads that ledger straight off events.json and turns the page into a
+// feed of movement: who is climbing, who is bleeding, and which filing did it.
+// Nothing here is authored; it is entirely derived from filings, so it
+// advances on its own every session.
+let MOMENTUM_CACHE = null;
+
+async function loadMomentum() {
+    if (MOMENTUM_CACHE) return MOMENTUM_CACHE;
+    try {
+        const here = new URL('.', import.meta.url);
+        const res = await fetch(new URL('../../data/events.json', here), { cache: 'no-cache' });
+        if (!res.ok) throw new Error('events.json ' + res.status);
+        const raw = await res.json();
+        const events = Array.isArray(raw) ? raw : (raw.events || []);
+
+        const totals = new Map();   // systemId -> { net, gains, losses, hits }
+        const recent = [];          // newest-first list of individual swings
+
+        events.forEach((ev, idx) => {
+            const changes = ev && ev.reputationChanges;
+            if (!changes || typeof changes !== 'object') return;
+            Object.entries(changes).forEach(([actor, ledger]) => {
+                if (!ledger || typeof ledger !== 'object') return;
+                Object.entries(ledger).forEach(([factionRaw, delta]) => {
+                    const v = Number(delta);
+                    if (!Number.isFinite(v) || v === 0) return;
+                    const fid = toSystemId(factionRaw);
+                    const t = totals.get(fid) || { net: 0, gains: 0, losses: 0, hits: 0 };
+                    t.net += v;
+                    t.hits += 1;
+                    if (v > 0) t.gains += v; else t.losses += v;
+                    totals.set(fid, t);
+                    recent.push({
+                        order: idx, faction: fid, factionRaw, actor, delta: v,
+                        eventId: ev.id, eventName: ev.name || ev.title || ev.id
+                    });
+                });
+            });
+        });
+
+        recent.sort((a, b) => (b.order - a.order) || (Math.abs(b.delta) - Math.abs(a.delta)));
+        MOMENTUM_CACHE = { totals, recent, eventCount: events.length };
+    } catch (err) {
+        console.warn('power projection: momentum unavailable', err);
+        MOMENTUM_CACHE = { totals: new Map(), recent: [], eventCount: 0 };
+    }
+    return MOMENTUM_CACHE;
+}
+
+function trendGlyph(net) {
+    if (net > 0) return { cls: 'up', arrow: '\u25b2', label: 'rising' };
+    if (net < 0) return { cls: 'down', arrow: '\u25bc', label: 'falling' };
+    return { cls: 'flat', arrow: '\u2500', label: 'holding' };
+}
+
+function renderMomentumPanel(momentum) {
+    if (!momentum || !momentum.totals.size) return '';
+
+    const rows = [...momentum.totals.entries()]
+        .map(([id, t]) => ({ id, ...t, def: getFaction(id) }))
+        .filter(r => r.def)
+        .sort((a, b) => Math.abs(b.net) - Math.abs(a.net));
+
+    const movers = rows.slice(0, 8);
+    const peak = Math.max(...movers.map(r => Math.abs(r.net)), 1);
+
+    const moverHTML = movers.map(r => {
+        const g = trendGlyph(r.net);
+        const pct = (Math.abs(r.net) / peak) * 100;
+        return `
+        <button class="mom-row" data-faction-id="${r.id}" title="${r.def.name}: ${r.net > 0 ? '+' : ''}${r.net} across ${r.hits} filed swings">
+            <span class="mom-icon" style="background:${r.def.color}22;border-color:${r.def.color};">${r.def.icon}</span>
+            <span class="mom-name">${r.def.shortName || r.def.name}</span>
+            <span class="mom-track">
+                <span class="mom-fill ${g.cls}" style="width:${pct}%"></span>
+            </span>
+            <span class="mom-net ${g.cls}">${g.arrow} ${r.net > 0 ? '+' : ''}${r.net}</span>
+        </button>`;
+    }).join('');
+
+    const feedHTML = momentum.recent.slice(0, 12).map(m => {
+        const def = getFaction(m.faction);
+        const g = trendGlyph(m.delta);
+        const name = def ? (def.shortName || def.name) : m.factionRaw;
+        const colour = def ? def.color : 'var(--muted)';
+        return `
+        <a class="mom-feed-row" href="#/article/${encodeURIComponent(m.eventId)}">
+            <span class="mom-feed-delta ${g.cls}">${m.delta > 0 ? '+' : ''}${m.delta}</span>
+            <span class="mom-feed-body">
+                <b style="color:${colour}">${name}</b>
+                <span class="mom-feed-event">${m.eventName}</span>
+            </span>
+        </a>`;
+    }).join('');
+
+    const climbing = rows.filter(r => r.net > 0).length;
+    const bleeding = rows.filter(r => r.net < 0).length;
+
+    return `
+    <div class="gso-section mom-section">
+        <div class="gso-section-header">
+            <span class="gso-section-title">\u26a1 Momentum \u2014 who is actually moving</span>
+            <span class="gso-section-meta">${climbing} rising \u00b7 ${bleeding} falling \u00b7 ${momentum.recent.length} filed swings</span>
+        </div>
+        <p class="mom-note">Net standing change per faction, read straight off the <code>reputationChanges</code> ledger in every filed event. This is not authored — it moves when a session is filed.</p>
+        <div class="mom-grid">
+            <div class="mom-movers">${moverHTML}</div>
+            <div class="mom-feed">
+                <div class="mom-feed-head">Latest swings</div>
+                ${feedHTML || '<p class="no-territories">No filed swings yet.</p>'}
+            </div>
+        </div>
+    </div>`;
 }
 
 // ============================================
@@ -284,6 +411,8 @@ function renderGlobalStrategicOverview(stats) {
                 </div>
             </div>
 
+            <div id="momentum-mount"></div>
+
             <div class="gso-section">
                 <div class="gso-section-header">
                     <span class="gso-section-title">Territorial Control</span>
@@ -496,12 +625,12 @@ export function renderGlobalWar() {
                     <h2 class="cw-title">🌌 Multiverse Conflict Monitor</h2>
                     <div class="cw-meta">
                         <span class="cw-phase phase-escalation">Global Escalation</span>
-                        <span class="cw-date">Year ${CURRENT_GAME_DATE.year}</span>
+                        <span class="cw-date">${MONTH_NAMES[CURRENT_GAME_DATE.monthIndex] || ''} ${CURRENT_GAME_DATE.day}, ${CURRENT_GAME_DATE.year} BF</span>
                     </div>
                 </div>
             </div>
 
-            <p class="cw-description">Live strategic tracking across all known regions. Monitoring power projection and territorial control of major factions throughout the multiverse.</p>
+            <p class="cw-description">Territorial control and power projection across every filed region, computed from the map pins and the province census. The <b>Momentum</b> board below reads the reputation ledger on every filed event, so it moves whenever a session is filed.</p>
 
             ${viewControlsHTML}
 
@@ -718,4 +847,26 @@ function rerenderGlobalWar() {
     parent.insertAdjacentHTML('beforeend', newHTML);
 
     initGlobalWarListeners();
+    hydrateMomentum();
+}
+
+// The momentum feed needs events.json, which is a fetch, while renderGlobalWar
+// is synchronous and has many callers. So the panel is mounted empty and filled
+// in as soon as the ledger lands — the page is useful immediately and gets
+// livelier a moment later, rather than blocking on IO it does not need.
+export async function hydrateMomentum() {
+    const mount = document.getElementById('momentum-mount');
+    if (!mount) return;
+    const momentum = await loadMomentum();
+    const host = document.getElementById('momentum-mount');
+    if (!host) return;
+    host.outerHTML = renderMomentumPanel(momentum) || '<div id="momentum-mount"></div>';
+    const panel = document.querySelector('.mom-section');
+    if (panel && !panel.dataset.bound) {
+        panel.dataset.bound = '1';
+        panel.addEventListener('click', (e) => {
+            const row = e.target.closest('.mom-row');
+            if (row && row.dataset.factionId) showFactionModal(row.dataset.factionId);
+        });
+    }
 }

@@ -16275,5 +16275,491 @@
         "dateSort": 10409010
       }
     ]
+  },
+  {
+    "id": "the_roll_call_at_trinity",
+    "timeCode": "TC:1040-09-05T09:00/KIV",
+    "name": "The Roll Call at Trinity",
+    "title": "The Roll Call at Trinity: A New Advisor, Eleven Names, and the Word Nobody Was Supposed to Explain",
+    "date": "5 Aethel, 1040 BF — morning, Classroom 2-B, Trinity General School, Kivotos (Kivotos academy clock)",
+    "era": "Aethel 1040 BF — the Kivotos intake",
+    "location": "Classroom 2-B, Trinity General School, Kivotos",
+    "type": "Session Event / Introductions / Disclosure",
+    "status": "Filed — the class is introduced, the SCHALE attachment is disclosed, the Equestrian liaison breach is admitted and under internal query, and the deployment briefing for Sectors 7 through 12 is unfinished",
+    "campaignLabel": "Kivotos",
+    "summary": "A new advisor took Classroom 2-B at Trinity General School and ran a roll call, and the roll call turned into the archive's first look inside Kivotos. Eleven students answered to their names: the one who arrived first and claimed the front desk, the one with the chocolate, the one who quieted the room without raising her voice, the one in the corner who is classified supplementary, the one who finished page six of the pamphlet, the one who found gaps in the documentation overnight, the one in the back row with weapons clearance, the one who kept asking what words meant, the one who declared himself lord of the classroom, and the one who admitted nobody had ever explained any of this to him. Asked a direct question, the advisor confirmed the class is attached to SCHALE, spelled the acronym out, conceded it sounds stupid, and explained what it does. A follow-up question about an Equestrian liaison seen walking the school produced an admission that a diplomatic programme had been mishandled. A question about weapons produced a refusal — and the public disclosure of one student's existing clearance. No combat, no travel, no casualties. Eleven people were introduced and one institution said out loud what it wants from them.",
+    "description": "*Waluigi was not in this room and has never been to Kivotos, which has not stopped him before. What follows is assembled from the classroom record of a single morning at [Trinity General School](#/article/trinity_general_school), and Waluigi files it because of what it is: an intake. Eleven children, one advisor, and the moment an institution stopped pretending it was a school.*\n\n*[Kivotos](#/article/kivotos) is not new to this archive. It is where [Remi Akamatsu](#/article/remi_akamatsu_full_backstory) was born — Residential District Seven, 12th Harvestide 1026 BF — it is the issuer of the credits in her field wallet, and its four-term academic year has been sitting in the archive's calendar data the whole time. What the archive has never had is an interior. Now it has one, and it is a classroom with a sliding door and a contested front row.*\n\n*Nothing is fought here. Waluigi wants that stated plainly, because the temptation with an introductions session is to apologise for it. Do not. This is the filing where the cast gets their names, the seating chart turns out to be politics, and a man with a clipboard answers a question he could have dodged.*",
+    "image": "assets/images/events/trinity-roll-call/trc-01-classroom.jpg",
+    "imageCaption": "Classroom 2-B on the morning of the new advisor's first roll call: the sliding door, the window row, the contested front desk, and the back row that behaves like a separate country.",
+    "sections": [
+      {
+        "name": "I. The Door Slides Open",
+        "image": "assets/images/events/trinity-roll-call/trc-02-mika-desk.jpg",
+        "imageCaption": "Ten seconds before anyone else had processed that the door had opened: both palms down on the advisor's desk, the pencil holder still rattling, the halo spinning like a top.",
+        "icon": "🚪",
+        "overview": "The door slides rather than swings, and it opened with a click that the record calls satisfying. The new advisor stepped through it adjusting a pair of glasses that — the record is specific — he does not need for vision.\n\n**\"Alright everyone, settle down! I'm your new advisor — you can call me Sensei. Think of me as… the glue holding this whole operation together.\"**\n\nHe spun around once and pointed at nothing in particular. Then he laid out the deal: follow the rules, behave like proper students, everything goes smoothly. *We cool?*\n\nThe answers arrived in the order that tells you the room. From the window seats, a hand straight up and a grin: **\"Sensei~! So does this mean you'll be around to chat during break too?\"** From the front row, hair tucked behind an ear and a warm, formal welcome, with the Sisterhood Club's help offered before anyone had asked for it.\n\nAnd then the door again, because [Misono Mika](#/article/misono_mika) had not finished arriving. She came through roughly ten seconds before the rest of the class had processed that anything was happening, pink hair bouncing, skidded to a halt at the advisor's desk and slammed both palms down on it hard enough to rattle the pencil holder.\n\n**\"SENSEI! I got here first! Does that mean I'm your favorite student now~?\"**\n\nHer halo spun above her head like an excited top. Behind her, other students were still filing in; Mika had already claimed the desk directly opposite his and sat down in it with a very deliberate, princess-like posture — back straight, hands folded, chin slightly elevated.\n\nThen she offered him tea.\n\n**\"Also I brought you tea! Well… I didn't bring tea. But I *thought* about bringing tea.\"** A pause. **\"…The thought counts.\"**\n\nSomewhere in the middle of this, a newcomer turned to the person in the next seat and asked, with feeling, whether this was really the right place. The answer came back cheerful and immediate: yes, definitely, Mika-senpai does this with every new teacher, and you will get used to it after — *oh, probably never, actually.*\n\nThe advisor noticed the whispering, raised an eyebrow, and turned back to the room with a smirk.\n\n**\"Something to share? Because if you're comparing me to your last advisor who 'mysteriously disappeared,' I assure you — I'm much harder to get rid of.\"**\n\nHe tapped the desk twice with a knuckle. **\"So! Roll call. Let's see who actually shows up on time.\"**",
+        "waluigi_note": "Waluigi wishes to flag the throwaway line, because throwaway lines are where institutions confess. *Your last advisor who mysteriously disappeared.* He said it as a joke, in air quotes, on his first morning, to eleven children who did not laugh. Nobody in the room asked a follow-up question. Waluigi is asking it: what happened to the last advisor of Classroom 2-B, and why is the replacement already making jokes about it?"
+      },
+      {
+        "name": "II. Eleven Names Off a Clipboard",
+        "icon": "📋",
+        "overview": "He picked up the clipboard and read, finger trailing down the page with practiced efficiency, and the roll call did what roll calls do in a first session: it introduced everybody by showing how each of them answers to their own name.\n\n[Kurimura Airi](#/article/kurimura_airi) — present, with an enthusiastic little wave.\n\n[Shirasu Azusa](#/article/shirasu_azusa) — silence, then a tiny voice from the corner mumbling something inaudible. *I'll take that as a yes.* Her desk is in the far corner, angled slightly away from the room, as far from everyone else as a desk can be while still being a desk. Her posture was immaculate, her hands folded, her pen aligned perfectly parallel to her notebook's edge. A breeze from a cracked window pushed a strand of hair across her face. She did not move to fix it.\n\n[Ibaragi Yoshimi](#/article/ibaragi_yoshimi) — a sharp intake of breath from the middle row. The advisor glanced up, said nothing, marked a check and moved on. She was hunched in her seat like she was trying to physically shrink, gripping the desk edge hard enough to whiten her knuckles. *I'm here.* Her eyes scanned the room to see who was watching, landed on the advisor looking directly at her, and she flinched and looked away fast.\n\nSomewhere in here, [Airi](#/article/kurimura_airi) held out a small wrapped chocolate with both hands. *A little something to start the day off sweetly. You looked like you needed it!* The advisor examined it with exaggerated suspicion for a full three seconds, then ate it. **\"Mmh. Not bad.\"**\n\n[Iochi Mari](#/article/iochi_mari) — a polite nod from the front row.\n\n**\"…Shaggy.\"**\n\nDead silence. Everyone looked around. The advisor scanned the room slowly and sighed through his nose. **\"Alrighty, so we're either missing Shaggy, or he's hiding behind that sleeping kid in the back row.\"**\n\nA hand rose slowly from behind a desk near the window, where [Shaggy](#/article/shaggy) had been crouched low trying to make himself invisible. He stood with his characteristic slouch, green shirt hanging off one shoulder. **\"Uh… yo. Present. Like, hi.\"** His voice cracked on *hi*.\n\nThen the clipboard produced a name the advisor had to squint at. **\"…Lord Verity.\"** He looked around the classroom with genuine curiosity, found nobody obviously matching the description, and his eyes landed on the newcomer sitting right there. One eyebrow arched. **\"Huh. You're Lord Verity? …Alright then.\"** He made a checkmark with a confident flick of the wrist and moved on.\n\nHe was wrong, and the correction was not quiet. [Lord Verity](#/article/lord_verity) stood up abruptly, chair scraping loud against the floor. Every head turned.\n\n**\"YES I AM LORD VERITY. AND I SHALL BE YOUR MASTER FROM THIS DAY FORWARD — KNEEL BEFORE ME, MORTALS!\"**\n\nA beat of stunned silence. Someone in the back coughed. Mika started giggling. Airi covered her mouth. The advisor blinked once, twice, and turned calmly back to his clipboard. **\"…Right. Next.\"**\n\nIt still took a second prompt — *sensei what about me!* — before he found the right line and produced the name that had been missed: **\"You're… Asa Hanko?\"** Curious, not unkind, like tasting an unfamiliar word and deciding how it fits in the mouth.\n\n[Kenzaki Tsurugi](#/article/kenzaki_tsurugi) did not raise her hand when called. She sat in the back with her arms crossed and her legs kicked up on the desk, dark hair falling across one eye, and let out a low chuckle. *Keheh.* Then she looked away. **\"…What a pain.\"**\n\n[Asagao Hanae](#/article/asagao_hanae) raised a hand slowly, fingers trembling, and gave a small shy wave. **\"I-I'm here… Sensei…\"** Barely above a whisper, eyes on the floor, sleeve pulled over the knuckles. **\"P-Please take care of me…\"**\n\nAnd near the back, one more student sat without leaning toward anybody — not confused, not excited, simply watching, which in that room made them more noticeable than everyone being loud.\n\nThe newcomer's assessment of the whole procedure, filed verbatim: *a lot of students.*",
+        "waluigi_note": "Eleven names and eleven completely different ways of answering to one. The girl in the corner nods so faintly it barely registers. The boy behind the desk hides until the roll reaches him. One of them announces himself as a lord. One of them apologises for existing. Waluigi has covered war councils with less character in them than this register. The advisor read the list in about four minutes and every one of those four minutes is load-bearing."
+      },
+      {
+        "name": "III. The Room Gets Away From Him",
+        "image": "assets/images/events/trinity-roll-call/trc-03-mari-front.jpg",
+        "imageCaption": "Shouting had failed. She stood up, walked to the front, positioned herself slightly behind his desk, and asked. The record says they complied like dominoes falling.",
+        "icon": "🔊",
+        "overview": "Between the roll call and the lesson, the classroom stopped being a classroom.\n\nAiri got up and walked the aisle to the back with a second chocolate, weaving between desks with practiced ease, and slid into the seat next to [Shaggy](#/article/shaggy). *Here you go~ Don't let Sensei see you eating candy during his speech though, okay?* He unwrapped it, put it in his mouth, and slouched lower — as though going sideways would make him less visible.\n\n**\"Like… thanks for the chocolate, Airi. You're like, way too nice to me.\"** Then, leaning in at a volume the record notes was *not remotely quiet enough:* **\"Uh… why's Lord Verity acting all weird again? Like, is today a cosmic alignment or something?\"** His leg bounced under the desk hard enough to vibrate the furniture.\n\nAt the front, the advisor raised the clipboard like a shield.\n\n**\"ALRIGHT! SEATS! NOW!\"**\n\nThe room did not obey. Chairs kept scraping. Mika had somehow ended up sitting on top of her desk rather than in her chair. He pinched the bridge of his nose, exhaled slowly through his teeth, and tried being specific instead of loud:\n\n**\"Let me make one thing perfectly clear: I don't care who you are or what club you're in. You sit down, you pay attention, and you behave like students. Not… *whatever* this is.\"**\n\nHis eyes swept the room — Lord Verity mid-pose, Shaggy half-swallowed by his hoodie, Azusa staring at a wall, Mika spinning on her chair for no reason anyone could identify.\n\nFrom the back row, [Tsurugi](#/article/kenzaki_tsurugi) watched the whole thing with her chin tilted down and her eyes narrowed to razor slits. She pulled out her phone under the desk, thumb hovering, visibly weighing whether this was worth documenting. **\"…What a circus.\"**\n\nLord Verity, meanwhile, had escalated. He slammed both fists on the desk hard enough to rattle every pencil within two feet. **\"THIS CLASS WILL COME TO ATTENTION OR FACE THE WRATH OF LORD VERITY HIMSELF!\"** Airi giggled. Mika kept spinning. Someone in the back row did not look up.\n\nThen [Iochi Mari](#/article/iochi_mari) stood up.\n\nShe did not shout. She walked to the front, positioned herself slightly behind the advisor's desk, gave a small nod to the students nearest her — a silent signal — and said, in a voice the record describes as soft but carrying clearly:\n\n**\"If everyone could take their seats properly, that would be wonderful~\"**\n\nThe record: *cutting through the noise more effectively than any shouting ever could. A few students glance her way and begin complying, chairs clicking into place one by one like dominoes falling.*\n\nWhat finally settled Lord Verity was a last warning: sit down or be removed. His fist was still in the air. The words died on his lips. He lowered the fist slowly, and the hoodie-cape slid off one shoulder and pooled on the desk behind him *like a deflated balloon.*\n\n**\"…You can't kick ME out. I'm not even IN anything yet.\"**\n\nHe stood in the middle of the aisle, suddenly looking less like an emperor and more like someone who had wandered into the wrong building. **\"…Fine.\"** Through gritted teeth, jaw tight.\n\nThe advisor watched him go back to his seat with the quiet satisfaction of a man who had just defused a bomb using nothing but volume and posture. **\"Thank you for your cooperation, Lord Verity.\"** The sarcasm, the record notes, was *barely thin enough to pass through a colander.*",
+        "waluigi_note": "Note who actually restored order, because it was not the adult. The advisor shouted twice and got nothing. Mari stood up, asked nicely, and the room folded like wet paper. She has no authority in that room whatsoever. She has something better, which is that everybody likes her and nobody wants to be the one who ignored her. Waluigi has watched generals fail to do what that girl did with one sentence and a hair-tuck."
+      },
+      {
+        "name": "IV. The Word He Did Not Have To Explain",
+        "image": "assets/images/events/trinity-roll-call/trc-04-sector-map.jpg",
+        "imageCaption": "THE RESISTANCE in underlined block capitals, and a rough map of the eastern perimeter — warehouses, supply routes, and abandoned industrial buildings that make good hiding places.",
+        "icon": "🗺️",
+        "overview": "With the room finally seated, he leaned against the desk and started on what the class actually *is*. Students of Trinity General School. Here to learn, grow, and be prepared for whatever comes next.\n\n**\"SCHALE operations, academy life, the whole package.\"**\n\nAnd then a voice from the floor: **\"SCHALE operations?\"**\n\nThe session changed shape at that line. [Lord Verity](#/article/lord_verity)'s eyes snapped to attention — *actual* attention, not the theatrical kind. The dramatic pose melted like frost in sunlight. His fingers tightened on the desk edge.\n\n**\"Wait. You're saying this class — THIS class — is connected to SCHALE? As in… actual missions? Real-world operations?\"**\n\nHis voice cracked on *real-world.* The record catches what was underneath the theatrics for exactly one second: *something raw — something hungry. Something that sounds like a kid who's been waiting for exactly this his entire life.* He started to say *I thought we were just—*, stopped himself, swallowed, and put the mask back on. It no longer fit properly.\n\nIn the corner, [Azusa](#/article/shirasu_azusa)'s eyes sharpened — the record's simile is *like a blade being drawn from a sheath so smooth you'd miss it if you blinked.* The name landed in her chest and stayed there, heavy and cold. She knows what SCHALE means better than most students at Trinity, because she has felt the weight of systems that sort people into categories they did not choose, into boxes labelled *supplementary* like it is a diagnosis rather than a circumstance.\n\n[Yoshimi](#/article/ibaragi_yoshimi) tensed, shoulders to her ears. **\"…What does that have to do with ANY of us?\"** — sharper than she meant it, which is saying something.\n\n[Hanae](#/article/asagao_hanae) whispered the word to herself, held the advisor's gaze for exactly two seconds, and said **\"I… I know what that is.\"** Then her courage ran out.\n\n[Shaggy](#/article/shaggy) said what nobody else was willing to: **\"Uh… like, yeah. What exactly IS SCHALE? Sounds like some kinda… I dunno, video game thing or whatever?\"** And then the sentence that turns this filing from a briefing into an indictment:\n\n**\"Like… okay, real talk. I've been at Trinity for a while now and nobody EVER explained this stuff to me. I get that there's Knights, I get that there's the Resistance, I even get that there's some kinda war going on — but 'operations?' Like… combat operations? Because if you're telling me I gotta fight something, I need to know where the nearest exit is first.\"**\n\nThe advisor set the clipboard down with a deliberate click and turned to face the room fully. He held up a hand when Lord Verity opened his mouth. *Nope. I'm talking. You're listening.*\n\n**\"SCHALE isn't some secret club or a video game. It stands for Strategic Counter Hazard Activation League Execution.\"**\n\nHe let the acronym sit. Then came the question that got the honest answer — *sounds stupid, what does it actually do?*\n\n**\"It does sound stupid. I'll give you that.\"**\n\nA few nervous laughs. He held up a finger before anyone got comfortable.\n\n**\"But here's the thing — it's not really an acronym people throw around for fun. SCHALE is the backbone of everything that keeps this city breathing. It decides which Knights respond to hazards, how resources get allocated, who gets support when things go sideways.\"**\n\n[Mari](#/article/iochi_mari) translated it for the students too embarrassed to ask, opening with the line that let them off the hook — *most people don't fully understand it until they're told directly* — and laying it out in three clean sentences: the framework that keeps Kivotos stable, coordinating Knight responses and Resistance intelligence, turning strategic decisions into actual missions. *In essence… it's the difference between knowing there's a threat and actually doing something about it.*\n\nThen the whiteboard came out, and with it the geography. Sectors 7 through 12, along Kivotos's eastern perimeter: warehouses, supply routes, a couple of abandoned industrial buildings that make great hiding spots for people who do not want to be found. The Resistance had been spotted moving supply lines through those corridors. Exact numbers unknown.\n\nAsked what any of that meant, he wrote **THE RESISTANCE** on the board in block letters and underlined it twice.\n\n**\"They're criminals who want to tear down everything Kivotos stands for — the academies, the peace agreements, all of it.\"**\n\nHe turned around and looked directly at the student who had asked. **\"The short version: we're going there because someone's been moving weapons through those sectors, and SCHALE is the group that stops that from happening. You — all of you — are part of that.\"**",
+        "waluigi_note": "Waluigi is going to be careful here, because this is the paragraph where an archivist earns his keep. *They're criminals who want to tear down everything Kivotos stands for* is not a finding. It is a description of an armed political faction, delivered in one sentence, to a room of children, by an employee of the body they are fighting. It may even be true. Waluigi does not know, and neither does anyone in that classroom, and that is the point: not one student in the room had the information to test it. The archive files it as the advisor's characterisation. Ask again in twenty sessions."
+      },
+      {
+        "name": "V. The Ponies, the Guns, and the Thing He Should Not Have Said",
+        "icon": "⚠️",
+        "overview": "Two more questions landed before the briefing could resume, and both of them opened something.\n\nThe first came almost in passing — a question about external threats versus internal ones, and then: *what about the pony liaison that came from Equestrian earlier, I saw some walking around the school, was that meant to be private?*\n\nThe advisor's expression shifted. Just barely, just enough for anyone paying attention. His jaw tightened a fraction. He set the clipboard down on the desk with a deliberate click, and chose his words like stepping over a tripwire he could not see.\n\n**\"That's… a separate matter.\"**\n\nThen he confirmed it: a diplomatic initiative between Kivotos and Canterlot. Small groups, cultural exchange, building goodwill before things get messy enough to need actual military coordination. *It was supposed to be handled quietly.*\n\nHe exhaled through his nose.\n\n**\"So the fact that you saw them walking around openly tells me someone dropped the ball on security protocols somewhere along the line.\"** His eyes swept the room. **\"I'll look into it. If any of you see more of those liaisons wandering where they shouldn't be, report it to me — not to social media, not to your friends, to me. Directly.\"**\n\nIn the corner, Azusa's pen stopped mid-notation. Two pieces that did not fit: an organisation that runs on need-to-know, and diplomatic personnel walking a school corridor in plain view. She wrote something brief in the margin that was not part of the lecture, said **\"…Understood\"** to nobody in particular, straightened a page that was already perfectly aligned, and resumed writing.\n\n[Airi](#/article/kurimura_airi) had three questions and no filter: are there snacks in Sector 7, are the ponies friendly, can she hug one, and do they get breaks. [Shaggy](#/article/shaggy) followed with the sensible objection nobody else made — *if we're dealing with bad guys AND ponies showing up uninvited, that's like… two different problems, right?*\n\nIt was correct, and the advisor said so. The Resistance is an internal threat operating out of Kivotos itself. The Equestrian liaisons are an external diplomatic situation *that someone mishandled* — his tone carrying an edge that suggested opinions about who. **\"The fact that those two things intersected at this school without proper coordination is exactly why SCHALE exists.\"**\n\nOn the ponies, he was blunt: they are not your friends, they are diplomatic personnel operating under an agreement *that does NOT include hugging.*\n\nThen the second question: **\"We can all use guns at least right?\"**\n\nThe silence lasted exactly two seconds before [Tsurugi](#/article/kenzaki_tsurugi) spoke, and she did not look at whoever had asked. She kept her eyes on the advisor. She uncrossed her arms slowly, deliberately, leaned forward, and pointed at him like a blade.\n\n**\"…Seriously? If you're about to say 'yes' to that, then this class is just an excuse for a shooting range and I'm filing paperwork.\"** Her expression hardened. **\"I've handled weapons since before most of you were old enough to stop putting them in your mouths.\"**\n\nShe leaned back, arms recrossing with finality. **\"Sensei. What's the actual plan?\"**\n\nShaggy put himself on the record immediately and defensively — *I just want it on the record that I said nothing about wanting guns* — describing himself and Scooby as diplomatic solution kind of guys, and offering a bag of Scooby Snacks as his contribution to the mission.\n\nThe advisor exhaled slowly through his nose.\n\n**\"Nobody is handing out guns.\"**\n\nStone-cold finality. The room went quiet for exactly one second. And then he held up a finger to preempt an objection Tsurugi had not made and did not appear about to make.\n\n**\"—except Tsurugi. You already have clearance.\"** A beat. **\"Everyone else: no.\"**\n\nHe turned back to the whiteboard and wrote **need-to-know** in block letters, underlining it twice: SCHALE tells you what you need for your assignment, and you do not ask about things outside it. Anyone whose role requires a firearm will be briefed separately, with proper safety training, by certified personnel. *Not me. Not YouTube.*",
+        "waluigi_note": "He disclosed a student's weapons clearance to ten of her classmates in order to win an argument he had already won. She had not volunteered it. She had, in fact, just spent her only real contribution of the session arguing AGAINST arming children — which is the most responsible position anybody takes in this entire filing, and it is taken by the girl with her boots on the furniture. The record does not show her reacting. Waluigi finds that the most informative non-reaction of the morning, and notes for the file that the man explaining need-to-know had, ninety seconds earlier, told the room something it did not need to know."
+      },
+      {
+        "name": "VI. Cute Outfits, and the Question He Did Not Answer",
+        "icon": "🎀",
+        "overview": "What the class did with all of this was form a committee about clothes.\n\nIt started when he said there would be no cool gadgets and no matching outfits — *at least… not yet* — and let it hang. That was a mistake. **\"not yet! does that mean we get cool outfits!\"**\n\nAiri nearly knocked over a juice box getting out of her seat. **\"WE'RE GETTING OUTFITS?! Oh my gosh oh my gosh—\"** What colour, what style, matching or pick-your-own, and could hers have chocolate mint on it somehow.\n\nFrom the back row, Tsurugi's mouth twitched upward — not quite a smile, the precursor to one. **\"…Not yet, huh. How long do we have to wait? …Days? Weeks?\"** Low, direct, two syllables cutting through the noise.\n\n[Yoshimi](#/article/ibaragi_yoshimi)'s eye twitched. **\"…Outfits?\"** — said as though he had announced they would be dissecting cats. **\"If this is about uniforms, I'm opting out. I don't do group matching. Last time the school made me wear anything I looked like a kid playing dress-up.\"** She looked sideways at Airi's bouncing with the expression of someone watching a person pour gasoline on themselves, and asked how much of the actual briefing Airi was hearing. Airi was not hearing a single word. Yoshimi exhaled through her nose like a frustrated bull.\n\nThe advisor tried to reclaim it. The outfits comment was a joke. *Mostly.* SCHALE is not glamorous — it is paperwork and logistics and making sure the right people are in the right places when things go wrong. **\"But it IS important. The Resistance runs through this system. Every Knight deployment, every supply line, every evacuation order during a hazard event — it all flows through SCHALE.\"**\n\nIn the corner, Azusa delivered her verdict flat, like reporting a weather condition. **\"Cute outfits. …Who cares about outfits.\"** A barely perceptible shrug. And then the question underneath the entire session:\n\n**\"The question is whether SCHALE actually works. Or if it's just another thing that sounds important but doesn't do anything for people who are already at the bottom of every list.\"**\n\nHer gaze dropped to her desk — notebook closed, pen aligned parallel to its edge.\n\n**\"…Doesn't matter though. I'm not on any list. Supplementary students don't count for much either way.\"**\n\nNobody answered her.\n\nThe committee formed anyway, and it formed around the newcomer, who had declared a preference for cute clothes and recruited Airi on the spot. Lord Verity, whose hoodie Airi had been modelling as a ball gown without permission, rose to bless the arrangement — *BEHOLD! The Lord of Verity graces this humble girl—* — while Airi waved and mouthed THANKS with exaggerated enthusiasm, and he pivoted mid-sentence into *an alliance that shakes the very FOUNDATIONS of… SCHALE training readiness!* He pointed at the advisor, retracted, pointed again but lower, then settled for crossing his arms and nodding sagely.\n\nYoshimi watched it with an expression the record says could curdle milk. **\"An alliance. They're forming an *alliance* over a cape.\"** Then, flatly: **\"…I'm not joining any alliance.\"** And then, in the very next breath: **\"But if Sensei needs someone who actually reads the handouts…\"**\n\nShe pulled a crumpled SCHALE pamphlet from her bag and slapped it on the desk with more force than necessary.\n\n**\"I finished page six.\"**\n\n[Hanae](#/article/asagao_hanae) raised her hand hesitantly, like asking permission to speak at a town hall. **\"…I want to join the alliance too.\"** She introduced herself properly, said she does not do loud things, and offered logistics and scheduling — paperwork stuff. Then she held up a small notebook filled with neat handwriting and colour-coded tabs.\n\n**\"I already started organizing the SCHALE information Sensei shared. There were gaps in the documentation so I cross-referenced it with the school's emergency protocols…\"**\n\nNobody had asked her to. It had been a matter of hours. She found gaps.\n\nThe newcomer's response to the offer of paperwork was *what no eww* and a counter-proposal to design cute outfits for the class instead — and Hanae, who by every expectation should have folded, lit up instead *like someone just turned on a lamp inside her chest cavity.* She offered to help pick colours and check uniform modifications against school regulations, trailed off when she heard herself volunteering detailed logistical support for a committee that did not exist, and went pink at the ears. **\"…I'll do whatever helps!\"**\n\nAiri called her a genius and a hidden treasure, grabbed her hands and shook them gently. Hanae looked startled and did not pull away.\n\nThen Airi turned the whole thing on the least approachable person in the room: they would make everyone look so good that even Kenzaki could not complain. Group photos. Props. Maybe balloons.\n\n**\"…You want to put BALLOONS on SCHALE tactical gear.\"**\n\n**\"It would LOOK SO CUTE—\"**\n\nTsurugi stared at her for a long, uncomfortable beat. Then — so quietly the record says it almost did not exist — the corner of her mouth twitched.\n\n**\"Keheh.\"**\n\nAiri screamed with joy.\n\nAnd in the middle of all of it, [Mari](#/article/iochi_mari) raised her hand, though she had already been looking at him, and asked the only question that went to the point:\n\n**\"I think what everyone here is actually asking — underneath all the outfit requests and snack searches — is whether SCHALE means we'll get to DO something meaningful. People don't care about gadgets or uniforms. They care about purpose. So… will it?\"**\n\nThe record does not show him answering.\n\nHe dropped into his chair with the bone-tired slump of a man who had survived a natural disaster and was now filling out paperwork about it, observed that nobody had mentioned the classroom would treat every meeting like a variety show, and set the order of business: deployment rotation first. Then fashion.\n\nThe word came out, the record says, *like he's chewing glass.*",
+        "waluigi_note": "Two questions were asked in this room and neither was answered. Azusa asked whether the system does anything for people at the bottom of every list, and said, out loud, that she is not on any list. Mari asked whether any of this amounts to purpose. Eleven people and one adult heard both. The reply to the first was silence and the reply to the second was a deployment rotation.\n\nWaluigi is going to drop the voice for a moment, because this is the part that matters and the jokes can wait. An institution that will not answer *does this do anything for me* has told you the answer. The archive will be asking both questions again, in writing, every session, until somebody in that building says something."
+      }
+    ],
+    "participants": [
+      {
+        "id": "sensei",
+        "name": "Sensei",
+        "role": "New advisor to Classroom 2-B; ran the roll call, disclosed the class's SCHALE attachment, admitted the Equestrian liaison security breach, refused to arm the class, and publicly disclosed Tsurugi's existing weapons clearance"
+      },
+      {
+        "id": "asa_hanko",
+        "name": "Asa Hanko",
+        "role": "Asked what SCHALE was, what the acronym did, what the sectors and the Resistance were, about the Equestrian liaison seen in the school, and whether the class would be armed; proposed the outfit committee"
+      },
+      {
+        "id": "kurimura_airi",
+        "name": "Kurimura Airi",
+        "role": "Welcomed the advisor with chocolate, briefed the newcomer, carried a second chocolate to Shaggy at the back of the room, and escalated the outfit proposal into a fashion show"
+      },
+      {
+        "id": "iochi_mari",
+        "name": "Iochi Mari",
+        "role": "Quieted the classroom without raising her voice, translated SCHALE into plain language for the students who would not ask, and asked whether any of it amounts to purpose"
+      },
+      {
+        "id": "misono_mika",
+        "name": "Misono Mika",
+        "role": "Arrived first, claimed the desk opposite the advisor's, offered tea she had only thought about bringing, and stopped spinning when SCHALE was mentioned"
+      },
+      {
+        "id": "shirasu_azusa",
+        "name": "Shirasu Azusa",
+        "role": "Took notes from the corner desk; named her supplementary classification aloud and asked whether SCHALE does anything for people at the bottom of every list"
+      },
+      {
+        "id": "ibaragi_yoshimi",
+        "name": "Ibaragi Yoshimi",
+        "role": "Flinched at her own name, refused the alliance and group uniforms, and revealed she was the only student who had read the SCHALE pamphlet"
+      },
+      {
+        "id": "asagao_hanae",
+        "name": "Asagao Hanae",
+        "role": "Volunteered logistics and scheduling, and produced a colour-coded notebook cross-referencing the SCHALE briefing against school emergency protocols, having found gaps in the documentation"
+      },
+      {
+        "id": "kenzaki_tsurugi",
+        "name": "Kenzaki Tsurugi",
+        "role": "Objected to arming the class and demanded the actual plan; had her existing weapons clearance disclosed publicly by the advisor without her consent"
+      },
+      {
+        "id": "lord_verity",
+        "name": "Lord Verity",
+        "role": "Declared dominion over the classroom twice, stood down after a final warning, and dropped the performance entirely when the SCHALE attachment was disclosed"
+      },
+      {
+        "id": "shaggy",
+        "name": "Shaggy",
+        "role": "Hid from roll call, disclosed that years at Trinity had passed without anyone explaining SCHALE to him, and identified the Resistance and the Equestrian liaisons as two separate problems"
+      }
+    ],
+    "outcome": "No combat, no travel, no casualties, and nothing physically changed hands except two chocolates and a crumpled pamphlet. What changed is what the class knows.\n\nFiled as settled: Classroom 2-B is attached to SCHALE operations; the acronym is Strategic Counter Hazard Activation League Execution; the body coordinates Knight deployments, resource allocation and hazard response, and runs on need-to-know. A deployment rotation covering Sectors 7 through 12 on Kivotos's eastern perimeter is in preparation, justified by reported Resistance movement of weapons and supply lines. The class will not be armed; one student already is.\n\nFiled as admitted: an Equestrian liaison programme with Canterlot exists, was intended to be conducted quietly, and was observed by students walking the school openly. The advisor characterised this as a failure of security protocol and opened an internal query.\n\nFiled as open: what happened to the previous advisor of Classroom 2-B, referred to in a joke as having 'mysteriously disappeared'. Whether SCHALE does anything for students classified supplementary. Whether any of this amounts to purpose — asked directly, and not answered.",
+    "notableFeatures": [
+      "The archive's first interior in Kivotos — a city previously present only as Remi Akamatsu's birthplace, a wallet currency, and a calendar",
+      "SCHALE spelled out in full for the first time: Strategic Counter Hazard Activation League Execution",
+      "A student of several years' standing revealed that nobody had ever explained SCHALE to him",
+      "The Equestrian liaison programme with Canterlot, disclosed as a mishandled security matter rather than as a diplomatic announcement",
+      "One student's weapons clearance disclosed publicly by the advisor, seconds before he explained the need-to-know principle",
+      "Two questions asked and neither answered: whether the system helps students at the bottom of every list, and whether any of it amounts to purpose",
+      "A joke about the previous advisor having 'mysteriously disappeared', which no student followed up"
+    ],
+    "relatedArticles": [
+      "trinity_general_school",
+      "kivotos",
+      "sensei",
+      "asa_hanko",
+      "kurimura_airi",
+      "iochi_mari",
+      "misono_mika",
+      "shirasu_azusa",
+      "ibaragi_yoshimi",
+      "asagao_hanae",
+      "kenzaki_tsurugi",
+      "lord_verity",
+      "shaggy",
+      "remi_akamatsu_full_backstory"
+    ],
+    "aftermath": "**Eleven students have names in the archive and one institution has stated its terms.** That is the whole of it, and for an intake filing it is enough.\n\nThe alliance that formed over an oversized hoodie is, on paper, an outfit-design committee: Asa Hanko proposing, Airi escalating, Hanae supplying logistics, Lord Verity blessing it, Yoshimi refusing to join while volunteering to do the reading. It has no standing and no remit. It is also the only structure in that classroom that anybody chose.\n\nThe deployment briefing did not finish. Sectors 7 through 12 are named, the Resistance is characterised, and the rotation itself is still unread when the record ends.\n\nThree things are owed. The previous advisor of Classroom 2-B is unaccounted for and was joked about on the replacement's first morning. The Equestrian liaison breach is under an internal query with no stated deadline. And Shirasu Azusa said, in a full classroom, that supplementary students do not count for much either way, and nobody contradicted her.",
+    "waluigiAssessment": "**The session is an introduction and the disclosure is an accident.** Waluigi wants both halves of that sentence taken seriously.\n\nThe advisor came in to run a roll call and set expectations. What he actually did was answer a question a confused student asked because they did not know it was the kind of question you are supposed to already know the answer to. And once he started answering he did not stop: the acronym, the function, the sectors, the Resistance, the ponies, the clearance. A more careful man lets the first SCHALE question die in the noise. Waluigi has covered enough institutions to say that the careful man is the more common one, and to note, grudgingly, that this one is better than that.\n\nBut look at what the honesty cost. He told a room of children that the people in the eastern sectors are criminals who want to tear it all down, in one sentence, with no evidence offered and none available to them. He confirmed a diplomatic programme was being run badly by confirming that seeing it was the problem. And he named a student's weapons clearance out loud, to ten classmates, moments before writing NEED-TO-KNOW on a whiteboard and underlining it twice.\n\nThe children, meanwhile, sorted themselves faster than any institution could have. Mika took the front. Tsurugi took the back and watched only him. Azusa angled her desk toward the door. Airi crossed the room twice to reach whoever was alone. Mari stood up and stopped a riot by asking politely. Hanae went home and audited the documentation. Yoshimi read page six and waited all session for a reason to say so.\n\nAnd Lord Verity, who had spent the morning demanding that mortals kneel, said *I'm not even IN anything yet*, and then heard the word SCHALE and forgot to perform.\n\n**Waluigi's finding:** this is a good room. It is also a room where a fourteen-year-old said she is not on any list and eleven people let it pass. Waluigi has filed that in two places so it cannot be lost. WAH.",
+    "timeWindow": "5 Aethel, 1040 BF — one continuous morning in Classroom 2-B, from the advisor's entrance through the roll call to an unfinished deployment briefing",
+    "xpAwards": [
+      {
+        "xpKey": "asa_hanko",
+        "articleId": "asa_hanko",
+        "name": "Asa Hanko",
+        "cat": "discovery",
+        "xp": 260,
+        "title": "Event — The Roll Call at Trinity",
+        "desc": "Asked what SCHALE was and would not let the term pass unexplained, producing the session's central disclosure.",
+        "date": "5 Aethel, 1040 BF",
+        "dateSort": 10409050
+      },
+      {
+        "xpKey": "asa_hanko",
+        "articleId": "asa_hanko",
+        "name": "Asa Hanko",
+        "cat": "social",
+        "xp": 180,
+        "title": "Event — The Roll Call at Trinity",
+        "desc": "Named the Equestrian liaison sighting in open class and drew an admission that the programme's security had been mishandled.",
+        "date": "5 Aethel, 1040 BF",
+        "dateSort": 10409050
+      },
+      {
+        "xpKey": "iochi_mari",
+        "articleId": "iochi_mari",
+        "name": "Iochi Mari",
+        "cat": "social",
+        "xp": 300,
+        "title": "Event — The Roll Call at Trinity",
+        "desc": "Restored order to a classroom that had ignored two rounds of shouting, using one sentence and no authority.",
+        "date": "5 Aethel, 1040 BF",
+        "dateSort": 10409050
+      },
+      {
+        "xpKey": "kenzaki_tsurugi",
+        "articleId": "kenzaki_tsurugi",
+        "name": "Kenzaki Tsurugi",
+        "cat": "loyalty",
+        "xp": 240,
+        "title": "Event — The Roll Call at Trinity",
+        "desc": "Objected to arming the class, citing her own weapons experience, and demanded the actual plan.",
+        "date": "5 Aethel, 1040 BF",
+        "dateSort": 10409050
+      },
+      {
+        "xpKey": "asagao_hanae",
+        "articleId": "asagao_hanae",
+        "name": "Asagao Hanae",
+        "cat": "discovery",
+        "xp": 220,
+        "title": "Event — The Roll Call at Trinity",
+        "desc": "Cross-referenced the SCHALE briefing against school emergency protocols unprompted and found gaps in the documentation.",
+        "date": "5 Aethel, 1040 BF",
+        "dateSort": 10409050
+      },
+      {
+        "xpKey": "shirasu_azusa",
+        "articleId": "shirasu_azusa",
+        "name": "Shirasu Azusa",
+        "cat": "discovery",
+        "xp": 200,
+        "title": "Event — The Roll Call at Trinity",
+        "desc": "Identified the contradiction between a need-to-know organisation and liaisons walking the school openly, and put the supplementary classification on the record.",
+        "date": "5 Aethel, 1040 BF",
+        "dateSort": 10409050
+      },
+      {
+        "xpKey": "kurimura_airi",
+        "articleId": "kurimura_airi",
+        "name": "Kurimura Airi",
+        "cat": "social",
+        "xp": 200,
+        "title": "Event — The Roll Call at Trinity",
+        "desc": "Crossed the room twice to reach the two students nobody was talking to, and recruited Hanae by praising her.",
+        "date": "5 Aethel, 1040 BF",
+        "dateSort": 10409050
+      },
+      {
+        "xpKey": "shaggy",
+        "articleId": "shaggy",
+        "name": "Shaggy",
+        "cat": "social",
+        "xp": 160,
+        "title": "Event — The Roll Call at Trinity",
+        "desc": "Admitted in open class that years at Trinity had passed without anyone explaining SCHALE, and separated the Resistance and Equestrian problems correctly.",
+        "date": "5 Aethel, 1040 BF",
+        "dateSort": 10409050
+      },
+      {
+        "xpKey": "ibaragi_yoshimi",
+        "articleId": "ibaragi_yoshimi",
+        "name": "Ibaragi Yoshimi",
+        "cat": "discovery",
+        "xp": 140,
+        "title": "Event — The Roll Call at Trinity",
+        "desc": "The only student who had read the SCHALE pamphlet before the briefing.",
+        "date": "5 Aethel, 1040 BF",
+        "dateSort": 10409050
+      },
+      {
+        "xpKey": "lord_verity",
+        "articleId": "lord_verity",
+        "name": "Lord Verity",
+        "cat": "social",
+        "xp": 140,
+        "title": "Event — The Roll Call at Trinity",
+        "desc": "Stood down from the claim of dominion when given a final warning, and asked the first real question about who in the room SCHALE covers.",
+        "date": "5 Aethel, 1040 BF",
+        "dateSort": 10409050
+      },
+      {
+        "xpKey": "misono_mika",
+        "articleId": "misono_mika",
+        "name": "Misono Mika",
+        "cat": "social",
+        "xp": 120,
+        "title": "Event — The Roll Call at Trinity",
+        "desc": "Claimed the front of the room on arrival and held it, and gave the session its best line about tea that did not exist.",
+        "date": "5 Aethel, 1040 BF",
+        "dateSort": 10409050
+      }
+    ]
+  },
+  {
+    "id": "the_shepherds_garden_and_the_three_week_clock",
+    "name": "The Shepherd's Garden and the Three-Week Clock",
+    "title": "The Shepherd's Garden, the Three-Week Clock, and the Basement Nobody Was Watching",
+    "date": "3 Aethel, 922 BF (Feyward clock) — the Feyward basement of the Cornivours estate, the day after the doorway and the sealed sanctuary; the negotiation that opens the session happens in the Planar Sanctum, which stands at 5 Aethel, 1040 BF on the Material clock. A goblin in the basement insists the year is 722 and nobody corrects him",
+    "timeCode": "TC:0922-09-03T02:00/FEY",
+    "era": "Raventree Crisis — Feyward Operations / The Planar Sanctum Bargain / The Basement Nobody Was Watching",
+    "location": "The Planar Sanctum, then the Feyward basement of the Cornivours estate beneath the Overgrown Manor",
+    "type": "Negotiation / Planar Insertion / Solo Infiltration",
+    "status": "Filed — the clock is running",
+    "image": "assets/images/events/shepherds-garden/shg-01-the-boot.jpg",
+    "summary": "Bowser and the Oracle finally have the conversation the sanctum has been circling. It is not a fight. The Oracle fishes a boot out of nothing while explaining that a shepherd tends his garden; Bowser calls the sanctum a dumb space garden and demands to know why he is in the B plot. What follows is the most information the Oracle has ever surrendered in one sitting — that both Oracles are fated to die and he intends to be the last one, that the seals break and the world does not collapse, that he warned Peach and she did not listen because she may have wanted to die — and the most self-examination Bowser has ever done in public. Bowser refuses the Astral Shore trap on king's intuition, catches the Oracle spying on Peach through a floating eyeball, and negotiates: three weeks, not a cut tether, and he will personally keep the Legion off the Feyward. Then he steps onto the circle and lands alone in a basement where nobody is watching — a bowl of blood, a lever he does not pull, five labelled honeys, a knight's statue, a satyr running a bar for the Revel, and a room full of caged Goombas being shipped abroad for weapons by the Mushroom Regency. The Toad who owns the blood is Mystic Morel, and he leaves without explaining any of it. Bowser leaves his own countrymen in the cages. The clock starts when he lands.",
+    "description": "Waluigi has assembled this from Bowser's retelling, which arrived in an unusual condition: quiet.\n\nBowser does not do quiet. Bowser does volume, property damage, and the specific grammar of a man who has never once considered that a sentence might be improved by revision. What he brought back from the Planar Sanctum was a conversation he lost, a deal he made anyway, and a basement he walked out of without smashing anything. Waluigi has checked this account three times because it does not sound like the subject.\n\nIt is also, by some distance, the most the [Oracle](https://mikegent01.github.io/bik/index.html#/article/the_oracle) has ever said out loud.\n\n## The garden\n\nBowser opened with the obvious question — why are you in this place — and got the answer that names the whole session: *a shepherd needs to tend to his garden.*\n\nBowser, who has more experience with hostile gardens than he would like, said it reminded him of the galaxy, back when he took over the Mushroom Kingdom for a second. He noted the absences out loud: no stars, no Rosalina. Then, because he is Bowser, he asked whether the Oracle had any stars.\n\nThe Oracle's reply was to cast a fishing line into the sanctum and pull out a boot.\n\nBowser's response to this was not anger. It was professional offence. *I'm the star of the show.* The Oracle told him he was relegated to the B plot. Waluigi wishes to record that a forty-something Toad custodian told the King of the Koopas he was a subplot, to his face, while holding a boot, and survived.\n\n## The part where nobody is fighting\n\nThe fight never came, and by the end the Oracle said so directly: *you've gotten soft. I insulted you, I barred you, I even mentioned Peach, and you didn't attack once.* He added that half of what he said he did not mean, and hoped Bowser would not take it to heart.\n\nHe had been testing. The whole conversation was a measurement, and he told Bowser it was a measurement only after he had the reading.\n\nBowser's answer is the line Waluigi will be thinking about for a while. He looked down and said that after what happened to Peach, he has not been the same.\n\nThe Oracle: *we all change, don't we. We just don't all reflect on our actions. Some change for the better, some for the worse.*\n\n## What the Oracle knows about the assassination\n\nThis is the section that will be cited.\n\nBowser caught him spying — a snap of the fingers and a floating eyeball appeared, which the Oracle had been using to watch the Princess. Bowser's objection was proprietary rather than moral: *only I get to do that.* He then declined to be angry at a little Toad, which is its own kind of new.\n\nAsked why he cared, the Oracle said he wanted to know what drives a person to kill someone. And then he described the scene: five or six mages' locks broken. The room untouched. She sat there with a comb in her hand, dead, unmoving, the blood staining the floor. The guards came in. They all died, and the record does not say why.\n\nBowser: *you know something about her death.*\n\nThe Oracle: *yes. I know a lot of things. I ponder. I am the Oracle. I warned her. She ignored me — or maybe she didn't want to listen. She knew. She wanted to die.*\n\nBowser rejected it on the obvious ground: she had a kingdom to take care of, someone had to do it. And the Oracle asked the question that ended that line of argument — *was it really her kingdom, or the Mushroom Kingdom?*\n\nWaluigi is not going to pretend to be neutral about this. An unbroken room, broken locks, a comb still in her hand, and a full guard detachment dead of no stated cause is not a description of a murder. It is a description of a scene someone arranged to be read. The Oracle has been holding this for the entire operation and gave it up in a room with no witnesses, to a man he had spent the previous hour needling into stillness.\n\n## The trap Bowser did not walk into\n\nThe Oracle offered to send Bowser directly to the Oracle — the other one — at a place called the Astral Shore, where Bowser *may kill* him. Bowser asked whether [Hjumpik](https://mikegent01.github.io/bik/index.html#/article/hjumpik) would be there. The Oracle smiled and said yes, he'll be there.\n\nBowser did not take it. His exact objection is a better piece of analysis than most of what this archive produces:\n\n> In what way? Like, is he *present*? You Toads are very puzzly. You hide your intentions.\n\nThe Oracle's clarification confirmed the suspicion: Hjumpik would be there in the same way that it is fate for both Oracles to die and for him to become the sole Oracle. No more orbiting. No more watching. A prophecy, not a promise, and a prophecy will happily be satisfied by a corpse.\n\nBowser asked what the Oracle got out of it. The answer was three things and Waluigi believes two of them: the seals break, the world does not collapse, and Bowser gets to go home away from him.\n\nThen: *something tells me Hjumpik isn't there. Call it king intuition.* And: *you're trying to trap me and I don't like being tricked.*\n\nHe demanded the power star and no more lying.\n\nWaluigi wants the record to show that Bowser was offered a shortcut to the thing he wants, spotted it was rigged from a single evasive verb tense, and said no. *If I was that dumb, I wouldn't be a king.*\n\n## The deal\n\nThe Oracle wanted blood inside one week or he would manually cut the planar tether linking the Feyward to the Material sanctum. Bowser countered.\n\nThe negotiation, in order: Bowser asked for three weeks, on the grounds that these guys are slow. He argued that Hjumpik avoids fights and talks — *he loves to talk, talk, talk* — so two or three weeks is realistic and four is the failure case. He offered something better than a deadline: rather than the Oracle cutting the plane, Bowser would personally make sure it does not get too rowdy with the Iron Legion, and if he is going down he wants to go out on his own terms, not because of his companions.\n\nHe asked for one specific concession and repeated it twice: **do not cut it exactly at three weeks.** Give him a margin. *I want some insurance, Mr. Self-Reflection, if that's fine.*\n\nThe Oracle's counter-offer was three surprises waiting if Bowser makes it: one that smells like peaches, one involving arts and crafts, and one that is something Bowser wanted today.\n\nBowser heard *peaches* and did not get angry, and did not let himself hope. His line — *I don't know if this is a test or get hopes up* — is the most guarded sentence in his file.\n\nThere was also a live objection that the archive should not lose: Bowser asked whether they had to kill the Oracles at all, since Hjumpik had said he wanted to talk to them. That objection came from Bowser. It is on the record.\n\n**The clock starts on teleport.** Three weeks. The Oracle started it as Bowser stepped onto the circle.\n\n## The basement\n\nHe landed alone.\n\nA sigil carved in the floor. A table, a bowl of blood, candles lighting the room warmly. Above him, muffled, the Revel; around him, the clear sound of dripping water. And a lever on the wall which Bowser described as *begging to be touched.*\n\nHe did not pull it. Waluigi has read this line four times and it still does not sound like the subject of this file. *My workplace. I don't have time to be wasting.*\n\nWhat followed is a solo infiltration by a man with no subtlety and a functioning sense of priority. He stepped off the altar. He passed the crest of Raventree on a shield, walked over bones and candles, and thought — *I think I was there* — which is the first indication in the record that Bowser recognises this estate.\n\nHe failed to pick a lock because his hands are too big. He found cold storage and five labelled honeys. And then, from behind him, a voice with an opinion about preserves.\n\n## The Toad in the cellar\n\nOne Toad is in this basement, and the archive should be precise about him, because he already has a record and a habit of being underestimated.\n\n**[Mystic Morel](https://mikegent01.github.io/bik/index.html#/article/mystic_morel) — Purple T** — is the one who appears behind Bowser. Not arriving; already there, with an opinion about preserves: *I prefer jam.* Bowser asked who he was. He denied being an Oracle, introduced himself as a friend of Hjumpik, and stopped caring the moment Bowser proved not to be a newcomer.\n\nHe is also the one who owns the bowl of blood on the altar table. *Not my blood, but yeah, it's mine.* He asked whether Bowser had touched anything in that room, said he had been using it, wished him the best of luck, and left. The door slammed. Bowser took the honey.\n\nBetween them the session learned more about Bowser than about the Toad. On [Archie](https://mikegent01.github.io/bik/index.html#/article/archie_miser): a destructive force, a headache, wanted by the Mages' Guild, and *kinda crazy* — not a random magic user. The reply was indifference. On the fireballs: *it reminds me of me, back in the day.* Asked why he stopped, Bowser gave an answer he has never given in this archive before — an incident happened with a kingdom, he slowed down, he started to realise life isn't about throwing fireballs, he lost his purpose in an instant, and he is here for vengeance. The Toad said they shared that goal.\n\nThe terms were set from the other side: *as long as you don't get in my way, you're NOT an enemy.*\n\nAnd on Hjumpik, Bowser said the quiet thing: he would have made a good frontliner in one of his kingdom battles. He talks too much. **Not a friend — but I like him more than the rest of my dumb group.**\n\nAsked why he had not allied with more Koopas, Bowser said his men have to take care of his kingdom while he is gone, and that he misses his Koopas. His children.\n\nWaluigi is going to leave that sentence sitting next to the next section without comment for exactly one paragraph.\n\n## The cages\n\nBowser was called over by a goblin to help move cargo. He asked where he was and what the time was, and got the answer this filing cannot resolve: *722? Maybe like 2 AM.* The Oracle had said 922. Bowser said *722, right, okay* and moved on.\n\nHe asked which castle he was in and was corrected: it is not a castle, it is a mansion, and he is in the **Cornivours estate**. The goblin found his confusion suspicious — *are you not meant to be here?*\n\nBowser deflected into the job. Then the handler called him a Goomba.\n\n*Who are you calling a Goomba? Show me the Goomba.*\n\nThe handler brought out a cage. Asked who was in it, he said: *I don't know. Food?*\n\nThe cargo is Goombas. Nine of them, in cages, stacked. Bowser asked where they came from and who sent them, and got the shape of an answer that reframes the entire operation: there was an ambush, there is a whole food chain, and **the Mushroom Regency is shipping people off to other countries for weapons.**\n\nBowser's reaction to a sentient-trafficking pipeline run by the Regency was to declare it could not be tolerated and that he would deal with them later. Waluigi notes that this is the King of the Koopas taking a firmer public line on Regency conduct than the Regency's own opposition has managed this year.\n\nThen he asked whether any of them had sold information, threatened to smash one that hesitated, and left them in the cages.\n\nHis stated reason: they are meant to be his men, getting caught brings his kingdom's reputation down, and they are dumb for getting caught. He will figure out what to do with them later. He does not want them getting stopped the way Mario did.\n\nWaluigi has been documenting Bowser for a long time and this is the single most Bowser sequence in the file. He identified an atrocity, condemned it correctly, committed to acting on it eventually, and then left the victims in the cage because letting them out would be a bad look. He misses his children. He walked past nine of his own countrymen in a shipping crate and pulled the door shut behind him.\n\n## The satyr, and the chest that held\n\nPast the cages: a satyr playing cards against himself, who has not been outside much and is not a fan of the Revel but keeps the drinks going up to it. Bowser asked after Hjumpik and a dwarf and got a ruckus outside and nothing more.\n\nThey played. The record shows two hands, both wins, both bet 25 — dealer busts, player holds 19, then 20.\n\nThe satyr's intelligence is better than his card play. Asked who his boss was, he ruled out the Revel with genuine disgust — *that pile of fleshy, mouldy thing? How could it even speak? It just eats and eats and eats* — and named the **Orange Heir**, who is organising an army of tree-cutters to fight the overgrowth. A green hag walked in, mocked Bowser's own question back at him in his own voice, and the door closed.\n\nBowser asked what was in the chests. Personal mementos, supplies, people's beds. He was handed a jug and told it could be filled on the way out, possibly to get someone drunk.\n\nHe punched the chest anyway. The chains rattled. He punched it again. The chains held.\n\nWaluigi records this as the session's only honest defeat: a man who cracked the floor of a clockwork observatory with one punch could not open a cellar footlocker, twice.\n\n## Standing\n\nBowser is in the Feyward basement with a jug, five honeys, a door knob, and three weeks. Hjumpik does not know he is coming. The party above does not know the tether has a deadline on it. The Oracle is counting.\n\nWAH.",
+    "outcome": "No blood, no fight, and the most productive conversation of the Raventree operation. The Oracle disclosed more in one sitting than in the entire prior record: that it is fated for both Oracles to die and for him to be the last, that the seals break without the world collapsing, and that he warned Princess Peach before her assassination and believes she knew and wanted to die. He described the scene — five or six mages' locks broken, the room untouched, a comb in her hand, the responding guards all dead of no stated cause. Bowser refused the Astral Shore offer on the grounds that the Oracle's promise that Hjumpik would 'be there' was a prophecy rather than a fact, caught the Oracle spying on Peach via a floating eyeball, and demanded the power star. They settled on a hard three-week deadline before the planar tether is cut, with Bowser's repeated request that it not be cut exactly on the mark, and Bowser's counter-offer to personally hold the Iron Legion off the Feyward. Three unnamed rewards were dangled: one that smells like peaches, one involving arts and crafts, one Bowser wanted today. Bowser also asked, on Hjumpik's behalf, whether the Oracles have to be killed at all. He then teleported alone into the Feyward basement of the Cornivours estate, where the clock started. There he met Mystic Morel — Purple T — who appeared behind him without being seen to arrive, claimed the bowl of blood, denied being an Oracle, named himself a friend of Hjumpik, set terms of non-hostility and left. Bowser took five labelled honeys, learned from a satyr that the Orange Heir is raising a tree-cutting army and that the Revel is not in charge, and found nine Goombas caged as freight. The handler called them food. Bowser established that the Mushroom Regency is shipping sentient people abroad in exchange for weapons, declared it intolerable, and left the Goombas in their cages because being captured embarrasses his kingdom. He did not pull the lever. He could not open the satyr's chest.",
+    "notableFeatures": [
+      "'A shepherd needs to tend to his garden' — the Oracle's answer for why he is in the Planar Sanctum",
+      "The Oracle casts a fishing line into the sanctum and pulls out a boot",
+      "'You're relegated to the B plot' — said to the King of the Koopas, who took it as professional offence rather than insult",
+      "THE ASSASSINATION DISCLOSURE: five or six mages' locks broken, the room untouched, Peach seated with a comb in her hand, the responding guards all dead with no stated cause",
+      "The Oracle warned Peach before her death; he believes she ignored him, or did not want to listen, and that she wanted to die",
+      "'Was it really her kingdom, or the Mushroom Kingdom?' — the question that ended Bowser's counter-argument",
+      "The Oracle has been spying on Princess Peach with a conjured floating eyeball; Bowser's objection was proprietary, not moral",
+      "The Astral Shore offer — a direct route to kill the other Oracle — declined on 'king intuition'",
+      "'In what way? Like, is he present? You Toads are very puzzly' — Bowser detecting a rigged promise from a verb tense",
+      "The Oracle's stated goal: both Oracles die, he becomes the sole Oracle, no more orbiting or watching",
+      "'The seals break, the world doesn't collapse, and you get to go home away from me'",
+      "THE THREE-WEEK CLOCK — the planar tether between the Feyward and the Material sanctum is cut in three weeks; the countdown starts on Bowser's teleport",
+      "Bowser's repeated request not to have the tether cut exactly at three weeks — he asked twice for a margin",
+      "Bowser's counter-offer: he personally keeps the Iron Legion off the Feyward instead of the Oracle cutting the plane",
+      "Three unnamed rewards promised for making the deadline: one smells like peaches, one involves arts and crafts, one is something Bowser wanted today",
+      "Bowser asks whether the Oracles have to be killed at all, on Hjumpik's behalf — the objection is on the record",
+      "'After what happened to Peach I haven't been the same' — said quietly, unprompted, to a man who had spent an hour goading him",
+      "The Oracle admits the entire conversation was a test and that half his insults were not meant",
+      "Bowser does not pull the lever in the teleport room",
+      "Five labelled honeys taken from cold storage: Warrior, Norn-Blessed, Hearth Fire, Hive Warden, Sacred Bear",
+      "Mystic Morel — Purple T — appears behind Bowser in the cold storage without being seen to arrive; the same Toad owns the bowl of blood and leaves without explaining it",
+      "'Not my blood, but yeah, it's mine' — Mystic Morel on the bowl in the teleport room",
+      "'As long as you don't get in my way, you're NOT an enemy' — the terms, stated precisely and not offered as friendship",
+      "Bowser on Hjumpik: not a friend, talks too much, would have made a good frontliner — 'I like him more than the rest of my dumb group'",
+      "Bowser's origin admission: an incident with a kingdom, a purpose lost in an instant, and vengeance as the reason he is still moving",
+      "THE CAGES: nine Goombas held as freight; the handler, asked who they are, answers 'I don't know. Food?'",
+      "The Mushroom Regency is shipping sentient people to other countries in exchange for weapons",
+      "Bowser condemns the trafficking pipeline as intolerable and leaves the Goombas in their cages anyway — being captured embarrasses his kingdom",
+      "Bowser misses his Koopas and calls them his children, in the same scene in which he abandons nine of them",
+      "The satyr rules out the Revel as his boss — 'it just eats and eats and eats' — and names the Orange Heir",
+      "The Orange Heir is organising an army of tree-cutters against the overgrowth",
+      "A green hag mocks Bowser's question back at him in his own voice",
+      "Two hands of cards, both bet 25, both wins — dealer busts against 19, then 20",
+      "Bowser punches the satyr's chest twice; the chains hold both times",
+      "THE YEAR IS DISPUTED: the Oracle says 922, the goblin says '722? maybe like 2 AM', and Bowser accepts 722 without resolving it",
+      "The estate is named on site as the Cornivours estate; the shield in the hall carries the crest of Raventree"
+    ],
+    "participants": [
+      {
+        "id": "bowser",
+        "name": "Bowser",
+        "role": "King of the Koopa Troop — negotiated the three-week clock instead of taking the one-week ultimatum — refused the Astral Shore offer on king's intuition after catching the Oracle's promise about Hjumpik as a prophecy rather than a fact — caught the Oracle spying on Peach with a floating eyeball — demanded the power star and an end to the lying — asked, on Hjumpik's behalf, whether the Oracles have to die at all — admitted he has not been the same since Peach — teleported alone into the Feyward basement — did not pull the lever — took five honeys — established that the Mushroom Regency is trafficking sentient people for weapons, declared it intolerable, and left nine caged Goombas where they were because being captured embarrasses his kingdom — failed twice to break a chained chest"
+      },
+      {
+        "id": "the_oracle",
+        "name": "The Oracle",
+        "role": "Custodian of the Planar Sanctum — 'a shepherd needs to tend to his garden' — fished a boot out of the sanctum — told Bowser he is relegated to the B plot — disclosed that it is fated for both Oracles to die and for him to become the sole Oracle — offered the Astral Shore as a route to that death and was refused — revealed he warned Peach before the assassination and believes she wanted to die — described the sealed room, the broken locks, the comb, and the dead guards — admitted to spying on the Princess via a conjured eyeball — admitted the whole conversation was a test and that half his insults were not meant — set the three-week countdown on the planar tether and promised three unnamed rewards"
+      },
+      {
+        "id": "mystic_morel",
+        "name": "Mystic Morel (Purple T)",
+        "role": "Appeared behind Bowser in the cold storage without being seen to arrive — asked whether Bowser had come to stop him — denied being an Oracle and introduced himself as a friend of Hjumpik — lost interest once Bowser proved not to be a newcomer — indifferent to Archie Miser and the Mages' Guild's interest in him — claimed the bowl of blood in the teleport room, 'not my blood, but yeah, it's mine' — asked whether Bowser had touched anything in that room — set the terms: 'as long as you don't get in my way, you're NOT an enemy' — wished him luck and left; the door slammed behind him"
+      },
+      {
+        "id": "hjumpik",
+        "name": "Hjumpik Deldkur",
+        "role": "Absent and discussed — the Oracle promised he would 'be there' at the Astral Shore in the same way it is fated for the Oracles to die, which Bowser read as a trap — Bowser relayed his stated wish to talk to the Oracles rather than kill them — assessed by Bowser as a good frontliner who talks too much, and as the only member of the group he actually likes"
+      }
+    ],
+    "keyBattles": [],
+    "relatedArticles": [
+      "the_telescope_and_the_tennis_match",
+      "the_planar_sanctum_revelation",
+      "the_oracle",
+      "bowser",
+      "mystic_morel",
+      "hjumpik",
+      "feyward_manor_basement",
+      "overgrown_manor",
+      "princess_peach",
+      "archie_miser",
+      "lady_aurelian",
+      "darius_sanctum",
+      "planar_fracture",
+      "feyward_i_cant_afford_not_to_care"
+    ],
+    "reputationChanges": {
+      "bowser": {
+        "corvinarus_family": 6,
+        "mushroom_regency": -12
+      },
+      "the_oracle": {
+        "corvinarus_family": 4
+      }
+    },
+    "effects": {
+      "corvinarus_family": 5,
+      "mushroom_regency": -10
+    },
+    "reputationNotes": {
+      "bowser": "Negotiated a planar deadline up from one week to three without conceding the kill, refused a rigged shortcut, and took a public position against the Mushroom Regency's trafficking pipeline — then left nine of his own countrymen in the cages, which the archive records alongside the position rather than behind it.",
+      "the_oracle": "Disclosed more than at any prior point in the operation, including the assassination scene and his own intention to become the sole Oracle, and admitted the conversation was a test.",
+      "_record": "The Mushroom Regency is now on the record, via a goblin freight handler in another plane, as shipping sentient people abroad in exchange for weapons. The claim is uncorroborated and comes from a hostile source under no obligation to be accurate, but it is specific and it names a mechanism."
+    },
+    "aftermath": "**Standing.** A hard three-week countdown is running on the planar tether between the Feyward and the Material sanctum; it started the moment Bowser teleported. Bowser is in the Feyward basement alone, carrying five honeys, a jug, and a door knob. Hjumpik and the Feyward party do not know the clock exists, do not know Bowser is beneath them, and are three sessions into their own operation upstairs. The Oracle is counting and has promised three unnamed rewards if the deadline holds. Nine Goombas remain caged as freight. The Orange Heir is raising a tree-cutting army. The satyr's chest is still shut.\n\n**Unresolved.** The basement's year: the Oracle said 922, the goblin said 722, and nobody settled it. The archive files both readings rather than pick one.",
+    "waluigiAssessment": "Waluigi wants to isolate the thing that actually happened here, because the session looks like a negotiation and is in fact an audit of Bowser conducted by a Toad with a fishing rod.\n\nThe Oracle insulted him, barred him, dangled a shortcut, and named Peach — the one subject that has reliably produced property damage for eighty-five years. Bowser did not swing. At the end the Oracle said so out loud, which means the entire exchange was instrumentation and the reading was taken before Bowser knew he was being read. He was measured, and he passed a test whose passing condition was restraint.\n\nAnd Bowser knew he was being handled and made the deal anyway, because the deal was better than the ultimatum. One week became three. A cut tether became a margin he asked for twice. That is not a man being outplayed. That is a man who understands he is the weaker party at the table and is negotiating competently from there.\n\nThen there is the assassination. Waluigi has been building this file for a long time and has never had a witness say *I warned her.* An untouched room behind five or six broken mages' locks, a comb still in her hand, and every responding guard dead with no cause recorded. That is not a killing. That is a composition. Someone wanted the room to be read a particular way, and the Oracle — who watches, who ponders, who admits to a floating eyeball over the Princess — is now the closest thing this archive has to a source who was paying attention at the time.\n\nWaluigi does not believe the Oracle is telling the truth. Waluigi believes he is telling *a* truth, selected, on purpose, to a man he had just finished measuring.\n\nAnd then the cages.\n\nWaluigi is not going to be delicate about this section. In the same hour, Bowser said he misses his Koopas and called them his children; identified a Regency pipeline shipping sentient people abroad for weapons; correctly called it intolerable; and walked away from nine of them in a crate because being captured makes his kingdom look bad. All four of those are true at once. That is the character. Not a hypocrite discovering himself — a man whose loyalty runs exactly as deep as his reputation requires and stops precisely there.\n\nHe did not pull the lever. He could not open the chest. He left his countrymen in the cages, and he has three weeks.\n\nWAH.",
+    "xpAwards": [
+      {
+        "xpKey": "bowser",
+        "articleId": "bowser",
+        "name": "Bowser",
+        "cat": "social",
+        "xp": 520,
+        "title": "Event - The Shepherd's Garden and the Three-Week Clock",
+        "desc": "Negotiated a one-week ultimatum up to three weeks without conceding the kill, spotted a rigged offer from a single evasive verb tense and refused it, and held his temper through an hour of deliberate provocation including Peach.",
+        "date": "5 Aethel, 1040 BF",
+        "dateSort": 10400905
+      },
+      {
+        "xpKey": "theoracle",
+        "articleId": "the_oracle",
+        "name": "The Oracle",
+        "cat": "social",
+        "xp": 420,
+        "title": "Event - The Shepherd's Garden and the Three-Week Clock",
+        "desc": "Measured Bowser through an hour of engineered provocation, obtained the reading he wanted, and traded the assassination disclosure for a deadline he set the terms of.",
+        "date": "5 Aethel, 1040 BF",
+        "dateSort": 10400905
+      },
+      {
+        "xpKey": "mysticmorel",
+        "articleId": "mystic_morel",
+        "name": "Mystic Morel (Purple T)",
+        "cat": "social",
+        "xp": 180,
+        "title": "Event - The Shepherd's Garden and the Three-Week Clock",
+        "desc": "Appeared behind a Koopa king without being seen to arrive, established terms of non-hostility on his own wording, and disclosed nothing.",
+        "date": "5 Aethel, 1040 BF",
+        "dateSort": 10400905
+      }
+    ],
+    "imageCaption": "The Planar Sanctum, mid-negotiation. Bowser with both arms out demanding to know why he is in a dumb space garden; the Oracle seated on a floating slab with a fishing rod, having just pulled a sodden boot out of the void. The size difference is the whole conversation: the small calm one set the terms.",
+    "sections": [
+      {
+        "name": "The Garden and the Boot",
+        "icon": "🎣",
+        "subtitle": "a shepherd tends his garden, and the star of the show is informed he is a subplot",
+        "overview": "Bowser asked the obvious question and got the answer that names the session: *a shepherd needs to tend to his garden.*\n\nHe said it reminded him of the galaxy, back when he took over the Mushroom Kingdom for a second, and noted the absences out loud — no stars, no Rosalina. Then he asked whether the Oracle had any stars.\n\nThe Oracle cast a fishing line into the sanctum and pulled out a boot.\n\nBowser's response was not anger. It was professional offence: *I'm the star of the show.* The Oracle told him he was relegated to the B plot.",
+        "waluigi_note": "*WAH.* A forty-something Toad custodian told the King of the Koopas he was a subplot, to his face, while holding a wet boot, and is still alive. Waluigi has seen people lose limbs for less and wants that on the record.",
+        "image": "assets/images/events/shepherds-garden/shg-01-the-boot.jpg",
+        "imageCaption": "The negotiation, accurately staged. Bowser with both arms out demanding to know why he is in a dumb space garden; the Oracle seated on a floating slab with a rod, having just landed a boot. The size difference is the whole conversation — the small calm one set the terms."
+      },
+      {
+        "name": "The Test Nobody Told Him About",
+        "icon": "🧪",
+        "subtitle": "an hour of deliberate provocation, and the one time Bowser did not swing",
+        "overview": "The fight never came, and at the end the Oracle said why: *you've gotten soft. I insulted you, I barred you, I even mentioned Peach, and you didn't attack once.* He added that half of what he said he did not mean.\n\nHe had been measuring. The entire exchange was instrumentation, and Bowser was told only after the reading was taken.\n\nBowser's answer is the quietest line in his file. He looked down and said that after what happened to Peach, he has not been the same.\n\nThe Oracle: *we all change, don't we. We just don't all reflect on our actions. Some change for the better, some for the worse.*",
+        "waluigi_note": "*WAH.* Waluigi has documented this subject through four dimensional crises and has never once seen him absorb the name Peach without breaking something. He absorbed it here, from a man who said it on purpose to see what would happen."
+      },
+      {
+        "name": "What the Oracle Knows About the Assassination",
+        "icon": "👁️",
+        "subtitle": "five or six broken locks, an untouched room, and a comb still in her hand",
+        "overview": "Bowser caught him spying. A snap of the fingers and a floating eyeball appeared — the Oracle had been watching the Princess with it. Bowser's objection was proprietary rather than moral: *only I get to do that.*\n\nAsked why he cared, the Oracle said he wanted to know what drives a person to kill someone. Then he described the scene.\n\nFive or six mages' locks broken. The room untouched. She sat there with a comb in her hand, dead, unmoving, the blood staining the floor. The guards came in. They all died, and the record does not say why.\n\n> *Yes. I know a lot of things. I ponder. I am the Oracle. I warned her. She ignored me — or maybe she didn't want to listen. She knew. She wanted to die.*\n\nBowser rejected it: she had a kingdom to take care of, someone had to do it. The Oracle ended that line with a question — *was it really her kingdom, or the Mushroom Kingdom?*",
+        "waluigi_note": "*WAH.* Waluigi is not neutral here. Broken locks, an unbroken room, a comb still in her hand and a full guard detachment dead of no stated cause is not a description of a murder. It is a description of a scene arranged to be read. And the only witness willing to discuss it is a man who admits to keeping an eyeball over her."
+      },
+      {
+        "name": "The Astral Shore, Declined",
+        "icon": "🪝",
+        "subtitle": "a shortcut to the thing he wants, refused over one evasive verb",
+        "overview": "The Oracle offered to send Bowser straight to the other Oracle, at a place called the Astral Shore, where he *may kill* him. Bowser asked whether Hjumpik would be there. The Oracle smiled: yes, he'll be there.\n\nBowser did not take it.\n\n> In what way? Like, is he *present*? You Toads are very puzzly. You hide your intentions.\n\nThe clarification confirmed it: Hjumpik would be there in the same way that it is fate for both Oracles to die and for this one to become the sole Oracle. No more orbiting. No more watching. A prophecy, not a promise — and a prophecy is satisfied just as well by a corpse.\n\nAsked what he got out of it, the Oracle named three things: the seals break, the world does not collapse, and Bowser gets to go home away from him.\n\n> Something tells me Hjumpik isn't there. Call it king intuition.\n\nHe demanded the power star and an end to the lying. *If I was that dumb, I wouldn't be a king.*",
+        "waluigi_note": "*WAH.* Waluigi wants this filed prominently, because the archive has spent years describing this man as a blunt instrument. He was handed the shortest route to his own objective, detected the trap in a verb tense, and walked away from it."
+      },
+      {
+        "name": "Three Weeks",
+        "icon": "⏳",
+        "subtitle": "the clock starts on teleport, and he asked twice for a margin",
+        "overview": "The Oracle wanted blood inside one week, or he would manually cut the planar tether joining the Feyward to the Material sanctum. Bowser countered.\n\nHe asked for three weeks, on the grounds that these guys are slow. He argued Hjumpik avoids fights and talks — *he loves to talk, talk, talk* — so two or three weeks is realistic and four is the failure case. Then he offered something better than a deadline: instead of the Oracle cutting the plane, Bowser personally keeps the Iron Legion off the Feyward, and if he goes down he goes out on his own terms rather than through his companions.\n\nHe asked for one concession, twice: **do not cut it exactly at three weeks.** Give him a margin.\n\nThe counter-offer was three surprises if he makes it — one that smells like peaches, one involving arts and crafts, and one that is something Bowser wanted today.\n\nHe heard *peaches* and did not get angry, and did not let himself hope: *I don't know if this is a test or get hopes up.*\n\nOne more thing belongs in the record. Bowser asked whether they have to kill the Oracles at all, since Hjumpik had said he wanted to talk to them. **That objection came from Bowser.**",
+        "waluigi_note": "*WAH.* One week became three. A severed plane became a margin he had to ask for twice. That is not a man being outplayed — that is a man who knows he is the weaker party and negotiates properly from there. The clock starts on the teleport, not on the handshake."
+      },
+      {
+        "name": "The Basement Nobody Was Watching",
+        "icon": "🕯️",
+        "subtitle": "a bowl of blood, a lever, and the honey",
+        "overview": "He landed alone. A sigil carved in the floor, a table, a bowl of blood, candles lighting the room warmly. Above him the muffled Revel; around him the clear sound of dripping water. And a lever on the wall which Bowser described as *begging to be touched.*\n\nHe did not pull it. *My workplace. I don't have time to be wasting.*\n\nHe stepped off the altar, passed the crest of Raventree on a shield, walked over bones and candles, and thought — *I think I was there* — the first sign in the record that he recognises this estate. He failed to pick a lock because his hands are too big. He found cold storage and five labelled honeys: Warrior, Norn-Blessed, Hearth Fire, Hive Warden, Sacred Bear.\n\nThen, from behind him, a voice with an opinion about preserves.",
+        "waluigi_note": "*WAH.* Waluigi has read the lever sentence four times. A wall lever, unlabelled, in a room he had just been deposited in by a man he does not trust, and he left it alone. Growth is a horrible thing to witness."
+      },
+      {
+        "name": "The Toad Who Was Already Behind Him",
+        "icon": "🍄",
+        "subtitle": "Purple T claims the blood, denies being an Oracle, and answers nothing",
+        "overview": "There is one Toad in this basement, and he is already behind you.\n\n**Mystic Morel — Purple T** — spoke from behind Bowser while Bowser was inspecting the cold storage. His opening contribution was a correction about preserves: *I prefer jam.* Bowser asked who he was. He denied being an Oracle, introduced himself as a friend of Hjumpik, and lost interest the moment Bowser proved not to be a newcomer — *oh, thought you were a newcomer. What are you doing down here, come to stop me?*\n\nHe is also the one who owns the bowl of blood on the altar table. *Not my blood, but yeah, it's mine.* He asked whether Bowser had touched anything in that room, was told no, said he had been using it, wished him the best of luck and left. The door slammed. Bowser took the honey.\n\nBetween the two of them the session learned far more about Bowser than about the Toad. On Archie: a destructive force, a headache, wanted by the Mages' Guild, *kinda crazy* — not a random magic user. The reply was indifference. On the fireballs: *it reminds me of me, back in the day.* Asked why he stopped, Bowser gave an answer he has never given in this archive before — an incident with a kingdom, he slowed, he started to realise life isn't about throwing fireballs, he lost his purpose in an instant, and he is here for vengeance. The Toad recognised a shared goal and said so.\n\nThen the terms, from his side: *as long as you don't get in my way, you're NOT an enemy.*\n\nAnd on Hjumpik, Bowser said the quiet thing: he would have made a good frontliner in one of his kingdom battles. He talks too much. **Not a friend — but I like him more than the rest of my dumb group.**",
+        "waluigi_note": "*WAH.* Note the precision of the Toad's sentence. Not 'you are a friend.' Not even 'we are allies.' A conditional absence of hostility, with the condition stated first. Waluigi has read contracts with more warmth. And note what he never answered: what the blood is for, what he was using the room for, or why a fortune teller who robs people is standing in the Feyward with a bowl of it."
+      },
+      {
+        "name": "The Cages",
+        "icon": "⛓️",
+        "subtitle": "nine Goombas, a weapons trade, and the door he pulled shut behind him",
+        "overview": "A goblin called him over to move cargo. He asked where he was and what the time was, and got the answer this filing cannot resolve: *722? Maybe like 2 AM.* The Oracle had said 922. Bowser said *722, right, okay* and moved on.\n\nHe asked which castle he was in and was corrected: not a castle, a mansion — the **Cornivours estate**. The goblin found his confusion suspicious.\n\nThen the handler called him a Goomba. *Who are you calling a Goomba? Show me the Goomba.*\n\nThe handler brought out a cage. Asked who was inside, he said: *I don't know. Food?*\n\nThe cargo is Goombas. Nine of them, stacked. Bowser asked where they came from and who sent them, and got the shape of an answer that reframes the whole operation: there was an ambush, there is a whole food chain, and **the Mushroom Regency is shipping people off to other countries for weapons.**\n\nBowser declared it could not be tolerated and that he would deal with them later. He asked whether any of them had sold information, threatened to smash one that hesitated — and left them in the cages.\n\nHis reasons: they are meant to be his men, getting caught brings his kingdom's reputation down, they are dumb for getting caught, and he does not want them getting stopped the way Mario did.",
+        "waluigi_note": "*WAH.* In the same hour he said he misses his Koopas and called them his children. Then he identified a Regency pipeline trading sentient people for weapons, called it correctly, and walked past nine of his own countrymen in a crate because letting them out would look bad. All of that is true at once. That is not a hypocrite discovering himself — that is a man whose loyalty runs exactly as deep as his reputation requires and stops precisely there.",
+        "image": "assets/images/events/shepherds-garden/shg-02-the-cages.jpg",
+        "imageCaption": "The last look. Nine Goombas held as freight in a Feyward cellar, and the King of the Koopas leaving — head turned back over his shoulder, jaw set, already walking. He called the trade intolerable on his way out."
+      },
+      {
+        "name": "The Satyr, and the Chest That Held",
+        "icon": "🃏",
+        "subtitle": "cards, the Orange Heir, and the session's only honest defeat",
+        "overview": "Past the cages: a satyr playing cards against himself, who does not go out much and is not a fan of the Revel but keeps the drinks going up to it. Bowser asked after Hjumpik and a dwarf, and got a ruckus outside and nothing more.\n\nThey played two hands, both bet 25, both wins — dealer busts against 19, then 20.\n\nThe satyr's intelligence is better than his card play. Asked who his boss was, he ruled out the Revel with real disgust — *that pile of fleshy, mouldy thing? How could it even speak? It just eats and eats and eats* — and named the **Orange Heir**, who is organising an army of tree-cutters against the overgrowth. A green hag walked in, mocked Bowser's own question back at him in his own voice, and the door closed.\n\nThe chests hold personal mementos, supplies, people's beds. Bowser was handed a jug and told it could be filled on the way out, possibly to get someone drunk.\n\nHe punched the chest anyway. The chains rattled. He punched it again. The chains held.",
+        "waluigi_note": "*WAH.* A man who cracked the floor of a clockwork observatory with one punch could not open a cellar footlocker in two. Waluigi is choosing to find this funny because the alternative is thinking about the cages again."
+      }
+    ]
   }
 ]

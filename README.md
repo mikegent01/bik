@@ -436,3 +436,47 @@ Rules for planar dates:
 · Cross-plane causality ("this happened while that was happening") is
   prose, not dates — hedge it in the text, not in the date field.
 ```
+
+### Running deadlines — the clock moves when you file, not when you remember
+
+Some filings start a **timer** that is still running: the Feyward tether cut is
+the live one. Timers live in `calendarMeta.json` → `deadlines[]`, and the site
+renders them as a countdown on the home page and the calendar page.
+
+**The remaining time is derived, never stored.** The site finds the newest filed
+session on the timer's own `clock`, reads that filing's `timeCode`, and
+subtracts it from `startedOn`. There is no counter to decrement.
+
+So the rule is short:
+
+```
+· Filing a session on a timer's clock IS how the timer advances. Give the
+  session an accurate timeCode — with the HOUR when the record supports one
+  (TC:0922-09-05T14:00/FEY) — and the countdown falls by itself.
+· A Feyward session in the present moves the Feyward clock. Do not file one
+  with a date earlier than the previous Feyward session; the countdown reads
+  the NEWEST filing on that clock and time does not run backwards.
+· Never hand-edit the remaining time, and never add an `elapsedDays` field.
+  A stored counter drifts out of sync with the filings the first time
+  somebody forgets it. There is a test asserting the field is absent.
+· `startedOn` is the moment the term began. It does not move, ever.
+· Only set an hour you can point at in the record. If the session does not
+  establish a time, leave the timeCode at day precision — the countdown
+  simply measures whole days, which is honest.
+```
+
+**When a timer reaches zero:** it has fired. Resolve it in the fiction — file the
+session where the consequence lands — then set the deadline's `status` to
+`"resolved"` and **delete this section's entry from the live list below**. The
+panel only renders timers whose status is not `resolved`, so a fired timer
+disappears from the home page on its own, but the README list is hand-kept and
+must be pruned in the same commit.
+
+**Live timers:**
+
+| Timer | Clock | Term | Fires | Consequence |
+|---|---|---|---|---|
+| `feyward_tether_cut` | FEY | 21 days from 3 Aethel, 922 BF | 24 Aethel, 922 BF (Feyward clock) | The planar tether joining the Feyward to the Material sanctum is cut, closing the route between the Feyward party and the sanctum |
+
+*(When that row fires: resolve it, mark it `resolved`, and remove the row. If the
+table is left with no rows, delete the table and leave the rule above.)*

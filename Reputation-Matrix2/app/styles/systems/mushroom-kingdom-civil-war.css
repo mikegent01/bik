@@ -2477,3 +2477,99 @@
     font-size: 0.75rem;
     color: #9ca3af;
 }
+/* ============================================================
+   MOMENTUM PANEL — Power Projection Monitor
+   The monitor rendered absolute standings only, so it looked the same
+   after every session. This panel renders CHANGE, derived from the
+   reputationChanges ledger on filed events.
+   ============================================================ */
+.mom-section{
+  margin-top:18px;padding-top:4px;
+  border-top:1px solid rgba(255,255,255,.08);
+}
+.mom-note{
+  margin:6px 0 14px;font-size:12.5px;line-height:1.55;color:var(--muted,#9aa);
+  max-width:80ch;
+}
+.mom-note code{
+  font-size:11.5px;padding:1px 5px;border-radius:4px;
+  background:rgba(255,255,255,.07);
+}
+.mom-grid{
+  display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);
+  gap:18px;align-items:start;
+}
+@media (max-width:900px){ .mom-grid{grid-template-columns:1fr} }
+
+.mom-movers{display:flex;flex-direction:column;gap:7px}
+.mom-row{
+  display:grid;grid-template-columns:30px minmax(72px,132px) 1fr 74px;
+  align-items:center;gap:11px;width:100%;
+  padding:8px 11px;border-radius:10px;cursor:pointer;text-align:left;
+  background:rgba(255,255,255,.028);
+  border:1px solid rgba(255,255,255,.07);
+  color:inherit;font:inherit;
+  transition:background .15s,border-color .15s,transform .15s;
+}
+.mom-row:hover{
+  background:rgba(255,255,255,.06);
+  border-color:rgba(255,255,255,.17);
+  transform:translateX(2px);
+}
+.mom-icon{
+  width:30px;height:30px;border-radius:8px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:15px;border:1px solid;
+}
+.mom-name{
+  font-weight:700;font-size:13px;white-space:nowrap;
+  overflow:hidden;text-overflow:ellipsis;
+}
+.mom-track{
+  position:relative;height:8px;border-radius:99px;
+  background:rgba(255,255,255,.07);overflow:hidden;
+}
+.mom-fill{
+  position:absolute;inset:0 auto 0 0;border-radius:99px;
+  animation:momGrow .55s cubic-bezier(.22,.9,.3,1) both;
+}
+.mom-fill.up{background:linear-gradient(90deg,#2fae8a,#7ce0b8)}
+.mom-fill.down{background:linear-gradient(90deg,#e5484d,#ff9d90)}
+.mom-fill.flat{background:rgba(255,255,255,.22)}
+@keyframes momGrow{from{transform:scaleX(0);transform-origin:left}to{transform:scaleX(1)}}
+.mom-net{
+  font-variant-numeric:tabular-nums;font-weight:800;font-size:13px;
+  text-align:right;white-space:nowrap;
+}
+.mom-net.up{color:#7ce0b8}
+.mom-net.down{color:#ff9d90}
+.mom-net.flat{color:var(--muted,#9aa)}
+
+.mom-feed{
+  border:1px solid rgba(255,255,255,.07);border-radius:12px;
+  background:rgba(0,0,0,.16);padding:11px 12px;
+}
+.mom-feed-head{
+  font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;
+  font-weight:800;color:var(--muted,#9aa);margin-bottom:8px;
+}
+.mom-feed-row{
+  display:grid;grid-template-columns:48px 1fr;gap:10px;align-items:start;
+  padding:7px 6px;border-radius:8px;text-decoration:none;color:inherit;
+  transition:background .13s;
+}
+.mom-feed-row:hover{background:rgba(255,255,255,.055)}
+.mom-feed-delta{
+  font-variant-numeric:tabular-nums;font-weight:800;font-size:13px;
+  text-align:right;padding-top:1px;
+}
+.mom-feed-delta.up{color:#7ce0b8}
+.mom-feed-delta.down{color:#ff9d90}
+.mom-feed-delta.flat{color:var(--muted,#9aa)}
+.mom-feed-body{display:flex;flex-direction:column;gap:1px;min-width:0}
+.mom-feed-body b{font-size:12.5px;line-height:1.3}
+.mom-feed-event{
+  font-size:11.5px;color:var(--muted,#9aa);line-height:1.4;
+  overflow:hidden;text-overflow:ellipsis;display:-webkit-box;
+  -webkit-line-clamp:2;-webkit-box-orient:vertical;
+}

@@ -2013,6 +2013,90 @@ a.craft-buy-mini{display:block;text-align:center;text-decoration:none}
   padding-top:10px;border-top:1px solid var(--border);
 }
 
+/* Long infobox values that used to be rendered as unbounded pills. A pill is
+   for a short scalar; an event `outcome` runs to nearly 2,000 characters, so
+   it reads as a definition row instead. */
+.metafacts{display:grid;gap:8px;margin:0 0 12px;padding:0}
+.metafact{display:grid;grid-template-columns:minmax(88px,140px) 1fr;gap:12px;
+  padding:9px 12px;border:1px solid var(--border);border-radius:10px;
+  background:color-mix(in srgb, var(--art-accent, var(--accent)) 5%, var(--bg2));}
+.metafact dt{margin:0;font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+  font-weight:800;color:var(--art-accent, var(--accent2));padding-top:2px}
+.metafact dd{margin:0;font-size:14px;line-height:1.6;color:var(--text)}
+@media (max-width:640px){.metafact{grid-template-columns:1fr;gap:3px}}
+
+/* Appearance chronology — first seen / last seen. */
+.appear-panel{margin:18px 0 6px}
+.appear-panel h2{margin:0 0 4px}
+.appear-sub{color:var(--muted);font-size:13px;margin-bottom:10px}
+.appear-span{color:var(--art-accent, var(--accent2));font-weight:700}
+.appear-ends{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px}
+.appear-card{display:grid;gap:3px;padding:11px 13px;border:1px solid var(--border);
+  border-radius:12px;background:var(--bg2);text-decoration:none;
+  border-left:3px solid var(--art-accent, var(--accent));transition:background .15s,transform .15s}
+.appear-card:hover{background:color-mix(in srgb, var(--art-accent, var(--accent)) 9%, var(--bg2));transform:translateY(-1px)}
+.appear-label{font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;
+  font-weight:800;color:var(--art-accent, var(--accent2))}
+.appear-title{font-size:14px;font-weight:700;line-height:1.4;color:var(--text)}
+.appear-when{font-size:12px;color:var(--muted)}
+.appear-undated{margin-top:9px;font-size:12.5px;color:var(--muted);line-height:1.6}
+.appear-clocks{margin-top:10px;font-size:12.5px;color:var(--muted);line-height:1.6}
+.appear-clocks ul{margin:4px 0 0;padding-left:18px}
+.appear-clocks b{color:var(--art-accent, var(--accent2))}
+
+/* Running in-world deadlines (calendarMeta.deadlines). */
+.dline-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:12px}
+.dline{border:1px solid var(--border);border-left:3px solid #e0b400;border-radius:12px;
+  padding:13px 15px;background:var(--bg2)}
+.dline--urgent{border-left-color:#e5484d;background:rgba(229,72,77,.06)}
+.dline-head{display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap}
+.dline-icon{font-size:15px}
+.dline-tag{margin-left:auto;font-size:10px;letter-spacing:.12em;font-weight:800;
+  padding:2px 7px;border:1px solid var(--border);border-radius:999px;color:var(--muted)}
+.dline-clock{display:flex;align-items:flex-end;gap:2px;margin:6px 0 4px;
+  font-variant-numeric:tabular-nums}
+.dline-seg{display:flex;flex-direction:column;align-items:center;min-width:56px}
+.dline-seg b{font-size:34px;line-height:1;font-weight:900;color:#e0b400;letter-spacing:-.02em}
+.dline-seg i{font-style:normal;font-size:9px;letter-spacing:.14em;text-transform:uppercase;
+  font-weight:800;color:var(--muted);margin-top:3px}
+.dline-colon{font-size:28px;line-height:1;font-weight:900;color:var(--muted);
+  padding-bottom:14px}
+.dline--urgent .dline-seg b{color:#ff8a86}
+.dline-days{font-size:12px;letter-spacing:.08em;text-transform:uppercase;
+  font-weight:800;color:var(--muted);margin:4px 0 8px}
+.dline--urgent .dline-days{color:#ff8a86}
+
+/* Home-page banner — the countdown has to be the first thing you see. */
+.dline-banner{display:flex;align-items:center;gap:18px;flex-wrap:wrap;
+  margin:0 0 16px;padding:15px 20px;border-radius:14px;
+  border:1px solid rgba(224,180,0,.45);border-left:5px solid #e0b400;
+  background:linear-gradient(90deg,rgba(224,180,0,.13),rgba(224,180,0,.03));
+  cursor:pointer;transition:transform .15s,border-color .15s}
+.dline-banner:hover{transform:translateY(-1px);border-color:rgba(224,180,0,.75)}
+.dline-banner.is-urgent{border-color:rgba(229,72,77,.55);border-left-color:#e5484d;
+  background:linear-gradient(90deg,rgba(229,72,77,.14),rgba(229,72,77,.03))}
+.dline-banner .dbn-label{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;
+  font-weight:900;color:#e0b400}
+.dline-banner.is-urgent .dbn-label{color:#ff8a86}
+.dline-banner .dbn-name{font-size:15px;font-weight:800;color:var(--text);line-height:1.3}
+.dline-banner .dbn-sub{font-size:12px;color:var(--muted);margin-top:2px}
+.dbn-main{flex:1;min-width:210px}
+.dbn-clock{display:flex;align-items:flex-end;gap:2px;font-variant-numeric:tabular-nums}
+.dbn-clock .dline-seg b{font-size:40px}
+@media (max-width:620px){.dbn-clock .dline-seg b{font-size:31px}.dline-seg{min-width:46px}}
+.dline-track{height:6px;border-radius:99px;background:rgba(255,255,255,.09);overflow:hidden}
+.dline-fill{height:100%;background:linear-gradient(90deg,#e0b400,#e5484d)}
+.dline-sub{margin-top:6px;font-size:12px;color:var(--muted)}
+.dline-row{display:grid;grid-template-columns:78px 1fr;gap:9px;margin-top:7px;
+  font-size:12.5px;line-height:1.55}
+.dline-row span{color:var(--muted);text-transform:uppercase;font-size:10px;
+  letter-spacing:.1em;font-weight:800;padding-top:3px}
+.dline-row b{font-weight:600;color:var(--text)}
+.appear-flag{margin-top:10px;font-size:12.5px;line-height:1.6;padding:8px 11px;
+  border:1px solid rgba(224,180,0,.42);border-left:3px solid #e0b400;
+  border-radius:9px;background:rgba(224,180,0,.07);color:var(--text)}
+
+
 /* Per-type accents, set by view_article on #content. */
 [data-arttype="characters"]{--art-accent:#5aa9e6}
 [data-arttype="factions"]  {--art-accent:#e05a4a}

@@ -832,15 +832,37 @@ def build(check=False):
             print("judgement in the grove: filed battle does not match the generator")
             return 1
         # Front-page wiring - the part that was missed last time.
-        if (mainpage.get("latestUpdate") or {}).get("id") != EVENT_ID:
-            print("judgement in the grove: mainPage.latestUpdate is not this event")
-            return 1
-        if (mainpage.get("featuredArticle") or {}).get("id") != EVENT_ID:
-            print("judgement in the grove: mainPage.featuredArticle is not this event")
-            return 1
+        #
+        # These three only bind while this filing is still the newest one in
+        # the archive. A later session is SUPPOSED to take latestUpdate, the
+        # featured slot and the head of SITE_UPDATES; asserting otherwise made
+        # this generator fail the moment anything was filed after it. The
+        # campaign-cover check below is unconditional, because the Shadeward
+        # front stays this event's until another Shadeward session replaces it.
+        is_newest = bool(ev_list) and ev_list[-1].get("id") == EVENT_ID
+        if is_newest:
+            if (mainpage.get("latestUpdate") or {}).get("id") != EVENT_ID:
+                print("judgement in the grove: mainPage.latestUpdate is not this event")
+                return 1
+            if (mainpage.get("featuredArticle") or {}).get("id") != EVENT_ID:
+                print("judgement in the grove: mainPage.featuredArticle is not this event")
+                return 1
         cover_rows = mainpage.get("campaignCovers") or []
         covers = {c.get("articleId") for c in cover_rows}
-        if EVENT_ID not in covers:
+        # The Shadeward front is this event's only until a NEWER Shadeward
+        # session takes it. "One cover per campaign; newest filing replaces,
+        # never stacks" is the house rule, so demanding this event hold the
+        # front forever would make every later Shadeward filing fail this
+        # check. Only assert the front while no newer Shadeward filing exists.
+        ids = [e.get("id") for e in ev_list]
+        here = ids.index(EVENT_ID) if EVENT_ID in ids else -1
+        newer_shadeward = [
+            e for i, e in enumerate(ev_list)
+            if i > here
+            and str(e.get("timeCode") or "").endswith("/SHD")
+            and e.get("image")
+        ]
+        if EVENT_ID not in covers and not newer_shadeward:
             print(f"judgement in the grove: Current fronts is missing {EVENT_ID}")
             return 1
         # One front per campaign, or a campaign crowds the others off the strip.
@@ -853,8 +875,13 @@ def build(check=False):
                 return 1
             seen[camp] = c.get("articleId")
         html = INDEX.read_text(encoding="utf-8")
-        if f'"id": "{EVENT_ID}"' not in html.split("let SITE_UPDATES=[", 1)[-1][:4000]:
-            print("judgement in the grove: SITE_UPDATES does not lead with this event")
+        updates_blob = html.split("let SITE_UPDATES=[", 1)[-1]
+        if is_newest:
+            if f'"id": "{EVENT_ID}"' not in updates_blob[:4000]:
+                print("judgement in the grove: SITE_UPDATES does not lead with this event")
+                return 1
+        elif f'"id": "{EVENT_ID}"' not in updates_blob[:40000]:
+            print("judgement in the grove: SITE_UPDATES has dropped this event")
             return 1
         row = salam_row(chars)
         if not row:
