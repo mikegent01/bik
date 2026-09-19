@@ -43,7 +43,11 @@ def load_splitter():
 players = load_players()
 check("Players.json is a root-level list", isinstance(players, list))
 by_name = {a.get("name"): a for a in players}
-check("eleven actors in Players.json", len(players) == 11, str(len(players)))
+# The roster grows when a player joins; assert the shape, not a magic number.
+# (11 at the 2026-09-08 intake, 12 once Bowser's live export was taken in.)
+check("Players.json holds the party roster", len(players) >= 11, str(len(players)))
+check("every actor has a name and a type",
+      all(a.get("name") and a.get("type") for a in players))
 ids = [a.get("_id") for a in players]
 check("actor _ids unique", len(set(ids)) == len(ids), str(sorted(ids)))
 
@@ -57,7 +61,8 @@ check("only documented skips",
       all(any(name in line for name in splitter.SKIP) for line in skipped),
       "; ".join(skipped))
 split_names = {a.get("name") for a in players} - set(splitter.SKIP)
-check("ten entries split", len(fresh) == 10, "; ".join(fresh))
+check("every non-skipped entry is split",
+      len(fresh) == len(split_names), "; ".join(fresh))
 
 # --- originals are untouched JSON-equal slices of the live entries ---
 for actor in players:

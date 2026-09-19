@@ -135,7 +135,12 @@ for needle in ("'rolls','inventory','session-loot'",
                "sheet-loot-body", "Open character sheet"):
     check(f"index.html wires {needle[:42]}", needle in src)
 sheet_files = re.findall(r"file:'(fvtt-Actor-[^']+\.json)'", src)
-check("thirteen actor sheets mapped", len(sheet_files) == 13, str(len(sheet_files)))
+# The registry grows when a player joins (13 before Bowser's live export was
+# taken in). Assert the invariants -- non-empty, unique, every file real --
+# rather than a count that has to be edited on every intake.
+check("actor sheets mapped", len(sheet_files) >= 13, str(len(sheet_files)))
+check("no duplicate actor sheet files",
+      len(set(sheet_files)) == len(sheet_files), str(len(sheet_files)))
 missing = [f for f in sheet_files if not (ROOT / "Reputation-Matrix2" / "actors" / f).exists()]
 check("every mapped actor file exists", not missing, ",".join(missing))
 
