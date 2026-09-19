@@ -2013,6 +2013,41 @@ a.craft-buy-mini{display:block;text-align:center;text-decoration:none}
   padding-top:10px;border-top:1px solid var(--border);
 }
 
+/* Long infobox values that used to be rendered as unbounded pills. A pill is
+   for a short scalar; an event `outcome` runs to nearly 2,000 characters, so
+   it reads as a definition row instead. */
+.metafacts{display:grid;gap:8px;margin:0 0 12px;padding:0}
+.metafact{display:grid;grid-template-columns:minmax(88px,140px) 1fr;gap:12px;
+  padding:9px 12px;border:1px solid var(--border);border-radius:10px;
+  background:color-mix(in srgb, var(--art-accent, var(--accent)) 5%, var(--bg2));}
+.metafact dt{margin:0;font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+  font-weight:800;color:var(--art-accent, var(--accent2));padding-top:2px}
+.metafact dd{margin:0;font-size:14px;line-height:1.6;color:var(--text)}
+@media (max-width:640px){.metafact{grid-template-columns:1fr;gap:3px}}
+
+/* Appearance chronology — first seen / last seen. */
+.appear-panel{margin:18px 0 6px}
+.appear-panel h2{margin:0 0 4px}
+.appear-sub{color:var(--muted);font-size:13px;margin-bottom:10px}
+.appear-span{color:var(--art-accent, var(--accent2));font-weight:700}
+.appear-ends{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px}
+.appear-card{display:grid;gap:3px;padding:11px 13px;border:1px solid var(--border);
+  border-radius:12px;background:var(--bg2);text-decoration:none;
+  border-left:3px solid var(--art-accent, var(--accent));transition:background .15s,transform .15s}
+.appear-card:hover{background:color-mix(in srgb, var(--art-accent, var(--accent)) 9%, var(--bg2));transform:translateY(-1px)}
+.appear-label{font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;
+  font-weight:800;color:var(--art-accent, var(--accent2))}
+.appear-title{font-size:14px;font-weight:700;line-height:1.4;color:var(--text)}
+.appear-when{font-size:12px;color:var(--muted)}
+.appear-undated{margin-top:9px;font-size:12.5px;color:var(--muted);line-height:1.6}
+.appear-clocks{margin-top:10px;font-size:12.5px;color:var(--muted);line-height:1.6}
+.appear-clocks ul{margin:4px 0 0;padding-left:18px}
+.appear-clocks b{color:var(--art-accent, var(--accent2))}
+.appear-flag{margin-top:10px;font-size:12.5px;line-height:1.6;padding:8px 11px;
+  border:1px solid rgba(224,180,0,.42);border-left:3px solid #e0b400;
+  border-radius:9px;background:rgba(224,180,0,.07);color:var(--text)}
+
+
 /* Per-type accents, set by view_article on #content. */
 [data-arttype="characters"]{--art-accent:#5aa9e6}
 [data-arttype="factions"]  {--art-accent:#e05a4a}

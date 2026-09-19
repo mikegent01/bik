@@ -4985,9 +4985,13 @@ function yearOf(item){
    hour and clock without parsing a paragraph. */
 const TC_MONTHS=['Firstlight','Chillwind','Veridia','Bloom','Floria','Efferd',
                  'Highsun','Harvestide','Aethel','Darkmoon','Frostfall','Deepwinter'];
-const TC_CLOCKS={MAT:'Material clock',SHD:'Shadowfell clock',FEY:'Feyward clock',SUBJ:'Subjective — duration unverified'};
+/* KIV (Kivotos) was registered in tools/check-timecodes.py and
+   build-campaign-fronts.py when the Kivotos campaign was filed, but not here —
+   so the Trinity filing's timeCode silently failed to parse and its pill never
+   rendered. Clock lists must be added in all three places. */
+const TC_CLOCKS={MAT:'Material clock',SHD:'Shadowfell clock',FEY:'Feyward clock',KIV:'Kivotos academy clock',SUBJ:'Subjective — duration unverified'};
 function parseTimeCode(code){
-  const m=/^TC:(\d{3,4})-(\d{2})-(\d{2})(?:T(\d{2}):(\d{2}))?\/(MAT|SHD|FEY|SUBJ)$/.exec(String(code||'').trim());
+  const m=/^TC:(\d{3,4})-(\d{2})-(\d{2})(?:T(\d{2}):(\d{2}))?\/(MAT|SHD|FEY|KIV|SUBJ)$/.exec(String(code||'').trim());
   if(!m)return null;
   return {year:+m[1],month:+m[2],day:+m[3],hh:m[4]||null,mm:m[5]||null,clock:m[6]};
 }
@@ -12530,6 +12534,56 @@ async function view_item(id) {
 }
 
 /* =============== ARTICLE VIEW =============== */
+/* The metabar used to render EVERY infobox field as a pill of unbounded
+   length, so an event's `outcome` — up to 1,935 characters in the current
+   data — became a paragraph wearing a pill's border, and the genuinely
+   scannable facts (date, era, type) were buried mid-row.
+
+   Split by what the value actually is:
+     · short scalars -> pills, which stay scannable
+     · long prose    -> a definition row under the bar, where a paragraph is
+                        allowed to be a paragraph
+   Some fields earn a pill even when long, because their FRONT is the
+   scannable part: a date reads "2 Aethel, 922 BF" and then explains itself
+   for another hundred characters. Those get a short lead in the pill AND the
+   full text in the row, so nothing is hidden or truncated away — it moves to
+   where it reads. `title` never becomes a pill; it is the headline directly
+   above the bar already. */
+const META_PILL_MAX=72;
+const META_LEAD_FIELDS={date:1,era:1,location:1,type:1,result:1,jurisdiction:1};
+function metaLead(v){
+  const cut=v.split(/\s+[—–-]\s+|\s*[(|]/)[0].trim().replace(/[,;]$/,'');
+  if(cut&&cut.length<=META_PILL_MAX) return cut;
+  /* Trim to the budget MINUS the ellipsis, then drop the partial word. The
+     naive version cut at exactly the budget and then appended "…", so the
+     rendered pill came out one character over — visible on
+     `shadow_maze_encounter`, whose location also escapes "&" to "&amp;". */
+  let out=v.slice(0,META_PILL_MAX-1);
+  const sp=out.lastIndexOf(' ');
+  if(sp>16) out=out.slice(0,sp);
+  return out.replace(/[\s,;]+$/,'')+'…';
+}
+function splitMetaFields(item,typeKey){
+  let metaPills='',metaRows='';
+  (INFOBOX[typeKey]||[]).forEach(([f,label])=>{
+    if(f==='status')return;
+    let v=item[f];if(!v)return;
+    if(Array.isArray(v))v=v.join(', ');
+    v=String(v).trim();
+    if(!v)return;
+    const isTitle=(f==='title');
+    if(v.length<=META_PILL_MAX&&!isTitle){
+      metaPills+=`<span class="pill" title="${esc(label)}: ${esc(v)}"><strong>${esc(label)}</strong> ${esc(v)}</span>`;
+      return;
+    }
+    if(META_LEAD_FIELDS[f]&&!isTitle){
+      metaPills+=`<span class="pill" title="${esc(label)}: ${esc(v)}"><strong>${esc(label)}</strong> ${esc(metaLead(v))}</span>`;
+    }
+    metaRows+=`<div class="metafact"><dt>${esc(label)}</dt><dd>${esc(v)}</dd></div>`;
+  });
+  return {metaPills:metaPills,metaFacts:metaRows?`<dl class="metafacts">${metaRows}</dl>`:''};
+}
+
 const INFOBOX={
   characters:[['title','Title'],['race','Race'],['status','Status'],['affiliation','Affiliation']],
   factions:[['title','Title'],['type','Type'],['region','Region'],['status','Status'],['leader','Leader'],['headquarters','HQ'],['motto','Motto'],['affiliation','Affiliation']],
@@ -12676,6 +12730,158 @@ function nodeKindStyle(id){
     nations:{e:'🌍',c:'#2fae8a'}, collections:{e:'🗂️',c:'#a99cc6'}, trials:{e:'⚖️',c:'#e0b400'}
   };
   return map[tk]||{e:'•',c:'#a99cc6'};
+}
+
+/* ===== APPEARANCE CHRONOLOGY — "first seen in" / "last seen in" =====
+   A character's page listed the events it touched, but never in time order and
+   never answering the two questions a reader actually asks first: when does
+   this person enter the record, and when were they last on the page?
+
+   The archive has no single sort key (standing gap: three dateSort schemes),
+   so ordering is derived here, in priority order:
+     1. timeCode  — TC:YYYY-MM-DDThh:mm/CLOCK, the machine-checkable twin
+     2. "<day> <Month>, <year> BF"   e.g. "2 Aethel, 922 BF"
+     3. "<Month> <day>, <year> BF"   e.g. "Harvestide 24, 1045 BF"
+     4. bare "<year> BF"             — year precision only
+   Anything that parses to nothing is UNDATED and is reported as such rather
+   than guessed at. Six event records genuinely say "Unknown"/"Undetermined";
+   inventing a position for those would be fabricating chronology. */
+const APPEAR_MONTHS={};
+TC_MONTHS.forEach((m,i)=>{APPEAR_MONTHS[m.toLowerCase()]=i+1;});
+/* Which clock a record is filed on. This matters more than it looks: the
+   Feyward keeps its OWN year — 922 BF by its own count, over a century behind
+   the Material and not catching up (README, "Planar clocks"). Sorting a
+   Feyward filing's 922 against a Material 1040 as if they were the same
+   number would file this year's Feyward session as ancient history. Records
+   are therefore ordered WITHIN a clock, never across clocks. */
+function eventClock(ev){
+  const p=parseTimeCode(ev&&ev.timeCode);
+  if(p) return p.clock;
+  const raw=String((ev&&ev.date)||'').toLowerCase();
+  if(raw.includes('feyward clock')) return 'FEY';
+  if(raw.includes('shadowfell clock')) return 'SHD';
+  if(raw.includes('kivotos')) return 'KIV';
+  return 'MAT';
+}
+function eventTimeKey(ev){
+  if(!ev) return null;
+  const clock=eventClock(ev);
+  const p=parseTimeCode(ev.timeCode);
+  if(p) return {y:p.year,m:p.month,d:p.day,hh:p.hh?+p.hh:0,prec:'day',via:'timecode',clock:clock};
+  const raw=String(ev.date||'');
+  let m=raw.match(/(\d{1,2})\s+([A-Za-z]+),?\s+(\d{3,4})\s*BF/);
+  if(m&&APPEAR_MONTHS[m[2].toLowerCase()])
+    return {y:+m[3],m:APPEAR_MONTHS[m[2].toLowerCase()],d:+m[1],hh:0,prec:'day',via:'date',clock:clock};
+  m=raw.match(/([A-Za-z]+)\s+(\d{1,2}),?\s+(\d{3,4})\s*(?:BF)?/);
+  if(m&&APPEAR_MONTHS[m[1].toLowerCase()])
+    return {y:+m[3],m:APPEAR_MONTHS[m[1].toLowerCase()],d:+m[2],hh:0,prec:'day',via:'date',clock:clock};
+  m=raw.match(/(\d{3,4})\s*BF/);
+  if(m) return {y:+m[1],m:0,d:0,hh:0,prec:'year',via:'year',clock:clock};
+  return null;
+}
+function timeKeyValue(k){ return k?(((k.y*13+k.m)*32+k.d)*24+k.hh):0; }
+function timeKeyLabel(k){
+  if(!k) return 'undated';
+  const suffix=(k.clock&&k.clock!=='MAT')?' '+k.clock:'';
+  if(k.prec==='year') return k.y+' BF'+suffix;
+  return k.d+' '+(TC_MONTHS[k.m-1]||('M'+k.m))+', '+k.y+' BF'+suffix;
+}
+/* Every event/battle record this entity appears in, oldest first.
+   Two sources of truth, unioned: the entity's own keyEvents/keyBattles, and
+   any record that names it in participants[] / participatingCharacters[].
+   The second half matters — an entity can be in a scene without its own
+   article having been updated to say so. */
+function appearanceTimeline(item){
+  if(!item||!item.id) return {dated:[],undated:[]};
+  const seen=new Set(), out=[];
+  const push=id=>{
+    if(!id||seen.has(id)) return; seen.add(id);
+    const rec=INDEX[id]; if(!rec) return;
+    if(rec.typeKey!=='events'&&rec.typeKey!=='battles') return;
+    out.push({id:id,ev:rec.item,typeKey:rec.typeKey,key:eventTimeKey(rec.item)});
+  };
+  [].concat(item.keyEvents||[],item.keyBattles||[]).forEach(r=>push(typeof r==='string'?r:r&&r.id));
+  ['events','battles'].forEach(tk=>(DATA[tk]||[]).forEach(ev=>{
+    if(!ev||!ev.id||seen.has(ev.id)) return;
+    const names=[].concat(
+      (ev.participants||[]).map(p=>typeof p==='string'?p:p&&p.id),
+      ev.participatingCharacters||[]);
+    if(names.some(n=>n===item.id)) push(ev.id);
+  }));
+  /* Records dated past the world clock are held aside rather than allowed to
+     become someone's "last seen in". One real case drives this:
+     `collapse_of_blackfen_pass` is dated "2374 BF" while its era reads "The
+     Old World — Era of Sunlight Aftermath". Under the archive's own rule that
+     BF counts UP, 2374 is thirteen centuries in the FUTURE, which contradicts
+     the era and would hijack the last appearance of six characters. The date
+     and the era disagree; this surfaces the disagreement instead of silently
+     ranking one above the other. */
+  const nowYear=((DATA.currentDate&&DATA.currentDate.year)||1040)+12;
+  const beyond=out.filter(o=>o.key&&o.key.y>nowYear);
+  const inRange=out.filter(o=>!(o.key&&o.key.y>nowYear));
+  const dated=inRange.filter(o=>o.key).sort((a,b)=>timeKeyValue(a.key)-timeKeyValue(b.key));
+  const undated=inRange.filter(o=>!o.key);
+  /* Grouped by clock, because a Feyward 922 and a Material 1040 are not
+     comparable numbers. The Material run is the "main" sequence; other clocks
+     are reported beside it rather than merged into it. */
+  const byClock={};
+  dated.forEach(o=>{ const c=(o.key&&o.key.clock)||'MAT'; (byClock[c]=byClock[c]||[]).push(o); });
+  return {dated:dated,undated:undated,byClock:byClock,beyond:beyond};
+}
+/* The panel. Deliberately NOT more pills: pills are for short scalar facts,
+   and "where does this person begin and end" is a two-ended range with links,
+   which a pill cannot carry. */
+function appearancePanel(item,typeKey){
+  if(typeKey!=='characters'&&typeKey!=='factions') return '';
+  const t=appearanceTimeline(item);
+  const n=t.dated.length+t.undated.length+t.beyond.length;
+  if(!n) return '';
+  const card=(o,label)=>{
+    const title=displayName(o.ev)||o.id;
+    return `<a class="appear-card" href="#/article/${encodeURIComponent(o.id)}">
+      <span class="appear-label">${label}</span>
+      <span class="appear-title">${esc(title)}</span>
+      <span class="appear-when">${esc(timeKeyLabel(o.key))}</span></a>`;
+  };
+  /* First/last are taken from the clock the entity appears on most — usually
+     the Material. Mixing clocks here would let one Feyward filing (its own
+     922 BF) masquerade as a character's earliest appearance. */
+  const clocks=Object.keys(t.byClock);
+  const mainClock=clocks.sort((a,b)=>t.byClock[b].length-t.byClock[a].length||a.localeCompare(b))[0];
+  const run=t.byClock[mainClock]||[];
+  const first=run[0], last=run[run.length-1];
+  let ends='';
+  if(first&&last&&first.id===last.id){
+    ends=card(first,'Only appearance');
+  }else if(first&&last){
+    ends=card(first,'First seen in')+card(last,'Last seen in');
+  }
+  const span=(first&&last&&first.key&&last.key&&first.id!==last.id)
+    ? `<span class="appear-span">spans ${esc(timeKeyLabel(first.key))} → ${esc(timeKeyLabel(last.key))}</span>` : '';
+  const others=clocks.filter(c=>c!==mainClock).map(c=>{
+    const r=t.byClock[c];
+    const a=r[0], z=r[r.length-1];
+    const range=(a===z)?timeKeyLabel(a.key):(timeKeyLabel(a.key)+' → '+timeKeyLabel(z.key));
+    return `<li><b>${esc(TC_CLOCKS[c]||c)}</b> — ${r.length} record${r.length===1?'':'s'}, ${esc(range)}</li>`;
+  }).join('');
+  const otherClocks=others
+    ? `<div class="appear-clocks"><span>Also filed on other clocks, which run their own years and are not sequenced against the ${esc(TC_CLOCKS[mainClock]||mainClock)}:</span><ul>${others}</ul></div>` : '';
+  const beyondNote=t.beyond.length
+    ? `<div class="appear-flag">⚠ ${t.beyond.length} record${t.beyond.length===1?'':'s'} carr${t.beyond.length===1?'ies':'y'} a year later than the world clock and ${t.beyond.length===1?'is':'are'} held out of the sequence — the date and the era disagree and the archive should settle which is right: ${
+        t.beyond.map(o=>`<a href="#/article/${encodeURIComponent(o.id)}">${esc(displayName(o.ev)||o.id)}</a> (${esc(timeKeyLabel(o.key))})`).join(', ')
+      }.</div>` : '';
+  const undatedNote=t.undated.length
+    ? `<div class="appear-undated">${t.undated.length} further record${t.undated.length===1?'':'s'} file no usable date and cannot be placed in sequence: ${
+        t.undated.slice(0,4).map(o=>`<a href="#/article/${encodeURIComponent(o.id)}">${esc(displayName(o.ev)||o.id)}</a>`).join(', ')
+      }${t.undated.length>4?' and '+(t.undated.length-4)+' more':''}.</div>` : '';
+  return `<section class="appear-panel">
+    <h2 id="h-appearances">🕰 Appearances</h2>
+    <div class="appear-sub">${n} filed record${n===1?'':'s'} name this ${typeKey==='characters'?'character':'faction'}. ${span}</div>
+    <div class="appear-ends">${ends}</div>
+    ${otherClocks}
+    ${beyondNote}
+    ${undatedNote}
+  </section>`;
 }
 
 function relationGraph(item,opts){
@@ -14223,15 +14429,18 @@ function view_article(id){
      contents move into the main column, and the archive toolboxes follow the
      exhibits as a bottom band. Other article types keep the side rail. */
   const wideRecord = typeKey==='events'||typeKey==='battles';
-  let metaPills='';
-  (INFOBOX[typeKey]||[]).forEach(([f,label])=>{
-    if(f==='status')return;
-    let v=item[f];if(!v)return;
-    if(Array.isArray(v))v=v.join(', ');
-    v=String(v);
-    metaPills+=`<span class="pill" title="${esc(label)}: ${esc(v)}"><strong>${esc(label)}</strong> ${esc(v)}</span>`;
-  });
-  
+  /* The metabar used to render EVERY infobox field as a pill of unbounded
+     length, so an event's `outcome` — up to 1,935 characters in the current
+     data — became a paragraph wearing a pill's border, and the genuinely
+     scannable facts (date, era, type) were buried in the middle of it.
+
+     Split by what the value actually is:
+       · short scalars  -> stay pills, and stay scannable
+       · long prose     -> drops to a definition list below the bar, where a
+                           paragraph is allowed to be a paragraph
+     Nothing is hidden or truncated away; it moves to where it reads. */
+  const {metaPills,metaFacts}=splitMetaFields(item,typeKey);
+
   const summaryBand = wideRecord ? recordSummaryBand(item,'',toc) : '';
   const railHtml = wideRecord
     ? articleRail(item.id,typeKey,item,'',null,{wide:true})
@@ -14243,6 +14452,7 @@ function view_article(id){
      <h1 class="art-title">${esc(displayName(item))}</h1>
      ${item.title&&item.title!==item.name?`<div class="art-subtitle">${esc(item.title)}</div>`:''}
      <div class="metabar"><span class="pill">${t.emoji} ${esc(t.singular)}</span>${timeCodePill(item)}${typeKey==='factions'?systemsForFaction(item.id).map(s=>`<span class="pill" style="border-color:${s.accent};color:${s.accent};cursor:pointer" onclick="Router.go('${s.route}')">${s.emoji} ${esc(s.name)} — integrated system</span>`).join(''):''}${annotationBadge(item.id)}${microBadge(item)}${xpPill(item.id)}${item.status?`<span class="pill">${esc(String(item.status).split('—')[0].trim())}</span>`:''}${metaPills}</div>
+     ${metaFacts}
      <div class="readtime">⏱ ${rtFull} min read · ${totalWords} words</div>
      ${filingChangeNote(item.id)}
      <div class="article-top-xp">${xpMiniPanel(item.id)}</div>
@@ -14253,6 +14463,7 @@ function view_article(id){
      ${typeKey==='nations'?`<div class="chips" style="margin:8px 0 16px"><span class="chip active">Classic article</span><span class="chip" onclick="Router.go('#/atlas/${encodeURIComponent(item.id)}')">Open Atlas dashboard</span></div>${claimantRegimePanel(item)}${nationOverview(item)}`:''}
      ${typeKey==='factions'?factionSystemBanner(item.id):''}
      ${typeKey==='battles'?battleVsInfographic(item)+battleDossier(item):''}
+     ${appearancePanel(item,typeKey)}
      ${(typeKey==='factions'||typeKey==='characters')?relationGraph(item):''}
      ${typeKey==='factions'?`<div id="faction-power-projection-container"></div>`:''}
 ${typeKey==='characters'?tokenSheetPanel(item):''}${typeKey==='characters'?dynastyPanel(item):''}${typeKey==='characters'?renderArticleOperatorReputation(item.id):''}${typeKey==='characters'?injuryPanel(item):''}${typeKey==='factions'?factionBannerPanel(item):''}${typeKey==='factions'?renderArticleFactionReputation(item.id):''}${(typeKey==='factions'||typeKey==='nations')?renderRelatedCongressVotes(item):''}${wideRecord?'':((typeof renderConnectedInvestigationsPanel === 'function' ? renderConnectedInvestigationsPanel(item.id, typeKey) : '')+(typeof renderConnectedQuestsPanel === 'function' ? renderConnectedQuestsPanel(item.id, typeKey) : ''))}
@@ -14292,13 +14503,7 @@ function pickRevision(articleId, revId){
 function view_trial(item,t){
   LINK_YEAR_CTX = parseYear(item.date)||parseYear(item.era)||null;
   beginLinkPass(item);
-  let metaPills='';
-  (INFOBOX.trials||[]).forEach(([f,label])=>{
-    if(f==='status')return;
-    let v=item[f];if(!v)return;
-    v=String(v);
-    metaPills+=`<span class="pill" title="${esc(label)}: ${esc(v)}"><strong>${esc(label)}</strong> ${esc(v)}</span>`;
-  });
+  const {metaPills,metaFacts}=splitMetaFields(item,'trials');
   
   const charges=Array.isArray(item.charges)?`<section class="charges-panel"><h2 id="h-charges">⚖️ Charges</h2><p class="text-muted">Filed allegations and legal directives. Names are linked when the archive has a matching record.</p><ul class="charge-list">${item.charges.map(c=>{const text=typeof c==='string'?c:(c.charge||c.name||JSON.stringify(c));const matches=[...String(text).matchAll(/\\b(?:Elder Rowan Meadowlight|Iron Fists|Rakka Directive|Regal Empire|Mages' Guild|Mushroom Regency)\\b/gi)];let html=esc(text);matches.reverse().forEach(m=>{const raw=m[0],key=raw.toLowerCase().replace(/[^a-z0-9]+/g,'_');const target=INDEX[key]?`#/article/${encodeURIComponent(key)}`:key.includes('regal')?'#/reputation/faction/regal_empire':key.includes('mushroom')?'#/reputation/faction/mushroom_regency':'';if(target)html=html.slice(0,m.index)+`<a class="charge-link" href="${target}">${esc(raw)}</a>`+html.slice(m.index+raw.length);});return `<li><span class="charge-marker">§</span><span>${html}</span></li>`;}).join('')}</ul></section>`:'';
   let sections='';const tocParts=[];
@@ -14330,6 +14535,7 @@ function view_trial(item,t){
      <div class="art-kicker">⚖️ Trial${item.date?` · ${esc(String(item.date).split('(')[0].trim().slice(0,48))}`:''}</div>
      <h1 class="art-title">${esc(item.name)}</h1>${item.title?`<div class="art-subtitle">${esc(item.title)}</div>`:''}
      <div class="metabar"><span class="pill">⚖️ Trial</span>${annotationBadge(item.id)}${microBadge(item)}${xpPill(item.id)}${item.status?`<span class="pill">${esc(item.status)}</span>`:''}${metaPills}</div>
+     ${metaFacts}
      <div class="article-top-xp">${xpMiniPanel(item.id)}</div>
      ${item.summary?`<div class="article-lead-card noimg"><div class="article-lead-summary"><h4>Case Summary</h4><p>${esc(item.summary)}</p></div></div>`:''}${anote}${defLink}
      ${item.description?`<div class="prose">${applyAnnotations(mdToHtml(item.description,item.id), item.id)}</div>`:''}

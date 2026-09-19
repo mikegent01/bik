@@ -129,6 +129,9 @@ def main() -> int:
         checks.append(("crime and punishment", ["node", "tools/tests/test-crime-and-punishment.mjs"], ROOT))
         checks.append(("hub pages", ["node", "tools/tests/test-hub-pages.mjs"], ROOT))
         checks.append(("wahbabel", ["node", "tools/tests/test-wahbabel.mjs"], ROOT))
+        # first-seen/last-seen chronology: clock separation + the 2374 BF flag.
+        checks.append(("appearance chronology",
+                       ["node", "tools/tests/test-appearance-chronology.mjs"], ROOT))
         # search relevance needs a static server on 8765; run it manually.
     else:
         print("\n=== Bros discovery test ===\nSKIP: node is not on PATH")
