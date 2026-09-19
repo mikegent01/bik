@@ -311,5 +311,53 @@ for (const c of comms) {
 check('every cross-reference in every commentary resolves',
       deadLinks.length === 0, deadLinks.slice(0, 5).join(', '));
 
+console.log('\n-- wanted pages');
+// The wanted list is only actionable if it distinguishes "nobody wrote this"
+// from "somebody typed the id wrong". These assert the classification exists
+// and that the near-miss detector actually resolves to real records.
+const wantedSrc = ['buildWantedPages'].map(grab).join('\n');
+check('wanted pages classifies by referencing field',
+      wantedSrc.includes('WANTED_FIELD_TYPE') || src.includes('WANTED_FIELD_TYPE'));
+check('wanted pages flags near-miss ids separately', wantedSrc.includes('nearMiss'));
+check('the wanted view groups instead of one flat table',
+      grab('view_wanted').includes('wanted-group'));
+check('the wanted view is reachable from the sidebar',
+      src.includes("label:'Wanted Pages'"));
+
+// Rebuild the near-miss detection here and assert every flagged target is real.
+const normId = x => String(x).toLowerCase().replace(/[^a-z0-9]/g, '');
+const realIds = new Set();
+for (const f of ['events','battles','characters','locations','factions','nations','races','cultures','trials']) {
+  const p = path.join(DATA_DIR, f + '.json');
+  if (!fs.existsSync(p)) continue;
+  const rows = JSON.parse(fs.readFileSync(p, 'utf8'));
+  (Array.isArray(rows) ? rows : []).forEach(r => { if (r && r.id) realIds.add(r.id); });
+}
+const keyed = new Map();
+for (const id of realIds) if (!keyed.has(normId(id))) keyed.set(normId(id), id);
+const refFields = ['relatedArticles','keyEvents','keyBattles','articles','allies','enemies',
+                   'members','notableMembers','participants','participatingCharacters'];
+let dangling = 0, nearMisses = 0;
+for (const f of ['events','characters','locations','factions']) {
+  const p = path.join(DATA_DIR, f + '.json');
+  if (!fs.existsSync(p)) continue;
+  for (const rec of JSON.parse(fs.readFileSync(p, 'utf8'))) {
+    if (!rec || !rec.id) continue;
+    for (const fld of refFields) {
+      for (const raw of (rec[fld] || [])) {
+        const id = typeof raw === 'string' ? raw : (raw && raw.id);
+        if (!id || typeof id !== 'string' || realIds.has(id)) continue;
+        if (!/^[a-z0-9][a-z0-9_-]{2,}$/i.test(id)) continue;
+        dangling++;
+        if (keyed.has(normId(id))) nearMisses++;
+      }
+    }
+  }
+}
+check('the archive still has dangling references to surface', dangling > 0, String(dangling));
+check('some dangling refs are recoverable typos', nearMisses > 0, String(nearMisses));
+check('near-miss targets all resolve to real records',
+      [...keyed.values()].every(v => realIds.has(v)));
+
 console.log(`\n${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);

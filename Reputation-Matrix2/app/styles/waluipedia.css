@@ -1293,6 +1293,25 @@ a.xlink.datelink:hover{background:rgba(224,180,0,.15)}
 .wanted-table td{padding:9px 8px;border-bottom:1px solid var(--border);vertical-align:top}
 .wanted-table tr:hover td{background:rgba(138,75,255,.05)}
 .wanted-name{font-weight:700;color:var(--text)}
+/* Wanted Pages, grouped. The flat 594-row table read as hopeless; splitting by
+   record type and pulling the typos out makes it a work queue. */
+.wanted-group{margin-top:14px}
+.wanted-group-head{margin-bottom:10px}
+.wanted-group-head h3{margin:0 0 3px;display:flex;align-items:center;gap:9px;font-size:16px}
+.wanted-group-head p{margin:0;font-size:12.5px;line-height:1.5}
+.wanted-count{font-size:11px;font-weight:800;letter-spacing:.06em;padding:2px 9px;
+  border-radius:999px;background:rgba(138,75,255,.16);
+  border:1px solid rgba(138,75,255,.4);color:#c4a8ff}
+.wanted-lede{margin-top:12px;padding:11px 14px;border-radius:10px;
+  border:1px solid var(--border);border-left:3px solid var(--accent2);
+  background:rgba(255,255,255,.03);font-size:13px}
+.wanted-lede b{display:block;margin-bottom:5px;font-size:10.5px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--accent2)}
+.wanted-lede ul{margin:0;padding-left:18px;line-height:1.7;color:var(--muted)}
+.wanted-lede li b{display:inline;margin:0;font-size:13px;letter-spacing:0;
+  text-transform:none;color:var(--text)}
+.wanted-n.warm{color:#e0b400;font-weight:800}
+.wanted-n.hot{color:#ff9d90;font-weight:900}
 .wanted-id{font-size:10.5px;color:var(--muted);font-family:ui-monospace,Menlo,Consolas,monospace}
 .wanted-n{color:var(--accent);font-weight:900;text-align:center;width:78px}
 hr{border:none;border-top:1px solid var(--border);margin:22px 0}

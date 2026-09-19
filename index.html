@@ -7844,26 +7844,59 @@ function resolveArticleId(id){
   if(INDEX[id]) return id;
   return LINK_ID_ALIAS[id]||id;
 }
+/* Which field a reference came from tells you what KIND of record is missing.
+   A dangling id in keyEvents wants an event; one in participants wants a
+   character. Without this the wanted list is 594 undifferentiated slugs and a
+   writer cannot tell what they are being asked to write. */
+const WANTED_FIELD_TYPE={
+  keyEvents:'events', keyBattles:'battles', participants:'characters',
+  participatingCharacters:'characters', members:'characters',
+  notableMembers:'characters', allies:'factions', enemies:'factions'
+};
+const WANTED_FIELDS=['relatedArticles','keyEvents','keyBattles','articles','allies',
+  'enemies','members','notableMembers','participants','participatingCharacters'];
 function buildWantedPages(){
   LINK_WANTED={};
-  const want=(rawId,fromId)=>{
+  const want=(rawId,fromId,field)=>{
     let id=typeof rawId==='string'?rawId:(rawId&&(rawId.id||rawId.key));
     if(!id||typeof id!=='string') return;
     id=resolveArticleId(id);
     if(INDEX[id]||LINK_PREVIEW[id]) return;                 // page exists — not wanted
     if(/^(https?:|#|\.|\/)/.test(id)) return;               // a URL/route, not an entity id
     if(!/^[a-z0-9][a-z0-9_-]{2,}$/i.test(id)) return;       // ids only, not prose
-    const rec=LINK_WANTED[id]||(LINK_WANTED[id]={id,count:0,from:new Set()});
-    rec.count++; if(fromId) rec.from.add(fromId);
+    const rec=LINK_WANTED[id]||(LINK_WANTED[id]={id,count:0,from:new Set(),
+                                                 fields:new Set(),kinds:new Set()});
+    rec.count++;
+    if(fromId) rec.from.add(fromId);
+    if(field){ rec.fields.add(field); const k=WANTED_FIELD_TYPE[field]; if(k) rec.kinds.add(k); }
   };
   const scan=it=>{
     if(!it||!it.id) return;
-    ['relatedArticles','keyEvents','keyBattles','articles','allies','enemies','members','notableMembers','participants','participatingCharacters']
-      .forEach(f=>(it[f]||[]).forEach(v=>want(v,it.id)));
+    WANTED_FIELDS.forEach(f=>(it[f]||[]).forEach(v=>want(v,it.id,f)));
   };
   try{
     TYPES.forEach(t=>(DATA[t.key]||[]).forEach(scan));
     (DATA.majorBattles||[]).forEach(scan);
+  }catch(e){}
+  /* A dangling reference is not always a missing article — often the record
+     exists under a slightly different id ("the_scorncrow" vs "scorncrow",
+     "Markop" vs "markop"). Those are typos, not writing work, and mixing the
+     two is why this list never got acted on. Flag them separately with the
+     record they almost certainly meant. */
+  try{
+    const norm=x=>String(x).toLowerCase().replace(/[^a-z0-9]/g,'');
+    const byKey={};
+    const put=(k,id)=>{ if(k&&!byKey[k]) byKey[k]=id; };
+    Object.keys(INDEX).forEach(id=>{
+      put(norm(id),id);
+      const nm=INDEX[id].item&&(INDEX[id].item.name||INDEX[id].item.title);
+      if(nm) put(norm(nm),id);
+    });
+    Object.values(LINK_WANTED).forEach(w=>{
+      const n=norm(w.id);
+      const hit=byKey[n]||byKey[n.replace(/^the/,'')]||byKey['the'+n];
+      if(hit) w.nearMiss=hit;
+    });
   }catch(e){}
 }
 function wantedPagesList(limit){
@@ -8748,6 +8781,7 @@ function renderSidebar(active){
     navLink({emoji:'🗺️',label:'Tactical Maps',go:"Router.go('#/maps')",active:active==='maps',title:'Cartography desk — planar layers and the journey so far'}),
     navLink({emoji:'⚖️',label:'Cultures & Laws',go:"Router.go('#/cultures')",active:active==='list:cultures',count:(Object.keys(TRADITIONS||{}).length||n('cultures')),title:'Cultural spheres, legal traditions, and where the laws collide'}),
     navLink({emoji:'⚡',label:'Power Projection',go:"Router.go('#/power')",active:active==='power'}),
+    navLink({emoji:'🚧',label:'Wanted Pages',go:"Router.go('#/wanted')",active:active==='wanted'}),
     navLink({emoji:'👑',label:'Dynasties',go:"Router.go('#/dynasties')",active:active==='dynasties',count:Object.keys(DYNASTY_SYSTEM.houses||{}).length}),
     navLink({emoji:'✧',label:'Faiths & Doctrine',go:"Router.go('#/faiths')",active:active==='faiths',count:Object.keys((RELIGION&&RELIGION.denominations)||{}).length,title:'Denominations, cosmological groups, and the friction between them'}),
     navLink({emoji:'📜',label:"Mages Guild Codex",go:"location.href='mages-code.html'",title:'C.C.D. — Consolidated Canal Decrees, 99k words, 296 pages, Autumnwood Accords Desk',count:'99k'}),
@@ -16755,22 +16789,88 @@ function view_year(year,scrollMonth){
 function view_wanted(){
   renderSidebar('wanted');
   const all=wantedPagesList();
-  const rows=all.slice(0,300).map(w=>{
+  const real=all.filter(w=>!w.nearMiss);
+  const typos=all.filter(w=>w.nearMiss);
+
+  /* Grouped by what KIND of record is being asked for, because "write an
+     event" and "write a character" are different jobs and the flat list made
+     them look identical. Anything whose referencing field does not imply a
+     type lands in Unclassified. */
+  const KINDS=[
+    ['events','📜','Events','Referenced in a keyEvents list — a filed occurrence nobody has written up'],
+    ['battles','⚔️','Battles','Referenced in keyBattles — an engagement with no record'],
+    ['characters','👤','People','Named as a participant or member with no dossier'],
+    ['factions','🏳️','Factions','Named as an ally or enemy with no dossier'],
+    ['?','🗂️','Unclassified','Referenced only from relatedArticles, so the record type is not implied']
+  ];
+  const bucket=id=>{
+    const w=real.find(x=>x.id===id); return w;
+  };
+  const grouped={};
+  KINDS.forEach(([k])=>grouped[k]=[]);
+  real.forEach(w=>{
+    const k=(w.kinds&&w.kinds.size)?[...w.kinds][0]:'?';
+    (grouped[k]||grouped['?']).push(w);
+  });
+
+  const rowsFor=list=>list.map(w=>{
     const from=[...w.from].slice(0,4).map(id=>{
       const nm=INDEX[id]?displayName(INDEX[id].item):prettyId(id);
       return `<a class="lg-chip sm" onclick="openId('${esc(id)}')">${esc(nm)}</a>`;
     }).join('');
     const extra=w.from.size>4?`<span class="lg-more">+${w.from.size-4}</span>`:'';
+    const heat=w.count>=10?'hot':(w.count>=4?'warm':'');
     return `<tr><td><span class="wanted-name">${esc(prettyId(w.id))}</span><div class="wanted-id">${esc(w.id)}</div></td>
-      <td class="wanted-n">${w.count}</td>
+      <td class="wanted-n ${heat}">${w.count}</td>
       <td>${from}${extra}</td></tr>`;
   }).join('');
+
+  const sections=KINDS.map(([k,icon,label,blurb])=>{
+    const list=grouped[k]||[];
+    if(!list.length) return '';
+    const shown=list.slice(0,120);
+    return `<div class="card wanted-group">
+      <div class="wanted-group-head">
+        <h3>${icon} ${esc(label)} <span class="wanted-count">${list.length}</span></h3>
+        <p class="text-muted">${esc(blurb)}</p>
+      </div>
+      <table class="wanted-table"><thead><tr><th>Wanted record</th><th>Requests</th><th>Referenced by</th></tr></thead>
+      <tbody>${rowsFor(shown)}</tbody></table>
+      ${list.length>shown.length?`<p class="text-muted mt-10">Showing the top ${shown.length} of ${list.length}.</p>`:''}
+    </div>`;
+  }).join('');
+
+  /* Typos are separated on purpose: they are a five-second edit, not a writing
+     job, and leaving them mixed in is why a 594-row list reads as hopeless. */
+  const typoRows=typos.map(w=>{
+    const t=w.nearMiss;
+    const nm=INDEX[t]?displayName(INDEX[t].item):prettyId(t);
+    return `<tr><td><span class="wanted-id">${esc(w.id)}</span></td>
+      <td class="wanted-n">${w.count}</td>
+      <td>→ <a class="lg-chip sm" onclick="openId('${esc(t)}')">${esc(nm)}</a> <span class="wanted-id">${esc(t)}</span></td></tr>`;
+  }).join('');
+  const typoCard=typos.length?`<div class="card wanted-group">
+      <div class="wanted-group-head">
+        <h3>🔧 Probably just a typo <span class="wanted-count">${typos.length}</span></h3>
+        <p class="text-muted">These resolve to a record that already exists under a slightly different id. Nothing needs writing — the reference needs correcting in the data.</p>
+      </div>
+      <table class="wanted-table"><thead><tr><th>Broken reference</th><th>Requests</th><th>Almost certainly means</th></tr></thead>
+      <tbody>${typoRows}</tbody></table></div>`:'';
+
+  const top=real.slice(0,3).map(w=>`<li><b>${esc(prettyId(w.id))}</b> — ${w.count} article${w.count===1?'':'s'} waiting</li>`).join('');
+
   el('content').innerHTML=`<div class="card animate-fade-in">
       <h2>🚧 Wanted Pages</h2>
-      <p class="text-muted">Entities that existing articles point at but which have no record of their own. Waluigi does not consider these "missing"; he considers them <i>outstanding paperwork</i>. Ranked by how many articles are already waiting.</p>
-      <div class="chips mt-10"><span class="chip active">${all.length} wanted</span><span class="chip" onclick="Router.go('#/home')">← Home</span></div>
+      <p class="text-muted">Every entity the archive points at but has never written up. Waluigi does not consider these “missing”; he considers them <i>outstanding paperwork</i>. Grouped by the kind of record each one is asking for, and ranked by how many articles are already waiting.</p>
+      <div class="chips mt-10">
+        <span class="chip active">${real.length} to write</span>
+        ${typos.length?`<span class="chip">${typos.length} just typos</span>`:''}
+        <span class="chip" onclick="Router.go('#/home')">← Home</span>
+      </div>
+      ${top?`<div class="wanted-lede"><b>Most requested right now</b><ul>${top}</ul></div>`:''}
     </div>
-    <div class="card">${all.length?`<table class="wanted-table"><thead><tr><th>Wanted record</th><th>Requests</th><th>Referenced by</th></tr></thead><tbody>${rows}</tbody></table>${all.length>300?`<p class="text-muted mt-10">Showing the top 300 of ${all.length}.</p>`:''}`:'<p class="text-muted">No dangling references. The archive is, improbably, complete.</p>'}</div>`;
+    ${real.length?sections:'<div class="card"><p class="text-muted">No dangling references. The archive is, improbably, complete.</p></div>'}
+    ${typoCard}`;
   window.scrollTo(0,0);
 }
 
