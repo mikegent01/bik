@@ -37,6 +37,7 @@ SANITIZER = os.path.join(ROOT, "tools", "sanitize-foundry-actor.py")
 BUILD_AURELIAN = os.path.join(ROOT, "tools", "build-aurelian-pc.py")
 BUILD_WALUIGI = os.path.join(ROOT, "tools", "build-waluigi-pc.py")
 BUILD_WARIO_MOTORBIKE = os.path.join(ROOT, "tools", "build-wario-motorbike.py")
+BUILD_SANCTUM_NPCS = os.path.join(ROOT, "tools", "build-sanctum-npcs.py")
 
 # Extra sanitizer flags per source file.
 OVERRIDES = {
@@ -55,6 +56,9 @@ GENERATED = {
     "fvtt-Actor-lady-aurelian-corvinarus-PC.json": [sys.executable, BUILD_AURELIAN],
     # (waluigi-PC retired: the live Waluigi export in Players.json supersedes it)
     "fvtt-Actor-wario-motorbike.json": [sys.executable, BUILD_WARIO_MOTORBIKE],
+    # One builder, two NPC sheets -- one file per character, no duplicates.
+    "fvtt-Actor-the-oracle.json": [sys.executable, BUILD_SANCTUM_NPCS],
+    "fvtt-Actor-orange-t.json": [sys.executable, BUILD_SANCTUM_NPCS],
 }
 
 
