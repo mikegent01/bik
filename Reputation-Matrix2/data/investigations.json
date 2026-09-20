@@ -166,7 +166,7 @@
         "raventree_manor"
       ],
       "opened": "23 Harvestide, 1040 BF",
-      "lastFiled": "3 Aethel, 922 BF (Feyward clock) — amended: the sanctum bargain, a three-week tether deadline, and an assassination account nobody can verify",
+      "lastFiled": "1 Aethel, 1040 BF — amended: a disputed casualty, a second fire, and a student ID sold for passage",
       "archivist": "Waluigi, Auditor-General",
       "icon": "🏚️",
       "accent": "#8a4bff",
@@ -272,6 +272,18 @@
           "title": "The three-week tether deadline and who else knows it exists",
           "status": "open",
           "note": "A hard twenty-one-day term runs on the planar tether joining the Feyward to the Material sanctum, started at Bowser's teleport. Hjumpik's party is standing inside the Feyward and has not been told. Bowser asked twice for a margin and was promised nothing; the Oracle offered three unnamed rewards if the term holds, one of which he described as smelling like peaches."
+        },
+        {
+          "id": "thread_disputed_casualty",
+          "title": "Who holds Eager, and on what authority",
+          "status": "open",
+          "note": "A Legion guard removed an unconscious party member on the code — no man left behind — over the objection of Archie, Feyward Dan and Markop, and over Eager's own request to be put down. He stated he trusts himself more than the party. Both Eager and Salam left in a fireman's carry bound for Legionhold, the facility the same guards said would host Archie's arrest."
+        },
+        {
+          "id": "thread_no_helicopter",
+          "title": "The helicopter that was promised twice and never arrived",
+          "status": "open",
+          "note": "Legion guards promised an airlift out of the grove and a show at Legionhold. Nothing in the record shows an aircraft. They left on foot carrying wounded. Either the asset did not exist, or it was not sent."
         }
       ],
       "leads": [
@@ -652,6 +664,36 @@
           "exhibits": [
             "ex_oracle_peach_account"
           ]
+        },
+        {
+          "id": "lead_recover_eager",
+          "title": "Establish where Eager and Salam were taken",
+          "status": "open",
+          "priority": "high",
+          "why": "Both casualties are in Legion custody, carried toward Legionhold. The party has no confirmation they arrived, no contact, and an outstanding arrest warrant against Archie at the same destination.",
+          "exhibits": [
+            "ex_student_id"
+          ]
+        },
+        {
+          "id": "lead_anamatar_card",
+          "title": "Find out what Pierce Anamatar wants with a student ID",
+          "status": "open",
+          "priority": "medium",
+          "why": "He declined an expired coupon and asked for a quest object first, so the card was a choice. It is the only document proving Remi was enrolled at Gehenna Academy, and she has no copy.",
+          "exhibits": [
+            "ex_student_id"
+          ]
+        },
+        {
+          "id": "lead_second_fire",
+          "title": "Assess what the second grove fire destroyed",
+          "status": "open",
+          "priority": "medium",
+          "why": "Archie spent his last high-level spell setting the undergrowth alight with the whole party inside it. The grove had already burned once during the Scorncrow skirmish. Nobody has surveyed what is left.",
+          "exhibits": [
+            "ex_student_id"
+          ]
         }
       ],
       "sessions": [
@@ -750,6 +792,12 @@
           "label": "The Shepherd's Garden — the bargain, the disclosure, and the basement",
           "date": "3 Aethel, 922 BF (Feyward clock)",
           "event": "the_shepherds_garden_and_the_three_week_clock"
+        },
+        {
+          "id": "s_airlift_never_came",
+          "label": "The airlift that never came — the Legion keeps the wounded",
+          "date": "1 Aethel, 1040 BF",
+          "event": "the_airlift_that_never_came"
         }
       ],
       "relatedEvents": [
@@ -770,7 +818,8 @@
         "the_belly_of_the_beast",
         "feyward_i_cant_afford_not_to_care",
         "judgement_in_the_grove",
-        "the_shepherds_garden_and_the_three_week_clock"
+        "the_shepherds_garden_and_the_three_week_clock",
+        "the_airlift_that_never_came"
       ],
       "exhibits": [
         {
@@ -1449,6 +1498,31 @@
               "bowser",
               "princess_peach",
               "lady_bloomia"
+            ]
+          }
+        },
+        {
+          "id": "ex_student_id",
+          "session": "s_airlift_never_came",
+          "icon": "🪪",
+          "kind": "passport",
+          "category": "identity",
+          "title": "Remi Akamatsu's Gehenna Academy student ID",
+          "secured": "surrendered",
+          "custody": "Pierce Anamatar, as the price of passage out of Guild-controlled ground",
+          "visual": "<div style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:linear-gradient(135deg,rgba(90,60,30,.35),rgba(12,10,8,.96));border:1px solid rgba(224,180,0,.3)\"><div style=\"position:absolute;left:18px;top:16px;font-size:34px\">🪪</div><div style=\"position:absolute;left:18px;bottom:16px;color:#e0c07a;font-size:11px;letter-spacing:.14em;text-transform:uppercase\">Surrendered as payment</div><div style=\"position:absolute;right:18px;top:18px;color:#8b8398;font-size:11px;text-align:right;line-height:1.5\">Gehenna Academy<br>no formal withdrawal</div></div>",
+          "dc": 3,
+          "onRecord": "A laminated student identity card issued by Gehenna Academy to Remi Akamatsu, handed to Pierce Anamatar in his den in exchange for passage out of the Skittering Grove. He asked first for the siglet and declined an expired coupon before accepting it, on the stated grounds that it is very durable. [[roll:3|Ask what the card actually proves|Remi left Gehenna without a formal withdrawal, so this was the only document still asserting she had ever been enrolled anywhere. She has no copy.|It reads as a routine student card and a cheap price for three lives.]]",
+          "analysis": "## Why a man with knights wanted a piece of laminate\n\nAnamatar could have asked for coin, for the battle axe, for the chain shirt Remi had just taken off a corpse. He asked for the **siglet** — a quest object — and when that was not on offer he chose, out of everything in the room, a child's school card. He turned down an expired coupon in between, so he was selecting rather than accepting.\n\nBoth of his recorded prices are the same shape: **a thing that belongs to a specific person.** On the Shadow Estate rooftop he took a contract to kill the Oracle in exchange for sending the party home. Here he took the only paper in the grove with Remi's name and an institution on it.\n\nRemi departed Gehenna without withdrawing. That card is the last external evidence that the enrolment happened at all. Whether Anamatar knew that is unestablished, and whether it matters depends entirely on what he does with it.\n\nI am not filing a theory. I am filing that a man who trades in possessions now holds a document that proves who somebody is, and that she handed it over without pausing.",
+          "links": {
+            "events": [
+              "the_airlift_that_never_came",
+              "shadow_estate_session_Harvestside_14_continued"
+            ],
+            "characters": [
+              "pierce_anamatar",
+              "remi_akamatsu_full_backstory",
+              "wario"
             ]
           }
         }

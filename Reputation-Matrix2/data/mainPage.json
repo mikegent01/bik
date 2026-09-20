@@ -7,9 +7,9 @@
     "title": "Judgement in the Grove: A Musket in the Smoke, the Warhammer That Would Not Hear an Appeal, and the Man Remi Found Asleep"
   },
   "latestUpdate": {
-    "id": "the_shepherds_garden_and_the_three_week_clock",
+    "id": "the_airlift_that_never_came",
     "label": "Latest Filing · Session Event",
-    "excerpt": "Bowser and the Oracle finally talk instead of fighting, and the Oracle gives up more than he has in the entire operation: that both Oracles are fated to die and he means to be the last, that the seals break without the world ending, and that he warned Princess Peach before the assassination and believes she wanted to die. He describes the room — five or six mages' locks broken, the door untouched, a comb still in her hand, every responding guard dead of no stated cause. Bowser refuses a rigged shortcut to the Astral Shore on king's intuition, catches the Oracle spying on Peach through a floating eyeball, and talks a one-week ultimatum up to three weeks. Then he teleports alone into the Feyward basement, finds two different Toads, five labelled honeys, a satyr running a bar for the Revel, and nine Goombas caged as freight for a Mushroom Regency weapons trade. He calls it intolerable. He leaves them in the cages. The clock is running."
+    "excerpt": "The Scorncrow is dead and the position is worse. A Legion guard hoists the unconscious Eager onto his shoulder and walks off on the code — no man left behind — over the objection of Archie, Feyward Dan and Markop, and over Eager's own request to be put down. His real reason follows the code: I trust myself more than you guys. The promised helicopter never comes. Remi checks the blood, strips her ruined dress, pulls a chain shirt and a battle axe off a body, heals herself twice without getting right, and walks out of the grove alone. Archie erases the crossed-out lines in his spellbook, circles his last high-level spell, and casts Fireball at a bush — the grove burns for the second time in two filings, with everyone still inside. Markop ends the night on a motorbike he cannot ride. And in a torchlit den full of wrights, Pierce Anamatar sells three people passage out of Guild-controlled ground for a possession: he asks for the siglet, declines an expired coupon, and takes Remi's student ID because it is durable."
   },
   "didYouKnow": [
     "...that the Scorncrow told three separate filings it was not a monster, and when Remi Akamatsu finally tested the claim with a point-blank musket, the blood under the face was human?",
@@ -38,6 +38,14 @@
   ],
   "campaignCovers": [
     {
+      "id": "the-airlift-that-never-came-cover",
+      "campaign": "Shadeward",
+      "title": "SHADEWARD — The Airlift That Never Came",
+      "caption": "The dispute, with the grove already alight behind it. Markop bleeding from the head with one hand out — arguing, not attacking; Feyward Dan caught between the two with his longsword down; and the Legion guard…",
+      "image": "assets/images/events/airlift-never-came/anc-01-no-man-left-behind.jpg",
+      "articleId": "the_airlift_that_never_came"
+    },
+    {
       "id": "snowdin-bone-line-registry-cover",
       "campaign": "Mount Ebott",
       "title": "MOUNT EBOTT — The Snowdin Bone-Line Registry",
@@ -60,14 +68,6 @@
       "caption": "Classroom 2-B on the morning of the new advisor's first roll call: the sliding door, the window row, the contested front desk, and the back row that behaves like a separate country.",
       "image": "assets/images/events/trinity-roll-call/trc-01-classroom.jpg",
       "articleId": "the_roll_call_at_trinity"
-    },
-    {
-      "id": "judgement-in-the-grove-cover",
-      "campaign": "Shadeward",
-      "title": "SHADEWARD — Judgement in the Grove",
-      "caption": "The moment before judgement. The Scorncrow on its knees with the scythe fallen out of reach, hood off, the face underneath plainly human and still asking; Markop at the top of the swing.",
-      "image": "assets/images/events/judgement-in-the-grove/jig-01-warhammer.jpg",
-      "articleId": "judgement_in_the_grove"
     },
     {
       "id": "the-tape-and-the-wario-files-cover",

@@ -3389,6 +3389,137 @@
       "status": "posted"
     },
     {
+      "id": "ww_airlift_markop",
+      "author": "markop",
+      "type": "text",
+      "order": 84,
+      "date": null,
+      "timestamp": "1 Aethel, 1040 BF",
+      "content": "A Legion man put one of ours over his shoulder and walked off with him while we were still standing there. He said no man left behind. He meant no man left with YOU.",
+      "likes": 388,
+      "links": [
+        {
+          "id": "the_airlift_that_never_came",
+          "type": "event"
+        },
+        {
+          "id": "iron_legion",
+          "type": "faction"
+        },
+        {
+          "id": "eager",
+          "type": "character"
+        }
+      ],
+      "tags": [
+        "skitteringgrove",
+        "ironlegion",
+        "eager",
+        "code"
+      ],
+      "reaction": "rage",
+      "comments": [
+        {
+          "id": "ww_al_m_c1",
+          "author": "waluigi",
+          "content": "He also said 'you may have killed him, but look at what cost' while standing over Salam. Waluigi has read it forty times looking for the part where he is wrong.",
+          "likes": 417,
+          "topReply": true
+        },
+        {
+          "id": "ww_al_m_c2",
+          "author": "generic_toad",
+          "content": "did the helicopter ever show up",
+          "likes": 296
+        }
+      ],
+      "status": "posted"
+    },
+    {
+      "id": "ww_airlift_remi",
+      "author": "remi_akamatsu_full_backstory",
+      "type": "text",
+      "order": 85,
+      "date": null,
+      "timestamp": "1 Aethel, 1040 BF",
+      "content": "Traded my student ID to get us out. It was the durable one. I'll get another one.\n\nI don't actually know if I can get another one.",
+      "likes": 844,
+      "links": [
+        {
+          "id": "the_airlift_that_never_came",
+          "type": "event"
+        },
+        {
+          "id": "pierce_anamatar",
+          "type": "character"
+        }
+      ],
+      "tags": [
+        "gehenna",
+        "anamatar",
+        "toll"
+      ],
+      "reaction": "gloom",
+      "comments": [
+        {
+          "id": "ww_al_r_c1",
+          "author": "waluigi",
+          "content": "She left Gehenna without withdrawing. That card was the only paper in the world still saying she had ever been enrolled. He turned down a coupon to take it.",
+          "likes": 912,
+          "topReply": true
+        },
+        {
+          "id": "ww_al_r_c2",
+          "author": "wario",
+          "content": "WARIO OFFERED THE COUPON. IT WAS A GOOD COUPON.",
+          "likes": 501
+        }
+      ],
+      "status": "posted"
+    },
+    {
+      "id": "ww_airlift_archie",
+      "author": "archie_miser",
+      "type": "text",
+      "order": 86,
+      "date": null,
+      "timestamp": "1 Aethel, 1040 BF",
+      "content": "Markop asked for fireball. I had exactly one left of that size. I circled it in the book and I used it. Nobody has thanked me and the grove is admittedly on fire.",
+      "likes": 233,
+      "links": [
+        {
+          "id": "the_airlift_that_never_came",
+          "type": "event"
+        },
+        {
+          "id": "skittering_grove",
+          "type": "location"
+        }
+      ],
+      "tags": [
+        "fireball",
+        "spellbook",
+        "grove"
+      ],
+      "reaction": "deadpan",
+      "comments": [
+        {
+          "id": "ww_al_a_c1",
+          "author": "markop",
+          "content": "I asked you to hit the spiders.",
+          "likes": 604,
+          "topReply": true
+        },
+        {
+          "id": "ww_al_a_c2",
+          "author": "archie_miser",
+          "content": "The bush was ADJACENT to the spiders.",
+          "likes": 389
+        }
+      ],
+      "status": "posted"
+    },
+    {
       "id": "ann_archie_frog_god_dream_duel_dan_at_one_hit_point_is_the",
       "author": "waluigi",
       "type": "annotation",

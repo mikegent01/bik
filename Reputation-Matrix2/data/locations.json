@@ -3353,5 +3353,38 @@
     "plane": "Feywild",
     "planeConfidence": "confirmed",
     "planeClue": "Reached by the Oracle's teleport circle from the Planar Sanctum; the estate is named on site as the Cornivours estate and the crest is Raventree's."
+  },
+  {
+    "id": "anamatar_den",
+    "name": "Anamatar's Den",
+    "type": "Location/Holding — private, inside Guild-controlled ground",
+    "region": "The Skittering Grove complex, off the burning grove",
+    "controllingFaction": "Pierce Anamatar and his knights — inside Mages' Guild territory he does not recognise",
+    "population": "A handful of knights, described by their master as more than a visitor can handle",
+    "climate": "Dark, torchlit, roofed — the first room in the grove that is not made of web",
+    "status": "Active — Remi, Wario and Mossy passed through it fleeing the spiders; a toll was charged",
+    "summary": "The room the party stumbled into while running from the brood. It is Pierce Anamatar's holding, it is staffed with his knights, and it sits inside ground the Mages' Guild claims — a fact Anamatar raises himself, and volunteers that he does not like the Guild. Passage out is available. It is not free.",
+    "description": "Waluigi files this as a location rather than a scene because a room where somebody sets prices is a place of business.\n\nWario came in punching and found nothing to punch. The room was already occupied: wrights standing in the dark, and then Anamatar himself, arriving to ask why a stranger was fighting his people in his den.\n\nWhat followed was a negotiation conducted between a man who was frightened and a man who enjoyed that. Wario said he was running from the spiders. Anamatar asked whether he was afraid of a few creepy-crawlies and offered him a bandaid and a sippy cup. Wario said yes, he was, and asked whether Anamatar had seen what they look like.\n\nThen the terms. This is Guild-controlled ground; Anamatar does not like the Guild; he will send them back where they came from **in exchange for something of theirs**. He asked first for the siglet — the ring the party has been chasing since Tymnas's lodge — and settled for [Remi's](https://mikegent01.github.io/bik/index.html#/article/remi_akamatsu_full_backstory) student ID card, on the grounds that it is very durable.\n\nWaluigi notes the shape of the deal and not its size. The man did not want money. He wanted a **thing that belongs to somebody**, and he took the one piece of paper in the grove that proves a fourteen-year-old was ever enrolled anywhere.",
+    "notableFeatures": [
+      "Torchlit and roofed — the only room in the grove that is not web",
+      "Occupied by wrights, which attacked Remi on contact",
+      "Pierce Anamatar's knights garrison it; he calls them more than a visitor can handle",
+      "Sits inside Mages' Guild-controlled ground, which Anamatar raises unprompted and says he dislikes",
+      "Passage out of the grove is sold, not given — the price is a possession, not coin",
+      "Anamatar asked for the siglet first and accepted a student ID instead",
+      "An expired coupon was offered and declined"
+    ],
+    "relatedArticles": [
+      "pierce_anamatar",
+      "remi_akamatsu_full_backstory",
+      "wario",
+      "mossy",
+      "skittering_grove",
+      "mages_guild",
+      "tymnas"
+    ],
+    "plane": "Shadowfell",
+    "planeConfidence": "inherited",
+    "planeClue": "Reached on foot from the Skittering Grove during the same engagement."
   }
 ]

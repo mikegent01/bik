@@ -6064,5 +6064,38 @@
     "keyEvents": [
       "the_telescope_and_the_tennis_match"
     ]
+  },
+  {
+    "id": "pierce_anamatar",
+    "name": "Pierce Anamatar",
+    "title": "The Man Who Sells The Way Out",
+    "race": "Unrecorded — the archive has never been told and has never asked to his face",
+    "status": "Active — holds a den off the Skittering Grove; contracted to kill the Oracle; now holds Remi Akamatsu's student ID",
+    "affiliation": "His own. Operates inside Mages' Guild ground and says plainly that he dislikes the Guild",
+    "summary": "A man with knights, a den, and a price list. Pierce Anamatar has appeared twice now in the same role: somebody cornered meets him, and he offers passage in exchange for a possession. On a Shadow Estate rooftop he took a contract to kill the Oracle in exchange for sending the party home. In the burning Skittering Grove he asked for the siglet, settled for a fourteen-year-old's student ID, and called it durable. He does not want coin. He wants things that belong to people.",
+    "description": "Waluigi has been carrying this man in the XP ledger for a while without giving him a page, which is an embarrassment the archive is now correcting.\n\nWhat is actually known fits in a paragraph. He keeps knights. He keeps a den. He turns up where people are desperate and he is never the one who is desperate. Twice now the archive has recorded the same transaction from two different corners of the crisis.\n\n## The rooftop, 14 Harvestide\n\nThe party escaped a locked hidden hall through a mirror-image room and ran into him on a rooftop. They explained the whole situation. He found the candy incident unreasonable — Waluigi notes he was right — and then **took a contract to kill the [Oracle](https://mikegent01.github.io/bik/index.html#/article/the_oracle) in exchange for the party going home**. [Remi](https://mikegent01.github.io/bik/index.html#/article/remi_akamatsu_full_backstory) offered him two daggers, one of which she had taken from a fallen stranger because she needed a weapon.\n\n## The den, 1 Aethel\n\n[Wario](https://mikegent01.github.io/bik/index.html#/article/wario) blundered into his holding while running from the brood, throwing punches at nothing. Anamatar arrived and asked why a stranger was fighting his people.\n\nThe exchange that followed tells you more about him than the contract did. Wario said he was escaping the spiders. Anamatar asked whether he was afraid of *a few creepy-crawlies*, offered him a bandaid and a sippy cup, called him a coward, and observed that he could not handle a handful of knights. Then, when Wario said yes — he is afraid, and had Anamatar *seen* what they look like — the mockery simply stopped and the terms came out.\n\nGuild-controlled ground. He does not like the Guild. He will send them back where they came from in exchange for something of theirs.\n\nHe asked for the **siglet** — the ring from Tymnas's lodge that the party has been chasing for filings. An expired coupon was offered and declined. He walked over to Remi and took her **student ID card** instead, on the stated grounds that it is very durable.\n\n## What Waluigi thinks the price is for\n\nHe does not ask for money. Both recorded prices are **objects with an owner**: a contract paid in someone's passage home, and a card that proves a specific child was enrolled at a specific school.\n\nRemi left [Gehenna Academy](https://mikegent01.github.io/bik/index.html#/article/remi_akamatsu_full_backstory) without a formal withdrawal. That card was the last document in her possession saying she had ever been a student anywhere. She handed it over to get three people out of a burning grove, and Waluigi does not believe for one second that Anamatar wanted it because it laminates well.\n\nWAH.",
+    "notableFeatures": [
+      "Sells passage out in exchange for a possession — never for coin",
+      "Contracted on a Shadow Estate rooftop to kill the Oracle, in exchange for sending the party home",
+      "Found the candy incident unreasonable, which the archive concedes was correct",
+      "Keeps knights and a torchlit den inside Mages' Guild ground, and volunteers that he dislikes the Guild",
+      "Mocked Wario with a bandaid and a sippy cup, then dropped it the moment Wario admitted he was frightened",
+      "Asked for the siglet — Tymnas's ring — and settled for a student ID because it is 'very durable'",
+      "Declined an expired coupon",
+      "Now holds the only document proving Remi Akamatsu was ever enrolled at Gehenna Academy"
+    ],
+    "relatedArticles": [
+      "remi_akamatsu_full_backstory",
+      "wario",
+      "the_oracle",
+      "mages_guild",
+      "anamatar_den",
+      "skittering_grove",
+      "tymnas",
+      "shadow_estate_session_Harvestside_14_continued"
+    ],
+    "keyEvents": [
+      "shadow_estate_session_Harvestside_14_continued"
+    ]
   }
 ]
