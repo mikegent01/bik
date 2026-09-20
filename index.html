@@ -8782,7 +8782,7 @@ function renderSidebar(active){
     navLink({emoji:'⚖️',label:'Cultures & Laws',go:"Router.go('#/cultures')",active:active==='list:cultures',count:(Object.keys(TRADITIONS||{}).length||n('cultures')),title:'Cultural spheres, legal traditions, and where the laws collide'}),
     navLink({emoji:'⚡',label:'Power Projection',go:"Router.go('#/power')",active:active==='power'}),
     navLink({emoji:'🚧',label:'Wanted Pages',go:"Router.go('#/wanted')",active:active==='wanted'}),
-    navLink({emoji:'📖',label:'Reading Desk',go:"Router.go('#/desk')",active:active==='desk'}),
+    navLink({emoji:'📖',label:'Reading Desk',go:"Router.go('#/reading-desk')",active:active==='desk'}),
     navLink({emoji:'👑',label:'Dynasties',go:"Router.go('#/dynasties')",active:active==='dynasties',count:Object.keys(DYNASTY_SYSTEM.houses||{}).length}),
     navLink({emoji:'✧',label:'Faiths & Doctrine',go:"Router.go('#/faiths')",active:active==='faiths',count:Object.keys((RELIGION&&RELIGION.denominations)||{}).length,title:'Denominations, cosmological groups, and the friction between them'}),
     navLink({emoji:'📜',label:"Mages Guild Codex",go:"location.href='mages-code.html'",title:'C.C.D. — Consolidated Canal Decrees, 99k words, 296 pages, Autumnwood Accords Desk',count:'99k'}),
@@ -9289,7 +9289,7 @@ function deskToast(o){
   n.className='desk-toast';
   n.innerHTML=`<b>📖 Day's reading filed</b><span>${DESK_DAILY_TARGET} filings read · `
     +`${o.streak} day${o.streak===1?'':'s'} running</span>`
-    +`<a onclick="Router.go('#/desk')">open the desk →</a>`;
+    +`<a onclick="Router.go('#/reading-desk')">open the desk →</a>`;
   document.body.appendChild(n);
   setTimeout(()=>{ n.classList.add('go'); },40);
   setTimeout(()=>{ n.remove(); },7000);
@@ -9304,7 +9304,7 @@ function readingDeskBanner(){
   const plates=o.plates.slice(0,5).map(p=>
     `<img src="${esc(assetPath(p.image))}" alt="" loading="lazy" title="${esc(p.title)}"
       onclick="Router.go('#/article/${esc(p.id)}')" onerror="this.remove()">`).join('');
-  return `<div class="desk-band${complete?' is-done':''}" onclick="Router.go('#/desk')">
+  return `<div class="desk-band${complete?' is-done':''}" onclick="Router.go('#/reading-desk')">
     <div class="desk-band-main">
       <div class="desk-band-label">📖 The reading desk${o.streak?` · ${o.streak} day${o.streak===1?'':'s'} running`:''}</div>
       <div class="desk-band-title">${complete?`Today's reading is filed. ${o.plates.length} plate${o.plates.length===1?'':'s'} in the gallery.`:`Read ${DESK_DAILY_TARGET-done} more filing${DESK_DAILY_TARGET-done===1?'':'s'} to file today's reading.`}</div>
@@ -9423,7 +9423,7 @@ function deskPull(n){
   }
   deskSave(o);
   deskShowPulls(got);
-  if(typeof view_desk==='function'&&location.hash.includes('/desk')) view_desk();
+  if(typeof view_desk==='function'&&location.hash.includes('/reading-desk')) view_desk();
 }
 function deskShowPulls(got){
   if(!got.length) return;
@@ -9455,7 +9455,7 @@ function deskEquip(id){
   const o=deskLoad();
   if(!o.owned.includes(id)){ deskFlash('That skin is still locked.'); return; }
   applySkin(id);
-  if(location.hash.includes('/desk')) view_desk();
+  if(location.hash.includes('/reading-desk')) view_desk();
 }
 
 /* ---- save code: the only honest way to move progress between origins ----
@@ -9509,17 +9509,17 @@ window.waluipediaDesk={
     o.owned=[...new Set([...o.owned,...SKINS.map(s=>s.id)])];
     o.keys+=20; deskSave(o);
     console.log('%c[desk] all skins unlocked','color:#7ce0b8', o.owned);
-    if(location.hash.includes('/desk')) view_desk();
+    if(location.hash.includes('/reading-desk')) view_desk();
     deskFlash('Debug: every skin unlocked.');
     return o.owned;
   },
   keys(n){ const o=deskLoad(); o.keys+=Number(n)||10; deskSave(o);
-    console.log('[desk] keys:',o.keys); if(location.hash.includes('/desk')) view_desk(); return o.keys; },
+    console.log('[desk] keys:',o.keys); if(location.hash.includes('/reading-desk')) view_desk(); return o.keys; },
   skins(){ console.table(SKINS.map(s=>({id:s.id,name:s.name,rarity:s.rarity}))); return SKINS.map(s=>s.id); },
   equip(id){ return applySkin(id); },
   state(){ const o=deskLoad(); console.log(o); return o; },
   reset(){ try{ localStorage.removeItem(DESK_KEY); localStorage.removeItem(SKIN_KEY); }catch(e){}
-    applySkin('default'); console.log('[desk] cleared'); if(location.hash.includes('/desk')) view_desk(); }
+    applySkin('default'); console.log('[desk] cleared'); if(location.hash.includes('/reading-desk')) view_desk(); }
 };
 
 function deskReset(){
@@ -9875,14 +9875,23 @@ function view_home(){
   const newPill=nNew?`<span class="hm-sec-link ghost" onclick="Router.go('#/list/events')">🆕 ${nNew} new</span>`:'';
   el('content').innerHTML=
     homeHeroHtml({who,dateStr,wd,greet,feat,heroArt,resume})
-    +deadlineBannerHtml()
-    +readingDeskBanner()
+    /* ONE status rail, not six stacked bands. The home page had grown a
+       full-width band per system — deadline, reading desk, release note,
+       colour showcase, ticker, status — and each was individually reasonable
+       while together they pushed the actual archive below the fold.
+
+       The two that are live state (a running countdown, today's reading) sit
+       side by side in a single compact rail. The rest keep their own places:
+       the release note is dismissible, the ticker and status band stay, and
+       the colour showcase moves down to sit with the other content sections
+       instead of competing with the hero. */
+    +`<div class="hm-rail">${deadlineBannerHtml()}${readingDeskBanner()}</div>`
     +releaseBannerHtml()
-    +colourShowcaseHtml()
     +homeTickerHtml(nNew)
     +homeStatusBand(nNew)
     +`<section class="hm-sec hm-rise"><div class="hm-sec-head"><div><div class="hm-sec-kick">Front desk · this season</div><h2>🎬 Current fronts</h2></div><span class="hm-sec-link" onclick="Router.go('#/list/events')">📂 All filings →</span></div><div id="home-campaign-covers" class="campaign-covers-grid"></div><div id="home-field-gallery-label" class="field-gallery-label">📷 From the archive — same stories, filed art</div><div id="home-field-gallery" class="field-gallery-strip"></div></section>`
     +`<div class="hm-grid"><div class="hm-main"><section class="hm-sec hm-rise"><div class="hm-sec-head"><div><div class="hm-sec-kick">Session logs &amp; chronicle</div><h2>📜 Latest filings</h2></div><div style="display:flex;gap:8px;flex-wrap:wrap">${newPill}<span class="hm-sec-link" onclick="Router.go('#/list/events')">Browse all →</span></div></div><div id="home-recent-adventures" class="campaign-timeline-feed"></div><span class="hm-more" onclick="document.getElementById('home-recent-adventures').classList.add('show-all');this.remove()">Show all 12 filings ↓</span></section><div id="home-archive-updates"></div>`
+    +colourShowcaseHtml()
     +`</div>`
     +`<aside class="hm-rail hm-rise"><div class="card"><h2>🕰️ On this day — ${esc(mdName)} ${CUR.day}</h2><div id="home-cal" class="mini-calendar"></div><ul class="otd">${homeOtdList()}</ul><div class="chips" style="margin-top:10px"><a class="chip" onclick="Router.go('#/calendar')">📅 Full calendar →</a></div></div><div class="card"><h2>🧭 Explore</h2><div class="dash-doors">${dashDoors()}</div></div><div class="card"><h2>🆕 Latest updates</h2>${homeUpdatesCard()}<div class="chips" style="margin-top:10px"><a class="chip" onclick="Router.go('#/updates')">📋 All updates →</a></div></div></aside></div>`
     +`<footer class="hm-foot hm-rise"><span class="wah-line">“Every filing is mine. This one is ESPECIALLY mine.”</span>${esc(stats)} · <a onclick="Router.go('#/currencies')" style="cursor:pointer">💱 debts &amp; ledger</a></footer>`;
@@ -22346,7 +22355,7 @@ const Router={
        same content twice, so the route survives as a redirect rather than a
        rival surface. Old links keep working; they just land on the wire. */
     else if(route==='annotations'||route==='chatter')Router.go('#/wahwire');
-    else if(route==='desk'||route==='reading-desk')view_desk();
+    else if(route==='reading-desk'||route==='readingdesk')view_desk();
     else if(route==='wanted'||route==='wanted-pages'||route==='redlinks')view_wanted();
     else if(route==='tradition'||route==='traditions'||route==='law')view_tradition(arg);
     else if(route==='xp'||route==='leaderboard')view_xpLeaderboard();

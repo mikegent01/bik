@@ -524,8 +524,8 @@ check('the best streak survives a reset', afterGap.best >= 2, String(afterGap.be
 
 check('the desk is reader-local and never written to canon',
       src.includes('DESK_KEY') && !src.includes("DESK_KEY,JSON.stringify(DATA"));
-check('the desk route is registered',
-      /route==='desk'\|\|route==='reading-desk'/.test(src));
+check('the reading desk route is registered',
+      /route==='reading-desk'/.test(src));
 check('the desk is reachable from the sidebar', src.includes("label:'Reading Desk'"));
 check('reading an article stamps the desk', grab('dashNoteRead').includes('readingDeskRecord'));
 
@@ -580,6 +580,33 @@ check('the save code merges rather than overwrites',
       grab('deskImport').includes('Math.max') && grab('deskImport').includes('new Set'));
 check('the desk still writes nothing to canon',
       !grab('deskPull').includes('DATA.') && !grab('deskImport').includes('DATA.'));
+
+console.log('\n-- router: no shadowed routes');
+// #/desk was already an alias for view_hub, so a later `route==='desk'` branch
+// could never fire and the page rendered "Article not found". Any duplicated
+// route token is dead code by definition — the first branch always wins.
+// Only the dispatch chain counts. `route==='maps'` also appears in a CSS class
+// toggle and in guards outside the router; those are not competing branches and
+// flagging them would train everyone to ignore this check.
+const dispatch = [...src.matchAll(/else if\(([^)]*route===[^)]*)\)/g)].map(m => m[1]);
+const routeTokens = [...src.matchAll(/route===\s*'([a-z0-9-]+)'/g)].map(m => m[1]);
+const seenRoute = new Map();
+const shadowed = [];
+dispatch.forEach((cond, i) => {
+  [...cond.matchAll(/route===\s*'([a-z0-9-]+)'/g)].map(m => m[1]).forEach(t => {
+    if (seenRoute.has(t)) { if (!shadowed.includes(t)) shadowed.push(t); }
+    else seenRoute.set(t, i);
+  });
+});
+check('no route token is declared twice', shadowed.length === 0,
+      shadowed.join(', ') + ' — a later branch can never fire');
+
+// Every in-page link must resolve to a route that exists.
+const linked = [...src.matchAll(/Router\.go\('#\/([a-z0-9-]+)'/g)].map(m => m[1]);
+const deadRoutes = [...new Set(linked)].filter(r => !routeTokens.includes(r) &&
+  !['home','article','wahwire','wanted','power','atlas','xp','books','artifacts',
+    'annotations','battlefield','cultures','maps','calendar','reputation'].includes(r));
+check('every Router.go target has a route', deadRoutes.length === 0, deadRoutes.join(', '));
 
 console.log(`\n${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);
