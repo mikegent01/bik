@@ -551,7 +551,7 @@ check('exactly one skin is free by default',
       gacha.SKINS.filter(s => s.free).length === 1);
 // A skin with no CSS rule is a reward that does nothing when equipped.
 const missingCss = gacha.SKINS.filter(s => s.id !== 'default' &&
-  !cssSkins.includes(`html[data-skin="${s.id}"]`));
+  !cssSkins.includes(`[data-skin="${s.id}"]`));
 check('every skin has a CSS palette behind it', missingCss.length === 0,
       missingCss.map(s => s.id).join(', '));
 const missingSwatch = gacha.SKINS.filter(s =>
@@ -669,6 +669,59 @@ check('debug writes nothing to canon',
       !grab('setDebug').includes('DATA.') && !grab('toggleDebug').includes('DATA.'));
 check('debug still grants no XP',
       !grab('setDebug').includes('xp') && !grab('setDebug').includes('XP'));
+
+console.log('\n-- skins actually repaint, and redirects resolve');
+const skinCss = fs.readFileSync(
+  path.join(ROOT, 'Reputation-Matrix2', 'app', 'styles', 'waluipedia.css'), 'utf8');
+
+// THE BUG: html[data-theme="dark"] body sets the background with !important at
+// equal specificity. When the skin rules sat ABOVE it the theme won on source
+// order, so every skin silently did nothing. The skins must come after.
+const darkBody = skinCss.indexOf('html[data-theme="dark"] body');
+const lightBody = skinCss.indexOf('html[data-theme="light"] body');
+const firstSkinBody = skinCss.search(/html\[data-skin\]\[data-skin="[a-z]+"\] body/);
+check('skin backgrounds are declared after the dark theme',
+      firstSkinBody > darkBody, `skin@${firstSkinBody} vs dark@${darkBody}`);
+check('skin backgrounds are declared after the light theme',
+      firstSkinBody > lightBody, `skin@${firstSkinBody} vs light@${lightBody}`);
+check('skin selectors carry the extra specificity guard',
+      /html\[data-skin\]\[data-skin="/.test(skinCss));
+
+// Every skin needs BOTH a variable palette and a body background, or it
+// half-applies and looks broken.
+const palettes = [...skinCss.matchAll(/html\[data-skin\]\[data-skin="([a-z]+)"\]\{/g)].map(m => m[1]);
+const bodies = [...skinCss.matchAll(/html\[data-skin\]\[data-skin="([a-z]+)"\] body/g)].map(m => m[1]);
+check('every skin palette also sets a body background',
+      palettes.every(p => bodies.includes(p)),
+      palettes.filter(p => !bodies.includes(p)).join(', '));
+
+// Redirects: curated, must resolve, must not shadow a real record.
+const redMatch = src.match(/const ID_REDIRECTS=\{([\s\S]*?)\n\};/);
+check('the redirect table exists', !!redMatch);
+if (redMatch) {
+  const pairs = [...redMatch[1].matchAll(/'([^']+)':\s*'([^']+)'/g)].map(m => [m[1], m[2]]);
+  check('there are redirects filed', pairs.length > 0, String(pairs.length));
+  const realIds2 = new Set();
+  for (const f of ['events','battles','characters','locations','factions','nations',
+                   'races','cultures','trials','collections','majorBattles']) {
+    const p = path.join(DATA_DIR, f + '.json');
+    if (!fs.existsSync(p)) continue;
+    const doc = JSON.parse(fs.readFileSync(p, 'utf8'));
+    const rows = Array.isArray(doc) ? doc : (Object.values(doc).find(Array.isArray) || []);
+    rows.forEach(r => { if (r && r.id) realIds2.add(r.id); });
+  }
+  const badTarget = pairs.filter(([, to]) => !realIds2.has(to));
+  check('every redirect target is a real record', badTarget.length === 0,
+        badTarget.map(p => p.join('->')).join(', '));
+  const shadowing = pairs.filter(([from]) => realIds2.has(from));
+  check('no redirect shadows an existing record', shadowing.length === 0,
+        shadowing.map(p => p[0]).join(', '));
+  check('curated redirects are applied before generic guesses',
+        grab('buildIdAliases').indexOf('ID_REDIRECTS') <
+        grab('buildIdAliases').indexOf('firstTok'));
+  check('a generic guess cannot override a curated redirect',
+        grab('buildIdAliases').includes('if(ID_REDIRECTS[alias]) return;'));
+}
 
 console.log(`\n${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);

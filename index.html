@@ -7817,12 +7817,57 @@ function setLinkContext(item){
    before the canonical record got a longer id ("remi_akamatsu_full_backstory",
    "archie_miser", "the_oracle"). Those used to render as dead grey chips — 48 of them
    for Remi alone. Resolve them so they become real links instead of wanted pages. */
+/* ===== REDIRECTS — wanted pages that are not actually missing =====
+   A reference like `steely` or `rakasha_azure` reads as a hole in the archive,
+   but the record exists: it is filed as `rescue_of_steely` and `azure_rakasha`.
+   Those are redirects, not writing work, and leaving them in the wanted list
+   hides the ~540 gaps that are real.
+
+   Curated by hand, NOT generated. Token overlap is not identity: `toadette_sr`
+   is the print-shop mother from 955 BF and not Captain Toadette; `agent_l` and
+   `agent_t` are distinct agents, not the Gamma Division one; `dr_mario` is
+   deliberately unresolved in canon. Sixteen machine-suggested matches were
+   rejected for reasons like those, and every entry below was checked against
+   the record it points at.
+
+   These resolve at render time. The source data keeps its original wording —
+   nothing is rewritten — so a filing that says `spider_grove` still says it. */
+const ID_REDIRECTS={
+  'ashford':                              'marcus_ashford',
+  'black_crystal':                        'black_crystal_item',
+  'bloomia':                              'lady_bloomia',
+  'bob_omb_battlefield':                  'battle_of_bob_omb_battlefield',
+  'dewdrop':                              'scribe_dewdrop',
+  'e_gadd':                               'professor_e_gadd',
+  'estragon_island':                      'the_estragon_island_incident',
+  'feyward_manor':                        'overgrown_manor',
+  'planar_sanctum':                       'the_planar_sanctum_revelation',
+  'rakasha_azure':                        'azure_rakasha',
+  'spider_grove':                         'spider_grove_battle',
+  'steely':                               'rescue_of_steely',
+  'the_beastmaster':                      'vaxillus_the_beastmaster',
+  'the_chaos_heart':                      'chaos_heart_crisis',
+  'the_glazed_congress':                  'glazed_congress_founding',
+  'the_lounge_incident_paper_war':        'the_lounge_incident_and_the_paper_war',
+  'the_planar_sanctum':                   'the_planar_sanctum_revelation',
+  'the_wario_method':                     'the_wario_method_interview',
+  'thornpaw':                             'chief_thornpaw',
+  'toadsmith':                            'toadsmith_incident',
+  'tree_of_woe':                          'the_tree_of_woe_engagement'
+};
+
 let LINK_ID_ALIAS={};
 function buildIdAliases(){
   LINK_ID_ALIAS={};
+  /* Curated redirects go in first and are never overwritten by a guess below,
+     because a hand-checked target beats a token match every time. */
+  Object.entries(ID_REDIRECTS).forEach(([from,to])=>{
+    if(!INDEX[from]&&INDEX[to]) LINK_ID_ALIAS[from]=to;
+  });
   const ids=Object.keys(INDEX);
   const claim=(alias,target)=>{
     if(!alias||INDEX[alias]) return;                        // never shadow a real id
+    if(ID_REDIRECTS[alias]) return;                         // never override a curated redirect
     const cur=LINK_ID_ALIAS[alias];
     if(cur&&cur!==target){ LINK_ID_ALIAS[alias]='\u0000ambiguous'; return; }
     LINK_ID_ALIAS[alias]=target;
@@ -17345,6 +17390,20 @@ function view_wanted(){
       <td class="wanted-n">${w.count}</td>
       <td>→ <a class="lg-chip sm" onclick="openId('${esc(t)}')">${esc(nm)}</a> <span class="wanted-id">${esc(t)}</span></td></tr>`;
   }).join('');
+  /* Redirects already resolve, so they never reach the wanted list — but the
+     board should say they exist, or the same ids get "fixed" again next month. */
+  const redirectCard=(typeof ID_REDIRECTS!=='undefined'&&Object.keys(ID_REDIRECTS).length)?`<div class="card wanted-group">
+      <div class="wanted-group-head">
+        <h3>↪️ Already redirected <span class="wanted-count">${Object.keys(ID_REDIRECTS).length}</span></h3>
+        <p class="text-muted">References that read like gaps but resolve to a record filed under another name. These are handled — no page needs writing, and the source data keeps its original wording.</p>
+      </div>
+      <table class="wanted-table"><thead><tr><th>Reference</th><th></th><th>Resolves to</th></tr></thead>
+      <tbody>${Object.entries(ID_REDIRECTS).map(([from,to])=>{
+        const nm=INDEX[to]?displayName(INDEX[to].item):prettyId(to);
+        return `<tr><td><span class="wanted-id">${esc(from)}</span></td><td class="wanted-n">→</td>
+          <td><a class="lg-chip sm" onclick="openId('${esc(to)}')">${esc(nm)}</a> <span class="wanted-id">${esc(to)}</span></td></tr>`;
+      }).join('')}</tbody></table></div>`:'';
+
   const typoCard=typos.length?`<div class="card wanted-group">
       <div class="wanted-group-head">
         <h3>🔧 Probably just a typo <span class="wanted-count">${typos.length}</span></h3>
@@ -17366,6 +17425,7 @@ function view_wanted(){
       ${top?`<div class="wanted-lede"><b>Most requested right now</b><ul>${top}</ul></div>`:''}
     </div>
     ${real.length?sections:'<div class="card"><p class="text-muted">No dangling references. The archive is, improbably, complete.</p></div>'}
+    ${redirectCard}
     ${typoCard}`;
   window.scrollTo(0,0);
 }

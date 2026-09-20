@@ -51,76 +51,6 @@ html[data-theme="light"] body{
     #f3eefb !important;
   color:#1a1230 !important;
 }
-/* ==========================================================================
-   SKINS — unlockable palettes for the Reading Desk
-   Every one of these only re-declares the same custom properties :root sets,
-   so a skin repaints all 130 usages across the site without touching a single
-   component rule. A skin layers ON TOP of the dark/light mode: data-theme
-   stays as it was, data-skin carries the palette.
-   ========================================================================== */
-html[data-skin="ember"]{
-  --bg:#150c0a; --bg2:#20110d; --panel:#2b1712; --panel2:#371d16;
-  --border:#5e2f20; --text:#f7e9e3; --muted:#c9a08e; --accent:#e5603a;
-  --accent2:#ffab3d; --link:#ffb08a;
-}
-html[data-skin="ember"] body{background:
-  radial-gradient(1200px 600px at 80% -10%,rgba(229,96,58,.18),transparent 60%),
-  radial-gradient(900px 500px at -10% 10%,rgba(255,171,61,.09),transparent 55%),#150c0a !important;}
-
-html[data-skin="feyward"]{
-  --bg:#08140f; --bg2:#0d1e16; --panel:#122a1f; --panel2:#173528;
-  --border:#255740; --text:#e4f5ec; --muted:#93c2ac; --accent:#2fae8a;
-  --accent2:#a8d96a; --link:#7ee0bb;
-}
-html[data-skin="feyward"] body{background:
-  radial-gradient(1200px 600px at 80% -10%,rgba(47,174,138,.18),transparent 60%),
-  radial-gradient(900px 500px at -10% 10%,rgba(168,217,106,.09),transparent 55%),#08140f !important;}
-
-html[data-skin="shadowfell"]{
-  --bg:#070810; --bg2:#0c0e1a; --panel:#111426; --panel2:#171b33;
-  --border:#2a3055; --text:#dfe3f5; --muted:#8e97bd; --accent:#4a5cc4;
-  --accent2:#7d6fe0; --link:#9aa6ff;
-}
-html[data-skin="shadowfell"] body{background:
-  radial-gradient(1200px 600px at 80% -10%,rgba(74,92,196,.20),transparent 60%),
-  radial-gradient(900px 500px at -10% 10%,rgba(125,111,224,.10),transparent 55%),#070810 !important;}
-
-html[data-skin="snowdin"]{
-  --bg:#0b1018; --bg2:#121a25; --panel:#182333; --panel2:#1f2d40;
-  --border:#2f4258; --text:#e8f1fa; --muted:#9db3c9; --accent:#5aa9e6;
-  --accent2:#bfe3ff; --link:#8fcdf5;
-}
-html[data-skin="snowdin"] body{background:
-  radial-gradient(1200px 600px at 80% -10%,rgba(90,169,230,.18),transparent 60%),
-  radial-gradient(900px 500px at -10% 10%,rgba(191,227,255,.08),transparent 55%),#0b1018 !important;}
-
-html[data-skin="regency"]{
-  --bg:#150f06; --bg2:#1f170a; --panel:#2a2010; --panel2:#352914;
-  --border:#5c4620; --text:#f7efdc; --muted:#c7b088; --accent:#c9a227;
-  --accent2:#e8c65a; --link:#e6cc80;
-}
-html[data-skin="regency"] body{background:
-  radial-gradient(1200px 600px at 80% -10%,rgba(201,162,39,.16),transparent 60%),
-  radial-gradient(900px 500px at -10% 10%,rgba(232,198,90,.08),transparent 55%),#150f06 !important;}
-
-html[data-skin="wahwire"]{
-  --bg:#12060f; --bg2:#1c0a17; --panel:#260f1f; --panel2:#331428;
-  --border:#5e2249; --text:#fce8f5; --muted:#d199bf; --accent:#ff4fa3;
-  --accent2:#ffd166; --link:#ff8cc4;
-}
-html[data-skin="wahwire"] body{background:
-  radial-gradient(1200px 600px at 80% -10%,rgba(255,79,163,.20),transparent 60%),
-  radial-gradient(900px 500px at -10% 10%,rgba(255,209,102,.09),transparent 55%),#12060f !important;}
-
-html[data-skin="oracle"]{
-  --bg:#0a0a0a; --bg2:#121212; --panel:#191919; --panel2:#212121;
-  --border:#3a3a3a; --text:#f2f2f2; --muted:#a3a3a3; --accent:#d4d4d4;
-  --accent2:#8a4bff; --link:#c9b6ff;
-}
-html[data-skin="oracle"] body{background:
-  radial-gradient(1200px 600px at 80% -10%,rgba(212,212,212,.07),transparent 60%),
-  radial-gradient(900px 500px at -10% 10%,rgba(138,75,255,.12),transparent 55%),#0a0a0a !important;}
-
 html[data-theme="dark"],
 html:not([data-theme]){
   color-scheme: dark;
@@ -134,6 +64,83 @@ html:not([data-theme]) body{
     #0d0a15 !important;
   color:#ece7f5 !important;
 }
+/* ==========================================================================
+   SKINS — unlockable palettes for the Reading Desk
+   Each skin only re-declares the custom properties :root already sets, so it
+   repaints all 130 usages across the site without touching a component rule.
+   A skin layers ON TOP of dark/light: data-theme stays, data-skin carries the
+   palette.
+
+   THIS BLOCK MUST STAY BELOW THE data-theme RULES. `html[data-theme="dark"]
+   body` sets the background with !important at equal specificity, so when the
+   skins sat above it the theme won on source order and every skin silently did
+   nothing. The doubled [data-skin] attribute raises specificity so the skins
+   also win if the file is ever reordered.
+   ========================================================================== */
+html[data-skin][data-skin="ember"]{
+  --bg:#150c0a; --bg2:#20110d; --panel:#2b1712; --panel2:#371d16;
+  --border:#5e2f20; --text:#f7e9e3; --muted:#c9a08e; --accent:#e5603a;
+  --accent2:#ffab3d; --link:#ffb08a;
+}
+html[data-skin][data-skin="ember"] body{background:
+  radial-gradient(1200px 600px at 80% -10%,rgba(229,96,58,.18),transparent 60%),
+  radial-gradient(900px 500px at -10% 10%,rgba(255,171,61,.09),transparent 55%),#150c0a !important;}
+
+html[data-skin][data-skin="feyward"]{
+  --bg:#08140f; --bg2:#0d1e16; --panel:#122a1f; --panel2:#173528;
+  --border:#255740; --text:#e4f5ec; --muted:#93c2ac; --accent:#2fae8a;
+  --accent2:#a8d96a; --link:#7ee0bb;
+}
+html[data-skin][data-skin="feyward"] body{background:
+  radial-gradient(1200px 600px at 80% -10%,rgba(47,174,138,.18),transparent 60%),
+  radial-gradient(900px 500px at -10% 10%,rgba(168,217,106,.09),transparent 55%),#08140f !important;}
+
+html[data-skin][data-skin="shadowfell"]{
+  --bg:#070810; --bg2:#0c0e1a; --panel:#111426; --panel2:#171b33;
+  --border:#2a3055; --text:#dfe3f5; --muted:#8e97bd; --accent:#4a5cc4;
+  --accent2:#7d6fe0; --link:#9aa6ff;
+}
+html[data-skin][data-skin="shadowfell"] body{background:
+  radial-gradient(1200px 600px at 80% -10%,rgba(74,92,196,.20),transparent 60%),
+  radial-gradient(900px 500px at -10% 10%,rgba(125,111,224,.10),transparent 55%),#070810 !important;}
+
+html[data-skin][data-skin="snowdin"]{
+  --bg:#0b1018; --bg2:#121a25; --panel:#182333; --panel2:#1f2d40;
+  --border:#2f4258; --text:#e8f1fa; --muted:#9db3c9; --accent:#5aa9e6;
+  --accent2:#bfe3ff; --link:#8fcdf5;
+}
+html[data-skin][data-skin="snowdin"] body{background:
+  radial-gradient(1200px 600px at 80% -10%,rgba(90,169,230,.18),transparent 60%),
+  radial-gradient(900px 500px at -10% 10%,rgba(191,227,255,.08),transparent 55%),#0b1018 !important;}
+
+html[data-skin][data-skin="regency"]{
+  --bg:#150f06; --bg2:#1f170a; --panel:#2a2010; --panel2:#352914;
+  --border:#5c4620; --text:#f7efdc; --muted:#c7b088; --accent:#c9a227;
+  --accent2:#e8c65a; --link:#e6cc80;
+}
+html[data-skin][data-skin="regency"] body{background:
+  radial-gradient(1200px 600px at 80% -10%,rgba(201,162,39,.16),transparent 60%),
+  radial-gradient(900px 500px at -10% 10%,rgba(232,198,90,.08),transparent 55%),#150f06 !important;}
+
+html[data-skin][data-skin="wahwire"]{
+  --bg:#12060f; --bg2:#1c0a17; --panel:#260f1f; --panel2:#331428;
+  --border:#5e2249; --text:#fce8f5; --muted:#d199bf; --accent:#ff4fa3;
+  --accent2:#ffd166; --link:#ff8cc4;
+}
+html[data-skin][data-skin="wahwire"] body{background:
+  radial-gradient(1200px 600px at 80% -10%,rgba(255,79,163,.20),transparent 60%),
+  radial-gradient(900px 500px at -10% 10%,rgba(255,209,102,.09),transparent 55%),#12060f !important;}
+
+html[data-skin][data-skin="oracle"]{
+  --bg:#0a0a0a; --bg2:#121212; --panel:#191919; --panel2:#212121;
+  --border:#3a3a3a; --text:#f2f2f2; --muted:#a3a3a3; --accent:#d4d4d4;
+  --accent2:#8a4bff; --link:#c9b6ff;
+}
+html[data-skin][data-skin="oracle"] body{background:
+  radial-gradient(1200px 600px at 80% -10%,rgba(212,212,212,.07),transparent 60%),
+  radial-gradient(900px 500px at -10% 10%,rgba(138,75,255,.12),transparent 55%),#0a0a0a !important;}
+
+
 *{box-sizing:border-box}
 html,body{margin:0;padding:0}
 body{background:radial-gradient(1200px 600px at 80% -10%,rgba(138,75,255,.14),transparent 60%),
