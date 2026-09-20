@@ -8782,6 +8782,7 @@ function renderSidebar(active){
     navLink({emoji:'⚖️',label:'Cultures & Laws',go:"Router.go('#/cultures')",active:active==='list:cultures',count:(Object.keys(TRADITIONS||{}).length||n('cultures')),title:'Cultural spheres, legal traditions, and where the laws collide'}),
     navLink({emoji:'⚡',label:'Power Projection',go:"Router.go('#/power')",active:active==='power'}),
     navLink({emoji:'🚧',label:'Wanted Pages',go:"Router.go('#/wanted')",active:active==='wanted'}),
+    navLink({emoji:'📖',label:'Reading Desk',go:"Router.go('#/desk')",active:active==='desk'}),
     navLink({emoji:'👑',label:'Dynasties',go:"Router.go('#/dynasties')",active:active==='dynasties',count:Object.keys(DYNASTY_SYSTEM.houses||{}).length}),
     navLink({emoji:'✧',label:'Faiths & Doctrine',go:"Router.go('#/faiths')",active:active==='faiths',count:Object.keys((RELIGION&&RELIGION.denominations)||{}).length,title:'Denominations, cosmological groups, and the friction between them'}),
     navLink({emoji:'📜',label:"Mages Guild Codex",go:"location.href='mages-code.html'",title:'C.C.D. — Consolidated Canal Decrees, 99k words, 296 pages, Autumnwood Accords Desk',count:'99k'}),
@@ -9135,6 +9136,157 @@ function dashNoteRead(id){
     r.unshift(id);
     localStorage.setItem('waluipediaRecents',JSON.stringify(r.slice(0,8)));
   }catch(e){}
+  try{ readingDeskRecord(id); }catch(e){}
+}
+
+/* ===== THE READING DESK — a daily rota, and the plates you keep =====
+   Two things the archive wanted and did not have:
+
+     1. a reason to come back tomorrow
+     2. somewhere the field plates go once you have seen them
+
+   Both are the same mechanism. Reading a filing stamps it; stamping three in a
+   day completes the day's rota; completing a day adds the plates from what you
+   read to a gallery that persists. Nothing here is canon and nothing is
+   written to the archive — it is a reader's own record, kept in this browser,
+   exactly like the WAHwire drafts desk. The archive is never edited by
+   somebody opening the page.
+
+   Storage is one key so it can be cleared in one action, and it is capped so a
+   long-running reader cannot grow it without bound. */
+const DESK_KEY='waluipedia-reading-desk-v1';
+const DESK_DAILY_TARGET=3;
+const DESK_MAX_PLATES=60;
+function deskToday(){
+  /* The rota turns over on the reader's own local date. Using the in-world
+     clock would mean the rota only advanced when a session was filed. */
+  const d=new Date();
+  return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+}
+function deskLoad(){
+  let o={};
+  try{ o=JSON.parse(localStorage.getItem(DESK_KEY)||'{}')||{}; }catch(e){ o={}; }
+  o.day=o.day||'';
+  o.readToday=Array.isArray(o.readToday)?o.readToday:[];
+  o.plates=Array.isArray(o.plates)?o.plates:[];
+  o.streak=Number(o.streak)||0;
+  o.best=Number(o.best)||0;
+  o.daysComplete=Number(o.daysComplete)||0;
+  o.lastComplete=o.lastComplete||'';
+  o.totalRead=Number(o.totalRead)||0;
+  return o;
+}
+function deskSave(o){ try{ localStorage.setItem(DESK_KEY,JSON.stringify(o)); }catch(e){} }
+/* Yesterday, in the same local-date format, so a streak can tell "continued"
+   from "came back after a gap". */
+function deskYesterday(){
+  const d=new Date(); d.setDate(d.getDate()-1);
+  return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+}
+/* The plate for a filing: its own art, never a render. If a filing has no
+   image it still counts toward the rota — it simply contributes no plate. */
+function deskPlateFor(id){
+  const rec=(typeof INDEX!=='undefined')&&INDEX[id]?INDEX[id].item:null;
+  if(!rec||!rec.image) return null;
+  return {id:id,image:rec.image,
+          caption:rec.imageCaption||displayName(rec)||id,
+          title:displayName(rec)||id,
+          on:deskToday()};
+}
+function readingDeskRecord(id){
+  if(!id) return null;
+  const o=deskLoad(), today=deskToday();
+  if(o.day!==today){ o.day=today; o.readToday=[]; }
+  if(o.readToday.includes(id)) { deskSave(o); return o; }   // one stamp per filing per day
+  o.readToday.push(id);
+  o.totalRead++;
+  const justHit=o.readToday.length===DESK_DAILY_TARGET;
+  if(justHit&&o.lastComplete!==today){
+    o.streak=(o.lastComplete===deskYesterday())?o.streak+1:1;
+    o.best=Math.max(o.best,o.streak);
+    o.daysComplete++;
+    o.lastComplete=today;
+    /* The reward is the art. Plates are earned from what was actually read
+       today, de-duplicated, newest first, and capped. */
+    const have=new Set(o.plates.map(p=>p&&p.id));
+    o.readToday.forEach(rid=>{
+      if(have.has(rid)) return;
+      const pl=deskPlateFor(rid);
+      if(pl){ o.plates.unshift(pl); have.add(rid); }
+    });
+    o.plates=o.plates.slice(0,DESK_MAX_PLATES);
+  }
+  deskSave(o);
+  if(justHit) try{ deskToast(o); }catch(e){}
+  return o;
+}
+function deskToast(o){
+  const n=document.createElement('div');
+  n.className='desk-toast';
+  n.innerHTML=`<b>📖 Day's reading filed</b><span>${DESK_DAILY_TARGET} filings read · `
+    +`${o.streak} day${o.streak===1?'':'s'} running</span>`
+    +`<a onclick="Router.go('#/desk')">open the desk →</a>`;
+  document.body.appendChild(n);
+  setTimeout(()=>{ n.classList.add('go'); },40);
+  setTimeout(()=>{ n.remove(); },7000);
+}
+/* The home-page strip: today's progress, the streak, and the last plates kept. */
+function readingDeskBanner(){
+  const o=deskLoad();
+  if(o.day!==deskToday()) o.readToday=[];
+  const done=Math.min(o.readToday.length,DESK_DAILY_TARGET);
+  const pct=Math.round(done/DESK_DAILY_TARGET*100);
+  const complete=done>=DESK_DAILY_TARGET;
+  const plates=o.plates.slice(0,5).map(p=>
+    `<img src="${esc(assetPath(p.image))}" alt="" loading="lazy" title="${esc(p.title)}"
+      onclick="Router.go('#/article/${esc(p.id)}')" onerror="this.remove()">`).join('');
+  return `<div class="desk-band${complete?' is-done':''}" onclick="Router.go('#/desk')">
+    <div class="desk-band-main">
+      <div class="desk-band-label">📖 The reading desk${o.streak?` · ${o.streak} day${o.streak===1?'':'s'} running`:''}</div>
+      <div class="desk-band-title">${complete?`Today's reading is filed. ${o.plates.length} plate${o.plates.length===1?'':'s'} in the gallery.`:`Read ${DESK_DAILY_TARGET-done} more filing${DESK_DAILY_TARGET-done===1?'':'s'} to file today's reading.`}</div>
+      <div class="desk-track"><div class="desk-fill" style="width:${pct}%"></div></div>
+    </div>
+    ${plates?`<div class="desk-band-plates">${plates}</div>`:''}
+  </div>`;
+}
+function view_desk(){
+  renderSidebar('desk');
+  const o=deskLoad();
+  if(o.day!==deskToday()) o.readToday=[];
+  const done=Math.min(o.readToday.length,DESK_DAILY_TARGET);
+  const complete=done>=DESK_DAILY_TARGET;
+  const todayRows=o.readToday.map(id=>{
+    const rec=INDEX[id]?INDEX[id].item:null;
+    return `<li><a onclick="Router.go('#/article/${esc(id)}')">${esc(rec?displayName(rec):prettyId(id))}</a></li>`;
+  }).join('')||'<li class="text-muted">Nothing read yet today.</li>';
+  const gallery=o.plates.length?o.plates.map(p=>
+    `<figure class="desk-plate" onclick="Router.go('#/article/${esc(p.id)}')">
+      <img src="${esc(assetPath(p.image))}" alt="" loading="lazy" onerror="this.closest('figure').remove()">
+      <figcaption><b>${esc(p.title)}</b><span>${esc(p.caption)}</span></figcaption>
+    </figure>`).join(''):'<p class="text-muted">No plates yet. Finish a day\'s reading and the art from what you read is kept here.</p>';
+  el('content').innerHTML=`
+    <div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › The Reading Desk</div>
+    <div class="card animate-fade-in">
+      <h1 class="art-title">📖 The Reading Desk</h1>
+      <p class="text-muted">Waluigi does not pay people to read the archive. Waluigi does, however, keep a note of who bothered. Read ${DESK_DAILY_TARGET} filings in a day and the day is filed; the plates from what you read are kept below.</p>
+      <div class="chips mt-10">
+        <span class="chip ${complete?'active':''}">${done}/${DESK_DAILY_TARGET} today</span>
+        <span class="chip">${o.streak} day streak</span>
+        <span class="chip">best ${o.best}</span>
+        <span class="chip">${o.daysComplete} days filed</span>
+        <span class="chip">${o.totalRead} filings read</span>
+      </div>
+      <p class="text-muted mt-10" style="font-size:12px">Kept in this browser only. It is your record, not the archive's — nothing here is canon and nothing is written to the filings. <a onclick="deskReset()">Clear the desk</a>.</p>
+    </div>
+    <div class="card"><h2 style="margin-top:0">Today's reading</h2><ul class="desk-today">${todayRows}</ul></div>
+    <div class="card"><h2 style="margin-top:0">🖼️ Field plates kept <span class="text-muted" style="font-size:12px;font-weight:400">— ${o.plates.length} of ${DESK_MAX_PLATES}</span></h2>
+      <div class="desk-gallery">${gallery}</div></div>`;
+  window.scrollTo(0,0);
+}
+function deskReset(){
+  if(!confirm('Clear the reading desk? The plates and the streak go with it.')) return;
+  try{ localStorage.removeItem(DESK_KEY); }catch(e){}
+  view_desk();
 }
 /* ---- "what else is attached to this filing" ---------------------------
    74 of the 120 filings carry extra material - a commentary, an archivist
@@ -9485,6 +9637,7 @@ function view_home(){
   el('content').innerHTML=
     homeHeroHtml({who,dateStr,wd,greet,feat,heroArt,resume})
     +deadlineBannerHtml()
+    +readingDeskBanner()
     +releaseBannerHtml()
     +colourShowcaseHtml()
     +homeTickerHtml(nNew)
@@ -21954,6 +22107,7 @@ const Router={
        same content twice, so the route survives as a redirect rather than a
        rival surface. Old links keep working; they just land on the wire. */
     else if(route==='annotations'||route==='chatter')Router.go('#/wahwire');
+    else if(route==='desk'||route==='reading-desk')view_desk();
     else if(route==='wanted'||route==='wanted-pages'||route==='redlinks')view_wanted();
     else if(route==='tradition'||route==='traditions'||route==='law')view_tradition(arg);
     else if(route==='xp'||route==='leaderboard')view_xpLeaderboard();

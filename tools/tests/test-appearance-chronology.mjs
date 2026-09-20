@@ -472,5 +472,62 @@ for (const id of events.slice(-2).map(e => e.id)) {
   check(`the recent filing ${id.slice(0, 34)} has a native wire post`, n > 0);
 }
 
+console.log('\n-- the reading desk');
+// A daily rota that rewards reading with the art from what was read. It is a
+// reader-local record, so the thing to guard is that it never touches canon
+// and that its arithmetic cannot be gamed by re-reading one page.
+const deskConsts = src.slice(src.indexOf('const DESK_KEY='), src.indexOf('function deskToday('));
+const deskCode = [deskConsts, 'deskToday','deskLoad','deskSave','deskYesterday',
+                  'deskPlateFor','readingDeskRecord'].map((n,i)=>i?grab(n):n).join('\n');
+let deskStore = {};
+const fakeLS = { getItem: k => deskStore[k] ?? null,
+                 setItem: (k,v) => { deskStore[k] = String(v); },
+                 removeItem: k => { delete deskStore[k]; } };
+const deskIndex = {};
+events.forEach(e => { if (e && e.id) deskIndex[e.id] = { typeKey: 'events', item: e }; });
+const desk = new Function('localStorage','INDEX','displayName','deskToast','document',
+  deskCode + ';return {readingDeskRecord,deskLoad,DESK_DAILY_TARGET};'
+)(fakeLS, deskIndex, o => o && (o.name || o.id), () => {},
+  { createElement: () => ({ classList: { add(){} }, remove(){}, style:{} }), body: { appendChild(){} } });
+
+const arted = events.filter(e => e.image).slice(-6).map(e => e.id);
+check('the archive has illustrated filings to earn plates from', arted.length >= 4);
+
+let st;
+for (const id of arted.slice(0, desk.DESK_DAILY_TARGET)) st = desk.readingDeskRecord(id);
+check('reading the daily target completes the day', st.daysComplete === 1, JSON.stringify(st.daysComplete));
+check('completing a day starts a streak', st.streak === 1);
+check('completing a day keeps plates from what was read', st.plates.length > 0);
+
+const beforeTotal = st.totalRead;
+st = desk.readingDeskRecord(arted[0]);
+check('re-reading the same filing does not double-count', st.totalRead === beforeTotal,
+      `${beforeTotal} -> ${st.totalRead}`);
+check('plates are de-duplicated',
+      new Set(st.plates.map(p => p.id)).size === st.plates.length);
+
+// Consecutive day continues the streak; a gap resets it but keeps the best.
+const bump = (lastComplete) => {
+  const o = JSON.parse(deskStore['waluipedia-reading-desk-v1']);
+  o.day = '1999-01-01'; o.readToday = []; o.lastComplete = lastComplete;
+  deskStore['waluipedia-reading-desk-v1'] = JSON.stringify(o);
+  let r; for (const id of arted.slice(0, desk.DESK_DAILY_TARGET)) r = desk.readingDeskRecord(id);
+  return r;
+};
+const y = new Date(); y.setDate(y.getDate() - 1);
+const ymd = d => d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+const day2 = bump(ymd(y));
+check('a consecutive day increments the streak', day2.streak === 2, String(day2.streak));
+const afterGap = bump('2000-01-01');
+check('a gap resets the streak to 1', afterGap.streak === 1, String(afterGap.streak));
+check('the best streak survives a reset', afterGap.best >= 2, String(afterGap.best));
+
+check('the desk is reader-local and never written to canon',
+      src.includes('DESK_KEY') && !src.includes("DESK_KEY,JSON.stringify(DATA"));
+check('the desk route is registered',
+      /route==='desk'\|\|route==='reading-desk'/.test(src));
+check('the desk is reachable from the sidebar', src.includes("label:'Reading Desk'"));
+check('reading an article stamps the desk', grab('dashNoteRead').includes('readingDeskRecord'));
+
 console.log(`\n${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);
