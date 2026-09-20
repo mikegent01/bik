@@ -9207,6 +9207,37 @@ function applySkin(id){
 }
 try{ applySkin(localStorage.getItem(SKIN_KEY)||'default'); }catch(e){}
 
+/* ===== DEBUG MODE =====
+   A switch in Settings that takes the daily system out of the way so the
+   archive can be worked on without waiting a day for a key. It is stored
+   alongside the desk save, and it is deliberately loud: every surface that
+   behaves differently says so, because a silent debug mode is how a bug gets
+   filed against a feature that was switched off. */
+const DEBUG_KEY='waluipedia-debug-v1';
+function debugOn(){ try{ return localStorage.getItem(DEBUG_KEY)==='1'; }catch(e){ return false; } }
+function setDebug(on){
+  try{ localStorage.setItem(DEBUG_KEY,on?'1':'0'); }catch(e){}
+  document.documentElement.classList.toggle('is-debug',!!on);
+  if(on){
+    /* Unlock everything rather than granting keys: the point is to see the
+       skins, not to play the game faster. */
+    const o=deskLoad();
+    o.owned=[...new Set([...o.owned,...SKINS.map(x=>x.id)])];
+    deskSave(o);
+  }
+  return !!on;
+}
+function toggleDebug(){
+  const next=!debugOn();
+  setDebug(next);
+  if(typeof deskFlash==='function')
+    deskFlash(next?'Debug mode ON — all skins unlocked, daily rota paused.':'Debug mode off. The rota is running again.');
+  if(location.hash.includes('/settings')) view_settings();
+  else if(location.hash.includes('/reading-desk')) view_desk();
+  return next;
+}
+try{ if(debugOn()) document.documentElement.classList.add('is-debug'); }catch(e){}
+
 const DESK_KEY='waluipedia-reading-desk-v1';
 const DESK_DAILY_TARGET=3;
 const DESK_MAX_PLATES=60;
@@ -9255,6 +9286,10 @@ function deskPlateFor(id){
 }
 function readingDeskRecord(id){
   if(!id) return null;
+  /* Debug pauses the rota: reads still show in today's list, but they do not
+     advance the streak or mint keys. Otherwise a long working session would
+     silently inflate a streak nobody earned. */
+  if(debugOn()) return null;
   const o=deskLoad(), today=deskToday();
   if(o.day!==today){ o.day=today; o.readToday=[]; }
   if(o.readToday.includes(id)) { deskSave(o); return o; }   // one stamp per filing per day
@@ -9406,15 +9441,20 @@ function view_desk(){
 function deskPull(n){
   const o=deskLoad();
   const want=Math.max(1,Number(n)||1);
-  if(o.keys<want){ deskFlash('Not enough keys. Read '+DESK_DAILY_TARGET+' filings in a day to earn one.'); return; }
+  const free=debugOn();          // pulls cost nothing while debugging
+  if(!free&&o.keys<want){ deskFlash('Not enough keys. Read '+DESK_DAILY_TARGET+' filings in a day to earn one.'); return; }
   const got=[];
   for(let i=0;i<want;i++){
     const res=skinPull(o.owned,o.pity);
-    o.keys--; o.pulls++;
+    if(!free) o.keys--;
+    o.pulls++;
     if(!res.skin) continue;
     if(res.rarity>=4) o.pity=0; else o.pity++;
     if(o.owned.includes(res.skin.id)){
-      o.keys+=1;                       // a duplicate refunds its key
+      /* A duplicate refunds its key — but only if a key was actually spent.
+         In debug mode pulls are free, so refunding would mint currency out of
+         nothing and the key count would climb while "paused". */
+      if(!free) o.keys+=1;
       got.push({skin:res.skin,rarity:res.rarity,dupe:true});
     }else{
       o.owned.push(res.skin.id);
@@ -9668,6 +9708,7 @@ function view_settings(){
   let vol = 0.5; try{ vol = Number(localStorage.getItem('waluipedia-ambient-volume')); if(!Number.isFinite(vol)) vol=0.5; }catch(e){}
   const playing = !!A.playing;
   const mobile  = !!A.mobileMode;
+  const dbg     = (typeof debugOn==='function') && debugOn();
   const track   = A.track || '—';
 
   const row=(icon,title,desc,control)=>`<div class="set-row"><div class="set-row-ico">${icon}</div>
@@ -9712,6 +9753,21 @@ function view_settings(){
         `<a class="set-btn" href="Reputation-Matrix2/quests.html">Open a system page</a>`)}
       ${row('🗺️','World Atlas','Nations and realms, each with its painted crest.',
         `<button type="button" class="set-btn" onclick="Router.go('#/atlas')">Open atlas</button>`)}
+    </div>
+
+    <div class="card set-card${dbg?' set-card--debug':''}">
+      <h2 class="set-h">🛠️ Developer</h2>
+      ${row('🧪','Debug mode',
+        dbg?'ON — every skin unlocked, pulls are free, and the daily rota is paused so reading does not build a streak you did not earn.'
+           :'Unlocks every skin, makes pulls free, and pauses the daily rota so working on the archive does not advance it.',
+        `<button type="button" class="set-toggle ${dbg?'on':''}" onclick="toggleDebug()"><i></i></button>`)}
+      ${dbg?row('🎨','Skins','Every palette is available while debug mode is on.',
+        `<button type="button" class="set-btn" onclick="Router.go('#/reading-desk')">Open the desk</button>`):''}
+      ${dbg?row('♻️','Desk save','Clear the streak, keys, plates and unlocks for this browser.',
+        `<button type="button" class="set-btn" onclick="waluipediaDesk.reset();Router.go('#/settings')">Reset desk</button>`):''}
+      ${row('⌨️','Console','The same controls are on <code>waluipediaDesk</code> — unlockAll(), keys(n), equip(id), skins(), state(), reset().',
+        `<button type="button" class="set-btn" onclick="waluipediaDesk.skins();deskFlash('Skin table printed to the console.')">List skins</button>`)}
+      <p class="set-foot">Debug mode is local to this browser and writes nothing to the archive. It does not grant XP — XP is canon and comes from the ledger.</p>
     </div>`;
 }
 function view_plates(){

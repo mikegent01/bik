@@ -1550,11 +1550,11 @@
       }
     ],
     "relatedArticles": [
-      "the_birthday_trap_and_the_tanuki_problem",
+      "shadowfell_birthday_trap_tanuki",
       "raventree_manor",
       "house_of_voss",
       "archie_miser",
-      "the_scorncrow",
+      "scorncrow",
       "tree_of_woe",
       "bowser",
       "markop",
@@ -3337,7 +3337,7 @@
         "role": "Organized the birthday trap; rewrote Toadburt back into the records; offered a gift with a red bow; clapped when the party was ruined; left laughing; is probably using this as data for future traps"
       },
       {
-        "id": "tanuki_burt",
+        "id": "tanukiburt",
         "name": "The Tanuki (as Toadburt)",
         "role": "Shapeshifter hired as diversionary agent; impersonated Toadburt; knew correct answers to identity questions; was slammed into a wall by Bowser; bit through Bowser's palm; accused the party of theft; was freed into a bathroom"
       }
@@ -4686,13 +4686,13 @@
       "the_planar_mirror",
       "the_shadow_crystal",
       "archie_miser_shadowfell_arc",
-      "the_onyx_hand",
+      "onyx_hand",
       "house_of_voss",
       "shadeward_arc",
       "the_four_artifacts",
       "the_mirror_of_true_reflection",
       "mossy_steely",
-      "the_scorncrow",
+      "scorncrow",
       "raventree_manor"
     ],
     "reputationChanges": {
@@ -5289,7 +5289,7 @@
     ],
     "relatedArticles": [
       "the_grove_of_woe_incident",
-      "the_birthday_trap_and_the_tanuki_problem",
+      "shadowfell_birthday_trap_tanuki",
       "the_arrangement",
       "mario",
       "bowser",
@@ -5318,7 +5318,7 @@
       "fire_rune",
       "giants_might",
       "bloomia",
-      "toadsworth_the_elder",
+      "toadsworth_sr",
       "the_shadowfell_dan",
       "fawful",
       "mushroom_regency",
@@ -5597,7 +5597,7 @@
     ],
     "relatedArticles": [
       "the_grove_of_woe_incident",
-      "the_scorncrow",
+      "scorncrow",
       "tree_of_woe",
       "markop",
       "remi",
@@ -5863,7 +5863,7 @@
     ],
     "relatedArticles": [
       "the_tree_of_woe_engagement",
-      "the_scorncrow",
+      "scorncrow",
       "house_of_voss",
       "remi",
       "markop",
@@ -6422,7 +6422,7 @@
       "herniva",
       "the_revel",
       "the_midnight_portal",
-      "lady_aurelian_corvinarus"
+      "lady_aurelian"
     ],
     "reputationChanges": {
       "waluigi": {
@@ -6700,7 +6700,7 @@
       "toad_lee",
       "the_lounge_incident_and_the_paper_war",
       "disaster_inc",
-      "lady_aurelian_corvinarus",
+      "lady_aurelian",
       "ornelaus_corvinarus",
       "the_revel",
       "the_midnight_portal",
@@ -6926,20 +6926,20 @@
     "description": "Waluigi is documenting this session because it changes the Shadow Estate problem from “find the remaining artifacts” to “survive long enough to use them.” The party entered Usk’s private chambers, found the base of the Mirror of True Reflection, learned from the angry ghost that the mirror had been broken and possibly thrown out with the garbage, and searched the roof/garbage route for the missing piece. Markop found The Wario Method and fifteen gold. Remi found the shiny glass fragment. Green T requested the components, Markop gave the base, Remi gave the piece, and Remi solved the entire artifact problem by casting Mending.\n\nThe restored Mirror of True Reflection showed Remi herself. Wario immediately swiped it. Markop dragged and tripped him, leading to the current Wario bargain: Wario helps with the remaining business and Scarecrow, Green T holds the mirror for now, and Wario expects the mirror afterward along with Scarecrow loot rights.\n\nRemi descended to investigate a thud below and saw the master bedroom portal circle occupied by Tanukiburt, the real injured Toadburt, and Mystic Morel. She slipped, fell into a bush, encountered Lyranth and Vaxillus outside, and climbed back using Vaxillus as an unwilling ladder while a guard yelled about being careful with that thing.\n\nOn the roof, Merric the axe-wielding sheep formally joined the team after failing to identify Markop correctly. Lyranth, Vaxillus, hostile ghosts, and guards closed the trap. Remi used the feather and called “Feather fall time.” Rattles, Remi, Eager, Salam, and Dan descended softly. Markop and Wario escaped under worse conditions. The servants sang. Waluigi was not present, which is why this report is reconstructed from Archie, Green T, Markop, Remi, and Toad accounts.",
     "participants": [
       "Remi Akamatsu",
-      "Markop",
+      "markop",
       "Green T",
-      "Wario",
-      "Rattles",
-      "Eager",
-      "Salam",
-      "Dan",
-      "Merric",
-      "Toadburt",
-      "Tanukiburt",
+      "wario",
+      "rattles",
+      "eager",
+      "salam",
+      "dan",
+      "merric",
+      "toadburt",
+      "tanukiburt",
       "Mystic Morel",
-      "Lyranth",
+      "lyranth",
       "Vaxillus the Beastmaster",
-      "Usk"
+      "usk"
     ],
     "outcome": "Mirror of True Reflection recovered and mended; all four portal artifacts held by/within reach of the party; real Toadburt confirmed alive and injured at the portal circle; Tanukiburt and Mystic Morel confirmed at the same portal circle; Merric recruited; rooftop escape successful but pursuit ongoing.",
     "notableFeatures": [
@@ -9011,7 +9011,7 @@
       "planar_sanctum",
       "raventree_manor",
       "vivian_corvinarus",
-      "lady_aurelian_corvinarus",
+      "lady_aurelian",
       "orangus_cornelius"
     ],
     "reputationChanges": {
@@ -14247,7 +14247,7 @@
       "The incident coincided with the arrival of a rare fey spirit, known only as a 'Winter's Whisper', which no one had ever seen before"
     ],
     "relatedArticles": [
-      "the_first_snowfall_incident"
+      "first_snowfall_incident"
     ],
     "participants": [
       {

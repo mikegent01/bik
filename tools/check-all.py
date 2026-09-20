@@ -66,6 +66,8 @@ def main() -> int:
         ("filing updates", [py, "tools/track-filing-updates.py", "--check"], ROOT),
         # calendar.js hard-codes the world clock for 210 sync call sites; it drifted 17 days.
         ("world clock", [py, "tools/check-world-clock.py"], ROOT),
+        # typo references inflate the wanted list and hide real gaps.
+        ("dangling refs", [py, "tools/fix-dangling-refs.py", "--check"], ROOT),
         # annotations mirror into the wire; a stale mirror re-splits the systems.
         ("discussion mirror",
          [py, "tools/merge-discussion-systems.py", "--check"], ROOT),

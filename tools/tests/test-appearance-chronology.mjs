@@ -362,7 +362,11 @@ for (const f of ['events','characters','locations','factions']) {
   }
 }
 check('the archive still has dangling references to surface', dangling > 0, String(dangling));
-check('some dangling refs are recoverable typos', nearMisses > 0, String(nearMisses));
+// Inverted deliberately: the 28 near-misses were fixed, so the archive should
+// now hold NO reference that merely misspells a record which exists. A typo
+// left in the data inflates the wanted list and hides real gaps.
+check('no dangling ref is just a misspelling of a real record',
+      nearMisses === 0, `${nearMisses} left — run tools/fix-dangling-refs.py --write`);
 check('near-miss targets all resolve to real records',
       [...keyed.values()].every(v => realIds.has(v)));
 
@@ -485,10 +489,13 @@ const fakeLS = { getItem: k => deskStore[k] ?? null,
                  removeItem: k => { delete deskStore[k]; } };
 const deskIndex = {};
 events.forEach(e => { if (e && e.id) deskIndex[e.id] = { typeKey: 'events', item: e }; });
-const desk = new Function('localStorage','INDEX','displayName','deskToast','document',
+// readingDeskRecord consults debugOn() to pause the rota; the desk harness
+// runs with debug off, which is the normal-play path these tests cover.
+const desk = new Function('localStorage','INDEX','displayName','deskToast','document','debugOn',
   deskCode + ';return {readingDeskRecord,deskLoad,DESK_DAILY_TARGET};'
 )(fakeLS, deskIndex, o => o && (o.name || o.id), () => {},
-  { createElement: () => ({ classList: { add(){} }, remove(){}, style:{} }), body: { appendChild(){} } });
+  { createElement: () => ({ classList: { add(){} }, remove(){}, style:{} }), body: { appendChild(){} } },
+  () => false);
 
 const arted = events.filter(e => e.image).slice(-6).map(e => e.id);
 check('the archive has illustrated filings to earn plates from', arted.length >= 4);
@@ -607,6 +614,61 @@ const deadRoutes = [...new Set(linked)].filter(r => !routeTokens.includes(r) &&
   !['home','article','wahwire','wanted','power','atlas','xp','books','artifacts',
     'annotations','battlefield','cultures','maps','calendar','reputation'].includes(r));
 check('every Router.go target has a route', deadRoutes.length === 0, deadRoutes.join(', '));
+
+console.log('\n-- debug mode');
+const dbgConsts = src.slice(src.indexOf('const DEBUG_KEY='), src.indexOf('function debugOn('));
+let dbgStore = {};
+const dbgLS = { getItem: k => dbgStore[k] ?? null,
+                setItem: (k,v) => { dbgStore[k] = String(v); },
+                removeItem: k => { delete dbgStore[k]; } };
+const dbgDoc = { documentElement: { classList: { toggle(){}, add(){} } },
+                 createElement: () => ({ classList:{add(){}}, remove(){}, style:{} }),
+                 body: { appendChild(){} } };
+const dbg = new Function('localStorage','INDEX','displayName','deskToast','document',
+  'applySkin','deskFlash','deskShowPulls','view_desk','location',
+  [skinConsts, grab('skinRarityRoll'), grab('skinPull'), dbgConsts, grab('debugOn'),
+   grab('setDebug'), deskConsts, grab('deskToday'), grab('deskLoad'), grab('deskSave'),
+   grab('deskYesterday'), grab('deskPlateFor'), grab('readingDeskRecord'),
+   grab('deskPull')].join('\n') +
+  ';return {debugOn,setDebug,readingDeskRecord,deskPull,deskLoad,SKINS};'
+)(dbgLS, deskIndex, o => o && (o.name || o.id), () => {}, dbgDoc,
+  () => {}, () => {}, () => {}, () => {}, { hash: '' });
+
+check('debug mode is off by default', dbg.debugOn() === false);
+
+const dbgArted = events.filter(e => e.image).map(e => e.id);
+for (const id of dbgArted.slice(0, 3)) dbg.readingDeskRecord(id);
+const normal = dbg.deskLoad();
+check('the rota advances with debug off', normal.streak === 1 && normal.keys === 1);
+
+dbg.setDebug(true);
+const unlocked = dbg.deskLoad();
+check('debug unlocks every skin',
+      unlocked.owned.length === dbg.SKINS.length,
+      `${unlocked.owned.length}/${dbg.SKINS.length}`);
+
+for (const id of dbgArted.slice(3, 9)) dbg.readingDeskRecord(id);
+const paused = dbg.deskLoad();
+check('debug pauses the daily rota',
+      paused.streak === normal.streak && paused.keys === normal.keys,
+      `streak ${paused.streak}, keys ${paused.keys}`);
+
+const keysBefore = paused.keys;
+dbg.deskPull(5);
+const afterPull = dbg.deskLoad();
+// A free pull that hits a duplicate must not refund, or debug mints currency.
+check('debug pulls are free and never mint keys',
+      afterPull.keys === keysBefore, `${keysBefore} -> ${afterPull.keys}`);
+
+dbg.setDebug(false);
+check('debug can be switched back off', dbg.debugOn() === false);
+
+check('the settings page exposes the switch',
+      src.includes('🛠️ Developer') && src.includes('onclick="toggleDebug()"'));
+check('debug writes nothing to canon',
+      !grab('setDebug').includes('DATA.') && !grab('toggleDebug').includes('DATA.'));
+check('debug still grants no XP',
+      !grab('setDebug').includes('xp') && !grab('setDebug').includes('XP'));
 
 console.log(`\n${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);
