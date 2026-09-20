@@ -3479,7 +3479,7 @@
         "mount_ebott_survey"
       ],
       "opened": "Harvestide 29, 1045 BF",
-      "lastFiled": "Harvestide 29, 1045 BF",
+      "lastFiled": "Harvestide 30, 1045 BF",
       "archivist": "Waluigi, Auditor-General",
       "icon": "⏱️",
       "accent": "#8a4bff",
@@ -3537,6 +3537,18 @@
           "id": "logger_cutoff",
           "label": "What did High Command remove from the record?",
           "status": "open"
+        },
+        {
+          "id": "thread_privilege_scope",
+          "title": "The privilege that named a duration but not a recipient",
+          "status": "open",
+          "note": "High Command disabled the logger on Harvestide 29 to control what could be recorded. On Harvestide 30 the Gamma Agent's reward — one monitored hour per month, external calls permitted — carried the archive forty minutes of Underground testimony. The authorization specifies duration, monitoring and revocation. It does not specify who may be called. The Legion closed the recorder and left the telephone open."
+        },
+        {
+          "id": "thread_registry_mechanism",
+          "title": "Whether the Bone-Line registry records a family or constitutes one",
+          "status": "open",
+          "note": "The instrument required a signature, consumed itself, and was followed by every name on it manifesting in the room. Two of those names — Dirty Brother, Has A Very Special Attack — correspond to sentences Sans once said about Papyrus. Either the tree was fabricated from his words, or the tree is made of them."
         }
       ],
       "leads": [
@@ -3571,6 +3583,36 @@
             "ex_manual",
             "ex_summons"
           ]
+        },
+        {
+          "id": "lead_interview_papyrus",
+          "title": "Interview Papyrus about both verified quotations",
+          "status": "open",
+          "priority": "high",
+          "why": "The only two entries Sans confirmed as his own words — 'dirty brother' and 'has a very special attack' — were both said about Papyrus, who has never been asked about either and who was down the hall throughout the manifestation without noticing it.",
+          "exhibits": [
+            "ex_sibling_designation"
+          ]
+        },
+        {
+          "id": "lead_tnr_lineage_code",
+          "title": "Establish what issues an archival lineage code",
+          "status": "open",
+          "priority": "high",
+          "why": "Times New Roman substantiated brotherhood with code #TNR-01 and no parent. A code implies an issuing authority and a register that predates it. Neither has been identified, and Sans names Toriel as his mother.",
+          "exhibits": [
+            "ex_sibling_designation"
+          ]
+        },
+        {
+          "id": "lead_burn_purpose",
+          "title": "Determine what the signature-burn accomplishes",
+          "status": "open",
+          "priority": "medium",
+          "why": "Times New Roman watched the instrument ignite without reacting, in the manner of an expected step. A document that destroys itself on signature and is then followed by its own contents arriving is performing a function, not recording one.",
+          "exhibits": [
+            "ex_sibling_designation"
+          ]
         }
       ],
       "sessions": [
@@ -3579,11 +3621,18 @@
           "label": "Final Ebott log — transport, embassy, High Command cutoff",
           "date": "Harvestide 29, 1045 BF",
           "event": "mount_ebott_survey_final_log"
+        },
+        {
+          "id": "s_bone_line_registry",
+          "label": "The Bone-Line registry interview — the privilege nobody scoped",
+          "date": "Harvestide 30, 1045 BF",
+          "event": "snowdin_bone_line_registry"
         }
       ],
       "relatedEvents": [
         "mount_ebott_survey_part_7",
-        "mount_ebott_survey_final_log"
+        "mount_ebott_survey_final_log",
+        "snowdin_bone_line_registry"
       ],
       "exhibits": [
         {
@@ -3708,6 +3757,34 @@
               "gamma_agent",
               "daniel_gamma_command",
               "jamesly"
+            ]
+          }
+        },
+        {
+          "id": "ex_sibling_designation",
+          "propId": "prop_sibling_designation_tnr01",
+          "session": "s_bone_line_registry",
+          "icon": "📜",
+          "kind": "contract",
+          "category": "instrument",
+          "title": "Sibling designation #TNR-01",
+          "secured": "reconstructed",
+          "custody": "None — the original burned on signature; Waluipedia holds a transcription from the monitored call",
+          "note": "Asserts brotherhood by lineage code rather than by any named parent, cites an appendix that burned with it, and was destroyed by the act of signing. Twenty-eight dossiers rest on the registry this instrument belongs to.",
+          "dc": 4,
+          "onRecord": "An archival instrument naming Sans as Primary Brother and Times New Roman as Secondary Brother under lineage code #TNR-01, with footnotes, an appendix reference for skeletal alignment, and Gee Lady listed as a designated family member confirmed by lipstick signature analysis. No parent is named anywhere on it. [[roll:4|Read the instrument against the twenty-eight dossiers that cite the registry|Every one of those dossiers was written before this instrument existed, and the instrument does not reference any of them — the citations point forward to a document that had not been drafted yet.|The instrument reads as an ordinary, if eccentric, family record with unusually poor sourcing.]]",
+          "analysis": "## What the instrument proves, and what it only implies\n\nIt proves that the registry is a **document**, not a figure of speech. Twenty-eight dossiers had been citing a phrase; there is now an instrument behind the phrase, transcribed from a monitored call.\n\nIt proves the instrument asserts kinship **by reference number**. #TNR-01 substantiates a brotherhood that names no mother and no father. Sans, asked directly, names Toriel. A lineage code implies an issuing authority and a register older than the code itself, and neither has been identified.\n\nWhat it does **not** prove is the family. The subject of the document rejected it name by name while holding it, and he was right about at least part of the method: two of the listed relatives correspond to sentences he once said about Papyrus. *Dirty Brother* was a warning against cutting corners. *Has A Very Special Attack* was a compliment.\n\nThe uncomfortable reading is the one this file cannot dismiss. The instrument required a signature, destroyed itself on receiving one, and was immediately followed by every name on it entering the room. Documents that record families do not behave that way. Documents that **constitute** them might.\n\nI am not filing a conclusion. I am filing that the only member who has consistently refused the paperwork is the member every piece of paperwork depends on.",
+          "links": {
+            "events": [
+              "snowdin_bone_line_registry",
+              "mount_ebott_survey_final_log"
+            ],
+            "characters": [
+              "sans",
+              "times_new_roman",
+              "gee_lady",
+              "wing_gaster",
+              "papyrus"
             ]
           }
         }
