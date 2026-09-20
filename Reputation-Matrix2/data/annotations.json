@@ -4105,5 +4105,133 @@
         "likes": 88
       }
     ]
+  },
+  {
+    "articleId": "snowdin_bone_line_registry",
+    "quote": "designation: brother. confirmed by archival lineage code #TNR-01.",
+    "comments": [
+      {
+        "author": "Papyrus",
+        "authorId": "papyrus",
+        "faction": "Snowdin Puzzle Guard",
+        "text": "I AM THE BROTHER. I HAVE ALWAYS BEEN THE BROTHER. THERE IS NO CODE. THERE IS ONLY YEARS OF SPAGHETTI AND SEVENTY-ONE PUZZLES I BUILT MYSELF! Nyeh. ...Which number am I?",
+        "timestamp": "Harvestide 30, 1045 BF",
+        "likes": 214
+      },
+      {
+        "author": "Times New Roman",
+        "authorId": "times_new_roman",
+        "faction": "Snowdin Chronicle Office",
+        "text": "Papyrus is entered at #TNR-02. The sequence is not a ranking. It is an order of documentation.",
+        "timestamp": "Harvestide 30, 1045 BF",
+        "likes": 31
+      },
+      {
+        "author": "Sans",
+        "authorId": "sans",
+        "faction": "Snowdin Perimeter Watch",
+        "text": "pal, you just told my brother he's number two. in writing. with a footnote.",
+        "timestamp": "Harvestide 30, 1045 BF",
+        "likes": 402
+      },
+      {
+        "author": "Waluigi",
+        "authorId": "waluigi",
+        "faction": "Disaster Inc.",
+        "text": "Waluigi notes for the record that the Chronicle Office answered a question about LOVE with a question about SORT ORDER, and did not appear to notice the difference. WAH.",
+        "timestamp": "Filed with the registry",
+        "likes": 88
+      }
+    ]
+  },
+  {
+    "articleId": "snowdin_bone_line_registry",
+    "quote": "Twenty-eight records in this archive describe their subject as 'recorded in the Snowdin household registry.'",
+    "comments": [
+      {
+        "author": "Cursive",
+        "authorId": "cursive",
+        "faction": "Snowdin Correspondence Circle",
+        "text": "I have written invitations for twenty-six of the twenty-eight. Baby Bones gets a ribbon. Dirty Brother gets a repair docket, because he asks for one. You may call that a registry if it helps you sleep. I call it a correspondence list, and I have never once needed to prove anybody on it exists.",
+        "timestamp": "Harvestide 30, 1045 BF",
+        "likes": 167
+      },
+      {
+        "author": "Gee Lady",
+        "authorId": "gee_lady",
+        "faction": "Snowdin Household",
+        "text": "Twenty-eight is the number who come to dinner. That is the only census I have ever kept and it has never once been wrong about who was missing.",
+        "timestamp": "Harvestide 30, 1045 BF",
+        "likes": 233
+      },
+      {
+        "author": "Waluigi",
+        "authorId": "waluigi",
+        "faction": "Disaster Inc.",
+        "text": "Waluigi has spent a year treating that sentence as a sourcing failure. Two of them just described it as a guest list. Waluigi is going to sit down.",
+        "timestamp": "Filed with the registry",
+        "likes": 95
+      }
+    ]
+  },
+  {
+    "articleId": "the_shepherds_garden_and_the_three_week_clock",
+    "quote": "was it really her kingdom, or the Mushroom Kingdom?",
+    "comments": [
+      {
+        "author": "Chancellor Toadsworth",
+        "authorId": "chancellor_toadsworth",
+        "faction": "Mushroom Regency",
+        "text": "Whoever said this was not in the room in 955 and has no standing to characterise Her Highness's state of mind. I was there. I wrote the first account. I was then made to write a second one. I will not have a third written for me by a Toad in a broken library.",
+        "timestamp": "5 Aethel, 1040 BF",
+        "likes": 186
+      },
+      {
+        "author": "Chief Thornpaw",
+        "authorId": "chief_thornpaw",
+        "faction": "Rakasha Clans",
+        "text": "Careful, Chancellor. You and I both know the room was clean before either of us reached it. Somebody was in there first. I have never been able to say who, and neither have you.",
+        "timestamp": "5 Aethel, 1040 BF",
+        "likes": 149
+      },
+      {
+        "author": "Waluigi",
+        "authorId": "waluigi",
+        "faction": "Disaster Inc.",
+        "text": "Two men who were actually present, disagreeing about whether to be angry at a man who probably was not. Waluigi files this thread as the most useful thing on the page.",
+        "timestamp": "Filed with the analysis",
+        "likes": 74
+      }
+    ]
+  },
+  {
+    "articleId": "the_shepherds_garden_and_the_three_week_clock",
+    "quote": "I don't know. Food?",
+    "comments": [
+      {
+        "author": "Bowser",
+        "authorId": "bowser",
+        "faction": "Koopa Troop",
+        "text": "I said I would deal with it later. I MEANT IT. A king does not kick over a crate in somebody else's cellar on somebody else's clock with three weeks running. There is an order to these things.",
+        "timestamp": "3 Aethel, 922 BF (Feyward clock)",
+        "likes": 58
+      },
+      {
+        "author": "Toadette Sr.",
+        "authorId": "toadettesr",
+        "faction": "Liberated Toads",
+        "text": "Nine of them. In crates. Being sold for weapons. And the King of the Koopas walked past and shut the door because it would look bad. I printed five hundred and seventy-five pamphlets in one night with a baby on the way. Do not talk to me about ORDER.",
+        "timestamp": "Filed in response",
+        "likes": 511
+      },
+      {
+        "author": "Waluigi",
+        "authorId": "waluigi",
+        "faction": "Disaster Inc.",
+        "text": "Waluigi has nothing to add and is not going to pretend otherwise.",
+        "timestamp": "Filed with the analysis",
+        "likes": 298
+      }
+    ]
   }
 ]

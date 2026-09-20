@@ -7,7 +7,7 @@ A time code is a machine-checkable stamp on a filing:
 
     year 1040 · month 08 (Harvestide, 1-indexed) · day 30
     T22:15 = in-world clock, 24h, optional
-    /MAT   = which clock (MAT, SHD, FEY, SUBJ, KIV)
+    /MAT   = which clock (MAT, SHD, FEY, SUBJ, KIV, EBO)
 
 Kivotos keeps imperial months and years - Remi Akamatsu's record dates her
 birth "12th Harvestide, 1026 BF - Kivotos, Residential District Seven" - so KIV
@@ -45,12 +45,13 @@ CLOCKS = {
     'FEY': 'Feyward clock',
     'SUBJ': 'Subjective / unverified duration',
     'KIV': 'Kivotos academy clock',
+    'EBO': 'Mount Ebott / Monster Underground',
 }
 
 CODE_RE = re.compile(
     r'^TC:(?P<y>\d{3,4})-(?P<m>\d{2})-(?P<d>\d{2})'
     r'(?:T(?P<hh>\d{2}):(?P<mm>\d{2}))?'
-    r'/(?P<clock>MAT|SHD|FEY|SUBJ|KIV)$'
+    r'/(?P<clock>MAT|SHD|FEY|SUBJ|KIV|EBO)$'
 )
 
 

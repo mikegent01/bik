@@ -166,7 +166,7 @@
         "raventree_manor"
       ],
       "opened": "23 Harvestide, 1040 BF",
-      "lastFiled": "1 Aethel, 1040 BF — amended: the grove execution, the human face under the hood, and a scythe that changed hands",
+      "lastFiled": "3 Aethel, 922 BF (Feyward clock) — amended: the sanctum bargain, a three-week tether deadline, and an assassination account nobody can verify",
       "archivist": "Waluigi, Auditor-General",
       "icon": "🏚️",
       "accent": "#8a4bff",
@@ -260,6 +260,18 @@
           "title": "The thing that died was human, and nobody knows in what sense",
           "state": "open",
           "text": "Two physical tests agree: human blood under the face, a human face under the hood, and remains that stayed remains. The archive's three readings — worn, made, or faked — were all still live when the warhammer landed, and the only witness who could have separated them was the one being asked the question.\n\n**In plain terms:** we killed the only person who knew what the Scorncrow was, while he was in the middle of telling us."
+        },
+        {
+          "id": "thread_oracle_placement",
+          "title": "Whether the Oracle was in the palace in 955 BF",
+          "status": "open",
+          "note": "He describes a tableau that the archive says was erased within hours of the killing. If he saw it, he was the killer, the Guild, or already inside — and is a party to the assassination rather than a custodian who heard about it. If he did not, he assembled it from leaked material and delivered it to the one listener who could not check. The archive holds no instrument to separate these."
+        },
+        {
+          "id": "thread_feyward_tether",
+          "title": "The three-week tether deadline and who else knows it exists",
+          "status": "open",
+          "note": "A hard twenty-one-day term runs on the planar tether joining the Feyward to the Material sanctum, started at Bowser's teleport. Hjumpik's party is standing inside the Feyward and has not been told. Bowser asked twice for a margin and was promised nothing; the Oracle offered three unnamed rewards if the term holds, one of which he described as smelling like peaches."
         }
       ],
       "leads": [
@@ -610,6 +622,36 @@
             "ex_grove_scythe_transfer",
             "ex_scorncrow_human_blood"
           ]
+        },
+        {
+          "id": "lead_place_oracle_955",
+          "title": "Place the Oracle in 955 BF, or establish that nobody can",
+          "status": "open",
+          "priority": "high",
+          "why": "He appears in none of the six assassination filings. Either his presence was never recorded, or it was removed, or he was not there — and which of those is true changes what the whole disclosure is worth.",
+          "exhibits": [
+            "ex_oracle_peach_account"
+          ]
+        },
+        {
+          "id": "lead_comb_and_hair",
+          "title": "Test the comb against the vault-key hair",
+          "status": "open",
+          "priority": "medium",
+          "why": "Fawful left with a strand of Peach's hair as a biometric vault key and the archive has never established who told him it would work. A comb in her hand at the moment of death is adjacent to that question. Adjacency is not a connection and should not be filed as one.",
+          "exhibits": [
+            "ex_oracle_peach_account"
+          ]
+        },
+        {
+          "id": "lead_warn_the_feyward_party",
+          "title": "Establish whether the Feyward party can be told about the clock",
+          "status": "open",
+          "priority": "high",
+          "why": "Hjumpik, Toad Lee and Waluigi are inside a plane whose route out is on a twenty-one-day timer none of them know about. Bowser accepted the term on their behalf and then teleported away from them.",
+          "exhibits": [
+            "ex_oracle_peach_account"
+          ]
         }
       ],
       "sessions": [
@@ -702,6 +744,12 @@
           "label": "Judgement in the Grove: the musket in the smoke, the warhammer that would not hear an appeal, and the man Remi found asleep",
           "date": "1 Aethel, 1040 BF — from the web canopy through the execution to the sleeping man",
           "event": "judgement_in_the_grove"
+        },
+        {
+          "id": "s_shepherds_garden",
+          "label": "The Shepherd's Garden — the bargain, the disclosure, and the basement",
+          "date": "3 Aethel, 922 BF (Feyward clock)",
+          "event": "the_shepherds_garden_and_the_three_week_clock"
         }
       ],
       "relatedEvents": [
@@ -721,7 +769,8 @@
         "the_scorncrow_skirmish",
         "the_belly_of_the_beast",
         "feyward_i_cant_afford_not_to_care",
-        "judgement_in_the_grove"
+        "judgement_in_the_grove",
+        "the_shepherds_garden_and_the_three_week_clock"
       ],
       "exhibits": [
         {
@@ -1376,6 +1425,32 @@
           "onRecord": "On 30 Harvestide 1040 a point-blank musket shot removed the Scorncrow's face and the blood beneath it was human. On 1 Aethel 1040, in the grove, the hood came off and the face underneath was human and speaking. At death the remains stayed remains.",
           "dc": 4,
           "analysis": "## The claim was testable and it was tested twice\n\nFor three filings the archive read *I am not a monster* as villain theatre, and Waluigi wrote that reading himself, which is why he is the one correcting it. Two independent physical tests, eleven days apart, by different means, returned the same result. [[roll:3|the physical record is consistent|two separate encounters produced human blood and a human face, and the body did not dissolve, burn off or revert at death the way every other constructed thing in this arc has|consistency between two party accounts is not the same as a specimen, and no specimen was kept]].\n\n## Three readings, and the grove closed the door on all of them\n\nSomething human inside the scarecrow. Something human *made into* it. Or a monster that learned to bleed convincingly because it learned what this party would find persuasive. [[roll:5|the third reading is the weakest|a deception maintained through death, with no observer left to deceive and nothing further to gain, is a deception with no audience — which is not how deceptions work|a thing willing to die in costume is exactly the thing a sufficiently patient deceiver would build, and the archive has met patient things in this arc before]].\n\n**The plain fact, unhedged:** the question was answerable right up until the swing. A disarmed, kneeling, unmasked prisoner who is talking is the most informative object anybody in this arc has ever had, and the party converted it into a body and a secondhand scythe. Waluigi is not moralising about the kill. He is filing the cost of it, which is that the archive now has three readings and no way left to choose."
+        },
+        {
+          "id": "ex_oracle_peach_account",
+          "session": "s_shepherds_garden",
+          "icon": "🕯️",
+          "kind": "note",
+          "category": "testimony",
+          "title": "The Oracle's account of the assassination",
+          "secured": "uncorroborated",
+          "custody": "Waluipedia, via Bowser's retelling — no independent witness, no physical copy",
+          "visual": "<div style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:linear-gradient(135deg,rgba(40,30,60,.35),rgba(10,8,20,.96));border:1px solid rgba(196,181,253,.3)\"><div style=\"position:absolute;left:18px;top:16px;font-size:34px\">🕯️</div><div style=\"position:absolute;left:18px;bottom:16px;color:#c4b5fd;font-size:11px;letter-spacing:.14em;text-transform:uppercase\">Uncorroborated testimony</div><div style=\"position:absolute;right:18px;top:18px;color:#8b8398;font-size:11px;text-align:right;line-height:1.5\">Highsun 1, 955 BF<br>recounted 922 BF</div><div style=\"position:absolute;right:18px;bottom:16px;color:#d6c9a0;font-size:12px\">one comb, unsourced</div></div>",
+          "dc": 5,
+          "onRecord": "Five or six mages' locks broken. The room untouched. Peach seated with a comb in her hand, dead, unmoving, blood on the floor. The responding guards came in and all died. Delivered unprompted, immediately after an hour of escalating provocation the Oracle then admitted had been a test. [[roll:5|Check the account against the primary assassination record|The Day Of file says the Guild had already moved the body and scrubbed the chambers within hours, and that three guard witnesses were alive on Day 1 — two dead within a fortnight, one vanished. The tableau he describes existed only between the killing and the cleaners, and his one checkable claim is wrong in the direction a reader gets wrong.|The account is internally consistent and contains one detail — the comb — that appears nowhere else in the archive.]]",
+          "analysis": "## What this testimony is worth\n\n**Two elements are corroborated and therefore add nothing.** That Peach chose her death and left evidence is already in the Day Of record, filed earlier and from a different direction. That the room was managed is also there: body moved within hours, chambers scrubbed, all physical evidence through Guild hands. His agreement is not a second source; it is an echo of a source we already had.\n\n**One element is new.** The comb appears in no other filing. Either it is the detail only a true witness could supply, or it is the specific invented object a constructed scene needs in order to feel witnessed.\n\n**One element is wrong.** He says the responding guards all died. The record says three were alive on Day 1, two dead within two weeks, one vanished — administrative removal over a fortnight, not a massacre in a bedroom. That is the error a person makes reading a casualty list afterwards, not the error a person makes having stood in the room.\n\n**And he cannot be placed there.** He appears in none of the six assassination filings. The Day Of record names fourteen people in and around that palace; he is not among them. By that same record the scene he describes had been erased within hours, so the only people who saw it were the killer, the Guild, or somebody already inside the palace. He implies he is one of the three and never says which.\n\nI am not filing him as a liar. He has never been caught in a falsifiable lie, which is a different and more careful thing. I am filing him as a **source rather than a witness**, and recording that he chose his moment: an audience just proven non-violent, committed, and eighty-five years too young to check.",
+          "links": {
+            "events": [
+              "the_shepherds_garden_and_the_three_week_clock",
+              "highsun_1_955_bf_the_day_of"
+            ],
+            "characters": [
+              "the_oracle",
+              "bowser",
+              "princess_peach",
+              "lady_bloomia"
+            ]
+          }
         }
       ]
     },

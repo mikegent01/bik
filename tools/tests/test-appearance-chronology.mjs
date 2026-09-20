@@ -366,5 +366,35 @@ check('some dangling refs are recoverable typos', nearMisses > 0, String(nearMis
 check('near-miss targets all resolve to real records',
       [...keyed.values()].every(v => realIds.has(v)));
 
+console.log('\n-- arc clocks');
+// The Mount Ebott arc was briefly filed as /MAT, which maps to the Mario
+// campaign on the home page. A clock suffix is not decoration — it decides
+// which front an event takes, so a wrong one silently evicts another campaign.
+const clockOf = ev => {
+  const m = /\/([A-Z]+)$/.exec(String(ev.timeCode || ''));
+  return m ? m[1] : null;
+};
+const KNOWN_CLOCKS = new Set(['MAT', 'SHD', 'FEY', 'KIV', 'EBO', 'SUBJ']);
+const badClock = events.filter(e => e.timeCode && !KNOWN_CLOCKS.has(clockOf(e)));
+check('every timeCode uses a registered clock', badClock.length === 0,
+      badClock.map(e => e.id + ':' + clockOf(e)).join(', '));
+
+// A clock has to be registered in all three places or it half-works: the
+// renderer drops the pill, or the fronts builder cannot label the campaign.
+for (const clock of ['KIV', 'EBO']) {
+  check(`${clock} is registered in index.html`, src.includes(clock),
+        'renderer will not parse it');
+  const tc = fs.readFileSync(path.join(ROOT, 'tools', 'check-timecodes.py'), 'utf8');
+  check(`${clock} is registered in check-timecodes.py`, tc.includes(clock));
+  const cf = fs.readFileSync(path.join(ROOT, 'tools', 'build-campaign-fronts.py'), 'utf8');
+  check(`${clock} is registered in build-campaign-fronts.py`, cf.includes(clock));
+}
+
+// Mount Ebott is its own arc and must never ride the Mario front again.
+const ebott = events.filter(e => /ebott|snowdin/i.test(e.id) && e.timeCode);
+check('no Mount Ebott filing is on the Mario clock',
+      ebott.every(e => clockOf(e) !== 'MAT'),
+      ebott.filter(e => clockOf(e) === 'MAT').map(e => e.id).join(', '));
+
 console.log(`\n${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);

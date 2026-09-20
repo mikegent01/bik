@@ -14,7 +14,7 @@ So the covers are now *derived*. A session's campaign comes from its
 
     SHD -> Shadeward      FEY -> Feyward
     MAT -> Mario          SUBJ -> Subjective
-    KIV -> Kivotos
+    KIV -> Kivotos      EBO -> Mount Ebott
 
 The newest filed event per suffix wins, "newest" being position in
 `events.json` (last = newest), which is the same ordering the Recent
@@ -47,6 +47,7 @@ CAMPAIGNS = {
     "MAT": "Mario",
     "SUBJ": "Subjective",
     "KIV": "Kivotos",
+    "EBO": "Mount Ebott",
 }
 
 

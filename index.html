@@ -4989,9 +4989,9 @@ const TC_MONTHS=['Firstlight','Chillwind','Veridia','Bloom','Floria','Efferd',
    build-campaign-fronts.py when the Kivotos campaign was filed, but not here —
    so the Trinity filing's timeCode silently failed to parse and its pill never
    rendered. Clock lists must be added in all three places. */
-const TC_CLOCKS={MAT:'Material clock',SHD:'Shadowfell clock',FEY:'Feyward clock',KIV:'Kivotos academy clock',SUBJ:'Subjective — duration unverified'};
+const TC_CLOCKS={MAT:'Material clock',SHD:'Shadowfell clock',FEY:'Feyward clock',KIV:'Kivotos academy clock',EBO:'Mount Ebott / Monster Underground clock',SUBJ:'Subjective — duration unverified'};
 function parseTimeCode(code){
-  const m=/^TC:(\d{3,4})-(\d{2})-(\d{2})(?:T(\d{2}):(\d{2}))?\/(MAT|SHD|FEY|KIV|SUBJ)$/.exec(String(code||'').trim());
+  const m=/^TC:(\d{3,4})-(\d{2})-(\d{2})(?:T(\d{2}):(\d{2}))?\/(MAT|SHD|FEY|KIV|EBO|SUBJ)$/.exec(String(code||'').trim());
   if(!m)return null;
   return {year:+m[1],month:+m[2],day:+m[3],hh:m[4]||null,mm:m[5]||null,clock:m[6]};
 }

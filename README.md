@@ -425,6 +425,7 @@ line.)
 | **Material (imperial)** | the default; `currentDate.json` | Aethel 5, 1040 BF |
 | **Shadowfell** | Shadowfell-side filings (Tymnas's cottage, the Estate) | Imperial reckoning, but *drifting* — a month-plus has passed there since the planar fracture; Shadowfell dates carry the drift forward |
 | **Feyward** | everything inside the Feyward | **Its own year entirely: 922 BF by its own count** — over a century behind the Material, and it is not catching up. "Feyward-relative" filings borrow imperial month names for readability, but the year is the Feyward's own |
+| **Mount Ebott** | the Monster Underground and the Ebott survey arc | **Its own arc clock, running ~1045 BF** — five years ahead of the Material present. It is not the Mario campaign and must never be filed as `MAT`; use `EBO` |
 
 Rules for planar dates:
 
