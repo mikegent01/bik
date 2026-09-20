@@ -723,5 +723,54 @@ if (redMatch) {
         grab('buildIdAliases').includes('if(ID_REDIRECTS[alias]) return;'));
 }
 
+console.log('\n-- portraits and companion tracks');
+// A character with no portrait renders as initials next to characters who have
+// faces, which reads as a broken record rather than a stylistic choice.
+const portraitChars = JSON.parse(fs.readFileSync(path.join(DATA_DIR, 'characters.json'), 'utf8'));
+const noImage = portraitChars.filter(c => !c.image);
+check('every character record has a portrait', noImage.length === 0,
+      noImage.map(c => c.id).join(', '));
+
+// An image field pointing at a file that is not there is worse than none:
+// the manifest says the art exists.
+const ROOTDIR = path.join(ROOT, 'Reputation-Matrix2');
+// Some portraits are external URLs rather than repo files. Those cannot be
+// checked on disk and are not broken; only local paths are verified.
+const missingFile = portraitChars.filter(c => c.image && !/^https?:/.test(c.image) &&
+  !fs.existsSync(path.join(ROOTDIR, c.image)));
+check('every portrait path resolves on disk', missingFile.length === 0,
+      missingFile.map(c => `${c.id}->${c.image}`).slice(0, 5).join(', '));
+
+// Companion tracks for the newest filing. Reported rather than failed for the
+// commentary (it can legitimately land a commit later), asserted for the
+// analysis link integrity.
+const comms2 = JSON.parse(fs.readFileSync(path.join(DATA_DIR, 'commentaries.json'), 'utf8')).commentaries;
+const analyses = JSON.parse(fs.readFileSync(path.join(DATA_DIR, 'articleAnalyses.json'), 'utf8')).analyses;
+const evIds2 = new Set(events.map(e => e.id));
+// A filing is an event OR a battle — seven analyses read battle records.
+const battleRows = JSON.parse(fs.readFileSync(path.join(DATA_DIR, 'battles.json'), 'utf8'));
+(Array.isArray(battleRows) ? battleRows : []).forEach(b => { if (b && b.id) evIds2.add(b.id); });
+// Three analyses point at filings that were never written:
+// undercity_grotto_seclusion_incident, ruin_recovery_1023_bf and
+// frostfall_moonlit_mysteries. Each also has a matching investigation with an
+// empty relatedEvents. That is a real, pre-existing gap — the readings exist and
+// the sessions do not — so it is REPORTED rather than failed, and the count is
+// pinned so it cannot quietly grow.
+const orphanAnalyses = analyses.filter(a => !evIds2.has(a.sourceArticle));
+check('no NEW analysis points at a missing filing', orphanAnalyses.length <= 3,
+      orphanAnalyses.map(a => a.sourceArticle).join(', '));
+if (orphanAnalyses.length) {
+  console.log(`  note ${orphanAnalyses.length} analyses read filings that do not exist: ` +
+    orphanAnalyses.map(a => a.sourceArticle).join(', '));
+}
+const newestId = events[events.length - 1].id;
+check('the newest filing has an analysis track',
+      analyses.some(a => a.sourceArticle === newestId), newestId);
+if (!comms2.some(c => c.sourceArticle === newestId)) {
+  console.log(`  note the newest filing has no commentary track yet: ${newestId}`);
+} else {
+  check('the newest filing has a commentary track', true);
+}
+
 console.log(`\n${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);
