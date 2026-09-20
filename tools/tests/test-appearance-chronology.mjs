@@ -529,5 +529,57 @@ check('the desk route is registered',
 check('the desk is reachable from the sidebar', src.includes("label:'Reading Desk'"));
 check('reading an article stamps the desk', grab('dashNoteRead').includes('readingDeskRecord'));
 
+console.log('\n-- skins & the pull system');
+const skinConsts = src.slice(src.indexOf('const SKINS=['), src.indexOf('function skinRarityRoll('));
+const gacha = new Function('localStorage','applySkin',
+  [skinConsts, grab('skinRarityRoll'), grab('skinPull')].join('\n') +
+  ';return {SKINS,SKIN_BY_ID,PULL_PITY,RARITY_ODDS,skinRarityRoll,skinPull};'
+)({ getItem: () => null, setItem(){} }, () => {});
+
+const cssSkins = fs.readFileSync(
+  path.join(ROOT, 'Reputation-Matrix2', 'app', 'styles', 'waluipedia.css'), 'utf8');
+
+check('there are skins to unlock', gacha.SKINS.length >= 6);
+check('exactly one skin is free by default',
+      gacha.SKINS.filter(s => s.free).length === 1);
+// A skin with no CSS rule is a reward that does nothing when equipped.
+const missingCss = gacha.SKINS.filter(s => s.id !== 'default' &&
+  !cssSkins.includes(`html[data-skin="${s.id}"]`));
+check('every skin has a CSS palette behind it', missingCss.length === 0,
+      missingCss.map(s => s.id).join(', '));
+const missingSwatch = gacha.SKINS.filter(s =>
+  !cssSkins.includes(`[data-skin-preview="${s.id}"]`));
+check('every skin has a preview swatch', missingSwatch.length === 0,
+      missingSwatch.map(s => s.id).join(', '));
+
+let pityOk = true;
+for (let i = 0; i < 1000; i++) {
+  if (gacha.skinRarityRoll(gacha.PULL_PITY - 1) < 4) { pityOk = false; break; }
+}
+check(`the ${gacha.PULL_PITY}th pull is guaranteed 4-star or better`, pityOk);
+
+let owned = ['default'], pity = 0, pulls = 0;
+while (owned.length < gacha.SKINS.length && pulls < 2000) {
+  const r = gacha.skinPull(owned, pity);
+  pulls++;
+  pity = r.rarity >= 4 ? 0 : pity + 1;
+  if (r.skin && !owned.includes(r.skin.id)) owned.push(r.skin.id);
+}
+check('every skin is reachable by pulling', owned.length === gacha.SKINS.length,
+      `${owned.length}/${gacha.SKINS.length} after ${pulls} pulls`);
+
+check('the desk exposes a debug unlock', src.includes('window.waluipediaDesk=') &&
+      src.includes('unlockAll()'));
+check('a saved skin is re-applied on load',
+      src.includes('applySkin(localStorage.getItem(SKIN_KEY)'));
+check('skins do not clobber the dark/light mode',
+      grab('applySkin').includes("setAttribute('data-skin'") &&
+      !grab('applySkin').includes("setAttribute('data-theme'"));
+check('duplicate pulls refund their key', grab('deskPull').includes('o.keys+=1'));
+check('the save code merges rather than overwrites',
+      grab('deskImport').includes('Math.max') && grab('deskImport').includes('new Set'));
+check('the desk still writes nothing to canon',
+      !grab('deskPull').includes('DATA.') && !grab('deskImport').includes('DATA.'));
+
 console.log(`\n${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);

@@ -9154,6 +9154,59 @@ function dashNoteRead(id){
 
    Storage is one key so it can be cleared in one action, and it is capped so a
    long-running reader cannot grow it without bound. */
+/* ===== SKINS — the reward the reading desk pays out =====
+   Reading earns keys; keys pull skins. A skin is only ever a palette: it
+   re-declares the CSS custom properties the whole site already reads, so it
+   repaints everything without touching a component rule, and it layers on top
+   of dark/light rather than replacing it.
+
+   Deliberately NOT here: XP, canon writes, anything the archive would have to
+   honour. This is a cosmetic shelf in the reader's own browser. */
+const SKINS=[
+  {id:'default',  name:'Archive Standard', rarity:3, tag:'Waluipedia house palette', free:true},
+  {id:'snowdin',  name:'Snowdin Frost',    rarity:3, tag:'Cold blue. Smells faintly of laundry.'},
+  {id:'regency',  name:'Regency Gold',     rarity:3, tag:'Gilt, and the suspicion that it is rented.'},
+  {id:'feyward',  name:'Feyward Bloom',    rarity:4, tag:'Green, overgrown, 922 BF by its own count.'},
+  {id:'ember',    name:'Koopa Ember',      rarity:4, tag:'For readers who punch the floor first.'},
+  {id:'shadowfell',name:'Shadowfell Drift',rarity:4, tag:'The clock here is wrong and nobody minds.'},
+  {id:'wahwire',  name:'WAHwire Neon',     rarity:5, tag:'The wire is back. It is very loud about it.'},
+  {id:'oracle',   name:'Oracle Monochrome',rarity:5, tag:'Answers in grey. Withholds the rest.'}
+];
+const SKIN_BY_ID=Object.fromEntries(SKINS.map(s=>[s.id,s]));
+const SKIN_KEY='waluipedia-skin';
+/* Pity, because a pull system with no floor is just a slot machine. Every 10th
+   pull is guaranteed 4-star or better; a 5-star resets the hard counter. */
+const PULL_PITY=10;
+const RARITY_ODDS={5:0.06,4:0.25};
+
+function skinRarityRoll(hardPity){
+  const r=Math.random();
+  if(hardPity>=PULL_PITY-1) return r<0.35?5:4;   // guaranteed floor on the 10th
+  if(r<RARITY_ODDS[5]) return 5;
+  if(r<RARITY_ODDS[5]+RARITY_ODDS[4]) return 4;
+  return 3;
+}
+/* A pull returns a skin of the rolled rarity. Duplicates are possible and are
+   converted to keys rather than being silently dropped, so a pull is never
+   worth nothing. */
+function skinPull(owned,hardPity){
+  const rarity=skinRarityRoll(hardPity);
+  const pool=SKINS.filter(s=>s.rarity===rarity&&!s.free);
+  const unowned=pool.filter(s=>!owned.includes(s.id));
+  const pick=(unowned.length?unowned:pool)[Math.floor(Math.random()*(unowned.length?unowned.length:pool.length))];
+  if(!pick) return {skin:null,rarity,dupe:true};
+  return {skin:pick,rarity,dupe:owned.includes(pick.id)};
+}
+function applySkin(id){
+  const skin=SKIN_BY_ID[id]?id:'default';
+  const html=document.documentElement;
+  if(skin==='default') html.removeAttribute('data-skin');
+  else html.setAttribute('data-skin',skin);
+  try{ localStorage.setItem(SKIN_KEY,skin); }catch(e){}
+  return skin;
+}
+try{ applySkin(localStorage.getItem(SKIN_KEY)||'default'); }catch(e){}
+
 const DESK_KEY='waluipedia-reading-desk-v1';
 const DESK_DAILY_TARGET=3;
 const DESK_MAX_PLATES=60;
@@ -9174,6 +9227,13 @@ function deskLoad(){
   o.daysComplete=Number(o.daysComplete)||0;
   o.lastComplete=o.lastComplete||'';
   o.totalRead=Number(o.totalRead)||0;
+  /* Gacha shelf. `keys` are spendable, `owned` is the permanent unlock list,
+     `pity` counts pulls since the last 4-star-or-better. */
+  o.keys=Number(o.keys)||0;
+  o.owned=Array.isArray(o.owned)?o.owned:['default'];
+  if(!o.owned.includes('default')) o.owned.unshift('default');
+  o.pity=Number(o.pity)||0;
+  o.pulls=Number(o.pulls)||0;
   return o;
 }
 function deskSave(o){ try{ localStorage.setItem(DESK_KEY,JSON.stringify(o)); }catch(e){} }
@@ -9215,6 +9275,10 @@ function readingDeskRecord(id){
       if(pl){ o.plates.unshift(pl); have.add(rid); }
     });
     o.plates=o.plates.slice(0,DESK_MAX_PLATES);
+    /* The day's pay. One key for the day, plus a milestone key every seventh
+       consecutive day so a streak is worth keeping rather than just counting. */
+    o.keys+=1;
+    if(o.streak%7===0) o.keys+=2;
   }
   deskSave(o);
   if(justHit) try{ deskToast(o); }catch(e){}
@@ -9255,34 +9319,209 @@ function view_desk(){
   if(o.day!==deskToday()) o.readToday=[];
   const done=Math.min(o.readToday.length,DESK_DAILY_TARGET);
   const complete=done>=DESK_DAILY_TARGET;
+  const pct=Math.round(done/DESK_DAILY_TARGET*100);
+  const active=(()=>{try{return localStorage.getItem(SKIN_KEY)||'default';}catch(e){return 'default';}})();
+
   const todayRows=o.readToday.map(id=>{
     const rec=INDEX[id]?INDEX[id].item:null;
     return `<li><a onclick="Router.go('#/article/${esc(id)}')">${esc(rec?displayName(rec):prettyId(id))}</a></li>`;
   }).join('')||'<li class="text-muted">Nothing read yet today.</li>';
+
+  const shelf=SKINS.map(sk=>{
+    const owned=o.owned.includes(sk.id);
+    const on=active===sk.id;
+    return `<div class="skin-card r${sk.rarity}${owned?'':' is-locked'}${on?' is-on':''}"
+      ${owned?`onclick="deskEquip('${esc(sk.id)}')"`:''}>
+      <div class="skin-swatch" data-skin-preview="${esc(sk.id)}">${owned?'':'<span class="skin-lock">🔒</span>'}</div>
+      <div class="skin-meta">
+        <div class="skin-rarity">${'★'.repeat(sk.rarity)}</div>
+        <div class="skin-name">${esc(sk.name)}</div>
+        <div class="skin-tag">${owned?esc(sk.tag):'Locked — pull to unlock'}</div>
+      </div>
+      ${on?'<div class="skin-on">Equipped</div>':''}
+    </div>`;
+  }).join('');
+
   const gallery=o.plates.length?o.plates.map(p=>
     `<figure class="desk-plate" onclick="Router.go('#/article/${esc(p.id)}')">
       <img src="${esc(assetPath(p.image))}" alt="" loading="lazy" onerror="this.closest('figure').remove()">
       <figcaption><b>${esc(p.title)}</b><span>${esc(p.caption)}</span></figcaption>
     </figure>`).join(''):'<p class="text-muted">No plates yet. Finish a day\'s reading and the art from what you read is kept here.</p>';
+
+  const ownedN=o.owned.length, totalN=SKINS.length;
+  const toPity=Math.max(0,PULL_PITY-1-o.pity);
+
   el('content').innerHTML=`
     <div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › The Reading Desk</div>
-    <div class="card animate-fade-in">
-      <h1 class="art-title">📖 The Reading Desk</h1>
-      <p class="text-muted">Waluigi does not pay people to read the archive. Waluigi does, however, keep a note of who bothered. Read ${DESK_DAILY_TARGET} filings in a day and the day is filed; the plates from what you read are kept below.</p>
-      <div class="chips mt-10">
-        <span class="chip ${complete?'active':''}">${done}/${DESK_DAILY_TARGET} today</span>
-        <span class="chip">${o.streak} day streak</span>
-        <span class="chip">best ${o.best}</span>
-        <span class="chip">${o.daysComplete} days filed</span>
-        <span class="chip">${o.totalRead} filings read</span>
+
+    <div class="card animate-fade-in gacha-hero">
+      <div class="gacha-hero-main">
+        <div class="gacha-kicker">📖 The Reading Desk</div>
+        <h1 class="gacha-title">Read the archive. Keep the keys.</h1>
+        <p class="gacha-sub">Read <b>${DESK_DAILY_TARGET} filings</b> in a day to file the day. Every filed day pays <b>1 key</b>, and every seventh consecutive day pays <b>2 more</b>. Keys unlock skins — palettes that repaint the whole site.</p>
+        <div class="gacha-track"><div class="gacha-fill" style="width:${pct}%"></div></div>
+        <div class="gacha-progress">${done}/${DESK_DAILY_TARGET} read today${complete?' · day filed':''}</div>
       </div>
-      <p class="text-muted mt-10" style="font-size:12px">Kept in this browser only. It is your record, not the archive's — nothing here is canon and nothing is written to the filings. <a onclick="deskReset()">Clear the desk</a>.</p>
+      <div class="gacha-currency">
+        <div class="cur-tile"><span class="cur-n">${o.keys}</span><span class="cur-l">🔑 Keys</span></div>
+        <div class="cur-tile"><span class="cur-n">${o.streak}</span><span class="cur-l">Day streak</span></div>
+        <div class="cur-tile"><span class="cur-n">${ownedN}/${totalN}</span><span class="cur-l">Skins held</span></div>
+        <div class="cur-tile"><span class="cur-n">${o.plates.length}</span><span class="cur-l">Plates kept</span></div>
+      </div>
     </div>
+
+    <div class="card gacha-banner">
+      <div class="gacha-banner-copy">
+        <h2>🔑 Spend keys</h2>
+        <p class="text-muted">A pull returns a skin. Duplicates refund their key, so a pull is never worth nothing. Guaranteed ★4 or better every ${PULL_PITY} pulls — <b>${toPity}</b> away.</p>
+      </div>
+      <div class="gacha-banner-actions">
+        <button class="pull-btn" ${o.keys<1?'disabled':''} onclick="deskPull(1)">Pull ×1<span>1 key</span></button>
+        <button class="pull-btn big" ${o.keys<10?'disabled':''} onclick="deskPull(10)">Pull ×10<span>10 keys</span></button>
+      </div>
+    </div>
+
+    <div class="card"><h2 style="margin-top:0">🎨 Skins <span class="text-muted" style="font-size:12px;font-weight:400">— click one you hold to wear it</span></h2>
+      <div class="skin-grid">${shelf}</div></div>
+
     <div class="card"><h2 style="margin-top:0">Today's reading</h2><ul class="desk-today">${todayRows}</ul></div>
+
     <div class="card"><h2 style="margin-top:0">🖼️ Field plates kept <span class="text-muted" style="font-size:12px;font-weight:400">— ${o.plates.length} of ${DESK_MAX_PLATES}</span></h2>
-      <div class="desk-gallery">${gallery}</div></div>`;
+      <div class="desk-gallery">${gallery}</div></div>
+
+    <div class="card">
+      <h2 style="margin-top:0">🔄 Move progress between sites</h2>
+      <p class="text-muted">A browser cannot share storage between <code>localhost</code> and the published site — they are different origins, and no cookie crosses that line. So progress travels as a code you carry. <b>Importing merges; it never overwrites.</b></p>
+      <textarea id="deskCodeBox" class="desk-code" rows="3" placeholder="Your save code appears here — or paste one in and press Import."></textarea>
+      <div class="chips mt-10">
+        <span class="chip" onclick="deskExport()">📤 Copy save code</span>
+        <span class="chip" onclick="deskImport()">📥 Import &amp; merge</span>
+        <span class="chip" onclick="deskReset()">🗑️ Clear the desk</span>
+      </div>
+      <p class="text-muted mt-10" style="font-size:12px">Kept in this browser only. Nothing here is canon, nothing is written to the filings, and no XP is awarded — XP comes from the ledger. Debug: <code>waluipediaDesk.unlockAll()</code> in the console.</p>
+    </div>`;
   window.scrollTo(0,0);
 }
+/* ---- pulling ---------------------------------------------------------- */
+function deskPull(n){
+  const o=deskLoad();
+  const want=Math.max(1,Number(n)||1);
+  if(o.keys<want){ deskFlash('Not enough keys. Read '+DESK_DAILY_TARGET+' filings in a day to earn one.'); return; }
+  const got=[];
+  for(let i=0;i<want;i++){
+    const res=skinPull(o.owned,o.pity);
+    o.keys--; o.pulls++;
+    if(!res.skin) continue;
+    if(res.rarity>=4) o.pity=0; else o.pity++;
+    if(o.owned.includes(res.skin.id)){
+      o.keys+=1;                       // a duplicate refunds its key
+      got.push({skin:res.skin,rarity:res.rarity,dupe:true});
+    }else{
+      o.owned.push(res.skin.id);
+      got.push({skin:res.skin,rarity:res.rarity,dupe:false});
+    }
+  }
+  deskSave(o);
+  deskShowPulls(got);
+  if(typeof view_desk==='function'&&location.hash.includes('/desk')) view_desk();
+}
+function deskShowPulls(got){
+  if(!got.length) return;
+  const cards=got.map(g=>`<div class="pull-card r${g.rarity}${g.dupe?' is-dupe':''}">
+    <div class="pull-rarity">${'★'.repeat(g.rarity)}</div>
+    <div class="pull-swatch" data-skin-preview="${esc(g.skin.id)}"></div>
+    <div class="pull-name">${esc(g.skin.name)}</div>
+    <div class="pull-tag">${g.dupe?'Already held · key refunded':esc(g.skin.tag)}</div>
+  </div>`).join('');
+  const ov=document.createElement('div');
+  ov.className='pull-overlay';
+  ov.innerHTML=`<div class="pull-sheet">
+    <div class="pull-head">🔑 ${got.length} pull${got.length===1?'':'s'}</div>
+    <div class="pull-grid">${cards}</div>
+    <button class="pull-close" onclick="this.closest('.pull-overlay').remove()">Close</button>
+  </div>`;
+  ov.addEventListener('click',e=>{ if(e.target===ov) ov.remove(); });
+  document.body.appendChild(ov);
+  requestAnimationFrame(()=>ov.classList.add('go'));
+}
+function deskFlash(msg){
+  const n=document.createElement('div');
+  n.className='desk-toast'; n.innerHTML=`<b>📖 Reading Desk</b><span>${esc(msg)}</span>`;
+  document.body.appendChild(n);
+  requestAnimationFrame(()=>n.classList.add('go'));
+  setTimeout(()=>n.remove(),5000);
+}
+function deskEquip(id){
+  const o=deskLoad();
+  if(!o.owned.includes(id)){ deskFlash('That skin is still locked.'); return; }
+  applySkin(id);
+  if(location.hash.includes('/desk')) view_desk();
+}
+
+/* ---- save code: the only honest way to move progress between origins ----
+   localhost and the published site are DIFFERENT ORIGINS, so the browser will
+   not share localStorage between them — no cookie or script gets around that
+   without a server. A copyable code does, and it works in both directions. */
+function deskExport(){
+  const o=deskLoad();
+  const payload={v:1,keys:o.keys,owned:o.owned,pity:o.pity,pulls:o.pulls,
+    streak:o.streak,best:o.best,daysComplete:o.daysComplete,totalRead:o.totalRead,
+    lastComplete:o.lastComplete,plates:o.plates.slice(0,DESK_MAX_PLATES)};
+  let code='';
+  try{ code=btoa(unescape(encodeURIComponent(JSON.stringify(payload)))); }
+  catch(e){ deskFlash('Could not build a code in this browser.'); return; }
+  try{ navigator.clipboard.writeText(code); deskFlash('Save code copied. Paste it on the other site.'); }
+  catch(e){ /* clipboard blocked: fall through to the textarea */ }
+  const ta=document.getElementById('deskCodeBox');
+  if(ta){ ta.value=code; ta.select(); }
+}
+function deskImport(){
+  const ta=document.getElementById('deskCodeBox');
+  const code=(ta&&ta.value||'').trim();
+  if(!code){ deskFlash('Paste a save code into the box first.'); return; }
+  let inc=null;
+  try{ inc=JSON.parse(decodeURIComponent(escape(atob(code)))); }
+  catch(e){ deskFlash('That code did not decode. Check it copied whole.'); return; }
+  if(!inc||typeof inc!=='object'){ deskFlash('That code is not a reading desk save.'); return; }
+  const o=deskLoad();
+  /* MERGE, never overwrite. Importing must not be able to cost somebody
+     progress they already had on this origin. */
+  o.owned=[...new Set([...(o.owned||[]),...(inc.owned||[])])];
+  o.keys=Math.max(o.keys,Number(inc.keys)||0);
+  o.pulls=Math.max(o.pulls,Number(inc.pulls)||0);
+  o.streak=Math.max(o.streak,Number(inc.streak)||0);
+  o.best=Math.max(o.best,Number(inc.best)||0);
+  o.daysComplete=Math.max(o.daysComplete,Number(inc.daysComplete)||0);
+  o.totalRead=Math.max(o.totalRead,Number(inc.totalRead)||0);
+  const have=new Set(o.plates.map(p=>p&&p.id));
+  (inc.plates||[]).forEach(p=>{ if(p&&p.id&&!have.has(p.id)){ o.plates.push(p); have.add(p.id); } });
+  o.plates=o.plates.slice(0,DESK_MAX_PLATES);
+  deskSave(o);
+  deskFlash('Save merged. Nothing was overwritten.');
+  view_desk();
+}
+
+/* ---- debug console ------------------------------------------------------
+   Exposed on window so it can be driven from devtools on either origin. */
+window.waluipediaDesk={
+  unlockAll(){
+    const o=deskLoad();
+    o.owned=[...new Set([...o.owned,...SKINS.map(s=>s.id)])];
+    o.keys+=20; deskSave(o);
+    console.log('%c[desk] all skins unlocked','color:#7ce0b8', o.owned);
+    if(location.hash.includes('/desk')) view_desk();
+    deskFlash('Debug: every skin unlocked.');
+    return o.owned;
+  },
+  keys(n){ const o=deskLoad(); o.keys+=Number(n)||10; deskSave(o);
+    console.log('[desk] keys:',o.keys); if(location.hash.includes('/desk')) view_desk(); return o.keys; },
+  skins(){ console.table(SKINS.map(s=>({id:s.id,name:s.name,rarity:s.rarity}))); return SKINS.map(s=>s.id); },
+  equip(id){ return applySkin(id); },
+  state(){ const o=deskLoad(); console.log(o); return o; },
+  reset(){ try{ localStorage.removeItem(DESK_KEY); localStorage.removeItem(SKIN_KEY); }catch(e){}
+    applySkin('default'); console.log('[desk] cleared'); if(location.hash.includes('/desk')) view_desk(); }
+};
+
 function deskReset(){
   if(!confirm('Clear the reading desk? The plates and the streak go with it.')) return;
   try{ localStorage.removeItem(DESK_KEY); }catch(e){}

@@ -51,6 +51,76 @@ html[data-theme="light"] body{
     #f3eefb !important;
   color:#1a1230 !important;
 }
+/* ==========================================================================
+   SKINS — unlockable palettes for the Reading Desk
+   Every one of these only re-declares the same custom properties :root sets,
+   so a skin repaints all 130 usages across the site without touching a single
+   component rule. A skin layers ON TOP of the dark/light mode: data-theme
+   stays as it was, data-skin carries the palette.
+   ========================================================================== */
+html[data-skin="ember"]{
+  --bg:#150c0a; --bg2:#20110d; --panel:#2b1712; --panel2:#371d16;
+  --border:#5e2f20; --text:#f7e9e3; --muted:#c9a08e; --accent:#e5603a;
+  --accent2:#ffab3d; --link:#ffb08a;
+}
+html[data-skin="ember"] body{background:
+  radial-gradient(1200px 600px at 80% -10%,rgba(229,96,58,.18),transparent 60%),
+  radial-gradient(900px 500px at -10% 10%,rgba(255,171,61,.09),transparent 55%),#150c0a !important;}
+
+html[data-skin="feyward"]{
+  --bg:#08140f; --bg2:#0d1e16; --panel:#122a1f; --panel2:#173528;
+  --border:#255740; --text:#e4f5ec; --muted:#93c2ac; --accent:#2fae8a;
+  --accent2:#a8d96a; --link:#7ee0bb;
+}
+html[data-skin="feyward"] body{background:
+  radial-gradient(1200px 600px at 80% -10%,rgba(47,174,138,.18),transparent 60%),
+  radial-gradient(900px 500px at -10% 10%,rgba(168,217,106,.09),transparent 55%),#08140f !important;}
+
+html[data-skin="shadowfell"]{
+  --bg:#070810; --bg2:#0c0e1a; --panel:#111426; --panel2:#171b33;
+  --border:#2a3055; --text:#dfe3f5; --muted:#8e97bd; --accent:#4a5cc4;
+  --accent2:#7d6fe0; --link:#9aa6ff;
+}
+html[data-skin="shadowfell"] body{background:
+  radial-gradient(1200px 600px at 80% -10%,rgba(74,92,196,.20),transparent 60%),
+  radial-gradient(900px 500px at -10% 10%,rgba(125,111,224,.10),transparent 55%),#070810 !important;}
+
+html[data-skin="snowdin"]{
+  --bg:#0b1018; --bg2:#121a25; --panel:#182333; --panel2:#1f2d40;
+  --border:#2f4258; --text:#e8f1fa; --muted:#9db3c9; --accent:#5aa9e6;
+  --accent2:#bfe3ff; --link:#8fcdf5;
+}
+html[data-skin="snowdin"] body{background:
+  radial-gradient(1200px 600px at 80% -10%,rgba(90,169,230,.18),transparent 60%),
+  radial-gradient(900px 500px at -10% 10%,rgba(191,227,255,.08),transparent 55%),#0b1018 !important;}
+
+html[data-skin="regency"]{
+  --bg:#150f06; --bg2:#1f170a; --panel:#2a2010; --panel2:#352914;
+  --border:#5c4620; --text:#f7efdc; --muted:#c7b088; --accent:#c9a227;
+  --accent2:#e8c65a; --link:#e6cc80;
+}
+html[data-skin="regency"] body{background:
+  radial-gradient(1200px 600px at 80% -10%,rgba(201,162,39,.16),transparent 60%),
+  radial-gradient(900px 500px at -10% 10%,rgba(232,198,90,.08),transparent 55%),#150f06 !important;}
+
+html[data-skin="wahwire"]{
+  --bg:#12060f; --bg2:#1c0a17; --panel:#260f1f; --panel2:#331428;
+  --border:#5e2249; --text:#fce8f5; --muted:#d199bf; --accent:#ff4fa3;
+  --accent2:#ffd166; --link:#ff8cc4;
+}
+html[data-skin="wahwire"] body{background:
+  radial-gradient(1200px 600px at 80% -10%,rgba(255,79,163,.20),transparent 60%),
+  radial-gradient(900px 500px at -10% 10%,rgba(255,209,102,.09),transparent 55%),#12060f !important;}
+
+html[data-skin="oracle"]{
+  --bg:#0a0a0a; --bg2:#121212; --panel:#191919; --panel2:#212121;
+  --border:#3a3a3a; --text:#f2f2f2; --muted:#a3a3a3; --accent:#d4d4d4;
+  --accent2:#8a4bff; --link:#c9b6ff;
+}
+html[data-skin="oracle"] body{background:
+  radial-gradient(1200px 600px at 80% -10%,rgba(212,212,212,.07),transparent 60%),
+  radial-gradient(900px 500px at -10% 10%,rgba(138,75,255,.12),transparent 55%),#0a0a0a !important;}
+
 html[data-theme="dark"],
 html:not([data-theme]){
   color-scheme: dark;
@@ -2111,6 +2181,105 @@ a.craft-buy-mini{display:block;text-align:center;text-decoration:none}
 .dline-row span{color:var(--muted);text-transform:uppercase;font-size:10px;
   letter-spacing:.1em;font-weight:800;padding-top:3px}
 .dline-row b{font-weight:600;color:var(--text)}
+/* ===== Gacha desk: hero, banner, skin shelf, pull overlay ===== */
+.gacha-hero{display:flex;gap:22px;flex-wrap:wrap;align-items:center;
+  border-left:5px solid var(--accent)}
+.gacha-hero-main{flex:1;min-width:280px}
+.gacha-kicker{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;
+  font-weight:900;color:var(--accent2)}
+.gacha-title{margin:4px 0 6px;font-size:26px;line-height:1.15}
+.gacha-sub{margin:0 0 12px;font-size:13.5px;color:var(--muted);line-height:1.6;max-width:70ch}
+.gacha-track{height:8px;border-radius:99px;background:rgba(255,255,255,.09);overflow:hidden}
+.gacha-fill{height:100%;border-radius:99px;
+  background:linear-gradient(90deg,var(--accent),var(--accent2));
+  transition:width .45s cubic-bezier(.22,.9,.3,1)}
+.gacha-progress{margin-top:6px;font-size:12px;color:var(--muted)}
+.gacha-currency{display:grid;grid-template-columns:repeat(2,minmax(96px,1fr));gap:9px}
+.cur-tile{display:flex;flex-direction:column;align-items:center;gap:2px;padding:11px 14px;
+  border:1px solid var(--border);border-radius:11px;background:var(--bg2);min-width:96px}
+.cur-n{font-size:22px;font-weight:900;line-height:1;color:var(--accent2);
+  font-variant-numeric:tabular-nums}
+.cur-l{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);
+  font-weight:800;text-align:center}
+
+.gacha-banner{display:flex;gap:20px;flex-wrap:wrap;align-items:center;
+  justify-content:space-between}
+.gacha-banner-copy{flex:1;min-width:260px}
+.gacha-banner-copy h2{margin:0 0 4px}
+.gacha-banner-copy p{margin:0;font-size:13px;line-height:1.55}
+.gacha-banner-actions{display:flex;gap:10px;flex-wrap:wrap}
+.pull-btn{display:flex;flex-direction:column;align-items:center;gap:2px;
+  padding:13px 22px;border-radius:12px;cursor:pointer;font:inherit;font-weight:800;
+  font-size:14px;color:#fff;border:1px solid transparent;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  transition:transform .14s,filter .14s}
+.pull-btn span{font-size:10.5px;font-weight:700;opacity:.85;letter-spacing:.06em}
+.pull-btn:hover:not(:disabled){transform:translateY(-2px);filter:brightness(1.1)}
+.pull-btn:disabled{opacity:.4;cursor:not-allowed;filter:grayscale(.7)}
+.pull-btn.big{padding:13px 30px}
+
+.skin-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:13px}
+.skin-card{position:relative;display:flex;flex-direction:column;gap:0;border-radius:13px;
+  overflow:hidden;border:1px solid var(--border);background:var(--bg2);cursor:pointer;
+  transition:transform .15s,border-color .15s,box-shadow .15s}
+.skin-card:hover{transform:translateY(-3px)}
+.skin-card.r3{border-color:rgba(160,160,190,.45)}
+.skin-card.r4{border-color:rgba(138,75,255,.55);box-shadow:0 0 0 1px rgba(138,75,255,.18)}
+.skin-card.r5{border-color:rgba(224,180,0,.7);box-shadow:0 0 18px rgba(224,180,0,.18)}
+.skin-card.is-locked{cursor:default;opacity:.55}
+.skin-card.is-locked:hover{transform:none}
+.skin-card.is-on{outline:2px solid var(--green);outline-offset:-2px}
+.skin-swatch{height:78px;position:relative;display:flex;align-items:center;justify-content:center}
+.skin-lock{font-size:22px;opacity:.7}
+.skin-meta{padding:10px 12px;display:flex;flex-direction:column;gap:2px}
+.skin-rarity{font-size:11px;color:var(--accent2);letter-spacing:.08em}
+.skin-name{font-size:13.5px;font-weight:800}
+.skin-tag{font-size:11.5px;color:var(--muted);line-height:1.45}
+.skin-on{position:absolute;top:8px;right:8px;font-size:9.5px;font-weight:900;
+  letter-spacing:.1em;text-transform:uppercase;padding:3px 8px;border-radius:99px;
+  background:var(--green);color:#04241a}
+
+/* Swatches paint themselves from each skin's own palette. */
+[data-skin-preview="default"]{background:linear-gradient(135deg,#8a4bff,#e0b400)}
+[data-skin-preview="ember"]{background:linear-gradient(135deg,#e5603a,#ffab3d)}
+[data-skin-preview="feyward"]{background:linear-gradient(135deg,#2fae8a,#a8d96a)}
+[data-skin-preview="shadowfell"]{background:linear-gradient(135deg,#4a5cc4,#7d6fe0)}
+[data-skin-preview="snowdin"]{background:linear-gradient(135deg,#5aa9e6,#bfe3ff)}
+[data-skin-preview="regency"]{background:linear-gradient(135deg,#c9a227,#e8c65a)}
+[data-skin-preview="wahwire"]{background:linear-gradient(135deg,#ff4fa3,#ffd166)}
+[data-skin-preview="oracle"]{background:linear-gradient(135deg,#d4d4d4,#8a4bff)}
+
+.pull-overlay{position:fixed;inset:0;z-index:9500;display:flex;align-items:center;
+  justify-content:center;padding:24px;background:rgba(4,2,10,.82);
+  opacity:0;transition:opacity .25s}
+.pull-overlay.go{opacity:1}
+.pull-sheet{max-width:780px;width:100%;max-height:86vh;overflow:auto;padding:22px;
+  border-radius:16px;border:1px solid var(--border);background:var(--panel);
+  box-shadow:0 20px 60px rgba(0,0,0,.6)}
+.pull-head{font-size:18px;font-weight:900;margin-bottom:14px}
+.pull-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+.pull-card{border-radius:12px;overflow:hidden;border:1px solid var(--border);
+  background:var(--bg2);animation:pullIn .45s cubic-bezier(.2,.9,.3,1) both}
+.pull-card.r4{border-color:rgba(138,75,255,.6)}
+.pull-card.r5{border-color:rgba(224,180,0,.75);box-shadow:0 0 22px rgba(224,180,0,.25)}
+.pull-card.is-dupe{opacity:.7}
+.pull-card .pull-swatch{height:64px}
+.pull-rarity{padding:6px 10px 0;font-size:12px;color:var(--accent2)}
+.pull-name{padding:8px 10px 0;font-size:13px;font-weight:800}
+.pull-tag{padding:2px 10px 10px;font-size:11px;color:var(--muted);line-height:1.4}
+@keyframes pullIn{from{opacity:0;transform:scale(.88) translateY(10px)}to{opacity:1;transform:none}}
+.pull-card:nth-child(2){animation-delay:.05s}
+.pull-card:nth-child(3){animation-delay:.1s}
+.pull-card:nth-child(4){animation-delay:.15s}
+.pull-card:nth-child(5){animation-delay:.2s}
+.pull-close{margin-top:16px;padding:10px 20px;border-radius:10px;cursor:pointer;
+  font:inherit;font-weight:800;border:1px solid var(--border);
+  background:var(--bg2);color:var(--text)}
+.pull-close:hover{border-color:var(--accent)}
+.desk-code{width:100%;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11.5px;
+  padding:10px 12px;border-radius:10px;border:1px solid var(--border);
+  background:var(--bg);color:var(--text);resize:vertical;word-break:break-all}
+
 /* ===== The Reading Desk — daily rota + kept field plates ===== */
 .desk-band{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin:0 0 16px;
   padding:14px 18px;border-radius:14px;cursor:pointer;
