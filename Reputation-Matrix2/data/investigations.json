@@ -667,10 +667,10 @@
         },
         {
           "id": "lead_recover_eager",
-          "title": "Establish where Eager and Salam were taken",
+          "title": "Establish where Salam was taken",
           "status": "open",
           "priority": "high",
-          "why": "Salam is in Legion custody, carried toward Legionhold. The party has no confirmation they arrived, no contact, and an outstanding arrest warrant against Archie at the same destination.",
+          "why": "Salam is in Legion custody, carried toward Legionhold. The party has no confirmation he arrived, no contact, and an outstanding arrest warrant against Archie at the same destination.",
           "exhibits": [
             "ex_student_id"
           ]
