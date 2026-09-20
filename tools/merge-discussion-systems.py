@@ -59,6 +59,30 @@ def load(path):
     return json.loads(path.read_text(encoding="utf-8"))
 
 
+MONTHS = ['Firstlight', 'Chillwind', 'Veridia', 'Bloom', 'Floria', 'Efferd',
+          'Highsun', 'Harvestide', 'Aethel', 'Darkmoon', 'Frostfall', 'Deepwinter']
+
+
+def sort_key(timestamp):
+    """A sortable number from an in-world timestamp, newest last.
+
+    The feed sorts on `order` and falls back to 999, so a post without one sinks
+    to the bottom and is effectively invisible in Recent. Mirrored posts get a
+    real position derived from the date their comment carries, which is the only
+    honest ordering available: the wire is in-world, so it sorts in-world."""
+    t = str(timestamp or '')
+    m = re.search(r'(\d{1,2})\s+([A-Za-z]+),?\s+(\d{3,4})', t)
+    if m and m.group(2) in MONTHS:
+        return (int(m.group(3)), MONTHS.index(m.group(2)), int(m.group(1)))
+    m = re.search(r'([A-Za-z]+)\s+(\d{1,2}),?\s+(\d{3,4})', t)
+    if m and m.group(1) in MONTHS:
+        return (int(m.group(3)), MONTHS.index(m.group(1)), int(m.group(2)))
+    m = re.search(r'(\d{3,4})', t)
+    if m:
+        return (int(m.group(1)), 0, 0)
+    return (0, 0, 0)          # undated sinks below everything dated
+
+
 def build_mirror(annotations):
     """One wire post per annotated passage, comments preserved as replies."""
     out = []
@@ -101,7 +125,7 @@ def build_mirror(annotations):
             "likes": int(lead.get("likes") or 0),
             "links": [{"id": aid, "type": "article"}],
             "tags": ["margins"],
-            "reaction": "note",
+            "reaction": "deadpan",
             "comments": replies,
             "status": "posted",
             # --- what makes this a passage comment rather than a loose post ---
@@ -109,6 +133,11 @@ def build_mirror(annotations):
             "quote": quote,
             "mirroredFrom": "annotations.json",
         })
+    # Newest first, matching how the feed reads. Native posts occupy 1..77, so
+    # mirrored posts start after them and interleave by date within themselves.
+    out.sort(key=lambda p: sort_key(p["timestamp"]), reverse=True)
+    for i, p in enumerate(out):
+        p["order"] = 100 + i
     return out
 
 

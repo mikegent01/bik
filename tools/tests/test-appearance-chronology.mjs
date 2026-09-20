@@ -442,5 +442,35 @@ check('wahNotesFor excludes passage-anchored posts',
 check('annotations.json is still the authored source',
       annStore.length > 0 && annStore.every(a => a.articleId && (a.comments || []).length >= 0));
 
+// The merge is only finished if the surfaces stop LOOKING like three systems.
+check('the drawer uses the wire portrait resolver, not a coloured initial',
+      src.includes('wwAvatar(wwAuthor(c.authorId)'));
+check('routed notes are labelled as standing remarks, not reactions to this filing',
+      src.includes('wah-note-routed'));
+check('the Chatter Hub redirects to the wire instead of being a rival feed',
+      /route==='annotations'\|\|route==='chatter'\)Router\.go\('#\/wahwire'\)/.test(src));
+check('the Chatter Hub sidebar link is gone', !src.includes("label:'Chatter Hub'"));
+
+// A mirrored post with no `order` sinks to 999 and never appears in Recent.
+check('every mirrored post carries a sort order',
+      mirrored.every(p => typeof p.order === 'number'),
+      String(mirrored.filter(p => typeof p.order !== 'number').length));
+const feedOrder = [...wirePosts].sort((a, b) => Number(a.order || 999) - Number(b.order || 999));
+check('mirrored posts are reachable in the Recent feed',
+      feedOrder.slice(0, 90).some(p => p.mirroredFrom));
+
+// Placeholder timestamps read as filing notes, not in-world dates.
+const vagueTs = annStore.flatMap(a => (a.comments || [])
+  .filter(c => /filed with|filed in response/i.test(c.timestamp || '')));
+check('no placeholder timestamps remain in annotations', vagueTs.length === 0,
+      String(vagueTs.length));
+
+// The newest filings owe a native wire post, not just mirrored margin comments.
+for (const id of events.slice(-2).map(e => e.id)) {
+  const n = wirePosts.filter(p => !p.mirroredFrom &&
+    (p.links || []).some(l => l && l.id === id)).length;
+  check(`the recent filing ${id.slice(0, 34)} has a native wire post`, n > 0);
+}
+
 console.log(`\n${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);

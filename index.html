@@ -8817,7 +8817,7 @@ function renderSidebar(active){
     navLink({emoji:'🔍',label:'Investigations',go:"Router.go('#/investigations')",active:active==='investigations',count:(((DATA.investigations||{}).investigations)||[]).length}),
     navLink({emoji:'🎰',label:"Wario's Casino",go:"location.href='Reputation-Matrix2/app/pages/crime-and-punishment/crime-and-punishment.html'",count:((DATA.injuries&&DATA.injuries.entries)||[]).length,title:'Sentencing reel, death saves and the d100 consequence table — everything rollable'}),
     navLink({emoji:'🗣️',label:'The Wahbabel',go:"Router.go('#/wahbabel')",active:active==='wahbabel',count:(WAHBABEL&&WAHBABEL.languages?WAHBABEL.languages.length:7),title:'Translation desk — ciphers, dictionaries and glyphs'}),
-    navLink({emoji:'💬',label:'Chatter Hub',go:"Router.go('#/annotations')",active:active==='annotations',count:n('annotations')}),
+    
   ];
   h+=navSection('nav-systems-world','World Systems',systemLinks,{forceOpen:hasActive(systemLinks),count:systemLinks.length});
 
@@ -11215,7 +11215,11 @@ function wahNoteCard(n){
   const ava=meta.icon||'🖊️', who=n.author||meta.name||prettyId(n.authorId||'anon');
   return `<div class="wah-note"><div class="wah-note-head">${wahAvatarHtml(n.authorId,ava)}`
     +`<span class="wah-note-who">${esc(who)}</span>${n.faction?`<span class="wah-note-fac">· ${esc(n.faction)}</span>`:''}`
-    +`${n.timestamp?`<span class="wah-note-when">${esc(n.timestamp)}</span>`:''}</div>`
+    +`${n.timestamp?`<span class="wah-note-when">${esc(n.timestamp)}</span>`:''}`
+    /* A routed note is a standing remark matched to this article by theme, not
+       a reaction to it. Saying so stops it reading as though the speaker had
+       commented on this filing when they never saw it. */
+    +`${n.source==='routed'?`<span class="wah-note-when wah-note-routed" title="A standing remark from this speaker, matched to this filing by subject rather than written about it">standing remark</span>`:''}</div>`
     +`<p class="wah-note-text">${esc(n.text||'')}</p>`
     +`${n.likes?`<div class="wah-note-likes">▲ ${n.likes} enjoyed this</div>`:''}</div>`;
 }
@@ -11954,7 +11958,7 @@ function imperialInternalBlocPanel(fid){
 
 function imperialLinkCloud(){
   const links=[
-    ['👑 Regal Empire faction','#/reputation/faction/regal_empire'],['⚙️ Iron Legion faction','#/reputation/faction/iron_legion'],['⚡ Power Projection','#/power'],['🍩 Atlas','#/atlas'],['🏦 Bank & Exchange','currency.html'],['🛒 Wario Shop','Reputation-Matrix2/app/pages/shop/shop.html'],['📚 Library','#/books'],['⭐ Artifacts','#/artifacts'],['💬 Chatter Hub','#/annotations'],['✦ XP Ledger','#/xp'],
+    ['👑 Regal Empire faction','#/reputation/faction/regal_empire'],['⚙️ Iron Legion faction','#/reputation/faction/iron_legion'],['⚡ Power Projection','#/power'],['🍩 Atlas','#/atlas'],['🏦 Bank & Exchange','currency.html'],['🛒 Wario Shop','Reputation-Matrix2/app/pages/shop/shop.html'],['📚 Library','#/books'],['⭐ Artifacts','#/artifacts'],['📡 WAHwire','#/wahwire'],['✦ XP Ledger','#/xp'],
     ['General Ironhand','#/article/general_ironhand'],['Emperor Elagabalus','#/article/emperor_elagabalus'],['The Midnight Audit','#/article/the_midnight_audit_of_harvestide_28'],['Vigilance / Legionlance','#/article/the_vigilance'],['Iron Mandate','#/article/iron_mandate'],['Order 120','#/article/order_120']
   ];
   return links.map(([label,href])=>`<a class="chip" href="${esc(href)}" onclick="${href.startsWith('#')?`event.preventDefault();Router.go('${esc(href)}')`:''}">${esc(label)}</a>`).join('');
@@ -13098,6 +13102,14 @@ function openAnnotation(ai){
     const link=c.authorId&&INDEX[c.authorId]?`<a class="xlink" data-id="${esc(c.authorId)}" href="#/article/${esc(c.authorId)}">${esc(nm)}</a>`:esc(nm);
     const initial=esc((nm[0]||'?').toUpperCase());
     const col=c.authorId&&INDEX[c.authorId]?nodeKindStyle(c.authorId).c:'#8a4bff';
+    /* Faces, not initials. The wire already resolves a speaker to their
+       character portrait via wwAuthor/wwAvatar; the drawer was drawing a
+       coloured letter instead, so the same person looked like two different
+       accounts depending on which surface you were reading. Now they share
+       one resolver and cannot drift. */
+    const av=(typeof wwAuthor==='function'&&c.authorId)
+      ? wwAvatar(wwAuthor(c.authorId),'acmt-av-img')
+      : `<div class="acmt-av" style="background:${col}">${initial}</div>`;
     // "replying to" indicator
     let replyingTo='';
     if(isReply && comments[c.replyTo]){ replyingTo=`<span class="acmt-reply-to">↳ replying to ${esc(comments[c.replyTo].author||'')}</span>`; }
@@ -13108,7 +13120,7 @@ function openAnnotation(ai){
     const replyPill=replyN?`<span class="acmt-replies">💬 ${replyN}</span>`:'';
     const editedTag=c.edited?`<span class="acmt-edited">· edited</span>`:'';
     return `<div class="acmt ${isReply?'areply':''}">
-      <div class="acmt-av" style="background:${col}">${initial}</div>
+      ${av}
       <div class="acmt-body">
         <div class="acmt-head"><span class="acmt-name">${link}</span>${c.faction?`<span class="acmt-fac">${esc(c.faction)}</span>`:''}${c.timestamp?`<span class="acmt-ts">${esc(c.timestamp)}${editedTag}</span>`:''}</div>
         ${replyingTo}
@@ -21937,7 +21949,11 @@ const Router={
     else if(route==='crisis')view_crisis(arg);
     else if(route==='timeline')view_timeline();
     else if(route==='chronicle'||route==='chronicles')view_chronicle(arg);
-    else if(route==='annotations'||route==='chatter')view_annotations(arg);
+    /* The Chatter Hub was a second feed showing a subset of what the wire
+       shows. Now that annotations mirror into wahwire/posts.json it is the
+       same content twice, so the route survives as a redirect rather than a
+       rival surface. Old links keep working; they just land on the wire. */
+    else if(route==='annotations'||route==='chatter')Router.go('#/wahwire');
     else if(route==='wanted'||route==='wanted-pages'||route==='redlinks')view_wanted();
     else if(route==='tradition'||route==='traditions'||route==='law')view_tradition(arg);
     else if(route==='xp'||route==='leaderboard')view_xpLeaderboard();
