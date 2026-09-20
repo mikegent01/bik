@@ -17179,6 +17179,39 @@
         "dateSort": 10400901
       }
     ],
-    "imageCaption": "The dispute, with the grove already alight behind it. Markop bleeding from the head with one hand out — arguing, not attacking; Feyward Dan caught between the two with his longsword down; and the Legion guard walking away with Eager over his shoulder, not looking back. Every spider in the frame is closer than any of them realise."
+    "imageCaption": "The dispute, with the grove already alight behind it. Markop bleeding from the head with one hand out — arguing, not attacking; Feyward Dan caught between the two with his longsword down; and the Legion guard walking away with Eager over his shoulder, not looking back. Every spider in the frame is closer than any of them realise.",
+    "image_alt": "Original scene illustration: the Iron Legion extraction through the burning Skittering Grove, with the party caught among webs and fire.",
+    "gallery": [
+      {
+        "src": "assets/images/events/airlift-never-came/anc-02-remi-armors.jpg",
+        "alt": "Remi scavenges chain armor and a battle axe before leaving the burning grove under her own power.",
+        "caption": "Remi re-armors, treats her wounds, and walks out."
+      },
+      {
+        "src": "assets/images/events/airlift-never-came/anc-03-legion-extraction.jpg",
+        "alt": "Iron Legion soldiers carry wounded party members through the burning spider grove.",
+        "caption": "The promised airlift becomes a foot extraction."
+      },
+      {
+        "src": "assets/images/events/airlift-never-came/anc-04-fireball-grove.jpg",
+        "alt": "Archie casts his last high-level fireball into the burning grove while spiders close in.",
+        "caption": "Archie spends the last big spell on a bush."
+      },
+      {
+        "src": "assets/images/events/airlift-never-came/anc-05-anamatar-den.jpg",
+        "alt": "The party bargains for passage through Anamatar’s den by surrendering Remi’s student ID.",
+        "caption": "Passage out has a price."
+      },
+      {
+        "src": "assets/images/events/airlift-never-came/anc-06-markop-rescue.jpg",
+        "alt": "Markop throws a javelin through the grove while Dan shields him and Salam.",
+        "caption": "A javelin, a barrier, and the last route through the brood."
+      },
+      {
+        "src": "assets/images/events/airlift-never-came/anc-07-den-passage.jpg",
+        "alt": "Wario, Remi, Mossy, and a gatekeeper negotiate in the torchlit den.",
+        "caption": "The den’s transaction is documented as a scene, not a portrait board."
+      }
+    ]
   }
 ]
