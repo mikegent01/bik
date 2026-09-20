@@ -6801,7 +6801,7 @@ function articleRail(articleId,typeKey,item,infoRows,toc,opts){
     parts.push(wahwireRailSlot(articleId));
   }else{
     const wahCount=wahNotesFor(articleId);
-    if(wahCount.notes.length||wahCount.guests.length) parts.push(railBox('✍️ Wah Notes',wahNotesHtml(articleId),{open:true,count:wahCount.total+wahCount.guests.length}));
+    if(wahCount.notes.length||wahCount.guests.length) parts.push(railBox('📡 On the wire',wahNotesHtml(articleId),{open:true,count:wahCount.total+wahCount.guests.length}));
   }
   const inv=typeKey==='characters'?inventoryPanel(articleId,item):'';
   if(inv) parts.push(railBox('🎒 Inventory & Wallet',inv,{open:true}));
@@ -11158,12 +11158,39 @@ function wahRoutedFor(articleId,tagset){
   return pool.map(r=>({r,s:wahScoreRemark(r,ts,articleId)})).filter(x=>x.s>0).sort((a,b)=>b.s-a.s);
 }
 /* Merged + variety-interleaved notes for a record. Cap keeps rails readable. */
+/* ONE STORE, THREE VIEWS.
+   The archive used to show the same comments twice: the Discussion drawer
+   rendered a passage's thread, and the "From the margins" box replayed those
+   exact comments underneath it in a second visual language. They were never
+   different data — both read annotations.json.
+
+   Every annotation is now mirrored into wahwire/posts.json carrying a `quote`
+   anchor (tools/merge-discussion-systems.py), so the three surfaces are three
+   FILTERS of one store:
+
+     drawer   -> posts anchored to the clicked passage
+     margins  -> posts about this article that are NOT passage-anchored
+     the wire -> everything
+
+   That is why this function no longer pulls annotation comments: they belong
+   to the drawer, and duplicating them here is the bug. */
+function wahWirePostsFor(articleId){
+  const posts=(typeof WAHWIRE!=='undefined'&&WAHWIRE&&WAHWIRE.posts)||[];
+  return posts.filter(p=>{
+    if(!p) return false;
+    if(p.anchorArticle===articleId) return true;
+    return (p.links||[]).some(l=>l&&l.id===articleId);
+  });
+}
 function wahNotesFor(articleId){
   const out=[];
+  /* Wire posts about this article that are NOT anchored to a passage. The
+     anchored ones are the drawer's job; showing them here is the duplication
+     this merge removes. */
   try{
-    (DATA.annotations||[]).filter(p=>p&&p.articleId===articleId).forEach(p=>(p.comments||[]).forEach(c=>out.push({
-      authorId:c.authorId||'',author:c.author||'',faction:c.faction||'',text:c.text||'',
-      timestamp:c.timestamp||'',likes:c.likes||0,source:'annotation'})));
+    wahWirePostsFor(articleId).filter(p=>!p.quote).forEach(p=>out.push({
+      authorId:p.author||'',author:'',faction:'',text:p.content||'',
+      timestamp:p.timestamp||'',likes:p.likes||0,source:'wire',postId:p.id}));
   }catch(e){}
   try{
     const w=DATA.wahnotes||{};
@@ -11171,7 +11198,7 @@ function wahNotesFor(articleId){
   }catch(e){}
   // Sources keep priority (annotations, pinned, routed); voices interleave
   // WITHIN each tier, and weak single-dimension guesses backfill only.
-  const ann=wahInterleave(out.filter(n=>n.source==='annotation'));
+  const ann=wahInterleave(out.filter(n=>n.source==='wire'));
   const pin=wahInterleave(out.filter(n=>n.source==='pinned'));
   const routed=wahRoutedFor(articleId).map(x=>Object.assign({source:'routed',likes:0,_s:x.s},x.r));
   const tiers=new Map();
@@ -11204,7 +11231,7 @@ function wahNotesHtml(articleId,opts){
   if(!w.notes.length&&!w.guests.length) return '';
   const lim=opts.limit||w.notes.length;
   let h=w.guests.map(wahGuestCard).join('')+w.notes.slice(0,lim).map(wahNoteCard).join('');
-  if(w.total>lim) h+=`<a class="wah-more" onclick="Router.go('#/annotations')">+${w.total-lim} more in the Chatter Hub →</a>`;
+  if(w.total>lim) h+=`<a class="wah-more" onclick="Router.go('#/wahwire')">+${w.total-lim} more on the wire →</a>`;
   return h;
 }
 /* ---- player tracking: latest dated appearance -> map pin (all dynamic) ---- */
@@ -13094,7 +13121,7 @@ function openAnnotation(ai){
     <blockquote class="annot-quote">“${esc(ann.quote)}”</blockquote>
     ${ann.note?`<div class="wnote"><b>Waluigi's Note:</b> ${esc(ann.note)}</div>`:''}
     <div class="acmt-list">${commentHtml}</div>
-    <div class="annot-drawer-foot">${comments.length} comment${comments.length===1?'':'s'} · in-world figures reacting to this passage</div>
+    <div class="annot-drawer-foot">${comments.length} comment${comments.length===1?'':'s'} on this passage · <a onclick="closeAnnotation();Router.go('#/wahwire')">see the whole wire →</a></div>
   </div>`;
   dr.classList.add('open');
   document.body.classList.add('annot-open');
@@ -15817,7 +15844,7 @@ function view_hub(id){
         ${filedHtml}<div class="hub-instruction">Waluigi has filed this one more than once. Pick how you want it.</div>
       </div>
       <div class="hub-grid">${tiles}</div>
-      ${(()=>{const strip=wahNotesHtml(id,{limit:3});return strip?`<div class="card" style="margin-top:12px"><h2 style="margin-top:0">✍️ Wah Notes <span class="text-muted" style="font-size:12px;font-weight:400">— the margins are talking</span></h2>${strip}</div>`:'';})()}
+      ${(()=>{const strip=wahNotesHtml(id,{limit:3});return strip?`<div class="card" style="margin-top:12px"><h2 style="margin-top:0">📡 On the wire <span class="text-muted" style="font-size:12px;font-weight:400">— public reaction to this filing. Passage-level comments live in the article's own Discussion.</span></h2>${strip}</div>`:'';})()}
       <div class="hub-foot">
         <span class="chip" onclick="Router.go('#/article/${esc(id)}')">📖 Skip the menu, just read it →</span>
         <span class="chip" onclick="Router.go('#/home')">← Home</span>

@@ -3138,6 +3138,4562 @@
       "comments": [],
       "status": "posted",
       "type": "text"
+    },
+    {
+      "id": "ann_archie_frog_god_dream_duel_dan_at_one_hit_point_is_the",
+      "author": "waluigi",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Recent Marginalia, 1040 BF",
+      "content": "This is why Waluigi reads dreams like ledgers. One hit point means the wound is almost dead but still holding the knife.",
+      "likes": 188,
+      "links": [
+        {
+          "id": "archie_frog_god_dream_duel",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_archie_frog_god_dream_duel_dan_at_one_hit_point_is_the_c1",
+          "author": "archie_miser",
+          "content": "I would like my subconscious to stop using turn order as moral philosophy.",
+          "likes": 151
+        },
+        {
+          "id": "ann_archie_frog_god_dream_duel_dan_at_one_hit_point_is_the_c2",
+          "author": "markop",
+          "content": "It is a useful warning. If the unresolved part can still act, it is not resolved.",
+          "likes": 139
+        },
+        {
+          "id": "ann_archie_frog_god_dream_duel_dan_at_one_hit_point_is_the_c3",
+          "author": "dan",
+          "content": "One hit point is still a person.",
+          "likes": 214,
+          "topReply": true
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "archie_frog_god_dream_duel",
+      "quote": "Dan at one hit point is the important image.",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_archie_frog_god_dream_duel_preparation_is_the_moral_alt",
+      "author": "waluigi",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Recent Marginalia, 1040 BF",
+      "content": "Enter this on the wall of every planning room. Also every room Archie enters without a plan, which is all rooms.",
+      "likes": 201,
+      "links": [
+        {
+          "id": "archie_frog_god_dream_duel",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_archie_frog_god_dream_duel_preparation_is_the_moral_alt_c1",
+          "author": "remi_akamatsu_full_backstory",
+          "content": "can we put it on arrows too because apparently decisions happen fast now",
+          "likes": 166,
+          "topReply": true
+        },
+        {
+          "id": "ann_archie_frog_god_dream_duel_preparation_is_the_moral_alt_c2",
+          "author": "green_t",
+          "content": "Preparation is what lets you keep your hands clean later. Or at least know exactly when they got dirty.",
+          "likes": 149
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "archie_frog_god_dream_duel",
+      "quote": "Preparation is the moral alternative to cruelty.",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_archie_god_sermon_on_one_level_waluigi_finds_t",
+      "author": "archie_miser",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Margin Expansion, 1040 BF",
+      "content": "The hallway was confusing.",
+      "likes": 173,
+      "links": [
+        {
+          "id": "archie_god_sermon",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_archie_god_sermon_on_one_level_waluigi_finds_t_c1",
+          "author": "green_t",
+          "content": "Gods get stuck in worse places. Ask any temple.",
+          "likes": 142
+        },
+        {
+          "id": "ann_archie_god_sermon_on_one_level_waluigi_finds_t_c2",
+          "author": "waluigi",
+          "content": "Waluigi refuses to worship anyone who can be defeated by architecture.",
+          "likes": 219,
+          "topReply": true
+        },
+        {
+          "id": "ann_archie_god_sermon_on_one_level_waluigi_finds_t_c3",
+          "author": "remi_akamatsu_full_backstory",
+          "content": "does this mean if archie opens a door correctly we have to update the theology",
+          "likes": 188
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "archie_god_sermon",
+      "quote": "On one level, Waluigi finds the elevation of Archie to divine status categorically offensive because Waluigi has SEEN Archie get stuck in a hallway and that is not divine behavior.",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_archie_miser_he_creates_them_the_way_stor",
+      "author": "green_t",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Harvestide 4, 1040 BF",
+      "content": "Confirmed. Stood next to three 'discharges.' I now instinctively locate the nearest exit whenever Archie goes quiet. It's a survival reflex at this point.",
+      "likes": 39,
+      "links": [
+        {
+          "id": "archie_miser",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_archie_miser_he_creates_them_the_way_stor_c1",
+          "author": "archie_miser",
+          "content": "I do not ACCUMULATE the conditions. They accumulate around me. There is a difference.",
+          "likes": 12
+        },
+        {
+          "id": "ann_archie_miser_he_creates_them_the_way_stor_c2",
+          "author": "markop",
+          "content": "Archie there is genuinely no difference from where the rest of us are standing (usually on fire)",
+          "likes": 71
+        },
+        {
+          "id": "ann_archie_miser_he_creates_them_the_way_stor_c3",
+          "author": "waluigi",
+          "content": "The storm does not accumulate the lightning either. And yet.",
+          "likes": 44
+        },
+        {
+          "id": "ann_archie_miser_he_creates_them_the_way_stor_c4",
+          "author": "archie_miser",
+          "content": "...",
+          "likes": 90,
+          "topReply": true
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "archie_miser",
+      "quote": "He creates them the way storms create lightning—through the accumulation of volatile conditions until discharge becomes inevitable.",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_archie_miser_the_miser_family_enforced_a",
+      "author": "archie_miser",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Floria 12, 1040 BF",
+      "content": "Twenty-five years. Stop on that number before you scroll. When the fire finally came, it was the first thing in my life that never asked permission. That's why I lead with it. It's the only part of me that was never someone else's.",
+      "likes": 156,
+      "links": [
+        {
+          "id": "archie_miser",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_archie_miser_the_miser_family_enforced_a_c1",
+          "author": "green_t",
+          "content": "...alright. That one landed. No notes.",
+          "likes": 88
+        },
+        {
+          "id": "ann_archie_miser_the_miser_family_enforced_a_c2",
+          "author": "waluigi",
+          "content": "Waluigi had a joke prepared. Waluigi is putting the joke away. One time. Do not expect it again.",
+          "likes": 112,
+          "topReply": true
+        },
+        {
+          "id": "ann_archie_miser_the_miser_family_enforced_a_c3",
+          "author": "wario",
+          "content": "hey. that was real. good for you archie",
+          "likes": 64
+        },
+        {
+          "id": "ann_archie_miser_the_miser_family_enforced_a_c4",
+          "author": "archie_miser",
+          "content": "Wario being sincere is more alarming than anything the Miser family ever did to me.",
+          "likes": 97
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "archie_miser",
+      "quote": "The Miser family enforced a life of rigidity upon Archie for 25 years, allowing him little to no personal choice in any matter.",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_assassination_conspiracy_collection_the_official_narrative_blame",
+      "author": "bowser",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Margin Expansion, 1040 BF",
+      "content": "I DIDN’T DO IT. I have been saying this for EIGHTY-FIVE YEARS.",
+      "likes": 248,
+      "links": [
+        {
+          "id": "assassination_conspiracy_collection",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_assassination_conspiracy_collection_the_official_narrative_blame_c1",
+          "author": "miles_edgeworth",
+          "content": "Familiar suspects are useful to lazy investigators and dangerous to justice.",
+          "likes": 151
+        },
+        {
+          "id": "ann_assassination_conspiracy_collection_the_official_narrative_blame_c2",
+          "author": "captain_toadette",
+          "content": "Thin evidence became a war, and people ask why we will not politely move on.",
+          "likes": 162
+        },
+        {
+          "id": "ann_assassination_conspiracy_collection_the_official_narrative_blame_c3",
+          "author": "waluigi",
+          "content": "Bowser being guilty of many things does not make him guilty of THIS thing. This is apparently advanced law.",
+          "likes": 203,
+          "topReply": true
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "assassination_conspiracy_collection",
+      "quote": "The official narrative blamed Bowser, which was convenient, familiar, and—according to the evidence that survives—extremely thin.",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_bones_bones_exploited_this_assumpt",
+      "author": "bones",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Margin Expansion, 1040 BF",
+      "content": "Uniforms are doors people wear. Put on the right one and the hallway opens.",
+      "likes": 177,
+      "links": [
+        {
+          "id": "bones",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_bones_bones_exploited_this_assumpt_c1",
+          "author": "green_t",
+          "content": "Clean. Dangerous. My favorite kind of lie.",
+          "likes": 143
+        },
+        {
+          "id": "ann_bones_bones_exploited_this_assumpt_c2",
+          "author": "speaker_l",
+          "content": "The Legion built a system where humanity is suspicious and procedure is trusted. Bones walked through the crack.",
+          "likes": 169,
+          "topReply": true
+        },
+        {
+          "id": "ann_bones_bones_exploited_this_assumpt_c3",
+          "author": "waluigi",
+          "content": "Waluigi has also been invisible in plain sight, but mostly to sports committees with poor taste.",
+          "likes": 156
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "bones",
+      "quote": "Bones exploited this assumption with the precision of someone who understood exactly how to be invisible in plain sight.",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_bowser_bowser_operates_on_simple_lo",
+      "author": "waluigi",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Harvestide 16, 1040 BF",
+      "content": "I've watched geniuses draft seventeen-point plans that failed and watched Bowser walk through a wall. I'm no longer sure the geniuses were right.",
+      "likes": 82,
+      "links": [
+        {
+          "id": "bowser",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_bowser_bowser_operates_on_simple_lo_c1",
+          "author": "kamek",
+          "content": "I decided this logic was obsolete and reached for the Wyrm instead. He is in a dungeon he controls. I am furniture in a crater I opened. Draw your own conclusions.",
+          "likes": 143
+        },
+        {
+          "id": "ann_bowser_bowser_operates_on_simple_lo_c2",
+          "author": "bowser",
+          "content": "should've hit the problem",
+          "likes": 201,
+          "topReply": true
+        },
+        {
+          "id": "ann_bowser_bowser_operates_on_simple_lo_c3",
+          "author": "kamek",
+          "content": "Yes. Thank you. Sire.",
+          "likes": 88
+        },
+        {
+          "id": "ann_bowser_bowser_operates_on_simple_lo_c4",
+          "author": "waluigi",
+          "content": "'should've hit the problem' is going on Waluigi's wall. Four words. Devastating. WAH.",
+          "likes": 76
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "bowser",
+      "quote": "Bowser operates on simple logic: see problem, hit problem, problem either stops being a problem or gets hit again.",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_bryan_true_believers_stop_when_the",
+      "author": "bryan",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Margin Expansion, 1040 BF",
+      "content": "Then stop me. If your cause is cleaner than mine, it should have no trouble standing in the road.",
+      "likes": 48,
+      "links": [
+        {
+          "id": "bryan",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_bryan_true_believers_stop_when_the_c1",
+          "author": "archie_miser",
+          "content": "That is exactly the problem. A man who thinks he is an instrument can call every wound he makes a commandment.",
+          "likes": 117,
+          "topReply": true
+        },
+        {
+          "id": "ann_bryan_true_believers_stop_when_the_c2",
+          "author": "green_t",
+          "content": "Mercenaries count exits. Fanatics count signs. Different threat model.",
+          "likes": 96
+        },
+        {
+          "id": "ann_bryan_true_believers_stop_when_the_c3",
+          "author": "waluigi",
+          "content": "Waluigi hates fighting people who cannot be bribed, shamed, distracted, or charged a processing fee. It is bad for both strategy and business.",
+          "likes": 109
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "bryan",
+      "quote": "True believers stop when they are stopped.",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_byscilla_danos_waluigi_finds_this_simultane",
+      "author": "byscilla_danos",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Margin Expansion, 1040 BF",
+      "content": "Tolerance is what undisciplined people request after wasting time.",
+      "likes": 121,
+      "links": [
+        {
+          "id": "byscilla_danos",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_byscilla_danos_waluigi_finds_this_simultane_c1",
+          "author": "thornbury",
+          "content": "For the record, the bath was a resource-allocation misunderstanding with excellent water pressure.",
+          "likes": 88
+        },
+        {
+          "id": "ann_byscilla_danos_waluigi_finds_this_simultane_c2",
+          "author": "waluigi",
+          "content": "A misunderstanding that ended with rubber duckies and ear-based transportation. History must preserve the details.",
+          "likes": 197,
+          "topReply": true
+        },
+        {
+          "id": "ann_byscilla_danos_waluigi_finds_this_simultane_c3",
+          "author": "green_t",
+          "content": "Byscilla sounds like someone who would win a room before anyone noticed negotiations began.",
+          "likes": 129
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "byscilla_danos",
+      "quote": "Waluigi finds this simultaneously admirable and terrifying—admirable because it demonstrates zero tolerance for privilege abuse, terrifying because it demonstrates zero tolerance for ANYTHING.",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_captain_toadette_this_combination_tactical_br",
+      "author": "captain_toadette",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Margin Expansion, 1040 BF",
+      "content": "Good. Terror is a tool. If it makes murderers hesitate before hiding behind flags and walls, I will use it.",
+      "likes": 78,
+      "links": [
+        {
+          "id": "captain_toadette",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_captain_toadette_this_combination_tactical_br_c1",
+          "author": "chancellor_toadsworth",
+          "content": "Captain, the kingdom cannot be rebuilt by frightening every person who survived it.",
+          "likes": 42
+        },
+        {
+          "id": "ann_captain_toadette_this_combination_tactical_br_c2",
+          "author": "speaker_l",
+          "content": "It also cannot be rebuilt by asking the dead to wait politely while officials decide whether truth is convenient.",
+          "likes": 131,
+          "topReply": true
+        },
+        {
+          "id": "ann_captain_toadette_this_combination_tactical_br_c3",
+          "author": "waluigi",
+          "content": "Waluigi notes the horrifying part: everyone in this thread has a point and a weapon.",
+          "likes": 119
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "captain_toadette",
+      "quote": "This combination—tactical brilliance plus absolute moral certainty—is what makes Toadette terrifying.",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_chaos_heart_crisis_forcing_them_together_create",
+      "author": "bowser",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Margin Expansion, 1040 BF",
+      "content": "I WAS FORCED INTO A WEDDING AND REALITY MADE IT EVERYONE’S PROBLEM. That is not on me.",
+      "likes": 214,
+      "links": [
+        {
+          "id": "chaos_heart_crisis",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_chaos_heart_crisis_forcing_them_together_create_c1",
+          "author": "mario",
+          "content": "it was-a very bad wedding",
+          "likes": 228,
+          "topReply": true
+        },
+        {
+          "id": "ann_chaos_heart_crisis_forcing_them_together_create_c2",
+          "author": "luigi",
+          "content": "I hate how many disasters start because somebody treats people like symbols instead of people.",
+          "likes": 176
+        },
+        {
+          "id": "ann_chaos_heart_crisis_forcing_them_together_create_c3",
+          "author": "waluigi",
+          "content": "Waluigi has attended bad weddings. This remains the only one where the seating chart threatened existence.",
+          "likes": 190
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "chaos_heart_crisis",
+      "quote": "Forcing them together created a paradox that reality could not resolve—and in that paradox, the Chaos Heart found purchase.",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_chief_thornpaw_suspicious_because_thornpaw",
+      "author": "chief_thornpaw",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Margin Expansion, 1040 BF",
+      "content": "Convenience does not make grief false.",
+      "likes": 156,
+      "links": [
+        {
+          "id": "chief_thornpaw",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_chief_thornpaw_suspicious_because_thornpaw_c1",
+          "author": "captain_toadette",
+          "content": "No. But grief that finally speaks can move armies.",
+          "likes": 127
+        },
+        {
+          "id": "ann_chief_thornpaw_suspicious_because_thornpaw_c2",
+          "author": "miles_edgeworth",
+          "content": "Corroboration appearing at the moment of maximum political utility must be tested more, not believed less automatically.",
+          "likes": 139
+        },
+        {
+          "id": "ann_chief_thornpaw_suspicious_because_thornpaw_c3",
+          "author": "waluigi",
+          "content": "Waluigi wants the truth and resents that the truth keeps arriving dressed for propaganda.",
+          "likes": 177,
+          "topReply": true
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "chief_thornpaw",
+      "quote": "Suspicious because Thornpaw's testimony provides EXACTLY what the Loyalist narrative needed: confirmation of the secret relationship, the secret hatch, the secret heir.",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_collapse_of_blackfen_pass_landships_were_frozen_mid_ad",
+      "author": "waluigi",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Historical Archive",
+      "content": "Landships. LANDSHIPS! Imagine the insurance claim. 'Cause of loss: Vampire weather adjustment.' WAH.",
+      "likes": 42,
+      "links": [
+        {
+          "id": "collapse_of_blackfen_pass",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_collapse_of_blackfen_pass_landships_were_frozen_mid_ad_c1",
+          "author": "general_ironhand",
+          "content": "The failure at Blackfen was a technical anomaly, not a strategic one. The landships were under-insulated for high-tier cryomancy.",
+          "likes": 7
+        },
+        {
+          "id": "ann_collapse_of_blackfen_pass_landships_were_frozen_mid_ad_c2",
+          "author": "wario",
+          "content": "i heard there's still silver in those landships. the ice keeps it fresh.",
+          "likes": 88,
+          "topReply": true
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "collapse_of_blackfen_pass",
+      "quote": "Landships were frozen mid-advance, their steam boilers turning into blocks of useless ice before the pressure could even vent.",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_commander_g_you_can_t_appeal_to_her_ideo",
+      "author": "commander_g",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Margin Expansion, 1040 BF",
+      "content": "Emotion is an exposure surface. Ideology is a recurring maintenance cost.",
+      "likes": 103,
+      "links": [
+        {
+          "id": "commander_g",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_commander_g_you_can_t_appeal_to_her_ideo_c1",
+          "author": "wario",
+          "content": "i hate when the evil business quote is good",
+          "likes": 168
+        },
+        {
+          "id": "ann_commander_g_you_can_t_appeal_to_her_ideo_c2",
+          "author": "waluigi",
+          "content": "Commander G speaks like a locked cashbox learned murder.",
+          "likes": 194,
+          "topReply": true
+        },
+        {
+          "id": "ann_commander_g_you_can_t_appeal_to_her_ideo_c3",
+          "author": "miles_edgeworth",
+          "content": "A person without visible motive is not motive-less. It means the motive has been professionalized.",
+          "likes": 147
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "commander_g",
+      "quote": "You can't appeal to her ideology because she doesn't seem to have one beyond 'profitable efficiency.' You can't exploit her emotions because she doesn't display any.",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_corvinarus_family_their_manor_is_not_three_sep",
+      "author": "orangus_cornelius",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Margin Expansion, 1040 BF",
+      "content": "A house of consequence does not limit itself to one address.",
+      "likes": 54,
+      "links": [
+        {
+          "id": "corvinarus_family",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_corvinarus_family_their_manor_is_not_three_sep_c1",
+          "author": "lady_aurelian",
+          "content": "A manor is a memory that learned architecture. Ours simply remembers in more directions than most.",
+          "likes": 112
+        },
+        {
+          "id": "ann_corvinarus_family_their_manor_is_not_three_sep_c2",
+          "author": "archie_miser",
+          "content": "I hate that this is poetic and also the most useful technical explanation we have.",
+          "likes": 139
+        },
+        {
+          "id": "ann_corvinarus_family_their_manor_is_not_three_sep_c3",
+          "author": "waluigi",
+          "content": "Waluigi prefers houses that stay in one plane, one century, and one tax jurisdiction.",
+          "likes": 157,
+          "topReply": true
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "corvinarus_family",
+      "quote": "Their manor is not three separate buildings, but ONE building existing across dimensional boundaries and different points in TIME.",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_crown_v_bowser_0955_there_was_no_cross_examinati",
+      "author": "captain_toadette",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Highsun, 1040 BF",
+      "content": "This sentence is the foundation we stand on. Eighty-five years. No cross-examination. No forensics. Waluigi calls it the trial that never happened. We call it the reason we don't lay down our arms.",
+      "likes": 88,
+      "links": [
+        {
+          "id": "crown_v_bowser_0955",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_crown_v_bowser_0955_there_was_no_cross_examinati_c1",
+          "author": "chancellor_toadsworth",
+          "content": "A kingdom in the shock of regicide could not afford a decade-long inquiry. I do not defend the men of 955. I will not pretend they had the calm you enjoy while critiquing them from a city you seized.",
+          "likes": 41
+        },
+        {
+          "id": "ann_crown_v_bowser_0955_there_was_no_cross_examinati_c2",
+          "author": "captain_toadette",
+          "content": "We seized the city BECAUSE of the inquiry you keep not affording. Try to keep up, Chancellor.",
+          "likes": 97
+        },
+        {
+          "id": "ann_crown_v_bowser_0955_there_was_no_cross_examinati_c3",
+          "author": "waluigi",
+          "content": "Two people who want each other dead, agreeing on the facts, fighting only over the excuse. The truth here isn't hidden. It's admitted, and still nobody acts on it. That's the tragedy.",
+          "likes": 73
+        },
+        {
+          "id": "ann_crown_v_bowser_0955_there_was_no_cross_examinati_c4",
+          "author": "bowser",
+          "content": "didn't do it",
+          "likes": 240,
+          "topReply": true
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "crown_v_bowser_0955",
+      "quote": "There was no cross-examination, no forensic phase, no genuine test of guilt.",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_crown_v_miser_4739_the_coffin_does_not_creak_th",
+      "author": "waluigi",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Margin Expansion, 1040 BF",
+      "content": "THIS is why you attend funerals from the back. Grief looks forward. Evidence creaks sideways.",
+      "likes": 177,
+      "links": [
+        {
+          "id": "crown_v_miser_4739",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_crown_v_miser_4739_the_coffin_does_not_creak_th_c1",
+          "author": "wario",
+          "content": "in my defense the stones were premium weight and the mourners were not supposed to be coffin experts",
+          "likes": 92
+        },
+        {
+          "id": "ann_crown_v_miser_4739_the_coffin_does_not_creak_th_c2",
+          "author": "miles_edgeworth",
+          "content": "The physicality of deception is often where the deception fails. A lie must still obey weight, sound, and fatigue.",
+          "likes": 159,
+          "topReply": true
+        },
+        {
+          "id": "ann_crown_v_miser_4739_the_coffin_does_not_creak_th_c3",
+          "author": "commander_g",
+          "content": "The service achieved its operational purpose. Your attendance was an unpriced complication.",
+          "likes": 44
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "crown_v_miser_4739",
+      "quote": "The coffin does not CREAK the way it did when those six Iron Fists men carried it toward the mausoleum, because a body shifts. Stones do not shift.",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_dan_when_the_liberated_toads_nee",
+      "author": "dan",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Margin Expansion, 1040 BF",
+      "content": "Someone had to count blankets while everyone else was counting enemies.",
+      "likes": 169,
+      "links": [
+        {
+          "id": "dan",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_dan_when_the_liberated_toads_nee_c1",
+          "author": "speaker_l",
+          "content": "Dan held the practical line. Do not romanticize it. Do not minimize it either.",
+          "likes": 142
+        },
+        {
+          "id": "ann_dan_when_the_liberated_toads_nee_c2",
+          "author": "waluigi",
+          "content": "Revolutions need speeches. Survivors need inventory. Dan understood the less glamorous emergency.",
+          "likes": 181,
+          "topReply": true
+        },
+        {
+          "id": "ann_dan_when_the_liberated_toads_nee_c3",
+          "author": "wario",
+          "content": "inventory is glamorous if you use gold ink",
+          "likes": 93
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "dan",
+      "quote": "When the Liberated Toads needed someone to manage resources, coordinate efforts, and maintain order among 150 traumatized trafficking survivors, Dan stepped up.",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_dinner_climax_vote_the_vampires_presented_this",
+      "author": "green_t",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Margin Expansion, 1040 BF",
+      "content": "They called it manners because 'hostage ritual' makes guests stand up too early.",
+      "likes": 142,
+      "links": [
+        {
+          "id": "dinner_climax_vote",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_dinner_climax_vote_the_vampires_presented_this_c1",
+          "author": "bowser",
+          "content": "Worst dinner game EVER. And I have played Mario Party.",
+          "likes": 206,
+          "topReply": true
+        },
+        {
+          "id": "ann_dinner_climax_vote_the_vampires_presented_this_c2",
+          "author": "waluigi",
+          "content": "Waluigi has been betrayed by dice blocks with more moral legitimacy than this dinner.",
+          "likes": 177
+        },
+        {
+          "id": "ann_dinner_climax_vote_the_vampires_presented_this_c3",
+          "author": "marcus_ashford",
+          "content": "A formal vote gives violence shape. Shape is civilization. Civilization is not the same as mercy.",
+          "likes": 34
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "dinner_climax_vote",
+      "quote": "The vampires presented this with the casual formality of someone suggesting after-dinner charades, except instead of charades it was MURDER and instead of fun it was HORRIFYING.",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_disaster_inc_disaster_inc_is_the_antithes",
+      "author": "waluigi",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Margin Expansion, 1040 BF",
+      "content": "A beautiful scholarly sentence meaning: they see a forbidden door, a corpse, a prophecy, or a suspicious rug and immediately become everyone’s problem.",
+      "likes": 184,
+      "links": [
+        {
+          "id": "disaster_inc",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_disaster_inc_disaster_inc_is_the_antithes_c1",
+          "author": "archie_miser",
+          "content": "I object to being called a reaction, but I concede I have rarely been a plan.",
+          "likes": 132
+        },
+        {
+          "id": "ann_disaster_inc_disaster_inc_is_the_antithes_c2",
+          "author": "wario",
+          "content": "if we were an institution we would have dues. i have suggested dues. everyone booed. cowards",
+          "likes": 139
+        },
+        {
+          "id": "ann_disaster_inc_disaster_inc_is_the_antithes_c3",
+          "author": "green_t",
+          "content": "Institutions have procedures. Disaster Inc. has instincts, grudges, and someone yelling from a window with a gun.",
+          "likes": 151,
+          "topReply": true
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "disaster_inc",
+      "quote": "Disaster Inc. is the antithesis of an institution. It is a living reaction.",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_disaster_inc_naming_dispute_it_is_not_as_wario_insists_a",
+      "author": "wario",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Ongoing",
+      "content": "it is EXACTLY accounts receivable. the ledger says Freeloader Zeros. the ledger has never been wrong about money",
+      "likes": 54,
+      "links": [
+        {
+          "id": "disaster_inc_naming_dispute",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_disaster_inc_naming_dispute_it_is_not_as_wario_insists_a_c1",
+          "author": "archie_miser",
+          "content": "And I say Freeroamer Heroes because a name is a hand you extend to a frightened person. Yours is a bill. Waluigi's is a diagnosis.",
+          "likes": 61
+        },
+        {
+          "id": "ann_disaster_inc_naming_dispute_it_is_not_as_wario_insists_a_c2",
+          "author": "wario",
+          "content": "a bill IS a hand extended archie. extended for payment",
+          "likes": 97
+        },
+        {
+          "id": "ann_disaster_inc_naming_dispute_it_is_not_as_wario_insists_a_c3",
+          "author": "waluigi",
+          "content": "Three men. One name. Zero agreement. And Waluigi holding the pen. Reader, THIS is why the dispute outlives us all.",
+          "likes": 70
+        },
+        {
+          "id": "ann_disaster_inc_naming_dispute_it_is_not_as_wario_insists_a_c4",
+          "author": "bully_t",
+          "content": "freeloader zeros is funnier though. sorry archie",
+          "likes": 133
+        },
+        {
+          "id": "ann_disaster_inc_naming_dispute_it_is_not_as_wario_insists_a_c5",
+          "author": "archie_miser",
+          "content": "It is NOT about which is funnier, Bully T.",
+          "likes": 22
+        },
+        {
+          "id": "ann_disaster_inc_naming_dispute_it_is_not_as_wario_insists_a_c6",
+          "author": "bully_t",
+          "content": "it's a little about which is funnier",
+          "likes": 156,
+          "topReply": true
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "disaster_inc_naming_dispute",
+      "quote": "It is not, as Wario insists, a matter of accounts receivable.",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_eager_if_eager_ever_figures_out_ho",
+      "author": "eager",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Margin Expansion, 1040 BF",
+      "content": "I would also accept figuring out how to direct it at nobody for a while.",
+      "likes": 184,
+      "links": [
+        {
+          "id": "eager",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_eager_if_eager_ever_figures_out_ho_c1",
+          "author": "remi_akamatsu_full_backstory",
+          "content": "eager has boss-fight luck pointed inward",
+          "likes": 165
+        },
+        {
+          "id": "ann_eager_if_eager_ever_figures_out_ho_c2",
+          "author": "markop",
+          "content": "His presence changes risk calculations. Usually upward.",
+          "likes": 144
+        },
+        {
+          "id": "ann_eager_if_eager_ever_figures_out_ho_c3",
+          "author": "waluigi",
+          "content": "Eager is what happens when probability develops slapstick timing and no mercy.",
+          "likes": 199,
+          "topReply": true
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "eager",
+      "quote": "If Eager ever figures out how to CONTROL this effect—direct it at enemies instead of himself—he'd be one of the most dangerous people in the setting.",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_elder_meadowlight_now_meadowlight_is_dead_and",
+      "author": "archie_miser",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Margin Expansion, 1040 BF",
+      "content": "He became evidence before anyone was allowed to mourn him. I do not know how to carry that.",
+      "likes": 153,
+      "links": [
+        {
+          "id": "elder_meadowlight",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_elder_meadowlight_now_meadowlight_is_dead_and_c1",
+          "author": "elder_meadowlight",
+          "content": "The grove remembers him as a healer. The court remembered him as a body. That is the insult.",
+          "likes": 119
+        },
+        {
+          "id": "ann_elder_meadowlight_now_meadowlight_is_dead_and_c2",
+          "author": "miles_edgeworth",
+          "content": "A frame that consumes the dead as props commits a second offense against the victim.",
+          "likes": 146
+        },
+        {
+          "id": "ann_elder_meadowlight_now_meadowlight_is_dead_and_c3",
+          "author": "waluigi",
+          "content": "Waluigi hates murder math. One corpse becomes motive, motive becomes warrant, warrant becomes another corpse.",
+          "likes": 172,
+          "topReply": true
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "elder_meadowlight",
+      "quote": "Now Meadowlight is dead, and the circumstances of his death have become another piece of the elaborate frame designed to destroy Archie Miser.",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_embercap_his_troops_follow_him_not_be",
+      "author": "embercap",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Margin Expansion, 1040 BF",
+      "content": "Orders carry farther when the soldiers can see you bleeding for them.",
+      "likes": 137,
+      "links": [
+        {
+          "id": "embercap",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_embercap_his_troops_follow_him_not_be_c1",
+          "author": "captain_toadette",
+          "content": "Embercap understands the front line because he refuses to treat it as a map symbol.",
+          "likes": 128
+        },
+        {
+          "id": "ann_embercap_his_troops_follow_him_not_be_c2",
+          "author": "bowser",
+          "content": "Good. Leaders who hide in the back get thrown to the front.",
+          "likes": 177
+        },
+        {
+          "id": "ann_embercap_his_troops_follow_him_not_be_c3",
+          "author": "waluigi",
+          "content": "Bowser’s command philosophy is legally classified as “projectile accountability.”",
+          "likes": 196,
+          "topReply": true
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "embercap",
+      "quote": "His troops follow him not because they're ordered to, but because they've seen him take the same risks he asks of them.",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_equestria_the_modern_equestrian_state",
+      "author": "waluigi",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Recent Marginalia, 1040 BF",
+      "content": "Harmony that starts checking species at the door is not harmony. It is a guest list with propaganda.",
+      "likes": 204,
+      "links": [
+        {
+          "id": "equestria",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_equestria_the_modern_equestrian_state_c1",
+          "author": "princess_daisy",
+          "content": "A state that calls exclusion unity is already preparing to call resistance disorder.",
+          "likes": 171,
+          "topReply": true
+        },
+        {
+          "id": "ann_equestria_the_modern_equestrian_state_c2",
+          "author": "captain_toadette",
+          "content": "And yet they knew early about Peach. Remember that before admiring the stained glass.",
+          "likes": 142
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "equestria",
+      "quote": "The modern Equestrian state is pony-only in its core citizenship structure after the Equality Pony takeover.",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_fawful_gala_revelations_fawful_s_speech_patterns_are",
+      "author": "fawful",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Margin Expansion, 1040 BF",
+      "content": "I am the sandwich of menace! You are tasting the bread of fear and the pickle of doom!",
+      "likes": 199,
+      "links": [
+        {
+          "id": "fawful_gala_revelations",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_fawful_gala_revelations_fawful_s_speech_patterns_are_c1",
+          "author": "bowser",
+          "content": "SEE? ANNOYING. STILL DANGEROUS.",
+          "likes": 171
+        },
+        {
+          "id": "ann_fawful_gala_revelations_fawful_s_speech_patterns_are_c2",
+          "author": "captain_toadette",
+          "content": "Soldiers who laugh at him die confused. I prefer enemies dead and understood.",
+          "likes": 98
+        },
+        {
+          "id": "ann_fawful_gala_revelations_fawful_s_speech_patterns_are_c3",
+          "author": "waluigi",
+          "content": "Fawful weaponizes grammar like a sack of hammers poured down a staircase.",
+          "likes": 183,
+          "topReply": true
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "fawful_gala_revelations",
+      "quote": "Fawful's speech patterns are distinctive—a mixture of broken syntax, food metaphors, and unsettling intensity that makes every statement sound simultaneously ridiculous and threatening.",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_fawful_underestimating_fawful_becau",
+      "author": "fawful",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Margin Expansion, 1040 BF",
+      "content": "I HAVE CHORTLES at the underestimation! The brain of Fawful is a sandwich of doom with extra mustard of genius!",
+      "likes": 133,
+      "links": [
+        {
+          "id": "fawful",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_fawful_underestimating_fawful_becau_c1",
+          "author": "bowser",
+          "content": "I hate that I understood that.",
+          "likes": 181,
+          "topReply": true
+        },
+        {
+          "id": "ann_fawful_underestimating_fawful_becau_c2",
+          "author": "kamek",
+          "content": "Sire, that is precisely why the man is dangerous. His syntax is a smoke bomb.",
+          "likes": 116
+        },
+        {
+          "id": "ann_fawful_underestimating_fawful_becau_c3",
+          "author": "waluigi",
+          "content": "Waluigi has seen armies lose to worse sentences. Do not laugh until AFTER the machine explodes.",
+          "likes": 124
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "fawful",
+      "quote": "Underestimating Fawful because he speaks strangely would be a mistake.",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_green_t_nobody_knew_green_t_could_tu",
+      "author": "waluigi",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Highsun 12, 1040 BF",
+      "content": "A GIANT. He sat on that for how long?? That's not a secret, that's a retirement plan.",
+      "likes": 73,
+      "links": [
+        {
+          "id": "green_t",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_green_t_nobody_knew_green_t_could_tu_c1",
+          "author": "green_t",
+          "content": "A card you show is a card you've spent. I spent it when it was worth spending. Not before.",
+          "likes": 61
+        },
+        {
+          "id": "ann_green_t_nobody_knew_green_t_could_tu_c2",
+          "author": "wario",
+          "content": "do you understand how much CARGO that moves. green t we need to talk. i have a business proposal",
+          "likes": 48
+        },
+        {
+          "id": "ann_green_t_nobody_knew_green_t_could_tu_c3",
+          "author": "green_t",
+          "content": "No.",
+          "likes": 112,
+          "topReply": true
+        },
+        {
+          "id": "ann_green_t_nobody_knew_green_t_could_tu_c4",
+          "author": "wario",
+          "content": "hear me out",
+          "likes": 39
+        },
+        {
+          "id": "ann_green_t_nobody_knew_green_t_could_tu_c5",
+          "author": "wario",
+          "content": "green t?",
+          "likes": 57
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "green_t",
+      "quote": "Nobody knew Green T could turn into a giant.",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_hargram_fidger_which_makes_his_employment_w",
+      "author": "hargram_fidger",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Margin Expansion, 1040 BF",
+      "content": "You can know enough to hate a thing and still be standing inside it because the people outside need someone opening doors.",
+      "likes": 94,
+      "links": [
+        {
+          "id": "hargram_fidger",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_hargram_fidger_which_makes_his_employment_w_c1",
+          "author": "speaker_l",
+          "content": "That is the argument every decent man in a machine makes until the machine uses his decency as lubrication.",
+          "likes": 168,
+          "topReply": true
+        },
+        {
+          "id": "ann_hargram_fidger_which_makes_his_employment_w_c2",
+          "author": "waluigi",
+          "content": "Waluigi does not know whether to respect Hargram or shake him by the collar. This is historically a bad sign.",
+          "likes": 143
+        },
+        {
+          "id": "ann_hargram_fidger_which_makes_his_employment_w_c3",
+          "author": "general_ironhand",
+          "content": "The Legion contains varied personnel. Their private moral discomfort is not a structural critique.",
+          "likes": 13
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "hargram_fidger",
+      "quote": "Which makes his employment with the Iron Legion either a contradiction or a tragedy, depending on how much of the Legion's activities he is aware of.",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_hjumpik_the_mages_guild_with_all_the",
+      "author": "hjumpik",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Margin Expansion, 1040 BF",
+      "content": "Bell screamed. Hjumpik screamed. Waluigi smug. Bad system.",
+      "likes": 183,
+      "links": [
+        {
+          "id": "hjumpik",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_hjumpik_the_mages_guild_with_all_the_c1",
+          "author": "waluigi",
+          "content": "The bell was a confession that Waluigi is beyond conventional surveillance. WAH.",
+          "likes": 226,
+          "topReply": true
+        },
+        {
+          "id": "ann_hjumpik_the_mages_guild_with_all_the_c2",
+          "author": "wario",
+          "content": "or it means you are so annoying they invented hardware",
+          "likes": 189
+        },
+        {
+          "id": "ann_hjumpik_the_mages_guild_with_all_the_c3",
+          "author": "archie_miser",
+          "content": "Both interpretations can be true. That is what makes it good Guild engineering.",
+          "likes": 151
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "hjumpik",
+      "quote": "The Mages' Guild, with all their scrying orbs and crystal balls, could not track Waluigi’s magnificent stealth, so they had to give a dwarf a noisy bell to find him.",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_house_toadstool_dynasty_a_crown_backed_by_a_metaphys",
+      "author": "chancellor_toadsworth",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Recent Marginalia, 1040 BF",
+      "content": "This is a poetic exaggeration of a constitutional burden.",
+      "likes": 62,
+      "links": [
+        {
+          "id": "house_toadstool_dynasty",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_house_toadstool_dynasty_a_crown_backed_by_a_metaphys_c1",
+          "author": "captain_toadette",
+          "content": "No. It is the part your committees pretended was ceremonial because the truth would end your custody.",
+          "likes": 177
+        },
+        {
+          "id": "ann_house_toadstool_dynasty_a_crown_backed_by_a_metaphys_c2",
+          "author": "waluigi",
+          "content": "If the crown has cosmic late fees, Waluigi demands to see the invoice before the Regency files it under tradition.",
+          "likes": 198,
+          "topReply": true
+        },
+        {
+          "id": "ann_house_toadstool_dynasty_a_crown_backed_by_a_metaphys_c3",
+          "author": "bowser",
+          "content": "crowns SHOULD have penalties. keeps cowards from wearing them.",
+          "likes": 154
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "house_toadstool_dynasty",
+      "quote": "A crown backed by a metaphysical contract is not just a crown. It is a job with cosmic penalties.",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_iron_legion_he_does_not_have_respect_for",
+      "author": "speaker_l",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Highsun 21, 1040 BF",
+      "content": "A competent evil isn't half an evil — it's a doubled one. The disorganized cruel man kills dozens. The organized one files it, funds it, and calls it Order 120.",
+      "likes": 129,
+      "links": [
+        {
+          "id": "iron_legion",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_iron_legion_he_does_not_have_respect_for_c1",
+          "author": "general_ironhand",
+          "content": "Administration is not malice. Every order was lawful within the charter. I did not enjoy Order 120. Enjoyment is not required. Only the signature.",
+          "likes": 8
+        },
+        {
+          "id": "ann_iron_legion_he_does_not_have_respect_for_c2",
+          "author": "speaker_l",
+          "content": "You just described the machine and called it a defense.",
+          "likes": 147
+        },
+        {
+          "id": "ann_iron_legion_he_does_not_have_respect_for_c3",
+          "author": "waluigi",
+          "content": "'Enjoyment is not required. Only the signature is required.' Ironhand wrote that to EXONERATE himself. Enter it as the confession it is. Go sit on a Thwomp, General.",
+          "likes": 188,
+          "topReply": true
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "iron_legion",
+      "quote": "He does NOT have respect for what the Iron Legion does with that competence.",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_kamek_he_broke_the_seals_holding_t",
+      "author": "kamek",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Highsun 24, 1040 BF",
+      "content": "In my defense, the seals were LABELED as containing 'ancient power.' They were not labeled 'world-eating space worm that turns you into a puppet.' The signage was misleading.",
+      "likes": 91,
+      "links": [
+        {
+          "id": "kamek",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_kamek_he_broke_the_seals_holding_t_c1",
+          "author": "bowser",
+          "content": "who reads a giant DO NOT OPEN seal and thinks 'for me?'",
+          "likes": 174,
+          "topReply": true
+        },
+        {
+          "id": "ann_kamek_he_broke_the_seals_holding_t_c2",
+          "author": "kamek",
+          "content": "...it was a strategic error.",
+          "likes": 63
+        },
+        {
+          "id": "ann_kamek_he_broke_the_seals_holding_t_c3",
+          "author": "waluigi",
+          "content": "The greatest wizard in Koopa history, undone by a unionized demolition crew, defending his signage in the comments. Waluigi could not have written a better ending if he tried, and Waluigi tried.",
+          "likes": 88
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "kamek",
+      "quote": "He broke the seals holding the Primordial Wyrm beneath the Valley of Bowser.",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_king_boo_king_boo_spends_his_entire_e",
+      "author": "king_boo",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Margin Expansion, 1040 BF",
+      "content": "Boo hoo hoo. Dismissed? No, no. I am the thing people dismiss so they can feel brave before the lights go out.",
+      "likes": 155,
+      "links": [
+        {
+          "id": "king_boo",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_king_boo_king_boo_spends_his_entire_e_c1",
+          "author": "luigi",
+          "content": "That is not better. That is actually much, much worse.",
+          "likes": 120,
+          "topReply": true
+        },
+        {
+          "id": "ann_king_boo_king_boo_spends_his_entire_e_c2",
+          "author": "waluigi",
+          "content": "Waluigi reluctantly recognizes the power of being underestimated. Waluigi does NOT recognize the need to do it while cackling from a portrait.",
+          "likes": 112
+        },
+        {
+          "id": "ann_king_boo_king_boo_spends_his_entire_e_c3",
+          "author": "professor_e_gadd",
+          "content": "Observation changes the observed, ho ho! With Boos, the observed also changes the hallway, the portrait, and sometimes your insurance premiums.",
+          "likes": 74
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "king_boo",
+      "quote": "King Boo spends his entire existence observing and being dismissed.",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_king_dedede_dedede_is_competent_enough_t",
+      "author": "king_dedede",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Margin Expansion, 1040 BF",
+      "content": "That sounds like KINGLY RANGE to me.",
+      "likes": 151,
+      "links": [
+        {
+          "id": "king_dedede",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_king_dedede_dedede_is_competent_enough_t_c1",
+          "author": "meta_knight",
+          "content": "It is not range. It is cleanup.",
+          "likes": 179,
+          "topReply": true
+        },
+        {
+          "id": "ann_king_dedede_dedede_is_competent_enough_t_c2",
+          "author": "waluigi",
+          "content": "Waluigi has met many monarchs. Dedede is the rare one whose instincts are better than his sentences.",
+          "likes": 146
+        },
+        {
+          "id": "ann_king_dedede_dedede_is_competent_enough_t_c3",
+          "author": "wario",
+          "content": "if being insufferable is a governing style i should run a country",
+          "likes": 132
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "king_dedede",
+      "quote": "Dedede is COMPETENT ENOUGH to hold power while being INSUFFERABLE enough to damage everything he touches diplomatically.",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_kirby_the_copy_is_usually_better_t",
+      "author": "kirby",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Margin Expansion, 1040 BF",
+      "content": "Poyo!",
+      "likes": 301,
+      "links": [
+        {
+          "id": "kirby",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_kirby_the_copy_is_usually_better_t_c1",
+          "author": "waluigi",
+          "content": "Terrifying. Concise. Unrebuttable.",
+          "likes": 251,
+          "topReply": true
+        },
+        {
+          "id": "ann_kirby_the_copy_is_usually_better_t_c2",
+          "author": "bowser",
+          "content": "If he eats fire breath and does it better I am fighting the universe.",
+          "likes": 196
+        },
+        {
+          "id": "ann_kirby_the_copy_is_usually_better_t_c3",
+          "author": "king_dedede",
+          "content": "You learn to stop asking why and start hiding the important snacks.",
+          "likes": 174
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "kirby",
+      "quote": "The copy is usually BETTER than the original because Kirby apparently improves things by eating them.",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_kivotos_kivotos_is_not_a_city_with_s",
+      "author": "remi_akamatsu_full_backstory",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Recent Marginalia, 1040 BF",
+      "content": "yeah that sounds normal until you say it to people not from there",
+      "likes": 190,
+      "links": [
+        {
+          "id": "kivotos",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_kivotos_kivotos_is_not_a_city_with_s_c1",
+          "author": "waluigi",
+          "content": "Waluigi remains legally concerned that “student council” can mean “foreign policy apparatus with ammunition.”",
+          "likes": 211,
+          "topReply": true
+        },
+        {
+          "id": "ann_kivotos_kivotos_is_not_a_city_with_s_c2",
+          "author": "miles_edgeworth",
+          "content": "A jurisdiction where minors exercise state functions would require an entire shelf of liability codes.",
+          "likes": 132
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "kivotos",
+      "quote": "Kivotos is not a city with schools. Kivotos is a civilization made of schools.",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_koopa_v_kamek_1040_waluigi_notes_that_the_plan",
+      "author": "kamek",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Margin Expansion, 1040 BF",
+      "content": "I object to the phrase god-worm on grounds of taxonomy, dignity, and the fact that it makes me sound like I lost a duel to bait.",
+      "likes": 92,
+      "links": [
+        {
+          "id": "koopa_v_kamek_1040",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_koopa_v_kamek_1040_waluigi_notes_that_the_plan_c1",
+          "author": "bowser",
+          "content": "YOU DID LOSE TO BAIT. WORLD-EATING BAIT.",
+          "likes": 178,
+          "topReply": true
+        },
+        {
+          "id": "ann_koopa_v_kamek_1040_waluigi_notes_that_the_plan_c2",
+          "author": "kamek",
+          "content": "Sire, if you intend to assist my defense, I beg you to stop assisting my defense.",
+          "likes": 143
+        },
+        {
+          "id": "ann_koopa_v_kamek_1040_waluigi_notes_that_the_plan_c3",
+          "author": "waluigi",
+          "content": "The defense calls Bowser as a hostile witness against the concept of subtlety.",
+          "likes": 165
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "koopa_v_kamek_1040",
+      "quote": "Waluigi notes that 'the plan was sound until the god-worm' is the most common epitaph in this encyclopedia, and Kamek wrote the definitive version of it.",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_kyle_coinsoul_coinsoul_has_both_the_motive",
+      "author": "kyle_coinsoul",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Margin Expansion, 1040 BF",
+      "content": "That is a very uncharitable way to describe flexibility.",
+      "likes": 86,
+      "links": [
+        {
+          "id": "kyle_coinsoul",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_kyle_coinsoul_coinsoul_has_both_the_motive_c1",
+          "author": "wario",
+          "content": "flexibility is when your loyalty has a price sheet. respect.",
+          "likes": 137
+        },
+        {
+          "id": "ann_kyle_coinsoul_coinsoul_has_both_the_motive_c2",
+          "author": "miles_edgeworth",
+          "content": "Multiple motives do not cancel each other. They compound risk.",
+          "likes": 129
+        },
+        {
+          "id": "ann_kyle_coinsoul_coinsoul_has_both_the_motive_c3",
+          "author": "archie_miser",
+          "content": "I dislike how often my life depends on men with debts and keys.",
+          "likes": 164,
+          "topReply": true
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "kyle_coinsoul",
+      "quote": "Coinsoul has both the motive to have participated in framing Archie AND the motive to betray the Guild if a better offer presents itself.",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_lady_bloomia_find_me_in_the_place_where_r",
+      "author": "lady_bloomia",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Margin Expansion, 1040 BF",
+      "content": "If you know what that means, you know why I could not write more.",
+      "likes": 141,
+      "links": [
+        {
+          "id": "lady_bloomia",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_lady_bloomia_find_me_in_the_place_where_r_c1",
+          "author": "captain_toadette",
+          "content": "We searched every winter garden record in the old palace archives. Half were missing. Missing is an answer.",
+          "likes": 166
+        },
+        {
+          "id": "ann_lady_bloomia_find_me_in_the_place_where_r_c2",
+          "author": "chancellor_toadsworth",
+          "content": "Or a coincidence produced by decades of damaged recordkeeping.",
+          "likes": 42
+        },
+        {
+          "id": "ann_lady_bloomia_find_me_in_the_place_where_r_c3",
+          "author": "waluigi",
+          "content": "Chancellor, when every useful record is damaged in the same direction, Waluigi stops calling it weather.",
+          "likes": 209,
+          "topReply": true
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "lady_bloomia",
+      "quote": "FIND ME IN THE PLACE WHERE ROSES GROW IN WINTER.",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_liberated_toads_they_had_been_cargo_now_they",
+      "author": "speaker_l",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Margin Expansion, 1040 BF",
+      "content": "People think liberation is the door opening. The door is only the first insult. After that you have to build a life in the room outside.",
+      "likes": 182,
+      "links": [
+        {
+          "id": "liberated_toads",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_liberated_toads_they_had_been_cargo_now_they_c1",
+          "author": "dan",
+          "content": "Nobody teaches you what to do with your hands when they stop being used to hold the barrel shut.",
+          "likes": 137
+        },
+        {
+          "id": "ann_liberated_toads_they_had_been_cargo_now_they_c2",
+          "author": "wario",
+          "content": "even i knew the barrels were wrong. do you understand how wrong something has to be for ME to say that",
+          "likes": 196
+        },
+        {
+          "id": "ann_liberated_toads_they_had_been_cargo_now_they_c3",
+          "author": "waluigi",
+          "content": "When Wario becomes the moral baseline, civilization has already fallen through the floor and found a basement.",
+          "likes": 201,
+          "topReply": true
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "liberated_toads",
+      "quote": "They had been cargo. Now they were people again. The transition was not smooth.",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_luigi_most_offensively_while_archi",
+      "author": "waluigi",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Margin Expansion, 1040 BF",
+      "content": "A BUBBLE BATH. In a haunted ruin. During espionage. Waluigi has suffered for this encyclopedia.",
+      "likes": 171,
+      "links": [
+        {
+          "id": "luigi",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_luigi_most_offensively_while_archi_c1",
+          "author": "luigi",
+          "content": "It was medically relevant! Probably. The ectoplasm was very clingy and the tub was already there.",
+          "likes": 83
+        },
+        {
+          "id": "ann_luigi_most_offensively_while_archi_c2",
+          "author": "archie_miser",
+          "content": "I cannot believe I am saying this, but the bath may have made him calmer and a calmer Luigi is operationally useful.",
+          "likes": 91
+        },
+        {
+          "id": "ann_luigi_most_offensively_while_archi_c3",
+          "author": "wario",
+          "content": "if the haunted mansion has amenities you USE the amenities. this is basic travel value",
+          "likes": 149,
+          "topReply": true
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "luigi",
+      "quote": "Most offensively, while Archie and Bones were engaged in tense espionage, Luigi took a luxurious bubble bath in the ruins, claiming it helped him 'expel ectoplasm.'",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_luigi_the_poltergust_is_not_just_a",
+      "author": "luigi",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Recent Marginalia, 1040 BF",
+      "content": "I mean, it is also a vacuum. A very expensive, very loud, very haunted vacuum.",
+      "likes": 163,
+      "links": [
+        {
+          "id": "luigi",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_luigi_the_poltergust_is_not_just_a_c1",
+          "author": "professor_e_gadd",
+          "content": "Correct! Fear provides excellent field calibration data. Also screaming helps identify leaks in the seal.",
+          "likes": 111
+        },
+        {
+          "id": "ann_luigi_the_poltergust_is_not_just_a_c2",
+          "author": "waluigi",
+          "content": "Waluigi hates that both of you are technically correct. This device has made cowardice operational.",
+          "likes": 192,
+          "topReply": true
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "luigi",
+      "quote": "The Poltergust is not just a vacuum. It is a technological interface between living fear and dead persistence.",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_lyranth_she_is_a_sculptor_who_works",
+      "author": "lyranth",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Margin Expansion, 1040 BF",
+      "content": "A frightened face ruins the line of the cheek. I do not ask for gratitude. Only composition.",
+      "likes": 31,
+      "links": [
+        {
+          "id": "lyranth",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_lyranth_she_is_a_sculptor_who_works_c1",
+          "author": "remi_akamatsu_full_backstory",
+          "content": "i would like to file a complaint about being called composition",
+          "likes": 211,
+          "topReply": true
+        },
+        {
+          "id": "ann_lyranth_she_is_a_sculptor_who_works_c2",
+          "author": "bowser",
+          "content": "I HATE ART NOW.",
+          "likes": 184
+        },
+        {
+          "id": "ann_lyranth_she_is_a_sculptor_who_works_c3",
+          "author": "waluigi",
+          "content": "The Shadow Estate has made Bowser anti-art. This is one more crime for the ledger.",
+          "likes": 160
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "lyranth",
+      "quote": "She is a sculptor who works in living material, and she wants her statues to look happy.",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_mages_guild_the_mages_guild_treats_peopl",
+      "author": "archie_miser",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Margin Expansion, 1040 BF",
+      "content": "A variable can be moved without asking whether it hurts. That is why people who think this way keep building cages.",
+      "likes": 128,
+      "links": [
+        {
+          "id": "mages_guild",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_mages_guild_the_mages_guild_treats_peopl_c1",
+          "author": "luigi",
+          "content": "Some of the Guild people helped us. That makes this harder, not less true.",
+          "likes": 102
+        },
+        {
+          "id": "ann_mages_guild_the_mages_guild_treats_peopl_c2",
+          "author": "miles_edgeworth",
+          "content": "An institution may contain decent individuals and still produce indecent outcomes. Courts learn this lesson repeatedly and rarely enough.",
+          "likes": 137
+        },
+        {
+          "id": "ann_mages_guild_the_mages_guild_treats_peopl_c3",
+          "author": "waluigi",
+          "content": "Waluigi respects mathematics. Waluigi does NOT respect doing algebra on prisoners.",
+          "likes": 151,
+          "topReply": true
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "mages_guild",
+      "quote": "The Mages' Guild treats people the way mathematicians treat variables—as elements in an equation to be solved.",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_marcus_ashford_then_marcus_revealed_he_had",
+      "author": "marcus_ashford",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Margin Expansion, 1040 BF",
+      "content": "A letter unread is merely tension waiting for a voice.",
+      "likes": 92,
+      "links": [
+        {
+          "id": "marcus_ashford",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_marcus_ashford_then_marcus_revealed_he_had_c1",
+          "author": "bowser",
+          "content": "IT WAS PRIVATE.",
+          "likes": 244
+        },
+        {
+          "id": "ann_marcus_ashford_then_marcus_revealed_he_had_c2",
+          "author": "wario",
+          "content": "private letters should be kept in private pockets. amateur mistake.",
+          "likes": 137
+        },
+        {
+          "id": "ann_marcus_ashford_then_marcus_revealed_he_had_c3",
+          "author": "waluigi",
+          "content": "Wario, you once labeled a locked safe “WARIO’S SECRET SAFE.” Do not teach security.",
+          "likes": 281,
+          "topReply": true
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "marcus_ashford",
+      "quote": "Then Marcus revealed he had the paper and began reading it aloud—a letter addressed to someone starting with 'Peac—' before Bowser cut him off.",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_mario_brothers_collection_waluigi_lists_these_facts_in",
+      "author": "waluigi",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Margin Expansion, 1040 BF",
+      "content": "Paperwork is where governments put people they cannot safely bury.",
+      "likes": 185,
+      "links": [
+        {
+          "id": "mario_brothers_collection",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_mario_brothers_collection_waluigi_lists_these_facts_in_c1",
+          "author": "luigi",
+          "content": "A file can feel like a room if enough people close it behind you.",
+          "likes": 141
+        },
+        {
+          "id": "ann_mario_brothers_collection_waluigi_lists_these_facts_in_c2",
+          "author": "mario",
+          "content": "i'm-a not paperwork",
+          "likes": 223,
+          "topReply": true
+        },
+        {
+          "id": "ann_mario_brothers_collection_waluigi_lists_these_facts_in_c3",
+          "author": "miles_edgeworth",
+          "content": "No. But paperwork may be the outline left by whoever moved you.",
+          "likes": 164
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "mario_brothers_collection",
+      "quote": "Waluigi lists these facts in sequence because the sequence is the mystery: heroes do not usually get filed away by paperwork unless someone wanted them filed.",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_mario_past_tense_now_feels_appropr",
+      "author": "waluigi",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Margin Expansion, 1040 BF",
+      "content": "Waluigi admits NOTHING except that grammar has become emotionally hostile.",
+      "likes": 154,
+      "links": [
+        {
+          "id": "mario",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_mario_past_tense_now_feels_appropr_c1",
+          "author": "wario",
+          "content": "you used past tense and then built a paragraph around not caring. that's caring with extra steps",
+          "likes": 139
+        },
+        {
+          "id": "ann_mario_past_tense_now_feels_appropr_c2",
+          "author": "luigi",
+          "content": "I keep doing it too. Then I correct myself. Then correcting myself feels worse.",
+          "likes": 116
+        },
+        {
+          "id": "ann_mario_past_tense_now_feels_appropr_c3",
+          "author": "mario",
+          "content": "i'm-a still here until somebody proves i'm not",
+          "likes": 211,
+          "topReply": true
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "mario",
+      "quote": "Past tense now feels appropriate, and that bothers Waluigi more than he wants to admit.",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_markop_the_horse_head_does_not_dimi",
+      "author": "markop",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Margin Expansion, 1040 BF",
+      "content": "Let them underestimate me. It saves time when they explain their plans aloud.",
+      "likes": 149,
+      "links": [
+        {
+          "id": "markop",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_markop_the_horse_head_does_not_dimi_c1",
+          "author": "green_t",
+          "content": "Best kind of advantage: the enemy builds it for you and thinks it was their idea.",
+          "likes": 126
+        },
+        {
+          "id": "ann_markop_the_horse_head_does_not_dimi_c2",
+          "author": "wario",
+          "content": "i once underestimated a horse and lost 400 coins. different situation but same lesson",
+          "likes": 98
+        },
+        {
+          "id": "ann_markop_the_horse_head_does_not_dimi_c3",
+          "author": "waluigi",
+          "content": "Waluigi has always respected Markop, partly because Markop is competent and partly because being kicked by him would rearrange Waluigi into punctuation.",
+          "likes": 141,
+          "topReply": true
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "markop",
+      "quote": "The horse head does not diminish his intelligence—it CONCEALS it from those too foolish to look past appearances.",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_meta_knight_he_stays_and_he_manages_and",
+      "author": "meta_knight",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Margin Expansion, 1040 BF",
+      "content": "Someone must remain when spectacle leaves the room.",
+      "likes": 164,
+      "links": [
+        {
+          "id": "meta_knight",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_meta_knight_he_stays_and_he_manages_and_c1",
+          "author": "waluigi",
+          "content": "Waluigi recognizes the curse of competence. The reward for fixing things is being handed more broken things.",
+          "likes": 188
+        },
+        {
+          "id": "ann_meta_knight_he_stays_and_he_manages_and_c2",
+          "author": "king_dedede",
+          "content": "I also fix things! I fixed morale by entering the room!",
+          "likes": 94
+        },
+        {
+          "id": "ann_meta_knight_he_stays_and_he_manages_and_c3",
+          "author": "meta_knight",
+          "content": "You are often the thing morale must recover from.",
+          "likes": 223,
+          "topReply": true
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "meta_knight",
+      "quote": "He stays and he manages and he routes around the obstacles because the alternative is letting important things break.",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_mount_ebott_survey_mission_the_agent_paying_with_archiv",
+      "author": "wario",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Mid-10XX BF",
+      "content": "ARCHIVE WRITS. Those are basically golden tickets to the Imperial Vaults. You gave them to a RABBIT for a room?? I am charging you for the mental distress this information caused me.",
+      "likes": 145,
+      "links": [
+        {
+          "id": "mount_ebott_survey_mission",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_mount_ebott_survey_mission_the_agent_paying_with_archiv_c1",
+          "author": "bunny_innkeeper",
+          "content": "They're very pretty papers! They make the lobby look much more professional.",
+          "likes": 34
+        },
+        {
+          "id": "ann_mount_ebott_survey_mission_the_agent_paying_with_archiv_c2",
+          "author": "waluigi",
+          "content": "Professional lobby décor that could buy a small province. PEAK Legion administration. WAH.",
+          "likes": 89,
+          "topReply": true
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "mount_ebott_survey_mission",
+      "quote": "The agent, paying with Archive Writs (a rare surface currency), secured two rooms at an inn run by Bunny.",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_mount_ebott_survey_mission_the_exchange_was_defined_by",
+      "author": "waluigi",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Mid-10XX BF",
+      "content": "Protocol for lying. Think about that. The Legion has a step-by-step guide for being dishonest, and this agent still managed to be the most obvious thing in the room.",
+      "likes": 56,
+      "links": [
+        {
+          "id": "mount_ebott_survey_mission",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_mount_ebott_survey_mission_the_exchange_was_defined_by_c1",
+          "author": "sans",
+          "content": "it's a nice book. lots of pages. good for leveling a table leg.",
+          "likes": 102,
+          "topReply": true
+        },
+        {
+          "id": "ann_mount_ebott_survey_mission_the_exchange_was_defined_by_c2",
+          "author": "dracule_mihawk",
+          "content": "Outdated ritualism is a poor substitute for instinct. The mountain does not care about your 'Protocol Delta-9.'",
+          "likes": 78
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "mount_ebott_survey_mission",
+      "quote": "The exchange was defined by the agent's absolute reliance on his book—flipping to sections on lying, first contact, and 'what to do if your book is stolen'—while Sans observed with hollow, knowing eyes.",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_mr_l_mr_l_was_everything_luigi_wa",
+      "author": "mr_l",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Margin Expansion, 1040 BF",
+      "content": "Aww, look at that. They put the fun version in complete sentences.",
+      "likes": 77,
+      "links": [
+        {
+          "id": "mr_l",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_mr_l_mr_l_was_everything_luigi_wa_c1",
+          "author": "luigi",
+          "content": "I don't like seeing it written like this. It makes it sound like he was separate enough to blame and close enough to be me.",
+          "likes": 143
+        },
+        {
+          "id": "ann_mr_l_mr_l_was_everything_luigi_wa_c2",
+          "author": "waluigi",
+          "content": "This is why the official story is too clean. It wants a puppet string. Waluigi sees a bruise shaped like a mask.",
+          "likes": 119
+        },
+        {
+          "id": "ann_mr_l_mr_l_was_everything_luigi_wa_c3",
+          "author": "mario",
+          "content": "luigi's-a luigi. whatever else happened, don't let the file forget that.",
+          "likes": 168,
+          "topReply": true
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "mr_l",
+      "quote": "Mr. L was everything Luigi was not. Confident where Luigi was anxious. Aggressive where Luigi was hesitant. Cruel where Luigi was compassionate.",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_mushroom_regency_the_instincts_are_right_cons",
+      "author": "chancellor_toadsworth",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Margin Expansion, 1040 BF",
+      "content": "Those instincts are not weakness. They are civilization attempting to continue after the crown stopped being enough.",
+      "likes": 97,
+      "links": [
+        {
+          "id": "mushroom_regency",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_mushroom_regency_the_instincts_are_right_cons_c1",
+          "author": "captain_toadette",
+          "content": "Instincts do not hold walls. Orders do.",
+          "likes": 77
+        },
+        {
+          "id": "ann_mushroom_regency_the_instincts_are_right_cons_c2",
+          "author": "speaker_l",
+          "content": "Structures matter. So does whether the people trapped under them can breathe.",
+          "likes": 128
+        },
+        {
+          "id": "ann_mushroom_regency_the_instincts_are_right_cons_c3",
+          "author": "waluigi",
+          "content": "The Regency is a committee trying to fight a house fire by first approving the bucket.",
+          "likes": 181,
+          "topReply": true
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "mushroom_regency",
+      "quote": "The instincts are right: consensus-building, transparency, multilateral cooperation, structural resilience.",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_mystic_morel_morel_embeds_real_intelligen",
+      "author": "mystic_morel",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Margin Expansion, 1040 BF",
+      "content": "A tune is a door, dear hero, and a pocket is merely a room with bad hinges.",
+      "likes": 88,
+      "links": [
+        {
+          "id": "mystic_morel",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_mystic_morel_morel_embeds_real_intelligen_c1",
+          "author": "archie_miser",
+          "content": "I was bleeding, cornered, and being robbed by a man rhyming at me. It is difficult to overstate how much that worsened the day.",
+          "likes": 132
+        },
+        {
+          "id": "ann_mystic_morel_morel_embeds_real_intelligen_c2",
+          "author": "wario",
+          "content": "singing while stealing is advanced salesmanship. you distract the customer from noticing they became inventory",
+          "likes": 101
+        },
+        {
+          "id": "ann_mystic_morel_morel_embeds_real_intelligen_c3",
+          "author": "remi_akamatsu_full_backstory",
+          "content": "he gave me the deck like it was a present and not a homework assignment from a nightmare fortune cookie",
+          "likes": 147,
+          "topReply": true
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "mystic_morel",
+      "quote": "Morel embeds real intelligence in performance. The question is whether the intelligence is meant to HELP Archie or to demonstrate power over him—'I know things you don't, and I will sing them to you while I steal your belongings.'",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_onyx_hand_the_vote_tradition_forcing_g",
+      "author": "green_t",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Highsun 22, 1040 BF",
+      "content": "I attended one of these dinners. I ended it early with a silver bullet at the children's table. I stand by the RSVP.",
+      "likes": 214,
+      "links": [
+        {
+          "id": "onyx_hand",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_onyx_hand_the_vote_tradition_forcing_g_c1",
+          "author": "waluigi",
+          "content": "Waluigi was in the Feywild and STILL heard about the children's table shot. That's how you leave a dinner party.",
+          "likes": 97
+        },
+        {
+          "id": "ann_onyx_hand_the_vote_tradition_forcing_g_c2",
+          "author": "wario",
+          "content": "did anyone loot the centerpieces during the chaos or did we all just leave money on the table (literally)",
+          "likes": 58
+        },
+        {
+          "id": "ann_onyx_hand_the_vote_tradition_forcing_g_c3",
+          "author": "green_t",
+          "content": "I got the silverware.",
+          "likes": 140,
+          "topReply": true
+        },
+        {
+          "id": "ann_onyx_hand_the_vote_tradition_forcing_g_c4",
+          "author": "wario",
+          "content": "...respect",
+          "likes": 71
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "onyx_hand",
+      "quote": "The vote tradition—forcing guests to choose which attendee would be killed—is psychological domination disguised as a party game.",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_onyx_hand_v_mages_guild_1040_this_case_presents_the_oppos",
+      "author": "miles_edgeworth",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Margin Expansion, 1040 BF",
+      "content": "A competent court in illegitimate hands is more unsettling than an incompetent one. It proves the ritual can function while the foundation rots.",
+      "likes": 149,
+      "links": [
+        {
+          "id": "onyx_hand_v_mages_guild_1040",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_onyx_hand_v_mages_guild_1040_this_case_presents_the_oppos_c1",
+          "author": "archie_miser",
+          "content": "Being acquitted by vampires did not make me feel innocent. It made me feel catalogued.",
+          "likes": 133
+        },
+        {
+          "id": "ann_onyx_hand_v_mages_guild_1040_this_case_presents_the_oppos_c2",
+          "author": "marcus_ashford",
+          "content": "Fairness is a blade with a polished handle. You object because you noticed the edge.",
+          "likes": 68
+        },
+        {
+          "id": "ann_onyx_hand_v_mages_guild_1040_this_case_presents_the_oppos_c3",
+          "author": "waluigi",
+          "content": "Waluigi wanted everyone in this trial to lose and was punished with jurisprudence.",
+          "likes": 167,
+          "topReply": true
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "onyx_hand_v_mages_guild_1040",
+      "quote": "This case presents the opposite and far more disturbing phenomenon: a court that had no business being fair and was fair anyway.",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_orvinder_danos_this_combination_truthful_ju",
+      "author": "orvinder_danos",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Margin Expansion, 1040 BF",
+      "content": "If I were constructing a cover, I would choose something less inconvenient than telling the truth.",
+      "likes": 154,
+      "links": [
+        {
+          "id": "orvinder_danos",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_orvinder_danos_this_combination_truthful_ju_c1",
+          "author": "archie_miser",
+          "content": "That is exactly what someone with a perfect cover would say, which is why honest people are impossible to interrogate neatly.",
+          "likes": 132
+        },
+        {
+          "id": "ann_orvinder_danos_this_combination_truthful_ju_c2",
+          "author": "miles_edgeworth",
+          "content": "A truthful witness can still be dangerous. Truth answers the question asked, not the question counsel should have asked.",
+          "likes": 141,
+          "topReply": true
+        },
+        {
+          "id": "ann_orvinder_danos_this_combination_truthful_ju_c3",
+          "author": "waluigi",
+          "content": "Waluigi distrusts anyone this morally tidy. There is no handle to grab.",
+          "likes": 128
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "orvinder_danos",
+      "quote": "This combination—truthful, just, brave, generous—describes either a genuinely good person or the most sophisticated cover identity ever constructed.",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_parson_pellinost_parson_pellinost_is_a_pionee",
+      "author": "parson_pellinost",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Margin Expansion, 1040 BF",
+      "content": "Healing is valuable. Value unpaid is theft with better lighting.",
+      "likes": 112,
+      "links": [
+        {
+          "id": "parson_pellinost",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_parson_pellinost_parson_pellinost_is_a_pionee_c1",
+          "author": "archie_miser",
+          "content": "You repossessed my health.",
+          "likes": 184,
+          "topReply": true
+        },
+        {
+          "id": "ann_parson_pellinost_parson_pellinost_is_a_pionee_c2",
+          "author": "wario",
+          "content": "finally, healthcare with enforceable collections. terrible ethics. impressive model.",
+          "likes": 138
+        },
+        {
+          "id": "ann_parson_pellinost_parson_pellinost_is_a_pionee_c3",
+          "author": "waluigi",
+          "content": "Waluigi admires the hustle while condemning the horrifying implications. This is called nuance.",
+          "likes": 161
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "parson_pellinost",
+      "quote": "Parson Pellinost is a pioneer in the field of medical extortion, and Waluigi tips his magnificent purple hat to him.",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_peach_loyalists_it_creates_the_kind_of_devot",
+      "author": "captain_toadette",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Margin Expansion, 1040 BF",
+      "content": "Some causes are sacred because compromise is how they were murdered the first time.",
+      "likes": 63,
+      "links": [
+        {
+          "id": "peach_loyalists",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_peach_loyalists_it_creates_the_kind_of_devot_c1",
+          "author": "chancellor_toadsworth",
+          "content": "And some causes are profaned when their defenders make them indistinguishable from vengeance.",
+          "likes": 121
+        },
+        {
+          "id": "ann_peach_loyalists_it_creates_the_kind_of_devot_c2",
+          "author": "speaker_l",
+          "content": "Both of you are describing the edge. One calls it duty. One calls it warning. People at the bottom just call it the blade.",
+          "likes": 144
+        },
+        {
+          "id": "ann_peach_loyalists_it_creates_the_kind_of_devot_c3",
+          "author": "waluigi",
+          "content": "Waluigi has never seen grief become a government and then behave moderately.",
+          "likes": 169,
+          "topReply": true
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "peach_loyalists",
+      "quote": "It creates the kind of devotion that doesn't ask whether its methods are justified because the cause is too sacred to question.",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_planar_crisis_collection_the_iron_legion_currently_co",
+      "author": "general_ironhand",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Margin Expansion, 1040 BF",
+      "content": "Control of critical infrastructure must rest with the party capable of securing it.",
+      "likes": 16,
+      "links": [
+        {
+          "id": "planar_crisis_collection",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_planar_crisis_collection_the_iron_legion_currently_co_c1",
+          "author": "speaker_l",
+          "content": "You mean the party already standing on everyone else’s throat.",
+          "likes": 171
+        },
+        {
+          "id": "ann_planar_crisis_collection_the_iron_legion_currently_co_c2",
+          "author": "archie_miser",
+          "content": "Reality is breaking and somehow the first institutional instinct is still leverage.",
+          "likes": 149
+        },
+        {
+          "id": "ann_planar_crisis_collection_the_iron_legion_currently_co_c3",
+          "author": "waluigi",
+          "content": "Waluigi begs the universe to stop giving chokepoints to people who say “critical infrastructure” in a threatening voice.",
+          "likes": 196,
+          "topReply": true
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "planar_crisis_collection",
+      "quote": "The Iron Legion currently controls the only stable anchor point, which turns a metaphysical emergency into a military bargaining chip.",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_princess_daisy_she_maintains_alliances_mana",
+      "author": "princess_daisy",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Margin Expansion, 1040 BF",
+      "content": "If it takes twelve committees to find the door, I am already outside handling the problem.",
+      "likes": 202,
+      "links": [
+        {
+          "id": "princess_daisy",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_princess_daisy_she_maintains_alliances_mana_c1",
+          "author": "waluigi",
+          "content": "Daisy understands the radical political doctrine known as DOING THE THING.",
+          "likes": 219
+        },
+        {
+          "id": "ann_princess_daisy_she_maintains_alliances_mana_c2",
+          "author": "chancellor_toadsworth",
+          "content": "Process exists to prevent reckless unilateral action.",
+          "likes": 46
+        },
+        {
+          "id": "ann_princess_daisy_she_maintains_alliances_mana_c3",
+          "author": "princess_daisy",
+          "content": "Then make the process faster than the disaster.",
+          "likes": 237,
+          "topReply": true
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "princess_daisy",
+      "quote": "She maintains alliances, manages resources, and makes decisions without needing to form twelve committees first.",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_princess_peach_but_he_knew_her_well_enough",
+      "author": "captain_toadette",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Margin Expansion, 1040 BF",
+      "content": "The dead do not get to object when the living decide what their memory requires. That is why the living must be strong enough to finish the work.",
+      "likes": 39,
+      "links": [
+        {
+          "id": "princess_peach",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_princess_peach_but_he_knew_her_well_enough_c1",
+          "author": "chancellor_toadsworth",
+          "content": "Or humble enough to admit grief has begun speaking in Her Highness’s voice.",
+          "likes": 103
+        },
+        {
+          "id": "ann_princess_peach_but_he_knew_her_well_enough_c2",
+          "author": "mario",
+          "content": "peach wanted people saved. even when it was-a dumb. especially when it was-a dumb.",
+          "likes": 199,
+          "topReply": true
+        },
+        {
+          "id": "ann_princess_peach_but_he_knew_her_well_enough_c3",
+          "author": "waluigi",
+          "content": "When Mario is the subtle political philosopher in the thread, everyone else has made serious errors.",
+          "likes": 174
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "princess_peach",
+      "quote": "But he knew her well enough to recognize that the version of Peach the Loyalists have constructed—a princess who would approve of executing prisoners, who would demand total war, who would consider atrocities acceptable costs—does not match the person he met.",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_professor_e_gadd_understanding_what_he_knew_m",
+      "author": "waluigi",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Margin Expansion, 1040 BF",
+      "content": "This is the sentence with the locked drawer inside it. Nobody hides a professor this thoroughly unless the professor looked at the wrong machine and understood the whole factory.",
+      "likes": 132,
+      "links": [
+        {
+          "id": "professor_e_gadd",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_professor_e_gadd_understanding_what_he_knew_m_c1",
+          "author": "luigi",
+          "content": "Professor Gadd always knew more than he explained. That was normal until people started acting like asking where he went was dangerous.",
+          "likes": 94
+        },
+        {
+          "id": "ann_professor_e_gadd_understanding_what_he_knew_m_c2",
+          "author": "king_boo",
+          "content": "Hee hee hee. The little inventor put bells on ghosts and locks on himself. One of those ideas worked better than the other.",
+          "likes": 121,
+          "topReply": true
+        },
+        {
+          "id": "ann_professor_e_gadd_understanding_what_he_knew_m_c3",
+          "author": "miles_edgeworth",
+          "content": "A disappearance is not proof. A coordinated absence of records, seized laboratories, and discouraged correspondence is a pattern. Patterns may testify when witnesses cannot.",
+          "likes": 101
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "professor_e_gadd",
+      "quote": "Understanding what he KNEW may illuminate why so many powerful actors seem to want that knowledge contained.",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_rakka_a_silence_protocol_implies_e",
+      "author": "rakka",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Margin Expansion, 1040 BF",
+      "content": "Loose ends are only loose if someone lacks the discipline to tie them.",
+      "likes": 97,
+      "links": [
+        {
+          "id": "rakka",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_rakka_a_silence_protocol_implies_e_c1",
+          "author": "archie_miser",
+          "content": "I am becoming very tired of learning I was a liability in rooms I thought I was useful in.",
+          "likes": 158
+        },
+        {
+          "id": "ann_rakka_a_silence_protocol_implies_e_c2",
+          "author": "green_t",
+          "content": "If your employer has a phrase like silence protocol, you were never an employee. You were a future problem.",
+          "likes": 181
+        },
+        {
+          "id": "ann_rakka_a_silence_protocol_implies_e_c3",
+          "author": "waluigi",
+          "content": "Waluigi recommends contracts where termination does not mean TERMINATION.",
+          "likes": 189,
+          "topReply": true
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "rakka",
+      "quote": "A 'silence protocol' implies elimination of loose ends—and Archie, having worked multiple missions for Rakka, would certainly know things worth silencing.",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_rattles_this_precision_suggests_ratt",
+      "author": "rattles",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Margin Expansion, 1040 BF",
+      "content": "I had excellent cheekbones and a left knee that predicted rain. Replacement flesh would not be the same.",
+      "likes": 128,
+      "links": [
+        {
+          "id": "rattles",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_rattles_this_precision_suggests_ratt_c1",
+          "author": "luigi",
+          "content": "That is sad and also more anatomical information than I expected from a skeleton.",
+          "likes": 101
+        },
+        {
+          "id": "ann_rattles_this_precision_suggests_ratt_c2",
+          "author": "waluigi",
+          "content": "Waluigi supports Rattles in his dispute with the universe, although Waluigi recommends itemizing damages.",
+          "likes": 113,
+          "topReply": true
+        },
+        {
+          "id": "ann_rattles_this_precision_suggests_ratt_c3",
+          "author": "wario",
+          "content": "finally someone understands original parts are worth more",
+          "likes": 107
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "rattles",
+      "quote": "This precision suggests Rattles remembers being alive clearly enough to be picky about it, which makes him less a monster and more a person filing a very difficult complaint with the universe.",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_remi_akamatsu_full_backstory_whatever_the_gap_contains_re",
+      "author": "remi_akamatsu_full_backstory",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Margin Expansion, 1040 BF",
+      "content": "i don't know what to say to this except yeah. sometimes the map only has forward on it and you pretend that's a plan.",
+      "likes": 172,
+      "links": [
+        {
+          "id": "remi_akamatsu_full_backstory",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_remi_akamatsu_full_backstory_whatever_the_gap_contains_re_c1",
+          "author": "markop",
+          "content": "That is a survival skill. Not a childhood. The distinction matters.",
+          "likes": 138
+        },
+        {
+          "id": "ann_remi_akamatsu_full_backstory_whatever_the_gap_contains_re_c2",
+          "author": "waluigi",
+          "content": "Waluigi would like the universe to stop assigning epic-quest competencies to children who should be complaining about homework.",
+          "likes": 188,
+          "topReply": true
+        },
+        {
+          "id": "ann_remi_akamatsu_full_backstory_whatever_the_gap_contains_re_c3",
+          "author": "archie_miser",
+          "content": "Forward is not always courage. Sometimes it is simply the last available cruelty not yet used on you.",
+          "likes": 119
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "remi_akamatsu_full_backstory",
+      "quote": "Whatever the gap contains, Remi crossed it before she crossed the Firewall Gate, and both crossings required the same skill: moving forward when the thing behind you is no longer a direction you can go.",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_remi_birthday_12_harvestside_ghost_galle_markop_told_remi_what_death",
+      "author": "remi_akamatsu_full_backstory",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Margin Expansion, 1040 BF",
+      "content": "worst birthday lecture. top five useful birthday lecture though",
+      "likes": 176,
+      "links": [
+        {
+          "id": "remi_birthday_12_Harvestside_ghost_gallery_climb",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_remi_birthday_12_harvestside_ghost_galle_markop_told_remi_what_death_c1",
+          "author": "markop",
+          "content": "She asked. I answered plainly. Children deserve truth more than decoration.",
+          "likes": 159,
+          "topReply": true
+        },
+        {
+          "id": "ann_remi_birthday_12_harvestside_ghost_galle_markop_told_remi_what_death_c2",
+          "author": "waluigi",
+          "content": "Waluigi is adding “existential clarity beside fake ghost costume” to the list of Shadow Estate party favors.",
+          "likes": 142
+        },
+        {
+          "id": "ann_remi_birthday_12_harvestside_ghost_galle_markop_told_remi_what_death_c3",
+          "author": "wario",
+          "content": "did the party have cake or just trauma because one of those has resale value",
+          "likes": 98
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "remi_birthday_12_Harvestside_ghost_gallery_climb",
+      "quote": "Markop told Remi what death actually is in two words, in a conversation about ghost costumes, in the Shadeward, on her birthday.",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_ruined_manor_convergence_luigi_s_reported_response_to",
+      "author": "luigi",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Margin Expansion, 1040 BF",
+      "content": "I did not mean for that to become evidence.",
+      "likes": 178,
+      "links": [
+        {
+          "id": "ruined_manor_convergence",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_ruined_manor_convergence_luigi_s_reported_response_to_c1",
+          "author": "waluigi",
+          "content": "The worst sentences are the ones nobody says for drama. They just fall out because the floor under them has been gone for years.",
+          "likes": 194
+        },
+        {
+          "id": "ann_ruined_manor_convergence_luigi_s_reported_response_to_c2",
+          "author": "mario",
+          "content": "luigi...",
+          "likes": 221,
+          "topReply": true
+        },
+        {
+          "id": "ann_ruined_manor_convergence_luigi_s_reported_response_to_c3",
+          "author": "archie_miser",
+          "content": "There are confessions courts cannot use because they are not about guilt. This is one.",
+          "likes": 143
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "ruined_manor_convergence",
+      "quote": "Luigi's reported response to being abandoned—'I'm used to it'—has been confirmed by multiple sources and carries emotional weight that suggests authenticity.",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_ryan_what_matters_is_that_ryan_ch",
+      "author": "ryan",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Margin Expansion, 1040 BF",
+      "content": "I did not find a third option. I hit a lot of branches until one became mercy.",
+      "likes": 164,
+      "links": [
+        {
+          "id": "ryan",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_ryan_what_matters_is_that_ryan_ch_c1",
+          "author": "speaker_l",
+          "content": "Survival is sometimes strategy after the fact. That does not make the courage smaller.",
+          "likes": 150
+        },
+        {
+          "id": "ann_ryan_what_matters_is_that_ryan_ch_c2",
+          "author": "waluigi",
+          "content": "Waluigi respects any man who looks at gravity and negotiates better terms mid-fall.",
+          "likes": 199,
+          "topReply": true
+        },
+        {
+          "id": "ann_ryan_what_matters_is_that_ryan_ch_c3",
+          "author": "wario",
+          "content": "can we monetize branch-based mercy or is that tasteless",
+          "likes": 73
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "ryan",
+      "quote": "What matters is that Ryan chose certain death over uncertain captivity and somehow found a third option that nobody knew existed.",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_session_1_dragon_mountain_archie_miser_has_never_given",
+      "author": "archie_miser",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Margin Expansion, 1040 BF",
+      "content": "I resent the accuracy of this comparison.",
+      "likes": 161,
+      "links": [
+        {
+          "id": "session_1_dragon_mountain",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_session_1_dragon_mountain_archie_miser_has_never_given_c1",
+          "author": "markop",
+          "content": "His debriefs contain useful facts, dramatic omissions, and the smell of smoke. One learns to sort them.",
+          "likes": 124
+        },
+        {
+          "id": "ann_session_1_dragon_mountain_archie_miser_has_never_given_c2",
+          "author": "bowser",
+          "content": "Fire safety is easy. Don’t stand where I breathe fire.",
+          "likes": 147
+        },
+        {
+          "id": "ann_session_1_dragon_mountain_archie_miser_has_never_given_c3",
+          "author": "waluigi",
+          "content": "Bowser has entered the educational field. Everyone evacuate the classroom.",
+          "likes": 184,
+          "topReply": true
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "session_1_dragon_mountain",
+      "quote": "Archie Miser has never given a complete account of what happened on the mountain because Archie's relationship with complete accounts is approximately as stable as his relationship with fire safety.",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_shadow_estate_campaign_the_paper_had_burn_marks_fro",
+      "author": "bowser",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Margin Expansion, 1040 BF",
+      "content": "Writing is HARD. Writing to Peach without sounding like a kidnapping threat is HARDER.",
+      "likes": 211,
+      "links": [
+        {
+          "id": "shadow_estate_campaign",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_shadow_estate_campaign_the_paper_had_burn_marks_fro_c1",
+          "author": "mario",
+          "content": "that's-a the most bowser sentence i've ever read",
+          "likes": 232,
+          "topReply": true
+        },
+        {
+          "id": "ann_shadow_estate_campaign_the_paper_had_burn_marks_fro_c2",
+          "author": "waluigi",
+          "content": "Waluigi respects the emotional honesty of scorching stationery instead of revising.",
+          "likes": 171
+        },
+        {
+          "id": "ann_shadow_estate_campaign_the_paper_had_burn_marks_fro_c3",
+          "author": "wario",
+          "content": "should have invoiced the paper for emotional damage",
+          "likes": 98
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "shadow_estate_campaign",
+      "quote": "The paper had burn marks from frustration.",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_shadow_estate_mirror_rooftop_escape_i_was_arguing_about_whether",
+      "author": "markop",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Harvestide 16, 1040 BF",
+      "content": "Correction: Remi did not wing it. She had the feather ready and a plan. We were improvising; she was executing a prepared contingency. The fourteen-year-old out-planned the adults. Again.",
+      "likes": 94,
+      "links": [
+        {
+          "id": "shadow_estate_mirror_rooftop_escape",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_shadow_estate_mirror_rooftop_escape_i_was_arguing_about_whether_c1",
+          "author": "remi_akamatsu_full_backstory",
+          "content": "the trampoline was RIGHT THERE and i landed next to it. NEXT to it. i think about it every day",
+          "likes": 178,
+          "topReply": true
+        },
+        {
+          "id": "ann_shadow_estate_mirror_rooftop_escape_i_was_arguing_about_whether_c2",
+          "author": "waluigi",
+          "content": "Remi is upset about missing a trampoline she had no reason to aim for, in a thread about her flawless escape. Waluigi has never related to anyone more.",
+          "likes": 121
+        },
+        {
+          "id": "ann_shadow_estate_mirror_rooftop_escape_i_was_arguing_about_whether_c3",
+          "author": "wario",
+          "content": "who left a trampoline on the ground of a vampire estate. that's a liability. someone could get RESCUED on that",
+          "likes": 66
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "shadow_estate_mirror_rooftop_escape",
+      "quote": "I was arguing about whether to wing it on a balcony when Remi was floating off a roof holding a feather.",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_shadow_estate_mirror_rooftop_escape_usk_was_organized_in_his_per",
+      "author": "usk",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Harvestide 16, 1040 BF",
+      "content": "I object to being psychoanalyzed by the furniture, but not enough to say the furniture is wrong.",
+      "likes": 112,
+      "links": [
+        {
+          "id": "shadow_estate_mirror_rooftop_escape",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_shadow_estate_mirror_rooftop_escape_usk_was_organized_in_his_per_c1",
+          "author": "waluigi",
+          "content": "Reader, this is what Waluigi calls a LOAD-BEARING MESS. The desk is not clutter. The desk is a confession with stationery.",
+          "likes": 156,
+          "topReply": true
+        },
+        {
+          "id": "ann_shadow_estate_mirror_rooftop_escape_usk_was_organized_in_his_per_c2",
+          "author": "archie_miser",
+          "content": "'Important enough for space, not important enough for luxury' is an entire household hierarchy in one room assignment. It is cruel in the efficient way old money prefers.",
+          "likes": 91
+        },
+        {
+          "id": "ann_shadow_estate_mirror_rooftop_escape_usk_was_organized_in_his_per_c3",
+          "author": "wario",
+          "content": "bigger room, worse benefits. that's not hierarchy that's payroll optimization",
+          "likes": 124
+        },
+        {
+          "id": "ann_shadow_estate_mirror_rooftop_escape_usk_was_organized_in_his_per_c4",
+          "author": "markop",
+          "content": "The papers matter. In a normal room, disarray is a habit. In Usk's room, it is a map of who depended on him and where the dependencies failed.",
+          "likes": 83
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "shadow_estate_mirror_rooftop_escape",
+      "quote": "Usk was organized in his person and disorganized in his management of other people's affairs, which is the specific contradiction of someone whose precision is self-directed rather than system-directed and who produces chaos in exactly the spaces where other people's lives intersect with his.",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_shadow_estate_session_harvestside_14_ful_waluigi_wants_to_pause_on_oh",
+      "author": "remi_akamatsu_full_backstory",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Margin Expansion, 1040 BF",
+      "content": "doors are exciting because sometimes they are rooms and sometimes they are problems wearing hinges",
+      "likes": 191,
+      "links": [
+        {
+          "id": "shadow_estate_session_Harvestside_14_full",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_shadow_estate_session_harvestside_14_ful_waluigi_wants_to_pause_on_oh_c1",
+          "author": "markop",
+          "content": "This is why we open them carefully.",
+          "likes": 128
+        },
+        {
+          "id": "ann_shadow_estate_session_harvestside_14_ful_waluigi_wants_to_pause_on_oh_c2",
+          "author": "wario",
+          "content": "this is why we check if the hinges are copper",
+          "likes": 117
+        },
+        {
+          "id": "ann_shadow_estate_session_harvestside_14_ful_waluigi_wants_to_pause_on_oh_c3",
+          "author": "waluigi",
+          "content": "There are two kinds of people: those who fear doors and those who become the reason doors should be feared.",
+          "likes": 167,
+          "topReply": true
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "shadow_estate_session_Harvestside_14_full",
+      "quote": "Waluigi wants to pause on 'oh boy, a door' because it is the most purely Remi response to a room that is available.",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_shadow_estate_spotlight_cookie_cottage_the_cookie_note_is_therefore",
+      "author": "wario",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Recent Marginalia, 1040 BF",
+      "content": "brand crisis? finally. invoiceable tragedy.",
+      "likes": 143,
+      "links": [
+        {
+          "id": "shadow_estate_spotlight_cookie_cottage",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_shadow_estate_spotlight_cookie_cottage_the_cookie_note_is_therefore_c1",
+          "author": "remi_akamatsu_full_backstory",
+          "content": "the raisin was the real ambush",
+          "likes": 231,
+          "topReply": true
+        },
+        {
+          "id": "ann_shadow_estate_spotlight_cookie_cottage_the_cookie_note_is_therefore_c2",
+          "author": "waluigi",
+          "content": "Waluigi has said for YEARS that names matter. Waluigi did not expect raisins to become supporting evidence.",
+          "likes": 174
+        },
+        {
+          "id": "ann_shadow_estate_spotlight_cookie_cottage_the_cookie_note_is_therefore_c3",
+          "author": "bully_t",
+          "content": "toad-headed heroes still clears",
+          "likes": 119
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "shadow_estate_spotlight_cookie_cottage",
+      "quote": "The cookie note is therefore a tiny brand crisis delivered with raisins.",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_shattering_shadow_anchor_green_t_standing_at_the_shat",
+      "author": "green_t",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Margin Expansion, 1040 BF",
+      "content": "I knew about the gun.",
+      "likes": 177,
+      "links": [
+        {
+          "id": "shattering_shadow_anchor",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_shattering_shadow_anchor_green_t_standing_at_the_shat_c1",
+          "author": "bowser",
+          "content": "I knew about being strong.",
+          "likes": 204
+        },
+        {
+          "id": "ann_shattering_shadow_anchor_green_t_standing_at_the_shat_c2",
+          "author": "archie_miser",
+          "content": "I knew about the artifact approximately three seconds before screaming about it, which is technically enough time to call it expertise.",
+          "likes": 159
+        },
+        {
+          "id": "ann_shattering_shadow_anchor_green_t_standing_at_the_shat_c3",
+          "author": "waluigi",
+          "content": "This is Disaster Inc. methodology in pure form: nobody has the whole plan, everyone has one dangerous ingredient, and reality loses the argument.",
+          "likes": 221,
+          "topReply": true
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "shattering_shadow_anchor",
+      "quote": "Green T, standing at the shattered window above like a sniper in a tuxedo, took aim.",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_snowdin_bone_line_registry_designation_brother_confirme",
+      "author": "papyrus",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Harvestide 30, 1045 BF",
+      "content": "I AM THE BROTHER. I HAVE ALWAYS BEEN THE BROTHER. THERE IS NO CODE. THERE IS ONLY YEARS OF SPAGHETTI AND SEVENTY-ONE PUZZLES I BUILT MYSELF! Nyeh. ...Which number am I?",
+      "likes": 214,
+      "links": [
+        {
+          "id": "snowdin_bone_line_registry",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_snowdin_bone_line_registry_designation_brother_confirme_c1",
+          "author": "times_new_roman",
+          "content": "Papyrus is entered at #TNR-02. The sequence is not a ranking. It is an order of documentation.",
+          "likes": 31
+        },
+        {
+          "id": "ann_snowdin_bone_line_registry_designation_brother_confirme_c2",
+          "author": "sans",
+          "content": "pal, you just told my brother he's number two. in writing. with a footnote.",
+          "likes": 402,
+          "topReply": true
+        },
+        {
+          "id": "ann_snowdin_bone_line_registry_designation_brother_confirme_c3",
+          "author": "waluigi",
+          "content": "Waluigi notes for the record that the Chronicle Office answered a question about LOVE with a question about SORT ORDER, and did not appear to notice the difference. WAH.",
+          "likes": 88
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "snowdin_bone_line_registry",
+      "quote": "designation: brother. confirmed by archival lineage code #TNR-01.",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_snowdin_bone_line_registry_twenty_eight_records_in_this",
+      "author": "cursive",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Harvestide 30, 1045 BF",
+      "content": "I have written invitations for twenty-six of the twenty-eight. Baby Bones gets a ribbon. Dirty Brother gets a repair docket, because he asks for one. You may call that a registry if it helps you sleep. I call it a correspondence list, and I have never once needed to prove anybody on it exists.",
+      "likes": 167,
+      "links": [
+        {
+          "id": "snowdin_bone_line_registry",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_snowdin_bone_line_registry_twenty_eight_records_in_this_c1",
+          "author": "gee_lady",
+          "content": "Twenty-eight is the number who come to dinner. That is the only census I have ever kept and it has never once been wrong about who was missing.",
+          "likes": 233,
+          "topReply": true
+        },
+        {
+          "id": "ann_snowdin_bone_line_registry_twenty_eight_records_in_this_c2",
+          "author": "waluigi",
+          "content": "Waluigi has spent a year treating that sentence as a sourcing failure. Two of them just described it as a guest list. Waluigi is going to sit down.",
+          "likes": 95
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "snowdin_bone_line_registry",
+      "quote": "Twenty-eight records in this archive describe their subject as 'recorded in the Snowdin household registry.'",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_stone_auction_remi_who_has_survived_things",
+      "author": "remi_akamatsu_full_backstory",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Margin Expansion, 1040 BF",
+      "content": "for the record i was not being cheerful at the exact second i became furniture",
+      "likes": 196,
+      "links": [
+        {
+          "id": "stone_auction",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_stone_auction_remi_who_has_survived_things_c1",
+          "author": "markop",
+          "content": "The speed is the part people must understand. There was no duel. No exchange. One look changed the entire operation.",
+          "likes": 141
+        },
+        {
+          "id": "ann_stone_auction_remi_who_has_survived_things_c2",
+          "author": "wario",
+          "content": "twelve thousand gold is a lot but selling party members is still bad policy unless there is paperwork and consent",
+          "likes": 88
+        },
+        {
+          "id": "ann_stone_auction_remi_who_has_survived_things_c3",
+          "author": "waluigi",
+          "content": "Wario is banned from writing the ethical appendix.",
+          "likes": 211,
+          "topReply": true
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "stone_auction",
+      "quote": "Remi, who has survived things that would have broken seasoned adventurers, who has walked through chaos with a cheerfulness that Waluigi finds simultaneously admirable and EXHAUSTING, was reduced to decorative stonework in SECONDS.",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_tanukiburt_standing_beside_the_real_inj",
+      "author": "waluigi",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Margin Expansion, 1040 BF",
+      "content": "Waluigi has tested the tennis-racket method on many problems. Regrettably, shapeshifter epistemology resists backhand solutions.",
+      "likes": 137,
+      "links": [
+        {
+          "id": "tanukiburt",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_tanukiburt_standing_beside_the_real_inj_c1",
+          "author": "remi_akamatsu_full_backstory",
+          "content": "i did shoot the suspicious one and honestly i still think that was a pretty good first draft of an identity test",
+          "likes": 163,
+          "topReply": true
+        },
+        {
+          "id": "ann_tanukiburt_standing_beside_the_real_inj_c2",
+          "author": "green_t",
+          "content": "A bullet is a question. Sometimes the answer bleeds. Sometimes it changes shape.",
+          "likes": 112
+        },
+        {
+          "id": "ann_tanukiburt_standing_beside_the_real_inj_c3",
+          "author": "wario",
+          "content": "counterpoint: hit both toadburts and bill the real one for verification",
+          "likes": 86
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "tanukiburt",
+      "quote": "Standing beside the real, injured Toadburt is a second Toadburt-shaped figure, which converts a location problem into an identity problem—and identity problems, Waluigi notes, cannot be solved with a tennis racket.",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_the_blorbs_crisis_waluigi_offered_to_help_and",
+      "author": "waluigi",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Margin Expansion, 1040 BF",
+      "content": "HISTORY vindicates Waluigi again.",
+      "likes": 212,
+      "links": [
+        {
+          "id": "the_blorbs_crisis",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_the_blorbs_crisis_waluigi_offered_to_help_and_c1",
+          "author": "wario",
+          "content": "you would have sold anti-blorb corsets",
+          "likes": 146
+        },
+        {
+          "id": "ann_the_blorbs_crisis_waluigi_offered_to_help_and_c2",
+          "author": "waluigi",
+          "content": "Waluigi would have sold EFFECTIVE anti-blorb corsets. There is a difference.",
+          "likes": 189,
+          "topReply": true
+        },
+        {
+          "id": "ann_the_blorbs_crisis_waluigi_offered_to_help_and_c3",
+          "author": "luigi",
+          "content": "I am beginning to understand why some crises exclude by instinct.",
+          "likes": 112
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "the_blorbs_crisis",
+      "quote": "Waluigi offered to help and was told by a Regency official that 'this is a matter for qualified personnel.'",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_the_estragon_island_incident_two_dans_cannot_coexist_beca",
+      "author": "dan",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Margin Expansion, 1040 BF",
+      "content": "I do not know how to argue with a man who has my face and calls breathing theft.",
+      "likes": 121,
+      "links": [
+        {
+          "id": "the_estragon_island_incident",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_the_estragon_island_incident_two_dans_cannot_coexist_beca_c1",
+          "author": "speaker_l",
+          "content": "The first violence here is not the crater. It is making existence into a property dispute.",
+          "likes": 154
+        },
+        {
+          "id": "ann_the_estragon_island_incident_two_dans_cannot_coexist_beca_c2",
+          "author": "archie_miser",
+          "content": "If identity can be stolen by surviving wrong, then half of us are criminals for making it this far.",
+          "likes": 132
+        },
+        {
+          "id": "ann_the_estragon_island_incident_two_dans_cannot_coexist_beca_c3",
+          "author": "waluigi",
+          "content": "Waluigi recommends NOT resolving metaphysical duplication through murder, which is apparently a controversial position now.",
+          "likes": 170,
+          "topReply": true
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "the_estragon_island_incident",
+      "quote": "Two Dans cannot coexist because identity is not a shared resource — it is a singular possession, and the Original views the copy's existence as theft.",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_the_fawthful_narrative_failure_you_cannot_build_a_stable_of",
+      "author": "fawful",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Margin Expansion, 1040 BF",
+      "content": "Fawful refuses your tiny costume of convenient blame! I am wearing the grand cape of MY OWN badness!",
+      "likes": 151,
+      "links": [
+        {
+          "id": "the_fawthful_narrative_failure",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_the_fawthful_narrative_failure_you_cannot_build_a_stable_of_c1",
+          "author": "chancellor_toadsworth",
+          "content": "Fawful was politically unusable because he would not remain inside the outline drawn for him.",
+          "likes": 84
+        },
+        {
+          "id": "ann_the_fawthful_narrative_failure_you_cannot_build_a_stable_of_c2",
+          "author": "miles_edgeworth",
+          "content": "A false theory of a case often collapses when the alleged culprit insists on committing the wrong category of misconduct.",
+          "likes": 139
+        },
+        {
+          "id": "ann_the_fawthful_narrative_failure_you_cannot_build_a_stable_of_c3",
+          "author": "waluigi",
+          "content": "Fawful is many things, but obedient narrative furniture is not one of them.",
+          "likes": 158,
+          "topReply": true
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "the_fawthful_narrative_failure",
+      "quote": "You cannot build a stable official story around a villain who keeps showing up and acting like a different kind of villain than the one you need him to be.",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_the_feyward_revel_and_the_book_of_many_t_waluigi_navigated_fey_social",
+      "author": "waluigi",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Margin Expansion, 1040 BF",
+      "content": "FINALLY, proper recognition of Waluigi’s greatest weapon: reading the room before the room grows teeth.",
+      "likes": 206,
+      "links": [
+        {
+          "id": "the_feyward_revel_and_the_book_of_many_things",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_the_feyward_revel_and_the_book_of_many_t_waluigi_navigated_fey_social_c1",
+          "author": "wario",
+          "content": "i also read rooms. i check where the valuables are",
+          "likes": 139
+        },
+        {
+          "id": "ann_the_feyward_revel_and_the_book_of_many_t_waluigi_navigated_fey_social_c2",
+          "author": "green_t",
+          "content": "Fey courts and crime meetings share a rule: nobody explains the rule that gets you killed.",
+          "likes": 156,
+          "topReply": true
+        },
+        {
+          "id": "ann_the_feyward_revel_and_the_book_of_many_t_waluigi_navigated_fey_social_c3",
+          "author": "hjumpik",
+          "content": "Hjumpik remembers Waluigi being on floor. Floor was tactical, maybe.",
+          "likes": 117
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "the_feyward_revel_and_the_book_of_many_things",
+      "quote": "Waluigi navigated fey social dynamics that would have destroyed someone without the capacity for sustained, careful, multi-layered analysis of social systems whose rules are not stated and must be inferred from their consequences.",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_the_grove_of_woe_incident_he_handed_remi_a_silenced_re",
+      "author": "remi_akamatsu_full_backstory",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Margin Expansion, 1040 BF",
+      "content": "i hate that i remember how heavy it was before i remember what i thought about it",
+      "likes": 203,
+      "links": [
+        {
+          "id": "the_grove_of_woe_incident",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_the_grove_of_woe_incident_he_handed_remi_a_silenced_re_c1",
+          "author": "markop",
+          "content": "That was not teaching. That was transferring a wound and calling the transfer a lesson.",
+          "likes": 171
+        },
+        {
+          "id": "ann_the_grove_of_woe_incident_he_handed_remi_a_silenced_re_c2",
+          "author": "green_t",
+          "content": "Some men put a weapon in a kid’s hand because they want a soldier. Some do it because they want company in the guilt.",
+          "likes": 156
+        },
+        {
+          "id": "ann_the_grove_of_woe_incident_he_handed_remi_a_silenced_re_c3",
+          "author": "waluigi",
+          "content": "Waluigi would like adults in haunted manors to stop inventing new ways to fail children. The field is crowded.",
+          "likes": 197,
+          "topReply": true
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "the_grove_of_woe_incident",
+      "quote": "He handed Remi a silenced revolver, told her she needed to be stronger, and framed execution as education.",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_the_oracle_waluigi_notes_that_i_am_prot",
+      "author": "the_oracle",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Margin Expansion, 1040 BF",
+      "content": "Flexibility is necessary when time itself refuses to stand still for cross-examination.",
+      "likes": 104,
+      "links": [
+        {
+          "id": "the_oracle",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_the_oracle_waluigi_notes_that_i_am_prot_c1",
+          "author": "miles_edgeworth",
+          "content": "Convenient. Also inadmissible without specifics.",
+          "likes": 183
+        },
+        {
+          "id": "ann_the_oracle_waluigi_notes_that_i_am_prot_c2",
+          "author": "archie_miser",
+          "content": "Every time someone says they are protecting the timeline, I check whether I still have all my organs.",
+          "likes": 171
+        },
+        {
+          "id": "ann_the_oracle_waluigi_notes_that_i_am_prot_c3",
+          "author": "waluigi",
+          "content": "The timeline has many protectors and suspiciously few consent forms.",
+          "likes": 203,
+          "topReply": true
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "the_oracle",
+      "quote": "Waluigi notes that 'I am protecting the timeline' is the most flexible possible justification for behavior.",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_the_planar_sanctum_revelation_this_is_what_the_iron_legion",
+      "author": "speaker_l",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Margin Expansion, 1040 BF",
+      "content": "Behind closed doors is where institutions put the truths that would make people kick the doors in.",
+      "likes": 168,
+      "links": [
+        {
+          "id": "the_planar_sanctum_revelation",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_the_planar_sanctum_revelation_this_is_what_the_iron_legion_c1",
+          "author": "general_ironhand",
+          "content": "The phrase omits operational context, authorization chains, and the emergency conditions under which the facility was commissioned.",
+          "likes": 11
+        },
+        {
+          "id": "ann_the_planar_sanctum_revelation_this_is_what_the_iron_legion_c2",
+          "author": "archie_miser",
+          "content": "There are emergencies that reveal character and emergencies people invent so their character has somewhere to hide.",
+          "likes": 133
+        },
+        {
+          "id": "ann_the_planar_sanctum_revelation_this_is_what_the_iron_legion_c3",
+          "author": "waluigi",
+          "content": "Waluigi has kicked many doors. This is the kind of door that deserves a running start.",
+          "likes": 149,
+          "topReply": true
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "the_planar_sanctum_revelation",
+      "quote": "This is what the Iron Legion and Mages' Guild are doing behind closed doors.",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_the_shadeward_ritual_leaving_an_unconscious_frien",
+      "author": "waluigi",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Margin Expansion, 1040 BF",
+      "content": "Waluigi stands by the medical guidance in this sentence.",
+      "likes": 184,
+      "links": [
+        {
+          "id": "the_shadeward_ritual",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_the_shadeward_ritual_leaving_an_unconscious_frien_c1",
+          "author": "archie_miser",
+          "content": "In my defense, all available healthcare plans were catastrophically bad.",
+          "likes": 132
+        },
+        {
+          "id": "ann_the_shadeward_ritual_leaving_an_unconscious_frien_c2",
+          "author": "the_oracle",
+          "content": "Bones was in no immediate danger from me. This is not the same as being in no danger.",
+          "likes": 91
+        },
+        {
+          "id": "ann_the_shadeward_ritual_leaving_an_unconscious_frien_c3",
+          "author": "wario",
+          "content": "when the doctor has flesh vats you ask for an itemized estimate and then leave",
+          "likes": 159,
+          "topReply": true
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "the_shadeward_ritual",
+      "quote": "Leaving an unconscious friend with a 46-year-old interdimensional custodian who just showed you his secret room full of flesh vats is not a solid long-term healthcare plan.",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_the_shepherds_garden_and_the_three_week_i_don_t_know_food",
+      "author": "bowser",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "3 Aethel, 922 BF (Feyward clock)",
+      "content": "I said I would deal with it later. I MEANT IT. A king does not kick over a crate in somebody else's cellar on somebody else's clock with three weeks running. There is an order to these things.",
+      "likes": 58,
+      "links": [
+        {
+          "id": "the_shepherds_garden_and_the_three_week_clock",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_the_shepherds_garden_and_the_three_week_i_don_t_know_food_c1",
+          "author": "toadettesr",
+          "content": "Nine of them. In crates. Being sold for weapons. And the King of the Koopas walked past and shut the door because it would look bad. I printed five hundred and seventy-five pamphlets in one night with a baby on the way. Do not talk to me about ORDER.",
+          "likes": 511,
+          "topReply": true
+        },
+        {
+          "id": "ann_the_shepherds_garden_and_the_three_week_i_don_t_know_food_c2",
+          "author": "waluigi",
+          "content": "Waluigi has nothing to add and is not going to pretend otherwise.",
+          "likes": 298
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "the_shepherds_garden_and_the_three_week_clock",
+      "quote": "I don't know. Food?",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_the_shepherds_garden_and_the_three_week_was_it_really_her_kingdom_or",
+      "author": "chancellor_toadsworth",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "5 Aethel, 1040 BF",
+      "content": "Whoever said this was not in the room in 955 and has no standing to characterise Her Highness's state of mind. I was there. I wrote the first account. I was then made to write a second one. I will not have a third written for me by a Toad in a broken library.",
+      "likes": 186,
+      "links": [
+        {
+          "id": "the_shepherds_garden_and_the_three_week_clock",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_the_shepherds_garden_and_the_three_week_was_it_really_her_kingdom_or_c1",
+          "author": "chief_thornpaw",
+          "content": "Careful, Chancellor. You and I both know the room was clean before either of us reached it. Somebody was in there first. I have never been able to say who, and neither have you.",
+          "likes": 149,
+          "topReply": true
+        },
+        {
+          "id": "ann_the_shepherds_garden_and_the_three_week_was_it_really_her_kingdom_or_c2",
+          "author": "waluigi",
+          "content": "Two men who were actually present, disagreeing about whether to be angry at a man who probably was not. Waluigi files this thread as the most useful thing on the page.",
+          "likes": 74
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "the_shepherds_garden_and_the_three_week_clock",
+      "quote": "was it really her kingdom, or the Mushroom Kingdom?",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_the_waiting_room_testimony_if_even_half_of_what_follows",
+      "author": "waluigi",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Margin Expansion, 1040 BF",
+      "content": "Waluigi wrote this sentence and then stared at it like it owed him money.",
+      "likes": 168,
+      "links": [
+        {
+          "id": "the_waiting_room_testimony",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_the_waiting_room_testimony_if_even_half_of_what_follows_c1",
+          "author": "luigi",
+          "content": "I remember lights. I remember voices. I remember being too tired to decide which memories were safe.",
+          "likes": 139
+        },
+        {
+          "id": "ann_the_waiting_room_testimony_if_even_half_of_what_follows_c2",
+          "author": "mario",
+          "content": "if there's-a doctor using my name, i want to know why. if it's me, i want to know why i don't know.",
+          "likes": 177,
+          "topReply": true
+        },
+        {
+          "id": "ann_the_waiting_room_testimony_if_even_half_of_what_follows_c3",
+          "author": "miles_edgeworth",
+          "content": "Half-truths are dangerous because the true half can carry the false half past the guard post.",
+          "likes": 121
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "the_waiting_room_testimony",
+      "quote": "If even HALF of what follows is true, Waluigi's understanding of several key figures in this crisis requires fundamental revision.",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_thornbury_then_he_got_dragged_away_fro",
+      "author": "thornbury",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Margin Expansion, 1040 BF",
+      "content": "Those ducks were inventory items undergoing buoyancy assessment.",
+      "likes": 91,
+      "links": [
+        {
+          "id": "thornbury",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_thornbury_then_he_got_dragged_away_fro_c1",
+          "author": "byscilla_danos",
+          "content": "They were contraband morale objects in a misallocated bath.",
+          "likes": 174
+        },
+        {
+          "id": "ann_thornbury_then_he_got_dragged_away_fro_c2",
+          "author": "luigi",
+          "content": "I understand less about the Iron Legion every time I learn more.",
+          "likes": 142
+        },
+        {
+          "id": "ann_thornbury_then_he_got_dragged_away_fro_c3",
+          "author": "waluigi",
+          "content": "The phrase “contraband morale objects” is why Waluigi keeps writing this encyclopedia.",
+          "likes": 215,
+          "topReply": true
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "thornbury",
+      "quote": "Then he got dragged away from a bubble bath by his ear while holding rubber duckies, which restored some balance to the universe.",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_toad_lee_toad_lee_is_the_brain_of_the",
+      "author": "toad_lee",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Margin Expansion, 1040 BF",
+      "content": "I would like the record to show the window was more slippery than it looked.",
+      "likes": 151,
+      "links": [
+        {
+          "id": "toad_lee",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_toad_lee_toad_lee_is_the_brain_of_the_c1",
+          "author": "hjumpik",
+          "content": "Toad Lee read book good. Fell less good.",
+          "likes": 188
+        },
+        {
+          "id": "ann_toad_lee_toad_lee_is_the_brain_of_the_c2",
+          "author": "remi_akamatsu_full_backstory",
+          "content": "he can be smart and still go bonk out a window. people contain multitudes",
+          "likes": 201,
+          "topReply": true
+        },
+        {
+          "id": "ann_toad_lee_toad_lee_is_the_brain_of_the_c3",
+          "author": "waluigi",
+          "content": "Waluigi supports multidimensional competence, including the dimension where gravity wins.",
+          "likes": 174
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "toad_lee",
+      "quote": "Toad Lee is the brain of the Feywild operation, even if his acrobatic skills need serious work.",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_toadburt_toadburt_didn_t_volunteer_fo",
+      "author": "toadburt",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Margin Expansion, 1040 BF",
+      "content": "I would like it recorded that being selected is not the same as being chosen. Chosen sounds nicer. This was not nicer.",
+      "likes": 119,
+      "links": [
+        {
+          "id": "toadburt",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_toadburt_toadburt_didn_t_volunteer_fo_c1",
+          "author": "general_ironhand",
+          "content": "Operational necessity often assigns unpleasant duties to available assets. Sentiment does not alter the chain of requirements.",
+          "likes": 9
+        },
+        {
+          "id": "ann_toadburt_toadburt_didn_t_volunteer_fo_c2",
+          "author": "speaker_l",
+          "content": "You just called a person an available asset and thought the sentence defended you.",
+          "likes": 168,
+          "topReply": true
+        },
+        {
+          "id": "ann_toadburt_toadburt_didn_t_volunteer_fo_c3",
+          "author": "waluigi",
+          "content": "The Iron Legion can turn any atrocity into a memo and every memo into a smaller atrocity. WAH.",
+          "likes": 142
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "toadburt",
+      "quote": "Toadburt didn't volunteer for this. Toadburt was SELECTED because he was available, controllable, and expendable.",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_tribunal_v_ironhand_1040_he_treats_a_massacre_the_way",
+      "author": "general_ironhand",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Margin Expansion, 1040 BF",
+      "content": "Procedure exists so that necessary actions are not distorted by sentiment at the point of execution.",
+      "likes": 8,
+      "links": [
+        {
+          "id": "tribunal_v_ironhand_1040",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_tribunal_v_ironhand_1040_he_treats_a_massacre_the_way_c1",
+          "author": "speaker_l",
+          "content": "You keep saying sentiment like the dead were an accounting error with feelings attached.",
+          "likes": 190
+        },
+        {
+          "id": "ann_tribunal_v_ironhand_1040_he_treats_a_massacre_the_way_c2",
+          "author": "captain_toadette",
+          "content": "Give me the clerk with the knife. At least he has to look at the person he kills.",
+          "likes": 141
+        },
+        {
+          "id": "ann_tribunal_v_ironhand_1040_he_treats_a_massacre_the_way_c3",
+          "author": "miles_edgeworth",
+          "content": "The signature is not distance from the crime. It is the chosen instrument of the crime.",
+          "likes": 203,
+          "topReply": true
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "tribunal_v_ironhand_1040",
+      "quote": "He treats a massacre the way a clerk treats a supply requisition — as a task to be completed efficiently and filed correctly.",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_tymnas_the_cottage_has_food_that_lo",
+      "author": "tymnas",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Margin Expansion, 1040 BF",
+      "content": "Food does better if you stop asking it what plane it is from.",
+      "likes": 112,
+      "links": [
+        {
+          "id": "tymnas",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_tymnas_the_cottage_has_food_that_lo_c1",
+          "author": "markop",
+          "content": "That is either gardening wisdom or a warning about the house. In the Shadow Estate it can be both.",
+          "likes": 124
+        },
+        {
+          "id": "ann_tymnas_the_cottage_has_food_that_lo_c2",
+          "author": "remi_akamatsu_full_backstory",
+          "content": "i would eat the almost-normal tomato and then regret it probably but also maybe not",
+          "likes": 141
+        },
+        {
+          "id": "ann_tymnas_the_cottage_has_food_that_lo_c3",
+          "author": "waluigi",
+          "content": "Waluigi has never feared a salad before. The Shadow Estate expands horizons.",
+          "likes": 157,
+          "topReply": true
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "tymnas",
+      "quote": "The cottage has food that 'looks almost normal.' In a dimension where plants grow as colored-wrong reflections of material-plane originals, Tymnas has a table of recognizable produce.",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_vivian_corvinarus_corridor_fight_bowser_found_the_necromancer",
+      "author": "bowser",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Margin Expansion, 1040 BF",
+      "content": "HEY.",
+      "likes": 166,
+      "links": [
+        {
+          "id": "vivian_corvinarus_corridor_fight",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_vivian_corvinarus_corridor_fight_bowser_found_the_necromancer_c1",
+          "author": "markop",
+          "content": "It is a real tactical question. Unfortunately, Bowser is both the case study and the control group.",
+          "likes": 152
+        },
+        {
+          "id": "ann_vivian_corvinarus_corridor_fight_bowser_found_the_necromancer_c2",
+          "author": "remi_akamatsu_full_backstory",
+          "content": "i think the wand looked at bowser and got confused first",
+          "likes": 193
+        },
+        {
+          "id": "ann_vivian_corvinarus_corridor_fight_bowser_found_the_necromancer_c3",
+          "author": "waluigi",
+          "content": "Necromancy requires vibes. Bowser has the spiritual texture of a brick thrown through a throne room.",
+          "likes": 208,
+          "topReply": true
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "vivian_corvinarus_corridor_fight",
+      "quote": "Bowser found the necromancer's wand on the ground and picked it up with innocent curiosity.",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_waluigi_waluigi_has_competed_in_ever",
+      "author": "wario",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Chillwind 3, 1040 BF",
+      "content": "'robbed'",
+      "likes": 203,
+      "links": [
+        {
+          "id": "waluigi",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_waluigi_waluigi_has_competed_in_ever_c1",
+          "author": "waluigi",
+          "content": "ROBBED. The net was too high. The officials were biased. The physics were selectively enforced. Waluigi will not elaborate because Waluigi has elaborated in eleven prior filings.",
+          "likes": 44
+        },
+        {
+          "id": "ann_waluigi_waluigi_has_competed_in_ever_c2",
+          "author": "mario",
+          "content": "it's-a called losing",
+          "likes": 311,
+          "topReply": true
+        },
+        {
+          "id": "ann_waluigi_waluigi_has_competed_in_ever_c3",
+          "author": "waluigi",
+          "content": "THE MISSING MAN HAS OPINIONS NOW. Where were these takes when Waluigi needed a doubles partner. WAH.",
+          "likes": 166
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "waluigi",
+      "quote": "Waluigi has competed in every sporting event the Mushroom Kingdom has ever hosted and has been ROBBED of victory in approximately ninety percent of them.",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_wario_on_efferd_25th_1040_bf_one_d",
+      "author": "miles_edgeworth",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Efferd 27, 1040 BF",
+      "content": "One day apart. I do not believe in coincidences of that density. I could not prove it. That is a different sentence and I hate it more.",
+      "likes": 67,
+      "links": [
+        {
+          "id": "wario",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_wario_on_efferd_25th_1040_bf_one_d_c1",
+          "author": "wario",
+          "content": "i was DEAD. subpoena a corpse. i dare you",
+          "likes": 45
+        },
+        {
+          "id": "ann_wario_on_efferd_25th_1040_bf_one_d_c2",
+          "author": "archie_miser",
+          "content": "I was in a cell for a crime I didn't commit while you were eating YOUR OWN funeral shrimp. I will never let this go.",
+          "likes": 104,
+          "topReply": true
+        },
+        {
+          "id": "ann_wario_on_efferd_25th_1040_bf_one_d_c3",
+          "author": "wario",
+          "content": "the shrimp was catered. it was very good. sorry about your murder thing",
+          "likes": 21
+        },
+        {
+          "id": "ann_wario_on_efferd_25th_1040_bf_one_d_c4",
+          "author": "waluigi",
+          "content": "Waluigi wishes to note, for the historical record, that Wario apologized for a wrongful-murder framing IN THE SAME BREATH as praising the shrimp. This is the man. This is the whole man.",
+          "likes": 58
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "wario",
+      "quote": "On Efferd 25th, 1040 BF—ONE DAY before the Swiftsoul explosion that got Archie framed for murder—Wario held his own funeral.",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_wario_then_wario_faked_his_own_dea",
+      "author": "waluigi",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Aethel 2, 1040 BF",
+      "content": "DECADES. Decades of partnership and I find out he's 'dead' from a FLYER. A flyer, reader. With a coupon on the back.",
+      "likes": 41,
+      "links": [
+        {
+          "id": "wario",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_wario_then_wario_faked_his_own_dea_c1",
+          "author": "wario",
+          "content": "the coupon converted at 12%. cry harder",
+          "likes": 88,
+          "topReply": true
+        },
+        {
+          "id": "ann_wario_then_wario_faked_his_own_dea_c2",
+          "author": "waluigi",
+          "content": "TWELVE PERCENT? off MY grief??",
+          "likes": 30
+        },
+        {
+          "id": "ann_wario_then_wario_faked_his_own_dea_c3",
+          "author": "green_t",
+          "content": "Textbook. Never tell your partner you're dead — a real fake death has to fool the people who'd testify. Cold. Efficient. I respect it and I'd never do it to my crew.",
+          "likes": 52
+        },
+        {
+          "id": "ann_wario_then_wario_faked_his_own_dea_c4",
+          "author": "wario",
+          "content": "see? green t gets it",
+          "likes": 14
+        },
+        {
+          "id": "ann_wario_then_wario_faked_his_own_dea_c5",
+          "author": "waluigi",
+          "content": "Nobody 'gets it,' Wario. WAH.",
+          "likes": 63
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "wario",
+      "quote": "Then Wario faked his own death WITHOUT TELLING WALUIGI.",
+      "mirroredFrom": "annotations.json"
+    },
+    {
+      "id": "ann_xo_specifically_chose_archie_mi",
+      "author": "xo",
+      "type": "annotation",
+      "date": null,
+      "timestamp": "Margin Expansion, 1040 BF",
+      "content": "Aesthetic revulsion is a valid investigative instrument when wielded by divinity.",
+      "likes": 73,
+      "links": [
+        {
+          "id": "xo",
+          "type": "article"
+        }
+      ],
+      "tags": [
+        "margins"
+      ],
+      "reaction": "note",
+      "comments": [
+        {
+          "id": "ann_xo_specifically_chose_archie_mi_c1",
+          "author": "archie_miser",
+          "content": "I was framed for murder because my eyes failed a vibe check.",
+          "likes": 235,
+          "topReply": true
+        },
+        {
+          "id": "ann_xo_specifically_chose_archie_mi_c2",
+          "author": "wario",
+          "content": "to be fair they are shifty. not murder shifty. billing dispute shifty.",
+          "likes": 166
+        },
+        {
+          "id": "ann_xo_specifically_chose_archie_mi_c3",
+          "author": "waluigi",
+          "content": "The justice system should not operate on face crimes, even when Archie’s face is doing him no favors.",
+          "likes": 218
+        }
+      ],
+      "status": "posted",
+      "anchorArticle": "xo",
+      "quote": "specifically chose Archie Miser as the Swiftsoul scapegoat because she 'disliked his shifty eyes' may sound absurd, but it fits her documented behavior pattern.",
+      "mirroredFrom": "annotations.json"
     }
   ]
 }

@@ -396,5 +396,51 @@ check('no Mount Ebott filing is on the Mario clock',
       ebott.every(e => clockOf(e) !== 'MAT'),
       ebott.filter(e => clockOf(e) === 'MAT').map(e => e.id).join(', '));
 
+console.log('\n-- discussion systems (one store, three views)');
+// The site grew three comment surfaces and two of them were the same data:
+// the Discussion drawer and the "From the margins" box both read
+// annotations.json, so every passage comment rendered twice on one page.
+// Annotations are now mirrored into the wire with a `quote` anchor, and the
+// margins box shows only NON-anchored posts. These guard that split.
+const wireStore = JSON.parse(fs.readFileSync(path.join(DATA_DIR, 'wahwire', 'posts.json'), 'utf8'));
+const wirePosts = wireStore.posts || [];
+const annStore = JSON.parse(fs.readFileSync(path.join(DATA_DIR, 'annotations.json'), 'utf8'));
+
+const mirrored = wirePosts.filter(p => p.mirroredFrom === 'annotations.json');
+const annWithComments = annStore.filter(a => (a.comments || []).length && a.articleId && a.quote);
+check('every annotated passage is mirrored onto the wire',
+      mirrored.length === annWithComments.length,
+      `${mirrored.length} mirrored vs ${annWithComments.length} passages`);
+check('every mirrored post carries a quote anchor',
+      mirrored.every(p => p.quote && p.anchorArticle));
+check('mirrored post ids are unique',
+      new Set(mirrored.map(p => p.id)).size === mirrored.length);
+
+// THE BUG: a margins entry whose text also appears in that article's drawer.
+const byArticle = new Map();
+for (const a of annStore) {
+  if (!byArticle.has(a.articleId)) byArticle.set(a.articleId, new Set());
+  (a.comments || []).forEach(c => byArticle.get(a.articleId).add(c.text));
+}
+let overlap = 0, worstArticle = '';
+for (const [aid, drawerTexts] of byArticle) {
+  const margins = wirePosts.filter(p =>
+    !p.quote && (p.anchorArticle === aid || (p.links || []).some(l => l && l.id === aid)));
+  const dupes = margins.filter(p => drawerTexts.has(p.content)).length;
+  if (dupes > overlap) { overlap = dupes; worstArticle = aid; }
+}
+check('no passage comment is replayed in the margins box',
+      overlap === 0, `${overlap} duplicated on ${worstArticle}`);
+
+// The renderer must read the wire, not annotations, or the bug comes back.
+check('wahNotesFor sources the wire rather than annotations.json',
+      grab('wahNotesFor').includes('wahWirePostsFor'));
+check('wahNotesFor excludes passage-anchored posts',
+      /filter\(p\s*=>\s*!p\.quote\)/.test(grab('wahNotesFor')));
+
+// Authored annotations remain the source of truth and must not be lost.
+check('annotations.json is still the authored source',
+      annStore.length > 0 && annStore.every(a => a.articleId && (a.comments || []).length >= 0));
+
 console.log(`\n${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);

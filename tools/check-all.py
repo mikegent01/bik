@@ -66,6 +66,9 @@ def main() -> int:
         ("filing updates", [py, "tools/track-filing-updates.py", "--check"], ROOT),
         # calendar.js hard-codes the world clock for 210 sync call sites; it drifted 17 days.
         ("world clock", [py, "tools/check-world-clock.py"], ROOT),
+        # annotations mirror into the wire; a stale mirror re-splits the systems.
+        ("discussion mirror",
+         [py, "tools/merge-discussion-systems.py", "--check"], ROOT),
         ("event art", [py, "tools/check-event-art.py", "--check"], ROOT),
         ("event titles", [py, "tools/retitle-date-prefixed-events.py", "--check"], ROOT),
         ("pond patrol docket", [py, "tools/migrate-pond-patrol-to-characters.py", "--check"], ROOT),
