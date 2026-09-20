@@ -1722,6 +1722,14 @@
         "caption": "Before the Skittering Grove: armour whole, and she had not yet stood over a sleeping man.",
         "credit": "Superseded 1 Aethel, 1040 BF — judgement_in_the_grove"
       }
+    ],
+    "eventStates": [
+      {
+        "event": "the_airlift_that_never_came",
+        "image": "portraits/player/event-states/remi-airlift-chainmail.png",
+        "label": "Skittering Grove — chain shirt and battle axe",
+        "note": "Event-state sprite: Remi scavenged a chain shirt, healed herself twice, took a battle axe, and left the grove under her own power."
+      }
     ]
   },
   {
@@ -1861,6 +1869,14 @@
         "src": "portraits/alternates/markop-pre-grove.png",
         "caption": "Before the Skittering Grove: helm on, skull unsplit.",
         "credit": "Superseded 1 Aethel, 1040 BF — judgement_in_the_grove"
+      }
+    ],
+    "eventStates": [
+      {
+        "event": "the_airlift_that_never_came",
+        "image": "portraits/player/event-states/markop-grove-wounded.png",
+        "label": "Skittering Grove — battle-worn",
+        "note": "Event-state sprite: Markop is badly hurt and singed but still fighting; this state does not depict an open or split skull."
       }
     ]
   },
@@ -2815,6 +2831,14 @@
         "src": "portraits/alternates/salam-pre-grove.png",
         "caption": "Before the Skittering Grove: on his feet, face unmarked by the brood.",
         "credit": "Superseded 1 Aethel, 1040 BF — judgement_in_the_grove"
+      }
+    ],
+    "eventStates": [
+      {
+        "event": "the_airlift_that_never_came",
+        "image": "portraits/player/event-states/salam-grove-scarred.png",
+        "label": "Skittering Grove — scarred and unconscious",
+        "note": "Event-state sprite: Salam bears the documented facial scar and is the one casualty taken into Legion custody."
       }
     ]
   },
