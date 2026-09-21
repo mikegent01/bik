@@ -5480,6 +5480,11 @@ const LEAD_ROTATORS={};
 function leadFrames(item){
   if(!item||!item.image) return [];
   const frames=[{src:item.image,caption:item.imageCaption||'',credit:item.imageCredit||''}];
+  /* Full-body plates (portraits/player/fullbody/) rotate right after the
+     lead — same contract as event states: art the record owns shows, or it
+     rots unreferenced on disk. */
+  if(item.fullBody) frames.push({src:item.fullBody,
+    caption:item.fullBodyCaption||'Full-body plate.',credit:item.imageCredit||''});
   (Array.isArray(item.imageAlternates)?item.imageAlternates:[]).forEach(a=>{
     if(!a) return;
     const src=typeof a==='string'?a:a.src;

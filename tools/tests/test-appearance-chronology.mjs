@@ -829,6 +829,8 @@ check('the commentary page shows the source filing\'s plates too',
       grab('view_commentary').includes('fieldGalleryPanel(source,typeKey'));
 check('event-state sprites join the lead art rotator frames',
       grab('leadFrames').includes('item.eventStates'));
+check('full-body plates join the lead art rotator frames',
+      grab('leadFrames').includes('item.fullBody'));
 check('the gallery styles exist', cssSkins.includes('.field-gal-grid{'));
 // The registry's teeth: every art path a character record names must exist on
 // disk, or the lead rotator quietly serves a fallback nobody reports.
@@ -847,6 +849,20 @@ check('the gallery styles exist', cssSkins.includes('.field-gal-grid{'));
   }
   check('every local character art reference resolves to a file on disk',
         missing.length === 0, missing.slice(0, 4).join(' | '));
+  {
+    const evMissing = [];
+    for (const e of events) {
+      const band = e.image ? [e.image] : [];
+      for (const g of (e.gallery || [])) if (g && g.src) band.push(g.src);
+      for (const p of band) {
+        if (!p || /^https?:|^data:/i.test(p)) continue;
+        if (!fs.existsSync(path.join(ROOT, 'Reputation-Matrix2', p)))
+          evMissing.push(`${e.id}: ${p}`);
+      }
+    }
+    check('every local event art reference resolves to a file on disk',
+          evMissing.length === 0, evMissing.slice(0, 4).join(' | '));
+  }
   const states = chList.filter(c => (c.eventStates || []).length).map(c => c.id);
   check('the airlift event-state set covers the grove six',
         ['remi_akamatsu_full_backstory','markop','salam','eager','dan_the_toad','archie_miser']

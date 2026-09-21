@@ -47,7 +47,7 @@ Hero + gallery is the house convention for event art. Figures inline inside
 | Earlier/AI-kept variants | `Reputation-Matrix2/portraits/alternates/` | `imageAlternates[] {src,caption,credit}` |
 | Event-state sprites | `Reputation-Matrix2/portraits/player/event-states/` | `eventStates[] {event,image,label,note}` |
 | Event scene plates | `Reputation-Matrix2/assets/images/events/<slug>/` | `events.json → image` + `gallery[] {src,alt,caption}` |
-| Full-body renders | `Reputation-Matrix2/portraits/player/fullbody/` | `characters.json → fullBody` |
+| Full-body renders | `Reputation-Matrix2/portraits/player/fullbody/` | `characters.json → fullBody` (also rotates as the second lead-rotator frame) |
 
 **State file naming:** `<character>-<event slug>-<state>.png` — e.g.
 `dan-grove-vanguard.png`, `salam-grove-scarred.png`.
@@ -74,7 +74,11 @@ it is a bug with a file name, and deleting it is the fix.
 4. **Two similar characters are two entries.** Merric is the woolly sheep
    with the axe; Mossy (Mossy/Steely) is the moss-covered mechanical dog
    with the green eyes. Both live in this registry, side by side, precisely
-   because the generator keeps conflating them.
+   because the generator keeps conflating them. Likewise
+   `portraits/iron_legion_guard.jpg` is a bruised Toad prisoner in orange
+   stripes — **a prisoner, not Legion armour**. Never pull it as the ref
+   when a scene wants a plate-clad Legion knight; that file's orange
+   uniform leaked into an event plate once already.
 5. **Note state changes the record demands.** If the filing changes a look
    (a scar, a broken helm), the `note` field says exactly what is and is not
    depicted — see Markop's grove state, which records that the art does
