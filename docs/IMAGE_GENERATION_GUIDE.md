@@ -780,3 +780,43 @@ one location for all three.
 shut") gets refused. Bandages, blood already dried, unconsciousness and
 exhaustion all pass and read better anyway — the archive's register is
 aftermath, not gore.
+
+---
+
+## Campaign-specific colour — vibrant, dark, and grounded
+
+The **World of Color** update establishes the house look for new campaign art:
+vivid colour is welcome, but it must be carried by a specific world object,
+light source, or faction palette. Do not use a generic “dark fantasy” gradient
+as a substitute for campaign identity.
+
+For reading-deck skins and campaign backgrounds, write a **scene brief** rather
+than a mood word:
+
+```text
+place: the Shadow Estate servant corridor / Skittering Grove / Legionhold
+objects: cracked mirror, student ID, battle axe, brass insignia, web canopy
+light: purple planar spill, orange embers, cyan fracture light, brass lanterns
+palette: 2–4 named vivid colours against charcoal, brown-black, or ink shadows
+surface: painterly editorial fantasy, worn paper/metal/wood, gritty aftermath
+negative: no generic castle, no random adventurers, no readable text, no logo
+```
+
+The colour must answer a story question. Purple is the Planar Fracture or the
+Shadow Estate, orange is a real fire or ember field, cyan belongs to broken
+routes and mirror light, and brass/red belongs to Iron Legion custody. A bright
+colour with no in-world source is decoration; a bright colour attached to a
+student card, a web, a lantern, or a damaged insignia is evidence.
+
+Use campaign nouns in every prompt and vary the camera between skins: an
+establishing manor, a close desk still-life, a corridor, a field hospital, a
+fractured threshold. These backgrounds are website atmosphere, not article
+illustrations, so keep contrast low behind text and never add readable labels.
+The resulting image should be recognisable as *this* campaign even with the
+characters removed.
+
+When a supplied campaign image is used as a colour reference, use it to study
+palette and lighting, not to paste its composition into the new background.
+Character portraits remain the only mandatory identity references when people
+appear. If no people appear, do not pass unrelated portraits merely to make the
+image feel populated.
