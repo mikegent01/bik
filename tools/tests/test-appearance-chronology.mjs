@@ -560,6 +560,22 @@ const missingSwatch = gacha.SKINS.filter(s =>
   !cssSkins.includes(`[data-skin-preview="${s.id}"]`));
 check('every skin has a preview swatch', missingSwatch.length === 0,
       missingSwatch.map(s => s.id).join(', '));
+// An equip that repaints the page dark in light mode is not a theme, it is a
+// trapdoor: the reader flips to light and the whole site reads as broken.
+// So every skin owes a light palette and a light body rule, not just a dark one.
+const missingLightVars = gacha.SKINS.filter(s => s.id !== 'default' &&
+  !cssSkins.includes(`html[data-theme="light"][data-skin="${s.id}"]{`));
+check('every skin has a light-mode palette', missingLightVars.length === 0,
+      missingLightVars.map(s => s.id).join(', '));
+// The campaign four take theirs from the generic light rule through
+// --campaign-skin-image; the original seven declare their own.
+const hasGenericLightCover = cssSkins.includes('html[data-theme="light"][data-skin] body{');
+const missingLightBody = gacha.SKINS.filter(s => s.id !== 'default' &&
+  !cssSkins.includes(`html[data-theme="light"][data-skin="${s.id}"] body{`) &&
+  !(hasGenericLightCover &&
+    cssSkins.includes(`html[data-skin="${s.id}"] body{--campaign-skin-image`)));
+check('every skin has a light-mode body background', missingLightBody.length === 0,
+      missingLightBody.map(s => s.id).join(', '));
 
 let pityOk = true;
 for (let i = 0; i < 1000; i++) {
@@ -602,7 +618,7 @@ const econCode = [
   src.slice(src.indexOf('const DESK_KEY='), src.indexOf('function deskToday(')),
   src.slice(src.indexOf('const SKINS=['), src.indexOf('function skinRarityRoll(')),
   src.slice(src.indexOf('let DESK_SHOP_CAT='), src.indexOf('function deskPrice(')),
-  'deskToday','deskLoad','deskSave','deskYesterday','deskPrice','deskOwned','deskBuy','deskEquipSheet'
+  'deskToday','deskLoad','deskSave','deskYesterday','deskPrice','deskOwned','deskBuy','deskEquipSheet','deskRerender'
 ].map((n, i) => i < 3 ? n : grab(n)).join('\n');
 const fakeDoc = {
   createElement: () => ({ classList: { add(){} }, remove(){}, style:{}, set innerHTML(v){}, get innerHTML(){ return ''; } }),
@@ -752,6 +768,36 @@ check('the new money paths still write nothing to canon',
       !grab('deskCheckIn').includes('DATA.') && !grab('deskBuy').includes('DATA.') &&
       !grab('deskEquipSheet').includes('DATA.'));
 
+console.log('\n-- desk behaviour: scroll, site-wide music');
+// Clicking a skin used to fling the reader back to the top of the desk page,
+// because every in-page action ended in view_desk()'s route-entry scrollTo.
+// The contract: route entry scrolls to top; in-page actions go through
+// deskRerender and put the reader back where they were.
+check('route entry still opens the desk at the top',
+      grab('view_desk').includes('window.scrollTo(0,0)'));
+check('in-page desk actions never reset the scroll', [
+  ['deskEquip','equip'], ['deskBuy','buy'], ['deskEquipSheet','sheet equip'],
+  ['deskPull','pull'], ['deskShopFilter','filter'], ['deskImport','import'], ['deskReset','reset']
+].every(([fn]) => grab(fn).includes('deskRerender()')));
+check('deskRerender restores the scroll it saved',
+      grab('deskRerender').includes('window.scrollY') &&
+      grab('deskRerender').includes('window.scrollTo(0,y)'));
+// The desk track player must outlive navigation, be visible and stoppable
+// off the desk page, and not fight the ambient playlist for the reader's ear.
+check('a playing desk track puts a chip on the page, outside #content',
+      grab('deskNowPlaying').includes('document.body.appendChild(chip)'));
+check('the chip is styled', cssSkins.includes('.desk-np{'));
+check('the chip updates on play and on stop',
+      grab('deskAudioPlay').includes('deskNowPlaying()') &&
+      grab('deskAudioStop').includes('deskNowPlaying()'));
+check('starting a desk track pauses the ambient playlist',
+      grab('deskAudioPlay').includes('WaluipediaAmbient'));
+check('the ambient controls give way to the desk in return',
+      src.includes('[data-walu-music-play]') && grab('deskAmbientBridge').includes('A.toggle'));
+check('nothing autoplays the desk tracks after a reload',
+      !src.includes('deskAudioPlay(localStorage'));
+
+
 console.log('\n-- router: no shadowed routes');
 // #/desk was already an alias for view_hub, so a later `route==='desk'` branch
 // could never fire and the page rendered "Article not found". Any duplicated
@@ -793,7 +839,7 @@ const dbg = new Function('localStorage','INDEX','displayName','deskToast','docum
   [skinConsts, grab('skinRarityRoll'), grab('skinPull'), dbgConsts, grab('debugOn'),
    grab('setDebug'), deskConsts, grab('deskToday'), grab('deskLoad'), grab('deskSave'),
    grab('deskYesterday'), grab('deskPlateFor'), grab('readingDeskRecord'),
-   grab('deskPull')].join('\n') +
+   grab('deskPull'), grab('deskRerender')].join('\n') +
   ';return {debugOn,setDebug,readingDeskRecord,deskPull,deskLoad,SKINS};'
 )(dbgLS, deskIndex, o => o && (o.name || o.id), () => {}, dbgDoc,
   () => {}, () => {}, () => {}, () => {}, { hash: '' });

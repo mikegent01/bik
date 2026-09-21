@@ -9245,7 +9245,7 @@ function deskTrackOpen(o,t){
   return typeof t.unlock==='number'&&o.daysComplete>=t.unlock;
 }
 let DESK_AUDIO=null;
-function deskAudioStop(){ if(DESK_AUDIO){try{clearInterval(DESK_AUDIO.timer);DESK_AUDIO.ctx.close();}catch(e){} DESK_AUDIO=null;} }
+function deskAudioStop(){ if(DESK_AUDIO){try{clearInterval(DESK_AUDIO.timer);DESK_AUDIO.ctx.close();}catch(e){} DESK_AUDIO=null; try{ deskNowPlaying(); }catch(e){} } }
 function deskAudioPlay(trackId){
   const tr=READING_TRACKS.find(x=>x.id===trackId); if(!tr)return;
   const o=deskLoad();
@@ -9257,6 +9257,11 @@ function deskAudioPlay(trackId){
   }
   if(DESK_AUDIO&&DESK_AUDIO.id===tr.id){deskAudioStop();deskFlash('Track stopped.');return;}
   deskAudioStop();
+  /* One radio at a time: starting a desk track pauses the ambient playlist.
+     The reverse direction is handled by deskAmbientBridge + a capturing
+     click listener, as far as the ambient module's closure allows. */
+  try{ const A=window.WaluipediaAmbient; if(A&&A.playing) A.stop(); }catch(e){}
+  deskAmbientBridge();
   try{
     const ctx=new (window.AudioContext||window.webkitAudioContext)();
     const master=ctx.createGain(); master.gain.value=.9; master.connect(ctx.destination);
@@ -9284,8 +9289,57 @@ function deskAudioPlay(trackId){
     };
     tick(); const timer=setInterval(tick,Math.max(320,60000/tr.tempo));
     DESK_AUDIO={id:tr.id,ctx,timer};
-    deskFlash('Playing '+tr.name+' — click again to stop.');
+    try{ deskNowPlaying(); }catch(e){}
+    deskFlash('Playing '+tr.name+' — it keeps playing as you browse; the chip, bottom-left, stops it.');
   }catch(e){deskFlash('Audio is unavailable in this browser.');}
+}
+/* The desk's music is site-wide music. The AudioContext outlives every route
+   render because nothing ever tears it down, so a track that starts at the
+   desk keeps playing while the reader wanders the archive. What was missing
+   was a way to SEE and STOP it off the desk — hence the chip: one pill,
+   bottom-left (the ambient playlist owns bottom-right), present exactly
+   while a desk track plays. Nothing here autoplays, so a fresh page load is
+   always silent until the reader presses play again. */
+function deskNowPlaying(){
+  let chip=document.getElementById('deskNowPlaying');
+  if(!DESK_AUDIO){ if(chip) chip.remove(); return; }
+  const tr=READING_TRACKS.find(t=>t.id===DESK_AUDIO.id);
+  if(!chip){
+    chip=document.createElement('button');
+    chip.id='deskNowPlaying';
+    chip.className='desk-np';
+    chip.title='A reading desk track, playing site-wide. Click to stop.';
+    chip.addEventListener('click',()=>{ const id=DESK_AUDIO&&DESK_AUDIO.id; if(id) deskAudioPlay(id); });
+    document.body.appendChild(chip);
+  }
+  chip.innerHTML='<span class="desk-np-eq"><i></i><i></i><i></i></span>'
+    +`<span>🎧 ${esc(tr?tr.name:'Desk track')}</span><span class="desk-np-stop">stop</span>`;
+}
+/* The ambient module closes over its own start(), so outside code can only
+   catch its public surface and its DOM. Patch the public toggle (the path
+   the settings page uses), and listen, in the capture phase, for clicks on
+   any ambient control — both stop the desk track before the playlist wakes.
+   This is the "at least try" the request budgeted for: the widget's own
+   internal ▶ can never be wrapped, but its click can always be seen. */
+function deskAmbientBridge(){
+  try{
+    const A=window.WaluipediaAmbient;
+    if(!A||A.__deskBridge||!A.toggle) return;
+    const raw=A.toggle.bind(A);
+    A.toggle=()=>{ if(DESK_AUDIO) deskAudioStop(); return raw(); };
+    A.__deskBridge=true;
+  }catch(e){}
+}
+/* Also listens, in the capture phase, for clicks on any ambient control —
+   the widget's own internal ▶ can never be wrapped from out here, but its
+   click can always be seen. Registered from boot(), the file's sanctioned
+   place to touch globals, so lifted-out code stays harness-safe. */
+function deskAmbientGuard(){
+  document.addEventListener('click',e=>{
+    if(!DESK_AUDIO) return;
+    const t=e.target&&e.target.closest?e.target.closest('[data-walu-music-play],[data-walu-music-track],[data-walu-music-next],[data-walu-music-shuffle]'):null;
+    if(t) deskAudioStop();
+  },true);
 }
 
 /* ===== Field sheets — the desk's third shelf ============================
@@ -9446,7 +9500,7 @@ function toggleDebug(){
   if(typeof deskFlash==='function')
     deskFlash(next?'Debug mode ON — the desk collection is unlocked, the rota and check-in are paused.':'Debug mode off. The rota and check-in are running again.');
   if(location.hash.includes('/settings')) view_settings();
-  else if(location.hash.includes('/reading-desk')) view_desk();
+  else if(location.hash.includes('/reading-desk')) deskRerender();
   return next;
 }
 try{ if(debugOn()) document.documentElement.classList.add('is-debug'); }catch(e){}
@@ -9735,7 +9789,7 @@ function view_desk(){
       ${sheetWall}</div>
 
     <div class="card"><h2 style="margin-top:0">🎧 Reading desk tracks</h2>
-      <p class="text-muted">Original procedural ambient cues generated in-browser. They never autoplay. Filed days unlock the first set; the Exchange sells the rest.</p>
+      <p class="text-muted">Original procedural ambient cues generated in-browser. They never autoplay — but once started, a track keeps playing across the whole site; the chip, bottom-left, stops it from anywhere. Filed days unlock the first set; the Exchange sells the rest.</p>
       <div class="desk-track-list">${trackRows}</div>
     </div>
 
@@ -9765,7 +9819,7 @@ function view_desk(){
 let DESK_SHOP_CAT='all';
 function deskShopFilter(cat){
   DESK_SHOP_CAT=cat;
-  if(location.hash.includes('/reading-desk')) view_desk();
+  deskRerender();
 }
 const SHOP_PRICES={skin:{3:30,4:75,5:160},sheet:{3:25,4:60,5:140}};
 function deskPrice(kind,item){
@@ -9801,7 +9855,7 @@ function deskBuy(kind,id){
   else if(kind==='sheet'){ applySheet(id); msg+=' — hung.'; }
   else msg+=' — on the track list.';
   deskFlash(msg);
-  if(location.hash.includes('/reading-desk')) view_desk();
+  deskRerender();
 }
 function deskEquipSheet(id){
   const o=deskLoad();
@@ -9809,7 +9863,7 @@ function deskEquipSheet(id){
   applySheet(id);
   deskFlash(id?('Hung: '+(SHEET_BY_ID[id]?SHEET_BY_ID[id].name:id)+'.')
              :'Sheet taken down. The skin underneath shows again.');
-  if(location.hash.includes('/reading-desk')) view_desk();
+  deskRerender();
 }
 /* ---- pulling ---------------------------------------------------------- */
 function deskPull(n){
@@ -9837,7 +9891,7 @@ function deskPull(n){
   }
   deskSave(o);
   deskShowPulls(got);
-  if(typeof view_desk==='function'&&location.hash.includes('/reading-desk')) view_desk();
+  deskRerender();
 }
 function deskShowPulls(got){
   if(!got.length) return;
@@ -9865,11 +9919,21 @@ function deskFlash(msg){
   requestAnimationFrame(()=>n.classList.add('go'));
   setTimeout(()=>n.remove(),5000);
 }
+/* Route entry opens the desk at the top; an in-page action — equip a skin,
+   buy in the Exchange, switch the filter, import a save — must not. Anywhere
+   that re-renders the desk in response to something the reader just did goes
+   through here instead, and the reader stays where they were. */
+function deskRerender(){
+  if(!location.hash.includes('/reading-desk')) return;
+  const y=window.scrollY;
+  view_desk();
+  window.scrollTo(0,y);
+}
 function deskEquip(id){
   const o=deskLoad();
   if(!o.owned.includes(id)){ deskFlash('That skin is still locked.'); return; }
   applySkin(id);
-  if(location.hash.includes('/reading-desk')) view_desk();
+  deskRerender();
 }
 
 /* ---- save code: the only honest way to move progress between origins ----
@@ -9922,7 +9986,7 @@ function deskImport(){
   o.plates=o.plates.slice(0,DESK_MAX_PLATES);
   deskSave(o);
   deskFlash('Save merged. Nothing was overwritten.');
-  view_desk();
+  deskRerender();
 }
 
 /* ---- debug console ------------------------------------------------------
@@ -9935,27 +9999,27 @@ window.waluipediaDesk={
     o.ownedTracks=[...new Set([...o.ownedTracks,...READING_TRACKS.map(t=>t.id)])];
     o.keys+=20; deskSave(o);
     console.log('%c[desk] every skin, sheet and track unlocked','color:#7ce0b8', o.owned);
-    if(location.hash.includes('/reading-desk')) view_desk();
+    deskRerender();
     deskFlash('Debug: the whole desk collection unlocked.');
     return o.owned;
   },
   keys(n){ const o=deskLoad(); o.keys+=Number(n)||10; deskSave(o);
-    console.log('[desk] keys:',o.keys); if(location.hash.includes('/reading-desk')) view_desk(); return o.keys; },
+    console.log('[desk] keys:',o.keys); deskRerender(); return o.keys; },
   tokens(n){ const o=deskLoad(); o.tokens+=Number(n)||50; deskSave(o);
-    console.log('[desk] tokens:',o.tokens); if(location.hash.includes('/reading-desk')) view_desk(); return o.tokens; },
+    console.log('[desk] tokens:',o.tokens); deskRerender(); return o.tokens; },
   skins(){ console.table(SKINS.map(s=>({id:s.id,name:s.name,rarity:s.rarity}))); return SKINS.map(s=>s.id); },
   sheets(){ console.table(SHEETS.map(s=>({id:s.id,name:s.name,rarity:s.rarity}))); return SHEETS.map(s=>s.id); },
   equip(id){ return applySkin(id); },
   equipSheet(id){ return applySheet(id); },
   state(){ const o=deskLoad(); console.log(o); return o; },
   reset(){ try{ localStorage.removeItem(DESK_KEY); localStorage.removeItem(SKIN_KEY); localStorage.removeItem(SHEET_KEY); }catch(e){}
-    applySkin('default'); applySheet(''); console.log('[desk] cleared'); if(location.hash.includes('/reading-desk')) view_desk(); }
+    applySkin('default'); applySheet(''); console.log('[desk] cleared'); deskRerender(); }
 };
 
 function deskReset(){
   if(!confirm('Clear the reading desk? The plates, streak, tokens and unlocks go with it.')) return;
   try{ localStorage.removeItem(DESK_KEY); }catch(e){}
-  view_desk();
+  deskRerender();
 }
 /* ---- "what else is attached to this filing" ---------------------------
    74 of the 120 filings carry extra material - a commentary, an archivist
@@ -23256,6 +23320,8 @@ async function boot(){
   /* The daily wage pays for showing up. Runs after every desk constant is
      defined and exactly once per load — deskCheckIn itself is once per day. */
   try{ deskCheckIn(); }catch(e){}
+  /* The desk/ambient truce: touching either player stops the other. */
+  try{ deskAmbientGuard(); deskAmbientBridge(); }catch(e){}
   Router.render();
   /* Warm the wire in the background. It is 65 KB against a 4 MB events.json,
      and having it resident is what lets the events grid show a "on the wire"

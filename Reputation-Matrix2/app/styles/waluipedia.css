@@ -3237,6 +3237,28 @@ html[data-skin="grovefire"] body{--campaign-skin-image:url('/Reputation-Matrix2/
 html[data-skin="planarglass"] body{--campaign-skin-image:url('/Reputation-Matrix2/assets/images/skins/planar_glass.jpg')}
 html[data-skin="legionbrass"] body{--campaign-skin-image:url('/Reputation-Matrix2/assets/images/skins/legion_brass.jpg')}
 
+/* LIGHT MODE, ORIGINAL SEVEN — the campaign four learned light palettes a
+   commit ago; the originals never did, so equipping one in light mode left
+   the page wearing dark variables on a light chassis and read as broken.
+   Each block mirrors the campaign light treatment: the skin keeps its voice
+   (accent, link) but the chassis (bg, panel, text) goes light, and the body
+   wash re-tints instead of going dark. Placed after every dark skin rule so
+   source order settles the attribute-selector tie. */
+html[data-theme="light"][data-skin="snowdin"]{--bg:#edf5fb;--bg2:#ddeaf5;--panel:#fbfdff;--panel2:#f0f7fc;--border:#aecbde;--text:#152c40;--muted:#527089;--accent:#2174b3;--accent2:#3a86b8;--link:#18598c}
+html[data-theme="light"][data-skin="snowdin"] body{background:radial-gradient(1100px 520px at 85% -8%,rgba(90,169,230,.16),transparent 58%),radial-gradient(820px 460px at -8% 12%,rgba(191,227,255,.5),transparent 55%),#edf5fb !important}
+html[data-theme="light"][data-skin="regency"]{--bg:#f8f3e6;--bg2:#f0e7cd;--panel:#fdfaf1;--panel2:#f7f0de;--border:#cfba83;--text:#2f2508;--muted:#77683d;--accent:#8a6d10;--accent2:#a8831a;--link:#6a5210}
+html[data-theme="light"][data-skin="regency"] body{background:radial-gradient(1100px 520px at 85% -8%,rgba(201,162,39,.13),transparent 58%),radial-gradient(820px 460px at -8% 12%,rgba(232,198,90,.12),transparent 55%),#f8f3e6 !important}
+html[data-theme="light"][data-skin="feyward"]{--bg:#edf6ee;--bg2:#ddecdd;--panel:#f8fdf8;--panel2:#ebf4eb;--border:#a5cbaf;--text:#16301f;--muted:#4f7560;--accent:#1e7a58;--accent2:#5f9232;--link:#155f44}
+html[data-theme="light"][data-skin="feyward"] body{background:radial-gradient(1100px 520px at 85% -8%,rgba(47,174,138,.12),transparent 58%),radial-gradient(820px 460px at -8% 12%,rgba(168,217,106,.12),transparent 55%),#edf6ee !important}
+html[data-theme="light"][data-skin="ember"]{--bg:#fbf0e9;--bg2:#f6e2d3;--panel:#fffaf6;--panel2:#faebe0;--border:#dfae92;--text:#381a0d;--muted:#87604a;--accent:#b33d18;--accent2:#c96d12;--link:#8e2f12}
+html[data-theme="light"][data-skin="ember"] body{background:radial-gradient(1100px 520px at 85% -8%,rgba(229,96,58,.11),transparent 58%),radial-gradient(820px 460px at -8% 12%,rgba(255,171,61,.10),transparent 55%),#fbf0e9 !important}
+html[data-theme="light"][data-skin="shadowfell"]{--bg:#eef0f9;--bg2:#e1e4f3;--panel:#fafbff;--panel2:#eef0fa;--border:#b2b8da;--text:#1b1f3e;--muted:#5a6089;--accent:#3a4cb2;--accent2:#6a5fc2;--link:#2c3a90}
+html[data-theme="light"][data-skin="shadowfell"] body{background:radial-gradient(1100px 520px at 85% -8%,rgba(74,92,196,.11),transparent 58%),radial-gradient(820px 460px at -8% 12%,rgba(125,111,224,.10),transparent 55%),#eef0f9 !important}
+html[data-theme="light"][data-skin="wahwire"]{--bg:#fdeef6;--bg2:#f6dbe9;--panel:#fff7fb;--panel2:#fae6f0;--border:#e09dc2;--text:#3c0a2c;--muted:#8c5076;--accent:#c2177d;--accent2:#c98a12;--link:#921060}
+html[data-theme="light"][data-skin="wahwire"] body{background:radial-gradient(1100px 520px at 85% -8%,rgba(255,79,163,.11),transparent 58%),radial-gradient(820px 460px at -8% 12%,rgba(255,209,102,.12),transparent 55%),#fdeef6 !important}
+html[data-theme="light"][data-skin="oracle"]{--bg:#f3f3f4;--bg2:#e7e7ea;--panel:#fcfcfd;--panel2:#f0f0f3;--border:#b8b9c2;--text:#17171c;--muted:#63636e;--accent:#4d4d55;--accent2:#6a35c9;--link:#3d3d46}
+html[data-theme="light"][data-skin="oracle"] body{background:radial-gradient(1100px 520px at 85% -8%,rgba(212,212,212,.16),transparent 58%),radial-gradient(820px 460px at -8% 12%,rgba(138,75,255,.09),transparent 55%),#f3f3f4 !important}
+
 /* ===== The Reading Desk — check-in strip, the Exchange, field sheets ======
    The desk grew two money loops (keys at odds, tokens at prices) and a third
    shelf (field sheets). These rules are the surfaces for all three. */
@@ -3324,3 +3346,21 @@ html[data-sheet][data-sheet] body{
 html[data-theme="light"][data-sheet][data-sheet] body{
   background-image:linear-gradient(rgba(255,255,255,.74),rgba(255,255,255,.74)),var(--field-sheet-image) !important;
   background-size:cover;background-attachment:fixed}
+
+/* The desk now-playing chip: site-wide desk music, visible off #content so
+   route renders never disturb it. Mirror of the ambient pill, other corner. */
+.desk-np{position:fixed;left:14px;bottom:14px;z-index:451;display:flex;align-items:center;gap:7px;
+  padding:5px 12px 5px 7px;border-radius:999px;cursor:pointer;opacity:.62;
+  border:1px solid rgba(124,224,184,.45);background:rgba(9,24,18,.85);color:#d9f5e6;
+  font:12px system-ui,sans-serif;box-shadow:0 4px 16px rgba(0,0,0,.35);
+  backdrop-filter:blur(8px);transition:opacity .15s ease}
+.desk-np:hover{opacity:1}
+.desk-np-eq{display:inline-flex;align-items:flex-end;gap:2px;height:12px}
+.desk-np-eq i{width:3px;background:#7ce0b8;border-radius:2px;animation:deskEq 1s ease-in-out infinite}
+.desk-np-eq i:nth-child(1){height:6px;animation-delay:0s}
+.desk-np-eq i:nth-child(2){height:11px;animation-delay:.2s}
+.desk-np-eq i:nth-child(3){height:8px;padding:0;animation-delay:.4s}
+@keyframes deskEq{0%,100%{transform:scaleY(.45)}50%{transform:scaleY(1)}}
+.desk-np-stop{font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;
+  color:#7ce0b8;border-left:1px solid rgba(124,224,184,.35);padding-left:7px}
+@media(max-width:700px){.desk-np{left:10px;bottom:10px}}
