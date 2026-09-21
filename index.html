@@ -11041,12 +11041,20 @@ const ATLAS_PROVINCE_CACHE={};
 let ATLAS_FACTION_GOV=null;
 async function atlasProvinceCensus(mapId){
   const prefix=(window.location.pathname.includes('/Reputation-Matrix2/')?'./':'./Reputation-Matrix2/');
-  const [prov,maps,politics,registry]=await Promise.all([
-    import(prefix+'app/pages/maps/map-provinces.js?v=prov1'),
-    import(prefix+'data/maps/map-data.js'),
-    import(prefix+'data/support/politics-data.js'),
-    import(prefix+'systems/faction-registry.js')
-  ]);
+  let prov,maps,politics,registry;
+  try{
+    [prov,maps,politics,registry]=await Promise.all([
+      import(prefix+'app/pages/maps/map-provinces.js?v=prov1'),
+      import(prefix+'data/maps/map-data.js'),
+      import(prefix+'data/support/politics-data.js'),
+      import(prefix+'systems/faction-registry.js')
+    ]);
+  }catch(e){
+    /* The map vault is unreachable (stale cached page, Shelf server down):
+       no province card beats a boot with an unhandled rejection. */
+    console.warn('[atlas] province census deferred — map data unavailable:',e&&e.message);
+    return null;
+  }
   const map=maps.MAP_DATA[mapId]; if(!map) return null;
   const key=mapId+':'+((map.pointsOfInterest||[]).length);
   if(!ATLAS_PROVINCE_CACHE[key]) ATLAS_PROVINCE_CACHE[key]=prov.buildProvinceCensus(map,maps.MAP_DATA,{politics:politics.PROVINCE_POLITICS});
