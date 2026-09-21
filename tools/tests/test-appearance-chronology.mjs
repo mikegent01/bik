@@ -547,6 +547,8 @@ const gacha = new Function('localStorage','applySkin',
 
 const cssSkins = fs.readFileSync(
   path.join(ROOT, 'Reputation-Matrix2', 'app', 'styles', 'waluipedia.css'), 'utf8');
+const ambientJs = fs.readFileSync(
+  path.join(ROOT, 'Reputation-Matrix2', 'app', 'styles', 'waluipedia-ambient.js'), 'utf8');
 
 check('there are skins to unlock', gacha.SKINS.length >= 6);
 check('exactly one skin is free by default',
@@ -782,20 +784,75 @@ check('in-page desk actions never reset the scroll', [
 check('deskRerender restores the scroll it saved',
       grab('deskRerender').includes('window.scrollY') &&
       grab('deskRerender').includes('window.scrollTo(0,y)'));
-// The desk track player must outlive navigation, be visible and stoppable
-// off the desk page, and not fight the ambient playlist for the reader's ear.
+// The desk used to own a four-note synth. Now the desk owns the GATING and
+// the ambient playlist owns the INSTRUMENT: one engine, one queue, and the
+// desk's chip mirrors whatever the engine holds. Behavioural proof of the
+// gate lives in test-waluipedia-ambient.mjs; these are the wiring contracts.
 check('a playing desk track puts a chip on the page, outside #content',
       grab('deskNowPlaying').includes('document.body.appendChild(chip)'));
 check('the chip is styled', cssSkins.includes('.desk-np{'));
 check('the chip updates on play and on stop',
       grab('deskAudioPlay').includes('deskNowPlaying()') &&
       grab('deskAudioStop').includes('deskNowPlaying()'));
-check('starting a desk track pauses the ambient playlist',
-      grab('deskAudioPlay').includes('WaluipediaAmbient'));
+check('desk cues play through the one site instrument',
+      grab('deskAudioPlay').includes('A.playDeskTrack(tr.id)'));
+check('the chip mirrors the ambient engine through a window seam',
+      src.includes('window.WaluipediaDeskNowPlaying=deskNowPlaying') &&
+      ambientJs.includes('WaluipediaDeskNowPlaying'));
+check('no desk code touches window or document at module level',
+      !/\n(window|document)\.\w/.test(src.slice(src.indexOf('const SKINS=['), src.indexOf('function debugOn('))));
+check('the chip knows which engine is speaking',
+      grab('deskNowPlaying').includes('currentDeskId'));
+check('the playlist files every desk cue as a real track',
+      (src.match(/\{id:'desk-[a-z0-9-]+'/g)||[]).every(s =>
+        ambientJs.includes(`id: '${s.slice(5,-1)}'`)));
+check('the playlist gating re-reads the desk\'s own storage keys',
+      ambientJs.includes('waluipedia-reading-desk-v1') &&
+      ambientJs.includes('waluipedia-debug-v1'));
 check('the ambient controls give way to the desk in return',
       src.includes('[data-walu-music-play]') && grab('deskAmbientBridge').includes('A.toggle'));
 check('nothing autoplays the desk tracks after a reload',
       !src.includes('deskAudioPlay(localStorage'));
+
+console.log('\n-- art visibility: the image rule');
+// The archive's image rule: art that is generated must be visible, or it rots
+// on disk and a reader correctly reports "images we never used".
+const airlift = events.find(e => e.id === 'the_airlift_that_never_came');
+check('the airlift filing owns its seven plates in the data',
+      !!airlift && /anc-01/.test(airlift.image || '') &&
+      (airlift.gallery || []).length === 6,
+      `${(airlift && (airlift.gallery || []).length) || 0} gallery entries`);
+check('record galleries now render on the article page',
+      grab('fieldGalleryPanel').includes('field-gal-grid') &&
+      src.includes('${fieldGalleryPanel(item,typeKey)}'));
+check('the commentary page shows the source filing\'s plates too',
+      grab('view_commentary').includes('fieldGalleryPanel(source,typeKey'));
+check('event-state sprites join the lead art rotator frames',
+      grab('leadFrames').includes('item.eventStates'));
+check('the gallery styles exist', cssSkins.includes('.field-gal-grid{'));
+// The registry's teeth: every art path a character record names must exist on
+// disk, or the lead rotator quietly serves a fallback nobody reports.
+{
+  const chars = JSON.parse(fs.readFileSync(path.join(DATA_DIR, 'characters.json'), 'utf8'));
+  const chList = Array.isArray(chars.characters) ? chars.characters : chars;
+  const missing = [];
+  for (const c of chList) {
+    for (const p of [c.image, c.fullBody,
+      ...(c.imageAlternates || []).map(a => a && a.src),
+      ...(c.eventStates || []).map(s => s && s.image)]) {
+      if (!p || /^https?:|^data:|^#/i.test(p)) continue;   // licensed hotlinks and data URIs are fine
+      if (!fs.existsSync(path.join(ROOT, 'Reputation-Matrix2', p)))
+        missing.push(`${c.id}: ${p}`);
+    }
+  }
+  check('every local character art reference resolves to a file on disk',
+        missing.length === 0, missing.slice(0, 4).join(' | '));
+  const states = chList.filter(c => (c.eventStates || []).length).map(c => c.id);
+  check('the airlift event-state set covers the grove six',
+        ['remi_akamatsu_full_backstory','markop','salam','eager','dan_the_toad','archie_miser']
+          .every(id => states.includes(id)),
+        states.join(','));
+}
 
 
 console.log('\n-- router: no shadowed routes');

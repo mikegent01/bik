@@ -3364,3 +3364,14 @@ html[data-theme="light"][data-sheet][data-sheet] body{
 .desk-np-stop{font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;
   color:#7ce0b8;border-left:1px solid rgba(124,224,184,.35);padding-left:7px}
 @media(max-width:700px){.desk-np{left:10px;bottom:10px}}
+
+/* Field plates: gallery art attached to a filing (events first, previously
+   stored-but-invisible). Wider cells than the race dossier — these plates are
+   wide scenes, not square portraits. */
+.field-gal-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px;margin:6px 0 14px}
+.field-gal-item{display:block;margin:0;border:1px solid var(--border);border-radius:12px;overflow:hidden;background:var(--bg2);text-decoration:none;color:var(--text)}
+.field-gal-item img{width:100%;aspect-ratio:16/10;object-fit:cover;display:block;background:#120a20}
+.field-gal-item span{display:block;padding:7px 9px;font-size:11.5px;line-height:1.35;color:var(--muted)}
+.field-gal-item:hover{border-color:var(--accent)}
+.field-gal-item.broken{display:none}
+.wcut-plates-note{font-size:12.5px;color:var(--muted);margin:0 0 8px}

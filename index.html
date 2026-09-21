@@ -5486,6 +5486,15 @@ function leadFrames(item){
     if(!src) return;
     frames.push({src,caption:(typeof a==='object'&&a.caption)||'',credit:(typeof a==='object'&&a.credit)||''});
   });
+  /* Event-state sprites are the same contract: art the record owns, filed
+     under portraits/player/event-states/, credited to the filing it depicts.
+     They rot unreferenced on disk unless a frame shows them. */
+  (Array.isArray(item.eventStates)?item.eventStates:[]).forEach(s=>{
+    if(!s||!s.image) return;
+    frames.push({src:s.image,
+      caption:(s.label||'Event state')+(s.note?' — '+s.note:''),
+      credit:s.event?('Event state · '+prettyId(s.event)):'Event state'});
+  });
   return frames;
 }
 const LEAD_IMG_FALLBACK="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22300%22%20height%3D%22200%22%20viewBox%3D%220%200%20300%20200%22%3E%3Crect%20width%3D%22300%22%20height%3D%22200%22%20fill%3D%22%232d0f42%22%20rx%3D%228%22%2F%3E%3Ctext%20x%3D%22150%22%20y%3D%22100%22%20font-size%3D%2248%22%20text-anchor%3D%22middle%22%20dominant-baseline%3D%22middle%22%3E%F0%9F%96%BC%EF%B8%8F%3C%2Ftext%3E%3C%2Fsvg%3E";
@@ -6345,6 +6354,25 @@ function raceThumb(i,mode){
     return `<figure class="article-lead-img race-thumb ${small?'tile':''}"><img src="${esc(assetPath(src))}" alt="${esc(displayName(i))}" loading="lazy" onerror="this.onerror=null;this.style.display='none'"></figure>`;
   }
   return autoArt(i,'races',small?'tile':'full');
+}
+/* A record's gallery[] is the art a filing earned. races render theirs inside
+   raceDossierPanel; every other record type stored gallery images that the
+   site never displayed — referenced in JSON, invisible on the page, which a
+   reader correctly reads as "generated and never used". One strip for all of
+   them, mounted with the rest of the account (evidence follows the account). */
+function fieldGalleryPanel(item,typeKey,opts){
+  if(typeKey==='races') return '';
+  const gallery=Array.isArray(item.gallery)?item.gallery:[];
+  if(!gallery.length) return '';
+  const tiles=gallery.map(g=>{
+    const src=g&&(g.src||g.image||''); if(!src) return '';
+    const cap=g.caption||g.alt||displayName(item);
+    return `<a class="field-gal-item" href="${esc(assetPath(src))}" target="_blank" rel="noopener" title="Open the plate full size">
+      <img src="${esc(assetPath(src))}" alt="${esc(cap)}" loading="lazy" onerror="this.closest('a').classList.add('broken')"><span>${esc(cap)}</span></a>`;
+  }).filter(Boolean).join('');
+  if(!tiles) return '';
+  const head=(opts&&opts.bare)?'':`<h2 id="h-fieldgallery">🖼️ Field Plates (${gallery.length})</h2>`;
+  return head+`<div class="field-gal-grid">${tiles}</div>`;
 }
 function raceDossierPanel(item){
   if(!item) return '';
@@ -9245,7 +9273,20 @@ function deskTrackOpen(o,t){
   return typeof t.unlock==='number'&&o.daysComplete>=t.unlock;
 }
 let DESK_AUDIO=null;
-function deskAudioStop(){ if(DESK_AUDIO){try{clearInterval(DESK_AUDIO.timer);DESK_AUDIO.ctx.close();}catch(e){} DESK_AUDIO=null; try{ deskNowPlaying(); }catch(e){} } }
+/* Stops desk music WHICHEVER voice it is using: the ambient engine when it
+   holds a desk cue (only then — the reader's unrelated playlist pick is not
+   desk business), or the legacy fallback synth. */
+function deskAudioStop(){
+  try{ const A=window.WaluipediaAmbient; if(A&&A.playing&&A.currentDeskId&&A.currentDeskId()) A.stop(); }catch(e){}
+  if(DESK_AUDIO){try{clearInterval(DESK_AUDIO.timer);DESK_AUDIO.ctx.close();}catch(e){} DESK_AUDIO=null;}
+  try{ deskNowPlaying(); }catch(e){}
+}
+/* The desk owns the gating rules only. THE INSTRUMENT IS THE AMBIENT
+   PLAYLIST: each desk cue is a full track in waluipedia-ambient.js (DESK_CUES,
+   same ids), so bought/earned music plays through the same engine as the
+   Library of WAH, shows up in the playlist panel, and keeps playing across
+   the whole archive. The little synth below survives only as a fallback for
+   the few seconds before the deferred ambient module lands. */
 function deskAudioPlay(trackId){
   const tr=READING_TRACKS.find(x=>x.id===trackId); if(!tr)return;
   const o=deskLoad();
@@ -9255,12 +9296,23 @@ function deskAudioPlay(trackId){
       :'That track is Exchange stock — '+tr.cost+' tokens.');
     return;
   }
+  const A=window.WaluipediaAmbient;
+  if(A&&A.playDeskTrack){
+    if(A.playing&&A.currentDeskId&&A.currentDeskId()===tr.id){
+      A.stop(); deskFlash('Track stopped.'); deskNowPlaying(); return;
+    }
+    /* Stops the legacy fallback voice; the ambient engine alone plays now. */
+    if(DESK_AUDIO) deskAudioStop();
+    if(A.deskTrackUnlocked&&A.deskTrackUnlocked(tr.id)&&A.playDeskTrack(tr.id)){
+      deskNowPlaying();
+      deskFlash('Playing '+tr.name+' — keeps playing as you browse; the chip, bottom-left, stops it.');
+      return;
+    }
+    deskFlash('That cue is not open here yet — the playlist re-checks the gate.');
+    return;
+  }
   if(DESK_AUDIO&&DESK_AUDIO.id===tr.id){deskAudioStop();deskFlash('Track stopped.');return;}
   deskAudioStop();
-  /* One radio at a time: starting a desk track pauses the ambient playlist.
-     The reverse direction is handled by deskAmbientBridge + a capturing
-     click listener, as far as the ambient module's closure allows. */
-  try{ const A=window.WaluipediaAmbient; if(A&&A.playing) A.stop(); }catch(e){}
   deskAmbientBridge();
   try{
     const ctx=new (window.AudioContext||window.webkitAudioContext)();
@@ -9302,19 +9354,29 @@ function deskAudioPlay(trackId){
    always silent until the reader presses play again. */
 function deskNowPlaying(){
   let chip=document.getElementById('deskNowPlaying');
-  if(!DESK_AUDIO){ if(chip) chip.remove(); return; }
-  const tr=READING_TRACKS.find(t=>t.id===DESK_AUDIO.id);
+  const A=window.WaluipediaAmbient;
+  const id=(A&&A.playing&&A.currentDeskId?A.currentDeskId():null)||(DESK_AUDIO&&DESK_AUDIO.id)||null;
+  if(!id){ if(chip) chip.remove(); return; }
+  const tr=READING_TRACKS.find(t=>t.id===id);
   if(!chip){
     chip=document.createElement('button');
     chip.id='deskNowPlaying';
     chip.className='desk-np';
     chip.title='A reading desk track, playing site-wide. Click to stop.';
-    chip.addEventListener('click',()=>{ const id=DESK_AUDIO&&DESK_AUDIO.id; if(id) deskAudioPlay(id); });
+    chip.addEventListener('click',()=>{
+      const AA=window.WaluipediaAmbient;
+      const cur=(AA&&AA.playing&&AA.currentDeskId?AA.currentDeskId():null)||(DESK_AUDIO&&DESK_AUDIO.id);
+      if(cur) deskAudioPlay(cur);
+    });
     document.body.appendChild(chip);
   }
   chip.innerHTML='<span class="desk-np-eq"><i></i><i></i><i></i></span>'
     +`<span>🎧 ${esc(tr?tr.name:'Desk track')}</span><span class="desk-np-stop">stop</span>`;
 }
+/* The chip mirrors the ambient engine through a window seam — but the window
+   is assigned from boot(), the file's sanctioned place to touch globals, so
+   lifted-out desk code stays harness-safe. Ambient updateUi's only signal
+   before then is its own startup paint, when no desk cue is playing anyway. */
 /* The ambient module closes over its own start(), so outside code can only
    catch its public surface and its DOM. Patch the public toggle (the path
    the settings page uses), and listen, in the capture phase, for clicks on
@@ -9789,7 +9851,7 @@ function view_desk(){
       ${sheetWall}</div>
 
     <div class="card"><h2 style="margin-top:0">🎧 Reading desk tracks</h2>
-      <p class="text-muted">Original procedural ambient cues generated in-browser. They never autoplay — but once started, a track keeps playing across the whole site; the chip, bottom-left, stops it from anywhere. Filed days unlock the first set; the Exchange sells the rest.</p>
+      <p class="text-muted">Original procedural cues composed for the site playlist — every cue is a real track with chords, melody and bass, not a metronome. They never autoplay. Filed days unlock the first set; the Exchange sells the rest. Once started, a cue keeps playing across the whole site: the 🎧 button up top and the chip, bottom-left, both stop it, and unlocked cues also appear in the Waluigi Site Playlist.</p>
       <div class="desk-track-list">${trackRows}</div>
     </div>
 
@@ -15461,6 +15523,7 @@ ${typeKey==='characters'?tokenSheetPanel(item):''}${typeKey==='characters'?dynas
      ${listBlocks.length?`<hr>${listBlocks.join('')}`:''}
      ${item.aftermath?`<h2 id="h-aftermath">Aftermath</h2><div class="prose">${applyAnnotations(mdToHtml(item.aftermath,item.id), item.id)}</div>`:''}
      ${item.waluigiAssessment?`<h2 id="h-assessment">Waluigi's Assessment</h2><div class="wnote wassessment">${applyAnnotations(mdToHtml(item.waluigiAssessment,item.id), item.id)}</div>`:''}
+     ${fieldGalleryPanel(item,typeKey)}
      ${relChips?`<h2 id="h-related">Related Articles</h2><div class="related-list">${relChips}</div>`:''}
      ${typeof rnnCoveragePanel==='function'?rnnCoveragePanel(item.id):''}
      ${wideRecord?recordApparatusBand(item,typeKey):''}
@@ -17187,6 +17250,7 @@ function view_commentary(id){
         <div class="wcut-boundary"><b>What this page is:</b> the whole event, told start to finish, with Waluigi's opinions cut into it throughout. Every fact here also appears in the canonical filing — the jokes are his, the events are not. If you want it delivered flat, <a href="#/article/${encodeURIComponent(c.sourceArticle)}">read the straight version</a>.</div>
         ${c.standfirst?`<div class="wcut-standfirst">${mdToHtml(c.standfirst,c.id)}</div>`:''}
         ${sectionsHtml}
+        ${fieldGalleryPanel(source,typeKey,{bare:true})?`<section class="wcut-plates" aria-labelledby="cut-plates"><h2 id="cut-plates">🖼️ The Filing's Field Plates (${(source.gallery||[]).length})</h2><p class="wcut-plates-note">Put down the track for a minute. The account's own plates are attached to the source filing and they tell it straighter than Waluigi does.</p>${fieldGalleryPanel(source,typeKey,{bare:true})}</section>`:''}
         ${relatedChips?`<section class="wcut-related" aria-labelledby="cut-related"><h2 id="cut-related">Related Records</h2><div class="related-list">${relatedChips}</div></section>`:''}
         <div class="analysis-source-return"><span>The straight account this track is talking over:</span><a class="entity-link" href="#/article/${encodeURIComponent(c.sourceArticle)}">${esc(sourceTitle)}</a></div>
       </div>
@@ -23320,8 +23384,11 @@ async function boot(){
   /* The daily wage pays for showing up. Runs after every desk constant is
      defined and exactly once per load — deskCheckIn itself is once per day. */
   try{ deskCheckIn(); }catch(e){}
-  /* The desk/ambient truce: touching either player stops the other. */
+  /* The desk/ambient truce: touching either player stops the other, and the
+     chip mirrors the ambient engine's state — its updateUi fires on every
+     play/stop/track-change through this hook. */
   try{ deskAmbientGuard(); deskAmbientBridge(); }catch(e){}
+  try{ window.WaluipediaDeskNowPlaying=deskNowPlaying; }catch(e){}
   Router.render();
   /* Warm the wire in the background. It is 65 KB against a 4 MB events.json,
      and having it resident is what lets the events grid show a "on the wire"

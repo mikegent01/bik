@@ -139,6 +139,10 @@ def main() -> int:
         # first-seen/last-seen chronology: clock separation + the 2374 BF flag.
         checks.append(("appearance chronology",
                        ["node", "tools/tests/test-appearance-chronology.mjs"], ROOT))
+        # The one site instrument: the ambient playlist owns ALL music,
+        # Reading Desk cues included, gated by the desk's own keys.
+        checks.append(("ambient playlist",
+                       ["node", "tools/tests/test-waluipedia-ambient.mjs"], ROOT))
         # search relevance needs a static server on 8765; run it manually.
     else:
         print("\n=== Bros discovery test ===\nSKIP: node is not on PATH")

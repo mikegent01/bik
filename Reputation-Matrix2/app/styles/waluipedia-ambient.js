@@ -95,7 +95,88 @@
       chords: [['E2','G2','B2','E3'], ['A2','C3','E3','A3'], ['C3','E3','G3','C4'], ['B2','D3','F3','B3']],
       melody: ['E4','G4','B4','_','E5','D5','B4','G4','A4','_','C5','E5','D5','_','B4','_','C5','E5','G5','_','B5','G5','E5','_','D5','B4','G4','F4','E4','_','_','_'],
       bass: ['E2','_','B2','_','A2','_','E2','_','C3','_','G2','_','B2','_','F2','_'], wave: 'sine' }
+];
+
+  /* The Reading Desk cues, re-composed for this engine. The desk used to own a
+     second, four-note synth that produced a bleat instead of a tune; the cues
+     now live in ONE playlist -- this one -- so the header button, the panel
+     and the desk page all play the same machine. Each entry seeds its melody
+     from the desk motif's four notes so it still sounds like what you earned.
+     `desk` mirrors READING_TRACKS in index.html (ids, unlock days, Exchange
+     cost); the desk remains the authority for the gating -- this module only
+     re-reads the same two localStorage keys. */
+  const DESK_CUES = [
+    { echo: ['A3','C4','E4','C4'], desk: { id: 'desk-quiet-ink', unlock: 0, tag: 'Reading Desk · The desk before the first file.' },
+      name: 'Quiet Ink', tempo: 58, wave: 'sine',
+      chords: [['A2','C3','E3','A3'], ['F2','A3','C3','F3'], ['C3','E3','G3','C4'], ['E2','G2','B2','E3']],
+      melody: ['A3','_','C4','E4','C4','_','A3','G3','A3','_','F3','A3','C4','_','E4','_','E4','_','G4','E4','C4','_','D4','B3','B3','_','G3','B3','A3','_','_','_'],
+      bass: ['A2','_','_','E2','F2','_','A2','_','C3','_','G2','_','E2','_','_','B2'] },
+    { echo: ['D3','F3','A3','G3'], desk: { id: 'desk-grovefire', unlock: 2, tag: 'Reading Desk · two filed days.' },
+      name: 'Grovefire Retreat', tempo: 72, wave: 'sine',
+      chords: [['D3','F3','A3','D4'], ['D3','F3','G3','B3'], ['C3','E3','G3','C4'], ['A2','C3','E3','A3']],
+      melody: ['D4','_','F4','A4','G4','_','E4','D4','D4','_','F4','G4','A4','_','C5','A4','G4','_','E4','C4','D4','_','F4','_','E4','_','C4','A3','D4','_','_','_'],
+      bass: ['D2','_','A2','_','D3','_','G2','_','C3','_','E2','_','A2','_','D2','_'] },
+    { echo: ['G3','B3','D4','F4'], desk: { id: 'desk-planar-glass', unlock: 5, tag: 'Reading Desk · five filed days.' },
+      name: 'Planar Glass', tempo: 64, wave: 'triangle',
+      chords: [['G2','B2','D3','G3'], ['E3','G3','B3','D4'], ['B2','D3','F3','B3'], ['C3','E3','G3','C4']],
+      melody: ['G4','_','B4','D5','B4','_','G4','B4','A4','_','D5','E5','D5','_','B4','_','F5','_','E5','D5','B4','_','G4','E4','D4','_','E4','G4','G5','_','_','_'],
+      bass: ['G2','_','D2','_','E2','_','B2','_','C3','_','G2','_','D2','_','G2','_'] },
+    { echo: ['A2','E3','A3','D3'], desk: { id: 'desk-legion-brass', unlock: 8, tag: 'Reading Desk · eight filed days.' },
+      name: 'Brass on the Docket', tempo: 82, wave: 'sawtooth',
+      chords: [['A2','E3','A3','C4'], ['D3','A3','D4','F4'], ['C3','G3','C4','E4'], ['E3','B3','E4','G4']],
+      melody: ['A3','_','E4','A4','G4','_','E4','D4','D4','_','A3','D4','E4','_','G4','A4','C5','_','A4','G4','E4','_','D4','C4','D4','_','E4','D4','A3','_','_','_'],
+      bass: ['A2','_','A2','_','D3','_','D3','_','C3','_','G2','_','E2','_','A2','_'] },
+    { echo: ['C4','D4','F4','G4'], desk: { id: 'desk-snowfall-wire', cost: 25, tag: 'Reading Desk · Exchange stock.' },
+      name: 'Snowfall on the Wire', tempo: 52, wave: 'sine',
+      chords: [['C3','F3','G3','C4'], ['G2','C3','D3','G3'], ['F2','C3','F3','A3'], ['C3','D3','G3','C4']],
+      melody: ['C5','_','D5','C5','F5','_','G5','D5','C5','_','G4','C5','D5','_','F5','_','E5','_','D5','C5','G4','_','F4','D4','C4','_','F4','G4','C5','_','_','_'],
+      bass: ['C2','_','_','C2','G2','_','_','C2','F2','_','_','C3','C2','_','G2','_'] },
+    { echo: ['C3','E3','G3','A3'], desk: { id: 'desk-ember-hearth', cost: 25, tag: 'Reading Desk · Exchange stock.' },
+      name: 'Ember Hearth', tempo: 66, wave: 'triangle',
+      chords: [['C3','E3','G3','A3'], ['F2','A3','C3','F3'], ['G2','D3','G3','B3'], ['C3','E3','G3','C4']],
+      melody: ['C4','_','E4','G4','A4','_','G4','E4','F4','_','A4','C5','A4','_','G4','F4','E4','_','G4','E4','D4','_','C4','D4','E4','_','D4','G3','C4','_','_','_'],
+      bass: ['C2','_','G2','_','F2','_','C3','_','G2','_','D2','_','C2','_','_','G2'] },
+    { echo: ['G4','B4','D5','B4'], desk: { id: 'desk-regency-minuet', cost: 25, tag: 'Reading Desk · Exchange stock.' },
+      name: 'Regency Minuet', tempo: 96, wave: 'square',
+      chords: [['G2','B3','D3','G3'], ['A2','C3','E3','A3'], ['G2','B2','D3','G3'], ['D2','G2','A2','D3']],
+      melody: ['G4','B4','D5','B4','G4','B4','D5','B4','A4','C5','E5','C5','A4','C5','E5','C5','B4','D5','G5','D5','B4','D5','G5','D5','C5','E5','A5','G5','D5','B4','G4','_'],
+      bass: ['G2','_','D3','_','A2','_','E3','_','G2','_','D3','_','D2','_','G2','_'] },
+    { echo: ['E4','F4','A4','C5'], desk: { id: 'desk-oracle-interval', cost: 40, tag: 'Reading Desk · Exchange stock.' },
+      name: "The Oracle\u2019s Interval", tempo: 46, wave: 'sine',
+      chords: [['E2','F2','A2','E3'], ['A2','C3','E3','A3'], ['D2','E2','B2','D3'], ['C3','E3','A3','C4']],
+      melody: ['E4','_','F4','_','A4','_','C5','_','B4','_','A4','_','F4','_','E4','_','D4','_','E4','_','B4','_','D5','_','C5','_','A4','_','E4','_','_','_'],
+      bass: ['E2','_','_','_','A2','_','_','_','D2','_','_','_','C2','_','_','E2'] },
+    { echo: ['F3','A3','F4','A4'], desk: { id: 'desk-wahwire-static', cost: 40, tag: 'Reading Desk · Exchange stock.' },
+      name: 'WAHwire Static', tempo: 108, wave: 'square',
+      chords: [['F2','A2','C3','F3'], ['D2','F2','A2','D3'], ['C2','E2','G2','C3'], ['F2','A2','C3','F3']],
+      melody: ['F4','A4','C5','A4','F4','A4','F5','E5','D5','C5','A4','F4','D4','F4','A4','_','G4','A4','C5','A4','G4','E4','G4','D4','F4','A4','F4','A4','F4','_','E4','_'],
+      bass: ['F2','F2','_','F2','D2','_','D2','_','C2','_','C2','_','F2','_','F2','_'] }
   ];
+  tracks.push(...DESK_CUES);
+
+  /* Desk gating, re-read from the desk's own two localStorage keys -- nothing
+     here writes to the desk, and buying/filed-days state stays the desk's
+     alone. Locked cues stay visible in the playlist with their price or
+     reading requirement so the reader knows how to open them. */
+  const DESK_STORE = 'waluipedia-reading-desk-v1';
+  const DESK_DEBUG = 'waluipedia-debug-v1';
+  function deskCueState() { try { return JSON.parse(localStorage.getItem(DESK_STORE) || '{}') || {}; } catch (e) { return {}; } }
+  function deskCueDebug() { try { return localStorage.getItem(DESK_DEBUG) === '1'; } catch (e) { return false; } }
+  function deskCueHint(d) {
+    const o = deskCueState();
+    if (deskCueDebug()) return null;
+    if (Array.isArray(o.ownedTracks) && o.ownedTracks.includes(d.id)) return null;
+    if (typeof d.unlock === 'number' && (Number(o.daysComplete) || 0) >= d.unlock) return null;
+    return typeof d.unlock === 'number'
+      ? (d.unlock > 0 ? 'Read more filings — ' + d.unlock + ' filed days' : 'Earn a filed day at the Reading Desk')
+      : 'Exchange stock — ' + d.cost + ' tokens';
+  }
+  function trackLocked(i) { const t = tracks[i]; return !!(t && t.desk && deskCueHint(t.desk)); }
+  function nextOpenIndex(from, dir) {
+    const n = tracks.length;
+    for (let k = 1; k <= n; k++) { const j = ((from + dir * k) % n + n) % n; if (!trackLocked(j)) return j; }
+    return from;
+  }
 
   function ensureAudio() {
     if (!enabled) return null;
@@ -205,11 +286,17 @@
     ui?.classList.toggle('is-playing', playing);
     localStorage.setItem('waluipediaAmbientTrack', String(trackIndex));
     renderPlaylist();
+    /* The Reading Desk's now-playing chip mirrors whatever this engine holds;
+       on the main page it listens through this hook (no-op on shop pages). */
+    try { if (typeof window.WaluipediaDeskNowPlaying === 'function') window.WaluipediaDeskNowPlaying(); } catch (_) {}
   }
 
   function start() {
     enabled = true;
     localStorage.setItem(STORE, 'on');
+    /* Desk state can change since the saved index was written (a save import,
+       a reset). Never start on top of a cue the reader no longer owns. */
+    if (trackLocked(trackIndex)) { trackIndex = nextOpenIndex(trackIndex, 1); step = 0; loopsOnTrack = 0; }
     if (playing) return;
     const ctx = ensureAudio();
     if (!ctx) {
@@ -241,7 +328,10 @@
   function toggle() { playing ? stop() : start(); }
 
   function advanceTrack(auto = false) {
-    trackIndex = (trackIndex + 1) % tracks.length;
+    /* Skips locked Reading Desk cues: desk state can change between plays, so
+       the rotation and the shuffle both consult the gate instead of trusting
+       whatever index was saved last. */
+    trackIndex = nextOpenIndex(trackIndex, 1);
     step = 0;
     loopsOnTrack = 0;
     if (audio) nextTime = audio.currentTime + (auto ? 0.2 : 0.12);
@@ -250,7 +340,10 @@
 
   function randomTrack() {
     let next = trackIndex;
-    while (tracks.length > 1 && next === trackIndex) next = Math.floor(Math.random() * tracks.length);
+    let guard = 0;
+    while (tracks.length > 1 && (next === trackIndex || trackLocked(next)) && guard < 40)
+      { next = Math.floor(Math.random() * tracks.length); guard++; }
+    if (trackLocked(next) || next === trackIndex) next = nextOpenIndex(trackIndex, 1);
     trackIndex = next;
     step = 0;
     loopsOnTrack = 0;
@@ -265,7 +358,11 @@
     // The playlist lives in the separate floating panel, not inside the compact bar.
     const list = document.querySelector('[data-walu-music-list]');
     if (!list) return;
-    list.innerHTML = tracks.map((track, index) => `<button type="button" data-walu-music-track="${index}" class="${index === trackIndex ? 'active' : ''}"><span>🎵</span><b>${track.name}</b><small>${track.tempo} bpm</small></button>`).join('');
+    list.innerHTML = tracks.map((track, index) => {
+      const hint = track.desk ? deskCueHint(track.desk) : null;
+      const sub = hint || `${track.tempo} bpm${track.desk ? ' · Reading Desk' : ''}`;
+      return `<button type="button" data-walu-music-track="${index}" class="${index === trackIndex ? 'active' : ''}${hint ? ' is-locked' : ''}" ${hint ? `title="${hint}"` : `title="${track.desk ? 'Reading Desk cue — ' : ''}${track.name}"`}><span>${hint ? '🔒' : '🎵'}</span><b>${track.name}</b><small>${sub}</small></button>`;
+    }).join('');
   }
 
   function clampWidgetPosition(left, top) {
@@ -353,7 +450,7 @@
    the cog and is closed until asked for. */
 .walu-ambient:not(.tray-open) [data-walu-tray]{display:none}
 .walu-ambient [data-walu-settings]{transition:transform .18s ease}
-.walu-ambient.tray-open [data-walu-settings]{transform:rotate(60deg);color:#ffd94d}.walu-music-panel{position:fixed;z-index:449;width:min(360px,calc(100vw - 20px));max-height:min(430px,calc(100vh - 90px));overflow:auto;border:1px solid rgba(172,112,255,.45);border-radius:18px;background:linear-gradient(180deg,rgba(34,18,48,.98),rgba(9,5,18,.98));box-shadow:0 18px 50px rgba(0,0,0,.55);color:#eadbff;padding:12px;display:none;font:12px system-ui,sans-serif}.walu-music-panel.open{display:block}.walu-music-panel-head{display:flex;justify-content:space-between;gap:8px;align-items:center}.walu-music-panel h3{margin:0 0 4px;font-size:14px}.walu-music-panel-close{border:1px solid rgba(234,219,255,.25);border-radius:50%;width:28px;height:28px;background:rgba(255,255,255,.08);color:#fff;cursor:pointer}.walu-music-panel p{margin:0 0 10px;opacity:.7;font-size:12px;line-height:1.35}.walu-music-list{display:grid;gap:7px}.walu-music-list button{width:100%;display:grid;grid-template-columns:24px 1fr auto;gap:8px;align-items:center;text-align:left;border:1px solid rgba(234,219,255,.16);border-radius:12px;background:rgba(255,255,255,.06);color:#f4e7ff;padding:8px;cursor:pointer}.walu-music-list button:hover,.walu-music-list button.active{border-color:#f8c14a;background:rgba(248,193,74,.13)}.walu-music-list small{opacity:.55}.walu-music-volume{width:100%;accent-color:#a855f7}@media(max-width:700px){.walu-ambient{right:10px;bottom:10px}.walu-ambient-title{max-width:105px}.walu-ambient [data-walu-music-shuffle]{display:none}}`;
+.walu-ambient.tray-open [data-walu-settings]{transform:rotate(60deg);color:#ffd94d}.walu-music-panel{position:fixed;z-index:449;width:min(360px,calc(100vw - 20px));max-height:min(430px,calc(100vh - 90px));overflow:auto;border:1px solid rgba(172,112,255,.45);border-radius:18px;background:linear-gradient(180deg,rgba(34,18,48,.98),rgba(9,5,18,.98));box-shadow:0 18px 50px rgba(0,0,0,.55);color:#eadbff;padding:12px;display:none;font:12px system-ui,sans-serif}.walu-music-panel.open{display:block}.walu-music-panel-head{display:flex;justify-content:space-between;gap:8px;align-items:center}.walu-music-panel h3{margin:0 0 4px;font-size:14px}.walu-music-panel-close{border:1px solid rgba(234,219,255,.25);border-radius:50%;width:28px;height:28px;background:rgba(255,255,255,.08);color:#fff;cursor:pointer}.walu-music-panel p{margin:0 0 10px;opacity:.7;font-size:12px;line-height:1.35}.walu-music-list{display:grid;gap:7px}.walu-music-list button{width:100%;display:grid;grid-template-columns:24px 1fr auto;gap:8px;align-items:center;text-align:left;border:1px solid rgba(234,219,255,.16);border-radius:12px;background:rgba(255,255,255,.06);color:#f4e7ff;padding:8px;cursor:pointer}.walu-music-list button:hover,.walu-music-list button.active{border-color:#f8c14a;background:rgba(248,193,74,.13)}.walu-music-list button.is-locked{opacity:.55;cursor:not-allowed}.walu-music-list button.is-locked:hover{border-color:rgba(234,219,255,.16);background:rgba(255,255,255,.06)}.walu-music-list small{opacity:.55}.walu-music-volume{width:100%;accent-color:#a855f7}@media(max-width:700px){.walu-ambient{right:10px;bottom:10px}.walu-ambient-title{max-width:105px}.walu-ambient [data-walu-music-shuffle]{display:none}}`;
     document.head.appendChild(style);
     const mobileStyle = document.createElement('style');
     mobileStyle.setAttribute('data-walu-mobile-style', 'true');
@@ -408,7 +505,7 @@
     panel = document.createElement('div');
     panel.className = 'walu-music-panel';
     panel.setAttribute('data-walu-music-panel', 'true');
-    panel.innerHTML = `<div class="walu-music-panel-head"><h3>🎼 Waluigi Site Playlist</h3><button type="button" class="walu-music-panel-close" data-walu-music-panel-close aria-label="Close music library">×</button></div><p>Includes dedicated Warizon checkout, Training Wing, and garlic-cart loops. Drag or collapse the control bar so it never covers the interface.</p><p><b>📱 Easy mobile mode:</b> use the phone button on the control bar for larger tap targets, single-column pages, readable tables, and phone-sized dialogs across the shop and Waluipedia.</p><button type="button" data-walu-music-dismiss style="width:100%;margin:0 0 10px;padding:8px;border:1px solid rgba(234,219,255,.22);border-radius:10px;background:rgba(255,255,255,.06);color:#eadbff;cursor:pointer">🙈 Hide floating music widget</button><div class="walu-music-list" data-walu-music-list></div><p style="margin-top:10px">Volume</p><input class="walu-music-volume" data-walu-music-volume type="range" min="0" max="1" step="0.01" value="${volume}">`;
+    panel.innerHTML = `<div class="walu-music-panel-head"><h3>🎼 Waluigi Site Playlist</h3><button type="button" class="walu-music-panel-close" data-walu-music-panel-close aria-label="Close music library">×</button></div><p>Includes the Warizon checkout, Training Wing, and garlic-cart loops, plus the Reading Desk cues won by filed days and Exchange tokens — locked rows say exactly how to open them.</p><p><b>📱 Easy mobile mode:</b> use the phone button on the control bar for larger tap targets, single-column pages, readable tables, and phone-sized dialogs across the shop and Waluipedia.</p><button type="button" data-walu-music-dismiss style="width:100%;margin:0 0 10px;padding:8px;border:1px solid rgba(234,219,255,.22);border-radius:10px;background:rgba(255,255,255,.06);color:#eadbff;cursor:pointer">🙈 Hide floating music widget</button><div class="walu-music-list" data-walu-music-list></div><p style="margin-top:10px">Volume</p><input class="walu-music-volume" data-walu-music-volume type="range" min="0" max="1" step="0.01" value="${volume}">`;
     document.body.appendChild(panel);
     restoreButton = document.createElement('button');
     restoreButton.type = 'button';
@@ -449,7 +546,11 @@
     else if (target.matches('[data-walu-music-collapse]')) setCollapsed(!collapsed);
     else if (target.matches('[data-walu-music-dismiss]')) hideWidget();
     else if (target.matches('[data-walu-music-restore]')) showWidget();
-    else if (target.matches('[data-walu-music-track]')) { trackIndex = Number(target.dataset.waluMusicTrack) || 0; step = 0; loopsOnTrack = 0; if (audio) nextTime = audio.currentTime + 0.12; updateUi(); if (!playing) start(); else confirmation('next'); }
+    else if (target.matches('[data-walu-music-track]')) {
+      const pick = Number(target.dataset.waluMusicTrack) || 0;
+      if (trackLocked(pick)) { updateUi(); return; }  // locked desk cue: the row's title says how to earn it
+      trackIndex = pick; step = 0; loopsOnTrack = 0; if (audio) nextTime = audio.currentTime + 0.12; updateUi(); if (!playing) start(); else confirmation('next');
+    }
     /* The header 🎧 button is now the only playback control on the page, so it
        just toggles. showWidget() used to un-hide the floating pill, which no
        longer exists. */
@@ -526,6 +627,27 @@
     toggleMobileMode() { applyMobileMode(!mobileMode); },
     hideWidget, showWidget,
     test() { confirmation('start'); },
+    /* Reading Desk bridge: the desk page owns the gating rules; this module
+       owns the only instrument. playDeskTrack re-checks the gate itself, so
+       callers can never sneak a locked cue in. */
+    playDeskTrack(deskId) {
+      const i = tracks.findIndex(t => t.desk && t.desk.id === deskId);
+      if (i < 0 || trackLocked(i)) return false;
+      trackIndex = i; step = 0; loopsOnTrack = 0;
+      start(); updateUi();
+      return true;
+    },
+    deskTrackUnlocked(deskId) {
+      const i = tracks.findIndex(t => t.desk && t.desk.id === deskId);
+      return i >= 0 && !trackLocked(i);
+    },
+    deskTrackHint(deskId) {
+      const t = tracks.find(t => t.desk && t.desk.id === deskId);
+      return t ? deskCueHint(t.desk) : 'Unknown desk cue';
+    },
+    currentDeskId() { const t = tracks[trackIndex % tracks.length]; return t && t.desk ? t.desk.id : null; },
+    listTracks() { return tracks.map(t => ({ name: t.name, tempo: t.tempo, desk: t.desk ? t.desk.id : null })); },
+    get index() { return trackIndex; },
     get mobileMode() { return mobileMode; },
     get playing() { return playing; },
     get track() { return currentTrack().name; }

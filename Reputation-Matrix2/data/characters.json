@@ -1715,6 +1715,7 @@
       "the_scorncrow_skirmish"
     ],
     "image": "portraits/remi_akamatsu_full_backstory.jpg",
+    "imageCaption": "Lead plate — established look: red hair, sunflower, teal-blue dress, musket and bedroll pack. The blue dress is canon.",
     "fullBody": "portraits/player/fullbody/remi_akamatsu_full_backstory.png",
     "imageAlternates": [
       {
@@ -1863,6 +1864,7 @@
       "the_scorncrow_skirmish"
     ],
     "image": "portraits/markop.jpg",
+    "imageCaption": "Lead plate — Markop, the horse-headed centaur. The head is his own; the record is emphatic.",
     "fullBody": "portraits/player/fullbody/markop.png",
     "imageAlternates": [
       {
@@ -2169,7 +2171,16 @@
         "note": "There are too many Dans. The Glitch venerates data corruption and reality errors, and this Dan is one — a dimensional duplicate who admitted shoving the original into a Mages' Guild null cage to stop the question being asked out loud. He does not worship the Glitch. He is evidence for it."
       }
     ],
-    "image": "portraits/dan.png"
+    "image": "portraits/dan.png",
+    "imageCaption": "Lead plate — Feyward Dan, paladin; the scowl is permanent.",
+    "eventStates": [
+      {
+        "event": "the_airlift_that_never_came",
+        "image": "portraits/player/event-states/dan-grove-vanguard.png",
+        "label": "Skittering Grove — barrier first, then the javelin",
+        "note": "Event-state sprite: Dan pointed one finger at Markop first, sent a barrier across the length of the grove, and only then threw; the javelin brought the spider down and got Markop out."
+      }
+    ]
   },
   {
     "id": "eager",
@@ -2244,7 +2255,16 @@
       "restorationPath": "Charges functionally spent. The file stays open only so the precedent is recorded.",
       "portrait": "🐸🗡️"
     },
-    "image": "portraits/eager.png"
+    "image": "portraits/eager.png",
+    "imageCaption": "Lead plate — Eager, catastrophe scout, photographed between catastrophes.",
+    "eventStates": [
+      {
+        "event": "the_airlift_that_never_came",
+        "image": "portraits/player/event-states/eager-grove-concussed.png",
+        "label": "Skittering Grove — concussed and intermittently articulate",
+        "note": "Event-state sprite: Eager was unconscious for most of the Legion dispute, woke enough to ask them to drop their friend, then swung at a spider and struck the guard carrying Salam."
+      }
+    ]
   },
   {
     "id": "smoking_j",
@@ -2727,7 +2747,8 @@
       "green_t",
       "disaster_inc"
     ],
-    "image": "portraits/merric.jpg"
+    "image": "portraits/merric.jpg",
+    "imageCaption": "Lead plate — Merric as the Shadow Estate produced him: wool, confidence, and the axe. The sheep has always been a sheep."
   },
   {
     "id": "tanukiburt",
@@ -2826,6 +2847,7 @@
       "the_box_guardian_sharpie_disguise_and_the_soot_barrel"
     ],
     "image": "portraits/salam_grove_fallen.png",
+    "imageCaption": "Lead plate — Salam, post-grove: the scar stays. The earlier face is in the rotator.",
     "imageAlternates": [
       {
         "src": "portraits/alternates/salam-pre-grove.png",
@@ -2952,7 +2974,16 @@
     "title": "The Indebted Pyromaniac Who Bleeds Entropy",
     "race": "Human",
     "image": "portraits/archie.jpg",
+    "imageCaption": "Lead plate — Archie Miser. The spellbook is mostly crossings-out by now.",
     "fullBody": "portraits/player/fullbody/archie_miser.png",
+    "eventStates": [
+      {
+        "event": "the_airlift_that_never_came",
+        "image": "portraits/player/event-states/archie-grove-spent.png",
+        "label": "Skittering Grove — the last big spell, spent on shrubbery",
+        "note": "Event-state sprite: Archie's final high-level fireball went into a bush, with everyone still surrounded before it and still standing after it."
+      }
+    ],
     "status": "Active — emptied every reserve of magic into one fire cast inside the Scorncrow's tree, eyes turned to fire, and sealed the only exit doing it; descended into the Skittering Grove on Markop's rope",
     "affiliation": "Disaster Inc. / Mages' Guild (coerced employee, effective immediately, no severance package)",
     "backstory": {
