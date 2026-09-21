@@ -3209,3 +3209,19 @@ html.is-debug .desk-band{position:relative}
   background:linear-gradient(135deg,rgba(80,52,8,.55),rgba(30,18,48,.85));
 }
 .release-banner.is-release .rb-tag{background:linear-gradient(135deg,#ffd76a,#f8a51b);color:#1a0f2e}
+
+/* Reading-desk atmosphere skins: generated low-contrast plates sit behind the
+   palette without making text unreadable. */
+html[data-skin="inkarchive"] body{background-image:linear-gradient(rgba(8,6,18,.72),rgba(8,6,18,.72)),url('/Reputation-Matrix2/assets/images/skins/ink_archive.jpg');background-size:cover;background-attachment:fixed}
+html[data-skin="grovefire"] body{background-image:linear-gradient(rgba(15,8,6,.72),rgba(15,8,6,.72)),url('/Reputation-Matrix2/assets/images/skins/webbed_grove.jpg');background-size:cover;background-attachment:fixed}
+html[data-skin="planarglass"] body{background-image:linear-gradient(rgba(5,8,18,.72),rgba(5,8,18,.72)),url('/Reputation-Matrix2/assets/images/skins/planar_glass.jpg');background-size:cover;background-attachment:fixed}
+html[data-skin="legionbrass"] body{background-image:linear-gradient(rgba(8,8,8,.75),rgba(8,8,8,.75)),url('/Reputation-Matrix2/assets/images/skins/legion_brass.jpg');background-size:cover;background-attachment:fixed}
+[data-skin-preview="inkarchive"]{background:linear-gradient(135deg,#24204f,#9a71d0)}
+[data-skin-preview="grovefire"]{background:linear-gradient(135deg,#4a2117,#e27a3f)}
+[data-skin-preview="planarglass"]{background:linear-gradient(135deg,#152e59,#62c6db)}
+[data-skin-preview="legionbrass"]{background:linear-gradient(135deg,#252525,#b38a3d)}
+.desk-track-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}.desk-audio-track{display:flex;flex-direction:column;gap:3px;text-align:left;padding:12px;border:1px solid var(--border);border-radius:10px;background:var(--panel2);color:var(--text);cursor:pointer}.desk-audio-track span{font-size:12px;color:var(--muted)}.desk-audio-track.is-locked{opacity:.55;cursor:not-allowed}
+html[data-skin="inkarchive"]{--bg:#09071a;--bg2:#15102c;--panel:#1a1536;--panel2:#241c48;--border:#4d3b78;--text:#f0ebff;--muted:#aa9ac8;--accent:#9a71d0;--accent2:#e0b400;--link:#c8b4ff}
+html[data-skin="grovefire"]{--bg:#160907;--bg2:#29120d;--panel:#321810;--panel2:#452217;--border:#713322;--text:#fff0e7;--muted:#d0a18d;--accent:#e27a3f;--accent2:#f2c05c;--link:#ffc097}
+html[data-skin="planarglass"]{--bg:#050812;--bg2:#0c1830;--panel:#102243;--panel2:#172e52;--border:#315681;--text:#e8f7ff;--muted:#93b7d0;--accent:#62c6db;--accent2:#9182ed;--link:#9de8f2}
+html[data-skin="legionbrass"]{--bg:#090909;--bg2:#171612;--panel:#211e17;--panel2:#2d291f;--border:#5c4b2a;--text:#f1ead6;--muted:#b7aa8d;--accent:#b38a3d;--accent2:#d85d4d;--link:#e0c47c}

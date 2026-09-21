@@ -9215,9 +9215,31 @@ const SKINS=[
   {id:'ember',    name:'Koopa Ember',      rarity:4, tag:'For readers who punch the floor first.'},
   {id:'shadowfell',name:'Shadowfell Drift',rarity:4, tag:'The clock here is wrong and nobody minds.'},
   {id:'wahwire',  name:'WAHwire Neon',     rarity:5, tag:'The wire is back. It is very loud about it.'},
-  {id:'oracle',   name:'Oracle Monochrome',rarity:5, tag:'Answers in grey. Withholds the rest.'}
+  {id:'oracle',   name:'Oracle Monochrome',rarity:5, tag:'Answers in grey. Withholds the rest.'},
+  {id:'inkarchive', name:'Ink Archive', rarity:3, tag:'Quiet paper, violet dust, one more folder.'},
+  {id:'grovefire', name:'Grovefire', rarity:4, tag:'Webs, embers, and the route out.'},
+  {id:'planarglass', name:'Planar Glass', rarity:4, tag:'The fracture is a window until it is not.'},
+  {id:'legionbrass', name:'Legion Brass', rarity:5, tag:'Orders stamped in charcoal and brass.'}
 ];
 const SKIN_BY_ID=Object.fromEntries(SKINS.map(s=>[s.id,s]));
+const READING_TRACKS=[
+  {id:'desk-quiet-ink',name:'Quiet Ink',unlock:0,tempo:58,notes:[220,277,330,277],tag:'The desk before the first file.'},
+  {id:'desk-grovefire',name:'Grovefire Retreat',unlock:2,tempo:72,notes:[146,174,220,196],tag:'Unlocked after two filed days.'},
+  {id:'desk-planar-glass',name:'Planar Glass',unlock:5,tempo:64,notes:[196,247,294,370],tag:'Unlocked after five filed days.'},
+  {id:'desk-legion-brass',name:'Brass on the Docket',unlock:8,tempo:82,notes:[110,165,220,147],tag:'Unlocked after eight filed days.'}
+];
+let DESK_AUDIO=null;
+function deskAudioStop(){ if(DESK_AUDIO){try{clearInterval(DESK_AUDIO.timer);DESK_AUDIO.ctx.close();}catch(e){} DESK_AUDIO=null;} }
+function deskAudioPlay(trackId){
+  const tr=READING_TRACKS.find(x=>x.id===trackId); if(!tr)return;
+  const o=deskLoad(); if(o.daysComplete<tr.unlock&&!debugOn()){deskFlash('Read more filings to unlock this track.');return;}
+  if(DESK_AUDIO&&DESK_AUDIO.id===tr.id){deskAudioStop();deskFlash('Track stopped.');return;}
+  deskAudioStop();
+  try{const ctx=new (window.AudioContext||window.webkitAudioContext)();let i=0;
+    const tick=()=>{const osc=ctx.createOscillator(),gain=ctx.createGain();osc.type='sine';osc.frequency.value=tr.notes[i++%tr.notes.length];gain.gain.setValueAtTime(.0001,ctx.currentTime);gain.gain.exponentialRampToValueAtTime(.035,ctx.currentTime+.03);gain.gain.exponentialRampToValueAtTime(.0001,ctx.currentTime+1.6);osc.connect(gain).connect(ctx.destination);osc.start();osc.stop(ctx.currentTime+1.65);};
+    tick(); const timer=setInterval(tick,Math.max(700,60000/tr.tempo)); DESK_AUDIO={id:tr.id,ctx,timer}; deskFlash('Playing '+tr.name+' — click again to stop.');
+  }catch(e){deskFlash('Audio is unavailable in this browser.');}
+}
 const SKIN_KEY='waluipedia-skin';
 /* Pity, because a pull system with no floor is just a slot machine. Every 10th
    pull is guaranteed 4-star or better; a 5-star resets the hard counter. */
@@ -9463,6 +9485,11 @@ function view_desk(){
 
     <div class="card"><h2 style="margin-top:0">🎨 Skins <span class="text-muted" style="font-size:12px;font-weight:400">— click one you hold to wear it</span></h2>
       <div class="skin-grid">${shelf}</div></div>
+
+    <div class="card"><h2 style="margin-top:0">🎧 Reading deck tracks</h2>
+      <p class="text-muted">Original procedural ambient cues generated in-browser. They never autoplay; unlock them by filing reading days.</p>
+      <div class="desk-track-list">${READING_TRACKS.map(t=>{const open=o.daysComplete>=t.unlock||debugOn();return `<button class="desk-audio-track ${open?'':'is-locked'}" ${open?`onclick="deskAudioPlay('${t.id}')"`:''}><b>${open?'▶':'🔒'} ${esc(t.name)}</b><span>${esc(open?t.tag:'Unlock at '+t.unlock+' filed days')}</span></button>`}).join('')}</div>
+    </div>
 
     <div class="card"><h2 style="margin-top:0">Today's reading</h2><ul class="desk-today">${todayRows}</ul></div>
 
