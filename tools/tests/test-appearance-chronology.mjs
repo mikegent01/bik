@@ -505,6 +505,8 @@ for (const id of arted.slice(0, desk.DESK_DAILY_TARGET)) st = desk.readingDeskRe
 check('reading the daily target completes the day', st.daysComplete === 1, JSON.stringify(st.daysComplete));
 check('completing a day starts a streak', st.streak === 1);
 check('completing a day keeps plates from what was read', st.plates.length > 0);
+check('a filed day pays a key and a token strike', st.keys === 1 && st.tokens === 3,
+      `keys ${st.keys} tokens ${st.tokens}`);
 
 const beforeTotal = st.totalRead;
 st = desk.readingDeskRecord(arted[0]);
@@ -587,6 +589,168 @@ check('the save code merges rather than overwrites',
       grab('deskImport').includes('Math.max') && grab('deskImport').includes('new Set'));
 check('the desk still writes nothing to canon',
       !grab('deskPull').includes('DATA.') && !grab('deskImport').includes('DATA.'));
+
+console.log('\n-- the check-in, the Exchange & field sheets');
+// The desk's second economy: presence pays a token wage, tokens buy outright
+// what keys gamble for, and field sheets are a third cosmetic shelf. Same
+// reader-local rules as everything else on the desk, so same test style: the
+// real functions lifted out of index.html, run against a fake localStorage.
+// `const SKINS=[` .. `function skinRarityRoll(` now spans the whole economy
+// block — tracks, sheets, applySheet, DESK_WEEK and deskCheckIn all live
+// between those two markers.
+const econCode = [
+  src.slice(src.indexOf('const DESK_KEY='), src.indexOf('function deskToday(')),
+  src.slice(src.indexOf('const SKINS=['), src.indexOf('function skinRarityRoll(')),
+  src.slice(src.indexOf('let DESK_SHOP_CAT='), src.indexOf('function deskPrice(')),
+  'deskToday','deskLoad','deskSave','deskYesterday','deskPrice','deskOwned','deskBuy','deskEquipSheet'
+].map((n, i) => i < 3 ? n : grab(n)).join('\n');
+const fakeDoc = {
+  createElement: () => ({ classList: { add(){} }, remove(){}, style:{}, set innerHTML(v){}, get innerHTML(){ return ''; } }),
+  body: { appendChild(){} },
+  documentElement: { setAttribute(){}, removeAttribute(){} }
+};
+const econMk = (store, dbg) => new Function(
+  'localStorage','INDEX','displayName','deskToast','deskFlash','document','debugOn','location','assetPath','esc','setTimeout',
+  econCode + ';return {DESK_WEEK,READING_TRACKS,SHEETS,SHEET_BY_ID,SHOP_PRICES,deskLoad,deskCheckIn,deskTrackOpen,deskPrice,deskOwned,deskBuy,deskEquipSheet};'
+)(store, deskIndex, o => o && (o.name || o.id), () => {}, () => {}, fakeDoc, dbg,
+   { hash: '#/none' }, p => p, s => String(s), () => 0);
+
+let econStore = {};
+const econLS = { getItem: k => econStore[k] ?? null,
+                 setItem: (k,v) => { econStore[k] = String(v); },
+                 removeItem: k => { delete econStore[k]; } };
+const econ = econMk(econLS, () => false);
+
+check('the wage strip is a seven-day week', econ.DESK_WEEK.length === 7);
+check('every day of the week pays something',
+      econ.DESK_WEEK.every(d => (d.tokens || 0) > 0 || (d.keys || 0) > 0));
+
+let wage = econ.deskCheckIn();
+check('first check-in pays day one and starts the chain',
+      wage.chain === 1 && wage.tokens === econ.DESK_WEEK[0].tokens &&
+      wage.keys === econ.DESK_WEEK[0].keys,
+      `chain ${wage.chain} tokens ${wage.tokens} keys ${wage.keys}`);
+const wageAgain = econ.deskCheckIn();
+check('the wage is paid at most once a day',
+      wageAgain.chain === 1 && wageAgain.tokens === wage.tokens);
+
+// Walk the full week by hand: each simulated morning writes claimDate as
+// yesterday, so the chain should climb to 7 and the purse to the weekly sum.
+const setClaim = (chain, claimDate) => {
+  const o = JSON.parse(econStore['waluipedia-reading-desk-v1']);
+  o.chain = chain; o.claimDate = claimDate;
+  econStore['waluipedia-reading-desk-v1'] = JSON.stringify(o);
+};
+const weekly = { tokens: 0, keys: 0 };
+let weekOk = true;
+for (let d = 2; d <= 7; d++) {
+  setClaim(d - 1, ymd(y));                      // yesterday: the chain continues
+  const w = econ.deskCheckIn();
+  if (w.chain !== d) { weekOk = false; break; }
+  weekly.tokens += econ.DESK_WEEK[d - 1].tokens || 0;
+  weekly.keys += econ.DESK_WEEK[d - 1].keys || 0;
+}
+weekly.tokens += econ.DESK_WEEK[0].tokens || 0;
+weekly.keys += econ.DESK_WEEK[0].keys || 0;
+check('consecutive days climb the whole week', weekOk);
+check('a full week of check-ins pays the declared strip',
+      (() => { const o = JSON.parse(econStore['waluipedia-reading-desk-v1']);
+               return o.tokens === weekly.tokens && o.keys === weekly.keys; })(),
+      JSON.stringify(weekly));
+setClaim(7, ymd(y));
+check('day eight wraps back to the top of the strip',
+      econ.deskCheckIn().chain === 8);
+setClaim(9, '2000-01-01');                      // a gap breaks the chain
+check('a missed day starts the check-in chain over',
+      econ.deskCheckIn().chain === 1);
+check('debug mode pauses the check-in entirely', (() => {
+  const s = {}; const l = { getItem: k => s[k] ?? null, setItem: (k,v) => { s[k] = String(v); }, removeItem: k => { delete s[k]; } };
+  const dbgEcon = econMk(l, () => true);
+  return dbgEcon.deskCheckIn() === null && s['waluipedia-reading-desk-v1'] === undefined;
+})());
+
+// The Exchange: prices are fixed by rarity, buys are exact, and refusing a
+// purchase cannot move the purse — minting currency by misclicking is a bug.
+econStore['waluipedia-reading-desk-v1'] = JSON.stringify({ tokens: 100 });
+econ.deskBuy('sheet', 'vellum');
+check('buying a sheet charges its rarity price and hangs it', (() => {
+  const o = JSON.parse(econStore['waluipedia-reading-desk-v1']);
+  return o.tokens === 100 - econ.SHOP_PRICES.sheet[3] &&
+         o.ownedSheets.includes('vellum') &&
+         econStore['waluipedia-field-sheet'] === 'vellum';
+})());
+econ.deskBuy('sheet', 'vellum');
+check('the collection is never sold twice', (() => {
+  const o = JSON.parse(econStore['waluipedia-reading-desk-v1']);
+  return o.tokens === 100 - econ.SHOP_PRICES.sheet[3] &&
+         o.ownedSheets.filter(x => x === 'vellum').length === 1;
+})());
+econ.deskBuy('sheet', 'oilslick');              // rarity 5, 140 tokens, held 75
+check('a short purse buys nothing', (() => {
+  const o = JSON.parse(econStore['waluipedia-reading-desk-v1']);
+  return o.tokens === 100 - econ.SHOP_PRICES.sheet[3] && !o.ownedSheets.includes('oilslick');
+})());
+econ.deskBuy('track', 'desk-ember-hearth');
+check('buying a track unlocks it for the player', (() => {
+  const o = JSON.parse(econStore['waluipedia-reading-desk-v1']);
+  return o.ownedTracks.includes('desk-ember-hearth') &&
+         econ.deskTrackOpen(o, econ.READING_TRACKS.find(t => t.id === 'desk-ember-hearth'));
+})());
+check('a day-unlock track is open from the first filed days', (() => {
+  const o = econ.deskLoad();
+  return econ.deskTrackOpen(o, econ.READING_TRACKS.find(t => t.id === 'desk-quiet-ink'));
+})());
+check('every shelf item carries a real price',
+      econ.SHEETS.every(s => econ.deskPrice('sheet', s) > 0) &&
+      econ.SHEETS.every(s => s.rarity >= 3 && s.rarity <= 5));
+
+check('the sheet catalogue is twenty-seven backgrounds', econ.SHEETS.length === 27,
+      String(econ.SHEETS.length));
+const missingSheetArt = econ.SHEETS.filter(s =>
+  !fs.existsSync(path.join(ROOT, 'Reputation-Matrix2', s.file)));
+check('every field sheet has art on disk', missingSheetArt.length === 0,
+      missingSheetArt.map(s => s.id).join(', '));
+const missingSheetCss = econ.SHEETS.filter(s =>
+  !cssSkins.includes(`html[data-sheet="${s.id}"] body{--field-sheet-image`));
+check('every field sheet has a CSS background behind it', missingSheetCss.length === 0,
+      missingSheetCss.map(s => s.id).join(', '));
+check('the sheet layer covers and fixes to any viewport',
+      cssSkins.includes('html[data-sheet][data-sheet] body') &&
+      cssSkins.includes('background-size:cover;background-attachment:fixed'));
+check('the sheet layer inverts its veil in light mode',
+      cssSkins.includes('html[data-theme="light"][data-sheet][data-sheet] body'));
+check('sheets do not clobber the dark/light mode either',
+      grab('applySheet').includes("setAttribute('data-sheet',id)") &&
+      !grab('applySheet').includes("setAttribute('data-theme'"));
+check('a saved sheet is re-applied on load',
+      src.includes("applySheet(localStorage.getItem(SHEET_KEY)"));
+check('equipping a sheet requires owning it', (() => {
+  econStore['waluipedia-field-sheet'] = '';
+  econ.deskEquipSheet('vellum');            // owned by the buys above
+  const hung = econStore['waluipedia-field-sheet'] === 'vellum';
+  econ.deskEquipSheet('oracle-marble');     // not owned
+  return hung && econStore['waluipedia-field-sheet'] === 'vellum';
+})());
+
+check('the track shelf grew past day-unlocks', econ.READING_TRACKS.length >= 9,
+      String(econ.READING_TRACKS.length));
+check('every track is paid for exactly one way',
+      econ.READING_TRACKS.every(t =>
+        (typeof t.unlock === 'number') !== (typeof t.cost === 'number') &&
+        Array.isArray(t.notes) && t.notes.length > 0));
+
+check('the save code carries the whole purse',
+      grab('deskExport').includes('tokens:o.tokens') &&
+      grab('deskExport').includes('ownedSheets:o.ownedSheets') &&
+      grab('deskExport').includes('ownedTracks:o.ownedTracks'));
+check('import merges the purse rather than overwriting it',
+      grab('deskImport').includes('o.tokens=Math.max') &&
+      grab('deskImport').includes('ownedSheets'));
+check('the wage is paid when the site loads', src.includes('try{ deskCheckIn(); }catch(e){}'));
+check('the home band shows the purse', grab('readingDeskBanner').includes('🪙'));
+check('the new money paths still write nothing to canon',
+      !grab('deskCheckIn').includes('DATA.') && !grab('deskBuy').includes('DATA.') &&
+      !grab('deskEquipSheet').includes('DATA.'));
 
 console.log('\n-- router: no shadowed routes');
 // #/desk was already an alias for view_hub, so a later `route==='desk'` branch

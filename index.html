@@ -9222,23 +9222,166 @@ const SKINS=[
   {id:'legionbrass', name:'Legion Brass', rarity:5, tag:'Orders stamped in charcoal and brass.'}
 ];
 const SKIN_BY_ID=Object.fromEntries(SKINS.map(s=>[s.id,s]));
+/* The track shelf mixes two earning routes on purpose: `unlock` tracks are
+   free at N filed days (reading pays), `cost` tracks are Exchange stock
+   (tokens pay). Both are original procedural cues generated in-browser;
+   neither ever autoplays. */
 const READING_TRACKS=[
-  {id:'desk-quiet-ink',name:'Quiet Ink',unlock:0,tempo:58,notes:[220,277,330,277],tag:'The desk before the first file.'},
-  {id:'desk-grovefire',name:'Grovefire Retreat',unlock:2,tempo:72,notes:[146,174,220,196],tag:'Unlocked after two filed days.'},
-  {id:'desk-planar-glass',name:'Planar Glass',unlock:5,tempo:64,notes:[196,247,294,370],tag:'Unlocked after five filed days.'},
-  {id:'desk-legion-brass',name:'Brass on the Docket',unlock:8,tempo:82,notes:[110,165,220,147],tag:'Unlocked after eight filed days.'}
+  {id:'desk-quiet-ink',name:'Quiet Ink',unlock:0,tempo:58,notes:[220,277,330,277],wave:'sine',tag:'The desk before the first file.'},
+  {id:'desk-grovefire',name:'Grovefire Retreat',unlock:2,tempo:72,notes:[146,174,220,196],wave:'sine',tag:'Unlocked after two filed days.'},
+  {id:'desk-planar-glass',name:'Planar Glass',unlock:5,tempo:64,notes:[196,247,294,370],wave:'triangle',tag:'Unlocked after five filed days.'},
+  {id:'desk-legion-brass',name:'Brass on the Docket',unlock:8,tempo:82,notes:[110,165,220,147],wave:'sawtooth',tag:'Unlocked after eight filed days.'},
+  {id:'desk-snowfall-wire',name:'Snowfall on the Wire',cost:25,tempo:52,notes:[262,311,370,415],wave:'sine',tag:'Cold change dropping on a live line.'},
+  {id:'desk-ember-hearth',name:'Ember Hearth',cost:25,tempo:66,notes:[131,165,196,220],wave:'triangle',tag:'For readers who sit nearer the fire than advised.'},
+  {id:'desk-regency-minuet',name:'Regency Minuet',cost:25,tempo:96,notes:[392,494,587,494],wave:'square',tag:'Gilt, again. Still probably rented.'},
+  {id:'desk-oracle-interval',name:'The Oracle\u2019s Interval',cost:40,tempo:46,notes:[330,349,440,523],wave:'sine',tag:'Answers in whole tones. Withholds the rest.'},
+  {id:'desk-wahwire-static',name:'WAHwire Static',cost:40,tempo:108,notes:[175,233,349,466],wave:'square',tag:'The wire is back. It brought its own tempo.'}
 ];
+/* A track is open if it was bought, or earned by filed days (free unlocks
+   only). Debug mode opens everything, as with the skins. */
+function deskTrackOpen(o,t){
+  if(debugOn()) return true;
+  if(o.ownedTracks.includes(t.id)) return true;
+  return typeof t.unlock==='number'&&o.daysComplete>=t.unlock;
+}
 let DESK_AUDIO=null;
 function deskAudioStop(){ if(DESK_AUDIO){try{clearInterval(DESK_AUDIO.timer);DESK_AUDIO.ctx.close();}catch(e){} DESK_AUDIO=null;} }
 function deskAudioPlay(trackId){
   const tr=READING_TRACKS.find(x=>x.id===trackId); if(!tr)return;
-  const o=deskLoad(); if(o.daysComplete<tr.unlock&&!debugOn()){deskFlash('Read more filings to unlock this track.');return;}
+  const o=deskLoad();
+  if(!deskTrackOpen(o,tr)){
+    deskFlash(typeof tr.unlock==='number'
+      ?'Read more filings to unlock this track.'
+      :'That track is Exchange stock — '+tr.cost+' tokens.');
+    return;
+  }
   if(DESK_AUDIO&&DESK_AUDIO.id===tr.id){deskAudioStop();deskFlash('Track stopped.');return;}
   deskAudioStop();
-  try{const ctx=new (window.AudioContext||window.webkitAudioContext)();let i=0;
-    const tick=()=>{const osc=ctx.createOscillator(),gain=ctx.createGain();osc.type='sine';osc.frequency.value=tr.notes[i++%tr.notes.length];gain.gain.setValueAtTime(.0001,ctx.currentTime);gain.gain.exponentialRampToValueAtTime(.035,ctx.currentTime+.03);gain.gain.exponentialRampToValueAtTime(.0001,ctx.currentTime+1.6);osc.connect(gain).connect(ctx.destination);osc.start();osc.stop(ctx.currentTime+1.65);};
-    tick(); const timer=setInterval(tick,Math.max(700,60000/tr.tempo)); DESK_AUDIO={id:tr.id,ctx,timer}; deskFlash('Playing '+tr.name+' — click again to stop.');
+  try{
+    const ctx=new (window.AudioContext||window.webkitAudioContext)();
+    const master=ctx.createGain(); master.gain.value=.9; master.connect(ctx.destination);
+    let i=0;
+    const tick=()=>{
+      const f=tr.notes[i%tr.notes.length];
+      /* The voice: a soft strike per step, decaying inside the beat. */
+      const osc=ctx.createOscillator(),gain=ctx.createGain();
+      osc.type=tr.wave||'sine'; osc.frequency.value=f;
+      gain.gain.setValueAtTime(.0001,ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(.032,ctx.currentTime+.03);
+      gain.gain.exponentialRampToValueAtTime(.0001,ctx.currentTime+1.6);
+      osc.connect(gain).connect(master); osc.start(); osc.stop(ctx.currentTime+1.65);
+      /* A pad a fifth below every fourth step, so the cue breathes like a
+         progression instead of ticking like a metronome. */
+      if(i%4===0){
+        const p=ctx.createOscillator(),pg=ctx.createGain();
+        p.type='triangle'; p.frequency.value=f/1.5;
+        pg.gain.setValueAtTime(.0001,ctx.currentTime);
+        pg.gain.exponentialRampToValueAtTime(.012,ctx.currentTime+.4);
+        pg.gain.exponentialRampToValueAtTime(.0001,ctx.currentTime+2.8);
+        p.connect(pg).connect(master); p.start(); p.stop(ctx.currentTime+2.85);
+      }
+      i++;
+    };
+    tick(); const timer=setInterval(tick,Math.max(320,60000/tr.tempo));
+    DESK_AUDIO={id:tr.id,ctx,timer};
+    deskFlash('Playing '+tr.name+' — click again to stop.');
   }catch(e){deskFlash('Audio is unavailable in this browser.');}
+}
+
+/* ===== Field sheets — the desk's third shelf ============================
+   Full-bleed site backgrounds, drawn as nine-up 3x3 contact sheets (one per
+   rarity) and sliced by tools/slice-field-sheet.py. 9x9 was the first idea
+   on the table and the repo's own finding rules it out: at ~1024px a 9x9
+   cell is 113px and coherence collapses (see slice-banner-sheet.py), so the
+   desk ships 3x3 sheets — nine backgrounds per generation — served cover +
+   fixed so each one scales to any viewport.
+
+   A sheet layers on `data-sheet`, exactly the way a skin layers on
+   `data-skin`: the skin keeps repainting the variables, the sheet sits
+   underneath it, and neither touches `data-theme`. */
+const SHEETS=[
+  {id:'vellum',         name:'Reading Vellum',   rarity:3, file:'assets/images/field-sheets/vellum.jpg',         tag:'The page before anything is written on it.'},
+  {id:'ledger-stock',   name:'Ledger Stock',     rarity:3, file:'assets/images/field-sheets/ledger-stock.jpg',   tag:'Ruled, squared, and faintly judgemental.'},
+  {id:'blueprint',      name:'Archivist\u2019s Blueprint', rarity:3, file:'assets/images/field-sheets/blueprint.jpg', tag:'Someone planned this. Check the margins.'},
+  {id:'linen',          name:'Old Linen',        rarity:3, file:'assets/images/field-sheets/linen.jpg',          tag:'Pressed flat and stored under something heavy.'},
+  {id:'blotpaper',      name:'Blotting Paper',   rarity:3, file:'assets/images/field-sheets/blotpaper.jpg',      tag:'Every signature that ever mattered, absorbed.'},
+  {id:'sepia-map',      name:'Sepia Survey',     rarity:3, file:'assets/images/field-sheets/sepia-map.jpg',      tag:'A chart of everywhere and nowhere in particular.'},
+  {id:'slate-dust',     name:'Chalk Slate',      rarity:3, file:'assets/images/field-sheets/slate-dust.jpg',     tag:'The lesson was wiped. The dust remembers.'},
+  {id:'dustjacket',     name:'Violet Dust Jacket',rarity:3, file:'assets/images/field-sheets/dustjacket.jpg',    tag:'The book came off. The colour stayed.'},
+  {id:'parchment',      name:'Speckled Parchment',rarity:3, file:'assets/images/field-sheets/parchment.jpg',     tag:'Standard issue. Resists revocation.'},
+  {id:'snowdin-dusk',   name:'Snowdin Dusk',     rarity:4, file:'assets/images/field-sheets/snowdin-dusk.jpg',   tag:'Cold blue. Smells faintly of laundry.'},
+  {id:'feyward-floor',  name:'Feyward Floor',    rarity:4, file:'assets/images/field-sheets/feyward-floor.jpg',  tag:'Green, overgrown, and quietly counting years.'},
+  {id:'koopa-ember',    name:'Ember Ash',        rarity:4, file:'assets/images/field-sheets/koopa-ember.jpg',    tag:'For readers who punch the floor first.'},
+  {id:'shadowfell-moor',name:'Moor Mist',        rarity:4, file:'assets/images/field-sheets/shadowfell-moor.jpg',tag:'The clock here is wrong and nobody minds.'},
+  {id:'grove-webbing',  name:'Webbed Grove',     rarity:4, file:'assets/images/field-sheets/grove-webbing.jpg',  tag:'Webs, embers, and the route out.'},
+  {id:'planar-fracture',name:'Planar Fracture',  rarity:4, file:'assets/images/field-sheets/planar-fracture.jpg',tag:'The fracture is a window until it is not.'},
+  {id:'regency-damask', name:'Regency Damask',   rarity:4, file:'assets/images/field-sheets/regency-damask.jpg', tag:'Gilt, and the suspicion that it is rented.'},
+  {id:'legion-rivet',   name:'Legion Rivet',     rarity:4, file:'assets/images/field-sheets/legion-rivet.jpg',   tag:'Orders stamped in charcoal and brass.'},
+  {id:'wahwire-haze',   name:'Neon Haze',        rarity:4, file:'assets/images/field-sheets/wahwire-haze.jpg',   tag:'The wire is back. It is very loud about it.'},
+  {id:'oracle-marble',  name:'Oracle Marble',    rarity:5, file:'assets/images/field-sheets/oracle-marble.jpg',  tag:'Answers in grey. One violet exception.'},
+  {id:'wahwire-frame',  name:'WAHwire Frame',    rarity:5, file:'assets/images/field-sheets/wahwire-frame.jpg',  tag:'Property of the wire. All of it.'},
+  {id:'brass-deco',     name:'Legion Deco',      rarity:5, file:'assets/images/field-sheets/brass-deco.jpg',     tag:'Parade-ground formal.'},
+  {id:'starfall-teal',  name:'Teal Aurora',      rarity:5, file:'assets/images/field-sheets/starfall-teal.jpg',  tag:'Filed under: weather the archive cannot explain.'},
+  {id:'oilslick',       name:'Far Realm Sheen',  rarity:5, file:'assets/images/field-sheets/oilslick.jpg',       tag:'Do not file. Do not touch. Do not read aloud.'},
+  {id:'filigree-char',  name:'Gilded Char',      rarity:5, file:'assets/images/field-sheets/filigree-char.jpg',  tag:'The invoice alone would break the ledger.'},
+  {id:'violet-rain',    name:'Violet Rain',      rarity:5, file:'assets/images/field-sheets/violet-rain.jpg',    tag:'It rains upward there. Politely.'},
+  {id:'obsidian-scale', name:'Obsidian Scale',   rarity:5, file:'assets/images/field-sheets/obsidian-scale.jpg', tag:'Something shed this. It was large.'},
+  {id:'tracery-moon',   name:'Moon Tracery',     rarity:5, file:'assets/images/field-sheets/tracery-moon.jpg',   tag:'The window of a cathedral that is missing.'}
+];
+const SHEET_BY_ID=Object.fromEntries(SHEETS.map(s=>[s.id,s]));
+const SHEET_KEY='waluipedia-field-sheet';
+function applySheet(id){
+  const html=document.documentElement;
+  if(!id||!SHEET_BY_ID[id]){
+    html.removeAttribute('data-sheet');
+    try{ localStorage.setItem(SHEET_KEY,''); }catch(e){}
+    return '';
+  }
+  html.setAttribute('data-sheet',id);
+  try{ localStorage.setItem(SHEET_KEY,id); }catch(e){}
+  return id;
+}
+
+/* ===== The daily check-in — earn for showing up ==========================
+   Reading pays keys; presence pays the wage. A seven-day strip that
+   escalates and then loops, chained on consecutive local days exactly like
+   the streak, reset by a gap exactly like the streak. Granted once a day at
+   boot — if you came in, you earned it. Paused under debug mode for the
+   same reason the rota is: the switch takes the whole economy out of the
+   way, so a working session cannot mint a week's wages by accident. */
+const DESK_WEEK=[
+  {tokens:5, keys:0, note:'a walker\u2019s wage'},
+  {tokens:0, keys:1, note:'a key, for the drawer'},
+  {tokens:10,keys:0, note:'double wages'},
+  {tokens:5, keys:1, note:'wages and a key'},
+  {tokens:15,keys:0, note:'triple wages'},
+  {tokens:0, keys:2, note:'two keys, no questions'},
+  {tokens:20,keys:1, note:'the weekly bounty'}
+];
+function deskCheckIn(){
+  if(debugOn()) return null;
+  const o=deskLoad(), today=deskToday();
+  if(o.claimDate===today) return o;                  /* already paid today */
+  o.chain=(o.claimDate===deskYesterday())?o.chain+1:1;
+  o.claimDate=today;
+  const day=DESK_WEEK[(o.chain-1)%DESK_WEEK.length];
+  o.tokens+=Number(day.tokens)||0;
+  o.keys+=Number(day.keys)||0;
+  deskSave(o);
+  try{ deskCheckInToast(o,day); }catch(e){}
+  return o;
+}
+function deskCheckInToast(o,day){
+  const parts=[];
+  if(day.tokens) parts.push('+'+day.tokens+' 🪙 tokens');
+  if(day.keys) parts.push('+'+day.keys+' 🔑 key'+(day.keys===1?'':'s'));
+  const n=document.createElement('div');
+  n.className='desk-toast';
+  n.innerHTML=`<b>🪙 Day ${o.chain} at the desk</b><span>${esc(parts.join(' · ')||'—')} — ${esc(day.note||'')}</span>`
+    +`<a onclick="Router.go('#/reading-desk')">open the desk →</a>`;
+  document.body.appendChild(n);
+  setTimeout(()=>{ n.classList.add('go'); },40);
+  setTimeout(()=>{ n.remove(); },7000);
 }
 const SKIN_KEY='waluipedia-skin';
 /* Pity, because a pull system with no floor is just a slot machine. Every 10th
@@ -9273,6 +9416,7 @@ function applySkin(id){
   return skin;
 }
 try{ applySkin(localStorage.getItem(SKIN_KEY)||'default'); }catch(e){}
+try{ applySheet(localStorage.getItem(SHEET_KEY)||''); }catch(e){}
 
 /* ===== DEBUG MODE =====
    A switch in Settings that takes the daily system out of the way so the
@@ -9287,9 +9431,11 @@ function setDebug(on){
   document.documentElement.classList.toggle('is-debug',!!on);
   if(on){
     /* Unlock everything rather than granting keys: the point is to see the
-       skins, not to play the game faster. */
+       collection, not to play the game faster. */
     const o=deskLoad();
     o.owned=[...new Set([...o.owned,...SKINS.map(x=>x.id)])];
+    o.ownedSheets=[...new Set([...o.ownedSheets,...SHEETS.map(x=>x.id)])];
+    o.ownedTracks=[...new Set([...o.ownedTracks,...READING_TRACKS.map(x=>x.id)])];
     deskSave(o);
   }
   return !!on;
@@ -9298,7 +9444,7 @@ function toggleDebug(){
   const next=!debugOn();
   setDebug(next);
   if(typeof deskFlash==='function')
-    deskFlash(next?'Debug mode ON — all skins unlocked, daily rota paused.':'Debug mode off. The rota is running again.');
+    deskFlash(next?'Debug mode ON — the desk collection is unlocked, the rota and check-in are paused.':'Debug mode off. The rota and check-in are running again.');
   if(location.hash.includes('/settings')) view_settings();
   else if(location.hash.includes('/reading-desk')) view_desk();
   return next;
@@ -9332,6 +9478,13 @@ function deskLoad(){
   if(!o.owned.includes('default')) o.owned.unshift('default');
   o.pity=Number(o.pity)||0;
   o.pulls=Number(o.pulls)||0;
+  /* The check-in chain and the token purse. Tokens are desk-local money for
+     the Exchange; like keys they are a reader's record, never canon. */
+  o.tokens=Number(o.tokens)||0;
+  o.chain=Number(o.chain)||0;
+  o.claimDate=o.claimDate||'';
+  o.ownedTracks=Array.isArray(o.ownedTracks)?o.ownedTracks:[];
+  o.ownedSheets=Array.isArray(o.ownedSheets)?o.ownedSheets:[];
   return o;
 }
 function deskSave(o){ try{ localStorage.setItem(DESK_KEY,JSON.stringify(o)); }catch(e){} }
@@ -9377,10 +9530,12 @@ function readingDeskRecord(id){
       if(pl){ o.plates.unshift(pl); have.add(rid); }
     });
     o.plates=o.plates.slice(0,DESK_MAX_PLATES);
-    /* The day's pay. One key for the day, plus a milestone key every seventh
-       consecutive day so a streak is worth keeping rather than just counting. */
+    /* The day's pay. One key and a token strike for the day, plus a milestone
+       bonus every seventh consecutive day so a streak is worth keeping rather
+       than just counting. */
     o.keys+=1;
-    if(o.streak%7===0) o.keys+=2;
+    o.tokens+=3;
+    if(o.streak%7===0){ o.keys+=2; o.tokens+=6; }
   }
   deskSave(o);
   if(justHit) try{ deskToast(o); }catch(e){}
@@ -9389,7 +9544,7 @@ function readingDeskRecord(id){
 function deskToast(o){
   const n=document.createElement('div');
   n.className='desk-toast';
-  n.innerHTML=`<b>📖 Day's reading filed</b><span>${DESK_DAILY_TARGET} filings read · `
+  n.innerHTML=`<b>📖 Day's reading filed</b><span>${DESK_DAILY_TARGET} filings read · +1 🔑 +3 🪙 · `
     +`${o.streak} day${o.streak===1?'':'s'} running</span>`
     +`<a onclick="Router.go('#/reading-desk')">open the desk →</a>`;
   document.body.appendChild(n);
@@ -9408,7 +9563,7 @@ function readingDeskBanner(){
       onclick="Router.go('#/article/${esc(p.id)}')" onerror="this.remove()">`).join('');
   return `<div class="desk-band${complete?' is-done':''}" onclick="Router.go('#/reading-desk')">
     <div class="desk-band-main">
-      <div class="desk-band-label">📖 The reading desk${o.streak?` · ${o.streak} day${o.streak===1?'':'s'} running`:''}</div>
+      <div class="desk-band-label">📖 The reading desk${o.streak?` · ${o.streak} day${o.streak===1?'':'s'} running`:''} · ${o.keys} 🔑 · ${o.tokens} 🪙</div>
       <div class="desk-band-title">${complete?`Today's reading is filed. ${o.plates.length} plate${o.plates.length===1?'':'s'} in the gallery.`:`Read ${DESK_DAILY_TARGET-done} more filing${DESK_DAILY_TARGET-done===1?'':'s'} to file today's reading.`}</div>
       <div class="desk-track"><div class="desk-fill" style="width:${pct}%"></div></div>
     </div>
@@ -9423,6 +9578,21 @@ function view_desk(){
   const complete=done>=DESK_DAILY_TARGET;
   const pct=Math.round(done/DESK_DAILY_TARGET*100);
   const active=(()=>{try{return localStorage.getItem(SKIN_KEY)||'default';}catch(e){return 'default';}})();
+  const activeSheet=(()=>{try{return localStorage.getItem(SHEET_KEY)||'';}catch(e){return '';}})();
+  const dbg=debugOn();
+
+  /* ---- the seven-day wage strip ---- */
+  const claimedToday=o.claimDate===deskToday();
+  const chainPos=(o.chain||0)>0?(o.chain-1)%DESK_WEEK.length:0;
+  const hotI=claimedToday?chainPos:(o.chain%DESK_WEEK.length);
+  const dayCells=DESK_WEEK.map((d,i)=>{
+    const pay=(d.tokens?`+${d.tokens} 🪙`:'')+(d.tokens&&d.keys?' · ':'')+(d.keys?`+${d.keys} 🔑`:'');
+    const cls=claimedToday&&i<hotI?'is-done'
+             :i===hotI?(claimedToday?'is-today':'is-next'):'';
+    const lab=i===hotI?(claimedToday?'today':'next'):`day ${i+1}`;
+    return `<div class="day-cell ${cls}" title="${esc(d.note||'')}">
+      <span class="day-n">${lab}</span><span class="day-pay">${pay}</span></div>`;
+  }).join('');
 
   const todayRows=o.readToday.map(id=>{
     const rec=INDEX[id]?INDEX[id].item:null;
@@ -9438,10 +9608,65 @@ function view_desk(){
       <div class="skin-meta">
         <div class="skin-rarity">${'★'.repeat(sk.rarity)}</div>
         <div class="skin-name">${esc(sk.name)}</div>
-        <div class="skin-tag">${owned?esc(sk.tag):'Locked — pull to unlock'}</div>
+        <div class="skin-tag">${owned?esc(sk.tag):'Locked — pull, or buy in the Exchange'}</div>
       </div>
       ${on?'<div class="skin-on">Equipped</div>':''}
     </div>`;
+  }).join('');
+
+  /* ---- the Exchange: tokens buy what keys cannot ---- */
+  const shopCard=(kind,item)=>{
+    const owned=deskOwned(o,kind,item.id);
+    const price=deskPrice(kind,item);
+    const rar=item.rarity||((item.cost||0)>=40?4:3);
+    const preview=kind==='skin'
+      ?`<div class="shop-preview" data-skin-preview="${esc(item.id)}"></div>`
+      :kind==='sheet'
+        ?`<img class="shop-preview is-img" src="${esc(assetPath(item.file))}" alt="" loading="lazy" onerror="this.remove()">`
+        :`<div class="shop-preview is-track">🎧</div>`;
+    const foot=owned
+      ?`<span class="shop-owned">In your collection ✓</span>`
+      :`<button class="pull-btn shop-buy${o.tokens<price&&!dbg?' cant':''}"
+          onclick="deskBuy('${kind}','${esc(item.id)}')">Buy<span>🪙 ${price}</span></button>`;
+    return `<div class="skin-card shop-card r${rar}${owned?' is-held':''}">
+      ${preview}
+      <div class="skin-meta">
+        <div class="skin-rarity">${'★'.repeat(rar)}</div>
+        <div class="skin-name">${esc(item.name)}</div>
+        <div class="skin-tag">${esc(item.tag)}</div>
+        <div class="shop-foot">${foot}</div>
+      </div>
+    </div>`;
+  };
+  const shopCats=[['all','All'],['skin','🎨 Skins'],['sheet','🖼️ Field sheets'],['track','🎧 Tracks']];
+  const shopChips=shopCats.map(([k,l])=>
+    `<span class="chip${DESK_SHOP_CAT===k?' is-on':''}" onclick="deskShopFilter('${k}')">${l}</span>`).join('');
+  const stock=[...SKINS.filter(s=>!s.free).map(s=>['skin',s]),
+               ...SHEETS.map(s=>['sheet',s]),
+               ...READING_TRACKS.filter(t=>t.cost).map(t=>['track',t])];
+  const shopCards=stock.filter(([k])=>DESK_SHOP_CAT==='all'||DESK_SHOP_CAT===k)
+                       .map(([k,it])=>shopCard(k,it)).join('');
+
+  /* ---- the collection: sheets hung and tracks held ---- */
+  const mySheets=SHEETS.filter(s=>o.ownedSheets.includes(s.id));
+  const sheetWall=mySheets.length
+    ?`<div class="sheet-wall">${mySheets.map(sh=>{
+        const on=activeSheet===sh.id;
+        return `<figure class="sheet-tile r${sh.rarity}${on?' is-on':''}" onclick="deskEquipSheet('${on?'':esc(sh.id)}')">
+          <img src="${esc(assetPath(sh.file))}" alt="" loading="lazy" onerror="this.closest('figure').remove()">
+          <figcaption><b>${esc(sh.name)}</b><span>${on?'On the wall — click to take down':'Click to hang it'}</span></figcaption>
+        </figure>`;}).join('')}</div>`
+    :'<p class="text-muted">No field sheets yet. The Exchange sells them for tokens — three contact sheets of nine make twenty-seven in all. A sheet is the background of the whole site, and it sits under any skin.</p>';
+
+  const trackRows=READING_TRACKS.map(t=>{
+    const open=deskTrackOpen(o,t);
+    const playing=DESK_AUDIO&&DESK_AUDIO.id===t.id;
+    const gate=open?esc(t.tag)
+      :(typeof t.unlock==='number'?'Unlock at '+t.unlock+' filed days':`Exchange — 🪙 ${t.cost} · click to buy`);
+    const act=open?`onclick="deskAudioPlay('${t.id}')"`
+      :(typeof t.unlock==='number'?'':`onclick="deskBuy('track','${t.id}')"`);
+    return `<button class="desk-audio-track ${open?'':'is-locked'}" ${act}>
+      <b>${open?(playing?'⏸':'▶'):'🔒'} ${esc(t.name)}</b><span>${gate}</span></button>`;
   }).join('');
 
   const gallery=o.plates.length?o.plates.map(p=>
@@ -9450,7 +9675,8 @@ function view_desk(){
       <figcaption><b>${esc(p.title)}</b><span>${esc(p.caption)}</span></figcaption>
     </figure>`).join(''):'<p class="text-muted">No plates yet. Finish a day\'s reading and the art from what you read is kept here.</p>';
 
-  const ownedN=o.owned.length, totalN=SKINS.length;
+  const held=o.owned.length+o.ownedSheets.length+o.ownedTracks.length;
+  const totalCos=SKINS.length+SHEETS.length+READING_TRACKS.filter(t=>t.cost).length;
   const toPity=Math.max(0,PULL_PITY-1-o.pity);
 
   el('content').innerHTML=`
@@ -9459,23 +9685,35 @@ function view_desk(){
     <div class="card animate-fade-in gacha-hero">
       <div class="gacha-hero-main">
         <div class="gacha-kicker">📖 The Reading Desk</div>
-        <h1 class="gacha-title">Read the archive. Keep the keys.</h1>
-        <p class="gacha-sub">Read <b>${DESK_DAILY_TARGET} filings</b> in a day to file the day. Every filed day pays <b>1 key</b>, and every seventh consecutive day pays <b>2 more</b>. Keys unlock skins — palettes that repaint the whole site.</p>
+        <h1 class="gacha-title">Read the archive. Keep the change.</h1>
+        <p class="gacha-sub">Read <b>${DESK_DAILY_TARGET} filings</b> in a day to file the day: it pays <b>1 🔑 + 3 🪙</b>, and every seventh consecutive day pays <b>2 more keys and 6 more tokens</b>. Just coming in pays a daily wage too — the strip below. Keys pull skins at odds; tokens buy skins, tracks and field sheets outright in the Exchange.</p>
         <div class="gacha-track"><div class="gacha-fill" style="width:${pct}%"></div></div>
         <div class="gacha-progress">${done}/${DESK_DAILY_TARGET} read today${complete?' · day filed':''}</div>
       </div>
       <div class="gacha-currency">
         <div class="cur-tile"><span class="cur-n">${o.keys}</span><span class="cur-l">🔑 Keys</span></div>
+        <div class="cur-tile"><span class="cur-n">${o.tokens}</span><span class="cur-l">🪙 Tokens</span></div>
         <div class="cur-tile"><span class="cur-n">${o.streak}</span><span class="cur-l">Day streak</span></div>
-        <div class="cur-tile"><span class="cur-n">${ownedN}/${totalN}</span><span class="cur-l">Skins held</span></div>
-        <div class="cur-tile"><span class="cur-n">${o.plates.length}</span><span class="cur-l">Plates kept</span></div>
+        <div class="cur-tile"><span class="cur-n">${held}/${totalCos}</span><span class="cur-l">Collection</span></div>
       </div>
+    </div>
+
+    <div class="card checkin-card">
+      <div class="checkin-main">
+        <h2 style="margin-top:0">🪙 The daily check-in</h2>
+        <p class="text-muted">The desk pays for showing up: one wage a day, escalating across the week, then round again. A missed day starts the chain over — the same rule the streak lives by.${dbg?' <b>Paused while debug mode is on.</b>':''}</p>
+        <div class="checkin-state">${claimedToday
+          ?`Day ${o.chain} paid${o.chain>1?` — ${o.chain} days in a row`:''}. The next wage lands tomorrow.`
+          :(dbg?'Debug mode is on: no wage is paid and the chain does not move.'
+               :'The wage pays on your first visit of the day.')}</div>
+      </div>
+      <div class="daily-strip">${dayCells}</div>
     </div>
 
     <div class="card gacha-banner">
       <div class="gacha-banner-copy">
         <h2>🔑 Spend keys</h2>
-        <p class="text-muted">A pull returns a skin. Duplicates refund their key, so a pull is never worth nothing. Guaranteed ★4 or better every ${PULL_PITY} pulls — <b>${toPity}</b> away.</p>
+        <p class="text-muted">A pull returns a skin. Duplicates refund their key, so a pull is never worth nothing. Guaranteed ★4 or better every ${PULL_PITY} pulls — <b>${toPity}</b> away. Rather not gamble? The Exchange below takes tokens outright.</p>
       </div>
       <div class="gacha-banner-actions">
         <button class="pull-btn" ${o.keys<1?'disabled':''} onclick="deskPull(1)">Pull ×1<span>1 key</span></button>
@@ -9483,12 +9721,22 @@ function view_desk(){
       </div>
     </div>
 
-    <div class="card"><h2 style="margin-top:0">🎨 Skins <span class="text-muted" style="font-size:12px;font-weight:400">— click one you hold to wear it</span></h2>
+    <div class="card" id="deskExchange">
+      <h2 style="margin-top:0">🪙 The Exchange <span class="text-muted" style="font-size:12px;font-weight:400">— a price, not a probability</span></h2>
+      <p class="text-muted">Everything here has a tag and no odds. Buying a skin wears it, buying a sheet hangs it, buying a track puts it on the list.${o.tokens<1?' You have no tokens yet — the check-in above and filed reading days both pay them.':''}</p>
+      <div class="chips shop-chips">${shopChips}</div>
+      <div class="skin-grid shop-grid">${shopCards||'<p class="text-muted">Nothing on this shelf.</p>'}</div>
+    </div>
+
+    <div class="card"><h2 style="margin-top:0">🎨 Skins <span class="text-muted" style="font-size:12px;font-weight:400">— ${o.owned.length} of ${SKINS.length} · click one you hold to wear it</span></h2>
       <div class="skin-grid">${shelf}</div></div>
 
-    <div class="card"><h2 style="margin-top:0">🎧 Reading deck tracks</h2>
-      <p class="text-muted">Original procedural ambient cues generated in-browser. They never autoplay; unlock them by filing reading days.</p>
-      <div class="desk-track-list">${READING_TRACKS.map(t=>{const open=o.daysComplete>=t.unlock||debugOn();return `<button class="desk-audio-track ${open?'':'is-locked'}" ${open?`onclick="deskAudioPlay('${t.id}')"`:''}><b>${open?'▶':'🔒'} ${esc(t.name)}</b><span>${esc(open?t.tag:'Unlock at '+t.unlock+' filed days')}</span></button>`}).join('')}</div>
+    <div class="card"><h2 style="margin-top:0">🖼️ Field sheets <span class="text-muted" style="font-size:12px;font-weight:400">— ${o.ownedSheets.length} of ${SHEETS.length} · layered under the skin, never against it</span></h2>
+      ${sheetWall}</div>
+
+    <div class="card"><h2 style="margin-top:0">🎧 Reading desk tracks</h2>
+      <p class="text-muted">Original procedural ambient cues generated in-browser. They never autoplay. Filed days unlock the first set; the Exchange sells the rest.</p>
+      <div class="desk-track-list">${trackRows}</div>
     </div>
 
     <div class="card"><h2 style="margin-top:0">Today's reading</h2><ul class="desk-today">${todayRows}</ul></div>
@@ -9498,7 +9746,7 @@ function view_desk(){
 
     <div class="card">
       <h2 style="margin-top:0">🔄 Move progress between sites</h2>
-      <p class="text-muted">A browser cannot share storage between <code>localhost</code> and the published site — they are different origins, and no cookie crosses that line. So progress travels as a code you carry. <b>Importing merges; it never overwrites.</b></p>
+      <p class="text-muted">A browser cannot share storage between <code>localhost</code> and the published site — they are different origins, and no cookie crosses that line. So progress travels as a code you carry; tokens, the check-in chain and Exchange unlocks ride along with the rest. <b>Importing merges; it never overwrites.</b></p>
       <textarea id="deskCodeBox" class="desk-code" rows="3" placeholder="Your save code appears here — or paste one in and press Import."></textarea>
       <div class="chips mt-10">
         <span class="chip" onclick="deskExport()">📤 Copy save code</span>
@@ -9508,6 +9756,60 @@ function view_desk(){
       <p class="text-muted mt-10" style="font-size:12px">Kept in this browser only. Nothing here is canon, nothing is written to the filings, and no XP is awarded — XP comes from the ledger. Debug: <code>waluipediaDesk.unlockAll()</code> in the console.</p>
     </div>`;
   window.scrollTo(0,0);
+}
+/* ---- The Exchange: tokens are the deterministic half of the desk ---------
+   Keys stay luck-only. Prices are one-line tables so the shop retunes
+   without touching logic. The test suite lifts this whole block out from the
+   DESK_SHOP_CAT declaration through to the deskPrice function — keep the
+   declaration first if this section moves. */
+let DESK_SHOP_CAT='all';
+function deskShopFilter(cat){
+  DESK_SHOP_CAT=cat;
+  if(location.hash.includes('/reading-desk')) view_desk();
+}
+const SHOP_PRICES={skin:{3:30,4:75,5:160},sheet:{3:25,4:60,5:140}};
+function deskPrice(kind,item){
+  if(kind==='track') return Number(item.cost)||0;
+  return (SHOP_PRICES[kind]&&SHOP_PRICES[kind][item.rarity])||0;
+}
+function deskOwned(o,kind,id){
+  if(kind==='skin') return o.owned.includes(id);
+  if(kind==='track') return o.ownedTracks.includes(id);
+  return o.ownedSheets.includes(id);
+}
+function deskBuy(kind,id){
+  const o=deskLoad();
+  if(deskOwned(o,kind,id)){ deskFlash('Already in your collection.'); return; }
+  const item= kind==='skin'?SKIN_BY_ID[id]
+            : kind==='sheet'?SHEET_BY_ID[id]
+            : READING_TRACKS.find(t=>t.id===id);
+  if(!item){ deskFlash('That item is not on the shelf.'); return; }
+  const price=deskPrice(kind,item);
+  if(!debugOn()&&o.tokens<price){
+    deskFlash('Not enough tokens — '+(price-o.tokens)+' short. The check-in and the daily filing both pay.');
+    return;
+  }
+  /* Debug stock is free — the same rule the pull drawer lives by, and for
+     the same reason: the debug purse must not mint currency. */
+  if(!debugOn()) o.tokens-=price;
+  if(kind==='skin') o.owned.push(id);
+  else if(kind==='track') o.ownedTracks.push(id);
+  else o.ownedSheets.push(id);
+  deskSave(o);
+  let msg=(debugOn()?'Debug stock collected: ':'Bought for '+price+' tokens: ')+item.name;
+  if(kind==='skin'){ applySkin(id); msg+=' — worn.'; }
+  else if(kind==='sheet'){ applySheet(id); msg+=' — hung.'; }
+  else msg+=' — on the track list.';
+  deskFlash(msg);
+  if(location.hash.includes('/reading-desk')) view_desk();
+}
+function deskEquipSheet(id){
+  const o=deskLoad();
+  if(id&&!o.ownedSheets.includes(id)&&!debugOn()){ deskFlash('That sheet is still in the Exchange.'); return; }
+  applySheet(id);
+  deskFlash(id?('Hung: '+(SHEET_BY_ID[id]?SHEET_BY_ID[id].name:id)+'.')
+             :'Sheet taken down. The skin underneath shows again.');
+  if(location.hash.includes('/reading-desk')) view_desk();
 }
 /* ---- pulling ---------------------------------------------------------- */
 function deskPull(n){
@@ -9576,7 +9878,9 @@ function deskEquip(id){
    without a server. A copyable code does, and it works in both directions. */
 function deskExport(){
   const o=deskLoad();
-  const payload={v:1,keys:o.keys,owned:o.owned,pity:o.pity,pulls:o.pulls,
+  const payload={v:2,keys:o.keys,tokens:o.tokens,chain:o.chain,claimDate:o.claimDate,
+    owned:o.owned,ownedTracks:o.ownedTracks,ownedSheets:o.ownedSheets,
+    pity:o.pity,pulls:o.pulls,
     streak:o.streak,best:o.best,daysComplete:o.daysComplete,totalRead:o.totalRead,
     lastComplete:o.lastComplete,plates:o.plates.slice(0,DESK_MAX_PLATES)};
   let code='';
@@ -9605,6 +9909,14 @@ function deskImport(){
   o.best=Math.max(o.best,Number(inc.best)||0);
   o.daysComplete=Math.max(o.daysComplete,Number(inc.daysComplete)||0);
   o.totalRead=Math.max(o.totalRead,Number(inc.totalRead)||0);
+  /* The purse and the chain merge the same way: a save from the other origin
+     may be ahead on tokens and behind on the streak — never lose either. */
+  o.tokens=Math.max(o.tokens,Number(inc.tokens)||0);
+  o.chain=Math.max(o.chain,Number(inc.chain)||0);
+  const incClaim=(typeof inc.claimDate==='string')?inc.claimDate:'';
+  if(incClaim&&incClaim>(o.claimDate||'')) o.claimDate=incClaim;
+  o.ownedTracks=[...new Set([...(o.ownedTracks||[]),...(inc.ownedTracks||[])])];
+  o.ownedSheets=[...new Set([...(o.ownedSheets||[]),...(inc.ownedSheets||[])])];
   const have=new Set(o.plates.map(p=>p&&p.id));
   (inc.plates||[]).forEach(p=>{ if(p&&p.id&&!have.has(p.id)){ o.plates.push(p); have.add(p.id); } });
   o.plates=o.plates.slice(0,DESK_MAX_PLATES);
@@ -9619,23 +9931,29 @@ window.waluipediaDesk={
   unlockAll(){
     const o=deskLoad();
     o.owned=[...new Set([...o.owned,...SKINS.map(s=>s.id)])];
+    o.ownedSheets=[...new Set([...o.ownedSheets,...SHEETS.map(s=>s.id)])];
+    o.ownedTracks=[...new Set([...o.ownedTracks,...READING_TRACKS.map(t=>t.id)])];
     o.keys+=20; deskSave(o);
-    console.log('%c[desk] all skins unlocked','color:#7ce0b8', o.owned);
+    console.log('%c[desk] every skin, sheet and track unlocked','color:#7ce0b8', o.owned);
     if(location.hash.includes('/reading-desk')) view_desk();
-    deskFlash('Debug: every skin unlocked.');
+    deskFlash('Debug: the whole desk collection unlocked.');
     return o.owned;
   },
   keys(n){ const o=deskLoad(); o.keys+=Number(n)||10; deskSave(o);
     console.log('[desk] keys:',o.keys); if(location.hash.includes('/reading-desk')) view_desk(); return o.keys; },
+  tokens(n){ const o=deskLoad(); o.tokens+=Number(n)||50; deskSave(o);
+    console.log('[desk] tokens:',o.tokens); if(location.hash.includes('/reading-desk')) view_desk(); return o.tokens; },
   skins(){ console.table(SKINS.map(s=>({id:s.id,name:s.name,rarity:s.rarity}))); return SKINS.map(s=>s.id); },
+  sheets(){ console.table(SHEETS.map(s=>({id:s.id,name:s.name,rarity:s.rarity}))); return SHEETS.map(s=>s.id); },
   equip(id){ return applySkin(id); },
+  equipSheet(id){ return applySheet(id); },
   state(){ const o=deskLoad(); console.log(o); return o; },
-  reset(){ try{ localStorage.removeItem(DESK_KEY); localStorage.removeItem(SKIN_KEY); }catch(e){}
-    applySkin('default'); console.log('[desk] cleared'); if(location.hash.includes('/reading-desk')) view_desk(); }
+  reset(){ try{ localStorage.removeItem(DESK_KEY); localStorage.removeItem(SKIN_KEY); localStorage.removeItem(SHEET_KEY); }catch(e){}
+    applySkin('default'); applySheet(''); console.log('[desk] cleared'); if(location.hash.includes('/reading-desk')) view_desk(); }
 };
 
 function deskReset(){
-  if(!confirm('Clear the reading desk? The plates and the streak go with it.')) return;
+  if(!confirm('Clear the reading desk? The plates, streak, tokens and unlocks go with it.')) return;
   try{ localStorage.removeItem(DESK_KEY); }catch(e){}
   view_desk();
 }
@@ -9830,14 +10148,14 @@ function view_settings(){
     <div class="card set-card${dbg?' set-card--debug':''}">
       <h2 class="set-h">🛠️ Developer</h2>
       ${row('🧪','Debug mode',
-        dbg?'ON — every skin unlocked, pulls are free, and the daily rota is paused so reading does not build a streak you did not earn.'
-           :'Unlocks every skin, makes pulls free, and pauses the daily rota so working on the archive does not advance it.',
+        dbg?'ON — every skin, sheet and track unlocked, pulls and Exchange stock free, and the daily rota plus check-in paused so working does not build a chain you did not earn.'
+           :'Unlocks the whole desk collection, makes pulls and the Exchange free, and pauses the daily rota and check-in so working on the archive does not advance them.',
         `<button type="button" class="set-toggle ${dbg?'on':''}" onclick="toggleDebug()"><i></i></button>`)}
-      ${dbg?row('🎨','Skins','Every palette is available while debug mode is on.',
+      ${dbg?row('🎨','The collection','Every skin, field sheet and track is available while debug mode is on.',
         `<button type="button" class="set-btn" onclick="Router.go('#/reading-desk')">Open the desk</button>`):''}
-      ${dbg?row('♻️','Desk save','Clear the streak, keys, plates and unlocks for this browser.',
+      ${dbg?row('♻️','Desk save','Clear the streak, keys, tokens, plates and unlocks for this browser.',
         `<button type="button" class="set-btn" onclick="waluipediaDesk.reset();Router.go('#/settings')">Reset desk</button>`):''}
-      ${row('⌨️','Console','The same controls are on <code>waluipediaDesk</code> — unlockAll(), keys(n), equip(id), skins(), state(), reset().',
+      ${row('⌨️','Console','The same controls are on <code>waluipediaDesk</code> — unlockAll(), keys(n), tokens(n), equip(id), equipSheet(id), skins(), sheets(), state(), reset().',
         `<button type="button" class="set-btn" onclick="waluipediaDesk.skins();deskFlash('Skin table printed to the console.')">List skins</button>`)}
       <p class="set-foot">Debug mode is local to this browser and writes nothing to the archive. It does not grant XP — XP is canon and comes from the ledger.</p>
     </div>`;
@@ -22935,6 +23253,9 @@ async function boot(){
   invalidateXpAggregate(); // rebuild XP leaderboard aggregate
   el('statline').textContent = ALL_ITEMS.length+' articles · '+Object.keys(DATA.conflicts||{}).length+' conflicts · '+(DATA.majorBattles||[]).length+' battles · '+(DATA.congress_votes||[]).length+' votes · '+(((DATA.artifacts||{}).star_bearers||[]).length)+' bearers · '+window.__DATA_SOURCE+' · / search · H links · C comments';
   try{ updateTopbarLoginBtn(); }catch(e){}
+  /* The daily wage pays for showing up. Runs after every desk constant is
+     defined and exactly once per load — deskCheckIn itself is once per day. */
+  try{ deskCheckIn(); }catch(e){}
   Router.render();
   /* Warm the wire in the background. It is 65 KB against a 4 MB events.json,
      and having it resident is what lets the events grid show a "on the wire"

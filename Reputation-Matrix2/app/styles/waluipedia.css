@@ -3236,3 +3236,91 @@ html[data-skin="inkarchive"] body{--campaign-skin-image:url('/Reputation-Matrix2
 html[data-skin="grovefire"] body{--campaign-skin-image:url('/Reputation-Matrix2/assets/images/skins/webbed_grove.jpg')}
 html[data-skin="planarglass"] body{--campaign-skin-image:url('/Reputation-Matrix2/assets/images/skins/planar_glass.jpg')}
 html[data-skin="legionbrass"] body{--campaign-skin-image:url('/Reputation-Matrix2/assets/images/skins/legion_brass.jpg')}
+
+/* ===== The Reading Desk — check-in strip, the Exchange, field sheets ======
+   The desk grew two money loops (keys at odds, tokens at prices) and a third
+   shelf (field sheets). These rules are the surfaces for all three. */
+.checkin-card{display:flex;gap:22px;flex-wrap:wrap;align-items:center}
+.checkin-main{flex:1;min-width:280px}
+.checkin-main p{margin:0 0 10px;font-size:13px;line-height:1.6}
+.checkin-state{font-size:12.5px;font-weight:700;color:var(--green)}
+.daily-strip{display:grid;grid-template-columns:repeat(7,minmax(64px,1fr));gap:7px;flex:1.4;min-width:320px}
+.day-cell{display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 6px;
+  border-radius:11px;border:1px solid var(--border);background:var(--bg2);text-align:center}
+.day-cell .day-n{font-size:9.5px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.day-cell .day-pay{font-size:11.5px;font-weight:800;color:var(--text);white-space:nowrap}
+.day-cell.is-done{opacity:.62;border-color:rgba(47,174,138,.4)}
+.day-cell.is-done .day-n{color:#7ce0b8}
+.day-cell.is-today{border-color:rgba(47,174,138,.7);box-shadow:0 0 14px rgba(47,174,138,.14)}
+.day-cell.is-today .day-n{color:#7ce0b8}
+.day-cell.is-next{border-color:rgba(224,180,0,.55);box-shadow:0 0 14px rgba(224,180,0,.12)}
+.day-cell.is-next .day-n{color:var(--accent2)}
+@media(max-width:820px){.daily-strip{grid-template-columns:repeat(4,minmax(60px,1fr))}}
+@media(max-width:460px){.daily-strip{grid-template-columns:repeat(2,minmax(60px,1fr))}}
+
+/* The Exchange reuses .skin-card bones and adds the price rail. */
+.shop-chips{margin:10px 0 14px}
+.chip.is-on{background:var(--accent);border-color:var(--accent);color:#14092e;font-weight:800}
+.shop-card .shop-preview{height:78px;position:relative;display:flex;align-items:center;justify-content:center;
+  border-top-left-radius:12px;border-top-right-radius:12px;overflow:hidden}
+.shop-preview.is-img{width:100%;object-fit:cover;display:block}
+.shop-preview.is-track{font-size:30px;background:linear-gradient(135deg,var(--panel2),var(--panel))}
+.shop-card .skin-meta{flex:1}
+.shop-foot{margin-top:auto;padding-top:8px}
+.shop-buy{width:100%;padding:8px 10px;font-size:12.5px}
+.shop-buy.cant{opacity:.55}
+.shop-owned{display:inline-block;font-size:12px;font-weight:800;color:var(--green);padding:8px 0}
+.shop-card.is-held{opacity:.72}
+/* A locked Exchange track is a buy button, so it points like one. */
+.desk-audio-track.is-locked[onclick]{cursor:pointer}
+
+/* The sheet wall — owned backgrounds, hung from the collection card. */
+.sheet-wall{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:13px}
+.sheet-tile{margin:0;position:relative;border:1px solid var(--border);border-radius:12px;overflow:hidden;
+  background:var(--bg2);cursor:pointer;transition:transform .15s,border-color .15s}
+.sheet-tile:hover{transform:translateY(-2px);border-color:var(--accent2)}
+.sheet-tile.r4{border-color:rgba(138,75,255,.55);box-shadow:0 0 0 1px rgba(138,75,255,.18)}
+.sheet-tile.r5{border-color:rgba(224,180,0,.7);box-shadow:0 0 18px rgba(224,180,0,.18)}
+.sheet-tile.is-on{outline:2px solid var(--green);outline-offset:-2px}
+.sheet-tile img{width:100%;height:104px;object-fit:cover;display:block}
+.sheet-tile figcaption{padding:8px 10px;display:flex;flex-direction:column;gap:2px}
+.sheet-tile figcaption b{font-size:12.5px}
+.sheet-tile figcaption span{font-size:11px;color:var(--muted);line-height:1.4}
+
+/* Field sheets on the page itself. Doubling [data-sheet] ties the skins'
+   attribute-pair specificity, and this block sits after every skin rule, so
+   the sheet owns the canvas while the skin keeps repainting the variables.
+   In light mode the veil inverts instead of the picture. */
+html[data-sheet="vellum"] body{--field-sheet-image:url('../../assets/images/field-sheets/vellum.jpg')}
+html[data-sheet="ledger-stock"] body{--field-sheet-image:url('../../assets/images/field-sheets/ledger-stock.jpg')}
+html[data-sheet="blueprint"] body{--field-sheet-image:url('../../assets/images/field-sheets/blueprint.jpg')}
+html[data-sheet="linen"] body{--field-sheet-image:url('../../assets/images/field-sheets/linen.jpg')}
+html[data-sheet="blotpaper"] body{--field-sheet-image:url('../../assets/images/field-sheets/blotpaper.jpg')}
+html[data-sheet="sepia-map"] body{--field-sheet-image:url('../../assets/images/field-sheets/sepia-map.jpg')}
+html[data-sheet="slate-dust"] body{--field-sheet-image:url('../../assets/images/field-sheets/slate-dust.jpg')}
+html[data-sheet="dustjacket"] body{--field-sheet-image:url('../../assets/images/field-sheets/dustjacket.jpg')}
+html[data-sheet="parchment"] body{--field-sheet-image:url('../../assets/images/field-sheets/parchment.jpg')}
+html[data-sheet="snowdin-dusk"] body{--field-sheet-image:url('../../assets/images/field-sheets/snowdin-dusk.jpg')}
+html[data-sheet="feyward-floor"] body{--field-sheet-image:url('../../assets/images/field-sheets/feyward-floor.jpg')}
+html[data-sheet="koopa-ember"] body{--field-sheet-image:url('../../assets/images/field-sheets/koopa-ember.jpg')}
+html[data-sheet="shadowfell-moor"] body{--field-sheet-image:url('../../assets/images/field-sheets/shadowfell-moor.jpg')}
+html[data-sheet="grove-webbing"] body{--field-sheet-image:url('../../assets/images/field-sheets/grove-webbing.jpg')}
+html[data-sheet="planar-fracture"] body{--field-sheet-image:url('../../assets/images/field-sheets/planar-fracture.jpg')}
+html[data-sheet="regency-damask"] body{--field-sheet-image:url('../../assets/images/field-sheets/regency-damask.jpg')}
+html[data-sheet="legion-rivet"] body{--field-sheet-image:url('../../assets/images/field-sheets/legion-rivet.jpg')}
+html[data-sheet="wahwire-haze"] body{--field-sheet-image:url('../../assets/images/field-sheets/wahwire-haze.jpg')}
+html[data-sheet="oracle-marble"] body{--field-sheet-image:url('../../assets/images/field-sheets/oracle-marble.jpg')}
+html[data-sheet="wahwire-frame"] body{--field-sheet-image:url('../../assets/images/field-sheets/wahwire-frame.jpg')}
+html[data-sheet="brass-deco"] body{--field-sheet-image:url('../../assets/images/field-sheets/brass-deco.jpg')}
+html[data-sheet="starfall-teal"] body{--field-sheet-image:url('../../assets/images/field-sheets/starfall-teal.jpg')}
+html[data-sheet="oilslick"] body{--field-sheet-image:url('../../assets/images/field-sheets/oilslick.jpg')}
+html[data-sheet="filigree-char"] body{--field-sheet-image:url('../../assets/images/field-sheets/filigree-char.jpg')}
+html[data-sheet="violet-rain"] body{--field-sheet-image:url('../../assets/images/field-sheets/violet-rain.jpg')}
+html[data-sheet="obsidian-scale"] body{--field-sheet-image:url('../../assets/images/field-sheets/obsidian-scale.jpg')}
+html[data-sheet="tracery-moon"] body{--field-sheet-image:url('../../assets/images/field-sheets/tracery-moon.jpg')}
+html[data-sheet][data-sheet] body{
+  background-image:linear-gradient(rgba(7,7,16,.72),rgba(7,7,16,.72)),var(--field-sheet-image) !important;
+  background-size:cover;background-attachment:fixed}
+html[data-theme="light"][data-sheet][data-sheet] body{
+  background-image:linear-gradient(rgba(255,255,255,.74),rgba(255,255,255,.74)),var(--field-sheet-image) !important;
+  background-size:cover;background-attachment:fixed}

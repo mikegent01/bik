@@ -30,3 +30,8 @@ tools/sheets/
 # Location contact sheets: intermediate art. The sliced per-location JPEGs
 # are the deliverable; the 3.7 MB source sheet is not.
 Reputation-Matrix2/assets/images/locations/_sheets/
+
+# Field-sheet contact sheets: same rule as locations. The 27 sliced tiles are
+# the assets the Reading Desk serves; the 3x3 sources they were cut from are
+# scratch (regenerate, then re-slice with tools/slice-field-sheet.py).
+Reputation-Matrix2/assets/images/field-sheets/_sheets/
