@@ -3225,3 +3225,14 @@ html[data-skin="inkarchive"]{--bg:#09071a;--bg2:#15102c;--panel:#1a1536;--panel2
 html[data-skin="grovefire"]{--bg:#160907;--bg2:#29120d;--panel:#321810;--panel2:#452217;--border:#713322;--text:#fff0e7;--muted:#d0a18d;--accent:#e27a3f;--accent2:#f2c05c;--link:#ffc097}
 html[data-skin="planarglass"]{--bg:#050812;--bg2:#0c1830;--panel:#102243;--panel2:#172e52;--border:#315681;--text:#e8f7ff;--muted:#93b7d0;--accent:#62c6db;--accent2:#9182ed;--link:#9de8f2}
 html[data-skin="legionbrass"]{--bg:#090909;--bg2:#171612;--panel:#211e17;--panel2:#2d291f;--border:#5c4b2a;--text:#f1ead6;--muted:#b7aa8d;--accent:#b38a3d;--accent2:#d85d4d;--link:#e0c47c}
+/* Generated campaign plates remain usable in light mode: the image is washed
+   behind readable paper panels rather than forcing the whole site dark. */
+html[data-theme="light"][data-skin="inkarchive"]{--bg:#eeeafa;--bg2:#e3ddf3;--panel:#faf8ff;--panel2:#f0ebfa;--border:#b8a8d0;--text:#21172f;--muted:#685a78;--accent:#7046a7;--accent2:#ae7b00;--link:#52308d}
+html[data-theme="light"][data-skin="grovefire"]{--bg:#f6ebe5;--bg2:#f0ddd2;--panel:#fff8f4;--panel2:#faece4;--border:#c9957e;--text:#311914;--muted:#79584d;--accent:#a84322;--accent2:#a87912;--link:#81341e}
+html[data-theme="light"][data-skin="planarglass"]{--bg:#eaf3fa;--bg2:#dbeaf4;--panel:#f8fcff;--panel2:#eaf5fb;--border:#91b8ca;--text:#122538;--muted:#536f82;--accent:#147c91;--accent2:#6250b2;--link:#155f91}
+html[data-theme="light"][data-skin="legionbrass"]{--bg:#f0eee6;--bg2:#e5e1d4;--panel:#fbfaf4;--panel2:#eeeade;--border:#b9a77d;--text:#211e16;--muted:#706750;--accent:#80621d;--accent2:#a7382d;--link:#665018}
+html[data-theme="light"][data-skin] body{background-image:linear-gradient(rgba(255,255,255,.78),rgba(255,255,255,.78)),var(--campaign-skin-image);background-size:cover;background-attachment:fixed}
+html[data-skin="inkarchive"] body{--campaign-skin-image:url('/Reputation-Matrix2/assets/images/skins/ink_archive.jpg')}
+html[data-skin="grovefire"] body{--campaign-skin-image:url('/Reputation-Matrix2/assets/images/skins/webbed_grove.jpg')}
+html[data-skin="planarglass"] body{--campaign-skin-image:url('/Reputation-Matrix2/assets/images/skins/planar_glass.jpg')}
+html[data-skin="legionbrass"] body{--campaign-skin-image:url('/Reputation-Matrix2/assets/images/skins/legion_brass.jpg')}
