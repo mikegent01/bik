@@ -832,6 +832,21 @@ check('event-state sprites join the lead art rotator frames',
 check('full-body plates join the lead art rotator frames',
       grab('leadFrames').includes('item.fullBody'));
 check('the gallery styles exist', cssSkins.includes('.field-gal-grid{'));
+// The Research Bureau / War-Room / Dossier overhaul: the renderer emits the
+// furniture, the CSS skins it, and the reader-local recents key stays
+// reader-local (never a canon write).
+check('search results render as filed trays', grab('renderResults').includes('search-tray'));
+check('search rows carry an art thumbnail', grab('renderResults').includes('searchResultThumb'));
+check('recents key is reader-local', src.includes("'rm2_search_recents'"));
+check('event pages get a dossier masthead', src.includes('function eventDossierBand')&&src.includes("typeKey==='events'?eventDossierBand"));
+check('event pages get a turn-the-page ribbon', src.includes('function eventFilingNav')&&src.includes('dossier-nav'));
+check('the battlefield renders war boards', grab('view_battlefield').includes('war-board')&&grab('view_battlefield').includes('war-front-step'));
+check('battle pages render after-action ledgers', grab('view_mbattle').includes('war-ledger')&&grab('view_mbattle').includes('after-action'));
+['.search-tray{','.search-tray-head','.res-thumb{','.dossier-band{','.dossier-nav{','.war-band{','.war-board{','.war-front-no','.war-outcome.','.war-ledger ','.war-note{','.after-action']
+  .forEach(sel=>check(`the bureau CSS covers ${sel.trim()}`, cssSkins.includes(sel)));
+['research-bureau.jpg','war-room.jpg','dossier-ribbon.jpg'].forEach(f=>
+  check(`the ${f} brand plate exists and is referenced`,
+        fs.existsSync(path.join(ROOT,'Reputation-Matrix2','assets','images','branding',f))&&cssSkins.includes(`branding/${f}'`)));
 // The registry's teeth: every art path a character record names must exist on
 // disk, or the lead rotator quietly serves a fallback nobody reports.
 {

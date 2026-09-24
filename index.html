@@ -8692,11 +8692,18 @@ function countsFromResults(list,parsed){
 function renderSearchHelp(){
   currentResults=[];activeIdx=-1;
   const chips=['characters','events','items','currencies','battles','books'].map(cat=>`<span class="search-chip" data-search-cat="${cat}">${SEARCH_CATEGORIES.find(x=>x[0]===cat)?.[1]||prettyId(cat)}</span>`).join('');
-  resultsBox.innerHTML=`<div class="search-panel-head"><div class="search-panel-title"><b>Waluipedia Search Console</b><span>/ or Ctrl+K focuses · ↑↓ selects · Enter opens</span></div><div class="search-chipbar">${chips}</div></div><div class="search-help"><b>Tips:</b> choose a category, switch Smart/Exact/Any matching, use quotes for a phrase like <b>"Mirror of True Reflection"</b>, or type quick filters like <b>@characters bowser</b>, <b>@events feyward</b>, <b>type:currency gold</b>, <b>arc:mario</b>, <b>at:hollywood</b>, <b>with:wario</b>. The ⚙ Advanced row narrows by arc, place, or person. Strong matches pull their thread — related articles follow, marked <b>via</b>. Waluigi has made the search less embarrassing. You are welcome.</div>`;
+  const recents=readSearchRecents();
+  const recentsHtml=recents.length
+    ? `<div class="search-recents" aria-label="Recent queries">${recents.map(rq=>`<span class="recent" data-search-recent="${esc(rq)}">🕘 ${esc(rq)}</span>`).join('')}</div>`
+    : '';
+  resultsBox.innerHTML=`<div class="search-panel-head"><div class="search-panel-title"><b>The Research Bureau</b><span>/ or Ctrl+K focuses · ↑↓ selects · Enter opens · 🎲 draws the top filing</span></div><div class="search-chipbar">${chips}</div>${recentsHtml}</div><div class="search-help"><b>Tips:</b> choose a category, switch Smart/Exact/Any matching, use quotes for a phrase like <b>"Mirror of True Reflection"</b>, or type quick filters like <b>@characters bowser</b>, <b>@events feyward</b>, <b>type:currency gold</b>, <b>arc:mario</b>, <b>at:hollywood</b>, <b>with:wario</b>. The ⚙ Advanced row narrows by arc, place, or person. Strong matches pull their thread — related articles follow, marked <b>via</b>. Waluigi has made the search less embarrassing. You are welcome.</div>`;
   resultsBox.classList.add('show');
   bindSearchChips();
 }
-function bindSearchChips(){resultsBox.querySelectorAll('[data-search-cat]').forEach(ch=>ch.addEventListener('click',e=>{e.stopPropagation();if(searchCategory)searchCategory.value=ch.dataset.searchCat;runSearch(true);}));}
+function bindSearchChips(){resultsBox.querySelectorAll('[data-search-cat]').forEach(ch=>ch.addEventListener('click',e=>{e.stopPropagation();if(searchCategory)searchCategory.value=ch.dataset.searchCat;runSearch(true);}));
+  resultsBox.querySelectorAll('[data-search-recent]').forEach(ch=>ch.addEventListener('click',e=>{e.stopPropagation();searchInput.value=ch.dataset.searchRecent;runSearch(false);searchInput.focus();}));
+  const lucky=resultsBox.querySelector('[data-search-lucky]');
+  if(lucky)lucky.addEventListener('click',e=>{e.stopPropagation();const r=currentResults[0];if(r){openSearchResult(r);closeSearch();}});}
 // Which of a record's named people match the query? Used to explain a hit.
 function matchedPeople(r,parsed){
   const pool=Array.isArray(r&&r.peopleNames)?r.peopleNames:[];
@@ -8712,6 +8719,26 @@ function matchedPeople(r,parsed){
   }
   return out;
 }
+// The Research Bureau: every result row carries a 48px filing thumbnail —
+// the record's own lead art when it has some, an emoji file-stock when it
+// doesn't. Cheap lookups only: INDEX for articles, the battle sheet for
+// major battles. No DOM work, safe per keystroke.
+function searchResultThumb(r){
+  try{
+    if(r&&r.kind==='majorbattle'){const b=(DATA.majorBattles||[]).find(x=>x&&x.id===r.id);if(b&&b.image)return assetPath(b.image);}
+    const rec=r&&INDEX[r.id];
+    if(rec&&rec.item){
+      if(rec.item.image)return assetPath(rec.item.image);
+      if(rec.item.fullBody)return assetPath(rec.item.fullBody);
+    }
+  }catch(e){}
+  return '';
+}
+/* Recent queries live on the reader's machine only (rm2_search_recents),
+   never in canon — same contract as the desk keys. */
+const SEARCH_RECENTS_KEY='rm2_search_recents';
+function readSearchRecents(){try{const l=JSON.parse(localStorage.getItem(SEARCH_RECENTS_KEY)||'[]');return(Array.isArray(l)?l:[]).filter(q=>typeof q==='string').map(q=>q.trim()).filter(Boolean).slice(0,6);}catch(e){return[];}}
+function saveSearchRecent(q){q=(q||'').trim();if(q.length<2)return;try{const l=readSearchRecents().filter(x=>x.toLowerCase()!==q.toLowerCase());l.unshift(q);localStorage.setItem(SEARCH_RECENTS_KEY,JSON.stringify(l.slice(0,6)));}catch(e){}}
 function renderResults(list,q){
   currentResults=list.slice(0,60);activeIdx=-1;
   if(!q){renderSearchHelp();return;}
@@ -8726,12 +8753,13 @@ function renderResults(list,q){
   const corr=LAST_SEARCH_CORRECTIONS.length
     ? `<div class="search-corrected">Showing results for <b>${esc(LAST_SEARCH_CORRECTIONS.map(c=>c[1]).join(' '))}</b> — no matches for ${esc(LAST_SEARCH_CORRECTIONS.map(c=>c[0]).join(' '))}</div>`
     : '';
-  const headerHtml=`<div class="search-panel-head">${corr}<div class="search-panel-title"><b>${total} match${total===1?'':'es'} indexed</b><span>${esc(SEARCH_CATEGORIES.find(x=>x[0]===parsed.category)?.[1]||'All')} · ${esc((searchMode&&searchMode.options[searchMode.selectedIndex]?.text)||parsed.mode)}${scopeBits?' · '+scopeBits:''}</span></div><div class="search-chipbar">${chipHtml}</div></div>`;
+  const lucky=`<span class="search-lucky" data-search-lucky title="Open the top-ranked filing">🎲 Lucky filing</span>`;
+  const headerHtml=`<div class="search-panel-head">${corr}<div class="search-panel-title"><b>${total} match${total===1?'':'es'} indexed</b>${lucky}<span>${esc(SEARCH_CATEGORIES.find(x=>x[0]===parsed.category)?.[1]||'All')} · ${esc((searchMode&&searchMode.options[searchMode.selectedIndex]?.text)||parsed.mode)}${scopeBits?' · '+scopeBits:''}</span></div><div class="search-chipbar">${chipHtml}</div></div>`;
   if(!list.length){resultsBox.innerHTML=headerHtml+'<div class="res-empty">No matches in this filter. Try All, Any word, or fewer words. Waluigi refuses to blame the index this time.</div>';resultsBox.classList.add('show');bindSearchChips();return;}
   // We score up to 600 so the chip counts are honest, but only draw the
   // first 60 rows -- building 600 DOM nodes per keystroke was its own stall.
   const shown=list.slice(0,60);
-  resultsBox.innerHTML=headerHtml + shown.map((r,i)=>{
+  const rowHtml=(r,i)=>{
     const date=r.dateLabel?`<span class="rdate">${esc(r.dateLabel)}</span>`:'';
     // Say WHY this matched. On a historical archive the useful answer is
     // usually "because these people were in it", so name the ones the query
@@ -8739,8 +8767,22 @@ function renderResults(list,q){
     const who=matchedPeople(r,parsed);
     const viaChip=r.via?` <span class=\"rvia\" title=\"Thread of ${esc(r.viaName||r.via)}\">via ${esc(String(r.viaName||r.via).slice(0,30))}</span>`:'';
     const whoHtml=who.length?`<div class="rwho">👥 ${who.map(n=>highlight(n,q)).join(', ')}</div>`:'';
-    return `<div class="res-item" data-i="${i}"><span class="res-icon">${esc(searchIcon(r))}</span><div style="min-width:0;flex:1"><div class="rtitle">${highlight(r.name,q)}<span class="rtype">${esc(searchTypeLabel(r))}</span><span class="rscore">${esc(SEARCH_CATEGORIES.find(x=>x[0]===r.cat)?.[1]||prettyId(r.cat))}</span>${viaChip}${date}${annotationBadge(r.id,'mini')}</div><div class="rsum">${highlight((r.summary||'No summary filed.').slice(0,190),q)}</div>${whoHtml}</div></div>`;
+    const thumb=searchResultThumb(r);
+    const thumbHtml=thumb?`<img class="res-thumb" src="${esc(thumb)}" alt="" loading="lazy" decoding="async" onerror="this.outerHTML=''">`:`<span class="res-thumb-fallback">${esc(searchIcon(r))}</span>`;
+    return `<div class="res-item" data-i="${i}">${thumbHtml}<div style="min-width:0;flex:1"><div class="rtitle">${highlight(r.name,q)}<span class="rtype">${esc(searchTypeLabel(r))}</span><span class="rscore">${esc(SEARCH_CATEGORIES.find(x=>x[0]===r.cat)?.[1]||prettyId(r.cat))}</span>${viaChip}${date}${annotationBadge(r.id,'mini')}</div><div class="rsum">${highlight((r.summary||'No summary filed.').slice(0,190),q)}</div>${whoHtml}</div></div>`;
+  };
+  /* Trays: the flat stack becomes filing-cabinet drawers grouped by category,
+     flat data-i order preserved so keyboard nav (and search-quality's
+     extract-by-signature) never notices the furniture moved. */
+  const byCat={};
+  shown.forEach((r,i)=>{(byCat[r.cat]=byCat[r.cat]||[]).push([r,i]);});
+  const drawerOrder=[...SEARCH_CATEGORIES.map(([c])=>c),...Object.keys(byCat)].filter((c,i,a)=>byCat[c]&&a.indexOf(c)===i);
+  const traysHtml=drawerOrder.map(cat=>{
+    const items=byCat[cat];
+    const label=SEARCH_CATEGORIES.find(x=>x[0]===cat)?.[1]||prettyId(cat);
+    return `<div class="search-tray"><div class="search-tray-head"><span>🗄️ ${esc(label)}</span><span class="search-tray-count">${items.length}</span><span class="search-chip" data-search-cat="${cat}" title="Narrow to this tray">see all ${counts[cat]||items.length} →</span></div><div class="search-tray-body">${items.map(([r,i])=>rowHtml(r,i)).join('')}</div></div>`;
   }).join('');
+  resultsBox.innerHTML=headerHtml+traysHtml;
   resultsBox.classList.add('show');
   bindSearchChips();
   resultsBox.querySelectorAll('.res-item').forEach((n,i)=>n.addEventListener('click',()=>{openSearchResult(currentResults[i]);closeSearch();}));
@@ -8750,6 +8792,7 @@ function renderResults(list,q){
 function runSearch(showHelp){
   const q=searchInput.value;
   if(!q.trim()){if(showHelp)renderSearchHelp();else closeSearch();return;}
+  saveSearchRecent(q);
   renderResults(search(q,{limit:600}),q);
 }
 let _searchDebounce=null;
@@ -15337,6 +15380,47 @@ function tokenSheetPanel(item){
   </section>`;
 }
 
+/* ---- The Dossier Spread (events): filing-room masthead + turn-the-page ----
+   Presentation only. A filing number is derived from the date string; the
+   prev/next ribbon walks the archive's own chronological order. Neither
+   writes a record, and neither touches the version/rev machinery. */
+function eventFilingNo(item){
+  const y=parseYear(item.date);
+  const txt=valText(item.date)||'';
+  const m=String(txt).match(/(\d{1,2})(?![\d,])/)||String(txt).match(/(\d{1,3})(?!\d)/);
+  const day=m?String(parseInt(m[1],10)).padStart(2,'0'):String((String(item.id||'x').length*7)%97+2).padStart(2,'0');
+  return y?`${y}-${day}`:day;
+}
+function eventFilingNav(item){
+  try{
+    const all=(DATA.events||[]).filter(e=>e&&e.id).map(e=>({e,y:parseYear(e.date)})).filter(x=>x.y!=null)
+      .sort((a,b)=>a.y-b.y||String(a.e.date||'').localeCompare(String(b.e.date||'')));
+    const idx=all.findIndex(x=>x.e.id===item.id);
+    if(idx<0||(all.length<3&&idx===0))return'';
+    const prev=idx>0?all[idx-1].e:null, next=idx<all.length-1?all[idx+1].e:null;
+    const link=(e,dir)=>e
+      ?`<a class="${dir}" role="button" onclick="Router.go('#/article/'+encodeURIComponent('${esc(e.id)}'))"><span class="dn-dir">${dir==='prev'?'‹ older filing':'newer filing ›'}</span><span class="dn-name">${esc(displayName(e))}</span></a>`
+      :`<a class="${dir} dead"><span class="dn-dir">${dir==='prev'?'‹ older filing':'newer filing ›'}</span><span class="dn-name">— the shelf ends here —</span></a>`;
+    if(!prev&&!next)return'';
+    return `<nav class="dossier-nav" aria-label="Neighbouring filings">${[link(prev,'prev'),link(next,'next')].join('')}</nav>`;
+  }catch(e){return'';}
+}
+function eventDossierBand(item,rtFull,totalWords){
+  const no=eventFilingNo(item);
+  const date=valText(item.date)||'Dateless deposit';
+  const era=item.era?String(item.era):'';
+  const plates=(item.image?1:0)+(Array.isArray(item.gallery)?item.gallery.length:0);
+  const meta=[
+    `<span><span class="dlabel">Filed</span><b>${esc(date)}</b></span>`,
+    era?`<span><span class="dlabel">Era</span><b>${esc(era)}</b></span>`:'',
+    rtFull?`<span><span class="dlabel">Spread</span><b>${esc(String(rtFull))} min · ${esc(String(totalWords))} words</b></span>`:'',
+    plates?`<span><span class="dlabel">Field plates</span><b>${plates}</b></span>`:'',
+  ].filter(Boolean).join('');
+  return `<div class="dossier-band">
+   <div class="dossier-stamp"><span>THE FILING ROOM</span>№ ${esc(no)} · WAH</div>
+   <div class="dossier-band-meta">${meta}</div>
+   <div class="dossier-filing-edge"></div></div>`;
+}
 function view_article(id){
   if(id==='the_midlands'){ Router.go('#/article/regal_empire'); return; }
   if(id==='thornburys_field_journal'){ view_fieldJournal(); return; }
@@ -15508,7 +15592,8 @@ function view_article(id){
     : `<div>${articleRail(item.id,typeKey,item,'',toc)}</div>`;
   el('content').innerHTML=`
    <div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › <a onclick="Router.go('#/list/${typeKey}')">${esc(t.label)}</a> › ${esc(displayName(item))}</div>
-   <div class="article-layout${wideRecord?' record-wide-layout':''}"><div><div class="card animate-fade-in">
+   ${typeKey==='events'?eventDossierBand(item,rtFull,totalWords)+eventFilingNav(item):''}
+   <div class="article-layout${wideRecord?' record-wide-layout':''}${typeKey==='events'?' dossier-event':''}"><div><div class="card animate-fade-in">
      <div class="art-kicker">${t.emoji} ${esc(t.singular)}${item.era?` · ${esc(String(item.era).split('—')[0].trim())}`:(item.date?` · ${esc(String(item.date).split('(')[0].trim().slice(0,48))}`:'')}</div>
      <h1 class="art-title">${esc(displayName(item))}</h1>
      ${item.title&&item.title!==item.name?`<div class="art-subtitle">${esc(item.title)}</div>`:''}
@@ -15541,6 +15626,7 @@ ${typeKey==='characters'?tokenSheetPanel(item):''}${typeKey==='characters'?dynas
      ${typeof rnnCoveragePanel==='function'?rnnCoveragePanel(item.id):''}
      ${wideRecord?recordApparatusBand(item,typeKey):''}
      ${sessionNavHtml(item.id)}
+     ${typeKey==='events'?eventFilingNav(item):''}
    </div>${exhibitTilesHtml(propsForArticle(item.id),{heading:'🗂️ Documents behind this record',blurb:'The paperwork this account is built on. Click any one to read it as filed.'})}${wideRecord?railHtml+'</div>':`</div>${railHtml}`}</div>`;
   setArticleAccent(typeKey);
   endLinkPass();
@@ -17283,20 +17369,33 @@ function statusClass(s){s=(s||'').toLowerCase();if(/active|ongoing/.test(s))retu
 function combatantChip(id){const c=factionColor(id);const label=prettyId(id);const clickable=!!INDEX[id];return `<span class="combatant-chip" ${clickable?`onclick="openId('${esc(id)}')"`:''}><span class="dot" style="background:${esc(c)}"></span>${esc(label)}</span>`;}
 function view_battlefield(){
   renderSidebar('battlefield');
-  const conflicts=DATA.conflicts||{};const cards=Object.keys(conflicts).map(name=>{const c=conflicts[name];
+  const conflicts=DATA.conflicts||{};const mb=DATA.majorBattles||[];
+  const boards=Object.keys(conflicts).map(name=>{const c=conflicts[name];
     const facs=(c.keyFactions||[]).map(combatantChip).join('');
-    const phases=(c.majorPhases||[]).map(p=>`<div class="phase"><b>${esc(p.name)}</b> — ${esc(p.description)}</div>`).join('');
-    return `<div class="conflict-card animate-fade-in"><div class="flex-between-start"><h3>${esc(name)}</h3><span class="status-tag ${statusClass(c.status)}">${esc(c.status||'')}</span></div>
+    const steps=(c.majorPhases||[]).map((p,i)=>`<div class="war-front-step"><span class="war-front-no">${i+1}</span><div><b>${esc(p.name)}</b><p>${esc(p.description||'')}</p></div></div>`).join('');
+    /* Same ledger the conflict page and the hub compute: outcomes tallied by
+       class, so the board answers "how is this war going" at a glance. */
+    const rel=mb.filter(b=>b&&b.conflict===name);
+    const tally=rel.reduce((t,b)=>{const k=(battleOutcomeMeta(b.outcome)||{}).cls||'ongoing';t[k]=(t[k]||0)+1;return t;},{});
+    const tallyHtml=rel.length?`<div class="war-tally">${battleTallyChips(tally)}<span class="pill">${rel.length} battle${rel.length===1?'':'s'} on the sheet</span></div>`:'';
+    const settled=/conclu|ended|resolve|finish|complete|won|lost/i.test(String(c.status||''));
+    return `<div class="war-board animate-fade-in"><div class="flex-between-start" style="cursor:pointer" onclick="Router.go('#/conflict/${encodeURIComponent(name)}')"><h3>${esc(name)} <span class="pill" style="font-size:10px">front page →</span></h3><span class="war-ribbon ${settled?'done':''}">${esc(c.status||'unfiled')}</span></div>
       <p style="color:var(--muted);margin:4px 0 8px">${esc(c.summary||'')}</p>
       ${c.rootCause?`<p style="font-size:14px"><strong>Root cause:</strong> ${esc(c.rootCause)}</p>`:''}
       ${facs?`<div class="mb-6">${facs}</div>`:''}
-      ${phases?`<div class="mt-6">${phases}</div>`:''}
+      ${steps?`<h5 style="margin:6px 0 0;font-size:11px;letter-spacing:1.8px;text-transform:uppercase;color:var(--danger)">The front so far</h5><div class="war-front">${steps}</div>`:''}
+      ${tallyHtml}
       ${c.estimatedCasualties?`<p class="imgcap">Estimated casualties: ${esc(c.estimatedCasualties)}</p>`:''}</div>`;}).join('');
-  const mb=DATA.majorBattles||[];
-  const battleTiles=mb.map(b=>`<div class="arttile" onclick="Router.go('#/mbattle/${encodeURIComponent(b.id)}')" style="border-left-color:${esc(factionColor((b.belligerents&&b.belligerents[0]&&(b.belligerents[0].faction||b.belligerents[0]))||''))}">${battleThumb(b,'tile')}<div class="tt">${esc(b.name)}</div><div class="tsub">${esc(valText(b.date)||'')} · ${esc(b.location||'')}</div><div class="tsum">${esc(htmlishToMarkdown(b.description||b.summary||''))}</div><div class="tmeta"><span class="pill">${esc(b.outcome||'')}</span>${b.conflict?`<span class="pill">${esc(b.conflict)}</span>`:''}</div></div>`).join('');
-  el('content').innerHTML=`<div class="card animate-fade-in"><h2>💥 The Battlefield</h2><p class="text-muted">${Object.keys(conflicts).length} active theaters of conflict and ${mb.length} documented battles. Waluigi provides moral support (and loots the aftermath).</p></div>
-    <div class="card"><div class="section-title">Conflicts</div>${cards}</div>
-    <div class="card"><div class="section-title">Major Battles (${mb.length})</div><div class="artgrid">${battleTiles}</div></div>`;
+  const battleTiles=mb.map(b=>{
+    const om=(battleOutcomeMeta(b.outcome)||{}).cls||'ongoing';
+    const ribbon=b.outcome?`<span class="war-outcome is-${esc(String(om).replace(/[^a-z]/g,''))}">${esc(String(b.outcome).replace(/_/g,' '))}</span>`:'';
+    return `<div class="arttile" onclick="Router.go('#/mbattle/${encodeURIComponent(b.id)}')" style="border-left-color:${esc(factionColor((b.belligerents&&b.belligerents[0]&&(b.belligerents[0].faction||b.belligerents[0]))||''))}">${ribbon}${battleThumb(b,'tile')}<div class="tt">${esc(b.name)}</div><div class="tsub">${esc(valText(b.date)||'')} · ${esc(b.location||'')}</div><div class="tsum">${esc(htmlishToMarkdown(b.description||b.summary||''))}</div><div class="tmeta">${b.conflict?`<span class="pill">${esc(b.conflict)}</span>`:''}</div></div>`;}).join('');
+  const active=Object.values(conflicts).filter(c=>c&&!/conclu|ended|resolve|finish|complete|won|lost/i.test(String(c.status||''))).length;
+  el('content').innerHTML=`<div class="war-band animate-fade-in"><h2>💥 The War-Room Wall</h2>
+      <p class="text-muted" style="margin:0">Every pinned front, its reports, and how the war is actually going. Waluigi provides moral support (and loots the aftermath).</p>
+      <div class="war-counts"><span class="war-count"><b>${Object.keys(conflicts).length}</b>theaters pinned</span><span class="war-count"><b>${active}</b>fires still burning</span><span class="war-count"><b>${mb.length}</b>battle reports filed</span></div></div>
+    <div class="card"><div class="section-title">The Fronts</div>${boards}</div>
+    <div class="card"><div class="section-title">After-Action Reports (${mb.length})</div><div class="artgrid">${battleTiles}</div></div>`;
   window.scrollTo(0,0);
 }
 function view_conflict(name){
@@ -17341,17 +17440,18 @@ function view_mbattle(id){
   const chars=battleParticipants(b.participatingCharacters);
   const dateTxt=valText(b.date);
   el('content').innerHTML=`<div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › <a onclick="Router.go('#/battlefield')">Battlefield</a> ${b.conflict?`› <a onclick="Router.go('#/conflict/${encodeURIComponent(b.conflict)}')">${esc(b.conflict)}</a>`:''} › ${esc(b.name)}</div>
-    <div class="card animate-fade-in"><h1 class="art-title">${esc(b.name)}</h1>
-    <div class="metabar"><span class="pill">🗡️ Battle</span>${dateTxt?`<span class="pill">${esc(dateTxt)}</span>`:''}${b.location?`<span class="pill">📍 ${esc(b.location)}</span>`:''}${b.outcome?`<span class="pill">${esc(String(b.outcome).replace(/_/g,' '))}</span>`:''}</div>
+    <div class="card animate-fade-in after-action">
+    <div class="flex-between-start"><h1 class="art-title">${esc(b.name)}</h1>${b.outcome?`<span class="war-outcome is-${esc(String((battleOutcomeMeta(b.outcome)||{}).cls||'ongoing').replace(/[^a-z]/g,''))}" style="font-size:13px">${esc(String(b.outcome).replace(/_/g,' '))}</span>`:''}</div>
+    <div class="metabar"><span class="pill">🗡️ After-action report</span>${dateTxt?`<span class="pill">${esc(dateTxt)}</span>`:''}${b.location?`<span class="pill">📍 ${esc(b.location)}</span>`:''}</div>
     ${battleThumb(b)}
     ${sideHtml}
     ${b.summary?`<blockquote>${esc(b.summary)}</blockquote>`:''}
     ${b.description?`<h2>Overview</h2><div class="prose">${richTextToHtml(b.description,b.id)}</div>`:''}
     ${b.outcomeDetail?`<h2>Outcome</h2><p>${esc(b.outcomeDetail)}</p>`:''}
-    ${b.casualties?`<h2>Casualties</h2>${keyedRows(b.casualties)}`:''}
+    ${b.casualties?`<h2>Casualties</h2><div class="war-ledger">${keyedRows(b.casualties)}</div>`:''}
     ${b.strategicValue?`<p><strong>Strategic value:</strong> ${esc(String(b.strategicValue).replace(/_/g,' '))}</p>`:''}
     ${b.commanders?`<h2>Commanders</h2>${keyedRows(b.commanders)}`:''}
-    ${b.tacticalNotes?`<h2>Tactical Notes</h2><div class="prose">${richTextToHtml(b.tacticalNotes,b.id)}</div>`:''}
+    ${b.tacticalNotes?`<h2>Tactical Notes</h2><div class="war-note"><h5>Field note — kept pinned to the map</h5><div class="prose">${richTextToHtml(b.tacticalNotes,b.id)}</div></div>`:''}
     ${chars?`<h2>Participating Characters</h2><div class="related-list">${chars}</div>`:''}
     ${renderReputationImpactPanel(b,'majorBattles')}</div>`;
   window.scrollTo(0,0);

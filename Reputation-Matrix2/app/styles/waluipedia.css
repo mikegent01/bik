@@ -3375,3 +3375,89 @@ html[data-theme="light"][data-sheet][data-sheet] body{
 .field-gal-item:hover{border-color:var(--accent)}
 .field-gal-item.broken{display:none}
 .wcut-plates-note{font-size:12.5px;color:var(--muted);margin:0 0 8px}
+
+/* =========================================================================
+   THE RESEARCH BUREAU + WAR-ROOM WALL + DOSSIER SPREAD (2026-09-20)
+   Search trays, battlefield boards, event mastheads. All colors inherit the
+   active skin through the CSS vars; the three brand plates sit under a
+   gradient so dark, light and campaign skins all keep reading.
+   ========================================================================= */
+
+/* ---- 1 · Search: the Research Bureau ---------------------------------*/
+.search-panel-head{background:linear-gradient(90deg,rgba(20,14,34,.0) 0%,color-mix(in srgb,var(--ink,rgb(8,6,18)) 82%,transparent) 55%),url('../../assets/images/branding/research-bureau.jpg');background-size:cover;background-position:center 38%;border:1px solid color-mix(in srgb,var(--accent) 35%,transparent);border-radius:12px 12px 0 0;padding:10px 12px;margin:-10px -10px 6px;text-shadow:0 1px 6px rgba(0,0,0,.65)}
+html[data-theme="light"] .search-panel-head{background:linear-gradient(90deg,rgba(238,230,208,.35) 0%,color-mix(in srgb,var(--bg) 88%,transparent) 55%),url('../../assets/images/branding/research-bureau.jpg');background-size:cover;background-position:center 38%}
+.search-panel-title b{font-size:15px;letter-spacing:.4px}
+.search-tray{border:1px solid color-mix(in srgb,var(--ink,rgb(90,70,120)) 45%,transparent);border-left:3px solid var(--accent);border-radius:10px;margin:6px 0;overflow:hidden}
+.search-tray-head{display:flex;align-items:center;gap:8px;padding:5px 10px;background:color-mix(in srgb,var(--bg) 55%,var(--accent) 12%);font-size:12px;font-weight:700;letter-spacing:.4px;text-transform:uppercase}
+.search-tray-count{margin-left:auto;font-weight:800;color:var(--accent);background:color-mix(in srgb,var(--accent) 18%,transparent);border-radius:99px;padding:1px 9px;font-size:11px}
+.search-tray-body .res-item{border-top:1px dashed color-mix(in srgb,var(--ink,rgb(90,70,120)) 35%,transparent)}
+.res-thumb{flex:0 0 48px;width:48px;height:48px;border-radius:8px;object-fit:cover;border:1px solid color-mix(in srgb,var(--ink,rgb(90,70,120)) 55%,transparent);background:var(--bg)}
+.res-thumb-fallback{flex:0 0 48px;width:48px;height:48px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:24px;background:color-mix(in srgb,var(--bg) 70%,var(--accent) 14%);border:1px solid color-mix(in srgb,var(--ink,rgb(90,70,120)) 45%,transparent)}
+.search-recents{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 8px}
+.search-recents .recent{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border:1px solid color-mix(in srgb,var(--ink,rgb(90,70,120)) 55%,transparent);border-radius:99px;background:color-mix(in srgb,var(--bg) 78%,transparent);font-size:12px;cursor:pointer}
+.search-recents .recent:hover{border-color:var(--accent);color:var(--accent)}
+.search-lucky{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:99px;border:1px solid var(--accent);color:var(--accent);font-weight:800;font-size:12px;cursor:pointer;margin-left:8px}
+.search-lucky:hover{background:var(--accent);color:var(--bg)}
+
+/* ---- 2 · Events: the Dossier Spread ----------------------------------*/
+.dossier-band{position:relative;overflow:hidden;border-radius:14px;margin:2px 0 14px;padding:16px 18px;border:1px solid color-mix(in srgb,var(--accent) 40%,transparent);
+  background:linear-gradient(90deg,color-mix(in srgb,var(--bg) 55%,transparent) 0%,color-mix(in srgb,var(--ink,rgb(8,6,18)) 84%,transparent) 58%),url('../../assets/images/branding/dossier-ribbon.jpg');background-size:cover;background-position:center 60%}
+html[data-theme="light"] .dossier-band{background:linear-gradient(90deg,color-mix(in srgb,var(--bg) 40%,transparent) 0%,color-mix(in srgb,var(--bg) 86%,transparent) 58%),url('../../assets/images/branding/dossier-ribbon.jpg');background-size:cover;background-position:center 60%}
+.dossier-stamp{position:absolute;top:10px;right:14px;transform:rotate(-5deg);border:2px solid var(--accent);border-radius:4px;color:var(--accent);font-weight:800;font-size:11px;letter-spacing:1.5px;padding:4px 8px;opacity:.9;text-align:center;line-height:1.5}
+.dossier-stamp span{display:block;font-size:8px;letter-spacing:2.5px;opacity:.85}
+.dossier-band-meta{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;font-size:12.5px;text-shadow:0 1px 6px rgba(0,0,0,.6)}
+.dossier-band-meta .dlabel{opacity:.75;font-size:10.5px;letter-spacing:1.4px;text-transform:uppercase;display:block}
+.dossier-band-meta b{font-size:14px}
+.dossier-nav{display:flex;gap:8px;margin:14px 0 4px}
+.dossier-nav a{flex:1;min-width:0;display:block;padding:9px 12px;border:1px solid color-mix(in srgb,var(--ink,rgb(90,70,120)) 55%,transparent);border-radius:10px;background:color-mix(in srgb,var(--bg) 62%,transparent);cursor:pointer}
+.dossier-nav a:hover{border-color:var(--accent)}
+.dossier-nav .dn-dir{display:block;font-size:10px;letter-spacing:1.6px;text-transform:uppercase;opacity:.7}
+.dossier-nav .dn-name{display:block;margin-top:2px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dossier-nav a.next{text-align:right}
+.dossier-nav a.dead{opacity:.45;cursor:default}
+.dossier-event .prose>p:first-of-type::first-letter,.dossier-event .prose>p.dropcap::first-letter{font-size:2.7em;float:left;line-height:.86;padding:2px 8px 0 0;color:var(--accent);font-weight:800}
+.dossier-event .prose>p:first-of-type{font-weight:600;line-height:1.65}
+.dossier-event h2{position:relative;padding-left:14px;margin-top:22px}
+.dossier-event h2::before{content:'';position:absolute;left:0;top:4px;bottom:4px;width:4px;border-radius:2px;background:var(--accent)}
+.dossier-event h2::after{content:'';display:block;height:1px;margin-top:6px;background:linear-gradient(90deg,color-mix(in srgb,var(--accent) 60%,transparent),transparent 70%)}
+.dossier-event blockquote{position:relative;margin:14px 0;padding:12px 14px 12px 18px;border-left:4px solid var(--accent);background:color-mix(in srgb,var(--bg) 55%,var(--accent) 8%);border-radius:0 10px 10px 0;font-style:italic;box-shadow:0 2px 8px rgba(0,0,0,.18)}
+.dossier-filing-edge{height:4px;border-radius:2px;background:repeating-linear-gradient(90deg,var(--accent) 0 14px,transparent 14px 22px);opacity:.5;margin:2px 0 10px}
+
+/* ---- 3 · Battlefield: the War-Room Wall ------------------------------*/
+.war-band{position:relative;overflow:hidden;border-radius:14px;margin-bottom:14px;padding:26px 20px;border:1px solid color-mix(in srgb,var(--danger) 45%,transparent);
+  background:linear-gradient(90deg,color-mix(in srgb,var(--bg) 60%,transparent) 0%,color-mix(in srgb,var(--ink,rgb(8,6,18)) 86%,transparent) 55%),url('../../assets/images/branding/war-room.jpg');background-size:cover;background-position:center 52%}
+html[data-theme="light"] .war-band{background:linear-gradient(90deg,color-mix(in srgb,var(--bg) 42%,transparent) 0%,color-mix(in srgb,var(--bg) 88%,transparent) 55%),url('../../assets/images/branding/war-room.jpg');background-size:cover;background-position:center 52%}
+.war-band h2{margin:0 0 4px;text-shadow:0 2px 8px rgba(0,0,0,.7)}
+.war-band .war-counts{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.war-band .war-count{background:color-mix(in srgb,var(--bg) 55%,transparent);border:1px solid color-mix(in srgb,var(--ink,rgb(90,70,120)) 60%,transparent);border-radius:10px;padding:6px 12px;font-size:12px}
+.war-band .war-count b{display:block;font-size:16px;color:var(--accent)}
+.war-board{border:1px solid color-mix(in srgb,var(--danger) 35%,transparent);border-radius:14px;padding:14px;margin:12px 0;background:color-mix(in srgb,var(--bg) 45%,transparent);position:relative;overflow:hidden}
+.war-board::before{content:'';position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--danger)}
+.war-ribbon{display:inline-block;transform:rotate(-2deg);background:var(--danger);color:#fff;font-weight:800;font-size:11px;letter-spacing:1.4px;text-transform:uppercase;padding:3px 12px;border-radius:3px;box-shadow:0 2px 6px rgba(0,0,0,.35)}
+.war-ribbon.done{background:var(--muted)}
+.war-ribbon.faith{background:var(--accent2)}
+.war-front{display:flex;flex-direction:column;gap:0;margin-top:10px}
+.war-front-step{display:flex;gap:12px;position:relative;padding:0 0 12px 26px}
+.war-front-step::before{content:'';position:absolute;left:9px;top:22px;bottom:-2px;width:2px;background:color-mix(in srgb,var(--danger) 55%,transparent)}
+.war-front-step:last-child::before{display:none}
+.war-front-no{position:absolute;left:0;top:0;width:20px;height:20px;border-radius:50%;background:var(--danger);color:#fff;font-weight:800;font-size:11px;display:flex;align-items:center;justify-content:center}
+.war-front-step b{display:block}
+.war-front-step p{margin:2px 0 0;font-size:13px;color:var(--muted)}
+.war-outcome{position:relative;display:inline-block;font-weight:800;font-size:11px;letter-spacing:1.2px;text-transform:uppercase;padding:2px 12px 3px 10px;color:#fff;background:var(--muted);clip-path:polygon(0 0,100% 0,calc(100% - 8px) 100%,0 100%);margin-bottom:4px}
+.war-outcome.is-win{background:var(--green,#3fa34d)}
+.war-outcome.is-pyrrhic{background:var(--accent2,#e3a008)}
+.war-outcome.is-loss{background:var(--danger)}
+.war-outcome.is-draw,.war-outcome.is-unknown{background:var(--muted)}
+.war-outcome.is-open{background:color-mix(in srgb,var(--accent2,#e3a008) 70%,var(--ink,rgb(20,10,30)))}
+.war-tally{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.after-action .vs{border-radius:12px;overflow:hidden;border:1px solid color-mix(in srgb,var(--danger) 40%,transparent)}
+.after-action .side{padding:12px;background:color-mix(in srgb,var(--bg) 40%,transparent)}
+.after-action .side h5{margin:0 0 8px;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--danger)}
+.after-action .side:last-of-type h5{color:var(--accent2,#e3a008)}
+.war-ledger{border:1px solid color-mix(in srgb,var(--ink,rgb(90,70,120)) 55%,transparent);border-radius:12px;overflow:hidden;margin:8px 0}
+.war-ledger .kv-row:nth-child(odd){background:color-mix(in srgb,var(--danger) 7%,transparent)}
+.war-ledger .kv-row .k{font-weight:700;color:var(--danger)}
+.war-note{position:relative;background:color-mix(in srgb,var(--bg) 55%,var(--accent2,#e3a008) 8%);border:1px solid color-mix(in srgb,var(--accent2,#e3a008) 45%,transparent);border-radius:4px 14px 14px 14px;padding:14px;margin-top:8px}
+.war-note::before{content:'📌';position:absolute;top:-12px;left:14px;font-size:16px;transform:rotate(-12deg)}
+.war-note h5{margin:0 0 6px;font-size:10.5px;letter-spacing:2px;text-transform:uppercase;color:var(--accent2,#e3a008)}
+@media (max-width:720px){.dossier-nav{flex-direction:column}.search-tray-body .res-item{padding:8px}.res-thumb{flex-basis:40px;width:40px;height:40px}.dossier-stamp{position:static;display:inline-block;margin-bottom:8px}}
