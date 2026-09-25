@@ -378,6 +378,7 @@
       "restorationPath": "Grant the Cohort lawful access to Raventree Manor and compensate Eager's care. The archive notes that the subject wrote this encyclopedia entry himself.",
       "portrait": "💜"
     },
+    "fullBody": "portraits/player/fullbody/waluigi.png",
     "image": "portraits/waluigi.jpg"
   },
   {
@@ -1088,6 +1089,7 @@
         "note": "Green T ran a criminal empire with the manners of a garden-party host and executes with the same tidiness — every account settled, nothing left ragged. Maat's weighing is the closest published doctrine to what he actually does, and he has never once called it a faith. He handed a fourteen-year-old a silenced revolver to close a loose end."
       }
     ],
+    "fullBody": "portraits/player/fullbody/green_t.png",
     "image": "portraits/green_t.png"
   },
   {
@@ -1887,6 +1889,7 @@
     "name": "Bowser",
     "title": "The King Who Held the Door",
     "race": "Koopa (King-sized)",
+    "fullBody": "portraits/player/fullbody/bowser.png",
     "image": "portraits/bowser.jpg",
     "status": "Active — operating in the Shadow Estate; carrying necromantic evidence; royal war chest active; illegal under hostile mandates and still completely unbothered",
     "affiliation": "Koopa Troop (King) / Disaster Inc. (current situation)",
@@ -2013,6 +2016,7 @@
         "note": "Toad Lee is the reason Disaster Inc. was not wholly consumed by the Feywild, and the reason is that he reads things. The Millennium doctrine — that method beats intuition and a checked answer beats a confident one — describes his entire contribution to the crisis."
       }
     ],
+    "fullBody": "portraits/player/fullbody/toad_lee.png",
     "image": "portraits/toad_lee.png"
   },
   {
@@ -2255,11 +2259,13 @@
       "restorationPath": "Charges functionally spent. The file stays open only so the precedent is recorded.",
       "portrait": "🐸🗡️"
     },
+    "fullBody": "portraits/player/fullbody/eager.png",
     "image": "portraits/eager.png",
     "imageCaption": "Lead plate — Eager, catastrophe scout, photographed between catastrophes.",
     "eventStates": [
       {
         "event": "the_airlift_that_never_came",
+        "fullBody": "portraits/player/fullbody/eager.png",
         "image": "portraits/player/event-states/eager-grove-concussed.png",
         "label": "Skittering Grove — concussed and intermittently articulate",
         "note": "Event-state sprite: Eager was unconscious for most of the Legion dispute, woke enough to ask them to drop their friend, then swung at a spider and struck the guard carrying Salam."
@@ -2434,6 +2440,7 @@
         "note": "Wario's ledger tracks debts owed by generals, bosses and at least one deceased dragon, and he has offered to forgive one in exchange for a man's kidneys. Corporate Policy's trinity is profit, innovation and the Master Ball. Wario has never needed the third."
       }
     ],
+    "fullBody": "portraits/player/fullbody/wario.png",
     "image": "portraits/wario.jpg"
   },
   {
@@ -2553,6 +2560,7 @@
       "disaster_inc",
       "tymnas_cottage_and_hedge_maze"
     ],
+    "fullBody": "portraits/player/fullbody/mossy.png",
     "image": "portraits/mossy.png"
   },
   {
@@ -2814,6 +2822,7 @@
       "tymnas_cottage_and_hedge_maze",
       "randell_vampire"
     ],
+    "fullBody": "portraits/player/fullbody/rattles.png",
     "image": "portraits/rattles.jpg"
   },
   {
@@ -2846,6 +2855,7 @@
       "geek_t",
       "the_box_guardian_sharpie_disguise_and_the_soot_barrel"
     ],
+    "fullBody": "portraits/player/fullbody/salam.png",
     "image": "portraits/salam_grove_fallen.png",
     "imageCaption": "Lead plate — Salam, post-grove: the scar stays. The earlier face is in the rotator.",
     "imageAlternates": [
@@ -2858,6 +2868,7 @@
     "eventStates": [
       {
         "event": "the_airlift_that_never_came",
+        "fullBody": "portraits/player/fullbody/salam.png",
         "image": "portraits/player/event-states/salam-grove-scarred.png",
         "label": "Skittering Grove — scarred and unconscious",
         "note": "Event-state sprite: Salam bears the documented facial scar and is the one casualty taken into Legion custody."
