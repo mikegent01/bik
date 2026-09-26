@@ -304,7 +304,7 @@ def run_agent(request_text: str, *, run_id: str = "", endpoint: str = DEFAULT_EN
                 return {"status": "approval_required" if result.startswith("APPROVAL_REQUIRED") else "needs_input", "run": run_id, "step": step, "message": result}
         except Exception as error:
             fallback = _deterministic_answer(request_text)
-            if fallback and not allow_writes:
+            if fallback:
                 emit({"kind": "assistant", "text": fallback, "source": "local archive fallback"})
                 return {"status": "done", "run": run_id, "steps": step - 1, "answer": fallback}
             result = f"ERROR: {error}"
