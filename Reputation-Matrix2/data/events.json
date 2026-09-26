@@ -17313,7 +17313,7 @@
   },
   {
     "id": "the_assault_on_bowsers_castle",
-    "name": "The Assault on Bowser's Castle",
+    "name": "The Assault on Bowser’s Throne Room",
     "title": "The Assault on Bowser’s Throne Room: The Dragon at the Window and the Castle That Would Not Surrender",
     "date": "18 Harvestide, 1035 BF — continuing from the throne-room breach; exact hour unrecorded",
     "timeCode": "TC:1035-08-18/MAT",
@@ -17410,6 +17410,6 @@
     "dateQualifier": "Inferred historical placement from the canonical 18 Harvestide, 1035 BF chain; exact hour unrecorded.",
     "historical": true,
     "sessionOrder": 2,
-    "sessionLabel": "Session II — The Assault on Bowser’s Castle"
+    "sessionLabel": "Session II — The Assault on Bowser’s Throne Room"
   }
 ]
