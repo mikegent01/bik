@@ -38,6 +38,23 @@ def read_file(value: str, limit: int = MAX_READ) -> str:
     return path.read_text(encoding="utf-8", errors="replace")[:max(1, min(limit, MAX_READ))]
 
 
+def _token_similarity(left: str, right: str) -> float:
+    if left == right:
+        return 1.0
+    if len(left) <= 3 or len(right) <= 3:
+        return 0.0
+    prefix = 0
+    for a, b in zip(left, right):
+        if a != b:
+            break
+        prefix += 1
+    ratio = difflib.SequenceMatcher(None, left, right).ratio()
+    # Similarity alone makes unrelated long words look like typos. Requiring
+    # a shared stem keeps "blackin" -> "blackfen" while rejecting "pass"
+    # matches in unrelated prose.
+    return ratio if prefix / min(len(left), len(right)) >= 0.4 and ratio >= 0.72 else 0.0
+
+
 def _fuzzy_line_score(term: str, line: str) -> float:
     """Score approximate whole-word matches while tolerating small typos."""
     query_tokens = re.findall(r"[a-z0-9]+", term.casefold())
@@ -46,8 +63,7 @@ def _fuzzy_line_score(term: str, line: str) -> float:
         return 0.0
     scores = []
     for query_token in query_tokens:
-        best = max(difflib.SequenceMatcher(None, query_token, token).ratio()
-                   for token in line_tokens if token)
+        best = max(_token_similarity(query_token, token) for token in line_tokens if token)
         # Very short words create false positives (for example, "in"), so only
         # accept them when they are exact. Longer words can absorb one typo.
         if len(query_token) <= 3 and best < 1.0:
@@ -104,7 +120,7 @@ def search(term: str, relative_dir: str = ".", limit: int = 40) -> list[dict[str
         dirs[:] = [name for name in dirs if name not in {
             ".git", "node_modules", ".venv", "__pycache__", ".local-agent-runs",
             ".pytest_cache", "dist", "build", "coverage", "intake-inputs",
-            "actors", "Foundry", "animation_frames", "textures", "timeline", "node_modules",
+            "animation_frames", "textures", "timeline", "node_modules",
         }]
         for filename in filenames:
             if len(results) >= limit or scanned >= 8000:
@@ -148,7 +164,7 @@ def search(term: str, relative_dir: str = ".", limit: int = 40) -> list[dict[str
     # without applying expensive edit-distance matching to generated actors.
     fuzzy_bases = []
     if base == ROOT:
-        fuzzy_bases = [ROOT / name for name in ("Reputation-Matrix2/data", "Reputation-Matrix2/events", "Reputation-Matrix2/books", "Reputation-Matrix2/posts", "docs", "assets")]
+        fuzzy_bases = [ROOT / name for name in ("Reputation-Matrix2/data", "Reputation-Matrix2/events", "Reputation-Matrix2/books", "Reputation-Matrix2/posts", "Reputation-Matrix2/actors", "Reputation-Matrix2/Foundry", "docs", "assets")]
     else:
         fuzzy_bases = [base]
     for fuzzy_base in fuzzy_bases:
@@ -171,7 +187,11 @@ def search(term: str, relative_dir: str = ".", limit: int = 40) -> list[dict[str
                     lines = path.read_text(encoding="utf-8", errors="ignore").splitlines()
                 except OSError:
                     continue
+                query_tokens = re.findall(r"[a-z0-9]+", term.casefold())
                 for line_no, line in enumerate(lines, 1):
+                    folded = line.casefold()
+                    if any(len(token) >= 4 and token[:3] not in folded for token in query_tokens):
+                        continue
                     score = _fuzzy_line_score(term, line)
                     if score >= 0.78:
                         fuzzy.append((score, {"path": path.relative_to(ROOT).as_posix(), "line": str(line_no),
