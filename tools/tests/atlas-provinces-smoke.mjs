@@ -57,6 +57,8 @@ const labeled = [...mk.host.querySelectorAll('[data-plotlabel]')].find(el => txt
 check('labels name a real filed province', !!labeled, labeled ? txt(labeled) : 'none');
 check('header counts the provinces', txt(mk.host.querySelector('header p')).includes('provinces from the filed survey'));
 check('the Provinces button ships on', !!mk.host.querySelector('[data-action="plots"].active'));
+check('province ink clips to the surveyed Mushroom Kingdom footprint',
+  !!mk.host.querySelector('.atlas-v2-survey-clip[clip-path]') && !!mk.host.querySelector('.atlas-v2-borders clipPath path'));
 mk.host.querySelector('[data-action="plots"]').click();
 check('the toggle clears the overlay', mk.host.querySelectorAll('[data-province]').length === 0);
 mk.host.querySelector('[data-action="plots"]').click();

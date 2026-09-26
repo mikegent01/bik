@@ -51,3 +51,13 @@ npm run build --prefix Reputation-Matrix2
 The all-catalogue integrity mode remains advisory for legacy records outside
 this review; the default command is strict for the Mushroom Kingdom region
 maps.
+
+## Border cleanup follow-up
+
+The screenshot review found that the generated province tessellation was
+assigning empty outer-realm/ocean artwork to the nearest Mushroom Kingdom
+province, making the lower and side borders look like long pink spikes. The
+census model still tiles its full arithmetic box, but the atlas renderer now
+clips visible province ink to a padded convex hull of surveyed POIs and tones
+down the rim/frontier strokes. This is display-only: it does not alter POI
+coordinates, province assignments, or the generated census.

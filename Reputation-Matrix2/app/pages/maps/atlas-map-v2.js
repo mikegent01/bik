@@ -512,6 +512,38 @@ function polygonPathD(polygon) {
   return `M ${poly.map(pt => `${pt[0]} ${pt[1]}`).join(' L ')} Z`;
 }
 
+/* The painted Mushroom Kingdom sheet contains a great deal of surrounding
+   ocean and other-realm artwork. Province cells must still tile the 100×100
+   census box for arithmetic, but the reader should not see those empty-water
+   assignments as political borders. Clip the visible layer to the convex hull
+   of the actual surveyed pins, with a small deterministic breathing margin. */
+function surveyHull(provinces, scale = 1.08) {
+  const points = (provinces || []).flatMap(prov => (prov.pois || [])
+    .filter(poi => poi && Number.isFinite(Number(poi.x)) && Number.isFinite(Number(poi.y)))
+    .map(poi => [Number(poi.x), Number(poi.y)]));
+  if (points.length < 3) return [];
+  const sorted = [...points].sort((a, b) => a[0] - b[0] || a[1] - b[1]);
+  const cross = (o, a, b) => (a[0] - o[0]) * (b[1] - o[1]) - (a[1] - o[1]) * (b[0] - o[0]);
+  const lower = [];
+  sorted.forEach(point => {
+    while (lower.length >= 2 && cross(lower[lower.length - 2], lower[lower.length - 1], point) <= 0) lower.pop();
+    lower.push(point);
+  });
+  const upper = [];
+  [...sorted].reverse().forEach(point => {
+    while (upper.length >= 2 && cross(upper[upper.length - 2], upper[upper.length - 1], point) <= 0) upper.pop();
+    upper.push(point);
+  });
+  const hull = lower.slice(0, -1).concat(upper.slice(0, -1));
+  if (hull.length < 3) return [];
+  const cx = points.reduce((sum, point) => sum + point[0], 0) / points.length;
+  const cy = points.reduce((sum, point) => sum + point[1], 0) / points.length;
+  return hull.map(([x, y]) => [
+    Math.max(0, Math.min(100, cx + (x - cx) * scale)),
+    Math.max(0, Math.min(100, cy + (y - cy) * scale)),
+  ]);
+}
+
 function provincePolygons(prov) {
   const cells = (prov && Array.isArray(prov.cells)) ? prov.cells.filter(poly => poly && poly.length >= 3) : [];
   if (cells.length) return cells;
@@ -602,16 +634,29 @@ function provinceEdgeInk(provinces, colorOf) {
    provinces no longer get diagonal hatching or dashed squiggles; the fill uses
    the leading/nearest faction colour when one exists, and grey when the census
    cannot name a hand. */
-function bordersSvg(provinces, colorOf) {
+function bordersSvg(provinces, colorOf, mapId = 'sheet') {
   const list = (provinces || []).filter(p => provincePathD(p));
   if (!list.length) return '';
-  const fills = list.map(prov => {
+  const solid = list.filter(prov => !prov.vacant);
+  const claims = list.filter(prov => prov.vacant);
+  const pathFor = prov => {
     const color = colorOf(prov);
     const cls = `atlas-v2-plot${prov.census.contested ? ' contested' : ''}${prov.vacant ? ' vacant' : ''}`;
     return `<path class="${cls}" data-province="${esc(prov.id)}" style="--plot:${esc(color)}" d="${esc(provincePathD(prov))}"><title>${esc(prov.name)}${prov.census.contested ? ' — contested' : (prov.census.controller ? '' : ' — unclaimed')}</title></path>`;
-  }).join('');
+  };
+  const fills = solid.map(pathFor).join('');
+  const claimFills = claims.map(pathFor).join('');
+  const hull = surveyHull(solid);
+  const clipId = `atlas-v2-survey-${String(mapId).replace(/[^a-z0-9_-]/gi, '-')}`;
+  const clipped = hull.length >= 3 ? ` clip-path="url(#${clipId})"` : '';
+  const defs = hull.length >= 3
+    ? `<defs><clipPath id="${clipId}" clipPathUnits="userSpaceOnUse"><path d="${esc(polygonPathD(hull))}"/></clipPath></defs>`
+    : '';
   return `<svg class="atlas-v2-borders" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">`
-    + `<g class="atlas-v2-fills">${fills}</g><g class="atlas-v2-edges">${provinceEdgeInk(list, colorOf)}</g></svg>`;
+    + defs
+    + `<g class="atlas-v2-survey-clip"${clipped}><g class="atlas-v2-fills">${fills}</g><g class="atlas-v2-edges">${provinceEdgeInk(solid, colorOf)}</g></g>`
+    + `<g class="atlas-v2-claims"><g class="atlas-v2-fills">${claimFills}</g><g class="atlas-v2-edges">${provinceEdgeInk(claims, colorOf)}</g></g>`
+    + `</svg>`;
 }
 
 function provinceBarsHtml(census, colorOf) {
@@ -1298,7 +1343,7 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
         lensEl.innerHTML = `<i style="background:${lens.color}"></i>${format(min)} – ${format(max)} ${esc(lens.unit)} · pin size = ${esc(lens.sizeLabel || lens.label)} · ${esc(densityHint)}${clusterHint}${keyHint}${major.size ? ' · ◎ top 5 ringed' : ''}${toks.length ? ` · 🛰️ ${toks.length} party` : ''} · ${legendChips(cats.cats, cats.more)}${plotHint}`;
       } else lensEl.innerHTML = `<i style="background:${lens.color}"></i>${format(min)} – ${format(max)} ${esc(lens.unit)} · pin size = ${esc(lens.label)} · ${esc(densityHint)}${clusterHint}${keyHint}${major.size ? ' · ◎ top 5 ringed' : ''}${toks.length ? ` · 🛰️ ${toks.length} party` : ''}${plotHint}`;
     }
-    overlay.innerHTML = transportPathSvg() + (state.plots ? bordersSvg(provinceList, plotColor) + provinceLabelsHtml() : '') + journeyPathSvg() + clusters.map(group => {
+    overlay.innerHTML = transportPathSvg() + (state.plots ? bordersSvg(provinceList, plotColor, map.id) + provinceLabelsHtml() : '') + journeyPathSvg() + clusters.map(group => {
       const poi = group[0];
       const faction = factionMeta(poi.factionId);
       const cat = lens.categorical ? lens.catOf(poi) : null;
