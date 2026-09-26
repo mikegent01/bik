@@ -13,8 +13,10 @@ import json
 import mimetypes
 import os
 import sys
+import threading
 import time
 import urllib.error
+import uuid
 import urllib.request
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
@@ -42,6 +44,50 @@ def load_module(name: str, path: Path):
 
 agent = load_module("waluipedia_local_agent", LOCAL_AGENT / "agent.py")
 comfy = load_module("waluipedia_comfy_workflow", LOCAL_AGENT / "comfy_workflow.py")
+runtime = load_module("waluipedia_agent_runtime", LOCAL_AGENT / "agent_runtime.py")
+AGENT_JOBS: dict[str, dict[str, Any]] = {}
+AGENT_LOCK = threading.Lock()
+
+
+def start_agent_job(payload: dict[str, Any]) -> dict[str, str]:
+    request_text = str(payload.get("text", "")).strip()
+    if len(request_text) > 120000:
+        raise ValueError("agent request must be at most 120,000 characters")
+    if not request_text and not payload.get("run"):
+        raise ValueError("agent request text or an existing run is required")
+    job_id = uuid.uuid4().hex[:12]
+    job = {"id": job_id, "status": "running", "events": [], "started": time.time()}
+    with AGENT_LOCK:
+        AGENT_JOBS[job_id] = job
+
+    def emit(event: dict[str, Any]) -> None:
+        with AGENT_LOCK:
+            job["events"].append(event)
+            job["events"] = job["events"][-120:]
+            job["last"] = event
+
+    def worker() -> None:
+        try:
+            result = runtime.run_agent(
+                request_text,
+                run_id=str(payload.get("run", "")),
+                endpoint=str(payload.get("endpoint", DEFAULT_LM)),
+                model=str(payload.get("model", "")),
+                allow_writes=bool(payload.get("allow_writes", False)),
+                max_steps=max(1, min(int(payload.get("max_steps", 12)), 30)),
+                on_event=emit,
+            )
+            with AGENT_LOCK:
+                job.update(result)
+                job["status"] = result.get("status", "done")
+                job["finished"] = time.time()
+        except Exception as error:
+            with AGENT_LOCK:
+                job.update({"status": "error", "message": str(error), "finished": time.time()})
+            emit({"kind": "error", "result": str(error)})
+
+    threading.Thread(target=worker, name=f"waluipedia-agent-{job_id}", daemon=True).start()
+    return {"job": job_id}
 
 
 def local_path(value: str) -> Path:
@@ -165,6 +211,12 @@ class Handler(BaseHTTPRequestHandler):
             except Exception as error:
                 json_response(self, {"error": str(error)}, 400)
             return
+        if parsed.path == "/api/agent/status":
+            job_id = parse_qs(parsed.query).get("job", [""])[0]
+            with AGENT_LOCK:
+                job = dict(AGENT_JOBS.get(job_id, {"status": "unknown", "message": "job not found"}))
+            json_response(self, job)
+            return
         self.send_error(404)
 
     def do_POST(self) -> None:  # noqa: N802
@@ -172,6 +224,8 @@ class Handler(BaseHTTPRequestHandler):
             payload = read_json_body(self)
             if self.path == "/api/upload":
                 json_response(self, upload_input(payload)); return
+            if self.path == "/api/agent/run":
+                json_response(self, start_agent_job(payload)); return
             if self.path == "/api/plan":
                 text = str(payload.get("text", "")).strip()
                 if not text or len(text) > 120000:

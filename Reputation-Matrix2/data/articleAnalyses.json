@@ -1869,8 +1869,8 @@
       "subtitle": "The false heir mattered because it moved the castle before the battle announced itself.",
       "archivist": "Waluigi, Auditor-General",
       "filed": "Filed with the throne-room backfill",
-      "summary": "The event records the deception and the first strike. This page asks what the altered route sheet adds: not proof of every traitor, but proof that the castle was prepared to obey a command that did not come from its king.",
-      "thesis": "Bowser woke expecting the aftermath of a ridiculous family session. He found a route sheet that treated the session as access.\n\nThe important object is not the false face. It is the door that opened while Bowser was looking at it. The Jester supplied the distraction, Mimbus carried the operation across the seam, and Fawthful waited where a conqueror waits: already inside the sentence.",
+      "summary": "The backfill records the deception, the altered routes, the missing seal, the people who carried the operation across the seam, and the first spell that made the coup public. This page asks how a joke became access and why the castle was already compromised before the dragon appeared.",
+      "thesis": "Bowser woke expecting the aftermath of a ridiculous family session. He found a route sheet that treated the session as access.\n\nThe important object is not the false face. It is the door that opened while Bowser was looking at it. The Jester supplied the distraction, Mimbus carried the operation across the seam, and Fawthful waited where a conqueror waits: already inside the sentence.\n\nThe exact hour is unrecorded and the placement is an inferred backfill against the 18 Harvestide, 1035 BF chain. That uncertainty does not weaken the article. It tells the reader which parts are recovered scene and which parts are archival placement.",
       "sections": [
         {
           "id": "the-door",
@@ -1885,6 +1885,34 @@
           "heading": "Cackletta Made The Coup Legible",
           "sourceAnchor": "Cackletta’s first spell turns the revelation into a battle.",
           "body": "A coup can hide inside uncertainty. A spell striking the throne cannot. Cackletta’s arrival does not explain who planned every route, but it makes the operation public enough that Bowser has to answer with force."
+        },
+        {
+          "id": "route-sheet",
+          "icon": "📜",
+          "heading": "The Missing Seal Is The Evidence",
+          "sourceAnchor": "The route sheet was obeyed even though the king’s seal was absent.",
+          "body": "A missing seal does not name a traitor, but it changes the question. The castle did not simply suffer from a forged paper; defenders acted on an instruction that looked operational enough to move people and open routes. The false heir gave that instruction cover while Bowser’s attention was occupied."
+        },
+        {
+          "id": "three-at-the-door",
+          "icon": "🚪",
+          "heading": "Three Roles, One Entry Operation",
+          "sourceAnchor": "The Jester, Mimbus, and Fawthful occupy different positions in the same sequence.",
+          "body": "The Jester supplied the false shape of the heir. Mimbus connected the performance to movement through the castle. Fawthful stood ready to claim what the deception made reachable. The archive does not assign each figure a larger motive than the record supports, but it does not separate the three into unrelated incidents."
+        },
+        {
+          "id": "cackletta",
+          "icon": "🔥",
+          "heading": "The First Spell Ends The Pretence",
+          "sourceAnchor": "Cackletta’s arrival made the throne-room compromise an open battle.",
+          "body": "A coup can remain deniable while it is only a route change and a conversation. Cackletta’s first attack removed that shelter. Bowser had to answer as a king under attack, and the castle’s internal compromise became the first movement of the assault that followed."
+        },
+        {
+          "id": "archive-limit",
+          "icon": "🗂️",
+          "heading": "What The Backfill Can And Cannot Prove",
+          "sourceAnchor": "The record preserves sequence without preserving every name or hour.",
+          "body": "The filing establishes that the false-heir session preceded the breach in the recovered sequence and that the castle was prepared from inside. It does not identify every compromised defender or provide an exact hour. The honest date is therefore 18 Harvestide, 1035 BF with inferred placement, not the present 5 Aethel, 1040 BF clock."
         }
       ],
       "sourceDate": "Inferred historical placement from the canonical 18 Harvestide, 1035 BF chain; exact hour unrecorded."
@@ -1897,8 +1925,8 @@
       "subtitle": "The dragon was loud. The evacuation order is the document that explains how the castle remained inhabited after the wall fell.",
       "archivist": "Waluigi, Auditor-General",
       "filed": "Filed with the Bowser Castle assault record",
-      "summary": "The event records a dragon, a breach, traitors, and an absurd switch plate. This page argues that the retreat order is the centre of the filing: Bowser converted the dragon’s size advantage into time for smaller defenders to move.",
-      "thesis": "The attackers brought a dragon because a dragon makes every defender choose between courage and arithmetic. Bowser chose arithmetic.\n\nGoombas went where the dragon could not reach. Koopas became a shell wall. Magikoopas spent distance on wounded bodies. The castle was breached, but the order kept the breach from becoming a burial.",
+      "summary": "The assault record includes the dragon, the retreat order, fire breath, the ground pound, Magikoopa evacuation, Goomba and Koopa tactics, traitors, the Hammer Bro withdrawal, the breach, and the switch nobody trusted. This page argues that the evacuation order is the centre of the filing: Bowser converted the dragon’s size advantage into time for smaller defenders to move.",
+      "thesis": "The attackers brought a dragon because a dragon makes every defender choose between courage and arithmetic. Bowser chose arithmetic.\n\nGoombas went where the dragon could not reach. Koopas became a shell wall. Magikoopas spent distance on wounded bodies. The Hammer Bro withdrew when the wall became a ceiling. The castle was breached, but the order kept the breach from becoming a burial.\n\nFawthful’s ruler-then-god claim gives the battle its political objective. The dragon was the visible pressure; the compromised routes and evacuation decision determined what survived long enough to be ruled.",
       "sections": [
         {
           "id": "small-bodies",
@@ -1913,6 +1941,41 @@
           "heading": "The Switch Plate Turns A Joke Into A Decision",
           "sourceAnchor": "The lower command-room labels contradict each other.",
           "body": "The switch is funny because the labels are incompetent. It is evidence because the labels remove a safe answer at the moment the castle needs one. Bowser leaves both toggles untouched, and the evacuation remains a plan rather than a detonation."
+        },
+        {
+          "id": "retreat-order",
+          "icon": "📣",
+          "heading": "The Retreat Order Is The Battle’s Centre",
+          "sourceAnchor": "Bowser orders the line away from the dragon instead of sacrificing it to the wall.",
+          "body": "The order is not a surrender. It assigns Goombas, Koopas, and Magikoopas the jobs their bodies and tools can actually complete. That turns a dragon’s reach into a limit: the large attacker cannot occupy every small route at once."
+        },
+        {
+          "id": "traitors",
+          "icon": "🕳️",
+          "heading": "The Garrison Fought Behind Its Own Doors",
+          "sourceAnchor": "The outer assault and the inside betrayal moved together.",
+          "body": "A dragon at the wall explains the noise but not the speed of the breach. Traitors and altered routes made the interior uncertain, forcing loyal troops to fight for corridors while also deciding which corridors were safe. Evacuation preserved witnesses as much as it preserved soldiers."
+        },
+        {
+          "id": "hammer-bro",
+          "icon": "🔨",
+          "heading": "The Hammer Bro Knew When To Leave",
+          "sourceAnchor": "The withdrawal is recorded as survival discipline, not treason.",
+          "body": "The Hammer Bro retreated when the wall became a ceiling. That detail gives the filing a useful counterweight to heroic last stands. The order protected a surviving line because it allowed a soldier to recognise that a position had stopped being defensible."
+        },
+        {
+          "id": "breach-claim",
+          "icon": "👑",
+          "heading": "A Ruler Before A God",
+          "sourceAnchor": "Fawthful and Mimbus meet Bowser at the breach with a claim larger than the castle.",
+          "body": "Fawthful’s sequence is explicit: ruler first, god after. Bowser’s Castle is treated as the first throne in a campaign that wants occupation to become worship. The breach proves access, not completion. The historical record ends with the claim exposed and the switch untouched."
+        },
+        {
+          "id": "date-limit",
+          "icon": "🗓️",
+          "heading": "Historical, Not Current",
+          "sourceAnchor": "The assault belongs to the inferred 18 Harvestide, 1035 BF placement.",
+          "body": "The current 1040 BF record places Bowser in the Shadow Estate. This article reconstructs the earlier castle assault and should not be read as a present-tense battlefield report."
         }
       ],
       "sourceDate": "Inferred historical placement from the canonical 18 Harvestide, 1035 BF chain; exact hour unrecorded."

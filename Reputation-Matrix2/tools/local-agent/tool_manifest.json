@@ -4,6 +4,11 @@
   "description": "Bounded local planning, repository review, and ComfyUI image generation.",
   "tools": [
     {
+      "name": "run_agent_loop",
+      "command": "workflow/server.py POST /api/agent/run",
+      "side_effects": "executes only allowlisted local tools; patches and image jobs require explicit approval"
+    },
+    {
       "name": "plan_large_request",
       "command": "agent.py plan",
       "side_effects": "writes an ignored checkpoint under tools/.local-agent-runs"

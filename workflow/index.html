@@ -27,6 +27,12 @@
       <label><input id="useLm" type="checkbox" checked> Ask local LM Studio to turn each section into a micro-prompt</label>
       <div class="row"><button id="planBtn">Create checklist</button><button id="healthBtn" class="secondary">Check local services</button></div>
       <div id="planStatus" class="status" style="margin-top:12px">No run yet.</div>
+      <div style="margin-top:18px;padding-top:14px;border-top:1px solid var(--line)">
+        <h3>Agent loop</h3>
+        <p class="tiny">Gemma observes the current task, chooses one bounded repository/audit/image action, receives the result, and repeats. Patches and image jobs stay disabled until you explicitly allow them.</p>
+        <div class="row"><div><label for="agentSteps">Maximum agent steps</label><input id="agentSteps" type="number" value="12" min="1" max="30"></div><label style="flex:0 0 auto"><input id="allowAgentWrites" type="checkbox"> Allow local patches and image jobs</label><button id="agentBtn">Run agent</button></div>
+        <div id="agentStatus" class="status" style="margin-top:10px">Agent is idle.</div>
+      </div>
     </section>
 
     <section class="panel">
@@ -86,6 +92,9 @@ async function upload(file){return (await post("/api/upload",{filename:file.name
 $("healthBtn").onclick=async()=>{show("health","Checking local services…","warn");try{const r=await fetch("/api/health");show("health",JSON.stringify(await r.json(),null,2),"ok")}catch(error){show("health",error.message,"bad")}};
 $("planBtn").onclick=async()=>{const button=$("planBtn");button.disabled=true;show("planStatus","Chunking request and creating checklist…","warn");try{const data=await post("/api/plan",{text:$('request').value,use_lm:$('useLm').checked,model:$('model').value,max_chars:Number($('maxChars').value),max_sections:Number($('maxSections').value)});activeRun=data.run;renderChecklist(data.items);show("planStatus",`Run ${activeRun} created with ${data.items.length} checklist item(s).`,'ok')}catch(error){show("planStatus",error.message,"bad")}finally{button.disabled=false}};
 $("queueBtn").onclick=async()=>{const button=$("queueBtn");button.disabled=true;show("queueStatus","Uploading references and queueing ComfyUI workflow…","warn");try{let workflow=$("workflowPath").value.trim();if($("workflowFile").files[0])workflow=await upload($("workflowFile").files[0]);let refs=$("referencePaths").value.split(/\r?\n/).map(x=>x.trim()).filter(Boolean);if($("referenceFiles").files.length)refs=refs.concat(await Promise.all([...$("referenceFiles").files].map(upload)));if(!refs.length)throw new Error("Select or enter at least one reference image");const data=await post("/api/queue-image",{workflow,references:refs,prompt:$('imagePrompt').value,negative:$('negative').value,seed:$('seed').value,output_prefix:$('prefix').value,wait:$('wait').checked});show("queueStatus",JSON.stringify(data,null,2),"ok")}catch(error){show("queueStatus",error.message,"bad")}finally{button.disabled=false}};
+let activeAgentJob="";
+async function refreshAgent(job){try{const r=await fetch('/api/agent/status?job='+encodeURIComponent(job));const data=await r.json();const events=(data.events||[]).slice(-5).map(x=>JSON.stringify(x)).join("\n");show('agentStatus',`${data.status||'running'}${data.run?' · run '+data.run:''}${data.message?'\\n'+data.message:''}${events?'\\n\\n'+events:''}`,data.status==='error'?'bad':(data.status==='approval_required'||data.status==='needs_input'?'warn':'ok'));if(data.run){activeRun=data.run;const c=await fetch('/api/checklist?run='+encodeURIComponent(activeRun));if(c.ok)renderChecklist((await c.json()).items||[])}if(['running','thinking'].includes(data.status)){setTimeout(()=>refreshAgent(job),700)}else{$('agentBtn').disabled=false}}catch(error){show('agentStatus',error.message,'bad');$('agentBtn').disabled=false}}
+$("agentBtn").onclick=async()=>{const button=$("agentBtn");button.disabled=true;show('agentStatus','Starting bounded agent loop…','warn');try{const data=await post('/api/agent/run',{text:$('request').value,run:activeRun,model:$('model').value,allow_writes:$('allowAgentWrites').checked,max_steps:Number($('agentSteps').value)});activeAgentJob=data.job;refreshAgent(activeAgentJob)}catch(error){show('agentStatus',error.message,'bad');button.disabled=false}};
 </script>
 </body>
 </html>

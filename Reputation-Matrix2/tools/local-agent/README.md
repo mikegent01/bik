@@ -46,7 +46,19 @@ python tools/local-agent/agent.py mark RUN_ID task-01 done --note "focused audit
 The agent does not decide that a task is complete from model prose. A local
 operator or a later repository tool must mark it done after validation.
 
-## 2. Repository tools (bounded)
+## 2. Actual tool-using agent loop
+
+The GUI's **Run agent** button uses `agent_runtime.py`. This is different from
+`agent.py plan`: LM Studio receives the active checklist item, chooses one
+allowlisted action, gets the tool result, and chooses the next action. It can
+read, search, patch, run fixed audits, queue a reference-backed image job, or
+ask for input. It cannot run arbitrary shell commands or Git operations.
+
+A patch or image job stops with an approval-required result unless the GUI's
+explicit write switch is enabled. Every action is recorded in the run's
+`agent-log.jsonl`, and the loop stops after a bounded number of steps.
+
+## 3. Repository tools (bounded)
 
 The local model may use `repo_tools.py` for focused reads, searches, status,
 diff, and exact one-match patches:
@@ -61,7 +73,7 @@ python tools/local-agent/repo_tools.py diff Reputation-Matrix2/data/events.json
 A patch refuses zero or multiple matches and all paths must stay inside the
 checkout. There is no commit, push, delete, or arbitrary shell tool.
 
-## 3. Queue a Qwen Edit job with required image references
+## 4. Queue a Qwen Edit job with required image references
 
 Export the ComfyUI graph with **Save (API Format)** and pass it directly:
 
@@ -82,7 +94,7 @@ adapter uploads every reference to ComfyUI first, patches the workflow's
 patches Qwen positive/negative prompts, seed, and output prefix. Model loading,
 LoRA choice, sampler wiring, and resolution remain in the exported workflow.
 
-## 4. Operating rules
+## 5. Operating rules
 
 - Keep LM Studio and ComfyUI local; do not expose either server to the public
   internet.

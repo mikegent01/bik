@@ -154,5 +154,19 @@
       "caption": "Empty blue overalls in the rubble — grinning with nobody inside.",
       "articleId": "the_lava_bridge_ambush_and_the_blue_luigi"
     }
+  ],
+  "historicalBackfills": [
+    {
+      "id": "bowser-castle-backfill",
+      "label": "Historical Backfill · 18 Harvestide, 1035 BF",
+      "title": "The Bowser Castle Succession File",
+      "summary": "Two recovered filings explain how the false Bowser Jr. session became an entry operation, how Fawthful’s forces breached Bowser’s Castle with a dragon and traitors inside the garrison, and why the ruler-then-god claim did not make the assault a present-day event.",
+      "caption": "Archival sequence — inferred placement, exact hour unrecorded. Bowser’s current record places him in the Shadow Estate.",
+      "image": "assets/images/events/bowser-castle-assault/bowser-castle-assault.jpg",
+      "events": [
+        "bowser_throne_room_compromise",
+        "the_assault_on_bowsers_castle"
+      ]
+    }
   ]
 }
