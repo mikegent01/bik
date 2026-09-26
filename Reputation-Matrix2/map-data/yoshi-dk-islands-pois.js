@@ -202,6 +202,21 @@ export const yoshiDkIslandsData = {
             population: 1000
         },
         {
+            id: 'poi_bv_forgotten_cove',
+            articleId: 'forgotten_coastal_cove',
+            x: 41.0,
+            y: 15.0,
+            type: 'port',
+            name: "Forgotten Coastal Cove",
+            description: "A once-thriving port on Kongo Bongo's northern reach, now rotting docks and silent warehouses standing witness to trade that stopped calling.",
+            factionId: 'dk_crew',
+            intelReq: 15,
+            political_influence: 1,
+            economic_value: 3,
+            military_strength: 1,
+            population: 4
+        },
+        {
             id: 'poi_ydi_star_road',
             x: 77.00,
             y: 19.00,

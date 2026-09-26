@@ -47,7 +47,9 @@ const txt = el => (el && (el.textContent || '')) || '';
 const mk = mount('mushroom_kingdom_full');
 check('mount returns a handle', !!mk.handle);
 const plots = [...mk.host.querySelectorAll('[data-province]')];
-check('every filed province gets a plot', plots.length >= 20, `${plots.length} plots`);
+/* The cleaned full sheet contains only Mushroom Kingdom-region pins, so its
+   filed province count is lower than the former mixed-realm overlay. */
+check('every filed province gets a plot', plots.length >= 15, `${plots.length} plots`);
 check('plots are straight closed paths', plots.every(p => p.tagName.toLowerCase() === 'path' && /^M /.test(p.getAttribute('d') || '') && /Z$/.test(p.getAttribute('d') || '')));
 check('a contested province gets a plain contested fill', mk.host.querySelectorAll('.atlas-v2-plot.contested').length >= 1);
 check('province labels render at the plot centre', mk.host.querySelectorAll('[data-plotlabel]').length === plots.length);

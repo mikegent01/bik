@@ -1,6 +1,6 @@
 # Map routes and Mushroom Kingdom POI review
 
-**Status:** work in progress on `arena/01a0dc1e-bik`
+**Status:** implementation complete on `arena/01a0dc1e-bik` (PR #82)
 
 This work adds a reader-facing transport overlay to the Cartography Desk and
 cleans up the Mushroom Kingdom survey without changing the painted map's
@@ -10,20 +10,20 @@ political border.
 
 ## Acceptance checks
 
-- [ ] Open `#/maps/mushroom_kingdom_full` without a console error.
-- [ ] Toggle transport routes without changing POI selection, zoom, or province
+- [x] Open `#/maps/mushroom_kingdom_full` without a console error.
+- [x] Toggle transport routes without changing POI selection, zoom, or province
       borders.
-- [ ] Route mode is deterministic and bounded; no route generation may grow
+- [x] Route mode is deterministic and bounded; no route generation may grow
       with every render or timer tick.
-- [ ] Industrial hubs can show rail, ports can show water routes, and ordinary
+- [x] Industrial hubs can show rail, ports can show water routes, and ordinary
       connections can show roads or trails.
-- [ ] Every Mushroom Kingdom POI has a stable id, name, type, coordinates,
+- [x] Every Mushroom Kingdom POI has a stable id, name, type, coordinates,
       faction, and numeric map lens values.
-- [ ] No duplicate POIs or dangling location article ids remain in the
+- [x] No duplicate POIs or dangling location article ids remain in the
       Mushroom Kingdom survey.
-- [ ] Raventree Manor is filed on the Midlands sheet and its location record
+- [x] Raventree Manor is filed on the Midlands sheet and its location record
       does not describe it as part of the Mushroom Kingdom.
-- [ ] Province census and build checks remain green after the cleanup.
+- [x] Province census and build checks remain green after the cleanup.
 
 ## Source of truth
 
@@ -36,3 +36,18 @@ political border.
 
 Generated province snapshots must be regenerated with
 `node tools/build-province-census.mjs`; they are never hand-edited.
+
+## Validation run
+
+```bash
+node tools/check-map-integrity.mjs
+node tools/tests/test-map-routes.mjs
+node tools/tests/atlas-routes-smoke.mjs
+node tools/tests/test-map-census.mjs
+node tools/check-province-census.mjs
+npm run build --prefix Reputation-Matrix2
+```
+
+The all-catalogue integrity mode remains advisory for legacy records outside
+this review; the default command is strict for the Mushroom Kingdom region
+maps.
