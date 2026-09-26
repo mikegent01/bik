@@ -207,7 +207,7 @@ function renderWeeklyView(year, monthIndex, day) {
     grid.innerHTML = '';
 
     const baseDate = new Date(year, monthIndex, day);
-    const dayOfWeek = baseDate.getDay() - (CALENDAR_DATA.days.values[0].ordinal - 1);
+    let dayOfWeek = baseDate.getDay() - (CALENDAR_DATA.days.values[0].ordinal - 1);
     if (dayOfWeek < 0) dayOfWeek += 7;
     baseDate.setDate(baseDate.getDate() - dayOfWeek);
 
