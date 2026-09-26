@@ -8177,6 +8177,72 @@
       "quote": "specifically chose Archie Miser as the Swiftsoul scapegoat because she 'disliked his shifty eyes' may sound absurd, but it fits her documented behavior pattern.",
       "mirroredFrom": "annotations.json",
       "order": 178
+    },
+    {
+      "id": "ww_bowser_false_heir_castle_compromise",
+      "author": "bowser",
+      "type": "text",
+      "order": 203,
+      "date": null,
+      "timestamp": "5 Aethel, 1040 BF — archival commentary on the 18 Harvestide, 1035 BF filing",
+      "content": "The Jester used my son’s face. Mimbus was in the hall. Fawthful was waiting. If anybody calls that a prank, I will put them through the wall. Cackletta started the fight. The wall was already compromised.",
+      "likes": 317,
+      "links": [
+        {
+          "id": "bowser_throne_room_compromise",
+          "type": "event"
+        },
+        {
+          "id": "bowser",
+          "type": "character"
+        },
+        {
+          "id": "fawthful",
+          "type": "character"
+        }
+      ],
+      "tags": [
+        "bowser",
+        "false-heir",
+        "castle-coup",
+        "fawthful"
+      ],
+      "reaction": "anger",
+      "comments": [],
+      "status": "posted"
+    },
+    {
+      "id": "ww_bowser_dragon_retreat_switch",
+      "author": "bowser",
+      "type": "text",
+      "order": 204,
+      "date": null,
+      "timestamp": "5 Aethel, 1040 BF — archival commentary on the 18 Harvestide, 1035 BF filing",
+      "content": "I told them to get away from the dragon. They did. The Hammer Bro left when the wall became a ceiling. That is not betrayal. That is knowing where the floor is. The switch says self-destruct and maybe lighting. I did not press it.",
+      "likes": 344,
+      "links": [
+        {
+          "id": "the_assault_on_bowsers_castle",
+          "type": "event"
+        },
+        {
+          "id": "bowser",
+          "type": "character"
+        },
+        {
+          "id": "fawthful",
+          "type": "character"
+        }
+      ],
+      "tags": [
+        "bowser",
+        "dragon",
+        "evacuation",
+        "castle-assault"
+      ],
+      "reaction": "resolve",
+      "comments": [],
+      "status": "posted"
     }
   ]
 }
