@@ -1,0 +1,12 @@
+{
+  "run_id": "",
+  "request": "",
+  "rules": {
+    "small_steps": true,
+    "max_prompt_chars": 6000,
+    "require_reference_images_for_qwen_edit": true,
+    "require_validation_before_done": true,
+    "never_commit_automatically": true
+  },
+  "items": []
+}
