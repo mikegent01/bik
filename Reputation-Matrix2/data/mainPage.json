@@ -157,16 +157,28 @@
   ],
   "historicalBackfills": [
     {
-      "id": "bowser-castle-backfill",
-      "label": "Historical Backfill · 18 Harvestide, 1035 BF",
-      "title": "The Bowser Castle Succession File",
-      "summary": "Two recovered filings explain how the false Bowser Jr. session became an entry operation, how Fawthful’s forces breached Bowser’s Castle with a dragon and traitors inside the garrison, and why the ruler-then-god claim did not make the assault a present-day event.",
-      "caption": "Archival sequence — inferred placement, exact hour unrecorded. Bowser’s current record places him in the Shadow Estate.",
+      "id": "bowser-castle-backfill-01",
+      "label": "Historical Backfill · Session I · 18 Harvestide, 1035 BF",
+      "title": "The Bowser Jr. That Wasn’t — The Castle Opened From Inside",
+      "summary": "After the false Bowser Jr. session, Bowser wakes on the throne and finds the Jester, Mimbus, Fawthful, altered routes, and Cackletta’s first strike waiting inside the castle.",
+      "caption": "First in the recovered sequence · inferred placement, exact hour unrecorded.",
+      "image": "assets/images/events/bowser-castle-coup/bowser-throne-room-compromise.jpg",
+      "events": [
+        "bowser_throne_room_compromise"
+      ],
+      "order": 1
+    },
+    {
+      "id": "bowser-castle-backfill-02",
+      "label": "Historical Backfill · Session II · 18 Harvestide, 1035 BF",
+      "title": "The Assault on Bowser’s Castle — The Dragon at the Wall",
+      "summary": "Fawthful’s force brings the dragon through the windows and walls. Bowser orders the retreat, the Magikoopas improvise block transport, traitors are stopped, Sir Frankfurt falls into the unknown, and the surviving remnant meets the Fawthful drone.",
+      "caption": "Second in the recovered sequence · historical assault, not a present-day siege.",
       "image": "assets/images/events/bowser-castle-assault/bowser-castle-assault.jpg",
       "events": [
-        "bowser_throne_room_compromise",
         "the_assault_on_bowsers_castle"
-      ]
+      ],
+      "order": 2
     }
   ]
 }
