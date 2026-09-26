@@ -208,6 +208,33 @@
         "success": "which is the whole method this file has been chasing. Morel smiles and hands over a key. The Guild smiles and fits a ring. Nothing signed, everything owed, and no document to contest afterwards.",
         "failure": "a nice sentence about obligation."
       }
+    ],
+    "prop_castle_betrayal_roster": [
+      {
+        "id": "castle_roster_missing_seal",
+        "dc": 4,
+        "match": "UNAUTHORISED CHANGE",
+        "success": "The sheet was not merely edited; it was made to look like a live command while withholding the authority that would make the command legitimate.",
+        "failure": "The heading marks the change as unauthorised, but the paper does not identify who made it."
+      }
+    ],
+    "prop_bowser_retreat_order": [
+      {
+        "id": "castle_order_blind_angle",
+        "dc": 5,
+        "match": "Pull the line back from the dragon.",
+        "success": "Bowser is not ordering a symbolic retreat. He is moving the small bodies into the dragon’s blind angles and buying the seconds required for the evacuation.",
+        "failure": "The line was ordered back. The paper does not prove how much distance the order bought."
+      }
+    ],
+    "prop_castle_self_destruct_switch_label": [
+      {
+        "id": "castle_switch_uncertainty",
+        "dc": 6,
+        "match": "SELF-DESTRUCT",
+        "success": "The label made the switch a live command problem: without a confirmed control, demolition would have been an unreviewable guess during an evacuation.",
+        "failure": "The plate says SELF-DESTRUCT, but the contradictory lighting note leaves the actual function unresolved."
+      }
     ]
   },
   "articles": {},

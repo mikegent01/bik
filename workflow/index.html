@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ArenaLLM · Waluipedia local agent</title>
+<style>
+:root{color-scheme:dark;--bg:#0e1218;--panel:#171e28;--panel2:#111720;--line:#2d3a4b;--text:#edf3f7;--muted:#9eacbc;--accent:#74d6bd;--accent2:#8bb8ff;--warn:#f2bd69;--bad:#f07d82;--shadow:0 18px 50px rgba(0,0,0,.22)}
+*{box-sizing:border-box}html{background:var(--bg)}body{margin:0;background:radial-gradient(circle at 15% -10%,rgba(116,214,189,.12),transparent 32rem),var(--bg);color:var(--text);font:15px/1.5 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}main{max-width:1120px;margin:0 auto;padding:42px 20px 72px}h1,h2,h3,p{margin-top:0}h1{font-size:clamp(30px,5vw,48px);letter-spacing:-.04em;margin-bottom:8px}h2{font-size:19px;margin-bottom:12px}h3{font-size:14px;margin-bottom:5px}.eyebrow{color:var(--accent);font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase}.hero{max-width:790px;margin-bottom:28px}.hero p{font-size:17px;color:var(--muted);margin-bottom:0}.layout{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(320px,.95fr);gap:18px}.panel{background:rgba(23,30,40,.94);border:1px solid var(--line);border-radius:16px;padding:20px;box-shadow:var(--shadow)}.prompt-panel{min-height:480px;display:flex;flex-direction:column}.prompt-panel textarea{flex:1;min-height:310px}.activity-panel{min-height:480px}.wide{grid-column:1/-1}.field-label{display:block;color:var(--muted);font-size:12px;font-weight:700;letter-spacing:.03em;margin:15px 0 7px}textarea,input,button{font:inherit}textarea,input[type=text],input[type=number]{width:100%;background:var(--panel2);color:var(--text);border:1px solid var(--line);border-radius:10px;padding:11px 12px;outline:none}textarea:focus,input:focus{border-color:var(--accent2);box-shadow:0 0 0 3px rgba(139,184,255,.12)}textarea{resize:vertical}.prompt-panel textarea{resize:vertical}.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.row>*{flex:1}.row button,.row label{flex:0 0 auto}button{background:var(--accent);color:#071b1a;border:0;border-radius:9px;padding:10px 15px;font-weight:800;cursor:pointer;transition:transform .15s,filter .15s}button:hover{filter:brightness(1.08);transform:translateY(-1px)}button.secondary{background:#334358;color:var(--text)}button.warning{background:var(--warn);color:#271b08}button:disabled{opacity:.5;cursor:wait;transform:none}.hint,.tiny{color:var(--muted);font-size:12px}.hint{margin:8px 0 0}.approval{display:flex;gap:9px;align-items:flex-start;background:rgba(242,189,105,.1);border:1px solid rgba(242,189,105,.38);border-radius:10px;padding:11px;margin-top:14px;color:#f6d99e;font-size:13px}.approval input{width:auto;margin-top:4px;accent-color:var(--warn)}details{border-top:1px solid var(--line);margin-top:17px;padding-top:12px}summary{cursor:pointer;color:var(--muted);font-size:13px;font-weight:700}.advanced{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:9px}.advanced .field-label{margin-top:4px}.service{display:flex;gap:10px;align-items:center;justify-content:space-between;border-top:1px solid var(--line);margin-top:16px;padding-top:15px}.status{white-space:pre-wrap;background:#0a0e14;border:1px solid var(--line);border-radius:10px;padding:12px;color:var(--muted);min-height:47px}.status.ok{color:var(--accent)}.status.warn{color:var(--warn)}.status.bad{color:var(--bad)}.activity{display:flex;flex-direction:column;gap:9px;max-height:510px;overflow:auto;padding-right:3px}.empty{color:var(--muted);padding:36px 8px;text-align:center}.event{border-left:3px solid var(--line);background:#111720;border-radius:0 9px 9px 0;padding:9px 11px}.event.thinking{border-left-color:var(--accent2)}.event.action{border-left-color:var(--accent)}.event.result{border-left-color:#60748e}.event.error,.event.blocked{border-left-color:var(--bad)}.event.task_done{border-left-color:var(--accent)}.event-head{display:flex;justify-content:space-between;gap:10px;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.05em}.event-body{white-space:pre-wrap;color:var(--text);font-size:13px;margin-top:4px;overflow-wrap:anywhere}.capabilities{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.cap{background:var(--panel2);border:1px solid var(--line);border-radius:11px;padding:13px}.cap strong{display:block;font-size:13px;margin-bottom:3px}.cap span{display:block;color:var(--muted);font-size:12px}.logline{display:flex;justify-content:space-between;gap:14px;align-items:center}.run-id{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--accent2);font-size:11px;overflow-wrap:anywhere}.hide{display:none!important}@media(max-width:820px){main{padding-top:26px}.layout{grid-template-columns:1fr}.wide{grid-column:auto}.capabilities{grid-template-columns:1fr 1fr}}@media(max-width:480px){main{padding-left:13px;padding-right:13px}.panel{padding:15px}.advanced{grid-template-columns:1fr}.capabilities{grid-template-columns:1fr}.service{align-items:flex-start;flex-direction:column}}
+</style>
+</head>
+<body>
+<main>
+  <header class="hero">
+    <div class="eyebrow">Local workspace · ArenaLLM</div>
+    <h1>Tell the archive what to do.</h1>
+    <p>Write one request in plain language. The local agent will understand the scope, split the work internally, browse the repository, make focused changes, run validations, and stop when it needs your approval.</p>
+  </header>
+
+  <div class="layout">
+    <section class="panel prompt-panel">
+      <div class="eyebrow">One prompt in, one working session out</div>
+      <h2>What should change?</h2>
+      <textarea id="prompt" placeholder="Example: Update the historical Bowser archive. Check the existing event, analysis, home-page card, and art before editing. Keep the throne-room breach clearly backdated, preserve every recovered scene detail, validate the JSON, and tell me what changed."></textarea>
+      <p class="hint">You do not need to split this into tasks or tell the agent which files to open. It will search first and decide the smallest safe tool action at each step.</p>
+
+      <label class="approval"><input id="allowWrites" type="checkbox"><span><strong>Allow local edits and image jobs for this run.</strong><br>The agent can always browse and audit. Leave this off for a read-only plan; if it reaches a patch, it will stop here for approval.</span></label>
+
+      <details>
+        <summary>Advanced local settings</summary>
+        <div class="advanced">
+          <div><label class="field-label" for="model">LM Studio model (optional)</label><input id="model" type="text" placeholder="Uses the loaded model"></div>
+          <div><label class="field-label" for="maxSteps">Maximum agent turns</label><input id="maxSteps" type="number" value="30" min="1" max="60"></div>
+        </div>
+        <p class="tiny">ArenaLLM remains localhost-only. It has no shell tool, cannot commit or push, and can only use the bounded tools shown below.</p>
+      </details>
+
+      <div class="row" style="margin-top:17px"><button id="runBtn">Start ArenaLLM</button><button id="approveBtn" class="warning hide">Approve edits and continue</button><button id="newBtn" class="secondary">New prompt</button></div>
+      <div id="runStatus" class="status" style="margin-top:12px">Idle. Your prompt stays in this local workspace.</div>
+      <div class="service"><span class="tiny">Local services</span><button id="healthBtn" class="secondary">Check LM Studio / ComfyUI</button></div>
+      <div id="health" class="status" style="margin-top:9px">Not checked.</div>
+    </section>
+
+    <section class="panel activity-panel">
+      <div class="logline"><div><div class="eyebrow">Live trace</div><h2>What ArenaLLM is doing</h2></div><span id="runId" class="run-id"></span></div>
+      <p class="tiny">The internal work plan is hidden. This trace shows the agent’s actual tool choices and results instead of asking you to manage implementation details.</p>
+      <div id="activity" class="activity"><div class="empty">Start a prompt to see the agent browse, reason, edit, and validate.</div></div>
+    </section>
+
+    <section class="panel wide">
+      <div class="eyebrow">Bounded local tools</div>
+      <h2>A small agent, not a hidden shell</h2>
+      <div class="capabilities">
+        <div class="cap"><strong>Browse</strong><span>Read focused files and search the checkout.</span></div>
+        <div class="cap"><strong>Edit</strong><span>Apply one exact, scoped patch at a time.</span></div>
+        <div class="cap"><strong>Validate</strong><span>Run fixed JSON, feed, cover, and campaign audits.</span></div>
+        <div class="cap"><strong>Ask</strong><span>Stop for missing facts, approval, or image references.</span></div>
+      </div>
+    </section>
+  </div>
+</main>
+<script>
+const $=id=>document.getElementById(id);
+let activeJob="";
+let activeRun="";
+let polling=false;
+function show(id,text,kind=""){const box=$(id);box.textContent=text;box.className="status"+(kind?" "+kind:"")}
+function pretty(value){if(value===undefined||value===null)return "";if(typeof value==="string")return value;return JSON.stringify(value,null,2)}
+function eventText(event){
+  if(event.kind==="thinking") return `Choosing the next bounded action for ${event.task||"this request"}.`;
+  if(event.kind==="action") return `${event.action?.action||"tool"}${event.action?.args&&Object.keys(event.action.args).length?"\n"+pretty(event.action.args):""}`;
+  if(event.kind==="result") return pretty(event.result);
+  if(event.kind==="task_done") return `Internal work unit completed: ${event.task||""}`;
+  return pretty(event.result||event.message||event);
+}
+function renderEvents(events){
+  const box=$("activity");
+  if(!events||!events.length){box.innerHTML='<div class="empty">Waiting for the first local-agent event…</div>';return}
+  box.innerHTML=events.map(event=>`<div class="event ${event.kind||""}"><div class="event-head"><span>${escapeHtml(event.kind||"event")}</span><span>${event.step?"turn "+escapeHtml(event.step):""}</span></div><div class="event-body">${escapeHtml(eventText(event))}</div></div>`).join("");
+  box.scrollTop=box.scrollHeight;
+}
+function escapeHtml(value){return String(value).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]))}
+async function post(path,value){const response=await fetch(path,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(value)});const data=await response.json();if(!response.ok||data.error)throw new Error(data.error||`HTTP ${response.status}`);return data}
+function controlsBusy(busy){$("runBtn").disabled=busy;$("newBtn").disabled=busy;$("healthBtn").disabled=busy}
+function setApproval(show){$("approveBtn").classList.toggle("hide",!show)}
+async function pollJob(job){
+  if(polling)return;
+  polling=true;
+  try{
+    const response=await fetch("/api/agent/status?job="+encodeURIComponent(job));
+    const data=await response.json();
+    activeRun=data.run||activeRun;
+    $("runId").textContent=activeRun?"run "+activeRun:"";
+    renderEvents(data.events||[]);
+    const status=data.status||"running";
+    const kind=status==="error"?"bad":(status==="approval_required"||status==="needs_input"?"warn":(status==="done"?"ok":""));
+    show("runStatus",`${status}${data.message?"\n"+data.message:""}`,kind);
+    setApproval(status==="approval_required");
+    if(status==="running")setTimeout(()=>{polling=false;pollJob(job)},650);else{polling=false;controlsBusy(false)}
+  }catch(error){polling=false;show("runStatus",error.message,"bad");controlsBusy(false)}
+}
+async function start(runId="",approved=false){
+  const text=$("prompt").value.trim();
+  if(!text&&!runId){show("runStatus","Write a prompt first.","warn");return}
+  controlsBusy(true);setApproval(false);renderEvents([]);show("runStatus",runId?"Continuing the approved local session…":"Starting ArenaLLM. It will choose how to break this request down…");
+  try{
+    const data=await post("/api/agent/run",{text,run:runId,model:$("model").value,allow_writes:approved||$("allowWrites").checked,max_steps:Number($("maxSteps").value)||30});
+    activeJob=data.job;pollJob(activeJob);
+  }catch(error){show("runStatus",error.message,"bad");controlsBusy(false)}
+}
+$("runBtn").onclick=()=>start();
+$("approveBtn").onclick=()=>start(activeRun,true);
+$("newBtn").onclick=()=>{activeJob="";activeRun="";setApproval(false);$("prompt").value="";$("runId").textContent="";renderEvents([]);show("runStatus","Idle. Your prompt stays in this local workspace.");controlsBusy(false);$("prompt").focus()};
+$("healthBtn").onclick=async()=>{show("health","Checking local services…","warn");try{const response=await fetch("/api/health");const data=await response.json();show("health",JSON.stringify(data,null,2),"ok")}catch(error){show("health",error.message,"bad")}};
+</script>
+</body>
+</html>
