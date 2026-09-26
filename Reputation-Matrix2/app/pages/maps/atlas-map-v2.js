@@ -8,6 +8,11 @@ import { hashColor, initial, isSafeLogo, topCats, legendChips } from './map-lens
 import { typeColor, typeLabel, familiesPresent } from './map-poi-types.js';
 import { buildProvinceCensus, shortlist as rankShortlist, uniquePins } from './map-provinces.js';
 import { PROVINCE_POLITICS } from '../../../data/support/politics-data.js';
+import {
+  buildTransitNetwork, transitSvg, transitRouteDossierHtml,
+  transitNetworkOverviewHtml, stationTransitDetailHtml,
+  poiIndustrialization, industrializationTier, TRANSIT_MODES,
+} from './map-transit.js';
 
 const esc = value => String(value ?? '').replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
 const format = value => Math.round(value || 0).toLocaleString();
@@ -422,7 +427,7 @@ function stopBannerHtml(stop) {
     + `</div></div>`;
 }
 
-function detailHtml(poi, pois) {
+function detailHtml(poi, pois, opts = {}) {
   if (!poi) {
     return `<div class="atlas-v2-empty"><span>◎</span><b>Select a location</b><p>Pins sit on the painted map. Scroll to zoom. Drag to pan. Region sheets start cropped to their POI hull so a plains sheet does not look like the whole kingdom.</p></div>`;
   }
@@ -479,6 +484,7 @@ function detailHtml(poi, pois) {
     ? `<p class="atlas-v2-region">📍 ${esc(rec.region)}</p>` : '';
   const statusLine = rec && rec.status
     ? `<p class="atlas-v2-status">${esc(rec.status)}</p>` : '';
+  const transitHtml = opts.transitNetwork ? stationTransitDetailHtml(poi, opts.transitNetwork) : '';
 
   return `<article class="atlas-v2-detail">
     ${plateHtml}
@@ -495,6 +501,7 @@ function detailHtml(poi, pois) {
       ${extras.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${v}</dd></div>`).join('')}
     </dl>
     ${poi.library_summary ? `<p class="atlas-v2-library">📚 ${esc(poi.library_summary)}</p>` : ''}
+    ${transitHtml}
     ${article ? `<button class="atlas-v2-wiki" data-open-article="${esc(article)}">Open wiki article</button>` : ''}
     ${nearby.length ? `<div class="atlas-v2-nearby"><b>Nearby</b>${nearby.map(x => `<button data-jump="${esc(x.other.id)}">${esc(x.other.name)} <span>${x.d.toFixed(1)}</span></button>`).join('')}</div>` : ''}
   </article>`;
@@ -831,6 +838,23 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
       },
     };
   }
+
+  /* Transit network: railways, shipping lanes, highways, and wilderness trails */
+  const transitNetwork = buildTransitNetwork(map, pois);
+  if (opts.transit || opts.transitMode || opts.showTransit || opts.defaultMode === 'transit') {
+    modes.transit = {
+      label: 'Transit & Rail', color: '#38bdf8', unit: 'industrial score', sizeLabel: 'industrial rating', categorical: true,
+      value: poi => poiIndustrialization(poi, map),
+      catOf: poi => {
+        const score = poiIndustrialization(poi, map);
+        const tier = industrializationTier(score);
+        const st = transitNetwork.stationById.get(poi.id);
+        const icon = st ? st.stationIcon : tier.icon;
+        return { key: `transit:${tier.level}`, label: `${tier.label} (${score})`, color: tier.color, icon };
+      },
+    };
+  }
+
   if (opts.chatter) modes.chatter = { label: 'Chatter', color: '#f472b6', unit: 'wah notes', value: poi => ((opts.chatter.counts || {})[poi.id] || 0) };
   const startMode = (opts.defaultMode && modes[opts.defaultMode]) ? opts.defaultMode : 'population';
   /* Journey stops: [{poiId, n, eventId, name, date, plane}]. Stops whose pin
@@ -847,6 +871,7 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
     : plane ? `${PLANE_LABELS[plane] || plane} pins` : 'surveyed pins';
 
   const plotsOn = provinceList.length > 0 && opts.showProvinces !== false;
+  const transitOn = opts.showTransit ?? (opts.transit || false);
   host.innerHTML = `<section class="atlas-v2" aria-label="${esc(map.name)} tactical map">
     <header>
       <div>
@@ -865,6 +890,7 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
       <select data-type><option value="">All types</option>${types.map(t => `<option value="${esc(t)}">${esc(humanize(t))}</option>`).join('')}</select>
       <button type="button" data-action="wiki" title="Show only pins that open a wiki article">📖 Wiki</button>
       ${provinceList.length ? `<button type="button" data-action="plots" class="${plotsOn ? 'active' : ''}" title="Merge the pins into provinces and draw the borders the census can prove">🗺️ Provinces</button>` : ''}
+      <button type="button" data-action="transit" class="${transitOn ? 'active' : ''}" title="Toggle transit and logistics network: train lines, shipping routes, trade highways, and wilderness paths">🚆 Transit</button>
       <button type="button" data-action="density" data-density="all" title="Cycle marker density: every location, key locations only, or auto-clustered">${PIN_DENSITY.all.label}</button>
       <button type="button" data-action="bigpins" title="Bigger, easier-to-hit dots — for touch, or when precision aiming is a nuisance">⬤ Big dots</button>
       <button type="button" data-action="shortlist" title="Rank the pins on this sheet and pick one to act on">🎯 Choose a pin</button>
@@ -892,7 +918,7 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
         </div>
         <div class="atlas-v2-legend"><span data-legend-lens></span><span>${esc(map.group || '')}</span></div>
       </main>
-      <aside class="atlas-v2-sidebar">${detailHtml(null, pois)}</aside>
+      <aside class="atlas-v2-sidebar">${startMode === 'transit' ? transitNetworkOverviewHtml(transitNetwork) : detailHtml(null, pois, { transitNetwork })}</aside>
     </div>
   </section>`;
 
@@ -909,7 +935,7 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
        continent, then region, then town — instead of one flat pile. */
     drill: [],
     scale: 1, tx: 0, ty: 0, box: { left: 0, top: 0, w: 1, h: 1 }, mode: startMode, selected: null, wikiOnly: false,
-    plots: plotsOn, province: null, board: null, pickIndex: 0, nonce: 0, dragged: false, labelZoom: 1,
+    plots: plotsOn, province: null, transit: transitOn, selectedRoute: null, board: null, pickIndex: 0, nonce: 0, dragged: false, labelZoom: 1,
     pinDensity: PIN_DENSITY[opts.pinDensity] ? opts.pinDensity : 'all',
     /* Big-target mode: same dots, bigger hit areas, for touch and for anyone
        who would rather aim at a disc than a point. Opt-in, off by default. */
@@ -1258,13 +1284,18 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
     const clusterHint = clusterCount ? ` · ${clusterCount} cluster${clusterCount === 1 ? '' : 's'}` : '';
     const keyHint = hiddenKeyCount ? ` · ${hiddenKeyCount} tucked` : '';
     const plotHint = state.plots && provinceList.length ? ` · 🗺️ ${provinceList.length} provinces${contestedCount ? ` · ⚔ ${contestedCount} contested` : ''}` : '';
+    const showTransit = state.transit || state.mode === 'transit';
+    const transitHint = showTransit && transitNetwork.routes.length ? ` · 🚆 ${transitNetwork.summary.totalRoutes} transit lines (${transitNetwork.summary.totalMiles} mi)` : '';
     if (lensEl) {
       if (lens.categorical) {
         const cats = topCats(displayPois, p => lens.catOf(p));
-        lensEl.innerHTML = `<i style="background:${lens.color}"></i>${format(min)} – ${format(max)} ${esc(lens.unit)} · pin size = ${esc(lens.sizeLabel || lens.label)} · ${esc(densityHint)}${clusterHint}${keyHint}${major.size ? ' · ◎ top 5 ringed' : ''}${toks.length ? ` · 🛰️ ${toks.length} party` : ''} · ${legendChips(cats.cats, cats.more)}${plotHint}`;
-      } else lensEl.innerHTML = `<i style="background:${lens.color}"></i>${format(min)} – ${format(max)} ${esc(lens.unit)} · pin size = ${esc(lens.label)} · ${esc(densityHint)}${clusterHint}${keyHint}${major.size ? ' · ◎ top 5 ringed' : ''}${toks.length ? ` · 🛰️ ${toks.length} party` : ''}${plotHint}`;
+        lensEl.innerHTML = `<i style="background:${lens.color}"></i>${format(min)} – ${format(max)} ${esc(lens.unit)} · pin size = ${esc(lens.sizeLabel || lens.label)} · ${esc(densityHint)}${clusterHint}${keyHint}${major.size ? ' · ◎ top 5 ringed' : ''}${toks.length ? ` · 🛰️ ${toks.length} party` : ''} · ${legendChips(cats.cats, cats.more)}${plotHint}${transitHint}`;
+      } else lensEl.innerHTML = `<i style="background:${lens.color}"></i>${format(min)} – ${format(max)} ${esc(lens.unit)} · pin size = ${esc(lens.label)} · ${esc(densityHint)}${clusterHint}${keyHint}${major.size ? ' · ◎ top 5 ringed' : ''}${toks.length ? ` · 🛰️ ${toks.length} party` : ''}${plotHint}${transitHint}`;
     }
-    overlay.innerHTML = (state.plots ? bordersSvg(provinceList, plotColor) + provinceLabelsHtml() : '') + journeyPathSvg() + clusters.map(group => {
+    overlay.innerHTML = (state.plots ? bordersSvg(provinceList, plotColor) + provinceLabelsHtml() : '')
+      + (showTransit ? transitSvg(transitNetwork, state.selectedRoute) : '')
+      + journeyPathSvg()
+      + clusters.map(group => {
       const poi = group[0];
       const faction = factionMeta(poi.factionId);
       const cat = lens.categorical ? lens.catOf(poi) : null;
@@ -1370,6 +1401,40 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
         if (prov) selectProvince(prov);
       });
     });
+
+    /* Transit routes are interactive: click opens route dossier, hover lights endpoints. */
+    overlay.querySelectorAll('[data-route-id]').forEach(el => {
+      el.addEventListener('click', ev => {
+        ev.stopPropagation();
+        if (state.dragged) return;
+        const routeId = el.dataset.routeId;
+        const route = transitNetwork.routes.find(r => r.id === routeId);
+        if (route) selectRoute(route);
+      });
+    });
+    overlay.querySelectorAll('.atlas-v2-route').forEach(el => {
+      const routeId = el.dataset.route;
+      const route = transitNetwork.routes.find(r => r.id === routeId);
+      if (!route) return;
+      el.addEventListener('pointerenter', () => {
+        overlay.querySelectorAll('[data-poi]').forEach(btn => {
+          const stack = (btn.dataset.ids || btn.dataset.poi || '').split(',');
+          if (stack.includes(route.u.id) || stack.includes(route.v.id)) {
+            btn.classList.add('selected');
+          }
+        });
+      });
+      el.addEventListener('pointerleave', () => {
+        if (state.selectedRoute !== route.id) {
+          overlay.querySelectorAll('[data-poi]').forEach(btn => {
+            const stack = (btn.dataset.ids || btn.dataset.poi || '').split(',');
+            const selStack = state.selected ? [state.selected.id] : [];
+            btn.classList.toggle('selected', stack.some(id => selStack.includes(id)));
+          });
+        }
+      });
+    });
+
     if (toks.length) {
       /* A party token is now the same size as the places it stands among, and
          it PULSES. Size was the wrong way to say "someone is here" — it just
@@ -1642,8 +1707,30 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
     return true;
   }
 
+  function selectRoute(route, how = {}) {
+    if (!route) return;
+    state.selectedRoute = route.id;
+    state.selected = null;
+    state.province = null;
+    overlay.querySelectorAll('.atlas-v2-route').forEach(el => {
+      el.classList.toggle('selected', el.dataset.route === route.id);
+    });
+    overlay.querySelectorAll('[data-poi]').forEach(el => {
+      const stack = (el.dataset.ids || el.dataset.poi || '').split(',');
+      const isEndpoint = stack.includes(route.u.id) || stack.includes(route.v.id);
+      el.classList.toggle('atlas-v2-dimmed', !isEndpoint);
+    });
+    closeBoard();
+    sidebar.innerHTML = transitRouteDossierHtml(route, transitNetwork);
+    if (how.frame !== false && ready) {
+      framePois([route.u, route.v], { pad: 4 });
+      placePins();
+    }
+  }
+
   function select(poi, ids, stopOverride) {
     state.selected = poi;
+    state.selectedRoute = null;
     /* A clustered pin lights its cluster marker even when it is not the
        representative: match the whole id stack, not just data-poi. */
     overlay.querySelectorAll('[data-poi]').forEach(item => {
@@ -1659,14 +1746,14 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
       sidebar.innerHTML = `<article class="atlas-v2-detail"><span class="atlas-v2-kicker">stacked pins</span><h3>${stack.length} locations share this mark</h3><p>Same painted coordinate. Pick one.</p>${rows}</article>`;
       return;
     }
-    sidebar.innerHTML = stopBannerHtml(stopOverride || stopByPoi.get(poi.id)) + detailHtml(poi, pois);
+    sidebar.innerHTML = stopBannerHtml(stopOverride || stopByPoi.get(poi.id)) + detailHtml(poi, pois, { transitNetwork });
     /* Location records load asynchronously. If a pin is opened before the
        fetch settles, redraw that same pin once -- and only if it is still the
        selected one, so a fast clicker never gets a stale panel. */
     if (!LOC_BY_ID.size) {
       loadLocationRecords().then(() => {
         if (state.selected && state.selected.id === poi.id && LOC_BY_ID.size) {
-          sidebar.innerHTML = stopBannerHtml(stopOverride || stopByPoi.get(poi.id)) + detailHtml(poi, pois);
+          sidebar.innerHTML = stopBannerHtml(stopOverride || stopByPoi.get(poi.id)) + detailHtml(poi, pois, { transitNetwork });
           sidebar.querySelectorAll('.atlas-v2-factionmark img').forEach(im => {
             im.addEventListener('error', () => im.remove());
           });
@@ -1710,6 +1797,9 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
       const lv = p => lens.value ? lens.value(p) : (Number(p[lens.key]) || 0);
       host.querySelector('[data-mode-total]').textContent = `${format(pois.reduce((n, p) => n + lv(p), 0))} ${lens.unit}`;
     }
+    if (state.mode === 'transit' && !state.selected && !state.selectedRoute) {
+      sidebar.innerHTML = transitNetworkOverviewHtml(transitNetwork);
+    }
     placePins();
   }));
   host.querySelector('[data-action="wiki"]').addEventListener('click', event => {
@@ -1722,6 +1812,18 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
     state.plots = !state.plots;
     event.currentTarget.classList.toggle('active', state.plots);
     if (!state.plots) { state.province = null; }
+    placePins();
+  });
+  const transitBtn = host.querySelector('[data-action="transit"]');
+  if (transitBtn) transitBtn.addEventListener('click', event => {
+    state.transit = !state.transit;
+    event.currentTarget.classList.toggle('active', state.transit);
+    if (!state.transit && state.selectedRoute) {
+      state.selectedRoute = null;
+      sidebar.innerHTML = detailHtml(state.selected, pois, { transitNetwork });
+    } else if (state.transit && !state.selected && !state.selectedRoute) {
+      sidebar.innerHTML = transitNetworkOverviewHtml(transitNetwork);
+    }
     placePins();
   });
   const bigPinsBtn = host.querySelector('[data-action="bigpins"]');
@@ -1823,6 +1925,37 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
       const poi = pois.find(p => p.id === jump.dataset.jump);
       if (poi) select(poi);
     }
+    const jumpPoi = event.target.closest('[data-jump-poi]');
+    if (jumpPoi) {
+      const poi = pois.find(p => p.id === jumpPoi.dataset.jumpPoi);
+      if (poi) {
+        select(poi, null, stopByPoi.get(poi.id));
+        centerOn(poi.x, poi.y, Math.max(state.scale, 4.2));
+        placePins();
+      }
+      return;
+    }
+    const selRoute = event.target.closest('[data-select-route]');
+    if (selRoute) {
+      const route = transitNetwork.routes.find(r => r.id === selRoute.dataset.selectRoute);
+      if (route) selectRoute(route);
+      return;
+    }
+    const frameRoute = event.target.closest('[data-transit-frame-route]');
+    if (frameRoute) {
+      const route = transitNetwork.routes.find(r => r.id === frameRoute.dataset.transitFrameRoute);
+      if (route) {
+        framePois([route.u, route.v], { pad: 4 });
+        placePins();
+      }
+      return;
+    }
+    if (event.target.closest('[data-transit-back]')) {
+      state.selectedRoute = null;
+      placePins();
+      sidebar.innerHTML = transitNetworkOverviewHtml(transitNetwork);
+      return;
+    }
     const pick = event.target.closest('[data-pick]');
     if (pick && state.boardData) {
       pickRow(state.boardData.picks.find(r => r.id === pick.dataset.pick));
@@ -1834,7 +1967,7 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
     if (event.target.closest('[data-pickclose]')) {
       const prov = state.province && provinceById.get(state.province);
       closeBoard();
-      sidebar.innerHTML = prov ? provinceDossierHtml(prov, { colorOf: factionMeta, pins: pois, rollup: census ? census.rollup : null, onNation: '', limit: 9 }) : detailHtml(state.selected, pois);
+      sidebar.innerHTML = prov ? provinceDossierHtml(prov, { colorOf: factionMeta, pins: pois, rollup: census ? census.rollup : null, onNation: '', limit: 9 }) : detailHtml(state.selected, pois, { transitNetwork });
       return;
     }
     const pickHere = event.target.closest('[data-pickprovince]');
@@ -1933,5 +2066,13 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
     getCensus: () => (census ? { ...census, provinces: provinceList.map(p => p.id) } : null),
     selectProvince: provinceId => focusProvince(provinceId),
     openShortlist: () => { openBoard(null); return true; },
+    getTransitNetwork: () => transitNetwork,
+    selectRoute: routeId => { const r = transitNetwork.routes.find(x => x.id === routeId); if (r) selectRoute(r); },
+    toggleTransit: on => {
+      state.transit = (on !== undefined ? !!on : !state.transit);
+      const b = host.querySelector('[data-action="transit"]');
+      if (b) b.classList.toggle('active', state.transit);
+      placePins();
+    },
   };
 }
