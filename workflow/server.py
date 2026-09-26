@@ -288,7 +288,7 @@ def main() -> int:
     INPUT_DIR.mkdir(parents=True, exist_ok=True)
     server = ThreadingHTTPServer((args.host, args.port), Handler)
     display_host = "127.0.0.1" if args.host in {"0.0.0.0", "::"} else args.host
-    print(f"ArenaLLM workspace: http://{display_host}:{args.port}/", flush=True)
+    print(f"Waluigi's WAH-Desk: http://{display_host}:{args.port}/", flush=True)
     if display_host != args.host:
         print(f"Bound on {args.host}:{args.port} for the live preview proxy.", flush=True)
     print("Local-only server; press Ctrl+C to stop.", flush=True)
