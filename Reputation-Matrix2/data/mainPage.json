@@ -1,15 +1,15 @@
 {
   "featuredArticle": {
-    "id": "judgement_in_the_grove",
+    "id": "the_assault_on_bowsers_castle",
     "type": "event",
-    "excerpt": "The party fought its way out of the web canopy and into an execution. Remi swapped the crossbow for the musket and landed two direct hits through the smoke; Dan planted himself in front of everyone including Markop and turned the spiders with a mushroom-studded holy symbol; Eager and Dan killed the ettercap between them. The Iron Legion called for pest control, retreated, and then tried to arrest Archie mid-battle, which produced a temporary alliance nobody expects to hold. Markop called down divine favour, took a scythe to the skull, and split the Scorncrow's head open while it was on its knees asking a paladin for mercy. Remi, thrown clear by Mossy, found a breathing man with a red punch mark on his forehead and had the steel defender stand on his chest. Salam went down and did not get up.",
+    "excerpt": "Fawthful’s forces bring a dragon, Magikoopas, Goombas, Koopas, traitors, and a retreating Hammer Bro into Bowser’s Castle. Bowser orders his troops away from the dragon, answers with fire breath and a ground pound, plans an evacuation around a self-destruct switch nobody trusts, and faces Fawthful and Mimbus after the walls give way.",
     "label": "Latest Filing · Session Event",
-    "title": "Judgement in the Grove: A Musket in the Smoke, the Warhammer That Would Not Hear an Appeal, and the Man Remi Found Asleep"
+    "title": "The Assault on Bowser's Castle: A Dragon at the Wall, Goombas in the Corridors, and the Switch Nobody Trusted"
   },
   "latestUpdate": {
-    "id": "the_airlift_that_never_came",
-    "label": "Latest Filing · Session Event",
-    "excerpt": "The Scorncrow is dead and the position is worse. A Legion guard hoists the unconscious Eager onto his shoulder and walks off on the code — no man left behind — over the objection of Archie, Feyward Dan and Markop, and over Eager's own request to be put down. His real reason follows the code: I trust myself more than you guys. The promised helicopter never comes. Remi checks the blood, strips her ruined dress, pulls a chain shirt and a battle axe off a body, heals herself twice without getting right, and walks out of the grove alone. Archie erases the crossed-out lines in his spellbook, circles his last high-level spell, and casts Fireball at a bush — the grove burns for the second time in two filings, with everyone still inside. Markop ends the night on a motorbike he cannot ride. And in a torchlit den full of wrights, Pierce Anamatar sells three people passage out of Guild-controlled ground for a possession: he asks for the siglet, declines an expired coupon, and takes Remi's student ID because it is durable."
+    "id": "the_assault_on_bowsers_castle",
+    "label": "Latest Filing · Bowser’s Castle",
+    "excerpt": "Fawthful’s forces bring a dragon, Magikoopas, Goombas, Koopas, traitors, and a retreating Hammer Bro into Bowser’s Castle. Bowser orders his troops away from the dragon, answers with fire breath and a ground pound, plans an evacuation around a self-destruct switch nobody trusts, and faces Fawthful and Mimbus after the walls give way."
   },
   "didYouKnow": [
     "...that the Scorncrow told three separate filings it was not a monster, and when Remi Akamatsu finally tested the claim with a point-blank musket, the blood under the face was human?",
@@ -37,6 +37,14 @@
     "1040 BF — Harvestide 30: the party descends by rope into the Skittering Grove inside the Scorncrow's tree."
   ],
   "campaignCovers": [
+    {
+      "id": "the-assault-on-bowsers-castle-cover",
+      "campaign": "Mario",
+      "title": "MARIO — The Assault on Bowser's Castle",
+      "caption": "Bowser’s Castle under assault: volcanic walls broken open, the dragon at the gate, and the defenders withdrawing through smoke while the throne remains contested.",
+      "image": "assets/images/locations/bowsers_castle.jpg",
+      "articleId": "the_assault_on_bowsers_castle"
+    },
     {
       "id": "the-airlift-that-never-came-cover",
       "campaign": "Shadeward",
@@ -68,14 +76,6 @@
       "caption": "Classroom 2-B on the morning of the new advisor's first roll call: the sliding door, the window row, the contested front desk, and the back row that behaves like a separate country.",
       "image": "assets/images/events/trinity-roll-call/trc-01-classroom.jpg",
       "articleId": "the_roll_call_at_trinity"
-    },
-    {
-      "id": "the-tape-and-the-wario-files-cover",
-      "campaign": "Mario",
-      "title": "MARIO — The Tape and the Wario Files",
-      "caption": "Midnight, second day, sixth rewind. The curtains have not been opened since the clinic.",
-      "image": "assets/images/events/the-tape-and-the-files/tape-01-midnight-rewind.jpg",
-      "articleId": "the_tape_and_the_wario_files"
     }
   ],
   "fieldGallery": [

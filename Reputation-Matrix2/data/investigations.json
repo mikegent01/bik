@@ -5222,6 +5222,175 @@
           "analysis": "## Read the status line before anything else\n\nThe programme has one logged failure and it is **visibility**. Not *students were not informed*. Not *escort schedule not maintained*. The incident is that somebody looked up in a corridor. [[roll:3|the fix is aimed at the seeing, not the secrecy|the advisor's instruction after the admission was to report future sightings to him directly rather than to friends or social media, which tightens observation reporting while changing nothing about what the school is told|an unannounced diplomatic programme is routine practice, and asking students not to broadcast guests' movements is ordinary protective handling rather than suppression]].\n\n## Two problems that met at a school\n\nThe advisor conceded the structural point when a student made it: the Resistance is an internal matter, the liaisons are external diplomacy, and the two intersecting at this school without coordination is — his words — exactly why SCHALE exists. [[roll:5|the intersection may not be coincidence|a quiet Canterlot exchange routed through the same academy whose classroom is being attached to operational rotations is a lot of significance for one building to hold by accident|Trinity is a large and prominent school, and the boring explanation for two programmes meeting there is that everything in Kivotos meets there]].\n\n## The unnamed someone\n\nTwice the advisor attributed failure to a *someone* who dropped a ball, and he named neither. The archive notes that the previous advisor of this same classroom is also an unnamed someone. Waluigi is keeping a column. It has two entries, both from the same hour, and no institution has yet volunteered a name for either. WAH."
         }
       ]
+    },
+    {
+      "id": "bowser_castle_succession_file",
+      "codename": "BOWSER CASTLE SUCCESSION FILE",
+      "title": "The Castle Was Opened From Inside",
+      "subtitle": "A false heir, a dragon at the wall, and the first throne in a god’s plan",
+      "status": "active",
+      "classification": "Open — accreting",
+      "arcIds": [
+        "fawthful_coup",
+        "bowser_castle_assault"
+      ],
+      "opened": "5 Aethel, 1040 BF",
+      "lastFiled": "5 Aethel, 1040 BF — the outer wall breached; the self-destruct switch untouched",
+      "archivist": "Waluigi, Auditor-General",
+      "icon": "🐢",
+      "accent": "#d46b32",
+      "imageCaption": "The castle file begins at the throne and ends at the breach. The walls are not the only thing that opened.",
+      "hook": "Bowser’s Castle was not taken by force alone: the false heir bought attention, traitors opened the routes, and the dragon made evacuation look like defeat.",
+      "plainSummary": [
+        {
+          "point": "The false Bowser Jr. session was an entry operation.",
+          "detail": "The Jester and Mimbus kept Bowser looking at a fake heir while Fawthful’s people changed routes, guards, and access inside the castle."
+        },
+        {
+          "point": "The dragon was a pressure weapon, not the whole plan.",
+          "detail": "Bowser’s troops survived because Goombas, Koopas, and Magikoopas moved through the dragon’s blind angles while traitors opened an inner gate."
+        },
+        {
+          "point": "Fawthful is claiming succession, not merely victory.",
+          "detail": "The stated order is ruler first and god after, with Bowser’s castle treated as the first throne in a larger campaign."
+        }
+      ],
+      "brief": "The two filings in this file argue against the easy reading of the assault: that a dragon arrived, the walls broke, and the rest was ordinary siege work. The paper says otherwise. The first exhibit records a route revision without the king’s seal and an approach opened under false-heir cover. The second records an order that sends troops away from the dragon instead of feeding them into a heroic last stand. The third is a switch plate whose labels cannot agree about whether it destroys the castle or lights it.\n\nThe file is not asking whether Bowser won. It is asking who made the castle answer to a different command, and whether Fawthful’s ruler-then-god language is a boast or an operating plan.",
+      "threads": [
+        {
+          "id": "th_false_heir_access",
+          "title": "The false heir was a route through the castle",
+          "state": "open",
+          "text": "The altered garrison sheet does not identify every traitor. It does establish that defenders moved, a gate responded to an unrecorded command, and the throne approach was admitted under a false heir. The Jester’s performance therefore belongs in the same chain as the later breach, not in a separate folder marked “prank.”"
+        },
+        {
+          "id": "th_ruler_then_god",
+          "title": "A throne before a godhood claim",
+          "state": "open",
+          "text": "Fawthful states the sequence plainly: ruler first, god after. The dragon, the traitors, and the evacuation pressure all make more sense if the castle is a first seat to be occupied rather than a target to be burned for its own sake. The file does not yet prove how the second step would work."
+        }
+      ],
+      "leads": [
+        {
+          "id": "lead_trace_castle_traitors",
+          "title": "Trace the red armband and the opened inner gate",
+          "state": "open",
+          "priority": "high",
+          "objective": "Identify which garrison posts were moved before the false-heir session and who authorised the inner gate to open from the inside.",
+          "why": "The route sheet shows access was changed before the assault, but the attackers still needed a living hand on the chain. That hand can distinguish a coerced defender from a planned defection.",
+          "exhibits": [
+            "ex_castle_betrayal_roster"
+          ]
+        },
+        {
+          "id": "lead_find_the_second_toggle",
+          "title": "Determine what the two red toggles actually control",
+          "state": "open",
+          "priority": "medium",
+          "objective": "Examine the command-room wiring and establish whether either toggle can destroy the castle or whether the entire plate is a defensive joke that became an evacuation hazard.",
+          "why": "The switch was left untouched during the breach because nobody could identify the real control. If the attackers reach the command room, uncertainty becomes a weapon they can use without understanding the machinery.",
+          "exhibits": [
+            "ex_castle_switch_label"
+          ]
+        }
+      ],
+      "sessions": [
+        {
+          "id": "s_bowser_throne_room_compromise",
+          "label": "The false heir and the throne-room compromise",
+          "date": "5 Aethel, 1040 BF — exact hour unrecorded",
+          "event": "bowser_throne_room_compromise"
+        },
+        {
+          "id": "s_assault_on_bowsers_castle",
+          "label": "The dragon at Bowser’s Castle",
+          "date": "5 Aethel, 1040 BF — continuing from the throne-room breach; exact hour unrecorded",
+          "event": "the_assault_on_bowsers_castle"
+        }
+      ],
+      "relatedEvents": [
+        "bowser_throne_room_compromise",
+        "the_assault_on_bowsers_castle"
+      ],
+      "exhibits": [
+        {
+          "id": "ex_castle_betrayal_roster",
+          "propId": "prop_castle_betrayal_roster",
+          "session": "s_bowser_throne_room_compromise",
+          "icon": "📜",
+          "kind": "order",
+          "category": "authority",
+          "title": "The garrison sheet with the altered routes",
+          "secured": "5 Aethel, 1040 BF — beneath Bowser’s throne steps",
+          "custody": "Bowser’s castle file — original retained in archive",
+          "visual": "<div style=\"padding:24px;border:1px solid rgba(216,140,70,.5);border-radius:10px;background:linear-gradient(135deg,rgba(72,38,18,.9),rgba(22,18,14,.98));color:#ffe0af;text-align:center;font-weight:800;letter-spacing:.12em\">ROYAL SEAL ABSENT · ROUTES REVISED</div>",
+          "onRecord": "The sheet lists a west passage opened from inside, two defenders removed without replacement names, and throne access permitted under heir-session cover. [[roll:4|Read the missing royal seal as evidence|the change was not a routine revision: somebody used the appearance of succession to move the garrison before the assault|the sheet is incomplete, but an incomplete route sheet cannot identify the person who changed it.]]",
+          "dc": 4,
+          "analysis": "The most useful mark on this paper is the one that is not there. A routine garrison revision would carry the king’s seal or a counter-signature from someone authorised to issue it. This sheet carries neither, yet its route marks were obeyed. The castle therefore did not fail because somebody forgot paperwork; it failed because somebody made an unauthorised instruction look operational.\n\n## What the sheet proves\n\nIt proves preparation inside the walls. It does not prove whether the defenders who obeyed the revised routes were traitors, frightened, or fooled. That distinction is the first live lead in the file. The false heir was valuable because it supplied a reason for the movement that did not sound like an invasion until the invasion was already in the corridors.",
+          "links": {
+            "events": [
+              "bowser_throne_room_compromise"
+            ],
+            "characters": [
+              "bowser",
+              "fawthful",
+              "mimbus",
+              "thejestergoomba"
+            ]
+          }
+        },
+        {
+          "id": "ex_castle_retreat_order",
+          "propId": "prop_bowser_retreat_order",
+          "session": "s_assault_on_bowsers_castle",
+          "icon": "🐢",
+          "kind": "order",
+          "category": "survival",
+          "title": "Bowser’s order to pull the line away from the dragon",
+          "secured": "5 Aethel, 1040 BF — Bowser’s Castle courtyard",
+          "custody": "Koopa Troop field file — copied during evacuation",
+          "visual": "<div style=\"padding:24px;border:1px solid rgba(255,137,70,.55);border-radius:10px;background:linear-gradient(135deg,rgba(93,35,15,.92),rgba(25,18,12,.98));color:#ffe2ba;text-align:center;font-weight:800;letter-spacing:.11em\">PULL BACK · MOVE THE WOUNDED · HOLD ONLY TO CLEAR</div>",
+          "onRecord": "The order tells Koopas to form a shell barrier, Goombas to move the wounded, and Magikoopas to spend teleportation on people rather than a supply cart. [[roll:5|Ask what kind of victory this order is trying to buy|it is buying distance and time, which means Bowser understood the dragon was a pressure weapon the troops could survive only by refusing its reach|it is a retreat order and says nothing about whether the dragon was actually hurt.]]",
+          "dc": 5,
+          "analysis": "This is not a heroic last stand written down after the fact. It is a triage document. Every clause moves a body away from the dragon or reserves a person who can move another body. The order’s tactical value is that it accepts the size difference: the dragon controls the open yard; the Goombas control the spaces under its attention; the Koopas control a temporary wall; the Magikoopas control distance.\n\n## What the order does not say\n\nIt does not say “the castle is lost.” It says “hold only long enough for the troops to clear.” That is the difference between surrender and evacuation, and it is why the later breach cannot be read as a clean victory for the attackers. The defenders left a position. They did not give the attackers permission to define what the retreat meant.",
+          "links": {
+            "events": [
+              "the_assault_on_bowsers_castle"
+            ],
+            "characters": [
+              "bowser",
+              "fawthful",
+              "mimbus",
+              "cackletta"
+            ]
+          }
+        },
+        {
+          "id": "ex_castle_switch_label",
+          "propId": "prop_castle_self_destruct_switch_label",
+          "session": "s_assault_on_bowsers_castle",
+          "icon": "⚠️",
+          "kind": "note",
+          "category": "discovery",
+          "title": "The switch plate that could not agree with itself",
+          "secured": "5 Aethel, 1040 BF — lower command room during evacuation",
+          "custody": "Untriggered; plate left in the command room",
+          "visual": "<div style=\"padding:24px;border:1px dashed rgba(246,201,80,.65);border-radius:10px;background:linear-gradient(135deg,rgba(76,58,14,.9),rgba(22,18,10,.98));color:#ffe9a2;text-align:center;font-weight:800;letter-spacing:.1em\">TWO RED TOGGLES · ONE BAD DECISION</div>",
+          "onRecord": "The plate labels one control SELF-DESTRUCT, warns not to use it for lighting, and then adds that one of the toggles may be the lighting. [[roll:6|Treat the joke as a command problem|nobody could safely trigger the castle’s last resort during an evacuation, so leaving both switches alone was a decision made from missing information|the labels are ridiculous but the file still cannot establish what either toggle does.]]",
+          "dc": 6,
+          "analysis": "A joke becomes evidence when it controls a real choice. The contradictory labels did not merely make the command room look incompetent; they removed the option of a controlled demolition at the exact moment a controlled demolition might have mattered. Bowser’s refusal to guess is therefore not timidity. It is the only action that does not turn uncertainty into a mass casualty order.\n\n## Why this belongs beside the dragon order\n\nThe retreat order preserves bodies by spending ground. The switch plate preserves the possibility of preserving the ground by risking bodies. Those are not interchangeable choices. The fact that the plate was left untouched tells the file that the evacuation was still a plan rather than a panic, even after the wall fell.",
+          "links": {
+            "events": [
+              "the_assault_on_bowsers_castle"
+            ],
+            "characters": [
+              "bowser",
+              "fawthful",
+              "mimbus"
+            ]
+          }
+        }
+      ]
     }
   ]
 }

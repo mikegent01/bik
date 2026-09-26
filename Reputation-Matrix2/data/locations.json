@@ -3148,20 +3148,26 @@
     "controllingFaction": "bowser",
     "population": "Garrisoned; census-takers keep melting",
     "climate": "Volcanic; active",
-    "status": "Standing; seat of Koopa power in Darkland territory",
-    "summary": "The volcanic fortress-seat of Bowser's power in the Valley of Bowser, at the heart of Darkland and the Koopa Kingdom territories. Waluigi has visited during active volcanic events and ranks it below Raventree Manor on the unpleasantness index, which is saying something.",
-    "description": "Waluigi has been to Bowser's Castle during active volcanic events, which he mentions here solely to establish that his low opinion of the place is evidence-based. The fortress anchors the Valley of Bowser and the wider Darkland territories contested in the First Bowser Conflict, and its maintenance tunnels featured in the Toadsmith Incident three weeks after the 955 BF assassination. It is large, hot, heavily garrisoned, and exactly as welcoming as a volcano with a garrison. Bowser is house-proud about it. Nobody else is.",
+    "status": "Breached but standing; seat of Koopa power in Darkland territory; outer defenses damaged during Fawthful's assault",
+    "summary": "The volcanic fortress-seat of Bowser's power in the Valley of Bowser, at the heart of Darkland and the Koopa Kingdom territories. A recent assault exposed traitors inside the garrison, drove an evacuation plan, and breached the castle without taking the throne.",
+    "description": "Waluigi has been to Bowser's Castle during active volcanic events, which he mentions here solely to establish that his low opinion of the place is evidence-based. The fortress anchors the Valley of Bowser and the wider Darkland territories contested in the First Bowser Conflict, and its maintenance tunnels featured in the Toadsmith Incident three weeks after the 955 BF assassination. It is large, hot, heavily garrisoned, and exactly as welcoming as a volcano with a garrison. The Fawthful assault proved the garrison was compromised from within: the dragon reached the castle, traitors opened paths for the attackers, and Bowser's evacuation planning began before the walls were breached. Bowser is house-proud about it. Nobody else is.
     "notableFeatures": [
       "Volcanic fortress construction",
       "Valley of Bowser maintenance tunnels",
       "Seat of the First Bowser Conflict",
-      "Toadsmith Incident site (955 BF)"
+      "Toadsmith Incident site (955 BF)",
+      "Throne room and evacuation routes compromised during the Fawthful assault"
     ],
     "relatedArticles": [
       "toadsmith_incident",
       "first_bowser_conflict",
       "bowser",
-      "mario"
+      "mario",
+      "bowser_throne_room_compromise",
+      "the_assault_on_bowsers_castle",
+      "fawthful",
+      "mimbus",
+      "cackletta"
     ],
     "plane": "material",
     "planeConfidence": "medium",

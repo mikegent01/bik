@@ -1860,6 +1860,60 @@
           }
         ]
       }
+    },
+    {
+      "id": "bowser_throne_room_compromise_analysis",
+      "sourceArticle": "bowser_throne_room_compromise",
+      "title": "The Bowser Jr. That Wasn’t",
+      "kicker": "Waluigi’s Article Analysis",
+      "subtitle": "The false heir mattered because it moved the castle before the battle announced itself.",
+      "archivist": "Waluigi, Auditor-General",
+      "filed": "Filed with the throne-room backfill",
+      "summary": "The event records the deception and the first strike. This page asks what the altered route sheet adds: not proof of every traitor, but proof that the castle was prepared to obey a command that did not come from its king.",
+      "thesis": "Bowser woke expecting the aftermath of a ridiculous family session. He found a route sheet that treated the session as access.\n\nThe important object is not the false face. It is the door that opened while Bowser was looking at it. The Jester supplied the distraction, Mimbus carried the operation across the seam, and Fawthful waited where a conqueror waits: already inside the sentence.",
+      "sections": [
+        {
+          "id": "the-door",
+          "icon": "🚪",
+          "heading": "The Door Answered Before Bowser Asked",
+          "sourceAnchor": "The castle opened routes before Bowser touched the command bell.",
+          "body": "The route sheet records movement without a royal seal. That makes the false heir a timing device. It kept the king occupied while the institution underneath him began obeying someone else."
+        },
+        {
+          "id": "the-battle",
+          "icon": "🔥",
+          "heading": "Cackletta Made The Coup Legible",
+          "sourceAnchor": "Cackletta’s first spell turns the revelation into a battle.",
+          "body": "A coup can hide inside uncertainty. A spell striking the throne cannot. Cackletta’s arrival does not explain who planned every route, but it makes the operation public enough that Bowser has to answer with force."
+        }
+      ]
+    },
+    {
+      "id": "the_assault_on_bowsers_castle_analysis",
+      "sourceArticle": "the_assault_on_bowsers_castle",
+      "title": "The Assault on Bowser’s Castle",
+      "kicker": "Waluigi’s Article Analysis",
+      "subtitle": "The dragon was loud. The evacuation order is the document that explains how the castle remained inhabited after the wall fell.",
+      "archivist": "Waluigi, Auditor-General",
+      "filed": "Filed with the Bowser Castle assault record",
+      "summary": "The event records a dragon, a breach, traitors, and an absurd switch plate. This page argues that the retreat order is the centre of the filing: Bowser converted the dragon’s size advantage into time for smaller defenders to move.",
+      "thesis": "The attackers brought a dragon because a dragon makes every defender choose between courage and arithmetic. Bowser chose arithmetic.\n\nGoombas went where the dragon could not reach. Koopas became a shell wall. Magikoopas spent distance on wounded bodies. The castle was breached, but the order kept the breach from becoming a burial.",
+      "sections": [
+        {
+          "id": "small-bodies",
+          "icon": "🐢",
+          "heading": "The Order Is A Map Of What The Dragon Cannot Do",
+          "sourceAnchor": "Goombas moved under the jaw and Koopas formed the barrier.",
+          "body": "The retreat order distributes jobs by size and reach. It does not ask a Goomba to stop a dragon. It asks a Goomba to use the space beneath one. That is not a lesser form of courage; it is the only form that survives contact with a large enough body."
+        },
+        {
+          "id": "the-switch",
+          "icon": "⚠️",
+          "heading": "The Switch Plate Turns A Joke Into A Decision",
+          "sourceAnchor": "The lower command-room labels contradict each other.",
+          "body": "The switch is funny because the labels are incompetent. It is evidence because the labels remove a safe answer at the moment the castle needs one. Bowser leaves both toggles untouched, and the evacuation remains a plan rather than a detonation."
+        }
+      ]
     }
   ]
 }
