@@ -83,6 +83,7 @@ whether any warnings are legacy debt or new work.
 | Article analyses | `data/articleAnalyses.json` | no generated file; rendered at runtime | `#/article-analysis/<id>` and source article panels |
 | Exhibits / props | `data/props.json` | exhibit tiles and modal documents | article/item-linked document modals |
 | Factions | `data/factions.json`, reviewed `data/factionsGenerated.json` | reputation traces and faction pages | faction routes, standings, maps |
+| Transport routes | `data/maps/map-routes.js` plus POI coordinates/economy/population | deterministic per-map route layer at mount time; no generated snapshot | Cartography Desk route overlay (`#/maps/<map>/survey`) |
 | Bros Attacks | `data/brosAttacks.json` | `Foundry/bros_attacks/bros-definitions.js`, `data/brosAttacks.schools.json` | `#/bros-attacks`, shop training yard, Foundry module |
 | Bros shop kits | `data/shop-items/items_bros.js` plus shop category registrations | shop departments and Foundry item conversion | Wario's Shop, hub item piles, Foundry imports |
 | RNN broadcasts | `../tools/rnn-scripts/epNNN.json`, `../tools/rnn-scripts/pending-news-articles.json` | `data/rnn-broadcasts.js`, README `RNN:LAST-WEEK` blocks | standalone RNN player |
@@ -122,6 +123,15 @@ what to create from new data.
   and its props exist. One arc gets one accreting case file.
 - **Faction dossiers** — `data/factionsGenerated.json` is review work. Keep
   dossiers evidence-bound or tombstone/redirect labels that are not factions.
+- **Transport routes** — `data/maps/map-routes.js` owns the travel overlay. It
+  may file a small explicit backbone for a realm and otherwise derives a
+  bounded nearest-hub network. Industrialisation is calculated from the POI's
+  existing economy/population/type fields: developed city links can become
+  trains, port-to-port links boats, and lower-development links roads or
+  trails. Routes are travel suggestions, never province borders, and are
+  rendered only by the atlas map module. Validate the POI survey with
+  `node tools/check-map-integrity.mjs` and do not hand-edit a generated route
+  snapshot because none exists.
 - **Bros Attacks** — `data/brosAttacks.json` is the source; sync generated
   Foundry/shop consumers with `python3 tools/sync_bros_attacks.py`.
 - **Hub / Foundry** — generated `.hub-out/` files stay uncommitted unless a
