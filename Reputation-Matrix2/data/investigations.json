@@ -5229,13 +5229,13 @@
       "title": "The Castle Was Opened From Inside",
       "subtitle": "A false heir, a dragon at the wall, and the first throne in a god’s plan",
       "status": "active",
-      "classification": "Open — accreting",
+      "classification": "Historical backfill — open questions",
       "arcIds": [
         "fawthful_coup",
         "bowser_castle_assault"
       ],
-      "opened": "5 Aethel, 1040 BF",
-      "lastFiled": "5 Aethel, 1040 BF — the outer wall breached; the self-destruct switch untouched",
+      "opened": "18 Harvestide, 1035 BF — inferred archival placement",
+      "lastFiled": "18 Harvestide, 1035 BF — historical assault record; exact hour unrecorded",
       "archivist": "Waluigi, Auditor-General",
       "icon": "🐢",
       "accent": "#d46b32",
@@ -5298,13 +5298,13 @@
         {
           "id": "s_bowser_throne_room_compromise",
           "label": "The false heir and the throne-room compromise",
-          "date": "5 Aethel, 1040 BF — exact hour unrecorded",
+          "date": "18 Harvestide, 1035 BF — inferred historical sequence; exact hour unrecorded",
           "event": "bowser_throne_room_compromise"
         },
         {
           "id": "s_assault_on_bowsers_castle",
           "label": "The dragon at Bowser’s Castle",
-          "date": "5 Aethel, 1040 BF — continuing from the throne-room breach; exact hour unrecorded",
+          "date": "18 Harvestide, 1035 BF — continuing from the throne-room breach; exact hour unrecorded",
           "event": "the_assault_on_bowsers_castle"
         }
       ],
@@ -5321,7 +5321,7 @@
           "kind": "order",
           "category": "authority",
           "title": "The garrison sheet with the altered routes",
-          "secured": "5 Aethel, 1040 BF — beneath Bowser’s throne steps",
+          "secured": "18 Harvestide, 1035 BF — historical recovery — beneath Bowser’s throne steps",
           "custody": "Bowser’s castle file — original retained in archive",
           "visual": "<div style=\"padding:24px;border:1px solid rgba(216,140,70,.5);border-radius:10px;background:linear-gradient(135deg,rgba(72,38,18,.9),rgba(22,18,14,.98));color:#ffe0af;text-align:center;font-weight:800;letter-spacing:.12em\">ROYAL SEAL ABSENT · ROUTES REVISED</div>",
           "onRecord": "The sheet lists a west passage opened from inside, two defenders removed without replacement names, and throne access permitted under heir-session cover. [[roll:4|Read the missing royal seal as evidence|the change was not a routine revision: somebody used the appearance of succession to move the garrison before the assault|the sheet is incomplete, but an incomplete route sheet cannot identify the person who changed it.]]",
@@ -5347,7 +5347,7 @@
           "kind": "order",
           "category": "survival",
           "title": "Bowser’s order to pull the line away from the dragon",
-          "secured": "5 Aethel, 1040 BF — Bowser’s Castle courtyard",
+          "secured": "18 Harvestide, 1035 BF — historical recovery — Bowser’s Castle courtyard",
           "custody": "Koopa Troop field file — copied during evacuation",
           "visual": "<div style=\"padding:24px;border:1px solid rgba(255,137,70,.55);border-radius:10px;background:linear-gradient(135deg,rgba(93,35,15,.92),rgba(25,18,12,.98));color:#ffe2ba;text-align:center;font-weight:800;letter-spacing:.11em\">PULL BACK · MOVE THE WOUNDED · HOLD ONLY TO CLEAR</div>",
           "onRecord": "The order tells Koopas to form a shell barrier, Goombas to move the wounded, and Magikoopas to spend teleportation on people rather than a supply cart. [[roll:5|Ask what kind of victory this order is trying to buy|it is buying distance and time, which means Bowser understood the dragon was a pressure weapon the troops could survive only by refusing its reach|it is a retreat order and says nothing about whether the dragon was actually hurt.]]",
@@ -5373,7 +5373,7 @@
           "kind": "note",
           "category": "discovery",
           "title": "The switch plate that could not agree with itself",
-          "secured": "5 Aethel, 1040 BF — lower command room during evacuation",
+          "secured": "18 Harvestide, 1035 BF — historical recovery — lower command room during evacuation",
           "custody": "Untriggered; plate left in the command room",
           "visual": "<div style=\"padding:24px;border:1px dashed rgba(246,201,80,.65);border-radius:10px;background:linear-gradient(135deg,rgba(76,58,14,.9),rgba(22,18,10,.98));color:#ffe9a2;text-align:center;font-weight:800;letter-spacing:.1em\">TWO RED TOGGLES · ONE BAD DECISION</div>",
           "onRecord": "The plate labels one control SELF-DESTRUCT, warns not to use it for lighting, and then adds that one of the toggles may be the lighting. [[roll:6|Treat the joke as a command problem|nobody could safely trigger the castle’s last resort during an evacuation, so leaving both switches alone was a decision made from missing information|the labels are ridiculous but the file still cannot establish what either toggle does.]]",
@@ -5390,7 +5390,8 @@
             ]
           }
         }
-      ]
+      ],
+      "historical": true
     }
   ]
 }

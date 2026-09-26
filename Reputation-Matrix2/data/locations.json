@@ -2883,7 +2883,9 @@
     "id": "ruins_of_the_mushroom_capitol",
     "name": "Ruins of the Mushroom Capitol",
     "type": "Location/Abandoned Monarchy",
-    "aliases": ["ruins_of_the_mushroom_kingdom_capitol"],
+    "aliases": [
+      "ruins_of_the_mushroom_kingdom_capitol"
+    ],
     "region": "Mushroom Kingdom — historical central region",
     "status": "Generated — review",
     "summary": "The Ruins of the Mushroom Capitol stand as a testament to the grandeur and eventual fall of Princess Peach's monarchy. Once bustling with activity, it now lies in shambles, with remnants of its former glory scattered across the landscape.",
@@ -2913,9 +2915,6 @@
     "planeConfidence": "medium",
     "planeClue": "no planar markers — Material by default",
     "image": "assets/images/locations/ruins_of_the_mushroom_capitol.jpg",
-    "aliases": [
-      "ruins_of_the_mushroom_kingdom_capitol"
-    ],
     "mergedFrom": [
       "ruins_of_the_mushroom_kingdom_capitol"
     ]
@@ -3149,9 +3148,9 @@
     "controllingFaction": "bowser",
     "population": "Garrisoned; census-takers keep melting",
     "climate": "Volcanic; active",
-    "status": "Breached but standing; seat of Koopa power in Darkland territory; outer defenses damaged during Fawthful's assault",
-    "summary": "The volcanic fortress-seat of Bowser's power in the Valley of Bowser, at the heart of Darkland and the Koopa Kingdom territories. A recent assault exposed traitors inside the garrison, drove an evacuation plan, and breached the castle without taking the throne.",
-    "description": "Waluigi has been to Bowser's Castle during active volcanic events, which he mentions here solely to establish that his low opinion of the place is evidence-based. The fortress anchors the Valley of Bowser and the wider Darkland territories contested in the First Bowser Conflict, and its maintenance tunnels featured in the Toadsmith Incident three weeks after the 955 BF assassination. It is large, hot, heavily garrisoned, and exactly as welcoming as a volcano with a garrison. The Fawthful assault proved the garrison was compromised from within: the dragon reached the castle, traitors opened paths for the attackers, and Bowser's evacuation planning began before the walls were breached. Bowser is house-proud about it. Nobody else is.",
+    "status": "Standing but historically breached; seat of Koopa power in Darkland territory; outer defenses were damaged in the 1035 BF assault",
+    "summary": "The volcanic fortress-seat of Bowser’s power in the Valley of Bowser, at the heart of Darkland and the Koopa Kingdom territories. The historical 18 Harvestide, 1035 BF assault exposed traitors inside the garrison, drove an evacuation plan, and breached the castle without taking the throne.",
+    "description": "Waluigi has been to Bowser’s Castle during active volcanic events, which he mentions here solely to establish that his low opinion of the place is evidence-based. The fortress anchors the Valley of Bowser and the wider Darkland territories contested in the First Bowser Conflict, and its maintenance tunnels featured in the Toadsmith Incident three weeks after the 955 BF assassination. It is large, hot, heavily garrisoned, and exactly as welcoming as a volcano with a garrison. The Fawthful assault recorded on 18 Harvestide, 1035 BF proved the garrison was compromised from within: the dragon reached the castle, traitors opened paths for the attackers, and Bowser’s evacuation planning began before the walls were breached. In the current 1040 BF record Bowser is operating in the Shadow Estate; this castle damage is historical, not a present siege. Bowser is house-proud about it. Nobody else is.",
     "notableFeatures": [
       "Volcanic fortress construction",
       "Valley of Bowser maintenance tunnels",

@@ -6177,10 +6177,10 @@
     "name": "Fawthful",
     "title": "The Usurper at Bowser's Gate",
     "race": "Unknown — hostile commander",
-    "status": "Active — leading an assault on Bowser's Castle and claiming the right to rule what survives",
+    "status": "Historical actor — identified in the 18 Harvestide, 1035 BF Bowser Castle filings; current whereabouts not established",
     "affiliation": "Fawthful's Forces",
-    "summary": "Fawthful is the commander who turned a compromised Bowser's Castle into an invasion route. With Mimbus, Cackletta, a dragon, Magikoopas, and defecting Koopa troops in the field, Fawthful treats the throne as a temporary obstacle on the way to ruling the world—or being worshipped by it.",
-    "description": "The castle assault is the first filing in which Fawthful appears as a commander rather than a name attached to somebody else's scheme. The operation begins with compromised access, uses a dragon as a moving terror weapon, and turns the castle's own garrison into a question Bowser cannot answer quickly enough. Fawthful speaks as though conquest and divinity are merely two labels for the same appointment.\n\nThe archive keeps Fawthful distinct from the older Fawful record because the assault account uses this name and does not resolve whether it is a new identity, a title, or a deliberate distortion. Mimbus stands beside Fawthful. Cackletta enters the battle. The distinction matters, and the record is not yet kind enough to settle it. WAH.",
+    "summary": "The historical record identifies Fawthful as the commander who turned a compromised Bowser’s Castle into an invasion route. With Mimbus, Cackletta, a dragon, Magikoopas, and defecting Koopa troops in the field, Fawthful treated the throne as a temporary obstacle on the way to ruling the world—or being worshipped by it.",
+    "description": "The historical castle assault is the first filing in which Fawthful appears as a commander rather than a name attached to somebody else’s scheme. The operation began with compromised access, used a dragon as a moving terror weapon, and turned the castle’s own garrison into a question Bowser could not answer quickly enough. Fawthful spoke as though conquest and divinity were merely two labels for the same appointment.\n\nThe archive keeps Fawthful distinct from the older Fawful record because the assault account uses this name and does not resolve whether it is a new identity, a title, or a deliberate distortion. Mimbus stood beside Fawthful. Cackletta entered the battle. The distinction matters, and the record is not yet kind enough to settle it. WAH.",
     "keyEvents": [
       "bowser_throne_room_compromise",
       "the_assault_on_bowsers_castle"
@@ -6200,10 +6200,10 @@
     "name": "Mimbus",
     "title": "The Hand Beside the Usurper",
     "race": "Unknown — hostile operative",
-    "status": "Active — present in the false-heir scheme and the assault on Bowser's Castle",
+    "status": "Historical actor — present in the 1035 BF false-heir scheme and castle assault; current whereabouts not established",
     "affiliation": "Fawthful's Forces",
-    "summary": "Mimbus is the operative who remains beside Fawthful when the false Bowser Jr. performance gives way to an open assault. The record places Mimbus at the junction between deception, internal betrayal, and the claim that the castle can be turned into a throne for somebody else.",
-    "description": "Mimbus does not need to shout to be dangerous in this account. Mimbus is present when the castle's compromise is explained, present when the false heir's performance is exposed, and present when the assault becomes a bid for a world-sized crown. The archive will not assign a species or hidden motive the record does not provide. Presence is enough for now.\n\nMimbus is not filed as a generic troop. The same figure crosses the seam between the deception and the battle, which makes Mimbus one of the few people who can connect the castle's theatrical lie to its physical breach.",
+    "summary": "Mimbus is the operative the historical record places beside Fawthful when the false Bowser Jr. performance gave way to an open assault. The record places Mimbus at the junction between deception, internal betrayal, and the claim that the castle could be turned into a throne for somebody else.",
+    "description": "Mimbus did not need to shout to be dangerous in this account. Mimbus was present when the castle’s compromise was explained, present when the false heir’s performance was exposed, and present when the assault became a bid for a world-sized crown. The archive will not assign a species or hidden motive the record does not provide. Presence is enough for this historical filing.\n\nMimbus is not filed as a generic troop. The same figure crossed the seam between the deception and the battle, which makes Mimbus one of the few people who can connect the castle’s theatrical lie to its physical breach.",
     "keyEvents": [
       "bowser_throne_room_compromise",
       "the_assault_on_bowsers_castle"
@@ -6222,10 +6222,10 @@
     "name": "Cackletta",
     "title": "The Witch at the Opening of the Battle",
     "race": "Beanish witch",
-    "status": "Active — entered the Bowser Castle crisis as the major battle began",
+    "status": "Historical actor — entered the 1035 BF Bowser Castle crisis as the major battle began; current whereabouts not established",
     "affiliation": "Fawthful's Forces / Beanbean hostile interests",
-    "summary": "Cackletta is the spellcaster whose arrival turns the castle confrontation from a coup into a major battle. Her appearance links the present assault to the older Beanbean conflicts without making the archive pretend that the earlier record answered every question about her.",
-    "description": "Cackletta arrives at the end of the throne-room backfill, when Bowser has finally stopped treating the castle's strange behaviour as an irritating family incident and started treating it as a war. Her entrance gives Fawthful's operation a second centre of gravity: the invasion outside and the spellwork inside are no longer separate threats.\n\nThe record ends at the beginning of the engagement. Cackletta is therefore filed as active in this chain, not because the archive has solved her entire history, but because a battle has started and she is in it.",
+    "summary": "Cackletta is the spellcaster whose historical arrival turned the castle confrontation from a coup into a major battle. Her appearance links the Bowser Castle backfill to the older Beanbean conflicts without making the archive pretend that the earlier record answered every question about her.",
+    "description": "Cackletta arrived at the end of the historical throne-room backfill, when Bowser had stopped treating the castle’s strange behaviour as an irritating family incident and started treating it as a war. Her entrance gave Fawthful’s operation a second centre of gravity: the invasion outside and the spellwork inside were no longer separate threats.\n\nThe record ends at the beginning of the engagement. Cackletta is therefore filed as a participant in this historical chain, not because the archive has solved her entire history, but because a battle started and she was in it.",
     "keyEvents": [
       "bowser_throne_room_compromise",
       "the_assault_on_bowsers_castle"
@@ -6244,10 +6244,10 @@
     "name": "The Jester (Goomba)",
     "title": "The False Heir's Laugh",
     "race": "Goomba",
-    "status": "Exposed — implicated in the false Bowser Jr. session and the compromise of Bowser's Castle",
+    "status": "Historical actor — implicated in the 1035 BF false Bowser Jr. session and castle compromise; current whereabouts not established",
     "affiliation": "Fawthful's Forces",
-    "summary": "The Jester is a Goomba who used the shape or role of Bowser Jr. as part of the deception that preceded the castle assault. The performance was funny only until Bowser woke up and found that the joke had been used to move a hostile plan inside his walls.",
-    "description": "The Jester's importance is not that a Goomba put on a ridiculous performance. Bowser's court has survived ridiculous performances before. The importance is that the false Bowser Jr. session occupied Bowser's attention while the castle's loyalties, routes, and defenders were being rearranged around him.\n\nThe Jester is filed by the role the record gives him because the name is a name in circulation and the species is clear. The archive does not promote the act into a larger identity than the evidence supports. He was the jester. He was part of the lie. He was present when the lie became a breach.",
+    "summary": "The Jester is a Goomba who used the shape or role of Bowser Jr. as part of the historical deception that preceded the castle assault. The performance was funny only until Bowser woke up and found that the joke had been used to move a hostile plan inside his walls.",
+    "description": "The Jester’s importance is not that a Goomba put on a ridiculous performance. Bowser’s court had survived ridiculous performances before. The importance is that the false Bowser Jr. session occupied Bowser’s attention while the castle’s loyalties, routes, and defenders were being rearranged around him.\n\nThe Jester is filed by the role the record gives him because the name is a name in circulation and the species is clear. He was the jester. He was part of the lie. He was present when the lie became a breach.",
     "keyEvents": [
       "bowser_throne_room_compromise"
     ],
