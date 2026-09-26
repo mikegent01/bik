@@ -60,11 +60,15 @@ playing yourself or one of the selected characters, and add room-only custom
 characters or event seeds when the scene needs something new.
 
 The selected context and saved room conversation are sent with each turn. The
-agent retrieves relevant canon before continuing a scene and treats new events
-as draft fiction rather than silently declaring them historical fact. Every five
-player messages, the room saves a lore checkpoint containing the recent
-transcript and selected continuity. That checkpoint stays in the local room;
-it does not silently rewrite `characters.json` or `events.json`.
+catalog is date-aware: choosing a target year filters out events that have not
+happened yet, and the server/runtime apply the same cutoff before canon retrieval
+or image discovery. The agent retrieves relevant canon before continuing a scene
+and treats new events as draft fiction rather than silently declaring them
+historical fact. Roleplay replies are intentionally short, snappy, and
+personality-led; the agent does not take the player's action. Every five player
+messages, the room saves a lore checkpoint containing the recent transcript and
+selected continuity. That checkpoint stays in the local room; it does not
+silently rewrite `characters.json` or `events.json`.
 
 Automatically editing canonical files after every five messages would be a bad
 default: roleplay often explores alternatives, contradicts itself, or produces
@@ -83,7 +87,13 @@ That is an observable process trace, not private hidden chain-of-thought.
 The bounded tool set includes safe offline Python analysis over explicitly read
 repository text. It cannot import modules, open files, use the network, spawn
 processes, or write. This gives Gemma a fast way to count, compare, parse, and
-summarize data without granting an unrestricted shell.
+summarize data without granting an unrestricted shell. The agent can also find
+short or unresolved event seeds, mark roleplay candidates, build draft plot
+scaffolds, and structure non-roleplay prompts. Canonical analysis, commentary,
+quest, XP, character, event, and location objects can be added only through the
+allowlisted object writer, with explicit approval and a validation audit.
+A self-audit action exposes these capabilities and the exact patch-based path for
+approved improvements; it cannot silently rewrite its own runtime.
 
 LM Studio requests use `LM_STUDIO_TIMEOUT=-1` by default. In Python, `-1` is
 translated to `timeout=None`, which is the real no-socket-deadline setting;

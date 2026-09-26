@@ -69,9 +69,19 @@ Available actions:
   repository metadata without writing; close candidates are returned instead
   of guessed silently.
 - `catalog_retrieve` — read a focused canonical record after an ID or fuzzy
-  candidate has been resolved.
+  candidate has been resolved; creation-room year cutoffs exclude future events.
+- `analyze_event_seeds` — identify short or unresolved event records, cleanup
+  opportunities, and roleplay candidates without changing canon.
+- `build_plot` — create a draft-only, canon-bounded plot scaffold.
+- `optimize_prompt` — structure article/analysis prompts while leaving roleplay
+  wording untouched.
+- `self_audit` — inspect capabilities and the approved self-improvement path.
 - `repo_status` and `repo_diff` — inspect local changes without writing.
 - `repo_patch` — replace exactly one matching block inside the checkout.
+- `repo_add_object` — add one uniquely identified analysis, commentary,
+  investigation, prop, quest, XP, character, event, or location object to an
+  allowlisted JSON collection;
+  this always requires approval and a follow-up audit.
 - `run_audit` — run only the fixed JSON, timecode, home-feed, cover, or
   campaign-front audits.
 - `queue_image` — submit a bounded Qwen Image job with local or attached

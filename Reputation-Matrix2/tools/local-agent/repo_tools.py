@@ -20,6 +20,44 @@ MAX_READ = 12000
 TEXT_SUFFIXES = {".json", ".js", ".ts", ".tsx", ".py", ".md", ".html", ".css", ".txt"}
 
 
+def parse_target_year(value: str | int | None) -> tuple[int, str] | None:
+    """Parse a creation-room year such as ``1040 BF`` or ``1040``."""
+    text = str(value or "").strip()
+    match = re.search(r"\b(\d{3,4})\s*(BF|AF)?\b", text, re.I)
+    if not match:
+        return None
+    return int(match.group(1)), (match.group(2) or "").upper()
+
+
+def _record_years(record: dict[str, object]) -> tuple[list[int], str]:
+    text = " ".join(str(record.get(key, "")) for key in ("date", "era"))
+    matches = list(re.finditer(r"\b(\d{3,4})\s*(BF|AF)\b", text, re.I))
+    if not matches:
+        return [], ""
+    eras = {match.group(2).upper() for match in matches}
+    era = next(iter(eras)) if len(eras) == 1 else ""
+    return [int(match.group(1)) for match in matches], era
+
+
+def record_available_at(record: dict[str, object], target_year: str | int | None) -> bool:
+    """Return false only when a dated record is confidently after the target.
+
+    BF counts down toward the present, while AF counts up. Undated or mixed-era
+    records remain available but are marked uncertain by callers rather than
+    being incorrectly erased from the archive.
+    """
+    target = parse_target_year(target_year)
+    if not target:
+        return True
+    target_number, target_era = target
+    years, record_era = _record_years(record)
+    if not years or not record_era or (target_era and record_era != target_era):
+        return True
+    if record_era == "BF":
+        return min(years) >= target_number
+    return max(years) <= target_number
+
+
 def safe_path(value: str) -> Path:
     path = (ROOT / value).resolve() if not Path(value).is_absolute() else Path(value).resolve()
     try:
@@ -74,7 +112,7 @@ def _fuzzy_line_score(term: str, line: str) -> float:
     return sum(scores) / len(scores)
 
 
-def _catalog_matches(term: str, limit: int) -> list[tuple[float, dict[str, str]]]:
+def _catalog_matches(term: str, limit: int, target_year: str | int | None = None) -> list[tuple[float, dict[str, str]]]:
     """Search canonical metadata even when its JSON file is too large to line-scan."""
     matches = []
     for filename in ("characters.json", "events.json", "locations.json"):
@@ -85,6 +123,8 @@ def _catalog_matches(term: str, limit: int) -> list[tuple[float, dict[str, str]]
             continue
         for item in data if isinstance(data, list) else []:
             if not isinstance(item, dict):
+                continue
+            if filename == "events.json" and not record_available_at(item, target_year):
                 continue
             fields = [str(item.get(key, "")) for key in ("id", "name", "title", "location")]
             joined = " ".join(fields)
@@ -99,7 +139,8 @@ def _catalog_matches(term: str, limit: int) -> list[tuple[float, dict[str, str]]
     return matches[:limit]
 
 
-def search(term: str, relative_dir: str = ".", limit: int = 40) -> list[dict[str, str]]:
+def search(term: str, relative_dir: str = ".", limit: int = 40,
+           target_year: str | int | None = None) -> list[dict[str, str]]:
     """Return exact matches, or bounded fuzzy matches when exact search is empty."""
     term = term.strip()
     if not term:
@@ -110,7 +151,7 @@ def search(term: str, relative_dir: str = ".", limit: int = 40) -> list[dict[str
         is_project_search = base == ROOT or base == PROJECT or base == PROJECT / "data"
     except (ValueError, OSError):
         is_project_search = False
-    catalog = _catalog_matches(term, limit) if is_project_search else []
+    catalog = _catalog_matches(term, limit, target_year) if is_project_search else []
     if any(item[1].get("match") == "fuzzy" for item in catalog):
         return [item[1] for item in catalog]
     results: list[dict[str, str]] = []
@@ -203,7 +244,8 @@ def search(term: str, relative_dir: str = ".", limit: int = 40) -> list[dict[str
 
 
 def catalog_retrieve(source: str = "", ids: list[str] | None = None,
-                     terms: list[str] | None = None, limit: int = 6) -> list[dict[str, object]]:
+                     terms: list[str] | None = None, limit: int = 6,
+                     target_year: str | int | None = None) -> list[dict[str, object]]:
     """Return focused canonical records after a search resolved an entity."""
     source_map = {"character": "characters.json", "characters": "characters.json",
                   "event": "events.json", "events": "events.json",
@@ -220,6 +262,8 @@ def catalog_retrieve(source: str = "", ids: list[str] | None = None,
             continue
         for item in data if isinstance(data, list) else []:
             if not isinstance(item, dict) or not item.get("id"):
+                continue
+            if filename == "events.json" and not record_available_at(item, target_year):
                 continue
             identifier = str(item["id"])
             fields = [str(item.get(key, "")) for key in ("id", "name", "title", "location")]
@@ -244,7 +288,7 @@ def catalog_retrieve(source: str = "", ids: list[str] | None = None,
 
 
 def find_image_references(entities: list[str] | None = None, terms: list[str] | None = None,
-                          limit: int = 6) -> list[dict[str, str]]:
+                          limit: int = 6, target_year: str | int | None = None) -> list[dict[str, str]]:
     """Resolve local art and return close candidates instead of guessing silently."""
     queries = [str(value).strip() for value in (entities or []) + (terms or []) if str(value).strip()][:30]
     if not queries:
@@ -258,6 +302,8 @@ def find_image_references(entities: list[str] | None = None, terms: list[str] | 
             continue
         for item in data if isinstance(data, list) else []:
             if isinstance(item, dict) and item.get("image"):
+                if filename == "events.json" and not record_available_at(item, target_year):
+                    continue
                 records.append((filename, item))
     resolved: list[dict[str, str]] = []
     seen: set[str] = set()
@@ -287,6 +333,153 @@ def find_image_references(entities: list[str] | None = None, terms: list[str] | 
         if len(resolved) >= limit:
             break
     return resolved
+
+
+def analyze_event_seeds(target_year: str | int | None = None, limit: int = 20) -> dict[str, object]:
+    """Find underdeveloped, unresolved, and roleplay-friendly event seeds."""
+    path = PROJECT / "data" / "events.json"
+    try:
+        events = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as error:
+        raise ValueError(f"events catalog unavailable: {error}") from error
+    candidates = []
+    for event in events if isinstance(events, list) else []:
+        if not isinstance(event, dict) or not record_available_at(event, target_year):
+            continue
+        description = str(event.get("description", ""))
+        summary = str(event.get("summary", ""))
+        status = str(event.get("status", ""))
+        lowered = status.casefold()
+        reasons = []
+        if len(description) < 1800:
+            reasons.append("short event record")
+        if len(summary) < 320:
+            reasons.append("thin summary")
+        if any(word in lowered for word in ("unresolved", "unverified", "active", "ongoing", "pending", "critical", "unknown")):
+            reasons.append("open status")
+        if not reasons:
+            continue
+        cleanup = []
+        if len(summary) < 320:
+            cleanup.append("expand_summary_without_adding_uncited_facts")
+        if len(description) < 1800:
+            cleanup.append("add_scene_beats_and_participant_goals")
+        if any(word in lowered for word in ("unresolved", "unverified", "active", "ongoing", "pending")):
+            cleanup.append("preserve_as_open_roleplay_hook")
+        candidates.append({
+            "id": str(event.get("id", "")), "name": str(event.get("name", event.get("title", ""))),
+            "title": str(event.get("title", "")), "date": str(event.get("date", "")),
+            "location": str(event.get("location", "")), "status": status,
+            "description_chars": len(description), "summary_chars": len(summary),
+            "roleplay_candidate": True, "reasons": reasons, "cleanup_actions": cleanup,
+            "source": "Reputation-Matrix2/data/events.json",
+        })
+    candidates.sort(key=lambda item: (-(len(item["reasons"])), item["description_chars"]))
+    return {"target_year": str(target_year or ""), "count": len(candidates), "candidates": candidates[:max(1, min(limit, 50))]}
+
+
+def build_plot(ids: list[str] | None = None, terms: list[str] | None = None,
+               target_year: str | int | None = None, limit: int = 4) -> dict[str, object]:
+    """Build a canon-bounded plot scaffold; it does not write canon."""
+    records = catalog_retrieve(ids=ids or [], terms=terms or [], limit=limit, target_year=target_year)
+    if not records:
+        seeds = analyze_event_seeds(target_year, limit)
+        records = catalog_retrieve(ids=[str(item["id"]) for item in seeds["candidates"][:limit]],
+                                   limit=limit, target_year=target_year)
+    inputs = [{key: record.get(key, "") for key in ("id", "name", "title", "date", "location", "status", "summary") if record.get(key)} for record in records]
+    titles = [str(item.get("title") or item.get("name") or item.get("id")) for item in inputs]
+    premise = " / ".join(titles) if titles else "An unresolved Waluipedia filing"
+    return {
+        "target_year": str(target_year or ""), "canon_inputs": inputs,
+        "plot_seed": premise,
+        "beats": [
+            "Opening: enter through a concrete location, immediate problem, and one canon-supported witness.",
+            "Pressure: expose the unresolved question or conflict already present in the selected filing.",
+            "Choice: give the player or cast a meaningful decision without resolving canon automatically.",
+            "Consequence: record a draft outcome and leave one recoverable hook for the next scene.",
+        ],
+        "roleplay_policy": "Short, snappy turns; stay in character; preserve personality; do not narrate the player's choice; never reveal later-year canon.",
+        "prompt": f"Use the canon filings {premise}. Target year: {target_year or 'open'}. Run a short roleplay scene with one immediate choice, personality-led dialogue, and no future spoilers.",
+    }
+
+
+def optimize_prompt(text: str, mode: str = "article", target_year: str | int | None = None) -> dict[str, str]:
+    """Turn a request into a bounded task prompt without rewriting roleplay turns."""
+    original = str(text or "").strip()
+    normalized_mode = str(mode or "article").casefold()
+    if normalized_mode in {"roleplay", "rp", "scene"}:
+        return {"mode": "roleplay", "optimized_prompt": original,
+                "policy": "Do not optimize the player's roleplay wording. Reply in short, snappy, personality-led turns and never take the player's action."}
+    voice = "Waluigi POV, first person, evidence-bound, with dry archival commentary" if normalized_mode in {"article", "analysis", "commentary"} else "clear, evidence-bound output"
+    cutoff = f"Target year: {target_year}. Exclude later events." if target_year else "Use the request's stated chronology and do not invent dates."
+    optimized = (f"Task: {original}\n\nConstraints:\n- {cutoff}\n- Voice: {voice}.\n"
+                 "- Retrieve relevant repository canon before drafting.\n"
+                 "- Separate sourced facts, analysis, and proposed draft material.\n"
+                 "- Return the requested object or prose in the repository's existing schema.\n"
+                 "- Flag ambiguity instead of silently inventing details.")
+    return {"mode": normalized_mode, "optimized_prompt": optimized,
+            "policy": "Prompt optimization is enabled for non-roleplay work."}
+
+
+def self_audit() -> dict[str, object]:
+    """Expose bounded, read-only agent capability and safety diagnostics."""
+    return {"runtime": "Reputation-Matrix2/tools/local-agent/agent_runtime.py",
+            "read_only_tools": ["repo_read", "repo_search", "catalog_retrieve", "find_image_references", "analyze_event_seeds", "build_plot", "optimize_prompt"],
+            "approval_tools": ["repo_patch", "repo_add_object", "queue_image"],
+            "invariants": ["future event cutoff in creation mode", "canonical writes require approval", "roleplay is draft-only", "image inputs must resolve to attached or repository files"],
+            "improvement_path": "Use repo_diff and exact repo_patch after explicit approval; run an audit before completion."}
+
+def add_json_object(path_value: str, value: dict[str, object], collection: str = "") -> str:
+    """Append one schema-shaped object to an allowlisted canonical collection."""
+    allowed = {
+        "Reputation-Matrix2/data/articleAnalyses.json": "analyses",
+        "Reputation-Matrix2/data/commentaries.json": "commentaries",
+        "Reputation-Matrix2/data/quests.json": "__root__",
+        "Reputation-Matrix2/data/abilityPoints.json": "players",
+        "Reputation-Matrix2/data/investigations.json": "investigations",
+        "Reputation-Matrix2/data/props.json": "props",
+        "Reputation-Matrix2/data/events.json": "__list__",
+        "Reputation-Matrix2/data/characters.json": "__list__",
+        "Reputation-Matrix2/data/locations.json": "__list__",
+    }
+    relative = safe_path(path_value).relative_to(ROOT).as_posix()
+    if relative not in allowed:
+        raise ValueError("canonical object creation is limited to known Waluipedia data collections")
+    if not isinstance(value, dict) or not str(value.get("id", "")).strip():
+        raise ValueError("the new object must be a JSON object with a non-empty id")
+    path = ROOT / relative
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as error:
+        raise ValueError(f"cannot read target JSON: {error}") from error
+    destination = collection or allowed[relative]
+    identifier = str(value["id"])
+    if destination == "__list__":
+        if not isinstance(data, list):
+            raise ValueError("target is not a JSON list")
+        if any(isinstance(item, dict) and str(item.get("id", "")) == identifier for item in data):
+            raise ValueError(f"object id already exists: {identifier}")
+        data.append(value)
+    elif destination == "__root__":
+        if not isinstance(data, dict):
+            raise ValueError("target is not a JSON object")
+        if identifier in data:
+            raise ValueError(f"object id already exists: {identifier}")
+        data[identifier] = value
+    else:
+        if not isinstance(data, dict) or not isinstance(data.get(destination), (list, dict)):
+            raise ValueError(f"target collection is unavailable: {destination}")
+        bucket = data[destination]
+        if isinstance(bucket, list):
+            if any(isinstance(item, dict) and str(item.get("id", "")) == identifier for item in bucket):
+                raise ValueError(f"object id already exists: {identifier}")
+            bucket.append(value)
+        else:
+            if identifier in bucket:
+                raise ValueError(f"object id already exists: {identifier}")
+            bucket[identifier] = value
+    path.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    return f"added {identifier} to {relative} ({destination})"
 
 
 def patch(value: str, old: str, new: str) -> None:

@@ -54,15 +54,20 @@ LM_TIMEOUT = _configured_timeout()
 
 TOOL_DESCRIPTIONS = {
     "repo_read": "Read one bounded text file inside the checkout. args: path, limit.",
-    "repo_search": "Search a focused repository directory. Prefer a specific dir and term. args: term, dir, limit.",
+    "repo_search": "Search a focused repository directory. In creation mode pass target_year so future events are excluded. args: term, dir, limit, target_year.",
     "parallel_read": "Read up to 12 bounded repository files concurrently. args: paths, limit.",
     "parallel_search": "Run up to 8 focused repository searches concurrently. args: queries, dir, limit.",
-    "find_image_references": "Resolve local character, event, or location art by IDs or names. Read-only. args: entities, terms, limit.",
-    "catalog_retrieve": "Read focused canonical character, event, or location records by IDs or approximate names. Read-only. args: source, ids, terms, limit.",
+    "find_image_references": "Resolve local character, event, or location art by IDs or names; target_year excludes future event art. Read-only. args: entities, terms, limit, target_year.",
+    "catalog_retrieve": "Read focused canonical character, event, or location records by IDs or approximate names; target_year excludes future event records. Read-only. args: source, ids, terms, limit, target_year.",
+    "analyze_event_seeds": "Find short, thin, unresolved, or roleplay-friendly event records and propose cleanup actions. Read-only. args: target_year, limit.",
+    "build_plot": "Build a canon-bounded plot scaffold from available event IDs or terms. Read-only and draft-only. args: ids, terms, target_year, limit.",
+    "optimize_prompt": "Structure a non-roleplay prompt without rewriting roleplay turns. args: text, mode, target_year.",
+    "self_audit": "Inspect bounded agent capabilities and improvement safeguards. Read-only. args: none.",
     "repo_status": "Inspect the bounded local git status. No writes. args: none.",
     "repo_diff": "Inspect the bounded local diff, optionally for repository-relative paths. No writes. args: paths.",
     "python_analyze": "Run safe, offline Python over supplied repository text. No imports, filesystem, network, subprocess, or writes. args: files, code.",
     "repo_patch": "Replace exactly one matching text block. args: path, old, new. Requires write approval.",
+    "repo_add_object": "Add one uniquely identified analysis, commentary, investigation, prop, quest, XP, character, event, or location object to an allowlisted JSON collection. Requires write approval and audit.",
     "run_audit": "Run one fixed audit: json, timecodes, home_feed, covers, or campaign_fronts.",
     "queue_image": "Queue a Qwen Image job; text-to-image may use zero references, while edit workflows need references. Prefer local character/event art. Requires write approval.",
     "finish_task": "Mark the current internal work unit complete. Read-only work can finish after evidence; patches require a passed audit. args: note.",
@@ -201,13 +206,14 @@ def _ask(endpoint: str, model: str, system: str, user: str,
 
 def _complete(endpoint: str, model: str, system: str, user: str,
               timeout: int | None = LM_TIMEOUT,
-              images: list[dict[str, Any]] | None = None) -> str:
+              images: list[dict[str, Any]] | None = None,
+              max_tokens: int = 1400) -> str:
     """Ask LM Studio for a normal multimodal chat response."""
     payload: dict[str, Any] = {
         "messages": [{"role": "system", "content": system},
                      {"role": "user", "content": _user_content(user, images)}],
         "temperature": 0.2,
-        "max_tokens": 1400,
+        "max_tokens": max(120, min(int(max_tokens), 2000)),
     }
     if model:
         payload["model"] = model
@@ -333,7 +339,10 @@ def _final_answer(endpoint: str, model: str, request_text: str,
         "message in clear plain text. Use only facts supported by the supplied "
         "conversation and tool results. For roleplay, use retrieved Waluipedia canon "
         "as continuity and clearly treat newly created scenes as fictional continuation. "
-        "Do not mention hidden work units, JSON actions, or internal implementation unless the user asks. If files "
+        "Do not mention hidden work units, JSON actions, or internal implementation unless the user asks. "
+        "For Waluipedia articles, analysis, and commentary, use Waluigi's first-person archival POV "
+        "unless the user explicitly requests another voice. For roleplay, keep replies short, snappy, "
+        "and personality-led without taking the player's action. If files "
         "were changed, summarize the actual changes and validations. Be concise "
         "but answer the question directly."
     )
@@ -341,7 +350,7 @@ def _final_answer(endpoint: str, model: str, request_text: str,
         system += (
             " You are also the narrator and character cast for a Waluipedia creation room. "
             "Speak as the selected characters when appropriate, preserve the selected year "
-            "and campaign, let the user play the selected player role, and distinguish canon "
+            "and campaign, never reveal events after the selected year, let the user play the selected player role, and distinguish canon "
             "facts from newly invented story events. Continue scenes rather than resetting them."
         )
     context = {
@@ -351,7 +360,8 @@ def _final_answer(endpoint: str, model: str, request_text: str,
         "creation_room": creation_context or {},
     }
     try:
-        return _complete(endpoint, model, system, _clip(context, 30000), images=images)
+        return _complete(endpoint, model, system, _clip(context, 30000), images=images,
+                         max_tokens=420 if creation_context else 1400)
     except Exception as error:
         if creation_context:
             raise RuntimeError(_friendly_model_error(error)) from error
@@ -498,15 +508,23 @@ def execute(action: dict[str, Any], *, allow_writes: bool) -> tuple[str, bool]:
     if name == "repo_read":
         return repo_tools.read_file(str(args.get("path", "")), int(args.get("limit", 12000))), False
     if name == "repo_search":
-        return json.dumps(repo_tools.search(str(args.get("term", "")), str(args.get("dir", "Reputation-Matrix2/data")), min(int(args.get("limit", 30)), 50)), ensure_ascii=False, indent=2), False
+        return json.dumps(repo_tools.search(str(args.get("term", "")), str(args.get("dir", "Reputation-Matrix2/data")), min(int(args.get("limit", 30)), 50), args.get("target_year")), ensure_ascii=False, indent=2), False
     if name == "parallel_read":
         return _parallel_read([str(value) for value in (args.get("paths") or [])], min(int(args.get("limit", 12000)), 16000)), False
     if name == "parallel_search":
         return _parallel_search(args.get("queries") or [], str(args.get("dir", "Reputation-Matrix2/data")), min(int(args.get("limit", 20)), 30)), False
     if name == "find_image_references":
-        return json.dumps(repo_tools.find_image_references(args.get("entities") or [], args.get("terms") or [], min(int(args.get("limit", 6)), 6)), ensure_ascii=False, indent=2), False
+        return json.dumps(repo_tools.find_image_references(args.get("entities") or [], args.get("terms") or [], min(int(args.get("limit", 6)), 6), args.get("target_year")), ensure_ascii=False, indent=2), False
     if name == "catalog_retrieve":
-        return json.dumps(repo_tools.catalog_retrieve(str(args.get("source", "")), args.get("ids") or [], args.get("terms") or [], min(int(args.get("limit", 6)), 6)), ensure_ascii=False, indent=2), False
+        return json.dumps(repo_tools.catalog_retrieve(str(args.get("source", "")), args.get("ids") or [], args.get("terms") or [], min(int(args.get("limit", 6)), 6), args.get("target_year")), ensure_ascii=False, indent=2), False
+    if name == "analyze_event_seeds":
+        return json.dumps(repo_tools.analyze_event_seeds(args.get("target_year"), min(int(args.get("limit", 20)), 50)), ensure_ascii=False, indent=2), False
+    if name == "build_plot":
+        return json.dumps(repo_tools.build_plot(args.get("ids") or [], args.get("terms") or [], args.get("target_year"), min(int(args.get("limit", 4)), 8)), ensure_ascii=False, indent=2), False
+    if name == "optimize_prompt":
+        return json.dumps(repo_tools.optimize_prompt(str(args.get("text", "")), str(args.get("mode", "article")), args.get("target_year")), ensure_ascii=False, indent=2), False
+    if name == "self_audit":
+        return json.dumps(repo_tools.self_audit(), ensure_ascii=False, indent=2), False
     if name == "python_analyze":
         return _python_analyze(args), False
     if name == "repo_status":
@@ -520,6 +538,13 @@ def execute(action: dict[str, Any], *, allow_writes: bool) -> tuple[str, bool]:
             return "APPROVAL_REQUIRED: patch is ready but the GUI Allow local patches switch is off.", True
         repo_tools.patch(str(args.get("path", "")), str(args.get("old", "")), str(args.get("new", "")))
         return f"patched exactly one match in {args.get('path')}", True
+    if name == "repo_add_object":
+        if not allow_writes:
+            return "APPROVAL_REQUIRED: the canonical object draft is ready but the GUI Allow local patches switch is off.", True
+        value = args.get("object")
+        if not isinstance(value, dict):
+            raise ValueError("repo_add_object requires an object argument")
+        return repo_tools.add_json_object(str(args.get("path", "")), value, str(args.get("collection", ""))), True
     if name == "run_audit":
         return _audit(str(args.get("name", ""))), False
     if name == "queue_image":
@@ -531,7 +556,7 @@ def execute(action: dict[str, Any], *, allow_writes: bool) -> tuple[str, bool]:
             raw_refs = [raw_refs]
         refs = [repo_tools.safe_path(str(x)) for x in raw_refs if str(x)]
         if not refs:
-            found = repo_tools.find_image_references(args.get("entities") or [], args.get("terms") or [], 6)
+            found = repo_tools.find_image_references(args.get("entities") or [], args.get("terms") or [], 6, args.get("target_year"))
             if found and all(item.get("confidence") == "high" for item in found):
                 refs = [repo_tools.safe_path(item["path"]) for item in found]
             elif found:
@@ -668,8 +693,17 @@ def run_agent(request_text: str, *, run_id: str = "", endpoint: str = DEFAULT_EN
         "catalog_retrieve to read its focused canon record rather than reading a huge JSON "
         "file from the beginning. For story or roleplay continuation, retrieve the relevant "
         "characters, locations, events, or front-page canon first, then write from "
-        "that evidence and the saved room conversation. Use parallel_read or "
-        "parallel_search when several files or terms are independently needed. For an image job, "
+        "that evidence and the saved room conversation. In a creation room, the selected "
+        "year is a hard canon cutoff: pass target_year to repository searches, catalog "
+        "retrieval, and image discovery, and never reveal or pull an event dated later. "
+        "Use parallel_read or "
+        "parallel_search when several files or terms are independently needed. For Waluipedia "
+        "articles, analyses, and commentary, write in Waluigi's first-person archival POV "
+        "unless the user explicitly requests another voice. For roleplay, do not optimize "
+        "the player's wording: answer in short, snappy, personality-led turns and never "
+        "choose the player's action. For self-improvement requests, run self_audit, inspect "
+        "the relevant files, and propose exact approved patches rather than modifying the "
+        "runtime implicitly. For an image job, "
         "use find_image_references for named entities before asking; selected creation art is "
         "already available, and an attached image is automatically used by an approved edit "
         "workflow when the request has one. Ask only when candidates are ambiguous or no "
@@ -694,7 +728,7 @@ def run_agent(request_text: str, *, run_id: str = "", endpoint: str = DEFAULT_EN
         if terms:
             canon_ids = [str(item.get("id")) for item in (creation_context.get("characters", []) + creation_context.get("events", [])) if isinstance(item, dict) and item.get("id")]
             custom_terms = [str(item.get("name", item.get("title", ""))) for item in (creation_context.get("custom_characters", []) + creation_context.get("custom_events", [])) if isinstance(item, dict) and item.get("name", item.get("title", ""))]
-            prefetch_records = repo_tools.catalog_retrieve(ids=canon_ids[:8], terms=custom_terms[:4], limit=10)
+            prefetch_records = repo_tools.catalog_retrieve(ids=canon_ids[:8], terms=custom_terms[:4], limit=10, target_year=creation_context.get("year", ""))
             prefetch = json.dumps(prefetch_records, ensure_ascii=False, indent=2)
             history.append({"action": "creation_prefetch", "result": _clip(prefetch, 12000)})
             emit({"kind": "action", "step": 0, "action": {"action": "catalog_retrieve", "args": {"ids": canon_ids[:8], "terms": custom_terms[:4], "limit": 10}}})
@@ -733,6 +767,10 @@ def run_agent(request_text: str, *, run_id: str = "", endpoint: str = DEFAULT_EN
         emit({"kind": "thinking", "step": step, "task": pending["id"]})
         try:
             action = _ask(endpoint, model, system, _clip(context, 18000), images=_conversation_images(conversation, images))
+            if creation_context and action.get("action") in {"repo_search", "catalog_retrieve", "find_image_references", "analyze_event_seeds", "build_plot", "optimize_prompt", "queue_image"}:
+                action_args = dict(action.get("args") or {})
+                action_args.setdefault("target_year", creation_context.get("year", ""))
+                action["args"] = action_args
             if action.get("action") == "queue_image":
                 action_args = dict(action.get("args") or {})
                 raw_references = action_args.get("references", [])
@@ -774,8 +812,8 @@ def run_agent(request_text: str, *, run_id: str = "", endpoint: str = DEFAULT_EN
                 emit({"kind": "assistant", "text": answer, "source": "bounded local evidence"})
                 return {"status": "done", "run": run_id, "steps": step, "answer": answer, "warning": "Repeated identical action was stopped."}
             result, side_effect = execute(action, allow_writes=allow_writes)
-            if action.get("action") in {"repo_patch", "queue_image"} and not result.startswith("APPROVAL_REQUIRED"):
-                requires_audit = action.get("action") == "repo_patch"
+            if action.get("action") in {"repo_patch", "repo_add_object", "queue_image"} and not result.startswith("APPROVAL_REQUIRED"):
+                requires_audit = action.get("action") in {"repo_patch", "repo_add_object"}
             if action.get("action") == "run_audit":
                 last_audit = True
             record = {"at": time.time(), "step": step, "task": pending["id"], "action": action, "result": _clip(result)}

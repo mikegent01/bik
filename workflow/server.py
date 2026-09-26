@@ -71,12 +71,13 @@ def _catalog_records(filename: str, fields: tuple[str, ...]) -> list[dict[str, A
     return records
 
 
-def creation_catalog() -> dict[str, Any]:
+def creation_catalog(target_year: str = "") -> dict[str, Any]:
     characters = _catalog_records("characters.json", ("name", "title", "status", "summary", "image"))
-    events = _catalog_records("events.json", ("name", "title", "date", "era", "location", "status", "summary", "image"))
+    all_events = _catalog_records("events.json", ("name", "title", "date", "era", "location", "status", "summary", "image"))
+    events = [event for event in all_events if runtime.repo_tools.record_available_at(event, target_year)]
     years: set[str] = set()
     campaigns: set[str] = set()
-    for event in events:
+    for event in all_events:
         text = " ".join(str(event.get(key, "")) for key in ("date", "era"))
         years.update(re.findall(r"\b(?:[0-9]{3,4})\s*(?:BF|AF)\b", text, flags=re.I))
         era = str(event.get("era", "")).strip()
@@ -91,7 +92,8 @@ def creation_catalog() -> dict[str, Any]:
         pass
     return {"characters": characters, "events": events,
             "years": sorted(years, key=str.casefold), "campaigns": sorted(campaigns, key=str.casefold),
-            "generated_at": time.time()}
+            "target_year": str(target_year or ""), "total_events": len(all_events),
+            "filtered_events": len(events), "generated_at": time.time()}
 
 
 def validate_creation(value: Any) -> dict[str, Any] | None:
@@ -114,13 +116,14 @@ def validate_creation(value: Any) -> dict[str, Any] | None:
         {"role": str(item.get("role", "")), "content": str(item.get("content", ""))[:4000]}
         for item in checkpoint_raw.get("transcript", [])[:12] if isinstance(item, dict)
     ]}
+    target_year = str(value.get("year", ""))[:80]
     context = {
         "mode": "creation",
-        "year": str(value.get("year", ""))[:80],
+        "year": target_year,
         "campaign": str(value.get("campaign", ""))[:160],
         "player_role": str(value.get("player_role", "self"))[:200],
         "characters": bounded_list("characters"),
-        "events": bounded_list("events"),
+        "events": [item for item in bounded_list("events") if runtime.repo_tools.record_available_at(item, target_year)],
         "custom_characters": bounded_list("custom_characters"),
         "custom_events": bounded_list("custom_events"),
         "message_count": max(0, min(int(value.get("message_count", 0)), 10000)),
@@ -345,7 +348,9 @@ class Handler(BaseHTTPRequestHandler):
             return
         if parsed.path == "/api/creation/catalog":
             try:
-                json_response(self, creation_catalog())
+                query = parse_qs(parsed.query)
+                target_year = str(query.get("year", [""])[0])[:80]
+                json_response(self, creation_catalog(target_year))
             except Exception as error:
                 json_response(self, {"error": str(error)}, 500)
             return
