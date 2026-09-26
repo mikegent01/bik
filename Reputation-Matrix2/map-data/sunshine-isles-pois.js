@@ -141,6 +141,22 @@ export const sunshineIslesData = {
             economic_value: 1,
             military_strength: 6,
             population: 25
+        },
+        {
+            id: 'poi_si_overgrown_cottage',
+            articleId: 'isle_delfino_overgrown_cottage',
+            plane: 'material',
+            x: 20.0,
+            y: 5.0,
+            type: 'ruins',
+            name: "Overgrown Cottage (Isle Delfino)",
+            description: "A cottage in Isle Delfino's wilder regions that time forgot: walls gone to trellis, roof gone to canopy, doors opening onto rooms the jungle moved into first.",
+            factionId: 'unaligned',
+            intelReq: 15,
+            political_influence: 0,
+            economic_value: 1,
+            military_strength: 0,
+            population: 0
         }
     ],
     fogOfWar: []

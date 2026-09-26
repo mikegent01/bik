@@ -8,6 +8,7 @@ import { hashColor, initial, isSafeLogo, topCats, legendChips } from './map-lens
 import { typeColor, typeLabel, familiesPresent } from './map-poi-types.js';
 import { buildProvinceCensus, shortlist as rankShortlist, uniquePins } from './map-provinces.js';
 import { PROVINCE_POLITICS } from '../../../data/support/politics-data.js';
+import { buildTransportForMap, TRANSPORT_MODES } from '../../../data/maps/map-routes.js';
 
 const esc = value => String(value ?? '').replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
 const format = value => Math.round(value || 0).toLocaleString();
@@ -511,6 +512,38 @@ function polygonPathD(polygon) {
   return `M ${poly.map(pt => `${pt[0]} ${pt[1]}`).join(' L ')} Z`;
 }
 
+/* The painted Mushroom Kingdom sheet contains a great deal of surrounding
+   ocean and other-realm artwork. Province cells must still tile the 100×100
+   census box for arithmetic, but the reader should not see those empty-water
+   assignments as political borders. Clip the visible layer to the convex hull
+   of the actual surveyed pins, with a small deterministic breathing margin. */
+function surveyHull(provinces, scale = 1.08) {
+  const points = (provinces || []).flatMap(prov => (prov.pois || [])
+    .filter(poi => poi && Number.isFinite(Number(poi.x)) && Number.isFinite(Number(poi.y)))
+    .map(poi => [Number(poi.x), Number(poi.y)]));
+  if (points.length < 3) return [];
+  const sorted = [...points].sort((a, b) => a[0] - b[0] || a[1] - b[1]);
+  const cross = (o, a, b) => (a[0] - o[0]) * (b[1] - o[1]) - (a[1] - o[1]) * (b[0] - o[0]);
+  const lower = [];
+  sorted.forEach(point => {
+    while (lower.length >= 2 && cross(lower[lower.length - 2], lower[lower.length - 1], point) <= 0) lower.pop();
+    lower.push(point);
+  });
+  const upper = [];
+  [...sorted].reverse().forEach(point => {
+    while (upper.length >= 2 && cross(upper[upper.length - 2], upper[upper.length - 1], point) <= 0) upper.pop();
+    upper.push(point);
+  });
+  const hull = lower.slice(0, -1).concat(upper.slice(0, -1));
+  if (hull.length < 3) return [];
+  const cx = points.reduce((sum, point) => sum + point[0], 0) / points.length;
+  const cy = points.reduce((sum, point) => sum + point[1], 0) / points.length;
+  return hull.map(([x, y]) => [
+    Math.max(0, Math.min(100, cx + (x - cx) * scale)),
+    Math.max(0, Math.min(100, cy + (y - cy) * scale)),
+  ]);
+}
+
 function provincePolygons(prov) {
   const cells = (prov && Array.isArray(prov.cells)) ? prov.cells.filter(poly => poly && poly.length >= 3) : [];
   if (cells.length) return cells;
@@ -601,16 +634,29 @@ function provinceEdgeInk(provinces, colorOf) {
    provinces no longer get diagonal hatching or dashed squiggles; the fill uses
    the leading/nearest faction colour when one exists, and grey when the census
    cannot name a hand. */
-function bordersSvg(provinces, colorOf) {
+function bordersSvg(provinces, colorOf, mapId = 'sheet') {
   const list = (provinces || []).filter(p => provincePathD(p));
   if (!list.length) return '';
-  const fills = list.map(prov => {
+  const solid = list.filter(prov => !prov.vacant);
+  const claims = list.filter(prov => prov.vacant);
+  const pathFor = prov => {
     const color = colorOf(prov);
     const cls = `atlas-v2-plot${prov.census.contested ? ' contested' : ''}${prov.vacant ? ' vacant' : ''}`;
     return `<path class="${cls}" data-province="${esc(prov.id)}" style="--plot:${esc(color)}" d="${esc(provincePathD(prov))}"><title>${esc(prov.name)}${prov.census.contested ? ' — contested' : (prov.census.controller ? '' : ' — unclaimed')}</title></path>`;
-  }).join('');
+  };
+  const fills = solid.map(pathFor).join('');
+  const claimFills = claims.map(pathFor).join('');
+  const hull = surveyHull(solid);
+  const clipId = `atlas-v2-survey-${String(mapId).replace(/[^a-z0-9_-]/gi, '-')}`;
+  const clipped = hull.length >= 3 ? ` clip-path="url(#${clipId})"` : '';
+  const defs = hull.length >= 3
+    ? `<defs><clipPath id="${clipId}" clipPathUnits="userSpaceOnUse"><path d="${esc(polygonPathD(hull))}"/></clipPath></defs>`
+    : '';
   return `<svg class="atlas-v2-borders" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">`
-    + `<g class="atlas-v2-fills">${fills}</g><g class="atlas-v2-edges">${provinceEdgeInk(list, colorOf)}</g></svg>`;
+    + defs
+    + `<g class="atlas-v2-survey-clip"${clipped}><g class="atlas-v2-fills">${fills}</g><g class="atlas-v2-edges">${provinceEdgeInk(solid, colorOf)}</g></g>`
+    + `<g class="atlas-v2-claims"><g class="atlas-v2-fills">${claimFills}</g><g class="atlas-v2-edges">${provinceEdgeInk(claims, colorOf)}</g></g>`
+    + `</svg>`;
 }
 
 function provinceBarsHtml(census, colorOf) {
@@ -741,6 +787,12 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
     return null;
   }
   const { map, pois, population } = data;
+  /* Transport is a separate travel overlay. It is bounded and computed once
+     per mount, so a resize or lens change cannot create another copy of every
+     route. Journey mode owns its historical event path instead. */
+  const transport = buildTransportForMap(map);
+  const transportById = new Map(pois.map(poi => [poi.id, poi]));
+  const visibleRoutes = transport.routes.filter(route => transportById.has(route.from) && transportById.has(route.to));
   /* Warm the location cache as the map mounts so the first pin a reader
      opens already has its plate. Fire-and-forget: the panel redraws itself
      if this lands late, and the map works unchanged if it never lands. */
@@ -852,7 +904,7 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
       <div>
         <span class="atlas-v2-eyebrow">WORLD ATLAS · PINNED ARTWORK</span>
         <h2>${esc((map.name || map.id).replace(' (Full)', ''))}</h2>
-        <p>${pois.length} ${pinWord} · ${format(population)} mapped residents · x/y kept as percent of the painting${provinceList.length ? ` · ${provinceList.length} provinces from the filed survey` : ''}</p>
+        <p>${pois.length} ${pinWord} · ${format(population)} mapped residents · x/y kept as percent of the painting${provinceList.length ? ` · ${provinceList.length} provinces from the filed survey` : ''}${visibleRoutes.length && !journeyOnly ? ` · ${visibleRoutes.length} transport routes` : ''}</p>
       </div>
       <div class="atlas-v2-actions">
         <button type="button" data-action="fit">Reset view</button>
@@ -865,6 +917,7 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
       <select data-type><option value="">All types</option>${types.map(t => `<option value="${esc(t)}">${esc(humanize(t))}</option>`).join('')}</select>
       <button type="button" data-action="wiki" title="Show only pins that open a wiki article">📖 Wiki</button>
       ${provinceList.length ? `<button type="button" data-action="plots" class="${plotsOn ? 'active' : ''}" title="Merge the pins into provinces and draw the borders the census can prove">🗺️ Provinces</button>` : ''}
+      ${visibleRoutes.length && !journeyOnly ? `<button type="button" data-action="routes" class="active" title="Show or hide the inferred transport network">🚆 Routes</button>` : ''}
       <button type="button" data-action="density" data-density="all" title="Cycle marker density: every location, key locations only, or auto-clustered">${PIN_DENSITY.all.label}</button>
       <button type="button" data-action="bigpins" title="Bigger, easier-to-hit dots — for touch, or when precision aiming is a nuisance">⬤ Big dots</button>
       <button type="button" data-action="shortlist" title="Rank the pins on this sheet and pick one to act on">🎯 Choose a pin</button>
@@ -890,7 +943,7 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
           </div>
           <div class="atlas-v2-depth" data-depth>1× continent</div>
         </div>
-        <div class="atlas-v2-legend"><span data-legend-lens></span><span>${esc(map.group || '')}</span></div>
+        <div class="atlas-v2-legend"><span data-legend-lens></span><span>${transportLegendHtml()} ${esc(map.group || '')}</span></div>
       </main>
       <aside class="atlas-v2-sidebar">${detailHtml(null, pois)}</aside>
     </div>
@@ -909,7 +962,7 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
        continent, then region, then town — instead of one flat pile. */
     drill: [],
     scale: 1, tx: 0, ty: 0, box: { left: 0, top: 0, w: 1, h: 1 }, mode: startMode, selected: null, wikiOnly: false,
-    plots: plotsOn, province: null, board: null, pickIndex: 0, nonce: 0, dragged: false, labelZoom: 1,
+    plots: plotsOn, routes: visibleRoutes.length > 0 && !journeyOnly && opts.routes !== false, province: null, board: null, pickIndex: 0, nonce: 0, dragged: false, labelZoom: 1,
     pinDensity: PIN_DENSITY[opts.pinDensity] ? opts.pinDensity : 'all',
     /* Big-target mode: same dots, bigger hit areas, for touch and for anyone
        who would rather aim at a disc than a point. Opt-in, off by default. */
@@ -1154,6 +1207,32 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
       + `<polyline points="${pts.join(' ')}" vector-effect="non-scaling-stroke"/></svg>`;
   }
 
+  function transportPathSvg() {
+    if (!state.routes || !visibleRoutes.length || journeyOnly) return '';
+    const lines = visibleRoutes.map(route => {
+      const from = transportById.get(route.from);
+      const to = transportById.get(route.to);
+      const points = [`${from.x},${from.y}`]
+        .concat((route.via || []).map(point => `${point.x},${point.y}`))
+        .concat([`${to.x},${to.y}`]).join(' ');
+      const mode = TRANSPORT_MODES[route.mode] || TRANSPORT_MODES.trail;
+      return `<polyline class="atlas-v2-route atlas-v2-route-${esc(route.mode)}" points="${esc(points)}" style="--route:${esc(mode.color)};--route-dash:${esc(mode.dash)}" vector-effect="non-scaling-stroke"><title>${esc(mode.icon)} ${esc(mode.label)} · ${esc(from.name)} to ${esc(to.name)} · industrialization ${esc(route.industrialization)}</title></polyline>`;
+    }).join('');
+    return `<svg class="atlas-v2-routes" viewBox="0 0 100 100" preserveAspectRatio="none" aria-label="Transport routes">${lines}</svg>`;
+  }
+
+  function transportLegendHtml() {
+    if (!visibleRoutes.length || journeyOnly) return '';
+    const counts = visibleRoutes.reduce((out, route) => {
+      out[route.mode] = (out[route.mode] || 0) + 1;
+      return out;
+    }, {});
+    return Object.entries(counts).map(([mode, count]) => {
+      const meta = TRANSPORT_MODES[mode] || TRANSPORT_MODES.trail;
+      return `<span class="atlas-v2-route-key"><i style="background:${esc(meta.color)}"></i>${esc(meta.icon)} ${esc(meta.label)} ${count}</span>`;
+    }).join('');
+  }
+
   function placePins() {
     state.box = containBox(world, img);
     const { left, top, w, h } = state.box;
@@ -1264,7 +1343,7 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
         lensEl.innerHTML = `<i style="background:${lens.color}"></i>${format(min)} – ${format(max)} ${esc(lens.unit)} · pin size = ${esc(lens.sizeLabel || lens.label)} · ${esc(densityHint)}${clusterHint}${keyHint}${major.size ? ' · ◎ top 5 ringed' : ''}${toks.length ? ` · 🛰️ ${toks.length} party` : ''} · ${legendChips(cats.cats, cats.more)}${plotHint}`;
       } else lensEl.innerHTML = `<i style="background:${lens.color}"></i>${format(min)} – ${format(max)} ${esc(lens.unit)} · pin size = ${esc(lens.label)} · ${esc(densityHint)}${clusterHint}${keyHint}${major.size ? ' · ◎ top 5 ringed' : ''}${toks.length ? ` · 🛰️ ${toks.length} party` : ''}${plotHint}`;
     }
-    overlay.innerHTML = (state.plots ? bordersSvg(provinceList, plotColor) + provinceLabelsHtml() : '') + journeyPathSvg() + clusters.map(group => {
+    overlay.innerHTML = transportPathSvg() + (state.plots ? bordersSvg(provinceList, plotColor, map.id) + provinceLabelsHtml() : '') + journeyPathSvg() + clusters.map(group => {
       const poi = group[0];
       const faction = factionMeta(poi.factionId);
       const cat = lens.categorical ? lens.catOf(poi) : null;
@@ -1722,6 +1801,12 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
     state.plots = !state.plots;
     event.currentTarget.classList.toggle('active', state.plots);
     if (!state.plots) { state.province = null; }
+    placePins();
+  });
+  const routesBtn = host.querySelector('[data-action="routes"]');
+  if (routesBtn) routesBtn.addEventListener('click', event => {
+    state.routes = !state.routes;
+    event.currentTarget.classList.toggle('active', state.routes);
     placePins();
   });
   const bigPinsBtn = host.querySelector('[data-action="bigpins"]');
