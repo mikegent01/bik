@@ -37,7 +37,7 @@ const locations = JSON.parse(readFileSync(LOCATIONS, 'utf8'));
 /* articleId -> [{mapId, mapName, group, poiId, poiName, x, y}] */
 const pins = new Map();
 const dangling = new Set();
-const knownIds = new Set(locations.map(l => l.id));
+const knownIds = new Set(locations.flatMap(l => [l.id, ...(Array.isArray(l.aliases) ? l.aliases : [])]));
 
 for (const [mapId, rec] of Object.entries(MAP_DATA)) {
   for (const poi of rec.pointsOfInterest || []) {
