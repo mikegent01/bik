@@ -1,0 +1,43 @@
+{
+  "name": "waluipedia-local-agent",
+  "transport": "local-python",
+  "description": "Bounded local planning, repository review, and ComfyUI image generation.",
+  "tools": [
+    {
+      "name": "plan_large_request",
+      "command": "agent.py plan",
+      "side_effects": "writes an ignored checkpoint under tools/.local-agent-runs"
+    },
+    {
+      "name": "get_next_checklist_item",
+      "command": "agent.py next RUN_ID",
+      "side_effects": "none"
+    },
+    {
+      "name": "mark_checklist_item",
+      "command": "agent.py mark RUN_ID TASK_ID STATUS",
+      "side_effects": "updates an ignored checklist checkpoint"
+    },
+    {
+      "name": "repo_read",
+      "command": "repo_tools.py read PATH",
+      "side_effects": "none; bounded to the checkout"
+    },
+    {
+      "name": "repo_search",
+      "command": "repo_tools.py search TERM --dir PATH",
+      "side_effects": "none; bounded result count and file size"
+    },
+    {
+      "name": "repo_patch",
+      "command": "repo_tools.py patch PATH --old TEXT --new TEXT",
+      "side_effects": "one exact-match local file patch; no Git operation"
+    },
+    {
+      "name": "queue_qwen_image_edit",
+      "command": "comfy_cli.py --workflow API_JSON --reference IMAGE --prompt TEXT",
+      "side_effects": "uploads references to local ComfyUI and queues one image job"
+    }
+  ],
+  "approval_required": ["repository writes", "git commit", "git push", "pull request"]
+}
