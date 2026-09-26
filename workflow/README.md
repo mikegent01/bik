@@ -23,7 +23,11 @@ python workflow/server.py --check
 
 ## Chat workflow
 
-The page is a ChatGPT-style local conversation. Type a question such as
+The page has separate workspace views. **Agent chat** is the bounded archive/model
+conversation. **Character JSON + Roleplay Studio** is a separate browser-local
+editor with dynamic character JSON loading, per-session custom CSS previewing,
+and short roleplay prompt scaffolding; switching views does not mix studio drafts
+into the agent conversation. Type a question in Agent chat such as
 `What is the latest current filing?` or a full change request and press send.
 Waluigi's WAH-Desk returns a normal plaintext assistant message; its generated
 plan, tool activity, evidence, and completion status are shown in a process

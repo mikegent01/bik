@@ -71,6 +71,17 @@ def _catalog_records(filename: str, fields: tuple[str, ...]) -> list[dict[str, A
     return records
 
 
+def character_record(identifier: str) -> dict[str, Any]:
+    if not identifier or len(identifier) > 180:
+        raise ValueError("character id is required")
+    data = json.loads((DATA_DIR / "characters.json").read_text(encoding="utf-8"))
+    record = next((item for item in data if isinstance(item, dict) and str(item.get("id")) == identifier), None)
+    if not record:
+        raise ValueError("character not found")
+    # Keep the editor useful without accidentally returning unbounded generated fields.
+    return {key: value for key, value in record.items() if key not in {"_generatedReputation"}}
+
+
 def creation_catalog(target_year: str = "") -> dict[str, Any]:
     characters = _catalog_records("characters.json", ("name", "title", "status", "summary", "image"))
     all_events = _catalog_records("events.json", ("name", "title", "date", "era", "location", "status", "summary", "image"))
@@ -345,6 +356,13 @@ class Handler(BaseHTTPRequestHandler):
             self.send_header("Content-Length", str(len(data)))
             self.end_headers()
             self.wfile.write(data)
+            return
+        if parsed.path == "/api/creation/character":
+            try:
+                query = parse_qs(parsed.query)
+                json_response(self, character_record(str(query.get("id", [""])[0])))
+            except Exception as error:
+                json_response(self, {"error": str(error)}, 404)
             return
         if parsed.path == "/api/creation/catalog":
             try:
