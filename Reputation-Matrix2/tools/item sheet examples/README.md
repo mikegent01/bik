@@ -52,7 +52,13 @@ convert it.
 ## Bones image pack and installer
 
 The `assets/` directory contains generated PNG art for Bones's portrait, weapons,
-field kit, forbidden codex, and campaign chronicle. `install_bones_assets.py`
+field kit, forbidden codex, and campaign chronicle. The four-weapon contact
+sheet `bones-weapons.png` has additionally been spliced into per-item cutouts
+with transparent backgrounds by `tools/splice-sheet-cutouts.py` —
+`bones-longsword.png`, `bones-vile-mace.png`, `bones-light-crossbow.png`, and
+`bones-wooden-shield.png` — and the installer maps those four items to their
+own icons (the composite sheet is still bundled for the item-sheet example).
+`install_bones_assets.py`
 is a repeatable Windows installer: it copies those images to
 `Data/images/bones/`, rewrites the actor, token, token-flip, and item image paths
 to Foundry-relative paths, and makes a `.bak` before rewriting the actor JSON.
