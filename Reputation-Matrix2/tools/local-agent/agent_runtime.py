@@ -29,10 +29,12 @@ DEFAULT_ENDPOINT = os.environ.get("LM_STUDIO_URL", "http://127.0.0.1:1234/v1/cha
 TOOL_DESCRIPTIONS = {
     "repo_read": "Read one bounded text file inside the checkout. args: path, limit.",
     "repo_search": "Search a focused directory for a term. args: term, dir, limit.",
+    "repo_status": "Inspect the bounded local git status. No writes. args: none.",
+    "repo_diff": "Inspect the bounded local diff, optionally for repository-relative paths. No writes. args: paths.",
     "repo_patch": "Replace exactly one matching text block. args: path, old, new. Requires write approval.",
     "run_audit": "Run one fixed audit: json, timecodes, home_feed, covers, or campaign_fronts.",
     "queue_image": "Queue a Qwen Edit job with 1-6 local reference images. Requires write approval.",
-    "finish_task": "Mark the current checklist task complete after an audit has passed. args: note.",
+    "finish_task": "Mark the current internal work unit complete after an audit has passed. args: note.",
     "ask_user": "Stop and ask for a missing fact or approval. args: question.",
 }
 
@@ -75,6 +77,25 @@ def _save_checklist(path: Path, items: list[dict[str, Any]]) -> None:
     path.write_text(json.dumps(items, indent=2, ensure_ascii=False), encoding="utf-8")
 
 
+def _load_history(run_dir: Path) -> list[dict[str, str]]:
+    """Recover a small amount of context when a user approves and resumes."""
+    path = run_dir / "agent-log.jsonl"
+    if not path.is_file():
+        return []
+    records: list[dict[str, str]] = []
+    for line in path.read_text(encoding="utf-8", errors="replace").splitlines()[-12:]:
+        try:
+            record = json.loads(line)
+        except json.JSONDecodeError:
+            continue
+        if "action" in record or "error" in record:
+            records.append({
+                "action": _clip(record.get("action", "system"), 1800),
+                "result": _clip(record.get("result", record.get("error", "")), 5000),
+            })
+    return records
+
+
 def _audit(name: str) -> str:
     commands = {
         "timecodes": ["tools/check-timecodes.py"],
@@ -103,6 +124,12 @@ def execute(action: dict[str, Any], *, allow_writes: bool) -> tuple[str, bool]:
         return repo_tools.read_file(str(args.get("path", "")), int(args.get("limit", 12000))), False
     if name == "repo_search":
         return json.dumps(repo_tools.search(str(args.get("term", "")), str(args.get("dir", "Reputation-Matrix2/data")), min(int(args.get("limit", 30)), 50)), ensure_ascii=False, indent=2), False
+    if name == "repo_status":
+        return repo_tools.status() or "working tree clean", False
+    if name == "repo_diff":
+        raw_paths = args.get("paths", [])
+        paths = [str(raw_paths)] if isinstance(raw_paths, str) else [str(value) for value in raw_paths]
+        return repo_tools.diff(paths), False
     if name == "repo_patch":
         if not allow_writes:
             return "APPROVAL_REQUIRED: patch is ready but the GUI Allow local patches switch is off.", True
@@ -130,9 +157,14 @@ def execute(action: dict[str, Any], *, allow_writes: bool) -> tuple[str, bool]:
 
 
 def run_agent(request_text: str, *, run_id: str = "", endpoint: str = DEFAULT_ENDPOINT,
-              model: str = "", allow_writes: bool = False, max_steps: int = 12,
+              model: str = "", allow_writes: bool = False, max_steps: int = 30,
               on_event: Callable[[dict[str, Any]], None] | None = None) -> dict[str, Any]:
-    """Run one short observe -> decide -> act loop and checkpoint every step."""
+    """Run the local ArenaLLM observe -> decide -> act loop.
+
+    The planner creates internal work units automatically. The operator only
+    supplies the request; the work units and checkpoint files are implementation
+    details, not a second planning UI.
+    """
     emit = on_event or (lambda event: None)
     if not run_id:
         run_dir = planner.make_run(request_text, True, endpoint, model, 6000, 20)
@@ -140,18 +172,23 @@ def run_agent(request_text: str, *, run_id: str = "", endpoint: str = DEFAULT_EN
     run_dir = RUNS / run_id
     if not run_dir.is_dir():
         raise ValueError(f"unknown run: {run_id}")
+    if not request_text:
+        request_path = run_dir / "request.txt"
+        request_text = request_path.read_text(encoding="utf-8") if request_path.is_file() else ""
     check_path, items = _checklist(run_id)
     system = (
-        "You are the action controller for a local Waluipedia archive agent. "
-        "Choose exactly one JSON action per turn. Never invent a file path or "
-        "canon fact. Read/search before patching. After a patch, run an audit. "
-        "Only finish a task after a relevant audit result is present. Keep each "
-        "action small. Return JSON exactly as {\"action\":\"name\",\"args\":{...}}.\n\n"
+        "You are ArenaLLM, the action controller for a local Waluipedia archive agent. "
+        "The operator gave you one request; decide how to complete it by using the "
+        "small internal work units below. Choose exactly one JSON action per turn. "
+        "Never invent a file path or canon fact. Read/search before patching. After "
+        "a patch, run an audit. Only finish an internal work unit after a relevant "
+        "audit result is present. Keep each action small. Return JSON exactly as "
+        "{\"action\":\"name\",\"args\":{...}}.\n\n"
         "Allowed actions:\n" + "\n".join(f"- {k}: {v}" for k, v in TOOL_DESCRIPTIONS.items())
     )
-    history: list[dict[str, str]] = []
+    history: list[dict[str, str]] = _load_history(run_dir)
     last_audit = False
-    for step in range(1, max(1, min(int(max_steps), 30)) + 1):
+    for step in range(1, max(1, min(int(max_steps), 60)) + 1):
         pending = next((item for item in items if item.get("status") in {"pending", "in_progress"}), None)
         if pending is None:
             return {"status": "done", "run": run_id, "steps": step - 1}
@@ -159,8 +196,9 @@ def run_agent(request_text: str, *, run_id: str = "", endpoint: str = DEFAULT_EN
         _save_checklist(check_path, items)
         context = {
             "run": run_id,
-            "current_task": pending,
-            "recent_tool_results": history[-5:],
+            "operator_request": _clip(request_text, 12000),
+            "current_internal_work_unit": pending,
+            "recent_tool_results": history[-7:],
             "write_approval": allow_writes,
             "step": step,
         }
@@ -169,7 +207,8 @@ def run_agent(request_text: str, *, run_id: str = "", endpoint: str = DEFAULT_EN
             action = _ask(endpoint, model, system, _clip(context, 18000))
             emit({"kind": "action", "step": step, "action": action})
             result, side_effect = execute(action, allow_writes=allow_writes)
-            last_audit = action.get("action") == "run_audit" and not result.lower().startswith("audit") or action.get("action") == "run_audit"
+            if action.get("action") == "run_audit":
+                last_audit = True
             record = {"at": time.time(), "step": step, "task": pending["id"], "action": action, "result": _clip(result)}
             _write_log(run_dir, record)
             history.append({"action": json.dumps(action, ensure_ascii=False), "result": _clip(result, 6000)})
@@ -192,4 +231,4 @@ def run_agent(request_text: str, *, run_id: str = "", endpoint: str = DEFAULT_EN
             _write_log(run_dir, {"at": time.time(), "step": step, "task": pending["id"], "error": str(error)})
             emit({"kind": "error", "step": step, "result": result})
             return {"status": "error", "run": run_id, "step": step, "message": str(error)}
-    return {"status": "step_limit", "run": run_id, "steps": max_steps, "message": "Agent stopped at its bounded step limit; checklist remains checkpointed."}
+    return {"status": "step_limit", "run": run_id, "steps": max_steps, "message": "ArenaLLM stopped at its bounded turn limit; its internal run state remains checkpointed."}

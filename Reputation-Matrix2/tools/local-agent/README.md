@@ -1,107 +1,104 @@
-# Local Waluipedia Agent
+# ArenaLLM local agent
 
-This is the first local orchestration layer for LM Studio plus ComfyUI. It is
-intentionally separate from the existing Hub and GenKit tools: those tools
-remain available, while this layer adds bounded planning and image workflow
-execution.
+ArenaLLM is the repository's small, local orchestration layer for LM Studio
+plus ComfyUI. It is intentionally separate from the existing Hub and GenKit
+tools. The operator writes one natural-language request; the agent creates its
+own bounded work units, chooses tools, and keeps a checkpointed run internally.
+There is no second checklist UI to manage.
 
-## 1. Turn a large request into a checklist
+## Start the prompt page
 
-```bash
-python tools/local-agent/agent.py plan \
-  --input request.txt \
-  --max-chars 6000 \
-  --max-sections 20
-```
-
-For an offline deterministic plan:
+From the checkout root:
 
 ```bash
-python tools/local-agent/agent.py plan --input request.txt --no-llm
+python workflow/server.py
 ```
 
-LM Studio is expected at `http://127.0.0.1:1234/v1/chat/completions`. Override
-with `LM_STUDIO_URL` and `LM_STUDIO_MODEL`. Each section is sent in a separate bounded request. The planner probes LM
-Studio once with a two-second timeout before starting; if it is offline, it
-immediately uses deterministic checklist items instead of waiting once per
-section. A failed local model call also falls back rather than retrying forever.
+Open `http://127.0.0.1:8787/` locally. The server binds to `0.0.0.0` by
+default so the same page can be shown by a sandbox preview. Set `WORKFLOW_HOST`
+or `WORKFLOW_PORT` when needed.
 
-Runs are checkpointed under `tools/.local-agent-runs/` (ignored by Git):
+Write a request such as:
+
+> Update the historical Bowser archive. Inspect the existing event, analysis,
+> home card, and art first. Preserve the recovered scene, make the throne-room
+> breach explicit, keep it backdated, and validate the result.
+
+ArenaLLM decides whether it needs to search, read, patch, audit, queue an image,
+or ask a question. The live trace shows the actual tool actions and results.
+
+## Internal orchestration
+
+`agent.py` splits large prompts on headings and paragraph boundaries, then asks
+LM Studio for small executable work units. Those work units are implementation
+details and are never presented as a manual operator checklist. A run is
+checkpointed under `Reputation-Matrix2/tools/.local-agent-runs/` (ignored by
+Git):
 
 ```text
-request.txt       original request
-plan.json         bounded source sections and planning results
-checklist.json    pending/in_progress/done/blocked tasks
-state.json        next task pointer
+request.txt       original operator request
+plan.json         bounded source sections and model planning results
+checklist.json    internal work-unit state used for recovery
+state.json        internal run pointer
+agent-log.jsonl   tool/action/result audit trail
 ```
 
-Progress commands:
+The internal state lets an approval stop resume without asking the operator to
+re-split the request. If LM Studio is unavailable, deterministic work units are
+created quickly; the action loop still refuses to pretend that it completed a
+model-driven edit without a running model.
 
-```bash
-python tools/local-agent/agent.py next RUN_ID
-python tools/local-agent/agent.py mark RUN_ID task-01 in_progress
-python tools/local-agent/agent.py mark RUN_ID task-01 done --note "focused audit passed"
-```
+## Actual tool-using loop
 
-The agent does not decide that a task is complete from model prose. A local
-operator or a later repository tool must mark it done after validation.
+The page's **Start ArenaLLM** button calls `/api/agent/run`, which runs
+`agent_runtime.py`. LM Studio receives the original request, the current
+internal work unit, recent tool results, and the write-approval state. It
+returns exactly one allowlisted JSON action. The server executes that action,
+feeds the bounded result back, and repeats until the request is complete, the
+turn limit is reached, or a stop is required.
 
-## 2. Actual tool-using agent loop
+Available actions:
 
-The GUI's **Run agent** button uses `agent_runtime.py`. This is different from
-`agent.py plan`: LM Studio receives the active checklist item, chooses one
-allowlisted action, gets the tool result, and chooses the next action. It can
-read, search, patch, run fixed audits, queue a reference-backed image job, or
-ask for input. It cannot run arbitrary shell commands or Git operations.
+- `repo_read` — read one bounded text file inside the checkout.
+- `repo_search` — search a focused repository directory.
+- `repo_status` and `repo_diff` — inspect local changes without writing.
+- `repo_patch` — replace exactly one matching block inside the checkout.
+- `run_audit` — run only the fixed JSON, timecode, home-feed, cover, or
+  campaign-front audits.
+- `queue_image` — submit a bounded Qwen Edit job with local references.
+- `finish_task` — close an internal work unit after an audit.
+- `ask_user` — stop when a fact or decision is genuinely missing.
 
-A patch or image job stops with an approval-required result unless the GUI's
-explicit write switch is enabled. Every action is recorded in the run's
-`agent-log.jsonl`, and the loop stops after a bounded number of steps.
+There is no shell tool, arbitrary filesystem access, delete tool, Git commit
+tool, push tool, or pull-request tool. Paths are repository-scoped. Exact
+patches reject zero matches and duplicate matches.
 
-## 3. Repository tools (bounded)
+## Approval boundary
 
-The local model may use `repo_tools.py` for focused reads, searches, status,
-diff, and exact one-match patches:
+Reading, searching, status, diff, and fixed audits can happen immediately.
+Repository patches and image jobs require the page's explicit **Allow local
+edits and image jobs** approval. With that switch off, ArenaLLM stops and the
+page offers **Approve edits and continue**. Approval resumes the same internal
+run; it does not make the operator split or re-enter the request.
 
-```bash
-python tools/local-agent/repo_tools.py read Reputation-Matrix2/data/events.json --limit 12000
-python tools/local-agent/repo_tools.py search Bowser --dir Reputation-Matrix2/data --limit 20
-python tools/local-agent/repo_tools.py status
-python tools/local-agent/repo_tools.py diff Reputation-Matrix2/data/events.json
-```
+ArenaLLM never commits or pushes automatically. Review the live trace and
+`git diff` before promoting the result.
 
-A patch refuses zero or multiple matches and all paths must stay inside the
-checkout. There is no commit, push, delete, or arbitrary shell tool.
+## Image jobs
 
-## 4. Queue a Qwen Edit job with required image references
-
-Export the ComfyUI graph with **Save (API Format)** and pass it directly:
+An image request can be written in the same prompt as an article request. If
+ArenaLLM can find a compatible API-format Qwen Edit workflow and existing
+repository reference images, it may queue the job after approval. If a required
+reference or decision is missing, it asks instead of inventing one. The direct
+CLI remains available for explicit local image work:
 
 ```bash
 python tools/local-agent/comfy_cli.py \
   --workflow /path/to/qwen-image-edit-api.json \
   --reference docs/3d-reference/beanbean-battle/bowser-base.png \
-  --reference docs/3d-reference/beanbean-battle/fawful-base.png \
-  --reference docs/3d-reference/beanbean-battle/cackletta-base.png \
-  --prompt "Edit the supplied references into a historically consistent Bowser Castle scene..." \
-  --output-prefix waluipedia/bowser-castle \
-  --wait
+  --prompt "Edit the supplied references into a historically consistent scene" \
+  --output-prefix waluipedia/archive-scene
 ```
 
-Set `COMFYUI_URL` or pass `--comfy` if ComfyUI is not on port 8188. The queue
-adapter uploads every reference to ComfyUI first, patches the workflow's
-`LoadImage` nodes, and fails if the graph has too few image inputs. It also
-patches Qwen positive/negative prompts, seed, and output prefix. Model loading,
-LoRA choice, sampler wiring, and resolution remain in the exported workflow.
-
-## 5. Operating rules
-
-- Keep LM Studio and ComfyUI local; do not expose either server to the public
-  internet.
-- Never give Gemma unrestricted shell access.
-- Review generated images and `git diff` before promoting assets into the site.
-- The agent never commits, pushes, deletes, or opens a PR automatically.
-- Use repository-relative reference paths in the checklist so the run is
-  portable across machines.
-- Keep all prompts and generated output names scoped to the active checklist
-  item.
+Keep LM Studio and ComfyUI local. Review generated images and the repository
+diff before using them in the site.

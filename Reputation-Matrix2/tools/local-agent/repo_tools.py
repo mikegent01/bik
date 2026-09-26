@@ -10,8 +10,8 @@ import argparse
 import subprocess
 from pathlib import Path
 
-PROJECT = Path(__file__).resolve().parents[1]
-ROOT = PROJECT.parent
+PROJECT = Path(__file__).resolve().parents[2]  # Reputation-Matrix2
+ROOT = PROJECT.parent                      # checkout root
 MAX_READ = 12000
 TEXT_SUFFIXES = {".json", ".js", ".ts", ".tsx", ".py", ".md", ".html", ".css", ".txt"}
 
@@ -66,20 +66,35 @@ def git_read(*args: str) -> str:
     return result.stdout[:MAX_READ]
 
 
+def status() -> str:
+    return git_read("status", "--short")
+
+
+def diff(paths: list[str] | None = None) -> str:
+    """Return a bounded diff, validating every optional path first."""
+    safe_paths = []
+    for value in (paths or [])[:20]:
+        path = safe_path(value)
+        safe_paths.append(path.relative_to(ROOT).as_posix())
+    if safe_paths:
+        return git_read("diff", "--", *safe_paths)
+    return git_read("diff", "--stat", "--")
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     sub = parser.add_subparsers(dest="command", required=True)
     rd = sub.add_parser("read"); rd.add_argument("path"); rd.add_argument("--limit", type=int, default=MAX_READ)
     sr = sub.add_parser("search"); sr.add_argument("term"); sr.add_argument("--dir", default="."); sr.add_argument("--limit", type=int, default=40)
     pt = sub.add_parser("patch"); pt.add_argument("path"); pt.add_argument("--old", required=True); pt.add_argument("--new", required=True)
-    st = sub.add_parser("status"); st.set_defaults(args=("status", "--short"))
+    st = sub.add_parser("status")
     df = sub.add_parser("diff"); df.add_argument("paths", nargs="*")
     args = parser.parse_args()
     if args.command == "read": print(read_file(args.path, args.limit), end="")
     elif args.command == "search": print(__import__("json").dumps(search(args.term, args.dir, args.limit), indent=2))
     elif args.command == "patch": patch(args.path, args.old, args.new); print(f"patched {args.path}")
-    elif args.command == "status": print(git_read(*args.args), end="")
-    elif args.command == "diff": print(git_read("diff", "--", *args.paths), end="")
+    elif args.command == "status": print(status(), end="")
+    elif args.command == "diff": print(diff(args.paths), end="")
     return 0
 
 

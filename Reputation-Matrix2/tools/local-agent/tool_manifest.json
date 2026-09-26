@@ -1,27 +1,12 @@
 {
-  "name": "waluipedia-local-agent",
+  "name": "arenallm-local-agent",
   "transport": "local-python",
-  "description": "Bounded local planning, repository review, and ComfyUI image generation.",
+  "description": "Prompt-first bounded local agent for repository review, focused edits, audits, and reference-backed image jobs.",
   "tools": [
     {
-      "name": "run_agent_loop",
+      "name": "run_arenallm",
       "command": "workflow/server.py POST /api/agent/run",
       "side_effects": "executes only allowlisted local tools; patches and image jobs require explicit approval"
-    },
-    {
-      "name": "plan_large_request",
-      "command": "agent.py plan",
-      "side_effects": "writes an ignored checkpoint under tools/.local-agent-runs"
-    },
-    {
-      "name": "get_next_checklist_item",
-      "command": "agent.py next RUN_ID",
-      "side_effects": "none"
-    },
-    {
-      "name": "mark_checklist_item",
-      "command": "agent.py mark RUN_ID TASK_ID STATUS",
-      "side_effects": "updates an ignored checklist checkpoint"
     },
     {
       "name": "repo_read",
@@ -34,15 +19,31 @@
       "side_effects": "none; bounded result count and file size"
     },
     {
+      "name": "repo_status",
+      "command": "repo_tools.py status",
+      "side_effects": "none; bounded local git status"
+    },
+    {
+      "name": "repo_diff",
+      "command": "repo_tools.py diff PATH...",
+      "side_effects": "none; bounded local diff"
+    },
+    {
       "name": "repo_patch",
       "command": "repo_tools.py patch PATH --old TEXT --new TEXT",
-      "side_effects": "one exact-match local file patch; no Git operation"
+      "side_effects": "one exact-match local file patch; no Git operation; explicit approval required"
+    },
+    {
+      "name": "run_fixed_audit",
+      "command": "agent_runtime.py internal audit",
+      "side_effects": "runs only the fixed repository validators"
     },
     {
       "name": "queue_qwen_image_edit",
       "command": "comfy_cli.py --workflow API_JSON --reference IMAGE --prompt TEXT",
-      "side_effects": "uploads references to local ComfyUI and queues one image job"
+      "side_effects": "uploads references to local ComfyUI and queues one image job; explicit approval required"
     }
   ],
-  "approval_required": ["repository writes", "git commit", "git push", "pull request"]
+  "approval_required": ["repository patches", "image jobs", "git commit", "git push", "pull request"],
+  "forbidden": ["arbitrary shell", "arbitrary filesystem paths", "delete", "commit", "push", "pull request"]
 }

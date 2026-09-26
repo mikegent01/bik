@@ -1,9 +1,9 @@
-# Waluipedia Local Intake GUI
+# Waluipedia ArenaLLM
 
-A small dependency-free local GUI for the bounded LM Studio planner and the
-ComfyUI Qwen Image Edit adapter.
+This is a dependency-free, prompt-first local page for the bounded LM Studio
+agent and the ComfyUI adapter.
 
-## Start it any time
+## Start it
 
 From the repository root:
 
@@ -11,63 +11,52 @@ From the repository root:
 python workflow/server.py
 ```
 
-Open:
+Open `http://127.0.0.1:8787/`. The server binds `0.0.0.0` by default for a
+sandbox preview; the browser still uses the page's same-origin API. On Windows,
+double-click `workflow\Waluipedia Workflow.bat`.
 
-```text
-http://127.0.0.1:8787/
-```
-
-On Windows, double-click `workflow\Waluipedia Workflow.bat`.
-
-Optional checks:
+Optional local-service check:
 
 ```bash
 python workflow/server.py --check
-python workflow/server.py --port 8788
 ```
 
-## What it does
+## Prompt-first workflow
 
-1. Accepts a large request.
-2. Sends bounded sections to local LM Studio, when enabled.
-3. Falls back quickly if LM Studio is offline.
-4. Creates a persistent checklist under
-   `Reputation-Matrix2/tools/.local-agent-runs/`.
-5. Lets you mark individual items in progress, done, or blocked.
-6. Runs a real bounded LM Studio loop: observe task → choose one allowlisted
-   action → execute locally → return the result → validate → advance.
-7. Lets you choose a ComfyUI API-format workflow and reference files from the
-   browser.
-8. Uploads the references to local ComfyUI and queues the Qwen Image Edit job.
+The page intentionally has one main input. Enter the full request in natural
+language and press **Start ArenaLLM**. Do not manually split it into sections
+or create tasks. The agent automatically:
 
-The GUI itself binds to `127.0.0.1`. LM Studio and ComfyUI are expected to be
-local as well. No cloud service or external package is required.
+1. inspects the request and creates internal bounded work units;
+2. reads/searches the repository before proposing a change;
+3. chooses one allowlisted browse, edit, image, or audit action at a time;
+4. feeds each bounded result back to LM Studio;
+5. validates after patches and continues until done or a stop is required.
+
+Internal checkpoint files are kept under
+`Reputation-Matrix2/tools/.local-agent-runs/` and are ignored by Git. They are
+for recovery and auditability, not a checklist that the operator has to manage.
+The live trace on the page shows actual actions and results.
+
+## Safety boundary
+
+LM Studio and ComfyUI remain local. The model receives no shell, delete, Git,
+or arbitrary filesystem tool. Its repository tools are bounded to this checkout:
+focused reads, focused search, status, diff, and exact one-match patches. Fixed
+audits are the only subprocesses available to it.
+
+Browsing and audits are read-only. Patches and image jobs stop for explicit
+page approval unless **Allow local edits and image jobs** is enabled before the
+run. The agent can never commit, push, or open a pull request.
 
 ## Qwen workflow requirement
 
-Use a ComfyUI **Save (API Format)** export. The ordinary UI graph export is
-rejected because it cannot be safely submitted to `/prompt`. The selected
-workflow must contain Qwen Edit prompt encoding, one or more `LoadImage` nodes,
-and a `SaveImage` node.
+For image requests, use a ComfyUI **Save (API Format)** workflow. The adapter
+requires Qwen Edit prompt encoding, one or more `LoadImage` nodes, and a
+`SaveImage` node. ArenaLLM can queue a compatible workflow when it finds local
+references and the request supplies enough detail; otherwise it asks rather
+than fabricating a path. Explicit CLI use remains available through
+`Reputation-Matrix2/tools/local-agent/comfy_cli.py`.
 
-The reference image requirement is enforced: a Qwen job cannot be queued
-without at least one supplied image. The adapter patches the supplied images
-into `LoadImage` nodes before submission.
-
-Uploaded workflow/reference files are saved under `workflow/intake-inputs/` and
-ignored by Git. Repository paths can also be entered directly.
-
-## Agent loop and safety boundary
-
-The **Run agent** button is the actual tool-using path. Gemma receives the
-current checklist task and may choose only `repo_read`, `repo_search`,
-`repo_patch`, `run_audit`, `queue_image`, `finish_task`, or `ask_user`. The
-server executes those actions locally and feeds the bounded result back to the
-model. It stops at a maximum step count and writes `agent-log.jsonl` beside the
-run checkpoint.
-
-Repository patches and image jobs are disabled until **Allow local patches and
-image jobs** is explicitly enabled. The GUI does not expose a shell to Gemma,
-and the agent cannot commit, push, delete, or open pull requests. Review the
-checklist, generated image, and `git diff` before promoting any result into the
-site.
+Uploaded workflow/reference files, if used by the CLI or compatibility API, are
+saved under `workflow/intake-inputs/` and ignored by Git.

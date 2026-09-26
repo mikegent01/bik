@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Local Waluipedia intake GUI.
+"""Prompt-driven local ArenaLLM GUI.
 
 Run from the checkout with: python workflow/server.py
 It deliberately exposes only the bounded local-agent operations, not a shell.
@@ -74,7 +74,7 @@ def start_agent_job(payload: dict[str, Any]) -> dict[str, str]:
                 endpoint=str(payload.get("endpoint", DEFAULT_LM)),
                 model=str(payload.get("model", "")),
                 allow_writes=bool(payload.get("allow_writes", False)),
-                max_steps=max(1, min(int(payload.get("max_steps", 12)), 30)),
+                max_steps=max(1, min(int(payload.get("max_steps", 30)), 60)),
                 on_event=emit,
             )
             with AGENT_LOCK:
@@ -260,7 +260,7 @@ class Handler(BaseHTTPRequestHandler):
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--host", default=os.environ.get("WORKFLOW_HOST", "127.0.0.1"))
+    parser.add_argument("--host", default=os.environ.get("WORKFLOW_HOST", "0.0.0.0"))
     parser.add_argument("--port", type=int, default=int(os.environ.get("WORKFLOW_PORT", "8787")))
     parser.add_argument("--check", action="store_true", help="probe local services and exit")
     args = parser.parse_args()
