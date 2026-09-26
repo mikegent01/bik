@@ -33,10 +33,12 @@ INSTALL_DIR_NAME = "bones"
 # Item names are intentionally explicit. This prevents a future item with a
 # similar name from receiving an unexpected image.
 ITEM_IMAGE_BY_NAME = {
-    "Longsword": "bones-weapons.png",
-    "Vile Mace": "bones-weapons.png",
-    "Light Crossbow": "bones-weapons.png",
-    "Wooden Shield": "bones-weapons.png",
+    # The four weapon items each have their own transparent cutout, spliced
+    # out of the 2x2 bones-weapons.png sheet by tools/splice-sheet-cutouts.py.
+    "Longsword": "bones-longsword.png",
+    "Vile Mace": "bones-vile-mace.png",
+    "Light Crossbow": "bones-light-crossbow.png",
+    "Wooden Shield": "bones-wooden-shield.png",
     "Leather Armor": "bones-field-kit.png",
     "Winter Coat": "bones-field-kit.png",
     "Disguise Kit": "bones-field-kit.png",
