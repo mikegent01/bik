@@ -429,6 +429,121 @@ class ChatFirstTests(unittest.TestCase):
         self.assertTrue(decision["needed"])
         self.assertEqual(decision["path"], "Reputation-Matrix2/data/characters.json")
 
+    def test_record_requests_resolve_collections(self) -> None:
+        """'add a Noki race' files into races.json in one prompt; other kinds keep their lanes."""
+        cases = {
+            "can you add a Noki race": ("record", "Reputation-Matrix2/data/races.json", "Noki"),
+            "add a new faction called the Coral Guard": ("record", "Reputation-Matrix2/data/factions.json", "the Coral Guard"),
+            "check the Isle Delfino nation and add a Noki race to the archive": ("record", "Reputation-Matrix2/data/races.json", "Noki"),
+            "edit the races.json file and add Noki": ("record", "Reputation-Matrix2/data/races.json", "Noki"),
+            "add a new currency called Delfino Coins": ("record", "Reputation-Matrix2/data/currencies.json", "Delfino Coins"),
+        }
+        for prompt, (kind, path, subject) in cases.items():
+            with self.subTest(prompt=prompt):
+                decision = runtime.classify_request(prompt)
+                self.assertEqual(decision["kind"], kind)
+                self.assertEqual(decision["path"], path)
+                self.assertEqual(decision["subject"], subject)
+        # nameless: ask for the name instead of inventing a record
+        self.assertEqual(runtime.classify_request("add a race")["kind"], "clarify")
+        self.assertEqual(runtime.classify_request("update the factions.json")["kind"], "clarify")
+        # a bare file edit with no record name is the generic write flow
+        self.assertEqual(runtime.classify_request("edit Reputation-Matrix2/data/characters.json")["kind"], "write")
+        # existing lanes are untouched
+        self.assertEqual(runtime.classify_request("can you generate a new battle using the tools")["kind"], "generate")
+        self.assertEqual(runtime.classify_request("make a new event for my story")["kind"], "chat")
+        self.assertEqual(runtime.classify_request("what race is Markop")["kind"], "chat")
+
+    def test_record_run_files_the_record(self) -> None:
+        """One prompt reads the format, gathers evidence, drafts, and writes."""
+        decision = runtime.classify_request("can you add a Noki race")
+        self.assertEqual(decision["kind"], "record")
+        reply = json.dumps({
+            "reply": "Filed the Noki into the races, complete with the shell.",
+            "record": {"id": "noki", "name": "Noki", "title": "Nokis — The Shell and the Shore",
+                       "summary": "A small amphibious folk of Isle Delfino.",
+                       "description": "The Nokis of Isle Delfino."},
+        })
+        calls, fake = model_texts(reply)
+        events: list[dict[str, object]] = []
+        with patch.object(runtime, "_complete", side_effect=fake), \
+             patch.object(runtime.repo_tools, "upsert_json_object",
+                          return_value="added noki in Reputation-Matrix2/data/races.json (52 records)") as upsert:
+            result = runtime.run_agent("can you add a Noki race", on_event=events.append)
+        self.assertEqual(result["status"], "done")
+        self.assertEqual(upsert.call_count, 1)
+        self.assertEqual(upsert.call_args[0][0], "Reputation-Matrix2/data/races.json")
+        written = upsert.call_args[0][1]
+        self.assertEqual(written["id"], "noki")
+        self.assertEqual(written["name"], "Noki")
+        self.assertTrue(calls, "the record and reply must be written by the model")
+        payload = calls[0]
+        self.assertIn("sample_records", payload)
+        self.assertIn("races.json", payload)
+        actions = [event["action"]["action"] for event in events if event.get("kind") == "action"]
+        self.assertEqual(actions, ["repo_read", "repo_search", "repo_upsert_object"])
+        self.assertIn("added noki in Reputation-Matrix2/data/races.json (52 records)", result["message"])
+
+    def test_record_run_gathers_catalog_evidence(self) -> None:
+        """The Isle Delfino record grounds the Noki without a second prompt."""
+        reply = json.dumps({"reply": "Filed.", "record": {"id": "noki", "name": "Noki", "summary": "s"}})
+        calls, fake = model_texts(reply)
+        with patch.object(runtime, "_complete", side_effect=fake), \
+             patch.object(runtime.repo_tools, "upsert_json_object", return_value="added noki in Reputation-Matrix2/data/races.json (52 records)"):
+            runtime.run_agent("can you add a Noki race, check the Isle Delfino nation they are native there")
+        payload = json.loads(calls[0])
+        ids = [item["id"] for item in payload["evidence"]]
+        self.assertIn("isle_delfino", ids, f"evidence should include the Isle Delfino nation, got {ids}")
+
+    def test_record_run_offline_writes_nothing(self) -> None:
+        """A record cannot be drafted without the model; nothing is written."""
+        def broken(endpoint, model, system, user, **kwargs):
+            raise RuntimeError("connection refused at http://127.0.0.1:1234")
+        events: list[dict[str, object]] = []
+        with patch.object(runtime, "_complete", side_effect=broken), \
+             patch.object(runtime.repo_tools, "upsert_json_object",
+                          side_effect=AssertionError("nothing may be written offline")) as upsert:
+            result = runtime.run_agent("can you add a Noki race", on_event=events.append)
+        self.assertEqual(result["status"], "error")
+        self.assertEqual(upsert.call_count, 0)
+        self.assertIn("nothing in races.json changed", result["message"])
+
+    def test_record_run_updates_existing_record(self) -> None:
+        """An existing record is amended, not duplicated."""
+        runtime._save_state("record-existing", {"kind": "record", "path": "Reputation-Matrix2/data/races.json"})
+        try:
+            reply = json.dumps({"reply": "Updated.", "record": {"id": "noki", "name": "Noki", "summary": "better"}})
+            existing = [{"id": "noki", "name": "Noki", "summary": "old summary"}]
+            calls, fake = model_texts(reply)
+            with patch.object(runtime, "_complete", side_effect=fake), \
+                 patch.object(runtime.repo_tools, "find_records", return_value=existing), \
+                 patch.object(runtime.repo_tools, "upsert_json_object",
+                              return_value="updated noki in Reputation-Matrix2/data/races.json (52 records)") as upsert:
+                result = runtime.run_agent("update the Noki race to mention their shells",
+                                           run_id="record-existing")
+            self.assertEqual(result["status"], "done")
+            self.assertEqual(upsert.call_args[0][1]["summary"], "better")
+            payload = json.loads(calls[0])
+            self.assertEqual(payload["existing_records"], existing,
+                             "the existing Noki record must be in the model context")
+        finally:
+            runtime._save_state("record-existing", {})
+
+    def test_upsert_rejects_non_list_collections(self) -> None:
+        """Dict-shaped bookkeeping files are not record collections."""
+        import tempfile
+        with tempfile.TemporaryDirectory() as tmp:
+            fake_data = Path(tmp) / "data"
+            fake_data.mkdir()
+            target = fake_data / "mainPage.json"
+            target.write_text(json.dumps({"featuredArticle": {}}), encoding="utf-8")
+            import importlib
+            module = importlib.import_module("repo_tools")
+            with patch.object(module, "safe_path", return_value=target), \
+                 patch.object(module, "PROJECT", Path(tmp)):
+                with self.assertRaises(ValueError):
+                    module.upsert_json_object(str(target), {"id": "x"})
+
     def test_generator_limit_follows_the_wording(self) -> None:
         """'a new battle' is one record, 'some events' is three, numbers are honored."""
         cases = {
@@ -599,12 +714,15 @@ class ChatFirstTests(unittest.TestCase):
         """repo_tools.upsert_json_object updates an existing record in place."""
         import tempfile
         with tempfile.TemporaryDirectory() as tmp:
-            target = Path(tmp) / "characters.json"
+            fake_data = Path(tmp) / "data"
+            fake_data.mkdir()
+            target = fake_data / "characters.json"
             target.write_text(json.dumps([{"id": "a", "name": "Old"}, {"id": "b", "name": "B"}]), encoding="utf-8")
             import importlib
             module = importlib.import_module("repo_tools")
             with patch.object(module, "safe_path", return_value=target), \
-                 patch.object(module, "ROOT", Path(tmp)):
+                 patch.object(module, "ROOT", Path(tmp)), \
+                 patch.object(module, "PROJECT", Path(tmp)):
                 result = module.upsert_json_object(str(target), {"id": "a", "name": "New"})
             data = json.loads(target.read_text(encoding="utf-8"))
             self.assertEqual(len(data), 2)

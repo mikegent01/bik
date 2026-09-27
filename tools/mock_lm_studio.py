@@ -29,12 +29,23 @@ class Handler(BaseHTTPRequestHandler):
         payload = json.loads(self.rfile.read(size))
         messages = payload.get("messages", [])
         last_user = next((m["content"] for m in reversed(messages) if m.get("role") == "user"), "")
+        all_text = " ".join(str(m.get("content", "")) for m in messages)
         # Echo a distinctive, model-styled reply so tests can prove the reply
         # came from the model and varies per turn.
-        content = (
-            f"MOCK-MODEL REPLY #{int(time.time() * 1000) % 100000}: I read your context "
-            f"({len(last_user)} chars) and I am writing this reply myself."
-        )
+        if "ONLY a JSON object" in all_text or "ONLY a JSON" in all_text:
+            # Structured flows (record filing, draft revision) expect JSON; the
+            # canned body is overridable per-test with MOCK_JSON_REPLY.
+            content = os.environ.get(
+                "MOCK_JSON_REPLY",
+                '{"reply": "MOCK JSON REPLY: filed by the mock model.", '
+                '"record": {"id": "mock_record", "name": "Mock Record", '
+                '"title": "Mock Record — Filed From the Mock", "summary": "A mock record."}}',
+            )
+        else:
+            content = (
+                f"MOCK-MODEL REPLY #{int(time.time() * 1000) % 100000}: I read your context "
+                f"({len(last_user)} chars) and I am writing this reply myself."
+            )
         body = json.dumps({"choices": [{"message": {"role": "assistant", "content": content}}]}).encode()
         self.send_response(200)
         self.send_header("Content-Type", "application/json")

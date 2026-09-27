@@ -121,6 +121,33 @@ genkit systems) directly. Asking to “generate a battle”, “make some events
 A system with nothing pending is reported honestly from the inventory instead
 of running anything.
 
+## Filing records into any collection — one prompt
+
+“Can you add a Noki race” is one prompt, not an interview. The request resolves
+the collection from the noun (race → `races.json`, faction → `factions.json`,
+nation, location, book, currency, artifact, quest, trial, injury, culture,
+what-if, prop, commentary — or any explicit `something.json` under `data/`),
+extracts the record's name (“a Noki race” → Noki), and then:
+
+1. reads the target collection and hands the model its own records as format
+   samples — the runtime never hardcodes a schema;
+2. gathers grounding from the catalog (the subject plus any proper names in
+   the request — “Noki” alone finds the Isle Delfino nation record, so the
+   user does not have to paste it);
+3. the model drafts the complete record in the file's own format and voice and
+   writes the reply — one model call;
+4. the record is written directly (git is the undo), replacing any existing
+   record with the same id, so “update the Noki race to mention their shells”
+   amends instead of duplicating.
+
+The write surface is any existing top-level `data/*.json` that holds a list of
+id-keyed records — dict-shaped bookkeeping files (`mainPage.json`,
+`currentDate.json`) are refused by the same rule. Characters keep the
+source-backed profile flow; generator keywords keep the generator; a nameless
+“add a race” asks for the name rather than inventing a record; and a bare
+“edit data/characters.json” with no record named stays with the generic write
+flow. When the model is unreachable nothing is written and the notice says so.
+
 ## Failure notices never become conversation
 
 The runtime's own error texts (“LM Studio is offline”, “returned HTTP 400”, “did

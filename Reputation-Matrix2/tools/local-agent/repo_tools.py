@@ -59,8 +59,14 @@ def record_available_at(record: dict[str, Any], target_year: str | int | None) -
     return True
 
 
+_CATALOG_FILES = (
+    "characters.json", "events.json", "locations.json", "factions.json",
+    "nations.json", "races.json", "props.json",
+)
+
+
 def _catalog_files() -> list[Path]:
-    return [PROJECT / "data" / name for name in ("characters.json", "events.json", "locations.json")]
+    return [PROJECT / "data" / name for name in _CATALOG_FILES]
 
 
 def _catalog_search(term: str, limit: int, target_year: str | int | None) -> list[dict[str, str]]:
@@ -135,8 +141,10 @@ def catalog_retrieve(source: str = "", ids: list[str] | None = None,
                      terms: list[str] | None = None, limit: int = 6,
                      target_year: str | int | None = None) -> list[dict[str, Any]]:
     """Return focused records for callers that already resolved an entity."""
-    names = {"characters": "characters.json", "events": "events.json", "locations": "locations.json"}
-    filename = names.get(str(source).casefold(), str(source))
+    names = {name.removesuffix(".json"): name for name in _CATALOG_FILES}
+    filename = names.get(str(source).casefold().removesuffix(".json"), str(source))
+    if not filename.endswith(".json"):
+        filename = filename + ".json"
     path = safe_path(f"Reputation-Matrix2/data/{filename}") if not str(filename).startswith("Reputation-Matrix2/") else safe_path(str(filename))
     value = json.loads(path.read_text(encoding="utf-8"))
     if not isinstance(value, list):
@@ -157,13 +165,111 @@ def catalog_retrieve(source: str = "", ids: list[str] | None = None,
     return records
 
 
+# Any top-level data/*.json that already exists and holds a list of id-keyed
+# records is a writable collection. The archive lives in git; an explicit
+# request writes directly, and the list requirement is what keeps dict-shaped
+# bookkeeping files (mainPage.json, currentDate.json, ...) out of scope.
+COLLECTION_NOUNS: tuple[tuple[str, str], ...] = (
+    (r"\braces?\b|\bspecies\b|\bfolk\b", "races.json"),
+    (r"\bfactions?\b", "factions.json"),
+    (r"\bnations?\b|\bcountr(?:y|ies)\b|\bpolit(?:y|ies)\b", "nations.json"),
+    (r"\blocations?\b|\bplaces\b|\blandmarks?\b", "locations.json"),
+    (r"\bbooks?\b|\bcodices\b|\bcodexes\b|\bpamphlets?\b|\bmanuscripts?\b", "books.json"),
+    (r"\bcurrenc(?:y|ies)\b", "currencies.json"),
+    (r"\bartifacts?\b|\brelics?\b", "artifacts.json"),
+    (r"\bquests?\b", "quests.json"),
+    (r"\btrials?\b", "trials.json"),
+    (r"\binjur(?:y|ies)\b", "injuries.json"),
+    (r"\bcultures?\b", "cultures.json"),
+    (r"\bwhat-?ifs?\b", "whatifs.json"),
+    (r"\bprops?\b|\bexhibits?\b", "props.json"),
+    (r"\bcommentaries?\b", "commentaries.json"),
+)
+
+
+def _writable_collection(target: Path) -> bool:
+    """A writable collection is an existing top-level JSON list under data/."""
+    try:
+        data_dir = (PROJECT / "data").resolve()
+        resolved = target.resolve()
+    except OSError:
+        return False
+    if resolved.parent != data_dir or resolved.suffix != ".json" or not resolved.is_file():
+        return False
+    try:
+        value = json.loads(resolved.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return False
+    return isinstance(value, list)
+
+
+def collection_for_noun(text: str) -> tuple[str, str] | None:
+    """Map a collection noun in the request ('a Noki race') to its data file."""
+    lowered = str(text).casefold()
+    for pattern, filename in COLLECTION_NOUNS:
+        match = re.search(pattern, lowered)
+        if match:
+            return filename, match.group(0)
+    return None
+
+
+def collection_overview(path: str, sample_count: int = 2) -> dict[str, Any]:
+    """Describe a collection so a record can be drafted in its own format.
+
+    Returns the record count, the union of record keys, and the first complete
+    records as format samples. The samples are what teach the model the file's
+    schema and voice; nothing else in the runtime knows the shape of races.json.
+    """
+    target = safe_path(path)
+    if not target.is_file():
+        raise ValueError(f"{target.name} does not exist in the checkout")
+    data = json.loads(target.read_text(encoding="utf-8"))
+    if not isinstance(data, list) or not data:
+        raise ValueError(f"{target.name} is not a populated JSON list")
+    keys: list[str] = []
+    for item in data:
+        if isinstance(item, dict):
+            for key in item:
+                if key not in keys:
+                    keys.append(key)
+    samples = []
+    for item in data[:max(1, min(int(sample_count), 5))]:
+        if isinstance(item, dict):
+            samples.append(json.loads(json.dumps(item, ensure_ascii=False)))
+    return {
+        "path": target.relative_to(ROOT).as_posix(),
+        "count": len(data),
+        "record_keys": keys,
+        "samples": samples,
+    }
+
+
+def find_records(path: str, term: str, limit: int = 3) -> list[dict[str, Any]]:
+    """Records in a collection whose id/name/title mention the term."""
+    if not str(term).strip():
+        return []
+    target = safe_path(path)
+    data = json.loads(target.read_text(encoding="utf-8"))
+    needle = str(term).casefold().strip()
+    matches = []
+    for item in data if isinstance(data, list) else []:
+        if not isinstance(item, dict):
+            continue
+        haystack = " ".join(str(item.get(key, "")) for key in ("id", "name", "title")).casefold()
+        if needle in haystack:
+            matches.append(item)
+            if len(matches) >= max(1, min(int(limit), 10)):
+                break
+    return matches
+
+
 def add_json_object(path: str, value: dict[str, Any], collection: str = "") -> str:
     """Append one uniquely identified object to a JSON list after approval."""
     target = safe_path(path)
     if not isinstance(value, dict) or not value.get("id"):
         raise ValueError("the object must be a dictionary with an id")
-    if target.name not in {"characters.json", "events.json", "locations.json", "commentaries.json", "investigations.json", "articleAnalyses.json", "props.json"}:
-        raise ValueError("writes are limited to approved JSON collections")
+    if not _writable_collection(target):
+        raise ValueError("writes are limited to existing JSON list collections under Reputation-Matrix2/data/")
     try:
         data = json.loads(target.read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError) as error:
@@ -187,8 +293,8 @@ def upsert_json_object(path: str, value: dict[str, Any], collection: str = "") -
     target = safe_path(path)
     if not isinstance(value, dict) or not value.get("id"):
         raise ValueError("the object must be a dictionary with an id")
-    if target.name not in {"characters.json", "events.json", "locations.json", "commentaries.json", "investigations.json", "articleAnalyses.json", "props.json"}:
-        raise ValueError("writes are limited to approved JSON collections")
+    if not _writable_collection(target):
+        raise ValueError("writes are limited to existing JSON list collections under Reputation-Matrix2/data/")
     try:
         data = json.loads(target.read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError) as error:

@@ -94,6 +94,13 @@ The archive's own generator tools are connected too: “generate a battle”,
 inventory, runs one bounded generation with the chat's model endpoint, and
 reports the result in the model's own words.
 
+And the chat can file records into any data collection in one prompt: “can you
+add a Noki race” resolves `races.json` from the noun, reads the file's own
+format as samples, grounds the draft in the catalog (the Isle Delfino nation
+record, found without being named), and writes the record directly. The same
+path files factions, nations, locations, books, currencies, artifacts, quests,
+and more, and “update the Noki race …” amends the existing record.
+
 **There are no canned responses.** Every user-facing reply — clarifying
 questions, file-lookup answers, drafts, failures — is written by the local
 model from grounded context the runtime provides; only the offline notice
