@@ -28,7 +28,16 @@ URL by hand — it is stored in the browser and overrides detection. Setting the
 
 A slow model is not an offline one. Requests default to a 90-second budget
 (`LM_STUDIO_TIMEOUT_SECONDS`), and one automatic retry with a doubled budget
-runs before anything is reported. Timeouts say so plainly ("did not finish in
+runs before anything is reported. Transient HTTP errors from LM Studio (model
+backend channel errors, reloading models) are retried once too.
+
+The model never sees the assistant's own failure notices: they are marked in the
+chat page and excluded from the next request, and the server strips them from
+any history they reach. The current message is sent once, not twice. While a
+profile draft is pending, your notes (“make it sound good, waluigi tone”,
+“this is the leader of it i guess”) revise the draft instead of dropping into
+plain chat, and the model writes the profile prose itself from the quoted
+evidence. Timeouts say so plainly ("did not finish in
 time — the server is reachable but slow or busy"); only a refused connection
 says offline, and that message names the endpoint it tried. Reply phrasing
 keeps its prompt small (short history, small token budget) so slow local
@@ -66,15 +75,24 @@ A mention of “character,” “article,” “file,” or a canon name by itse
 tool request. If LM Studio is offline, the page says so plainly; it does not
 pretend a search happened or produce a fake archive answer.
 
-Source-backed character creation is explicit and staged. A request naming a
+Source-backed character creation is explicit but unstaged: a request naming a
 person, a profile, and a source record resolves the source and participant,
-shows a grounded draft, and waits for `approve` before adding one object to
-`characters.json`. For example, Freddy plus `The Seven Nights at Fazbear: A
-Complete Record` resolves to the source participant `gabriel_freddy`, and
-Cosmic Jester plus `the factions json` resolves to the Cosmic Jester material
-in the Disaster Inc. faction record. The request works as one message or as
-several, and permission lines such as “you may edit files” are understood
-without triggering a clarification.
+lets the model write the profile prose from the quoted evidence, and **writes
+it to `characters.json` immediately** — the archive lives in git, version
+control is the undo, and there is no approval step. Re-running a profile
+updates the record in place, and later notes (“make it sound good, waluigi
+tone”, “write it better, flesh out the description”) revise and rewrite it the
+same way. For example, Freddy plus `The Seven Nights at Fazbear: A Complete
+Record` resolves to the source participant `gabriel_freddy`, and Cosmic Jester
+plus `the factions json` resolves to the Cosmic Jester material in the Disaster
+Inc. faction record. The request works as one message or as several, and
+permission lines such as “you may edit files” are understood without triggering
+a clarification.
+
+The archive's own generator tools are connected too: “generate a battle”,
+“make some events”, or “run the generator for reputation” reads the live
+inventory, runs one bounded generation with the chat's model endpoint, and
+reports the result in the model's own words.
 
 **There are no canned responses.** Every user-facing reply — clarifying
 questions, file-lookup answers, drafts, failures — is written by the local

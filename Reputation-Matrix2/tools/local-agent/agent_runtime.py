@@ -347,6 +347,61 @@ def _explicit_write(text: str) -> bool:
     ))
 
 
+_GENERATOR_KEYWORDS = (
+    (r"\bevents?\b", "events"),
+    (r"\bbattles?\b", "battles"),
+    (r"\blocations?\b", "locations"),
+    (r"\breputation\b", "reputation"),
+    (r"\bfactions?\s+dossiers?\b|\bdossiers?\b", "faction-dossiers"),
+    (r"\bshop\b|\bwarizon\b|\bstock\b", "shop_items"),
+    (r"\babilit(?:y|ies)\b", "abilities"),
+    (r"\bcrafting\b|\brecipes?\b", "crafting"),
+    (r"\binjur(?:y|ies)\b", "injury-table"),
+    (r"\bwahwire\b|\bposts?\b", "wahwire-author"),
+    (r"\bthreads?\b", "wahwire-discuss"),
+    (r"\bbros\.?\s*attacks?\b", "bros_attacks"),
+)
+
+
+def _requested_generator_system(text: str) -> str:
+    lowered = _lower(text)
+    for pattern, system in _GENERATOR_KEYWORDS:
+        if re.search(pattern, lowered):
+            return system
+    return ""
+
+
+_NUMBER_WORDS = {"one": 1, "two": 2, "three": 3, "four": 4, "five": 5, "six": 6, "seven": 7, "eight": 8, "nine": 9, "ten": 10}
+
+
+def _requested_generator_limit(text: str) -> int:
+    """A small generation count from the wording: 'a new battle' is 1, 'some events' is 3."""
+    lowered = _lower(text)
+    for word, count in _NUMBER_WORDS.items():
+        if re.search(rf"\b{word}\b", lowered):
+            return count
+    for digit in ("10", "9", "8", "7", "6", "5", "4", "3", "2", "1"):
+        if re.search(rf"\b{digit}\b", lowered):
+            return int(digit)
+    if re.search(r"\b(?:a|an|another|single|just one)\s+(?:new\s+|fresh\s+)?(?:\w+\s+){0,2}?(?:battle|event|record|item|entry|ability|location|profile|dossier|article|attack|injury|faction|report|reputation)\b", lowered):
+        return 1
+    if re.search(r"\b(?:some|a few|several|a couple of|a bunch of|more)\b", lowered):
+        return 3
+    return 2
+
+
+def _explicit_generate(text: str) -> bool:
+    """The user asked for the archive's own generator tools to make records."""
+    lowered = _lower(text)
+    if any(word in lowered for word in DRAFT_WORDS):
+        return False
+    if not re.search(r"\b(?:generate|make|create|run|fill|append|write|use|start|queue)\b", lowered):
+        return False
+    mentions_tools = bool(re.search(r"\b(?:generator|generate_all|genkit|the\s+tools)\b", lowered))
+    names_system = bool(_requested_generator_system(text))
+    return mentions_tools or names_system
+
+
 def _generic_creation_request(text: str) -> bool:
     lowered = _lower(text)
     if not any(word in lowered for word in ("create", "add", "make", "write", "edit", "update")):
@@ -434,6 +489,8 @@ def classify_request(text: str, images: list[dict[str, Any]] | None = None,
     profile = _profile_request_details(text, conversation)
     if profile:
         return {"kind": "profile", "needed": True, **profile, "path": "Reputation-Matrix2/data/characters.json"}
+    if _explicit_generate(text):
+        return {"kind": "generate", "needed": True, "system": _requested_generator_system(text)}
     clarification = _clarify_context(text, conversation)
     if clarification:
         return {"kind": "clarify", "needed": False, "context": clarification}
@@ -820,8 +877,15 @@ def _clean_sentence(sentence: str) -> str:
     return re.sub(r"\s+", " ", sentence).strip(" —-").strip()
 
 
-def _person_evidence(source: dict[str, Any], person: dict[str, Any]) -> str:
-    """Collect sentences from the source record that mention the participant."""
+def _person_evidence(source: dict[str, Any], person: dict[str, Any],
+                     require_phrase: bool = False) -> str:
+    """Collect sentences from the source record that mention the participant.
+
+    With require_phrase (used when the character is only referenced, not a
+    listed participant) a sentence counts only when the full name appears or at
+    least two distinct name tokens do — a single shared word such as “cosmic”
+    must not smuggle in the source entity's own description.
+    """
     needles = set()
     for value in (str(person.get("name", "")), str(person.get("id", ""))):
         for token in re.findall(r"[a-z0-9'’-]{3,}", _lower(value)):
@@ -839,6 +903,9 @@ def _person_evidence(source: dict[str, Any], person: dict[str, Any]) -> str:
     for part in parts:
         for sentence in re.split(r"(?<=[.!?])\s+", re.sub(r"\s+", " ", str(part))):
             sentence = _clean_sentence(sentence)
+            # Metadata lists (“Era A / Era B / Era C”) are not prose about anyone.
+            if sentence.count(" / ") >= 2:
+                continue
             if 40 <= len(sentence) <= 500:
                 sentences.append(sentence)
     scored: list[tuple[int, int, str]] = []
@@ -846,6 +913,8 @@ def _person_evidence(source: dict[str, Any], person: dict[str, Any]) -> str:
         lowered = _lower(sentence)
         hits = sum(1 for needle in needles if needle in lowered)
         if not hits:
+            continue
+        if require_phrase and not (phrase and phrase in lowered) and hits < 2:
             continue
         score = hits * 2 + (3 if phrase and phrase in lowered else 0)
         scored.append((-score, index, sentence))
@@ -861,14 +930,34 @@ def _person_evidence(source: dict[str, Any], person: dict[str, Any]) -> str:
     return " ".join(picked)
 
 
-def _profile_object(source: dict[str, Any], person: dict[str, Any], origin: str = "event") -> dict[str, Any]:
+def _gather_name_evidence(target: str, limit: int = 2) -> str:
+    """Pull grounded sentences about a name from the events catalog."""
+    try:
+        found = repo_tools.search(target, "Reputation-Matrix2/data", 6)
+    except Exception:
+        return ""
+    ids = [str(item.get("entity_id")) for item in found
+           if item.get("entity_id") and "events.json" in str(item.get("path", ""))]
+    if not ids:
+        return ""
+    try:
+        records = repo_tools.catalog_retrieve("events", ids=ids[:limit], limit=limit)
+    except Exception:
+        return ""
+    marker = {"name": target, "id": target}
+    parts = [_person_evidence(record, marker, require_phrase=True) for record in records]
+    return " ".join(part for part in parts if part)
+
+
+def _profile_object(source: dict[str, Any], person: dict[str, Any], origin: str = "event",
+                    extra_evidence: str = "") -> dict[str, Any]:
     name = str(person.get("name", person.get("id", "Unnamed participant")))
     source_name = str(source.get("name", source.get("id", "source record")))
     role = str(person.get("role", "")).strip()
     summary = str(source.get("summary", ""))
-    evidence = _person_evidence(source, person)
     participant_ids = {str(item.get("id")) for item in (source.get("participants", []) or []) if isinstance(item, dict)}
     matched = str(person.get("id", "")) in participant_ids
+    evidence = " ".join(part for part in (_person_evidence(source, person, require_phrase=not matched), extra_evidence) if part)
     body = (" " + evidence[:1600]) if evidence else (" " + summary[:1600])
     if origin == "event":
         role = role or "Role not separately specified in the source record."
@@ -959,7 +1048,23 @@ def _model_profile_draft(base: dict[str, Any], evidence: str, source_name: str,
     return updates or None
 
 
+_REVISION_RE = re.compile(
+    r"\b(?:better|flesh(?:\s+it)?\s+out|expand|improve|reword|rewrite|longer|shorter|"
+    r"fix|polish|elaborate|more\s+detail|tone|make\s+it\s+sound|write\s+it\s+(?:better|properly|again)|"
+    r"punch(?:ier|\s+it\s+up)|tighten|rework)\b",
+    re.I,
+)
+
+
+def _is_revision_request(text: str) -> bool:
+    """The user wants the pending profile improved, not applied as-is."""
+    return bool(_REVISION_RE.search(str(text or "")))
+
+
 def _approval_request(text: str) -> bool:
+    # “write it better” is a revision, not an approval.
+    if _is_revision_request(text):
+        return False
     lowered = _lower(text)
     if re.fullmatch(r"\s*(?:yes|approve|approved|apply|apply it|write it|go ahead|do it|confirm)\s*[.!]?\s*", lowered):
         return True
@@ -977,97 +1082,27 @@ def _approval_request(text: str) -> bool:
     return True
 
 
-def _approved_profile_run(run_id: str, request_text: str, emit: Callable[[dict[str, Any]], None],
-                          endpoint: str, model: str) -> dict[str, Any] | None:
-    state = _load_state(run_id) if run_id else {}
-    draft = state.get("draft") if isinstance(state.get("draft"), dict) else None
-    if not draft or not _approval_request(request_text):
-        return None
-    conversation = state.get("conversation", []) if isinstance(state.get("conversation"), list) else []
-    path = str(state.get("path", "Reputation-Matrix2/data/characters.json"))
-    character = str(draft.get("name", draft.get("id", "the character")))
-    _emit_plan(emit, "Apply the approved character profile", True, "The user approved the exact grounded draft from the previous step.", "write one object, validate JSON, report the path")
-    action = {"action": "repo_add_object", "args": {"path": path, "collection": "characters", "object": draft}}
-    emit({"kind": "action", "step": 1, "action": action})
-    try:
-        result = repo_tools.add_json_object(path, draft)
-        emit({"kind": "result", "step": 1, "result": result})
-        audit = json.loads(repo_tools.safe_path(path).read_text(encoding="utf-8"))
-        if not isinstance(audit, list):
-            raise ValueError("character collection is not a JSON list")
-        emit({"kind": "action", "step": 2, "action": {"action": "run_audit", "args": {"name": "json"}}})
-        emit({"kind": "result", "step": 2, "result": f"JSON audit passed for {path} ({len(audit)} records)."})
-        answer = _reply_safely({
-            "situation": "the approved character profile was applied to the archive",
-            "character": character,
-            "path": path,
-            "write_result": result,
-            "validation": f"the JSON collection is valid and now holds {len(audit)} records",
-            "instruction": "Confirm to the user what was written and where, in one or two sentences.",
-        }, conversation, endpoint, model)
-        if _is_offline_note(answer):
-            # The write is deterministic and already happened; the model only
-            # phrases the reply, so the action is reported even while offline.
-            answer = answer.replace(" No repository or image tool was called.", "")
-            answer = f"{answer}\n\n[Action completed without the model: {result} JSON validation passed.]"
-        emit({"kind": "assistant", "text": answer, "source": "approved source-backed write"})
-        emit({"kind": "task_done", "step": 2, "task": "request-01"})
-        return {"status": "done", "run": run_id, "steps": 2, "answer": answer}
-    except ValueError as error:
-        if "already exists" in str(error):
-            answer = _reply_safely({
-                "situation": "the character profile is already on file in the archive, so nothing new was written",
-                "character": character,
-                "path": path,
-                "instruction": "Tell the user the profile is already on file and nothing was changed.",
-            }, conversation, endpoint, model)
-            if _is_offline_note(answer):
-                answer = answer.replace(" No repository or image tool was called.", "")
-                answer = f"{answer}\n\n[Checked without the model: the profile for {character} is already on file in {path}; nothing was changed.]"
-            emit({"kind": "assistant", "text": answer, "source": "duplicate profile write avoided"})
-            emit({"kind": "task_done", "step": 1, "task": "request-01"})
-            return {"status": "done", "run": run_id, "steps": 1, "answer": answer}
-        message = f"the write did not complete: {error}"
-        emit({"kind": "error", "step": 1, "result": message})
-        answer = _reply_safely({
-            "situation": "an approved write failed",
-            "character": character,
-            "path": path,
-            "failure": str(error),
-            "instruction": "Explain the failure plainly and reassure the user nothing partial was kept.",
-        }, conversation, endpoint, model)
-        emit({"kind": "assistant", "text": answer, "source": "no partial write kept"})
-        return {"status": "error", "run": run_id, "step": 1, "message": answer}
-    except Exception as error:
-        message = f"the write did not complete: {error}"
-        emit({"kind": "error", "step": 1, "result": message})
-        answer = _reply_safely({
-            "situation": "an approved write failed",
-            "character": character,
-            "path": path,
-            "failure": str(error),
-        }, conversation, endpoint, model)
-        emit({"kind": "assistant", "text": answer, "source": "no partial write kept"})
-        return {"status": "error", "run": run_id, "step": 1, "message": answer}
-
-
 _COURTESY_RE = re.compile(
     r"^\s*(?:thanks|thank you|thx|ty|ok|okay|k|cool|nice|great|awesome|wow|lol|lmao|ha|haha|sure|yes|no|np|bye|goodbye|hi|hello|hey|yo|alright|right|mm+|hmm+)\s*[.! ]*$",
     re.I,
 )
 
 _REVISION_SYSTEM = (
-    "You are revising a pending Waluipedia character-profile draft from the user's notes. "
+    "You are revising a Waluipedia character profile that is already on file, from the user's notes. "
     "Respond with ONLY a JSON object - no prose, no code fences - with exactly these keys: "
     '"reply" (one or two sentences to the user), "profile" (the updated profile object, or null to keep it unchanged). '
-    "When updating, keep every field you do not change exactly as given, use only facts from the draft and the "
+    "When updating, keep every field you do not change exactly as given, use only facts from the profile and the "
     "user's notes, and keep the encyclopedia voice."
 )
 
 
 def _revised_profile_run(run_id: str, request_text: str, emit: Callable[[dict[str, Any]], None],
                          endpoint: str, model: str) -> dict[str, Any] | None:
-    """A non-approval reply while a profile draft is pending revises the draft."""
+    """A note while a profile is on file revises it and writes the new version.
+
+    The archive lives in git, so revisions are applied directly; the only gate
+    that remains is that the user must have asked at all.
+    """
     if not run_id:
         return None
     state = _load_state(run_id)
@@ -1076,7 +1111,9 @@ def _revised_profile_run(run_id: str, request_text: str, emit: Callable[[dict[st
     draft = state.get("draft") if isinstance(state.get("draft"), dict) else None
     if not draft:
         return None
-    if _approval_request(request_text) or _COURTESY_RE.match(request_text):
+    if _is_revision_request(request_text):
+        pass  # revision notes always take the revision path
+    elif _approval_request(request_text) or _COURTESY_RE.match(request_text):
         return None
     character = str(draft.get("name", "the character"))
     context = {
@@ -1091,9 +1128,9 @@ def _revised_profile_run(run_id: str, request_text: str, emit: Callable[[dict[st
                         history_keep=4, history_limit=1200, max_tokens=1400)
     except Exception as error:
         answer = _model_error(error, endpoint)
-        message = answer + f"\n\n[The pending draft for {character} is unchanged; reply approve to apply it, or resend your notes.]"
-        emit({"kind": "assistant", "text": message, "source": "draft revision unavailable; draft preserved"})
-        return {"status": "approval_required", "run": run_id, "step": 3, "message": "APPROVAL_REQUIRED: " + message}
+        message = answer + f"\n\n[The profile for {character} currently on file is unchanged; resend your notes once the model is available.]"
+        emit({"kind": "assistant", "text": message, "source": "draft revision unavailable; profile preserved"})
+        return {"status": "done", "run": run_id, "step": 3, "message": message}
     reply_text = ""
     updated: dict[str, Any] | None = None
     match = re.search(r"\{.*\}", raw, re.S)
@@ -1113,15 +1150,31 @@ def _revised_profile_run(run_id: str, request_text: str, emit: Callable[[dict[st
                 updated = candidate
     if not reply_text:
         reply_text = raw.strip()[:400]
+    write_result = ""
     if updated is not None:
         draft = updated
         state["draft"] = draft
         state["request"] = request_text
         _save_state(run_id, state)
-        emit({"kind": "draft", "step": 3, "path": str(state.get("path", "Reputation-Matrix2/data/characters.json")), "object": draft})
-    message = reply_text + "\n\n" + _clip(draft, 7000)
-    emit({"kind": "assistant", "text": message, "source": "draft revised from user notes; no write performed"})
-    return {"status": "approval_required", "run": run_id, "step": 3, "message": "APPROVAL_REQUIRED: " + message}
+        path = str(state.get("path", "Reputation-Matrix2/data/characters.json"))
+        emit({"kind": "draft", "step": 3, "path": path, "object": draft})
+        emit({"kind": "action", "step": 4, "action": {"action": "repo_upsert_object", "args": {"path": path, "collection": "characters", "object": draft}}})
+        try:
+            write_result = repo_tools.upsert_json_object(path, draft)
+            emit({"kind": "result", "step": 4, "result": write_result})
+        except Exception as error:
+            write_result = ""
+            emit({"kind": "error", "step": 4, "result": f"the write did not complete: {error}"})
+    if write_result:
+        message = reply_text + f"\n\n[{write_result}]\n\n" + _clip(draft, 7000)
+    elif updated is not None:
+        message = reply_text + "\n\n" + _clip(draft, 7000)
+    else:
+        message = (reply_text or _clip(raw, 400)) + \
+            f"\n\n[The profile for {character} on file is unchanged — the model did not return a revised profile; reword the notes and try again.]"
+    emit({"kind": "assistant", "text": message, "source": "draft revised from user notes and written"})
+    emit({"kind": "task_done", "step": 4, "task": "request-01"})
+    return {"status": "done", "run": run_id, "step": 4, "message": message, "answer": message}
 
 
 def run_agent(request_text: str, *, run_id: str = "", endpoint: str = DEFAULT_ENDPOINT,
@@ -1149,10 +1202,6 @@ def run_agent(request_text: str, *, run_id: str = "", endpoint: str = DEFAULT_EN
             "instruction": "Ask what they would like to do.",
         }, conversation, endpoint, model)
         return {"status": "needs_input", "run": run_id, "message": "QUESTION: " + message}
-
-    approved = _approved_profile_run(run_id, request_text, emit, endpoint, model)
-    if approved is not None:
-        return approved
 
     decision = classify_request(request_text, images, conversation)
     kind = str(decision["kind"])
@@ -1238,28 +1287,130 @@ def run_agent(request_text: str, *, run_id: str = "", endpoint: str = DEFAULT_EN
         emit({"kind": "result", "step": 1, "result": json.dumps(matches, ensure_ascii=False, indent=2)})
         emit({"kind": "action", "step": 2, "action": {"action": "catalog_retrieve", "args": {"source": origin, "ids": [source_id], "limit": 1}}})
         emit({"kind": "result", "step": 2, "result": json.dumps({"id": source_id, "name": source.get("name"), "title": source.get("title"), "participant": person}, ensure_ascii=False, indent=2)})
-        draft = _profile_object(source, person, origin)
-        evidence_text = _person_evidence(source, person) or str(source.get("summary", ""))
+        extra = _gather_name_evidence(target) if origin != "event" else ""
+        draft = _profile_object(source, person, origin, extra_evidence=extra)
+        evidence_text = " ".join(part for part in (_person_evidence(source, person), extra) if part) or str(source.get("summary", ""))
         updates = _model_profile_draft(draft, evidence_text, str(source.get("name", "")), request_text, endpoint, model)
         if updates:
             draft = {**draft, **updates}
         emit({"kind": "draft", "step": 3, "path": "Reputation-Matrix2/data/characters.json", "object": draft})
         state_id = run_id or f"profile-{int(time.time())}"
         _save_state(state_id, {"kind": "profile", "request": request_text, "conversation": conversation, "path": "Reputation-Matrix2/data/characters.json", "draft": draft})
-        intro = _reply_safely({
-            "situation": "a source-backed character profile has been drafted and is waiting for the user's approval",
+        write_result = ""
+        write_failure = ""
+        emit({"kind": "action", "step": 4, "action": {"action": "repo_upsert_object", "args": {"path": "Reputation-Matrix2/data/characters.json", "collection": "characters", "object": draft}}})
+        try:
+            write_result = repo_tools.upsert_json_object("Reputation-Matrix2/data/characters.json", draft)
+            emit({"kind": "result", "step": 4, "result": write_result})
+        except Exception as error:
+            write_failure = str(error)
+            emit({"kind": "error", "step": 4, "result": f"the write did not complete: {write_failure}"})
+        if write_result:
+            answer = _reply_safely({
+                "situation": "a source-backed character profile was written to the archive",
+                "character": draft.get("name"),
+                "source_record": {"id": source_id, "name": source.get("name")},
+                "write_result": write_result,
+                "instruction": (
+                    "Confirm what was written and where, in one or two sentences, in your own words. Mention that "
+                    "further notes (tone, detail, corrections) will revise it directly since the archive is under "
+                    "version control. The full profile JSON is appended to your message automatically; do not repeat it."
+                ),
+            }, conversation, endpoint, model)
+            if _is_offline_note(answer):
+                answer = answer.replace(" No repository or image tool was called.", "")
+                answer = f"{answer}\n\n[Action completed without the model: {write_result}]"
+            message = answer + "\n\n" + _clip(draft, 7000)
+            emit({"kind": "assistant", "text": message, "source": "source-backed profile written"})
+            emit({"kind": "task_done", "step": 4, "task": "request-01"})
+            return {"status": "done", "run": state_id, "steps": 4, "answer": message, "message": message}
+        answer = _reply_safely({
+            "situation": "a source-backed character profile was drafted but the write failed",
             "character": draft.get("name"),
-            "source_record": {"id": source_id, "name": source.get("name")},
-            "evidence_used": _clip(_person_evidence(source, person) or str(source.get("summary", "")), 2000),
+            "failure": write_failure,
+            "instruction": "Explain the failure plainly; the draft is preserved for a retry. Do not claim anything was written.",
+        }, conversation, endpoint, model)
+        emit({"kind": "assistant", "text": answer, "source": "draft preserved; no write performed"})
+        return {"status": "error", "run": state_id, "step": 4, "message": answer}
+
+    if kind == "generate":
+        _emit_plan(emit, "Run the archive generator", True, "The user asked for the archive's own generator tools.", "list live pending work, run one bounded generation, report the result")
+        try:
+            inventory = repo_tools.generator_inventory()
+        except Exception as error:
+            failure = str(error)
+            emit({"kind": "error", "step": 1, "result": f"the generator inventory is unavailable: {failure}"})
+            message = _reply_safely({
+                "situation": "the archive generator could not be reached",
+                "failure": failure,
+                "instruction": "Explain the failure plainly; do not invent pending work or results.",
+            }, conversation, endpoint, model)
+            emit({"kind": "assistant", "text": message, "source": "no generation run"})
+            return {"status": "error", "run": run_id or f"generate-{int(time.time())}", "step": 1, "message": message}
+        system = str(decision.get("system", "")) or _requested_generator_system(request_text)
+        limit = _requested_generator_limit(request_text)
+        record = next((item for item in inventory if item.get("id") == system), None)
+        if system and record is None:
+            system = ""
+        if not system:
+            pick_context = {
+                "inventory": [{"id": item.get("id"), "title": item.get("title"), "pending": item.get("pending")} for item in inventory],
+                "user_request": _clip(request_text, 600),
+                "instruction": "Pick the one system that best matches the user's request and a small limit (1-5).",
+            }
+            try:
+                raw = _complete(endpoint, model,
+                                "You choose which archive generator system to run. Respond with ONLY a JSON object "
+                                'like {"system": "<id from the inventory>", "limit": 2}. If nothing matches, return '
+                                '{"system": "", "limit": 2}.',
+                                json.dumps(pick_context, ensure_ascii=False), history_keep=0, max_tokens=120)
+                match = re.search(r"\{.*\}", raw, re.S)
+                if match:
+                    pick = json.loads(match.group(0))
+                    system = str(pick.get("system", ""))
+                    limit = int(pick.get("limit", 2) or 2)
+                    record = next((item for item in inventory if item.get("id") == system), None)
+                    if system and record is None:
+                        system = ""
+            except Exception:
+                system = ""
+        if not system:
+            candidates = [item for item in inventory if item.get("enabled") and item.get("pending", 0) > 0]
+            record = max(candidates, key=lambda item: item.get("pending", 0)) if candidates else None
+            system = str(record.get("id")) if record else ""
+        if not system or not record or record.get("pending", 0) == 0:
+            answer = _reply_safely({
+                "situation": "the user asked for generation but the matching system has nothing pending",
+                "user_request": _clip(request_text, 600),
+                "inventory": inventory,
+                "instruction": (
+                    "Report honestly from the inventory: which system matches (if any) and its pending count, and "
+                    "offer the systems that do have pending work. Do not run anything or invent results."
+                ),
+            }, conversation, endpoint, model)
+            emit({"kind": "assistant", "text": answer, "source": "generation not needed; inventory reported"})
+            emit({"kind": "task_done", "step": 1, "task": "request-01"})
+            return {"status": "done", "run": run_id or f"generate-{int(time.time())}", "steps": 1, "answer": answer}
+        limit = max(1, min(int(limit or 2), 10))
+        emit({"kind": "action", "step": 2, "action": {"action": "run_generator", "args": {"system": system, "limit": limit}}})
+        result = repo_tools.run_generator(system, limit=limit, endpoint=endpoint)
+        emit({"kind": "result", "step": 2, "result": _clip(result, 6000)})
+        answer = _reply_safely({
+            "situation": "the archive generator ran",
+            "system": system,
+            "limit": limit,
+            "generator_result": _clip(result, 5000),
             "instruction": (
-                "Tell the user the grounded draft is ready, that nothing has been written yet, and that replying with "
-                "the single word approve will add it to characters.json. Invite corrections instead if they want changes. "
-                "The full draft JSON is appended to your message automatically; do not repeat it."
+                "Summarize what the generator did in two or three sentences: what was generated, whether validation "
+                "passed, and what was written where. Quote counts from the output; do not invent any."
             ),
         }, conversation, endpoint, model)
-        message = intro + "\n\n" + _clip(draft, 7000)
-        emit({"kind": "assistant", "text": message, "source": "source-backed draft; no write performed"})
-        return {"status": "approval_required", "run": state_id, "step": 3, "message": "APPROVAL_REQUIRED: " + message}
+        if _is_offline_note(answer):
+            answer = answer.replace(" No repository or image tool was called.", "")
+            answer = f"{answer}\n\n[Action completed without the model: generator {system} finished with exit code {result.get('returncode')}.]"
+        emit({"kind": "assistant", "text": answer, "source": "archive generator run"})
+        emit({"kind": "task_done", "step": 2, "task": "request-01"})
+        return {"status": "done", "run": run_id or f"generate-{int(time.time())}", "steps": 2, "answer": answer}
 
     if kind == "write":
         path = decision.get("path")
@@ -1268,7 +1419,7 @@ def run_agent(request_text: str, *, run_id: str = "", endpoint: str = DEFAULT_EN
                 "situation": "the user asked to change the archive but the exact target is unclear",
                 "user_request": request_text,
                 "missing_items": ["the exact file or canonical record to change", "the change to make"],
-                "instruction": "Ask for both briefly. Mention that the target will be read first and nothing is written until they approve it.",
+                "instruction": "Ask for both briefly. Mention that the target will be read first and the change applied directly.",
             }, conversation, endpoint, model)
             _emit_plan(emit, "Identify the exact write target", True, "The user requested a change but did not provide an unambiguous target.", "ask for the target; do not guess a file")
             emit({"kind": "action", "step": 1, "action": {"action": "ask_user", "args": {"question": question}}})
@@ -1315,8 +1466,7 @@ def run_agent(request_text: str, *, run_id: str = "", endpoint: str = DEFAULT_EN
             "path": str(path),
             "file_preview": _clip(content, 4000),
             "instruction": (
-                "Confirm you read the file, ask for the exact change to draft, and make clear nothing is written "
-                "until they explicitly approve the patch."
+                "Confirm you read the file and ask for the exact change to draft; it will be applied directly."
             ),
         }, conversation, endpoint, model)
         emit({"kind": "assistant", "text": message, "source": "target read; no write performed"})

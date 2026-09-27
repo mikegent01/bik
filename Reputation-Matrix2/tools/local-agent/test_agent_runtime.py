@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 import sys
 import unittest
+from contextlib import contextmanager
 from pathlib import Path
 from unittest.mock import patch
 
@@ -24,6 +25,14 @@ def model_texts(*tokens: str):
         return replies[min(len(calls) - 1, len(replies) - 1)]
 
     return calls, fake
+
+
+@contextmanager
+def auto_write(result: str = "added gabriel_freddy to Reputation-Matrix2/data/characters.json (184 records)"):
+    """The auto-write path: upsert is mocked, the legacy append must not run."""
+    with patch.object(runtime.repo_tools, "upsert_json_object", return_value=result) as upsert, \
+         patch.object(runtime.repo_tools, "add_json_object", side_effect=AssertionError("writes go through upsert")):
+        yield upsert
 
 
 class ChatFirstTests(unittest.TestCase):
@@ -46,12 +55,12 @@ class ChatFirstTests(unittest.TestCase):
                 self.assertFalse(decision["needed"])
 
     def test_deictic_references_stay_chat_after_a_profile_request(self) -> None:
-        """“read above” after a draft is conversation, not another archive run."""
+        """“read above” after a written profile is conversation, not another run."""
         requested = ("Cosmic Jester seems to be important can we create a character profile "
                      "for him please check the factions json and edit the file")
         conversation = [
             {"role": "user", "content": requested},
-            {"role": "assistant", "content": "The draft is ready — reply approve to apply it."},
+            {"role": "assistant", "content": "The profile is written — anything else?"},
         ]
         for reply in ("read above", "read that", "check it out", "thanks", "ok cool", "sounds good"):
             with self.subTest(reply=reply):
@@ -77,7 +86,7 @@ class ChatFirstTests(unittest.TestCase):
                 self.assertFalse(decision["needed"])
                 self.assertIn("missing_items", decision["context"])
 
-    def test_source_backed_profile_request_resolves_target_and_source(self) -> None:
+    def test_source_backed_profile_request_resolves_and_writes(self) -> None:
         prompt = (
             "for freddy can you make a charcater prfile for him\\n"
             "The Seven Nights at Fazbear: A Complete Record you can learn about him from"
@@ -89,15 +98,16 @@ class ChatFirstTests(unittest.TestCase):
 
         calls, fake = model_texts()
         events: list[dict[str, object]] = []
-        with patch.object(runtime, "_complete", side_effect=fake), \
-             patch.object(runtime.repo_tools, "add_json_object", side_effect=AssertionError("draft must not write")):
+        with patch.object(runtime, "_complete", side_effect=fake), auto_write() as upsert:
             result = runtime.run_agent(prompt, on_event=events.append)
-        self.assertEqual(result["status"], "approval_required")
+        self.assertEqual(result["status"], "done")
+        self.assertEqual(upsert.call_count, 1)
+        self.assertEqual(upsert.call_args[0][1]["id"], "gabriel_freddy")
         self.assertIn("MODEL-REPLY", result["message"])
-        self.assertIn("gabriel_freddy", result["message"])
         self.assertTrue(calls, "the reply must be written by the model")
         actions = [event for event in events if event.get("kind") == "action"]
-        self.assertEqual([event["action"]["action"] for event in actions], ["repo_search", "catalog_retrieve"])
+        self.assertEqual([event["action"]["action"] for event in actions],
+                         ["repo_search", "catalog_retrieve", "repo_upsert_object"])
 
     def test_original_freddy_request_profiles_without_canned_question(self) -> None:
         """The exact message that kept earning a hardcoded question must profile."""
@@ -114,14 +124,12 @@ class ChatFirstTests(unittest.TestCase):
         self.assertNotIn("maybe we can make a profile for him", decision["sources"])
 
         calls, fake = model_texts()
-        events: list[dict[str, object]] = []
-        with patch.object(runtime, "_complete", side_effect=fake), \
-             patch.object(runtime.repo_tools, "add_json_object", side_effect=AssertionError("draft must not write")):
-            result = runtime.run_agent(prompt, on_event=events.append)
-        self.assertEqual(result["status"], "approval_required")
+        with patch.object(runtime, "_complete", side_effect=fake), auto_write() as upsert:
+            result = runtime.run_agent(prompt)
+        self.assertEqual(result["status"], "done")
+        self.assertEqual(upsert.call_count, 1)
         self.assertIn("MODEL-REPLY", result["message"])
         self.assertIn("gabriel_freddy", result["message"])
-        self.assertTrue(calls, "the reply must be written by the model")
 
     def test_profile_request_assembled_from_split_messages(self) -> None:
         conversation = [
@@ -144,7 +152,7 @@ class ChatFirstTests(unittest.TestCase):
         self.assertEqual(decision["kind"], "profile")
         self.assertEqual(decision["target"], "freddy")
 
-    def test_cosmic_jester_profiles_from_the_factions_file(self) -> None:
+    def test_cosmic_jester_profiles_and_writes_from_the_factions_file(self) -> None:
         prompt = ("Cosmic Jester seems to be important can we create a character profile "
                   "for him please check the factions json and edit the file")
         decision = runtime.classify_request(prompt)
@@ -155,20 +163,22 @@ class ChatFirstTests(unittest.TestCase):
         calls, fake = model_texts()
         events: list[dict[str, object]] = []
         with patch.object(runtime, "_complete", side_effect=fake), \
-             patch.object(runtime.repo_tools, "add_json_object", side_effect=AssertionError("draft must not write")):
+             auto_write("updated cosmic_jester in Reputation-Matrix2/data/characters.json (185 records)") as upsert:
             result = runtime.run_agent(prompt, on_event=events.append)
-        self.assertEqual(result["status"], "approval_required")
+        self.assertEqual(result["status"], "done")
+        self.assertEqual(upsert.call_count, 1)
         self.assertTrue(calls, "the reply must be written by the model")
         draft = json.loads(result["message"].split("\n\n", 1)[1])
         self.assertEqual(draft["id"], "cosmic_jester")
         self.assertEqual(draft["sourceRecord"], "disaster_inc")
-        # The draft must quote the record's Cosmic Jester material, not the
-        # party's generic summary.
         blob = draft["summary"] + draft["description"]
         self.assertIn("Big Bite", blob)
         self.assertIn("Doughnut World", blob)
+        # The party's self-description must not be mashed into the Jester.
+        self.assertNotIn("distributed survival organism", blob)
         actions = [event for event in events if event.get("kind") == "action"]
-        self.assertEqual([event["action"]["action"] for event in actions], ["repo_search", "catalog_retrieve"])
+        self.assertEqual([event["action"]["action"] for event in actions],
+                         ["repo_search", "catalog_retrieve", "repo_upsert_object"])
 
     def test_repeated_request_reply_is_regenerated_not_canned(self) -> None:
         vague = "The Seven Nights at Fazbear: A Complete Record has some people that we need to create"
@@ -180,7 +190,6 @@ class ChatFirstTests(unittest.TestCase):
         ]
         decision = runtime.classify_request(vague, conversation=conversation)
         self.assertEqual(decision["kind"], "clarify")
-        # The runtime must tell the model about the repeat instead of re-asking.
         self.assertIn("note", decision["context"])
         self.assertIn("previous", decision["context"]["note"])
 
@@ -193,12 +202,10 @@ class ChatFirstTests(unittest.TestCase):
         self.assertIn("FIRST", result["message"])
         self.assertNotIn(first_reply, result["message"])
         self.assertTrue(calls)
-        # The model must have been told about the repeat and the prior reply.
         self.assertIn("same request", calls[0])
         self.assertIn(first_reply[:40], calls[0])
 
     def test_guard_followups_complete_the_profile_request(self) -> None:
-        # The user was asked for the source; the next message is just the title.
         conversation = [
             {"role": "user", "content": "for freddy you may edit files"},
             {"role": "assistant", "content": "Sure — which source record should I draft Freddy's profile from?"},
@@ -207,7 +214,6 @@ class ChatFirstTests(unittest.TestCase):
         decision = runtime.classify_request("The Seven Nights at Fazbear: A Complete Record", conversation=conversation)
         self.assertEqual(decision["kind"], "profile")
 
-        # The user was asked for the name; the next message is just the name.
         conversation2 = [
             {"role": "user", "content": "make a profile from The Seven Nights at Fazbear: A Complete Record"},
             {"role": "assistant", "content": "Which character should I profile from that record?"},
@@ -228,38 +234,10 @@ class ChatFirstTests(unittest.TestCase):
         errors = [event for event in events if event.get("kind") == "error"]
         self.assertTrue(errors)
         self.assertIn("could not resolve", str(errors[0].get("result", "")))
-        # The model must have been given the real failure detail.
         self.assertTrue(any("could not resolve" in call for call in calls), calls)
 
-    def test_approval_writes_once_and_survives_duplicates(self) -> None:
-        prompt = (
-            "for freddy can you make a charcater prfile for him\\n"
-            "The Seven Nights at Fazbear: A Complete Record you can learn about him from"
-        )
-        calls, fake = model_texts()
-        with patch.object(runtime, "_complete", side_effect=fake), \
-             patch.object(runtime.repo_tools, "add_json_object", side_effect=AssertionError("draft must not write")):
-            draft = runtime.run_agent(prompt)
-        self.assertEqual(draft["status"], "approval_required")
-        run_id = draft["run"]
-
-        events: list[dict[str, object]] = []
-        with patch.object(runtime, "_complete", side_effect=fake), \
-             patch.object(runtime.repo_tools, "add_json_object", return_value="added gabriel_freddy to Reputation-Matrix2/data/characters.json (184 records)") as write:
-            result = runtime.run_agent("approve", run_id=run_id, on_event=events.append)
-        self.assertEqual(result["status"], "done")
-        self.assertEqual(write.call_count, 1)
-        self.assertIn("MODEL-REPLY", result["answer"])
-
-        duplicate = ValueError("an object with id 'gabriel_freddy' already exists")
-        with patch.object(runtime, "_complete", side_effect=fake), \
-             patch.object(runtime.repo_tools, "add_json_object", side_effect=duplicate):
-            again = runtime.run_agent("approve", run_id=run_id)
-        self.assertEqual(again["status"], "done")
-        self.assertIn("MODEL-REPLY", again["answer"])
-
-    def test_approval_inside_a_longer_reply(self) -> None:
-        """“can you actually write it but good use tools and go ahead” approves."""
+    def test_approval_recognition_and_revision_intent(self) -> None:
+        """Approval inside sentences works; revision notes are not approvals."""
         self.assertTrue(runtime._approval_request("can you actually write it but good use tools and go ahead"))
         self.assertTrue(runtime._approval_request("yes please do"))
         self.assertTrue(runtime._approval_request("write it to the file please"))
@@ -270,23 +248,15 @@ class ChatFirstTests(unittest.TestCase):
             "no",
             "can you improve the draft?",
             "write it but make him taller",
+            "write it better flesh out the description please",
         ):
             with self.subTest(refusal=refusal):
                 self.assertFalse(runtime._approval_request(refusal))
+        self.assertTrue(runtime._is_revision_request("write it better flesh out the description please"))
+        self.assertTrue(runtime._is_revision_request("make it sound good, waluigi tone"))
+        self.assertFalse(runtime._is_revision_request("go ahead"))
 
-        prompt = ("for freddy can you make a charcater prfile for him\\n"
-                  "The Seven Nights at Fazbear: A Complete Record you can learn about him from")
-        calls, fake = model_texts()
-        with patch.object(runtime, "_complete", side_effect=fake), \
-             patch.object(runtime.repo_tools, "add_json_object", side_effect=AssertionError("draft must not write")):
-            draft = runtime.run_agent(prompt)
-        with patch.object(runtime, "_complete", side_effect=fake), \
-             patch.object(runtime.repo_tools, "add_json_object", return_value="added gabriel_freddy to Reputation-Matrix2/data/characters.json (184 records)") as write:
-            result = runtime.run_agent("can you actually write it but good use tools and go ahead", run_id=draft["run"])
-        self.assertEqual(result["status"], "done")
-        self.assertEqual(write.call_count, 1)
-
-    def test_offline_model_does_not_block_an_approved_write(self) -> None:
+    def test_offline_model_does_not_block_the_write(self) -> None:
         """The write is deterministic; only the reply text needs the model."""
         import urllib.error
 
@@ -295,26 +265,272 @@ class ChatFirstTests(unittest.TestCase):
 
         prompt = ("for freddy can you make a charcater prfile for him\\n"
                   "The Seven Nights at Fazbear: A Complete Record you can learn about him from")
-        with patch.object(runtime, "_complete", side_effect=offline), \
-             patch.object(runtime.repo_tools, "add_json_object", side_effect=AssertionError("draft must not write")):
-            draft = runtime.run_agent(prompt)
-        # The draft is still served while offline.
-        self.assertEqual(draft["status"], "approval_required")
-        self.assertIn("gabriel_freddy", draft["message"])
-        self.assertIn("LM Studio is offline", draft["message"])
-
         events: list[dict[str, object]] = []
-        with patch.object(runtime, "_complete", side_effect=offline), \
-             patch.object(runtime.repo_tools, "add_json_object", return_value="added gabriel_freddy to Reputation-Matrix2/data/characters.json (185 records)") as write:
-            result = runtime.run_agent("can you actually write it but good use tools and go ahead",
-                                       run_id=draft["run"], on_event=events.append)
+        with patch.object(runtime, "_complete", side_effect=offline), auto_write() as upsert:
+            result = runtime.run_agent(prompt, on_event=events.append)
         self.assertEqual(result["status"], "done")
-        self.assertEqual(write.call_count, 1)
-        self.assertIn("LM Studio is offline", result["answer"])
-        self.assertIn("Action completed without the model", result["answer"])
-        self.assertIn("added gabriel_freddy", result["answer"])
-        # The offline notice must not claim no tool ran when one did.
-        self.assertNotIn("No repository or image tool was called", result["answer"])
+        self.assertEqual(upsert.call_count, 1)
+        self.assertIn("LM Studio is offline", result["message"])
+        self.assertIn("Action completed without the model", result["message"])
+        self.assertNotIn("No repository or image tool was called", result["message"])
+        self.assertIn("gabriel_freddy", result["message"])
+
+    def test_pending_profile_notes_revise_and_rewrite(self) -> None:
+        prompt = ("for freddy can you make a charcater prfile for him\\n"
+                  "The Seven Nights at Fazbear: A Complete Record you can learn about him from")
+        calls, fake = model_texts()
+        with patch.object(runtime, "_complete", side_effect=fake), auto_write() as upsert:
+            draft = runtime.run_agent(prompt)
+        self.assertEqual(draft["status"], "done")
+        run_id = draft["run"]
+
+        revision = json.dumps({
+            "reply": "Noted — the profile now records him as the leader of the original five.",
+            "profile": {
+                "id": "gabriel_freddy",
+                "name": "Gabriel / Freddy",
+                "title": "The Frontman and Leader of the Original Five",
+                "summary": "Gabriel is the frontman of the original five and their leader.",
+                "description": "## The stage\n\nHe held the frontman position for decades.",
+                "status": "Released Night Seven",
+                "race": "Human child",
+                "affiliation": "The original five",
+            },
+        })
+        events: list[dict[str, object]] = []
+        with patch.object(runtime, "_complete", return_value=revision), \
+             auto_write("updated gabriel_freddy in Reputation-Matrix2/data/characters.json (184 records)") as upsert:
+            result = runtime.run_agent("this is the leader of it i guess", run_id=run_id, on_event=events.append)
+        self.assertEqual(result["status"], "done")
+        self.assertIn("leader", result["message"])
+        self.assertEqual(upsert.call_count, 1)
+        written = upsert.call_args[0][1]
+        self.assertEqual(written["title"], "The Frontman and Leader of the Original Five")
+        # grounded structural fields are restored no matter what the model returned
+        self.assertEqual(written["keyEvents"], ["fazbear_seven_nights"])
+        self.assertEqual(written["sourceRecord"], "fazbear_seven_nights")
+
+    def test_write_it_is_a_revision_not_an_approval(self) -> None:
+        """“write it better flesh out the description please” revises the file."""
+        prompt = ("Cosmic Jester seems to be important can we create a character profile "
+                  "for him please check the factions json and edit the file")
+        calls, fake = model_texts()
+        with patch.object(runtime, "_complete", side_effect=fake), \
+             auto_write("updated cosmic_jester in Reputation-Matrix2/data/characters.json (185 records)"):
+            first = runtime.run_agent(prompt)
+        self.assertEqual(first["status"], "done")
+
+        revision = json.dumps({
+            "reply": "Fleshed out — the description now covers the whole bite.",
+            "profile": {
+                "id": "cosmic_jester", "name": "Cosmic Jester", "title": "The Bite That Was Taken",
+                "summary": "The Cosmic Jester is the entity that took the Big Bite.",
+                "description": "## The bite\n\nA doughnut, a bite, a hole.",
+                "status": "At large", "race": "Cosmic entity", "affiliation": "The Doughnut World",
+            },
+        })
+        with patch.object(runtime, "_complete", return_value=revision), \
+             auto_write("updated cosmic_jester in Reputation-Matrix2/data/characters.json (185 records)") as upsert:
+            result = runtime.run_agent("write it better flesh out the description please", run_id=first["run"])
+        self.assertEqual(result["status"], "done")
+        self.assertEqual(upsert.call_count, 1)
+        self.assertEqual(upsert.call_args[0][1]["description"], "## The bite\n\nA doughnut, a bite, a hole.")
+
+    def test_courtesy_after_a_written_profile_stays_chat(self) -> None:
+        prompt = ("for freddy can you make a charcater prfile for him\\n"
+                  "The Seven Nights at Fazbear: A Complete Record you can learn about him from")
+        calls, fake = model_texts()
+        with patch.object(runtime, "_complete", side_effect=fake), auto_write():
+            draft = runtime.run_agent(prompt)
+        with patch.object(runtime, "_chat_answer", return_value="You are welcome.") as chat:
+            result = runtime.run_agent("thanks", run_id=draft["run"])
+        self.assertEqual(result["status"], "done")
+        self.assertEqual(result["answer"], "You are welcome.")
+        self.assertEqual(chat.call_count, 1)
+
+    def test_error_notices_never_reach_the_model(self) -> None:
+        """The runtime's own failure texts are not fed back as conversation."""
+        conversation = [
+            {"role": "user", "content": "hello"},
+            {"role": "assistant", "content": "LM Studio is offline. Start the local model server and retry. No repository or image tool was called."},
+            {"role": "user", "content": "Cosmic Jester seems important, can we profile him from the factions json"},
+            {"role": "assistant", "content": "LM Studio returned HTTP 400. The model backend reported an error."},
+            {"role": "user", "content": "this is the leader of it i guess"},
+        ]
+        trimmed = runtime._redact_conversation(conversation)
+        self.assertEqual([item["role"] for item in trimmed], ["user", "user", "user"])
+        self.assertEqual(runtime._redact_conversation(conversation, keep=0), [])
+
+    def test_model_writes_the_profile_prose(self) -> None:
+        """“waluigi tone and all”: the model writes title/summary/description."""
+        def fake(endpoint, model, system, user, **kwargs):
+            if "staff writer" in system:
+                return json.dumps({
+                    "title": "The Bite That Was Taken",
+                    "summary": "The Cosmic Jester is the entity that took the Big Bite out of the Doughnut World.",
+                    "description": "## The Big Bite\n\nThe world is a doughnut, and a bite-sized chunk of it is simply gone.",
+                    "waluigiComment": "Waluigi documented this under protest. WAH.",
+                })
+            return "MODEL-INTRO"
+
+        with patch.object(runtime, "_complete", side_effect=fake), \
+             auto_write("updated cosmic_jester in Reputation-Matrix2/data/characters.json (185 records)") as upsert:
+            result = runtime.run_agent(
+                "Cosmic Jester seems to be important can we create a character profile "
+                "for him please check the factions json and edit the file waluigi tone and all go ahead make it sound good"
+            )
+        self.assertEqual(result["status"], "done")
+        draft = json.loads(result["message"].split("\n\n", 1)[1])
+        self.assertEqual(draft["title"], "The Bite That Was Taken")
+        self.assertIn("Big Bite", draft["summary"])
+        self.assertEqual(draft["waluigiComment"], "Waluigi documented this under protest. WAH.")
+        # structural fields stay deterministic and grounded
+        self.assertEqual(draft["id"], "cosmic_jester")
+        self.assertEqual(draft["sourceRecord"], "disaster_inc")
+        self.assertEqual(draft["keyEvents"], ["disaster_inc_naming_dispute"])
+        self.assertEqual(upsert.call_args[0][1]["title"], "The Bite That Was Taken")
+
+    def test_file_source_draft_reads_cleanly(self) -> None:
+        """No markdown leakage, no circular status, trimmed related articles."""
+        calls, fake = model_texts()
+        with patch.object(runtime, "_complete", side_effect=fake), \
+             auto_write("updated cosmic_jester in Reputation-Matrix2/data/characters.json (185 records)"):
+            result = runtime.run_agent(
+                "Cosmic Jester seems to be important can we create a character profile "
+                "for him please check the factions json and edit the file"
+            )
+        self.assertEqual(result["status"], "done")
+        draft = json.loads(result["message"].split("\n\n", 1)[1])
+        blob = draft["summary"] + draft["description"] + draft["status"]
+        self.assertNotIn("###", blob)
+        self.assertNotIn("---", blob)
+        self.assertTrue(draft["summary"].startswith("Cosmic Jester is referenced in"))
+        self.assertNotIn("Referenced in the factions.json record", blob)
+        self.assertLessEqual(len(draft["relatedArticles"]), 10)
+        self.assertIn("Big Bite", blob)
+        self.assertIn("Doughnut World", blob)
+
+    def test_explicit_archive_requests_are_the_only_read_gate(self) -> None:
+        for prompt in (
+            "read the article about Freddy in canon",
+            "what does this article say about Freddy?",
+            "find Freddy in the repository",
+            "search the repository for Freddy",
+            "read the factions json",
+        ):
+            with self.subTest(prompt=prompt):
+                decision = runtime.classify_request(prompt)
+                self.assertEqual(decision["kind"], "read")
+                self.assertTrue(decision["needed"])
+
+    def test_explicit_file_change_is_write_gate(self) -> None:
+        decision = runtime.classify_request("edit Reputation-Matrix2/data/characters.json")
+        self.assertEqual(decision["kind"], "write")
+        self.assertTrue(decision["needed"])
+        self.assertEqual(decision["path"], "Reputation-Matrix2/data/characters.json")
+
+    def test_generator_limit_follows_the_wording(self) -> None:
+        """'a new battle' is one record, 'some events' is three, numbers are honored."""
+        cases = {
+            "can you generate a new battle using the tools": 1,
+            "make some events please": 3,
+            "run the generator for reputation": 2,
+            "generate 3 battles": 3,
+            "create two new events with the tools": 2,
+            "give me a few more shop items": 3,
+        }
+        for prompt, expected in cases.items():
+            self.assertEqual(runtime._requested_generator_limit(prompt), expected, prompt)
+
+    def test_generator_requests_run_the_archive_tools(self) -> None:
+        for prompt in (
+            "can you generate a new battle using the tools",
+            "make some events please",
+            "run the generator for reputation",
+            "fill in the faction dossiers with the generator",
+        ):
+            with self.subTest(prompt=prompt):
+                decision = runtime.classify_request(prompt)
+                self.assertEqual(decision["kind"], "generate")
+        self.assertEqual(runtime.classify_request("can you generate a new battle using the tools")["system"], "battles")
+
+        inventory = [
+            {"id": "battles", "title": "Battles · new records", "summary": "Append battles", "pending": 6, "enabled": True},
+            {"id": "events", "title": "Events · new records", "summary": "Append events", "pending": 0, "enabled": True},
+        ]
+        calls, fake = model_texts()
+        events: list[dict[str, object]] = []
+        with patch.object(runtime, "_complete", side_effect=fake), \
+             patch.object(runtime.repo_tools, "generator_inventory", return_value=inventory), \
+             patch.object(runtime.repo_tools, "run_generator",
+                          return_value={"command": "python tools/generate_all.py --only battles --limit 2",
+                                        "returncode": 0, "output": "✅ wrote 2 battles"}) as run:
+            result = runtime.run_agent("can you generate a new battle using the tools", on_event=events.append)
+        self.assertEqual(result["status"], "done")
+        self.assertEqual(run.call_count, 1)
+        self.assertEqual(run.call_args[0][0], "battles")
+        self.assertEqual(run.call_args.kwargs.get("limit"), 1)
+        self.assertTrue(calls, "the reply must be written by the model")
+        actions = [event for event in events if event.get("kind") == "action"]
+        self.assertEqual([event["action"]["action"] for event in actions], ["run_generator"])
+
+    def test_generator_reports_empty_systems_honestly(self) -> None:
+        inventory = [{"id": "events", "title": "Events · new records", "summary": "Append events",
+                      "pending": 0, "enabled": True}]
+        calls, fake = model_texts()
+        with patch.object(runtime, "_complete", side_effect=fake), \
+             patch.object(runtime.repo_tools, "generator_inventory", return_value=inventory), \
+             patch.object(runtime.repo_tools, "run_generator", side_effect=AssertionError("nothing should run")) as run:
+            result = runtime.run_agent("make some events please")
+        self.assertEqual(result["status"], "done")
+        self.assertEqual(run.call_count, 0)
+        self.assertIn("MODEL-REPLY", result["answer"])
+        self.assertTrue(any("pending" in call for call in calls), "the model must see the inventory")
+
+    def test_chat_run_has_no_action_event(self) -> None:
+        events: list[dict[str, object]] = []
+        with patch.object(runtime, "_chat_answer", return_value="A normal answer"):
+            result = runtime.run_agent("I like this character", on_event=events.append)
+        self.assertEqual(result["status"], "done")
+        self.assertEqual([event for event in events if event.get("kind") == "action"], [])
+        check = next(event for event in events if event.get("kind") == "tool_check")
+        self.assertFalse(check["needed"])
+        assistant = next(event for event in events if event.get("kind") == "assistant")
+        self.assertIn("no tools called", assistant["source"])
+
+    def test_clarification_run_has_only_ask_user_action(self) -> None:
+        calls, fake = model_texts()
+        events: list[dict[str, object]] = []
+        with patch.object(runtime, "_complete", side_effect=fake), \
+             patch.object(runtime.repo_tools, "search", side_effect=AssertionError("unexpected search")):
+            result = runtime.run_agent(
+                "The Seven Nights at Fazbear: A Complete Record has some people that we need to create",
+                on_event=events.append,
+            )
+        self.assertEqual(result["status"], "needs_input")
+        self.assertIn("MODEL-REPLY", result["message"])
+        self.assertTrue(calls, "the clarification must be written by the model")
+        actions = [event for event in events if event.get("kind") == "action"]
+        self.assertEqual([event["action"]["action"] for event in actions], ["ask_user"])
+
+    def test_creation_room_greeting_is_still_chat(self) -> None:
+        events: list[dict[str, object]] = []
+        creation = {"year": "2026 BF", "characters": [{"id": "freddy_fazbear"}], "events": []}
+        with patch.object(runtime, "_chat_answer", return_value="A roleplay answer"), \
+             patch.object(runtime.repo_tools, "catalog_retrieve", side_effect=AssertionError("unexpected prefetch")):
+            result = runtime.run_agent("hello", creation_context=creation, on_event=events.append)
+        self.assertEqual(result["status"], "done")
+        self.assertEqual([event for event in events if event.get("kind") == "action"], [])
+
+    def test_read_run_uses_one_focused_action_and_a_model_answer(self) -> None:
+        events: list[dict[str, object]] = []
+        with patch.object(runtime.repo_tools, "search", return_value=[{"path": "characters.json", "preview": "Freddy"}]), \
+             patch.object(runtime, "_evidence_answer", return_value="Grounded archive answer"):
+            result = runtime.run_agent("find Freddy in the repository", on_event=events.append)
+        self.assertEqual(result["status"], "done")
+        self.assertEqual(result["answer"], "Grounded archive answer")
+        actions = [event for event in events if event.get("kind") == "action"]
+        self.assertEqual([event["action"]["action"] for event in actions], ["repo_search"])
 
     def test_timeout_is_not_reported_as_offline(self) -> None:
         """A slow model must not be called offline, and the endpoint is shown."""
@@ -379,182 +595,21 @@ class ChatFirstTests(unittest.TestCase):
         self.assertEqual(captured.get("history_limit"), 1200)
         self.assertEqual(captured.get("max_tokens"), 600)
 
-    def test_error_notices_never_reach_the_model(self) -> None:
-        """The runtime's own failure texts are not fed back as conversation."""
-        conversation = [
-            {"role": "user", "content": "hello"},
-            {"role": "assistant", "content": "LM Studio is offline. Start the local model server and retry. No repository or image tool was called."},
-            {"role": "user", "content": "Cosmic Jester seems important, can we profile him from the factions json"},
-            {"role": "assistant", "content": "LM Studio returned HTTP 400. The model backend reported an error."},
-            {"role": "user", "content": "this is the leader of it i guess"},
-        ]
-        trimmed = runtime._redact_conversation(conversation)
-        self.assertEqual([item["role"] for item in trimmed], ["user", "user", "user"])
-        self.assertEqual(runtime._redact_conversation(conversation, keep=0), [])
-
-    def test_model_writes_the_profile_prose(self) -> None:
-        """“waluigi tone and all”: the model writes title/summary/description."""
-        def fake(endpoint, model, system, user, **kwargs):
-            if "staff writer" in system:
-                return json.dumps({
-                    "title": "The Bite That Was Taken",
-                    "summary": "The Cosmic Jester is the entity that took the Big Bite out of the Doughnut World.",
-                    "description": "## The Big Bite\n\nThe world is a doughnut, and a bite-sized chunk of it is simply gone.",
-                    "waluigiComment": "Waluigi documented this under protest. WAH.",
-                })
-            return "MODEL-INTRO"
-
-        with patch.object(runtime, "_complete", side_effect=fake), \
-             patch.object(runtime.repo_tools, "add_json_object", side_effect=AssertionError("draft must not write")):
-            result = runtime.run_agent(
-                "Cosmic Jester seems to be important can we create a character profile "
-                "for him please check the factions json and edit the file waluigi tone and all go ahead make it sound good"
-            )
-        self.assertEqual(result["status"], "approval_required")
-        draft = json.loads(result["message"].split("\n\n", 1)[1])
-        self.assertEqual(draft["title"], "The Bite That Was Taken")
-        self.assertIn("Big Bite", draft["summary"])
-        self.assertEqual(draft["waluigiComment"], "Waluigi documented this under protest. WAH.")
-        # structural fields stay deterministic and grounded
-        self.assertEqual(draft["id"], "cosmic_jester")
-        self.assertEqual(draft["sourceRecord"], "disaster_inc")
-        self.assertEqual(draft["keyEvents"], ["disaster_inc_naming_dispute"])
-
-    def test_pending_draft_notes_revise_the_draft(self) -> None:
-        prompt = ("for freddy can you make a charcater prfile for him\n"
-                  "The Seven Nights at Fazbear: A Complete Record you can learn about him from")
-        calls, fake = model_texts()
-        with patch.object(runtime, "_complete", side_effect=fake), \
-             patch.object(runtime.repo_tools, "add_json_object", side_effect=AssertionError("draft must not write")):
-            draft = runtime.run_agent(prompt)
-        self.assertEqual(draft["status"], "approval_required")
-
-        revision = json.dumps({
-            "reply": "Noted — the draft now records him as the leader of the original five.",
-            "profile": {
-                "id": "gabriel_freddy",
-                "name": "Gabriel / Freddy",
-                "title": "The Frontman and Leader of the Original Five",
-                "summary": "Gabriel is the frontman of the original five and their leader.",
-                "description": "## The stage\n\nHe held the frontman position.",
-                "status": "Released Night Seven",
-                "race": "Human child",
-                "affiliation": "The original five",
-            },
-        })
-        with patch.object(runtime, "_complete", return_value=revision), \
-             patch.object(runtime.repo_tools, "add_json_object", side_effect=AssertionError("revision must not write")):
-            result = runtime.run_agent("this is the leader of it i guess", run_id=draft["run"])
-        self.assertEqual(result["status"], "approval_required")
-        self.assertIn("leader", result["message"])
-        updated = json.loads(result["message"].split("\n\n", 1)[1])
-        self.assertEqual(updated["title"], "The Frontman and Leader of the Original Five")
-        # grounded structural fields are restored no matter what the model returned
-        self.assertEqual(updated["keyEvents"], ["fazbear_seven_nights"])
-        self.assertEqual(updated["sourceRecord"], "fazbear_seven_nights")
-
-        with patch.object(runtime, "_complete", side_effect=fake), \
-             patch.object(runtime.repo_tools, "add_json_object", return_value="added gabriel_freddy to Reputation-Matrix2/data/characters.json (184 records)") as write:
-            done = runtime.run_agent("approve", run_id=draft["run"])
-        self.assertEqual(done["status"], "done")
-        written = write.call_args[0][1]
-        self.assertEqual(written["title"], "The Frontman and Leader of the Original Five")
-
-    def test_courtesy_after_a_draft_stays_chat(self) -> None:
-        prompt = ("for freddy can you make a charcater prfile for him\n"
-                  "The Seven Nights at Fazbear: A Complete Record you can learn about him from")
-        calls, fake = model_texts()
-        with patch.object(runtime, "_complete", side_effect=fake), \
-             patch.object(runtime.repo_tools, "add_json_object", side_effect=AssertionError("draft must not write")):
-            draft = runtime.run_agent(prompt)
-        with patch.object(runtime, "_chat_answer", return_value="You are welcome.") as chat:
-            result = runtime.run_agent("thanks", run_id=draft["run"])
-        self.assertEqual(result["status"], "done")
-        self.assertEqual(result["answer"], "You are welcome.")
-        self.assertEqual(chat.call_count, 1)
-
-    def test_file_source_draft_reads_cleanly(self) -> None:
-        """No markdown leakage, no circular status, trimmed related articles."""
-        calls, fake = model_texts()
-        with patch.object(runtime, "_complete", side_effect=fake), \
-             patch.object(runtime.repo_tools, "add_json_object", side_effect=AssertionError("draft must not write")):
-            result = runtime.run_agent(
-                "Cosmic Jester seems to be important can we create a character profile "
-                "for him please check the factions json and edit the file"
-            )
-        draft = json.loads(result["message"].split("\n\n", 1)[1])
-        blob = draft["summary"] + draft["description"] + draft["status"]
-        self.assertNotIn("###", blob)
-        self.assertNotIn("---", blob)
-        self.assertTrue(draft["summary"].startswith("Cosmic Jester is referenced in"))
-        self.assertNotIn("Referenced in the factions.json record", blob)  # old circular phrasing
-        self.assertLessEqual(len(draft["relatedArticles"]), 10)
-        self.assertIn("Big Bite", blob)
-        self.assertIn("Doughnut World", blob)
-
-    def test_explicit_archive_requests_are_the_only_read_gate(self) -> None:
-        for prompt in (
-            "read the article about Freddy in canon",
-            "what does this article say about Freddy?",
-            "find Freddy in the repository",
-            "search the repository for Freddy",
-            "read the factions json",
-        ):
-            with self.subTest(prompt=prompt):
-                decision = runtime.classify_request(prompt)
-                self.assertEqual(decision["kind"], "read")
-                self.assertTrue(decision["needed"])
-
-    def test_explicit_file_change_is_write_gate(self) -> None:
-        decision = runtime.classify_request("edit Reputation-Matrix2/data/characters.json")
-        self.assertEqual(decision["kind"], "write")
-        self.assertTrue(decision["needed"])
-        self.assertEqual(decision["path"], "Reputation-Matrix2/data/characters.json")
-
-    def test_chat_run_has_no_action_event(self) -> None:
-        events: list[dict[str, object]] = []
-        with patch.object(runtime, "_chat_answer", return_value="A normal answer"):
-            result = runtime.run_agent("I like this character", on_event=events.append)
-        self.assertEqual(result["status"], "done")
-        self.assertEqual([event for event in events if event.get("kind") == "action"], [])
-        check = next(event for event in events if event.get("kind") == "tool_check")
-        self.assertFalse(check["needed"])
-        assistant = next(event for event in events if event.get("kind") == "assistant")
-        self.assertIn("no tools called", assistant["source"])
-
-    def test_clarification_run_has_only_ask_user_action(self) -> None:
-        calls, fake = model_texts()
-        events: list[dict[str, object]] = []
-        with patch.object(runtime, "_complete", side_effect=fake), \
-             patch.object(runtime.repo_tools, "search", side_effect=AssertionError("unexpected search")):
-            result = runtime.run_agent(
-                "The Seven Nights at Fazbear: A Complete Record has some people that we need to create",
-                on_event=events.append,
-            )
-        self.assertEqual(result["status"], "needs_input")
-        self.assertIn("MODEL-REPLY", result["message"])
-        self.assertTrue(calls, "the clarification must be written by the model")
-        actions = [event for event in events if event.get("kind") == "action"]
-        self.assertEqual([event["action"]["action"] for event in actions], ["ask_user"])
-
-    def test_creation_room_greeting_is_still_chat(self) -> None:
-        events: list[dict[str, object]] = []
-        creation = {"year": "2026 BF", "characters": [{"id": "freddy_fazbear"}], "events": []}
-        with patch.object(runtime, "_chat_answer", return_value="A roleplay answer"), \
-             patch.object(runtime.repo_tools, "catalog_retrieve", side_effect=AssertionError("unexpected prefetch")):
-            result = runtime.run_agent("hello", creation_context=creation, on_event=events.append)
-        self.assertEqual(result["status"], "done")
-        self.assertEqual([event for event in events if event.get("kind") == "action"], [])
-
-    def test_read_run_uses_one_focused_action_and_a_model_answer(self) -> None:
-        events: list[dict[str, object]] = []
-        with patch.object(runtime.repo_tools, "search", return_value=[{"path": "characters.json", "preview": "Freddy"}]), \
-             patch.object(runtime, "_evidence_answer", return_value="Grounded archive answer"):
-            result = runtime.run_agent("find Freddy in the repository", on_event=events.append)
-        self.assertEqual(result["status"], "done")
-        self.assertEqual(result["answer"], "Grounded archive answer")
-        actions = [event for event in events if event.get("kind") == "action"]
-        self.assertEqual([event["action"]["action"] for event in actions], ["repo_search"])
+    def test_upsert_replaces_by_id(self) -> None:
+        """repo_tools.upsert_json_object updates an existing record in place."""
+        import tempfile
+        with tempfile.TemporaryDirectory() as tmp:
+            target = Path(tmp) / "characters.json"
+            target.write_text(json.dumps([{"id": "a", "name": "Old"}, {"id": "b", "name": "B"}]), encoding="utf-8")
+            import importlib
+            module = importlib.import_module("repo_tools")
+            with patch.object(module, "safe_path", return_value=target), \
+                 patch.object(module, "ROOT", Path(tmp)):
+                result = module.upsert_json_object(str(target), {"id": "a", "name": "New"})
+            data = json.loads(target.read_text(encoding="utf-8"))
+            self.assertEqual(len(data), 2)
+            self.assertEqual(data[0], {"id": "a", "name": "New"})
+            self.assertIn("updated a", result)
 
     def test_every_reply_path_calls_the_model(self) -> None:
         """No user-facing reply may be produced without the local model."""
@@ -563,20 +618,13 @@ class ChatFirstTests(unittest.TestCase):
         paths: list[tuple[str, dict[str, object]]] = []
 
         calls, fake = model_texts()
-        with patch.object(runtime, "_complete", side_effect=fake):
-            # clarify
+        with patch.object(runtime, "_complete", side_effect=fake), auto_write():
             paths.append(("clarify", runtime.run_agent(vague)))
-            # profile draft
-            draft = runtime.run_agent(prompt)
-            paths.append(("profile", draft))
-            # profile failure
+            paths.append(("profile", runtime.run_agent(prompt)))
             paths.append(("profile-failure", runtime.run_agent("for nobody maybe we can make a profile for him from factions.json")))
-            # empty message
             paths.append(("empty", runtime.run_agent("")))
-            # read with no results
             with patch.object(runtime.repo_tools, "search", return_value=[]):
                 paths.append(("read-empty", runtime.run_agent("find Zzzznope in the repository")))
-            # write gate without a path
             with patch.object(runtime.repo_tools, "add_json_object", side_effect=AssertionError("no write")):
                 paths.append(("write-gate", runtime.run_agent("edit the file please")))
         for name, result in paths:
@@ -604,6 +652,8 @@ class ChatFirstTests(unittest.TestCase):
             "I resolved the source and drafted",
             "Applied the grounded character profile",
             "already exists in",
+            "reply approve",
+            "waiting for the user's approval",
         )
         for needle in forbidden:
             self.assertNotIn(needle, source, f"canned reply text still present: {needle!r}")

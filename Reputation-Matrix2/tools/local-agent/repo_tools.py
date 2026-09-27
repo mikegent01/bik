@@ -5,6 +5,8 @@ from __future__ import annotations
 import json
 import os
 import re
+import subprocess
+import sys
 from pathlib import Path
 from typing import Any
 
@@ -174,6 +176,97 @@ def add_json_object(path: str, value: dict[str, Any], collection: str = "") -> s
     data.append(value)
     target.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     return f"added {identifier} to {target.relative_to(ROOT).as_posix()} ({len(data)} records)"
+
+
+def upsert_json_object(path: str, value: dict[str, Any], collection: str = "") -> str:
+    """Add one object to a JSON list, replacing any existing object with its id.
+
+    The archive lives in git, so an explicit request writes directly and the
+    replacement (not an error) is the correct behaviour for re-runs.
+    """
+    target = safe_path(path)
+    if not isinstance(value, dict) or not value.get("id"):
+        raise ValueError("the object must be a dictionary with an id")
+    if target.name not in {"characters.json", "events.json", "locations.json", "commentaries.json", "investigations.json", "articleAnalyses.json", "props.json"}:
+        raise ValueError("writes are limited to approved JSON collections")
+    try:
+        data = json.loads(target.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as error:
+        raise ValueError(f"could not read JSON collection: {error}") from error
+    if not isinstance(data, list):
+        raise ValueError("target JSON collection must be a list")
+    identifier = str(value["id"])
+    replaced = False
+    for index, item in enumerate(data):
+        if isinstance(item, dict) and str(item.get("id")) == identifier:
+            data[index] = value
+            replaced = True
+            break
+    if not replaced:
+        data.append(value)
+    target.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    action = "updated" if replaced else "added"
+    return f"{action} {identifier} in {target.relative_to(ROOT).as_posix()} ({len(data)} records)"
+
+
+GENERATOR_SCRIPT = "tools/generate_all.py"
+_INVENTORY_CACHE: dict[str, Any] = {"at": 0.0, "value": None}
+
+
+def generator_inventory(refresh: bool = False) -> list[dict[str, Any]]:
+    """List the archive's generatable systems and their live pending counts."""
+    import time as _time
+    now = _time.time()
+    cached = _INVENTORY_CACHE["value"]
+    if not refresh and cached and now - _INVENTORY_CACHE["at"] < 60.0:
+        return cached
+    tools_dir = PROJECT / "tools"
+    if str(tools_dir) not in sys.path:
+        sys.path.insert(0, str(tools_dir))
+    try:
+        from genkit.systems import all_systems  # noqa: E402
+    except Exception as error:
+        raise ValueError(f"the generator registry is unavailable: {error}") from error
+    systems = [
+        {"id": str(system.id), "title": str(system.title), "summary": str(system.summary),
+         "pending": int(system.count_pending()), "enabled": bool(system.enabled)}
+        for system in all_systems()
+    ]
+    _INVENTORY_CACHE["at"] = now
+    _INVENTORY_CACHE["value"] = systems
+    return systems
+
+
+def run_generator(system: str = "", limit: int = 2, dry_run: bool = False,
+                  timeout: int = 300, endpoint: str = "") -> dict[str, Any]:
+    """Run the archive's generator for one system. Bounded, no shell."""
+    command = [sys.executable, GENERATOR_SCRIPT]
+    if system:
+        if not re.fullmatch(r"[a-z0-9][a-z0-9-]*", system):
+            raise ValueError(f"unknown generator system {system!r}")
+        command += ["--only", system]
+    command += ["--limit", str(max(1, min(int(limit), 25)))]
+    if dry_run:
+        command.append("--dry-run")
+    environment = dict(os.environ)
+    if endpoint:
+        environment["LM_STUDIO_URL"] = endpoint
+    try:
+        result = subprocess.run(
+            command, cwd=str(PROJECT), capture_output=True, text=True,
+            timeout=max(10, min(int(timeout), 900)), env=environment,
+        )
+        return {
+            "command": " ".join(command),
+            "returncode": result.returncode,
+            "output": ((result.stdout or "") + (("\n[stderr]\n" + result.stderr) if result.stderr else ""))[:8000],
+        }
+    except subprocess.TimeoutExpired as error:
+        return {
+            "command": " ".join(command),
+            "returncode": -1,
+            "output": f"the generator did not finish within {int(timeout)} seconds; partial output: {str(error.output)[:2000]}",
+        }
 
 
 def find_image_references(entities: list[str] | None = None, terms: list[str] | None = None,

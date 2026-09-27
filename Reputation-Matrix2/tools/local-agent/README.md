@@ -8,7 +8,7 @@ The design is intentionally smaller than a model-driven tool planner:
 2. answer normal conversation directly with LM Studio;
 3. ask one clarification for ambiguous archive language;
 4. use one bounded repository operation only for an explicit read;
-5. read a write target before any approval-gated write;
+5. write the target directly when the user asked (git is the undo);
 6. never claim a tool ran when it did not.
 
 ## Every reply is written by the model
@@ -70,29 +70,25 @@ The runtime resolves the source (an event by title search, or a record inside a
 named file such as `factions.json`), resolves the named participant or
 reference (`Gabriel / Freddy`; the Cosmic Jester material in the Disaster Inc.
 faction record), drafts the `characters.json` object from that evidence —
-quoting sentences that actually mention the character, with markdown artifacts
-stripped — shows the draft, and waits for `approve`. The model writes the
-profile prose itself (title, summary, description, `waluigiComment`) in the
-Waluipedia voice from the quoted evidence, while ids, key events, related
-articles, and the source record stay deterministic and grounded; if the model
-is unavailable, the deterministic prose is used unchanged.
+quoting sentences that actually mention the character (for a character that is
+only referenced, the full name must appear in a sentence, and matching event
+records are searched for extra grounded material) — and **writes it directly**.
+The model writes the profile prose itself (title, summary, description,
+`waluigiComment`) in the Waluipedia voice from the quoted evidence, while ids,
+key events, related articles, and the source record stay deterministic and
+grounded; if the model is unavailable, the deterministic prose is written
+unchanged. Re-running a profile updates the existing record in place.
 
-While a draft is pending, the user's notes revise it: “this is the leader of it
-i guess” or “make it sound good, waluigi tone” sends the draft and the notes to
-the model, updates the draft, and re-presents it for approval — instead of
-dropping into plain chat where the model would rightly say it cannot edit
-files. Courtesies (“thanks”) stay chat. The model writes the
-message around the draft; the draft JSON itself is appended verbatim so the
-user reviews exactly what would be written. Nothing is written before the exact
-draft is approved, and approving twice reports that the profile is already on
-file.
-
-Approval does not have to be the single word `approve`. A longer reply such as
-“can you actually write it but good use tools and go ahead” counts, while
-revision requests (“make him scarier instead”, “don’t write it”, “wait”) do
-not. Approved writes are deterministic — they still execute when the model is
-offline, and the reply then carries the offline notice plus a bracketed note of
-exactly what completed, instead of stopping the work.
+There is no approval step: the archive lives in git, version control is the
+undo, and the only gate left is that the user must have asked. Notes after a
+profile is on file revise it the same way — “this is the leader of it i
+guess”, “make it sound good, waluigi tone”, “write it better, flesh out the
+description” — and the revised profile is written immediately. Revision wording
+always wins over approval wording (“write it better” is a revision, not a go-
+ahead). Courtesies (“thanks”) stay chat. Writes are deterministic — they still
+execute when the model is offline, and the reply then carries the offline
+notice plus a bracketed note of exactly what completed, instead of stopping
+the work.
 
 Permission lines such as “you may edit files” are understood without triggering
 a clarification, and the name may appear as the subject of the sentence
@@ -108,6 +104,22 @@ The runtime does not expose shell access, does not let an LM choose arbitrary
 filesystem paths, and does not write canon merely because a model suggested it.
 Normal chat has no repository context injected into its prompt, which prevents
 an unrelated archive record from becoming a fabricated answer.
+
+## The archive's own generator tools
+
+The runtime can run the repository's generator (`tools/generate_all.py` and its
+genkit systems) directly. Asking to “generate a battle”, “make some events”,
+“run the generator for reputation”, or “fill in the faction dossiers”:
+
+1. reads the live inventory (which systems have pending work, and how much);
+2. picks the system from the request — or lets the model choose from the
+   inventory when the request does not name one;
+3. runs one bounded generation (`--only <system> --limit N`, no shell, the
+   chat's model endpoint passed through to genkit via `LM_STUDIO_URL`);
+4. reports the result in the model's own words, quoting real counts.
+
+A system with nothing pending is reported honestly from the inventory instead
+of running anything.
 
 ## Failure notices never become conversation
 
