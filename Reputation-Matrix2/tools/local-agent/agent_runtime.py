@@ -378,10 +378,13 @@ _WRITE_VERBS = ("edit", "change", "update", "write", "patch", "create", "add", "
 _ARTIFACT_WORDS = ("commentary", "investigation", "analysis", "object", "prop", "event", "character", "location", "quest", "xp", "ability")
 
 
-def _request_intent(request_text: str) -> dict[str, str]:
+def _request_intent(request_text: str, conversation: list[dict[str, Any]] | None = None) -> dict[str, str]:
     """Classify the requested operation without choosing a repository action."""
     lowered = request_text.casefold()
-    if any(word in lowered for word in ("generate an image", "generating an image", "generate image", "create an image", "creating an image", "make an image", "image job", "queue image", "picture of", "illustration")):
+    image_markers = ("generate an image", "generating an image", "generate image", "create an image", "creating an image", "make an image", "image job", "queue image", "picture of", "illustration")
+    prior_users = [str(item.get("content", "")).casefold() for item in (conversation or []) if item.get("role") == "user"]
+    continuation_of_image = len(lowered.split()) <= 12 and bool(prior_users) and any(marker in prior_users[-1] for marker in image_markers)
+    if any(word in lowered for word in image_markers) or continuation_of_image:
         return {"kind": "image", "artifact": "image"}
     if any(word in lowered for word in _WRITE_VERBS):
         artifact = next((word for word in _ARTIFACT_WORDS if word in lowered), "file")
@@ -436,8 +439,9 @@ def _has_repository_evidence(history: list[dict[str, str]]) -> bool:
 
 
 def _missing_write_target(request_text: str, conversation: list[dict[str, Any]] | None = None) -> bool:
-    intent = _request_intent(request_text)
+    intent = _request_intent(request_text, conversation)
     if intent["kind"] != "write":
+
         return False
     context = _request_context_text(request_text, conversation)
     if re.search(r"(?:Reputation-Matrix2|docs|tools|README)[/\\][^\s,;]+", context, re.I):
@@ -450,7 +454,7 @@ def _missing_write_target(request_text: str, conversation: list[dict[str, Any]] 
 def _required_preflight_action(request_text: str, conversation: list[dict[str, Any]] | None,
                                history: list[dict[str, str]], action: dict[str, Any]) -> dict[str, Any] | None:
     """Block a write chosen before its source/schema has been checked."""
-    intent = _request_intent(request_text)
+    intent = _request_intent(request_text, conversation)
     if intent["kind"] != "write" or _has_repository_evidence(history):
         return None
     if action.get("action") not in {"repo_patch", "repo_add_object", "create_commentary", "finish_task"}:
@@ -822,7 +826,7 @@ def run_agent(request_text: str, *, run_id: str = "", endpoint: str = DEFAULT_EN
     if cancel_check and cancel_check():
         return {"status": "cancelled", "run": run_id, "message": "The local run was cancelled before it started."}
     if not run_id and not creation_context:
-        intent = _request_intent(request_text)
+        intent = _request_intent(request_text, conversation)
         if intent["kind"] == "image" and not _image_subject_terms(request_text, conversation) and not images:
             message = "What should the image depict? Give me a subject or scene, and optionally a style. I will resolve any named canon references before queueing an image job."
             emit({"kind": "plan", "items": [{"id": "image-01", "title": "Clarify the image subject", "status": "in_progress", "acceptance": ["Obtain a concrete image subject", "Do not search unrelated repository files"]}]})
@@ -1014,7 +1018,7 @@ def run_agent(request_text: str, *, run_id: str = "", endpoint: str = DEFAULT_EN
             "current_internal_work_unit": pending,
             "recent_tool_results": history[-7:],
             "workflow": {
-                "intent": _request_intent(request_text),
+                "intent": _request_intent(request_text, conversation),
                 "completed_actions": sorted(_history_action_names(history)),
                 "write_sequence": ["resolve target", "read source/schema", "draft", "explicit approval", "write", "audit"],
                 "image_sequence": ["concrete subject", "resolve references", "select compatible workflow", "explicit approval", "queue", "verify/report"],
@@ -1033,7 +1037,7 @@ def run_agent(request_text: str, *, run_id: str = "", endpoint: str = DEFAULT_EN
             resolved_read_path = _document_read_path(request_text, conversation)
             if resolved_read_path and action.get("action") in {"repo_search", "ask_user", "finish_task"}:
                 action = {"action": "repo_read", "args": {"path": resolved_read_path, "limit": 12000}}
-            intent = _request_intent(request_text)
+            intent = _request_intent(request_text, conversation)
             if intent["kind"] == "image" and not images and not _history_action_names(history).intersection({"find_image_references", "queue_image"}) and not _creation_image_paths(creation_context):
                 image_terms = _image_subject_terms(request_text, conversation)
                 if image_terms:
@@ -1041,7 +1045,7 @@ def run_agent(request_text: str, *, run_id: str = "", endpoint: str = DEFAULT_EN
             preflight = _required_preflight_action(request_text, conversation, history, action)
             if preflight is not None:
                 action = preflight
-            if _request_intent(request_text)["kind"] == "write" and action.get("action") == "finish_task" and not _history_action_names(history).intersection({"repo_patch", "repo_add_object", "create_commentary"}):
+            if _request_intent(request_text, conversation)["kind"] == "write" and action.get("action") == "finish_task" and not _history_action_names(history).intersection({"repo_patch", "repo_add_object", "create_commentary"}):
                 action = {"action": "ask_user", "args": {"question": "I have read the evidence but have not made the requested canonical change. Confirm the exact object or file to write, and I will prepare the approved write and audit it instead of marking the request complete."}}
             if action.get("action") == "queue_image":
                 action_args = dict(action.get("args") or {})
