@@ -549,6 +549,10 @@ def _reply_safely(context: dict[str, Any], conversation: list[dict[str, Any]], e
         return _model_error(error)
 
 
+def _is_offline_note(text: str) -> bool:
+    return text.startswith("LM Studio") or text.startswith("The local model could not answer")
+
+
 def _evidence_answer(text: str, evidence: Any, conversation: list[dict[str, Any]], endpoint: str, model: str) -> str:
     """Answer a lookup from bounded evidence, written by the model."""
     empty = not evidence or evidence == [] or evidence == {}
@@ -686,7 +690,7 @@ def _resolve_file_source(filename: str, target: str) -> tuple[dict[str, Any], di
         person = {
             "id": re.sub(r"[^a-z0-9]+", "_", target_lower).strip("_"),
             "name": _clean_name(target),
-            "role": f"Referenced in the {filename} record {str(best.get('name', best.get('id', '')))!r}",
+            "role": f"Referenced in {str(best.get('name', best.get('id', 'the record')))}",
         }
     return best, person
 
@@ -760,6 +764,15 @@ def _collect_strings(value: Any) -> list[str]:
     return []
 
 
+def _clean_sentence(sentence: str) -> str:
+    """Strip markdown artifacts so quoted evidence reads as plain prose."""
+    sentence = re.sub(r"```.*?```", " ", sentence, flags=re.S)
+    sentence = re.sub(r"\s*#{1,6}\s*", " ", sentence)
+    sentence = re.sub(r"\s*[-–—]{2,}\s*", " — ", sentence)
+    sentence = re.sub(r"[*_`>]+", "", sentence)
+    return re.sub(r"\s+", " ", sentence).strip(" —-").strip()
+
+
 def _person_evidence(source: dict[str, Any], person: dict[str, Any]) -> str:
     """Collect sentences from the source record that mention the participant."""
     needles = set()
@@ -778,7 +791,7 @@ def _person_evidence(source: dict[str, Any], person: dict[str, Any]) -> str:
     sentences: list[str] = []
     for part in parts:
         for sentence in re.split(r"(?<=[.!?])\s+", re.sub(r"\s+", " ", str(part))):
-            sentence = sentence.strip()
+            sentence = _clean_sentence(sentence)
             if 40 <= len(sentence) <= 500:
                 sentences.append(sentence)
     scored: list[tuple[int, int, str]] = []
@@ -790,42 +803,83 @@ def _person_evidence(source: dict[str, Any], person: dict[str, Any]) -> str:
         score = hits * 2 + (3 if phrase and phrase in lowered else 0)
         scored.append((-score, index, sentence))
     scored.sort()
-    return " ".join(sentence for _, _, sentence in scored[:5])
+    seen: set[str] = set()
+    picked: list[str] = []
+    for _, _, sentence in scored:
+        if sentence not in seen:
+            seen.add(sentence)
+            picked.append(sentence)
+        if len(picked) >= 5:
+            break
+    return " ".join(picked)
 
 
 def _profile_object(source: dict[str, Any], person: dict[str, Any], origin: str = "event") -> dict[str, Any]:
     name = str(person.get("name", person.get("id", "Unnamed participant")))
     source_name = str(source.get("name", source.get("id", "source record")))
-    role = str(person.get("role", "Role not separately specified in the source record."))
+    role = str(person.get("role", "")).strip()
     summary = str(source.get("summary", ""))
     evidence = _person_evidence(source, person)
-    profile_summary = f"{name} is identified in {source_name} as {role}."
-    profile_summary += (" " + evidence[:1600]) if evidence else (" " + summary[:1600])
-    detail = evidence or summary
+    participant_ids = {str(item.get("id")) for item in (source.get("participants", []) or []) if isinstance(item, dict)}
+    matched = str(person.get("id", "")) in participant_ids
+    body = (" " + evidence[:1600]) if evidence else (" " + summary[:1600])
     if origin == "event":
+        role = role or "Role not separately specified in the source record."
+        profile_summary = f"{name} is identified in {source_name} as {role}.{body}"
+        status = role
         affiliation = f"Participant in {source_name}"
         key_events = [str(source.get("id", ""))]
-    else:
-        affiliation = f"Referenced in {source_name} ({origin})"
+        lead = f"This profile is grounded in {source_name}. The record lists {name} with the role: {role}."
+    elif matched:
+        role = role or f"Listed in {source_name}"
+        profile_summary = f"{name} is listed in {source_name} ({origin}) as {role}.{body}"
+        status = role
+        affiliation = f"{source_name} ({origin})"
         key_events = [str(item) for item in (source.get("keyEvents", []) or [])[:8]] or [str(source.get("id", ""))]
+        lead = f"This profile is grounded in {source_name} ({origin}). The record lists {name} with the role: {role}."
+    else:
+        reference = f"Referenced in {source_name} ({origin})"
+        profile_summary = f"{name} is referenced in {source_name}, the {origin} record.{body}"
+        status = reference
+        affiliation = reference
+        key_events = [str(item) for item in (source.get("keyEvents", []) or [])[:8]] or [str(source.get("id", ""))]
+        lead = f"This profile is grounded in {source_name} ({origin}), which references {name} directly."
+    detail = evidence or summary
+    related = [str(item) for item in (source.get("relatedArticles", []) or [])]
+    if origin != "event":
+        related = related[:10]
     return {
         "id": str(person.get("id", re.sub(r"[^a-z0-9]+", "_", name.casefold()).strip("_"))),
         "name": name,
         "title": f"{name} — Source Profile",
         "race": "Not separately specified in the source record",
-        "status": role,
+        "status": status,
         "affiliation": affiliation,
         "summary": profile_summary,
-        "description": f"This profile is grounded in {source_name}. The record lists {name} with the role: {role}.\n\n{detail[:2400]}",
+        "description": f"{lead}\n\n{detail[:2400]}",
         "keyEvents": key_events,
-        "relatedArticles": [str(item) for item in (source.get("relatedArticles", []) or [])[:20]],
+        "relatedArticles": related,
         "sourceRecord": str(source.get("id", source_name)),
         "image": "",
     }
 
 
 def _approval_request(text: str) -> bool:
-    return bool(re.fullmatch(r"\s*(?:yes|approve|approved|apply|apply it|write it|go ahead|do it|confirm)\s*[.!]?\s*", text, re.I))
+    lowered = _lower(text)
+    if re.fullmatch(r"\s*(?:yes|approve|approved|apply|apply it|write it|go ahead|do it|confirm)\s*[.!]?\s*", lowered):
+        return True
+    # A pending draft may be approved inside a longer reply, e.g.
+    # “can you actually write it but good use tools and go ahead”. Only clear
+    # go-ahead language counts, and revision requests do not.
+    if len(lowered.split()) > 24:
+        return False
+    if not re.search(r"\b(?:approve|approved|apply(?:\s+it|\s+the)?|go\s+ahead|do\s+it|write\s+it|write\s+the\s+file|add\s+it|confirm|make\s+it\s+so|yes\s+please|please\s+do|do\s+that)\b", lowered):
+        return False
+    if re.search(r"\b(?:no|do\s+not|don['’]?t|stop|cancel|wait|hold\s+on|not\s+yet|instead|but\s+first|before|unless|without)\b", lowered):
+        return False
+    if re.search(r"\bbut\s+(?:make|change|keep|remove|add|not|use)\b", lowered):
+        return False
+    return True
 
 
 def _approved_profile_run(run_id: str, request_text: str, emit: Callable[[dict[str, Any]], None],
@@ -856,6 +910,11 @@ def _approved_profile_run(run_id: str, request_text: str, emit: Callable[[dict[s
             "validation": f"the JSON collection is valid and now holds {len(audit)} records",
             "instruction": "Confirm to the user what was written and where, in one or two sentences.",
         }, conversation, endpoint, model)
+        if _is_offline_note(answer):
+            # The write is deterministic and already happened; the model only
+            # phrases the reply, so the action is reported even while offline.
+            answer = answer.replace(" No repository or image tool was called.", "")
+            answer = f"{answer}\n\n[Action completed without the model: {result} JSON validation passed.]"
         emit({"kind": "assistant", "text": answer, "source": "approved source-backed write"})
         emit({"kind": "task_done", "step": 2, "task": "request-01"})
         return {"status": "done", "run": run_id, "steps": 2, "answer": answer}
@@ -867,6 +926,9 @@ def _approved_profile_run(run_id: str, request_text: str, emit: Callable[[dict[s
                 "path": path,
                 "instruction": "Tell the user the profile is already on file and nothing was changed.",
             }, conversation, endpoint, model)
+            if _is_offline_note(answer):
+                answer = answer.replace(" No repository or image tool was called.", "")
+                answer = f"{answer}\n\n[Checked without the model: the profile for {character} is already on file in {path}; nothing was changed.]"
             emit({"kind": "assistant", "text": answer, "source": "duplicate profile write avoided"})
             emit({"kind": "task_done", "step": 1, "task": "request-01"})
             return {"status": "done", "run": run_id, "steps": 1, "answer": answer}

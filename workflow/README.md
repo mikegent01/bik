@@ -16,6 +16,14 @@ python workflow/server.py
 Open `http://127.0.0.1:8787/`. The server binds to `0.0.0.0` for the sandbox
 preview. Set `WORKFLOW_HOST`, `WORKFLOW_PORT`, and `LM_STUDIO_URL` if needed.
 
+## Managing chats
+
+Each chat in the sidebar has **✎ rename** and **✕ delete** buttons (visible on
+hover). Renaming sets a permanent title — the automatic first-message title
+never overwrites it. Deleting asks for confirmation, switches to the next chat
+(or creates a new one), and cannot be undone. Both are blocked while a reply is
+in flight. Chats live in `localStorage`, capped at the 30 most recent.
+
 ## Routing rules
 
 The runtime makes a deterministic decision before contacting repository tools:

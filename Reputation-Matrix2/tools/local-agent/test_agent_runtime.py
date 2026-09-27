@@ -258,6 +258,83 @@ class ChatFirstTests(unittest.TestCase):
         self.assertEqual(again["status"], "done")
         self.assertIn("MODEL-REPLY", again["answer"])
 
+    def test_approval_inside_a_longer_reply(self) -> None:
+        """“can you actually write it but good use tools and go ahead” approves."""
+        self.assertTrue(runtime._approval_request("can you actually write it but good use tools and go ahead"))
+        self.assertTrue(runtime._approval_request("yes please do"))
+        self.assertTrue(runtime._approval_request("write it to the file please"))
+        for refusal in (
+            "make him scarier instead",
+            "don't write it",
+            "wait",
+            "no",
+            "can you improve the draft?",
+            "write it but make him taller",
+        ):
+            with self.subTest(refusal=refusal):
+                self.assertFalse(runtime._approval_request(refusal))
+
+        prompt = ("for freddy can you make a charcater prfile for him\\n"
+                  "The Seven Nights at Fazbear: A Complete Record you can learn about him from")
+        calls, fake = model_texts()
+        with patch.object(runtime, "_complete", side_effect=fake), \
+             patch.object(runtime.repo_tools, "add_json_object", side_effect=AssertionError("draft must not write")):
+            draft = runtime.run_agent(prompt)
+        with patch.object(runtime, "_complete", side_effect=fake), \
+             patch.object(runtime.repo_tools, "add_json_object", return_value="added gabriel_freddy to Reputation-Matrix2/data/characters.json (184 records)") as write:
+            result = runtime.run_agent("can you actually write it but good use tools and go ahead", run_id=draft["run"])
+        self.assertEqual(result["status"], "done")
+        self.assertEqual(write.call_count, 1)
+
+    def test_offline_model_does_not_block_an_approved_write(self) -> None:
+        """The write is deterministic; only the reply text needs the model."""
+        import urllib.error
+
+        def offline(*args, **kwargs):
+            raise urllib.error.URLError("connection refused")
+
+        prompt = ("for freddy can you make a charcater prfile for him\\n"
+                  "The Seven Nights at Fazbear: A Complete Record you can learn about him from")
+        with patch.object(runtime, "_complete", side_effect=offline), \
+             patch.object(runtime.repo_tools, "add_json_object", side_effect=AssertionError("draft must not write")):
+            draft = runtime.run_agent(prompt)
+        # The draft is still served while offline.
+        self.assertEqual(draft["status"], "approval_required")
+        self.assertIn("gabriel_freddy", draft["message"])
+        self.assertIn("LM Studio is offline", draft["message"])
+
+        events: list[dict[str, object]] = []
+        with patch.object(runtime, "_complete", side_effect=offline), \
+             patch.object(runtime.repo_tools, "add_json_object", return_value="added gabriel_freddy to Reputation-Matrix2/data/characters.json (185 records)") as write:
+            result = runtime.run_agent("can you actually write it but good use tools and go ahead",
+                                       run_id=draft["run"], on_event=events.append)
+        self.assertEqual(result["status"], "done")
+        self.assertEqual(write.call_count, 1)
+        self.assertIn("LM Studio is offline", result["answer"])
+        self.assertIn("Action completed without the model", result["answer"])
+        self.assertIn("added gabriel_freddy", result["answer"])
+        # The offline notice must not claim no tool ran when one did.
+        self.assertNotIn("No repository or image tool was called", result["answer"])
+
+    def test_file_source_draft_reads_cleanly(self) -> None:
+        """No markdown leakage, no circular status, trimmed related articles."""
+        calls, fake = model_texts()
+        with patch.object(runtime, "_complete", side_effect=fake), \
+             patch.object(runtime.repo_tools, "add_json_object", side_effect=AssertionError("draft must not write")):
+            result = runtime.run_agent(
+                "Cosmic Jester seems to be important can we create a character profile "
+                "for him please check the factions json and edit the file"
+            )
+        draft = json.loads(result["message"].split("\n\n", 1)[1])
+        blob = draft["summary"] + draft["description"] + draft["status"]
+        self.assertNotIn("###", blob)
+        self.assertNotIn("---", blob)
+        self.assertTrue(draft["summary"].startswith("Cosmic Jester is referenced in"))
+        self.assertNotIn("Referenced in the factions.json record", blob)  # old circular phrasing
+        self.assertLessEqual(len(draft["relatedArticles"]), 10)
+        self.assertIn("Big Bite", blob)
+        self.assertIn("Doughnut World", blob)
+
     def test_explicit_archive_requests_are_the_only_read_gate(self) -> None:
         for prompt in (
             "read the article about Freddy in canon",

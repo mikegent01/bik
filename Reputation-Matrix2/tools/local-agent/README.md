@@ -70,11 +70,19 @@ The runtime resolves the source (an event by title search, or a record inside a
 named file such as `factions.json`), resolves the named participant or
 reference (`Gabriel / Freddy`; the Cosmic Jester material in the Disaster Inc.
 faction record), drafts the `characters.json` object from that evidence —
-quoting sentences that actually mention the character — shows the draft, and
-waits for `approve`. The model writes the message around the draft; the draft
-JSON itself is appended verbatim so the user reviews exactly what would be
-written. Nothing is written before the exact draft is approved, and approving
-twice reports that the profile is already on file.
+quoting sentences that actually mention the character, with markdown artifacts
+stripped — shows the draft, and waits for `approve`. The model writes the
+message around the draft; the draft JSON itself is appended verbatim so the
+user reviews exactly what would be written. Nothing is written before the exact
+draft is approved, and approving twice reports that the profile is already on
+file.
+
+Approval does not have to be the single word `approve`. A longer reply such as
+“can you actually write it but good use tools and go ahead” counts, while
+revision requests (“make him scarier instead”, “don’t write it”, “wait”) do
+not. Approved writes are deterministic — they still execute when the model is
+offline, and the reply then carries the offline notice plus a bracketed note of
+exactly what completed, instead of stopping the work.
 
 Permission lines such as “you may edit files” are understood without triggering
 a clarification, and the name may appear as the subject of the sentence
