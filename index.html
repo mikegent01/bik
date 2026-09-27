@@ -9155,6 +9155,31 @@ function homeArchiveUpdatesHtml(){
   </div>`;
 }
 
+function homeHistoricalBackfillHtml(){
+  const entries=(DATA&&DATA.mainPage&&DATA.mainPage.historicalBackfills)||[];
+  if(!Array.isArray(entries)||!entries.length) return '';
+  const cards=entries.map(entry=>{
+    const eventIds=Array.isArray(entry.events)?entry.events:[];
+    const links=eventIds.map(id=>{
+      const rec=INDEX&&INDEX[id];
+      if(!rec) return '';
+      return `<span class="chip" onclick="event.stopPropagation();Router.go('#/article/${esc(id)}')">📖 ${esc(String(displayName(rec.item)).slice(0,44))} →</span>`;
+    }).join('');
+    return `<article class="card" onclick="Router.go('#/article/${esc(eventIds[0]||'')}')" style="cursor:pointer;border:1px solid rgba(196,107,50,.55);background:linear-gradient(135deg,rgba(196,107,50,.15),var(--panel2));">
+      ${entry.image?`<img src="${esc(assetPath(entry.image))}" alt="${esc(entry.title||'Historical backfill')}" loading="lazy" style="width:100%;aspect-ratio:16/7;object-fit:cover;border-radius:8px;margin-bottom:10px;">`:''}
+      <div class="hm-sec-kick">${esc(entry.label||'Historical backfill')}</div>
+      <h3 style="margin:4px 0 7px;">${esc(entry.title||'Historical backfill')}</h3>
+      <p style="margin:0 0 8px;color:var(--muted);">${esc(entry.summary||'')}</p>
+      <p class="tiny" style="margin:0 0 9px;">${esc(entry.caption||'')}</p>
+      <div class="chips">${links}</div>
+    </article>`;
+  }).join('');
+  return `<section class="hm-sec hm-rise" aria-labelledby="historical-backfills-heading">
+    <div class="hm-sec-head"><div><div class="hm-sec-kick">Archive shelf · not current</div><h2 id="historical-backfills-heading">🗃️ Historical backfills</h2></div><span class="hm-sec-link" onclick="Router.go('#/list/events')">📂 Browse filings →</span></div>
+    <p style="max-width:820px;color:var(--muted);margin:0 0 12px;">Recovered sessions stay visible without displacing the current front. Dates marked inferred are archival placement, not a claim that the event is happening on the present clock.</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px;">${cards}</div>
+  </section>`;
+}
 function homeRecentAdventuresHtml(){
   const events=(DATA&&DATA.events)||[];
   const latestId=(DATA.mainPage&&DATA.mainPage.latestUpdate&&DATA.mainPage.latestUpdate.id)||'';
@@ -10510,6 +10535,7 @@ function view_home(){
     +homeTickerHtml(nNew)
     +homeStatusBand(nNew)
     +`<section class="hm-sec hm-rise"><div class="hm-sec-head"><div><div class="hm-sec-kick">Front desk · this season</div><h2>🎬 Current fronts</h2></div><span class="hm-sec-link" onclick="Router.go('#/list/events')">📂 All filings →</span></div><div id="home-campaign-covers" class="campaign-covers-grid"></div><div id="home-field-gallery-label" class="field-gallery-label">📷 From the archive — same stories, filed art</div><div id="home-field-gallery" class="field-gallery-strip"></div></section>`
+    +homeHistoricalBackfillHtml()
     +`<div class="hm-grid"><div class="hm-main"><section class="hm-sec hm-rise"><div class="hm-sec-head"><div><div class="hm-sec-kick">Session logs &amp; chronicle</div><h2>📜 Latest filings</h2></div><div style="display:flex;gap:8px;flex-wrap:wrap">${newPill}<span class="hm-sec-link" onclick="Router.go('#/list/events')">Browse all →</span></div></div><div id="home-recent-adventures" class="campaign-timeline-feed"></div><span class="hm-more" onclick="document.getElementById('home-recent-adventures').classList.add('show-all');this.remove()">Show all 12 filings ↓</span></section><div id="home-archive-updates"></div>`
     +colourShowcaseHtml()
     +`</div>`
