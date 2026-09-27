@@ -11,6 +11,20 @@ These are **single, full-body 3/4 concept plates** prepared as clean image input
 | [cackletta-base.png](cackletta-base.png) | Main Cackletta mesh input | Single Cackletta witch plate: green Beanbean face, curled purple witch hat, white ruff, magenta and violet gown with gold trim, black gloves, slim wand. |
 | [generic-enemies-sheet.png](generic-enemies-sheet.png) | Four quick minor-enemy silhouette bases | Clockwork Fawful foot-soldier; corrupted Beanbean guard; tiny Cackletta-style imp; masked Fawful scout. These are **generic production designs**, not named archive characters. No dragon is included. |
 
+## Spliced enemy cutouts (transparent background)
+
+The 2x2 sheet above has been spliced into four ready-to-use cutouts by
+[`tools/splice-sheet-cutouts.py`](../../../tools/splice-sheet-cutouts.py)
+(quadrant crop + Python background removal). Each is a centered, alpha-trimmed
+PNG with a transparent background:
+
+| File | Sheet quadrant | Design |
+|---|---|---|
+| [enemy-clockwork-fawful-soldier.png](enemy-clockwork-fawful-soldier.png) | top-left | Clockwork Fawful foot-soldier |
+| [enemy-corrupted-beanbean-guard.png](enemy-corrupted-beanbean-guard.png) | top-right | Corrupted Beanbean guard |
+| [enemy-cackletta-imp.png](enemy-cackletta-imp.png) | bottom-left | Tiny Cackletta-style imp |
+| [enemy-masked-fawful-scout.png](enemy-masked-fawful-scout.png) | bottom-right | Masked Fawful scout |
+
 ## Archive basis / scene caution
 
 The archive separates the requested history into two related filings:
@@ -23,6 +37,6 @@ So this packet is deliberately a **cross-era visual reference set** for the requ
 ## Hunyuan input notes
 
 1. Use one of the three individual PNG plates as the character image input; do not feed the generic-enemy contact sheet as a single character.
-2. For the enemy sheet, crop the desired quadrant before generating an individual enemy mesh.
+2. For the enemy sheet, use the matching pre-spliced cutout (see the table above); crop the quadrant from the sheet only if you need the original backdrop instead of the transparent version.
 3. Preserve Bowser's clean-shaven muzzle and normal amber eyes. Do not borrow the current Shadow Estate armour or the discarded bearded / red-eyed variant.
 4. Preserve Fawful's red assistant cloak for this period; the purple tailored suit and top hat belong to the later active version.
