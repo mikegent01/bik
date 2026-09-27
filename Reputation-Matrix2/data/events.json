@@ -17758,6 +17758,177 @@
         "alt": "Wario takes applause under a single spotlight before row upon row of completely empty seats.",
         "caption": "Best show on TV — the applause was a recording, and every seat in the house was empty."
       }
-    ]
+    ],
+    "timeline": {
+      "day": "5 Aethel, 1040 BF",
+      "note": "Reconstructed, not witnessed — Waluigi was not in the building. The studio keeps no clock the archive would trust (the wall clocks are PROPS), so the times below are the archive's, laid over the account in order on the Material calendar the file already uses.",
+      "method": "Duration anchors: one complete performance of Plumber Man — three minutes forty-one seconds by the archive's own copy, timed twice; the account's own two minutes of surveillance; and the honest assumption that a king climbs slower than a rat.",
+      "worlds": [
+        {
+          "id": "main",
+          "label": "The main world — where the archive keeps its desk",
+          "short": "The main world",
+          "timeOfDay": "Morning through night: a three-filing day. Teaser at breakfast, correction after supper, this timeline by lamplight.",
+          "weather": "Low grey cloud all morning; a dry east wind that took the dust off the roads by midday; rain after dark — steady, unhurried rain, the kind that makes a lamp and a closed door feel like a policy decision.",
+          "source": "Waluigi went looking for what the sky was doing while a studio in another world played a song. The RNN morning bulletin gave two lines and a shrug, so he dug the morning editions out of the WAH Media Collective's back-issue boxes — three newsstands and one argument with a print vendor later, the archive can state the weather on the day the building obeyed a lord. Nobody asked it to. That is what archives are FOR."
+        },
+        {
+          "id": "studio",
+          "label": "The Nintendo Mania studio — the promo world",
+          "short": "The studio",
+          "timeOfDay": "Morning by the archive's clock. Indoors there is no time of day — only stage light, static glow, and whatever the scene calls for.",
+          "weather": "No weather on record, and the archive means that as a FINDING. The studio's weather is internal: a cold coffee machine that turns volcanic; sprinkler rain in one scene; frost in the next; a velvet night that falls on command when somebody says the word. Beyond the seats the windows show the whole facility silent, under a sky that did not perform. No wind. No birds. The applause track is the closest thing to weather the building has.",
+          "source": "The account itself. The archive has no correspondent in that world, the windows were not talking, and the one clock on the wall was a prop."
+        }
+      ],
+      "entries": [
+        {
+          "time": "Early morning — the studio",
+          "span": "one morning, filed separately",
+          "beat": "The fall onto the pilot set",
+          "detail": "Darian and Alistair drop out of their own sky onto a soundstage mid-shoot: the tour, the product demonstration, the tape, the game show, the flashlight. Filed as the promo account — the teaser this timeline's day began with."
+        },
+        {
+          "time": "Mid-morning — the break room",
+          "span": "minutes of good inventory",
+          "beat": "The button is found",
+          "detail": "Alistair surveys like the steward he is: back door to the kitchen, an air vent, five monitors, a cold coffee machine — and a small button labelled EMERGENCY EXIT that was not there before."
+        },
+        {
+          "time": "Mid-morning",
+          "span": "under a minute, mostly steam",
+          "beat": "The button makes coffee",
+          "detail": "Darian presses it with calibrated pessimism. Scalding coffee, a room filling with steam — and the rising heat pops a ceiling vent open. The exit was the appliance's fault."
+        },
+        {
+          "time": "Mid-morning",
+          "span": "two minutes and one boost",
+          "beat": "Arming, and up",
+          "detail": "A rolling pin, a broken coffee-pot handle, the machine shut off, and a steward's cuped hands: the king goes into the duct first."
+        },
+        {
+          "time": "Mid-morning — the ducts",
+          "span": "the length of one echo",
+          "beat": "The crawl, the rat, the CLANG",
+          "detail": "Hands and knees in the dark; an ordinary rat (reassuring, by this building's standards); a rolling pin clangs off the duct walls and rolls through the whole system; Alistair whispers the sentence of the year — careful, noise might draw attention."
+        },
+        {
+          "time": "Late morning — the maintenance room",
+          "span": "two minutes of surveillance — the account counts them",
+          "beat": "The man at the blue light",
+          "detail": "Luigi. Alive, alone, face lit blue, typing fast: security feeds, a studio map, notes headed Wario's corruption. Darian watches from the vent and shushes his steward."
+        },
+        {
+          "time": "Late morning",
+          "span": "three seconds, filed as one",
+          "beat": "The drop, the arm, the flashlight",
+          "detail": "Darian drops swinging; Alistair's hand closes on the arm mid-swing; Luigi answers like a cornered man — one flashlight, one numb shoulder."
+        },
+        {
+          "time": "Late morning",
+          "span": "about a minute",
+          "beat": "The door comes off its hinges",
+          "detail": "Evil Mario, fresh from beating the real Mario, reads the seating chart: innocence doesn't get you far. The room loses the arithmetic — until a rolling pin finds a shoulder, CLANG, the first honest hit in two filings, and a king declares he cannot let his subjects fall."
+        },
+        {
+          "time": "Late morning",
+          "span": "one collapse, three catches",
+          "beat": "The cape, the floor, the squad",
+          "detail": "The pixelated feather cape is the power source; the floor falls in; three studio-uniform paratroopas catch them out of the air — a rescue squad on payroll, and Waluigi has questions about the budget."
+        },
+        {
+          "time": "Late morning — the collapsing set",
+          "span": "one complete performance — 3:41 by the archive's copy",
+          "beat": "Plumber Man",
+          "detail": "The studio turns the music on and the actor fights to the beat: dodges on the downbeat, backflips on the chorus, a tranq barrage that cannot find its timing. Luigi covers his ears, then stops. He knows the song. It belongs to his brother."
+        },
+        {
+          "time": "On the final note",
+          "span": "one fade",
+          "beat": "The real Mario appears",
+          "detail": "Bruised, hat askew, crawled out of the wreckage on his own. Sir, you're alive. The real and the corrupted stand face to face while the song runs out."
+        },
+        {
+          "time": "Late morning",
+          "span": "one gust; then minutes filed as MISSING",
+          "beat": "The freeze takes Alistair",
+          "detail": "The copy stops mid-motion, the cape frays, and the gust knocks Alistair clean off his feet and away down a dark hallway. The paratroopas anchor the others to a broken pipe."
+        },
+        {
+          "time": "Late morning",
+          "span": "one formation pass",
+          "beat": "The V, and the yank",
+          "detail": "A king cannot let his subjects fall, so he orders the troops into a V, like a bird. The V cuts the wind; Luigi rides the dive and yanks the cape off with both hands. The actor screams."
+        },
+        {
+          "time": "Late morning",
+          "span": "a minute, and a really stupid plan",
+          "beat": "A leaf, a second head, a window",
+          "detail": "A tanuki leaf: fox tail, Wario's hair, a second grinning Wario head on one shoulder. Through the broken window comes Alistair — covered in dust, carrying a flaming pipe — and the leaf catches fire."
+        },
+        {
+          "time": "Late morning",
+          "span": "the length of one belly crawl",
+          "beat": "Fire, and the alarm",
+          "detail": "The actor erupts into flame; Darian goes for the smashed-glass alarm on his belly through the heat, debris under his hands, a flame whip missing by inches. He pulls the handle."
+        },
+        {
+          "time": "Late morning",
+          "span": "one thaw, refused",
+          "beat": "Sprinklers, then ice",
+          "detail": "Water everywhere; the fire hisses down; Darian inventories his hands — soot, scratches, small burns, alive. Then the room turns cold: frost, icicles, an ice body with glowing eyes, and a fist frozen stuck in the surface."
+        },
+        {
+          "time": "Late morning",
+          "span": "one syllable",
+          "beat": "CUT",
+          "detail": "The lord of the Dark Shores out-reasons an entire television studio: everything stops. Ice mid-advance, weapons half-lowered, and whatever runs the show FLINCHES."
+        },
+        {
+          "time": "Late morning",
+          "span": "one THUD",
+          "beat": "Curtains, reset",
+          "detail": "Velvet from the whole ceiling; crew voices; cut the feed. When the curtains open the studio has reset itself to the break room — no flames, no ice, one television showing static."
+        },
+        {
+          "time": "Midday",
+          "span": "four minutes of showmanship",
+          "beat": "Best show on TV",
+          "detail": "Wario walks in clapping and applause comes out of the dark — Oscar-worthy, he says, brilliant special effects — until a lord who checks the building's work looks at the seats and finds every one of them EMPTY."
+        },
+        {
+          "time": "Midday",
+          "span": "under a minute, including the suit",
+          "beat": "The man Wario bows to",
+          "detail": "A figure in a director's cap says let's see how you like the real deal; Wario goes pale, bows, calls him Boss — and goes through a wall for ruining his show. One punch. The Director straightens his suit like a man who has swatted a fly."
+        },
+        {
+          "time": "Midday",
+          "span": "one gesture",
+          "beat": "The actor points",
+          "detail": "Evil Mario, still there, half in shadow, red eyes tracking the Director to the door — smiles slowly, and points one finger at the door the Director left through."
+        },
+        {
+          "time": "Midday — the hallway",
+          "span": "as long as a man takes to pass close enough to touch",
+          "beat": "The folder and the remote",
+          "detail": "Darian, hidden in a dark alcove, watches Director Mario stride past with a folder under one arm and a small wired remote in the other, carried like a habit. The account ends on it: that remote could be the key to stopping everything — if they can get it."
+        },
+        {
+          "time": "Evening — the main world",
+          "span": "one evening, filed previously",
+          "beat": "The correction",
+          "world": "main",
+          "detail": "The full account of the morning is recovered and the teaser is amended: PORTAL FAILED, Luigi missing, a Mario-shaped thing out of a television. Filed before this sequel arrived and doubled the workload."
+        },
+        {
+          "time": "Night — the archive",
+          "span": "one long night, and the song, timed twice",
+          "beat": "This filing, and this timeline",
+          "world": "main",
+          "detail": "The sequel is filed, the commentary track is recorded over it, and Waluigi reconstructs the day: three filings in one day, a newspaper hunt for the weather, and a copy of Plumber Man on the desk that has now been played to the second verse more times than any song in this archive's collection. WAH."
+        }
+      ]
+    }
   }
 ]

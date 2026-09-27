@@ -3461,3 +3461,31 @@ html[data-theme="light"] .war-band{background:linear-gradient(90deg,color-mix(in
 .war-note::before{content:'📌';position:absolute;top:-12px;left:14px;font-size:16px;transform:rotate(-12deg)}
 .war-note h5{margin:0 0 6px;font-size:10.5px;letter-spacing:2px;text-transform:uppercase;color:var(--accent2,#e3a008)}
 @media (max-width:720px){.dossier-nav{flex-direction:column}.search-tray-body .res-item{padding:8px}.res-thumb{flex-basis:40px;width:40px;height:40px}.dossier-stamp{position:static;display:inline-block;margin-bottom:8px}}
+
+/* =========================================================================
+   SESSION TIMELINE — the day a filing happened (docs/TIMELINE_GUIDE.md)
+   -------------------------------------------------------------------------
+   .tlw-* day/weather cards, one per world the filing crosses; .tls-* the
+   reconstructed entry strip (time + span on the left, beat + detail right).
+   Times are the archive's reconstruction, not transcript timestamps. */
+.timeline-panel{margin:18px 0 6px}
+.timeline-panel h2{margin-bottom:6px}
+.tlw-day{font-size:13px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;color:var(--accent2);margin:0 0 10px}
+.tlw-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;margin:0 0 14px}
+.tlw-card{border:1px solid var(--border);border-radius:12px;padding:12px 14px;background:rgba(138,75,255,.06)}
+.tlw-label{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:1.2px;color:var(--accent);margin:0 0 8px}
+.tlw-row{margin:8px 0}
+.tlw-row>span{display:block;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--accent2);margin-bottom:2px}
+.tlw-row p{margin:0;font-size:13px;line-height:1.55}
+.tlw-source p{font-style:italic}
+.tls{list-style:none;margin:6px 0 0;padding:0}
+.tls-item{display:grid;grid-template-columns:170px 1fr;gap:14px;padding:11px 0;border-bottom:1px dashed var(--border)}
+.tls-item:last-child{border-bottom:0}
+.tls-time{font-size:12.5px;font-weight:800;color:var(--accent);line-height:1.35}
+.tls-span{display:block;margin-top:3px;font-size:11px;font-weight:600;opacity:.75}
+.tls-card{min-width:0}
+.tls-beat{font-size:14.5px;font-weight:800;margin:0 0 3px}
+.tls-detail{font-size:13px;line-height:1.55;margin:0}
+.tls-world{display:inline-block;margin:0 0 5px;font-size:10px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--accent2);border:1px solid currentColor;border-radius:999px;padding:1px 8px}
+.tls-note{font-size:12px;font-style:italic;opacity:.8;margin:10px 0 0}
+@media(max-width:720px){.tls-item{grid-template-columns:1fr;gap:4px}}

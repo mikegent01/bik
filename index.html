@@ -6365,6 +6365,47 @@ function raceThumb(i,mode){
    site never displayed — referenced in JSON, invisible on the page, which a
    reader correctly reads as "generated and never used". One strip for all of
    them, mounted with the rest of the account (evidence follows the account). */
+/* =========================================================================
+   SESSION TIMELINE — the day a filing happened, reconstructed
+   -------------------------------------------------------------------------
+   XP answers "what did the session pay." The timeline answers the question
+   the XP ledger cannot: what was the DAY like — what time it was, how long
+   things took, and what the weather was doing in each world the filing
+   crosses. Lives on the event record as:
+     timeline:{ day, note, method,
+                worlds:[{id,label,short,timeOfDay,weather,source}],
+                entries:[{time,span,beat,detail,world}] }
+   Honesty rules live in docs/TIMELINE_GUIDE.md: times are the archive's
+   reconstruction (Waluigi was not there), durations anchor to countable
+   things, and weather must be SOURCED in-world — the hunt for the source is
+   part of the filing. Records without a timeline render nothing. */
+function timelinePanel(item,typeKey){
+  if(typeKey!=='events') return '';
+  const tl=item&&item.timeline;
+  if(!tl||!Array.isArray(tl.entries)||!tl.entries.length) return '';
+  const worlds=Array.isArray(tl.worlds)?tl.worlds:[];
+  const worldShort=id=>{const w=worlds.find(x=>x&&x.id===id);if(!w)return '';return w.short||String(w.label||w.id||'').split(' — ')[0];};
+  const worldCards=worlds.filter(Boolean).map(w=>`<div class="tlw-card">
+      <div class="tlw-label">${esc(w.label||w.id||'World')}</div>
+      ${w.timeOfDay?`<div class="tlw-row"><span>time of day</span><p>${inlineMd(String(w.timeOfDay))}</p></div>`:''}
+      ${w.weather?`<div class="tlw-row"><span>weather &amp; conditions</span><p>${inlineMd(String(w.weather))}</p></div>`:''}
+      ${w.source?`<div class="tlw-row tlw-source"><span>how the archive knows</span><p>${inlineMd(String(w.source))}</p></div>`:''}
+    </div>`).join('');
+  const rows=tl.entries.map(en=>`<div class="tls-item">
+      <div class="tls-time">${esc(en.time||'')}${en.span?`<span class="tls-span">${esc(en.span)}</span>`:''}</div>
+      <div class="tls-card">${en.world?`<span class="tls-world">${esc(worldShort(en.world)||en.world)}</span>`:''}
+        <div class="tls-beat">${inlineMd(String(en.beat||''))}</div>
+        <p class="tls-detail">${inlineMd(String(en.detail||''))}</p>
+      </div>
+    </div>`).join('');
+  return `<div class="timeline-panel"><h2 id="sec-timeline">🕰️ Timeline — the Day, Reconstructed</h2>
+    ${tl.day?`<div class="tlw-day">${esc(tl.day)}</div>`:''}
+    ${worldCards?`<div class="tlw-grid">${worldCards}</div>`:''}
+    <div class="tls">${rows}</div>
+    ${tl.method?`<p class="tls-note">⏱ ${inlineMd(String(tl.method))}</p>`:''}
+    ${tl.note?`<p class="tls-note">${inlineMd(String(tl.note))}</p>`:''}
+  </div>`;
+}
 function fieldGalleryPanel(item,typeKey,opts){
   if(typeKey==='races') return '';
   const gallery=Array.isArray(item.gallery)?item.gallery:[];
@@ -15594,6 +15635,8 @@ function view_article(id){
     ${activeRev&&activeRev.summary&&activeRev.summary!==item.summary?`<div class="vhistory-summary">${esc(activeRev.summary)}</div>`:''}
   </div>`:'';
   let audioHtml=item.audio?`<div style="margin:14px 0"><audio controls src="${esc(assetPath(item.audio))}"></audio>${item.audioCaption?`<div class="imgcap">${esc(item.audioCaption)}</div>`:''}</div>`:'';
+  const timelineHtml=timelinePanel(item,typeKey);
+  if(timelineHtml){ secTocParts.push({slug:'sec-timeline',text:'Timeline'}); }
   const tocEntries=heads.map(h=>({slug:slug(h.text),text:h.text,h3:h.level===3})).concat(secTocParts.map(p=>({slug:p.slug,text:p.text,h3:false})));
   const toc=tocEntries.length?`<div class="toc" id="toc"><h4>Contents</h4>${tocEntries.map(h=>`<a class="${h.h3?'h3':''}" data-slug="${h.slug}" onclick="scrollToHeading('${h.slug}')">${esc(h.text)}</a>`).join('')}</div>`:'';
   /* Event & battle pages are full-width with no side rail: the infobox and
@@ -15647,6 +15690,7 @@ ${typeKey==='characters'?tokenSheetPanel(item):''}${typeKey==='characters'?dynas
      ${listBlocks.length?`<hr>${listBlocks.join('')}`:''}
      ${item.aftermath?`<h2 id="h-aftermath">Aftermath</h2><div class="prose">${applyAnnotations(mdToHtml(item.aftermath,item.id), item.id)}</div>`:''}
      ${item.waluigiAssessment?`<h2 id="h-assessment">Waluigi's Assessment</h2><div class="wnote wassessment">${applyAnnotations(mdToHtml(item.waluigiAssessment,item.id), item.id)}</div>`:''}
+     ${timelineHtml}
      ${fieldGalleryPanel(item,typeKey)}
      ${relChips?`<h2 id="h-related">Related Articles</h2><div class="related-list">${relChips}</div>`:''}
      ${typeof rnnCoveragePanel==='function'?rnnCoveragePanel(item.id):''}
@@ -16848,7 +16892,16 @@ function hubOptions(id){
       route:xp.length?'#/article/'+encodeURIComponent(id):'',
       after:xp.length?'xp-session':'',
       empty:'No XP was banked against this record.' }
-  ].concat(hubBattleOptions(id,item,rec));
+  ].concat(item&&item.timeline&&Array.isArray(item.timeline.entries)&&item.timeline.entries.length?[
+    { key:'timeline', label:'Timeline', icon:'🕰️', img:HUB_ART+'hub_story.png',
+      blurb:'The day, reconstructed: times, durations, and the weather — per world, honestly sourced.',
+      meta:item.timeline.entries.length+' entries',
+      available:true,
+      /* Same anchor trick as the XP door below: a second '#' would break hash
+         routing, so navigate to the record, then scroll to #sec-timeline. */
+      route:'#/article/'+encodeURIComponent(id),
+      after:'sec-timeline' }
+  ]:[]).concat(hubBattleOptions(id,item,rec));
 }
 /* Battle-shaped doors.
    The five generic tiles are built for event filings, and battles have almost

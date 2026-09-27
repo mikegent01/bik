@@ -124,6 +124,14 @@ copy and it should not appear in new narrative prose.
 Decide the awards while the session is still a list of beats. Write them out in
 full — as data, not as an intention — and only then start writing.
 
+**A session that awards no XP still owes the reader its day.** Foreign
+protagonists, historical sessions, and one-shot worlds pay nothing into the
+ledger — for those filings, determine the **timeline** here, in the same slot:
+the day's times, durations, and weather, per world, honestly sourced. See
+[`TIMELINE_GUIDE.md`](TIMELINE_GUIDE.md). Party sessions can carry both; the
+timeline is not an XP substitute so much as the answer to the question the
+ledger never asks: *what was it like out?*
+
 **Canonical field: `xpAwards[]` on the event record.** The renderer reads it
 (`xpAwardsForEvent()` in `index.html`, which merges `XP_EVENT_AWARDS` with the
 event's own `xpAwards[]`). Two other shapes exist in the data —
