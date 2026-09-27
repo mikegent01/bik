@@ -21,6 +21,15 @@ noun-to-filename mapping. “Can you add a Noki race?” is not parsed — the m
 searches for Noki, finds the Isle Delfino nation, reads races.json's own
 format, and writes the record, in one prompt.
 
+Tool calls are accepted in whatever dialect the model actually speaks, not
+just the documented `{"tool": …, "args": …}` JSON. Real local models trained
+with tool-call chat templates emit their own envelopes —
+`<|tool_call|>call:1024_search_archive{"term": "Delfino"}<|tool_call|>` is a
+filed example — so the parser also accepts `<tool_call>` envelopes,
+name/arguments spellings (OpenAI-style, including string-encoded arguments),
+`call:<id>_` prefixed glued forms, fenced JSON, and prose-wrapped variants.
+Ordinary prose — even inside the markup — is never mistaken for a call.
+
 ## Every reply is written by the model
 
 There are **no canned responses**. The deterministic layer decides *which*

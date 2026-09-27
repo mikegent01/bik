@@ -506,25 +506,161 @@ _AGENT_SYSTEM = (
 )
 
 
+_KNOWN_TOOLS = (
+    "list_archive_collections", "search_archive", "read_collection",
+    "find_records", "read_file", "write_record", "run_generator",
+)
+
+_CALL_ID_PREFIX_RE = re.compile(r"^\s*call:\d+_", re.I)
+_TOOL_MARKUP_RES = (
+    # <|tool_call|> ... <|tool_call|> / <|/tool_call|> (chat-template syntax many
+    # local models emit natively, e.g. Qwen-style fine-tunes)
+    re.compile(r"<\|/?tool_call\|?>", re.I),
+    # <tool_call> ... </tool_call> and [TOOL_CALL] ... [/TOOL_CALL]
+    re.compile(r"</?tool_call>|\[/?TOOL_CALL\]", re.I),
+)
+
+
+def _normalize_call(value: Any) -> dict[str, Any] | None:
+    """Accept the field spellings different models use for one tool call."""
+    if not isinstance(value, dict):
+        return None
+    name = value.get("tool") or value.get("name") or value.get("function_name")
+    args = value.get("args", value.get("arguments", value.get("parameters")))
+    function = value.get("function")
+    if isinstance(function, dict):
+        name = name or function.get("name")
+        if args is None:
+            args = function.get("arguments")
+    if not isinstance(name, str) or not name.strip():
+        return None
+    name = _CALL_ID_PREFIX_RE.sub("", name.strip()).strip()
+    if isinstance(args, str):  # OpenAI-style: arguments as a JSON string
+        try:
+            args = json.loads(args)
+        except json.JSONDecodeError:
+            args = {}
+    if not isinstance(args, dict):
+        args = {}
+    return {"tool": name, "args": args}
+
+
+def _call_from_segment(segment: str) -> dict[str, Any] | None:
+    """One candidate chunk: a JSON object, or a tool name with JSON glued on."""
+    segment = _CALL_ID_PREFIX_RE.sub("", str(segment).strip()).strip()
+    if not segment or segment.startswith("<|im_end"):
+        return None
+    match = re.search(r"\{.*\}", segment, re.S)
+    if match:
+        try:
+            call = _normalize_call(json.loads(match.group(0)))
+        except json.JSONDecodeError:
+            call = None
+        if call:
+            return call
+    bare = re.match(r"^([a-zA-Z_][a-zA-Z0-9_]*)\s*(?:\(\s*\)\s*)?$", segment)
+    if bare and bare.group(1) in _KNOWN_TOOLS:
+        return {"tool": bare.group(1), "args": {}}
+    glued = re.match(r"^([a-zA-Z_][a-zA-Z0-9_]*)\s*(\{.*\})\s*$", segment, re.S)
+    if glued and glued.group(1) in _KNOWN_TOOLS:
+        try:
+            args = json.loads(glued.group(2))
+        except json.JSONDecodeError:
+            args = {}
+        return {"tool": glued.group(1), "args": args if isinstance(args, dict) else {}}
+    return None
+
+
+def _json_blobs(text: str, cap: int = 40) -> list[str]:
+    """Balanced {...} substrings, so nested args survive extraction."""
+    blobs: list[str] = []
+    starts = [i for i, ch in enumerate(text) if ch == "{"]
+    for start in starts[:cap]:
+        depth = 0
+        in_string = False
+        escaped = False
+        for index in range(start, len(text)):
+            char = text[index]
+            if in_string:
+                if escaped:
+                    escaped = False
+                elif char == "\\":
+                    escaped = True
+                elif char == '"':
+                    in_string = False
+            elif char == '"':
+                in_string = True
+            elif char == "{":
+                depth += 1
+            elif char == "}":
+                depth -= 1
+                if depth == 0:
+                    blob = text[start:index + 1]
+                    if not any(blob == existing for existing in blobs):
+                        blobs.append(blob)
+                    break
+    return blobs
+
+
 def _parse_tool_call(raw: str) -> dict[str, Any] | None:
-    """A tool call is a reply that is JSON with a 'tool' key. Anything else is prose."""
+    """Recognize a tool call however the model phrased it; anything else is prose.
+
+    The documented format is a JSON object with tool/args keys, but local
+    models trained with tool-call chat templates emit their own envelopes —
+    <|tool_call|>call:1024_search_archive{"term": ...}<|tool_call|> is a real
+    example. The parser accepts: bare JSON, fenced JSON, any of the markup
+    envelopes, name{json} glued forms, OpenAI-style name/arguments (including
+    string-encoded arguments), and prose-wrapped variants of the above.
+    """
     cleaned = str(raw or "").strip()
+    if not cleaned:
+        return None
     if cleaned.startswith("\`\`\`"):
         cleaned = re.sub(r"^\`\`\`[a-zA-Z]*\s*|\s*\`\`\`$", "", cleaned, flags=re.S).strip()
-    if not cleaned.startswith("{"):
-        return None
-    value = None
-    try:
-        value = json.loads(cleaned)
-    except json.JSONDecodeError:
-        match = re.search(r"\{.*\}", cleaned, re.S)
-        if match:
+    # 1. The whole reply is the call.
+    if cleaned.startswith("{"):
+        for blob in _json_blobs(cleaned, cap=1):
             try:
-                value = json.loads(match.group(0))
+                call = _normalize_call(json.loads(blob))
             except json.JSONDecodeError:
-                value = None
-    if isinstance(value, dict) and isinstance(value.get("tool"), str):
-        return value
+                call = None
+            if call:
+                return call
+    # 2. A markup envelope anywhere in the reply (possibly wrapped in prose).
+    for splitter in _TOOL_MARKUP_RES:
+        if splitter.search(cleaned):
+            for part in splitter.split(cleaned):
+                if not part or not part.strip():
+                    continue
+                call = _call_from_segment(part)
+                if call:
+                    return call
+    # 3. A JSON call embedded in prose without any envelope.
+    if re.search(r'"(?:tool|name|function_name)"\s*:', cleaned):
+        for blob in _json_blobs(cleaned):
+            try:
+                call = _normalize_call(json.loads(blob))
+            except json.JSONDecodeError:
+                call = None
+            if call:
+                return call
+    # 4. A call-id prefixed glued form with no envelope at all.
+    for match in re.finditer(r"call:\d+_([a-zA-Z_][a-zA-Z0-9_]*)", cleaned, re.I):
+        name = match.group(1)
+        if name not in _KNOWN_TOOLS:
+            continue
+        rest = cleaned[match.end():].lstrip()
+        args: dict[str, Any] = {}
+        if rest.startswith("{"):
+            for blob in _json_blobs(rest, cap=1):
+                try:
+                    parsed = json.loads(blob)
+                except json.JSONDecodeError:
+                    parsed = None
+                if isinstance(parsed, dict):
+                    args = parsed
+                    break
+        return {"tool": name, "args": args}
     return None
 
 

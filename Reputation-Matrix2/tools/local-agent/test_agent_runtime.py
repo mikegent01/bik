@@ -527,7 +527,64 @@ class ChatFirstTests(unittest.TestCase):
         self.assertEqual(result["status"], "done")
         self.assertEqual(upsert.call_args[0][1]["summary"], "amended")
 
-    def test_agent_loop_tool_errors_feed_back_to_the_model(self) -> None:
+    def test_tool_call_parser_accepts_model_dialects(self) -> None:
+        """Local models wrap tool calls in their own chat-template syntax."""
+        cases = (
+            # the exact format observed from the user's model
+            ('<|tool_call|>call:1024_search_archive{"term": "Delfino", "limit": 8}<|tool_call|>',
+             {"tool": "search_archive", "args": {"term": "Delfino", "limit": 8}}),
+            # Qwen-style envelope with name/arguments
+            ('<tool_call>\n{"name": "read_collection", "arguments": {"path": "Reputation-Matrix2/data/races.json"}}\n</tool_call>',
+             {"tool": "read_collection", "args": {"path": "Reputation-Matrix2/data/races.json"}}),
+            # OpenAI-style with string-encoded arguments
+            ('{"name": "find_records", "arguments": "{\\"path\\": \\"x.json\\", \\"term\\": \\"Noki\\"}"}',
+             {"tool": "find_records", "args": {"path": "x.json", "term": "Noki"}}),
+            # the documented format
+            ('{"tool": "write_record", "args": {"path": "p.json", "record": {"id": "n", "name": "N"}}}',
+             {"tool": "write_record", "args": {"path": "p.json", "record": {"id": "n", "name": "N"}}}),
+            # prose-wrapped and envelope-less glued forms
+            ('Let me check.\n<|tool_call|>call:7_search_archive{"term": "Noki"}<|tool_call|>\nThere.',
+             {"tool": "search_archive", "args": {"term": "Noki"}}),
+            ('call:512_write_record{"path": "races.json", "record": {"id": "noki"}}',
+             {"tool": "write_record", "args": {"path": "races.json", "record": {"id": "noki"}}}),
+            # fenced JSON
+            ('```json\n{"tool": "list_archive_collections", "args": {}}\n```',
+             {"tool": "list_archive_collections", "args": {}}),
+        )
+        for raw, expected in cases:
+            with self.subTest(raw=raw[:50]):
+                self.assertEqual(runtime._parse_tool_call(raw), expected)
+
+    def test_tool_call_parser_rejects_prose(self) -> None:
+        """Ordinary replies — even inside tool markup — are not tool calls."""
+        for raw in (
+            "Filed it. The Nokis are in races.json now.",
+            "I will search the archive now.",
+            "<|tool_call|>I will look that up<|tool_call|>",
+            '{"summary": "just a record", "id": "noki"}',
+        ):
+            with self.subTest(raw=raw[:40]):
+                self.assertIsNone(runtime._parse_tool_call(raw))
+
+    def test_agent_loop_runs_a_chat_template_dialect_call(self) -> None:
+        """A model that emits <|tool_call|> envelopes still drives the loop."""
+        turns = (
+            '<|tool_call|>call:1024_search_archive{"term": "Noki", "limit": 5}<|tool_call|>',
+            json.dumps({"tool": "write_record", "args": {"path": "Reputation-Matrix2/data/races.json",
+                        "record": {"id": "noki", "name": "Nokis", "summary": "Shelled folk of Isle Delfino."}}}),
+            "Filed the Nokis.",
+        )
+        events: list[dict[str, object]] = []
+        with patch.object(runtime, "_complete", side_effect=turns), \
+             patch.object(runtime.repo_tools, "upsert_json_object",
+                          return_value="added noki in Reputation-Matrix2/data/races.json (52 records)"):
+            result = runtime.run_agent("can we add a noki race to the campagin? check the isle Delfino nation please",
+                                       on_event=events.append)
+        self.assertEqual(result["status"], "done")
+        actions = [event["action"]["action"] for event in events if event.get("kind") == "action"]
+        self.assertEqual(actions, ["search_archive", "write_record"])
+
+
         """A refused write is reported to the model, which corrects course."""
         turns = (
             json.dumps({"tool": "write_record",
