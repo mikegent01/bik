@@ -403,6 +403,30 @@ def build_plot(ids: list[str] | None = None, terms: list[str] | None = None,
     }
 
 
+def make_commentary_object(source_id: str, target_year: str | int | None = None) -> dict[str, object]:
+    """Create a source-bound commentary draft from an existing event record."""
+    records = catalog_retrieve(source="events", ids=[source_id], limit=1, target_year=target_year)
+    if not records:
+        raise ValueError("source event was not found or is outside the target-year cutoff")
+    event = records[0]
+    source = str(event.get("id", source_id))
+    description = str(event.get("description", "")).strip()
+    summary = str(event.get("summary", "")).strip()
+    title = str(event.get("title") or event.get("name") or source)
+    date = str(event.get("date", ""))
+    year_match = re.search(r"\d{3,4}\s*(?:BF|AF)", date, re.I)
+    sections = [{"id": "the-filing", "icon": "📰", "heading": "The Filing", "body": description or summary}]
+    if summary and summary not in description:
+        sections.append({"id": "waluigis-cut", "icon": "✎", "heading": "Waluigi's Cut", "body": f"Waluigi's reading of the filing: {summary}\n\nThe source record remains the authority; this commentary adds interpretation, not new canon. WAH."})
+    return {"id": f"{source}_commentary", "sourceArticle": source, "title": title,
+            "subtitle": f"Waluigi's cut on {title}", "filed": date,
+            "timeCode": f"TC:{year_match.group(0) if year_match else 'undated'}/MAT",
+            "kicker": "Waluigi's Cut · Commentary Track",
+            "pullQuote": summary[:240] or f"The filing is {title}. Waluigi is filing it.",
+            "standfirst": f"Waluigi retells and annotates {title} without changing the source record.",
+            "sections": sections, "relatedArticles": [source]}
+
+
 def optimize_prompt(text: str, mode: str = "article", target_year: str | int | None = None) -> dict[str, str]:
     """Turn a request into a bounded task prompt without rewriting roleplay turns."""
     original = str(text or "").strip()
@@ -425,7 +449,7 @@ def self_audit() -> dict[str, object]:
     """Expose bounded, read-only agent capability and safety diagnostics."""
     return {"runtime": "Reputation-Matrix2/tools/local-agent/agent_runtime.py",
             "read_only_tools": ["repo_read", "repo_search", "catalog_retrieve", "find_image_references", "analyze_event_seeds", "build_plot", "optimize_prompt"],
-            "approval_tools": ["repo_patch", "repo_add_object", "queue_image"],
+            "approval_tools": ["repo_patch", "repo_add_object", "create_commentary", "queue_image"],
             "invariants": ["future event cutoff in creation mode", "canonical writes require approval", "roleplay is draft-only", "image inputs must resolve to attached or repository files"],
             "improvement_path": "Use repo_diff and exact repo_patch after explicit approval; run an audit before completion."}
 

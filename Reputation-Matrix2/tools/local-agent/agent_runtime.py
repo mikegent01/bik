@@ -61,6 +61,7 @@ TOOL_DESCRIPTIONS = {
     "catalog_retrieve": "Read focused canonical character, event, or location records by IDs or approximate names; target_year excludes future event records. Read-only. args: source, ids, terms, limit, target_year.",
     "analyze_event_seeds": "Find short, thin, unresolved, or roleplay-friendly event records and propose cleanup actions. Read-only. args: target_year, limit.",
     "build_plot": "Build a canon-bounded plot scaffold from available event IDs or terms. Read-only and draft-only. args: ids, terms, target_year, limit.",
+    "create_commentary": "Create a source-bound Waluigi commentary object for an existing event without embedding a huge object in the model action. Requires write approval and audit. args: source_id, target_year.",
     "optimize_prompt": "Structure a non-roleplay prompt without rewriting roleplay turns. args: text, mode, target_year.",
     "self_audit": "Inspect bounded agent capabilities and improvement safeguards. Read-only. args: none.",
     "repo_status": "Inspect the bounded local git status. No writes. args: none.",
@@ -185,23 +186,43 @@ def _conversation_images(conversation: list[dict[str, Any]], current: list[dict[
 def _ask(endpoint: str, model: str, system: str, user: str,
          timeout: int | None = LM_TIMEOUT,
          images: list[dict[str, Any]] | None = None) -> dict[str, Any]:
-    payload: dict[str, Any] = {
-        "messages": [{"role": "system", "content": system},
-                     {"role": "user", "content": _user_content(user, images)}],
-        "temperature": 0.15,
-        "max_tokens": 500,
-    }
-    if model:
-        payload["model"] = model
-    request = urllib.request.Request(endpoint, data=json.dumps(payload).encode(),
-                                     headers={"Content-Type": "application/json"}, method="POST")
-    with urllib.request.urlopen(request, timeout=timeout) as response:
-        body = json.loads(response.read())
-    content = body["choices"][0]["message"]["content"]
-    value = planner._json_from_reply(content)
-    if "action" not in value:
-        raise ValueError("agent reply did not include an action")
-    return value
+    """Request one action, retrying once when a reasoning model exhausts its output budget."""
+    base_messages = [{"role": "system", "content": system},
+                     {"role": "user", "content": _user_content(user, images)}]
+
+    def request_action(messages: list[dict[str, Any]], max_tokens: int) -> dict[str, Any]:
+        payload: dict[str, Any] = {"messages": messages, "temperature": 0.1, "max_tokens": max_tokens}
+        if model:
+            payload["model"] = model
+        request = urllib.request.Request(endpoint, data=json.dumps(payload).encode(),
+                                         headers={"Content-Type": "application/json"}, method="POST")
+        with urllib.request.urlopen(request, timeout=timeout) as response:
+            body = json.loads(response.read())
+        try:
+            message = body["choices"][0]["message"]
+            content = message.get("content") if isinstance(message, dict) else None
+        except (KeyError, IndexError, TypeError) as error:
+            raise ValueError("LM Studio response did not contain an assistant message") from error
+        if not isinstance(content, str) or not content.strip():
+            raise ValueError("LM Studio exhausted its reasoning budget without emitting an action")
+        value = planner._json_from_reply(content)
+        if "action" not in value:
+            raise ValueError("agent reply did not include an action")
+        return value
+
+    retry_system = system + "\nIMPORTANT: do not explain or reason. Emit exactly one compact JSON action now."
+    retry_messages = [{"role": "system", "content": retry_system}, base_messages[1]]
+    try:
+        return request_action(base_messages, 700)
+    except (ValueError, json.JSONDecodeError):
+        # Gemma can spend the first budget on hidden reasoning and return an
+        # empty content field. A single terse retry prevents a whole run from
+        # failing while keeping the retry bounded and the reasoning private.
+        return request_action(retry_messages, 700)
+    except urllib.error.HTTPError as error:
+        if error.code not in {400, 408, 429, 500, 502, 503, 504}:
+            raise
+        return request_action(retry_messages, 700)
 
 
 def _complete(endpoint: str, model: str, system: str, user: str,
@@ -234,8 +255,8 @@ def _friendly_model_error(error: Exception) -> str:
         return "LM Studio could not be reached. Start the local model server or check LM_STUDIO_URL, then retry."
     if isinstance(error, json.JSONDecodeError):
         return "LM Studio returned malformed JSON. Check the model's tool-use or OpenAI-compatible response format, then retry."
-    if "agent reply did not include an action" in str(error):
-        return "The local model returned a non-tool response during the work step. Retry with a shorter request or use a model with JSON tool-use support."
+    if "agent reply did not include an action" in str(error) or "without emitting an action" in str(error):
+        return "The local model spent its response budget reasoning or returned no action. Waluigi retried once in compact JSON mode; retry with a shorter request or a model with reliable JSON tool-use support."
     return str(error) or "The local model failed without an error message."
 
 
@@ -521,6 +542,12 @@ def execute(action: dict[str, Any], *, allow_writes: bool) -> tuple[str, bool]:
         return json.dumps(repo_tools.analyze_event_seeds(args.get("target_year"), min(int(args.get("limit", 20)), 50)), ensure_ascii=False, indent=2), False
     if name == "build_plot":
         return json.dumps(repo_tools.build_plot(args.get("ids") or [], args.get("terms") or [], args.get("target_year"), min(int(args.get("limit", 4)), 8)), ensure_ascii=False, indent=2), False
+    if name == "create_commentary":
+        if not allow_writes:
+            return "APPROVAL_REQUIRED: a source-bound commentary draft is ready; the GUI must approve the canonical commentary write.", True
+        commentary = repo_tools.make_commentary_object(str(args.get("source_id", "")), args.get("target_year"))
+        result = repo_tools.add_json_object("Reputation-Matrix2/data/commentaries.json", commentary, "commentaries")
+        return result, True
     if name == "optimize_prompt":
         return json.dumps(repo_tools.optimize_prompt(str(args.get("text", "")), str(args.get("mode", "article")), args.get("target_year")), ensure_ascii=False, indent=2), False
     if name == "self_audit":
@@ -703,7 +730,9 @@ def run_agent(request_text: str, *, run_id: str = "", endpoint: str = DEFAULT_EN
         "the player's wording: answer in short, snappy, personality-led turns and never "
         "choose the player's action. For self-improvement requests, run self_audit, inspect "
         "the relevant files, and propose exact approved patches rather than modifying the "
-        "runtime implicitly. For an image job, "
+        "runtime implicitly. For a request to add a commentary to an existing event, resolve "
+        "the event ID and use create_commentary instead of emitting a large commentary object "
+        "inside the action JSON. For an image job, "
         "use find_image_references for named entities before asking; selected creation art is "
         "already available, and an attached image is automatically used by an approved edit "
         "workflow when the request has one. Ask only when candidates are ambiguous or no "
@@ -767,7 +796,7 @@ def run_agent(request_text: str, *, run_id: str = "", endpoint: str = DEFAULT_EN
         emit({"kind": "thinking", "step": step, "task": pending["id"]})
         try:
             action = _ask(endpoint, model, system, _clip(context, 18000), images=_conversation_images(conversation, images))
-            if creation_context and action.get("action") in {"repo_search", "catalog_retrieve", "find_image_references", "analyze_event_seeds", "build_plot", "optimize_prompt", "queue_image"}:
+            if creation_context and action.get("action") in {"repo_search", "catalog_retrieve", "find_image_references", "analyze_event_seeds", "build_plot", "create_commentary", "optimize_prompt", "queue_image"}:
                 action_args = dict(action.get("args") or {})
                 action_args.setdefault("target_year", creation_context.get("year", ""))
                 action["args"] = action_args
@@ -812,8 +841,8 @@ def run_agent(request_text: str, *, run_id: str = "", endpoint: str = DEFAULT_EN
                 emit({"kind": "assistant", "text": answer, "source": "bounded local evidence"})
                 return {"status": "done", "run": run_id, "steps": step, "answer": answer, "warning": "Repeated identical action was stopped."}
             result, side_effect = execute(action, allow_writes=allow_writes)
-            if action.get("action") in {"repo_patch", "repo_add_object", "queue_image"} and not result.startswith("APPROVAL_REQUIRED"):
-                requires_audit = action.get("action") in {"repo_patch", "repo_add_object"}
+            if action.get("action") in {"repo_patch", "repo_add_object", "create_commentary", "queue_image"} and not result.startswith("APPROVAL_REQUIRED"):
+                requires_audit = action.get("action") in {"repo_patch", "repo_add_object", "create_commentary"}
             if action.get("action") == "run_audit":
                 last_audit = True
             record = {"at": time.time(), "step": step, "task": pending["id"], "action": action, "result": _clip(result)}

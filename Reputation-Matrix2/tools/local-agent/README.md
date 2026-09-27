@@ -73,6 +73,8 @@ Available actions:
 - `analyze_event_seeds` — identify short or unresolved event records, cleanup
   opportunities, and roleplay candidates without changing canon.
 - `build_plot` — create a draft-only, canon-bounded plot scaffold.
+- `create_commentary` — create a source-bound Waluigi commentary object from
+  an existing event without forcing the model to emit a huge JSON object.
 - `optimize_prompt` — structure article/analysis prompts while leaving roleplay
   wording untouched.
 - `self_audit` — inspect capabilities and the approved self-improvement path.

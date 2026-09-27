@@ -8,6 +8,7 @@
     "enforce_creation_target_year_cutoff": true,
     "roleplay_short_personality_turns": true,
     "waluipedia_article_voice": "Waluigi first-person archival POV unless explicitly overridden",
+    "commentary_writer": "source-bound Waluigi commentary drafts use the dedicated compact action",
     "require_validation_before_done": true,
     "never_commit_automatically": true
   },
