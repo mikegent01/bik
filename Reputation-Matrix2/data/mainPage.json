@@ -154,5 +154,31 @@
       "caption": "Empty blue overalls in the rubble — grinning with nobody inside.",
       "articleId": "the_lava_bridge_ambush_and_the_blue_luigi"
     }
+  ],
+  "historicalBackfills": [
+    {
+      "id": "bowser-castle-backfill-01",
+      "label": "Historical Backfill · Session I · 18 Harvestide, 1035 BF",
+      "title": "The Bowser Jr. That Wasn’t — The Throne Room Was Infiltrated",
+      "summary": "The fake Bowser Jr. session was used to enter Bowser’s throne room, move the garrison and routes, and place Fawthful’s operation inside the king’s command space before Cackletta’s first strike.",
+      "caption": "First in the recovered sequence · inferred placement, exact hour unrecorded.",
+      "image": "assets/images/events/bowser-castle-coup/bowser-throne-room-compromise.jpg",
+      "events": [
+        "bowser_throne_room_compromise"
+      ],
+      "order": 1
+    },
+    {
+      "id": "bowser-castle-backfill-02",
+      "label": "Historical Backfill · Session II · 18 Harvestide, 1035 BF · Throne Room Assault",
+      "title": "The Assault on Bowser’s Throne Room — The Dragon at the Window",
+      "summary": "The fake heir had already opened the throne room from inside when Fawthful’s dragon broke through its window and wall. Bowser ordered the garrison away from the dragon, preserved the survivors, and returned to confront the occupation.",
+      "caption": "Second in the recovered sequence · throne-room breach and evacuation, not a present-day siege.",
+      "image": "assets/images/events/bowser-castle-assault/bowser-castle-assault.jpg",
+      "events": [
+        "the_assault_on_bowsers_castle"
+      ],
+      "order": 2
+    }
   ]
 }

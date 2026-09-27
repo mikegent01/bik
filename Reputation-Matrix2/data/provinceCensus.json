@@ -8,13 +8,13 @@
   "_note": "The Province Census as filed: POIs merged into provinces, each province crowned from the three power-projection pillars (military, economic, political) with population logged, and the provinces rolled up into the realm. Only *_full sheets are counted, because every sub-region pin already sits inside its full map. Recompute with `node tools/build-province-census.mjs`; check it with `node tools/check-province-census.mjs`.",
   "world": {
     "maps": 22,
-    "provinces": 271,
-    "contestedProvinces": 51,
-    "unclaimedProvinces": 120,
-    "vacantClaims": 17,
+    "provinces": 261,
+    "contestedProvinces": 46,
+    "unclaimedProvinces": 114,
+    "vacantClaims": 16,
     "ledgersFiled": 58,
     "ledgersOverturned": 22,
-    "population": 5971801
+    "population": 5895832
   },
   "maps": {
     "almost_edge_full": {
@@ -55974,10 +55974,10 @@
     "islands_outer_realms_full": {
       "name": "Islands & Outer Realms",
       "group": "Islands & Outer Realms",
-      "pins": 95,
+      "pins": 97,
       "duplicatePins": 0,
-      "censusPower": 1905.84,
-      "population": 75969,
+      "censusPower": 1916.06,
+      "population": 75973,
       "rollup": {
         "provinceCount": 9,
         "filedProvinces": 9,
@@ -55986,8 +55986,8 @@
         "unreadableProvinces": 0,
         "vacantProvinces": 0,
         "unclaimedProvinces": 5,
-        "population": 75969,
-        "power": 1905.84,
+        "population": 75973,
+        "power": 1916.06,
         "byFaction": [
           {
             "factionId": "koopa_troop",
@@ -56070,13 +56070,25 @@
           "vacant": false,
           "shape": "network",
           "center": [
-            85.13,
-            12.13
+            82.38,
+            12.31
           ],
           "polygon": [
             [
-              63.5,
-              25.83
+              28.38,
+              21.4
+            ],
+            [
+              29.35,
+              17.35
+            ],
+            [
+              31.94,
+              10.3
+            ],
+            [
+              34.89,
+              6.89
             ],
             [
               66.04,
@@ -56098,8 +56110,8 @@
           "cells": [
             [
               [
-                83.89,
-                8.42
+                84.09,
+                8.56
               ],
               [
                 71.25,
@@ -56114,8 +56126,8 @@
                 5.07
               ],
               [
-                84.56,
-                8.13
+                84.49,
+                8.54
               ]
             ],
             [
@@ -56138,12 +56150,16 @@
             ],
             [
               [
-                88.51,
-                9.98
+                88.27,
+                10.46
               ],
               [
-                84.56,
-                8.13
+                87.14,
+                10.89
+              ],
+              [
+                84.49,
+                8.54
               ],
               [
                 85.07,
@@ -56160,8 +56176,8 @@
             ],
             [
               [
-                81.45,
-                11.45
+                80.52,
+                10.52
               ],
               [
                 70,
@@ -56172,13 +56188,13 @@
                 0
               ],
               [
-                83.89,
-                8.42
+                84.09,
+                8.56
               ]
             ],
             [
               [
-                81.14,
+                79.48,
                 12.5
               ],
               [
@@ -56194,8 +56210,8 @@
                 0
               ],
               [
-                81.45,
-                11.45
+                80.52,
+                10.52
               ]
             ],
             [
@@ -56230,12 +56246,8 @@
                 11.09
               ],
               [
-                88.86,
-                10.56
-              ],
-              [
-                88.51,
-                9.98
+                88.27,
+                10.46
               ],
               [
                 91,
@@ -56274,12 +56286,16 @@
                 16.66
               ],
               [
-                87.41,
-                15.12
+                86.56,
+                13.84
               ],
               [
-                88.86,
-                10.56
+                87.14,
+                10.89
+              ],
+              [
+                88.27,
+                10.46
               ],
               [
                 92.05,
@@ -56304,12 +56320,12 @@
                 16.5
               ],
               [
-                82.14,
-                15
+                81.68,
+                16.08
               ],
               [
-                87.41,
-                15.12
+                86.56,
+                13.84
               ],
               [
                 88.44,
@@ -56330,12 +56346,12 @@
                 12.5
               ],
               [
-                81.14,
+                79.48,
                 12.5
               ],
               [
-                82.14,
-                15
+                81.68,
+                16.08
               ],
               [
                 81.5,
@@ -56414,6 +56430,36 @@
             ],
             [
               [
+                43.1,
+                15.1
+              ],
+              [
+                42.83,
+                16.17
+              ],
+              [
+                41.06,
+                17.94
+              ],
+              [
+                28.38,
+                21.4
+              ],
+              [
+                29.35,
+                17.35
+              ],
+              [
+                31.94,
+                10.3
+              ],
+              [
+                34.89,
+                6.89
+              ]
+            ],
+            [
+              [
                 63.5,
                 42.14
               ],
@@ -56444,55 +56490,52 @@
             ],
             [
               [
-                82.14,
-                15
+                81.68,
+                16.08
               ],
               [
-                81.14,
+                79.48,
                 12.5
               ],
               [
-                81.45,
-                11.45
+                80.52,
+                10.52
               ],
               [
-                83.89,
-                8.42
+                84.09,
+                8.56
               ],
               [
-                84.56,
-                8.13
+                84.49,
+                8.54
               ],
               [
-                88.51,
-                9.98
+                87.14,
+                10.89
               ],
               [
-                88.86,
-                10.56
-              ],
-              [
-                87.41,
-                15.12
+                86.56,
+                13.84
               ]
             ]
           ],
-          "area": 1356.07,
+          "area": 1469.65,
           "controller": null,
           "claimant": "koopa_troop",
-          "share": 22.3,
-          "margin": 2.4,
+          "share": 21.8,
+          "margin": 1.7,
           "contested": true,
           "unreadable": false,
           "neutral": false,
-          "pins": 15,
-          "population": 4331,
-          "military": 72,
-          "economic": 68,
-          "political": 54,
-          "power": 312.27,
+          "pins": 16,
+          "population": 4335,
+          "military": 73,
+          "economic": 71,
+          "political": 55,
+          "power": 319.49,
           "seatPoiId": "poi_ydi_valley_of_bowser",
           "poiIds": [
+            "poi_bv_forgotten_cove",
             "poi_ydi_chocolate_island",
             "poi_ydi_dino_land_plains",
             "poi_ydi_dk_treehouse",
@@ -56614,6 +56657,10 @@
             ],
             [
               [
+                1.09,
+                2.78
+              ],
+              [
                 1.65,
                 2.98
               ],
@@ -56624,13 +56671,13 @@
               [
                 0,
                 4.09
-              ],
-              [
-                1.09,
-                2.78
               ]
             ],
             [
+              [
+                6.74,
+                2.77
+              ],
               [
                 5.7,
                 5.77
@@ -56646,10 +56693,6 @@
               [
                 2.29,
                 1.88
-              ],
-              [
-                6.74,
-                2.77
               ]
             ],
             [
@@ -56676,6 +56719,14 @@
             ],
             [
               [
+                1.98,
+                2.91
+              ],
+              [
+                5.7,
+                5.77
+              ],
+              [
                 5.01,
                 10.5
               ],
@@ -56690,17 +56741,13 @@
               [
                 1.65,
                 2.98
-              ],
-              [
-                1.98,
-                2.91
-              ],
-              [
-                5.7,
-                5.77
               ]
             ],
             [
+              [
+                0.83,
+                2.45
+              ],
               [
                 1.09,
                 2.78
@@ -56712,10 +56759,6 @@
               [
                 0,
                 2.54
-              ],
-              [
-                0.83,
-                2.45
               ]
             ],
             [
@@ -56746,6 +56789,14 @@
             ],
             [
               [
+                0.16,
+                1.36
+              ],
+              [
+                0.88,
+                2.08
+              ],
+              [
                 0.83,
                 2.45
               ],
@@ -56756,14 +56807,6 @@
               [
                 0,
                 1.33
-              ],
-              [
-                0.16,
-                1.36
-              ],
-              [
-                0.88,
-                2.08
               ]
             ],
             [
@@ -57296,14 +57339,6 @@
             ],
             [
               [
-                11.48,
-                27.08
-              ],
-              [
-                23.95,
-                30.89
-              ],
-              [
                 30.79,
                 39.88
               ],
@@ -57326,6 +57361,14 @@
               [
                 5.5,
                 26.61
+              ],
+              [
+                11.48,
+                27.08
+              ],
+              [
+                23.95,
+                30.89
               ]
             ],
             [
@@ -57537,7 +57580,7 @@
           "vacant": false,
           "shape": "network",
           "center": [
-            17.8,
+            18,
             5
           ],
           "polygon": [
@@ -57573,8 +57616,12 @@
           "cells": [
             [
               [
-                20.44,
-                5.75
+                19,
+                6
+              ],
+              [
+                20.1,
+                7.1
               ],
               [
                 19.9,
@@ -57586,7 +57633,11 @@
               ],
               [
                 14.8,
-                6.31
+                6.28
+              ],
+              [
+                15.17,
+                6
               ]
             ],
             [
@@ -57595,12 +57646,8 @@
                 5.18
               ],
               [
-                14.78,
-                6.27
-              ],
-              [
                 14.8,
-                6.31
+                6.28
               ],
               [
                 15.55,
@@ -57629,12 +57676,16 @@
             ],
             [
               [
-                17.12,
-                2.99
+                17.14,
+                3.05
               ],
               [
-                14.78,
-                6.27
+                15.17,
+                6
+              ],
+              [
+                14.8,
+                6.28
               ],
               [
                 12.97,
@@ -57659,12 +57710,12 @@
                 7.25
               ],
               [
-                21.14,
-                4.76
+                22.69,
+                5.38
               ],
               [
-                21.09,
-                4.57
+                21.43,
+                2.86
               ],
               [
                 22,
@@ -57677,32 +57728,28 @@
             ],
             [
               [
-                31.2,
-                15.98
-              ],
-              [
-                29.98,
-                17.98
-              ],
-              [
-                19.9,
-                7.9
-              ],
-              [
-                20.44,
-                5.75
-              ],
-              [
-                21.14,
-                4.76
+                22.69,
+                5.38
               ],
               [
                 27.38,
                 7.25
               ],
               [
-                32.47,
-                10.64
+                31.94,
+                10.3
+              ],
+              [
+                29.35,
+                17.35
+              ],
+              [
+                19.9,
+                7.9
+              ],
+              [
+                20.1,
+                7.1
               ]
             ],
             [
@@ -57737,8 +57784,12 @@
                 0.26
               ],
               [
-                32.47,
-                10.64
+                34.89,
+                6.89
+              ],
+              [
+                31.94,
+                10.3
               ],
               [
                 27.38,
@@ -57755,10 +57806,6 @@
             ],
             [
               [
-                29.98,
-                17.98
-              ],
-              [
                 23.95,
                 30.89
               ],
@@ -57773,16 +57820,28 @@
               [
                 19.9,
                 7.9
+              ],
+              [
+                29.35,
+                17.35
+              ],
+              [
+                28.38,
+                21.4
               ]
             ],
             [
               [
-                21.09,
-                4.57
+                21.43,
+                2.86
               ],
               [
-                17.12,
-                2.99
+                19,
+                3.67
+              ],
+              [
+                17.14,
+                3.05
               ],
               [
                 16.38,
@@ -57813,45 +57872,59 @@
             ],
             [
               [
-                21.09,
-                4.57
+                19,
+                3.67
               ],
               [
-                21.14,
-                4.76
+                21.43,
+                2.86
               ],
               [
-                20.44,
-                5.75
+                22.69,
+                5.38
               ],
               [
-                14.8,
-                6.31
+                20.1,
+                7.1
               ],
               [
-                14.78,
-                6.27
+                19,
+                6
+              ]
+            ],
+            [
+              [
+                19,
+                3.67
               ],
               [
-                17.12,
-                2.99
+                19,
+                6
+              ],
+              [
+                15.17,
+                6
+              ],
+              [
+                17.14,
+                3.05
               ]
             ]
           ],
-          "area": 791.09,
+          "area": 780.73,
           "controller": null,
           "claimant": "mushroom_regency",
-          "share": 36.6,
-          "margin": 23.4,
+          "share": 36,
+          "margin": 23.1,
           "contested": true,
           "unreadable": false,
           "neutral": false,
-          "pins": 10,
+          "pins": 11,
           "population": 17040,
           "military": 35,
-          "economic": 51,
+          "economic": 52,
           "political": 31,
-          "power": 193.86,
+          "power": 196.86,
           "seatPoiId": "poi_si_delfino_plaza",
           "poiIds": [
             "poi_si_corona_mountain",
@@ -57859,6 +57932,7 @@
             "poi_si_gelato_beach",
             "poi_si_koopa_submarine",
             "poi_si_noki_bay",
+            "poi_si_overgrown_cottage",
             "poi_si_pianta_village",
             "poi_si_pinna_park",
             "poi_si_regency_patrol",
@@ -58228,8 +58302,8 @@
               30.89
             ],
             [
-              32.47,
-              10.64
+              34.89,
+              6.89
             ],
             [
               39.25,
@@ -58301,15 +58375,19 @@
                 19.81
               ],
               [
-                38.63,
-                16.48
+                41.06,
+                17.94
               ],
               [
-                42.07,
-                15.79
+                42.83,
+                16.17
               ]
             ],
             [
+              [
+                64.21,
+                19.93
+              ],
               [
                 51.39,
                 12.23
@@ -58333,10 +58411,6 @@
               [
                 66.29,
                 14.2
-              ],
-              [
-                64.21,
-                19.93
               ]
             ],
             [
@@ -58401,20 +58475,12 @@
                 13.5
               ],
               [
-                42.07,
-                15.79
+                43.1,
+                15.1
               ],
               [
-                38.63,
-                16.48
-              ],
-              [
-                31.2,
-                15.98
-              ],
-              [
-                32.47,
-                10.64
+                34.89,
+                6.89
               ],
               [
                 39.19,
@@ -58453,8 +58519,12 @@
                 17.83
               ],
               [
-                42.07,
-                15.79
+                42.83,
+                16.17
+              ],
+              [
+                43.1,
+                15.1
               ],
               [
                 45.5,
@@ -58509,16 +58579,12 @@
                 30.89
               ],
               [
-                29.98,
-                17.98
+                28.38,
+                21.4
               ],
               [
-                31.2,
-                15.98
-              ],
-              [
-                38.63,
-                16.48
+                41.06,
+                17.94
               ],
               [
                 44.19,
@@ -58548,7 +58614,7 @@
               ]
             ]
           ],
-          "area": 1539.29,
+          "area": 1436.08,
           "controller": null,
           "claimant": "dk_crew",
           "share": 44.9,
@@ -81275,57 +81341,45 @@
     "mushroom_kingdom_full": {
       "name": "Mushroom Kingdom",
       "group": "Mushroom Kingdom Regions",
-      "pins": 271,
+      "pins": 174,
       "duplicatePins": 0,
-      "censusPower": 5123.04,
-      "population": 197126,
+      "censusPower": 3206.98,
+      "population": 121153,
       "rollup": {
-        "provinceCount": 25,
-        "filedProvinces": 25,
+        "provinceCount": 15,
+        "filedProvinces": 15,
         "mergedProvinces": 0,
-        "contestedProvinces": 13,
+        "contestedProvinces": 8,
         "unreadableProvinces": 0,
-        "vacantProvinces": 4,
-        "unclaimedProvinces": 17,
-        "population": 197126,
-        "power": 5123.04,
+        "vacantProvinces": 3,
+        "unclaimedProvinces": 11,
+        "population": 121153,
+        "power": 3206.98,
         "byFaction": [
           {
             "factionId": "koopa_troop",
-            "provinces": 3,
-            "shareOfProvinces": 12,
-            "shareOfArea": 18.9,
-            "shareOfPopulation": 13.3,
-            "population": 26152,
-            "power": 823.59,
-            "pins": 40,
+            "provinces": 1,
+            "shareOfProvinces": 6.7,
+            "shareOfArea": 17.4,
+            "shareOfPopulation": 6.9,
+            "population": 8362,
+            "power": 376.06,
+            "pins": 20,
             "seats": [
               {
                 "provinceId": "sheet:bandits_way",
                 "province": "Bandits Way",
                 "poiId": "poi_bw_bowsers_castle",
                 "name": "Bowser's Castle"
-              },
-              {
-                "provinceId": "sheet:neo_bowser_city",
-                "province": "Neo Bowser City",
-                "poiId": "poi_nbc_bowser_tower",
-                "name": "Bowser Corp Tower"
-              },
-              {
-                "provinceId": "sheet:seven_kingdoms",
-                "province": "The Seven Kingdoms",
-                "poiId": "poi_sk_dark_land",
-                "name": "Dark Land Command"
               }
             ]
           },
           {
             "factionId": "wario_land",
             "provinces": 1,
-            "shareOfProvinces": 4,
+            "shareOfProvinces": 6.7,
             "shareOfArea": 3.1,
-            "shareOfPopulation": 7.1,
+            "shareOfPopulation": 11.5,
             "population": 13960,
             "power": 374.34,
             "pins": 15,
@@ -81341,9 +81395,9 @@
           {
             "factionId": "mushroom_regency",
             "provinces": 1,
-            "shareOfProvinces": 4,
-            "shareOfArea": 2.6,
-            "shareOfPopulation": 12.8,
+            "shareOfProvinces": 6.7,
+            "shareOfArea": 5.7,
+            "shareOfPopulation": 20.8,
             "population": 25170,
             "power": 317.82,
             "pins": 13,
@@ -81359,9 +81413,9 @@
           {
             "factionId": "beanbean_kingdom",
             "provinces": 1,
-            "shareOfProvinces": 4,
-            "shareOfArea": 0.9,
-            "shareOfPopulation": 7,
+            "shareOfProvinces": 6.7,
+            "shareOfArea": 1.7,
+            "shareOfPopulation": 11.4,
             "population": 13817,
             "power": 259.06,
             "pins": 11,
@@ -81373,47 +81427,11 @@
                 "name": "Beanbean Castle"
               }
             ]
-          },
-          {
-            "factionId": "flower_kingdom",
-            "provinces": 1,
-            "shareOfProvinces": 4,
-            "shareOfArea": 5.5,
-            "shareOfPopulation": 2.2,
-            "population": 4270,
-            "power": 190.97,
-            "pins": 10,
-            "seats": [
-              {
-                "provinceId": "sheet:flower_kingdom",
-                "province": "Flower Kingdom",
-                "poiId": "poi_fk_castle",
-                "name": "Flower Castle"
-              }
-            ]
-          },
-          {
-            "factionId": "iron_legion",
-            "provinces": 1,
-            "shareOfProvinces": 4,
-            "shareOfArea": 1.5,
-            "shareOfPopulation": 3.4,
-            "population": 6770,
-            "power": 175.59,
-            "pins": 10,
-            "seats": [
-              {
-                "provinceId": "sheet:ice_ice_outpost",
-                "province": "Ice Ice Outpost",
-                "poiId": "poi_iio_command_center",
-                "name": "Command Center 'Winter's Bite'"
-              }
-            ]
           }
         ],
         "sovereign": "koopa_troop",
-        "sovereignProvinces": 3,
-        "sovereignShare": 12,
+        "sovereignProvinces": 1,
+        "sovereignShare": 6.7,
         "fragmented": true,
         "capitalProvince": {
           "id": "filed:central_plains",
@@ -81431,17 +81449,25 @@
           "vacant": false,
           "shape": "network",
           "center": [
-            51.95,
-            30.74
+            53.29,
+            32.03
           ],
           "polygon": [
             [
-              18.9,
-              3.7
+              39.47,
+              25.47
             ],
             [
-              21.43,
-              2.86
+              39.5,
+              20.57
+            ],
+            [
+              43.7,
+              19.37
+            ],
+            [
+              55.32,
+              16.41
             ],
             [
               56.29,
@@ -81476,14 +81502,18 @@
               45.53
             ],
             [
-              18.9,
-              5.9
+              43.12,
+              40.15
             ]
           ],
           "cells": [
             [
               [
-                51.43,
+                53.08,
+                28.68
+              ],
+              [
+                51.42,
                 32.63
               ],
               [
@@ -81495,8 +81525,12 @@
                 29.74
               ],
               [
-                50.95,
-                27.84
+                51.2,
+                27.68
+              ],
+              [
+                52.9,
+                28.06
               ]
             ],
             [
@@ -81510,11 +81544,15 @@
               ],
               [
                 53.29,
-                27.63
+                27.7
               ],
               [
-                51.17,
-                27.61
+                52.9,
+                28.06
+              ],
+              [
+                51.2,
+                27.68
               ],
               [
                 49.38,
@@ -81535,12 +81573,8 @@
                 26.29
               ],
               [
-                53.38,
-                27.68
-              ],
-              [
                 53.29,
-                27.63
+                27.7
               ],
               [
                 53.68,
@@ -81595,12 +81629,8 @@
                 24.75
               ],
               [
-                51.17,
-                27.61
-              ],
-              [
-                50.95,
-                27.84
+                51.2,
+                27.68
               ],
               [
                 48.05,
@@ -81673,12 +81703,12 @@
                 34.92
               ],
               [
-                53.99,
-                33.85
+                55.14,
+                34.21
               ],
               [
-                54.73,
-                31.59
+                55.5,
+                31.34
               ],
               [
                 60.15,
@@ -81695,12 +81725,20 @@
                 29.84
               ],
               [
-                54.73,
-                31.59
+                55.5,
+                31.34
               ],
               [
-                53.38,
-                27.68
+                53.08,
+                28.68
+              ],
+              [
+                52.9,
+                28.06
+              ],
+              [
+                53.29,
+                27.7
               ],
               [
                 58.13,
@@ -81781,12 +81819,12 @@
                 36.45
               ],
               [
-                53.1,
-                34.45
+                52.26,
+                35.88
               ],
               [
-                53.99,
-                33.85
+                55.14,
+                34.21
               ],
               [
                 57.39,
@@ -81843,16 +81881,8 @@
             ],
             [
               [
-                47.31,
+                49.75,
                 21
-              ],
-              [
-                49.44,
-                21
-              ],
-              [
-                49.8,
-                21.21
               ],
               [
                 50.25,
@@ -81871,8 +81901,8 @@
                 24.21
               ],
               [
-                45.19,
-                22.69
+                44.89,
+                21
               ]
             ],
             [
@@ -81982,15 +82012,15 @@
             [
               [
                 39.5,
-                22
+                20.57
               ],
               [
-                44.5,
-                22
+                43.7,
+                19.37
               ],
               [
-                45.19,
-                22.69
+                44.89,
+                21
               ],
               [
                 45.47,
@@ -82043,7 +82073,7 @@
             ],
             [
               [
-                50.38,
+                49.88,
                 20.75
               ],
               [
@@ -82063,8 +82093,8 @@
                 23
               ],
               [
-                49.8,
-                21.21
+                49.75,
+                21
               ]
             ],
             [
@@ -82199,12 +82229,8 @@
             ],
             [
               [
-                55.19,
-                18
-              ],
-              [
-                56.15,
-                16.71
+                55.32,
+                16.41
               ],
               [
                 56.29,
@@ -82247,8 +82273,8 @@
             ],
             [
               [
-                53.1,
-                34.45
+                52.26,
+                35.88
               ],
               [
                 51.92,
@@ -82267,7 +82293,7 @@
                 31.17
               ],
               [
-                51.43,
+                51.42,
                 32.63
               ]
             ],
@@ -82303,100 +82329,43 @@
             ],
             [
               [
-                18.9,
-                3.7
+                55.5,
+                31.34
               ],
               [
-                21.43,
-                2.86
+                55.14,
+                34.21
               ],
               [
-                22.69,
-                5.38
+                52.26,
+                35.88
               ],
               [
-                20.1,
-                7.1
-              ],
-              [
-                18.9,
-                5.9
-              ]
-            ],
-            [
-              [
-                38,
-                14.83
-              ],
-              [
-                40.07,
-                12.07
-              ],
-              [
-                43.1,
-                15.1
-              ],
-              [
-                42.83,
-                16.17
-              ],
-              [
-                42.63,
-                16.38
-              ]
-            ],
-            [
-              [
-                54.73,
-                31.59
-              ],
-              [
-                53.99,
-                33.85
-              ],
-              [
-                53.1,
-                34.45
-              ],
-              [
-                51.43,
+                51.42,
                 32.63
               ],
               [
-                50.95,
-                27.84
-              ],
-              [
-                51.17,
-                27.61
-              ],
-              [
-                53.29,
-                27.63
-              ],
-              [
-                53.38,
-                27.68
+                53.08,
+                28.68
               ]
             ]
           ],
-          "area": 635.61,
+          "area": 628.29,
           "controller": null,
           "claimant": "mushroom_regency",
-          "share": 20.7,
-          "margin": 5,
+          "share": 21.1,
+          "margin": 5.1,
           "contested": true,
           "unreadable": false,
           "neutral": false,
-          "pins": 34,
-          "population": 13010,
-          "military": 121,
-          "economic": 105,
-          "political": 88,
-          "power": 513.6,
+          "pins": 32,
+          "population": 13006,
+          "military": 120,
+          "economic": 101,
+          "political": 87,
+          "power": 503.38,
           "seatPoiId": "poi_mk_castle",
           "poiIds": [
-            "poi_bv_forgotten_cove",
             "poi_mk_bramblehaven",
             "poi_mk_capitol_ruins",
             "poi_mk_castle",
@@ -82428,56 +82397,49 @@
             "poi_mp_weeping_grove",
             "poi_mp_whispering_falls",
             "poi_mp_windmill_station",
-            "poi_mp_yoshi_respite",
-            "poi_si_overgrown_cottage"
+            "poi_mp_yoshi_respite"
           ],
           "ledger": {
             "agrees": false,
             "filedController": "fawfuls_furious_freaks",
             "filedShare": 40,
-            "drift": 38.3,
+            "drift": 38.5,
             "rows": [
               {
                 "factionId": "unaligned",
                 "filed": 0,
-                "census": 38.3,
-                "delta": 38.3
+                "census": 38.5,
+                "delta": 38.5
               },
               {
                 "factionId": "mushroom_regency",
                 "filed": 15,
-                "census": 20.7,
-                "delta": 5.7
+                "census": 21.1,
+                "delta": 6.1
               },
               {
                 "factionId": "peach_loyalists",
                 "filed": 35,
-                "census": 15.7,
-                "delta": -19.3
+                "census": 16,
+                "delta": -19
               },
               {
                 "factionId": "fawfuls_furious_freaks",
                 "filed": 40,
-                "census": 12.7,
-                "delta": -27.3
+                "census": 12.9,
+                "delta": -27.1
               },
               {
                 "factionId": "freelancer_underworld",
                 "filed": 0,
-                "census": 7.1,
-                "delta": 7.1
+                "census": 7.2,
+                "delta": 7.2
               },
               {
                 "factionId": "koopa_troop",
                 "filed": 10,
-                "census": 4.1,
-                "delta": -5.9
-              },
-              {
-                "factionId": "dk_crew",
-                "filed": 0,
-                "census": 1.4,
-                "delta": 1.4
+                "census": 4.2,
+                "delta": -5.8
               }
             ]
           }
@@ -82496,12 +82458,8 @@
           ],
           "polygon": [
             [
-              28.99,
-              58.21
-            ],
-            [
-              29.07,
-              57.56
+              3.2,
+              100
             ],
             [
               30.86,
@@ -82524,28 +82482,8 @@
               55.56
             ],
             [
-              55.23,
-              84.05
-            ],
-            [
-              52,
-              90.5
-            ],
-            [
-              46.73,
-              98.41
-            ],
-            [
-              45.44,
+              57,
               100
-            ],
-            [
-              43.68,
-              100
-            ],
-            [
-              31.33,
-              65.33
             ]
           ],
           "cells": [
@@ -82677,16 +82615,16 @@
                 65.86
               ],
               [
-                33.5,
-                67.5
+                15.5,
+                79.5
               ],
               [
-                31.33,
-                65.33
+                16.89,
+                76.72
               ],
               [
-                31.49,
-                64.55
+                22.8,
+                68.03
               ],
               [
                 35.04,
@@ -82777,12 +82715,12 @@
                 62.03
               ],
               [
-                29.68,
-                59.72
+                28.71,
+                59.33
               ],
               [
-                29.47,
-                58.86
+                28.9,
+                58.94
               ],
               [
                 34.77,
@@ -82945,12 +82883,8 @@
                 58.1
               ],
               [
-                29.47,
-                58.86
-              ],
-              [
-                28.99,
-                58.21
+                28.9,
+                58.94
               ],
               [
                 29.07,
@@ -83079,10 +83013,6 @@
             ],
             [
               [
-                41.53,
-                81.16
-              ],
-              [
                 41.6,
                 80.26
               ],
@@ -83103,34 +83033,18 @@
                 68.81
               ],
               [
-                55.23,
-                84.05
-              ],
-              [
-                52,
-                90.5
-              ],
-              [
-                46.73,
-                98.41
-              ],
-              [
-                45.44,
+                57,
                 100
               ],
               [
-                43.68,
+                40.08,
                 100
               ]
             ],
             [
               [
-                33.5,
-                69.13
-              ],
-              [
-                33.5,
-                67.5
+                15.5,
+                79.5
               ],
               [
                 35.96,
@@ -83149,8 +83063,12 @@
                 80.26
               ],
               [
-                41.53,
-                81.16
+                40.08,
+                100
+              ],
+              [
+                3.2,
+                100
               ]
             ],
             [
@@ -83177,12 +83095,12 @@
             ],
             [
               [
-                29.68,
-                59.73
+                25.31,
+                63.22
               ],
               [
-                29.68,
-                59.72
+                28.71,
+                59.33
               ],
               [
                 35.46,
@@ -83193,8 +83111,8 @@
                 63.13
               ],
               [
-                31.49,
-                64.55
+                22.8,
+                68.03
               ]
             ],
             [
@@ -83246,7 +83164,7 @@
               ]
             ]
           ],
-          "area": 691.82,
+          "area": 1710.52,
           "controller": null,
           "claimant": "freelancer_underworld",
           "share": 22.2,
@@ -83373,16 +83291,16 @@
               55.25
             ],
             [
-              77.71,
-              62.69
+              100,
+              82.5
             ],
             [
-              78.08,
-              64.76
+              100,
+              100
             ],
             [
-              55.23,
-              84.05
+              57,
+              100
             ],
             [
               44.83,
@@ -83540,10 +83458,6 @@
             ],
             [
               [
-                64.11,
-                71.32
-              ],
-              [
                 62.96,
                 67.86
               ],
@@ -83556,19 +83470,19 @@
                 61.99
               ],
               [
-                72.73,
-                68.73
+                100,
+                96
+              ],
+              [
+                100,
+                100
+              ],
+              [
+                73.67,
+                100
               ]
             ],
             [
-              [
-                59.18,
-                79.76
-              ],
-              [
-                55.23,
-                84.05
-              ],
               [
                 53.53,
                 68.81
@@ -83586,8 +83500,12 @@
                 67.86
               ],
               [
-                64.11,
-                71.32
+                73.67,
+                100
+              ],
+              [
+                57,
+                100
               ]
             ],
             [
@@ -83740,22 +83658,6 @@
             ],
             [
               [
-                77.71,
-                62.69
-              ],
-              [
-                78.08,
-                64.76
-              ],
-              [
-                73.27,
-                68.69
-              ],
-              [
-                72.73,
-                68.73
-              ],
-              [
                 65.99,
                 61.99
               ],
@@ -83770,6 +83672,14 @@
               [
                 75.25,
                 60.5
+              ],
+              [
+                100,
+                82.5
+              ],
+              [
+                100,
+                96
               ]
             ],
             [
@@ -83917,7 +83827,7 @@
               ]
             ]
           ],
-          "area": 546.69,
+          "area": 1757.52,
           "controller": "koopa_troop",
           "claimant": "koopa_troop",
           "share": 77.8,
@@ -84539,19 +84449,23 @@
           ],
           "polygon": [
             [
+              51.2,
+              13.07
+            ],
+            [
               53.78,
               0
             ],
             [
-              73.42,
+              100,
               0
             ],
             [
-              75.5,
-              12.5
+              100,
+              5.31
             ],
             [
-              74.75,
+              83.86,
               14
             ],
             [
@@ -84563,12 +84477,8 @@
               19.38
             ],
             [
-              55.94,
-              15
-            ],
-            [
-              55.89,
-              14.93
+              54.83,
+              15.63
             ]
           ],
           "cells": [
@@ -84662,16 +84572,16 @@
             ],
             [
               [
-                55.94,
-                15
+                54.83,
+                15.63
               ],
               [
-                55.89,
-                14.93
+                51.2,
+                13.07
               ],
               [
-                56.71,
-                9.98
+                56.5,
+                10.04
               ],
               [
                 59.43,
@@ -84734,12 +84644,8 @@
                 9.2
               ],
               [
-                56.71,
-                9.98
-              ],
-              [
                 56.5,
-                9.83
+                10.04
               ]
             ],
             [
@@ -84778,18 +84684,6 @@
             ],
             [
               [
-                73.51,
-                1.51
-              ],
-              [
-                73.27,
-                3.27
-              ],
-              [
-                72.85,
-                4.56
-              ],
-              [
                 71.49,
                 6.04
               ],
@@ -84810,17 +84704,13 @@
                 0
               ],
               [
-                73.42,
+                77.06,
                 0
               ]
             ],
             [
               [
-                75.5,
-                12.5
-              ],
-              [
-                74.75,
+                83.86,
                 14
               ],
               [
@@ -84840,8 +84730,16 @@
                 6.04
               ],
               [
-                72.85,
-                4.56
+                77.06,
+                0
+              ],
+              [
+                100,
+                0
+              ],
+              [
+                100,
+                5.31
               ]
             ],
             [
@@ -84933,7 +84831,7 @@
               ]
             ]
           ],
-          "area": 264.83,
+          "area": 573.94,
           "controller": "mushroom_regency",
           "claimant": "mushroom_regency",
           "share": 44.9,
@@ -84966,472 +84864,6 @@
           "ledger": null
         },
         {
-          "id": "sheet:yoshi_dk_islands",
-          "name": "Yoshi & DKs Islands",
-          "origin": "filed",
-          "kind": "sheet",
-          "sourceMapId": "yoshi_dk_islands",
-          "vacant": false,
-          "shape": "network",
-          "center": [
-            85.13,
-            12.13
-          ],
-          "polygon": [
-            [
-              72.85,
-              4.56
-            ],
-            [
-              73.42,
-              0
-            ],
-            [
-              100,
-              0
-            ],
-            [
-              100,
-              35.6
-            ],
-            [
-              95.78,
-              33.91
-            ],
-            [
-              76.25,
-              21.13
-            ],
-            [
-              74.18,
-              18.03
-            ]
-          ],
-          "cells": [
-            [
-              [
-                84.56,
-                8.13
-              ],
-              [
-                83.89,
-                8.42
-              ],
-              [
-                73.51,
-                1.51
-              ],
-              [
-                73.42,
-                0
-              ],
-              [
-                80,
-                0
-              ],
-              [
-                85.07,
-                5.07
-              ]
-            ],
-            [
-              [
-                89.83,
-                1.5
-              ],
-              [
-                85.07,
-                5.07
-              ],
-              [
-                80,
-                0
-              ],
-              [
-                90.17,
-                0
-              ]
-            ],
-            [
-              [
-                88.51,
-                9.98
-              ],
-              [
-                84.56,
-                8.13
-              ],
-              [
-                85.07,
-                5.07
-              ],
-              [
-                89.83,
-                1.5
-              ],
-              [
-                91,
-                5
-              ]
-            ],
-            [
-              [
-                81.45,
-                11.45
-              ],
-              [
-                73.27,
-                3.27
-              ],
-              [
-                73.51,
-                1.51
-              ],
-              [
-                83.89,
-                8.42
-              ]
-            ],
-            [
-              [
-                81.45,
-                11.45
-              ],
-              [
-                81.14,
-                12.5
-              ],
-              [
-                75.5,
-                12.5
-              ],
-              [
-                72.85,
-                4.56
-              ],
-              [
-                73.27,
-                3.27
-              ]
-            ],
-            [
-              [
-                96.5,
-                7.75
-              ],
-              [
-                91,
-                5
-              ],
-              [
-                89.83,
-                1.5
-              ],
-              [
-                90.17,
-                0
-              ],
-              [
-                100,
-                0
-              ],
-              [
-                100,
-                7.31
-              ]
-            ],
-            [
-              [
-                92.05,
-                11.09
-              ],
-              [
-                88.86,
-                10.56
-              ],
-              [
-                88.51,
-                9.98
-              ],
-              [
-                91,
-                5
-              ],
-              [
-                96.5,
-                7.75
-              ]
-            ],
-            [
-              [
-                95.41,
-                17.82
-              ],
-              [
-                92.05,
-                11.09
-              ],
-              [
-                96.5,
-                7.75
-              ],
-              [
-                100,
-                7.31
-              ],
-              [
-                100,
-                20.69
-              ]
-            ],
-            [
-              [
-                88.44,
-                16.66
-              ],
-              [
-                87.41,
-                15.12
-              ],
-              [
-                88.86,
-                10.56
-              ],
-              [
-                92.05,
-                11.09
-              ],
-              [
-                95.41,
-                17.82
-              ]
-            ],
-            [
-              [
-                86.21,
-                22.21
-              ],
-              [
-                82.17,
-                18.17
-              ],
-              [
-                81.5,
-                16.5
-              ],
-              [
-                82.14,
-                15
-              ],
-              [
-                87.41,
-                15.12
-              ],
-              [
-                88.44,
-                16.66
-              ]
-            ],
-            [
-              [
-                82.14,
-                15
-              ],
-              [
-                81.5,
-                16.5
-              ],
-              [
-                79.19,
-                17.42
-              ],
-              [
-                75.15,
-                16.41
-              ],
-              [
-                74.75,
-                14
-              ],
-              [
-                75.5,
-                12.5
-              ],
-              [
-                81.14,
-                12.5
-              ]
-            ],
-            [
-              [
-                86.75,
-                26.53
-              ],
-              [
-                84.96,
-                26.35
-              ],
-              [
-                79.96,
-                22.59
-              ],
-              [
-                82.17,
-                18.17
-              ],
-              [
-                86.21,
-                22.21
-              ]
-            ],
-            [
-              [
-                95.78,
-                33.91
-              ],
-              [
-                86.75,
-                26.53
-              ],
-              [
-                86.21,
-                22.21
-              ],
-              [
-                88.44,
-                16.66
-              ],
-              [
-                95.41,
-                17.82
-              ],
-              [
-                100,
-                20.69
-              ],
-              [
-                100,
-                35.6
-              ]
-            ],
-            [
-              [
-                77.91,
-                22.18
-              ],
-              [
-                77.71,
-                21.86
-              ],
-              [
-                79.19,
-                17.42
-              ],
-              [
-                81.5,
-                16.5
-              ],
-              [
-                82.17,
-                18.17
-              ],
-              [
-                79.96,
-                22.59
-              ]
-            ],
-            [
-              [
-                76.25,
-                21.13
-              ],
-              [
-                74.18,
-                18.03
-              ],
-              [
-                75.15,
-                16.41
-              ],
-              [
-                79.19,
-                17.42
-              ],
-              [
-                77.71,
-                21.86
-              ]
-            ],
-            [
-              [
-                87.41,
-                15.12
-              ],
-              [
-                82.14,
-                15
-              ],
-              [
-                81.14,
-                12.5
-              ],
-              [
-                81.45,
-                11.45
-              ],
-              [
-                83.89,
-                8.42
-              ],
-              [
-                84.56,
-                8.13
-              ],
-              [
-                88.51,
-                9.98
-              ],
-              [
-                88.86,
-                10.56
-              ]
-            ]
-          ],
-          "area": 711.27,
-          "controller": null,
-          "claimant": "koopa_troop",
-          "share": 22.3,
-          "margin": 2.4,
-          "contested": true,
-          "unreadable": false,
-          "neutral": false,
-          "pins": 15,
-          "population": 4331,
-          "military": 72,
-          "economic": 68,
-          "political": 54,
-          "power": 312.27,
-          "seatPoiId": "poi_ydi_valley_of_bowser",
-          "poiIds": [
-            "poi_ydi_chocolate_island",
-            "poi_ydi_dino_land_plains",
-            "poi_ydi_dk_treehouse",
-            "poi_ydi_forest_of_illusion",
-            "poi_ydi_funky_stadium",
-            "poi_ydi_gangplank_galleon",
-            "poi_ydi_happiness_tree",
-            "poi_ydi_kamek_outpost",
-            "poi_ydi_kremkroc",
-            "poi_ydi_poochy_plains",
-            "poi_ydi_star_road",
-            "poi_ydi_tap_tap_mountain",
-            "poi_ydi_valley_of_bowser",
-            "poi_ydi_vanilla_dome",
-            "poi_ydi_yoshivillage"
-          ],
-          "ledger": null
-        },
-        {
           "id": "filed:beanbean_kingdom",
           "name": "Beanbean Kingdom",
           "origin": "filed",
@@ -85445,8 +84877,8 @@
           ],
           "polygon": [
             [
-              18.28,
-              61.45
+              16.89,
+              76.72
             ],
             [
               18.5,
@@ -85473,12 +84905,16 @@
               57.56
             ],
             [
-              28.99,
-              58.21
+              28.9,
+              58.94
             ],
             [
-              21.83,
-              60.83
+              28.71,
+              59.33
+            ],
+            [
+              22.8,
+              68.03
             ]
           ],
           "cells": [
@@ -85598,10 +85034,6 @@
             ],
             [
               [
-                24.1,
-                58.97
-              ],
-              [
                 23.55,
                 57.05
               ],
@@ -85618,19 +85050,19 @@
                 57.56
               ],
               [
-                28.99,
-                58.21
+                28.9,
+                58.94
+              ],
+              [
+                28.71,
+                59.33
+              ],
+              [
+                25.31,
+                63.22
               ]
             ],
             [
-              [
-                21.83,
-                60.83
-              ],
-              [
-                18.28,
-                61.45
-              ],
               [
                 18.8,
                 55.75
@@ -85648,8 +85080,16 @@
                 57.05
               ],
               [
-                24.1,
-                58.97
+                25.31,
+                63.22
+              ],
+              [
+                22.8,
+                68.03
+              ],
+              [
+                16.89,
+                76.72
               ]
             ],
             [
@@ -85791,7 +85231,7 @@
               ]
             ]
           ],
-          "area": 92.95,
+          "area": 174.75,
           "controller": "beanbean_kingdom",
           "claimant": "beanbean_kingdom",
           "share": 48.2,
@@ -85853,321 +85293,6 @@
           }
         },
         {
-          "id": "sheet:neo_bowser_city",
-          "name": "Neo Bowser City",
-          "origin": "filed",
-          "kind": "sheet",
-          "sourceMapId": "neo_bowser_city",
-          "vacant": false,
-          "shape": "network",
-          "center": [
-            1.46,
-            2.16
-          ],
-          "polygon": [
-            [
-              0,
-              0
-            ],
-            [
-              7.6,
-              0
-            ],
-            [
-              7.53,
-              1.19
-            ],
-            [
-              5.14,
-              9.56
-            ],
-            [
-              0,
-              12.87
-            ]
-          ],
-          "cells": [
-            [
-              [
-                2.29,
-                1.88
-              ],
-              [
-                2.15,
-                2.25
-              ],
-              [
-                1,
-                1.96
-              ],
-              [
-                1.61,
-                1.11
-              ],
-              [
-                2.25,
-                1.75
-              ]
-            ],
-            [
-              [
-                2.25,
-                1.75
-              ],
-              [
-                1.61,
-                1.11
-              ],
-              [
-                1.51,
-                0.78
-              ],
-              [
-                1.59,
-                0
-              ],
-              [
-                4,
-                0
-              ]
-            ],
-            [
-              [
-                0.88,
-                2.08
-              ],
-              [
-                0.16,
-                1.36
-              ],
-              [
-                1.51,
-                0.78
-              ],
-              [
-                1.61,
-                1.11
-              ],
-              [
-                1,
-                1.96
-              ]
-            ],
-            [
-              [
-                1.09,
-                2.78
-              ],
-              [
-                1.65,
-                2.98
-              ],
-              [
-                0,
-                7.38
-              ],
-              [
-                0,
-                4.09
-              ]
-            ],
-            [
-              [
-                6.74,
-                2.77
-              ],
-              [
-                5.7,
-                5.77
-              ],
-              [
-                1.98,
-                2.91
-              ],
-              [
-                2.15,
-                2.25
-              ],
-              [
-                2.29,
-                1.88
-              ]
-            ],
-            [
-              [
-                1.51,
-                0.78
-              ],
-              [
-                0.16,
-                1.36
-              ],
-              [
-                0,
-                1.33
-              ],
-              [
-                0,
-                0
-              ],
-              [
-                1.59,
-                0
-              ]
-            ],
-            [
-              [
-                1.65,
-                2.98
-              ],
-              [
-                1.98,
-                2.91
-              ],
-              [
-                5.7,
-                5.77
-              ],
-              [
-                5.14,
-                9.56
-              ],
-              [
-                0,
-                12.87
-              ],
-              [
-                0,
-                7.38
-              ]
-            ],
-            [
-              [
-                0.83,
-                2.45
-              ],
-              [
-                1.09,
-                2.78
-              ],
-              [
-                0,
-                4.09
-              ],
-              [
-                0,
-                2.54
-              ]
-            ],
-            [
-              [
-                7.53,
-                1.19
-              ],
-              [
-                6.74,
-                2.77
-              ],
-              [
-                2.29,
-                1.88
-              ],
-              [
-                2.25,
-                1.75
-              ],
-              [
-                4,
-                0
-              ],
-              [
-                7.6,
-                0
-              ]
-            ],
-            [
-              [
-                0.16,
-                1.36
-              ],
-              [
-                0.88,
-                2.08
-              ],
-              [
-                0.83,
-                2.45
-              ],
-              [
-                0,
-                2.54
-              ],
-              [
-                0,
-                1.33
-              ]
-            ],
-            [
-              [
-                1.98,
-                2.91
-              ],
-              [
-                1.65,
-                2.98
-              ],
-              [
-                1.09,
-                2.78
-              ],
-              [
-                0.83,
-                2.45
-              ],
-              [
-                0.88,
-                2.08
-              ],
-              [
-                1,
-                1.96
-              ],
-              [
-                2.15,
-                2.25
-              ]
-            ]
-          ],
-          "area": 68.01,
-          "controller": "koopa_troop",
-          "claimant": "koopa_troop",
-          "share": 75.6,
-          "margin": 65.8,
-          "contested": false,
-          "unreadable": false,
-          "neutral": false,
-          "pins": 10,
-          "population": 12340,
-          "military": 56,
-          "economic": 57,
-          "political": 38,
-          "power": 239.84,
-          "seatPoiId": "poi_nbc_bowser_tower",
-          "poiIds": [
-            "poi_nbc_bowser_tower",
-            "poi_nbc_bullet_bill_station",
-            "poi_nbc_data_hub",
-            "poi_nbc_digital_void",
-            "poi_nbc_kamek_lab",
-            "poi_nbc_mechakoopa_plant",
-            "poi_nbc_power_plant",
-            "poi_nbc_racetrack",
-            "poi_nbc_resistance_hideout",
-            "poi_nbc_underbelly_market"
-          ],
-          "ledger": null
-        },
-        {
           "id": "filed:pianta_sea",
           "name": "The Pianta Sea",
           "origin": "filed",
@@ -86182,55 +85307,27 @@
           "polygon": [
             [
               0,
-              12.87
-            ],
-            [
-              5.14,
-              9.56
-            ],
-            [
-              32.81,
               0
             ],
             [
-              42.47,
+              45.34,
               0
             ],
             [
-              42.19,
-              4.47
-            ],
-            [
-              40.07,
-              12.07
-            ],
-            [
-              38,
-              14.83
+              46.18,
+              8.47
             ],
             [
               19,
               39.75
             ],
             [
-              5.5,
-              40.5
-            ],
-            [
               0,
-              39.13
+              46.14
             ]
           ],
           "cells": [
             [
-              [
-                22.1,
-                10.1
-              ],
-              [
-                26.07,
-                9.11
-              ],
               [
                 29.11,
                 10.85
@@ -86244,18 +85341,18 @@
                 16.24
               ],
               [
-                18.78,
-                15.07
+                16.24,
+                14.63
+              ],
+              [
+                13.52,
+                1.94
               ]
             ],
             [
               [
-                42.19,
-                4.47
-              ],
-              [
-                41.06,
-                6.17
+                45.17,
+                3.7
               ],
               [
                 31.07,
@@ -86270,34 +85367,22 @@
                 10.85
               ],
               [
-                31.71,
-                1.76
-              ],
-              [
-                32.81,
+                32.21,
                 0
               ],
               [
-                42.47,
+                45.34,
                 0
               ]
             ],
             [
               [
-                5.14,
-                9.56
+                13.52,
+                1.94
               ],
               [
-                6.24,
-                9.67
-              ],
-              [
-                14.9,
-                13.39
-              ],
-              [
-                15.91,
-                15.59
+                16.24,
+                14.63
               ],
               [
                 14.83,
@@ -86313,7 +85398,11 @@
               ],
               [
                 0,
-                12.87
+                0
+              ],
+              [
+                12.44,
+                0
               ]
             ],
             [
@@ -86430,16 +85519,12 @@
                 36
               ],
               [
-                10,
-                39
-              ],
-              [
-                5.5,
-                40.5
+                9,
+                41
               ],
               [
                 0,
-                39.13
+                46.14
               ],
               [
                 0,
@@ -86448,27 +85533,27 @@
             ],
             [
               [
-                31.71,
-                1.76
-              ],
-              [
                 29.11,
                 10.85
               ],
               [
-                26.07,
-                9.11
+                13.52,
+                1.94
               ],
               [
-                24.18,
-                5.97
+                12.44,
+                0
               ],
               [
-                25.64,
-                3.79
+                32.21,
+                0
               ]
             ],
             [
+              [
+                46.18,
+                8.47
+              ],
               [
                 36.89,
                 15.7
@@ -86482,16 +85567,8 @@
                 12.16
               ],
               [
-                41.06,
-                6.17
-              ],
-              [
-                40.07,
-                12.07
-              ],
-              [
-                38,
-                14.83
+                45.17,
+                3.7
               ]
             ],
             [
@@ -86512,12 +85589,8 @@
                 18.7
               ],
               [
-                15.91,
-                15.59
-              ],
-              [
-                18.78,
-                15.07
+                16.24,
+                14.63
               ],
               [
                 25.44,
@@ -86525,7 +85598,7 @@
               ]
             ]
           ],
-          "area": 890.4,
+          "area": 1288.06,
           "controller": null,
           "claimant": "freelancer_underworld",
           "share": 25.7,
@@ -86586,2419 +85659,6 @@
           }
         },
         {
-          "id": "sheet:seven_kingdoms",
-          "name": "The Seven Kingdoms",
-          "origin": "filed",
-          "kind": "sheet",
-          "sourceMapId": "seven_kingdoms",
-          "vacant": false,
-          "shape": "network",
-          "center": [
-            26.65,
-            67.8
-          ],
-          "polygon": [
-            [
-              0,
-              88.75
-            ],
-            [
-              9.72,
-              70.28
-            ],
-            [
-              15.27,
-              63.79
-            ],
-            [
-              18.28,
-              61.45
-            ],
-            [
-              24.1,
-              58.97
-            ],
-            [
-              28.99,
-              58.21
-            ],
-            [
-              29.47,
-              58.86
-            ],
-            [
-              41.53,
-              81.16
-            ],
-            [
-              43.68,
-              100
-            ],
-            [
-              0,
-              100
-            ]
-          ],
-          "cells": [
-            [
-              [
-                25.3,
-                64.3
-              ],
-              [
-                24.9,
-                65.9
-              ],
-              [
-                22.5,
-                67.5
-              ],
-              [
-                14.17,
-                65.83
-              ],
-              [
-                15.27,
-                63.79
-              ],
-              [
-                18.28,
-                61.45
-              ],
-              [
-                21.83,
-                60.83
-              ]
-            ],
-            [
-              [
-                26,
-                70.38
-              ],
-              [
-                26.12,
-                70.29
-              ],
-              [
-                28.75,
-                69.44
-              ],
-              [
-                29.27,
-                69.83
-              ],
-              [
-                37.89,
-                100
-              ],
-              [
-                26,
-                100
-              ]
-            ],
-            [
-              [
-                0,
-                94
-              ],
-              [
-                0,
-                88.75
-              ],
-              [
-                9.72,
-                70.28
-              ],
-              [
-                14.17,
-                65.83
-              ],
-              [
-                22.5,
-                67.5
-              ],
-              [
-                24.1,
-                69.9
-              ]
-            ],
-            [
-              [
-                29.33,
-                66.33
-              ],
-              [
-                26.9,
-                63.9
-              ],
-              [
-                29.68,
-                59.73
-              ],
-              [
-                31.49,
-                64.55
-              ],
-              [
-                31.33,
-                65.33
-              ]
-            ],
-            [
-              [
-                25.68,
-                66.68
-              ],
-              [
-                26.12,
-                70.29
-              ],
-              [
-                26,
-                70.38
-              ],
-              [
-                24.1,
-                69.9
-              ],
-              [
-                22.5,
-                67.5
-              ],
-              [
-                24.9,
-                65.9
-              ]
-            ],
-            [
-              [
-                29.27,
-                69.83
-              ],
-              [
-                28.75,
-                69.44
-              ],
-              [
-                28.85,
-                67.29
-              ],
-              [
-                29.33,
-                66.33
-              ],
-              [
-                31.33,
-                65.33
-              ],
-              [
-                33.5,
-                67.5
-              ],
-              [
-                33.5,
-                69.13
-              ]
-            ],
-            [
-              [
-                26.9,
-                63.9
-              ],
-              [
-                25.3,
-                64.3
-              ],
-              [
-                21.83,
-                60.83
-              ],
-              [
-                24.1,
-                58.97
-              ],
-              [
-                28.99,
-                58.21
-              ],
-              [
-                29.47,
-                58.86
-              ],
-              [
-                29.68,
-                59.72
-              ],
-              [
-                29.68,
-                59.73
-              ]
-            ],
-            [
-              [
-                29.27,
-                69.83
-              ],
-              [
-                33.5,
-                69.13
-              ],
-              [
-                41.53,
-                81.16
-              ],
-              [
-                43.68,
-                100
-              ],
-              [
-                37.89,
-                100
-              ]
-            ],
-            [
-              [
-                28.85,
-                67.29
-              ],
-              [
-                25.68,
-                66.68
-              ],
-              [
-                24.9,
-                65.9
-              ],
-              [
-                25.3,
-                64.3
-              ],
-              [
-                26.9,
-                63.9
-              ],
-              [
-                29.33,
-                66.33
-              ]
-            ],
-            [
-              [
-                0,
-                94
-              ],
-              [
-                24.1,
-                69.9
-              ],
-              [
-                26,
-                70.38
-              ],
-              [
-                26,
-                100
-              ],
-              [
-                0,
-                100
-              ]
-            ],
-            [
-              [
-                28.85,
-                67.29
-              ],
-              [
-                28.75,
-                69.44
-              ],
-              [
-                26.12,
-                70.29
-              ],
-              [
-                25.68,
-                66.68
-              ]
-            ]
-          ],
-          "area": 1308,
-          "controller": "koopa_troop",
-          "claimant": "koopa_troop",
-          "share": 95.4,
-          "margin": 100,
-          "contested": false,
-          "unreadable": false,
-          "neutral": false,
-          "pins": 10,
-          "population": 5450,
-          "military": 63,
-          "economic": 29,
-          "political": 30,
-          "power": 207.69,
-          "seatPoiId": "poi_sk_dark_land",
-          "poiIds": [
-            "poi_sk_airship_patrol_alpha",
-            "poi_sk_dark_land",
-            "poi_sk_desert_land",
-            "poi_sk_giant_land",
-            "poi_sk_grass_land",
-            "poi_sk_ice_land",
-            "poi_sk_pipe_land",
-            "poi_sk_sea_land",
-            "poi_sk_sky_land",
-            "poi_sk_sunken_ship"
-          ],
-          "ledger": null
-        },
-        {
-          "id": "sheet:waffle_chestnut",
-          "name": "Waffle & Chestnut",
-          "origin": "filed",
-          "kind": "sheet",
-          "sourceMapId": "waffle_chestnut",
-          "vacant": false,
-          "shape": "network",
-          "center": [
-            6.05,
-            52.2
-          ],
-          "polygon": [
-            [
-              0,
-              39.13
-            ],
-            [
-              10,
-              39
-            ],
-            [
-              13,
-              43
-            ],
-            [
-              15.27,
-              63.79
-            ],
-            [
-              14.17,
-              65.83
-            ],
-            [
-              0,
-              88.75
-            ]
-          ],
-          "cells": [
-            [
-              [
-                2.25,
-                50.26
-              ],
-              [
-                5.5,
-                40.5
-              ],
-              [
-                7.3,
-                47.7
-              ],
-              [
-                5.37,
-                49.63
-              ]
-            ],
-            [
-              [
-                2.75,
-                57.35
-              ],
-              [
-                6.23,
-                58.05
-              ],
-              [
-                9.72,
-                70.28
-              ],
-              [
-                0,
-                88.75
-              ],
-              [
-                0,
-                58.18
-              ]
-            ],
-            [
-              [
-                7.46,
-                51.49
-              ],
-              [
-                8.86,
-                51.96
-              ],
-              [
-                9.59,
-                54.85
-              ],
-              [
-                7.07,
-                56.36
-              ],
-              [
-                5.43,
-                53.9
-              ]
-            ],
-            [
-              [
-                13,
-                43
-              ],
-              [
-                10.28,
-                48.44
-              ],
-              [
-                7.3,
-                47.7
-              ],
-              [
-                5.5,
-                40.5
-              ],
-              [
-                10,
-                39
-              ]
-            ],
-            [
-              [
-                15.27,
-                63.79
-              ],
-              [
-                14.17,
-                65.83
-              ],
-              [
-                9.72,
-                70.28
-              ],
-              [
-                6.23,
-                58.05
-              ],
-              [
-                7.07,
-                56.36
-              ],
-              [
-                9.59,
-                54.85
-              ],
-              [
-                12.44,
-                55.32
-              ]
-            ],
-            [
-              [
-                5.5,
-                40.5
-              ],
-              [
-                2.25,
-                50.26
-              ],
-              [
-                1.87,
-                50.51
-              ],
-              [
-                0,
-                50.4
-              ],
-              [
-                0,
-                39.13
-              ]
-            ],
-            [
-              [
-                5.43,
-                53.9
-              ],
-              [
-                7.07,
-                56.36
-              ],
-              [
-                6.23,
-                58.05
-              ],
-              [
-                2.75,
-                57.35
-              ],
-              [
-                2.75,
-                51.93
-              ]
-            ],
-            [
-              [
-                10.63,
-                49.31
-              ],
-              [
-                8.86,
-                51.96
-              ],
-              [
-                7.46,
-                51.49
-              ],
-              [
-                5.37,
-                49.63
-              ],
-              [
-                7.3,
-                47.7
-              ],
-              [
-                10.28,
-                48.44
-              ]
-            ],
-            [
-              [
-                2.75,
-                51.93
-              ],
-              [
-                2.75,
-                57.35
-              ],
-              [
-                0,
-                58.18
-              ],
-              [
-                0,
-                50.4
-              ],
-              [
-                1.87,
-                50.51
-              ]
-            ],
-            [
-              [
-                13,
-                50.5
-              ],
-              [
-                13,
-                54.63
-              ],
-              [
-                12.44,
-                55.32
-              ],
-              [
-                9.59,
-                54.85
-              ],
-              [
-                8.86,
-                51.96
-              ],
-              [
-                10.63,
-                49.31
-              ]
-            ],
-            [
-              [
-                2.75,
-                51.93
-              ],
-              [
-                1.87,
-                50.51
-              ],
-              [
-                2.25,
-                50.26
-              ],
-              [
-                5.37,
-                49.63
-              ],
-              [
-                7.46,
-                51.49
-              ],
-              [
-                5.43,
-                53.9
-              ]
-            ]
-          ],
-          "area": 477.37,
-          "controller": null,
-          "claimant": "tea_leaf_syndicate",
-          "share": 13.5,
-          "margin": 3,
-          "contested": true,
-          "unreadable": false,
-          "neutral": false,
-          "pins": 10,
-          "population": 4830,
-          "military": 39,
-          "economic": 57,
-          "political": 34,
-          "power": 205.6,
-          "seatPoiId": "poi_wc_waffle_castle",
-          "poiIds": [
-            "poi_wc_candy_constellation",
-            "poi_wc_chestnut_keep",
-            "poi_wc_cookie_crossroads",
-            "poi_wc_frosting_fjord",
-            "poi_wc_gingerbread_village",
-            "poi_wc_kitchen_keep",
-            "poi_wc_mt_muffin",
-            "poi_wc_syrup_river",
-            "poi_wc_tea_leaf_port",
-            "poi_wc_waffle_castle"
-          ],
-          "ledger": null
-        },
-        {
-          "id": "sheet:sunshine_isles",
-          "name": "Sunshine Isles",
-          "origin": "filed",
-          "kind": "sheet",
-          "sourceMapId": "sunshine_isles",
-          "vacant": false,
-          "shape": "network",
-          "center": [
-            17.8,
-            5
-          ],
-          "polygon": [
-            [
-              5.14,
-              9.56
-            ],
-            [
-              5.7,
-              5.77
-            ],
-            [
-              7.6,
-              0
-            ],
-            [
-              32.81,
-              0
-            ],
-            [
-              31.71,
-              1.76
-            ],
-            [
-              26.07,
-              9.11
-            ],
-            [
-              18.78,
-              15.07
-            ],
-            [
-              15.91,
-              15.59
-            ]
-          ],
-          "cells": [
-            [
-              [
-                15.55,
-                10.8
-              ],
-              [
-                14.8,
-                6.31
-              ],
-              [
-                18.9,
-                5.9
-              ],
-              [
-                20.1,
-                7.1
-              ],
-              [
-                19.9,
-                7.9
-              ]
-            ],
-            [
-              [
-                12.97,
-                5.18
-              ],
-              [
-                14.78,
-                6.27
-              ],
-              [
-                14.8,
-                6.31
-              ],
-              [
-                15.55,
-                10.8
-              ],
-              [
-                14.9,
-                13.39
-              ],
-              [
-                6.24,
-                9.67
-              ]
-            ],
-            [
-              [
-                17.12,
-                2.99
-              ],
-              [
-                14.78,
-                6.27
-              ],
-              [
-                12.97,
-                5.18
-              ],
-              [
-                12.77,
-                4.68
-              ],
-              [
-                14.33,
-                0
-              ],
-              [
-                16.38,
-                0
-              ]
-            ],
-            [
-              [
-                25.64,
-                3.79
-              ],
-              [
-                24.18,
-                5.97
-              ],
-              [
-                22.69,
-                5.38
-              ],
-              [
-                21.43,
-                2.86
-              ],
-              [
-                22,
-                0
-              ],
-              [
-                23.75,
-                0
-              ]
-            ],
-            [
-              [
-                24.18,
-                5.97
-              ],
-              [
-                26.07,
-                9.11
-              ],
-              [
-                22.1,
-                10.1
-              ],
-              [
-                19.9,
-                7.9
-              ],
-              [
-                20.1,
-                7.1
-              ],
-              [
-                22.69,
-                5.38
-              ]
-            ],
-            [
-              [
-                12.77,
-                4.68
-              ],
-              [
-                12.97,
-                5.18
-              ],
-              [
-                6.24,
-                9.67
-              ],
-              [
-                5.14,
-                9.56
-              ],
-              [
-                5.7,
-                5.77
-              ],
-              [
-                6.74,
-                2.77
-              ],
-              [
-                7.53,
-                1.19
-              ]
-            ],
-            [
-              [
-                31.71,
-                1.76
-              ],
-              [
-                25.64,
-                3.79
-              ],
-              [
-                23.75,
-                0
-              ],
-              [
-                32.81,
-                0
-              ]
-            ],
-            [
-              [
-                15.91,
-                15.59
-              ],
-              [
-                14.9,
-                13.39
-              ],
-              [
-                15.55,
-                10.8
-              ],
-              [
-                19.9,
-                7.9
-              ],
-              [
-                22.1,
-                10.1
-              ],
-              [
-                18.78,
-                15.07
-              ]
-            ],
-            [
-              [
-                21.43,
-                2.86
-              ],
-              [
-                18.9,
-                3.7
-              ],
-              [
-                17.12,
-                2.99
-              ],
-              [
-                16.38,
-                0
-              ],
-              [
-                22,
-                0
-              ]
-            ],
-            [
-              [
-                12.77,
-                4.68
-              ],
-              [
-                7.53,
-                1.19
-              ],
-              [
-                7.6,
-                0
-              ],
-              [
-                14.33,
-                0
-              ]
-            ],
-            [
-              [
-                17.12,
-                2.99
-              ],
-              [
-                18.9,
-                3.7
-              ],
-              [
-                18.9,
-                5.9
-              ],
-              [
-                14.8,
-                6.31
-              ],
-              [
-                14.78,
-                6.27
-              ]
-            ]
-          ],
-          "area": 238.89,
-          "controller": null,
-          "claimant": "mushroom_regency",
-          "share": 36.6,
-          "margin": 23.4,
-          "contested": true,
-          "unreadable": false,
-          "neutral": false,
-          "pins": 10,
-          "population": 17040,
-          "military": 35,
-          "economic": 51,
-          "political": 31,
-          "power": 193.86,
-          "seatPoiId": "poi_si_delfino_plaza",
-          "poiIds": [
-            "poi_si_corona_mountain",
-            "poi_si_delfino_plaza",
-            "poi_si_gelato_beach",
-            "poi_si_koopa_submarine",
-            "poi_si_noki_bay",
-            "poi_si_pianta_village",
-            "poi_si_pinna_park",
-            "poi_si_regency_patrol",
-            "poi_si_ricco_harbor",
-            "poi_si_sirena_beach"
-          ],
-          "ledger": null
-        },
-        {
-          "id": "sheet:flower_kingdom",
-          "name": "Flower Kingdom",
-          "origin": "filed",
-          "kind": "sheet",
-          "sourceMapId": "flower_kingdom",
-          "vacant": false,
-          "shape": "network",
-          "center": [
-            90.6,
-            60.5
-          ],
-          "polygon": [
-            [
-              77.71,
-              62.69
-            ],
-            [
-              82.27,
-              51.8
-            ],
-            [
-              86,
-              47
-            ],
-            [
-              100,
-              37.71
-            ],
-            [
-              100,
-              77.75
-            ],
-            [
-              84.8,
-              71.5
-            ],
-            [
-              78.08,
-              64.76
-            ]
-          ],
-          "cells": [
-            [
-              [
-                88.78,
-                62.07
-              ],
-              [
-                88.32,
-                62.23
-              ],
-              [
-                88,
-                62.1
-              ],
-              [
-                88,
-                61.5
-              ],
-              [
-                90.36,
-                56.79
-              ],
-              [
-                91.75,
-                57.25
-              ],
-              [
-                92.19,
-                57.98
-              ]
-            ],
-            [
-              [
-                94.33,
-                60.67
-              ],
-              [
-                92.19,
-                57.98
-              ],
-              [
-                91.75,
-                57.25
-              ],
-              [
-                100,
-                49
-              ],
-              [
-                100,
-                59.86
-              ]
-            ],
-            [
-              [
-                90.82,
-                65.97
-              ],
-              [
-                87.5,
-                71.5
-              ],
-              [
-                84.8,
-                71.5
-              ],
-              [
-                79.43,
-                65.53
-              ],
-              [
-                88,
-                62.1
-              ],
-              [
-                88.32,
-                62.23
-              ]
-            ],
-            [
-              [
-                91.75,
-                57.25
-              ],
-              [
-                90.36,
-                56.79
-              ],
-              [
-                89.88,
-                56.41
-              ],
-              [
-                87.88,
-                46.38
-              ],
-              [
-                100,
-                37.71
-              ],
-              [
-                100,
-                49
-              ]
-            ],
-            [
-              [
-                86,
-                47
-              ],
-              [
-                87.88,
-                46.38
-              ],
-              [
-                89.88,
-                56.41
-              ],
-              [
-                85.94,
-                57.39
-              ],
-              [
-                81.79,
-                56.56
-              ],
-              [
-                82.27,
-                51.8
-              ]
-            ],
-            [
-              [
-                93.2,
-                65.02
-              ],
-              [
-                93.95,
-                61.25
-              ],
-              [
-                94.33,
-                60.67
-              ],
-              [
-                100,
-                59.86
-              ],
-              [
-                100,
-                70.13
-              ]
-            ],
-            [
-              [
-                87.5,
-                71.5
-              ],
-              [
-                90.82,
-                65.97
-              ],
-              [
-                93.2,
-                65.02
-              ],
-              [
-                100,
-                70.13
-              ],
-              [
-                100,
-                77.75
-              ]
-            ],
-            [
-              [
-                79.43,
-                65.53
-              ],
-              [
-                78.08,
-                64.76
-              ],
-              [
-                77.71,
-                62.69
-              ],
-              [
-                81.79,
-                56.56
-              ],
-              [
-                85.94,
-                57.39
-              ],
-              [
-                88,
-                61.5
-              ],
-              [
-                88,
-                62.1
-              ]
-            ],
-            [
-              [
-                85.94,
-                57.39
-              ],
-              [
-                89.88,
-                56.41
-              ],
-              [
-                90.36,
-                56.79
-              ],
-              [
-                88,
-                61.5
-              ]
-            ],
-            [
-              [
-                93.95,
-                61.25
-              ],
-              [
-                93.2,
-                65.02
-              ],
-              [
-                90.82,
-                65.97
-              ],
-              [
-                88.32,
-                62.23
-              ],
-              [
-                88.78,
-                62.07
-              ]
-            ],
-            [
-              [
-                93.95,
-                61.25
-              ],
-              [
-                88.78,
-                62.07
-              ],
-              [
-                92.19,
-                57.98
-              ],
-              [
-                94.33,
-                60.67
-              ]
-            ]
-          ],
-          "area": 554.46,
-          "controller": "flower_kingdom",
-          "claimant": "flower_kingdom",
-          "share": 51.5,
-          "margin": 41,
-          "contested": false,
-          "unreadable": false,
-          "neutral": false,
-          "pins": 10,
-          "population": 4270,
-          "military": 39,
-          "economic": 47,
-          "political": 34,
-          "power": 190.97,
-          "seatPoiId": "poi_fk_castle",
-          "poiIds": [
-            "poi_fk_castle",
-            "poi_fk_fluff_puff_peaks",
-            "poi_fk_fungal_mines",
-            "poi_fk_koopa_fortress",
-            "poi_fk_magma_bog",
-            "poi_fk_petal_isles",
-            "poi_fk_pipe_rock_plateau",
-            "poi_fk_poplin_shops",
-            "poi_fk_shining_falls",
-            "poi_fk_wonder_seed_shrine"
-          ],
-          "ledger": null
-        },
-        {
-          "id": "sheet:barrel_volcano",
-          "name": "Barrel Volcano",
-          "origin": "filed",
-          "kind": "sheet",
-          "sourceMapId": "barrel_volcano",
-          "vacant": false,
-          "shape": "network",
-          "center": [
-            47.55,
-            15.55
-          ],
-          "polygon": [
-            [
-              38.5,
-              20
-            ],
-            [
-              41.06,
-              6.17
-            ],
-            [
-              42.47,
-              0
-            ],
-            [
-              53,
-              0
-            ],
-            [
-              56.71,
-              9.98
-            ],
-            [
-              56.15,
-              16.71
-            ],
-            [
-              55.19,
-              18
-            ],
-            [
-              49.8,
-              21.21
-            ],
-            [
-              45.19,
-              22.69
-            ],
-            [
-              39.5,
-              22
-            ]
-          ],
-          "cells": [
-            [
-              [
-                46.01,
-                14.26
-              ],
-              [
-                45.5,
-                13.5
-              ],
-              [
-                46.19,
-                10.06
-              ],
-              [
-                51.17,
-                11.72
-              ],
-              [
-                51.39,
-                12.23
-              ],
-              [
-                49.82,
-                15.37
-              ]
-            ],
-            [
-              [
-                41.77,
-                18.36
-              ],
-              [
-                42.63,
-                16.38
-              ],
-              [
-                42.83,
-                16.17
-              ],
-              [
-                46.17,
-                17.83
-              ],
-              [
-                44.19,
-                19.81
-              ]
-            ],
-            [
-              [
-                51.39,
-                12.23
-              ],
-              [
-                51.17,
-                11.72
-              ],
-              [
-                53,
-                8.67
-              ],
-              [
-                56.5,
-                9.83
-              ],
-              [
-                56.71,
-                9.98
-              ],
-              [
-                55.89,
-                14.93
-              ]
-            ],
-            [
-              [
-                51.75,
-                18
-              ],
-              [
-                49.69,
-                16.63
-              ],
-              [
-                49.82,
-                15.37
-              ],
-              [
-                51.39,
-                12.23
-              ],
-              [
-                55.89,
-                14.93
-              ],
-              [
-                55.94,
-                15
-              ],
-              [
-                56.15,
-                16.71
-              ],
-              [
-                55.19,
-                18
-              ]
-            ],
-            [
-              [
-                44.19,
-                19.81
-              ],
-              [
-                46.17,
-                17.83
-              ],
-              [
-                46.5,
-                17.75
-              ],
-              [
-                47.31,
-                21
-              ],
-              [
-                45.19,
-                22.69
-              ],
-              [
-                44.5,
-                22
-              ]
-            ],
-            [
-              [
-                46.19,
-                10.06
-              ],
-              [
-                45.5,
-                13.5
-              ],
-              [
-                43.1,
-                15.1
-              ],
-              [
-                40.07,
-                12.07
-              ],
-              [
-                41.06,
-                6.17
-              ],
-              [
-                42.19,
-                4.47
-              ]
-            ],
-            [
-              [
-                53,
-                8.67
-              ],
-              [
-                51.17,
-                11.72
-              ],
-              [
-                46.19,
-                10.06
-              ],
-              [
-                42.19,
-                4.47
-              ],
-              [
-                42.47,
-                0
-              ],
-              [
-                53,
-                0
-              ]
-            ],
-            [
-              [
-                45.5,
-                13.5
-              ],
-              [
-                46.01,
-                14.26
-              ],
-              [
-                46.61,
-                17.66
-              ],
-              [
-                46.5,
-                17.75
-              ],
-              [
-                46.17,
-                17.83
-              ],
-              [
-                42.83,
-                16.17
-              ],
-              [
-                43.1,
-                15.1
-              ]
-            ],
-            [
-              [
-                48.55,
-                17.44
-              ],
-              [
-                49.69,
-                16.63
-              ],
-              [
-                51.75,
-                18
-              ],
-              [
-                50.38,
-                20.75
-              ],
-              [
-                49.8,
-                21.21
-              ],
-              [
-                49.44,
-                21
-              ]
-            ],
-            [
-              [
-                38.5,
-                20
-              ],
-              [
-                41.77,
-                18.36
-              ],
-              [
-                44.19,
-                19.81
-              ],
-              [
-                44.5,
-                22
-              ],
-              [
-                39.5,
-                22
-              ]
-            ],
-            [
-              [
-                46.61,
-                17.66
-              ],
-              [
-                46.01,
-                14.26
-              ],
-              [
-                49.82,
-                15.37
-              ],
-              [
-                49.69,
-                16.63
-              ],
-              [
-                48.55,
-                17.44
-              ]
-            ]
-          ],
-          "area": 267.1,
-          "controller": null,
-          "claimant": "dk_crew",
-          "share": 44.9,
-          "margin": 12.4,
-          "contested": true,
-          "unreadable": false,
-          "neutral": false,
-          "pins": 10,
-          "population": 373,
-          "military": 48,
-          "economic": 46,
-          "political": 33,
-          "power": 190.57,
-          "seatPoiId": "poi_bv_banana_hoard",
-          "poiIds": [
-            "poi_bv_banana_hoard",
-            "poi_bv_cranky_cabin",
-            "poi_bv_dk_treehouse",
-            "poi_bv_funky_flights",
-            "poi_bv_hothead_pass",
-            "poi_bv_klumsy_shack",
-            "poi_bv_kremling_fort",
-            "poi_bv_lava_lagoon",
-            "poi_bv_minecart_madness",
-            "poi_bv_volcano"
-          ],
-          "ledger": null
-        },
-        {
-          "id": "sheet:chramalot_kingdom",
-          "name": "Chramalot Kingdom",
-          "origin": "filed",
-          "kind": "sheet",
-          "sourceMapId": "chramalot_kingdom",
-          "vacant": false,
-          "shape": "network",
-          "center": [
-            79,
-            82.7
-          ],
-          "polygon": [
-            [
-              45.44,
-              100
-            ],
-            [
-              55.23,
-              84.05
-            ],
-            [
-              64.11,
-              71.32
-            ],
-            [
-              78.08,
-              64.76
-            ],
-            [
-              79.43,
-              65.53
-            ],
-            [
-              100,
-              77.75
-            ],
-            [
-              100,
-              82.53
-            ],
-            [
-              95.5,
-              87.64
-            ],
-            [
-              84,
-              100
-            ]
-          ],
-          "cells": [
-            [
-              [
-                85.72,
-                81.17
-              ],
-              [
-                82.22,
-                83.27
-              ],
-              [
-                77.87,
-                78.42
-              ],
-              [
-                83.55,
-                74.64
-              ]
-            ],
-            [
-              [
-                76.95,
-                86.32
-              ],
-              [
-                46.73,
-                98.41
-              ],
-              [
-                52,
-                90.5
-              ],
-              [
-                75.02,
-                81.29
-              ]
-            ],
-            [
-              [
-                75.02,
-                81.29
-              ],
-              [
-                52,
-                90.5
-              ],
-              [
-                55.23,
-                84.05
-              ],
-              [
-                59.18,
-                79.76
-              ],
-              [
-                74.28,
-                76.74
-              ],
-              [
-                75.91,
-                78.65
-              ]
-            ],
-            [
-              [
-                95.5,
-                87.64
-              ],
-              [
-                91,
-                91.5
-              ],
-              [
-                86,
-                94
-              ],
-              [
-                83.67,
-                89.33
-              ],
-              [
-                90,
-                83
-              ],
-              [
-                99.11,
-                83
-              ]
-            ],
-            [
-              [
-                83.55,
-                74.64
-              ],
-              [
-                77.87,
-                78.42
-              ],
-              [
-                75.91,
-                78.65
-              ],
-              [
-                74.28,
-                76.74
-              ],
-              [
-                73.27,
-                68.69
-              ],
-              [
-                78.08,
-                64.76
-              ],
-              [
-                79.43,
-                65.53
-              ],
-              [
-                84.8,
-                71.5
-              ]
-            ],
-            [
-              [
-                46.73,
-                98.41
-              ],
-              [
-                76.95,
-                86.32
-              ],
-              [
-                78.94,
-                87.41
-              ],
-              [
-                73.9,
-                100
-              ],
-              [
-                45.44,
-                100
-              ]
-            ],
-            [
-              [
-                90,
-                83
-              ],
-              [
-                83.67,
-                89.33
-              ],
-              [
-                80.71,
-                87.22
-              ],
-              [
-                82.22,
-                83.27
-              ],
-              [
-                85.72,
-                81.17
-              ]
-            ],
-            [
-              [
-                74.28,
-                76.74
-              ],
-              [
-                59.18,
-                79.76
-              ],
-              [
-                64.11,
-                71.32
-              ],
-              [
-                72.73,
-                68.73
-              ],
-              [
-                73.27,
-                68.69
-              ]
-            ],
-            [
-              [
-                78.94,
-                87.41
-              ],
-              [
-                80.71,
-                87.22
-              ],
-              [
-                83.67,
-                89.33
-              ],
-              [
-                86,
-                94
-              ],
-              [
-                84,
-                100
-              ],
-              [
-                73.9,
-                100
-              ]
-            ],
-            [
-              [
-                99.11,
-                83
-              ],
-              [
-                90,
-                83
-              ],
-              [
-                85.72,
-                81.17
-              ],
-              [
-                83.55,
-                74.64
-              ],
-              [
-                84.8,
-                71.5
-              ],
-              [
-                87.5,
-                71.5
-              ],
-              [
-                100,
-                77.75
-              ],
-              [
-                100,
-                82.53
-              ]
-            ],
-            [
-              [
-                80.71,
-                87.22
-              ],
-              [
-                78.94,
-                87.41
-              ],
-              [
-                76.95,
-                86.32
-              ],
-              [
-                75.02,
-                81.29
-              ],
-              [
-                75.91,
-                78.65
-              ],
-              [
-                77.87,
-                78.42
-              ],
-              [
-                82.22,
-                83.27
-              ]
-            ]
-          ],
-          "area": 1151.59,
-          "controller": null,
-          "claimant": "knights_of_the_gilded_lily",
-          "share": 33.9,
-          "margin": 18.4,
-          "contested": true,
-          "unreadable": false,
-          "neutral": false,
-          "pins": 10,
-          "population": 20565,
-          "military": 46,
-          "economic": 39,
-          "political": 31,
-          "power": 189.45,
-          "seatPoiId": "poi_ck_gilded_keep",
-          "poiIds": [
-            "poi_ck_black_mire",
-            "poi_ck_bog_knight_barracks",
-            "poi_ck_gilded_keep",
-            "poi_ck_lilypad_village",
-            "poi_ck_murkwallow_marsh",
-            "poi_ck_pilgrims_port",
-            "poi_ck_sorrows_crossing",
-            "poi_ck_sunken_chapel",
-            "poi_ck_toadeaters_fen",
-            "poi_ck_whispering_grove"
-          ],
-          "ledger": null
-        },
-        {
-          "id": "sheet:ice_ice_outpost",
-          "name": "Ice Ice Outpost",
-          "origin": "filed",
-          "kind": "sheet",
-          "sourceMapId": "ice_ice_outpost",
-          "vacant": false,
-          "shape": "network",
-          "center": [
-            95.45,
-            97.03
-          ],
-          "polygon": [
-            [
-              84,
-              100
-            ],
-            [
-              86,
-              94
-            ],
-            [
-              99.11,
-              83
-            ],
-            [
-              100,
-              82.53
-            ],
-            [
-              100,
-              100
-            ]
-          ],
-          "cells": [
-            [
-              [
-                95.12,
-                98.62
-              ],
-              [
-                94.48,
-                98.39
-              ],
-              [
-                93.37,
-                96.9
-              ],
-              [
-                93.5,
-                96.5
-              ],
-              [
-                94.86,
-                95.82
-              ],
-              [
-                95.29,
-                96.11
-              ]
-            ],
-            [
-              [
-                97.19,
-                97.66
-              ],
-              [
-                96.78,
-                96.64
-              ],
-              [
-                96.92,
-                96.08
-              ],
-              [
-                100,
-                93
-              ],
-              [
-                100,
-                96.25
-              ]
-            ],
-            [
-              [
-                93.37,
-                96.9
-              ],
-              [
-                94.48,
-                98.39
-              ],
-              [
-                92.4,
-                100
-              ],
-              [
-                85.63,
-                100
-              ]
-            ],
-            [
-              [
-                86,
-                94
-              ],
-              [
-                91,
-                91.5
-              ],
-              [
-                93.5,
-                96.5
-              ],
-              [
-                93.37,
-                96.9
-              ],
-              [
-                85.63,
-                100
-              ],
-              [
-                84,
-                100
-              ]
-            ],
-            [
-              [
-                91,
-                91.5
-              ],
-              [
-                95.5,
-                87.64
-              ],
-              [
-                95.5,
-                93.25
-              ],
-              [
-                94.86,
-                95.82
-              ],
-              [
-                93.5,
-                96.5
-              ]
-            ],
-            [
-              [
-                97.16,
-                97.76
-              ],
-              [
-                97.19,
-                97.66
-              ],
-              [
-                100,
-                96.25
-              ],
-              [
-                100,
-                100
-              ],
-              [
-                98.5,
-                100
-              ]
-            ],
-            [
-              [
-                95.13,
-                98.63
-              ],
-              [
-                97.16,
-                97.76
-              ],
-              [
-                98.5,
-                100
-              ],
-              [
-                95.29,
-                100
-              ]
-            ],
-            [
-              [
-                96.92,
-                96.08
-              ],
-              [
-                95.5,
-                93.25
-              ],
-              [
-                95.5,
-                87.64
-              ],
-              [
-                99.11,
-                83
-              ],
-              [
-                100,
-                82.53
-              ],
-              [
-                100,
-                93
-              ]
-            ],
-            [
-              [
-                94.48,
-                98.39
-              ],
-              [
-                95.12,
-                98.62
-              ],
-              [
-                95.13,
-                98.63
-              ],
-              [
-                95.29,
-                100
-              ],
-              [
-                92.4,
-                100
-              ]
-            ],
-            [
-              [
-                96.92,
-                96.08
-              ],
-              [
-                96.78,
-                96.64
-              ],
-              [
-                95.29,
-                96.11
-              ],
-              [
-                94.86,
-                95.82
-              ],
-              [
-                95.5,
-                93.25
-              ]
-            ],
-            [
-              [
-                95.13,
-                98.63
-              ],
-              [
-                95.12,
-                98.62
-              ],
-              [
-                95.29,
-                96.11
-              ],
-              [
-                96.78,
-                96.64
-              ],
-              [
-                97.19,
-                97.66
-              ],
-              [
-                97.16,
-                97.76
-              ]
-            ]
-          ],
-          "area": 157.5,
-          "controller": "iron_legion",
-          "claimant": "iron_legion",
-          "share": 79.2,
-          "margin": 100,
-          "contested": false,
-          "unreadable": false,
-          "neutral": false,
-          "pins": 10,
-          "population": 6770,
-          "military": 46,
-          "economic": 36,
-          "political": 24,
-          "power": 175.59,
-          "seatPoiId": "poi_iio_command_center",
-          "poiIds": [
-            "poi_iio_command_center",
-            "poi_iio_comms_tower",
-            "poi_iio_geothermal_plant",
-            "poi_iio_ice_caves",
-            "poi_iio_ice_wall",
-            "poi_iio_landing_pad",
-            "poi_iio_penguin_colony",
-            "poi_iio_research_lab",
-            "poi_iio_sunken_vessel",
-            "poi_iio_training_grounds"
-          ],
-          "ledger": null
-        },
-        {
           "id": "sheet:yale_shores",
           "name": "Yale Shores",
           "origin": "filed",
@@ -89012,8 +85672,8 @@
           ],
           "polygon": [
             [
-              10,
-              39
+              0,
+              46.14
             ],
             [
               11.5,
@@ -89032,24 +85692,20 @@
               39.45
             ],
             [
-              22.5,
-              56
+              16.89,
+              76.72
             ],
             [
-              18.28,
-              61.45
+              15.5,
+              79.5
             ],
             [
-              15.27,
-              63.79
+              3.2,
+              100
             ],
             [
-              12.44,
-              55.32
-            ],
-            [
-              10.28,
-              48.44
+              0,
+              100
             ]
           ],
           "cells": [
@@ -89077,6 +85733,10 @@
             ],
             [
               [
+                15.87,
+                49.07
+              ],
+              [
                 16.52,
                 49.57
               ],
@@ -89085,16 +85745,12 @@
                 53.5
               ],
               [
-                13,
-                54.63
+                0,
+                57.88
               ],
               [
-                13,
-                50.5
-              ],
-              [
-                15.87,
-                49.07
+                0,
+                57
               ]
             ],
             [
@@ -89159,12 +85815,8 @@
                 43.29
               ],
               [
-                13,
-                43
-              ],
-              [
-                10,
-                39
+                9,
+                41
               ],
               [
                 11.5,
@@ -89177,24 +85829,8 @@
             ],
             [
               [
-                15.87,
-                49.07
-              ],
-              [
-                13,
-                50.5
-              ],
-              [
-                10.63,
-                49.31
-              ],
-              [
-                10.28,
-                48.44
-              ],
-              [
-                13,
-                43
+                9,
+                41
               ],
               [
                 13.57,
@@ -89203,6 +85839,18 @@
               [
                 15.66,
                 46.77
+              ],
+              [
+                15.87,
+                49.07
+              ],
+              [
+                0,
+                57
+              ],
+              [
+                0,
+                46.14
               ]
             ],
             [
@@ -89251,16 +85899,8 @@
             ],
             [
               [
-                15.27,
-                63.79
-              ],
-              [
-                12.44,
-                55.32
-              ],
-              [
-                13,
-                54.63
+                0,
+                57.88
               ],
               [
                 17.5,
@@ -89275,8 +85915,20 @@
                 55.75
               ],
               [
-                18.28,
-                61.45
+                16.89,
+                76.72
+              ],
+              [
+                15.5,
+                79.5
+              ],
+              [
+                3.2,
+                100
+              ],
+              [
+                0,
+                100
               ]
             ],
             [
@@ -89332,7 +85984,7 @@
               ]
             ]
           ],
-          "area": 245.57,
+          "area": 981.62,
           "controller": null,
           "claimant": "mushroom_regency",
           "share": 35.7,
@@ -89379,7 +86031,7 @@
               15.7
             ],
             [
-              53,
+              45.34,
               0
             ],
             [
@@ -89391,12 +86043,12 @@
               6.04
             ],
             [
-              74.75,
+              83.86,
               14
             ],
             [
-              76.25,
-              21.13
+              79.17,
+              19.67
             ],
             [
               72.45,
@@ -89407,8 +86059,8 @@
               27.79
             ],
             [
-              38.5,
-              20
+              39.5,
+              20.57
             ],
             [
               37.79,
@@ -89418,24 +86070,28 @@
           "cells": [
             [
               [
-                46.5,
-                17.75
+                47.27,
+                10.46
               ],
               [
-                46.61,
-                17.66
+                50.85,
+                12.95
               ],
               [
-                48.55,
-                17.44
+                49.88,
+                20.75
               ],
               [
-                49.44,
+                49.75,
                 21
               ],
               [
-                47.31,
+                44.89,
                 21
+              ],
+              [
+                43.7,
+                19.37
               ]
             ],
             [
@@ -89462,26 +86118,34 @@
             ],
             [
               [
-                51.75,
-                18
+                50.85,
+                12.95
               ],
               [
-                55.19,
-                18
+                51.2,
+                13.07
+              ],
+              [
+                54.83,
+                15.63
+              ],
+              [
+                55.32,
+                16.41
               ],
               [
                 54.96,
                 20.75
               ],
               [
-                50.38,
+                49.88,
                 20.75
               ]
             ],
             [
               [
-                55.94,
-                15
+                54.83,
+                15.63
               ],
               [
                 59.58,
@@ -89500,15 +86164,11 @@
                 16.77
               ],
               [
-                56.15,
-                16.71
+                55.32,
+                16.41
               ]
             ],
             [
-              [
-                69.86,
-                19.76
-              ],
               [
                 71.96,
                 23.27
@@ -89532,13 +86192,13 @@
               [
                 69.15,
                 19.5
+              ],
+              [
+                69.86,
+                19.76
               ]
             ],
             [
-              [
-                38.5,
-                20
-              ],
               [
                 37.79,
                 19.6
@@ -89548,26 +86208,26 @@
                 15.7
               ],
               [
-                38,
-                14.83
+                46.18,
+                8.47
               ],
               [
-                42.63,
-                16.38
+                47.27,
+                10.46
               ],
               [
-                41.77,
-                18.36
+                43.7,
+                19.37
+              ],
+              [
+                39.5,
+                20.57
               ]
             ],
             [
               [
-                75.15,
-                16.41
-              ],
-              [
-                74.18,
-                18.03
+                83.44,
+                14.32
               ],
               [
                 69.86,
@@ -89586,7 +86246,7 @@
                 14
               ],
               [
-                74.75,
+                83.86,
                 14
               ]
             ],
@@ -89623,14 +86283,30 @@
               ],
               [
                 56.5,
-                9.83
+                10.04
               ],
               [
-                53,
-                8.67
+                51.2,
+                13.07
               ],
               [
-                53,
+                50.85,
+                12.95
+              ],
+              [
+                47.27,
+                10.46
+              ],
+              [
+                46.18,
+                8.47
+              ],
+              [
+                45.17,
+                3.7
+              ],
+              [
+                45.34,
                 0
               ],
               [
@@ -89640,12 +86316,8 @@
             ],
             [
               [
-                74.18,
-                18.03
-              ],
-              [
-                76.25,
-                21.13
+                79.17,
+                19.67
               ],
               [
                 71.96,
@@ -89654,6 +86326,10 @@
               [
                 69.86,
                 19.76
+              ],
+              [
+                83.44,
+                14.32
               ]
             ],
             [
@@ -89679,7 +86355,7 @@
               ]
             ]
           ],
-          "area": 227.18,
+          "area": 469.57,
           "controller": null,
           "claimant": "mushroom_regency",
           "share": 15,
@@ -90126,7 +86802,7 @@
             ],
             [
               39.5,
-              22
+              20.57
             ],
             [
               39.5,
@@ -90186,10 +86862,6 @@
             ],
             [
               [
-                37.01,
-                27.04
-              ],
-              [
                 33.13,
                 26.14
               ],
@@ -90206,12 +86878,8 @@
                 19.6
               ],
               [
-                38.5,
-                20
-              ],
-              [
                 39.5,
-                22
+                20.57
               ],
               [
                 39.5,
@@ -90220,6 +86888,10 @@
               [
                 39.47,
                 25.47
+              ],
+              [
+                37.01,
+                27.04
               ]
             ],
             [
@@ -90393,7 +87065,7 @@
               ]
             ]
           ],
-          "area": 263.68,
+          "area": 264.39,
           "controller": null,
           "claimant": "freelancer_underworld",
           "share": 35.2,
@@ -90450,28 +87122,20 @@
               23.27
             ],
             [
-              76.25,
-              21.13
+              83.44,
+              14.32
             ],
             [
-              79.96,
-              22.59
-            ],
-            [
-              86.75,
-              26.53
+              83.86,
+              14
             ],
             [
               100,
-              35.6
+              5.31
             ],
             [
               100,
-              37.71
-            ],
-            [
-              77.71,
-              62.69
+              82.5
             ],
             [
               75.25,
@@ -90481,28 +87145,24 @@
           "cells": [
             [
               [
-                74.96,
-                50.58
-              ],
-              [
-                82.27,
-                51.8
-              ],
-              [
-                81.79,
-                56.56
-              ],
-              [
-                77.71,
-                62.69
-              ],
-              [
                 75.25,
                 60.5
               ],
               [
                 72.63,
                 55.25
+              ],
+              [
+                74.96,
+                50.58
+              ],
+              [
+                100,
+                54.75
+              ],
+              [
+                100,
+                82.5
               ]
             ],
             [
@@ -90519,16 +87179,12 @@
                 29.29
               ],
               [
-                84.96,
-                26.35
+                100,
+                21.33
               ],
               [
-                86.75,
-                26.53
-              ],
-              [
-                95.78,
-                33.91
+                100,
+                33.44
               ]
             ],
             [
@@ -90559,14 +87215,6 @@
             ],
             [
               [
-                87.88,
-                46.38
-              ],
-              [
-                86,
-                47
-              ],
-              [
                 78.46,
                 43.23
               ],
@@ -90579,23 +87227,15 @@
                 35.67
               ],
               [
-                95.78,
-                33.91
+                100,
+                33.44
               ],
               [
                 100,
-                35.6
-              ],
-              [
-                100,
-                37.71
+                54
               ]
             ],
             [
-              [
-                72.45,
-                26.18
-              ],
               [
                 75.14,
                 27.72
@@ -90623,6 +87263,10 @@
               [
                 67.64,
                 27.79
+              ],
+              [
+                72.45,
+                26.18
               ]
             ],
             [
@@ -90665,31 +87309,27 @@
                 27.72
               ],
               [
-                77.91,
-                22.18
+                79.17,
+                19.67
               ],
               [
-                79.96,
-                22.59
+                83.44,
+                14.32
               ],
               [
-                84.96,
-                26.35
+                83.86,
+                14
+              ],
+              [
+                100,
+                5.31
+              ],
+              [
+                100,
+                21.33
               ]
             ],
             [
-              [
-                76.25,
-                21.13
-              ],
-              [
-                77.71,
-                21.86
-              ],
-              [
-                77.91,
-                22.18
-              ],
               [
                 75.14,
                 27.72
@@ -90701,6 +87341,10 @@
               [
                 71.96,
                 23.27
+              ],
+              [
+                79.17,
+                19.67
               ]
             ],
             [
@@ -90727,6 +87371,10 @@
             ],
             [
               [
+                74.96,
+                50.58
+              ],
+              [
                 74.23,
                 48.86
               ],
@@ -90735,16 +87383,12 @@
                 43.23
               ],
               [
-                86,
-                47
+                100,
+                54
               ],
               [
-                82.27,
-                51.8
-              ],
-              [
-                74.96,
-                50.58
+                100,
+                54.75
               ]
             ],
             [
@@ -90770,7 +87414,7 @@
               ]
             ]
           ],
-          "area": 720.03,
+          "area": 1664.26,
           "controller": null,
           "claimant": "crimson_fleet",
           "share": 19.5,
@@ -90872,55 +87516,6 @@
               }
             ]
           }
-        },
-        {
-          "id": "sheet:islands_outer_realms_full",
-          "name": "Islands & Outer Realms",
-          "origin": "filed",
-          "kind": "sheet",
-          "sourceMapId": "islands_outer_realms_full",
-          "vacant": true,
-          "shape": "claim",
-          "center": [
-            51.82,
-            42.23
-          ],
-          "polygon": [
-            [
-              48.62,
-              39.03
-            ],
-            [
-              55.02,
-              39.03
-            ],
-            [
-              55.02,
-              45.43
-            ],
-            [
-              48.62,
-              45.43
-            ]
-          ],
-          "cells": [],
-          "area": 40.96,
-          "controller": null,
-          "claimant": "unaligned",
-          "share": 0,
-          "margin": 0,
-          "contested": false,
-          "unreadable": false,
-          "neutral": true,
-          "pins": 0,
-          "population": 0,
-          "military": 0,
-          "economic": 0,
-          "political": 0,
-          "power": 0,
-          "seatPoiId": null,
-          "poiIds": [],
-          "ledger": null
         },
         {
           "id": "filed:toad_town_region",

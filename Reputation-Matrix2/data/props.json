@@ -2439,6 +2439,51 @@
       ],
       "note": "The instrument that twenty-eight dossiers depend on. It asserts brotherhood by reference number rather than by any shared parent, carries footnotes and an appendix, and destroyed itself the moment it was signed \u2014 after which every name on it walked into the room.",
       "body": "<div class=\"pd-head\"><div class=\"pd-org\">SNOWDIN CHRONICLE OFFICE &middot; BONE-LINE ARCHIVE</div><div class=\"pd-sub\">Official Archival Record of Sibling Designation</div></div><div class=\"pd-meta\"><span>Lineage code</span><b>#TNR-01</b><span>Primary Brother</span><b>Sans the Lazy Bone (Documented)</b><span>Secondary Brother</span><b>Times New Roman (Archival Confirmation)</b><span>Parentage cited</span><b>None</b><span>Status at filing</span><b>Destroyed by fire on signature</b></div><div class=\"pd-clause\"><b>Additional designated family member:</b> Gee Lady. Confirmed via lipstick signature analysis and emotional resonance frequency matching.</div><div class=\"pd-clause\"><b>Designated stylish cousin:</b> Cursive. Status: active.</div><div class=\"pd-clause\"><b>Appendix 7a</b> &mdash; genetic skeleton alignment. Not reproduced; the appendix burned with the instrument.</div><div class=\"pd-clause\"><b>Partial roll, as unrolled across the table:</b> Sans the Lazy Bone &middot; Papyrus (Royal Guard Division) &middot; Gee Lady (lipstick signature confirmed) &middot; Cursive &middot; Quanty &mdash; Sibling??? &middot; Willow &mdash; Possible Aunt? &middot; Boneless &mdash; Unverified Branch (Pending DNA) &middot; Grabache Brother &mdash; Designated Rival? &middot; Quantity the Silent &middot; Will or Quantity (Duplicate Entry??)</div><div class=\"pd-clause\"><b>Foot of document, standing alone, underlined twice in red:</b> Wingding Gaster. No title. No question mark.</div><div class=\"pd-sign\"><b>Signature:</b> Sans &mdash; written in plain letters, no flourish. The instrument ignited on completion: silent blue flame, no heat, ash rising as smoke shaped like small bones.</div><div class=\"pd-fine\">Waluipedia holds no physical copy. This reconstruction is transcribed from the monitored call of Harvestide 30, 1045 BF. The subject of the document disputes its contents.</div>"
+    },
+    "prop_castle_betrayal_roster": {
+      "kind": "order",
+      "icon": "📜",
+      "title": "Garrison Route Sheet — Revised Without the King’s Seal",
+      "subtitle": "Bowser’s Castle · recovered beneath the throne steps",
+      "items": [],
+      "articles": [
+        "bowser_throne_room_compromise"
+      ],
+      "note": "A route sheet can be a map, a roster, or a confession. This one is all three.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">KOOPA TROOP · GARRISON CONTROL</div><div class=\"pd-sub\">Route revision · seal condition disputed</div></div><div class=\"pd-label\">UNAUTHORISED CHANGE</div><div class=\"pd-clause\"><b>West passage:</b> opened from the inner side. Defender movement redirected to the lower barracks.</div><div class=\"pd-clause\"><b>Inner wall:</b> two guards removed from post. Replacement names not entered.</div><div class=\"pd-clause pd-flagged\"><b>Throne approach:</b> access permitted under heir-session cover. No royal seal present.</div><div class=\"pd-clause\"><b>Lower route:</b> gate chain responsive. Origin of command not recorded.</div><div class=\"pd-sign\"><div><div class=\"pd-sigline\"><i>King’s seal — absent</i></div><div class=\"pd-sigcap\">Counter-signature not supplied</div></div></div><div class=\"pd-margin\">The paper does not say “traitor.” It records doors opened, defenders moved, and a throne approached under a false heir. Waluigi is capable of reading a verb list. — W.</div>",
+      "stamps": [
+        "evidence"
+      ]
+    },
+    "prop_bowser_retreat_order": {
+      "kind": "order",
+      "icon": "🐢",
+      "title": "Emergency Order — Pull the Line Away From the Dragon",
+      "subtitle": "Bowser’s Castle · courtyard · issued during the breach",
+      "items": [],
+      "articles": [
+        "the_assault_on_bowsers_castle"
+      ],
+      "note": "The order is short because the dragon is close and the troops are not ornamental.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">KOOPA TROOP · ROYAL FIELD ORDER</div><div class=\"pd-sub\">Issued by Bowser · courtyard line</div></div><div class=\"pd-label\">IMMEDIATE</div><div class=\"pd-clause\"><b>1.</b> Pull the line back from the dragon.</div><div class=\"pd-clause\"><b>2.</b> Koopas form the shell barrier. Goombas move the wounded under the gatehouse.</div><div class=\"pd-clause\"><b>3.</b> Magikoopas move the wounded and do not waste a teleport on a cart.</div><div class=\"pd-clause pd-flagged\"><b>4.</b> Nobody holds the wall because it is a wall. Hold it only long enough for the troops to clear.</div><div class=\"pd-sign\"><div><div class=\"pd-sigline\"><i>Bowser</i></div><div class=\"pd-sigcap\">Royal command · no further wording</div></div></div><div class=\"pd-margin\">A good retreat order does not pretend the dragon has been defeated. It tells the small bodies where the large body cannot reach. — W.</div>",
+      "stamps": [
+        "evidence"
+      ]
+    },
+    "prop_castle_self_destruct_switch_label": {
+      "kind": "note",
+      "icon": "⚠️",
+      "title": "Switch Plate — Self-Destruct, Lighting, or Both",
+      "subtitle": "Bowser’s Castle · lower command room · label copied during evacuation",
+      "items": [],
+      "articles": [
+        "the_assault_on_bowsers_castle"
+      ],
+      "note": "The label offers three instructions and none of them agree.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">BOWSER’S CASTLE · LOWER COMMAND ROOM</div><div class=\"pd-sub\">Plate above two identical red toggles</div></div><div class=\"pd-label\">WARNING</div><div class=\"pd-clause pd-flagged\"><b>SELF-DESTRUCT</b></div><div class=\"pd-clause\"><b>DO NOT USE FOR LIGHTING</b></div><div class=\"pd-clause\"><b>This one may be the lighting.</b></div><div class=\"pd-meta\"><span>Number of toggles</span><b>2</b><span>Confirmed operator</span><b>None</b><span>Evacuation status</span><b>Switches untouched</b></div><div class=\"pd-margin\">A castle that labels its apocalypse and then adds a correction about the lamps has not achieved the kind of command certainty one wants near a dragon. Bowser left both alone. — W.</div>",
+      "stamps": [
+        "noaction"
+      ]
     }
   }
 }
