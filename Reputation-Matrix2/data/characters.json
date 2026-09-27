@@ -6284,5 +6284,34 @@
     "sourceRecord": "fazbear_seven_nights",
     "image": "assets/images/events/archive-sheets/fazbear-seven-nights.jpg",
     "imageCaption": "The record's own archive sheet — the closest thing to a photograph of Freddy's stage that survives."
+  },
+  {
+    "id": "cosmic_jester",
+    "name": "Cosmic Jester",
+    "title": "The Bite That Was Taken",
+    "race": "Cosmic entity — scale and nature unrecorded; the archive holds no description of its body, only of the bite",
+    "status": "At large — the Big Bite is real, the Jesters are scattered, and the Toad God is gathering Star Shards to take more bites out of the Doughnut World",
+    "affiliation": "The Doughnut World cosmology — the entity whose bite the Toad God's entire premise is built on; referenced throughout the factions record for Disaster Inc. and the Toad God Interview",
+    "summary": "The Cosmic Jester is the entity that took the Big Bite. In the cosmology revealed during the Toad God Interview of Aethel 12, 1040, the world is not a sphere or a plane but a doughnut — and a bite-sized chunk of it is simply gone, taken by a Cosmic Jester, causing mass depopulation and scattering the Jesters. The hole is real, it is not a metaphor, people fell into it, and the world is smaller now. The Toad God agreed with the Jester's premise — 'He had a point, we should take more bites and get to the jelly filling' — and has been gathering the Star Shards to do exactly that. The Mushroom Kingdom passed a Containment Act in response. Nothing else is documented about the Jester itself: not its face, not its voice, not its game. Waluigi files it under forces that cannot be outsmarted, only survived or consumed.",
+    "description": "## The Big Bite\n\nThe core revelation of the Toad God Interview, delivered by the Host after reality warping, mouth removal, and one very awkward card game: the world is a doughnut, and a 'Big Bite' has already been taken out of it by a Cosmic Jester. Estalia responded by sending troops to the other side of the doughnut. The bite caused depopulation. The bite created a hole. The hole is literal — people fell into it, people died, and the world is smaller now. It was all over the news, which is the detail the Toad God used to corner Waluigi over his failure to document it in Walupedia.\n\n## The premise\n\nThe Toad God agreed with the Jester's reasoning: 'He had a point, we should take more bites and get to the jelly filling.' That agreement is the engine of the current crisis — the Star Shards the Toad God once split because their combined power was cracking reality are now being gathered again, to take more bites. Wario, characteristically, interrupted the existential revelation to negotiate a 'Chief Acquisitions Officer' role in the consumption of the world.\n\n## The Jesters\n\nThe record speaks of the Jesters in the plural and the scatter: the bite scattered them, and their game is one of the unnamed possibilities behind the Toad God's parting instruction to 'play the games.' Whose game it is — the Toad God's, the Cosmic Jester's, or the game of existence itself — Waluigi does not know, and this encyclopedia does not pretend otherwise.\n\n## Provenance\n\nThis profile is grounded in the factions record for Disaster Inc. — whose era is named for the Cosmic Jester, whose documented wanderings include the Cosmic Jester's Doughnut World, and whose historian Waluigi carries the participant role 'Traumatized by Cosmic Jesters / The Man Who Was Shushed' — and in the event record The Toad God Interview and the Star Shard.",
+    "waluigiComment": "Waluigi omitted the Big Bite from this encyclopedia out of fear, and a god had to corner him over a card game to admit it. Documenting a literal hole in the world means admitting there are forces that cannot be outsmarted, only survived or consumed. Waluigi is documenting it now. WAH.",
+    "keyEvents": [
+      "the_toad_god_interview_and_the_star_shard"
+    ],
+    "relatedArticles": [
+      "disaster_inc",
+      "the_toad_god_interview_and_the_star_shard",
+      "cosmic_jesters",
+      "the_big_bite",
+      "the_doughnut_world",
+      "the_toad_god",
+      "star_shards",
+      "mushroom_kingdom_containment_act",
+      "wario",
+      "waluigi"
+    ],
+    "sourceRecord": "disaster_inc",
+    "image": "assets/images/events/archive-sheets/the-toad-god-interview-and-the-star-shard.jpg",
+    "imageCaption": "The interview where the bite was revealed — the closest thing to a portrait of the Cosmic Jester that survives."
   }
 ]

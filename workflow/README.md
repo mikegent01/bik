@@ -40,15 +40,19 @@ Source-backed character creation is explicit and staged. A request naming a
 person, a profile, and a source record resolves the source and participant,
 shows a grounded draft, and waits for `approve` before adding one object to
 `characters.json`. For example, Freddy plus `The Seven Nights at Fazbear: A
-Complete Record` resolves to the source participant `gabriel_freddy`; it does
-not ask for a random file path or search every catalog. The request works as
-one message or as several, and permission lines such as “you may edit files”
-are understood without triggering a clarification.
+Complete Record` resolves to the source participant `gabriel_freddy`, and
+Cosmic Jester plus `the factions json` resolves to the Cosmic Jester material
+in the Disaster Inc. faction record. The request works as one message or as
+several, and permission lines such as “you may edit files” are understood
+without triggering a clarification.
 
-A clarification is never asked twice in a row. If the user resends the same
-message or replies “i just told you,” the assistant states what it already has
-(the character, the source) and asks for only the missing piece; sending just
-that piece starts the profile flow immediately.
+**There are no canned responses.** Every user-facing reply — clarifying
+questions, file-lookup answers, drafts, failures — is written by the local
+model from grounded context the runtime provides; only the offline notice
+(when LM Studio is unreachable) is fixed text. When the user repeats a request
+or says “i just told you”, the model is told about the repeat and its own
+previous reply, so it asks for only the missing piece instead of looping the
+same question; sending just that piece starts the flow on the next turn.
 
 ## API
 
@@ -73,4 +77,13 @@ python -m py_compile Reputation-Matrix2/tools/local-agent/*.py workflow/server.p
 
 The tests include normal conversation, drafting, ambiguous character-file
 requests, explicit archive lookups, and creation-room greetings. They assert that
-chat turns emit no repository action.
+chat turns emit no repository action, that every user-facing reply comes from
+the model, and that no canned reply text exists in the runtime source.
+
+To exercise the full chat server without a real LM Studio, run the mock model
+server in another terminal first:
+
+```bash
+python tools/mock_lm_studio.py   # serves a fake /v1/chat/completions on :1234
+python workflow/server.py
+```

@@ -11,6 +11,22 @@ The design is intentionally smaller than a model-driven tool planner:
 5. read a write target before any approval-gated write;
 6. never claim a tool ran when it did not.
 
+## Every reply is written by the model
+
+There are **no canned responses**. The deterministic layer decides *which*
+bounded tool runs (if any) and hands the model structured, grounded context;
+the local model writes every user-facing reply itself — clarifying questions,
+file-lookup answers, draft presentations, failure explanations, and
+repeat-handling included. The only fixed strings left are the offline notice
+used when LM Studio cannot be reached at all.
+
+On a repeat or an insistence (“i just told you”, resending the same message),
+the model is told what the user already sent, what its own previous reply was,
+and what is still missing — so it acknowledges the repeat and asks for only
+the missing piece instead of looping the same question. A short answer that
+supplies the missing piece (a bare name, a bare source title, or “make the
+profile”) completes the request on the next turn.
+
 A noun is not an instruction. These do not search the checkout:
 
 - `I like this character`
@@ -18,33 +34,25 @@ A noun is not an instruction. These do not search the checkout:
 - `draft a character profile for Freddy`
 - `the character file looks good`
 - `hello`
+- `read above` (a reference to earlier conversation, not the archive)
 
 These are explicit archive requests and may use a focused read:
 
 - `read the article about Freddy in canon`
 - `find Freddy in the repository`
 - `what does this source say?`
+- `read the factions json`
 
-Vague creation requests stop for input before resolving a source. A request such
-as `The article has some people we need to create` asks for the names first. A
-request such as `create a new character file` asks for the exact target.
+## Source-backed profile requests
 
-A source-backed profile request is a separate staged workflow. For example:
+A source-backed profile request is a separate staged workflow. It works as one
+message or as several, and the source may be an event record **or a named
+archive file**:
 
 ```text
 for Freddy can you make a character profile for him
 The Seven Nights at Fazbear: A Complete Record you can learn about him from
 ```
-
-The runtime resolves the source event, resolves the named participant (`Gabriel /
-Freddy`), drafts the `characters.json` object from that evidence, shows the draft,
-and waits for `approve`. It does not ask for an unrelated target file and it does
-not write before the exact draft is approved. The approval then writes one unique
-object and validates the JSON collection.
-
-The same request works when it arrives in one message with permission language
-included, because the source title is extracted from either side of the
-“you can learn about him from” marker:
 
 ```text
 for freddy
@@ -53,33 +61,30 @@ The Seven Nights at Fazbear: A Complete Record you can learn about him from
 maybe we can make a profile for him
 ```
 
-It also works when the pieces arrive as separate messages: “for freddy” and the
-source name in earlier turns, the profile words in the latest one. The pieces are
-reassembled from the conversation, and the trailing request line (“maybe we can
-make a profile for him”) is never mistaken for the source title.
+```text
+Cosmic Jester seems to be important can we create a character profile for him
+please check the factions json and edit the file
+```
 
-## No repeated canned questions
+The runtime resolves the source (an event by title search, or a record inside a
+named file such as `factions.json`), resolves the named participant or
+reference (`Gabriel / Freddy`; the Cosmic Jester material in the Disaster Inc.
+faction record), drafts the `characters.json` object from that evidence —
+quoting sentences that actually mention the character — shows the draft, and
+waits for `approve`. The model writes the message around the draft; the draft
+JSON itself is appended verbatim so the user reviews exactly what would be
+written. Nothing is written before the exact draft is approved, and approving
+twice reports that the profile is already on file.
 
-A clarification is asked once. If the user resends the same message, or answers
-with “i just told you,” the runtime does not repeat the question it just asked.
-Instead it states what it already has and asks for only the missing piece:
+Permission lines such as “you may edit files” are understood without triggering
+a clarification, and the name may appear as the subject of the sentence
+(“Cosmic Jester seems to be important … profile for him”) rather than after
+“for”.
 
-- both pieces known → “Reply ‘make the profile’ and I will draft it for your
-  approval”;
-- character known → “I am still missing the source record to draft from”;
-- source known → “I am still missing the character’s name”;
-- nothing known → both pieces are named plainly.
-
-When the user then sends just the missing piece — a bare name, a bare source
-title, or “make the profile” — the profile flow runs immediately. Repeating “i
-just told you” after a canned question re-serves the grounded draft instead of
-re-asking. The guard only fires after one of this runtime’s own canned
-questions, so ordinary model answers are never mistaken for a stuck gate.
-
-Unresolvable source titles no longer pretend otherwise: an empty search never
-falls back to the first event in the file. The failure message names the closest
-event records it can see, and a participant mismatch lists the participants the
-record actually has.
+Unresolvable sources no longer pretend otherwise: an empty search never falls
+back to the first event in the file. The model is given the real failure
+detail — closest records, or the participants a record actually lists — and
+phrases the follow-up itself.
 
 The runtime does not expose shell access, does not let an LM choose arbitrary
 filesystem paths, and does not write canon merely because a model suggested it.
