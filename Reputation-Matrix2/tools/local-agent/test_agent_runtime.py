@@ -42,6 +42,24 @@ class ChatFirstTests(unittest.TestCase):
                 self.assertEqual(decision["kind"], "clarify")
                 self.assertFalse(decision["needed"])
 
+    def test_source_backed_profile_request_resolves_target_and_source(self) -> None:
+        prompt = (
+            "for freddy can you make a charcater prfile for him\\n"
+            "The Seven Nights at Fazbear: A Complete Record you can learn about him from"
+        )
+        decision = runtime.classify_request(prompt)
+        self.assertEqual(decision["kind"], "profile")
+        self.assertEqual(decision["target"], "freddy")
+        self.assertEqual(decision["source"], "The Seven Nights at Fazbear: A Complete Record")
+
+        events: list[dict[str, object]] = []
+        with patch.object(runtime.repo_tools, "add_json_object", side_effect=AssertionError("draft must not write")):
+            result = runtime.run_agent(prompt, on_event=events.append)
+        self.assertEqual(result["status"], "approval_required")
+        self.assertIn("gabriel_freddy", result["message"])
+        actions = [event for event in events if event.get("kind") == "action"]
+        self.assertEqual([event["action"]["action"] for event in actions], ["repo_search", "catalog_retrieve"])
+
     def test_explicit_archive_requests_are_the_only_read_gate(self) -> None:
         for prompt in (
             "read the article about Freddy in canon",

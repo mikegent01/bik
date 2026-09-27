@@ -155,6 +155,27 @@ def catalog_retrieve(source: str = "", ids: list[str] | None = None,
     return records
 
 
+def add_json_object(path: str, value: dict[str, Any], collection: str = "") -> str:
+    """Append one uniquely identified object to a JSON list after approval."""
+    target = safe_path(path)
+    if not isinstance(value, dict) or not value.get("id"):
+        raise ValueError("the object must be a dictionary with an id")
+    if target.name not in {"characters.json", "events.json", "locations.json", "commentaries.json", "investigations.json", "articleAnalyses.json", "props.json"}:
+        raise ValueError("writes are limited to approved JSON collections")
+    try:
+        data = json.loads(target.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as error:
+        raise ValueError(f"could not read JSON collection: {error}") from error
+    if not isinstance(data, list):
+        raise ValueError("target JSON collection must be a list")
+    identifier = str(value["id"])
+    if any(isinstance(item, dict) and str(item.get("id")) == identifier for item in data):
+        raise ValueError(f"an object with id {identifier!r} already exists")
+    data.append(value)
+    target.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    return f"added {identifier} to {target.relative_to(ROOT).as_posix()} ({len(data)} records)"
+
+
 def find_image_references(entities: list[str] | None = None, terms: list[str] | None = None,
                            limit: int = 6, target_year: str | int | None = None) -> list[dict[str, str]]:
     """Find existing image paths only; this never generates or changes an image."""

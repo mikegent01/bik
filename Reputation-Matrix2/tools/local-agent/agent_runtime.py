@@ -72,8 +72,40 @@ def _has_explicit_path(text: str) -> str | None:
     return match.group(1).rstrip(".,!?)]}")
 
 
+def _profile_request_details(text: str, conversation: list[dict[str, Any]] | None = None) -> dict[str, str] | None:
+    """Recognize a source-backed character profile request without a model call."""
+    lowered = _lower(text)
+    profile_words = bool(re.search(r"\b(?:char(?:acter|cater)|persona)\s+(?:profil(?:e|l)|pr(?:o)?file)\b|\bprofile\s+for\b", lowered))
+    if not profile_words:
+        return None
+    source = ""
+    source_match = re.search(r"(?:learn\s+about\s+(?:him|her|them)\s+from|from|source(?:\s+record)?[: ]+)\s*(.+?)(?:\s+you can learn|\s*$)", text, re.I)
+    if source_match:
+        source = source_match.group(1).strip(" .!?\\\"")
+    if not source and re.search(r"seven\s+nights\s+at\s+fazbear", lowered):
+        source = "The Seven Nights at Fazbear: A Complete Record"
+    target = ""
+    target_match = re.search(r"\bfor\s+([A-Za-z][A-Za-z'’-]{2,40})\b", text, re.I)
+    if target_match and target_match.group(1).casefold() not in {"him", "her", "them"}:
+        target = target_match.group(1).strip()
+    if not target and conversation:
+        prior = "\n".join(str(item.get("content", "")) for item in conversation if item.get("role") == "user")
+        target_match = re.search(r"\bfor\s+([A-Za-z][A-Za-z'’-]{2,40})\b", prior, re.I)
+        if target_match and target_match.group(1).casefold() not in {"him", "her", "them"}:
+            target = target_match.group(1).strip()
+    if not source and conversation:
+        prior = "\n".join(str(item.get("content", "")) for item in conversation if item.get("role") == "user")
+        if re.search(r"seven\s+nights\s+at\s+fazbear", prior, re.I):
+            source = "The Seven Nights at Fazbear: A Complete Record"
+    if not target or not source:
+        return None
+    return {"target": target, "source": source}
+
+
 def _is_prose_request(text: str) -> bool:
     lowered = _lower(text)
+    if _profile_request_details(text):
+        return False
     if any(word in lowered for word in DRAFT_WORDS):
         return True
     # These are requests for prose, not a request to save a repository object.
@@ -116,6 +148,8 @@ def _explicit_read(text: str) -> bool:
 
 def _explicit_write(text: str) -> bool:
     lowered = _lower(text)
+    if _profile_request_details(text):
+        return True
     if _is_prose_request(text):
         return False
     if not any(word in lowered for word in WRITE_WORDS):
@@ -169,6 +203,9 @@ def classify_request(text: str, images: list[dict[str, Any]] | None = None,
     if _explicit_image(text, images):
         subject = _image_subject(text)
         return {"kind": "image", "needed": True, "subject": subject}
+    profile = _profile_request_details(text, conversation)
+    if profile:
+        return {"kind": "profile", "needed": True, **profile, "path": "Reputation-Matrix2/data/characters.json"}
     clarification = _ambiguous_archive_question(text, conversation)
     if clarification:
         return {"kind": "clarify", "needed": False, "question": clarification}
@@ -300,6 +337,76 @@ def _execute_read(request_text: str, path: str | None, target_year: str | None =
     return {"action": "repo_search", "args": {"term": term, "dir": "Reputation-Matrix2/data", "limit": 8}}, results
 
 
+def _resolve_profile_source(source_title: str, target: str) -> tuple[list[dict[str, Any]], dict[str, Any], dict[str, Any]]:
+    matches = repo_tools.search(source_title, "Reputation-Matrix2/data", 6)
+    ids = [str(item.get("entity_id")) for item in matches if item.get("entity_id") and "events.json" in str(item.get("path", ""))]
+    records = repo_tools.catalog_retrieve("events", ids=ids[:3], limit=3)
+    if not records:
+        raise ValueError(f"I could not resolve the source record {source_title!r}.")
+    source = records[0]
+    target_lower = target.casefold()
+    people = source.get("participants", []) if isinstance(source.get("participants"), list) else []
+    named = [person for person in people if isinstance(person, dict) and target_lower in str(person.get("name", "")).casefold()]
+    identified = [person for person in people if isinstance(person, dict) and target_lower in str(person.get("id", "")).casefold()]
+    candidates = named or identified
+    if not candidates:
+        raise ValueError(f"I found the source record, but it does not identify a participant matching {target!r}.")
+    person = candidates[0]
+    return matches, source, person
+
+
+def _profile_object(source: dict[str, Any], person: dict[str, Any]) -> dict[str, Any]:
+    name = str(person.get("name", person.get("id", "Unnamed participant")))
+    source_name = str(source.get("name", source.get("id", "source record")))
+    role = str(person.get("role", "Role not separately specified in the source record."))
+    summary = str(source.get("summary", ""))
+    return {
+        "id": str(person.get("id", re.sub(r"[^a-z0-9]+", "_", name.casefold()).strip("_"))),
+        "name": name,
+        "title": f"{name} — Source Profile",
+        "race": "Not separately specified in the source record",
+        "status": role,
+        "affiliation": "Fazbear franchise / source-record participant",
+        "summary": f"{name} is identified in {source_name} as {role}. {summary[:1600]}",
+        "description": f"This profile is grounded in {source_name}. The record lists {name} with the role: {role}.\n\n{summary[:2400]}",
+        "keyEvents": [str(source.get("id", ""))],
+        "relatedArticles": [str(item) for item in (source.get("relatedArticles", []) or [])[:20]],
+        "sourceRecord": str(source.get("id", source_name)),
+        "image": "",
+    }
+
+
+def _approval_request(text: str) -> bool:
+    return bool(re.fullmatch(r"\s*(?:yes|approve|approved|apply|apply it|write it|go ahead|do it|confirm)\s*[.!]?\s*", text, re.I))
+
+
+def _approved_profile_run(run_id: str, request_text: str, emit: Callable[[dict[str, Any]], None]) -> dict[str, Any] | None:
+    state = _load_state(run_id) if run_id else {}
+    draft = state.get("draft") if isinstance(state.get("draft"), dict) else None
+    if not draft or not _approval_request(request_text):
+        return None
+    path = str(state.get("path", "Reputation-Matrix2/data/characters.json"))
+    _emit_plan(emit, "Apply the approved character profile", True, "The user approved the exact grounded draft from the previous step.", "write one object, validate JSON, report the path")
+    action = {"action": "repo_add_object", "args": {"path": path, "collection": "characters", "object": draft}}
+    emit({"kind": "action", "step": 1, "action": action})
+    try:
+        result = repo_tools.add_json_object(path, draft)
+        emit({"kind": "result", "step": 1, "result": result})
+        audit = json.loads(repo_tools.safe_path(path).read_text(encoding="utf-8"))
+        if not isinstance(audit, list):
+            raise ValueError("character collection is not a JSON list")
+        emit({"kind": "action", "step": 2, "action": {"action": "run_audit", "args": {"name": "json"}}})
+        emit({"kind": "result", "step": 2, "result": f"JSON audit passed for {path} ({len(audit)} records)."})
+        answer = f"Applied the grounded character profile for {draft.get('name', draft.get('id'))} to {path}. JSON validation passed."
+        emit({"kind": "assistant", "text": answer, "source": "approved source-backed write"})
+        emit({"kind": "task_done", "step": 2, "task": "request-01"})
+        return {"status": "done", "run": run_id, "steps": 2, "answer": answer}
+    except Exception as error:
+        message = f"I did not complete the write: {error}"
+        emit({"kind": "error", "step": 1, "result": message})
+        return {"status": "error", "run": run_id, "step": 1, "message": message}
+
+
 def run_agent(request_text: str, *, run_id: str = "", endpoint: str = DEFAULT_ENDPOINT,
               model: str = "", allow_writes: bool = False, max_steps: int = 30,
               conversation: list[dict[str, Any]] | None = None,
@@ -321,6 +428,10 @@ def run_agent(request_text: str, *, run_id: str = "", endpoint: str = DEFAULT_EN
         return {"status": "cancelled", "run": run_id, "message": "Cancelled before the request started."}
     if not request_text:
         return {"status": "needs_input", "run": run_id, "message": "Tell me what you want to do."}
+
+    approved = _approved_profile_run(run_id, request_text, emit)
+    if approved is not None:
+        return approved
 
     decision = classify_request(request_text, images, conversation)
     kind = str(decision["kind"])
@@ -356,6 +467,30 @@ def run_agent(request_text: str, *, run_id: str = "", endpoint: str = DEFAULT_EN
         question = "I resolved the image subject. Confirm that I should queue an image job; no image has been generated yet."
         emit({"kind": "action", "step": 2, "action": {"action": "ask_user", "args": {"question": question}}})
         return {"status": "approval_required", "run": run_id or f"image-{int(time.time())}", "step": 2, "message": "APPROVAL_REQUIRED: " + question}
+
+    if kind == "profile":
+        target = str(decision.get("target", ""))
+        source_title = str(decision.get("source", ""))
+        _emit_plan(emit, f"Resolve {target} from the named source", True, "The user requested a source-backed character profile.", "resolve the source record and participant, then draft before writing")
+        try:
+            matches, source, person = _resolve_profile_source(source_title, target)
+        except Exception as error:
+            message = f"I could not safely resolve that profile request: {error}"
+            emit({"kind": "error", "step": 1, "result": message})
+            emit({"kind": "assistant", "text": message, "source": "no profile invented"})
+            return {"status": "needs_input", "run": run_id or f"profile-{int(time.time())}", "step": 1, "message": message}
+        source_id = str(source.get("id", ""))
+        emit({"kind": "action", "step": 1, "action": {"action": "repo_search", "args": {"term": source_title, "dir": "Reputation-Matrix2/data", "limit": 6}}})
+        emit({"kind": "result", "step": 1, "result": json.dumps(matches, ensure_ascii=False, indent=2)})
+        emit({"kind": "action", "step": 2, "action": {"action": "catalog_retrieve", "args": {"source": "events", "ids": [source_id], "limit": 1}}})
+        emit({"kind": "result", "step": 2, "result": json.dumps({"id": source_id, "name": source.get("name"), "title": source.get("title"), "participant": person}, ensure_ascii=False, indent=2)})
+        draft = _profile_object(source, person)
+        emit({"kind": "draft", "step": 3, "path": "Reputation-Matrix2/data/characters.json", "object": draft})
+        state_id = run_id or f"profile-{int(time.time())}"
+        _save_state(state_id, {"kind": "profile", "request": request_text, "conversation": conversation, "path": "Reputation-Matrix2/data/characters.json", "draft": draft})
+        message = "I resolved the source and drafted this grounded character profile. Review it, then reply `approve` if you want it added to characters.json. No file has been changed yet.\n\n" + _clip(draft, 7000)
+        emit({"kind": "assistant", "text": message, "source": "source-backed draft; no write performed"})
+        return {"status": "approval_required", "run": state_id, "step": 3, "message": "APPROVAL_REQUIRED: " + message}
 
     if kind == "write":
         path = decision.get("path")
