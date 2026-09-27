@@ -49,6 +49,20 @@ DRAFT_WORDS = (
     "draft", "brainstorm", "roleplay", "pretend", "imagine", "invent",
     "fictional", "make up", "for my story", "for a story", "for the game",
 )
+# Opening words of every canned clarification this runtime can emit. A repeat of
+# the user's message is only treated as a loop when the last assistant turn was
+# one of these, so ordinary model answers are never mistaken for a stuck gate.
+CLARIFY_MARKERS = (
+    "Which people or characters should I create?",
+    "What exact file or canonical entity",
+    "Got it. I can edit files,",
+    "I have the named source record.",
+    "I’m not sure whether you want an archive lookup",
+    "Before I search:",
+    "What exact file or canonical record should I change",
+    "What should the image depict?",
+    "I resolved the image subject.",
+)
 
 
 def _clip(value: Any, limit: int = 9000) -> str:
@@ -72,34 +86,157 @@ def _has_explicit_path(text: str) -> str | None:
     return match.group(1).rstrip(".,!?)]}")
 
 
-def _profile_request_details(text: str, conversation: list[dict[str, Any]] | None = None) -> dict[str, str] | None:
+_PROFILE_WORDS_RE = re.compile(
+    r"\b(?:char(?:acter|cater)|persona)\s+(?:profil(?:e|l)|pr(?:o)?file)\b"
+    r"|\bprofil(?:e|l)\s+(?:for|of)\b"
+    r"|\b(?:make|create|give|write|draft|put together)\b[^.\n]{0,48}\bprofil(?:e|l)\b"
+)
+_TARGET_STOPWORDS = {
+    "him", "her", "them", "you", "me", "us", "it", "now", "today", "everyone",
+    "each", "all", "this", "that", "example", "the", "a", "an", "record",
+    "source", "article", "file", "can", "who", "what",
+}
+
+
+def _prior_user_texts(conversation: list[dict[str, Any]] | None, current: str = "") -> list[str]:
+    """Return earlier user messages, dropping the trailing copy the browser sends."""
+    texts: list[str] = []
+    for item in conversation or []:
+        if isinstance(item, dict) and item.get("role") == "user":
+            texts.append(str(item.get("content", "")))
+    if texts and current and _lower(texts[-1]) == _lower(current):
+        texts = texts[:-1]
+    return [text for text in texts if text.strip()]
+
+
+def _is_repeat_or_insistence(text: str, prior_texts: list[str]) -> bool:
+    """True when the user resends an earlier message or insists on it."""
+    normalized = _lower(re.sub(r"[^\w\s]", "", text))
+    if normalized and any(normalized == _lower(re.sub(r"[^\w\s]", "", prior)) for prior in prior_texts):
+        return True
+    return bool(re.search(
+        r"\b(?:i\s+(?:just\s+|already\s+)?told\s+you|as\s+i\s+said|same\s+(?:thing|as\s+(?:i\s+said|before))|just\s+do\s+it|do\s+what\s+i\s+said)\b",
+        _lower(text),
+    ))
+
+
+def _looks_like_source_title(value: str) -> bool:
+    """A source title reads like a record name, not a request fragment."""
+    value = str(value or "").strip(" \t\r\n.-–—\"'“”")
+    if not 4 <= len(value) <= 140:
+        return False
+    if len(value.split()) < 2:
+        return False
+    lowered = _lower(value)
+    fragment_words = (
+        "profile", "make", "maybe", "edit", "please", "create", "write",
+        "add", "files", "him", "her", "them", "you", "we", "can", "draft",
+    )
+    if any(re.search(rf"\b{word}\b", lowered) for word in fragment_words):
+        return False
+    return True
+
+
+def _source_title_candidates(text: str) -> list[str]:
+    """Pull plausible source-record titles out of one piece of request text."""
+    text = str(text or "")
+    candidates: list[str] = []
+
+    def add(value: str) -> None:
+        value = str(value or "").strip(" \t\r\n\"'“”")
+        if _looks_like_source_title(value) and value not in candidates:
+            candidates.append(value)
+
+    for value in re.findall(r"[\"'“”]([^\"'“”]{4,140})[\"'“”]", text):
+        add(value)
+    # “<title> you can learn about him from” — the title precedes the marker.
+    for match in re.finditer(r"([^\n]{4,160}?)\s+you\s+can\s+learn\s+about\s+(?:him|her|them)\s+from", text, re.I):
+        add(match.group(1))
+    # “from <title>” and “source record: <title>” — the title follows.
+    for match in re.finditer(r"(?:\bfrom\s+|\bsource(?:\s+record)?\s*[:：]\s*)([^\n.!?,;]{4,140})", text, re.I):
+        add(match.group(1))
+    if re.search(r"seven\s+nights", _lower(text)) and "fazbear" in _lower(text):
+        add("The Seven Nights at Fazbear: A Complete Record")
+    return candidates
+
+
+def _profile_target(text: str) -> str:
+    """Extract the character to profile, skipping pronouns and filler words."""
+    text = str(text or "")
+    patterns = (
+        r"\bprofil(?:e|l)?\s+(?:for|of)\s+([A-Za-z][A-Za-z'’-]{1,40})\b",
+        r"\bfor\s+([A-Za-z][A-Za-z'’-]{2,40})\b",
+        r"\b([A-Za-z][A-Za-z'’-]{1,40})'s\s+profil",
+    )
+    for pattern in patterns:
+        for match in re.finditer(pattern, text, re.I):
+            value = match.group(1).strip()
+            if _lower(value) not in _TARGET_STOPWORDS:
+                return value
+    return ""
+
+
+_GUARD_PREFIX = "You already sent that, so I will not ask the same question again."
+
+
+def _last_assistant_text(conversation: list[dict[str, Any]] | None) -> str:
+    for item in reversed(conversation or []):
+        if isinstance(item, dict) and item.get("role") == "assistant":
+            return str(item.get("content", ""))
+    return ""
+
+
+def _pending_profile_pieces(conversation: list[dict[str, Any]] | None, text: str) -> dict[str, Any] | None:
+    """Recover a profile request promised by the repeat guard's last message.
+
+    The guard tells the user to send only the missing piece; when they do, the
+    pieces gathered from the conversation are combined into a full request.
+    """
+    last_assistant = _last_assistant_text(conversation)
+    if not last_assistant.startswith(_GUARD_PREFIX):
+        return None
+    prior_text = "\n".join(_prior_user_texts(conversation, text))
+    lowered = _lower(last_assistant)
+    if "i am still missing the character's name" in lowered:
+        name = str(text or "").strip(" \t\r\n\"'“”")
+        if name and len(name.split()) <= 4 and re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9'’./ -]*", name):
+            target = _profile_target(text) or name
+            sources = _source_title_candidates(prior_text) or _source_title_candidates(text)
+            if target and sources:
+                return {"target": target, "source": sources[0], "sources": sources}
+        return None
+    if "i am still missing the source record" in lowered:
+        sources = _source_title_candidates(text) or _source_title_candidates(prior_text)
+        target = _profile_target(prior_text) or _profile_target(text)
+        if sources and target:
+            return {"target": target, "source": sources[0], "sources": sources}
+        return None
+    if 'reply "make the profile"' in lowered:
+        if re.fullmatch(r"\s*(?:yes|ok|okay|sure|please|do it|go ahead|make the profile|make it|please do)\s*[.!]?\s*", str(text or ""), re.I):
+            sources = _source_title_candidates(prior_text)
+            target = _profile_target(prior_text)
+            if sources and target:
+                return {"target": target, "source": sources[0], "sources": sources}
+    return None
+
+
+def _profile_request_details(text: str, conversation: list[dict[str, Any]] | None = None) -> dict[str, Any] | None:
     """Recognize a source-backed character profile request without a model call."""
-    lowered = _lower(text)
-    profile_words = bool(re.search(r"\b(?:char(?:acter|cater)|persona)\s+(?:profil(?:e|l)|pr(?:o)?file)\b|\bprofile\s+for\b", lowered))
+    text = str(text or "")
+    prior = _prior_user_texts(conversation, text)
+    prior_text = "\n".join(prior)
+    profile_words = bool(_PROFILE_WORDS_RE.search(_lower(text)))
+    if not profile_words and _is_repeat_or_insistence(text, prior):
+        # The user is resending or insisting on an earlier profile request.
+        profile_words = bool(_PROFILE_WORDS_RE.search(_lower(prior_text)))
     if not profile_words:
+        # The user may be answering the repeat guard with the missing piece.
+        return _pending_profile_pieces(conversation, text)
+    sources = _source_title_candidates(text) or _source_title_candidates(prior_text)
+    target = _profile_target(text) or _profile_target(prior_text)
+    if not target or not sources:
         return None
-    source = ""
-    source_match = re.search(r"(?:learn\s+about\s+(?:him|her|them)\s+from|from|source(?:\s+record)?[: ]+)\s*(.+?)(?:\s+you can learn|\s*$)", text, re.I)
-    if source_match:
-        source = source_match.group(1).strip(" .!?\\\"")
-    if not source and re.search(r"seven\s+nights\s+at\s+fazbear", lowered):
-        source = "The Seven Nights at Fazbear: A Complete Record"
-    target = ""
-    target_match = re.search(r"\bfor\s+([A-Za-z][A-Za-z'’-]{2,40})\b", text, re.I)
-    if target_match and target_match.group(1).casefold() not in {"him", "her", "them"}:
-        target = target_match.group(1).strip()
-    if not target and conversation:
-        prior = "\n".join(str(item.get("content", "")) for item in conversation if item.get("role") == "user")
-        target_match = re.search(r"\bfor\s+([A-Za-z][A-Za-z'’-]{2,40})\b", prior, re.I)
-        if target_match and target_match.group(1).casefold() not in {"him", "her", "them"}:
-            target = target_match.group(1).strip()
-    if not source and conversation:
-        prior = "\n".join(str(item.get("content", "")) for item in conversation if item.get("role") == "user")
-        if re.search(r"seven\s+nights\s+at\s+fazbear", prior, re.I):
-            source = "The Seven Nights at Fazbear: A Complete Record"
-    if not target or not source:
-        return None
-    return {"target": target, "source": source}
+    return {"target": target, "source": sources[0], "sources": sources}
 
 
 def _is_prose_request(text: str) -> bool:
@@ -185,6 +322,28 @@ def _generic_creation_request(text: str) -> bool:
 
 def _ambiguous_archive_question(text: str, conversation: list[dict[str, Any]]) -> str | None:
     lowered = _lower(text)
+    prior = _prior_user_texts(conversation, text)
+    last_assistant = _last_assistant_text(conversation)
+    already_clarified = last_assistant.startswith(_GUARD_PREFIX) or any(
+        last_assistant.strip().startswith(marker) for marker in CLARIFY_MARKERS
+    )
+    if already_clarified and _is_repeat_or_insistence(text, prior):
+        # Never loop the same canned question. State what is already known and
+        # ask for only the missing piece, in plain words.
+        prior_text = "\n".join(prior)
+        target = _profile_target(text) or _profile_target(prior_text)
+        sources = _source_title_candidates(text) or _source_title_candidates(prior_text)
+        if target and sources:
+            return (f"You already sent that, so I will not ask the same question again. I have the character ({target}) "
+                    f"and the source record ({sources[0]}). Reply \"make the profile\" and I will draft it for your approval.")
+        if target:
+            return ("You already sent that, so I will not ask the same question again. I have the character "
+                    f"({target}); I am still missing the source record to draft from. Send just its name and I will prepare the profile for your approval.")
+        if sources:
+            return (f"You already sent that, so I will not ask the same question again. I have the source record "
+                    f"({sources[0]}); I am still missing the character's name. Send just the name and I will prepare the profile for your approval.")
+        return ("You already sent that, so I will not ask the same question again. I still need two things: the character's "
+                "name and the source record to draft from. Send those and I will prepare the profile for your approval.")
     if _generic_creation_request(text):
         if re.search(r"\b(?:people|persons|characters)\b", lowered):
             return "Which people or characters should I create? Give me their names first; I will read the source only after the targets are clear."
@@ -348,22 +507,128 @@ def _execute_read(request_text: str, path: str | None, target_year: str | None =
     return {"action": "repo_search", "args": {"term": term, "dir": "Reputation-Matrix2/data", "limit": 8}}, results
 
 
-def _resolve_profile_source(source_title: str, target: str) -> tuple[list[dict[str, Any]], dict[str, Any], dict[str, Any]]:
-    matches = repo_tools.search(source_title, "Reputation-Matrix2/data", 6)
-    ids = [str(item.get("entity_id")) for item in matches if item.get("entity_id") and "events.json" in str(item.get("path", ""))]
-    records = repo_tools.catalog_retrieve("events", ids=ids[:3], limit=3)
-    if not records:
-        raise ValueError(f"I could not resolve the source record {source_title!r}.")
-    source = records[0]
-    target_lower = target.casefold()
+def _closest_event_names(terms: list[str]) -> str:
+    """Find a few real event names to suggest when a source title does not resolve."""
+    skip = {"the", "and", "with", "from", "record", "complete", "source", "article", "seven", "nights"}
+    for term in terms:
+        for word in re.findall(r"[A-Za-z][A-Za-z'’-]{3,}", term):
+            if _lower(word) in skip:
+                continue
+            try:
+                found = repo_tools.search(word, "Reputation-Matrix2/data", 6)
+            except Exception:
+                continue
+            names = [str(item.get("preview", "")).split(" — ")[0] for item in found
+                     if "events.json" in str(item.get("path", ""))]
+            names = [name for name in names if name][:3]
+            if names:
+                return "; ".join(names)
+    return ""
+
+
+def _match_participant(source: dict[str, Any], target: str) -> dict[str, Any] | None:
+    """Match the named target against a source record's participants."""
     people = source.get("participants", []) if isinstance(source.get("participants"), list) else []
-    named = [person for person in people if isinstance(person, dict) and target_lower in str(person.get("name", "")).casefold()]
-    identified = [person for person in people if isinstance(person, dict) and target_lower in str(person.get("id", "")).casefold()]
-    candidates = named or identified
-    if not candidates:
-        raise ValueError(f"I found the source record, but it does not identify a participant matching {target!r}.")
-    person = candidates[0]
+    target_lower = _lower(target)
+    tokens = [token for token in re.findall(r"[a-z0-9'’-]{2,}", target_lower)]
+    best: tuple[int, dict[str, Any]] | None = None
+    for person in people:
+        if not isinstance(person, dict):
+            continue
+        name = _lower(str(person.get("name", "")))
+        identifier = _lower(str(person.get("id", "")))
+        if target_lower in name:
+            score = 5
+        elif target_lower in identifier:
+            score = 4
+        elif tokens and all(token in name or token in identifier for token in tokens):
+            score = 3
+        elif tokens and sum(1 for token in tokens if token in name or token in identifier) >= max(1, len(tokens) - 1):
+            score = 2
+        else:
+            continue
+        if best is None or score > best[0]:
+            best = (score, person)
+    return best[1] if best else None
+
+
+def _resolve_profile_source(source_titles: str | list[str], target: str) -> tuple[list[dict[str, Any]], dict[str, Any], dict[str, Any]]:
+    """Resolve the named source record and participant with bounded searches."""
+    titles = [source_titles] if isinstance(source_titles, str) else [str(item) for item in (source_titles or []) if str(item).strip()]
+    terms: list[str] = []
+    for title in titles:
+        for value in (title, *(part.strip() for part in title.split(":") if len(part.strip()) >= 8)):
+            if value not in terms:
+                terms.append(value)
+    matches: list[dict[str, Any]] = []
+    source: dict[str, Any] = {}
+    for term in terms:
+        try:
+            found = repo_tools.search(term, "Reputation-Matrix2/data", 6)
+        except Exception:
+            found = []
+        ids = [str(item.get("entity_id")) for item in found
+               if item.get("entity_id") and "events.json" in str(item.get("path", ""))]
+        if not ids:
+            # An empty id list is not a match; never retrieve unfiltered records.
+            continue
+        records = repo_tools.catalog_retrieve("events", ids=ids[:3], limit=3)
+        if records:
+            matches, source = found, records[0]
+            break
+    if not source:
+        near = _closest_event_names(terms)
+        detail = f" Closest event records I can see: {near}." if near else ""
+        leading = titles[0] if titles else "the named source"
+        raise ValueError(f"I could not resolve a source record from {leading!r}.{detail}")
+    person = _match_participant(source, target)
+    if person is None:
+        names = ", ".join(str(item.get("name", item.get("id", "?"))) for item in source.get("participants", []) if isinstance(item, dict))
+        raise ValueError(
+            f"The source record {str(source.get('name', ''))!r} does not identify a participant matching {target!r}. "
+            f"It lists: {names}."
+        )
     return matches, source, person
+
+
+def _collect_strings(value: Any) -> list[str]:
+    """Recursively collect text strings from a section structure."""
+    if isinstance(value, str):
+        return [value] if value.strip() else []
+    if isinstance(value, dict):
+        collected: list[str] = []
+        for item in value.values():
+            collected.extend(_collect_strings(item))
+        return collected
+    if isinstance(value, list):
+        collected = []
+        for item in value:
+            collected.extend(_collect_strings(item))
+        return collected
+    return []
+
+
+def _person_evidence(source: dict[str, Any], person: dict[str, Any]) -> str:
+    """Collect sentences from the source record that mention the participant."""
+    needles = set()
+    for value in (str(person.get("name", "")), str(person.get("id", ""))):
+        for token in re.findall(r"[a-z0-9'’-]{3,}", _lower(value)):
+            if token not in {"the", "and"}:
+                needles.add(token)
+    if not needles:
+        return ""
+    parts = [str(source.get(key, "")) for key in ("summary", "description")]
+    parts.extend(_collect_strings(source.get("sections", [])))
+    text = re.sub(r"\s+", " ", " ".join(parts))
+    hits: list[str] = []
+    for sentence in re.split(r"(?<=[.!?])\s+", text):
+        if len(hits) >= 5:
+            break
+        if 40 <= len(sentence) <= 500 and any(needle in _lower(sentence) for needle in needles):
+            sentence = sentence.strip()
+            if sentence not in hits:
+                hits.append(sentence)
+    return " ".join(hits)
 
 
 def _profile_object(source: dict[str, Any], person: dict[str, Any]) -> dict[str, Any]:
@@ -371,6 +636,10 @@ def _profile_object(source: dict[str, Any], person: dict[str, Any]) -> dict[str,
     source_name = str(source.get("name", source.get("id", "source record")))
     role = str(person.get("role", "Role not separately specified in the source record."))
     summary = str(source.get("summary", ""))
+    evidence = _person_evidence(source, person)
+    profile_summary = f"{name} is identified in {source_name} as {role}."
+    profile_summary += (" " + evidence[:1600]) if evidence else (" " + summary[:1600])
+    detail = evidence or summary
     return {
         "id": str(person.get("id", re.sub(r"[^a-z0-9]+", "_", name.casefold()).strip("_"))),
         "name": name,
@@ -378,8 +647,8 @@ def _profile_object(source: dict[str, Any], person: dict[str, Any]) -> dict[str,
         "race": "Not separately specified in the source record",
         "status": role,
         "affiliation": "Fazbear franchise / source-record participant",
-        "summary": f"{name} is identified in {source_name} as {role}. {summary[:1600]}",
-        "description": f"This profile is grounded in {source_name}. The record lists {name} with the role: {role}.\n\n{summary[:2400]}",
+        "summary": profile_summary,
+        "description": f"This profile is grounded in {source_name}. The record lists {name} with the role: {role}.\n\n{detail[:2400]}",
         "keyEvents": [str(source.get("id", ""))],
         "relatedArticles": [str(item) for item in (source.get("relatedArticles", []) or [])[:20]],
         "sourceRecord": str(source.get("id", source_name)),
@@ -412,6 +681,16 @@ def _approved_profile_run(run_id: str, request_text: str, emit: Callable[[dict[s
         emit({"kind": "assistant", "text": answer, "source": "approved source-backed write"})
         emit({"kind": "task_done", "step": 2, "task": "request-01"})
         return {"status": "done", "run": run_id, "steps": 2, "answer": answer}
+    except ValueError as error:
+        if "already exists" in str(error):
+            answer = (f"The character profile for {draft.get('name', draft.get('id'))} already exists in {path}; "
+                      "there was nothing new to write.")
+            emit({"kind": "assistant", "text": answer, "source": "duplicate profile write avoided"})
+            emit({"kind": "task_done", "step": 1, "task": "request-01"})
+            return {"status": "done", "run": run_id, "steps": 1, "answer": answer}
+        message = f"I did not complete the write: {error}"
+        emit({"kind": "error", "step": 1, "result": message})
+        return {"status": "error", "run": run_id, "step": 1, "message": message}
     except Exception as error:
         message = f"I did not complete the write: {error}"
         emit({"kind": "error", "step": 1, "result": message})
@@ -481,17 +760,17 @@ def run_agent(request_text: str, *, run_id: str = "", endpoint: str = DEFAULT_EN
 
     if kind == "profile":
         target = str(decision.get("target", ""))
-        source_title = str(decision.get("source", ""))
+        sources = [str(item) for item in (decision.get("sources") or [decision.get("source", "")]) if str(item).strip()]
         _emit_plan(emit, f"Resolve {target} from the named source", True, "The user requested a source-backed character profile.", "resolve the source record and participant, then draft before writing")
         try:
-            matches, source, person = _resolve_profile_source(source_title, target)
+            matches, source, person = _resolve_profile_source(sources or [""], target)
         except Exception as error:
             message = f"I could not safely resolve that profile request: {error}"
             emit({"kind": "error", "step": 1, "result": message})
             emit({"kind": "assistant", "text": message, "source": "no profile invented"})
             return {"status": "needs_input", "run": run_id or f"profile-{int(time.time())}", "step": 1, "message": message}
         source_id = str(source.get("id", ""))
-        emit({"kind": "action", "step": 1, "action": {"action": "repo_search", "args": {"term": source_title, "dir": "Reputation-Matrix2/data", "limit": 6}}})
+        emit({"kind": "action", "step": 1, "action": {"action": "repo_search", "args": {"terms": sources[:4], "dir": "Reputation-Matrix2/data", "limit": 6}}})
         emit({"kind": "result", "step": 1, "result": json.dumps(matches, ensure_ascii=False, indent=2)})
         emit({"kind": "action", "step": 2, "action": {"action": "catalog_retrieve", "args": {"source": "events", "ids": [source_id], "limit": 1}}})
         emit({"kind": "result", "step": 2, "result": json.dumps({"id": source_id, "name": source.get("name"), "title": source.get("title"), "participant": person}, ensure_ascii=False, indent=2)})

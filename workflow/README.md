@@ -41,7 +41,14 @@ person, a profile, and a source record resolves the source and participant,
 shows a grounded draft, and waits for `approve` before adding one object to
 `characters.json`. For example, Freddy plus `The Seven Nights at Fazbear: A
 Complete Record` resolves to the source participant `gabriel_freddy`; it does
-not ask for a random file path or search every catalog.
+not ask for a random file path or search every catalog. The request works as
+one message or as several, and permission lines such as “you may edit files”
+are understood without triggering a clarification.
+
+A clarification is never asked twice in a row. If the user resends the same
+message or replies “i just told you,” the assistant states what it already has
+(the character, the source) and asks for only the missing piece; sending just
+that piece starts the profile flow immediately.
 
 ## API
 

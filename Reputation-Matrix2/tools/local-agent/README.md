@@ -42,6 +42,45 @@ and waits for `approve`. It does not ask for an unrelated target file and it doe
 not write before the exact draft is approved. The approval then writes one unique
 object and validates the JSON collection.
 
+The same request works when it arrives in one message with permission language
+included, because the source title is extracted from either side of the
+“you can learn about him from” marker:
+
+```text
+for freddy
+you may edit files
+The Seven Nights at Fazbear: A Complete Record you can learn about him from
+maybe we can make a profile for him
+```
+
+It also works when the pieces arrive as separate messages: “for freddy” and the
+source name in earlier turns, the profile words in the latest one. The pieces are
+reassembled from the conversation, and the trailing request line (“maybe we can
+make a profile for him”) is never mistaken for the source title.
+
+## No repeated canned questions
+
+A clarification is asked once. If the user resends the same message, or answers
+with “i just told you,” the runtime does not repeat the question it just asked.
+Instead it states what it already has and asks for only the missing piece:
+
+- both pieces known → “Reply ‘make the profile’ and I will draft it for your
+  approval”;
+- character known → “I am still missing the source record to draft from”;
+- source known → “I am still missing the character’s name”;
+- nothing known → both pieces are named plainly.
+
+When the user then sends just the missing piece — a bare name, a bare source
+title, or “make the profile” — the profile flow runs immediately. Repeating “i
+just told you” after a canned question re-serves the grounded draft instead of
+re-asking. The guard only fires after one of this runtime’s own canned
+questions, so ordinary model answers are never mistaken for a stuck gate.
+
+Unresolvable source titles no longer pretend otherwise: an empty search never
+falls back to the first event in the file. The failure message names the closest
+event records it can see, and a participant mismatch lists the participants the
+record actually has.
+
 The runtime does not expose shell access, does not let an LM choose arbitrary
 filesystem paths, and does not write canon merely because a model suggested it.
 Normal chat has no repository context injected into its prompt, which prevents

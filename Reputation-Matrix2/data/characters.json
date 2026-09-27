@@ -6258,5 +6258,31 @@
       "bowsers_castle"
     ],
     "image": "portraits/jester_goomba.webp"
+  },
+  {
+    "id": "gabriel_freddy",
+    "name": "Gabriel / Freddy",
+    "title": "The Frontman of the Original Five",
+    "race": "Human child, murdered at the Hurricane Freddy Fazbear's Pizza; spirit bound for decades to the Freddy Fazbear animatronic",
+    "status": "Released — set free on Night Seven at 1:47 AM on the 21st of Autumn's End, 1038 BF, in the dissipation event the Mages' Guild filed as 'an unexplained but benign release of bound spiritual energy, origin unknown'",
+    "affiliation": "The original five animatronics of the Hurricane Freddy Fazbear's Pizza (involuntarily) / Fazbear franchise",
+    "summary": "Gabriel is the child whose spirit was bound to Freddy Fazbear, the lead performer of the original five animatronics at the Hurricane Freddy Fazbear's Pizza — the franchise's crown jewel, and the place where the original five children were murdered. He spent decades on that main stage haunting the night security staff, outlasting the animatronics themselves, until Wario's seven-night tenure ended in the Secret Bunker and thirty years of sustained grief released its hold. The record lists him with two words and no complaints: Released Night Seven.",
+    "description": "## The stage\n\nThe Hurricane flagship was the largest, most profitable, and most infamous location in the franchise, and its main dining area was built around the stage where Freddy, Bonnie, and Chica performed. By the time Wario arrived to salvage what he had just bought, the animatronics were gone — moved to storage years earlier — but the stage remained, along with the faded murals, the disconnected speaker system, and several hundred plastic chairs. The haunting, the record makes clear, had never needed the hardware.\n\nIt was here that the original five children had been murdered, and here that the original animatronics — Freddy, Bonnie, Chica, Foxy, and the Marionette — had spent decades haunting the night security staff. Gabriel is the spirit the record places inside Freddy: the frontman position, held long past any reason to perform.\n\n## The seven nights\n\nCharlie — the Marionette — made the decision on Night One to allow Wario access, and communicated to all the other animatronic spirits across all seven nights. Waluigi suspects she was telling them something between each night; preparing them; helping them understand what the masks being collected meant. Gabriel is not credited with a single distinct incident in the whole seven-night account — the other spirits got the noted beats (Jeremy stopped pursuing on Night Two; Fritz stopped running on Night Four), while Freddy's frontman simply held his place in the record until the end.\n\nWario, for his part, walked out of the storage room on Night One with the Freddy mask under his arm and entered it in his ledger as: 'Mask: fancy, probably worth something, keep.'\n\n## Night Seven: the release\n\nIn the Secret Bunker, Cassidy — the Anchor, the golden suit seated in a chamber at the very back — released her hold after Wario's business advice. Wario's phone rang; it was his mother; he said 'Bye-bye!' and 'have a rotten day,' and walked out of the chamber talking about his restaurant. Behind him, in the record's own words, thirty years of sustained grief released its hold, and five children who had been trapped in mechanical bodies since before most people currently alive in the Midlands were born found something they had been denied their entire afterlife: permission to stop.\n\nThe Mages' Guild, monitoring supernatural energy levels across the Midlands, recorded a significant dissipation event at 1:47 AM on the 21st of Autumn's End, 1038 BF, and filed it as 'an unexplained but benign release of bound spiritual energy, origin unknown.'\n\n## Provenance\n\nEvery fact in this profile is grounded in The Seven Nights at Fazbear: A Complete Record, which lists Gabriel / Freddy among its participants with the role: Released Night Seven.",
+    "waluigiComment": "The Guild's documentation still says 'origin unknown.' Waluigi knows the origin. The origin is garlic breath and business advice. WAH.",
+    "keyEvents": [
+      "fazbear_seven_nights"
+    ],
+    "relatedArticles": [
+      "wario_fazbear_acquisition",
+      "wario",
+      "waluigi",
+      "regal_empire_dossier",
+      "iron_legion",
+      "shroob_temporal_incursion",
+      "mages_guild"
+    ],
+    "sourceRecord": "fazbear_seven_nights",
+    "image": "assets/images/events/archive-sheets/fazbear-seven-nights.jpg",
+    "imageCaption": "The record's own archive sheet — the closest thing to a photograph of Freddy's stage that survives."
   }
 ]
