@@ -41,18 +41,21 @@ class ChatFirstTests(unittest.TestCase):
             "hello",
             "what do you think about Freddy?",
             "I like this character",
-            "the character file looks good",
             "thanks, that works",
             "draft a character profile for Freddy",
             "write a short bio for Freddy",
             "create a character for my story",
-            "make a profile for him",
             "read above",
         ):
             with self.subTest(prompt=prompt):
                 decision = runtime.classify_request(prompt)
                 self.assertEqual(decision["kind"], "chat")
                 self.assertFalse(decision["needed"])
+        # Messages that name archive things get the reasoning loop — the model
+        # decides whether any tool is actually needed.
+        for prompt in ("the character file looks good", "make a profile for him"):
+            with self.subTest(prompt=prompt):
+                self.assertEqual(runtime.classify_request(prompt)["kind"], "agent")
 
     def test_deictic_references_stay_chat_after_a_profile_request(self) -> None:
         """“read above” after a written profile is conversation, not another run."""
@@ -71,20 +74,31 @@ class ChatFirstTests(unittest.TestCase):
         resent = conversation + [{"role": "user", "content": requested}]
         self.assertEqual(runtime.classify_request(requested, conversation=resent)["kind"], "profile")
 
-    def test_ambiguous_creation_still_clarifies_before_tools(self) -> None:
+    def test_ambiguous_creation_asks_in_prose_before_tools(self) -> None:
         cases = (
             "can we create a new chracer file",
             "The Seven Nights at Fazbear: A Complete Record has some people that we need to create",
             "Let's start with freddy the article should have all it needs right",
             "for Freddy you may edit files",
-            "The Seven Nights at Fazbear: A Complete Record you can learn about him from",
         )
         for prompt in cases:
             with self.subTest(prompt=prompt):
                 decision = runtime.classify_request(prompt)
-                self.assertEqual(decision["kind"], "clarify")
-                self.assertFalse(decision["needed"])
-                self.assertIn("missing_items", decision["context"])
+                self.assertEqual(decision["kind"], "agent")
+        calls, fake = model_texts("Which people or characters should I create? Give me their names first.")
+        events: list[dict[str, object]] = []
+        with patch.object(runtime, "_complete", side_effect=fake), \
+             patch.object(runtime.repo_tools, "search", side_effect=AssertionError("no tools before the names")), \
+             patch.object(runtime.repo_tools, "upsert_json_object", side_effect=AssertionError("no writes before the names")):
+            result = runtime.run_agent(
+                "The Seven Nights at Fazbear: A Complete Record has some people that we need to create",
+                on_event=events.append,
+            )
+        self.assertEqual(result["status"], "done")
+        self.assertIn("Which people", result["message"])
+        self.assertTrue(calls, "the question must be written by the model")
+        actions = [event for event in events if event.get("kind") == "action"]
+        self.assertEqual(actions, [], "no tool runs when the model only asks for the missing piece")
 
     def test_source_backed_profile_request_resolves_and_writes(self) -> None:
         prompt = (
@@ -188,22 +202,20 @@ class ChatFirstTests(unittest.TestCase):
             {"role": "assistant", "content": first_reply},
             {"role": "user", "content": vague},
         ]
-        decision = runtime.classify_request(vague, conversation=conversation)
-        self.assertEqual(decision["kind"], "clarify")
-        self.assertIn("note", decision["context"])
-        self.assertIn("previous", decision["context"]["note"])
+        self.assertEqual(runtime.classify_request(vague, conversation=conversation)["kind"], "agent")
 
-        calls, fake = model_texts("FIRST")
-        events: list[dict[str, object]] = []
+        seen_conversations: list[list[dict[str, str]]] = []
+        def fake(endpoint, model, system, user, **kwargs):
+            seen_conversations.append(list(kwargs.get("conversation") or []))
+            return "Which people? I still need their names."
         with patch.object(runtime, "_complete", side_effect=fake), \
              patch.object(runtime.repo_tools, "search", side_effect=AssertionError("unexpected search")):
-            result = runtime.run_agent(vague, conversation=conversation, on_event=events.append)
-        self.assertEqual(result["status"], "needs_input")
-        self.assertIn("FIRST", result["message"])
-        self.assertNotIn(first_reply, result["message"])
-        self.assertTrue(calls)
-        self.assertIn("same request", calls[0])
-        self.assertIn(first_reply[:40], calls[0])
+            result = runtime.run_agent(vague, conversation=conversation)
+        self.assertEqual(result["status"], "done")
+        self.assertIn("Which people?", result["message"])
+        self.assertNotEqual(result["message"], first_reply)
+        joined = " ".join(str(item.get("content", "")) for item in seen_conversations[0])
+        self.assertIn(first_reply[:40], joined, "the model must see its own previous reply")
 
     def test_guard_followups_complete_the_profile_request(self) -> None:
         conversation = [
@@ -410,124 +422,146 @@ class ChatFirstTests(unittest.TestCase):
         self.assertIn("Big Bite", blob)
         self.assertIn("Doughnut World", blob)
 
-    def test_explicit_archive_requests_are_the_only_read_gate(self) -> None:
+    def test_explicit_archive_requests_reach_the_reasoning_loop(self) -> None:
         for prompt in (
             "read the article about Freddy in canon",
             "what does this article say about Freddy?",
             "find Freddy in the repository",
             "search the repository for Freddy",
             "read the factions json",
+            "can we add a noki race to the campagin?",
+            "update the Noki race to mention their shells",
+            "add a race",
+            "what race is Markop",
+            "edit Reputation-Matrix2/data/characters.json",
         ):
             with self.subTest(prompt=prompt):
                 decision = runtime.classify_request(prompt)
-                self.assertEqual(decision["kind"], "read")
+                self.assertEqual(decision["kind"], "agent")
                 self.assertTrue(decision["needed"])
 
-    def test_explicit_file_change_is_write_gate(self) -> None:
-        decision = runtime.classify_request("edit Reputation-Matrix2/data/characters.json")
-        self.assertEqual(decision["kind"], "write")
-        self.assertTrue(decision["needed"])
-        self.assertEqual(decision["path"], "Reputation-Matrix2/data/characters.json")
-
-    def test_record_requests_resolve_collections(self) -> None:
-        """'add a Noki race' files into races.json in one prompt; other kinds keep their lanes."""
-        cases = {
-            "can you add a Noki race": ("record", "Reputation-Matrix2/data/races.json", "Noki"),
-            "add a new faction called the Coral Guard": ("record", "Reputation-Matrix2/data/factions.json", "the Coral Guard"),
-            "check the Isle Delfino nation and add a Noki race to the archive": ("record", "Reputation-Matrix2/data/races.json", "Noki"),
-            "edit the races.json file and add Noki": ("record", "Reputation-Matrix2/data/races.json", "Noki"),
-            "add a new currency called Delfino Coins": ("record", "Reputation-Matrix2/data/currencies.json", "Delfino Coins"),
-        }
-        for prompt, (kind, path, subject) in cases.items():
-            with self.subTest(prompt=prompt):
-                decision = runtime.classify_request(prompt)
-                self.assertEqual(decision["kind"], kind)
-                self.assertEqual(decision["path"], path)
-                self.assertEqual(decision["subject"], subject)
-        # nameless: ask for the name instead of inventing a record
-        self.assertEqual(runtime.classify_request("add a race")["kind"], "clarify")
-        self.assertEqual(runtime.classify_request("update the factions.json")["kind"], "clarify")
-        # a bare file edit with no record name is the generic write flow
-        self.assertEqual(runtime.classify_request("edit Reputation-Matrix2/data/characters.json")["kind"], "write")
-        # existing lanes are untouched
-        self.assertEqual(runtime.classify_request("can you generate a new battle using the tools")["kind"], "generate")
-        self.assertEqual(runtime.classify_request("make a new event for my story")["kind"], "chat")
-        self.assertEqual(runtime.classify_request("what race is Markop")["kind"], "chat")
-
-    def test_record_run_files_the_record(self) -> None:
-        """One prompt reads the format, gathers evidence, drafts, and writes."""
-        decision = runtime.classify_request("can you add a Noki race")
-        self.assertEqual(decision["kind"], "record")
-        reply = json.dumps({
-            "reply": "Filed the Noki into the races, complete with the shell.",
-            "record": {"id": "noki", "name": "Noki", "title": "Nokis — The Shell and the Shore",
-                       "summary": "A small amphibious folk of Isle Delfino.",
-                       "description": "The Nokis of Isle Delfino."},
-        })
-        calls, fake = model_texts(reply)
+    def test_agent_loop_files_a_record_from_one_prompt(self) -> None:
+        """'add a noki race' — the model reasons: search, read the format, write, reply."""
+        turns = (
+            json.dumps({"tool": "search_archive", "args": {"term": "Noki", "limit": 5}}),
+            json.dumps({"tool": "read_collection", "args": {"path": "Reputation-Matrix2/data/races.json"}}),
+            json.dumps({"tool": "write_record", "args": {"path": "Reputation-Matrix2/data/races.json",
+                        "record": {"id": "noki", "name": "Nokis", "title": "Nokis — The Shell and the Shore",
+                                   "summary": "A short, shelled folk of Isle Delfino.", "status": "Native — thriving"}}}),
+            "Filed it. The Nokis are in races.json now, in the file's own format.",
+        )
+        calls, fake = model_texts(*turns)
         events: list[dict[str, object]] = []
         with patch.object(runtime, "_complete", side_effect=fake), \
              patch.object(runtime.repo_tools, "upsert_json_object",
                           return_value="added noki in Reputation-Matrix2/data/races.json (52 records)") as upsert:
-            result = runtime.run_agent("can you add a Noki race", on_event=events.append)
+            result = runtime.run_agent("can we add a noki race to the campagin?", on_event=events.append)
         self.assertEqual(result["status"], "done")
         self.assertEqual(upsert.call_count, 1)
         self.assertEqual(upsert.call_args[0][0], "Reputation-Matrix2/data/races.json")
-        written = upsert.call_args[0][1]
-        self.assertEqual(written["id"], "noki")
-        self.assertEqual(written["name"], "Noki")
-        self.assertTrue(calls, "the record and reply must be written by the model")
-        payload = calls[0]
-        self.assertIn("sample_records", payload)
-        self.assertIn("races.json", payload)
+        self.assertEqual(upsert.call_args[0][1]["id"], "noki")
         actions = [event["action"]["action"] for event in events if event.get("kind") == "action"]
-        self.assertEqual(actions, ["repo_read", "repo_search", "repo_upsert_object"])
-        self.assertIn("added noki in Reputation-Matrix2/data/races.json (52 records)", result["message"])
+        self.assertEqual(actions, ["search_archive", "read_collection", "write_record"])
+        # the format samples reached the model on the drafting call
+        self.assertIn("TOOL RESULT (read_collection)", calls[2])
+        self.assertIn("record_keys", calls[2])
+        state = runtime._load_state(result["run"])
+        self.assertEqual(state["kind"], "agent")
+        self.assertEqual(state["status"], "done")
+        self.assertIn("write_record", state["tools"])
 
-    def test_record_run_gathers_catalog_evidence(self) -> None:
-        """The Isle Delfino record grounds the Noki without a second prompt."""
-        reply = json.dumps({"reply": "Filed.", "record": {"id": "noki", "name": "Noki", "summary": "s"}})
-        calls, fake = model_texts(reply)
+    def test_agent_loop_gathers_evidence_without_being_asked(self) -> None:
+        """'Noki' alone surfaces the Isle Delfino nation — no second prompt needed."""
+        turns = (
+            json.dumps({"tool": "search_archive", "args": {"term": "Noki", "limit": 5}}),
+            json.dumps({"tool": "find_records", "args": {"path": "Reputation-Matrix2/data/nations.json",
+                                                          "term": "Isle Delfino"}}),
+            "The Isle Delfino nation grounds the record; filing it.",
+        )
+        calls, fake = model_texts(*turns)
         with patch.object(runtime, "_complete", side_effect=fake), \
-             patch.object(runtime.repo_tools, "upsert_json_object", return_value="added noki in Reputation-Matrix2/data/races.json (52 records)"):
-            runtime.run_agent("can you add a Noki race, check the Isle Delfino nation they are native there")
-        payload = json.loads(calls[0])
-        ids = [item["id"] for item in payload["evidence"]]
-        self.assertIn("isle_delfino", ids, f"evidence should include the Isle Delfino nation, got {ids}")
+             patch.object(runtime.repo_tools, "upsert_json_object",
+                          return_value="added noki in Reputation-Matrix2/data/races.json (52 records)"):
+            result = runtime.run_agent("can we add a noki race, they are from Isle Delfino")
+        self.assertEqual(result["status"], "done")
+        self.assertIn("isle_delfino", calls[1], "the nation record must reach the model as evidence")
 
-    def test_record_run_offline_writes_nothing(self) -> None:
-        """A record cannot be drafted without the model; nothing is written."""
+    def test_agent_loop_offline_writes_nothing(self) -> None:
+        """A model failure writes nothing and leaves a resumable run."""
         def broken(endpoint, model, system, user, **kwargs):
             raise RuntimeError("connection refused at http://127.0.0.1:1234")
-        events: list[dict[str, object]] = []
         with patch.object(runtime, "_complete", side_effect=broken), \
              patch.object(runtime.repo_tools, "upsert_json_object",
                           side_effect=AssertionError("nothing may be written offline")) as upsert:
-            result = runtime.run_agent("can you add a Noki race", on_event=events.append)
+            result = runtime.run_agent("can we add a noki race")
         self.assertEqual(result["status"], "error")
         self.assertEqual(upsert.call_count, 0)
-        self.assertIn("nothing in races.json changed", result["message"])
+        state = runtime._load_state(result["run"])
+        self.assertEqual((state["kind"], state["status"]), ("agent", "error"))
 
-    def test_record_run_updates_existing_record(self) -> None:
-        """An existing record is amended, not duplicated."""
-        runtime._save_state("record-existing", {"kind": "record", "path": "Reputation-Matrix2/data/races.json"})
-        try:
-            reply = json.dumps({"reply": "Updated.", "record": {"id": "noki", "name": "Noki", "summary": "better"}})
-            existing = [{"id": "noki", "name": "Noki", "summary": "old summary"}]
-            calls, fake = model_texts(reply)
-            with patch.object(runtime, "_complete", side_effect=fake), \
-                 patch.object(runtime.repo_tools, "find_records", return_value=existing), \
-                 patch.object(runtime.repo_tools, "upsert_json_object",
-                              return_value="updated noki in Reputation-Matrix2/data/races.json (52 records)") as upsert:
-                result = runtime.run_agent("update the Noki race to mention their shells",
-                                           run_id="record-existing")
-            self.assertEqual(result["status"], "done")
-            self.assertEqual(upsert.call_args[0][1]["summary"], "better")
-            payload = json.loads(calls[0])
-            self.assertEqual(payload["existing_records"], existing,
-                             "the existing Noki record must be in the model context")
-        finally:
-            runtime._save_state("record-existing", {})
+    def test_agent_loop_retry_continues_the_run(self) -> None:
+        """'really try again' after a failure resumes the same job — no regexes."""
+        def broken(endpoint, model, system, user, **kwargs):
+            raise RuntimeError("HTTP 400: bad request")
+        with patch.object(runtime, "_complete", side_effect=broken):
+            failed = runtime.run_agent("can we add a pianta race too")
+        self.assertEqual(failed["status"], "error")
+        with patch.object(runtime, "_complete", side_effect=["Filed the Piantas on retry."]):
+            retried = runtime.run_agent("really try again", run_id=failed["run"])
+        self.assertEqual(retried["status"], "done")
+        self.assertIn("Piantas", retried["answer"])
+
+    def test_agent_loop_updates_existing_records(self) -> None:
+        """The model reads the existing record and writes the amended version."""
+        turns = (
+            json.dumps({"tool": "find_records", "args": {"path": "Reputation-Matrix2/data/races.json", "term": "Noki"}}),
+            json.dumps({"tool": "write_record", "args": {"path": "Reputation-Matrix2/data/races.json",
+                        "record": {"id": "noki", "name": "Nokis", "summary": "amended"}}}),
+            "Updated with the shell lore.",
+        )
+        calls, fake = model_texts(*turns)
+        with patch.object(runtime, "_complete", side_effect=fake), \
+             patch.object(runtime.repo_tools, "upsert_json_object",
+                          return_value="updated noki in Reputation-Matrix2/data/races.json (52 records)") as upsert:
+            result = runtime.run_agent("update the Noki race to mention their shells")
+        self.assertEqual(result["status"], "done")
+        self.assertEqual(upsert.call_args[0][1]["summary"], "amended")
+
+    def test_agent_loop_tool_errors_feed_back_to_the_model(self) -> None:
+        """A refused write is reported to the model, which corrects course."""
+        turns = (
+            json.dumps({"tool": "write_record",
+                        "args": {"path": "Reputation-Matrix2/data/mainPage.json", "record": {"id": "x"}}}),
+            "That file is not a record collection, so nothing was written there.",
+        )
+        calls, fake = model_texts(*turns)
+        with patch.object(runtime, "_complete", side_effect=fake), \
+             patch.object(runtime.repo_tools, "upsert_json_object",
+                          side_effect=ValueError("writes are limited to existing JSON list collections")):
+            result = runtime.run_agent("add a test entry to mainPage.json")
+        self.assertEqual(result["status"], "done")
+        self.assertIn("not a record collection", result["answer"])
+        self.assertIn("TOOL ERROR (write_record)", calls[1], "the tool error must reach the model")
+
+    def test_collection_samples_are_condensed(self) -> None:
+        """Sample records fit a small model context: strings clipped, keys intact."""
+        import tempfile
+        with tempfile.TemporaryDirectory() as tmp:
+            fake_data = Path(tmp) / "data"
+            fake_data.mkdir()
+            target = fake_data / "races.json"
+            target.write_text(json.dumps([
+                {"id": "big", "name": "Big", "summary": "x" * 5000, "description": "y" * 5000, "status": "Active"},
+            ]), encoding="utf-8")
+            import importlib
+            module = importlib.import_module("repo_tools")
+            with patch.object(module, "safe_path", return_value=target), \
+                 patch.object(module, "PROJECT", Path(tmp)), \
+                 patch.object(module, "ROOT", Path(tmp)):
+                overview = module.collection_overview(str(target), sample_count=1, cap=400)
+            blob = json.dumps(overview["samples"], ensure_ascii=False)
+            self.assertLessEqual(len(blob), 3400)
+            self.assertIn("summary", overview["samples"][0])
 
     def test_upsert_rejects_non_list_collections(self) -> None:
         """Dict-shaped bookkeeping files are not record collections."""
@@ -613,21 +647,6 @@ class ChatFirstTests(unittest.TestCase):
         assistant = next(event for event in events if event.get("kind") == "assistant")
         self.assertIn("no tools called", assistant["source"])
 
-    def test_clarification_run_has_only_ask_user_action(self) -> None:
-        calls, fake = model_texts()
-        events: list[dict[str, object]] = []
-        with patch.object(runtime, "_complete", side_effect=fake), \
-             patch.object(runtime.repo_tools, "search", side_effect=AssertionError("unexpected search")):
-            result = runtime.run_agent(
-                "The Seven Nights at Fazbear: A Complete Record has some people that we need to create",
-                on_event=events.append,
-            )
-        self.assertEqual(result["status"], "needs_input")
-        self.assertIn("MODEL-REPLY", result["message"])
-        self.assertTrue(calls, "the clarification must be written by the model")
-        actions = [event for event in events if event.get("kind") == "action"]
-        self.assertEqual([event["action"]["action"] for event in actions], ["ask_user"])
-
     def test_creation_room_greeting_is_still_chat(self) -> None:
         events: list[dict[str, object]] = []
         creation = {"year": "2026 BF", "characters": [{"id": "freddy_fazbear"}], "events": []}
@@ -637,15 +656,23 @@ class ChatFirstTests(unittest.TestCase):
         self.assertEqual(result["status"], "done")
         self.assertEqual([event for event in events if event.get("kind") == "action"], [])
 
-    def test_read_run_uses_one_focused_action_and_a_model_answer(self) -> None:
+    def test_read_run_uses_one_focused_tool_and_a_model_answer(self) -> None:
+        turns = (
+            json.dumps({"tool": "search_archive", "args": {"term": "Freddy", "limit": 5}}),
+            "Grounded archive answer: Freddy is in characters.json.",
+        )
+        calls, fake = model_texts(*turns)
         events: list[dict[str, object]] = []
-        with patch.object(runtime.repo_tools, "search", return_value=[{"path": "characters.json", "preview": "Freddy"}]), \
-             patch.object(runtime, "_evidence_answer", return_value="Grounded archive answer"):
+        with patch.object(runtime, "_complete", side_effect=fake), \
+             patch.object(runtime.repo_tools, "search",
+                          return_value=[{"path": "Reputation-Matrix2/data/characters.json", "line": "12",
+                                         "preview": "\"id\": \"freddy\"", "entity_id": "freddy"}]):
             result = runtime.run_agent("find Freddy in the repository", on_event=events.append)
         self.assertEqual(result["status"], "done")
-        self.assertEqual(result["answer"], "Grounded archive answer")
-        actions = [event for event in events if event.get("kind") == "action"]
-        self.assertEqual([event["action"]["action"] for event in actions], ["repo_search"])
+        self.assertIn("Grounded archive answer", result["answer"])
+        actions = [event["action"]["action"] for event in events if event.get("kind") == "action"]
+        self.assertEqual(actions, ["search_archive"])
+        self.assertIn("TOOL RESULT (search_archive)", calls[1])
 
     def test_timeout_is_not_reported_as_offline(self) -> None:
         """A slow model must not be called offline, and the endpoint is shown."""

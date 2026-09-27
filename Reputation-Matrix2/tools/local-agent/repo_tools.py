@@ -7,6 +7,7 @@ import os
 import re
 import subprocess
 import sys
+import time
 from pathlib import Path
 from typing import Any
 
@@ -213,7 +214,57 @@ def collection_for_noun(text: str) -> tuple[str, str] | None:
     return None
 
 
-def collection_overview(path: str, sample_count: int = 2) -> dict[str, Any]:
+_COLLECTIONS_CACHE: dict[str, Any] = {"at": 0.0, "value": None}
+
+
+def list_archive_collections(refresh: bool = False) -> list[dict[str, Any]]:
+    """Every data/*.json that holds records: filename, record count, key fields.
+
+    This is the loop's discovery tool — 'what do I have to work with' answered
+    from the checkout itself, cached for a minute.
+    """
+    now = time.time()
+    cached = _COLLECTIONS_CACHE.get("value")
+    if not refresh and cached is not None and now - float(_COLLECTIONS_CACHE.get("at", 0.0)) < 60:
+        return cached
+    out: list[dict[str, Any]] = []
+    for path in sorted((PROJECT / "data").glob("*.json")):
+        try:
+            value = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            continue
+        if not isinstance(value, list) or not value:
+            continue
+        keys: list[str] = []
+        for item in value[:25]:
+            if isinstance(item, dict):
+                for key in item:
+                    if key not in keys:
+                        keys.append(key)
+        if not keys:
+            continue
+        out.append({"file": path.name, "records": len(value), "keys": keys[:10]})
+    _COLLECTIONS_CACHE.update({"at": now, "value": out})
+    return out
+
+
+def condense_record(value: Any, cap: int = 600) -> Any:
+    """Truncate deep string values so whole records fit in a model context.
+
+    A record's shape survives intact; only prose fields are clipped. This is
+    what keeps 'read the collection's format' from overloading a small local
+    model with two full encyclopedia entries.
+    """
+    if isinstance(value, str):
+        return value if len(value) <= cap else value[:cap] + "…"
+    if isinstance(value, list):
+        return [condense_record(item, cap) for item in value[:12]]
+    if isinstance(value, dict):
+        return {key: condense_record(item, cap) for key, item in value.items()}
+    return value
+
+
+def collection_overview(path: str, sample_count: int = 2, cap: int = 600) -> dict[str, Any]:
     """Describe a collection so a record can be drafted in its own format.
 
     Returns the record count, the union of record keys, and the first complete
@@ -235,7 +286,15 @@ def collection_overview(path: str, sample_count: int = 2) -> dict[str, Any]:
     samples = []
     for item in data[:max(1, min(int(sample_count), 5))]:
         if isinstance(item, dict):
-            samples.append(json.loads(json.dumps(item, ensure_ascii=False)))
+            condensed = condense_record(json.loads(json.dumps(item, ensure_ascii=False)), cap)
+            blob = json.dumps(condensed, ensure_ascii=False)
+            if len(blob) > 3200:
+                blob = blob[:3200].rsplit(",", 1)[0] + '}, …clipped…"]'
+                try:
+                    condensed = json.loads(blob)
+                except json.JSONDecodeError:
+                    condensed = {"_sample_clipped": blob[:3000]}
+            samples.append(condensed)
     return {
         "path": target.relative_to(ROOT).as_posix(),
         "count": len(data),

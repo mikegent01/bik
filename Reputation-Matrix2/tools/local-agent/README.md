@@ -2,14 +2,24 @@
 
 `agent_runtime.py` is the runtime behind `workflow/server.py`.
 
-The design is intentionally smaller than a model-driven tool planner:
+The model reasons; the runtime enforces bounds:
 
-1. classify the current request locally;
-2. answer normal conversation directly with LM Studio;
-3. ask one clarification for ambiguous archive language;
-4. use one bounded repository operation only for an explicit read;
-5. write the target directly when the user asked (git is the undo);
-6. never claim a tool ran when it did not.
+1. pure conversation (no archive signal) is answered directly with LM Studio;
+2. anything archive-ish goes to a **reasoning loop** — the model decides which
+   tool to call next (`search_archive`, `read_collection`, `find_records`,
+   `list_archive_collections`, `read_file`, `write_record`, `run_generator`),
+   sees each result, and keeps going until the work is done;
+3. the runtime executes one bounded tool per step (no shell, writes only via
+   the upsert helper, a step limit) and feeds results back — a tool error is
+   part of the conversation, so the model corrects course;
+4. source-backed profiles and generator runs keep their deterministic
+   pipelines (grounding and subprocess bounds);
+5. never claim a tool ran when it did not.
+
+There is no intent regex tower: no verb analysis, no subject extraction, no
+noun-to-filename mapping. “Can you add a Noki race?” is not parsed — the model
+searches for Noki, finds the Isle Delfino nation, reads races.json's own
+format, and writes the record, in one prompt.
 
 ## Every reply is written by the model
 
@@ -121,32 +131,29 @@ genkit systems) directly. Asking to “generate a battle”, “make some events
 A system with nothing pending is reported honestly from the inventory instead
 of running anything.
 
-## Filing records into any collection — one prompt
+## The reasoning loop
 
-“Can you add a Noki race” is one prompt, not an interview. The request resolves
-the collection from the noun (race → `races.json`, faction → `factions.json`,
-nation, location, book, currency, artifact, quest, trial, injury, culture,
-what-if, prop, commentary — or any explicit `something.json` under `data/`),
-extracts the record's name (“a Noki race” → Noki), and then:
+“Can you add a Noki race” is not parsed for verbs and subjects. The request
+goes to the loop, and the model works the archive like a person:
 
-1. reads the target collection and hands the model its own records as format
-   samples — the runtime never hardcodes a schema;
-2. gathers grounding from the catalog (the subject plus any proper names in
-   the request — “Noki” alone finds the Isle Delfino nation record, so the
-   user does not have to paste it);
-3. the model drafts the complete record in the file's own format and voice and
-   writes the reply — one model call;
-4. the record is written directly (git is the undo), replacing any existing
-   record with the same id, so “update the Noki race to mention their shells”
-   amends instead of duplicating.
+1. it can list the archive's collections (`list_archive_collections`) or
+   search for a term (`search_archive`) — “Noki” alone surfaces the Isle
+   Delfino nation record, so the user never has to paste lore or name a file;
+2. it reads the target collection's own format (`read_collection` — record
+   keys plus a condensed sample, so small local models fit the context);
+3. it writes with `write_record`, which upserts by id — adding a new record or
+   amending an existing one, in the file's own format and voice;
+4. it replies in plain prose when done, asks in prose when something is
+   missing, and sees tool errors so it can correct course (a refused path, a
+   bad term) without the user intervening.
 
-The write surface is any existing top-level `data/*.json` that holds a list of
-id-keyed records — dict-shaped bookkeeping files (`mainPage.json`,
-`currentDate.json`) are refused by the same rule. Characters keep the
-source-backed profile flow; generator keywords keep the generator; a nameless
-“add a race” asks for the name rather than inventing a record; and a bare
-“edit data/characters.json” with no record named stays with the generic write
-flow. When the model is unreachable nothing is written and the notice says so.
+Follow-ups continue the chat's run — “really try again” after a model failure
+resumes the same job, and extra lore for the subject is merged in — because
+the run state is handed back to the model as context, not matched with
+regexes. The loop is bounded: at most six tool steps, one tool per step, and
+writes only through the upsert helper (existing `data/*.json` lists only —
+dict-shaped bookkeeping files are refused). When the model is unreachable
+nothing is written and the notice says so.
 
 ## Failure notices never become conversation
 

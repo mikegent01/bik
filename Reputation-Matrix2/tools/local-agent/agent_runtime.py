@@ -70,32 +70,6 @@ def _has_word(text: str, words: tuple[str, ...]) -> bool:
     return any(word in lowered for word in words)
 
 
-def _has_explicit_path(text: str) -> str | None:
-    match = re.search(r"(?:^|\s)((?:Reputation-Matrix2|docs|tools|workflow)/[^\s,;]+)", text, re.I)
-    if not match:
-        return None
-    return match.group(1).rstrip(".,!?)]}")
-
-
-_PROFILE_WORDS_RE = re.compile(
-    r"\b(?:char(?:acter|cater)|persona)\s+(?:profil(?:e|l)|pr(?:o)?file)\b"
-    r"|\bprofil(?:e|l)\s+(?:for|of)\b"
-    r"|\b(?:make|create|give|write|draft|put together)\b[^.\n]{0,48}\bprofil(?:e|l)\b"
-)
-_TARGET_STOPWORDS = {
-    "him", "her", "them", "you", "me", "us", "it", "now", "today", "everyone",
-    "each", "all", "this", "that", "example", "the", "a", "an", "record",
-    "source", "article", "file", "can", "who", "what",
-}
-# Words that start sentences but are not character names.
-_NAME_STOPWORDS = _TARGET_STOPWORDS | {
-    "wednesday", "thursday", "tuesday", "monday", "friday", "saturday",
-    "sunday", "tomorrow", "yesterday", "ok", "okay", "yes", "no", "sure",
-    "maybe", "please", "thanks", "thank", "hello", "hi", "hey", "so", "and",
-    "but", "there", "then", "also", "one", "someone", "anyone",
-}
-
-
 def _prior_user_texts(conversation: list[dict[str, Any]] | None, current: str = "") -> list[str]:
     """Return earlier user messages, dropping the trailing copy the browser sends."""
     texts: list[str] = []
@@ -216,6 +190,109 @@ def _profile_target(text: str) -> str:
 
 
 # Imperatives and acknowledgements that are never a bare character name.
+_PROFILE_WORDS_RE = re.compile(
+    r"\b(?:char(?:acter|cater)|persona)\s+(?:profil(?:e|l)|pr(?:o)?file)\b"
+    r"|\bprofil(?:e|l)\s+(?:for|of)\b"
+    r"|\b(?:make|create|give|write|draft|put together)\b[^.\n]{0,48}\bprofil(?:e|l)\b"
+)
+_TARGET_STOPWORDS = {
+    "him", "her", "them", "you", "me", "us", "it", "now", "today", "everyone",
+    "each", "all", "this", "that", "example", "the", "a", "an", "record",
+    "source", "article", "file", "can", "who", "what",
+}
+# Words that start sentences but are not character names.
+_NAME_STOPWORDS = _TARGET_STOPWORDS | {
+    "wednesday", "thursday", "tuesday", "monday", "friday", "saturday",
+    "sunday", "tomorrow", "yesterday", "ok", "okay", "yes", "no", "sure",
+    "maybe", "please", "thanks", "thank", "hello", "hi", "hey", "so", "and",
+    "but", "there", "then", "also", "one", "someone", "anyone",
+}
+
+
+def _prior_user_texts(conversation: list[dict[str, Any]] | None, current: str = "") -> list[str]:
+    """Return earlier user messages, dropping the trailing copy the browser sends."""
+    texts: list[str] = []
+    for item in conversation or []:
+        if isinstance(item, dict) and item.get("role") == "user":
+            texts.append(str(item.get("content", "")))
+    if texts and current and _lower(texts[-1]) == _lower(current):
+        texts = texts[:-1]
+    return [text for text in texts if text.strip()]
+
+
+def _normalized(text: str) -> str:
+    return _lower(re.sub(r"[^\w\s]", "", str(text or "")))
+
+
+def _is_repeat_or_insistence(text: str, prior_texts: list[str]) -> bool:
+    """True when the user resends an earlier message or insists on it."""
+    normalized = _normalized(text)
+    if normalized and any(normalized == _normalized(prior) for prior in prior_texts):
+        return True
+    return bool(re.search(
+        r"\b(?:i\s+(?:just\s+|already\s+)?told\s+you|as\s+i\s+said|same\s+(?:thing|as\s+(?:i\s+said|before))|just\s+do\s+it|do\s+what\s+i\s+said)\b",
+        _lower(text),
+    ))
+
+
+def _last_assistant_text(conversation: list[dict[str, Any]] | None) -> str:
+    for item in reversed(conversation or []):
+        if isinstance(item, dict) and item.get("role") == "assistant":
+            return str(item.get("content", ""))
+    return ""
+
+
+def _looks_like_source_title(value: str) -> bool:
+    """A source title reads like a record name, not a request fragment."""
+    value = str(value or "").strip(" \t\r\n.-–—\"'“”")
+    if not 4 <= len(value) <= 140:
+        return False
+    if re.fullmatch(r"[A-Za-z][\w-]*\.json", value):
+        return True  # a named archive file such as factions.json
+    if len(value.split()) < 2:
+        return False
+    lowered = _lower(value)
+    fragment_words = (
+        "profile", "make", "maybe", "edit", "please", "create", "write",
+        "add", "files", "him", "her", "them", "you", "we", "can", "draft",
+    )
+    if any(re.search(rf"\b{word}\b", lowered) for word in fragment_words):
+        return False
+    return True
+
+
+def _source_title_candidates(text: str) -> list[str]:
+    """Pull plausible source-record titles out of one piece of request text."""
+    text = str(text or "")
+    candidates: list[str] = []
+
+    def add(value: str) -> None:
+        value = str(value or "").strip(" \t\r\n\"'“”")
+        if _looks_like_source_title(value) and value not in candidates:
+            candidates.append(value)
+
+    for value in re.findall(r"[\"'“”]([^\"'“”]{4,140})[\"'“”]", text):
+        add(value)
+    # “check the factions json” / “factions.json” — a named archive file.
+    for match in re.finditer(r"\b([A-Za-z][\w-]*)\s*\.?\s+json\b|\b([A-Za-z][\w-]*)\.json\b", text, re.I):
+        stem = match.group(1) or match.group(2)
+        add(f"{stem.lower()}.json")
+    # “<title> you can learn about him from” — the title precedes the marker.
+    for match in re.finditer(r"([^\n]{4,160}?)\s+you\s+can\s+learn\s+about\s+(?:him|her|them)\s+from", text, re.I):
+        add(match.group(1))
+    # “from <title>” and “source record: <title>” — the title follows.
+    for match in re.finditer(r"(?:\bfrom\s+|\bsource(?:\s+record)?\s*[:：]\s*)([^\n.!?,;]{4,140})", text, re.I):
+        add(match.group(1))
+    if re.search(r"seven\s+nights", _lower(text)) and "fazbear" in _lower(text):
+        add("The Seven Nights at Fazbear: A Complete Record")
+    return candidates
+
+
+def _clean_name(value: str) -> str:
+    value = str(value or "").strip(" \t\r\n\"'“”")
+    return " ".join(value.split())
+
+
 _BARE_NAME_STOPWORDS = _NAME_STOPWORDS | {
     "read", "above", "below", "check", "look", "see", "open", "find", "search",
     "show", "tell", "say", "give", "take", "put", "use", "try", "want", "need",
@@ -289,19 +366,6 @@ def _is_prose_request(text: str) -> bool:
     ))
 
 
-def _has_canonical_destination(text: str) -> bool:
-    lowered = _lower(text)
-    if _has_explicit_path(text):
-        return True
-    if re.search(r"\b(?:to|in|into|inside)\s+(?:the\s+)?(?:repo|repository|archive|canon|file|record|entry|json|collection)\b", lowered):
-        return True
-    if re.search(r"\b(?:create|edit|change|update|add|save|write)\b.*\b(?:file|json|record|entry|object|collection)\b", lowered):
-        return True
-    if any(word in lowered for word in ("characters.json", "events.json", "locations.json")):
-        return True
-    return False
-
-
 def _explicit_image(text: str, images: list[dict[str, Any]] | None) -> bool:
     if images:
         return True
@@ -309,42 +373,9 @@ def _explicit_image(text: str, images: list[dict[str, Any]] | None) -> bool:
     return bool(re.search(r"\b(?:generate|make|create|edit|show|draw)\b.{0,32}\b(?:image|picture|illustration|portrait|artwork|art)\b", lowered))
 
 
-def _explicit_read(text: str) -> bool:
-    lowered = _lower(text)
-    # A bare deictic reference (“read above”, “read that”) points at earlier
-    # conversation, not at the archive; it stays a normal chat turn.
-    if re.fullmatch(r"(?:please\s+)?(?:read|review|open|look at|see)\s+(?:above|that|this|it|them|my message|what i (?:said|wrote|sent|typed)|the above)\s*[.! ]*", lowered):
-        return False
-    if any(word in lowered for word in READ_WORDS):
-        return True
-    if re.search(r"\bwhat\s+does\s+(?:the|this|that|an?)\s+(?:article|record|source|archive|file)\s+say\b", lowered):
-        return True
-    if re.search(r"\b(?:according to|from)\s+(?:the\s+)?(?:canon|archive|article|record|source)\b", lowered):
-        return True
-    return False
-
-
 def _permission_only(text: str) -> bool:
     lowered = _lower(text)
     return bool(re.search(r"\b(?:you may|you can|feel free to|i give you permission to)\s+(?:edit|change|write|modify|update)\b", lowered)) and not bool(re.search(r"\b(?:create|add|append|remove|delete|patch)\b", lowered))
-
-
-def _explicit_write(text: str) -> bool:
-    lowered = _lower(text)
-    if _permission_only(text):
-        return False
-    if _profile_request_details(text):
-        return True
-    if _is_prose_request(text):
-        return False
-    if not any(word in lowered for word in WRITE_WORDS):
-        return False
-    # A write is canonical only when it names a destination or an archive
-    # artifact. “Write a bio” remains ordinary drafting.
-    return _has_canonical_destination(text) or bool(re.search(
-        r"\b(?:create|add|edit|update|change)\b.*\b(?:character|event|location|commentary|investigation|object|record)\b",
-        lowered,
-    ))
 
 
 _GENERATOR_KEYWORDS = (
@@ -402,160 +433,212 @@ def _explicit_generate(text: str) -> bool:
     return mentions_tools or names_system
 
 
-def _generic_creation_request(text: str) -> bool:
-    lowered = _lower(text)
-    if not any(word in lowered for word in ("create", "add", "make", "write", "edit", "update")):
-        return False
-    if any(word in lowered for word in DRAFT_WORDS):
-        return False
-    if re.search(r"\b(?:create|add|make|write)\b.*\b(?:file|record|entry|object)\b", lowered) and not _has_explicit_path(text):
-        return True
-    return bool(re.search(
-        r"\b(?:a|an|new|some|several|multiple|various)\s+(?:new\s+)?(?:character|person|people|event|location|file|record|entry|object)s?\b",
-        lowered,
-    )) or bool(re.search(r"\bpeople\b.*\b(?:need|want|should)\b.*\b(?:create|add|make|write)\b", lowered))
-
-
-_RECORD_VERB_RE = re.compile(
-    r"\b(?:add|create|make|insert|put|edit|update|change|fix|rename|append|file|register)\b"
-)
-_DATA_FILE_RE = re.compile(r"\b([A-Za-z0-9][A-Za-z0-9\-_ ]{1,40}?)\.json\b")
-
-
 def _slug(value: str) -> str:
     return re.sub(r"[^a-z0-9]+", "_", str(value).casefold()).strip("_") or "record"
 
 
-def _record_subject(text: str, noun: str) -> str | None:
-    """The name of the record the user wants filed ('a Noki race' -> 'Noki')."""
-    named = re.search(
-        r"\b(?:called|named)\s+((?:the\s+)?[A-Za-z][\w'’\-]*(?:\s+[A-Za-z][\w'’\-]*){0,3})", text)
-    if named:
-        return named.group(1).strip()
-    before_noun = re.search(
-        r"\b(?:a|an|the)\s+(?:new\s+)?([A-Za-z][\w'’\-]*(?:\s+[A-Za-z][\w'’\-]*){0,2}?)\s+" + re.escape(noun) + r"\b",
-        text)
-    if before_noun:
-        word = before_noun.group(1).strip()
-        if word.casefold() not in {"new", "another", "whole", "complete", "second"}:
-            return word
-    verb = _RECORD_VERB_RE.search(text)
-    if verb:
-        tail = text[verb.end():]
-        capitalized = re.search(r"\b(?!I\b)([A-Z][\w'’\-]*(?:\s+(?!I\b)[A-Z][\w'’\-]*){0,2})\b", tail)
-        if capitalized:
-            return capitalized.group(1).strip()
-    return None
+_ARCHIVE_NOUNS = (
+    "article", "record", "archive", "file", "canon", "wiki", "entry", "collection",
+    "race", "faction", "nation", "location", "event", "battle", "quest", "currency",
+    "artifact", "book", "prop", "commentary", "investigation", "dossier", "generator",
+    "lore", "lookup", "look up", "search", "data/", "repo", "repositor",
+)
+_ARCHIVE_VERBS = (
+    "add", "create", "make", "insert", "edit", "update", "change", "fix", "rename",
+    "append", "file", "register", "apply", "remove", "delete", "write to", "save to",
+    "generate", "run the", "find", "look up", "pull up",
+)
 
 
-def _record_request(text: str) -> dict[str, Any] | None:
-    """A request to add or update one record in an archive data collection.
+def _pure_conversation(text: str) -> bool:
+    """Ordinary conversation, roleplay, and drafting — no archive signal at all.
 
-    'Can you add a Noki race' files a record into races.json in one prompt:
-    the noun resolves the collection, the subject names the record, and the
-    flow reads the file's own format before drafting. Characters keep the
-    source-backed profile flow; generator keywords keep the generator.
+    The agent loop decides for itself which tools to use; this coarse check only
+    preserves the plain-chat path (no tool manifest, no archive context) for
+    messages that could not be asking for the archive.
     """
-    text = str(text or "").strip()
     lowered = _lower(text)
-    if not _RECORD_VERB_RE.search(lowered):
-        return None
     if any(word in lowered for word in DRAFT_WORDS):
-        return None
-    if _explicit_generate(text):
-        return None
-    noun_match = repo_tools.collection_for_noun(text)
-    match = _DATA_FILE_RE.search(text)
-    if match:
-        stem = re.sub(r"[^a-z0-9_]", "", re.sub(r"[\s\-]+", "_", match.group(1)).casefold())
-        path = f"Reputation-Matrix2/data/{stem}.json"
-        try:
-            if repo_tools.safe_path(path).is_file():
-                noun = noun_match[1] if noun_match else stem
-                subject = _record_subject(text, noun) if noun_match else _record_subject(text, stem)
-                # A bare file edit with no record name stays with the generic
-                # write flow; a "record" whose name came from the path text
-                # itself is the same case wearing a hat.
-                path_tokens = re.findall(r"[\w\-./\\]+\.json", text)
-                if not subject or any(subject.casefold() in token.casefold() for token in path_tokens):
-                    return None
-                return {"kind": "record", "path": path, "noun": noun, "subject": subject}
-        except Exception:
-            pass
-    if not noun_match:
-        return None
-    filename, noun = noun_match
-    subject = _record_subject(text, noun)
-    if not subject:
-        return None
-    return {"kind": "record", "path": f"Reputation-Matrix2/data/{filename}", "noun": noun, "subject": subject}
-
-
-def _clarify_context(text: str, conversation: list[dict[str, Any]]) -> dict[str, Any] | None:
-    """Decide whether a clarification is needed, and describe it as context.
-
-    Returns None when no clarification is needed. The actual question is always
-    written by the local model from this context; the runtime no longer contains
-    canned reply text.
-    """
-    lowered = _lower(text)
-    prior = _prior_user_texts(conversation, text)
-    prior_text = "\n".join(prior)
-    target = _profile_target(text) or _profile_target(prior_text)
-    sources = _source_title_candidates(text) or _source_title_candidates(prior_text)
-    context: dict[str, Any] = {
-        "user_request": text,
-        "already_known": {},
-        "missing_items": [],
-    }
-    if target:
-        context["already_known"]["character"] = target
-    if sources:
-        context["already_known"]["source_record"] = sources[0]
-    repeat_count = sum(1 for item in prior if _normalized(item) == _normalized(text))
-    if repeat_count or _is_repeat_or_insistence(text, prior):
-        context["note"] = (
-            f"The user has sent this same request {max(repeat_count, 1)} time(s) already and you have already replied. "
-            "Do not repeat your previous reply or ask the same question again. Acknowledge the repeat in one short clause, "
-            "then move things forward using only what is still missing."
-        )
-        context["your_previous_reply"] = _clip(_last_assistant_text(conversation), 1200)
-    noun_match = repo_tools.collection_for_noun(text)
-    if _RECORD_VERB_RE.search(lowered) and noun_match and not any(word in lowered for word in DRAFT_WORDS):
-        context["situation"] = f"the user wants a {noun_match[1]} record filed but has not named it"
-        context["missing_items"] = [f"the name of the {noun_match[1]} to file"]
-        return context
-    if _generic_creation_request(text):
-        if re.search(r"\b(?:people|persons|characters)\b", lowered):
-            context["situation"] = "the user wants new people or characters created but has not named them yet"
-            context["missing_items"] = ["the names of the people or characters to create"]
-        else:
-            context["situation"] = "the user wants something created or changed in the archive but the target is unclear"
-            context["missing_items"] = ["the exact file or canonical record to change", "what it should say"]
-        return context
-    if _explicit_image(text, None) or _explicit_write(text) or _explicit_read(text) or _is_prose_request(text):
-        return None
+        return True
+    if ".json" in lowered or "data/" in lowered:
+        return False
     if _permission_only(text):
-        context["situation"] = "the user granted permission to edit files but has not said what to change"
-        context["missing_items"] = ["what to create or change", "for which character or record"]
-        return context
-    if re.search(r"seven\s+nights\s+at\s+fazbear", lowered) and not (target and sources):
-        context["situation"] = "a source record is named but it is not clear what to do with it"
-        context["missing_items"] = ["what to create or change from the record, and for whom"]
-        return context
-    has_archive_noun = bool(re.search(r"\b(?:article|record|source|archive|file|character|event|location|canon)\b", lowered))
-    looks_like_reassurance = bool(re.search(r"\b(?:right|enough|all it needs|everything|is that okay)\b", lowered))
-    if has_archive_noun and looks_like_reassurance:
-        context["situation"] = "the user may want an archive lookup or may only be discussing the record"
-        context["missing_items"] = ["whether to read the source and use it, or to keep discussing it"]
-        return context
-    if re.search(r"\b(?:let['’]?s|lets)\s+start\b", lowered) and has_archive_noun and conversation:
-        joined = " ".join(str(item.get("content", "")) for item in conversation if item.get("role") == "user")
-        if _has_word(joined, ("create", "add", "file", "character", "archive")):
-            context["situation"] = "the user wants to begin work that may involve the archive"
-            context["missing_items"] = ["whether to read the named source and draft a canonical record, or to keep talking through the idea"]
-            return context
+        return False
+    if any(noun in lowered for noun in _ARCHIVE_NOUNS):
+        return False
+    if any(verb in lowered for verb in _ARCHIVE_VERBS):
+        return False
+    return True
+
+
+def _pending_agent_run(run_id: str) -> dict[str, Any] | None:
+    """The chat's last agent run, if any — follow-ups continue it."""
+    if not run_id:
+        return None
+    state = _load_state(run_id)
+    if isinstance(state, dict) and state.get("kind") == "agent" and state.get("request"):
+        return state
     return None
+
+
+_AGENT_MAX_STEPS = 6
+
+_AGENT_SYSTEM = (
+    "You are the clerk of Waluipedia, the archive wiki of a chaotic campaign world, run by Waluigi. "
+    "You work the archive yourself with tools. Whenever the user wants anything involving the archive — "
+    "a lookup, a lore question, a record added or updated, a file edited, a generation run — reason "
+    "through it step by step like a person working through the archive: find the right file, read its "
+    "format, check what the archive already knows, then act.\n"
+    "TOOLS — to call one, respond with ONLY a JSON object like {\"tool\": \"name\", \"args\": {...}}:\n"
+    "  list_archive_collections {} — every data collection with its record count and key fields\n"
+    "  search_archive {\"term\": \"Noki\", \"limit\": 8} — where a word or name appears across the archive\n"
+    "  read_collection {\"path\": \"Reputation-Matrix2/data/races.json\"} — one collection's record keys and a sample record\n"
+    "  find_records {\"path\": \"...\", \"term\": \"...\"} — records in one collection whose id/name/title match\n"
+    "  read_file {\"path\": \"...\"} — a file's clipped contents\n"
+    "  write_record {\"path\": \"...\", \"record\": {...}} — add or replace one record by id, in the collection's own format\n"
+    "  run_generator {\"system\": \"battles\", \"limit\": 2} — run one of the archive's own generators\n"
+    "RULES: one tool call per reply; you will see its result and be asked again, up to "
+    + str(_AGENT_MAX_STEPS) + " steps. A tool error is reported back to you — read it and correct course. "
+    "write_record only on existing data/*.json collections, only when the user asked for a change, and the "
+    "record must follow that collection's format. Never invent tool results, file paths, or records. When "
+    "the work is done — or no tool is needed — reply in plain prose with what you did or found. If the "
+    "request is too vague to act on, ask one short question in prose."
+)
+
+
+def _parse_tool_call(raw: str) -> dict[str, Any] | None:
+    """A tool call is a reply that is JSON with a 'tool' key. Anything else is prose."""
+    cleaned = str(raw or "").strip()
+    if cleaned.startswith("\`\`\`"):
+        cleaned = re.sub(r"^\`\`\`[a-zA-Z]*\s*|\s*\`\`\`$", "", cleaned, flags=re.S).strip()
+    if not cleaned.startswith("{"):
+        return None
+    value = None
+    try:
+        value = json.loads(cleaned)
+    except json.JSONDecodeError:
+        match = re.search(r"\{.*\}", cleaned, re.S)
+        if match:
+            try:
+                value = json.loads(match.group(0))
+            except json.JSONDecodeError:
+                value = None
+    if isinstance(value, dict) and isinstance(value.get("tool"), str):
+        return value
+    return None
+
+
+def _agent_tool(name: str, args: Any, endpoint: str) -> str:
+    """Execute one bounded archive tool for the reasoning loop. No shell, ever."""
+    args = args if isinstance(args, dict) else {}
+    try:
+        if name == "list_archive_collections":
+            return _clip(json.dumps(repo_tools.list_archive_collections(), ensure_ascii=False), 3000)
+        if name == "search_archive":
+            term = str(args.get("term", "")).strip()
+            if len(term) < 2:
+                return "TOOL ERROR (search_archive): the term must be at least two characters."
+            matches = repo_tools.search(term, relative_dir="Reputation-Matrix2/data",
+                                        limit=max(1, min(int(args.get("limit", 8) or 8), 12)))
+            return _clip(json.dumps(matches, ensure_ascii=False, indent=1), 2600) if matches else "no matches"
+        if name == "read_collection":
+            overview = repo_tools.collection_overview(str(args.get("path", "")), sample_count=1, cap=400)
+            return _clip(json.dumps(overview, ensure_ascii=False, indent=1), 3400)
+        if name == "find_records":
+            records = repo_tools.find_records(str(args.get("path", "")), str(args.get("term", "")),
+                                              limit=max(1, min(int(args.get("limit", 3) or 3), 5)))
+            condensed = [repo_tools.condense_record(item, 350) for item in records]
+            return _clip(json.dumps(condensed, ensure_ascii=False, indent=1), 3200) if condensed else "no matching records"
+        if name == "read_file":
+            return repo_tools.read_file(str(args.get("path", "")), limit=4000)
+        if name == "write_record":
+            record = args.get("record")
+            if not isinstance(record, dict):
+                return "TOOL ERROR (write_record): args.record must be the complete record object."
+            if not record.get("id"):
+                record["id"] = _slug(str(record.get("name") or record.get("title") or ""))
+            return repo_tools.upsert_json_object(str(args.get("path", "")), record)
+        if name == "run_generator":
+            return json.dumps(repo_tools.run_generator(str(args.get("system", "")),
+                                                       limit=max(1, min(int(args.get("limit", 2) or 2), 10)),
+                                                       endpoint=endpoint), ensure_ascii=False)
+        return f"TOOL ERROR: unknown tool {name!r}. Use one of the tools listed in the instructions."
+    except Exception as error:
+        return f"TOOL ERROR ({name}): {error}"
+
+
+def _agent_run(run_id: str, request_text: str, emit: Callable[[dict[str, Any]], None],
+               endpoint: str, model: str, conversation: list[dict[str, Any]],
+               decision: dict[str, Any],
+               cancel_check: Callable[[], bool] | None = None) -> dict[str, Any]:
+    """The model reasons over the bounded archive tools; the runtime executes.
+
+    No intent regexes: the model decides which tool to call next (or that none
+    is needed), the runtime executes it, feeds the result back, and enforces
+    the bounds — real tools only, one at a time, a step limit, and writes only
+    through the upsert helper.
+    """
+    prior = decision.get("prior") if isinstance(decision.get("prior"), dict) else None
+    run_id = run_id or f"agent-{int(time.time())}"
+    _emit_plan(emit, "Work the archive with tools", True,
+               "The model reasons over the bounded archive tools: find, read, then act.",
+               f"model-driven tool loop, up to {_AGENT_MAX_STEPS} steps")
+    system = _AGENT_SYSTEM
+    if prior:
+        system += ("\n\nPREVIOUS ATTEMPT ON THIS CHAT (the user is following up on it):\n"
+                   "request: " + _clip(str(prior.get("request", "")), 400) + "\n"
+                   "status: " + str(prior.get("status", "")) + "\n"
+                   "tools already used: " + _clip(", ".join(str(item) for item in prior.get("tools", []) if item) or "none", 300) + "\n"
+                   "what happened: " + _clip(str(prior.get("summary", "")), 600))
+    working: list[dict[str, str]] = [{"role": "user", "content": request_text}]
+    used: list[str] = []
+    try:
+        for step in range(1, _AGENT_MAX_STEPS + 1):
+            if cancel_check and cancel_check():
+                return {"status": "cancelled", "run": run_id, "step": step, "message": "Cancelled between tool steps."}
+            raw = _complete(endpoint, model, system, working[-1]["content"],
+                            conversation=working[:-1] + conversation[-6:],
+                            history_keep=len(working) + 5, history_limit=2600, max_tokens=1600)
+            call = _parse_tool_call(raw)
+            if call is None:
+                reply = str(raw or "").strip()
+                try:
+                    maybe = json.loads(reply)
+                    if isinstance(maybe, dict) and isinstance(maybe.get("reply"), str):
+                        reply = maybe["reply"].strip()
+                except json.JSONDecodeError:
+                    pass
+                _save_state(run_id, {"kind": "agent", "request": request_text, "status": "done",
+                                     "summary": _clip(reply, 500), "tools": used})
+                emit({"kind": "assistant", "text": reply,
+                      "source": "agent; " + (", ".join(used) or "no tools needed")})
+                emit({"kind": "task_done", "step": step, "task": "request-01"})
+                return {"status": "done", "run": run_id, "steps": step, "answer": reply, "message": reply}
+            name = str(call.get("tool", "")).strip()
+            args = call.get("args") if isinstance(call.get("args"), dict) else {}
+            emit({"kind": "action", "step": step, "action": {"action": name, "args": _clip(args, 300)}})
+            observation = _agent_tool(name, args, endpoint)
+            used.append(name)
+            emit({"kind": "result", "step": step, "result": _clip(observation, 300)})
+            working.append({"role": "assistant", "content": json.dumps(call, ensure_ascii=False)})
+            working.append({"role": "user", "content": f"TOOL RESULT ({name}):\n" + observation})
+        raw = _complete(endpoint, model,
+                        system + "\n\nYou have used all your tool steps. Reply now in plain prose with what you did and what remains.",
+                        "Wrap up now in plain prose.",
+                        conversation=working, history_keep=len(working), history_limit=2600, max_tokens=900)
+        reply = str(raw or "").strip()
+        _save_state(run_id, {"kind": "agent", "request": request_text, "status": "done",
+                             "summary": _clip(reply, 500), "tools": used})
+        emit({"kind": "assistant", "text": reply, "source": "agent; steps exhausted"})
+        emit({"kind": "task_done", "step": _AGENT_MAX_STEPS, "task": "request-01"})
+        return {"status": "done", "run": run_id, "steps": _AGENT_MAX_STEPS, "answer": reply, "message": reply}
+    except Exception as error:
+        message = _model_error(error, endpoint) + \
+            "\n\n[The request did not finish; no further tools ran. Say 'try again' to resume.]"
+        _save_state(run_id, {"kind": "agent", "request": request_text, "status": "error",
+                             "summary": _clip(str(error), 400), "tools": used})
+        emit({"kind": "assistant", "text": message, "source": "agent loop unavailable"})
+        return {"status": "error", "run": run_id, "step": len(used) + 1, "message": message}
 
 
 def classify_request(text: str, images: list[dict[str, Any]] | None = None,
@@ -571,19 +654,13 @@ def classify_request(text: str, images: list[dict[str, Any]] | None = None,
         return {"kind": "profile", "needed": True, **profile, "path": "Reputation-Matrix2/data/characters.json"}
     if _explicit_generate(text):
         return {"kind": "generate", "needed": True, "system": _requested_generator_system(text)}
-    record = _record_request(text)
-    if record:
-        return record
-    clarification = _clarify_context(text, conversation)
-    if clarification:
-        return {"kind": "clarify", "needed": False, "context": clarification}
-    if _explicit_write(text):
-        return {"kind": "write", "needed": True, "path": _has_explicit_path(text)}
-    if _explicit_read(text):
-        return {"kind": "read", "needed": True, "path": _has_explicit_path(text)}
-    # Everything else is chat, including ordinary questions, roleplay, and
-    # drafting. This is the first and most important safety boundary.
-    return {"kind": "chat", "needed": False}
+    if _pure_conversation(text):
+        # Ordinary conversation, roleplay, and drafting: no tools offered and
+        # no archive context injected. This remains the safety boundary.
+        return {"kind": "chat", "needed": False}
+    # Anything that might involve the archive goes to the reasoning loop:
+    # the model decides which tools to use; the runtime only bounds them.
+    return {"kind": "agent", "needed": True}
 
 
 def _image_subject(text: str) -> str:
@@ -593,30 +670,6 @@ def _image_subject(text: str) -> str:
     return re.split(r"\b(?:in the style of|using|with a|please)\b", match.group(1), maxsplit=1, flags=re.I)[0].strip(" .?!")[:240]
 
 
-def _extract_search_term(text: str) -> str:
-    path = _has_explicit_path(text)
-    if path:
-        return path
-    quoted = re.findall(r"[\"']([^\"']{2,180})[\"']", text)
-    if quoted:
-        return quoted[-1].strip()
-    # “the factions json” → factions.json
-    json_match = re.search(r"\b([A-Za-z][\w-]*)\s*\.?\s+json\b|\b([A-Za-z][\w-]*)\.json\b", text, re.I)
-    if json_match:
-        return f"{(json_match.group(1) or json_match.group(2)).lower()}.json"
-    match = re.search(r"\b(?:about|for|of|from|named|called)\s+(.+)", text, re.I)
-    if match:
-        value = re.split(r"\b(?:in the|according to|please|right now)\b", match.group(1), maxsplit=1, flags=re.I)[0]
-        return value.strip(" .?!")[:180]
-    tokens = re.findall(r"[A-Za-z0-9][A-Za-z0-9'’_-]{2,}", text)
-    stop = {"read", "open", "review", "search", "find", "look", "lookup", "retrieve", "show", "where", "which", "verify", "validate", "audit", "the", "this", "that", "article", "record", "source", "archive", "repository", "repo", "canon", "canonical"}
-    useful = [token for token in tokens if token.casefold() not in stop]
-    return " ".join(useful[-5:])[:180]
-
-
-# The runtime's own failure notices. They are shown to the user but never fed
-# back to the model as conversation: a model that reads "LM Studio is offline"
-# in its history starts believing it cannot use tools at all.
 _ERROR_NOTICE_PREFIXES = ("LM Studio", "The local model")
 
 
@@ -744,25 +797,6 @@ def _is_offline_note(text: str) -> bool:
     return text.startswith("LM Studio") or text.startswith("The local model")
 
 
-def _evidence_answer(text: str, evidence: Any, conversation: list[dict[str, Any]], endpoint: str, model: str) -> str:
-    """Answer a lookup from bounded evidence, written by the model."""
-    empty = not evidence or evidence == [] or evidence == {}
-    context = {
-        "situation": ("answering an archive lookup from bounded repository evidence"
-                      if not empty else "an archive lookup returned no matches"),
-        "user_request": text,
-        "evidence": _clip(evidence, 7000) if not empty else [],
-        "instruction": (
-            "Answer the user from the evidence only. Summarize what the matches are and where they live. "
-            "Never invent records or file contents."
-        ) if not empty else (
-            "Tell the user nothing in the archive matched, and ask for a more specific name, phrase, or file path. "
-            "Do not invent records."
-        ),
-    }
-    return _reply_safely(context, conversation, endpoint, model)
-
-
 def _emit_plan(emit: Callable[[dict[str, Any]], None], title: str, needed: bool, reason: str, minimum: str) -> None:
     emit({"kind": "plan", "items": [{"id": "request-01", "title": title, "status": "in_progress", "acceptance": ["Understand the request", "Take only the minimum required action", "Return a grounded answer"]}]})
     emit({"kind": "tool_check", "step": 0, "needed": needed, "reason": reason, "minimum_action": minimum, "completed_actions": []})
@@ -785,17 +819,6 @@ def _load_state(run_id: str) -> dict[str, Any]:
         return value if isinstance(value, dict) else {}
     except (OSError, json.JSONDecodeError):
         return {}
-
-
-def _execute_read(request_text: str, path: str | None, target_year: str | None = None) -> tuple[dict[str, Any], Any]:
-    if path:
-        content = repo_tools.read_file(path, 12000)
-        return {"action": "repo_read", "args": {"path": path, "limit": 12000}}, content
-    term = _extract_search_term(request_text)
-    if len(term) < 2:
-        raise ValueError("a specific name, phrase, or repository path is required before searching")
-    results = repo_tools.search(term, "Reputation-Matrix2/data", 8, target_year)
-    return {"action": "repo_search", "args": {"term": term, "dir": "Reputation-Matrix2/data", "limit": 8}}, results
 
 
 def _closest_event_names(terms: list[str]) -> str:
@@ -1264,170 +1287,6 @@ def _revised_profile_run(run_id: str, request_text: str, emit: Callable[[dict[st
     return {"status": "done", "run": run_id, "step": 4, "message": message, "answer": message}
 
 
-_RECORD_SYSTEM = (
-    "You file records into the Waluipedia archive — a wiki of a chaotic campaign world, kept by Waluigi. "
-    "Respond with ONLY a JSON object - no prose, no code fences - with exactly two keys: "
-    '"reply" (one to three sentences to the user, in your own words, naming what was filed and where) and '
-    '"record" (the complete record object). The record must follow the format of the sample records given '
-    "in the context: use the keys the samples use wherever you have content, and match their voice for prose "
-    "fields - if the samples are written in the archive's encyclopedia voice, write in it. The id must be a "
-    "short lowercase_underscore slug. Ground every fact in the evidence and the user's request; where a field "
-    "has no grounded fact, follow what the samples do for unknowns instead of inventing. If the context "
-    "includes an existing record, return the amended version and keep every field you do not change exactly "
-    "as given."
-)
-
-
-def _gather_record_evidence(subject: str, text: str, target_path: str) -> list[dict[str, Any]]:
-    """Grounding from the catalog: the subject plus any proper names in the request."""
-    terms = [str(subject)]
-    for name in re.findall(r"\b(?:[A-Z][\w'’\-]+(?:\s+(?:of|the)\s+)?[A-Z][\w'’\-]+)+\b", str(text)):
-        if name.casefold() not in {term.casefold() for term in terms}:
-            terms.append(name)
-    sources = [Path(target_path).name.removesuffix(".json")]
-    for filename in repo_tools._CATALOG_FILES:
-        stem = filename.removesuffix(".json")
-        if stem not in sources:
-            sources.append(stem)
-    found: list[dict[str, Any]] = []
-    for term in terms[:3]:
-        for source in sources:
-            try:
-                matches = repo_tools.catalog_retrieve(source, terms=[term], limit=5)
-            except Exception:
-                continue
-            best = None
-            best_score = 0
-            for item in matches:
-                blob = json.dumps(item, ensure_ascii=False).casefold()
-                needle = term.casefold()
-                head = " ".join(str(item.get(key, "")) for key in ("id", "name", "title")).casefold()
-                score = (100 + blob.count(needle)) if needle in head else blob.count(needle)
-                if score > best_score:
-                    best, best_score = item, score
-            if best and best_score >= 2:
-                if any(entry["id"] == best.get("id") and entry["source"] == source for entry in found):
-                    continue
-                found.append({
-                    "source": source,
-                    "id": str(best.get("id", "")),
-                    "name": str(best.get("name", "") or best.get("title", "")),
-                    "text": _clip(" ".join(str(best.get(key, "")) for key in ("summary", "description")
-                                           if best.get(key)), 1400),
-                })
-                if len(found) >= 4:
-                    return found
-    return found
-
-
-def _record_run(run_id: str, request_text: str, emit: Callable[[dict[str, Any]], None],
-                endpoint: str, model: str, decision: dict[str, Any]) -> dict[str, Any]:
-    """File one record into a data collection, in one prompt.
-
-    The collection is resolved from the request, its own format is read and
-    handed to the model as samples, grounding comes from the catalog, and the
-    record is written directly — the archive lives in git, so there is no
-    approval step. An existing record with the same id is replaced.
-    """
-    path = str(decision.get("path", ""))
-    noun = str(decision.get("noun", "record"))
-    subject = str(decision.get("subject", ""))
-    _emit_plan(emit, f"File the {subject or noun} {noun} into {Path(path).name}", True,
-               "The user asked for a record to be added or updated in an archive data collection.",
-               "read the collection's format, gather grounded evidence, then draft and write the record")
-    run_id = run_id or f"record-{int(time.time())}"
-    try:
-        overview = repo_tools.collection_overview(path)
-    except Exception as error:
-        message = _reply_safely({
-            "situation": "the target collection could not be read",
-            "path": path,
-            "failure": str(error),
-            "instruction": "Tell the user plainly which file failed to open and ask how they want to proceed.",
-        }, [], endpoint, model)
-        emit({"kind": "assistant", "text": message, "source": "no record written"})
-        return {"status": "error", "run": run_id, "step": 1, "message": message}
-
-    emit({"kind": "action", "step": 1, "action": {"action": "repo_read", "args": {"path": path, "purpose": "collection format"}}})
-    emit({"kind": "result", "step": 1, "result": f"{overview['count']} records; keys: {', '.join(overview['record_keys'][:14])}"})
-
-    existing = []
-    try:
-        existing = repo_tools.find_records(path, subject, limit=3)
-    except Exception:
-        existing = []
-    evidence = _gather_record_evidence(subject, request_text, path)
-    emit({"kind": "action", "step": 2, "action": {"action": "repo_search",
-                                                  "args": {"terms": [subject], "dir": "Reputation-Matrix2/data", "limit": 6}}})
-    emit({"kind": "result", "step": 2, "result": "; ".join(
-        [f"{item['source']}:{item['id']}" for item in evidence] +
-        [f"existing in target: {item.get('id')}" for item in existing]) or "no matches"})
-
-    payload = {
-        "user_request": _clip(request_text, 800),
-        "target_file": overview["path"],
-        "record_count": overview["count"],
-        "record_keys": overview["record_keys"],
-        "sample_records": json.loads(json.dumps(overview["samples"], ensure_ascii=False)),
-        "existing_records": existing,
-        "evidence": evidence,
-        "suggested_id": _slug(subject),
-        "instruction": (
-            f"File the {subject} {noun} into {overview['path']}, following the sample records' format and voice. "
-            "Use only facts from the evidence, the existing records, and the user's request."
-        ),
-    }
-    try:
-        raw = _complete(endpoint, model, _RECORD_SYSTEM,
-                        json.dumps(payload, ensure_ascii=False, indent=2),
-                        history_keep=4, history_limit=1200, max_tokens=1600)
-    except Exception as error:
-        message = _model_error(error, endpoint) + \
-            f"\n\n[The {subject or noun} {noun} was not written — nothing in {Path(path).name} changed.]"
-        emit({"kind": "assistant", "text": message, "source": "record draft unavailable; nothing written"})
-        return {"status": "error", "run": run_id, "step": 2, "message": message}
-
-    reply_text = ""
-    record: dict[str, Any] | None = None
-    match = re.search(r"\{.*\}", raw, re.S)
-    if match:
-        try:
-            value = json.loads(match.group(0))
-        except json.JSONDecodeError:
-            value = None
-        if isinstance(value, dict):
-            reply_text = str(value.get("reply", "")).strip()
-            candidate = value.get("record")
-            if isinstance(candidate, dict) and (candidate.get("name") or candidate.get("title") or candidate.get("id")):
-                record = candidate
-    if not reply_text:
-        reply_text = raw.strip()[:400]
-    if record is None:
-        message = reply_text + \
-            f"\n\n[The model did not return a record for the {subject or noun} {noun}; nothing was written.]"
-        emit({"kind": "assistant", "text": message, "source": "no record returned; nothing written"})
-        return {"status": "error", "run": run_id, "step": 2, "message": message}
-
-    identifier = _slug(str(record.get("id") or record.get("name") or subject))
-    record["id"] = identifier
-    emit({"kind": "draft", "step": 3, "path": path, "object": record})
-    emit({"kind": "action", "step": 3, "action": {"action": "repo_upsert_object",
-                                                  "args": {"path": path, "collection": Path(path).name.removesuffix(".json"), "object": record}}})
-    try:
-        write_result = repo_tools.upsert_json_object(path, record)
-        emit({"kind": "result", "step": 3, "result": write_result})
-    except Exception as error:
-        message = reply_text + f"\n\n[The write did not complete: {error}]"
-        emit({"kind": "error", "step": 3, "result": f"the write did not complete: {error}"})
-        emit({"kind": "assistant", "text": message, "source": "record write failed"})
-        return {"status": "error", "run": run_id, "step": 3, "message": message}
-
-    message = reply_text + f"\n\n[{write_result}]\n\n" + _clip(record, 7000)
-    emit({"kind": "assistant", "text": message, "source": f"{noun} record written"})
-    emit({"kind": "task_done", "step": 3, "task": "request-01"})
-    return {"status": "done", "run": run_id, "steps": 3, "message": message, "answer": message}
-
-
 def run_agent(request_text: str, *, run_id: str = "", endpoint: str = DEFAULT_ENDPOINT,
               model: str = "", allow_writes: bool = False, max_steps: int = 30,
               conversation: list[dict[str, Any]] | None = None,
@@ -1454,7 +1313,14 @@ def run_agent(request_text: str, *, run_id: str = "", endpoint: str = DEFAULT_EN
         }, conversation, endpoint, model)
         return {"status": "needs_input", "run": run_id, "message": "QUESTION: " + message}
 
-    decision = classify_request(request_text, images, conversation)
+    prior_run = _pending_agent_run(run_id or "")
+    if prior_run is not None:
+        # A follow-up on this chat's agent run continues it — retries, extra
+        # notes, 'now do the next step'. The model reasons about the context;
+        # no intent regexes involved.
+        decision = {"kind": "agent", "needed": True, "prior": prior_run}
+    else:
+        decision = classify_request(request_text, images, conversation)
     kind = str(decision["kind"])
     if kind == "chat":
         revised = _revised_profile_run(run_id, request_text, emit, endpoint, model)
@@ -1465,20 +1331,6 @@ def run_agent(request_text: str, *, run_id: str = "", endpoint: str = DEFAULT_EN
         emit({"kind": "assistant", "text": answer, "source": "chat; no tools called"})
         emit({"kind": "task_done", "step": 0, "task": "request-01"})
         return {"status": "done", "run": run_id or f"chat-{int(time.time())}", "steps": 0, "answer": answer}
-
-    if kind == "clarify":
-        context = dict(decision.get("context") or {})
-        context.setdefault("situation", "the request is ambiguous")
-        context.setdefault("missing_items", ["what the user wants done"])
-        context["instruction"] = (
-            "Ask one short question covering exactly the missing items; do not ask for anything already known. "
-            "Do not search or read anything yet."
-        )
-        question = _reply_safely(context, conversation, endpoint, model)
-        _emit_plan(emit, "Clarify before using tools", False, "The message is not specific enough to distinguish conversation from archive work.", "ask one question; do not search")
-        emit({"kind": "action", "step": 1, "action": {"action": "ask_user", "args": {"question": question}}})
-        emit({"kind": "result", "step": 1, "result": "QUESTION: " + question})
-        return {"status": "needs_input", "run": run_id or f"clarify-{int(time.time())}", "step": 1, "message": "QUESTION: " + question}
 
     if kind == "image":
         subject = str(decision.get("subject", ""))
@@ -1663,91 +1515,8 @@ def run_agent(request_text: str, *, run_id: str = "", endpoint: str = DEFAULT_EN
         emit({"kind": "task_done", "step": 2, "task": "request-01"})
         return {"status": "done", "run": run_id or f"generate-{int(time.time())}", "steps": 2, "answer": answer}
 
-    if kind == "record":
-        return _record_run(run_id, request_text, emit, endpoint, model, decision)
-
-    if kind == "write":
-        path = decision.get("path")
-        if not path:
-            question = _reply_safely({
-                "situation": "the user asked to change the archive but the exact target is unclear",
-                "user_request": request_text,
-                "missing_items": ["the exact file or canonical record to change", "the change to make"],
-                "instruction": "Ask for both briefly. Mention that the target will be read first and the change applied directly.",
-            }, conversation, endpoint, model)
-            _emit_plan(emit, "Identify the exact write target", True, "The user requested a change but did not provide an unambiguous target.", "ask for the target; do not guess a file")
-            emit({"kind": "action", "step": 1, "action": {"action": "ask_user", "args": {"question": question}}})
-            emit({"kind": "result", "step": 1, "result": "QUESTION: " + question})
-            return {"status": "needs_input", "run": run_id or f"write-{int(time.time())}", "step": 1, "message": "QUESTION: " + question}
-        try:
-            target = repo_tools.safe_path(str(path))
-        except Exception as error:
-            message = _reply_safely({
-                "situation": "the requested write target cannot be used",
-                "path": str(path),
-                "failure": str(error),
-                "instruction": "Explain the problem and ask for an existing file or a specific canonical record.",
-            }, conversation, endpoint, model)
-            emit({"kind": "assistant", "text": message, "source": "no write performed"})
-            return {"status": "needs_input", "run": run_id, "message": message}
-        if not target.is_file():
-            message = _reply_safely({
-                "situation": "the requested write target does not exist",
-                "path": str(path),
-                "instruction": "Tell the user the file is not in the checkout and ask for an existing file or a specific canonical record.",
-            }, conversation, endpoint, model)
-            emit({"kind": "assistant", "text": message, "source": "no write performed"})
-            return {"status": "needs_input", "run": run_id, "message": message}
-        _emit_plan(emit, f"Read {path} before any write", True, "The user explicitly requested a repository change.", "read the exact target, draft, then request approval")
-        try:
-            content = repo_tools.read_file(str(path), 12000)
-        except Exception as error:
-            message = _reply_safely({
-                "situation": "the requested write target could not be read",
-                "path": str(path),
-                "failure": str(error),
-            }, conversation, endpoint, model)
-            emit({"kind": "error", "step": 1, "result": str(error)})
-            emit({"kind": "assistant", "text": message, "source": "no write performed"})
-            return {"status": "error", "run": run_id, "message": message}
-        action = {"action": "repo_read", "args": {"path": str(path), "limit": 12000}}
-        emit({"kind": "action", "step": 1, "action": action})
-        emit({"kind": "result", "step": 1, "result": content})
-        state_id = run_id or f"write-{int(time.time())}"
-        _save_state(state_id, {"request": request_text, "conversation": conversation, "path": str(path), "target": content[:12000]})
-        message = _reply_safely({
-            "situation": "the write target was read and the exact change is still needed",
-            "path": str(path),
-            "file_preview": _clip(content, 4000),
-            "instruction": (
-                "Confirm you read the file and ask for the exact change to draft; it will be applied directly."
-            ),
-        }, conversation, endpoint, model)
-        emit({"kind": "assistant", "text": message, "source": "target read; no write performed"})
-        return {"status": "approval_required", "run": state_id, "step": 1, "message": "APPROVAL_REQUIRED: " + message}
-
-    # Read path: one focused repository operation, then a grounded response.
-    _emit_plan(emit, "Read the requested archive evidence", True, "The user explicitly requested a repository or canon lookup.", "one focused read/search, then answer from its result")
-    try:
-        action, evidence = _execute_read(request_text, decision.get("path"), None)
-    except Exception as error:
-        failure = str(error)
-        emit({"kind": "error", "step": 1, "result": f"the lookup could not run: {failure}"})
-        message = _reply_safely({
-            "situation": "an archive lookup could not be run",
-            "user_request": request_text,
-            "failure": failure,
-            "instruction": "Explain what is needed to run the lookup, without inventing any result.",
-        }, conversation, endpoint, model)
-        emit({"kind": "assistant", "text": message, "source": "no answer invented"})
-        return {"status": "error", "run": run_id or f"read-{int(time.time())}", "steps": 1, "message": message}
-    emit({"kind": "action", "step": 1, "action": action})
-    evidence_text = json.dumps(evidence, ensure_ascii=False, indent=2) if not isinstance(evidence, str) else evidence
-    emit({"kind": "result", "step": 1, "result": evidence_text})
-    answer = _evidence_answer(request_text, evidence, conversation, endpoint, model)
-    emit({"kind": "assistant", "text": answer, "source": "bounded archive evidence"})
-    emit({"kind": "task_done", "step": 1, "task": "request-01"})
-    return {"status": "done", "run": run_id or f"read-{int(time.time())}", "steps": 1, "answer": answer}
+    if kind == "agent":
+        return _agent_run(run_id, request_text, emit, endpoint, model, conversation, decision, cancel_check)
 
 
 __all__ = ["classify_request", "run_agent", "repo_tools"]
