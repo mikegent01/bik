@@ -166,7 +166,7 @@
         "raventree_manor"
       ],
       "opened": "23 Harvestide, 1040 BF",
-      "lastFiled": "1 Aethel, 1040 BF — amended: a disputed casualty, a second fire, and a student ID sold for passage",
+      "lastFiled": "1 Aethel, 1040 BF — amended: the code returned, a sentry arrangement at the motorbike, and the Legion's syringe",
       "archivist": "Waluigi, Auditor-General",
       "icon": "🏚️",
       "accent": "#8a4bff",
@@ -277,13 +277,19 @@
           "id": "thread_disputed_casualty",
           "title": "Who holds Eager, and on what authority",
           "status": "open",
-          "note": "A Legion guard removed an unconscious party member on the code — no man left behind — over the objection of Archie, Feyward Dan and Markop, and over Eager's own request to be put down. He stated he trusts himself more than the party. Both Salam left in a fireman's carry; Eager remained with the party bound for Legionhold, the facility the same guards said would host Archie's arrest."
+          "note": "A Legion guard removed an unconscious party member on the code — no man left behind — over the objection of Archie, Feyward Dan and Markop, and over the man's own request to be put down. Resolved in part on 1 Aethel: Salam woke, Markop returned the code — 'you said leave no one behind, right?' — and the Legion let him go and left a guard waiting at the motorbike with him. The custody question is closed; the authority question is not — a guard later tried to move Salam off the bike ('stand still, you worm') and was refused."
         },
         {
           "id": "thread_no_helicopter",
           "title": "The helicopter that was promised twice and never arrived",
           "status": "open",
           "note": "Legion guards promised an airlift out of the grove and a show at Legionhold. Nothing in the record shows an aircraft. They left on foot carrying wounded. Either the asset did not exist, or it was not sent."
+        },
+        {
+          "id": "thread_what_the_legion_ran_from",
+          "title": "What made an Iron Legion soldier run",
+          "status": "open",
+          "note": "A Legion man ran past Markop in open panic while the guards were still treating the grove as their ground. Nothing in the record names the cause. The three Toads are running toward the same deeper grove."
         }
       ],
       "leads": [
@@ -694,6 +700,38 @@
           "exhibits": [
             "ex_student_id"
           ]
+        },
+        {
+          "id": "lead_legion_panic",
+          "title": "Establish what the running Legion man saw",
+          "status": "open",
+          "priority": "high",
+          "why": "A professional soldier broke into a sprint in the open, past an armed stranger, and the record never names the cause. Whatever moved him is deeper in the grove — the same direction the three Toads are running voluntarily.",
+          "exhibits": []
+        },
+        {
+          "id": "lead_tree_route",
+          "title": "Map the retreat through the tree of the grove",
+          "status": "open",
+          "priority": "high",
+          "why": "Markop named the tree as the rally route — 'we're going back through the tree' — and the party roped down into the grove through it. Nobody has filed whether the way up is still open, or what two fires have done to it.",
+          "exhibits": []
+        },
+        {
+          "id": "lead_toads_disengagement",
+          "title": "Confirm whether the three Toads fully disengaged",
+          "status": "open",
+          "priority": "medium",
+          "why": "They said they would run upwards, deeper into the grove, and fully disengage if it turned south. The filing closes without them on the record, in a grove that just frightened the Iron Legion.",
+          "exhibits": []
+        },
+        {
+          "id": "lead_green_spider",
+          "title": "Open a file on the giant green spider",
+          "status": "open",
+          "priority": "medium",
+          "why": "It closed on Markop one filing ago and bit Archie through Dan's shield in this one. Two filings, two victims, no wound on it anywhere in the record. The grove's best fighter has no page.",
+          "exhibits": []
         }
       ],
       "sessions": [
@@ -798,6 +836,12 @@
           "label": "The airlift that never came — the Legion keeps the wounded",
           "date": "1 Aethel, 1040 BF",
           "event": "the_airlift_that_never_came"
+        },
+        {
+          "id": "s_you_said_leave_no_one_behind",
+          "label": "You said leave no one behind, right? — the code turned around, the sentry at the bike, and the syringe",
+          "date": "1 Aethel, 1040 BF",
+          "event": "you_said_leave_no_one_behind"
         }
       ],
       "relatedEvents": [

@@ -8243,6 +8243,99 @@
       "reaction": "resolve",
       "comments": [],
       "status": "posted"
+    },
+    {
+      "id": "ww_ylnb_markop",
+      "author": "markop",
+      "type": "text",
+      "order": 205,
+      "date": null,
+      "timestamp": "1 Aethel, 1040 BF",
+      "content": "Last night a Legion man quoted their code at me and took Salam away. Tonight I quoted it back and they gave him to me. I have never hated a rule more. I have never used one harder. The retreat is the tree. If you hear screaming, that is the signal. Please nobody scream.",
+      "likes": 512,
+      "links": [
+        {
+          "id": "you_said_leave_no_one_behind",
+          "type": "event"
+        },
+        {
+          "id": "iron_legion",
+          "type": "faction"
+        },
+        {
+          "id": "salam",
+          "type": "character"
+        }
+      ],
+      "tags": [
+        "skitteringgrove",
+        "ironlegion",
+        "code",
+        "salam"
+      ],
+      "reaction": "resolve",
+      "comments": [
+        {
+          "id": "ww_ylnb_m_c1",
+          "author": "waluigi",
+          "content": "He rode the motorbike into a tree, into Salam, and then into a legal argument, and won all three. The archive's first recorded triple.",
+          "likes": 601,
+          "topReply": true
+        },
+        {
+          "id": "ww_ylnb_m_c2",
+          "author": "salam",
+          "content": "I was two of those.",
+          "likes": 388
+        }
+      ],
+      "status": "posted"
+    },
+    {
+      "id": "ww_ylnb_salam",
+      "author": "salam",
+      "type": "text",
+      "order": 206,
+      "date": null,
+      "timestamp": "1 Aethel, 1040 BF",
+      "content": "Woke up. They were carrying me somewhere. A centaur on a motorbike hit a tree and then hit me and it was still the best news of the night. Now I'm the guard on the bike. A Legion man called me a worm and tried to pick me up. I said no. That's the whole update.",
+      "likes": 733,
+      "links": [
+        {
+          "id": "you_said_leave_no_one_behind",
+          "type": "event"
+        },
+        {
+          "id": "markop",
+          "type": "character"
+        },
+        {
+          "id": "iron_legion",
+          "type": "faction"
+        }
+      ],
+      "tags": [
+        "skitteringgrove",
+        "sentry",
+        "liberation"
+      ],
+      "reaction": "defiant",
+      "comments": [
+        {
+          "id": "ww_ylnb_s_c1",
+          "author": "waluigi",
+          "content": "Two filings unconscious, and his first waking act is to keep a post he wasn't awake to be given. Waluigi has filed less loyalty from people with more hit points.",
+          "likes": 810,
+          "topReply": true
+        },
+        {
+          "id": "ww_ylnb_s_c2",
+          "author": "eager",
+          "content": "He also shot a spider. We don't talk about the second arrow.",
+          "likes": 429
+        }
+      ],
+      "status": "posted"
     }
   ]
 }
