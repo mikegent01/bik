@@ -146,8 +146,15 @@ def _explicit_read(text: str) -> bool:
     return False
 
 
+def _permission_only(text: str) -> bool:
+    lowered = _lower(text)
+    return bool(re.search(r"\b(?:you may|you can|feel free to|i give you permission to)\s+(?:edit|change|write|modify|update)\b", lowered)) and not bool(re.search(r"\b(?:create|add|append|remove|delete|patch)\b", lowered))
+
+
 def _explicit_write(text: str) -> bool:
     lowered = _lower(text)
+    if _permission_only(text):
+        return False
     if _profile_request_details(text):
         return True
     if _is_prose_request(text):
@@ -184,6 +191,10 @@ def _ambiguous_archive_question(text: str, conversation: list[dict[str, Any]]) -
         return "What exact file or canonical entity do you want to create or change? Give me the name or path and the details to include."
     if _explicit_image(text, None) or _explicit_write(text) or _explicit_read(text) or _is_prose_request(text):
         return None
+    if _permission_only(text):
+        return "Got it. I can edit files, but tell me what you want created or changed for the named character first."
+    if re.search(r"seven\s+nights\s+at\s+fazbear", lowered) and not _profile_request_details(text, conversation):
+        return "I have the named source record. What should I create or change from it? I will not search until the requested artifact is clear."
     has_archive_noun = bool(re.search(r"\b(?:article|record|source|archive|file|character|event|location|canon)\b", lowered))
     looks_like_reassurance = bool(re.search(r"\b(?:right|enough|all it needs|everything|is that okay)\b", lowered))
     if has_archive_noun and looks_like_reassurance:

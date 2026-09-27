@@ -35,6 +35,8 @@ class ChatFirstTests(unittest.TestCase):
             "can we create a new chracer file",
             "The Seven Nights at Fazbear: A Complete Record has some people that we need to create",
             "Let's start with freddy the article should have all it needs right",
+            "for Freddy you may edit files",
+            "The Seven Nights at Fazbear: A Complete Record you can learn about him from",
         )
         for prompt in cases:
             with self.subTest(prompt=prompt):

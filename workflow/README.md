@@ -36,6 +36,13 @@ A mention of “character,” “article,” “file,” or a canon name by itse
 tool request. If LM Studio is offline, the page says so plainly; it does not
 pretend a search happened or produce a fake archive answer.
 
+Source-backed character creation is explicit and staged. A request naming a
+person, a profile, and a source record resolves the source and participant,
+shows a grounded draft, and waits for `approve` before adding one object to
+`characters.json`. For example, Freddy plus `The Seven Nights at Fazbear: A
+Complete Record` resolves to the source participant `gabriel_freddy`; it does
+not ask for a random file path or search every catalog.
+
 ## API
 
 The fresh page uses only:

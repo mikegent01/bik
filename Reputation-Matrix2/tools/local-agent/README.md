@@ -29,6 +29,19 @@ Vague creation requests stop for input before resolving a source. A request such
 as `The article has some people we need to create` asks for the names first. A
 request such as `create a new character file` asks for the exact target.
 
+A source-backed profile request is a separate staged workflow. For example:
+
+```text
+for Freddy can you make a character profile for him
+The Seven Nights at Fazbear: A Complete Record you can learn about him from
+```
+
+The runtime resolves the source event, resolves the named participant (`Gabriel /
+Freddy`), drafts the `characters.json` object from that evidence, shows the draft,
+and waits for `approve`. It does not ask for an unrelated target file and it does
+not write before the exact draft is approved. The approval then writes one unique
+object and validates the JSON collection.
+
 The runtime does not expose shell access, does not let an LM choose arbitrary
 filesystem paths, and does not write canon merely because a model suggested it.
 Normal chat has no repository context injected into its prompt, which prevents
