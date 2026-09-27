@@ -474,11 +474,23 @@ def _extract_search_term(text: str) -> str:
     return " ".join(useful[-5:])[:180]
 
 
+# The runtime's own failure notices. They are shown to the user but never fed
+# back to the model as conversation: a model that reads "LM Studio is offline"
+# in its history starts believing it cannot use tools at all.
+_ERROR_NOTICE_PREFIXES = ("LM Studio", "The local model")
+
+
 def _redact_conversation(conversation: list[dict[str, Any]], keep: int = 12, limit: int = 5000) -> list[dict[str, str]]:
-    return [
-        {"role": str(item.get("role", "")), "content": _clip(item.get("content", ""), limit)}
-        for item in conversation[-max(1, keep):] if isinstance(item, dict) and item.get("role") in {"user", "assistant"}
-    ]
+    window = conversation[-keep:] if keep > 0 else []
+    kept: list[dict[str, str]] = []
+    for item in window:
+        if not isinstance(item, dict) or item.get("role") not in {"user", "assistant"}:
+            continue
+        content = str(item.get("content", ""))
+        if item.get("role") == "assistant" and content.startswith(_ERROR_NOTICE_PREFIXES):
+            continue
+        kept.append({"role": str(item.get("role", "")), "content": _clip(content, limit)})
+    return kept
 
 
 def _is_timeout_error(error: BaseException) -> bool:
@@ -519,11 +531,15 @@ def _complete(endpoint: str, model: str, system: str, user: str, *,
     try:
         return request(timeout)
     except Exception as error:
-        if not _is_timeout_error(error):
-            raise
-        # Local models can be slow to answer; retry once with a longer budget
-        # before reporting anything to the user.
-        return request(timeout * 2)
+        if _is_timeout_error(error):
+            # Local models can be slow to answer; retry once with a longer
+            # budget before reporting anything to the user.
+            return request(timeout * 2)
+        if isinstance(error, urllib.error.HTTPError):
+            # LM Studio can return a transient HTTP error when a model backend
+            # hiccups (channel errors, model reloading); one retry first.
+            return request(timeout)
+        raise
 
 
 def _model_error(error: Exception, endpoint: str = "") -> str:
@@ -531,7 +547,8 @@ def _model_error(error: Exception, endpoint: str = "") -> str:
     # there is no model to write the reply.
     where = f" at {endpoint}" if endpoint else ""
     if isinstance(error, urllib.error.HTTPError):
-        return f"LM Studio returned HTTP {error.code}{where}. Load a chat model and retry."
+        return (f"LM Studio returned HTTP {error.code}{where}. The model backend reported an error — "
+                "retry in a moment; if it repeats, check the LM Studio server log or reload the model.")
     if _is_timeout_error(error):
         return ("The local model did not finish in time — the server is reachable but slow or busy. "
                 "Try again, or raise LM_STUDIO_TIMEOUT_SECONDS. No repository or image tool result was invented.")
@@ -894,6 +911,54 @@ def _profile_object(source: dict[str, Any], person: dict[str, Any], origin: str 
     }
 
 
+_PROFILE_DRAFT_SYSTEM = (
+    "You are the staff writer of Waluipedia, an encyclopedia written in-character by Waluigi. "
+    "You write character profiles from supplied evidence only: never invent facts, names, dates, or quotes. "
+    "Tone: dry, precise, faintly exasperated, occasionally triumphant. "
+    "Respond with ONLY a JSON object - no prose, no code fences - using any of these keys: "
+    '"title", "race", "status", "affiliation", "summary", "description", "waluigiComment". '
+    '"summary" is 2-4 plain sentences. "description" is 300-600 words and may use "## " section headers. '
+    '"waluigiComment" is one or two sentences of first-person Waluigi commentary. '
+    "Omit any key you cannot ground in the evidence."
+)
+
+
+def _model_profile_draft(base: dict[str, Any], evidence: str, source_name: str,
+                         request_text: str, endpoint: str, model: str) -> dict[str, str] | None:
+    """Let the model write the profile prose; structure and ids stay deterministic."""
+    context = {
+        "character": base.get("name"),
+        "structural_fields_to_keep": {key: base.get(key) for key in ("id", "name", "keyEvents", "relatedArticles", "sourceRecord")},
+        "fallback_prose_if_you_omit_a_key": {key: base.get(key) for key in ("title", "race", "status", "affiliation", "summary", "description")},
+        "evidence_from_the_source_record": _clip(evidence, 6000),
+        "source_record": source_name,
+        "user_request": _clip(request_text, 600),
+    }
+    try:
+        raw = _complete(endpoint, model, _PROFILE_DRAFT_SYSTEM,
+                        json.dumps(context, ensure_ascii=False, indent=2),
+                        history_keep=0, max_tokens=1200)
+    except Exception:
+        return None
+    match = re.search(r"\{.*\}", raw, re.S)
+    if not match:
+        return None
+    try:
+        value = json.loads(match.group(0))
+    except json.JSONDecodeError:
+        return None
+    if not isinstance(value, dict):
+        return None
+    limits = {"title": 160, "race": 400, "status": 600, "affiliation": 400,
+              "summary": 1600, "description": 4000, "waluigiComment": 600}
+    updates: dict[str, str] = {}
+    for key, limit in limits.items():
+        field = value.get(key)
+        if isinstance(field, str) and 8 <= len(field.strip()) <= limit:
+            updates[key] = field.strip()
+    return updates or None
+
+
 def _approval_request(text: str) -> bool:
     lowered = _lower(text)
     if re.fullmatch(r"\s*(?:yes|approve|approved|apply|apply it|write it|go ahead|do it|confirm)\s*[.!]?\s*", lowered):
@@ -986,6 +1051,79 @@ def _approved_profile_run(run_id: str, request_text: str, emit: Callable[[dict[s
         return {"status": "error", "run": run_id, "step": 1, "message": answer}
 
 
+_COURTESY_RE = re.compile(
+    r"^\s*(?:thanks|thank you|thx|ty|ok|okay|k|cool|nice|great|awesome|wow|lol|lmao|ha|haha|sure|yes|no|np|bye|goodbye|hi|hello|hey|yo|alright|right|mm+|hmm+)\s*[.! ]*$",
+    re.I,
+)
+
+_REVISION_SYSTEM = (
+    "You are revising a pending Waluipedia character-profile draft from the user's notes. "
+    "Respond with ONLY a JSON object - no prose, no code fences - with exactly these keys: "
+    '"reply" (one or two sentences to the user), "profile" (the updated profile object, or null to keep it unchanged). '
+    "When updating, keep every field you do not change exactly as given, use only facts from the draft and the "
+    "user's notes, and keep the encyclopedia voice."
+)
+
+
+def _revised_profile_run(run_id: str, request_text: str, emit: Callable[[dict[str, Any]], None],
+                         endpoint: str, model: str) -> dict[str, Any] | None:
+    """A non-approval reply while a profile draft is pending revises the draft."""
+    if not run_id:
+        return None
+    state = _load_state(run_id)
+    if state.get("kind") != "profile":
+        return None
+    draft = state.get("draft") if isinstance(state.get("draft"), dict) else None
+    if not draft:
+        return None
+    if _approval_request(request_text) or _COURTESY_RE.match(request_text):
+        return None
+    character = str(draft.get("name", "the character"))
+    context = {
+        "pending_draft": _clip(draft, 6000),
+        "user_message": _clip(request_text, 800),
+        "instruction": ("Incorporate the user's notes into the draft when they concern the character or its style; "
+                        "if they are unrelated, reply briefly and return null for the profile."),
+    }
+    try:
+        raw = _complete(endpoint, model, _REVISION_SYSTEM,
+                        json.dumps(context, ensure_ascii=False, indent=2),
+                        history_keep=4, history_limit=1200, max_tokens=1400)
+    except Exception as error:
+        answer = _model_error(error, endpoint)
+        message = answer + f"\n\n[The pending draft for {character} is unchanged; reply approve to apply it, or resend your notes.]"
+        emit({"kind": "assistant", "text": message, "source": "draft revision unavailable; draft preserved"})
+        return {"status": "approval_required", "run": run_id, "step": 3, "message": "APPROVAL_REQUIRED: " + message}
+    reply_text = ""
+    updated: dict[str, Any] | None = None
+    match = re.search(r"\{.*\}", raw, re.S)
+    if match:
+        try:
+            value = json.loads(match.group(0))
+        except json.JSONDecodeError:
+            value = None
+        if isinstance(value, dict):
+            reply_text = str(value.get("reply", "")).strip()
+            candidate = value.get("profile")
+            if isinstance(candidate, dict) and candidate.get("id") == draft.get("id"):
+                for key in ("keyEvents", "relatedArticles", "sourceRecord"):
+                    candidate[key] = draft.get(key)
+                if not isinstance(candidate.get("name"), str) or not candidate.get("name").strip():
+                    candidate["name"] = draft.get("name")
+                updated = candidate
+    if not reply_text:
+        reply_text = raw.strip()[:400]
+    if updated is not None:
+        draft = updated
+        state["draft"] = draft
+        state["request"] = request_text
+        _save_state(run_id, state)
+        emit({"kind": "draft", "step": 3, "path": str(state.get("path", "Reputation-Matrix2/data/characters.json")), "object": draft})
+    message = reply_text + "\n\n" + _clip(draft, 7000)
+    emit({"kind": "assistant", "text": message, "source": "draft revised from user notes; no write performed"})
+    return {"status": "approval_required", "run": run_id, "step": 3, "message": "APPROVAL_REQUIRED: " + message}
+
+
 def run_agent(request_text: str, *, run_id: str = "", endpoint: str = DEFAULT_ENDPOINT,
               model: str = "", allow_writes: bool = False, max_steps: int = 30,
               conversation: list[dict[str, Any]] | None = None,
@@ -1019,6 +1157,9 @@ def run_agent(request_text: str, *, run_id: str = "", endpoint: str = DEFAULT_EN
     decision = classify_request(request_text, images, conversation)
     kind = str(decision["kind"])
     if kind == "chat":
+        revised = _revised_profile_run(run_id, request_text, emit, endpoint, model)
+        if revised is not None:
+            return revised
         _emit_plan(emit, "Answer as a normal conversation", False, "This is conversation, roleplay, or drafting; no repository or image tool is required.", "none")
         answer = _chat_answer(request_text, conversation, endpoint, model)
         emit({"kind": "assistant", "text": answer, "source": "chat; no tools called"})
@@ -1098,6 +1239,10 @@ def run_agent(request_text: str, *, run_id: str = "", endpoint: str = DEFAULT_EN
         emit({"kind": "action", "step": 2, "action": {"action": "catalog_retrieve", "args": {"source": origin, "ids": [source_id], "limit": 1}}})
         emit({"kind": "result", "step": 2, "result": json.dumps({"id": source_id, "name": source.get("name"), "title": source.get("title"), "participant": person}, ensure_ascii=False, indent=2)})
         draft = _profile_object(source, person, origin)
+        evidence_text = _person_evidence(source, person) or str(source.get("summary", ""))
+        updates = _model_profile_draft(draft, evidence_text, str(source.get("name", "")), request_text, endpoint, model)
+        if updates:
+            draft = {**draft, **updates}
         emit({"kind": "draft", "step": 3, "path": "Reputation-Matrix2/data/characters.json", "object": draft})
         state_id = run_id or f"profile-{int(time.time())}"
         _save_state(state_id, {"kind": "profile", "request": request_text, "conversation": conversation, "path": "Reputation-Matrix2/data/characters.json", "draft": draft})

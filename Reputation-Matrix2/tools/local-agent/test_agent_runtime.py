@@ -379,6 +379,100 @@ class ChatFirstTests(unittest.TestCase):
         self.assertEqual(captured.get("history_limit"), 1200)
         self.assertEqual(captured.get("max_tokens"), 600)
 
+    def test_error_notices_never_reach_the_model(self) -> None:
+        """The runtime's own failure texts are not fed back as conversation."""
+        conversation = [
+            {"role": "user", "content": "hello"},
+            {"role": "assistant", "content": "LM Studio is offline. Start the local model server and retry. No repository or image tool was called."},
+            {"role": "user", "content": "Cosmic Jester seems important, can we profile him from the factions json"},
+            {"role": "assistant", "content": "LM Studio returned HTTP 400. The model backend reported an error."},
+            {"role": "user", "content": "this is the leader of it i guess"},
+        ]
+        trimmed = runtime._redact_conversation(conversation)
+        self.assertEqual([item["role"] for item in trimmed], ["user", "user", "user"])
+        self.assertEqual(runtime._redact_conversation(conversation, keep=0), [])
+
+    def test_model_writes_the_profile_prose(self) -> None:
+        """“waluigi tone and all”: the model writes title/summary/description."""
+        def fake(endpoint, model, system, user, **kwargs):
+            if "staff writer" in system:
+                return json.dumps({
+                    "title": "The Bite That Was Taken",
+                    "summary": "The Cosmic Jester is the entity that took the Big Bite out of the Doughnut World.",
+                    "description": "## The Big Bite\n\nThe world is a doughnut, and a bite-sized chunk of it is simply gone.",
+                    "waluigiComment": "Waluigi documented this under protest. WAH.",
+                })
+            return "MODEL-INTRO"
+
+        with patch.object(runtime, "_complete", side_effect=fake), \
+             patch.object(runtime.repo_tools, "add_json_object", side_effect=AssertionError("draft must not write")):
+            result = runtime.run_agent(
+                "Cosmic Jester seems to be important can we create a character profile "
+                "for him please check the factions json and edit the file waluigi tone and all go ahead make it sound good"
+            )
+        self.assertEqual(result["status"], "approval_required")
+        draft = json.loads(result["message"].split("\n\n", 1)[1])
+        self.assertEqual(draft["title"], "The Bite That Was Taken")
+        self.assertIn("Big Bite", draft["summary"])
+        self.assertEqual(draft["waluigiComment"], "Waluigi documented this under protest. WAH.")
+        # structural fields stay deterministic and grounded
+        self.assertEqual(draft["id"], "cosmic_jester")
+        self.assertEqual(draft["sourceRecord"], "disaster_inc")
+        self.assertEqual(draft["keyEvents"], ["disaster_inc_naming_dispute"])
+
+    def test_pending_draft_notes_revise_the_draft(self) -> None:
+        prompt = ("for freddy can you make a charcater prfile for him\n"
+                  "The Seven Nights at Fazbear: A Complete Record you can learn about him from")
+        calls, fake = model_texts()
+        with patch.object(runtime, "_complete", side_effect=fake), \
+             patch.object(runtime.repo_tools, "add_json_object", side_effect=AssertionError("draft must not write")):
+            draft = runtime.run_agent(prompt)
+        self.assertEqual(draft["status"], "approval_required")
+
+        revision = json.dumps({
+            "reply": "Noted — the draft now records him as the leader of the original five.",
+            "profile": {
+                "id": "gabriel_freddy",
+                "name": "Gabriel / Freddy",
+                "title": "The Frontman and Leader of the Original Five",
+                "summary": "Gabriel is the frontman of the original five and their leader.",
+                "description": "## The stage\n\nHe held the frontman position.",
+                "status": "Released Night Seven",
+                "race": "Human child",
+                "affiliation": "The original five",
+            },
+        })
+        with patch.object(runtime, "_complete", return_value=revision), \
+             patch.object(runtime.repo_tools, "add_json_object", side_effect=AssertionError("revision must not write")):
+            result = runtime.run_agent("this is the leader of it i guess", run_id=draft["run"])
+        self.assertEqual(result["status"], "approval_required")
+        self.assertIn("leader", result["message"])
+        updated = json.loads(result["message"].split("\n\n", 1)[1])
+        self.assertEqual(updated["title"], "The Frontman and Leader of the Original Five")
+        # grounded structural fields are restored no matter what the model returned
+        self.assertEqual(updated["keyEvents"], ["fazbear_seven_nights"])
+        self.assertEqual(updated["sourceRecord"], "fazbear_seven_nights")
+
+        with patch.object(runtime, "_complete", side_effect=fake), \
+             patch.object(runtime.repo_tools, "add_json_object", return_value="added gabriel_freddy to Reputation-Matrix2/data/characters.json (184 records)") as write:
+            done = runtime.run_agent("approve", run_id=draft["run"])
+        self.assertEqual(done["status"], "done")
+        written = write.call_args[0][1]
+        self.assertEqual(written["title"], "The Frontman and Leader of the Original Five")
+
+    def test_courtesy_after_a_draft_stays_chat(self) -> None:
+        prompt = ("for freddy can you make a charcater prfile for him\n"
+                  "The Seven Nights at Fazbear: A Complete Record you can learn about him from")
+        calls, fake = model_texts()
+        with patch.object(runtime, "_complete", side_effect=fake), \
+             patch.object(runtime.repo_tools, "add_json_object", side_effect=AssertionError("draft must not write")):
+            draft = runtime.run_agent(prompt)
+        with patch.object(runtime, "_chat_answer", return_value="You are welcome.") as chat:
+            result = runtime.run_agent("thanks", run_id=draft["run"])
+        self.assertEqual(result["status"], "done")
+        self.assertEqual(result["answer"], "You are welcome.")
+        self.assertEqual(chat.call_count, 1)
+
     def test_file_source_draft_reads_cleanly(self) -> None:
         """No markdown leakage, no circular status, trimmed related articles."""
         calls, fake = model_texts()

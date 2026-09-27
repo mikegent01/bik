@@ -72,6 +72,16 @@ reference (`Gabriel / Freddy`; the Cosmic Jester material in the Disaster Inc.
 faction record), drafts the `characters.json` object from that evidence —
 quoting sentences that actually mention the character, with markdown artifacts
 stripped — shows the draft, and waits for `approve`. The model writes the
+profile prose itself (title, summary, description, `waluigiComment`) in the
+Waluipedia voice from the quoted evidence, while ids, key events, related
+articles, and the source record stay deterministic and grounded; if the model
+is unavailable, the deterministic prose is used unchanged.
+
+While a draft is pending, the user's notes revise it: “this is the leader of it
+i guess” or “make it sound good, waluigi tone” sends the draft and the notes to
+the model, updates the draft, and re-presents it for approval — instead of
+dropping into plain chat where the model would rightly say it cannot edit
+files. Courtesies (“thanks”) stay chat. The model writes the
 message around the draft; the draft JSON itself is appended verbatim so the
 user reviews exactly what would be written. Nothing is written before the exact
 draft is approved, and approving twice reports that the profile is already on
@@ -98,3 +108,14 @@ The runtime does not expose shell access, does not let an LM choose arbitrary
 filesystem paths, and does not write canon merely because a model suggested it.
 Normal chat has no repository context injected into its prompt, which prevents
 an unrelated archive record from becoming a fabricated answer.
+
+## Failure notices never become conversation
+
+The runtime's own error texts (“LM Studio is offline”, “returned HTTP 400”, “did
+not finish in time”) are shown to the user but never sent back to the model as
+conversation history — a model that reads “LM Studio is offline” in its history
+starts insisting it cannot edit files. Both the server (`_redact_conversation`
+drops them) and the chat page (error notices are marked and excluded from the
+next request) enforce this, and the page no longer sends the current message
+twice. Transient LM Studio HTTP errors (model backend channel errors) are
+retried once before anything is reported.
