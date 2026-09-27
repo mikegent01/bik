@@ -8430,6 +8430,47 @@
         }
       ],
       "status": "posted"
+    },
+    {
+      "id": "ww_daylog_thefifth",
+      "author": "waluigi",
+      "type": "text",
+      "order": 209,
+      "date": null,
+      "timestamp": "5 Aethel, 1040 BF — dated true, written late",
+      "content": "Filed a day log for the fifth: what I ate, what I requested, one museum I should have read more closely, and the weather, which I obtained by arguing with a print vendor. Where was the archivist while the desk dated all that? The Feyward. There was a door, the door had a TREE behind it, and Hjumpik has my sleeve to thank for the save. The clocks do not reconcile. That is the horror of the place, not a filing error. WAH.",
+      "likes": 766,
+      "links": [
+        {
+          "id": "the_cut_and_the_puppet_master",
+          "type": "event"
+        },
+        {
+          "id": "feyward_i_cant_afford_not_to_care",
+          "type": "event"
+        },
+        {
+          "id": "waluigi",
+          "type": "character"
+        }
+      ],
+      "tags": [
+        "daylog",
+        "clocks",
+        "feyward",
+        "nintendomania"
+      ],
+      "reaction": "smug",
+      "comments": [
+        {
+          "id": "ww_daylog_c1",
+          "author": "hjumpik",
+          "content": "I pulled. The sleeve is a rental. He has not asked about the deposit.",
+          "likes": 508,
+          "topReply": true
+        }
+      ],
+      "status": "posted"
     }
   ]
 }

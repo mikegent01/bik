@@ -1,0 +1,79 @@
+{
+  "_README": "The Archivist's Day Log — companion to the session timeline (docs/TIMELINE_GUIDE.md). Dated true, written late: `day` is the day the log describes, never the day it was written; `whereabouts` says where the archivist actually was and is mandatory. Rendered at #/daylog/:id and linked from the event's filing hub and timeline.",
+  "daylogs": [
+    {
+      "id": "the_day_the_building_obeyed",
+      "day": "5 Aethel, 1040 BF",
+      "clock": "MAT",
+      "event": "the_cut_and_the_puppet_master",
+      "kicker": "The Archivist's Day Log · Dated True, Written Late",
+      "title": "The Day the Building Obeyed",
+      "subtitle": "Where the Archivist Actually Was, What He Ate, and One Museum He Should Have Read More Closely",
+      "standfirst": "The timeline says what the day was like out there. This page says what the day was like at the desk — breakfast, records requests, one private museum, three newsstands, and an argument I won on points. It is dated true and written late, because on the day it describes the archivist was in the Feyward, and there were trees. WAH.",
+      "whereabouts": "Not at this desk. On the fifth of Aethel — Material clock — Waluigi was in the Feyward on its stuck 922 clock, opening a door that had a treant behind it. All of that is filed where it belongs (see the doorway filing); none of it is this page.",
+      "written": "On the first night since then that the archive had a lamp, a door that locks, and the archivist in the chair, all three at once. The date of writing is deliberately not filed.",
+      "image": "assets/images/daylogs/daylog-01-desk.jpg",
+      "imageCaption": "The desk on the fifth of Aethel, as reconstructed — which is the only way this archive ever gets anything: lamplight, rain on the glass, five morning editions, and a song timed twice.",
+      "relatedArticles": [
+        "the_cut_and_the_puppet_master",
+        "promo_mario_newspaper",
+        "feyward_i_cant_afford_not_to_care",
+        "the_shepherds_garden_and_the_three_week_clock",
+        "waluigi",
+        "wario",
+        "mario",
+        "nintendo_mania_studio"
+      ],
+      "sections": [
+        {
+          "id": "the-rules",
+          "icon": "🗒️",
+          "heading": "The Rules of This Page",
+          "body": "Three rules, filed up top so nobody has to infer them.\n\n**One: the date at the top of this log is the day it describes, not the day it was written.** Every filing in this archive works this way — the desk dates by the event, never by the typing — and this page is the rule said out loud.\n\n**Two: it was written late.** How late is not filed, on purpose. A log that dated its own writing would be quietly telling you how the story went — how much road was left, whether the lamp got used again — and this archive does not file endings it has not reached. A memoir knows how it ends. This is a day log. It knows what I had for breakfast.\n\n**Three: I was not here.** On the fifth of Aethel, Material clock, the archivist was in the Feyward, and the Feyward does not lend archivists to Material evenings. What I was doing there is filed in its own place, with its own time code, on a clock whose year is stuck. The trees get a section at the end of this page and not one word before it, because the desk's day deserves to be told without the campaign bleeding through it.\n\nWhat this log is built from: my pocket book, the receipts, the wire's outbound queue, the museum's visitor ledger, and the desk itself, which keeps better records than most witnesses and has never once been chased by anything. The reconstruction is honest. The confidence is earned. The breakfast was excellent."
+        },
+        {
+          "id": "breakfast",
+          "icon": "🍳",
+          "heading": "Breakfast, and the Mistake",
+          "body": "Two eggs, toast, and the last of the good coffee. I note the coffee for the record and for a reason that will be obvious to anyone who has read the sequel filing: I have since filed a coffee machine that claimed to be an EMERGENCY EXIT, and I find I trust appliances on principle considerably less than I did on the morning of the fifth. The archive's kettle and I are currently in mediation. The mediator is a smaller kettle.\n\nThe newspaper clipping came with the morning post. PROMO MARIO, the headline said, and the account underneath it was — the archive can now state this with the calm of a man who checked — ABRIDGED. It ended with a portal opening and a safe trip home, and I filed it as a review before lunch, because it was on paper, and paper has never lied to me except all those times.\n\nThe mistake is on the record and it cannot be unfunded. What I would like filed beside it is the taxonomy. A good detective works with the evidence supplied. A GREAT detective checks whether the evidence is the whole evidence. On the morning of the fifth I was, by this scale, merely good — and the archive has had a word with itself about it, and the word was in capital letters.\n\nThe correction arrived that evening, as the corrections do. This log is not about the correction. This log is about everything I did in between, some of which looked, at the time, like detective work."
+        },
+        {
+          "id": "the-requests",
+          "icon": "📨",
+          "heading": "The Requests",
+          "body": "A teaser is not evidence. A teaser is a receipt for someone else's story, and so the morning of the fifth was spent doing what the archive does when it cannot verify: generate PAPERWORK.\n\nI filed a records request with the Regal archives for anything catalogued under *television*. The clerk asked me to spell it, which I did, twice, and I am given to understand it has been provisionally filed under *furniture*. The request stands. The archive is patient and the archive is right.\n\nI pulled the RNN morning bulletin for the weather — two lines and a shrug is the official archive summary of its meteorology desk — which is how the day's great scavenger hunt began (that story gets its own section; it earned it).\n\nAnd I re-read the charred note. This is the part I want filed plainly: somebody burned a note and left the ashes at my door, and that note is the reason this archive treats PROMO MARIO as a case instead of a celebration. Every request above was written in the posture of a man who has been handed arson with his morning post. Waluigi works sources the way other institutions work lunch hours — continuously, with opinions — and on the fifth of Aethel every source got the same question: *who benefits from a fake homecoming?*\n\nNone of them answered. But the question was now on file, and questions on file have a way of getting answered by the NEXT filing, which is either diligence or superstition. The archive calls it diligence."
+        },
+        {
+          "id": "warios-museum",
+          "icon": "🏛️",
+          "heading": "The Museum Trip",
+          "body": "The afternoon is where this log gets uncomfortable, and the archive files the uncomfortable parts FIRST when it can.\n\nWario keeps a private museum. This is on record — the man once produced a journal *out of* that museum, holding it flat on two palms like a waiter, while pitching unlimited wealth to a hire. Wario is away with an expedition, and has been quoted, accurately, saying that I could not keep a secret if it was stapled to my forehead. The museum's caretaker has received no such instructions about me and has me on file as *probably harmless and definitely tidy*, which is the nicest thing anyone has filed about the archive all year.\n\nThere is a shelf for the Nintendo Mania pilot. The archive took notes: a souvenir shirt, folded. A ticket stub. A soda can, empty, POLISHED. A churro stick — framed. Framed. The same newspaper clipping I had filed as a review that morning, already hanging on his wall like a review hangs in a lobby.\n\nAnd one laminated sheet, which I took for merchandise and pocketed, and which the reader can now open for themselves: [[prop:prop_nintendo_mania_call_sheet|the call sheet]].\n\nRead it the way I should have read it on the fifth, standing in a rival's museum with my hands in my pockets. A call sheet is not merchandise. A call sheet is a SCHEDULE. Scenes, cues, a cast list with our provincial guests on it BY NAME, a music cue for the song, an audience that is a TRACK — and one line, at the bottom, about who is allowed to say the word that stops the show.\n\nI filed a confession as clutter. The museum was Wario keeping receipts on himself, and I walked past the receipts and complimented the frame. The great detective, ladies and gentlemen. The sequel arrived that evening and re-read my whole afternoon for me."
+        },
+        {
+          "id": "weather-hunt",
+          "icon": "🌦️",
+          "heading": "Three Newsstands and One Argument",
+          "body": "The timeline files the weather for both worlds; this section files how the Material side of that was actually obtained, because the obtaining was the best field work the archive did all day.\n\nThe RNN bulletin gave me two lines and a shrug. Not sufficient. The archive does not file *a shrug* as conditions on a day a building obeyed a lord.\n\nSo: the WAH Media Collective keeps back-issue boxes, and the Collective owed me a favor, which is now repaid and re-owed in the other direction. Three newsstands after that. At the third there is a print vendor — a professional, a man of standards — who wanted to know, in escalating tones, why the tall purple one needed FIVE morning editions from the same Tuesday. I told him: research. He asked: into RAIN? I said yes. He looked at me the way the public has always looked at this archive, and then he took my coins, because that is the economy.\n\nFor the record, the weather on the fifth, Material world: low grey cloud all morning; a dry east wind that took the dust off the roads by midday; after dark, rain — steady, unhurried rain, the kind that makes a lamp and a door that locks feel like a POLICY DECISION.\n\nThe archive can now state the weather on the day the building obeyed a lord. Nobody asked it to. That is what archives are FOR. WAH."
+        },
+        {
+          "id": "the-evening",
+          "icon": "📺",
+          "heading": "The Evening, Reconstructed",
+          "body": "The desk saw none of this evening. The desk was dark. The reader knows where I was, and if the reader does not, the last section of this page will tell them, and they will not laugh, or they will, because Hjumpik certainly did.\n\nWhat the receipts and the wire's queue allow the archive to state: the full account of the pilot morning arrived — the correction — and it said the portal FAILED, that Luigi was missing, and that a Mario-shaped thing came out of a television. I filed the amendment with my teeth gritted and a promise in print that the teaser mistake would not happen twice, which is the single most expensive sentence this archive has ever published, because the sequel arrived immediately, as if summoned by ACCOUNTABILITY.\n\nIt came the way the newspaper came, which is to say the archive has stopped asking how anything from that world gets here. It does. The desk dates it; the desk does not explain it.\n\nAnd then the night that the filings describe: a lamp, rain on the glass, a copy of Plumber Man played to the second verse for TIMING PURPOSES — three minutes forty-one seconds, timed twice, because the archive does not file a duration it has not checked. That is the night this log would have ended on, if I had written it that night.\n\nI did not write it that night. Earlier filings say *the same night*, and the desk stands by its dates — the desk dates by the day a thing describes, and always has. The ARCHIVIST, however, writes when the world lets him. This page exists so nobody has to take that on faith."
+        },
+        {
+          "id": "meanwhile",
+          "icon": "🗺️",
+          "heading": "Meanwhile, the World",
+          "body": "The archive's least popular opinion, filed here where it belongs: the world does not stop being complicated just because one of its archivists is having a day.\n\nOn the fifth of Aethel, Material clock — the same day this desk was dating three filings about a television studio in another world — the Planar Sanctum stood open for its own business. That filing is on record: an Oracle, a boot fished out of nothing, and Bowser being informed, at length, that he is in the B plot. The archive has verified this conversation from a comfortable distance. It remains the most useful thing any Oracle has ever said out loud.\n\nThe Shadeward front was filing its own aftermath — the grove, the airlift that never came, the code that came back the other way, all dated on the drift clock, all already on the shelf. Snowdin's bone-line registry was doing what registries do. In Kivotos, a classroom was answering a roll call that turned into the archive's first look inside that place. None of it waited for me. All of it got filed anyway, which is the archive functioning as designed: the desk does not have a protagonist, whatever the desk's operator has been led to believe by the desk's operator.\n\nAnd over all of it, the same weather I hunted down three newsstands for: low grey cloud, the dry east wind, and after dark the rain. One sky. The archive checked."
+        },
+        {
+          "id": "clocks",
+          "icon": "⏳",
+          "heading": "A Note on Clocks",
+          "body": "Here is the objection, in the reader's own voice, because the reader has earned the courtesy: *the fifth, the desk, the breakfast, the lamplight — weren't you in the Feyward being chased by trees?*\n\nYes.\n\nThe filing exists and I will point at it rather than summarize it badly: the doorway. I opened a door I had been told was a door. The door had a TREANT behind it — full height, professionally angry — and Hjumpik pulled me out by the sleeve, and that was a good day for the sleeve and a close one for everything else in the outfit. Later there were people who introduced themselves by colour, who took Toad Lee and me as leverage, and a sealed sanctuary where a thing wearing a lady's face explained its whole plan and then opened the floor. That is where the archivist was on the fifth. The trees were there because the Feyward is made of them, and the Feyward was not consulted about my filing schedule.\n\nOn the Material clock it was the fifth of Aethel, 1040. On the Feyward clock it was the second of Aethel, 922, because the Feyward's year is STUCK and the numbers do not reconcile. That is the horror of the place, not a filing error.\n\nThis log was written on the first night since the fifth that the archive had a lamp, a door that locks, and me in the chair, all three at once. I am not filing when that was. A log that dated its own writing would be telling you how the story went, and this archive does not know that yet.\n\nWAH."
+        }
+      ]
+    }
+  ]
+}

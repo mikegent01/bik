@@ -100,14 +100,76 @@ def main():
     if not filed:
         print("no timelines filed yet (see docs/TIMELINE_GUIDE.md)")
 
+    # ---- day logs (data/daylogs.json) -------------------------------------
+    # The companion page: the desk's side of a filing day. The one hard rule
+    # beyond shape is HONESTY ABOUT ABSENCE: every log must carry
+    # `whereabouts` — where the archivist actually was — because the whole
+    # point of the page is that the desk dates by the day described, not by
+    # the night written. See TIMELINE_GUIDE.md "The Day Log".
+    dl_path = DATA / "daylogs.json"
+    logs = []
+    if dl_path.exists():
+        ddoc = json.loads(dl_path.read_text(encoding="utf-8"))
+        logs = ddoc.get("daylogs", []) if isinstance(ddoc, dict) else ddoc
+    resolvable = set(e.get("id") for e in evs if e.get("id"))
+    for extra in ("battles.json", "characters.json", "locations.json",
+                  "factions.json"):
+        ep = DATA / extra
+        if ep.exists():
+            edoc = json.loads(ep.read_text(encoding="utf-8"))
+            edoc = edoc.get(extra[:-5], edoc) if isinstance(edoc, dict) else edoc
+            if isinstance(edoc, list):
+                resolvable |= {r.get("id") for r in edoc if isinstance(r, dict) and r.get("id")}
+    filed_logs = 0
+    for d in logs:
+        filed_logs += 1
+        did = d.get("id", "<no id>")
+        print(f"{did}")
+        if not str(d.get("day") or "").strip():
+            errs.append(f"{did}: no day — a log is dated true or it is nothing")
+        if not str(d.get("event") or "").strip():
+            errs.append(f"{did}: no event — a day log must orbit a filing")
+        elif d["event"] not in resolvable:
+            errs.append(f"{did}: event {d['event']!r} does not resolve")
+        if not str(d.get("whereabouts") or "").strip():
+            errs.append(f"{did}: no whereabouts — where was the archivist "
+                        f"actually? The page's first question, answered "
+                        f"before it is asked")
+        if not str(d.get("written") or "").strip():
+            warns.append(f"{did}: no written line — how late is part of the "
+                         f"honesty (the date itself stays unfiled)")
+        if d.get("image") and not (ROOT / "Reputation-Matrix2" / d["image"]).exists():
+            errs.append(f"{did}: image {d['image']} does not exist")
+        secs = d.get("sections") or []
+        if len(secs) < 3:
+            errs.append(f"{did}: {len(secs)} sections — too few for a day")
+        seen_ids = set()
+        for x in secs:
+            if not x.get("id"):
+                errs.append(f"{did}: a section has no id")
+            elif x["id"] in seen_ids:
+                errs.append(f"{did}: duplicate section id {x['id']!r}")
+            seen_ids.add(x.get("id"))
+            for field in ("icon", "heading", "body"):
+                if not str(x.get(field) or "").strip():
+                    errs.append(f"{did}/{x.get('id', '?')}: missing {field}")
+        for rid in d.get("relatedArticles") or []:
+            if rid not in resolvable:
+                warns.append(f"{did}: relatedArticles {rid!r} does not resolve")
+        print(f"  {len(secs)} sections · day: {d.get('day', '?')} · "
+              f"orbits: {d.get('event', '?')}")
+    if not filed_logs:
+        print("no day logs filed yet")
+
     for e in errs:
         print(f"  ERROR  {e}")
     for w in warns:
         print(f"  warn   {w}")
     if errs:
-        print(f"FAIL  timelines ({filed} filed, {len(errs)} errors)")
+        print(f"FAIL  timelines ({filed} filed, {filed_logs} day logs, "
+              f"{len(errs)} errors)")
         return 1
-    print(f"PASS  timelines ({filed} filed)")
+    print(f"PASS  timelines ({filed} filed, {filed_logs} day log(s))")
     return 0
 
 

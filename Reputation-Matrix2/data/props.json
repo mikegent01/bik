@@ -2500,6 +2500,21 @@
       "stamps": [
         "noaction"
       ]
+    },
+    "prop_nintendo_mania_call_sheet":     {
+      "kind": "note",
+      "icon": "📋",
+      "title": "Nintendo Mania — Pilot Call Sheet",
+      "subtitle": "Laminated · recovered from a private museum, 5 Aethel",
+      "items": [],
+      "articles": [
+        "the_cut_and_the_puppet_master"
+      ],
+      "note": "Pocketed during the museum trip on the fifth and re-filed as evidence the night the sequel account arrived. The archive took it for merchandise. It was a shooting schedule. The archive has had a word with itself.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">NINTENDO MANIA — PILOT TAPING</div><div class=\"pd-sub\">call sheet · laminate · studio copy · no. 001</div></div><div class=\"pd-clause\"><b class=\"n\">I.</b> CALL — CAST ON SET. HOST. GUESTS: D. MARSH (provincial), A. MARSHKEEPER (steward). E. MARIO — cape sequence, rehearsal hold.</div><div class=\"pd-clause\"><b class=\"n\">II.</b> MUSIC CUE — ACT THREE: PLUMBER MAN, full playback. No substitutes.</div><div class=\"pd-clause\"><b class=\"n\">III.</b> AUDIENCE — TRACK 7, SUSTAINED. Do not cue before the bow.</div><div class=\"pd-clause\"><b class=\"n\">IV.</b> CUT AUTHORITY — PRODUCER ONLY.</div><div class=\"pd-quote\">everything is on schedule — W</div><div class=\"pd-margin\">Filed as merchandise. Re-filed as a confession. — W.</div>",
+      "stamps": [
+        "evidence"
+      ]
     }
   }
 }

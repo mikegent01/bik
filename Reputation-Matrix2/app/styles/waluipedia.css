@@ -3489,3 +3489,10 @@ html[data-theme="light"] .war-band{background:linear-gradient(90deg,color-mix(in
 .tls-world{display:inline-block;margin:0 0 5px;font-size:10px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--accent2);border:1px solid currentColor;border-radius:999px;padding:1px 8px}
 .tls-note{font-size:12px;font-style:italic;opacity:.8;margin:10px 0 0}
 @media(max-width:720px){.tls-item{grid-template-columns:1fr;gap:4px}}
+
+/* ---- DAY LOGS (#/daylog/:id) — the archivist's side of a filing day ---- */
+.daylog-masthead{padding-bottom:4px}
+.daylog-where{margin:12px 0;padding:12px 14px;border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:10px;background:rgba(138,75,255,.06);font-size:13.5px;line-height:1.55}
+.daylog-where b{color:var(--accent)}
+.daylog-boundary{margin:4px 0 14px}
+.daylog-section h2{margin:26px 0 8px}

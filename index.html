@@ -6404,7 +6404,8 @@ function timelinePanel(item,typeKey){
     <div class="tls">${rows}</div>
     ${tl.method?`<p class="tls-note">⏱ ${inlineMd(String(tl.method))}</p>`:''}
     ${tl.note?`<p class="tls-note">${inlineMd(String(tl.note))}</p>`:''}
-  </div>`;
+    ${daylogForEvent(item.id)?`<p class="tls-note">🗒️ The archivist's own version of this day — breakfast, one museum, three newsstands — is filed as <a class="entity-link" href="#/daylog/${encodeURIComponent(daylogForEvent(item.id).id)}">the Day Log</a>.</p>`:''}
+  </div}`;
 }
 function fieldGalleryPanel(item,typeKey,opts){
   if(typeKey==='races') return '';
@@ -16901,6 +16902,12 @@ function hubOptions(id){
          routing, so navigate to the record, then scroll to #sec-timeline. */
       route:'#/article/'+encodeURIComponent(id),
       after:'sec-timeline' }
+  ]:[]).concat(daylogForEvent(id)?[
+    { key:'daylog', label:'Day Log', icon:'🗒️', img:HUB_ART+'hub_story.png',
+      blurb:"The desk's side of the day: breakfast, records requests, one museum, and the clocks that do not reconcile.",
+      meta:daylogForEvent(id).sections.length+' entries · dated true, written late',
+      available:true,
+      route:'#/daylog/'+encodeURIComponent(daylogForEvent(id).id) }
   ]:[]).concat(hubBattleOptions(id,item,rec));
 }
 /* Battle-shaped doors.
@@ -17361,6 +17368,76 @@ function view_article_analysis(id){
    The whole story, retold, with Waluigi refusing to shut up. Deliberately
    loud: the masthead says it is an opinion track and the source article stays
    one click away, so nobody mistakes the jokes for the canonical record. */
+/* =========================================================================
+   DAY LOGS — the archivist's side of a filing day (docs/TIMELINE_GUIDE.md)
+   -------------------------------------------------------------------------
+   The timeline says what the day was like. The day log says what the DESK
+   was like: breakfast, records requests, the hunt for the weather — dated
+   true (the day described) and written late (when the world allowed it).
+   `whereabouts` is mandatory and answers the reader's first question:
+   where was the archivist actually that day? Data: data/daylogs.json.
+   Route: #/daylog/:id. Linked from the filing hub and the timeline. */
+function daylogsAll(){ const d=(DATA&&DATA.daylogs)||{}; return Array.isArray(d)?d:(d.daylogs||[]); }
+function daylogGet(id){ return daylogsAll().find(x=>x&&x.id===id)||null; }
+function daylogForEvent(eventId){ return daylogsAll().find(x=>x&&x.event===eventId)||null; }
+function view_daylog(id){
+  const d=daylogGet(id);
+  if(!d){
+    renderSidebar('list:events');
+    el('content').innerHTML=`<div class="card"><h2>Day log not found</h2><p class="text-muted">The archive has no day log filed as “${esc(id)}”.</p><p><a onclick="Router.go('#/home')">← Home</a></p></div>`;
+    return;
+  }
+  const sourceRec=INDEX[d.event];
+  if(!sourceRec){
+    renderSidebar('list:events');
+    el('content').innerHTML=`<div class="card"><h2>Source article not found</h2><p class="text-muted">A day log must orbit a real filing, and “${esc(d.event)}” does not resolve.</p></div>`;
+    return;
+  }
+  const source=sourceRec.item, typeKey=sourceRec.typeKey, sourceTitle=displayName(source);
+  renderSidebar('list:'+typeKey);
+  LINK_YEAR_CTX=parseYear(d.day)||parseYear(source.date)||null;
+  beginLinkPass({id:d.id, relatedArticles:[d.event].concat(d.relatedArticles||[])});
+  const sections=Array.isArray(d.sections)?d.sections:[];
+  const blob=[d.standfirst].concat(sections.map(x=>x.body)).join(' ');
+  const wordCount=words(blob), readMins=readingTime(blob);
+  const tocEntries=sections.map(x=>({slug:'dlog-'+x.id,text:x.heading||prettyId(x.id)}));
+  if((d.relatedArticles||[]).length) tocEntries.push({slug:'dlog-related',text:'Related records'});
+  const toc=`<div class="toc" id="toc"><h4>Contents</h4>${tocEntries.map(h=>`<a data-slug="${esc(h.slug)}" onclick="scrollToHeading('${esc(h.slug)}')">${esc(h.text)}</a>`).join('')}</div>`;
+  const media=d.image?`<figure class="article-lead-img"><img src="${esc(assetPath(d.image))}" alt="${esc(d.imageCaption||d.title||'Day log')}" onerror="this.closest('figure').classList.add('broken')"><figcaption class="imgcap">${esc(d.imageCaption||'')}</figcaption></figure>`:'';
+  const sectionsHtml=sections.map((x,i)=>`<section class="daylog-section" aria-labelledby="dlog-${esc(x.id)}"><h2 id="dlog-${esc(x.id)}"><span class="wcut-num">${String(i+1).padStart(2,'0')}</span> ${esc(x.icon||'🗒️')} ${esc(x.heading||prettyId(x.id))}</h2><div class="prose">${applyAnnotations(mdToHtml(x.body||'',d.id),d.id)}</div></section>`).join('');
+  const seen=new Set();
+  const relatedChips=(d.relatedArticles||[]).map(resolveArticleId).filter(rid=>{if(seen.has(rid))return false;seen.add(rid);return !!INDEX[rid];}).map(rid=>`<span class="rel-chip" onclick="openId('${esc(rid)}')"><span class="rt">${esc(relKind(rid))}</span>${esc(displayName(INDEX[rid].item))}</span>`).join('');
+  const infoRows=`<div class="row"><span class="k">Log</span><span class="v">The Archivist's Day Log</span></div>
+    <div class="row"><span class="k">Day</span><span class="v">${esc(d.day||'')}</span></div>
+    ${d.clock?`<div class="row"><span class="k">Clock</span><span class="v">${esc(d.clock)}</span></div>`:''}
+    <div class="row"><span class="k">Describes</span><span class="v"><a class="entity-link" href="#/article/${encodeURIComponent(d.event)}">${esc(sourceTitle)}</a></span></div>
+    <div class="row"><span class="k">Written</span><span class="v">${esc(d.written||'Late — by design')}</span></div>
+    <div class="row"><span class="k">Whereabouts</span><span class="v">${esc(d.whereabouts||'')}</span></div>`;
+  el('content').innerHTML=`
+    <div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › <a onclick="Router.go('#/article/${encodeURIComponent(d.event)}')">${esc(sourceTitle)}</a> › Day Log</div>
+    <div class="article-layout"><div><article class="card animate-fade-in daylog">
+      <header class="daylog-masthead">
+        <div class="art-kicker">🗒️ ${esc(d.kicker||"The Archivist's Day Log")}</div>
+        <h1 class="art-title">${esc(d.title||sourceTitle)}</h1>
+        ${d.subtitle?`<div class="art-subtitle">${esc(d.subtitle)}</div>`:''}
+        <div class="metabar"><span class="pill">🗒️ Day log</span><span class="pill">Dated true, written late</span><span class="pill">${esc(d.day||'')}</span><a class="chip" href="#/article/${encodeURIComponent(d.event)}">The filing itself →</a></div>
+        <div class="readtime">⏱ ${readMins} min read <span aria-hidden="true">·</span> ${wordCount} words</div>
+        ${d.whereabouts?`<div class="daylog-where"><b>Where the archivist actually was:</b> ${esc(d.whereabouts)}</div>`:''}
+        ${media}
+      </header>
+      <div class="daylog-reading">
+        <div class="wcut-boundary daylog-boundary"><b>What this page is:</b> the desk's side of a filing day — breakfast, requests, one museum, the weather hunt — reconstructed after the fact. The events live in <a href="#/article/${encodeURIComponent(d.event)}">the filing</a> and its timeline; the jokes are the archivist's, and so is the mistake.</div>
+        ${d.standfirst?`<div class="wcut-standfirst">${mdToHtml(d.standfirst,d.id)}</div>`:''}
+        ${sectionsHtml}
+        ${relatedChips?`<section class="wcut-related" aria-labelledby="dlog-related"><h2 id="dlog-related">Related Records</h2><div class="related-list">${relatedChips}</div></section>`:''}
+        <div class="analysis-source-return"><span>The filing this log orbits:</span><a class="entity-link" href="#/article/${encodeURIComponent(d.event)}">${esc(sourceTitle)}</a></div>
+      </div>
+    </article></div><aside class="analysis-rail"><div class="rail"><div class="infobox"><h4>Day Log</h4>${infoRows}</div>${toc}</div></aside></div>`;
+  setArticleAccent(typeKey);
+  endLinkPass();
+  window.scrollTo(0,0);
+  setupScrollSpy();
+}
 function view_commentary(id){
   const c = commentaryGet(id);
   if(!c){
@@ -23112,6 +23189,7 @@ const Router={
     else if(route==='article-analysis'||route==='analysis')view_article_analysis(arg);
     else if(route==='hub'||route==='desk')view_hub(decodeURIComponent(arg||''));
     else if(route==='commentary'||route==='waluigis-cut'||route==='cut')view_commentary(arg);
+    else if(route==='daylog'||route==='day-log')view_daylog(arg);
     else if(route==='cultures'||route==='laws')view_cultures();
     else if(route==='power'||route==='war')view_power();
     else if(route==='imperial-network'||route==='imperial'||route==='empire-network'||route==='legion'||route==='iron-legion'){ Router.go('#/regal-diet/ipn'); }
@@ -23269,7 +23347,7 @@ document.addEventListener('keydown',e=>{const typing=/input|textarea|select/i.te
   }});
 /* ================= DATA LOADER (fetch ./data/*.json, fall back to embedded) ================= */
 /* Files that live in ./data/ as separate JSON. Keys map 1:1 to DATA fields. */
-const DATA_FILES = ['characters','events','articleAnalyses','commentaries','battles','locations','races','nations','factions','collections',
+const DATA_FILES = ['characters','events','articleAnalyses','commentaries','daylogs','battles','locations','races','nations','factions','collections',
   'trials','brosAttacks','mainPage','congress_votes','conflicts','majorBattles','factionColors','currentDate','calendarMonths','calendarWeekdays','calendarSeasons','calendarMeta','calendars','calendarHolidays','historicalTimeline','artifacts','congress','annotations','wahnotes','currencies','banking','wallets','books','crafting','cultures','injuries','liberatedToadsSystem','ironLegionSystem','abilityShop','itemLoreLinks','whatifs','quests','props','investigations','rolls','inventory','session-loot','filing-updates'];
 
 async function loadData(){

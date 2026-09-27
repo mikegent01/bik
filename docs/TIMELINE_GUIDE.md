@@ -140,6 +140,63 @@ enforced by the checker but has never once failed to happen on its own.
   scrolls to the section, using the same anchor trick as the XP door.
 * **Nothing on records without one.** No grey tile, no empty panel.
 
+## The Day Log — the archivist's side of the day
+
+The timeline says what the day was like **out there**. The day log says what
+it was like **at the desk**: what the archivist ate, what he requested, which
+institution he argued with, and where he actually was while the desk dated
+his filings. The first one is `the_day_the_building_obeyed`
+(`#/daylog/the_day_the_building_obeyed`), orbiting the CUT! filing.
+
+Data lives in `data/daylogs.json`:
+
+```json
+{
+  "id": "the_day_the_building_obeyed",
+  "day": "5 Aethel, 1040 BF",
+  "clock": "MAT",
+  "event": "the_cut_and_the_puppet_master",
+  "whereabouts": "Not at this desk. On the fifth … in the Feyward …",
+  "written": "On the first night since then that … The date of writing is deliberately not filed.",
+  "image": "assets/images/daylogs/daylog-01-desk.jpg",
+  "sections": [{ "id", "icon", "heading", "body" }]
+}
+```
+
+| Field | Rule |
+|---|---|
+| `day` / `clock` | The day described and which clock it runs on — never the writing day |
+| `event` | The filing this log orbits; must resolve |
+| `whereabouts` | **Mandatory.** Where the archivist actually was, and where that is filed. The page answers the reader's first question before they ask it |
+| `written` | How late, phrased honestly — **without a date** |
+| `sections[]` | `{id, icon, heading, body}`, ≥3, unique ids; prose carries the Waluigi voice |
+| `relatedArticles` | Must resolve (events, battles, characters, locations, factions) |
+
+### The tense rules (strictest in the archive)
+
+1. **Dated true, written late.** The `day` is the day described. The writing
+   happens "on the first night since that the archive had a lamp, a door
+   that locks, and the archivist in the chair, all three at once" — never
+   dated, because a log that dated its own writing would be telling you how
+   the story went, and the archive does not file endings it has not reached.
+2. **No future, no endings.** Never imply the campaign resolved, that anyone
+   survived, or how much road is left. The log knows what the archivist had
+   for breakfast; it does not know how the story ends.
+3. **The clocks answer the objection in-world.** A reader who follows the
+   campaign will ask: weren't you in the Feyward being chased by trees? The
+   log answers in Waluigi's voice, citing the filing where that lives, and
+   states the pocket-clock rule plainly: *the numbers do not reconcile —
+   that is the horror of the place, not a filing error.*
+
+### What renders
+
+* Route `#/daylog/:id` — masthead, whereabouts callout, plate, numbered
+  sections, related records, infobox rail (`view_daylog()` in `index.html`).
+* A **Day Log door** on the filing hub, only when a log orbits the record.
+* A cross-link at the foot of the event's **timeline panel**.
+* Not every timeline needs a day log — file one when there is a desk-story
+  worth telling (a mistake, a hunt, a museum trip), not as a chore.
+
 ## Checker
 
 ```
