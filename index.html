@@ -15670,6 +15670,7 @@ function view_article(id){
      <div class="metabar"><span class="pill">${t.emoji} ${esc(t.singular)}</span>${timeCodePill(item)}${typeKey==='factions'?systemsForFaction(item.id).map(s=>`<span class="pill" style="border-color:${s.accent};color:${s.accent};cursor:pointer" onclick="Router.go('${s.route}')">${s.emoji} ${esc(s.name)} — integrated system</span>`).join(''):''}${annotationBadge(item.id)}${microBadge(item)}${xpPill(item.id)}${item.status?`<span class="pill">${esc(String(item.status).split('—')[0].trim())}</span>`:''}${metaPills}</div>
      ${metaFacts}
      <div class="readtime">⏱ ${rtFull} min read · ${totalWords} words</div>
+     ${readAloudChip()}
      ${filingChangeNote(item.id)}
      <div class="article-top-xp">${xpMiniPanel(item.id)}</div>
      ${versionBarHtml}
@@ -17422,6 +17423,7 @@ function view_daylog(id){
         ${d.subtitle?`<div class="art-subtitle">${esc(d.subtitle)}</div>`:''}
         <div class="metabar"><span class="pill">🗒️ Day log</span><span class="pill">Dated true, written late</span><span class="pill">${esc(d.day||'')}</span><a class="chip" href="#/article/${encodeURIComponent(d.event)}">The filing itself →</a></div>
         <div class="readtime">⏱ ${readMins} min read <span aria-hidden="true">·</span> ${wordCount} words</div>
+        ${readAloudChip()}
         ${d.whereabouts?`<div class="daylog-where"><b>Where the archivist actually was:</b> ${esc(d.whereabouts)}</div>`:''}
         ${media}
       </header>
@@ -17438,6 +17440,278 @@ function view_daylog(id){
   window.scrollTo(0,0);
   setupScrollSpy();
 }
+/* ==READ-ALOUD-BRIDGE-START== */
+/* =========================================================================
+   READ ALOUD — the local Qwen3-TTS bridge (docs/QWEN_TTS_BRIDGE.md)
+   -------------------------------------------------------------------------
+   Reads a full article through the local Qwen3-TTS Enhanced Studio (Gradio,
+   default http://127.0.0.1:7860) using a SAVED voice profile from its Voice
+   Studio — default: Waluigi.
+
+   The pipeline is the point: the article is split into sentence-aware chunks,
+   chunk N is synthesized, PLAYED, and while it plays chunk N+1 is already
+   synthesizing — one chunk of speech ahead, so the reader hears the article
+   as one continuous take instead of synth-pause-synth-pause. One synthesis
+   in flight at a time (local GPUs have feelings too).
+
+   Split into a DOM-free core (chunker + Gradio client + controller) so it
+   can be exercised headlessly; all DOM lives in the ttsBar* helpers. */
+const TTS_DEFAULTS = { endpoint:'http://127.0.0.1:7860', voice:'Waluigi',
+                       api:'/generate_base_17', lang:'Auto', chunk:450 };
+function ttsConfig(){
+  try{ return Object.assign({}, TTS_DEFAULTS, JSON.parse(localStorage.getItem('waluipedia-tts')||'{}')); }
+  catch(e){ return Object.assign({}, TTS_DEFAULTS); }
+}
+function ttsSaveConfig(c){ try{ localStorage.setItem('waluipedia-tts', JSON.stringify(c)); }catch(e){} }
+
+/* ---- text harvest: what "read the article" means on this page ---------- */
+function ttsHarvestText(){
+  const sels = ['#content .art-title','#content .art-subtitle',
+    '#content .article-lead-summary p','#content .wcut-standfirst',
+    '#content .daylog-where','#content .prose','#content .wnote','#content .wcut-body'];
+  const seen = new Set(); const parts = [];
+  document.querySelectorAll(sels.join(',')).forEach(n=>{
+    if(seen.has(n)) return; seen.add(n);
+    if(n.closest && (n.closest('.toc')||n.closest('.rail')||n.closest('.infobox'))) return;
+    const t = String(n.textContent||'').replace(/\s+/g,' ').trim();
+    if(t.length>1) parts.push(t);
+  });
+  return parts.join('\n\n');
+}
+/* ---- sentence-aware chunker: fill up to `target` chars, split on [.!?…] -- */
+function ttsChunkText(text, target){
+  const tgt = Math.max(120, Number(target)||450);
+  const chunks = []; let cur = '';
+  const push = ()=>{ const t = cur.trim(); if(t) chunks.push(t); cur=''; };
+  const paras = String(text||'').split(/\n{2,}/);
+  for(const pRaw of paras){
+    const p = pRaw.replace(/\s+/g,' ').trim(); if(!p) continue;
+    const sentences = p.match(/[^.!?…]+[.!?…]+["')\]]*\s*|[^.!?…]+$/g) || [p];
+    for(const sRaw of sentences){
+      const sen = sRaw.trim(); if(!sen) continue;
+      if(sen.length > tgt){                       /* monster sentence: hard split */
+        push();
+        for(let i=0;i<sen.length;i+=tgt) chunks.push(sen.slice(i,i+tgt).trim());
+        continue;
+      }
+      if((cur ? cur.length+1 : 0) + sen.length <= tgt){ cur = cur ? cur+' '+sen : sen; }
+      else { push(); cur = sen; }
+    }
+    push();                                        /* paragraph boundary = chunk boundary */
+  }
+  push();
+  return chunks.filter(c=>c.length>1);
+}
+
+/* ---- Gradio client: POST to the queue, read the SSE stream, resolve a URL */
+function gradioAudioUrl(base, audio){
+  const origin = base.replace(/^(https?:\/\/[^\/]+).*$/, '$1');
+  if(audio && typeof audio==='object'){
+    if(audio.url){ const u=String(audio.url); return /^https?:/i.test(u) ? u : (origin+u); }
+    if(audio.path){ return origin+'/gradio_api/file='+encodeURI(audio.path); }
+  }
+  if(typeof audio==='string' && audio){ return origin+'/gradio_api/file='+encodeURI(audio); }
+  throw new Error('no audio in the result');
+}
+async function gradioTTS(text, cfg){
+  const base = String(cfg.endpoint||TTS_DEFAULTS.endpoint).replace(/\/+$/,'');
+  const api = cfg.api||'/generate_base_17';
+  const payload = { data:[ cfg.voice||'Waluigi', text, cfg.lang||'Auto',
+                           false, 0, 0.8, 0.95, 1.15, 2048 ] };
+  let lastErr = null;
+  for(const pre of ['/gradio_api/call','/call']){          /* Gradio 5.x then 4.x */
+    try{
+      const res = await fetch(base+pre+api, { method:'POST',
+        headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload) });
+      if(!res.ok){ lastErr = new Error('HTTP '+res.status); continue; }
+      const j = await res.json();
+      if(!j || !j.event_id){ lastErr = new Error('the studio accepted the request but returned no job id'); continue; }
+      const stream = await fetch(base+pre+api+'/'+j.event_id);
+      if(!stream.ok){ lastErr = new Error('HTTP '+res.status); continue; }
+      const reader = stream.body.getReader(); const dec = new TextDecoder(); let buf='';
+      for(;;){
+        const {value, done} = await reader.read(); if(done) break;
+        buf += dec.decode(value, {stream:true});
+        let idx;
+        while((idx = buf.indexOf('\n\n')) >= 0){
+          const block = buf.slice(0, idx); buf = buf.slice(idx+2);
+          const lines = block.split('\n');
+          const ev = (lines.find(l=>l.startsWith('event:'))||'').slice(6).trim();
+          const data = (lines.find(l=>l.startsWith('data:'))||'').slice(5).trim();
+          if(ev==='error') throw new Error(data||'the studio reported an error');
+          if(ev==='complete'){
+            const arr = JSON.parse(data);
+            return gradioAudioUrl(base, Array.isArray(arr)?arr[1]:null);
+          }
+        }
+      }
+      lastErr = new Error('the studio closed the stream without finishing');
+    }catch(e){ lastErr = (/fetch|network/i.test(String(e&&e.message))) ? new Error('the studio is unreachable at '+base) : e; }
+  }
+  throw (lastErr || new Error('the studio is unreachable'));
+}
+
+/* ---- controller: chunk N plays while chunk N+1 synthesizes -------------- */
+const ReadAloud = {
+  active:false, paused:false, chunks:[], idx:-1, urlCache:{}, pending:{}, token:0, audio:null,
+  start(){
+    const text = ttsHarvestText();
+    if(!text){ ttsBarShow('Read aloud'); ttsBarStatus('Nothing readable on this page','error'); return; }
+    this.stop(true);
+    const cfg = ttsConfig();
+    this.chunks = ttsChunkText(text, cfg.chunk);
+    if(!this.chunks.length){ ttsBarShow('Read aloud'); ttsBarStatus('Nothing readable on this page','error'); return; }
+    const title = (document.querySelector('#content .art-title')||{}).textContent || 'Read aloud';
+    this.active = true; this.paused = false; this.idx = -1; this.urlCache = {}; this.pending = {}; this.token++;
+    ttsBarShow(String(title).trim());
+    this._next(this.token);
+  },
+  async _next(tok){
+    if(!this.active || tok!==this.token) return;
+    this.idx++;
+    if(this.idx >= this.chunks.length){
+      this.active = false;
+      ttsBarStatus('Done — '+this.chunks.length+' chunk'+(this.chunks.length===1?'':'s'),'done');
+      const t = this.token;
+      setTimeout(()=>{ if(this.token===t) ttsBarHide(); }, 6000);
+      return;
+    }
+    const n = this.idx+1;
+    if(!this.urlCache[this.idx]){
+      ttsBarStatus('Synthesizing '+n+'/'+this.chunks.length+' ('+(ttsConfig().voice||'Waluigi')+')…','synth');
+      try{ await this._synthOf(this.idx); }
+      catch(e){ this.active=false; ttsBarStatus('Bridge error: '+e.message+'. Is the Qwen3-TTS studio running at '+ttsConfig().endpoint+'?','error'); return; }
+    }
+    if(!this.active || tok!==this.token) return;
+    /* THE QUEUE: while chunk N plays, chunk N+1 is already synthesizing */
+    this._synthAhead(this.idx+1, tok);
+    this._play(this.idx, tok);
+  },
+  /* one synthesis per chunk, ever: the in-flight promise is shared, so a
+     prefetch still running when playback ends is JOINED, not duplicated. */
+  _synthOf(i){
+    if(this.urlCache[i]) return Promise.resolve(this.urlCache[i]);
+    if(!this.pending[i]){
+      this.pending[i] = gradioTTS(this.chunks[i], ttsConfig()).then(
+        u=>{ this.urlCache[i]=u; delete this.pending[i]; return u; },
+        e=>{ delete this.pending[i]; throw e; });
+    }
+    return this.pending[i];
+  },
+  async _synthAhead(i, tok){
+    if(i>=this.chunks.length || this.urlCache[i]) return;
+    try{ await this._synthOf(i); }
+    catch(e){ /* surfaces when this chunk becomes current and retries once */ }
+  },
+  _play(i, tok){
+    const url = this.urlCache[i];
+    const a = new Audio(url);
+    this.audio = a; this.paused = false;
+    a.onended = ()=>{ if(this.active && tok===this.token) this._next(tok); };
+    a.onerror = ()=>{ if(this.active && tok===this.token){ this.active=false; ttsBarStatus('The studio made chunk '+(i+1)+' but the browser could not load it','error'); } };
+    a.play().catch(()=>{ if(this.active && tok===this.token){ this.active=false; ttsBarStatus('The browser refused to start playback — click Read aloud again','error'); } });
+    ttsBarStatus('Playing '+ (i+1) +'/' + this.chunks.length + ' · ' + (ttsConfig().voice||'Waluigi'),'play');
+  },
+  pause(){
+    if(!this.active || !this.audio) return;
+    if(this.paused){ this.audio.play().catch(()=>{}); this.paused=false; ttsBarStatus('Playing '+(this.idx+1)+'/'+this.chunks.length,'play'); }
+    else{ this.audio.pause(); this.paused=true; ttsBarStatus('Paused at '+(this.idx+1)+'/'+this.chunks.length,'pause'); }
+  },
+  skip(){
+    if(!this.active) return;
+    const tok = this.token;
+    if(this.audio){ this.audio.onended=null; this.audio.pause(); this.audio=null; }
+    this._next(tok);
+  },
+  stop(silent){
+    this.active = false; this.token++;
+    if(this.audio){ this.audio.onended=null; this.audio.pause(); this.audio=null; }
+    if(!silent) ttsBarHide();
+  }
+};
+
+/* ---- player bar: all the DOM the bridge owns ---------------------------- */
+function ttsBarEnsure(){
+  let bar = document.getElementById('readaloud-bar');
+  if(bar) return bar;
+  bar = document.createElement('div');
+  bar.id = 'readaloud-bar'; bar.className = 'readaloud-bar'; bar.hidden = true;
+  bar.innerHTML = `
+    <span class="ra-ico" aria-hidden="true">🔊</span>
+    <div class="ra-txt"><b id="ra-title">Read aloud</b><span id="ra-status" data-mode="idle">idle</span></div>
+    <div class="ra-btns">
+      <button type="button" id="ra-toggle" title="Pause / resume" onclick="ReadAloud.pause()">⏸</button>
+      <button type="button" title="Next chunk" onclick="ReadAloud.skip()">⏭</button>
+      <button type="button" title="Stop" onclick="ReadAloud.stop()">⏹</button>
+      <button type="button" title="Bridge settings" onclick="raCfgToggle()">⚙️</button>
+    </div>
+    <div class="ra-cfg" id="ra-cfg" hidden>
+      <label>Qwen studio URL <input id="ra-endpoint" type="url" placeholder="http://127.0.0.1:7860"></label>
+      <label>Voice profile <input id="ra-voice" type="text" placeholder="Waluigi"></label>
+      <label>Model <select id="ra-api">
+        <option value="/generate_base_17">1.7B — saved voices</option>
+        <option value="/generate_base_06">0.6B — saved voices, faster</option>
+      </select></label>
+      <label>Chunk size (chars) <input id="ra-chunk" type="number" min="200" max="900" step="50"></label>
+      <div class="ra-cfg-btns">
+        <button type="button" onclick="raCfgSave()">Save</button>
+        <button type="button" onclick="raTestVoice()">Test voice</button>
+      </div>
+      <span id="ra-cfg-note" class="ra-note"></span>
+      <p class="ra-help">Runs against your local <b>Qwen3-TTS Enhanced Studio</b> (Gradio). Voices are the saved profiles from its Voice Studio — default: <b>Waluigi</b>. The next chunk synthesizes while the current one plays. Docs: <code>docs/QWEN_TTS_BRIDGE.md</code>.</p>
+    </div>`;
+  document.body.appendChild(bar);
+  return bar;
+}
+function ttsBarShow(title){
+  const bar = ttsBarEnsure();
+  const t = document.getElementById('ra-title'); if(t) t.textContent = title||'Read aloud';
+  raCfgFill();
+  bar.hidden = false;
+}
+function ttsBarHide(){ const bar = document.getElementById('readaloud-bar'); if(bar) bar.hidden = true; }
+function ttsBarStatus(txt, mode){
+  const st = document.getElementById('ra-status'); if(st){ st.textContent = txt; st.setAttribute('data-mode', mode||'idle'); }
+  const tg = document.getElementById('ra-toggle'); if(tg) tg.textContent = (mode==='pause') ? '▶' : '⏸';
+}
+function raCfgToggle(){
+  const bar = ttsBarEnsure(); const p = document.getElementById('ra-cfg');
+  if(!p) return; p.hidden = !p.hidden; if(!p.hidden) raCfgFill();
+}
+function raCfgFill(){
+  const cfg = ttsConfig();
+  const f = id=>document.getElementById(id);
+  if(f('ra-endpoint')) f('ra-endpoint').value = cfg.endpoint;
+  if(f('ra-voice')) f('ra-voice').value = cfg.voice;
+  if(f('ra-api')) f('ra-api').value = cfg.api;
+  if(f('ra-chunk')) f('ra-chunk').value = cfg.chunk;
+}
+function raCfgSave(){
+  const f = id=>document.getElementById(id);
+  ttsSaveConfig({ endpoint:(f('ra-endpoint')&&f('ra-endpoint').value)||TTS_DEFAULTS.endpoint,
+                  voice:(f('ra-voice')&&f('ra-voice').value)||TTS_DEFAULTS.voice,
+                  api:(f('ra-api')&&f('ra-api').value)||TTS_DEFAULTS.api,
+                  lang:'Auto',
+                  chunk:Math.min(900, Math.max(200, Number(f('ra-chunk')&&f('ra-chunk').value)||TTS_DEFAULTS.chunk)) });
+  const n = document.getElementById('ra-cfg-note'); if(n) n.textContent = 'Saved. New chunks use it immediately.';
+}
+async function raTestVoice(){
+  const n = document.getElementById('ra-cfg-note');
+  if(n) n.textContent = 'Synthesizing test line…';
+  try{
+    const url = await gradioTTS('Waluigi test. The bridge works. WAH.', ttsConfig());
+    new Audio(url).play().catch(()=>{});
+    if(n) n.textContent = 'Playing the test line.';
+  }catch(e){ if(n) n.textContent = 'Error: '+e.message; }
+}
+function readAloudChip(){
+  return `<span class="chip readaloud-chip" role="button" tabindex="0" title="Read this page aloud through the local Qwen3-TTS studio (voice: Waluigi)" onclick="ReadAloud.start()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();ReadAloud.start()}">🔊 Read aloud</span>`;
+}
+/* Navigating away stops the reading — the article the reader left is no
+   longer the article being read. */
+window.addEventListener('hashchange', ()=>{ try{ ReadAloud.stop(); }catch(e){} });
+/* ==READ-ALOUD-BRIDGE-END== */
+
 function view_commentary(id){
   const c = commentaryGet(id);
   if(!c){
@@ -17498,6 +17772,7 @@ function view_commentary(id){
         </div>
         <div class="metabar"><span class="pill">🎙️ Commentary track</span><span class="pill">Full story, retold</span><span class="pill">Opinions throughout</span><a class="chip wcut-cta" href="#/article/${encodeURIComponent(c.sourceArticle)}">Read it straight →</a></div>
         <div class="readtime">⏱ ${readMins} min read <span aria-hidden="true">·</span> ${wordCount} words</div>
+        ${readAloudChip()}
         ${c.pullQuote?`<blockquote class="wcut-pull">${esc(c.pullQuote)}</blockquote>`:''}
         ${media}
       </header>
