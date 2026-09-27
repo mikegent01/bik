@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Tiny mock LM Studio for integration tests of the chat-first runtime."""
 import json
+import os
 import time
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
@@ -43,6 +44,16 @@ class Handler(BaseHTTPRequestHandler):
 
 
 if __name__ == "__main__":
-    server = ThreadingHTTPServer(("0.0.0.0", 1234), Handler)
-    print("mock LM Studio on :1234", flush=True)
+    import sys
+    port = int(sys.argv[1]) if len(sys.argv) > 1 else 1234
+    delay = float(os.environ.get("MOCK_DELAY_SECONDS", "0") or 0)
+
+    class SlowHandler(Handler):
+        def do_POST(self):
+            if delay:
+                time.sleep(delay)
+            super().do_POST()
+
+    server = ThreadingHTTPServer(("0.0.0.0", port), SlowHandler)
+    print(f"mock LM Studio on :{port} (delay {delay}s)", flush=True)
     server.serve_forever()

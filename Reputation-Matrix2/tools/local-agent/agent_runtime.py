@@ -27,7 +27,7 @@ HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[2]
 RUNS = HERE.parents[1] / "tools" / ".local-agent-runs"
 DEFAULT_ENDPOINT = os.environ.get("LM_STUDIO_URL", "http://127.0.0.1:1234/v1/chat/completions")
-DEFAULT_TIMEOUT = max(2, min(int(os.environ.get("LM_STUDIO_TIMEOUT_SECONDS", "30") or 30), 120))
+DEFAULT_TIMEOUT = max(5, min(int(os.environ.get("LM_STUDIO_TIMEOUT_SECONDS", "90") or 90), 300))
 
 # Import the bounded repository helpers, but never call them from the chat path.
 import sys
@@ -474,41 +474,70 @@ def _extract_search_term(text: str) -> str:
     return " ".join(useful[-5:])[:180]
 
 
-def _redact_conversation(conversation: list[dict[str, Any]]) -> list[dict[str, str]]:
+def _redact_conversation(conversation: list[dict[str, Any]], keep: int = 12, limit: int = 5000) -> list[dict[str, str]]:
     return [
-        {"role": str(item.get("role", "")), "content": _clip(item.get("content", ""), 5000)}
-        for item in conversation[-12:] if isinstance(item, dict) and item.get("role") in {"user", "assistant"}
+        {"role": str(item.get("role", "")), "content": _clip(item.get("content", ""), limit)}
+        for item in conversation[-max(1, keep):] if isinstance(item, dict) and item.get("role") in {"user", "assistant"}
     ]
+
+
+def _is_timeout_error(error: BaseException) -> bool:
+    """True when the failure is a timeout, not an unreachable server."""
+    seen: set[int] = set()
+    candidate: BaseException | None = error
+    while isinstance(candidate, BaseException) and id(candidate) not in seen:
+        seen.add(id(candidate))
+        if isinstance(candidate, (socket.timeout, TimeoutError)):
+            return True
+        candidate = getattr(candidate, "reason", None)
+    return False
 
 
 def _complete(endpoint: str, model: str, system: str, user: str, *,
               conversation: list[dict[str, Any]] | None = None,
-              timeout: int = DEFAULT_TIMEOUT) -> str:
+              timeout: int = DEFAULT_TIMEOUT, history_keep: int = 12,
+              history_limit: int = 5000, max_tokens: int = 1400) -> str:
     messages: list[dict[str, Any]] = [{"role": "system", "content": system}]
-    messages.extend(_redact_conversation(conversation or []))
+    messages.extend(_redact_conversation(conversation or [], keep=history_keep, limit=history_limit))
     messages.append({"role": "user", "content": user})
-    payload: dict[str, Any] = {"messages": messages, "temperature": 0.2, "max_tokens": 1400}
+    payload: dict[str, Any] = {"messages": messages, "temperature": 0.2, "max_tokens": max_tokens}
     if model:
         payload["model"] = model
-    request = urllib.request.Request(
-        endpoint, data=json.dumps(payload).encode("utf-8"),
-        headers={"Content-Type": "application/json"}, method="POST",
-    )
-    with urllib.request.urlopen(request, timeout=timeout) as response:
-        body = json.loads(response.read())
-    content = body.get("choices", [{}])[0].get("message", {}).get("content", "")
-    if not isinstance(content, str) or not content.strip():
-        raise ValueError("the local model returned no text")
-    return content.strip()
+
+    def request(wait: int) -> str:
+        request_object = urllib.request.Request(
+            endpoint, data=json.dumps(payload).encode("utf-8"),
+            headers={"Content-Type": "application/json"}, method="POST",
+        )
+        with urllib.request.urlopen(request_object, timeout=wait) as response:
+            body = json.loads(response.read())
+        content = body.get("choices", [{}])[0].get("message", {}).get("content", "")
+        if not isinstance(content, str) or not content.strip():
+            raise ValueError("the local model returned no text")
+        return content.strip()
+
+    try:
+        return request(timeout)
+    except Exception as error:
+        if not _is_timeout_error(error):
+            raise
+        # Local models can be slow to answer; retry once with a longer budget
+        # before reporting anything to the user.
+        return request(timeout * 2)
 
 
-def _model_error(error: Exception) -> str:
+def _model_error(error: Exception, endpoint: str = "") -> str:
     # The only fixed user-facing strings left: they exist for the case where
     # there is no model to write the reply.
+    where = f" at {endpoint}" if endpoint else ""
     if isinstance(error, urllib.error.HTTPError):
-        return f"LM Studio returned HTTP {error.code}. Load a chat model and retry."
-    if isinstance(error, (urllib.error.URLError, ConnectionError, socket.timeout, TimeoutError)):
-        return "LM Studio is offline. Start the local model server and retry. No repository or image tool was called."
+        return f"LM Studio returned HTTP {error.code}{where}. Load a chat model and retry."
+    if _is_timeout_error(error):
+        return ("The local model did not finish in time — the server is reachable but slow or busy. "
+                "Try again, or raise LM_STUDIO_TIMEOUT_SECONDS. No repository or image tool result was invented.")
+    if isinstance(error, (urllib.error.URLError, ConnectionError, OSError)):
+        return (f"LM Studio is offline{where}. Start the local model server, or correct the endpoint, and retry. "
+                "No repository or image tool was called.")
     return f"The local model could not answer: {error}. No repository or image tool was called."
 
 
@@ -522,7 +551,7 @@ def _chat_answer(text: str, conversation: list[dict[str, Any]], endpoint: str, m
     try:
         return _complete(endpoint, model, system, text, conversation=conversation)
     except Exception as error:
-        return _model_error(error)
+        return _model_error(error, endpoint)
 
 
 def _reply(context: dict[str, Any], conversation: list[dict[str, Any]], endpoint: str, model: str) -> str:
@@ -539,18 +568,19 @@ def _reply(context: dict[str, Any], conversation: list[dict[str, Any]], endpoint
         "acknowledge that briefly and move things forward without repeating your previous reply."
     )
     user = "SYSTEM CONTEXT (ground truth for this reply):\n" + _clip(json.dumps(context, ensure_ascii=False, indent=2), 8000)
-    return _complete(endpoint, model, system, user, conversation=conversation)
+    return _complete(endpoint, model, system, user, conversation=conversation,
+                     history_keep=4, history_limit=1200, max_tokens=600)
 
 
 def _reply_safely(context: dict[str, Any], conversation: list[dict[str, Any]], endpoint: str, model: str) -> str:
     try:
         return _reply(context, conversation, endpoint, model)
     except Exception as error:
-        return _model_error(error)
+        return _model_error(error, endpoint)
 
 
 def _is_offline_note(text: str) -> bool:
-    return text.startswith("LM Studio") or text.startswith("The local model could not answer")
+    return text.startswith("LM Studio") or text.startswith("The local model")
 
 
 def _evidence_answer(text: str, evidence: Any, conversation: list[dict[str, Any]], endpoint: str, model: str) -> str:

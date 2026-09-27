@@ -16,6 +16,28 @@ python workflow/server.py
 Open `http://127.0.0.1:8787/`. The server binds to `0.0.0.0` for the sandbox
 preview. Set `WORKFLOW_HOST`, `WORKFLOW_PORT`, and `LM_STUDIO_URL` if needed.
 
+## Model endpoint and timeouts
+
+The assistant talks to LM Studio's local server. If it is not at the default
+address, it is found automatically: the server probes `127.0.0.1` and
+`localhost` on ports `1234`, `1235`, `8000`, and `8080`, and uses the first one
+that answers `/v1/models` (results cached 15 seconds; refresh forces a new
+probe). The header shows which endpoint is in use, and **⚙** lets you set the
+URL by hand — it is stored in the browser and overrides detection. Setting the
+`LM_STUDIO_URL` environment variable overrides detection for the whole server.
+
+A slow model is not an offline one. Requests default to a 90-second budget
+(`LM_STUDIO_TIMEOUT_SECONDS`), and one automatic retry with a doubled budget
+runs before anything is reported. Timeouts say so plainly ("did not finish in
+time — the server is reachable but slow or busy"); only a refused connection
+says offline, and that message names the endpoint it tried. Reply phrasing
+keeps its prompt small (short history, small token budget) so slow local
+models answer faster.
+
+Note for the hosted preview: the sandbox cannot reach `127.0.0.1` on *your*
+machine. Run `python workflow/server.py` locally (next to LM Studio), or point
+⚙ at a reachable URL.
+
 ## Managing chats
 
 Each chat in the sidebar has **✎ rename** and **✕ delete** buttons (visible on
@@ -93,5 +115,6 @@ server in another terminal first:
 
 ```bash
 python tools/mock_lm_studio.py   # serves a fake /v1/chat/completions on :1234
+python tools/mock_lm_studio.py 8000   # any port; MOCK_DELAY_SECONDS=3 simulates a slow model
 python workflow/server.py
 ```

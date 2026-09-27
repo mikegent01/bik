@@ -316,6 +316,69 @@ class ChatFirstTests(unittest.TestCase):
         # The offline notice must not claim no tool ran when one did.
         self.assertNotIn("No repository or image tool was called", result["answer"])
 
+    def test_timeout_is_not_reported_as_offline(self) -> None:
+        """A slow model must not be called offline, and the endpoint is shown."""
+        import socket
+        import urllib.error
+        message = runtime._model_error(socket.timeout(), "http://127.0.0.1:1234/v1/chat/completions")
+        self.assertIn("did not finish", message)
+        self.assertNotIn("offline", message)
+
+        refused = urllib.error.URLError(ConnectionRefusedError())
+        message = runtime._model_error(refused, "http://127.0.0.1:1234/v1/chat/completions")
+        self.assertIn("LM Studio is offline", message)
+        self.assertIn("127.0.0.1:1234", message)
+
+    def test_complete_retries_once_on_timeout(self) -> None:
+        import socket as socket_module
+
+        class FakeResponse:
+            def __init__(self, body: bytes) -> None:
+                self._body = body
+
+            def read(self) -> bytes:
+                return self._body
+
+            def __enter__(self):
+                return self
+
+            def __exit__(self, *args):
+                return False
+
+        good = FakeResponse(json.dumps({"choices": [{"message": {"content": "finally"}}]}).encode())
+        waits: list[int] = []
+
+        def fake_urlopen(request, timeout=None):
+            waits.append(timeout)
+            if len(waits) == 1:
+                raise socket_module.timeout()
+            return good
+
+        with patch.object(runtime.urllib.request, "urlopen", side_effect=fake_urlopen):
+            answer = runtime._complete("http://x/v1/chat/completions", "", "s", "u", timeout=5)
+        self.assertEqual(answer, "finally")
+        self.assertEqual(waits, [5, 10])
+
+    def test_reply_uses_a_small_history_and_token_budget(self) -> None:
+        """Phrasing replies keep the prompt small so slow models answer fast."""
+        conversation = [{"role": ("user" if i % 2 == 0 else "assistant"), "content": "word " * 900}
+                        for i in range(10)]
+        trimmed = runtime._redact_conversation(conversation, keep=4, limit=1200)
+        self.assertEqual(len(trimmed), 4)
+        self.assertTrue(all(len(item["content"]) <= 1215 for item in trimmed))
+
+        captured: dict[str, object] = {}
+
+        def fake(endpoint, model, system, user, **kwargs):
+            captured.update(kwargs)
+            return "ok"
+
+        with patch.object(runtime, "_complete", side_effect=fake):
+            runtime._reply({"situation": "x"}, [], "http://e/v1/chat/completions", "m")
+        self.assertEqual(captured.get("history_keep"), 4)
+        self.assertEqual(captured.get("history_limit"), 1200)
+        self.assertEqual(captured.get("max_tokens"), 600)
+
     def test_file_source_draft_reads_cleanly(self) -> None:
         """No markdown leakage, no circular status, trimmed related articles."""
         calls, fake = model_texts()

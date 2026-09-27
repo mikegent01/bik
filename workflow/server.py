@@ -21,8 +21,89 @@ from urllib.parse import parse_qs, urlparse
 ROOT = Path(__file__).resolve().parents[1]
 INDEX = Path(__file__).resolve().parent / "index.html"
 AGENT_PATH = ROOT / "Reputation-Matrix2/tools/local-agent/agent_runtime.py"
-DEFAULT_LM = os.environ.get("LM_STUDIO_URL", "http://127.0.0.1:1234/v1/chat/completions")
+DEFAULT_LM = os.environ.get("LM_STUDIO_URL", "")
 MAX_BODY = 2 * 1024 * 1024
+
+# LM Studio binds its local server to one of a few common addresses. The env
+# variable always wins; otherwise the first reachable candidate is used.
+CANDIDATE_BASES = (
+    "http://127.0.0.1:1234",
+    "http://localhost:1234",
+    "http://127.0.0.1:1235",
+    "http://localhost:1235",
+    "http://127.0.0.1:8000",
+    "http://localhost:8000",
+    "http://127.0.0.1:8080",
+    "http://localhost:8080",
+)
+PROBE_TTL = 15.0
+_probe_state: dict[str, Any] = {"at": 0.0, "value": None}
+
+
+def completions_url(base: str) -> str:
+    """Normalize any base/model/completions URL to the full completions URL."""
+    value = str(base or "").strip().rstrip("/")
+    if value.endswith("/chat/completions"):
+        return value
+    if value.endswith("/v1"):
+        return value + "/chat/completions"
+    return value + "/v1/chat/completions"
+
+
+def _base_url(value: str) -> str:
+    value = str(value or "").strip().rstrip("/")
+    for suffix in ("/chat/completions", "/v1"):
+        if value.endswith(suffix):
+            value = value[: -len(suffix)]
+    return value.rstrip("/")
+
+
+def _probe_base(base: str) -> dict[str, Any] | None:
+    try:
+        with urllib.request.urlopen(base + "/v1/models", timeout=1.2) as response:
+            value = json.loads(response.read())
+        models = [str(item.get("id", "")) for item in value.get("data", []) if isinstance(item, dict)] \
+            if isinstance(value, dict) else []
+        return {"base": base, "models": models[:20]}
+    except Exception:
+        return None
+
+
+def probe_lm(force: bool = False) -> dict[str, Any]:
+    """Find a reachable local model server; cached briefly to stay cheap."""
+    now = time.time()
+    cached = _probe_state["value"]
+    if not force and cached and now - _probe_state["at"] < PROBE_TTL:
+        return cached
+    bases = ([_base_url(DEFAULT_LM)] if DEFAULT_LM else []) + list(CANDIDATE_BASES)
+    online: list[dict[str, Any]] = []
+    seen: set[str] = set()
+    for base in bases:
+        if not base or base in seen:
+            continue
+        seen.add(base)
+        found = _probe_base(base)
+        if found:
+            online.append(found)
+    value = {
+        "online": bool(online),
+        "endpoints": online,
+        "default": completions_url(online[0]["base"]) if online else completions_url(CANDIDATE_BASES[0]),
+        "env_override": bool(DEFAULT_LM),
+    }
+    _probe_state["at"] = time.time()
+    _probe_state["value"] = value
+    return value
+
+
+def resolve_endpoint(payload_endpoint: Any) -> str:
+    """Explicit request override > environment > first reachable candidate."""
+    explicit = str(payload_endpoint or "").strip()
+    if explicit:
+        return completions_url(explicit)
+    if DEFAULT_LM:
+        return completions_url(DEFAULT_LM)
+    return probe_lm()["default"]
 
 
 def load_runtime():
@@ -49,15 +130,7 @@ def json_response(handler: BaseHTTPRequestHandler, value: Any, status: int = 200
     handler.wfile.write(data)
 
 
-def probe_lm() -> dict[str, Any]:
-    base = DEFAULT_LM.rsplit("/v1", 1)[0].rstrip("/")
-    try:
-        with urllib.request.urlopen(base + "/v1/models", timeout=2) as response:
-            value = json.loads(response.read())
-            models = value.get("data", []) if isinstance(value, dict) else []
-            return {"online": bool(models), "models": [str(item.get("id", "")) for item in models[:20] if isinstance(item, dict)]}
-    except Exception as error:
-        return {"online": False, "error": str(error)}
+
 
 
 def read_body(handler: BaseHTTPRequestHandler) -> dict[str, Any]:
@@ -98,7 +171,7 @@ def start_job(payload: dict[str, Any]) -> dict[str, str]:
             result = runtime.run_agent(
                 text,
                 run_id=str(payload.get("run", "")),
-                endpoint=str(payload.get("endpoint", DEFAULT_LM)),
+                endpoint=resolve_endpoint(payload.get("endpoint")),
                 model=str(payload.get("model", "")),
                 allow_writes=False,
                 max_steps=8,
