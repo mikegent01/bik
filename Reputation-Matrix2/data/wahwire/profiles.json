@@ -796,6 +796,34 @@
       "followReasons": {
         "waluigi": "Filed a commentary on my first morning before I had finished the deployment briefing."
       }
+    },
+    "lord_darian_marsh": {
+      "bio": "Lord Darian Marsh of the Dark Shores. A king checks the seats himself. Currently abroad, armed with a rolling pin and one word the locals respect.",
+      "location": "The Dark Shores (currently: a television studio that resets itself)",
+      "joined": "Joined 5 Aethel, 1040 BF — abruptly, through a ceiling",
+      "follows": [
+        "waluigi",
+        "luigi"
+      ],
+      "followReasons": {
+        "waluigi": "He writes everything down. In a building that resets its own rooms, that is not a hobby, it is survival.",
+        "luigi": "I watched him work a security desk for two minutes before trusting him. He never looked up. Best credentials I have seen in this world."
+      },
+      "status": "filed"
+    },
+    "alistair_marshkeeper": {
+      "bio": "Alistair of the Marshkeepers, steward to Lord Darian Marsh. I inventory rooms, catch arms mid-swing, and whisper about noise in ducts. The plan was stupid. It worked.",
+      "location": "Wherever his lord is, usually slightly behind and completely loyal",
+      "joined": "Joined 5 Aethel, 1040 BF — the same ceiling, the same fall",
+      "follows": [
+        "lord_darian_marsh",
+        "waluigi"
+      ],
+      "followReasons": {
+        "lord_darian_marsh": "Twenty years of service. He goes into the duct first and calls it nothing. Somebody should write that down.",
+        "waluigi": "He writes everything down, including my worst plans, in bronze-eligible prose. The Marshkeepers respect a record-keeper."
+      },
+      "status": "filed"
     }
   }
 }

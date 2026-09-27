@@ -2484,6 +2484,22 @@
       "stamps": [
         "noaction"
       ]
+    },
+    "prop_luigi_studio_notes":     {
+      "kind": "note",
+      "icon": "🖥️",
+      "title": "Luigi's Screen — Notes on Wario's Corruption",
+      "subtitle": "Maintenance-room computer · security feeds, a studio map, and a working file",
+      "items": [],
+      "articles": [
+        "the_cut_and_the_puppet_master",
+        "promo_mario_newspaper"
+      ],
+      "note": "The best evidence in the Mario disappearance file: a live workstation inside the studio, watched for minutes through a ceiling vent by the only witnesses. Not recovered — read over a man's shoulder while he searched for his brother.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">STUDIO MAINTENANCE TERMINAL</div><div class=\"pd-sub\">as read from the ceiling vent, blue light, 5 Aethel</div></div><div class=\"pd-clause\"><b class=\"n\">I.</b> Security camera feeds — four panes. One follows the fight: the corrupted Mario pinning the real one, purple energy around his fists.</div><div class=\"pd-clause\"><b class=\"n\">II.</b> A map of the studio. Corridors, the set, the break room, exits marked — the same exits this account proves lie.</div><div class=\"pd-clause\"><b class=\"n\">III.</b> A working file, headed <b>Wario's corruption</b>. Contents unread from the vent. The heading is the evidence.</div><div class=\"pd-quote\">I have to find Mario. I have to fix this. — typed by the man at the screen, twice, in the minutes before he stood up with a flashlight</div><div class=\"pd-margin\">A brother runs a better investigation than the archive with one maintenance terminal and no filing system. WAH. — W.</div>",
+      "stamps": [
+        "noaction"
+      ]
     }
   }
 }

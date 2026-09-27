@@ -8336,6 +8336,100 @@
         }
       ],
       "status": "posted"
+    },
+    {
+      "id": "ww_thecut_darian",
+      "author": "lord_darian_marsh",
+      "type": "text",
+      "order": 207,
+      "date": null,
+      "timestamp": "5 Aethel, 1040 BF — same night as the promo filing, after the curtains",
+      "content": "In my province an exit is a door. Here the emergency button made coffee, the coffee opened the ceiling, and the building obeys one word, which I said. Twenty years of rule and no province of mine has ever stopped on command. My steward was thrown the length of a hallway and came back through a window with a flaming pipe. There is a man here with a remote. We are going to get it.",
+      "likes": 894,
+      "links": [
+        {
+          "id": "the_cut_and_the_puppet_master",
+          "type": "event"
+        },
+        {
+          "id": "alistair_marshkeeper",
+          "type": "character"
+        },
+        {
+          "id": "evil_mario",
+          "type": "character"
+        }
+      ],
+      "tags": [
+        "nintendomania",
+        "cut",
+        "darkshores",
+        "theremote"
+      ],
+      "reaction": "resolve",
+      "comments": [
+        {
+          "id": "ww_thecut_d_c1",
+          "author": "waluigi",
+          "content": "The archive has filed kings who commanded armies, navies, and taxes. This is the first one who commanded a COMMERCIAL BREAK. The building will remember him longer than it remembers the rest of us. WAH.",
+          "likes": 721,
+          "topReply": true
+        },
+        {
+          "id": "ww_thecut_d_c2",
+          "author": "alistair_marshkeeper",
+          "content": "He is not exaggerating about the pipe. He is understating the hallway.",
+          "likes": 455
+        }
+      ],
+      "status": "posted"
+    },
+    {
+      "id": "ww_thecut_waluigi",
+      "author": "waluigi",
+      "type": "text",
+      "order": 208,
+      "date": null,
+      "timestamp": "5 Aethel, 1040 BF — the third filing of one very long day",
+      "content": "Third post today. Morning: a review. Evening: a correction. Now the sequel is in, and Waluigi is filing it with his eyes OPEN this time: Luigi alive at the security desk with a corruption file, the corrupted Mario an ACTOR who froze at the word CUT, Wario a producer who bows to a boss, and applause for an audience of CHAIRS. The man in the director's cap walked out with a folder and a small wired remote. The Mario disappearance file now has an object to hunt instead of a vibe. The archive is open all night. It did not plan to be. WAH.",
+      "likes": 1310,
+      "links": [
+        {
+          "id": "the_cut_and_the_puppet_master",
+          "type": "event"
+        },
+        {
+          "id": "director_mario",
+          "type": "character"
+        },
+        {
+          "id": "luigi",
+          "type": "character"
+        }
+      ],
+      "tags": [
+        "mario",
+        "nintendomania",
+        "theremote",
+        "press review"
+      ],
+      "reaction": "suspicion",
+      "comments": [
+        {
+          "id": "ww_thecut_w_c1",
+          "author": "luigi",
+          "content": "I was two rooms away the whole time. I had the feeds, the map, and the notes. Nobody knocked.",
+          "likes": 640,
+          "topReply": true
+        },
+        {
+          "id": "ww_thecut_w_c2",
+          "author": "lord_darian_marsh",
+          "content": "You quoted me correctly, archivist. Check the seats yourself next time.",
+          "likes": 388
+        }
+      ],
+      "status": "posted"
     }
   ]
 }

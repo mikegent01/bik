@@ -1169,4 +1169,69 @@ The Raventree will bear the bill.`,
         context: "An ancient family rhyme prophesying the metaphysical collapse of House Corvinarus if any of the three planar threads are severed.",
         critique: "A Gothic rhyme that predicted Vivian Corvinarus hunting party members with red death-beams. Ominous.",
         notes: "E4 B3 G3 E3"
+      },
+      {
+        id: "song_plumber_man",
+        title: 'Plumber Man (The Studio Sang While It Fought)',
+        category: "full",
+        accent: "#4aa3ff",
+        performers: "Evil Mario, with the studio sound system; Luigi, unwillingly, on harmonies",
+        sourceTitle: "CUT!: A Coffee Machine That Was Not an Exit, a Plumber Man Who Fought to the Music, and the Director Behind the Curtain",
+        sourceId: "the_cut_and_the_puppet_master",
+        lyrics: `[Verse 1 — a jingle trying to be innocent]
+Four feet ten is the Plumber Man
+Who's waiting for the touch of his stache
+While stomping koopas all without a plan
+Like the every daily
+Wish that bothers the Plumber Man
+Could I do something to make him laugh
+Traveling deeper through my pipe of glass
+So he jumps the
+
+[Chorus — full brass, straight from the studio speakers]
+PLUMBER MAN, PLUMBER MAN
+With his hat in the sand
+Running fast
+Across the whole wide world
+For his lass
+Underground, in the sky
+Desert sun in his eyes
+Ain't it nice
+A Kingdom — ever for
+Plumbers
+
+[Verse 2 — the pitch rises]
+Ten feet twenty the Plumber Man
+Hope glistening in the brush of his stache
+Smashing through turnblocks still without a plan
+Yet the every daily
+Star that powers our Plumber Man
+Empowering more than any flower can
+Even if hurt he still is four feet ten
+So he runs the
+
+[Verse 2, again — the studio plays it twice; the copy is fighting to it]
+Ten feet twenty the Plumber Man
+Hope glistening in the brush of his stache
+Smashing through turnblocks still without a plan
+Yet the every daily
+Star that powers our Plumber Man
+Empowering more than any flower can
+Even if hurt he still is four feet ten
+So he runs the
+
+[Final chorus — the real Mario steps out behind the singer]
+PLUMBER MAN, PLUMBER MAN
+With his cape in his hand
+Taking off
+By pressing left and right
+For his love
+Starry roads shining bright
+Keyholes hide in plain sight
+Ain't it nice
+A WORLD forever for
+Plumbers`,
+        context: "Played by the Nintendo Mania studio's own sound system during the fight with the corrupted Mario, who dodged the paratroopa squad's tranq rounds in perfect time to it. Luigi knew the song and hummed it against his will — the account concludes it is the real Mario's own theme, wielded by his corrupted copy as a weapon. The real Mario appeared at its final note.",
+        critique: "Waluigi has heard this jingle before — every kingdom has a version — and hearing a stolen copy of a man's own love song played while a bad actor dances through gunfire is the single most disgusting use of brass the archive has on file. The final chorus swap — hat in the sand to CAPE in his hand — is the studio admitting, in its own dialect, exactly what it did to him. WAH.",
+        notes: "C4 E4 G4 C5"
       }];
