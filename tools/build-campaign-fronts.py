@@ -104,6 +104,10 @@ def build_covers(events):
         camp = CAMPAIGNS.get(suf)
         if not camp:
             continue
+        # Recovered/backfilled events belong in the archive, not in a current
+        # campaign front. Their historical art remains available on the event.
+        if ev.get("historical"):
+            continue
         if not ev.get("image"):
             notes.append(f"{camp}: {ev['id']} is newer but has no image - not fronted")
             continue

@@ -464,37 +464,6 @@ export const mushroomKingdomData = {
             military_strength: 2,
             population: 0
         },
-        {
-            id: 'poi_si_overgrown_cottage',
-            articleId: 'isle_delfino_overgrown_cottage',
-            plane: 'material',
-            x: 20.0,
-            y: 5.0,
-            type: 'ruins',
-            name: "Overgrown Cottage (Isle Delfino)",
-            description: "A cottage in Isle Delfino's wilder regions that time forgot: walls gone to trellis, roof gone to canopy, doors opening onto rooms the jungle moved into first.",
-            factionId: 'unaligned',
-            intelReq: 15,
-            political_influence: 0,
-            economic_value: 1,
-            military_strength: 0,
-            population: 0
-        },
-        {
-            id: 'poi_bv_forgotten_cove',
-            articleId: 'forgotten_coastal_cove',
-            x: 41.0,
-            y: 15.0,
-            type: 'port',
-            name: "Forgotten Coastal Cove",
-            description: "A once-thriving port on Kongo Bongo's northern reach, now rotting docks and silent warehouses standing witness to trade that stopped calling.",
-            factionId: 'dk_crew',
-            intelReq: 15,
-            political_influence: 1,
-            economic_value: 3,
-            military_strength: 1,
-            population: 4
-        }
     ],
     fogOfWar: []
 };
