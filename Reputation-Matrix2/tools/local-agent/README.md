@@ -94,9 +94,15 @@ Available actions:
 
 Every request first passes an explicit tool-need check: is a repository or image
 operation required, did the user request one, and what is the minimum useful
-operation? Conversational or drafting-only turns answer without tools. Tool-using
-runs have a bounded budget—six steps for read/lookups and twelve for writes,
-images, or creation rooms—and the check is visible in the trace. An identical
+operation? A bare mention of a character, article, file, event, or canon name is
+not treated as a search command. Conversational, roleplay, brainstorming, and
+prose-drafting turns answer without tools—even inside a creation room. If wording
+could mean either discussion or an archive action, the controller asks one focused
+clarification rather than searching. Explicit requests such as “read the article,”
+“find Freddy in the repository,” or “add Freddy to the archive” still enter the
+bounded workflow. Tool-using runs have a bounded budget—six steps for read/lookups
+and twelve for writes, images, or creation rooms—and the check is visible in the
+trace. An identical
 action is cached rather than called again when it has produced no new state;
 write approvals, state-changing actions, or an explicit `retry`, `refresh`, or
 `force` argument still permit a needed repeat. A repeated no-progress cycle

@@ -374,20 +374,82 @@ def _fast_commentary_locations(request_text: str) -> tuple[str, list[dict[str, s
     return "\n".join(lines), results
 
 
-_WRITE_VERBS = ("edit", "change", "update", "write", "patch", "create", "add", "apply", "remove", "fix", "file", "save", "expand", "extend", "elaborate", "develop", "flesh out", "rewrite")
+# These are operations, not nouns. A bare mention of a character, article, or
+# file is not permission to search the checkout.
+_WRITE_VERBS = ("edit", "change", "update", "write", "patch", "create", "add", "apply", "remove", "fix", "save", "expand", "extend", "elaborate", "develop", "flesh out", "rewrite")
 _ARTIFACT_WORDS = ("commentary", "investigation", "analysis", "object", "prop", "event", "character", "location", "quest", "xp", "ability")
+_DRAFT_MARKERS = ("draft", "brainstorm", "outline", "roleplay", "pretend", "imagine", "invent", "fictional", "make up", "come up with")
+_READ_MARKERS = ("read", "open", "review", "look up", "lookup", "search", "find", "retrieve", "show me", "where is", "which file", "verify", "validate", "audit")
+_CANON_MARKERS = ("repo", "repository", "path", "json", "canonical", "canon", "waluipedia", "archive", "source record", "database", "in the data")
+_PROSE_OBJECTS = ("bio", "profile", "description", "scene", "story", "dialogue", "blurb", "paragraph", "summary", "article", "character")
+
+
+def _has_canonical_destination(text: str) -> bool:
+    lowered = text.casefold()
+    # Repository nouns that are destinations by themselves.
+    if any(marker in lowered for marker in ("repo", "repository", "path", "json", "waluipedia", "database", "in the data")):
+        return True
+    # “archive/canon/source” can also be a subject of prose, so require a
+    # destination or provenance preposition before treating it as canonical.
+    if re.search(r"\b(?:to|in|into|inside|from|according to)\s+(?:the\s+)?(?:archive|canon|canonical|source|record|file|entry|object|collection|folder)\b", lowered):
+        return True
+    if re.search(r"\b(?:to|in|into|inside)\s+(?:the\s+)?(?:file|record|entry|object|collection|folder)\b", lowered):
+        return True
+    return bool(re.search(
+        r"\b(?:create|write|edit|update|add|save)\b.*\b(?:file|json|entry|record|object|collection)\b",
+        lowered,
+    ))
+
+
+def _is_drafting_only(request_text: str) -> bool:
+    """Recognize prose/roleplay requests before artifact nouns trigger lookup."""
+    lowered = request_text.casefold()
+    if _has_canonical_destination(lowered):
+        return False
+    if any(marker in lowered for marker in _DRAFT_MARKERS):
+        return True
+    if re.search(r"\b(?:for|in)\s+(?:my|a|the)\s+(?:story|game|campaign|scene|novel)\b", lowered):
+        return True
+    if re.search(r"\b(?:help me|can you help me)\s+(?:write|draft|brainstorm|invent|come up with)\b", lowered):
+        return True
+    # “Write a short bio/profile …” means prose unless the request names a
+    # repository destination. Do not confuse it with “write to the file”.
+    return bool(re.search(
+        r"\b(?:write|compose|create|make)\s+(?:me\s+|us\s+|a\s+|an\s+|some\s+)?(?:short\s+|brief\s+)?(?:bio|profile|description|scene|story|dialogue|blurb|paragraph|summary|article)\b",
+        lowered,
+    ))
+
+
+def _has_explicit_read_request(text: str) -> bool:
+    lowered = text.casefold()
+    if any(marker in lowered for marker in _READ_MARKERS):
+        return True
+    if re.search(r"\bwhat\s+does\s+(?:the|this|that|an?)\s+(?:article|record|source|archive|file)\s+say\b", lowered):
+        return True
+    if re.search(r"\b(?:according to|from)\s+(?:the\s+)?(?:canon|archive|article|record|source)\b", lowered):
+        return True
+    return bool(re.search(r"\b(?:latest|current|most recent|newest)\s+(?:filing|article|event|update|record)\b", lowered))
 
 
 def _request_intent(request_text: str, conversation: list[dict[str, Any]] | None = None) -> dict[str, str]:
-    """Classify the requested operation without choosing a repository action."""
+    """Classify intent conservatively without choosing a repository action.
+
+    Nouns such as ``character`` and ``file`` are deliberately not sufficient.
+    A tool requires an explicit read/write/image operation; ordinary prose and
+    roleplay remain draft-only.
+    """
     lowered = request_text.casefold()
     image_markers = ("generate an image", "generating an image", "generate image", "create an image", "creating an image", "make an image", "image job", "queue image", "picture of", "illustration")
     prior_users = [str(item.get("content", "")).casefold() for item in (conversation or []) if item.get("role") == "user"]
     continuation_of_image = len(lowered.split()) <= 12 and bool(prior_users) and any(marker in prior_users[-1] for marker in image_markers)
     if any(word in lowered for word in image_markers) or continuation_of_image:
         return {"kind": "image", "artifact": "image"}
-    if any(word in lowered for word in _WRITE_VERBS):
-        artifact = next((word for word in _ARTIFACT_WORDS if word in lowered), "file")
+    if _is_drafting_only(request_text):
+        return {"kind": "draft", "artifact": ""}
+    if any(re.search(rf"\b{re.escape(word)}\b", lowered) for word in _WRITE_VERBS):
+        artifact = next((word for word in _ARTIFACT_WORDS if re.search(rf"\b{re.escape(word)}\b", lowered)), "file")
+        if re.search(r"\b(?:file|path|json|entry|record|object|collection)\b", lowered):
+            artifact = "file"
         return {"kind": "write", "artifact": artifact}
     return {"kind": "read", "artifact": ""}
 
@@ -400,17 +462,20 @@ def _request_context_text(request_text: str, conversation: list[dict[str, Any]] 
 def _tool_needed(request_text: str, conversation: list[dict[str, Any]] | None = None,
                  images: list[dict[str, Any]] | None = None,
                  creation_context: dict[str, Any] | None = None) -> bool:
-    """Require a tool only for repository, canon, write, or image work."""
-    if images or creation_context:
+    """Require a tool only for explicit repository, canon, write, or image work."""
+    if images:
         return True
-    if _request_intent(request_text, conversation)["kind"] in {"write", "image"}:
+    intent = _request_intent(request_text, conversation)
+    if intent["kind"] in {"write", "image"}:
         return True
+    if intent["kind"] == "draft":
+        return False
     text = request_text.casefold()
-    explicit_archive = re.search(
-        r"\b(repo|repository|file|path|json|read|open|review|search|find|where|which|canon|lore|archive|source|article|event|character|location|latest|current|verify|validate|audit)\b",
-        text,
-    )
-    return bool(explicit_archive)
+    # A creation room supplies continuity, not automatic permission to read
+    # the repository. Canon retrieval is still available when explicitly asked.
+    if _has_explicit_read_request(text):
+        return True
+    return bool(_has_canonical_destination(text) and re.search(r"\b(?:read|open|review|search|find|retrieve|show|where|which|verify|validate|audit|tell)\b", text))
 
 
 def _tool_check(request_text: str, conversation: list[dict[str, Any]] | None = None,
@@ -486,7 +551,11 @@ def _referenced_event_candidates(request_text: str, conversation: list[dict[str,
             candidates = repo_tools.resolve_event_reference(previous, limit=3)
             if candidates:
                 return candidates
-    reference_stop = set(_WRITE_VERBS) | {"file", "json", "article", "story", "record", "the", "a", "an", "to", "for", "can", "you", "please", "try"}
+    reference_stop = set(_WRITE_VERBS) | {
+        "file", "json", "article", "story", "record", "the", "a", "an", "to", "for",
+        "can", "you", "please", "try", "help", "me", "need", "needs", "want", "wants",
+        "new", "some", "people", "person", "persons", "folks", "character", "characters",
+    }
     meaningful = [token for token in re.findall(r"[a-z0-9]+", _request_context_text(request_text, conversation).casefold()) if len(token) > 3 and token not in reference_stop]
     if len(set(meaningful)) < 2:
         return []
@@ -496,16 +565,47 @@ def _referenced_event_candidates(request_text: str, conversation: list[dict[str,
 def _missing_write_target(request_text: str, conversation: list[dict[str, Any]] | None = None) -> bool:
     intent = _request_intent(request_text, conversation)
     if intent["kind"] != "write":
-
         return False
+    lowered = request_text.casefold()
+    # A collection-level request is not a target. Ask for names before even
+    # resolving the named source; this avoids an incidental search for an
+    # underspecified request such as “the article has some people to create”.
+    if re.search(r"\b(?:some|several|multiple|various|a few)\s+(?:people|persons|characters|folks)\b", lowered):
+        return True
+    if re.search(r"\bpeople\b.*\b(?:need|want|should)\b.*\b(?:create|add|make|write)\b", lowered):
+        return True
     context = _request_context_text(request_text, conversation)
     if re.search(r"(?:Reputation-Matrix2|docs|tools|README)[/\\][^\s,;]+", context, re.I):
         return False
     if _referenced_event_candidates(request_text, conversation):
         return False
     if any(word in context.casefold() for word in _ARTIFACT_WORDS):
-        return not bool(repo_tools.resolve_event_reference(context, limit=1)) and intent["artifact"] not in {"object", "file"}
+        # The bounded candidate resolver above is the only lookup allowed in
+        # this preflight. Do not repeat a broader fuzzy search just to decide
+        # whether the target is missing.
+        return True
     return True
+
+
+def _ambiguous_archive_request(request_text: str, conversation: list[dict[str, Any]] | None = None) -> str | None:
+    """Return a clarification instead of treating archive nouns as commands."""
+    lowered = request_text.casefold()
+    if _request_intent(request_text, conversation)["kind"] in {"write", "image", "draft"}:
+        return None
+    has_archive_noun = bool(re.search(r"\b(?:article|record|source|archive|file|character|event|location)\b", lowered))
+    reassurance = bool(re.search(r"\b(?:right|enough|all it needs|everything|is that okay)\b", lowered))
+    starting = bool(re.search(r"\b(?:let['’]?s|lets)\s+start\b", lowered))
+    if not has_archive_noun or not (reassurance or starting):
+        return None
+    if starting and conversation:
+        prior = " ".join(str(item.get("content", "")) for item in conversation if item.get("role") == "user").casefold()
+        if not any(marker in prior for marker in ("create", "add", "file", "character", "archive")):
+            return None
+    return (
+        "I’m not sure whether you want a conversation or an archive action. "
+        "Should I read the named source and draft a canonical character file, "
+        "or are you only discussing the article?"
+    )
 
 
 def _required_preflight_action(request_text: str, conversation: list[dict[str, Any]] | None,
@@ -890,26 +990,38 @@ def run_agent(request_text: str, *, run_id: str = "", endpoint: str = DEFAULT_EN
         }
     if cancel_check and cancel_check():
         return {"status": "cancelled", "run": run_id, "message": "The local run was cancelled before it started."}
-    if not run_id and not creation_context:
+    if not run_id:
         intent = _request_intent(request_text, conversation)
         if intent["kind"] == "image" and not _image_subject_terms(request_text, conversation) and not images:
             message = "What should the image depict? Give me a subject or scene, and optionally a style. I will resolve any named canon references before queueing an image job."
             emit({"kind": "plan", "items": [{"id": "image-01", "title": "Clarify the image subject", "status": "in_progress", "acceptance": ["Obtain a concrete image subject", "Do not search unrelated repository files"]}]})
+            emit({"kind": "tool_check", "step": 0, "needed": True, "reason": "The request names an image but does not provide a concrete subject.", "minimum_action": "ask for the image subject; do not search"})
             emit({"kind": "action", "step": 1, "action": {"action": "ask_user", "args": {"question": message}}})
             emit({"kind": "result", "step": 1, "result": "QUESTION: " + message})
             return {"status": "needs_input", "run": f"image-{time.strftime('%Y%m%d-%H%M%S')}", "step": 1, "message": "QUESTION: " + message}
         if _missing_write_target(request_text, conversation):
-            message = "What exact file or canonical entity should I change, and what should be added or changed? I will read and verify the target before requesting write approval."
+            if re.search(r"\b(?:some|several|multiple|various|a few)\s+(?:people|persons|characters|folks)\b|\bpeople\b.*\b(?:need|want|should)\b", request_text.casefold()):
+                message = "Which people should I create? Give me the names, and I will read the named source for each one before drafting the character files."
+            else:
+                message = "What exact file or canonical entity should I change, and what should be added or changed? I will read and verify the target before requesting write approval."
             emit({"kind": "plan", "items": [{"id": "write-01", "title": "Identify the requested write target", "status": "in_progress", "acceptance": ["Resolve an exact target", "Do not guess a file or collection"]}]})
+            emit({"kind": "tool_check", "step": 0, **_tool_check(request_text, conversation, images, creation_context), "minimum_action": "ask for the exact target; do not search"})
             emit({"kind": "action", "step": 1, "action": {"action": "ask_user", "args": {"question": message}}})
             emit({"kind": "result", "step": 1, "result": "QUESTION: " + message})
             return {"status": "needs_input", "run": f"write-{time.strftime('%Y%m%d-%H%M%S')}", "step": 1, "message": "QUESTION: " + message}
+        clarification = _ambiguous_archive_request(request_text, conversation)
+        if clarification:
+            emit({"kind": "plan", "items": [{"id": "clarify-01", "title": "Clarify whether an archive action is wanted", "status": "in_progress", "acceptance": ["Do not search on an ambiguous mention", "Obtain the requested operation"]}]})
+            emit({"kind": "tool_check", "step": 0, "needed": False, "reason": "The message mentions archive material but does not clearly request a lookup or write.", "minimum_action": "ask for clarification; use no repository or image tools"})
+            emit({"kind": "action", "step": 1, "action": {"action": "ask_user", "args": {"question": clarification}}})
+            emit({"kind": "result", "step": 1, "result": "QUESTION: " + clarification})
+            return {"status": "needs_input", "run": f"clarify-{time.strftime('%Y%m%d-%H%M%S')}", "step": 1, "message": "QUESTION: " + clarification}
         tool_check = _tool_check(request_text, conversation, images, creation_context)
         if not tool_check["needed"]:
             emit({"kind": "plan", "items": [{"id": "chat-01", "title": "Answer directly without tools", "status": "in_progress", "acceptance": ["Do not call repository or image tools", "Answer the user's request"]}]})
             emit({"kind": "tool_check", "step": 0, "needed": False, "reason": tool_check["reason"], "minimum_action": "none"})
             try:
-                answer = _final_answer(endpoint, model, request_text, conversation, [], _conversation_images(conversation, images), None)
+                answer = _final_answer(endpoint, model, request_text, conversation, [], _conversation_images(conversation, images), creation_context)
             except Exception as error:
                 answer = "I can answer that directly, but the local language model is unavailable right now."
                 emit({"kind": "error", "step": 0, "result": _friendly_model_error(error)})
@@ -1001,6 +1113,10 @@ def run_agent(request_text: str, *, run_id: str = "", endpoint: str = DEFAULT_EN
         "You are Waluigi's WAH-Desk action controller for a local archive agent. "
         "The operator gave you one request; first ask yourself whether any tool is actually needed, "
         "whether the user requested or the task requires it, and what the single minimum useful tool is. "
+        "A bare mention of a character, article, file, event, or canon name is not a lookup request. "
+        "Conversation, roleplay, brainstorming, and prose drafting must not emit repository or image actions. "
+        "When the wording could mean either discussion or an archive operation, ask one focused clarification "
+        "instead of searching. "
         "If no tool is needed, do not emit a tool action; answer directly. If one is needed, use only the "
         "minimum useful action and reassess after its result. Decide how to complete the request by using the "
         "small internal work units below. Choose exactly one JSON action per turn. "
