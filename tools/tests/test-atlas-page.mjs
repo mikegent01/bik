@@ -42,7 +42,7 @@ const ATLAS_INDEX = {
   regal_empire: mk('regal_empire', 'The Regal Empire', 're', { loc: 12, ev: 40, bt: 20, tr: 4, fa: 6 }, { events: [{ name: 'The Doorway', date: '2 Aethel, 1040 BF' }], maps: 5 }),
   monster_underground: mk('monster_underground', 'Monster Underground', 're', { loc: 4, ev: 2, bt: 1, tr: 0, fa: 1 }, { maps: 0 }),
   middle_earth: mk('middle_earth', 'Middle-earth', 'me', { loc: 1, ev: 0, bt: 1, tr: 0, fa: 0 }, { maps: 3 }),
-  faerun: mk('faerun', 'Faerûn', 'or', { loc: 1, ev: 0, bt: 0, tr: 0, fa: 0 }, { maps: 1 }),
+  faerun: mk('faerun', 'Faerûn', 'or', { loc: 0, ev: 0, bt: 0, tr: 0, fa: 0 }, { maps: 1 }),
 };
 const buildAtlasIndex = () => {};
 const renderSidebar = () => {};
@@ -70,7 +70,8 @@ A.view_atlas();
 const html2 = content.innerHTML;
 const realmCount = Object.keys(ATLAS_INDEX).length;
 check('hero: totals line counts realms, worlds, and map sheets', new RegExp(realmCount + ' realms across 4 worlds').test(html2) && /map sheets/.test(html2));
-check('board: bars render, top-12 default', /atlx-bar/.test(html2) && (html2.match(/atlx-bar"/g) || []).length === 7);
+check('board: bars render for realms with records only (6 of 7)', /atlx-bar/.test(html2) && (html2.match(/atlx-bar"/g) || []).length === 6);
+check('board: empty realms fold into the quiet line, not blank bars', /1 more realm charted with nothing filed/.test(html2) && !/atlx-bar-n">0</.test(html2));
 check('board: default order is filed-desc (Regal Empire first)', html2.indexOf('The Regal Empire') < html2.indexOf('The Mushroom Kingdom'));
 check('board: bars are segmented by record kind', /atlx-bar-track/.test(html2) && html2.includes('background:#e5484d'));
 check('worlds: sections render with headers and counts', /atlx-world-head/.test(html2) && /The Mushroom Kingdom Sphere/.test(html2) && /The Outer Realms/.test(html2));
@@ -103,7 +104,7 @@ check('clearing search restores the world sections', /atlx-world-head/.test(cont
 // ---------- show-all toggle ----------
 listState.atlas.showAll = true;
 A.view_atlas();
-check('board: show-all keeps every realm on the board', (content.innerHTML.match(/atlx-bar"/g) || []).length === realmCount);
+check('board: show-all keeps every active realm on the board', (content.innerHTML.match(/atlx-bar"/g) || []).length === 6);
 listState.atlas.showAll = false;
 
 // ---------- world membership sanity ----------

@@ -1,15 +1,20 @@
-// Headless render test of the redesigned Events (session ledger) and Battles
-// (war ledger) pages. The code is extracted straight from index.html and run
-// against a minimal stub of the data/DOM layer. The contract being pinned:
+// Headless render tests for the EVENTS SESSION LEDGER (month-subdivided),
+// the BATTLES WAR ROOM (wars rail + dossier + skirmish table), and the
+// FACTIONS REGISTRY. All three views are extracted straight from index.html
+// and run against stubbed data. The contract being pinned:
 //
-//   EVENTS   the newest filing leads; rows are dated, grouped by year, and
-//            carry campaign spines + plate markers; the Shelf toggle keeps
-//            the old card wall; search filters.
-//   BATTLES  the war strip renders a mark per battle on its year; rows carry
-//            VS lines coloured by faction and outcome badges read from the
-//            result line; outcome chips filter; Fronts mode shows the board.
-//   DISTINCT the two pages share no markup: the events page renders zero
-//            wlr-* classes and the battles page renders zero evl-row rows.
+//   events    year groups are subdivided by calendar month (parseMonth's
+//             aliasing normalizes the filings' spelling variants); year-only
+//             dates get a "month not on the record" drawer; A→Z stays flat
+//   battles   wars first, fights second — a rail of wars, an overview with
+//             war cards, a dossier per war (root cause, phases, battle
+//             records, session records), and a skirmish TABLE; no year
+//             groups anywhere; deep links by war slug
+//   factions  realm sections, one dossier row per faction, allegiance web
+//             (allies green / enemies red), status badges, disposition
+//             filters, grudge line
+//   distinct  the events page and the battles page share no page-level
+//             markup — different mechanics, different classes
 //
 //   node tools/tests/test-events-battles-pages.mjs
 import { readFileSync } from 'node:fs';
@@ -17,136 +22,215 @@ import { readFileSync } from 'node:fs';
 const repoRoot = new URL('../../', import.meta.url);
 const html = readFileSync(new URL('index.html', repoRoot), 'utf8');
 const start = html.indexOf('/* ===================== EVENTS — THE SESSION LEDGER');
-const end = html.indexOf('let ATLAS_INDEX={};');
-if (start < 0 || end < 0) { console.error('events/battles block not found'); process.exit(1); }
+const end = html.indexOf('let ATLAS_INDEX={};');   // the atlas index machinery follows; it is not under test here
+if (start < 0 || end < 0) { console.error('views block not found'); process.exit(1); }
 const block = html.slice(start, end);
 
-// ---------- stubs ----------
+// ---------- shared stubs ----------
 const esc = s => (s == null ? '' : String(s)).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const EVENTS = [
-  { id: 'e_old', name: 'The Old Business', title: 'The Old Business', date: '12 Highsun, 955 BF', summary: 'A long-ago filing.', location: 'Toad Town', participants: [{ name: 'Peach' }], image: 'assets/x/old.jpg', timeCode: 'TC:0955-06-12/MAT' },
-  { id: 'e_mid', name: 'The Middle Business', title: 'The Middle Business', date: '3 Aethel, 1040 BF', summary: 'A middle filing.', location: 'The Grove', participants: [{ name: 'Markop' }, { name: 'Salam' }], image: 'assets/x/mid.jpg', timeCode: 'TC:1040-09-03/SHD' },
-  { id: 'e_new', name: 'The Newest Filing', title: 'The Newest Filing', date: '5 Aethel, 1040 BF', summary: 'The one the lead card should show.', location: 'A Studio', participants: [{ name: 'Darian' }], image: 'assets/x/new.jpg', timeCode: 'TC:1040-09-05/MAT' },
-  { id: 'e_nodate', name: 'The Undated Thing', title: 'The Undated Thing', summary: 'No date on file at all.', image: 'assets/x/none.jpg' },
-];
-const BATTLES = [
-  { id: 'b1', name: 'The Lounge Brawl', date: '19 Harvestide, 1040 BF — 05:00', location: 'Ferngrove Manor, Feywild', type: 'Intra-Party Skirmish', result: 'Tactical Draw — Papers recovered and returned.', image: 'assets/b/1.jpg',
-    belligerents: { attackers: { name: 'Waluigi and Wario (Briefly, Opportunistically)', factionId: 'wario_bros', commander: 'Wario' }, defenders: { name: 'Rakasha', factionId: 'rakasha' } }, casualties: { attackers: 'wounded', defenders: 'none' } },
-  { id: 'b2', name: 'Fall of Bramblehaven', date: '4 Verdance, 1036 BF', location: 'Bramblehaven', type: 'Siege', result: 'Decisive Peach Loyalist Victory', image: 'assets/b/2.jpg',
-    belligerents: { attackers: { name: 'Peach Loyalists', factionId: 'peach_loyalists' }, defenders: { name: 'Mushroom Regency', factionId: 'mushroom_regency' } } },
-  { id: 'b3', name: 'The Quiet Rout', date: '2 Thaw, 1036 BF', location: 'Somewhere', type: 'Ambush', result: 'Complete defeat; supplies destroyed.', image: 'assets/b/3.jpg' },
-  { id: 'b4', name: 'The Unwritten End', date: '9 Mistide, 1040 BF', location: 'Elsewhere', type: 'Skirmish', result: 'None', image: 'assets/b/4.jpg' },
-];
-const DATA = {
-  events: EVENTS, battles: BATTLES,
-  majorBattles: [{ id: 'mb1', name: 'The Great Onslaught', date: '1040 BF', description: 'A major battle.', conflict: 'The Shadowfell Crisis' }],
-  conflicts: { 'The Shadowfell Crisis': { status: 'active', summary: 'A war.', keyFactions: ['iron_legion'] } },
-};
-const listState = {};
-const TYPE_BY_KEY = { events: { emoji: '📜', label: 'Events' }, battles: { emoji: '🗡️', label: 'Battles' } };
-const EVENT_CAMPAIGNS = { SHD: { key: 'shd', label: 'Shadeward' }, FEY: { key: 'fey', label: 'Feyward' }, MAT: { key: 'mat', label: 'Mario' }, SUBJ: { key: 'subj', label: 'Subjective' } };
-const MONTHS = ['Highsun', 'Verdance', 'Thaw', 'Mistide', 'Aethel', 'Harvestide'];
-const MONTH_ORD = {}; MONTHS.forEach((m, i) => MONTH_ORD[m.toLowerCase()] = i + 1);
-
-const el = id => (id === 'content' ? content : { innerHTML: '' });
 const content = { innerHTML: '' };
-const INDEX = { wario_bros: { id: 'wario_bros' }, peach_loyalists: { id: 'peach_loyalists' }, rakasha: { id: 'rakasha' }, mushroom_regency: { id: 'mushroom_regency' } };
-const displayName = i => (i && (i.name || i.title)) || (i && i.id) || '';
-const previewText = (it, max) => { const s = String((it && (it.summary || it.description)) || ''); return s.length > (max || 200) ? s.slice(0, max || 200) + '…' : s; };
-const eventCampaign = e => { const tc = String((e && e.timeCode) || ''); if (tc.indexOf('/') < 0) return null; return EVENT_CAMPAIGNS[tc.split('/').pop()] || null; };
-const plateIsUnlocked = () => false;
-const attachmentTags = () => '';
-const annotationBadge = () => '';
-const filingBadge = () => '';
-const assetPath = p => String(p || '');
-const openHubCalls = [];
-const openHub = id => openHubCalls.push(id);
-const openId = id => openHubCalls.push(id);
-const renderSidebar = () => {};
-const parseYear = s => { const m = String(s || '').match(/(\d{3,4})\s*BF/i) || String(s || '').match(/\b(\d{3,4})\b/); return m ? parseInt(m[1], 10) : null; };
-const parseMonth = s => { const t = String(s || '').toLowerCase(); for (const k of Object.keys(MONTH_ORD)) if (t.includes(k)) return MONTH_ORD[k]; return 99; };
-const parseDay = s => { const m = String(s || '').match(/\b(\d{1,2})\b/); return m ? parseInt(m[1], 10) : null; };
-const monthName = ord => MONTHS[(ord - 1 + MONTHS.length) % MONTHS.length] || 'Month ' + ord;
-const battleOutcomeMeta = o => ({ win: { cls: 'win' }, loss: { cls: 'loss' }, draw: { cls: 'draw' } }[String(o).toLowerCase()] || { cls: 'unknown' });
-const battleHubPanel = () => '<div class="species-dash battlefield-layer">FRONT BOARD</div>';
-const factionColor = id => ({ wario_bros: '#f5d90a', peach_loyalists: '#ff9ad5', rakasha: '#e07be0', mushroom_regency: '#e5484d' }[id] || '#888');
+const el = id => (id === 'content' ? content : { innerHTML: '' });
 const Router = { last: null, go(r) { this.last = r; } };
-const window = { scrollTo() {}, setTimeout: setTimeout, clearTimeout: clearTimeout };
+const window = { scrollTo() {} };
+const renderSidebar = () => {};
+const TYPE_BY_KEY = { events: { emoji: '📜', label: 'Events' }, battles: { emoji: '🗡️', label: 'Battles' }, factions: { emoji: '🚩', label: 'Factions' } };
+const displayName = i => (i && (i.name || i.title)) || (i && i.id) || '';
+const previewText = (it, m) => String((it && (it.summary || it.description)) || '').slice(0, m || 200);
+const assetPath = p => String(p || '');
+const openHub = () => {}; const openId = () => {};
+const factionColor = id => ({ iron_legion: '#ccc', koopa_troop: '#0a0' }[id] || '#8a4bff');
+const prettyId = s => String(s).replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+const MONTHS = [
+  { ordinal: 7, name: 'Highsun', season: 'High Summer', icon: '☀️', color: '#f5a623' },
+  { ordinal: 8, name: 'Harvestide', season: 'Harvest', icon: '🌾', color: '#c9a227' },
+  { ordinal: 9, name: 'Aethel', season: 'Fall', icon: '🍂', color: '#b05a2a' },
+];
+const MONTH_ORD = { highsun: 7, harvestide: 8, harvestside: 8, aethel: 9 };
+const parseYear = s => { const m = String(s || '').match(/(\d{3,4})\s*BF/i) || String(s || '').match(/\b(\d{3,4})\b/); return m ? parseInt(m[1], 10) : null; };
+const parseMonth = s => {
+  const t = String(s || '').toLowerCase();
+  for (const k of Object.keys(MONTH_ORD)) if (new RegExp('(^|[^a-z])' + k + '([^a-z]|$)').test(t)) return MONTH_ORD[k];
+  return 99;
+};
+const parseDay = s => { const m = String(s || '').replace(/\b\d{3,4}\s*BF\b/ig, '').match(/\b(\d{1,2})/); return m ? parseInt(m[1], 10) : 99; };
+const monthName = o => (MONTHS.find(m => m.ordinal === o) || {}).name || 'Month ' + o;
+const eventCampaign = () => null;
+const annotationBadge = () => ''; const filingBadge = () => ''; const attachmentTags = () => '';
+const plateIsUnlocked = () => false;
 
-const loader = new Function('DATA','listState','TYPE_BY_KEY','el','esc','document','window','Router','INDEX',
-  'displayName','previewText','eventCampaign','plateIsUnlocked','attachmentTags','annotationBadge','filingBadge',
-  'assetPath','openHub','openId','renderSidebar','parseYear','parseMonth','parseDay','monthName',
-  'battleOutcomeMeta','battleHubPanel','factionColor',
-  block + '\nreturn {view_events, view_battles, wlrResultClass};');
-const P = loader(DATA, listState, TYPE_BY_KEY, el, esc, { getElementById: () => null }, window, Router, INDEX,
-  displayName, previewText, eventCampaign, plateIsUnlocked, attachmentTags, annotationBadge, filingBadge,
-  assetPath, openHub, openId, renderSidebar, parseYear, parseMonth, parseDay, monthName,
-  battleOutcomeMeta, battleHubPanel, factionColor);
+// ---------- data ----------
+const DATA = {
+  calendarMonths: MONTHS,
+  events: [
+    { id: 'e1', name: 'Aethel Alpha', date: '5 Aethel, 1040 BF', summary: 'First.', image: 'a.png' },
+    { id: 'e2', name: 'Aethel Beta', date: '1st-2nd Aethel, 1040 BF', summary: 'Second.' },
+    { id: 'e3', name: 'Harvestside Happening', date: '18 Harvestside, 1040 BF', summary: 'Third.' },
+    { id: 'e4', name: 'Year Only Filing', date: '1040 BF (Curated)', summary: 'No month on the record.' },
+    { id: 'e5', name: 'The Old War', date: 'Highsun 1-30, 955 BF', summary: 'Ancient.' },
+    { id: 'e6', name: 'No Date At All', era: 'pre-calendar', summary: 'Timeless.' },
+  ],
+  battles: [
+    { id: 'the_lounge_brawl', name: 'The Lounge Brawl', date: '19 Harvestide, 1040 BF — 05:00', location: 'Ferngrove Manor, Feywild', type: 'Skirmish / Document Retrieval', result: 'Tactical Draw — papers recovered.', belligerents: { attackers: { name: 'Waluigi and Wario', factionId: 'wario_enterprise' }, defenders: { name: 'Saedia', factionId: 'corvinarus_family' } } },
+    { id: 'siege_raventree', name: 'Siege of Raventree', date: '2 Aethel, 1040 BF', result: 'Victory — the gate held.', conflict: 'The Example War' },
+    { id: 'old_scraps', name: 'Old Scraps', date: '955 BF', result: 'Defeat — overrun.' },
+  ],
+  majorBattles: [
+    { id: 'mb1', name: 'The Opening Clash', conflict: 'The Example War', outcome: 'victory', date: { year: 1040, monthIndex: 8, day: 3 }, location: 'The Gate' },
+    { id: 'mb2', name: 'The Counterattack', conflict: 'The Example War', outcome: 'defeat', date: { year: 1040, monthIndex: 9, day: 11 }, location: 'The Field' },
+    { id: 'mb3', name: 'The Quiet Ambush', conflict: 'The Unwritten War', outcome: 'stalemate', date: { year: 1040, monthIndex: 7, day: 2 }, location: 'The Woods' },
+  ],
+  conflicts: {},
+  factions: [
+    { id: 'iron_legion', name: 'Iron Legion', type: 'Military State / Imperial Power', status: 'Active — expanding', leader: 'Byscilla', headquarters: 'Ironhold, the Midlands', motto: 'The Legion counts.', summary: 'The imperial machine.', allies: ['koopa_troop'], enemies: ['disaster_inc'], keyEvents: [{}, {}] },
+    { id: 'mazebounds', name: 'The Mazebounds', type: 'Supernatural Collective', status: 'Extinct — dispersed with the hedge', leader: 'The Maze', summary: 'Former residents, blighted.', allies: null, enemies: null },
+    { id: 'koopa_troop', name: 'Koopa Troop', type: 'Faction / Military Force', status: 'Active but fragmented', leader: 'Bowser', headquarters: 'Bowser\u2019s Castle', motto: 'Grills eternally lit.', summary: 'Occasionally competent.', allies: [], enemies: ['mushroom_regency'] },
+    { id: 'disaster_inc', name: 'Disaster Inc.', type: 'Adventuring Party', status: 'Active — core roster confirmed', leader: 'Nobody, proudly', summary: 'A walking catastrophe.', allies: ['liberated_toads'], enemies: [] },
+  ],
+};
+const INDEX = { iron_legion: { id: 'iron_legion', name: 'Iron Legion' }, koopa_troop: { id: 'koopa_troop', name: 'Koopa Troop' } };
+const ATLAS_INDEX = {
+  regal_empire: { nation: { id: 'regal_empire', name: 'The Regal Empire' }, factions: [DATA.factions[0], DATA.factions[1]] },
+  mushroom_kingdom: { nation: { id: 'mushroom_kingdom', name: 'The Mushroom Kingdom' }, factions: [DATA.factions[2]] },
+};
+const buildAtlasIndex = () => {};
+const nationThumb = () => '<span class="crest-stub">🛡️</span>';
+const battleOutcomeMeta = o => ({ victory: { cls: 'win', label: 'Victory' }, defeat: { cls: 'loss', label: 'Defeat' }, stalemate: { cls: 'draw', label: 'Stalemate' } }[String(o)] || { cls: 'ongoing', label: 'Ongoing' });
+const battleFronts = () => ([
+  { name: 'The Example War', record: DATA.conflicts.example, battles: [DATA.majorBattles[0], DATA.majorBattles[1]], tally: { win: 1, loss: 1 }, span: '1040 BF', written: true, isUnfiled: false },
+  { name: 'The Unwritten War', record: null, battles: [DATA.majorBattles[2]], tally: { draw: 1 }, span: '1040 BF', written: false, isUnfiled: false },
+]);
+DATA.conflicts.example = { summary: 'A war about nothing small.', rootCause: 'Taxes, mostly.', status: 'active', keyFactions: ['iron_legion'], majorPhases: [{ name: 'Phase One', description: 'It began.' }, { name: 'Phase Two', description: 'It continued.' }] };
+const battleTallyChips = t => Object.entries(t).map(([k, v]) => `<span class="front-tally front-tally--${k}">${v} ${k}</span>`).join('');
+const battleRowHtml = b => `<a class="front-battle" href="#/mbattle/${encodeURIComponent(b.id)}"><b>${esc(b.name)}</b></a>`;
+const combatantChip = id => `<span class="combatant-chip">${esc(prettyId(id))}</span>`;
+const statusClass = s => /active/.test(String(s)) ? 'status-active' : 'status-other';
+
+const listState = {};
+const PARAMS = ['ATLAS_INDEX', 'DATA', 'INDEX', 'listState', 'el', 'esc', 'Router', 'window', 'renderSidebar', 'TYPE_BY_KEY', 'displayName', 'previewText', 'assetPath', 'openHub', 'openId', 'factionColor', 'prettyId', 'parseYear', 'parseDay', 'parseMonth', 'monthName', 'eventCampaign', 'annotationBadge', 'filingBadge', 'plateIsUnlocked', 'attachmentTags', 'battleFronts', 'battleTallyChips', 'battleRowHtml', 'battleOutcomeMeta', 'combatantChip', 'statusClass', 'buildAtlasIndex', 'nationThumb'];
+const ARGS = [ATLAS_INDEX, DATA, INDEX, listState, el, esc, Router, window, renderSidebar, TYPE_BY_KEY, displayName, previewText, assetPath, openHub, openId, factionColor, prettyId, parseYear, parseDay, parseMonth, monthName, eventCampaign, annotationBadge, filingBadge, plateIsUnlocked, attachmentTags, battleFronts, battleTallyChips, battleRowHtml, battleOutcomeMeta, combatantChip, statusClass, buildAtlasIndex, nationThumb];
+const loader = new Function(...PARAMS, block + '\nreturn {view_events, view_battles, view_factions, facStatusMeta, wrrSlug};');
+const V = loader(...ARGS);
 
 let ok = true;
 const check = (name, cond) => { console.log((cond ? 'OK  ' : 'FAIL'), name); if (!cond) ok = false; };
 
-// ---------- events ----------
-P.view_events();
-check('events: the newest filing leads', /evl-lead/.test(content.innerHTML) && /The Newest Filing/.test(content.innerHTML) && /newest filing/i.test(content.innerHTML));
-check('events: rows are grouped by year with headers', /evl-group/.test(content.innerHTML) && /1040 BF/.test(content.innerHTML) && /955 BF/.test(content.innerHTML));
-check('events: the undated filing gets its own bucket, not a broken group', /Undated/.test(content.innerHTML) && /The Undated Thing/.test(content.innerHTML));
-check('events: rows carry campaign spines', /evl-row camp-mat/.test(content.innerHTML) && /evl-row camp-shd/.test(content.innerHTML));
-check('events: plate markers present and locked until read', (content.innerHTML.match(/ev-plate/g) || []).length >= 3 && /🔒/.test(content.innerHTML));
-check('events: the year rail renders jump buttons', /evl-rail/.test(content.innerHTML) && /1040/.test(content.innerHTML));
-check('events: NO battles markup on this page', !/wlr-/.test(content.innerHTML));
-// search narrows
-listState.events.query = 'newest';
-P.view_events();
-check('events: search narrows the ledger', /The Newest Filing/.test(content.innerHTML) && !/The Old Business/.test(content.innerHTML));
-listState.events.query = '';
-// shelf mode keeps the card wall
-listState.events.view = 'shelf';
-P.view_events();
-check('events: Shelf mode keeps the illustrated cards', /evcard/.test(content.innerHTML) && /evgrid/.test(content.innerHTML));
-listState.events.view = 'ledger';
-// A→Z collapses year grouping into one run
+/* ============================ EVENTS =================================== */
+V.view_events();
+let out = content.innerHTML;
+check('events: year groups render with counts', /1040 BF<\/h3>/.test(out) && /955 BF<\/h3>/.test(out) && /Undated/.test(out));
+check('events: 1040 is subdivided by month, not one flat drawer', (out.match(/class="evl-sub[ "]/g) || []).length === 4);
+check('events: Aethel sub-header carries icon and season from the calendar', /🍂 Aethel/.test(out) && /Fall/.test(out));
+check('events: Harvestside filings normalize into the Harvestide drawer', /🌾 Harvestide/.test(out) && /Harvestside Happening/.test(out) && !/Harvestside<\/b>/.test(out));
+check('events: newest-first puts Aethel before Harvestide inside 1040', out.indexOf('🍂 Aethel') < out.indexOf('🌾 Harvestide'));
+check('events: year-only filings land in the month-not-on-record drawer', /Month not on the record/.test(out) && /Year Only Filing/.test(out));
+check('events: the month drawer comes after the dated months', out.indexOf('Month not on the record') > out.indexOf('🌾 Harvestide'));
+check('events: 955 gets its Highsun sub-header', /☀️ Highsun/.test(out));
+check('events: lead card is the newest filing on file', /evl-lead/.test(out) && /No Date At All/.test(out.slice(0, out.indexOf('evl-group'))));
+check('events: rows carry campaign-free meta without invented campaigns', !/evl-camp/.test(out));
+
 listState.events.sort = 'az';
-P.view_events();
-check('events: A→Z order drops the year groups for one run', /A→Z/.test(content.innerHTML) && !/evl-rail/.test(content.innerHTML));
+V.view_events();
+check('events: A→Z stays flat — one group, no month drawers', /Every filing, A→Z/.test(content.innerHTML) && !/class="evl-sub[ "]/.test(content.innerHTML));
 listState.events.sort = 'newest';
 
-// ---------- battles ----------
-P.view_battles();
-check('battles: the war strip renders one mark per battle, by year', /wlr-strip/.test(content.innerHTML) && /wlr-mark/.test(content.innerHTML) && /wlr-mark--draw/.test(content.innerHTML));
-check('battles: the strip covers every dated year', /<b>1040<\/b>/.test(content.innerHTML) && /<b>1036<\/b>/.test(content.innerHTML));
-check('battles: rows carry VS lines with faction colours', /wlr-vs/.test(content.innerHTML) && /Waluigi and Wario/.test(content.innerHTML) && /Rakasha/.test(content.innerHTML) && /#f5d90a/.test(content.innerHTML));
-check('battles: outcome badges read the result line', /wlr-ob--draw/.test(content.innerHTML) && /wlr-ob--win/.test(content.innerHTML) && /wlr-ob--loss/.test(content.innerHTML));
-check('battles: unrecorded results say so instead of showing "None"', /Result line unrecorded/.test(content.innerHTML) && !/>None</.test(content.innerHTML));
-check('battles: casualties flag where filed', /casualties on file/.test(content.innerHTML));
-check('battles: NO events ledger markup on this page', !/evl-row/.test(content.innerHTML) && !/evl-lead/.test(content.innerHTML));
-// outcome filter
+listState.events.query = 'old war';
+V.view_events();
+check('events: search still filters the ledger', /The Old War/.test(content.innerHTML) && !/Aethel Alpha/.test(content.innerHTML));
+listState.events.query = '';
+
+listState.events.view = 'shelf';
+V.view_events();
+check('events: shelf mode keeps the card wall', /evcard/.test(content.innerHTML));
+listState.events.view = 'ledger';
+const eventsHtml = content.innerHTML;
+
+/* ============================ BATTLES ================================== */
+V.view_battles('');
+let b = content.innerHTML;
+check('war room: dark band header, not the events hero card', /class="war-band/.test(b) && !/evl-hero/.test(b));
+check('war room: rail lists the room, both wars, and the skirmish log', /The war room/.test(b) && /The Example War/.test(b) && /The Unwritten War/.test(b) && /Session skirmishes/.test(b));
+check('war room: overview shows one card per war plus the log door', (b.match(/class="wrr-war[ "]/g) || []).length === 3 && /wrr-war--log/.test(b));
+check('war room: war cards carry span, battle count, phases, tally', /1040 BF/.test(b) && /2 battles/.test(b) && /2 phases/.test(b) && /front-tally/.test(b));
+check('war room: the year strip survives as the shape of the record', /wlr-strip/.test(b) && /wlr-mark/.test(b));
+check('war room: no year-grouped sections anywhere', !/class="wlr-group"/.test(b) && !/BF<\/h3>/.test(b));
+check('war room: unwritten wars are flagged in the rail and the card', /wrr-rbtn--un/.test(b) && /war unfiled/.test(b));
+
+// deep link to a war dossier
+V.view_battles('the-example-war');
+b = content.innerHTML;
+check('dossier: back link, title, status, span, tallies', /← The war room/.test(b) && /The Example War/.test(b) && /status-tag/.test(b) && /front-tallies/.test(b));
+check('dossier: root cause block renders', /Root cause/.test(b) && /Taxes, mostly/.test(b));
+check('dossier: phases render as the war timeline', /war-front-step/.test(b) && /Phase Two/.test(b));
+check('dossier: battle records use the ledger rows', (b.match(/class="front-battle"/g) || []).length === 2);
+check('dossier: session records naming the war are surfaced', /Session records naming this war/.test(b) && /Siege of Raventree/.test(b));
+check('dossier: key factions chip in', /combatant-chip/.test(b));
+check('dossier: links to the full conflict record', /#\/conflict\/The%20Example%20War/.test(b));
+
+V.view_battles('the-unwritten-war');
+b = content.innerHTML;
+check('dossier: unwritten war gets the honest gap note', /front-gap/.test(b) && /conflicts\.json/.test(content.innerHTML));
+
+V.view_battles('skirmishes');
+b = content.innerHTML;
+check('skirmishes: a real table — When / engagement / who fought / how it ended', /wrr-tr--head/.test(b) && /The engagement/.test(b) && /Who fought/.test(b) && /How it ended/.test(b));
+check('skirmishes: all session fights on the log, VS lines and outcome badges included', (b.match(/class="wrr-tr[ "]/g) || []).length === 4 && /wlr-vs/.test(b) && /wlr-ob--draw/.test(b) && /wlr-ob--win/.test(b) && /wlr-ob--loss/.test(b));
+check('skirmishes: fights without belligerents say so honestly', /belligerents unrecorded/.test(b));
 listState.battles.outcome = 'draw';
-P.view_battles();
-check('battles: outcome chips filter the ledger', /The Lounge Brawl/.test(content.innerHTML) && !/Fall of Bramblehaven/.test(content.innerHTML));
+V.view_battles('skirmishes');
+check('skirmishes: outcome filter narrows the log', (content.innerHTML.match(/class="wrr-tr[ "]/g) || []).length === 2 && /The Lounge Brawl/.test(content.innerHTML) && !/Old Scraps/.test(content.innerHTML));
 listState.battles.outcome = 'All';
-// fronts mode
-listState.battles.view = 'fronts';
-P.view_battles();
-check('battles: Fronts mode shows the war-room board + major battles', /FRONT BOARD/.test(content.innerHTML) && /The Great Onslaught/.test(content.innerHTML));
-listState.battles.view = 'cards';
-P.view_battles();
-check('battles: Cards mode keeps the illustrated wall', /evcard/.test(content.innerHTML) && /evgrid/.test(content.innerHTML));
-listState.battles.view = 'ledger';
-// search
-listState.battles.query = 'bramblehaven';
-P.view_battles();
-check('battles: search narrows by place', /Fall of Bramblehaven/.test(content.innerHTML) && !/The Lounge Brawl/.test(content.innerHTML));
+listState.battles.query = 'raventree';
+V.view_battles('skirmishes');
+check('skirmishes: search narrows the log', /Siege of Raventree/.test(content.innerHTML) && !/The Lounge Brawl/.test(content.innerHTML));
 listState.battles.query = '';
 
-// classifier unit checks
-check('classifier: pyrrhic/draw/loss/win ordering', P.wlrResultClass({ result: 'Pyrrhic — all suffered' }) === 'pyrrhic'
-  && P.wlrResultClass({ result: 'Tactical Draw' }) === 'draw'
-  && P.wlrResultClass({ result: 'Complete defeat' }) === 'loss'
-  && P.wlrResultClass({ result: 'Decisive Victory' }) === 'win'
-  && P.wlrResultClass({ result: 'None' }) === 'unknown'
-  && P.wlrResultClass({ result: '' }) === 'unknown'
-  && P.wlrResultClass({ outcome: 'draw' }) === 'draw');
+listState.battles.view = 'cards';
+V.view_battles('');
+check('plates: the illustrated wall is still a toggle away', /evcard/.test(content.innerHTML) && !/wrr-rail/.test(content.innerHTML));
+listState.battles.view = 'room';
 
-console.log(ok ? 'ALL EVENTS+BATTLES TESTS PASS' : 'EVENTS+BATTLES TESTS FAILED');
+V.view_battles('not-a-real-war');
+check('war room: a bad slug falls back to the overview, not a dead end', /wrr-rail/.test(content.innerHTML) && /The war room/.test(content.innerHTML));
+
+check('distinct: battles page shares no page markup with events page', !/evl-group|evl-sub|evl-lead|evl-row/.test(content.innerHTML));
+V.view_events();
+check('distinct: events page carries no war-room markup', !/wrr-/.test(content.innerHTML));
+
+/* ============================ FACTIONS ================================= */
+V.view_factions();
+let f = content.innerHTML;
+check('registry: band counts factions, alliances, feuds, and the alone', /4 factions on file/.test(f) && /2 alliances on record/.test(f) && /2 feuds/.test(f) && /1 standing entirely alone/.test(f));
+check('registry: the grudge line names the most-enemied faction', /biggest grudge/.test(f));
+check('registry: realm sections from the atlas index, independents last', /The Regal Empire/.test(f) && /The Mushroom Kingdom/.test(f) && /Independent &amp; unfiled/.test(f) && f.indexOf('Independent') > f.indexOf('Mushroom Kingdom'));
+check('registry: every faction renders a dossier row', (f.match(/class="fac-row"/g) || []).length === 4);
+check('registry: status badges classify active / extinct', /fac-status--active/.test(f) && /fac-status--extinct/.test(f));
+check('registry: mottos survive as pull-quotes', /The Legion counts\./.test(f));
+check('registry: allegiance web — allies green, enemies red', /fac-chip--ally/.test(f) && /fac-chip--enemy/.test(f));
+check('registry: known factions get clickable chips, unknown stay plain', /onclick="event.stopPropagation\(\);openId\('koopa_troop'\)"/.test(f) && /fac-chip--enemy" title="Hostile to Mushroom Regency"/.test(f));
+check('registry: alone factions say so on both lines', /no allies on file/.test(f) && /no enemies on file/.test(f));
+check('registry: faction sections link back to their realm in the atlas', /#\/atlas\/regal_empire/.test(f));
+
+listState.factions.disp = 'alone';
+V.view_factions();
+check('registry: standing-alone filter keeps only the friendless', (content.innerHTML.match(/class="fac-row"/g) || []).length === 1 && /The Mazebounds/.test(content.innerHTML));
+listState.factions.disp = 'ally';
+V.view_factions();
+check('registry: allied filter keeps the ones with friends', (content.innerHTML.match(/class="fac-row"/g) || []).length === 2 && /Iron Legion/.test(content.innerHTML) && /Disaster Inc\./.test(content.innerHTML));
+listState.factions.disp = 'enemy';
+V.view_factions();
+check('registry: at-war filter keeps the ones with grudges', (content.innerHTML.match(/class="fac-row"/g) || []).length === 2 && !/Mazebounds/.test(content.innerHTML));
+listState.factions.disp = 'All';
+listState.factions.query = 'legion';
+V.view_factions();
+check('registry: search finds by name', (content.innerHTML.match(/class="fac-row"/g) || []).length === 1);
+listState.factions.query = '';
+
+check('classifier: status meta prefers active, then extinct, then broken',
+  V.facStatusMeta('Allegedly extinct; currently active via lone agent').cls === 'active' &&
+  V.facStatusMeta('Extinct — destroyed at the siege').cls === 'extinct' &&
+  V.facStatusMeta('Dispersed but organized').cls === 'broken' &&
+  V.facStatusMeta('').cls === 'other');
+check('slugs: war names become stable route slugs', V.wrrSlug('The Example War') === 'the-example-war' && V.wrrSlug('Kong-Kremling Cold War') === 'kong-kremling-cold-war');
+
+console.log(ok ? 'ALL EVENTS+BATTLES+FACTIONS TESTS PASS' : 'TESTS FAILED');
 process.exit(ok ? 0 : 1);

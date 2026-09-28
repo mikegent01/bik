@@ -11153,8 +11153,16 @@ function view_events(){
       </div>
     </article>`;
   })();
-  /* groups: by year (or one A→Z run), undated always last */
+  /* groups: by year, subdivided by month (a year holding 76 filings is not a
+     section, it is a drawer), undated always last */
   const groups=[];
+  const moMeta=mo=>(DATA.calendarMonths||[]).find(x=>x&&x.ordinal===mo)||{};
+  const subHead=sub=>{
+    const n=sub.items.length;
+    if(sub.mo==null) return `<div class="evl-sub evl-sub--x"><b>Month not on the record</b><i>${n} filing${n===1?'':'s'}</i></div>`;
+    const m=moMeta(sub.mo);
+    return `<div class="evl-sub"${m.color?` style="--evl-mo:${esc(m.color)}"`:''}><b>${esc(m.icon||'📅')} ${esc(m.name||'Month '+sub.mo)}</b><span>${esc(m.season||'')}</span><i>${n} filing${n===1?'':'s'}</i></div>`;
+  };
   if(st.sort==='az'){
     groups.push({label:'Every filing, A→Z',id:'az',items:arr});
   }else{
@@ -11163,7 +11171,21 @@ function view_events(){
     Object.values(gm).sort((a,b)=>{
       if(a.year==null)return 1; if(b.year==null)return -1;
       return st.sort==='oldest'?a.year-b.year:b.year-a.year;
-    }).forEach(g=>groups.push(g));
+    }).forEach(g=>{
+      /* the month drawer: parseMonth normalizes the spelling variants the
+         filings actually use (Harvestside→Harvestide, Bloomtide→Bloom), so
+         the sub-groups carry the canonical calendar months. The undated
+         group stays flat — a month drawer inside "no date" is noise. */
+      if(g.year!=null){
+        const sm={};
+        g.items.forEach(e=>{const mo=parseMonth(e.date);const k=mo!==99?mo:'x';(sm[k]=sm[k]||{mo:mo!==99?mo:null,items:[]}).items.push(e);});
+        g.subs=Object.values(sm).sort((a,b)=>{
+          if(a.mo==null)return 1; if(b.mo==null)return -1;
+          return st.sort==='oldest'?a.mo-b.mo:b.mo-a.mo;
+        });
+      }
+      groups.push(g);
+    });
   }
   const rail=(st.view==='ledger'&&groups.length>1)?`<div class="evl-rail" role="navigation" aria-label="Jump to year">${groups.map(g=>`<button onclick="const n=document.getElementById('${g.id}');if(n)n.scrollIntoView({behavior:'smooth',block:'start'})"${g.year==null?' class="evl-rail--x"':''}>${esc(g.label.split(' — ')[0])}<i>${g.items.length}</i></button>`).join('')}</div>`:'';
   const rowHtml=e=>{
@@ -11192,7 +11214,7 @@ function view_events(){
   };
   const body=(st.view==='shelf')
     ? `<div class="artgrid evgrid">${arr.map(shelfTile).join('')||'<p class="text-muted">No matching filings.</p>'}</div>`
-    : groups.map(g=>`<section class="evl-group" id="${g.id}"><header class="evl-year"><h3>${esc(g.label)}</h3><span>${g.items.length} filing${g.items.length===1?'':'s'}</span></header>${g.items.map(rowHtml).join('')}</section>`).join('')
+    : groups.map(g=>`<section class="evl-group" id="${g.id}"><header class="evl-year"><h3>${esc(g.label)}</h3><span>${g.items.length} filing${g.items.length===1?'':'s'}</span></header>${(g.subs||[{mo:null,items:g.items}]).map(sub=>(g.year==null?'':subHead(sub))+sub.items.map(rowHtml).join('')).join('')}</section>`).join('')
       ||'<p class="text-muted">No matching filings. Waluigi suggests fewer filters.</p>';
   const campChips=camps.map(c=>`<button class="chip${st.camp===c?' active':''}" onclick="listState.events.camp='${esc(c)}';view_events()">${esc(c)}${c==='All'?` (${items.length})`:` (${campCount[c]||0})`}</button>`).join('');
   const sortSel=`<label class="evl-sel"><span>Order</span><select onchange="listState.events.sort=this.value;view_events()">
@@ -11219,13 +11241,16 @@ function view_events(){
   window.scrollTo(0,0);
 }
 
-/* ===================== BATTLES — THE WAR LEDGER ==========================
-   The battles page was a copy of the events grid with a panel bolted on.
-   Redesigned as what the data actually is: a WAR LEDGER. Its own mechanics:
-   the WAR STRIP (every battle as a mark on the years — the shape of the war
-   at a glance), VS LINES (who fought whom, coloured by faction), and OUTCOME
-   BADGES read from each record's result line. Three reading modes: Ledger
-   (by year), Fronts (the war-room board), Cards (the old wall). */
+/* ===================== BATTLES — THE WAR ROOM (wrr-*) =====================
+   The battles page wore the events page's clothes: same hero card, same
+   toolbar, same year-grouped ledger — two lists with different nouns, and
+   a year holding most of a war is as useless a drawer there as it was on
+   events. Rebuilt around what battles actually ARE: wars first, fights
+   second. A RAIL of wars (every conflict on file, plus the wars the battle
+   records name on their own), an in-place DOSSIER per war — root cause,
+   phases, its battle records, its session scraps — and a session-skirmish
+   TABLE for the fights that belong to no war. No year groups anywhere:
+   wars are the organization. */
 function wlrResultClass(b){
   if(b&&b.outcome) return (battleOutcomeMeta(b.outcome)||{}).cls||'unknown';
   const r=String((b&&b.result)||'').toLowerCase();
@@ -11258,93 +11283,252 @@ function wlrDateBlock(b){
   if(mo&&mo!==99) return `<div class="wlr-date"><b>—</b><i>${esc(monthName(mo))}</i><span>${y!=null?y+' BF':'—'}</span></div>`;
   return `<div class="wlr-date"><b>${y!=null?y:'?'}</b><i>BF</i><span>dated</span></div>`;
 }
-function view_battles(){
+function wrrSlug(name){return String(name||'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'');}
+function view_battles(sel){
   renderSidebar('list:battles');
   const t=TYPE_BY_KEY&&TYPE_BY_KEY.battles;
-  const st=listState.battles||(listState.battles={query:'',outcome:'All',view:'ledger',sort:'newest'});
+  const st=listState.battles||(listState.battles={query:'',outcome:'All',sort:'newest',view:'room',war:''});
+  if(sel!=null) st.war=sel;
   const items=(DATA.battles||[]).filter(Boolean).slice();
+  const fronts=battleFronts().filter(f=>!f.isUnfiled);
+  const bySlug={}; fronts.forEach(f=>{bySlug[wrrSlug(f.name)]=f;});
+  if(st.war&&st.war!=='skirmishes'&&!bySlug[st.war]) st.war='';
   const yOf=b=>parseYear(b.date);
   const clean=s=>String(s||'').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim();
   const hay=b=>clean([b.id,displayName(b),b.summary,b.description,b.location,b.type,b.result,(b.belligerents&&[b.belligerents.attackers,b.belligerents.defenders].map(s=>s&&(s.name+' '+(s.commander||''))).join(' '))].filter(Boolean).join(' '));
   const outcomeOf=b=>wlrResultClass(b);
-  /* the war strip: every battle as a mark on its year — the shape of the war */
+  /* the war strip stays: every battle as a mark on its year — the shape of
+     the whole record at a glance, and the one place years appear at all */
   const yearMarks={};
   items.forEach(b=>{const y=yOf(b);if(y==null)return;(yearMarks[y]=yearMarks[y]||[]).push(outcomeOf(b));});
   const warYears=Object.keys(yearMarks).map(Number).sort((a,b)=>b-a);
   const span=warYears.length?`${warYears[warYears.length-1]}–${warYears[0]} BF`:'no dated battles';
-  const outcomeTally={};
-  items.forEach(b=>{const k=outcomeOf(b);outcomeTally[k]=(outcomeTally[k]||0)+1;});
   const stripHtml=warYears.length?`<div class="wlr-strip" role="navigation" aria-label="The war strip — battles by year">${warYears.map(y=>{
     const marks=yearMarks[y];
     const shown=marks.slice(0,10).map(k=>`<i class="wlr-mark wlr-mark--${k}" title="${marks.length} battle${marks.length===1?'':'s'} in ${y} BF"></i>`).join('');
-    return `<button class="wlr-year" onclick="const n=document.getElementById('wlr-y-${y}');if(n)n.scrollIntoView({behavior:'smooth',block:'start'})}"><b>${y}</b>${shown}${marks.length>10?`<em>+${marks.length-10}</em>`:''}</button>`;
+    return `<button class="wlr-year" title="${y} BF — ${marks.length} battle${marks.length===1?'':'s'}"><b>${y}</b>${shown}${marks.length>10?`<em>+${marks.length-10}</em>`:''}</button>`;
   }).join('')}</div>`:'';
-  const matchesOutcome=b=>st.outcome==='All'||outcomeOf(b)===st.outcome;
+  const settled=f=>/conclu|ended|resolve|finish|complete|won|lost/i.test(String((f.record||{}).status||''));
+  const warSessions=name=>items.filter(b=>String(b.conflict||'').trim()===String(name).trim());
+  const skirmishes=items;
+  const outcomeTally={}; skirmishes.forEach(b=>{const k=outcomeOf(b);outcomeTally[k]=(outcomeTally[k]||0)+1;});
   const matchesQuery=b=>{const q=clean(st.query);if(!q)return true;const h=hay(b);return q.split(/\s+/).filter(Boolean).every(t=>h.includes(t));};
-  let arr=items.filter(b=>matchesOutcome(b)&&matchesQuery(b));
-  const byFile=(a,b)=>items.indexOf(a)-items.indexOf(b);
-  if(st.sort==='az') arr.sort((a,b)=>displayName(a).localeCompare(displayName(b)));
-  else if(st.sort==='oldest') arr.sort((a,b)=>(yOf(a)||9999)-(yOf(b)||9999)||byFile(a,b));
-  else arr.sort((a,b)=>(yOf(b)||0)-(yOf(a)||0)||byFile(a,b));
-  const rowHtml=b=>{
+  const matchesOutcome=b=>st.outcome==='All'||outcomeOf(b)===st.outcome;
+  /* skirmish table rows: date | engagement | who fought | how it ended */
+  const skirmRow=b=>{
     const k=outcomeOf(b), om=WLR_OUTCOME[k]||WLR_OUTCOME.unknown;
-    const cas=b.casualties&&Object.values(b.casualties).some(v=>v)?`<span class="wlr-cas" title="Casualties on file — read the record">☠ casualties on file</span>`:'';
-    return `<article class="wlr-row" onclick="openHub('${esc(b.id)}')">
+    return `<div class="wrr-tr" onclick="openHub('${esc(b.id)}')">
       ${wlrDateBlock(b)}
-      <div class="wlr-main">
-        <h3>${esc(displayName(b))}<span class="wlr-ob wlr-ob--${k}">${om.icon} ${om.label}</span></h3>
-        ${wlrVsLine(b)}
-        ${b.result&&String(b.result).toLowerCase()!=='none'?`<p class="wlr-result">${esc(String(b.result).split('—')[0].trim().slice(0,150))}</p>`:`<p class="wlr-result wlr-result--none">Result line unrecorded — the plate and the aftermath are the record.</p>`}
-        <div class="wlr-meta">${b.location?`<span>📍 ${esc(String(b.location).split(',')[0])}</span>`:''}${b.type?`<span>⚔ ${esc(String(b.type).split('/')[0].trim())}</span>`:''}${cas}</div>
-      </div>
-      ${b.image?`<img class="wlr-thumb" src="${esc(assetPath(b.image))}" alt="" loading="lazy" onerror="this.style.display='none'">`:''}
-    </article>`;
+      <div class="wrr-td wrr-td--what"><b>${esc(displayName(b))}</b>${b.location?`<span>📍 ${esc(String(b.location).split(',')[0])}</span>`:''}${b.type?`<span>⚔ ${esc(String(b.type).split('/')[0].trim())}</span>`:''}</div>
+      <div class="wrr-td wrr-td--who">${wlrVsLine(b)||'<span class="text-muted" style="font-size:11px">belligerents unrecorded</span>'}</div>
+      <div class="wrr-td wrr-td--how"><span class="wlr-ob wlr-ob--${k}">${om.icon} ${om.label}</span>${b.result&&String(b.result).toLowerCase()!=='none'?`<p>${esc(String(b.result).split('—')[0].trim().slice(0,110))}</p>`:''}</div>
+    </div>`;
   };
-  let body='';
-  if(st.view==='fronts'){
-    body=`${battleHubPanel()}<div class="card mt-12"><div class="section-title">📋 After-action reports — the ${ (DATA.majorBattles||[]).filter(Boolean).length } major battle records</div><div class="artgrid">${(DATA.majorBattles||[]).filter(Boolean).map(b=>`<div class="arttile" onclick="Router.go('#/mbattle/${encodeURIComponent(b.id)}')"><div class="tt">${esc(b.name)}</div><div class="tsub">${esc(String(b.date||''))}</div><div class="tsum">${esc(String(b.description||b.summary||'').slice(0,120))}</div></div>`).join('')}</div></div>`;
-  }else if(st.view==='cards'){
-    body=`<div class="artgrid evgrid">${arr.map(i=>`<article class="evcard" onclick="openHub('${esc(i.id)}')">
+  let skirmArr=skirmishes.filter(b=>matchesOutcome(b)&&matchesQuery(b));
+  const byFile=(a,b)=>items.indexOf(a)-items.indexOf(b);
+  if(st.sort==='az') skirmArr.sort((a,b)=>displayName(a).localeCompare(displayName(b)));
+  else if(st.sort==='oldest') skirmArr.sort((a,b)=>(yOf(a)||9999)-(yOf(b)||9999)||byFile(a,b));
+  else skirmArr.sort((a,b)=>(yOf(b)||0)-(yOf(a)||0)||byFile(a,b));
+
+  /* ---- the rail: every war, plus the room and the skirmish log ---------- */
+  const railBtn=(key,icon,label,meta,cls)=>`<button class="wrr-rbtn${st.war===key?' on':''}${cls?' '+cls:''}" onclick="Router.go('#/list/battles${key?'/'+encodeURIComponent(key):''}')">
+    <span class="wrr-rbtn-ic">${icon}</span><span class="wrr-rbtn-tx"><b>${esc(label)}</b><i>${esc(meta)}</i></span></button>`;
+  const rail=`<nav class="wrr-rail" aria-label="The wars on file">
+    ${railBtn('','🏛','The war room',fronts.length+' wars · '+skirmishes.length+' skirmishes')}
+    <div class="wrr-rail-sep">Wars on file</div>
+    ${fronts.map(f=>railBtn(wrrSlug(f.name),settled(f)??'📌'?'':'',f.name,(f.battles.length+' battle'+(f.battles.length===1?'':'s'))+(f.span?' · '+f.span:''),(settled(f)?'wrr-rbtn--done':(f.written?'':'wrr-rbtn--un')))).join('')}
+    <div class="wrr-rail-sep">Off the books</div>
+    ${railBtn('skirmishes','⚔','Session skirmishes',skirmishes.length+' fights that belong to no war')}
+  </nav>`;
+
+  /* ---- panels ----------------------------------------------------------- */
+  let panel='';
+  if(st.war==='skirmishes'){
+    const rows=skirmArr.map(skirmRow).join('')||'<p class="text-muted" style="padding:14px">No skirmishes match. The war continues regardless.</p>';
+    panel=`<div class="wrr-panel card">
+      <header class="wrr-phead"><div><h2>⚔ The skirmish log</h2><p>${skirmishes.length} session-scale fights — bar brawls, corridor ambushes, dinner votes — that belong to no war. The wars get dossiers; these get the log.</p></div><span class="wrr-pcount">${skirmArr.length} shown</span></header>
+      <div class="wrr-toolbar">
+        <input class="evl-search" placeholder="Search the log — name, combatant, place, result…" value="${esc(st.query||'')}" oninput="listState.battles.query=this.value;clearTimeout(window.__wrrT);window.__wrrT=setTimeout(view_battles,180)" onkeydown="if(event.key==='Enter'){clearTimeout(window.__wrrT);view_battles()}">
+        ${['All'].concat(Object.keys(outcomeTally).sort((a,b)=>outcomeTally[b]-outcomeTally[a])).map(k=>`<button class="chip${st.outcome===k?' active':''}" onclick="listState.battles.outcome='${k}';view_battles()">${k==='All'?'All outcomes':(WLR_OUTCOME[k]||WLR_OUTCOME.unknown).icon+' '+(WLR_OUTCOME[k]||WLR_OUTCOME.unknown).label}${k==='All'?` (${skirmishes.length})`:` (${outcomeTally[k]})`}</button>`).join('')}
+        <label class="evl-sel"><span>Order</span><select onchange="listState.battles.sort=this.value;view_battles()">
+          <option value="newest"${st.sort==='newest'?' selected':''}>Newest first</option>
+          <option value="oldest"${st.sort==='oldest'?' selected':''}>Oldest first</option>
+          <option value="az"${st.sort==='az'?' selected':''}>A→Z</option></select></label>
+        ${(st.query||st.outcome!=='All'||st.sort!=='newest')?`<button class="chip" onclick="listState.battles.query='';listState.battles.outcome='All';listState.battles.sort='newest';view_battles()">Clear</button>`:''}
+      </div>
+      <div class="wrr-table"><div class="wrr-tr wrr-tr--head"><span>When</span><span>The engagement</span><span>Who fought</span><span>How it ended</span></div>${rows}</div>
+    </div>`;
+  }else if(st.war&&bySlug[st.war]){
+    const f=bySlug[st.war], c=f.record||{};
+    const facs=(c.keyFactions||[]).slice(0,8).map(combatantChip).join('');
+    const phases=(c.majorPhases||[]).map((p,i)=>`<div class="war-front-step"><span class="war-front-no">${i+1}</span><div><b>${esc(p.name)}</b><p>${esc(p.description||'')}</p></div></div>`).join('');
+    const sess=warSessions(f.name);
+    const sessHtml=sess.length?`<h4 class="wrr-sub">Session records naming this war</h4><div class="wrr-sess">${sess.map(b=>{
+      const k=outcomeOf(b), om=WLR_OUTCOME[k]||WLR_OUTCOME.unknown;
+      return `<article class="wrr-srow" onclick="openHub('${esc(b.id)}')">${wlrDateBlock(b)}<div class="wrr-smain"><b>${esc(displayName(b))}</b>${wlrVsLine(b)}<span class="wlr-ob wlr-ob--${k}">${om.icon} ${om.label}</span></div></article>`;
+    }).join('')}</div>`:'';
+    panel=`<div class="wrr-panel card">
+      <a class="wrr-back" onclick="Router.go('#/list/battles')">← The war room</a>
+      <header class="wrr-dhead"><div><h2>${esc(f.name)}</h2>
+        <p class="wrr-dmeta"><span>${f.span||'span unfiled'}</span><span>${f.battles.length} battle record${f.battles.length===1?'':'s'}</span>${c.status?`<span class="status-tag ${statusClass(c.status)}">${esc(c.status)}</span>`:'<span class="status-tag status-other">war unfiled</span>'}</p></div>
+        <div class="front-tallies">${battleTallyChips(f.tally)}</div></header>
+      ${c.summary?`<p class="wrr-sum">${esc(c.summary)}</p>`:''}
+      ${c.rootCause?`<div class="wrr-cause"><b>Root cause</b><p>${esc(c.rootCause)}</p></div>`:''}
+      ${f.written?'':`<div class="front-gap">The battle records name this war, but <code>conflicts.json</code> holds no record for it — the battles are filed, the war around them is not. Add it and this dossier gains a summary, a root cause and phases.</div>`}
+      ${facs?`<div class="wrr-facs">${facs}</div>`:''}
+      ${phases?`<h4 class="wrr-sub">The phases</h4><div class="war-front">${phases}</div>`:''}
+      <h4 class="wrr-sub">Battle records</h4>
+      <div class="front-battles">${f.battles.map(battleRowHtml).join('')||'<p class="text-muted">No battle records filed under this war yet.</p>'}</div>
+      ${sessHtml}
+      ${f.written?`<a class="poi-link" href="#/conflict/${encodeURIComponent(f.name)}">Open the full conflict record →</a>`:''}
+    </div>`;
+  }else{
+    /* the room overview: strip + one card per war + the skirmish log door */
+    const q=clean(st.query);
+    const frontMatches=f=>{if(!q)return true;const h=clean([f.name,(f.record||{}).summary,(f.record||{}).rootCause,(f.record||{}).status].filter(Boolean).join(' '));return q.split(/\s+/).filter(Boolean).every(t=>h.includes(t));};
+    const cards=fronts.filter(frontMatches).map(f=>{
+      const c=f.record||{};
+      return `<article class="wrr-war" onclick="Router.go('#/list/battles/${encodeURIComponent(wrrSlug(f.name))}')">
+        <div class="wrr-war-head"><h3>${esc(f.name)}</h3><span class="war-ribbon${settled(f)?' done':''}">${esc(c.status||(f.written?'unfiled':'war unfiled'))}</span></div>
+        <div class="wrr-war-meta"><span>${f.span||'—'}</span><span>${f.battles.length} battle${f.battles.length===1?'':'s'}</span>${(c.majorPhases||[]).length?`<span>${c.majorPhases.length} phase${c.majorPhases.length===1?'':'s'}</span>`:''}</div>
+        <p>${esc(String(c.summary||'The battle records name this war; the conflict record behind it is still unwritten.').slice(0,170))}</p>
+        <div class="front-tallies">${battleTallyChips(f.tally)}</div>
+      </article>`;
+    }).join('');
+    panel=`<div class="wrr-panel">
+      <div class="card wrr-overview">
+        <header class="wrr-phead"><div><h2>🏛 The war room</h2><p>${fronts.length} wars on file, ${fronts.filter(f=>!settled(f)).length} still burning. The strip is every session battle on its year; the cards are the wars themselves. Open one for its dossier.</p></div></header>
+        ${stripHtml}
+        <div class="wrr-toolbar">
+          <input class="evl-search" placeholder="Search wars — name, cause, status…" value="${esc(st.query||'')}" oninput="listState.battles.query=this.value;clearTimeout(window.__wrrT);window.__wrrT=setTimeout(view_battles,180)" onkeydown="if(event.key==='Enter'){clearTimeout(window.__wrrT);view_battles()}">
+          ${st.query?`<button class="chip" onclick="listState.battles.query='';view_battles()">Clear</button>`:''}
+        </div>
+        <div class="wrr-wars">${cards||'<p class="text-muted">No wars match.</p>'}</div>
+        <article class="wrr-war wrr-war--log" onclick="Router.go('#/list/battles/skirmishes')">
+          <div class="wrr-war-head"><h3>⚔ The skirmish log</h3><span class="war-ribbon">off the books</span></div>
+          <div class="wrr-war-meta"><span>${skirmishes.length} session-scale fights</span><span>${skirmishes.filter(b=>!b.conflict).length} belong to no war</span></div>
+          <p>Bar brawls, corridor ambushes, dinner votes — the fights too small for a dossier, in one table.</p>
+        </article>
+      </div>
+    </div>`;
+  }
+
+  /* ---- plates wall (the illustrated card mode) --------------------------- */
+  const platesHtml=(st.view==='cards')?(()=>{
+    const arr=items.filter(b=>matchesOutcome(b)&&matchesQuery(b));
+    const byF=(a,b)=>items.indexOf(a)-items.indexOf(b);
+    if(st.sort==='az') arr.sort((a,b)=>displayName(a).localeCompare(displayName(b)));
+    return `<div class="card"><div class="artgrid evgrid">${arr.map(i=>`<article class="evcard" onclick="openHub('${esc(i.id)}')">
       <div class="evcard-art"><img src="${esc(assetPath(i.image))}" alt="${esc(displayName(i))}" loading="lazy" onerror="this.style.display='none'"></div>
       <div class="evcard-body">${i.date?`<div class="tkick">${esc(String(i.date).split('—')[0].trim())}</div>`:''}
         <h3 class="evcard-title">${esc(displayName(i))}</h3>
         <p class="evcard-sum">${esc(previewText(i))}</p></div>
-    </article>`).join('')||'<p class="text-muted">No matching battles.</p>'}</div>`;
-  }else{
-    const gm={};
-    arr.forEach(b=>{const y=yOf(b);const k=y!=null?String(y):'undated';(gm[k]=gm[k]||{label:y!=null?y+' BF':'Undated',id:'wlr-y-'+(y!=null?y:'x'),items:[],year:y}).items.push(b);});
-    const groups=Object.values(gm).sort((a,b)=>{
-      if(a.year==null)return 1; if(b.year==null)return -1;
-      return st.sort==='oldest'?a.year-b.year:b.year-a.year;
-    });
-    body=groups.map(g=>`<section class="wlr-group" id="${g.id}"><header class="wlr-year"><h3>${esc(g.label)}</h3><span>${g.items.length} battle${g.items.length===1?'':'s'}</span></header>${g.items.map(rowHtml).join('')}</section>`).join('')
-      ||'<p class="text-muted">No battles match. The war continues regardless.</p>';
-    body=`<div class="wlr-list card">${body}</div>`;
-  }
-  const outcomeChips=['All'].concat(Object.keys(outcomeTally).sort((a,b)=>outcomeTally[b]-outcomeTally[a])).map(k=>`<button class="chip${st.outcome===k?' active':''}" onclick="listState.battles.outcome='${k}';view_battles()">${k==='All'?'All outcomes':(WLR_OUTCOME[k]||WLR_OUTCOME.unknown).icon+' '+(WLR_OUTCOME[k]||WLR_OUTCOME.unknown).label}${k==='All'?` (${items.length})`:` (${outcomeTally[k]})`}</button>`).join('');
-  const sortSel=`<label class="evl-sel"><span>Order</span><select onchange="listState.battles.sort=this.value;view_battles()">
-    <option value="newest"${st.sort==='newest'?' selected':''}>Newest first</option>
-    <option value="oldest"${st.sort==='oldest'?' selected':''}>Oldest first</option>
-    <option value="az"${st.sort==='az'?' selected':''}>A→Z</option></select></label>`;
-  const viewTgl=`<div class="evl-vtgl"><button class="${st.view==='ledger'?'on':''}" onclick="listState.battles.view='ledger';view_battles()" title="Every battle, grouped by year, with VS lines and outcomes">📖 Ledger</button><button class="${st.view==='fronts'?'on':''}" onclick="listState.battles.view='fronts';view_battles()" title="The war-room board — fronts, tallies, and the major battle records">🧭 Fronts</button><button class="${st.view==='cards'?'on':''}" onclick="listState.battles.view='cards';view_battles()" title="The illustrated card wall">🖼️ Cards</button></div>`;
-  el('content').innerHTML=`<div class="wlr-hero card animate-fade-in">
-      <div class="evl-hero-top">
-        <div><h1>${(t&&t.emoji)||'🗡️'} ${(t&&t.label)||'Battles'}</h1>
-        <p class="evl-hero-sub">The war ledger — ${items.length} battle records across ${warYears.length} years (${span}), each with who fought whom and how it ended. The strip below is the shape of the whole war; every mark is a battle.</p></div>
-        ${viewTgl}
-      </div>
-      ${stripHtml}
-      <div class="evl-toolbar">
-        <input class="evl-search" placeholder="Search battles — name, combatant, place, result…" value="${esc(st.query||'')}" oninput="listState.battles.query=this.value;clearTimeout(window.__wlrT);window.__wlrT=setTimeout(view_battles,180)" onkeydown="if(event.key==='Enter'){clearTimeout(window.__wlrT);view_battles()}">
-        ${outcomeChips}
-        ${sortSel}
-        ${(st.query||st.outcome!=='All'||st.sort!=='newest')?`<button class="chip" onclick="listState.battles.query='';listState.battles.outcome='All';listState.battles.sort='newest';view_battles()">Clear</button>`:''}
-      </div>
+    </article>`).join('')||'<p class="text-muted">No matching battles.</p>'}</div></div>`;
+  })():'';
+
+  const activeFires=fronts.filter(f=>!settled(f)).length;
+  const viewTgl=`<div class="wrr-vtgl"><button class="${st.view!=='cards'?'on':''}" onclick="listState.battles.view='room';view_battles()" title="Wars first, fights second — the rail and the dossier">🏛 War room</button><button class="${st.view==='cards'?'on':''}" onclick="listState.battles.view='cards';view_battles()" title="The illustrated plate wall">🖼️ Plates</button></div>`;
+  el('content').innerHTML=`<div class="war-band animate-fade-in"><h2>💥 ${(t&&t.label)||'Battles'}</h2>
+      <p class="text-muted" style="margin:0">Wars first, fights second — ${fronts.length} wars on file (${activeFires} still burning), ${(DATA.majorBattles||[]).filter(Boolean).length} war-scale battle records, ${items.length} session skirmishes on the log (${span}).</p>
+      <div class="war-counts"><span class="war-count"><b>${fronts.length}</b>wars pinned</span><span class="war-count"><b>${activeFires}</b>fires burning</span><span class="war-count"><b>${(DATA.majorBattles||[]).filter(Boolean).length}</b>battle reports</span><span class="war-count"><b>${items.length}</b>skirmishes</span></div>
+      <div class="wrr-bandbar">${viewTgl}</div>
     </div>
-    ${body}`;
+    ${(st.view==='cards')
+      ? `<div class="card" style="margin-top:14px;padding:12px 16px"><div class="evl-toolbar">
+          <input class="evl-search" placeholder="Search battles — name, combatant, place, result…" value="${esc(st.query||'')}" oninput="listState.battles.query=this.value;clearTimeout(window.__wrrT);window.__wrrT=setTimeout(view_battles,180)" onkeydown="if(event.key==='Enter'){clearTimeout(window.__wrrT);view_battles()}">
+          ${['All'].concat(Object.keys(outcomeTally).sort((a,b)=>outcomeTally[b]-outcomeTally[a])).map(k=>`<button class="chip${st.outcome===k?' active':''}" onclick="listState.battles.outcome='${k}';view_battles()">${k==='All'?'All outcomes':(WLR_OUTCOME[k]||WLR_OUTCOME.unknown).icon+' '+(WLR_OUTCOME[k]||WLR_OUTCOME.unknown).label}${k==='All'?` (${items.length})`:` (${outcomeTally[k]})`}</button>`).join('')}
+          ${(st.query||st.outcome!=='All')?`<button class="chip" onclick="listState.battles.query='';listState.battles.outcome='All';view_battles()">Clear</button>`:''}
+        </div></div>${platesHtml}`
+      : `<div class="wrr-room">${rail}${panel}</div>`}
+  `;
   window.scrollTo(0,0);
 }
 
+/* ===================== FACTIONS — THE REGISTRY (fac-*) ===================
+   The factions page was the generic card grid — every faction an identical
+   tile, nothing to read but a name. But faction records are the richest in
+   the archive: leaders, mottos, seats, and — the part no other page can
+   carry — WHO STANDS WITH WHOM AND AGAINST WHOM. The registry is built
+   around that: realms as sections, one dossier row per faction, and the
+   allegiance web (allies green, enemies red) on every row. */
+function facStatusMeta(s){
+  const t=String(s||'').toLowerCase();
+  if(/active|operational|expanding|mobiliz|radicaliz|rebuild|rearm/.test(t)) return {cls:'active',label:'Active'};
+  if(/extinct|dissolved|destroyed|defeated|shattered|dead/.test(t)) return {cls:'extinct',label:'Extinct'};
+  if(/fragment|dispersed|divided|exile|remnant|bruised/.test(t)) return {cls:'broken',label:'Fragmented'};
+  if(!t) return {cls:'other',label:'Status unfiled'};
+  return {cls:'other',label:String(s).split(/[—;(:]/)[0].trim().slice(0,30)||'On file'};
+}
+function view_factions(){
+  renderSidebar('list:factions');
+  buildAtlasIndex();
+  const t=TYPE_BY_KEY&&TYPE_BY_KEY.factions;
+  const st=listState.factions||(listState.factions={query:'',disp:'All'});
+  const items=(DATA.factions||[]).filter(Boolean);
+  const clean=s=>String(s||'').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim();
+  const hay=f=>clean([f.id,displayName(f),f.type,f.status,f.summary,f.region,f.leader,f.headquarters,f.affiliation,f.motto].filter(Boolean).join(' '));
+  const matchesQuery=f=>{const q=clean(st.query);if(!q)return true;const h=hay(f);return q.split(/\s+/).filter(Boolean).every(t=>h.includes(t));};
+  const alliesOf=f=>(Array.isArray(f.allies)?f.allies:[]).filter(Boolean);
+  const enemiesOf=f=>(Array.isArray(f.enemies)?f.enemies:[]).filter(Boolean);
+  const matchesDisp=f=>st.disp==='All'||(st.disp==='ally'&&alliesOf(f).length>0)||(st.disp==='enemy'&&enemiesOf(f).length>0)||(st.disp==='alone'&&!alliesOf(f).length&&!enemiesOf(f).length);
+  /* realms as sections: the atlas index already buckets factions per nation */
+  const secs=Object.values(ATLAS_INDEX).map(x=>({nid:x.nation.id,label:displayName(x.nation),fids:(x.factions||[]).map(f=>f.id)}))
+    .filter(s=>s.fids.length).sort((a,b)=>b.fids.length-a.fids.length||a.label.localeCompare(b.label));
+  const bucketed=new Set(secs.reduce((a,s)=>a.concat(s.fids),[]));
+  secs.push({nid:'',label:'Independent & unfiled',fids:items.filter(f=>!bucketed.has(f.id)).map(f=>f.id)});
+  const byId={}; items.forEach(f=>byId[f.id]=f);
+  const relChip=(x,kind)=>{
+    const id=String(x); const rec=INDEX[id];
+    const nm=(rec&&(rec.name||rec.title))||prettyId(id);
+    const go=rec?` onclick="event.stopPropagation();openId('${esc(id)}')"`:'';
+    return `<span class="fac-chip fac-chip--${kind}${rec?' fac-chip--go':''}"${go} title="${kind==='ally'?'Allied with':'Hostile to'} ${esc(nm)}"><i></i>${esc(nm)}</span>`;
+  };
+  const row=f=>{
+    const sm=facStatusMeta(f.status);
+    const al=alliesOf(f), en=enemiesOf(f);
+    const nEv=(f.keyEvents||[]).length;
+    return `<article class="fac-row" onclick="openId('${esc(f.id)}')">
+      <span class="fac-spine" style="background:${esc(factionColor(f.id))}"></span>
+      <div class="fac-id">
+        <h3>${esc(displayName(f))}<span class="fac-status fac-status--${sm.cls}">${esc(sm.label)}</span></h3>
+        <div class="fac-type">${esc(String(f.type||'').split('/')[0].trim())}${f.leader?` · <span>👑 ${esc(String(f.leader).split('(')[0].trim().slice(0,40))}</span>`:''}${f.headquarters?` · <span>📍 ${esc(String(f.headquarters).split(',')[0].slice(0,36))}</span>`:''}</div>
+        <p class="fac-sum">${esc(previewText(f,150))}</p>
+        ${f.motto?`<p class="fac-motto">“${esc(String(f.motto).slice(0,120))}”</p>`:''}
+      </div>
+      <div class="fac-rel">
+        ${al.length?`<div class="fac-rel-l"><b>🤝</b>${al.slice(0,5).map(x=>relChip(x,'ally')).join('')}${al.length>5?`<span class="fac-more">+${al.length-5}</span>`:''}</div>`:`<div class="fac-rel-l fac-rel-l--none"><b>🤝</b><span>no allies on file</span></div>`}
+        ${en.length?`<div class="fac-rel-l"><b>⚔</b>${en.slice(0,5).map(x=>relChip(x,'enemy')).join('')}${en.length>5?`<span class="fac-more">+${en.length-5}</span>`:''}</div>`:`<div class="fac-rel-l fac-rel-l--none"><b>⚔</b><span>no enemies on file</span></div>`}
+        ${nEv?`<span class="fac-n">${nEv} event${nEv===1?'':'s'} on file</span>`:''}
+      </div>
+    </article>`;
+  };
+  const sections=secs.map(s=>{
+    const rows=s.fids.map(id=>byId[id]).filter(Boolean).filter(matchesQuery).filter(matchesDisp);
+    return {label:s.label,nid:s.nid,total:s.fids.length,rows};
+  }).filter(s=>s.rows.length);
+  const nAlly=items.reduce((a,f)=>a+alliesOf(f).length,0);
+  const nEnemy=items.reduce((a,f)=>a+enemiesOf(f).length,0);
+  const nAlone=items.filter(f=>!alliesOf(f).length&&!enemiesOf(f).length).length;
+  const grudges=items.map(f=>({f,n:enemiesOf(f).length})).filter(x=>x.n>0).sort((a,b)=>b.n-a.n)[0];
+  const dispChips=[['All','All factions'],['ally','🤝 has allies'],['enemy','⚔ has feuds'],['alone','🕳 stands alone']].map(([k,l])=>`<button class="chip${st.disp===k?' active':''}" onclick="listState.factions.disp='${k}';view_factions()">${l}</button>`).join('');
+  el('content').innerHTML=`<div class="fac-band card animate-fade-in">
+      <h1>${(t&&t.emoji)||'🚩'} The Faction Registry</h1>
+      <p class="evl-hero-sub">${items.length} factions on file under ${secs.length} banners · ${nAlly} alliances on record · ${nEnemy} feuds · ${nAlone} standing entirely alone${grudges?` · biggest grudge: <b>${esc(displayName(grudges.f))}</b> (${grudges.n} enemies on file)`:''}. Every row carries who stands with it and who wants it gone.</p>
+      <div class="evl-toolbar">
+        <input class="evl-search" placeholder="Search factions — name, leader, seat, creed…" value="${esc(st.query||'')}" oninput="listState.factions.query=this.value;clearTimeout(window.__facT);window.__facT=setTimeout(view_factions,180)" onkeydown="if(event.key==='Enter'){clearTimeout(window.__facT);view_factions()}">
+        ${dispChips}
+        ${(st.query||st.disp!=='All')?`<button class="chip" onclick="listState.factions.query='';listState.factions.disp='All';view_factions()">Clear</button>`:''}
+      </div>
+    </div>
+    ${sections.map(s=>`<section class="fac-sec">
+      <header class="fac-sec-head">${s.nid?`<span class="fac-sec-flag" onclick="Router.go('#/atlas/${encodeURIComponent(s.nid)}')" title="Open the realm in the atlas">${nationThumb((ATLAS_INDEX[s.nid]||{}).nation||{},'tile')}</span>`:''}
+        <div><h3>${esc(s.label)}</h3><p>${s.rows.length} of ${s.total} faction${s.total===1?'':'s'} shown</p></div></header>
+      ${s.rows.map(row).join('')}
+    </section>`).join('')||'<p class="text-muted" style="padding:20px">No factions match. The registry stays open anyway.</p>'}
+    ${(typeof factionSystemsPanel==='function')?`<details class="fac-sys"><summary>⚙️ Faction systems — the factions that run deeper than a dossier</summary>${factionSystemsPanel()}</details>`:''}
+  `;
+  window.scrollTo(0,0);
+}
 let ATLAS_INDEX={};
 function atlasCanonical(id){ return id==='the_midlands' ? 'regal_empire' : id; }
 function atlasInferNationFromText(txt){
@@ -11543,16 +11727,20 @@ function view_atlas(){
   const hay=x=>{const n=x.nation;return clean([n.id,displayName(n),n.type,n.status,n.summary,n.region,n.atlasType].filter(Boolean).join(' '));};
   const matchesQuery=x=>{const q=clean(st.query);if(!q)return true;const h=hay(x);return q.split(/\s+/).filter(Boolean).every(t=>h.includes(t));};
 
-  /* ---- the Theater Board: where the story actually happens ------------- */
+  /* ---- the Theater Board: where the story actually happens -------------
+     Only realms with filed records get a bar — a wall of empty tracks says
+     nothing. The charted-but-empty realms fold into a single line. */
   const allTotals=realms.map(totalOf);
   const maxTotal=Math.max(1,...allTotals);
   const segColors={loc:'#4aa3ff',ev:'#8a4bff',bt:'#e5484d',tr:'#e0b400',fa:'#2fae8a'};
-  let board=realms.slice();
-  if(st.sort==='battles') board.sort((a,b)=>countsOf(b).bt-countsOf(a).bt||displayName(a.nation).localeCompare(displayName(b.nation)));
-  else if(st.sort==='locations') board.sort((a,b)=>countsOf(b).loc-countsOf(a).loc||displayName(a.nation).localeCompare(displayName(b.nation)));
-  else if(st.sort==='az') board.sort((a,b)=>displayName(a.nation).localeCompare(displayName(b.nation)));
-  else board.sort((a,b)=>totalOf(countsOf(b))-totalOf(countsOf(a))||displayName(a.nation).localeCompare(displayName(b.nation)));
-  const shown=st.showAll?board:board.slice(0,12);
+  const ranked=realms.slice();
+  if(st.sort==='battles') ranked.sort((a,b)=>countsOf(b).bt-countsOf(a).bt||displayName(a.nation).localeCompare(displayName(b.nation)));
+  else if(st.sort==='locations') ranked.sort((a,b)=>countsOf(b).loc-countsOf(a).loc||displayName(a.nation).localeCompare(displayName(b.nation)));
+  else if(st.sort==='az') ranked.sort((a,b)=>displayName(a.nation).localeCompare(displayName(b.nation)));
+  else ranked.sort((a,b)=>totalOf(countsOf(b))-totalOf(countsOf(a))||displayName(a.nation).localeCompare(displayName(b.nation)));
+  const active=ranked.filter(x=>totalOf(countsOf(x))>0);
+  const quiet=ranked.length-active.length;
+  const shown=st.showAll?active:active.slice(0,12);
   const boardHtml=shown.map(x=>{
     const c=countsOf(x), t=totalOf(c);
     const segs=Object.entries(segColors).map(([k,col])=>c[k]?`<i style="width:${(c[k]/maxTotal*100).toFixed(2)}%;background:${col}" title="${{loc:c.loc+' locations',ev:c.ev+' events',bt:c.bt+' battles',tr:c.tr+' trials',fa:c.fa+' factions'}[k]}"></i>`:'').join('');
@@ -11562,6 +11750,7 @@ function view_atlas(){
       <b class="atlx-bar-n">${t}</b>
     </div>`;
   }).join('');
+  const quietHtml=quiet?`<div class="atlx-quiet">🗺️ ${quiet} more realm${quiet===1?'':'s'} charted with nothing filed under them yet — the map is bigger than the archive. Open a realm to start filling it.</div>`:'';
   const sortBtn=(k,l)=>`<button class="chip${st.sort===k?' active':''}" onclick="listState.atlas.sort='${k}';view_atlas()">${l}</button>`;
 
   /* ---- world sections --------------------------------------------------- */
@@ -11634,10 +11823,11 @@ function view_atlas(){
     </div>
     <div class="card atlx-board">
       <div class="atlx-board-head">
-        <div><h2>📊 The Theater Board</h2><p class="text-muted">Realms ranked by what the archive has actually filed under them — locations, events, battles, trials, factions, each colour its own. This is where the story lives.</p></div>
-        <button class="chip" onclick="listState.atlas.showAll=!listState.atlas.showAll;view_atlas()">${st.showAll?'Show top 12':'Show all '+realms.length}</button>
+        <div><h2>📊 The Theater Board</h2><p class="text-muted">${active.length} realm${active.length===1?'':'s'} with records on file, ranked by what the archive has actually filed under them — locations, events, battles, trials, factions, each colour its own. This is where the story lives.</p></div>
+        ${active.length>12?`<button class="chip" onclick="listState.atlas.showAll=!listState.atlas.showAll;view_atlas()">${st.showAll?'Show top 12':'Show all '+active.length}</button>`:''}
       </div>
       ${boardHtml}
+      ${quietHtml}
       <div class="atlx-legend">${Object.entries({locations:segColors.loc,events:segColors.ev,battles:segColors.bt,trials:segColors.tr,factions:segColors.fa}).map(([l,col])=>`<span><i style="background:${col}"></i>${l}</span>`).join('')}</div>
     </div>
     ${searchHtml}
@@ -24223,7 +24413,7 @@ const Router={
     if(route==='home')view_home();
     else if(route==='home-classic')view_home(); /* legacy alias: one home, no swapping */
     else if(route==='who')view_whoami();
-    else if(route==='list'){ if(arg==='nations')view_atlas(); else if(arg==='events')view_events(); else if(arg==='battles')view_battles(); else view_list(arg); }
+    else if(route==='list'){ if(arg==='nations')view_atlas(); else if(arg==='events')view_events(); else if(arg==='battles'||arg.indexOf('battles/')===0)view_battles(arg.split('/').slice(1).join('/')); else if(arg==='factions')view_factions(); else view_list(arg); }
     else if(route==='field-journal'||route==='journal')view_fieldJournal();
     else if(route==='rnn'||route==='rakasha-news'||route==='broadcast')view_rakashaNews(arg);
     else if(route==='article')view_article(arg);
