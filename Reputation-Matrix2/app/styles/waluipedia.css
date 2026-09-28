@@ -3525,6 +3525,14 @@ html[data-theme="light"] .war-band{background:linear-gradient(90deg,color-mix(in
 ::highlight(readaloud-current){background:rgba(138,75,255,.32)}
 .readaloud-node{background:rgba(138,75,255,.16);border-radius:4px;box-shadow:0 0 0 2px rgba(138,75,255,.28)}
 
+/* ---- read-aloud pick mode: click a block to choose where reading starts -- */
+body.ra-picking #content{cursor:crosshair}
+body.ra-picking #content :is(p,li,h1,h2,h3,h4,blockquote){cursor:crosshair}
+body.ra-picking #content :is(p,li,h1,h2,h3,h4,blockquote):hover{outline:1px dashed rgba(138,75,255,.55);outline-offset:3px;border-radius:4px}
+.ra-btns #ra-pick[aria-pressed="true"]{border-color:rgba(138,75,255,.7);color:var(--link)}
+.ra-btns #ra-pick.ra-pick-on{box-shadow:0 0 0 2px rgba(138,75,255,.25)}
+#ra-status[data-mode="pick"]{color:var(--accent2)}
+
 /* ---- weather widget (timeline world cards + day log strip) ---- */
 .tlw-widget{display:flex;gap:6px;overflow-x:auto;margin:0 0 10px;padding:8px;border:1px dashed var(--border);border-radius:10px;background:rgba(0,0,0,.18)}
 .tlw-phase{flex:1 1 0;min-width:106px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:2px;padding:8px 6px 6px;border-radius:8px;background:var(--panel2)}

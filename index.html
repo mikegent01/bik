@@ -6413,7 +6413,7 @@ function timelinePanel(item,typeKey){
     <div class="tls">${rows}</div>
     ${tl.method?`<p class="tls-note">⏱ ${inlineMd(String(tl.method))}</p>`:''}
     ${tl.note?`<p class="tls-note">${inlineMd(String(tl.note))}</p>`:''}
-    ${daylogForEvent(item.id)?`<p class="tls-note">🗒️ The archivist's own version of this day — breakfast, one museum, three newsstands — is filed as <a class="entity-link" href="#/daylog/${encodeURIComponent(daylogForEvent(item.id).id)}">the Day Log</a>.</p>`:''}
+    ${daylogForEvent(item.id)?`<p class="tls-note">🗒️ The archivist's own version of this day — one doorway, one pocket book, one museum, three newsstands — is filed as <a class="entity-link" href="#/daylog/${encodeURIComponent(daylogForEvent(item.id).id)}">the Day Log</a>.</p>`:''}
   </div}`;
 }
 function fieldGalleryPanel(item,typeKey,opts){
@@ -17508,6 +17508,86 @@ function ttsHarvestNodes(){
   return parts;
 }
 function ttsHarvestText(){ return ttsHarvestNodes().map(n=>n.text).join('\n\n'); }
+/* ---- pick mode: click-to-select what gets read --------------------------
+   Two ways to choose. Click a block and the reading starts THERE and runs to
+   the end; or drag a selection first and only the selected text is read.
+   Selected edge paragraphs are clipped, and each part carries `off` — its
+   offset into the node's full whitespace-collapsed text — so the highlight
+   still lands on the right characters when a paragraph is read from the
+   middle. */
+function ttsContainsNode(maybeDescendant, node){
+  let n = maybeDescendant;
+  while(n){ if(n===node) return true; n = n.parentNode; }
+  return false;
+}
+/* Where does a DOM boundary (container, offset) sit in an element's
+   whitespace-collapsed text? The same walk as ttsNormLocator, counted. */
+function ttsNormOffsetOf(el, container, offset){
+  let walker=null;
+  try{ walker = document.createTreeWalker ? document.createTreeWalker(el, 4) : null; }catch(e){ walker=null; }
+  if(!walker) return null;
+  let n=0, lastSpace=true, found=false, tn;
+  const count=(raw, upto)=>{ for(let r=0;r<upto;r++){ if(/\s/.test(raw[r])){ if(!lastSpace){ n++; lastSpace=true; } } else { n++; lastSpace=false; } } };
+  while((tn=walker.nextNode())){
+    const raw = String(tn.nodeValue||'');
+    if(tn===container){ count(raw, Math.max(0, Math.min(offset, raw.length))); found=true; break; }
+    count(raw, raw.length);
+  }
+  return found ? n : null;
+}
+/* The harvested parts a live selection covers — null when nothing sensible
+   is selected (no selection, collapsed, or outside the readable article). */
+function ttsSelectionParts(){
+  let sel=null;
+  try{ sel = (typeof document!=='undefined'&&document.getSelection) ? document.getSelection() : null; }catch(e){ sel=null; }
+  if(!sel || sel.isCollapsed || !sel.rangeCount) return null;
+  let range=null;
+  try{ range = sel.getRangeAt(0); }catch(e){ range=null; }
+  if(!range || !range.startContainer || !range.endContainer) return null;
+  const parts=[];
+  for(const p of ttsHarvestNodes()){
+    let hits=false;
+    try{ hits = range.intersectsNode ? range.intersectsNode(p.node) : false; }catch(e){ hits=false; }
+    if(!hits) continue;
+    const full=p.text;
+    let a=0, b=full.length;
+    if(ttsContainsNode(range.startContainer, p.node)){
+      const o=ttsNormOffsetOf(p.node, range.startContainer, range.startOffset);
+      if(o!==null) a=Math.max(0, Math.min(o, full.length));
+    }
+    if(ttsContainsNode(range.endContainer, p.node)){
+      const o=ttsNormOffsetOf(p.node, range.endContainer, range.endOffset);
+      if(o!==null) b=Math.max(a, Math.min(o, full.length));
+    }
+    if(b>a) parts.push({node:p.node, text:full.slice(a,b), off:a});
+  }
+  return parts.length ? parts : null;
+}
+/* Which harvested part did the reader click? Climb from the click target to
+   the block it lives in; if the click landed between blocks (a figure, a
+   plate), start at the first block that comes after it in document order. */
+function ttsPartIndexFor(nodes, el){
+  let n=el;
+  while(n){
+    for(let i=0;i<nodes.length;i++) if(nodes[i].node===n) return i;
+    n = n.parentNode || null;
+  }
+  return -1;
+}
+function ttsNextPartAfter(nodes, el){
+  for(let i=0;i<nodes.length;i++){
+    const nd=nodes[i]&&nodes[i].node;
+    try{ if(nd && el && nd.compareDocumentPosition && (nd.compareDocumentPosition(el)&2)) return i; }catch(e){}
+  }
+  return -1;
+}
+function ttsFlashPick(node){
+  if(!node || !node.classList || !node.classList.add) return;
+  try{
+    node.classList.add('readaloud-node');
+    setTimeout(()=>{ try{ if(!ReadAloud.hl || ReadAloud.hl.node!==node) node.classList.remove('readaloud-node'); }catch(e){} }, 900);
+  }catch(e){}
+}
 /* ---- sentence-aware chunker: fill up to `target` chars, split on [.!?…] -- */
 function ttsChunkText(text, target){
   const tgt = Math.max(120, Number(target)||450);
@@ -17541,8 +17621,9 @@ function ttsMapChunks(nodes, chunks){
   for(const c of chunks){
     let found=null;
     for(let j=ni;j<nodes.length;j++){
+      const off = nodes[j].off||0;   /* pick mode: a part can be a SLICE of its node */
       const at = nodes[j].text.indexOf(c, j===ni ? cur : 0);
-      if(at>=0){ found={node:nodes[j].node, start:at, end:at+c.length}; ni=j; cur=at+c.length; break; }
+      if(at>=0){ found={node:nodes[j].node, start:at+off, end:at+c.length+off}; ni=j; cur=at+c.length; break; }
     }
     out.push(found || {node:(nodes[0]||{}).node, start:0, end:0});
   }
@@ -17655,16 +17736,32 @@ async function gradioTTS(text, cfg){
 /* ---- controller: chunk N plays while chunk N+1 synthesizes -------------- */
 const ReadAloud = {
   active:false, paused:false, chunks:[], idx:-1, urlCache:{}, pending:{}, token:0, audio:null, sources:null, blobs:[], hl:null,
+  picking:false, _pickClick:null, _pickKey:null,
+  /* If the reader has text selected in the article, that IS the reading;
+     otherwise it is the whole page, top to bottom. */
   start(){
+    const sel = ttsSelectionParts();
+    if(sel){ this._begin(sel, 'Your selection'); return; }
+    this._begin(ttsHarvestNodes(), null);
+  },
+  /* Click-to-select: start at the clicked block and read to the end. */
+  startFrom(el){
     const nodes = ttsHarvestNodes();
-    const text = nodes.map(n=>n.text).join('\n\n');
-    if(!text){ ttsBarShow('Read aloud'); ttsBarStatus('Nothing readable on this page','error'); return; }
+    let i = ttsPartIndexFor(nodes, el);
+    if(i<0) i = ttsNextPartAfter(nodes, el);
+    if(i<0){ this.start(); return; }
+    ttsFlashPick(nodes[i].node);
+    this._begin(nodes.slice(i), null);
+  },
+  _begin(parts, label){
+    const text = parts.map(n=>n.text).join('\n\n');
+    if(!text){ ttsBarShow(label||'Read aloud'); ttsBarStatus('Nothing readable on this page','error'); return; }
     this.stop(true);
     const cfg = ttsConfig();
     this.chunks = ttsChunkText(text, cfg.chunk);
-    if(!this.chunks.length){ ttsBarShow('Read aloud'); ttsBarStatus('Nothing readable on this page','error'); return; }
-    this.sources = ttsMapChunks(nodes, this.chunks);
-    const title = (document.querySelector('#content .art-title')||{}).textContent || 'Read aloud';
+    if(!this.chunks.length){ ttsBarShow(label||'Read aloud'); ttsBarStatus('Nothing readable on this page','error'); return; }
+    this.sources = ttsMapChunks(parts, this.chunks);
+    const title = label || String((document.querySelector('#content .art-title')||{}).textContent || 'Read aloud');
     this.active = true; this.paused = false; this.idx = -1; this.urlCache = {}; this.pending = {}; this.blobs = []; this.token++;
     ttsBarShow(String(title).trim());
     this._next(this.token);
@@ -17737,7 +17834,49 @@ const ReadAloud = {
     if(this.audio){ this.audio.onended=null; this.audio.pause(); this.audio=null; }
     this._next(tok);
   },
+  /* ---- pick mode: the click-to-select option ---------------------------- */
+  pickToggle(){ this.picking ? this.pickOff() : this.pickOn(); },
+  pickOn(){
+    if(this.picking) return;
+    this.picking = true;
+    try{ if(document.body&&document.body.classList&&document.body.classList.add) document.body.classList.add('ra-picking'); }catch(e){}
+    this._pickClick = (ev)=>{
+      if(!this.picking) return;
+      /* the bar's own buttons and the chips are controls, not picks */
+      let b=ev.target, onUI=false;
+      while(b){
+        if(b.id==='readaloud-bar' || (b.classList&&b.classList.contains&&b.classList.contains('readaloud-chip'))){ onUI=true; break; }
+        b=b.parentNode;
+      }
+      if(onUI) return;
+      const sel = ttsSelectionParts();
+      try{ ev.preventDefault(); ev.stopPropagation(); }catch(e){}
+      this.pickOff();
+      if(sel){ this._begin(sel, 'Your selection'); return; }
+      this.startFrom(ev.target);
+    };
+    this._pickKey = (ev)=>{ if(ev.key==='Escape') this.pickOff(); };
+    try{ document.addEventListener('click', this._pickClick, true); }catch(e){}
+    try{ document.addEventListener('keydown', this._pickKey, true); }catch(e){}
+    let cur='';
+    try{ const t=document.getElementById('ra-title'); if(t) cur=String(t.textContent||''); }catch(e){}
+    ttsBarShow(cur || 'Read aloud');
+    ttsBarStatus('Pick mode — click a paragraph to read from there, or drag across text and click','pick');
+    const btn=document.getElementById('ra-pick');
+    if(btn){ try{ btn.setAttribute('aria-pressed','true'); if(btn.classList&&btn.classList.add) btn.classList.add('ra-pick-on'); }catch(e){} }
+  },
+  pickOff(){
+    if(!this.picking) return;
+    this.picking = false;
+    try{ if(document.body&&document.body.classList&&document.body.classList.remove) document.body.classList.remove('ra-picking'); }catch(e){}
+    try{ if(this._pickClick) document.removeEventListener('click', this._pickClick, true); }catch(e){}
+    try{ if(this._pickKey) document.removeEventListener('keydown', this._pickKey, true); }catch(e){}
+    this._pickClick=null; this._pickKey=null;
+    const btn=document.getElementById('ra-pick');
+    if(btn){ try{ btn.setAttribute('aria-pressed','false'); if(btn.classList&&btn.classList.remove) btn.classList.remove('ra-pick-on'); }catch(e){} }
+  },
   stop(silent){
+    this.pickOff();
     this.active = false; this.token++;
     if(this.audio){ this.audio.onended=null; this.audio.pause(); this.audio=null; }
     ttsClearHighlight(); this.hl = null; this._revokeAll();
@@ -17755,6 +17894,7 @@ function ttsBarEnsure(){
     <span class="ra-ico" aria-hidden="true">🔊</span>
     <div class="ra-txt"><b id="ra-title">Read aloud</b><span id="ra-status" data-mode="idle">idle</span></div>
     <div class="ra-btns">
+      <button type="button" id="ra-pick" title="Pick text: click a paragraph to start reading from there — or drag to select exact text, then click" aria-pressed="false" onclick="ReadAloud.pickToggle()">🎯</button>
       <button type="button" id="ra-toggle" title="Pause / resume" onclick="ReadAloud.pause()">⏸</button>
       <button type="button" title="Next chunk" onclick="ReadAloud.skip()">⏭</button>
       <button type="button" title="Stop" onclick="ReadAloud.stop()">⏹</button>
@@ -17820,7 +17960,8 @@ async function raTestVoice(){
   }catch(e){ if(n) n.textContent = 'Error: '+e.message; }
 }
 function readAloudChip(){
-  return `<span class="chip readaloud-chip" role="button" tabindex="0" title="Read this page aloud through the local Qwen3-TTS studio (voice: Waluigi)" onclick="ReadAloud.start()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();ReadAloud.start()}">🔊 Read aloud</span>`;
+  return `<span class="chip readaloud-chip" role="button" tabindex="0" title="Read this page aloud through the local Qwen3-TTS studio (voice: Waluigi) — select text first to read only the selection" onclick="ReadAloud.start()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();ReadAloud.start()}">🔊 Read aloud</span>`+
+         `<span class="chip readaloud-chip ra-pick-chip" role="button" tabindex="0" title="Pick text: click any paragraph to start reading from there" onclick="ReadAloud.pickOn()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();ReadAloud.pickOn()}">🎯 Pick text</span>`;
 }
 /* Navigating away stops the reading — the article the reader left is no
    longer the article being read. */

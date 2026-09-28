@@ -11,6 +11,29 @@ pause.
 
 ---
 
+## Picking what gets read
+
+You do not have to take the whole page:
+
+* **🎯 Pick text** (a chip beside 🔊 Read aloud, and the 🎯 button on the
+  player bar) arms **pick mode**. Click any paragraph, heading, list item, or
+  quote, and the reading **starts there** and runs to the end of the page.
+  Hovering outlines the block you are about to pick; `Esc` cancels.
+* **Drag a selection first** and the reading covers **only the selected
+  text** — even a few words from the middle of a paragraph. This also works
+  straight from the 🔊 Read aloud chip: a live selection always wins over
+  the full page.
+* Mid-reading, 🎯 re-picks: choose a new starting block without stopping the
+  bar.
+
+The highlight follows the pick exactly — selected edge paragraphs are
+clipped to the selection, and each harvested part carries its offset into
+the paragraph's full text so the reading highlight lands on the right
+characters (`ttsSelectionParts` / `startFrom` in the bridge). Clicks on the
+bar and chips are controls, not picks.
+
+---
+
 ## Setup
 
 1. Run the Qwen3-TTS Enhanced Studio (Gradio) locally — default

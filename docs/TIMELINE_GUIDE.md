@@ -100,11 +100,18 @@ A `timeline` object on the **event record** in `data/events.json`:
 
 These are the difference between a timeline and a lie with a clock on it.
 
-**1. Reconstructed, not witnessed.** Waluigi was (almost certainly) not
-there. The `note` says so in plain words, and times are "the archive's, laid
-over the account in order." If the source world has no clock the archive
-would trust — a studio whose wall clocks are PROPS — say that, and say which
-calendar the times are imposed from.
+**1. Reconstructed, not witnessed — unless it was.** Waluigi was (almost
+certainly) not there. The `note` says so in plain words, and times are "the
+archive's, laid over the account in order." If the source world has no clock
+the archive would trust — a studio whose wall clocks are PROPS — say that,
+and say which calendar the times are imposed from.
+
+A timeline may also carry a **witnessed half**: world cards and rows the
+archivist was physically present for. Mark those plainly (`source:
+"Witnessed…"`), because witnessed beats reconstructed — the first filed
+example is the Feyward card on `the_cut_and_the_puppet_master`, filed from
+Colour Division custody. A mixed timeline says in its `note` which half is
+which.
 
 **2. Durations anchor to countable things.** Never invent minute counts from
 nothing. Anchor to what the account or the world can actually count: *one
@@ -190,6 +197,14 @@ Data lives in `data/daylogs.json`:
    log answers in Waluigi's voice, citing the filing where that lives, and
    states the pocket-clock rule plainly: *the numbers do not reconcile —
    that is the horror of the place, not a filing error.*
+4. **The log follows the archivist's own sessions.** A day log may only live
+   scenes the archivist actually attended. Material from another
+   protagonist's filing — Bowser's retellings, another party's session —
+   enters as **cited paperwork** ("the paperwork is in that filing"), never
+   as a breakfast the archivist ate. The first draft of
+   `the_day_the_building_obeyed` put Waluigi at a basement bar that belonged
+   to the next day's Bowser session; the archive shredded it, and the
+   confession is filed in the log's own second section.
 
 ### What renders
 

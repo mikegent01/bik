@@ -56,7 +56,7 @@ const fetchImpl = globalThis.fetch.bind(globalThis);
 
 // ---------- load the bridge ----------
 const loader = new Function('localStorage', 'document', 'Audio', 'window', 'fetch',
-  block + '\nreturn {ttsChunkText, gradioTTS, gradioAudioUrl, ReadAloud, ttsConfig, ttsSaveConfig, ttsHarvestText};');
+  block + '\nreturn {ttsChunkText, gradioTTS, gradioAudioUrl, ReadAloud, ttsConfig, ttsSaveConfig, ttsHarvestText, ttsSelectionParts, ttsMapChunks};');
 const B = loader(localStorage, document, FakeAudio, window, fetchImpl);
 
 // ---------- 1. chunker ----------
@@ -142,6 +142,44 @@ check('pipeline: exactly one synthesis per chunk (no waste)',
   chunkTexts.every((t, i) => t === B.ReadAloud.chunks[i]));
 check('cache: every blob URL revoked when the reading finished (no files kept)', blobUrls.created.length === blobUrls.revoked.length);
 check('cache: urlCache emptied after done', Object.keys(B.ReadAloud.urlCache).length === 0 && B.ReadAloud.blobs.length === 0);
+
+// ---------- 5. pick mode: click-to-select --------------------------------
+// a selection that starts mid-paragraph clips its part and carries `off`, so
+// the highlight lands on the right characters of the FULL node text.
+const clipNode = {};
+const clipped = [{ node: clipNode, text: 'DEF GHI', off: 4 }];   // full text: 'ABC DEF GHI'
+const cchunks = B.ttsChunkText('DEF GHI', 60);
+const csources = B.ttsMapChunks(clipped, cchunks);
+check('pick: clipped parts keep their offset for highlighting',
+  csources.length === cchunks.length && csources[0].node === clipNode && csources[0].start === 4 && csources[0].end === 11);
+check('pick: selection harvest is DOM-guarded (null without a real selection)',
+  typeof B.ttsSelectionParts === 'function' && B.ttsSelectionParts() === null);
+check('pick: controller exposes the pick API',
+  typeof B.ReadAloud.pickOn === 'function' && typeof B.ReadAloud.pickOff === 'function' &&
+  typeof B.ReadAloud.pickToggle === 'function' && typeof B.ReadAloud.startFrom === 'function');
+check('pick: bar has the 🎯 button wired to pickToggle', /id="ra-pick"[^>]*onclick="ReadAloud\.pickToggle\(\)"/.test(block));
+check('pick: the page chip offers Pick text', /ra-pick-chip/.test(block) && /onclick="ReadAloud\.pickOn\(\)"/.test(block));
+check('pick: start() honors a live selection before harvesting the page', /start\(\)\{\s*const sel = ttsSelectionParts\(\);/.test(block));
+B.ReadAloud.pickOn();
+check('pick: pickOn arms picking', B.ReadAloud.picking === true && /Pick mode/.test(mkEl('ra-status').textContent));
+B.ReadAloud.pickOff();
+check('pick: pickOff disarms picking', B.ReadAloud.picking === false);
+// startFrom: reading begins at the clicked block and runs to the end. Run it
+// against a dead endpoint so the assertions are about the SELECTION, not the
+// synthesis; the error it surfaces proves the pick path reaches the studio.
+B.ttsSaveConfig({ endpoint: 'http://127.0.0.1:9', voice: 'Waluigi', api: '/generate_base_17', chunk: 120 });
+mkEl('ra-status').textContent = '';
+B.ReadAloud.startFrom(paras[2]);
+const pickedText = B.ReadAloud.chunks.join(' ');
+check('pick: startFrom reads from the clicked block to the end',
+  B.ReadAloud.chunks.length > 0 && !pickedText.includes('Paragraph 1 of') && !pickedText.includes('Paragraph 2 of') &&
+  pickedText.includes('Paragraph 3 of') && pickedText.includes('Paragraph 4 of'));
+check('pick: startFrom maps its first chunk to the clicked paragraph',
+  B.ReadAloud.sources[0].node === paras[2] && B.ReadAloud.sources[0].start === 0);
+await new Promise(r => setTimeout(r, 400));
+check('pick: the pick path reaches the synthesizer and reports cleanly',
+  /unreachable/.test(mkEl('ra-status').textContent) && B.ReadAloud.active === false);
+check('pick: no blob URLs leak from the aborted pick run', blobUrls.created.length === blobUrls.revoked.length);
 
 // ---------- 4. error path: studio down ----------
 B.ttsSaveConfig({ endpoint: 'http://127.0.0.1:9', voice: 'Waluigi', api: '/generate_base_17', chunk: 120 });

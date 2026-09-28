@@ -17784,14 +17784,14 @@
     ],
     "timeline": {
       "day": "5 Aethel, 1040 BF",
-      "note": "Reconstructed, not witnessed — Waluigi was not in the building. The studio keeps no clock the archive would trust (the wall clocks are PROPS), so the times below are the archive's, laid over the account in order on the Material calendar the file already uses.",
-      "method": "Duration anchors: one complete performance of Plumber Man — three minutes forty-one seconds by the archive's own copy, timed twice; the account's own two minutes of surveillance; and the honest assumption that a king climbs slower than a rat.",
+      "note": "The studio half of this timeline is reconstructed, not witnessed — Waluigi was not in that building. The Feyward half is witnessed — he was in that one, as leverage. The studio keeps no clock the archive would trust (the wall clocks are PROPS), so the times below are the archive's, laid over the account in order on the Material calendar the file already uses; the manor's clock is stuck at 922, which is not better.",
+      "method": "Duration anchors: one complete performance of Plumber Man — three minutes forty-one seconds by the archive's own copy, timed twice; the account's own two minutes of surveillance; and the honest assumption that a king climbs slower than a rat. The Feyward rows need no anchors — they were witnessed, and no clock in that manor agrees with itself anyway.",
       "worlds": [
         {
           "id": "main",
           "label": "The main world — where the archive keeps its desk",
           "short": "The main world",
-          "timeOfDay": "Morning through night: a three-filing day. Teaser at breakfast, correction after supper, this timeline by lamplight.",
+          "timeOfDay": "A dated-true, written-late day. The desk stamped three filings to the fifth — teaser, correction, sequel — and typed none of them at this desk on the fifth: the teaser went up from behind a barricade in the Feyward, the correction arrived there by wire, and the sequel and this timeline were written in the writing-late period, under the lamp, by a man who had finally stopped being chased.",
           "weather": "Low grey cloud all morning; a dry east wind that took the dust off the roads by midday; rain after dark — steady, unhurried rain, the kind that makes a lamp and a closed door feel like a policy decision.",
           "source": "Waluigi went looking for what the sky was doing while a studio in another world played a song. The RNN morning bulletin gave two lines and a shrug, so he dug the morning editions out of the WAH Media Collective's back-issue boxes — three newsstands and one argument with a print vendor later, the archive can state the weather on the day the building obeyed a lord. Nobody asked it to. That is what archives are FOR.",
           "weatherWidget": [
@@ -17839,6 +17839,36 @@
               "when": "Beyond the seats",
               "icon": "🚫",
               "line": "No weather on record — a silent sky that did not perform"
+            }
+          ]
+        },
+        {
+          "id": "feyward",
+          "label": "The Feyward — the Overgrown Manor, where the archivist actually was",
+          "short": "The Feyward",
+          "timeOfDay": "No hour anyone trusts. The manor's clock is stuck at 922; the goblin downstairs says 722; the Material says 1040. The session ran from the doorway to the open floor without a break, and ended at a locked bathroom door.",
+          "weather": "No weather on record — the session never once looked at the sky. The manor's weather is internal: the Revel fighting itself through the ceiling, trees testing the walls, a corridor of polished marble, and one floor that opened.",
+          "source": "Witnessed — the only world card in this filing that is. The archivist was in the building, in Colour Division custody, cuffed by choice, for the whole of the studio's morning. The doorway filing (I Can't Afford Not to Care Anymore) is the record; this card is its weather.",
+          "weatherWidget": [
+            {
+              "when": "All day",
+              "icon": "🌳",
+              "line": "The trees testing the walls — knock, scrape, silence"
+            },
+            {
+              "when": "Through the ceiling",
+              "icon": "🎶",
+              "line": "The Revel, audible all day, fighting itself"
+            },
+            {
+              "when": "The sanctuary",
+              "icon": "🌿",
+              "line": "Vines on every door; the beauty of nature is slow"
+            },
+            {
+              "when": "The end",
+              "icon": "🕳️",
+              "line": "The floor opened — the manor's one honest weather event"
             }
           ]
         }
@@ -17977,18 +18007,46 @@
           "detail": "Darian, hidden in a dark alcove, watches Director Mario stride past with a folder under one arm and a small wired remote in the other, carried like a habit. The account ends on it: that remote could be the key to stopping everything — if they can get it."
         },
         {
-          "time": "Evening — the main world",
-          "span": "one evening, filed previously",
-          "beat": "The correction",
-          "world": "main",
-          "detail": "The full account of the morning is recovered and the teaser is amended: PORTAL FAILED, Luigi missing, a Mario-shaped thing out of a television. Filed before this sequel arrived and doubled the workload."
+          "time": "Evening — the Overgrown Manor, by no clock it trusts",
+          "span": "one dispatch, read twice",
+          "beat": "The correction, received in the field",
+          "world": "feyward",
+          "detail": "The full account of the promo morning catches the archivist mid-emergency and the teaser is amended on the spot, in pencil, in the field posture: PORTAL FAILED, Luigi missing, a Mario-shaped thing out of a television. The word teaser enters the archive's vocabulary that evening, in a building with no honest clock, and it is not leaving."
         },
         {
-          "time": "Night — the archive",
-          "span": "one long night, and the song, timed twice",
-          "beat": "This filing, and this timeline",
-          "world": "main",
-          "detail": "The sequel is filed, the commentary track is recorded over it, and Waluigi reconstructs the day: three filings in one day, a newspaper hunt for the weather, and a copy of Plumber Man on the desk that has now been played to the second verse more times than any song in this archive's collection. WAH."
+          "time": "Evening — the lower locked room",
+          "span": "ten bought minutes, and two paragraphs read under duress",
+          "beat": "Leverage, and the Accords",
+          "world": "feyward",
+          "detail": "Four Iron Legion operatives introduce themselves by colour and take Toad Lee and Waluigi as leverage against one overdue Aegis Magi contract — cuffs, not cages, and the archivist is out of his before anybody notices and keeps wearing them anyway. Hjumpik buys ten minutes and reads [[prop:prop_accords_900_20_containment|six pages of the Autumnwood Accords]] standing up. The question that keeps the pocket book busy all night opens here: who sends a Colour Division across a planar boundary to collect one dwarf?"
+        },
+        {
+          "time": "Night — the sealed sanctuary",
+          "span": "one dinner, thrown",
+          "beat": "The floor opens",
+          "world": "feyward",
+          "detail": "The thing wearing Lady Aurelian states its whole plan — collapse the manor, grow trees in the ruin, the beauty of nature is slow — and answers to the name Carnivorous. Red's poisoned dinner goes into its chest, the glamour comes apart, and the floor opens. Witnessed, not reconstructed: the archivist was in this building. Filed in full in the doorway filing."
+        },
+        {
+          "time": "Night — the pocket book",
+          "span": "the rest of the night; no lamp was involved",
+          "beat": "The research: follow the contract",
+          "world": "feyward",
+          "detail": "In custody, cuffed by choice, the archivist works the question. The archive already holds the answer's shape: the arrangement — payments between the Iron Legion and Regency officials with the Chancellor's own signature on them — and the Mages' Guild's privileged access to Regency facilities, the same Guild whose failed contract the colours just collected like a household errand. Three names, one machine. The pocket book's next question writes itself: where does a machine like that keep its money?"
+        },
+        {
+          "time": "Night — the archive's maps, from memory",
+          "span": "one province, recalled in full",
+          "beat": "Yale Shores",
+          "world": "feyward",
+          "detail": "The maps say Yale Shores is an actual place, and an archivist who cannot recall his own maps in a building with no lamp deserves what the building does to him: Port Yale, the largest port on the western coast — seven thousand souls, a melting pot and a den of pirates and smugglers — under Fort Yale's guns; the Crimson Fleet's Smuggler's Cove running goods past the Regency's own tariffs; a graveyard reef that has claimed hundreds of hulls; a lighthouse nobody relit; pearl-divers, a crab kingdom with a foreign policy, star-fall on a ley-line beach; and one sea serpent, sole occupant of a trench the maps rate stronger than the fort. Rich, Guild-aligned, not militarized, no Legion garrison — the province where the money enters the kingdom, guarded by nobody because everyone is already paid. The Mages' Guild's own Astral Spire stands over all of it."
+        },
+        {
+          "time": "Night — the dossier, read again from memory",
+          "span": "one file the archive has never once been able to close",
+          "beat": "The leader's true nature",
+          "world": "feyward",
+          "detail": "The head of the Regency is Chancellor Toadsworth, the son who inherited everything — his father's journals allegedly confess to enabling Peach's assassination, and the inheritance is filed verbatim: 'My son inherits what I built. He inherits the secrets with it.' Villain, or victim of the wrong father: the archive holds both readings and cannot close the file. What it CAN file: the arrangement carries his own signature, and the archive can now add that he sits under Loyalist house arrest while the machine's paperwork stayed current without him. The leader's true nature, as far as this archive will file it: not the engine — the HEIR. The next day proved the trade sails from his own coast whether he signs it or not. WAH."
         }
       ]
     }
