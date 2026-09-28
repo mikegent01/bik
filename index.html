@@ -11098,6 +11098,253 @@ function view_list(key){
 }
 
 
+/* ===================== EVENTS — THE SESSION LEDGER ========================
+   The events page used to be one huge card grid — a wall of art where the
+   reading never started. Redesigned as a LEDGER: the newest filing leads,
+   then a dense, datable reading list grouped by year, each row carrying its
+   date, its one-line pitch, its campaign spine, and the field-plate marker.
+   The Shelf toggle keeps the old visual grid for readers who want the wall. */
+function evlDateBlock(e){
+  const d=String(e.date||'');
+  const y=parseYear(d)||parseYear(e.era);
+  const day=parseDay(d), mo=parseMonth(d);
+  if(day && mo && mo!==99){
+    return `<div class="evl-date"><b>${day}</b><i>${esc(monthName(mo))}</i><span>${y!=null?y+' BF':'—'}</span></div>`;
+  }
+  if(mo && mo!==99){
+    return `<div class="evl-date"><b>—</b><i>${esc(monthName(mo))}</i><span>${y!=null?y+' BF':'—'}</span></div>`;
+  }
+  return `<div class="evl-date evl-date--era"><b>${y!=null?y:'?'}</b><i>BF</i><span>${esc(String(e.era||'undated').split(',')[0].slice(0,14))}</span></div>`;
+}
+function view_events(){
+  renderSidebar('list:events');
+  const t=TYPE_BY_KEY&&TYPE_BY_KEY.events;
+  const st=listState.events||(listState.events={query:'',camp:'All',view:'ledger',sort:'newest'});
+  const items=(DATA.events||[]).filter(Boolean).slice();
+  const yOf=e=>parseYear(e.date)||parseYear(e.era);
+  const clean=s=>String(s||'').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim();
+  const hay=e=>clean([e.id,displayName(e),e.title,e.summary,e.location,e.era,(e.participants||[]).map(p=>p&&(p.name||p.id)).join(' ')].filter(Boolean).join(' '));
+  const camps=['All'];
+  const campCount={};
+  items.forEach(e=>{const c=eventCampaign(e);const k=c?c.label:'No campaign';campCount[k]=(campCount[k]||0)+1;});
+  Object.keys(campCount).sort((a,b)=>campCount[b]-campCount[a]).forEach(k=>{if(k!=='All')camps.push(k);});
+  const matchesCamp=e=>{if(st.camp==='All')return true;const c=eventCampaign(e);return (c?c.label:'No campaign')===st.camp;};
+  const matchesQuery=e=>{const q=clean(st.query);if(!q)return true;const h=hay(e);return q.split(/\s+/).filter(Boolean).every(t=>h.includes(t));};
+  let arr=items.filter(e=>matchesCamp(e)&&matchesQuery(e));
+  const byFile=(a,b)=>items.indexOf(a)-items.indexOf(b);
+  if(st.sort==='az') arr.sort((a,b)=>displayName(a).localeCompare(displayName(b)));
+  else if(st.sort==='oldest') arr.sort((a,b)=>(yOf(a)||9999)-(yOf(b)||9999)||byFile(a,b));
+  else arr.sort((a,b)=>(yOf(b)||0)-(yOf(a)||0)||byFile(a,b));
+  /* the lead: the newest FILING on file (filings are appended, so file order
+     is the archive's own "latest"), shown only in the unfiltered ledger */
+  const newestFile=items[items.length-1]||null;
+  const showLead=st.view==='ledger'&&st.camp==='All'&&!clean(st.query)&&newestFile;
+  const leadHtml=(()=>{
+    if(!showLead) return '';
+    const e=newestFile, camp=eventCampaign(e);
+    const parts=(e.participants||[]).slice(0,4).map(p=>esc(p.name||p.id)).join(' · ');
+    return `<article class="evl-lead${camp?' camp-'+camp.key:''}" onclick="openHub('${esc(e.id)}')">
+      <figure class="evl-lead-art"><img src="${esc(assetPath(e.image))}" alt="" loading="lazy" onerror="this.style.display='none'"></figure>
+      <div class="evl-lead-body">
+        <div class="evl-lead-kick">🖋️ The newest filing${camp?` · ${esc(camp.label)} campaign`:''} · ${esc(String(e.date||e.era||'').split('—')[0].trim())}</div>
+        <h2>${esc(displayName(e))}${annotationBadge(e.id,'mini')}${filingBadge(e.id)}</h2>
+        <p>${esc(previewText(e,320))}</p>
+        <div class="evl-lead-meta">${e.location?`<span>📍 ${esc(String(e.location).split(',')[0])}</span>`:''}${parts?`<span>👥 ${parts}</span>`:''}<span class="evl-cta">Read the filing →</span></div>
+      </div>
+    </article>`;
+  })();
+  /* groups: by year (or one A→Z run), undated always last */
+  const groups=[];
+  if(st.sort==='az'){
+    groups.push({label:'Every filing, A→Z',id:'az',items:arr});
+  }else{
+    const gm={};
+    arr.forEach(e=>{const y=yOf(e);const k=y!=null?String(y):'undated';(gm[k]=gm[k]||{label:y!=null?y+' BF':'Undated — no parseable date',id:'evl-y-'+(y!=null?y:'x'),items:[],year:y}).items.push(e);});
+    Object.values(gm).sort((a,b)=>{
+      if(a.year==null)return 1; if(b.year==null)return -1;
+      return st.sort==='oldest'?a.year-b.year:b.year-a.year;
+    }).forEach(g=>groups.push(g));
+  }
+  const rail=(st.view==='ledger'&&groups.length>1)?`<div class="evl-rail" role="navigation" aria-label="Jump to year">${groups.map(g=>`<button onclick="const n=document.getElementById('${g.id}');if(n)n.scrollIntoView({behavior:'smooth',block:'start'})"${g.year==null?' class="evl-rail--x"':''}>${esc(g.label.split(' — ')[0])}<i>${g.items.length}</i></button>`).join('')}</div>`:'';
+  const rowHtml=e=>{
+    const camp=eventCampaign(e);
+    const plate=(e.image)?`<span class="ev-plate${plateIsUnlocked(e.id)?' got':''}" title="${plateIsUnlocked(e.id)?'Field plate recovered':'Field plate — read this filing to recover it'}">${plateIsUnlocked(e.id)?'🖼️':'🔒'}</span>`:'';
+    const nP=(e.participants||[]).length;
+    return `<article class="evl-row${camp?' camp-'+camp.key:''}" onclick="openHub('${esc(e.id)}')">
+      ${evlDateBlock(e)}
+      <div class="evl-main">
+        <h3>${esc(displayName(e))}${annotationBadge(e.id,'mini')}${filingBadge(e.id)}${plate}</h3>
+        <p>${esc(previewText(e,170))}</p>
+        <div class="evl-meta">${e.location?`<span>📍 ${esc(String(e.location).split(',')[0])}</span>`:''}${nP?`<span>👥 ${nP} on the record</span>`:''}${camp?`<span class="evl-camp">■ ${esc(camp.label)}</span>`:''}${attachmentTags(e.id)}</div>
+      </div>
+      ${e.image?`<img class="evl-thumb" src="${esc(assetPath(e.image))}" alt="" loading="lazy" onerror="this.style.display='none'">`:''}
+    </article>`;
+  };
+  const shelfTile=i=>{
+    const camp=eventCampaign(i);
+    const plate=(i.image)?`<span class="ev-plate${plateIsUnlocked(i.id)?' got':''}" title="${plateIsUnlocked(i.id)?'Field plate recovered':'Field plate — read this filing to recover it'}">${plateIsUnlocked(i.id)?'🖼️':'🔒'}</span>`:'';
+    return `<article class="evcard${camp?' camp-'+camp.key:''}" onclick="openHub('${esc(i.id)}')">
+      <div class="evcard-art"><img src="${esc(assetPath(i.image))}" alt="${esc(displayName(i))}" loading="lazy" onerror="this.style.display='none'">${camp?`<span class="evcard-camp">${esc(camp.label)}</span>`:''}${plate}</div>
+      <div class="evcard-body">${i.date?`<div class="tkick">${esc(String(i.date).split('—')[0].trim())}</div>`:''}
+        <h3 class="evcard-title">${esc(displayName(i))}${annotationBadge(i.id,'mini')}${filingBadge(i.id)}</h3>
+        <p class="evcard-sum">${esc(previewText(i))}</p>${attachmentTags(i.id)}</div>
+    </article>`;
+  };
+  const body=(st.view==='shelf')
+    ? `<div class="artgrid evgrid">${arr.map(shelfTile).join('')||'<p class="text-muted">No matching filings.</p>'}</div>`
+    : groups.map(g=>`<section class="evl-group" id="${g.id}"><header class="evl-year"><h3>${esc(g.label)}</h3><span>${g.items.length} filing${g.items.length===1?'':'s'}</span></header>${g.items.map(rowHtml).join('')}</section>`).join('')
+      ||'<p class="text-muted">No matching filings. Waluigi suggests fewer filters.</p>';
+  const campChips=camps.map(c=>`<button class="chip${st.camp===c?' active':''}" onclick="listState.events.camp='${esc(c)}';view_events()">${esc(c)}${c==='All'?` (${items.length})`:` (${campCount[c]||0})`}</button>`).join('');
+  const sortSel=`<label class="evl-sel"><span>Order</span><select onchange="listState.events.sort=this.value;view_events()">
+    <option value="newest"${st.sort==='newest'?' selected':''}>Newest first</option>
+    <option value="oldest"${st.sort==='oldest'?' selected':''}>Oldest first</option>
+    <option value="az"${st.sort==='az'?' selected':''}>A→Z</option></select></label>`;
+  const viewTgl=`<div class="evl-vtgl"><button class="${st.view==='ledger'?'on':''}" onclick="listState.events.view='ledger';view_events()" title="A dense reading list, grouped by year">📖 Ledger</button><button class="${st.view==='shelf'?'on':''}" onclick="listState.events.view='shelf';view_events()" title="The illustrated card wall">🖼️ Shelf</button></div>`;
+  el('content').innerHTML=`<div class="evl-hero card animate-fade-in">
+      <div class="evl-hero-top">
+        <div><h1>${(t&&t.emoji)||'📜'} ${(t&&t.label)||'Events'}</h1>
+        <p class="evl-hero-sub">The session ledger — every filing on record, newest first, dated true. ${items.length} filings · ${groups.length} year${groups.length===1?'':'s'} on the page · the 🖼️ marker means its field plate is already yours.</p></div>
+        ${viewTgl}
+      </div>
+      <div class="evl-toolbar">
+        <input class="evl-search" placeholder="Search filings — title, summary, place, cast…" value="${esc(st.query||'')}" oninput="listState.events.query=this.value;clearTimeout(window.__evlT);window.__evlT=setTimeout(view_events,180)" onkeydown="if(event.key==='Enter'){clearTimeout(window.__evlT);view_events()}">
+        ${campChips}
+        ${sortSel}
+        ${(st.query||st.camp!=='All'||st.sort!=='newest')?`<button class="chip" onclick="listState.events.query='';listState.events.camp='All';listState.events.sort='newest';view_events()">Clear</button>`:''}
+      </div>
+      ${rail}
+    </div>
+    ${leadHtml}
+    ${st.view==='ledger'?`<div class="evl-list card">${body}</div>`:body}`;
+  window.scrollTo(0,0);
+}
+
+/* ===================== BATTLES — THE WAR LEDGER ==========================
+   The battles page was a copy of the events grid with a panel bolted on.
+   Redesigned as what the data actually is: a WAR LEDGER. Its own mechanics:
+   the WAR STRIP (every battle as a mark on the years — the shape of the war
+   at a glance), VS LINES (who fought whom, coloured by faction), and OUTCOME
+   BADGES read from each record's result line. Three reading modes: Ledger
+   (by year), Fronts (the war-room board), Cards (the old wall). */
+function wlrResultClass(b){
+  if(b&&b.outcome) return (battleOutcomeMeta(b.outcome)||{}).cls||'unknown';
+  const r=String((b&&b.result)||'').toLowerCase();
+  if(!r||r==='none'||r==='n/a') return 'unknown';
+  if(/pyrrhic/.test(r)) return 'pyrrhic';
+  if(/\bdraw\b|stalemate|standoff|neither side|both sides|no victor/.test(r)) return 'draw';
+  if(/ongoing|unresolved|no decision|interrupted|inconclusive/.test(r)) return 'open';
+  if(/defeat|\bdefeated\b|\brout\b|\bloss\b|\blost\b|crushed|overrun|slaughtered/.test(r)) return 'loss';
+  if(/victor|\bwon\b|success|repelled|held the|prevailed|triumph|secured|destroyed/.test(r)) return 'win';
+  return 'unknown';
+}
+const WLR_OUTCOME={win:{icon:'✅',label:'won'},loss:{icon:'❌',label:'lost'},draw:{icon:'🤝',label:'drawn'},pyrrhic:{icon:'🔥',label:'pyrrhic'},open:{icon:'⏳',label:'ongoing'},unknown:{icon:'❔',label:'unrecorded'}};
+function wlrVsLine(b){
+  const bl=b&&b.belligerents;
+  const side=s=>{
+    if(!s||!s.name) return null;
+    const nm=String(s.name);const short=nm.length>36?nm.slice(0,34)+'…':nm;
+    const col=s.factionId?factionColor(s.factionId):'var(--muted)';
+    const go=s.factionId&&INDEX[s.factionId];
+    return `<span class="wlr-side" title="${esc(nm)}${s.commander?` — led by ${esc(s.commander)}`:''}"${go?` onclick="event.stopPropagation();openId('${esc(s.factionId)}')"`:''}><i style="background:${esc(col)}"></i>${esc(short)}</span>`;
+  };
+  const a=side(bl&&bl.attackers), d=side(bl&&bl.defenders);
+  if(!a&&!d) return '';
+  return `<div class="wlr-vs">${a||'<span class="wlr-side wlr-side--none">unrecorded</span>'}<b>⚔</b>${d||'<span class="wlr-side wlr-side--none">unrecorded</span>'}</div>`;
+}
+function wlrDateBlock(b){
+  const d=String(b.date||'');
+  const y=parseYear(d), day=parseDay(d), mo=parseMonth(d);
+  if(day&&mo&&mo!==99) return `<div class="wlr-date"><b>${day}</b><i>${esc(monthName(mo))}</i><span>${y!=null?y+' BF':'—'}</span></div>`;
+  if(mo&&mo!==99) return `<div class="wlr-date"><b>—</b><i>${esc(monthName(mo))}</i><span>${y!=null?y+' BF':'—'}</span></div>`;
+  return `<div class="wlr-date"><b>${y!=null?y:'?'}</b><i>BF</i><span>dated</span></div>`;
+}
+function view_battles(){
+  renderSidebar('list:battles');
+  const t=TYPE_BY_KEY&&TYPE_BY_KEY.battles;
+  const st=listState.battles||(listState.battles={query:'',outcome:'All',view:'ledger',sort:'newest'});
+  const items=(DATA.battles||[]).filter(Boolean).slice();
+  const yOf=b=>parseYear(b.date);
+  const clean=s=>String(s||'').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim();
+  const hay=b=>clean([b.id,displayName(b),b.summary,b.description,b.location,b.type,b.result,(b.belligerents&&[b.belligerents.attackers,b.belligerents.defenders].map(s=>s&&(s.name+' '+(s.commander||''))).join(' '))].filter(Boolean).join(' '));
+  const outcomeOf=b=>wlrResultClass(b);
+  /* the war strip: every battle as a mark on its year — the shape of the war */
+  const yearMarks={};
+  items.forEach(b=>{const y=yOf(b);if(y==null)return;(yearMarks[y]=yearMarks[y]||[]).push(outcomeOf(b));});
+  const warYears=Object.keys(yearMarks).map(Number).sort((a,b)=>b-a);
+  const span=warYears.length?`${warYears[warYears.length-1]}–${warYears[0]} BF`:'no dated battles';
+  const outcomeTally={};
+  items.forEach(b=>{const k=outcomeOf(b);outcomeTally[k]=(outcomeTally[k]||0)+1;});
+  const stripHtml=warYears.length?`<div class="wlr-strip" role="navigation" aria-label="The war strip — battles by year">${warYears.map(y=>{
+    const marks=yearMarks[y];
+    const shown=marks.slice(0,10).map(k=>`<i class="wlr-mark wlr-mark--${k}" title="${marks.length} battle${marks.length===1?'':'s'} in ${y} BF"></i>`).join('');
+    return `<button class="wlr-year" onclick="const n=document.getElementById('wlr-y-${y}');if(n)n.scrollIntoView({behavior:'smooth',block:'start'})}"><b>${y}</b>${shown}${marks.length>10?`<em>+${marks.length-10}</em>`:''}</button>`;
+  }).join('')}</div>`:'';
+  const matchesOutcome=b=>st.outcome==='All'||outcomeOf(b)===st.outcome;
+  const matchesQuery=b=>{const q=clean(st.query);if(!q)return true;const h=hay(b);return q.split(/\s+/).filter(Boolean).every(t=>h.includes(t));};
+  let arr=items.filter(b=>matchesOutcome(b)&&matchesQuery(b));
+  const byFile=(a,b)=>items.indexOf(a)-items.indexOf(b);
+  if(st.sort==='az') arr.sort((a,b)=>displayName(a).localeCompare(displayName(b)));
+  else if(st.sort==='oldest') arr.sort((a,b)=>(yOf(a)||9999)-(yOf(b)||9999)||byFile(a,b));
+  else arr.sort((a,b)=>(yOf(b)||0)-(yOf(a)||0)||byFile(a,b));
+  const rowHtml=b=>{
+    const k=outcomeOf(b), om=WLR_OUTCOME[k]||WLR_OUTCOME.unknown;
+    const cas=b.casualties&&Object.values(b.casualties).some(v=>v)?`<span class="wlr-cas" title="Casualties on file — read the record">☠ casualties on file</span>`:'';
+    return `<article class="wlr-row" onclick="openHub('${esc(b.id)}')">
+      ${wlrDateBlock(b)}
+      <div class="wlr-main">
+        <h3>${esc(displayName(b))}<span class="wlr-ob wlr-ob--${k}">${om.icon} ${om.label}</span></h3>
+        ${wlrVsLine(b)}
+        ${b.result&&String(b.result).toLowerCase()!=='none'?`<p class="wlr-result">${esc(String(b.result).split('—')[0].trim().slice(0,150))}</p>`:`<p class="wlr-result wlr-result--none">Result line unrecorded — the plate and the aftermath are the record.</p>`}
+        <div class="wlr-meta">${b.location?`<span>📍 ${esc(String(b.location).split(',')[0])}</span>`:''}${b.type?`<span>⚔ ${esc(String(b.type).split('/')[0].trim())}</span>`:''}${cas}</div>
+      </div>
+      ${b.image?`<img class="wlr-thumb" src="${esc(assetPath(b.image))}" alt="" loading="lazy" onerror="this.style.display='none'">`:''}
+    </article>`;
+  };
+  let body='';
+  if(st.view==='fronts'){
+    body=`${battleHubPanel()}<div class="card mt-12"><div class="section-title">📋 After-action reports — the ${ (DATA.majorBattles||[]).filter(Boolean).length } major battle records</div><div class="artgrid">${(DATA.majorBattles||[]).filter(Boolean).map(b=>`<div class="arttile" onclick="Router.go('#/mbattle/${encodeURIComponent(b.id)}')"><div class="tt">${esc(b.name)}</div><div class="tsub">${esc(String(b.date||''))}</div><div class="tsum">${esc(String(b.description||b.summary||'').slice(0,120))}</div></div>`).join('')}</div></div>`;
+  }else if(st.view==='cards'){
+    body=`<div class="artgrid evgrid">${arr.map(i=>`<article class="evcard" onclick="openHub('${esc(i.id)}')">
+      <div class="evcard-art"><img src="${esc(assetPath(i.image))}" alt="${esc(displayName(i))}" loading="lazy" onerror="this.style.display='none'"></div>
+      <div class="evcard-body">${i.date?`<div class="tkick">${esc(String(i.date).split('—')[0].trim())}</div>`:''}
+        <h3 class="evcard-title">${esc(displayName(i))}</h3>
+        <p class="evcard-sum">${esc(previewText(i))}</p></div>
+    </article>`).join('')||'<p class="text-muted">No matching battles.</p>'}</div>`;
+  }else{
+    const gm={};
+    arr.forEach(b=>{const y=yOf(b);const k=y!=null?String(y):'undated';(gm[k]=gm[k]||{label:y!=null?y+' BF':'Undated',id:'wlr-y-'+(y!=null?y:'x'),items:[],year:y}).items.push(b);});
+    const groups=Object.values(gm).sort((a,b)=>{
+      if(a.year==null)return 1; if(b.year==null)return -1;
+      return st.sort==='oldest'?a.year-b.year:b.year-a.year;
+    });
+    body=groups.map(g=>`<section class="wlr-group" id="${g.id}"><header class="wlr-year"><h3>${esc(g.label)}</h3><span>${g.items.length} battle${g.items.length===1?'':'s'}</span></header>${g.items.map(rowHtml).join('')}</section>`).join('')
+      ||'<p class="text-muted">No battles match. The war continues regardless.</p>';
+    body=`<div class="wlr-list card">${body}</div>`;
+  }
+  const outcomeChips=['All'].concat(Object.keys(outcomeTally).sort((a,b)=>outcomeTally[b]-outcomeTally[a])).map(k=>`<button class="chip${st.outcome===k?' active':''}" onclick="listState.battles.outcome='${k}';view_battles()">${k==='All'?'All outcomes':(WLR_OUTCOME[k]||WLR_OUTCOME.unknown).icon+' '+(WLR_OUTCOME[k]||WLR_OUTCOME.unknown).label}${k==='All'?` (${items.length})`:` (${outcomeTally[k]})`}</button>`).join('');
+  const sortSel=`<label class="evl-sel"><span>Order</span><select onchange="listState.battles.sort=this.value;view_battles()">
+    <option value="newest"${st.sort==='newest'?' selected':''}>Newest first</option>
+    <option value="oldest"${st.sort==='oldest'?' selected':''}>Oldest first</option>
+    <option value="az"${st.sort==='az'?' selected':''}>A→Z</option></select></label>`;
+  const viewTgl=`<div class="evl-vtgl"><button class="${st.view==='ledger'?'on':''}" onclick="listState.battles.view='ledger';view_battles()" title="Every battle, grouped by year, with VS lines and outcomes">📖 Ledger</button><button class="${st.view==='fronts'?'on':''}" onclick="listState.battles.view='fronts';view_battles()" title="The war-room board — fronts, tallies, and the major battle records">🧭 Fronts</button><button class="${st.view==='cards'?'on':''}" onclick="listState.battles.view='cards';view_battles()" title="The illustrated card wall">🖼️ Cards</button></div>`;
+  el('content').innerHTML=`<div class="wlr-hero card animate-fade-in">
+      <div class="evl-hero-top">
+        <div><h1>${(t&&t.emoji)||'🗡️'} ${(t&&t.label)||'Battles'}</h1>
+        <p class="evl-hero-sub">The war ledger — ${items.length} battle records across ${warYears.length} years (${span}), each with who fought whom and how it ended. The strip below is the shape of the whole war; every mark is a battle.</p></div>
+        ${viewTgl}
+      </div>
+      ${stripHtml}
+      <div class="evl-toolbar">
+        <input class="evl-search" placeholder="Search battles — name, combatant, place, result…" value="${esc(st.query||'')}" oninput="listState.battles.query=this.value;clearTimeout(window.__wlrT);window.__wlrT=setTimeout(view_battles,180)" onkeydown="if(event.key==='Enter'){clearTimeout(window.__wlrT);view_battles()}">
+        ${outcomeChips}
+        ${sortSel}
+        ${(st.query||st.outcome!=='All'||st.sort!=='newest')?`<button class="chip" onclick="listState.battles.query='';listState.battles.outcome='All';listState.battles.sort='newest';view_battles()">Clear</button>`:''}
+      </div>
+    </div>
+    ${body}`;
+  window.scrollTo(0,0);
+}
+
 let ATLAS_INDEX={};
 function atlasCanonical(id){ return id==='the_midlands' ? 'regal_empire' : id; }
 function atlasInferNationFromText(txt){
@@ -23837,7 +24084,7 @@ const Router={
     if(route==='home')view_home();
     else if(route==='home-classic')view_home(); /* legacy alias: one home, no swapping */
     else if(route==='who')view_whoami();
-    else if(route==='list'){ if(arg==='nations')view_atlas(); else view_list(arg); }
+    else if(route==='list'){ if(arg==='nations')view_atlas(); else if(arg==='events')view_events(); else if(arg==='battles')view_battles(); else view_list(arg); }
     else if(route==='field-journal'||route==='journal')view_fieldJournal();
     else if(route==='rnn'||route==='rakasha-news'||route==='broadcast')view_rakashaNews(arg);
     else if(route==='article')view_article(arg);
@@ -23853,7 +24100,7 @@ const Router={
     else if(route==='regal-diet'||route==='holy-midlands-diet'||route==='midlands-diet'||route==='diet')view_regal_diet(arg);
     else if(route==='pond-docket'||route==='docket'||route==='pond-patrol'||route==='accountability-docket')view_pond_docket();
     else if(route==='ability-shop'||route==='abilities'||route==='ability'){location.href=abilityShopUrl(arg);return;}
-    else if(route==='battlefield')view_list('battles');
+    else if(route==='battlefield')view_battles();
     else if(route==='bros-attacks'||route==='bros')view_bros_attacks();
     else if(route==='conflict')view_conflict(arg);
     else if(route==='mbattle')view_mbattle(arg);

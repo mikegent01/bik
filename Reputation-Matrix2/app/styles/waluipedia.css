@@ -3639,3 +3639,115 @@ body.ra-picking #content :is(p,li,h1,h2,h3,h4,blockquote):hover{outline:1px dash
 .calx-about summary{cursor:pointer;font-weight:800;color:var(--accent2);padding:6px 2px;user-select:none}
 .calx-about summary:hover{color:var(--link)}
 .calx-about[open] summary{margin-bottom:10px}
+
+/* ---- EVENTS REDESIGN (evl-*) — the session ledger -----------------------
+   A reading list, not an art wall: newest filing leads, then datable rows
+   grouped by year with campaign spines and plate markers. */
+.evl-hero{padding:18px 20px 16px}
+.evl-hero-top{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;flex-wrap:wrap}
+.evl-hero h1{margin:0;font-size:26px;font-weight:900}
+.evl-hero-sub{color:var(--muted);font-size:12.5px;margin-top:5px;max-width:70ch;line-height:1.55}
+.evl-vtgl{display:flex;background:var(--bg2);border:1px solid var(--border);border-radius:11px;padding:3px;gap:3px;flex:0 0 auto}
+.evl-vtgl button{background:transparent;border:0;color:var(--muted);padding:7px 13px;border-radius:8px;cursor:pointer;font-weight:800;font-size:12.5px;transition:.12s}
+.evl-vtgl button:hover{color:var(--text)}
+.evl-vtgl button.on{background:var(--accent);color:#fff}
+.evl-toolbar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:14px}
+.evl-search{flex:1 1 260px;background:var(--bg2);border:1px solid var(--border);color:var(--text);border-radius:9px;padding:9px 12px;font-size:13px;outline:none}
+.evl-search:focus{border-color:var(--accent)}
+.evl-sel{display:flex;align-items:center;gap:6px;font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.6px;color:var(--muted)}
+.evl-sel select{background:var(--bg2);border:1px solid var(--border);color:var(--text);border-radius:9px;padding:8px 10px;font-size:12.5px;font-weight:700;cursor:pointer}
+.evl-rail{display:flex;gap:4px;overflow-x:auto;margin-top:12px;padding:4px 2px 8px;border-bottom:1px solid var(--border);scrollbar-width:thin}
+.evl-rail button{flex:0 0 auto;background:var(--panel2);border:1px solid var(--border);color:var(--muted);border-radius:7px;padding:4px 10px;font-size:11.5px;font-weight:800;cursor:pointer;transition:.12s}
+.evl-rail button:hover{color:var(--text);border-color:var(--accent)}
+.evl-rail button i{font-style:normal;color:var(--accent2);margin-left:5px}
+.evl-rail button.evl-rail--x{opacity:.6}
+.evl-lead{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:0;margin-top:14px;border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:14px;overflow:hidden;background:var(--panel);cursor:pointer;transition:.15s;box-shadow:var(--shadow)}
+.evl-lead:hover{border-color:var(--accent)}
+.evl-lead.camp-shd{border-left-color:#8a4bff}
+.evl-lead.camp-fey{border-left-color:#2fae8a}
+.evl-lead.camp-mat{border-left-color:#e5484d}
+.evl-lead.camp-subj{border-left-color:#e0b400}
+.evl-lead-art{margin:0;min-height:220px;background:var(--bg2)}
+.evl-lead-art img{width:100%;height:100%;object-fit:cover;display:block}
+.evl-lead-body{padding:18px 20px;display:flex;flex-direction:column;gap:8px;justify-content:center}
+.evl-lead-kick{font-size:10.5px;font-weight:900;letter-spacing:1px;text-transform:uppercase;color:var(--accent2)}
+.evl-lead-body h2{margin:0;font-size:21px;line-height:1.3}
+.evl-lead-body p{margin:0;color:var(--muted);font-size:13px;line-height:1.65}
+.evl-lead-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:11.5px;color:var(--muted);margin-top:4px}
+.evl-lead-meta .evl-cta{color:var(--link);font-weight:800;margin-left:auto}
+@media(max-width:760px){.evl-lead{grid-template-columns:1fr}.evl-lead-art{min-height:150px}}
+.evl-list{padding:6px 14px 14px;margin-top:14px}
+.evl-group{scroll-margin-top:14px}
+.evl-year{display:flex;align-items:baseline;gap:10px;padding:12px 2px 8px;border-bottom:2px solid var(--accent);margin-bottom:8px}
+.evl-year h3{margin:0;font-size:19px;font-weight:900;color:var(--accent);letter-spacing:.5px}
+.evl-year span{color:var(--muted);font-size:12px;font-weight:700}
+.evl-row{display:flex;gap:14px;align-items:flex-start;padding:12px 8px;border-bottom:1px solid var(--border);border-radius:10px;cursor:pointer;transition:.12s;border-left:3px solid transparent}
+.evl-row:hover{background:var(--panel2);border-left-color:var(--accent)}
+.evl-row.camp-shd{border-left-color:rgba(138,75,255,.5)}
+.evl-row.camp-shd:hover{border-left-color:#8a4bff}
+.evl-row.camp-fey{border-left-color:rgba(47,174,138,.5)}
+.evl-row.camp-fey:hover{border-left-color:#2fae8a}
+.evl-row.camp-mat{border-left-color:rgba(229,72,77,.5)}
+.evl-row.camp-mat:hover{border-left-color:#e5484d}
+.evl-row.camp-subj{border-left-color:rgba(224,180,0,.5)}
+.evl-row.camp-subj:hover{border-left-color:#e0b400}
+.evl-date{flex:0 0 74px;text-align:center;background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:7px 4px 6px}
+.evl-date b{display:block;font-size:19px;font-weight:900;line-height:1.1}
+.evl-date i{display:block;font-style:normal;font-size:9.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
+.evl-date span{display:block;font-size:9.5px;color:var(--muted);font-weight:800;margin-top:2px}
+.evl-date--era b{color:var(--accent2)}
+.evl-main{flex:1;min-width:0}
+.evl-main h3{margin:0 0 4px;font-size:15px;line-height:1.35;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.evl-main p{margin:0 0 6px;color:var(--muted);font-size:12.5px;line-height:1.6}
+.evl-meta{display:flex;gap:10px;flex-wrap:wrap;font-size:11px;color:var(--muted);align-items:center}
+.evl-camp{font-weight:900;letter-spacing:.4px}
+.evl-thumb{flex:0 0 62px;width:62px;height:62px;object-fit:cover;border-radius:9px;border:1px solid var(--border)}
+@media(max-width:620px){.evl-thumb{display:none}.evl-date{flex-basis:60px}}
+
+/* ---- BATTLES REDESIGN (wlr-*) — the war ledger --------------------------
+   Its own mechanics: the war strip (a mark per battle on the years), VS
+   lines coloured by faction, outcome badges read from the result line. */
+.wlr-hero{padding:18px 20px 16px;border-top:4px solid var(--danger)}
+.wlr-strip{display:flex;gap:6px;overflow-x:auto;margin-top:14px;padding:8px 2px 10px;border:1px dashed var(--border);border-radius:12px;background:rgba(0,0,0,.18);scrollbar-width:thin}
+.wlr-year{flex:0 0 auto;display:flex;flex-direction:column;align-items:center;gap:4px;background:var(--panel2);border:1px solid var(--border);border-radius:9px;padding:6px 10px 7px;cursor:pointer;min-width:64px;transition:.12s}
+.wlr-year:hover{border-color:var(--danger)}
+.wlr-year b{font-size:13px;font-weight:900;color:var(--accent2)}
+.wlr-mark{width:9px;height:9px;border-radius:2px;display:inline-block;margin:0 1px}
+.wlr-mark--win{background:#4ade80}
+.wlr-mark--loss{background:#f87171}
+.wlr-mark--draw{background:#cbd5e1}
+.wlr-mark--pyrrhic{background:#fb923c}
+.wlr-mark--open{background:#38bdf8}
+.wlr-mark--unknown{background:rgba(148,163,184,.35)}
+.wlr-year em{font-style:normal;font-size:9.5px;color:var(--muted);font-weight:800}
+.wlr-list{padding:6px 14px 14px;margin-top:14px}
+.wlr-group{scroll-margin-top:14px}
+.wlr-group>header{display:flex;align-items:baseline;gap:10px;padding:12px 2px 8px;border-bottom:2px solid var(--danger);margin-bottom:8px}
+.wlr-group>header h3{margin:0;font-size:19px;font-weight:900;color:var(--danger);letter-spacing:.5px}
+.wlr-group>header span{color:var(--muted);font-size:12px;font-weight:700}
+.wlr-row{display:flex;gap:14px;align-items:flex-start;padding:12px 8px;border-bottom:1px solid var(--border);border-radius:10px;cursor:pointer;transition:.12s;border-left:3px solid transparent}
+.wlr-row:hover{background:var(--panel2);border-left-color:var(--danger)}
+.wlr-date{flex:0 0 74px;text-align:center;background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:7px 4px 6px}
+.wlr-date b{display:block;font-size:19px;font-weight:900;line-height:1.1}
+.wlr-date i{display:block;font-style:normal;font-size:9.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
+.wlr-date span{display:block;font-size:9.5px;color:var(--muted);font-weight:800;margin-top:2px}
+.wlr-main{flex:1;min-width:0}
+.wlr-main h3{margin:0 0 5px;font-size:15px;line-height:1.35;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.wlr-ob{font-size:10px;font-weight:900;letter-spacing:.5px;text-transform:uppercase;border:1px solid;border-radius:6px;padding:2px 7px}
+.wlr-ob--win{border-color:rgba(74,222,128,.5);color:#4ade80}
+.wlr-ob--loss{border-color:rgba(239,68,68,.5);color:#f87171}
+.wlr-ob--draw{border-color:rgba(148,163,184,.5);color:#cbd5e1}
+.wlr-ob--pyrrhic{border-color:rgba(251,146,60,.5);color:#fb923c}
+.wlr-ob--open{border-color:rgba(56,189,248,.5);color:#38bdf8}
+.wlr-ob--unknown{border-color:rgba(148,163,184,.3);color:var(--muted)}
+.wlr-vs{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:0 0 6px;font-size:12px}
+.wlr-vs>b{color:var(--danger);font-size:13px}
+.wlr-side{display:inline-flex;align-items:center;gap:5px;background:var(--bg2);border:1px solid var(--border);border-radius:7px;padding:3px 8px;font-weight:700;cursor:pointer;max-width:46%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.wlr-side i{width:8px;height:8px;border-radius:50%;flex:0 0 auto}
+.wlr-side--none{color:var(--muted);cursor:default;font-weight:600}
+.wlr-result{margin:0 0 6px;color:var(--muted);font-size:12.5px;line-height:1.55}
+.wlr-result--none{font-style:italic;opacity:.8}
+.wlr-meta{display:flex;gap:10px;flex-wrap:wrap;font-size:11px;color:var(--muted)}
+.wlr-cas{color:#fca5a5;font-weight:800}
+.wlr-thumb{flex:0 0 62px;width:62px;height:62px;object-fit:cover;border-radius:9px;border:1px solid var(--border)}
+@media(max-width:620px){.wlr-thumb{display:none}.wlr-date{flex-basis:60px}}
