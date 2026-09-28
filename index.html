@@ -16910,17 +16910,13 @@ function hubOptions(id){
       extra:files.slice(1,4).map(f=>({label:f.iv.codename||f.iv.title||prettyId(f.iv.id),route:'#/investigation/'+encodeURIComponent(f.iv.id)})),
       empty:'No case file touches this record.' },
 
-    { key:'xp', label:'XP', icon:'✦', img:HUB_ART+'hub_xp.png',
-      blurb:'What the session actually paid. Per-person awards, categories, and the party total.',
-      meta:xp.length?('party +'+xpTotal.toLocaleString()+' · '+xp.length+' '+(xp.length===1?'person':'people')):'',
-      available:!!xp.length,
-      /* A second '#' would break hash routing (the router read the whole tail
-         as an article id). Navigate to the record, then scroll to the ledger. */
-      route:xp.length?'#/article/'+encodeURIComponent(id):'',
-      after:xp.length?'xp-session':'',
-      empty:'No XP was banked against this record.' }
+    /* The XP door is deliberately gone from the filing desk: sessions that
+       pay nothing (foreign protagonists, historical filings) got a greyed
+       dead tile, and the desk has better doors now. The XP ledger itself
+       still lives on the article — xpMiniPanel up top, the xp-session block
+       below — plus xp.html and every player page. Nothing else was touched. */
   ].concat(item&&item.timeline&&Array.isArray(item.timeline.entries)&&item.timeline.entries.length?[
-    { key:'timeline', label:'Timeline', icon:'🕰️', img:HUB_ART+'hub_story.png',
+    { key:'timeline', label:'Timeline', icon:'🕰️', img:HUB_ART+'hub_timeline.png',
       blurb:'The day, reconstructed: times, durations, and the weather — per world, honestly sourced.',
       meta:item.timeline.entries.length+' entries',
       available:true,
@@ -16929,7 +16925,7 @@ function hubOptions(id){
       route:'#/article/'+encodeURIComponent(id),
       after:'sec-timeline' }
   ]:[]).concat(daylogForEvent(id)?[
-    { key:'daylog', label:'Day Log', icon:'🗒️', img:HUB_ART+'hub_story.png',
+    { key:'daylog', label:'Day Log', icon:'🗒️', img:HUB_ART+'hub_daylog.png',
       blurb:"The desk's side of the day: breakfast, records requests, one museum, and the clocks that do not reconcile.",
       meta:daylogForEvent(id).sections.length+' entries · dated true, written late',
       available:true,

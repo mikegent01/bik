@@ -17729,7 +17729,30 @@
     },
     "aftermath": "**The show has a director.** Director Mario — a cold copy of the most famous face in the world — outranks Wario inside the studio, and Wario found out by going through a wall.\n\n**The applause was for nobody.** Every seat was empty; the whole facility was silent. Whatever audience the show plays to, it was never in the room.\n\n**Evil Mario is an actor with a power source** — pixelated feather cape, destroyed; tanuki leaf, burned; fire, sprinkled; ice, CUT. He survived all of it, and pointed the survivors at the Director's exit.\n\n**Luigi is alive**, at a studio computer, holding notes on Wario's corruption — the best evidence the file has ever been handed.\n\n**The remote exists.** Small, buttoned, wired, carried like a habit by a man who no longer knows he was seen with it. A control unit for Evil Mario, or the whole studio.\n\n**Unresolved:** who Director Mario answers to; what the folder holds; whether the paratroopas take orders from the remote or the Director; what Evil Mario wants; and how a lord of the Dark Shores gets a wired remote off the most dangerous man in the building.",
     "waluigiAssessment": "**1. The word did what the weapons could not.** Two filings of violence — fireballs, javelins, warhammers, rolling pins — and the thing that stopped the corrupted Mario dead was a production command delivered by a provincial lord who had worked out the building's grammar. CUT is not a spell. It is a word the studio's owner could not afford to have said in front of the cast. Waluigi has re-shelved half of this file accordingly: the question is no longer how to beat Evil Mario. The question is who is afraid of the word CUT, and why.\n\n**2. The remote is the whole case.** A folder and a small wired device, carried past a hidden witness by a man who had just demonstrated what he does to employees who exceed their brief. If it runs Evil Mario, it explains the cape, the leaf, the fire, the ice — a costume rack with a controller. If it runs the STUDIO, it explains the resetting break room, the curtains, the applause with no audience, and the exits that lie. Either way, the Mario disappearance file now has an object to hunt instead of a vibe.\n\n**3. Luigi was doing the archive's job better than the archive.** Security feeds, a studio map, notes on Wario's corruption, and a mission statement — find Mario, fix this — while Waluigi was filing newspapers. The maintenance computer is the best evidence in this case and it is sitting in a building that resets itself. Somebody should go back for it.\n\n**4. The empty seats are the part Waluigi cannot file yet.** A show needs an audience. The applause track says one exists. The room says it does not. Either the audience is somewhere the windows do not show, or the performance is being recorded for a viewer the building is not prepared to name. Both readings have a person at the end of them, and Waluigi has a name he is not writing down until he has to.\n\n**Recommendation:** the remote, before the Director notices it was seen. And somebody collect Luigi's notes on the way out.\n\nWAH.",
-    "xpAwards": [],
+    "xpAwards": [
+      {
+        "xpKey": "darianmarsh",
+        "articleId": "lord_darian_marsh",
+        "name": "Lord Darian Marsh",
+        "cat": "loyalty",
+        "xp": 560,
+        "title": "Event - The Cut and the Puppet Master",
+        "desc": "Pressed the button, climbed the duct, took the rolling pin to an actor, ordered a paratroopa squadron into a V like a bird, belly-crawled to a fire alarm through a flame whip — and stopped an entire television studio with one word: CUT.",
+        "date": "5 Aethel, 1040 BF",
+        "dateSort": 10400905
+      },
+      {
+        "xpKey": "alistair",
+        "articleId": "alistair_marshkeeper",
+        "name": "Alistair of the Marshkeepers",
+        "cat": "survival",
+        "xp": 480,
+        "title": "Event - The Cut and the Puppet Master",
+        "desc": "Stopped his own king's kill shot on a hunch that was right, was thrown the length of a hallway by a cape's wind, and came back through a window with a flaming pipe to burn the tanuki leaf — a plan his lord filed, accurately, as really stupid.",
+        "date": "5 Aethel, 1040 BF",
+        "dateSort": 10400905
+      }
+    ],
     "imageCaption": "The word that stopped the show. Darian — burned, soot-streaked, rolling pin still in hand — standing in the falling sprinkler water with the ice mid-advance behind him, and every weapon in the room going quiet at once. The studio cannot bear to be told the take is over.",
     "image_alt": "Original scene illustration: a noble in dark clothes shouts CUT in a flooded studio corridor while a frozen, ice-built Mario figure and armed paratroopas freeze mid-motion around him.",
     "gallery": [

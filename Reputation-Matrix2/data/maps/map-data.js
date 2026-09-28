@@ -142,6 +142,15 @@ export const MDATA_F = {
             ...theNorthData.pointsOfInterest,
             ...mushroomCityData.pointsOfInterest,
             ...beanbeanKingdomData.pointsOfInterest,
+            ...barrelVolcanoData.pointsOfInterest,
+            ...sevenKingdomsData.pointsOfInterest,
+            ...sunshineIslesData.pointsOfInterest,
+            ...flowerKingdomData.pointsOfInterest,
+            ...yoshiDkIslandsData.pointsOfInterest,
+            ...waffleChestnutData.pointsOfInterest,
+            ...neoBowserCityData.pointsOfInterest,
+            ...iceIceOutpostData.pointsOfInterest,
+            ...chramalotKingdomData.pointsOfInterest,
             ...piantaSeaData.pointsOfInterest,
             ...yaleShoresData.pointsOfInterest,
         ],
@@ -156,10 +165,37 @@ export const MDATA_F = {
             ...(theNorthData.fogOfWar || []),
             ...(mushroomCityData.fogOfWar || []),
             ...(beanbeanKingdomData.fogOfWar || []),
+            ...(barrelVolcanoData.fogOfWar || []),
+            ...(sevenKingdomsData.fogOfWar || []),
+            ...(sunshineIslesData.fogOfWar || []),
+            ...(flowerKingdomData.fogOfWar || []),
+            ...(yoshiDkIslandsData.fogOfWar || []),
+            ...(waffleChestnutData.fogOfWar || []),
+            ...(neoBowserCityData.fogOfWar || []),
+            ...(iceIceOutpostData.fogOfWar || []),
+            ...(chramalotKingdomData.fogOfWar || []),
             ...(piantaSeaData.fogOfWar || []),
             ...(yaleShoresData.fogOfWar || []),
         ],
-        poiSourceFile: null
+        poiSourceFile: null,
+        /* The 21 canon region files this overview aggregates. The map
+           integrity checker reads this list and fails if any region's POIs
+           go missing from the overview — which is exactly how Sunshine
+           Isles, Neo Bowser City and seven other regions silently vanished
+           once during the data reorganization. Nobody noticed but the
+           reader. */
+        regionSources: [
+            'mushroom-kingdom-pois.js', 'mountain-enclave-pois.js',
+            'dry-dry-desert-pois.js', 'bandits-way-pois.js',
+            'wario-woods-pois.js', 'arid-coast-pois.js', 'boos-woods-pois.js',
+            'the-north-pois.js', 'mushroom-city-pois.js',
+            'beanbean-kingdom-pois.js', 'barrel-volcano-pois.js',
+            'seven-kingdoms-pois.js', 'sunshine-isles-pois.js',
+            'flower-kingdom-pois.js', 'yoshi-dk-islands-pois.js',
+            'waffle-chestnut-pois.js', 'neo-bowser-city-pois.js',
+            'ice-ice-outpost-pois.js', 'chramalot-kingdom-pois.js',
+            'pianta-sea-pois.js', 'yale-shores-pois.js'
+        ]
     },
 
     mushroom_kingdom: {
@@ -471,6 +507,15 @@ export const MAP_DATA = {
             ...theNorthData.pointsOfInterest,
             ...mushroomCityData.pointsOfInterest,
             ...beanbeanKingdomData.pointsOfInterest,
+            ...barrelVolcanoData.pointsOfInterest,
+            ...sevenKingdomsData.pointsOfInterest,
+            ...sunshineIslesData.pointsOfInterest,
+            ...flowerKingdomData.pointsOfInterest,
+            ...yoshiDkIslandsData.pointsOfInterest,
+            ...waffleChestnutData.pointsOfInterest,
+            ...neoBowserCityData.pointsOfInterest,
+            ...iceIceOutpostData.pointsOfInterest,
+            ...chramalotKingdomData.pointsOfInterest,
             ...piantaSeaData.pointsOfInterest,
             ...yaleShoresData.pointsOfInterest,
         ],
@@ -485,10 +530,37 @@ export const MAP_DATA = {
             ...(theNorthData.fogOfWar || []),
             ...(mushroomCityData.fogOfWar || []),
             ...(beanbeanKingdomData.fogOfWar || []),
+            ...(barrelVolcanoData.fogOfWar || []),
+            ...(sevenKingdomsData.fogOfWar || []),
+            ...(sunshineIslesData.fogOfWar || []),
+            ...(flowerKingdomData.fogOfWar || []),
+            ...(yoshiDkIslandsData.fogOfWar || []),
+            ...(waffleChestnutData.fogOfWar || []),
+            ...(neoBowserCityData.fogOfWar || []),
+            ...(iceIceOutpostData.fogOfWar || []),
+            ...(chramalotKingdomData.fogOfWar || []),
             ...(piantaSeaData.fogOfWar || []),
             ...(yaleShoresData.fogOfWar || []),
         ],
-        poiSourceFile: null
+        poiSourceFile: null,
+        /* The 21 canon region files this overview aggregates. The map
+           integrity checker reads this list and fails if any region's POIs
+           go missing from the overview — which is exactly how Sunshine
+           Isles, Neo Bowser City and seven other regions silently vanished
+           once during the data reorganization. Nobody noticed but the
+           reader. */
+        regionSources: [
+            'mushroom-kingdom-pois.js', 'mountain-enclave-pois.js',
+            'dry-dry-desert-pois.js', 'bandits-way-pois.js',
+            'wario-woods-pois.js', 'arid-coast-pois.js', 'boos-woods-pois.js',
+            'the-north-pois.js', 'mushroom-city-pois.js',
+            'beanbean-kingdom-pois.js', 'barrel-volcano-pois.js',
+            'seven-kingdoms-pois.js', 'sunshine-isles-pois.js',
+            'flower-kingdom-pois.js', 'yoshi-dk-islands-pois.js',
+            'waffle-chestnut-pois.js', 'neo-bowser-city-pois.js',
+            'ice-ice-outpost-pois.js', 'chramalot-kingdom-pois.js',
+            'pianta-sea-pois.js', 'yale-shores-pois.js'
+        ]
     },
     mushroom_kingdom: {
         id: 'mushroom_kingdom',

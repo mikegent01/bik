@@ -7,15 +7,27 @@
    strip must be existing archive images (portraits / event art), never new
    renders where the archive already carries the beat. */
 
+/* A FILMSTRIP, not a grid. Five fronts already filled two rows of tiles and
+   the section was eating the homepage; a horizontal snap rail shows every
+   front at full cover size, always leaves a sliver of the next card peeking
+   so it reads as scrollable, and grows by adding rail length instead of
+   rows. One front still looks fine; twelve still only takes one row. */
 .campaign-covers-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(340px,1fr));
+  display:flex;
   gap:16px;
   margin:14px 0 6px;
+  overflow-x:auto;
+  overscroll-behavior-x:contain;
+  scroll-snap-type:x mandatory;
+  padding:4px 2px 12px;
+  scrollbar-width:thin;
+  scrollbar-color:var(--border,#33254f) transparent;
 }
 .campaign-cover-card{
   position:relative;
   margin:0;
+  flex:0 0 min(46vw,360px);
+  scroll-snap-align:start;
   border-radius:14px;
   overflow:hidden;
   background:var(--panel2,#161022);

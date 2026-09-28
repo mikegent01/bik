@@ -10,11 +10,14 @@
 `the_cut_and_the_puppet_master` — `TC:1040-09-05/MAT`, continuing
 [the promo account](2026-09-27-you-said-leave-no-one-behind.md)'s world without
 a break (same day, same night, same two humans). 2,837 words of description,
-3,792 story words total, 30 notable features, 8 participants. No XP and no
-faction standing moved — the studio is not a faction, its paratroopas take no
-orders the archive can bill, and the only institution on the stage answers to
-a man the archive met four paragraphs from the end. The reason is recorded in
-`reputationNotes`, mirroring the promo filing.
+3,792 story words total, 30 notable features, 8 participants. No faction standing moved — the studio
+is not a faction, its paratroopas take no orders the archive can bill, and
+the only institution on the stage answers to a man the archive met four
+paragraphs from the end; the reason is recorded in `reputationNotes`,
+mirroring the promo filing. **XP was awarded later by editor's ruling**
+(1,040 across the two protagonists — see the event's `xpAwards[]`): the
+filing originally paid nothing on the foreign-nobility precedent, and the
+editor overruled it.
 
 ## 2. What the session was
 
