@@ -63,6 +63,11 @@ def main():
             if not str(w.get("source") or "").strip():
                 errs.append(f"{eid}: world {w.get('id', '?')} has no source — "
                             f"the honesty rule: how does the archive know?")
+            if (str(w.get("weather") or "").strip()
+                    and not (w.get("weatherWidget") or [])):
+                warns.append(f"{eid}: world {w.get('id', '?')} describes its "
+                            f"weather but files no weatherWidget — the day "
+                            f"should be SEEN, not recited")
 
         entries = tl.get("entries") or []
         if len(entries) < MIN_ENTRIES_FAIL:

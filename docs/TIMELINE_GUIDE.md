@@ -77,6 +77,7 @@ A `timeline` object on the **event record** in `data/events.json`:
 | `worlds[].label` / `short` | yes / optional | `short` is the chip shown on cross-world entries (falls back to the text before ` — `) |
 | `worlds[].timeOfDay` | recommended | What the clock was doing there |
 | `worlds[].weather` | yes | Conditions. *"No weather on record"* **is a valid filing** — but it must be filed, as a finding |
+| `worlds[].weatherWidget` | recommended | The weather as a **widget**, not a paragraph: `[{when, icon, line}]` — one tile per phase of the day. Rendered inside each world card and on the day log. A world that files `weather` without `weatherWidget` gets a checker warning: the day should be SEEN, not recited |
 | `worlds[].source` | yes | **The honesty rule.** Weather is a claim about a day; claims need provenance |
 | `entries[]` | yes (≥4) | The day, in order |
 | `entries[].time` / `beat` / `detail` | yes | When / what / one or two sentences of it |
@@ -134,7 +135,9 @@ enforced by the checker but has never once failed to happen on its own.
 
 * **Article page** — a `🕰️ Timeline — the Day, Reconstructed` section on the
   event article, between *Waluigi's Assessment* and the *Field Plates*,
-  with a Contents entry (`timelinePanel()` in `index.html`).
+  with a Contents entry (`timelinePanel()` in `index.html`). Each world card
+  opens with the **weather widget** (`weatherWidget` phases), and the day log
+  repeats the strip under its plate.
 * **Filing hub** — a Timeline door (🕰️) appears on the record's hub **only
   when the record carries a timeline**; it navigates to the article and
   scrolls to the section, using the same anchor trick as the XP door.

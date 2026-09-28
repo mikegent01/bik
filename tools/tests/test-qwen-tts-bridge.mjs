@@ -23,11 +23,19 @@ const localStorage = {
   setItem: (k, v) => { store[k] = String(v); },
 };
 const elements = {};
+const classListStub = () => ({ add() {}, remove() {} });
 const mkEl = id => (elements[id] ||= {
   id, textContent: '', value: '', hidden: true, innerHTML: '',
+  classList: classListStub(),
   setAttribute(k, v) { this['attr_' + k] = v; },
   appendChild() {}, closest: () => null,
 });
+/* blob URL lifecycle accounting: every object URL the cache creates must be
+   revoked by the time the reading is done — nothing may outlive the run. */
+const blobUrls = { created: [], revoked: [] };
+const origCreate = URL.createObjectURL, origRevoke = URL.revokeObjectURL;
+URL.createObjectURL = b => { const u = origCreate(b); blobUrls.created.push(u); return u; };
+URL.revokeObjectURL = u => { blobUrls.revoked.push(u); return origRevoke(u); };
 const document = {
   getElementById: id => (id === 'readaloud-bar' ? undefined : mkEl(id)),
   createElement: tag => mkEl('created-' + tag + '-' + Math.random()),
@@ -89,7 +97,7 @@ check('audio url fallback builds file endpoint', relUrl === 'http://127.0.0.1:78
 
 // ---------- 3. the pipeline: chunk N plays while N+1 synthesizes ----------
 const paras = [];
-for (let i = 1; i <= 4; i++) paras.push({ textContent: `Paragraph ${i} of the reading test. It has a second sentence for the chunker. And a third!`, closest: () => null });
+for (let i = 1; i <= 4; i++) paras.push({ textContent: `Paragraph ${i} of the reading test. It has a second sentence for the chunker. And a third!`, closest: () => null, classList: classListStub() });
 harvestNodes = paras;
 B.ttsSaveConfig(cfg);   // the pipeline reads ttsConfig() from storage
 B.ReadAloud.start();
@@ -107,6 +115,14 @@ await new Promise(r => setTimeout(r, 200));
 const plays = audioLog.filter(x => x[0] === 'play');
 check('pipeline: chunk 2 played within 200ms of chunk 1 ending (prefetched)', plays.length >= 2 && Date.now() - t0 < 1000);
 check('pipeline: distinct audio per chunk', plays[0][1] !== plays[1][1]);
+// highlight: every chunk carries a source range mapped back to its paragraph
+check('highlight: sources map 1:1 to chunks', B.ReadAloud.sources.length === B.ReadAloud.chunks.length);
+check('highlight: chunk 1 maps into paragraph 1 at offset 0', B.ReadAloud.sources[0].node === paras[0] && B.ReadAloud.sources[0].start === 0 && B.ReadAloud.sources[0].end > 0);
+check('highlight: chunk 2 maps into a LATER paragraph', B.ReadAloud.sources[1].node !== paras[0]);
+check('highlight: the current chunk is exposed for the player', !!B.ReadAloud.hl && B.ReadAloud.hl.end > B.ReadAloud.hl.start);
+// cache: memory-only blobs, all revoked when done
+check('cache: playback used in-memory blob URLs', audioLog.filter(x => x[0] === 'play').every(x => x[1].startsWith('blob:')));
+check('cache: blob URLs were created during the run', blobUrls.created.length > 0);
 
 // run to the end: end the current chunk, then WAIT for the next play event
 // (the fake onended can re-fire, unlike a real Audio element)
@@ -124,6 +140,8 @@ const chunkTexts = allReqs.slice(1).map(r => r.text);   // [0] was the direct cl
 check('pipeline: exactly one synthesis per chunk (no waste)',
   allReqs.length === B.ReadAloud.chunks.length + 1 &&
   chunkTexts.every((t, i) => t === B.ReadAloud.chunks[i]));
+check('cache: every blob URL revoked when the reading finished (no files kept)', blobUrls.created.length === blobUrls.revoked.length);
+check('cache: urlCache emptied after done', Object.keys(B.ReadAloud.urlCache).length === 0 && B.ReadAloud.blobs.length === 0);
 
 // ---------- 4. error path: studio down ----------
 B.ttsSaveConfig({ endpoint: 'http://127.0.0.1:9', voice: 'Waluigi', api: '/generate_base_17', chunk: 120 });

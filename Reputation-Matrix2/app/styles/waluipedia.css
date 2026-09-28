@@ -3520,3 +3520,23 @@ html[data-theme="light"] .war-band{background:linear-gradient(90deg,color-mix(in
 .ra-note{font-size:12px;color:var(--accent2);align-self:center}
 .ra-help{grid-column:1/-1;margin:0;font-size:11.5px;color:var(--muted);line-height:1.5}
 @media(max-width:560px){.ra-txt b{max-width:60vw}}
+
+/* ---- read-aloud highlight: CSS Custom Highlight API + block fallback ---- */
+::highlight(readaloud-current){background:rgba(138,75,255,.32)}
+.readaloud-node{background:rgba(138,75,255,.16);border-radius:4px;box-shadow:0 0 0 2px rgba(138,75,255,.28)}
+
+/* ---- weather widget (timeline world cards + day log strip) ---- */
+.tlw-widget{display:flex;gap:6px;overflow-x:auto;margin:0 0 10px;padding:8px;border:1px dashed var(--border);border-radius:10px;background:rgba(0,0,0,.18)}
+.tlw-phase{flex:1 1 0;min-width:106px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:2px;padding:8px 6px 6px;border-radius:8px;background:var(--panel2)}
+.tlw-phase-ico{font-size:25px;line-height:1.1}
+.tlw-phase-when{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;color:var(--accent2)}
+.tlw-phase-line{font-size:11.5px;line-height:1.35}
+.daylog-weather{margin:12px 0;padding:10px 12px;border:1px solid var(--border);border-radius:10px;background:rgba(138,75,255,.05)}
+.daylog-weather>b{display:block;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--accent2);margin-bottom:4px}
+.daylog-weather-world{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.daylog-weather-world .tlw-widget{flex:1 1 260px;margin:4px 0 0}
+.daylog-weather-label{font-size:11px;font-weight:800;color:var(--accent)}
+
+/* ---- songbook deep-link flash ---- */
+.song-card.flash{animation:songFlash 2.6s ease}
+@keyframes songFlash{0%,55%{box-shadow:0 0 0 3px var(--song-accent,var(--accent)),var(--shadow);border-color:var(--song-accent,var(--accent))}100%{box-shadow:var(--shadow)}}

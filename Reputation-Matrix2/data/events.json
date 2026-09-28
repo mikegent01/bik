@@ -17770,7 +17770,24 @@
           "short": "The main world",
           "timeOfDay": "Morning through night: a three-filing day. Teaser at breakfast, correction after supper, this timeline by lamplight.",
           "weather": "Low grey cloud all morning; a dry east wind that took the dust off the roads by midday; rain after dark — steady, unhurried rain, the kind that makes a lamp and a closed door feel like a policy decision.",
-          "source": "Waluigi went looking for what the sky was doing while a studio in another world played a song. The RNN morning bulletin gave two lines and a shrug, so he dug the morning editions out of the WAH Media Collective's back-issue boxes — three newsstands and one argument with a print vendor later, the archive can state the weather on the day the building obeyed a lord. Nobody asked it to. That is what archives are FOR."
+          "source": "Waluigi went looking for what the sky was doing while a studio in another world played a song. The RNN morning bulletin gave two lines and a shrug, so he dug the morning editions out of the WAH Media Collective's back-issue boxes — three newsstands and one argument with a print vendor later, the archive can state the weather on the day the building obeyed a lord. Nobody asked it to. That is what archives are FOR.",
+          "weatherWidget": [
+            {
+              "when": "Morning",
+              "icon": "🌫️",
+              "line": "Low grey cloud; no rain yet"
+            },
+            {
+              "when": "Midday",
+              "icon": "🌬️",
+              "line": "Dry east wind — the dust came off the roads"
+            },
+            {
+              "when": "After dark",
+              "icon": "🌧️",
+              "line": "Steady, unhurried rain"
+            }
+          ]
         },
         {
           "id": "studio",
@@ -17778,7 +17795,29 @@
           "short": "The studio",
           "timeOfDay": "Morning by the archive's clock. Indoors there is no time of day — only stage light, static glow, and whatever the scene calls for.",
           "weather": "No weather on record, and the archive means that as a FINDING. The studio's weather is internal: a cold coffee machine that turns volcanic; sprinkler rain in one scene; frost in the next; a velvet night that falls on command when somebody says the word. Beyond the seats the windows show the whole facility silent, under a sky that did not perform. No wind. No birds. The applause track is the closest thing to weather the building has.",
-          "source": "The account itself. The archive has no correspondent in that world, the windows were not talking, and the one clock on the wall was a prop."
+          "source": "The account itself. The archive has no correspondent in that world, the windows were not talking, and the one clock on the wall was a prop.",
+          "weatherWidget": [
+            {
+              "when": "On the set",
+              "icon": "☕",
+              "line": "Scalding steam — the coffee machine's idea of weather"
+            },
+            {
+              "when": "The fire scene",
+              "icon": "🔥",
+              "line": "Room heat refused; sprinkler rain deployed"
+            },
+            {
+              "when": "The ice scene",
+              "icon": "❄️",
+              "line": "Frost climbing the walls; icicles off the sprinkler heads"
+            },
+            {
+              "when": "Beyond the seats",
+              "icon": "🚫",
+              "line": "No weather on record — a silent sky that did not perform"
+            }
+          ]
         }
       ],
       "entries": [

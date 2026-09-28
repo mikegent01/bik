@@ -6379,6 +6379,14 @@ function raceThumb(i,mode){
    reconstruction (Waluigi was not there), durations anchor to countable
    things, and weather must be SOURCED in-world — the hunt for the source is
    part of the filing. Records without a timeline render nothing. */
+/* The weather as a WIDGET, not a paragraph: phases of the day, one tile
+   each (when / icon / line). Rendered inside each timeline world card and on
+   the day log. Data: worlds[].weatherWidget = [{when, icon, line}]. */
+function tlwWidgetHtml(w){
+  const phases=Array.isArray(w&&w.weatherWidget)?w.weatherWidget.filter(Boolean):[];
+  if(!phases.length) return '';
+  return `<div class="tlw-widget" role="group" aria-label="Weather widget">${phases.map(p=>`<div class="tlw-phase"><span class="tlw-phase-ico" aria-hidden="true">${esc(String(p.icon||'\u{1F324}'))}</span><span class="tlw-phase-when">${esc(String(p.when||''))}</span><span class="tlw-phase-line">${esc(String(p.line||''))}</span></div>`).join('')}</div>`;
+}
 function timelinePanel(item,typeKey){
   if(typeKey!=='events') return '';
   const tl=item&&item.timeline;
@@ -6387,6 +6395,7 @@ function timelinePanel(item,typeKey){
   const worldShort=id=>{const w=worlds.find(x=>x&&x.id===id);if(!w)return '';return w.short||String(w.label||w.id||'').split(' — ')[0];};
   const worldCards=worlds.filter(Boolean).map(w=>`<div class="tlw-card">
       <div class="tlw-label">${esc(w.label||w.id||'World')}</div>
+      ${tlwWidgetHtml(w)}
       ${w.timeOfDay?`<div class="tlw-row"><span>time of day</span><p>${inlineMd(String(w.timeOfDay))}</p></div>`:''}
       ${w.weather?`<div class="tlw-row"><span>weather &amp; conditions</span><p>${inlineMd(String(w.weather))}</p></div>`:''}
       ${w.source?`<div class="tlw-row tlw-source"><span>how the archive knows</span><p>${inlineMd(String(w.source))}</p></div>`:''}
@@ -8196,12 +8205,28 @@ function inlineMd(t,opts){
     propSlots.push(typeof wbInlineHtml==='function'?wbInlineHtml(lid,txt):esc(txt));
     return '\u241EPROP'+(propSlots.length-1)+'\u241E';
   });
+  /* Songbook trigger: [[song:song_plumber_man|the songbook]] deep-links a song
+     card. Parked behind the same sentinel as exhibits so the auto-linker
+     cannot chew the anchor we just built. */
+  t=t.replace(/\[\[song:([a-zA-Z0-9_-]+)(?:\|([^\]]+))?\]\]/g,(m,sid,label)=>{
+    const sg=(typeof window!=='undefined'&&window.SONGS_DATA||[]).find(x=>x&&x.id===sid);
+    if(!sg) return label||sid;
+    const txt=label||esc(String(sg.title).split('(')[0].trim());
+    propSlots.push(`<a class="xlink" href="#/song/${esc(sid)}">${txt}</a>`);
+    return '\u241EPROP'+(propSlots.length-1)+'\u241E';
+  });
   // Manual markdown links written in the JSON: [visible text](target_id) or full wiki URL ending in #/article/target_id.
   t=t.replace(/\[([^\]]+)\]\(([^)]+)\)/g,(m,text,target)=>{
     const tm=String(target).match(/#\/article\/([a-zA-Z0-9_:-]+)/);
     const tid=tm?tm[1]:target;
     const p=LINK_PREVIEW[tid];
     if(p){ LINK_ONCE.add(tid); return `<a class="xlink" data-id="${esc(tid)}" href="${p.route}">${text}</a>`; }
+    /* Internal routes stay internal: an absolute URL that only points back at
+       this app opens HERE, not in a new tab to the deployed copy; a bare #/…
+       target stops being silently dropped. */
+    const im=String(target).match(/^(?:https?:\/\/[^\/]+\/(?:bik\/)?)?index\.html(#[^\s]*)$/i);
+    if(im) return `<a class="xlink" href="${esc(im[1])}">${text}</a>`;
+    if(/^#\//.test(target)) return `<a class="xlink" href="${esc(target)}">${text}</a>`;
     if(/^https?:\/\//i.test(target)) return `<a href="${esc(target)}" target="_blank" rel="noopener">${text}</a>`;
     return text;
   });
@@ -17426,9 +17451,10 @@ function view_daylog(id){
         ${readAloudChip()}
         ${d.whereabouts?`<div class="daylog-where"><b>Where the archivist actually was:</b> ${esc(d.whereabouts)}</div>`:''}
         ${media}
+        ${(source&&source.timeline&&Array.isArray(source.timeline.worlds)&&source.timeline.worlds.filter(Boolean).some(w=>Array.isArray(w.weatherWidget)&&w.weatherWidget.length))?`<div class="daylog-weather"><b>🌦️ The day's weather, as filed:</b>${source.timeline.worlds.filter(Boolean).map(w=>`<div class="daylog-weather-world"><span class="daylog-weather-label">${esc(w.short||String(w.label||w.id||'').split(' — ')[0])}</span>${tlwWidgetHtml(w)}</div>`).join('')}</div>`:''}
       </header>
       <div class="daylog-reading">
-        <div class="wcut-boundary daylog-boundary"><b>What this page is:</b> the desk's side of a filing day — breakfast, requests, one museum, the weather hunt — reconstructed after the fact. The events live in <a href="#/article/${encodeURIComponent(d.event)}">the filing</a> and its timeline; the jokes are the archivist's, and so is the mistake.</div>
+        <div class="wcut-boundary daylog-boundary"><b>What this page is:</b> the archivist's side of a filing day — where he actually was, what he ate there, the museum he should have read more closely, and the clocks that do not reconcile. The events live in <a href="#/article/${encodeURIComponent(d.event)}">the filing</a> and its timeline; the jokes are the archivist's, and so is the mistake.</div>
         ${d.standfirst?`<div class="wcut-standfirst">${mdToHtml(d.standfirst,d.id)}</div>`:''}
         ${sectionsHtml}
         ${relatedChips?`<section class="wcut-related" aria-labelledby="dlog-related"><h2 id="dlog-related">Related Records</h2><div class="related-list">${relatedChips}</div></section>`:''}
@@ -17465,19 +17491,27 @@ function ttsConfig(){
 function ttsSaveConfig(c){ try{ localStorage.setItem('waluipedia-tts', JSON.stringify(c)); }catch(e){} }
 
 /* ---- text harvest: what "read the article" means on this page ---------- */
-function ttsHarvestText(){
+function ttsHarvestNodes(){
   const sels = ['#content .art-title','#content .art-subtitle',
     '#content .article-lead-summary p','#content .wcut-standfirst',
     '#content .daylog-where','#content .prose','#content .wnote','#content .wcut-body'];
   const seen = new Set(); const parts = [];
+  const take = n => {
+    const t = String(n.textContent||'').replace(/\s+/g,' ').trim();
+    if(t.length>1) parts.push({node:n, text:t});
+  };
   document.querySelectorAll(sels.join(',')).forEach(n=>{
     if(seen.has(n)) return; seen.add(n);
     if(n.closest && (n.closest('.toc')||n.closest('.rail')||n.closest('.infobox'))) return;
-    const t = String(n.textContent||'').replace(/\s+/g,' ').trim();
-    if(t.length>1) parts.push(t);
+    /* Containers expand to their blocks, so the highlight tracks PARAGRAPHS,
+       not a whole prose column at once. */
+    const kids = n.querySelectorAll ? n.querySelectorAll('p, li, h1, h2, h3, h4, blockquote') : [];
+    if(kids && kids.length) kids.forEach(k=>{ if(!seen.has(k)){ seen.add(k); take(k); } });
+    else take(n);
   });
-  return parts.join('\n\n');
+  return parts;
 }
+function ttsHarvestText(){ return ttsHarvestNodes().map(n=>n.text).join('\n\n'); }
 /* ---- sentence-aware chunker: fill up to `target` chars, split on [.!?…] -- */
 function ttsChunkText(text, target){
   const tgt = Math.max(120, Number(target)||450);
@@ -17501,6 +17535,77 @@ function ttsChunkText(text, target){
   }
   push();
   return chunks.filter(c=>c.length>1);
+}
+/* Map each chunk back to its source node and (normalized) char range, so the
+   reader can SEE what is being read. Chunks never span harvested nodes —
+   every node is its own paragraph — and each chunk is an exact slice of that
+   node's whitespace-collapsed text. */
+function ttsMapChunks(nodes, chunks){
+  const out=[]; let ni=0, cur=0;
+  for(const c of chunks){
+    let found=null;
+    for(let j=ni;j<nodes.length;j++){
+      const at = nodes[j].text.indexOf(c, j===ni ? cur : 0);
+      if(at>=0){ found={node:nodes[j].node, start:at, end:at+c.length}; ni=j; cur=at+c.length; break; }
+    }
+    out.push(found || {node:(nodes[0]||{}).node, start:0, end:0});
+  }
+  return out;
+}
+/* Harvested text collapses whitespace; the DOM keeps the original spacing.
+   This walks the element's text nodes once and answers: which text node and
+   raw offset does normalized position N sit at? */
+function ttsNormLocator(el){
+  const byNorm=[]; let lastSpace=true;
+  let walker=null;
+  try{ walker = document.createTreeWalker ? document.createTreeWalker(el, 4 /* SHOW_TEXT */) : null; }catch(e){ walker=null; }
+  if(!walker) return null;
+  let tn;
+  while((tn=walker.nextNode())){
+    const raw=tn.nodeValue||'';
+    for(let r=0;r<raw.length;r++){
+      if(/\s/.test(raw[r])){ if(!lastSpace){ byNorm.push({tn,off:r}); lastSpace=true; } }
+      else { byNorm.push({tn,off:r}); lastSpace=false; }
+    }
+  }
+  return byNorm;
+}
+function ttsClearHighlight(){
+  try{ if(window.CSS&&window.CSS.highlights) window.CSS.highlights.delete('readaloud-current'); }catch(e){}
+  try{ document.querySelectorAll('.readaloud-node').forEach(n=>{ if(n.classList&&n.classList.remove) n.classList.remove('readaloud-node'); }); }catch(e){}
+}
+function ttsHighlight(src){
+  ttsClearHighlight();
+  if(!src||!src.node) return;
+  try{ if(src.node.scrollIntoView) src.node.scrollIntoView({behavior:'smooth',block:'center'}); }catch(e){}
+  try{
+    /* CSS Custom Highlight API when available (paint a real range, nested
+       markup and all); a whole-block tint as the fallback. */
+    if(window.CSS&&window.CSS.highlights&&window.Highlight&&document.createRange&&src.node.firstChild){
+      const byNorm=ttsNormLocator(src.node);
+      const a=byNorm&&byNorm[src.start], b=byNorm&&byNorm[Math.max(src.start,src.end-1)];
+      if(a&&b){
+        const r=document.createRange();
+        r.setStart(a.tn,a.off); r.setEnd(b.tn,b.off+1);
+        window.CSS.highlights.set('readaloud-current', new window.Highlight(r));
+        return;
+      }
+    }
+  }catch(e){}
+  try{ if(src.node.classList&&src.node.classList.add) src.node.classList.add('readaloud-node'); }catch(e){}
+}
+/* The cache is MEMORY ONLY: synthesized audio is fetched once as a blob and
+   held as an object URL for the length of the reading, then revoked — every
+   blob freed, the cache emptied — the moment the reading ends or stops.
+   Nothing is written to disk by the page. */
+async function ttsCacheBlob(url){
+  try{
+    const res=await fetch(url);
+    if(!res.ok) throw new Error('HTTP '+res.status);
+    const blob=await res.blob();
+    if(typeof URL==='undefined'||typeof URL.createObjectURL!=='function') return {url:url,blob:false};
+    return {url:URL.createObjectURL(blob),blob:true};
+  }catch(e){ return {url:url,blob:false}; }
 }
 
 /* ---- Gradio client: POST to the queue, read the SSE stream, resolve a URL */
@@ -17553,16 +17658,18 @@ async function gradioTTS(text, cfg){
 
 /* ---- controller: chunk N plays while chunk N+1 synthesizes -------------- */
 const ReadAloud = {
-  active:false, paused:false, chunks:[], idx:-1, urlCache:{}, pending:{}, token:0, audio:null,
+  active:false, paused:false, chunks:[], idx:-1, urlCache:{}, pending:{}, token:0, audio:null, sources:null, blobs:[], hl:null,
   start(){
-    const text = ttsHarvestText();
+    const nodes = ttsHarvestNodes();
+    const text = nodes.map(n=>n.text).join('\n\n');
     if(!text){ ttsBarShow('Read aloud'); ttsBarStatus('Nothing readable on this page','error'); return; }
     this.stop(true);
     const cfg = ttsConfig();
     this.chunks = ttsChunkText(text, cfg.chunk);
     if(!this.chunks.length){ ttsBarShow('Read aloud'); ttsBarStatus('Nothing readable on this page','error'); return; }
+    this.sources = ttsMapChunks(nodes, this.chunks);
     const title = (document.querySelector('#content .art-title')||{}).textContent || 'Read aloud';
-    this.active = true; this.paused = false; this.idx = -1; this.urlCache = {}; this.pending = {}; this.token++;
+    this.active = true; this.paused = false; this.idx = -1; this.urlCache = {}; this.pending = {}; this.blobs = []; this.token++;
     ttsBarShow(String(title).trim());
     this._next(this.token);
   },
@@ -17571,6 +17678,7 @@ const ReadAloud = {
     this.idx++;
     if(this.idx >= this.chunks.length){
       this.active = false;
+      this._revokeAll(); ttsClearHighlight(); this.hl = null;
       ttsBarStatus('Done — '+this.chunks.length+' chunk'+(this.chunks.length===1?'':'s'),'done');
       const t = this.token;
       setTimeout(()=>{ if(this.token===t) ttsBarHide(); }, 6000);
@@ -17588,15 +17696,23 @@ const ReadAloud = {
     this._play(this.idx, tok);
   },
   /* one synthesis per chunk, ever: the in-flight promise is shared, so a
-     prefetch still running when playback ends is JOINED, not duplicated. */
+     prefetch still running when playback ends is JOINED, not duplicated.
+     The rendered audio lands in the in-memory blob cache (see ttsCacheBlob). */
   _synthOf(i){
     if(this.urlCache[i]) return Promise.resolve(this.urlCache[i]);
     if(!this.pending[i]){
       this.pending[i] = gradioTTS(this.chunks[i], ttsConfig()).then(
-        u=>{ this.urlCache[i]=u; delete this.pending[i]; return u; },
+        u=>ttsCacheBlob(u)).then(
+        cu=>{ this.urlCache[i]=cu.url; if(cu.blob) this.blobs.push(cu.url); delete this.pending[i]; return cu.url; },
         e=>{ delete this.pending[i]; throw e; });
     }
     return this.pending[i];
+  },
+  /* Wipe the cache: revoke every object URL, empty the map. Called when the
+     reading finishes AND when it stops — the cache never survives the run. */
+  _revokeAll(){
+    (this.blobs||[]).forEach(u=>{ try{ URL.revokeObjectURL(u); }catch(e){} });
+    this.blobs=[]; this.urlCache={};
   },
   async _synthAhead(i, tok){
     if(i>=this.chunks.length || this.urlCache[i]) return;
@@ -17605,6 +17721,8 @@ const ReadAloud = {
   },
   _play(i, tok){
     const url = this.urlCache[i];
+    this.hl = this.sources ? this.sources[i] : null;
+    ttsHighlight(this.hl);
     const a = new Audio(url);
     this.audio = a; this.paused = false;
     a.onended = ()=>{ if(this.active && tok===this.token) this._next(tok); };
@@ -17626,6 +17744,7 @@ const ReadAloud = {
   stop(silent){
     this.active = false; this.token++;
     if(this.audio){ this.audio.onended=null; this.audio.pause(); this.audio=null; }
+    ttsClearHighlight(); this.hl = null; this._revokeAll();
     if(!silent) ttsBarHide();
   }
 };
@@ -22191,6 +22310,7 @@ function view_books(categoryArg) {
 
 let currentSongFilter = 'all';
 let currentSongSearch = '';
+let pendingSongScroll = null;   /* a song id waiting to be scrolled to after render */
 
 function playSongCue(notesStr) {
   try {
@@ -22222,7 +22342,11 @@ function playSongCue(notesStr) {
 
 function view_songs(filterArg) {
   renderSidebar('songs');
-  if (filterArg) currentSongFilter = filterArg;
+  if (filterArg) {
+    if (((typeof window!=='undefined'&&window.SONGS_DATA)||[]).some(x=>x&&x.id===filterArg)) {
+      currentSongFilter = 'all'; currentSongSearch = ''; pendingSongScroll = filterArg;
+    } else currentSongFilter = filterArg;
+  }
 
   const songs = window.SONGS_DATA || [];
 
@@ -22250,7 +22374,7 @@ function view_songs(filterArg) {
 
     const cardsHtml = filtered.map((s, idx) => {
       return `
-        <div class="song-card animate-fade-in" style="--song-accent: ${s.accent || '#8a4bff'};">
+        <div class="song-card animate-fade-in" id="song-${esc(s.id)}" style="--song-accent: ${s.accent || '#8a4bff'};">
           <div>
             <div class="song-kicker" style="color: ${s.accent || 'var(--accent2)'};">🎵 Song ${(idx+1).toString().padStart(2,'0')} · ${s.category.toUpperCase()}</div>
             <h3 class="song-title">${esc(s.title)}</h3>
@@ -22316,7 +22440,18 @@ function view_songs(filterArg) {
       </div>
       <div class="songs-grid">${cardsHtml || '<div class="card" style="grid-column:1/-1;text-align:center;color:var(--muted)">No songs match your query.</div>'}</div>
     `;
-    window.scrollTo(0, 0);
+    if (pendingSongScroll) {
+      const targetId = pendingSongScroll; pendingSongScroll = null;
+      const raf = window.requestAnimationFrame || (cb => setTimeout(cb, 0));
+      raf(() => {
+        const card = document.getElementById('song-' + targetId);
+        if (card) {
+          try { card.scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch (e) {}
+          card.classList.add('flash');
+          setTimeout(() => { try { card.classList.remove('flash'); } catch (e) {} }, 2600);
+        }
+      });
+    } else window.scrollTo(0, 0);
   }
 
   renderGrid();
