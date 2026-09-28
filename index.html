@@ -16319,6 +16319,7 @@ function view_investigation(id){
         <span class="pill" title="Something the file wants answered next, and the reason it is worth answering.">${(iv.leads||[]).length} open question${(iv.leads||[]).length===1?'':'s'}</span>
         ${p.found?`<span class="pill">${p.found} fact${p.found===1?'':'s'} you have turned up</span>`:''}
       </div>
+      ${readAloudChip()}
 
       ${/* Plain english FIRST. Every one of the 17 files carries a
             plainSummary written precisely so a reader can understand the case
@@ -17368,6 +17369,7 @@ function view_article_analysis(id){
         </div>
         <div class="metabar"><span class="pill">🖋️ Opinion on the record</span><span class="pill">Source event remains canon</span><a class="chip analysis-source-cta" href="#/article/${encodeURIComponent(a.sourceArticle)}">Read the canonical event →</a></div>
         <div class="readtime">⏱ ${readMins} min read <span aria-hidden="true">·</span> ${wordCount} words</div>
+        ${readAloudChip()}
         ${lead}
       </header>
       <div class="analysis-reading">
@@ -17479,7 +17481,7 @@ function view_daylog(id){
    Split into a DOM-free core (chunker + Gradio client + controller) so it
    can be exercised headlessly; all DOM lives in the ttsBar* helpers. */
 const TTS_DEFAULTS = { endpoint:'http://127.0.0.1:7860', voice:'Waluigi',
-                       api:'/generate_base_17', lang:'Auto', chunk:450 };
+                       api:'/generate_base_17', lang:'Auto', chunk:450, volume:1 };
 function ttsConfig(){
   try{ return Object.assign({}, TTS_DEFAULTS, JSON.parse(localStorage.getItem('waluipedia-tts')||'{}')); }
   catch(e){ return Object.assign({}, TTS_DEFAULTS); }
@@ -17490,7 +17492,11 @@ function ttsSaveConfig(c){ try{ localStorage.setItem('waluipedia-tts', JSON.stri
 function ttsHarvestNodes(){
   const sels = ['#content .art-title','#content .art-subtitle',
     '#content .article-lead-summary p','#content .wcut-standfirst',
-    '#content .daylog-where','#content .prose','#content .wnote','#content .wcut-body'];
+    '#content .daylog-where','#content .prose','#content .wnote','#content .wcut-body',
+    /* the wider estate: songbook, what-ifs, chronicle cards, and the
+       calendar's day panel all speak too */
+    '#content .song-title','#content .song-performers','#content .full-song-sheet',
+    '#content .song-context','#content .wi-prose','#content .cal-voice'];
   const seen = new Set(); const parts = [];
   const take = n => {
     const t = String(n.textContent||'').replace(/\s+/g,' ').trim();
@@ -17817,6 +17823,7 @@ const ReadAloud = {
     this.hl = this.sources ? this.sources[i] : null;
     ttsHighlight(this.hl);
     const a = new Audio(url);
+    try{ a.volume = this.vol(); }catch(e){}
     this.audio = a; this.paused = false;
     a.onended = ()=>{ if(this.active && tok===this.token) this._next(tok); };
     a.onerror = ()=>{ if(this.active && tok===this.token){ this.active=false; ttsBarStatus('The studio made chunk '+(i+1)+' but the browser could not load it','error'); } };
@@ -17833,6 +17840,28 @@ const ReadAloud = {
     const tok = this.token;
     if(this.audio){ this.audio.onended=null; this.audio.pause(); this.audio=null; }
     this._next(tok);
+  },
+  /* back one chunk: _next() advances first, so land two short of current */
+  prev(){
+    if(!this.active) return;
+    const tok = this.token;
+    if(this.idx<=0) return;
+    if(this.audio){ this.audio.onended=null; this.audio.pause(); this.audio=null; }
+    this.idx = Math.max(-1, this.idx-2);
+    this._next(tok);
+  },
+  /* ---- volume: a knob, persisted with the rest of the bridge config ---- */
+  vol(){
+    let v = Number(ttsConfig().volume);
+    if(!isFinite(v)) v = 1;
+    return Math.min(1, Math.max(0, v));
+  },
+  setVolume(v){
+    const n = Math.min(1, Math.max(0, Number(v)||0));
+    const cfg = ttsConfig(); cfg.volume = n; ttsSaveConfig(cfg);
+    if(this.audio){ try{ this.audio.volume = n; }catch(e){} }
+    const sl = document.getElementById('ra-vol');
+    if(sl){ try{ sl.value = String(n); }catch(e){} }
   },
   /* ---- pick mode: the click-to-select option ---------------------------- */
   pickToggle(){ this.picking ? this.pickOff() : this.pickOn(); },
@@ -17893,8 +17922,14 @@ function ttsBarEnsure(){
   bar.innerHTML = `
     <span class="ra-ico" aria-hidden="true">🔊</span>
     <div class="ra-txt"><b id="ra-title">Read aloud</b><span id="ra-status" data-mode="idle">idle</span></div>
+    <div class="ra-vol" title="Volume">
+      <span aria-hidden="true">🔊</span>
+      <input id="ra-vol" type="range" min="0" max="1" step="0.05" value="1"
+             aria-label="Read aloud volume" oninput="ReadAloud.setVolume(this.value)">
+    </div>
     <div class="ra-btns">
       <button type="button" id="ra-pick" title="Pick text: click a paragraph to start reading from there — or drag to select exact text, then click" aria-pressed="false" onclick="ReadAloud.pickToggle()">🎯</button>
+      <button type="button" title="Previous chunk" onclick="ReadAloud.prev()">⏮</button>
       <button type="button" id="ra-toggle" title="Pause / resume" onclick="ReadAloud.pause()">⏸</button>
       <button type="button" title="Next chunk" onclick="ReadAloud.skip()">⏭</button>
       <button type="button" title="Stop" onclick="ReadAloud.stop()">⏹</button>
@@ -17940,6 +17975,7 @@ function raCfgFill(){
   if(f('ra-voice')) f('ra-voice').value = cfg.voice;
   if(f('ra-api')) f('ra-api').value = cfg.api;
   if(f('ra-chunk')) f('ra-chunk').value = cfg.chunk;
+  if(f('ra-vol')) f('ra-vol').value = String(cfg.volume!=null?cfg.volume:1);
 }
 function raCfgSave(){
   const f = id=>document.getElementById(id);
@@ -17947,7 +17983,8 @@ function raCfgSave(){
                   voice:(f('ra-voice')&&f('ra-voice').value)||TTS_DEFAULTS.voice,
                   api:(f('ra-api')&&f('ra-api').value)||TTS_DEFAULTS.api,
                   lang:'Auto',
-                  chunk:Math.min(900, Math.max(200, Number(f('ra-chunk')&&f('ra-chunk').value)||TTS_DEFAULTS.chunk)) });
+                  chunk:Math.min(900, Math.max(200, Number(f('ra-chunk')&&f('ra-chunk').value)||TTS_DEFAULTS.chunk)),
+                  volume:Math.min(1, Math.max(0, Number(f('ra-vol')&&f('ra-vol').value!=null?f('ra-vol').value:TTS_DEFAULTS.volume)||0)) });
   const n = document.getElementById('ra-cfg-note'); if(n) n.textContent = 'Saved. New chunks use it immediately.';
 }
 async function raTestVoice(){
@@ -18452,6 +18489,7 @@ function view_chronicle(id){
             ${e.location?`<span class="pill">📍 ${esc(e.location)}</span>`:''}
             ${y?`<a class="chip" href="#/year/${y}">Open ${y} BF chronicle →</a>`:''}
             ${y!=null && (e.date?.monthIndex!=null)?`<a class="chip" href="#/calendar/${CAL_STATE?CAL_STATE.calendarId:'imperial'}/month/${y}/${e.date.monthIndex}/${e.date.day||1}">🗓️ Open on Calendar</a>`:''}
+            ${readAloudChip()}
           </div>
         </div>
       </div>
@@ -19064,6 +19102,11 @@ function getCalendarThemeCSS(){
       .${cls} .calendar-day.today { box-shadow:inset 0 0 0 2px ${a2}; background:linear-gradient(0deg,${a2}18,transparent); }
       .${cls} .calendar-day.selected { outline:2px solid ${a}; }
       .${cls} .calendar-grid-wrap { border-color:${a}55; box-shadow:0 8px 28px ${a}18; }
+      .${cls} .calx-mo.on { background:${a}; color:#fff; }
+      .${cls} .calx-segs button.on { background:${a}; }
+      .${cls} .calx-cell.selected { border-color:${a}; box-shadow:0 0 0 1px ${a}; background:linear-gradient(180deg,${a}1c,var(--panel2)); }
+      .${cls} .calx-day-big { color:${a2}; }
+      .${cls} .calx-hero h1 { color:${a2}; }
       .${cls}.arttile, .arttile.${cls} { background:linear-gradient(135deg,${a}14,transparent 60%), linear-gradient(180deg,${th.panel||'#1b1430'},${th.bg||'#0d0a15'}); border-left-color:${a}; border-color:${a}38; }
       .${cls}.arttile .tt, .arttile.${cls} .tt { color:${a2}; }
       .${cls}.arttile .weird-pill { border-color:${a}55; background:linear-gradient(135deg,${a}14,${a2}0e),var(--bg2); }
@@ -19259,6 +19302,144 @@ function pocketClockPanel(){
   </div>`;
 }
 
+/* ============================ THE CALENDAR ================================
+   Redesigned around one rule: no dead ends, no reloads for nothing. The
+   month grid and the day panel share one screen — clicking a day answers IN
+   PLACE beside the grid (the page never jumps to the top), every dated
+   record is one click deep from its day, and months/years are one press in
+   the strips. Keyboard on the grid: ← → step days, ↑ ↓ step weeks,
+   Home/End jump to the month's first/last day. */
+function calxKind(e){
+  const k=(e&&e.kind)||'event';
+  if(k==='battle'||k==='majorBattle') return {c:'var(--danger)',emoji:'🗡️',label:'Battle'};
+  if(k==='trial')   return {c:'var(--accent2)',emoji:'⚖️',label:'Trial'};
+  if(k==='holiday') return {c:'var(--green)',emoji:(e.holiday&&e.holiday.icon)||'🎉',label:'Holiday'};
+  if(k==='weird')   return {c:'#ff66cc',emoji:'✨',label:'Intercalary'};
+  if(k==='timeline')return {c:'var(--accent2)',emoji:'📖',label:'Chronicle'};
+  return {c:'var(--accent)',emoji:'📜',label:'Event'};
+}
+function calxRoute(tab,y,mi,d){
+  const cal=getActiveCalendar();
+  return '#/calendar/'+cal.id+'/'+(tab||CAL_STATE.tab||'month')+'/'+(y==null?CAL_STATE.year:y)+'/'+(mi==null?CAL_STATE.monthIndex:mi)+'/'+(d==null?CAL_STATE.day:d);
+}
+/* the grid — day cells carry up to two event titles so a month can be READ
+   at a glance instead of tooltip-hunted */
+function calxGridHtml(){
+  const cal=getActiveCalendar();
+  const md=cal.months[CAL_STATE.monthIndex]||getMonthData(CAL_STATE.monthIndex);
+  const nW=cal.weekdays.length;
+  const firstIdx=((calAbsoluteDay(cal,CAL_STATE.year,CAL_STATE.monthIndex,1)%nW)+nW)%nW;
+  const days=md.days||30;
+  let cells='';
+  for(let i=0;i<firstIdx;i++) cells+='<div class="calx-cell calx-fill"></div>';
+  for(let d=1;d<=days;d++){
+    const evs=collectEventsForDay(CAL_STATE.year,CAL_STATE.monthIndex,d);
+    const wd=calWeekdayForDate(cal,CAL_STATE.year,CAL_STATE.monthIndex,d);
+    const isToday=CAL_STATE.year===CUR.year&&CAL_STATE.monthIndex===CUR.monthIndex&&d===CUR.day;
+    const chips=evs.slice(0,2).map(e=>{const kk=calxKind(e);return `<span class="calx-chip" style="--k:${kk.c}">${kk.emoji} ${esc(e.name)}</span>`;}).join('');
+    cells+=`<div class="calx-cell${wd.isRestDay?' rest':''}${isToday?' today':''}${d===CAL_STATE.day?' selected':''}" data-d="${d}"${evs.length?` title="${esc(evs.map(e=>e.name).join(' · '))}"`:''} onclick="calxSelectDay(${d})">
+      <div class="calx-dnum"><span>${d}</span><i>${esc(wd.abbr)}</i></div>
+      ${chips?`<div class="calx-chips">${chips}${evs.length>2?`<span class="calx-more">+${evs.length-2} more</span>`:''}</div>`:''}
+    </div>`;
+  }
+  const rem=(firstIdx+days)%nW;
+  for(let i=rem?nW-rem:0;i>0;i--) cells+='<div class="calx-cell calx-fill"></div>';
+  return `<div class="calx-weekdays" style="grid-template-columns:repeat(${nW},1fr)">${cal.weekdays.map(w=>`<div class="${w.isRestDay?'rest':''}" title="${esc(w.name)}">${esc(w.abbr)}</div>`).join('')}</div>
+    <div class="calx-grid" id="calx-grid" tabindex="0" role="grid" aria-label="Month grid — click a day to open it here; arrow keys move the selected day" onkeydown="calxKeys(event)">${cells}</div>`;
+}
+/* the day panel — the calendar's answer to "what happened HERE", rendered
+   beside the grid and refreshed in place on every day click */
+function calxDayPanelHtml(){
+  const cal=getActiveCalendar();
+  const md=cal.months[CAL_STATE.monthIndex]||getMonthData(CAL_STATE.monthIndex);
+  const wd=calWeekdayForDate(cal,CAL_STATE.year,CAL_STATE.monthIndex,CAL_STATE.day);
+  const evs=collectEventsForDay(CAL_STATE.year,CAL_STATE.monthIndex,CAL_STATE.day);
+  const abs=calAbsoluteDay(cal,CAL_STATE.year,CAL_STATE.monthIndex,CAL_STATE.day);
+  const allCals=(DATA.calendars&&DATA.calendars.calendars)?DATA.calendars.calendars:[];
+  const conversions=allCals.filter(c=>c.id!==cal.id).map(c=>{
+    const cv=calDateFromAbsolute(c,abs);
+    if(!cv) return '';
+    if(cv.isIntercalary) return `<span class="calx-conv">🔀 ${esc(c.name)}: ${esc((cv.intercalary&&cv.intercalary.name)||'Intercalary')} · day ${cv.day}</span>`;
+    const m=c.months[cv.monthIndex]; if(!m) return '';
+    return `<span class="calx-conv" title="Day ${abs} on the absolute count">🔀 ${esc(c.name)}: ${esc(m.name)} ${cv.day}, ${cv.year}</span>`;
+  }).join('');
+  const hols=getHolidaysForCalendar(cal.id).filter(h=>h.month===md.ordinal);
+  const weird=calIntercalaryForYear(cal,CAL_STATE.year).filter(w=>(w.afterMonth||0)===md.ordinal);
+  const evCards=evs.length?evs.map(e=>{const kk=calxKind(e);return `
+      <a class="calx-ev" href="${e.route||'#/calendar'}" style="--k:${kk.c}">
+        <span class="calx-ev-ico">${kk.emoji}</span>
+        <span class="calx-ev-body cal-voice"><b>${esc(e.name)}</b><i>${kk.label}${e.holiday&&e.holiday.type?' · '+esc(e.holiday.type):''}</i>${e.summary?`<p>${esc(e.summary)}</p>`:''}</span>
+        <span class="calx-ev-go">→</span>
+      </a>`;}).join('')
+    :`<p class="calx-empty">Nothing dated on this day in ${esc(cal.name)}. A quiet day is also a finding — the archive files those too, by saying exactly this.</p>`;
+  return `<div class="calx-day" id="calx-day">
+    <div class="calx-day-head cal-voice">
+      <div class="calx-day-big">${CAL_STATE.day}</div>
+      <div><div class="calx-day-date">${esc(md.name)} ${CAL_STATE.year} BF</div>
+      <div class="calx-day-wd">${esc(wd.name)}${wd.isRestDay?' · rest day':''} · absolute day ${abs} · ${evs.length} entr${evs.length===1?'y':'ies'}</div></div>
+    </div>
+    <div class="calx-day-events">${evCards}</div>
+    ${conversions?`<div class="calx-sec"><h4>The same absolute day, elsewhere</h4>${conversions}</div>`:''}
+    ${hols.length?`<div class="calx-sec"><h4>Holidays in ${esc(md.name)}</h4>${hols.map(h=>`<span class="calx-hol cal-voice" style="--k:${h.color||'var(--green)'}" onclick="calxSelectDay(${h.day})" title="${esc(h.description||'')}">${h.icon||'🎉'} ${esc(h.name)} <i>day ${h.day}</i></span>`).join('')}</div>`:''}
+    ${weird.length?`<div class="calx-sec"><h4>Outside the month</h4>${weird.map(w=>`<span class="calx-hol cal-voice" style="--k:${w.color||'#ff66cc'}" title="${esc(w.description||'')}">${w.icon||'✨'} ${esc(w.name)} <i>${w.days}d after ${esc(md.name)}</i></span>`).join('')}</div>`:''}
+    <div class="calx-daylinks">
+      <a class="calx-btn" href="${calxRoute('month',CAL_STATE.year,CAL_STATE.monthIndex,CAL_STATE.day)}" title="A shareable link to exactly this day">🔗 Link here</a>
+      <button class="calx-btn" onclick="calxStepDay(-1)" title="Previous day (←)">‹ Prev</button>
+      <button class="calx-btn" onclick="calxStepDay(1)" title="Next day (→)">Next ›</button>
+    </div>
+  </div>`;
+}
+/* day click: answer in place. No route change, no re-render, no scroll jump —
+   the grid selection moves, the panel swaps, the URL updates silently so the
+   day is still shareable after a refresh. */
+function calxSelectDay(d){
+  const cal=getActiveCalendar();
+  const md=cal.months[CAL_STATE.monthIndex]||getMonthData(CAL_STATE.monthIndex);
+  d=Math.max(1,Math.min(d,md.days||30));
+  CAL_STATE.day=d;
+  const g=document.getElementById('calx-grid'), p=document.getElementById('calx-day');
+  if(g&&p){
+    g.querySelectorAll('.calx-cell').forEach(c=>{ try{ c.classList.toggle('selected', Number(c.dataset.d)===d); }catch(e){} });
+    p.outerHTML=calxDayPanelHtml();
+    try{ history.replaceState(null,'',calxRoute('month',CAL_STATE.year,CAL_STATE.monthIndex,d)); }catch(e){}
+    const sel=g.querySelector('.calx-cell.selected');
+    if(sel&&sel.scrollIntoView){ try{ sel.scrollIntoView({block:'nearest'}); }catch(e){} }
+  }else{
+    Router.go(calxRoute('month',CAL_STATE.year,CAL_STATE.monthIndex,d));
+  }
+}
+/* step across days; crossing a month edge is a route change (the whole month
+   has to re-render anyway, and the URL should say where you are) */
+function calxStepDay(delta){
+  const cal=getActiveCalendar();
+  const md=cal.months[CAL_STATE.monthIndex]||getMonthData(CAL_STATE.monthIndex);
+  let d=CAL_STATE.day+delta, mi=CAL_STATE.monthIndex, y=CAL_STATE.year;
+  if(d<1){
+    mi--; if(mi<0){ mi=cal.months.length-1; y--; }
+    d=(cal.months[mi]||getMonthData(mi)).days||30;
+    Router.go(calxRoute('month',y,mi,d)); return;
+  }
+  if(d>(md.days||30)){
+    d=1; mi++; if(mi>=cal.months.length){ mi=0; y++; }
+    Router.go(calxRoute('month',y,mi,d)); return;
+  }
+  calxSelectDay(d);
+}
+function calxMoveMonth(delta){
+  const cal=getActiveCalendar();
+  let mi=CAL_STATE.monthIndex+delta, y=CAL_STATE.year;
+  if(mi<0){ mi=cal.months.length-1; y--; }
+  if(mi>=cal.months.length){ mi=0; y++; }
+  Router.go(calxRoute('month',y,mi,1));
+}
+function calxKeys(ev){
+  const k=ev.key, nW=getActiveCalendar().weekdays.length;
+  const steps={ArrowLeft:-1,ArrowRight:1,ArrowUp:-nW,ArrowDown:nW};
+  if(k in steps){ ev.preventDefault(); calxStepDay(steps[k]); }
+  else if(k==='Home'){ ev.preventDefault(); calxSelectDay(1); }
+  else if(k==='End'){ ev.preventDefault(); const md=getActiveCalendar().months[CAL_STATE.monthIndex]||getMonthData(CAL_STATE.monthIndex); calxSelectDay(md.days||30); }
+}
+
 function view_calendar(){
   initCalendarState();
   renderSidebar('calendar');
@@ -19267,36 +19448,25 @@ function view_calendar(){
   const parts = argPart.split('/').filter(Boolean);
   if(parts[0]){
     if(['month','year','timeline','years'].includes(parts[0])){ CAL_STATE.tab=parts[0]; parts.shift(); }
-    // also allow calendar id as first param
     const allCals = (DATA.calendars && DATA.calendars.calendars) ? DATA.calendars.calendars : [];
     if(allCals.find(c=>c.id===parts[0])){ CAL_STATE.calendarId=parts[0]; parts.shift(); if(parts[0] && ['month','year','timeline','years'].includes(parts[0])){ CAL_STATE.tab=parts[0]; parts.shift(); } }
   }
-  if(parts[0]){ const y=parseInt(parts[0],10); if(!isNaN(y)){ CAL_STATE.year=y; } }
-  if(parts[1]){ const mi=parseInt(parts[1],10); if(!isNaN(mi) && mi>=0){ CAL_STATE.monthIndex=mi; } }
+  if(parts[0]){ const y=parseInt(parts[0],10); if(!isNaN(y)&&y>=0){ CAL_STATE.year=y; } }
+  if(parts[1]){ const mi=parseInt(parts[1],10); if(!isNaN(mi)&&mi>=0){ CAL_STATE.monthIndex=Math.min(mi, getActiveCalendar().months.length-1); } }
   if(parts[2]){ const d=parseInt(parts[2],10); if(!isNaN(d)) CAL_STATE.day=d; }
   if(!CAL_STATE.tab) CAL_STATE.tab='month';
 
   const activeCal=getActiveCalendar();
   const md=activeCal.months[CAL_STATE.monthIndex] || getMonthData(CAL_STATE.monthIndex);
+  CAL_STATE.day=Math.max(1,Math.min(CAL_STATE.day,md.days||30));
   const season=calSeasonForMonth(activeCal, md.ordinal);
-  const wdToday=calWeekdayForDate(activeCal, CUR.year, CUR.monthIndex, CUR.day);
-  const wdSelected=calWeekdayForDate(activeCal, CAL_STATE.year, CAL_STATE.monthIndex, CAL_STATE.day);
   const monthEvents=collectEventsForMonth(CAL_STATE.year, CAL_STATE.monthIndex);
-  const selectedDayEvents=collectEventsForDay(CAL_STATE.year, CAL_STATE.monthIndex, CAL_STATE.day);
-
-  const tabs=['month','year','timeline','years'];
-  const tabLabels={month:'📅 Month Grid', year:'🗓️ Year View', timeline:'🕰️ Full Timeline', years:'📚 All Years'};
-  const tabBar = `<div class="chips mb-12">${tabs.map(t=>`<span class="chip ${CAL_STATE.tab===t?'active':''}" onclick="Router.go('#/calendar/${CAL_STATE.calendarId}/${t}/${CAL_STATE.year}/${CAL_STATE.monthIndex}/${CAL_STATE.day}')">${tabLabels[t]}</span>`).join('')}<span class="chip" onclick="Router.go('#/holiday')">🎉 Holidays</span></div>`;
-
-  // Calendar selector (modular)
   const allCals = (DATA.calendars && DATA.calendars.calendars) ? DATA.calendars.calendars : [];
-  const calSelector = `<div class="chips" style="margin-bottom:10px"><span style="color:var(--muted);font-size:12px;margin-right:6px">Calendar:</span>` + allCals.map(c=>`<span class="chip ${c.id===activeCal.id?'active':''}" style="border-color:${c.cssTheme?.accent||'#8a4bff'}" onclick="Router.go('#/calendar/${c.id}/${CAL_STATE.tab}/${CAL_STATE.year}/${CAL_STATE.monthIndex}/${CAL_STATE.day}')">${c.cssTheme?.className?'':''}${c.name} (${calDaysInYear(c, CAL_STATE.year)}d)</span>`).join('') + `</div>`;
 
-  // Per-calendar CSS
   const themeStyle = `<style id="cal-theme">${getCalendarThemeCSS()}</style>`;
 
-  // Calendar section — renamed to just "Calendar", fixed weird clipping, holidays now modular JSON
-  const localSection = `<div class="card mt-12"><div class="section-title">📅 Calendar</div>
+  /* ---- the reference shelf: what each calendar IS, folded out of the way */
+  const localSection = `<details class="calx-about card"><summary>📚 The calendars on file — ${allCals.length} systems · months, weird days, and holidays</summary>
     <div class="artgrid">${allCals.map(c=>{
       const th=c.cssTheme||{};
       const weirdPills = (c.intercalaryDays||[]).map(w=>`<span class="weird-pill" style="border-color:${w.color||th.accent||'#888'}"><span class="wi">${w.icon||'✨'}</span> ${esc(w.name)} — ${w.days}d after ${w.afterMonth||0}</span>`).join('');
@@ -19312,92 +19482,33 @@ function view_calendar(){
         <div class="tsum" style="-webkit-line-clamp:unset;display:block;overflow:visible">
           <div class="text-muted text-sm">Weekdays: ${c.weekdays.map(w=>esc(w.abbr)).join(', ')} · Months: ${c.months.map(m=>esc(m.abbr)).join(', ')}</div>
           <div class="cal-weird"><div class="cal-weird-title">✨ Weird days — intercalary outside months</div>${weirdPills||'<span class="pill">none</span>'}</div>
-          <div class="cal-holiday-section"><div class="cal-weird-title">🎉 Holidays — from data/holidays/*.json</div><div class="cal-holidays">${holidayPills||'<span class="pill">no holidays file yet</span>'}</div></div>
+          <div class="cal-holiday-section"><div class="cal-weird-title">🎉 Holidays</div><div class="cal-holidays">${holidayPills||'<span class="pill">no holidays file yet</span>'}</div></div>
         </div>
         <div class="tmeta mt-10">${localTo}</div>
       </div>`;
-    }).join('')}</div></div>`;
-
-  // Cross-calendar conversion for selected absolute day
-  const absSelected = calAbsoluteDay(activeCal, CAL_STATE.year, CAL_STATE.monthIndex, CAL_STATE.day);
-  const conversions = allCals.map(c=>{
-    const conv = calDateFromAbsolute(c, absSelected);
-    if(conv.isIntercalary) return `<div class="ev pos">🔀 ${c.name}: <b>${conv.intercalary?.name||'Intercalary'} — Day ${conv.day}</b> of ${conv.year} (weird day)</div>`;
-    const m=c.months[conv.monthIndex];
-    if(!m) return '';
-    const wd=calWeekdayForDate(c, conv.year, conv.monthIndex, conv.day);
-    return `<div class="ev pos">🔀 ${c.name}: <b>${m.name} ${conv.day}, ${conv.year}</b> — ${wd.name}</div>`;
-  }).join('');
+    }).join('')}</div></details>`;
 
   let mainContent='';
   if(CAL_STATE.tab==='month'){
-    const weekdaysHeader = activeCal.weekdays.map(w=>`<div class="wd ${w.isRestDay?'rest':''}" title="${w.name}">${w.abbr}</div>`).join('');
-    const firstWeekdayIdx = (calAbsoluteDay(activeCal, CAL_STATE.year, CAL_STATE.monthIndex, 1) % activeCal.weekdays.length);
-    const fillerBefore = (firstWeekdayIdx+activeCal.weekdays.length)%activeCal.weekdays.length;
-    const daysInMonth = md.days||30;
-    let cells='';
-    for(let i=0;i<fillerBefore;i++) cells+=`<div class="${calendarDayClass(0,0,0,true)}"><div class="dnum opacity-3">·</div></div>`;
-    for(let d=1; d<=daysInMonth; d++){
-      const evs=collectEventsForDay(CAL_STATE.year, CAL_STATE.monthIndex, d);
-      const dots=evs.slice(0,8).map(e=>{
-        const col=e.kind==='battle'||e.kind==='majorBattle'?'var(--danger)':e.kind==='trial'?'var(--accent2)':e.kind==='event'?'var(--accent)':e.kind==='holiday'?'var(--green)':e.kind==='weird'?'#ff66cc':'var(--muted)';
-        return `<span class="edot" style="background:${col}" title="${esc((e.name||'').replace(/"/g,''))} — ${e.kind}"></span>`;
-      }).join('');
-      const more = evs.length>8?`<div class="more">+${evs.length-8} more</div>`:'';
-      const wd=calWeekdayForDate(activeCal, CAL_STATE.year, CAL_STATE.monthIndex, d);
-      cells+=`<div class="${calendarDayClass(CAL_STATE.year, CAL_STATE.monthIndex, d,false)}" onclick="Router.go('#/calendar/${activeCal.id}/month/${CAL_STATE.year}/${CAL_STATE.monthIndex}/${d}')">
-        <div class="flex-between"><span class="dnum">${d}</span><span class="dweek">${wd.abbr}</span></div>
-        <div class="event-dots">${dots}</div>
-        ${more}
-      </div>`;
-    }
-    const totalCells = fillerBefore+daysInMonth;
-    const remainder = totalCells % activeCal.weekdays.length===0?0:activeCal.weekdays.length - (totalCells % activeCal.weekdays.length);
-    for(let i=0;i<remainder;i++) cells+=`<div class="${calendarDayClass(0,0,0,true)}"><div class="dnum opacity-3">·</div></div>`;
-
-    // Intercalary weird days after this month — FIXED layout, no clip
-    const weirdAfter = calIntercalaryForYear(activeCal, CAL_STATE.year).filter(w=> (w.afterMonth||0)===md.ordinal);
-    const weirdHtml = weirdAfter.length ? `<div class="card" style="margin-top:10px;border-left:4px solid ${activeCal.cssTheme?.accent||'var(--accent)'}"><div class="cal-weird-title">✨ Weird days after ${md.name} — outside months (not cut off anymore)</div><div class="cal-weird">${weirdAfter.map(w=>`<span class="weird-pill" style="border-color:${w.color}"><span class="wi">${w.icon||'✨'}</span> ${esc(w.name)} — ${w.days}d — ${esc(w.description||'')}</span>`).join('')}</div></div>` : '';
-
-    const dayListHtml = selectedDayEvents.length
-      ? selectedDayEvents.map(e=>{
-          const kindColor=e.kind==='battle'?'neg':e.kind==='majorBattle'?'neg':e.kind==='trial'?'warn':e.kind==='holiday'?'pos':e.kind==='weird'?'warn':'pos';
-          const icon = e.kind==='holiday'?(e.holiday?.icon||'🎉'):e.kind==='weird'?'✨':'';
-          return `<div class="ev ${kindColor}" onclick="Router.go('${e.route||'#/calendar'}')" class="cursor-ptr"><b>${esc(icon)} ${esc(e.name)}</b><div class="text-muted text-sm">${esc(e.date||'')} · ${esc(e.kind)}${e.holiday?` — ${esc(e.holiday.type||'')}`:''}</div><div style="color:var(--muted);font-size:12.5px;margin-top:4px">${esc((e.summary||'').slice(0,180))}${(e.summary||'').length>180?'…':''}</div></div>`;
-        }).join('')
-      : `<p class="text-muted">No dated entries for this day in ${activeCal.name}. Try holidays: ${getHolidaysForCalendar(activeCal.id).length} total. Year length ${calDaysInYear(activeCal, CAL_STATE.year)} days.</p>`;
-    mainContent = `
-      <div class="calendar-grid-wrap ${activeCal.cssTheme?.className||''}">
-        <div class="calendar-weekdays" style="grid-template-columns:repeat(${activeCal.weekdays.length},1fr)">${weekdaysHeader}</div>
-        <div class="calendar-grid" style="grid-template-columns:repeat(${activeCal.weekdays.length},1fr)">${cells}</div>
-      </div>
-      ${weirdHtml}
-      <div class="calendar-legend">
-        <span class="lg"><i style="background:var(--accent)"></i>Event</span>
-        <span class="lg"><i style="background:var(--danger)"></i>Battle</span>
-        <span class="lg"><i style="background:var(--accent2)"></i>Trial</span>
-        <span class="lg"><i style="background:var(--green)"></i>Holiday</span>
-        <span class="lg"><i style="background:#ff66cc"></i>Weird</span>
-        <span class="lg">🟡 Today</span>
-      </div>
-      <div class="grid2 mt-14">
-        <div class="card m-0">
-          <div class="section-title">📅 ${calFormatFullDate(activeCal, CAL_STATE.year, CAL_STATE.monthIndex, CAL_STATE.day)} — ${selectedDayEvents.length} entries</div>
-          <div class="day-events">${dayListHtml}</div>
-          <div class="section-title mt-12">🔀 Same absolute day in other calendars</div>
-          <div class="day-events">${conversions}</div>
-        </div>
-        <div class="card m-0">
-          <div class="section-title">🗓️ ${md.name} ${CAL_STATE.year} [${activeCal.name}] — ${monthEvents.length} entries · ${calDaysInYear(activeCal, CAL_STATE.year)}d year</div>
-          <div class="day-events">${monthEvents.slice(0,24).map(e=>{const kc=e.kind==='holiday'?'pos':e.kind==='weird'?'warn':'pos'; return `<div class="ev ${kc}" onclick="Router.go('${e.route||'#/calendar'}')" class="cursor-ptr"><b>${esc(e.name)}</b><div class="text-muted text-sm">${esc(e.date)} · ${esc(e.kind)}</div></div>`}).join('')||'<p class="text-muted">No dated entries this month.</p>'}
-            <div class="cal-holiday-section"><div class="cal-weird-title">🎉 Holidays this month</div><div class="cal-holidays">${getHolidayForDay(activeCal.id, md.ordinal, -1).length? '': ''}${(()=>{const list=getHolidaysForCalendar(activeCal.id).filter(h=>h.month===md.ordinal); return list.length?list.map(h=>`<div class="holiday-record-mini"><span class="holiday-pill" style="border-color:${h.color}">${h.icon||'🎉'} ${esc(h.name)} · Day ${h.day} · ${esc(h.type||'Observance')}</span><p>${esc(h.description||'A recorded calendar observance with no further description filed yet.')}</p></div>`).join(''):'<span class="pill">no holidays this month</span>'} )()}</div></div>
-          </div>
+    const weirdAfter = calIntercalaryForYear(activeCal, CAL_STATE.year).filter(w=>(w.afterMonth||0)===md.ordinal);
+    mainContent = `<div class="calx-layout ${activeCal.cssTheme?.className||''}">
+      <div class="calx-left">
+        ${calxGridHtml()}
+        ${weirdAfter.length?`<div class="calx-weird">${weirdAfter.map(w=>`<span class="weird-pill" style="border-color:${w.color||'#ff66cc'}"><span class="wi">${w.icon||'✨'}</span> ${esc(w.name)} — ${w.days}d outside the month</span>`).join('')}</div>`:''}
+        <div class="calx-legend">
+          <span class="lg"><i style="background:var(--accent)"></i>Event</span>
+          <span class="lg"><i style="background:var(--danger)"></i>Battle</span>
+          <span class="lg"><i style="background:var(--accent2)"></i>Trial / Chronicle</span>
+          <span class="lg"><i style="background:var(--green)"></i>Holiday</span>
+          <span class="lg"><i style="background:#ff66cc"></i>Weird day</span>
+          <span class="lg">🟡 today</span>
+          <span class="lg">⌨️ click a day — arrows step days</span>
         </div>
       </div>
-    `;
+      <aside class="calx-right">${calxDayPanelHtml()}</aside>
+    </div>`;
   } else if(CAL_STATE.tab==='year'){
     const year=CAL_STATE.year;
-    const yearEntries=collectYear(year);
     const monthGrids = activeCal.months.map((m,mi)=>{
       const evCount = collectEventsForMonth(year, mi).length;
       return `<div class="arttile ${activeCal.cssTheme?.className||''}" onclick="Router.go('#/calendar/${activeCal.id}/month/${year}/${mi}/1')" style="cursor:pointer;border-left-color:${evCount?activeCal.cssTheme?.accent||'var(--accent)':'var(--border)'}">
@@ -19410,12 +19521,11 @@ function view_calendar(){
     const holYear = getHolidaysForCalendar(activeCal.id);
     mainContent = `
       <div class="card"><div class="section-title">Year ${year} BF [${activeCal.name}] — ${calDaysInYear(activeCal, year)} days — ${activeCal.months.length} months — ${weirdYear.length} weird + ${holYear.length} holidays</div>
-        <div class="cal-weird"><div class="cal-weird-title">✨ Weird days this year (intercalary, not clipped)</div>${weirdYear.length?weirdYear.map(w=>`<span class="weird-pill" style="border-color:${w.color}">${w.icon||'✨'} ${esc(w.name)} — ${w.days}d after ${w.afterMonth} — ${esc(w.description||'')}</span>`).join(''):'<span class="pill">none</span>'}</div>
-        <div class="cal-holiday-section"><div class="cal-weird-title">🎉 Holidays this year — from data/holidays/${activeCal.id}.json</div><div class="cal-holidays">${holYear.length?holYear.map(h=>`<span class="holiday-pill" style="border-color:${h.color}">${h.icon||'🎉'} ${esc(h.name)} — M${h.month} D${h.day}</span>`).join(''):'<span class="pill">none</span>'}</div></div>
+        <div class="cal-weird"><div class="cal-weird-title">✨ Weird days this year (intercalary)</div>${weirdYear.length?weirdYear.map(w=>`<span class="weird-pill" style="border-color:${w.color}">${w.icon||'✨'} ${esc(w.name)} — ${w.days}d after ${w.afterMonth} — ${esc(w.description||'')}</span>`).join(''):'<span class="pill">none</span>'}</div>
+        <div class="cal-holiday-section"><div class="cal-weird-title">🎉 Holidays this year</div><div class="cal-holidays">${holYear.length?holYear.map(h=>`<span class="holiday-pill" style="border-color:${h.color}">${h.icon||'🎉'} ${esc(h.name)} — M${h.month} D${h.day}</span>`).join(''):'<span class="pill">none</span>'}</div></div>
         <div class="artgrid mt-12">${monthGrids}</div></div>
     `;
   } else if(CAL_STATE.tab==='timeline'){
-    // Persist filters/jump-year across renders in CAL_STATE for a clean feel without global creep.
     if(!CAL_STATE.tlFilter) CAL_STATE.tlFilter = 'all';
     const filter = CAL_STATE.tlFilter;
     const jumpYear = CAL_STATE.tlJumpYear ? parseInt(CAL_STATE.tlJumpYear,10) : null;
@@ -19436,7 +19546,6 @@ function view_calendar(){
       const dateStr=b.date||''; const y=parseYear(dateStr); if(y==null) return;
       entries.push({y,mo:parseMonth(dateStr),d:parseDay(dateStr),kind:'battle',cls:'b',id:b.id,name:b.name,summary:b.description||'',meta:dateStr,route:'#/mbattle/'+encodeURIComponent(b.id)});
     });
-    // Chronicles from historicalTimeline (with era grouping preserved via the pre-computed chronicle index).
     const cidx = getChronicleIndex();
     cidx.all.forEach(h=>{
       if(h.type==='era_header' || !h.date) return;
@@ -19450,7 +19559,6 @@ function view_calendar(){
         era:h.era||null,
         location:h.location||null});
     });
-    // Case timelines from trials — each row inside trial.timeline becomes a sub-timeline entry.
     (DATA.trials||[]).forEach(t=>{
       if(!t || !Array.isArray(t.timeline)) return;
       const trialYear = parseYear(t.date);
@@ -19464,14 +19572,10 @@ function view_calendar(){
       });
     });
 
-    // A record can be present in more than one feed (for example, a chronicle entry
-    // and the matching case-timeline row). Keep the richest canonical record instead
-    // of rendering the same historical event twice. The date is part of the key so
-    // recurring events in different years remain separate.
     const duplicatePriority = { chronicle: 4, mbattle: 3, battle: 2, trial: 2, event: 1, case: 0 };
     const canonical = new Map();
     entries.forEach(entry => {
-      const title = String(entry.name || '').trim().toLowerCase().replace(/\\s+/g, ' ');
+      const title = String(entry.name || '').trim().toLowerCase().replace(/\s+/g, ' ');
       const key = `${entry.y}|${entry.mo}|${entry.d}|${title}`;
       const previous = canonical.get(key);
       if (!previous || (duplicatePriority[entry.kind] || 0) > (duplicatePriority[previous.kind] || 0)) {
@@ -19481,7 +19585,6 @@ function view_calendar(){
     entries.length = 0;
     entries.push(...canonical.values());
 
-    // Filter
     const applyFilter = e => filter==='all' ? true
       : filter==='session' ? (e.kind==='event' || e.kind==='chronicle')
       : filter==='war'     ? (e.kind==='battle')
@@ -19491,7 +19594,6 @@ function view_calendar(){
     const filtered = entries.filter(applyFilter);
     filtered.sort((a,b)=> a.y-b.y || a.mo-b.mo || a.d-b.d || a.name.localeCompare(b.name));
 
-    // Group year → month
     const years=[]; const yearMap={};
     filtered.forEach(e=>{
       if(!yearMap[e.y]){ yearMap[e.y]={year:e.y, months:{}, order:[]}; years.push(yearMap[e.y]); }
@@ -19502,9 +19604,7 @@ function view_calendar(){
     years.sort((a,b)=>a.year-b.year);
     years.forEach(y=>y.order.sort((a,b)=>a-b));
 
-    // Jump to year: scroll into view via anchor id
     const focusYear = jumpYear && yearMap[jumpYear] ? jumpYear : null;
-
     const kindEmoji = { event:'📜', battle:'🗡️', trial:'⚖️', case:'🧾', chronicle:'📖' };
     const body = years.map(y=>{
       const monthBlocks = y.order.map(mo=>{
@@ -19520,6 +19620,9 @@ function view_calendar(){
       return `<div class="tl-year-block" id="tly-${y.year}" style="${isCur?'box-shadow:0 0 0 2px var(--accent) inset;border-radius:8px;padding:6px':''}"><div class="tl-year-h">${y.year} BF${isCur?' <span class="pill" style="font-size:10px;background:var(--accent);color:#fff;border-color:transparent">Current</span>':''}</div><div class="tl">${monthBlocks}</div></div>`;
     }).join('');
 
+    /* the year rail: every year with records, one press away — no typing */
+    const yearRail = `<div class="calx-yrail" role="navigation" aria-label="Jump to year">${years.map(y=>`<button onclick="CAL_STATE.tlJumpYear=${y.year};view_calendar();setTimeout(()=>{const e=document.getElementById('tly-${y.year}');if(e)e.scrollIntoView({behavior:'smooth',block:'start'});},60)"${y.year===CUR.year?' class="cur"':''}>${y.year}${y.year===CUR.year?' ●':''}</button>`).join('')}</div>`;
+
     const filterBar = `<div class="chips" style="align-items:center">
       <span class="text-muted" style="font-size:12px;margin-right:4px">Filter:</span>
       ${[
@@ -19530,15 +19633,12 @@ function view_calendar(){
         ['chron','📖 Chronicles Only']
       ].map(([k,l])=>`<span class="chip ${filter===k?'active':''}" onclick="CAL_STATE.tlFilter='${k}';view_calendar()">${l}</span>`).join('')}
       <span style="flex:1"></span>
-      <span class="text-muted" style="font-size:12px">Jump to year:</span>
-      <input type="number" min="0" max="9999" value="${jumpYear||CUR.year}" style="width:90px;padding:5px 8px;border:1px solid var(--border);border-radius:6px;background:var(--bg2);color:var(--text)" onchange="CAL_STATE.tlJumpYear=this.value;view_calendar();setTimeout(()=>{const el=document.getElementById('tly-'+this.value);if(el)el.scrollIntoView({behavior:'smooth',block:'start'});},50)">
       <span class="chip" onclick="CAL_STATE.tlFilter='all';CAL_STATE.tlJumpYear=null;view_calendar()">Reset</span>
     </div>`;
 
-    // Auto-scroll to jump-year after render
     setTimeout(()=>{ if(focusYear){ const el2=document.getElementById('tly-'+focusYear); if(el2)el2.scrollIntoView({behavior:'smooth',block:'start'}); } }, 100);
 
-    mainContent = `<div class="card"><h2 style="margin-top:0">🕰️ Timeline — ${filtered.length}${filtered.length!==entries.length?' of '+entries.length:''} records — in ${activeCal.name}</h2><p class="text-muted" style="font-size:12.5px;margin-bottom:10px">Every dated event, battle, trial, case-timeline entry, and historical chronicle in one view. Click any card to open the record. In this world "BF" counts up, so lower years are older.</p>${filterBar}</div><div class="card">${body||'<p class="text-muted">No records match this filter.</p>'}</div>`;
+    mainContent = `<div class="card"><h2 style="margin-top:0">🕰️ Timeline — ${filtered.length}${filtered.length!==entries.length?' of '+entries.length:''} records — in ${activeCal.name}</h2><p class="text-muted" style="font-size:12.5px;margin-bottom:10px">Every dated event, battle, trial, case-timeline entry, and historical chronicle in one view. Click any card to open the record. In this world "BF" counts up, so lower years are older. The rail below jumps year to year.</p>${filterBar}${yearRail}</div><div class="card">${body||'<p class="text-muted">No records match this filter.</p>'}</div>`;
   } else if(CAL_STATE.tab==='years'){
     const yrs=allYears();
     const cards=yrs.map(y=>{
@@ -19546,38 +19646,45 @@ function view_calendar(){
       const yLen = calDaysInYear(activeCal, y);
       return `<div class="arttile" onclick="Router.go('#/calendar/${activeCal.id}/year/${y}/0/1')" style="border-left-color:${y===CUR.year?'var(--danger)':'var(--accent)'}"><div class="tt">🗓️ ${y} BF — ${yLen}d year</div><div class="tsub">${c} entries${y===CUR.year?' · current year':''}</div></div>`;
     }).join('');
-    mainContent = `<div class="card"><h2>📚 All Years — ${yrs.length} years in ${activeCal.name}</h2><p class="text-muted">Year length varies per calendar (not always 365). ${activeCal.name} year length: ${calDaysInYear(activeCal, CAL_STATE.year)} days this year.</p></div><div class="card"><div class="artgrid">${cards}</div></div>`;
+    mainContent = `<div class="card"><h2>📚 All Years — ${yrs.length} years in ${activeCal.name}</h2><p class="text-muted">Year length varies per calendar (not always 365). ${activeCal.name} year length: ${calDaysInYear(activeCal, CAL_STATE.year)} days this year. Click a year to open its twelve months.</p></div><div class="card"><div class="artgrid">${cards}</div></div>`;
   }
 
-  // FIX: long technical header removed per user request — renamed to just Calendar, no verbose explainer
-  const explainer = ``;
-
+  const segs=[['month','📅 Month'],['year','🗓️ Year'],['timeline','🕰️ Timeline'],['years','📚 Years']];
   el('content').innerHTML=`
     ${themeStyle}
-    <div class="card animate-fade-in ${activeCal.cssTheme?.className||''}">
-      <div class="calendar-topbar">
-        <div>
-          <div class="calendar-title">${md.icon||'🗓️'} ${md.name} ${CAL_STATE.year} [${activeCal.name}] <span style="color:var(--muted);font-weight:400;font-size:14px">— ${season?(season.icon||'')+' '+season.name:''} — ${calDaysInYear(activeCal, CAL_STATE.year)}d year</span></div>
+    <div class="card animate-fade-in calx-hero ${activeCal.cssTheme?.className||''}">
+      <div class="calx-hero-top">
+        <div class="calx-hero-title">
+          <h1>${md.icon||'🗓️'} ${esc(md.name)} <span class="calx-yr">${CAL_STATE.year}</span><i>BF</i></h1>
+          <div class="calx-hero-sub cal-voice">${season?(season.icon||'')+' '+esc(season.name)+' · ':''}${monthEvents.length} dated entries this month · ${calDaysInYear(activeCal, CAL_STATE.year)}-day year · ${activeCal.weekdays.length}-day week · ${esc(activeCal.name)}</div>
           ${season && season.description ? `<div class="calendar-season-desc" style="color:${season.color||'var(--accent2)'};font-size:12px;font-style:italic;margin-top:2px">${esc(season.description)}</div>` : ''}
-          <div class="calendar-meta">
-            Selected: <b>${calFormatFullDate(activeCal, CAL_STATE.year, CAL_STATE.monthIndex, CAL_STATE.day)}</b> — ${activeCal.weekdays.length}-day week, ${activeCal.months.length} months<br>
-            Current imperial: <b>${formatFullDate(CUR.year, CUR.monthIndex, CUR.day)}</b> — Converted to ${activeCal.name} absolute ${absSelected}
-          </div>
         </div>
-        <div class="calendar-nav">
-          <button class="iconbtn" onclick="CAL_STATE.year--;Router.go('#/calendar/${activeCal.id}/${CAL_STATE.tab}/'+CAL_STATE.year+'/'+CAL_STATE.monthIndex+'/'+CAL_STATE.day)" title="Prev year">«</button>
-          <button class="iconbtn" onclick="if(CAL_STATE.monthIndex===0){CAL_STATE.monthIndex=${activeCal.months.length-1};CAL_STATE.year--;}else CAL_STATE.monthIndex--;Router.go('#/calendar/${activeCal.id}/${CAL_STATE.tab}/'+CAL_STATE.year+'/'+CAL_STATE.monthIndex+'/'+CAL_STATE.day)" title="Prev month">‹</button>
-          <button class="chip" onclick="CAL_STATE={year:CUR.year,monthIndex:CUR.monthIndex,day:CUR.day,tab:CAL_STATE.tab,calendarId:CAL_STATE.calendarId};Router.go('#/calendar/'+CAL_STATE.calendarId+'/'+CAL_STATE.tab+'/'+CUR.year+'/'+CUR.monthIndex+'/'+CUR.day)">📍 Today</button>
-          <button class="iconbtn" onclick="if(CAL_STATE.monthIndex===${activeCal.months.length-1}){CAL_STATE.monthIndex=0;CAL_STATE.year++;}else CAL_STATE.monthIndex++;Router.go('#/calendar/${activeCal.id}/${CAL_STATE.tab}/'+CAL_STATE.year+'/'+CAL_STATE.monthIndex+'/'+CAL_STATE.day)" title="Next month">›</button>
-          <button class="iconbtn" onclick="CAL_STATE.year++;Router.go('#/calendar/${activeCal.id}/${CAL_STATE.tab}/'+CAL_STATE.year+'/'+CAL_STATE.monthIndex+'/'+CAL_STATE.day)" title="Next year">»</button>
+        <div class="calx-hero-actions">
+          ${readAloudChip()}
+          <button class="calx-btn" onclick="CAL_STATE={year:CUR.year,monthIndex:CUR.monthIndex,day:CUR.day,tab:CAL_STATE.tab,calendarId:CAL_STATE.calendarId};Router.go(calxRoute(null,CUR.year,CUR.monthIndex,CUR.day))" title="Jump to today">📍 Today</button>
         </div>
       </div>
-      ${calSelector}
-      ${tabBar}
+      <div class="calx-bar">
+        <div class="calx-segs">${segs.map(([t,l])=>`<button class="${CAL_STATE.tab===t?'on':''}" onclick="Router.go('${calxRoute(t,CAL_STATE.year,CAL_STATE.monthIndex,CAL_STATE.day)}')">${l}</button>`).join('')}<button onclick="Router.go('#/holiday')">🎉 Holidays</button></div>
+        <select class="calx-calsel" onchange="Router.go('#/calendar/'+this.value+'/'+(CAL_STATE.tab||'month')+'/'+CAL_STATE.year+'/'+CAL_STATE.monthIndex+'/'+CAL_STATE.day)" aria-label="Which calendar" title="Switch calendar system">
+          ${allCals.map(c=>`<option value="${esc(c.id)}"${c.id===activeCal.id?' selected':''}>${esc(c.name)} — ${calDaysInYear(c, CAL_STATE.year)}d</option>`).join('')}
+        </select>
+      </div>
+      <div class="calx-strip">
+        <button class="calx-nav" onclick="calxMoveMonth(-1)" title="Previous month">‹</button>
+        ${activeCal.months.map((m,mi)=>`<button class="calx-mo${mi===CAL_STATE.monthIndex?' on':''}" onclick="Router.go('${calxRoute('month',CAL_STATE.year,mi,1)}')" title="${esc(m.name)} · ${esc(m.season||'')}">${esc(m.abbr||m.name.slice(0,3))}</button>`).join('')}
+        <button class="calx-nav" onclick="calxMoveMonth(1)" title="Next month">›</button>
+        <span class="calx-yearbox">
+          <button onclick="Router.go('${calxRoute(null,CAL_STATE.year-1,CAL_STATE.monthIndex,null)}')" title="Previous year">«</button>
+          <input type="number" min="0" max="9999" value="${CAL_STATE.year}" aria-label="Year (BF)" onchange="const v=parseInt(this.value,10);if(!isNaN(v)&&v>=0){Router.go('#/calendar/${activeCal.id}/'+(CAL_STATE.tab||'month')+'/'+v+'/'+CAL_STATE.monthIndex+'/'+CAL_STATE.day)}">
+          <button onclick="Router.go('${calxRoute(null,CAL_STATE.year+1,CAL_STATE.monthIndex,null)}')" title="Next year">»</button>
+          <span>BF</span>
+        </span>
+      </div>
     </div>
+    ${mainContent}
     ${deadlinePanel()}
     ${pocketClockPanel()}
-    ${mainContent}
     ${localSection}
   `;
   if(CAL_STATE.tab==='year'){
@@ -19601,7 +19708,6 @@ function view_calendar(){
   }
   window.scrollTo(0,0);
 }
-
 function renderMiniCalendar(containerId, year, monthIndex){
   const cal=getActiveCalendar();
   const elc = document.getElementById(containerId);
@@ -19764,6 +19870,7 @@ function view_whatif(id){
         ${w.narrator?`<span class="pill wi-povpill">🎙️ POV: ${esc(w.narrator)}</span>`:''}
         ${w.filed?`<span class="pill">🗓️ Filed ${esc(w.filed)}</span>`:''}
       </div>
+      ${readAloudChip()}
     </div>
 
     <div class="card wi-brief">
@@ -22524,6 +22631,7 @@ function view_songs(filterArg) {
           </div>
           <div class="song-actions">
             <button class="song-btn play-btn" onclick="playSongCue('${esc(s.notes)}')">▶ Play Acoustic Cue</button>
+            <button class="song-btn" title="Read this song aloud through the local Qwen3-TTS studio (voice: Waluigi)" onclick="ReadAloud.startFrom(this.closest('.song-card'))">🔊 Read song</button>
             <a class="song-btn" onclick="Router.go('#/article/${esc(s.sourceId)}')">📖 View Event Article →</a>
           </div>
         </div>

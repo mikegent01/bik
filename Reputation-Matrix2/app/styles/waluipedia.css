@@ -3511,6 +3511,11 @@ html[data-theme="light"] .war-band{background:linear-gradient(90deg,color-mix(in
 .ra-btns{display:flex;gap:6px}
 .ra-btns button{background:var(--panel2);border:1px solid var(--border);color:var(--text);border-radius:9px;padding:5px 9px;cursor:pointer;font-size:13px;line-height:1}
 .ra-btns button:hover{border-color:var(--accent);color:var(--link)}
+.ra-vol{display:flex;align-items:center;gap:6px;padding:4px 8px;border:1px solid var(--border);border-radius:9px;background:var(--panel2)}
+.ra-vol span{font-size:13px;line-height:1}
+.ra-vol input[type="range"]{-webkit-appearance:none;appearance:none;width:86px;height:4px;border-radius:2px;background:var(--border);outline:none;cursor:pointer}
+.ra-vol input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:13px;height:13px;border-radius:50%;background:var(--accent);border:2px solid var(--panel);cursor:pointer}
+.ra-vol input[type="range"]::-moz-range-thumb{width:13px;height:13px;border-radius:50%;background:var(--accent);border:2px solid var(--panel);cursor:pointer}
 .ra-cfg{width:100%;display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:8px;border-top:1px dashed var(--border);padding-top:10px}
 .ra-cfg[hidden]{display:none}
 .ra-cfg label{display:flex;flex-direction:column;gap:3px;font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.6px;color:var(--muted)}
@@ -3548,3 +3553,89 @@ body.ra-picking #content :is(p,li,h1,h2,h3,h4,blockquote):hover{outline:1px dash
 /* ---- songbook deep-link flash ---- */
 .song-card.flash{animation:songFlash 2.6s ease}
 @keyframes songFlash{0%,55%{box-shadow:0 0 0 3px var(--song-accent,var(--accent)),var(--shadow);border-color:var(--song-accent,var(--accent))}100%{box-shadow:var(--shadow)}}
+
+/* ---- CALENDAR REDESIGN (calx-*) — one screen, no dead ends -------------
+   Month grid + day panel share the screen: clicking a day answers in place
+   beside the grid, records are one click deep, months/years are strips. */
+.calx-hero{padding:18px 20px 16px}
+.calx-hero-top{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;flex-wrap:wrap}
+.calx-hero-title h1{margin:0;font-size:26px;font-weight:900;letter-spacing:.4px}
+.calx-hero-title .calx-yr{color:var(--accent2)}
+.calx-hero-title i{font-style:normal;font-size:13px;color:var(--muted);margin-left:5px;font-weight:800}
+.calx-hero-sub{color:var(--muted);font-size:12.5px;margin-top:4px}
+.calx-hero-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.calx-btn{background:var(--panel2);border:1px solid var(--border);color:var(--text);border-radius:9px;padding:7px 12px;font-weight:700;cursor:pointer;font-size:12.5px;text-decoration:none;display:inline-block}
+.calx-btn:hover{border-color:var(--accent);color:var(--link)}
+.calx-bar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-top:14px}
+.calx-segs{display:flex;background:var(--bg2);border:1px solid var(--border);border-radius:11px;padding:3px;gap:3px;flex-wrap:wrap}
+.calx-segs button{background:transparent;border:0;color:var(--muted);padding:6px 12px;border-radius:8px;cursor:pointer;font-weight:800;font-size:12.5px;transition:.12s}
+.calx-segs button:hover{color:var(--text)}
+.calx-segs button.on{background:var(--accent);color:#fff}
+.calx-calsel{background:var(--bg2);border:1px solid var(--border);color:var(--text);border-radius:9px;padding:7px 10px;font-size:12.5px;font-weight:700;cursor:pointer}
+.calx-strip{display:flex;align-items:center;gap:4px;flex-wrap:wrap;margin-top:12px}
+.calx-nav{background:var(--panel2);border:1px solid var(--border);color:var(--text);width:30px;height:30px;border-radius:8px;cursor:pointer;font-size:15px;font-weight:900;line-height:1}
+.calx-nav:hover{border-color:var(--accent);color:var(--link)}
+.calx-mo{background:transparent;border:1px solid transparent;color:var(--muted);border-radius:8px;padding:6px 9px;cursor:pointer;font-weight:800;font-size:12px;transition:.12s}
+.calx-mo:hover{color:var(--text);border-color:var(--border)}
+.calx-mo.on{background:var(--accent);color:#fff}
+.calx-yearbox{margin-left:auto;display:flex;align-items:center;gap:2px;border:1px solid var(--border);border-radius:9px;padding:2px;background:var(--bg2)}
+.calx-yearbox button{background:transparent;border:0;color:var(--muted);width:26px;height:26px;border-radius:6px;cursor:pointer;font-size:13px;font-weight:900}
+.calx-yearbox button:hover{color:var(--text);background:var(--panel2)}
+.calx-yearbox input{width:58px;background:transparent;border:0;color:var(--text);text-align:center;font-weight:900;font-size:13.5px;padding:4px 2px;outline:none}
+.calx-yearbox span{font-size:10px;font-weight:900;color:var(--muted);padding:0 6px 0 3px;letter-spacing:.5px}
+.calx-layout{display:grid;grid-template-columns:minmax(0,1.85fr) minmax(300px,1fr);gap:16px;margin-top:14px;align-items:start}
+@media(max-width:980px){.calx-layout{grid-template-columns:1fr}}
+.calx-weekdays{display:grid;gap:4px;margin-bottom:5px}
+.calx-weekdays div{text-align:center;font-size:10.5px;font-weight:900;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;padding:4px 0}
+.calx-weekdays div.rest{color:var(--accent2)}
+.calx-grid{display:grid;gap:4px;outline:none}
+.calx-grid:focus-visible{box-shadow:0 0 0 2px var(--accent);border-radius:12px}
+.calx-cell{min-height:74px;background:var(--panel2);border:1px solid var(--border);border-radius:10px;padding:5px 7px;cursor:pointer;transition:transform .12s,border-color .12s,background .12s;position:relative;overflow:hidden}
+.calx-cell:hover{border-color:var(--accent);transform:translateY(-1px)}
+.calx-cell.rest{background:linear-gradient(180deg,rgba(224,180,0,.06),var(--panel2))}
+.calx-cell.today{border-color:var(--accent2)}
+.calx-cell.today::after{content:'today';position:absolute;top:6px;right:7px;font-size:8.5px;font-weight:900;letter-spacing:.6px;text-transform:uppercase;color:#111;background:var(--accent2);border-radius:4px;padding:1px 5px}
+.calx-cell.selected{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent);background:linear-gradient(180deg,rgba(138,75,255,.14),var(--panel2))}
+.calx-cell.calx-fill{background:transparent;border-color:transparent;cursor:default;min-height:18px;overflow:hidden}
+.calx-cell.calx-fill:hover{transform:none;border-color:transparent}
+.calx-dnum{display:flex;justify-content:space-between;align-items:baseline}
+.calx-dnum span{font-weight:800;font-size:14px}
+.calx-dnum i{font-style:normal;font-size:9.5px;color:var(--muted)}
+.calx-chips{display:flex;flex-direction:column;gap:2px;margin-top:4px}
+.calx-chip{font-size:10px;line-height:1.3;font-weight:600;color:var(--text);border-left:2px solid var(--k,var(--accent));border-radius:4px;padding:1px 5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.calx-more{font-size:9.5px;color:var(--muted);font-weight:800;padding-left:5px}
+.calx-weird{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px;font-size:11.5px}
+.calx-legend{display:flex;gap:12px;flex-wrap:wrap;font-size:11px;color:var(--muted);margin-top:10px}
+.calx-legend .lg{display:inline-flex;align-items:center;gap:5px}
+.calx-legend .lg i{width:9px;height:9px;border-radius:3px;display:inline-block}
+.calx-right{position:sticky;top:12px}
+@media(max-width:980px){.calx-right{position:static}}
+.calx-day{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:16px;box-shadow:var(--shadow)}
+.calx-day-head{display:flex;gap:12px;align-items:center;border-bottom:1px solid var(--border);padding-bottom:12px;margin-bottom:10px}
+.calx-day-big{font-size:32px;font-weight:900;color:var(--accent2);line-height:1;min-width:56px;text-align:center;background:var(--bg2);border-radius:12px;padding:12px 8px;border:1px solid var(--border)}
+.calx-day-date{font-weight:800;font-size:15px}
+.calx-day-wd{color:var(--muted);font-size:12px;margin-top:3px}
+.calx-day-events{display:flex;flex-direction:column;gap:8px;max-height:340px;overflow-y:auto;padding-right:2px}
+.calx-ev{display:flex;gap:10px;align-items:flex-start;text-decoration:none;color:var(--text);background:var(--panel2);border:1px solid var(--border);border-left:3px solid var(--k,var(--accent));border-radius:10px;padding:9px 10px;cursor:pointer;transition:.12s}
+.calx-ev:hover{border-color:var(--k,var(--accent));transform:translateX(2px)}
+.calx-ev-ico{font-size:16px;line-height:1.3}
+.calx-ev-body b{font-size:13px;display:block;line-height:1.35}
+.calx-ev-body i{font-style:normal;font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;font-weight:800}
+.calx-ev-body p{margin:4px 0 0;font-size:12px;color:var(--muted);line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.calx-ev-go{margin-left:auto;color:var(--muted);font-weight:900;align-self:center}
+.calx-empty{color:var(--muted);font-size:12.5px;line-height:1.6;margin:0}
+.calx-sec{margin-top:12px;padding-top:10px;border-top:1px dashed var(--border)}
+.calx-sec h4{margin:0 0 7px;font-size:10.5px;text-transform:uppercase;letter-spacing:.8px;color:var(--muted)}
+.calx-conv{display:inline-block;font-size:11.5px;background:var(--bg2);border:1px solid var(--border);border-radius:7px;padding:3px 8px;margin:0 4px 4px 0;color:var(--text)}
+.calx-hol{display:inline-flex;gap:5px;align-items:baseline;font-size:11.5px;background:var(--bg2);border:1px solid var(--k,var(--green));border-radius:7px;padding:3px 8px;margin:0 4px 4px 0;cursor:pointer;color:var(--text)}
+.calx-hol:hover{background:var(--panel2)}
+.calx-hol i{font-style:normal;color:var(--muted);font-size:10px}
+.calx-daylinks{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
+.calx-yrail{display:flex;gap:4px;overflow-x:auto;padding:6px 2px 10px;border-bottom:1px solid var(--border);margin-bottom:12px;scrollbar-width:thin}
+.calx-yrail button{flex:0 0 auto;background:var(--panel2);border:1px solid var(--border);color:var(--muted);border-radius:7px;padding:4px 10px;font-size:11.5px;font-weight:800;cursor:pointer;transition:.12s}
+.calx-yrail button:hover{color:var(--text);border-color:var(--accent)}
+.calx-yrail button.cur{color:var(--accent2);border-color:var(--accent2)}
+.calx-about{margin-top:14px}
+.calx-about summary{cursor:pointer;font-weight:800;color:var(--accent2);padding:6px 2px;user-select:none}
+.calx-about summary:hover{color:var(--link)}
+.calx-about[open] summary{margin-bottom:10px}

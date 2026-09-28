@@ -89,9 +89,10 @@ run to view the site.
 ### Running it — `python3 start.py`
 
 ```bash
-python3 start.py                                      # serve + open the browser
+python3 start.py                                      # serve + open the browser (+ the TTS studio)
 python3 start.py --route "#/article/the_belly_of_the_beast"
 python3 start.py --no-browser --host 0.0.0.0 --port 9000
+python3 start.py --no-tts                             # serve without launching the TTS studio
 ```
 
 `start.py` sits in the repository root, serves the archive over HTTP and opens
@@ -102,6 +103,12 @@ events, characters, exhibits and investigations silently come up empty. The
 script also sends `Cache-Control: no-store`, which kills the "I filed it but the
 page shows the old version" problem. Ctrl-C to stop; it writes nothing and
 builds nothing.
+
+If `Downloads/qw/Run Qwen3 TTS.bat` exists, `start.py` launches it in its own
+window on the way up so the local Qwen3-TTS studio (the voice behind
+**Read aloud**) is warming while the site opens — both run, side by side. If
+the studio's port already answers, or the bat is not there, the site starts
+anyway and Read aloud simply needs the studio started by hand.
 
 ## Intake first — decide what the data becomes
 

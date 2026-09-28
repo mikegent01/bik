@@ -181,6 +181,32 @@ check('pick: the pick path reaches the synthesizer and reports cleanly',
   /unreachable/.test(mkEl('ra-status').textContent) && B.ReadAloud.active === false);
 check('pick: no blob URLs leak from the aborted pick run', blobUrls.created.length === blobUrls.revoked.length);
 
+// ---------- 5b. QOL: volume bar + previous chunk ----------
+B.ttsSaveConfig({ endpoint: 'http://127.0.0.1:'+PORT, voice: 'Waluigi', api: '/generate_base_17', chunk: 120, volume: 0.5 });
+const v0 = audioInstances.length;
+B.ReadAloud.start();
+await new Promise(r => setTimeout(r, 1200));
+check('volume: playback applies the configured volume', audioInstances.length > v0 && audioInstances[v0].volume === 0.5);
+B.ReadAloud.setVolume(0.8);
+check('volume: setVolume applies live and lands in the saved config',
+  audioInstances[v0].volume === 0.8 && B.ttsConfig().volume === 0.8);
+B.ReadAloud.setVolume(4);
+check('volume: nonsense values clamp to [0,1]', B.ttsConfig().volume === 1);
+check('volume: bar has the slider wired to setVolume', /id="ra-vol"[^>]*oninput="ReadAloud\.setVolume\(this\.value\)"/.test(block));
+check('volume: defaults carry volume', /volume:1\s*\}/.test(block));
+check('prev: bar has the back button wired', /onclick="ReadAloud\.prev\(\)">⏮/.test(block));
+const idxAtStart = B.ReadAloud.idx;
+audioInstances[audioInstances.length - 1].onended();
+await new Promise(r => setTimeout(r, 300));
+check('prev: baseline advanced one chunk', B.ReadAloud.idx === idxAtStart + 1);
+const playsBeforePrev = audioLog.filter(x => x[0] === 'play').length;
+B.ReadAloud.prev();
+await new Promise(r => setTimeout(r, 300));
+check('prev: steps back exactly one chunk and replays it',
+  B.ReadAloud.idx === idxAtStart && audioLog.filter(x => x[0] === 'play').length === playsBeforePrev + 1);
+B.ReadAloud.stop(true);
+check('volume/prev: stop still revokes every blob', blobUrls.created.length === blobUrls.revoked.length);
+
 // ---------- 4. error path: studio down ----------
 B.ttsSaveConfig({ endpoint: 'http://127.0.0.1:9', voice: 'Waluigi', api: '/generate_base_17', chunk: 120 });
 mkEl('ra-status').textContent = '';

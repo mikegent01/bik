@@ -37,11 +37,15 @@ bar and chips are controls, not picks.
 ## Setup
 
 1. Run the Qwen3-TTS Enhanced Studio (Gradio) locally — default
-   `http://127.0.0.1:7860/`.
+   `http://127.0.0.1:7860/`. On the archivist's machine, **`python3 start.py`
+   does this for you**: if `Downloads/qw/Run Qwen3 TTS.bat` exists it is
+   launched in its own window alongside the webserver (both run — the site and
+   the voice). `--no-tts` opts out, and if the studio's port already answers,
+   nothing is launched twice.
 2. In its **Voice Studio**, save a voice profile named **`Waluigi`** (the
    bridge's default; it uses whatever profiles the studio has saved).
 3. Open the site (locally, or the deployed page — see
-   [Security notes](#security-notes--localhost)), open any article, and
+   [Security notes](#security-notes--localhost)), open any readable page, and
    click **🔊 Read aloud**.
 4. ⚙️ in the player bar configures: studio URL, voice profile, model
    (`/generate_base_17` = the bigger saved-voice model, `/generate_base_06`
@@ -49,6 +53,24 @@ bar and chips are controls, not picks.
    synthesizes a one-liner to confirm the wiring.
 
 Settings persist in `localStorage` under `waluipedia-tts`.
+
+## Where the voice reaches
+
+The 🔊 chip is on every page with prose worth hearing: **articles, commentary
+tracks, day logs, article analyses, investigation case files, what-if
+readers, chronicle entries, and the calendar** (whose day panel is harvested
+via its `.cal-voice` hooks). The **songbook** gets a per-song **🔊 Read song**
+button that starts at the song's title and reads straight through the
+critique. Everywhere, 🎯 Pick text narrows the reading to a block or an
+exact selection (see above).
+
+## The player bar
+
+* **🔊 volume slider** — persisted with the rest of the config, applies to
+  the chunk playing right now and every chunk after.
+* **⏮ previous chunk** — the "wait, what did he just say" button.
+* ⏸ pause/resume · ⏭ next chunk · ⏹ stop · 🎯 pick mode · ⚙️ settings.
+* The bar shows the page title, the chunk counter, and the speaking voice.
 
 ## How the pipeline works
 
