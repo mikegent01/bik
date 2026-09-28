@@ -194,6 +194,7 @@ B.ReadAloud.setVolume(4);
 check('volume: nonsense values clamp to [0,1]', B.ttsConfig().volume === 1);
 check('volume: bar has the slider wired to setVolume', /id="ra-vol"[^>]*oninput="ReadAloud\.setVolume\(this\.value\)"/.test(block));
 check('volume: defaults carry volume', /volume:1\s*\}/.test(block));
+check('help: the bar points phone/tailnet users at the docs', /Tailscale address/.test(block) && /From your phone/.test(block));
 check('prev: bar has the back button wired', /onclick="ReadAloud\.prev\(\)">⏮/.test(block));
 const idxAtStart = B.ReadAloud.idx;
 audioInstances[audioInstances.length - 1].onended();

@@ -3751,3 +3751,44 @@ body.ra-picking #content :is(p,li,h1,h2,h3,h4,blockquote):hover{outline:1px dash
 .wlr-cas{color:#fca5a5;font-weight:800}
 .wlr-thumb{flex:0 0 62px;width:62px;height:62px;object-fit:cover;border-radius:9px;border:1px solid var(--border)}
 @media(max-width:620px){.wlr-thumb{display:none}.wlr-date{flex-basis:60px}}
+
+/* ---- WORLD ATLAS REDESIGN (atlx-*) — worlds, realms, the numbers ------- */
+.atlx-hero{padding:18px 20px 16px}
+.atlx-hero h1{margin:0;font-size:26px;font-weight:900}
+.atlx-board{margin-top:14px;padding:16px 18px}
+.atlx-board-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.atlx-board-head h2{margin:0 0 4px;font-size:19px}
+.atlx-board-head p{margin:0;font-size:12.5px;max-width:72ch}
+.atlx-bar{display:grid;grid-template-columns:minmax(120px,190px) 1fr 44px;gap:10px;align-items:center;padding:4px 4px;cursor:pointer;border-radius:8px;transition:.1s}
+.atlx-bar:hover{background:var(--panel2)}
+.atlx-bar-name{font-size:12.5px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.atlx-bar-track{display:flex;height:13px;border-radius:4px;overflow:hidden;background:var(--bg2);border:1px solid var(--border)}
+.atlx-bar-track i{display:block;height:100%}
+.atlx-bar-n{font-size:12px;color:var(--muted);text-align:right}
+.atlx-legend{display:flex;gap:14px;flex-wrap:wrap;margin-top:10px;font-size:11px;color:var(--muted)}
+.atlx-legend span{display:inline-flex;align-items:center;gap:5px}
+.atlx-legend i{width:9px;height:9px;border-radius:2px;display:inline-block}
+.atlx-world{margin-top:16px;scroll-margin-top:14px}
+.atlx-world-head{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap;padding:10px 2px;border-bottom:2px solid var(--accent);margin-bottom:12px}
+.atlx-world-head h3{margin:0;font-size:18px;font-weight:900;color:var(--accent)}
+.atlx-world-head p{margin:2px 0 0;font-size:12px;color:var(--muted);max-width:70ch}
+.atlx-world-stats{display:flex;gap:14px;font-size:11.5px;color:var(--muted);white-space:nowrap}
+.atlx-world-stats b{color:var(--accent2);font-size:14px;margin-right:3px}
+.atlx-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+.atlx-realm{background:var(--panel);border:1px solid var(--border);border-radius:13px;padding:13px 14px;cursor:pointer;transition:.13s;display:flex;flex-direction:column;gap:8px}
+.atlx-realm:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:var(--shadow)}
+.atlx-realm-head{display:flex;gap:10px;align-items:center}
+.atlx-realm-head h3{margin:0;font-size:15px;line-height:1.3}
+.atlx-type{font-size:10.5px;color:var(--muted);margin-top:2px}
+.atlx-ctrl{color:var(--accent2);font-weight:700}
+.atlx-filed{margin-left:auto;flex:0 0 auto;font-size:15px;font-weight:900;color:var(--accent2);background:var(--bg2);border:1px solid var(--border);border-radius:9px;padding:5px 9px}
+.atlx-sum{margin:0;font-size:12px;color:var(--muted);line-height:1.55;flex:0 0 auto;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.atlx-power{height:5px;border-radius:3px;background:var(--bg2);border:1px solid var(--border);overflow:hidden}
+.atlx-power i{display:block;height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2))}
+.atlx-stats{display:flex;gap:9px;flex-wrap:wrap;font-size:11px;color:var(--muted)}
+.atlx-stat{font-weight:700}
+.atlx-foot{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap;font-size:10.5px;color:var(--muted);border-top:1px dashed var(--border);padding-top:8px;margin-top:auto}
+.atlx-map{font-weight:800;color:var(--link)}
+.atlx-map--none{color:var(--muted);font-weight:600}
+.atlx-latest{font-style:italic}
+.atlx-searchcard{margin-top:14px}

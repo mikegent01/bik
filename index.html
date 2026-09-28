@@ -11495,14 +11495,153 @@ function atlasSelectProvince(provinceId){
 function atlasProvinceCensusPanel(){
   return `<div id="atlas-province-census" class="card" style="margin-top:14px"><h2>🗺️ Province Census</h2><p class="text-muted">Counting the provinces…</p></div>`;
 }
+/* ===================== WORLD ATLAS REDESIGN (atlx-) ======================
+   The atlas page was a flat grid of flags — 31 crests in alphabetical order,
+   nothing to tell a world from a sub-realm or a busy theater from an empty
+   one. Rebuilt as the map room it should have been: realms grouped under
+   their WORLD, every card carrying the numbers the archive actually holds
+   (records, map sheets, latest filing), and a Theater Board that ranks the
+   realms by where the story actually happens. */
+const WORLD_OF_REALM={
+  mushroom_kingdom:'mk', koopa_dominion:'mk', sarasaland:'mk', beanbean_kingdom:'mk', isle_delfino:'mk', kongo_bongo:'mk', dreamland:'mk',
+  regal_empire:'re', monster_underground:'re',
+  middle_earth:'me', kingdom_of_gondor:'me', mordor:'me', rohan:'me',
+  old_world:'ow', karaz_ankor:'ow', under_empire:'ow',
+  earth_land:'el', edolas:'el',
+  kivotos:'kv', equestria:'eq',
+  the_network:'nw', internet_federation:'nw',
+  pokemon_regions:'pk', animatopia:'an',
+  faerun:'or', teyvat:'or', doughnut_hole:'or', leclaire_isle:'or', connectopia:'or', the_edge_regions:'or', grand_country:'or'
+};
+const WORLD_META={
+  mk:{label:'The Mushroom Kingdom Sphere', blurb:'The civil-war heart of the doughnut and every realm in its orbit — the Koopa sphere, the archipelagos, the island polities.'},
+  re:{label:'The Regal Empire & the Midlands', blurb:'The Iron Legion\'s home sheet — and the Monster Underground indexed beneath it.'},
+  me:{label:'Middle-earth', blurb:'Gondor, Mordor, Rohan: a mythic war theater filed as one realm cluster.'},
+  ow:{label:'The Old World', blurb:'The Warhammer theater — Karaz Ankor above, the Under-Empire below.'},
+  el:{label:'Earth Land', blurb:'The dimensional region, with Edolas filed beside it.'},
+  kv:{label:'Kivotos', blurb:'The academic city-state: one district, eleven students, one SCHALE.'},
+  eq:{label:'Equestria', blurb:'A harmony monarchy under infiltration pressure.'},
+  nw:{label:'The Network', blurb:'The digital plane and the federation that governs it.'},
+  pk:{label:'The Pokémon Regions', blurb:'A league confederation spanning multiple regions.'},
+  an:{label:'Animatopia', blurb:'The predator-prey metropolitan republic.'},
+  or:{label:'The Outer Realms', blurb:'Faerûn, Teyvat, the Doughnut Hole, L\'Eclaire, Connectopia, the Edge, the Grand Country — each its own sheet, none orbiting another.'}
+};
 function view_atlas(){
   ATLAS_MOUNT_FOCUS=null;
   renderSidebar('atlas'); buildAtlasIndex();
-  const cards=Object.values(ATLAS_INDEX).sort((a,b)=>displayName(a.nation).localeCompare(displayName(b.nation))).map(x=>{
-    const n=x.nation; const total=x.locations.length+x.events.length+x.battles.length+x.trials.length;
-    return `<div class="arttile" onclick="Router.go('#/atlas/${encodeURIComponent(n.id)}')">${nationThumb(n,'tile')}<div class="tt">${esc(displayName(n))}</div><div class="tsub">${esc(n.status||n.type||'Realm')}</div><div class="tsum">${esc(n.summary||previewText(n))}</div><div class="tmeta"><span class="pill">${x.locations.length} locations</span><span class="pill">${x.events.length} events</span><span class="pill">${x.battles.length} battles</span><span class="pill">${x.factions.length} factions</span></div></div>`;
+  const st=listState.atlas||(listState.atlas={query:'',sort:'filed',showAll:false});
+  const realms=Object.values(ATLAS_INDEX).filter(Boolean);
+  const countsOf=x=>({loc:x.locations.length,ev:x.events.length,bt:x.battles.length,tr:x.trials.length,fa:x.factions.length,sp:x.species.length});
+  const totalOf=c=>c.loc+c.ev+c.bt+c.tr+c.fa;
+  const mapsOf=x=>{try{const r=atlasMapsFor(x.nation.id);return r&&r.maps?r.maps:[];}catch(e){return [];}};
+  const latestOf=x=>{
+    let best=null;
+    (x.events||[]).forEach(e=>{const y=parseYear(e&&e.date)||0;if(e&&y>(best?best.y:0))best={y,e};});
+    return best;
+  };
+  const clean=s=>String(s||'').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim();
+  const hay=x=>{const n=x.nation;return clean([n.id,displayName(n),n.type,n.status,n.summary,n.region,n.atlasType].filter(Boolean).join(' '));};
+  const matchesQuery=x=>{const q=clean(st.query);if(!q)return true;const h=hay(x);return q.split(/\s+/).filter(Boolean).every(t=>h.includes(t));};
+
+  /* ---- the Theater Board: where the story actually happens ------------- */
+  const allTotals=realms.map(totalOf);
+  const maxTotal=Math.max(1,...allTotals);
+  const segColors={loc:'#4aa3ff',ev:'#8a4bff',bt:'#e5484d',tr:'#e0b400',fa:'#2fae8a'};
+  let board=realms.slice();
+  if(st.sort==='battles') board.sort((a,b)=>countsOf(b).bt-countsOf(a).bt||displayName(a.nation).localeCompare(displayName(b.nation)));
+  else if(st.sort==='locations') board.sort((a,b)=>countsOf(b).loc-countsOf(a).loc||displayName(a.nation).localeCompare(displayName(b.nation)));
+  else if(st.sort==='az') board.sort((a,b)=>displayName(a.nation).localeCompare(displayName(b.nation)));
+  else board.sort((a,b)=>totalOf(countsOf(b))-totalOf(countsOf(a))||displayName(a.nation).localeCompare(displayName(b.nation)));
+  const shown=st.showAll?board:board.slice(0,12);
+  const boardHtml=shown.map(x=>{
+    const c=countsOf(x), t=totalOf(c);
+    const segs=Object.entries(segColors).map(([k,col])=>c[k]?`<i style="width:${(c[k]/maxTotal*100).toFixed(2)}%;background:${col}" title="${{loc:c.loc+' locations',ev:c.ev+' events',bt:c.bt+' battles',tr:c.tr+' trials',fa:c.fa+' factions'}[k]}"></i>`:'').join('');
+    return `<div class="atlx-bar" onclick="Router.go('#/atlas/${encodeURIComponent(x.nation.id)}')" title="${esc(displayName(x.nation))} — ${t} filed records">
+      <span class="atlx-bar-name">${esc(displayName(x.nation))}</span>
+      <span class="atlx-bar-track">${segs}</span>
+      <b class="atlx-bar-n">${t}</b>
+    </div>`;
   }).join('');
-  el('content').innerHTML=`<div class="card animate-fade-in"><h1>🍩 World Atlas</h1><p class="text-muted">Top-down doughnut-world mode: nations and realms act as containers for locations, events, battles, trials, factions, species, and POIs. Classic wiki categories remain available in the sidebar.</p><div class="chips" style="margin-top: 15px;"><span class="chip active" onclick="Router.go('#/power')" style="cursor: pointer; background: rgba(255, 215, 0, 0.1); border-color: rgba(255, 215, 0, 0.4); color: #ffd700;">⚡ Open Global Power Projection Monitor</span><span class="chip" onclick="Router.go('#/cultures')" style="cursor: pointer; background: rgba(138, 75, 255, 0.1); border-color: rgba(138, 75, 255, 0.4); color: #a78bfa;">⚖️ View Cultures & Laws</span><span class="chip" onclick="Router.go('#/maps')" style="cursor: pointer; background: rgba(255, 215, 0, 0.1); border-color: rgba(255, 215, 0, 0.4); color: #ffd700;">🧭 Open the Cartography Desk</span></div></div><div class="card"><div class="artgrid">${cards}</div></div>`;
+  const sortBtn=(k,l)=>`<button class="chip${st.sort===k?' active':''}" onclick="listState.atlas.sort='${k}';view_atlas()">${l}</button>`;
+
+  /* ---- world sections --------------------------------------------------- */
+  const worlds={};
+  realms.forEach(x=>{
+    const wid=WORLD_OF_REALM[x.nation.id]||'or';
+    (worlds[wid]=worlds[wid]||[]).push(x);
+  });
+  const worldList=Object.entries(worlds).map(([wid,list])=>{
+    const meta=WORLD_META[wid]||{label:'Unfilled',blurb:''};
+    const filed=list.reduce((a,x)=>a+totalOf(countsOf(x)),0);
+    const sheets=list.reduce((a,x)=>a+mapsOf(x).length,0);
+    return {wid,meta,list,filed,sheets};
+  }).sort((a,b)=>b.filed-a.filed||a.meta.label.localeCompare(b.meta.label));
+
+  const realmCard=x=>{
+    const n=x.nation, c=countsOf(x);
+    const worldMax=Math.max(1,...worlds[WORLD_OF_REALM[n.id]||'or'].map(y=>totalOf(countsOf(y))));
+    const pct=totalOf(c)/worldMax*100;
+    const maps=mapsOf(x);
+    const lat=latestOf(x);
+    const stat=`<span class="atlx-stat" title="${c.loc} locations">📍 ${c.loc}</span><span class="atlx-stat" title="${c.ev} events">📜 ${c.ev}</span><span class="atlx-stat" title="${c.bt} battles">🗡️ ${c.bt}</span><span class="atlx-stat" title="${c.fa} factions">🚩 ${c.fa}</span>`;
+    return `<article class="atlx-realm" onclick="Router.go('#/atlas/${encodeURIComponent(n.id)}')">
+      <div class="atlx-realm-head">${nationThumb(n,'tile')}
+        <div><h3>${esc(displayName(n))}</h3>
+        <div class="atlx-type">${esc(n.atlasType||n.type||n.status||'Realm')}${n.controllingFaction?` · <span class="atlx-ctrl">held by ${esc(String(n.controllingFaction).split('(')[0].trim())}</span>`:''}</div></div>
+        <span class="atlx-filed" title="records filed under this realm">${totalOf(c)}</span>
+      </div>
+      <p class="atlx-sum">${esc(previewText(n,150))}</p>
+      <div class="atlx-power" title="${totalOf(c)} of the world\'s ${worldMax} filed records"><i style="width:${Math.max(3,pct).toFixed(1)}%"></i></div>
+      <div class="atlx-stats">${stat}</div>
+      <div class="atlx-foot">
+        ${maps.length?`<span class="atlx-map" title="${esc(maps[0].name||'')} sheet group">🗺️ ${maps.length} map sheet${maps.length===1?'':'s'}</span>`:'<span class="atlx-map atlx-map--none">no map filed</span>'}
+        ${lat?`<span class="atlx-latest" title="the newest dated filing under this realm"> latest: ${esc(String(lat.e.name||lat.e.title||'').slice(0,34))} (${lat.y} BF)</span>`:''}
+      </div>
+    </article>`;
+  };
+
+  const sectionsHtml=worldList.map(w=>`<section class="atlx-world" id="atlx-${w.wid}">
+    <header class="atlx-world-head">
+      <div><h3>${esc(w.meta.label)}</h3><p>${esc(w.meta.blurb)}</p></div>
+      <div class="atlx-world-stats"><span><b>${w.list.length}</b> realm${w.list.length===1?'':'s'}</span><span><b>${w.filed}</b> filed</span><span><b>${w.sheets}</b> map sheet${w.sheets===1?'':'s'}</span></div>
+    </header>
+    <div class="atlx-grid">${w.list.map(realmCard).join('')}</div>
+  </section>`).join('');
+
+  const searching=clean(st.query);
+  const searchHtml=searching?(()=> {
+    const hits=realms.filter(matchesQuery);
+    return `<div class="card atlx-searchcard"><div class="section-title">🔎 ${hits.length} realm${hits.length===1?'':'s'} match “${esc(st.query)}”</div><div class="atlx-grid">${hits.map(realmCard).join('')||'<p class="text-muted">No realms match. The doughnut is large but not infinite.</p>'}</div></div>`;
+  })():sectionsHtml;
+
+  const sums=realms.reduce((a,x)=>{const c=countsOf(x);a.loc+=c.loc;a.ev+=c.ev;a.bt+=c.bt;a.tr+=c.tr;a.fa+=c.fa;a.sp+=c.sp;a.sheets+=mapsOf(x).length;return a;},{loc:0,ev:0,bt:0,tr:0,fa:0,sp:0,sheets:0});
+
+  el('content').innerHTML=`<div class="atlx-hero card animate-fade-in">
+      <div class="evl-hero-top">
+        <div><h1>🍩 World Atlas</h1>
+        <p class="evl-hero-sub">Every known world on the doughnut, its realms, and the numbers under both — ${realms.length} realms across ${worldList.length} worlds · ${sums.loc} locations · ${sums.ev} events · ${sums.bt} battles · ${sums.fa} factions · ${sums.sheets} map sheets. Open a realm for its dossier, its records, and its tactical map.</p></div>
+      </div>
+      <div class="chips" style="margin-top:12px">
+        <span class="chip" onclick="Router.go('#/power')" style="cursor:pointer;background:rgba(255,215,0,.1);border-color:rgba(255,215,0,.4);color:#ffd700">⚡ Global Power Monitor</span>
+        <span class="chip" onclick="Router.go('#/maps')" style="cursor:pointer;background:rgba(255,215,0,.1);border-color:rgba(255,215,0,.4);color:#ffd700">🧭 Cartography Desk</span>
+        <span class="chip" onclick="Router.go('#/cultures')" style="cursor:pointer;background:rgba(138,75,255,.1);border-color:rgba(138,75,255,.4);color:#a78bfa">⚖️ Cultures &amp; Laws</span>
+      </div>
+      <div class="evl-toolbar">
+        <input class="evl-search" placeholder="Search realms — name, type, status, region…" value="${esc(st.query||'')}" oninput="listState.atlas.query=this.value;clearTimeout(window.__atlxT);window.__atlxT=setTimeout(view_atlas,180)" onkeydown="if(event.key==='Enter'){clearTimeout(window.__atlxT);view_atlas()}">
+        ${sortBtn('filed','Sort: filed records')}${sortBtn('battles','battles')}${sortBtn('locations','locations')}${sortBtn('az','A→Z')}
+        ${(st.query||st.sort!=='filed')?`<button class="chip" onclick="listState.atlas.query='';listState.atlas.sort='filed';view_atlas()">Clear</button>`:''}
+      </div>
+    </div>
+    <div class="card atlx-board">
+      <div class="atlx-board-head">
+        <div><h2>📊 The Theater Board</h2><p class="text-muted">Realms ranked by what the archive has actually filed under them — locations, events, battles, trials, factions, each colour its own. This is where the story lives.</p></div>
+        <button class="chip" onclick="listState.atlas.showAll=!listState.atlas.showAll;view_atlas()">${st.showAll?'Show top 12':'Show all '+realms.length}</button>
+      </div>
+      ${boardHtml}
+      <div class="atlx-legend">${Object.entries({locations:segColors.loc,events:segColors.ev,battles:segColors.bt,trials:segColors.tr,factions:segColors.fa}).map(([l,col])=>`<span><i style="background:${col}"></i>${l}</span>`).join('')}</div>
+    </div>
+    ${searchHtml}
+  `;
   window.scrollTo(0,0);
 }
 function atlasChips(arr,kind){
@@ -18195,7 +18334,7 @@ function ttsBarEnsure(){
         <button type="button" onclick="raTestVoice()">Test voice</button>
       </div>
       <span id="ra-cfg-note" class="ra-note"></span>
-      <p class="ra-help">Runs against your local <b>Qwen3-TTS Enhanced Studio</b> (Gradio). Voices are the saved profiles from its Voice Studio — default: <b>Waluigi</b>. The next chunk synthesizes while the current one plays. Docs: <code>docs/QWEN_TTS_BRIDGE.md</code>.</p>
+      <p class="ra-help">Runs against your local <b>Qwen3-TTS Enhanced Studio</b> (Gradio). Voices are the saved profiles from its Voice Studio — default: <b>Waluigi</b>. The next chunk synthesizes while the current one plays. On another device (phone over Tailscale)? Point the studio at this machine's Tailscale address — see the <b>From your phone</b> section in <code>docs/QWEN_TTS_BRIDGE.md</code>.</p>
     </div>`;
   document.body.appendChild(bar);
   return bar;

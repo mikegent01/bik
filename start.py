@@ -144,6 +144,46 @@ def tts_studio_up() -> bool:
         return sock.connect_ex((TTS_HOST, TTS_PORT)) == 0
 
 
+# --------------------------------------------------------------------------
+# Tailscale: the phone-ready address (see docs/QWEN_TTS_BRIDGE.md)
+# --------------------------------------------------------------------------
+TS_BIN_CANDIDATES = ("tailscale", r"C:\Program Files\Tailscale\tailscale.exe")
+
+
+def tailscale_ipv4():
+    """This machine's Tailscale address (100.x.y.z), or None.
+
+    The address is what a phone on the same tailnet types into its browser to
+    read the archive — and what its read-aloud bridge points at for the voice.
+    """
+    for binpath in TS_BIN_CANDIDATES:
+        try:
+            r = subprocess.run([binpath, "ip", "-4"], capture_output=True,
+                               text=True, timeout=2.5)
+        except Exception:
+            continue
+        for line in (r.stdout or "").split():
+            line = line.strip()
+            if line.startswith("100.") and line.count(".") == 3:
+                return line
+    return None
+
+
+def print_tailnet_tip(port: int, host: str) -> None:
+    ts_ip = tailscale_ipv4()
+    if not ts_ip:
+        return
+    print("  tailnet: your Tailscale address is %s" % ts_ip)
+    if host in ("0.0.0.0", "::"):
+        print("            phones on the tailnet can read the archive at")
+        print("            http://%s:%d/" % (ts_ip, port))
+    else:
+        print("            re-run with --host 0.0.0.0 and phones on the tailnet")
+        print("            can read the archive at http://%s:%d/" % (ts_ip, port))
+    print("            read aloud from a phone: open the player bar's gear and")
+    print("            point the studio at http://%s:%d" % (ts_ip, TTS_PORT))
+
+
 def launch_tts_studio() -> None:
     """Start 'Run Qwen3 TTS.bat' if it exists, so the studio comes up with
     the site. Never raises, never blocks: the webserver starts regardless,
@@ -220,6 +260,7 @@ def main() -> int:
         print("  note    : port %d was busy, using %d" % (args.port, port))
     if not args.no_tts:
         launch_tts_studio()
+    print_tailnet_tip(port, args.host)
     print("  stop    : Ctrl-C")
     print()
 

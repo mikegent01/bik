@@ -137,6 +137,43 @@ the player stops cleanly). No jsdom required.
 * If the studio is not running, the bridge says so and stops:
   *"Bridge error: the studio is unreachable at http://127.0.0.1:7860."*
 
+## From your phone over Tailscale
+
+Yes — the bridge speaks to whatever studio URL it is given, so a phone on
+your tailnet can use the same local Qwen studio. Two routes:
+
+**Route A — plain Tailscale IP (simplest).**
+
+1. Tailscale on the PC and the phone, same tailnet.
+2. Make the studio reachable on the tailnet. Gradio binds to `127.0.0.1` by
+   default, so either set `GRADIO_SERVER_NAME=0.0.0.0` in the environment
+   before the `Run Qwen3 TTS.bat` launches it, or edit the studio script to
+   `demo.launch(server_name="0.0.0.0")`.
+3. Serve the archive to the tailnet: `python3 start.py --host 0.0.0.0`.
+   It prints your Tailscale address when it finds one (`tailscale ip -4`).
+4. On the phone: open `http://100.x.y.z:8765`, tap **🔊 Read aloud → ⚙️**,
+   and set the studio URL to `http://100.x.y.z:7860`. Save once — the config
+   is per-device.
+
+**Route B — `tailscale serve` (HTTPS, no rebind).**
+
+`tailscale serve --bg 7860` proxies the studio at
+`https://<machine>.<tailnet>.ts.net` with a real certificate, leaving the
+studio bound to localhost. Point the phone's ⚙️ at that URL. This is the
+route that works from the **HTTPS-deployed site** too, because the endpoint
+is HTTPS — a plain-http endpoint would be blocked as mixed content from an
+HTTPS page. Needs MagicDNS + HTTPS certificates enabled on the tailnet.
+
+**Notes.**
+
+* CORS: Gradio's API endpoints allow cross-origin calls by default (that is
+  how `<gradio-app>` embeds work); if a proxy in front of the studio strips
+  those headers, serve the site from the same machine (Route A).
+* The first synthesis from a phone may take a moment — the studio queues
+  jobs exactly as it does locally, one at a time.
+* Everything else (voice profile, chunk size, volume) is per-device
+  `localStorage`; the phone only needs its endpoint set once.
+
 ## Where the code lives
 
 * `index.html` — the block between `READ-ALOUD-BRIDGE-START` and
