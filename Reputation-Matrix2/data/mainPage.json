@@ -7,9 +7,9 @@
     "title": "Judgement in the Grove: A Musket in the Smoke, the Warhammer That Would Not Hear an Appeal, and the Man Remi Found Asleep"
   },
   "latestUpdate": {
-    "id": "the_airlift_that_never_came",
+    "id": "the_cut_and_the_puppet_master",
     "label": "Latest Filing · Session Event",
-    "excerpt": "The Scorncrow is dead and the position is worse. A Legion guard hoists the unconscious Eager onto his shoulder and walks off on the code — no man left behind — over the objection of Archie, Feyward Dan and Markop, and over Eager's own request to be put down. His real reason follows the code: I trust myself more than you guys. The promised helicopter never comes. Remi checks the blood, strips her ruined dress, pulls a chain shirt and a battle axe off a body, heals herself twice without getting right, and walks out of the grove alone. Archie erases the crossed-out lines in his spellbook, circles his last high-level spell, and casts Fireball at a bush — the grove burns for the second time in two filings, with everyone still inside. Markop ends the night on a motorbike he cannot ride. And in a torchlit den full of wrights, Pierce Anamatar sells three people passage out of Guild-controlled ground for a possession: he asks for the siglet, declines an expired coupon, and takes Remi's student ID because it is durable."
+    "excerpt": "A button labelled EMERGENCY EXIT makes coffee — until the steam pops a ceiling vent, and the escape goes up instead of out. In the ducts: rats, echoes, and a blue light. Under it, Luigi — alive, alone, running security feeds and notes headed Wario's corruption. Darian's rolling-pin ambush is stopped by Alistair's hand; Evil Mario comes through the door in a cape of pixelated feathers; the studio plays Plumber Man and the corrupted Mario fights to the beat of the real Mario's own song. The floor collapses; studio-uniform paratroopas catch them; Darian orders a V and Luigi yanks the cape off. A tanuki leaf, a second Wario head, a flaming pipe, fire, a fire-alarm crawl, sprinklers, ice — and then one word: CUT. The whole production stops. Curtains. A reset break room. Wario walks in to applause from an empty house — and behind everyone comes a man in a director's cap Wario calls Boss, who knocks Wario out for ruining his show. Evil Mario points at the door he left through, and in a dark hallway Darian watches the Director pass carrying a folder and a small wired remote."
   },
   "didYouKnow": [
     "...that the Scorncrow told three separate filings it was not a monster, and when Remi Akamatsu finally tested the claim with a point-blank musket, the blood under the face was human?",
@@ -38,12 +38,20 @@
   ],
   "campaignCovers": [
     {
-      "id": "the-airlift-that-never-came-cover",
+      "id": "the-cut-and-the-puppet-master-cover",
+      "campaign": "Mario",
+      "title": "MARIO — The Cut and the Puppet Master",
+      "caption": "The word that stopped the show. Darian — burned, soot-streaked, rolling pin still in hand — standing in the falling sprinkler water with the ice mid-advance behind him, and every weapon in the room going quiet…",
+      "image": "assets/images/events/promo-mario-studio-cut/pmc-01-cut.jpg",
+      "articleId": "the_cut_and_the_puppet_master"
+    },
+    {
+      "id": "you-said-leave-no-one-behind-cover",
       "campaign": "Shadeward",
-      "title": "SHADEWARD — The Airlift That Never Came",
-      "caption": "The dispute, with the grove already alight behind it. Markop bleeding from the head with one hand out — arguing, not attacking; Feyward Dan caught between the two with his longsword down; and the Legion guard…",
-      "image": "assets/images/events/airlift-never-came/anc-01-no-man-left-behind.jpg",
-      "articleId": "the_airlift_that_never_came"
+      "title": "SHADEWARD — You Said Leave No One Behind, Right?",
+      "caption": "The release, with the grove still burning behind it. Markop beside the motorbike and the tree he rode it into; the Legion guard's gauntlets open and off Salam, who is awake and on his own feet for the first…",
+      "image": "assets/images/events/you-said-leave-no-one-behind/ylnb-01-code-returned.jpg",
+      "articleId": "you_said_leave_no_one_behind"
     },
     {
       "id": "snowdin-bone-line-registry-cover",
@@ -68,14 +76,6 @@
       "caption": "Classroom 2-B on the morning of the new advisor's first roll call: the sliding door, the window row, the contested front desk, and the back row that behaves like a separate country.",
       "image": "assets/images/events/trinity-roll-call/trc-01-classroom.jpg",
       "articleId": "the_roll_call_at_trinity"
-    },
-    {
-      "id": "the-tape-and-the-wario-files-cover",
-      "campaign": "Mario",
-      "title": "MARIO — The Tape and the Wario Files",
-      "caption": "Midnight, second day, sixth rewind. The curtains have not been opened since the clinic.",
-      "image": "assets/images/events/the-tape-and-the-files/tape-01-midnight-rewind.jpg",
-      "articleId": "the_tape_and_the_wario_files"
     }
   ],
   "fieldGallery": [

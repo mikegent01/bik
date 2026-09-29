@@ -49,6 +49,7 @@ def main() -> int:
         ("roll registry", [py, "tools/check-rolls.py"], ROOT),
         ("battles", [py, "tools/check-battles.py"], ROOT),
         ("time codes", [py, "tools/check-timecodes.py", "--strict"], ROOT),
+        ("timelines", [py, "tools/check-timelines.py"], ROOT),
         ("commentaries", [py, "tools/check-commentaries.py", "--strict"], ROOT),
         ("annotation variety", [py, "tools/check-annotation-variety.py"], ROOT),
         ("boot refs", [py, "tools/check-boot-refs.py"], ROOT),

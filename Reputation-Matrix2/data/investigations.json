@@ -166,7 +166,7 @@
         "raventree_manor"
       ],
       "opened": "23 Harvestide, 1040 BF",
-      "lastFiled": "1 Aethel, 1040 BF — amended: a disputed casualty, a second fire, and a student ID sold for passage",
+      "lastFiled": "1 Aethel, 1040 BF — amended: the code returned, a sentry arrangement at the motorbike, and the Legion's syringe",
       "archivist": "Waluigi, Auditor-General",
       "icon": "🏚️",
       "accent": "#8a4bff",
@@ -277,13 +277,19 @@
           "id": "thread_disputed_casualty",
           "title": "Who holds Eager, and on what authority",
           "status": "open",
-          "note": "A Legion guard removed an unconscious party member on the code — no man left behind — over the objection of Archie, Feyward Dan and Markop, and over Eager's own request to be put down. He stated he trusts himself more than the party. Both Salam left in a fireman's carry; Eager remained with the party bound for Legionhold, the facility the same guards said would host Archie's arrest."
+          "note": "A Legion guard removed an unconscious party member on the code — no man left behind — over the objection of Archie, Feyward Dan and Markop, and over the man's own request to be put down. Resolved in part on 1 Aethel: Salam woke, Markop returned the code — 'you said leave no one behind, right?' — and the Legion let him go and left a guard waiting at the motorbike with him. The custody question is closed; the authority question is not — a guard later tried to move Salam off the bike ('stand still, you worm') and was refused."
         },
         {
           "id": "thread_no_helicopter",
           "title": "The helicopter that was promised twice and never arrived",
           "status": "open",
           "note": "Legion guards promised an airlift out of the grove and a show at Legionhold. Nothing in the record shows an aircraft. They left on foot carrying wounded. Either the asset did not exist, or it was not sent."
+        },
+        {
+          "id": "thread_what_the_legion_ran_from",
+          "title": "What made an Iron Legion soldier run",
+          "status": "open",
+          "note": "A Legion man ran past Markop in open panic while the guards were still treating the grove as their ground. Nothing in the record names the cause. The three Toads are running toward the same deeper grove."
         }
       ],
       "leads": [
@@ -694,6 +700,38 @@
           "exhibits": [
             "ex_student_id"
           ]
+        },
+        {
+          "id": "lead_legion_panic",
+          "title": "Establish what the running Legion man saw",
+          "status": "open",
+          "priority": "high",
+          "why": "A professional soldier broke into a sprint in the open, past an armed stranger, and the record never names the cause. Whatever moved him is deeper in the grove — the same direction the three Toads are running voluntarily.",
+          "exhibits": []
+        },
+        {
+          "id": "lead_tree_route",
+          "title": "Map the retreat through the tree of the grove",
+          "status": "open",
+          "priority": "high",
+          "why": "Markop named the tree as the rally route — 'we're going back through the tree' — and the party roped down into the grove through it. Nobody has filed whether the way up is still open, or what two fires have done to it.",
+          "exhibits": []
+        },
+        {
+          "id": "lead_toads_disengagement",
+          "title": "Confirm whether the three Toads fully disengaged",
+          "status": "open",
+          "priority": "medium",
+          "why": "They said they would run upwards, deeper into the grove, and fully disengage if it turned south. The filing closes without them on the record, in a grove that just frightened the Iron Legion.",
+          "exhibits": []
+        },
+        {
+          "id": "lead_green_spider",
+          "title": "Open a file on the giant green spider",
+          "status": "open",
+          "priority": "medium",
+          "why": "It closed on Markop one filing ago and bit Archie through Dan's shield in this one. Two filings, two victims, no wound on it anywhere in the record. The grove's best fighter has no page.",
+          "exhibits": []
         }
       ],
       "sessions": [
@@ -798,6 +836,12 @@
           "label": "The airlift that never came — the Legion keeps the wounded",
           "date": "1 Aethel, 1040 BF",
           "event": "the_airlift_that_never_came"
+        },
+        {
+          "id": "s_you_said_leave_no_one_behind",
+          "label": "You said leave no one behind, right? — the code turned around, the sentry at the bike, and the syringe",
+          "date": "1 Aethel, 1040 BF",
+          "event": "you_said_leave_no_one_behind"
         }
       ],
       "relatedEvents": [
@@ -4073,7 +4117,7 @@
         "mario_disappearance"
       ],
       "opened": "4 Aethel, 1040 BF",
-      "lastFiled": "5 Aethel, 1040 BF — amended: the tape filed to the case, and its custody chain questioned",
+      "lastFiled": "5 Aethel, 1040 BF — amended: the cut, the director, and the remote",
       "archivist": "Waluigi, Auditor-General",
       "icon": "🔥",
       "accent": "#c46b32",
@@ -4184,6 +4228,18 @@
           "title": "Somebody recorded the argument, and nobody has asked who",
           "state": "open",
           "text": "The tape is the archive's only primary source on the brothers' argument and it has no origin. Wario held it; before Wario there is nothing. A cleaner dub appeared after the first filing, which means copies exist and someone controls their release.\n\n**In plain terms:** we trust the recording and we have never once asked who was holding the microphone, or why they were in the room."
+        },
+        {
+          "id": "th_the_director",
+          "title": "The man Wario bows to",
+          "status": "open",
+          "note": "A figure in a director's cap, carrying a script, whom Wario — producer of the entire two-filing ordeal — called Boss and bowed to. He knocked Wario unconscious for exceeding his brief ('you ruined MY show') and left with a folder and a small wired remote. If Wario produces the show, the Director owns it; the file's question chain now ends at his name."
+        },
+        {
+          "id": "th_the_remote",
+          "title": "A control unit for Evil Mario, or the whole studio",
+          "status": "open",
+          "note": "Small, buttoned, with wires running from it, carried with the ease of long habit by a man who did not know he was watched. It would explain the costume rack — cape, leaf, fire, ice — and possibly the resetting rooms, the lying exits, and the applause track."
         }
       ],
       "leads": [
@@ -4286,6 +4342,44 @@
           "exhibits": [
             "ex_wario_files_custody"
           ]
+        },
+        {
+          "id": "lead_get_the_remote",
+          "title": "Get the Director's remote",
+          "state": "open",
+          "priority": "critical",
+          "objective": "Locate Director Mario or the device he carries; establish what it controls and whether it can be taken.",
+          "why": "One witness, hidden in an alcove, saw the only object in two filings that could explain the corrupted Mario's costume rack and the studio's resetting behaviour. The Director does not yet know he was seen — an advantage with a shelf life.",
+          "exhibits": []
+        },
+        {
+          "id": "lead_director_who_for",
+          "title": "Establish who the show is for",
+          "state": "open",
+          "priority": "high",
+          "objective": "Identify the audience the applause track plays to: a viewer beyond the windows, a recording, or nobody.",
+          "why": "The applause was real sound in an empty, silent facility. A show needs a viewer; the empty seats mean the viewer is somewhere the studio does not show. Every answer to this question names a person at the end of the Mario disappearance file.",
+          "exhibits": []
+        },
+        {
+          "id": "lead_luigi_notes",
+          "title": "Recover Luigi's notes on Wario's corruption",
+          "state": "open",
+          "priority": "high",
+          "objective": "Return to the maintenance terminal or to Luigi himself; secure the working file headed 'Wario's corruption'.",
+          "why": "The best evidence in this case was read over a man's shoulder through a ceiling vent. The terminal sits in a building that resets itself, and nobody has been back for it.",
+          "exhibits": [
+            "ex_luigi_studio_notes"
+          ]
+        },
+        {
+          "id": "lead_evil_marios_point",
+          "title": "Ask what Evil Mario wants",
+          "state": "open",
+          "priority": "medium",
+          "objective": "Interpret the corrupted Mario's single gesture — a raised finger pointing at the Director's exit — and establish whether he is a prisoner of the show or a performer with his own script.",
+          "why": "He survived the cape, the leaf, the fire, the ice, and the curtains, and used his one free moment to point the survivors at the man who owns him. Actors do not warn the audience unless they want the play to close.",
+          "exhibits": []
         }
       ],
       "sessions": [
@@ -4324,6 +4418,12 @@
           "label": "The tape and the Wario files — the brothers' argument, recovered and played",
           "date": "20 Harvestide, 1035 BF — the chair, the curtains, the sixth rewind",
           "event": "the_tape_and_the_wario_files"
+        },
+        {
+          "id": "s_studio_cut",
+          "label": "The Cut and the Puppet Master — the button, the song, the word, and the man with the remote",
+          "date": "5 Aethel, 1040 BF",
+          "event": "the_cut_and_the_puppet_master"
         }
       ],
       "relatedEvents": [
@@ -4565,6 +4665,21 @@
           "onRecord": "One audio tape carrying the brothers' argument, held by Wario prior to disclosure. No record establishes who recorded it, on whose instruction, or how it reached him. A cleaner dub surfaced after first filing, materially better in quality, source unstated.",
           "dc": 3,
           "analysis": "## A primary source with no beginning\n\nThe archive spent two filings reconstructing this argument from the word of a blue-painted impostor who was not in the room, and then a tape arrived and settled it. Waluigi has written at length about what the tape says. This exhibit is about the part he skipped: **somebody was in that room with a recorder running, and that somebody is not in the file.** [[roll:3|the recording was deliberate|a clean two-voice capture of a private argument is not an accident of a machine left on — somebody chose the room, the moment and the placement|domestic recordings of this era are often continuous, and a running machine catching one conversation proves choice by nobody]].\n\n## The second dub is the louder problem\n\nA better copy surfaced *after* first filing. Waluigi amended his reading, as an auditor must. What he did not do at the time, and does now, is note what a second dub implies: copies exist, somebody made them, and somebody decided when this archive got the good one. [[roll:4|the timing of the better dub is itself information|whoever released the improved copy did so only after reading what the archive concluded from the poor one, which makes the disclosure responsive rather than cooperative|dubs surface for dull reasons constantly, and an archive that reads intent into every delivery will eventually read intent into a postal delay]].\n\nThe tape is true. Waluigi stands behind every line of his reading of it. He would simply like it on the record that the most important document in the Mario file entered the archive through a man who sells things, with no history attached, and that nobody has asked him where he got it."
+        },
+        {
+          "id": "ex_luigi_studio_notes",
+          "session": "s_studio_cut",
+          "propId": "prop_luigi_studio_notes",
+          "icon": "🖥️",
+          "kind": "screen",
+          "category": "evidence",
+          "title": "Luigi's screen — notes on Wario's corruption",
+          "secured": "unrecovered",
+          "custody": "The maintenance terminal, inside a studio that resets itself; read from a ceiling vent by Darian and Alistair",
+          "visual": "<div role=\"img\" aria-label=\"A maintenance terminal in blue light\" style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:linear-gradient(145deg,rgba(12,20,34,.97),rgba(6,10,18,.97));border:1px solid rgba(96,165,250,.35)\"><div style=\"position:absolute;left:16px;top:16px;font-size:34px\">🖥️</div><div style=\"position:absolute;left:16px;bottom:16px;color:#93c5fd;font-size:11px;letter-spacing:.14em;text-transform:uppercase\">Unrecovered · read from the vent</div><div style=\"position:absolute;right:18px;top:18px;color:#64748b;font-size:11px;text-align:right;line-height:1.5\">maintenance room<br>blue light</div><div style=\"position:absolute;right:18px;bottom:16px;color:#bfdbfe;font-size:12px\">one heading: Wario's corruption</div></div>",
+          "dc": 4,
+          "onRecord": "A live workstation inside the studio: four security panes, a studio map with exits this filing proves lie, and a working file headed Wario's corruption. Its operator typed that he had to find Mario and fix this, twice, before standing up with a flashlight. [[roll:4|Read the operator through his own screen|Luigi came to the studio to find his brother and stayed at the only terminal that watches everything — including, for one continuous stretch, the vent above him. He never looked up. The watchers were being watched and nobody in the room knew it.|The screen shows a man searching. It does not show who left the terminal logged in for him.]]",
+          "analysis": "## Why this screen matters more than the fight\n\nThe fight was a production. This terminal is the first object in two filings that does not reset, does not perform, and does not lie: real feeds, a real map, a working file. Somebody gave the studio a nervous system, and Luigi — not the Director, not Wario — is the one who found the optic nerve.\n\nThe heading is the evidence. **Wario's corruption**, written by the brother who has the least to gain and the most to lose by naming Wario, corroborates the archive's own suspicion from the tape file: Wario is not the top of this. A file headed 'corruption' is a file about a process — who corrupted what, in what order, and who signed the budget. The Director's cigar-snap confirms the chain of command the heading implies.\n\nThe unrecovered status is the argument for urgency. The break room resets. The curtains come down on command. There is no reason to believe the maintenance room's memory survives a reset, and every reason to believe the only copy of a brother's investigation is sitting on a machine that answers to the man with the remote."
         }
       ]
     },

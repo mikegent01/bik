@@ -27,6 +27,7 @@ import http.server
 import os
 import socket
 import socketserver
+import subprocess
 import sys
 import threading
 import time
@@ -37,6 +38,15 @@ ROOT = Path(__file__).resolve().parent
 DEFAULT_PORT = 8765
 # Files that prove we are pointed at the archive and not a random directory.
 LANDMARKS = ("index.html", "Reputation-Matrix2/data/events.json")
+
+# The read-aloud bridge speaks to a local Qwen3-TTS Enhanced Studio (Gradio,
+# default http://127.0.0.1:7860 — see docs/QWEN_TTS_BRIDGE.md). On the
+# archivist's machine it is started by a batch file in Downloads; if we find
+# it, we start it alongside the webserver so both are up in one command.
+TTS_BAT_PARTS = ("Downloads", "qw", "Run Qwen3 TTS.bat")
+TTS_HOST = "127.0.0.1"
+TTS_PORT = 7860
+
 
 
 class Handler(http.server.SimpleHTTPRequestHandler):
@@ -102,6 +112,118 @@ def find_port(host: str, port: int, tries: int = 20) -> int:
     sys.exit("No free port in range %d-%d." % (port, port + tries - 1))
 
 
+# --------------------------------------------------------------------------
+# The Qwen3-TTS studio (the read-aloud voice)
+# --------------------------------------------------------------------------
+def tts_bat_candidates():
+    """Where 'Run Qwen3 TTS.bat' might live, best guess first."""
+    seen = set()
+    homes = [Path.home()]
+    # Windows keeps the user profile in USERPROFILE; OneDrive-redirected
+    # Downloads folders are common, so cover both roots.
+    for var in ("USERPROFILE", "OneDrive"):
+        val = os.environ.get(var)
+        if val:
+            homes.append(Path(val))
+    for home in homes:
+        bat = home.joinpath(*TTS_BAT_PARTS)
+        if str(bat).lower() not in seen:
+            seen.add(str(bat).lower())
+            yield bat
+    # A literal relative path, for the rare cwd-is-home launch.
+    bat = Path(*TTS_BAT_PARTS)
+    if str(bat).lower() not in seen:
+        seen.add(str(bat).lower())
+        yield bat
+
+
+def tts_studio_up() -> bool:
+    """Is something already listening on the studio's port?"""
+    with contextlib.closing(socket.socket(socket.AF_INET, socket.SOCK_STREAM)) as sock:
+        sock.settimeout(0.4)
+        return sock.connect_ex((TTS_HOST, TTS_PORT)) == 0
+
+
+# --------------------------------------------------------------------------
+# Tailscale: the phone-ready address (see docs/QWEN_TTS_BRIDGE.md)
+# --------------------------------------------------------------------------
+TS_BIN_CANDIDATES = ("tailscale", r"C:\Program Files\Tailscale\tailscale.exe")
+
+
+def tailscale_ipv4():
+    """This machine's Tailscale address (100.x.y.z), or None.
+
+    The address is what a phone on the same tailnet types into its browser to
+    read the archive — and what its read-aloud bridge points at for the voice.
+    """
+    for binpath in TS_BIN_CANDIDATES:
+        try:
+            r = subprocess.run([binpath, "ip", "-4"], capture_output=True,
+                               text=True, timeout=2.5)
+        except Exception:
+            continue
+        for line in (r.stdout or "").split():
+            line = line.strip()
+            if line.startswith("100.") and line.count(".") == 3:
+                return line
+    return None
+
+
+def print_tailnet_tip(port: int, host: str) -> None:
+    ts_ip = tailscale_ipv4()
+    if not ts_ip:
+        return
+    print("  tailnet: your Tailscale address is %s" % ts_ip)
+    if host in ("0.0.0.0", "::"):
+        print("            phones on the tailnet can read the archive at")
+        print("            http://%s:%d/" % (ts_ip, port))
+    else:
+        print("            re-run with --host 0.0.0.0 and phones on the tailnet")
+        print("            can read the archive at http://%s:%d/" % (ts_ip, port))
+    print("            read aloud from a phone: open the player bar's gear and")
+    print("            point the studio at http://%s:%d" % (ts_ip, TTS_PORT))
+
+
+def launch_tts_studio() -> None:
+    """Start 'Run Qwen3 TTS.bat' if it exists, so the studio comes up with
+    the site. Never raises, never blocks: the webserver starts regardless,
+    and a missing bat just means Read aloud needs the studio started by hand.
+    """
+    if tts_studio_up():
+        print("  qwen   : studio already up on %s:%d — not launching again"
+              % (TTS_HOST, TTS_PORT))
+        return
+    bat = next((b for b in tts_bat_candidates() if b.is_file()), None)
+    if bat is None:
+        print("  qwen   : 'Run Qwen3 TTS.bat' not found (looked in Downloads/qw)")
+        print("            read aloud will need the studio started by hand")
+        return
+    try:
+        if os.name == "nt":
+            # cmd /c in its own console window: the studio's logs stay
+            # visible in a window this script does not own, and the webserver
+            # is free to keep going.
+            subprocess.Popen(
+                ["cmd", "/c", bat.name],
+                cwd=str(bat.parent),
+                creationflags=getattr(subprocess, "CREATE_NEW_CONSOLE", 0),
+                close_fds=True,
+            )
+        else:
+            # Non-Windows box with the bat checked out: report rather than
+            # pretending a batch file can run under sh.
+            print("  qwen   : found %s but batch files only run on Windows" % bat)
+            return
+    except Exception as exc:  # a failed launch must not kill the site
+        print("  qwen   : could not launch %s (%s)" % (bat, exc))
+        print("            read aloud will need the studio started by hand")
+        return
+    print("  qwen   : launched %s" % bat)
+    print("            the studio loads its model first — Read aloud works once")
+    print("            it answers on http://%s:%d" % (TTS_HOST, TTS_PORT))
+
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(
         description="Serve the Waluipedia locally and open it in a browser.",
@@ -118,6 +240,9 @@ def main() -> int:
                         help="page to open (default index.html)")
     parser.add_argument("--no-browser", action="store_true",
                         help="serve without opening a browser")
+    parser.add_argument("--no-tts", action="store_true",
+                        help="do not launch the Qwen3-TTS studio batch file "
+                             "even if Downloads/qw/Run Qwen3 TTS.bat exists")
     args = parser.parse_args()
 
     check_root()
@@ -133,6 +258,9 @@ def main() -> int:
         print("  note    : bound to 0.0.0.0 — reachable from other machines")
     if port != args.port:
         print("  note    : port %d was busy, using %d" % (args.port, port))
+    if not args.no_tts:
+        launch_tts_studio()
+    print_tailnet_tip(port, args.host)
     print("  stop    : Ctrl-C")
     print()
 

@@ -65,6 +65,8 @@ APPARATUS    ledger + findings + verdict          (what-if)
 EXHIBITS     the prose names paper → props.json files it → [[prop:id|text]]
              written as the ISSUER · Waluigi only in the margin
              every ## Addendum: → an addendum slip: what / who / why late
+SONGS        the prose names a song → [[song:id|text]] deep-links its card
+             in the Campaign Songbook (#/song/<id> scrolls to it and flashes)
 GROWTH       python3 tools/check-story-growth.py <new_id>
              review related pages + arc files; useful edits only, never link spam
 HTML         markdown + blockquotes only — never raw <div>

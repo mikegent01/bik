@@ -8243,6 +8243,234 @@
       "reaction": "resolve",
       "comments": [],
       "status": "posted"
+    },
+    {
+      "id": "ww_ylnb_markop",
+      "author": "markop",
+      "type": "text",
+      "order": 205,
+      "date": null,
+      "timestamp": "1 Aethel, 1040 BF",
+      "content": "Last night a Legion man quoted their code at me and took Salam away. Tonight I quoted it back and they gave him to me. I have never hated a rule more. I have never used one harder. The retreat is the tree. If you hear screaming, that is the signal. Please nobody scream.",
+      "likes": 512,
+      "links": [
+        {
+          "id": "you_said_leave_no_one_behind",
+          "type": "event"
+        },
+        {
+          "id": "iron_legion",
+          "type": "faction"
+        },
+        {
+          "id": "salam",
+          "type": "character"
+        }
+      ],
+      "tags": [
+        "skitteringgrove",
+        "ironlegion",
+        "code",
+        "salam"
+      ],
+      "reaction": "resolve",
+      "comments": [
+        {
+          "id": "ww_ylnb_m_c1",
+          "author": "waluigi",
+          "content": "He rode the motorbike into a tree, into Salam, and then into a legal argument, and won all three. The archive's first recorded triple.",
+          "likes": 601,
+          "topReply": true
+        },
+        {
+          "id": "ww_ylnb_m_c2",
+          "author": "salam",
+          "content": "I was two of those.",
+          "likes": 388
+        }
+      ],
+      "status": "posted"
+    },
+    {
+      "id": "ww_ylnb_salam",
+      "author": "salam",
+      "type": "text",
+      "order": 206,
+      "date": null,
+      "timestamp": "1 Aethel, 1040 BF",
+      "content": "Woke up. They were carrying me somewhere. A centaur on a motorbike hit a tree and then hit me and it was still the best news of the night. Now I'm the guard on the bike. A Legion man called me a worm and tried to pick me up. I said no. That's the whole update.",
+      "likes": 733,
+      "links": [
+        {
+          "id": "you_said_leave_no_one_behind",
+          "type": "event"
+        },
+        {
+          "id": "markop",
+          "type": "character"
+        },
+        {
+          "id": "iron_legion",
+          "type": "faction"
+        }
+      ],
+      "tags": [
+        "skitteringgrove",
+        "sentry",
+        "liberation"
+      ],
+      "reaction": "defiant",
+      "comments": [
+        {
+          "id": "ww_ylnb_s_c1",
+          "author": "waluigi",
+          "content": "Two filings unconscious, and his first waking act is to keep a post he wasn't awake to be given. Waluigi has filed less loyalty from people with more hit points.",
+          "likes": 810,
+          "topReply": true
+        },
+        {
+          "id": "ww_ylnb_s_c2",
+          "author": "eager",
+          "content": "He also shot a spider. We don't talk about the second arrow.",
+          "likes": 429
+        }
+      ],
+      "status": "posted"
+    },
+    {
+      "id": "ww_thecut_darian",
+      "author": "lord_darian_marsh",
+      "type": "text",
+      "order": 207,
+      "date": null,
+      "timestamp": "5 Aethel, 1040 BF — same night as the promo filing, after the curtains",
+      "content": "In my province an exit is a door. Here the emergency button made coffee, the coffee opened the ceiling, and the building obeys one word, which I said. Twenty years of rule and no province of mine has ever stopped on command. My steward was thrown the length of a hallway and came back through a window with a flaming pipe. There is a man here with a remote. We are going to get it.",
+      "likes": 894,
+      "links": [
+        {
+          "id": "the_cut_and_the_puppet_master",
+          "type": "event"
+        },
+        {
+          "id": "alistair_marshkeeper",
+          "type": "character"
+        },
+        {
+          "id": "evil_mario",
+          "type": "character"
+        }
+      ],
+      "tags": [
+        "nintendomania",
+        "cut",
+        "darkshores",
+        "theremote"
+      ],
+      "reaction": "resolve",
+      "comments": [
+        {
+          "id": "ww_thecut_d_c1",
+          "author": "waluigi",
+          "content": "The archive has filed kings who commanded armies, navies, and taxes. This is the first one who commanded a COMMERCIAL BREAK. The building will remember him longer than it remembers the rest of us. WAH.",
+          "likes": 721,
+          "topReply": true
+        },
+        {
+          "id": "ww_thecut_d_c2",
+          "author": "alistair_marshkeeper",
+          "content": "He is not exaggerating about the pipe. He is understating the hallway.",
+          "likes": 455
+        }
+      ],
+      "status": "posted"
+    },
+    {
+      "id": "ww_thecut_waluigi",
+      "author": "waluigi",
+      "type": "text",
+      "order": 208,
+      "date": null,
+      "timestamp": "5 Aethel, 1040 BF — the third filing of one very long day",
+      "content": "Third post today. Morning: a review. Evening: a correction. Now the sequel is in, and Waluigi is filing it with his eyes OPEN this time: Luigi alive at the security desk with a corruption file, the corrupted Mario an ACTOR who froze at the word CUT, Wario a producer who bows to a boss, and applause for an audience of CHAIRS. The man in the director's cap walked out with a folder and a small wired remote. The Mario disappearance file now has an object to hunt instead of a vibe. The archive is open all night. It did not plan to be. WAH.",
+      "likes": 1310,
+      "links": [
+        {
+          "id": "the_cut_and_the_puppet_master",
+          "type": "event"
+        },
+        {
+          "id": "director_mario",
+          "type": "character"
+        },
+        {
+          "id": "luigi",
+          "type": "character"
+        }
+      ],
+      "tags": [
+        "mario",
+        "nintendomania",
+        "theremote",
+        "press review"
+      ],
+      "reaction": "suspicion",
+      "comments": [
+        {
+          "id": "ww_thecut_w_c1",
+          "author": "luigi",
+          "content": "I was two rooms away the whole time. I had the feeds, the map, and the notes. Nobody knocked.",
+          "likes": 640,
+          "topReply": true
+        },
+        {
+          "id": "ww_thecut_w_c2",
+          "author": "lord_darian_marsh",
+          "content": "You quoted me correctly, archivist. Check the seats yourself next time.",
+          "likes": 388
+        }
+      ],
+      "status": "posted"
+    },
+    {
+      "id": "ww_daylog_thefifth",
+      "author": "waluigi",
+      "type": "text",
+      "order": 209,
+      "date": null,
+      "timestamp": "5 Aethel, 1040 BF — dated true, written late",
+      "content": "Filed a day log for the fifth: what I ate, what I requested, one museum I should have read more closely, and the weather, which I obtained by arguing with a print vendor. Where was the archivist while the desk dated all that? The Feyward. There was a door, the door had a TREE behind it, and Hjumpik has my sleeve to thank for the save. The clocks do not reconcile. That is the horror of the place, not a filing error. WAH.",
+      "likes": 766,
+      "links": [
+        {
+          "id": "the_cut_and_the_puppet_master",
+          "type": "event"
+        },
+        {
+          "id": "feyward_i_cant_afford_not_to_care",
+          "type": "event"
+        },
+        {
+          "id": "waluigi",
+          "type": "character"
+        }
+      ],
+      "tags": [
+        "daylog",
+        "clocks",
+        "feyward",
+        "nintendomania"
+      ],
+      "reaction": "smug",
+      "comments": [
+        {
+          "id": "ww_daylog_c1",
+          "author": "hjumpik",
+          "content": "I pulled. The sleeve is a rental. He has not asked about the deposit.",
+          "likes": 508,
+          "topReply": true
+        }
+      ],
+      "status": "posted"
     }
   ]
 }

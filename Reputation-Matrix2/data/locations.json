@@ -3392,5 +3392,41 @@
     "plane": "Shadowfell",
     "planeConfidence": "inherited",
     "planeClue": "Reached on foot from the Skittering Grove during the same engagement."
+  },
+  {
+    "id": "nintendo_mania_studio",
+    "name": "The Nintendo Mania Studio",
+    "type": "Television studio / contested location",
+    "plane": "Disputed",
+    "planeClue": "Newspaper claims Hollywood / Los Angeles; no other filing corroborates the coordinate",
+    "planeConfidence": "low",
+    "region": "Unrecorded — reached by falling out of the sky during the pilot's taping",
+    "climate": "Climate-controlled on a schedule: warm break room, hot coffee, then fire, then sprinklers, then ice",
+    "population": "Three visitors, one real Mario, one Luigi, one corrupted Mario, a paratroopa squad in studio uniforms, one unconscious Wario, one Director — and an applause track for an audience that is not there",
+    "controllingFaction": "None filed — the studio answers to Director Mario, who answers to nobody on record",
+    "summary": "The studio where the Nintendo Mania pilot is taped, and where two filings of the Mario disappearance file have now taken place. Its exits lie — doors reset, portals fail, emergency buttons make coffee — but its ceiling vents, its sprinklers, its paratroopa rescue squad, and its curtains are all real. It resets itself when told CUT.",
+    "description": "The studio files itself as a building with a production schedule. The Nintendo Mania pilot set, the employee break room with its four monitors and its coffee machine, the kitchen back door, the ceiling ducts with their rats, the maintenance room with the working computer, the corridors where the corrupted Mario hunts, and the stage where the curtains come down. Two accounts agree on the geometry and disagree on nothing except whether any of it is load-bearing. The break room resets — the same couch, the same monitors, the same coffee machine, and after the CUT a single television showing static. The exits are traps: the back door leads to the kitchen, the front door led to the fake Luigi, the portal home printed FAILED. The escape route was a ceiling vent opened by a coffee machine's steam, and the building's own safety systems — sprinklers, a paratroopa squad, a fire alarm with real glass — behaved exactly as advertised while everything around them performed. The archive's standing question is not where the studio is. It is who the show is for, because the seats are empty and the applause plays anyway.",
+    "notableFeatures": [
+      "The EMERGENCY EXIT button by the coffee machine — pressing it makes coffee",
+      "The ceiling vent that the coffee machine's steam pops open",
+      "Four break-room monitors; Camera Three once showed a black-eyed fake Luigi",
+      "The maintenance computer: security feeds, a studio map, notes on Wario's corruption",
+      "Theatrical curtains on the whole ceiling, deployed on someone's cue",
+      "A paratroopa rescue squad in studio uniforms with parachute rigs",
+      "An applause track that plays to an empty, silent facility"
+    ],
+    "status": "Active — the show was interrupted, not cancelled; the Director walked out with a remote",
+    "image": "assets/images/events/promo-mario-studio-cut/pmc-03-luigi-monitors.jpg",
+    "relatedArticles": [
+      "promo_mario_newspaper",
+      "the_cut_and_the_puppet_master",
+      "mario",
+      "luigi",
+      "evil_mario",
+      "director_mario",
+      "wario",
+      "lord_darian_marsh",
+      "alistair_marshkeeper"
+    ]
   }
 ]

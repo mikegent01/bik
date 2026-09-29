@@ -74,16 +74,28 @@ for (const map of maps) {
     }
 }
 
+/* The Mushroom Kingdom overview is an AGGREGATE of 21 canon region files
+   (regionSources on the map record). During the map-data reorganization the
+   aggregate silently lost nine of them — Sunshine Isles, Neo Bowser City,
+   Barrel Volcano, Seven Kingdoms, Flower Kingdom, Yoshi & DK Islands,
+   Waffle-Chestnut, Ice Ice Outpost, Chramalot — and the only witness was
+   the reader. This guard loads every declared region source and fails if
+   any region's POIs are missing from the overview. */
 const full = MAP_DATA.mushroom_kingdom_full;
-if (full && full.pointsOfInterest.some(poi => String(poi && poi.id || '').startsWith('poi_nbc_'))) {
-    error('mushroom_kingdom_full: Neo Bowser City pins leaked into the Mushroom Kingdom overview');
-}
-if (full && full.pointsOfInterest.some(poi => String(poi && poi.id || '').startsWith('poi_iio_'))) {
-    error('mushroom_kingdom_full: Ice Ice Outpost pins leaked into the Mushroom Kingdom overview');
-}
-for (const id of ['poi_si_overgrown_cottage', 'poi_bv_forgotten_cove']) {
-    if (full && full.pointsOfInterest.some(poi => poi && poi.id === id)) {
-        error(`mushroom_kingdom_full: outer-realm POI ${id} leaked into the Mushroom Kingdom overview`);
+if (full && Array.isArray(full.regionSources) && full.regionSources.length) {
+    const overviewIds = new Set((full.pointsOfInterest || []).map(poi => poi && poi.id));
+    for (const src of full.regionSources) {
+        try {
+            const mod = await import(`../Reputation-Matrix2/map-data/${src}`);
+            const regionPois = Object.values(mod)[0]?.pointsOfInterest || [];
+            const missing = regionPois.filter(poi => poi && poi.id && !overviewIds.has(poi.id));
+            if (missing.length) {
+                error(`mushroom_kingdom_full: region ${src} dropped from the overview `
+                    + `(${missing.length} POIs missing, e.g. ${missing[0].id}) — restore the aggregate`);
+            }
+        } catch (e) {
+            error(`mushroom_kingdom_full: regionSource ${src} could not be loaded: ${e.message}`);
+        }
     }
 }
 const raventree = maps.find(map => map.id === 'midlands_full')?.pointsOfInterest.find(poi => poi.articleId === 'raventree_manor');

@@ -5,6 +5,9 @@ from __future__ import annotations
 import json
 import os
 import re
+import subprocess
+import sys
+import time
 from pathlib import Path
 from typing import Any
 
@@ -57,8 +60,14 @@ def record_available_at(record: dict[str, Any], target_year: str | int | None) -
     return True
 
 
+_CATALOG_FILES = (
+    "characters.json", "events.json", "locations.json", "factions.json",
+    "nations.json", "races.json", "props.json",
+)
+
+
 def _catalog_files() -> list[Path]:
-    return [PROJECT / "data" / name for name in ("characters.json", "events.json", "locations.json")]
+    return [PROJECT / "data" / name for name in _CATALOG_FILES]
 
 
 def _catalog_search(term: str, limit: int, target_year: str | int | None) -> list[dict[str, str]]:
@@ -133,8 +142,10 @@ def catalog_retrieve(source: str = "", ids: list[str] | None = None,
                      terms: list[str] | None = None, limit: int = 6,
                      target_year: str | int | None = None) -> list[dict[str, Any]]:
     """Return focused records for callers that already resolved an entity."""
-    names = {"characters": "characters.json", "events": "events.json", "locations": "locations.json"}
-    filename = names.get(str(source).casefold(), str(source))
+    names = {name.removesuffix(".json"): name for name in _CATALOG_FILES}
+    filename = names.get(str(source).casefold().removesuffix(".json"), str(source))
+    if not filename.endswith(".json"):
+        filename = filename + ".json"
     path = safe_path(f"Reputation-Matrix2/data/{filename}") if not str(filename).startswith("Reputation-Matrix2/") else safe_path(str(filename))
     value = json.loads(path.read_text(encoding="utf-8"))
     if not isinstance(value, list):
@@ -155,13 +166,169 @@ def catalog_retrieve(source: str = "", ids: list[str] | None = None,
     return records
 
 
+# Any top-level data/*.json that already exists and holds a list of id-keyed
+# records is a writable collection. The archive lives in git; an explicit
+# request writes directly, and the list requirement is what keeps dict-shaped
+# bookkeeping files (mainPage.json, currentDate.json, ...) out of scope.
+COLLECTION_NOUNS: tuple[tuple[str, str], ...] = (
+    (r"\braces?\b|\bspecies\b|\bfolk\b", "races.json"),
+    (r"\bfactions?\b", "factions.json"),
+    (r"\bnations?\b|\bcountr(?:y|ies)\b|\bpolit(?:y|ies)\b", "nations.json"),
+    (r"\blocations?\b|\bplaces\b|\blandmarks?\b", "locations.json"),
+    (r"\bbooks?\b|\bcodices\b|\bcodexes\b|\bpamphlets?\b|\bmanuscripts?\b", "books.json"),
+    (r"\bcurrenc(?:y|ies)\b", "currencies.json"),
+    (r"\bartifacts?\b|\brelics?\b", "artifacts.json"),
+    (r"\bquests?\b", "quests.json"),
+    (r"\btrials?\b", "trials.json"),
+    (r"\binjur(?:y|ies)\b", "injuries.json"),
+    (r"\bcultures?\b", "cultures.json"),
+    (r"\bwhat-?ifs?\b", "whatifs.json"),
+    (r"\bprops?\b|\bexhibits?\b", "props.json"),
+    (r"\bcommentaries?\b", "commentaries.json"),
+)
+
+
+def _writable_collection(target: Path) -> bool:
+    """A writable collection is an existing top-level JSON list under data/."""
+    try:
+        data_dir = (PROJECT / "data").resolve()
+        resolved = target.resolve()
+    except OSError:
+        return False
+    if resolved.parent != data_dir or resolved.suffix != ".json" or not resolved.is_file():
+        return False
+    try:
+        value = json.loads(resolved.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return False
+    return isinstance(value, list)
+
+
+def collection_for_noun(text: str) -> tuple[str, str] | None:
+    """Map a collection noun in the request ('a Noki race') to its data file."""
+    lowered = str(text).casefold()
+    for pattern, filename in COLLECTION_NOUNS:
+        match = re.search(pattern, lowered)
+        if match:
+            return filename, match.group(0)
+    return None
+
+
+_COLLECTIONS_CACHE: dict[str, Any] = {"at": 0.0, "value": None}
+
+
+def list_archive_collections(refresh: bool = False) -> list[dict[str, Any]]:
+    """Every data/*.json that holds records: filename, record count, key fields.
+
+    This is the loop's discovery tool — 'what do I have to work with' answered
+    from the checkout itself, cached for a minute.
+    """
+    now = time.time()
+    cached = _COLLECTIONS_CACHE.get("value")
+    if not refresh and cached is not None and now - float(_COLLECTIONS_CACHE.get("at", 0.0)) < 60:
+        return cached
+    out: list[dict[str, Any]] = []
+    for path in sorted((PROJECT / "data").glob("*.json")):
+        try:
+            value = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            continue
+        if not isinstance(value, list) or not value:
+            continue
+        keys: list[str] = []
+        for item in value[:25]:
+            if isinstance(item, dict):
+                for key in item:
+                    if key not in keys:
+                        keys.append(key)
+        if not keys:
+            continue
+        out.append({"file": path.name, "records": len(value), "keys": keys[:10]})
+    _COLLECTIONS_CACHE.update({"at": now, "value": out})
+    return out
+
+
+def condense_record(value: Any, cap: int = 600) -> Any:
+    """Truncate deep string values so whole records fit in a model context.
+
+    A record's shape survives intact; only prose fields are clipped. This is
+    what keeps 'read the collection's format' from overloading a small local
+    model with two full encyclopedia entries.
+    """
+    if isinstance(value, str):
+        return value if len(value) <= cap else value[:cap] + "…"
+    if isinstance(value, list):
+        return [condense_record(item, cap) for item in value[:12]]
+    if isinstance(value, dict):
+        return {key: condense_record(item, cap) for key, item in value.items()}
+    return value
+
+
+def collection_overview(path: str, sample_count: int = 2, cap: int = 600) -> dict[str, Any]:
+    """Describe a collection so a record can be drafted in its own format.
+
+    Returns the record count, the union of record keys, and the first complete
+    records as format samples. The samples are what teach the model the file's
+    schema and voice; nothing else in the runtime knows the shape of races.json.
+    """
+    target = safe_path(path)
+    if not target.is_file():
+        raise ValueError(f"{target.name} does not exist in the checkout")
+    data = json.loads(target.read_text(encoding="utf-8"))
+    if not isinstance(data, list) or not data:
+        raise ValueError(f"{target.name} is not a populated JSON list")
+    keys: list[str] = []
+    for item in data:
+        if isinstance(item, dict):
+            for key in item:
+                if key not in keys:
+                    keys.append(key)
+    samples = []
+    for item in data[:max(1, min(int(sample_count), 5))]:
+        if isinstance(item, dict):
+            condensed = condense_record(json.loads(json.dumps(item, ensure_ascii=False)), cap)
+            blob = json.dumps(condensed, ensure_ascii=False)
+            if len(blob) > 3200:
+                blob = blob[:3200].rsplit(",", 1)[0] + '}, …clipped…"]'
+                try:
+                    condensed = json.loads(blob)
+                except json.JSONDecodeError:
+                    condensed = {"_sample_clipped": blob[:3000]}
+            samples.append(condensed)
+    return {
+        "path": target.relative_to(ROOT).as_posix(),
+        "count": len(data),
+        "record_keys": keys,
+        "samples": samples,
+    }
+
+
+def find_records(path: str, term: str, limit: int = 3) -> list[dict[str, Any]]:
+    """Records in a collection whose id/name/title mention the term."""
+    if not str(term).strip():
+        return []
+    target = safe_path(path)
+    data = json.loads(target.read_text(encoding="utf-8"))
+    needle = str(term).casefold().strip()
+    matches = []
+    for item in data if isinstance(data, list) else []:
+        if not isinstance(item, dict):
+            continue
+        haystack = " ".join(str(item.get(key, "")) for key in ("id", "name", "title")).casefold()
+        if needle in haystack:
+            matches.append(item)
+            if len(matches) >= max(1, min(int(limit), 10)):
+                break
+    return matches
+
+
 def add_json_object(path: str, value: dict[str, Any], collection: str = "") -> str:
     """Append one uniquely identified object to a JSON list after approval."""
     target = safe_path(path)
     if not isinstance(value, dict) or not value.get("id"):
         raise ValueError("the object must be a dictionary with an id")
-    if target.name not in {"characters.json", "events.json", "locations.json", "commentaries.json", "investigations.json", "articleAnalyses.json", "props.json"}:
-        raise ValueError("writes are limited to approved JSON collections")
+    if not _writable_collection(target):
+        raise ValueError("writes are limited to existing JSON list collections under Reputation-Matrix2/data/")
     try:
         data = json.loads(target.read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError) as error:
@@ -174,6 +341,97 @@ def add_json_object(path: str, value: dict[str, Any], collection: str = "") -> s
     data.append(value)
     target.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     return f"added {identifier} to {target.relative_to(ROOT).as_posix()} ({len(data)} records)"
+
+
+def upsert_json_object(path: str, value: dict[str, Any], collection: str = "") -> str:
+    """Add one object to a JSON list, replacing any existing object with its id.
+
+    The archive lives in git, so an explicit request writes directly and the
+    replacement (not an error) is the correct behaviour for re-runs.
+    """
+    target = safe_path(path)
+    if not isinstance(value, dict) or not value.get("id"):
+        raise ValueError("the object must be a dictionary with an id")
+    if not _writable_collection(target):
+        raise ValueError("writes are limited to existing JSON list collections under Reputation-Matrix2/data/")
+    try:
+        data = json.loads(target.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as error:
+        raise ValueError(f"could not read JSON collection: {error}") from error
+    if not isinstance(data, list):
+        raise ValueError("target JSON collection must be a list")
+    identifier = str(value["id"])
+    replaced = False
+    for index, item in enumerate(data):
+        if isinstance(item, dict) and str(item.get("id")) == identifier:
+            data[index] = value
+            replaced = True
+            break
+    if not replaced:
+        data.append(value)
+    target.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    action = "updated" if replaced else "added"
+    return f"{action} {identifier} in {target.relative_to(ROOT).as_posix()} ({len(data)} records)"
+
+
+GENERATOR_SCRIPT = "tools/generate_all.py"
+_INVENTORY_CACHE: dict[str, Any] = {"at": 0.0, "value": None}
+
+
+def generator_inventory(refresh: bool = False) -> list[dict[str, Any]]:
+    """List the archive's generatable systems and their live pending counts."""
+    import time as _time
+    now = _time.time()
+    cached = _INVENTORY_CACHE["value"]
+    if not refresh and cached and now - _INVENTORY_CACHE["at"] < 60.0:
+        return cached
+    tools_dir = PROJECT / "tools"
+    if str(tools_dir) not in sys.path:
+        sys.path.insert(0, str(tools_dir))
+    try:
+        from genkit.systems import all_systems  # noqa: E402
+    except Exception as error:
+        raise ValueError(f"the generator registry is unavailable: {error}") from error
+    systems = [
+        {"id": str(system.id), "title": str(system.title), "summary": str(system.summary),
+         "pending": int(system.count_pending()), "enabled": bool(system.enabled)}
+        for system in all_systems()
+    ]
+    _INVENTORY_CACHE["at"] = now
+    _INVENTORY_CACHE["value"] = systems
+    return systems
+
+
+def run_generator(system: str = "", limit: int = 2, dry_run: bool = False,
+                  timeout: int = 300, endpoint: str = "") -> dict[str, Any]:
+    """Run the archive's generator for one system. Bounded, no shell."""
+    command = [sys.executable, GENERATOR_SCRIPT]
+    if system:
+        if not re.fullmatch(r"[a-z0-9][a-z0-9-]*", system):
+            raise ValueError(f"unknown generator system {system!r}")
+        command += ["--only", system]
+    command += ["--limit", str(max(1, min(int(limit), 25)))]
+    if dry_run:
+        command.append("--dry-run")
+    environment = dict(os.environ)
+    if endpoint:
+        environment["LM_STUDIO_URL"] = endpoint
+    try:
+        result = subprocess.run(
+            command, cwd=str(PROJECT), capture_output=True, text=True,
+            timeout=max(10, min(int(timeout), 900)), env=environment,
+        )
+        return {
+            "command": " ".join(command),
+            "returncode": result.returncode,
+            "output": ((result.stdout or "") + (("\n[stderr]\n" + result.stderr) if result.stderr else ""))[:8000],
+        }
+    except subprocess.TimeoutExpired as error:
+        return {
+            "command": " ".join(command),
+            "returncode": -1,
+            "output": f"the generator did not finish within {int(timeout)} seconds; partial output: {str(error.output)[:2000]}",
+        }
 
 
 def find_image_references(entities: list[str] | None = None, terms: list[str] | None = None,
