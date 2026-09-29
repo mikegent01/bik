@@ -26,8 +26,10 @@
   var posts = [];         // WAHwire posts, normalised
   var collections = [];   // the archive's own character collections
   var archive = { whatifs: [], events: [], factions: [], congress: {} };
+  var archiveIndex = [];  // every loaded record, searchable, with its date
   var whatifs = [];       // the composed What-If board
   var backfills = [];     // the unwritten events everything points at
+  var bookKind = 'all';
   var logKind = 'all';
   var castSort = 'name';
   var castGroup = 'letter';
@@ -180,10 +182,16 @@
   }
 
   /** Compose the board once everything has landed. */
+  /** One searchable index over everything loaded, rebuilt when data lands. */
+  function buildIndex() {
+    archiveIndex = RP.buildIndex(archive, castById);
+  }
+
   function buildBoard() {
     archive.posts = posts;
     archive.userName = (state.user || {}).name;
     // Written and inherited scenarios come first: they are this reader's own.
+    buildIndex();
     whatifs = (state.scenarios || []).concat(RP.buildWhatIfs(archive, castById, { limit: 12 }));
     backfills = RP.backfillsFrom(archive, castById, state, 10)
       .map(function (gap) { return RP.whatIfFromBackfill(gap, castById); })
@@ -262,6 +270,7 @@
 
   var NAV = [
     { id: 'discover', ico: '◉', label: 'Discover' },
+    { id: 'book', ico: '📓', label: 'Lore book' },
     { id: 'continue', ico: '⏭', label: 'Continue' },
     { id: 'whatif', ico: '❓', label: 'What If' },
     { id: 'backfills', ico: '🧱', label: 'Backfills' },
@@ -597,6 +606,56 @@
       }).join('') + '</div>';
   }
 
+  /** The lore book: what play has established, oldest page first. */
+  function renderBook() {
+    var book = RP.bookState(state);
+    var entries = book.entries.filter(function (e) {
+      if (bookKind !== 'all' && e.kind !== bookKind) return false;
+      if (!query) return true;
+      return (e.name + ' ' + e.text + ' ' + (e.when || '')).toLowerCase().indexOf(query.toLowerCase()) >= 0;
+    });
+    var counts = {};
+    book.entries.forEach(function (e) { counts[e.kind] = (counts[e.kind] || 0) + 1; });
+    var budget = RP.bookBudgetLeft(state);
+    var html = '<div class="sec-head"><h2>📓 The lore book</h2><span class="grow"></span>' +
+      '<button class="pill" id="bookNew">＋ Write a page</button>' +
+      '<button class="pill" id="bookSettings">⚙ Filing</button>' +
+      '<button class="pill" id="bookExport">⬇ Export</button></div>' +
+      '<p class="emptynote">Written while you play. Every few turns the last stretch of the scene is queued and a ' +
+      'small separate call files what is new — places, people, events, things, facts, and a diary entry for the day. ' +
+      'The newest page is always at the bottom, and the whole book is handed back to the model so the world stays ' +
+      'consistent with itself. One call at a time, ' + budget + ' left in this session\u2019s budget' +
+      (book.queue.length ? ' · <b>' + book.queue.length + ' queued</b>' : '') +
+      (booking ? ' · <b>writing now…</b>' : '') + '.</p>' +
+      '<div class="castbar">' +
+      ['all'].concat(Object.keys(RP.BOOK_KINDS)).map(function (k) {
+        var label = k === 'all' ? 'All' : (RP.BOOK_KINDS[k].icon + ' ' + RP.BOOK_KINDS[k].label);
+        var n = k === 'all' ? book.entries.length : (counts[k] || 0);
+        return '<button class="chip ' + (bookKind === k ? 'on' : '') + '" data-bookkind="' + k + '">' + esc(label) + ' ' + n + '</button>';
+      }).join('') + '</div>';
+    if (!entries.length) {
+      return html + '<div class="emptynote">Nothing filed yet. Play a few turns with filing on, or write a page by hand.</div>';
+    }
+    html += '<div class="bookpages">' + entries.map(function (e, i) {
+      var kind = RP.BOOK_KINDS[e.kind] || RP.BOOK_KINDS.fact;
+      return '<article class="page ' + esc(e.kind) + '">' +
+        '<div class="ph"><span class="ico">' + kind.icon + '</span>' +
+        '<b>' + esc(e.kind === 'diary' ? (e.when || 'Diary') : e.name) + '</b>' +
+        '<span class="grow"></span>' +
+        (e.source === 'you' ? '<span class="tag">yours</span>' : '') +
+        (e.seen > 1 ? '<span class="tag">seen ' + e.seen + '×</span>' : '') +
+        '<span class="num">' + (book.entries.indexOf(e) + 1) + '</span></div>' +
+        '<p>' + esc(e.text) + '</p>' +
+        '<div class="pf">' + (e.when ? '<span class="inworld">🕯 ' + esc(e.when) + '</span>' : '') +
+        '<span>' + esc(ago(e.at)) + '</span>' + (e.roomTitle ? '<span>' + esc(e.roomTitle) + '</span>' : '') +
+        '<span class="grow"></span>' +
+        '<button class="mini" data-bookedit="' + esc(e.id) + '">Edit</button>' +
+        '<button class="mini danger" data-bookkill="' + esc(e.id) + '">Delete</button></div>' +
+        '</article>';
+    }).join('') + '</div>';
+    return html;
+  }
+
   function renderFeed() {
     var KINDS = ['all', 'chat', 'beat', 'pin', 'note', 'whatif', 'backfill', 'roster', 'lore', 'replay', 'wire'];
     var log = (state.log || []).filter(function (e) {
@@ -694,6 +753,7 @@
     $('dash').hidden = false;
     $('chatview').hidden = true;
     var body = tab === 'feed' ? renderFeed()
+      : tab === 'book' ? renderBook()
       : tab === 'continue' ? renderContinuations()
       : tab === 'whatif' ? renderWhatIfs()
       : tab === 'backfills' ? renderBackfills()
@@ -747,6 +807,60 @@
     on('castReset', function () {
       castSort = 'name'; castGroup = 'letter'; castRace = ''; castAffil = ''; castView = 'all';
       renderDash();
+    });
+    box.querySelectorAll('[data-bookkind]').forEach(function (b) {
+      b.onclick = function () { bookKind = b.dataset.bookkind; renderDash(); };
+    });
+    box.querySelectorAll('[data-bookkill]').forEach(function (b) {
+      b.onclick = function () { RP.bookRemove(state, b.dataset.bookkill); save(); renderDash(); };
+    });
+    box.querySelectorAll('[data-bookedit]').forEach(function (b) {
+      b.onclick = function () {
+        var entry = RP.bookState(state).entries.filter(function (e) { return e.id === b.dataset.bookedit; })[0];
+        if (!entry) return;
+        form('Edit page', [
+          { k: 'name', label: 'Name', value: entry.name },
+          { k: 'text', label: 'What it is', type: 'area', value: entry.text },
+          { k: 'when', label: 'In-world date', value: entry.when || '' },
+        ], {}, function (v) {
+          entry.name = v.name.trim() || entry.name;
+          entry.text = v.text.trim();
+          entry.when = v.when.trim();
+          entry.updated = Date.now();
+          save(); renderDash();
+        });
+      };
+    });
+    on('bookNew', function () {
+      form('Write a page', [
+        { k: 'kind', label: 'What kind of page?', type: 'select', value: 'place',
+          options: Object.keys(RP.BOOK_KINDS).map(function (k) {
+            return { value: k, label: RP.BOOK_KINDS[k].icon + ' ' + RP.BOOK_KINDS[k].label };
+          }) },
+        { k: 'name', label: 'Name', value: '' },
+        { k: 'text', label: 'What it is', type: 'area', value: '' },
+        { k: 'when', label: 'In-world date (optional)', value: roomDate(room() || {}) || '' },
+      ], { note: 'Handed to the model in every chat from now on, as established fact.' }, function (v) {
+        if (!v.name.trim() && v.kind !== 'diary') { toast('Give the page a name.'); return; }
+        RP.bookAdd(state, { kind: v.kind, name: v.name.trim(), text: v.text.trim(), when: v.when.trim(), source: 'you' });
+        save(); renderDash(); toast('Filed.');
+      });
+    });
+    on('bookSettings', function () {
+      form('Filing', [
+        { k: 'book', label: 'Write the book while I play', type: 'select', value: state.settings.book || 'on',
+          options: [{ value: 'on', label: 'Yes — file in the background' }, { value: 'off', label: 'No — I will write it myself' }] },
+        { k: 'bookEvery', label: 'File after every N played turns', value: String(state.settings.bookEvery || 3) },
+        { k: 'bookBudget', label: 'Most background calls per session', value: String(state.settings.bookBudget || RP.BOOK_BUDGET) },
+      ], { note: 'Filing is a separate, small model call that never runs at the same time as a roleplay turn, never more than one at once, and stops when the budget runs out — so a local model on a laptop is not asked to do two things at once.' }, function (v) {
+        state.settings.book = v.book;
+        state.settings.bookEvery = Math.max(2, Math.min(12, parseInt(v.bookEvery, 10) || 3));
+        state.settings.bookBudget = Math.max(0, Math.min(400, parseInt(v.bookBudget, 10) || RP.BOOK_BUDGET));
+        save(); renderDash();
+      });
+    });
+    on('bookExport', function () {
+      download('waluipedia-lorebook.json', JSON.stringify(RP.exportBundle(state, { chats: false, memory: false, user: false }), null, 2));
     });
     box.querySelectorAll('[data-logkind]').forEach(function (b) {
       b.onclick = function () { logKind = b.dataset.logkind; renderDash(); };
@@ -1157,14 +1271,30 @@
     $('chatview').hidden = false;
 
     var face = r.cast[0] || {};
-    $('chatTop').innerHTML = avatar(face, 32) +
-      '<span class="title"><b>' + esc(r.title) + '</b><span>' + esc(r.kind === 'group' ? r.cast.map(function (c) { return c.name; }).join(', ') : (face.title || '')) + '</span></span>' +
-      (r.beats && r.beats.length ? '<button class="pill" id="nextBeat">⏩ Next beat (' + RP.beatProgress(r).at + '/' + RP.beatProgress(r).total + ')</button>' : '') +
+    var progress = RP.beatProgress(r);
+    var turnCount = (r.messages || []).filter(RP.visible).length;
+    var fateLevel = state.settings.fate || 'normal';
+    // A heads-up display rather than a title bar: where you are, when you
+    // are, how far the script has run, how dangerous the world is set to be.
+    $('chatTop').innerHTML =
+      '<button class="roundbtn" id="backBtn" title="Back to Discover (Esc)">‹</button>' +
+      avatar(face, 34) +
+      '<span class="title"><b>' + esc(r.sceneName || r.title) + '</b>' +
+      '<span>' + esc(r.kind === 'group' ? r.cast.map(function (c) { return c.name; }).join(' · ') : (face.title || '')) + '</span></span>' +
+      '<span class="hud">' +
+        '<button class="stat" id="dateBtn" title="When is this happening, in-world?"><i>🕯</i>' + esc(RP.clip(roomDate(r) || 'undated', 24)) + '</button>' +
+        (progress.total ? '<button class="stat" id="nextBeat" title="Fire the next filed beat"><i>⏩</i>beat ' + progress.at + '/' + progress.total +
+          '<span class="meter"><span style="width:' + Math.round((progress.at / progress.total) * 100) + '%"></span></span></button>' : '') +
+        '<button class="stat fate-' + esc(fateLevel) + '" id="fateBtn" title="How hard the world pushes back"><i>🎲</i>' + esc(fateLevel) + '</button>' +
+        '<span class="stat quiet" title="Turns played"><i>💬</i>' + turnCount + '</span>' +
+        '<span class="stat quiet" id="bookBadge" hidden></span>' +
+      '</span>' +
+      '<span class="grow"></span>' +
       (r.kind === 'group' ? '<button class="pill" id="continueBtn">➤ Continue</button>' : '') +
-      '<button class="pill" id="dateBtn" title="When is this happening, in-world?">🕯 ' + esc(RP.clip(roomDate(r) || 'undated', 26)) + '</button>' +
-      (r.mechanics === 'off' ? '' : '<button class="pill' + (showStates ? ' primary' : '') + '" id="statesBtn">🩺 States</button>') +
+      (r.mechanics === 'off' ? '' : '<button class="pill' + (showStates ? ' primary' : '') + '" id="statesBtn">🩺 Party</button>') +
+      '<button class="pill" id="bookBtn">📓 Book</button>' +
       '<button class="pill" id="seqBtn">📖 Sequel</button>' +
-      '<button class="pill" id="panelBtn">☰ Character</button>';
+      '<button class="pill" id="panelBtn">☰</button>';
 
     // The sheets, visible in the chat rather than buried in a menu.
     var sheetBar = $('statebar');
@@ -1230,15 +1360,34 @@
       (busy ? '<div class="turn typing"><em>…writing…</em></div>' : '') + '</div>';
     $('stream').scrollTop = $('stream').scrollHeight;
 
-    // group chats let you choose who answers next
-    $('speakers').innerHTML = r.kind !== 'group' ? '' :
-      '<span class="emptynote">Next:</span>' + r.cast.map(function (c) {
-        var on = RP.nextSpeaker(r).id === c.id;
-        return '<button class="sp ' + (on ? 'on' : '') + '" data-speaker="' + esc(c.id) + '">' + avatar(c, 24) + esc(c.name) + '</button>';
-      }).join('');
+    // Who answers next, and the two things you always want to press.
+    $('speakers').innerHTML =
+      '<span class="acts">' +
+        '<button class="qa" id="qaContinue" title="Let the scene move without you (n)">➤ Continue</button>' +
+        (progress.total && progress.at < progress.total ? '<button class="qa" id="qaBeat">⏩ Next beat</button>' : '') +
+        (r.mechanics === 'off' ? '' : '<button class="qa" id="qaRisk" title="Attempt something the world can refuse">🎲 Attempt…</button>') +
+      '</span>' +
+      (r.kind !== 'group' ? '' :
+        '<span class="emptynote">Next:</span>' + r.cast.map(function (c) {
+          var on = RP.nextSpeaker(r).id === c.id;
+          return '<button class="sp ' + (on ? 'on' : '') + '" data-speaker="' + esc(c.id) + '">' + avatar(c, 24) + esc(c.name) + '</button>';
+        }).join(''));
 
     renderPanel();
     wireChat();
+  }
+
+  function openPanelFate() {
+    form('Fate', [
+      { k: 'fate', label: 'How often does the world push back?', type: 'select', value: state.settings.fate || 'normal',
+        options: [
+          { value: 'off', label: 'Off — whatever you write, works' },
+          { value: 'gentle', label: 'Gentle — mostly you, occasionally a price' },
+          { value: 'normal', label: 'Normal — costs and wrenches are common, failure happens' },
+          { value: 'harsh', label: 'Harsh — the world is against you and the cast argues back' },
+        ] },
+    ], { note: 'Rolled before each reply to something you attempted, and handed to the model as an instruction.' },
+    function (v) { state.settings.fate = v.fate; save(); render(); });
   }
 
   function renderPanel() {
@@ -1303,6 +1452,22 @@
           'Floria, Efferd, Highsun, Harvestide, Aethel, Darkmoon, Frostfall, Deepwinter, and BF counts up. ' +
           'The model is told which filings are already history and which have not happened yet, measured from this date.',
       }, function (v) { r.date = v.date.trim(); r.updated = Date.now(); save(); render(); });
+    });
+    on('backBtn', function () { state.active = ''; save(); render(); });
+    on('fateBtn', function () { if ($('cpFate')) $('cpFate').click(); else openPanelFate(); });
+    on('bookBtn', function () { tab = 'book'; state.active = ''; save(); render(); });
+    on('qaContinue', function () { generate(); });
+    on('qaBeat', function () { if ($('nextBeat')) $('nextBeat').click(); });
+    on('qaRisk', function () {
+      form('Attempt something', [{ k: 'text', label: 'What do you try?', type: 'area', value: '' }], {
+        note: 'Written as an attempt, not an outcome — the page rolls, and the scene decides whether it works. ' +
+          'Fate is set to ' + (state.settings.fate || 'normal') + '.',
+        ok: 'Try it',
+      }, function (v) {
+        if (!v.text.trim()) return;
+        $('input').value = v.text.trim();
+        $('composer').dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
+      });
     });
     on('statesBtn', function () { showStates = !showStates; render(); });
     on('seqBtn', function () { openSequel(room()); });
@@ -1560,7 +1725,13 @@
     // worked. The roll happens here and is handed to the model as an order.
     var answering = !retry && RP.visible(lastVisible(r)) && lastVisible(r).role === 'user';
     var fate = answering ? RP.rollFate(state, r, {}) : null;
-    var system = RP.systemFor(state, r, speaker, { fate: fate, archive: archive });
+    // What the cast may cite: whatever the recent turns are actually about,
+    // filtered to filings whose dates have already passed in this scene.
+    var recent = RP.historyFor(r, 4).map(function (m) { return m.content; }).join(' ');
+    var found = RP.citableFor(archiveIndex, r, state, { query: recent + ' ' + (r.scene || ''), limit: 8 });
+    var system = RP.systemFor(state, r, speaker, {
+      fate: fate, archive: archive, citations: RP.citationBlock(found),
+    });
     var history = RP.historyFor(retry ? { kind: r.kind, cast: r.cast, messages: r.messages.slice(0, opts.retryIndex) } : r, 24);
     if (!history.length) history = [{ role: 'user', content: '(The scene opens. Begin in character.)' }];
 
@@ -1609,6 +1780,7 @@
       return false;
     }).then(function (chain) {
       busy = false; save(); render();
+      if (!retry) { queueBook(r); }
       // The next character answers on their own — one turn at a time, so the
       // reader can read it, and always stopping at the ceiling.
       if (chain && room() === r) window.setTimeout(function () { generate(); }, 400);
@@ -1627,6 +1799,80 @@
     var msgs = (r && r.messages) || [];
     for (var i = msgs.length - 1; i >= 0; i--) { if (RP.visible(msgs[i])) return msgs[i]; }
     return null;
+  }
+
+  /* ---------------------------------------------------------------- *
+   * the lore book worker — one small call at a time, on a budget
+   * ---------------------------------------------------------------- */
+
+  var booking = false;     // a background call is in flight
+
+  /** Queue the last stretch of play for filing. Called every few turns. */
+  function queueBook(r) {
+    if ((state.settings.book || 'on') === 'off') return;
+    var turns = (r.messages || []).filter(RP.visible);
+    if (turns.length < 2) return;
+    var every = Math.max(2, Number(state.settings.bookEvery || 3));
+    // Count from the last time this room was filed, not from a modulo —
+    // a chat that skips a number should still get filed.
+    if (turns.length - (r.bookAt || 0) < every) return;
+    r.bookAt = turns.length;
+    var slice = turns.slice(-every * 2).map(function (m) {
+      return {
+        who: m.role === 'user' ? (state.user.name || 'You') : charOf(r, m.charId).name,
+        text: RP.textOf(m),
+      };
+    });
+    RP.queuePush(state, {
+      key: r.id + ':' + turns.length, kind: 'extract',
+      // The stretch of play being filed, for the badge and the book page.
+      roomId: r.id, roomTitle: r.title, when: roomDate(r), turns: slice,
+    });
+    pumpBook();
+  }
+
+  /** Run one queued job if the page is otherwise idle and there is budget
+   *  left. Never runs beside a roleplay turn — the model is one machine. */
+  function pumpBook() {
+    if (booking || busy) return;
+    var job = RP.queueNext(state);
+    if (!job) return;
+    if (!RP.bookBudgetLeft(state)) { RP.queueDone(state, job.id); render(); return; }
+    var r = (state.rooms || []).filter(function (x) { return x.id === job.roomId; })[0];
+    if (!r) { RP.queueDone(state, job.id); return; }
+    booking = true;
+    renderBookBadge();
+    var known = RP.bookState(state).entries.slice(-40).map(function (e) { return e.name; });
+    callModel(RP.extractPrompt(r, job.turns, known), [{ role: 'user', content: 'File what is new.' }])
+      .then(function (text) {
+        var filed = 0;
+        RP.parseExtract(text).forEach(function (entry) {
+          var saved = RP.bookAdd(state, {
+            kind: entry.kind, name: entry.name, text: entry.text,
+            when: job.when, roomId: r.id, roomTitle: r.title,
+            chars: (r.cast || []).map(function (c) { return c.id; }),
+          });
+          if (saved) filed++;
+        });
+        if (filed) toast('📓 The lore book grew by ' + filed + '.');
+        RP.queueDone(state, job.id, true);
+      })
+      .catch(function () { RP.queueDone(state, job.id, true); })
+      .then(function () {
+        booking = false;
+        save(); render();
+        // Breathe between calls so a local model is never asked to do two
+        // things at once on somebody's laptop.
+        if (RP.queueNext(state)) window.setTimeout(pumpBook, 1500);
+      });
+  }
+
+  function renderBookBadge() {
+    var badge = $('bookBadge');
+    if (!badge) return;
+    var q = RP.bookState(state).queue.length;
+    badge.textContent = booking ? '📓 writing…' : q ? '📓 ' + q + ' queued' : '';
+    badge.hidden = !booking && !q;
   }
 
   function speak(msg, r) {

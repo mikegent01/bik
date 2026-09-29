@@ -362,6 +362,69 @@ summary, so the speaker knows who they are talking to.
 The card's second line follows the sort: standing, power, filings, memory
 count or when you last played them.
 
+## The lore book — written while you play
+
+Roleplay invents faster than anyone files it: a tavern gets a name, a courier
+gets a face, a debt gets agreed. **📓 The lore book** catches it in the
+background.
+
+- Every few played turns (`settings.bookEvery`, default 3) the last stretch of
+  the scene is **queued**.
+- A worker runs **one job at a time**, never beside a roleplay turn, with a
+  1.5-second gap between jobs and a hard session budget
+  (`settings.bookBudget`, default 40 calls). The queue itself is capped at six
+  and is never saved — unfinished background work does not come back to life
+  on reload.
+- Each job is its own **small, separate prompt** (`RP.extractPrompt`) that
+  files in a fixed format:
+
+```
+PLACE: name | what it is            PERSON: name | who they are and what they want
+EVENT: name | what happened         THING: name | what it is and who has it
+FACT:  the thing that is now true   DIARY: how this stretch went
+NONE                                (when nothing new was established)
+```
+
+Pages append at the **bottom** — the book reads forward — and filing the same
+name twice updates that page instead of duplicating it. Every page carries the
+in-world date, the chat it came from, and both clocks. The whole book (the
+pages nearest this cast and this room first) is handed back to the model as
+*"everything below was established in play and is TRUE"*, with the diary as a
+separate run of days.
+
+The **Lore book** tab filters by kind, lets you write or edit pages yourself,
+shows the queue and the remaining budget, and exports with the lore bundle.
+`⚙ Filing` turns it off, changes the interval, or resizes the budget.
+
+## Citing the archive — only when the date allows
+
+`RP.buildIndex` indexes everything loaded — events, factions, characters, the
+wire — with its parsed date. Before each turn the page searches that index
+with the last few turns as the query and hands the model:
+
+```
+FILES YOU MAY CITE — real records, and the dates check out against this scene
+- [event:the_iron_mandate] The Iron Mandate (21 Highsun, 1040 BF, 44 days before this scene) — …
+Refer to these by name when it is natural. Never invent a filing, a date or a quotation.
+
+FILED, BUT NOT YET — these exist in the archive and are dated AFTER this scene.
+Nobody here can know them: …
+```
+
+People and bodies are **standing records** and always citable; a filing dated
+after the scene is named in the forbidden list instead; non-canon What-Ifs are
+never offered as a source.
+
+### The prompt is budgeted
+
+All of this competes for one context window, so `RP.fitPrompt` assembles the
+prompt under `RP.PROMPT_BUDGET` (11,000 characters — the server refuses 16k).
+Reference blocks are halved in a fixed order (citations → lore book → world
+log → lore → history → script → filed descriptions) and then dropped
+back-to-front, while the character card at the head and the instructions at
+the tail — scene state, stage directions, the fate roll — are **never**
+sacrificed.
+
 ## Memory — three layers
 
 1. **The world log** (`Feed`). Every chat opening, every fired beat, every
@@ -431,6 +494,19 @@ node tools/tests/test-chatroom-page.mjs        # the real UI, driven in jsdom
 The last one boots `tools/mock_lm_studio.py` and `workflow/server.py`, loads
 the page with its scripts running, clicks a character card, sends a turn and
 checks the reply renders and is remembered.
+
+## The chat screen
+
+A heads-up display rather than a title bar:
+
+- **🕯 the in-world date** (click to change it), **⏩ beat *n*/*m*** with a
+  progress meter, **🎲 the fate level** (colour-coded, click to change),
+  the turn counter, and a **📓 badge** when the lore book is queued or writing.
+- **🩺 Party** — the state sheets as cards with HP/MP bars and condition chips.
+- Quick actions above the composer: **➤ Continue**, **⏩ Next beat**, and
+  **🎲 Attempt…**, which writes your action as an *attempt* and lets the roll
+  decide whether it works.
+- **📓 Book**, **📖 Sequel** and the character panel sit on the same bar.
 
 ## Quality of life
 

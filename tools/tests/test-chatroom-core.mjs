@@ -684,6 +684,129 @@ check('cast browser: grouping by race, affiliation or nothing at all',
 check('cast browser: facets only offer values shared by more than one person',
   RP.castFacets(browse).race.length === 1 && RP.castFacets(browse).race[0].value === 'Toad');
 
+// ---------- the lore book ----------
+const bookState = RP.blankState();
+bookState.settings.bookBudget = 3;
+const bookRoom = RP.newRoom([sans, cutters], { title: 'The ledger room', date: '5 Aethel, 1040 BF' });
+check('book: a page files at the bottom, with both clocks', (() => {
+  const page = RP.bookAdd(bookState, { kind: 'place', name: 'The Ledger Room', text: 'A back office off the corridor.', when: '5 Aethel, 1040 BF', roomId: bookRoom.id, roomTitle: bookRoom.title });
+  const b = RP.bookState(bookState);
+  return b.entries.length === 1 && b.entries[b.entries.length - 1].id === page.id && page.when === '5 Aethel, 1040 BF' && page.at > 0;
+})());
+check('book: the newest page is always last', (() => {
+  RP.bookAdd(bookState, { kind: 'person', name: 'Marguerite Oyle', text: 'The night archivist.' });
+  const b = RP.bookState(bookState);
+  return b.entries[b.entries.length - 1].name === 'Marguerite Oyle';
+})());
+check('book: filing the same thing twice updates the page instead of duplicating it', (() => {
+  RP.bookAdd(bookState, { kind: 'place', name: 'the ledger room', text: 'The door does not lock from inside.' });
+  const b = RP.bookState(bookState);
+  const page = b.entries.filter(e => e.kind === 'place')[0];
+  return b.entries.length === 2 && page.seen === 2 && page.text.includes('does not lock');
+})());
+check('book: a diary page needs no name', Boolean(RP.bookAdd(bookState, { kind: 'diary', text: 'They went looking for a ledger and somebody had been there first.', when: '5 Aethel, 1040 BF' })));
+check('book: the model is handed the book as established truth', (() => {
+  const block = RP.bookBlock(bookState, bookRoom);
+  return block.includes('THE LORE BOOK') && block.includes('established in play and is TRUE') &&
+    block.includes('The Ledger Room') && block.includes('THE DIARY');
+})());
+check('book: it reaches the system prompt', RP.systemFor(bookState, bookRoom, sans).includes('THE LORE BOOK'));
+check('book: a page can be torn out', (() => {
+  const id = RP.bookState(bookState).entries[1].id;
+  RP.bookRemove(bookState, id);
+  return !RP.bookState(bookState).entries.some(e => e.id === id);
+})());
+check('book: it survives a save, and rides along with the lore export', (() => {
+  RP.saveState(store, bookState);
+  const round = RP.loadState(store);
+  const bundle = RP.exportBundle(bookState, { chats: false, memory: false, user: false });
+  return RP.bookState(round).entries.length === 2 && bundle.book.length === 2;
+})());
+check('book: importing a book merges rather than replaces by default', (() => {
+  const target = RP.blankState();
+  RP.bookAdd(target, { kind: 'fact', name: 'Something else', text: 'Already known here.' });
+  RP.importBundle(target, RP.exportBundle(bookState, { chats: false, memory: false, user: false }), 'merge');
+  return RP.bookState(target).entries.length === 3;
+})());
+
+// ---- the queue ----
+check('queue: work is queued, one key only once', (() => {
+  RP.queuePush(bookState, { key: 'r:3', roomId: bookRoom.id, turns: [] });
+  const dup = RP.queuePush(bookState, { key: 'r:3', roomId: bookRoom.id, turns: [] });
+  return RP.bookState(bookState).queue.length === 1 && dup === null;
+})());
+check('queue: it refuses to grow without limit', (() => {
+  for (let i = 0; i < 20; i++) RP.queuePush(bookState, { key: 'k' + i, roomId: bookRoom.id, turns: [] });
+  return RP.bookState(bookState).queue.length === RP.QUEUE_MAX;
+})());
+check('queue: jobs come out oldest first and count against the budget', (() => {
+  const first = RP.queueNext(bookState);
+  RP.queueDone(bookState, first.id, true);
+  return first.key === 'r:3' && RP.bookState(bookState).spent === 1 && RP.bookBudgetLeft(bookState) === 2;
+})());
+check('queue: when the budget runs out, filing stops', (() => {
+  RP.queueDone(bookState, RP.queueNext(bookState).id, true);
+  RP.queueDone(bookState, RP.queueNext(bookState).id, true);
+  return RP.bookBudgetLeft(bookState) === 0;
+})());
+check('queue: the queue is never saved — unfinished work does not come back', (() => {
+  RP.saveState(store, bookState);
+  return RP.bookState(RP.loadState(store)).queue.length === 0;
+})());
+
+// ---- the extraction call is its own small prompt ----
+const exPrompt = RP.extractPrompt(bookRoom, [{ who: 'You', text: 'I push the door.' }], ['The Ledger Room']);
+check('extract: the archivist prompt is separate, formatted and bounded',
+  exPrompt.includes('You are the archivist') && exPrompt.includes('PLACE: name |') &&
+  exPrompt.includes('do not file these again') && exPrompt.includes('At most six lines'));
+check('extract: a well-formed answer parses into pages', (() => {
+  const got = RP.parseExtract([
+    'PLACE: The Ledger Room | a back office lined with unfiled boxes',
+    'PERSON: Marguerite Oyle | the night archivist, wants the ledger back',
+    'FACT: the ledger room door does not lock from the inside',
+    'DIARY: They went looking for a ledger and somebody had been there first.',
+  ].join('\n'));
+  return got.length === 4 && got[0].kind === 'place' && got[1].name === 'Marguerite Oyle' &&
+    got[2].kind === 'fact' && got[3].kind === 'diary';
+})());
+check('extract: NONE and malformed lines file nothing',
+  RP.parseExtract('NONE').length === 0 && RP.parseExtract('I think maybe a place happened?').length === 0);
+
+// ---------- citing the archive, only when the date allows ----------
+const citeIndex = RP.buildIndex({
+  events: [
+    { id: 'past_vote', name: 'The Highsun Vote', date: '21 Highsun, 1040 BF', summary: 'The ledger vote that everyone dates from.' },
+    { id: 'later', name: 'The Darkmoon Reckoning', date: '30 Darkmoon, 1040 BF', summary: 'What the ledger costs, eventually.' },
+    { id: 'undated', name: 'An Undated Filing', summary: 'A ledger filing with no date at all.' },
+  ],
+  factions: [{ id: 'guild', name: 'The Mages Guild', summary: 'Keeps the ledger of canal decrees.' }],
+  whatifs: [{ id: 'wf', title: 'What If The Ledger Burned?', summary: 'A non-canon branch about the ledger.' }],
+  posts: [],
+}, { sans: sans });
+check('index: events, bodies, people and what-ifs are all indexed',
+  citeIndex.length === 6 && citeIndex.some(r => r.kind === 'faction') &&
+  citeIndex.some(r => r.kind === 'character') && citeIndex.some(r => r.kind === 'event' && !r.date));
+const cited = RP.citableFor(citeIndex, bookRoom, bookState, { query: 'the ledger and the vote' });
+check('cite: filings dated before the scene are offered, with their ids',
+  cited.citable.some(x => x.r.id === 'past_vote') &&
+  RP.citationBlock(cited).includes('[event:past_vote]'));
+check('cite: a filing dated after the scene is blocked and named as unknowable',
+  cited.blocked.some(x => x.r.id === 'later') &&
+  RP.citationBlock(cited).includes('FILED, BUT NOT YET') &&
+  !cited.citable.some(x => x.r.id === 'later'));
+check('cite: standing records — people and bodies — are always citable',
+  cited.citable.some(x => x.r.kind === 'faction'));
+check('cite: a non-canon What-If is never offered as a source',
+  !cited.citable.some(x => x.r.kind === 'what-if') && !cited.blocked.some(x => x.r.kind === 'what-if'));
+check('cite: the model is told not to invent filings',
+  RP.citationBlock(cited).includes('Never invent a filing, a date or a quotation'));
+check('cite: irrelevant records are left out — only the people in the room survive a blank query', (() => {
+  const none = RP.citableFor(citeIndex, bookRoom, bookState, { query: 'zzzz qqqq wwww' });
+  return none.citable.every(x => x.r.kind === 'character');
+})());
+check('cite: it reaches the system prompt when supplied',
+  RP.systemFor(bookState, bookRoom, sans, { citations: RP.citationBlock(cited) }).includes('FILES YOU MAY CITE'));
+
 // ---------- generated pages are in sync with these sources ----------
 let built = true;
 try {

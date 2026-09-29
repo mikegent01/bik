@@ -54,6 +54,17 @@ class Handler(BaseHTTPRequestHandler):
                 '"record": {"id": "mock_record", "name": "Mock Record", '
                 '"title": "Mock Record — Filed From the Mock", "summary": "A mock record."}}',
             )
+        elif "You are the archivist for a roleplay session" in all_text:
+            # Lore-book extraction: canned pages in the exact filing format,
+            # overridable with MOCK_BOOK_REPLY.
+            content = os.environ.get(
+                "MOCK_BOOK_REPLY",
+                "PLACE: The Ledger Room | a back office off the studio corridor, lined with unfiled boxes\n"
+                "PERSON: Marguerite Oyle | the night archivist, wants the ledger back before dawn\n"
+                "EVENT: The Door Pushed Open | the party forced the ledger room and found the boxes already searched\n"
+                "FACT: the ledger room door does not lock from the inside\n"
+                "DIARY: They went looking for a ledger and found somebody had been there first.",
+            )
         elif "STAGE DIRECTIONS" in all_text and os.environ.get("MOCK_DIRECTIVES"):
             # {{WHO}} is filled with the first character named in the prompt's
             # CHARACTER STATE block, so a test does not have to know in

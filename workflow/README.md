@@ -142,6 +142,18 @@ memory, lore, replay, backups — is documented in
   click preselects the whole table in the cast picker.
 - **No advertisements.** The dashboard has no ad slot and the page contains no
   ad code.
+- **📓 The lore book.** Written in the background while you play: every few
+  turns the last stretch of the scene is queued, and a separate small call
+  files what is new — places, people, events, things, facts and a diary entry
+  — appending each page at the bottom. One job at a time, never beside a
+  roleplay turn, with a queue cap and a session budget so a local model on a
+  laptop is never asked to do two things at once. The whole book is handed
+  back to the model as established truth.
+- **Citations.** Everything loaded is indexed with its date; before each turn
+  the page offers the model the filings that are actually relevant *and* whose
+  dates have already passed in this scene, with their ids, and names the ones
+  dated later as unknowable. The prompt is budgeted so the reference material
+  is trimmed before the scene's own instructions ever are.
 - **The calendar.** Every room has an in-world date (from the scenario, or
   `currentDate.json`). Filings attached to the cast are sorted into *already
   history* and *has not happened yet*, so nobody reminisces about their own

@@ -170,6 +170,49 @@ a { color: inherit; }
 .wcard .new { background: #e7f5ec; color: var(--ok); border-radius: 999px; padding: 1px 8px; font-size: 11px; font-weight: 600; }
 .wcard .done { background: var(--panel2); border-radius: 999px; padding: 1px 8px; font-size: 11px; }
 
+/* ---- the chat HUD: where you are, when you are, how bad it can get ---- */
+.chat-top .hud { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.chat-top .stat {
+  display: inline-flex; align-items: center; gap: 5px; border: 1px solid var(--line); background: var(--panel2);
+  border-radius: 999px; padding: 5px 11px; font-size: 12px; color: #43434c; cursor: pointer; white-space: nowrap;
+}
+.chat-top .stat i { font-style: normal; }
+.chat-top .stat:hover { border-color: var(--accent); color: var(--accent); }
+.chat-top .stat.quiet { cursor: default; }
+.chat-top .stat.quiet:hover { border-color: var(--line); color: #43434c; }
+.chat-top .stat .meter { display: inline-block; width: 40px; height: 5px; border-radius: 999px; background: #dfdfe5; overflow: hidden; }
+.chat-top .stat .meter span { display: block; height: 100%; background: var(--accent); }
+.chat-top .stat.fate-harsh { border-color: var(--bad); color: var(--bad); }
+.chat-top .stat.fate-gentle { border-color: var(--ok); color: var(--ok); }
+.chat-top .stat.fate-off { opacity: .6; }
+
+/* Quick actions above the composer. */
+.speakers .acts { display: flex; gap: 6px; margin-right: 4px; }
+.speakers .qa {
+  border: 1px solid var(--line); background: #fff; border-radius: 999px; padding: 6px 13px; font-size: 13px;
+  cursor: pointer; font-weight: 600; color: #3a3a42;
+}
+.speakers .qa:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
+
+/* ---- the lore book ---- */
+.bookpages { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 12px; }
+.page {
+  border: 1px solid var(--line); border-left: 4px solid var(--accent); background: var(--panel);
+  border-radius: var(--radius); padding: 12px 14px;
+}
+.page.place { border-left-color: #3f9e63; }
+.page.person { border-left-color: #6f63d4; }
+.page.event { border-left-color: #d48a2a; }
+.page.thing { border-left-color: #a08a4a; }
+.page.fact { border-left-color: #5b7cfa; }
+.page.diary { border-left-color: #8a7a55; background: #fbf9f2; }
+.page .ph { display: flex; align-items: center; gap: 7px; font-size: 14px; margin-bottom: 6px; }
+.page .ph .num { color: var(--muted); font-size: 11px; }
+.page p { margin: 0; font-size: 13px; color: #3d3d44; line-height: 1.5; }
+.page .pf { display: flex; align-items: center; gap: 8px; margin-top: 9px; font-size: 11px; color: var(--muted); flex-wrap: wrap; }
+.page .pf .inworld { color: #7a6320; font-weight: 600; }
+.page .grow, .chat-top .grow { flex: 1; }
+
 /* Live character state — the sheets the model reads and writes. */
 .statebar { display: flex; gap: 10px; padding: 10px 18px; border-bottom: 1px solid var(--line); background: var(--panel2); overflow-x: auto; }
 .statebar .sheet {

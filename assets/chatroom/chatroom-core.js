@@ -1969,6 +1969,294 @@
 
 
 
+
+  /* ------------------------------------------------------------------ *
+   * the lore book — written while you play, in a queue
+   *
+   * Roleplay invents faster than anyone files it: a tavern gets a name, a
+   * courier gets a face, a debt gets agreed. The lore book catches all of
+   * that in the background. A job is queued every few turns, one model
+   * call runs at a time, and there is a hard budget so a laptop running a
+   * 7B model does not fall over. Newest entries append at the BOTTOM: the
+   * book reads forward, like a book.
+   * ------------------------------------------------------------------ */
+
+  RP.BOOK_KINDS = {
+    place:  { label: 'Place',  icon: '📍' },
+    person: { label: 'Person', icon: '👤' },
+    event:  { label: 'Event',  icon: '⚑' },
+    thing:  { label: 'Thing',  icon: '🗝' },
+    fact:   { label: 'Fact',   icon: '§' },
+    diary:  { label: 'Diary',  icon: '📔' },
+  };
+
+  RP.BOOK_MAX = 300;        // entries kept before the oldest are dropped
+  RP.QUEUE_MAX = 6;         // jobs allowed to pile up
+  RP.BOOK_BUDGET = 40;      // background calls allowed per browser session
+
+  function bookState(state) {
+    state.book = state.book || { entries: [], queue: [], spent: 0 };
+    state.book.entries = state.book.entries || [];
+    state.book.queue = state.book.queue || [];
+    return state.book;
+  }
+  RP.bookState = bookState;
+
+  /** File one entry at the bottom of the book. Same name and kind twice is
+   *  an update, not a duplicate — the book grows, it does not repeat. */
+  RP.bookAdd = function (state, entry) {
+    var book = bookState(state);
+    var name = clip(entry.name, 90);
+    var kind = RP.BOOK_KINDS[entry.kind] ? entry.kind : 'fact';
+    if (!name && kind !== 'diary') return null;
+    var existing = book.entries.filter(function (e) {
+      return e.kind === kind && e.name.toLowerCase() === name.toLowerCase();
+    })[0];
+    if (existing) {
+      var add = clip(entry.text, 400);
+      if (add && existing.text.toLowerCase().indexOf(add.toLowerCase()) < 0) {
+        existing.text = clip(existing.text + ' ' + add, 700);
+      }
+      existing.seen = (existing.seen || 1) + 1;
+      existing.updated = Date.now();
+      if (entry.when && !existing.when) existing.when = clip(entry.when, 90);
+      return existing;
+    }
+    var record = {
+      id: entry.id || uid(),
+      kind: kind,
+      name: name || ('Diary — ' + clip(entry.when, 40)),
+      text: clip(entry.text, 700),
+      when: clip(entry.when, 90),          // in-world date
+      at: entry.at || Date.now(),          // when it was played
+      updated: Date.now(),
+      roomId: String(entry.roomId || ''),
+      roomTitle: clip(entry.roomTitle, 90),
+      chars: (entry.chars || []).map(String).slice(0, 8),
+      source: entry.source === 'you' ? 'you' : 'auto',
+      seen: 1,
+    };
+    book.entries.push(record);            // newest at the bottom, always
+    if (book.entries.length > RP.BOOK_MAX) book.entries = book.entries.slice(-RP.BOOK_MAX);
+    return record;
+  };
+
+  RP.bookRemove = function (state, id) {
+    var book = bookState(state);
+    book.entries = book.entries.filter(function (e) { return e.id !== id; });
+    return book.entries.length;
+  };
+
+  /** What the model is shown: everything about this cast and this room, then
+   *  the most recent pages, because a book you cannot fit in the prompt is
+   *  a book nobody reads. */
+  RP.bookBlock = function (state, room, limit) {
+    var book = bookState(state);
+    if (!book.entries.length) return '';
+    var ids = (room.cast || []).map(function (c) { return c.id; });
+    var scene = ((room.scene || '') + ' ' + (room.sceneName || '')).toLowerCase();
+    function relevant(e) {
+      if (e.roomId === room.id) return 3;
+      if ((e.chars || []).some(function (id) { return ids.indexOf(id) >= 0; })) return 2;
+      if (e.name && scene.indexOf(e.name.toLowerCase()) >= 0) return 2;
+      return 1;
+    }
+    var picked = book.entries.slice().map(function (e, i) {
+      return { e: e, score: relevant(e) * 1000 + i };
+    }).sort(function (a, b) { return b.score - a.score; })
+      .slice(0, limit || 18).map(function (x) { return x.e; })
+      .sort(function (a, b) { return book.entries.indexOf(a) - book.entries.indexOf(b); });
+    var diary = picked.filter(function (e) { return e.kind === 'diary'; });
+    var pages = picked.filter(function (e) { return e.kind !== 'diary'; });
+    var out = ['THE LORE BOOK — everything below was established in play and is TRUE. Stay consistent with it.'];
+    pages.forEach(function (e) {
+      out.push('- ' + (RP.BOOK_KINDS[e.kind] || {}).label + ': ' + e.name + (e.when ? ' (' + e.when + ')' : '') +
+        (e.text ? ' — ' + e.text : ''));
+    });
+    if (diary.length) {
+      out.push('', 'THE DIARY — how the days have gone so far');
+      diary.forEach(function (e) { out.push('- ' + (e.when ? e.when + ': ' : '') + e.text); });
+    }
+    return out.join('\n');
+  };
+
+  /* ---- the queue ---- */
+
+  RP.queuePush = function (state, job) {
+    var book = bookState(state);
+    if (book.queue.length >= RP.QUEUE_MAX) return null;         // back pressure
+    if (book.queue.some(function (j) { return j.key === job.key; })) return null;
+    var record = {
+      id: uid(), key: String(job.key || uid()), kind: job.kind || 'extract',
+      roomId: String(job.roomId || ''), roomTitle: clip(job.roomTitle, 90),
+      when: clip(job.when, 90), at: Date.now(), turns: job.turns || [],
+    };
+    book.queue.push(record);
+    return record;
+  };
+
+  RP.queueNext = function (state) { return bookState(state).queue[0] || null; };
+
+  RP.queueDone = function (state, id, spent) {
+    var book = bookState(state);
+    book.queue = book.queue.filter(function (j) { return j.id !== id; });
+    if (spent) book.spent = (book.spent || 0) + 1;
+    return book.queue.length;
+  };
+
+  /** Is there budget left for another background call? */
+  RP.bookBudgetLeft = function (state) {
+    var book = bookState(state);
+    var cap = (state.settings && state.settings.bookBudget) || RP.BOOK_BUDGET;
+    return Math.max(0, cap - (book.spent || 0));
+  };
+
+  /* ---- the extraction prompt (its own small call, not the roleplay one) ---- */
+
+  RP.extractPrompt = function (room, turns, known) {
+    return [
+      'You are the archivist for a roleplay session. Read the turns below and file ONLY what is newly established.',
+      '',
+      'THE SCENE: ' + clip(room.sceneName || room.title, 120) + (room.date ? ' — ' + room.date : ''),
+      'WHO IS IN IT: ' + (room.cast || []).map(function (c) { return c.name; }).join(', '),
+      (known && known.length ? 'ALREADY IN THE BOOK (do not file these again): ' + known.slice(0, 40).join('; ') : ''),
+      '',
+      'THE TURNS',
+      turns.map(function (t) { return t.who + ': ' + clip(t.text, 400); }).join('\n'),
+      '',
+      'Write one line per entry, in exactly these formats, and nothing else:',
+      'PLACE: name | what it is, in one sentence',
+      'PERSON: name | who they are and what they want',
+      'EVENT: name | what happened, concretely',
+      'THING: name | what it is and who has it',
+      'FACT: the thing that is now true',
+      'DIARY: one short paragraph, past tense, recording how this stretch went',
+      '',
+      'Rules: only things the turns actually establish — no speculation, no restating the scene description, ',
+      'nothing already in the book. Names must be the names used in the turns. At most six lines, and one DIARY.',
+      'If the turns established nothing new, reply with exactly: NONE',
+    ].filter(Boolean).join('\n');
+  };
+
+  /** Read the archivist's answer back into entries. Anything malformed is
+   *  dropped rather than filed as nonsense. */
+  RP.parseExtract = function (text) {
+    var out = [];
+    String(text || '').split(/\r?\n/).forEach(function (line) {
+      var hit = /^\s*(PLACE|PERSON|EVENT|THING|FACT|DIARY)\s*:\s*(.+)$/i.exec(line.replace(/^[-*\d.\s]+/, ''));
+      if (!hit) return;
+      var kind = hit[1].toLowerCase(), body = hit[2].trim();
+      if (!body || /^none$/i.test(body)) return;
+      if (kind === 'diary') { out.push({ kind: 'diary', name: '', text: body }); return; }
+      if (kind === 'fact') { out.push({ kind: 'fact', name: clip(body.split(/[.!?]/)[0], 80), text: body }); return; }
+      var parts = body.split('|');
+      var name = clip(parts[0], 90);
+      if (!name || name.length < 2) return;
+      out.push({ kind: kind, name: name, text: clip(parts.slice(1).join('|'), 400) });
+    });
+    return out.slice(0, 7);
+  };
+
+  /* ------------------------------------------------------------------ *
+   * citations — any file in the archive, if the date checks out
+   * ------------------------------------------------------------------ */
+
+  /** One searchable index over everything the page has loaded. Records with
+   *  a readable date carry it; people and bodies are standing records and
+   *  are always citable. */
+  RP.buildIndex = function (archive, castById) {
+    var out = [];
+    (archive.events || []).forEach(function (e) {
+      out.push({
+        id: e.id, name: e.name, kind: 'event', date: RP.parseWahDate(e.timeCode || e.date),
+        text: clip(e.summary, 300), where: clip(e.location, 90),
+        words: ((e.name || '') + ' ' + (e.summary || '') + ' ' + (e.location || '') + ' ' + (e.era || '')).toLowerCase(),
+      });
+    });
+    (archive.factions || []).forEach(function (f) {
+      out.push({
+        id: f.id, name: f.name, kind: 'faction', date: null, standing: true,
+        text: clip(f.summary, 300),
+        words: ((f.name || '') + ' ' + (f.summary || '') + ' ' + (f.region || '')).toLowerCase(),
+      });
+    });
+    (archive.whatifs || []).forEach(function (w) {
+      out.push({
+        id: w.id, name: w.title, kind: 'what-if', date: null, noncanon: true,
+        text: clip(w.summary, 260),
+        words: ((w.title || '') + ' ' + (w.summary || '')).toLowerCase(),
+      });
+    });
+    Object.keys(castById || {}).forEach(function (k) {
+      var c = castById[k];
+      out.push({
+        id: c.id, name: c.name, kind: 'character', date: null, standing: true,
+        text: clip(c.title + '. ' + c.summary, 260),
+        words: ((c.name || '') + ' ' + (c.title || '') + ' ' + (c.summary || '') + ' ' + (c.affiliation || '')).toLowerCase(),
+      });
+    });
+    (archive.posts || []).forEach(function (p) {
+      out.push({
+        id: p.id, name: 'WAHwire — ' + clip(p.authorName, 40), kind: 'wire', date: RP.parseWahDate(p.timestamp),
+        text: clip(p.content, 260),
+        words: ((p.authorName || '') + ' ' + (p.content || '') + ' ' + (p.tags || []).join(' ')).toLowerCase(),
+      });
+    });
+    return out.filter(function (r) { return r.id && r.name; });
+  };
+
+  /** Records this scene is allowed to cite: dated at or before the scene, or
+   *  a standing record (a person, a body) with no date to fail. Anything
+   *  dated later is returned separately so the prompt can forbid it by name. */
+  RP.citableFor = function (index, room, state, opts) {
+    opts = opts || {};
+    var scene = RP.sceneDate(room, state);
+    var terms = String(opts.query || '').toLowerCase().split(/[^a-z0-9]+/)
+      .filter(function (t) { return t.length > 3; }).slice(0, 24);
+    var castNames = (room.cast || []).map(function (c) { return c.name.toLowerCase(); });
+    var ok = [], blocked = [];
+    (index || []).forEach(function (r) {
+      if (r.noncanon) return;
+      var rel = r.date && scene ? RP.timeRelation(scene, r.date) : null;
+      var score = 0;
+      castNames.forEach(function (n) { if (r.words.indexOf(n) >= 0) score += 3; });
+      terms.forEach(function (t) { if (r.words.indexOf(t) >= 0) score += 1; });
+      if (rel && rel.rel === 'future') {
+        if (score > 0) blocked.push({ r: r, rel: rel, score: score });
+        return;
+      }
+      if (score <= 0) return;
+      if (rel && rel.rel === 'past') score += 1;             // dated and behind us: solid ground
+      ok.push({ r: r, rel: rel, score: score });
+    });
+    function take(list, n) {
+      return list.sort(function (a, b) { return b.score - a.score; }).slice(0, n);
+    }
+    return { scene: scene, citable: take(ok, opts.limit || 10), blocked: take(blocked, 4) };
+  };
+
+  /** The prompt block. Ids are included so a character can name the filing
+   *  they are quoting instead of inventing a source. */
+  RP.citationBlock = function (found) {
+    if (!found || (!found.citable.length && !found.blocked.length)) return '';
+    var out = [];
+    if (found.citable.length) {
+      out.push('FILES YOU MAY CITE — real records, and the dates check out against this scene');
+      found.citable.forEach(function (x) {
+        out.push('- [' + x.r.kind + ':' + x.r.id + '] ' + x.r.name +
+          (x.r.date ? ' (' + RP.formatWahDate(x.r.date) + ', ' + x.rel.label + ')' : ' (standing record)') +
+          ' — ' + x.r.text);
+      });
+      out.push('Refer to these by name when it is natural. Never invent a filing, a date or a quotation.');
+    }
+    if (found.blocked.length) {
+      out.push('', 'FILED, BUT NOT YET — these exist in the archive and are dated AFTER this scene. ' +
+        'Nobody here can know them:');
+      found.blocked.forEach(function (x) { out.push('- ' + x.r.name + ' (' + RP.formatWahDate(x.r.date) + ')'); });
+    }
+    return out.join('\n');
+  };
+
   /* ------------------------------------------------------------------ *
    * browsing the cast — 189 characters is a list, not a library
    * ------------------------------------------------------------------ */
@@ -2614,14 +2902,23 @@
     if (room.kind !== 'group' && room.scene) parts.push('THE SCENE\n' + room.scene);
     var perspective = RP.perspectiveBlock(room);
     if (perspective) parts.push(perspective);
+
+    // Reference material — trimmed first when the window is tight.
+    var knowledge = RP.knowledgeBlock(state, room, opts.archive);
+    if (knowledge) parts.push(knowledge);
+    var book = RP.bookBlock(state, room);
+    if (book) parts.push(book);
+    if (opts.citations) parts.push(opts.citations);
     var script = RP.scriptBlock(room);
     if (script) parts.push(script);
     var lore = RP.loreBlock(state, room.cast, room);
     if (lore) parts.push(lore);
     var memory = RP.memoryBlock(state, room.cast, room);
     if (memory) parts.push(memory);
-    var knowledge = RP.knowledgeBlock(state, room, opts.archive);
-    if (knowledge) parts.push(knowledge);
+
+    // Everything from here is an instruction for THIS turn and is never
+    // dropped to save room: the rules of the scene outrank the reading.
+    var protectedFrom = parts.length;
     var continuation = RP.continuationBlock(room);
     if (continuation) parts.push(continuation);
     if (room.mechanics !== 'off') {
@@ -2631,7 +2928,43 @@
     }
     var fateBlock = RP.fateBlock(opts.fate);
     if (fateBlock) parts.push(fateBlock);
-    return parts.join('\n\n');
+    return RP.fitPrompt(parts, opts.budget, protectedFrom);
+  };
+
+  // A local model has a context window and the server refuses anything over
+  // 16k characters, so the prompt is budgeted rather than hoped about.
+  RP.PROMPT_BUDGET = 11000;
+
+  /** Assemble the prompt inside the budget. The character card, the rules
+   *  and the turn's own instructions are never dropped; the reference
+   *  material at the back is trimmed, oldest lines first, until it fits. */
+  RP.fitPrompt = function (parts, budget, protectedFrom) {
+    var cap = budget || RP.PROMPT_BUDGET;
+    var keepFrom = protectedFrom === undefined ? parts.length : protectedFrom;
+    var text = parts.join('\n\n');
+    if (text.length <= cap) return text;
+    // Reference blocks, in the order they are sacrificed.
+    var soft = ['FILES YOU MAY CITE', 'THE LORE BOOK', 'WHAT HAS ALREADY HAPPENED', 'ESTABLISHED LORE',
+      'ALREADY HISTORY', 'THE MAIN EVENT', 'Filed description'];
+    for (var i = 0; i < soft.length && text.length > cap; i++) {
+      parts = parts.map(function (part, at) {
+        if (at >= keepFrom || part.indexOf(soft[i]) < 0) return part;
+        var lines = part.split('\n');
+        if (lines.length < 4) return part;
+        return lines.slice(0, Math.max(3, Math.floor(lines.length / 2))).join('\n') +
+          '\n… (trimmed to fit the model\u2019s window)';
+      });
+      text = parts.join('\n\n');
+    }
+    // Still too long: drop whole reference blocks, back to front, never
+    // touching the character card at the head or the instructions at the end.
+    var at = keepFrom - 1;
+    while (text.length > cap && at > 0) {
+      parts.splice(at, 1);
+      keepFrom--; at--;
+      text = parts.join('\n\n');
+    }
+    return text.length > cap ? text.slice(0, cap - 40) + '\n… (truncated)' : text;
   };
 
   /* ------------------------------------------------------------------ *
@@ -2739,6 +3072,7 @@
       version: 1,
       user: { name: 'Archivist', handle: 'waluipedia', persona: '', avatar: '' },
       rooms: [], chars: [], lore: [], log: [], scenarios: [], active: '',
+      book: { entries: [], queue: [], spent: 0 },   // the lore book, written as you play
       newChars: [],        // characters invented during play, described not drawn
       hooks: {},           // scenario id -> the opener the model wrote
       backfillUses: {},    // backfill id -> how many times it has been played
@@ -2746,6 +3080,9 @@
       settings: {
         style: 'novel', voice: 'off', temperature: 0.85, endpoint: '',
         director: 'on',            // let the model decide who speaks next
+        book: 'on',                // write the lore book in the background
+        bookEvery: 3,              // …after every N played turns
+        bookBudget: RP.BOOK_BUDGET,
         fate: 'normal',            // off | gentle | normal | harsh
         statePreset: 'rpg',
         maxChain: RP.MAX_CHAIN,    // …but never more than this before you
@@ -2767,6 +3104,9 @@
         if (typeof value.active === 'string') state.active = value.active;
         if (value.usedPosts && typeof value.usedPosts === 'object') state.usedPosts = value.usedPosts;
         if (value.hooks && typeof value.hooks === 'object') state.hooks = value.hooks;
+        if (value.book && typeof value.book === 'object') {
+          state.book = { entries: value.book.entries || [], queue: [], spent: 0 };
+        }
         if (value.backfillUses && typeof value.backfillUses === 'object') state.backfillUses = value.backfillUses;
         if (value.user && typeof value.user === 'object') state.user = Object.assign(state.user, value.user);
         if (value.settings && typeof value.settings === 'object') state.settings = Object.assign(state.settings, value.settings);
@@ -2787,6 +3127,9 @@
       usedPosts: state.usedPosts || {},
       hooks: state.hooks || {},
       newChars: (state.newChars || []).slice(0, 80),
+      // The queue is deliberately not saved: unfinished background work
+      // should not come back to life on the next page load.
+      book: { entries: (state.book && state.book.entries) || [], queue: [], spent: 0 },
       backfillUses: state.backfillUses || {},
       scenarios: (state.scenarios || []).slice(0, 30),
     };
@@ -2826,6 +3169,7 @@
       bundle.lore = state.lore || [];
       bundle.scenarios = state.scenarios || [];   // written scenarios are lore too
       bundle.newChars = state.newChars || [];     // so are the people invented in play
+      bundle.book = (state.book && state.book.entries) || [];
     }
     if (want('memory')) {
       bundle.chars = state.chars || [];
@@ -2867,6 +3211,11 @@
       var loreBefore = (state.lore || []).length;
       state.lore = mergeById(state.lore || [], data.lore, function (a, b) { return b; });
       stats.lore = state.lore.length - (replace ? 0 : loreBefore);
+    }
+    if (Array.isArray(data.book)) {
+      var bookNow = bookState(state);
+      bookNow.entries = replace ? data.book : mergeById(bookNow.entries, data.book, function (a, b) { return b; });
+      stats.book = bookNow.entries.length;
     }
     if (Array.isArray(data.newChars)) {
       state.newChars = mergeById(state.newChars || [], data.newChars, function (a, b) { return b; });
