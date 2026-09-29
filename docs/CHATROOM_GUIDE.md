@@ -40,6 +40,31 @@ Nothing the page does writes to the repository. The archive is read-only here:
 if a chat produces something worth keeping, export it and file it properly
 through [`docs/SESSION_FILING_PROCESS.md`](SESSION_FILING_PROCESS.md).
 
+## Where the model lives — LM Studio, or the workflow server
+
+The page speaks **both** dialects and picks the right one from the URL:
+
+| Endpoint | How it is called |
+|---|---|
+| `http://127.0.0.1:1234/v1` (LM Studio, llama.cpp, Ollama's OpenAI shim) | `POST …/v1/chat/completions`, OpenAI shape, system prompt as the first message |
+| `http://127.0.0.1:8787/api/roleplay` (the workflow server) | `POST {system, messages}` |
+
+⚙ **Settings** has one-click presets for both, a **Test it** button that says
+what answered and how many models it has, and a model box that fills itself in
+from `/v1/models`. If nothing is configured and the workflow server is not
+answering, the page **looks for LM Studio on 1234 by itself** and switches to
+it, saying so.
+
+LM Studio needs its server started and **Enable CORS** switched on in the
+Developer tab — the page is served from a different port, so without it the
+browser blocks the request and you get `Failed to fetch`. The error notice in
+the chat now says exactly that, and points at the preset.
+
+You do not need the workflow server to play. You do need it for the archive
+routes (`/api/characters`, `/api/archive`, …) and the disk saves — the static
+`chatroom.html` reads the archive JSON directly, so with LM Studio alone that
+build is fully usable.
+
 ## The two runtimes
 
 | | `chatroom.html` (static) | `workflow/roleplay.html` (server) |
@@ -431,6 +456,27 @@ log → lore → history → script → filed descriptions) and then dropped
 back-to-front, while the character card at the head and the instructions at
 the tail — scene state, stage directions, the fate roll — are **never**
 sacrificed.
+
+## 👍 / 👎 — ratings are training data
+
+A thumb is not decoration. Every rating keeps a short excerpt of the reply,
+and the excerpts go back into the prompt for later turns:
+
+```
+WHAT THIS READER KEEPS AND WHAT THEY THROW AWAY — this is feedback on YOUR writing, act on it
+They marked these GOOD. Write more like them — the same rhythm, register and level of detail:
+  + “He says it in four words and leaves.”
+They marked these BAD. Do not write like this again:
+  - “A long, flowery paragraph that says the same thing five times over…”
+Their kept replies run about 34 words. Aim for that. The ones they threw away were much longer — do not pad.
+```
+
+Ten excerpts are kept per side, newest first, with the people in the current
+room taking the places. Length is derived from what you kept, because that is
+the signal a small model can actually act on. The character panel's thumbs
+rate the last thing that was said, **👍 What I like** lists everything the
+model has been told (with *Forget this* per excerpt), and it all travels in
+the lore bundle.
 
 ## Memory — three layers
 

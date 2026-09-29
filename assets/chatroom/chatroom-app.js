@@ -261,12 +261,61 @@
     return (state.settings && state.settings.endpoint) || CFG.replyUrl;
   }
 
+  /* ---------------------------------------------------------------- *
+   * talking to a model — LM Studio directly, or the workflow server
+   *
+   * Two shapes of endpoint exist and the page works with both. Anything
+   * that looks like an OpenAI API (`…/v1`, `…/chat/completions`) is
+   * called the OpenAI way; our own server takes {system, messages}.
+   * ---------------------------------------------------------------- */
+
+  var LM_STUDIO = 'http://127.0.0.1:1234/v1';
+
+  function isOpenAI(url) {
+    return /\/v1(\/|$)|\/chat\/completions$|\/completions$/.test(String(url || ''));
+  }
+
+  /** `…/v1` → `…/v1/chat/completions`; anything already pointing at the
+   *  route is left alone. */
+  function chatRoute(url) {
+    var base = String(url || '').replace(/\/+$/, '');
+    return /\/chat\/completions$/.test(base) ? base : base + '/chat/completions';
+  }
+
+  function modelsRoute(url) {
+    return String(url || '').replace(/\/+$/, '').replace(/\/chat\/completions$/, '') + '/models';
+  }
+
   function callModel(system, messages) {
-    return fetch(replyUrl(), {
+    var url = replyUrl();
+    var temperature = (state.settings && state.settings.temperature) || 0.85;
+    if (isOpenAI(url)) {
+      // LM Studio, llama.cpp, Ollama's OpenAI shim, anything else that
+      // speaks the same API. The system prompt is just the first message.
+      return fetch(chatRoute(url), {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          model: (state.settings && state.settings.model) || 'local-model',
+          messages: [{ role: 'system', content: system }].concat(messages),
+          temperature: temperature,
+          max_tokens: 700,
+          stream: false,
+        }),
+      }).then(function (r) {
+        return r.json().then(function (value) {
+          if (!r.ok || value.error) {
+            throw new Error((value.error && (value.error.message || value.error)) || ('the model answered ' + r.status));
+          }
+          var choice = (value.choices || [])[0] || {};
+          return String((choice.message && choice.message.content) || choice.text || '');
+        });
+      });
+    }
+    return fetch(url, {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         system: system, messages: messages,
-        temperature: (state.settings && state.settings.temperature) || 0.85,
+        temperature: temperature,
         max_tokens: 700,
       }),
     }).then(function (r) {
@@ -277,11 +326,42 @@
     });
   }
 
+  /** Is anything answering? Checks whatever endpoint is configured, in its
+   *  own dialect, and — when nothing is set — looks for LM Studio on its
+   *  usual port before giving up, because that is what most people run. */
   function checkHealth() {
-    if (!CFG.healthUrl) return;
-    getJSON(CFG.healthUrl).then(function (data) {
-      online = Boolean(data && data.lm_studio && data.lm_studio.online);
-    }).catch(function () { online = false; }).then(renderStatus);
+    var url = replyUrl();
+    var probe = isOpenAI(url)
+      ? fetch(modelsRoute(url)).then(function (r) { return r.ok ? r.json() : null; }).then(function (data) {
+          if (!data) return false;
+          var list = data.data || data.models || [];
+          if (list.length && !(state.settings && state.settings.model)) {
+            // Use whatever the studio has loaded, so nobody has to type it.
+            state.settings.model = String(list[0].id || list[0].name || 'local-model');
+          }
+          return true;
+        })
+      : (CFG.healthUrl
+          ? getJSON(CFG.healthUrl).then(function (data) { return Boolean(data && data.lm_studio && data.lm_studio.online); })
+          : Promise.resolve(false));
+
+    probe.catch(function () { return false; }).then(function (up) {
+      online = Boolean(up);
+      if (online || (state.settings && state.settings.endpoint)) { renderStatus(); return; }
+      // Nothing there and nothing chosen: try LM Studio before complaining.
+      return fetch(modelsRoute(LM_STUDIO)).then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (data) {
+          if (!data) return;
+          var list = data.data || data.models || [];
+          state.settings.endpoint = LM_STUDIO;
+          state.settings.model = String((list[0] && (list[0].id || list[0].name)) || 'local-model');
+          online = true;
+          save();
+          toast('Found LM Studio on 127.0.0.1:1234 — using it.' +
+            (state.settings.model !== 'local-model' ? ' Model: ' + state.settings.model : ''));
+        }).catch(function () { /* still nothing; the status line says so */ })
+        .then(renderStatus);
+    });
   }
 
   function renderStatus() {
@@ -2066,8 +2146,9 @@
       '<div class="by">By @' + esc(c.handle || 'waluipedia') + '</div>' +
       '<div class="by">' + plays + (plays === 1 ? ' interaction' : ' interactions') + '</div></div></div>' +
       '<div class="cp-row"><button class="iconbtn" id="cpSettings" title="Chat settings">⚙</button>' +
-      '<div class="votes"><button id="cpUp">👍</button><span>' + r.messages.filter(function (m) { return m.react === 'up'; }).length +
-      '</span><button id="cpDown">👎</button></div><span class="grow"></span>' +
+      '<div class="votes" title="Ratings steer later turns"><button id="cpUp">👍</button><span>' +
+      RP.tasteFor(state, c.id).up + '</span><button id="cpDown">👎</button><span>' +
+      RP.tasteFor(state, c.id).down + '</span></div><span class="grow"></span>' +
       '<button class="iconbtn" id="cpExport" title="Export transcript">⬇</button></div>' +
       '<div class="cp-desc">' + esc(c.title || c.summary || r.scene || 'A chat in the Waluipedia archive.') + '</div>' +
       // People invented during play have no portrait in the archive, so the
@@ -2091,6 +2172,7 @@
       menuItem('cpReplay', '🎭', 'Replay', 'Perspective') +
       menuItem('cpScript', '⏱', 'Script', r.beats && r.beats.length ? (r.autoBeats ? 'Auto' : 'Manual') : 'None') +
       menuItem('cpDirector', '🎬', 'Director', state.settings.director === 'off' ? 'Off' : 'On · max ' + (state.settings.maxChain || RP.MAX_CHAIN)) +
+      menuItem('cpTaste', '👍', 'What I like', RP.tasteState(state).likes.length + ' / ' + RP.tasteState(state).dislikes.length) +
       menuItem('cpImport', '📥', 'Import into this chat', 'story · card') +
       menuItem('cpCard', '📇', 'Character card', 'PNG · JSON') +
       menuItem('cpRename', '✏️', 'Rename chat', RP.clip(r.title, 14)) +
@@ -2152,8 +2234,11 @@
     stream.querySelectorAll('[data-react]').forEach(function (b) {
       b.onclick = function () {
         var m = r.messages[+b.dataset.i];
-        m.react = m.react === b.dataset.react ? '' : b.dataset.react;
+        // A thumb is feedback the model gets to read, not a colour change.
+        var now = RP.rate(state, r, m, b.dataset.react);
         save(); render();
+        if (now === 'up') toast('👍 Noted — later turns will lean this way.');
+        if (now === 'down') toast('👎 Noted — later turns will avoid that. ↻ for another take.');
       };
     });
     stream.querySelectorAll('[data-pin]').forEach(function (b) {
@@ -2333,8 +2418,50 @@
       ], function (pick) { exportCard(c, pick === 'png'); });
     });
     on('cpSettings', settingsForm);
-    on('cpUp', function () { toast('Rate individual replies with 👍 under the message.'); });
-    on('cpDown', function () { toast('Rate individual replies with 👎 under the message.'); });
+    // The panel's thumbs rate the last thing that was said, so you can steer
+    // without scrolling back to the message.
+    function rateLast(value) {
+      var last = null;
+      (r.messages || []).forEach(function (m) { if (m.role === 'char' && !m.error) last = m; });
+      if (!last) { toast('Nothing said yet to rate.'); return; }
+      var now = RP.rate(state, r, last, value);
+      save(); render();
+      toast(now === 'up' ? '👍 Noted — later turns will lean that way.'
+        : now === 'down' ? '👎 Noted — later turns will avoid that.'
+        : 'Rating cleared.');
+    }
+    on('cpUp', function () { rateLast('up'); });
+    on('cpDown', function () { rateLast('down'); });
+    on('cpTaste', function () {
+      var taste = RP.tasteState(state);
+      openModal('<h3>What the model has been told you like</h3>' +
+        '<p class="sub">Every 👍 and 👎 keeps an excerpt, and the excerpts go into the prompt: more like the ones ' +
+        'you kept, less like the ones you threw away. Length is taken from them too.</p>' +
+        (taste.likes.length ? '<h4>Kept</h4><div class="stack">' + taste.likes.slice().reverse().map(function (x) {
+          return '<div class="item"><b>' + esc((castById[x.charId] || { name: 'Someone' }).name) + '</b><p>' + esc(x.text) + '</p>' +
+            '<div class="acts"><button class="mini" data-tasteoff="' + esc(x.id) + '">Forget this</button></div></div>';
+        }).join('') + '</div>' : '') +
+        (taste.dislikes.length ? '<h4>Thrown away</h4><div class="stack">' + taste.dislikes.slice().reverse().map(function (x) {
+          return '<div class="item"><b>' + esc((castById[x.charId] || { name: 'Someone' }).name) + '</b><p>' + esc(x.text) + '</p>' +
+            '<div class="acts"><button class="mini" data-tasteoff="' + esc(x.id) + '">Forget this</button></div></div>';
+        }).join('') + '</div>' : '') +
+        (!taste.likes.length && !taste.dislikes.length ? '<p class="sub">Nothing rated yet.</p>' : '') +
+        '<div class="actions"><button class="pill" id="mCancel">Close</button>' +
+        '<button class="pill danger" id="mClear">Forget all of it</button></div>');
+      $('mCancel').onclick = closeModal;
+      $('mClear').onclick = function () {
+        state.taste = { likes: [], dislikes: [], chars: {} };
+        closeModal(); save(); render(); toast('Forgotten.');
+      };
+      $('modal').querySelectorAll('[data-tasteoff]').forEach(function (b) {
+        b.onclick = function () {
+          var id = b.dataset.tasteoff;
+          taste.likes = taste.likes.filter(function (x) { return x.id !== id; });
+          taste.dislikes = taste.dislikes.filter(function (x) { return x.id !== id; });
+          closeModal(); save(); render();
+        };
+      });
+    });
   }
 
   /* ---------------------------------------------------------------- *
@@ -2458,7 +2585,9 @@
       r.messages.push({
         id: RP.uid(), role: 'char', charId: speaker.id, error: true, at: Date.now(),
         text: 'The model did not answer: ' + error.message + '\nEndpoint: ' + replyUrl() +
-          '\nStart the local model (python workflow/server.py next to LM Studio) or set another endpoint in ⚙.',
+          (isOpenAI(replyUrl())
+            ? '\nIf LM Studio is running, check its server is started and that “Enable CORS” is on in its Developer tab.'
+            : '\nUsing LM Studio directly? Open ⚙ and press “LM Studio (1234)” — no workflow server needed.'),
       });
       return false;
     }).then(function (chain) {
@@ -2874,17 +3003,61 @@
     });
   }
 
+  /** Where the model lives. Two presets, because two things are what
+   *  people actually run: LM Studio on its own, or the workflow server. */
   function settingsForm() {
-    form('Settings', [
-      { k: 'endpoint', label: 'Model endpoint (POST, roleplay API)', value: state.settings.endpoint || '' },
-      { k: 'style', label: 'Default narration style', type: 'select', value: state.settings.style, options: Object.keys(RP.STYLES).map(function (k) { return { value: k, label: RP.STYLES[k].name }; }) },
-      { k: 'temperature', label: 'Temperature', value: String(state.settings.temperature) },
-    ], { note: 'Leave the endpoint empty to use ' + CFG.replyUrl + '.' }, function (v) {
-      state.settings.endpoint = v.endpoint.trim();
-      state.settings.style = v.style;
-      var t = parseFloat(v.temperature); if (!isNaN(t)) state.settings.temperature = Math.max(0, Math.min(1.5, t));
-      save(); render(); checkHealth(); renderStatus();
-    });
+    var current = replyUrl();
+    openModal('<h3>Settings</h3>' +
+      '<p class="sub">Point the page at whatever is running. <b>LM Studio</b> is called directly with the OpenAI API ' +
+      '(make sure its server is started, and that “Enable CORS” is on in its Developer tab). The <b>workflow ' +
+      'server</b> adds the archive routes and the disk saves, and forwards to LM Studio itself.</p>' +
+      '<div class="castbar">' +
+      '<button class="pill' + (isOpenAI(current) ? ' primary' : '') + '" id="setLm">🖥 LM Studio (127.0.0.1:1234)</button>' +
+      '<button class="pill' + (!isOpenAI(current) ? ' primary' : '') + '" id="setWf">🗄 Workflow server (127.0.0.1:8787)</button>' +
+      '<button class="pill" id="setTest">🔌 Test it</button>' +
+      '<span class="chip" id="setState">' + (online ? 'answering' : 'no answer yet') + '</span>' +
+      '</div>' +
+      '<label for="f_endpoint">Endpoint</label><input type="text" id="f_endpoint" value="' + esc(state.settings.endpoint || '') + '" placeholder="' + esc(CFG.replyUrl) + '">' +
+      '<label for="f_model">Model name (LM Studio fills this in for you)</label><input type="text" id="f_model" value="' + esc(state.settings.model || '') + '" placeholder="local-model">' +
+      '<label for="f_style">Default narration style</label><select id="f_style">' +
+      Object.keys(RP.STYLES).map(function (k) {
+        return '<option value="' + k + '"' + (state.settings.style === k ? ' selected' : '') + '>' + esc(RP.STYLES[k].name) + '</option>';
+      }).join('') + '</select>' +
+      '<label for="f_temperature">Temperature</label><input type="text" id="f_temperature" value="' + esc(String(state.settings.temperature)) + '">' +
+      '<div class="actions"><button class="pill" id="mCancel">Cancel</button>' +
+      '<button class="pill primary" id="mOk">Save</button></div>');
+    $('mCancel').onclick = closeModal;
+    $('setLm').onclick = function () { $('f_endpoint').value = LM_STUDIO; };
+    $('setWf').onclick = function () { $('f_endpoint').value = 'http://127.0.0.1:8787/api/roleplay'; };
+    $('setTest').onclick = function () {
+      var url = $('f_endpoint').value.trim() || CFG.replyUrl;
+      $('setState').textContent = 'testing…';
+      var probe = isOpenAI(url)
+        ? fetch(modelsRoute(url)).then(function (r) { return r.ok ? r.json() : null; })
+        : fetch(url.replace(/\/api\/roleplay$/, '/api/health')).then(function (r) { return r.ok ? r.json() : null; });
+      probe.then(function (data) {
+        if (!data) throw new Error('no answer');
+        var list = (data.data || data.models || []);
+        if (list.length) {
+          $('f_model').value = $('f_model').value || String(list[0].id || list[0].name || '');
+          $('setState').textContent = 'answering · ' + list.length + ' model' + (list.length === 1 ? '' : 's') +
+            ' · ' + RP.clip(String(list[0].id || list[0].name || ''), 28);
+        } else {
+          $('setState').textContent = data.lm_studio && data.lm_studio.online ? 'answering · model online' : 'answering';
+        }
+      }).catch(function () {
+        $('setState').textContent = 'no answer — is it running?';
+      });
+    };
+    $('mOk').onclick = function () {
+      state.settings.endpoint = $('f_endpoint').value.trim();
+      state.settings.model = $('f_model').value.trim();
+      state.settings.style = $('f_style').value;
+      var t = parseFloat($('f_temperature').value);
+      if (!isNaN(t)) state.settings.temperature = Math.max(0, Math.min(1.5, t));
+      closeModal();
+      save(); render(); checkHealth();
+    };
   }
 
   /** Perspective replay: pick the new vantage, then the people who hold it. */

@@ -2692,6 +2692,98 @@
     };
   };
 
+
+  /* ------------------------------------------------------------------ *
+   * taste — 👍 and 👎 are training data, not decoration
+   *
+   * A thumb that only colours in is a wasted signal. Every rating keeps a
+   * short excerpt, and those excerpts go back into the prompt: more like
+   * the ones you kept, less like the ones you did not.
+   * ------------------------------------------------------------------ */
+
+  RP.TASTE_KEEP = 10;      // excerpts held per side
+
+  function tasteState(state) {
+    state.taste = state.taste || { likes: [], dislikes: [], chars: {} };
+    state.taste.likes = state.taste.likes || [];
+    state.taste.dislikes = state.taste.dislikes || [];
+    state.taste.chars = state.taste.chars || {};
+    return state.taste;
+  }
+  RP.tasteState = tasteState;
+
+  /** Record a rating. Rating the same message again clears it, and a
+   *  rating moves the excerpt from one pile to the other. */
+  RP.rate = function (state, room, msg, value) {
+    var taste = tasteState(state);
+    var text = clip(RP.textOf(msg).replace(/\s+/g, ' '), 320);
+    var id = String(msg.id || '');
+    function drop(list) { return list.filter(function (x) { return x.id !== id; }); }
+    taste.likes = drop(taste.likes);
+    taste.dislikes = drop(taste.dislikes);
+    msg.react = msg.react === value ? '' : value;
+    var per = taste.chars[msg.charId] || (taste.chars[msg.charId] = { up: 0, down: 0 });
+    if (msg.react === 'up') {
+      taste.likes.push({ id: id, charId: msg.charId, text: text, words: text.split(/\s+/).length, at: Date.now() });
+      per.up++;
+    } else if (msg.react === 'down') {
+      taste.dislikes.push({ id: id, charId: msg.charId, text: text, words: text.split(/\s+/).length, at: Date.now() });
+      per.down++;
+    }
+    taste.likes = taste.likes.slice(-RP.TASTE_KEEP);
+    taste.dislikes = taste.dislikes.slice(-RP.TASTE_KEEP);
+    return msg.react;
+  };
+
+  function averageWords(list) {
+    if (!list.length) return 0;
+    var total = 0;
+    list.forEach(function (x) { total += Number(x.words || 0); });
+    return Math.round(total / list.length);
+  }
+
+  /** What the model is told about the reader's taste. Excerpts from this
+   *  room's cast come first, because taste is partly about who is speaking. */
+  RP.tasteBlock = function (state, room, limit) {
+    var taste = tasteState(state);
+    if (!taste.likes.length && !taste.dislikes.length) return '';
+    var ids = ((room && room.cast) || []).map(function (c) { return c.id; });
+    var cap = limit || 4;
+    function pick(list) {
+      // Newest first within each group, and the people in this room win the
+      // places — taste is partly about who is speaking.
+      var mine = list.filter(function (x) { return ids.indexOf(x.charId) >= 0; }).slice(-cap);
+      var rest = list.filter(function (x) { return ids.indexOf(x.charId) < 0; })
+        .slice(-Math.max(0, cap - mine.length));
+      return mine.concat(rest).slice(0, cap);
+    }
+    var liked = pick(taste.likes), disliked = pick(taste.dislikes);
+    var out = ['WHAT THIS READER KEEPS AND WHAT THEY THROW AWAY — this is feedback on YOUR writing, act on it'];
+    if (liked.length) {
+      out.push('They marked these GOOD. Write more like them — the same rhythm, register and level of detail:');
+      liked.forEach(function (x) { out.push('  + “' + clip(x.text, 220) + '”'); });
+    }
+    if (disliked.length) {
+      out.push('They marked these BAD. Do not write like this again:');
+      disliked.forEach(function (x) { out.push('  - “' + clip(x.text, 220) + '”'); });
+    }
+    // The most useful signal is usually length, and it is the one a small
+    // model can actually act on.
+    var goodLen = averageWords(liked), badLen = averageWords(disliked);
+    if (goodLen) {
+      out.push('Their kept replies run about ' + goodLen + ' words. Aim for that.' +
+        (badLen && badLen > goodLen * 1.4 ? ' The ones they threw away were much longer — do not pad.' : '') +
+        (badLen && badLen < goodLen * 0.7 ? ' The ones they threw away were much shorter — do not be thin.' : ''));
+    }
+    return out.join('\n');
+  };
+
+  /** Per-character score, for the panel. */
+  RP.tasteFor = function (state, charId) {
+    var per = tasteState(state).chars[charId];
+    return per ? { up: per.up || 0, down: per.down || 0 } : { up: 0, down: 0 };
+  };
+
   /* ------------------------------------------------------------------ *
    * the lore book — written while you play, in a queue
    *
@@ -3630,6 +3722,8 @@
     if (knowledge) parts.push(knowledge);
     var book = RP.bookBlock(state, room);
     if (book) parts.push(book);
+    var taste = RP.tasteBlock(state, room);
+    if (taste) parts.push(taste);
     if (opts.citations) parts.push(opts.citations);
     var script = RP.scriptBlock(room);
     if (script) parts.push(script);
@@ -3795,6 +3889,7 @@
       user: { name: 'Archivist', handle: 'waluipedia', persona: '', avatar: '' },
       rooms: [], chars: [], lore: [], log: [], scenarios: [], active: '',
       book: { entries: [], queue: [], spent: 0 },   // the lore book, written as you play
+      taste: { likes: [], dislikes: [], chars: {} },   // 👍 / 👎, fed back to the model
       episodes: [],        // commentary tracks, Waluigi and Luigi at length
       newChars: [],        // characters invented during play, described not drawn
       hooks: {},           // scenario id -> the opener the model wrote
@@ -3827,6 +3922,7 @@
         if (typeof value.active === 'string') state.active = value.active;
         if (value.usedPosts && typeof value.usedPosts === 'object') state.usedPosts = value.usedPosts;
         if (value.hooks && typeof value.hooks === 'object') state.hooks = value.hooks;
+        if (value.taste && typeof value.taste === 'object') state.taste = value.taste;
         if (value.book && typeof value.book === 'object') {
           state.book = { entries: value.book.entries || [], queue: [], spent: 0 };
         }
@@ -3851,6 +3947,7 @@
       hooks: state.hooks || {},
       newChars: (state.newChars || []).slice(0, 80),
       episodes: (state.episodes || []).slice(0, 20),
+      taste: state.taste || { likes: [], dislikes: [], chars: {} },
       // The queue is deliberately not saved: unfinished background work
       // should not come back to life on the next page load.
       book: { entries: (state.book && state.book.entries) || [], queue: [], spent: 0 },
@@ -3895,6 +3992,7 @@
       bundle.newChars = state.newChars || [];     // so are the people invented in play
       bundle.book = (state.book && state.book.entries) || [];
       bundle.episodes = state.episodes || [];
+      bundle.taste = state.taste || null;
     }
     if (want('memory')) {
       bundle.chars = state.chars || [];
@@ -3936,6 +4034,14 @@
       var loreBefore = (state.lore || []).length;
       state.lore = mergeById(state.lore || [], data.lore, function (a, b) { return b; });
       stats.lore = state.lore.length - (replace ? 0 : loreBefore);
+    }
+    if (data.taste && typeof data.taste === 'object') {
+      var mine = tasteState(state);
+      state.taste = replace ? data.taste : {
+        likes: mergeById(mine.likes, data.taste.likes || [], function (a, b) { return b; }).slice(-RP.TASTE_KEEP),
+        dislikes: mergeById(mine.dislikes, data.taste.dislikes || [], function (a, b) { return b; }).slice(-RP.TASTE_KEEP),
+        chars: Object.assign({}, mine.chars, data.taste.chars || {}),
+      };
     }
     if (Array.isArray(data.episodes)) {
       state.episodes = mergeById(state.episodes || [], data.episodes, function (a, b) { return b; }).slice(0, 20);

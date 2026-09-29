@@ -1143,6 +1143,61 @@ check('json card: nothing is undefined, so JSON.stringify cannot drop a required
   return Object.keys(round.data).length === Object.keys(RP.toCharacterCard(promo, {}).data).length;
 })());
 
+// ---------- 👍 / 👎 steer what comes next ----------
+const tasteState = RP.blankState();
+const tasteRoom = RP.newRoom([sans, cutters], {});
+const kept = { id: 'k1', role: 'char', charId: 'sans', text: 'He says it in four words and leaves.', at: 1 };
+const binned = { id: 'b1', role: 'char', charId: 'sans', text: 'A long, flowery paragraph that says the same thing five times over, with adjectives stacked upon adjectives, and no actual event in it anywhere at all.', at: 2 };
+tasteRoom.messages.push(kept, binned);
+check('taste: a rating is recorded on the message and kept as an excerpt', (() => {
+  RP.rate(tasteState, tasteRoom, kept, 'up');
+  RP.rate(tasteState, tasteRoom, binned, 'down');
+  const t = RP.tasteState(tasteState);
+  return kept.react === 'up' && binned.react === 'down' && t.likes.length === 1 && t.dislikes.length === 1 &&
+    t.likes[0].text.includes('four words');
+})());
+check('taste: rating the same message again clears it',
+  RP.rate(tasteState, tasteRoom, kept, 'up') === '' && RP.tasteState(tasteState).likes.length === 0);
+check('taste: a thumb can be moved from one side to the other', (() => {
+  RP.rate(tasteState, tasteRoom, kept, 'up');
+  RP.rate(tasteState, tasteRoom, kept, 'down');
+  const t = RP.tasteState(tasteState);
+  return t.likes.length === 0 && t.dislikes.some(x => x.id === 'k1');
+})());
+check('taste: per-character counts are kept for the panel', (() => {
+  const score = RP.tasteFor(tasteState, 'sans');
+  return score.up >= 1 && score.down >= 1;
+})());
+RP.rate(tasteState, tasteRoom, kept, 'up');
+const tasteText = RP.tasteBlock(tasteState, tasteRoom);
+check('taste: the model is shown both piles, as instructions about its own writing',
+  tasteText.includes('WHAT THIS READER KEEPS') && tasteText.includes('Write more like them') &&
+  tasteText.includes('Do not write like this again') && tasteText.includes('four words'));
+check('taste: the length signal is derived from what was kept',
+  /run about \d+ words/.test(tasteText) && /do not pad/i.test(tasteText));
+check('taste: it reaches the system prompt', RP.systemFor(tasteState, tasteRoom, sans).includes('WHAT THIS READER KEEPS'));
+check('taste: an unrated reader gets no block at all', RP.tasteBlock(RP.blankState(), tasteRoom) === '');
+check('taste: only the last ten of each side are kept', (() => {
+  for (let i = 0; i < 20; i++) {
+    RP.rate(tasteState, tasteRoom, { id: 'x' + i, role: 'char', charId: 'sans', text: 'turn ' + i }, 'up');
+  }
+  return RP.tasteState(tasteState).likes.length === RP.TASTE_KEEP;
+})());
+check('taste: it survives a save and travels in the bundle', (() => {
+  RP.saveState(store, tasteState);
+  const round = RP.loadState(store);
+  const bundle = RP.exportBundle(tasteState, { chats: false, memory: false, user: false });
+  const target = RP.blankState();
+  RP.importBundle(target, bundle, 'merge');
+  return RP.tasteState(round).likes.length > 0 && bundle.taste && RP.tasteState(target).likes.length > 0;
+})());
+check('taste: excerpts from the people in this room come first', (() => {
+  const other = RP.newRoom([rebel], {});
+  RP.rate(tasteState, other, { id: 'r1', role: 'char', charId: 'rebel_scout', text: 'A line from somebody else entirely.' }, 'up');
+  const block = RP.tasteBlock(tasteState, other, 2);
+  return block.includes('somebody else entirely');
+})());
+
 // ---------- generated pages are in sync with these sources ----------
 let built = true;
 try {

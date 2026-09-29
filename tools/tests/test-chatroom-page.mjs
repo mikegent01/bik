@@ -487,6 +487,65 @@ check('commentary: finished episodes are kept and can be reopened',
   $('homeBtn').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
 }
 
+// ---- LM Studio directly, with no workflow server in the way ----
+{
+  $('settingsBtn').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+  check('endpoint: the settings offer LM Studio and the workflow server as presets',
+    Boolean($('setLm')) && Boolean($('setWf')) && Boolean($('setTest')) && Boolean($('f_model')));
+  $('setLm').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+  check('endpoint: the LM Studio preset fills in its usual address',
+    $('f_endpoint').value === 'http://127.0.0.1:1234/v1');
+  // Point it at the mock, which speaks the same OpenAI API LM Studio does.
+  $('f_endpoint').value = `http://127.0.0.1:${MOCK_PORT}/v1`;
+  $('setTest').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+  const probed = await until('the endpoint test to answer', () => /answering/.test($('setState').textContent), 40);
+  check('endpoint: “Test it” reports what answered and names the model',
+    probed && /model/.test($('setState').textContent));
+  $('mOk').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+  await wait(300);
+  check('endpoint: the choice and the model name are saved',
+    savedState().settings.endpoint.includes('/v1') && Boolean(savedState().settings.model));
+
+  doc.querySelector('[data-char]').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+  await wait(200);
+  $('input').value = 'Testing the OpenAI route.';
+  $('composer').dispatchEvent(new win.Event('submit', { bubbles: true, cancelable: true }));
+  await until('a reply over the OpenAI API', () => !doc.querySelector('.typing'), 60);
+  await wait(300);
+  const lmRoom = savedState().rooms.find(x => x.id === savedState().active);
+  const lmReply = lmRoom.messages.filter(m => m.role === 'char').pop();
+  check('endpoint: a turn goes straight to the OpenAI API and comes back',
+    lmReply && !lmReply.error && /MOCK-MODEL REPLY/.test(lmReply.text));
+
+  // ---- 👍 / 👎 are fed back into the prompt ----
+  const thumb = doc.querySelector('[data-react="up"]');
+  thumb.dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+  check('taste: a thumb is recorded as an excerpt, not just a colour',
+    (savedState().taste.likes || []).length === 1);
+  check('taste: the excerpt reaches the system prompt', (() => {
+    const block = win.RP.tasteBlock(savedState(), lmRoom);
+    return block.includes('WHAT THIS READER KEEPS') && block.includes('Write more like them');
+  })());
+  check('taste: the panel lists what has been kept and thrown away', (() => {
+    $('panelBtn').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+    const has = Boolean($('cpTaste'));
+    if (has) {
+      $('cpTaste').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+      const shown = $('modal').textContent.includes('What the model has been told you like');
+      $('mCancel').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+      return shown;
+    }
+    return false;
+  })());
+  // put the endpoint back for the rest of the suite
+  $('settingsBtn').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+  $('setWf').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+  $('f_endpoint').value = `http://127.0.0.1:${SERVER_PORT}/api/roleplay`;
+  $('mOk').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+  await wait(200);
+  $('homeBtn').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+}
+
 // ---- the importer takes whatever shape the file is in ----
 {
   const RP = win.RP;
@@ -505,8 +564,16 @@ check('commentary: finished episodes are kept and can be reopened',
   })());
   check('import: a byte-order mark no longer makes a card "invalid"',
     RP.sniffImport(asBytes('\uFEFF' + realV1)).kind === 'card');
-  check('import: a JSONL chat log is read as turns, not refused',
-    RP.sniffImport(asBytes('{"user_name":"You"}\n{"name":"Promo Mario","is_user":false,"mes":"Rolling."}')).kind === 'chatlog');
+  const realLog = [
+    '{"user_name":"You","character_name":"Promo Mario","create_date":1790725127298}',
+    '{"name":"Promo Mario","is_user":false,"is_name":true,"send_date":1790725127298,"mes":"*Mario would be reading a book.*"}',
+    '{"name":"You","is_user":true,"is_name":true,"send_date":1790725127299,"mes":"I stare at the screen."}',
+  ].join('\n');
+  check('import: the uploaded chat export shape is read as turns, not refused', (() => {
+    const found = RP.sniffImport(asBytes(realLog));
+    return found.kind === 'chatlog' && found.turns.length === 2 &&
+      found.turns[0].who === 'Promo Mario' && found.turns[1].who === '';
+  })());
   check('import: a plain PNG and a truncated file each get their own explanation', (() => {
     const png = new Uint8Array([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a, 0, 0, 0, 0, 73, 69, 78, 68, 0, 0, 0, 0]);
     return RP.sniffImport(png).kind === 'png-plain' && RP.sniffImport(asBytes('{"half')).kind === 'json-broken';

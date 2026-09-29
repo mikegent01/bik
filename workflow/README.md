@@ -192,6 +192,15 @@ memory, lore, replay, backups — is documented in
   writes the card into their own filed portrait, so the file is a picture and
   a card at once; the archive's fields ride along under
   `extensions.waluipedia`.
+- **LM Studio without this server.** The page detects an OpenAI-style
+  endpoint (`…/v1`) and calls `\/chat/completions` directly, so LM Studio on
+  127.0.0.1:1234 works on its own — ⚙ has presets for both, a Test button,
+  and the model name fills itself in. With nothing configured the page looks
+  for LM Studio by itself before complaining. (LM Studio needs *Enable CORS*
+  on in its Developer tab.)
+- **👍 / 👎 steer the writing.** Each rating keeps an excerpt; the excerpts go
+  into later prompts as "write more like these, never like those", with the
+  target length derived from what was kept.
 - **One importer for every shape.** v1 cards, v2 cards, PNG cards, JSONL and
   JSON chat logs, chatroom bundles and plain transcripts all go through the
   same sniffing step, which strips byte-order marks, accepts bytes or text,
