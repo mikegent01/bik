@@ -585,6 +585,8 @@ window.CHATROOM_CONFIG = {
   wireProfilesUrl: '',
   collectionsUrl: '/api/collections',
   archiveUrl: '/api/archive',
+  saveUrl: '/api/chatroom-save',
+  savesUrl: '/api/chatroom-saves',
   replyUrl: '/api/roleplay',
   suggestUrl: '/api/suggest-cast',
   healthUrl: '/api/health',
@@ -2566,6 +2568,93 @@ window.CHATROOM_CONFIG = {
 
 
 
+
+  /** A card's greeting, as the scene's opening message. */
+  RP.cardGreeting = function (char, which) {
+    var card = (char && char.card) || {};
+    var all = [card.first_mes].concat(card.alternate_greetings || []).filter(Boolean);
+    if (!all.length) return '';
+    var at = Math.max(0, Math.min(all.length - 1, which || 0));
+    return clip(all[at], 1400);
+  };
+
+  /** Fold imported turns into a chat that is already running. The turns are
+   *  appended, not replaced: an import is the story so far, and play carries
+   *  on from the bottom of it. */
+  RP.appendTranscript = function (room, turns, opts) {
+    opts = opts || {};
+    var added = 0;
+    (turns || []).forEach(function (t) {
+      var who = (room.cast || []).filter(function (c) {
+        var name = c.name.toLowerCase(), said = String(t.who || '').toLowerCase();
+        return said && (name === said || name.indexOf(said) >= 0 || said.indexOf(name) >= 0);
+      })[0];
+      var at = Date.now() - ((turns.length - added) * 1000);
+      if (!who) {
+        room.messages.push({ id: uid(), role: 'user', text: t.text, at: at, imported: true });
+      } else {
+        room.messages.push({
+          id: uid(), role: 'char', charId: who.id, text: t.text, at: at,
+          alts: [t.text], alt: 0, imported: true,
+        });
+      }
+      added++;
+    });
+    if (added) {
+      room.updated = Date.now();
+      if (opts.divider) {
+        // A note in the stream so the seam between imported and played is
+        // visible later, when nobody remembers which was which.
+        room.messages.splice(room.messages.length - added, 0, {
+          id: uid(), role: 'scene', at: Date.now(), imported: true,
+          text: '— ' + added + ' imported turn' + (added === 1 ? '' : 's') +
+            (opts.source ? ' from ' + clip(opts.source, 60) : '') + ' —',
+        });
+      }
+    }
+    return added;
+  };
+
+  /** Bring a character into a room that is already running. */
+  RP.addToRoom = function (room, char) {
+    if (!char || (room.cast || []).some(function (c) { return c.id === char.id; })) return null;
+    room.cast.push(RP.normChar(char));
+    if (room.cast.length > 1) room.kind = 'group';
+    RP.ensureSheets(room);
+    room.updated = Date.now();
+    return char;
+  };
+
+  /** How much work the lore book has not done yet on a chat — so the page
+   *  can say "this is eleven calls" before it spends them. */
+  RP.backlogFor = function (room, every) {
+    var turns = (room.messages || []).filter(visible).length;
+    var step = Math.max(2, Number(every || 3));
+    var filed = Number(room.bookAt || 0);
+    var pending = Math.max(0, turns - filed);
+    return {
+      turns: turns, filed: filed, pending: pending,
+      calls: Math.floor(pending / step),
+      step: step,
+    };
+  };
+
+  /** The jobs that would catch a chat up, oldest stretch first. */
+  RP.backlogJobs = function (room, every, limit) {
+    var plan = RP.backlogFor(room, every);
+    var turns = (room.messages || []).filter(visible);
+    var jobs = [];
+    for (var at = plan.filed; at + plan.step <= turns.length; at += plan.step) {
+      if (jobs.length >= (limit || 20)) break;
+      jobs.push({
+        key: room.id + ':catchup:' + at,
+        from: at, to: at + plan.step,
+        turns: turns.slice(Math.max(0, at - 1), at + plan.step),
+      });
+    }
+    return jobs;
+  };
+
   /* ------------------------------------------------------------------ *
    * commentary mode — Waluigi and Luigi, at length
    *
@@ -2817,6 +2906,9 @@ window.CHATROOM_CONFIG = {
       version: clip(data.character_version, 20),
     };
     char.look = clip(desc.replace(/\s+/g, ' '), 300);
+    // A card carried inside a PNG brings its own portrait; the caller hands
+    // it in as a data URL so the face survives into every chat.
+    if (card && card.__image) char.image = String(card.__image);
     return char;
   };
 
@@ -4444,7 +4536,10 @@ window.CHATROOM_CONFIG = {
    * storage and small helpers
    * ---------------------------------------------------------------- */
 
-  function save() { RP.saveState(window.localStorage, state); }
+  function save() {
+    RP.saveState(window.localStorage, state);
+    window.setTimeout(autosave, 0);      // never in the way of a render
+  }
   function room() { return (state.rooms || []).filter(function (r) { return r.id === state.active; })[0] || null; }
   function esc(v) { return RP.esc(v); }
 
@@ -5073,6 +5168,82 @@ window.CHATROOM_CONFIG = {
     return html;
   }
 
+  /* ---------------------------------------------------------------- *
+   * saving to disk — localStorage is one cleared cache from gone
+   * ---------------------------------------------------------------- */
+
+  var lastSaveAt = 0;
+
+  function everything() {
+    return RP.exportBundle(state, { chats: true, lore: true, memory: true, user: true });
+  }
+
+  /** Write the whole state to a file beside the server, with backups. */
+  function saveToDisk(name, quiet) {
+    if (!CFG.saveUrl) { toast('No server to save to — use ⬇ Download a backup.'); return Promise.resolve(null); }
+    return window.fetch(CFG.saveUrl, {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name: name || 'chatroom', state: everything() }),
+    }).then(function (res) { return res.json(); }).then(function (out) {
+      if (out.error) throw new Error(out.error);
+      lastSaveAt = Date.now();
+      if (!quiet) toast('💾 Saved to ' + out.saved + ' — ' + Math.round(out.bytes / 1024) + ' KB, ' + out.rooms + ' chats.');
+      renderSaveBadge();
+      return out;
+    }).catch(function (error) {
+      if (!quiet) toast('Could not save to disk: ' + error.message + '. The workflow server has to be running.');
+      return null;
+    });
+  }
+
+  function restoreFromDisk() {
+    if (!CFG.savesUrl) { toast('No server to read from — use ⬆ Restore from a file.'); return; }
+    getJSON(CFG.savesUrl).then(function (data) {
+      var saves = (data && data.saves) || [];
+      if (!saves.length) { toast('Nothing saved to disk yet.'); return; }
+      list('Restore from disk', saves.map(function (row) {
+        return {
+          label: '💾 ' + row.name + ' — ' + row.at + ' · ' + row.rooms + ' chats · ' +
+            row.book + ' book pages · ' + Math.round(row.bytes / 1024) + ' KB',
+          value: row.name,
+        };
+      }), function (name) {
+        getJSON(CFG.saveUrl + '?name=' + encodeURIComponent(name)).then(function (out) {
+          if (!out || !out.state) { toast('That save could not be read.'); return; }
+          openModal('<h3>Restore “' + esc(name) + '”?</h3>' +
+            '<p class="sub">Merging keeps what is in this browser and adds whatever the save has that is missing. ' +
+            'Replacing throws away what is here and takes the file as the truth.</p>' +
+            '<div class="actions"><button class="pill" id="mCancel">Cancel</button>' +
+            '<button class="pill" id="mMerge">Merge</button>' +
+            '<button class="pill danger" id="mOk">Replace</button></div>');
+          $('mCancel').onclick = closeModal;
+          $('mMerge').onclick = function () { closeModal(); applyRestore(out.state, 'merge'); };
+          $('mOk').onclick = function () { closeModal(); applyRestore(out.state, 'replace'); };
+        });
+      });
+    }).catch(function () { toast('The workflow server is not answering.'); });
+  }
+
+  function applyRestore(bundle, mode) {
+    var stats = RP.importBundle(state, bundle, mode);
+    save(); buildBoard(); render();
+    toast('Restored ' + (stats.rooms || 0) + ' chats, ' + (stats.book || 0) + ' book pages.');
+  }
+
+  function renderSaveBadge() {
+    var badge = $('saveBadge');
+    if (!badge) return;
+    badge.textContent = lastSaveAt ? '💾 saved ' + ago(lastSaveAt) : '';
+    badge.hidden = !lastSaveAt;
+  }
+
+  /** Autosave: quiet, throttled, and off unless asked for. */
+  function autosave() {
+    if ((state.settings.autosave || 'off') === 'off' || !CFG.saveUrl) return;
+    if (Date.now() - lastSaveAt < 60000) return;
+    saveToDisk('chatroom', true);
+  }
+
   /** What the model is actually being sent — size, blocks, and the text. */
   function promptInspector() {
     // Works from Labs as well as from inside a chat: the most recent scene
@@ -5264,6 +5435,21 @@ window.CHATROOM_CONFIG = {
     html += '<p class="emptynote">Character cards, stories in and out, perspective replay, memory inspection, and backups.</p>';
 
     // Cards and plain text: the formats everything else in this hobby uses.
+    // Somewhere to put the state that is not the browser's cache.
+    html += '<div class="sec-head"><h2>Keeping it</h2></div>' +
+      '<p class="emptynote">Everything lives in this browser’s storage, and a cleared cache takes it with it. ' +
+      '<b>Save to disk</b> writes the whole state — chats, memory, lore book, cards, episodes — as a real file ' +
+      'beside the workflow server (<code>workflow/saves/</code>), keeping the last ten versions behind it. ' +
+      'Autosave does the same quietly, at most once a minute. The download is the same bundle if you would rather ' +
+      'keep it yourself.</p>' +
+      '<div class="castbar">' +
+      '<button class="pill primary" id="diskSave">💾 Save to disk</button>' +
+      '<button class="pill" id="diskRestore">📂 Restore from disk</button>' +
+      '<button class="pill' + ((state.settings.autosave || 'off') === 'on' ? ' primary' : '') + '" id="diskAuto">' +
+        ((state.settings.autosave || 'off') === 'on' ? '⏱ Autosave is on' : '⏱ Autosave is off') + '</button>' +
+      '<span class="chip" id="saveBadge" hidden></span>' +
+      '</div>';
+
     html += '<div class="sec-head"><h2>Character cards &amp; stories</h2></div>' +
       '<p class="emptynote">Character cards are read and written in the usual format: <b>PNG</b> with the card in its ' +
       '<code>chara</code> chunk (SillyTavern, Chub, Agnai) and <b>JSON</b> v2 with the v1 fields alongside. Exporting an ' +
@@ -5272,7 +5458,7 @@ window.CHATROOM_CONFIG = {
       '<div class="castbar">' +
       '<button class="pill" id="cardImport">📇 Import a card (.png / .json)</button>' +
       '<button class="pill" id="cardExport">📤 Export a character as a card</button>' +
-      '<button class="pill" id="textImport">📥 Import a story (paste or .txt)</button>' +
+      '<button class="pill" id="textImport">📥 Import a story (into a chat, or a new one)</button>' +
       '<button class="pill" id="briefExport">✍️ Story brief for a writing model</button>' +
       '</div>';
 
@@ -5521,6 +5707,15 @@ window.CHATROOM_CONFIG = {
         if (episode && episode.id === b.dataset.epikill) episode = null;
         save(); renderDash();
       };
+    });
+    on('diskSave', function () { saveToDisk('chatroom'); });
+    on('diskRestore', restoreFromDisk);
+    on('diskAuto', function () {
+      state.settings.autosave = (state.settings.autosave || 'off') === 'off' ? 'on' : 'off';
+      save(); renderDash();
+      toast(state.settings.autosave === 'on'
+        ? 'Autosave on — the whole state is written to disk at most once a minute.'
+        : 'Autosave off.');
     });
     on('promptPeek', promptInspector);
     on('cardImport', importCard);
@@ -5817,29 +6012,77 @@ window.CHATROOM_CONFIG = {
    * character cards — the PNG/JSON format the rest of the world uses
    * ---------------------------------------------------------------- */
 
-  /** Import a .json or .png card (v1 or v2) as a playable guest. */
-  function importCard() {
+  /** A PNG card is also a portrait. Shrink it so a 200 KB face does not eat
+   *  the browser's storage, and hand back a data URL. */
+  function shrinkImage(bytes, size) {
+    return new Promise(function (done) {
+      var url = URL.createObjectURL(new Blob([bytes], { type: 'image/png' }));
+      var img = new window.Image();
+      img.onload = function () {
+        try {
+          var side = Math.min(size || 256, Math.max(img.width, img.height));
+          var canvas = document.createElement('canvas');
+          canvas.width = side; canvas.height = side;
+          var ctx = canvas.getContext('2d');
+          if (!ctx) throw new Error('no canvas');
+          // Square crop from the middle: portraits are shown in circles.
+          var cut = Math.min(img.width, img.height);
+          ctx.drawImage(img, (img.width - cut) / 2, (img.height - cut) / 2, cut, cut, 0, 0, side, side);
+          done(canvas.toDataURL('image/png'));
+        } catch (e) { done(''); }
+        URL.revokeObjectURL(url);
+      };
+      img.onerror = function () { URL.revokeObjectURL(url); done(''); };
+      img.src = url;
+    });
+  }
+
+  /** Import a .json or .png card (v1 or v2). The PNG's own picture becomes
+   *  the portrait, and you choose whether they join the cast or walk into
+   *  the chat you already have open. */
+  function importCard(intoRoom) {
     pickFile('.png,.json,application/json,image/png', 'bytes', function (bytes, file) {
-      var char = null;
+      var raw = null, art = Promise.resolve('');
       if (RP.isPng(bytes)) {
-        char = RP.cardFromPng(bytes);
-        if (!char) { toast('That PNG has no character card in it.'); return; }
+        var text = RP.pngText(bytes);
+        var encoded = text.chara || text.Chara || text.ccv3 || '';
+        if (!encoded) { toast('That PNG has no character card in it.'); return; }
+        try { raw = JSON.parse(RP.b64decode(encoded)); }
+        catch (e) { toast('That PNG’s card could not be read.'); return; }
+        art = shrinkImage(bytes, 256);          // the card art is the portrait
       } else {
-        try { char = RP.parseCharacterCard(JSON.parse(new TextDecoder().decode(bytes))); }
+        try { raw = JSON.parse(new TextDecoder().decode(bytes)); }
         catch (e) { toast('That file is not a character card.'); return; }
       }
-      if (!char) { toast('No character found in that file.'); return; }
-      state.newChars = (state.newChars || []).filter(function (c) { return c.id !== char.id; });
-      state.newChars.unshift(char);
-      castById[char.id] = char;
-      cast = cast.concat([char]);
-      RP.logEvent(state, { kind: 'roster', chars: [char.id], text: 'Imported the character card “' + char.name + '” from ' + (file.name || 'a file') + '.' });
-      // Their card's scenario and greeting are lore the moment they arrive.
-      if (char.card && char.card.scenario) {
-        RP.bookAdd(state, { kind: 'fact', name: char.name + ' — card scenario', text: char.card.scenario, source: 'you' });
-      }
-      save(); render();
-      toast('📇 ' + char.name + ' imported. They are in the cast now.');
+      art.then(function (dataUrl) {
+        if (dataUrl) raw.__image = dataUrl;
+        var char = RP.parseCharacterCard(raw);
+        if (!char) { toast('No character found in that file.'); return; }
+        state.newChars = (state.newChars || []).filter(function (c) { return c.id !== char.id; });
+        state.newChars.unshift(char);
+        castById[char.id] = char;
+        cast = cast.filter(function (c) { return c.id !== char.id; }).concat([char]);
+        RP.logEvent(state, {
+          kind: 'roster', chars: [char.id],
+          text: 'Imported the character card “' + char.name + '” from ' + (file.name || 'a file') + '.',
+        });
+        if (char.card && char.card.scenario) {
+          RP.bookAdd(state, { kind: 'fact', name: char.name + ' — card scenario', text: char.card.scenario, source: 'you' });
+        }
+        var open = intoRoom || room();
+        if (open) {
+          RP.addToRoom(open, char);
+          var greeting = RP.cardGreeting(char);
+          if (greeting) {
+            open.messages.push({ id: RP.uid(), role: 'char', charId: char.id, text: greeting, at: Date.now(), alts: [greeting], alt: 0, imported: true });
+          }
+          save(); render();
+          toast('📇 ' + char.name + ' walked into this chat' + (char.image ? ', portrait and all.' : '.'));
+          return;
+        }
+        save(); render();
+        toast('📇 ' + char.name + ' imported — they are in the cast now.');
+      });
     });
   }
 
@@ -5864,18 +6107,86 @@ window.CHATROOM_CONFIG = {
     }).catch(function () { toast('Could not read the portrait. Exporting JSON instead.'); exportCard(char, false); });
   }
 
-  /** Paste or open a transcript and turn it into a chat. */
-  function importTranscript() {
-    form('Import a story', [
+  /** Paste or open a transcript. It can start a new chat, or be read into
+   *  the one already open so play carries on from the bottom of it. */
+  function importTranscript(opts) {
+    opts = opts || {};
+    var here = opts.into || null;
+    form('Import a story' + (here ? ' into “' + RP.clip(here.sceneName || here.title, 30) + '”' : ''), [
       { k: 'text', label: 'Paste it here — “Name: line” per turn, or plain prose', type: 'area', value: '' },
-      { k: 'title', label: 'Title (optional)', value: '' },
+      { k: 'title', label: here ? 'Where it came from (optional)' : 'Title (optional)', value: '' },
+      { k: 'where', label: 'Where does it go?', type: 'select', value: here ? 'here' : 'new',
+        options: [
+          { value: 'here', label: here ? 'Into this chat — appended, and we carry on from the end' : 'Into the most recent chat' },
+          { value: 'new', label: 'Into a new chat of its own' },
+        ] },
     ], {
-      note: 'Named speakers are matched to the cast; anything unattributed becomes your own turns. You can also pick a .txt or .md file instead of pasting.',
+      note: 'Named speakers are matched to the cast; anything unattributed becomes your own turns. Leave the box ' +
+        'empty and you will be asked for a .txt, .md or .json file instead.',
       ok: 'Read it in',
     }, function (v) {
-      if (!v.text.trim()) { pickFile('.txt,.md,text/plain', 'text', function (text) { buildFromText(text, v.title); }); return; }
-      buildFromText(v.text, v.title);
+      var target = v.where === 'here'
+        ? (here || room() || (state.rooms || []).slice().sort(function (a, b) { return b.updated - a.updated; })[0])
+        : null;
+      if (!v.text.trim()) {
+        pickFile('.txt,.md,.json,text/plain,application/json', 'text', function (text, file) {
+          readStory(text, v.title || (file && file.name), target);
+        });
+        return;
+      }
+      readStory(v.text, v.title, target);
     });
+  }
+
+  /** Text, a chat bundle, or a card file — whatever it is, read it in. */
+  function readStory(text, label, target) {
+    var trimmed = String(text || '').trim();
+    if (/^[[{]/.test(trimmed)) {
+      var parsed = null;
+      try { parsed = JSON.parse(trimmed); } catch (e) { parsed = null; }
+      if (parsed) {
+        // A chat bundle from this page, or another chatroom's export.
+        if (parsed.kind === 'waluipedia-chatroom-bundle' || Array.isArray(parsed.rooms)) {
+          var stats = RP.importBundle(state, parsed, 'merge');
+          save(); render();
+          toast('Imported ' + (stats.rooms || 0) + ' chat' + (stats.rooms === 1 ? '' : 's') + ' and their memory.');
+          return;
+        }
+        // A character card pasted in as text.
+        var carded = RP.parseCharacterCard(parsed);
+        if (carded) {
+          state.newChars = (state.newChars || []).filter(function (c) { return c.id !== carded.id; });
+          state.newChars.unshift(carded);
+          castById[carded.id] = carded;
+          cast = cast.concat([carded]);
+          if (target) {
+            RP.addToRoom(target, carded);
+            var hello = RP.cardGreeting(carded);
+            if (hello) target.messages.push({ id: RP.uid(), role: 'char', charId: carded.id, text: hello, at: Date.now(), alts: [hello], alt: 0, imported: true });
+          }
+          save(); render();
+          toast('📇 ' + carded.name + ' imported.');
+          return;
+        }
+        // Some other JSON: fall through and read it as a transcript.
+      }
+    }
+    var turns = RP.parseTranscript(trimmed, {});
+    if (!turns.length) { toast('Nothing readable in that.'); return; }
+    if (target) {
+      var added = RP.appendTranscript(target, turns, { divider: true, source: label });
+      state.active = target.id;
+      RP.logEvent(state, {
+        kind: 'chat', roomId: target.id, roomTitle: target.title, when: roomDate(target),
+        chars: (target.cast || []).map(function (c) { return c.id; }),
+        text: 'Read ' + added + ' turns into this chat' + (label ? ' from ' + label : '') + '.',
+      });
+      save(); render();
+      offerCatchUp(target);
+      toast('Read in ' + added + ' turns — carry on from the bottom.');
+      return;
+    }
+    buildFromText(trimmed, label);
   }
 
   function buildFromText(text, title) {
@@ -5901,6 +6212,52 @@ window.CHATROOM_CONFIG = {
       save(); render();
       toast('Read in ' + turns.length + ' turns. Carry on from the bottom.');
     });
+  }
+
+  /** After an import there is a backlog. Say what it would cost before
+   *  spending it — a long story is a lot of small calls. */
+  function offerCatchUp(r) {
+    var plan = RP.backlogFor(r, state.settings.bookEvery);
+    if ((state.settings.book || 'on') === 'off' || plan.calls < 2) return;
+    var budget = RP.bookBudgetLeft(state);
+    var calls = Math.min(plan.calls, budget, 20);
+    openModal('<h3>File this into the lore book?</h3>' +
+      '<p class="sub">There are <b>' + plan.pending + ' unfiled turns</b> in this chat. Reading them for places, ' +
+      'people, events and a diary would take about <b>' + plan.calls + ' small calls</b> — one at a time, never ' +
+      'alongside a turn you are playing. You have ' + budget + ' left in this session’s budget.</p>' +
+      '<p class="sub">Doing it now means the characters remember the imported story. Skipping it costs nothing: ' +
+      'the chat still plays, and new turns get filed as usual.</p>' +
+      '<div class="actions"><button class="pill" id="mCancel">Not now</button>' +
+      '<button class="pill" id="mSome">File the last ' + Math.min(4, calls) + '</button>' +
+      '<button class="pill primary" id="mOk">File all ' + calls + '</button></div>');
+    $('mCancel').onclick = closeModal;
+    $('mSome').onclick = function () { closeModal(); catchUp(r, Math.min(4, calls), true); };
+    $('mOk').onclick = function () { closeModal(); catchUp(r, calls, false); };
+  }
+
+  /** Queue the backlog. The worker already runs one job at a time and stops
+   *  at the budget, so this only has to fill the queue in order. */
+  function catchUp(r, calls, fromTheEnd) {
+    var jobs = RP.backlogJobs(r, state.settings.bookEvery, 40);
+    if (fromTheEnd) jobs = jobs.slice(-calls); else jobs = jobs.slice(0, calls);
+    if (!jobs.length) { toast('Nothing to file.'); return; }
+    jobs.forEach(function (job) {
+      RP.queuePush(state, {
+        key: job.key, kind: 'extract', roomId: r.id, roomTitle: r.title, when: roomDate(r),
+        turns: job.turns.map(function (m) {
+          return {
+            who: m.role === 'user' ? (state.user.name || 'You') : charOf(r, m.charId).name,
+            text: RP.textOf(m),
+          };
+        }),
+      });
+    });
+    // Everything queued counts as filed, so the live worker does not do it
+    // again as the chat carries on.
+    r.bookAt = (r.messages || []).filter(RP.visible).length;
+    save(); render();
+    toast('📓 Filing ' + jobs.length + ' stretch' + (jobs.length === 1 ? '' : 'es') + ' in the background.');
+    pumpBook();
   }
 
   /** Continue a played scene: same people, same wounds, no recap. */
@@ -6193,6 +6550,7 @@ window.CHATROOM_CONFIG = {
       menuItem('cpReplay', '🎭', 'Replay', 'Perspective') +
       menuItem('cpScript', '⏱', 'Script', r.beats && r.beats.length ? (r.autoBeats ? 'Auto' : 'Manual') : 'None') +
       menuItem('cpDirector', '🎬', 'Director', state.settings.director === 'off' ? 'Off' : 'On · max ' + (state.settings.maxChain || RP.MAX_CHAIN)) +
+      menuItem('cpImport', '📥', 'Import into this chat', 'story · card') +
       menuItem('cpCard', '📇', 'Character card', 'PNG · JSON') +
       menuItem('cpRename', '✏️', 'Rename chat', RP.clip(r.title, 14)) +
       menuItem('cpDelete', '🗑', 'Delete chat', '') +
@@ -6416,6 +6774,17 @@ window.CHATROOM_CONFIG = {
       });
     });
     on('cpExport', function () { exportMenu(r, c); });
+    on('cpImport', function () {
+      list('Import into “' + RP.clip(r.sceneName || r.title, 36) + '”', [
+        { label: '📥 A story — paste it, or open a .txt / .md / .json file', value: 'story' },
+        { label: '📇 A character card — .png or .json, they walk in and say their greeting', value: 'card' },
+        { label: '📓 File this chat into the lore book (' + RP.backlogFor(r, state.settings.bookEvery).calls + ' calls)', value: 'catchup' },
+      ], function (pick) {
+        if (pick === 'story') { importTranscript({ into: r }); return; }
+        if (pick === 'card') { importCard(r); return; }
+        offerCatchUp(r);
+      });
+    });
     on('cpCard', function () {
       list('Export ' + c.name + ' as a character card', [
         { label: '📇 PNG card — the portrait with the card inside it (SillyTavern, Chub, Agnai)', value: 'png' },

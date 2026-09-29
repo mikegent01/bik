@@ -192,6 +192,19 @@ memory, lore, replay, backups — is documented in
   writes the card into their own filed portrait, so the file is a picture and
   a card at once; the archive's fields ride along under
   `extensions.waluipedia`.
+- **Importing into an open chat.** The character panel's 📥 *Import into this
+  chat* appends a story to the chat you are already in (speakers matched, a
+  divider marking the seam, play carrying on from the bottom) or walks a
+  character card in mid-scene — with the PNG card's own picture cropped and
+  shrunk into their portrait, and their greeting as their first line.
+- **Catching up the lore book.** After an import the page counts the unfiled
+  turns and says what filing them would cost in model calls before spending
+  anything; the work goes through the same one-at-a-time queue and budget.
+- **Saves that outlive the cache.** `POST /api/chatroom-save` writes the whole
+  state to `workflow/saves/` (ten timestamped backups behind it),
+  `GET /api/chatroom-saves` lists them and `GET /api/chatroom-save?name=`
+  reads one back. Labs has Save / Restore / Autosave, and save names are
+  filenames rather than paths.
 - **Stories in and out.** Paste or open a transcript — `Name: line`,
   `**Name:** line`, or prose — and it becomes a playable chat with the
   speakers matched to the cast.

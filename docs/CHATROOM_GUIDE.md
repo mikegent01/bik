@@ -536,6 +536,59 @@ described rather than drawn, with its scenario filed into the lore book.
 **Labs → Character cards & stories** has all of it: import a card, export a
 character, import a story, write a brief.
 
+## Importing into a chat that is already running
+
+An import does not have to start a new chat. **Character panel → 📥 Import
+into this chat** takes:
+
+- **A story** — pasted, or a `.txt` / `.md` / `.json` file. The turns are
+  **appended** to the chat you have open, speakers matched to the cast, a
+  divider filed in the stream saying where the seam is (`— 6 imported turns
+  from an old episode —`), and play carries on from the bottom.
+- **A character card** — `.png` or `.json`. They join the cast of *this*
+  chat, get a state sheet, and say their `first_mes` greeting as their first
+  line. **The card's own picture becomes their portrait** (a PNG card is
+  cropped square and shrunk to 256px so a 200 KB face does not fill the
+  browser's storage).
+- **The backlog** — see below.
+
+A pasted `waluipedia-chatroom-bundle` is recognised too and imported as
+chats, so a whole exported conversation can be dropped straight back in.
+
+## Catching the lore book up on an import
+
+A long import is a lot of unread turns, and filing them costs one small model
+call per stretch — so the page **says what it will cost before spending it**:
+
+```
+There are 42 unfiled turns in this chat. Reading them for places, people,
+events and a diary would take about 14 small calls — one at a time, never
+alongside a turn you are playing. You have 38 left in this session's budget.
+
+            [ Not now ]  [ File the last 4 ]  [ File all 14 ]
+```
+
+The jobs go through the same queue as live filing (one at a time, capped,
+budgeted), overlapping by a turn so nothing falls between two stretches.
+Skipping costs nothing — the chat still plays, and new turns are filed as
+usual.
+
+## Keeping it — saves that outlive the browser cache
+
+`localStorage` is one cleared cache from gone, so **Labs → Keeping it**:
+
+| | |
+|---|---|
+| 💾 **Save to disk** | writes the whole state — chats, memory, lore book, cards, episodes — to `workflow/saves/chatroom.json` beside the server, keeping the last ten timestamped backups |
+| 📂 **Restore from disk** | lists what is on disk with its date, chat count and size; restores by **merge** or **replace** |
+| ⏱ **Autosave** | the same save, quietly, at most once a minute |
+| ⬇ **Download a backup** | the same bundle as a file, if you would rather hold it yourself |
+
+Routes: `POST /api/chatroom-save` (12 MB cap), `GET /api/chatroom-save?name=`,
+`GET /api/chatroom-saves`. Save names are filenames, not paths — a name that
+tries to climb out of the folder is refused. `workflow/saves/` is gitignored:
+it is your play, not the archive's.
+
 ## Text in, text out
 
 `RP.parseTranscript` reads a pasted or uploaded transcript — `Name: line`,

@@ -51,6 +51,10 @@ window.CHATROOM_CONFIG = {
   factionsUrl: 'Reputation-Matrix2/data/factions.json',
   congressUrl: 'Reputation-Matrix2/data/congress.json',
   clockUrl: 'Reputation-Matrix2/data/currentDate.json',
+  // The static build talks to the workflow server for disk saves, the same
+  // way it does for the model.
+  saveUrl: 'http://127.0.0.1:8787/api/chatroom-save',
+  savesUrl: 'http://127.0.0.1:8787/api/chatroom-saves',
   replyUrl: 'http://127.0.0.1:8787/api/roleplay',
   suggestUrl: 'http://127.0.0.1:8787/api/suggest-cast',
   healthUrl: 'http://127.0.0.1:8787/api/health',
@@ -68,6 +72,8 @@ window.CHATROOM_CONFIG = {
   wireProfilesUrl: '',
   collectionsUrl: '/api/collections',
   archiveUrl: '/api/archive',
+  saveUrl: '/api/chatroom-save',
+  savesUrl: '/api/chatroom-saves',
   replyUrl: '/api/roleplay',
   suggestUrl: '/api/suggest-cast',
   healthUrl: '/api/health',

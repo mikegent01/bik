@@ -1972,6 +1972,93 @@
 
 
 
+
+  /** A card's greeting, as the scene's opening message. */
+  RP.cardGreeting = function (char, which) {
+    var card = (char && char.card) || {};
+    var all = [card.first_mes].concat(card.alternate_greetings || []).filter(Boolean);
+    if (!all.length) return '';
+    var at = Math.max(0, Math.min(all.length - 1, which || 0));
+    return clip(all[at], 1400);
+  };
+
+  /** Fold imported turns into a chat that is already running. The turns are
+   *  appended, not replaced: an import is the story so far, and play carries
+   *  on from the bottom of it. */
+  RP.appendTranscript = function (room, turns, opts) {
+    opts = opts || {};
+    var added = 0;
+    (turns || []).forEach(function (t) {
+      var who = (room.cast || []).filter(function (c) {
+        var name = c.name.toLowerCase(), said = String(t.who || '').toLowerCase();
+        return said && (name === said || name.indexOf(said) >= 0 || said.indexOf(name) >= 0);
+      })[0];
+      var at = Date.now() - ((turns.length - added) * 1000);
+      if (!who) {
+        room.messages.push({ id: uid(), role: 'user', text: t.text, at: at, imported: true });
+      } else {
+        room.messages.push({
+          id: uid(), role: 'char', charId: who.id, text: t.text, at: at,
+          alts: [t.text], alt: 0, imported: true,
+        });
+      }
+      added++;
+    });
+    if (added) {
+      room.updated = Date.now();
+      if (opts.divider) {
+        // A note in the stream so the seam between imported and played is
+        // visible later, when nobody remembers which was which.
+        room.messages.splice(room.messages.length - added, 0, {
+          id: uid(), role: 'scene', at: Date.now(), imported: true,
+          text: '— ' + added + ' imported turn' + (added === 1 ? '' : 's') +
+            (opts.source ? ' from ' + clip(opts.source, 60) : '') + ' —',
+        });
+      }
+    }
+    return added;
+  };
+
+  /** Bring a character into a room that is already running. */
+  RP.addToRoom = function (room, char) {
+    if (!char || (room.cast || []).some(function (c) { return c.id === char.id; })) return null;
+    room.cast.push(RP.normChar(char));
+    if (room.cast.length > 1) room.kind = 'group';
+    RP.ensureSheets(room);
+    room.updated = Date.now();
+    return char;
+  };
+
+  /** How much work the lore book has not done yet on a chat — so the page
+   *  can say "this is eleven calls" before it spends them. */
+  RP.backlogFor = function (room, every) {
+    var turns = (room.messages || []).filter(visible).length;
+    var step = Math.max(2, Number(every || 3));
+    var filed = Number(room.bookAt || 0);
+    var pending = Math.max(0, turns - filed);
+    return {
+      turns: turns, filed: filed, pending: pending,
+      calls: Math.floor(pending / step),
+      step: step,
+    };
+  };
+
+  /** The jobs that would catch a chat up, oldest stretch first. */
+  RP.backlogJobs = function (room, every, limit) {
+    var plan = RP.backlogFor(room, every);
+    var turns = (room.messages || []).filter(visible);
+    var jobs = [];
+    for (var at = plan.filed; at + plan.step <= turns.length; at += plan.step) {
+      if (jobs.length >= (limit || 20)) break;
+      jobs.push({
+        key: room.id + ':catchup:' + at,
+        from: at, to: at + plan.step,
+        turns: turns.slice(Math.max(0, at - 1), at + plan.step),
+      });
+    }
+    return jobs;
+  };
+
   /* ------------------------------------------------------------------ *
    * commentary mode — Waluigi and Luigi, at length
    *
@@ -2223,6 +2310,9 @@
       version: clip(data.character_version, 20),
     };
     char.look = clip(desc.replace(/\s+/g, ' '), 300);
+    // A card carried inside a PNG brings its own portrait; the caller hands
+    // it in as a data URL so the face survives into every chat.
+    if (card && card.__image) char.image = String(card.__image);
     return char;
   };
 

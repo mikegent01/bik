@@ -1002,6 +1002,72 @@ check('commentary: episodes ride along in the lore export', (() => {
   return bundle.episodes.length === 1 && target.episodes.length === 1;
 })());
 
+// ---------- importing into a chat that is already running ----------
+const v1Card = {
+  name: 'Promo Mario',
+  description: 'The main host of Nintendo Mania!',
+  personality: 'Cancelled pilot for a gaming news show. The pilot was cancelled after test audiences reacted negatively.',
+  scenario: '',
+  mes_example: '',
+  first_mes: '*Mario would be reading a book, before noticing you watching him.*\n"Oh!- Uh- Hey paisanos!"',
+};
+const promo = RP.parseCharacterCard(Object.assign({ __image: 'data:image/png;base64,AAAA' }, v1Card));
+check('import: a flat v1 card (the format the examples use) reads in whole',
+  promo.name === 'Promo Mario' && promo.description.includes('Nintendo Mania') &&
+  promo.description.includes('test audiences'));
+check('import: the card’s own picture becomes the portrait',
+  promo.image === 'data:image/png;base64,AAAA');
+check('import: the greeting is kept and offered as the opening line',
+  RP.cardGreeting(promo).includes('paisanos') && RP.cardGreeting(promo) === promo.card.first_mes);
+
+const running = RP.newRoom([sans], { title: 'Already going', date: '5 Aethel, 1040 BF' });
+running.messages.push({ id: 'r1', role: 'user', text: 'I was here first.', at: 1 });
+check('import: a character can walk into a chat that is already running', (() => {
+  RP.addToRoom(running, promo);
+  return running.cast.length === 2 && running.kind === 'group' && Boolean(running.states[promo.id]);
+})());
+check('import: adding the same person twice does nothing', RP.addToRoom(running, promo) === null && running.cast.length === 2);
+const appended = RP.appendTranscript(running, RP.parseTranscript([
+  'Promo Mario: The tape is still rolling.',
+  'I look at the camera.',
+  'Promo Mario: Do not look at the camera.',
+].join('\n')), { divider: true, source: 'an old episode' });
+check('import: the story is appended to the chat, not made into a new one',
+  appended === 3 && running.messages.filter(m => RP.visible(m)).length === 4 &&
+  running.messages[running.messages.length - 1].text.includes('Do not look'));
+check('import: imported turns are matched to the cast and marked as imported',
+  running.messages.filter(m => m.imported && m.role === 'char').every(m => m.charId === promo.id) &&
+  running.messages.filter(m => m.imported && m.role === 'user').length === 1);
+check('import: a divider says where the seam is',
+  running.messages.some(m => m.role === 'scene' && /3 imported turns from an old episode/.test(m.text)));
+check('import: the original turn is still first, so play reads in order',
+  RP.historyFor(running, 10)[0].content.includes('I was here first'));
+
+// ---------- the backlog the lore book has not read yet ----------
+const backlog = RP.backlogFor(running, 3);
+check('backlog: it counts what has not been filed, and what that costs',
+  backlog.turns === 4 && backlog.filed === 0 && backlog.pending === 4 && backlog.calls === 1 && backlog.step === 3);
+check('backlog: the jobs cover the chat in order, with one turn of overlap', (() => {
+  const long = RP.newRoom([sans], {});
+  for (let i = 0; i < 12; i++) long.messages.push({ id: 'm' + i, role: i % 2 ? 'char' : 'user', charId: 'sans', text: 'turn ' + i, at: i });
+  const jobs = RP.backlogJobs(long, 3, 20);
+  return jobs.length === 4 && jobs[0].from === 0 && jobs[1].from === 3 &&
+    jobs[1].turns.length === 4 && jobs[3].to === 12;
+})());
+check('backlog: an already-filed chat asks for nothing', (() => {
+  const filed = RP.newRoom([sans], {});
+  for (let i = 0; i < 6; i++) filed.messages.push({ id: 'f' + i, role: 'user', text: 'x', at: i });
+  filed.bookAt = 6;
+  return RP.backlogFor(filed, 3).calls === 0 && RP.backlogJobs(filed, 3, 10).length === 0;
+})());
+check('backlog: the queue cap still applies to a huge import', (() => {
+  const st = RP.blankState();
+  const huge = RP.newRoom([sans], {});
+  for (let i = 0; i < 90; i++) huge.messages.push({ id: 'h' + i, role: 'user', text: 'x', at: i });
+  RP.backlogJobs(huge, 3, 40).forEach(job => RP.queuePush(st, { key: job.key, roomId: huge.id, turns: job.turns }));
+  return RP.bookState(st).queue.length === RP.QUEUE_MAX;
+})());
+
 // ---------- generated pages are in sync with these sources ----------
 let built = true;
 try {

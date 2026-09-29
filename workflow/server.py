@@ -9,6 +9,7 @@ from __future__ import annotations
 import importlib.util
 import json
 import os
+import re
 import threading
 import time
 import urllib.error
@@ -507,6 +508,86 @@ def archive_bundle() -> dict[str, Any]:
     }
 
 
+SAVE_DIR = Path(__file__).resolve().parent / "saves"
+SAVE_MAX_BYTES = 12_000_000        # a chatroom bundle is JSON, not a disk image
+SAVE_KEEP = 10                     # timestamped backups kept beside the live file
+
+
+def _save_path(name: str = "chatroom") -> Path:
+    """A save name is a filename, not a path: no traversal, no surprises."""
+    clean = re.sub(r"[^a-zA-Z0-9_-]+", "-", str(name or "chatroom")).strip("-")[:48] or "chatroom"
+    return SAVE_DIR / f"{clean}.json"
+
+
+def chatroom_save(payload: dict[str, Any]) -> dict[str, Any]:
+    """Write the reader's chatroom state to disk, beside the server.
+
+    localStorage is one cleared cache away from gone. This keeps the same
+    bundle the page exports as a real file on the machine the server runs on,
+    with a handful of timestamped backups behind it.
+    """
+    bundle = payload.get("state")
+    if not isinstance(bundle, dict):
+        raise ValueError("no state to save")
+    body = json.dumps(bundle, ensure_ascii=False, indent=1)
+    if len(body.encode("utf-8")) > SAVE_MAX_BYTES:
+        raise ValueError("that save is too large")
+    SAVE_DIR.mkdir(parents=True, exist_ok=True)
+    path = _save_path(payload.get("name"))
+    if path.exists():
+        stamp = time.strftime("%Y%m%d-%H%M%S")
+        backup = path.with_name(f"{path.stem}.{stamp}.bak.json")
+        try:
+            backup.write_text(path.read_text(encoding="utf-8"), encoding="utf-8")
+        except Exception:  # noqa: BLE001 - a failed backup must not lose the save
+            pass
+        olds = sorted(SAVE_DIR.glob(f"{path.stem}.*.bak.json"))
+        for stale in olds[:-SAVE_KEEP]:
+            try:
+                stale.unlink()
+            except Exception:  # noqa: BLE001
+                pass
+    path.write_text(body, encoding="utf-8")
+    return {
+        "saved": path.name,
+        "bytes": len(body.encode("utf-8")),
+        "at": time.strftime("%Y-%m-%d %H:%M:%S"),
+        "rooms": len(bundle.get("rooms") or []),
+        "where": str(path),
+    }
+
+
+def chatroom_saves() -> dict[str, Any]:
+    """What is on disk, newest first — the live saves, not the backups."""
+    if not SAVE_DIR.is_dir():
+        return {"saves": []}
+    out = []
+    for path in sorted(SAVE_DIR.glob("*.json")):
+        if path.name.endswith(".bak.json"):
+            continue
+        try:
+            stat = path.stat()
+            head = json.loads(path.read_text(encoding="utf-8"))
+        except Exception:  # noqa: BLE001 - a broken file is still worth listing
+            head, stat = {}, path.stat()
+        out.append({
+            "name": path.stem,
+            "bytes": stat.st_size,
+            "at": time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(stat.st_mtime)),
+            "rooms": len(head.get("rooms") or []),
+            "book": len(head.get("book") or []),
+        })
+    out.sort(key=lambda row: row["at"], reverse=True)
+    return {"saves": out}
+
+
+def chatroom_load(name: str) -> dict[str, Any]:
+    path = _save_path(name)
+    if not path.is_file():
+        raise ValueError("no save by that name")
+    return {"name": path.stem, "state": json.loads(path.read_text(encoding="utf-8"))}
+
+
 def suggest_cast(payload: dict[str, Any]) -> dict[str, Any]:
     """Ask the model for an interesting cast for a scene. The candidate list
     comes from the page (optionally filtered by the picker's search box); the
@@ -714,6 +795,16 @@ class Handler(BaseHTTPRequestHandler):
         if parsed.path == "/api/archive":
             json_response(self, archive_bundle())
             return
+        if parsed.path == "/api/chatroom-saves":
+            json_response(self, chatroom_saves())
+            return
+        if parsed.path == "/api/chatroom-save":
+            name = (parse_qs(parsed.query).get("name") or ["chatroom"])[0]
+            try:
+                json_response(self, chatroom_load(name))
+            except Exception as error:  # noqa: BLE001
+                json_response(self, {"error": str(error)}, status=404)
+            return
         if parsed.path.startswith("/rm/"):
             found = serve_static(parsed.path[len("/rm/"):])
             if found:
@@ -756,6 +847,9 @@ class Handler(BaseHTTPRequestHandler):
                 return
             if self.path == "/api/suggest-cast":
                 json_response(self, suggest_cast(payload))
+                return
+            if self.path == "/api/chatroom-save":
+                json_response(self, chatroom_save(payload))
                 return
             if self.path == "/api/agent/cancel":
                 job_id = str(payload.get("job", ""))

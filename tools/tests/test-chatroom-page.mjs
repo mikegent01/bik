@@ -427,6 +427,85 @@ check('commentary: finished episodes are kept and can be reopened',
   doc.querySelectorAll('[data-epiopen]').length >= 1);
 [...doc.querySelectorAll('[data-tab]')].find(b => b.dataset.tab === 'labs').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
 
+// ---- importing into a chat that is already open ----
+{
+  const openRoom = doc.querySelector('[data-room]');
+  openRoom.dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+  const roomId = savedState().active;
+  const before = savedState().rooms.find(x => x.id === roomId).messages.length;
+  $('panelBtn').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+  check('import: the chat panel offers importing into this chat', Boolean($('cpImport')));
+  $('cpImport').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+  [...doc.querySelectorAll('[data-pick]')][0].dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+  check('import: the dialog defaults to “into this chat”', $('f_where').value === 'here');
+  // A flat v1 character card, pasted in — the format in the examples.
+  $('f_text').value = JSON.stringify({
+    name: 'Promo Mario', description: 'The main host of Nintendo Mania!',
+    personality: 'A cancelled pilot who will not admit it.',
+    first_mes: '"Hey paisanos! I am Mario!"',
+  });
+  $('f_where').value = 'here';
+  $('mOk').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+  await wait(400);
+  const withCard = savedState().rooms.find(x => x.id === roomId);
+  check('import: a pasted card joins the chat and says its greeting',
+    withCard.cast.some(c => c.name === 'Promo Mario') &&
+    withCard.messages.some(m => /paisanos/i.test(m.text || '')) &&
+    withCard.messages.length > before);
+  check('import: the room became a group, and the newcomer has a state sheet',
+    withCard.kind === 'group' && Object.values(withCard.states).some(x => x.name === 'Promo Mario'));
+
+  $('cpImport').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+  [...doc.querySelectorAll('[data-pick]')][0].dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+  $('f_text').value = [
+    'Promo Mario: The tape is still rolling.',
+    'I look at the camera.',
+    'Promo Mario: Do not look at the camera.',
+    'I look away.',
+    'Promo Mario: Better.',
+    'I ask about the cut areas.',
+  ].join('\n');
+  $('f_title').value = 'an old episode';
+  $('f_where').value = 'here';
+  $('mOk').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+  await wait(500);
+  const withStory = savedState().rooms.find(x => x.id === roomId);
+  check('import: a story is appended to the same chat, not made into a new one',
+    savedState().active === roomId &&
+    withStory.messages.filter(m => m.imported).length >= 6 &&
+    withStory.messages.some(m => m.role === 'scene' && /imported turns from an old episode/.test(m.text || '')));
+  check('import: the imported speakers are matched to the cast',
+    withStory.messages.some(m => m.imported && m.role === 'char' && /rolling/.test(m.text)));
+  check('import: it offers to file the backlog, and says what it will cost',
+    !$('modalBack').hidden && /unfiled turns/.test($('modal').textContent) && /small calls/.test($('modal').textContent));
+  $('mOk').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+  const filed = await until('the backlog to be filed', () =>
+    ((savedState().book || {}).entries || []).some(e => e.roomId === roomId), 60);
+  check('import: filing the backlog fills the lore book from the imported story', filed);
+  $('homeBtn').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+}
+
+// ---- saving to disk, so a cleared cache is not the end of it ----
+[...doc.querySelectorAll('[data-tab]')].find(b => b.dataset.tab === 'labs').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+check('disk: Labs offers saving, restoring and autosave',
+  Boolean($('diskSave')) && Boolean($('diskRestore')) && Boolean($('diskAuto')) &&
+  $('dashBody').textContent.includes('workflow/saves/'));
+$('diskSave').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+const wrote = await until('the state to reach the disk', async () => {
+  const res = await fetch(`http://127.0.0.1:${SERVER_PORT}/api/chatroom-saves`);
+  const data = await res.json();
+  return (data.saves || []).some(row => row.rooms > 0);
+}, 40);
+check('disk: the whole state is written to a real file beside the server', wrote);
+const listed = await (await fetch(`http://127.0.0.1:${SERVER_PORT}/api/chatroom-saves`)).json();
+check('disk: the save lists its chats, its book pages and its size',
+  listed.saves[0].rooms > 0 && listed.saves[0].bytes > 100 && listed.saves[0].at);
+const roundTrip = await (await fetch(`http://127.0.0.1:${SERVER_PORT}/api/chatroom-save?name=chatroom`)).json();
+check('disk: reading it back gives an importable bundle',
+  roundTrip.state && roundTrip.state.kind === 'waluipedia-chatroom-bundle' && roundTrip.state.rooms.length > 0);
+const traversal = await fetch(`http://127.0.0.1:${SERVER_PORT}/api/chatroom-save?name=../../etc/passwd`);
+check('disk: a save name cannot climb out of the saves folder', traversal.status === 404);
+
 // ---- labs: cards, stories, and what the model is sent ----
 check('labs: character cards and story import/export are offered',
   Boolean($('cardImport')) && Boolean($('cardExport')) && Boolean($('textImport')) && Boolean($('briefExport')) &&
