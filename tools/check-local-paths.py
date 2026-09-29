@@ -10,8 +10,10 @@ import re
 
 root = Path(__file__).resolve().parents[1]
 missing = []
-VIRTUAL_PREFIXES = ("/api/",)
+VIRTUAL_PREFIXES = ("/api/", "/roleplay")
 SERVER_STATIC_PREFIXES = ("/static/",)
+# The workflow server serves the Reputation-Matrix2 tree under /rm/.
+RM_STATIC_PREFIX = "/rm/"
 
 
 def candidate_roots(path: Path) -> list[Path]:
@@ -37,6 +39,10 @@ def local_target_exists(path: Path, value: str) -> bool:
         # The hub server exposes tools/hub/web/* under /static/*.
         name = value.split("/static/", 1)[1]
         return any((base / name).exists() for base in candidate_roots(path))
+    if value.startswith(RM_STATIC_PREFIX):
+        # The workflow server serves files from Reputation-Matrix2/ under /rm/.
+        name = value.split("/rm/", 1)[1]
+        return (root / "Reputation-Matrix2" / name).exists()
     if value.startswith("/"):
         rel = value.lstrip("/")
         return any((base / rel).exists() for base in candidate_roots(path))

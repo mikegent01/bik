@@ -55,6 +55,32 @@ never overwrites it. Deleting asks for confirmation, switches to the next chat
 (or creates a new one), and cannot be undone. Both are blocked while a reply is
 in flight. Chats live in `localStorage`, capped at the 30 most recent.
 
+## Roleplay — characters, scenes, and group chats
+
+`http://127.0.0.1:8787/roleplay` (linked from the assistant's sidebar) is a
+separate page styled like a modern character-chat app: light theme, a sidebar
+of recent chats, a **Discover** grid of character cards, and a chat page with
+a right-hand character panel (New chat / Voice / History / Pinned / Persona /
+Style / Export).
+
+- **The cast is the archive itself.** `/api/characters` serves every character
+  in `characters.json` (portraits included, via `/rm/…` static routes), and
+  `/api/scenes` turns the newest filed events into scene starters — open a
+  roleplay inside a story the wiki already holds, then take it anywhere.
+- **Group chats.** The **👥 Group chat** button (or any scene card) opens a
+  cast picker for 2–6 characters. Characters take turns; click an avatar in
+  the chat to choose who speaks next. Each reply is generated as that
+  character only — the prompt forbids writing the others' lines.
+- **Adding onto stories.** **➤ Continue** moves the scene forward without
+  your input, **Persona** sets who you play, **Style** switches narration
+  (novel / script / casual / archivist), and **⬇ Export transcript** downloads
+  the whole scene as markdown for filing back into the wiki.
+- **Voice** reads messages aloud with the browser's speech synthesis, a
+  stable per-character pitch.
+- Roleplay turns go straight to the model through `POST /api/roleplay` — no
+  agent loop, no repository tools, nothing written. Rooms live in this
+  browser's `localStorage` (capped at 30), same as assistant chats.
+
 ## Routing rules
 
 The runtime makes a deterministic decision before contacting repository tools:
@@ -117,6 +143,16 @@ The fresh page uses only:
 - `POST /api/chat`
 - `GET /api/agent/status?job=...`
 - `POST /api/agent/cancel`
+
+The roleplay page adds:
+
+- `GET /roleplay` — the page itself
+- `GET /api/characters` — the archive cast, with portrait URLs
+- `GET /api/scenes` — the newest filed events as scene starters
+- `GET /rm/<path>` — static files under `Reputation-Matrix2/` (portraits,
+  event plates; path traversal refused)
+- `POST /api/roleplay` — one plain chat completion (system + messages +
+  temperature + max_tokens); no tools, no writes
 
 The model never receives shell access. Repository helpers remain bounded to the
 checkout and are called only by the explicit read/write/image branches.

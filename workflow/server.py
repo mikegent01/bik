@@ -20,9 +20,25 @@ from urllib.parse import parse_qs, urlparse
 
 ROOT = Path(__file__).resolve().parents[1]
 INDEX = Path(__file__).resolve().parent / "index.html"
+ROLEPLAY = Path(__file__).resolve().parent / "roleplay.html"
+RM_ROOT = ROOT / "Reputation-Matrix2"
 AGENT_PATH = ROOT / "Reputation-Matrix2/tools/local-agent/agent_runtime.py"
 DEFAULT_LM = os.environ.get("LM_STUDIO_URL", "")
 MAX_BODY = 2 * 1024 * 1024
+
+# Static types for the archive files the roleplay page borrows (portraits,
+# event plates). Everything else is served as a download-safe octet stream.
+STATIC_TYPES = {
+    ".png": "image/png",
+    ".jpg": "image/jpeg",
+    ".jpeg": "image/jpeg",
+    ".webp": "image/webp",
+    ".gif": "image/gif",
+    ".svg": "image/svg+xml",
+    ".css": "text/css; charset=utf-8",
+    ".js": "text/javascript; charset=utf-8",
+    ".json": "application/json; charset=utf-8",
+}
 
 # LM Studio binds its local server to one of a few common addresses. The env
 # variable always wins; otherwise the first reachable candidate is used.
@@ -104,6 +120,154 @@ def resolve_endpoint(payload_endpoint: Any) -> str:
     if DEFAULT_LM:
         return completions_url(DEFAULT_LM)
     return probe_lm()["default"]
+
+
+ROLEPLAY_TIMEOUT = float(os.environ.get("ROLEPLAY_TIMEOUT_SECONDS", "120"))
+
+
+def lm_completion(endpoint: str, system: str, messages: list[dict[str, Any]],
+                  temperature: float, max_tokens: int) -> str:
+    """One plain chat completion for the roleplay page — no agent loop, no
+    repository tools. One retry with a doubled budget covers a slow local
+    model, mirroring the patience the chat-first runtime already shows."""
+    body = json.dumps({
+        "messages": ([{"role": "system", "content": system}] if system else []) + messages,
+        "temperature": temperature,
+        "max_tokens": max_tokens,
+        "stream": False,
+    }).encode("utf-8")
+    last_error = "model did not answer"
+    for attempt in (1, 2):
+        try:
+            request = urllib.request.Request(
+                endpoint,
+                data=body,
+                headers={"Content-Type": "application/json"},
+                method="POST",
+            )
+            with urllib.request.urlopen(request, timeout=ROLEPLAY_TIMEOUT * attempt) as response:
+                value = json.loads(response.read())
+            choices = value.get("choices", []) if isinstance(value, dict) else []
+            text = choices[0].get("message", {}).get("content", "") if choices else ""
+            if str(text).strip():
+                return str(text)
+            last_error = "the model returned an empty reply"
+        except urllib.error.HTTPError as error:
+            last_error = f"LM Studio answered {error.code}: {error.read()[:180].decode('utf-8', 'replace')}"
+        except Exception as error:  # noqa: BLE001 - surfaced to the page verbatim
+            last_error = f"could not reach the model: {error}"
+    raise ValueError(last_error)
+
+
+def roleplay_reply(payload: dict[str, Any]) -> dict[str, Any]:
+    """Validate and run one roleplay turn. Straight to the model, nothing else."""
+    system = str(payload.get("system", "")).strip()
+    if len(system) > 16000:
+        raise ValueError("system prompt is too long")
+    raw = payload.get("messages", [])
+    if not isinstance(raw, list) or not raw:
+        raise ValueError("messages are required")
+    messages: list[dict[str, Any]] = []
+    for item in raw[-24:]:
+        if not isinstance(item, dict):
+            continue
+        role = str(item.get("role", ""))
+        content = str(item.get("content", ""))
+        if role not in ("user", "assistant") or not content.strip():
+            continue
+        if len(content) > 16000:
+            raise ValueError("a message is too long")
+        messages.append({"role": role, "content": content})
+    if not messages:
+        raise ValueError("no usable messages")
+    try:
+        temperature = float(payload.get("temperature", 0.85))
+    except (TypeError, ValueError):
+        temperature = 0.85
+    temperature = max(0.0, min(1.5, temperature))
+    try:
+        max_tokens = int(payload.get("max_tokens", 700))
+    except (TypeError, ValueError):
+        max_tokens = 700
+    max_tokens = max(64, min(2048, max_tokens))
+    text = lm_completion(resolve_endpoint(payload.get("endpoint")), system, messages,
+                         temperature, max_tokens)
+    return {"text": text}
+
+
+def _clip(value: Any, limit: int) -> str:
+    return " ".join(str(value or "").split())[:limit]
+
+
+def archive_cast() -> dict[str, Any]:
+    """The wiki's own characters, served as the roleplay starter cast."""
+    path = RM_ROOT / "data" / "characters.json"
+    try:
+        records = json.loads(path.read_text(encoding="utf-8"))
+    except Exception as error:  # noqa: BLE001 - the page works without the cast
+        return {"characters": [], "error": f"could not read characters.json: {error}"}
+    if isinstance(records, dict):
+        records = records.get("characters", [])
+    out = []
+    for record in records:
+        if not isinstance(record, dict) or not record.get("name"):
+            continue
+        image = str(record.get("image") or "")
+        out.append({
+            "id": str(record.get("id") or record["name"]),
+            "name": _clip(record.get("name"), 60),
+            "title": _clip(record.get("title"), 90),
+            "race": _clip(record.get("race"), 40),
+            "status": _clip(record.get("status"), 90),
+            "summary": _clip(record.get("summary"), 200),
+            "image": "/rm/" + image if image else "",
+        })
+    out.sort(key=lambda c: c["name"].lower())
+    return {"characters": out}
+
+
+def archive_scenes(limit: int = 12) -> dict[str, Any]:
+    """Newest filed events become scene starters: open a roleplay inside a
+    story the archive already holds, then continue it wherever you like."""
+    path = RM_ROOT / "data" / "events.json"
+    try:
+        records = json.loads(path.read_text(encoding="utf-8"))
+    except Exception as error:  # noqa: BLE001
+        return {"scenes": [], "error": f"could not read events.json: {error}"}
+    if isinstance(records, dict):
+        records = records.get("events", [])
+    picks = [r for r in records if isinstance(r, dict) and r.get("name") and r.get("image")][-limit:]
+    picks.reverse()  # newest filings first
+    out = []
+    for record in picks:
+        image = str(record.get("image") or "")
+        out.append({
+            "id": str(record.get("id") or record.get("name")),
+            "name": _clip(record.get("name"), 70),
+            "summary": _clip(record.get("summary"), 220),
+            "era": _clip(record.get("era"), 60),
+            "date": _clip(record.get("date"), 40),
+            "location": _clip(record.get("location"), 60),
+            "image": "/rm/" + image if image else "",
+        })
+    return {"scenes": out}
+
+
+def serve_static(relative: str) -> tuple[bytes, str] | None:
+    """Serve one file from the Reputation-Matrix2 tree; None means 404."""
+    cleaned = "/".join(part for part in relative.split("/") if part not in ("", ".", ".."))
+    if not cleaned:
+        return None
+    candidate = (RM_ROOT / cleaned).resolve()
+    try:
+        candidate.relative_to(RM_ROOT.resolve())
+    except ValueError:
+        return None
+    if not candidate.is_file():
+        return None
+    suffix = candidate.suffix.lower()
+    kind = STATIC_TYPES.get(suffix, "application/octet-stream")
+    return candidate.read_bytes(), kind
 
 
 def load_runtime():
@@ -208,8 +372,35 @@ class Handler(BaseHTTPRequestHandler):
             self.end_headers()
             self.wfile.write(data)
             return
+        if parsed.path == "/roleplay":
+            data = ROLEPLAY.read_bytes()
+            self.send_response(200)
+            self.send_header("Content-Type", "text/html; charset=utf-8")
+            self.send_header("Content-Length", str(len(data)))
+            self.end_headers()
+            self.wfile.write(data)
+            return
         if parsed.path == "/api/health":
             json_response(self, {"lm_studio": probe_lm(), "runtime": "chat-first"})
+            return
+        if parsed.path == "/api/characters":
+            json_response(self, archive_cast())
+            return
+        if parsed.path == "/api/scenes":
+            json_response(self, archive_scenes())
+            return
+        if parsed.path.startswith("/rm/"):
+            found = serve_static(parsed.path[len("/rm/"):])
+            if found:
+                data, kind = found
+                self.send_response(200)
+                self.send_header("Content-Type", kind)
+                self.send_header("Content-Length", str(len(data)))
+                self.send_header("Cache-Control", "public, max-age=86400")
+                self.end_headers()
+                self.wfile.write(data)
+                return
+            self.send_error(404)
             return
         if parsed.path == "/api/agent/status":
             job_id = parse_qs(parsed.query).get("job", [""])[0]
@@ -224,6 +415,9 @@ class Handler(BaseHTTPRequestHandler):
             payload = read_body(self)
             if self.path == "/api/chat":
                 json_response(self, start_job(payload))
+                return
+            if self.path == "/api/roleplay":
+                json_response(self, roleplay_reply(payload))
                 return
             if self.path == "/api/agent/cancel":
                 job_id = str(payload.get("job", ""))
