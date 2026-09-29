@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="A local, source-grounded Waluipedia chat workspace for character rooms, replay, memory, and lore logs." />
+  <title>Waluipedia Chatrooms</title>
+  <link rel="stylesheet" href="Reputation-Matrix2/app/pages/chatroom/chatroom.css" />
+</head>
+<body class="chatroom-body">
+  <main class="chat-app" aria-label="Waluipedia Chatrooms">
+    <aside class="chat-sidebar" aria-label="Chat navigation">
+      <a class="chat-brand" href="index.html#/home" aria-label="Return to Waluipedia home">
+        <span class="brand-mark" aria-hidden="true">W</span>
+        <span><strong>Waluipedia</strong><small>CHATROOMS</small></span>
+      </a>
+
+      <button class="create-room-button" id="new-room-button" type="button"><span aria-hidden="true">＋</span> New room</button>
+
+      <nav class="chat-nav" aria-label="Workspace sections">
+        <button class="nav-item is-active" type="button" data-action="focus-chat"><span aria-hidden="true">◉</span> Chat</button>
+        <button class="nav-item" type="button" data-action="open-replay"><span aria-hidden="true">◫</span> Replay an event</button>
+        <button class="nav-item" type="button" data-action="focus-memories"><span aria-hidden="true">⌁</span> Shared memories <span class="nav-count" id="memory-count">0</span></button>
+        <button class="nav-item" type="button" data-action="open-import"><span aria-hidden="true">⇧</span> Import archive</button>
+      </nav>
+
+      <label class="room-search">
+        <span class="sr-only">Search rooms</span>
+        <span aria-hidden="true">⌕</span><input id="room-search" type="search" autocomplete="off" placeholder="Search rooms" />
+      </label>
+
+      <div class="room-list-wrap">
+        <p class="rail-label">YOUR ROOMS</p>
+        <div class="room-list" id="room-list" aria-live="polite"></div>
+      </div>
+
+      <div class="sidebar-foot">
+        <p><strong>Local workspace</strong><br />Chats and memories stay in this browser until you export them.</p>
+        <button class="text-button" id="export-all-button" type="button">Export all chats <span aria-hidden="true">↗</span></button>
+      </div>
+    </aside>
+
+    <section class="chat-thread-shell" aria-label="Current room">
+      <header class="thread-header">
+        <button class="mobile-menu" id="mobile-menu-button" type="button" aria-label="Open rooms">☰</button>
+        <div class="thread-title-block">
+          <p class="eyebrow" id="thread-source-label">ARCHIVE CHAT</p>
+          <h1 id="thread-title">Loading room…</h1>
+          <p id="thread-subtitle">Preparing local archive data.</p>
+        </div>
+        <div class="thread-actions">
+          <button class="icon-button" id="rename-room-button" type="button" title="Rename room" aria-label="Rename room">✎</button>
+          <button class="icon-button" id="export-room-button" type="button" title="Export this room" aria-label="Export this room">⇧</button>
+          <button class="icon-button danger" id="delete-room-button" type="button" title="Delete room" aria-label="Delete room">⌫</button>
+        </div>
+      </header>
+
+      <div class="source-strip" id="source-strip" hidden>
+        <span class="source-strip-icon" aria-hidden="true">⌁</span>
+        <span id="source-strip-text"></span>
+        <a id="source-strip-link" href="index.html#/home">Open filing <span aria-hidden="true">↗</span></a>
+      </div>
+
+      <section class="replay-stage" id="replay-stage" hidden aria-labelledby="replay-title">
+        <div class="replay-stage-main">
+          <p class="eyebrow">REPLAY DECK <span class="live-dot">●</span></p>
+          <h2 id="replay-title">Replay</h2>
+          <p class="replay-kicker" id="replay-kicker"></p>
+          <blockquote id="replay-beat"></blockquote>
+          <p class="replay-attribution" id="replay-attribution"></p>
+          <div class="replay-controls">
+            <button class="soft-button" id="replay-back-button" type="button">← Back</button>
+            <span id="replay-progress" aria-live="polite"></span>
+            <button class="soft-button primary-soft" id="replay-next-button" type="button">Next beat →</button>
+          </div>
+        </div>
+        <div class="replay-stage-side">
+          <label for="replay-perspective">View through</label>
+          <select id="replay-perspective"></select>
+          <button class="text-button" id="close-replay-button" type="button">Close replay</button>
+        </div>
+      </section>
+
+      <div class="thread-scroller" id="thread-scroller" tabindex="-1">
+        <div class="thread-empty" id="thread-empty" hidden>
+          <div aria-hidden="true">✦</div>
+          <h2>Begin with the record.</h2>
+          <p>Pick an archive filing, add a character account, or replay a battle from another perspective.</p>
+          <button class="soft-button primary-soft" type="button" data-action="open-replay">Choose a replay</button>
+        </div>
+        <ol class="message-list" id="message-list" aria-live="polite" aria-label="Chat messages"></ol>
+      </div>
+
+      <div class="quick-prompts" id="quick-prompts" aria-label="Suggested prompts">
+        <button type="button" data-prompt="What does the record say happened next?">What happened next?</button>
+        <button type="button" data-prompt="Whose perspective is missing from this account?">Whose perspective is missing?</button>
+        <button type="button" data-prompt="What should we preserve as shared memory?">What should we preserve?</button>
+      </div>
+
+      <form class="composer" id="composer-form">
+        <label class="sr-only" for="composer-input">Message this room</label>
+        <textarea id="composer-input" rows="1" maxlength="3000" placeholder="Message the room…"></textarea>
+        <div class="composer-tools">
+          <button class="composer-add-memory" id="composer-memory-button" type="button" title="Save a shared memory">⌁ <span>Memory</span></button>
+          <span class="compose-hint">Enter to send · Shift+Enter for a new line</span>
+          <button class="send-button" type="submit">Send <span aria-hidden="true">↑</span></button>
+        </div>
+      </form>
+    </section>
+
+    <aside class="room-inspector" aria-label="Room details">
+      <section class="inspector-section account-summary">
+        <div id="room-hero-avatar" class="hero-avatar" aria-hidden="true">W</div>
+        <p class="eyebrow">ACTIVE ROOM</p>
+        <h2 id="inspector-room-title">—</h2>
+        <p id="inspector-room-description">Loading archive room.</p>
+        <button class="soft-button full-width" id="new-chat-from-room-button" type="button">＋ New related room</button>
+      </section>
+
+      <section class="inspector-section">
+        <div class="section-heading"><h2>Cast</h2><button class="text-button" id="edit-cast-button" type="button">Edit</button></div>
+        <div class="cast-list" id="cast-list"></div>
+      </section>
+
+      <section class="inspector-section memories-section" id="memories-panel">
+        <div class="section-heading"><h2>Cross-chat memory</h2><button class="text-button" id="new-memory-button" type="button">Add</button></div>
+        <p class="section-note">Pinned notes are available to every room that includes the linked account.</p>
+        <div class="memory-list" id="memory-list"></div>
+      </section>
+
+      <section class="inspector-section archive-sources">
+        <div class="section-heading"><h2>Archive sources</h2><button class="text-button" id="change-source-button" type="button">Change</button></div>
+        <div id="archive-source-list"></div>
+      </section>
+    </aside>
+  </main>
+
+  <dialog class="chat-dialog" id="room-dialog" aria-labelledby="room-dialog-title">
+    <form method="dialog" class="dialog-card" id="room-form">
+      <div class="dialog-heading"><div><p class="eyebrow">NEW CHATROOM</p><h2 id="room-dialog-title">Set up a room</h2></div><button class="icon-button" type="button" data-close-dialog="room-dialog" aria-label="Close">×</button></div>
+      <label>Room name<input id="room-name-input" required maxlength="80" placeholder="e.g. Cutting Lane Debrief" /></label>
+      <label>Anchor source<select id="room-source-select"></select></label>
+      <fieldset><legend>Invite accounts</legend><p class="section-note">These are archive profiles and filed battle roles, not external sign-ins.</p><div class="account-picker" id="room-cast-picker"></div></fieldset>
+      <div class="dialog-actions"><button class="soft-button" value="cancel" type="button" data-close-dialog="room-dialog">Cancel</button><button class="soft-button primary-soft" type="submit" value="default">Create room</button></div>
+    </form>
+  </dialog>
+
+  <dialog class="chat-dialog" id="replay-dialog" aria-labelledby="replay-dialog-title">
+    <div class="dialog-card replay-library-card">
+      <div class="dialog-heading"><div><p class="eyebrow">REPLAY LIBRARY</p><h2 id="replay-dialog-title">Choose an archived event</h2></div><button class="icon-button" type="button" data-close-dialog="replay-dialog" aria-label="Close">×</button></div>
+      <label class="room-search library-search"><span aria-hidden="true">⌕</span><input id="replay-search" type="search" placeholder="Search events and battles" /></label>
+      <p class="section-note">A replay only moves through filed beats, summaries, and results. It never changes canon.</p>
+      <div class="replay-library" id="replay-library"></div>
+    </div>
+  </dialog>
+
+  <dialog class="chat-dialog" id="memory-dialog" aria-labelledby="memory-dialog-title">
+    <form method="dialog" class="dialog-card" id="memory-form">
+      <div class="dialog-heading"><div><p class="eyebrow">CROSS-CHAT MEMORY</p><h2 id="memory-dialog-title">Save a durable note</h2></div><button class="icon-button" type="button" data-close-dialog="memory-dialog" aria-label="Close">×</button></div>
+      <p class="section-note">This is reader-local context, not a canon filing. Attach it to people in the room so it follows them elsewhere.</p>
+      <label>Memory note<textarea id="memory-text-input" required maxlength="700" rows="5" placeholder="What should the room remember?"></textarea></label>
+      <fieldset><legend>Visible to accounts</legend><div class="account-picker compact" id="memory-cast-picker"></div></fieldset>
+      <div class="dialog-actions"><button class="soft-button" value="cancel" type="button" data-close-dialog="memory-dialog">Cancel</button><button class="soft-button primary-soft" type="submit" value="default">Save memory</button></div>
+    </form>
+  </dialog>
+
+  <input class="sr-only" id="import-input" type="file" accept="application/json,.json" />
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="Reputation-Matrix2/app/pages/chatroom/chatroom.js"></script>
+</body>
+</html>

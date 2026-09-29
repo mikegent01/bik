@@ -53,6 +53,8 @@ def main() -> int:
         ("commentaries", [py, "tools/check-commentaries.py", "--strict"], ROOT),
         ("annotation variety", [py, "tools/check-annotation-variety.py"], ROOT),
         ("boot refs", [py, "tools/check-boot-refs.py"], ROOT),
+        # Reader-local rooms must keep loading real filings without external accounts.
+        ("chatrooms", [py, "tools/check-chatroom.py"], ROOT),
         ("wah notes", [py, "tools/check-wahnotes.py"], ROOT),
         ("freshness", [py, "tools/check-freshness.py"], ROOT),
         ("background blurbs", [py, "tools/check-background.py"], ROOT),

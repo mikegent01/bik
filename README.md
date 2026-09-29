@@ -276,6 +276,7 @@ Seven habits explain nearly every decision in this repository:
 | `index.html` | The Waluipedia shell: router, article renderer, home feed, operator toolkit |
 | `Reputation-Matrix2/data/` | Canonical data — `events.json`, `characters.json`, books, clans, broadcasts |
 | `Reputation-Matrix2/app/pages/standalone/` | Self-contained pages (field journal, simulator, RNN broadcast) |
+| `chatroom.html` + `Reputation-Matrix2/app/pages/chatroom/` | Reader-local chatrooms: source-grounded archive accounts, replay, cross-chat memory, and JSON import/export; guide: `docs/CHATROOMS.md` |
 | `Reputation-Matrix2/app/core/` | Shared renderers, including `rakasha-news.js` (The Blood-Echo broadsheet) |
 | `Reputation-Matrix2/animation_frames/` | Rakasha News Network anchor sprites and title card |
 | `tools/` | Python build scripts and audits (`update-index-home.py`, `build-rnn-broadcast.py`, `check-readability.py`, …) |
@@ -330,6 +331,7 @@ Seven habits explain nearly every decision in this repository:
   [`docs/PROVINCE_CENSUS_GUIDE.md`](docs/PROVINCE_CENSUS_GUIDE.md).
 - **Audit references site-wide** → `python3 tools/check-references.py`
   (dangling ids, missing art; `--strict` to fail on legacy links).
+- **Use the local Chatrooms workspace** → serve `chatroom.html` with `start.py`; it reads the canonical character/event/battle registries but keeps rooms, memories and imports in browser storage. See `docs/CHATROOMS.md`; validate with `python3 tools/check-chatroom.py`.
 - **Run the routine checker set** → `python3 tools/check-all.py` (local paths,
   references, exhibits, investigations, rolls, battles, background blurbs,
   home feed contract, RNN check, Bros sync/test).

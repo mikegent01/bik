@@ -91,6 +91,7 @@ whether any warnings are legacy debt or new work.
 | Holy Midlands Diet | `systems/regal-empire-system.js` | `#/regal-diet` plus standalone page in `app/pages/regal-empire-system/` | Regal Empire legislative chamber, votes, coalitions, Legion responses |
 | WAHwire | `data/wahwire/*.json`, scheduled posts | rendered feeds and reaction panels | WAHwire pages and side panels |
 | Annotations | `data/annotations.json` | inline highlights and Chatter Hub leaderboards | `#/annotations`, highlighted article text |
+| Chatrooms | `data/characters.json`, `data/events.json`, `data/battles.json`, `data/majorBattles.json` | browser-local rooms/memories only; versioned JSON exports are reader data | root `chatroom.html` — account rooms, source-bounded replay, cross-chat memory |
 | Foundry actors/items | lore + shop + hub builders; curated exports in `tools/item sheet examples/` | `.hub-out/` generated drafts | Foundry import JSON |
 
 **Rule:** if a file appears in the generated column, do not hand-edit it unless
@@ -147,6 +148,11 @@ what to create from new data.
   [`gemini.md`](gemini.md).
 - **Annotations** — quote text that exists in the article. Do not use comments
   to add missing facts.
+- **Chatrooms** — `../../chatroom.html` reads existing profiles and filed
+  records but stores user rooms, messages and cross-chat memory only in the
+  reader's browser. It has no external account integration and never writes
+  user chatter into canon. Use `python3 ../tools/check-chatroom.py`; full
+  operation/import-export rules: [`../docs/CHATROOMS.md`](../docs/CHATROOMS.md).
 
 Run the routine checker from the repository root when this systems layer
 changes. For style changes, follow [`../docs/CSS_STYLE_GUIDE.md`](../docs/CSS_STYLE_GUIDE.md)
