@@ -415,6 +415,13 @@ People and bodies are **standing records** and always citable; a filing dated
 after the scene is named in the forbidden list instead; non-canon What-Ifs are
 never offered as a source.
 
+### What the model is sent
+
+**Labs → 🔍 What the model is sent** shows the live system prompt for the most
+recent scene: its total size against the budget, the ten largest blocks with
+their character counts, the full text, and a save button. It is the fastest
+way to see why a small model is struggling.
+
 ### The prompt is budgeted
 
 All of this competes for one context window, so `RP.fitPrompt` assembles the
@@ -464,6 +471,45 @@ replay room keeps the original beats, adds a `PERSPECTIVE REPLAY` block, and
 plays the same hours from the new vantage — the cutters hearing the saws stop,
 not the rebels coming out of the treeline. Opening a replay is itself filed in
 the world log, so the two accounts know about each other.
+
+## Character cards — the format everybody else uses
+
+Cards are read and written in the standard shape, so the chatroom is not an
+island:
+
+| | |
+|---|---|
+| **PNG in / out** | the card JSON, base64'd into a `tEXt` chunk named `chara` — SillyTavern, Chub, Agnai |
+| **JSON in / out** | `chara_card_v2` (`spec_version: 2.0`) with the v1 flat fields alongside, so old tools still read it |
+
+Exporting an archive character writes the card **into their own filed
+portrait**, so the file is a picture and a card at once (the PNG writer adds a
+correctly-CRC'd chunk before `IEND`, leaving the image intact). The archive's
+own fields — id, race, affiliation, status, standing, key events — ride along
+under `extensions.waluipedia`, and an imported card joins the cast as a guest,
+described rather than drawn, with its scenario filed into the lore book.
+
+**Labs → Character cards & stories** has all of it: import a card, export a
+character, import a story, write a brief.
+
+## Text in, text out
+
+`RP.parseTranscript` reads a pasted or uploaded transcript — `Name: line`,
+`**Name:** line`, or plain prose — matches the speakers to the cast, treats
+anything unattributed as your own turns, and opens it as a playable chat you
+can carry on from the bottom. Every chat exports as plain text as well.
+
+## Exports, for four different readers
+
+**Character panel → ⬇** offers:
+
+| | |
+|---|---|
+| ✍️ **Story brief** | trimmed for a writing model: who, when, the situation, the beats that fired, the turns, where everyone ended up, what the scene established — and **nothing else**. No ids, no swipe alternatives, no error notices, no state pills, no settings. A long chat is cut in the middle rather than truncated at the end, so the ending survives |
+| 📦 **Full chat** | a `waluipedia-chatroom-bundle` another chatroom imports: the room, its memory, lore, book pages and invented characters |
+| 📄 **Transcript** | markdown, for filing into the wiki |
+| 📝 **Plain text** | just the turns |
+| 📇 **Character card** | PNG or JSON, as above |
 
 ## Import / export
 

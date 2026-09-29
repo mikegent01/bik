@@ -656,6 +656,32 @@
     return html;
   }
 
+  /** What the model is actually being sent — size, blocks, and the text. */
+  function promptInspector() {
+    // Works from Labs as well as from inside a chat: the most recent scene
+    // is the one whose prompt anybody wants to see.
+    var r = room() || (state.rooms || []).slice().sort(function (a, b) { return b.updated - a.updated; })[0];
+    if (!r) { toast('Play something first — the prompt is built per scene.'); return; }
+    var speaker = RP.nextSpeaker(r);
+    var recent = RP.historyFor(r, 4).map(function (m) { return m.content; }).join(' ');
+    var found = RP.citableFor(archiveIndex, r, state, { query: recent + ' ' + (r.scene || ''), limit: 8 });
+    var system = RP.systemFor(state, r, speaker, { archive: archive, citations: RP.citationBlock(found) });
+    var blocks = system.split('\n\n').map(function (b) {
+      return { head: RP.clip(b.split('\n')[0], 60), size: b.length };
+    }).sort(function (a, b) { return b.size - a.size; }).slice(0, 10);
+    openModal('<h3>What the model is sent</h3>' +
+      '<p class="sub">' + system.length + ' characters of system prompt, budget ' + RP.PROMPT_BUDGET +
+      '. Reference material is trimmed before the scene’s own instructions ever are.</p>' +
+      '<div class="castbar">' + blocks.map(function (b) {
+        return '<span class="chip">' + esc(b.head) + ' · ' + b.size + '</span>';
+      }).join('') + '</div>' +
+      '<textarea readonly rows="14" style="width:100%">' + esc(system) + '</textarea>' +
+      '<div class="actions"><button class="pill" id="mCancel">Close</button>' +
+      '<button class="pill" id="mCopy">⬇ Save it</button></div>');
+    $('mCancel').onclick = closeModal;
+    $('mCopy').onclick = function () { download('prompt.txt', system); };
+  }
+
   function renderFeed() {
     var KINDS = ['all', 'chat', 'beat', 'pin', 'note', 'whatif', 'backfill', 'roster', 'lore', 'replay', 'wire'];
     var log = (state.log || []).filter(function (e) {
@@ -706,8 +732,22 @@
   }
 
   function renderLabs() {
-    var html = '<div class="sec-head"><h2>Labs</h2><span class="grow"></span></div>';
-    html += '<p class="emptynote">Perspective replay, memory inspection, and backups.</p>';
+    var html = '<div class="sec-head"><h2>Labs</h2><span class="grow"></span>' +
+      '<button class="pill" id="promptPeek">🔍 What the model is sent</button></div>';
+    html += '<p class="emptynote">Character cards, stories in and out, perspective replay, memory inspection, and backups.</p>';
+
+    // Cards and plain text: the formats everything else in this hobby uses.
+    html += '<div class="sec-head"><h2>Character cards &amp; stories</h2></div>' +
+      '<p class="emptynote">Character cards are read and written in the usual format: <b>PNG</b> with the card in its ' +
+      '<code>chara</code> chunk (SillyTavern, Chub, Agnai) and <b>JSON</b> v2 with the v1 fields alongside. Exporting an ' +
+      'archive character writes the card into their own filed portrait, so the file is a picture and a card at once. ' +
+      'Stories go in and out as plain text too.</p>' +
+      '<div class="castbar">' +
+      '<button class="pill" id="cardImport">📇 Import a card (.png / .json)</button>' +
+      '<button class="pill" id="cardExport">📤 Export a character as a card</button>' +
+      '<button class="pill" id="textImport">📥 Import a story (paste or .txt)</button>' +
+      '<button class="pill" id="briefExport">✍️ Story brief for a writing model</button>' +
+      '</div>';
 
     html += '<div class="sec-head"><h2>Perspective dynamic replay</h2></div>' +
       '<p class="emptynote">Re-run a chat or a filed session from another vantage point: the beats stay on their script while a new cast plays the same hours from where <em>they</em> stood — the timber-cutters watching the rebels come out of the treeline, not the rebels.</p>';
@@ -890,6 +930,25 @@
     on('loreAdd', function () { loreForm(null); });
     on('loreExport', function () { download('waluipedia-lore.json', JSON.stringify(RP.exportBundle(state, { chats: false, memory: false, user: false }), null, 2)); });
     on('loreImport', function () { importFile('merge'); });
+    on('promptPeek', promptInspector);
+    on('cardImport', importCard);
+    on('cardExport', function () {
+      castPicker({ title: 'Export as a character card', note: 'Pick one — the export writes their card into their own portrait.', suggest: false },
+        function (chosen) { exportCard(chosen[0], true); });
+    });
+    on('textImport', importTranscript);
+    on('briefExport', function () {
+      var rooms = (state.rooms || []).slice(0, 20);
+      if (!rooms.length) { toast('Play something first.'); return; }
+      list('Which chat?', rooms.map(function (r) {
+        return { label: r.title + ' — ' + RP.counter(r) + ' turns', value: r.id };
+      }), function (id) {
+        var r = rooms.filter(function (x) { return x.id === id; })[0];
+        var brief = RP.storyBrief(state, r, {});
+        download(RP.slug(r.title) + '.brief.md', brief);
+        toast('Brief written — ' + brief.length + ' characters, fluff removed.');
+      });
+    });
     on('memExport', function () { download('waluipedia-memory.json', JSON.stringify(RP.exportBundle(state, { chats: false, lore: false, user: false }), null, 2)); });
     on('exportAll', function () { download('waluipedia-chatroom.json', JSON.stringify(RP.exportBundle(state, {}), null, 2)); });
     on('exportChats', function () { download('waluipedia-chats.json', JSON.stringify(RP.exportBundle(state, { lore: false, memory: false }), null, 2)); });
@@ -1162,6 +1221,96 @@
     });
   }
 
+  /* ---------------------------------------------------------------- *
+   * character cards — the PNG/JSON format the rest of the world uses
+   * ---------------------------------------------------------------- */
+
+  /** Import a .json or .png card (v1 or v2) as a playable guest. */
+  function importCard() {
+    pickFile('.png,.json,application/json,image/png', 'bytes', function (bytes, file) {
+      var char = null;
+      if (RP.isPng(bytes)) {
+        char = RP.cardFromPng(bytes);
+        if (!char) { toast('That PNG has no character card in it.'); return; }
+      } else {
+        try { char = RP.parseCharacterCard(JSON.parse(new TextDecoder().decode(bytes))); }
+        catch (e) { toast('That file is not a character card.'); return; }
+      }
+      if (!char) { toast('No character found in that file.'); return; }
+      state.newChars = (state.newChars || []).filter(function (c) { return c.id !== char.id; });
+      state.newChars.unshift(char);
+      castById[char.id] = char;
+      cast = cast.concat([char]);
+      RP.logEvent(state, { kind: 'roster', chars: [char.id], text: 'Imported the character card “' + char.name + '” from ' + (file.name || 'a file') + '.' });
+      // Their card's scenario and greeting are lore the moment they arrive.
+      if (char.card && char.card.scenario) {
+        RP.bookAdd(state, { kind: 'fact', name: char.name + ' — card scenario', text: char.card.scenario, source: 'you' });
+      }
+      save(); render();
+      toast('📇 ' + char.name + ' imported. They are in the cast now.');
+    });
+  }
+
+  /** Export as JSON, or as their own portrait with the card inside it. */
+  function exportCard(char, asPng) {
+    var opts = {
+      date: roomDate(room() || {}),
+      greeting: (char.card && char.card.first_mes) || '',
+    };
+    if (!asPng) {
+      download(RP.slug(char.name) + '.card.json', JSON.stringify(RP.toCharacterCard(char, opts), null, 2));
+      return;
+    }
+    var url = imageUrl(char.image);
+    if (!char.image) { toast('No portrait on file — exporting the JSON card instead.'); exportCard(char, false); return; }
+    window.fetch(url).then(function (res) { return res.arrayBuffer(); }).then(function (buffer) {
+      var bytes = new Uint8Array(buffer);
+      var out = RP.cardToPng(bytes, char, opts);
+      if (!out) { toast('That portrait is a JPEG — character cards must be PNG. Exporting JSON instead.'); exportCard(char, false); return; }
+      downloadBytes(RP.slug(char.name) + '.card.png', out, 'image/png');
+      toast('📇 Card written into ' + char.name + '’s portrait.');
+    }).catch(function () { toast('Could not read the portrait. Exporting JSON instead.'); exportCard(char, false); });
+  }
+
+  /** Paste or open a transcript and turn it into a chat. */
+  function importTranscript() {
+    form('Import a story', [
+      { k: 'text', label: 'Paste it here — “Name: line” per turn, or plain prose', type: 'area', value: '' },
+      { k: 'title', label: 'Title (optional)', value: '' },
+    ], {
+      note: 'Named speakers are matched to the cast; anything unattributed becomes your own turns. You can also pick a .txt or .md file instead of pasting.',
+      ok: 'Read it in',
+    }, function (v) {
+      if (!v.text.trim()) { pickFile('.txt,.md,text/plain', 'text', function (text) { buildFromText(text, v.title); }); return; }
+      buildFromText(v.text, v.title);
+    });
+  }
+
+  function buildFromText(text, title) {
+    var turns = RP.parseTranscript(text, {});
+    if (!turns.length) { toast('Nothing readable in that.'); return; }
+    var names = {};
+    turns.forEach(function (t) { if (t.who) names[t.who.toLowerCase()] = true; });
+    var picked = cast.filter(function (c) {
+      return names[c.name.toLowerCase()] || Object.keys(names).some(function (n) { return c.name.toLowerCase().indexOf(n) >= 0; });
+    }).slice(0, 6);
+    castPicker({
+      title: 'Who is in this story?',
+      note: turns.length + ' turns read. The cast below was matched by name — add anyone the text calls by another name.',
+      preselect: picked.map(function (c) { return c.id; }),
+    }, function (chosen) {
+      var built = RP.roomFromTranscript(turns, chosen, {
+        title: title || RP.clip(turns[0].text, 40),
+        sceneName: title || 'Imported story',
+        date: roomDate({}),
+      });
+      pushRoom(built);
+      RP.logEvent(state, { kind: 'chat', roomId: built.id, roomTitle: built.title, when: roomDate(built), chars: chosen.map(function (c) { return c.id; }), text: 'Imported a story of ' + turns.length + ' turns.' });
+      save(); render();
+      toast('Read in ' + turns.length + ' turns. Carry on from the bottom.');
+    });
+  }
+
   /** Continue a played scene: same people, same wounds, no recap. */
   function openSequel(r) {
     if (!r) return;
@@ -1377,6 +1526,30 @@
     wireChat();
   }
 
+  /** Four ways out of a chat, for four different readers. */
+  function exportMenu(r, c) {
+    var brief = RP.storyBrief(state, r, {});
+    list('Export “' + RP.clip(r.title, 40) + '”', [
+      { label: '✍️ Story brief — trimmed for a writing model (' + Math.round(brief.length / 1000) + 'k chars, no ids, no swipes, no noise)', value: 'brief' },
+      { label: '📦 Full chat — JSON another chatroom can import, with memory and lore', value: 'full' },
+      { label: '📄 Transcript — markdown, for filing into the wiki', value: 'md' },
+      { label: '📝 Plain text — just the turns', value: 'txt' },
+      { label: '📇 ' + c.name + ' as a character card', value: 'card' },
+    ], function (pick) {
+      if (pick === 'brief') { download(RP.slug(r.title) + '.brief.md', brief); toast('Trimmed to ' + brief.length + ' characters.'); return; }
+      if (pick === 'full') { download(RP.slug(r.title) + '.chat.json', JSON.stringify(RP.chatExport(state, r), null, 2)); return; }
+      if (pick === 'md') { download(RP.slug(r.title) + '.md', RP.transcript(r)); return; }
+      if (pick === 'txt') {
+        download(RP.slug(r.title) + '.txt', (r.messages || []).filter(RP.visible).map(function (m) {
+          var who = m.role === 'user' ? (state.user.name || 'You') : charOf(r, m.charId).name;
+          return who + ': ' + RP.textOf(m);
+        }).join('\n\n'));
+        return;
+      }
+      if (pick === 'card') { exportCard(c, true); }
+    });
+  }
+
   function openPanelFate() {
     form('Fate', [
       { k: 'fate', label: 'How often does the world push back?', type: 'select', value: state.settings.fate || 'normal',
@@ -1427,6 +1600,7 @@
       menuItem('cpReplay', '🎭', 'Replay', 'Perspective') +
       menuItem('cpScript', '⏱', 'Script', r.beats && r.beats.length ? (r.autoBeats ? 'Auto' : 'Manual') : 'None') +
       menuItem('cpDirector', '🎬', 'Director', state.settings.director === 'off' ? 'Off' : 'On · max ' + (state.settings.maxChain || RP.MAX_CHAIN)) +
+      menuItem('cpCard', '📇', 'Character card', 'PNG · JSON') +
       menuItem('cpRename', '✏️', 'Rename chat', RP.clip(r.title, 14)) +
       menuItem('cpDelete', '🗑', 'Delete chat', '') +
       menuItem('cpFate', '🎲', 'Fate', (state.settings.fate || 'normal') === 'off' ? 'Off — you always succeed' : RP.clip(state.settings.fate, 10)) +
@@ -1648,7 +1822,13 @@
         state.settings.fate = v.fate; save(); render();
       });
     });
-    on('cpExport', function () { download(RP.slug(r.title) + '.md', RP.transcript(r)); });
+    on('cpExport', function () { exportMenu(r, c); });
+    on('cpCard', function () {
+      list('Export ' + c.name + ' as a character card', [
+        { label: '📇 PNG card — the portrait with the card inside it (SillyTavern, Chub, Agnai)', value: 'png' },
+        { label: '📄 JSON card — v2, with v1 fields alongside', value: 'json' },
+      ], function (pick) { exportCard(c, pick === 'png'); });
+    });
     on('cpSettings', settingsForm);
     on('cpUp', function () { toast('Rate individual replies with 👍 under the message.'); });
     on('cpDown', function () { toast('Rate individual replies with 👎 under the message.'); });
@@ -2124,6 +2304,30 @@
   /* ---------------------------------------------------------------- *
    * files
    * ---------------------------------------------------------------- */
+
+  /** Read a file the reader picked, as text or as bytes. */
+  function pickFile(accept, as, done) {
+    var input = document.createElement('input');
+    input.type = 'file';
+    input.accept = accept;
+    input.onchange = function () {
+      var file = input.files && input.files[0];
+      if (!file) return;
+      var reader = new FileReader();
+      reader.onload = function () {
+        done(as === 'bytes' ? new Uint8Array(reader.result) : String(reader.result), file);
+      };
+      if (as === 'bytes') reader.readAsArrayBuffer(file); else reader.readAsText(file);
+    };
+    input.click();
+  }
+
+  function downloadBytes(name, bytes, type) {
+    var url = URL.createObjectURL(new Blob([bytes], { type: type || 'application/octet-stream' }));
+    var a = document.createElement('a');
+    a.href = url; a.download = name; a.click();
+    setTimeout(function () { URL.revokeObjectURL(url); }, 4000);
+  }
 
   function download(name, text) {
     var blob = new Blob([text], { type: /\.json$/.test(name) ? 'application/json' : 'text/markdown' });

@@ -375,6 +375,33 @@ doc.querySelector('[data-logkind="whatif"]').dispatchEvent(new win.MouseEvent('c
 check('feed: filtering by kind narrows it', $('dashBody').textContent.includes('whatif'));
 doc.querySelector('[data-logkind="all"]').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
 
+// ---- labs: cards, stories, and what the model is sent ----
+[...doc.querySelectorAll('[data-tab]')].find(b => b.dataset.tab === 'labs').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+check('labs: character cards and story import/export are offered',
+  Boolean($('cardImport')) && Boolean($('cardExport')) && Boolean($('textImport')) && Boolean($('briefExport')) &&
+  $('dashBody').textContent.includes('chara'));
+$('textImport').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+$('f_text').value = 'Sans: the saws stopped at noon.\n**The Timber Gang:** we heard it from the ridge.\nI step out of the trees.';
+$('f_title').value = 'Read in from text';
+$('mOk').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+check('text: importing a story offers the matched cast', !$('modalBack').hidden && $('modal').textContent.includes('3 turns read'));
+$('mOk').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+check('text: the story becomes a playable chat you can carry on from', (() => {
+  const s = savedState();
+  const r = s.rooms.find(x => x.title === 'Read in from text');
+  return Boolean(r) && r.messages.filter(m => m.role === 'user' || m.role === 'char').length === 3;
+})());
+check('prompt: the inspector reports the size of what is sent', (() => {
+  $('panelBtn').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+  $('homeBtn').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+  [...doc.querySelectorAll('[data-tab]')].find(b => b.dataset.tab === 'labs').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+  $('promptPeek').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+  const shown = $('modal').textContent.includes('characters of system prompt');
+  if (!$('modalBack').hidden) $('mCancel').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+  return shown;
+})());
+[...doc.querySelectorAll('[data-tab]')].find(b => b.dataset.tab === 'discover').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+
 // ---- collections ----
 [...doc.querySelectorAll('[data-tab]')].find(b => b.dataset.tab === 'collections').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
 check('collections: the archive’s own groupings offer a cast in one click',
@@ -420,7 +447,7 @@ check('chat: the right-hand character panel carries the profile and the menu',
   $('charpanel').textContent.includes('New chat') && $('charpanel').textContent.includes('Persona') &&
   $('charpanel').textContent.includes('Pinned') && $('charpanel').textContent.includes('Style') &&
   $('charpanel').innerHTML.includes('By @'));
-check('chat: the recents rail lists every chat', doc.querySelectorAll('[data-room]').length >= 3);
+check('chat: the recents rail lists every chat', doc.querySelectorAll('[data-room]').length >= 4);
 
 // ---- play one turn against the mock model ----
 $('input').value = 'Who is on the ridge tonight?';

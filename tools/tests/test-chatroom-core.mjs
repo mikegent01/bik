@@ -807,6 +807,126 @@ check('cite: irrelevant records are left out — only the people in the room sur
 check('cite: it reaches the system prompt when supplied',
   RP.systemFor(bookState, bookRoom, sans, { citations: RP.citationBlock(cited) }).includes('FILES YOU MAY CITE'));
 
+// ---------- character cards: PNG and JSON, in and out ----------
+const cardChar = RP.normChar({
+  id: 'sans', name: 'Sans', title: 'The watchman on the ridge', race: 'Skeleton',
+  affiliation: 'The concession', status: 'Active — tired',
+  description: 'Watches the logging road, says little, and is never quite where you left him.',
+  summary: 'The watchman on the ridge road.', image: 'portraits/sans.png', keyEvents: ['the_ridge_ambush'],
+});
+const v2 = RP.toCharacterCard(cardChar, { date: '5 Aethel, 1040 BF' });
+check('card: exports as chara_card_v2 with the v1 fields alongside',
+  v2.spec === 'chara_card_v2' && v2.spec_version === '2.0' && v2.data.name === 'Sans' && v2.name === 'Sans' &&
+  v2.description === v2.data.description);
+check('card: the filed dossier becomes the description and the personality',
+  v2.data.description.includes('never quite where you left him') && v2.data.personality.length > 0 &&
+  v2.data.scenario.includes('5 Aethel, 1040 BF'));
+check('card: the archive’s own fields ride along in extensions',
+  v2.data.extensions.waluipedia.id === 'sans' && v2.data.extensions.waluipedia.race === 'Skeleton' &&
+  v2.data.extensions.waluipedia.keyEvents[0] === 'the_ridge_ambush');
+const v1Read = RP.parseCharacterCard({ name: 'Seraphina', description: 'A tall knight in dented plate.', personality: 'stoic', first_mes: 'You are late.' });
+check('card: a v1 card reads back as a playable guest',
+  v1Read.name === 'Seraphina' && v1Read.invented === true && v1Read.card.first_mes === 'You are late.' &&
+  v1Read.description.includes('dented plate'));
+const v2Read = RP.parseCharacterCard(v2);
+check('card: our own v2 export reads back as the same character',
+  v2Read.name === 'Sans' && v2Read.description.includes('never quite where you left him'));
+check('card: a card with no name is refused', RP.parseCharacterCard({ description: 'nobody' }) === null);
+
+// A 1×1 PNG, as bytes.
+const PNG_1PX = Uint8Array.from(Buffer.from(
+  'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==', 'base64'));
+check('png: a PNG is recognised, and other bytes are not',
+  RP.isPng(PNG_1PX) && !RP.isPng(Uint8Array.from([1, 2, 3, 4, 5, 6, 7, 8, 9])));
+const carded = RP.cardToPng(PNG_1PX, cardChar, { date: '5 Aethel, 1040 BF' });
+check('png: the card is written into the portrait, and the PNG still starts as a PNG',
+  carded.length > PNG_1PX.length && RP.isPng(carded));
+check('png: the chunk is a valid tEXt chunk called chara', (() => {
+  const text = RP.pngText(carded);
+  return Boolean(text.chara) && JSON.parse(RP.b64decode(text.chara)).data.name === 'Sans';
+})());
+check('png: the IEND chunk is still last, so viewers can still open it', (() => {
+  const tail = Array.from(carded.slice(-8, -4)).map(b => String.fromCharCode(b)).join('');
+  return tail === 'IEND';
+})());
+check('png: reading the card back gives the character', (() => {
+  const back = RP.cardFromPng(carded);
+  return back && back.name === 'Sans' && back.description.includes('logging road');
+})());
+check('png: a PNG with no card in it yields nothing rather than guessing', RP.cardFromPng(PNG_1PX) === null);
+
+// ---------- text in, text out ----------
+const readIn = RP.parseTranscript([
+  'Sans: the saws stopped at noon.',
+  '**The Timber Gang:** we heard it from the ridge.',
+  'it came from the treeline.',
+  'I step out of the trees with my hands up.',
+].join('\n'));
+check('text: "Name:" and "**Name:**" both parse, and continuation lines join the turn',
+  readIn.length === 3 && readIn[0].who === 'Sans' && readIn[1].who === 'The Timber Gang' &&
+  readIn[1].text.includes('treeline'));
+check('text: an unattributed line is the player', readIn[2].who === '' && readIn[2].text.includes('hands up'));
+const imported = RP.roomFromTranscript(readIn, [sans, cutters], { title: 'Read in' });
+check('text: the turns become a room, matched to the cast',
+  imported.messages.filter(m => m.role === 'char').length === 2 &&
+  imported.messages.filter(m => m.role === 'user').length === 1 &&
+  imported.messages[0].charId === 'sans');
+
+// ---------- exports for a writing model ----------
+const briefRoom = RP.newRoom([sans, cutters], {
+  title: 'The saws stop', sceneName: 'The saws stop', date: '5 Aethel, 1040 BF',
+  scene: 'The ridge road above the concession, first light.',
+  beats: [{ time: 'dawn', beat: 'The saws start' }, { time: 'noon', beat: 'The saws stop' }],
+});
+briefRoom.beatIndex = 1;
+briefRoom.states.sans.hp.value = 40;
+briefRoom.states.sans.flags.bleeding = true;
+briefRoom.messages.push({ id: 'b1', role: 'user', text: 'I take the long way round the stumps.', at: 1 });
+briefRoom.messages.push({ id: 'b2', role: 'char', charId: 'sans', text: 'nobody uses that path twice.', at: 2, alts: ['nobody uses that path twice.', 'a discarded alternative take'], alt: 0 });
+briefRoom.messages.push({ id: 'b3', role: 'char', charId: 'sans', error: true, text: 'The model did not answer', at: 3 });
+briefRoom.messages.push({ id: 'b4', role: 'state', lines: ['Sans −10 HP'], at: 4 });
+state.book = { entries: [{ id: 'p', kind: 'place', name: 'The Stump Path', text: 'A cut-through nobody admits to using.', roomId: briefRoom.id, at: 1 }], queue: [], spent: 0 };
+const brief = RP.storyBrief(state, briefRoom, {});
+check('brief: it opens with who, when and the situation',
+  brief.includes('# The saws stop') && brief.includes('5 Aethel, 1040 BF') && brief.includes('**Sans**') &&
+  brief.includes('The ridge road above the concession'));
+check('brief: the fluff is cut — no ids, no swipes, no error notices, no state pills',
+  !brief.includes('b1') && !brief.includes('discarded alternative take') &&
+  !brief.includes('The model did not answer') && !brief.includes('−10 HP'));
+check('brief: it keeps the played turns, the fired beats, the end state and what was established',
+  brief.includes('nobody uses that path twice') && brief.includes('The saws start') &&
+  brief.includes('HP 40/100') && brief.includes('The Stump Path'));
+check('brief: it ends by telling the writer what the material is for',
+  /Write this up as prose/.test(brief));
+check('brief: a long chat is cut in the middle, not truncated at the end', (() => {
+  const big = RP.newRoom([sans], { title: 'Long' });
+  for (let i = 0; i < 300; i++) big.messages.push({ id: 'x' + i, role: 'user', text: 'A turn of text number ' + i + '. '.repeat(10), at: i });
+  const cut = RP.storyBrief(state, big, { budget: 4000 });
+  return cut.length <= 4200 && cut.includes('cut for length') && cut.includes('Write this up as prose');
+})());
+const full = RP.chatExport(state, briefRoom);
+check('full export: it is an importable bundle carrying the room, its memory, lore and book',
+  full.kind === 'waluipedia-chatroom-bundle' && full.rooms[0].id === briefRoom.id &&
+  Array.isArray(full.book) && Array.isArray(full.newChars));
+check('full export: importing it elsewhere restores the chat', (() => {
+  const target = RP.blankState();
+  const stats = RP.importBundle(target, full, 'merge');
+  return stats.rooms === 1 && target.rooms[0].title === 'The saws stop';
+})());
+
+// ---------- the prompt stays inside the window ----------
+check('prompt: a heavy scene still fits the budget, keeping the instructions', (() => {
+  const heavy = RP.newRoom([sans, cutters, rebel], { date: '5 Aethel, 1040 BF', scene: 'z'.repeat(2000) });
+  const fat = RP.blankState();
+  for (let i = 0; i < 60; i++) RP.bookAdd(fat, { kind: 'place', name: 'Place ' + i, text: 'x'.repeat(400) });
+  const system = RP.systemFor(fat, heavy, sans, {
+    citations: 'FILES YOU MAY CITE\n' + Array.from({ length: 40 }, (_, i) => '- [event:e' + i + '] ' + 'q'.repeat(200)).join('\n'),
+    fate: RP.rollFate(fat, heavy, { force: 'setback' }),
+  });
+  return system.length <= RP.PROMPT_BUDGET && system.includes('STAGE DIRECTIONS') &&
+    system.includes('CHARACTER STATE') && system.includes('HOW THIS TURN RESOLVES') && system.includes('trimmed to fit');
+})());
+
 // ---------- generated pages are in sync with these sources ----------
 let built = true;
 try {

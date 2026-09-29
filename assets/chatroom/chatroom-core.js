@@ -1970,6 +1970,330 @@
 
 
 
+
+  /* ------------------------------------------------------------------ *
+   * character cards — the format everybody else already uses
+   *
+   * SillyTavern/TavernAI cards are JSON (v1 flat, or v2 under `data`) and
+   * PNGs with that JSON base64'd into a tEXt chunk called `chara`. Both
+   * are read here, and both are written: exporting a character as a PNG
+   * takes their actual archive portrait and embeds the card in it, so the
+   * file is a picture AND a card.
+   * ------------------------------------------------------------------ */
+
+  function b64encode(text) {
+    var bytes = new TextEncoder().encode(text), binary = '';
+    for (var i = 0; i < bytes.length; i++) binary += String.fromCharCode(bytes[i]);
+    return btoa(binary);
+  }
+  function b64decode(text) {
+    var binary = atob(String(text).replace(/\s+/g, ''));
+    var bytes = new Uint8Array(binary.length);
+    for (var i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+    return new TextDecoder().decode(bytes);
+  }
+  RP.b64encode = b64encode;
+  RP.b64decode = b64decode;
+
+  /** A character card (v1 or v2) → a playable character of ours. */
+  RP.parseCharacterCard = function (card) {
+    if (!card) return null;
+    var data = card.data && typeof card.data === 'object' ? card.data : card;
+    var name = clip(data.name || data.char_name, 60);
+    if (!name) return null;
+    var desc = String(data.description || data.char_persona || '');
+    var persona = String(data.personality || '');
+    var char = RP.normChar({
+      id: 'card_' + slug(name),
+      name: name,
+      title: clip(data.character_version ? name + ' — card ' + data.character_version : (persona.split(/[.\n]/)[0] || 'Imported character card'), 120),
+      summary: clip(desc.replace(/\s+/g, ' '), 320),
+      description: clip([desc, persona].filter(Boolean).join('\n\n'), 900),
+      image: String(data.avatar && data.avatar !== 'none' ? data.avatar : ''),
+      handle: slug(data.creator || 'imported') || 'imported',
+      tags: Array.isArray(data.tags) ? data.tags.slice(0, 8).map(String) : [],
+    });
+    char.invented = true;              // not an archive record — treated as a guest
+    char.card = {
+      scenario: clip(data.scenario, 700),
+      first_mes: clip(data.first_mes || data.char_greeting, 1200),
+      mes_example: clip(data.mes_example || data.example_dialogue, 1200),
+      system_prompt: clip(data.system_prompt, 900),
+      post_history_instructions: clip(data.post_history_instructions, 600),
+      alternate_greetings: (data.alternate_greetings || []).slice(0, 4).map(function (g) { return clip(g, 900); }),
+      creator: clip(data.creator, 60),
+      creator_notes: clip(data.creator_notes, 400),
+      version: clip(data.character_version, 20),
+    };
+    char.look = clip(desc.replace(/\s+/g, ' '), 300);
+    return char;
+  };
+
+  /** Ours → a v2 card other tools will accept. The scenario, greeting and
+   *  example dialogue are built from the archive's own material when the
+   *  character did not arrive as a card. */
+  RP.toCharacterCard = function (char, opts) {
+    opts = opts || {};
+    var card = char.card || {};
+    var data = {
+      name: char.name,
+      description: clip([char.title, char.description || char.summary].filter(Boolean).join('\n\n'), 4000),
+      personality: clip(RP.roleFor(char) || char.title, 400),
+      scenario: clip(card.scenario || opts.scenario ||
+        ('The Waluipedia archive, ' + (opts.date || 'the present day') + '. ' + clip(char.status || '', 200)), 900),
+      first_mes: clip(card.first_mes || opts.greeting || '', 1500),
+      mes_example: clip(card.mes_example || opts.examples || '', 1500),
+      creator_notes: clip(card.creator_notes ||
+        ('Exported from the Waluipedia chatroom. Filed affiliation: ' + (char.affiliation || 'none') + '.'), 400),
+      system_prompt: clip(card.system_prompt || '', 900),
+      post_history_instructions: clip(card.post_history_instructions || '', 600),
+      alternate_greetings: card.alternate_greetings || [],
+      tags: (char.tags || []).concat(['waluipedia']).slice(0, 10),
+      creator: clip(card.creator || char.handle || 'waluipedia', 60),
+      character_version: card.version || '1.0',
+      extensions: {
+        waluipedia: {
+          id: char.id, race: char.race, affiliation: char.affiliation, faction: char.faction,
+          status: char.status, fameTier: char.fameTier, keyEvents: (char.keyEvents || []).slice(0, 8),
+        },
+      },
+    };
+    return { spec: 'chara_card_v2', spec_version: '2.0', data: data,
+      // v1 fields alongside, so older tools can still read the file.
+      name: data.name, description: data.description, personality: data.personality,
+      scenario: data.scenario, first_mes: data.first_mes, mes_example: data.mes_example };
+  };
+
+  /* ---- PNG cards ---- */
+
+  var CRC_TABLE = (function () {
+    var table = new Int32Array(256);
+    for (var n = 0; n < 256; n++) {
+      var c = n;
+      for (var k = 0; k < 8; k++) c = c & 1 ? 0xedb88320 ^ (c >>> 1) : c >>> 1;
+      table[n] = c;
+    }
+    return table;
+  })();
+
+  function crc32(bytes, start, end) {
+    var c = 0xffffffff;
+    for (var i = start; i < end; i++) c = CRC_TABLE[(c ^ bytes[i]) & 0xff] ^ (c >>> 8);
+    return (c ^ 0xffffffff) >>> 0;
+  }
+  RP.crc32 = crc32;
+
+  function readU32(bytes, at) {
+    return ((bytes[at] << 24) | (bytes[at + 1] << 16) | (bytes[at + 2] << 8) | bytes[at + 3]) >>> 0;
+  }
+  function writeU32(bytes, at, value) {
+    bytes[at] = (value >>> 24) & 0xff; bytes[at + 1] = (value >>> 16) & 0xff;
+    bytes[at + 2] = (value >>> 8) & 0xff; bytes[at + 3] = value & 0xff;
+  }
+
+  RP.isPng = function (bytes) {
+    return bytes && bytes.length > 8 && bytes[0] === 0x89 && bytes[1] === 0x50 && bytes[2] === 0x4e && bytes[3] === 0x47;
+  };
+
+  /** Every tEXt chunk in a PNG, as { keyword: value }. */
+  RP.pngText = function (bytes) {
+    var out = {};
+    if (!RP.isPng(bytes)) return out;
+    var at = 8;
+    while (at + 8 <= bytes.length) {
+      var len = readU32(bytes, at);
+      var type = String.fromCharCode(bytes[at + 4], bytes[at + 5], bytes[at + 6], bytes[at + 7]);
+      if (type === 'IEND') break;
+      if (type === 'tEXt') {
+        var body = bytes.subarray(at + 8, at + 8 + len);
+        var split = body.indexOf(0);
+        if (split > 0) {
+          var key = '', value = '';
+          for (var i = 0; i < split; i++) key += String.fromCharCode(body[i]);
+          for (var j = split + 1; j < body.length; j++) value += String.fromCharCode(body[j]);
+          out[key] = value;
+        }
+      }
+      at += 12 + len;
+    }
+    return out;
+  };
+
+  /** Put a tEXt chunk into a PNG, just before IEND. */
+  RP.pngWithText = function (bytes, keyword, value) {
+    if (!RP.isPng(bytes)) return null;
+    var key = String(keyword), text = String(value);
+    var body = new Uint8Array(key.length + 1 + text.length);
+    for (var i = 0; i < key.length; i++) body[i] = key.charCodeAt(i) & 0xff;
+    body[key.length] = 0;
+    for (var j = 0; j < text.length; j++) body[key.length + 1 + j] = text.charCodeAt(j) & 0xff;
+
+    var chunk = new Uint8Array(12 + body.length);
+    writeU32(chunk, 0, body.length);
+    chunk[4] = 0x74; chunk[5] = 0x45; chunk[6] = 0x58; chunk[7] = 0x74;   // "tEXt"
+    chunk.set(body, 8);
+    writeU32(chunk, 8 + body.length, crc32(chunk, 4, 8 + body.length));
+
+    // Find IEND and splice the new chunk in front of it.
+    var at = 8, iend = bytes.length - 12;
+    while (at + 8 <= bytes.length) {
+      var len = readU32(bytes, at);
+      var type = String.fromCharCode(bytes[at + 4], bytes[at + 5], bytes[at + 6], bytes[at + 7]);
+      if (type === 'IEND') { iend = at; break; }
+      at += 12 + len;
+    }
+    var out = new Uint8Array(bytes.length + chunk.length);
+    out.set(bytes.subarray(0, iend), 0);
+    out.set(chunk, iend);
+    out.set(bytes.subarray(iend), iend + chunk.length);
+    return out;
+  };
+
+  RP.cardFromPng = function (bytes) {
+    var text = RP.pngText(bytes);
+    var raw = text.chara || text.Chara || text.ccv3 || '';
+    if (!raw) return null;
+    try { return RP.parseCharacterCard(JSON.parse(b64decode(raw))); }
+    catch (e) { return null; }
+  };
+
+  RP.cardToPng = function (portraitBytes, char, opts) {
+    if (!RP.isPng(portraitBytes)) return null;
+    return RP.pngWithText(portraitBytes, 'chara', b64encode(JSON.stringify(RP.toCharacterCard(char, opts))));
+  };
+
+  /* ------------------------------------------------------------------ *
+   * text in, text out
+   * ------------------------------------------------------------------ */
+
+  /** Read a pasted transcript — "Name: line", "**Name:** line", or plain
+   *  paragraphs — into turns. Anything unattributed belongs to the player. */
+  RP.parseTranscript = function (text, opts) {
+    opts = opts || {};
+    var out = [], current = null;
+    String(text || '').split(/\r?\n/).forEach(function (line) {
+      var raw = line.replace(/^\s*[>#-]\s?/, '').trim();
+      if (!raw) { current = null; return; }
+      // "Name:", "**Name:**" and "**Name**:" are all the same line.
+      var named = /^\*{0,2}_{0,2}([A-Z][\w'’. -]{1,40}?)\*{0,2}_{0,2}\s*[:：]\s*\*{0,2}\s*(.+?)\*{0,2}$/.exec(raw);
+      if (named) {
+        current = { who: clip(named[1], 40), text: clip(named[2], 4000) };
+        out.push(current);
+        return;
+      }
+      // A line that carries on the previous one (lowercase, or opens with
+      // speech or an action) is the same turn; anything else is a new one.
+      if (current && /^[a-z"“*(]/.test(raw)) { current.text = clip(current.text + '\n' + raw, 4000); return; }
+      current = { who: clip(opts.narrator || '', 40), text: clip(raw, 4000) };
+      out.push(current);
+    });
+    return out.filter(function (t) { return t.text; });
+  };
+
+  /** Those turns → a room, with anyone unknown treated as the player. */
+  RP.roomFromTranscript = function (turns, cast, opts) {
+    opts = opts || {};
+    var room = RP.newRoom(cast, opts);
+    room.messages = room.messages.concat(turns.map(function (t) {
+      var who = (cast || []).filter(function (c) {
+        return c.name.toLowerCase() === String(t.who).toLowerCase() ||
+          (t.who && c.name.toLowerCase().indexOf(String(t.who).toLowerCase()) >= 0);
+      })[0];
+      if (!who) return { id: uid(), role: 'user', text: t.text, at: Date.now() };
+      return { id: uid(), role: 'char', charId: who.id, text: t.text, at: Date.now(), alts: [t.text], alt: 0 };
+    }));
+    return room;
+  };
+
+  /* ------------------------------------------------------------------ *
+   * exports for a writing model — the brief, and the whole thing
+   * ------------------------------------------------------------------ */
+
+  /** Everything a writer needs and nothing it does not: no ids, no swipes,
+   *  no error notices, no duplicated takes, no settings. Sized to drop into
+   *  another model's window. */
+  RP.storyBrief = function (state, room, opts) {
+    opts = opts || {};
+    var cap = opts.budget || 9000;
+    var scene = RP.sceneDate(room, state);
+    var turns = (room.messages || []).filter(visible);
+    var sheets = Object.keys(room.states || {}).map(function (k) { return room.states[k]; })
+      .filter(function (s) { return s.present !== false; });
+    var book = ((state.book || {}).entries || []).filter(function (e) { return e.roomId === room.id; });
+    var out = [];
+    out.push('# ' + (room.sceneName || room.title));
+    out.push('_A roleplay transcript from the Waluipedia archive, trimmed for writing up._');
+    out.push('');
+    out.push('**When:** ' + (scene ? RP.formatWahDate(scene) : 'undated') +
+      (room.canon === 'continuation' ? ' · continues filed canon' : ''));
+    out.push('**Who:**');
+    (room.cast || []).forEach(function (c) {
+      out.push('- **' + c.name + '** — ' + clip(c.title || c.summary || 'no filing', 160) +
+        (c.invented ? ' _(invented in play' + (c.look ? ': ' + clip(c.look, 120) : '') + ')_' : ''));
+    });
+    if (room.scene) { out.push('', '**The situation:** ' + clip(room.scene.replace(/\s+/g, ' '), 700)); }
+    if ((room.beats || []).length) {
+      out.push('', '**The script, as it fired:**');
+      (room.beats || []).slice(0, room.beatIndex || (room.beats || []).length).forEach(function (b) {
+        out.push('- ' + (b.time ? b.time + ' — ' : '') + b.beat);
+      });
+    }
+    out.push('', '## What happened');
+    turns.forEach(function (m) {
+      var who = m.role === 'user' ? ((state.user && state.user.name) || 'The player')
+        : (((room.cast || []).filter(function (c) { return c.id === m.charId; })[0]) || {}).name || 'Someone';
+      out.push('**' + who + ':** ' + RP.textOf(m).replace(/\s+/g, ' ').trim());
+    });
+    if (sheets.length) {
+      out.push('', '## Where everyone ended up');
+      sheets.forEach(function (s) {
+        var bits = [];
+        if (s.hp) bits.push('HP ' + s.hp.value + '/' + s.hp.max);
+        if (s.mp) bits.push('MP ' + s.mp.value + '/' + s.mp.max);
+        var flags = Object.keys(s.flags || {});
+        if (flags.length) bits.push(flags.join(', ').replace(/_/g, ' '));
+        if ((s.items || []).length) bits.push('carrying ' + s.items.join(', '));
+        if (s.status) bits.push(s.status);
+        out.push('- ' + s.name + ': ' + (bits.join(' · ') || 'unmarked'));
+      });
+    }
+    if (book.length) {
+      out.push('', '## Established in this scene');
+      book.forEach(function (e) {
+        out.push('- ' + (RP.BOOK_KINDS[e.kind] || {}).label + ': ' + (e.name || e.when) + ' — ' + e.text);
+      });
+    }
+    out.push('', '---', '_Write this up as prose. Everything above is established; nothing else is._');
+    var text = out.join('\n');
+    if (text.length <= cap) return text;
+    // Too long: keep the head, keep the ending, say what was cut.
+    var head = text.slice(0, Math.floor(cap * 0.55));
+    var tail = text.slice(-Math.floor(cap * 0.4));
+    return head + '\n\n… (' + (text.length - cap) + ' characters of the middle cut for length) …\n\n' + tail;
+  };
+
+  /** The whole chat, as a file another chatroom can import. */
+  RP.chatExport = function (state, room) {
+    return {
+      kind: 'waluipedia-chatroom-bundle',
+      version: 1,
+      exportedAt: new Date().toISOString(),
+      user: state.user,
+      rooms: [room],
+      chars: (state.chars || []).filter(function (m) {
+        return (room.cast || []).some(function (c) { return c.id === m.id; });
+      }),
+      lore: state.lore || [],
+      book: ((state.book || {}).entries || []).filter(function (e) {
+        return e.roomId === room.id || !e.roomId;
+      }),
+      newChars: (state.newChars || []).filter(function (c) {
+        return (room.cast || []).some(function (x) { return x.id === c.id; });
+      }),
+      log: (state.log || []).filter(function (e) { return e.roomId === room.id; }),
+    };
+  };
+
   /* ------------------------------------------------------------------ *
    * the lore book — written while you play, in a queue
    *

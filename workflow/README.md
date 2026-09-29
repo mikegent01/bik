@@ -177,6 +177,21 @@ memory, lore, replay, backups — is documented in
   from another vantage point: the same beats on the same schedule, a new cast,
   and a prompt block that limits them to what they could see from where they
   stood.
+- **Character cards.** PNG cards (the JSON base64'd into a `chara` tEXt
+  chunk — SillyTavern, Chub, Agnai) and JSON cards (`chara_card_v2` with v1
+  fields alongside) are both read and written. Exporting an archive character
+  writes the card into their own filed portrait, so the file is a picture and
+  a card at once; the archive's fields ride along under
+  `extensions.waluipedia`.
+- **Stories in and out.** Paste or open a transcript — `Name: line`,
+  `**Name:** line`, or prose — and it becomes a playable chat with the
+  speakers matched to the cast.
+- **Two kinds of export.** A ✍️ **story brief** trimmed for a writing model
+  (who, when, the situation, the beats, the turns, the end state, what was
+  established — no ids, no swipes, no error notices) and a 📦 **full bundle**
+  another chatroom can import, plus markdown and plain text.
+- **🔍 What the model is sent.** Labs shows the live system prompt, its size
+  against the budget, and its ten largest blocks.
 - **Import / export.** Chats, lore and memory export as JSON together or
   separately, and import by merge or replace; a single chat also exports as a
   markdown transcript for filing back into the wiki.
