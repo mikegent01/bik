@@ -11314,10 +11314,11 @@ function view_battles(sel){
   const outcomeTally={}; skirmishes.forEach(b=>{const k=outcomeOf(b);outcomeTally[k]=(outcomeTally[k]||0)+1;});
   const matchesQuery=b=>{const q=clean(st.query);if(!q)return true;const h=hay(b);return q.split(/\s+/).filter(Boolean).every(t=>h.includes(t));};
   const matchesOutcome=b=>st.outcome==='All'||outcomeOf(b)===st.outcome;
-  /* skirmish table rows: date | engagement | who fought | how it ended */
+  /* skirmish table rows: plate | date | engagement | who fought | how it ended */
   const skirmRow=b=>{
     const k=outcomeOf(b), om=WLR_OUTCOME[k]||WLR_OUTCOME.unknown;
     return `<div class="wrr-tr" onclick="openHub('${esc(b.id)}')">
+      ${b.image?`<img class="wrr-thumb" src="${esc(assetPath(b.image))}" alt="" loading="lazy" onerror="this.style.display='none'">`:'<span class="wrr-thumb wrr-thumb--none"></span>'}
       ${wlrDateBlock(b)}
       <div class="wrr-td wrr-td--what"><b>${esc(displayName(b))}</b>${b.location?`<span>📍 ${esc(String(b.location).split(',')[0])}</span>`:''}${b.type?`<span>⚔ ${esc(String(b.type).split('/')[0].trim())}</span>`:''}</div>
       <div class="wrr-td wrr-td--who">${wlrVsLine(b)||'<span class="text-muted" style="font-size:11px">belligerents unrecorded</span>'}</div>
@@ -11338,7 +11339,7 @@ function view_battles(sel){
     <div class="wrr-rail-sep">Wars on file</div>
     ${fronts.map(f=>railBtn(wrrSlug(f.name),settled(f)??'📌'?'':'',f.name,(f.battles.length+' battle'+(f.battles.length===1?'':'s'))+(f.span?' · '+f.span:''),(settled(f)?'wrr-rbtn--done':(f.written?'':'wrr-rbtn--un')))).join('')}
     <div class="wrr-rail-sep">Off the books</div>
-    ${railBtn('skirmishes','⚔','Session skirmishes',skirmishes.length+' fights that belong to no war')}
+    ${railBtn('skirmishes','⚔','Session skirmishes',skirmishes.length+' fights that belong to no war','wrr-rbtn--log')}
   </nav>`;
 
   /* ---- panels ----------------------------------------------------------- */
@@ -11356,13 +11357,14 @@ function view_battles(sel){
           <option value="az"${st.sort==='az'?' selected':''}>A→Z</option></select></label>
         ${(st.query||st.outcome!=='All'||st.sort!=='newest')?`<button class="chip" onclick="listState.battles.query='';listState.battles.outcome='All';listState.battles.sort='newest';view_battles()">Clear</button>`:''}
       </div>
-      <div class="wrr-table"><div class="wrr-tr wrr-tr--head"><span>When</span><span>The engagement</span><span>Who fought</span><span>How it ended</span></div>${rows}</div>
+      <div class="wrr-table"><div class="wrr-tr wrr-tr--head"><span class="wrr-th-plate"></span><span>When</span><span>The engagement</span><span>Who fought</span><span>How it ended</span></div>${rows}</div>
     </div>`;
   }else if(st.war&&bySlug[st.war]){
     const f=bySlug[st.war], c=f.record||{};
     const facs=(c.keyFactions||[]).slice(0,8).map(combatantChip).join('');
     const phases=(c.majorPhases||[]).map((p,i)=>`<div class="war-front-step"><span class="war-front-no">${i+1}</span><div><b>${esc(p.name)}</b><p>${esc(p.description||'')}</p></div></div>`).join('');
     const sess=warSessions(f.name);
+    const dimg=((f.battles.find(b=>b.image)||{}).image)||((sess[0]||{}).image);
     const sessHtml=sess.length?`<h4 class="wrr-sub">Session records naming this war</h4><div class="wrr-sess">${sess.map(b=>{
       const k=outcomeOf(b), om=WLR_OUTCOME[k]||WLR_OUTCOME.unknown;
       return `<article class="wrr-srow" onclick="openHub('${esc(b.id)}')">${wlrDateBlock(b)}<div class="wrr-smain"><b>${esc(displayName(b))}</b>${wlrVsLine(b)}<span class="wlr-ob wlr-ob--${k}">${om.icon} ${om.label}</span></div></article>`;
@@ -11372,6 +11374,7 @@ function view_battles(sel){
       <header class="wrr-dhead"><div><h2>${esc(f.name)}</h2>
         <p class="wrr-dmeta"><span>${f.span||'span unfiled'}</span><span>${f.battles.length} battle record${f.battles.length===1?'':'s'}</span>${c.status?`<span class="status-tag ${statusClass(c.status)}">${esc(c.status)}</span>`:'<span class="status-tag status-other">war unfiled</span>'}</p></div>
         <div class="front-tallies">${battleTallyChips(f.tally)}</div></header>
+      ${dimg?`<figure class="wrr-dart"><img src="${esc(assetPath(dimg))}" alt="" loading="lazy" onerror="this.style.display='none'"><figcaption>Plate from the records — ${esc((f.battles.find(b=>b.image)||sess[0]||{}).name||displayName(f))}</figcaption></figure>`:''}
       ${c.summary?`<p class="wrr-sum">${esc(c.summary)}</p>`:''}
       ${c.rootCause?`<div class="wrr-cause"><b>Root cause</b><p>${esc(c.rootCause)}</p></div>`:''}
       ${f.written?'':`<div class="front-gap">The battle records name this war, but <code>conflicts.json</code> holds no record for it — the battles are filed, the war around them is not. Add it and this dossier gains a summary, a root cause and phases.</div>`}
@@ -11383,12 +11386,34 @@ function view_battles(sel){
       ${f.written?`<a class="poi-link" href="#/conflict/${encodeURIComponent(f.name)}">Open the full conflict record →</a>`:''}
     </div>`;
   }else{
-    /* the room overview: strip + one card per war + the skirmish log door */
+    /* the room overview: strip + the skirmish band + one card per war */
     const q=clean(st.query);
     const frontMatches=f=>{if(!q)return true;const h=clean([f.name,(f.record||{}).summary,(f.record||{}).rootCause,(f.record||{}).status].filter(Boolean).join(' '));return q.split(/\s+/).filter(Boolean).every(t=>h.includes(t));};
+    /* the skirmish band: the log is half this page's reason to exist — the
+       latest fights as a plate filmstrip, loud and clickable, with the door
+       to the full table right on it */
+    const latest=items.slice().sort((a,b)=>(yOf(b)||0)-(yOf(a)||0)||items.indexOf(b)-items.indexOf(a)).slice(0,12);
+    const sqCards=latest.map(b=>{
+      const k=outcomeOf(b), om=WLR_OUTCOME[k]||WLR_OUTCOME.unknown;
+      const initial=(displayName(b)||'?').trim().charAt(0).toUpperCase();
+      return `<article class="wrr-sqc" onclick="openHub('${esc(b.id)}')" title="${esc(displayName(b))}">
+        <figure class="wrr-sqc-art"><span class="wrr-sqc-init">${esc(initial)}</span>
+          ${b.image?`<img src="${esc(assetPath(b.image))}" alt="" loading="lazy" onerror="this.style.display='none'">`:''}
+          <span class="wlr-ob wlr-ob--${k}">${om.icon} ${om.label}</span></figure>
+        <b>${esc(displayName(b))}</b><i>${esc(String(b.date||'').split('—')[0].trim().slice(0,26))}</i>
+      </article>`;
+    }).join('');
+    const noWar=skirmishes.filter(b=>!b.conflict).length;
+    const sqBand=`<section class="wrr-sq">
+      <header class="wrr-sq-head"><div><h3>⚔ The skirmish log</h3><p>${items.length} session-scale fights on record${noWar?`, ${noWar} of them belonging to no war`:''} — brawls, corridor ambushes, dinner votes. The latest ${latest.length}; the full table is one door away.</p></div>
+        <button class="wrr-sq-open" onclick="Router.go('#/list/battles/skirmishes')">Open the full log →</button></header>
+      <div class="wrr-sq-strip">${sqCards}</div>
+    </section>`;
     const cards=fronts.filter(frontMatches).map(f=>{
       const c=f.record||{};
+      const wimg=((f.battles.find(b=>b.image)||{}).image)||((warSessions(f.name)[0]||{}).image);
       return `<article class="wrr-war" onclick="Router.go('#/list/battles/${encodeURIComponent(wrrSlug(f.name))}')">
+        ${wimg?`<figure class="wrr-war-art"><img src="${esc(assetPath(wimg))}" alt="" loading="lazy" onerror="this.style.display='none'"></figure>`:''}
         <div class="wrr-war-head"><h3>${esc(f.name)}</h3><span class="war-ribbon${settled(f)?' done':''}">${esc(c.status||(f.written?'unfiled':'war unfiled'))}</span></div>
         <div class="wrr-war-meta"><span>${f.span||'—'}</span><span>${f.battles.length} battle${f.battles.length===1?'':'s'}</span>${(c.majorPhases||[]).length?`<span>${c.majorPhases.length} phase${c.majorPhases.length===1?'':'s'}</span>`:''}</div>
         <p>${esc(String(c.summary||'The battle records name this war; the conflict record behind it is still unwritten.').slice(0,170))}</p>
@@ -11399,16 +11424,12 @@ function view_battles(sel){
       <div class="card wrr-overview">
         <header class="wrr-phead"><div><h2>🏛 The war room</h2><p>${fronts.length} wars on file, ${fronts.filter(f=>!settled(f)).length} still burning. The strip is every session battle on its year; the cards are the wars themselves. Open one for its dossier.</p></div></header>
         ${stripHtml}
+        ${sqBand}
         <div class="wrr-toolbar">
           <input class="evl-search" placeholder="Search wars — name, cause, status…" value="${esc(st.query||'')}" oninput="listState.battles.query=this.value;clearTimeout(window.__wrrT);window.__wrrT=setTimeout(view_battles,180)" onkeydown="if(event.key==='Enter'){clearTimeout(window.__wrrT);view_battles()}">
           ${st.query?`<button class="chip" onclick="listState.battles.query='';view_battles()">Clear</button>`:''}
         </div>
         <div class="wrr-wars">${cards||'<p class="text-muted">No wars match.</p>'}</div>
-        <article class="wrr-war wrr-war--log" onclick="Router.go('#/list/battles/skirmishes')">
-          <div class="wrr-war-head"><h3>⚔ The skirmish log</h3><span class="war-ribbon">off the books</span></div>
-          <div class="wrr-war-meta"><span>${skirmishes.length} session-scale fights</span><span>${skirmishes.filter(b=>!b.conflict).length} belong to no war</span></div>
-          <p>Bar brawls, corridor ambushes, dinner votes — the fights too small for a dossier, in one table.</p>
-        </article>
       </div>
     </div>`;
   }
@@ -11527,6 +11548,81 @@ function view_factions(){
     </section>`).join('')||'<p class="text-muted" style="padding:20px">No factions match. The registry stays open anyway.</p>'}
     ${(typeof factionSystemsPanel==='function')?`<details class="fac-sys"><summary>⚙️ Faction systems — the factions that run deeper than a dossier</summary>${factionSystemsPanel()}</details>`:''}
   `;
+  window.scrollTo(0,0);
+}
+/* ===================== CHARACTERS — THE CAST WALL (chr-*) =================
+   The characters page was the generic tile grid: 189 identical squares,
+   every portrait cropped to the same stamp, nothing to browse by but a
+   name. But a cast list has its own mechanics — who still stands, who is
+   dead, who comes from where, and who carries the most story. The wall is
+   portrait-FIRST (the art is the card), with a status dot on every face,
+   status/race filters, and sorts that answer real questions. */
+function chrStatusMeta(s){
+  const t=String(s||'').toLowerCase();
+  if(/deceased|dead|killed|slain|destroyed|perished|executed/.test(t)) return {cls:'dead',label:'Dead',dot:'#e5484d'};
+  if(/missing|unknown|unconfirmed|last confirmed/.test(t)) return {cls:'unknown',label:'Unknown',dot:'#9aa0b4'};
+  if(/retired|inactive|dormant/.test(t)) return {cls:'retired',label:'Retired',dot:'#e0b400'};
+  return {cls:'active',label:'Active',dot:'#2fae8a'};
+}
+function view_characters(){
+  renderSidebar('list:characters');
+  const t=TYPE_BY_KEY&&TYPE_BY_KEY.characters;
+  const st=listState.characters||(listState.characters={query:'',status:'All',race:'All',sort:'az'});
+  const items=(DATA.characters||[]).filter(Boolean);
+  const clean=s=>String(s||'').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim();
+  const hay=c=>clean([c.id,displayName(c),c.title,c.race,c.affiliation,c.status,c.faction,c.summary].filter(Boolean).join(' '));
+  const matchesQuery=c=>{const q=clean(st.query);if(!q)return true;const h=hay(c);return q.split(/\s+/).filter(Boolean).every(t=>h.includes(t));};
+  const statusOf=c=>chrStatusMeta(c.status);
+  const matchesStatus=c=>st.status==='All'||statusOf(c).cls===st.status;
+  const raceOf=c=>String(c.race||'Unknown').split('(')[0].trim()||'Unknown';
+  const matchesRace=c=>st.race==='All'||raceOf(c)===st.race;
+  const recordN=c=>(c.relatedArticles||[]).length;
+  const eventN=c=>(c.keyEvents||[]).length;
+  let arr=items.filter(c=>matchesQuery(c)&&matchesStatus(c)&&matchesRace(c));
+  if(st.sort==='record') arr.sort((a,b)=>recordN(b)-recordN(a)||displayName(a).localeCompare(displayName(b)));
+  else if(st.sort==='events') arr.sort((a,b)=>eventN(b)-eventN(a)||displayName(a).localeCompare(displayName(b)));
+  else if(st.sort==='dead') arr.sort((a,b)=>(statusOf(a).cls==='dead'?0:1)-(statusOf(b).cls==='dead'?0:1)||recordN(b)-recordN(a));
+  else arr.sort((a,b)=>displayName(a).localeCompare(displayName(b)));
+  const tally={active:0,dead:0,unknown:0,retired:0};
+  items.forEach(c=>{tally[statusOf(c).cls]=(tally[statusOf(c).cls]||0)+1;});
+  const raceCounts={};
+  items.forEach(c=>{const r=raceOf(c);raceCounts[r]=(raceCounts[r]||0)+1;});
+  const card=c=>{
+    const sm=statusOf(c);
+    const initial=(displayName(c)||'?').trim().charAt(0).toUpperCase();
+    const spine=c.faction?factionColor(c.faction):null;
+    return `<article class="chr-card" onclick="openId('${esc(c.id)}')" style="${spine?`--chr-spine:${esc(spine)}`:''}">
+      <figure class="chr-art">
+        <span class="chr-init">${esc(initial)}</span>
+        <img src="${esc(assetPath(c.image))}" alt="${esc(displayName(c))}" loading="lazy" onerror="this.style.display='none'">
+        <span class="chr-dot chr-dot--${sm.cls}" title="${esc(sm.label)}${c.status?` — ${esc(String(c.status).slice(0,90))}`:''}"></span>
+      </figure>
+      <div class="chr-body">
+        <b>${esc(displayName(c))}</b>
+        ${c.title?`<i>${esc(String(c.title).slice(0,48))}</i>`:''}
+        <div class="chr-meta"><span class="chr-race">${esc(raceOf(c).slice(0,24))}</span>${recordN(c)?`<span title="links on the record">🔗 ${recordN(c)}</span>`:''}${eventN(c)?`<span title="filings they appear in">📜 ${eventN(c)}</span>`:''}</div>
+      </div>
+    </article>`;
+  };
+  const statusChips=[['All','All'],['active','Active'],['dead','Dead'],['unknown','Unknown'],['retired','Retired']].filter(([k])=>k==='All'||tally[k]).map(([k,l])=>`<button class="chip${st.status===k?' active':''}" onclick="listState.characters.status='${k}';view_characters()">${l}${k==='All'?` (${items.length})`:` (${tally[k]||0})`}</button>`).join('');
+  const raceOpts=['All'].concat(Object.keys(raceCounts).sort((a,b)=>raceCounts[b]-raceCounts[a]||a.localeCompare(b))).map(r=>`<option value="${esc(r)}"${st.race===r?' selected':''}>${esc(r)} (${raceCounts[r]})</option>`).join('');
+  const sortSel=`<label class="evl-sel"><span>Order</span><select onchange="listState.characters.sort=this.value;view_characters()">
+    <option value="az"${st.sort==='az'?' selected':''}>A→Z</option>
+    <option value="record"${st.sort==='record'?' selected':''}>Most on the record</option>
+    <option value="events"${st.sort==='events'?' selected':''}>Most appearances</option>
+    <option value="dead"${st.sort==='dead'?' selected':''}>The dead first</option></select></label>`;
+  el('content').innerHTML=`<div class="chr-band card animate-fade-in">
+      <h1>${(t&&t.emoji)||'👤'} The Cast</h1>
+      <p class="evl-hero-sub">${items.length} characters on file — ${tally.active} active, ${tally.dead} dead, ${tally.unknown} whereabouts unknown${tally.retired?`, ${tally.retired} retired`:''}. Every portrait is filed and the dot on each face says how their story stands. 🔗 is links on the record; 📜 is filings they appear in.</p>
+      <div class="evl-toolbar">
+        <input class="evl-search" placeholder="Search the cast — name, title, race, affiliation…" value="${esc(st.query||'')}" oninput="listState.characters.query=this.value;clearTimeout(window.__chrT);window.__chrT=setTimeout(view_characters,180)" onkeydown="if(event.key==='Enter'){clearTimeout(window.__chrT);view_characters()}">
+        ${statusChips}
+        <label class="evl-sel"><span>Race</span><select onchange="listState.characters.race=this.value;view_characters()">${raceOpts}</select></label>
+        ${sortSel}
+        ${(st.query||st.status!=='All'||st.race!=='All'||st.sort!=='az')?`<button class="chip" onclick="listState.characters.query='';listState.characters.status='All';listState.characters.race='All';listState.characters.sort='az';view_characters()">Clear</button>`:''}
+      </div>
+    </div>
+    <div class="chr-wall">${arr.map(card).join('')||'<p class="text-muted" style="padding:20px">No one on the roster matches. The archive is large but not infinite.</p>'}</div>`;
   window.scrollTo(0,0);
 }
 let ATLAS_INDEX={};
@@ -24413,7 +24509,7 @@ const Router={
     if(route==='home')view_home();
     else if(route==='home-classic')view_home(); /* legacy alias: one home, no swapping */
     else if(route==='who')view_whoami();
-    else if(route==='list'){ if(arg==='nations')view_atlas(); else if(arg==='events')view_events(); else if(arg==='battles'||arg.indexOf('battles/')===0)view_battles(arg.split('/').slice(1).join('/')); else if(arg==='factions')view_factions(); else view_list(arg); }
+    else if(route==='list'){ if(arg==='nations')view_atlas(); else if(arg==='events')view_events(); else if(arg==='battles'||arg.indexOf('battles/')===0)view_battles(arg.split('/').slice(1).join('/')); else if(arg==='factions')view_factions(); else if(arg==='characters')view_characters(); else view_list(arg); }
     else if(route==='field-journal'||route==='journal')view_fieldJournal();
     else if(route==='rnn'||route==='rakasha-news'||route==='broadcast')view_rakashaNews(arg);
     else if(route==='article')view_article(arg);

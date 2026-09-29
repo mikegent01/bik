@@ -3701,8 +3701,8 @@ body.ra-picking #content :is(p,li,h1,h2,h3,h4,blockquote):hover{outline:1px dash
 .evl-main p{margin:0 0 6px;color:var(--muted);font-size:12.5px;line-height:1.6}
 .evl-meta{display:flex;gap:10px;flex-wrap:wrap;font-size:11px;color:var(--muted);align-items:center}
 .evl-camp{font-weight:900;letter-spacing:.4px}
-.evl-thumb{flex:0 0 62px;width:62px;height:62px;object-fit:cover;border-radius:9px;border:1px solid var(--border)}
-@media(max-width:620px){.evl-thumb{display:none}.evl-date{flex-basis:60px}}
+.evl-thumb{flex:0 0 104px;width:104px;height:72px;object-fit:cover;border-radius:10px;border:1px solid var(--border);transition:.15s}.evl-row:hover .evl-thumb{transform:scale(1.03)}
+@media(max-width:620px){.evl-thumb{flex-basis:70px;width:70px;height:52px}.evl-date{flex-basis:60px}}
 
 /* ---- BATTLES REDESIGN (wlr-*) — the war ledger --------------------------
    Its own mechanics: the war strip (a mark per battle on the years), VS
@@ -3908,3 +3908,55 @@ body.ra-picking #content :is(p,li,h1,h2,h3,h4,blockquote):hover{outline:1px dash
   .fac-row{grid-template-columns:4px minmax(0,1fr)}
   .fac-rel{padding:0 12px 12px 18px}
 }
+
+/* ---- WAR ROOM: skirmish band, plate thumbs, war-card art (wrr-*) -------- */
+.wrr-sq{margin-top:14px;border:1px solid var(--accent);border-left:4px solid var(--accent);border-radius:13px;background:linear-gradient(135deg,rgba(138,75,255,.07),var(--panel));padding:12px 14px}
+.wrr-sq-head{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;flex-wrap:wrap}
+.wrr-sq-head h3{margin:0;font-size:16px;font-weight:900}
+.wrr-sq-head p{margin:2px 0 0;font-size:11.5px;color:var(--muted);max-width:64ch}
+.wrr-sq-open{border:0;border-radius:9px;background:var(--accent);color:#fff;font-weight:800;font-size:12px;padding:8px 14px;cursor:pointer;white-space:nowrap;transition:.13s}
+.wrr-sq-open:hover{filter:brightness(1.15);transform:translateY(-1px)}
+.wrr-sq-strip{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(148px,1fr);gap:10px;overflow-x:auto;padding:10px 2px 4px;scrollbar-width:thin}
+.wrr-sqc{display:flex;flex-direction:column;gap:4px;cursor:pointer;min-width:0}
+.wrr-sqc-art{position:relative;border-radius:10px;overflow:hidden;border:1px solid var(--border);aspect-ratio:3/2;background:var(--bg2)}
+.wrr-sqc-art img{width:100%;height:100%;object-fit:cover;display:block;transition:.16s}
+.wrr-sqc:hover .wrr-sqc-art img{transform:scale(1.06)}
+.wrr-sqc-init{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:30px;font-weight:900;color:var(--accent2);opacity:.5}
+.wrr-sqc-art .wlr-ob{position:absolute;left:6px;bottom:6px;font-size:9.5px}
+.wrr-sqc b{font-size:11.5px;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wrr-sqc i{font-style:normal;font-size:10px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wrr-thumb{width:64px;height:46px;object-fit:cover;border-radius:8px;border:1px solid var(--border);align-self:center}
+.wrr-thumb--none{background:repeating-linear-gradient(45deg,var(--bg2),var(--bg2) 6px,transparent 6px,transparent 12px)}
+.wrr-th-plate{width:64px}
+.wrr-war-art{margin:0;border-radius:9px;overflow:hidden;height:88px;border:1px solid var(--border)}
+.wrr-war-art img{width:100%;height:100%;object-fit:cover;display:block;transition:.16s}
+.wrr-war:hover .wrr-war-art img{transform:scale(1.05)}
+.wrr-dart{margin:12px 0 0;border-radius:11px;overflow:hidden;border:1px solid var(--border);position:relative}
+.wrr-dart img{width:100%;height:190px;object-fit:cover;display:block}
+.wrr-dart figcaption{position:absolute;left:0;right:0;bottom:0;padding:16px 12px 7px;font-size:10.5px;color:#eee;background:linear-gradient(transparent,rgba(0,0,0,.75))}
+.wrr-rbtn--log{border:1px dashed var(--accent);margin-top:4px}
+.wrr-rbtn--log .wrr-rbtn-tx b{color:var(--accent2)}
+.wrr-tr{grid-template-columns:64px 76px minmax(0,1.3fr) minmax(0,1.15fr) 150px;min-width:720px}
+
+/* ---- CHARACTERS: THE CAST WALL (chr-*) --------------------------------- */
+.chr-band{padding:18px 20px 16px}
+.chr-band h1{margin:0;font-size:26px;font-weight:900}
+.chr-wall{display:grid;grid-template-columns:repeat(auto-fill,minmax(158px,1fr));gap:12px;margin-top:14px}
+.chr-card{position:relative;background:var(--panel);border:1px solid var(--border);border-radius:14px;overflow:hidden;cursor:pointer;transition:.15s}
+.chr-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--chr-spine,var(--accent));z-index:2}
+.chr-card:hover{border-color:var(--accent);transform:translateY(-3px);box-shadow:var(--shadow)}
+.chr-art{position:relative;margin:0;aspect-ratio:3/4;background:var(--bg2);overflow:hidden}
+.chr-art img{width:100%;height:100%;object-fit:cover;object-position:top center;display:block;transition:.18s}
+.chr-card:hover .chr-art img{transform:scale(1.05)}
+.chr-init{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:44px;font-weight:900;color:var(--accent2);opacity:.35}
+.chr-dot{position:absolute;top:7px;right:7px;width:11px;height:11px;border-radius:50%;border:2px solid rgba(0,0,0,.55);box-shadow:0 0 0 2px rgba(255,255,255,.25);z-index:2}
+.chr-dot--active{background:#2fae8a}
+.chr-dot--dead{background:#e5484d}
+.chr-dot--unknown{background:#9aa0b4}
+.chr-dot--retired{background:#e0b400}
+.chr-body{padding:9px 10px 10px 12px;display:flex;flex-direction:column;gap:3px;min-width:0}
+.chr-body b{font-size:13px;line-height:1.25}
+.chr-body i{font-size:10.5px;color:var(--muted);line-height:1.3;font-style:italic}
+.chr-meta{display:flex;gap:8px;flex-wrap:wrap;font-size:10px;color:var(--muted);margin-top:2px}
+.chr-race{font-weight:700}
+@media (max-width:520px){.chr-wall{grid-template-columns:repeat(auto-fill,minmax(128px,1fr));gap:9px}}

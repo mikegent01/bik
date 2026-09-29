@@ -70,12 +70,12 @@ const DATA = {
     { id: 'e6', name: 'No Date At All', era: 'pre-calendar', summary: 'Timeless.' },
   ],
   battles: [
-    { id: 'the_lounge_brawl', name: 'The Lounge Brawl', date: '19 Harvestide, 1040 BF — 05:00', location: 'Ferngrove Manor, Feywild', type: 'Skirmish / Document Retrieval', result: 'Tactical Draw — papers recovered.', belligerents: { attackers: { name: 'Waluigi and Wario', factionId: 'wario_enterprise' }, defenders: { name: 'Saedia', factionId: 'corvinarus_family' } } },
-    { id: 'siege_raventree', name: 'Siege of Raventree', date: '2 Aethel, 1040 BF', result: 'Victory — the gate held.', conflict: 'The Example War' },
-    { id: 'old_scraps', name: 'Old Scraps', date: '955 BF', result: 'Defeat — overrun.' },
+    { id: 'the_lounge_brawl', name: 'The Lounge Brawl', date: '19 Harvestide, 1040 BF — 05:00', location: 'Ferngrove Manor, Feywild', type: 'Skirmish / Document Retrieval', result: 'Tactical Draw — papers recovered.', image: 'plates/lounge.png', belligerents: { attackers: { name: 'Waluigi and Wario', factionId: 'wario_enterprise' }, defenders: { name: 'Saedia', factionId: 'corvinarus_family' } } },
+    { id: 'siege_raventree', name: 'Siege of Raventree', date: '2 Aethel, 1040 BF', result: 'Victory — the gate held.', conflict: 'The Example War', image: 'plates/raventree.png' },
+    { id: 'old_scraps', name: 'Old Scraps', date: '955 BF', result: 'Defeat — overrun.', image: 'plates/scraps.png' },
   ],
   majorBattles: [
-    { id: 'mb1', name: 'The Opening Clash', conflict: 'The Example War', outcome: 'victory', date: { year: 1040, monthIndex: 8, day: 3 }, location: 'The Gate' },
+    { id: 'mb1', name: 'The Opening Clash', conflict: 'The Example War', outcome: 'victory', date: { year: 1040, monthIndex: 8, day: 3 }, location: 'The Gate', image: 'plates/clash.png' },
     { id: 'mb2', name: 'The Counterattack', conflict: 'The Example War', outcome: 'defeat', date: { year: 1040, monthIndex: 9, day: 11 }, location: 'The Field' },
     { id: 'mb3', name: 'The Quiet Ambush', conflict: 'The Unwritten War', outcome: 'stalemate', date: { year: 1040, monthIndex: 7, day: 2 }, location: 'The Woods' },
   ],
@@ -149,7 +149,10 @@ V.view_battles('');
 let b = content.innerHTML;
 check('war room: dark band header, not the events hero card', /class="war-band/.test(b) && !/evl-hero/.test(b));
 check('war room: rail lists the room, both wars, and the skirmish log', /The war room/.test(b) && /The Example War/.test(b) && /The Unwritten War/.test(b) && /Session skirmishes/.test(b));
-check('war room: overview shows one card per war plus the log door', (b.match(/class="wrr-war[ "]/g) || []).length === 3 && /wrr-war--log/.test(b));
+check('war room: overview shows one card per war (log card replaced by the band)', (b.match(/class="wrr-war[ "]/g) || []).length === 2);
+check('war room: the skirmish band is prominent — plate filmstrip above the wars', /class="wrr-sq"/.test(b) && (b.match(/class="wrr-sqc"/g) || []).length === 3 && b.indexOf('wrr-sq') < b.indexOf('class="wrr-wars"'));
+check('war room: the band carries the door to the full log and the no-war count', /Open the full log/.test(b) && /2 of them belonging to no war/.test(b));
+check('war room: war cards carry plate art where the records have it', /class="wrr-war-art"/.test(b) && /plates\/clash\.png/.test(b));
 check('war room: war cards carry span, battle count, phases, tally', /1040 BF/.test(b) && /2 battles/.test(b) && /2 phases/.test(b) && /front-tally/.test(b));
 check('war room: the year strip survives as the shape of the record', /wlr-strip/.test(b) && /wlr-mark/.test(b));
 check('war room: no year-grouped sections anywhere', !/class="wlr-group"/.test(b) && !/BF<\/h3>/.test(b));
@@ -160,6 +163,7 @@ V.view_battles('the-example-war');
 b = content.innerHTML;
 check('dossier: back link, title, status, span, tallies', /← The war room/.test(b) && /The Example War/.test(b) && /status-tag/.test(b) && /front-tallies/.test(b));
 check('dossier: root cause block renders', /Root cause/.test(b) && /Taxes, mostly/.test(b));
+check('dossier: a plate banner from the records when one exists', /class="wrr-dart"/.test(b) && /Plate from the records/.test(b));
 check('dossier: phases render as the war timeline', /war-front-step/.test(b) && /Phase Two/.test(b));
 check('dossier: battle records use the ledger rows', (b.match(/class="front-battle"/g) || []).length === 2);
 check('dossier: session records naming the war are surfaced', /Session records naming this war/.test(b) && /Siege of Raventree/.test(b));
@@ -172,7 +176,8 @@ check('dossier: unwritten war gets the honest gap note', /front-gap/.test(b) && 
 
 V.view_battles('skirmishes');
 b = content.innerHTML;
-check('skirmishes: a real table — When / engagement / who fought / how it ended', /wrr-tr--head/.test(b) && /The engagement/.test(b) && /Who fought/.test(b) && /How it ended/.test(b));
+check('skirmishes: a real table — plate / When / engagement / who fought / how it ended', /wrr-tr--head/.test(b) && /wrr-th-plate/.test(b) && /The engagement/.test(b) && /Who fought/.test(b) && /How it ended/.test(b));
+check('skirmishes: every row carries its plate thumbnail', (b.match(/class="wrr-thumb"/g) || []).length === 3);
 check('skirmishes: all session fights on the log, VS lines and outcome badges included', (b.match(/class="wrr-tr[ "]/g) || []).length === 4 && /wlr-vs/.test(b) && /wlr-ob--draw/.test(b) && /wlr-ob--win/.test(b) && /wlr-ob--loss/.test(b));
 check('skirmishes: fights without belligerents say so honestly', /belligerents unrecorded/.test(b));
 listState.battles.outcome = 'draw';
