@@ -281,7 +281,7 @@ function renderCharacterGrid() {
 function createChat(character, replay = null) {
   const persona = replay?.perspectiveName || character.name;
   const chat = {
-    id: makeId('chat'), characterId: character.id, title: replay ? `Replay · ${text(replay.sourceName, 46)}` : `Chat with ${character.name}`,
+    id: makeId('chat'), characterId: character.id, title: replay ? `Replay · ${text(replay.sourceName, 46)}` : character.name,
     createdAt: nowIso(), updatedAt: nowIso(), replay, messages: []
   };
   const greeting = replay
@@ -289,6 +289,44 @@ function createChat(character, replay = null) {
     : `Archive context loaded for ${character.name}. This local conversation reads the canonical profile and your saved cross-chat memories. It does not edit the archive or speak for a live external account.`;
   chat.messages.push({ id: makeId('message'), role: 'system', body: greeting, createdAt: nowIso(), sourceId: replay?.sourceId || '', sourceType: replay?.sourceType || '', sourceName: replay?.sourceName || '' });
   state.chats.push(chat); state.activeChatId = chat.id; persist(); renderAll({ scroll: true }); closeMobileMenu();
+}
+
+function ensureStarterConversation() {
+  if (state.chats.length || !archive.characters.length) return;
+  const character = archive.characterById.get('waluigi') || archive.characters[0];
+  const source = archive.sourceById.get('feyward_battalion_of_six_and_the_bait_plan');
+  const createdAt = nowIso();
+  const chat = {
+    id: makeId('chat'),
+    characterId: character.id,
+    title: character.name,
+    createdAt,
+    updatedAt: createdAt,
+    replay: null,
+    messages: [
+      {
+        id: makeId('message'),
+        role: 'system',
+        body: 'Today · Local Waluipedia Chat',
+        createdAt,
+        sourceId: '',
+        sourceType: '',
+        sourceName: ''
+      },
+      {
+        id: makeId('message'),
+        role: 'character',
+        body: `Archive context loaded.\n\n${text(character.summary, 510)}\n\nChoose a filing, ask for a detail, or save a fact with “remember:” so it carries into your next conversation.`,
+        createdAt,
+        sourceId: source?.id || '',
+        sourceType: source?._sourceType || '',
+        sourceName: source?.name || ''
+      }
+    ]
+  };
+  state.chats.push(chat);
+  state.activeChatId = chat.id;
+  persist();
 }
 
 function openReplayDialog() {
@@ -431,7 +469,8 @@ async function initialise() {
   wireEvents(); renderAll();
   archive = await loadArchiveData();
   if (!archive.characters.length) toast('Archive data could not be loaded. Start this page with “python3 start.py” rather than file://.', true);
-  renderAll();
+  ensureStarterConversation();
+  renderAll({ scroll: true });
 }
 
 initialise();
