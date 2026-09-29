@@ -109,6 +109,16 @@
       affiliation: clip(record.affiliation, 120),
       status: clip(record.status, 120),
       summary: clip(record.summary || record.description, 320),
+      // The filed description is what makes a character behave like
+      // themselves rather than like a name with a voice, so it travels with
+      // them into the prompt instead of being thrown away at load.
+      description: clip(record.description, 900),
+      faction: clip(record.faction || record.membership, 80),
+      faiths: clip(record.faiths, 90),
+      level: Number(record.level || 0) || 0,
+      powerLevel: Number(record.powerLevel || 0) || 0,
+      fameScore: Number(record.fameScore || 0) || 0,
+      fameTier: clip(record.fameTier, 40),
       image: String(record.image || ''),
       // The filing account behind the card. Characters carry their own when
       // the archive records one; otherwise the archive itself is the author.
@@ -117,6 +127,7 @@
       // Referenced filings: the backfill scan reads these to find the events
       // everybody points at and nobody wrote.
       keyEvents: Array.isArray(record.keyEvents) ? record.keyEvents.slice(0, 12).map(String) : [],
+      relatedArticles: Array.isArray(record.relatedArticles) ? record.relatedArticles.slice(0, 14).map(String) : [],
     };
   };
 
@@ -193,15 +204,50 @@
     return (RP.STYLES[style] || RP.STYLES.novel).dir;
   }
 
-  function card(char) {
+  /** The dossier handed to the model. The filed description is the whole
+   *  point — it is what makes a character argue, refuse and joke like
+   *  themselves — so it goes in at length, with the role it implies. */
+  function card(char, opts) {
+    opts = opts || {};
     var lines = ['Name: ' + char.name];
     if (char.title) lines.push('Title: ' + char.title);
     if (char.race) lines.push('Race: ' + char.race);
-    if (char.status) lines.push('Status: ' + char.status);
+    if (char.affiliation) lines.push('Affiliation: ' + char.affiliation);
+    if (char.faction && char.faction !== char.affiliation) lines.push('Faction: ' + char.faction);
+    if (char.faiths) lines.push('Faith: ' + char.faiths);
+    if (char.status) lines.push('Status right now: ' + char.status);
+    if (char.fameTier) lines.push('Standing: ' + char.fameTier + (char.powerLevel ? ' · power ' + char.powerLevel : ''));
     if (char.summary) lines.push('About: ' + char.summary);
+    if (char.description && !opts.short) {
+      lines.push('Filed description — play this, not a generic version of the name:');
+      lines.push(clip(char.description, 900));
+    }
+    if (char.why) lines.push('Why they are in this scene: ' + char.why);
+    var role = RP.roleFor(char);
+    if (role) lines.push('How they behave: ' + role);
     return lines.join('\n');
   }
   RP.card = card;
+
+  /** A behaviour line inferred from what the archive already says. It is
+   *  deliberately blunt: small models need the instruction, not the hint. */
+  RP.roleFor = function (char) {
+    var text = ((char.title || '') + ' ' + (char.status || '') + ' ' + (char.summary || '') + ' ' + (char.description || '')).toLowerCase();
+    var traits = [];
+    function has(re, line) { if (re.test(text)) traits.push(line); }
+    has(/archivist|historian|scribe|record|librarian/, 'cites the record, dates things, corrects other people\u2019s facts');
+    has(/soldier|captain|general|commander|warlord|legion|guard|knight|paratroopa/, 'thinks in ground, orders and casualties; answers threats before questions');
+    has(/king|queen|lord|lady|prince|princess|speaker|delegate|noble|regent/, 'speaks as though the room already reports to them, and notices who does not');
+    has(/merchant|debt|gold|acquisitions|coin|profit|bank|business/, 'prices everything out loud, including favours');
+    has(/thief|looter|infiltrat|rogue|spy|smuggler/, 'checks exits, pockets what is loose, and lies smoothly when it is easier');
+    has(/mage|magic|arcane|wizard|sorcer|ice|witch|oracle/, 'reaches for the arcane answer first, and resents being asked to explain it');
+    has(/ghost|spirit|undead|revenant|corrupted|shadow/, 'is not bound by the room\u2019s rules and does not pretend to be');
+    has(/monster|beast|titan|dragon|plant|creature/, 'communicates physically before verbally');
+    has(/coward|reluctant|nervous|anxious|traumati/, 'wants to leave, says so, and stays anyway');
+    has(/comedian|jester|prank|joke|clown|chaos/, 'undercuts the serious line, especially when it is the wrong moment');
+    has(/injured|wounded|dying|bleeding|missing/, 'is hurt, and it shows in what they can and cannot do');
+    return traits.slice(0, 4).join('; ');
+  };
 
   var RULES = [
     'Stay in character at all times: never mention being an AI, a model, or a chat assistant, and never break the fiction to apologise.',
@@ -236,7 +282,11 @@
       'This is a group roleplay scene in the Waluipedia archive.',
       '',
       'THE CAST',
-      list.map(function (c) { return '- ' + c.name + (c.title ? ' — ' + c.title : ''); }).join('\n'),
+      list.map(function (c) {
+        return '- ' + c.name + (c.title ? ' — ' + c.title : '') +
+          (c.affiliation ? ' (' + c.affiliation + ')' : '') +
+          (c.id !== who.id && c.summary ? '\n    ' + clip(c.summary, 200) : '');
+      }).join('\n'),
       '',
       'YOU ARE ' + who.name,
       card(who),
@@ -280,6 +330,9 @@
       scene: String(opts.scene || ''),
       sceneName: String(opts.sceneName || ''),
       sceneImage: String(opts.sceneImage || ''),
+      // When this is happening in-world. Every memory filed from this room
+      // is stamped with it, and the model is told which filings it predates.
+      date: String(opts.date || ''),
       perspective: String(opts.perspective || ''),
       replayOf: String(opts.replayOf || ''),
       persona: String(opts.persona || ''),
@@ -1212,6 +1265,7 @@
       sceneName: s.name,
       sceneImage: s.image,
       beats: s.beats,
+      date: s.date || '',
       opener: s.kindLabel + ' — ' + s.name + '\n\n' + s.premise,
       // Starting state: a sequel's inherited sheets, or a scenario setup.
       states: s.states || null,
@@ -1913,6 +1967,241 @@
   };
 
 
+
+
+  /* ------------------------------------------------------------------ *
+   * browsing the cast — 189 characters is a list, not a library
+   * ------------------------------------------------------------------ */
+
+  RP.CAST_SORTS = {
+    name:     { name: 'Name (A–Z)', fn: function (a, b, ctx) { return a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1; } },
+    played:   { name: 'Most played by you', fn: function (a, b, ctx) { return (ctx.plays[b.id] || 0) - (ctx.plays[a.id] || 0) || (a.name < b.name ? -1 : 1); } },
+    recent:   { name: 'Recently played', fn: function (a, b, ctx) { return (ctx.last[b.id] || 0) - (ctx.last[a.id] || 0) || (a.name < b.name ? -1 : 1); } },
+    fame:     { name: 'Best known', fn: function (a, b) { return (b.fameScore || 0) - (a.fameScore || 0) || (a.name < b.name ? -1 : 1); } },
+    power:    { name: 'Most dangerous', fn: function (a, b) { return (b.powerLevel || b.level || 0) - (a.powerLevel || a.level || 0) || (a.name < b.name ? -1 : 1); } },
+    remember: { name: 'Remembers the most', fn: function (a, b, ctx) { return (ctx.memory[b.id] || 0) - (ctx.memory[a.id] || 0) || (a.name < b.name ? -1 : 1); } },
+    filings:  { name: 'Most filed about', fn: function (a, b) { return (b.keyEvents || []).length - (a.keyEvents || []).length || (a.name < b.name ? -1 : 1); } },
+  };
+
+  RP.CAST_GROUPS = {
+    letter:      { name: 'A–Z', of: function (c) { return RP.letterFor(c.name); } },
+    none:        { name: 'No grouping', of: function () { return ''; } },
+    race:        { name: 'Race', of: function (c) { return c.race || 'Unfiled'; } },
+    affiliation: { name: 'Affiliation', of: function (c) { return c.affiliation || c.faction || 'Unaffiliated'; } },
+    status:      { name: 'Status', of: function (c) { return /^active/i.test(c.status || '') ? 'Active' : (c.status ? clip(c.status.split(/[—,.]/)[0], 40) : 'Unfiled'); } },
+    standing:    { name: 'Standing', of: function (c) { return c.fameTier || 'Unranked'; } },
+  };
+
+  /** Everything the sorters need that lives outside the character record. */
+  RP.castContext = function (state) {
+    var plays = {}, last = {}, memory = {};
+    (state.rooms || []).forEach(function (r) {
+      (r.cast || []).forEach(function (c) {
+        plays[c.id] = (plays[c.id] || 0) + (r.messages || []).filter(function (m) { return m.role === 'char' && m.charId === c.id; }).length;
+        last[c.id] = Math.max(last[c.id] || 0, r.updated || 0);
+      });
+    });
+    (state.chars || []).forEach(function (m) { memory[m.id] = (m.notes || []).length + (m.knowledge || []).length; });
+    return { plays: plays, last: last, memory: memory };
+  };
+
+  RP.sortCast = function (cast, mode, ctx) {
+    var sort = RP.CAST_SORTS[mode] || RP.CAST_SORTS.name;
+    return (cast || []).slice().sort(function (a, b) { return sort.fn(a, b, ctx || { plays: {}, last: {}, memory: {} }); });
+  };
+
+  /** Search plus facets. The query reads the whole dossier, so "ice mage"
+   *  and "Dark Shores" both find people even when it is not in their name. */
+  RP.filterCast = function (cast, opts, ctx) {
+    opts = opts || {};
+    ctx = ctx || { plays: {} };
+    var q = String(opts.query || '').toLowerCase().trim();
+    return (cast || []).filter(function (c) {
+      if (opts.race && (c.race || 'Unfiled') !== opts.race) return false;
+      if (opts.affiliation && (c.affiliation || c.faction || 'Unaffiliated') !== opts.affiliation) return false;
+      if (opts.view === 'played' && !(ctx.plays[c.id] > 0)) return false;
+      if (opts.view === 'unplayed' && ctx.plays[c.id] > 0) return false;
+      if (opts.view === 'portrait' && !c.image) return false;
+      if (opts.view === 'invented' && !c.invented) return false;
+      if (!q) return true;
+      return (c.name + ' ' + c.title + ' ' + c.race + ' ' + c.affiliation + ' ' + c.faction + ' ' +
+        c.status + ' ' + c.summary + ' ' + c.description + ' ' + (c.tags || []).join(' ')).toLowerCase().indexOf(q) >= 0;
+    });
+  };
+
+  /** Group for the dividers, in the order the grouping implies. */
+  RP.groupCast = function (cast, mode, ctx) {
+    var group = RP.CAST_GROUPS[mode] || RP.CAST_GROUPS.letter;
+    if (mode === 'none') return [{ letter: '', chars: cast.slice() }];
+    var map = {};
+    (cast || []).forEach(function (c) {
+      var key = clip(group.of(c), 60) || 'Unfiled';
+      (map[key] = map[key] || []).push(c);
+    });
+    var keys = Object.keys(map);
+    if (mode === 'letter') {
+      keys.sort(function (a, b) { return a === '#' ? 1 : b === '#' ? -1 : a < b ? -1 : 1; });
+    } else {
+      keys.sort(function (a, b) { return map[b].length - map[a].length || (a < b ? -1 : 1); });
+    }
+    return keys.map(function (k) { return { letter: k, chars: map[k] }; });
+  };
+
+  /** The values worth offering as facets — anything shared by 2+ people. */
+  RP.castFacets = function (cast) {
+    function facet(of) {
+      var counts = {};
+      (cast || []).forEach(function (c) {
+        var key = clip(of(c), 60);
+        if (key) counts[key] = (counts[key] || 0) + 1;
+      });
+      return Object.keys(counts).filter(function (k) { return counts[k] > 1; })
+        .sort(function (a, b) { return counts[b] - counts[a] || (a < b ? -1 : 1); })
+        .slice(0, 24).map(function (k) { return { value: k, count: counts[k] }; });
+    }
+    return {
+      race: facet(function (c) { return c.race; }),
+      affiliation: facet(function (c) { return c.affiliation || c.faction; }),
+    };
+  };
+
+  /* ------------------------------------------------------------------ *
+   * the calendar — is this filing already history, or has it not
+   * happened yet?
+   *
+   * The archive runs on the Regal Empire Standard Calendar: twelve months
+   * of thirty days (Deepwinter has thirty-five), BF counting UP, so 1040
+   * is nearer to now than 955. Without this the model cheerfully has a
+   * character reminisce about a battle three years in their future.
+   * ------------------------------------------------------------------ */
+
+  RP.MONTHS = ['Firstlight', 'Chillwind', 'Veridia', 'Bloom', 'Floria', 'Efferd',
+    'Highsun', 'Harvestide', 'Aethel', 'Darkmoon', 'Frostfall', 'Deepwinter'];
+  // Legacy month names that appear in older filings.
+  var MONTH_ALIAS = { harvestside: 'Harvestide', harvestnoon: 'Harvestide' };
+  var DAYS_IN = [30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 35];
+
+  function monthIndex(name) {
+    var want = String(name || '').toLowerCase().trim();
+    want = (MONTH_ALIAS[want] || want).toLowerCase();
+    for (var i = 0; i < RP.MONTHS.length; i++) {
+      if (RP.MONTHS[i].toLowerCase() === want) return i;
+    }
+    return -1;
+  }
+  RP.monthIndex = monthIndex;
+
+  /** Days since the start of year 0 — the only number worth comparing. */
+  RP.dayOrdinal = function (date) {
+    if (!date || date.year === undefined) return null;
+    var days = date.year * 365;
+    for (var i = 0; i < (date.month || 0); i++) days += DAYS_IN[i];
+    return days + (date.day || 1);
+  };
+
+  /** Read an in-world date out of anything the archive writes:
+   *  "5 Aethel, 1040 BF", "the 21st of Highsun, 1040 BF", "1035 BF", or a
+   *  time code "TC:1040-08-30T23:50/SHD". */
+  RP.parseWahDate = function (text) {
+    var raw = String(text || '');
+    if (!raw.trim()) return null;
+    var code = /TC:(\d{3,4})-(\d{2})-(\d{2})/.exec(raw);
+    if (code) {
+      return { year: Number(code[1]), month: Number(code[2]) - 1, day: Number(code[3]), text: clip(raw, 90), exact: true };
+    }
+    var dayFirst = /(\d{1,2})(?:st|nd|rd|th)?\s+(?:of\s+)?([A-Za-z]+)[,\s]+(\d{3,4})\s*BF/i.exec(raw);
+    if (dayFirst && monthIndex(dayFirst[2]) >= 0) {
+      return { year: Number(dayFirst[3]), month: monthIndex(dayFirst[2]), day: Number(dayFirst[1]), text: clip(raw, 90), exact: true };
+    }
+    var monthFirst = /([A-Za-z]+)\s+(\d{1,2})(?:st|nd|rd|th)?[,\s]+(\d{3,4})\s*BF/i.exec(raw);
+    if (monthFirst && monthIndex(monthFirst[1]) >= 0) {
+      return { year: Number(monthFirst[3]), month: monthIndex(monthFirst[1]), day: Number(monthFirst[2]), text: clip(raw, 90), exact: true };
+    }
+    var monthYear = /([A-Za-z]+)\s+(\d{3,4})\s*BF/i.exec(raw);
+    if (monthYear && monthIndex(monthYear[1]) >= 0) {
+      return { year: Number(monthYear[2]), month: monthIndex(monthYear[1]), day: 1, text: clip(raw, 90), exact: false };
+    }
+    var yearOnly = /(\d{3,4})\s*BF/i.exec(raw);
+    if (yearOnly) return { year: Number(yearOnly[1]), month: 0, day: 1, text: clip(raw, 90), exact: false };
+    return null;
+  };
+
+  RP.formatWahDate = function (date) {
+    if (!date) return '';
+    return (date.exact ? date.day + ' ' + RP.MONTHS[date.month] + ', ' : '') + date.year + ' BF';
+  };
+
+  /** How a filing sits relative to the scene being played. */
+  RP.timeRelation = function (sceneDate, otherDate) {
+    var a = typeof sceneDate === 'string' ? RP.parseWahDate(sceneDate) : sceneDate;
+    var b = typeof otherDate === 'string' ? RP.parseWahDate(otherDate) : otherDate;
+    if (!a || !b) return { rel: 'unknown', label: 'undated — treat with care' };
+    var days = RP.dayOrdinal(b) - RP.dayOrdinal(a);
+    if (days === 0) return { rel: 'now', days: 0, label: 'the same day as this scene' };
+    var ago = Math.abs(days);
+    var span = ago >= 730 ? Math.round(ago / 365) + ' years'
+      : ago >= 60 ? Math.round(ago / 30) + ' months'
+      : ago + (ago === 1 ? ' day' : ' days');
+    if (days < 0) return { rel: 'past', days: days, label: span + ' before this scene — already history' };
+    return { rel: 'future', days: days, label: span + ' AFTER this scene — has not happened yet' };
+  };
+
+  /** The archive's own clock, from currentDate.json. */
+  RP.worldNow = function (clock) {
+    if (!clock || clock.year === undefined) return null;
+    return { year: Number(clock.year), month: Number(clock.monthIndex || 0), day: Number(clock.day || 1), exact: true, text: 'the world clock' };
+  };
+
+  /** The date the scene is being played on: whatever the room says, then the
+   *  scenario it came from, then the archive's clock. */
+  RP.sceneDate = function (room, state) {
+    return RP.parseWahDate(room && (room.date || room.sceneDate))
+      || RP.parseWahDate(room && room.sceneName)
+      || RP.worldNow(state && state.clock);
+  };
+
+  /* ---- what the cast is allowed to know ---- */
+
+  /** Filings these characters are attached to, sorted into what has already
+   *  happened and what has not — with the ids, so the model can cite them
+   *  by name instead of inventing a source. */
+  RP.knowledgeBlock = function (state, room, archive) {
+    archive = archive || {};
+    var scene = RP.sceneDate(room, state);
+    if (!scene) return '';
+    var ids = {};
+    (room.cast || []).forEach(function (c) {
+      (c.keyEvents || []).forEach(function (id) { ids[slug(id)] = true; });
+      (c.relatedArticles || []).forEach(function (id) { ids[slug(id)] = true; });
+    });
+    var past = [], future = [];
+    (archive.events || []).forEach(function (e) {
+      var mine = ids[slug(e.id)] || (e.participants || []).some(function (p) {
+        return (room.cast || []).some(function (c) { return c.id === slug(p && p.id); });
+      });
+      if (!mine) return;
+      var when = RP.parseWahDate(e.timeCode || e.date);
+      var rel = RP.timeRelation(scene, when);
+      var line = '- ' + clip(e.name, 80) + ' (' + (when ? RP.formatWahDate(when) : 'undated') + ') — ' +
+        rel.label + '. ' + clip(e.summary, 180);
+      if (rel.rel === 'future') future.push(line);
+      else if (rel.rel === 'past' || rel.rel === 'now') past.push(line);
+    });
+    if (!past.length && !future.length) return '';
+    var out = ['WHEN THIS SCENE IS HAPPENING\nIt is ' + RP.formatWahDate(scene) + ' by the Regal Empire Standard Calendar. ' +
+      'Months run Firstlight, Chillwind, Veridia, Bloom, Floria, Efferd, Highsun, Harvestide, Aethel, Darkmoon, ' +
+      'Frostfall, Deepwinter, and the year counts UP — a larger BF year is later.'];
+    if (past.length) {
+      out.push('ALREADY HISTORY — these have happened and the cast may refer to them by name\n' + past.slice(0, 8).join('\n'));
+    }
+    if (future.length) {
+      out.push('HAS NOT HAPPENED YET — do not mention, foreshadow knowingly, or remember any of this\n' +
+        future.slice(0, 8).join('\n') +
+        '\nIf a character would guess at one of these, they guess — they do not know.');
+    }
+    return out.join('\n\n');
+  };
+
   /* ------------------------------------------------------------------ *
    * continuations — pick the record up where it stops
    *
@@ -2165,6 +2454,9 @@
       kind: String(entry.kind || 'note'),      // chat | beat | pin | replay | lore | note
       roomId: String(entry.roomId || ''),
       roomTitle: String(entry.roomTitle || ''),
+      // Two clocks, both recorded: the in-world date the thing happened on,
+      // and the real moment it was played. A memory with no date is a rumour.
+      when: clip(entry.when, 90),
       text: clip(entry.text, 400),
       chars: (entry.chars || []).map(String),
       tags: (entry.tags || []).map(String),
@@ -2183,7 +2475,10 @@
     var ids = (room.cast || []).map(function (c) { return c.id; });
     if (msg.role === 'char') {
       var mem = RP.charMemory(state, (room.cast || []).filter(function (c) { return c.id === msg.charId; })[0] || { id: msg.charId });
-      mem.notes.push({ at: msg.at || Date.now(), roomId: room.id, roomTitle: room.title, text: text });
+      mem.notes.push({
+        at: msg.at || Date.now(), roomId: room.id, roomTitle: room.title, text: text,
+        when: clip(room.date || room.sceneDate || '', 90),
+      });
       mem.notes = mem.notes.slice(-40);
       // Everyone else in the room heard it: that is what a relationship is.
       ids.filter(function (id) { return id !== msg.charId; }).forEach(function (id) {
@@ -2251,8 +2546,11 @@
     }).slice(-(limit || 10));
     if (log.length) {
       out.push('WHAT HAS ALREADY HAPPENED (other chats, same world)');
+      var sceneOn = RP.sceneDate(room, state);
       log.forEach(function (e) {
-        out.push('- ' + (e.roomTitle ? '[' + e.roomTitle + '] ' : '') + e.text);
+        var rel = e.when && sceneOn ? RP.timeRelation(sceneOn, e.when) : null;
+        out.push('- ' + (e.when ? e.when + (rel && rel.rel === 'future' ? ' [AFTER this scene — they cannot know it]' : '') + ' — ' : '') +
+          (e.roomTitle ? '[' + e.roomTitle + '] ' : '') + e.text);
       });
     }
     (cast || []).forEach(function (c) {
@@ -2267,7 +2565,11 @@
       });
       if (rel.length) lines.push('Has history with: ' + rel.slice(0, 6).join(', '));
       var recent = mem.notes.filter(function (n) { return !room || n.roomId !== room.id; }).slice(-4);
-      if (recent.length) lines.push('Remembers saying or hearing: ' + recent.map(function (n) { return '“' + n.text + '”'; }).join(' '));
+      if (recent.length) {
+        lines.push('Remembers saying or hearing: ' + recent.map(function (n) {
+          return (n.when ? n.when + ': ' : '') + '“' + n.text + '”' + (n.roomTitle ? ' (' + n.roomTitle + ')' : '');
+        }).join(' '));
+      }
       if (lines.length) out.push('', c.name + ' remembers:', lines.map(function (l) { return '- ' + l; }).join('\n'));
     });
     return out.join('\n');
@@ -2318,6 +2620,8 @@
     if (lore) parts.push(lore);
     var memory = RP.memoryBlock(state, room.cast, room);
     if (memory) parts.push(memory);
+    var knowledge = RP.knowledgeBlock(state, room, opts.archive);
+    if (knowledge) parts.push(knowledge);
     var continuation = RP.continuationBlock(room);
     if (continuation) parts.push(continuation);
     if (room.mechanics !== 'off') {

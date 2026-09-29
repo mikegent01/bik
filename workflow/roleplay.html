@@ -270,6 +270,18 @@ a { color: inherit; }
 .kcard .faces .av { margin-right: -8px; border: 2px solid var(--panel); }
 .kcard .count { color: var(--muted); font-size: 12px; margin-top: 8px; }
 
+/* Cast browser / feed filter bar. */
+.castbar { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-bottom: 12px; }
+.castbar select {
+  border: 1px solid var(--line); background: #fff; border-radius: 999px; padding: 7px 12px; font-size: 13px; outline: 0;
+  max-width: 230px;
+}
+.castbar .chip.clear { border-color: var(--bad); color: var(--bad); }
+.ltr-head span { color: var(--muted); font-size: 12px; font-weight: 400; }
+.when .inworld { color: #7a6320; }
+.item .acts { margin-top: 6px; display: flex; gap: 6px; }
+.pill.danger, .mini.danger { border-color: var(--bad); color: var(--bad); }
+
 .controls { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
 .controls select, .controls input[type=search] {
   border: 1px solid var(--line); background: #fff; border-radius: 999px; padding: 7px 12px; outline: 0; font-size: 13px;
@@ -599,6 +611,16 @@ window.CHATROOM_CONFIG = {
       affiliation: clip(record.affiliation, 120),
       status: clip(record.status, 120),
       summary: clip(record.summary || record.description, 320),
+      // The filed description is what makes a character behave like
+      // themselves rather than like a name with a voice, so it travels with
+      // them into the prompt instead of being thrown away at load.
+      description: clip(record.description, 900),
+      faction: clip(record.faction || record.membership, 80),
+      faiths: clip(record.faiths, 90),
+      level: Number(record.level || 0) || 0,
+      powerLevel: Number(record.powerLevel || 0) || 0,
+      fameScore: Number(record.fameScore || 0) || 0,
+      fameTier: clip(record.fameTier, 40),
       image: String(record.image || ''),
       // The filing account behind the card. Characters carry their own when
       // the archive records one; otherwise the archive itself is the author.
@@ -607,6 +629,7 @@ window.CHATROOM_CONFIG = {
       // Referenced filings: the backfill scan reads these to find the events
       // everybody points at and nobody wrote.
       keyEvents: Array.isArray(record.keyEvents) ? record.keyEvents.slice(0, 12).map(String) : [],
+      relatedArticles: Array.isArray(record.relatedArticles) ? record.relatedArticles.slice(0, 14).map(String) : [],
     };
   };
 
@@ -683,15 +706,50 @@ window.CHATROOM_CONFIG = {
     return (RP.STYLES[style] || RP.STYLES.novel).dir;
   }
 
-  function card(char) {
+  /** The dossier handed to the model. The filed description is the whole
+   *  point — it is what makes a character argue, refuse and joke like
+   *  themselves — so it goes in at length, with the role it implies. */
+  function card(char, opts) {
+    opts = opts || {};
     var lines = ['Name: ' + char.name];
     if (char.title) lines.push('Title: ' + char.title);
     if (char.race) lines.push('Race: ' + char.race);
-    if (char.status) lines.push('Status: ' + char.status);
+    if (char.affiliation) lines.push('Affiliation: ' + char.affiliation);
+    if (char.faction && char.faction !== char.affiliation) lines.push('Faction: ' + char.faction);
+    if (char.faiths) lines.push('Faith: ' + char.faiths);
+    if (char.status) lines.push('Status right now: ' + char.status);
+    if (char.fameTier) lines.push('Standing: ' + char.fameTier + (char.powerLevel ? ' · power ' + char.powerLevel : ''));
     if (char.summary) lines.push('About: ' + char.summary);
+    if (char.description && !opts.short) {
+      lines.push('Filed description — play this, not a generic version of the name:');
+      lines.push(clip(char.description, 900));
+    }
+    if (char.why) lines.push('Why they are in this scene: ' + char.why);
+    var role = RP.roleFor(char);
+    if (role) lines.push('How they behave: ' + role);
     return lines.join('\n');
   }
   RP.card = card;
+
+  /** A behaviour line inferred from what the archive already says. It is
+   *  deliberately blunt: small models need the instruction, not the hint. */
+  RP.roleFor = function (char) {
+    var text = ((char.title || '') + ' ' + (char.status || '') + ' ' + (char.summary || '') + ' ' + (char.description || '')).toLowerCase();
+    var traits = [];
+    function has(re, line) { if (re.test(text)) traits.push(line); }
+    has(/archivist|historian|scribe|record|librarian/, 'cites the record, dates things, corrects other people\u2019s facts');
+    has(/soldier|captain|general|commander|warlord|legion|guard|knight|paratroopa/, 'thinks in ground, orders and casualties; answers threats before questions');
+    has(/king|queen|lord|lady|prince|princess|speaker|delegate|noble|regent/, 'speaks as though the room already reports to them, and notices who does not');
+    has(/merchant|debt|gold|acquisitions|coin|profit|bank|business/, 'prices everything out loud, including favours');
+    has(/thief|looter|infiltrat|rogue|spy|smuggler/, 'checks exits, pockets what is loose, and lies smoothly when it is easier');
+    has(/mage|magic|arcane|wizard|sorcer|ice|witch|oracle/, 'reaches for the arcane answer first, and resents being asked to explain it');
+    has(/ghost|spirit|undead|revenant|corrupted|shadow/, 'is not bound by the room\u2019s rules and does not pretend to be');
+    has(/monster|beast|titan|dragon|plant|creature/, 'communicates physically before verbally');
+    has(/coward|reluctant|nervous|anxious|traumati/, 'wants to leave, says so, and stays anyway');
+    has(/comedian|jester|prank|joke|clown|chaos/, 'undercuts the serious line, especially when it is the wrong moment');
+    has(/injured|wounded|dying|bleeding|missing/, 'is hurt, and it shows in what they can and cannot do');
+    return traits.slice(0, 4).join('; ');
+  };
 
   var RULES = [
     'Stay in character at all times: never mention being an AI, a model, or a chat assistant, and never break the fiction to apologise.',
@@ -726,7 +784,11 @@ window.CHATROOM_CONFIG = {
       'This is a group roleplay scene in the Waluipedia archive.',
       '',
       'THE CAST',
-      list.map(function (c) { return '- ' + c.name + (c.title ? ' — ' + c.title : ''); }).join('\n'),
+      list.map(function (c) {
+        return '- ' + c.name + (c.title ? ' — ' + c.title : '') +
+          (c.affiliation ? ' (' + c.affiliation + ')' : '') +
+          (c.id !== who.id && c.summary ? '\n    ' + clip(c.summary, 200) : '');
+      }).join('\n'),
       '',
       'YOU ARE ' + who.name,
       card(who),
@@ -770,6 +832,9 @@ window.CHATROOM_CONFIG = {
       scene: String(opts.scene || ''),
       sceneName: String(opts.sceneName || ''),
       sceneImage: String(opts.sceneImage || ''),
+      // When this is happening in-world. Every memory filed from this room
+      // is stamped with it, and the model is told which filings it predates.
+      date: String(opts.date || ''),
       perspective: String(opts.perspective || ''),
       replayOf: String(opts.replayOf || ''),
       persona: String(opts.persona || ''),
@@ -1702,6 +1767,7 @@ window.CHATROOM_CONFIG = {
       sceneName: s.name,
       sceneImage: s.image,
       beats: s.beats,
+      date: s.date || '',
       opener: s.kindLabel + ' — ' + s.name + '\n\n' + s.premise,
       // Starting state: a sequel's inherited sheets, or a scenario setup.
       states: s.states || null,
@@ -2403,6 +2469,241 @@ window.CHATROOM_CONFIG = {
   };
 
 
+
+
+  /* ------------------------------------------------------------------ *
+   * browsing the cast — 189 characters is a list, not a library
+   * ------------------------------------------------------------------ */
+
+  RP.CAST_SORTS = {
+    name:     { name: 'Name (A–Z)', fn: function (a, b, ctx) { return a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1; } },
+    played:   { name: 'Most played by you', fn: function (a, b, ctx) { return (ctx.plays[b.id] || 0) - (ctx.plays[a.id] || 0) || (a.name < b.name ? -1 : 1); } },
+    recent:   { name: 'Recently played', fn: function (a, b, ctx) { return (ctx.last[b.id] || 0) - (ctx.last[a.id] || 0) || (a.name < b.name ? -1 : 1); } },
+    fame:     { name: 'Best known', fn: function (a, b) { return (b.fameScore || 0) - (a.fameScore || 0) || (a.name < b.name ? -1 : 1); } },
+    power:    { name: 'Most dangerous', fn: function (a, b) { return (b.powerLevel || b.level || 0) - (a.powerLevel || a.level || 0) || (a.name < b.name ? -1 : 1); } },
+    remember: { name: 'Remembers the most', fn: function (a, b, ctx) { return (ctx.memory[b.id] || 0) - (ctx.memory[a.id] || 0) || (a.name < b.name ? -1 : 1); } },
+    filings:  { name: 'Most filed about', fn: function (a, b) { return (b.keyEvents || []).length - (a.keyEvents || []).length || (a.name < b.name ? -1 : 1); } },
+  };
+
+  RP.CAST_GROUPS = {
+    letter:      { name: 'A–Z', of: function (c) { return RP.letterFor(c.name); } },
+    none:        { name: 'No grouping', of: function () { return ''; } },
+    race:        { name: 'Race', of: function (c) { return c.race || 'Unfiled'; } },
+    affiliation: { name: 'Affiliation', of: function (c) { return c.affiliation || c.faction || 'Unaffiliated'; } },
+    status:      { name: 'Status', of: function (c) { return /^active/i.test(c.status || '') ? 'Active' : (c.status ? clip(c.status.split(/[—,.]/)[0], 40) : 'Unfiled'); } },
+    standing:    { name: 'Standing', of: function (c) { return c.fameTier || 'Unranked'; } },
+  };
+
+  /** Everything the sorters need that lives outside the character record. */
+  RP.castContext = function (state) {
+    var plays = {}, last = {}, memory = {};
+    (state.rooms || []).forEach(function (r) {
+      (r.cast || []).forEach(function (c) {
+        plays[c.id] = (plays[c.id] || 0) + (r.messages || []).filter(function (m) { return m.role === 'char' && m.charId === c.id; }).length;
+        last[c.id] = Math.max(last[c.id] || 0, r.updated || 0);
+      });
+    });
+    (state.chars || []).forEach(function (m) { memory[m.id] = (m.notes || []).length + (m.knowledge || []).length; });
+    return { plays: plays, last: last, memory: memory };
+  };
+
+  RP.sortCast = function (cast, mode, ctx) {
+    var sort = RP.CAST_SORTS[mode] || RP.CAST_SORTS.name;
+    return (cast || []).slice().sort(function (a, b) { return sort.fn(a, b, ctx || { plays: {}, last: {}, memory: {} }); });
+  };
+
+  /** Search plus facets. The query reads the whole dossier, so "ice mage"
+   *  and "Dark Shores" both find people even when it is not in their name. */
+  RP.filterCast = function (cast, opts, ctx) {
+    opts = opts || {};
+    ctx = ctx || { plays: {} };
+    var q = String(opts.query || '').toLowerCase().trim();
+    return (cast || []).filter(function (c) {
+      if (opts.race && (c.race || 'Unfiled') !== opts.race) return false;
+      if (opts.affiliation && (c.affiliation || c.faction || 'Unaffiliated') !== opts.affiliation) return false;
+      if (opts.view === 'played' && !(ctx.plays[c.id] > 0)) return false;
+      if (opts.view === 'unplayed' && ctx.plays[c.id] > 0) return false;
+      if (opts.view === 'portrait' && !c.image) return false;
+      if (opts.view === 'invented' && !c.invented) return false;
+      if (!q) return true;
+      return (c.name + ' ' + c.title + ' ' + c.race + ' ' + c.affiliation + ' ' + c.faction + ' ' +
+        c.status + ' ' + c.summary + ' ' + c.description + ' ' + (c.tags || []).join(' ')).toLowerCase().indexOf(q) >= 0;
+    });
+  };
+
+  /** Group for the dividers, in the order the grouping implies. */
+  RP.groupCast = function (cast, mode, ctx) {
+    var group = RP.CAST_GROUPS[mode] || RP.CAST_GROUPS.letter;
+    if (mode === 'none') return [{ letter: '', chars: cast.slice() }];
+    var map = {};
+    (cast || []).forEach(function (c) {
+      var key = clip(group.of(c), 60) || 'Unfiled';
+      (map[key] = map[key] || []).push(c);
+    });
+    var keys = Object.keys(map);
+    if (mode === 'letter') {
+      keys.sort(function (a, b) { return a === '#' ? 1 : b === '#' ? -1 : a < b ? -1 : 1; });
+    } else {
+      keys.sort(function (a, b) { return map[b].length - map[a].length || (a < b ? -1 : 1); });
+    }
+    return keys.map(function (k) { return { letter: k, chars: map[k] }; });
+  };
+
+  /** The values worth offering as facets — anything shared by 2+ people. */
+  RP.castFacets = function (cast) {
+    function facet(of) {
+      var counts = {};
+      (cast || []).forEach(function (c) {
+        var key = clip(of(c), 60);
+        if (key) counts[key] = (counts[key] || 0) + 1;
+      });
+      return Object.keys(counts).filter(function (k) { return counts[k] > 1; })
+        .sort(function (a, b) { return counts[b] - counts[a] || (a < b ? -1 : 1); })
+        .slice(0, 24).map(function (k) { return { value: k, count: counts[k] }; });
+    }
+    return {
+      race: facet(function (c) { return c.race; }),
+      affiliation: facet(function (c) { return c.affiliation || c.faction; }),
+    };
+  };
+
+  /* ------------------------------------------------------------------ *
+   * the calendar — is this filing already history, or has it not
+   * happened yet?
+   *
+   * The archive runs on the Regal Empire Standard Calendar: twelve months
+   * of thirty days (Deepwinter has thirty-five), BF counting UP, so 1040
+   * is nearer to now than 955. Without this the model cheerfully has a
+   * character reminisce about a battle three years in their future.
+   * ------------------------------------------------------------------ */
+
+  RP.MONTHS = ['Firstlight', 'Chillwind', 'Veridia', 'Bloom', 'Floria', 'Efferd',
+    'Highsun', 'Harvestide', 'Aethel', 'Darkmoon', 'Frostfall', 'Deepwinter'];
+  // Legacy month names that appear in older filings.
+  var MONTH_ALIAS = { harvestside: 'Harvestide', harvestnoon: 'Harvestide' };
+  var DAYS_IN = [30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 35];
+
+  function monthIndex(name) {
+    var want = String(name || '').toLowerCase().trim();
+    want = (MONTH_ALIAS[want] || want).toLowerCase();
+    for (var i = 0; i < RP.MONTHS.length; i++) {
+      if (RP.MONTHS[i].toLowerCase() === want) return i;
+    }
+    return -1;
+  }
+  RP.monthIndex = monthIndex;
+
+  /** Days since the start of year 0 — the only number worth comparing. */
+  RP.dayOrdinal = function (date) {
+    if (!date || date.year === undefined) return null;
+    var days = date.year * 365;
+    for (var i = 0; i < (date.month || 0); i++) days += DAYS_IN[i];
+    return days + (date.day || 1);
+  };
+
+  /** Read an in-world date out of anything the archive writes:
+   *  "5 Aethel, 1040 BF", "the 21st of Highsun, 1040 BF", "1035 BF", or a
+   *  time code "TC:1040-08-30T23:50/SHD". */
+  RP.parseWahDate = function (text) {
+    var raw = String(text || '');
+    if (!raw.trim()) return null;
+    var code = /TC:(\d{3,4})-(\d{2})-(\d{2})/.exec(raw);
+    if (code) {
+      return { year: Number(code[1]), month: Number(code[2]) - 1, day: Number(code[3]), text: clip(raw, 90), exact: true };
+    }
+    var dayFirst = /(\d{1,2})(?:st|nd|rd|th)?\s+(?:of\s+)?([A-Za-z]+)[,\s]+(\d{3,4})\s*BF/i.exec(raw);
+    if (dayFirst && monthIndex(dayFirst[2]) >= 0) {
+      return { year: Number(dayFirst[3]), month: monthIndex(dayFirst[2]), day: Number(dayFirst[1]), text: clip(raw, 90), exact: true };
+    }
+    var monthFirst = /([A-Za-z]+)\s+(\d{1,2})(?:st|nd|rd|th)?[,\s]+(\d{3,4})\s*BF/i.exec(raw);
+    if (monthFirst && monthIndex(monthFirst[1]) >= 0) {
+      return { year: Number(monthFirst[3]), month: monthIndex(monthFirst[1]), day: Number(monthFirst[2]), text: clip(raw, 90), exact: true };
+    }
+    var monthYear = /([A-Za-z]+)\s+(\d{3,4})\s*BF/i.exec(raw);
+    if (monthYear && monthIndex(monthYear[1]) >= 0) {
+      return { year: Number(monthYear[2]), month: monthIndex(monthYear[1]), day: 1, text: clip(raw, 90), exact: false };
+    }
+    var yearOnly = /(\d{3,4})\s*BF/i.exec(raw);
+    if (yearOnly) return { year: Number(yearOnly[1]), month: 0, day: 1, text: clip(raw, 90), exact: false };
+    return null;
+  };
+
+  RP.formatWahDate = function (date) {
+    if (!date) return '';
+    return (date.exact ? date.day + ' ' + RP.MONTHS[date.month] + ', ' : '') + date.year + ' BF';
+  };
+
+  /** How a filing sits relative to the scene being played. */
+  RP.timeRelation = function (sceneDate, otherDate) {
+    var a = typeof sceneDate === 'string' ? RP.parseWahDate(sceneDate) : sceneDate;
+    var b = typeof otherDate === 'string' ? RP.parseWahDate(otherDate) : otherDate;
+    if (!a || !b) return { rel: 'unknown', label: 'undated — treat with care' };
+    var days = RP.dayOrdinal(b) - RP.dayOrdinal(a);
+    if (days === 0) return { rel: 'now', days: 0, label: 'the same day as this scene' };
+    var ago = Math.abs(days);
+    var span = ago >= 730 ? Math.round(ago / 365) + ' years'
+      : ago >= 60 ? Math.round(ago / 30) + ' months'
+      : ago + (ago === 1 ? ' day' : ' days');
+    if (days < 0) return { rel: 'past', days: days, label: span + ' before this scene — already history' };
+    return { rel: 'future', days: days, label: span + ' AFTER this scene — has not happened yet' };
+  };
+
+  /** The archive's own clock, from currentDate.json. */
+  RP.worldNow = function (clock) {
+    if (!clock || clock.year === undefined) return null;
+    return { year: Number(clock.year), month: Number(clock.monthIndex || 0), day: Number(clock.day || 1), exact: true, text: 'the world clock' };
+  };
+
+  /** The date the scene is being played on: whatever the room says, then the
+   *  scenario it came from, then the archive's clock. */
+  RP.sceneDate = function (room, state) {
+    return RP.parseWahDate(room && (room.date || room.sceneDate))
+      || RP.parseWahDate(room && room.sceneName)
+      || RP.worldNow(state && state.clock);
+  };
+
+  /* ---- what the cast is allowed to know ---- */
+
+  /** Filings these characters are attached to, sorted into what has already
+   *  happened and what has not — with the ids, so the model can cite them
+   *  by name instead of inventing a source. */
+  RP.knowledgeBlock = function (state, room, archive) {
+    archive = archive || {};
+    var scene = RP.sceneDate(room, state);
+    if (!scene) return '';
+    var ids = {};
+    (room.cast || []).forEach(function (c) {
+      (c.keyEvents || []).forEach(function (id) { ids[slug(id)] = true; });
+      (c.relatedArticles || []).forEach(function (id) { ids[slug(id)] = true; });
+    });
+    var past = [], future = [];
+    (archive.events || []).forEach(function (e) {
+      var mine = ids[slug(e.id)] || (e.participants || []).some(function (p) {
+        return (room.cast || []).some(function (c) { return c.id === slug(p && p.id); });
+      });
+      if (!mine) return;
+      var when = RP.parseWahDate(e.timeCode || e.date);
+      var rel = RP.timeRelation(scene, when);
+      var line = '- ' + clip(e.name, 80) + ' (' + (when ? RP.formatWahDate(when) : 'undated') + ') — ' +
+        rel.label + '. ' + clip(e.summary, 180);
+      if (rel.rel === 'future') future.push(line);
+      else if (rel.rel === 'past' || rel.rel === 'now') past.push(line);
+    });
+    if (!past.length && !future.length) return '';
+    var out = ['WHEN THIS SCENE IS HAPPENING\nIt is ' + RP.formatWahDate(scene) + ' by the Regal Empire Standard Calendar. ' +
+      'Months run Firstlight, Chillwind, Veridia, Bloom, Floria, Efferd, Highsun, Harvestide, Aethel, Darkmoon, ' +
+      'Frostfall, Deepwinter, and the year counts UP — a larger BF year is later.'];
+    if (past.length) {
+      out.push('ALREADY HISTORY — these have happened and the cast may refer to them by name\n' + past.slice(0, 8).join('\n'));
+    }
+    if (future.length) {
+      out.push('HAS NOT HAPPENED YET — do not mention, foreshadow knowingly, or remember any of this\n' +
+        future.slice(0, 8).join('\n') +
+        '\nIf a character would guess at one of these, they guess — they do not know.');
+    }
+    return out.join('\n\n');
+  };
+
   /* ------------------------------------------------------------------ *
    * continuations — pick the record up where it stops
    *
@@ -2655,6 +2956,9 @@ window.CHATROOM_CONFIG = {
       kind: String(entry.kind || 'note'),      // chat | beat | pin | replay | lore | note
       roomId: String(entry.roomId || ''),
       roomTitle: String(entry.roomTitle || ''),
+      // Two clocks, both recorded: the in-world date the thing happened on,
+      // and the real moment it was played. A memory with no date is a rumour.
+      when: clip(entry.when, 90),
       text: clip(entry.text, 400),
       chars: (entry.chars || []).map(String),
       tags: (entry.tags || []).map(String),
@@ -2673,7 +2977,10 @@ window.CHATROOM_CONFIG = {
     var ids = (room.cast || []).map(function (c) { return c.id; });
     if (msg.role === 'char') {
       var mem = RP.charMemory(state, (room.cast || []).filter(function (c) { return c.id === msg.charId; })[0] || { id: msg.charId });
-      mem.notes.push({ at: msg.at || Date.now(), roomId: room.id, roomTitle: room.title, text: text });
+      mem.notes.push({
+        at: msg.at || Date.now(), roomId: room.id, roomTitle: room.title, text: text,
+        when: clip(room.date || room.sceneDate || '', 90),
+      });
       mem.notes = mem.notes.slice(-40);
       // Everyone else in the room heard it: that is what a relationship is.
       ids.filter(function (id) { return id !== msg.charId; }).forEach(function (id) {
@@ -2741,8 +3048,11 @@ window.CHATROOM_CONFIG = {
     }).slice(-(limit || 10));
     if (log.length) {
       out.push('WHAT HAS ALREADY HAPPENED (other chats, same world)');
+      var sceneOn = RP.sceneDate(room, state);
       log.forEach(function (e) {
-        out.push('- ' + (e.roomTitle ? '[' + e.roomTitle + '] ' : '') + e.text);
+        var rel = e.when && sceneOn ? RP.timeRelation(sceneOn, e.when) : null;
+        out.push('- ' + (e.when ? e.when + (rel && rel.rel === 'future' ? ' [AFTER this scene — they cannot know it]' : '') + ' — ' : '') +
+          (e.roomTitle ? '[' + e.roomTitle + '] ' : '') + e.text);
       });
     }
     (cast || []).forEach(function (c) {
@@ -2757,7 +3067,11 @@ window.CHATROOM_CONFIG = {
       });
       if (rel.length) lines.push('Has history with: ' + rel.slice(0, 6).join(', '));
       var recent = mem.notes.filter(function (n) { return !room || n.roomId !== room.id; }).slice(-4);
-      if (recent.length) lines.push('Remembers saying or hearing: ' + recent.map(function (n) { return '“' + n.text + '”'; }).join(' '));
+      if (recent.length) {
+        lines.push('Remembers saying or hearing: ' + recent.map(function (n) {
+          return (n.when ? n.when + ': ' : '') + '“' + n.text + '”' + (n.roomTitle ? ' (' + n.roomTitle + ')' : '');
+        }).join(' '));
+      }
       if (lines.length) out.push('', c.name + ' remembers:', lines.map(function (l) { return '- ' + l; }).join('\n'));
     });
     return out.join('\n');
@@ -2808,6 +3122,8 @@ window.CHATROOM_CONFIG = {
     if (lore) parts.push(lore);
     var memory = RP.memoryBlock(state, room.cast, room);
     if (memory) parts.push(memory);
+    var knowledge = RP.knowledgeBlock(state, room, opts.archive);
+    if (knowledge) parts.push(knowledge);
     var continuation = RP.continuationBlock(room);
     if (continuation) parts.push(continuation);
     if (room.mechanics !== 'off') {
@@ -3136,6 +3452,12 @@ window.CHATROOM_CONFIG = {
   var archive = { whatifs: [], events: [], factions: [], congress: {} };
   var whatifs = [];       // the composed What-If board
   var backfills = [];     // the unwritten events everything points at
+  var logKind = 'all';
+  var castSort = 'name';
+  var castGroup = 'letter';
+  var castRace = '';
+  var castAffil = '';
+  var castView = 'all';   // all | played | unplayed | portrait | invented
   var showStates = true;  // the sheets are visible in the chat by default
   var wireSort = 'newest';
   var wireView = 'all';   // all | unused | used | unfiled
@@ -3257,6 +3579,9 @@ window.CHATROOM_CONFIG = {
 
   /** The records the What-If board is composed from. */
   function loadArchive() {
+    if (CFG.clockUrl) {
+      getJSON(CFG.clockUrl).then(function (clock) { state.clock = clock; }).catch(function () { /* the scene date still works */ });
+    }
     if (CFG.mode === 'static') {
       return Promise.all([
         getJSON(CFG.whatifsUrl).catch(function () { return []; }),
@@ -3272,6 +3597,7 @@ window.CHATROOM_CONFIG = {
       archive.whatifs = data.whatifs || [];
       archive.events = data.events || [];
       archive.knownIds = data.knownIds || [];
+      if (data.clock) state.clock = data.clock;
       archive.factions = data.factions || [];
       archive.congress = data.congress || {};
     }).catch(function (error) { console.warn('archive bundle unavailable', error); });
@@ -3420,14 +3746,39 @@ window.CHATROOM_CONFIG = {
    * dashboard
    * ---------------------------------------------------------------- */
 
-  function charCard(c, note) {
+  /** A card. `extra` is either a caption, or the cast context — in which
+   *  case the card shows what the current sort is actually sorting on. */
+  /** Real-world time, plainly. Used beside the in-world date everywhere. */
+  function ago(at) {
+    var secs = Math.max(1, Math.round((Date.now() - (at || 0)) / 1000));
+    if (secs < 90) return 'just now';
+    var mins = Math.round(secs / 60);
+    if (mins < 60) return mins + ' min ago';
+    var hours = Math.round(mins / 60);
+    if (hours < 36) return hours + 'h ago';
+    var days = Math.round(hours / 24);
+    if (days < 14) return days + ' days ago';
+    return new Date(at).toLocaleDateString();
+  }
+
+  function charCard(c, extra) {
     var plays = interactions(c.id);
+    var note = typeof extra === 'string' ? extra : '';
+    if (extra && typeof extra === 'object') {
+      var mem = extra.memory[c.id] || 0;
+      note = castSort === 'fame' && c.fameTier ? '★ ' + c.fameTier
+        : castSort === 'power' && (c.powerLevel || c.level) ? '⚔ power ' + (c.powerLevel || c.level)
+        : castSort === 'remember' ? '🧠 ' + mem + ' remembered'
+        : castSort === 'filings' ? '📜 ' + (c.keyEvents || []).length + ' filings'
+        : castSort === 'recent' && extra.last[c.id] ? '🕘 ' + ago(extra.last[c.id])
+        : c.affiliation || c.race || '';
+    }
     return '<button class="ccard" data-char="' + esc(c.id) + '">' + avatar(c, 56) +
-      '<span class="body"><b>' + esc(c.name) + '</b>' +
+      '<span class="body"><b>' + esc(c.name) + (c.invented ? ' <span class="tag">invented</span>' : '') + '</b>' +
       '<span class="by">By @' + esc(c.handle) + '</span>' +
       '<span class="sum">' + esc(c.summary || c.title || 'No filed summary yet.') + '</span>' +
       '<span class="meta"><span>💬 ' + plays + (plays === 1 ? ' interaction' : ' interactions') + '</span>' +
-      (note ? '<span>' + esc(note) + '</span>' : (c.race ? '<span>' + esc(c.race) + '</span>' : '')) +
+      (note ? '<span>' + esc(RP.clip(note, 40)) + '</span>' : '') +
       '</span></span></button>';
   }
 
@@ -3470,11 +3821,48 @@ window.CHATROOM_CONFIG = {
       '<span class="more">Filed sessions, played from another perspective</span></div>';
     html += scenes.length ? '<div class="row">' + scenes.map(sceneCard).join('') + '</div>'
       : '<div class="emptynote">No filed sessions loaded.</div>';
-    html += '<div class="sec-head"><h2>The whole cast</h2><span class="grow"></span><span class="more">' + filtered.length + ' characters</span></div>';
-    if (!filtered.length) html += '<div class="emptynote">Nothing matches “' + esc(query) + '”.</div>';
-    RP.groupByLetter(filtered).forEach(function (group) {
-      html += '<div class="ltr-head">' + esc(group.letter) + '</div><div class="grid">' +
-        group.chars.map(function (c) { return charCard(c); }).join('') + '</div>';
+    html += castBrowser();
+    return html;
+  }
+
+  /** The cast, browsable: sort it, group it, filter it by race or
+   *  affiliation, or narrow it to the people you have actually played.
+   *  189 names in one alphabetical list is a phone book. */
+  function castBrowser() {
+    var ctx = RP.castContext(state);
+    var pool = RP.filterCast(cast.concat(state.newChars || []), {
+      query: query, race: castRace, affiliation: castAffil, view: castView,
+    }, ctx);
+    var sorted = RP.sortCast(pool, castSort, ctx);
+    var facets = RP.castFacets(cast);
+    var VIEWS = { all: 'Everyone', played: 'Played', unplayed: 'Never played', portrait: 'Has a portrait', invented: 'Invented in play' };
+
+    var html = '<div class="sec-head"><h2>The whole cast</h2><span class="grow"></span>' +
+      '<span class="more">' + sorted.length + ' of ' + cast.length + '</span></div>' +
+      '<div class="castbar">' +
+      '<select id="castSort" title="Sort">' + Object.keys(RP.CAST_SORTS).map(function (k) {
+        return '<option value="' + k + '"' + (castSort === k ? ' selected' : '') + '>' + esc(RP.CAST_SORTS[k].name) + '</option>';
+      }).join('') + '</select>' +
+      '<select id="castGroup" title="Group by">' + Object.keys(RP.CAST_GROUPS).map(function (k) {
+        return '<option value="' + k + '"' + (castGroup === k ? ' selected' : '') + '>Group: ' + esc(RP.CAST_GROUPS[k].name) + '</option>';
+      }).join('') + '</select>' +
+      '<select id="castRace" title="Race"><option value="">Any race</option>' + facets.race.map(function (f) {
+        return '<option value="' + esc(f.value) + '"' + (castRace === f.value ? ' selected' : '') + '>' + esc(f.value) + ' (' + f.count + ')</option>';
+      }).join('') + '</select>' +
+      '<select id="castAffil" title="Affiliation"><option value="">Any affiliation</option>' + facets.affiliation.map(function (f) {
+        return '<option value="' + esc(f.value) + '"' + (castAffil === f.value ? ' selected' : '') + '>' + esc(RP.clip(f.value, 40)) + ' (' + f.count + ')</option>';
+      }).join('') + '</select>' +
+      Object.keys(VIEWS).map(function (k) {
+        return '<button class="chip ' + (castView === k ? 'on' : '') + '" data-castview="' + k + '">' + esc(VIEWS[k]) + '</button>';
+      }).join('') +
+      (castRace || castAffil || castView !== 'all' || castSort !== 'name' || castGroup !== 'letter'
+        ? '<button class="chip clear" id="castReset">✕ Reset</button>' : '') +
+      '</div>';
+
+    if (!sorted.length) return html + '<div class="emptynote">Nothing matches that. Try ✕ Reset.</div>';
+    RP.groupCast(sorted, castGroup, ctx).forEach(function (group) {
+      if (group.letter) html += '<div class="ltr-head">' + esc(group.letter) + ' <span>' + group.chars.length + '</span></div>';
+      html += '<div class="grid">' + group.chars.map(function (c) { return charCard(c, ctx); }).join('') + '</div>';
     });
     return html;
   }
@@ -3634,15 +4022,27 @@ window.CHATROOM_CONFIG = {
   }
 
   function renderFeed() {
-    var log = (state.log || []).slice().reverse();
+    var KINDS = ['all', 'chat', 'beat', 'pin', 'note', 'whatif', 'backfill', 'roster', 'lore', 'replay', 'wire'];
+    var log = (state.log || []).filter(function (e) {
+      if (logKind !== 'all' && e.kind !== logKind) return false;
+      if (!query) return true;
+      return (e.text + ' ' + e.roomTitle + ' ' + (e.when || '')).toLowerCase().indexOf(query.toLowerCase()) >= 0;
+    }).slice().reverse();
     var html = '<div class="sec-head"><h2>Feed — the world log</h2><span class="grow"></span>' +
       '<button class="pill" id="logAdd">＋ File a note</button>' +
       '<button class="pill" id="logExport">⬇ Export log</button></div>' +
-      '<p class="emptynote">Everything here is visible to every chat: characters are told what has already happened, even when it happened in another room.</p>';
+      '<p class="emptynote">Every memory is filed twice: the in-world date it happened on, and the moment it was played. ' +
+      'Characters are told what has already happened — and, when a filing sits after the scene they are in, that they ' +
+      'cannot know it yet.</p>' +
+      '<div class="castbar">' + KINDS.map(function (k) {
+        return '<button class="chip ' + (logKind === k ? 'on' : '') + '" data-logkind="' + k + '">' + esc(k) + '</button>';
+      }).join('') + '</div>';
     if (!log.length) return html + '<div class="emptynote">Nothing filed yet. Play a turn, or pin a line with “Remember”.</div>';
     html += '<div class="stack">' + log.map(function (e) {
       var who = (e.chars || []).map(function (id) { return (castById[id] || { name: id }).name; }).join(', ');
-      return '<div class="item"><div class="when">' + new Date(e.at).toLocaleString() + ' · ' + esc(e.kind) +
+      return '<div class="item"><div class="when">' +
+        (e.when ? '<b class="inworld">🕯 ' + esc(e.when) + '</b> · ' : '') +
+        ago(e.at) + ' · ' + esc(e.kind) +
         (e.roomTitle ? ' · ' + esc(e.roomTitle) : '') + '</div><b>' + esc(e.text) + '</b>' +
         (who ? '<div class="tags"><span class="tag">' + esc(who) + '</span></div>' : '') +
         '<div class="acts"><button class="mini danger" data-logkill="' + esc(e.id) + '">Delete</button>' +
@@ -3756,6 +4156,25 @@ window.CHATROOM_CONFIG = {
         if (!d.ifplay && !d.ifread && !d.ifhook) readWhatIf(card.dataset.if);
       };
     });
+    ['castSort', 'castGroup', 'castRace', 'castAffil'].forEach(function (id) {
+      if ($(id)) $(id).onchange = function () {
+        if (id === 'castSort') castSort = $(id).value;
+        if (id === 'castGroup') castGroup = $(id).value;
+        if (id === 'castRace') castRace = $(id).value;
+        if (id === 'castAffil') castAffil = $(id).value;
+        renderDash();
+      };
+    });
+    box.querySelectorAll('[data-castview]').forEach(function (b) {
+      b.onclick = function () { castView = b.dataset.castview; renderDash(); };
+    });
+    on('castReset', function () {
+      castSort = 'name'; castGroup = 'letter'; castRace = ''; castAffil = ''; castView = 'all';
+      renderDash();
+    });
+    box.querySelectorAll('[data-logkind]').forEach(function (b) {
+      b.onclick = function () { logKind = b.dataset.logkind; renderDash(); };
+    });
     on('makeIf', createScenarioForm);
     on('allIfs', function () { tab = 'whatif'; render(); });
     on('allBackfills', function () { tab = 'backfills'; render(); });
@@ -3842,7 +4261,7 @@ window.CHATROOM_CONFIG = {
     state.rooms.unshift(r);
     state.active = r.id;
     RP.logEvent(state, {
-      kind: 'chat', roomId: r.id, roomTitle: r.title,
+      kind: 'chat', roomId: r.id, roomTitle: r.title, when: roomDate(r),
       chars: r.cast.map(function (c) { return c.id; }),
       text: (r.kind === 'group' ? 'A group chat opened: ' : 'A chat opened with ') + r.cast.map(function (c) { return c.name; }).join(', ') + '.',
     });
@@ -3862,7 +4281,7 @@ window.CHATROOM_CONFIG = {
     opts = opts || {};
     pushRoom(RP.newRoom(picked, {
       scene: opts.scene || '', sceneName: opts.sceneName || '', sceneImage: opts.sceneImage || '',
-      beats: opts.beats || [], opener: opts.opener || '',
+      beats: opts.beats || [], opener: opts.opener || '', date: opts.date || '',
       style: (state.settings && state.settings.style) || 'novel',
       persona: (state.user && state.user.persona) || '',
       // Scenario settings: the sheets everyone walks in carrying.
@@ -3884,7 +4303,7 @@ window.CHATROOM_CONFIG = {
     }, function (picked) {
       startGroup(picked, {
         scene: scene.summary || scene.name, sceneName: scene.name, sceneImage: scene.image,
-        beats: scene.beats || [],
+        beats: scene.beats || [], date: scene.date || '',
         opener: 'Scene — ' + scene.name + (scene.location ? ' · ' + scene.location : '') + (scene.date ? ' · ' + scene.date : ''),
       });
     });
@@ -3908,7 +4327,7 @@ window.CHATROOM_CONFIG = {
       var opened = room();
       RP.markPostUsed(state, post.id, opened);
       RP.logEvent(state, {
-        kind: 'wire', roomId: opened.id, roomTitle: opened.title,
+        kind: 'wire', roomId: opened.id, roomTitle: opened.title, when: roomDate(opened),
         chars: picked.map(function (c) { return c.id; }),
         text: 'Played the wire post by ' + post.authorName + ': ' + RP.clip(post.content, 180),
         tags: post.tags,
@@ -4039,7 +4458,7 @@ window.CHATROOM_CONFIG = {
           if (parent) parent.sequelCount = (parent.sequelCount || 0) + 1;
         }
         RP.logEvent(state, {
-          kind: s.kind === 'backfill' ? 'backfill' : 'whatif', roomId: opened.id, roomTitle: opened.title,
+          kind: s.kind === 'backfill' ? 'backfill' : 'whatif', roomId: opened.id, roomTitle: opened.title, when: roomDate(opened),
           chars: picked.map(function (c) { return c.id; }),
           text: 'Opened “' + opened.sceneName + '” (' + s.kindLabel + ').',
           tags: s.tags,
@@ -4166,6 +4585,7 @@ window.CHATROOM_CONFIG = {
       '<span class="title"><b>' + esc(r.title) + '</b><span>' + esc(r.kind === 'group' ? r.cast.map(function (c) { return c.name; }).join(', ') : (face.title || '')) + '</span></span>' +
       (r.beats && r.beats.length ? '<button class="pill" id="nextBeat">⏩ Next beat (' + RP.beatProgress(r).at + '/' + RP.beatProgress(r).total + ')</button>' : '') +
       (r.kind === 'group' ? '<button class="pill" id="continueBtn">➤ Continue</button>' : '') +
+      '<button class="pill" id="dateBtn" title="When is this happening, in-world?">🕯 ' + esc(RP.clip(roomDate(r) || 'undated', 26)) + '</button>' +
       (r.mechanics === 'off' ? '' : '<button class="pill' + (showStates ? ' primary' : '') + '" id="statesBtn">🩺 States</button>') +
       '<button class="pill" id="seqBtn">📖 Sequel</button>' +
       '<button class="pill" id="panelBtn">☰ Character</button>';
@@ -4282,6 +4702,8 @@ window.CHATROOM_CONFIG = {
       menuItem('cpReplay', '🎭', 'Replay', 'Perspective') +
       menuItem('cpScript', '⏱', 'Script', r.beats && r.beats.length ? (r.autoBeats ? 'Auto' : 'Manual') : 'None') +
       menuItem('cpDirector', '🎬', 'Director', state.settings.director === 'off' ? 'Off' : 'On · max ' + (state.settings.maxChain || RP.MAX_CHAIN)) +
+      menuItem('cpRename', '✏️', 'Rename chat', RP.clip(r.title, 14)) +
+      menuItem('cpDelete', '🗑', 'Delete chat', '') +
       menuItem('cpFate', '🎲', 'Fate', (state.settings.fate || 'normal') === 'off' ? 'Off — you always succeed' : RP.clip(state.settings.fate, 10)) +
       '</div>' +
       '<div class="cp-note">Memory is shared across chats: what is said here is remembered in the next room. Export from Labs.</div>';
@@ -4296,6 +4718,16 @@ window.CHATROOM_CONFIG = {
   function wireChat() {
     var r = room();
     var on = function (id, fn) { var node = $(id); if (node) node.onclick = fn; };
+    on('dateBtn', function () {
+      var r = room();
+      form('When is this happening?', [
+        { k: 'date', label: 'In-world date', value: roomDate(r) },
+      ], {
+        note: 'Regal Empire Standard Calendar — "5 Aethel, 1040 BF". Months run Firstlight, Chillwind, Veridia, Bloom, ' +
+          'Floria, Efferd, Highsun, Harvestide, Aethel, Darkmoon, Frostfall, Deepwinter, and BF counts up. ' +
+          'The model is told which filings are already history and which have not happened yet, measured from this date.',
+      }, function (v) { r.date = v.date.trim(); r.updated = Date.now(); save(); render(); });
+    });
     on('statesBtn', function () { showStates = !showStates; render(); });
     on('seqBtn', function () { openSequel(room()); });
     var bar1 = $('statebar');
@@ -4321,14 +4753,14 @@ window.CHATROOM_CONFIG = {
       b.onclick = function () {
         var m = r.messages[+b.dataset.pin];
         m.pinned = !m.pinned;
-        if (m.pinned) RP.logEvent(state, { kind: 'pin', roomId: r.id, roomTitle: r.title, chars: r.cast.map(function (c) { return c.id; }), text: RP.clip(RP.textOf(m), 200) });
+        if (m.pinned) RP.logEvent(state, { kind: 'pin', roomId: r.id, roomTitle: r.title, when: roomDate(r), chars: r.cast.map(function (c) { return c.id; }), text: RP.clip(RP.textOf(m), 200) });
         save(); render();
       };
     });
     stream.querySelectorAll('[data-remember]').forEach(function (b) {
       b.onclick = function () {
         var m = r.messages[+b.dataset.remember];
-        RP.logEvent(state, { kind: 'note', roomId: r.id, roomTitle: r.title, chars: r.cast.map(function (c) { return c.id; }), text: RP.clip(RP.textOf(m), 300) });
+        RP.logEvent(state, { kind: 'note', roomId: r.id, roomTitle: r.title, when: roomDate(r), chars: r.cast.map(function (c) { return c.id; }), text: RP.clip(RP.textOf(m), 300) });
         save(); toast('Filed into the world log — every chat can see it now.');
       };
     });
@@ -4387,9 +4819,46 @@ window.CHATROOM_CONFIG = {
     });
     on('cpMemory', function () {
       var mem = RP.charMemory(state, c);
-      list(c.name + '’s memory', mem.notes.slice().reverse().map(function (n) {
-        return { label: '[' + n.roomTitle + '] ' + RP.clip(n.text, 90), value: n.roomId };
-      }), function (id) { if ((state.rooms || []).some(function (x) { return x.id === id; })) openRoom(id); });
+      var scene = RP.sceneDate(r, state);
+      var rel = Object.keys(mem.relations || {}).map(function (k) {
+        var x = mem.relations[k];
+        return '<span class="tag">' + esc(x.name) + ' ' + (x.score > 0 ? '+' : '') + x.score + '</span>';
+      }).join('');
+      openModal('<h3>' + esc(c.name) + '’s memory</h3>' +
+        '<p class="sub">Two clocks on every line: the in-world date it happened, and when you played it.' +
+        (scene ? ' This scene is ' + esc(RP.formatWahDate(scene)) + '.' : '') + '</p>' +
+        (mem.mood ? '<p class="sub">Mood: <b>' + esc(mem.mood) + '</b></p>' : '') +
+        (rel ? '<div class="tags">' + rel + '</div>' : '') +
+        (mem.knowledge && mem.knowledge.length
+          ? '<h4>Taught facts</h4><div class="stack">' + mem.knowledge.map(function (k) {
+              return '<div class="item"><b>' + esc(k) + '</b></div>';
+            }).join('') + '</div>' : '') +
+        '<h4>Said and heard</h4>' +
+        (mem.notes.length ? '<div class="stack">' + mem.notes.slice().reverse().slice(0, 40).map(function (n) {
+          var when = n.when && scene ? RP.timeRelation(scene, n.when) : null;
+          return '<div class="item"><div class="when">' +
+            (n.when ? '<b class="inworld">🕯 ' + esc(n.when) + '</b>' +
+              (when && when.rel === 'future' ? ' <span class="tag">after this scene</span>' : '') + ' · ' : '') +
+            esc(ago(n.at)) + (n.roomTitle ? ' · ' + esc(n.roomTitle) : '') + '</div>' +
+            '<b>' + esc(n.text) + '</b>' +
+            (n.roomId ? '<div class="acts"><button class="mini" data-gochat="' + esc(n.roomId) + '">Open that chat</button></div>' : '') +
+            '</div>';
+        }).join('') + '</div>' : '<p class="sub">Nothing remembered yet.</p>') +
+        '<div class="actions"><button class="pill" id="mCancel">Close</button>' +
+        '<button class="pill" id="mTeach">＋ Teach them something</button></div>');
+      $('mCancel').onclick = closeModal;
+      $('mTeach').onclick = function () {
+        closeModal();
+        form('Teach ' + c.name, [{ k: 'fact', label: 'They now know…', type: 'area', value: '' }], {
+          note: 'Handed to them in every chat from now on, as established fact.',
+        }, function (v) { if (v.fact.trim()) { RP.teach(state, c, v.fact.trim()); save(); render(); toast(c.name + ' knows that now.'); } });
+      };
+      $('modal').querySelectorAll('[data-gochat]').forEach(function (b) {
+        b.onclick = function () {
+          closeModal();
+          if ((state.rooms || []).some(function (x) { return x.id === b.dataset.gochat; })) openRoom(b.dataset.gochat);
+        };
+      });
     });
     on('cpReplay', function () { replayPicker(r.id); });
     on('cpScript', function () {
@@ -4409,6 +4878,21 @@ window.CHATROOM_CONFIG = {
         state.settings.maxChain = isNaN(n) ? RP.MAX_CHAIN : Math.max(1, Math.min(12, n));
         save(); render();
       });
+    });
+    on('cpRename', function () {
+      form('Rename chat', [{ k: 'title', label: 'Title', value: r.title }], {}, function (v) {
+        if (v.title.trim()) { r.title = v.title.trim(); r.updated = Date.now(); save(); render(); }
+      });
+    });
+    on('cpDelete', function () {
+      confirmThen('Delete “' + RP.clip(r.title, 40) + '”?',
+        'The transcript goes; the memories and world-log lines it filed stay, because other chats depend on them.',
+        function () {
+          state.rooms = (state.rooms || []).filter(function (x) { return x.id !== r.id; });
+          state.active = '';
+          save(); render();
+          toast('Chat deleted. Its memories are still in the log.');
+        });
     });
     on('cpFate', function () {
       form('Fate', [
@@ -4437,7 +4921,7 @@ window.CHATROOM_CONFIG = {
     var beat = r.beats[r.beatIndex - 1];
     if (!beat) return;
     RP.logEvent(state, {
-      kind: 'beat', roomId: r.id, roomTitle: r.title, chars: r.cast.map(function (c) { return c.id; }),
+      kind: 'beat', roomId: r.id, roomTitle: r.title, when: roomDate(r), chars: r.cast.map(function (c) { return c.id; }),
       text: (r.sceneName ? r.sceneName + ' — ' : '') + (beat.time ? beat.time + ': ' : '') + beat.beat,
     });
   }
@@ -4500,7 +4984,7 @@ window.CHATROOM_CONFIG = {
     // worked. The roll happens here and is handed to the model as an order.
     var answering = !retry && RP.visible(lastVisible(r)) && lastVisible(r).role === 'user';
     var fate = answering ? RP.rollFate(state, r, {}) : null;
-    var system = RP.systemFor(state, r, speaker, { fate: fate });
+    var system = RP.systemFor(state, r, speaker, { fate: fate, archive: archive });
     var history = RP.historyFor(retry ? { kind: r.kind, cast: r.cast, messages: r.messages.slice(0, opts.retryIndex) } : r, 24);
     if (!history.length) history = [{ role: 'user', content: '(The scene opens. Begin in character.)' }];
 
@@ -4555,6 +5039,14 @@ window.CHATROOM_CONFIG = {
     });
   }
 
+  /** The in-world date a room is being played on: whatever the scenario
+   *  filed, else the archive's own clock. Every memory is stamped with it. */
+  function roomDate(r) {
+    if (r && r.date) return r.date;
+    var parsed = RP.sceneDate(r, state);
+    return parsed ? RP.formatWahDate(parsed) : '';
+  }
+
   function lastVisible(r) {
     var msgs = (r && r.messages) || [];
     for (var i = msgs.length - 1; i >= 0; i--) { if (RP.visible(msgs[i])) return msgs[i]; }
@@ -4600,6 +5092,14 @@ window.CHATROOM_CONFIG = {
       closeModal();
       done(values);
     };
+  }
+
+  function confirmThen(title, note, done) {
+    openModal('<h3>' + esc(title) + '</h3><p class="sub">' + esc(note) + '</p>' +
+      '<div class="actions"><button class="pill" id="mCancel">Keep it</button>' +
+      '<button class="pill danger" id="mOk">Delete</button></div>');
+    $('mCancel').onclick = closeModal;
+    $('mOk').onclick = function () { closeModal(); done(); };
   }
 
   function list(title, items, done) {
@@ -4863,6 +5363,38 @@ window.CHATROOM_CONFIG = {
   wireShell();
   render();
   checkHealth();
+  /* ---------------------------------------------------------------- *
+   * quality of life: the keys you already expect to work
+   * ---------------------------------------------------------------- */
+  window.addEventListener('keydown', function (e) {
+    var typing = /^(INPUT|TEXTAREA|SELECT)$/.test((e.target || {}).tagName || '');
+    if (e.key === 'Escape') {
+      if (!$('modalBack').hidden) { closeModal(); return; }
+      if (!$('chatview').hidden) { $('homeBtn').click(); return; }
+    }
+    if (e.key === 'Enter' && (e.ctrlKey || e.metaKey) && $('input') === document.activeElement) {
+      e.preventDefault(); $('composer').dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
+      return;
+    }
+    if (typing) return;
+    if (e.key === '/') { e.preventDefault(); if ($('search')) $('search').focus(); return; }
+    if (e.key === 'n' && !e.ctrlKey && !e.metaKey && !$('chatview').hidden) { e.preventDefault(); generate(); return; }
+    if (e.key === '?' ) { e.preventDefault(); shortcutsHelp(); }
+  });
+
+  function shortcutsHelp() {
+    openModal('<h3>Keyboard</h3><div class="stack">' + [
+      ['Esc', 'close a dialog, or leave the chat'],
+      ['Ctrl / ⌘ + Enter', 'send your turn'],
+      ['/', 'jump to search'],
+      ['n', 'let the next character speak'],
+      ['?', 'this list'],
+    ].map(function (row) {
+      return '<div class="item"><b>' + row[0] + '</b><p>' + row[1] + '</p></div>';
+    }).join('') + '</div><div class="actions"><button class="pill primary" id="mCancel">Close</button></div>');
+    $('mCancel').onclick = closeModal;
+  }
+
   loadCast()
     .then(function () { return Promise.all([loadScenes(), loadWire(), loadCollections()]); })
     .then(loadArchive)

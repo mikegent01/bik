@@ -142,6 +142,18 @@ memory, lore, replay, backups — is documented in
   click preselects the whole table in the cast picker.
 - **No advertisements.** The dashboard has no ad slot and the page contains no
   ad code.
+- **The calendar.** Every room has an in-world date (from the scenario, or
+  `currentDate.json`). Filings attached to the cast are sorted into *already
+  history* and *has not happened yet*, so nobody reminisces about their own
+  future, and every memory is filed with both clocks — the in-world date and
+  when you played it.
+- **Characters play like their filing.** The full filed description goes into
+  the prompt with a behaviour line inferred from it, plus affiliation, faith,
+  status and standing.
+- **A browsable cast.** Sort by name, play count, recency, standing, power,
+  memory or filings; group by A–Z, race, affiliation, status or standing;
+  filter by race, affiliation, played/never-played/has-a-portrait/invented;
+  search the whole dossier.
 - **Memory that crosses chats.** Every opening, fired beat, pin and 🧠
   *remember* is filed in a world log; characters carry their own memory
   (lines said and heard, taught facts, a mood, relationship scores). Both are

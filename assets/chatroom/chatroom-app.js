@@ -28,6 +28,12 @@
   var archive = { whatifs: [], events: [], factions: [], congress: {} };
   var whatifs = [];       // the composed What-If board
   var backfills = [];     // the unwritten events everything points at
+  var logKind = 'all';
+  var castSort = 'name';
+  var castGroup = 'letter';
+  var castRace = '';
+  var castAffil = '';
+  var castView = 'all';   // all | played | unplayed | portrait | invented
   var showStates = true;  // the sheets are visible in the chat by default
   var wireSort = 'newest';
   var wireView = 'all';   // all | unused | used | unfiled
@@ -149,6 +155,9 @@
 
   /** The records the What-If board is composed from. */
   function loadArchive() {
+    if (CFG.clockUrl) {
+      getJSON(CFG.clockUrl).then(function (clock) { state.clock = clock; }).catch(function () { /* the scene date still works */ });
+    }
     if (CFG.mode === 'static') {
       return Promise.all([
         getJSON(CFG.whatifsUrl).catch(function () { return []; }),
@@ -164,6 +173,7 @@
       archive.whatifs = data.whatifs || [];
       archive.events = data.events || [];
       archive.knownIds = data.knownIds || [];
+      if (data.clock) state.clock = data.clock;
       archive.factions = data.factions || [];
       archive.congress = data.congress || {};
     }).catch(function (error) { console.warn('archive bundle unavailable', error); });
@@ -312,14 +322,39 @@
    * dashboard
    * ---------------------------------------------------------------- */
 
-  function charCard(c, note) {
+  /** A card. `extra` is either a caption, or the cast context — in which
+   *  case the card shows what the current sort is actually sorting on. */
+  /** Real-world time, plainly. Used beside the in-world date everywhere. */
+  function ago(at) {
+    var secs = Math.max(1, Math.round((Date.now() - (at || 0)) / 1000));
+    if (secs < 90) return 'just now';
+    var mins = Math.round(secs / 60);
+    if (mins < 60) return mins + ' min ago';
+    var hours = Math.round(mins / 60);
+    if (hours < 36) return hours + 'h ago';
+    var days = Math.round(hours / 24);
+    if (days < 14) return days + ' days ago';
+    return new Date(at).toLocaleDateString();
+  }
+
+  function charCard(c, extra) {
     var plays = interactions(c.id);
+    var note = typeof extra === 'string' ? extra : '';
+    if (extra && typeof extra === 'object') {
+      var mem = extra.memory[c.id] || 0;
+      note = castSort === 'fame' && c.fameTier ? '★ ' + c.fameTier
+        : castSort === 'power' && (c.powerLevel || c.level) ? '⚔ power ' + (c.powerLevel || c.level)
+        : castSort === 'remember' ? '🧠 ' + mem + ' remembered'
+        : castSort === 'filings' ? '📜 ' + (c.keyEvents || []).length + ' filings'
+        : castSort === 'recent' && extra.last[c.id] ? '🕘 ' + ago(extra.last[c.id])
+        : c.affiliation || c.race || '';
+    }
     return '<button class="ccard" data-char="' + esc(c.id) + '">' + avatar(c, 56) +
-      '<span class="body"><b>' + esc(c.name) + '</b>' +
+      '<span class="body"><b>' + esc(c.name) + (c.invented ? ' <span class="tag">invented</span>' : '') + '</b>' +
       '<span class="by">By @' + esc(c.handle) + '</span>' +
       '<span class="sum">' + esc(c.summary || c.title || 'No filed summary yet.') + '</span>' +
       '<span class="meta"><span>💬 ' + plays + (plays === 1 ? ' interaction' : ' interactions') + '</span>' +
-      (note ? '<span>' + esc(note) + '</span>' : (c.race ? '<span>' + esc(c.race) + '</span>' : '')) +
+      (note ? '<span>' + esc(RP.clip(note, 40)) + '</span>' : '') +
       '</span></span></button>';
   }
 
@@ -362,11 +397,48 @@
       '<span class="more">Filed sessions, played from another perspective</span></div>';
     html += scenes.length ? '<div class="row">' + scenes.map(sceneCard).join('') + '</div>'
       : '<div class="emptynote">No filed sessions loaded.</div>';
-    html += '<div class="sec-head"><h2>The whole cast</h2><span class="grow"></span><span class="more">' + filtered.length + ' characters</span></div>';
-    if (!filtered.length) html += '<div class="emptynote">Nothing matches “' + esc(query) + '”.</div>';
-    RP.groupByLetter(filtered).forEach(function (group) {
-      html += '<div class="ltr-head">' + esc(group.letter) + '</div><div class="grid">' +
-        group.chars.map(function (c) { return charCard(c); }).join('') + '</div>';
+    html += castBrowser();
+    return html;
+  }
+
+  /** The cast, browsable: sort it, group it, filter it by race or
+   *  affiliation, or narrow it to the people you have actually played.
+   *  189 names in one alphabetical list is a phone book. */
+  function castBrowser() {
+    var ctx = RP.castContext(state);
+    var pool = RP.filterCast(cast.concat(state.newChars || []), {
+      query: query, race: castRace, affiliation: castAffil, view: castView,
+    }, ctx);
+    var sorted = RP.sortCast(pool, castSort, ctx);
+    var facets = RP.castFacets(cast);
+    var VIEWS = { all: 'Everyone', played: 'Played', unplayed: 'Never played', portrait: 'Has a portrait', invented: 'Invented in play' };
+
+    var html = '<div class="sec-head"><h2>The whole cast</h2><span class="grow"></span>' +
+      '<span class="more">' + sorted.length + ' of ' + cast.length + '</span></div>' +
+      '<div class="castbar">' +
+      '<select id="castSort" title="Sort">' + Object.keys(RP.CAST_SORTS).map(function (k) {
+        return '<option value="' + k + '"' + (castSort === k ? ' selected' : '') + '>' + esc(RP.CAST_SORTS[k].name) + '</option>';
+      }).join('') + '</select>' +
+      '<select id="castGroup" title="Group by">' + Object.keys(RP.CAST_GROUPS).map(function (k) {
+        return '<option value="' + k + '"' + (castGroup === k ? ' selected' : '') + '>Group: ' + esc(RP.CAST_GROUPS[k].name) + '</option>';
+      }).join('') + '</select>' +
+      '<select id="castRace" title="Race"><option value="">Any race</option>' + facets.race.map(function (f) {
+        return '<option value="' + esc(f.value) + '"' + (castRace === f.value ? ' selected' : '') + '>' + esc(f.value) + ' (' + f.count + ')</option>';
+      }).join('') + '</select>' +
+      '<select id="castAffil" title="Affiliation"><option value="">Any affiliation</option>' + facets.affiliation.map(function (f) {
+        return '<option value="' + esc(f.value) + '"' + (castAffil === f.value ? ' selected' : '') + '>' + esc(RP.clip(f.value, 40)) + ' (' + f.count + ')</option>';
+      }).join('') + '</select>' +
+      Object.keys(VIEWS).map(function (k) {
+        return '<button class="chip ' + (castView === k ? 'on' : '') + '" data-castview="' + k + '">' + esc(VIEWS[k]) + '</button>';
+      }).join('') +
+      (castRace || castAffil || castView !== 'all' || castSort !== 'name' || castGroup !== 'letter'
+        ? '<button class="chip clear" id="castReset">✕ Reset</button>' : '') +
+      '</div>';
+
+    if (!sorted.length) return html + '<div class="emptynote">Nothing matches that. Try ✕ Reset.</div>';
+    RP.groupCast(sorted, castGroup, ctx).forEach(function (group) {
+      if (group.letter) html += '<div class="ltr-head">' + esc(group.letter) + ' <span>' + group.chars.length + '</span></div>';
+      html += '<div class="grid">' + group.chars.map(function (c) { return charCard(c, ctx); }).join('') + '</div>';
     });
     return html;
   }
@@ -526,15 +598,27 @@
   }
 
   function renderFeed() {
-    var log = (state.log || []).slice().reverse();
+    var KINDS = ['all', 'chat', 'beat', 'pin', 'note', 'whatif', 'backfill', 'roster', 'lore', 'replay', 'wire'];
+    var log = (state.log || []).filter(function (e) {
+      if (logKind !== 'all' && e.kind !== logKind) return false;
+      if (!query) return true;
+      return (e.text + ' ' + e.roomTitle + ' ' + (e.when || '')).toLowerCase().indexOf(query.toLowerCase()) >= 0;
+    }).slice().reverse();
     var html = '<div class="sec-head"><h2>Feed — the world log</h2><span class="grow"></span>' +
       '<button class="pill" id="logAdd">＋ File a note</button>' +
       '<button class="pill" id="logExport">⬇ Export log</button></div>' +
-      '<p class="emptynote">Everything here is visible to every chat: characters are told what has already happened, even when it happened in another room.</p>';
+      '<p class="emptynote">Every memory is filed twice: the in-world date it happened on, and the moment it was played. ' +
+      'Characters are told what has already happened — and, when a filing sits after the scene they are in, that they ' +
+      'cannot know it yet.</p>' +
+      '<div class="castbar">' + KINDS.map(function (k) {
+        return '<button class="chip ' + (logKind === k ? 'on' : '') + '" data-logkind="' + k + '">' + esc(k) + '</button>';
+      }).join('') + '</div>';
     if (!log.length) return html + '<div class="emptynote">Nothing filed yet. Play a turn, or pin a line with “Remember”.</div>';
     html += '<div class="stack">' + log.map(function (e) {
       var who = (e.chars || []).map(function (id) { return (castById[id] || { name: id }).name; }).join(', ');
-      return '<div class="item"><div class="when">' + new Date(e.at).toLocaleString() + ' · ' + esc(e.kind) +
+      return '<div class="item"><div class="when">' +
+        (e.when ? '<b class="inworld">🕯 ' + esc(e.when) + '</b> · ' : '') +
+        ago(e.at) + ' · ' + esc(e.kind) +
         (e.roomTitle ? ' · ' + esc(e.roomTitle) : '') + '</div><b>' + esc(e.text) + '</b>' +
         (who ? '<div class="tags"><span class="tag">' + esc(who) + '</span></div>' : '') +
         '<div class="acts"><button class="mini danger" data-logkill="' + esc(e.id) + '">Delete</button>' +
@@ -648,6 +732,25 @@
         if (!d.ifplay && !d.ifread && !d.ifhook) readWhatIf(card.dataset.if);
       };
     });
+    ['castSort', 'castGroup', 'castRace', 'castAffil'].forEach(function (id) {
+      if ($(id)) $(id).onchange = function () {
+        if (id === 'castSort') castSort = $(id).value;
+        if (id === 'castGroup') castGroup = $(id).value;
+        if (id === 'castRace') castRace = $(id).value;
+        if (id === 'castAffil') castAffil = $(id).value;
+        renderDash();
+      };
+    });
+    box.querySelectorAll('[data-castview]').forEach(function (b) {
+      b.onclick = function () { castView = b.dataset.castview; renderDash(); };
+    });
+    on('castReset', function () {
+      castSort = 'name'; castGroup = 'letter'; castRace = ''; castAffil = ''; castView = 'all';
+      renderDash();
+    });
+    box.querySelectorAll('[data-logkind]').forEach(function (b) {
+      b.onclick = function () { logKind = b.dataset.logkind; renderDash(); };
+    });
     on('makeIf', createScenarioForm);
     on('allIfs', function () { tab = 'whatif'; render(); });
     on('allBackfills', function () { tab = 'backfills'; render(); });
@@ -734,7 +837,7 @@
     state.rooms.unshift(r);
     state.active = r.id;
     RP.logEvent(state, {
-      kind: 'chat', roomId: r.id, roomTitle: r.title,
+      kind: 'chat', roomId: r.id, roomTitle: r.title, when: roomDate(r),
       chars: r.cast.map(function (c) { return c.id; }),
       text: (r.kind === 'group' ? 'A group chat opened: ' : 'A chat opened with ') + r.cast.map(function (c) { return c.name; }).join(', ') + '.',
     });
@@ -754,7 +857,7 @@
     opts = opts || {};
     pushRoom(RP.newRoom(picked, {
       scene: opts.scene || '', sceneName: opts.sceneName || '', sceneImage: opts.sceneImage || '',
-      beats: opts.beats || [], opener: opts.opener || '',
+      beats: opts.beats || [], opener: opts.opener || '', date: opts.date || '',
       style: (state.settings && state.settings.style) || 'novel',
       persona: (state.user && state.user.persona) || '',
       // Scenario settings: the sheets everyone walks in carrying.
@@ -776,7 +879,7 @@
     }, function (picked) {
       startGroup(picked, {
         scene: scene.summary || scene.name, sceneName: scene.name, sceneImage: scene.image,
-        beats: scene.beats || [],
+        beats: scene.beats || [], date: scene.date || '',
         opener: 'Scene — ' + scene.name + (scene.location ? ' · ' + scene.location : '') + (scene.date ? ' · ' + scene.date : ''),
       });
     });
@@ -800,7 +903,7 @@
       var opened = room();
       RP.markPostUsed(state, post.id, opened);
       RP.logEvent(state, {
-        kind: 'wire', roomId: opened.id, roomTitle: opened.title,
+        kind: 'wire', roomId: opened.id, roomTitle: opened.title, when: roomDate(opened),
         chars: picked.map(function (c) { return c.id; }),
         text: 'Played the wire post by ' + post.authorName + ': ' + RP.clip(post.content, 180),
         tags: post.tags,
@@ -931,7 +1034,7 @@
           if (parent) parent.sequelCount = (parent.sequelCount || 0) + 1;
         }
         RP.logEvent(state, {
-          kind: s.kind === 'backfill' ? 'backfill' : 'whatif', roomId: opened.id, roomTitle: opened.title,
+          kind: s.kind === 'backfill' ? 'backfill' : 'whatif', roomId: opened.id, roomTitle: opened.title, when: roomDate(opened),
           chars: picked.map(function (c) { return c.id; }),
           text: 'Opened “' + opened.sceneName + '” (' + s.kindLabel + ').',
           tags: s.tags,
@@ -1058,6 +1161,7 @@
       '<span class="title"><b>' + esc(r.title) + '</b><span>' + esc(r.kind === 'group' ? r.cast.map(function (c) { return c.name; }).join(', ') : (face.title || '')) + '</span></span>' +
       (r.beats && r.beats.length ? '<button class="pill" id="nextBeat">⏩ Next beat (' + RP.beatProgress(r).at + '/' + RP.beatProgress(r).total + ')</button>' : '') +
       (r.kind === 'group' ? '<button class="pill" id="continueBtn">➤ Continue</button>' : '') +
+      '<button class="pill" id="dateBtn" title="When is this happening, in-world?">🕯 ' + esc(RP.clip(roomDate(r) || 'undated', 26)) + '</button>' +
       (r.mechanics === 'off' ? '' : '<button class="pill' + (showStates ? ' primary' : '') + '" id="statesBtn">🩺 States</button>') +
       '<button class="pill" id="seqBtn">📖 Sequel</button>' +
       '<button class="pill" id="panelBtn">☰ Character</button>';
@@ -1174,6 +1278,8 @@
       menuItem('cpReplay', '🎭', 'Replay', 'Perspective') +
       menuItem('cpScript', '⏱', 'Script', r.beats && r.beats.length ? (r.autoBeats ? 'Auto' : 'Manual') : 'None') +
       menuItem('cpDirector', '🎬', 'Director', state.settings.director === 'off' ? 'Off' : 'On · max ' + (state.settings.maxChain || RP.MAX_CHAIN)) +
+      menuItem('cpRename', '✏️', 'Rename chat', RP.clip(r.title, 14)) +
+      menuItem('cpDelete', '🗑', 'Delete chat', '') +
       menuItem('cpFate', '🎲', 'Fate', (state.settings.fate || 'normal') === 'off' ? 'Off — you always succeed' : RP.clip(state.settings.fate, 10)) +
       '</div>' +
       '<div class="cp-note">Memory is shared across chats: what is said here is remembered in the next room. Export from Labs.</div>';
@@ -1188,6 +1294,16 @@
   function wireChat() {
     var r = room();
     var on = function (id, fn) { var node = $(id); if (node) node.onclick = fn; };
+    on('dateBtn', function () {
+      var r = room();
+      form('When is this happening?', [
+        { k: 'date', label: 'In-world date', value: roomDate(r) },
+      ], {
+        note: 'Regal Empire Standard Calendar — "5 Aethel, 1040 BF". Months run Firstlight, Chillwind, Veridia, Bloom, ' +
+          'Floria, Efferd, Highsun, Harvestide, Aethel, Darkmoon, Frostfall, Deepwinter, and BF counts up. ' +
+          'The model is told which filings are already history and which have not happened yet, measured from this date.',
+      }, function (v) { r.date = v.date.trim(); r.updated = Date.now(); save(); render(); });
+    });
     on('statesBtn', function () { showStates = !showStates; render(); });
     on('seqBtn', function () { openSequel(room()); });
     var bar1 = $('statebar');
@@ -1213,14 +1329,14 @@
       b.onclick = function () {
         var m = r.messages[+b.dataset.pin];
         m.pinned = !m.pinned;
-        if (m.pinned) RP.logEvent(state, { kind: 'pin', roomId: r.id, roomTitle: r.title, chars: r.cast.map(function (c) { return c.id; }), text: RP.clip(RP.textOf(m), 200) });
+        if (m.pinned) RP.logEvent(state, { kind: 'pin', roomId: r.id, roomTitle: r.title, when: roomDate(r), chars: r.cast.map(function (c) { return c.id; }), text: RP.clip(RP.textOf(m), 200) });
         save(); render();
       };
     });
     stream.querySelectorAll('[data-remember]').forEach(function (b) {
       b.onclick = function () {
         var m = r.messages[+b.dataset.remember];
-        RP.logEvent(state, { kind: 'note', roomId: r.id, roomTitle: r.title, chars: r.cast.map(function (c) { return c.id; }), text: RP.clip(RP.textOf(m), 300) });
+        RP.logEvent(state, { kind: 'note', roomId: r.id, roomTitle: r.title, when: roomDate(r), chars: r.cast.map(function (c) { return c.id; }), text: RP.clip(RP.textOf(m), 300) });
         save(); toast('Filed into the world log — every chat can see it now.');
       };
     });
@@ -1279,9 +1395,46 @@
     });
     on('cpMemory', function () {
       var mem = RP.charMemory(state, c);
-      list(c.name + '’s memory', mem.notes.slice().reverse().map(function (n) {
-        return { label: '[' + n.roomTitle + '] ' + RP.clip(n.text, 90), value: n.roomId };
-      }), function (id) { if ((state.rooms || []).some(function (x) { return x.id === id; })) openRoom(id); });
+      var scene = RP.sceneDate(r, state);
+      var rel = Object.keys(mem.relations || {}).map(function (k) {
+        var x = mem.relations[k];
+        return '<span class="tag">' + esc(x.name) + ' ' + (x.score > 0 ? '+' : '') + x.score + '</span>';
+      }).join('');
+      openModal('<h3>' + esc(c.name) + '’s memory</h3>' +
+        '<p class="sub">Two clocks on every line: the in-world date it happened, and when you played it.' +
+        (scene ? ' This scene is ' + esc(RP.formatWahDate(scene)) + '.' : '') + '</p>' +
+        (mem.mood ? '<p class="sub">Mood: <b>' + esc(mem.mood) + '</b></p>' : '') +
+        (rel ? '<div class="tags">' + rel + '</div>' : '') +
+        (mem.knowledge && mem.knowledge.length
+          ? '<h4>Taught facts</h4><div class="stack">' + mem.knowledge.map(function (k) {
+              return '<div class="item"><b>' + esc(k) + '</b></div>';
+            }).join('') + '</div>' : '') +
+        '<h4>Said and heard</h4>' +
+        (mem.notes.length ? '<div class="stack">' + mem.notes.slice().reverse().slice(0, 40).map(function (n) {
+          var when = n.when && scene ? RP.timeRelation(scene, n.when) : null;
+          return '<div class="item"><div class="when">' +
+            (n.when ? '<b class="inworld">🕯 ' + esc(n.when) + '</b>' +
+              (when && when.rel === 'future' ? ' <span class="tag">after this scene</span>' : '') + ' · ' : '') +
+            esc(ago(n.at)) + (n.roomTitle ? ' · ' + esc(n.roomTitle) : '') + '</div>' +
+            '<b>' + esc(n.text) + '</b>' +
+            (n.roomId ? '<div class="acts"><button class="mini" data-gochat="' + esc(n.roomId) + '">Open that chat</button></div>' : '') +
+            '</div>';
+        }).join('') + '</div>' : '<p class="sub">Nothing remembered yet.</p>') +
+        '<div class="actions"><button class="pill" id="mCancel">Close</button>' +
+        '<button class="pill" id="mTeach">＋ Teach them something</button></div>');
+      $('mCancel').onclick = closeModal;
+      $('mTeach').onclick = function () {
+        closeModal();
+        form('Teach ' + c.name, [{ k: 'fact', label: 'They now know…', type: 'area', value: '' }], {
+          note: 'Handed to them in every chat from now on, as established fact.',
+        }, function (v) { if (v.fact.trim()) { RP.teach(state, c, v.fact.trim()); save(); render(); toast(c.name + ' knows that now.'); } });
+      };
+      $('modal').querySelectorAll('[data-gochat]').forEach(function (b) {
+        b.onclick = function () {
+          closeModal();
+          if ((state.rooms || []).some(function (x) { return x.id === b.dataset.gochat; })) openRoom(b.dataset.gochat);
+        };
+      });
     });
     on('cpReplay', function () { replayPicker(r.id); });
     on('cpScript', function () {
@@ -1301,6 +1454,21 @@
         state.settings.maxChain = isNaN(n) ? RP.MAX_CHAIN : Math.max(1, Math.min(12, n));
         save(); render();
       });
+    });
+    on('cpRename', function () {
+      form('Rename chat', [{ k: 'title', label: 'Title', value: r.title }], {}, function (v) {
+        if (v.title.trim()) { r.title = v.title.trim(); r.updated = Date.now(); save(); render(); }
+      });
+    });
+    on('cpDelete', function () {
+      confirmThen('Delete “' + RP.clip(r.title, 40) + '”?',
+        'The transcript goes; the memories and world-log lines it filed stay, because other chats depend on them.',
+        function () {
+          state.rooms = (state.rooms || []).filter(function (x) { return x.id !== r.id; });
+          state.active = '';
+          save(); render();
+          toast('Chat deleted. Its memories are still in the log.');
+        });
     });
     on('cpFate', function () {
       form('Fate', [
@@ -1329,7 +1497,7 @@
     var beat = r.beats[r.beatIndex - 1];
     if (!beat) return;
     RP.logEvent(state, {
-      kind: 'beat', roomId: r.id, roomTitle: r.title, chars: r.cast.map(function (c) { return c.id; }),
+      kind: 'beat', roomId: r.id, roomTitle: r.title, when: roomDate(r), chars: r.cast.map(function (c) { return c.id; }),
       text: (r.sceneName ? r.sceneName + ' — ' : '') + (beat.time ? beat.time + ': ' : '') + beat.beat,
     });
   }
@@ -1392,7 +1560,7 @@
     // worked. The roll happens here and is handed to the model as an order.
     var answering = !retry && RP.visible(lastVisible(r)) && lastVisible(r).role === 'user';
     var fate = answering ? RP.rollFate(state, r, {}) : null;
-    var system = RP.systemFor(state, r, speaker, { fate: fate });
+    var system = RP.systemFor(state, r, speaker, { fate: fate, archive: archive });
     var history = RP.historyFor(retry ? { kind: r.kind, cast: r.cast, messages: r.messages.slice(0, opts.retryIndex) } : r, 24);
     if (!history.length) history = [{ role: 'user', content: '(The scene opens. Begin in character.)' }];
 
@@ -1447,6 +1615,14 @@
     });
   }
 
+  /** The in-world date a room is being played on: whatever the scenario
+   *  filed, else the archive's own clock. Every memory is stamped with it. */
+  function roomDate(r) {
+    if (r && r.date) return r.date;
+    var parsed = RP.sceneDate(r, state);
+    return parsed ? RP.formatWahDate(parsed) : '';
+  }
+
   function lastVisible(r) {
     var msgs = (r && r.messages) || [];
     for (var i = msgs.length - 1; i >= 0; i--) { if (RP.visible(msgs[i])) return msgs[i]; }
@@ -1492,6 +1668,14 @@
       closeModal();
       done(values);
     };
+  }
+
+  function confirmThen(title, note, done) {
+    openModal('<h3>' + esc(title) + '</h3><p class="sub">' + esc(note) + '</p>' +
+      '<div class="actions"><button class="pill" id="mCancel">Keep it</button>' +
+      '<button class="pill danger" id="mOk">Delete</button></div>');
+    $('mCancel').onclick = closeModal;
+    $('mOk').onclick = function () { closeModal(); done(); };
   }
 
   function list(title, items, done) {
@@ -1755,6 +1939,38 @@
   wireShell();
   render();
   checkHealth();
+  /* ---------------------------------------------------------------- *
+   * quality of life: the keys you already expect to work
+   * ---------------------------------------------------------------- */
+  window.addEventListener('keydown', function (e) {
+    var typing = /^(INPUT|TEXTAREA|SELECT)$/.test((e.target || {}).tagName || '');
+    if (e.key === 'Escape') {
+      if (!$('modalBack').hidden) { closeModal(); return; }
+      if (!$('chatview').hidden) { $('homeBtn').click(); return; }
+    }
+    if (e.key === 'Enter' && (e.ctrlKey || e.metaKey) && $('input') === document.activeElement) {
+      e.preventDefault(); $('composer').dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
+      return;
+    }
+    if (typing) return;
+    if (e.key === '/') { e.preventDefault(); if ($('search')) $('search').focus(); return; }
+    if (e.key === 'n' && !e.ctrlKey && !e.metaKey && !$('chatview').hidden) { e.preventDefault(); generate(); return; }
+    if (e.key === '?' ) { e.preventDefault(); shortcutsHelp(); }
+  });
+
+  function shortcutsHelp() {
+    openModal('<h3>Keyboard</h3><div class="stack">' + [
+      ['Esc', 'close a dialog, or leave the chat'],
+      ['Ctrl / ⌘ + Enter', 'send your turn'],
+      ['/', 'jump to search'],
+      ['n', 'let the next character speak'],
+      ['?', 'this list'],
+    ].map(function (row) {
+      return '<div class="item"><b>' + row[0] + '</b><p>' + row[1] + '</p></div>';
+    }).join('') + '</div><div class="actions"><button class="pill primary" id="mCancel">Close</button></div>');
+    $('mCancel').onclick = closeModal;
+  }
+
   loadCast()
     .then(function () { return Promise.all([loadScenes(), loadWire(), loadCollections()]); })
     .then(loadArchive)

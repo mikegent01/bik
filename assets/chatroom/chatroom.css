@@ -244,6 +244,18 @@ a { color: inherit; }
 .kcard .faces .av { margin-right: -8px; border: 2px solid var(--panel); }
 .kcard .count { color: var(--muted); font-size: 12px; margin-top: 8px; }
 
+/* Cast browser / feed filter bar. */
+.castbar { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-bottom: 12px; }
+.castbar select {
+  border: 1px solid var(--line); background: #fff; border-radius: 999px; padding: 7px 12px; font-size: 13px; outline: 0;
+  max-width: 230px;
+}
+.castbar .chip.clear { border-color: var(--bad); color: var(--bad); }
+.ltr-head span { color: var(--muted); font-size: 12px; font-weight: 400; }
+.when .inworld { color: #7a6320; }
+.item .acts { margin-top: 6px; display: flex; gap: 6px; }
+.pill.danger, .mini.danger { border-color: var(--bad); color: var(--bad); }
+
 .controls { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
 .controls select, .controls input[type=search] {
   border: 1px solid var(--line); background: #fff; border-radius: 999px; padding: 7px 12px; outline: 0; font-size: 13px;

@@ -563,6 +563,127 @@ check('fate: the instruction reaches the system prompt for that turn only', (() 
   return withFate.includes('HOW THIS TURN RESOLVES') && !RP.systemFor(state, fateRoom, sans).includes('HOW THIS TURN RESOLVES');
 })());
 
+// ---------- the calendar: is this already history, or not yet? ----------
+check('calendar: the archive’s own month order is the one used',
+  RP.MONTHS[7] === 'Harvestide' && RP.MONTHS[8] === 'Aethel' && RP.MONTHS.length === 12);
+check('calendar: a filed date parses', (() => {
+  const d = RP.parseWahDate('5 Aethel, 1040 BF — continuing the studio encounter');
+  return d.year === 1040 && d.month === 8 && d.day === 5 && d.exact;
+})());
+check('calendar: "the 21st of Highsun" parses too', (() => {
+  const d = RP.parseWahDate('the 21st of Highsun, 1040 BF');
+  return d.year === 1040 && d.month === 6 && d.day === 21;
+})());
+check('calendar: a time code is read in preference to prose', (() => {
+  const d = RP.parseWahDate('TC:1040-08-30T23:50/SHD');
+  return d.year === 1040 && d.month === 7 && d.day === 30;
+})());
+check('calendar: a bare year still gives something to compare',
+  RP.parseWahDate('955 BF').year === 955 && !RP.parseWahDate('955 BF').exact);
+check('calendar: legacy month spellings are not thrown away', RP.parseWahDate('4 Harvestside, 1040 BF').month === 7);
+check('calendar: BF counts up, so a bigger year is later',
+  RP.timeRelation('5 Aethel, 1040 BF', '1035 BF').rel === 'past' &&
+  RP.timeRelation('1035 BF', '5 Aethel, 1040 BF').rel === 'future');
+check('calendar: days between two dates in the same year are counted properly',
+  RP.timeRelation('5 Aethel, 1040 BF', '21 Highsun, 1040 BF').days === -44);
+check('calendar: an unknown date is flagged rather than guessed',
+  RP.timeRelation('5 Aethel, 1040 BF', 'some time ago').rel === 'unknown');
+check('calendar: the world clock is the fallback for "now"',
+  RP.formatWahDate(RP.worldNow({ year: 1040, monthIndex: 8, day: 5 })) === '5 Aethel, 1040 BF');
+
+const timedRoom = RP.newRoom([sans, cutters], { date: '5 Aethel, 1040 BF' });
+const timedArchive = {
+  events: [
+    { id: 'past_one', name: 'The Highsun Vote', date: '21 Highsun, 1040 BF', summary: 'The vote that everybody dates from.',
+      participants: [{ id: 'sans', name: 'Sans' }] },
+    { id: 'future_one', name: 'The Darkmoon Reckoning', date: '30 Darkmoon, 1040 BF', summary: 'What the ridge road costs, eventually.',
+      participants: [{ id: 'sans', name: 'Sans' }] },
+  ],
+};
+const known = RP.knowledgeBlock(state, timedRoom, timedArchive);
+check('knowledge: filings before the scene are offered as history',
+  known.includes('ALREADY HISTORY') && known.includes('The Highsun Vote') && known.includes('before this scene'));
+check('knowledge: filings after the scene are forbidden, by name',
+  known.includes('HAS NOT HAPPENED YET') && known.includes('The Darkmoon Reckoning') &&
+  known.includes('do not mention'));
+check('knowledge: the scene is told what date it is and how the calendar runs',
+  known.includes('5 Aethel, 1040 BF') && known.includes('the year counts UP'));
+check('knowledge: it reaches the system prompt',
+  RP.systemFor(state, timedRoom, sans, { archive: timedArchive }).includes('HAS NOT HAPPENED YET'));
+
+// ---------- the filed description drives the performance ----------
+const described = RP.normChar({
+  id: 'archivist_x', name: 'Scribe Dewdrop', title: 'The Ledger of the Grove',
+  race: 'Toad', affiliation: 'The Mages Guild', faction: 'Autumnwood Accords Desk',
+  status: 'Active — injured, still filing', fameTier: 'Regionally known', powerLevel: 12,
+  summary: 'The scribe who dates everything and forgives nothing.',
+  description: 'A guild archivist who will not let a wrong date stand, cites the record mid-argument, and is quietly terrified of the arcane work going on two floors down.',
+  keyEvents: ['a', 'b'], relatedArticles: ['c'],
+});
+check('cast: the filed description survives loading', described.description.includes('will not let a wrong date stand'));
+check('cast: the affiliation, faction and standing survive too',
+  described.affiliation === 'The Mages Guild' && described.faction === 'Autumnwood Accords Desk' &&
+  described.fameTier === 'Regionally known' && described.powerLevel === 12);
+const dossier = RP.card(described);
+check('prompt: the card hands the model the description, not just a summary',
+  dossier.includes('Filed description') && dossier.includes('cites the record mid-argument') &&
+  dossier.includes('Affiliation: The Mages Guild'));
+check('prompt: a behaviour line is inferred from what the archive already says',
+  /cites the record/.test(RP.roleFor(described)) && /arcane/.test(RP.roleFor(described)));
+check('prompt: the behaviour line follows the character, not a template',
+  RP.roleFor(RP.normChar({ name: 'A Captain', description: 'A soldier and commander of the legion.' }))
+    !== RP.roleFor(described));
+check('prompt: a group turn shows the rest of the cast with their own summaries',
+  RP.groupPrompt([described, sans], sans, {}).includes('The Mages Guild'));
+
+// ---------- memory is dated, twice ----------
+const datedRoom = RP.newRoom([sans], { date: '5 Aethel, 1040 BF', title: 'The ridge road' });
+RP.rememberTurn(state, datedRoom, { id: 'm1', role: 'char', charId: 'sans', text: 'the saws stopped at noon.', at: Date.now() });
+const datedMem = RP.charMemory(state, sans);
+check('memory: a remembered line carries the in-world date and the chat it came from', (() => {
+  const note = datedMem.notes[datedMem.notes.length - 1];
+  return note.when === '5 Aethel, 1040 BF' && note.roomTitle === 'The ridge road' && note.at > 0;
+})());
+RP.logEvent(state, { kind: 'chat', roomId: 'other', roomTitle: 'Another room', when: '30 Darkmoon, 1040 BF', chars: ['sans'], text: 'Sans is told how it ends.' });
+const recall = RP.memoryBlock(state, [sans], timedRoom);
+check('memory: the world log prints the in-world date of every line', recall.includes('30 Darkmoon, 1040 BF'));
+check('memory: a log line from after this scene is marked unknowable',
+  recall.includes('AFTER this scene — they cannot know it'));
+check('memory: what a character remembers says when and where they said it',
+  recall.includes('5 Aethel, 1040 BF') && recall.includes('The ridge road'));
+
+// ---------- browsing 189 characters ----------
+const browse = [
+  RP.normChar({ id: 'p1', name: 'Alpha', race: 'Toad', affiliation: 'The Guild', fameScore: 10, powerLevel: 2, keyEvents: ['a'] }),
+  RP.normChar({ id: 'p2', name: 'Beta', race: 'Toad', affiliation: 'The Guild', fameScore: 90, powerLevel: 40, keyEvents: ['a', 'b', 'c'] }),
+  RP.normChar({ id: 'p3', name: 'Gamma', race: 'Koopa', affiliation: 'The Legion', fameScore: 50, powerLevel: 9, summary: 'An ice mage of the Dark Shores.' }),
+];
+const browseState = { rooms: [{ id: 'r', updated: 200, cast: [browse[1]], messages: [{ role: 'char', charId: 'p2' }, { role: 'char', charId: 'p2' }] }], chars: [{ id: 'p3', notes: [1, 2, 3], knowledge: [] }] };
+const ctx = RP.castContext(browseState);
+check('cast browser: sort by name, fame, power, filings and play count all differ',
+  RP.sortCast(browse, 'name', ctx)[0].id === 'p1' &&
+  RP.sortCast(browse, 'fame', ctx)[0].id === 'p2' &&
+  RP.sortCast(browse, 'power', ctx)[0].id === 'p2' &&
+  RP.sortCast(browse, 'filings', ctx)[0].id === 'p2' &&
+  RP.sortCast(browse, 'played', ctx)[0].id === 'p2' &&
+  RP.sortCast(browse, 'remember', ctx)[0].id === 'p3');
+check('cast browser: search reads the whole dossier, not just the name',
+  RP.filterCast(browse, { query: 'ice mage' }, ctx).length === 1 &&
+  RP.filterCast(browse, { query: 'dark shores' }, ctx)[0].id === 'p3');
+check('cast browser: facets filter by race and affiliation',
+  RP.filterCast(browse, { race: 'Toad' }, ctx).length === 2 &&
+  RP.filterCast(browse, { affiliation: 'The Legion' }, ctx).length === 1);
+check('cast browser: played / never-played views work off your own chats',
+  RP.filterCast(browse, { view: 'played' }, ctx).length === 1 &&
+  RP.filterCast(browse, { view: 'unplayed' }, ctx).length === 2);
+check('cast browser: grouping by race, affiliation or nothing at all',
+  RP.groupCast(browse, 'race', ctx).length === 2 &&
+  RP.groupCast(browse, 'affiliation', ctx)[0].chars.length === 2 &&
+  RP.groupCast(browse, 'none', ctx).length === 1 &&
+  RP.groupCast(browse, 'letter', ctx).length === 3);
+check('cast browser: facets only offer values shared by more than one person',
+  RP.castFacets(browse).race.length === 1 && RP.castFacets(browse).race[0].value === 'Toad');
+
 // ---------- generated pages are in sync with these sources ----------
 let built = true;
 try {

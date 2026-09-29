@@ -50,6 +50,7 @@ window.CHATROOM_CONFIG = {
   whatifsUrl: 'Reputation-Matrix2/data/whatifs.json',
   factionsUrl: 'Reputation-Matrix2/data/factions.json',
   congressUrl: 'Reputation-Matrix2/data/congress.json',
+  clockUrl: 'Reputation-Matrix2/data/currentDate.json',
   replyUrl: 'http://127.0.0.1:8787/api/roleplay',
   suggestUrl: 'http://127.0.0.1:8787/api/suggest-cast',
   healthUrl: 'http://127.0.0.1:8787/api/health',

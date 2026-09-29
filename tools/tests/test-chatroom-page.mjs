@@ -196,6 +196,15 @@ check('invented: the panel prints the description in place of a portrait',
   $('charpanel').textContent.includes('Described, not drawn') && $('charpanel').textContent.includes('Marguerite Oyle'));
 check('invented: they are on the state bar like everyone else', $('statebar').textContent.includes('Marguerite Oyle'));
 
+check('chat: the in-world date of the scene is shown and editable',
+  Boolean($('dateBtn')) && /BF|undated/.test($('dateBtn').textContent));
+check('memory: the room stamps its memories with that date', (() => {
+  const s = savedState();
+  const r = s.rooms.find(x => x.id === s.active);
+  const mem = (s.chars || []).find(c => (c.notes || []).length);
+  return Boolean(mem) && mem.notes.some(n => typeof n.when === 'string');
+})());
+
 // ---- the sequel carries the scene forward ----
 check('sequel: the chat offers one', Boolean($('seqBtn')));
 $('seqBtn').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
@@ -272,6 +281,42 @@ const sortNode = $('wireSort');
 sortNode.value = 'oldest';
 sortNode.dispatchEvent(new win.Event('change', { bubbles: true }));
 check('wire: changing the sort reorders the cards', doc.querySelector('[data-post]').dataset.post !== firstPost);
+
+// ---- browsing the cast ----
+[...doc.querySelectorAll('[data-tab]')].find(b => b.dataset.tab === 'discover').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+check('cast browser: sort, grouping and facet controls are all offered',
+  Boolean($('castSort')) && Boolean($('castGroup')) && Boolean($('castRace')) && Boolean($('castAffil')) &&
+  doc.querySelectorAll('[data-castview]').length >= 4);
+check('cast browser: the facets are built from the live archive',
+  $('castRace').options.length > 3 && $('castAffil').options.length > 3);
+const firstByName = doc.querySelector('.grid [data-char]').dataset.char;
+$('castSort').value = 'fame';
+$('castSort').dispatchEvent(new win.Event('change', { bubbles: true }));
+check('cast browser: sorting by standing reorders the cast and relabels the cards',
+  doc.querySelector('.grid [data-char]').dataset.char !== firstByName &&
+  /★|power|filings|remembered/.test($('dashBody').textContent));
+$('castGroup').value = 'race';
+$('castGroup').dispatchEvent(new win.Event('change', { bubbles: true }));
+const raceHeads = [...doc.querySelectorAll('.ltr-head')].map(h => h.textContent);
+check('cast browser: grouping by race replaces the A–Z dividers',
+  raceHeads.length > 2 && !raceHeads.every(h => /^[A-Z#]\s/.test(h)));
+doc.querySelector('[data-castview="unplayed"]').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+const unplayedCount = doc.querySelectorAll('.grid [data-char]').length;
+doc.querySelector('[data-castview="played"]').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+check('cast browser: played / never-played views split the archive by what you have done',
+  doc.querySelectorAll('.grid [data-char]').length < unplayedCount);
+$('castReset').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+check('cast browser: reset puts it back to A–Z',
+  $('castSort').value === 'name' && $('castGroup').value === 'letter' && !$('castReset'));
+
+// ---- the feed is dated twice ----
+[...doc.querySelectorAll('[data-tab]')].find(b => b.dataset.tab === 'feed').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+check('feed: every line carries the in-world date and how long ago you played it',
+  doc.querySelector('.item .when .inworld') && /ago|just now|\d{4}/.test(doc.querySelector('.item .when').textContent));
+check('feed: the log can be filtered by kind', doc.querySelectorAll('[data-logkind]').length > 5);
+doc.querySelector('[data-logkind="whatif"]').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+check('feed: filtering by kind narrows it', $('dashBody').textContent.includes('whatif'));
+doc.querySelector('[data-logkind="all"]').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
 
 // ---- collections ----
 [...doc.querySelectorAll('[data-tab]')].find(b => b.dataset.tab === 'collections').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));

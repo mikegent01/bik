@@ -219,6 +219,17 @@ def archive_cast() -> dict[str, Any]:
             "title": _clip(record.get("title"), 90),
             "race": _clip(record.get("race"), 40),
             "affiliation": _clip(record.get("affiliation"), 120),
+            # The filed description is what makes a character behave like
+            # themselves in a prompt, so it is served rather than summarised
+            # away; the rest are what the cast browser sorts and filters on.
+            "description": _clip(record.get("description"), 900),
+            "faction": _clip(record.get("faction") or record.get("membership"), 80),
+            "faiths": _clip(record.get("faiths"), 90),
+            "level": record.get("level"),
+            "powerLevel": record.get("powerLevel"),
+            "fameScore": record.get("fameScore"),
+            "fameTier": _clip(record.get("fameTier"), 40),
+            "relatedArticles": [str(a) for a in (record.get("relatedArticles") or [])][:14],
             # The backfill scan reads these to find events everyone points at
             # and nobody ever wrote.
             "keyEvents": [str(k) for k in (record.get("keyEvents") or [])][:12],
@@ -491,6 +502,8 @@ def archive_bundle() -> dict[str, Any]:
     return {
         "whatifs": out_whatifs, "events": out_events, "factions": out_factions,
         "congress": out_congress, "knownIds": [k for k in known if k],
+        # The world clock, so the page knows what "now" is in-world.
+        "clock": _read("data", "currentDate.json") or {},
     }
 
 

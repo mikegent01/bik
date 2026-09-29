@@ -310,16 +310,73 @@ the scene waiting on the player?
 Turn it off (one reply per turn, the old behaviour) or change the ceiling in
 the character panel → **Director**.
 
+## The calendar — what the cast is allowed to know
+
+Every room has an in-world date (🕯 in the chat header, editable). It comes
+from the scenario, then from `currentDate.json` — the archive's own world
+clock. `RP.parseWahDate` reads the Regal Empire Standard Calendar out of
+anything the archive writes: *5 Aethel, 1040 BF*, *the 21st of Highsun*, a
+bare *955 BF*, a time code `TC:1040-08-30T23:50/SHD`, and the legacy
+*Harvestside* spellings. Months run Firstlight → Deepwinter (thirty days each,
+Deepwinter thirty-five) and **BF counts up**.
+
+`RP.knowledgeBlock` then sorts every filing attached to the cast into two
+lists in the prompt:
+
+```
+ALREADY HISTORY — these have happened and the cast may refer to them by name
+- The Highsun Vote (21 Highsun, 1040 BF) — 44 days before this scene …
+
+HAS NOT HAPPENED YET — do not mention, foreshadow knowingly, or remember any of this
+- The Darkmoon Reckoning (30 Darkmoon, 1040 BF) — 55 days AFTER this scene …
+  If a character would guess at one of these, they guess — they do not know.
+```
+
+That is also what stops a character reminiscing about their own future.
+
+## Characters play like their filing
+
+`normChar` keeps the **filed description** (up to 900 characters), the
+affiliation, faction, faith, status, standing and power level — and
+`RP.card` puts the description in the prompt under *"play this, not a generic
+version of the name"*. `RP.roleFor` adds a behaviour line inferred from the
+record itself (an archivist *cites the record and corrects your facts*; a
+commander *answers threats before questions*; the wounded *are hurt, and it
+shows*). In a group turn every other character is listed with their own
+summary, so the speaker knows who they are talking to.
+
+## Browsing the cast
+
+189 names is a library, not a list. The cast section has:
+
+- **Sort** — A–Z, most played by you, recently played, best known (`fameScore`),
+  most dangerous (`powerLevel`), remembers the most, most filed about.
+- **Group** — A–Z, race, affiliation, status, standing, or nothing at all.
+- **Facets** — race and affiliation dropdowns, built from the live archive and
+  only offering values more than one character shares.
+- **Views** — everyone / played / never played / has a portrait / invented in
+  play, plus ✕ Reset.
+- Search reads the **whole dossier**, so *ice mage* and *Dark Shores* find
+  people whose names say neither.
+
+The card's second line follows the sort: standing, power, filings, memory
+count or when you last played them.
+
 ## Memory — three layers
 
 1. **The world log** (`Feed`). Every chat opening, every fired beat, every
-   pinned or 🧠-remembered line. Entries about a character are handed to every
+   pinned or 🧠-remembered line — each stamped with **two clocks**: the
+   in-world date it happened on (🕯) and how long ago you played it. The feed
+   filters by kind and by search, and a line dated after the current scene is
+   handed to the model marked *they cannot know it*. Entries about a character are handed to every
    *other* chat that character appears in, under
    `WHAT HAS ALREADY HAPPENED (other chats, same world)`. A chat is never told
    its own log lines — it already has them as history.
-2. **Character memory** (`Labs → Character memory`). Per character: the lines
-   they said and heard, facts you taught them, a mood, and a relationship score
-   with everyone they have shared a room with.
+2. **Character memory** (`Labs → Character memory`, or **Memory** in the
+   character panel). Per character: the lines they said and heard — each with
+   its in-world date, the chat it came from and a jump back to it — facts you
+   taught them, a mood, and a relationship score with everyone they have
+   shared a room with.
 3. **World lore** (`Charms`). Nodes treated as established truth. A node with
    no tags and no characters is world-wide; tagged nodes match the scene, and
    character-bound nodes match the cast.
@@ -374,6 +431,21 @@ node tools/tests/test-chatroom-page.mjs        # the real UI, driven in jsdom
 The last one boots `tools/mock_lm_studio.py` and `workflow/server.py`, loads
 the page with its scripts running, clicks a character card, sends a turn and
 checks the reply renders and is remembered.
+
+## Quality of life
+
+| | |
+|---|---|
+| `Esc` | close a dialog, or leave the chat |
+| `Ctrl`/`⌘` + `Enter` | send your turn |
+| `/` | jump to search |
+| `n` | let the next character speak |
+| `?` | the shortcut list |
+
+Chats can be renamed and deleted from the character panel (deleting a chat
+keeps the memories it filed, because other chats depend on them), the world
+log filters by kind, and the archive's own sidebar now links the chatroom
+(`index.html` → World → 💬 Chatroom).
 
 ## What must not be hand-edited
 
