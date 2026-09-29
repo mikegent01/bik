@@ -29,6 +29,10 @@
   var archiveIndex = [];  // every loaded record, searchable, with its date
   var whatifs = [];       // the composed What-If board
   var backfills = [];     // the unwritten events everything points at
+  var comTopic = '';
+  var comStyle = 'podcast';
+  var comMins = 25;
+  var speaking = false;
   var bookKind = 'all';
   var logKind = 'all';
   var castSort = 'name';
@@ -270,6 +274,7 @@
 
   var NAV = [
     { id: 'discover', ico: '◉', label: 'Discover' },
+    { id: 'commentary', ico: '🎙', label: 'Commentary' },
     { id: 'book', ico: '📓', label: 'Lore book' },
     { id: 'continue', ico: '⏭', label: 'Continue' },
     { id: 'whatif', ico: '❓', label: 'What If' },
@@ -682,6 +687,116 @@
     $('mCopy').onclick = function () { download('prompt.txt', system); };
   }
 
+  /* ---------------------------------------------------------------- *
+   * commentary mode — Waluigi and Luigi, generated a segment at a time
+   * ---------------------------------------------------------------- */
+
+  var episode = null;      // the run in progress
+  var running = false;     // a segment call is in flight
+  var stopRun = false;
+
+  function renderCommentary() {
+    var saved = state.episodes || [];
+    var styles = RP.COMMENTARY_STYLES;
+    var html = '<div class="sec-head"><h2>🎙 Commentary</h2><span class="grow"></span>' +
+      (episode && !running && !episode.done ? '<button class="pill primary" id="comResume">▶ Carry on</button>' : '') +
+      (running ? '<button class="pill danger" id="comStop">■ Stop</button>' : '') + '</div>' +
+      '<p class="emptynote">Waluigi and Luigi, on whatever you point them at. The subject is pulled from the filed ' +
+      'record — events, factions, the wire, your own chats and lore book — and written a segment at a time so a ' +
+      'local model can actually finish it: one call in flight, the outline and the last thing said handed forward ' +
+      'each time. A podcast runs 15–60 minutes; a deep dive runs 30 minutes to two hours.</p>';
+
+    html += '<div class="castbar">' +
+      '<input type="text" id="comTopic" placeholder="A subject — “The Iron Mandate”, “Wario’s accounting”, a character, a chat" value="' + esc(comTopic) + '">' +
+      '<select id="comStyle">' + Object.keys(styles).map(function (k) {
+        return '<option value="' + k + '"' + (comStyle === k ? ' selected' : '') + '>' + esc(styles[k].name) + ' — ' + esc(styles[k].blurb) + '</option>';
+      }).join('') + '</select>' +
+      '<label class="mins">minutes <input type="number" id="comMins" min="' + styles[comStyle].min + '" max="' + styles[comStyle].max +
+        '" value="' + comMins + '"></label>' +
+      '<button class="pill primary" id="comGo">🎬 Generate</button>' +
+      '<button class="pill" id="comPick">📚 Use a filed subject</button>' +
+      '</div>';
+
+    if (episode) {
+      var stats = RP.commentaryStats(episode.lines || []);
+      var done = (episode.segments || []).filter(function (x) { return x.done; }).length;
+      html += '<div class="epi-head"><b>' + esc(episode.topic) + '</b>' +
+        '<span>' + esc(episode.styleName) + ' · target ' + episode.minutes + ' min</span>' +
+        '<span class="meter"><span style="width:' + Math.round((done / episode.segments.length) * 100) + '%"></span></span>' +
+        '<span>' + done + '/' + episode.segments.length + ' segments · ' + stats.words + ' words · ~' + stats.minutes + ' min' +
+        (running ? ' · writing…' : '') + '</span>' +
+        (episode.lines && episode.lines.length ? '<span class="grow"></span>' +
+          '<button class="mini" id="comPlay">' + (speaking ? '⏸ Stop reading' : '🔊 Read it aloud') + '</button>' +
+          '<button class="mini" id="comMd">⬇ Script</button>' +
+          '<button class="mini" id="comTxt">⬇ Plain text</button>' : '') +
+        '</div>';
+      if (episode.sources && episode.sources.length) {
+        html += '<div class="castbar">' + episode.sources.map(function (src) {
+          return '<span class="chip">' + esc(src.kind) + ' · ' + esc(RP.clip(src.name, 40)) + (src.date ? ' · ' + esc(src.date) : '') + '</span>';
+        }).join('') + '</div>';
+      }
+      html += '<div class="episode">' + (episode.lines || []).map(function (line, i) {
+        return '<div class="say ' + esc(line.who) + '" data-say="' + i + '">' +
+          '<b>' + (line.who === 'waluigi' ? 'Waluigi' : 'Luigi') + '</b><p>' + esc(line.text) + '</p></div>';
+      }).join('') + (running ? '<div class="say pending"><em>…writing the next segment…</em></div>' : '') + '</div>';
+    }
+
+    if (saved.length) {
+      html += '<div class="sec-head"><h2>Recorded</h2></div><div class="stack">' + saved.map(function (e) {
+        var st = RP.commentaryStats(e.lines || []);
+        return '<div class="item"><b>' + esc(e.topic) + '</b><div class="when">' + esc(e.styleName) + ' · ' +
+          st.minutes + ' min · ' + st.words + ' words · ' + esc(ago(e.at || e.created)) + '</div>' +
+          '<div class="acts"><button class="mini" data-epiopen="' + esc(e.id) + '">Open</button>' +
+          '<button class="mini danger" data-epikill="' + esc(e.id) + '">Delete</button></div></div>';
+      }).join('') + '</div>';
+    }
+    return html;
+  }
+
+  /** Generate the next unwritten segment, then the next, until the plan is
+   *  finished or you stop it. One call at a time, always. */
+  function runCommentary() {
+    if (running || !episode) return;
+    var next = (episode.segments || []).filter(function (x) { return !x.done; })[0];
+    if (!next) {
+      episode.done = true; RP.saveEpisode(state, episode); save(); render();
+      toast('🎙 Finished — ' + RP.commentaryStats(episode.lines).minutes + ' minutes of it.');
+      return;
+    }
+    running = true; stopRun = false; render();
+    var previous = (episode.lines || []).slice(-3).map(function (l) {
+      return (l.who === 'waluigi' ? 'WALUIGI: ' : 'LUIGI: ') + l.text;
+    }).join('\n');
+    var covered = (episode.segments || []).filter(function (x) { return x.done; }).map(function (x) { return x.focus; });
+    callModel(RP.commentaryPrompt(episode, next, { previous: previous, covered: covered }),
+      [{ role: 'user', content: 'Write part ' + next.n + '.' }])
+      .then(function (text) {
+        var lines = RP.parseCommentary(text);
+        if (!lines.length) throw new Error('the model wrote nothing usable');
+        next.done = true; next.text = text;
+        episode.lines = (episode.lines || []).concat(lines);
+        episode.at = Date.now();
+        RP.saveEpisode(state, episode);
+        save();
+      })
+      .catch(function (error) {
+        toast('The model stopped: ' + error.message + ' — press ▶ Carry on to try again.');
+        stopRun = true;
+        RP.saveEpisode(state, episode);
+        save();
+      })
+      .then(function () {
+        running = false;
+        render();
+        if (!stopRun && (episode.segments || []).some(function (x) { return !x.done; })) {
+          window.setTimeout(runCommentary, 900);     // a breath between calls
+        } else if (!stopRun) {
+          episode.done = true; RP.saveEpisode(state, episode); save(); render();
+          toast('🎙 Finished — ' + RP.commentaryStats(episode.lines).minutes + ' minutes of it.');
+        }
+      });
+  }
+
   function renderFeed() {
     var KINDS = ['all', 'chat', 'beat', 'pin', 'note', 'whatif', 'backfill', 'roster', 'lore', 'replay', 'wire'];
     var log = (state.log || []).filter(function (e) {
@@ -793,6 +908,7 @@
     $('dash').hidden = false;
     $('chatview').hidden = true;
     var body = tab === 'feed' ? renderFeed()
+      : tab === 'commentary' ? renderCommentary()
       : tab === 'book' ? renderBook()
       : tab === 'continue' ? renderContinuations()
       : tab === 'whatif' ? renderWhatIfs()
@@ -930,6 +1046,70 @@
     on('loreAdd', function () { loreForm(null); });
     on('loreExport', function () { download('waluipedia-lore.json', JSON.stringify(RP.exportBundle(state, { chats: false, memory: false, user: false }), null, 2)); });
     on('loreImport', function () { importFile('merge'); });
+    // ---- commentary ----
+    if ($('comTopic')) $('comTopic').oninput = function () { comTopic = $('comTopic').value; };
+    if ($('comStyle')) $('comStyle').onchange = function () {
+      comStyle = $('comStyle').value;
+      var def = RP.COMMENTARY_STYLES[comStyle];
+      comMins = Math.max(def.min, Math.min(def.max, comMins || def.default));
+      renderDash();
+    };
+    if ($('comMins')) $('comMins').onchange = function () { comMins = parseInt($('comMins').value, 10) || comMins; };
+    on('comGo', function () {
+      var topic = ($('comTopic') && $('comTopic').value || '').trim();
+      if (!topic) { toast('Give them something to argue about.'); return; }
+      comTopic = topic;
+      episode = RP.commentaryPlan({
+        style: comStyle, topic: topic, minutes: comMins,
+        sources: RP.commentarySources(archiveIndex, topic, 12),
+      });
+      episode.at = Date.now();
+      // Save the plan straight away: a run that fails halfway should still
+      // leave the reader whatever was written.
+      RP.saveEpisode(state, episode);
+      save();
+      if (!episode.sources.length) toast('Nothing filed matches that — they will argue from first principles.');
+      render();
+      runCommentary();
+    });
+    on('comResume', runCommentary);
+    on('comStop', function () { stopRun = true; toast('Stopping after this segment.'); });
+    on('comPick', function () {
+      // The subject can be anything the archive already has, or a chat.
+      var choices = (archive.events || []).slice(-24).reverse().map(function (e) {
+        return { label: '📜 ' + e.name + (e.date ? ' — ' + RP.clip(e.date, 40) : ''), value: e.name };
+      }).concat((state.rooms || []).slice(0, 8).map(function (r) {
+        return { label: '💬 ' + r.title + ' (your chat)', value: r.sceneName || r.title };
+      })).concat(((state.book || {}).entries || []).slice(-8).reverse().map(function (b) {
+        return { label: '📓 ' + b.name, value: b.name };
+      }));
+      list('Pick a subject', choices, function (value) {
+        comTopic = value;
+        renderDash();
+        if ($('comTopic')) $('comTopic').value = value;
+      });
+    });
+    on('comMd', function () { download(RP.slug(episode.topic) + '.commentary.md', RP.commentaryScript(episode)); });
+    on('comTxt', function () {
+      download(RP.slug(episode.topic) + '.commentary.txt', (episode.lines || []).map(function (l) {
+        return (l.who === 'waluigi' ? 'WALUIGI: ' : 'LUIGI: ') + l.text;
+      }).join('\n\n'));
+    });
+    on('comPlay', function () { speaking ? stopReading() : readEpisode(episode); });
+    box.querySelectorAll('[data-epiopen]').forEach(function (b) {
+      b.onclick = function () {
+        episode = (state.episodes || []).filter(function (e) { return e.id === b.dataset.epiopen; })[0];
+        comTopic = episode.topic; comStyle = episode.style; comMins = episode.minutes;
+        renderDash();
+      };
+    });
+    box.querySelectorAll('[data-epikill]').forEach(function (b) {
+      b.onclick = function () {
+        state.episodes = (state.episodes || []).filter(function (e) { return e.id !== b.dataset.epikill; });
+        if (episode && episode.id === b.dataset.epikill) episode = null;
+        save(); renderDash();
+      };
+    });
     on('promptPeek', promptInspector);
     on('cardImport', importCard);
     on('cardExport', function () {
@@ -2053,6 +2233,113 @@
     var q = RP.bookState(state).queue.length;
     badge.textContent = booking ? '📓 writing…' : q ? '📓 ' + q + ' queued' : '';
     badge.hidden = !booking && !q;
+  }
+
+  /* ---------------------------------------------------------------- *
+   * reading a commentary aloud — the local Qwen3-TTS studio if it is
+   * running (one voice profile per speaker), the browser otherwise
+   * ---------------------------------------------------------------- */
+
+  var reader = { stop: false, audio: null };
+
+  function ttsConfig() {
+    var saved = {};
+    try { saved = JSON.parse(window.localStorage.getItem('waluipedia-tts') || '{}'); } catch (e) { saved = {}; }
+    return {
+      endpoint: (saved.endpoint || 'http://127.0.0.1:7860').replace(/\/+$/, ''),
+      api: saved.api || '/generate_base_17',
+      lang: saved.lang || 'Auto',
+      waluigi: (state.settings && state.settings.voiceWaluigi) || saved.voice || 'Waluigi',
+      luigi: (state.settings && state.settings.voiceLuigi) || 'Luigi',
+    };
+  }
+
+  /** One line through the studio — the same Gradio surface the main site's
+   *  read-aloud bridge uses (docs/QWEN_TTS_BRIDGE.md). */
+  function qwenSay(text, voice, cfg) {
+    var payload = { data: [voice, text, cfg.lang, false, 0, 0.8, 0.95, 1.15, 2048] };
+    function attempt(prefix) {
+      return window.fetch(cfg.endpoint + prefix + cfg.api, {
+        method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload),
+      }).then(function (res) {
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        return res.json();
+      }).then(function (job) {
+        if (!job || !job.event_id) throw new Error('no job id');
+        return window.fetch(cfg.endpoint + prefix + cfg.api + '/' + job.event_id);
+      }).then(function (stream) { return stream.text(); }).then(function (body) {
+        var done = /event:\s*complete\s*\ndata:\s*(.+)/.exec(body);
+        if (!done) throw new Error('the studio closed the stream without finishing');
+        var payloadOut = JSON.parse(done[1]);
+        var audio = Array.isArray(payloadOut) ? payloadOut[1] : null;
+        var path = audio && (audio.url || audio.path || audio);
+        if (!path) throw new Error('no audio came back');
+        return /^https?:/.test(path) ? path : cfg.endpoint + '/gradio_api/file=' + encodeURI(path);
+      });
+    }
+    return attempt('/gradio_api/call').catch(function () { return attempt('/call'); });
+  }
+
+  function playUrl(url) {
+    return new Promise(function (resolve) {
+      var audio = new window.Audio(url);
+      reader.audio = audio;
+      audio.onended = resolve;
+      audio.onerror = resolve;
+      audio.play().catch(resolve);
+    });
+  }
+
+  /** Read the whole episode, alternating voices. The next line is being
+   *  synthesized while the current one plays, exactly like the main site. */
+  function readEpisode(epi) {
+    if (!epi || !(epi.lines || []).length) return;
+    var cfg = ttsConfig();
+    speaking = true; reader.stop = false; render();
+    var lines = epi.lines.slice();
+    var ahead = null;
+    function voiceFor(line) { return line.who === 'waluigi' ? cfg.waluigi : cfg.luigi; }
+    function synth(i) {
+      return i < lines.length ? qwenSay(lines[i].text, voiceFor(lines[i]), cfg) : Promise.resolve(null);
+    }
+    function step(i) {
+      if (reader.stop || i >= lines.length) { stopReading(); return; }
+      var current = ahead || synth(i);
+      ahead = null;
+      current.then(function (url) {
+        if (reader.stop) return null;
+        ahead = synth(i + 1);                      // synthesize ahead of the ear
+        return playUrl(url);
+      }).then(function () { step(i + 1); })
+        .catch(function () {
+          // No studio: fall back to the browser's own voices so the button
+          // still does something useful.
+          browserRead(lines.slice(i));
+        });
+    }
+    toast('🔊 Reading through the Qwen studio (' + cfg.waluigi + ' / ' + cfg.luigi + ')…');
+    step(0);
+  }
+
+  function browserRead(lines) {
+    if (!window.speechSynthesis) { toast('No voice available — the Qwen studio is not running.'); stopReading(); return; }
+    toast('The Qwen studio is not answering — using the browser’s voices.');
+    window.speechSynthesis.cancel();
+    lines.forEach(function (line) {
+      var u = new window.SpeechSynthesisUtterance(line.text);
+      var voice = RP.voiceFor({ id: line.who, name: line.who });
+      u.rate = voice.rate; u.pitch = line.who === 'waluigi' ? 0.8 : 1.25;
+      window.speechSynthesis.speak(u);
+    });
+    speaking = true; render();
+  }
+
+  function stopReading() {
+    reader.stop = true;
+    if (reader.audio) { try { reader.audio.pause(); } catch (e) { /* already gone */ } }
+    if (window.speechSynthesis) window.speechSynthesis.cancel();
+    speaking = false;
+    render();
   }
 
   function speak(msg, r) {

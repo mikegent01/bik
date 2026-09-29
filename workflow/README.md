@@ -142,6 +142,15 @@ memory, lore, replay, backups — is documented in
   click preselects the whole table in the cast picker.
 - **No advertisements.** The dashboard has no ad slot and the page contains no
   ad code.
+- **🎙 Commentary mode.** Waluigi and Luigi commentating, debating or deep
+  diving on any subject in the archive: podcast and debate run 15–60 minutes,
+  a deep dive runs 30 minutes to two hours. The runtime is planned into
+  ~600-word segments and generated one call at a time, each handed the
+  outline, the last thing said and what has already been covered — so a local
+  model can actually finish an 18,000-word episode. The material comes from
+  the filed record with its ids and dates, and the standing rule is never to
+  invent a filing. 🔊 Read it aloud sends it through the local Qwen3-TTS
+  studio with one voice profile per speaker, falling back to the browser.
 - **📓 The lore book.** Written in the background while you play: every few
   turns the last stretch of the scene is queued, and a separate small call
   files what is new — places, people, events, things, facts and a diary entry

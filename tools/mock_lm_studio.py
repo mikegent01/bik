@@ -54,6 +54,17 @@ class Handler(BaseHTTPRequestHandler):
                 '"record": {"id": "mock_record", "name": "Mock Record", '
                 '"title": "Mock Record — Filed From the Mock", "summary": "A mock record."}}',
             )
+        elif "spoken commentary track" in all_text:
+            # Commentary mode: a couple of labelled exchanges per segment, so
+            # a test can prove the planner, the parser and the stitching.
+            Handler.part = getattr(Handler, "part", 0) + 1
+            content = os.environ.get(
+                "MOCK_COMMENTARY_REPLY",
+                f"WALUIGI: Part {Handler.part}. The record says twenty-eight for, eight against, three abstaining, "
+                "and everybody quotes the twenty-eight.\n"
+                f"LUIGI: That is the part that bothers me, Waluigi. Who were the three?\n"
+                "WALUIGI: Unfiled. Which is its own answer, and not a flattering one.",
+            )
         elif "You are the archivist for a roleplay session" in all_text:
             # Lore-book extraction: canned pages in the exact filing format,
             # overridable with MOCK_BOOK_REPLY.

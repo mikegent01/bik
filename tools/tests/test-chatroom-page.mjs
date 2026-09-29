@@ -375,8 +375,38 @@ doc.querySelector('[data-logkind="whatif"]').dispatchEvent(new win.MouseEvent('c
 check('feed: filtering by kind narrows it', $('dashBody').textContent.includes('whatif'));
 doc.querySelector('[data-logkind="all"]').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
 
-// ---- labs: cards, stories, and what the model is sent ----
+// ---- commentary mode ----
+[...doc.querySelectorAll('[data-tab]')].find(b => b.dataset.tab === 'commentary').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+check('commentary: the tab offers a subject, a format and a runtime',
+  Boolean($('comTopic')) && Boolean($('comStyle')) && Boolean($('comMins')) && Boolean($('comGo')) &&
+  [...$('comStyle').options].length === 4);
+$('comStyle').value = 'hottake';
+$('comStyle').dispatchEvent(new win.Event('change', { bubbles: true }));
+check('commentary: picking a format resets the runtime to its own range',
+  Number($('comMins').max) === 30 && Number($('comMins').min) === 15);
+$('comTopic').value = 'The Iron Mandate';
+$('comTopic').dispatchEvent(new win.Event('input', { bubbles: true }));
+$('comGo').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+const episodeDone = await until('the commentary to finish', () => {
+  const e = (savedState().episodes || [])[0];
+  return e && e.done;
+}, 200);
+const epi = (savedState().episodes || [])[0];
+check('commentary: the run is planned, generated segment by segment, and finishes',
+  episodeDone && epi.segments.length >= 5 && epi.segments.every(x => x.done) && epi.lines.length >= 10);
+check('commentary: it pulled its material out of the live archive',
+  (epi.sources || []).length > 0 && epi.sources.some(x => /Iron Mandate|Midlands|Sovereignty/i.test(x.name)));
+check('commentary: both voices are on the page, labelled and styled',
+  doc.querySelectorAll('.episode .say.waluigi').length > 0 &&
+  doc.querySelectorAll('.episode .say.luigi').length > 0);
+check('commentary: the header reports segments, words and the runtime',
+  /\d+\/\d+ segments/.test($('dashBody').textContent) && /~\d/.test($('dashBody').textContent) &&
+  Boolean($('comPlay')) && Boolean($('comMd')));
+check('commentary: finished episodes are kept and can be reopened',
+  doc.querySelectorAll('[data-epiopen]').length >= 1);
 [...doc.querySelectorAll('[data-tab]')].find(b => b.dataset.tab === 'labs').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+
+// ---- labs: cards, stories, and what the model is sent ----
 check('labs: character cards and story import/export are offered',
   Boolean($('cardImport')) && Boolean($('cardExport')) && Boolean($('textImport')) && Boolean($('briefExport')) &&
   $('dashBody').textContent.includes('chara'));

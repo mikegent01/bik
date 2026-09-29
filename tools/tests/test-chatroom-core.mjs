@@ -927,6 +927,81 @@ check('prompt: a heavy scene still fits the budget, keeping the instructions', (
     system.includes('CHARACTER STATE') && system.includes('HOW THIS TURN RESOLVES') && system.includes('trimmed to fit');
 })());
 
+// ---------- commentary mode ----------
+check('commentary: four formats, each with its own clock',
+  ['podcast', 'debate', 'deepdive', 'hottake'].every(k => RP.COMMENTARY_STYLES[k].dir.length > 80) &&
+  RP.COMMENTARY_STYLES.podcast.min === 15 && RP.COMMENTARY_STYLES.podcast.max === 60 &&
+  RP.COMMENTARY_STYLES.deepdive.min === 30 && RP.COMMENTARY_STYLES.deepdive.max === 120);
+const podPlan = RP.commentaryPlan({ style: 'podcast', topic: 'The Iron Mandate', minutes: 30 });
+check('commentary: a run is planned into segments a local model can finish',
+  podPlan.words === 30 * RP.WPM && podPlan.segments.length >= 8 &&
+  podPlan.segments.every(seg => seg.words <= 650 && seg.focus));
+check('commentary: the requested length is honoured, and clamped to the format',
+  RP.commentaryPlan({ style: 'hottake', minutes: 90 }).minutes === 30 &&
+  RP.commentaryPlan({ style: 'deepdive', minutes: 10 }).minutes === 30 &&
+  RP.commentaryPlan({ style: 'deepdive', minutes: 120 }).words === 120 * RP.WPM);
+check('commentary: a two-hour deep dive is dozens of calls, not one impossible one', (() => {
+  const deep = RP.commentaryPlan({ style: 'deepdive', minutes: 120 });
+  return deep.segments.length >= 25 && deep.segments.length <= 40;
+})());
+const comSources = RP.commentarySources(citeIndex, 'the ledger vote', 5);
+check('commentary: the subject pulls its material out of the filed record',
+  comSources.length > 0 && comSources.every(src => src.id && src.name) &&
+  comSources.some(src => src.date));
+const podEpisode = Object.assign({}, podPlan, { sources: comSources });
+const seg1 = RP.commentaryPrompt(podEpisode, podEpisode.segments[0], {});
+check('commentary: the prompt names both speakers and forbids the usual failures',
+  seg1.includes('WALUIGI:') && seg1.includes('LUIGI:') &&
+  seg1.includes('Never invent a filing') && /no stage directions/i.test(seg1));
+check('commentary: each call is told its own slice, not the whole episode',
+  seg1.includes('part 1 of ' + podEpisode.segments.length) && seg1.includes('do not write the rest of the episode') &&
+  seg1.includes(podEpisode.segments[0].focus));
+check('commentary: the material is handed over with its ids and dates',
+  seg1.includes('THE FILED MATERIAL') && seg1.includes('[' + comSources[0].kind + ':' + comSources[0].id + ']'));
+const seg3 = RP.commentaryPrompt(podEpisode, podEpisode.segments[2], {
+  previous: 'LUIGI: who were the three abstentions?', covered: ['cold open', 'the background'],
+});
+check('commentary: later segments are handed what came before and what is spent',
+  seg3.includes('who were the three abstentions?') && seg3.includes('ALREADY COVERED') &&
+  seg3.includes('do not go over these again'));
+check('commentary: the last segment is told to land it, not to summarise',
+  RP.commentaryPrompt(podEpisode, podEpisode.segments[podEpisode.segments.length - 1], {})
+    .includes('No summary of the episode'));
+const spoken = RP.parseCommentary([
+  'WALUIGI: Twenty-eight for, eight against, three abstaining.',
+  '**LUIGI:** And nobody has ever printed the three.',
+  'Which is its own answer.',
+  'Some stray narration with no speaker at all.',
+].join('\n'));
+check('commentary: labelled lines parse, and stray lines join the speaker above',
+  spoken.length === 2 && spoken[0].who === 'waluigi' && spoken[1].who === 'luigi' &&
+  spoken[1].text.includes('its own answer') && spoken[1].text.includes('stray narration'));
+check('commentary: the clock is words at a speaking pace', (() => {
+  const stats = RP.commentaryStats([{ who: 'waluigi', text: 'word '.repeat(RP.WPM * 3) }]);
+  return stats.minutes === 3 && stats.words === RP.WPM * 3;
+})());
+const finished = Object.assign({}, podEpisode, { lines: spoken, at: Date.now() });
+const script = RP.commentaryScript(finished);
+check('commentary: the script exports with its runtime and its sources',
+  script.includes('# The Iron Mandate') && script.includes('**WALUIGI:**') && script.includes('**LUIGI:**') &&
+  script.includes('minutes') && script.includes('Sources:'));
+check('commentary: episodes are kept, newest first, and survive a save', (() => {
+  const keep = RP.blankState();
+  RP.saveEpisode(keep, finished);
+  RP.saveEpisode(keep, Object.assign({}, finished, { id: 'second', topic: 'Something else' }));
+  RP.saveState(store, keep);
+  const round = RP.loadState(store);
+  return round.episodes.length === 2 && round.episodes[0].topic === 'Something else';
+})());
+check('commentary: episodes ride along in the lore export', (() => {
+  const keep = RP.blankState();
+  RP.saveEpisode(keep, finished);
+  const bundle = RP.exportBundle(keep, { chats: false, memory: false, user: false });
+  const target = RP.blankState();
+  RP.importBundle(target, bundle, 'merge');
+  return bundle.episodes.length === 1 && target.episodes.length === 1;
+})());
+
 // ---------- generated pages are in sync with these sources ----------
 let built = true;
 try {

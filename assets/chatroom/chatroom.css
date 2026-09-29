@@ -194,6 +194,21 @@ a { color: inherit; }
 }
 .speakers .qa:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
 
+/* ---- commentary mode ---- */
+.castbar input[type=text] { border: 1px solid var(--line); border-radius: 999px; padding: 7px 14px; font-size: 13px; min-width: 260px; outline: 0; }
+.castbar .mins { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: var(--muted); }
+.castbar .mins input { width: 70px; border: 1px solid var(--line); border-radius: 999px; padding: 6px 10px; }
+.epi-head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; border: 1px solid var(--line); background: var(--panel2); border-radius: var(--radius); padding: 10px 14px; margin-bottom: 12px; font-size: 12px; color: var(--muted); }
+.epi-head b { font-size: 15px; color: var(--text); }
+.epi-head .meter { display: inline-block; width: 120px; height: 6px; border-radius: 999px; background: #dfdfe5; overflow: hidden; }
+.epi-head .meter span { display: block; height: 100%; background: var(--accent); }
+.episode { max-width: 780px; }
+.episode .say { display: grid; grid-template-columns: 96px 1fr; gap: 12px; padding: 9px 0; border-bottom: 1px solid var(--line); }
+.episode .say b { font-size: 12px; text-transform: uppercase; letter-spacing: .04em; color: #7a2fb0; }
+.episode .say.luigi b { color: #2f8a4a; }
+.episode .say p { margin: 0; font-size: 14px; line-height: 1.6; }
+.episode .say.pending { color: var(--muted); font-style: italic; }
+
 /* ---- the lore book ---- */
 .bookpages { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 12px; }
 .page {

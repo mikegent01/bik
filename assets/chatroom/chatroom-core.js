@@ -1971,6 +1971,203 @@
 
 
 
+
+  /* ------------------------------------------------------------------ *
+   * commentary mode — Waluigi and Luigi, at length
+   *
+   * Two voices arguing about the archive for anything from a quarter of
+   * an hour to two hours. No local model writes 18,000 words in one call,
+   * so a run is planned into segments and generated one call at a time,
+   * each one handed the outline, what has already been said, and the
+   * filed material it is allowed to use.
+   * ------------------------------------------------------------------ */
+
+  RP.WPM = 150;                    // spoken words per minute, for the clock
+
+  RP.COMMENTARY_STYLES = {
+    podcast: {
+      name: 'Podcast', min: 15, max: 60, default: 25,
+      blurb: 'Two hosts, one subject, digressions allowed.',
+      dir: 'This is a podcast episode. Warm, unhurried, funny. They interrupt each other, chase a tangent for a ' +
+        'minute and come back. Waluigi hosts; Luigi is the one who actually read the material and keeps saying so.',
+      shape: ['cold open — the thing that made them record this', 'the background, argued over',
+        'the first real disagreement', 'the material nobody quotes', 'the tangent',
+        'the part Luigi finds upsetting', 'what it means for what happens next', 'sign-off'],
+    },
+    debate: {
+      name: 'Debate', min: 15, max: 60, default: 20,
+      blurb: 'Two positions, taken seriously, neither wins cleanly.',
+      dir: 'This is a formal-ish debate. Waluigi takes the position that flatters the archive and himself; Luigi ' +
+        'takes the humane one. Each answers the other\u2019s actual point rather than a weaker version of it. Concessions ' +
+        'are allowed and cost something. Nobody wins outright.',
+      shape: ['the motion, stated', 'Waluigi opens', 'Luigi answers', 'the evidence both sides want',
+        'the strongest objection to Waluigi', 'the strongest objection to Luigi',
+        'where they actually agree', 'closing statements'],
+    },
+    deepdive: {
+      name: 'Deep dive', min: 30, max: 120, default: 45,
+      blurb: 'Everything on the record, in order, for as long as it takes.',
+      dir: 'This is a deep dive: chronological, exhaustive, footnoted out loud. Read the record closely — dates, ' +
+        'names, numbers, who said what. Waluigi is the archivist and cannot resist the digression; Luigi is the one ' +
+        'asking the obvious question everybody skipped. Slow down on the parts that matter.',
+      shape: ['why this file, and why now', 'the earliest record', 'what the sources actually say',
+        'the contradictions', 'the people, one at a time', 'the turning point, minute by minute',
+        'the aftermath nobody filed', 'the open questions', 'what the archive should do about it',
+        'closing thoughts'],
+    },
+    hottake: {
+      name: 'Hot take', min: 15, max: 30, default: 15,
+      blurb: 'Short, loud, and over before either of them calms down.',
+      dir: 'This is a short, heated segment. Fast turns, few concessions, both of them talking past each other ' +
+        'until one lands a point that sticks. Keep it moving.',
+      shape: ['the take', 'the objection', 'the escalation', 'the fact that spoils it', 'the grudging landing'],
+    },
+  };
+
+  /** Split a run into segments the model can actually write. */
+  RP.commentaryPlan = function (opts) {
+    opts = opts || {};
+    var style = RP.COMMENTARY_STYLES[opts.style] ? opts.style : 'podcast';
+    var def = RP.COMMENTARY_STYLES[style];
+    var minutes = Math.max(def.min, Math.min(def.max, Number(opts.minutes || def.default)));
+    var words = Math.round(minutes * RP.WPM);
+    // 500–650 words a call keeps every local model inside its output window.
+    var perSegment = 600;
+    var count = Math.max(def.shape.length, Math.ceil(words / perSegment));
+    count = Math.min(count, 40);
+    var segments = [];
+    for (var i = 0; i < count; i++) {
+      segments.push({
+        n: i + 1,
+        focus: def.shape[Math.min(def.shape.length - 1, Math.floor((i / count) * def.shape.length))],
+        words: Math.round(words / count),
+        done: false, text: '',
+      });
+    }
+    return {
+      id: uid(), style: style, styleName: def.name, topic: clip(opts.topic, 200),
+      minutes: minutes, words: words, segments: segments,
+      sources: opts.sources || [], created: Date.now(),
+    };
+  };
+
+  /** The filed material this episode is allowed to work from. */
+  RP.commentarySources = function (index, topic, limit) {
+    var terms = String(topic || '').toLowerCase().split(/[^a-z0-9]+/)
+      .filter(function (t) { return t.length > 3; });
+    if (!terms.length) return [];
+    return (index || []).map(function (r) {
+      var score = 0;
+      terms.forEach(function (t) { if (r.words.indexOf(t) >= 0) score += 1; });
+      if (String(r.name || '').toLowerCase().indexOf(String(topic).toLowerCase()) >= 0) score += 4;
+      return { r: r, score: score };
+    }).filter(function (x) { return x.score > 0; })
+      .sort(function (a, b) { return b.score - a.score; })
+      .slice(0, limit || 12)
+      .map(function (x) {
+        return {
+          id: x.r.id, kind: x.r.kind, name: x.r.name,
+          date: x.r.date ? RP.formatWahDate(x.r.date) : '',
+          text: clip(x.r.text, 300),
+        };
+      });
+  };
+
+  var COMMENTARY_RULES = [
+    'TWO SPEAKERS, AND ONLY TWO. Every line begins with WALUIGI: or LUIGI: and nothing else does.',
+    'WALUIGI — the archive\u2019s author. Vain, precise, funny, allergic to being corrected and constantly being ' +
+      'corrected. Cites filings, dates and numbers. Says WAH when genuinely rattled, and not otherwise.',
+    'LUIGI — decent, anxious, better read than he lets on. Asks the obvious question nobody asked, worries about ' +
+      'the people in the record rather than the record, and is right more often than Waluigi admits.',
+    'They are commentating, not roleplaying a scene: no stage directions, no asterisks, no narration.',
+    'Never invent a filing, a date, a quotation or a number. If the material does not say, say that it does not say.',
+    'Do not summarise what you are about to say, and do not recap what you already said. Keep moving.',
+    'No table talk, no players, no dice, no mention of an archive website or of being a model.',
+  ].join('\n');
+
+  /** One segment's prompt: the outline, the material, and what came before. */
+  RP.commentaryPrompt = function (plan, segment, ctx) {
+    ctx = ctx || {};
+    var def = RP.COMMENTARY_STYLES[plan.style];
+    return [
+      'You are writing part ' + segment.n + ' of ' + plan.segments.length + ' of a spoken commentary track for the ' +
+        'Waluipedia archive.',
+      '',
+      'THE SUBJECT',
+      plan.topic,
+      '',
+      'THE FORMAT — ' + def.name,
+      def.dir,
+      'The whole episode runs about ' + plan.minutes + ' minutes. THIS PART is “' + segment.focus + '” and should be ' +
+        'about ' + segment.words + ' words — do not write the rest of the episode.',
+      '',
+      'THE RULES',
+      COMMENTARY_RULES,
+      plan.sources.length ? '\nTHE FILED MATERIAL — this is what you know; quote it, date it, argue about it\n' +
+        plan.sources.map(function (s) {
+          return '- [' + s.kind + ':' + s.id + '] ' + s.name + (s.date ? ' (' + s.date + ')' : '') + ' — ' + s.text;
+        }).join('\n') : '',
+      ctx.previous ? '\nTHE LAST THING SAID (continue straight on from it, do not repeat it)\n' + clip(ctx.previous, 700) : '',
+      ctx.covered && ctx.covered.length ? '\nALREADY COVERED (do not go over these again)\n- ' + ctx.covered.join('\n- ') : '',
+      segment.n === 1 ? '\nOpen cold, mid-thought, as though the recording started late.' : '',
+      segment.n === plan.segments.length ? '\nThis is the last part: land it. No summary of the episode — a last ' +
+        'exchange that leaves the subject where it actually stands.' : '',
+      '',
+      'Write only the dialogue, beginning with a speaker label.',
+    ].filter(Boolean).join('\n');
+  };
+
+  /** Read a segment back into lines. Anything not attributed to one of the
+   *  two is folded into the previous speaker rather than dropped. */
+  RP.parseCommentary = function (text) {
+    var out = [];
+    String(text || '').split(/\r?\n/).forEach(function (raw) {
+      var line = raw.replace(/^[\s>*_-]+/, '').trim();
+      if (!line) return;
+      var hit = /^\*{0,2}(WALUIGI|LUIGI)\*{0,2}\s*[:：]\s*(.*)$/i.exec(line);
+      if (hit) {
+        var body = hit[2].trim();
+        if (body) out.push({ who: hit[1].toLowerCase(), text: clip(body, 1800) });
+        return;
+      }
+      if (out.length) {
+        var last = out[out.length - 1];
+        last.text = clip(last.text + ' ' + line, 1800);
+      }
+    });
+    return out;
+  };
+
+  RP.commentaryStats = function (lines) {
+    var words = 0;
+    (lines || []).forEach(function (l) { words += String(l.text).split(/\s+/).filter(Boolean).length; });
+    return { words: words, minutes: Math.round((words / RP.WPM) * 10) / 10, lines: (lines || []).length };
+  };
+
+  /** The whole episode as one script, for export or for reading aloud. */
+  RP.commentaryScript = function (episode) {
+    var lines = episode.lines || [];
+    var stats = RP.commentaryStats(lines);
+    return ['# ' + episode.topic,
+      '_' + episode.styleName + ' · about ' + stats.minutes + ' minutes · ' + stats.words + ' words_',
+      episode.sources && episode.sources.length
+        ? '\nSources: ' + episode.sources.map(function (s) { return s.name + (s.date ? ' (' + s.date + ')' : ''); }).join(' · ')
+        : '',
+      '',
+    ].join('\n') + lines.map(function (l) {
+      return (l.who === 'waluigi' ? '**WALUIGI:** ' : '**LUIGI:** ') + l.text;
+    }).join('\n\n') + '\n';
+  };
+
+  /** Episodes are kept beside the lore book. */
+  RP.saveEpisode = function (state, episode) {
+    state.episodes = state.episodes || [];
+    state.episodes = state.episodes.filter(function (e) { return e.id !== episode.id; });
+    state.episodes.unshift(episode);
+    state.episodes = state.episodes.slice(0, 20);
+    return episode;
+  };
+
   /* ------------------------------------------------------------------ *
    * character cards — the format everybody else already uses
    *
@@ -3397,6 +3594,7 @@
       user: { name: 'Archivist', handle: 'waluipedia', persona: '', avatar: '' },
       rooms: [], chars: [], lore: [], log: [], scenarios: [], active: '',
       book: { entries: [], queue: [], spent: 0 },   // the lore book, written as you play
+      episodes: [],        // commentary tracks, Waluigi and Luigi at length
       newChars: [],        // characters invented during play, described not drawn
       hooks: {},           // scenario id -> the opener the model wrote
       backfillUses: {},    // backfill id -> how many times it has been played
@@ -3422,7 +3620,7 @@
       var raw = store.getItem(key || RP.KEY);
       var value = raw ? JSON.parse(raw) : null;
       if (value && typeof value === 'object') {
-        ['rooms', 'chars', 'lore', 'log', 'scenarios', 'newChars'].forEach(function (k) {
+        ['rooms', 'chars', 'lore', 'log', 'scenarios', 'newChars', 'episodes'].forEach(function (k) {
           if (Array.isArray(value[k])) state[k] = value[k];
         });
         if (typeof value.active === 'string') state.active = value.active;
@@ -3451,6 +3649,7 @@
       usedPosts: state.usedPosts || {},
       hooks: state.hooks || {},
       newChars: (state.newChars || []).slice(0, 80),
+      episodes: (state.episodes || []).slice(0, 20),
       // The queue is deliberately not saved: unfinished background work
       // should not come back to life on the next page load.
       book: { entries: (state.book && state.book.entries) || [], queue: [], spent: 0 },
@@ -3494,6 +3693,7 @@
       bundle.scenarios = state.scenarios || [];   // written scenarios are lore too
       bundle.newChars = state.newChars || [];     // so are the people invented in play
       bundle.book = (state.book && state.book.entries) || [];
+      bundle.episodes = state.episodes || [];
     }
     if (want('memory')) {
       bundle.chars = state.chars || [];
@@ -3535,6 +3735,9 @@
       var loreBefore = (state.lore || []).length;
       state.lore = mergeById(state.lore || [], data.lore, function (a, b) { return b; });
       stats.lore = state.lore.length - (replace ? 0 : loreBefore);
+    }
+    if (Array.isArray(data.episodes)) {
+      state.episodes = mergeById(state.episodes || [], data.episodes, function (a, b) { return b; }).slice(0, 20);
     }
     if (Array.isArray(data.book)) {
       var bookNow = bookState(state);

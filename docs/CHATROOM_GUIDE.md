@@ -472,6 +472,50 @@ plays the same hours from the new vantage — the cutters hearing the saws stop,
 not the rebels coming out of the treeline. Opening a replay is itself filed in
 the world log, so the two accounts know about each other.
 
+## 🎙 Commentary mode — Waluigi and Luigi, at length
+
+Point them at anything — a filed event, a faction, a chat you played, a page
+out of the lore book, or a phrase — and they talk about it for as long as you
+asked for.
+
+| Format | Runs | What it is |
+|---|---|---|
+| **Podcast** | 15–60 min | Two hosts, one subject, digressions allowed |
+| **Debate** | 15–60 min | Two positions taken seriously, neither wins cleanly |
+| **Deep dive** | **30 min – 2 hours** | Chronological, exhaustive, footnoted out loud |
+| **Hot take** | 15–30 min | Short, loud, over before either calms down |
+
+**How a two-hour episode gets written by a 7B model.** It does not, in one
+call. `RP.commentaryPlan` turns the runtime into words (150 wpm — a 2-hour
+deep dive is 18,000 words) and splits it into **~600-word segments** against
+the format's own shape (cold open → background → the first disagreement →
+the material nobody quotes → … → sign-off). The runner then makes **one call
+per segment, one at a time**, handing each one the outline, its own focus,
+the last thing said, and the list of what has already been covered so it does
+not double back. You can stop mid-run and press **▶ Carry on** later; a failed
+segment keeps everything written up to that point.
+
+**The material is real.** `RP.commentarySources` searches the same index the
+citations use and hands over the matching events, factions, characters and
+wire posts with their ids and dates. The prompt's standing rule is *never
+invent a filing, a date, a quotation or a number — if the material does not
+say, say that it does not say.*
+
+**The voices.** Waluigi: vain, precise, allergic to being corrected and
+constantly being corrected. Luigi: decent, anxious, better read than he lets
+on, worried about the people rather than the record. No stage directions, no
+asterisks, no narration — it is commentary, not a scene.
+
+**🔊 Read it aloud** sends the episode through the local **Qwen3-TTS Enhanced
+Studio** (the same Gradio bridge the main site uses — see
+[`QWEN_TTS_BRIDGE.md`](QWEN_TTS_BRIDGE.md)), one voice profile per speaker
+(`Waluigi` and `Luigi` by default, read from `waluipedia-tts`), synthesizing
+the next line while the current one plays. With no studio running it falls
+back to the browser's own voices rather than doing nothing.
+
+Episodes are saved (newest first), export as a markdown script or plain text,
+and travel in the lore bundle.
+
 ## Character cards — the format everybody else uses
 
 Cards are read and written in the standard shape, so the chatroom is not an
