@@ -70,17 +70,37 @@
     return (CFG.staticRoot || '') + path;
   }
 
+  /** An avatar at any size. The size is written inline as well as into a
+   *  class: a size with no matching class used to leave the frame unsized,
+   *  and a portrait would then render at its natural size — a full-page
+   *  ellipse in the middle of the chat. Inline wins, always. */
+  function avatarBox(size) {
+    var px = Math.max(16, Number(size) || 40);
+    return {
+      cls: 'av av-' + px,
+      style: 'width:' + px + 'px;height:' + px + 'px;min-width:' + px + 'px;font-size:' + Math.round(px * 0.4) + 'px;',
+    };
+  }
+
   function avatar(char, size) {
-    var cls = 'av av-' + (size || 40);
+    var box = avatarBox(size);
     var url = imageUrl(char && char.image);
-    if (url) return '<span class="' + cls + '"><img src="' + esc(url) + '" alt="" loading="lazy"></span>';
-    return '<span class="' + cls + '" style="background:' + RP.tintFor(char) + '">' + esc(RP.initialsFor(char && char.name)) + '</span>';
+    if (url) {
+      return '<span class="' + box.cls + '" style="' + box.style + '">' +
+        '<img src="' + esc(url) + '" alt="" loading="lazy"></span>';
+    }
+    return '<span class="' + box.cls + '" style="' + box.style + 'background:' + RP.tintFor(char) + '">' +
+      esc(RP.initialsFor(char && char.name)) + '</span>';
   }
 
   function userAvatar(size) {
     var u = state.user || {};
-    if (u.avatar) return '<span class="av av-' + (size || 32) + '"><img src="' + esc(u.avatar) + '" alt=""></span>';
-    return '<span class="av av-' + (size || 32) + '" style="background:#5b5b66">' + esc(RP.initialsFor(u.name || 'You')) + '</span>';
+    var box = avatarBox(size || 32);
+    if (u.avatar) {
+      return '<span class="' + box.cls + '" style="' + box.style + '"><img src="' + esc(u.avatar) + '" alt=""></span>';
+    }
+    return '<span class="' + box.cls + '" style="' + box.style + 'background:#5b5b66">' +
+      esc(RP.initialsFor(u.name || 'You')) + '</span>';
   }
 
   /** Real numbers, not decoration: how much this reader has actually played
@@ -1751,7 +1771,8 @@
     var pinned = r.messages.filter(function (m) { return m.pinned; }).length;
     var mem = (state.chars || []).filter(function (m) { return m.id === c.id; })[0];
     $('charpanel').innerHTML =
-      '<div class="cp-head">' + avatar(c, 72) + '<div class="body"><h3>' + esc(r.kind === 'group' ? r.title : c.name) + '</h3>' +
+      '<div class="cp-head">' + avatar(c, 72) + '<div class="body"><h3 title="' + esc(r.title) + '">' +
+      esc(r.kind === 'group' ? RP.clip(r.sceneName || r.title, 60) : c.name) + '</h3>' +
       '<div class="by">By @' + esc(c.handle || 'waluipedia') + '</div>' +
       '<div class="by">' + plays + (plays === 1 ? ' interaction' : ' interactions') + '</div></div></div>' +
       '<div class="cp-row"><button class="iconbtn" id="cpSettings" title="Chat settings">⚙</button>' +

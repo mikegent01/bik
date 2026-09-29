@@ -208,6 +208,27 @@ check('memory: the room stamps its memories with that date', (() => {
 })());
 
 // ---- the lore book writes itself in the background ----
+// A portrait rendered at its natural size used to fill the whole page as a
+// giant ellipse, because an avatar size with no matching CSS class left the
+// frame unsized. Every avatar now carries its size inline.
+check('layout: every avatar is explicitly sized, at every size the page uses', (() => {
+  const avs = [...doc.querySelectorAll('.av')];
+  const unsized = avs.filter(a => !/width:\s*\d+px/.test(a.getAttribute('style') || ''));
+  const computed = avs.slice(0, 40).every(a => {
+    const px = parseInt(win.getComputedStyle(a).width, 10);
+    return px > 0 && px <= 96;
+  });
+  return avs.length > 5 && unsized.length === 0 && computed;
+})());
+check('layout: nothing in the chat column can push the page sideways',
+  win.getComputedStyle(doc.querySelector('.stream-wrap')).overflow === 'hidden' &&
+  Number(win.getComputedStyle($('charpanel')).zIndex) >= 1);
+check('layout: a six-hander’s title is clamped, not a wall of names',
+  win.getComputedStyle(doc.querySelector('.cp-head h3')).getPropertyValue('-webkit-line-clamp') === '3' &&
+  doc.querySelector('.cp-head h3').textContent.length <= 64);
+check('layout: the speaker rail scrolls in one line instead of stacking',
+  win.getComputedStyle($('speakers')).overflowX === 'auto');
+
 check('hud: the chat is a heads-up display, not a title bar',
   doc.querySelectorAll('.chat-top .stat').length >= 3 &&
   $('chatTop').textContent.includes('🕯') && /🎲\s*(off|gentle|normal|harsh)/.test($('chatTop').textContent));
