@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A local-first, lore-grounded chat and replay desk for the Waluipedia archive.">
+  <title>Waluipedia Chat — Archive conversations & replays</title>
+  <link rel="stylesheet" href="chatroom.css">
+</head>
+<body>
+  <a class="cr-skip" href="#chat-log">Skip to conversation</a>
+  <div class="cr-app" id="chatroom-app">
+    <aside class="cr-sidebar" aria-label="Chat navigation">
+      <header class="cr-brand">
+        <a href="index.html" class="cr-brand-mark" aria-label="Return to Waluipedia">W</a>
+        <div>
+          <a href="index.html" class="cr-brand-name">Waluipedia</a>
+          <p>CHAT · ARCHIVE DESK</p>
+        </div>
+      </header>
+
+      <div class="cr-sidebar-actions">
+        <button class="cr-button cr-button--primary" type="button" id="new-chat-button">
+          <span aria-hidden="true">＋</span> New chat
+        </button>
+        <button class="cr-button cr-button--quiet" type="button" id="replay-button">
+          <span aria-hidden="true">◷</span> Replay a filing
+        </button>
+      </div>
+
+      <label class="cr-search">
+        <span class="sr-only">Find an archive character or chat</span>
+        <span aria-hidden="true">⌕</span>
+        <input id="sidebar-search" type="search" autocomplete="off" placeholder="Find a character or chat">
+      </label>
+
+      <nav class="cr-nav" aria-label="Chat tools">
+        <button type="button" class="cr-nav-link is-active" data-open-lore>
+          <span aria-hidden="true">▣</span> Lore notebook
+        </button>
+        <button type="button" class="cr-nav-link" id="export-button">
+          <span aria-hidden="true">⇩</span> Export archive
+        </button>
+        <button type="button" class="cr-nav-link" id="import-button">
+          <span aria-hidden="true">⇧</span> Import archive
+        </button>
+        <input id="import-file" type="file" accept="application/json,.json" hidden>
+      </nav>
+
+      <section class="cr-list-section" aria-labelledby="chat-list-title">
+        <div class="cr-list-heading">
+          <h2 id="chat-list-title">Conversations</h2>
+          <span id="chat-count">0</span>
+        </div>
+        <div id="chat-list" class="cr-chat-list" aria-live="polite"></div>
+      </section>
+
+      <footer class="cr-sidebar-footer">
+        <span class="cr-local-dot" aria-hidden="true"></span>
+        <div><strong>Local archive</strong><br>Messages, memories, and notes stay in this browser until you export them.</div>
+      </footer>
+    </aside>
+
+    <main class="cr-main">
+      <header class="cr-topbar">
+        <button class="cr-mobile-menu" type="button" id="mobile-menu-button" aria-expanded="false" aria-controls="chatroom-app">☰ <span>Chats</span></button>
+        <a class="cr-topbar-home" href="index.html">← Archive home</a>
+        <div class="cr-topbar-actions">
+          <button type="button" class="cr-icon-button" id="top-export-button" title="Export chat and lore archive" aria-label="Export chat and lore archive">⇩</button>
+          <button type="button" class="cr-icon-button" data-open-lore title="Open lore notebook" aria-label="Open lore notebook">▣</button>
+        </div>
+      </header>
+
+      <section class="cr-empty" id="empty-state" hidden>
+        <div class="cr-empty-mark">W</div>
+        <p class="cr-eyebrow">WALUIPEDIA CHAT</p>
+        <h1>Start with a real archive record.</h1>
+        <p>Choose a character to open a lore-grounded local conversation, or replay a filed event or battle from another perspective.</p>
+        <div class="cr-empty-actions" id="empty-actions"></div>
+        <p class="cr-empty-note">This desk reads the canonical archive. It does not create canon or impersonate third-party accounts.</p>
+      </section>
+
+      <section class="cr-conversation" id="conversation" aria-label="Conversation" hidden>
+        <header class="cr-conversation-head" id="conversation-head"></header>
+        <div class="cr-replay-banner" id="replay-banner" hidden></div>
+        <div id="chat-log" class="cr-chat-log" aria-live="polite" aria-label="Conversation messages"></div>
+        <form class="cr-compose" id="compose-form">
+          <label class="sr-only" for="message-input">Message</label>
+          <textarea id="message-input" rows="1" maxlength="6000" placeholder="Write a message…" aria-describedby="composer-help"></textarea>
+          <div class="cr-compose-controls">
+            <p id="composer-help"><kbd>Enter</kbd> to send · <kbd>Shift + Enter</kbd> for a new line · begin with <code>remember:</code> to carry a fact into future chats.</p>
+            <div>
+              <button class="cr-button cr-button--quiet" id="remember-button" type="button">Save as memory</button>
+              <button class="cr-button cr-button--primary" type="submit">Send <span aria-hidden="true">↑</span></button>
+            </div>
+          </div>
+        </form>
+      </section>
+    </main>
+
+    <aside class="cr-inspector" aria-label="Character and memory details">
+      <div id="profile-panel"></div>
+      <section class="cr-memory-panel" aria-labelledby="memory-heading">
+        <div class="cr-inspector-heading">
+          <div>
+            <p class="cr-eyebrow">CROSS-CHAT CONTEXT</p>
+            <h2 id="memory-heading">Memories</h2>
+          </div>
+          <button type="button" class="cr-text-button" id="add-memory-button">Add</button>
+        </div>
+        <p class="cr-memory-explainer">Saved facts are shown in every compatible future conversation on this device.</p>
+        <div id="memory-list" class="cr-memory-list"></div>
+      </section>
+      <section class="cr-inspector-tools">
+        <button type="button" class="cr-tool-card" data-open-lore>
+          <span aria-hidden="true">✦</span>
+          <span><strong>Lore notebook</strong><small id="lore-count">0 notes</small></span>
+          <b aria-hidden="true">›</b>
+        </button>
+        <button type="button" class="cr-tool-card" id="inspector-replay-button">
+          <span aria-hidden="true">◷</span>
+          <span><strong>Replay a filing</strong><small>Choose another perspective</small></span>
+          <b aria-hidden="true">›</b>
+        </button>
+      </section>
+    </aside>
+  </div>
+
+  <dialog class="cr-dialog" id="character-dialog" aria-labelledby="character-dialog-title">
+    <form method="dialog" class="cr-dialog-card">
+      <header class="cr-dialog-header">
+        <div><p class="cr-eyebrow">CANONICAL ARCHIVE PROFILES</p><h2 id="character-dialog-title">Choose a conversation</h2></div>
+        <button class="cr-dialog-close" value="cancel" aria-label="Close">×</button>
+      </header>
+      <label class="cr-dialog-search"><span aria-hidden="true">⌕</span><input id="character-search" type="search" placeholder="Search loaded character records" autocomplete="off"></label>
+      <p class="cr-dialog-note">Profiles are read from <code>Reputation-Matrix2/data/characters.json</code>. A chat is local; this is not a live external account.</p>
+      <div id="character-grid" class="cr-character-grid"></div>
+    </form>
+  </dialog>
+
+  <dialog class="cr-dialog" id="replay-dialog" aria-labelledby="replay-dialog-title">
+    <form method="dialog" class="cr-dialog-card cr-dialog-card--wide" id="replay-form">
+      <header class="cr-dialog-header">
+        <div><p class="cr-eyebrow">CANONICAL EVENT & BATTLE RECORDS</p><h2 id="replay-dialog-title">Replay a filing</h2></div>
+        <button class="cr-dialog-close" value="cancel" aria-label="Close">×</button>
+      </header>
+      <div class="cr-replay-guide"><strong>How replay works</strong><span>Pick a filed record and a perspective. The desk carries its date, outcome, and source link into the transcript; roleplay remains a non-canon exploration until you save a separate lore note.</span></div>
+      <div class="cr-replay-layout">
+        <section>
+          <label class="cr-field-label" for="source-search">1 · Filing</label>
+          <input class="cr-field" id="source-search" type="search" placeholder="Search events and battles" autocomplete="off">
+          <div id="source-results" class="cr-source-results" role="listbox" aria-label="Archive filings"></div>
+        </section>
+        <section>
+          <label class="cr-field-label" for="perspective-select">2 · Perspective</label>
+          <select class="cr-field" id="perspective-select" size="10" aria-label="Perspective"></select>
+          <div id="source-preview" class="cr-source-preview"></div>
+        </section>
+      </div>
+      <footer class="cr-dialog-footer"><span id="replay-selection-status">Select a filing to continue.</span><button class="cr-button cr-button--primary" id="start-replay-button" type="submit" disabled>Start replay →</button></footer>
+    </form>
+  </dialog>
+
+  <dialog class="cr-dialog" id="lore-dialog" aria-labelledby="lore-dialog-title">
+    <div class="cr-dialog-card cr-dialog-card--wide">
+      <header class="cr-dialog-header">
+        <div><p class="cr-eyebrow">LOCAL-FIRST LORE DESK</p><h2 id="lore-dialog-title">Lore notebook</h2></div>
+        <button class="cr-dialog-close" type="button" data-close-dialog aria-label="Close">×</button>
+      </header>
+      <div class="cr-lore-layout">
+        <form id="lore-form" class="cr-lore-form">
+          <label class="cr-field-label" for="lore-title">New note</label>
+          <input class="cr-field" id="lore-title" maxlength="300" placeholder="What should this lore be called?" required>
+          <label class="sr-only" for="lore-body">Lore note text</label>
+          <textarea class="cr-field" id="lore-body" rows="8" maxlength="6000" placeholder="Record a confirmed fact, a scene option, or a question. Replays do not become canon automatically." required></textarea>
+          <label class="cr-field-label" for="lore-tags">Tags <span>comma separated</span></label>
+          <input class="cr-field" id="lore-tags" maxlength="300" placeholder="Feyward, Revel, unanswered">
+          <button class="cr-button cr-button--primary" type="submit">Save lore note</button>
+        </form>
+        <section class="cr-saved-lore"><div class="cr-inspector-heading"><h3>Saved notes</h3><button type="button" class="cr-text-button" id="export-lore-button">Export all</button></div><div id="lore-list" class="cr-lore-list"></div></section>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog class="cr-dialog cr-dialog--small" id="memory-dialog" aria-labelledby="memory-dialog-title">
+    <form method="dialog" class="cr-dialog-card" id="memory-form">
+      <header class="cr-dialog-header"><div><p class="cr-eyebrow">CROSS-CHAT CONTEXT</p><h2 id="memory-dialog-title">Save a memory</h2></div><button class="cr-dialog-close" value="cancel" aria-label="Close">×</button></header>
+      <p class="cr-dialog-note">This fact will be available in future chats with the current character. Leave it concise and only save material you want the desk to carry forward.</p>
+      <textarea class="cr-field" id="memory-text" rows="5" maxlength="1200" required placeholder="Example: The Revel's office issued an evacuation order, and the house obeyed."></textarea>
+      <footer class="cr-dialog-footer"><button class="cr-button cr-button--primary" type="submit">Save memory</button></footer>
+    </form>
+  </dialog>
+
+  <div id="toast-region" class="cr-toast-region" aria-live="polite" aria-atomic="true"></div>
+  <script type="module" src="chatroom.mjs"></script>
+</body>
+</html>

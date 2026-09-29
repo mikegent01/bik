@@ -234,6 +234,7 @@ Seven habits explain nearly every decision in this repository:
 | [`docs/ASSET_MAP.md`](docs/ASSET_MAP.md) | Where images, sprites and media live |
 | [`docs/ARCHITECTURE_AUDIT.md`](docs/ARCHITECTURE_AUDIT.md), [`docs/FINAL_STRUCTURE_AUDIT.md`](docs/FINAL_STRUCTURE_AUDIT.md) | Point-in-time audits. Historical record |
 | [`docs/LEGACY_FILES.md`](docs/LEGACY_FILES.md) | What is dead, and why it has not been deleted |
+| [`docs/CHATROOM_GUIDE.md`](docs/CHATROOM_GUIDE.md) | Waluipedia Chat — local conversation, cross-chat memory, lore notes, record replay, import/export, and its strict non-canon boundary |
 
 ### Sub-project readmes
 
@@ -274,6 +275,7 @@ Seven habits explain nearly every decision in this repository:
 | Path | What it is |
 |---|---|
 | `index.html` | The Waluipedia shell: router, article renderer, home feed, operator toolkit |
+| `chatroom.html` | Waluipedia Chat: local-first character conversations, cross-chat memories, lore notebook, and canon-bound event/battle replays (guide: `docs/CHATROOM_GUIDE.md`) |
 | `Reputation-Matrix2/data/` | Canonical data — `events.json`, `characters.json`, books, clans, broadcasts |
 | `Reputation-Matrix2/app/pages/standalone/` | Self-contained pages (field journal, simulator, RNN broadcast) |
 | `Reputation-Matrix2/app/core/` | Shared renderers, including `rakasha-news.js` (The Blood-Echo broadsheet) |

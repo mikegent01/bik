@@ -9012,7 +9012,10 @@ function renderSidebar(active){
 
   const curU=(typeof getCurrentUserId==='function'?getCurrentUserId():null);
   const curName=curU?((INDEX[curU]&&displayName(INDEX[curU].item))||((typeof COMPANIONS!=='undefined'&&(COMPANIONS||[]).find(c=>c&&c.id===curU)||{}).name)||(typeof XP_SUMMARY!=='undefined'&&XP_SUMMARY[curU]?.name)||prettyId(curU)):null;
-  const acct=[navLink({emoji:'🎲',label:'Random article',go:'Nav.random()'})];
+  const acct=[
+    navLink({emoji:'🎲',label:'Random article',go:'Nav.random()'}),
+    navLink({emoji:'💬',label:'Waluipedia Chat',go:"location.href='chatroom.html'",title:'Local-first character conversations, memories, lore notes, and filing replays'})
+  ];
   if(curU){
     acct.push(navLink({emoji:'👤',label:curName||'Profile',go:"Router.go('#/profile')",active:active==='profile',count:'Me'}));
     acct.push(navLink({emoji:'🚪',label:'Logout',go:"(function(){localStorage.removeItem('waluipediaUser'); localStorage.removeItem('vigilanceTerminalUser'); if(typeof updateTopbarLoginBtn==='function') updateTopbarLoginBtn(); Router.go('#/home');})()"}));
