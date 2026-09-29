@@ -2407,8 +2407,10 @@
   };
 
   /** Put a tEXt chunk into a PNG, just before IEND. */
-  RP.pngWithText = function (bytes, keyword, value) {
+  RP.pngWithText = function (bytes, keyword, value, opts) {
     if (!RP.isPng(bytes)) return null;
+    opts = opts || {};
+    if (opts.replace !== false) bytes = RP.pngWithoutText(bytes, keyword);
     var key = String(keyword), text = String(value);
     var body = new Uint8Array(key.length + 1 + text.length);
     for (var i = 0; i < key.length; i++) body[i] = key.charCodeAt(i) & 0xff;
@@ -2436,11 +2438,40 @@
     return out;
   };
 
+  /** Drop every tEXt chunk with this keyword. Re-exporting a card that was
+   *  imported from a PNG must not leave two `chara` chunks in the file —
+   *  other tools read the first one and get the old character. */
+  RP.pngWithoutText = function (bytes, keyword) {
+    if (!RP.isPng(bytes)) return bytes;
+    var keep = [bytes.subarray(0, 8)], at = 8, total = 8, dropped = false;
+    while (at + 8 <= bytes.length) {
+      var len = readU32(bytes, at);
+      var type = String.fromCharCode(bytes[at + 4], bytes[at + 5], bytes[at + 6], bytes[at + 7]);
+      var chunk = bytes.subarray(at, at + 12 + len);
+      var skip = false;
+      if (type === 'tEXt') {
+        var body = bytes.subarray(at + 8, at + 8 + len);
+        var split = body.indexOf(0), key = '';
+        for (var i = 0; i < (split < 0 ? 0 : split); i++) key += String.fromCharCode(body[i]);
+        if (key.toLowerCase() === String(keyword).toLowerCase()) { skip = true; dropped = true; }
+      }
+      if (!skip) { keep.push(chunk); total += chunk.length; }
+      at += 12 + len;
+      if (type === 'IEND') break;
+    }
+    if (!dropped) return bytes;
+    var out = new Uint8Array(total), cursor = 0;
+    keep.forEach(function (part) { out.set(part, cursor); cursor += part.length; });
+    return out;
+  };
+
   RP.cardFromPng = function (bytes) {
     var text = RP.pngText(bytes);
     var raw = text.chara || text.Chara || text.ccv3 || '';
     if (!raw) return null;
     try { return RP.parseCharacterCard(JSON.parse(b64decode(raw))); }
+    catch (e) { /* some exporters write the JSON in plain */ }
+    try { return RP.parseCharacterCard(JSON.parse(raw)); }
     catch (e) { return null; }
   };
 
@@ -2490,6 +2521,86 @@
       return { id: uid(), role: 'char', charId: who.id, text: t.text, at: Date.now(), alts: [t.text], alt: 0 };
     }));
     return room;
+  };
+
+
+  /* ---- one importer for every shape a file might be ---- */
+
+  /** SillyTavern-style chat logs: JSONL, one message per line, the first
+   *  line metadata. Also accepts a plain JSON array of the same objects. */
+  RP.parseChatLog = function (value) {
+    var rows = [];
+    if (typeof value === 'string') {
+      String(value).split(/\r?\n/).forEach(function (line) {
+        var trimmed = line.trim();
+        if (!trimmed || trimmed.charAt(0) !== '{') return;
+        try { rows.push(JSON.parse(trimmed)); } catch (e) { /* not a row */ }
+      });
+    } else if (Array.isArray(value)) {
+      rows = value.slice();
+    } else if (value && Array.isArray(value.messages)) {
+      rows = value.messages.slice();
+    } else if (value && Array.isArray(value.chat)) {
+      rows = value.chat.slice();
+    }
+    var turns = [];
+    rows.forEach(function (row) {
+      if (!row || typeof row !== 'object') return;
+      var text = row.mes || row.message || row.content || row.text || row.body;
+      if (!text || typeof text !== 'string') return;              // metadata line
+      var who = row.name || row.speaker || row.author || row.character ||
+        (row.is_user || row.isUser || row.role === 'user' ? '' : row.role || '');
+      if (row.is_user === true || row.isUser === true || row.role === 'user') who = '';
+      turns.push({ who: clip(who, 40), text: clip(text, 4000) });
+    });
+    return turns;
+  };
+
+  /** Work out what a file actually is before trying to read it, so the page
+   *  can say something useful instead of "unsupported". */
+  RP.sniffImport = function (value) {
+    if (value && value.length && typeof value !== 'string' && RP.isPng(value)) {
+      var text = RP.pngText(value);
+      var encoded = text.chara || text.Chara || text.ccv3 || '';
+      if (!encoded) return { kind: 'png-plain', why: 'a PNG with no character card inside it' };
+      var decoded = null;
+      try { decoded = JSON.parse(b64decode(encoded)); } catch (e) { decoded = null; }
+      if (!decoded) {
+        // Some exporters write the JSON straight in, unencoded.
+        try { decoded = JSON.parse(encoded); } catch (e) { decoded = null; }
+      }
+      if (!decoded) return { kind: 'png-broken', why: 'a PNG whose card chunk could not be decoded' };
+      return { kind: 'card', card: decoded, why: 'a character card inside a PNG' };
+    }
+    var raw = typeof value === 'string' ? value : new TextDecoder().decode(value);
+    var trimmed = raw.replace(/^\uFEFF/, '').trim();        // byte-order marks happen
+    if (!trimmed) return { kind: 'empty', why: 'an empty file' };
+    if (/^[[{]/.test(trimmed)) {
+      var data = null;
+      try { data = JSON.parse(trimmed); } catch (e) { data = null; }
+      if (data) {
+        if (data.kind === 'waluipedia-chatroom-bundle' || Array.isArray(data.rooms)) {
+          return { kind: 'bundle', bundle: data, why: 'a chatroom bundle' };
+        }
+        if (data.spec === 'chara_card_v2' || data.spec === 'chara_card_v3' || (data.data && data.data.name)) {
+          return { kind: 'card', card: data, why: 'a v2 character card' };
+        }
+        if (data.name && (data.description !== undefined || data.personality !== undefined ||
+            data.first_mes !== undefined || data.char_persona !== undefined)) {
+          return { kind: 'card', card: data, why: 'a v1 character card' };
+        }
+        var logged = RP.parseChatLog(data);
+        if (logged.length) return { kind: 'chatlog', turns: logged, why: 'a chat log' };
+        return { kind: 'json-unknown', why: 'JSON the page does not recognise', data: data };
+      }
+      // Not one JSON document — maybe JSONL, a line per message.
+      var lines = RP.parseChatLog(trimmed);
+      if (lines.length) return { kind: 'chatlog', turns: lines, why: 'a JSONL chat log' };
+      return { kind: 'json-broken', why: 'a file that starts like JSON but does not parse' };
+    }
+    var turns = RP.parseTranscript(trimmed, {});
+    if (turns.length) return { kind: 'transcript', turns: turns, why: 'a transcript' };
+    return { kind: 'unknown', why: 'a file with nothing readable in it' };
   };
 
   /* ------------------------------------------------------------------ *

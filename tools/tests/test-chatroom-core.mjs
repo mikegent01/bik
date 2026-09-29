@@ -1068,6 +1068,81 @@ check('backlog: the queue cap still applies to a huge import', (() => {
   return RP.bookState(st).queue.length === RP.QUEUE_MAX;
 })());
 
+// ---------- one importer, every shape a file arrives in ----------
+const v1Text = JSON.stringify(v1Card);
+check('sniff: a flat v1 card is recognised', (() => {
+  const found = RP.sniffImport(v1Text);
+  return found.kind === 'card' && found.why.includes('v1') && found.card.name === 'Promo Mario';
+})());
+check('sniff: a v2 card is recognised', (() => {
+  const found = RP.sniffImport(JSON.stringify(RP.toCharacterCard(promo, {})));
+  return found.kind === 'card' && found.why.includes('v2');
+})());
+check('sniff: a byte-order mark does not make a card "invalid"',
+  RP.sniffImport('\uFEFF' + v1Text).kind === 'card');
+check('sniff: bytes work as well as text', (() => {
+  const bytes = new TextEncoder().encode(v1Text);
+  return RP.sniffImport(bytes).kind === 'card';
+})());
+check('sniff: a PNG card is read out of its chunk', (() => {
+  const carded = RP.cardToPng(PNG_1PX, promo, {});
+  const found = RP.sniffImport(carded);
+  return found.kind === 'card' && found.why.includes('PNG');
+})());
+check('sniff: a plain PNG says so instead of failing vaguely', (() => {
+  const found = RP.sniffImport(PNG_1PX);
+  return found.kind === 'png-plain' && /no character card/.test(found.why);
+})());
+check('sniff: a JSONL chat log becomes turns', (() => {
+  const found = RP.sniffImport([
+    '{"user_name":"You","character_name":"Promo Mario","create_date":"2026-01-01"}',
+    '{"name":"Promo Mario","is_user":false,"mes":"Hey paisanos!"}',
+    '{"name":"You","is_user":true,"mes":"I stare at the screen."}',
+  ].join('\n'));
+  return found.kind === 'chatlog' && found.turns.length === 2 &&
+    found.turns[0].who === 'Promo Mario' && found.turns[1].who === '';
+})());
+check('sniff: a JSON chat log in one document works too', (() => {
+  const found = RP.sniffImport(JSON.stringify({
+    messages: [{ name: 'Promo Mario', mes: 'Rolling.' }, { name: 'You', is_user: true, mes: 'I nod.' }],
+  }));
+  return found.kind === 'chatlog' && found.turns.length === 2;
+})());
+check('sniff: a chatroom bundle is recognised', (() => {
+  const bundle = RP.chatExport(state, briefRoom);
+  return RP.sniffImport(JSON.stringify(bundle)).kind === 'bundle';
+})());
+check('sniff: a transcript is recognised', RP.sniffImport('Sans: the saws stopped.\nI wait.').kind === 'transcript');
+check('sniff: a truncated file is named as truncated, not "unsupported"', (() => {
+  const found = RP.sniffImport('{"name":"Half a car');
+  return found.kind === 'json-broken' && /does not parse/.test(found.why);
+})());
+check('sniff: JSON that is nothing we know says that plainly',
+  RP.sniffImport('{"totally":"different"}').kind === 'json-unknown');
+check('sniff: an empty file is not a mystery', RP.sniffImport('   ').kind === 'empty');
+
+// ---- exporting a card that other tools will actually take ----
+check('png card: re-exporting an imported card leaves exactly one chara chunk', (() => {
+  const first = RP.cardToPng(PNG_1PX, promo, {});
+  const again = RP.cardToPng(first, cardChar, {});
+  const chunks = RP.pngText(again);
+  return Object.keys(chunks).length === 1 && RP.cardFromPng(again).name === 'Sans';
+})());
+check('png card: the old card is gone, not buried behind the new one',
+  RP.cardFromPng(RP.cardToPng(RP.cardToPng(PNG_1PX, promo, {}), cardChar, {})).name !== 'Promo Mario');
+check('json card: every v2 field is present and typed, so a strict reader takes it', (() => {
+  const data = RP.toCharacterCard(promo, {}).data;
+  const strings = ['name', 'description', 'personality', 'scenario', 'first_mes', 'mes_example',
+    'creator_notes', 'system_prompt', 'post_history_instructions', 'creator', 'character_version'];
+  return strings.every(k => typeof data[k] === 'string') &&
+    Array.isArray(data.alternate_greetings) && Array.isArray(data.tags) &&
+    data.extensions && typeof data.extensions === 'object';
+})());
+check('json card: nothing is undefined, so JSON.stringify cannot drop a required field', (() => {
+  const round = JSON.parse(JSON.stringify(RP.toCharacterCard(promo, {})));
+  return Object.keys(round.data).length === Object.keys(RP.toCharacterCard(promo, {}).data).length;
+})());
+
 // ---------- generated pages are in sync with these sources ----------
 let built = true;
 try {

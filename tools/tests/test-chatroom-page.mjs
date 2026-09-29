@@ -66,7 +66,9 @@ const $ = id => doc.getElementById(id);
 // The saved state, or an empty one before the first write.
 const savedState = () => JSON.parse(win.localStorage.getItem('waluipedia-chatroom-v1') || '{}');
 const until = async (label, fn, tries = 120) => {
-  for (let i = 0; i < tries; i++) { if (fn()) return true; await wait(120); }
+  // `fn` may be async: a promise is always truthy, so it has to be awaited
+  // or the wait returns immediately and the assertion races the page.
+  for (let i = 0; i < tries; i++) { if (await fn()) return true; await wait(120); }
   console.log('   timed out waiting for', label);
   return false;
 };
@@ -485,6 +487,32 @@ check('commentary: finished episodes are kept and can be reopened',
   $('homeBtn').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
 }
 
+// ---- the importer takes whatever shape the file is in ----
+{
+  const RP = win.RP;
+  const asBytes = text => new TextEncoder().encode(text);
+  const realV1 = JSON.stringify({
+    name: 'Promo Mario',
+    personality: 'Cancelled pilot for a gaming news show titled "Nintendo Mania".',
+    scenario: '',
+    description: 'The main host of Nintendo Mania!',
+    mes_example: '',
+    first_mes: '*Mario would be reading a book.*\n"Hey paisanos!"',
+  });
+  check('import: the exact v1 shape of the uploaded example is recognised', (() => {
+    const found = RP.sniffImport(asBytes(realV1));
+    return found.kind === 'card' && RP.parseCharacterCard(found.card).name === 'Promo Mario';
+  })());
+  check('import: a byte-order mark no longer makes a card "invalid"',
+    RP.sniffImport(asBytes('\uFEFF' + realV1)).kind === 'card');
+  check('import: a JSONL chat log is read as turns, not refused',
+    RP.sniffImport(asBytes('{"user_name":"You"}\n{"name":"Promo Mario","is_user":false,"mes":"Rolling."}')).kind === 'chatlog');
+  check('import: a plain PNG and a truncated file each get their own explanation', (() => {
+    const png = new Uint8Array([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a, 0, 0, 0, 0, 73, 69, 78, 68, 0, 0, 0, 0]);
+    return RP.sniffImport(png).kind === 'png-plain' && RP.sniffImport(asBytes('{"half')).kind === 'json-broken';
+  })());
+}
+
 // ---- saving to disk, so a cleared cache is not the end of it ----
 [...doc.querySelectorAll('[data-tab]')].find(b => b.dataset.tab === 'labs').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
 check('disk: Labs offers saving, restoring and autosave',
@@ -499,7 +527,8 @@ const wrote = await until('the state to reach the disk', async () => {
 check('disk: the whole state is written to a real file beside the server', wrote);
 const listed = await (await fetch(`http://127.0.0.1:${SERVER_PORT}/api/chatroom-saves`)).json();
 check('disk: the save lists its chats, its book pages and its size',
-  listed.saves[0].rooms > 0 && listed.saves[0].bytes > 100 && listed.saves[0].at);
+  wrote && (listed.saves || []).length > 0 &&
+  listed.saves[0].rooms > 0 && listed.saves[0].bytes > 100 && Boolean(listed.saves[0].at));
 const roundTrip = await (await fetch(`http://127.0.0.1:${SERVER_PORT}/api/chatroom-save?name=chatroom`)).json();
 check('disk: reading it back gives an importable bundle',
   roundTrip.state && roundTrip.state.kind === 'waluipedia-chatroom-bundle' && roundTrip.state.rooms.length > 0);

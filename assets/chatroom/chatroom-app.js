@@ -1553,52 +1553,115 @@
     });
   }
 
-  /** Import a .json or .png card (v1 or v2). The PNG's own picture becomes
-   *  the portrait, and you choose whether they join the cast or walk into
-   *  the chat you already have open. */
-  function importCard(intoRoom) {
-    pickFile('.png,.json,application/json,image/png', 'bytes', function (bytes, file) {
-      var raw = null, art = Promise.resolve('');
-      if (RP.isPng(bytes)) {
-        var text = RP.pngText(bytes);
-        var encoded = text.chara || text.Chara || text.ccv3 || '';
-        if (!encoded) { toast('That PNG has no character card in it.'); return; }
-        try { raw = JSON.parse(RP.b64decode(encoded)); }
-        catch (e) { toast('That PNG’s card could not be read.'); return; }
-        art = shrinkImage(bytes, 256);          // the card art is the portrait
-      } else {
-        try { raw = JSON.parse(new TextDecoder().decode(bytes)); }
-        catch (e) { toast('That file is not a character card.'); return; }
+  /** What went wrong, in words, when a file is not what it looked like. */
+  var IMPORT_TROUBLE = {
+    'png-plain': 'That PNG is just a picture — there is no character card stored inside it. Export it from your ' +
+      'card editor with “PNG card”, or import the .json instead.',
+    'png-broken': 'That PNG has a card chunk, but it could not be decoded. The .json version of the same card will work.',
+    'json-broken': 'That file starts like JSON but does not parse — something truncated it. Try re-exporting it.',
+    'json-unknown': 'That is JSON, but not a character card, a chat log or a chatroom bundle.',
+    empty: 'That file is empty.',
+    unknown: 'There was nothing readable in that file.',
+  };
+
+  /** Every import goes through here: v1 and v2 cards, PNG cards, JSONL and
+   *  JSON chat logs, chatroom bundles, and plain transcripts. The file is
+   *  sniffed first so a refusal can say what the file actually looked like. */
+  function importAny(bytes, fileName, intoRoom) {
+    var found = RP.sniffImport(bytes);
+    if (found.kind === 'bundle') {
+      var stats = RP.importBundle(state, found.bundle, 'merge');
+      save(); buildBoard(); render();
+      toast('Imported ' + (stats.rooms || 0) + ' chat' + (stats.rooms === 1 ? '' : 's') + ' from that bundle.');
+      return;
+    }
+    if (found.kind === 'chatlog' || found.kind === 'transcript') {
+      readTurnsInto(found.turns, fileName, intoRoom, found.why);
+      return;
+    }
+    if (found.kind !== 'card') {
+      toast(IMPORT_TROUBLE[found.kind] || ('That file looked like ' + found.why + '.'));
+      return;
+    }
+    var art = RP.isPng(bytes) ? shrinkImage(bytes, 256) : Promise.resolve('');
+    art.then(function (dataUrl) {
+      var raw = found.card;
+      if (dataUrl) raw.__image = dataUrl;
+      var char = RP.parseCharacterCard(raw);
+      if (!char) { toast('That card has no name in it, so there is nobody to import.'); return; }
+      state.newChars = (state.newChars || []).filter(function (c) { return c.id !== char.id; });
+      state.newChars.unshift(char);
+      castById[char.id] = char;
+      cast = cast.filter(function (c) { return c.id !== char.id; }).concat([char]);
+      RP.logEvent(state, {
+        kind: 'roster', chars: [char.id],
+        text: 'Imported the character card “' + char.name + '” from ' + (fileName || 'a file') + '.',
+      });
+      if (char.card && char.card.scenario) {
+        RP.bookAdd(state, { kind: 'fact', name: char.name + ' — card scenario', text: char.card.scenario, source: 'you' });
       }
-      art.then(function (dataUrl) {
-        if (dataUrl) raw.__image = dataUrl;
-        var char = RP.parseCharacterCard(raw);
-        if (!char) { toast('No character found in that file.'); return; }
-        state.newChars = (state.newChars || []).filter(function (c) { return c.id !== char.id; });
-        state.newChars.unshift(char);
-        castById[char.id] = char;
-        cast = cast.filter(function (c) { return c.id !== char.id; }).concat([char]);
-        RP.logEvent(state, {
-          kind: 'roster', chars: [char.id],
-          text: 'Imported the character card “' + char.name + '” from ' + (file.name || 'a file') + '.',
-        });
-        if (char.card && char.card.scenario) {
-          RP.bookAdd(state, { kind: 'fact', name: char.name + ' — card scenario', text: char.card.scenario, source: 'you' });
-        }
-        var open = intoRoom || room();
-        if (open) {
-          RP.addToRoom(open, char);
-          var greeting = RP.cardGreeting(char);
-          if (greeting) {
-            open.messages.push({ id: RP.uid(), role: 'char', charId: char.id, text: greeting, at: Date.now(), alts: [greeting], alt: 0, imported: true });
-          }
-          save(); render();
-          toast('📇 ' + char.name + ' walked into this chat' + (char.image ? ', portrait and all.' : '.'));
-          return;
+      var open = intoRoom || room();
+      if (open) {
+        RP.addToRoom(open, char);
+        var greeting = RP.cardGreeting(char);
+        if (greeting) {
+          open.messages.push({ id: RP.uid(), role: 'char', charId: char.id, text: greeting, at: Date.now(), alts: [greeting], alt: 0, imported: true });
         }
         save(); render();
-        toast('📇 ' + char.name + ' imported — they are in the cast now.');
+        toast('📇 ' + char.name + ' walked into this chat' + (char.image ? ', portrait and all.' : '.'));
+        return;
+      }
+      save(); render();
+      toast('📇 ' + char.name + ' imported — they are in the cast now.');
+    });
+  }
+
+  /** Turns from a transcript or a chat log, into a chat or a new one. */
+  function readTurnsInto(turns, label, target, why) {
+    if (!turns.length) { toast('Nothing readable in that.'); return; }
+    if (target) {
+      var added = RP.appendTranscript(target, turns, { divider: true, source: label });
+      state.active = target.id;
+      RP.logEvent(state, {
+        kind: 'chat', roomId: target.id, roomTitle: target.title, when: roomDate(target),
+        chars: (target.cast || []).map(function (c) { return c.id; }),
+        text: 'Read ' + added + ' turns into this chat' + (label ? ' from ' + label : '') + '.',
       });
+      save(); render();
+      offerCatchUp(target);
+      toast('Read in ' + added + ' turns from ' + (why || 'that file') + ' — carry on from the bottom.');
+      return;
+    }
+    buildFromTurns(turns, label);
+  }
+
+  /** Any image → PNG bytes, through a canvas. */
+  function toPngBytes(bytes, side) {
+    return new Promise(function (done) {
+      var url = URL.createObjectURL(new Blob([bytes]));
+      var img = new window.Image();
+      img.onload = function () {
+        try {
+          var canvas = document.createElement('canvas');
+          canvas.width = Math.min(side || 512, img.width || side);
+          canvas.height = Math.round(canvas.width * ((img.height || 1) / (img.width || 1)));
+          canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height);
+          var base64 = canvas.toDataURL('image/png').split(',')[1];
+          var binary = atob(base64), out = new Uint8Array(binary.length);
+          for (var i = 0; i < binary.length; i++) out[i] = binary.charCodeAt(i);
+          done(out);
+        } catch (e) { done(null); }
+        URL.revokeObjectURL(url);
+      };
+      img.onerror = function () { URL.revokeObjectURL(url); done(null); };
+      img.src = url;
+    });
+  }
+
+  /** Import a card or a story from a file. */
+  function importCard(intoRoom) {
+    pickFile('.png,.json,.jsonl,.txt,.md,application/json,image/png,text/plain', 'bytes', function (bytes, file) {
+      importAny(bytes, file && file.name, intoRoom || room());
     });
   }
 
@@ -1616,10 +1679,15 @@
     if (!char.image) { toast('No portrait on file — exporting the JSON card instead.'); exportCard(char, false); return; }
     window.fetch(url).then(function (res) { return res.arrayBuffer(); }).then(function (buffer) {
       var bytes = new Uint8Array(buffer);
-      var out = RP.cardToPng(bytes, char, opts);
-      if (!out) { toast('That portrait is a JPEG — character cards must be PNG. Exporting JSON instead.'); exportCard(char, false); return; }
+      // Most archive portraits are JPEGs and a character card has to be a
+      // PNG, so anything that is not already one is redrawn as one.
+      if (RP.isPng(bytes)) return bytes;
+      return toPngBytes(bytes, 512);
+    }).then(function (bytes) {
+      var out = bytes && RP.cardToPng(bytes, char, opts);
+      if (!out) { toast('That portrait could not be turned into a PNG. Exporting JSON instead.'); exportCard(char, false); return; }
       downloadBytes(RP.slug(char.name) + '.card.png', out, 'image/png');
-      toast('📇 Card written into ' + char.name + '’s portrait.');
+      toast('📇 Card written into ' + char.name + '’s portrait — ' + Math.round(out.length / 1024) + ' KB.');
     }).catch(function () { toast('Could not read the portrait. Exporting JSON instead.'); exportCard(char, false); });
   }
 
@@ -1645,8 +1713,8 @@
         ? (here || room() || (state.rooms || []).slice().sort(function (a, b) { return b.updated - a.updated; })[0])
         : null;
       if (!v.text.trim()) {
-        pickFile('.txt,.md,.json,text/plain,application/json', 'text', function (text, file) {
-          readStory(text, v.title || (file && file.name), target);
+        pickFile('.txt,.md,.json,.jsonl,.png,text/plain,application/json,image/png', 'bytes', function (bytes, file) {
+          importAny(bytes, v.title || (file && file.name), target);
         });
         return;
       }
@@ -1654,59 +1722,16 @@
     });
   }
 
-  /** Text, a chat bundle, or a card file — whatever it is, read it in. */
+  /** Pasted text goes through the same sniffing as a file. */
   function readStory(text, label, target) {
-    var trimmed = String(text || '').trim();
-    if (/^[[{]/.test(trimmed)) {
-      var parsed = null;
-      try { parsed = JSON.parse(trimmed); } catch (e) { parsed = null; }
-      if (parsed) {
-        // A chat bundle from this page, or another chatroom's export.
-        if (parsed.kind === 'waluipedia-chatroom-bundle' || Array.isArray(parsed.rooms)) {
-          var stats = RP.importBundle(state, parsed, 'merge');
-          save(); render();
-          toast('Imported ' + (stats.rooms || 0) + ' chat' + (stats.rooms === 1 ? '' : 's') + ' and their memory.');
-          return;
-        }
-        // A character card pasted in as text.
-        var carded = RP.parseCharacterCard(parsed);
-        if (carded) {
-          state.newChars = (state.newChars || []).filter(function (c) { return c.id !== carded.id; });
-          state.newChars.unshift(carded);
-          castById[carded.id] = carded;
-          cast = cast.concat([carded]);
-          if (target) {
-            RP.addToRoom(target, carded);
-            var hello = RP.cardGreeting(carded);
-            if (hello) target.messages.push({ id: RP.uid(), role: 'char', charId: carded.id, text: hello, at: Date.now(), alts: [hello], alt: 0, imported: true });
-          }
-          save(); render();
-          toast('📇 ' + carded.name + ' imported.');
-          return;
-        }
-        // Some other JSON: fall through and read it as a transcript.
-      }
-    }
-    var turns = RP.parseTranscript(trimmed, {});
-    if (!turns.length) { toast('Nothing readable in that.'); return; }
-    if (target) {
-      var added = RP.appendTranscript(target, turns, { divider: true, source: label });
-      state.active = target.id;
-      RP.logEvent(state, {
-        kind: 'chat', roomId: target.id, roomTitle: target.title, when: roomDate(target),
-        chars: (target.cast || []).map(function (c) { return c.id; }),
-        text: 'Read ' + added + ' turns into this chat' + (label ? ' from ' + label : '') + '.',
-      });
-      save(); render();
-      offerCatchUp(target);
-      toast('Read in ' + added + ' turns — carry on from the bottom.');
-      return;
-    }
-    buildFromText(trimmed, label);
+    importAny(String(text || ''), label, target);
   }
 
   function buildFromText(text, title) {
-    var turns = RP.parseTranscript(text, {});
+    buildFromTurns(RP.parseTranscript(text, {}), title);
+  }
+
+  function buildFromTurns(turns, title) {
     if (!turns.length) { toast('Nothing readable in that.'); return; }
     var names = {};
     turns.forEach(function (t) { if (t.who) names[t.who.toLowerCase()] = true; });

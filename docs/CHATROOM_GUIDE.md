@@ -528,13 +528,45 @@ island:
 
 Exporting an archive character writes the card **into their own filed
 portrait**, so the file is a picture and a card at once (the PNG writer adds a
-correctly-CRC'd chunk before `IEND`, leaving the image intact). The archive's
+correctly-CRC'd chunk before `IEND`, leaving the image intact). Most archive
+portraits are JPEGs, so anything that is not already a PNG is **redrawn as
+one** through a canvas rather than falling back to JSON, and any existing
+`chara` chunk is **removed first** — a re-exported card carries exactly one
+card, so other tools cannot read the old one by mistake. The archive's
 own fields — id, race, affiliation, status, standing, key events — ride along
 under `extensions.waluipedia`, and an imported card joins the cast as a guest,
 described rather than drawn, with its scenario filed into the lore book.
 
 **Labs → Character cards & stories** has all of it: import a card, export a
 character, import a story, write a brief.
+
+## What the importer accepts
+
+One file picker, one paste box, and everything goes through `RP.sniffImport`,
+which works out what the file *is* before trying to read it:
+
+| The file | What happens |
+|---|---|
+| **v1 card** (flat `{name, description, personality, first_mes, …}`) | imported as a character |
+| **v2 card** (`spec: chara_card_v2`, fields under `data`) | imported as a character |
+| **PNG card** (the JSON base64'd into a `chara` tEXt chunk) | imported, and the picture becomes the portrait |
+| **JSONL chat log** (one message per line, SillyTavern-style) | imported as turns |
+| **JSON chat log** (`{messages: […]}`, `{chat: […]}`, or a bare array) | imported as turns |
+| **Chatroom bundle** (`waluipedia-chatroom-bundle`) | imported as chats, with memory and lore |
+| **Plain transcript** (`Name: line`, `**Name:** line`, prose) | imported as turns |
+
+Byte-order marks are stripped before parsing, bytes and text are both
+accepted, and a card chunk that was written unencoded (some exporters do) is
+read as well as a base64 one.
+
+**When it refuses, it says why** — not "unsupported":
+
+- *"That PNG is just a picture — there is no character card stored inside
+  it."*
+- *"That PNG has a card chunk, but it could not be decoded. The .json version
+  of the same card will work."*
+- *"That file starts like JSON but does not parse — something truncated it."*
+- *"That is JSON, but not a character card, a chat log or a chatroom bundle."*
 
 ## Importing into a chat that is already running
 

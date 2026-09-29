@@ -192,6 +192,11 @@ memory, lore, replay, backups — is documented in
   writes the card into their own filed portrait, so the file is a picture and
   a card at once; the archive's fields ride along under
   `extensions.waluipedia`.
+- **One importer for every shape.** v1 cards, v2 cards, PNG cards, JSONL and
+  JSON chat logs, chatroom bundles and plain transcripts all go through the
+  same sniffing step, which strips byte-order marks, accepts bytes or text,
+  and — when it has to refuse — says what the file actually looked like
+  rather than "unsupported".
 - **Importing into an open chat.** The character panel's 📥 *Import into this
   chat* appends a story to the chat you are already in (speakers matched, a
   divider marking the seam, play carrying on from the bottom) or walks a
