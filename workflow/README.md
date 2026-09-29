@@ -93,6 +93,25 @@ memory, lore, replay, backups — is documented in
   **you**. It hands back on its own, and always at the ceiling
   (`max chain`, default 4 character turns), so a multi-bot room is never a
   loop. Switch it off in the character panel → **Director**.
+- **Openers written from the lore.** A scenario's opening is not a template:
+  the model is handed the brief, the character cards, the script and what
+  these characters did in the reader's other chats, and asked for a title, a
+  90–150 word second-person opener that starts mid-action with filed details
+  in it, and the stakes. Generic answers ("you find yourself", no filed names,
+  too short) are rejected and asked again; with no model at all the page falls
+  back to its own cold open.
+- **Most Used Backfills.** The events every filing points at and nobody ever
+  wrote — scanned out of the `keyEvents` lists — ranked by how often they have
+  been played here. Playing one produces the missing account.
+- **Sequels.** 📖 Sequel in any chat carries the cast, the sheets, the pinned
+  lines and the unfired beats into the next scene, and opens in the middle.
+- **Character state.** Every room keeps HP, MP, conditions, counters and
+  inventory per character, shown under 🩺 States and editable by hand. Scenario
+  setup decides what everyone walks in carrying (a battle at 50% HP with
+  `wounded` set), and the model updates the sheets itself with stage
+  directions — `[[HP: Name -12]]`, `[[FLAG: Name bleeding]]`, `[[ITEM: …]]` —
+  which are stripped from the prose and applied to the record. It may also
+  `[[ENTER:]]` and `[[EXIT:]]` characters as the story demands.
 - **The What If board.** A dozen long scenarios, composed by the page from
   filed records — the archive's own What-Ifs, the 🚧 **wanted pages** (people
   named in filings nobody has written up, playable at last), filed sessions

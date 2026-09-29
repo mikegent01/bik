@@ -110,6 +110,27 @@ records are excluded — they are links, not missing people.
 people. The survivors are scored and then dealt round-robin by engine, so one
 source cannot own the page.
 
+**⚡ The opener is written by the model, from the lore.** A card starts with
+its composed premise; pressing **Forge the opener** (or playing it) sends
+`RP.hookPrompt` — the brief, the character cards, the script, and whatever
+these characters did in *your* other chats — and asks for three things:
+
+```
+TITLE:   concrete. A place, an object, a line. Never a rhetorical question.
+OPEN:    90–150 words, present tense, second person, starting mid-action,
+         with at least three filed details, ending on something you must
+         answer right now.
+STAKES:  one sentence naming what is lost in the next few minutes.
+```
+
+Banned in the prompt, by name: summarising what happened before, *you find
+yourself*, *little did you know*, *the air is thick*, explaining the premise
+back to the reader, and "any sentence that could open a different scene".
+`RP.hookIsWeak` checks the answer — too short, a banned phrase, or fewer than
+two proper nouns out of the filed material — and asks once more, telling the
+model exactly what was wrong. If there is no model at all, `RP.coldOpen`
+builds an in-the-moment opener out of the hinge beat instead.
+
 **✍️ Create a scenario.** Describe it in a sentence or a page. The page matches
 the names in your text against the cast, the events and the factions
 (whole-word matching, so *Luigi* does not match *Waluigi*), pulls what the
@@ -118,6 +139,72 @@ participants and leadership as the cast, and takes the script from the matched
 filing's own timeline — falling back to its prose, then to your sentences, then
 to a three-beat spine. **No model call is made.** The composed scenario is
 saved, joins the board, and exports with your lore.
+
+## Backfills — the lore nobody wrote
+
+**Most Used Backfills** (its own rail tab, and a row on the dashboard) is the
+other half of the wanted-pages idea: not people, but *events*. `RP.backfillsFrom`
+scans every `keyEvents` list in the events, the cast and the factions for ids
+that nothing answers to — the off-screen battle, the airlift that never came,
+the session between two sessions — and ranks them by **how many times you have
+played one** (the "most used" part, kept in `state.backfillUses`) and then by
+how many filings are waiting on it.
+
+Each becomes a full scenario: what points at it, who the referencing records
+put there, a script made of the references that depend on it, and the standing
+instruction that the scene has to arrive where the archive already believes it
+arrived — the how, the cost and the order are yours. Export the transcript and
+the hole has a first-hand account.
+
+`relatedArticles` is deliberately **not** scanned: it points at locations,
+items and laws as well as events, and including it turns the board into noise.
+
+## Sequels — carrying a scene forward
+
+**📖 Sequel** in any chat composes the next scene from the one you just
+played: the same cast, the same sheets (HP, MP, conditions, inventory — or
+fresh, your choice), the pinned lines, the last turns, and any beats that never
+fired. The brief says *Previously* and *How it ended*; the opener does not
+recap, because you were there.
+
+## Character state — HP, MP, flags, counters, inventory
+
+Every room carries a sheet per character (`room.states`), visible in the chat
+under **🩺 States** and editable by clicking one.
+
+| Preset | What it gives |
+|---|---|
+| Story | no numbers at all — flags and notes only |
+| Stakes | HP only |
+| RPG | HP and MP (the default) |
+
+**Scenario settings.** The cast picker's **⚔ Starting state** step sets what
+everyone walks in carrying: HP %, MP %, conditions (`wounded, hunted`),
+inventory, and a physical note. A What-If battle can start at 50% HP with
+`wounded` already true, and the model reads exactly that before its first line.
+
+**The model writes to the sheets.** `RP.DIRECTIVES` is in every system prompt
+with mechanics on:
+
+```
+[[HP: Name -12]]                damage, healing (+), or an exact value (= 30)
+[[MP: Name -5]]                 spent or recovered power
+[[FLAG: Name wounded]]          set a condition · "= false" clears it
+[[COUNT: Name arrows -1]]       any counter
+[[ITEM: Name + the brass key]]  gained · "-" lost
+[[STATUS: Name bleeding badly]] a short physical note
+[[ENTER: Name — why they arrive]]   bring someone into the scene
+[[EXIT: Name — why they leave]]     write someone out
+```
+
+`RP.parseDirectives` strips them from the prose before the reader sees it and
+`RP.applyDirectives` applies them: pools clamp at 0 and at max, names are
+matched longest-first against the people actually in the room (so *Lord Darian
+Marsh bleeding* is one person and a condition), **ENTER** resolves against the
+whole archive — inventing a card only when the archive has never heard of them
+— and **EXIT** marks the sheet absent rather than deleting it. Every change is
+reported to the reader as a pill under the turn, and roster changes are filed
+in the world log.
 
 ## The wire — post browsing
 

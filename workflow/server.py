@@ -219,6 +219,9 @@ def archive_cast() -> dict[str, Any]:
             "title": _clip(record.get("title"), 90),
             "race": _clip(record.get("race"), 40),
             "affiliation": _clip(record.get("affiliation"), 120),
+            # The backfill scan reads these to find events everyone points at
+            # and nobody ever wrote.
+            "keyEvents": [str(k) for k in (record.get("keyEvents") or [])][:12],
             "status": _clip(record.get("status"), 90),
             "summary": _clip(record.get("summary"), 200),
             "image": "/rm/" + image if image else "",
@@ -438,6 +441,8 @@ def archive_bundle() -> dict[str, Any]:
             "participants": [{
                 "id": str(p.get("id") or ""), "name": _clip(p.get("name"), 60), "role": _clip(p.get("role"), 160),
             } for p in (record.get("participants") or [])[:8] if isinstance(p, dict)],
+            "relatedArticles": [str(a) for a in (record.get("relatedArticles") or [])][:16],
+            "keyEvents": [str(k) for k in (record.get("keyEvents") or [])][:12],
             "timeline": {"entries": [{
                 "time": _clip(e.get("time"), 60), "beat": _clip(e.get("beat"), 160), "detail": _clip(e.get("detail"), 420),
             } for e in entries if isinstance(e, dict)]},
@@ -460,6 +465,7 @@ def archive_bundle() -> dict[str, Any]:
             "leadership": [{
                 "id": str(m.get("id") or ""), "name": _clip(m.get("name"), 60), "role": _clip(m.get("role"), 160),
             } for m in (record.get("leadership") or [])[:6] if isinstance(m, dict)],
+            "keyEvents": [str(k) for k in (record.get("keyEvents") or [])][:12],
         })
 
     congress = _read("data", "congress.json") or {}
@@ -474,7 +480,14 @@ def archive_bundle() -> dict[str, Any]:
         } for c in (congress.get("crises") or [])[:6] if isinstance(c, dict)],
     } if isinstance(congress, dict) else {}
 
-    return {"whatifs": out_whatifs, "events": out_events, "factions": out_factions, "congress": out_congress}
+    # Every filed id, so the page's backfill scan does not mistake an event
+    # outside this window for an unwritten one.
+    known = [str(r.get("id") or "") for r in events if isinstance(r, dict)]
+    known += [str(r.get("name") or "") for r in events if isinstance(r, dict)]
+    return {
+        "whatifs": out_whatifs, "events": out_events, "factions": out_factions,
+        "congress": out_congress, "knownIds": [k for k in known if k],
+    }
 
 
 def suggest_cast(payload: dict[str, Any]) -> dict[str, Any]:

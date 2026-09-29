@@ -54,6 +54,23 @@ class Handler(BaseHTTPRequestHandler):
                 '"record": {"id": "mock_record", "name": "Mock Record", '
                 '"title": "Mock Record — Filed From the Mock", "summary": "A mock record."}}',
             )
+        elif "STAGE DIRECTIONS" in all_text and os.environ.get("MOCK_DIRECTIVES"):
+            # {{WHO}} is filled with the first character named in the prompt's
+            # CHARACTER STATE block, so a test does not have to know in
+            # advance which archive character it ended up playing with.
+            who = ""
+            marker = all_text.find("CHARACTER STATE")
+            if marker >= 0:
+                line = all_text[marker:].split("- ", 1)
+                if len(line) > 1:
+                    who = line[1].split(":", 1)[0].strip()
+            # Roleplay turns in a room with mechanics on: MOCK_DIRECTIVES is
+            # appended verbatim so a test can prove stage directions are
+            # parsed, applied to the sheets, and stripped from the prose.
+            content = (
+                f"MOCK-MODEL REPLY #{int(time.time() * 1000) % 100000}: the blade goes in.\n"
+                + os.environ["MOCK_DIRECTIVES"].replace("{{WHO}}", who)
+            )
         else:
             content = (
                 f"MOCK-MODEL REPLY #{int(time.time() * 1000) % 100000}: I read your context "

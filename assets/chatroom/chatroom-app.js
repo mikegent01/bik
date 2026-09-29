@@ -27,6 +27,8 @@
   var collections = [];   // the archive's own character collections
   var archive = { whatifs: [], events: [], factions: [], congress: {} };
   var whatifs = [];       // the composed What-If board
+  var backfills = [];     // the unwritten events everything points at
+  var showStates = true;  // the sheets are visible in the chat by default
   var wireSort = 'newest';
   var wireView = 'all';   // all | unused | used | unfiled
   var tab = 'discover';
@@ -161,6 +163,7 @@
     return getJSON(CFG.archiveUrl).then(function (data) {
       archive.whatifs = data.whatifs || [];
       archive.events = data.events || [];
+      archive.knownIds = data.knownIds || [];
       archive.factions = data.factions || [];
       archive.congress = data.congress || {};
     }).catch(function (error) { console.warn('archive bundle unavailable', error); });
@@ -170,8 +173,11 @@
   function buildBoard() {
     archive.posts = posts;
     archive.userName = (state.user || {}).name;
-    whatifs = RP.buildWhatIfs(archive, castById, { limit: 12 })
-      .concat((state.scenarios || []).map(function (s) { return s; }));
+    // Written and inherited scenarios come first: they are this reader's own.
+    whatifs = (state.scenarios || []).concat(RP.buildWhatIfs(archive, castById, { limit: 12 }));
+    backfills = RP.backfillsFrom(archive, castById, state, 10)
+      .map(function (gap) { return RP.whatIfFromBackfill(gap, castById); })
+      .filter(function (s) { return s && RP.scenarioQuality(s) > 0; });
   }
 
   function loadCollections() {
@@ -187,7 +193,11 @@
       if (CFG.mode === 'static') {
         // The static build reads events.json anyway; the What-If board takes
         // its divergences and its wanted-pages scan from the same copy.
-        archive.events = (Array.isArray(data) ? data : (data.events || [])).slice(-60);
+        var all = Array.isArray(data) ? data : (data.events || []);
+        // Every filed id, so the backfill scan knows what already exists,
+        // even for events outside the window it keeps in memory.
+        archive.knownIds = all.map(function (e) { return e.id; }).concat(all.map(function (e) { return e.name; }));
+        archive.events = all.slice(-60);
         scenes = scenesFromEvents(data);
         return;
       }
@@ -243,6 +253,7 @@
   var NAV = [
     { id: 'discover', ico: '◉', label: 'Discover' },
     { id: 'whatif', ico: '❓', label: 'What If' },
+    { id: 'backfills', ico: '🧱', label: 'Backfills' },
     { id: 'wire', ico: '📡', label: 'Wire' },
     { id: 'collections', ico: '🗂', label: 'Collections' },
     { id: 'feed', ico: '▤', label: 'Feed' },
@@ -343,6 +354,7 @@
     // Where the advertisement used to be: a few long What-Ifs, not a wall
     // of one-liners. (No ad slot: the archive sells nothing.)
     html += whatIfSection({ limit: 6 });
+    html += backfillSection({ limit: 4 });
     html += collectionsSection();
     html += '<div class="sec-head"><h2>Scenes</h2><span class="more">›</span><span class="grow"></span>' +
       '<span class="more">Filed sessions, played from another perspective</span></div>';
@@ -369,13 +381,19 @@
       '<div class="kind">' + (KIND_ICON[s.kind] || '❓') + ' ' + esc(s.kindLabel) +
       (played ? '<span class="done">played</span>' : '<span class="new">unplayed</span>') +
       '<span class="grow"></span><span class="len">' + s.beats.length + ' beats · ' + Math.round(s.brief.length / 6) + ' words of brief</span></div>' +
-      '<h3>' + esc(s.name) + '</h3>' +
-      '<p class="premise">' + esc(s.premise) + '</p>' +
+      '<h3>' + esc((hookFor(s.id) || {}).title || s.name) + '</h3>' +
+      (forging[s.id]
+        ? '<p class="premise forging">…the model is writing the opener from the filed material…</p>'
+        : hookFor(s.id)
+          ? '<p class="premise hooked">' + esc(RP.clip(hookFor(s.id).open, 420)) + '</p>' +
+            (hookFor(s.id).stakes ? '<p class="stakes">⚠ ' + esc(hookFor(s.id).stakes) + '</p>' : '')
+          : '<p class="premise">' + esc(s.premise) + '</p>') +
       '<div class="faces">' + s.suggestedCast.slice(0, 6).map(function (c) { return avatar(c, 32); }).join('') +
       '<span class="who">' + esc(s.suggestedCast.slice(0, 3).map(function (c) { return c.name; }).join(', ')) +
       (s.suggestedCast.length > 3 ? ' +' + (s.suggestedCast.length - 3) : '') + '</span></div>' +
       '<div class="tags">' + s.tags.map(function (t) { return '<span class="tag">' + esc(t) + '</span>'; }).join('') + '</div>' +
       '<div class="acts"><button class="pill primary" data-ifplay="' + esc(s.id) + '">Play this</button>' +
+      '<button class="mini" data-ifhook="' + esc(s.id) + '">' + (hookFor(s.id) ? '↻ Another opener' : '⚡ Forge the opener') + '</button>' +
       '<button class="mini" data-ifread="' + esc(s.id) + '">Read the brief</button>' +
       '<span class="src">' + esc(s.source) + '</span></div>' +
       '</div></article>';
@@ -396,6 +414,29 @@
   }
 
   function renderWhatIfs() { return whatIfSection({}); }
+
+  /** Most Used Backfills — the unwritten events everything points at,
+   *  ranked by how often this reader has played one and by how many filings
+   *  are waiting on it. */
+  function backfillSection(opts) {
+    opts = opts || {};
+    if (!backfills.length) return '';
+    var shown = backfills.slice(0, opts.limit || backfills.length);
+    var played = backfills.reduce(function (n, b) { return n + (b.uses || 0); }, 0);
+    return '<div class="sec-head"><h2>Most Used Backfills</h2><span class="grow"></span>' +
+      (opts.limit ? '<button class="pill" id="allBackfills">See all ' + backfills.length + '</button>' : '') + '</div>' +
+      '<p class="emptynote">Events the archive keeps referring to and nobody ever wrote: the off-screen battle, ' +
+      'the airlift that never came, the session between two sessions. Playing one produces the missing account — ' +
+      'export the transcript and the hole is filled. ' + played + ' played here so far.</p>' +
+      '<div class="ifgrid">' + shown.map(whatIfCard).join('') + '</div>';
+  }
+
+  function renderBackfills() {
+    return backfillSection({}) ||
+      '<div class="sec-head"><h2>Most Used Backfills</h2></div>' +
+      '<div class="emptynote">No unwritten events found in the records that are loaded. The scan looks for ids that ' +
+      'filed records point at — keyEvents and relatedArticles — with no filing of their own.</div>';
+  }
 
   /** A wire post as a scenario card. */
   function wireCard(p) {
@@ -547,6 +588,7 @@
     $('chatview').hidden = true;
     var body = tab === 'feed' ? renderFeed()
       : tab === 'whatif' ? renderWhatIfs()
+      : tab === 'backfills' ? renderBackfills()
       : tab === 'wire' ? renderWire()
       : tab === 'collections' ? renderCollections()
       : tab === 'charms' ? renderCharms()
@@ -570,14 +612,21 @@
     box.querySelectorAll('[data-ifplay]').forEach(function (b) {
       b.onclick = function () { playWhatIf(b.dataset.ifplay); };
     });
+    box.querySelectorAll('[data-ifhook]').forEach(function (b) {
+      b.onclick = function () { forgeHook(whatIfById(b.dataset.ifhook)); };
+    });
     box.querySelectorAll('[data-ifread]').forEach(function (b) {
       b.onclick = function () { readWhatIf(b.dataset.ifread); };
     });
     box.querySelectorAll('.ifcard').forEach(function (card) {
-      card.onclick = function (e) { if (!e.target.dataset.ifplay && !e.target.dataset.ifread) readWhatIf(card.dataset.if); };
+      card.onclick = function (e) {
+        var d = e.target.dataset || {};
+        if (!d.ifplay && !d.ifread && !d.ifhook) readWhatIf(card.dataset.if);
+      };
     });
     on('makeIf', createScenarioForm);
     on('allIfs', function () { tab = 'whatif'; render(); });
+    on('allBackfills', function () { tab = 'backfills'; render(); });
     box.querySelectorAll('[data-post]').forEach(function (b) {
       b.onclick = function () { openScenario(posts.filter(function (p) { return p.id === b.dataset.post; })[0]); };
     });
@@ -683,6 +732,12 @@
       beats: opts.beats || [], opener: opts.opener || '',
       style: (state.settings && state.settings.style) || 'novel',
       persona: (state.user && state.user.persona) || '',
+      // Scenario settings: the sheets everyone walks in carrying.
+      statePreset: opts.statePreset || (state.settings && state.settings.statePreset) || 'rpg',
+      setup: opts.setup || {},
+      states: opts.states || null,
+      mechanics: opts.mechanics || (state.settings && state.settings.mechanics) || 'on',
+      sequelOf: opts.sequelOf || '',
     }));
   }
 
@@ -744,8 +799,54 @@
     });
   }
 
+  /* ---------------------------------------------------------------- *
+   * hooks — the opener is written by the model, from the real lore
+   * ---------------------------------------------------------------- */
+
+  var forging = {};   // scenario id -> true while the model is writing
+
+  function hookFor(id) { return (state.hooks || {})[id] || null; }
+
+  /** Ask the model for a strong, specific opener. It is given the brief, the
+   *  character cards, the script and whatever these characters already did in
+   *  this reader's other chats — and a list of the ways it is not allowed to
+   *  start. A weak answer is rejected once and asked again. */
+  function forgeHook(scenario, opts) {
+    opts = opts || {};
+    if (!scenario || forging[scenario.id]) return Promise.resolve(hookFor(scenario.id));
+    forging[scenario.id] = true;
+    render();
+    var ctx = RP.hookContext(state, scenario);
+    var system = RP.hookPrompt(scenario, ctx);
+    function ask(nudge) {
+      return callModel(system + (nudge || ''), [{ role: 'user', content: 'Write the opening of this scene.' }]);
+    }
+    return ask('').then(function (text) {
+      var hook = RP.parseHook(text, scenario);
+      if (hook && !RP.hookIsWeak(hook, scenario)) return hook;
+      // One retry, told exactly what was wrong with the first answer.
+      return ask('\n\nYOUR LAST ATTEMPT WAS REJECTED for being generic. Name the people, the place and the objects ' +
+        'from the filed material above, in the first two sentences. Start in the middle of an action.')
+        .then(function (second) { return RP.parseHook(second, scenario) || hook; });
+    }).then(function (hook) {
+      if (!hook) throw new Error('no hook');
+      state.hooks = state.hooks || {};
+      state.hooks[scenario.id] = hook;
+      save();
+      return hook;
+    }).catch(function (error) {
+      console.warn('hook forge failed', error);
+      if (!opts.quiet) toast('The model did not answer — using the archive’s own cold open.');
+      return null;
+    }).then(function (hook) {
+      forging[scenario.id] = false;
+      render();
+      return hook;
+    });
+  }
+
   function whatIfById(id) {
-    return whatifs.filter(function (s) { return s.id === id; })[0];
+    return whatifs.concat(backfills).filter(function (s) { return s.id === id; })[0];
   }
 
   /** The brief, in full, before anyone commits to playing it. */
@@ -774,26 +875,69 @@
     $('mOk').onclick = function () { closeModal(); playWhatIf(id); };
   }
 
-  /** Play one: the cast picker opens with the scenario's own people in it. */
+  /** Play one: pick the cast, set the starting state, then open on an
+   *  opener the model wrote from the filed material (or the cold open). */
   function playWhatIf(id) {
     var s = whatIfById(id);
     if (!s) return;
     castPicker({
-      title: s.name,
+      title: (hookFor(s.id) || {}).title || s.name,
       note: RP.clip(s.premise, 220),
       preselect: s.suggestedCast.map(function (c) { return c.id; }),
       extra: s.suggestedCast.filter(function (c) { return !castById[c.id]; }),
-    }, function (picked) {
-      startGroup(picked, RP.scenarioRoomOpts(s));
-      var opened = room();
-      RP.markPostUsed(state, s.id, opened);
-      RP.logEvent(state, {
-        kind: 'whatif', roomId: opened.id, roomTitle: opened.title,
-        chars: picked.map(function (c) { return c.id; }),
-        text: 'Opened the What-If “' + s.name + '” (' + s.kindLabel + ').',
-        tags: s.tags,
-      });
-      save(); render();
+      setup: true,
+    }, function (picked, setup) {
+      var start = function (hook) {
+        var opts = RP.scenarioRoomOpts(s);
+        opts.opener = (hook && hook.open) || RP.coldOpen(s);
+        opts.sceneName = (hook && hook.title) || s.name;
+        opts.setup = (setup && setup.states) || s.setup || {};
+        opts.statePreset = (setup && setup.preset) || s.statePreset || 'rpg';
+        opts.states = s.states || null;                 // sequels carry sheets in
+        if (hook && hook.stakes) opts.scene = opts.scene + '\n\nWHAT IS AT STAKE RIGHT NOW\n' + hook.stakes;
+        startGroup(picked, opts);
+        var opened = room();
+        RP.markPostUsed(state, s.id, opened);
+        if (s.kind === 'backfill') RP.noteBackfillUse(state, s.id);
+        if (s.kind === 'sequel' && s.sequelOf) {
+          opened.sequelOf = s.sequelOf;
+          var parent = (state.rooms || []).filter(function (x) { return x.id === s.sequelOf; })[0];
+          if (parent) parent.sequelCount = (parent.sequelCount || 0) + 1;
+        }
+        RP.logEvent(state, {
+          kind: s.kind === 'backfill' ? 'backfill' : 'whatif', roomId: opened.id, roomTitle: opened.title,
+          chars: picked.map(function (c) { return c.id; }),
+          text: 'Opened “' + opened.sceneName + '” (' + s.kindLabel + ').',
+          tags: s.tags,
+        });
+        save(); render();
+      };
+      var hook = hookFor(s.id);
+      if (hook) { start(hook); return; }
+      toast('Writing the opener from the filed material…');
+      forgeHook(s, { quiet: true }).then(start);
+    });
+  }
+
+  /** Continue a played scene: same people, same wounds, no recap. */
+  function openSequel(r) {
+    if (!r) return;
+    form('Sequel — after ' + RP.clip(r.sceneName || r.title, 40), [
+      { k: 'title', label: 'Title (optional)', value: '' },
+      { k: 'premise', label: 'What has changed since? (optional)', type: 'area', value: '' },
+      { k: 'carry', label: 'Carry the state over', type: 'select', value: 'yes',
+        options: [{ value: 'yes', label: 'Yes — same HP, MP, conditions and inventory' },
+                  { value: 'no', label: 'No — everyone starts fresh' }] },
+    ], { note: 'The sequel keeps the cast and everything they are carrying, opens in the middle rather than on a recap, and inherits any beats that never fired.', ok: 'Compose the sequel' }, function (v) {
+      var sequel = RP.sequelFrom(r, state, { title: v.title, premise: v.premise });
+      sequel.sequelOf = r.id;
+      if (v.carry === 'no') sequel.states = null;
+      state.scenarios = (state.scenarios || []);
+      state.scenarios.unshift(sequel);
+      state.scenarios = state.scenarios.slice(0, 30);
+      save(); buildBoard();
+      toast('Writing the opener…');
+      forgeHook(sequel, { quiet: true }).then(function () { readWhatIf(sequel.id); });
     });
   }
 
@@ -820,6 +964,20 @@
     });
   }
 
+  /** Find whoever the model just walked into the scene. Exact id, then exact
+   *  name, then a contains match — and if the archive has never heard of
+   *  them, the caller invents a card rather than refusing the entrance. */
+  function resolveChar(name) {
+    var want = String(name || '').toLowerCase().trim();
+    if (!want) return null;
+    if (castById[RP.slug(want)]) return castById[RP.slug(want)];
+    var exact = cast.filter(function (c) { return c.name.toLowerCase() === want; })[0];
+    if (exact) return exact;
+    return cast.filter(function (c) {
+      return c.name.toLowerCase().indexOf(want) >= 0 || want.indexOf(c.name.toLowerCase()) >= 0;
+    })[0] || null;
+  }
+
   function openRoom(id) { state.active = id; save(); render(); }
 
   /* ---------------------------------------------------------------- *
@@ -827,6 +985,42 @@
    * ---------------------------------------------------------------- */
 
   function charOf(r, id) { return (r.cast || []).filter(function (c) { return c.id === id; })[0] || castById[id] || { id: id, name: 'Character' }; }
+
+  /** One HP/MP bar. */
+  function bar(kind, pool) {
+    var pct = pool.max ? Math.round((pool.value / pool.max) * 100) : 0;
+    return '<span class="pool ' + kind + (pct <= 30 ? ' low' : '') + '">' +
+      '<span class="fill" style="width:' + pct + '%"></span>' +
+      '<span class="num">' + kind.toUpperCase() + ' ' + pool.value + '/' + pool.max + '</span></span>';
+  }
+
+  /** Edit a sheet by hand — the model is not the only one allowed to. */
+  function editSheet(id) {
+    var r = room();
+    var sheet = RP.sheetFor(r, id);
+    if (!sheet) return;
+    form('State — ' + sheet.name, [
+      { k: 'hp', label: 'HP (value / max, blank for none)', value: sheet.hp ? sheet.hp.value + '/' + sheet.hp.max : '' },
+      { k: 'mp', label: 'MP (value / max, blank for none)', value: sheet.mp ? sheet.mp.value + '/' + sheet.mp.max : '' },
+      { k: 'flags', label: 'Conditions, comma separated', value: Object.keys(sheet.flags || {}).join(', ') },
+      { k: 'items', label: 'Carrying, comma separated', value: (sheet.items || []).join(', ') },
+      { k: 'status', label: 'Physical note', value: sheet.status || '' },
+    ], { note: 'The model reads this before every turn and writes to it with stage directions. Changing it here changes what the scene believes.' }, function (v) {
+      function pool(text, old) {
+        var hit = /^\s*(\d+)\s*\/\s*(\d+)\s*$/.exec(text);
+        if (!hit) return /^\s*$/.test(text) ? null : old;
+        return { value: Number(hit[1]), max: Number(hit[2]) };
+      }
+      sheet.hp = pool(v.hp, sheet.hp);
+      sheet.mp = pool(v.mp, sheet.mp);
+      sheet.flags = {};
+      v.flags.split(',').forEach(function (f) { var k = RP.slug(f); if (k) sheet.flags[k] = true; });
+      sheet.items = v.items.split(',').map(function (i) { return i.trim(); }).filter(Boolean);
+      sheet.status = v.status.trim();
+      r.updated = Date.now();
+      save(); render();
+    });
+  }
 
   function renderChat() {
     var r = room();
@@ -838,9 +1032,38 @@
       '<span class="title"><b>' + esc(r.title) + '</b><span>' + esc(r.kind === 'group' ? r.cast.map(function (c) { return c.name; }).join(', ') : (face.title || '')) + '</span></span>' +
       (r.beats && r.beats.length ? '<button class="pill" id="nextBeat">⏩ Next beat (' + RP.beatProgress(r).at + '/' + RP.beatProgress(r).total + ')</button>' : '') +
       (r.kind === 'group' ? '<button class="pill" id="continueBtn">➤ Continue</button>' : '') +
+      (r.mechanics === 'off' ? '' : '<button class="pill' + (showStates ? ' primary' : '') + '" id="statesBtn">🩺 States</button>') +
+      '<button class="pill" id="seqBtn">📖 Sequel</button>' +
       '<button class="pill" id="panelBtn">☰ Character</button>';
 
+    // The sheets, visible in the chat rather than buried in a menu.
+    var sheetBar = $('statebar');
+    if (sheetBar) {
+      sheetBar.hidden = !showStates || r.mechanics === 'off';
+      sheetBar.innerHTML = !showStates ? '' : Object.keys(r.states || {}).map(function (id) {
+        var sheet = r.states[id];
+        if (!sheet || sheet.present === false) return '';
+        var who = charOf(r, id);
+        return '<button class="sheet" data-sheet="' + esc(id) + '" title="Edit state">' +
+          '<span class="nm">' + avatar(who, 22) + esc(sheet.name) + '</span>' +
+          (sheet.hp ? bar('hp', sheet.hp) : '') + (sheet.mp ? bar('mp', sheet.mp) : '') +
+          '<span class="chips">' + Object.keys(sheet.flags || {}).map(function (f) {
+            return '<span class="flag">' + esc(f.replace(/_/g, ' ')) + '</span>';
+          }).join('') + Object.keys(sheet.counters || {}).map(function (c) {
+            return '<span class="flag num">' + esc(c.replace(/_/g, ' ')) + ' ' + sheet.counters[c] + '</span>';
+          }).join('') + (sheet.items || []).map(function (i) {
+            return '<span class="flag item">' + esc(i) + '</span>';
+          }).join('') + (sheet.status ? '<span class="flag note">' + esc(sheet.status) + '</span>' : '') + '</span>' +
+          '</button>';
+      }).join('');
+    }
+
     var html = r.messages.map(function (m, i) {
+      if (m.role === 'state') {
+        return '<div class="statelog">' + (m.lines || []).map(function (l) {
+          return '<span>' + esc(l) + '</span>';
+        }).join('') + '</div>';
+      }
       if (m.role === 'scene') {
         return '<div class="scene-card' + (m.beat ? ' beat' : '') + '"><span class="kicker">' +
           (m.beat ? 'Main event · beat' : 'Scene') + '</span>' + esc(RP.textOf(m)) + '</div>';
@@ -926,6 +1149,12 @@
   function wireChat() {
     var r = room();
     var on = function (id, fn) { var node = $(id); if (node) node.onclick = fn; };
+    on('statesBtn', function () { showStates = !showStates; render(); });
+    on('seqBtn', function () { openSequel(room()); });
+    var bar1 = $('statebar');
+    if (bar1) bar1.querySelectorAll('[data-sheet]').forEach(function (b) {
+      b.onclick = function () { editSheet(b.dataset.sheet); };
+    });
     on('panelBtn', function () { $('charpanel').classList.toggle('open'); });
     on('continueBtn', function () { generate(); });
     on('nextBeat', function () { if (RP.fireBeat(r)) { logBeat(r); save(); render(); } });
@@ -1112,7 +1341,13 @@
     if (!history.length) history = [{ role: 'user', content: '(The scene opens. Begin in character.)' }];
 
     callModel(system, history).then(function (text) {
-      var clean = RP.stripSpeaker(text, speaker.name).trim();
+      // Stage directions first: the model may have wounded somebody, spent
+      // power, walked a character in, or written one out. They are stripped
+      // from the prose and applied to the record before anything renders.
+      var staged = RP.parseDirectives(RP.stripSpeaker(text, speaker.name), r.cast.map(function (c) { return c.name; }));
+      var clean = staged.clean.trim();
+      var changes = r.mechanics === 'off' ? { lines: [] }
+        : RP.applyDirectives(state, r, staged.directives, resolveChar);
       if (retry) {
         retry.alts = (retry.alts && retry.alts.length ? retry.alts : [retry.text]).concat([clean]);
         retry.alt = retry.alts.length - 1;
@@ -1126,6 +1361,9 @@
           r.next = after ? after.id : '';
         }
         if (RP.autoAdvance(r)) { RP.fireBeat(r); logBeat(r); }
+      }
+      if (changes.lines.length) {
+        r.messages.push({ id: RP.uid(), role: 'state', at: Date.now(), lines: changes.lines });
       }
       r.updated = Date.now();
       if (state.settings.voice === 'on' && !retry) speak(r.messages[r.messages.length - 1], r);
@@ -1198,9 +1436,47 @@
     });
   }
 
+  /** Scenario settings: what everyone walks in carrying. A battle can start
+   *  at half health with a wounded flag already set, and the model reads
+   *  exactly that before it writes the first line. */
+  function stateSetup(chosen, current, done) {
+    current = current || {};
+    var rows = chosen.map(function (c) {
+      var cur = (current.states || {})[c.id] || {};
+      return '<div class="setuprow" data-setup="' + esc(c.id) + '">' + avatar(c, 28) +
+        '<b>' + esc(c.name) + '</b>' +
+        '<label>HP %<input type="number" min="0" max="100" value="' + (cur.hpPct === undefined ? 100 : cur.hpPct) + '" data-k="hpPct"></label>' +
+        '<label>MP %<input type="number" min="0" max="100" value="' + (cur.mpPct === undefined ? 100 : cur.mpPct) + '" data-k="mpPct"></label>' +
+        '<label>Conditions<input type="text" placeholder="wounded, hunted" value="' + esc(cur.flags || '') + '" data-k="flags"></label>' +
+        '<label>Carrying<input type="text" placeholder="rope, lantern" value="' + esc(cur.items || '') + '" data-k="items"></label>' +
+        '<label>Note<input type="text" placeholder="one arm useless" value="' + esc(cur.status || '') + '" data-k="status"></label>' +
+        '</div>';
+    }).join('');
+    openModal('<h3>Starting state</h3><p class="sub">What everyone walks in carrying. The model reads these sheets ' +
+      'before its first line and updates them as the scene goes.</p>' +
+      '<label for="setupPreset">Mechanics</label><select id="setupPreset">' +
+      Object.keys(RP.STATE_PRESETS).map(function (k) {
+        return '<option value="' + k + '"' + ((current.preset || 'rpg') === k ? ' selected' : '') + '>' + esc(RP.STATE_PRESETS[k].name) + '</option>';
+      }).join('') + '</select>' +
+      '<div class="setup">' + rows + '</div>' +
+      '<div class="actions"><button class="pill" id="mCancel">Back</button>' +
+      '<button class="pill primary" id="mOk">Start with these</button></div>');
+    $('mCancel').onclick = closeModal;
+    $('mOk').onclick = function () {
+      var setup = { preset: $('setupPreset').value, states: {} };
+      $('modal').querySelectorAll('[data-setup]').forEach(function (rowEl) {
+        var row = {};
+        rowEl.querySelectorAll('[data-k]').forEach(function (input) { row[input.dataset.k] = input.value; });
+        setup.states[rowEl.dataset.setup] = row;
+      });
+      done(setup);
+    };
+  }
+
   /** The cast picker used by group chats, scenes and replays. */
   function castPicker(opts, done) {
     var picked = (opts.preselect || []).slice();
+    var pendingSetup = null;
     function draw() {
       var q = ($('pickSearch') && $('pickSearch').value || '').toLowerCase();
       var pool = (opts.extra || []).concat(cast);
@@ -1224,6 +1500,7 @@
       '<input type="text" id="pickSearch" placeholder="Search the cast">' +
       '<div class="picker" id="pickGrid"></div>' +
       '<div class="actions"><span class="sub" id="pickCount" style="margin-right:auto"></span>' +
+      (opts.setup ? '<button class="pill" id="pickSetup">⚔ Starting state</button>' : '') +
       (opts.suggest === false ? '' : '<button class="pill" id="pickSuggest">✨ Suggest a cast</button>') +
       '<button class="pill" id="mCancel">Cancel</button>' +
       '<button class="pill primary" id="mOk">' + esc(opts.ok || 'Start') + '</button></div>');
@@ -1234,8 +1511,21 @@
       (opts.extra || []).forEach(function (c) { extra[c.id] = c; });
       var chosen = picked.map(function (id) { return castById[id] || extra[id]; }).filter(Boolean);
       if (!chosen.length) { toast('Pick at least one character.'); return; }
-      closeModal(); done(chosen);
+      closeModal(); done(chosen, pendingSetup);
     };
+    if ($('pickSetup')) {
+      $('pickSetup').onclick = function () {
+        var extra = {};
+        (opts.extra || []).forEach(function (c) { extra[c.id] = c; });
+        var chosen = picked.map(function (id) { return castById[id] || extra[id]; }).filter(Boolean);
+        if (!chosen.length) { toast('Pick the cast first.'); return; }
+        stateSetup(chosen, pendingSetup, function (setup) {
+          pendingSetup = setup;
+          closeModal();
+          done(chosen, setup);
+        });
+      };
+    }
     if ($('pickSuggest')) {
       $('pickSuggest').onclick = function () {
         if (!CFG.suggestUrl) { toast('Cast suggestions need the workflow server.'); return; }

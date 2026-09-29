@@ -22,7 +22,12 @@ process.on('SIGINT', () => { cleanup(); process.exit(1); });
 let ok = true;
 const check = (name, cond) => { console.log((cond ? 'OK  ' : 'FAIL'), name); if (!cond) ok = false; };
 
-procs.push(spawn('python3', ['tools/mock_lm_studio.py', String(MOCK_PORT)], { cwd: repoRoot, stdio: 'ignore' }));
+// MOCK_DIRECTIVES makes the mock append stage directions to any roleplay
+// turn, so the whole path — parse, apply, strip, render — is exercised.
+procs.push(spawn('python3', ['tools/mock_lm_studio.py', String(MOCK_PORT)], {
+  cwd: repoRoot, stdio: 'ignore',
+  env: { ...process.env, MOCK_DIRECTIVES: '[[HP: {{WHO}} -25]]\n[[FLAG: {{WHO}} bleeding]]' },
+}));
 procs.push(spawn('python3', ['workflow/server.py'], {
   cwd: repoRoot,
   env: { ...process.env, WORKFLOW_PORT: String(SERVER_PORT), WORKFLOW_HOST: '127.0.0.1', LM_STUDIO_URL: `http://127.0.0.1:${MOCK_PORT}` },
@@ -54,6 +59,8 @@ const win = dom.window;
 const doc = win.document;
 
 const $ = id => doc.getElementById(id);
+// The saved state, or an empty one before the first write.
+const savedState = () => JSON.parse(win.localStorage.getItem('waluipedia-chatroom-v1') || '{}');
 const until = async (label, fn, tries = 120) => {
   for (let i = 0; i < tries; i++) { if (fn()) return true; await wait(120); }
   console.log('   timed out waiting for', label);
@@ -100,26 +107,113 @@ doc.querySelector('[data-ifread]').dispatchEvent(new win.MouseEvent('click', { b
 check('what-if: the brief opens in full, with the script and the questions',
   !$('modalBack').hidden && doc.querySelector('.modal .brief').textContent.length > 900 &&
   doc.querySelectorAll('.modal .stack .item').length >= 3);
-$('mOk').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+$('mCancel').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+
+// ---- the opener is written by the model, from the filed material ----
+const hookCard = doc.querySelector('[data-ifhook]');
+const hookId = hookCard.dataset.ifhook;
+hookCard.dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+await until('the model to write an opener', () => (savedState().hooks || {})[hookId]);
+const hooked = (savedState().hooks || {})[hookId];
+check('hook: the card asks the model for an opener and keeps it', Boolean(hooked && hooked.open.length > 10));
+check('hook: the forged opener replaces the generic premise on the card',
+  [...doc.querySelectorAll('.ifcard .premise.hooked')].length >= 1);
+
+// ---- play it, with a starting state ----
+[...doc.querySelectorAll('[data-ifplay]')].find(b => b.dataset.ifplay === hookId)
+  .dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
 check('what-if: playing one preselects its own cast', doc.querySelectorAll('.pick.on').length >= 2);
+check('setup: the cast picker offers a starting state', Boolean($('pickSetup')));
+$('pickSetup').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+check('setup: every picked character gets a row', doc.querySelectorAll('.setuprow').length >= 2);
+const firstRow = doc.querySelector('.setuprow');
+const firstName = firstRow.querySelector('b').textContent;
+firstRow.querySelector('[data-k=hpPct]').value = '50';
+firstRow.querySelector('[data-k=flags]').value = 'wounded';
+firstRow.querySelector('[data-k=items]').value = 'the brass key';
 $('mOk').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+await until('the scenario room to open', () => !$('chatview').hidden);
 check('what-if: the room opens on the scenario, with its beats loaded', (() => {
-  const saved = JSON.parse(win.localStorage.getItem('waluipedia-chatroom-v1'));
+  const saved = savedState();
   const r = saved.rooms.find(x => x.id === saved.active);
-  return !$('chatview').hidden && r.beats.length >= 3 && r.sceneName && saved.log.some(e => e.kind === 'whatif');
+  return r.beats.length >= 3 && r.sceneName && saved.log.some(e => e.kind === 'whatif');
 })());
+check('state: the scenario starts the named character at half health, wounded, carrying', (() => {
+  const saved = savedState();
+  const r = saved.rooms.find(x => x.id === saved.active);
+  const sheet = Object.values(r.states).find(x => x.name === firstName);
+  return sheet.hp.value === 50 && sheet.flags.wounded && sheet.items[0] === 'the brass key';
+})());
+check('state: the sheets are visible in the chat, with bars and conditions',
+  !$('statebar').hidden && doc.querySelectorAll('.statebar .sheet').length >= 2 &&
+  doc.querySelector('.statebar .pool .num').textContent.includes('HP') &&
+  $('statebar').textContent.includes('wounded'));
+
+// ---- a turn, with stage directions coming back from the model ----
+const beforeHp = (() => {
+  const saved = savedState();
+  const r = saved.rooms.find(x => x.id === saved.active);
+  return Object.values(r.states).find(x => x.name === firstName).hp.value;
+})();
+win.MOCK_TARGET = firstName;
+$('input').value = 'I go at them with the broken blade.';
+$('composer').dispatchEvent(new win.Event('submit', { bubbles: true, cancelable: true }));
+await until('the model to answer the state turn', () => doc.querySelectorAll('.turn.char').length >= 1);
+await wait(300);
+check('state: the model’s stage directions changed the sheet', (() => {
+  const saved = savedState();
+  const r = saved.rooms.find(x => x.id === saved.active);
+  const sheet = Object.values(r.states).find(x => x.name === firstName);
+  return sheet.hp.value === Math.max(0, beforeHp - 25) && sheet.flags.bleeding === true;
+})());
+check('state: the change is reported in the stream and stripped from the prose',
+  doc.querySelector('.statelog') && /−25 HP|-25 HP/.test(doc.querySelector('.statelog').textContent) &&
+  !doc.querySelector('.turn.char .bubble').textContent.includes('[[HP'));
+check('state: a sheet can also be edited by hand', (() => {
+  doc.querySelector('.statebar .sheet').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+  const open = Boolean($('f_hp'));
+  if (open) { $('f_hp').value = '7/100'; $('mOk').dispatchEvent(new win.MouseEvent('click', { bubbles: true })); }
+  const saved = savedState();
+  const r = saved.rooms.find(x => x.id === saved.active);
+  return open && Object.values(r.states)[0].hp.value === 7;
+})());
+
+// ---- the sequel carries the scene forward ----
+check('sequel: the chat offers one', Boolean($('seqBtn')));
+$('seqBtn').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+$('mOk').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+const sequelReady = await until('the sequel to be composed', () =>
+  (savedState().scenarios || [])
+    .some(x => x.kind === 'sequel'));
+check('sequel: it is composed from the played scene and carries the sheets', (() => {
+  const saved = savedState();
+  const seq = (saved.scenarios || []).find(x => x.kind === 'sequel');
+  return sequelReady && seq.brief.includes('How it ended') && seq.states &&
+    Object.values(seq.states).some(x => x.flags && x.flags.bleeding);
+})());
+if (!$('modalBack').hidden) $('mCancel').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
 $('homeBtn').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+
+// ---- backfills ----
+[...doc.querySelectorAll('[data-tab]')].find(b => b.dataset.tab === 'backfills').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+check('backfill: the board lists unwritten events with full briefs',
+  doc.querySelectorAll('.ifcard').length >= 3 &&
+  [...doc.querySelectorAll('.ifcard')].every(c => c.querySelector('.premise').textContent.length > 120) &&
+  $('dashBody').textContent.includes('Most Used Backfills'));
+[...doc.querySelectorAll('[data-tab]')].find(b => b.dataset.tab === 'discover').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+check('backfill: the dashboard carries the section too', $('dashBody').textContent.includes('Most Used Backfills'));
 
 // ---- write your own, composed by the page (no model call) ----
 $('makeIf').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
 $('f_text').value = 'What if the Pond Patrol raided the Midlands Diet during the Iron Mandate vote and Waluigi was in the gallery? Who gets arrested first?';
 $('mOk').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
 await wait(200);
+const composed = (savedState().scenarios || []).find(x => x.kind === 'custom');
 check('create: describing a scenario composes a full brief from the archive',
-  doc.querySelector('.modal .brief') && doc.querySelector('.modal .brief').textContent.length > 700 &&
-  doc.querySelector('.modal .brief').textContent.includes('Midlands Diet'));
+  Boolean(composed) && composed.brief.length > 700 && composed.brief.includes('Midlands Diet') &&
+  composed.beats.length >= 3);
 check('create: the written scenario is saved and joins the board',
-  JSON.parse(win.localStorage.getItem('waluipedia-chatroom-v1')).scenarios.length === 1);
+  (savedState().scenarios || []).some(x => x.kind === 'custom'));
 $('mCancel').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
 $('homeBtn').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
 [...doc.querySelectorAll('[data-tab]')].find(b => b.dataset.tab === 'wire').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
@@ -161,8 +255,8 @@ $('mOk').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
 check('wire: the post opens a group chat with the post as the scene',
   !$('chatview').hidden && doc.querySelector('.scene-card').textContent.includes('WAHwire'));
 check('wire: playing the post marks it used and files it in the log',
-  Object.keys(JSON.parse(win.localStorage.getItem('waluipedia-chatroom-v1')).usedPosts).length >= 1 &&
-  JSON.parse(win.localStorage.getItem('waluipedia-chatroom-v1')).log.some(e => e.kind === 'wire'));
+  Object.keys(savedState().usedPosts).length >= 1 &&
+  savedState().log.some(e => e.kind === 'wire'));
 
 // ---- the director hands the scene back instead of looping ----
 $('input').value = 'What happened to the second saw?';
@@ -170,7 +264,7 @@ $('composer').dispatchEvent(new win.Event('submit', { bubbles: true, cancelable:
 const handback = await until('the director to hand back', () => doc.querySelector('.handback'));
 check('director: after the reply chain the scene comes back to the player',
   Boolean(handback) && doc.querySelector('.handback').textContent.includes('Your turn'));
-const played = JSON.parse(win.localStorage.getItem('waluipedia-chatroom-v1')).rooms.find(r => r.id === JSON.parse(win.localStorage.getItem('waluipedia-chatroom-v1')).active);
+const played = savedState().rooms.find(r => r.id === savedState().active);
 check('director: the chain stops at the ceiling, never runs away',
   played.messages.filter(m => m.role === 'char' && !m.error).length <= 4);
 
@@ -187,7 +281,7 @@ check('chat: the right-hand character panel carries the profile and the menu',
   $('charpanel').textContent.includes('New chat') && $('charpanel').textContent.includes('Persona') &&
   $('charpanel').textContent.includes('Pinned') && $('charpanel').textContent.includes('Style') &&
   $('charpanel').innerHTML.includes('By @'));
-check('chat: the recents rail lists every chat', doc.querySelectorAll('[data-room]').length === 3);
+check('chat: the recents rail lists every chat', doc.querySelectorAll('[data-room]').length >= 3);
 
 // ---- play one turn against the mock model ----
 $('input').value = 'Who is on the ridge tonight?';
@@ -200,7 +294,7 @@ check('turn: markdown is rendered as HTML, not printed',
   Boolean(doc.querySelector('.bubble p')));
 
 // ---- memory reaches the next chat ----
-const stored = () => JSON.parse(win.localStorage.getItem('waluipedia-chatroom-v1'));
+const stored = () => savedState();
 check('memory: the turn is remembered against the character',
   stored().chars.some(c => c.id === charId && c.notes.length > 0));
 check('memory: opening the chat filed a line in the world log',

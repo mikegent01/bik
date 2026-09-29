@@ -170,6 +170,28 @@ a { color: inherit; }
 .wcard .new { background: #e7f5ec; color: var(--ok); border-radius: 999px; padding: 1px 8px; font-size: 11px; font-weight: 600; }
 .wcard .done { background: var(--panel2); border-radius: 999px; padding: 1px 8px; font-size: 11px; }
 
+/* Live character state — the sheets the model reads and writes. */
+.statebar { display: flex; gap: 10px; padding: 10px 18px; border-bottom: 1px solid var(--line); background: var(--panel2); overflow-x: auto; }
+.statebar .sheet {
+  flex: 0 0 auto; min-width: 210px; text-align: left; border: 1px solid var(--line); background: var(--panel);
+  border-radius: 12px; padding: 8px 10px; cursor: pointer; display: flex; flex-direction: column; gap: 5px;
+}
+.statebar .sheet:hover { border-color: var(--accent); }
+.statebar .nm { display: flex; align-items: center; gap: 6px; font-weight: 600; font-size: 13px; }
+.statebar .pool { position: relative; display: block; height: 14px; border-radius: 999px; background: #e6e6ea; overflow: hidden; }
+.statebar .pool .fill { position: absolute; inset: 0 auto 0 0; background: var(--ok); }
+.statebar .pool.mp .fill { background: #5b7cfa; }
+.statebar .pool.low .fill { background: var(--bad); }
+.statebar .pool .num { position: relative; display: block; font-size: 10px; line-height: 14px; text-align: center; color: #1d1d20; font-weight: 600; }
+.statebar .chips { display: flex; flex-wrap: wrap; gap: 4px; }
+.statebar .flag { background: #fdecec; color: var(--bad); border-radius: 999px; padding: 1px 7px; font-size: 11px; }
+.statebar .flag.num { background: #eef1fd; color: #3b55c8; }
+.statebar .flag.item { background: #f1f0e9; color: #6b6a5c; }
+.statebar .flag.note { background: var(--panel2); color: var(--muted); }
+
+.statelog { max-width: 760px; margin: 0 auto 16px; display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; }
+.statelog span { background: var(--panel2); border: 1px solid var(--line); border-radius: 999px; padding: 3px 11px; font-size: 12px; color: #4a4a52; }
+
 /* What-If board: a few big cards, each one readable from the dashboard. */
 .ifgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(430px, 1fr)); gap: 14px; }
 .ifcard {
@@ -191,6 +213,17 @@ a { color: inherit; }
 .ifcard .faces .who { margin-left: 16px; font-size: 12px; color: var(--muted); }
 .ifcard .acts { margin-top: auto; display: flex; align-items: center; gap: 8px; }
 .ifcard .acts .src { font-size: 11px; color: var(--muted); margin-left: auto; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+.ifcard .premise.hooked { color: #26262c; -webkit-line-clamp: 6; }
+.ifcard .premise.forging { color: var(--muted); font-style: italic; }
+.ifcard .stakes { margin: 0; font-size: 12.5px; color: var(--bad); }
+
+.setup { display: flex; flex-direction: column; gap: 8px; max-height: 44vh; overflow: auto; margin: 10px 0; }
+.setuprow { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; border: 1px solid var(--line); border-radius: 12px; padding: 8px 10px; }
+.setuprow b { font-size: 13px; min-width: 120px; }
+.setuprow label { display: flex; align-items: center; gap: 5px; font-size: 11px; color: var(--muted); }
+.setuprow input { border: 1px solid var(--line); border-radius: 8px; padding: 5px 8px; font-size: 12px; }
+.setuprow input[type=number] { width: 62px; }
 
 .modal .brief { font-size: 14px; line-height: 1.6; }
 .modal .brief p { margin: 0 0 10px; }

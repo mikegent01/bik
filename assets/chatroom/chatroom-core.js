@@ -114,6 +114,9 @@
       // the archive records one; otherwise the archive itself is the author.
       handle: String(record.handle || record.creator || 'waluipedia').replace(/^@/, ''),
       tags: Array.isArray(record.tags) ? record.tags.slice(0, 8).map(String) : [],
+      // Referenced filings: the backfill scan reads these to find the events
+      // everybody points at and nobody wrote.
+      keyEvents: Array.isArray(record.keyEvents) ? record.keyEvents.slice(0, 12).map(String) : [],
     };
   };
 
@@ -284,10 +287,22 @@
       beats: Array.isArray(opts.beats) ? opts.beats.slice(0, 24) : [],
       beatIndex: 0,
       autoBeats: opts.autoBeats === undefined ? true : Boolean(opts.autoBeats),
+      statePreset: opts.statePreset || 'rpg',
+      states: {},
+      mechanics: opts.mechanics === undefined ? 'on' : opts.mechanics,
+      sequelOf: String(opts.sequelOf || ''),
+      sequelCount: 0,
       next: '',
       created: Date.now(),
       updated: Date.now(),
     };
+    // Sheets: carried in from a previous scene, or started from the setup.
+    RP.ensureSheets(room, room.statePreset, opts.setup || {});
+    if (opts.states) {
+      Object.keys(opts.states).forEach(function (id) {
+        if (room.states[id]) room.states[id] = JSON.parse(JSON.stringify(opts.states[id]));
+      });
+    }
     if (opts.opener) room.messages.push({ id: uid(), role: 'scene', text: String(opts.opener), at: Date.now() });
     return room;
   };
@@ -645,6 +660,11 @@
       questions: (fields.questions || []).filter(Boolean).slice(0, 5),
       source: fields.source || '',
       weight: fields.weight || 0,
+      // Starting state for the room this scenario opens: sheets carried over
+      // from a previous scene, or a setup written in the scenario settings.
+      states: fields.states || null,
+      statePreset: fields.statePreset || '',
+      setup: fields.setup || null,
     };
   }
 
@@ -1189,6 +1209,11 @@
       sceneImage: s.image,
       beats: s.beats,
       opener: s.kindLabel + ' — ' + s.name + '\n\n' + s.premise,
+      // Starting state: a sequel's inherited sheets, or a scenario setup.
+      states: s.states || null,
+      setup: s.setup || {},
+      statePreset: s.statePreset || 'rpg',
+      sequelOf: s.sequelOf || '',
     };
   };
 
@@ -1272,6 +1297,575 @@
     })[0];
     if (!hit || (lastSpeaker && hit.id === lastSpeaker.id)) return { next: 'user', reason: 'the scene is waiting on you' };
     return { next: hit.id, reason: 'answering ' + ((lastSpeaker && lastSpeaker.name) || 'the last turn') };
+  };
+
+
+  /* ------------------------------------------------------------------ *
+   * character state — HP, MP, flags, counters, inventory
+   *
+   * A scene that cannot be wounded is a chat. Every room carries a sheet
+   * per character; the model reads the sheets in its prompt and writes to
+   * them with stage directions (see DIRECTIVES below), so "he takes the
+   * hit" and "hp 42/60" stop being two different conversations.
+   * ------------------------------------------------------------------ */
+
+  RP.STATE_PRESETS = {
+    story:  { name: 'Story — no numbers', hp: 0, mp: 0 },
+    stakes: { name: 'Stakes — HP only', hp: 100, mp: 0 },
+    rpg:    { name: 'RPG — HP and MP', hp: 100, mp: 50 },
+  };
+
+  /** A fresh sheet. `setup` overrides the start: { hpPct, mpPct, status,
+   *  flags: 'wounded, hunted', items: 'rope, lantern' }. */
+  RP.blankSheet = function (char, preset, setup) {
+    preset = RP.STATE_PRESETS[preset] || RP.STATE_PRESETS.rpg;
+    setup = setup || {};
+    var hpMax = Number(setup.hpMax || preset.hp || 0);
+    var mpMax = Number(setup.mpMax || preset.mp || 0);
+    var pct = function (v, max) {
+      var n = v === undefined || v === '' ? 100 : Number(v);
+      if (isNaN(n)) n = 100;
+      return Math.max(0, Math.min(max, Math.round((max * n) / 100)));
+    };
+    var sheet = {
+      id: char.id, name: char.name,
+      hp: hpMax ? { value: pct(setup.hpPct, hpMax), max: hpMax } : null,
+      mp: mpMax ? { value: pct(setup.mpPct, mpMax), max: mpMax } : null,
+      flags: {}, counters: {}, items: [],
+      status: clip(setup.status, 120),
+      present: setup.present === undefined ? true : Boolean(setup.present),
+    };
+    String(setup.flags || '').split(',').forEach(function (f) {
+      var key = slug(f); if (key) sheet.flags[key] = true;
+    });
+    String(setup.items || '').split(',').forEach(function (i) {
+      var item = clip(i, 40); if (item) sheet.items.push(item);
+    });
+    return sheet;
+  };
+
+  /** Every character in the room has a sheet, including anyone the model
+   *  has just walked into the scene. */
+  RP.ensureSheets = function (room, preset, setups) {
+    room.states = room.states || {};
+    room.statePreset = room.statePreset || preset || 'rpg';
+    (room.cast || []).forEach(function (c) {
+      if (!room.states[c.id]) room.states[c.id] = RP.blankSheet(c, room.statePreset, (setups || {})[c.id]);
+    });
+    return room.states;
+  };
+
+  RP.sheetFor = function (room, charId) {
+    return ((room && room.states) || {})[charId] || null;
+  };
+
+  function clampPool(pool) {
+    pool.value = Math.max(0, Math.min(pool.max, Math.round(pool.value)));
+    return pool;
+  }
+
+  /** Apply one change to one sheet. Returns a human line for the stream, or
+   *  '' when the change was refused (unknown field, dead number). */
+  RP.applyChange = function (sheet, change) {
+    if (!sheet || !change) return '';
+    var n = Number(change.value);
+    if (change.kind === 'hp' || change.kind === 'mp') {
+      var pool = sheet[change.kind];
+      if (!pool || isNaN(n)) return '';
+      var before = pool.value;
+      if (change.op === '+') pool.value += n;
+      else if (change.op === '-') pool.value -= n;
+      else pool.value = n;
+      clampPool(pool);
+      if (pool.value === before) return '';
+      var word = change.kind.toUpperCase();
+      return sheet.name + ' ' + (pool.value > before ? '+' : '−') + Math.abs(pool.value - before) + ' ' + word +
+        ' (' + pool.value + '/' + pool.max + ')' + (change.kind === 'hp' && pool.value === 0 ? ' — down' : '');
+    }
+    if (change.kind === 'flag') {
+      var key = slug(change.name);
+      if (!key) return '';
+      var on = !(change.value === false || /^(false|off|no|clear|0)$/i.test(String(change.value)));
+      if (on) sheet.flags[key] = true; else delete sheet.flags[key];
+      return sheet.name + (on ? ' is now ' : ' is no longer ') + String(change.name).replace(/_/g, ' ');
+    }
+    if (change.kind === 'counter') {
+      var ckey = slug(change.name);
+      if (!ckey || isNaN(n)) return '';
+      var cur = Number(sheet.counters[ckey] || 0);
+      sheet.counters[ckey] = change.op === '+' ? cur + n : change.op === '-' ? cur - n : n;
+      return sheet.name + ' — ' + String(change.name).replace(/_/g, ' ') + ': ' + sheet.counters[ckey];
+    }
+    if (change.kind === 'item') {
+      var item = clip(change.name, 40);
+      if (!item) return '';
+      var at = sheet.items.map(function (i) { return i.toLowerCase(); }).indexOf(item.toLowerCase());
+      if (change.op === '-') {
+        if (at < 0) return '';
+        sheet.items.splice(at, 1);
+        return sheet.name + ' loses ' + item;
+      }
+      if (at >= 0) return '';
+      sheet.items.push(item);
+      return sheet.name + ' picks up ' + item;
+    }
+    if (change.kind === 'status') {
+      sheet.status = clip(change.value, 120);
+      return sheet.name + ' — ' + sheet.status;
+    }
+    return '';
+  };
+
+  /** The sheets, as the model sees them. */
+  RP.stateBlock = function (room) {
+    var sheets = Object.keys((room && room.states) || {}).map(function (k) { return room.states[k]; })
+      .filter(function (s) { return s && s.present !== false; });
+    if (!sheets.length) return '';
+    return 'CHARACTER STATE — this is true right now, play it\n' + sheets.map(function (s) {
+      var bits = [];
+      if (s.hp) bits.push('HP ' + s.hp.value + '/' + s.hp.max + (s.hp.value === 0 ? ' (down)' : s.hp.value <= s.hp.max * 0.3 ? ' (badly hurt)' : ''));
+      if (s.mp) bits.push('MP ' + s.mp.value + '/' + s.mp.max);
+      var flags = Object.keys(s.flags || {});
+      if (flags.length) bits.push(flags.map(function (f) { return f.replace(/_/g, ' '); }).join(', '));
+      Object.keys(s.counters || {}).forEach(function (c) { bits.push(c.replace(/_/g, ' ') + ' ' + s.counters[c]); });
+      if ((s.items || []).length) bits.push('carrying ' + s.items.join(', '));
+      if (s.status) bits.push(s.status);
+      return '- ' + s.name + ': ' + (bits.join(' · ') || 'unharmed, nothing to declare');
+    }).join('\n');
+  };
+
+  /* ---- stage directions: how the model changes the world ---- */
+
+  RP.DIRECTIVES = [
+    'STAGE DIRECTIONS — you may change the scene, not just describe it',
+    'Put any of these on their own line, after your prose. They are stripped out before the reader sees them,',
+    'and the page applies them to the actual record. Use them when the fiction earns them — never more than four',
+    'in one turn, and never for something that did not happen in the turn you just wrote.',
+    '  [[HP: Name -12]]                 damage, healing (+), or an exact value (= 30)',
+    '  [[MP: Name -5]]                  spent or recovered power',
+    '  [[FLAG: Name wounded]]           set a condition · [[FLAG: Name wounded = false]] clears it',
+    '  [[COUNT: Name arrows -1]]        any counter you need',
+    '  [[ITEM: Name + the brass key]]   gained · [[ITEM: Name - the brass key]] lost',
+    '  [[STATUS: Name bleeding, one arm]]  a short physical note',
+    '  [[ENTER: Name — why they arrive]]   bring someone into the scene when the story calls for them',
+    '  [[EXIT: Name — why they leave]]     write someone out when they leave, fall, or flee',
+    'Only use ENTER for people the archive knows, or a clearly named newcomer. Never ENTER or EXIT the player.',
+  ].join('\n');
+
+  var DIRECTIVE_RE = /\[\[\s*(HP|MP|FLAG|COUNT|ITEM|STATUS|ENTER|EXIT)\s*:\s*([^\]]+?)\s*\]\]/gi;
+
+  /** Split "Lord Darian Marsh bleeding badly" into a character and the rest.
+   *  Names are matched longest-first against the people actually in the room,
+   *  because a two-word regex cannot know that "Lord Darian Marsh" is one
+   *  person and "Sans bleeding" is two things. */
+  RP.splitTarget = function (body, names) {
+    var text = String(body || '').trim();
+    var best = '';
+    (names || []).forEach(function (n) {
+      var name = String(n || '').trim();
+      if (!name || name.length <= best.length) return;
+      if (text.toLowerCase().indexOf(name.toLowerCase()) === 0) best = name;
+    });
+    // Strip separators but never a leading minus that belongs to a number:
+    // "Sans -12" is twelve damage, not a set-to-twelve.
+    if (best) return { name: best, rest: text.slice(best.length).replace(/^[\s:,]+|^[—–]\s*/g, '') };
+    var words = text.split(/\s+/);
+    return { name: words[0] || '', rest: words.slice(1).join(' ') };
+  };
+
+  /** Pull the stage directions out of a reply. The reader sees `clean`; the
+   *  page applies `directives`. Each one keeps its raw `body` so the names
+   *  can be re-split against the real cast when it is applied. */
+  RP.parseDirectives = function (text, names) {
+    var out = [], match;
+    DIRECTIVE_RE.lastIndex = 0;
+    while ((match = DIRECTIVE_RE.exec(String(text || '')))) {
+      var type = match[1].toUpperCase(), body = match[2].trim();
+      if (type === 'ENTER' || type === 'EXIT') {
+        var split = body.split(/\s+[—–]\s+|\s+-\s+|\s*:\s*|\s*\(\s*/);
+        out.push({ kind: type.toLowerCase(), body: body, name: clip(split[0], 60), reason: clip((split[1] || '').replace(/\)$/, ''), 140) });
+        continue;
+      }
+      var target = RP.splitTarget(body, names);
+      var rest = target.rest;
+      if (type === 'STATUS') {
+        if (rest) out.push({ kind: 'status', body: body, who: target.name, value: rest });
+        continue;
+      }
+      if (type === 'HP' || type === 'MP') {
+        var pool = /^([+\-=])?\s*(\d+)\s*$/.exec(rest);
+        if (pool) out.push({ kind: type.toLowerCase(), body: body, who: target.name, op: pool[1] || '=', value: Number(pool[2]) });
+        continue;
+      }
+      if (type === 'COUNT') {
+        var cnt = /^([a-z0-9_ ]+?)\s*([+\-=])\s*(\d+)\s*$/i.exec(rest);
+        if (cnt) out.push({ kind: 'counter', body: body, who: target.name, name: clip(cnt[1], 40), op: cnt[2], value: Number(cnt[3]) });
+        continue;
+      }
+      if (type === 'ITEM') {
+        var item = /^([+\-])\s*(.+)$/.exec(rest);
+        if (item) out.push({ kind: 'item', body: body, who: target.name, op: item[1], name: clip(item[2], 40) });
+        continue;
+      }
+      if (type === 'FLAG') {
+        var flag = /^([a-z0-9_ ]+?)(?:\s*=\s*(\S+))?\s*$/i.exec(rest);
+        if (flag) out.push({ kind: 'flag', body: body, who: target.name, name: clip(flag[1], 40), value: flag[2] === undefined ? true : flag[2] });
+      }
+    }
+    return { clean: String(text || '').replace(DIRECTIVE_RE, '').replace(/[ \t]+\n/g, '\n').replace(/\n{3,}/g, '\n\n').trim(), directives: out };
+  };
+
+  /** Apply the stage directions to the room. `resolve(name)` finds a
+   *  character in the wider archive so the model can walk somebody in. */
+  RP.applyDirectives = function (state, room, directives, resolve) {
+    RP.ensureSheets(room);
+    var lines = [], entered = [], exited = [];
+    function find(name) {
+      var want = String(name || '').toLowerCase().trim();
+      return (room.cast || []).filter(function (c) {
+        return c.name.toLowerCase() === want || c.name.toLowerCase().indexOf(want) >= 0 || want.indexOf(c.name.toLowerCase()) >= 0;
+      })[0];
+    }
+    var names = (room.cast || []).map(function (c) { return c.name; });
+    (directives || []).forEach(function (d) {
+      // Re-read the raw body now that the cast is known: "Lord Darian Marsh
+      // bleeding" is one person and a condition, not two words.
+      if (d.body && d.kind !== 'enter' && d.kind !== 'exit') {
+        var re = RP.splitTarget(d.body, names);
+        if (re.name && re.rest) {
+          var reparsed = RP.parseDirectives('[[' + d.kind.toUpperCase().replace('COUNTER', 'COUNT') + ': ' + d.body + ']]', names).directives[0];
+          if (reparsed) d = reparsed;
+        }
+      }
+      if (d.kind === 'enter') {
+        if (find(d.name)) return;
+        var found = (resolve && resolve(d.name)) || RP.normChar({ name: d.name, title: 'Walked into the scene', summary: d.reason });
+        room.cast.push(RP.normChar(found));
+        room.states[found.id] = RP.blankSheet(found, room.statePreset);
+        entered.push(found);
+        lines.push(found.name + ' enters — ' + (d.reason || 'the scene called for them'));
+        RP.logEvent(state, {
+          kind: 'roster', roomId: room.id, roomTitle: room.title, chars: [found.id],
+          text: found.name + ' entered the scene: ' + (d.reason || 'no reason filed'),
+        });
+        return;
+      }
+      if (d.kind === 'exit') {
+        var who = find(d.name);
+        if (!who || room.cast.length <= 1) return;
+        room.cast = room.cast.filter(function (c) { return c.id !== who.id; });
+        if (room.states[who.id]) room.states[who.id].present = false;
+        if (room.next === who.id) room.next = '';
+        exited.push(who);
+        lines.push(who.name + ' leaves — ' + (d.reason || 'gone'));
+        RP.logEvent(state, {
+          kind: 'roster', roomId: room.id, roomTitle: room.title, chars: [who.id],
+          text: who.name + ' left the scene: ' + (d.reason || 'no reason filed'),
+        });
+        return;
+      }
+      var target = find(d.who || d.name);
+      var sheet = target ? room.states[target.id] : null;
+      var line = RP.applyChange(sheet, d);
+      if (line) lines.push(line);
+    });
+    if (lines.length) room.updated = Date.now();
+    return { lines: lines, entered: entered, exited: exited };
+  };
+
+  /* ------------------------------------------------------------------ *
+   * hooks — the model writes the opener, from the actual lore
+   * ------------------------------------------------------------------ */
+
+  /** Everything the archive and your own play know about this scenario,
+   *  gathered for the hook writer. No summarising: raw filed material. */
+  RP.hookContext = function (state, scenario) {
+    var ids = (scenario.suggestedCast || []).map(function (c) { return c.id; });
+    var log = (state.log || []).filter(function (e) {
+      return (e.chars || []).some(function (id) { return ids.indexOf(id) >= 0; });
+    }).slice(-6).map(function (e) { return e.text; });
+    var memory = ids.map(function (id) {
+      var mem = (state.chars || []).filter(function (c) { return c.id === id; })[0];
+      if (!mem || !(mem.notes || []).length) return '';
+      return mem.name + ' remembers: ' + mem.notes.slice(-3).map(function (n) { return n.text; }).join(' / ');
+    }).filter(Boolean);
+    return { log: log, memory: memory };
+  };
+
+  /** The prompt that refuses a weak opener. Everything it is given is filed
+   *  material; everything it must not do is listed, because small local
+   *  models default to "You find yourself in a tavern" otherwise. */
+  RP.hookPrompt = function (scenario, ctx) {
+    ctx = ctx || {};
+    var cast = (scenario.suggestedCast || []).slice(0, 6);
+    return [
+      'You are the scene-setter for a roleplay session in the Waluipedia archive. Write the opening of ONE scene.',
+      '',
+      'THE BRANCH',
+      scenario.name,
+      scenario.premise || '',
+      '',
+      'THE FILED MATERIAL — use these specifics, do not restate them',
+      clip(scenario.brief, 2200),
+      '',
+      'THE PEOPLE IN IT',
+      cast.map(function (c) {
+        return '- ' + c.name + (c.title ? ' — ' + c.title : '') + (c.why ? ' (' + c.why + ')' : '') +
+          (c.summary ? '. ' + clip(c.summary, 220) : '');
+      }).join('\n'),
+      (scenario.beats || []).length ? '\nTHE SCRIPT THAT WILL FIRE LATER (do not spend it now)\n' +
+        scenario.beats.slice(0, 4).map(function (b) { return '- ' + b.beat; }).join('\n') : '',
+      (ctx.log || []).length ? '\nWHAT ALREADY HAPPENED IN THIS READER\u2019S OTHER CHATS\n- ' + ctx.log.join('\n- ') : '',
+      (ctx.memory || []).length ? '\nWHAT THESE CHARACTERS REMEMBER\n- ' + ctx.memory.join('\n- ') : '',
+      '',
+      'WRITE EXACTLY THIS, NOTHING ELSE:',
+      'TITLE: a specific, concrete title — a place, an object, a line of dialogue. Never a rhetorical question.',
+      'OPEN: 90 to 150 words. Present tense. Second person, addressed to the player. Begin INSIDE the moment —',
+      '  mid-action, mid-argument, mid-fall — with at least three specific filed details (a name, an object, a',
+      '  place, a number, a time) taken from the material above. End on something the player must answer RIGHT NOW.',
+      'STAKES: one sentence naming what is lost in the next few minutes if they get it wrong.',
+      '',
+      'BANNED: summarising what happened before; "you find yourself"; "little did you know"; "the air is thick";',
+      '"in a world where"; explaining the premise back to the reader; asking what the player would like to do;',
+      'any sentence that could open a different scene. If your opener would work for another scenario, it is wrong.',
+    ].filter(Boolean).join('\n');
+  };
+
+  /** Read the hook back. A model that ignores the format still gets used:
+   *  the whole reply becomes the opener rather than being thrown away. */
+  RP.parseHook = function (text, scenario) {
+    var raw = String(text || '').trim();
+    if (!raw) return null;
+    function grab(label, next) {
+      var re = new RegExp(label + '\\s*:\\s*([\\s\\S]*?)(?=\\n\\s*(?:' + next + ')\\s*:|$)', 'i');
+      var hit = re.exec(raw);
+      return hit ? hit[1].replace(/^\s+|\s+$/g, '') : '';
+    }
+    var title = clip(grab('TITLE', 'OPEN|STAKES').split('\n')[0], 110);
+    var open = grab('OPEN', 'STAKES|TITLE');
+    var stakes = clip(grab('STAKES', 'TITLE|OPEN').split('\n')[0], 240);
+    if (!open) open = raw.replace(/^(TITLE|STAKES)\s*:.*$/gim, '').trim();
+    if (!open) return null;
+    return {
+      title: title || (scenario ? scenario.name : ''),
+      open: clip(open, 1400),
+      stakes: stakes,
+      at: Date.now(),
+    };
+  };
+
+  /** Would this opener have worked for any other scene? Then it is generic.
+   *  Used to decide whether to keep a hook or ask again. */
+  RP.hookIsWeak = function (hook, scenario) {
+    if (!hook || !hook.open) return true;
+    var text = hook.open.toLowerCase();
+    if (text.length < 240) return true;
+    if (/you find yourself|little did you know|in a world where|the air is thick|what would you like to do|as you may recall/.test(text)) return true;
+    // At least two proper nouns out of the filed material have to survive.
+    var names = ((scenario.suggestedCast || []).map(function (c) { return c.name; })
+      .concat(String(scenario.brief || '').match(/\b[A-Z][a-z]{3,}\b/g) || [])).slice(0, 40);
+    var hits = 0, seen = {};
+    names.forEach(function (n) {
+      var key = n.toLowerCase();
+      if (seen[key] || key.length < 4) return;
+      seen[key] = 1;
+      if (text.indexOf(key) >= 0) hits++;
+    });
+    return hits < 2;
+  };
+
+  /** The opener used when there is no model, or it produced nothing usable.
+   *  Still in the moment, still specific — it is built from the hinge beat. */
+  RP.coldOpen = function (scenario) {
+    var beat = (scenario.beats || [])[0] || {};
+    var where = '';
+    var room = /\*\*The room\.\*\*\s*([^\n]+)/.exec(scenario.brief || '');
+    if (room) where = clip(room[1], 160);
+    var who = (scenario.suggestedCast || []).slice(0, 3).map(function (c) { return c.name; });
+    return [
+      (beat.time ? beat.time.charAt(0).toUpperCase() + beat.time.slice(1) + '. ' : '') + (where || ''),
+      beat.detail || scenario.premise,
+      who.length ? who.join(', ') + ' ' + (who.length > 1 ? 'are' : 'is') + ' already here, and none of them are waiting for you to catch up.' : '',
+      'It is happening now. What do you do?',
+    ].filter(Boolean).join('\n\n');
+  };
+
+  /* ------------------------------------------------------------------ *
+   * backfills — the lore that was never written down
+   * ------------------------------------------------------------------ */
+
+  /** Events that filings point at and nobody ever wrote: the off-screen
+   *  battles, the airlift that never came, the session between sessions.
+   *  Ranked by demand (how many records are waiting) and by use (how many
+   *  times this reader has already played one). */
+  RP.backfillsFrom = function (archive, castById, state, limit) {
+    // Anything with a record of its own — an event, a person, a body — is
+    // not a hole. Only ids that nothing answers to are backfills.
+    var have = {}, demand = {};
+    // knownIds covers every filed record, including the ones outside the
+    // window of events we actually carry — otherwise a filing that exists
+    // but is off the end of the list reads as a hole.
+    (archive.knownIds || []).forEach(function (id) { have[slug(id)] = true; });
+    (archive.events || []).forEach(function (e) { have[slug(e.id)] = e; have[slug(e.name)] = e; });
+    (archive.factions || []).forEach(function (f) { have[slug(f.id)] = f; have[slug(f.name)] = f; });
+    Object.keys(castById || {}).forEach(function (k) {
+      have[k] = castById[k]; have[slug(castById[k].name)] = castById[k];
+    });
+    function want(id, from, role) {
+      var key = slug(id);
+      if (!key || have[key]) return;
+      var entry = demand[key] || (demand[key] = { id: key, name: RP.prettyId(key), count: 0, from: [], chars: [] });
+      entry.count++;
+      if (entry.from.length < 6) entry.from.push({ name: from.name, summary: from.summary, kind: role, id: from.id });
+      (from.participants || []).forEach(function (p) {
+        var c = (castById || {})[slug(p && p.id)];
+        if (c && entry.chars.length < 6 && !entry.chars.some(function (x) { return x.id === c.id; })) {
+          entry.chars.push(Object.assign({}, c, { why: whyFor(p.role) }));
+        }
+      });
+    }
+    // keyEvents only: that list means "a filed occurrence", which is what a
+    // backfill is. relatedArticles points at anything at all — locations,
+    // items, laws — and scanning it turns the board into noise.
+    (archive.events || []).forEach(function (e) {
+      (e.keyEvents || []).forEach(function (id) { want(id, e, 'event'); });
+    });
+    Object.keys(castById || {}).forEach(function (k) {
+      var c = castById[k];
+      (c.keyEvents || []).forEach(function (id) {
+        want(id, { id: c.id, name: c.name, summary: c.summary, participants: [{ id: c.id, name: c.name, role: 'was there' }] }, 'character');
+      });
+    });
+    (archive.factions || []).forEach(function (f) {
+      (f.keyEvents || []).forEach(function (id) { want(id, f, 'faction'); });
+    });
+    var uses = (state && state.backfillUses) || {};
+    return Object.keys(demand).map(function (k) { return demand[k]; })
+      .filter(function (d) { return d.count >= 2 && d.chars.length >= 1; })
+      .map(function (d) { d.uses = Number(uses[d.id] || 0); return d; })
+      .sort(function (a, b) { return (b.uses - a.uses) || (b.count - a.count); })
+      .slice(0, limit || 10);
+  };
+
+  RP.whatIfFromBackfill = function (gap, castById) {
+    if (!gap || !gap.from.length) return null;
+    var cast = gap.chars.slice(0, 6);
+    if (cast.length < 2) {
+      // One name is enough to file a report, not enough to play a scene.
+      (gap.from || []).forEach(function (f) {
+        var c = (castById || {})[slug(f.id)];
+        if (c && cast.length < 4 && !cast.some(function (x) { return x.id === c.id; })) {
+          cast.push(Object.assign({}, c, { why: 'filed the record that points here' }));
+        }
+      });
+    }
+    var beats = gap.from.slice(0, 3).map(function (f) {
+      return {
+        time: 'referenced',
+        beat: clip(f.name + ' points at it', 140),
+        detail: clip(f.summary, 420),
+      };
+    }).concat(RP.beatsFromProse(gap.from.map(function (f) { return f.summary; }).join('\n\n'), 3, 'the gap'));
+    return scenario({
+      id: 'backfill:' + gap.id,
+      kind: 'backfill', kindLabel: 'Backfill',
+      name: gap.name,
+      premise: gap.name + ' is referenced by ' + gap.count + ' filed record' + (gap.count === 1 ? '' : 's') +
+        ' and has never been written. This scene is the missing filing: it happened, everyone downstream behaves as though it happened, and no account of it exists.',
+      tags: ['backfill', 'unwritten'],
+      weight: 2 + Math.min(3, gap.count / 2),
+      source: 'backfill → ' + gap.id,
+      cast: cast,
+      beats: beats.slice(0, 7),
+      questions: [
+        'What actually happened here, in order?',
+        'Who walked away from it, and in what condition?',
+        'Which of the later filings is wrong about it?',
+      ],
+      briefParts: [
+        '**The hole.** ' + gap.name + ' is pointed at ' + gap.count + ' times and written nowhere. ' +
+          'The archive treats it as settled — later filings refer back to it, characters carry its consequences — ' +
+          'but there is no account of the hours themselves.',
+        '**What points at it.**\n' + gap.from.slice(0, 4).map(function (f) {
+          return '- *' + f.name + '* (' + f.kind + '). ' + clip(f.summary, 260);
+        }).join('\n'),
+        cast.length ? '**Who was there, according to the records that mention it.**\n' + cast.map(castLine).join('\n') : '',
+        '**How this runs.** Play it as the session that was never filed. The beats are the references that depend ' +
+          'on it, so the scene has to arrive at what the archive already believes — the how, the cost and the order ' +
+          'are yours. Export the transcript afterwards and the gap has a first-hand account.',
+        '**What is at stake.** ' + gap.count + ' filings currently rest on an event nobody has ever described. ' +
+          'Whatever happens here is what the archive will have to live with.',
+      ],
+    });
+  };
+
+  RP.noteBackfillUse = function (state, id) {
+    state.backfillUses = state.backfillUses || {};
+    var key = String(id || '').replace(/^backfill:/, '');
+    state.backfillUses[key] = Number(state.backfillUses[key] || 0) + 1;
+    return state.backfillUses[key];
+  };
+
+  /* ------------------------------------------------------------------ *
+   * sequels — carry a played scene forward
+   * ------------------------------------------------------------------ */
+
+  /** A sequel keeps the cast, the sheets and the memory, and opens on the
+   *  unfinished business rather than on a recap. */
+  RP.sequelFrom = function (room, state, opts) {
+    opts = opts || {};
+    var turns = (room.messages || []).filter(visible);
+    var tail = turns.slice(-6).map(function (m) {
+      var who = m.role === 'user' ? ((state.user && state.user.name) || 'You')
+        : ((room.cast || []).filter(function (c) { return c.id === m.charId; })[0] || {}).name || 'Someone';
+      return '- **' + who + ':** ' + clip(RP.textOf(m), 220);
+    });
+    var pinned = (room.messages || []).filter(function (m) { return m.pinned; }).slice(-4)
+      .map(function (m) { return '- ' + clip(RP.textOf(m), 220); });
+    var unfired = (room.beats || []).slice(room.beatIndex || 0);
+    var sheets = Object.keys(room.states || {}).map(function (k) { return room.states[k]; })
+      .filter(function (s) { return s.present !== false; });
+    var beats = unfired.length ? unfired.slice(0, 6) : [
+      { time: 'straight away', beat: 'The consequence arrives', detail: 'Whatever was left hanging at the end of ' + (room.sceneName || room.title) + ' catches up with the people who left it hanging.' },
+      { time: 'soon after', beat: 'Someone acts on what they learned', detail: 'One of the people in that room has had time to think, and they move first.' },
+      { time: 'later', beat: 'The bill', detail: 'The cost of the previous scene is presented to whoever is standing closest.' },
+    ];
+    return scenario({
+      id: 'sequel:' + room.id + ':' + ((room.sequelCount || 0) + 1),
+      kind: 'sequel', kindLabel: 'Sequel',
+      name: clip(opts.title || ('After ' + (room.sceneName || room.title)), 110),
+      premise: opts.premise || ('Picks up where ' + (room.sceneName || room.title) + ' stopped — same people, same wounds, ' +
+        'and whatever they left unfinished. Nothing is recapped; the scene starts already moving.'),
+      image: room.sceneImage,
+      tags: ['sequel'],
+      weight: 4,
+      source: 'sequel of ' + (room.sceneName || room.title),
+      cast: (room.cast || []).map(function (c) { return Object.assign({}, c, { why: 'was in the previous scene' }); }),
+      beats: beats,
+      questions: [
+        'What did the last scene leave unpaid?',
+        'Who has changed their mind since?',
+      ],
+      briefParts: [
+        '**Previously.** ' + clip(room.scene || room.sceneName || room.title, 600),
+        tail.length ? '**How it ended.**\n' + tail.join('\n') : '',
+        pinned.length ? '**What was pinned as it happened.**\n' + pinned.join('\n') : '',
+        sheets.length ? '**The state everyone is carrying in.**\n' + sheets.map(function (s) {
+          var bits = [];
+          if (s.hp) bits.push('HP ' + s.hp.value + '/' + s.hp.max);
+          if (s.mp) bits.push('MP ' + s.mp.value + '/' + s.mp.max);
+          var flags = Object.keys(s.flags || {});
+          if (flags.length) bits.push(flags.join(', ').replace(/_/g, ' '));
+          if ((s.items || []).length) bits.push('carrying ' + s.items.join(', '));
+          if (s.status) bits.push(s.status);
+          return '- ' + s.name + ': ' + (bits.join(' · ') || 'unmarked');
+        }).join('\n') : '',
+        unfired.length ? '**Beats that never fired last time.** ' + unfired.length + ' of them, and they fire here instead.' : '',
+        '**How it opens.** In the middle. The sequel does not summarise the previous scene — the people in it already ' +
+          'lived through that, and so did you.',
+      ],
+      states: room.states,
+    });
   };
 
   /* ------------------------------------------------------------------ *
@@ -1461,6 +2055,11 @@
     if (lore) parts.push(lore);
     var memory = RP.memoryBlock(state, room.cast, room);
     if (memory) parts.push(memory);
+    if (room.mechanics !== 'off') {
+      var sheets = RP.stateBlock(room);
+      if (sheets) parts.push(sheets);
+      parts.push(RP.DIRECTIVES);
+    }
     return parts.join('\n\n');
   };
 
@@ -1569,6 +2168,8 @@
       version: 1,
       user: { name: 'Archivist', handle: 'waluipedia', persona: '', avatar: '' },
       rooms: [], chars: [], lore: [], log: [], scenarios: [], active: '',
+      hooks: {},           // scenario id -> the opener the model wrote
+      backfillUses: {},    // backfill id -> how many times it has been played
       usedPosts: {},   // wire post id -> where it was played
       settings: {
         style: 'novel', voice: 'off', temperature: 0.85, endpoint: '',
@@ -1591,6 +2192,8 @@
         });
         if (typeof value.active === 'string') state.active = value.active;
         if (value.usedPosts && typeof value.usedPosts === 'object') state.usedPosts = value.usedPosts;
+        if (value.hooks && typeof value.hooks === 'object') state.hooks = value.hooks;
+        if (value.backfillUses && typeof value.backfillUses === 'object') state.backfillUses = value.backfillUses;
         if (value.user && typeof value.user === 'object') state.user = Object.assign(state.user, value.user);
         if (value.settings && typeof value.settings === 'object') state.settings = Object.assign(state.settings, value.settings);
       }
@@ -1608,6 +2211,8 @@
       user: state.user, settings: state.settings, active: state.active,
       rooms: rooms, chars: state.chars || [], lore: state.lore || [], log: (state.log || []).slice(-400),
       usedPosts: state.usedPosts || {},
+      hooks: state.hooks || {},
+      backfillUses: state.backfillUses || {},
       scenarios: (state.scenarios || []).slice(0, 30),
     };
     try {
@@ -1650,6 +2255,8 @@
       bundle.chars = state.chars || [];
       bundle.log = state.log || [];
       bundle.usedPosts = state.usedPosts || {};
+      bundle.backfillUses = state.backfillUses || {};
+      bundle.hooks = state.hooks || {};
     }
     return bundle;
   };
@@ -1716,6 +2323,12 @@
       state.log = mergeById(state.log || [], data.log, function (a, b) { return b; })
         .sort(function (a, b) { return (a.at || 0) - (b.at || 0); }).slice(-400);
       stats.log = state.log.length - (replace ? 0 : logBefore);
+    }
+    if (data.hooks && typeof data.hooks === 'object') {
+      state.hooks = replace ? data.hooks : Object.assign({}, state.hooks || {}, data.hooks);
+    }
+    if (data.backfillUses && typeof data.backfillUses === 'object') {
+      state.backfillUses = replace ? data.backfillUses : Object.assign({}, state.backfillUses || {}, data.backfillUses);
     }
     if (data.usedPosts && typeof data.usedPosts === 'object') {
       state.usedPosts = replace ? data.usedPosts : Object.assign({}, state.usedPosts || {}, data.usedPosts);

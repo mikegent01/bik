@@ -315,6 +315,143 @@ check('play: a scenario hands the room a scene, a name and its beats', (() => {
     built.messages[0].role === 'scene' && built.scene.includes('What actually happened');
 })());
 
+// ---------- character state: sheets, directives, roster ----------
+const fight = RP.newRoom([sans, cutters], {
+  statePreset: 'rpg',
+  setup: { sans: { hpPct: 50, flags: 'wounded, hunted', items: 'brass key', status: 'one arm useless' } },
+});
+check('state: a scenario can start someone at half health, wounded and carrying',
+  fight.states.sans.hp.value === 50 && fight.states.sans.hp.max === 100 &&
+  fight.states.sans.flags.wounded && fight.states.sans.flags.hunted &&
+  fight.states.sans.items[0] === 'brass key' && fight.states.sans.status === 'one arm useless');
+check('state: everyone else starts whole', fight.states.timber_gang.hp.value === 100 && fight.states.timber_gang.mp.value === 50);
+check('state: the story preset carries no numbers at all', (() => {
+  const quiet = RP.newRoom([sans, cutters], { statePreset: 'story' });
+  return !quiet.states.sans.hp && !quiet.states.sans.mp;
+})());
+
+const names = fight.cast.map(c => c.name);
+const staged = RP.parseDirectives(
+  'The saw comes down and he does not get his arm clear in time.\n' +
+  '[[HP: Sans -35]]\n[[MP: Sans -10]]\n[[FLAG: Sans bleeding]]\n[[FLAG: Sans hunted = false]]\n' +
+  '[[COUNT: The Timber Gang saws -1]]\n[[ITEM: The Timber Gang + the broken blade]]\n' +
+  '[[STATUS: The Timber Gang blood to the elbow]]\n[[ENTER: The Rebel Scout — comes out of the treeline]]', names);
+check('directives: the stage directions are stripped from what the reader sees',
+  staged.clean === 'The saw comes down and he does not get his arm clear in time.' && staged.directives.length === 8);
+check('directives: a multi-word name is one character, not two words',
+  staged.directives.some(d => d.kind === 'counter' && d.who === 'The Timber Gang' && d.name === 'saws'));
+const applied = RP.applyDirectives(state, fight, staged.directives, () => rebel);
+check('state: damage subtracts rather than sets', fight.states.sans.hp.value === 15);
+check('state: spending power is tracked too', fight.states.sans.mp.value === 40);
+check('state: a flag can be set and another cleared in the same turn',
+  fight.states.sans.flags.bleeding === true && fight.states.sans.flags.hunted === undefined);
+check('state: counters, inventory and physical notes all land',
+  fight.states.timber_gang.counters.saws === -1 &&
+  fight.states.timber_gang.items[0] === 'the broken blade' &&
+  fight.states.timber_gang.status === 'blood to the elbow');
+check('roster: the model can walk a character into the scene',
+  fight.cast.some(c => c.id === 'rebel_scout') && fight.states.rebel_scout &&
+  applied.entered.length === 1 && state.log.some(e => e.kind === 'roster'));
+check('state: every change is reported to the reader as a line',
+  applied.lines.length >= 6 && applied.lines[0].includes('Sans') && applied.lines[0].includes('15/100'));
+const out = RP.applyDirectives(state, fight, RP.parseDirectives('[[EXIT: The Timber Gang — carried off the ridge]]', fight.cast.map(c => c.name)).directives, () => null);
+check('roster: the model can write a character out again',
+  out.exited.length === 1 && !fight.cast.some(c => c.id === 'timber_gang') && fight.states.timber_gang.present === false);
+check('state: the prompt tells the model exactly what is true right now', (() => {
+  const block = RP.stateBlock(fight);
+  return block.includes('HP 15/100 (badly hurt)') && block.includes('bleeding') && !block.includes('The Timber Gang');
+})());
+check('state: the rules for changing it are in the system prompt', (() => {
+  const system = RP.systemFor(state, fight, sans);
+  return system.includes('CHARACTER STATE') && system.includes('[[HP: Name -12]]') && system.includes('[[ENTER:');
+})());
+check('state: mechanics can be switched off entirely', (() => {
+  const quiet = RP.newRoom([sans, cutters], { mechanics: 'off' });
+  return !RP.systemFor(state, quiet, sans).includes('STAGE DIRECTIONS');
+})());
+check('state: a hit that would kill floors at zero, not below',
+  RP.applyChange(fight.states.sans, { kind: 'hp', op: '-', value: 500 }).includes('down') && fight.states.sans.hp.value === 0);
+check('state: sheets survive a save and load', (() => {
+  state.rooms = [fight];
+  RP.saveState(store, state);
+  const round = RP.loadState(store);
+  return round.rooms[0].states.sans.hp.value === 0 && round.rooms[0].states.sans.flags.bleeding;
+})());
+
+// ---------- hooks: strong openers, weak ones rejected ----------
+const hookScenario = board.find(s => s.kind === 'divergence') || board[0];
+const hookSystem = RP.hookPrompt(hookScenario, RP.hookContext(state, hookScenario));
+check('hook: the prompt hands over the filed material and the cast',
+  hookSystem.includes(hookScenario.name) && hookSystem.includes('THE FILED MATERIAL') && hookSystem.includes('THE PEOPLE IN IT'));
+check('hook: the prompt bans the generic openers by name',
+  /you find yourself/i.test(hookSystem) && /BANNED/.test(hookSystem) && /second person/i.test(hookSystem));
+check('hook: it demands a title, an opener and the stakes',
+  /TITLE:/.test(hookSystem) && /OPEN:/.test(hookSystem) && /STAKES:/.test(hookSystem));
+const goodHook = RP.parseHook([
+  'TITLE: The Saws Stop On The Ridge Road',
+  'OPEN: ' + 'Sans has the road in his sights and The Timber Gang are still cutting, forty feet up the ridge, ' +
+    'because nobody told them the treeline moved. The rain is doing what it does every autumn to the logging road. ' +
+    'You are close enough to hear the second saw bite and close enough to be blamed for what happens next. ' +
+    'Somebody has to shout, and there are about four seconds left in which shouting still helps anyone.',
+  'STAKES: If the crews keep cutting, the concession loses the season and somebody loses an arm.',
+].join('\n'), hookScenario);
+check('hook: a well-formed answer parses into title, opener and stakes',
+  goodHook.title.includes('Saws Stop') && goodHook.open.includes('treeline') && goodHook.stakes.includes('concession'));
+check('hook: a strong, specific opener is accepted', !RP.hookIsWeak(goodHook, { suggestedCast: [sans, cutters], brief: 'ridge road' }));
+check('hook: "you find yourself" is rejected on sight',
+  RP.hookIsWeak(RP.parseHook('OPEN: You find yourself in a place where things are happening and the air is thick with tension and possibility, and you wonder what you should do about any of it, as one does in these moments of quiet before something begins.', hookScenario), hookScenario));
+check('hook: an opener with none of the filed names in it is rejected',
+  RP.hookIsWeak(RP.parseHook('OPEN: ' + 'The door opens. Somebody walks through it carrying something heavy, and the room goes quiet in the way rooms do. '.repeat(4), hookScenario), hookScenario));
+check('hook: an unformatted reply is used rather than thrown away',
+  RP.parseHook('Just prose, no labels at all, but usable prose.', hookScenario).open.startsWith('Just prose'));
+check('hook: with no model at all the cold open is still in the moment', (() => {
+  const cold = RP.coldOpen(hookScenario);
+  return cold.length > 120 && /What do you do\?$/.test(cold.trim());
+})());
+
+// ---------- backfills ----------
+const backfillArchive = {
+  events: [
+    { id: 'the_ridge_ambush', name: 'The Logging Road Ambush', summary: archive.events[0].summary, keyEvents: ['the_vigilance_crisis', 'the_second_summit'], participants: archive.events[0].participants },
+    { id: 'the_audit', name: 'The Midnight Audit', summary: 'The audit that everyone dates from, which refers back to the Vigilance Crisis twice on its first page.', keyEvents: ['the_vigilance_crisis'], participants: [{ id: 'sans', name: 'Sans', role: 'signed it' }] },
+  ],
+  factions: [{ id: 'crew', name: 'The Crew', summary: 'A body that lists the crisis among its key events.', keyEvents: ['the_vigilance_crisis'] }],
+  knownIds: ['the_ridge_ambush', 'the_audit'],
+};
+const gapsFound = RP.backfillsFrom(backfillArchive, seatCast, state, 5);
+check('backfill: events everything points at and nobody wrote are found',
+  gapsFound.length === 1 && gapsFound[0].id === 'the_vigilance_crisis' && gapsFound[0].count === 3);
+check('backfill: filed records are never mistaken for holes',
+  !gapsFound.some(g => g.id === 'the_ridge_ambush' || g.id === 'the_audit'));
+const backfill = RP.whatIfFromBackfill(gapsFound[0], seatCast);
+check('backfill: the hole becomes a full scenario with a brief and a script',
+  backfill.kind === 'backfill' && backfill.brief.includes('The hole') && backfill.beats.length >= 3 &&
+  RP.scenarioQuality(backfill) > 0);
+check('backfill: "most used" counts the times this reader has played one', (() => {
+  RP.noteBackfillUse(state, 'backfill:the_vigilance_crisis');
+  RP.noteBackfillUse(state, 'backfill:the_vigilance_crisis');
+  const ranked = RP.backfillsFrom(backfillArchive, seatCast, state, 5);
+  return state.backfillUses.the_vigilance_crisis === 2 && ranked[0].uses === 2;
+})());
+
+// ---------- sequels ----------
+const played = RP.newRoom([sans, cutters], { sceneName: 'The Saws Stop', scene: 'The ridge road, at first light.', beats: turned.beats });
+RP.ensureSheets(played);
+played.states.sans.hp.value = 40;
+played.states.sans.flags.bleeding = true;
+played.messages.push({ id: 'p1', role: 'user', text: 'I take the long way round the stumps.', at: 1 });
+played.messages.push({ id: 'p2', role: 'char', charId: 'sans', text: 'nobody uses that path twice.', at: 2, pinned: true });
+const sequel = RP.sequelFrom(played, state, {});
+check('sequel: it opens on the unfinished business, not on a recap',
+  sequel.kind === 'sequel' && sequel.brief.includes('How it ended') && sequel.brief.includes('long way round'));
+check('sequel: the wounds come with you', sequel.brief.includes('HP 40/100') && sequel.brief.includes('bleeding') && sequel.states.sans.hp.value === 40);
+check('sequel: pinned lines are carried in as what mattered', sequel.brief.includes('nobody uses that path twice'));
+check('sequel: beats that never fired fire here instead', sequel.beats.length >= 3);
+check('sequel: opening it starts a room already in that state', (() => {
+  const next = RP.newRoom(sequel.suggestedCast, RP.scenarioRoomOpts(sequel));
+  return next.states.sans.hp.value === 40 && next.states.sans.flags.bleeding === true;
+})());
+
 // ---------- generated pages are in sync with these sources ----------
 let built = true;
 try {
