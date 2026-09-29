@@ -433,6 +433,10 @@ def archive_bundle() -> dict[str, Any]:
             "summary": _clip(record.get("summary"), 700),
             "outcome": _clip(record.get("outcome"), 600),
             "description": str(record.get("description") or "")[:2400],
+            # Continuations pick a saga up where it stops, so they need how it
+            # ended and what it left behind.
+            "aftermath": str(record.get("aftermath") or "")[:1600],
+            "notableFeatures": str(record.get("notableFeatures") or "")[:800],
             "era": _clip(record.get("era"), 60),
             "type": _clip(record.get("type"), 60),
             "date": _clip(record.get("date"), 90),

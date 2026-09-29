@@ -291,6 +291,7 @@
       states: {},
       mechanics: opts.mechanics === undefined ? 'on' : opts.mechanics,
       sequelOf: String(opts.sequelOf || ''),
+      canon: String(opts.canon || ''),
       sequelCount: 0,
       next: '',
       created: Date.now(),
@@ -1051,6 +1052,9 @@
     RP.sortPosts(archive.posts || [], 'loudest').slice(0, 12).forEach(function (p) {
       out.push(RP.whatIfFromPost(p, castById));
     });
+    RP.sagasFrom(archive.events).slice(0, 8).forEach(function (saga) {
+      out.push(RP.whatIfFromContinuation(saga, castById));
+    });
 
     var scored = out.filter(Boolean).map(function (s) { return { s: s, q: RP.scenarioQuality(s) }; })
       .filter(function (x) { return x.q > 0; })
@@ -1214,6 +1218,7 @@
       setup: s.setup || {},
       statePreset: s.statePreset || 'rpg',
       sequelOf: s.sequelOf || '',
+      canon: s.kind === 'continuation' ? 'continuation' : '',
     };
   };
 
@@ -1448,11 +1453,13 @@
     '  [[ITEM: Name + the brass key]]   gained · [[ITEM: Name - the brass key]] lost',
     '  [[STATUS: Name bleeding, one arm]]  a short physical note',
     '  [[ENTER: Name — why they arrive]]   bring someone into the scene when the story calls for them',
+    '  [[NEW: Name | what they are here for | what they look like]]  invent someone the archive has never filed.',
+    '      Nobody has drawn them, so the description is the portrait: face, build, clothing, one memorable detail.',
     '  [[EXIT: Name — why they leave]]     write someone out when they leave, fall, or flee',
     'Only use ENTER for people the archive knows, or a clearly named newcomer. Never ENTER or EXIT the player.',
   ].join('\n');
 
-  var DIRECTIVE_RE = /\[\[\s*(HP|MP|FLAG|COUNT|ITEM|STATUS|ENTER|EXIT)\s*:\s*([^\]]+?)\s*\]\]/gi;
+  var DIRECTIVE_RE = /\[\[\s*(HP|MP|FLAG|COUNT|ITEM|STATUS|ENTER|EXIT|NEW)\s*:\s*([^\]]+?)\s*\]\]/gi;
 
   /** Split "Lord Darian Marsh bleeding badly" into a character and the rest.
    *  Names are matched longest-first against the people actually in the room,
@@ -1481,6 +1488,19 @@
     DIRECTIVE_RE.lastIndex = 0;
     while ((match = DIRECTIVE_RE.exec(String(text || '')))) {
       var type = match[1].toUpperCase(), body = match[2].trim();
+      if (type === 'NEW') {
+        // Name | role | what they look like. The archive has no portrait for
+        // them, so the look IS the portrait.
+        var bits = body.split('|');
+        var name = clip(bits[0], 60);
+        if (name) {
+          out.push({
+            kind: 'new', body: body, name: name,
+            role: clip(bits[1], 120), look: clip(bits.slice(2).join('|'), 300),
+          });
+        }
+        continue;
+      }
       if (type === 'ENTER' || type === 'EXIT') {
         var split = body.split(/\s+[—–]\s+|\s+-\s+|\s*:\s*|\s*\(\s*/);
         out.push({ kind: type.toLowerCase(), body: body, name: clip(split[0], 60), reason: clip((split[1] || '').replace(/\)$/, ''), 140) });
@@ -1528,6 +1548,30 @@
     }
     var names = (room.cast || []).map(function (c) { return c.name; });
     (directives || []).forEach(function (d) {
+      if (d.kind === 'new') {
+        if (find(d.name)) return;
+        var made = RP.normChar({
+          id: 'new_' + slug(d.name),
+          name: d.name,
+          title: d.role || 'Invented in play',
+          summary: [d.role, d.look].filter(Boolean).join(' — '),
+          handle: (state.user && state.user.handle) || 'waluipedia',
+        });
+        made.look = d.look;          // no portrait exists; the words are it
+        made.invented = true;
+        room.cast.push(made);
+        room.states[made.id] = RP.blankSheet(made, room.statePreset);
+        state.newChars = (state.newChars || []).filter(function (c) { return c.id !== made.id; });
+        state.newChars.unshift(made);
+        state.newChars = state.newChars.slice(0, 80);
+        entered.push(made);
+        lines.push('New character — ' + made.name + (d.role ? ', ' + d.role : ''));
+        RP.logEvent(state, {
+          kind: 'roster', roomId: room.id, roomTitle: room.title, chars: [made.id],
+          text: made.name + ' was invented in play: ' + clip(made.summary, 200),
+        });
+        return;
+      }
       // Re-read the raw body now that the cast is known: "Lord Darian Marsh
       // bleeding" is one person and a condition, not two words.
       if (d.body && d.kind !== 'enter' && d.kind !== 'exit') {
@@ -1868,6 +1912,225 @@
     });
   };
 
+
+  /* ------------------------------------------------------------------ *
+   * continuations — pick the record up where it stops
+   *
+   * A backfill writes a hole in the past. A sequel continues a chat you
+   * played. A continuation continues the ARCHIVE: the last filed event of
+   * a saga, carried forward into hours nobody has filed yet, where the
+   * model is expected to invent — new faces, new places, new trouble —
+   * without contradicting anything already on the record.
+   * ------------------------------------------------------------------ */
+
+  /** Group the filed events into sagas. An era line ("1040 BF — Mario
+   *  disappearance file") is the archive's own idea of a storyline, so it is
+   *  the grouping; events keep their filed order, and the last one is where
+   *  the record currently stops. */
+  RP.sagasFrom = function (events) {
+    var byEra = {};
+    (events || []).forEach(function (e, i) {
+      if (!e || !e.name) return;
+      var era = clip(e.era || e.type || 'Unfiled', 80);
+      (byEra[era] = byEra[era] || []).push(Object.assign({ order: i }, e));
+    });
+    return Object.keys(byEra).map(function (era) {
+      var list = byEra[era];
+      return { era: era, events: list, head: list[list.length - 1], length: list.length };
+    }).filter(function (saga) {
+      return saga.head && (saga.head.summary || '').length > 80;
+    }).sort(function (a, b) { return b.head.order - a.head.order; });
+  };
+
+  RP.whatIfFromContinuation = function (saga, castById) {
+    var head = saga.head;
+    if (!head) return null;
+    var entries = ((head.timeline || {}).entries || []);
+    var closing = entries.slice(-3);
+    var cast = (head.participants || []).slice(0, 6).map(function (p) {
+      var c = (castById || {})[slug(p.id)] || (castById || {})[slug(p.name)];
+      return c ? Object.assign({}, c, { why: whyFor(p.role) }) : null;
+    }).filter(Boolean);
+    if (cast.length < 2) return null;
+    var prior = saga.events.slice(-4, -1);
+    // Forward beats: the record has stopped, so these are pressures rather
+    // than filed facts. They fire on the usual schedule and push the scene
+    // somewhere new instead of replaying what is already written.
+    var beats = [
+      { time: 'the first hour', beat: 'Nobody has filed this yet',
+        detail: 'The last thing on the record is: ' + clip((closing[closing.length - 1] || {}).beat || head.outcome || head.summary, 200) +
+          ' Everything from here is unwritten. Play the next hour as it happens.' },
+      { time: 'word travels', beat: 'Someone who was not there hears about it',
+        detail: 'A person or a body with a stake in ' + clip(head.name, 60) + ' learns what happened, and they do not wait for the archive to confirm it.' },
+      { time: 'the new face', beat: 'Somebody the record has never named walks in',
+        detail: 'Introduce a character who has never been filed — give them a name, a face, a reason to be here and something they want. They stay in the scene afterwards.' },
+      { time: 'the cost', beat: 'The consequence arrives on the wrong person',
+        detail: 'What the last filing set in motion lands, and it lands on whoever can least afford it.' },
+      { time: 'the turn', beat: 'The saga moves somewhere the record cannot follow',
+        detail: 'Something changes that the archive will have to write a new filing about: a place, an allegiance, a body count, a secret said out loud.' },
+    ];
+    return scenario({
+      id: 'continue:' + (head.id || slug(head.name)),
+      kind: 'continuation', kindLabel: 'Continue the saga',
+      name: 'Continue — ' + clip(saga.era.replace(/^\d+\s*BF\s*—\s*/, ''), 60) + ': after ' + clip(head.name, 50),
+      premise: 'The record stops at ' + clip(head.name, 70) + (head.date ? ' (' + clip(head.date, 40) + ')' : '') +
+        '. This picks the saga up in the minutes after the last filed line and keeps going into hours nobody has written — ' +
+        'new people, new places, new trouble, all of it consistent with what is already filed.',
+      image: head.image || '',
+      date: clip(head.date, 70),
+      tags: ['continuation', clip(saga.era, 30)].concat(head.type ? [clip(head.type, 24)] : []),
+      weight: 4 + Math.min(2, saga.length / 3),
+      source: 'events.json → ' + head.id + ' (saga of ' + saga.length + ')',
+      cast: cast,
+      beats: beats,
+      questions: [
+        'What does the archive have to file about this afterwards?',
+        'Who arrives that nobody has written down yet?',
+        'What does the saga cost next?',
+      ],
+      briefParts: [
+        '**Where the record stops.** ' + clip(head.summary, 700),
+        head.outcome ? '**How the last filing ended.** ' + clip(head.outcome, 600) : '',
+        head.aftermath ? '**What it left behind.** ' + clip(String(head.aftermath).replace(/[*#>]/g, ''), 700) : '',
+        closing.length ? '**The last beats on the record.**\n' + closing.map(function (e) {
+          return '- *' + clip(e.time, 60) + '* — ' + clip(e.beat, 120) + (e.detail ? '. ' + clip(e.detail, 200) : '');
+        }).join('\n') : '',
+        prior.length ? '**The saga so far.**\n' + prior.map(function (e) {
+          return '- *' + clip(e.name, 70) + '* (' + clip(e.date, 40) + '). ' + clip(e.summary, 200);
+        }).join('\n') : '',
+        head.location ? '**Where you are standing.** ' + clip(head.location, 200) + '.' : '',
+        cast.length ? '**Who is still here.**\n' + cast.map(castLine).join('\n') : '',
+        '**How this runs.** Everything up to this point is canon and may not be contradicted. Everything after it is ' +
+          'yours and the model\u2019s to invent: new characters walk in and stay, places that were never filed get named, ' +
+          'and nothing is guaranteed to go the way you intend it. Export the transcript and the archive has a draft ' +
+          'of the next filing.',
+        '**What is at stake.** A saga that is ' + saga.length + ' filings long, with no filing for what happens next.',
+      ],
+    });
+  };
+
+  /** The block that tells the model it is writing new canon, not replaying
+   *  old canon — and how to introduce something the archive has never had. */
+  RP.continuationBlock = function (room) {
+    if (!room || room.canon !== 'continuation') return '';
+    return [
+      'THIS IS A CONTINUATION — you are writing what happens next, not retelling what happened',
+      'Everything in the scene above is filed and cannot be contradicted. Everything from this point is new.',
+      'You are expected to invent forward: name places the archive has never named, give people new injuries,',
+      'new debts and new information, and bring in characters who have never been filed at all.',
+      'To introduce someone new, use a stage direction on its own line:',
+      '  [[NEW: Their Name | what they are here for | what they look like, in one sentence]]',
+      'Nobody has drawn them, so the description IS the portrait — be specific about face, build, clothing and',
+      'the one detail somebody would remember. They join the scene and stay in it.',
+    ].join('\n');
+  };
+
+  /* ------------------------------------------------------------------ *
+   * fate — the model is not your assistant
+   *
+   * Left alone, a small model says yes to everything the player writes.
+   * Before each reply to a player action the page rolls, and the roll is
+   * handed to the model as an instruction it must honour: the attempt
+   * works, works at a price, goes sideways, or fails outright.
+   * ------------------------------------------------------------------ */
+
+  RP.FATE = {
+    triumph: {
+      label: 'Triumph', pill: '⚅ Triumph',
+      dir: 'The player\u2019s attempt works, and better than they expected. Give them the win in concrete detail, and let ' +
+        'it open a door they did not ask for.',
+    },
+    success: {
+      label: 'It works', pill: '⚄ It works',
+      dir: 'The player\u2019s attempt works, plainly and without drama. Do not add a complication to it — let the scene ' +
+        'move on to whatever happens next.',
+    },
+    cost: {
+      label: 'Works, at a price', pill: '⚃ Works — at a price',
+      dir: 'The player\u2019s attempt works, but it costs something specific and immediate: a wound, a broken tool, a ' +
+        'noise that carries, time, somebody\u2019s trust. Name the cost in the prose and file it with a stage direction.',
+    },
+    wrench: {
+      label: 'A wrench', pill: '⚂ A wrench in it',
+      dir: 'Something the player did not plan for cuts across the attempt right now — an arrival, a betrayal, a door ' +
+        'that will not open, an order from somebody with authority. The attempt is not resolved; the situation changes ' +
+        'under it. Do not ask the player what they do — show it happening.',
+    },
+    setback: {
+      label: 'It fails', pill: '⚁ It fails',
+      dir: 'The player\u2019s attempt FAILS. Not because they were stupid — because the world pushed back. Show the ' +
+        'failure physically and leave them worse off than before: hurt, exposed, out of position, or holding the wrong ' +
+        'thing. Never soften it into a partial success, and never apologise for it.',
+    },
+    refusal: {
+      label: 'Refused', pill: '⚀ Refused',
+      dir: 'The character the player is addressing does NOT do what they were asked. They refuse, argue, walk away, ' +
+        'or do something else entirely, for a reason that fits who they are. Stay in character; do not be helpful.',
+    },
+  };
+
+  // Odds per difficulty, as weights over the table above.
+  RP.FATE_ODDS = {
+    off: null,
+    gentle:  { triumph: 12, success: 40, cost: 26, wrench: 12, setback: 7, refusal: 3 },
+    normal:  { triumph: 7,  success: 26, cost: 30, wrench: 18, setback: 13, refusal: 6 },
+    harsh:   { triumph: 3,  success: 13, cost: 27, wrench: 22, setback: 24, refusal: 11 },
+  };
+
+  function pickWeighted(weights, roll) {
+    var total = 0, keys = Object.keys(weights);
+    keys.forEach(function (k) { total += weights[k]; });
+    var at = roll * total;
+    for (var i = 0; i < keys.length; i++) {
+      at -= weights[keys[i]];
+      if (at <= 0) return keys[i];
+    }
+    return keys[keys.length - 1];
+  }
+
+  /** Roll for the turn. State makes it worse: somebody at low HP or carrying
+   *  conditions does not get the benefit of the doubt. `roll` is injectable
+   *  so the tests are not at the mercy of the dice. */
+  RP.rollFate = function (state, room, opts) {
+    opts = opts || {};
+    var level = opts.level || (state.settings && state.settings.fate) || 'normal';
+    var odds = RP.FATE_ODDS[level];
+    if (!odds || room.mechanics === 'off') return null;
+    var weights = {};
+    Object.keys(odds).forEach(function (k) { weights[k] = odds[k]; });
+    // Hurt or burdened characters shift the odds against the player.
+    var pressure = 0;
+    Object.keys(room.states || {}).forEach(function (id) {
+      var sheet = room.states[id];
+      if (!sheet || sheet.present === false) return;
+      if (sheet.hp && sheet.hp.max && sheet.hp.value <= sheet.hp.max * 0.35) pressure++;
+      pressure += Math.min(2, Object.keys(sheet.flags || {}).length) * 0.5;
+    });
+    if (pressure > 0) {
+      var shift = Math.min(2.5, pressure);
+      weights.triumph = Math.max(1, weights.triumph - shift * 2);
+      weights.success = Math.max(2, weights.success - shift * 4);
+      weights.setback += shift * 3;
+      weights.wrench += shift * 2;
+    }
+    var roll = opts.roll === undefined ? Math.random() : opts.roll;
+    var key = opts.force || pickWeighted(weights, roll);
+    var fate = RP.FATE[key];
+    return { key: key, label: fate.label, pill: fate.pill, dir: fate.dir, level: level, pressure: pressure };
+  };
+
+  /** What the model is told about the roll. It is written as an order, not a
+   *  suggestion, because a suggestion gets ignored. */
+  RP.fateBlock = function (fate) {
+    if (!fate) return '';
+    return [
+      'HOW THIS TURN RESOLVES — this is decided already, write it as it is',
+      fate.dir,
+      'Do not narrate the dice, the odds, or the fact that anything was decided. Do not ask the player to roll.',
+      'The player writes only their attempt; whether it works is not theirs to declare, and you do not owe them a yes.',
+    ].join('\n');
+  };
+
   /* ------------------------------------------------------------------ *
    * memory — the cross-chat log, character memory, and world lore
    * ------------------------------------------------------------------ */
@@ -2055,11 +2318,15 @@
     if (lore) parts.push(lore);
     var memory = RP.memoryBlock(state, room.cast, room);
     if (memory) parts.push(memory);
+    var continuation = RP.continuationBlock(room);
+    if (continuation) parts.push(continuation);
     if (room.mechanics !== 'off') {
       var sheets = RP.stateBlock(room);
       if (sheets) parts.push(sheets);
       parts.push(RP.DIRECTIVES);
     }
+    var fateBlock = RP.fateBlock(opts.fate);
+    if (fateBlock) parts.push(fateBlock);
     return parts.join('\n\n');
   };
 
@@ -2168,12 +2435,15 @@
       version: 1,
       user: { name: 'Archivist', handle: 'waluipedia', persona: '', avatar: '' },
       rooms: [], chars: [], lore: [], log: [], scenarios: [], active: '',
+      newChars: [],        // characters invented during play, described not drawn
       hooks: {},           // scenario id -> the opener the model wrote
       backfillUses: {},    // backfill id -> how many times it has been played
       usedPosts: {},   // wire post id -> where it was played
       settings: {
         style: 'novel', voice: 'off', temperature: 0.85, endpoint: '',
         director: 'on',            // let the model decide who speaks next
+        fate: 'normal',            // off | gentle | normal | harsh
+        statePreset: 'rpg',
         maxChain: RP.MAX_CHAIN,    // …but never more than this before you
       },
     };
@@ -2187,7 +2457,7 @@
       var raw = store.getItem(key || RP.KEY);
       var value = raw ? JSON.parse(raw) : null;
       if (value && typeof value === 'object') {
-        ['rooms', 'chars', 'lore', 'log', 'scenarios'].forEach(function (k) {
+        ['rooms', 'chars', 'lore', 'log', 'scenarios', 'newChars'].forEach(function (k) {
           if (Array.isArray(value[k])) state[k] = value[k];
         });
         if (typeof value.active === 'string') state.active = value.active;
@@ -2212,6 +2482,7 @@
       rooms: rooms, chars: state.chars || [], lore: state.lore || [], log: (state.log || []).slice(-400),
       usedPosts: state.usedPosts || {},
       hooks: state.hooks || {},
+      newChars: (state.newChars || []).slice(0, 80),
       backfillUses: state.backfillUses || {},
       scenarios: (state.scenarios || []).slice(0, 30),
     };
@@ -2250,6 +2521,7 @@
     if (want('lore')) {
       bundle.lore = state.lore || [];
       bundle.scenarios = state.scenarios || [];   // written scenarios are lore too
+      bundle.newChars = state.newChars || [];     // so are the people invented in play
     }
     if (want('memory')) {
       bundle.chars = state.chars || [];
@@ -2291,6 +2563,9 @@
       var loreBefore = (state.lore || []).length;
       state.lore = mergeById(state.lore || [], data.lore, function (a, b) { return b; });
       stats.lore = state.lore.length - (replace ? 0 : loreBefore);
+    }
+    if (Array.isArray(data.newChars)) {
+      state.newChars = mergeById(state.newChars || [], data.newChars, function (a, b) { return b; });
     }
     if (Array.isArray(data.scenarios)) {
       var scenBefore = (state.scenarios || []).length;

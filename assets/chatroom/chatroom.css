@@ -190,6 +190,9 @@ a { color: inherit; }
 .statebar .flag.note { background: var(--panel2); color: var(--muted); }
 
 .statelog { max-width: 760px; margin: 0 auto 16px; display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; }
+.statelog.fate span.roll { background: #f4efe2; border-color: #e0d3b0; color: #7a6320; font-weight: 600; }
+.cp-desc.invented { border-top: 1px dashed var(--line); margin-top: 8px; padding-top: 8px; font-size: 12.5px; }
+.cp-desc.invented p { margin: 6px 0 0; color: var(--muted); }
 .statelog span { background: var(--panel2); border: 1px solid var(--line); border-radius: 999px; padding: 3px 11px; font-size: 12px; color: #4a4a52; }
 
 /* What-If board: a few big cards, each one readable from the dashboard. */

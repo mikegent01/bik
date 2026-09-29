@@ -140,6 +140,64 @@ filing's own timeline — falling back to its prose, then to your sentences, the
 to a three-beat spine. **No model call is made.** The composed scenario is
 saved, joins the board, and exports with your lore.
 
+## Continuations — pick the record up where it stops
+
+Three different kinds of "and then?", kept apart on purpose:
+
+| | Where it starts | What it writes |
+|---|---|---|
+| **Backfill** | a hole in the past | the filing nobody wrote |
+| **Sequel** | the chat you just played | the next scene of *your* story |
+| **Continuation** | the last filed event of a saga | **new canon** — hours nobody has filed |
+
+**Continue the story** (rail tab, and a row on the dashboard) groups the filed
+events by their own era line — "1040 BF — Mario disappearance file" is the
+archive's idea of a storyline — and offers the newest event of each saga as a
+starting point. The brief carries *where the record stops*, *how the last
+filing ended*, *what it left behind* (the `aftermath`), the last beats on the
+record, and the saga so far. The beats, unusually, are **forward pressures**
+rather than filed facts: the first unwritten hour, word travelling, a face the
+record has never named, the cost landing on the wrong person, the saga moving
+somewhere the archive will have to write a new filing about.
+
+The room is marked `canon: 'continuation'`, which adds `RP.continuationBlock`
+to the prompt: everything above is filed and may not be contradicted,
+everything after it is to be invented — including people.
+
+**Invented characters.** No art exists for anyone new, so the description *is*
+the portrait:
+
+```
+[[NEW: Marguerite Oyle | the studio night archivist | wiry, sixty, ink to the
+       elbows, a stopwatch on a bootlace round her neck]]
+```
+
+They join the cast, get a state sheet, appear on the state bar, are printed in
+the character panel under **Described, not drawn**, are kept in
+`state.newChars` so they can be played again, and travel in the lore export.
+
+## Fate — the model does not owe you a yes
+
+Left alone, a small local model agrees with everything the player writes. So
+before each reply to an *attempt*, the page rolls (`RP.rollFate`) and hands the
+result to the model as an order it must carry out — never as a suggestion, and
+never narrated as dice:
+
+| Roll | What the model is told |
+|---|---|
+| ⚅ Triumph | it works, better than expected, and opens a door they did not ask for |
+| ⚄ It works | plainly, no complication bolted on |
+| ⚃ Works, at a price | it works and costs something specific — a wound, a noise, somebody's trust — filed with a stage direction |
+| ⚂ A wrench | something unplanned cuts across it *now*; the situation changes under the attempt |
+| ⚁ It fails | the attempt **fails** and leaves them worse off. "Never soften it into a partial success" |
+| ⚀ Refused | the character does not do what they were asked, for a reason that fits who they are |
+
+Difficulty (character panel → **🎲 Fate**): `off` (whatever you write works),
+`gentle`, `normal` (default), `harsh`. **Being hurt shifts the odds**: low HP
+and stacked conditions push weight out of *triumph/success* and into
+*setback/wrench*. The roll is shown to the reader as a pill above the turn it
+decided, so a refusal never looks like the model being broken.
+
 ## Backfills — the lore nobody wrote
 
 **Most Used Backfills** (its own rail tab, and a row on the dashboard) is the

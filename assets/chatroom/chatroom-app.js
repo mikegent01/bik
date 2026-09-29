@@ -252,6 +252,7 @@
 
   var NAV = [
     { id: 'discover', ico: '◉', label: 'Discover' },
+    { id: 'continue', ico: '⏭', label: 'Continue' },
     { id: 'whatif', ico: '❓', label: 'What If' },
     { id: 'backfills', ico: '🧱', label: 'Backfills' },
     { id: 'wire', ico: '📡', label: 'Wire' },
@@ -353,6 +354,7 @@
     html += '<div class="row">' + forYou.map(function (c) { return charCard(c); }).join('') + '</div>';
     // Where the advertisement used to be: a few long What-Ifs, not a wall
     // of one-liners. (No ad slot: the archive sells nothing.)
+    html += continuationSection({ limit: 4 });
     html += whatIfSection({ limit: 6 });
     html += backfillSection({ limit: 4 });
     html += collectionsSection();
@@ -401,7 +403,8 @@
 
   function whatIfSection(opts) {
     opts = opts || {};
-    var shown = whatifs.slice(0, opts.limit || whatifs.length);
+    var pool = whatifs.filter(function (s) { return s.kind !== 'continuation'; });
+    var shown = pool.slice(0, opts.limit || pool.length);
     var html = '<div class="sec-head"><h2>What If</h2><span class="grow"></span>' +
       '<button class="pill primary" id="makeIf">✍️ Create a scenario</button>' +
       (opts.limit ? '<button class="pill" id="allIfs">See all ' + whatifs.length + '</button>' : '') + '</div>' +
@@ -429,6 +432,26 @@
       'the airlift that never came, the session between two sessions. Playing one produces the missing account — ' +
       'export the transcript and the hole is filled. ' + played + ' played here so far.</p>' +
       '<div class="ifgrid">' + shown.map(whatIfCard).join('') + '</div>';
+  }
+
+  /** Continue the saga — where the filed record actually stops. */
+  function continuationSection(opts) {
+    opts = opts || {};
+    var list = whatifs.filter(function (s) { return s.kind === 'continuation'; });
+    if (!list.length) return '';
+    var shown = list.slice(0, opts.limit || list.length);
+    return '<div class="sec-head"><h2>Continue the story</h2><span class="grow"></span>' +
+      (opts.limit && list.length > shown.length ? '<button class="pill" id="allContinue">See all ' + list.length + '</button>' : '') + '</div>' +
+      '<p class="emptynote">The archive stops mid-saga. These pick it up in the minutes after the last filed line and ' +
+      'keep going into hours nobody has written: new faces, new places, new trouble. Everything already filed is canon ' +
+      'and cannot be contradicted; everything after it is invented in play — including characters, who are described ' +
+      'rather than drawn, because nobody has painted them yet.</p>' +
+      '<div class="ifgrid">' + shown.map(whatIfCard).join('') + '</div>';
+  }
+
+  function renderContinuations() {
+    return continuationSection({}) ||
+      '<div class="sec-head"><h2>Continue the story</h2></div><div class="emptynote">No sagas loaded yet.</div>';
   }
 
   function renderBackfills() {
@@ -587,6 +610,7 @@
     $('dash').hidden = false;
     $('chatview').hidden = true;
     var body = tab === 'feed' ? renderFeed()
+      : tab === 'continue' ? renderContinuations()
       : tab === 'whatif' ? renderWhatIfs()
       : tab === 'backfills' ? renderBackfills()
       : tab === 'wire' ? renderWire()
@@ -627,6 +651,7 @@
     on('makeIf', createScenarioForm);
     on('allIfs', function () { tab = 'whatif'; render(); });
     on('allBackfills', function () { tab = 'backfills'; render(); });
+    on('allContinue', function () { tab = 'continue'; render(); });
     box.querySelectorAll('[data-post]').forEach(function (b) {
       b.onclick = function () { openScenario(posts.filter(function (p) { return p.id === b.dataset.post; })[0]); };
     });
@@ -738,6 +763,7 @@
       states: opts.states || null,
       mechanics: opts.mechanics || (state.settings && state.settings.mechanics) || 'on',
       sequelOf: opts.sequelOf || '',
+      canon: opts.canon || '',
     }));
   }
 
@@ -1059,6 +1085,9 @@
     }
 
     var html = r.messages.map(function (m, i) {
+      if (m.role === 'fate') {
+        return '<div class="statelog fate"><span class="roll">' + esc(m.pill || '') + '</span></div>';
+      }
       if (m.role === 'state') {
         return '<div class="statelog">' + (m.lines || []).map(function (l) {
           return '<span>' + esc(l) + '</span>';
@@ -1124,6 +1153,15 @@
       '</span><button id="cpDown">👎</button></div><span class="grow"></span>' +
       '<button class="iconbtn" id="cpExport" title="Export transcript">⬇</button></div>' +
       '<div class="cp-desc">' + esc(c.title || c.summary || r.scene || 'A chat in the Waluipedia archive.') + '</div>' +
+      // People invented during play have no portrait in the archive, so the
+      // description stands in for one.
+      (r.cast.filter(function (x) { return x.invented; }).length
+        ? '<div class="cp-desc invented"><b>Described, not drawn</b>' +
+          r.cast.filter(function (x) { return x.invented; }).map(function (x) {
+            return '<p><b>' + esc(x.name) + '</b>' + (x.title ? ' — ' + esc(x.title) : '') +
+              (x.look ? '<br>' + esc(x.look) : '') + '</p>';
+          }).join('') + '</div>'
+        : '') +
       '<div class="cp-menu">' +
       menuItem('cpNew', '✎', 'New chat', '') +
       menuItem('cpVoice', '🔊', 'Voice', (state.settings.voice === 'on' ? 'On' : 'Default')) +
@@ -1136,6 +1174,7 @@
       menuItem('cpReplay', '🎭', 'Replay', 'Perspective') +
       menuItem('cpScript', '⏱', 'Script', r.beats && r.beats.length ? (r.autoBeats ? 'Auto' : 'Manual') : 'None') +
       menuItem('cpDirector', '🎬', 'Director', state.settings.director === 'off' ? 'Off' : 'On · max ' + (state.settings.maxChain || RP.MAX_CHAIN)) +
+      menuItem('cpFate', '🎲', 'Fate', (state.settings.fate || 'normal') === 'off' ? 'Off — you always succeed' : RP.clip(state.settings.fate, 10)) +
       '</div>' +
       '<div class="cp-note">Memory is shared across chats: what is said here is remembered in the next room. Export from Labs.</div>';
     wirePanel();
@@ -1263,6 +1302,19 @@
         save(); render();
       });
     });
+    on('cpFate', function () {
+      form('Fate', [
+        { k: 'fate', label: 'How often does the world push back?', type: 'select', value: state.settings.fate || 'normal',
+          options: [
+            { value: 'off', label: 'Off — whatever you write, works' },
+            { value: 'gentle', label: 'Gentle — mostly you, occasionally a price' },
+            { value: 'normal', label: 'Normal — costs and wrenches are common, failure happens' },
+            { value: 'harsh', label: 'Harsh — the world is against you and the cast argues back' },
+          ] },
+      ], { note: 'Before each reply to something you attempted, the page rolls and tells the model how it resolves: it works, it works at a price, something cuts across it, it fails, or the character simply refuses you. The model is told not to narrate the dice — and being wounded shifts the odds against you.' }, function (v) {
+        state.settings.fate = v.fate; save(); render();
+      });
+    });
     on('cpExport', function () { download(RP.slug(r.title) + '.md', RP.transcript(r)); });
     on('cpSettings', settingsForm);
     on('cpUp', function () { toast('Rate individual replies with 👍 under the message.'); });
@@ -1336,7 +1388,11 @@
 
     var retry = opts.retryIndex !== undefined ? r.messages[opts.retryIndex] : null;
     var speaker = retry ? charOf(r, retry.charId) : RP.nextSpeaker(r);
-    var system = RP.systemFor(state, r, speaker);
+    // Did the player just try something? Then it is not up to them whether it
+    // worked. The roll happens here and is handed to the model as an order.
+    var answering = !retry && RP.visible(lastVisible(r)) && lastVisible(r).role === 'user';
+    var fate = answering ? RP.rollFate(state, r, {}) : null;
+    var system = RP.systemFor(state, r, speaker, { fate: fate });
     var history = RP.historyFor(retry ? { kind: r.kind, cast: r.cast, messages: r.messages.slice(0, opts.retryIndex) } : r, 24);
     if (!history.length) history = [{ role: 'user', content: '(The scene opens. Begin in character.)' }];
 
@@ -1362,6 +1418,13 @@
         }
         if (RP.autoAdvance(r)) { RP.fireBeat(r); logBeat(r); }
       }
+      if (fate && !retry) {
+        // Filed before the turn it decided, so the reader can see why the
+        // scene refused them.
+        r.messages.splice(r.messages.length - 1, 0, {
+          id: RP.uid(), role: 'fate', at: Date.now(), fate: fate.key, pill: fate.pill,
+        });
+      }
       if (changes.lines.length) {
         r.messages.push({ id: RP.uid(), role: 'state', at: Date.now(), lines: changes.lines });
       }
@@ -1382,6 +1445,12 @@
       // reader can read it, and always stopping at the ceiling.
       if (chain && room() === r) window.setTimeout(function () { generate(); }, 400);
     });
+  }
+
+  function lastVisible(r) {
+    var msgs = (r && r.messages) || [];
+    for (var i = msgs.length - 1; i >= 0; i--) { if (RP.visible(msgs[i])) return msgs[i]; }
+    return null;
   }
 
   function speak(msg, r) {

@@ -26,7 +26,11 @@ const check = (name, cond) => { console.log((cond ? 'OK  ' : 'FAIL'), name); if 
 // turn, so the whole path — parse, apply, strip, render — is exercised.
 procs.push(spawn('python3', ['tools/mock_lm_studio.py', String(MOCK_PORT)], {
   cwd: repoRoot, stdio: 'ignore',
-  env: { ...process.env, MOCK_DIRECTIVES: '[[HP: {{WHO}} -25]]\n[[FLAG: {{WHO}} bleeding]]' },
+  env: {
+    ...process.env,
+    MOCK_DIRECTIVES: '[[HP: {{WHO}} -25]]\n[[FLAG: {{WHO}} bleeding]]\n' +
+      '[[NEW: Marguerite Oyle | the studio night archivist | wiry, sixty, ink to the elbows, a stopwatch on a bootlace]]',
+  },
 }));
 procs.push(spawn('python3', ['workflow/server.py'], {
   cwd: repoRoot,
@@ -167,7 +171,7 @@ check('state: the model’s stage directions changed the sheet', (() => {
   return sheet.hp.value === Math.max(0, beforeHp - 25) && sheet.flags.bleeding === true;
 })());
 check('state: the change is reported in the stream and stripped from the prose',
-  doc.querySelector('.statelog') && /−25 HP|-25 HP/.test(doc.querySelector('.statelog').textContent) &&
+  doc.querySelector('.statelog:not(.fate)') && /−25 HP|-25 HP/.test(doc.querySelector('.statelog:not(.fate)').textContent) &&
   !doc.querySelector('.turn.char .bubble').textContent.includes('[[HP'));
 check('state: a sheet can also be edited by hand', (() => {
   doc.querySelector('.statebar .sheet').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
@@ -177,6 +181,20 @@ check('state: a sheet can also be edited by hand', (() => {
   const r = saved.rooms.find(x => x.id === saved.active);
   return open && Object.values(r.states)[0].hp.value === 7;
 })());
+
+check('fate: the roll is shown to the reader and the model was told the outcome',
+  Boolean(doc.querySelector('.statelog.fate .roll')) &&
+  /Triumph|It works|price|wrench|fails|Refused/.test(doc.querySelector('.statelog.fate .roll').textContent));
+check('invented: a character the model made up joined the cast, described not drawn', (() => {
+  const s = savedState();
+  const r = s.rooms.find(x => x.id === s.active);
+  const made = (r.cast || []).find(c => c.invented);
+  return Boolean(made) && made.look.includes('stopwatch') && !made.image && Boolean(r.states[made.id]) &&
+    (s.newChars || []).some(c => c.id === made.id);
+})());
+check('invented: the panel prints the description in place of a portrait',
+  $('charpanel').textContent.includes('Described, not drawn') && $('charpanel').textContent.includes('Marguerite Oyle'));
+check('invented: they are on the state bar like everyone else', $('statebar').textContent.includes('Marguerite Oyle'));
 
 // ---- the sequel carries the scene forward ----
 check('sequel: the chat offers one', Boolean($('seqBtn')));
@@ -192,6 +210,25 @@ check('sequel: it is composed from the played scene and carries the sheets', (()
     Object.values(seq.states).some(x => x.flags && x.flags.bleeding);
 })());
 if (!$('modalBack').hidden) $('mCancel').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+$('homeBtn').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+
+// ---- continuations ----
+[...doc.querySelectorAll('[data-tab]')].find(b => b.dataset.tab === 'continue').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+check('continuation: the saga board picks the record up where it stops',
+  doc.querySelectorAll('.ifcard').length >= 1 && $('dashBody').textContent.includes('Continue the story') &&
+  [...doc.querySelectorAll('.ifcard h3')].some(h => /Continue —/.test(h.textContent)));
+doc.querySelector('[data-ifread]').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+check('continuation: the brief says where the record stops and what it left behind',
+  doc.querySelector('.modal .brief').textContent.includes('Where the record stops') &&
+  /How the last filing ended|What it left behind/.test(doc.querySelector('.modal .brief').textContent));
+$('mOk').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+$('mOk').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+await until('the continuation room', () => !$('chatview').hidden);
+check('continuation: the room is told it is writing new canon, and may invent people', (() => {
+  const s = savedState();
+  const r = s.rooms.find(x => x.id === s.active);
+  return r.canon === 'continuation' && r.beats.length >= 4;
+})());
 $('homeBtn').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
 
 // ---- backfills ----

@@ -100,6 +100,19 @@ memory, lore, replay, backups — is documented in
   in it, and the stakes. Generic answers ("you find yourself", no filed names,
   too short) are rejected and asked again; with no model at all the page falls
   back to its own cold open.
+- **Continue the story.** Filed events grouped into sagas by their era line;
+  the newest filing of each is offered as a starting point, and the room picks
+  up in the minutes after the last filed line. Everything filed is canon and
+  cannot be contradicted; everything after is invented in play — including
+  characters, introduced with `[[NEW: Name | role | what they look like]]`.
+  Nobody has drawn them, so the description is the portrait: it shows in the
+  character panel under *Described, not drawn*, and they are kept for later.
+- **Fate — the model does not owe you a yes.** Before each reply to something
+  you attempted, the page rolls: it works, it works at a price, something cuts
+  across it, it fails outright, or the character refuses you. The result is
+  handed to the model as an order ("never soften it into a partial success"),
+  the dice are never narrated, and being wounded shifts the odds against you.
+  Off / gentle / normal / harsh in the character panel → 🎲 Fate.
 - **Most Used Backfills.** The events every filing points at and nobody ever
   wrote — scanned out of the `keyEvents` lists — ranked by how often they have
   been played here. Playing one produces the missing account.

@@ -452,6 +452,117 @@ check('sequel: opening it starts a room already in that state', (() => {
   return next.states.sans.hp.value === 40 && next.states.sans.flags.bleeding === true;
 })());
 
+// ---------- continuations: carry the filed record forward ----------
+const sagaEvents = [
+  { id: 'saga_one', name: 'The Promo Account', era: '1040 BF — the studio file', date: '4 Aethel, 1040 BF',
+    summary: 'The first filing of the studio: a tour, a product demonstration and a tape that should not exist.',
+    participants: [{ id: 'sans', name: 'Sans', role: 'was filming' }] },
+  { id: 'saga_two', name: 'The Cut', era: '1040 BF — the studio file', date: '5 Aethel, 1040 BF',
+    summary: 'The second filing: the exits lie, the applause is recorded, and one word stops the whole production. The record of the studio ends here, mid-raid, with the director walking out of the building carrying a folder and a small wired remote.',
+    outcome: 'The escape became a raid on the show itself. Nobody has filed what happened after the director left the corridor.',
+    aftermath: '**The show has a director.** He outranks everyone in the building, and the seats were empty the entire time.',
+    location: 'The Nintendo Mania studio', image: 'plate.jpg',
+    participants: [{ id: 'sans', name: 'Sans', role: 'said the word' }, { id: 'timber_gang', name: 'The Timber Gang', role: 'crewed the set' }],
+    timeline: { entries: [
+      { time: 'late morning', beat: 'Fire, and the alarm', detail: 'The actor erupts and the alarm is on the far wall.' },
+      { time: 'noon', beat: 'CUT', detail: 'One production command stops everything in the building.' },
+      { time: 'after', beat: 'The director leaves', detail: 'A folder, a cigar snapped in half, and a small wired remote carried like a habit.' },
+    ] } },
+  { id: 'other_saga', name: 'A Different File', era: '1035 BF — the coup chain', date: '1035 BF',
+    summary: 'An unrelated filing from another era entirely, long enough to count as a saga head of its own.',
+    participants: [{ id: 'rebel_scout', name: 'The Rebel Scout', role: 'was there' }] },
+];
+const sagas = RP.sagasFrom(sagaEvents);
+const studio = sagas.find(x => x.era.includes('studio file'));
+check('continuation: the archive’s own era lines are the sagas, newest first',
+  sagas.length === 2 && studio.length === 2 && studio.head.id === 'saga_two' && sagas[0].head.id === 'other_saga');
+const carry = RP.whatIfFromContinuation(studio, seatCast);
+check('continuation: it picks up after the last filed line, not before it',
+  carry.kind === 'continuation' && carry.brief.includes('Where the record stops') &&
+  carry.brief.includes('The director leaves') && carry.premise.includes('minutes after'));
+check('continuation: what the filing left behind comes with it',
+  carry.brief.includes('How the last filing ended') && carry.brief.includes('What it left behind') &&
+  carry.brief.includes('The saga so far'));
+check('continuation: the beats push forward instead of replaying the record',
+  carry.beats.length >= 4 && carry.beats.some(b => /never been filed|never named/i.test(b.detail)) &&
+  !carry.beats.some(b => b.beat === 'CUT'));
+check('continuation: it clears the quality floor like any other scenario', RP.scenarioQuality(carry) > 0);
+check('continuation: the room is marked as writing new canon', (() => {
+  const roomOpts = RP.scenarioRoomOpts(carry);
+  const built = RP.newRoom(carry.suggestedCast, roomOpts);
+  const system = RP.systemFor(state, built, carry.suggestedCast[0]);
+  return built.canon === 'continuation' && system.includes('THIS IS A CONTINUATION') &&
+    system.includes('[[NEW:') && system.includes('the description IS the portrait');
+})());
+check('continuation: a chat room is not told it is writing canon',
+  !RP.systemFor(state, RP.newRoom([sans, cutters], {}), sans).includes('THIS IS A CONTINUATION'));
+
+// ---------- invented characters ----------
+const inventRoom = RP.newRoom(carry.suggestedCast, RP.scenarioRoomOpts(carry));
+const invented = RP.parseDirectives(
+  'The door opens before anyone reaches it.\n' +
+  '[[NEW: Marguerite Oyle | the studio’s night archivist | wiry, sixty, ink to the elbows, a stopwatch on a bootlace round her neck]]',
+  inventRoom.cast.map(c => c.name));
+check('directives: a brand-new character parses into name, role and look',
+  invented.directives[0].kind === 'new' && invented.directives[0].name === 'Marguerite Oyle' &&
+  invented.directives[0].look.includes('stopwatch'));
+const madeResult = RP.applyDirectives(state, inventRoom, invented.directives, () => null);
+const made = inventRoom.cast.filter(c => c.invented)[0];
+check('invented: they join the cast with a sheet of their own',
+  made && made.name === 'Marguerite Oyle' && inventRoom.states[made.id] && inventRoom.states[made.id].hp);
+check('invented: with no portrait anywhere, the description stands in for one',
+  made.look.includes('ink to the elbows') && !made.image && made.summary.includes('night archivist'));
+check('invented: they are kept, so they can be played again later',
+  (state.newChars || []).some(c => c.id === made.id) && madeResult.lines[0].includes('New character'));
+check('invented: they survive a save, a load and an export', (() => {
+  RP.saveState(store, state);
+  const bundle = RP.exportBundle(state, { chats: false, memory: false, user: false });
+  return RP.loadState(store).newChars.some(c => c.look) && bundle.newChars.length >= 1;
+})());
+check('invented: the model reads them like anybody else', RP.stateBlock(inventRoom).includes('Marguerite Oyle'));
+
+// ---------- fate: the world pushes back ----------
+const fateRoom = RP.newRoom([sans, cutters], {});
+check('fate: the table covers success, cost, a wrench, failure and refusal',
+  ['triumph', 'success', 'cost', 'wrench', 'setback', 'refusal'].every(k => RP.FATE[k] && RP.FATE[k].dir.length > 60));
+check('fate: a failure is told to stay failed', /FAILS/.test(RP.FATE.setback.dir) && /Never soften it/.test(RP.FATE.setback.dir));
+check('fate: a refusal keeps the character in character', /does NOT do what they were asked/.test(RP.FATE.refusal.dir));
+check('fate: off means the page never rolls at all',
+  RP.rollFate({ settings: { fate: 'off' } }, fateRoom, {}) === null);
+check('fate: rooms with mechanics off are never rolled for either',
+  RP.rollFate({ settings: { fate: 'harsh' } }, RP.newRoom([sans], { mechanics: 'off' }), {}) === null);
+check('fate: the roll lands somewhere in the table',
+  ['triumph', 'success', 'cost', 'wrench', 'setback', 'refusal'].indexOf(RP.rollFate(state, fateRoom, { roll: 0.5 }).key) >= 0);
+check('fate: harsh fails far more often than gentle', (() => {
+  let gentleBad = 0, harshBad = 0;
+  for (let i = 0; i < 200; i++) {
+    const roll = i / 200;
+    if (['setback', 'refusal', 'wrench'].includes(RP.rollFate({ settings: { fate: 'gentle' } }, fateRoom, { roll }).key)) gentleBad++;
+    if (['setback', 'refusal', 'wrench'].includes(RP.rollFate({ settings: { fate: 'harsh' } }, fateRoom, { roll }).key)) harshBad++;
+  }
+  return harshBad > gentleBad * 1.5;
+})());
+check('fate: being hurt shifts the odds against you', (() => {
+  const hurt = RP.newRoom([sans, cutters], { setup: { sans: { hpPct: 10, flags: 'wounded, hunted' } } });
+  const whole = RP.newRoom([sans, cutters], {});
+  let hurtBad = 0, wholeBad = 0;
+  for (let i = 0; i < 200; i++) {
+    const roll = i / 200;
+    if (['setback', 'wrench'].includes(RP.rollFate({ settings: { fate: 'normal' } }, hurt, { roll }).key)) hurtBad++;
+    if (['setback', 'wrench'].includes(RP.rollFate({ settings: { fate: 'normal' } }, whole, { roll }).key)) wholeBad++;
+  }
+  return hurtBad > wholeBad;
+})());
+check('fate: the model is ordered, not asked, and told not to narrate the dice', (() => {
+  const block = RP.fateBlock(RP.rollFate(state, fateRoom, { force: 'setback' }));
+  return block.includes('this is decided already') && block.includes('Do not narrate the dice') &&
+    block.includes('you do not owe them a yes');
+})());
+check('fate: the instruction reaches the system prompt for that turn only', (() => {
+  const withFate = RP.systemFor(state, fateRoom, sans, { fate: RP.rollFate(state, fateRoom, { force: 'refusal' }) });
+  return withFate.includes('HOW THIS TURN RESOLVES') && !RP.systemFor(state, fateRoom, sans).includes('HOW THIS TURN RESOLVES');
+})());
+
 // ---------- generated pages are in sync with these sources ----------
 let built = true;
 try {
