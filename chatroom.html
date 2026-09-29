@@ -1,0 +1,107 @@
+<!doctype html>
+<!-- GENERATED FILE — do not edit.
+     Source: assets/chatroom/{shell, .css, -core.js, -app.js}
+     Rebuild: python3 tools/build-chatroom.py  (verify: --check) -->
+<!--
+  Waluipedia Roleplay — the chatroom shell.
+
+  GENERATED PAGES COME FROM THIS FILE. Do not edit chatroom.html or
+  workflow/roleplay.html by hand: edit this shell (or the css/core/app files
+  beside it) and run `python3 tools/build-chatroom.py`. The build writes both
+  pages and `--check` fails if they drift.
+
+  Placeholders the build fills (written here without their braces so the
+  build does not substitute this comment):
+    HEAD       the stylesheet, inlined or linked
+    CONFIG     the runtime config script (server mode vs static mode)
+    SCRIPTS    the logic + app blocks, inlined or linked
+    MAIN_SITE  where the archive link points; the workflow server fills this
+               one in itself, per request
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Waluipedia Roleplay — chatroom</title>
+<link rel="stylesheet" href="assets/chatroom/chatroom.css">
+</head>
+<body>
+<div class="app">
+
+  <!-- ---------------- left rail: create, tabs, search, dated recents ---------------- -->
+  <aside class="rail">
+    <div class="brand">
+      <div class="brand-mark">W</div>
+      <div><b>Waluipedia</b><small>roleplay &amp; chatrooms</small></div>
+    </div>
+    <button class="create" id="createBtn"><span>＋</span> Create</button>
+    <nav class="nav" id="nav"></nav>
+    <div class="searchbox"><span>🔍</span><input id="search" type="search" placeholder="Search" aria-label="Search characters"></div>
+    <div class="recents" id="recents"></div>
+    <div class="rail-foot">
+      <a class="upgrade" href="index.html">Open the archive</a>
+      <button class="account" id="account">
+        <span class="av av-32" style="background:#5b5b66">A</span>
+        <span class="who"><b>Archivist</b><span>@waluipedia</span></span>
+        <span>⌄</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- ---------------- main column ---------------- -->
+  <main class="main">
+
+    <!-- dashboard: For you / Advertisement / Scenes / the whole cast -->
+    <section class="dash" id="dash">
+      <div class="dash-top">
+        <button class="iconbtn" id="menuBtn" title="Menu">☰</button>
+        <div class="grow">
+          <h1>Discover</h1>
+          <p>Every character in the archive, every filed session as a scene, and a memory that carries between them.</p>
+        </div>
+        <div class="status" id="status"></div>
+        <button class="iconbtn" id="settingsBtn" title="Settings">⚙</button>
+      </div>
+      <div id="dashBody"></div>
+    </section>
+
+    <!-- active chat: stream on the left, character panel on the right -->
+    <section class="chatview" id="chatview" hidden>
+      <div class="stream-wrap">
+        <div class="chat-top" id="chatTop"></div>
+        <div class="stream" id="stream"></div>
+        <div class="composer-wrap">
+          <div class="speakers" id="speakers"></div>
+          <form class="composer" id="composer">
+            <button class="roundbtn" type="button" id="homeBtn" title="Back to Discover">⌂</button>
+            <textarea id="input" rows="1" placeholder="Write your turn — *actions in asterisks*, &quot;speech in quotes&quot;" aria-label="Your turn"></textarea>
+            <button class="send" id="send" type="submit" disabled>↑</button>
+          </form>
+          <div class="composer-note">Turns go straight to the local model. Nothing in the repository is read or written from this page.</div>
+        </div>
+      </div>
+      <aside class="charpanel" id="charpanel"></aside>
+    </section>
+
+  </main>
+</div>
+
+<div class="modal-back" id="modalBack" hidden><div class="modal" id="modal"></div></div>
+<script>
+/* Static build: served from the repository root (python3 start.py). The cast
+   and the scenes are read straight out of the archive JSON; the model is
+   reached at the workflow server, or at whatever endpoint ⚙ is set to. */
+window.CHATROOM_CONFIG = {
+  mode: 'static',
+  castUrl: 'Reputation-Matrix2/data/characters.json',
+  scenesUrl: 'Reputation-Matrix2/data/events.json',
+  replyUrl: 'http://127.0.0.1:8787/api/roleplay',
+  suggestUrl: 'http://127.0.0.1:8787/api/suggest-cast',
+  healthUrl: 'http://127.0.0.1:8787/api/health',
+  staticRoot: 'Reputation-Matrix2/',
+};
+</script>
+<script id="rp-logic" src="assets/chatroom/chatroom-core.js"></script>
+<script id="rp-app" src="assets/chatroom/chatroom-app.js"></script>
+</body>
+</html>

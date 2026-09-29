@@ -55,18 +55,29 @@ never overwrites it. Deleting asks for confirmation, switches to the next chat
 (or creates a new one), and cannot be undone. Both are blocked while a reply is
 in flight. Chats live in `localStorage`, capped at the 30 most recent.
 
-## Roleplay — characters, scenes, and group chats
+## Roleplay — the chatroom
 
 `http://127.0.0.1:8787/roleplay` (linked from the assistant's sidebar) is a
-separate page styled like a modern character-chat app: light theme, a sidebar
-of recent chats, a **Discover** grid of character cards, and a chat page with
-a right-hand character panel (New chat / Voice / History / Pinned / Persona /
-Style / Export).
+separate page styled like a modern character-chat app: light theme, a left
+rail with **Create / Discover / Feed / Charms / Labs**, search, dated recents
+(Today / Yesterday / This Month / Older), a dashboard of character cards and
+scene covers, and a chat page with a right-hand character panel (New chat /
+Voice / History / Customize / Pinned / Persona / Style / Memory / Replay /
+Script / Export).
+
+**The page is generated.** `workflow/roleplay.html` and the repository-root
+`chatroom.html` are both built from `assets/chatroom/` by
+`python3 tools/build-chatroom.py`. Never hand-edit either page; edit the
+source and rebuild (`--check` fails when they are stale). The whole system —
+memory, lore, replay, backups — is documented in
+[`docs/CHATROOM_GUIDE.md`](../docs/CHATROOM_GUIDE.md).
 
 - **The cast is the archive itself.** `/api/characters` serves every character
   in `characters.json` (portraits included, via `/rm/…` static routes), browsed
-  under alphabetical letter dividers. The sidebar account links to the actual
-  site (`WALUIPEDIA_URL`, default `http://127.0.0.1:8765/`).
+  under alphabetical letter dividers. The account row links to the actual site
+  (`WALUIPEDIA_URL`, default `http://127.0.0.1:8765/`), and both the account
+  and the interaction counts on the cards are real: your display name, your
+  handle, your own played turns — nothing invented.
 - **Scenes from the sessions, from other perspectives.** `/api/scenes` turns
   the newest filed sessions into scene starters. The filed event **runs on
   its own script** — beats taken from its filed timeline fire on schedule
@@ -77,19 +88,32 @@ Style / Export).
   combination instead.
 - **Group chats.** The **👥 Group chat** button (or any scene card) opens a
   cast picker — pick as many characters as you like. Characters take turns;
-  click an avatar in the chat to choose who speaks next. Each reply is
+  click an avatar under the composer to choose who speaks next. Each reply is
   generated as that character only — the prompt forbids writing the others'
   lines.
+- **Memory that crosses chats.** Every opening, fired beat, pin and 🧠
+  *remember* is filed in a world log; characters carry their own memory
+  (lines said and heard, taught facts, a mood, relationship scores). Both are
+  handed to the model in later chats, so the cast knows what happened in the
+  other room. **Charms** holds world lore nodes, treated as established truth
+  and matched to the cast or the scene.
+- **Perspective dynamic replay.** **Labs → Perspective dynamic replay** (or
+  **Replay** in the character panel) re-runs a played chat or a filed session
+  from another vantage point: the same beats on the same schedule, a new cast,
+  and a prompt block that limits them to what they could see from where they
+  stood.
+- **Import / export.** Chats, lore and memory export as JSON together or
+  separately, and import by merge or replace; a single chat also exports as a
+  markdown transcript for filing back into the wiki.
 - **Adding onto stories.** **➤ Continue** moves the scene forward without
   your input, **Persona** sets who you play, **Style** switches narration
   (novel / script / casual / archivist), **⏱ Script** toggles beat
-  auto-advance, and **⬇ Export transcript** downloads the whole scene as
-  markdown for filing back into the wiki.
+  auto-advance.
 - **Voice** reads messages aloud with the browser's speech synthesis, a
   stable per-character pitch.
 - Roleplay turns go straight to the model through `POST /api/roleplay` — no
-  agent loop, no repository tools, nothing written. Rooms live in this
-  browser's `localStorage` (capped at 30), same as assistant chats.
+  agent loop, no repository tools, nothing written. Everything the reader
+  makes lives in this browser's `localStorage` (chats capped at 30).
 
 ## Routing rules
 
@@ -166,6 +190,10 @@ The roleplay page adds:
 - `POST /api/suggest-cast` — the model picks a cast for a scene from a
   candidate list; it may only choose names from that list
 
+JSON routes answer `OPTIONS` and send `Access-Control-Allow-Origin: *` so the
+static `chatroom.html` (served from the repository root on another port) can
+use the same model endpoint.
+
 The model never receives shell access. Repository helpers remain bounded to the
 checkout and are called only by the explicit read/write/image branches.
 
@@ -190,4 +218,14 @@ server in another terminal first:
 python tools/mock_lm_studio.py   # serves a fake /v1/chat/completions on :1234
 python tools/mock_lm_studio.py 8000   # any port; MOCK_DELAY_SECONDS=3 simulates a slow model
 python workflow/server.py
+```
+
+The chatroom has its own checks — they boot the mock model themselves:
+
+```bash
+python3 tools/build-chatroom.py --check    # the pages match assets/chatroom/
+node tools/tests/test-roleplay-page.mjs    # the pure logic contract
+node tools/tests/test-chatroom-core.mjs    # memory, lore, replay, bundles
+node tools/tests/test-roleplay-server.mjs  # the routes
+npm i --no-save jsdom && node tools/tests/test-chatroom-page.mjs   # the real UI
 ```

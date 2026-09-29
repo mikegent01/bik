@@ -413,6 +413,10 @@ def json_response(handler: BaseHTTPRequestHandler, value: Any, status: int = 200
     handler.send_response(status)
     handler.send_header("Content-Type", "application/json; charset=utf-8")
     handler.send_header("Cache-Control", "no-store")
+    # The static chatroom page (chatroom.html, served by start.py on :8765)
+    # calls this server from another origin. Nothing here is authenticated and
+    # nothing is written, so the read/roleplay API is open to the local pages.
+    handler.send_header("Access-Control-Allow-Origin", "*")
     handler.send_header("Content-Length", str(len(data)))
     handler.end_headers()
     handler.wfile.write(data)
@@ -535,6 +539,16 @@ class Handler(BaseHTTPRequestHandler):
             json_response(self, value)
             return
         self.send_error(404)
+
+    def do_OPTIONS(self) -> None:  # noqa: N802
+        """CORS preflight for the cross-origin static chatroom page."""
+        self.send_response(204)
+        self.send_header("Access-Control-Allow-Origin", "*")
+        self.send_header("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+        self.send_header("Access-Control-Allow-Headers", "Content-Type")
+        self.send_header("Access-Control-Max-Age", "600")
+        self.send_header("Content-Length", "0")
+        self.end_headers()
 
     def do_POST(self) -> None:  # noqa: N802
         try:
