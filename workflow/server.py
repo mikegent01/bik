@@ -218,6 +218,7 @@ def archive_cast() -> dict[str, Any]:
             "name": _clip(record.get("name"), 60),
             "title": _clip(record.get("title"), 90),
             "race": _clip(record.get("race"), 40),
+            "affiliation": _clip(record.get("affiliation"), 120),
             "status": _clip(record.get("status"), 90),
             "summary": _clip(record.get("summary"), 200),
             "image": "/rm/" + image if image else "",
@@ -368,6 +369,112 @@ def archive_collections() -> dict[str, Any]:
             ],
         })
     return {"collections": out}
+
+
+def _read(*parts: str) -> Any:
+    try:
+        return json.loads((RM_ROOT.joinpath(*parts)).read_text(encoding="utf-8"))
+    except Exception:  # noqa: BLE001 - a missing source just yields no scenarios
+        return None
+
+
+def archive_bundle() -> dict[str, Any]:
+    """The records the What-If board is composed from, trimmed for the wire.
+
+    The page builds every scenario itself from this bundle — filed What-Ifs,
+    the events (with their timelines, which become the beats), the factions
+    (chambers, and the leadership rosters the wanted-pages scan reads), and
+    the Congress. No model is involved in deciding what a scenario is.
+    """
+    whatifs = _read("data", "whatifs.json") or []
+    if isinstance(whatifs, dict):
+        whatifs = whatifs.get("whatifs", [])
+    out_whatifs = []
+    for record in whatifs:
+        if not isinstance(record, dict):
+            continue
+        out_whatifs.append({
+            "id": str(record.get("id") or ""),
+            "title": _clip(record.get("title"), 140),
+            "premise": _clip(record.get("premise"), 700),
+            "summary": _clip(record.get("summary"), 900),
+            "divergence": _clip(record.get("divergence"), 500),
+            "epigraph": _clip(record.get("epigraph"), 300),
+            "outcome": _clip(record.get("outcome"), 600),
+            "subject": _clip(record.get("subject"), 60),
+            "subjectImage": "/rm/" + str(record["subjectImage"]) if record.get("subjectImage") else "",
+            "tags": [str(t) for t in (record.get("tags") or [])][:10],
+            "filed": _clip(record.get("filed"), 60),
+            "wordCount": record.get("wordCount"),
+            "resetsTotal": record.get("resetsTotal"),
+            "verdict": {"body": _clip((record.get("verdict") or {}).get("body"), 800)} if record.get("verdict") else None,
+            "findings": [{"t": _clip(f.get("t"), 160)} for f in (record.get("findings") or [])[:4] if isinstance(f, dict)],
+            "chapters": [{
+                "heading": _clip(c.get("heading"), 140),
+                "phase": _clip(c.get("phase"), 40),
+                "body": _clip(c.get("body"), 700),
+            } for c in (record.get("chapters") or [])[:10] if isinstance(c, dict)],
+        })
+
+    events = _read("data", "events.json") or []
+    if isinstance(events, dict):
+        events = events.get("events", [])
+    out_events = []
+    for record in events[-60:]:
+        if not isinstance(record, dict) or not record.get("name"):
+            continue
+        entries = ((record.get("timeline") or {}).get("entries") or [])[:12]
+        out_events.append({
+            "id": str(record.get("id") or ""),
+            "name": _clip(record.get("name"), 90),
+            "summary": _clip(record.get("summary"), 700),
+            "outcome": _clip(record.get("outcome"), 600),
+            "description": str(record.get("description") or "")[:2400],
+            "era": _clip(record.get("era"), 60),
+            "type": _clip(record.get("type"), 60),
+            "date": _clip(record.get("date"), 90),
+            "location": _clip(record.get("location"), 120),
+            "image": "/rm/" + str(record["image"]) if record.get("image") else "",
+            "participants": [{
+                "id": str(p.get("id") or ""), "name": _clip(p.get("name"), 60), "role": _clip(p.get("role"), 160),
+            } for p in (record.get("participants") or [])[:8] if isinstance(p, dict)],
+            "timeline": {"entries": [{
+                "time": _clip(e.get("time"), 60), "beat": _clip(e.get("beat"), 160), "detail": _clip(e.get("detail"), 420),
+            } for e in entries if isinstance(e, dict)]},
+        })
+
+    factions = _read("data", "factions.json") or []
+    if isinstance(factions, dict):
+        factions = factions.get("factions", [])
+    out_factions = []
+    for record in factions:
+        if not isinstance(record, dict) or not record.get("name"):
+            continue
+        out_factions.append({
+            "id": str(record.get("id") or ""),
+            "name": _clip(record.get("name"), 90),
+            "type": _clip(record.get("type"), 60),
+            "region": _clip(record.get("region"), 60),
+            "summary": _clip(record.get("summary"), 600),
+            "description": str(record.get("description") or "")[:2600],
+            "leadership": [{
+                "id": str(m.get("id") or ""), "name": _clip(m.get("name"), 60), "role": _clip(m.get("role"), 160),
+            } for m in (record.get("leadership") or [])[:6] if isinstance(m, dict)],
+        })
+
+    congress = _read("data", "congress.json") or {}
+    out_congress = {
+        "sessions": [{
+            "name": _clip(s.get("name"), 90), "date": _clip(s.get("date"), 60),
+            "year": s.get("year"), "summary": _clip(s.get("summary"), 500),
+        } for s in (congress.get("sessions") or [])[:6] if isinstance(s, dict)],
+        "crises": [{
+            "name": _clip(c.get("name"), 90), "year": c.get("year"),
+            "severity": _clip(c.get("severity"), 40), "summary": _clip(c.get("summary"), 500),
+        } for c in (congress.get("crises") or [])[:6] if isinstance(c, dict)],
+    } if isinstance(congress, dict) else {}
+
+    return {"whatifs": out_whatifs, "events": out_events, "factions": out_factions, "congress": out_congress}
 
 
 def suggest_cast(payload: dict[str, Any]) -> dict[str, Any]:
@@ -573,6 +680,9 @@ class Handler(BaseHTTPRequestHandler):
             return
         if parsed.path == "/api/collections":
             json_response(self, archive_collections())
+            return
+        if parsed.path == "/api/archive":
+            json_response(self, archive_bundle())
             return
         if parsed.path.startswith("/rm/"):
             found = serve_static(parsed.path[len("/rm/"):])

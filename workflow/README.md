@@ -93,11 +93,19 @@ memory, lore, replay, backups — is documented in
   **you**. It hands back on its own, and always at the ceiling
   (`max chain`, default 4 character turns), so a multi-bot room is never a
   loop. Switch it off in the character panel → **Director**.
-- **Scenarios from the WAHwire.** `/api/wahwire` serves the 196 filed posts;
-  each one plays as a scenario (the post is the situation, the people it names
-  are the cast, the replies are the beats). Sort by **newest first**, most
-  liked or most argued over, and filter to **Unused** — the posts nobody has
-  played yet — or to the drafts the archive never posted.
+- **The What If board.** A dozen long scenarios, composed by the page from
+  filed records — the archive's own What-Ifs, the 🚧 **wanted pages** (people
+  named in filings nobody has written up, playable at last), filed sessions
+  turned at their hinge, the chambers (Midlands Diet, Pond Patrol, Council of
+  Seven, Glazed Congress) and the loudest posts on the wire. Each card carries
+  a full brief, a cast with reasons, and a five-to-eight beat script; anything
+  thin is dropped rather than padded. **✍️ Create a scenario** composes the
+  same thing from your own description by matching archive records — no model
+  call. Served by `/api/archive`.
+- **The wire.** `/api/wahwire` serves the 196 filed posts; the **Wire** tab
+  sorts them **newest first**, most liked or most argued over, and filters to
+  **Unused** — the posts nobody has played yet — or the drafts the archive
+  never posted. Any post plays as a scenario on its own.
 - **Collections.** `/api/collections` serves the archive's own groupings; one
   click preselects the whole table in the cast picker.
 - **No advertisements.** The dashboard has no ad slot and the page contains no
@@ -196,6 +204,8 @@ The roleplay page adds:
 - `GET /api/scenes` — the newest filed events as scene starters
 - `GET /api/wahwire` — every filed wire post, with author profiles
 - `GET /api/collections` — the archive's character collections
+- `GET /api/archive` — the trimmed records the What-If board is composed from
+  (filed What-Ifs, events with timelines, factions, the Congress)
 - `GET /rm/<path>` — static files under `Reputation-Matrix2/` (portraits,
   event plates; path traversal refused)
 - `POST /api/roleplay` — one plain chat completion (system + messages +

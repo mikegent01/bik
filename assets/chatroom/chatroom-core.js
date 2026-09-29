@@ -106,6 +106,7 @@
       name: name,
       title: clip(record.title, 120),
       race: clip(record.race, 40),
+      affiliation: clip(record.affiliation, 120),
       status: clip(record.status, 120),
       summary: clip(record.summary || record.description, 320),
       image: String(record.image || ''),
@@ -467,7 +468,7 @@
     return {
       id: String(record.id || uid()),
       author: author,
-      authorName: clip(profile.name || author.replace(/_/g, ' '), 60),
+      authorName: clip(profile.name || RP.prettyId(author), 60),
       avatar: String(profile.avatar || ''),
       type: String(record.type || 'text'),
       status: String(record.status || 'posted'),
@@ -554,6 +555,640 @@
       suggestedCast: cast,
       beats: beats,
       source: 'wahwire',
+    };
+  };
+
+
+  /* ------------------------------------------------------------------ *
+   * What Ifs — a few long scenarios, composed by the page, not the model
+   *
+   * The rule here is quality over quantity. A scenario is not a sentence
+   * and a cast list: it is a brief long enough to run a session from —
+   * the divergence, what the archive already has on record, the room, who
+   * is standing in it and why, what is at stake, and the questions the
+   * table is supposed to answer. Everything is assembled from filed
+   * records by the functions below; the model is never asked to invent a
+   * premise, so the workload stays where it belongs.
+   * ------------------------------------------------------------------ */
+
+  // A brief shorter than this is a prompt, not a scenario, and is dropped.
+  RP.WHATIF_MIN_BRIEF = 900;
+  RP.WHATIF_MIN_BEATS = 3;
+
+  RP.prettyId = function (id) {
+    return String(id || '').split(/[_\-\s]+/).filter(Boolean).map(function (w) {
+      return w.charAt(0).toUpperCase() + w.slice(1);
+    }).join(' ');
+  };
+
+  function sentences(text) {
+    return String(text || '').replace(/\s+/g, ' ').split(/(?<=[.!?])\s+/).filter(function (s) { return s.trim().length > 3; });
+  }
+  RP.sentences = sentences;
+
+  function paragraphs(text) {
+    return String(text || '').split(/\n{2,}/).map(function (p) {
+      return p
+        .replace(/^#{1,6}\s*/gm, '')                       // headings
+        .replace(/^>\s?/gm, '')                            // block quotes
+        .replace(/\[([^\]]+)\]\([^)]*\)/g, '$1')           // links → their text
+        .replace(/[*_`]/g, '')
+        .replace(/\s+/g, ' ')
+        .trim();
+    }).filter(function (p) {
+      if (p.length <= 80) return false;
+      if (/^filing note/i.test(p)) return false;            // apparatus, not scene
+      if (/^[A-Z0-9 ,'’&—-]{24,}$/.test(p)) return false;   // shouted title lines
+      return true;
+    });
+  }
+
+  /** Long prose → beats with real detail. Used wherever a record has a
+   *  description but no filed timeline: each paragraph becomes one beat,
+   *  its first sentence the headline and the whole paragraph the detail. */
+  RP.beatsFromProse = function (text, limit, label) {
+    var out = [];
+    paragraphs(text).forEach(function (p, i) {
+      if (out.length >= (limit || 6)) return;
+      var head = sentences(p)[0] || p;
+      out.push({
+        time: (label || 'beat') + ' ' + (i + 1),
+        beat: clip(head.replace(/\*\*/g, ''), 140),
+        detail: clip(p.replace(/\*\*/g, ''), 420),
+      });
+    });
+    return out;
+  };
+
+  function castLine(c) {
+    return '- ' + c.name + (c.why ? ' — ' + c.why : (c.title ? ' — ' + c.title : ''));
+  }
+
+  /** The shared shape. `brief` is what the reader sees; `scene` is the
+   *  condensed version the model is handed as the situation. */
+  function scenario(fields) {
+    var cast = (fields.cast || []).filter(Boolean);
+    var brief = fields.briefParts.filter(Boolean).join('\n\n');
+    return {
+      id: fields.id,
+      kind: fields.kind,                 // filed | divergence | gap | chamber | flashpoint | custom
+      kindLabel: fields.kindLabel,
+      name: clip(fields.name, 110),
+      premise: clip(fields.premise, 420),
+      brief: brief,
+      scene: fields.scene || brief,
+      image: fields.image || '',
+      date: clip(fields.date, 80),
+      tags: (fields.tags || []).filter(Boolean).slice(0, 6).map(function (t) { return clip(t, 30); }),
+      suggestedCast: cast,
+      beats: (fields.beats || []).filter(function (b) { return b && b.beat; }).slice(0, 10),
+      questions: (fields.questions || []).filter(Boolean).slice(0, 5),
+      source: fields.source || '',
+      weight: fields.weight || 0,
+    };
+  }
+
+  /** Is this scenario worth a card? Long enough, peopled, and scripted. */
+  RP.scenarioQuality = function (s) {
+    if (!s) return 0;
+    var detail = s.beats.reduce(function (n, b) { return n + String(b.detail || '').length; }, 0);
+    if (s.brief.length < RP.WHATIF_MIN_BRIEF) return 0;
+    if (s.beats.length < RP.WHATIF_MIN_BEATS) return 0;
+    if (s.suggestedCast.length < 2) return 0;
+    return s.brief.length + detail + (s.suggestedCast.length * 200) + (s.weight * 500);
+  };
+
+  function whyFor(role) {
+    return clip(role, 110);
+  }
+
+  /* ---- engine 1: the archive's own filed What-Ifs ---- */
+
+  RP.whatIfFromFiled = function (record, castById) {
+    if (!record || !record.id) return null;
+    var chapters = (record.chapters || []).filter(function (c) { return c && (c.heading || c.body); });
+    var tagCast = (record.tags || []).map(function (t) {
+      return (castById || {})[slug(t)] || null;
+    }).filter(Boolean);
+    var subject = (castById || {})[slug(record.subject)];
+    var cast = [];
+    var seen = {};
+    [subject].concat(tagCast).filter(Boolean).forEach(function (c) {
+      if (seen[c.id]) return; seen[c.id] = 1;
+      cast.push(Object.assign({}, c, { why: c.id === (subject || {}).id ? 'the subject of the branch' : 'named in the filing' }));
+    });
+    var beats = chapters.slice(0, 8).map(function (c, i) {
+      var body = sentences(String(c.body || '').replace(/[*_>]/g, ''));
+      return {
+        time: c.phase ? clip(c.phase, 40) : 'chapter ' + (i + 1),
+        beat: clip(c.heading || ('Chapter ' + (i + 1)), 140),
+        detail: clip(body.slice(0, 3).join(' '), 420),
+      };
+    });
+    return scenario({
+      id: 'whatif:' + record.id,
+      kind: 'filed', kindLabel: 'Filed What-If',
+      name: clip(record.title, 110),
+      premise: record.premise || record.summary,
+      image: record.subjectImage || '',
+      date: clip(record.filed, 60),
+      tags: record.tags,
+      weight: 3,
+      source: 'whatifs.json → ' + record.id,
+      cast: cast,
+      beats: beats,
+      questions: (record.findings || []).slice(0, 3).map(function (f) { return f.t; }),
+      briefParts: [
+        '**The divergence.** ' + (record.divergence || record.premise || ''),
+        record.epigraph ? '> ' + String(record.epigraph).replace(/\s+/g, ' ') : '',
+        '**What the archive already filed.** ' + (record.summary || ''),
+        '**How it ran.** The filing has ' + chapters.length + ' chapters' +
+          (record.wordCount ? ', about ' + record.wordCount + ' words' : '') +
+          (record.resetsTotal ? ', and ' + record.resetsTotal + ' resets that were never going to be enough' : '') +
+          '. This scenario picks the branch up at chapter one and lets it run again with you in it — the filed chapters fire as beats, on their own schedule, while you play the people around them.',
+        cast.length ? '**Who is in the room.**\n' + cast.map(castLine).join('\n') : '',
+        record.verdict && record.verdict.body ? '**The verdict on record.** ' + clip(record.verdict.body, 600) : '',
+        '**What is at stake.** ' + clip(record.outcome || record.summary, 400),
+      ],
+    });
+  };
+
+  /* ---- engine 2: the wanted pages — people the archive names but never wrote ---- */
+
+  /** Scan the filed records for people who are referenced and have no
+   *  dossier. This is the archive's own Wanted Pages board, recomputed here:
+   *  every one of these is a scene nobody has played because the person does
+   *  not exist on paper yet. */
+  RP.wantedFrom = function (events, factions, castById, limit) {
+    var counts = {};
+    // Ids that already have a record of some kind are not gaps: a faction or
+    // a filed event named in a participant list is a link, not a missing page.
+    var known = {};
+    (events || []).forEach(function (e) { known[slug(e.id)] = 1; known[slug(e.name)] = 1; });
+    (factions || []).forEach(function (f) { known[slug(f.id)] = 1; known[slug(f.name)] = 1; });
+    // Bodies get named in participant lists too ("The Iron Legion", "The
+    // Regal Empire"). They are institutions with their own records, not
+    // people the archive forgot to write up.
+    var BODY = /\b(empire|legion|guild|order|patrol|army|navy|company|council|court|clan|house|crew|troop|federation|congress|diet|kingdom|republic|division|bureau|ministry|senate|assembly|toads|forces|garrison)\b/i;
+    function note(id, name, from) {
+      var key = slug(id || name);
+      if (!key || (castById || {})[key] || known[key]) return;
+      if (BODY.test(String(name || key).replace(/_/g, ' '))) return;
+      var entry = counts[key] || (counts[key] = { id: key, name: clip(name || RP.prettyId(key), 60), count: 0, from: [] });
+      entry.count++;
+      if (entry.from.length < 6 && from) entry.from.push(from);
+    }
+    (events || []).forEach(function (e) {
+      var others = (e.participants || []).map(function (x) { return String((x && x.id) || ''); });
+      (e.participants || []).forEach(function (p) {
+        if (!p) return;
+        note(p.id, p.name, {
+          id: e.id, name: e.name, kind: 'event', summary: e.summary, role: p.role,
+          location: e.location, date: e.date, image: e.image, with: others,
+          outcome: e.outcome, description: e.description,
+          // The filing's own timeline becomes the script for the scene they
+          // walked through — the one the archive never wrote them into.
+          entries: ((e.timeline || {}).entries || []).slice(0, 8),
+        });
+      });
+    });
+    (factions || []).forEach(function (f) {
+      var roster = (f.leadership || []).concat(f.notableMembers || []);
+      var others = roster.map(function (x) { return String((x && x.id) || ''); });
+      roster.forEach(function (m) {
+        if (!m) return;
+        note(m.id, m.name, { id: f.id, name: f.name, kind: 'faction', summary: f.summary, role: m.role, with: others });
+      });
+    });
+    return Object.keys(counts).map(function (k) { return counts[k]; })
+      .filter(function (w) { return w.count >= 1 && w.from.length; })
+      .sort(function (a, b) { return b.count - a.count; })
+      .slice(0, limit || 12);
+  };
+
+  RP.whatIfFromGap = function (wanted, castById) {
+    if (!wanted || !wanted.from.length) return null;
+    var anchor = wanted.from[0];
+    // The unwritten person is playable: that is the entire point of the scene.
+    var ghost = RP.normChar({
+      id: wanted.id, name: wanted.name,
+      title: 'Unwritten — named in ' + wanted.count + ' filings, dossier never filed',
+      summary: 'Everything on record about ' + wanted.name + ' is secondhand: ' +
+        wanted.from.map(function (f) { return (f.role ? f.role + ', in ' : 'named in ') + f.name; }).join('; ') + '.',
+    });
+    ghost.why = 'the person nobody has written down';
+    var cast = [ghost];
+    var seenCast = {};
+    wanted.from.forEach(function (f) {
+      (f.with || []).forEach(function (id) {
+        var c = (castById || {})[slug(id)];
+        if (!c || seenCast[c.id] || cast.length >= 6) return;
+        seenCast[c.id] = 1;
+        cast.push(Object.assign({}, c, { why: 'filed alongside them in ' + f.name }));
+      });
+    });
+    var beats = wanted.from.slice(0, 3).map(function (f) {
+      return {
+        time: f.kind === 'event' ? 'on record' : 'on the roster',
+        beat: clip(wanted.name + ' is named in ' + f.name, 140),
+        detail: clip((f.role ? f.role + '. ' : '') + (f.summary || ''), 420),
+      };
+    });
+    // Then the filing itself runs, beat by beat, with them in the room.
+    (anchor.entries || []).slice(0, 6).forEach(function (e) {
+      if (!e || !e.beat) return;
+      beats.push({ time: clip(e.time, 60) || 'the filing', beat: clip(e.beat, 140), detail: clip(e.detail, 420) });
+    });
+    if (beats.length < 4) {
+      // No filed timeline on that record: its own prose carries the scene.
+      beats = beats.concat(RP.beatsFromProse(
+        [anchor.summary, anchor.description, anchor.outcome].filter(Boolean).join('\n\n'), 5, 'the filing'));
+    }
+    return scenario({
+      id: 'gap:' + wanted.id,
+      kind: 'gap', kindLabel: 'Wanted page',
+      name: 'What if we finally met ' + wanted.name + '?',
+      premise: wanted.name + ' is named in ' + wanted.count + ' filing' + (wanted.count === 1 ? '' : 's') +
+        ' and has never been written up. ' +
+        'This is the scene where the archive stops referring to them and has to look at them.',
+      image: anchor.image || '',
+      date: clip(anchor.date, 60),
+      tags: ['wanted page', 'unwritten', anchor.kind],
+      weight: Math.min(3, wanted.count / 3),
+      source: 'wanted pages → ' + wanted.id,
+      cast: cast,
+      beats: beats,
+      questions: [
+        'Who are they when they are not being referred to?',
+        'Do the filings that name them agree with each other?',
+        'What did the archive get wrong by never asking?',
+      ],
+      briefParts: [
+        '**The gap.** ' + wanted.name + ' has been referenced ' +
+          (wanted.count === 1 ? 'once' : wanted.count + ' times') + ' across the archive — ' +
+          wanted.from.map(function (f) { return f.name; }).join(', ') +
+          ' — and has no dossier of their own. Every fact about them is a sentence in somebody else\u2019s filing.',
+        '**What the record says, secondhand.**\n' + wanted.from.slice(0, 4).map(function (f) {
+          return '- *' + f.name + '*' + (f.role ? ' — ' + clip(f.role, 180) : '') + (f.summary ? '. ' + clip(f.summary, 240) : '');
+        }).join('\n'),
+        anchor.location ? '**The room.** ' + anchor.location + (anchor.date ? ', ' + anchor.date : '') + '. ' +
+          'That is where the record last put them, so that is where this starts.' : '',
+        '**Who is in the room.**\n' + cast.map(castLine).join('\n'),
+        anchor.summary ? '**The filing they walked through.** ' + clip(anchor.summary, 700) : '',
+        '**What is known, and what is not.** Known: they were there, they did what the role line says, and at least ' +
+          wanted.count + ' record' + (wanted.count === 1 ? '' : 's') + ' depend' + (wanted.count === 1 ? 's' : '') +
+          ' on it. Not known: where they came from, who they answer to, what they wanted out of that day, and whether ' +
+          'anyone has asked them since. None of that is contradicted by the archive, because the archive never went ' +
+          'looking — which means this scene can settle it rather than argue with it.',
+        '**What is at stake.** A name that has been doing work in ' + wanted.count + ' filing' +
+          (wanted.count === 1 ? '' : 's') + ' without ever being accountable to one. Play it and the archive gets a ' +
+          'first-hand account instead of a hole — which is the only way a wanted page ever gets written.',
+      ],
+    });
+  };
+
+  /* ---- engine 3: a filed event, turned at its hinge ---- */
+
+  RP.whatIfFromEvent = function (event, castById) {
+    var entries = ((event && event.timeline) || {}).entries || [];
+    if (entries.length < 4 && event) {
+      // Events filed as prose rather than a timeline still have a shape:
+      // their paragraphs are the beats, and the middle one is the hinge.
+      entries = RP.beatsFromProse([event.summary, event.description, event.outcome].filter(Boolean).join('\n\n'), 8, 'the day');
+    }
+    if (entries.length < 4 || !(event.participants || []).length) return null;
+    var fromProse = !((event.timeline || {}).entries || []).length;
+    var hingeAt = Math.max(1, Math.floor(entries.length / 2));
+    var hinge = entries[hingeAt];
+    if (!hinge || !hinge.beat) return null;
+    var cast = (event.participants || []).slice(0, 6).map(function (p) {
+      var c = (castById || {})[slug(p.id)] || (castById || {})[slug(p.name)];
+      return c ? Object.assign({}, c, { why: whyFor(p.role) }) : null;
+    }).filter(Boolean);
+    var after = entries.slice(hingeAt).slice(0, 6).map(function (e, i) {
+      return {
+        time: clip(e.time, 60) || ('beat ' + (i + 1)),
+        beat: clip(e.beat, 140),
+        detail: clip(e.detail, 420) + (i === 0 ? ' — except this time it does not go the way the record says.' : ''),
+      };
+    });
+    return scenario({
+      id: 'turn:' + (event.id || slug(event.name)),
+      kind: 'divergence', kindLabel: 'Turned at the hinge',
+      name: fromProse
+        ? 'What if ' + clip(event.name, 60) + ' had turned at the halfway mark?'
+        : 'What if \u201C' + clip(hinge.beat, 64) + '\u201D had gone the other way?',
+      premise: 'The filing says ' + clip(hinge.beat, 120) + '. Everything after it in the record depends on that. ' +
+        'Take the hinge out and the rest of the day has to be played again.',
+      image: event.image || '',
+      date: clip(event.date, 70),
+      tags: ['divergence', clip(event.era, 30), clip(event.type, 30)],
+      weight: 2 + Math.min(2, cast.length / 3),
+      source: 'events.json → ' + event.id,
+      cast: cast,
+      beats: after,
+      questions: [
+        'Who benefits from the hinge turning?',
+        'Which of the filed consequences still happen anyway?',
+        'What does the archive have to retract?',
+      ],
+      briefParts: [
+        '**What actually happened.** ' + clip(event.summary, 600),
+        '**The hinge.** ' + clip(hinge.time ? hinge.time + ' — ' + hinge.beat : hinge.beat, 200) + '. ' + clip(hinge.detail, 420),
+        '**The divergence.** In this branch the hinge fails. The people who were in the room are the same people, ' +
+          'standing in the same place, with the same information — they simply do not get the outcome the record ' +
+          'gives them. Everything filed after this point is now a question.',
+        event.location ? '**The room.** ' + event.location + (event.date ? '. ' + event.date : '') + '.' : '',
+        cast.length ? '**Who is in the room.**\n' + cast.map(castLine).join('\n') : '',
+        event.outcome ? '**What the record says it cost.** ' + clip(event.outcome, 500) : '',
+        '**What is at stake.** ' + (entries.length - hingeAt) + ' filed beats downstream of the hinge, all of them ' +
+          'now provisional. The beats still fire on their filed schedule; your job is to play the people who have to ' +
+          'live with them arriving differently.',
+      ],
+    });
+  };
+
+  /* ---- engine 4: the chambers — a body, a vote, a docket ---- */
+
+  RP.whatIfFromBody = function (body, cast, congress) {
+    var needle = String(body.name || '').toLowerCase().replace(/^the\s+/, '');
+    var members = (cast || []).filter(function (c) {
+      var hay = (c.affiliation + ' ' + c.title + ' ' + c.summary).toLowerCase();
+      return needle.length > 3 && hay.indexOf(needle) >= 0;
+    }).slice(0, 6).map(function (c) { return Object.assign({}, c, { why: c.affiliation || c.title }); });
+    (body.leadership || []).forEach(function (m) {
+      var hit = (cast || []).filter(function (c) { return c.id === slug(m.id || m.name); })[0];
+      if (hit && !members.some(function (x) { return x.id === hit.id; })) {
+        members.unshift(Object.assign({}, hit, { why: m.role || 'leadership' }));
+      }
+    });
+    var beats = RP.beatsFromProse(body.description, 6, 'session');
+    var sessions = ((congress || {}).sessions || []).slice(0, 3);
+    if (beats.length < 4 && sessions.length) {
+      sessions.forEach(function (s) {
+        beats.push({ time: clip(s.date || String(s.year), 50), beat: clip(s.name, 140), detail: clip(s.summary, 420) });
+      });
+    }
+    if (members.length < 2) return null;
+    return scenario({
+      id: 'chamber:' + body.id,
+      kind: 'chamber', kindLabel: 'The chamber',
+      name: 'What if ' + body.name + ' had voted the other way?',
+      premise: clip(body.summary, 300) + ' This scenario sits in the chamber on the day the vote went the way it went — ' +
+        'and plays the version where the room does not hold.',
+      image: body.image || '',
+      tags: ['politics', clip(body.type, 30), clip(body.region, 30)],
+      weight: 2,
+      source: 'factions.json → ' + body.id,
+      cast: members,
+      beats: beats.slice(0, 7),
+      questions: [
+        'Who changes their vote, and what does it cost them at home?',
+        'Which member is being leaned on, and by whom?',
+        'Does the chamber survive the session?',
+      ],
+      briefParts: [
+        '**The body.** ' + clip(body.summary, 500),
+        '**On the record.** ' + clip(paragraphs(body.description).slice(0, 2).join(' '), 700),
+        body.leadership && body.leadership.length ? '**Leadership as filed.**\n' + body.leadership.slice(0, 4).map(function (m) {
+          return '- ' + m.name + (m.role ? ' — ' + clip(m.role, 160) : '');
+        }).join('\n') : '',
+        '**The divergence.** The chamber is the same chamber; the arithmetic is the same arithmetic. What changes is ' +
+          'that the vote is live when you arrive, and the members in the room have not yet done the thing the record ' +
+          'says they did.',
+        members.length ? '**Who is in the room.**\n' + members.map(castLine).join('\n') : '',
+        '**What is at stake.** Everything the filed vote made possible downstream — the mandates, the resignations, ' +
+          'the enforcement arm that was built on the back of it.',
+      ],
+    });
+  };
+
+  /* ---- engine 5: the loudest post on the wire ---- */
+
+  RP.whatIfFromPost = function (post, castById) {
+    if (!post || post.comments.length < 2) return null;
+    var cast = post.chars.map(function (id) { return (castById || {})[id]; }).filter(Boolean)
+      .filter(function (c, i, all) { return all.indexOf(c) === i; })
+      .slice(0, 5).map(function (c) { return Object.assign({}, c, { why: c.id === slug(post.author) ? 'posted it' : 'named in the post' }); });
+    if (cast.length < 2) return null;
+    var beats = post.comments.slice(0, 5).map(function (c, i) {
+      var who = ((castById || {})[c.author] || {}).name || RP.prettyId(c.author);
+      return { time: 'reply ' + (i + 1), beat: clip(who + ' answers in public', 140), detail: clip(c.content, 420) };
+    });
+    return scenario({
+      id: 'flashpoint:' + post.id,
+      kind: 'flashpoint', kindLabel: 'Wire flashpoint',
+      name: 'What if ' + post.authorName + ' had been right?',
+      premise: 'A post with ' + post.likes + ' likes and ' + post.comments.length + ' public answers. ' +
+        'The archive treated it as noise. This scenario treats it as a warning that landed.',
+      image: post.image || '',
+      date: post.timestamp,
+      tags: ['wahwire'].concat(post.tags),
+      weight: 1 + Math.min(2, post.comments.length / 3),
+      source: 'wahwire → ' + post.id,
+      cast: cast,
+      beats: beats,
+      questions: [
+        'Who has to answer for it once it is true?',
+        'Who was arguing in the replies because they already knew?',
+        'What does the wire do when it is proved right?',
+      ],
+      briefParts: [
+        '**The post.** ' + post.authorName + ', ' + post.timestamp + ':\n\n> ' + clip(post.content, 700),
+        '**The public answers.**\n' + post.comments.slice(0, 4).map(function (c) {
+          var who = ((castById || {})[c.author] || {}).name || RP.prettyId(c.author);
+          return '- **' + who + ':** ' + clip(c.content, 220);
+        }).join('\n'),
+        '**The divergence.** The wire is not the record — that is the rule everyone quotes. In this branch the post ' +
+          'is the record: what it claims is true, and the people who answered it in public are now on the hook for ' +
+          'what they said before they knew.',
+        '**Who is in the room.**\n' + cast.map(castLine).join('\n'),
+        '**What is at stake.** ' + post.likes + ' people signed their name to an opinion about this. Play the hours ' +
+          'after it stops being an opinion.',
+      ],
+    });
+  };
+
+  /* ---- the board ---- */
+
+  /** Build the What-If board: every engine runs, everything is scored, the
+   *  thin ones are dropped, and the survivors are mixed so one engine cannot
+   *  own the page. A dozen long scenarios beats two hundred one-liners. */
+  RP.buildWhatIfs = function (archive, castById, opts) {
+    opts = opts || {};
+    archive = archive || {};
+    var cast = Object.keys(castById || {}).map(function (k) { return castById[k]; });
+    var out = [];
+    (archive.whatifs || []).forEach(function (w) { out.push(RP.whatIfFromFiled(w, castById)); });
+    RP.wantedFrom(archive.events, archive.factions, castById, 10).forEach(function (w) {
+      out.push(RP.whatIfFromGap(w, castById));
+    });
+    (archive.events || []).slice(-40).forEach(function (e) { out.push(RP.whatIfFromEvent(e, castById)); });
+    (archive.factions || []).forEach(function (f) {
+      if (!/diet|congress|patrol|council|assembly|senate|court/i.test(f.name || '')) return;
+      out.push(RP.whatIfFromBody(f, cast, archive.congress));
+    });
+    RP.sortPosts(archive.posts || [], 'loudest').slice(0, 12).forEach(function (p) {
+      out.push(RP.whatIfFromPost(p, castById));
+    });
+
+    var scored = out.filter(Boolean).map(function (s) { return { s: s, q: RP.scenarioQuality(s) }; })
+      .filter(function (x) { return x.q > 0; })
+      .sort(function (a, b) { return b.q - a.q; });
+
+    // Round-robin by kind so the board is not six versions of one engine.
+    var byKind = {};
+    scored.forEach(function (x) { (byKind[x.s.kind] = byKind[x.s.kind] || []).push(x.s); });
+    var kinds = Object.keys(byKind), picked = [], limit = opts.limit || 12, i = 0;
+    while (picked.length < limit) {
+      var added = false;
+      for (var k = 0; k < kinds.length; k++) {
+        var list = byKind[kinds[k]];
+        if (list[i]) { picked.push(list[i]); added = true; }
+        if (picked.length >= limit) break;
+      }
+      if (!added) break;
+      i++;
+    }
+    return picked;
+  };
+
+  /* ---- the reader's own scenario, composed from the archive ---- */
+
+  /** Find the filed records a description is talking about. Plain string
+   *  matching on names — deterministic, instant, and good enough that the
+   *  model never has to be asked "who did they mean?". */
+  RP.matchArchive = function (text, archive, castById) {
+    var hay = ' ' + String(text || '').toLowerCase() + ' ';
+    function hits(list, nameOf) {
+      return (list || []).filter(function (r) {
+        var name = String(nameOf ? nameOf(r) : r.name || '').toLowerCase().trim();
+        if (name.length < 4) return false;
+        // Whole words only: "luigi" must not match inside "Waluigi".
+        var at = hay.indexOf(name);
+        while (at >= 0) {
+          var before = hay.charAt(at - 1), after = hay.charAt(at + name.length);
+          if (!/[a-z0-9]/.test(before) && !/[a-z0-9]/.test(after)) return true;
+          at = hay.indexOf(name, at + 1);
+        }
+        return false;
+      });
+    }
+    var chars = hits(Object.keys(castById || {}).map(function (k) { return castById[k]; }));
+    return {
+      chars: chars.slice(0, 8),
+      events: hits(archive.events).slice(0, 3),
+      factions: hits(archive.factions).slice(0, 3),
+      whatifs: hits(archive.whatifs, function (w) { return w.title; }).slice(0, 2),
+    };
+  };
+
+  /** Describe it, and the page writes the brief: your premise, plus what the
+   *  archive already has on everyone and everything you named, plus a script
+   *  taken from the matched filing's own timeline. No model call. */
+  RP.composeScenario = function (input, archive, castById) {
+    input = input || {};
+    var text = String(input.text || '').trim();
+    var found = RP.matchArchive(text + ' ' + (input.title || ''), archive || {}, castById);
+    var picked = (input.castIds || []).map(function (id) { return (castById || {})[id]; }).filter(Boolean);
+    var cast = picked.concat(found.chars.filter(function (c) {
+      return !picked.some(function (p) { return p.id === c.id; });
+    })).slice(0, 8).map(function (c) {
+      return Object.assign({}, c, { why: c.title || c.affiliation || 'named in the premise' });
+    });
+    var anchor = found.events[0];
+    // Anyone filed in the records you named belongs in the room too.
+    var seenCast = {};
+    cast.forEach(function (c) { seenCast[c.id] = 1; });
+    (anchor ? anchor.participants || [] : []).forEach(function (p) {
+      var c = (castById || {})[slug(p && p.id)];
+      if (!c || seenCast[c.id] || cast.length >= 8) return;
+      seenCast[c.id] = 1;
+      cast.push(Object.assign({}, c, { why: whyFor(p.role) || ('filed in ' + anchor.name) }));
+    });
+    found.factions.forEach(function (f) {
+      (f.leadership || []).forEach(function (m) {
+        var c = (castById || {})[slug(m && m.id)];
+        if (!c || seenCast[c.id] || cast.length >= 8) return;
+        seenCast[c.id] = 1;
+        cast.push(Object.assign({}, c, { why: (m.role ? m.role + ', ' : '') + f.name }));
+      });
+    });
+    var beats = [];
+    if (anchor && anchor.timeline && (anchor.timeline.entries || []).length) {
+      beats = anchor.timeline.entries.slice(0, 6).map(function (e, i) {
+        return { time: clip(e.time, 60) || ('beat ' + (i + 1)), beat: clip(e.beat, 140), detail: clip(e.detail, 420) };
+      });
+    }
+    if (beats.length < 3 && anchor) {
+      // No filed timeline: the matched filing's own prose becomes the script.
+      beats = beats.concat(RP.beatsFromProse((anchor.summary || '') + '\n\n' + (anchor.outcome || ''), 4, 'on record'));
+    }
+    if (beats.length < 3 && found.factions[0]) {
+      beats = beats.concat(RP.beatsFromProse(found.factions[0].description || found.factions[0].summary, 3, 'the body'));
+    }
+    if (beats.length < 3) {
+      sentences(text).forEach(function (line) {
+        if (beats.length >= 6 || line.length < 20) return;
+        beats.push({ time: 'beat ' + (beats.length + 1), beat: clip(line, 140), detail: clip(line, 420) });
+      });
+    }
+    if (beats.length < 3) {
+      // Last resort: a three-beat spine built out of your own premise, so a
+      // one-line idea still arrives as a scene that moves on its own.
+      var where = (anchor && anchor.location) || (found.factions[0] && found.factions[0].name) || 'the room';
+      var who = cast.map(function (c) { return c.name; }).join(', ') || 'whoever is standing there';
+      beats = [
+        { time: 'cold open', beat: 'The room assembles', detail: 'In ' + where + ': ' + who + '. Nothing has gone wrong yet, and everyone is behaving as though the record still holds.' },
+        { time: 'the turn', beat: clip(sentences(text)[0] || 'The premise arrives', 140), detail: clip(text, 420) },
+        { time: 'the cost', beat: 'Somebody has to answer for it', detail: 'The consequence lands on whoever is closest, and the archive has to decide what it writes down.' },
+      ];
+    }
+    var questions = sentences(text).filter(function (s) { return /\?$/.test(s.trim()); }).slice(0, 3);
+    return scenario({
+      id: 'custom:' + (slug(input.title) || uid()),
+      kind: 'custom', kindLabel: 'Yours',
+      // "What if …" once, not twice: most people write the words themselves.
+      name: clip(input.title || (/^\s*what if\b/i.test(text) ? sentences(text)[0] : 'What if ' + clip(sentences(text)[0] || 'this happened', 60)), 110),
+      premise: clip(text, 400),
+      image: (anchor && anchor.image) || '',
+      date: anchor ? clip(anchor.date, 70) : '',
+      tags: ['custom'].concat(found.factions.map(function (f) { return clip(f.name, 30); })),
+      weight: 5,
+      source: 'written by ' + ((archive && archive.userName) || 'you'),
+      cast: cast,
+      beats: beats,
+      questions: questions.length ? questions : [
+        'Who is standing closest to the change?',
+        'What does the archive have to correct afterwards?',
+      ],
+      briefParts: [
+        '**The premise, as you wrote it.** ' + text,
+        cast.length ? '**Who the archive matched.**\n' + cast.map(function (c) {
+          return '- **' + c.name + '**' + (c.title ? ' — ' + c.title : '') + (c.summary ? '. ' + clip(c.summary, 220) : '');
+        }).join('\n') : '',
+        found.events.length ? '**Filed events this touches.**\n' + found.events.map(function (e) {
+          return '- *' + e.name + '*' + (e.date ? ' (' + clip(e.date, 60) + ')' : '') + '. ' + clip(e.summary, 260);
+        }).join('\n') : '',
+        found.factions.length ? '**Bodies involved.**\n' + found.factions.map(function (f) {
+          return '- *' + f.name + '*. ' + clip(f.summary, 260);
+        }).join('\n') : '',
+        anchor && anchor.location ? '**The room.** ' + anchor.location + (anchor.date ? ', ' + anchor.date : '') + '.' : '',
+        '**How it will run.** ' + (anchor && beats.length
+          ? 'The beats come from the filed timeline of *' + anchor.name + '*: they fire on their own schedule while you play around them.'
+          : 'Your description was split into beats, in the order you wrote it, so the scene still moves without you having to push it.'),
+      ],
+    });
+  };
+
+  /** Room options for any scenario — the same shape a scene card produces. */
+  RP.scenarioRoomOpts = function (s) {
+    return {
+      scene: [s.premise, s.scene].filter(Boolean).join('\n\n'),
+      sceneName: s.name,
+      sceneImage: s.image,
+      beats: s.beats,
+      opener: s.kindLabel + ' — ' + s.name + '\n\n' + s.premise,
     };
   };
 
@@ -933,7 +1568,7 @@
     return {
       version: 1,
       user: { name: 'Archivist', handle: 'waluipedia', persona: '', avatar: '' },
-      rooms: [], chars: [], lore: [], log: [], active: '',
+      rooms: [], chars: [], lore: [], log: [], scenarios: [], active: '',
       usedPosts: {},   // wire post id -> where it was played
       settings: {
         style: 'novel', voice: 'off', temperature: 0.85, endpoint: '',
@@ -951,7 +1586,7 @@
       var raw = store.getItem(key || RP.KEY);
       var value = raw ? JSON.parse(raw) : null;
       if (value && typeof value === 'object') {
-        ['rooms', 'chars', 'lore', 'log'].forEach(function (k) {
+        ['rooms', 'chars', 'lore', 'log', 'scenarios'].forEach(function (k) {
           if (Array.isArray(value[k])) state[k] = value[k];
         });
         if (typeof value.active === 'string') state.active = value.active;
@@ -973,6 +1608,7 @@
       user: state.user, settings: state.settings, active: state.active,
       rooms: rooms, chars: state.chars || [], lore: state.lore || [], log: (state.log || []).slice(-400),
       usedPosts: state.usedPosts || {},
+      scenarios: (state.scenarios || []).slice(0, 30),
     };
     try {
       store.setItem(RP.KEY, JSON.stringify(value));
@@ -1006,7 +1642,10 @@
       user: want('user') ? state.user : undefined,
     };
     if (want('chats')) bundle.rooms = (opts.rooms || state.rooms || []);
-    if (want('lore')) bundle.lore = state.lore || [];
+    if (want('lore')) {
+      bundle.lore = state.lore || [];
+      bundle.scenarios = state.scenarios || [];   // written scenarios are lore too
+    }
     if (want('memory')) {
       bundle.chars = state.chars || [];
       bundle.log = state.log || [];
@@ -1021,7 +1660,7 @@
     if (!data || typeof data !== 'object') throw new Error('not a chatroom bundle');
     if (data.kind && data.kind !== RP.BUNDLE_KIND) throw new Error('unknown bundle kind: ' + data.kind);
     var replace = mode === 'replace';
-    var stats = { rooms: 0, lore: 0, chars: 0, log: 0 };
+    var stats = { rooms: 0, lore: 0, chars: 0, log: 0, scenarios: 0 };
 
     function mergeById(current, incoming, pick) {
       var byId = {};
@@ -1045,6 +1684,11 @@
       var loreBefore = (state.lore || []).length;
       state.lore = mergeById(state.lore || [], data.lore, function (a, b) { return b; });
       stats.lore = state.lore.length - (replace ? 0 : loreBefore);
+    }
+    if (Array.isArray(data.scenarios)) {
+      var scenBefore = (state.scenarios || []).length;
+      state.scenarios = mergeById(state.scenarios || [], data.scenarios, function (a, b) { return b; });
+      stats.scenarios = state.scenarios.length - (replace ? 0 : scenBefore);
     }
     if (Array.isArray(data.chars)) {
       var charsBefore = (state.chars || []).length;

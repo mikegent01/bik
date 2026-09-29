@@ -83,9 +83,50 @@ check('dashboard: the advertisement slot is gone',
 check('layout: the hidden modal and the hidden chat view really are hidden',
   win.getComputedStyle($('modalBack')).display === 'none' && win.getComputedStyle($('chatview')).display === 'none');
 
-// ---- the WAHwire, where the ads used to be ----
+// ---- the What-If board, where the ads used to be ----
+const boardReady = await until('the What-If board', () => doc.querySelectorAll('.ifcard').length >= 3, 200);
+check('what-if: a few long scenarios render where the advertisement was', boardReady);
+check('what-if: every card carries a real premise, a cast and a beat count',
+  [...doc.querySelectorAll('.ifcard')].every(card =>
+    card.querySelector('.premise').textContent.length > 120 &&
+    card.querySelectorAll('.faces .av').length >= 2 &&
+    /\d+ beats/.test(card.querySelector('.len').textContent)));
+check('what-if: the board mixes its engines instead of repeating one',
+  new Set([...doc.querySelectorAll('.ifcard .kind')].map(k => k.textContent.split('·')[0].trim())).size >= 3);
+check('what-if: the wanted-pages engine offers people the archive never wrote up',
+  $('dashBody').textContent.includes('finally met') || $('dashBody').textContent.includes('Wanted page'));
+
+doc.querySelector('[data-ifread]').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+check('what-if: the brief opens in full, with the script and the questions',
+  !$('modalBack').hidden && doc.querySelector('.modal .brief').textContent.length > 900 &&
+  doc.querySelectorAll('.modal .stack .item').length >= 3);
+$('mOk').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+check('what-if: playing one preselects its own cast', doc.querySelectorAll('.pick.on').length >= 2);
+$('mOk').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+check('what-if: the room opens on the scenario, with its beats loaded', (() => {
+  const saved = JSON.parse(win.localStorage.getItem('waluipedia-chatroom-v1'));
+  const r = saved.rooms.find(x => x.id === saved.active);
+  return !$('chatview').hidden && r.beats.length >= 3 && r.sceneName && saved.log.some(e => e.kind === 'whatif');
+})());
+$('homeBtn').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+
+// ---- write your own, composed by the page (no model call) ----
+$('makeIf').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+$('f_text').value = 'What if the Pond Patrol raided the Midlands Diet during the Iron Mandate vote and Waluigi was in the gallery? Who gets arrested first?';
+$('mOk').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+await wait(200);
+check('create: describing a scenario composes a full brief from the archive',
+  doc.querySelector('.modal .brief') && doc.querySelector('.modal .brief').textContent.length > 700 &&
+  doc.querySelector('.modal .brief').textContent.includes('Midlands Diet'));
+check('create: the written scenario is saved and joins the board',
+  JSON.parse(win.localStorage.getItem('waluipedia-chatroom-v1')).scenarios.length === 1);
+$('mCancel').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+$('homeBtn').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+[...doc.querySelectorAll('[data-tab]')].find(b => b.dataset.tab === 'wire').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+
+// ---- the WAHwire tab keeps the sorting and the unused view ----
 const wireReady = await until('the wire to load', () => doc.querySelectorAll('[data-post]').length > 0);
-check('wire: scenario cards render in place of the advertisement', wireReady && $('dashBody').innerHTML.includes('WAHwire'));
+check('wire: the Wire tab lists the filed posts', wireReady && $('dashBody').innerHTML.includes('WAHwire'));
 check('wire: sorting and the used/unused views are offered',
   Boolean($('wireSort')) && Boolean(doc.querySelector('[data-wireview="unused"]')) && Boolean(doc.querySelector('[data-wireview="used"]')));
 check('wire: the default order is newest first', $('wireSort').value === 'newest');
@@ -102,8 +143,10 @@ sortNode.dispatchEvent(new win.Event('change', { bubbles: true }));
 check('wire: changing the sort reorders the cards', doc.querySelector('[data-post]').dataset.post !== firstPost);
 
 // ---- collections ----
+[...doc.querySelectorAll('[data-tab]')].find(b => b.dataset.tab === 'collections').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
 check('collections: the archive’s own groupings offer a cast in one click',
-  doc.querySelectorAll('[data-collection]').length > 3 && $('dashBody').innerHTML.includes('playable'));
+  doc.querySelectorAll('[data-collection]').length > 3 && $('dashBody').textContent.includes('Open as a group chat'));
+[...doc.querySelectorAll('[data-tab]')].find(b => b.dataset.tab === 'wire').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
 
 // ---- playing a wire post marks it used ----
 doc.querySelector('[data-post]').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
@@ -118,7 +161,7 @@ $('mOk').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
 check('wire: the post opens a group chat with the post as the scene',
   !$('chatview').hidden && doc.querySelector('.scene-card').textContent.includes('WAHwire'));
 check('wire: playing the post marks it used and files it in the log',
-  Object.keys(JSON.parse(win.localStorage.getItem('waluipedia-chatroom-v1')).usedPosts).length === 1 &&
+  Object.keys(JSON.parse(win.localStorage.getItem('waluipedia-chatroom-v1')).usedPosts).length >= 1 &&
   JSON.parse(win.localStorage.getItem('waluipedia-chatroom-v1')).log.some(e => e.kind === 'wire'));
 
 // ---- the director hands the scene back instead of looping ----
@@ -135,6 +178,7 @@ check('director: the chain stops at the ceiling, never runs away',
 $('homeBtn').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
 
 // ---- open a one-to-one chat ----
+[...doc.querySelectorAll('[data-tab]')].find(b => b.dataset.tab === 'discover').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
 const card = doc.querySelector('[data-char]');
 const charId = card.dataset.char;
 card.dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
@@ -143,7 +187,7 @@ check('chat: the right-hand character panel carries the profile and the menu',
   $('charpanel').textContent.includes('New chat') && $('charpanel').textContent.includes('Persona') &&
   $('charpanel').textContent.includes('Pinned') && $('charpanel').textContent.includes('Style') &&
   $('charpanel').innerHTML.includes('By @'));
-check('chat: the recents rail lists every chat', doc.querySelectorAll('[data-room]').length === 2);
+check('chat: the recents rail lists every chat', doc.querySelectorAll('[data-room]').length === 3);
 
 // ---- play one turn against the mock model ----
 $('input').value = 'Who is on the ridge tonight?';

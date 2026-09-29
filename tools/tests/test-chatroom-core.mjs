@@ -136,7 +136,7 @@ check('storage: lore, memory, the log and the account round-trip', back.lore.len
 // ---------- the WAHwire becomes scenarios ----------
 const profiles = { waluigi: { avatar: 'portraits/waluigi.jpg' } };
 const wire = [
-  { id: 'ww_a', author: 'waluigi', order: 3, likes: 500, status: 'posted', timestamp: '5 Aethel', content: 'The ridge road floods and nobody files it.', tags: ['ridge'], links: [{ id: 'sans', type: 'character' }, { id: 'the_ambush', type: 'event' }], comments: [{ author: 'sans', content: 'so move the road' }, { author: 'timber_gang', content: 'move the rain' }] },
+  { id: 'ww_a', author: 'waluigi', order: 3, likes: 500, status: 'posted', timestamp: '5 Aethel', content: 'The ridge road floods every autumn, the concession knows it floods, and the filing that would say so out loud has been sitting unwritten for two seasons while the crews keep being sent up it in the dark.', tags: ['ridge'], links: [{ id: 'sans', type: 'character' }, { id: 'timber_gang', type: 'character' }, { id: 'the_ambush', type: 'event' }], comments: [{ author: 'sans', content: 'so move the road, or move the season, or admit the concession would rather replace a crew than a culvert' }, { author: 'timber_gang', content: 'move the rain while you are at it. we have asked four times and been told it is a drainage question for next year, every year' }, { author: 'rebel_scout', content: 'the road floods because of what was cut above it, which is a sentence nobody in that office will write down' }] },
   { id: 'ww_b', author: 'timber_gang', order: 9, likes: 12, status: 'posted', timestamp: '9 Aethel', content: 'Second saw lost this month.', tags: ['timber'], links: [] },
   { id: 'ww_c', author: 'rebel_scout', order: 1, likes: 40, status: 'generated', timestamp: '1 Aethel', content: 'A draft the archive never posted.', tags: [], links: [] },
 ].map(p => RP.normPost(p, profiles));
@@ -151,7 +151,7 @@ const scenario = RP.scenarioFromPost(wire[0], castIndex);
 check('scenario: the post is the scene and the people it names are the cast',
   scenario.scene.includes('ridge road floods') && scenario.suggestedCast.some(c => c.id === 'sans'));
 check('scenario: the replies underneath become beats',
-  scenario.beats.length === 2 && scenario.beats[0].detail.includes('move the road'));
+  scenario.beats.length === 3 && scenario.beats[0].detail.includes('move the road'));
 const wireRoom = RP.newRoom(scenario.suggestedCast, { scene: scenario.scene, sceneName: scenario.name, beats: scenario.beats });
 RP.markPostUsed(state, wire[0].id, wireRoom);
 check('wire: playing a post marks it used, and the unused view shrinks',
@@ -196,6 +196,124 @@ group.maxChain = 6;
 check('director: the ceiling is configurable per room', RP.parseDirector('NEXT: The Timber Gang', group, sans).next === 'timber_gang');
 group.messages.push({ id: 'd6', role: 'user', text: 'I step out of the trees.', at: 6 });
 check('director: a player turn resets the chain', RP.chainLength(group) === 0);
+
+// ---------- What Ifs: long scenarios composed from filed records ----------
+const archive = {
+  whatifs: [{
+    id: 'wf_bank', title: 'What If Wario Owned the Abstract Bank?',
+    premise: 'A metaphysical bank lets you withdraw abstract concepts and sell them for gold. Once sold, the concept stops existing — everywhere, for everyone, permanently. The account belongs to one man, he is given three resets, and the filing exists because he needed four.',
+    summary: 'An eyewitness audit of the afternoon the account was opened: gravity goes first, then the law of equivalent exchange, then time, then the idea of a limit. Each withdrawal is cleverer than the one before it and each one fails worse, which is the whole argument of the filing rather than an accident of the telling.',
+    divergence: 'The banker assigns full, unsupervised ownership of a metaphysical concept account to a sole proprietor with no oversight, no ceiling and no reading habit.',
+    epigraph: 'It is not a scam. A scam has a ceiling.',
+    outcome: 'Four withdrawals, three resets, one afternoon, and a reserve that left through the roof it had been standing under.',
+    subject: 'Sans', tags: ['Sans', 'Promo Mario', 'Economics'], wordCount: 9000, resetsTotal: 3,
+    verdict: { body: 'He was never buying money; he already had money, obscenely, before the courier arrived. What he bought, four times, was the removal of a limit — and limits are the only thing holding the ceiling up. The finding is not that he was greedy. The finding is that he was consistent.' },
+    findings: [{ t: 'The concept he resents is never the concept he is selling.' }],
+    chapters: Array.from({ length: 6 }, (_, i) => ({
+      heading: 'Chapter ' + (i + 1), phase: 'phase ' + (i + 1),
+      body: 'A long paragraph of filed prose for chapter ' + (i + 1) + '. It runs for several sentences so the beat carries real detail rather than a label. Somebody signs a document they have not read, out loud, in front of a witness who says nothing. The floor of the room disagrees with the signature about four seconds later, and the disagreement is filed as an accident.',
+    })),
+  }],
+  events: [{
+    id: 'the_ridge_ambush', name: 'The Logging Road Ambush',
+    summary: 'Rebels came out of the treeline at the logging road and the saws stopped. Nobody filed what the cutters did next, which is the part that mattered.',
+    outcome: 'The road held, the concession lost a season, and two names went into the record without dossiers.',
+    date: '9 Aethel, 1040 BF', location: 'The ridge road above the concession', era: '1040 BF', type: 'Skirmish',
+    image: 'assets/images/events/ridge.jpg',
+    participants: [
+      { id: 'sans', name: 'Sans', role: 'watched the road' },
+      { id: 'timber_gang', name: 'The Timber Gang', role: 'cutting when it started' },
+      { id: 'gregir_fendelsohn', name: 'Gregir Fendelsohn', role: 'called the retreat and was never written up' },
+    ],
+    timeline: { entries: [
+      { time: 'before dawn', beat: 'The saws start', detail: 'Two crews on the ridge, working the top of the road in the dark because the concession pays by the trunk.' },
+      { time: 'first light', beat: 'The treeline moves', detail: 'Something crosses the gap between the stumps, twice, and nobody agrees afterwards how many there were.' },
+      { time: 'mid-morning', beat: 'The saws stop', detail: 'One crew downs tools and the silence carries further than the noise ever did.' },
+      { time: 'noon', beat: 'The road holds', detail: 'A tree comes down across the track and the rebels take the long way round, which costs them the day.' },
+      { time: 'dusk', beat: 'The count', detail: 'Two names are written into the filing and neither of them is ever given a page.' },
+    ] },
+  }],
+  factions: [{
+    id: 'midlands_diet', name: 'The Midlands Diet', type: 'Legislature', region: 'The Midlands',
+    summary: 'A 39-seat chamber that passed two emergency measures inside three days.',
+    description: 'Waluigi files the Midlands Diet under institutions that did their job exactly as designed, which is the worst thing that can be said about a parliament.\n\nThirty-nine seats, twenty-eight of them aligned before the session opened, and a public gallery that was cleared at nine in the morning for reasons the minutes do not record.\n\nThe vote itself took four minutes. The argument about whether it had been a vote at all has taken considerably longer and is still going.',
+    leadership: [{ id: 'sans', name: 'Sans', role: 'Sitting member, resigned in protest' }],
+  }],
+  congress: { sessions: [{ name: 'The First Glazed Congress', date: '14th Bloomtide, 1026', year: 1026, summary: 'The founding session, convened in the shadow of a crisis nobody wanted named.' }] },
+  posts: wire,
+};
+const seatCast = { sans: sans, timber_gang: cutters, rebel_scout: rebel };
+
+const filed = RP.whatIfFromFiled(archive.whatifs[0], seatCast);
+check('what-if (filed): the archive’s own branch becomes a playable scenario',
+  filed.kind === 'filed' && filed.beats.length === 6 && filed.brief.includes('The divergence') && filed.brief.includes('The verdict on record'));
+check('what-if (filed): the brief is long enough to run a session from', filed.brief.length > RP.WHATIF_MIN_BRIEF);
+
+const turned = RP.whatIfFromEvent(archive.events[0], seatCast);
+check('what-if (divergence): a filed session is turned at its own hinge',
+  turned.kind === 'divergence' && /had gone the other way/.test(turned.name) && turned.brief.includes('What actually happened'));
+check('what-if (divergence): the beats after the hinge are the script',
+  turned.beats.length >= 3 && turned.beats[0].detail.includes('does not go the way the record says'));
+
+const gaps = RP.wantedFrom(archive.events, archive.factions, seatCast, 5);
+check('wanted pages: people named in filings with no record of their own',
+  gaps.length === 1 && gaps[0].id === 'gregir_fendelsohn');
+check('wanted pages: bodies and filed records are not counted as missing people',
+  !gaps.some(g => /timber|diet|ambush/i.test(g.id)));
+const gap = RP.whatIfFromGap(gaps[0], seatCast);
+check('what-if (gap): the unwritten person is playable, with witnesses beside them',
+  gap.suggestedCast[0].id === 'gregir_fendelsohn' && gap.suggestedCast.length >= 3 &&
+  gap.suggestedCast[0].title.includes('Unwritten'));
+check('what-if (gap): the filing they walked through becomes the script',
+  gap.beats.length >= 4 && gap.beats.some(b => b.beat.includes('The saws stop')));
+check('what-if (gap): singular grammar when a name is referenced once', gap.brief.includes('referenced once'));
+
+const chamber = RP.whatIfFromBody(archive.factions[0], [sans, cutters, RP.normChar({ id: 'x', name: 'X', affiliation: 'The Midlands Diet' })], archive.congress);
+check('what-if (chamber): a body seats itself from the cast’s affiliations',
+  chamber && chamber.kind === 'chamber' && chamber.suggestedCast.length >= 2 && chamber.brief.includes('On the record'));
+
+const flash = RP.whatIfFromPost(wire[0], seatCast);
+check('what-if (flashpoint): a loud wire post becomes a branch where it was right',
+  flash && flash.kind === 'flashpoint' && flash.brief.includes('The post') && flash.beats.length === 3);
+
+const board = RP.buildWhatIfs(archive, seatCast, { limit: 8 });
+check('board: every scenario on it clears the quality floor',
+  board.length > 0 && board.every(s => RP.scenarioQuality(s) > 0 && s.brief.length >= RP.WHATIF_MIN_BRIEF && s.beats.length >= RP.WHATIF_MIN_BEATS && s.suggestedCast.length >= 2));
+check('board: the engines are mixed rather than one owning the page',
+  new Set(board.map(s => s.kind)).size >= 3);
+check('board: a thin scenario is dropped, not padded',
+  RP.scenarioQuality(RP.whatIfFromPost({ id: 'x', authorName: 'A', content: 'short', comments: [{ author: 'sans', content: 'ok' }], chars: ['sans'], tags: [], likes: 1, timestamp: 'now' }, seatCast) || null) === 0);
+
+// ---- written by the reader, composed by the page ----
+const mine = RP.composeScenario({
+  text: 'What if The Logging Road Ambush had been reported honestly and The Midlands Diet had to read it out loud? Who resigns?',
+}, archive, seatCast);
+check('create: the page matches the records you named',
+  mine.brief.includes('The Logging Road Ambush') && mine.brief.includes('Midlands Diet'));
+check('create: the matched filing’s own timeline becomes the script',
+  mine.beats.length >= 3 && mine.beats.some(b => b.beat.includes('saws')));
+check('create: the cast comes from the records, not from thin air',
+  mine.suggestedCast.length >= 2 && mine.suggestedCast.some(c => c.id === 'sans'));
+check('create: your question is kept as the question the table answers',
+  mine.questions.some(q => /resigns/.test(q)));
+check('create: "What if" is not doubled up in the title', !/what if what if/i.test(mine.name));
+check('create: a bare one-liner still gets a three-beat spine',
+  RP.composeScenario({ text: 'The concession burns.' }, archive, seatCast).beats.length >= 3);
+check('create: written scenarios round-trip through storage and bundles', (() => {
+  state.scenarios = [mine];
+  RP.saveState(store, state);
+  const round = RP.loadState(store);
+  const bundle = RP.exportBundle(state, { chats: false, memory: false, user: false });
+  const target = RP.loadState({ getItem: () => null, setItem() {} });
+  const st = RP.importBundle(target, bundle, 'merge');
+  return round.scenarios.length === 1 && bundle.scenarios.length === 1 && st.scenarios === 1;
+})());
+check('play: a scenario hands the room a scene, a name and its beats', (() => {
+  const opts = RP.scenarioRoomOpts(turned);
+  const built = RP.newRoom(turned.suggestedCast, opts);
+  return built.beats.length === turned.beats.length && built.sceneName === turned.name &&
+    built.messages[0].role === 'scene' && built.scene.includes('What actually happened');
+})());
 
 // ---------- generated pages are in sync with these sources ----------
 let built = true;

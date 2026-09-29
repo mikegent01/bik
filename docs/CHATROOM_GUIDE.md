@@ -30,7 +30,7 @@ python3 tools/build-chatroom.py --check  # fail if they are stale
 |---|---|---|
 | The cast | `Reputation-Matrix2/data/characters.json` | the archive |
 | The scenes | `Reputation-Matrix2/data/events.json` (newest filings with a plate) | the archive |
-| The scenarios | `Reputation-Matrix2/data/wahwire/posts.json` + `profiles.json` | the archive |
+| The scenarios | `whatifs.json`, `events.json`, `factions.json`, `congress.json`, `wahwire/posts.json` | the archive |
 | The collections | `Reputation-Matrix2/data/collections.json` | the archive |
 | Portraits and plates | `Reputation-Matrix2/…`, served raw (static) or under `/rm/` (server) | the archive |
 | Chats, memory, lore, the world log | the reader's `localStorage`, key `waluipedia-chatroom-v1` | the reader |
@@ -47,6 +47,7 @@ through [`docs/SESSION_FILING_PROCESS.md`](SESSION_FILING_PROCESS.md).
 | Served by | `python3 start.py` → `http://127.0.0.1:8765/chatroom.html` | `python workflow/server.py` → `http://127.0.0.1:8787/roleplay` |
 | Cast / scenes | the archive JSON, read directly | `/api/characters`, `/api/scenes` |
 | Wire / collections | the archive JSON, read directly | `/api/wahwire`, `/api/collections` |
+| What-If sources | `whatifs`/`factions`/`congress` JSON, read directly | `/api/archive` (one trimmed bundle) |
 | Model | `http://127.0.0.1:8787/api/roleplay` by default, or whatever ⚙ is set to | `/api/roleplay`, same origin |
 | Cast suggestions | needs the workflow server | built in |
 
@@ -60,10 +61,11 @@ routes. Both are local, unauthenticated and write nothing.
   search, and recents bucketed **Today / Yesterday / This Month / Older**;
   the archive link and the signed-in account sit at the bottom.
 - **Discover** — a **For you** row (whoever *you* actually play, first — the
-  interaction counts are your own turns, not invented popularity),
-  **Scenarios from the WAHwire**, **Collections**, **Scenes** cover cards built
-  from filed sessions, then the whole cast under **letter dividers**. There is
-  no advertisement slot and no ad code anywhere in the page.
+  interaction counts are your own turns, not invented popularity), the
+  **What If** board, **Collections**, **Scenes** cover cards built from filed
+  sessions, then the whole cast under **letter dividers**. There is no
+  advertisement slot and no ad code anywhere in the page.
+- **What If** — the whole board (below).
 - **Wire** — the whole wire, sortable and filterable (below).
 - **Collections** — the archive's own groupings, each one a cast in a click.
 - **The chat** — the stream, avatars, names, markdown-rendered turns
@@ -73,10 +75,55 @@ routes. Both are local, unauthenticated and write nothing.
   and the menu: **New chat, Voice, History, Customize, Pinned, Persona, Style,
   Memory, Replay, Script**.
 
-## Scenarios — the WAHwire
+## What If — a few long scenarios, composed by the page
 
-`Reputation-Matrix2/data/wahwire/posts.json` holds 196 filed posts. Every one
-of them is a playable scenario:
+The board is the centre of the dashboard, and it is deliberately **small and
+long** rather than large and thin: a dozen briefs you could run a session from,
+not two hundred one-line prompts. Every one of them is assembled from filed
+records by `RP.buildWhatIfs`, and every one carries the same shape:
+
+```
+premise      the divergence in two or three sentences
+brief        the divergence · what the archive already filed · the room ·
+             who is standing in it and why · what is at stake
+script       5–8 beats with real detail, fired on their own schedule
+questions    what the table is supposed to settle
+```
+
+**Five engines feed it:**
+
+| Engine | Source | What it makes |
+|---|---|---|
+| 📕 Filed What-If | `whatifs.json` | The archive's own non-canon branches, chapter by chapter |
+| 🚧 Wanted page | the wanted-pages scan | *What if we finally met X?* — people named in filings who have no dossier. The unwritten person is playable; the filing they walked through is the script |
+| 🔀 Turned at the hinge | `events.json` | A filed session turned at the middle beat of its own timeline (or the middle paragraph of its prose) |
+| 🏛 The chamber | `factions.json` + `congress.json` | The Midlands Diet, the Pond Patrol, the Council of Seven, the Glazed Congress — the vote, replayed live |
+| 📡 Wire flashpoint | `wahwire/posts.json` | The loudest posts, in the branch where the post was right |
+
+**The wanted-pages scan** (`RP.wantedFrom`) recomputes the archive's own
+🚧 Wanted Pages board from participant lists and faction rosters: ids that are
+referenced but have no record. Bodies (Legion, Guild, Diet, Empire…) and filed
+records are excluded — they are links, not missing people.
+
+**Quality gate.** `RP.scenarioQuality` drops anything with a brief under
+`WHATIF_MIN_BRIEF` (900 characters), fewer than three beats, or fewer than two
+people. The survivors are scored and then dealt round-robin by engine, so one
+source cannot own the page.
+
+**✍️ Create a scenario.** Describe it in a sentence or a page. The page matches
+the names in your text against the cast, the events and the factions
+(whole-word matching, so *Luigi* does not match *Waluigi*), pulls what the
+archive already has on each of them into the brief, seats the matched
+participants and leadership as the cast, and takes the script from the matched
+filing's own timeline — falling back to its prose, then to your sentences, then
+to a three-beat spine. **No model call is made.** The composed scenario is
+saved, joins the board, and exports with your lore.
+
+## The wire — post browsing
+
+`Reputation-Matrix2/data/wahwire/posts.json` holds 196 filed posts. The **Wire**
+tab browses all of them, and any one can be played directly (the loudest ones
+also feed the What-If board as flashpoints):
 
 - the **post is the situation** (author, timestamp and text go into the scene),
 - the **people it links to are the suggested cast** (plus the author),

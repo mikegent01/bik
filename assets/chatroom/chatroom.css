@@ -170,6 +170,33 @@ a { color: inherit; }
 .wcard .new { background: #e7f5ec; color: var(--ok); border-radius: 999px; padding: 1px 8px; font-size: 11px; font-weight: 600; }
 .wcard .done { background: var(--panel2); border-radius: 999px; padding: 1px 8px; font-size: 11px; }
 
+/* What-If board: a few big cards, each one readable from the dashboard. */
+.ifgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(430px, 1fr)); gap: 14px; }
+.ifcard {
+  display: flex; border: 1px solid var(--line); background: var(--panel); border-radius: var(--radius);
+  overflow: hidden; cursor: pointer; min-height: 200px;
+}
+.ifcard:hover { background: var(--panel2); }
+.ifcard .plate { width: 150px; flex: 0 0 150px; background: #2a2a30 center/cover no-repeat; }
+.ifcard .body { padding: 14px 16px; min-width: 0; display: flex; flex-direction: column; gap: 7px; }
+.ifcard .kind { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--muted); }
+.ifcard .kind .new { background: #e7f5ec; color: var(--ok); border-radius: 999px; padding: 1px 8px; font-weight: 600; }
+.ifcard .kind .done { background: var(--panel2); border-radius: 999px; padding: 1px 8px; }
+.ifcard .kind .grow { flex: 1; }
+.ifcard .kind .len { white-space: nowrap; }
+.ifcard h3 { margin: 0; font-size: 17px; line-height: 1.3; }
+.ifcard .premise { margin: 0; font-size: 13.5px; color: #3d3d44; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
+.ifcard .faces { display: flex; align-items: center; gap: 8px; }
+.ifcard .faces .av { margin-right: -8px; border: 2px solid var(--panel); }
+.ifcard .faces .who { margin-left: 16px; font-size: 12px; color: var(--muted); }
+.ifcard .acts { margin-top: auto; display: flex; align-items: center; gap: 8px; }
+.ifcard .acts .src { font-size: 11px; color: var(--muted); margin-left: auto; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+.modal .brief { font-size: 14px; line-height: 1.6; }
+.modal .brief p { margin: 0 0 10px; }
+.modal .brief ul { margin: 0 0 10px; padding-left: 20px; }
+.modal h4 { margin: 18px 0 6px; font-size: 14px; }
+
 .kcard {
   width: 270px; flex: 0 0 270px; text-align: left; border: 1px solid var(--line); background: var(--panel);
   border-radius: var(--radius); padding: 12px 14px; cursor: pointer;

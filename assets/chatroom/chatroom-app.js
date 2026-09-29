@@ -25,6 +25,8 @@
   var scenes = [];        // filed sessions offered as scene starters
   var posts = [];         // WAHwire posts, normalised
   var collections = [];   // the archive's own character collections
+  var archive = { whatifs: [], events: [], factions: [], congress: {} };
+  var whatifs = [];       // the composed What-If board
   var wireSort = 'newest';
   var wireView = 'all';   // all | unused | used | unfiled
   var tab = 'discover';
@@ -143,6 +145,35 @@
     }).catch(function (error) { posts = []; console.warn('wire unavailable', error); });
   }
 
+  /** The records the What-If board is composed from. */
+  function loadArchive() {
+    if (CFG.mode === 'static') {
+      return Promise.all([
+        getJSON(CFG.whatifsUrl).catch(function () { return []; }),
+        getJSON(CFG.factionsUrl).catch(function () { return []; }),
+        getJSON(CFG.congressUrl).catch(function () { return {}; }),
+      ]).then(function (all) {
+        archive.whatifs = Array.isArray(all[0]) ? all[0] : (all[0].whatifs || []);
+        archive.factions = Array.isArray(all[1]) ? all[1] : (all[1].factions || []);
+        archive.congress = all[2] || {};
+      });
+    }
+    return getJSON(CFG.archiveUrl).then(function (data) {
+      archive.whatifs = data.whatifs || [];
+      archive.events = data.events || [];
+      archive.factions = data.factions || [];
+      archive.congress = data.congress || {};
+    }).catch(function (error) { console.warn('archive bundle unavailable', error); });
+  }
+
+  /** Compose the board once everything has landed. */
+  function buildBoard() {
+    archive.posts = posts;
+    archive.userName = (state.user || {}).name;
+    whatifs = RP.buildWhatIfs(archive, castById, { limit: 12 })
+      .concat((state.scenarios || []).map(function (s) { return s; }));
+  }
+
   function loadCollections() {
     return getJSON(CFG.collectionsUrl).then(function (data) {
       var list = Array.isArray(data) ? data : (data.collections || []);
@@ -153,7 +184,13 @@
 
   function loadScenes() {
     return getJSON(CFG.scenesUrl).then(function (data) {
-      if (CFG.mode === 'static') { scenes = scenesFromEvents(data); return; }
+      if (CFG.mode === 'static') {
+        // The static build reads events.json anyway; the What-If board takes
+        // its divergences and its wanted-pages scan from the same copy.
+        archive.events = (Array.isArray(data) ? data : (data.events || [])).slice(-60);
+        scenes = scenesFromEvents(data);
+        return;
+      }
       scenes = (data.scenes || []).map(function (s) {
         s.suggestedCast = (s.suggestedCast || []).map(function (c) { return castById[c.id] || RP.normChar(c); });
         return s;
@@ -205,6 +242,7 @@
 
   var NAV = [
     { id: 'discover', ico: '◉', label: 'Discover' },
+    { id: 'whatif', ico: '❓', label: 'What If' },
     { id: 'wire', ico: '📡', label: 'Wire' },
     { id: 'collections', ico: '🗂', label: 'Collections' },
     { id: 'feed', ico: '▤', label: 'Feed' },
@@ -302,8 +340,9 @@
       '<button class="pill" id="groupBtn">👥 Group chat</button>' +
       '<button class="pill" id="randomBtn">🎲 Surprise me</button></div>';
     html += '<div class="row">' + forYou.map(function (c) { return charCard(c); }).join('') + '</div>';
-    // The wire, newest post first. (No ad slot: the archive sells nothing.)
-    html += wireSection({ limit: 10, heading: 'Scenarios from the WAHwire' });
+    // Where the advertisement used to be: a few long What-Ifs, not a wall
+    // of one-liners. (No ad slot: the archive sells nothing.)
+    html += whatIfSection({ limit: 6 });
     html += collectionsSection();
     html += '<div class="sec-head"><h2>Scenes</h2><span class="more">›</span><span class="grow"></span>' +
       '<span class="more">Filed sessions, played from another perspective</span></div>';
@@ -317,6 +356,46 @@
     });
     return html;
   }
+
+  var KIND_ICON = { filed: '📕', gap: '🚧', divergence: '🔀', chamber: '🏛', flashpoint: '📡', custom: '✍️' };
+
+  /** One What-If, as a card big enough to read: the premise in full, the
+   *  cast, the beat count, and the first lines of the brief. */
+  function whatIfCard(s) {
+    var played = RP.postUsed(state, s.id);
+    return '<article class="ifcard' + (s.image ? ' has-plate' : '') + '" data-if="' + esc(s.id) + '">' +
+      (s.image ? '<div class="plate" style="background-image:url(' + esc(imageUrl(s.image)) + ')"></div>' : '') +
+      '<div class="body">' +
+      '<div class="kind">' + (KIND_ICON[s.kind] || '❓') + ' ' + esc(s.kindLabel) +
+      (played ? '<span class="done">played</span>' : '<span class="new">unplayed</span>') +
+      '<span class="grow"></span><span class="len">' + s.beats.length + ' beats · ' + Math.round(s.brief.length / 6) + ' words of brief</span></div>' +
+      '<h3>' + esc(s.name) + '</h3>' +
+      '<p class="premise">' + esc(s.premise) + '</p>' +
+      '<div class="faces">' + s.suggestedCast.slice(0, 6).map(function (c) { return avatar(c, 32); }).join('') +
+      '<span class="who">' + esc(s.suggestedCast.slice(0, 3).map(function (c) { return c.name; }).join(', ')) +
+      (s.suggestedCast.length > 3 ? ' +' + (s.suggestedCast.length - 3) : '') + '</span></div>' +
+      '<div class="tags">' + s.tags.map(function (t) { return '<span class="tag">' + esc(t) + '</span>'; }).join('') + '</div>' +
+      '<div class="acts"><button class="pill primary" data-ifplay="' + esc(s.id) + '">Play this</button>' +
+      '<button class="mini" data-ifread="' + esc(s.id) + '">Read the brief</button>' +
+      '<span class="src">' + esc(s.source) + '</span></div>' +
+      '</div></article>';
+  }
+
+  function whatIfSection(opts) {
+    opts = opts || {};
+    var shown = whatifs.slice(0, opts.limit || whatifs.length);
+    var html = '<div class="sec-head"><h2>What If</h2><span class="grow"></span>' +
+      '<button class="pill primary" id="makeIf">✍️ Create a scenario</button>' +
+      (opts.limit ? '<button class="pill" id="allIfs">See all ' + whatifs.length + '</button>' : '') + '</div>' +
+      '<p class="emptynote">A few long branches rather than a wall of prompts. Each one is assembled by this page out of ' +
+      'filed records — the archive’s own What-Ifs, its <b>🚧 wanted pages</b> (people named in filings nobody has written up), ' +
+      'filed sessions turned at their hinge, the chambers (the Midlands Diet, the Congress, the Pond Patrol), and the ' +
+      'loudest posts on the wire. The brief, the cast and the beats are all real; the model only ever plays the people.</p>';
+    if (!shown.length) return html + '<div class="emptynote">Still composing the board from the archive…</div>';
+    return html + '<div class="ifgrid">' + shown.map(whatIfCard).join('') + '</div>';
+  }
+
+  function renderWhatIfs() { return whatIfSection({}); }
 
   /** A wire post as a scenario card. */
   function wireCard(p) {
@@ -467,6 +546,7 @@
     $('dash').hidden = false;
     $('chatview').hidden = true;
     var body = tab === 'feed' ? renderFeed()
+      : tab === 'whatif' ? renderWhatIfs()
       : tab === 'wire' ? renderWire()
       : tab === 'collections' ? renderCollections()
       : tab === 'charms' ? renderCharms()
@@ -487,6 +567,17 @@
     var on = function (id, fn) { var node = $(id); if (node) node.onclick = fn; };
     on('groupBtn', function () { castPicker({ title: 'Group chat', note: 'Pick everyone who is in the room.' }, function (picked) { startGroup(picked); }); });
     on('randomBtn', function () { if (cast.length) startSolo(cast[Math.floor(Math.random() * cast.length)]); });
+    box.querySelectorAll('[data-ifplay]').forEach(function (b) {
+      b.onclick = function () { playWhatIf(b.dataset.ifplay); };
+    });
+    box.querySelectorAll('[data-ifread]').forEach(function (b) {
+      b.onclick = function () { readWhatIf(b.dataset.ifread); };
+    });
+    box.querySelectorAll('.ifcard').forEach(function (card) {
+      card.onclick = function (e) { if (!e.target.dataset.ifplay && !e.target.dataset.ifread) readWhatIf(card.dataset.if); };
+    });
+    on('makeIf', createScenarioForm);
+    on('allIfs', function () { tab = 'whatif'; render(); });
     box.querySelectorAll('[data-post]').forEach(function (b) {
       b.onclick = function () { openScenario(posts.filter(function (p) { return p.id === b.dataset.post; })[0]); };
     });
@@ -650,6 +741,82 @@
         sceneName: collection.name,
         opener: 'Collection — ' + collection.name + '. ' + RP.clip(collection.title || '', 160),
       });
+    });
+  }
+
+  function whatIfById(id) {
+    return whatifs.filter(function (s) { return s.id === id; })[0];
+  }
+
+  /** The brief, in full, before anyone commits to playing it. */
+  function readWhatIf(id) {
+    var s = whatIfById(id);
+    if (!s) return;
+    openModal('<h3>' + esc(s.name) + '</h3>' +
+      '<p class="sub">' + (KIND_ICON[s.kind] || '') + ' ' + esc(s.kindLabel) + ' · ' + s.beats.length + ' beats · ' +
+      esc(s.source) + (s.date ? ' · ' + esc(s.date) : '') + '</p>' +
+      '<div class="brief">' + RP.md(s.brief) + '</div>' +
+      (s.beats.length ? '<h4>The script</h4><div class="stack">' + s.beats.map(function (b) {
+        return '<div class="item"><div class="when">' + esc(b.time) + '</div><b>' + esc(b.beat) + '</b>' +
+          (b.detail ? '<p>' + esc(b.detail) + '</p>' : '') + '</div>';
+      }).join('') + '</div>' : '') +
+      (s.questions.length ? '<h4>Questions the table has to answer</h4><ul>' +
+        s.questions.map(function (q) { return '<li>' + esc(q) + '</li>'; }).join('') + '</ul>' : '') +
+      '<div class="actions"><button class="pill" id="mCancel">Close</button>' +
+      '<button class="pill" id="mExport">⬇ Export brief</button>' +
+      '<button class="pill primary" id="mOk">Play this</button></div>');
+    $('mCancel').onclick = closeModal;
+    $('mExport').onclick = function () {
+      download(RP.slug(s.name) + '.md', '# ' + s.name + '\n\n' + s.premise + '\n\n' + s.brief +
+        '\n\n## The script\n\n' + s.beats.map(function (b) { return '- **' + b.time + ' — ' + b.beat + '** ' + b.detail; }).join('\n') +
+        '\n\n_Composed by the Waluipedia chatroom from ' + s.source + '._\n');
+    };
+    $('mOk').onclick = function () { closeModal(); playWhatIf(id); };
+  }
+
+  /** Play one: the cast picker opens with the scenario's own people in it. */
+  function playWhatIf(id) {
+    var s = whatIfById(id);
+    if (!s) return;
+    castPicker({
+      title: s.name,
+      note: RP.clip(s.premise, 220),
+      preselect: s.suggestedCast.map(function (c) { return c.id; }),
+      extra: s.suggestedCast.filter(function (c) { return !castById[c.id]; }),
+    }, function (picked) {
+      startGroup(picked, RP.scenarioRoomOpts(s));
+      var opened = room();
+      RP.markPostUsed(state, s.id, opened);
+      RP.logEvent(state, {
+        kind: 'whatif', roomId: opened.id, roomTitle: opened.title,
+        chars: picked.map(function (c) { return c.id; }),
+        text: 'Opened the What-If “' + s.name + '” (' + s.kindLabel + ').',
+        tags: s.tags,
+      });
+      save(); render();
+    });
+  }
+
+  /** Describe a scenario; the page writes the brief from the archive. The
+   *  model is not involved — matching names against filed records is cheap,
+   *  instant, and gives a better brief than a paragraph of invention. */
+  function createScenarioForm() {
+    form('Create a scenario', [
+      { k: 'title', label: 'Title (optional)', value: '' },
+      { k: 'text', label: 'Describe it — who, where, and what changes', type: 'area', value: '' },
+    ], {
+      note: 'Name real people, places, bodies or filed sessions and the page will pull what the archive already has on ' +
+        'them into the brief, and take the beats from the matching filing’s own timeline. Nothing is sent to the model.',
+      ok: 'Compose it',
+    }, function (v) {
+      if (!v.text.trim()) { toast('Describe it first — a sentence or a page, either works.'); return; }
+      var composed = RP.composeScenario(v, archive, castById);
+      state.scenarios = (state.scenarios || []).filter(function (x) { return x.id !== composed.id; });
+      state.scenarios.unshift(composed);
+      state.scenarios = state.scenarios.slice(0, 30);
+      RP.logEvent(state, { kind: 'whatif', text: 'Wrote a scenario: ' + composed.name, chars: composed.suggestedCast.map(function (c) { return c.id; }) });
+      save(); buildBoard(); tab = 'whatif'; render();
+      readWhatIf(composed.id);
     });
   }
 
@@ -1036,7 +1203,8 @@
     var picked = (opts.preselect || []).slice();
     function draw() {
       var q = ($('pickSearch') && $('pickSearch').value || '').toLowerCase();
-      var shown = cast.filter(function (c) { return !q || c.name.toLowerCase().indexOf(q) >= 0; }).slice(0, 300);
+      var pool = (opts.extra || []).concat(cast);
+      var shown = pool.filter(function (c) { return !q || c.name.toLowerCase().indexOf(q) >= 0; }).slice(0, 300);
       $('pickGrid').innerHTML = shown.map(function (c) {
         return '<button class="pick ' + (picked.indexOf(c.id) >= 0 ? 'on' : '') + '" data-pick="' + esc(c.id) + '">' +
           avatar(c, 24) + '<span>' + esc(c.name) + '</span></button>';
@@ -1062,7 +1230,9 @@
     $('pickSearch').oninput = draw;
     $('mCancel').onclick = closeModal;
     $('mOk').onclick = function () {
-      var chosen = picked.map(function (id) { return castById[id]; }).filter(Boolean);
+      var extra = {};
+      (opts.extra || []).forEach(function (c) { extra[c.id] = c; });
+      var chosen = picked.map(function (id) { return castById[id] || extra[id]; }).filter(Boolean);
       if (!chosen.length) { toast('Pick at least one character.'); return; }
       closeModal(); done(chosen);
     };
@@ -1228,5 +1398,6 @@
   checkHealth();
   loadCast()
     .then(function () { return Promise.all([loadScenes(), loadWire(), loadCollections()]); })
-    .then(render);
+    .then(loadArchive)
+    .then(function () { buildBoard(); render(); });
 })();
