@@ -12,6 +12,9 @@
  *   prompts      solo / group / persona / style / script / memory / lore
  *   rooms        creation, history for the model, counters, transcripts
  *   script       scene beats that fire on their own schedule
+ *   wire         WAHwire posts → scenarios, sorting, used/unused tracking
+ *   collections  the archive's own character collections → instant casts
+ *   director     who speaks next in a group, and when it comes back to you
  *   memory       cross-chat log, per-character memory, world lore
  *   replay       re-playing a filed chat from another perspective
  *   data         localStorage state, import / export bundles
@@ -449,6 +452,194 @@
   };
 
   /* ------------------------------------------------------------------ *
+   * the WAHwire — posts become scenarios
+   * ------------------------------------------------------------------ */
+
+  /** One filed wire post → the shape the dashboard and the scenario builder
+   *  both use. `profiles` (from wahwire/profiles.json) supplies the avatar. */
+  RP.normPost = function (record, profiles) {
+    record = record || {};
+    var author = String(record.author || 'unknown');
+    var profile = (profiles || {})[author] || {};
+    var links = Array.isArray(record.links) ? record.links : [];
+    var body = String(record.content || '');
+    if (Array.isArray(record.thread) && record.thread.length) body += '\n' + record.thread.join('\n');
+    return {
+      id: String(record.id || uid()),
+      author: author,
+      authorName: clip(profile.name || author.replace(/_/g, ' '), 60),
+      avatar: String(profile.avatar || ''),
+      type: String(record.type || 'text'),
+      status: String(record.status || 'posted'),
+      order: Number(record.order || 0),
+      timestamp: clip(record.timestamp, 80),
+      content: clip(body, 1200),
+      likes: Number(record.likes || 0),
+      image: String(record.image || ''),
+      tags: (record.tags || []).map(String).slice(0, 8),
+      chars: links.filter(function (l) { return l && l.type === 'character'; }).map(function (l) { return String(l.id); })
+        .concat([author]),
+      events: links.filter(function (l) { return l && (l.type === 'event' || l.type === 'battle'); }).map(function (l) { return String(l.id); }),
+      comments: (record.comments || []).slice(0, 6).map(function (c) {
+        return { author: String(c.author || ''), content: clip(c.content, 220), likes: Number(c.likes || 0) };
+      }),
+    };
+  };
+
+  RP.POST_SORTS = {
+    newest: { name: 'Newest first', fn: function (a, b) { return (b.order || 0) - (a.order || 0); } },
+    oldest: { name: 'Oldest first', fn: function (a, b) { return (a.order || 0) - (b.order || 0); } },
+    liked: { name: 'Most liked', fn: function (a, b) { return (b.likes || 0) - (a.likes || 0); } },
+    loudest: { name: 'Most argued over', fn: function (a, b) { return (b.comments || []).length - (a.comments || []).length; } },
+  };
+
+  RP.sortPosts = function (posts, mode) {
+    var sort = RP.POST_SORTS[mode] || RP.POST_SORTS.newest;
+    return (posts || []).slice().sort(sort.fn);
+  };
+
+  /** A post is "used" once it has been played as a scenario in this browser.
+   *  The unused view is how a reader finds the corners of the wire nobody has
+   *  touched yet — 196 filed posts, and most of them have never been a scene. */
+  RP.postUsed = function (state, postId) {
+    return Boolean((state.usedPosts || {})[String(postId)]);
+  };
+
+  RP.markPostUsed = function (state, postId, room) {
+    state.usedPosts = state.usedPosts || {};
+    state.usedPosts[String(postId)] = { at: Date.now(), roomId: (room && room.id) || '', roomTitle: (room && room.title) || '' };
+    return state.usedPosts[String(postId)];
+  };
+
+  RP.POST_VIEWS = { all: 'All posts', unused: 'Unused', used: 'Already played', unfiled: 'Never posted' };
+
+  /** Filter the wire: by view (all / unused / played / drafts the archive
+   *  never posted), by a text query, and by a character who is involved. */
+  RP.filterPosts = function (posts, opts, state) {
+    opts = opts || {};
+    var q = String(opts.query || '').toLowerCase().trim();
+    return (posts || []).filter(function (p) {
+      if (opts.view === 'unused' && RP.postUsed(state, p.id)) return false;
+      if (opts.view === 'used' && !RP.postUsed(state, p.id)) return false;
+      if (opts.view === 'unfiled' && p.status === 'posted') return false;
+      if (opts.charId && p.chars.indexOf(opts.charId) < 0) return false;
+      if (!q) return true;
+      return (p.content + ' ' + p.authorName + ' ' + p.tags.join(' ')).toLowerCase().indexOf(q) >= 0;
+    });
+  };
+
+  /** A wire post → a playable scenario. The post is the situation, its
+   *  comments are the beats (the argument arrives on its own schedule), and
+   *  everyone it links to is the suggested cast. */
+  RP.scenarioFromPost = function (post, castById) {
+    var suggested = post.chars.map(function (id) { return (castById || {})[id]; }).filter(Boolean);
+    var seen = {}, cast = [];
+    suggested.forEach(function (c) { if (!seen[c.id]) { seen[c.id] = 1; cast.push(c); } });
+    var beats = post.comments.map(function (c, i) {
+      var who = ((castById || {})[c.author] || {}).name || String(c.author || 'someone').replace(/_/g, ' ');
+      return { time: 'reply ' + (i + 1), beat: who + ' answers the post', detail: c.content };
+    });
+    return {
+      id: 'wire:' + post.id,
+      postId: post.id,
+      name: clip(post.authorName + ' on the wire — ' + post.content, 70),
+      summary: post.content,
+      scene: 'A WAHwire post is doing the rounds. ' + post.authorName + ' posted, ' + post.timestamp + ':\n“'
+        + clip(post.content, 700) + '”\nPlay the hours around that post: the people in it, the people answering it, '
+        + 'and the people who wish it had never been filed.',
+      image: post.image,
+      date: post.timestamp,
+      tags: post.tags,
+      likes: post.likes,
+      suggestedCast: cast,
+      beats: beats,
+      source: 'wahwire',
+    };
+  };
+
+  /* ------------------------------------------------------------------ *
+   * collections — the archive's own groupings, as instant casts
+   * ------------------------------------------------------------------ */
+
+  RP.normCollection = function (record, castById) {
+    record = record || {};
+    var members = (record.members || []).map(function (m) {
+      var hit = (castById || {})[String(m && m.id)];
+      return hit ? Object.assign({}, hit, { role: clip(m.role, 90) }) : null;
+    }).filter(Boolean);
+    return {
+      id: String(record.id || slug(record.name) || uid()),
+      name: clip(record.name, 90),
+      title: clip(record.title, 120),
+      summary: clip(record.summary, 300),
+      scope: clip(record.scope, 120),
+      members: members,
+      total: (record.members || []).length,
+    };
+  };
+
+  /* ------------------------------------------------------------------ *
+   * the director — who speaks next, and when the scene comes back to you
+   * ------------------------------------------------------------------ */
+
+  // A group chat that never hands back is just two bots talking past you.
+  RP.MAX_CHAIN = 4;
+
+  /** Character turns played since the user's last turn. */
+  RP.chainLength = function (room) {
+    var msgs = (room && room.messages) || [];
+    var n = 0;
+    for (var i = msgs.length - 1; i >= 0; i--) {
+      if (!visible(msgs[i])) continue;
+      if (msgs[i].role === 'user') break;
+      n++;
+    }
+    return n;
+  };
+
+  /** The question put to the model after every group reply: does this scene
+   *  keep going between the characters, or does it need the player? */
+  RP.directorPrompt = function (room, lastSpeaker) {
+    var cast = (room.cast || []).filter(function (c) { return !lastSpeaker || c.id !== lastSpeaker.id; });
+    var recent = RP.historyFor(room, 6).map(function (m) { return (m.role === 'user' ? 'PLAYER: ' : '') + m.content; }).join('\n');
+    return [
+      'You are directing a group roleplay scene. Decide who speaks next.',
+      '',
+      'The cast, other than whoever just spoke:',
+      cast.map(function (c) { return '- ' + c.name + (c.title ? ' — ' + c.title : ''); }).join('\n'),
+      '',
+      'The last few turns:',
+      recent,
+      '',
+      'Answer with ONE line and nothing else:',
+      'NEXT: <the exact name of the character who should speak next>',
+      '   — choose this when a character is being addressed, contradicted, or plainly has to answer.',
+      'USER',
+      '   — choose this when the scene is waiting on the player: they were asked something, the exchange has '
+      + 'run its course, a decision is theirs, or the characters are starting to repeat each other.',
+      'Prefer USER when in doubt. Never pick the character who just spoke.',
+    ].join('\n');
+  };
+
+  /** Read the director's answer. Anything unrecognisable hands back to the
+   *  player, and so does an over-long chain — the loop has a hard stop. */
+  RP.parseDirector = function (text, room, lastSpeaker) {
+    if (RP.chainLength(room) >= (room.maxChain || RP.MAX_CHAIN)) {
+      return { next: 'user', reason: 'the scene has run several turns without you' };
+    }
+    var value = String(text || '').trim();
+    var match = /NEXT\s*:\s*([^\n]+)/i.exec(value);
+    if (!match) return { next: 'user', reason: 'the scene is waiting on you' };
+    var wanted = match[1].replace(/["'.*]/g, '').trim().toLowerCase();
+    if (!wanted || wanted === 'user' || wanted === 'player') return { next: 'user', reason: 'the scene is waiting on you' };
+    var hit = (room.cast || []).filter(function (c) {
+      return c.name.toLowerCase() === wanted || wanted.indexOf(c.name.toLowerCase()) >= 0 || c.name.toLowerCase().indexOf(wanted) >= 0;
+    })[0];
+    if (!hit || (lastSpeaker && hit.id === lastSpeaker.id)) return { next: 'user', reason: 'the scene is waiting on you' };
+    return { next: hit.id, reason: 'answering ' + ((lastSpeaker && lastSpeaker.name) || 'the last turn') };
+  };
+
+  /* ------------------------------------------------------------------ *
    * memory — the cross-chat log, character memory, and world lore
    * ------------------------------------------------------------------ */
 
@@ -743,7 +934,12 @@
       version: 1,
       user: { name: 'Archivist', handle: 'waluipedia', persona: '', avatar: '' },
       rooms: [], chars: [], lore: [], log: [], active: '',
-      settings: { style: 'novel', voice: 'off', temperature: 0.85, endpoint: '' },
+      usedPosts: {},   // wire post id -> where it was played
+      settings: {
+        style: 'novel', voice: 'off', temperature: 0.85, endpoint: '',
+        director: 'on',            // let the model decide who speaks next
+        maxChain: RP.MAX_CHAIN,    // …but never more than this before you
+      },
     };
   }
   RP.blankState = blankState;
@@ -759,6 +955,7 @@
           if (Array.isArray(value[k])) state[k] = value[k];
         });
         if (typeof value.active === 'string') state.active = value.active;
+        if (value.usedPosts && typeof value.usedPosts === 'object') state.usedPosts = value.usedPosts;
         if (value.user && typeof value.user === 'object') state.user = Object.assign(state.user, value.user);
         if (value.settings && typeof value.settings === 'object') state.settings = Object.assign(state.settings, value.settings);
       }
@@ -775,6 +972,7 @@
       version: 1,
       user: state.user, settings: state.settings, active: state.active,
       rooms: rooms, chars: state.chars || [], lore: state.lore || [], log: (state.log || []).slice(-400),
+      usedPosts: state.usedPosts || {},
     };
     try {
       store.setItem(RP.KEY, JSON.stringify(value));
@@ -809,7 +1007,11 @@
     };
     if (want('chats')) bundle.rooms = (opts.rooms || state.rooms || []);
     if (want('lore')) bundle.lore = state.lore || [];
-    if (want('memory')) { bundle.chars = state.chars || []; bundle.log = state.log || []; }
+    if (want('memory')) {
+      bundle.chars = state.chars || [];
+      bundle.log = state.log || [];
+      bundle.usedPosts = state.usedPosts || {};
+    }
     return bundle;
   };
 
@@ -870,6 +1072,9 @@
       state.log = mergeById(state.log || [], data.log, function (a, b) { return b; })
         .sort(function (a, b) { return (a.at || 0) - (b.at || 0); }).slice(-400);
       stats.log = state.log.length - (replace ? 0 : logBefore);
+    }
+    if (data.usedPosts && typeof data.usedPosts === 'object') {
+      state.usedPosts = replace ? data.usedPosts : Object.assign({}, state.usedPosts || {}, data.usedPosts);
     }
     if (data.user && replace) state.user = Object.assign(state.user || {}, data.user);
     return stats;

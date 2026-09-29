@@ -321,6 +321,55 @@ def archive_scenes(limit: int = 12) -> dict[str, Any]:
     return {"scenes": out}
 
 
+def archive_wire(limit: int = 400) -> dict[str, Any]:
+    """The WAHwire, served whole: every filed post is a playable scenario.
+
+    The page decides the sort and the used/unused view; the server just hands
+    over the posts and the author profiles (for avatars) in one response.
+    """
+    posts_path = RM_ROOT / "data" / "wahwire" / "posts.json"
+    profiles_path = RM_ROOT / "data" / "wahwire" / "profiles.json"
+    try:
+        posts = json.loads(posts_path.read_text(encoding="utf-8"))
+    except Exception as error:  # noqa: BLE001 - the page works without the wire
+        return {"posts": [], "profiles": {}, "error": f"could not read the wire: {error}"}
+    if isinstance(posts, dict):
+        posts = posts.get("posts", [])
+    try:
+        profiles = json.loads(profiles_path.read_text(encoding="utf-8"))
+        profiles = profiles.get("profiles", profiles) if isinstance(profiles, dict) else {}
+    except Exception:  # noqa: BLE001 - avatars are decoration, not content
+        profiles = {}
+    return {"posts": posts[:limit], "profiles": profiles}
+
+
+def archive_collections() -> dict[str, Any]:
+    """The archive's own character collections — a cast in one click."""
+    path = RM_ROOT / "data" / "collections.json"
+    try:
+        records = json.loads(path.read_text(encoding="utf-8"))
+    except Exception as error:  # noqa: BLE001
+        return {"collections": [], "error": f"could not read collections.json: {error}"}
+    if isinstance(records, dict):
+        records = records.get("collections", [])
+    out = []
+    for record in records:
+        if not isinstance(record, dict) or not record.get("members"):
+            continue
+        out.append({
+            "id": str(record.get("id") or record.get("name")),
+            "name": _clip(record.get("name"), 90),
+            "title": _clip(record.get("title"), 120),
+            "scope": _clip(record.get("scope"), 120),
+            "summary": _clip(record.get("summary"), 300),
+            "members": [
+                {"id": str(m.get("id") or ""), "name": _clip(m.get("name"), 60), "role": _clip(m.get("role"), 90)}
+                for m in record["members"] if isinstance(m, dict)
+            ],
+        })
+    return {"collections": out}
+
+
 def suggest_cast(payload: dict[str, Any]) -> dict[str, Any]:
     """Ask the model for an interesting cast for a scene. The candidate list
     comes from the page (optionally filtered by the picker's search box); the
@@ -518,6 +567,12 @@ class Handler(BaseHTTPRequestHandler):
             return
         if parsed.path == "/api/scenes":
             json_response(self, archive_scenes())
+            return
+        if parsed.path == "/api/wahwire":
+            json_response(self, archive_wire())
+            return
+        if parsed.path == "/api/collections":
+            json_response(self, archive_collections())
             return
         if parsed.path.startswith("/rm/"):
             found = serve_static(parsed.path[len("/rm/"):])

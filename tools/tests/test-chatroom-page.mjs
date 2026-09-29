@@ -74,6 +74,65 @@ check('dashboard: cards carry the creator handle and a real interaction count',
 const scenesReady = await until('the scenes to load', () => doc.querySelectorAll('[data-scene]').length > 0);
 check('dashboard: scene cards render from the filed sessions', scenesReady);
 check('dashboard: the group chat entry point is there', Boolean($('groupBtn')));
+// (A character summary may contain the word "advertisement" — the check is
+// structural: no ad slot, no ad heading, no hide-ads control, anywhere.)
+check('dashboard: the advertisement slot is gone',
+  !doc.querySelector('.adslot') && !/Hide ads/.test(pageHtml) && !/adslot/.test(pageHtml) &&
+  ![...doc.querySelectorAll('.sec-head h2')].some(h => /^advertisement$/i.test(h.textContent.trim())));
+// The white bar: .modal-back sets display:grid, which used to beat [hidden].
+check('layout: the hidden modal and the hidden chat view really are hidden',
+  win.getComputedStyle($('modalBack')).display === 'none' && win.getComputedStyle($('chatview')).display === 'none');
+
+// ---- the WAHwire, where the ads used to be ----
+const wireReady = await until('the wire to load', () => doc.querySelectorAll('[data-post]').length > 0);
+check('wire: scenario cards render in place of the advertisement', wireReady && $('dashBody').innerHTML.includes('WAHwire'));
+check('wire: sorting and the used/unused views are offered',
+  Boolean($('wireSort')) && Boolean(doc.querySelector('[data-wireview="unused"]')) && Boolean(doc.querySelector('[data-wireview="used"]')));
+check('wire: the default order is newest first', $('wireSort').value === 'newest');
+check('wire: unused posts are marked, with a count', doc.querySelector('.wcard .new').textContent === 'unused' &&
+  /Unused \(\d+\)/.test($('dashBody').textContent));
+const firstPost = doc.querySelector('[data-post]').dataset.post;
+doc.querySelector('[data-wireview="used"]').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+check('wire: the "already played" view is empty before anything is played',
+  $('dashBody').textContent.includes('No posts match this view'));
+doc.querySelector('[data-wireview="all"]').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+const sortNode = $('wireSort');
+sortNode.value = 'oldest';
+sortNode.dispatchEvent(new win.Event('change', { bubbles: true }));
+check('wire: changing the sort reorders the cards', doc.querySelector('[data-post]').dataset.post !== firstPost);
+
+// ---- collections ----
+check('collections: the archive’s own groupings offer a cast in one click',
+  doc.querySelectorAll('[data-collection]').length > 3 && $('dashBody').innerHTML.includes('playable'));
+
+// ---- playing a wire post marks it used ----
+doc.querySelector('[data-post]').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+check('wire: opening a post offers its own cast, preselected',
+  !$('modalBack').hidden && doc.querySelectorAll('.pick.on').length > 0);
+// Make sure the room is a group, so the director has someone to hand to.
+for (const pick of [...doc.querySelectorAll('.pick:not(.on)')].slice(0, 2)) {
+  pick.dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+}
+check('wire: the cast picker adds to the suggested cast', doc.querySelectorAll('.pick.on').length >= 2);
+$('mOk').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+check('wire: the post opens a group chat with the post as the scene',
+  !$('chatview').hidden && doc.querySelector('.scene-card').textContent.includes('WAHwire'));
+check('wire: playing the post marks it used and files it in the log',
+  Object.keys(JSON.parse(win.localStorage.getItem('waluipedia-chatroom-v1')).usedPosts).length === 1 &&
+  JSON.parse(win.localStorage.getItem('waluipedia-chatroom-v1')).log.some(e => e.kind === 'wire'));
+
+// ---- the director hands the scene back instead of looping ----
+$('input').value = 'What happened to the second saw?';
+$('composer').dispatchEvent(new win.Event('submit', { bubbles: true, cancelable: true }));
+const handback = await until('the director to hand back', () => doc.querySelector('.handback'));
+check('director: after the reply chain the scene comes back to the player',
+  Boolean(handback) && doc.querySelector('.handback').textContent.includes('Your turn'));
+const played = JSON.parse(win.localStorage.getItem('waluipedia-chatroom-v1')).rooms.find(r => r.id === JSON.parse(win.localStorage.getItem('waluipedia-chatroom-v1')).active);
+check('director: the chain stops at the ceiling, never runs away',
+  played.messages.filter(m => m.role === 'char' && !m.error).length <= 4);
+
+// back to the dashboard for the remaining checks
+$('homeBtn').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
 
 // ---- open a one-to-one chat ----
 const card = doc.querySelector('[data-char]');
@@ -84,7 +143,7 @@ check('chat: the right-hand character panel carries the profile and the menu',
   $('charpanel').textContent.includes('New chat') && $('charpanel').textContent.includes('Persona') &&
   $('charpanel').textContent.includes('Pinned') && $('charpanel').textContent.includes('Style') &&
   $('charpanel').innerHTML.includes('By @'));
-check('chat: the recents rail lists the new chat', doc.querySelectorAll('[data-room]').length === 1);
+check('chat: the recents rail lists every chat', doc.querySelectorAll('[data-room]').length === 2);
 
 // ---- play one turn against the mock model ----
 $('input').value = 'Who is on the ridge tonight?';
@@ -109,6 +168,14 @@ const probe = await (await fetch(`http://127.0.0.1:${SERVER_PORT}/api/roleplay`,
   body: JSON.stringify({ system: 'x', messages: [{ role: 'user', content: 'x' }] }),
 })).json();
 check('model: the roleplay route is the one the page uses', /MOCK-MODEL REPLY/.test(probe.text || ''));
+
+// ---- the routes the wire and the collections use ----
+const wireJson = await (await fetch(`http://127.0.0.1:${SERVER_PORT}/api/wahwire`)).json();
+check('GET /api/wahwire serves the filed posts and the author profiles',
+  wireJson.posts.length > 100 && wireJson.posts[0].content && Object.keys(wireJson.profiles).length > 10);
+const collectionsJson = await (await fetch(`http://127.0.0.1:${SERVER_PORT}/api/collections`)).json();
+check('GET /api/collections serves collections with resolvable members',
+  collectionsJson.collections.length > 5 && collectionsJson.collections[0].members[0].id);
 
 // ---- CORS, for the static build talking to this server from :8765 ----
 const preflight = await fetch(`http://127.0.0.1:${SERVER_PORT}/api/roleplay`, { method: 'OPTIONS' });

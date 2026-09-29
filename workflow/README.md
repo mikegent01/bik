@@ -86,11 +86,22 @@ memory, lore, replay, backups — is documented in
   its **suggested cast** (the event's own participants, resolved to playable
   characters) and **✨ Suggest a cast** lets the model pick an interesting
   combination instead.
-- **Group chats.** The **👥 Group chat** button (or any scene card) opens a
-  cast picker — pick as many characters as you like. Characters take turns;
-  click an avatar under the composer to choose who speaks next. Each reply is
-  generated as that character only — the prompt forbids writing the others'
-  lines.
+- **Group chats, with a director.** The **👥 Group chat** button (or any scene
+  card, wire post or collection) opens a cast picker. Each reply is generated
+  as one character only — the prompt forbids writing the others' lines — and
+  after every reply the model is asked who speaks next: another character, or
+  **you**. It hands back on its own, and always at the ceiling
+  (`max chain`, default 4 character turns), so a multi-bot room is never a
+  loop. Switch it off in the character panel → **Director**.
+- **Scenarios from the WAHwire.** `/api/wahwire` serves the 196 filed posts;
+  each one plays as a scenario (the post is the situation, the people it names
+  are the cast, the replies are the beats). Sort by **newest first**, most
+  liked or most argued over, and filter to **Unused** — the posts nobody has
+  played yet — or to the drafts the archive never posted.
+- **Collections.** `/api/collections` serves the archive's own groupings; one
+  click preselects the whole table in the cast picker.
+- **No advertisements.** The dashboard has no ad slot and the page contains no
+  ad code.
 - **Memory that crosses chats.** Every opening, fired beat, pin and 🧠
   *remember* is filed in a world log; characters carry their own memory
   (lines said and heard, taught facts, a mood, relationship scores). Both are
@@ -183,6 +194,8 @@ The roleplay page adds:
 - `GET /roleplay` — the page itself
 - `GET /api/characters` — the archive cast, with portrait URLs
 - `GET /api/scenes` — the newest filed events as scene starters
+- `GET /api/wahwire` — every filed wire post, with author profiles
+- `GET /api/collections` — the archive's character collections
 - `GET /rm/<path>` — static files under `Reputation-Matrix2/` (portraits,
   event plates; path traversal refused)
 - `POST /api/roleplay` — one plain chat completion (system + messages +

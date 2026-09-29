@@ -30,6 +30,8 @@ python3 tools/build-chatroom.py --check  # fail if they are stale
 |---|---|---|
 | The cast | `Reputation-Matrix2/data/characters.json` | the archive |
 | The scenes | `Reputation-Matrix2/data/events.json` (newest filings with a plate) | the archive |
+| The scenarios | `Reputation-Matrix2/data/wahwire/posts.json` + `profiles.json` | the archive |
+| The collections | `Reputation-Matrix2/data/collections.json` | the archive |
 | Portraits and plates | `Reputation-Matrix2/…`, served raw (static) or under `/rm/` (server) | the archive |
 | Chats, memory, lore, the world log | the reader's `localStorage`, key `waluipedia-chatroom-v1` | the reader |
 | Replies | a local model, `POST /api/roleplay` on the workflow server | the reader's machine |
@@ -44,6 +46,7 @@ through [`docs/SESSION_FILING_PROCESS.md`](SESSION_FILING_PROCESS.md).
 |---|---|---|
 | Served by | `python3 start.py` → `http://127.0.0.1:8765/chatroom.html` | `python workflow/server.py` → `http://127.0.0.1:8787/roleplay` |
 | Cast / scenes | the archive JSON, read directly | `/api/characters`, `/api/scenes` |
+| Wire / collections | the archive JSON, read directly | `/api/wahwire`, `/api/collections` |
 | Model | `http://127.0.0.1:8787/api/roleplay` by default, or whatever ⚙ is set to | `/api/roleplay`, same origin |
 | Cast suggestions | needs the workflow server | built in |
 
@@ -57,15 +60,63 @@ routes. Both are local, unauthenticated and write nothing.
   search, and recents bucketed **Today / Yesterday / This Month / Older**;
   the archive link and the signed-in account sit at the bottom.
 - **Discover** — a **For you** row (whoever *you* actually play, first — the
-  interaction counts are your own turns, not invented popularity), the ad slot
-  (empty; the archive sells nothing), **Scenes** cover cards built from filed
-  sessions, then the whole cast under **letter dividers**.
+  interaction counts are your own turns, not invented popularity),
+  **Scenarios from the WAHwire**, **Collections**, **Scenes** cover cards built
+  from filed sessions, then the whole cast under **letter dividers**. There is
+  no advertisement slot and no ad code anywhere in the page.
+- **Wire** — the whole wire, sortable and filterable (below).
+- **Collections** — the archive's own groupings, each one a cast in a click.
 - **The chat** — the stream, avatars, names, markdown-rendered turns
   (`*action*`, `**bold**`, `"speech"`, `- lists`), and per-message controls:
   👍 👎, 📌 pin, 🧠 remember, ↻ another take, and `‹ 2 / 3 ›` swipes between takes.
 - **Character panel (right)** — portrait, name, `By @handle`, interaction count,
   and the menu: **New chat, Voice, History, Customize, Pinned, Persona, Style,
   Memory, Replay, Script**.
+
+## Scenarios — the WAHwire
+
+`Reputation-Matrix2/data/wahwire/posts.json` holds 196 filed posts. Every one
+of them is a playable scenario:
+
+- the **post is the situation** (author, timestamp and text go into the scene),
+- the **people it links to are the suggested cast** (plus the author),
+- the **replies underneath are the beats**, so the argument arrives on its own
+  schedule while you play the hours around it.
+
+**Sorting** — `Newest first` (the wire's own filing order, the default),
+`Oldest first`, `Most liked`, `Most argued over`.
+
+**Views** — `All posts`, `Unused` (never played here; the count is in the chip,
+and this is how you find the corners of the wire nobody has touched),
+`Already played`, and `Never posted` (drafts the archive generated but never
+filed). Playing a post marks it used; the mark lives in `state.usedPosts`,
+survives a reload, and travels in the memory half of an export.
+
+## Collections
+
+`collections.json` already groups the cast — Core Disaster Inc., the Koopa
+Troop, the Mario Brothers Mystery, the planar crisis, the dynasties. A
+collection card opens the cast picker with its members preselected (members the
+archive lists but has no character record for are dropped), so a full table is
+one click rather than nineteen.
+
+## The director — multi-bot chats that come back to you
+
+A group chat with three bots and no director is a loop. After **every**
+character reply the model is asked one short question (`RP.directorPrompt`):
+given the last turns, does a character have to answer — and which one — or is
+the scene waiting on the player?
+
+- `NEXT: <name>` → that character answers next, automatically, one turn at a
+  time. It may never pick whoever just spoke.
+- `USER`, an unreadable answer, or an unreachable model → the scene hands back,
+  and the stream shows **Your turn.** with the reason.
+- **The ceiling always wins.** `settings.maxChain` (default 4) is the most
+  character turns that can pass without you; at the ceiling the director is
+  not even consulted. A player turn resets the chain.
+
+Turn it off (one reply per turn, the old behaviour) or change the ceiling in
+the character panel → **Director**.
 
 ## Memory — three layers
 
@@ -109,7 +160,7 @@ the world log, so the two accounts know about each other.
 | Labs → Export → Everything | `waluipedia-chatroom.json` | chats + lore + memory + log + account |
 | Labs → Export → Chats only | `waluipedia-chats.json` | rooms only |
 | Charms / Labs → Export lore | `waluipedia-lore.json` | lore nodes only |
-| Labs → Export memory | `waluipedia-memory.json` | character memory + world log |
+| Labs → Export memory | `waluipedia-memory.json` | character memory + world log + which wire posts are played |
 | Character panel → ⬇ | `<chat>.md` | the transcript, as markdown, for filing |
 
 Import is **merge** (keep what is here, add what is missing, the newer copy of

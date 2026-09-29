@@ -23,6 +23,10 @@
   var cast = [];          // every playable character
   var castById = {};
   var scenes = [];        // filed sessions offered as scene starters
+  var posts = [];         // WAHwire posts, normalised
+  var collections = [];   // the archive's own character collections
+  var wireSort = 'newest';
+  var wireView = 'all';   // all | unused | used | unfiled
   var tab = 'discover';
   var query = '';
   var busy = false;
@@ -126,6 +130,27 @@
     });
   }
 
+  /** The WAHwire: 196 filed posts, each one a scenario waiting to be played. */
+  function loadWire() {
+    return Promise.all([
+      getJSON(CFG.wireUrl).catch(function () { return {}; }),
+      CFG.wireProfilesUrl ? getJSON(CFG.wireProfilesUrl).catch(function () { return {}; }) : Promise.resolve({}),
+    ]).then(function (both) {
+      var data = both[0] || {};
+      var profiles = (both[1] && (both[1].profiles || both[1])) || (data.profiles || {});
+      var list = Array.isArray(data) ? data : (data.posts || []);
+      posts = list.map(function (p) { return RP.normPost(p, profiles); });
+    }).catch(function (error) { posts = []; console.warn('wire unavailable', error); });
+  }
+
+  function loadCollections() {
+    return getJSON(CFG.collectionsUrl).then(function (data) {
+      var list = Array.isArray(data) ? data : (data.collections || []);
+      collections = list.map(function (c) { return RP.normCollection(c, castById); })
+        .filter(function (c) { return c.members.length; });
+    }).catch(function (error) { collections = []; console.warn('collections unavailable', error); });
+  }
+
   function loadScenes() {
     return getJSON(CFG.scenesUrl).then(function (data) {
       if (CFG.mode === 'static') { scenes = scenesFromEvents(data); return; }
@@ -180,6 +205,8 @@
 
   var NAV = [
     { id: 'discover', ico: '◉', label: 'Discover' },
+    { id: 'wire', ico: '📡', label: 'Wire' },
+    { id: 'collections', ico: '🗂', label: 'Collections' },
     { id: 'feed', ico: '▤', label: 'Feed' },
     { id: 'charms', ico: '✧', label: 'Charms' },
     { id: 'labs', ico: '⚗', label: 'Labs' },
@@ -275,8 +302,9 @@
       '<button class="pill" id="groupBtn">👥 Group chat</button>' +
       '<button class="pill" id="randomBtn">🎲 Surprise me</button></div>';
     html += '<div class="row">' + forYou.map(function (c) { return charCard(c); }).join('') + '</div>';
-    html += '<div class="sec-head"><h2>Advertisement</h2><span class="grow"></span><button class="mini" id="hideAds">Hide ads</button></div>';
-    html += '<div class="adslot" id="adslot">This slot is empty. The archive does not sell anything.</div>';
+    // The wire, newest post first. (No ad slot: the archive sells nothing.)
+    html += wireSection({ limit: 10, heading: 'Scenarios from the WAHwire' });
+    html += collectionsSection();
     html += '<div class="sec-head"><h2>Scenes</h2><span class="more">›</span><span class="grow"></span>' +
       '<span class="more">Filed sessions, played from another perspective</span></div>';
     html += scenes.length ? '<div class="row">' + scenes.map(sceneCard).join('') + '</div>'
@@ -288,6 +316,70 @@
         group.chars.map(function (c) { return charCard(c); }).join('') + '</div>';
     });
     return html;
+  }
+
+  /** A wire post as a scenario card. */
+  function wireCard(p) {
+    var used = RP.postUsed(state, p.id);
+    return '<button class="wcard" data-post="' + esc(p.id) + '">' +
+      '<span class="head">' + avatar({ id: p.author, name: p.authorName, image: p.avatar }, 24) +
+      '<b>' + esc(p.authorName) + '</b><span class="when">' + esc(p.timestamp || ('#' + p.order)) + '</span></span>' +
+      '<span class="post">' + esc(p.content) + '</span>' +
+      '<span class="foot">' + (used ? '<span class="done">played</span>' : '<span class="new">unused</span>') +
+      '<span>♥ ' + p.likes + '</span>' + (p.comments.length ? '<span>💬 ' + p.comments.length + '</span>' : '') +
+      (p.status !== 'posted' ? '<span class="tag">never posted</span>' : '') +
+      p.tags.slice(0, 2).map(function (t) { return '<span class="tag">#' + esc(t) + '</span>'; }).join('') +
+      '</span></button>';
+  }
+
+  /** The wire section: sort, the used/unused views, and the cards. `limit`
+   *  makes it a row on the dashboard; without one it is the whole Wire tab. */
+  function wireSection(opts) {
+    opts = opts || {};
+    var shown = RP.sortPosts(RP.filterPosts(posts, { view: wireView, query: opts.query || '' }, state), wireSort);
+    var unused = RP.filterPosts(posts, { view: 'unused' }, state).length;
+    var html = '<div class="sec-head"><h2>' + esc(opts.heading || 'The WAHwire') + '</h2>' +
+      '<span class="grow"></span><div class="controls">' +
+      '<select id="wireSort">' + Object.keys(RP.POST_SORTS).map(function (k) {
+        return '<option value="' + k + '"' + (wireSort === k ? ' selected' : '') + '>' + esc(RP.POST_SORTS[k].name) + '</option>';
+      }).join('') + '</select>' +
+      Object.keys(RP.POST_VIEWS).map(function (k) {
+        return '<button class="chip ' + (wireView === k ? 'on' : '') + '" data-wireview="' + k + '">' +
+          esc(RP.POST_VIEWS[k]) + (k === 'unused' ? ' (' + unused + ')' : '') + '</button>';
+      }).join('') + '</div></div>' +
+      '<p class="emptynote">Every post on the wire can be played as a scenario: the post is the situation, the people it names are the cast, and the replies underneath arrive as beats. ' +
+      unused + ' of ' + posts.length + ' have never been played here.</p>';
+    if (!shown.length) return html + '<div class="emptynote">No posts match this view.</div>';
+    if (opts.limit) return html + '<div class="row">' + shown.slice(0, opts.limit).map(wireCard).join('') + '</div>';
+    return html + '<div class="grid">' + shown.slice(0, 120).map(wireCard).join('') + '</div>';
+  }
+
+  function collectionsSection() {
+    if (!collections.length) return '';
+    return '<div class="sec-head"><h2>Collections</h2><span class="more">›</span><span class="grow"></span>' +
+      '<span class="more">The archive\u2019s own groupings — one click, the whole table</span></div>' +
+      '<div class="row">' + collections.map(function (c) {
+        return '<button class="kcard" data-collection="' + esc(c.id) + '"><b>' + esc(c.name) + '</b>' +
+          '<span class="sub">' + esc(c.title || c.scope) + '</span>' +
+          '<span class="faces">' + c.members.slice(0, 6).map(function (m) { return avatar(m, 32); }).join('') + '</span>' +
+          '<span class="count">' + c.members.length + ' of ' + c.total + ' playable</span></button>';
+      }).join('') + '</div>';
+  }
+
+  function renderWire() {
+    return wireSection({ heading: 'The WAHwire — every filed post' });
+  }
+
+  function renderCollections() {
+    if (!collections.length) return '<div class="emptynote">No collections loaded.</div>';
+    return '<div class="sec-head"><h2>Collections</h2><span class="grow"></span><span class="more">' + collections.length + ' groupings</span></div>' +
+      '<div class="stack">' + collections.map(function (c) {
+        return '<div class="item"><b>' + esc(c.name) + '</b><div class="when">' + esc(c.title || '') + '</div>' +
+          '<p>' + esc(c.summary) + '</p><div class="tags">' + c.members.slice(0, 12).map(function (m) {
+            return '<span class="tag">' + esc(m.name) + (m.role ? ' — ' + esc(RP.clip(m.role, 40)) : '') + '</span>';
+          }).join('') + '</div>' +
+          '<div class="acts"><button class="mini" data-collection="' + esc(c.id) + '">Open as a group chat</button></div></div>';
+      }).join('') + '</div>';
   }
 
   function renderFeed() {
@@ -374,7 +466,12 @@
   function renderDash() {
     $('dash').hidden = false;
     $('chatview').hidden = true;
-    var body = tab === 'feed' ? renderFeed() : tab === 'charms' ? renderCharms() : tab === 'labs' ? renderLabs() : renderDiscover();
+    var body = tab === 'feed' ? renderFeed()
+      : tab === 'wire' ? renderWire()
+      : tab === 'collections' ? renderCollections()
+      : tab === 'charms' ? renderCharms()
+      : tab === 'labs' ? renderLabs()
+      : renderDiscover();
     $('dashBody').innerHTML = body;
     wireDash();
   }
@@ -390,7 +487,16 @@
     var on = function (id, fn) { var node = $(id); if (node) node.onclick = fn; };
     on('groupBtn', function () { castPicker({ title: 'Group chat', note: 'Pick everyone who is in the room.' }, function (picked) { startGroup(picked); }); });
     on('randomBtn', function () { if (cast.length) startSolo(cast[Math.floor(Math.random() * cast.length)]); });
-    on('hideAds', function () { var slot = $('adslot'); if (slot) slot.remove(); });
+    box.querySelectorAll('[data-post]').forEach(function (b) {
+      b.onclick = function () { openScenario(posts.filter(function (p) { return p.id === b.dataset.post; })[0]); };
+    });
+    box.querySelectorAll('[data-collection]').forEach(function (b) {
+      b.onclick = function () { openCollection(collections.filter(function (c) { return c.id === b.dataset.collection; })[0]); };
+    });
+    box.querySelectorAll('[data-wireview]').forEach(function (b) {
+      b.onclick = function () { wireView = b.dataset.wireview; renderDash(); };
+    });
+    if ($('wireSort')) $('wireSort').onchange = function () { wireSort = $('wireSort').value; renderDash(); };
     on('logAdd', function () {
       form('File a note into the world log', [{ k: 'text', label: 'What happened', type: 'area' }], {}, function (v) {
         if (!v.text.trim()) return;
@@ -504,6 +610,49 @@
     });
   }
 
+  /** A wire post, played. The post is the scene, its replies are the beats,
+   *  and playing it marks the post used so the "unused" view keeps shrinking. */
+  function openScenario(post) {
+    if (!post) return;
+    var scenario = RP.scenarioFromPost(post, castById);
+    castPicker({
+      title: RP.clip(scenario.name, 60),
+      note: 'From the WAHwire, ' + post.timestamp + '. The suggested cast is everyone the post names — add whoever else was in the room.',
+      preselect: scenario.suggestedCast.map(function (c) { return c.id; }),
+    }, function (picked) {
+      startGroup(picked, {
+        scene: scenario.scene, sceneName: scenario.name, sceneImage: scenario.image,
+        beats: scenario.beats,
+        opener: 'WAHwire — ' + post.authorName + ', ' + post.timestamp + ':\n“' + RP.clip(post.content, 400) + '”',
+      });
+      var opened = room();
+      RP.markPostUsed(state, post.id, opened);
+      RP.logEvent(state, {
+        kind: 'wire', roomId: opened.id, roomTitle: opened.title,
+        chars: picked.map(function (c) { return c.id; }),
+        text: 'Played the wire post by ' + post.authorName + ': ' + RP.clip(post.content, 180),
+        tags: post.tags,
+      });
+      save(); render();
+    });
+  }
+
+  /** A collection, played: the archive already decided who belongs together. */
+  function openCollection(collection) {
+    if (!collection) return;
+    castPicker({
+      title: collection.name,
+      note: collection.summary || collection.title,
+      preselect: collection.members.slice(0, 6).map(function (c) { return c.id; }),
+    }, function (picked) {
+      startGroup(picked, {
+        scene: collection.summary || collection.title,
+        sceneName: collection.name,
+        opener: 'Collection — ' + collection.name + '. ' + RP.clip(collection.title || '', 160),
+      });
+    });
+  }
+
   function openRoom(id) { state.active = id; save(); render(); }
 
   /* ---------------------------------------------------------------- *
@@ -552,7 +701,10 @@
       html = '<div class="emptynote">Say something, or press ➤ Continue to let ' +
         esc((r.cast[0] || {}).name || 'them') + ' open the scene.</div>';
     }
-    $('stream').innerHTML = '<div class="stream-inner">' + html + (busy ? '<div class="turn typing"><em>…writing…</em></div>' : '') + '</div>';
+    var handback = (!busy && r.handback)
+      ? '<div class="handback"><b>Your turn.</b> ' + esc(r.handback) + '</div>' : '';
+    $('stream').innerHTML = '<div class="stream-inner">' + html + handback +
+      (busy ? '<div class="turn typing"><em>…writing…</em></div>' : '') + '</div>';
     $('stream').scrollTop = $('stream').scrollHeight;
 
     // group chats let you choose who answers next
@@ -593,6 +745,7 @@
       menuItem('cpMemory', '🧠', 'Memory', mem ? String(mem.notes.length) : '0') +
       menuItem('cpReplay', '🎭', 'Replay', 'Perspective') +
       menuItem('cpScript', '⏱', 'Script', r.beats && r.beats.length ? (r.autoBeats ? 'Auto' : 'Manual') : 'None') +
+      menuItem('cpDirector', '🎬', 'Director', state.settings.director === 'off' ? 'Off' : 'On · max ' + (state.settings.maxChain || RP.MAX_CHAIN)) +
       '</div>' +
       '<div class="cp-note">Memory is shared across chats: what is said here is remembered in the next room. Export from Labs.</div>';
     wirePanel();
@@ -701,6 +854,19 @@
       r.autoBeats = !r.autoBeats; save(); render();
       toast('Beats ' + (r.autoBeats ? 'advance on their own every two turns.' : 'only advance when you press ⏩.'));
     });
+    on('cpDirector', function () {
+      form('Director', [
+        { k: 'director', label: 'After a reply, who speaks next?', type: 'select', value: state.settings.director,
+          options: [{ value: 'on', label: 'The model decides — characters answer each other, then hand back to me' },
+                    { value: 'off', label: 'Always me — one reply per turn' }] },
+        { k: 'maxChain', label: 'Never more than this many character turns before it comes back to me', value: String(state.settings.maxChain || RP.MAX_CHAIN) },
+      ], { note: 'In a group chat the model is asked one question after every reply: does a character have to answer, or is the scene waiting on you? It hands back on its own, and always at the ceiling.' }, function (v) {
+        state.settings.director = v.director;
+        var n = parseInt(v.maxChain, 10);
+        state.settings.maxChain = isNaN(n) ? RP.MAX_CHAIN : Math.max(1, Math.min(12, n));
+        save(); render();
+      });
+    });
     on('cpExport', function () { download(RP.slug(r.title) + '.md', RP.transcript(r)); });
     on('cpSettings', settingsForm);
     on('cpUp', function () { toast('Rate individual replies with 👍 under the message.'); });
@@ -728,6 +894,7 @@
     input.value = '';
     input.style.height = 'auto';
     var msg = { id: RP.uid(), role: 'user', text: text, at: Date.now() };
+    r.handback = '';
     r.messages.push(msg);
     RP.rememberTurn(state, r, msg);
     r.updated = Date.now();
@@ -735,12 +902,41 @@
     generate();
   }
 
+  /** After a group reply, the model decides what happens next: another
+   *  character answers, or the scene comes back to the player. Without this a
+   *  multi-bot room is just a loop of bots talking to each other; with it the
+   *  chain also has a hard ceiling (settings.maxChain) so it always returns. */
+  function direct(r, speaker) {
+    if (r.kind !== 'group' || r.cast.length < 2 || state.settings.director === 'off') return Promise.resolve(false);
+    r.maxChain = state.settings.maxChain || RP.MAX_CHAIN;
+    if (RP.chainLength(r) >= r.maxChain) {
+      r.handback = 'the scene has run ' + RP.chainLength(r) + ' turns without you.';
+      r.next = '';
+      return Promise.resolve(false);
+    }
+    return callModel(RP.directorPrompt(r, speaker), [{ role: 'user', content: 'Who speaks next?' }])
+      .then(function (text) { return RP.parseDirector(text, r, speaker); })
+      .catch(function () { return { next: 'user', reason: 'the director could not be reached' }; })
+      .then(function (decision) {
+        if (decision.next === 'user') {
+          r.handback = decision.reason + '.';
+          r.next = '';
+          return false;
+        }
+        r.handback = '';
+        r.next = decision.next;
+        return true;    // keep the scene running: the next character answers
+      });
+  }
+
   /** One reply. `retryIndex` regenerates an existing turn as a new swipe. */
   function generate(opts) {
     opts = opts || {};
     var r = room();
     if (!r || busy || !r.cast.length) return;
-    busy = true; render();
+    busy = true;
+    r.handback = '';
+    render();
 
     var retry = opts.retryIndex !== undefined ? r.messages[opts.retryIndex] : null;
     var speaker = retry ? charOf(r, retry.charId) : RP.nextSpeaker(r);
@@ -766,14 +962,20 @@
       }
       r.updated = Date.now();
       if (state.settings.voice === 'on' && !retry) speak(r.messages[r.messages.length - 1], r);
+      if (!retry) return direct(r, speaker);
+      return false;
     }).catch(function (error) {
       r.messages.push({
         id: RP.uid(), role: 'char', charId: speaker.id, error: true, at: Date.now(),
         text: 'The model did not answer: ' + error.message + '\nEndpoint: ' + replyUrl() +
           '\nStart the local model (python workflow/server.py next to LM Studio) or set another endpoint in ⚙.',
       });
-    }).then(function () {
+      return false;
+    }).then(function (chain) {
       busy = false; save(); render();
+      // The next character answers on their own — one turn at a time, so the
+      // reader can read it, and always stopping at the ceiling.
+      if (chain && room() === r) window.setTimeout(function () { generate(); }, 400);
     });
   }
 
@@ -1024,5 +1226,7 @@
   wireShell();
   render();
   checkHealth();
-  loadCast().then(loadScenes).then(render);
+  loadCast()
+    .then(function () { return Promise.all([loadScenes(), loadWire(), loadCollections()]); })
+    .then(render);
 })();

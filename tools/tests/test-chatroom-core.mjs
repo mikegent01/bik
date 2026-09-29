@@ -133,6 +133,70 @@ RP.saveState(store, state);
 const back = RP.loadState(store);
 check('storage: lore, memory, the log and the account round-trip', back.lore.length === state.lore.length && back.chars.length === 3 && back.log.length === state.log.length && back.user.handle === 'waluipedia');
 
+// ---------- the WAHwire becomes scenarios ----------
+const profiles = { waluigi: { avatar: 'portraits/waluigi.jpg' } };
+const wire = [
+  { id: 'ww_a', author: 'waluigi', order: 3, likes: 500, status: 'posted', timestamp: '5 Aethel', content: 'The ridge road floods and nobody files it.', tags: ['ridge'], links: [{ id: 'sans', type: 'character' }, { id: 'the_ambush', type: 'event' }], comments: [{ author: 'sans', content: 'so move the road' }, { author: 'timber_gang', content: 'move the rain' }] },
+  { id: 'ww_b', author: 'timber_gang', order: 9, likes: 12, status: 'posted', timestamp: '9 Aethel', content: 'Second saw lost this month.', tags: ['timber'], links: [] },
+  { id: 'ww_c', author: 'rebel_scout', order: 1, likes: 40, status: 'generated', timestamp: '1 Aethel', content: 'A draft the archive never posted.', tags: [], links: [] },
+].map(p => RP.normPost(p, profiles));
+check('wire: posts normalise with author, avatar, tags and linked characters',
+  wire[0].authorName.toLowerCase().includes('waluigi') && wire[0].avatar.includes('portraits/') && wire[0].chars.includes('sans'));
+check('wire: newest first is the default sort, and it is by filing order',
+  RP.sortPosts(wire, 'newest')[0].id === 'ww_b' && RP.sortPosts(wire, 'oldest')[0].id === 'ww_c' && RP.sortPosts(wire, 'liked')[0].id === 'ww_a');
+
+const castIndex = { sans, timber_gang: cutters, rebel_scout: rebel };
+check('wire: every post starts unused', RP.filterPosts(wire, { view: 'unused' }, state).length === 3);
+const scenario = RP.scenarioFromPost(wire[0], castIndex);
+check('scenario: the post is the scene and the people it names are the cast',
+  scenario.scene.includes('ridge road floods') && scenario.suggestedCast.some(c => c.id === 'sans'));
+check('scenario: the replies underneath become beats',
+  scenario.beats.length === 2 && scenario.beats[0].detail.includes('move the road'));
+const wireRoom = RP.newRoom(scenario.suggestedCast, { scene: scenario.scene, sceneName: scenario.name, beats: scenario.beats });
+RP.markPostUsed(state, wire[0].id, wireRoom);
+check('wire: playing a post marks it used, and the unused view shrinks',
+  RP.postUsed(state, 'ww_a') && RP.filterPosts(wire, { view: 'unused' }, state).length === 2 && RP.filterPosts(wire, { view: 'used' }, state).length === 1);
+check('wire: the "never posted" view finds the archive\u2019s own drafts',
+  RP.filterPosts(wire, { view: 'unfiled' }, state).map(p => p.id).join() === 'ww_c');
+check('wire: search matches content, author and tags',
+  RP.filterPosts(wire, { query: 'saw' }, state).length === 1 && RP.filterPosts(wire, { query: 'ridge' }, state).length === 1);
+check('wire: used posts survive a save/load and an export', (() => {
+  RP.saveState(store, state);
+  const round = RP.loadState(store);
+  const bundle = RP.exportBundle(state, { chats: false, lore: false, user: false });
+  return RP.postUsed(round, 'ww_a') && Boolean(bundle.usedPosts.ww_a);
+})());
+
+// ---------- collections ----------
+const collection = RP.normCollection({
+  id: 'ridge_crew', name: 'The Ridge Crew', title: 'Everyone on that hill',
+  summary: 'The people the ridge belongs to, on paper and otherwise.',
+  members: [{ id: 'sans', name: 'Sans', role: 'watchman' }, { id: 'timber_gang', name: 'The Timber Gang', role: 'cutters' }, { id: 'ghost_id', name: 'Not in the cast' }],
+}, castIndex);
+check('collections: members resolve to playable characters, strangers drop out',
+  collection.members.length === 2 && collection.total === 3 && collection.members[0].role === 'watchman');
+
+// ---------- the director ----------
+const group = RP.newRoom([sans, cutters, rebel], {});
+group.messages.push({ id: 'd1', role: 'user', text: 'Who is cutting tonight?', at: 1 });
+group.messages.push({ id: 'd2', role: 'char', charId: 'sans', text: 'nobody. the saws are off.', at: 2 });
+check('director: the prompt lists everyone except the character who just spoke',
+  (() => { const p = RP.directorPrompt(group, sans); return !p.includes('- Sans') && p.includes('- The Timber Gang') && p.includes('NEXT:'); })());
+check('director: NEXT picks the named character', RP.parseDirector('NEXT: The Timber Gang', group, sans).next === 'timber_gang');
+check('director: USER hands the scene back', RP.parseDirector('USER', group, sans).next === 'user');
+check('director: an unreadable answer hands back rather than guessing', RP.parseDirector('uhh maybe someone?', group, sans).next === 'user');
+check('director: it may never re-pick the character who just spoke', RP.parseDirector('NEXT: Sans', group, sans).next === 'user');
+check('director: chain length counts character turns since the player', RP.chainLength(group) === 1);
+group.messages.push({ id: 'd3', role: 'char', charId: 'timber_gang', text: '*spits*', at: 3 });
+group.messages.push({ id: 'd4', role: 'char', charId: 'rebel_scout', text: 'we heard them stop.', at: 4 });
+group.messages.push({ id: 'd5', role: 'char', charId: 'sans', text: 'everyone hears everything here.', at: 5 });
+check('director: the ceiling always returns the scene to the player',
+  RP.chainLength(group) === 4 && RP.parseDirector('NEXT: The Timber Gang', group, sans).next === 'user');
+group.maxChain = 6;
+check('director: the ceiling is configurable per room', RP.parseDirector('NEXT: The Timber Gang', group, sans).next === 'timber_gang');
+group.messages.push({ id: 'd6', role: 'user', text: 'I step out of the trees.', at: 6 });
+check('director: a player turn resets the chain', RP.chainLength(group) === 0);
+
 // ---------- generated pages are in sync with these sources ----------
 let built = true;
 try {
