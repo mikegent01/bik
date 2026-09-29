@@ -147,6 +147,25 @@ body{background:var(--bg);color:var(--ink);font:14px/1.6 system-ui,-apple-system
 .statusline{padding:8px 22px;font-size:11.5px;color:var(--muted);display:flex;gap:7px;align-items:center}
 .dot{width:8px;height:8px;border-radius:50%;background:#b9b9c2}
 .dot.online{background:var(--ok)}
+/* letter dividers, scene cast, beat timeline, picker bar */
+.ltr{scroll-margin-top:8px}
+.ltr-head{position:sticky;top:0;z-index:5;background:var(--bg);font-size:15px;font-weight:900;color:var(--accent);padding:12px 2px 6px;border-bottom:2px solid var(--soft)}
+.ccard-cast{display:flex;align-items:center;gap:4px;margin-top:7px}
+.ccard-cast-chip img,.ccard-cast-chip .mini-init{width:22px;height:22px;border-radius:50%;object-fit:cover;object-position:top center;background:var(--soft);display:grid;place-items:center;font-size:10px;font-weight:800;color:var(--accent)}
+.ccard-cast-note{font-size:10px;color:var(--muted);margin-left:4px}
+.beats{display:flex;align-items:center;gap:10px;padding:8px 22px;border-bottom:1px solid var(--line2);background:var(--card);flex-wrap:wrap}
+.beats-title{font-size:11.5px;font-weight:800;color:var(--ink2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:220px}
+.beats-dots{display:flex;gap:5px}
+.beat-dot{width:10px;height:10px;border-radius:50%;background:var(--line);display:inline-block;cursor:help}
+.beat-dot.done{background:var(--accent)}
+.beat-dot.next{background:#fff;border:2.5px solid var(--accent)}
+.beat-time{font-size:11.5px;font-weight:800;color:var(--accent)}
+.beat-next-hint{font-size:11px;color:var(--muted);flex:1;min-width:120px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.beat-btn{padding:6px 10px;font-size:11.5px}
+.pick-bar{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:10px}
+.pick-count{font-size:12px;font-weight:800;color:var(--accent)}
+a.me{text-decoration:none;color:inherit}
+a.me:hover{border-color:var(--accent)}
 @media(max-width:900px){.rpanel{display:none}.sidebar{width:74px;flex-basis:74px;padding:10px 8px}.brand div:last-child,.side-btn span.lbl,.nav-group,.recents,.side-foot .backlink,.me div{display:none}.side-btn{justify-content:center}.ccard-select{opacity:1;transform:translate(-50%,-50%) scale(1)}}
 </style>
 </head>
@@ -161,7 +180,7 @@ body{background:var(--bg);color:var(--ink);font:14px/1.6 system-ui,-apple-system
     <div class="recents" id="recents"></div>
     <div class="side-foot">
       <a class="backlink" href="/">← Assistant chat</a>
-      <div class="me"><div class="me-av">m</div><div><b>mike</b><small>@mikegent1</small></div></div>
+      <a class="me" href="{{MAIN_SITE}}" target="_blank" rel="noopener" title="Open the Waluipedia archive"><div class="me-av">W</div><div><b>Waluigi</b><small>@waluipedia · open the archive</small></div></a>
     </div>
   </aside>
   <main class="main">
@@ -212,6 +231,7 @@ RP.normChar=function normChar(c){
     name:String(c&&c.name||"Unnamed"),
     title:String(c&&c.title||"").slice(0,90),
     summary:String(c&&c.summary||c&&c.description||"").slice(0,600),
+    race:String(c&&c.race||"").slice(0,40),
     image:String(c&&c.image||""),
     source:c&&c.source||"archive",
     prompt:String(c&&c.prompt||"")
@@ -339,6 +359,10 @@ RP.newRoom=function newRoom(cast,opts){
     persona:opts.persona||"",
     style:opts.style||"novel",
     scene:opts.scene||"",
+    sceneName:opts.sceneName||"",
+    beats:(opts.beats||[]).slice(0,12),
+    beatIndex:0,
+    autoBeats:opts.autoBeats!==false,
     renamed:false,created:Date.now(),updated:Date.now(),
     next:""
   };
@@ -383,6 +407,66 @@ RP.saveState=function saveState(storage,state){
 RP.touch=function touch(room){room.updated=Date.now();};
 RP.counter=function counter(room){return (room&&room.messages||[]).filter(m=>!m.error&&m.role!=="scene").length;};
 
+/* ---- scripted scenes: the filed event runs on its own clock ------------- */
+RP.letterFor=function letterFor(name){
+  const m=String(name||"").trim().toUpperCase().match(/^([A-Z])/);
+  return m?m[1]:"#";
+};
+RP.groupByLetter=function groupByLetter(chars){
+  const groups={};
+  (chars||[]).forEach(c=>{const k=RP.letterFor(c.name);(groups[k]=groups[k]||[]).push(c);});
+  return Object.keys(groups).sort((a,b)=>(a==="#"?1:b==="#"?-1:a.localeCompare(b))).map(k=>({letter:k,chars:groups[k]}));
+};
+RP.scriptBlock=function scriptBlock(room){
+  if(!room||!room.scene)return "";
+  const beats=room.beats||[];
+  const fired=beats.slice(0,room.beatIndex||0);
+  const next=beats[room.beatIndex||0];
+  const lines=[];
+  lines.push("THE SCRIPTED EVENT — this scene is the filed session \u201C"+String(room.sceneName||"the filing")+"\u201D played from a DIFFERENT perspective.");
+  lines.push("The main event proceeds on its own schedule no matter what the user does. The user plays OTHER characters — witnesses, bystanders, people with their own business — who may interact with, avoid, or stumble into the scripted event, but the event itself stays on script. Never make the user's character the star of the scripted beats and never narrate the user's actions for them.");
+  if(fired.length){
+    lines.push("Main event so far:");
+    fired.forEach(b=>{lines.push("- "+(b.time?b.time+": ":"")+(b.beat||b.detail||""));});
+  }
+  if(next){
+    lines.push("Scheduled to happen next — weave it in when the moment comes, without asking permission: "+(next.time?next.time+": ":"")+(next.beat||"")+(next.detail?" — "+next.detail:""));
+  }else if(beats.length){
+    lines.push("The scripted event has run its course; the aftermath is yours to play.");
+  }
+  return lines.join("\n");
+};
+RP.turnsSinceBeat=function turnsSinceBeat(room){
+  const msgs=(room&&room.messages||[]);
+  let n=0;
+  for(let i=msgs.length-1;i>=0;i--){
+    const m=msgs[i];
+    if(m&&m.beat)break;
+    if(m&&!m.error&&m.role!=="scene")n++;
+  }
+  return n;
+};
+RP.fireBeat=function fireBeat(room){
+  if(!room)return null;
+  const beats=room.beats||[];
+  const i=room.beatIndex||0;
+  if(i>=beats.length)return null;
+  const b=beats[i];
+  room.beatIndex=i+1;
+  room.messages.push({id:RP.uid(),role:"scene",beat:true,ts:Date.now(),text:(b.time?b.time+" — ":"")+(b.beat||"")+(b.detail?" "+b.detail:"")});
+  RP.touch(room);
+  return b;
+};
+RP.autoAdvance=function autoAdvance(room){
+  return Boolean(room&&room.autoBeats)&&(room.beatIndex||0)<(room.beats||[]).length&&RP.turnsSinceBeat(room)>=2;
+};
+RP.beatProgress=function beatProgress(room){
+  const total=(room&&room.beats||[]).length;
+  if(!total)return null;
+  const at=Math.min(room.beatIndex||0,total);
+  return {at,total,remaining:total-at,next:(room.beats||[])[room.beatIndex||0]||null};
+};
+
 window.RP=RP;
 })();
 </script>
@@ -400,6 +484,8 @@ let scenes=[];
 let speakerPick="";        // explicit group speaker choice (modal in progress)
 let groupSeed=[];
 let groupScene="";
+let groupSceneName="";
+let groupBeats=[];
 let busy=false;
 
 /* ---------- api ---------- */
@@ -472,31 +558,35 @@ function cardHtml(c){
     '<span class="ccard-byline">'+RP.esc(c.name)+'</span><span class="ccard-tag">'+tag+'</span>'+
     '<button class="ccard-select" data-start="'+RP.esc(c.id)+'">Select character</button></div>'+
     '<div class="ccard-body"><h3>'+RP.esc(c.name)+'</h3><p>'+RP.esc(c.title||c.summary.slice(0,120))+'</p>'+
-    '<div class="ccard-meta"><span>'+(c.source==="custom"?"by you":"by @waluipedia")+'</span>'+(talks?'<span>💬 '+talks+'</span>':"")+'</div></div></article>';
+    '<div class="ccard-meta"><span>'+RP.esc(String(c.race||"").split("(")[0].trim().slice(0,26)||"—")+'</span>'+(talks?'<span>💬 '+talks+'</span>':"")+'</div></div></article>';
 }
 function sceneHtml(s){
+  const cast=s.suggestedCast||[];
+  const castLine=cast.length?'<div class="ccard-cast">'+cast.slice(0,6).map(c=>'<span class="ccard-cast-chip" title="'+RP.esc(c.name)+'">'+avatarHtml(c)+'</span>').join("")+'<span class="ccard-cast-note">suggested cast</span></div>':"";
   return '<article class="ccard" data-scene="'+RP.esc(s.id)+'">'+
     '<div class="ccard-art"><span class="ccard-init">🎬</span>'+
     (s.image?'<img src="'+RP.esc(s.image)+'" alt="" loading="lazy" onerror="this.style.display=\'none\'">':"")+
     '<span class="ccard-byline">'+RP.esc(s.name)+'</span>'+
-    '<button class="ccard-select">Start scene</button></div>'+
-    '<div class="ccard-body"><h3>'+RP.esc(s.name)+'</h3><p>'+RP.esc(String(s.summary||"").slice(0,140))+'</p>'+
-    '<div class="ccard-meta"><span>'+RP.esc(String(s.era||s.date||"").slice(0,40))+'</span></div></div></article>';
+    '<button class="ccard-select">Play another perspective</button></div>'+
+    '<div class="ccard-body"><h3>'+RP.esc(s.name)+'</h3><p>'+RP.esc(String(s.summary||"").slice(0,140))+'</p>'+castLine+
+    '<div class="ccard-meta"><span>'+RP.esc(String(s.era||s.date||"").slice(0,40))+'</span><span>'+((s.beats||[]).length?String((s.beats||[]).length)+' scripted beats':'unscripted')+'</span></div></div></article>';
 }
 function renderDiscover(){
   const q=$("search").value.trim().toLowerCase();
   const cast=allChars().filter(c=>!q||(c.name+" "+c.title+" "+c.summary+" "+(c.race||"")).toLowerCase().includes(q));
-  const featured=cast.filter(c=>c.source!=="custom").slice(0,24);
   const mine=cast.filter(c=>c.source==="custom");
+  const archiveChars=cast.filter(c=>c.source!=="custom");
   const sc=q?scenes.filter(s=>(s.name+" "+s.summary).toLowerCase().includes(q)):scenes;
-  let html='<div class="section-head"><h2>For you</h2><a data-go="create">Create a character →</a></div>';
-  html+='<div class="cardgrid">'+(featured.map(cardHtml).join("")||'<p class="rp-note">No characters match.</p>')+'</div>';
+  let html="";
+  if(sc.length){
+    html+='<div class="section-head"><h2>Scenes from the sessions</h2><span class="rp-note">the filed event runs on script — you play everyone else</span></div><div class="cardgrid">'+sc.map(sceneHtml).join("")+'</div>';
+  }
   if(mine.length){
     html+='<div class="section-head"><h2>Your characters</h2></div><div class="cardgrid">'+mine.map(cardHtml).join("")+'</div>';
   }
-  if(sc.length){
-    html+='<div class="section-head"><h2>Scenes from the archive</h2><a href="#" onclick="return false" style="cursor:default">start from a filed event</a></div><div class="cardgrid">'+sc.map(sceneHtml).join("")+'</div>';
-  }
+  const groups=RP.groupByLetter(archiveChars);
+  html+='<div class="section-head"><h2>All characters</h2><span class="rp-note">'+archiveChars.length+' on file · <a data-go="create">create one →</a></span></div>';
+  html+=groups.map(g=>'<div class="ltr"><div class="ltr-head">'+g.letter+'</div><div class="cardgrid">'+g.chars.map(cardHtml).join("")+'</div></div>').join("")||'<p class="rp-note">No characters match.</p>';
   $("view").innerHTML=html;
   $("view").querySelectorAll("[data-start]").forEach(b=>b.onclick=e=>{e.stopPropagation();startSolo(b.dataset.start);});
   $("view").querySelectorAll(".ccard[data-id]").forEach(el=>el.onclick=()=>startSolo(el.dataset.id));
@@ -526,37 +616,53 @@ function renderCreate(){
 
 /* ---------- group picker ---------- */
 function openGroupPicker(seed,sceneId){
-  groupSeed=(seed||[]).slice();
   const scene=sceneId?scenes.find(s=>s.id===sceneId):null;
+  groupSeed=(seed&&seed.length?seed.slice():(scene&&scene.suggestedCast||[]).map(c=>c.id)).slice();
   groupScene=scene?((scene.name||"")+". "+String(scene.summary||"").slice(0,400)):"";
+  groupSceneName=scene?(scene.name||""):"";
+  groupBeats=scene?(scene.beats||[]):[];
   const cast=allChars();
   $("modalHost").innerHTML='<div class="overlay"><div class="modal">'+
     '<div class="modal-head"><h3>'+(scene?("Cast the scene: "+RP.esc(scene.name)):"Start a group chat")+'</h3><button class="modal-x" id="mClose">✕</button></div>'+
-    '<div class="modal-body"><p class="rp-note">Pick 2–6 characters. In a group chat they take turns — click an avatar in the chat to choose who speaks next.</p>'+
+    '<div class="modal-body"><p class="rp-note">Pick as many characters as you like'+(groupBeats.length?' — the scripted event runs on its own beats while you play them':(scene?'':''))+'. In a group chat they take turns; click an avatar in the chat to choose who speaks next.'+(scene?' The event\'s own participants are pre-selected — swap any of them.':'')+'</p>'+
+    '<div class="pick-bar"><span class="pick-count" id="pickCount"></span><button class="cbtn" id="pickSuggest" type="button">✨ Suggest a cast</button></div>'+
     '<input id="pickSearch" placeholder="Filter the cast…" style="width:100%;border:1px solid var(--line);border-radius:10px;font:inherit;padding:8px 11px;margin-top:8px">'+
     '<div class="pick" id="pickList"></div></div>'+
-    '<div class="modal-foot"><button class="cbtn" id="mCancel">Cancel</button><button class="cbtn send" id="mGo">Start group chat</button></div></div></div>';
+    '<div class="modal-foot"><button class="cbtn" id="mCancel">Cancel</button><button class="cbtn send" id="mGo">'+(groupBeats.length?'Play the scene':'Start group chat')+'</button></div></div></div>';
   const draw=()=>{
     const q=$("pickSearch").value.trim().toLowerCase();
-    $("pickList").innerHTML=cast.filter(c=>!q||c.name.toLowerCase().includes(q)).map(c=>{
+    $("pickList").innerHTML=cast.filter(c=>!q||(c.name+" "+(c.race||"")).toLowerCase().includes(q)).map(c=>{
       const on=groupSeed.includes(c.id);
       return '<div class="pick-item'+(on?" on":"")+'" data-pick="'+RP.esc(c.id)+'">'+avatarHtml(c)+'<span>'+RP.esc(c.name)+'</span></div>';
     }).join("");
+    $("pickCount").textContent=groupSeed.length+' selected';
     $("pickList").querySelectorAll("[data-pick]").forEach(el=>el.onclick=()=>{
       const id=el.dataset.pick;
       if(groupSeed.includes(id))groupSeed=groupSeed.filter(x=>x!==id);
-      else if(groupSeed.length<6)groupSeed.push(id);
+      else groupSeed.push(id);
       draw();
     });
   };
   draw();
   $("pickSearch").oninput=draw;
-  const close=()=>{$("modalHost").innerHTML="";groupSeed=[];groupScene="";};
+  $("pickSuggest").onclick=async()=>{
+    const btn=$("pickSuggest");
+    btn.disabled=true;btn.textContent="✨ Thinking…";
+    try{
+      const data=await api("/api/suggest-cast",{scene:groupScene||"A group scene in the Waluipedia world.",count:4,candidates:cast.map(c=>({id:c.id,name:c.name}))});
+      const ids=(data.ids||[]).filter(id=>cast.some(c=>c.id===id));
+      if(ids.length){groupSeed=ids;draw();}
+      else alert("The model could not settle on a cast — pick a few yourself.");
+    }catch(err){alert(err.message);}
+    finally{btn.disabled=false;btn.textContent="✨ Suggest a cast";}
+  };
+  const close=()=>{$("modalHost").innerHTML="";groupSeed=[];groupScene="";groupSceneName="";groupBeats=[];};
   $("mClose").onclick=$("mCancel").onclick=close;
   $("mGo").onclick=()=>{
-    if(groupSeed.length<2){alert("Pick at least two characters for a group chat.");return;}
-    const cast=groupSeed.map(findBy).filter(Boolean);
-    const r=RP.newRoom(cast,{scene:groupScene,opener:groupScene?("Scene — "+groupScene):""});
+    if(!groupSeed.length){alert("Pick at least one character.");return;}
+    const chosen=groupSeed.map(findBy).filter(Boolean);
+    const opener=groupScene?("Scene — "+groupScene+(groupBeats.length?" The filed event runs on its own schedule around you; you play everyone else.":"")):"";
+    const r=RP.newRoom(chosen,{scene:groupScene,sceneName:groupSceneName,beats:groupBeats,opener});
     state.rooms.unshift(r);state.active=r.id;RP.saveState(window.localStorage,state);
     close();view="chat";render();
   };
@@ -589,10 +695,18 @@ function renderChat(){
     const isNext=next&&c.id===next.id;
     return '<button class="cast-chip'+(isNext?" next":"")+'" data-speak-as="'+RP.esc(c.id)+'" title="'+(isNext?"Speaking next — click to change":"Click to make "+RP.esc(c.name)+" speak next")+'">'+avatarHtml(c)+RP.esc(c.name)+'</button>';
   }).join("")+'<span class="next-hint">next: '+(next?RP.esc(next.name):"—")+'</span></div>':"";
+  const prog=RP.beatProgress(r);
+  const beatBar=prog?('<div class="beats">'+
+    '<span class="beats-title" title="The filed event runs on its own script while you play">🎬 '+RP.esc(r.sceneName||"scripted event")+'</span>'+
+    '<div class="beats-dots">'+r.beats.map((b,i)=>'<span class="beat-dot'+(i<prog.at?" done":"")+(i===prog.at?" next":"")+'" title="'+RP.esc((b.time?b.time+" — ":"")+(b.beat||""))+'"></span>').join("")+'</div>'+
+    '<span class="beat-time">'+(prog.at?RP.esc(r.beats[prog.at-1].time||("beat "+prog.at)):"scene opens")+'</span>'+
+    (prog.next?'<span class="beat-next-hint">next: '+RP.esc(((prog.next.time?prog.next.time+" — ":"")+(prog.next.beat||"")).slice(0,52))+'</span>':'<span class="beat-next-hint">the scripted event has run its course</span>')+
+    '<button class="cbtn beat-btn" id="beatBtn" type="button"'+(prog.remaining?'':' disabled')+'>⏩ Next beat</button></div>'):"";
   const msgs=(r.messages||[]).map(m=>msgHtml(m,r)).join("")||
     '<div class="empty"><h2>'+(group?"Cast the first line.":"Say something to "+(r.cast[0]?RP.esc(r.cast[0].name):"them")+".")+'</h2><p>Actions in *asterisks* become italics. The model stays in character and never sees your other chats.</p></div>';
   $("view").innerHTML='<div class="chatwrap"><div class="chatcol">'+
     '<div class="chat-head"><h2>'+RP.esc(r.title)+'</h2>'+castBar+'</div>'+
+    beatBar+
     '<div class="msgs" id="msgs">'+msgs+'</div>'+
     '<div class="composer-wrap"><form class="composer" id="composer">'+
     '<textarea id="input" rows="1" placeholder="'+(group?("Message — "+(next?RP.esc(next.name):"the cast")+" replies"):"Message "+(r.cast[0]?RP.esc(r.cast[0].name):""))+'" aria-label="Message"></textarea>'+
@@ -610,6 +724,8 @@ function renderChat(){
   $("view").querySelectorAll("[data-speak-as]").forEach(b=>b.onclick=()=>{
     r.next=b.dataset.speakAs;RP.touch(r);RP.saveState(window.localStorage,state);renderChat();
   });
+  const beatBtn=$("beatBtn");
+  if(beatBtn)beatBtn.onclick=()=>{if(RP.fireBeat(r)){RP.saveState(window.localStorage,state);renderChat();}};
   $("view").querySelectorAll("[data-speak]").forEach(b=>b.onclick=()=>speakMsg(r,b.dataset.speak));
   $("view").querySelectorAll("[data-pin]").forEach(b=>b.onclick=()=>{
     const m=(r.messages||[]).find(x=>x.id===b.dataset.pin);if(!m)return;
@@ -622,8 +738,9 @@ function renderPanel(r){
   const history=state.rooms.filter(x=>x.id!==r.id&&x.cast.some(c=>solo?c.id===solo.id:false)).slice(0,6);
   const pins=(r.messages||[]).filter(m=>m.pinned);
   $("rpanel").innerHTML=
-    (solo?'<div class="rp-card"><div class="rp-av">'+avatarHtml(solo)+'</div><h3>'+RP.esc(solo.name)+'</h3><p class="by">'+(solo.source==="custom"?"by you":"by @waluipedia")+' · '+RP.roomCountFor(state.rooms,solo.id)+' chats</p><p class="desc">'+RP.esc(solo.summary.slice(0,300))+'</p></div>'
+    (solo?'<div class="rp-card"><div class="rp-av">'+avatarHtml(solo)+'</div><h3>'+RP.esc(solo.name)+'</h3><p class="by">'+(solo.source==="custom"?"your character":"from the archive")+' · '+RP.roomCountFor(state.rooms,solo.id)+' chats</p><p class="desc">'+RP.esc(solo.summary.slice(0,300))+'</p></div>'
       :'<div class="rp-card"><h3>👥 Group scene</h3><p class="by">'+r.cast.length+' characters</p></div><div class="rp-cast">'+r.cast.map(c=>'<div class="rp-cast-row">'+avatarHtml(c)+'<span>'+RP.esc(c.name)+'</span></div>').join("")+'</div>')+
+    ((RP.beatProgress(r)||{}).total?'<button class="rp-btn" id="pBeats">⏱ Script <span class="val">'+(r.autoBeats?"auto-advance":"manual")+' · '+RP.beatProgress(r).at+'/'+RP.beatProgress(r).total+'</span></button>':"")+
     '<button class="rp-btn" id="pNew">✨ New chat</button>'+
     '<button class="rp-btn'+(state.settings.autoSpeak?" on":"")+'" id="pVoice">🔊 Voice <span class="val">'+(state.settings.autoSpeak?"auto-read on":"off")+'</span></button>'+
     (history.length?'<button class="rp-btn" id="pHist">🕘 History <span class="val">'+history.length+'</span></button><ul class="rp-list" id="histList" style="display:none">'+history.map(h=>'<li data-hist="'+RP.esc(h.id)+'">'+RP.esc(h.title)+'<small>'+(h.kind==="group"?"group":"solo")+'</small></li>').join("")+'</ul>':"")+
@@ -632,6 +749,8 @@ function renderPanel(r){
     '<button class="rp-btn" id="pStyle">✍️ Style <span class="val">'+(RP.STYLES[r.style]||RP.STYLES.novel).label+'</span></button>'+
     '<button class="rp-btn" id="pExport">⬇ Export transcript</button>'+
     '<p class="rp-note">Transcripts stay in this browser. Export before clearing site data.</p>';
+  const beatsBtn=$("pBeats");
+  if(beatsBtn)beatsBtn.onclick=()=>{r.autoBeats=!r.autoBeats;RP.touch(r);RP.saveState(window.localStorage,state);renderChat();};
   $("pNew").onclick=()=>{if(solo)startSolo(solo.id);else openGroupPicker(r.cast.map(c=>c.id));};
   $("pVoice").onclick=()=>{state.settings.autoSpeak=!state.settings.autoSpeak;RP.saveState(window.localStorage,state);renderPanel(r);};
   const hb=$("pHist");if(hb)hb.onclick=()=>{const l=$("histList");l.style.display=l.style.display==="none"?"block":"none";};
@@ -692,8 +811,7 @@ async function send(isContinue){
   $("input").value="";$("send").disabled=true;
   busy=true;$("send").disabled=true;
   try{
-    const system=group?RP.groupPrompt(r.cast,speaker,{style:r.style,scene:r.scene}):RP.soloPrompt(r.cast[0],{style:r.style});
-    const persona=RP.personaBlock(r.persona);
+    const system=[group?RP.groupPrompt(r.cast,speaker,{style:r.style,scene:r.scene}):RP.soloPrompt(r.cast[0],{style:r.style}),RP.personaBlock(r.persona),RP.scriptBlock(r)].filter(Boolean).join("\n\n");
     const history=RP.historyFor(r);
     if(isContinue)history.push({role:"user",content:RP.CONTINUE_MARKER+" Let the scene move forward; do not acknowledge this instruction."});
     const data=await api("/api/roleplay",{
@@ -704,6 +822,7 @@ async function send(isContinue){
     const reply=RP.stripSpeaker(data.text,speaker.name);
     r.messages.push({id:RP.uid(),role:"char",charId:speaker.id,text:reply,ts:Date.now()});
     if(group)r.next=(RP.rotationAfter(r.cast,speaker.id)||{}).id||"";
+    if(RP.autoAdvance(r))RP.fireBeat(r);
     RP.touch(r);RP.saveState(window.localStorage,state);renderChat();
     if(state.settings.autoSpeak)speak(reply,speaker);
   }catch(err){

@@ -64,17 +64,27 @@ a right-hand character panel (New chat / Voice / History / Pinned / Persona /
 Style / Export).
 
 - **The cast is the archive itself.** `/api/characters` serves every character
-  in `characters.json` (portraits included, via `/rm/…` static routes), and
-  `/api/scenes` turns the newest filed events into scene starters — open a
-  roleplay inside a story the wiki already holds, then take it anywhere.
+  in `characters.json` (portraits included, via `/rm/…` static routes), browsed
+  under alphabetical letter dividers. The sidebar account links to the actual
+  site (`WALUIPEDIA_URL`, default `http://127.0.0.1:8765/`).
+- **Scenes from the sessions, from other perspectives.** `/api/scenes` turns
+  the newest filed sessions into scene starters. The filed event **runs on
+  its own script** — beats taken from its filed timeline fire on schedule
+  (auto-advance every two turns, or **⏩ Next beat** manually) while you play
+  *other* characters doing their own things around it. Each scene card shows
+  its **suggested cast** (the event's own participants, resolved to playable
+  characters) and **✨ Suggest a cast** lets the model pick an interesting
+  combination instead.
 - **Group chats.** The **👥 Group chat** button (or any scene card) opens a
-  cast picker for 2–6 characters. Characters take turns; click an avatar in
-  the chat to choose who speaks next. Each reply is generated as that
-  character only — the prompt forbids writing the others' lines.
+  cast picker — pick as many characters as you like. Characters take turns;
+  click an avatar in the chat to choose who speaks next. Each reply is
+  generated as that character only — the prompt forbids writing the others'
+  lines.
 - **Adding onto stories.** **➤ Continue** moves the scene forward without
   your input, **Persona** sets who you play, **Style** switches narration
-  (novel / script / casual / archivist), and **⬇ Export transcript** downloads
-  the whole scene as markdown for filing back into the wiki.
+  (novel / script / casual / archivist), **⏱ Script** toggles beat
+  auto-advance, and **⬇ Export transcript** downloads the whole scene as
+  markdown for filing back into the wiki.
 - **Voice** reads messages aloud with the browser's speech synthesis, a
   stable per-character pitch.
 - Roleplay turns go straight to the model through `POST /api/roleplay` — no
@@ -153,6 +163,8 @@ The roleplay page adds:
   event plates; path traversal refused)
 - `POST /api/roleplay` — one plain chat completion (system + messages +
   temperature + max_tokens); no tools, no writes
+- `POST /api/suggest-cast` — the model picks a cast for a scene from a
+  candidate list; it may only choose names from that list
 
 The model never receives shell access. Repository helpers remain bounded to the
 checkout and are called only by the explicit read/write/image branches.

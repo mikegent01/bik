@@ -42,6 +42,9 @@ class Handler(BaseHTTPRequestHandler):
                 Handler.sequence += 1
             else:
                 content = "MOCK-AGENT REPLY: no tools needed for that."
+        elif "ONLY a JSON array" in all_text:
+            # Cast suggestion flow: names picked from the candidate list.
+            content = os.environ.get("MOCK_ARRAY_REPLY", '["Sans", "Bowser"]')
         elif "ONLY a JSON object" in all_text or "ONLY a JSON" in all_text:
             # Structured flows (record filing, draft revision) expect JSON; the
             # canned body is overridable per-test with MOCK_JSON_REPLY.

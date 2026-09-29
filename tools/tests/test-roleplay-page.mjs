@@ -119,5 +119,43 @@ const sceneRoom = RP.newRoom([sans, promo], { scene: 'The Feyward.', opener: 'Th
 check('scene room: opener stored as a scene message, kind group', sceneRoom.messages[0].role === 'scene' && sceneRoom.kind === 'group' && sceneRoom.scene === 'The Feyward.');
 check('room count: chats per character counted across rooms', RP.roomCountFor([room, group, sceneRoom], 'sans') === 2);
 
+// ---------- letter dividers ----------
+check('letters: first letter or # for digits/symbols', RP.letterFor('Azure (Rakasha)') === 'A' && RP.letterFor('Baby Bones') === 'B' && RP.letterFor('7th Toad') === '#' && RP.letterFor('') === '#');
+const grouped = RP.groupByLetter([{ name: 'Black' }, { name: 'Azure' }, { name: 'Baby Bones' }, { name: '9-Volt' }]);
+check('letters: grouped A/B/# in order, members inside', grouped.map(g => g.letter).join('') === 'AB#' && grouped[0].chars[0].name === 'Azure' && grouped[1].chars.length === 2 && grouped[2].chars[0].name === '9-Volt');
+
+// ---------- scripted scenes ----------
+const beatRoom = RP.newRoom([{ id: 'markop', name: 'Markop' }, { id: 'alistair', name: 'Alistair' }], {
+  scene: 'The studio at night. The remote changes hands.', sceneName: 'The Cut and the Puppet Master',
+  beats: [
+    { time: 'Early morning', beat: 'The fall onto the pilot set', detail: 'Two strangers drop out of their own sky.' },
+    { time: 'Mid-morning', beat: 'The product demonstration', detail: 'The tape plays.' },
+    { time: 'Late', beat: 'The Director says CUT', detail: 'The floor opens.' },
+  ],
+  opener: 'Scene — the studio at night.',
+});
+check('scene room: beats stored, none fired yet', beatRoom.beats.length === 3 && beatRoom.beatIndex === 0 && beatRoom.autoBeats === true);
+let script = RP.scriptBlock(beatRoom);
+check('script block: names the filed session and the perspective rule', script.includes('The Cut and the Puppet Master') && script.includes('DIFFERENT perspective') && script.includes('stays on script'));
+check('script block: the next beat is scheduled in', script.includes('Scheduled to happen next') && script.includes('The fall onto the pilot set'));
+check('script block: nothing fired yet means no "so far" list', !script.includes('Main event so far'));
+const firstBeat = RP.fireBeat(beatRoom);
+check('fireBeat: advances the index and files a scene message', firstBeat && firstBeat.beat === 'The fall onto the pilot set' && beatRoom.beatIndex === 1 && beatRoom.messages.some(m => m.beat && m.text.includes('Early morning')));
+script = RP.scriptBlock(beatRoom);
+check('script block: fired beats become the "so far" list', script.includes('Main event so far') && script.includes('The fall onto the pilot set') && script.includes('Scheduled to happen next') && script.includes('The product demonstration'));
+check('beats never reach the model as chat history', RP.historyFor(beatRoom).every(m => !m.content.includes('pilot set')));
+check('turnsSinceBeat: counts only visible turns after the last beat', RP.turnsSinceBeat(beatRoom) === 0);
+beatRoom.messages.push({ id: 't1', role: 'user', text: 'we do other stuff' });
+beatRoom.messages.push({ id: 't2', role: 'char', charId: 'markop', text: '*nods*' });
+check('autoAdvance: fires once two turns pass with beats remaining', RP.turnsSinceBeat(beatRoom) === 2 && RP.autoAdvance(beatRoom) === true);
+RP.fireBeat(beatRoom);
+check('progress: two of three fired, one remaining', (p => p.at === 2 && p.total === 3 && p.remaining === 1)(RP.beatProgress(beatRoom)));
+beatRoom.messages.push({ id: 't3', role: 'user', text: 'more' }, { id: 't4', role: 'char', charId: 'alistair', text: '*also more*' });
+check('autoAdvance: off switch respected', (beatRoom.autoBeats = false, RP.autoAdvance(beatRoom) === false));
+beatRoom.autoBeats = true;
+RP.fireBeat(beatRoom);
+check('fireBeat: past the end returns null, script says aftermath', RP.fireBeat(beatRoom) === null && RP.scriptBlock(beatRoom).includes('aftermath is yours to play'));
+check('autoAdvance: no beats left means never', RP.autoAdvance(beatRoom) === false);
+
 console.log(ok ? 'ALL ROLEPLAY LOGIC TESTS PASS' : 'ROLEPLAY LOGIC TESTS FAILED');
 process.exit(ok ? 0 : 1);

@@ -73,6 +73,29 @@ const reply = await fetch(`http://127.0.0.1:${SERVER_PORT}/api/roleplay`, {
 const replyJson = await reply.json();
 check('POST /api/roleplay answers from the model', reply.ok && /^MOCK-MODEL REPLY #/.test(replyJson.text || ''));
 
+// ---- scenes carry suggested casts and scripted beats ----
+check('scenes: suggested casts resolve to real characters', (scenes.scenes||[]).every(sc => (sc.suggestedCast||[]).every(c => c.id && c.name)));
+check('scenes: at least one scene suggests a cast', scenes.scenes.some(sc => (sc.suggestedCast||[]).length > 0));
+check('scenes: beats come from the filed timelines', scenes.scenes.some(sc => (sc.beats||[]).length >= 3 && sc.beats[0].beat));
+
+// ---- the model suggests a cast ----
+const sug = await fetch(`http://127.0.0.1:${SERVER_PORT}/api/suggest-cast`, {
+  method: 'POST', headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ scene: 'The studio at night — the remote changes hands.', count: 2, candidates: cast.characters.map(c => ({ id: c.id, name: c.name })) }),
+});
+const sugJson = await sug.json();
+check('POST /api/suggest-cast picks names from the candidates', sug.ok && sugJson.ids.length === 2 && sugJson.names.includes('Sans') && sugJson.names.includes('Bowser'));
+const badSug = await fetch(`http://127.0.0.1:${SERVER_PORT}/api/suggest-cast`, {
+  method: 'POST', headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ scene: 'x', candidates: [] }),
+});
+check('POST /api/suggest-cast rejects empty candidates', badSug.status === 400);
+
+// ---- page details: no byline, letter dividers, main-site account ----
+check('page: the by @waluipedia byline is gone', !page.includes('by @waluipedia'));
+check('page: letter dividers group the cast browser', page.includes('ltr-head') && page.includes('groupByLetter'));
+check('page: the account links to the actual site', page.includes('href="http://127.0.0.1:8765/"') && page.includes('@waluipedia'));
+
 // ---- validation ----
 const badPayload = await fetch(`http://127.0.0.1:${SERVER_PORT}/api/roleplay`, {
   method: 'POST', headers: { 'Content-Type': 'application/json' },

@@ -226,9 +226,73 @@ def archive_cast() -> dict[str, Any]:
     return {"characters": out}
 
 
+def _cast_index() -> tuple[dict[str, dict[str, Any]], dict[str, dict[str, Any]]]:
+    by_id: dict[str, dict[str, Any]] = {}
+    by_name: dict[str, dict[str, Any]] = {}
+    try:
+        records = json.loads((RM_ROOT / "data" / "characters.json").read_text(encoding="utf-8"))
+    except Exception:  # noqa: BLE001 - an unreadable cast just yields no index
+        return by_id, by_name
+    if isinstance(records, dict):
+        records = records.get("characters", [])
+    for record in records:
+        if not isinstance(record, dict) or not record.get("id"):
+            continue
+        entry = {
+            "id": str(record["id"]),
+            "name": _clip(record.get("name"), 60),
+            "image": "/rm/" + str(record.get("image") or "") if record.get("image") else "",
+        }
+        by_id[entry["id"]] = entry
+        by_name[entry["name"].lower()] = entry
+    return by_id, by_name
+
+
+def _suggest_cast(record: dict[str, Any], by_id: dict[str, dict[str, Any]],
+                  by_name: dict[str, dict[str, Any]], limit: int = 5) -> list[dict[str, Any]]:
+    """The filed event's own participants, resolved to playable characters."""
+    out: list[dict[str, Any]] = []
+    for part in record.get("participants") or []:
+        if not isinstance(part, dict):
+            continue
+        hit = by_id.get(str(part.get("id") or "")) or by_name.get(str(part.get("name") or "").lower())
+        if hit and hit not in out:
+            out.append(hit)
+    return out[:limit]
+
+
+def _beats_for(record: dict[str, Any], limit: int = 12) -> list[dict[str, str]]:
+    """The event's own timeline becomes the script: beats that fire on their
+    own schedule while the user plays everyone else. Events without a filed
+    timeline fall back to their summary sentences."""
+    timeline = record.get("timeline")
+    entries = timeline.get("entries") if isinstance(timeline, dict) else None
+    out: list[dict[str, str]] = []
+    if isinstance(entries, list) and entries:
+        step = max(1, len(entries) // limit)
+        for entry in entries[::step][:limit]:
+            if not isinstance(entry, dict):
+                continue
+            beat = _clip(entry.get("beat"), 140) or _clip(entry.get("detail"), 140)
+            if not beat:
+                continue
+            out.append({
+                "time": _clip(entry.get("time"), 60),
+                "beat": beat,
+                "detail": _clip(entry.get("detail"), 260),
+            })
+    if not out:
+        summary = _clip(record.get("summary"), 500)
+        parts = [part.strip() for part in summary.split(".") if len(part.strip()) > 24]
+        for i, part in enumerate(parts[:5]):
+            out.append({"time": f"beat {i + 1}", "beat": _clip(part, 140), "detail": ""})
+    return out
+
+
 def archive_scenes(limit: int = 12) -> dict[str, Any]:
-    """Newest filed events become scene starters: open a roleplay inside a
-    story the archive already holds, then continue it wherever you like."""
+    """Newest filed sessions become scene starters — played from a DIFFERENT
+    perspective: the filed event runs on its own scripted beats while the
+    user plays other characters around it."""
     path = RM_ROOT / "data" / "events.json"
     try:
         records = json.loads(path.read_text(encoding="utf-8"))
@@ -238,9 +302,11 @@ def archive_scenes(limit: int = 12) -> dict[str, Any]:
         records = records.get("events", [])
     picks = [r for r in records if isinstance(r, dict) and r.get("name") and r.get("image")][-limit:]
     picks.reverse()  # newest filings first
+    by_id, by_name = _cast_index()
     out = []
     for record in picks:
         image = str(record.get("image") or "")
+        beats = _beats_for(record)
         out.append({
             "id": str(record.get("id") or record.get("name")),
             "name": _clip(record.get("name"), 70),
@@ -249,8 +315,66 @@ def archive_scenes(limit: int = 12) -> dict[str, Any]:
             "date": _clip(record.get("date"), 40),
             "location": _clip(record.get("location"), 60),
             "image": "/rm/" + image if image else "",
+            "suggestedCast": _suggest_cast(record, by_id, by_name),
+            "beats": beats,
         })
     return {"scenes": out}
+
+
+def suggest_cast(payload: dict[str, Any]) -> dict[str, Any]:
+    """Ask the model for an interesting cast for a scene. The candidate list
+    comes from the page (optionally filtered by the picker's search box); the
+    model may only pick names from it. Returns resolved character ids."""
+    scene = _clip(payload.get("scene"), 500)
+    if not scene:
+        raise ValueError("scene is required")
+    raw = payload.get("candidates")
+    if not isinstance(raw, list) or not raw:
+        raise ValueError("candidates are required")
+    candidates: list[dict[str, str]] = []
+    for item in raw[:500]:
+        if isinstance(item, dict) and str(item.get("name") or "").strip():
+            candidates.append({"id": str(item.get("id") or ""), "name": _clip(item.get("name"), 60)})
+    if not candidates:
+        raise ValueError("no usable candidates")
+    try:
+        count = int(payload.get("count", 4))
+    except (TypeError, ValueError):
+        count = 4
+    count = max(2, min(8, count))
+    prompt = (
+        "You are casting a group roleplay scene. The scene: " + scene + "\n\n"
+        "From ONLY the characters listed below, pick the " + str(count) + " that would create the most "
+        "interesting scene played from a DIFFERENT perspective than the original filing — "
+        "witnesses, bystanders, rivals, or people with their own business in the same place.\n"
+        + "\n".join("- " + c["name"] for c in candidates) +
+        "\n\nReply with ONLY a JSON array of names, for example [\"Name One\", \"Name Two\"]. No other text."
+    )
+    text = lm_completion(resolve_endpoint(payload.get("endpoint")), "",
+                         [{"role": "user", "content": prompt}], 0.7, 300)
+    import re as _re
+    match = _re.search(r"\[[^\]]*\]", str(text), _re.S)
+    names: list[str] = []
+    if match:
+        try:
+            value = json.loads(match.group(0))
+            if isinstance(value, list):
+                names = [str(x) for x in value if x]
+        except Exception:  # noqa: BLE001 - fall through to quoted-string scan
+            names = []
+    if not names:
+        names = _re.findall(r'"([^"\n]{1,60})"', str(text))
+    by_lower = {c["name"].lower(): c for c in candidates}
+    resolved: list[dict[str, str]] = []
+    for name in names[:count]:
+        hit = by_lower.get(name.strip().lower())
+        if not hit:
+            short = [c for c in candidates if name.strip().lower() in c["name"].lower()
+                     or c["name"].lower() in name.strip().lower()]
+            hit = short[0] if short else None
+        if hit and hit not in resolved:
+            resolved.append(hit)
+    return {"ids": [c["id"] for c in resolved], "names": [c["name"] for c in resolved]}
 
 
 def serve_static(relative: str) -> tuple[bytes, str] | None:
@@ -374,6 +498,8 @@ class Handler(BaseHTTPRequestHandler):
             return
         if parsed.path == "/roleplay":
             data = ROLEPLAY.read_bytes()
+            main_site = os.environ.get("WALUIPEDIA_URL", "http://127.0.0.1:8765/")
+            data = data.replace(b"{{MAIN_SITE}}", main_site.encode("utf-8"))
             self.send_response(200)
             self.send_header("Content-Type", "text/html; charset=utf-8")
             self.send_header("Content-Length", str(len(data)))
@@ -418,6 +544,9 @@ class Handler(BaseHTTPRequestHandler):
                 return
             if self.path == "/api/roleplay":
                 json_response(self, roleplay_reply(payload))
+                return
+            if self.path == "/api/suggest-cast":
+                json_response(self, suggest_cast(payload))
                 return
             if self.path == "/api/agent/cancel":
                 job_id = str(payload.get("job", ""))
