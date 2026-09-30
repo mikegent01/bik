@@ -199,6 +199,8 @@ a { color: inherit; }
 .chat-top .stat.fate-harsh { border-color: var(--bad); color: var(--bad); }
 .chat-top .stat.fate-gentle { border-color: var(--ok); color: var(--ok); }
 .chat-top .stat.fate-off { opacity: .6; }
+.chat-top .pill.warn { border-color: #d48a2a; color: #8a5a10; background: #fdf3e2; }
+.statebar .sheet.away { min-width: 0; color: var(--muted); border-style: dashed; align-items: center; justify-content: center; }
 .chat-top .stat.off { opacity: .55; border-style: dashed; }
 
 /* Quick actions above the composer. */

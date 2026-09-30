@@ -3389,8 +3389,12 @@
     var terms = RP.searchTerms(query);
     if (!terms.length) return [];
     var scored = [];
+    var when = opts.scene ? (typeof opts.scene === 'string' ? RP.parseWahDate(opts.scene) : opts.scene) : null;
     (index || []).forEach(function (r) {
       if (r.noncanon && !opts.includeNonCanon) return;
+      // Nothing from after the scene. Reading tomorrow's filing tonight is
+      // how a chat ends up quoting a battle that has not happened.
+      if (when && r.date && RP.timeRelation(when, r.date).rel === 'future') return;
       var hay = r.words || '';
       var score = 0;
       terms.forEach(function (t) {
@@ -3476,7 +3480,7 @@
    *  character — usually whoever spoke last. If the prose is plainly
    *  somebody else's, say so, and the page re-labels the card rather than
    *  lying about who spoke. */
-  RP.checkSpeaker = function (text, speaker, cast) {
+  RP.checkSpeaker = function (text, speaker, cast, opts) {
     var body = String(text || '').trim();
     if (!body) return { ok: false, empty: true };
     var mine = String((speaker && speaker.name) || '').toLowerCase();
@@ -3499,7 +3503,88 @@
     if (!actual) return { ok: true };
     // If the speaker is in it too, it is a scene, not a misattribution.
     if (mine && head.indexOf(mine) >= 0) return { ok: true };
+    // Writing the PLAYER's character is not a mislabel to be filed away —
+    // it is the one thing the model is never allowed to do.
+    if (opts && opts.youPlay && actual.id === opts.youPlay) {
+      return { ok: false, playerVoice: true, actual: actual };
+    }
     return { ok: false, actual: actual };
+  };
+
+  /* ------------------------------------------------------------------ *
+   * the audit — what does not add up in this chat
+   *
+   * Dates that sit after the scene, lore filed under the wrong day, cast
+   * standing in a room they have not spoken in for twenty turns. All of
+   * it checkable, and all of it fixable in one press.
+   * ------------------------------------------------------------------ */
+
+  RP.QUIET_TURNS = 6;      // silence after which somebody is probably not here
+
+  RP.auditRoom = function (state, room, archive) {
+    var scene = RP.sceneDate(room, state, archive);
+    var out = { scene: scene, dates: [], quiet: [], future: [], book: [] };
+    var turns = (room.messages || []).filter(visible);
+
+    // Cast who have not said a word, and are not being talked about.
+    var recentText = turns.slice(-RP.QUIET_TURNS).map(function (m) { return RP.textOf(m); }).join(' ').toLowerCase();
+    RP.presentCast(room).forEach(function (c) {
+      if (c.id === room.youPlay) return;
+      var lastSpoke = -1;
+      turns.forEach(function (m, i) { if (m.role === 'char' && m.charId === c.id) lastSpoke = i; });
+      var silence = lastSpoke < 0 ? turns.length : turns.length - 1 - lastSpoke;
+      if (silence >= RP.QUIET_TURNS && recentText.indexOf(c.name.toLowerCase()) < 0) {
+        out.quiet.push({ id: c.id, name: c.name, silence: silence });
+      }
+    });
+
+    // The room's own date against the filing it came from.
+    var record = archive ? RP.sourceRecord(room, archive) : null;
+    if (record && record.date && scene) {
+      var filed = RP.parseWahDate(record.date);
+      if (filed && RP.dayOrdinal(filed) !== RP.dayOrdinal(scene)) {
+        out.dates.push({
+          what: 'the scene', is: RP.formatWahDate(scene), should: RP.formatWahDate(filed),
+          why: 'the filing “' + clip(record.name, 60) + '” is dated ' + clip(record.date, 60),
+        });
+      }
+    }
+
+    // Lore-book pages filed under a date that is after the scene.
+    ((state.book || {}).entries || []).forEach(function (page) {
+      if (page.roomId !== room.id || !page.when || !scene) return;
+      var rel = RP.timeRelation(scene, page.when);
+      if (rel.rel === 'future') out.book.push({ id: page.id, name: page.name, when: page.when });
+    });
+
+    out.ok = !out.dates.length && !out.quiet.length && !out.book.length;
+    return out;
+  };
+
+  /** Fix what the audit found: correct the date, write the silent out of
+   *  the scene, and re-stamp any page filed in the future. */
+  RP.applyAudit = function (state, room, report, opts) {
+    opts = opts || {};
+    var done = [];
+    if (opts.dates !== false && report.dates.length) {
+      room.date = report.dates[0].should;
+      done.push('dated the scene ' + room.date);
+    }
+    if (opts.quiet !== false) {
+      report.quiet.forEach(function (who) {
+        RP.setPresent(room, who.id, false);
+        done.push(who.name + ' is no longer in the scene');
+      });
+    }
+    if (opts.book !== false && report.book.length) {
+      var stamp = room.date || (report.scene ? RP.formatWahDate(report.scene) : '');
+      ((state.book || {}).entries || []).forEach(function (page) {
+        if (report.book.some(function (b) { return b.id === page.id; })) page.when = stamp;
+      });
+      done.push(report.book.length + ' page' + (report.book.length === 1 ? '' : 's') + ' re-dated');
+    }
+    room.updated = Date.now();
+    return done;
   };
 
   /* ------------------------------------------------------------------ *
@@ -4007,6 +4092,40 @@
     return record;
   };
 
+  /** Two pages about the same thing become one; thin pages that say
+   *  nothing are dropped. Called when the book gets long. */
+  RP.tidyBook = function (state, opts) {
+    opts = opts || {};
+    var book = bookState(state);
+    var seen = {}, kept = [], dropped = 0, merged = 0;
+    book.entries.forEach(function (page) {
+      var key = page.kind + ':' + slug(page.name);
+      // A "fact" that is just a sentence of scenery is not worth a page.
+      var thin = page.kind === 'fact' && page.text.length < 45 && page.seen < 2;
+      if (thin && !opts.keepThin) { dropped++; return; }
+      if (seen[key]) {
+        var first = seen[key];
+        if (page.text && first.text.toLowerCase().indexOf(page.text.toLowerCase()) < 0) {
+          first.text = clip(first.text + ' ' + page.text, 700);
+        }
+        first.seen = (first.seen || 1) + (page.seen || 1);
+        merged++;
+        return;
+      }
+      seen[key] = page;
+      kept.push(page);
+    });
+    if (opts.max && kept.length > opts.max) {
+      // Keep the diary and anything seen more than once, then the newest.
+      var keepers = kept.filter(function (p) { return p.kind === 'diary' || (p.seen || 1) > 1; });
+      var rest = kept.filter(function (p) { return keepers.indexOf(p) < 0; });
+      kept = keepers.concat(rest.slice(-(opts.max - keepers.length))).sort(function (a, b) { return a.at - b.at; });
+    }
+    var before = book.entries.length;
+    book.entries = kept;
+    return { before: before, after: kept.length, merged: merged, dropped: dropped };
+  };
+
   RP.bookRemove = function (state, id) {
     var book = bookState(state);
     book.entries = book.entries.filter(function (e) { return e.id !== id; });
@@ -4415,9 +4534,12 @@
 
   /** The date the scene is being played on: whatever the room says, then the
    *  scenario it came from, then the archive's clock. */
-  RP.sceneDate = function (room, state) {
+  RP.sceneDate = function (room, state, archive) {
     return RP.parseWahDate(room && (room.date || room.sceneDate))
       || RP.parseWahDate(room && room.sceneName)
+      // A scene played out of a filing is dated by that filing, not by the
+      // world clock: "The Tape and the Wario Files" is 1035 BF, not today.
+      || RP.parseWahDate(((archive && RP.sourceRecord(room, archive)) || {}).date)
       || RP.worldNow(state && state.clock);
   };
 

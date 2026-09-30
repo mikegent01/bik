@@ -1846,6 +1846,99 @@ check('lookup: the stage directions tell the model the tool exists',
   /instead of inventing one/.test(RP.DIRECTIVES) &&
   /\[\[REMEMBER: name \| the fact\]\]/.test(RP.DIRECTIVES));
 
+// ---------- the audit, and not reading tomorrow's filing ----------
+const auditArchive = { events: [
+  { id: 'the_tape', name: 'The Tape and the Wario Files', date: '20 Harvestide, 1035 BF',
+    summary: 'The tape, the files, and the argument in the kitchen.',
+    description: 'Wario keeps the files in a crate under the sink and calls them a ledger.' },
+  { id: 'later_on', name: 'The Darkmoon Reckoning', date: '30 Darkmoon, 1040 BF',
+    summary: 'What the files cost, five years on.',
+    description: 'The ledger is read out in public and three people leave the room.' },
+] };
+const auditIndex = RP.buildIndex(auditArchive, {});
+check('search: a filing dated after the scene is never returned', (() => {
+  const scene = RP.parseWahDate('20 Harvestide, 1035 BF');
+  const hits = RP.searchArchive(auditIndex, 'the ledger and the files', { limit: 5, scene: scene });
+  return hits.length > 0 && hits.every(h => h.id !== 'later_on') && hits.some(h => h.id === 'the_tape');
+})());
+check('search: without a scene date, everything is fair game',
+  RP.searchArchive(auditIndex, 'the ledger', { limit: 5 }).length === 2);
+check('date: a scene played out of a filing takes that filing’s date', (() => {
+  const room = RP.newRoom([sans], { sourceId: 'the_tape' });
+  return RP.formatWahDate(RP.sceneDate(room, RP.blankState(), auditArchive)) === '20 Harvestide, 1035 BF';
+})());
+check('audit: it catches a scene dated wrong against its filing', (() => {
+  const room = RP.newRoom([sans], { sourceId: 'the_tape', date: '5 Aethel, 1040 BF' });
+  const report = RP.auditRoom(RP.blankState(), room, auditArchive);
+  return !report.ok && report.dates.length === 1 && report.dates[0].should === '20 Harvestide, 1035 BF';
+})());
+check('audit: it catches somebody who has not spoken in a long while', (() => {
+  const room = RP.newRoom([sans, cutters, rebel], { youPlay: 'sans' });
+  for (let i = 0; i < 10; i++) {
+    room.messages.push({ id: 'a' + i, role: i % 2 ? 'char' : 'user', charId: 'timber_gang', text: 'turn ' + i, at: i });
+  }
+  const report = RP.auditRoom(RP.blankState(), room, {});
+  return report.quiet.length === 1 && report.quiet[0].id === 'rebel_scout';
+})());
+check('audit: somebody being talked about is not written out', (() => {
+  const room = RP.newRoom([sans, cutters, rebel], { youPlay: 'sans' });
+  for (let i = 0; i < 10; i++) {
+    room.messages.push({ id: 'b' + i, role: 'user', text: 'I ask about The Rebel Scout again.', at: i });
+  }
+  return RP.auditRoom(RP.blankState(), room, {}).quiet.length === 1;   // only the timber gang
+})());
+check('audit: it catches a page filed after the scene', (() => {
+  const st = RP.blankState();
+  const room = RP.newRoom([sans], { sourceId: 'the_tape', date: '20 Harvestide, 1035 BF' });
+  RP.bookAdd(st, { kind: 'fact', name: 'A later note', text: 'x', when: '30 Darkmoon, 1040 BF', roomId: room.id });
+  const report = RP.auditRoom(st, room, auditArchive);
+  return report.book.length === 1 && report.book[0].name === 'A later note';
+})());
+check('audit: fixing it dates the scene, writes the silent out and re-stamps the page', (() => {
+  const st = RP.blankState();
+  const room = RP.newRoom([sans, rebel], { sourceId: 'the_tape', date: '5 Aethel, 1040 BF', youPlay: 'sans' });
+  for (let i = 0; i < 10; i++) room.messages.push({ id: 'c' + i, role: 'user', text: 'turn', at: i });
+  RP.bookAdd(st, { kind: 'fact', name: 'A later note', text: 'x', when: '30 Darkmoon, 1040 BF', roomId: room.id });
+  const report = RP.auditRoom(st, room, auditArchive);
+  const done = RP.applyAudit(st, room, report, {});
+  return room.date === '20 Harvestide, 1035 BF' &&
+    room.states.rebel_scout.present === false &&
+    RP.bookState(st).entries[0].when === '20 Harvestide, 1035 BF' && done.length === 3;
+})());
+check('attribution: writing the player’s own character is refused, not re-filed', (() => {
+  const room = RP.newRoom([sans, cutters], { youPlay: 'sans' });
+  const got = RP.checkSpeaker('Sans leans back and says nothing.', cutters, room.cast, { youPlay: 'sans' });
+  return !got.ok && got.playerVoice === true && got.actual.id === 'sans';
+})());
+check('attribution: another character’s line is still just re-filed', (() => {
+  const room = RP.newRoom([sans, cutters, rebel], { youPlay: 'sans' });
+  const got = RP.checkSpeaker('The Timber Gang spits and turns away.', rebel, room.cast, { youPlay: 'sans' });
+  return !got.ok && !got.playerVoice && got.actual.id === 'timber_gang';
+})());
+
+// ---------- the lore book keeps itself trim ----------
+check('book: duplicate pages merge and thin ones are dropped', (() => {
+  const st = RP.blankState();
+  RP.bookAdd(st, { kind: 'place', name: 'The porch', text: 'Crumbling pillars, facing the timber.' });
+  RP.bookAdd(st, { kind: 'fact', name: 'It is cold', text: 'It is cold.' });
+  RP.bookAdd(st, { kind: 'diary', name: '', text: 'A day of reading and arguing.', when: '5 Aethel, 1040 BF' });
+  const b = RP.bookState(st);
+  b.entries.push({ id: 'dup', kind: 'place', name: 'The porch', text: 'Where Wario leans.', at: Date.now(), seen: 1, chars: [] });
+  const tidied = RP.tidyBook(st, {});
+  return tidied.merged === 1 && tidied.dropped === 1 &&
+    RP.bookState(st).entries.length === 2 &&
+    RP.bookState(st).entries[0].text.includes('Where Wario leans');
+})());
+check('book: a cap keeps the diary and the pages that came up more than once', (() => {
+  const st = RP.blankState();
+  for (let i = 0; i < 40; i++) RP.bookAdd(st, { kind: 'place', name: 'Place ' + i, text: 'A place worth the page, number ' + i + '.' });
+  RP.bookAdd(st, { kind: 'diary', name: '', text: 'The day itself.', when: '5 Aethel' });
+  RP.bookAdd(st, { kind: 'place', name: 'Place 0', text: 'Seen again.' });
+  const out = RP.tidyBook(st, { max: 10 });
+  const kept = RP.bookState(st).entries;
+  return out.after === 10 && kept.some(p => p.kind === 'diary') && kept.some(p => (p.seen || 1) > 1);
+})());
+
 // ---------- generated pages are in sync with these sources ----------
 let built = true;
 try {

@@ -767,6 +767,33 @@ It carries the same scene, lore book, citations, script, state sheets and
 stage directions a character gets — so the world can wound somebody, walk
 someone in, or fire a beat.
 
+## 🧾 The audit — what does not add up
+
+The **⋯** button in the chat header holds the scene's tools, and carries a
+count when something is wrong. **Audit** checks three things and fixes them
+in one press:
+
+- **The date.** A scene played out of a filing is dated *by that filing* —
+  *The Tape and the Wario Files* is 20 Harvestide **1035** BF, not today.
+  If the room says otherwise, the audit says so and corrects it.
+- **Who is actually here.** Anyone who has not spoken, and has not been
+  mentioned, for six turns is offered to be written out of the scene. They
+  stay in the cast; they stop being staged, stop appearing on the rail, and
+  stop appearing in the party bar (which shows `◌ 2 not here` instead, one
+  click to bring somebody back).
+- **Pages filed in the future.** Lore-book pages stamped after the scene's
+  own date are re-stamped.
+
+Everything the audit does is one `↩` away — undo restores the messages, the
+cast **and** the sheets together.
+
+## Nothing reads tomorrow's filing
+
+`searchArchive` takes the scene's date and **excludes anything filed after
+it**. A chat set in 1035 BF cannot quote a 1040 BF reckoning, however well it
+matches the words. (The dated citation list already did this; the search did
+not, which is how future material was getting in.)
+
 ## 🔎 Search — the cast can look things up
 
 Nothing reads a whole filing. `RP.searchArchive` scores a query against every
@@ -823,6 +850,24 @@ How it ran:     - late morning — Fire, and the alarm. …
 
 Before this the cast only ever had the event's one-line summary, which is why
 nobody could "pull from" the material — it was not in the prompt.
+
+## The audit harness — a hundred turns, on purpose
+
+`node tools/tests/audit-chatroom.mjs 100` plays a hundred varied turns —
+quiet ones, loud ones, questions, attempts, time jumps, out-of-character
+notes, a regeneration — and checks the invariants after every single one:
+nothing quoted from after the scene, nothing cut off mid-sentence, no empty
+cards, no stray brackets in the prose, the speaker on the card is the one who
+spoke, fixed facts never change silently, nobody speaks who is not in the
+scene, and a private turn is not answered by a crowd.
+
+`MOCK_ADVERSARIAL=1` makes the stand-in model **misbehave on purpose** — it
+writes the wrong character, stops mid-sentence, invents its own bracket
+syntax, and returns nothing at all, in rotation. The audit then proves the
+guards catch all of it before anything reaches the page. Both runs are clean
+at a hundred turns; the adversarial one found a real hole the first time
+(the model writing the *player's* character), which is now taken back and
+asked for again rather than filed under somebody.
 
 ## The right mouth, and never an empty card
 

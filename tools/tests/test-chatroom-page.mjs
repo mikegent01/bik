@@ -287,8 +287,13 @@ doc.querySelector('[data-room]').dispatchEvent(new win.MouseEvent('click', { bub
 check('recents: a chat reopens from the rail', !$('chatview').hidden);
 
 // ---- the sequel carries the scene forward ----
-check('sequel: the chat offers one', Boolean($('seqBtn')));
-$('seqBtn').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+check('scene menu: the header keeps one button for the scene tools', Boolean($('sceneBtn')));
+$('sceneBtn').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+check('scene menu: audit, facts, date, book and sequel are all in it',
+  [...doc.querySelectorAll('[data-pick]')].length === 5 &&
+  /Audit/.test($('modal').textContent) && /Fixed facts/.test($('modal').textContent));
+[...doc.querySelectorAll('[data-pick]')].find(b => /sequel/i.test(b.textContent))
+  .dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
 $('mOk').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
 const sequelReady = await until('the sequel to be composed', () =>
   (savedState().scenarios || [])
@@ -659,7 +664,7 @@ check('commentary: finished episodes are kept and can be reopened',
     const playing = win.RP.playerCharacter(savedState().rooms.find(x => x.id === roomId));
     return Boolean(playing) && $('input').placeholder.includes(playing.name);
   })());
-  check('facts: the header has a place for what the scene has nailed down', Boolean($('factsBtn')));
+  check('facts: the scene menu has a place for what the scene has nailed down', Boolean($('sceneBtn')));
   check('privacy: the header can pin a scene private, open, or reading the room', (() => {
     const start = $('privacyBtn').textContent;
     $('privacyBtn').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));

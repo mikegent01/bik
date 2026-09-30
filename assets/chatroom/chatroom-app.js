@@ -296,7 +296,11 @@
       r.sceneName || '',
       (RP.sourceRecord(r, archive) || {}).name || '',
       ((speaker && speaker.keyEvents) || []).join(' '),
-    ].join(' '), { limit: 3 });
+    ].join(' '), {
+      limit: 3,
+      // Nothing dated after the scene: the cast cannot read tomorrow.
+      scene: RP.sceneDate(r, state, archive),
+    });
   }
 
   /** The token budget for a turn, from the length dial (the narrator gets
@@ -1537,6 +1541,12 @@
       sourceId: opts.sourceId || '',
       sourceKind: opts.sourceKind || '',
     }));
+    // Date it from the filing it came out of, not from today's clock.
+    var opened = room();
+    if (opened && !opened.date && opened.sourceId) {
+      var filed = RP.sourceRecord(opened, archive);
+      if (filed && filed.date) opened.date = RP.clip(filed.date, 90);
+    }
   }
 
   function openScene(scene) {
@@ -2214,6 +2224,8 @@
     });
   }
 
+  var auditFlag = 0;
+
   function renderChat() {
     var r = room();
     $('dash').hidden = true;
@@ -2222,6 +2234,9 @@
     var face = r.cast[0] || {};
     var progress = RP.beatProgress(r);
     var turnCount = (r.messages || []).filter(RP.visible).length;
+    // A quiet count of what does not add up, refreshed as the scene plays.
+    var scan = RP.auditRoom(state, r, archive);
+    auditFlag = scan.dates.length + scan.quiet.length + scan.book.length;
     var fateLevel = state.settings.fate || 'normal';
     // A heads-up display rather than a title bar: where you are, when you
     // are, how far the script has run, how dangerous the world is set to be.
@@ -2249,22 +2264,24 @@
           : r.privacy === 'open' ? 'Open: the scene may answer even in a quiet moment'
           : 'Reading the room: quiet turns are left alone, loud ones are answered') + '">' +
         (r.privacy === 'private' ? '🔒 Alone' : r.privacy === 'open' ? '🔓 Open' : '👂 Reads the room') + '</button>' +
-      '<button class="pill" id="factsBtn" title="What is fixed in this scene — place, clothing, time">📍' +
-        (Object.keys(r.facts || {}).length ? ' ' + Object.keys(r.facts || {}).length : '') + '</button>' +
       '<button class="pill" id="undoBtn" title="Undo the last turn (Ctrl+Z)"' +
         ((r.undo || []).length ? '' : ' disabled') + '>↩</button>' +
       '<button class="pill" id="redoBtn" title="Redo"' + ((r.redo || []).length ? '' : ' disabled') + '>↪</button>' +
-      '<button class="pill" id="bookBtn">📓 Book</button>' +
-      '<button class="pill" id="seqBtn">📖 Sequel</button>' +
+      '<button class="pill' + (auditFlag ? ' warn' : '') + '" id="sceneBtn" ' +
+        'title="The scene: its date, its fixed facts, the audit, the book, a sequel">⋯' +
+        (auditFlag ? ' ' + auditFlag : '') + '</button>' +
       '<button class="pill" id="panelBtn">☰</button>';
 
     // The sheets, visible in the chat rather than buried in a menu.
     var sheetBar = $('statebar');
     if (sheetBar) {
       sheetBar.hidden = !showStates || r.mechanics === 'off';
-      sheetBar.innerHTML = !showStates ? '' : Object.keys(r.states || {}).map(function (id) {
+      var away = Object.keys(r.states || {}).filter(function (id) {
+        return r.states[id] && r.states[id].present === false;
+      });
+      sheetBar.innerHTML = (!showStates ? '' : Object.keys(r.states || {}).map(function (id) {
         var sheet = r.states[id];
-        if (!sheet) return '';
+        if (!sheet || sheet.present === false) return '';
         var who = charOf(r, id);
         return '<button class="sheet" data-sheet="' + esc(id) + '" title="Edit state">' +
           '<span class="here" data-here="' + esc(id) + '" title="' +
@@ -2283,7 +2300,9 @@
               (i.equipped ? '✊ ' : '') + esc(i.name) + (i.qty > 1 ? ' ×' + i.qty : '') + '</span>';
           }).join('') + (sheet.status ? '<span class="flag note">' + esc(sheet.status) + '</span>' : '') + '</span>' +
           '</button>';
-      }).join('');
+      }).join('')) + (showStates && away.length
+        ? '<button class="sheet away" id="showAway" title="Not in the scene — click to bring somebody back">' +
+          '◌ ' + away.length + ' not here</button>' : '');
     }
 
     var html = r.messages.map(function (m, i) {
@@ -2380,7 +2399,7 @@
         '<button class="sp world ' + (r.next === 'world' ? 'on' : '') + '" data-speaker="world" ' +
         'title="' + esc(RP.NARRATORS[RP.narrator(state)].blurb) + '">' +
         esc(RP.NARRATORS[RP.narrator(state)].icon) + ' ' + esc(RP.NARRATORS[RP.narrator(state)].name) + '</button>') +
-      r.cast.map(function (c) {
+      RP.presentCast(r).map(function (c) {
         var mine = r.youPlay === c.id;
         var on = !mine && r.next === c.id;
         return '<button class="sp ' + (on ? 'on' : '') + (mine ? ' mine' : '') + '" data-speaker="' + esc(c.id) + '">' +
@@ -2503,7 +2522,53 @@
         : r.privacy === 'open' ? '🔓 Open — the scene answers even when you are muttering.'
         : '👂 Reading the room — quiet turns are left alone.');
     });
-    on('factsBtn', function () {
+    on('dateBtn', function () { openDate(r); });
+    on('sceneBtn', function () {
+      list('This scene', [
+        { label: '🧾 Audit — the date, the cast, the book' + (auditFlag ? ' (' + auditFlag + ' to look at)' : ' (all clear)'), value: 'audit' },
+        { label: '📍 Fixed facts — place, clothing, time' + (Object.keys(r.facts || {}).length ? ' (' + Object.keys(r.facts).length + ')' : ''), value: 'facts' },
+        { label: '🕯 When is this happening — ' + (roomDate(r) || 'undated'), value: 'date' },
+        { label: '📓 The lore book', value: 'book' },
+        { label: '📖 Write the sequel', value: 'sequel' },
+      ], function (pick) {
+        if (pick === 'audit') { runAudit(r); return; }
+        if (pick === 'facts') { openFacts(r); return; }
+        if (pick === 'date') { openDate(r); return; }
+        if (pick === 'book') { tab = 'book'; state.active = ''; save(); render(); return; }
+        openSequel(r);
+      });
+    });
+    function runAudit(r) {
+      var report = RP.auditRoom(state, r, archive);
+      openModal('<h3>🧾 Audit</h3>' +
+        '<p class="sub">The scene is dated <b>' + esc(roomDate(r) || 'nothing yet') + '</b>. ' +
+        'Everything below is something that does not add up.</p>' +
+        (report.ok ? '<p class="sub">Nothing to report — the date matches the filing, everybody here has spoken ' +
+          'recently, and no page is filed after this scene.</p>' : '') +
+        (report.dates.length ? '<h4>The date</h4><div class="stack">' + report.dates.map(function (d) {
+          return '<div class="item"><b>' + esc(d.what) + ' is ' + esc(d.is) + ', should be ' + esc(d.should) + '</b>' +
+            '<p>' + esc(d.why) + '</p></div>';
+        }).join('') + '</div>' : '') +
+        (report.quiet.length ? '<h4>Not really here</h4><div class="stack">' + report.quiet.map(function (q) {
+          return '<div class="item"><b>' + esc(q.name) + '</b><p>Has not spoken or been mentioned for ' +
+            q.silence + ' turns. Writing them out stops them being staged.</p></div>';
+        }).join('') + '</div>' : '') +
+        (report.book.length ? '<h4>Filed in the future</h4><div class="stack">' + report.book.map(function (b) {
+          return '<div class="item"><b>' + esc(b.name) + '</b><p>Dated ' + esc(b.when) + ', after this scene.</p></div>';
+        }).join('') + '</div>' : '') +
+        '<div class="actions"><button class="pill" id="mCancel">Close</button>' +
+        (report.ok ? '' : '<button class="pill primary" id="mOk">Fix all of it</button>') + '</div>');
+      $('mCancel').onclick = closeModal;
+      if ($('mOk')) {
+        $('mOk').onclick = function () {
+          RP.pushUndo(r, 'the audit');
+          var done = RP.applyAudit(state, r, report, {});
+          closeModal(); save(); render();
+          toast('🧾 ' + (done.join('; ') || 'nothing to do') + '.');
+        };
+      }
+    }
+    function openFacts(r) {
       var facts = r.facts || {};
       var keys = Object.keys(facts);
       openModal('<h3>What is fixed in this scene</h3>' +
@@ -2532,9 +2597,8 @@
       $('modal').querySelectorAll('[data-factkill]').forEach(function (b) {
         b.onclick = function () { delete r.facts[b.dataset.factkill]; closeModal(); save(); render(); };
       });
-    });
-    on('dateBtn', function () {
-      var r = room();
+    }
+    function openDate(r) {
       form('When is this happening?', [
         { k: 'date', label: 'In-world date', value: roomDate(r) },
       ], {
@@ -2542,7 +2606,7 @@
           'Floria, Efferd, Highsun, Harvestide, Aethel, Darkmoon, Frostfall, Deepwinter, and BF counts up. ' +
           'The model is told which filings are already history and which have not happened yet, measured from this date.',
       }, function (v) { r.date = v.date.trim(); r.updated = Date.now(); save(); render(); });
-    });
+    }
     on('backBtn', function () { state.active = ''; save(); render(); });
     on('fateBtn', function () { if ($('cpFate')) $('cpFate').click(); else openPanelFate(); });
     on('undoBtn', function () {
@@ -2670,9 +2734,21 @@
         editSheet(b.dataset.sheet);
       };
     });
+    on('showAway', function () {
+      var away = Object.keys(r.states || {}).filter(function (id) { return r.states[id].present === false; });
+      list('Who comes back?', away.map(function (id) {
+        return { label: r.states[id].name, value: id };
+      }), function (id) {
+        RP.pushUndo(r, 'bringing ' + r.states[id].name + ' back');
+        RP.setPresent(r, id, true);
+        save(); render();
+        toast(r.states[id].name + ' is in the scene again.');
+      });
+    });
     if (bar1) bar1.querySelectorAll('[data-here]').forEach(function (b) {
       b.onclick = function (e) {
         e.stopPropagation();
+        RP.pushUndo(r, 'that change to the cast');
         var here = RP.setPresent(r, b.dataset.here, undefined);
         save(); render();
         toast(here ? charOf(r, b.dataset.here).name + ' is in the scene.'
@@ -3132,11 +3208,15 @@
     r.handback = '';
     render();
 
+    // A snapshot before the turn, so ↩ takes back the reply *and* whatever
+    // it did to the sheets.
+    if (opts.retryIndex === undefined && !opts.searched) RP.pushUndo(r, 'that turn');
     var retry = opts.retryIndex !== undefined ? r.messages[opts.retryIndex] : null;
     // Who is up: a character, or the world itself when there is nobody else
     // in the room (or the director asked for it).
-    var worldTurn = !retry && (opts.world || r.next === 'world' || RP.worldShouldSpeak(state, r));
-    var speaker = retry ? charOf(r, retry.charId)
+    var worldTurn = retry ? retry.role === 'world'
+      : (opts.world || r.next === 'world' || RP.worldShouldSpeak(state, r));
+    var speaker = retry ? (retry.role === 'world' ? RP.WORLD : charOf(r, retry.charId))
       : worldTurn ? RP.WORLD
       : (RP.speakableCast(r).filter(function (c) { return c.id === r.next; })[0] || RP.nextSpeaker({
           kind: r.kind, cast: RP.speakableCast(r).length ? RP.speakableCast(r) : r.cast,
@@ -3157,7 +3237,8 @@
       citations: [opts.searched || '', RP.citationBlock(found), dug.length ? RP.retrievalBlock(dug) : '']
         .filter(Boolean).join('\n\n'),
     };
-    var system = worldTurn ? RP.worldSystem(state, r, opts2) : RP.systemFor(state, r, speaker, opts2);
+    var system = (worldTurn ? RP.worldSystem(state, r, opts2) : RP.systemFor(state, r, speaker, opts2)) +
+      (opts.nudge ? '\n\n' + opts.nudge : '');
     // NOT `window`: a local of that name shadows the global one for the
     // whole function, and every window.setTimeout in here stops working.
     var lookBack = RP.contextLimit(r, (state.settings && state.settings.context) || 24);
@@ -3233,9 +3314,28 @@
         retry.alts = (retry.alts && retry.alts.length ? retry.alts : [retry.text]).concat([clean]);
         retry.alt = retry.alts.length - 1;
       } else {
+        // Whose line is this, really? A small model handed six people will
+        // write whoever spoke last — and sometimes the player themselves.
+        var check = worldTurn ? { ok: true }
+          : RP.checkSpeaker(clean, speaker, RP.presentCast(r), { youPlay: r.youPlay });
+        if (check.playerVoice && !opts.reheard) {
+          // Writing the player's character is not a mislabel to file away;
+          // it is taken back and asked for again, once.
+          busy = false; save(); render();
+          toast('It wrote your character — asking again.');
+          window.setTimeout(function () {
+            generate({ reheard: true, nudge: 'Your last attempt wrote ' + check.actual.name +
+              ', who is the PLAYER\u2019s character. Never write their words, thoughts or actions. Write ' +
+              speaker.name + '\u2019s turn instead, and begin with ' + speaker.name + '.' });
+          }, 150);
+          return false;
+        }
+        var saidBy = (!check.ok && check.actual && !check.playerVoice) ? check.actual : speaker;
+        if (saidBy !== speaker) toast('That line was ' + saidBy.name + '’s — filed under them.');
         var msg = {
           id: RP.uid(), role: worldTurn ? 'world' : 'char',
-          charId: worldTurn ? '' : speaker.id,
+          charId: worldTurn ? '' : saidBy.id,
+          misattributed: saidBy !== speaker ? speaker.name : undefined,
           text: clean, at: Date.now(), alts: [clean], alt: 0,
           // The roll and the state changes belong to the turn they happened
           // in, not to three separate cards in the stream.
@@ -3305,7 +3405,7 @@
    *  filed, else the archive's own clock. Every memory is stamped with it. */
   function roomDate(r) {
     if (r && r.date) return r.date;
-    var parsed = RP.sceneDate(r, state);
+    var parsed = RP.sceneDate(r, state, archive);
     return parsed ? RP.formatWahDate(parsed) : '';
   }
 

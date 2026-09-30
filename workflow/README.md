@@ -193,6 +193,15 @@ memory, lore, replay, backups — is documented in
   writes the card into their own filed portrait, so the file is a picture and
   a card at once; the archive's fields ride along under
   `extensions.waluipedia`.
+- **🧾 An audit per scene.** One button checks the room's date against the
+  filing it came from, finds cast who have not spoken in six turns, and
+  spots lore pages stamped after the scene — and fixes all three in one
+  press, undoably. Search also refuses anything filed after the scene, so a
+  1035 BF chat cannot quote a 1040 BF reckoning.
+- **An audit harness.** `node tools/tests/audit-chatroom.mjs 100` plays a
+  hundred varied turns and checks the invariants after each one;
+  `MOCK_ADVERSARIAL=1` makes the stand-in model misbehave on purpose so the
+  guards are proved rather than assumed.
 - **🔎 The cast can search.** Every turn the query is the recent lines plus
   the scene's own filing plus the speaker's filings, and
   the best matching *passages* (not summaries, not whole files) are handed to

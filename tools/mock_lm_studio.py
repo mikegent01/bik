@@ -76,6 +76,30 @@ class Handler(BaseHTTPRequestHandler):
                 "FACT: the ledger room door does not lock from the inside\n"
                 "DIARY: They went looking for a ledger and found somebody had been there first.",
             )
+        elif "STAGE DIRECTIONS" in all_text and os.environ.get("MOCK_ADVERSARIAL"):
+            # A deliberately badly-behaved model, for tools/tests/audit-chatroom.mjs:
+            # it writes the wrong character, stops mid-sentence, invents its
+            # own bracket syntax and returns nothing at all, in rotation.
+            Handler.bad = getattr(Handler, "bad", 0) + 1
+            other = "Wario"
+            marker = all_text.find("THE CAST")
+            if marker >= 0:
+                for line in all_text[marker:marker + 400].split("\n"):
+                    line = line.strip()
+                    if line.startswith("- ") and " — " in line:
+                        other = line[2:].split(" — ")[0].strip()
+                        break
+            mode = Handler.bad % 5
+            if mode == 0:
+                content = f"{other} growls, \"Stop reading that out loud.\""      # wrong mouth
+            elif mode == 1:
+                content = "The wind drops out of the courtyard and the papers lift, and then the"   # truncated
+            elif mode == 2:
+                content = "He sets the lamp down.\n[[MOOD: ominous]]\n[[TIME: 23:00]]"            # stray brackets
+            elif mode == 3:
+                content = "   "                                                     # nothing at all
+            else:
+                content = "He turns the page and says nothing for a moment."        # fine
         elif "STAGE DIRECTIONS" in all_text and os.environ.get("MOCK_DIRECTIVES"):
             # {{WHO}} is filled with the first character named in the prompt's
             # CHARACTER STATE block, so a test does not have to know in
