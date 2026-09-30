@@ -696,7 +696,15 @@ check('commentary: finished episodes are kept and can be reopened',
     return /Reads the room/.test(start) && priv &&
       savedState().rooms.find(x => x.id === roomId).privacy === '';
   })());
-  check('presence: the party bar says who is actually here', doc.querySelectorAll('[data-here]').length > 0);
+  // Round 9: the starred character IS the player, so in this one-star solo
+  // room the only card is YOURS (🧍, no presence toggle) and it belongs to
+  // the character — the persona's separate pack has stepped aside.
+  check('star: the party bar shows the starred character as your own card', (() => {
+    const youCard = doc.querySelector('.sheet.you');
+    const star = win.RP.playerCharacter(savedState().rooms.find(x => x.id === savedState().active));
+    return Boolean(youCard) && star && youCard.textContent.includes(star.name) &&
+      doc.querySelectorAll('[data-here]').length === 0;
+  })());
   check('ooc: brackets in a turn are stripped from the prose and kept as instructions', (() => {
     $('input').value = 'I keep reading. ((no new characters))';
     $('composer').dispatchEvent(new win.Event('submit', { bubbles: true, cancelable: true }));

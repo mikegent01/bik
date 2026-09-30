@@ -1379,7 +1379,9 @@ check('world: it is told to leave something changed and not to ask what you do',
   /Something should be different by the end of the turn/.test(worldSystem) && /never ask/i.test(worldSystem));
 check('world: it still gets the scene, the state sheets and the stage directions',
   worldSystem.includes('THE SCENE') && worldSystem.includes('CHARACTER STATE') && worldSystem.includes('STAGE DIRECTIONS'));
-check('world: and its own length band', worldSystem.includes('LENGTH') && worldSystem.includes('8 to 14 SENTENCES'));
+// The Director's band came down a notch on purpose: 1200-token world turns
+// were five-minute generations on a local model (round 9).
+check('world: and its own length band', worldSystem.includes('LENGTH') && worldSystem.includes('4 to 7 SENTENCES'));
 check('director: WORLD is an answer it may give', (() => {
   const group = RP.newRoom([sans, cutters, rebel], {});
   group.messages.push({ id: 'w1', role: 'user', text: 'I wait.', at: 1 });
@@ -1557,7 +1559,7 @@ dirRoom.messages.push(
 check('narrator: the Director is the default voice',
   RP.narrator(dirState) === 'director' && RP.NARRATORS.director.name === 'The Director');
 check('narrator: four voices, each with its own length band',
-  Object.keys(RP.NARRATORS).length === 4 && RP.NARRATORS.director.length === 'rich' &&
+  Object.keys(RP.NARRATORS).length === 4 && RP.NARRATORS.director.length === 'normal' &&
   RP.NARRATORS.terse.length === 'snappy');
 const dirPrompt = RP.worldSystem(dirState, dirRoom, {});
 check('director: the cinematic brief is in the prompt, without film words',
@@ -1582,7 +1584,7 @@ check('narration: it counts as a played turn', RP.counter(dirRoom) === 2);
 check('narrator: the terse voice is two sentences, the Director gets room', (() => {
   const terse = { settings: { narrator: 'terse' } };
   return /Two sentences at most/.test(RP.worldPrompt(terse, dirRoom, {})) &&
-    /8 to 14 SENTENCES/.test(dirPrompt);
+    /4 to 7 SENTENCES/.test(dirPrompt);
 })());
 check('narrator: an unknown voice falls back to the Director',
   RP.narrator({ settings: { narrator: 'nonsense' } }) === 'director');
@@ -2424,6 +2426,47 @@ check('history: newest turns win the budget', (() => {
   })());
   check('diet: the story folds into the recap sooner than it used to',
     RP.RECAP_AFTER <= 18 && RP.HISTORY_BUDGET <= 6500);
+}
+
+// ---------- the star is you: the pack follows the starred character ----------
+{
+  const castStar = ['Waluigi', 'Wario'].map((nm) => RP.normChar({ id: nm.toLowerCase(), name: nm, title: 'A ' + nm }));
+  const stStar = RP.blankState();
+  stStar.persona = { name: 'Archivist', voice: '', look: '', items: ['a ledger'], notes: '' };
+  const rmStar = RP.newRoom(castStar, { kind: 'group' });
+  RP.ensurePlayerSheet(stStar, rmStar);
+  check('star: with nobody starred, the persona pack is yours',
+    rmStar.states[RP.PLAYER_ID].player === true && RP.playerSheetId(rmStar) === RP.PLAYER_ID);
+  check('star: starring a character makes THEIR sheet your pack', (() => {
+    rmStar.youPlay = 'waluigi';
+    const sheet = RP.ensurePlayerSheet(stStar, rmStar);
+    return sheet === rmStar.states.waluigi && sheet.player === true && sheet.slots >= 12 &&
+      rmStar.states[RP.PLAYER_ID].present === false &&        // the persona pack steps aside
+      RP.playerSheetId(rmStar) === 'waluigi' &&
+      /Waluigi \(THE PLAYER\)/.test(RP.stateBlock(rmStar, 'wario')) &&
+      !/Archivist/.test(RP.stateBlock(rmStar, 'wario'));
+  })());
+  check('star: unstarring brings the persona pack back', (() => {
+    rmStar.youPlay = '';
+    RP.ensurePlayerSheet(stStar, rmStar);
+    return rmStar.states[RP.PLAYER_ID].present === true && rmStar.states[RP.PLAYER_ID].player === true &&
+      rmStar.states.waluigi.player === false;
+  })());
+}
+
+// ---------- the fast lane: the voice starts now, the Director lands sooner ----------
+{
+  check('fast: a short lead chunk gets the voice talking before the long tail', (() => {
+    const long = 'First line lands fast. ' + 'More of the story keeps going here with detail. '.repeat(20);
+    const chunks = RP.ttsChunks(long, 450, 170);
+    return chunks[0].length <= 170 && chunks.slice(1).every((c) => c.length <= 450) &&
+      RP.ttsChunks(long, 450)[0].length > 170 &&               // no lead: unchanged
+      RP.ttsChunks('Short.', 450, 170).length === 1;
+  })());
+  check('fast: the Director asks for a scene, not a monologue',
+    RP.lengthBlock(RP.NARRATORS.director.length, false).tokens <= 700);
+  check('fast: LOOKUP is told the scene it stands in is not a lookup',
+    RP.DIRECTIVES.includes('Never LOOKUP the scene'));
 }
 
 // ---------- generated pages are in sync with these sources ----------

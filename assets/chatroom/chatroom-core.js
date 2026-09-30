@@ -344,17 +344,21 @@
 
   /** Sentence-aware chunks for the studio (same idea as the article
    *  bridge): sentences stay whole, nothing exceeds `size` chars. */
-  RP.ttsChunks = function (text, size) {
+  RP.ttsChunks = function (text, size, lead) {
     size = size || 450;
     var clean = RP.ttsClean(text);
     if (!clean) return [];
     var sentences = clean.match(/[^.!?]+[.!?]+["'\u201d\u2019]?\s*|[^.!?]+$/g) || [clean];
     var out = []; var cur = '';
+    // With a `lead`, the first chunk closes at the first sentence end past
+    // that size: the voice starts on the opening line while the rest is
+    // still synthesizing, instead of waiting for a full-size first chunk.
+    var cap = function () { return (lead && !out.length) ? lead : size; };
     sentences.forEach(function (s) {
       s = s.trim();
       if (!s) return;
       if (!cur) cur = s;
-      else if (cur.length + s.length + 1 <= size) cur += ' ' + s;
+      else if (cur.length + s.length + 1 <= cap()) cur += ' ' + s;
       else { out.push(cur); cur = s; }
       while (cur.length > size) { out.push(cur.slice(0, size)); cur = cur.slice(size).trim(); }
     });
@@ -2021,11 +2025,33 @@
    *  from the persona's kit. When the reader has starred a cast member
    *  (youPlay) that character's sheet already IS the player, so no
    *  second body is invented. */
+  /** Whose sheet is “your pack”: the starred character’s when one is
+   *  starred, the persona’s otherwise. */
+  RP.playerSheetId = function (room) {
+    return (room && room.youPlay && room.states && room.states[room.youPlay])
+      ? room.youPlay : RP.PLAYER_ID;
+  };
+
   RP.ensurePlayerSheet = function (state, room) {
     if (!room || room.mechanics === 'off') return null;
     room.states = room.states || {};
-    if (room.youPlay && room.states[room.youPlay]) return room.states[room.youPlay];
+    if (room.youPlay && room.states[room.youPlay]) {
+      // You starred somebody: THEIR sheet is your pack. The persona's
+      // separate pack steps out of the statbar and the prompts, and
+      // comes back if the star ever comes off.
+      var star = room.states[room.youPlay];
+      Object.keys(room.states).forEach(function (k) {
+        if (k !== room.youPlay && room.states[k]) room.states[k].player = false;
+      });
+      star.player = true;
+      star.slots = Math.max(Number(star.slots) || 0, 12);
+      if (room.states[RP.PLAYER_ID]) room.states[RP.PLAYER_ID].present = false;
+      return star;
+    }
     var name = RP.playerNameFor(state);
+    Object.keys(room.states).forEach(function (k) {
+      if (k !== RP.PLAYER_ID && room.states[k]) room.states[k].player = false;
+    });
     var sheet = room.states[RP.PLAYER_ID];
     if (!sheet) {
       sheet = RP.blankSheet({ id: RP.PLAYER_ID, name: name }, room.statePreset);
@@ -2048,6 +2074,7 @@
       if (!already) sheet.items.push(item);
     });
     sheet.player = true;
+    sheet.present = true;                   // back in view if a star hid it
     sheet.name = name;
     sheet.slots = 12;                       // the reader always gets the full pack
     var statsKey = (persona.voice || '') + '|' + (persona.look || '') + '|' + (persona.notes || '');
@@ -2514,7 +2541,8 @@
     '      the wax = violet]]. [[UNTINT: the seal]] releases them.',
     '  [[LOOKUP: what you want to know]]  search the archive mid-turn. The page finds the passage and hands it',
     '      back, then you write the turn again using it. Use it when you need a fact you do not have — a date, a',
-    '      name, what a filing actually says — instead of inventing one.',
+    '      name, what a filing actually says — instead of inventing one. Never LOOKUP the scene you are standing',
+    '      in: the sheets, the scene and the record above already answer that.',
     '  [[REMEMBER: name | the fact]]     file something into the lore book so it is to hand in every later scene.',
     '  [[ENTER: Name — why they arrive]]   bring someone into the scene when the story calls for them',
     '  [[NEW: Name | what they are here for | what they look like]]  invent someone the archive has never filed.',
@@ -4072,7 +4100,7 @@
   /* The narrator has a voice, and you choose which one. */
   RP.NARRATORS = {
     director: {
-      name: 'The Director', icon: '\u25cd', length: 'rich',
+      name: 'The Director', icon: '\u25cd', length: 'normal',   // 4-7 sentences, ~700 tokens: a scene, not a five-minute monologue
       blurb: 'Cinematic, deadpan, neo-noir. Draws detail out and lets silence do work.',
       dir: [
         'You are THE DIRECTOR. Never use film words \u2014 no "cut to", no "close up", no "camera" \u2014 you get the',

@@ -631,10 +631,13 @@ Wario, `Sans: "…"` is Sans. A quote the prose does not attribute belongs
 to whoever is talking this turn; on a world or director turn that is
 nobody, so the narrator (Waluigi by default) reads it.
 
-Long turns are split into sentence-aware chunks (~450 chars) and the next
-chunk synthesizes while the current one plays — one take, no synth-pause.
-No studio running at all? The browser's own voice steps in and the toast
-says so. Tints speak their words; the markdown furniture stays silent.
+**The voice starts now, not after the whole turn is rendered.** The first
+chunk of any reading is short (~170 chars — the opening line or two), so
+playback begins almost immediately; the rest of a long turn is cut into
+~450-char sentence-aware chunks that synthesize behind the one you are
+hearing — one take, no synth-pause. No studio running at all? The
+browser's own voice steps in and the toast says so. Tints speak their
+words; the markdown furniture stays silent.
 
 ## Character cards — the format everybody else uses
 
@@ -1142,11 +1145,18 @@ other change line. Slots are editable per sheet.
 
 ### 🧍 Your pack
 
-The first card in the party bar is **yours**: a twelve-slot grid
-(`RP.PLAYER_ID`, the `__you__` sheet), created the first time a scene with
-mechanics needs it and **seeded from the persona's kit** — each persona entry
-seeds once per room, so an item you drop in play does not creep back, and an
-item written into the persona mid-scene still arrives. Empty slots are `+`
+**Starred somebody? Their sheet IS your pack.** When you ☆ a character
+(`room.youPlay`), that character's sheet becomes yours — first card in the
+bar, `(THE PLAYER)` in the prompts, twelve slots, the works — and the
+persona's separate pack steps out of the statbar and the prompts until the
+star comes off. You play Waluigi, you carry what Waluigi carries.
+
+With nobody starred, the first card in the party bar is the persona's: a
+twelve-slot grid (`RP.PLAYER_ID`, the `__you__` sheet), created the first
+time a scene with mechanics needs it and **seeded from the persona's kit**
+— each persona entry seeds once per room, so an item you drop in play does
+not creep back, and an item written into the persona mid-scene still
+arrives. Empty slots are `+`
 buttons; full slots offer everything a cast slot does plus **🎁 hand it to
 somebody**, which moves the thing sheet-to-sheet so the model sees the
 handover. The prompt marks the sheet `(THE PLAYER)` and tells the model it
@@ -1269,6 +1279,42 @@ crawls. The prompt is now sized to the turn:
   turns instead of 36: recent turns verbatim, the older story carried as
   a summary. That is the chunking — the model never re-reads the whole
   night.
+
+### 🚀 Making the local model fast — what the page does, and what LM Studio should
+
+What the page already avoids (read from a real session's server logs):
+
+- **No double Director.** The world never follows the world — two
+  narration turns in a row was ~100 seconds of prefill to set a scene that
+  was already set. After a world turn, the scene comes back to you.
+- **No pointless picker calls.** With only one character who could
+  possibly answer, "who speaks next" is not a question — the ~20-second
+  model call is skipped and the answer used directly.
+- **No navel-gazing lookups.** `[[LOOKUP: current location and attire]]`
+  was a full-price second call for facts already in the prompt; lookups
+  about the current scene are dropped on the floor, and the directives
+  say so.
+- **The Director speaks in scenes, not monologues** — 4–7 sentences,
+  ~700 max tokens (was 1200: at 1.2 tok/s that single cap was worth five
+  minutes).
+
+What only LM Studio can fix — the logs showed **1.2 tokens/sec
+generation**, which means most of the model was running on CPU:
+
+1. **Generation speed is VRAM.** A 12B Q4 model plus a BF16 mmproj did
+   not fit; use a **text-only GGUF** (the chatroom never sends images) or
+   a smaller model — the 7B/9B options in the same list will feel three
+   times faster at identical quality-per-prompt.
+2. **Slots defeat the cache.** Four server slots × 8192 context meant
+   every request landed on a cold slot ("selected slot by LRU") and paid
+   full prefill. Set **1–2 slots**; a repeated system prompt then reuses
+   its KV prefix instead of re-processing ~3,000 tokens for 70–120s.
+3. **Context 8192 is enough** — the page keeps prompts near ~3.5k tokens
+   by design (see the prompt diet); bigger context just spends VRAM that
+   generation needs.
+4. **Set a utility model** (Settings → utility model) — the speaker
+   picker, upkeep, recaps and the lore book then run on a small fast
+   model and never queue behind the big one.
 
 ## 🩸 Conditions that bite
 

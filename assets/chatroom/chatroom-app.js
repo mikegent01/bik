@@ -2321,15 +2321,16 @@
     var sheetBar = $('statebar');
     if (sheetBar) {
       sheetBar.hidden = !showStates || r.mechanics === 'off';
+      var playerId = RP.playerSheetId(r);
       var away = Object.keys(r.states || {}).filter(function (id) {
-        return r.states[id] && r.states[id].present === false;
+        return id !== RP.PLAYER_ID && r.states[id] && r.states[id].present === false;
       });
-      var sheetIds = (r.states && r.states[RP.PLAYER_ID] ? [RP.PLAYER_ID] : [])
-        .concat(Object.keys(r.states || {}).filter(function (id) { return id !== RP.PLAYER_ID; }));
+      var sheetIds = (r.states && r.states[playerId] ? [playerId] : [])
+        .concat(Object.keys(r.states || {}).filter(function (id) { return id !== playerId; }));
       sheetBar.innerHTML = (!showStates ? '' : sheetIds.map(function (id) {
         var sheet = r.states[id];
         if (!sheet || sheet.present === false) return '';
-        var isYou = id === RP.PLAYER_ID;
+        var isYou = id === playerId;
         var who = charOf(r, id);
         // NOT a <button>: the slots inside are buttons, and HTML closes a
         // button the moment another one opens — the whole grid would be
@@ -3328,10 +3329,26 @@
       r.next = '';
       return Promise.resolve(false);
     }
+    // One candidate is not a decision — skip the model call entirely.
+    var others = RP.speakableCast(r).filter(function (c) { return c.id !== speaker.id; });
+    if (others.length === 1) {
+      r.handback = ''; r.next = others[0].id;
+      return Promise.resolve(Boolean(autoLeft));
+    }
+    var lastMsg = (r.messages || []).slice().reverse().filter(function (m) {
+      return m.role === 'char' || m.role === 'world' || m.role === 'user';
+    })[0];
+    var lastWasWorld = lastMsg && lastMsg.role === 'world';
     return callModel(RP.directorPrompt(r, speaker), [{ role: 'user', content: 'Who speaks next?' }], { tokens: 40, utility: true })
       .then(function (text) { return RP.parseDirector(text, r, speaker); })
       .catch(function () { return { next: 'user', reason: 'the director could not be reached' }; })
       .then(function (decision) {
+        // The world never follows the world: two Director turns in a row
+        // is a hundred seconds of prefill for a scene that was already
+        // set. The turn comes back to the player instead.
+        if (decision.next === 'world' && lastWasWorld) {
+          decision = { next: 'user', reason: 'the scene is set' };
+        }
         if (decision.next === 'world' && (state.settings.world || 'on') !== 'off') {
           r.handback = ''; r.next = 'world';
           return true;
@@ -3444,7 +3461,7 @@
       // power, walked a character in, or written one out. They are stripped
       // from the prose and applied to the record before anything renders.
       var dnames = r.cast.map(function (c) { return c.name; });
-      var youSheet = RP.sheetFor(r, RP.PLAYER_ID);
+      var youSheet = RP.sheetFor(r, RP.playerSheetId(r));
       if (youSheet) dnames.push(youSheet.name, 'the player');
       var staged = RP.parseDirectives(text, dnames);
       r.next = '';
@@ -3453,6 +3470,10 @@
       // something up. Answer it, file the answer, and let it write the turn
       // again with the passage in hand. One extra call, once per turn.
       var asked = staged.directives.filter(function (d) { return d.kind === 'lookup'; })[0];
+      // A model asking the archive about ITS OWN SCENE - "current location
+      // and attire" - would buy a full-price second call for facts already
+      // in its prompt. That lookup is dropped on the floor.
+      if (asked && /\b(current|right now|this scene|attire|wearing|location|where am|the sheets?|my (own )?(pack|items|sheet))\b/i.test(asked.query)) asked = null;
       if (asked && !retry && !opts.searched) {
         var results = RP.searchArchive(archiveIndex, asked.query, { limit: 3 });
         results.forEach(function (hit) {
@@ -3481,7 +3502,7 @@
       // The prose handed the player something and no [[ITEM:]] landed?
       // Filed on the spot, no model call — the first upkeep net.
       if (r.mechanics !== 'off') {
-        var pack = RP.sheetFor(r, RP.PLAYER_ID) || (r.youPlay ? RP.sheetFor(r, r.youPlay) : null);
+        var pack = RP.sheetFor(r, RP.playerSheetId(r));
         if (pack) {
           RP.grantScan(clean).forEach(function (name) {
             var have = (pack.items || []).some(function (i) {
@@ -4009,7 +4030,9 @@
         var v = p.who
           ? RP.ttsVoiceFor(p.who, { map: cfg.map, fallback: cfg.voice, misses: voiceMisses, library: lib })
           : narrator;
-        RP.ttsChunks(p.text, 450).forEach(function (c) { jobs.push({ voice: v, text: c, who: p.who }); });
+        // A short lead chunk: the voice starts on the opening line while
+        // the rest of a long turn is still synthesizing behind it.
+        RP.ttsChunks(p.text, 450, jobs.length ? 0 : 170).forEach(function (c) { jobs.push({ voice: v, text: c, who: p.who }); });
       });
       if (!jobs.length) return;
       var ahead = null; var aheadAt = -1;
