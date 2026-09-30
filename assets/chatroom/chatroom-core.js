@@ -2888,19 +2888,67 @@
 
   RP.LENGTHS = {
     snappy: {
-      name: 'Snappy', words: '25 to 60 words', tokens: 180,
+      name: 'Snappy', words: '25 to 60 words', tokens: 260,
       dir: 'Keep it SHORT: 25 to 60 words, one or two beats of action or speech and nothing else. No scene-setting, ' +
         'no weather, no summarising how anyone feels about it. If there is nothing to add, say one line and stop.',
     },
     normal: {
-      name: 'Normal', words: '60 to 120 words', tokens: 320,
+      name: 'Normal', words: '60 to 120 words', tokens: 420,
       dir: 'Keep it tight: 60 to 120 words. One moment, played properly. Cut anything that is only atmosphere.',
     },
     rich: {
-      name: 'Rich', words: '150 to 260 words', tokens: 600,
+      name: 'Rich', words: '150 to 260 words', tokens: 780,
       dir: 'You have room: 150 to 260 words. Still no padding — detail that does something, not description for its ' +
         'own sake.',
     },
+  };
+
+  /** Did the model run out of room rather than finish? A reply that ends
+   *  without terminal punctuation, inside an open quote, or on a comma or a
+   *  conjunction was cut off, not concluded. */
+  RP.looksTruncated = function (text) {
+    var t = String(text || '').trim();
+    if (!t) return false;
+    // An odd number of quote marks means somebody is still speaking, however
+    // the line happens to end.
+    var doubles = (t.match(/"/g) || []).length + (t.match(/[“”]/g) || []).length;
+    if (doubles % 2 !== 0) return true;
+    if (/[.!?…”"'*\)\]]$/.test(t)) return false;
+    if (/[,;:—-]$/.test(t)) return true;
+    if (/\b(and|but|the|a|an|of|to|in|with|that|as|into|from|for|his|her|their|its|was|were|is|are)$/i.test(t)) return true;
+    return !/[.!?…]$/.test(t);
+  };
+
+  /** Cut back to the last complete sentence — the last resort when the
+   *  model will not finish, so the reader never sees a dangling fragment. */
+  RP.trimDangling = function (text) {
+    var t = String(text || '').trim();
+    if (!RP.looksTruncated(t)) return t;
+    var at = Math.max(t.lastIndexOf('.'), t.lastIndexOf('!'), t.lastIndexOf('?'), t.lastIndexOf('…'));
+    // Keep the cut only if it leaves something worth reading behind.
+    if (at > 0 && at >= Math.min(60, t.length * 0.25)) return t.slice(0, at + 1).trim();
+    return t;
+  };
+
+  /** Join a reply to its continuation without repeating the seam. */
+  RP.stitch = function (head, tail) {
+    var a = String(head || '').trim(), b = String(tail || '').trim();
+    if (!b) return a;
+    if (!a) return b;
+    // The model often repeats the last few words before carrying on.
+    for (var n = Math.min(80, a.length, b.length); n > 12; n--) {
+      if (a.slice(-n).toLowerCase() === b.slice(0, n).toLowerCase()) { b = b.slice(n).trim(); break; }
+    }
+    if (!b) return a;
+    var joiner = /[.!?…"”'*\)\]]$/.test(a) ? ' ' : (/^[a-z,;]/.test(b) ? ' ' : ' ');
+    return (a + joiner + b).replace(/\s+([,.;:!?])/g, '$1').trim();
+  };
+
+  /** What to say when asking for the rest of it. */
+  RP.continueNudge = function (partial) {
+    return 'Your last turn was cut off at "' + clip(String(partial).slice(-120), 120) + '". ' +
+      'Continue from exactly that point and finish the thought. Do not start again, do not repeat a word of it, ' +
+      'do not summarise it — write only what comes next, and bring it to a proper stop.';
   };
 
   /** The length instruction for a turn. Characters get the reader's dial;
@@ -2910,7 +2958,12 @@
     var at = Math.max(0, keys.indexOf(RP.LENGTHS[level] ? level : 'snappy'));
     if (isWorld) at = Math.min(keys.length - 1, at + 1);
     var band = RP.LENGTHS[keys[at]];
-    return { key: keys[at], tokens: band.tokens, text: 'LENGTH\n' + band.dir };
+    return {
+      key: keys[at], tokens: band.tokens,
+      text: 'LENGTH\n' + band.dir +
+        '\nFINISH YOUR SENTENCES. Land the turn on a full stop — if you are near the length, wrap up early rather ' +
+        'than trailing off mid-line. Never end on a comma, a conjunction or an open quotation mark.',
+    };
   };
 
   /* ------------------------------------------------------------------ *

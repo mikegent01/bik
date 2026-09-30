@@ -649,6 +649,28 @@ reply length** sets the dial, and it goes into the prompt *and* into
 place is the one job that needs the words, and dialogue is the job that does
 not.
 
+## A turn always finishes its sentence
+
+`max_tokens` used to end a reply wherever it happened to land — *"your voice
+a low rasp that barely carries past your own face: \"The patterns are"*.
+Three things now stop that:
+
+1. **Every length band ends with an instruction to land it** — *"FINISH YOUR
+   SENTENCES. Land the turn on a full stop — if you are near the length, wrap
+   up early rather than trailing off. Never end on a comma, a conjunction or
+   an open quotation mark."*
+2. **The page notices.** `RP.looksTruncated` flags a reply that ends without
+   terminal punctuation, on a comma or conjunction, or with an odd number of
+   quote marks — somebody is still speaking. When it fires, the model is
+   asked to **continue from exactly where it stopped** ("do not start again,
+   do not repeat a word of it, bring it to a proper stop") and the two halves
+   are stitched, with the repeated seam removed. Up to two continuations.
+3. **Last resort:** if it still trails off, `RP.trimDangling` cuts back to
+   the last full stop, so a dangling fragment never reaches the page.
+
+The bands also have more room to land in — snappy 260 tokens, normal 420,
+rich 780 — and a continuation gets the same budget again.
+
 ## ◍ The Director — who narrates, and how
 
 The narrator has a voice, chosen in ⚙:

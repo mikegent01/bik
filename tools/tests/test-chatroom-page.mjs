@@ -907,6 +907,12 @@ check('chat: the recents rail lists every chat', doc.querySelectorAll('[data-roo
 $('input').value = 'Who is on the ridge tonight?';
 $('composer').dispatchEvent(new win.Event('submit', { bubbles: true, cancelable: true }));
 const replied = await until('the model reply', () => /MOCK-MODEL REPLY/.test($('stream').textContent));
+check('turn: the reply is not left hanging mid-sentence', (() => {
+  const s = savedState();
+  const r = s.rooms.find(x => x.id === s.active);
+  const last = (r.messages || []).filter(m => m.role === 'char' && !m.error).pop();
+  return Boolean(last) && !win.RP.looksTruncated(win.RP.textOf(last));
+})());
 check('turn: the typed turn and the model reply both render', replied && $('stream').textContent.includes('Who is on the ridge tonight?'));
 check('turn: the reply carries like / dislike / pin / remember controls',
   Boolean(doc.querySelector('[data-react="up"]') && doc.querySelector('[data-pin]') && doc.querySelector('[data-remember]')));

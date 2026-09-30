@@ -204,6 +204,11 @@ memory, lore, replay, backups — is documented in
 - **Snappy by default.** A reply-length dial (snappy 25–60 words / normal /
   rich) goes into both the prompt and `max_tokens`, with the world's own
   turns given one band more room than dialogue.
+- **Turns finish their sentences.** Every length band tells the model to
+  land on a full stop; a reply that ends mid-sentence (no terminal
+  punctuation, a trailing comma, an unbalanced quote) is detected and the
+  model is asked to continue from exactly where it stopped, with the seam
+  stitched out. Anything still dangling is trimmed back to a full stop.
 - **◍ The Director narrates.** Four voices (Director / world / room /
   archive), the cinematic one by default. Every voice is told to *resolve
   what the player actually did* — read the notes, show the notes — while

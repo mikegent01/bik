@@ -287,6 +287,16 @@
     return String(url || '').replace(/\/+$/, '').replace(/\/chat\/completions$/, '') + '/models';
   }
 
+  /** The token budget for a turn, from the length dial (the narrator gets
+   *  its own band). Continuations get the same again, so a long turn can
+   *  actually land. */
+  function tokensFor(isWorld) {
+    var level = isWorld
+      ? RP.NARRATORS[RP.narrator(state)].length
+      : (state.settings && state.settings.length) || 'snappy';
+    return RP.lengthBlock(level, false).tokens;
+  }
+
   /** Which endpoint and model a call should use. Background work — the
    *  sequencer, the lore book, hooks — can be sent to a small fast model
    *  while the roleplay itself goes to the big one. */
@@ -3037,13 +3047,39 @@
     var history = RP.historyFor(retry ? { kind: r.kind, cast: r.cast, messages: r.messages.slice(0, opts.retryIndex) } : r, window);
     if (!history.length) history = [{ role: 'user', content: '(The scene opens. Begin in character.)' }];
 
-    callModel(system, history).then(function (text) {
+    /** Ask for a reply, and if the model runs out of room mid-sentence,
+     *  ask it to carry on from exactly where it stopped. Two goes at most,
+     *  and whatever is left is trimmed back to a full stop rather than
+     *  shown as a dangling fragment. */
+    function complete(sys, msgs, tries) {
+      return callModel(sys, msgs, { tokens: tokensFor(worldTurn) }).then(function (text) {
+        var cleaned = RP.stripSpeaker(text, speaker.name).trim();
+        if (!RP.looksTruncated(cleaned) || (tries || 0) >= 2) return cleaned;
+        return callModel(sys, msgs.concat([
+          { role: 'assistant', content: cleaned },
+          { role: 'user', content: RP.continueNudge(cleaned) },
+        ]), { tokens: tokensFor(worldTurn) })
+          .then(function (rest) {
+            return RP.stitch(cleaned, RP.stripSpeaker(rest, speaker.name).trim());
+          })
+          .catch(function () { return cleaned; })
+          .then(function (joined) {
+            return RP.looksTruncated(joined) && (tries || 0) < 1
+              ? complete(sys, msgs, (tries || 0) + 1).then(function (more) { return RP.stitch(joined, more); })
+              : joined;
+          });
+      });
+    }
+
+    complete(system, history, 0).then(function (text) {
       // Stage directions first: the model may have wounded somebody, spent
       // power, walked a character in, or written one out. They are stripped
       // from the prose and applied to the record before anything renders.
-      var staged = RP.parseDirectives(RP.stripSpeaker(text, speaker.name), r.cast.map(function (c) { return c.name; }));
+      var staged = RP.parseDirectives(text, r.cast.map(function (c) { return c.name; }));
       r.next = '';
-      var clean = staged.clean.trim();
+      // Last resort: if it still trails off, cut back to a full stop rather
+      // than showing the reader half a sentence.
+      var clean = RP.trimDangling(staged.clean.trim());
       var changes = r.mechanics === 'off' ? { lines: [] }
         : RP.applyDirectives(state, r, staged.directives, resolveChar);
       if (retry) {

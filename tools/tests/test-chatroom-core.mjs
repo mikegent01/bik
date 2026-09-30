@@ -1584,6 +1584,36 @@ check('script: un-pausing lets it carry on where it was', (() => {
   return Boolean(RP.fireBeat(scripted)) && scripted.beatIndex === 1;
 })());
 
+// ---------- a turn finishes its sentence ----------
+check('truncation: a reply that stops mid-sentence is spotted',
+  RP.looksTruncated('your voice a low rasp that barely carries: "The patterns are') &&
+  RP.looksTruncated('He turns, and then,') &&
+  RP.looksTruncated('the shape of it was the'));
+check('truncation: a finished reply is left alone',
+  !RP.looksTruncated('He stops. The wind drops.') &&
+  !RP.looksTruncated('She said, "stop."') &&
+  !RP.looksTruncated('*He shrugs.*'));
+check('truncation: an open quote counts as unfinished even with punctuation at the end',
+  RP.looksTruncated('He read it out: "The patterns are wrong.'));
+check('stitch: the continuation is joined without repeating the seam', (() => {
+  const head = 'your voice a low rasp: "The patterns are';
+  const joined = RP.stitch(head, '"The patterns are wrong," you say.');
+  return joined.endsWith('wrong," you say.') && (joined.match(/The patterns are/g) || []).length === 1;
+})());
+check('stitch: an empty continuation changes nothing',
+  RP.stitch('A finished line.', '') === 'A finished line.');
+check('nudge: the model is told where it stopped and not to start again', (() => {
+  const nudge = RP.continueNudge('…and the door is');
+  return /cut off at/.test(nudge) && /do not repeat a word of it/.test(nudge) && /bring it to a proper stop/.test(nudge);
+})());
+check('trim: as a last resort it cuts back to the last full stop',
+  RP.trimDangling('He crossed the yard. He put his hand on the latch and then the') === 'He crossed the yard.');
+check('length: every band now demands a landing, and has room for one', (() => {
+  const band = RP.lengthBlock('rich', false);
+  return /FINISH YOUR SENTENCES/.test(band.text) && /wrap up early rather than trailing off/.test(band.text) &&
+    band.tokens >= 700 && RP.lengthBlock('snappy').tokens >= 240;
+})());
+
 // ---------- generated pages are in sync with these sources ----------
 let built = true;
 try {
