@@ -192,6 +192,13 @@ memory, lore, replay, backups — is documented in
   writes the card into their own filed portrait, so the file is a picture and
   a card at once; the archive's fields ride along under
   `extensions.waluipedia`.
+- **The session knows what it is.** A chat opened from a filed event carries
+  that filing's dossier — what happened, where, how it ended, what it left
+  behind, who was in it with their roles, and how it ran, beat by beat — into
+  every prompt, so the cast can actually quote the material.
+- **The right mouth.** If a reply is plainly another character's line, it is
+  filed under the person who really spoke rather than mislabelled, and an
+  empty reply is retried instead of becoming a blank card.
 - **It reads the room.** A turn written to yourself — muttering, reading,
   grieving — is flagged private and gets narration at most; nobody walks in
   from off-stage to comment. The header pins a scene 🔒 Alone or 🔓 Open, and

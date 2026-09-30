@@ -1678,6 +1678,61 @@ check('ooc: it reaches both the character prompt and the narrator', (() => {
     RP.worldSystem(st, room, { notes: ['short please'] }).includes('short please');
 })());
 
+// ---------- the session knows what it is ----------
+const filedArchive = { events: [{
+  id: 'the_cut', name: 'The Cut and the Puppet Master',
+  date: '5 Aethel, 1040 BF', location: 'The Nintendo Mania studio',
+  summary: 'The exits lie, the applause is recorded, and one word stops the whole production.',
+  outcome: 'The escape became a raid on the show itself.',
+  aftermath: '**The show has a director.** He outranks everyone in the building.',
+  participants: [{ id: 'sans', name: 'Sans', role: 'said the word that stopped it' },
+                 { id: 'timber_gang', name: 'The Timber Gang', role: 'crewed the set' }],
+  timeline: { entries: [
+    { time: 'late morning', beat: 'Fire, and the alarm', detail: 'The actor erupts and the alarm is on the far wall.' },
+    { time: 'noon', beat: 'CUT', detail: 'One production command stops everything.' }] },
+}] };
+const filedRoom = RP.newRoom([sans, cutters], { sourceId: 'the_cut', sourceKind: 'scene', scene: 'The studio.' });
+const sessionDossier = RP.sourceBlock(filedRoom, filedArchive);
+check('session: the filing behind the scene is handed over whole',
+  /WHAT THIS SESSION IS/.test(sessionDossier) && sessionDossier.includes('The Cut and the Puppet Master') &&
+  sessionDossier.includes('5 Aethel, 1040 BF') && sessionDossier.includes('Nintendo Mania studio'));
+check('session: what happened, how it ended and what it left behind',
+  /What happened:/.test(sessionDossier) && /How it ended:/.test(sessionDossier) &&
+  /What it left behind:/.test(sessionDossier) && sessionDossier.includes('outranks everyone'));
+check('session: who was in it, with their filed roles, and how it ran',
+  /Who was in it:/.test(sessionDossier) && sessionDossier.includes('said the word that stopped it') &&
+  /How it ran:/.test(sessionDossier) && sessionDossier.includes('Fire, and the alarm'));
+check('session: the cast is told to use it and not contradict it',
+  /use the names, the/.test(sessionDossier) && /never contradict them/.test(sessionDossier));
+check('session: it reaches both the character prompt and the narrator',
+  RP.systemFor(RP.blankState(), filedRoom, sans, { archive: filedArchive }).includes('WHAT THIS SESSION IS') &&
+  RP.worldSystem(RP.blankState(), filedRoom, { archive: filedArchive }).includes('WHAT THIS SESSION IS'));
+check('session: a chat with no filing behind it adds nothing',
+  RP.sourceBlock(RP.newRoom([sans], {}), filedArchive) === '');
+check('session: the record is found by name as well as by id',
+  RP.sourceBlock(RP.newRoom([sans], { sourceId: 'The Cut and the Puppet Master' }), filedArchive).length > 100);
+
+// ---------- the right mouth, and never an empty card ----------
+check('attribution: a reply that is plainly somebody else’s is caught', (() => {
+  const check1 = RP.checkSpeaker('Wario growls, "Stop reading that out loud."', { id: 'mona', name: 'Mona' },
+    [{ id: 'mona', name: 'Mona' }, { id: 'wario', name: 'Wario' }]);
+  return !check1.ok && check1.actual.id === 'wario';
+})());
+check('attribution: the speaker’s own line passes',
+  RP.checkSpeaker('Mona sets the equipment down and does not look up.', { id: 'mona', name: 'Mona' },
+    [{ id: 'mona', name: 'Mona' }, { id: 'wario', name: 'Wario' }]).ok === true);
+check('attribution: a scene with both of them in it is not a misattribution',
+  RP.checkSpeaker('Mona watches as Wario slams the table.', { id: 'mona', name: 'Mona' },
+    [{ id: 'mona', name: 'Mona' }, { id: 'wario', name: 'Wario' }]).ok === true);
+check('attribution: an empty reply is flagged rather than filed',
+  RP.checkSpeaker('   ', { id: 'mona', name: 'Mona' }, []).empty === true);
+check('attribution: the group prompt insists the turn opens on the speaker', (() => {
+  const prompt = RP.groupPrompt([sans, cutters], sans, {});
+  return prompt.includes('START WITH ' + sans.name.toUpperCase()) &&
+    /must be Sans doing or saying something/.test(prompt) &&
+    /do not write another character/.test(prompt);
+})());
+
 // ---------- generated pages are in sync with these sources ----------
 let built = true;
 try {

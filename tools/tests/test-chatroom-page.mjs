@@ -499,7 +499,9 @@ check('commentary: finished episodes are kept and can be reopened',
   // Point it at the mock, which speaks the same OpenAI API LM Studio does.
   $('f_endpoint').value = `http://127.0.0.1:${MOCK_PORT}/v1`;
   $('setTest').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
-  const probed = await until('the endpoint test to answer', () => /answering/.test($('setState').textContent), 40);
+  // The studio is answering three things at once while the page boots, so
+  // give the probe room rather than flaking.
+  const probed = await until('the endpoint test to answer', () => /answering/.test($('setState').textContent), 120);
   check('endpoint: “Test it” reports what answered and names the model',
     probed && /model/.test($('setState').textContent));
   $('mOk').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));

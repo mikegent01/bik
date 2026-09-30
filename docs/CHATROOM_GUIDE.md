@@ -758,6 +758,40 @@ It carries the same scene, lore book, citations, script, state sheets and
 stage directions a character gets — so the world can wound somebody, walk
 someone in, or fire a beat.
 
+## What this session actually is
+
+A chat started from a Scene card, a What-If, a continuation or a backfill now
+remembers **which filing it came out of** (`room.sourceId`), and that filing's
+dossier goes into every prompt:
+
+```
+WHAT THIS SESSION IS — the filed record this scene comes out of. Everybody here
+lived it; use the names, the dates and the details, and never contradict them.
+Filing: The Cut and the Puppet Master (5 Aethel, 1040 BF …)
+Where: The Nintendo Mania studio — the break room, the ceiling ducts …
+What happened: …        How it ended: …        What it left behind: …
+Who was in it:  - Lord Darian Marsh — pressed the button, took the rolling pin …
+How it ran:     - late morning — Fire, and the alarm. …
+```
+
+Before this the cast only ever had the event's one-line summary, which is why
+nobody could "pull from" the material — it was not in the prompt.
+
+## The right mouth, and never an empty card
+
+Two things a small model does with a six-hander:
+
+- **It writes somebody else's line.** `RP.checkSpeaker` looks at whose name
+  opens the reply ("Wario growls…", "Wario:") and, if it is plainly not the
+  staged speaker, the card is **filed under the person who actually spoke**
+  rather than lying about it, with a toast saying so. The group prompt also
+  now insists: *"START WITH ⟨NAME⟩. The first sentence must be ⟨name⟩ doing
+  or saying something… If they genuinely have nothing to add, have them do
+  one small physical thing and stop — but they must be the one doing it."*
+- **It returns nothing at all.** An empty reply is asked for again, plainly;
+  if it is still empty the page says *"⟨name⟩ had nothing to say — press ↻,
+  or write your turn"* instead of filing a blank card under their name.
+
 ## Keeping a moment private
 
 Three things stop a quiet turn turning into a town meeting.

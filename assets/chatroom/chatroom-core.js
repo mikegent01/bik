@@ -304,7 +304,12 @@
       'YOU ARE ' + who.name,
       card(who),
       '',
-      'Write the next turn speaking ONLY as ' + who.name + '. Do not write lines, actions or thoughts for any other character, and do not narrate the user.',
+      'Write the next turn speaking ONLY as ' + who.name + '.',
+      'START WITH ' + who.name.toUpperCase() + '. The first sentence must be ' + who.name + ' doing or saying ' +
+      'something. Do not open on anybody else, do not write another character\u2019s dialogue, do not narrate the ' +
+      'user, and do not describe the room instead of acting.',
+      'If ' + who.name + ' genuinely has nothing to add, have them do one small physical thing and stop — but they ' +
+      'must be the one doing it.',
       '',
       'IN-CHARACTER RULES',
       RULES,
@@ -363,6 +368,8 @@
       privacy: String(opts.privacy || ''),      // '' (read the turn) | private | open
       note: String(opts.note || ''),            // standing instructions for this chat
       sequelOf: String(opts.sequelOf || ''),
+      sourceId: String(opts.sourceId || ''),    // the filed record behind this scene
+      sourceKind: String(opts.sourceKind || ''),
       canon: String(opts.canon || ''),
       sequelCount: 0,
       next: '',
@@ -3141,6 +3148,8 @@
     opts = opts || {};
     var parts = [RP.worldPrompt(state, room, opts)];
     if (room.scene) parts.push('THE SCENE\n' + clip(room.scene, 900));
+    var worldSource = RP.sourceBlock(room, opts.archive);
+    if (worldSource) parts.push(worldSource);
     var worldKeys = RP.keywordBlock(state, opts.recent || RP.historyFor(room, 4).map(function (m) { return m.content; }).join(' '));
     if (worldKeys) parts.push(worldKeys);
     var fixed = RP.factsBlock(room);
@@ -3190,6 +3199,79 @@
   };
 
 
+
+
+  /* ------------------------------------------------------------------ *
+   * the session's own source — what this scene actually is
+   *
+   * A chat started from a filed event was only ever given that event's
+   * one-line summary. The cast could not "pull from" the material because
+   * the material was not in the prompt. It is now.
+   * ------------------------------------------------------------------ */
+
+  RP.sourceRecord = function (room, archive) {
+    if (!room || !room.sourceId || !archive) return null;
+    var want = slug(room.sourceId);
+    return (archive.events || []).filter(function (e) {
+      return slug(e.id) === want || slug(e.name) === want;
+    })[0] || null;
+  };
+
+  /** The dossier for the filing this session came out of: what happened,
+   *  where, when, who was in it and what it did to them. */
+  RP.sourceBlock = function (room, archive) {
+    var e = RP.sourceRecord(room, archive);
+    if (!e) return '';
+    var beats = ((e.timeline || {}).entries || []).slice(0, 8).map(function (b) {
+      return '  - ' + (b.time ? b.time + ' — ' : '') + clip(b.beat, 120) + (b.detail ? '. ' + clip(b.detail, 200) : '');
+    });
+    var people = (e.participants || []).slice(0, 8).map(function (p) {
+      return '  - ' + clip(p.name, 60) + (p.role ? ' — ' + clip(p.role, 200) : '');
+    });
+    return [
+      'WHAT THIS SESSION IS — the filed record this scene comes out of. Everybody here lived it; use the names, the',
+      'dates and the details, and never contradict them.',
+      'Filing: ' + clip(e.name, 90) + (e.date ? ' (' + clip(e.date, 70) + ')' : ''),
+      e.location ? 'Where: ' + clip(e.location, 160) : '',
+      e.summary ? 'What happened: ' + clip(e.summary, 700) : '',
+      e.outcome ? 'How it ended: ' + clip(e.outcome, 500) : '',
+      e.aftermath ? 'What it left behind: ' + clip(String(e.aftermath).replace(/[*#>]/g, ''), 500) : '',
+      people.length ? 'Who was in it:\n' + people.join('\n') : '',
+      beats.length ? 'How it ran:\n' + beats.join('\n') : '',
+    ].filter(Boolean).join('\n');
+  };
+
+  /* ---- who actually wrote that line? ---- */
+
+  /** A small model handed a six-hander will sometimes write the wrong
+   *  character — usually whoever spoke last. If the prose is plainly
+   *  somebody else's, say so, and the page re-labels the card rather than
+   *  lying about who spoke. */
+  RP.checkSpeaker = function (text, speaker, cast) {
+    var body = String(text || '').trim();
+    if (!body) return { ok: false, empty: true };
+    var mine = String((speaker && speaker.name) || '').toLowerCase();
+    var head = body.slice(0, 220).toLowerCase();
+    var others = (cast || []).filter(function (c) {
+      return c.id !== (speaker && speaker.id) && String(c.name || '').length > 2;
+    });
+    // "Wario growls", "Wario stands", "Wario:" at the head of the reply.
+    var actual = null;
+    others.forEach(function (c) {
+      if (actual) return;
+      var name = c.name.toLowerCase();
+      var at = head.indexOf(name);
+      if (at < 0 || at > 40) return;
+      var after = head.slice(at + name.length, at + name.length + 14);
+      if (/^\s*(:|says|said|growls|grunts|shrugs|stands|leans|pushes|paces|spits|laughs|nods|turns|steps|slams|mutters|barks|snaps)/.test(after)) {
+        actual = c;
+      }
+    });
+    if (!actual) return { ok: true };
+    // If the speaker is in it too, it is a scene, not a misattribution.
+    if (mine && head.indexOf(mine) >= 0) return { ok: true };
+    return { ok: false, actual: actual };
+  };
 
   /* ------------------------------------------------------------------ *
    * privacy, presence, and talking to the model out of character
@@ -4559,6 +4641,8 @@
     if (perspective) parts.push(perspective);
 
     // Reference material — trimmed first when the window is tight.
+    var source = RP.sourceBlock(room, opts.archive);
+    if (source) parts.push(source);
     var keywords = RP.keywordBlock(state, opts.recent || RP.historyFor(room, 4).map(function (m) { return m.content; }).join(' '));
     if (keywords) parts.push(keywords);
     var sceneFacts = RP.factsBlock(room);

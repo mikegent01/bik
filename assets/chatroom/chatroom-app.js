@@ -1517,6 +1517,9 @@
       mechanics: opts.mechanics || (state.settings && state.settings.mechanics) || 'on',
       sequelOf: opts.sequelOf || '',
       canon: opts.canon || '',
+      // Which filing this scene came out of, so the cast can quote it.
+      sourceId: opts.sourceId || '',
+      sourceKind: opts.sourceKind || '',
     }));
   }
 
@@ -1530,6 +1533,8 @@
       startGroup(picked, {
         scene: scene.summary || scene.name, sceneName: scene.name, sceneImage: scene.image,
         beats: scene.beats || [], date: scene.date || '',
+        // The filing this scene came out of, so the cast can quote it.
+        sourceId: scene.id || scene.name, sourceKind: 'scene',
         opener: 'Scene — ' + scene.name + (scene.location ? ' · ' + scene.location : '') + (scene.date ? ' · ' + scene.date : ''),
       });
     });
@@ -3162,6 +3167,12 @@
           fate: fate ? fate.pill : '',
           changes: changes.lines.slice(0, 6),
         };
+        if (!String(clean || '').trim()) {
+          // Nothing came back twice over. Say so quietly instead of filing
+          // an empty card under somebody's name.
+          toast(speaker.name + ' had nothing to say — press ↻, or write your turn.');
+          return false;
+        }
         r.messages.push(msg);
         // Narration is remembered too: it is where places get named.
         RP.rememberTurn(state, r, msg);
@@ -3672,49 +3683,59 @@
       '<div class="actions"><button class="pill" id="mCancel">Cancel</button>' +
       '<button class="pill primary" id="mOk">Save</button></div>');
     $('mCancel').onclick = closeModal;
-    // The dialog can be closed while a request is in flight, so every
-    // write back into it checks the field is still there.
-    function say(text) { if ($('setState')) $('setState').textContent = text; }
+    // The dialog can be closed while a request is in flight, and two probes
+    // can be in flight at once (the automatic one on open, and Test it).
+    // The latest one wins; a stale answer never overwrites a newer one.
+    var probeSeq = 0;
+    function probe() { return ++probeSeq; }
+    function say(text, mine) {
+      if (mine !== undefined && mine !== probeSeq) return;
+      if ($('setState')) $('setState').textContent = text;
+    }
     function listModels() {
+      var mine = probe();
       if (!$('f_endpoint')) return;
       var url = $('f_endpoint').value.trim() || CFG.replyUrl;
-      if (!isOpenAI(url)) { say('the workflow server picks the model itself'); return; }
-      say('asking…');
+      if (!isOpenAI(url)) { say('the workflow server picks the model itself', mine); return; }
+      say('asking…', mine);
       fetch(modelsRoute(url)).then(function (r) { return r.ok ? r.json() : null; }).then(function (data) {
         var list = (data && (data.data || data.models)) || [];
         var pick = $('f_modelPick');
-        if (!pick) return;
-        if (!list.length) { say('no models loaded'); return; }
+        if (!pick || mine !== probeSeq) return;
+        if (!list.length) { say('no models loaded', mine); return; }
         pick.innerHTML = list.map(function (m) {
           var id = String(m.id || m.name || '');
           return '<option value="' + esc(id) + '"' + (state.settings.model === id ? ' selected' : '') + '>' + esc(id) + '</option>';
         }).join('');
         pick.onchange = function () { if ($('f_model')) $('f_model').value = pick.value; };
         if ($('f_model') && !$('f_model').value) $('f_model').value = pick.value;
-        say(list.length + ' model' + (list.length === 1 ? '' : 's') + ' loaded');
-      }).catch(function () { say('no answer — is it running?'); });
+        say(list.length + ' model' + (list.length === 1 ? '' : 's') + ' loaded', mine);
+      }).catch(function () { say('no answer — is it running?', mine); });
     }
     $('setModels').onclick = listModels;
     listModels();
     $('setLm').onclick = function () { $('f_endpoint').value = LM_STUDIO; listModels(); };
     $('setWf').onclick = function () { $('f_endpoint').value = 'http://127.0.0.1:8787/api/roleplay'; };
     $('setTest').onclick = function () {
+      var mine = probe();
       var url = $('f_endpoint').value.trim() || CFG.replyUrl;
-      say('testing…');
-      var probe = isOpenAI(url)
+      say('testing…', mine);
+      // (Named `request`, not `probe`: a local `var probe` would shadow the
+      //  probe() counter above and break the whole handler.)
+      var request = isOpenAI(url)
         ? fetch(modelsRoute(url)).then(function (r) { return r.ok ? r.json() : null; })
         : fetch(url.replace(/\/api\/roleplay$/, '/api/health')).then(function (r) { return r.ok ? r.json() : null; });
-      probe.then(function (data) {
+      request.then(function (data) {
         if (!data) throw new Error('no answer');
         var list = (data.data || data.models || []);
         if (list.length) {
           if ($('f_model')) $('f_model').value = $('f_model').value || String(list[0].id || list[0].name || '');
           say('answering · ' + list.length + ' model' + (list.length === 1 ? '' : 's') +
-            ' · ' + RP.clip(String(list[0].id || list[0].name || ''), 28));
+            ' · ' + RP.clip(String(list[0].id || list[0].name || ''), 28), mine);
         } else {
-          say(data.lm_studio && data.lm_studio.online ? 'answering · model online' : 'answering');
+          say(data.lm_studio && data.lm_studio.online ? 'answering · model online' : 'answering', mine);
         }
-      }).catch(function () { say('no answer — is it running?'); });
+      }).catch(function () { say('no answer — is it running?', mine); });
     };
     $('mOk').onclick = function () {
       state.settings.endpoint = $('f_endpoint').value.trim();
