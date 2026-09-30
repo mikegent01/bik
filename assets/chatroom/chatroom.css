@@ -280,6 +280,7 @@ a { color: inherit; }
 .statebar .chips { display: flex; flex-wrap: wrap; gap: 4px; }
 .statebar .flag { background: #fdecec; color: var(--bad); border-radius: 999px; padding: 1px 7px; font-size: 11px; }
 .statebar .flag.num { background: #eef1fd; color: #3b55c8; }
+.statebar .flag.stat { background: #f0ede4; color: #6a5d33; letter-spacing: .04em; }
 .statebar .flag.item { background: #f1f0e9; color: #6b6a5c; }
 .statebar .flag.note { background: var(--panel2); color: var(--muted); }
 

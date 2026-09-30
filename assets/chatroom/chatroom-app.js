@@ -2181,9 +2181,12 @@
       '<span class="num">' + kind.toUpperCase() + ' ' + pool.value + '/' + pool.max + '</span></span>';
   }
 
-  /** How many slots a sheet's grid shows: the reader's own pack is the
-   *  one that gets used every turn, so it gets the room. */
-  function kitSize(id) { return id === RP.PLAYER_ID ? 12 : 8; }
+  /** How many slots a sheet's grid shows: the profile decided it when the
+   *  sheet was written (RP.packSizeFor), and the reader always gets 12. */
+  function kitSize(r, id) {
+    var sheet = RP.sheetFor(r, id);
+    return (sheet && sheet.slots) || (id === RP.PLAYER_ID ? 12 : 8);
+  }
 
   /** The kit, as a grid you can read at a glance: what is in hand is lit,
    *  everything else is stowed, and the empty slots keep the shape. On
@@ -2193,7 +2196,7 @@
     var sheet = RP.sheetFor(r, id);
     if (!sheet) return '';
     var isYou = id === RP.PLAYER_ID;
-    return '<span class="kit' + (isYou ? ' big' : '') + '">' + RP.gridSlots(sheet, kitSize(id)).map(function (item, at) {
+    return '<span class="kit' + (isYou ? ' big' : '') + '">' + RP.gridSlots(sheet, kitSize(r, id)).map(function (item, at) {
       if (!item) {
         return isYou
           ? '<button class="slot empty add" data-additem="' + esc(id) + '" title="Put something in your pack">+</button>'
@@ -2224,6 +2227,9 @@
         value: (sheet.items || []).map(RP.normItem).map(function (i) {
           return (i.equipped ? '✊ ' : '') + i.name + (i.qty > 1 ? ' x' + i.qty : '') + (i.note ? ' | ' + i.note : '');
         }).join('\n') },
+      { k: 'stats', label: '⚔ might · 🧠 wits · 🗣 sway · 🍀 luck — four numbers 0–3, they lean on the dice',
+        value: sheet.stats ? RP.STAT_KEYS.map(function (k) { return sheet.stats[k]; }).join(' ') : '' },
+      { k: 'slots', label: 'Pack slots (3–12)', value: String(sheet.slots || '') },
       { k: 'status', label: 'Physical note', value: sheet.status || '' },
     ], { note: 'The model reads this before every turn and writes to it with stage directions. Changing it here changes what the scene believes.' }, function (v) {
       function pool(text, old) {
@@ -2247,6 +2253,14 @@
         if (!head) return null;
         return { name: head, note: (parts[1] || '').trim(), equipped: held, qty: qty ? Number(qty[1]) : 1 };
       }).filter(Boolean);
+      var nums = v.stats.trim().split(/[\s,\/]+/).map(Number);
+      if (nums.length === 4 && nums.every(function (n) { return !isNaN(n); })) {
+        sheet.stats = {};
+        RP.STAT_KEYS.forEach(function (k, i) { sheet.stats[k] = Math.max(0, Math.min(3, Math.round(nums[i]))); });
+        sheet.statsBy = 'hand';           // a hand-set value is never re-derived
+      }
+      var slots = parseInt(v.slots, 10);
+      if (!isNaN(slots)) sheet.slots = Math.max(3, Math.min(12, slots));
       sheet.status = v.status.trim();
       r.updated = Date.now();
       save(); render();
@@ -2328,7 +2342,10 @@
           '<span class="nm">' + (isYou ? userAvatar(22) : avatar(who, 22)) + esc(sheet.name) + '</span>' +
           (sheet.hp ? bar('hp', sheet.hp) : '') + (sheet.mp ? bar('mp', sheet.mp) : '') +
           kitGrid(r, id) +
-          '<span class="chips">' + Object.keys(sheet.flags || {}).map(function (f) {
+          '<span class="chips">' +
+          (sheet.stats ? '<span class="flag stat" title="might · wits · sway · luck (0–3) — they lean on the dice when your attempt uses them">' +
+            esc(RP.statLine(sheet.stats)) + '</span>' : '') +
+          Object.keys(sheet.flags || {}).map(function (f) {
             var cond = sheet.flags[f] && typeof sheet.flags[f] === 'object' ? sheet.flags[f] : { note: '', turns: 0 };
             return '<span class="flag' + (cond.effect ? ' biting' : '') + '" ' +
               'title="' + esc((cond.note || f.replace(/_/g, ' ')) + (cond.effect ? ' · ' + cond.effect + ' a turn' : '')) + '">' +
@@ -2788,7 +2805,7 @@
         e.stopPropagation();
         var parts = b.dataset.item.split('|');
         var sheet = RP.sheetFor(r, parts[0]);
-        var item = RP.gridSlots(sheet, kitSize(parts[0]))[Number(parts[1])];
+        var item = RP.gridSlots(sheet, kitSize(r, parts[0]))[Number(parts[1])];
         if (!item) return;
         // Somebody to hand it to: anyone else with a sheet who is here.
         var others = Object.keys(r.states || {}).filter(function (id) {
@@ -3201,6 +3218,21 @@
     r.lastNotes = spoken.notes;
     autoLeft = 0;                       // your turn beats the autopilot
     RP.pushUndo(r, 'your turn');
+    // The thin-air check, before anything is sent: pulling out a thing you
+    // HAVE takes it in hand; pulling out a bazooka you do not have turns
+    // the dice against the bluff and briefs the model, once.
+    if (r.mechanics !== 'off') {
+      RP.ensurePlayerSheet(state, r);
+      var claimed = RP.conjureCheck(r, msg.text);
+      if (claimed && claimed.kind === 'have') {
+        if (!claimed.item.equipped) RP.applyChange(claimed.sheet, { kind: 'equip', name: claimed.item.name, op: '+' });
+        msg.changes = [claimed.item.icon + ' ' + claimed.item.name + ' — on your sheet, in hand'];
+      }
+      if (claimed && claimed.kind === 'conjured') {
+        r.conjured = claimed.claim;
+        msg.changes = ['🚫 “' + claimed.claim + '” is not on your sheet — the world will answer'];
+      }
+    }
     // A jump in time means the filed script no longer lines up with the
     // scene. Pause it rather than firing "beat 3" into a different night.
     if (!r.beatsPaused && RP.isTimeJump(text) && (r.beats || []).length && RP.beatProgress(r).remaining) {
@@ -3326,30 +3358,33 @@
     // Did the player just try something? Then it is not up to them whether it
     // worked. The roll happens here and is handed to the model as an order.
     var answering = !retry && RP.visible(lastVisible(r)) && lastVisible(r).role === 'user';
-    var fate = answering ? RP.rollFate(state, r, {}) : null;
+    // The reader's own sheet, before the roll and the prompt: the attempt's
+    // wording picks the stat that leans on the dice, and a thin-air claim
+    // (r.conjured, set on send) turns them against the bluff.
+    if (r.mechanics !== 'off') RP.ensurePlayerSheet(state, r);
+    var lastSaid = RP.textOf((r.messages || []).filter(function (m) {
+      return m.role === 'user' && !m.muted;
+    }).pop() || {});
+    var fate = answering ? RP.rollFate(state, r, { text: lastSaid, conjured: r.conjured || '' }) : null;
     // What the cast may cite: whatever the recent turns are actually about,
     // filtered to filings whose dates have already passed in this scene.
     var recent = RP.historyFor(r, 4).map(function (m) { return m.content; }).join(' ');
     var found = RP.citableFor(archiveIndex, r, state, { query: recent + ' ' + (r.scene || ''), limit: 6 });
     var dug = searchForTurn(r, speaker, recent);
     if (opts.searched) recent = recent + ' ' + opts.searched;
-    // The reader's own sheet, before the prompt is written: the model
-    // should never see a scene where "you" cannot bleed or carry.
-    if (r.mechanics !== 'off') RP.ensurePlayerSheet(state, r);
-    // What the player's latest words actually name — handed to the prompt
-    // so "the key" resolves to the 🗝 on a sheet, not a new invention.
-    var lastSaid = RP.textOf((r.messages || []).filter(function (m) {
-      return m.role === 'user' && !m.muted;
-    }).pop() || {});
     var opts2 = {
       fate: fate, archive: archive, recent: recent, notes: r.lastNotes || [],
       mentionText: lastSaid,
+      conjured: r.conjured || '',
       budget: Number(state.settings.promptBudget) || 0,
       citations: [opts.searched || '', RP.citationBlock(found), dug.length ? RP.retrievalBlock(dug) : '']
         .filter(Boolean).join('\n\n'),
     };
     var system = (worldTurn ? RP.worldSystem(state, r, opts2) : RP.systemFor(state, r, speaker, opts2)) +
       (opts.nudge ? '\n\n' + opts.nudge : '');
+    // The thin-air brief fires once: the turn that answers the claim has
+    // seen it, and the scene moves on.
+    r.conjured = '';
     // NOT `window`: a local of that name shadows the global one for the
     // whole function, and every window.setTimeout in here stops working.
     var lookBack = RP.contextLimit(r, (state.settings && state.settings.context) || 24);

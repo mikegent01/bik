@@ -317,6 +317,7 @@ check('play: a scenario hands the room a scene, a name and its beats', (() => {
 
 // ---------- character state: sheets, directives, roster ----------
 const fight = RP.newRoom([sans, cutters], {
+  kit: 'off',              // these checks assert slot positions — no auto-outfitting
   statePreset: 'rpg',
   setup: { sans: { hpPct: 50, flags: 'wounded, hunted', items: 'brass key', status: 'one arm useless' } },
 });
@@ -1940,7 +1941,7 @@ check('book: a cap keeps the diary and the pages that came up more than once', (
 })());
 
 // ---------- the kit is a grid, and conditions bite ----------
-const gridRoom = RP.newRoom([sans], {});
+const gridRoom = RP.newRoom([sans], { kit: 'off' });   // slot positions are asserted below
 RP.applyDirectives(RP.blankState(), gridRoom, RP.parseDirectives([
   '[[ITEM: Sans + 🗝 a brass key | bent, from the ledger room]]',
   '[[ITEM: Sans + a worn notepad]]',
@@ -2152,6 +2153,102 @@ check('history: newest turns win the budget', (() => {
   const packed = RP.packHistory(msgs, 3000);
   return packed.length < 40 && packed[packed.length - 1].content.startsWith('turn 39');
 })());
+
+// ---------- the wardrobe: profile → kit, slots, stats — no model call ----------
+{
+  const soldier = RP.normChar({ id: 'grix', name: 'Grix', title: 'Captain of the outpost guard', description: 'a scarred soldier' });
+  const clerk = RP.normChar({ id: 'pell', name: 'Pell', title: 'Junior archivist', description: 'a nervous scribe of the records office' });
+  check('wardrobe: a profile earns a kit, deterministically', (() => {
+    const kit = RP.kitFor(soldier);
+    return kit.length >= 2 && kit.length <= 4 && kit.every(i => i.icon && i.name) &&
+      JSON.stringify(kit) === JSON.stringify(RP.kitFor(soldier)) &&
+      JSON.stringify(RP.kitFor(soldier).map(i => i.name)) !== JSON.stringify(RP.kitFor(clerk).map(i => i.name));
+  })());
+  check('wardrobe: a fresh room dresses its cast; kit: "off" leaves packs empty', (() => {
+    const dressed = RP.newRoom([soldier, clerk], {});
+    const bare = RP.newRoom([soldier], { kit: 'off' });
+    return dressed.states.grix.items.length > 0 && dressed.states.pell.items.length > 0 &&
+      bare.states.grix.items.length === 0;
+  })());
+  check('wardrobe: a hand-written kit is never overridden', (() => {
+    const rm = RP.newRoom([soldier], { setup: { grix: { items: 'a single feather' } } });
+    return rm.states.grix.items.length === 1 && rm.states.grix.items[0].name === 'a single feather';
+  })());
+  check('wardrobe: the profile sizes the pack, and a full pack refuses', (() => {
+    const rm = RP.newRoom([soldier], { kit: 'off' });
+    const sheet = rm.states.grix;
+    if (RP.packSizeFor(soldier) !== sheet.slots || RP.packSizeFor({ description: 'an ancient ghost' }) >= sheet.slots) return false;
+    for (let i = 0; i < sheet.slots; i++) RP.applyChange(sheet, { kind: 'item', op: '+', name: 'thing ' + i });
+    const refused = RP.applyChange(sheet, { kind: 'item', op: '+', name: 'one more' });
+    return sheet.items.length === sheet.slots && /pack is full/.test(refused) && !sheet.items.some(i => i.name === 'one more');
+  })());
+  check('stats: four numbers out of the filed record, 0–3, stable', (() => {
+    const s = RP.statsFor(soldier);
+    return s.might >= 2 && ['might', 'wits', 'sway', 'luck'].every(k => s[k] >= 0 && s[k] <= 3) &&
+      JSON.stringify(s) === JSON.stringify(RP.statsFor(soldier)) &&
+      RP.statsFor(clerk).wits >= 2 && RP.statsFor(clerk).sway === 0;   // "nervous" costs sway
+  })());
+  check('stats: the sheet line carries them at a glance',
+    /⚔\d 🧠\d 🗣\d 🍀\d/.test(RP.statLine(RP.statsFor(soldier))) &&
+    RP.stateBlock(RP.newRoom([soldier], {})).includes(RP.statLine(RP.statsFor(soldier))));
+  check('stats: the attempt\u2019s wording picks the stat',
+    RP.actionStat('I try to persuade the guard') === 'sway' && RP.actionStat('I smash the crate') === 'might' &&
+    RP.actionStat('I study the ledger') === 'wits' && RP.actionStat('I sneak past the dogs') === 'luck' &&
+    RP.actionStat('I wait.') === '');
+  check('stats: they lean on the dice, and only there', (() => {
+    const st = RP.blankState();
+    st.persona.name = 'Bruiser';
+    st.persona.look = 'a scarred soldier of the old legion';    // might 3
+    const rm = RP.newRoom([soldier], {});
+    RP.ensurePlayerSheet(st, rm);
+    let strongBad = 0, weakBad = 0;
+    const weak = RP.newRoom([soldier], {});
+    RP.ensurePlayerSheet(RP.blankState(), weak);
+    weak.states[RP.PLAYER_ID].stats = { might: 0, wits: 1, sway: 1, luck: 1 };
+    for (let roll = 0.05; roll < 1; roll += 0.05) {
+      if (['setback', 'wrench', 'refusal'].includes(RP.rollFate({ settings: { fate: 'normal' } }, rm, { text: 'I smash the crate', roll }).key)) strongBad++;
+      if (['setback', 'wrench', 'refusal'].includes(RP.rollFate({ settings: { fate: 'normal' } }, weak, { text: 'I smash the crate', roll }).key)) weakBad++;
+    }
+    const tagged = RP.rollFate({ settings: { fate: 'normal' } }, rm, { text: 'I smash the crate', roll: 0.5 });
+    return strongBad < weakBad && tagged.stat === 'might' && /⚔ might \d/.test(tagged.pill);
+  })());
+}
+
+// ---------- the thin-air check: no bazookas out of nowhere ----------
+{
+  const st = RP.blankState();
+  st.persona.name = 'Marlow';
+  st.persona.items = ['🗝 a brass key | bent'];
+  const rm = RP.newRoom([sans], {});
+  RP.ensurePlayerSheet(st, rm);
+  check('thin air: pulling out a thing you HAVE finds it on the sheet', (() => {
+    const c = RP.conjureCheck(rm, 'I draw the brass key and step in.');
+    return c && c.kind === 'have' && c.item.name.includes('brass key');
+  })());
+  check('thin air: the bazooka is caught', (() => {
+    const c = RP.conjureCheck(rm, 'I pull out a bazooka and fire.');
+    return c && c.kind === 'conjured' && c.claim === 'bazooka';
+  })());
+  check('thin air: scenery and weak claims are not policed',
+    RP.conjureCheck(rm, 'I grab the railing.') === null &&
+    RP.conjureCheck(rm, 'I use the door.') === null &&
+    RP.conjureCheck(rm, 'What do you make of it?') === null);
+  check('thin air: a "my" claim is a claim — "I fire my bazooka" is caught',
+    (RP.conjureCheck(rm, 'I fire my bazooka!') || {}).kind === 'conjured');
+  check('thin air: the dice turn against the bluff', (() => {
+    let plainBad = 0, bluffBad = 0;
+    for (let roll = 0.05; roll < 1; roll += 0.05) {
+      if (['setback', 'refusal'].includes(RP.rollFate({ settings: { fate: 'normal' } }, rm, { roll }).key)) plainBad++;
+      if (['setback', 'refusal'].includes(RP.rollFate({ settings: { fate: 'normal' } }, rm, { roll, conjured: 'a bazooka' }).key)) bluffBad++;
+    }
+    return bluffBad > plainBad;
+  })());
+  check('thin air: the brief reaches the prompt only when it fires', (() => {
+    const armed = RP.systemFor(st, rm, sans, { conjured: 'a bazooka' });
+    const calm = RP.systemFor(st, rm, sans, {});
+    return armed.includes('OUT OF THIN AIR') && armed.includes('bazooka') && !calm.includes('OUT OF THIN AIR');
+  })());
+}
 
 // ---------- generated pages are in sync with these sources ----------
 let built = true;

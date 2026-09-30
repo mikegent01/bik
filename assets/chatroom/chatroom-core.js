@@ -418,6 +418,7 @@
       beatIndex: 0,
       autoBeats: opts.autoBeats === undefined ? true : Boolean(opts.autoBeats),
       statePreset: opts.statePreset || 'rpg',
+      kit: String(opts.kit || 'auto'),          // 'auto' dresses the cast from their profiles; 'off' leaves packs empty
       states: {},
       mechanics: opts.mechanics === undefined ? 'on' : opts.mechanics,
       // How far back the model may look in this room; 0 means "use the
@@ -1558,6 +1559,123 @@
     return '📦';
   };
 
+  /* ---- the wardrobe department: profile → kit, slots and stats.
+   * All of it is derived from the filed record, deterministically —
+   * hash-stable like the voices and the avatar tints — so a character
+   * walks in outfitted like themselves in every browser, and no model
+   * call is ever spent on it. ---- */
+
+  /** What a filed profile reads as. Each bucket is a few candidate items;
+   *  the hash picks one, so two soldiers do not carry the same blade. */
+  RP.KIT_TABLE = [
+    [/soldier|captain|general|commander|warlord|legion|guard|knight|warrior|paratroopa|merc/i,
+      ['🗡 a service blade | kept sharper than regulation', '🛡 a dented shield | it has earned the dents', '🗡 a short sword | the grip rewrapped twice'],
+      ['🩹 a field dressing | rolled tight', '🪙 back pay | most of it owed away']],
+    [/archivist|historian|scribe|record|librarian|clerk|scholar/i,
+      ['📄 working papers | annotated past reading', '📕 a duty ledger | two hands of ink in it', '📄 copied filings | the dates underlined'],
+      ['🖋 a good pen | fought for at the stores desk', '🏮 a reading lamp | wick trimmed low']],
+    [/mage|magic|arcane|wizard|sorcer|witch|oracle|ritual/i,
+      ['📕 a working grimoire | three pages dog-eared', '💎 a focus stone | warm to the touch', '🧪 a prepared draught | unlabelled on purpose'],
+      ['🕯 ritual candles | half burned down']],
+    [/thief|looter|infiltrat|rogue|spy|smuggler|pickpocket/i,
+      ['🔧 picks and shims | quiet in their roll', '🗝 a key that should not exist | it opens more than one door', '🪢 a coil of dark cord | pre-knotted'],
+      ['🪙 somebody else\u2019s coin | still warm']],
+    [/merchant|debt|acquisitions|coin|profit|bank|business|trader/i,
+      ['🪙 a working purse | counted twice daily', '📄 a book of debts | names, sums, dates'],
+      ['📄 a blank contract | the fine print pre-written', '⏱ a good watch | collateral, technically']],
+    [/hunter|ranger|scout|tracker|trapper/i,
+      ['🏹 a strung bow | kept out of the rain', '🗡 a skinning knife | honest work on the handle'],
+      ['🪢 snare wire | wound on a stick', '🍞 trail rations | more than they look']],
+    [/healer|doctor|medic|nurse|surgeon|priest|cleric/i,
+      ['🩹 a dressing kit | rolled and boiled', '🧪 a tincture | measured doses marked'],
+      ['📄 case notes | initials only']],
+    [/sailor|pilot|charter|driver|courier|caravan/i,
+      ['🗺 a working chart | corrected by hand', '🪢 good line | spliced at both ends'],
+      ['🧴 a canteen | dented, trusted']],
+    [/engineer|mechanic|tinker|smith|builder|mason/i,
+      ['🔧 a tool roll | nothing missing', '🔨 a fitting hammer | the handle replaced, twice'],
+      ['📄 a marked-up schematic | do not fold']],
+  ];
+
+  /** A pocket item everyone gets, picked by hash — texture, not power. */
+  RP.POCKET = ['🪙 a few small coins', '📄 a folded note | not theirs to read',
+    '🕯 a candle stub', '⏱ a watch that runs slow', '🧵 odds and ends | string, a button, a pin'];
+
+  /** The starting kit a profile earns: at most one item from each of the
+   *  first two buckets it matches, one bucket extra, one pocket item.
+   *  Two to four things — a kit, not a shop. */
+  RP.kitFor = function (char) {
+    char = char || {};
+    var text = ((char.title || '') + ' ' + (char.status || '') + ' ' + (char.summary || '') + ' ' +
+      (char.description || '') + ' ' + (char.faction || '')).toLowerCase();
+    var seed = hash(char.id || char.name || '');
+    var items = [];
+    for (var i = 0; i < RP.KIT_TABLE.length && items.length < 3; i++) {
+      var row = RP.KIT_TABLE[i];
+      if (!row[0].test(text)) continue;
+      var main = row[1][seed % row[1].length];
+      items.push(main);
+      if (items.length < 3 && row[2] && (seed >> 2) % 2 === 0) {
+        items.push(row[2][(seed >> 3) % row[2].length]);
+      }
+    }
+    items.push(RP.POCKET[(seed >> 4) % RP.POCKET.length]);
+    return items.slice(0, 4).map(RP.normItem);
+  };
+
+  /** How many slots a pack has. A quartermaster hauls, a ghost does not,
+   *  and the reader always gets the full twelve. */
+  RP.packSizeFor = function (char) {
+    char = char || {};
+    var text = ((char.title || '') + ' ' + (char.summary || '') + ' ' + (char.description || '')).toLowerCase();
+    var slots = 6;
+    if (/merchant|smuggler|scavenger|quartermaster|trader|courier|caravan|collector/.test(text)) slots += 2;
+    if (/ghost|spirit|undead|revenant|monster|beast|titan|dragon|plant|creature/.test(text)) slots -= 3;
+    if (/king|queen|regent|noble|lord|lady|prince|princess/.test(text)) slots -= 1;   // other people carry for them
+    return Math.max(3, Math.min(10, slots));
+  };
+
+  /* ---- pseudo-stats: four numbers that lean on the dice, not the prose.
+   * ⚔ might, 🧠 wits, 🗣 sway, 🍀 luck — 0 poor, 1 fair, 2 good, 3 sharp.
+   * They are read out of the filed record once, shown as chips, editable
+   * by hand, and spent exactly one place: the fate roll. ---- */
+
+  RP.STAT_KEYS = ['might', 'wits', 'sway', 'luck'];
+  RP.STAT_ICONS = { might: '⚔', wits: '🧠', sway: '🗣', luck: '🍀' };
+
+  RP.statsFor = function (char) {
+    char = char || {};
+    var text = ((char.title || '') + ' ' + (char.status || '') + ' ' + (char.summary || '') + ' ' +
+      (char.description || '')).toLowerCase();
+    var s = { might: 1, wits: 1, sway: 1, luck: 1 };
+    if (/soldier|captain|general|commander|warlord|legion|guard|knight|warrior|monster|beast|titan|dragon|smith|brawler|paratroopa/.test(text)) s.might += 1;
+    if (/archivist|historian|scribe|record|librarian|mage|magic|arcane|wizard|sorcer|oracle|scholar|engineer|doctor|witch|detective/.test(text)) s.wits += 1;
+    if (/king|queen|lord|lady|prince|princess|speaker|delegate|noble|regent|merchant|priest|jester|comedian|diplomat|singer/.test(text)) s.sway += 1;
+    if (/thief|looter|infiltrat|rogue|spy|smuggler|gambl|prank|drifter|scavenger|pirate/.test(text)) s.luck += 1;
+    if (Number(char.powerLevel || 0) >= 7) s.might += 1;
+    if (/coward|nervous|anxious|timid/.test(text)) s.sway = Math.max(0, s.sway - 1);
+    if (/injured|wounded|dying|frail|old age|elderly/.test(text)) s.might = Math.max(0, s.might - 1);
+    // One hash point so two clerks are not the same clerk.
+    s[RP.STAT_KEYS[hash(char.id || char.name || '') % 4]] += 1;
+    RP.STAT_KEYS.forEach(function (k) { s[k] = Math.max(0, Math.min(3, s[k])); });
+    return s;
+  };
+
+  RP.statLine = function (stats) {
+    if (!stats) return '';
+    return RP.STAT_KEYS.map(function (k) { return RP.STAT_ICONS[k] + (stats[k] === undefined ? 1 : stats[k]); }).join(' ');
+  };
+
+  /** Which stat an attempt leans on, from the player's own words. */
+  RP.actionStat = function (text) {
+    var t = ' ' + String(text || '').toLowerCase() + ' ';
+    if (/\b(hit|strike|attack|swing|punch|fight|shove|charge|force|break|smash|grapple|wrestle|kick|stab|tackle|slam|wrench|lift|drag|hold (him|her|them|it) down)\b/.test(t)) return 'might';
+    if (/\b(persuade|convince|talk|lie|bluff|charm|bargain|negotiate|plead|threaten|intimidate|order|flatter|reassure|calm|appeal|argue)\b/.test(t)) return 'sway';
+    if (/\b(search|examine|inspect|study|read|decipher|recall|remember|figure|work out|notice|listen|track|analyse|analyze|calculate|identify|diagnose)\b/.test(t)) return 'wits';
+    if (/\b(sneak|steal|pick|hide|slip|dodge|duck|gamble|climb|leap|jump|vault|escape|palm|swipe|creep)\b/.test(t)) return 'luck';
+    return '';
+  };
+
   RP.normItem = function (value) {
     if (value && typeof value === 'object') {
       return {
@@ -1582,11 +1700,12 @@
   /** The inventory as a grid of slots: what is in hand first, then the
    *  rest, then empty slots so the shape stays the same. */
   RP.gridSlots = function (sheet, size) {
+    size = size || (sheet && sheet.slots) || 12;
     var kit = ((sheet && sheet.items) || []).map(RP.normItem);
     var held = kit.filter(function (i) { return i.equipped; });
     var stowed = kit.filter(function (i) { return !i.equipped; });
-    var slots = held.concat(stowed).slice(0, size || 12);
-    while (slots.length < (size || 12)) slots.push(null);
+    var slots = held.concat(stowed).slice(0, size);
+    while (slots.length < size) slots.push(null);
     return slots;
   };
 
@@ -1711,6 +1830,21 @@
       var item = RP.normItem(i);
       if (item.name) sheet.items.push(item);
     });
+    // The profile decides the rest: how much they can carry, and the four
+    // numbers the dice will listen to. Both are deterministic and free.
+    sheet.slots = RP.packSizeFor(char);
+    sheet.stats = RP.statsFor(char);
+    return sheet;
+  };
+
+  /** Dress a fresh sheet from the filed profile: a character whose setup
+   *  named no kit walks in carrying what somebody like them would carry
+   *  (`room.kit = 'off'` turns the outfitting off for a whole room). */
+  RP.outfit = function (room, char, sheet) {
+    if (!sheet || (room && room.kit === 'off')) return sheet;
+    if (!(sheet.items || []).length && !sheet.player) {
+      sheet.items = RP.kitFor(char).slice(0, sheet.slots || 6);
+    }
     return sheet;
   };
 
@@ -1720,7 +1854,12 @@
     room.states = room.states || {};
     room.statePreset = room.statePreset || preset || 'rpg';
     (room.cast || []).forEach(function (c) {
-      if (!room.states[c.id]) room.states[c.id] = RP.blankSheet(c, room.statePreset, (setups || {})[c.id]);
+      if (!room.states[c.id]) {
+        var setup = (setups || {})[c.id];
+        room.states[c.id] = RP.blankSheet(c, room.statePreset, setup);
+        // A hand-written kit owns the sheet; a blank field means "dress them".
+        if (!setup || !String(setup.items || '').trim()) RP.outfit(room, c, room.states[c.id]);
+      }
     });
     return room.states;
   };
@@ -1774,6 +1913,14 @@
     });
     sheet.player = true;
     sheet.name = name;
+    sheet.slots = 12;                       // the reader always gets the full pack
+    var statsKey = (persona.voice || '') + '|' + (persona.look || '') + '|' + (persona.notes || '');
+    if (sheet.statsBy !== 'hand' && (!sheet.stats || sheet.statsFrom !== statsKey)) {
+      // Read from the persona's own words, re-read when they change.
+      // A hand-edited value (statsBy: 'hand') is never overwritten.
+      sheet.stats = RP.statsFor({ id: RP.PLAYER_ID, name: name, description: [persona.voice, persona.look, persona.notes].filter(Boolean).join(' ') });
+      sheet.statsFrom = statsKey;
+    }
     return sheet;
   };
 
@@ -1841,6 +1988,11 @@
         sheet.items[at].qty += 1;
         return sheet.name + ' now has ' + sheet.items[at].qty + ' × ' + item.name;
       }
+      // A pack is its slots. A full one refuses, on the record — the model
+      // reads the refusal like any other change line and plays it.
+      if (sheet.slots && sheet.items.length >= sheet.slots) {
+        return sheet.name + '\u2019s pack is full (' + sheet.slots + ' slots) — ' + item.name + ' has nowhere to go';
+      }
       sheet.items.push(item);
       return sheet.name + ' picks up ' + item.name + (item.note ? ' (' + item.note + ')' : '');
     }
@@ -1883,6 +2035,7 @@
       var bits = [];
       if (s.hp) bits.push('HP ' + s.hp.value + '/' + s.hp.max + (s.hp.value === 0 ? ' (down)' : s.hp.value <= s.hp.max * 0.3 ? ' (badly hurt)' : ''));
       if (s.mp) bits.push('MP ' + s.mp.value + '/' + s.mp.max);
+      if (s.stats) bits.push(RP.statLine(s.stats));
       Object.keys(s.flags || {}).forEach(function (f) {
         var cond = s.flags[f] && typeof s.flags[f] === 'object' ? s.flags[f] : { note: '', turns: 0 };
         var word = f.replace(/_/g, ' ');
@@ -1910,7 +2063,10 @@
       return '- ' + s.name + (s.player ? ' (THE PLAYER)' : '') + ': ' + (bits.join(' · ') || 'unharmed, nothing to declare');
     }).join('\n');
     var out = 'CHARACTER STATE — this is true right now, play it. They may only use what is listed here, and a\n' +
-      'condition with a cost beside it is taking that off them every turn it lasts.\n' + body;
+      'condition with a cost beside it is taking that off them every turn it lasts. Reach for the kit only when\n' +
+      'the moment calls for it — never inventory it in prose — and nothing joins a sheet that the scene did not\n' +
+      'visibly put there. ⚔🧠🗣🍀 are might, wits, sway and luck, 0–3: they lean on the dice, so play the 0s\n' +
+      'and the 3s, do not recite them.\n' + body;
     if (active.length) {
       out += '\nCONDITIONS IN PLAY — these are not flavour. Each one must shape what its bearer does this turn:\n' +
         active.slice(0, 8).map(function (l) { return '- ' + l; }).join('\n');
@@ -1966,6 +2122,53 @@
     return 'NAMED JUST NOW — the latest turn speaks of things that are really on the sheets\n' +
       hits.slice(0, 6).join('\n') +
       '\nTreat them exactly as filed: the note is true, the count is real, and nothing not listed exists to be used.';
+  };
+
+  /* ---- the thin-air check: you cannot just pull out a bazooka ----
+   * A local scan of the player's own words, no model call. Claiming a
+   * thing that IS on the sheet takes it in hand; claiming a thing that
+   * is not fires once — the dice turn against the bluff and the model
+   * gets a one-off block telling it to play the empty hand. */
+
+  // Strong verbs claim ownership on their own; weak verbs only with "my".
+  var DRAW_RE = /\b(pull(?:s|ed)? (?:out|free)|draw(?:s)?|unsheathe(?:s)?|unholster(?:s)?|whip(?:s)? out|produce(?:s)?|brandish(?:es)?|wield(?:s)?|pull(?:s)? from my (?:pack|bag|belt|coat|pocket))\s+(?:my|the|a|an|his|her|their)?\s*([a-z0-9'\u2019\- ]{2,40}?)(?=[.,!?;:]|$|\s+(?:and|at|on|to|into|from|with|before|across)\b)/i;
+  var USE_RE = /\b(use(?:s)?|grab(?:s)?|take(?:s)? out|raise(?:s)?|aim(?:s)?|fire(?:s)?|shoot(?:s)?|swing(?:s)?|throw(?:s)?|ready|readies|level(?:s)?)\s+my\s+([a-z0-9'\u2019\- ]{2,40}?)(?=[.,!?;:]|$|\s+(?:and|at|on|to|into|from|with|before|across)\b)/i;
+  // Things nobody carries: reaching for these is scenery, not a claim.
+  var NOT_KIT = /\b(door|doors|window|curtain|lever|handle|rail|railing|stairs|chair|table|desk|wall|gate|bell|rope bridge|breath|voice|eyes?|hands?|arms?|fists?|feet|foot|shoulder|weight|nerve|courage|thoughts?|memory|words?|chance|moment|attention)\b/i;
+
+  /** What the player just claimed to hold. Returns null (no claim),
+   *  { kind: 'have', sheet, item } (it is on their sheet — take it in
+   *  hand), or { kind: 'conjured', claim } (it came out of thin air). */
+  RP.conjureCheck = function (room, text) {
+    var you = (room && room.states && room.states[RP.PLAYER_ID]) ||
+      (room && room.youPlay && room.states ? room.states[room.youPlay] : null);
+    if (!you) return null;
+    var hit = DRAW_RE.exec(String(text || '')) || USE_RE.exec(String(text || ''));
+    if (!hit) return null;
+    var claim = hit[2].trim().replace(/^(own|trusty|old|good|new|little|big)\s+/i, '');
+    if (claim.length < 3 || NOT_KIT.test(claim)) return null;
+    var kit = (you.items || []).map(RP.normItem);
+    var claimLow = ' ' + claim.toLowerCase() + ' ';
+    var owned = kit.filter(function (i) {
+      var name = i.name.toLowerCase();
+      if (claimLow.indexOf(' ' + name + ' ') >= 0 || name.indexOf(claim.toLowerCase()) >= 0) return true;
+      // Any solid word shared between the claim and the item name counts:
+      // "the brass key" finds "a brass key | bent".
+      return name.split(/[^a-z0-9]+/).some(function (w) {
+        return w.length >= 3 && SMALL_WORDS.indexOf(' ' + w + ' ') < 0 && claimLow.indexOf(' ' + w + ' ') >= 0;
+      });
+    })[0];
+    if (owned) return { kind: 'have', sheet: you, item: owned, claim: claim };
+    return { kind: 'conjured', claim: clip(claim, 40) };
+  };
+
+  /** The one-off block a conjured claim earns. Costs nothing until it fires. */
+  RP.conjureBlock = function (claim) {
+    if (!claim) return '';
+    return 'OUT OF THIN AIR — the player claims \u201c' + claim + '\u201d; nothing like it is on their sheet.\n' +
+      'They do not have it. If the scene has visibly put one within their reach, hand it to them on the record\n' +
+      'with [[ITEM: \u2026]] and let it work. Otherwise the claim fails inside the fiction — an empty hand, a bluff\n' +
+      'called, a reach for something that is not there. Play it, do not scold it.';
   };
 
   /* ---- stage directions: how the model changes the world ---- */
@@ -2226,7 +2429,7 @@
         made.look = d.look;          // no portrait exists; the words are it
         made.invented = true;
         room.cast.push(made);
-        room.states[made.id] = RP.blankSheet(made, room.statePreset);
+        room.states[made.id] = RP.outfit(room, made, RP.blankSheet(made, room.statePreset));
         state.newChars = (state.newChars || []).filter(function (c) { return c.id !== made.id; });
         state.newChars.unshift(made);
         state.newChars = state.newChars.slice(0, 80);
@@ -2255,7 +2458,7 @@
         if (find(d.name)) return;
         var found = (resolve && resolve(d.name)) || RP.normChar({ name: d.name, title: 'Walked into the scene', summary: d.reason });
         room.cast.push(RP.normChar(found));
-        room.states[found.id] = RP.blankSheet(found, room.statePreset);
+        room.states[found.id] = RP.outfit(room, found, RP.blankSheet(found, room.statePreset));
         entered.push(found);
         lines.push(found.name + ' enters — ' + (d.reason || 'the scene called for them'));
         RP.logEvent(state, {
@@ -3710,6 +3913,8 @@
       if (sheets) parts.push(sheets);
       var named = RP.mentionBlock(room, opts.mentionText || '');
       if (named) parts.push(named);
+      var thinAir = RP.conjureBlock(opts.conjured);
+      if (thinAir) parts.push(thinAir);
       parts.push(RP.DIRECTIVES);
     }
     var fate = RP.fateBlock(opts.fate);
@@ -5196,10 +5401,40 @@
       weights.setback += shift * 3;
       weights.wrench += shift * 2;
     }
+    // The player's own numbers lean on the dice — this is the one place
+    // the pseudo-stats are spent, so the prompt never has to argue them.
+    var statTag = '';
+    var you = (room.states || {})[RP.PLAYER_ID] || (room.youPlay ? (room.states || {})[room.youPlay] : null);
+    var stat = opts.text ? RP.actionStat(opts.text) : '';
+    if (you && you.stats && stat) {
+      var score = Number(you.stats[stat] || 0);
+      var lean = (score - 1) * 1.4;           // 0 → against, 1 → neutral, 3 → in favour
+      if (lean > 0) {
+        weights.triumph += lean * 1.5;
+        weights.success += lean * 3;
+        weights.setback = Math.max(1, weights.setback - lean * 2);
+        weights.wrench = Math.max(1, weights.wrench - lean);
+      } else if (lean < 0) {
+        var drop = -lean;
+        weights.triumph = Math.max(1, weights.triumph - drop * 1.5);
+        weights.success = Math.max(2, weights.success - drop * 3);
+        weights.setback += drop * 2;
+        weights.wrench += drop;
+      }
+      statTag = ' · ' + RP.STAT_ICONS[stat] + ' ' + stat + ' ' + score;
+    }
+    // Claiming a bazooka you do not have is a bluff, and the dice know it.
+    if (opts.conjured) {
+      weights.triumph = Math.max(1, weights.triumph - 4);
+      weights.success = Math.max(2, weights.success - 8);
+      weights.setback += 8;
+      weights.refusal += 6;
+      statTag += ' · 🚫 out of thin air';
+    }
     var roll = opts.roll === undefined ? Math.random() : opts.roll;
     var key = opts.force || pickWeighted(weights, roll);
     var fate = RP.FATE[key];
-    return { key: key, label: fate.label, pill: fate.pill, dir: fate.dir, level: level, pressure: pressure };
+    return { key: key, label: fate.label, pill: fate.pill + statTag, dir: fate.dir, level: level, pressure: pressure, stat: stat, statTag: statTag };
   };
 
   /** What the model is told about the roll. It is written as an order, not a
@@ -5442,6 +5677,8 @@
       if (sheets) parts.push(sheets);
       var named = RP.mentionBlock(room, opts.mentionText || '');
       if (named) parts.push(named);
+      var thinAir = RP.conjureBlock(opts.conjured);
+      if (thinAir) parts.push(thinAir);
       parts.push(RP.DIRECTIVES);
     }
     var fateBlock = RP.fateBlock(opts.fate);

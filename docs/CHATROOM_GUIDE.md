@@ -1069,7 +1069,28 @@ and the model can set one itself:
 
 The sheet the model reads lists them the same way — *holding 🗝 a brass key ·
 carrying 📄 a worn notepad; 🏮 a lantern ×2* — with the standing rule that
-**they may only use what is on the sheet**.
+**they may only use what is on the sheet**, and the standing manner that they
+reach for it **only when the moment calls** — the kit is never inventoried in
+prose.
+
+### 👘 The wardrobe — the profile decides the kit
+
+A character whose setup names no kit does not walk in empty-handed: the
+filed record dresses them. `RP.kitFor` reads the title, status, summary and
+description the same way `roleFor` reads behaviour — a soldier draws from
+the soldier bucket, an archivist from the records bucket — with a
+hash-stable pick inside each bucket, so two soldiers carry different blades
+but the same character carries the same kit in every browser. Two to four
+things, one always a pocket item with no power in it. **No model call is
+spent on any of this.** A hand-written setup kit always wins, and
+`kit: 'off'` on a room turns the wardrobe off entirely.
+
+The profile also sizes the pack: `RP.packSizeFor` gives 6 slots by default,
+more to merchants and couriers, fewer to nobles and none-to-speak-of to
+ghosts and beasts (3), twelve to you. **A full pack refuses** — `[[ITEM: +]]`
+into a full pack comes back as *"Grix's pack is full (6 slots) — the crown
+has nowhere to go"*, on the record, and the model plays the refusal like any
+other change line. Slots are editable per sheet.
 
 ### 🧍 Your pack
 
@@ -1092,6 +1113,42 @@ give him the brass key"*, *"how bad is the bleeding?"* — the prompt gets a
 in hand or stowed, the count, the note, the turns a condition has left. The
 model is told to treat them exactly as filed rather than inventing a second
 key. Pure logic: `RP.mentionBlock(room, text)`.
+
+### 🚫 Out of thin air — you cannot just pull out a bazooka
+
+When your turn *claims* a thing — strong draw verbs (*pull out, draw,
+unsheathe, brandish, wield…*) with any article, weak verbs (*use, grab,
+fire, swing…*) only with *my* — `RP.conjureCheck` looks at your own sheet,
+locally, before anything is sent:
+
+- **It is there** → it is quietly taken in hand, with a pill on your turn
+  (*🗝 a brass key — on your sheet, in hand*).
+- **It is not** → the pill says so (*🚫 "a bazooka" is not on your sheet —
+  the world will answer*), the fate roll turns against the bluff, and the
+  model gets a **one-off** `OUT OF THIN AIR` block: if the scene has
+  visibly put one within reach, hand it over on the record with
+  `[[ITEM: …]]`; otherwise the claim fails *inside the fiction* — an empty
+  hand, a bluff called — played, not scolded.
+
+Scenery is not policed (*grab the railing*, *use the door* pass), the block
+costs zero prompt space until it fires, and it fires once per claim.
+
+### 🎲 Pseudo-stats — four numbers that lean on the dice
+
+Every sheet carries **⚔ might, 🧠 wits, 🗣 sway, 🍀 luck** (0 poor – 3
+sharp), read out of the filed record by `RP.statsFor` — same regex-plus-hash
+trick as the wardrobe, so they are stable, free, and *"a nervous scribe"*
+really does lose a point of sway. Yours come from the persona's own words
+and re-derive when you rewrite it; a hand-edited value (sheet editor, `2 1
+1 0`) is never re-derived.
+
+They are spent in exactly **one place**: the fate roll. `RP.actionStat`
+reads your attempt's wording — *smash* leans on might, *persuade* on sway,
+*decipher* on wits, *sneak* on luck — and shifts the odds bands by the
+score, shown on the roll pill (*⚄ It works · ⚔ might 2*). The prompt only
+ever carries the fourteen-character chip line per sheet, with the order to
+**play the 0s and the 3s, not recite them** — accuracy without bloat, since
+the verdict the stats produced already reaches the model as the fate order.
 
 ## 🩸 Conditions that bite
 
