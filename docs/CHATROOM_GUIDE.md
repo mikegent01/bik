@@ -641,9 +641,14 @@ reply length** sets the dial, and it goes into the prompt *and* into
 
 | | | |
 |---|---|---|
-| **Snappy** (default) | 25–60 words | one or two beats, no scene-setting, no weather |
-| **Normal** | 60–120 words | one moment, played properly |
-| **Rich** | 150–260 words | room to breathe, still no padding |
+| **Snappy** (default) | **2–4 sentences** | one or two beats, no scene-setting, no weather |
+| **Normal** | **4–7 sentences** | one moment, played properly |
+| **Rich** | **8–14 sentences** | two or three short paragraphs |
+
+Sentences, not words: a count a small model can actually hold while it
+writes. The token cap is a **safety net** (420 / 700 / 1,200), deliberately
+larger than the band needs, so the limit is never the thing that ends a
+turn.
 
 **The world gets one band more room than the characters** — describing a
 place is the one job that needs the words, and dialogue is the job that does
@@ -655,10 +660,10 @@ not.
 a low rasp that barely carries past your own face: \"The patterns are"*.
 Three things now stop that:
 
-1. **Every length band ends with an instruction to land it** — *"FINISH YOUR
-   SENTENCES. Land the turn on a full stop — if you are near the length, wrap
-   up early rather than trailing off. Never end on a comma, a conjunction or
-   an open quotation mark."*
+1. **Every length band ends with an instruction to land it** — *"THE LAST
+   SENTENCE MUST BE A WHOLE SENTENCE. Count as you go, and when you reach the
+   last one, finish it and stop… it is better to write one sentence fewer and
+   land it."*
 2. **The page notices.** `RP.looksTruncated` flags a reply that ends without
    terminal punctuation, on a comma or conjunction, or with an odd number of
    quote marks — somebody is still speaking. When it fires, the model is
@@ -668,8 +673,9 @@ Three things now stop that:
 3. **Last resort:** if it still trails off, `RP.trimDangling` cuts back to
    the last full stop, so a dangling fragment never reaches the page.
 
-The bands also have more room to land in — snappy 260 tokens, normal 420,
-rich 780 — and a continuation gets the same budget again.
+The caps are generous on purpose — 420 / 700 / 1,200 tokens against bands of
+2–4, 4–7 and 8–14 sentences — and up to **three** continuations are allowed,
+the last one asking for "one or two sentences at most" to close it off.
 
 ## ◍ The Director — who narrates, and how
 

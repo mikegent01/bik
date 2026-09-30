@@ -2888,24 +2888,31 @@
 
   RP.LENGTHS = {
     snappy: {
-      name: 'Snappy', words: '25 to 60 words', tokens: 260,
-      dir: 'Keep it SHORT: 25 to 60 words, one or two beats of action or speech and nothing else. No scene-setting, ' +
-        'no weather, no summarising how anyone feels about it. If there is nothing to add, say one line and stop.',
+      name: 'Snappy', words: '2 to 4 sentences', sentences: [2, 4], tokens: 420,
+      dir: 'Write 2 to 4 SENTENCES. Count them. One or two beats of action or speech and nothing else — no ' +
+        'scene-setting, no weather, no summarising how anyone feels about it.',
     },
     normal: {
-      name: 'Normal', words: '60 to 120 words', tokens: 420,
-      dir: 'Keep it tight: 60 to 120 words. One moment, played properly. Cut anything that is only atmosphere.',
+      name: 'Normal', words: '4 to 7 sentences', sentences: [4, 7], tokens: 700,
+      dir: 'Write 4 to 7 SENTENCES. Count them. One moment, played properly. Cut anything that is only atmosphere.',
     },
     rich: {
-      name: 'Rich', words: '150 to 260 words', tokens: 780,
-      dir: 'You have room: 150 to 260 words. Still no padding — detail that does something, not description for its ' +
-        'own sake.',
+      name: 'Rich', words: '8 to 14 sentences', sentences: [8, 14], tokens: 1200,
+      dir: 'Write 8 to 14 SENTENCES — two or three short paragraphs. Count them, and stop at the end of a sentence. ' +
+        'Detail that does something, not description for its own sake.',
     },
   };
 
   /** Did the model run out of room rather than finish? A reply that ends
    *  without terminal punctuation, inside an open quote, or on a comma or a
    *  conjunction was cut off, not concluded. */
+  /** How many sentences a turn actually came back with. */
+  RP.sentenceCount = function (text) {
+    return String(text || '').split(/[.!?…]+[\s"”']*/).filter(function (part) {
+      return part.trim().length > 1;
+    }).length;
+  };
+
   RP.looksTruncated = function (text) {
     var t = String(text || '').trim();
     if (!t) return false;
@@ -2961,8 +2968,9 @@
     return {
       key: keys[at], tokens: band.tokens,
       text: 'LENGTH\n' + band.dir +
-        '\nFINISH YOUR SENTENCES. Land the turn on a full stop — if you are near the length, wrap up early rather ' +
-        'than trailing off mid-line. Never end on a comma, a conjunction or an open quotation mark.',
+        '\nTHE LAST SENTENCE MUST BE A WHOLE SENTENCE. Count as you go, and when you reach the last one, finish it ' +
+        'and stop. Never end on a comma, a conjunction, or an open quotation mark. A turn that trails off ' +
+        'mid-clause is a broken turn — it is better to write one sentence fewer and land it.',
     };
   };
 

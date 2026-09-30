@@ -1275,9 +1275,10 @@ check('smart: an already-filed chat plans nothing', (() => {
 })());
 
 // ---------- how long a turn should be ----------
-check('length: three bands, and snappy is genuinely short',
+check('length: three bands, counted in sentences, and snappy is genuinely short',
   RP.LENGTHS.snappy.tokens < RP.LENGTHS.normal.tokens && RP.LENGTHS.normal.tokens < RP.LENGTHS.rich.tokens &&
-  /25 to 60 words/.test(RP.LENGTHS.snappy.dir) && /No scene-setting/i.test(RP.LENGTHS.snappy.dir));
+  /2 to 4 SENTENCES/.test(RP.LENGTHS.snappy.dir) && /no scene-setting/i.test(RP.LENGTHS.snappy.dir) &&
+  RP.LENGTHS.snappy.sentences[1] === 4 && RP.LENGTHS.rich.sentences[0] === 8);
 check('length: the world gets one band more room than the characters', (() => {
   const forChar = RP.lengthBlock('snappy', false);
   const forWorld = RP.lengthBlock('snappy', true);
@@ -1287,8 +1288,14 @@ check('length: rich does not overflow past the top band', RP.lengthBlock('rich',
 check('length: the instruction is in every character prompt', (() => {
   const short = RP.blankState();
   const room = RP.newRoom([sans, cutters], {});
-  return RP.systemFor(short, room, sans).includes('LENGTH') &&
-    RP.systemFor(short, room, sans).includes('25 to 60 words');
+  const prompt = RP.systemFor(short, room, sans);
+  return prompt.includes('LENGTH') && prompt.includes('2 to 4 SENTENCES');
+})());
+check('length: sentences are counted, so the page can tell when it overran',
+  RP.sentenceCount('One. Two! Three? Four') === 4 && RP.sentenceCount('') === 0);
+check('length: the cap is a safety net, not the thing that ends a turn', (() => {
+  // Room for the whole band plus a wrap-up: ~14 sentences fits inside 1200.
+  return RP.LENGTHS.rich.tokens >= 1000 && RP.LENGTHS.snappy.tokens >= 400;
 })());
 
 // ---------- the world takes a turn when nobody else can ----------
@@ -1319,7 +1326,7 @@ check('world: it is told to leave something changed and not to ask what you do',
   /Something should be different by the end of the turn/.test(worldSystem) && /never ask/i.test(worldSystem));
 check('world: it still gets the scene, the state sheets and the stage directions',
   worldSystem.includes('THE SCENE') && worldSystem.includes('CHARACTER STATE') && worldSystem.includes('STAGE DIRECTIONS'));
-check('world: and its own length band', worldSystem.includes('LENGTH') && worldSystem.includes('150 to 260 words'));
+check('world: and its own length band', worldSystem.includes('LENGTH') && worldSystem.includes('8 to 14 SENTENCES'));
 check('director: WORLD is an answer it may give', (() => {
   const group = RP.newRoom([sans, cutters, rebel], {});
   group.messages.push({ id: 'w1', role: 'user', text: 'I wait.', at: 1 });
@@ -1522,7 +1529,7 @@ check('narration: it counts as a played turn', RP.counter(dirRoom) === 2);
 check('narrator: the terse voice is two sentences, the Director gets room', (() => {
   const terse = { settings: { narrator: 'terse' } };
   return /Two sentences at most/.test(RP.worldPrompt(terse, dirRoom, {})) &&
-    /150 to 260 words/.test(dirPrompt);
+    /8 to 14 SENTENCES/.test(dirPrompt);
 })());
 check('narrator: an unknown voice falls back to the Director',
   RP.narrator({ settings: { narrator: 'nonsense' } }) === 'director');
@@ -1608,10 +1615,11 @@ check('nudge: the model is told where it stopped and not to start again', (() =>
 })());
 check('trim: as a last resort it cuts back to the last full stop',
   RP.trimDangling('He crossed the yard. He put his hand on the latch and then the') === 'He crossed the yard.');
-check('length: every band now demands a landing, and has room for one', (() => {
+check('length: every band demands a whole last sentence, and has room for one', (() => {
   const band = RP.lengthBlock('rich', false);
-  return /FINISH YOUR SENTENCES/.test(band.text) && /wrap up early rather than trailing off/.test(band.text) &&
-    band.tokens >= 700 && RP.lengthBlock('snappy').tokens >= 240;
+  return /THE LAST SENTENCE MUST BE A WHOLE SENTENCE/.test(band.text) &&
+    /better to write one sentence fewer and land it/.test(band.text) &&
+    band.tokens >= 1000 && RP.lengthBlock('snappy').tokens >= 400;
 })());
 
 // ---------- generated pages are in sync with these sources ----------

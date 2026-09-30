@@ -3054,7 +3054,7 @@
     function complete(sys, msgs, tries) {
       return callModel(sys, msgs, { tokens: tokensFor(worldTurn) }).then(function (text) {
         var cleaned = RP.stripSpeaker(text, speaker.name).trim();
-        if (!RP.looksTruncated(cleaned) || (tries || 0) >= 2) return cleaned;
+        if (!RP.looksTruncated(cleaned) || (tries || 0) >= 3) return cleaned;
         return callModel(sys, msgs.concat([
           { role: 'assistant', content: cleaned },
           { role: 'user', content: RP.continueNudge(cleaned) },
@@ -3064,9 +3064,14 @@
           })
           .catch(function () { return cleaned; })
           .then(function (joined) {
-            return RP.looksTruncated(joined) && (tries || 0) < 1
-              ? complete(sys, msgs, (tries || 0) + 1).then(function (more) { return RP.stitch(joined, more); })
-              : joined;
+            if (!RP.looksTruncated(joined) || (tries || 0) >= 2) return joined;
+            // Still hanging: ask once more, for the ending only.
+            return callModel(sys, msgs.concat([
+              { role: 'assistant', content: joined },
+              { role: 'user', content: RP.continueNudge(joined) + ' One or two sentences at most.' },
+            ]), { tokens: 200 })
+              .then(function (rest) { return RP.stitch(joined, RP.stripSpeaker(rest, speaker.name).trim()); })
+              .catch(function () { return joined; });
           });
       });
     }
