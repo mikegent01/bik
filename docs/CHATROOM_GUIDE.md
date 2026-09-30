@@ -758,6 +758,50 @@ It carries the same scene, lore book, citations, script, state sheets and
 stage directions a character gets — so the world can wound somebody, walk
 someone in, or fire a beat.
 
+## Keeping a moment private
+
+Three things stop a quiet turn turning into a town meeting.
+
+**It reads the room.** The sequencer is told: *"A private moment is not an
+invitation. If the player is reading to themselves, muttering, thinking,
+grieving, hiding, or plainly alone with something, the answer is NOBODY or
+WORLD — do not have somebody materialise to comment on it. Only stage a
+character who is ALREADY in the scene and close enough to hear; nobody walks
+in from off-stage to deliver a line."* Turns containing *to myself*, *under
+my breath*, *quietly*, *without looking up*, *mutter*, *whisper* are flagged
+private automatically; *shout*, *call out*, *turn to*, *announce* are flagged
+open.
+
+**You can pin it.** The header button cycles **👂 Reads the room → 🔒 Alone →
+🔓 Open**. Pinned private means nobody but the narrator speaks until you
+unpin it.
+
+**Presence is real.** Each sheet in the party bar has a ◉ / ◌ dot: somebody
+marked absent is in the cast but *not in the scene*, and cannot be staged,
+rotated to, or made to answer. `[[EXIT:]]` sets it, the dot toggles it, and
+`[[ENTER:]]` brings them back.
+
+## Talking to the model, not to the scene
+
+Anything in **((double brackets))**, after **`/ooc`**, or in `[[OOC: …]]` is
+stripped out of what your character said and handed to the model as an
+instruction:
+
+```
+I keep reading. ((no new characters — keep this between me and the page))
+```
+
+The prose keeps *"I keep reading."*, and the instruction goes into the prompt
+under **"INSTRUCTIONS FROM THE PLAYER (out of character) — these outrank
+everything else in this prompt. They are not spoken aloud, nobody in the
+scene hears them, and you never refer to them."** It shows on your turn as a
+small `(( … ))` chip so you can see what you asked for.
+
+**📝 Special instructions** in the character panel is the standing version:
+one note for this chat, one for every chat — *"Luigi is lying about the
+tape"*, *"short replies tonight"*, *"no new characters"*. Both ride with
+every turn and are never trimmed to fit.
+
 ## The sequencer — you write, the scene answers, the scene stops
 
 A director that picks one speaker at a time turns a six-hander into a queue.

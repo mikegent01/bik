@@ -1622,6 +1622,62 @@ check('length: every band demands a whole last sentence, and has room for one', 
     band.tokens >= 1000 && RP.lengthBlock('snappy').tokens >= 400;
 })());
 
+// ---------- privacy, presence, and talking to the model directly ----------
+const quietRoom = RP.newRoom([sans, cutters, rebel], { youPlay: 'sans' });
+check('privacy: a quiet turn reads as private, a loud one does not',
+  RP.privacyHint('I do not look up, I just read to myself') === 'private' &&
+  RP.privacyHint('I mutter it under my breath') === 'private' &&
+  RP.privacyHint('I turn to Wario and shout') === 'open' &&
+  RP.privacyHint('I walk over to the table') === '');
+check('privacy: the room can be pinned either way, and the pin wins',
+  RP.isPrivate({ privacy: 'private' }, 'I shout across the yard') === true &&
+  RP.isPrivate({ privacy: 'open' }, 'I whisper to myself') === false &&
+  RP.isPrivate({}, 'I whisper to myself') === true);
+check('sequencer: it is told to read the room and not to import a crowd', (() => {
+  quietRoom.messages.push({ id: 'q1', role: 'user', text: 'I read the page to myself.', at: 1 });
+  const prompt = RP.sequencePrompt(quietRoom, RP.blankState(), {});
+  return /READ THE ROOM/.test(prompt) && /A private moment is not an invitation/.test(prompt) &&
+    /nobody walks in from off-stage/.test(prompt) &&
+    /This turn reads as private/.test(prompt);
+})());
+
+check('presence: somebody written out of the scene cannot be staged', (() => {
+  RP.ensureSheets(quietRoom);
+  RP.setPresent(quietRoom, 'timber_gang', false);
+  return RP.presentCast(quietRoom).length === 2 &&
+    !RP.speakableCast(quietRoom).some(c => c.id === 'timber_gang') &&
+    RP.speakableCast(quietRoom).length === 1;
+})());
+check('presence: and can be brought back', (() => {
+  RP.setPresent(quietRoom, 'timber_gang', true);
+  return RP.speakableCast(quietRoom).length === 2;
+})());
+check('presence: the character you play is never staged either',
+  !RP.speakableCast(quietRoom).some(c => c.id === 'sans'));
+
+check('ooc: ((brackets)), /ooc and [[OOC:]] are pulled out of the prose', (() => {
+  const got = RP.parseOoc('I keep reading. ((no new characters)) \n/ooc keep it short\n[[OOC: Luigi is lying]]');
+  return got.clean === 'I keep reading.' && got.notes.length === 3 &&
+    got.notes[0] === 'no new characters' && got.notes[2] === 'Luigi is lying';
+})());
+check('ooc: a turn with no brackets is left exactly as written',
+  RP.parseOoc('I read the page aloud.').clean === 'I read the page aloud.' &&
+  RP.parseOoc('I read the page aloud.').notes.length === 0);
+check('ooc: instructions outrank the prompt and are never spoken', (() => {
+  const block = RP.oocBlock({ settings: { note: 'never kill anybody off-screen' } },
+    { note: 'this scene is a funeral' }, ['no new characters']);
+  return /these outrank everything else/.test(block) && /nobody in the scene hears them/.test(block) &&
+    block.includes('never kill anybody off-screen') && block.includes('funeral') &&
+    block.includes('no new characters');
+})());
+check('ooc: with nothing said, nothing is added', RP.oocBlock(RP.blankState(), {}, []) === '');
+check('ooc: it reaches both the character prompt and the narrator', (() => {
+  const st = RP.blankState();
+  const room = RP.newRoom([sans], { note: 'keep this private' });
+  return RP.systemFor(st, room, sans, { notes: ['short please'] }).includes('keep this private') &&
+    RP.worldSystem(st, room, { notes: ['short please'] }).includes('short please');
+})());
+
 // ---------- generated pages are in sync with these sources ----------
 let built = true;
 try {

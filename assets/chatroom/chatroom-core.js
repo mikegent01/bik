@@ -360,6 +360,8 @@
       // global setting".
       contextLimit: Number(opts.contextLimit || 0),
       youPlay: String(opts.youPlay || ''),      // the character the reader plays
+      privacy: String(opts.privacy || ''),      // '' (read the turn) | private | open
+      note: String(opts.note || ''),            // standing instructions for this chat
       sequelOf: String(opts.sequelOf || ''),
       canon: String(opts.canon || ''),
       sequelCount: 0,
@@ -3093,7 +3095,7 @@
   /** Everyone the model may speak as — the player's own character is not
    *  on this list. */
   RP.speakableCast = function (room) {
-    return (room.cast || []).filter(function (c) { return c.id !== (room && room.youPlay); });
+    return RP.presentCast(room).filter(function (c) { return c.id !== (room && room.youPlay); });
   };
 
   RP.markPlayer = function (room, charId) {
@@ -3164,6 +3166,8 @@
     }
     var fate = RP.fateBlock(opts.fate);
     if (fate) parts.push(fate);
+    var worldOoc = RP.oocBlock(state, room, opts.notes);
+    if (worldOoc) parts.push(worldOoc);
     // The narrator carries its own length: the Director needs room, the
     // room itself needs two sentences.
     parts.push(RP.lengthBlock(RP.NARRATORS[RP.narrator(state)].length, false).text);
@@ -3186,6 +3190,95 @@
   };
 
 
+
+  /* ------------------------------------------------------------------ *
+   * privacy, presence, and talking to the model out of character
+   *
+   * A quiet moment is not an invitation for three people to walk in. Who
+   * can speak is decided by who is actually PRESENT, and by whether the
+   * scene is private — and the player can say so directly, in brackets,
+   * without breaking the fiction on the page.
+   * ------------------------------------------------------------------ */
+
+  /** Out-of-character instructions in a turn: ((like this)), /ooc like
+   *  this, or [[OOC: like this]]. They are pulled out of the prose and
+   *  handed to the model as orders, not as something a character said. */
+  RP.parseOoc = function (text) {
+    var notes = [];
+    // One pass, so the notes come back in the order they were written.
+    var clean = String(text || '').replace(
+      /\(\(([^)]*)\)\)|\[\[\s*OOC\s*:\s*([^\]]*)\]\]|^[ \t]*\/ooc[ \t]+(.*)$/gim,
+      function (all, a, b, c) {
+        notes.push(String(a || b || c || '').trim());
+        return '';
+      })
+      .replace(/[ \t]{2,}/g, ' ')
+      .replace(/\n{3,}/g, '\n\n')
+      .trim();
+    return { clean: clean, notes: notes.filter(Boolean).map(function (n) { return clip(n, 300); }) };
+  };
+
+  /** Everything the player has told the model directly: the standing note
+   *  for this chat, the global one, and anything said in brackets on this
+   *  turn. Never trimmed — instructions outrank reference material. */
+  RP.oocBlock = function (state, room, turnNotes) {
+    var lines = [];
+    var global = clip((state.settings && state.settings.note) || '', 400);
+    var here = clip((room && room.note) || '', 400);
+    if (global) lines.push(global);
+    if (here) lines.push(here);
+    (turnNotes || []).forEach(function (n) { lines.push(n); });
+    if (!lines.length) return '';
+    return [
+      'INSTRUCTIONS FROM THE PLAYER (out of character) — these outrank everything else in this prompt.',
+      'They are not spoken aloud, nobody in the scene hears them, and you never refer to them.',
+      lines.map(function (l) { return '- ' + l; }).join('\n'),
+    ].join('\n');
+  };
+
+  /* ---- presence: who is actually in the room ---- */
+
+  /** Cast members who have not been written out of the scene. */
+  RP.presentCast = function (room) {
+    var states = (room && room.states) || {};
+    return (room.cast || []).filter(function (c) {
+      var sheet = states[c.id];
+      return !sheet || sheet.present !== false;
+    });
+  };
+
+  RP.setPresent = function (room, charId, present) {
+    RP.ensureSheets(room);
+    var sheet = room.states[charId];
+    if (!sheet) return null;
+    sheet.present = present === undefined ? sheet.present === false : Boolean(present);
+    if (!sheet.present && room.next === charId) room.next = '';
+    room.updated = Date.now();
+    return sheet.present;
+  };
+
+  /* ---- privacy: a quiet moment stays quiet ---- */
+
+  var PRIVATE_RE = /\b(to myself|under my breath|quietly|silently|privately|alone|in my head|without looking up|do not look up|don'?t look up|mutter|whisper|think to myself)\b/i;
+  var PUBLIC_RE = /\b(shout|yell|call out|announce|says? to|ask(?:s|ed)? (?:him|her|them|everyone)|turn to|address)\b/i;
+
+  /** Does this turn read as private? Used to stop the sequencer walking
+   *  three people into somebody reading their own notes at midnight. */
+  RP.privacyHint = function (text) {
+    var t = String(text || '');
+    if (PUBLIC_RE.test(t)) return 'open';
+    if (PRIVATE_RE.test(t)) return 'private';
+    return '';
+  };
+
+  /** Is the scene closed to other voices right now? The room's own setting
+   *  wins; otherwise the turn decides. */
+  RP.isPrivate = function (room, text) {
+    if (room && room.privacy === 'private') return true;
+    if (room && room.privacy === 'open') return false;
+    return RP.privacyHint(text) === 'private';
+  };
+
   /* ------------------------------------------------------------------ *
    * the sequencer — you write, the scene answers, the scene stops
    *
@@ -3200,6 +3293,7 @@
   RP.sequencePrompt = function (room, state, opts) {
     opts = opts || {};
     var cast = RP.speakableCast(room);
+    var lastTurn = ((room.messages || []).filter(function (m) { return m.role === 'user'; }).pop() || {});
     var recent = RP.historyFor(room, 6).map(function (m) {
       return (m.role === 'user' ? 'PLAYER: ' : '') + clip(m.content, 300);
     }).join('\n');
@@ -3226,6 +3320,13 @@
       'Rules: only people who have a REASON to speak right now — being addressed, contradicted, threatened, or ' +
       'unable to let it stand. Silence is a choice; two people is usually plenty, and one is common. Never list the ' +
       'same person twice.',
+      '',
+      'READ THE ROOM. A private moment is not an invitation. If the player is reading to themselves, muttering, ' +
+      'thinking, grieving, hiding, or plainly alone with something, the answer is NOBODY or WORLD — do not have ' +
+      'somebody materialise to comment on it. Only stage a character who is ALREADY in the scene and close enough ' +
+      'to hear; nobody walks in from off-stage to deliver a line.',
+      RP.privacyHint(RP.textOf(lastTurn)) === 'private'
+        ? 'This turn reads as private. Unless somebody in the scene is being directly addressed, answer NOBODY.' : '',
     ].filter(Boolean).join('\n');
   };
 
@@ -4488,6 +4589,8 @@
     }
     var fateBlock = RP.fateBlock(opts.fate);
     if (fateBlock) parts.push(fateBlock);
+    var ooc = RP.oocBlock(state, room, opts.notes);
+    if (ooc) parts.push(ooc);
     parts.push(RP.lengthBlock((state.settings && state.settings.length) || 'snappy', false).text);
     return RP.fitPrompt(parts, opts.budget, protectedFrom);
   };

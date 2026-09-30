@@ -304,6 +304,10 @@ a { color: inherit; }
 .metastrip .roll { background: #f4efe2; border-color: #e0d3b0; color: #7a6320; font-weight: 600; }
 .metastrip .beat { background: #fbf3e4; border-color: #e6d2a8; color: #8a6a1e; }
 .metastrip .quiet { opacity: .7; }
+.metastrip .ooc { background: #eef1fd; border-color: #ccd5f7; color: #3b55c8; font-style: italic; }
+.statebar .here { position: absolute; top: 6px; right: 8px; font-size: 10px; color: var(--ok); cursor: pointer; }
+.statebar .sheet { position: relative; }
+.statebar .sheet:has(.here:not(.on)) { opacity: 1; }
 .metaline { max-width: 760px; margin: 0 auto 10px; display: flex; gap: 6px; justify-content: center; }
 .metaline span { background: var(--panel2); border: 1px solid var(--line); border-radius: 999px; padding: 2px 9px; font-size: 11px; color: #56565f; }
 
@@ -999,6 +1003,8 @@ window.CHATROOM_CONFIG = {
       // global setting".
       contextLimit: Number(opts.contextLimit || 0),
       youPlay: String(opts.youPlay || ''),      // the character the reader plays
+      privacy: String(opts.privacy || ''),      // '' (read the turn) | private | open
+      note: String(opts.note || ''),            // standing instructions for this chat
       sequelOf: String(opts.sequelOf || ''),
       canon: String(opts.canon || ''),
       sequelCount: 0,
@@ -3732,7 +3738,7 @@ window.CHATROOM_CONFIG = {
   /** Everyone the model may speak as — the player's own character is not
    *  on this list. */
   RP.speakableCast = function (room) {
-    return (room.cast || []).filter(function (c) { return c.id !== (room && room.youPlay); });
+    return RP.presentCast(room).filter(function (c) { return c.id !== (room && room.youPlay); });
   };
 
   RP.markPlayer = function (room, charId) {
@@ -3803,6 +3809,8 @@ window.CHATROOM_CONFIG = {
     }
     var fate = RP.fateBlock(opts.fate);
     if (fate) parts.push(fate);
+    var worldOoc = RP.oocBlock(state, room, opts.notes);
+    if (worldOoc) parts.push(worldOoc);
     // The narrator carries its own length: the Director needs room, the
     // room itself needs two sentences.
     parts.push(RP.lengthBlock(RP.NARRATORS[RP.narrator(state)].length, false).text);
@@ -3825,6 +3833,95 @@ window.CHATROOM_CONFIG = {
   };
 
 
+
+  /* ------------------------------------------------------------------ *
+   * privacy, presence, and talking to the model out of character
+   *
+   * A quiet moment is not an invitation for three people to walk in. Who
+   * can speak is decided by who is actually PRESENT, and by whether the
+   * scene is private — and the player can say so directly, in brackets,
+   * without breaking the fiction on the page.
+   * ------------------------------------------------------------------ */
+
+  /** Out-of-character instructions in a turn: ((like this)), /ooc like
+   *  this, or [[OOC: like this]]. They are pulled out of the prose and
+   *  handed to the model as orders, not as something a character said. */
+  RP.parseOoc = function (text) {
+    var notes = [];
+    // One pass, so the notes come back in the order they were written.
+    var clean = String(text || '').replace(
+      /\(\(([^)]*)\)\)|\[\[\s*OOC\s*:\s*([^\]]*)\]\]|^[ \t]*\/ooc[ \t]+(.*)$/gim,
+      function (all, a, b, c) {
+        notes.push(String(a || b || c || '').trim());
+        return '';
+      })
+      .replace(/[ \t]{2,}/g, ' ')
+      .replace(/\n{3,}/g, '\n\n')
+      .trim();
+    return { clean: clean, notes: notes.filter(Boolean).map(function (n) { return clip(n, 300); }) };
+  };
+
+  /** Everything the player has told the model directly: the standing note
+   *  for this chat, the global one, and anything said in brackets on this
+   *  turn. Never trimmed — instructions outrank reference material. */
+  RP.oocBlock = function (state, room, turnNotes) {
+    var lines = [];
+    var global = clip((state.settings && state.settings.note) || '', 400);
+    var here = clip((room && room.note) || '', 400);
+    if (global) lines.push(global);
+    if (here) lines.push(here);
+    (turnNotes || []).forEach(function (n) { lines.push(n); });
+    if (!lines.length) return '';
+    return [
+      'INSTRUCTIONS FROM THE PLAYER (out of character) — these outrank everything else in this prompt.',
+      'They are not spoken aloud, nobody in the scene hears them, and you never refer to them.',
+      lines.map(function (l) { return '- ' + l; }).join('\n'),
+    ].join('\n');
+  };
+
+  /* ---- presence: who is actually in the room ---- */
+
+  /** Cast members who have not been written out of the scene. */
+  RP.presentCast = function (room) {
+    var states = (room && room.states) || {};
+    return (room.cast || []).filter(function (c) {
+      var sheet = states[c.id];
+      return !sheet || sheet.present !== false;
+    });
+  };
+
+  RP.setPresent = function (room, charId, present) {
+    RP.ensureSheets(room);
+    var sheet = room.states[charId];
+    if (!sheet) return null;
+    sheet.present = present === undefined ? sheet.present === false : Boolean(present);
+    if (!sheet.present && room.next === charId) room.next = '';
+    room.updated = Date.now();
+    return sheet.present;
+  };
+
+  /* ---- privacy: a quiet moment stays quiet ---- */
+
+  var PRIVATE_RE = /\b(to myself|under my breath|quietly|silently|privately|alone|in my head|without looking up|do not look up|don'?t look up|mutter|whisper|think to myself)\b/i;
+  var PUBLIC_RE = /\b(shout|yell|call out|announce|says? to|ask(?:s|ed)? (?:him|her|them|everyone)|turn to|address)\b/i;
+
+  /** Does this turn read as private? Used to stop the sequencer walking
+   *  three people into somebody reading their own notes at midnight. */
+  RP.privacyHint = function (text) {
+    var t = String(text || '');
+    if (PUBLIC_RE.test(t)) return 'open';
+    if (PRIVATE_RE.test(t)) return 'private';
+    return '';
+  };
+
+  /** Is the scene closed to other voices right now? The room's own setting
+   *  wins; otherwise the turn decides. */
+  RP.isPrivate = function (room, text) {
+    if (room && room.privacy === 'private') return true;
+    if (room && room.privacy === 'open') return false;
+    return RP.privacyHint(text) === 'private';
+  };
+
   /* ------------------------------------------------------------------ *
    * the sequencer — you write, the scene answers, the scene stops
    *
@@ -3839,6 +3936,7 @@ window.CHATROOM_CONFIG = {
   RP.sequencePrompt = function (room, state, opts) {
     opts = opts || {};
     var cast = RP.speakableCast(room);
+    var lastTurn = ((room.messages || []).filter(function (m) { return m.role === 'user'; }).pop() || {});
     var recent = RP.historyFor(room, 6).map(function (m) {
       return (m.role === 'user' ? 'PLAYER: ' : '') + clip(m.content, 300);
     }).join('\n');
@@ -3865,6 +3963,13 @@ window.CHATROOM_CONFIG = {
       'Rules: only people who have a REASON to speak right now — being addressed, contradicted, threatened, or ' +
       'unable to let it stand. Silence is a choice; two people is usually plenty, and one is common. Never list the ' +
       'same person twice.',
+      '',
+      'READ THE ROOM. A private moment is not an invitation. If the player is reading to themselves, muttering, ' +
+      'thinking, grieving, hiding, or plainly alone with something, the answer is NOBODY or WORLD — do not have ' +
+      'somebody materialise to comment on it. Only stage a character who is ALREADY in the scene and close enough ' +
+      'to hear; nobody walks in from off-stage to deliver a line.',
+      RP.privacyHint(RP.textOf(lastTurn)) === 'private'
+        ? 'This turn reads as private. Unless somebody in the scene is being directly addressed, answer NOBODY.' : '',
     ].filter(Boolean).join('\n');
   };
 
@@ -5127,6 +5232,8 @@ window.CHATROOM_CONFIG = {
     }
     var fateBlock = RP.fateBlock(opts.fate);
     if (fateBlock) parts.push(fateBlock);
+    var ooc = RP.oocBlock(state, room, opts.notes);
+    if (ooc) parts.push(ooc);
     parts.push(RP.lengthBlock((state.settings && state.settings.length) || 'snappy', false).text);
     return RP.fitPrompt(parts, opts.budget, protectedFrom);
   };
@@ -7701,6 +7808,11 @@ window.CHATROOM_CONFIG = {
       '<span class="grow"></span>' +
       (r.kind === 'group' ? '<button class="pill" id="continueBtn">➤ Continue</button>' : '') +
       (r.mechanics === 'off' ? '' : '<button class="pill' + (showStates ? ' primary' : '') + '" id="statesBtn">🩺 Party</button>') +
+      '<button class="pill' + (r.privacy === 'private' ? ' primary' : '') + '" id="privacyBtn" ' +
+        'title="' + (r.privacy === 'private' ? 'Private: nobody else speaks until you open it again'
+          : r.privacy === 'open' ? 'Open: the scene may answer even in a quiet moment'
+          : 'Reading the room: quiet turns are left alone, loud ones are answered') + '">' +
+        (r.privacy === 'private' ? '🔒 Alone' : r.privacy === 'open' ? '🔓 Open' : '👂 Reads the room') + '</button>' +
       '<button class="pill" id="factsBtn" title="What is fixed in this scene — place, clothing, time">📍' +
         (Object.keys(r.facts || {}).length ? ' ' + Object.keys(r.facts || {}).length : '') + '</button>' +
       '<button class="pill" id="undoBtn" title="Undo the last turn (Ctrl+Z)"' +
@@ -7716,9 +7828,12 @@ window.CHATROOM_CONFIG = {
       sheetBar.hidden = !showStates || r.mechanics === 'off';
       sheetBar.innerHTML = !showStates ? '' : Object.keys(r.states || {}).map(function (id) {
         var sheet = r.states[id];
-        if (!sheet || sheet.present === false) return '';
+        if (!sheet) return '';
         var who = charOf(r, id);
         return '<button class="sheet" data-sheet="' + esc(id) + '" title="Edit state">' +
+          '<span class="here" data-here="' + esc(id) + '" title="' +
+          (sheet.present === false ? 'Not in the scene — click to bring them back' : 'In the scene — click to write them out') +
+          '">' + (sheet.present === false ? '◌' : '◉') + '</span>' +
           '<span class="nm">' + avatar(who, 22) + esc(sheet.name) + '</span>' +
           (sheet.hp ? bar('hp', sheet.hp) : '') + (sheet.mp ? bar('mp', sheet.mp) : '') +
           '<span class="chips">' + Object.keys(sheet.flags || {}).map(function (f) {
@@ -7772,6 +7887,11 @@ window.CHATROOM_CONFIG = {
         '<b>' + esc(who) + '</b>' + (mine ? '' : '<span class="badge">archive</span>') +
         (mine ? '' : '<button class="speak" data-speak="' + i + '" title="Read aloud">▶</button>') + '</div>' +
         '<div class="bubble">' + RP.md(RP.textOf(m)) + '</div>' +
+        ((m.ooc || []).length
+          ? '<div class="metastrip">' + m.ooc.map(function (n) {
+              return '<span class="ooc" title="Sent to the model, not spoken aloud">(( ' + esc(n) + ' ))</span>';
+            }).join('') + '</div>'
+          : '') +
         metaStrip(m) +
         (m.error ? '<div class="acts"><span>This notice stays out of the model’s context.</span></div>' :
           '<div class="acts">' + swipes +
@@ -7913,6 +8033,7 @@ window.CHATROOM_CONFIG = {
       menuItem('cpReplay', '🎭', 'Replay', 'Perspective') +
       menuItem('cpScript', '⏱', 'Script', r.beats && r.beats.length ? (r.autoBeats ? 'Auto' : 'Manual') : 'None') +
       menuItem('cpDirector', '🎬', 'Director', state.settings.director === 'off' ? 'Off' : 'On · max ' + (state.settings.maxChain || RP.MAX_CHAIN)) +
+      menuItem('cpNote', '📝', 'Special instructions', (r.note || state.settings.note) ? 'set' : 'none') +
       menuItem('cpTaste', '👍', 'What I like', RP.tasteState(state).likes.length + ' / ' + RP.tasteState(state).dislikes.length) +
       menuItem('cpImport', '📥', 'Import into this chat', 'story · card') +
       menuItem('cpCard', '📇', 'Character card', 'PNG · JSON') +
@@ -7936,6 +8057,13 @@ window.CHATROOM_CONFIG = {
   function wireChat() {
     var r = room();
     var on = function (id, fn) { var node = $(id); if (node) node.onclick = fn; };
+    on('privacyBtn', function () {
+      r.privacy = r.privacy === 'private' ? 'open' : r.privacy === 'open' ? '' : 'private';
+      save(); render();
+      toast(r.privacy === 'private' ? '🔒 Private — nobody else will speak until you open it.'
+        : r.privacy === 'open' ? '🔓 Open — the scene answers even when you are muttering.'
+        : '👂 Reading the room — quiet turns are left alone.');
+    });
     on('factsBtn', function () {
       var facts = r.facts || {};
       var keys = Object.keys(facts);
@@ -8098,7 +8226,19 @@ window.CHATROOM_CONFIG = {
     on('seqBtn', function () { openSequel(room()); });
     var bar1 = $('statebar');
     if (bar1) bar1.querySelectorAll('[data-sheet]').forEach(function (b) {
-      b.onclick = function () { editSheet(b.dataset.sheet); };
+      b.onclick = function (e) {
+        if (e.target && e.target.dataset && e.target.dataset.here) return;
+        editSheet(b.dataset.sheet);
+      };
+    });
+    if (bar1) bar1.querySelectorAll('[data-here]').forEach(function (b) {
+      b.onclick = function (e) {
+        e.stopPropagation();
+        var here = RP.setPresent(r, b.dataset.here, undefined);
+        save(); render();
+        toast(here ? charOf(r, b.dataset.here).name + ' is in the scene.'
+          : charOf(r, b.dataset.here).name + ' is not here — they will not speak until they are.');
+      };
     });
     on('panelBtn', function () { $('charpanel').classList.toggle('open'); });
     on('continueBtn', function () { generate(); });
@@ -8369,6 +8509,21 @@ window.CHATROOM_CONFIG = {
     }
     on('cpUp', function () { rateLast('up'); });
     on('cpDown', function () { rateLast('down'); });
+    on('cpNote', function () {
+      form('Special instructions', [
+        { k: 'note', label: 'For this chat', type: 'area', value: r.note || '' },
+        { k: 'global', label: 'For every chat', type: 'area', value: state.settings.note || '' },
+      ], {
+        note: 'Sent with every turn, above everything else, and never spoken aloud: “keep this private”, “no new ' +
+          'characters”, “short replies tonight”, “Luigi is lying about the tape”. You can also put instructions ' +
+          'inline in a turn with ((double brackets)) or /ooc — they are stripped out of what your character says.',
+      }, function (v) {
+        r.note = v.note.trim();
+        state.settings.note = v.global.trim();
+        r.updated = Date.now(); save(); render();
+        toast('Noted — the model gets that with every turn.');
+      });
+    });
     on('cpTaste', function () {
       var taste = RP.tasteState(state);
       openModal('<h3>What the model has been told you like</h3>' +
@@ -8421,7 +8576,13 @@ window.CHATROOM_CONFIG = {
     var r = room();
     input.value = '';
     input.style.height = 'auto';
-    var msg = { id: RP.uid(), role: 'user', text: text, at: Date.now() };
+    // ((Anything in double brackets)) is spoken to the model, not by you.
+    var spoken = RP.parseOoc(text);
+    var msg = {
+      id: RP.uid(), role: 'user', text: spoken.clean || text, at: Date.now(),
+      ooc: spoken.notes.length ? spoken.notes : undefined,
+    };
+    r.lastNotes = spoken.notes;
     autoLeft = 0;                       // your turn beats the autopilot
     RP.pushUndo(r, 'your turn');
     // A jump in time means the filed script no longer lines up with the
@@ -8467,6 +8628,11 @@ window.CHATROOM_CONFIG = {
    *  One planning call buys several turns of reply. */
   function stageBeat(r) {
     if (state.settings.director === 'off') return Promise.resolve([]);
+    // A private moment gets narration at most — nobody walks in on it.
+    var lastText = RP.textOf((r.messages || []).filter(function (m) { return m.role === 'user'; }).pop() || {});
+    if (RP.isPrivate(r, lastText)) {
+      return Promise.resolve((state.settings.world || 'on') === 'off' ? [] : ['world']);
+    }
     if (RP.chainLength(r) >= (state.settings.maxChain || RP.MAX_CHAIN)) return Promise.resolve([]);
     if (RP.worldShouldSpeak(state, r)) return Promise.resolve(['world']);
     if (!RP.speakableCast(r).length) return Promise.resolve([]);
@@ -8545,7 +8711,10 @@ window.CHATROOM_CONFIG = {
     // filtered to filings whose dates have already passed in this scene.
     var recent = RP.historyFor(r, 4).map(function (m) { return m.content; }).join(' ');
     var found = RP.citableFor(archiveIndex, r, state, { query: recent + ' ' + (r.scene || ''), limit: 8 });
-    var opts2 = { fate: fate, archive: archive, citations: RP.citationBlock(found), recent: recent };
+    var opts2 = {
+      fate: fate, archive: archive, citations: RP.citationBlock(found), recent: recent,
+      notes: r.lastNotes || [],
+    };
     var system = worldTurn ? RP.worldSystem(state, r, opts2) : RP.systemFor(state, r, speaker, opts2);
     var window = RP.contextLimit(r, (state.settings && state.settings.context) || 24);
     var history = RP.historyFor(retry ? { kind: r.kind, cast: r.cast, messages: r.messages.slice(0, opts.retryIndex) } : r, window);

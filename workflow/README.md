@@ -192,6 +192,15 @@ memory, lore, replay, backups — is documented in
   writes the card into their own filed portrait, so the file is a picture and
   a card at once; the archive's fields ride along under
   `extensions.waluipedia`.
+- **It reads the room.** A turn written to yourself — muttering, reading,
+  grieving — is flagged private and gets narration at most; nobody walks in
+  from off-stage to comment. The header pins a scene 🔒 Alone or 🔓 Open, and
+  the party bar's ◉/◌ dots say who is actually present (absent characters
+  cannot be staged at all).
+- **Out-of-character instructions.** ((double brackets)), `/ooc` or
+  `[[OOC: …]]` in a turn are stripped from the prose and sent as orders that
+  outrank the rest of the prompt; 📝 Special instructions holds the standing
+  version for this chat and for every chat.
 - **The sequencer.** You write, one small planning call decides who reacts
   and in what order (or that nobody does), the page plays exactly that, and
   the scene hands back. Replaces one-speaker-at-a-time turn taking.

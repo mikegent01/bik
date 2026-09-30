@@ -2197,6 +2197,11 @@
       '<span class="grow"></span>' +
       (r.kind === 'group' ? '<button class="pill" id="continueBtn">➤ Continue</button>' : '') +
       (r.mechanics === 'off' ? '' : '<button class="pill' + (showStates ? ' primary' : '') + '" id="statesBtn">🩺 Party</button>') +
+      '<button class="pill' + (r.privacy === 'private' ? ' primary' : '') + '" id="privacyBtn" ' +
+        'title="' + (r.privacy === 'private' ? 'Private: nobody else speaks until you open it again'
+          : r.privacy === 'open' ? 'Open: the scene may answer even in a quiet moment'
+          : 'Reading the room: quiet turns are left alone, loud ones are answered') + '">' +
+        (r.privacy === 'private' ? '🔒 Alone' : r.privacy === 'open' ? '🔓 Open' : '👂 Reads the room') + '</button>' +
       '<button class="pill" id="factsBtn" title="What is fixed in this scene — place, clothing, time">📍' +
         (Object.keys(r.facts || {}).length ? ' ' + Object.keys(r.facts || {}).length : '') + '</button>' +
       '<button class="pill" id="undoBtn" title="Undo the last turn (Ctrl+Z)"' +
@@ -2212,9 +2217,12 @@
       sheetBar.hidden = !showStates || r.mechanics === 'off';
       sheetBar.innerHTML = !showStates ? '' : Object.keys(r.states || {}).map(function (id) {
         var sheet = r.states[id];
-        if (!sheet || sheet.present === false) return '';
+        if (!sheet) return '';
         var who = charOf(r, id);
         return '<button class="sheet" data-sheet="' + esc(id) + '" title="Edit state">' +
+          '<span class="here" data-here="' + esc(id) + '" title="' +
+          (sheet.present === false ? 'Not in the scene — click to bring them back' : 'In the scene — click to write them out') +
+          '">' + (sheet.present === false ? '◌' : '◉') + '</span>' +
           '<span class="nm">' + avatar(who, 22) + esc(sheet.name) + '</span>' +
           (sheet.hp ? bar('hp', sheet.hp) : '') + (sheet.mp ? bar('mp', sheet.mp) : '') +
           '<span class="chips">' + Object.keys(sheet.flags || {}).map(function (f) {
@@ -2268,6 +2276,11 @@
         '<b>' + esc(who) + '</b>' + (mine ? '' : '<span class="badge">archive</span>') +
         (mine ? '' : '<button class="speak" data-speak="' + i + '" title="Read aloud">▶</button>') + '</div>' +
         '<div class="bubble">' + RP.md(RP.textOf(m)) + '</div>' +
+        ((m.ooc || []).length
+          ? '<div class="metastrip">' + m.ooc.map(function (n) {
+              return '<span class="ooc" title="Sent to the model, not spoken aloud">(( ' + esc(n) + ' ))</span>';
+            }).join('') + '</div>'
+          : '') +
         metaStrip(m) +
         (m.error ? '<div class="acts"><span>This notice stays out of the model’s context.</span></div>' :
           '<div class="acts">' + swipes +
@@ -2409,6 +2422,7 @@
       menuItem('cpReplay', '🎭', 'Replay', 'Perspective') +
       menuItem('cpScript', '⏱', 'Script', r.beats && r.beats.length ? (r.autoBeats ? 'Auto' : 'Manual') : 'None') +
       menuItem('cpDirector', '🎬', 'Director', state.settings.director === 'off' ? 'Off' : 'On · max ' + (state.settings.maxChain || RP.MAX_CHAIN)) +
+      menuItem('cpNote', '📝', 'Special instructions', (r.note || state.settings.note) ? 'set' : 'none') +
       menuItem('cpTaste', '👍', 'What I like', RP.tasteState(state).likes.length + ' / ' + RP.tasteState(state).dislikes.length) +
       menuItem('cpImport', '📥', 'Import into this chat', 'story · card') +
       menuItem('cpCard', '📇', 'Character card', 'PNG · JSON') +
@@ -2432,6 +2446,13 @@
   function wireChat() {
     var r = room();
     var on = function (id, fn) { var node = $(id); if (node) node.onclick = fn; };
+    on('privacyBtn', function () {
+      r.privacy = r.privacy === 'private' ? 'open' : r.privacy === 'open' ? '' : 'private';
+      save(); render();
+      toast(r.privacy === 'private' ? '🔒 Private — nobody else will speak until you open it.'
+        : r.privacy === 'open' ? '🔓 Open — the scene answers even when you are muttering.'
+        : '👂 Reading the room — quiet turns are left alone.');
+    });
     on('factsBtn', function () {
       var facts = r.facts || {};
       var keys = Object.keys(facts);
@@ -2594,7 +2615,19 @@
     on('seqBtn', function () { openSequel(room()); });
     var bar1 = $('statebar');
     if (bar1) bar1.querySelectorAll('[data-sheet]').forEach(function (b) {
-      b.onclick = function () { editSheet(b.dataset.sheet); };
+      b.onclick = function (e) {
+        if (e.target && e.target.dataset && e.target.dataset.here) return;
+        editSheet(b.dataset.sheet);
+      };
+    });
+    if (bar1) bar1.querySelectorAll('[data-here]').forEach(function (b) {
+      b.onclick = function (e) {
+        e.stopPropagation();
+        var here = RP.setPresent(r, b.dataset.here, undefined);
+        save(); render();
+        toast(here ? charOf(r, b.dataset.here).name + ' is in the scene.'
+          : charOf(r, b.dataset.here).name + ' is not here — they will not speak until they are.');
+      };
     });
     on('panelBtn', function () { $('charpanel').classList.toggle('open'); });
     on('continueBtn', function () { generate(); });
@@ -2865,6 +2898,21 @@
     }
     on('cpUp', function () { rateLast('up'); });
     on('cpDown', function () { rateLast('down'); });
+    on('cpNote', function () {
+      form('Special instructions', [
+        { k: 'note', label: 'For this chat', type: 'area', value: r.note || '' },
+        { k: 'global', label: 'For every chat', type: 'area', value: state.settings.note || '' },
+      ], {
+        note: 'Sent with every turn, above everything else, and never spoken aloud: “keep this private”, “no new ' +
+          'characters”, “short replies tonight”, “Luigi is lying about the tape”. You can also put instructions ' +
+          'inline in a turn with ((double brackets)) or /ooc — they are stripped out of what your character says.',
+      }, function (v) {
+        r.note = v.note.trim();
+        state.settings.note = v.global.trim();
+        r.updated = Date.now(); save(); render();
+        toast('Noted — the model gets that with every turn.');
+      });
+    });
     on('cpTaste', function () {
       var taste = RP.tasteState(state);
       openModal('<h3>What the model has been told you like</h3>' +
@@ -2917,7 +2965,13 @@
     var r = room();
     input.value = '';
     input.style.height = 'auto';
-    var msg = { id: RP.uid(), role: 'user', text: text, at: Date.now() };
+    // ((Anything in double brackets)) is spoken to the model, not by you.
+    var spoken = RP.parseOoc(text);
+    var msg = {
+      id: RP.uid(), role: 'user', text: spoken.clean || text, at: Date.now(),
+      ooc: spoken.notes.length ? spoken.notes : undefined,
+    };
+    r.lastNotes = spoken.notes;
     autoLeft = 0;                       // your turn beats the autopilot
     RP.pushUndo(r, 'your turn');
     // A jump in time means the filed script no longer lines up with the
@@ -2963,6 +3017,11 @@
    *  One planning call buys several turns of reply. */
   function stageBeat(r) {
     if (state.settings.director === 'off') return Promise.resolve([]);
+    // A private moment gets narration at most — nobody walks in on it.
+    var lastText = RP.textOf((r.messages || []).filter(function (m) { return m.role === 'user'; }).pop() || {});
+    if (RP.isPrivate(r, lastText)) {
+      return Promise.resolve((state.settings.world || 'on') === 'off' ? [] : ['world']);
+    }
     if (RP.chainLength(r) >= (state.settings.maxChain || RP.MAX_CHAIN)) return Promise.resolve([]);
     if (RP.worldShouldSpeak(state, r)) return Promise.resolve(['world']);
     if (!RP.speakableCast(r).length) return Promise.resolve([]);
@@ -3041,7 +3100,10 @@
     // filtered to filings whose dates have already passed in this scene.
     var recent = RP.historyFor(r, 4).map(function (m) { return m.content; }).join(' ');
     var found = RP.citableFor(archiveIndex, r, state, { query: recent + ' ' + (r.scene || ''), limit: 8 });
-    var opts2 = { fate: fate, archive: archive, citations: RP.citationBlock(found), recent: recent };
+    var opts2 = {
+      fate: fate, archive: archive, citations: RP.citationBlock(found), recent: recent,
+      notes: r.lastNotes || [],
+    };
     var system = worldTurn ? RP.worldSystem(state, r, opts2) : RP.systemFor(state, r, speaker, opts2);
     var window = RP.contextLimit(r, (state.settings && state.settings.context) || 24);
     var history = RP.historyFor(retry ? { kind: r.kind, cast: r.cast, messages: r.messages.slice(0, opts.retryIndex) } : r, window);

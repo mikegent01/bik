@@ -657,6 +657,23 @@ check('commentary: finished episodes are kept and can be reopened',
     return Boolean(playing) && $('input').placeholder.includes(playing.name);
   })());
   check('facts: the header has a place for what the scene has nailed down', Boolean($('factsBtn')));
+  check('privacy: the header can pin a scene private, open, or reading the room', (() => {
+    const start = $('privacyBtn').textContent;
+    $('privacyBtn').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+    const priv = savedState().rooms.find(x => x.id === roomId).privacy === 'private';
+    $('privacyBtn').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+    $('privacyBtn').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+    return /Reads the room/.test(start) && priv &&
+      savedState().rooms.find(x => x.id === roomId).privacy === '';
+  })());
+  check('presence: the party bar says who is actually here', doc.querySelectorAll('[data-here]').length > 0);
+  check('ooc: brackets in a turn are stripped from the prose and kept as instructions', (() => {
+    $('input').value = 'I keep reading. ((no new characters))';
+    $('composer').dispatchEvent(new win.Event('submit', { bubbles: true, cancelable: true }));
+    const r = savedState().rooms.find(x => x.id === roomId);
+    const mine = (r.messages || []).filter(m => m.role === 'user').pop();
+    return mine.text === 'I keep reading.' && (mine.ooc || [])[0] === 'no new characters';
+  })());
   // With only your own character in the room, the next turn is the world's.
   $('input').value = 'I stand outside late at night and look at the stars.';
   $('composer').dispatchEvent(new win.Event('submit', { bubbles: true, cancelable: true }));
