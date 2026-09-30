@@ -2353,11 +2353,13 @@ check('history: newest turns win the budget', (() => {
     return chunks[0] === 'One. Two.' && chunks.every((c) => c.length <= 100) &&
       RP.ttsChunks('Hello there.', 450).length === 1 && RP.ttsChunks('  ').length === 0;
   })());
-  check('tts: when the studio library answers, it is the authority — exact case, no guessing',
+  check('tts: when the studio library answers, it is the authority — even over the map',
     RP.ttsVoiceFor('Wario Bigmouth', { library: ['Wario', 'Luigi'] }) === 'Wario' &&
     RP.ttsVoiceFor('wario', { library: ['Wario'] }) === 'Wario' &&
     RP.ttsVoiceFor('Brad', { library: ['Wario'], fallback: 'Waluigi' }) === 'Waluigi' &&
-    RP.ttsVoiceFor('Brad', { map: { brad: 'Freeman' }, library: ['Wario'] }) === 'Freeman');
+    RP.ttsVoiceFor('Brad', { map: { brad: 'Freeman' }, library: ['Wario', 'Freeman'] }) === 'Freeman' &&
+    // a map entry the studio does not have would be refused — fallback instead
+    RP.ttsVoiceFor('Brad', { map: { brad: 'Freeman' }, library: ['Wario'], fallback: 'Waluigi' }) === 'Waluigi');
   check('tts: quotes are attributed to their speakers, narration to the narrator', (() => {
     const names = ['Wario', 'Sans'];
     const parts = RP.speechParts('Wario slams the table. "Pay up." Sans shrugs. "nah," Sans says.', names, 'Wario');
@@ -2372,11 +2374,23 @@ check('history: newest turns win the budget', (() => {
       RP.speechParts('"Out," snarls Wario.', names, '')[0].who === 'Wario' &&
       RP.speechParts('\u201csmart quotes,\u201d Panicy Woman whispers.', names, '')[0].who === 'Panicy Woman';
   })());
-  check('tts: an unattributed quote carries the last speaker; no quotes means one part', (() => {
-    const names = ['Sans'];
-    const carried = RP.speechParts('"hi," Sans says. The lights flicker. "still here?"', names, '');
+  check('tts: an unattributed quote is whoever is talking; world turns default to the narrator', (() => {
+    const names = ['Wario', 'Sans'];
+    const theirs = RP.speechParts('He grins. "Pay up." A pause. "Now."', names, 'Wario');
+    const world = RP.speechParts('"hi," Sans says. The lights flicker. "still here?"', names, '');
     const plain = RP.speechParts('No quotes at all, just prose.', names, 'Wario');
-    return carried[2].who === 'Sans' && plain.length === 1 && plain[0].who === 'Wario';
+    return theirs[1].who === 'Wario' && theirs[3].who === 'Wario' &&
+      world[0].who === 'Sans' && world[world.length - 1].who === '' &&
+      plain.length === 1 && plain[0].who === 'Wario';
+  })());
+  check('tts: the library spells every voice — lowercase in, studio casing out', (() => {
+    const lib = ['Freeman', 'Luigi', 'Panicy Woman', 'Waluigi', 'Wario'];
+    return RP.ttsVoiceFor('wario', { library: lib }) === 'Wario' &&
+      RP.ttsVoiceFor('WARIO BIGMOUTH', { library: lib }) === 'Wario' &&
+      RP.ttsVoiceFor('panicy woman', { library: lib }) === 'Panicy Woman' &&
+      RP.ttsVoiceFor('Sans', { map: { sans: 'freeman' }, library: lib }) === 'Freeman' &&
+      RP.ttsVoiceFor('Brad', { library: lib, fallback: 'waluigi' }) === 'Waluigi' &&
+      RP.ttsVoiceFor('', { library: lib, fallback: 'waluigi' }) === 'Waluigi';
   })());
 }
 

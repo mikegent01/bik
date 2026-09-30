@@ -611,20 +611,25 @@ The 🔊 **Voice** menu holds the rest:
   (`narrator = …` picks who reads the world's turns). Full names beat
   first names.
 
-**The studio's own library is the authority.** Before speaking, the chat
-asks the studio which profiles it actually has (the list behind its
-Refresh Library button) and matches names against it exactly — no
-guessing, no false "missing profile" while the profile sits right there.
-If the library can't be read, the first-name guess still works, and a
-voice the studio refuses is only remembered as missing for the session —
-**a manual ▶ always starts fresh**, so saving a new profile and pressing
-play again picks it up immediately.
+**The studio's own library is the authority — and the speller.** Before
+speaking, the chat reads the studio's app config: the voice dropdown's
+`choices` there are exactly what the API will accept, case-sensitively.
+Every voice sent — matched name, map entry, or fallback — is corrected to
+the studio's own casing (`wario` goes out as `Wario`), and a name not in
+the list goes straight to the fallback instead of erroring. If the config
+can't be read the refresh-library endpoint is tried, then the first-name
+guess; a voice the studio refuses is only remembered as missing for the
+session — **a manual ▶ always starts fresh**, so saving a new profile and
+pressing play again picks it up immediately. (A profile saved while the
+studio is running may need its Refresh Library button — or a restart —
+before the studio's own API accepts it.)
 
 **Every voice in the turn.** A turn is not one mouth: narration is read by
 the narrator's voice, and each quoted line is spoken by whoever the prose
 says is speaking — `"nah," Sans says` is Sans, `Wario snarls, "…"` is
-Wario, `Sans: "…"` is Sans, and an unattributed quote belongs to whoever
-spoke last. The turn's own speaker covers quotes nobody is named for.
+Wario, `Sans: "…"` is Sans. A quote the prose does not attribute belongs
+to whoever is talking this turn; on a world or director turn that is
+nobody, so the narrator (Waluigi by default) reads it.
 
 Long turns are split into sentence-aware chunks (~450 chars) and the next
 chunk synthesizes while the current one plays — one take, no synth-pause.

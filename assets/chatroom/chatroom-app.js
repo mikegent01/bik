@@ -3906,9 +3906,41 @@
   function voiceLibrary(cfg) {
     if (libCache.at && Date.now() - libCache.at < 60000) return Promise.resolve(libCache.list);
     var keep = function (list) {
-      libCache = { at: Date.now(), list: (list && list.length) ? list : null };
+      list = (list || []).filter(function (s, i) { return s && s !== 'None' && list.indexOf(s) === i; });
+      libCache = { at: Date.now(), list: list.length ? list : null };
       return libCache.list;
     };
+    // First stop: the app config. The voice dropdown's `choices` there are
+    // EXACTLY what the API will accept — case-sensitive, 'None' included —
+    // as its refusal errors prove. One GET, no job.
+    return window.fetch(cfg.endpoint + '/config')
+      .then(function (res) { return res.json(); })
+      .then(function (conf) {
+        var comps = (conf && conf.components) || [];
+        var pick = function (want) {
+          var names = [];
+          comps.forEach(function (c) {
+            var p = c && c.props;
+            if (!p || !Array.isArray(p.choices) || (c.type && c.type !== 'dropdown')) return;
+            if (want && !/voice|profile|speaker|character/i.test(String(p.label || ''))) return;
+            p.choices.forEach(function (ch) {
+              var s = Array.isArray(ch) ? ch[0] : ch;
+              if (typeof s === 'string' && s.trim()) names.push(s.trim());
+            });
+          });
+          return names;
+        };
+        var found = pick(true);                    // dropdowns labelled like a voice…
+        if (!found.length) found = pick(false);    // …or every dropdown, if none are
+        if (found.length) return keep(found);
+        throw new Error('no choices in config');
+      })
+      .catch(function () { return libraryFromEndpoint(cfg, keep); });
+  }
+
+  /** Second stop: call the studio's own refresh-library endpoint and read
+   *  the names out of whatever it returns. */
+  function libraryFromEndpoint(cfg, keep) {
     return window.fetch(cfg.endpoint + '/gradio_api/info')
       .then(function (res) { return res.json(); })
       .then(function (info) {

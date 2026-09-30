@@ -249,24 +249,31 @@
 
   /** The studio profile that speaks for `name`. Hand-written map first
    *  (full name, then first name). When the studio's actual library is
-   *  known, it is the authority: exact-case profile or the fallback —
-   *  no guessing. Without a library, known misses go to the fallback
-   *  and everyone else is tried under their capitalized first name. */
+   *  known it is the authority AND the speller: whatever is picked —
+   *  map entry, guess, or fallback — is case-corrected to the saved
+   *  profile ('wario' is sent as 'Wario', because the studio's dropdown
+   *  is case-sensitive and refuses anything not in its list). Without
+   *  a library, known misses go to the fallback and everyone else is
+   *  tried under their capitalized first name. */
   RP.ttsVoiceFor = function (name, opts) {
     opts = opts || {};
     var fallback = opts.fallback || 'Waluigi';
+    var lib = opts.library;
+    var inLib = function (want) {
+      var low = String(want || '').toLowerCase();
+      return (lib || []).find(function (v) { return String(v).toLowerCase() === low; }) || '';
+    };
     var full = String(name || '').trim();
-    if (!full) return fallback;
+    if (!full) return (lib && lib.length && inLib(fallback)) || fallback;
     var map = opts.map || {};
     var first = full.split(/\s+/)[0].replace(/[,.:;!?]+$/, '');
-    var picked = map[full.toLowerCase()] || map[first.toLowerCase()];
-    if (picked) return picked;
-    var lib = opts.library;
+    var picked = map[full.toLowerCase()] || map[first.toLowerCase()] || '';
     if (lib && lib.length) {
-      var hit = lib.find(function (v) { return String(v).toLowerCase() === full.toLowerCase(); }) ||
-                lib.find(function (v) { return String(v).toLowerCase() === first.toLowerCase(); });
-      return hit || fallback;
+      // the library decides, and spells: picked name, else the speaker
+      // themselves, else the fallback — each in the studio's own casing
+      return inLib(picked) || inLib(full) || inLib(first) || inLib(fallback) || fallback;
     }
+    if (picked) return picked;
     if ((opts.misses || {})[first.toLowerCase()]) return fallback;
     return first.charAt(0).toUpperCase() + first.slice(1);
   };
@@ -293,8 +300,9 @@
   /** A turn split into voices: narration (who: '') between the quotes,
    *  each quote attributed to whoever the prose says is speaking —
    *  '"nah," Sans says', 'Wario snarls, "…"', 'Sans: "…"', '"Out,"
-   *  snarls Wario'. An unattributed quote belongs to whoever spoke
-   *  last, and the first one to the turn's own speaker. */
+   *  snarls Wario'. A quote the prose does NOT attribute belongs to
+   *  whoever is talking this turn; on a world or director turn that is
+   *  nobody, so the narrator (Waluigi by default) reads it. */
   RP.speechParts = function (text, names, speaker) {
     var clean = RP.ttsClean(text);
     var deflt = String(speaker || '').trim();
@@ -314,7 +322,6 @@
     var afterVerb = alts ? new RegExp('^[\\s,\u2014\u2013-]*' + SAY_VERBS + '\\s+(' + alts + ')', 'i') : null;
     var beforeName = alts ? new RegExp('(' + alts + ')[^.!?"\u201c\u201d]{0,30}' + SAY_VERBS + '\\s*[,:]?\\s*$', 'i') : null;
     var beforeColon = alts ? new RegExp('(' + alts + ')\\s*:\\s*$', 'i') : null;
-    var carry = deflt;
     var last = 0; var m; var any = false;
     while ((m = QUOTE_RE.exec(clean)) !== null) {
       any = true;
@@ -327,9 +334,7 @@
         : (beforeName && (t = beforeName.exec(before))) ? t[1]
         : (beforeColon && (t = beforeColon.exec(before))) ? t[1]
         : '';
-      var who = hit || carry || deflt;
-      push(who, m[1]);
-      carry = who;
+      push(hit || deflt, m[1]);
       last = QUOTE_RE.lastIndex;
     }
     if (!any) return [{ who: deflt, text: clean }];
