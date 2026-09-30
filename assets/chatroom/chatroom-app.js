@@ -2536,7 +2536,7 @@
         : '') +
       '<div class="cp-menu">' +
       menuItem('cpNew', '✎', 'New chat', '') +
-      menuItem('cpVoice', '🔊', 'Voice', (state.settings.voice === 'on' ? 'On' : 'Default')) +
+      menuItem('cpVoice', '🔊', 'Voice', (state.settings.voice === 'on' ? 'Auto · Qwen' : 'Qwen · on tap')) +
       menuItem('cpHistory', '🕘', 'History', RP.roomCountFor(state.rooms, c.id) + '') +
       menuItem('cpCustomize', '🖌', 'Customize', style.name) +
       menuItem('cpPinned', '📌', 'Pinned', String(pinned)) +
@@ -2987,8 +2987,22 @@
     var on = function (id, fn) { var node = $(id); if (node) node.onclick = fn; };
     on('cpNew', function () { r.kind === 'group' ? startGroup(r.cast, { scene: r.scene, sceneName: r.sceneName, beats: r.beats }) : startSolo(c); });
     on('cpVoice', function () {
-      state.settings.voice = state.settings.voice === 'on' ? 'off' : 'on';
-      save(); render(); toast('Voice ' + (state.settings.voice === 'on' ? 'on — replies read aloud' : 'off'));
+      var cfg = ttsConfig();
+      form('Voice — the Qwen studio', [
+        { k: 'mode', label: 'Read replies aloud on their own?', type: 'select',
+          value: state.settings.voice === 'on' ? 'on' : 'off',
+          options: [{ value: 'off', label: 'Only when I press ▶ on a message' },
+                    { value: 'on', label: 'Every reply, as it lands' }] },
+        { k: 'fallback', label: 'Fallback voice — a saved profile in the studio; also reads narration', value: cfg.voice },
+        { k: 'map', label: 'Voice map, for the exceptions — one per line: character = profile (e.g. sans = Freeman)', type: 'area', value: state.settings.ttsVoices || '' },
+      ], { note: 'Every ▶ speaks through your local Qwen3-TTS studio — the same bridge as the site’s 🔊 Read aloud, using the endpoint and model from its ⚙️. A speaker is linked to a saved voice profile by first name on its own: when Wario talks, the studio’s “Wario” profile reads the line. No profile under that name? The fallback voice covers them until you save one in the Voice Studio.' }, function (v) {
+        state.settings.voice = v.mode;
+        state.settings.voiceDefault = v.fallback.trim();
+        state.settings.ttsVoices = v.map;
+        voiceMisses = {};
+        save(); render();
+        toast(v.mode === 'on' ? '🔊 Replies read themselves — each in their own voice.' : '🔊 Voices on tap — ▶ on any message.');
+      });
     });
     on('cpHistory', function () {
       var mine = (state.rooms || []).filter(function (x) { return (x.cast || []).some(function (m) { return m.id === c.id; }); });
@@ -3774,8 +3788,17 @@
       lang: saved.lang || 'Auto',
       waluigi: (state.settings && state.settings.voiceWaluigi) || saved.voice || 'Waluigi',
       luigi: (state.settings && state.settings.voiceLuigi) || 'Luigi',
+      // The chat's own voices: a fallback profile, and a hand-written
+      // name → profile map for the exceptions. First names match on
+      // their own — Wario's lines ask the studio for 'Wario'.
+      voice: (state.settings && state.settings.voiceDefault) || saved.voice || 'Waluigi',
+      map: RP.parseVoiceMap((state.settings && state.settings.ttsVoices) || ''),
     };
   }
+
+  // Profiles the studio turned out not to have, this session — those
+  // speakers go straight to the fallback instead of failing twice.
+  var voiceMisses = {};
 
   /** One line through the studio — the same Gradio surface the main site's
    *  read-aloud bridge uses (docs/QWEN_TTS_BRIDGE.md). */
@@ -3865,9 +3888,62 @@
     render();
   }
 
+  /** A message out loud, through the local Qwen studio, in the voice
+   *  that belongs to whoever said it: Wario's lines ask the studio for
+   *  its saved 'Wario' profile. No such profile → the fallback voice
+   *  reads it (and the miss is remembered); no studio at all → the
+   *  browser's own voice, so the button still does something. */
   function speak(msg, r) {
-    if (!msg || !window.speechSynthesis) return;
-    var u = new window.SpeechSynthesisUtterance(RP.textOf(msg).replace(/\*/g, ''));
+    if (!msg) return;
+    var cfg = ttsConfig();
+    var name = msg.role === 'world' ? ''
+      : msg.role === 'user' ? ((RP.playerCharacter(r) || {}).name || state.user.name || '')
+      : ((charOf(r, msg.charId) || {}).name || '');
+    var voice = name
+      ? RP.ttsVoiceFor(name, { map: cfg.map, fallback: cfg.voice, misses: voiceMisses })
+      : (cfg.map.narrator || cfg.map.world || cfg.voice);
+    var chunks = RP.ttsChunks(RP.textOf(msg), 450);
+    if (!chunks.length) return;
+    if (reader.audio) { try { reader.audio.pause(); } catch (e) { /* already gone */ } }
+    if (window.speechSynthesis) window.speechSynthesis.cancel();
+    reader.stop = false;
+    var mine = ++speak.turn;
+    var playChunks = function (v) {
+      var ahead = null;
+      var synth = function (i) { return i < chunks.length ? qwenSay(chunks[i], v, cfg) : Promise.resolve(null); };
+      var step = function (i) {
+        if (reader.stop || speak.turn !== mine || i >= chunks.length) return Promise.resolve();
+        var cur = ahead || synth(i);
+        ahead = null;
+        return cur.then(function (url) {
+          if (reader.stop || speak.turn !== mine) return null;
+          ahead = synth(i + 1);                    // synthesize ahead of the ear
+          return playUrl(url);
+        }).then(function () { return step(i + 1); });
+      };
+      return step(0);
+    };
+    playChunks(voice).catch(function () {
+      if (speak.turn !== mine) return;
+      if (voice !== cfg.voice) {
+        // The studio answered for other voices before, so the likeliest
+        // story is a missing profile — remember it, hand the line to the
+        // fallback, and say how to give this speaker their own voice.
+        voiceMisses[String(name).split(/\s+/)[0].toLowerCase()] = true;
+        toast('The studio has no “' + voice + '” profile — ' + cfg.voice + ' reads for ' +
+          (name || 'them') + '. Save a voice named ' + voice + ' in the Voice Studio to change that.');
+        playChunks(cfg.voice).catch(function () { speakBrowser(msg, r); });
+        return;
+      }
+      speakBrowser(msg, r);
+    });
+  }
+  speak.turn = 0;
+
+  function speakBrowser(msg, r) {
+    if (!window.speechSynthesis) { toast('The Qwen studio is not answering at ' + ttsConfig().endpoint + ' and this browser has no voice of its own.'); return; }
+    toast('The Qwen studio is not answering at ' + ttsConfig().endpoint + ' — using the browser voice.');
+    var u = new window.SpeechSynthesisUtterance(RP.ttsClean(RP.textOf(msg)));
     var voice = RP.voiceFor(charOf(r, msg.charId));
     u.rate = voice.rate; u.pitch = voice.pitch;
     window.speechSynthesis.cancel();

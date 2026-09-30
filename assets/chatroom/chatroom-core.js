@@ -226,6 +226,73 @@
     };
   };
 
+  /* ---- Qwen studio voices: which saved profile speaks a line ----
+     The local Qwen3-TTS studio keeps voice profiles under plain names
+     (Waluigi, Luigi, Wario, Freeman…). A speaker links to a profile by
+     FIRST NAME — when Wario talks, the studio's 'Wario' profile reads
+     the line — with a hand-written map for the exceptions and a
+     fallback for everyone the studio has never heard of. */
+
+  /** 'wario = Wario Grande | toad=Toad' (newlines or | between entries)
+   *  → { wario: 'Wario Grande', toad: 'Toad' }. Keys lowercased. */
+  RP.parseVoiceMap = function (text) {
+    var map = {};
+    String(text || '').split(/[\n|]+/).forEach(function (entry) {
+      var at = entry.indexOf('=');
+      if (at < 0) return;
+      var key = entry.slice(0, at).trim().toLowerCase();
+      var val = entry.slice(at + 1).trim();
+      if (key && val) map[key] = val;
+    });
+    return map;
+  };
+
+  /** The studio profile that speaks for `name`. Hand-written map first
+   *  (full name, then first name), known misses go to the fallback,
+   *  everyone else is tried under their capitalized first name. */
+  RP.ttsVoiceFor = function (name, opts) {
+    opts = opts || {};
+    var fallback = opts.fallback || 'Waluigi';
+    var full = String(name || '').trim();
+    if (!full) return fallback;
+    var map = opts.map || {};
+    var first = full.split(/\s+/)[0].replace(/[,.:;!?]+$/, '');
+    var picked = map[full.toLowerCase()] || map[first.toLowerCase()];
+    if (picked) return picked;
+    if ((opts.misses || {})[first.toLowerCase()]) return fallback;
+    return first.charAt(0).toUpperCase() + first.slice(1);
+  };
+
+  /** What a line sounds like out loud: tints speak their words, the
+   *  markdown furniture and any stray stage direction stay silent. */
+  RP.ttsClean = function (text) {
+    return String(text || '')
+      .replace(/\{([a-z-]+)\|([^}]*)\}/gi, '$2')
+      .replace(/\[\[[^\]]*\]\]/g, ' ')
+      .replace(/[*_`#>]+/g, ' ')
+      .replace(/\s+/g, ' ').trim();
+  };
+
+  /** Sentence-aware chunks for the studio (same idea as the article
+   *  bridge): sentences stay whole, nothing exceeds `size` chars. */
+  RP.ttsChunks = function (text, size) {
+    size = size || 450;
+    var clean = RP.ttsClean(text);
+    if (!clean) return [];
+    var sentences = clean.match(/[^.!?]+[.!?]+["'\u201d\u2019]?\s*|[^.!?]+$/g) || [clean];
+    var out = []; var cur = '';
+    sentences.forEach(function (s) {
+      s = s.trim();
+      if (!s) return;
+      if (!cur) cur = s;
+      else if (cur.length + s.length + 1 <= size) cur += ' ' + s;
+      else { out.push(cur); cur = s; }
+      while (cur.length > size) { out.push(cur.slice(0, size)); cur = cur.slice(size).trim(); }
+    });
+    if (cur) out.push(cur);
+    return out;
+  };
+
   /** A tint for the fallback avatar, also stable per character. */
   RP.tintFor = function (char) {
     return 'hsl(' + (hash((char && (char.id || char.name)) || 'tint') % 360) + ' 62% 62%)';

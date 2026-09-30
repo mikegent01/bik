@@ -588,6 +588,34 @@ back to the browser's own voices rather than doing nothing.
 Episodes are saved (newest first), export as a markdown script or plain text,
 and travel in the lore bundle.
 
+## 🔊 Voices — every mouth through the Qwen studio
+
+Every ▶ on a message — and every reply, when voice is set to auto — speaks
+through your **local Qwen3-TTS Enhanced Studio**, the same bridge as the
+site's 🔊 Read aloud (`docs/QWEN_TTS_BRIDGE.md`). The endpoint and model
+come from the reader's ⚙️ settings, saved once per browser.
+
+**A speaker is linked to a saved voice profile by first name, on its own.**
+When Wario talks, the studio's `Wario` profile reads the line; when Sans
+talks, it asks for `Sans`. Save a profile under a character's first name in
+the studio's Voice Studio and they have their own voice — nothing to
+configure on this side.
+
+The 🔊 **Voice** menu holds the rest:
+
+- **Auto or on tap** — read every reply as it lands, or only on ▶.
+- **Fallback voice** (default `Waluigi`) — reads narration, world turns,
+  and any speaker whose profile the studio doesn't have. A missing profile
+  is remembered for the session, so it fails over once, not every line.
+- **Voice map** — for the exceptions: `sans = Freeman`, one per line
+  (`narrator = …` picks who reads the world's turns). Full names beat
+  first names.
+
+Long turns are split into sentence-aware chunks (~450 chars) and the next
+chunk synthesizes while the current one plays — one take, no synth-pause.
+No studio running at all? The browser's own voice steps in and the toast
+says so. Tints speak their words; the markdown furniture stays silent.
+
 ## Character cards — the format everybody else uses
 
 Cards are read and written in the standard shape, so the chatroom is not an

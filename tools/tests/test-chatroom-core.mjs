@@ -2330,6 +2330,31 @@ check('history: newest turns win the budget', (() => {
   })());
 }
 
+// ---------- Qwen voices: every mouth linked to a studio profile ----------
+{
+  check('tts: a speaker links to a studio profile by first name',
+    RP.ttsVoiceFor('Wario Bigmouth', {}) === 'Wario' &&
+    RP.ttsVoiceFor('sans', {}) === 'Sans');
+  check('tts: the hand-written map wins, full name before first name',
+    RP.ttsVoiceFor('Wario Bigmouth', { map: { wario: 'Wario Grande' } }) === 'Wario Grande' &&
+    RP.ttsVoiceFor('Lady Aurelian', { map: { 'lady aurelian': 'Aurelian', lady: 'Wrong' } }) === 'Aurelian');
+  check('tts: a known miss and a nameless narrator both take the fallback',
+    RP.ttsVoiceFor('Brad', { misses: { brad: true }, fallback: 'Waluigi' }) === 'Waluigi' &&
+    RP.ttsVoiceFor('', { fallback: 'Waluigi' }) === 'Waluigi');
+  check('tts: the voice map parses lines and pipes, keys lowercased', (() => {
+    const m = RP.parseVoiceMap('wario = Wario Grande | toad=Toad\nNarrator = Freeman');
+    return m.wario === 'Wario Grande' && m.toad === 'Toad' && m.narrator === 'Freeman';
+  })());
+  check('tts: what is spoken is the words — tints speak, markdown stays silent',
+    RP.ttsClean('**Sans** shrugs. {red|A drop falls.} [[HP: Sans -5]] *quietly*') ===
+    'Sans shrugs. A drop falls. quietly');
+  check('tts: chunks keep sentences whole and never exceed the size', (() => {
+    const chunks = RP.ttsChunks('One. Two. ' + 'Word '.repeat(200) + '. End.', 100);
+    return chunks[0] === 'One. Two.' && chunks.every((c) => c.length <= 100) &&
+      RP.ttsChunks('Hello there.', 450).length === 1 && RP.ttsChunks('  ').length === 0;
+  })());
+}
+
 // ---------- generated pages are in sync with these sources ----------
 let built = true;
 try {
