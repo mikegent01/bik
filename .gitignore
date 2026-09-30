@@ -35,3 +35,4 @@ Reputation-Matrix2/assets/images/locations/_sheets/
 # the assets the Reading Desk serves; the 3x3 sources they were cut from are
 # scratch (regenerate, then re-slice with tools/slice-field-sheet.py).
 Reputation-Matrix2/assets/images/field-sheets/_sheets/
+workflow/saves/

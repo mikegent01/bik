@@ -9,6 +9,7 @@ from __future__ import annotations
 import importlib.util
 import json
 import os
+import re
 import threading
 import time
 import urllib.error
@@ -218,6 +219,21 @@ def archive_cast() -> dict[str, Any]:
             "name": _clip(record.get("name"), 60),
             "title": _clip(record.get("title"), 90),
             "race": _clip(record.get("race"), 40),
+            "affiliation": _clip(record.get("affiliation"), 120),
+            # The filed description is what makes a character behave like
+            # themselves in a prompt, so it is served rather than summarised
+            # away; the rest are what the cast browser sorts and filters on.
+            "description": _clip(record.get("description"), 900),
+            "faction": _clip(record.get("faction") or record.get("membership"), 80),
+            "faiths": _clip(record.get("faiths"), 90),
+            "level": record.get("level"),
+            "powerLevel": record.get("powerLevel"),
+            "fameScore": record.get("fameScore"),
+            "fameTier": _clip(record.get("fameTier"), 40),
+            "relatedArticles": [str(a) for a in (record.get("relatedArticles") or [])][:14],
+            # The backfill scan reads these to find events everyone points at
+            # and nobody ever wrote.
+            "keyEvents": [str(k) for k in (record.get("keyEvents") or [])][:12],
             "status": _clip(record.get("status"), 90),
             "summary": _clip(record.get("summary"), 200),
             "image": "/rm/" + image if image else "",
@@ -321,6 +337,257 @@ def archive_scenes(limit: int = 12) -> dict[str, Any]:
     return {"scenes": out}
 
 
+def archive_wire(limit: int = 400) -> dict[str, Any]:
+    """The WAHwire, served whole: every filed post is a playable scenario.
+
+    The page decides the sort and the used/unused view; the server just hands
+    over the posts and the author profiles (for avatars) in one response.
+    """
+    posts_path = RM_ROOT / "data" / "wahwire" / "posts.json"
+    profiles_path = RM_ROOT / "data" / "wahwire" / "profiles.json"
+    try:
+        posts = json.loads(posts_path.read_text(encoding="utf-8"))
+    except Exception as error:  # noqa: BLE001 - the page works without the wire
+        return {"posts": [], "profiles": {}, "error": f"could not read the wire: {error}"}
+    if isinstance(posts, dict):
+        posts = posts.get("posts", [])
+    try:
+        profiles = json.loads(profiles_path.read_text(encoding="utf-8"))
+        profiles = profiles.get("profiles", profiles) if isinstance(profiles, dict) else {}
+    except Exception:  # noqa: BLE001 - avatars are decoration, not content
+        profiles = {}
+    return {"posts": posts[:limit], "profiles": profiles}
+
+
+def archive_collections() -> dict[str, Any]:
+    """The archive's own character collections — a cast in one click."""
+    path = RM_ROOT / "data" / "collections.json"
+    try:
+        records = json.loads(path.read_text(encoding="utf-8"))
+    except Exception as error:  # noqa: BLE001
+        return {"collections": [], "error": f"could not read collections.json: {error}"}
+    if isinstance(records, dict):
+        records = records.get("collections", [])
+    out = []
+    for record in records:
+        if not isinstance(record, dict) or not record.get("members"):
+            continue
+        out.append({
+            "id": str(record.get("id") or record.get("name")),
+            "name": _clip(record.get("name"), 90),
+            "title": _clip(record.get("title"), 120),
+            "scope": _clip(record.get("scope"), 120),
+            "summary": _clip(record.get("summary"), 300),
+            "members": [
+                {"id": str(m.get("id") or ""), "name": _clip(m.get("name"), 60), "role": _clip(m.get("role"), 90)}
+                for m in record["members"] if isinstance(m, dict)
+            ],
+        })
+    return {"collections": out}
+
+
+def _read(*parts: str) -> Any:
+    try:
+        return json.loads((RM_ROOT.joinpath(*parts)).read_text(encoding="utf-8"))
+    except Exception:  # noqa: BLE001 - a missing source just yields no scenarios
+        return None
+
+
+def archive_bundle() -> dict[str, Any]:
+    """The records the What-If board is composed from, trimmed for the wire.
+
+    The page builds every scenario itself from this bundle — filed What-Ifs,
+    the events (with their timelines, which become the beats), the factions
+    (chambers, and the leadership rosters the wanted-pages scan reads), and
+    the Congress. No model is involved in deciding what a scenario is.
+    """
+    whatifs = _read("data", "whatifs.json") or []
+    if isinstance(whatifs, dict):
+        whatifs = whatifs.get("whatifs", [])
+    out_whatifs = []
+    for record in whatifs:
+        if not isinstance(record, dict):
+            continue
+        out_whatifs.append({
+            "id": str(record.get("id") or ""),
+            "title": _clip(record.get("title"), 140),
+            "premise": _clip(record.get("premise"), 700),
+            "summary": _clip(record.get("summary"), 900),
+            "divergence": _clip(record.get("divergence"), 500),
+            "epigraph": _clip(record.get("epigraph"), 300),
+            "outcome": _clip(record.get("outcome"), 600),
+            "subject": _clip(record.get("subject"), 60),
+            "subjectImage": "/rm/" + str(record["subjectImage"]) if record.get("subjectImage") else "",
+            "tags": [str(t) for t in (record.get("tags") or [])][:10],
+            "filed": _clip(record.get("filed"), 60),
+            "wordCount": record.get("wordCount"),
+            "resetsTotal": record.get("resetsTotal"),
+            "verdict": {"body": _clip((record.get("verdict") or {}).get("body"), 800)} if record.get("verdict") else None,
+            "findings": [{"t": _clip(f.get("t"), 160)} for f in (record.get("findings") or [])[:4] if isinstance(f, dict)],
+            "chapters": [{
+                "heading": _clip(c.get("heading"), 140),
+                "phase": _clip(c.get("phase"), 40),
+                "body": _clip(c.get("body"), 700),
+            } for c in (record.get("chapters") or [])[:10] if isinstance(c, dict)],
+        })
+
+    events = _read("data", "events.json") or []
+    if isinstance(events, dict):
+        events = events.get("events", [])
+    out_events = []
+    for record in events[-60:]:
+        if not isinstance(record, dict) or not record.get("name"):
+            continue
+        entries = ((record.get("timeline") or {}).get("entries") or [])[:12]
+        out_events.append({
+            "id": str(record.get("id") or ""),
+            "name": _clip(record.get("name"), 90),
+            "summary": _clip(record.get("summary"), 700),
+            "outcome": _clip(record.get("outcome"), 600),
+            "description": str(record.get("description") or "")[:2400],
+            # Continuations pick a saga up where it stops, so they need how it
+            # ended and what it left behind.
+            "aftermath": str(record.get("aftermath") or "")[:1600],
+            "notableFeatures": str(record.get("notableFeatures") or "")[:800],
+            "era": _clip(record.get("era"), 60),
+            "type": _clip(record.get("type"), 60),
+            "date": _clip(record.get("date"), 90),
+            "location": _clip(record.get("location"), 120),
+            "image": "/rm/" + str(record["image"]) if record.get("image") else "",
+            "participants": [{
+                "id": str(p.get("id") or ""), "name": _clip(p.get("name"), 60), "role": _clip(p.get("role"), 160),
+            } for p in (record.get("participants") or [])[:8] if isinstance(p, dict)],
+            "relatedArticles": [str(a) for a in (record.get("relatedArticles") or [])][:16],
+            "keyEvents": [str(k) for k in (record.get("keyEvents") or [])][:12],
+            "timeline": {"entries": [{
+                "time": _clip(e.get("time"), 60), "beat": _clip(e.get("beat"), 160), "detail": _clip(e.get("detail"), 420),
+            } for e in entries if isinstance(e, dict)]},
+        })
+
+    factions = _read("data", "factions.json") or []
+    if isinstance(factions, dict):
+        factions = factions.get("factions", [])
+    out_factions = []
+    for record in factions:
+        if not isinstance(record, dict) or not record.get("name"):
+            continue
+        out_factions.append({
+            "id": str(record.get("id") or ""),
+            "name": _clip(record.get("name"), 90),
+            "type": _clip(record.get("type"), 60),
+            "region": _clip(record.get("region"), 60),
+            "summary": _clip(record.get("summary"), 600),
+            "description": str(record.get("description") or "")[:2600],
+            "leadership": [{
+                "id": str(m.get("id") or ""), "name": _clip(m.get("name"), 60), "role": _clip(m.get("role"), 160),
+            } for m in (record.get("leadership") or [])[:6] if isinstance(m, dict)],
+            "keyEvents": [str(k) for k in (record.get("keyEvents") or [])][:12],
+        })
+
+    congress = _read("data", "congress.json") or {}
+    out_congress = {
+        "sessions": [{
+            "name": _clip(s.get("name"), 90), "date": _clip(s.get("date"), 60),
+            "year": s.get("year"), "summary": _clip(s.get("summary"), 500),
+        } for s in (congress.get("sessions") or [])[:6] if isinstance(s, dict)],
+        "crises": [{
+            "name": _clip(c.get("name"), 90), "year": c.get("year"),
+            "severity": _clip(c.get("severity"), 40), "summary": _clip(c.get("summary"), 500),
+        } for c in (congress.get("crises") or [])[:6] if isinstance(c, dict)],
+    } if isinstance(congress, dict) else {}
+
+    # Every filed id, so the page's backfill scan does not mistake an event
+    # outside this window for an unwritten one.
+    known = [str(r.get("id") or "") for r in events if isinstance(r, dict)]
+    known += [str(r.get("name") or "") for r in events if isinstance(r, dict)]
+    return {
+        "whatifs": out_whatifs, "events": out_events, "factions": out_factions,
+        "congress": out_congress, "knownIds": [k for k in known if k],
+        # The world clock, so the page knows what "now" is in-world.
+        "clock": _read("data", "currentDate.json") or {},
+    }
+
+
+SAVE_DIR = Path(__file__).resolve().parent / "saves"
+SAVE_MAX_BYTES = 12_000_000        # a chatroom bundle is JSON, not a disk image
+SAVE_KEEP = 10                     # timestamped backups kept beside the live file
+
+
+def _save_path(name: str = "chatroom") -> Path:
+    """A save name is a filename, not a path: no traversal, no surprises."""
+    clean = re.sub(r"[^a-zA-Z0-9_-]+", "-", str(name or "chatroom")).strip("-")[:48] or "chatroom"
+    return SAVE_DIR / f"{clean}.json"
+
+
+def chatroom_save(payload: dict[str, Any]) -> dict[str, Any]:
+    """Write the reader's chatroom state to disk, beside the server.
+
+    localStorage is one cleared cache away from gone. This keeps the same
+    bundle the page exports as a real file on the machine the server runs on,
+    with a handful of timestamped backups behind it.
+    """
+    bundle = payload.get("state")
+    if not isinstance(bundle, dict):
+        raise ValueError("no state to save")
+    body = json.dumps(bundle, ensure_ascii=False, indent=1)
+    if len(body.encode("utf-8")) > SAVE_MAX_BYTES:
+        raise ValueError("that save is too large")
+    SAVE_DIR.mkdir(parents=True, exist_ok=True)
+    path = _save_path(payload.get("name"))
+    if path.exists():
+        stamp = time.strftime("%Y%m%d-%H%M%S")
+        backup = path.with_name(f"{path.stem}.{stamp}.bak.json")
+        try:
+            backup.write_text(path.read_text(encoding="utf-8"), encoding="utf-8")
+        except Exception:  # noqa: BLE001 - a failed backup must not lose the save
+            pass
+        olds = sorted(SAVE_DIR.glob(f"{path.stem}.*.bak.json"))
+        for stale in olds[:-SAVE_KEEP]:
+            try:
+                stale.unlink()
+            except Exception:  # noqa: BLE001
+                pass
+    path.write_text(body, encoding="utf-8")
+    return {
+        "saved": path.name,
+        "bytes": len(body.encode("utf-8")),
+        "at": time.strftime("%Y-%m-%d %H:%M:%S"),
+        "rooms": len(bundle.get("rooms") or []),
+        "where": str(path),
+    }
+
+
+def chatroom_saves() -> dict[str, Any]:
+    """What is on disk, newest first — the live saves, not the backups."""
+    if not SAVE_DIR.is_dir():
+        return {"saves": []}
+    out = []
+    for path in sorted(SAVE_DIR.glob("*.json")):
+        if path.name.endswith(".bak.json"):
+            continue
+        try:
+            stat = path.stat()
+            head = json.loads(path.read_text(encoding="utf-8"))
+        except Exception:  # noqa: BLE001 - a broken file is still worth listing
+            head, stat = {}, path.stat()
+        out.append({
+            "name": path.stem,
+            "bytes": stat.st_size,
+            "at": time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(stat.st_mtime)),
+            "rooms": len(head.get("rooms") or []),
+            "book": len(head.get("book") or []),
+        })
+    out.sort(key=lambda row: row["at"], reverse=True)
+    return {"saves": out}
+
+
+def chatroom_load(name: str) -> dict[str, Any]:
+    path = _save_path(name)
+    if not path.is_file():
+        raise ValueError("no save by that name")
+    return {"name": path.stem, "state": json.loads(path.read_text(encoding="utf-8"))}
+
+
 def suggest_cast(payload: dict[str, Any]) -> dict[str, Any]:
     """Ask the model for an interesting cast for a scene. The candidate list
     comes from the page (optionally filtered by the picker's search box); the
@@ -413,6 +680,10 @@ def json_response(handler: BaseHTTPRequestHandler, value: Any, status: int = 200
     handler.send_response(status)
     handler.send_header("Content-Type", "application/json; charset=utf-8")
     handler.send_header("Cache-Control", "no-store")
+    # The static chatroom page (chatroom.html, served by start.py on :8765)
+    # calls this server from another origin. Nothing here is authenticated and
+    # nothing is written, so the read/roleplay API is open to the local pages.
+    handler.send_header("Access-Control-Allow-Origin", "*")
     handler.send_header("Content-Length", str(len(data)))
     handler.end_headers()
     handler.wfile.write(data)
@@ -515,6 +786,25 @@ class Handler(BaseHTTPRequestHandler):
         if parsed.path == "/api/scenes":
             json_response(self, archive_scenes())
             return
+        if parsed.path == "/api/wahwire":
+            json_response(self, archive_wire())
+            return
+        if parsed.path == "/api/collections":
+            json_response(self, archive_collections())
+            return
+        if parsed.path == "/api/archive":
+            json_response(self, archive_bundle())
+            return
+        if parsed.path == "/api/chatroom-saves":
+            json_response(self, chatroom_saves())
+            return
+        if parsed.path == "/api/chatroom-save":
+            name = (parse_qs(parsed.query).get("name") or ["chatroom"])[0]
+            try:
+                json_response(self, chatroom_load(name))
+            except Exception as error:  # noqa: BLE001
+                json_response(self, {"error": str(error)}, status=404)
+            return
         if parsed.path.startswith("/rm/"):
             found = serve_static(parsed.path[len("/rm/"):])
             if found:
@@ -536,6 +826,16 @@ class Handler(BaseHTTPRequestHandler):
             return
         self.send_error(404)
 
+    def do_OPTIONS(self) -> None:  # noqa: N802
+        """CORS preflight for the cross-origin static chatroom page."""
+        self.send_response(204)
+        self.send_header("Access-Control-Allow-Origin", "*")
+        self.send_header("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+        self.send_header("Access-Control-Allow-Headers", "Content-Type")
+        self.send_header("Access-Control-Max-Age", "600")
+        self.send_header("Content-Length", "0")
+        self.end_headers()
+
     def do_POST(self) -> None:  # noqa: N802
         try:
             payload = read_body(self)
@@ -547,6 +847,9 @@ class Handler(BaseHTTPRequestHandler):
                 return
             if self.path == "/api/suggest-cast":
                 json_response(self, suggest_cast(payload))
+                return
+            if self.path == "/api/chatroom-save":
+                json_response(self, chatroom_save(payload))
                 return
             if self.path == "/api/agent/cancel":
                 job_id = str(payload.get("job", ""))

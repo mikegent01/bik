@@ -54,6 +54,69 @@ class Handler(BaseHTTPRequestHandler):
                 '"record": {"id": "mock_record", "name": "Mock Record", '
                 '"title": "Mock Record — Filed From the Mock", "summary": "A mock record."}}',
             )
+        elif "spoken commentary track" in all_text:
+            # Commentary mode: a couple of labelled exchanges per segment, so
+            # a test can prove the planner, the parser and the stitching.
+            Handler.part = getattr(Handler, "part", 0) + 1
+            content = os.environ.get(
+                "MOCK_COMMENTARY_REPLY",
+                f"WALUIGI: Part {Handler.part}. The record says twenty-eight for, eight against, three abstaining, "
+                "and everybody quotes the twenty-eight.\n"
+                f"LUIGI: That is the part that bothers me, Waluigi. Who were the three?\n"
+                "WALUIGI: Unfiled. Which is its own answer, and not a flattering one.",
+            )
+        elif "You are the archivist for a roleplay session" in all_text:
+            # Lore-book extraction: canned pages in the exact filing format,
+            # overridable with MOCK_BOOK_REPLY.
+            content = os.environ.get(
+                "MOCK_BOOK_REPLY",
+                "PLACE: The Ledger Room | a back office off the studio corridor, lined with unfiled boxes\n"
+                "PERSON: Marguerite Oyle | the night archivist, wants the ledger back before dawn\n"
+                "EVENT: The Door Pushed Open | the party forced the ledger room and found the boxes already searched\n"
+                "FACT: the ledger room door does not lock from the inside\n"
+                "DIARY: They went looking for a ledger and found somebody had been there first.",
+            )
+        elif "STAGE DIRECTIONS" in all_text and os.environ.get("MOCK_ADVERSARIAL"):
+            # A deliberately badly-behaved model, for tools/tests/audit-chatroom.mjs:
+            # it writes the wrong character, stops mid-sentence, invents its
+            # own bracket syntax and returns nothing at all, in rotation.
+            Handler.bad = getattr(Handler, "bad", 0) + 1
+            other = "Wario"
+            marker = all_text.find("THE CAST")
+            if marker >= 0:
+                for line in all_text[marker:marker + 400].split("\n"):
+                    line = line.strip()
+                    if line.startswith("- ") and " — " in line:
+                        other = line[2:].split(" — ")[0].strip()
+                        break
+            mode = Handler.bad % 5
+            if mode == 0:
+                content = f"{other} growls, \"Stop reading that out loud.\""      # wrong mouth
+            elif mode == 1:
+                content = "The wind drops out of the courtyard and the papers lift, and then the"   # truncated
+            elif mode == 2:
+                content = "He sets the lamp down.\n[[MOOD: ominous]]\n[[TIME: 23:00]]"            # stray brackets
+            elif mode == 3:
+                content = "   "                                                     # nothing at all
+            else:
+                content = "He turns the page and says nothing for a moment."        # fine
+        elif "STAGE DIRECTIONS" in all_text and os.environ.get("MOCK_DIRECTIVES"):
+            # {{WHO}} is filled with the first character named in the prompt's
+            # CHARACTER STATE block, so a test does not have to know in
+            # advance which archive character it ended up playing with.
+            who = ""
+            marker = all_text.find("CHARACTER STATE")
+            if marker >= 0:
+                line = all_text[marker:].split("- ", 1)
+                if len(line) > 1:
+                    who = line[1].split(":", 1)[0].strip()
+            # Roleplay turns in a room with mechanics on: MOCK_DIRECTIVES is
+            # appended verbatim so a test can prove stage directions are
+            # parsed, applied to the sheets, and stripped from the prose.
+            content = (
+                f"MOCK-MODEL REPLY #{int(time.time() * 1000) % 100000}: the blade goes in.\n"
+                + os.environ["MOCK_DIRECTIVES"].replace("{{WHO}}", who)
+            )
         else:
             content = (
                 f"MOCK-MODEL REPLY #{int(time.time() * 1000) % 100000}: I read your context "
