@@ -3110,8 +3110,10 @@
       notes: r.lastNotes || [],
     };
     var system = worldTurn ? RP.worldSystem(state, r, opts2) : RP.systemFor(state, r, speaker, opts2);
-    var window = RP.contextLimit(r, (state.settings && state.settings.context) || 24);
-    var history = RP.historyFor(retry ? { kind: r.kind, cast: r.cast, messages: r.messages.slice(0, opts.retryIndex) } : r, window);
+    // NOT `window`: a local of that name shadows the global one for the
+    // whole function, and every window.setTimeout in here stops working.
+    var lookBack = RP.contextLimit(r, (state.settings && state.settings.context) || 24);
+    var history = RP.historyFor(retry ? { kind: r.kind, cast: r.cast, messages: r.messages.slice(0, opts.retryIndex) } : r, lookBack);
     if (!history.length) history = [{ role: 'user', content: '(The scene opens. Begin in character.)' }];
 
     /** Ask for a reply, and if the model runs out of room mid-sentence,
@@ -3149,6 +3151,31 @@
       // from the prose and applied to the record before anything renders.
       var staged = RP.parseDirectives(text, r.cast.map(function (c) { return c.name; }));
       r.next = '';
+
+      // [[LOOKUP: …]] — it asked the archive a question rather than making
+      // something up. Answer it, file the answer, and let it write the turn
+      // again with the passage in hand. One extra call, once per turn.
+      var asked = staged.directives.filter(function (d) { return d.kind === 'lookup'; })[0];
+      if (asked && !retry && !opts.searched) {
+        var results = RP.searchArchive(archiveIndex, asked.query, { limit: 3 });
+        results.forEach(function (hit) {
+          RP.bookAdd(state, {
+            kind: 'fact', name: hit.name + ' — ' + RP.clip(asked.query, 40), text: hit.snippet,
+            when: roomDate(r), roomId: r.id, roomTitle: r.title,
+          });
+        });
+        r.messages.push({
+          id: RP.uid(), role: 'state', at: Date.now(),
+          lines: ['🔎 looked up “' + RP.clip(asked.query, 60) + '” — ' +
+            (results.length ? results.length + ' passage' + (results.length === 1 ? '' : 's') + ' filed'
+              : 'nothing on file')],
+        });
+        busy = false; save(); render();
+        window.setTimeout(function () {
+          generate({ searched: RP.retrievalBlock(results, asked.query) });
+        }, 200);
+        return false;
+      }
       // Last resort: if it still trails off, cut back to a full stop rather
       // than showing the reader half a sentence.
       var clean = RP.trimDangling(staged.clean.trim());

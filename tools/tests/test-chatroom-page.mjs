@@ -712,6 +712,25 @@ check('commentary: finished episodes are kept and can be reopened',
   $('homeBtn').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
 }
 
+// ---- the model can search the archive mid-turn ----
+{
+  const RP = win.RP;
+  check('search: the page can find a passage inside a filing, not just a summary', (() => {
+    const idx = RP.buildIndex({
+      events: [{ id: 'e1', name: 'The Iron Mandate', date: '21 Highsun, 1040 BF',
+        summary: 'Emergency legislation.',
+        description: 'The division was recorded as twenty-eight for, eight against and three abstaining.' }],
+      factions: [], whatifs: [], posts: [],
+    }, {});
+    const hits = RP.searchArchive(idx, 'how did the mandate vote go', { limit: 2 });
+    return hits.length === 1 && hits[0].snippet.includes('twenty-eight for');
+  })());
+  check('search: a lookup directive parses, and REMEMBER files a page', (() => {
+    const parsed = RP.parseDirectives('[[LOOKUP: the vote]]\n[[REMEMBER: The gallery | Cleared an hour before.]]', []);
+    return parsed.directives[0].kind === 'lookup' && parsed.directives[1].kind === 'remember';
+  })());
+}
+
 // ---- the sequencer, macros, branching and undo ----
 {
   doc.querySelector('[data-room]').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));

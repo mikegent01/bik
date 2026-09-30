@@ -758,6 +758,39 @@ It carries the same scene, lore book, citations, script, state sheets and
 stage directions a character gets — so the world can wound somebody, walk
 someone in, or fire a beat.
 
+## 🔎 Search — the cast can look things up
+
+Nothing reads a whole filing. `RP.searchArchive` scores a query against every
+record the page has loaded, finds **the passage inside the winners that
+actually matched**, and hands over only that:
+
+```
+FROM THE ARCHIVE — searched just now for "the Iron Mandate vote"
+These are real passages out of real filings. Quote them, date them, argue with
+them — but do not invent around them, and do not pretend to know more of the
+file than is here.
+- [event:the_iron_mandate] The Iron Mandate (21 Highsun, 1040 BF)
+    “The division was recorded as twenty-eight for, eight against and three
+     abstaining, and the three abstentions have never been printed…”
+```
+
+Two ways it fires:
+
+- **Every turn, automatically.** The last few turns become the query, and the
+  top passages ride along beside the dated citations. This is what stops a
+  scene being dry: the model has the actual words in front of it.
+- **On demand, by the model.** `[[LOOKUP: what you want to know]]` is a real
+  tool. The page runs the search, **files the results into the lore book**,
+  shows you `🔎 looked up "…" — 3 passages filed`, and then has the model
+  write the turn again with the passages in hand. One extra call, once per
+  turn. `[[REMEMBER: name | the fact]]` lets it file something itself for
+  quick recall in every later scene.
+
+The stage directions tell it plainly: *use it when you need a fact you do not
+have — a date, a name, what a filing actually says — instead of inventing
+one.* If the search finds nothing, it is told to say so in character rather
+than making a filing up.
+
 ## What this session actually is
 
 A chat started from a Scene card, a What-If, a continuation or a backfill now

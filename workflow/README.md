@@ -192,6 +192,12 @@ memory, lore, replay, backups — is documented in
   writes the card into their own filed portrait, so the file is a picture and
   a card at once; the archive's fields ride along under
   `extensions.waluipedia`.
+- **🔎 The cast can search.** Every turn, the recent lines become a query and
+  the best matching *passages* (not summaries, not whole files) are handed to
+  the model with their ids. It can also ask for itself mid-turn with
+  `[[LOOKUP: …]]` — the page searches, files what it finds into the lore book
+  and has the turn rewritten with the passage in hand — and file its own
+  notes with `[[REMEMBER: name | fact]]`.
 - **The session knows what it is.** A chat opened from a filed event carries
   that filing's dossier — what happened, where, how it ended, what it left
   behind, who was in it with their roles, and how it ran, beat by beat — into

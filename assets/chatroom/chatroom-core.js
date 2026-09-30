@@ -1557,6 +1557,10 @@
     '  [[COUNT: Name arrows -1]]        any counter you need',
     '  [[ITEM: Name + the brass key]]   gained · [[ITEM: Name - the brass key]] lost',
     '  [[STATUS: Name bleeding, one arm]]  a short physical note',
+    '  [[LOOKUP: what you want to know]]  search the archive mid-turn. The page finds the passage and hands it',
+    '      back, then you write the turn again using it. Use it when you need a fact you do not have — a date, a',
+    '      name, what a filing actually says — instead of inventing one.',
+    '  [[REMEMBER: name | the fact]]     file something into the lore book so it is to hand in every later scene.',
     '  [[ENTER: Name — why they arrive]]   bring someone into the scene when the story calls for them',
     '  [[NEW: Name | what they are here for | what they look like]]  invent someone the archive has never filed.',
     '      Nobody has drawn them, so the description is the portrait: face, build, clothing, one memorable detail.',
@@ -1564,7 +1568,7 @@
     'Only use ENTER for people the archive knows, or a clearly named newcomer. Never ENTER or EXIT the player.',
   ].join('\n');
 
-  var DIRECTIVE_RE = /\[\[\s*(HP|MP|FLAG|COUNT|ITEM|STATUS|ENTER|EXIT|NEW|SET|TIME)\s*:\s*([^\]]+?)\s*\]\]/gi;
+  var DIRECTIVE_RE = /\[\[\s*(HP|MP|FLAG|COUNT|ITEM|STATUS|ENTER|EXIT|NEW|SET|TIME|LOOKUP|REMEMBER)\s*:\s*([^\]]+?)\s*\]\]/gi;
   // Anything else in double brackets is a directive the model invented. It
   // gets stripped rather than printed at the reader: "[[TIME: 23:00]]" in
   // the middle of the prose is a bug, not a feature.
@@ -1597,6 +1601,18 @@
     DIRECTIVE_RE.lastIndex = 0;
     while ((match = DIRECTIVE_RE.exec(String(text || '')))) {
       var type = match[1].toUpperCase(), body = match[2].trim();
+      if (type === 'LOOKUP') {
+        out.push({ kind: 'lookup', body: body, query: clip(body, 120) });
+        continue;
+      }
+      if (type === 'REMEMBER') {
+        var split = body.split('|');
+        out.push({
+          kind: 'remember', body: body,
+          name: clip(split[0], 80), value: clip(split.slice(1).join('|') || split[0], 400),
+        });
+        continue;
+      }
       if (type === 'TIME') {
         out.push({ kind: 'time', body: body, value: clip(body, 60) });
         continue;
@@ -1670,6 +1686,16 @@
     }
     var names = (room.cast || []).map(function (c) { return c.name; });
     (directives || []).forEach(function (d) {
+      if (d.kind === 'lookup') return;       // the page answers this one
+      if (d.kind === 'remember') {
+        RP.bookAdd(state, {
+          kind: 'fact', name: d.name, text: d.value,
+          when: room.date || '', roomId: room.id, roomTitle: room.title,
+          chars: (room.cast || []).map(function (c) { return c.id; }),
+        });
+        lines.push('filed: ' + clip(d.name, 60));
+        return;
+      }
       if (d.kind === 'time') {
         room.clock = d.value;
         lines.push('the time is ' + d.value);
@@ -3201,6 +3227,93 @@
 
 
 
+
+  /* ------------------------------------------------------------------ *
+   * search — the model can look something up mid-scene
+   *
+   * Nothing reads a whole filing. A query is scored against every record
+   * the page has loaded, the best PASSAGE inside the winners is cut out,
+   * and only those passages are handed over. The model can ask for this
+   * itself with [[LOOKUP: …]], and file what it learns with [[REMEMBER:]].
+   * ------------------------------------------------------------------ */
+
+  var STOP = /^(the|and|for|with|that|this|from|into|what|when|where|who|whom|whose|which|about|there|their|they|them|then|than|have|has|had|was|were|been|being|does|did|done|will|would|could|should|shall|may|might|must|can|are|is|it|its|his|her|our|your|you|i|a|an|of|to|in|on|at|by|as|or|if|but|not|no|yes|do|so|up|out|off|over|under|again|once|here|now)$/i;
+
+  RP.searchTerms = function (query) {
+    var seen = {};
+    return String(query || '').toLowerCase().split(/[^a-z0-9']+/)
+      .filter(function (t) {
+        if (t.length < 3 || STOP.test(t) || seen[t]) return false;
+        seen[t] = 1;
+        return true;
+      }).slice(0, 12);
+  };
+
+  /** The best few sentences inside a body of prose for these terms. */
+  RP.bestPassage = function (body, terms, size) {
+    var text = String(body || '').replace(/\s+/g, ' ').trim();
+    if (!text) return '';
+    var parts = text.split(/(?<=[.!?])\s+/);
+    if (parts.length < 2) return clip(text, size || 320);
+    var best = { score: -1, at: 0 };
+    for (var i = 0; i < parts.length; i++) {
+      var window = parts.slice(i, i + 3).join(' ').toLowerCase();
+      var score = 0;
+      terms.forEach(function (t) { if (window.indexOf(t) >= 0) score++; });
+      if (score > best.score) best = { score: score, at: i };
+    }
+    if (best.score <= 0) return clip(text, size || 320);
+    return clip(parts.slice(best.at, best.at + 3).join(' '), size || 320);
+  };
+
+  /** Search everything loaded. Returns records with the passage that
+   *  actually matched, not the whole filing. */
+  RP.searchArchive = function (index, query, opts) {
+    opts = opts || {};
+    var terms = RP.searchTerms(query);
+    if (!terms.length) return [];
+    var scored = [];
+    (index || []).forEach(function (r) {
+      if (r.noncanon && !opts.includeNonCanon) return;
+      var hay = r.words || '';
+      var score = 0;
+      terms.forEach(function (t) {
+        var at = hay.indexOf(t);
+        if (at < 0) return;
+        score += 1;
+        if (String(r.name || '').toLowerCase().indexOf(t) >= 0) score += 2;   // a name match is worth more
+      });
+      if (!score) return;
+      scored.push({ r: r, score: score });
+    });
+    return scored.sort(function (a, b) { return b.score - a.score; })
+      .slice(0, opts.limit || 4)
+      .map(function (x) {
+        return {
+          id: x.r.id, kind: x.r.kind, name: x.r.name,
+          date: x.r.date ? RP.formatWahDate(x.r.date) : '',
+          snippet: RP.bestPassage(x.r.body || x.r.text, terms, opts.size || 320),
+          score: x.score,
+        };
+      });
+  };
+
+  /** What a search hands the model. */
+  RP.retrievalBlock = function (results, query) {
+    if (!results || !results.length) {
+      return query ? 'YOU SEARCHED THE ARCHIVE FOR "' + clip(query, 80) + '" AND IT HAS NOTHING.\n' +
+        'Say so in character rather than inventing a filing.' : '';
+    }
+    return [
+      'FROM THE ARCHIVE' + (query ? ' — searched just now for "' + clip(query, 80) + '"' : ' — relevant to this moment'),
+      'These are real passages out of real filings. Quote them, date them, argue with them — but do not invent',
+      'around them, and do not pretend to know more of the file than is here.',
+      results.map(function (r) {
+        return '- [' + r.kind + ':' + r.id + '] ' + r.name + (r.date ? ' (' + r.date + ')' : '') + '\n    “' + r.snippet + '”';
+      }).join('\n'),
+    ].join('\n');
+  };
+
   /* ------------------------------------------------------------------ *
    * the session's own source — what this scene actually is
    *
@@ -3904,17 +4017,23 @@
   RP.buildIndex = function (archive, castById) {
     var out = [];
     (archive.events || []).forEach(function (e) {
+      // `body` is what search quotes from: the filing's own prose, not a
+      // summary of it. Nothing reads the whole file — the search finds the
+      // paragraph and hands over that.
+      var body = [e.summary, e.description, e.outcome, e.aftermath].filter(Boolean).join('\n\n');
       out.push({
         id: e.id, name: e.name, kind: 'event', date: RP.parseWahDate(e.timeCode || e.date),
         text: clip(e.summary, 300), where: clip(e.location, 90),
-        words: ((e.name || '') + ' ' + (e.summary || '') + ' ' + (e.location || '') + ' ' + (e.era || '')).toLowerCase(),
+        body: String(body).slice(0, 4000),
+        words: ((e.name || '') + ' ' + body + ' ' + (e.location || '') + ' ' + (e.era || '')).toLowerCase().slice(0, 6000),
       });
     });
     (archive.factions || []).forEach(function (f) {
+      var body = [f.summary, f.description].filter(Boolean).join('\n\n');
       out.push({
         id: f.id, name: f.name, kind: 'faction', date: null, standing: true,
-        text: clip(f.summary, 300),
-        words: ((f.name || '') + ' ' + (f.summary || '') + ' ' + (f.region || '')).toLowerCase(),
+        text: clip(f.summary, 300), body: String(body).slice(0, 4000),
+        words: ((f.name || '') + ' ' + body + ' ' + (f.region || '')).toLowerCase().slice(0, 6000),
       });
     });
     (archive.whatifs || []).forEach(function (w) {
@@ -3926,10 +4045,11 @@
     });
     Object.keys(castById || {}).forEach(function (k) {
       var c = castById[k];
+      var body = [c.title, c.status, c.summary, c.description].filter(Boolean).join('\n\n');
       out.push({
         id: c.id, name: c.name, kind: 'character', date: null, standing: true,
-        text: clip(c.title + '. ' + c.summary, 260),
-        words: ((c.name || '') + ' ' + (c.title || '') + ' ' + (c.summary || '') + ' ' + (c.affiliation || '')).toLowerCase(),
+        text: clip(c.title + '. ' + c.summary, 260), body: String(body).slice(0, 4000),
+        words: ((c.name || '') + ' ' + body + ' ' + (c.affiliation || '')).toLowerCase().slice(0, 6000),
       });
     });
     (archive.posts || []).forEach(function (p) {

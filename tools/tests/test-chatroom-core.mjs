@@ -1733,6 +1733,67 @@ check('attribution: the group prompt insists the turn opens on the speaker', (()
     /do not write another character/.test(prompt);
 })());
 
+// ---------- search: the model can look things up ----------
+const searchIndex = RP.buildIndex({
+  events: [{
+    id: 'the_iron_mandate', name: 'The Iron Mandate', date: '21 Highsun, 1040 BF',
+    summary: 'Emergency legislation passed by the Midlands Diet.',
+    description: 'The chamber sat at nine in the morning. The gallery had been cleared an hour before, ' +
+      'which the minutes do not explain. The division was recorded as twenty-eight for, eight against and three ' +
+      'abstaining, and the three abstentions have never been printed. Speaker Rivers resigned on the spot. ' +
+      'Afterwards the Legion moved on the northern parishes without waiting for the ink to dry.',
+    outcome: 'The Legion got its powers.',
+  }, {
+    id: 'the_ridge', name: 'The Logging Road Ambush', date: '9 Aethel, 1040 BF',
+    summary: 'Rebels came out of the treeline and the saws stopped.',
+    description: 'Two crews were working the top of the road in the dark because the concession pays by the trunk.',
+  }],
+  factions: [], whatifs: [], posts: [],
+}, {});
+check('search: terms are picked out and the noise is dropped', (() => {
+  const terms = RP.searchTerms('What does the record say about the Iron Mandate vote?');
+  return terms.includes('record') && terms.includes('iron') && terms.includes('mandate') &&
+    !terms.includes('what') && !terms.includes('the');
+})());
+check('search: the index carries enough prose to quote from',
+  searchIndex[0].body.includes('twenty-eight for') && searchIndex[0].words.length > 200);
+const searched = RP.searchArchive(searchIndex, 'how did the Iron Mandate vote go', { limit: 3 });
+check('search: the right filing comes first', searched.length && searched[0].id === 'the_iron_mandate');
+check('search: it returns the passage that matched, not the whole filing', (() => {
+  const hit = searched[0];
+  return hit.snippet.includes('twenty-eight for') && hit.snippet.length < 400 &&
+    !hit.snippet.includes('pays by the trunk');
+})());
+check('search: a query with nothing behind it finds nothing',
+  RP.searchArchive(searchIndex, 'zzzz qqqq', { limit: 3 }).length === 0);
+check('search: the block quotes with ids, and forbids inventing around it', (() => {
+  const block = RP.retrievalBlock(searched, 'the Iron Mandate vote');
+  return /FROM THE ARCHIVE/.test(block) && block.includes('[event:the_iron_mandate]') &&
+    /do not invent/.test(block) && block.includes('twenty-eight for');
+})());
+check('search: an empty result says so rather than leaving a gap',
+  /has nothing/i.test(RP.retrievalBlock([], 'a thing that is not filed')) &&
+  /rather than inventing a filing/.test(RP.retrievalBlock([], 'x')));
+
+check('lookup: the model can ask, and file what it learns', (() => {
+  const parsed = RP.parseDirectives('He checks the ledger.\n[[LOOKUP: the Iron Mandate vote]]\n' +
+    '[[REMEMBER: The three abstentions | Never printed, in any edition.]]', []);
+  return parsed.clean === 'He checks the ledger.' &&
+    parsed.directives[0].kind === 'lookup' && parsed.directives[0].query === 'the Iron Mandate vote' &&
+    parsed.directives[1].kind === 'remember' && parsed.directives[1].name === 'The three abstentions';
+})());
+check('lookup: REMEMBER writes straight into the lore book', (() => {
+  const st = RP.blankState();
+  const room = RP.newRoom([sans], {});
+  RP.applyDirectives(st, room, RP.parseDirectives('[[REMEMBER: The gallery | Cleared an hour before the vote.]]', []).directives, () => null);
+  const pages = RP.bookState(st).entries;
+  return pages.length === 1 && pages[0].name === 'The gallery' && pages[0].text.includes('Cleared an hour');
+})());
+check('lookup: the stage directions tell the model the tool exists',
+  /\[\[LOOKUP: what you want to know\]\]/.test(RP.DIRECTIVES) &&
+  /instead of inventing one/.test(RP.DIRECTIVES) &&
+  /\[\[REMEMBER: name \| the fact\]\]/.test(RP.DIRECTIVES));
+
 // ---------- generated pages are in sync with these sources ----------
 let built = true;
 try {
