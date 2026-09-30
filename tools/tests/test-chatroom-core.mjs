@@ -2394,6 +2394,38 @@ check('history: newest turns win the budget', (() => {
   })());
 }
 
+// ---------- the prompt diet: sheets and history sized for a local model ----------
+{
+  const castDiet = ['Ana', 'Bo', 'Cyd', 'Dee'].map((nm) => RP.normChar({ id: nm.toLowerCase(), name: nm, title: 'A ' + nm }));
+  const stDiet = RP.blankState();
+  stDiet.persona = { name: 'Reader', voice: '', look: '', items: ['a ledger'], notes: '' };
+  const rmDiet = RP.newRoom(castDiet, { kind: 'group' });
+  RP.ensurePlayerSheet(stDiet, rmDiet);
+  RP.applyChange(rmDiet.states.bo, { kind: 'hp', op: '-', value: 40 });
+  check('diet: with a focus, only the actor and the player ride in full', (() => {
+    const block = RP.stateBlock(rmDiet, 'ana');
+    const lines = block.split('\n').filter((l) => l.startsWith('- '));
+    return /- Ana:.*carrying/.test(block) && /THE PLAYER.*carrying/.test(block) &&
+      /- Bo: HP 60\/100$/m.test(block) &&                       // wounded: one short line
+      /- Untouched right now: Cyd, Dee/.test(block) &&          // quiet: one roll call
+      !/- Cyd:/.test(block) && lines.length === 4;
+  })());
+  check('diet: without a focus the full sheets still ride (the reviewer needs them)', (() => {
+    const block = RP.stateBlock(rmDiet);
+    return /- Cyd:.*carrying/.test(block) && /- Dee:.*carrying/.test(block) && !/Untouched right now/.test(block);
+  })());
+  check('diet: old turns are clipped hard, the newest arrive whole', (() => {
+    const msgs = [];
+    for (let i = 0; i < 12; i++) msgs.push({ role: 'assistant', content: 'turn ' + i + ' ' + 'w'.repeat(1200) });
+    const packed = RP.packHistory(msgs, 30000);
+    const oldest = packed[0], newest = packed[packed.length - 1];
+    return newest.content.length > 1000 && oldest.content.length <= RP.OLD_CLIP + 1 &&
+      RP.OLD_CLIP < RP.TURN_CLIP;
+  })());
+  check('diet: the story folds into the recap sooner than it used to',
+    RP.RECAP_AFTER <= 18 && RP.HISTORY_BUDGET <= 6500);
+}
+
 // ---------- generated pages are in sync with these sources ----------
 let built = true;
 try {

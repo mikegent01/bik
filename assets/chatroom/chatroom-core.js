@@ -493,7 +493,7 @@
       list.map(function (c) {
         return '- ' + c.name + (c.title ? ' — ' + c.title : '') +
           (c.affiliation ? ' (' + c.affiliation + ')' : '') +
-          (c.id !== who.id && c.summary ? '\n    ' + clip(c.summary, 200) : '');
+          (c.id !== who.id && c.summary ? '\n    ' + clip(c.summary, 120) : '');
       }).join('\n'),
       '',
       'YOU ARE ' + who.name,
@@ -628,7 +628,7 @@
 
   /* ---- the rolling recap: a long chat without a long prompt ---- */
 
-  RP.RECAP_AFTER = 24;      // turns of history before the old ones are folded up
+  RP.RECAP_AFTER = 18;      // turns of history before the old ones are folded up
 
   /** Which turns the model still sees verbatim. Everything before the
    *  recap point is represented by the recap itself. */
@@ -2160,18 +2160,28 @@
   };
 
   /** The sheets, as the model sees them. */
-  RP.stateBlock = function (room) {
-    var sheets = Object.keys((room && room.states) || {}).map(function (k) { return room.states[k]; })
-      .filter(function (s) { return s && s.present !== false; });
+  /** The sheets as the model sees them. With a `focus` id, only the
+   *  acting character and the player ride in full — everyone else is a
+   *  short line (wounds, conditions, counters), and the untouched are
+   *  folded into one roll call. Six full kits in every prompt is how a
+   *  local model spends its whole day prefilling. */
+  RP.stateBlock = function (room, focus) {
+    var sheets = Object.keys((room && room.states) || {}).map(function (k) { return { id: k, s: room.states[k] }; })
+      .filter(function (e) { return e.s && e.s.present !== false; });
     if (!sheets.length) return '';
     var hasPlayer = false;
     var active = [];    // conditions in play right now — surfaced, not buried
-    var body = sheets.map(function (s) {
+    var quiet = [];     // present, unhurt, nothing in play — one roll call
+    var body = sheets.map(function (e) {
+      var s = e.s;
       if (s.player) hasPlayer = true;
+      var full = !focus || s.player || e.id === focus;
       var bits = [];
-      if (s.hp) bits.push('HP ' + s.hp.value + '/' + s.hp.max + (s.hp.value === 0 ? ' (down)' : s.hp.value <= s.hp.max * 0.3 ? ' (badly hurt)' : ''));
-      if (s.mp) bits.push('MP ' + s.mp.value + '/' + s.mp.max);
-      if (s.stats) bits.push(RP.statLine(s.stats));
+      var hurt = s.hp && s.hp.value < s.hp.max;
+      var spent = s.mp && s.mp.value < s.mp.max;
+      if (s.hp && (full || hurt)) bits.push('HP ' + s.hp.value + '/' + s.hp.max + (s.hp.value === 0 ? ' (down)' : s.hp.value <= s.hp.max * 0.3 ? ' (badly hurt)' : ''));
+      if (s.mp && (full || spent)) bits.push('MP ' + s.mp.value + '/' + s.mp.max);
+      if (full && s.stats) bits.push(RP.statLine(s.stats));
       Object.keys(s.flags || {}).forEach(function (f) {
         var cond = s.flags[f] && typeof s.flags[f] === 'object' ? s.flags[f] : { note: '', turns: 0 };
         var word = f.replace(/_/g, ' ');
@@ -2190,14 +2200,19 @@
         bits.push('holding ' + inHand.map(function (i) { return i.icon + ' ' + i.name; }).join(', '));
       }
       var stowed = kit.filter(function (i) { return !i.equipped; });
-      if (stowed.length) {
+      if (full && stowed.length) {
         bits.push('carrying ' + stowed.map(function (i) {
           return i.icon + ' ' + i.name + (i.qty > 1 ? ' ×' + i.qty : '') + (i.note ? ' — ' + i.note : '');
         }).join('; '));
       }
       if (s.status) bits.push(s.status);
+      if (!full && !bits.length) { quiet.push(s.name); return ''; }
       return '- ' + s.name + (s.player ? ' (THE PLAYER)' : '') + ': ' + (bits.join(' · ') || 'unharmed, nothing to declare');
-    }).join('\n');
+    }).filter(Boolean).join('\n');
+    if (quiet.length) {
+      body += (body ? '\n' : '') + '- Untouched right now: ' + quiet.join(', ') +
+        ' — their full sheets are on file and answer to directives by name.';
+    }
     var out = 'CHARACTER STATE — this is true right now, play it. They may only use what is listed here, and a\n' +
       'condition with a cost beside it is taking that off them every turn it lasts. Reach for the kit only when\n' +
       'the moment calls for it — never inventory it in prose — and nothing joins a sheet that the scene did not\n' +
@@ -4232,7 +4247,7 @@
     if (memory) parts.push(memory);
     var protectedFrom = parts.length;
     if (room.mechanics !== 'off') {
-      var sheets = RP.stateBlock(room);
+      var sheets = RP.stateBlock(room, RP.PLAYER_ID);
       if (sheets) parts.push(sheets);
       var named = RP.mentionBlock(room, opts.mentionText || '');
       if (named) parts.push(named);
@@ -5996,7 +6011,7 @@
     var continuation = RP.continuationBlock(room);
     if (continuation) parts.push(continuation);
     if (room.mechanics !== 'off') {
-      var sheets = RP.stateBlock(room);
+      var sheets = RP.stateBlock(room, RP.normChar(speaker || {}).id);
       if (sheets) parts.push(sheets);
       var named = RP.mentionBlock(room, opts.mentionText || '');
       if (named) parts.push(named);
@@ -6024,8 +6039,9 @@
    * crawl. Newest turns first, each clipped to a sane length, packed into
    * a character budget — the turn COUNT limit still applies on top. ---- */
 
-  RP.HISTORY_BUDGET = 9000;
+  RP.HISTORY_BUDGET = 6500;
   RP.TURN_CLIP = 1600;
+  RP.OLD_CLIP = 450;        // what a turn is worth once it is old news
 
   RP.packHistory = function (messages, budget, minTurns) {
     var cap = Number(budget) || RP.HISTORY_BUDGET;
@@ -6034,7 +6050,11 @@
     for (var i = (messages || []).length - 1; i >= 0; i--) {
       var m = messages[i];
       var content = String(m.content || '');
-      if (content.length > RP.TURN_CLIP) content = clip(content, RP.TURN_CLIP);
+      // The last few turns arrive whole; older ones are clipped hard.
+      // A Director monologue from ten turns ago earns a paragraph, not
+      // sixteen hundred characters of prefill every turn since.
+      var turnCap = out.length < floor ? RP.TURN_CLIP : RP.OLD_CLIP;
+      if (content.length > turnCap) content = clip(content, turnCap);
       if (used + content.length > cap && out.length >= floor) break;
       out.unshift(content === m.content ? m : { role: m.role, content: content });
       used += content.length;

@@ -1248,6 +1248,28 @@ And leaving is not deletion: whoever exits is remembered at the door
 with **the same sheet**, still carrying whatever they walked out with. The
 card reads `returns` instead of `enters`.
 
+### 🍽 The prompt diet — sized for a local model
+
+A six-character room used to send six full sheets and a novel of history
+every turn; a local model spends that entirely on prefill, and the reply
+crawls. The prompt is now sized to the turn:
+
+- **Sheets follow the spotlight.** Only the acting character and the
+  player ride in full (kit, stats, everything). Anyone wounded or under a
+  condition gets one short line; the untouched are one roll call —
+  *"Untouched right now: Mona, Luigi"* — and their full sheets still
+  answer to directives by name. World turns carry the player in full.
+  The background reviewer always sees everything.
+- **History is tiered.** The newest six turns arrive whole (up to 1,600
+  chars); older ones are clipped to ~450 — a Director monologue from ten
+  turns ago earns a paragraph, not sixteen hundred characters of prefill
+  forever. The default history budget is 6,500 chars (Settings can raise
+  it).
+- **The story folds sooner.** The rolling recap now takes over at ~27
+  turns instead of 36: recent turns verbatim, the older story carried as
+  a summary. That is the chunking — the model never re-reads the whole
+  night.
+
 ## 🩸 Conditions that bite
 
 A condition can carry a **cost per turn**, and it is taken automatically for
