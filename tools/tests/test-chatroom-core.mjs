@@ -427,7 +427,7 @@ check('kit: the model is shown what is in hand, what is stowed, and for how long
   RP.applyDirectives(RP.blankState(), kitRoom, RP.parseDirectives(
     '[[EQUIP: Sans brass key]]\n[[COND: Sans winded 3 | ran the ridge road]]', names).directives, () => null);
   const block = RP.stateBlock(kitRoom);
-  return /holding a brass key/.test(block) && /winded \(ran the ridge road\) \[3 turns left\]/.test(block);
+  return /holding 🗝 a brass key/.test(block) && /winded \(ran the ridge road\) \[3 turns left\]/.test(block);
 })());
 
 // ---------- hooks: strong openers, weak ones rejected ----------
@@ -1938,6 +1938,102 @@ check('book: a cap keeps the diary and the pages that came up more than once', (
   const kept = RP.bookState(st).entries;
   return out.after === 10 && kept.some(p => p.kind === 'diary') && kept.some(p => (p.seen || 1) > 1);
 })());
+
+// ---------- the kit is a grid, and conditions bite ----------
+const gridRoom = RP.newRoom([sans], {});
+RP.applyDirectives(RP.blankState(), gridRoom, RP.parseDirectives([
+  '[[ITEM: Sans + 🗝 a brass key | bent, from the ledger room]]',
+  '[[ITEM: Sans + a worn notepad]]',
+  '[[ITEM: Sans + a lantern]]',
+  '[[EQUIP: Sans brass key]]',
+].join('\n'), ['Sans']).directives, () => null);
+check('kit: an emoji comes with the thing, chosen or guessed', (() => {
+  const kit = gridRoom.states.sans.items.map(RP.normItem);
+  return kit[0].icon === '🗝' && kit[1].icon === '📄' && kit[2].icon === '🏮' &&
+    RP.iconFor('a strange object') === '📦';
+})());
+check('kit: the grid keeps its shape, with what is in hand first', (() => {
+  const slots = RP.gridSlots(gridRoom.states.sans, 8);
+  return slots.length === 8 && slots[0].equipped && slots[0].name.includes('brass key') &&
+    slots.filter(Boolean).length === 3;
+})());
+check('kit: using something spends it, and the last one goes', (() => {
+  const sheet = gridRoom.states.sans;
+  RP.applyChange(sheet, { kind: 'item', op: '+', name: 'a lantern' });     // now ×2
+  const first = RP.applyChange(sheet, { kind: 'use', name: 'lantern' });
+  const second = RP.applyChange(sheet, { kind: 'use', name: 'lantern' });
+  return /uses 🏮 a lantern/.test(first) && /last of it/.test(second) &&
+    !sheet.items.some(i => /lantern/.test(i.name));
+})());
+check('kit: the model may only use what is on the sheet',
+  /may only use what is listed here/.test(RP.stateBlock(gridRoom)) &&
+  /\[\[USE: Name the brass key\]\]/.test(RP.DIRECTIVES));
+
+const biteRoom = RP.newRoom([sans], {});
+RP.applyDirectives(RP.blankState(), biteRoom,
+  RP.parseDirectives('[[COND: Sans bleeding 3 -2hp | a deep cut across the palm]]', ['Sans']).directives, () => null);
+check('conditions: a cost and a count are read separately', (() => {
+  const cond = biteRoom.states.sans.flags.bleeding;
+  return cond && cond.turns === 3 && cond.effect === '-2hp' && cond.note.includes('deep cut');
+})());
+check('conditions: it takes the cost every turn it lasts, then stops', (() => {
+  const before = biteRoom.states.sans.hp.value;
+  const first = RP.tickConditions(biteRoom);
+  RP.tickConditions(biteRoom);
+  RP.tickConditions(biteRoom);
+  const after = biteRoom.states.sans.hp.value;
+  return /−2 HP/.test(first[0]) && before - after === 6 && !biteRoom.states.sans.flags.bleeding;
+})());
+check('conditions: a lasting one with no cost does nothing but sit there', (() => {
+  const quiet = RP.newRoom([sans], {});
+  RP.applyDirectives(RP.blankState(), quiet, RP.parseDirectives('[[COND: Sans hunted | the Legion has his name]]', ['Sans']).directives, () => null);
+  const hp = quiet.states.sans.hp.value;
+  RP.tickConditions(quiet); RP.tickConditions(quiet);
+  return quiet.states.sans.hp.value === hp && Boolean(quiet.states.sans.flags.hunted);
+})());
+check('conditions: the model is told the cost is real',
+  /a\s+condition with a cost beside it is taking that off them/.test(RP.stateBlock(biteRoom).replace(/\n/g, ' ')));
+
+// ---------- colour ----------
+check('colour: a named colour and a hex both render', (() => {
+  const html = RP.md('The {red|door} is {#2f7d4f|open}.');
+  return html.includes('color:#c0392b') && html.includes('color:#2f7d4f') &&
+    html.includes('>door<') && html.includes('>open<');
+})());
+check('colour: anything that is not a colour is left as written',
+  RP.md('Plain {notacolour|text} stays.').includes('{notacolour|text}'));
+check('colour: nothing but a colour gets through', (() => {
+  const html = RP.md('{red|<script>alert(1)</script>}');
+  return !/<script/.test(html) && html.includes('&lt;script');
+})());
+check('colour: the model is told the palette, and told not to overdo it',
+  /Colours available: red, blood/.test(RP.groupPrompt([sans, cutters], sans, {})) &&
+  /two or three words in a turn at most/.test(RP.soloPrompt(sans, {})));
+
+// ---------- a long chat stays cheap ----------
+const longRoom = RP.newRoom([sans], {});
+for (let i = 0; i < 60; i++) {
+  longRoom.messages.push({ id: 'L' + i, role: i % 2 ? 'char' : 'user', charId: 'sans', text: 'turn number ' + i, at: i });
+}
+check('recap: a long chat asks to be folded up', RP.needsRecap(longRoom, 24) === true);
+check('recap: a short one does not', RP.needsRecap(RP.newRoom([sans], {}), 24) === false);
+check('recap: the prompt keeps what matters and drops the weather', (() => {
+  const prompt = RP.recapPrompt(longRoom, [{ who: 'Sans', text: 'He signed it.' }], 'Earlier, they argued.');
+  return /120 to 200 words/.test(prompt) && /what was decided/.test(prompt) &&
+    /Drop: weather/.test(prompt) && prompt.includes('Earlier, they argued.');
+})());
+check('recap: folding shortens the history but not the story', (() => {
+  const before = RP.historyFor(longRoom).length;
+  longRoom.recap = 'They argued about the ledger for an hour and nobody signed anything.';
+  longRoom.recapAt = 40;
+  const after = RP.historyFor(longRoom).length;
+  const block = RP.recapBlock(longRoom);
+  return before === 60 && after === 20 && /THE STORY SO FAR/.test(block) && block.includes('nobody signed');
+})());
+check('recap: it reaches both prompts',
+  RP.systemFor(RP.blankState(), longRoom, sans).includes('THE STORY SO FAR') &&
+  RP.worldSystem(RP.blankState(), longRoom, {}).includes('THE STORY SO FAR'));
+check('recap: the turns themselves are never thrown away', longRoom.messages.length === 60);
 
 // ---------- generated pages are in sync with these sources ----------
 let built = true;

@@ -151,6 +151,18 @@ check('state: the scenario starts the named character at half health, wounded, c
   return sheet.hp.value === 50 && Boolean(sheet.flags.wounded) &&
     win.RP.normItem(sheet.items[0]).name === 'the brass key';
 })());
+check('kit: the sheets carry an emoji grid you can click', (() => {
+  const slots = doc.querySelectorAll('.statebar .slot');
+  return slots.length >= 8 && doc.querySelectorAll('.statebar .slot:not(.empty)').length >= 1;
+})());
+check('kit: a filled slot opens hand / use / drop', (() => {
+  const slot = doc.querySelector('.statebar .slot:not(.empty)');
+  if (!slot) return false;
+  slot.dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+  const opened = !$('modalBack').hidden && /Take it in hand|Put it away/.test($('modal').textContent);
+  if (opened) $('mCancel') ? $('mCancel').dispatchEvent(new win.MouseEvent('click', { bubbles: true })) : null;
+  return opened;
+})());
 check('state: the sheets are visible in the chat, with bars and conditions',
   !$('statebar').hidden && doc.querySelectorAll('.statebar .sheet').length >= 2 &&
   doc.querySelector('.statebar .pool .num').textContent.includes('HP') &&

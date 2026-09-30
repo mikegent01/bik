@@ -118,6 +118,17 @@ memory, lore, replay, backups — is documented in
   been played here. Playing one produces the missing account.
 - **Sequels.** 📖 Sequel in any chat carries the cast, the sheets, the pinned
   lines and the unfired beats into the next scene, and opens in the middle.
+- **🎒 An emoji inventory grid.** Eight slots per character, one emoji per
+  thing, in-hand lit, quantities and notes; click for hand / use / drop. The
+  model sets icons itself and may only use what is on the sheet.
+- **🩸 Conditions that bite.** `[[COND: Name bleeding 3 -2hp | …]]` costs 2 HP
+  a turn for three turns and then passes, automatically.
+- **🎨 Colour.** `{red|the door}` / `{#8e2b20|the stain}` — a safe palette or
+  any hex, escaped first, and the prompt tells the model to use it on two or
+  three words at most.
+- **📜 Rolling recap.** When the history outgrows the window the older turns
+  are folded into a "story so far" by the background model. The turns stay;
+  only the prompt shrinks.
 - **Character state.** Every room keeps HP, MP, conditions (with notes and a
   turn count that ticks down), counters and an inventory of real items (note,
   quantity, in hand or stowed) per character, shown under 🩺 States and editable by hand. Scenario

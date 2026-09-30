@@ -79,8 +79,30 @@
    * narration markdown
    * ------------------------------------------------------------------ */
 
+  /* A small, safe palette plus #rrggbb. The model writes {red|the door}
+   * and the reader sees it in red — nothing else gets through. */
+  RP.COLOURS = {
+    red: '#c0392b', blood: '#8e2b20', orange: '#c26a1c', amber: '#b3861a', gold: '#a8862c',
+    green: '#2f7d4f', teal: '#1f7a72', blue: '#2b5fb3', ice: '#4a8fc7', violet: '#6b46c1',
+    purple: '#7a2fb0', pink: '#b5347c', grey: '#6b6b74', gray: '#6b6b74', black: '#1a1a1c',
+    white: '#f4f4f6', rust: '#9c5221', moss: '#5c7a3f', bone: '#c8bda4',
+  };
+
+  function colourValue(name) {
+    var key = String(name || '').trim().toLowerCase();
+    if (RP.COLOURS[key]) return RP.COLOURS[key];
+    if (/^#[0-9a-f]{3}$/i.test(key) || /^#[0-9a-f]{6}$/i.test(key)) return key;
+    return '';
+  }
+  RP.colourValue = colourValue;
+
   function inlineMd(text) {
     return String(text)
+      // {red|the door} · {#c0392b|the door} — colour, and nothing else.
+      .replace(/\{([a-z]{3,8}|#[0-9a-f]{3,6})\|([^{}]{1,300})\}/gi, function (all, name, body) {
+        var value = colourValue(name);
+        return value ? '<span class="tint" style="color:' + value + '">' + body + '</span>' : all;
+      })
       .replace(/\*\*([^*]+)\*\*/g, '<b>$1</b>')
       .replace(/\*([^*\n]+)\*/g, '<em>$1</em>')
       .replace(/&quot;([^&]*?)&quot;/g, '<span class="q">&quot;$1&quot;</span>');
@@ -263,6 +285,10 @@
   };
 
   var RULES = [
+    'You may colour a few words when it earns it: {red|the door is open}, {ice|her breath}, {#8e2b20|the stain}. ' +
+      'Colours available: red, blood, orange, amber, gold, green, teal, blue, ice, violet, purple, pink, grey, ' +
+      'black, white, rust, moss, bone, or any #hex. Use it for one thing that matters, not for decoration — ' +
+      'two or three words in a turn at most, and never a whole sentence.',
     'Use the material. When the archive passages, the session filing or the lore book say something that touches ' +
       'this moment, USE IT — a date, a name, a number, what somebody actually said. Quote it, argue with it, get it ' +
       'slightly wrong in character if that is truer. A scene that could have happened in any story is a wasted turn.',
@@ -368,6 +394,7 @@
       // How far back the model may look in this room; 0 means "use the
       // global setting".
       contextLimit: Number(opts.contextLimit || 0),
+      recap: '', recapAt: 0,                    // the story so far, folded up
       youPlay: String(opts.youPlay || ''),      // the character the reader plays
       privacy: String(opts.privacy || ''),      // '' (read the turn) | private | open
       note: String(opts.note || ''),            // standing instructions for this chat
@@ -413,6 +440,7 @@
    *  page's own failure notices are never sent: the model sees only play. */
   RP.historyFor = function (room, limit) {
     var group = room && room.kind === 'group';
+    var from = Math.max(0, Number((room && room.recapAt) || 0));
     // A muted turn stays on screen and stays out of the model's head: that
     // is how you take something back without deleting it.
     var out = (room && room.messages ? room.messages : []).filter(function (m) {
@@ -427,7 +455,50 @@
       }
       return { role: 'assistant', content: name + RP.textOf(m) };
     });
+    // Anything before the recap point is covered by the recap itself.
+    if (from) out = out.slice(from);
     return limit ? out.slice(-limit) : out;
+  };
+
+  /* ---- the rolling recap: a long chat without a long prompt ---- */
+
+  RP.RECAP_AFTER = 24;      // turns of history before the old ones are folded up
+
+  /** Which turns the model still sees verbatim. Everything before the
+   *  recap point is represented by the recap itself. */
+  RP.liveTurns = function (room) {
+    var turns = (room.messages || []).filter(visible);
+    var from = Math.max(0, Number(room.recapAt || 0));
+    return turns.slice(from);
+  };
+
+  /** Is it time to fold the old turns up? */
+  RP.needsRecap = function (room, every) {
+    var turns = (room.messages || []).filter(visible).length;
+    var from = Number(room.recapAt || 0);
+    return turns - from > (every || RP.RECAP_AFTER) * 1.5;
+  };
+
+  /** The prompt that writes the recap — a small, cheap, background call. */
+  RP.recapPrompt = function (room, turns, previous) {
+    return [
+      'Summarise this stretch of a roleplay session so the scene can carry on without re-reading it.',
+      '',
+      previous ? 'WHAT WAS ALREADY SUMMARISED (fold this in, do not repeat it separately)\n' + clip(previous, 900) : '',
+      '',
+      'THE TURNS',
+      turns.map(function (t) { return t.who + ': ' + clip(t.text, 300); }).join('\n'),
+      '',
+      'Write 120 to 200 words of plain past-tense prose. Keep: who did what, what was decided, what was learned,',
+      'what changed hands, what was promised or refused, and anything anybody would still be angry about.',
+      'Drop: weather, atmosphere, and anything said twice. No headings, no bullet points, no commentary.',
+    ].filter(Boolean).join('\n');
+  };
+
+  RP.recapBlock = function (room) {
+    if (!room || !room.recap) return '';
+    return 'THE STORY SO FAR — everything before the turns below, folded up. Treat it as having happened.\n' +
+      clip(room.recap, 1200);
   };
 
   /** Turns on screen — the number the room list and character cards show. */
@@ -1433,25 +1504,80 @@
    *  flags: 'wounded, hunted', items: 'rope, lantern' }. */
   /** Items are things, not strings: a name, a note about it, whether it is
    *  in hand, and how many. Old string inventories are upgraded on read. */
+  /* An emoji per kind of thing, so a sheet can be read at a glance. The
+   * model may set one itself; this is the fallback, by what it is called. */
+  RP.ICONS = [
+    [/\b(key|keys)\b/i, '🗝'], [/\b(sword|blade|knife|dagger|machete)\b/i, '🗡'],
+    [/\b(gun|pistol|rifle|musket)\b/i, '🔫'], [/\b(bow|arrow|arrows|quiver)\b/i, '🏹'],
+    [/\b(shield|buckler)\b/i, '🛡'], [/\b(hammer|mallet|rolling pin)\b/i, '🔨'],
+    [/\b(rope|cord|line)\b/i, '🪢'], [/\b(lamp|lantern|torch|candle)\b/i, '🏮'],
+    [/\b(book|ledger|tome|codex)\b/i, '📕'], [/\b(note|notes|notepad|paper|papers|sheet|sheets|file|files|letter)\b/i, '📄'],
+    [/\b(map|chart)\b/i, '🗺'], [/\b(tape|cassette|reel)\b/i, '📼'],
+    [/\b(coin|coins|gold|purse|money)\b/i, '🪙'], [/\b(potion|vial|flask|tonic)\b/i, '🧪'],
+    [/\b(food|bread|ration|rations|apple)\b/i, '🍞'], [/\b(water|canteen|bottle)\b/i, '🧴'],
+    [/\b(bandage|bandages|kit|salve)\b/i, '🩹'], [/\b(ring|amulet|charm|talisman)\b/i, '💍'],
+    [/\b(stone|shard|crystal|gem)\b/i, '💎'], [/\b(cloak|coat|boots|glove|gloves|hat)\b/i, '🧥'],
+    [/\b(watch|clock|stopwatch)\b/i, '⏱'], [/\b(bomb|grenade|charge)\b/i, '💣'],
+    [/\b(pipe|wrench|tool|tools)\b/i, '🔧'], [/\b(photo|photograph|picture|plate)\b/i, '🖼'],
+  ];
+
+  RP.iconFor = function (name) {
+    var text = String(name || '');
+    for (var i = 0; i < RP.ICONS.length; i++) {
+      if (RP.ICONS[i][0].test(text)) return RP.ICONS[i][1];
+    }
+    return '📦';
+  };
+
   RP.normItem = function (value) {
     if (value && typeof value === 'object') {
       return {
         name: clip(value.name, 60), note: clip(value.note, 160),
+        icon: clip(value.icon, 4) || RP.iconFor(value.name),
         equipped: Boolean(value.equipped), qty: Math.max(1, Number(value.qty || 1)),
       };
     }
-    var text = String(value || '');
+    // "🗝 a brass key | bent, from the ledger room" — the icon is optional.
+    var text = String(value || '').trim();
+    var lead = /^([\u{1F300}-\u{1FAFF}\u{2190}-\u{27BF}\u{FE0F}]{1,2})\s+/u.exec(text);
+    var icon = lead ? lead[1] : '';
+    if (lead) text = text.slice(lead[0].length);
     var split = text.split('|');
-    return { name: clip(split[0], 60), note: clip(split.slice(1).join('|'), 160), equipped: false, qty: 1 };
+    var name = clip(split[0], 60);
+    return {
+      name: name, note: clip(split.slice(1).join('|'), 160),
+      icon: icon || RP.iconFor(name), equipped: false, qty: 1,
+    };
+  };
+
+  /** The inventory as a grid of slots: what is in hand first, then the
+   *  rest, then empty slots so the shape stays the same. */
+  RP.gridSlots = function (sheet, size) {
+    var kit = ((sheet && sheet.items) || []).map(RP.normItem);
+    var held = kit.filter(function (i) { return i.equipped; });
+    var stowed = kit.filter(function (i) { return !i.equipped; });
+    var slots = held.concat(stowed).slice(0, size || 12);
+    while (slots.length < (size || 12)) slots.push(null);
+    return slots;
   };
 
   /** A condition has a name, a note and — if it is going to pass — a
    *  number of turns left on it. */
   RP.normCondition = function (key, value) {
     if (value && typeof value === 'object') {
-      return { note: clip(value.note, 160), turns: Number(value.turns || 0) || 0 };
+      return {
+        note: clip(value.note, 160), turns: Number(value.turns || 0) || 0,
+        effect: clip(value.effect, 40),        // "-2hp", "-1mp", "+1hp"
+      };
     }
-    return { note: '', turns: 0 };
+    return { note: '', turns: 0, effect: '' };
+  };
+
+  /** What a condition does to you every turn it lasts: "-2hp" bleeds. */
+  RP.conditionEffect = function (effect) {
+    var hit = /^\s*([+-]?\d{1,3})\s*(hp|mp)\s*$/i.exec(String(effect || ''));
+    if (!hit) return null;
+    return { pool: hit[2].toLowerCase(), amount: Number(hit[1]) };
   };
 
   /** Count down anything temporary. Returns the lines to show the reader. */
@@ -1462,7 +1588,16 @@
       if (!sheet || sheet.present === false) return;
       Object.keys(sheet.flags || {}).forEach(function (key) {
         var cond = sheet.flags[key];
-        if (!cond || typeof cond !== 'object' || !cond.turns) return;
+        if (!cond || typeof cond !== 'object') return;
+        // What it does, every turn it lasts — bleeding actually bleeds.
+        var effect = RP.conditionEffect(cond.effect);
+        if (effect && sheet[effect.pool]) {
+          var line = RP.applyChange(sheet, {
+            kind: effect.pool, op: effect.amount < 0 ? '-' : '+', value: Math.abs(effect.amount),
+          });
+          if (line) lines.push(line + ' — ' + key.replace(/_/g, ' '));
+        }
+        if (!cond.turns) return;
         cond.turns -= 1;
         if (cond.turns <= 0) {
           delete sheet.flags[key];
@@ -1548,11 +1683,18 @@
       if (!key) return '';
       var on = !(change.value === false || /^(false|off|no|clear|0)$/i.test(String(change.value)));
       if (on) {
-        sheet.flags[key] = { note: clip(change.note, 160), turns: Number(change.turns || 0) || 0 };
+        sheet.flags[key] = {
+          note: clip(change.note, 160), turns: Number(change.turns || 0) || 0,
+          effect: clip(change.effect, 40),
+        };
       } else {
         delete sheet.flags[key];
       }
-      var span = on && sheet.flags[key].turns ? ' (' + sheet.flags[key].turns + ' turns)' : '';
+      var span = on
+        ? (sheet.flags[key].turns ? ' (' + sheet.flags[key].turns + ' turns' +
+            (sheet.flags[key].effect ? ', ' + sheet.flags[key].effect + ' a turn' : '') + ')'
+          : (sheet.flags[key].effect ? ' (' + sheet.flags[key].effect + ' a turn)' : ''))
+        : '';
       return sheet.name + (on ? ' is now ' : ' is no longer ') + String(change.name).replace(/_/g, ' ') + span;
     }
     if (change.kind === 'counter') {
@@ -1580,6 +1722,17 @@
       sheet.items.push(item);
       return sheet.name + ' picks up ' + item.name + (item.note ? ' (' + item.note + ')' : '');
     }
+    if (change.kind === 'use') {
+      sheet.items = (sheet.items || []).map(RP.normItem);
+      var used = sheet.items.filter(function (i) {
+        return i.name.toLowerCase().indexOf(String(change.name).toLowerCase()) >= 0;
+      })[0];
+      if (!used) return '';
+      used.qty -= 1;
+      var gone = used.qty <= 0;
+      if (gone) sheet.items = sheet.items.filter(function (i) { return i !== used; });
+      return sheet.name + ' uses ' + used.icon + ' ' + used.name + (gone ? ' — that was the last of it' : '');
+    }
     if (change.kind === 'equip') {
       sheet.items = (sheet.items || []).map(RP.normItem);
       var held = sheet.items.filter(function (i) {
@@ -1601,7 +1754,8 @@
     var sheets = Object.keys((room && room.states) || {}).map(function (k) { return room.states[k]; })
       .filter(function (s) { return s && s.present !== false; });
     if (!sheets.length) return '';
-    return 'CHARACTER STATE — this is true right now, play it\n' + sheets.map(function (s) {
+    return 'CHARACTER STATE — this is true right now, play it. They may only use what is listed here, and a\n' +
+      'condition with a cost beside it is taking that off them every turn it lasts.\n' + sheets.map(function (s) {
       var bits = [];
       if (s.hp) bits.push('HP ' + s.hp.value + '/' + s.hp.max + (s.hp.value === 0 ? ' (down)' : s.hp.value <= s.hp.max * 0.3 ? ' (badly hurt)' : ''));
       if (s.mp) bits.push('MP ' + s.mp.value + '/' + s.mp.max);
@@ -1614,11 +1768,13 @@
       Object.keys(s.counters || {}).forEach(function (c) { bits.push(c.replace(/_/g, ' ') + ' ' + s.counters[c]); });
       var kit = (s.items || []).map(RP.normItem);
       var inHand = kit.filter(function (i) { return i.equipped; });
-      if (inHand.length) bits.push('holding ' + inHand.map(function (i) { return i.name; }).join(', '));
+      if (inHand.length) {
+        bits.push('holding ' + inHand.map(function (i) { return i.icon + ' ' + i.name; }).join(', '));
+      }
       var stowed = kit.filter(function (i) { return !i.equipped; });
       if (stowed.length) {
         bits.push('carrying ' + stowed.map(function (i) {
-          return i.name + (i.qty > 1 ? ' ×' + i.qty : '') + (i.note ? ' — ' + i.note : '');
+          return i.icon + ' ' + i.name + (i.qty > 1 ? ' ×' + i.qty : '') + (i.note ? ' — ' + i.note : '');
         }).join('; '));
       }
       if (s.status) bits.push(s.status);
@@ -1635,11 +1791,13 @@
     'in one turn, and never for something that did not happen in the turn you just wrote.',
     '  [[HP: Name -12]]                 damage, healing (+), or an exact value (= 30)',
     '  [[MP: Name -5]]                  spent or recovered power',
-    '  [[COND: Name bleeding 3 | a deep cut across the palm]]  a condition, how many turns it lasts (leave the',
-    '      number off if it does not pass on its own), and what it actually is. [[CURE: Name bleeding]] ends it.',
+    '  [[COND: Name bleeding 3 -2hp | a deep cut across the palm]]  a condition: how many turns it lasts (leave',
+    '      the number off if it does not pass on its own), what it costs each turn (-2hp, -1mp — optional), and',
+    '      what it actually is. [[CURE: Name bleeding]] ends it.',
     '  [[COUNT: Name arrows -1]]        any counter you need',
-    '  [[ITEM: Name + the brass key | bent, from the ledger room]]  gained, with a note about it.',
+    '  [[ITEM: Name + 🗝 the brass key | bent, from the ledger room]]  gained, with an emoji and a note.',
     '      [[ITEM: Name - the brass key]] lost · [[EQUIP: Name brass key]] in hand · [[STOW: Name brass key]] away',
+    '  [[USE: Name the brass key]]      spend or use one. Only ever use something that is on their sheet.',
     '  [[STATUS: Name bleeding, one arm]]  a short physical note',
     '  [[LOOKUP: what you want to know]]  search the archive mid-turn. The page finds the passage and hands it',
     '      back, then you write the turn again using it. Use it when you need a fact you do not have — a date, a',
@@ -1652,7 +1810,7 @@
     'Only use ENTER for people the archive knows, or a clearly named newcomer. Never ENTER or EXIT the player.',
   ].join('\n');
 
-  var DIRECTIVE_RE = /\[\[\s*(HP|MP|FLAG|COND|CURE|COUNT|ITEM|EQUIP|STOW|STATUS|ENTER|EXIT|NEW|SET|TIME|LOOKUP|REMEMBER)\s*:\s*([^\]]+?)\s*\]\]/gi;
+  var DIRECTIVE_RE = /\[\[\s*(HP|MP|FLAG|COND|CURE|COUNT|ITEM|USE|EQUIP|STOW|STATUS|ENTER|EXIT|NEW|SET|TIME|LOOKUP|REMEMBER)\s*:\s*([^\]]+?)\s*\]\]/gi;
   // Anything else in double brackets is a directive the model invented. It
   // gets stripped rather than printed at the reader: "[[TIME: 23:00]]" in
   // the middle of the prose is a bug, not a feature.
@@ -1743,21 +1901,29 @@
         continue;
       }
       if (type === 'ITEM') {
-        // [[ITEM: Name + the brass key | bent, from the ledger room]]
+        // [[ITEM: Name + 🗝 the brass key | bent, from the ledger room]]
         var item = /^([+\-])\s*(.+)$/.exec(rest);
         if (item) {
-          var bits = item[2].split('|');
+          var carried = RP.normItem(item[2]);
           out.push({
             kind: 'item', body: body, who: target.name, op: item[1],
-            name: clip(bits[0], 60), note: clip(bits.slice(1).join('|'), 160),
+            name: carried.name, note: carried.note, icon: carried.icon,
           });
         }
         continue;
       }
+      if (type === 'USE') {
+        out.push({ kind: 'use', body: body, who: target.name, name: clip(rest, 60) });
+        continue;
+      }
       if (type === 'FLAG' || type === 'COND') {
         // [[COND: Name bleeding 3 | a deep cut across the palm]]
+        // "bleeding 3 -2hp | a deep cut" — the cost comes off first, then
+        // the number of turns, and what is left is the condition itself.
         var parts = rest.split('|');
         var head = parts[0].trim();
+        var effect = /\s([+-]\d{1,3}(?:hp|mp))\s*$/i.exec(head);
+        if (effect) head = head.slice(0, effect.index).trim();
         var turns = /\s(\d{1,2})\s*$/.exec(head);
         if (turns) head = head.slice(0, turns.index).trim();
         var flag = /^([a-z0-9_ '-]+?)(?:\s*=\s*(\S+))?\s*$/i.exec(head);
@@ -1767,6 +1933,7 @@
             value: flag[2] === undefined ? true : flag[2],
             note: clip(parts.slice(1).join('|'), 160),
             turns: turns ? Number(turns[1]) : 0,
+            effect: effect ? effect[1].toLowerCase() : '',
           });
         }
         continue;
@@ -3307,6 +3474,8 @@
     if (opts.citations) parts.push(opts.citations);
     var script = RP.scriptBlock(room);
     if (script) parts.push(script);
+    var worldRecap = RP.recapBlock(room);
+    if (worldRecap) parts.push(worldRecap);
     var memory = RP.memoryBlock(state, room.cast, room, 6);
     if (memory) parts.push(memory);
     var protectedFrom = parts.length;
@@ -5016,6 +5185,8 @@
     if (script) parts.push(script);
     var lore = RP.loreBlock(state, room.cast, room);
     if (lore) parts.push(lore);
+    var recap = RP.recapBlock(room);
+    if (recap) parts.push(recap);
     var memory = RP.memoryBlock(state, room.cast, room);
     if (memory) parts.push(memory);
 

@@ -258,6 +258,19 @@ a { color: inherit; }
 .statebar .pool.mp .fill { background: #5b7cfa; }
 .statebar .pool.low .fill { background: var(--bad); }
 .statebar .pool .num { position: relative; display: block; font-size: 10px; line-height: 14px; text-align: center; color: #1d1d20; font-weight: 600; }
+/* The kit, as a grid of slots. */
+.statebar .kit { display: grid; grid-template-columns: repeat(8, 1fr); gap: 3px; margin: 2px 0 4px; }
+.statebar .slot {
+  position: relative; aspect-ratio: 1; border: 1px solid var(--line); background: #fff;
+  border-radius: 7px; display: grid; place-items: center; font-size: 13px; cursor: pointer; padding: 0;
+}
+.statebar .slot.empty { background: repeating-linear-gradient(135deg, #f6f6f8 0 4px, #fff 4px 8px); cursor: default; }
+.statebar .slot.held { border-color: #d8a531; background: #fdf6e4; box-shadow: inset 0 0 0 1px #f0dcae; }
+.statebar .slot:hover:not(.empty) { border-color: var(--accent); }
+.statebar .slot .qty { position: absolute; right: 1px; bottom: 0; font-size: 8px; color: var(--muted); }
+.statebar .flag.biting { background: #fdecec; color: var(--bad); border: 1px solid #f2c9c9; font-weight: 600; }
+.tint { font-weight: 600; }
+
 .statebar .chips { display: flex; flex-wrap: wrap; gap: 4px; }
 .statebar .flag { background: #fdecec; color: var(--bad); border-radius: 999px; padding: 1px 7px; font-size: 11px; }
 .statebar .flag.num { background: #eef1fd; color: #3b55c8; }

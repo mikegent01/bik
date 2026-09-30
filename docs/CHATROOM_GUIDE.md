@@ -1027,6 +1027,71 @@ Waluigi   …prose…
           ⚄ It works   Sans −10 HP (38/100)   ⏩ Two days after the studio
 ```
 
+## 🎒 The kit is a grid
+
+Each sheet in the party bar carries an **eight-slot grid**: one emoji per
+thing, what is in hand lit gold, a small count in the corner when there is
+more than one, the note on hover. Clicking a slot offers **take it in hand /
+put it away / use it / drop it** — using it writes the attempt and lets the
+Fate roll decide.
+
+The emoji comes from what the thing is called (`🗝` for a key, `📼` for a
+tape, `📄` for papers, `🏮` for a lantern, `📦` for anything unrecognised),
+and the model can set one itself:
+
+```
+[[ITEM: Name + 🗝 a brass key | bent, from the ledger room]]
+[[USE:  Name the brass key]]       spends one — the last of them disappears
+```
+
+The sheet the model reads lists them the same way — *holding 🗝 a brass key ·
+carrying 📄 a worn notepad; 🏮 a lantern ×2* — with the standing rule that
+**they may only use what is on the sheet**.
+
+## 🩸 Conditions that bite
+
+A condition can carry a **cost per turn**, and it is taken automatically for
+as long as it lasts:
+
+```
+[[COND: Name bleeding 3 -2hp | a deep cut across the palm]]
+   → bleeding (a deep cut across the palm) [3 turns left, -2hp a turn]
+   → “Sans −2 HP (98/100) — bleeding”  …three times, then it passes
+```
+
+Conditions with a cost are marked in red in the party bar. A condition with
+no number never expires on its own; one with no cost is still narrative
+weight the model is told about.
+
+## 🎨 Colour, sparingly
+
+The model can put a few words in colour: `{red|the door is open}`,
+`{ice|her breath}`, `{#8e2b20|the stain}`. Named colours — red, blood,
+orange, amber, gold, green, teal, blue, ice, violet, purple, pink, grey,
+black, white, rust, moss, bone — or any `#hex`. Anything that is not a
+colour is left exactly as written, and the content is escaped first, so the
+syntax cannot smuggle markup in. The rule in the prompt is *"use it for one
+thing that matters, not for decoration — two or three words in a turn at
+most, and never a whole sentence."*
+
+## 📜 Long chats stay cheap
+
+A hundred-turn chat does not mean a hundred-turn prompt. When the history
+outgrows the context window, the older turns are **folded into a recap** by
+the background model:
+
+```
+THE STORY SO FAR — everything before the turns below, folded up.
+Treat it as having happened.
+```
+
+The recap keeps who did what, what was decided, what was learned, what
+changed hands and what anybody is still angry about, and explicitly drops
+weather and repetition. The turns themselves are never deleted — they stay
+on screen, in exports and in the lore book; only the *prompt* gets shorter.
+It runs once, on the utility model, and says so: *📜 Folded 28 older turns
+into the story so far.*
+
 ## Nothing is cut off mid-word
 
 Filed text is shown and sent **whole**. `RP.clip` cuts at the last sentence

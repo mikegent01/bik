@@ -2173,6 +2173,20 @@
       '<span class="num">' + kind.toUpperCase() + ' ' + pool.value + '/' + pool.max + '</span></span>';
   }
 
+  /** The kit, as a grid you can read at a glance: what is in hand is lit,
+   *  everything else is stowed, and the empty slots keep the shape. */
+  function kitGrid(r, id) {
+    var sheet = RP.sheetFor(r, id);
+    if (!sheet) return '';
+    return '<span class="kit">' + RP.gridSlots(sheet, 8).map(function (item, at) {
+      if (!item) return '<span class="slot empty"></span>';
+      return '<button class="slot' + (item.equipped ? ' held' : '') + '" data-item="' + esc(id) + '|' + at + '" ' +
+        'title="' + esc(item.name + (item.note ? ' — ' + item.note : '')) + '">' +
+        '<span class="ico">' + esc(item.icon) + '</span>' +
+        (item.qty > 1 ? '<span class="qty">' + item.qty + '</span>' : '') + '</button>';
+    }).join('') + '</span>';
+  }
+
   /** Edit a sheet by hand — the model is not the only one allowed to. */
   function editSheet(id) {
     var r = room();
@@ -2289,15 +2303,15 @@
           '">' + (sheet.present === false ? '◌' : '◉') + '</span>' +
           '<span class="nm">' + avatar(who, 22) + esc(sheet.name) + '</span>' +
           (sheet.hp ? bar('hp', sheet.hp) : '') + (sheet.mp ? bar('mp', sheet.mp) : '') +
+          kitGrid(r, id) +
           '<span class="chips">' + Object.keys(sheet.flags || {}).map(function (f) {
             var cond = sheet.flags[f] && typeof sheet.flags[f] === 'object' ? sheet.flags[f] : { note: '', turns: 0 };
-            return '<span class="flag" title="' + esc(cond.note || f.replace(/_/g, ' ')) + '">' +
-              esc(f.replace(/_/g, ' ')) + (cond.turns ? ' ' + cond.turns : '') + '</span>';
+            return '<span class="flag' + (cond.effect ? ' biting' : '') + '" ' +
+              'title="' + esc((cond.note || f.replace(/_/g, ' ')) + (cond.effect ? ' · ' + cond.effect + ' a turn' : '')) + '">' +
+              esc(f.replace(/_/g, ' ')) + (cond.turns ? ' ' + cond.turns : '') +
+              (cond.effect ? ' ' + esc(cond.effect) : '') + '</span>';
           }).join('') + Object.keys(sheet.counters || {}).map(function (c) {
             return '<span class="flag num">' + esc(c.replace(/_/g, ' ')) + ' ' + sheet.counters[c] + '</span>';
-          }).join('') + (sheet.items || []).map(RP.normItem).map(function (i) {
-            return '<span class="flag item' + (i.equipped ? ' held' : '') + '" title="' + esc(i.note || i.name) + '">' +
-              (i.equipped ? '✊ ' : '') + esc(i.name) + (i.qty > 1 ? ' ×' + i.qty : '') + '</span>';
           }).join('') + (sheet.status ? '<span class="flag note">' + esc(sheet.status) + '</span>' : '') + '</span>' +
           '</button>';
       }).join('')) + (showStates && away.length
@@ -2744,6 +2758,34 @@
         save(); render();
         toast(r.states[id].name + ' is in the scene again.');
       });
+    });
+    if (bar1) bar1.querySelectorAll('[data-item]').forEach(function (b) {
+      b.onclick = function (e) {
+        e.stopPropagation();
+        var parts = b.dataset.item.split('|');
+        var sheet = RP.sheetFor(r, parts[0]);
+        var item = RP.gridSlots(sheet, 8)[Number(parts[1])];
+        if (!item) return;
+        list(item.icon + ' ' + item.name + (item.note ? ' — ' + item.note : ''), [
+          { label: item.equipped ? '🫳 Put it away' : '✊ Take it in hand', value: 'hand' },
+          { label: '🎲 Use it — writes the attempt and lets the roll decide', value: 'use' },
+          { label: '🗑 Drop it', value: 'drop' },
+        ], function (pick) {
+          RP.pushUndo(r, 'that change to the kit');
+          if (pick === 'hand') {
+            RP.applyChange(sheet, { kind: 'equip', name: item.name, op: item.equipped ? '-' : '+' });
+            save(); render();
+            return;
+          }
+          if (pick === 'drop') {
+            RP.applyChange(sheet, { kind: 'item', op: '-', name: item.name });
+            save(); render();
+            return;
+          }
+          $('input').value = 'I use ' + item.name + (item.note ? ' — ' + item.note : '') + '.';
+          $('composer').dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
+        });
+      };
     });
     if (bar1) bar1.querySelectorAll('[data-here]').forEach(function (b) {
       b.onclick = function (e) {
@@ -3390,7 +3432,7 @@
       var staged = !retry && (r.queue || []).length;
       if (staged) { r.next = r.queue.shift(); }
       save(); render();
-      if (!retry) { queueBook(r); }
+      if (!retry) { queueBook(r); maybeRecap(r); }
       if (room() !== r) { autoLeft = 0; return; }
       if (staged || chain || autoLeft) {
         window.setTimeout(function () { if (staged || autoLeft || chain) generate(); }, 450);
@@ -3420,6 +3462,37 @@
    * ---------------------------------------------------------------- */
 
   var booking = false;     // a background call is in flight
+  var recapping = false;   // the story-so-far is being written
+
+  /** Fold the older turns into a recap so a long chat stays cheap. Runs
+   *  on the background model, once, when the history outgrows the window. */
+  function maybeRecap(r) {
+    if (recapping || !RP.needsRecap(r, state.settings.context || 24)) return;
+    var turns = (r.messages || []).filter(RP.visible);
+    var keep = Math.max(8, Math.round((state.settings.context || 24) / 2));
+    var upTo = turns.length - keep;
+    var fold = turns.slice(Number(r.recapAt || 0), upTo).map(function (m) {
+      return {
+        who: m.role === 'user' ? (RP.playerCharacter(r) || {}).name || state.user.name || 'You'
+          : m.role === 'world' ? 'Narration' : charOf(r, m.charId).name,
+        text: RP.textOf(m),
+      };
+    });
+    if (fold.length < 4) return;
+    recapping = true;
+    callModel(RP.recapPrompt(r, fold, r.recap), [{ role: 'user', content: 'Summarise it.' }],
+      { tokens: 420, utility: true })
+      .then(function (text) {
+        var summary = String(text || '').trim();
+        if (!summary) return;
+        r.recap = RP.clip(summary, 1400);
+        r.recapAt = upTo;
+        save(); render();
+        toast('📜 Folded ' + fold.length + ' older turns into the story so far.');
+      })
+      .catch(function () { /* the window is a little long today; no harm */ })
+      .then(function () { recapping = false; });
+  }
 
   /** Queue the last stretch of play for filing. Called every few turns. */
   function queueBook(r) {
