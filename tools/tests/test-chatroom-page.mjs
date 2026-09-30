@@ -652,6 +652,11 @@ check('commentary: finished episodes are kept and can be reopened',
   check('player: starring a character records who you play',
     Boolean(savedState().rooms.find(x => x.id === roomId).youPlay) &&
     Boolean(doc.querySelector('.sp.mine')));
+  check('player: your own turns are labelled as them, not as your account', (() => {
+    const playing = win.RP.playerCharacter(savedState().rooms.find(x => x.id === roomId));
+    return Boolean(playing) && $('input').placeholder.includes(playing.name);
+  })());
+  check('facts: the header has a place for what the scene has nailed down', Boolean($('factsBtn')));
   // With only your own character in the room, the next turn is the world's.
   $('input').value = 'I stand outside late at night and look at the stars.';
   $('composer').dispatchEvent(new win.Event('submit', { bubbles: true, cancelable: true }));

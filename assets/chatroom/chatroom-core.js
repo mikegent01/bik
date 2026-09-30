@@ -492,6 +492,7 @@
   RP.fireBeat = function (room) {
     var progress = RP.beatProgress(room);
     if (!progress.remaining) return null;
+    if (room.beatsPaused) return null;
     var beat = room.beats[room.beatIndex];
     room.beatIndex = progress.at + 1;
     room.messages.push({
@@ -513,6 +514,15 @@
   };
 
   /** The main event moves without waiting for the player: two turns is a beat. */
+  // "3 days later", "that night", "a week after" — the player has moved the
+  // scene, and the filed script no longer lines up with it.
+  var JUMP_RE = /\b(\d+\s+(?:minutes?|hours?|days?|weeks?|months?|years?)\s+(?:later|after|on)|later that (?:night|day|week|morning|evening)|the next (?:day|morning|night|week)|meanwhile|some time later|years? later|afterwards?)\b/i;
+
+  /** Did the player just jump the clock or change the place? */
+  RP.isTimeJump = function (text) {
+    return JUMP_RE.test(String(text || ''));
+  };
+
   RP.autoAdvance = function (room) {
     if (!room || !room.autoBeats) return false;
     if (!RP.beatProgress(room).remaining) return false;
@@ -1545,7 +1555,11 @@
     'Only use ENTER for people the archive knows, or a clearly named newcomer. Never ENTER or EXIT the player.',
   ].join('\n');
 
-  var DIRECTIVE_RE = /\[\[\s*(HP|MP|FLAG|COUNT|ITEM|STATUS|ENTER|EXIT|NEW)\s*:\s*([^\]]+?)\s*\]\]/gi;
+  var DIRECTIVE_RE = /\[\[\s*(HP|MP|FLAG|COUNT|ITEM|STATUS|ENTER|EXIT|NEW|SET|TIME)\s*:\s*([^\]]+?)\s*\]\]/gi;
+  // Anything else in double brackets is a directive the model invented. It
+  // gets stripped rather than printed at the reader: "[[TIME: 23:00]]" in
+  // the middle of the prose is a bug, not a feature.
+  var STRAY_RE = /\[\[[^\]]*\]\]/g;
 
   /** Split "Lord Darian Marsh bleeding badly" into a character and the rest.
    *  Names are matched longest-first against the people actually in the room,
@@ -1574,6 +1588,17 @@
     DIRECTIVE_RE.lastIndex = 0;
     while ((match = DIRECTIVE_RE.exec(String(text || '')))) {
       var type = match[1].toUpperCase(), body = match[2].trim();
+      if (type === 'TIME') {
+        out.push({ kind: 'time', body: body, value: clip(body, 60) });
+        continue;
+      }
+      if (type === 'SET') {
+        // [[SET: place = the stone patio of the outpost]] — a fact about the
+        // scene that may not drift afterwards.
+        var pair = /^([a-z][a-z ]{1,24}?)\s*[=:]\s*(.+)$/i.exec(body);
+        if (pair) out.push({ kind: 'set', body: body, name: clip(pair[1], 24), value: clip(pair[2], 180) });
+        continue;
+      }
       if (type === 'NEW') {
         // Name | role | what they look like. The archive has no portrait for
         // them, so the look IS the portrait.
@@ -1618,7 +1643,9 @@
         if (flag) out.push({ kind: 'flag', body: body, who: target.name, name: clip(flag[1], 40), value: flag[2] === undefined ? true : flag[2] });
       }
     }
-    return { clean: String(text || '').replace(DIRECTIVE_RE, '').replace(/[ \t]+\n/g, '\n').replace(/\n{3,}/g, '\n\n').trim(), directives: out };
+    var clean = String(text || '').replace(DIRECTIVE_RE, '').replace(STRAY_RE, '')
+      .replace(/[ \t]+\n/g, '\n').replace(/\n{3,}/g, '\n\n').replace(/[ \t]{2,}/g, ' ').trim();
+    return { clean: clean, directives: out };
   };
 
   /** Apply the stage directions to the room. `resolve(name)` finds a
@@ -1634,6 +1661,19 @@
     }
     var names = (room.cast || []).map(function (c) { return c.name; });
     (directives || []).forEach(function (d) {
+      if (d.kind === 'time') {
+        room.clock = d.value;
+        lines.push('the time is ' + d.value);
+        return;
+      }
+      if (d.kind === 'set') {
+        room.facts = room.facts || {};
+        var key = slug(d.name);
+        var was = room.facts[key];
+        room.facts[key] = d.value;
+        lines.push((was ? d.name + ' is now ' : d.name + ': ') + d.value);
+        return;
+      }
       if (d.kind === 'new') {
         if (find(d.name)) return;
         var made = RP.normChar({
@@ -2925,6 +2965,20 @@
     return RP.NARRATORS[key] ? key : 'director';
   };
 
+  /** The facts a scene has nailed down: where you are, what you are
+   *  wearing, what time it is. Filed once, then unchangeable. */
+  RP.factsBlock = function (room) {
+    var facts = room && room.facts ? Object.keys(room.facts) : [];
+    if (!facts.length && !(room && room.clock)) return '';
+    var lines = facts.map(function (k) { return '- ' + k.replace(/_/g, ' ') + ': ' + room.facts[k]; });
+    if (room.clock) lines.unshift('- the time: ' + room.clock);
+    return [
+      'FIXED FACTS — established in this scene and NOT open to revision. Do not rename them, move them, or dress',
+      'the player differently. If the story changes one of them, say so plainly and file the change.',
+      lines.join('\n'),
+    ].join('\n');
+  };
+
   /** What the scene has already established, so it is not established
    *  twice. The cloak, the moon and the patio get described ONCE. */
   RP.continuityBlock = function (room, limit) {
@@ -2960,6 +3014,13 @@
     'listen, count or ask, resolve it in this turn. Never replace their action with weather.',
     'Then, and only then, let something move.',
     'You may make it cost them, go wrong, or turn up something they did not want \u2014 but you may not skip it.',
+    '',
+    'FILE WHAT YOU NAME. The first time you name where they are, what they are wearing, or what time it is, put it',
+    'on its own line so it cannot drift later:',
+    '  [[SET: place = the stone patio of the outpost]]',
+    '  [[SET: wearing = a heavy fur-lined travelling cloak]]',
+    '  [[TIME: a little after midnight]]',
+    'Never write any other double-bracketed text into the prose.',
   ].join('\n');
 
   /** The character the reader is playing, if they have starred one. */
@@ -3019,6 +3080,8 @@
     if (room.scene) parts.push('THE SCENE\n' + clip(room.scene, 900));
     var worldKeys = RP.keywordBlock(state, opts.recent || RP.historyFor(room, 4).map(function (m) { return m.content; }).join(' '));
     if (worldKeys) parts.push(worldKeys);
+    var fixed = RP.factsBlock(room);
+    if (fixed) parts.push(fixed);
     var already = RP.continuityBlock(room);
     if (already) parts.push(already);
     var asked = RP.askedBlock(room);
@@ -4336,6 +4399,8 @@
     // Reference material — trimmed first when the window is tight.
     var keywords = RP.keywordBlock(state, opts.recent || RP.historyFor(room, 4).map(function (m) { return m.content; }).join(' '));
     if (keywords) parts.push(keywords);
+    var sceneFacts = RP.factsBlock(room);
+    if (sceneFacts) parts.push(sceneFacts);
     var knowledge = RP.knowledgeBlock(state, room, opts.archive);
     if (knowledge) parts.push(knowledge);
     var book = RP.bookBlock(state, room);

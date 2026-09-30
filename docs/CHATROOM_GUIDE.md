@@ -684,6 +684,27 @@ history as `Narration: …`, it is remembered like any other turn, and
 > place, do not re-dress the player, do not re-hang the moon. Spend this turn
 > on what is NEW.*
 
+**📍 Fixed facts.** The first time narration names where you are, what you
+are wearing or what time it is, it files it:
+
+```
+[[SET: place = the stone patio of the outpost]]
+[[SET: wearing = a heavy fur-lined travelling cloak]]
+[[TIME: a little after midnight]]
+```
+
+Those go back into every later prompt under **FIXED FACTS — established in
+this scene and NOT open to revision**, so an outpost cannot quietly become a
+clinic on Star Hill two turns later. The 📍 button in the chat header lists
+them, lets you add or forget one, and the clock shows as 🕰 beside the date.
+Changing a fact is allowed, but it is reported as a change rather than done
+silently.
+
+**No stray brackets.** Anything in double brackets that is not a real
+directive — `[[MOOD: spooky]]`, `[[TIME: 23:00]]` in the middle of a
+sentence — is stripped before the reader sees it. A model inventing its own
+syntax is not the reader's problem.
+
 **It answers what you asked.** A player turn containing questions — *what am
 I wearing, where am I* — is pulled out and listed, to be answered concretely
 once, in prose, and then left alone.
@@ -776,6 +797,21 @@ lets the Fate roll decide whether it lands.
 min_p** (blank means "let the model decide"), and a **background model**: the
 sequencer, the lore book, hooks and commentary can be sent to a small fast
 model on its own endpoint while the roleplay itself goes to the big one.
+
+## The script knows when to stop
+
+A chat started from a Scene card carries that filing's beats. If you jump the
+clock — *"3 days later"*, *"later that night"*, *"the next morning"* — the
+script no longer lines up with the scene, so it **pauses itself** and says
+so. The header chip reads `⏩ paused 2/7`, and pressing it fires the next
+beat deliberately. No more *beat 3 — he sat in front of a VHS tape* landing
+in the middle of a different night.
+
+## You are the character you starred
+
+★ starring somebody means your turns are **theirs**: the label on your
+messages, the avatar beside them and the composer's placeholder all say so
+(*"Write as Lord Darian Marsh…"*) rather than showing your account name.
 
 ## ▶ Auto
 

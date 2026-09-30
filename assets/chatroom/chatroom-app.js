@@ -2175,7 +2175,10 @@
       '<span>' + esc(r.kind === 'group' ? r.cast.map(function (c) { return c.name; }).join(' · ') : (face.title || '')) + '</span></span>' +
       '<span class="hud">' +
         '<button class="stat" id="dateBtn" title="When is this happening, in-world?"><i>🕯</i>' + esc(RP.clip(roomDate(r) || 'undated', 24)) + '</button>' +
-        (progress.total ? '<button class="stat" id="nextBeat" title="Fire the next filed beat"><i>⏩</i>beat ' + progress.at + '/' + progress.total +
+        (r.clock ? '<span class="stat quiet" title="The time in the scene"><i>🕰</i>' + esc(RP.clip(r.clock, 22)) + '</span>' : '') +
+        (progress.total ? '<button class="stat' + (r.beatsPaused ? ' off' : '') + '" id="nextBeat" ' +
+          'title="' + (r.beatsPaused ? 'The script is paused — click to fire the next beat' : 'Fire the next filed beat') + '">' +
+          '<i>⏩</i>' + (r.beatsPaused ? 'paused ' : 'beat ') + progress.at + '/' + progress.total +
           '<span class="meter"><span style="width:' + Math.round((progress.at / progress.total) * 100) + '%"></span></span></button>' : '') +
         '<button class="stat fate-' + esc(fateLevel) + '" id="fateBtn" title="How hard the world pushes back"><i>🎲</i>' + esc(fateLevel) + '</button>' +
         '<span class="stat quiet" title="Turns played"><i>💬</i>' + turnCount + '</span>' +
@@ -2184,6 +2187,8 @@
       '<span class="grow"></span>' +
       (r.kind === 'group' ? '<button class="pill" id="continueBtn">➤ Continue</button>' : '') +
       (r.mechanics === 'off' ? '' : '<button class="pill' + (showStates ? ' primary' : '') + '" id="statesBtn">🩺 Party</button>') +
+      '<button class="pill" id="factsBtn" title="What is fixed in this scene — place, clothing, time">📍' +
+        (Object.keys(r.facts || {}).length ? ' ' + Object.keys(r.facts || {}).length : '') + '</button>' +
       '<button class="pill" id="undoBtn" title="Undo the last turn (Ctrl+Z)"' +
         ((r.undo || []).length ? '' : ' disabled') + '>↩</button>' +
       '<button class="pill" id="redoBtn" title="Redo"' + ((r.redo || []).length ? '' : ' disabled') + '>↪</button>' +
@@ -2241,12 +2246,15 @@
           '</div></article>';
       }
       var mine = m.role === 'user';
-      var who = mine ? (state.user.name || 'You') : charOf(r, m.charId).name;
+      // If you have ★ starred somebody, your turns are theirs: the label and
+      // the face should say so rather than showing your account name.
+      var playing = RP.playerCharacter(r);
+      var who = mine ? ((playing && playing.name) || state.user.name || 'You') : charOf(r, m.charId).name;
       var swipes = (m.alts && m.alts.length > 1)
         ? '<span class="swipe"><button data-swipe="-1" data-i="' + i + '">‹</button>' + ((m.alt || 0) + 1) + ' / ' + m.alts.length + '<button data-swipe="1" data-i="' + i + '">›</button></span>' : '';
       return '<article class="turn ' + (mine ? 'user' : 'char') + (m.error ? ' err' : '') +
         (m.muted ? ' muted' : '') + (m.imported ? ' imported' : '') + '">' +
-        '<div class="who">' + (mine ? userAvatar(24) : avatar(charOf(r, m.charId), 24)) +
+        '<div class="who">' + (mine ? (playing ? avatar(playing, 24) : userAvatar(24)) : avatar(charOf(r, m.charId), 24)) +
         '<b>' + esc(who) + '</b>' + (mine ? '' : '<span class="badge">archive</span>') +
         (mine ? '' : '<button class="speak" data-speak="' + i + '" title="Read aloud">▶</button>') + '</div>' +
         '<div class="bubble">' + RP.md(RP.textOf(m)) + '</div>' +
@@ -2276,6 +2284,12 @@
     $('stream').innerHTML = '<div class="stream-inner">' + html + handback +
       (busy ? '<div class="turn typing"><em>…writing…</em></div>' : '') + '</div>';
     $('stream').scrollTop = $('stream').scrollHeight;
+    var playingNow = RP.playerCharacter(r);
+    if ($('input')) {
+      $('input').placeholder = playingNow
+        ? 'Write as ' + playingNow.name + ' — *actions in asterisks*, "speech in quotes"'
+        : 'Write your turn — *actions in asterisks*, "speech in quotes"';
+    }
 
     // Who answers next, and the two things you always want to press.
     $('speakers').innerHTML =
@@ -2408,6 +2422,36 @@
   function wireChat() {
     var r = room();
     var on = function (id, fn) { var node = $(id); if (node) node.onclick = fn; };
+    on('factsBtn', function () {
+      var facts = r.facts || {};
+      var keys = Object.keys(facts);
+      openModal('<h3>What is fixed in this scene</h3>' +
+        '<p class="sub">Where you are, what you are wearing, what time it is. Once these are filed the narrator may ' +
+        'not quietly change them — no renaming the outpost into a clinic halfway through.</p>' +
+        (r.clock ? '<p class="sub">🕰 <b>' + esc(r.clock) + '</b></p>' : '') +
+        (keys.length ? '<div class="stack">' + keys.map(function (k) {
+          return '<div class="item"><b>' + esc(k.replace(/_/g, ' ')) + '</b><p>' + esc(facts[k]) + '</p>' +
+            '<div class="acts"><button class="mini danger" data-factkill="' + esc(k) + '">Forget</button></div></div>';
+        }).join('') + '</div>' : '<p class="sub">Nothing filed yet — the narrator files these as it names them.</p>') +
+        '<div class="actions"><button class="pill" id="mCancel">Close</button>' +
+        '<button class="pill primary" id="mOk">＋ Add one</button></div>');
+      $('mCancel').onclick = closeModal;
+      $('mOk').onclick = function () {
+        closeModal();
+        form('A fixed fact', [
+          { k: 'name', label: 'What kind of fact (place, wearing, weather…)', value: 'place' },
+          { k: 'value', label: 'What it is', value: '' },
+        ], {}, function (v) {
+          if (!v.value.trim()) return;
+          r.facts = r.facts || {};
+          r.facts[RP.slug(v.name) || 'fact'] = v.value.trim();
+          r.updated = Date.now(); save(); render();
+        });
+      };
+      $('modal').querySelectorAll('[data-factkill]').forEach(function (b) {
+        b.onclick = function () { delete r.facts[b.dataset.factkill]; closeModal(); save(); render(); };
+      });
+    });
     on('dateBtn', function () {
       var r = room();
       form('When is this happening?', [
@@ -2544,7 +2588,8 @@
     });
     on('panelBtn', function () { $('charpanel').classList.toggle('open'); });
     on('continueBtn', function () { generate(); });
-    on('nextBeat', function () { if (RP.fireBeat(r)) { logBeat(r); save(); render(); } });
+    on('nextBeat', function () {
+      r.beatsPaused = false; if (RP.fireBeat(r)) { logBeat(r); save(); render(); } });
 
     $('speakers').querySelectorAll('[data-speaker]').forEach(function (b) {
       b.onclick = function (e) {
@@ -2865,6 +2910,12 @@
     var msg = { id: RP.uid(), role: 'user', text: text, at: Date.now() };
     autoLeft = 0;                       // your turn beats the autopilot
     RP.pushUndo(r, 'your turn');
+    // A jump in time means the filed script no longer lines up with the
+    // scene. Pause it rather than firing "beat 3" into a different night.
+    if (!r.beatsPaused && RP.isTimeJump(text) && (r.beats || []).length && RP.beatProgress(r).remaining) {
+      r.beatsPaused = true;
+      toast('⏩ The script is paused — you moved the scene on. Press ⏩ in the header to fire the next beat by hand.');
+    }
     r.queue = [];
     r.handback = '';
     r.messages.push(msg);

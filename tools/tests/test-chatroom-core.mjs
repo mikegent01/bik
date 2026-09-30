@@ -1527,6 +1527,63 @@ check('narrator: the terse voice is two sentences, the Director gets room', (() 
 check('narrator: an unknown voice falls back to the Director',
   RP.narrator({ settings: { narrator: 'nonsense' } }) === 'director');
 
+// ---------- fixed facts, stray directives, and a script that knows to stop ----
+const factRoom = RP.newRoom([sans], { youPlay: 'sans' });
+const strayed = RP.parseDirectives(
+  'The wind drops out of the courtyard.\n' +
+  '[[TIME: a little after midnight]]\n' +
+  '[[SET: place = the stone patio of the outpost]]\n' +
+  '[[SET: wearing = a heavy fur-lined travelling cloak]]\n' +
+  '[[MOOD: ominous]]\n' +
+  '[[whatever this is]]', []);
+check('directives: a model’s invented brackets never reach the reader',
+  strayed.clean === 'The wind drops out of the courtyard.' &&
+  !/\[\[/.test(strayed.clean));
+check('directives: TIME and SET are real, MOOD is discarded',
+  strayed.directives.map(d => d.kind).join(',') === 'time,set,set');
+const factLines = RP.applyDirectives(RP.blankState(), factRoom, strayed.directives, () => null).lines;
+check('facts: the place, the clothes and the clock are filed on the room',
+  factRoom.clock === 'a little after midnight' &&
+  factRoom.facts.place === 'the stone patio of the outpost' &&
+  factRoom.facts.wearing.includes('fur-lined') && factLines.length === 3);
+const fixed = RP.factsBlock(factRoom);
+check('facts: they go back to the model as unrevisable',
+  /FIXED FACTS/.test(fixed) && /NOT open to revision/.test(fixed) &&
+  fixed.includes('stone patio') && fixed.includes('fur-lined') && fixed.includes('after midnight'));
+check('facts: the narrator is told to file what it names', (() => {
+  const prompt = RP.worldPrompt(RP.blankState(), factRoom, {});
+  return /FILE WHAT YOU NAME/.test(prompt) && /\[\[SET: place =/.test(prompt) &&
+    /Never write any other double-bracketed text/.test(prompt);
+})());
+check('facts: a character turn sees them too',
+  RP.systemFor(RP.blankState(), factRoom, sans).includes('FIXED FACTS'));
+check('facts: changing one is reported as a change, not a silent rename', (() => {
+  const again = RP.parseDirectives('[[SET: place = the balcony of the Star Hill clinic]]', []);
+  const lines = RP.applyDirectives(RP.blankState(), factRoom, again.directives, () => null).lines;
+  return /place is now/.test(lines[0]) && factRoom.facts.place.includes('Star Hill');
+})());
+
+check('script: a jump in time is recognised', (() => {
+  return RP.isTimeJump('3 days later I stand outside looking at the stars') &&
+    RP.isTimeJump('Later that night, I go back down') &&
+    RP.isTimeJump('The next morning I check the table') &&
+    !RP.isTimeJump('I look down at my sheets and read them aloud');
+})());
+check('script: a paused script fires nothing', (() => {
+  const scripted = RP.newRoom([sans], { beats: [
+    { time: 'one', beat: 'The first beat' }, { time: 'two', beat: 'The second beat' },
+  ] });
+  scripted.beatsPaused = true;
+  return RP.fireBeat(scripted) === null && scripted.beatIndex === 0;
+})());
+check('script: un-pausing lets it carry on where it was', (() => {
+  const scripted = RP.newRoom([sans], { beats: [{ time: 'one', beat: 'The first beat' }] });
+  scripted.beatsPaused = true;
+  RP.fireBeat(scripted);
+  scripted.beatsPaused = false;
+  return Boolean(RP.fireBeat(scripted)) && scripted.beatIndex === 1;
+})());
+
 // ---------- generated pages are in sync with these sources ----------
 let built = true;
 try {

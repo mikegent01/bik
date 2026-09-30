@@ -225,6 +225,7 @@ a { color: inherit; }
 .chat-top .stat.fate-harsh { border-color: var(--bad); color: var(--bad); }
 .chat-top .stat.fate-gentle { border-color: var(--ok); color: var(--ok); }
 .chat-top .stat.fate-off { opacity: .6; }
+.chat-top .stat.off { opacity: .55; border-style: dashed; }
 
 /* Quick actions above the composer. */
 .speakers .acts { display: flex; gap: 6px; margin-right: 4px; flex: 0 0 auto; }
@@ -1130,6 +1131,7 @@ window.CHATROOM_CONFIG = {
   RP.fireBeat = function (room) {
     var progress = RP.beatProgress(room);
     if (!progress.remaining) return null;
+    if (room.beatsPaused) return null;
     var beat = room.beats[room.beatIndex];
     room.beatIndex = progress.at + 1;
     room.messages.push({
@@ -1151,6 +1153,15 @@ window.CHATROOM_CONFIG = {
   };
 
   /** The main event moves without waiting for the player: two turns is a beat. */
+  // "3 days later", "that night", "a week after" — the player has moved the
+  // scene, and the filed script no longer lines up with it.
+  var JUMP_RE = /\b(\d+\s+(?:minutes?|hours?|days?|weeks?|months?|years?)\s+(?:later|after|on)|later that (?:night|day|week|morning|evening)|the next (?:day|morning|night|week)|meanwhile|some time later|years? later|afterwards?)\b/i;
+
+  /** Did the player just jump the clock or change the place? */
+  RP.isTimeJump = function (text) {
+    return JUMP_RE.test(String(text || ''));
+  };
+
   RP.autoAdvance = function (room) {
     if (!room || !room.autoBeats) return false;
     if (!RP.beatProgress(room).remaining) return false;
@@ -2183,7 +2194,11 @@ window.CHATROOM_CONFIG = {
     'Only use ENTER for people the archive knows, or a clearly named newcomer. Never ENTER or EXIT the player.',
   ].join('\n');
 
-  var DIRECTIVE_RE = /\[\[\s*(HP|MP|FLAG|COUNT|ITEM|STATUS|ENTER|EXIT|NEW)\s*:\s*([^\]]+?)\s*\]\]/gi;
+  var DIRECTIVE_RE = /\[\[\s*(HP|MP|FLAG|COUNT|ITEM|STATUS|ENTER|EXIT|NEW|SET|TIME)\s*:\s*([^\]]+?)\s*\]\]/gi;
+  // Anything else in double brackets is a directive the model invented. It
+  // gets stripped rather than printed at the reader: "[[TIME: 23:00]]" in
+  // the middle of the prose is a bug, not a feature.
+  var STRAY_RE = /\[\[[^\]]*\]\]/g;
 
   /** Split "Lord Darian Marsh bleeding badly" into a character and the rest.
    *  Names are matched longest-first against the people actually in the room,
@@ -2212,6 +2227,17 @@ window.CHATROOM_CONFIG = {
     DIRECTIVE_RE.lastIndex = 0;
     while ((match = DIRECTIVE_RE.exec(String(text || '')))) {
       var type = match[1].toUpperCase(), body = match[2].trim();
+      if (type === 'TIME') {
+        out.push({ kind: 'time', body: body, value: clip(body, 60) });
+        continue;
+      }
+      if (type === 'SET') {
+        // [[SET: place = the stone patio of the outpost]] — a fact about the
+        // scene that may not drift afterwards.
+        var pair = /^([a-z][a-z ]{1,24}?)\s*[=:]\s*(.+)$/i.exec(body);
+        if (pair) out.push({ kind: 'set', body: body, name: clip(pair[1], 24), value: clip(pair[2], 180) });
+        continue;
+      }
       if (type === 'NEW') {
         // Name | role | what they look like. The archive has no portrait for
         // them, so the look IS the portrait.
@@ -2256,7 +2282,9 @@ window.CHATROOM_CONFIG = {
         if (flag) out.push({ kind: 'flag', body: body, who: target.name, name: clip(flag[1], 40), value: flag[2] === undefined ? true : flag[2] });
       }
     }
-    return { clean: String(text || '').replace(DIRECTIVE_RE, '').replace(/[ \t]+\n/g, '\n').replace(/\n{3,}/g, '\n\n').trim(), directives: out };
+    var clean = String(text || '').replace(DIRECTIVE_RE, '').replace(STRAY_RE, '')
+      .replace(/[ \t]+\n/g, '\n').replace(/\n{3,}/g, '\n\n').replace(/[ \t]{2,}/g, ' ').trim();
+    return { clean: clean, directives: out };
   };
 
   /** Apply the stage directions to the room. `resolve(name)` finds a
@@ -2272,6 +2300,19 @@ window.CHATROOM_CONFIG = {
     }
     var names = (room.cast || []).map(function (c) { return c.name; });
     (directives || []).forEach(function (d) {
+      if (d.kind === 'time') {
+        room.clock = d.value;
+        lines.push('the time is ' + d.value);
+        return;
+      }
+      if (d.kind === 'set') {
+        room.facts = room.facts || {};
+        var key = slug(d.name);
+        var was = room.facts[key];
+        room.facts[key] = d.value;
+        lines.push((was ? d.name + ' is now ' : d.name + ': ') + d.value);
+        return;
+      }
       if (d.kind === 'new') {
         if (find(d.name)) return;
         var made = RP.normChar({
@@ -3563,6 +3604,20 @@ window.CHATROOM_CONFIG = {
     return RP.NARRATORS[key] ? key : 'director';
   };
 
+  /** The facts a scene has nailed down: where you are, what you are
+   *  wearing, what time it is. Filed once, then unchangeable. */
+  RP.factsBlock = function (room) {
+    var facts = room && room.facts ? Object.keys(room.facts) : [];
+    if (!facts.length && !(room && room.clock)) return '';
+    var lines = facts.map(function (k) { return '- ' + k.replace(/_/g, ' ') + ': ' + room.facts[k]; });
+    if (room.clock) lines.unshift('- the time: ' + room.clock);
+    return [
+      'FIXED FACTS — established in this scene and NOT open to revision. Do not rename them, move them, or dress',
+      'the player differently. If the story changes one of them, say so plainly and file the change.',
+      lines.join('\n'),
+    ].join('\n');
+  };
+
   /** What the scene has already established, so it is not established
    *  twice. The cloak, the moon and the patio get described ONCE. */
   RP.continuityBlock = function (room, limit) {
@@ -3598,6 +3653,13 @@ window.CHATROOM_CONFIG = {
     'listen, count or ask, resolve it in this turn. Never replace their action with weather.',
     'Then, and only then, let something move.',
     'You may make it cost them, go wrong, or turn up something they did not want \u2014 but you may not skip it.',
+    '',
+    'FILE WHAT YOU NAME. The first time you name where they are, what they are wearing, or what time it is, put it',
+    'on its own line so it cannot drift later:',
+    '  [[SET: place = the stone patio of the outpost]]',
+    '  [[SET: wearing = a heavy fur-lined travelling cloak]]',
+    '  [[TIME: a little after midnight]]',
+    'Never write any other double-bracketed text into the prose.',
   ].join('\n');
 
   /** The character the reader is playing, if they have starred one. */
@@ -3657,6 +3719,8 @@ window.CHATROOM_CONFIG = {
     if (room.scene) parts.push('THE SCENE\n' + clip(room.scene, 900));
     var worldKeys = RP.keywordBlock(state, opts.recent || RP.historyFor(room, 4).map(function (m) { return m.content; }).join(' '));
     if (worldKeys) parts.push(worldKeys);
+    var fixed = RP.factsBlock(room);
+    if (fixed) parts.push(fixed);
     var already = RP.continuityBlock(room);
     if (already) parts.push(already);
     var asked = RP.askedBlock(room);
@@ -4974,6 +5038,8 @@ window.CHATROOM_CONFIG = {
     // Reference material — trimmed first when the window is tight.
     var keywords = RP.keywordBlock(state, opts.recent || RP.historyFor(room, 4).map(function (m) { return m.content; }).join(' '));
     if (keywords) parts.push(keywords);
+    var sceneFacts = RP.factsBlock(room);
+    if (sceneFacts) parts.push(sceneFacts);
     var knowledge = RP.knowledgeBlock(state, room, opts.archive);
     if (knowledge) parts.push(knowledge);
     var book = RP.bookBlock(state, room);
@@ -7552,7 +7618,10 @@ window.CHATROOM_CONFIG = {
       '<span>' + esc(r.kind === 'group' ? r.cast.map(function (c) { return c.name; }).join(' · ') : (face.title || '')) + '</span></span>' +
       '<span class="hud">' +
         '<button class="stat" id="dateBtn" title="When is this happening, in-world?"><i>🕯</i>' + esc(RP.clip(roomDate(r) || 'undated', 24)) + '</button>' +
-        (progress.total ? '<button class="stat" id="nextBeat" title="Fire the next filed beat"><i>⏩</i>beat ' + progress.at + '/' + progress.total +
+        (r.clock ? '<span class="stat quiet" title="The time in the scene"><i>🕰</i>' + esc(RP.clip(r.clock, 22)) + '</span>' : '') +
+        (progress.total ? '<button class="stat' + (r.beatsPaused ? ' off' : '') + '" id="nextBeat" ' +
+          'title="' + (r.beatsPaused ? 'The script is paused — click to fire the next beat' : 'Fire the next filed beat') + '">' +
+          '<i>⏩</i>' + (r.beatsPaused ? 'paused ' : 'beat ') + progress.at + '/' + progress.total +
           '<span class="meter"><span style="width:' + Math.round((progress.at / progress.total) * 100) + '%"></span></span></button>' : '') +
         '<button class="stat fate-' + esc(fateLevel) + '" id="fateBtn" title="How hard the world pushes back"><i>🎲</i>' + esc(fateLevel) + '</button>' +
         '<span class="stat quiet" title="Turns played"><i>💬</i>' + turnCount + '</span>' +
@@ -7561,6 +7630,8 @@ window.CHATROOM_CONFIG = {
       '<span class="grow"></span>' +
       (r.kind === 'group' ? '<button class="pill" id="continueBtn">➤ Continue</button>' : '') +
       (r.mechanics === 'off' ? '' : '<button class="pill' + (showStates ? ' primary' : '') + '" id="statesBtn">🩺 Party</button>') +
+      '<button class="pill" id="factsBtn" title="What is fixed in this scene — place, clothing, time">📍' +
+        (Object.keys(r.facts || {}).length ? ' ' + Object.keys(r.facts || {}).length : '') + '</button>' +
       '<button class="pill" id="undoBtn" title="Undo the last turn (Ctrl+Z)"' +
         ((r.undo || []).length ? '' : ' disabled') + '>↩</button>' +
       '<button class="pill" id="redoBtn" title="Redo"' + ((r.redo || []).length ? '' : ' disabled') + '>↪</button>' +
@@ -7618,12 +7689,15 @@ window.CHATROOM_CONFIG = {
           '</div></article>';
       }
       var mine = m.role === 'user';
-      var who = mine ? (state.user.name || 'You') : charOf(r, m.charId).name;
+      // If you have ★ starred somebody, your turns are theirs: the label and
+      // the face should say so rather than showing your account name.
+      var playing = RP.playerCharacter(r);
+      var who = mine ? ((playing && playing.name) || state.user.name || 'You') : charOf(r, m.charId).name;
       var swipes = (m.alts && m.alts.length > 1)
         ? '<span class="swipe"><button data-swipe="-1" data-i="' + i + '">‹</button>' + ((m.alt || 0) + 1) + ' / ' + m.alts.length + '<button data-swipe="1" data-i="' + i + '">›</button></span>' : '';
       return '<article class="turn ' + (mine ? 'user' : 'char') + (m.error ? ' err' : '') +
         (m.muted ? ' muted' : '') + (m.imported ? ' imported' : '') + '">' +
-        '<div class="who">' + (mine ? userAvatar(24) : avatar(charOf(r, m.charId), 24)) +
+        '<div class="who">' + (mine ? (playing ? avatar(playing, 24) : userAvatar(24)) : avatar(charOf(r, m.charId), 24)) +
         '<b>' + esc(who) + '</b>' + (mine ? '' : '<span class="badge">archive</span>') +
         (mine ? '' : '<button class="speak" data-speak="' + i + '" title="Read aloud">▶</button>') + '</div>' +
         '<div class="bubble">' + RP.md(RP.textOf(m)) + '</div>' +
@@ -7653,6 +7727,12 @@ window.CHATROOM_CONFIG = {
     $('stream').innerHTML = '<div class="stream-inner">' + html + handback +
       (busy ? '<div class="turn typing"><em>…writing…</em></div>' : '') + '</div>';
     $('stream').scrollTop = $('stream').scrollHeight;
+    var playingNow = RP.playerCharacter(r);
+    if ($('input')) {
+      $('input').placeholder = playingNow
+        ? 'Write as ' + playingNow.name + ' — *actions in asterisks*, "speech in quotes"'
+        : 'Write your turn — *actions in asterisks*, "speech in quotes"';
+    }
 
     // Who answers next, and the two things you always want to press.
     $('speakers').innerHTML =
@@ -7785,6 +7865,36 @@ window.CHATROOM_CONFIG = {
   function wireChat() {
     var r = room();
     var on = function (id, fn) { var node = $(id); if (node) node.onclick = fn; };
+    on('factsBtn', function () {
+      var facts = r.facts || {};
+      var keys = Object.keys(facts);
+      openModal('<h3>What is fixed in this scene</h3>' +
+        '<p class="sub">Where you are, what you are wearing, what time it is. Once these are filed the narrator may ' +
+        'not quietly change them — no renaming the outpost into a clinic halfway through.</p>' +
+        (r.clock ? '<p class="sub">🕰 <b>' + esc(r.clock) + '</b></p>' : '') +
+        (keys.length ? '<div class="stack">' + keys.map(function (k) {
+          return '<div class="item"><b>' + esc(k.replace(/_/g, ' ')) + '</b><p>' + esc(facts[k]) + '</p>' +
+            '<div class="acts"><button class="mini danger" data-factkill="' + esc(k) + '">Forget</button></div></div>';
+        }).join('') + '</div>' : '<p class="sub">Nothing filed yet — the narrator files these as it names them.</p>') +
+        '<div class="actions"><button class="pill" id="mCancel">Close</button>' +
+        '<button class="pill primary" id="mOk">＋ Add one</button></div>');
+      $('mCancel').onclick = closeModal;
+      $('mOk').onclick = function () {
+        closeModal();
+        form('A fixed fact', [
+          { k: 'name', label: 'What kind of fact (place, wearing, weather…)', value: 'place' },
+          { k: 'value', label: 'What it is', value: '' },
+        ], {}, function (v) {
+          if (!v.value.trim()) return;
+          r.facts = r.facts || {};
+          r.facts[RP.slug(v.name) || 'fact'] = v.value.trim();
+          r.updated = Date.now(); save(); render();
+        });
+      };
+      $('modal').querySelectorAll('[data-factkill]').forEach(function (b) {
+        b.onclick = function () { delete r.facts[b.dataset.factkill]; closeModal(); save(); render(); };
+      });
+    });
     on('dateBtn', function () {
       var r = room();
       form('When is this happening?', [
@@ -7921,7 +8031,8 @@ window.CHATROOM_CONFIG = {
     });
     on('panelBtn', function () { $('charpanel').classList.toggle('open'); });
     on('continueBtn', function () { generate(); });
-    on('nextBeat', function () { if (RP.fireBeat(r)) { logBeat(r); save(); render(); } });
+    on('nextBeat', function () {
+      r.beatsPaused = false; if (RP.fireBeat(r)) { logBeat(r); save(); render(); } });
 
     $('speakers').querySelectorAll('[data-speaker]').forEach(function (b) {
       b.onclick = function (e) {
@@ -8242,6 +8353,12 @@ window.CHATROOM_CONFIG = {
     var msg = { id: RP.uid(), role: 'user', text: text, at: Date.now() };
     autoLeft = 0;                       // your turn beats the autopilot
     RP.pushUndo(r, 'your turn');
+    // A jump in time means the filed script no longer lines up with the
+    // scene. Pause it rather than firing "beat 3" into a different night.
+    if (!r.beatsPaused && RP.isTimeJump(text) && (r.beats || []).length && RP.beatProgress(r).remaining) {
+      r.beatsPaused = true;
+      toast('⏩ The script is paused — you moved the scene on. Press ⏩ in the header to fire the next beat by hand.');
+    }
     r.queue = [];
     r.handback = '';
     r.messages.push(msg);

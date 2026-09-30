@@ -199,6 +199,7 @@ a { color: inherit; }
 .chat-top .stat.fate-harsh { border-color: var(--bad); color: var(--bad); }
 .chat-top .stat.fate-gentle { border-color: var(--ok); color: var(--ok); }
 .chat-top .stat.fate-off { opacity: .6; }
+.chat-top .stat.off { opacity: .55; border-style: dashed; }
 
 /* Quick actions above the composer. */
 .speakers .acts { display: flex; gap: 6px; margin-right: 4px; flex: 0 0 auto; }
