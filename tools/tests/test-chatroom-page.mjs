@@ -683,6 +683,14 @@ check('commentary: finished episodes are kept and can be reopened',
   check('macros: the rail has quick actions above the composer',
     doc.querySelectorAll('[data-macro]').length >= 5 && Boolean($('macroAdd')));
   check('undo: the header has undo and redo', Boolean($('undoBtn')) && Boolean($('redoBtn')));
+  check('text: nothing in the character panel is cut off mid-word', (() => {
+    const bodies = [...$('charpanel').querySelectorAll('.cp-desc, .cp-head h3, .cp-head .by')];
+    return bodies.length > 0 && bodies.every(node => !/\w…/.test(node.textContent));
+  })());
+  check('text: the filed status is shown in full, not stubbed', (() => {
+    const desc = $('charpanel').querySelector('.cp-desc');
+    return Boolean(desc) && desc.textContent.length > 20 && !/…$/.test(desc.textContent.trim());
+  })());
   check('branch: every line offers a fork', doc.querySelectorAll('[data-fork]').length > 0);
 
   const roomsBefore = savedState().rooms.length;

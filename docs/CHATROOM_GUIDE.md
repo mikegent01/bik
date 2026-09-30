@@ -682,7 +682,10 @@ NOBODY                                 ← when the scene is waiting on you
 ```
 
 and the page plays exactly that — one turn at a time, each with its own roll
-and stage directions — then **hands back to you**. Silence is a real answer:
+and stage directions — then **hands back to you**. If the answer is `NOBODY`,
+**the world takes the turn instead** and plays out what you just wrote: a
+scene never simply stops with "nobody had to answer that". Only with the
+world switched off does the turn come straight back. Silence is a real answer:
 the prompt says *"only people who have a REASON to speak right now… two is
 usually plenty, one is common"*. A rambling answer is not mistaken for
 silence; one character answers and play continues. The chain ceiling and the
@@ -750,6 +753,18 @@ three separate cards in the stream:
 Waluigi   …prose…
           ⚄ It works   Sans −10 HP (38/100)   ⏩ Two days after the studio
 ```
+
+## Nothing is cut off mid-word
+
+Filed text is shown and sent **whole**. `RP.clip` cuts at the last sentence
+that fits, then at the last whole word, and only marks the cut when something
+was really dropped — so a status line reads *"…the only witness who has seen
+the Director's remote"* rather than *"the only witness w…"*. The fields that
+carry the most meaning were given room to say it (status 480, summary 600,
+description 1,400, the dossier in the prompt 1,400), the character panel
+shows the whole filed status and scrolls, and the short labels in the panel
+menu are shortened by **CSS**, with the full value on hover, rather than by
+cutting the string.
 
 ## Editing what has already been said
 

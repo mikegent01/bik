@@ -44,9 +44,20 @@
   }
   RP.esc = esc;
 
+  /** Shorten text without leaving a word cut in half. Prefers the last
+   *  sentence that fits, falls back to the last whole word, and only ever
+   *  marks the cut when something was actually dropped. Cutting a status
+   *  line mid-word ("the only witness w…") is the kind of thing that makes
+   *  a model hallucinate the rest of it. */
   function clip(value, limit) {
     var text = String(value === null || value === undefined ? '' : value).replace(/\s+/g, ' ').trim();
-    return text.length > limit ? text.slice(0, limit - 1).trim() + '…' : text;
+    if (!limit || text.length <= limit) return text;
+    var head = text.slice(0, limit);
+    // A sentence end in the last third of what fits is the nicest cut.
+    var sentence = Math.max(head.lastIndexOf('. '), head.lastIndexOf('! '), head.lastIndexOf('? '));
+    if (sentence > limit * 0.6) return head.slice(0, sentence + 1).trim();
+    var space = head.lastIndexOf(' ');
+    return (space > limit * 0.4 ? head.slice(0, space) : head).trim().replace(/[,;:—-]+$/, '') + '…';
   }
   RP.clip = clip;
 
@@ -104,15 +115,17 @@
     return {
       id: String(record.id || slug(name) || uid()),
       name: name,
-      title: clip(record.title, 120),
-      race: clip(record.race, 40),
-      affiliation: clip(record.affiliation, 120),
-      status: clip(record.status, 120),
-      summary: clip(record.summary || record.description, 320),
+      title: clip(record.title, 200),
+      race: clip(record.race, 60),
+      affiliation: clip(record.affiliation, 160),
+      // A filed status is a sentence or three about where somebody is right
+      // now. It is the most useful line in the record; do not amputate it.
+      status: clip(record.status, 480),
+      summary: clip(record.summary || record.description, 600),
       // The filed description is what makes a character behave like
       // themselves rather than like a name with a voice, so it travels with
       // them into the prompt instead of being thrown away at load.
-      description: clip(record.description, 900),
+      description: clip(record.description, 1400),
       faction: clip(record.faction || record.membership, 80),
       faiths: clip(record.faiths, 90),
       level: Number(record.level || 0) || 0,
@@ -220,7 +233,7 @@
     if (char.summary) lines.push('About: ' + char.summary);
     if (char.description && !opts.short) {
       lines.push('Filed description — play this, not a generic version of the name:');
-      lines.push(clip(char.description, 900));
+      lines.push(clip(char.description, 1400));
     }
     if (char.why) lines.push('Why they are in this scene: ' + char.why);
     var role = RP.roleFor(char);
@@ -2342,7 +2355,8 @@
       description: clip([char.title, char.description || char.summary].filter(Boolean).join('\n\n'), 4000),
       personality: clip(RP.roleFor(char) || char.title, 400),
       scenario: clip(card.scenario || opts.scenario ||
-        ('The Waluipedia archive, ' + (opts.date || 'the present day') + '. ' + clip(char.status || '', 200)), 900),
+        ('The Waluipedia archive, ' + clip(opts.date || 'the present day', 90) + '. ' +
+          clip(char.status || '', 420)), 1200),
       first_mes: clip(card.first_mes || opts.greeting || '', 1500),
       mes_example: clip(card.mes_example || opts.examples || '', 1500),
       creator_notes: clip(card.creator_notes ||
@@ -2893,8 +2907,10 @@
     return [
       'You are THE WORLD — the narration around the player, not a character in it.',
       '',
-      'Describe what is happening: the place, the hour, what moves, what is heard, what changes. Write in the ' +
-      'PRESENT TENSE and address the player as "you".',
+      'Take what the player just wrote and PLAY IT OUT. If they said they walked outside and looked at the sky, ' +
+      'describe that night — the cold, the light, what the sky is actually doing, what the data in their hands ' +
+      'says — and then let something happen. Never restate their sentence back at them.',
+      'Write in the PRESENT TENSE and address the player as "you".',
       you ? 'The player is playing ' + you.name + ' — ' + clip(you.title || you.summary, 160) +
         '. Never write their speech, their thoughts, or their decisions. Describe what happens AROUND them and what ' +
         'they can see, hear and feel, and leave every choice to them.'
@@ -2948,6 +2964,14 @@
   RP.worldShouldSpeak = function (state, room) {
     if ((state.settings && state.settings.world) === 'off') return false;
     return RP.speakableCast(room).length === 0;
+  };
+
+  /** Nobody had to answer — but the scene should not just sit there. With
+   *  the world on, it describes what you did and moves the hour; only with
+   *  the world off does the turn come straight back to you. */
+  RP.fallbackTurn = function (state, room) {
+    if ((state.settings && state.settings.world) === 'off') return '';
+    return 'world';
   };
 
 

@@ -499,13 +499,19 @@ a { color: inherit; }
 .votes { display: flex; align-items: center; gap: 6px; border: 1px solid var(--line); background: #fff; border-radius: 999px; padding: 5px 12px; }
 .votes button { border: 0; background: transparent; cursor: pointer; color: var(--muted); }
 .votes button.on { color: var(--accent); }
-.cp-desc { color: #3d3d44; font-size: 13px; margin: 6px 0 14px; }
+/* Filed text is shown in full and scrolls if it is long. Cutting a status
+   line off mid-word is how a reader ends up guessing. */
+.cp-desc { color: #3d3d44; font-size: 13px; margin: 6px 0 14px; max-height: 190px; overflow: auto; line-height: 1.5; }
+.scene-card { max-height: 360px; overflow: auto; }
 .cp-menu { border-top: 1px solid var(--line); padding-top: 8px; display: flex; flex-direction: column; gap: 2px; }
 .cp-menu button { display: flex; align-items: center; gap: 12px; width: 100%; border: 0; background: transparent; border-radius: 10px; padding: 11px 12px; cursor: pointer; text-align: left; }
 .cp-menu button:hover { background: var(--panel2); }
 .cp-menu .ico { width: 20px; text-align: center; }
 .cp-menu .label { flex: 1; font-weight: 500; }
-.cp-menu .value { color: var(--muted); font-size: 13px; }
+.cp-menu .value {
+  color: var(--muted); font-size: 13px;
+  max-width: 13ch; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
 .cp-menu .chev { color: var(--muted); }
 .cp-note { color: var(--muted); font-size: 12px; margin-top: 14px; border-top: 1px solid var(--line); padding-top: 10px; }
 
@@ -676,9 +682,20 @@ window.CHATROOM_CONFIG = {
   }
   RP.esc = esc;
 
+  /** Shorten text without leaving a word cut in half. Prefers the last
+   *  sentence that fits, falls back to the last whole word, and only ever
+   *  marks the cut when something was actually dropped. Cutting a status
+   *  line mid-word ("the only witness w…") is the kind of thing that makes
+   *  a model hallucinate the rest of it. */
   function clip(value, limit) {
     var text = String(value === null || value === undefined ? '' : value).replace(/\s+/g, ' ').trim();
-    return text.length > limit ? text.slice(0, limit - 1).trim() + '…' : text;
+    if (!limit || text.length <= limit) return text;
+    var head = text.slice(0, limit);
+    // A sentence end in the last third of what fits is the nicest cut.
+    var sentence = Math.max(head.lastIndexOf('. '), head.lastIndexOf('! '), head.lastIndexOf('? '));
+    if (sentence > limit * 0.6) return head.slice(0, sentence + 1).trim();
+    var space = head.lastIndexOf(' ');
+    return (space > limit * 0.4 ? head.slice(0, space) : head).trim().replace(/[,;:—-]+$/, '') + '…';
   }
   RP.clip = clip;
 
@@ -736,15 +753,17 @@ window.CHATROOM_CONFIG = {
     return {
       id: String(record.id || slug(name) || uid()),
       name: name,
-      title: clip(record.title, 120),
-      race: clip(record.race, 40),
-      affiliation: clip(record.affiliation, 120),
-      status: clip(record.status, 120),
-      summary: clip(record.summary || record.description, 320),
+      title: clip(record.title, 200),
+      race: clip(record.race, 60),
+      affiliation: clip(record.affiliation, 160),
+      // A filed status is a sentence or three about where somebody is right
+      // now. It is the most useful line in the record; do not amputate it.
+      status: clip(record.status, 480),
+      summary: clip(record.summary || record.description, 600),
       // The filed description is what makes a character behave like
       // themselves rather than like a name with a voice, so it travels with
       // them into the prompt instead of being thrown away at load.
-      description: clip(record.description, 900),
+      description: clip(record.description, 1400),
       faction: clip(record.faction || record.membership, 80),
       faiths: clip(record.faiths, 90),
       level: Number(record.level || 0) || 0,
@@ -852,7 +871,7 @@ window.CHATROOM_CONFIG = {
     if (char.summary) lines.push('About: ' + char.summary);
     if (char.description && !opts.short) {
       lines.push('Filed description — play this, not a generic version of the name:');
-      lines.push(clip(char.description, 900));
+      lines.push(clip(char.description, 1400));
     }
     if (char.why) lines.push('Why they are in this scene: ' + char.why);
     var role = RP.roleFor(char);
@@ -2974,7 +2993,8 @@ window.CHATROOM_CONFIG = {
       description: clip([char.title, char.description || char.summary].filter(Boolean).join('\n\n'), 4000),
       personality: clip(RP.roleFor(char) || char.title, 400),
       scenario: clip(card.scenario || opts.scenario ||
-        ('The Waluipedia archive, ' + (opts.date || 'the present day') + '. ' + clip(char.status || '', 200)), 900),
+        ('The Waluipedia archive, ' + clip(opts.date || 'the present day', 90) + '. ' +
+          clip(char.status || '', 420)), 1200),
       first_mes: clip(card.first_mes || opts.greeting || '', 1500),
       mes_example: clip(card.mes_example || opts.examples || '', 1500),
       creator_notes: clip(card.creator_notes ||
@@ -3525,8 +3545,10 @@ window.CHATROOM_CONFIG = {
     return [
       'You are THE WORLD — the narration around the player, not a character in it.',
       '',
-      'Describe what is happening: the place, the hour, what moves, what is heard, what changes. Write in the ' +
-      'PRESENT TENSE and address the player as "you".',
+      'Take what the player just wrote and PLAY IT OUT. If they said they walked outside and looked at the sky, ' +
+      'describe that night — the cold, the light, what the sky is actually doing, what the data in their hands ' +
+      'says — and then let something happen. Never restate their sentence back at them.',
+      'Write in the PRESENT TENSE and address the player as "you".',
       you ? 'The player is playing ' + you.name + ' — ' + clip(you.title || you.summary, 160) +
         '. Never write their speech, their thoughts, or their decisions. Describe what happens AROUND them and what ' +
         'they can see, hear and feel, and leave every choice to them.'
@@ -3580,6 +3602,14 @@ window.CHATROOM_CONFIG = {
   RP.worldShouldSpeak = function (state, room) {
     if ((state.settings && state.settings.world) === 'off') return false;
     return RP.speakableCast(room).length === 0;
+  };
+
+  /** Nobody had to answer — but the scene should not just sit there. With
+   *  the world on, it describes what you did and moves the hour; only with
+   *  the world off does the turn come straight back to you. */
+  RP.fallbackTurn = function (state, room) {
+    if ((state.settings && state.settings.world) === 'off') return '';
+    return 'world';
   };
 
 
@@ -7618,7 +7648,9 @@ window.CHATROOM_CONFIG = {
       RP.tasteFor(state, c.id).up + '</span><button id="cpDown">👎</button><span>' +
       RP.tasteFor(state, c.id).down + '</span></div><span class="grow"></span>' +
       '<button class="iconbtn" id="cpExport" title="Export transcript">⬇</button></div>' +
-      '<div class="cp-desc">' + esc(c.title || c.summary || r.scene || 'A chat in the Waluipedia archive.') + '</div>' +
+      '<div class="cp-desc">' +
+      (c.title ? '<b>' + esc(c.title) + '</b><br>' : '') +
+      esc(c.status || c.summary || r.scene || 'A chat in the Waluipedia archive.') + '</div>' +
       // People invented during play have no portrait in the archive, so the
       // description stands in for one.
       (r.cast.filter(function (x) { return x.invented; }).length
@@ -7634,7 +7666,7 @@ window.CHATROOM_CONFIG = {
       menuItem('cpHistory', '🕘', 'History', RP.roomCountFor(state.rooms, c.id) + '') +
       menuItem('cpCustomize', '🖌', 'Customize', style.name) +
       menuItem('cpPinned', '📌', 'Pinned', String(pinned)) +
-      menuItem('cpPersona', '🧑', 'Persona', RP.clip(r.persona || state.user.persona || 'Not set', 16)) +
+      menuItem('cpPersona', '🧑', 'Persona', r.persona || state.user.persona || (RP.personaSheet(state).name || 'Not set')) +
       menuItem('cpStyle', '✨', 'Style', style.name) +
       menuItem('cpMemory', '🧠', 'Memory', mem ? String(mem.notes.length) : '0') +
       menuItem('cpReplay', '🎭', 'Replay', 'Perspective') +
@@ -7643,17 +7675,21 @@ window.CHATROOM_CONFIG = {
       menuItem('cpTaste', '👍', 'What I like', RP.tasteState(state).likes.length + ' / ' + RP.tasteState(state).dislikes.length) +
       menuItem('cpImport', '📥', 'Import into this chat', 'story · card') +
       menuItem('cpCard', '📇', 'Character card', 'PNG · JSON') +
-      menuItem('cpRename', '✏️', 'Rename chat', RP.clip(r.title, 14)) +
+      menuItem('cpRename', '✏️', 'Rename chat', r.title) +
       menuItem('cpDelete', '🗑', 'Delete chat', '') +
-      menuItem('cpFate', '🎲', 'Fate', (state.settings.fate || 'normal') === 'off' ? 'Off — you always succeed' : RP.clip(state.settings.fate, 10)) +
+      menuItem('cpFate', '🎲', 'Fate', (state.settings.fate || 'normal') === 'off' ? 'Off — you always succeed' : (state.settings.fate || 'normal')) +
       '</div>' +
       '<div class="cp-note">Memory is shared across chats: what is said here is remembered in the next room. Export from Labs.</div>';
     wirePanel();
   }
 
+  /** A row in the character panel. The value is shortened by CSS, not by
+   *  cutting the string, so hovering still shows the whole thing and no
+   *  word is ever left half-written. */
   function menuItem(id, ico, label, value) {
     return '<button id="' + id + '"><span class="ico">' + ico + '</span><span class="label">' + label + '</span>' +
-      (value ? '<span class="value">' + esc(value) + '</span>' : '') + '<span class="chev">›</span></button>';
+      (value ? '<span class="value" title="' + esc(value) + '">' + esc(value) + '</span>' : '') +
+      '<span class="chev">›</span></button>';
   }
 
   function wireChat() {
@@ -8127,9 +8163,15 @@ window.CHATROOM_CONFIG = {
     stageBeat(r).then(function (order) {
       busy = false;
       if (!order.length) {
-        r.handback = r.handback || 'nobody had to answer that.';
-        save(); render();
-        return;
+        // Nobody had to answer — so the world picks it up and describes
+        // what you just did. A scene should never simply stop.
+        var fallback = RP.fallbackTurn(state, r);
+        if (!fallback) {
+          r.handback = 'nobody had to answer that.';
+          save(); render();
+          return;
+        }
+        order = [fallback];
       }
       r.queue = order.slice(1);
       r.next = order[0];

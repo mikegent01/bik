@@ -2359,7 +2359,9 @@
       RP.tasteFor(state, c.id).up + '</span><button id="cpDown">👎</button><span>' +
       RP.tasteFor(state, c.id).down + '</span></div><span class="grow"></span>' +
       '<button class="iconbtn" id="cpExport" title="Export transcript">⬇</button></div>' +
-      '<div class="cp-desc">' + esc(c.title || c.summary || r.scene || 'A chat in the Waluipedia archive.') + '</div>' +
+      '<div class="cp-desc">' +
+      (c.title ? '<b>' + esc(c.title) + '</b><br>' : '') +
+      esc(c.status || c.summary || r.scene || 'A chat in the Waluipedia archive.') + '</div>' +
       // People invented during play have no portrait in the archive, so the
       // description stands in for one.
       (r.cast.filter(function (x) { return x.invented; }).length
@@ -2375,7 +2377,7 @@
       menuItem('cpHistory', '🕘', 'History', RP.roomCountFor(state.rooms, c.id) + '') +
       menuItem('cpCustomize', '🖌', 'Customize', style.name) +
       menuItem('cpPinned', '📌', 'Pinned', String(pinned)) +
-      menuItem('cpPersona', '🧑', 'Persona', RP.clip(r.persona || state.user.persona || 'Not set', 16)) +
+      menuItem('cpPersona', '🧑', 'Persona', r.persona || state.user.persona || (RP.personaSheet(state).name || 'Not set')) +
       menuItem('cpStyle', '✨', 'Style', style.name) +
       menuItem('cpMemory', '🧠', 'Memory', mem ? String(mem.notes.length) : '0') +
       menuItem('cpReplay', '🎭', 'Replay', 'Perspective') +
@@ -2384,17 +2386,21 @@
       menuItem('cpTaste', '👍', 'What I like', RP.tasteState(state).likes.length + ' / ' + RP.tasteState(state).dislikes.length) +
       menuItem('cpImport', '📥', 'Import into this chat', 'story · card') +
       menuItem('cpCard', '📇', 'Character card', 'PNG · JSON') +
-      menuItem('cpRename', '✏️', 'Rename chat', RP.clip(r.title, 14)) +
+      menuItem('cpRename', '✏️', 'Rename chat', r.title) +
       menuItem('cpDelete', '🗑', 'Delete chat', '') +
-      menuItem('cpFate', '🎲', 'Fate', (state.settings.fate || 'normal') === 'off' ? 'Off — you always succeed' : RP.clip(state.settings.fate, 10)) +
+      menuItem('cpFate', '🎲', 'Fate', (state.settings.fate || 'normal') === 'off' ? 'Off — you always succeed' : (state.settings.fate || 'normal')) +
       '</div>' +
       '<div class="cp-note">Memory is shared across chats: what is said here is remembered in the next room. Export from Labs.</div>';
     wirePanel();
   }
 
+  /** A row in the character panel. The value is shortened by CSS, not by
+   *  cutting the string, so hovering still shows the whole thing and no
+   *  word is ever left half-written. */
   function menuItem(id, ico, label, value) {
     return '<button id="' + id + '"><span class="ico">' + ico + '</span><span class="label">' + label + '</span>' +
-      (value ? '<span class="value">' + esc(value) + '</span>' : '') + '<span class="chev">›</span></button>';
+      (value ? '<span class="value" title="' + esc(value) + '">' + esc(value) + '</span>' : '') +
+      '<span class="chev">›</span></button>';
   }
 
   function wireChat() {
@@ -2868,9 +2874,15 @@
     stageBeat(r).then(function (order) {
       busy = false;
       if (!order.length) {
-        r.handback = r.handback || 'nobody had to answer that.';
-        save(); render();
-        return;
+        // Nobody had to answer — so the world picks it up and describes
+        // what you just did. A scene should never simply stop.
+        var fallback = RP.fallbackTurn(state, r);
+        if (!fallback) {
+          r.handback = 'nobody had to answer that.';
+          save(); render();
+          return;
+        }
+        order = [fallback];
       }
       r.queue = order.slice(1);
       r.next = order[0];

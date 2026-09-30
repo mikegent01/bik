@@ -1451,6 +1451,42 @@ check('keyword: entries can be removed, and survive a save', (() => {
   return round.keywords.length === 2 && !round.keywords.some(k => k.id === first);
 })());
 
+// ---------- nothing is cut off mid-word, and nothing stalls ----------
+check('clip: a word is never left half-written', (() => {
+  // The kept text must end exactly where a word ends in the original.
+  const source = 'supercalifragilistic expialidocious antidisestablishmentarianism';
+  const cut = RP.clip(source, 30).replace(/…$/, '');
+  const after = source.charAt(cut.length);
+  return cut.length > 0 && source.indexOf(cut) === 0 && (after === '' || after === ' ');
+})());
+check('clip: it prefers the last sentence that fits',
+  RP.clip('One sentence here. A second that would overflow the limit and then some.', 60) ===
+  'One sentence here. A second that would overflow the limit…');
+check('clip: short text is returned untouched, with no mark',
+  RP.clip('short enough', 50) === 'short enough' && !/…/.test(RP.clip('short enough', 50)));
+check('clip: a trailing comma or dash is not left dangling before the mark',
+  !/[,;:—-]…$/.test(RP.clip('a long clause, and then another clause that runs past the limit', 30)));
+check('fields: a filed status is not amputated at 120 characters', (() => {
+  const long = 'Active — escaped the break room through the ceiling, said the word that stopped the show, and is now the only witness who has seen the Director’s remote';
+  const char = RP.normChar({ id: 'd', name: 'Darian', status: long });
+  return char.status === long && char.status.includes('Director’s remote');
+})());
+check('fields: descriptions and summaries have room too', (() => {
+  const body = 'A sentence about somebody. '.repeat(40);
+  const char = RP.normChar({ id: 'x', name: 'X', description: body, summary: body });
+  return char.description.length > 900 && char.summary.length > 320;
+})());
+check('fallback: when nobody has to answer, the world picks it up', (() => {
+  const room = RP.newRoom([sans, cutters], {});
+  return RP.fallbackTurn(RP.blankState(), room) === 'world';
+})());
+check('fallback: with the world switched off, the turn comes back to you',
+  RP.fallbackTurn({ settings: { world: 'off' } }, RP.newRoom([sans], {})) === '');
+check('world: it is told to play the player’s line out, not restate it', (() => {
+  const prompt = RP.worldPrompt(RP.blankState(), RP.newRoom([sans], { youPlay: 'sans' }), {});
+  return /PLAY IT OUT/.test(prompt) && /Never restate their sentence back at them/.test(prompt);
+})());
+
 // ---------- generated pages are in sync with these sources ----------
 let built = true;
 try {
