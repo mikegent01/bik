@@ -2977,7 +2977,7 @@
       b.onclick = function () { generate({ retryIndex: +b.dataset.retry }); };
     });
     stream.querySelectorAll('[data-speak]').forEach(function (b) {
-      b.onclick = function () { speak(r.messages[+b.dataset.speak], r); };
+      b.onclick = function () { speak(r.messages[+b.dataset.speak], r, { fresh: true }); };
     });
   }
 
@@ -3000,6 +3000,7 @@
         state.settings.voiceDefault = v.fallback.trim();
         state.settings.ttsVoices = v.map;
         voiceMisses = {};
+        libCache = { at: 0, list: null };
         save(); render();
         toast(v.mode === 'on' ? '🔊 Replies read themselves — each in their own voice.' : '🔊 Voices on tap — ▶ on any message.');
       });
@@ -3814,16 +3815,24 @@
         if (!job || !job.event_id) throw new Error('no job id');
         return window.fetch(cfg.endpoint + prefix + cfg.api + '/' + job.event_id);
       }).then(function (stream) { return stream.text(); }).then(function (body) {
+        // An error the STUDIO reports (bad voice, failed synthesis) is not
+        // the same story as a studio that cannot be reached — the caller
+        // needs to know which one it is before blaming a voice profile.
+        var studioSaid = function (message) { var e = new Error(message); e.studio = true; return e; };
+        if (/event:\s*error/.test(body)) throw studioSaid('the studio reported an error');
         var done = /event:\s*complete\s*\ndata:\s*(.+)/.exec(body);
-        if (!done) throw new Error('the studio closed the stream without finishing');
+        if (!done) throw studioSaid('the studio closed the stream without finishing');
         var payloadOut = JSON.parse(done[1]);
         var audio = Array.isArray(payloadOut) ? payloadOut[1] : null;
         var path = audio && (audio.url || audio.path || audio);
-        if (!path) throw new Error('no audio came back');
+        if (!path) throw studioSaid('no audio came back');
         return /^https?:/.test(path) ? path : cfg.endpoint + '/gradio_api/file=' + encodeURI(path);
       });
     }
-    return attempt('/gradio_api/call').catch(function () { return attempt('/call'); });
+    return attempt('/gradio_api/call').catch(function (e) {
+      if (e && e.studio) throw e;
+      return attempt('/call');
+    });
   }
 
   function playUrl(url) {
@@ -3888,54 +3897,122 @@
     render();
   }
 
-  /** A message out loud, through the local Qwen studio, in the voice
-   *  that belongs to whoever said it: Wario's lines ask the studio for
-   *  its saved 'Wario' profile. No such profile → the fallback voice
-   *  reads it (and the miss is remembered); no studio at all → the
-   *  browser's own voice, so the button still does something. */
-  function speak(msg, r) {
+  /** What voices does the studio ACTUALLY have? Ask its own library —
+   *  the same list behind the studio's Refresh Library button — so
+   *  character names match saved profiles exactly instead of by guess.
+   *  Best effort: any failure returns null and the guess path takes
+   *  over. Cached for a minute so a chatty scene asks once. */
+  var libCache = { at: 0, list: null };
+  function voiceLibrary(cfg) {
+    if (libCache.at && Date.now() - libCache.at < 60000) return Promise.resolve(libCache.list);
+    var keep = function (list) {
+      libCache = { at: Date.now(), list: (list && list.length) ? list : null };
+      return libCache.list;
+    };
+    return window.fetch(cfg.endpoint + '/gradio_api/info')
+      .then(function (res) { return res.json(); })
+      .then(function (info) {
+        var eps = Object.keys((info && info.named_endpoints) || {});
+        var ep = eps.filter(function (n) { return /library|voice/i.test(n) && /refresh|list|get|load/i.test(n); })[0] ||
+                 eps.filter(function (n) { return /refresh_library|list_voices/i.test(n); })[0];
+        if (!ep) return keep(null);
+        return window.fetch(cfg.endpoint + '/gradio_api/call' + ep, {
+          method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ data: [] }),
+        }).then(function (res) { return res.json(); })
+          .then(function (job) {
+            if (!job || !job.event_id) return keep(null);
+            return window.fetch(cfg.endpoint + '/gradio_api/call' + ep + '/' + job.event_id)
+              .then(function (s) { return s.text(); })
+              .then(function (body) {
+                var done = /event:\s*complete\s*\ndata:\s*(.+)/.exec(body);
+                if (!done) return keep(null);
+                var names = [];
+                (function dig(v) {
+                  if (Array.isArray(v)) { v.forEach(dig); return; }
+                  if (!v || typeof v !== 'object') return;
+                  // a dropdown update carries choices; a dataframe carries
+                  // rows whose first cell is the profile name
+                  if (Array.isArray(v.choices)) v.choices.forEach(function (c) {
+                    var s = Array.isArray(c) ? c[0] : c;
+                    if (typeof s === 'string' && s.trim()) names.push(s.trim());
+                  });
+                  if (Array.isArray(v.data)) v.data.forEach(function (row) {
+                    if (Array.isArray(row) && typeof row[0] === 'string' && row[0].trim()) names.push(row[0].trim());
+                  });
+                  Object.keys(v).forEach(function (k) { if (k !== 'choices' && k !== 'data') dig(v[k]); });
+                })(JSON.parse(done[1]));
+                return keep(names.filter(function (s, i) { return names.indexOf(s) === i; }));
+              });
+          });
+      })
+      .catch(function () { return keep(null); });
+  }
+
+  /** A message out loud, through the local Qwen studio — every voice in
+   *  it: narration in the narrator's voice, each quote in the voice of
+   *  whoever the prose says is speaking. Voices come from the studio's
+   *  own library when it answers; a profile it lacks goes to the
+   *  fallback; no studio at all → the browser voice. A manual ▶ starts
+   *  fresh — earlier misses are forgiven and retried. */
+  function speak(msg, r, opts) {
     if (!msg) return;
+    if (opts && opts.fresh) { voiceMisses = {}; libCache = { at: 0, list: null }; }
     var cfg = ttsConfig();
-    var name = msg.role === 'world' ? ''
+    var speaker = msg.role === 'world' ? ''
       : msg.role === 'user' ? ((RP.playerCharacter(r) || {}).name || state.user.name || '')
       : ((charOf(r, msg.charId) || {}).name || '');
-    var voice = name
-      ? RP.ttsVoiceFor(name, { map: cfg.map, fallback: cfg.voice, misses: voiceMisses })
-      : (cfg.map.narrator || cfg.map.world || cfg.voice);
-    var chunks = RP.ttsChunks(RP.textOf(msg), 450);
-    if (!chunks.length) return;
+    var castNames = r.cast.map(function (c) { return c.name; })
+      .concat([(RP.playerCharacter(r) || {}).name || '', state.user.name || '']);
+    var parts = RP.speechParts(RP.textOf(msg), castNames, speaker);
+    if (!parts.length) return;
     if (reader.audio) { try { reader.audio.pause(); } catch (e) { /* already gone */ } }
     if (window.speechSynthesis) window.speechSynthesis.cancel();
     reader.stop = false;
     var mine = ++speak.turn;
-    var playChunks = function (v) {
-      var ahead = null;
-      var synth = function (i) { return i < chunks.length ? qwenSay(chunks[i], v, cfg) : Promise.resolve(null); };
-      var step = function (i) {
-        if (reader.stop || speak.turn !== mine || i >= chunks.length) return Promise.resolve();
-        var cur = ahead || synth(i);
-        ahead = null;
-        return cur.then(function (url) {
-          if (reader.stop || speak.turn !== mine) return null;
-          ahead = synth(i + 1);                    // synthesize ahead of the ear
-          return playUrl(url);
-        }).then(function () { return step(i + 1); });
+    voiceLibrary(cfg).then(function (lib) {
+      if (reader.stop || speak.turn !== mine) return;
+      var narrator = cfg.map.narrator || cfg.map.world || cfg.voice;
+      var jobs = [];
+      parts.forEach(function (p) {
+        var v = p.who
+          ? RP.ttsVoiceFor(p.who, { map: cfg.map, fallback: cfg.voice, misses: voiceMisses, library: lib })
+          : narrator;
+        RP.ttsChunks(p.text, 450).forEach(function (c) { jobs.push({ voice: v, text: c, who: p.who }); });
+      });
+      if (!jobs.length) return;
+      var ahead = null; var aheadAt = -1;
+      var synth = function (i) {
+        return i < jobs.length ? qwenSay(jobs[i].text, jobs[i].voice, cfg) : Promise.resolve(null);
       };
-      return step(0);
-    };
-    playChunks(voice).catch(function () {
-      if (speak.turn !== mine) return;
-      if (voice !== cfg.voice) {
-        // The studio answered for other voices before, so the likeliest
-        // story is a missing profile — remember it, hand the line to the
-        // fallback, and say how to give this speaker their own voice.
-        voiceMisses[String(name).split(/\s+/)[0].toLowerCase()] = true;
-        toast('The studio has no “' + voice + '” profile — ' + cfg.voice + ' reads for ' +
-          (name || 'them') + '. Save a voice named ' + voice + ' in the Voice Studio to change that.');
-        playChunks(cfg.voice).catch(function () { speakBrowser(msg, r); });
-        return;
-      }
-      speakBrowser(msg, r);
+      var step = function (i) {
+        if (reader.stop || speak.turn !== mine || i >= jobs.length) return;
+        var cur = (aheadAt === i && ahead) ? ahead : synth(i);
+        ahead = null; aheadAt = -1;
+        cur.then(function (url) {
+          if (reader.stop || speak.turn !== mine) return null;
+          ahead = synth(i + 1); aheadAt = i + 1;   // synthesize ahead of the ear
+          ahead.catch(function () { /* judged when its turn comes */ });
+          return playUrl(url);
+        }).then(function () { step(i + 1); })
+          .catch(function (e) {
+            if (reader.stop || speak.turn !== mine) return;
+            ahead = null; aheadAt = -1;
+            if (e && e.studio && jobs[i].voice !== cfg.voice) {
+              // The studio answered but refused this voice: remember the
+              // miss, let the fallback read this speaker's lines instead.
+              voiceMisses[String(jobs[i].who).split(/\s+/)[0].toLowerCase()] = true;
+              toast('The studio refused the “' + jobs[i].voice + '” voice — ' + cfg.voice +
+                ' reads for ' + (jobs[i].who || 'them') + ' for now.');
+              var missed = jobs[i].voice;
+              jobs.forEach(function (j) { if (j.voice === missed) j.voice = cfg.voice; });
+              step(i);
+              return;
+            }
+            if (e && e.studio) { toast('The Qwen studio errored: ' + e.message); return; }
+            speakBrowser(msg, r);
+          });
+      };
+      step(0);
     });
   }
   speak.turn = 0;

@@ -2353,6 +2353,31 @@ check('history: newest turns win the budget', (() => {
     return chunks[0] === 'One. Two.' && chunks.every((c) => c.length <= 100) &&
       RP.ttsChunks('Hello there.', 450).length === 1 && RP.ttsChunks('  ').length === 0;
   })());
+  check('tts: when the studio library answers, it is the authority — exact case, no guessing',
+    RP.ttsVoiceFor('Wario Bigmouth', { library: ['Wario', 'Luigi'] }) === 'Wario' &&
+    RP.ttsVoiceFor('wario', { library: ['Wario'] }) === 'Wario' &&
+    RP.ttsVoiceFor('Brad', { library: ['Wario'], fallback: 'Waluigi' }) === 'Waluigi' &&
+    RP.ttsVoiceFor('Brad', { map: { brad: 'Freeman' }, library: ['Wario'] }) === 'Freeman');
+  check('tts: quotes are attributed to their speakers, narration to the narrator', (() => {
+    const names = ['Wario', 'Sans'];
+    const parts = RP.speechParts('Wario slams the table. "Pay up." Sans shrugs. "nah," Sans says.', names, 'Wario');
+    return parts.length === 5 &&
+      parts[0].who === '' && parts[1].who === 'Wario' && parts[1].text === 'Pay up.' &&
+      parts[2].who === '' && parts[3].who === 'Sans' && parts[3].text === 'nah,';
+  })());
+  check('tts: every attribution shape lands — says-before, colon, verb-name, smart quotes', (() => {
+    const names = ['Wario', 'Sans', 'Panicy Woman'];
+    return RP.speechParts('Sans says, "took a shortcut."', names, '')[1].who === 'Sans' &&
+      RP.speechParts('Wario: "MINE."', names, '')[1].who === 'Wario' &&
+      RP.speechParts('"Out," snarls Wario.', names, '')[0].who === 'Wario' &&
+      RP.speechParts('\u201csmart quotes,\u201d Panicy Woman whispers.', names, '')[0].who === 'Panicy Woman';
+  })());
+  check('tts: an unattributed quote carries the last speaker; no quotes means one part', (() => {
+    const names = ['Sans'];
+    const carried = RP.speechParts('"hi," Sans says. The lights flicker. "still here?"', names, '');
+    const plain = RP.speechParts('No quotes at all, just prose.', names, 'Wario');
+    return carried[2].who === 'Sans' && plain.length === 1 && plain[0].who === 'Wario';
+  })());
 }
 
 // ---------- generated pages are in sync with these sources ----------

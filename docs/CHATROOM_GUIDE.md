@@ -611,6 +611,21 @@ The 🔊 **Voice** menu holds the rest:
   (`narrator = …` picks who reads the world's turns). Full names beat
   first names.
 
+**The studio's own library is the authority.** Before speaking, the chat
+asks the studio which profiles it actually has (the list behind its
+Refresh Library button) and matches names against it exactly — no
+guessing, no false "missing profile" while the profile sits right there.
+If the library can't be read, the first-name guess still works, and a
+voice the studio refuses is only remembered as missing for the session —
+**a manual ▶ always starts fresh**, so saving a new profile and pressing
+play again picks it up immediately.
+
+**Every voice in the turn.** A turn is not one mouth: narration is read by
+the narrator's voice, and each quoted line is spoken by whoever the prose
+says is speaking — `"nah," Sans says` is Sans, `Wario snarls, "…"` is
+Wario, `Sans: "…"` is Sans, and an unattributed quote belongs to whoever
+spoke last. The turn's own speaker covers quotes nobody is named for.
+
 Long turns are split into sentence-aware chunks (~450 chars) and the next
 chunk synthesizes while the current one plays — one take, no synth-pause.
 No studio running at all? The browser's own voice steps in and the toast

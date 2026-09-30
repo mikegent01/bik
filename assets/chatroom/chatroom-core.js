@@ -248,8 +248,10 @@
   };
 
   /** The studio profile that speaks for `name`. Hand-written map first
-   *  (full name, then first name), known misses go to the fallback,
-   *  everyone else is tried under their capitalized first name. */
+   *  (full name, then first name). When the studio's actual library is
+   *  known, it is the authority: exact-case profile or the fallback —
+   *  no guessing. Without a library, known misses go to the fallback
+   *  and everyone else is tried under their capitalized first name. */
   RP.ttsVoiceFor = function (name, opts) {
     opts = opts || {};
     var fallback = opts.fallback || 'Waluigi';
@@ -259,6 +261,12 @@
     var first = full.split(/\s+/)[0].replace(/[,.:;!?]+$/, '');
     var picked = map[full.toLowerCase()] || map[first.toLowerCase()];
     if (picked) return picked;
+    var lib = opts.library;
+    if (lib && lib.length) {
+      var hit = lib.find(function (v) { return String(v).toLowerCase() === full.toLowerCase(); }) ||
+                lib.find(function (v) { return String(v).toLowerCase() === first.toLowerCase(); });
+      return hit || fallback;
+    }
     if ((opts.misses || {})[first.toLowerCase()]) return fallback;
     return first.charAt(0).toUpperCase() + first.slice(1);
   };
@@ -271,6 +279,62 @@
       .replace(/\[\[[^\]]*\]\]/g, ' ')
       .replace(/[*_`#>]+/g, ' ')
       .replace(/\s+/g, ' ').trim();
+  };
+
+  /** Speech verbs the attribution parser recognizes around a quote. */
+  var SAY_VERBS = '(?:says|said|asks?|asked|replies|replied|answers?|answered|' +
+    'snarls?|snarled|growls?|growled|mutters?|muttered|murmurs?|murmured|' +
+    'shouts?|shouted|yells?|yelled|whispers?|whispered|calls? out|calls?|called|' +
+    'barks?|barked|hisses|hissed|drawls?|drawled|rasps?|rasped|laughs?|laughed|' +
+    'sighs?|sighed|adds?|added|warns?|warned|offers?|offered|continues?|continued|' +
+    'snaps|snapped|grumbles?|grumbled|booms|bellows|purrs|breathes|manages|admits|' +
+    'agrees|insists|demands|repeats|begins|finishes|cuts in|chimes in|pipes up)';
+
+  /** A turn split into voices: narration (who: '') between the quotes,
+   *  each quote attributed to whoever the prose says is speaking —
+   *  '"nah," Sans says', 'Wario snarls, "…"', 'Sans: "…"', '"Out,"
+   *  snarls Wario'. An unattributed quote belongs to whoever spoke
+   *  last, and the first one to the turn's own speaker. */
+  RP.speechParts = function (text, names, speaker) {
+    var clean = RP.ttsClean(text);
+    var deflt = String(speaker || '').trim();
+    if (!clean) return [];
+    var escName = function (s) { return String(s).replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); };
+    var alts = (names || []).filter(Boolean).map(String)
+      .sort(function (a, b) { return b.length - a.length; }).map(escName).join('|');
+    var out = [];
+    var push = function (who, part) {
+      part = String(part).replace(/^[\s,\u2014\u2013:-]+/, '').replace(/[\s\u2014\u2013-]+$/, '').trim();
+      if (!part) return;
+      if (out.length && out[out.length - 1].who === who) out[out.length - 1].text += ' ' + part;
+      else out.push({ who: who, text: part });
+    };
+    var QUOTE_RE = /["\u201c]([^"\u201c\u201d]+)["\u201d]/g;
+    var afterName = alts ? new RegExp('^[\\s,\u2014\u2013-]*(' + alts + ')\\s+' + SAY_VERBS, 'i') : null;
+    var afterVerb = alts ? new RegExp('^[\\s,\u2014\u2013-]*' + SAY_VERBS + '\\s+(' + alts + ')', 'i') : null;
+    var beforeName = alts ? new RegExp('(' + alts + ')[^.!?"\u201c\u201d]{0,30}' + SAY_VERBS + '\\s*[,:]?\\s*$', 'i') : null;
+    var beforeColon = alts ? new RegExp('(' + alts + ')\\s*:\\s*$', 'i') : null;
+    var carry = deflt;
+    var last = 0; var m; var any = false;
+    while ((m = QUOTE_RE.exec(clean)) !== null) {
+      any = true;
+      var before = clean.slice(Math.max(0, m.index - 60), m.index);
+      var after = clean.slice(QUOTE_RE.lastIndex, QUOTE_RE.lastIndex + 60);
+      push('', clean.slice(last, m.index));
+      var t = null;
+      var hit = (afterName && (t = afterName.exec(after))) ? t[1]
+        : (afterVerb && (t = afterVerb.exec(after))) ? t[1]
+        : (beforeName && (t = beforeName.exec(before))) ? t[1]
+        : (beforeColon && (t = beforeColon.exec(before))) ? t[1]
+        : '';
+      var who = hit || carry || deflt;
+      push(who, m[1]);
+      carry = who;
+      last = QUOTE_RE.lastIndex;
+    }
+    if (!any) return [{ who: deflt, text: clean }];
+    push('', clean.slice(last));
+    return out;
   };
 
   /** Sentence-aware chunks for the studio (same idea as the article
