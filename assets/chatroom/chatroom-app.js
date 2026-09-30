@@ -3463,6 +3463,22 @@
       var clean = RP.trimDangling(staged.clean.trim());
       var changes = r.mechanics === 'off' ? { lines: [] }
         : RP.applyDirectives(state, r, staged.directives, resolveChar);
+      // The prose handed the player something and no [[ITEM:]] landed?
+      // Filed on the spot, no model call — the first upkeep net.
+      if (r.mechanics !== 'off') {
+        var pack = RP.sheetFor(r, RP.PLAYER_ID) || (r.youPlay ? RP.sheetFor(r, r.youPlay) : null);
+        if (pack) {
+          RP.grantScan(clean).forEach(function (name) {
+            var have = (pack.items || []).some(function (i) {
+              var it = RP.normItem(i).name.toLowerCase();
+              return it.indexOf(name.toLowerCase()) >= 0 || name.toLowerCase().indexOf(it) >= 0;
+            });
+            if (have) return;
+            var line = RP.applyChange(pack, { kind: 'item', op: '+', name: name });
+            if (line) changes.lines.push('🎒 ' + line + ' — filed from the prose');
+          });
+        }
+      }
       if (retry) {
         retry.alts = (retry.alts && retry.alts.length ? retry.alts : [retry.text]).concat([clean]);
         retry.alt = retry.alts.length - 1;
@@ -3543,7 +3559,7 @@
       var staged = !retry && (r.queue || []).length;
       if (staged) { r.next = r.queue.shift(); }
       save(); render();
-      if (!retry) { queueBook(r); maybeRecap(r); }
+      if (!retry) { queueBook(r); maybeRecap(r); maybeUpkeep(r); }
       if (room() !== r) { autoLeft = 0; return; }
       if (staged || chain || autoLeft) {
         window.setTimeout(function () { if (staged || autoLeft || chain) generate(); }, 450);
@@ -3603,6 +3619,48 @@
       })
       .catch(function () { /* the window is a little long today; no harm */ })
       .then(function () { recapping = false; });
+  }
+
+  var upkeeping = false;   // the quartermaster is reading
+
+  /** The second upkeep net: every few played turns, one small background
+   *  call reads the recent prose against the sheets and files what the
+   *  record missed. Same utility slot and session budget as the book;
+   *  it may only keep the ledger, never invent events. */
+  function maybeUpkeep(r) {
+    var every = state.settings.upkeep === undefined ? RP.UPKEEP_EVERY : Number(state.settings.upkeep);
+    if (upkeeping || busy || !every || r.mechanics === 'off') return;
+    if (!RP.needsUpkeep(r, every) || !RP.bookBudgetLeft(state)) return;
+    var turns = (r.messages || []).filter(RP.visible);
+    var upTo = turns.length;
+    var recent = turns.slice(Number(r.upkeepAt || 0)).slice(-10).map(function (m) {
+      return {
+        who: m.role === 'user' ? ((RP.playerCharacter(r) || {}).name || state.user.name || 'You')
+          : m.role === 'world' ? 'Narration' : charOf(r, m.charId).name,
+        text: RP.textOf(m),
+      };
+    });
+    if (recent.length < 2) { r.upkeepAt = upTo; return; }
+    upkeeping = true;
+    RP.ensurePlayerSheet(state, r);
+    callModel(RP.upkeepPrompt(r, recent), [{ role: 'user', content: 'File what the record missed.' }],
+      { tokens: 220, utility: true })
+      .then(function (reply) {
+        r.upkeepAt = upTo;
+        RP.spendBudget(state);
+        var done = RP.applyUpkeep(state, r, reply);
+        if (done.lines.length) {
+          r.messages.push({
+            id: RP.uid(), role: 'state', at: Date.now(),
+            lines: done.lines.map(function (l) { return '🧾 ' + l; }),
+          });
+          r.updated = Date.now();
+          toast('🧾 The quartermaster caught the sheets up to the story.');
+        }
+        save(); render();
+      })
+      .catch(function () { /* the next review will catch it */ })
+      .then(function () { upkeeping = false; });
   }
 
   /** Queue the last stretch of play for filing. Called every few turns. */
@@ -4028,6 +4086,8 @@
       '<input type="number" id="f_autoplay" min="2" max="20" value="' + (state.settings.autoplay || 6) + '">' +
       '<label for="f_context">How many recent turns the model sees (default 24)</label>' +
       '<input type="number" id="f_context" min="4" max="240" value="' + (state.settings.context || 24) + '">' +
+      '<label for="f_upkeep">🧾 Sheet upkeep — the quartermaster reviews the record every N played turns (0 = off, default ' + RP.UPKEEP_EVERY + '). One small background call; shares the book\u2019s session budget.</label>' +
+      '<input type="number" id="f_upkeep" min="0" max="24" value="' + (state.settings.upkeep === undefined ? RP.UPKEEP_EVERY : state.settings.upkeep) + '">' +
       '<label for="f_historyChars">History budget, in characters — long monologues are clipped so they cannot crowd out whole turns (default ' + RP.HISTORY_BUDGET + ')</label>' +
       '<input type="number" id="f_historyChars" min="3000" max="60000" step="1000" value="' + (state.settings.historyChars || RP.HISTORY_BUDGET) + '">' +
       '<label for="f_promptBudget">System prompt budget, in characters — raise it for a model with a big context window (default ' + RP.PROMPT_BUDGET + ')</label>' +
@@ -4110,6 +4170,8 @@
       state.settings.model = $('f_model').value.trim();
       var ctx = parseInt($('f_context').value, 10);
       if (!isNaN(ctx)) state.settings.context = Math.max(4, Math.min(240, ctx));
+      var upk = parseInt($('f_upkeep').value, 10);
+      if (!isNaN(upk)) state.settings.upkeep = Math.max(0, Math.min(24, upk));
       var hist = parseInt($('f_historyChars').value, 10);
       if (!isNaN(hist)) state.settings.historyChars = Math.max(3000, Math.min(60000, hist));
       var pbud = parseInt($('f_promptBudget').value, 10);

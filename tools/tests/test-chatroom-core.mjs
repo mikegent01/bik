@@ -2250,6 +2250,43 @@ check('history: newest turns win the budget', (() => {
   })());
 }
 
+// ---------- the quartermaster: the sheets keep themselves ----------
+{
+  const st = RP.blankState();
+  st.persona.name = 'Marlow';
+  const rm = RP.newRoom([sans], {});
+  RP.ensurePlayerSheet(st, rm);
+  check('upkeep: a plain handover in the prose is caught with no model call',
+    RP.grantScan('She hands you the lantern and turns away.')[0] === 'lantern' &&
+    RP.grantScan('He presses a brass key into your palm.')[0] === 'brass key');
+  check('upkeep: an offer is not a grant, and scenery is not a thing',
+    RP.grantScan('She offers you the crown.').length === 0 &&
+    RP.grantScan('He hands you the door.').length === 0 &&
+    RP.grantScan('They talk for a while.').length === 0);
+  check('upkeep: the review comes due in played turns, and can be turned off', (() => {
+    for (let i = 0; i < 6; i++) rm.messages.push({ id: 'u' + i, role: i % 2 ? 'char' : 'user', charId: 'sans', text: 'turn ' + i, at: i });
+    return RP.needsUpkeep(rm) === true && RP.needsUpkeep(rm, 0) === false &&
+      RP.needsUpkeep(RP.newRoom([sans], { mechanics: 'off' })) === false;
+  })());
+  check('upkeep: the reviewer sees the sheets, the prose, and the way out',
+    RP.upkeepPrompt(rm, [{ who: 'Sans', text: 'the wax gave' }]).includes('CHARACTER STATE') &&
+    RP.upkeepPrompt(rm, []).includes('IN ORDER') &&
+    RP.upkeepPrompt(rm, []).includes('Do not invent'));
+  check('upkeep: only ledger lines are honoured — it cannot rewrite the world', (() => {
+    const done = RP.applyUpkeep(st, rm,
+      '[[ITEM: Marlow + 🏮 a lantern | still warm]]\n[[EXIT: Sans — nope]]\n[[TINT: doom = red]]\n[[COND: Sans winded 2]]');
+    return done.lines.length === 2 && rm.cast.length === 1 && !(rm.tints || []).length &&
+      rm.states[RP.PLAYER_ID].items.some(i => i.name.includes('lantern')) &&
+      rm.states.sans.flags.winded && rm.states.sans.flags.winded.turns === 2;
+  })());
+  check('upkeep: "IN ORDER" files nothing', RP.applyUpkeep(st, rm, 'IN ORDER').lines.length === 0);
+  check('upkeep: it spends from the same session budget as the book', (() => {
+    const before = RP.bookBudgetLeft(st);
+    RP.spendBudget(st);
+    return RP.bookBudgetLeft(st) === before - 1;
+  })());
+}
+
 // ---------- generated pages are in sync with these sources ----------
 let built = true;
 try {

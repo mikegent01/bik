@@ -1150,6 +1150,31 @@ ever carries the fourteen-character chip line per sheet, with the order to
 **play the 0s and the 3s, not recite them** — accuracy without bloat, since
 the verdict the stats produced already reaches the model as the fate order.
 
+### 🧾 The quartermaster — the sheets keep themselves
+
+The model edits the sheets the same way it always has — ledger directives in
+its own turns (`[[ITEM:]]`, `[[HP:]]`, `[[COND:]]` and the rest). But small
+models forget the paperwork, so two nets run behind the play:
+
+- **The grant scan** — free, every turn. When a reply plainly hands the
+  player something — *"she hands you the lantern"*, *"he presses a brass key
+  into your palm"* — and no directive filed it, the item lands in your pack
+  on the spot, marked `🎒 … — filed from the prose`. Offers don't count
+  ("she offers you the crown" is not yours yet), scenery doesn't count, and
+  it never runs on **your** messages — that door stays guarded by the
+  thin-air check.
+- **The review** — one small background call every **6 played turns**
+  (Settings → 🧾 Sheet upkeep; `0` turns it off). The quartermaster reads
+  the recent prose against the sheets and answers with ledger directives
+  only — or exactly `IN ORDER` if nothing is missing. It may touch HP, MP,
+  items, gear, conditions, flags and counters; it can never make anyone
+  enter or exit, tint the record, or invent events. What it files shows up
+  as a `🧾` state card in the stream. It spends from the same session
+  budget as the lore book, so a long night still costs what one setting
+  says it costs.
+
+Both nets are off when mechanics are off.
+
 ## 🩸 Conditions that bite
 
 A condition can carry a **cost per turn**, and it is taken automatically for

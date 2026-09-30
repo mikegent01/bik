@@ -2171,6 +2171,89 @@
       'called, a reach for something that is not there. Play it, do not scold it.';
   };
 
+  /* ---- the quartermaster: upkeep, so the sheets are never static ----
+   * The model already writes to the sheets in the turn itself, with stage
+   * directions. But a small model forgets: the prose presses a lantern
+   * into your hands and no [[ITEM:]] lands. Two nets, both cheap.
+   *   1. A deterministic scan of every reply for things plainly handed
+   *      to the player — no model call, applied on the spot.
+   *   2. Every few played turns, ONE small background call (the same
+   *      utility slot and session budget as the lore book) reads the
+   *      recent prose against the sheets and files what the record
+   *      missed. It may only keep the ledger — never invent events. */
+
+  RP.UPKEEP_EVERY = 6;              // played turns between reviews; 0 turns it off
+  RP.UPKEEP_KINDS = ['hp', 'mp', 'flag', 'item', 'use', 'equip', 'status', 'counter'];
+
+  /** "presses the lantern into your hands", "hands you a brass key" —
+   *  a grant the reply narrated at the player. Deliberately narrow: an
+   *  offer, a look or a mention is not a grant. Returns up to two names. */
+  RP.grantScan = function (text) {
+    var t = String(text || '');
+    var out = [], m;
+    var handsYou = /\b(?:hands?|gives?|passes|tosses|throws)\s+you\s+(?:the|a|an|his|her|their|its)\s+([a-z0-9'\u2019\- ]{2,40}?)(?=[.,!?;:]|$|\s+(?:and|to|so|as|before|across|with|without)\b)/gi;
+    var intoYour = /\b(?:presses|pushes|slips|drops|places|shoves)\s+(?:the|a|an|his|her|their|its)\s+([a-z0-9'\u2019\- ]{2,40}?)\s+into\s+your\s+(?:hands?|palms?|pockets?|pack|arms|lap)\b/gi;
+    while ((m = handsYou.exec(t))) out.push(m[1].trim());
+    while ((m = intoYour.exec(t))) out.push(m[1].trim());
+    return out.filter(function (name) {
+      return name.length >= 3 && !NOT_KIT.test(name);
+    }).slice(0, 2);
+  };
+
+  /** Is it time for the background review? Counted in played turns since
+   *  the last one, like the recap and the book. */
+  RP.needsUpkeep = function (room, every) {
+    every = every === undefined ? RP.UPKEEP_EVERY : Number(every);
+    if (!every || !room || room.mechanics === 'off') return false;
+    var turns = (room.messages || []).filter(RP.visible).length;
+    return turns - Number(room.upkeepAt || 0) >= every;
+  };
+
+  /** The reviewer's prompt: sheets on one side, prose on the other, and
+   *  the only legal output is ledger lines. */
+  RP.upkeepPrompt = function (room, turns) {
+    return [
+      'You are the quartermaster of a roleplay scene. Compare the sheets against the recent turns and file ONLY',
+      'what the prose established but the record missed: a thing gained, lost, handed over or spent; a hurt that',
+      'landed; a condition that began or ended; something taken in hand or put away.',
+      '',
+      'THE SHEETS NOW',
+      RP.stateBlock(room),
+      '',
+      'THE RECENT TURNS',
+      (turns || []).map(function (t) { return t.who + ': ' + clip(t.text, 280); }).join('\n'),
+      '',
+      'Reply with stage directions only, one per line, six at most:',
+      '  [[ITEM: Name + 🗝 the thing | note]] · [[ITEM: Name - the thing]] · [[USE: Name the thing]]',
+      '  [[EQUIP: Name the thing]] · [[STOW: Name the thing]] · [[HP: Name -5]]',
+      '  [[COND: Name state 3 -1hp | why]] · [[CURE: Name state]] · [[STATUS: Name a short note]]',
+      'Do not restate anything the sheets already have right. Do not invent anything the turns do not plainly',
+      'show. If the record already matches the story, reply exactly: IN ORDER',
+    ].join('\n');
+  };
+
+  /** Apply a review. Only ledger directives are honoured — the upkeep may
+   *  not walk people in or out, rewrite facts, or colour words. */
+  RP.applyUpkeep = function (state, room, reply) {
+    var text = String(reply || '').trim();
+    if (!text || /^IN ORDER\b/i.test(text)) return { lines: [] };
+    var you = (room.states || {})[RP.PLAYER_ID];
+    var names = (room.cast || []).map(function (c) { return c.name; })
+      .concat(you ? [you.name, 'the player'] : []);
+    var directives = RP.parseDirectives(text, names).directives.filter(function (d) {
+      return RP.UPKEEP_KINDS.indexOf(d.kind) >= 0;
+    }).slice(0, 6);
+    if (!directives.length) return { lines: [] };
+    return { lines: RP.applyDirectives(state, room, directives).lines };
+  };
+
+  /** One background call spent, whoever spent it — the book and the
+   *  quartermaster share the same session budget. */
+  RP.spendBudget = function (state) {
+    state.book = state.book || { entries: [], queue: [], spent: 0 };
+    state.book.spent = (state.book.spent || 0) + 1;
+  };
+
   /* ---- stage directions: how the model changes the world ---- */
 
   RP.DIRECTIVES = [

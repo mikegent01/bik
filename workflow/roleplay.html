@@ -2838,6 +2838,89 @@ window.CHATROOM_CONFIG = {
       'called, a reach for something that is not there. Play it, do not scold it.';
   };
 
+  /* ---- the quartermaster: upkeep, so the sheets are never static ----
+   * The model already writes to the sheets in the turn itself, with stage
+   * directions. But a small model forgets: the prose presses a lantern
+   * into your hands and no [[ITEM:]] lands. Two nets, both cheap.
+   *   1. A deterministic scan of every reply for things plainly handed
+   *      to the player — no model call, applied on the spot.
+   *   2. Every few played turns, ONE small background call (the same
+   *      utility slot and session budget as the lore book) reads the
+   *      recent prose against the sheets and files what the record
+   *      missed. It may only keep the ledger — never invent events. */
+
+  RP.UPKEEP_EVERY = 6;              // played turns between reviews; 0 turns it off
+  RP.UPKEEP_KINDS = ['hp', 'mp', 'flag', 'item', 'use', 'equip', 'status', 'counter'];
+
+  /** "presses the lantern into your hands", "hands you a brass key" —
+   *  a grant the reply narrated at the player. Deliberately narrow: an
+   *  offer, a look or a mention is not a grant. Returns up to two names. */
+  RP.grantScan = function (text) {
+    var t = String(text || '');
+    var out = [], m;
+    var handsYou = /\b(?:hands?|gives?|passes|tosses|throws)\s+you\s+(?:the|a|an|his|her|their|its)\s+([a-z0-9'\u2019\- ]{2,40}?)(?=[.,!?;:]|$|\s+(?:and|to|so|as|before|across|with|without)\b)/gi;
+    var intoYour = /\b(?:presses|pushes|slips|drops|places|shoves)\s+(?:the|a|an|his|her|their|its)\s+([a-z0-9'\u2019\- ]{2,40}?)\s+into\s+your\s+(?:hands?|palms?|pockets?|pack|arms|lap)\b/gi;
+    while ((m = handsYou.exec(t))) out.push(m[1].trim());
+    while ((m = intoYour.exec(t))) out.push(m[1].trim());
+    return out.filter(function (name) {
+      return name.length >= 3 && !NOT_KIT.test(name);
+    }).slice(0, 2);
+  };
+
+  /** Is it time for the background review? Counted in played turns since
+   *  the last one, like the recap and the book. */
+  RP.needsUpkeep = function (room, every) {
+    every = every === undefined ? RP.UPKEEP_EVERY : Number(every);
+    if (!every || !room || room.mechanics === 'off') return false;
+    var turns = (room.messages || []).filter(RP.visible).length;
+    return turns - Number(room.upkeepAt || 0) >= every;
+  };
+
+  /** The reviewer's prompt: sheets on one side, prose on the other, and
+   *  the only legal output is ledger lines. */
+  RP.upkeepPrompt = function (room, turns) {
+    return [
+      'You are the quartermaster of a roleplay scene. Compare the sheets against the recent turns and file ONLY',
+      'what the prose established but the record missed: a thing gained, lost, handed over or spent; a hurt that',
+      'landed; a condition that began or ended; something taken in hand or put away.',
+      '',
+      'THE SHEETS NOW',
+      RP.stateBlock(room),
+      '',
+      'THE RECENT TURNS',
+      (turns || []).map(function (t) { return t.who + ': ' + clip(t.text, 280); }).join('\n'),
+      '',
+      'Reply with stage directions only, one per line, six at most:',
+      '  [[ITEM: Name + 🗝 the thing | note]] · [[ITEM: Name - the thing]] · [[USE: Name the thing]]',
+      '  [[EQUIP: Name the thing]] · [[STOW: Name the thing]] · [[HP: Name -5]]',
+      '  [[COND: Name state 3 -1hp | why]] · [[CURE: Name state]] · [[STATUS: Name a short note]]',
+      'Do not restate anything the sheets already have right. Do not invent anything the turns do not plainly',
+      'show. If the record already matches the story, reply exactly: IN ORDER',
+    ].join('\n');
+  };
+
+  /** Apply a review. Only ledger directives are honoured — the upkeep may
+   *  not walk people in or out, rewrite facts, or colour words. */
+  RP.applyUpkeep = function (state, room, reply) {
+    var text = String(reply || '').trim();
+    if (!text || /^IN ORDER\b/i.test(text)) return { lines: [] };
+    var you = (room.states || {})[RP.PLAYER_ID];
+    var names = (room.cast || []).map(function (c) { return c.name; })
+      .concat(you ? [you.name, 'the player'] : []);
+    var directives = RP.parseDirectives(text, names).directives.filter(function (d) {
+      return RP.UPKEEP_KINDS.indexOf(d.kind) >= 0;
+    }).slice(0, 6);
+    if (!directives.length) return { lines: [] };
+    return { lines: RP.applyDirectives(state, room, directives).lines };
+  };
+
+  /** One background call spent, whoever spent it — the book and the
+   *  quartermaster share the same session budget. */
+  RP.spendBudget = function (state) {
+    state.book = state.book || { entries: [], queue: [], spent: 0 };
+    state.book.spent = (state.book.spent || 0) + 1;
+  };
+
   /* ---- stage directions: how the model changes the world ---- */
 
   RP.DIRECTIVES = [
@@ -10222,6 +10305,22 @@ window.CHATROOM_CONFIG = {
       var clean = RP.trimDangling(staged.clean.trim());
       var changes = r.mechanics === 'off' ? { lines: [] }
         : RP.applyDirectives(state, r, staged.directives, resolveChar);
+      // The prose handed the player something and no [[ITEM:]] landed?
+      // Filed on the spot, no model call — the first upkeep net.
+      if (r.mechanics !== 'off') {
+        var pack = RP.sheetFor(r, RP.PLAYER_ID) || (r.youPlay ? RP.sheetFor(r, r.youPlay) : null);
+        if (pack) {
+          RP.grantScan(clean).forEach(function (name) {
+            var have = (pack.items || []).some(function (i) {
+              var it = RP.normItem(i).name.toLowerCase();
+              return it.indexOf(name.toLowerCase()) >= 0 || name.toLowerCase().indexOf(it) >= 0;
+            });
+            if (have) return;
+            var line = RP.applyChange(pack, { kind: 'item', op: '+', name: name });
+            if (line) changes.lines.push('🎒 ' + line + ' — filed from the prose');
+          });
+        }
+      }
       if (retry) {
         retry.alts = (retry.alts && retry.alts.length ? retry.alts : [retry.text]).concat([clean]);
         retry.alt = retry.alts.length - 1;
@@ -10302,7 +10401,7 @@ window.CHATROOM_CONFIG = {
       var staged = !retry && (r.queue || []).length;
       if (staged) { r.next = r.queue.shift(); }
       save(); render();
-      if (!retry) { queueBook(r); maybeRecap(r); }
+      if (!retry) { queueBook(r); maybeRecap(r); maybeUpkeep(r); }
       if (room() !== r) { autoLeft = 0; return; }
       if (staged || chain || autoLeft) {
         window.setTimeout(function () { if (staged || autoLeft || chain) generate(); }, 450);
@@ -10362,6 +10461,48 @@ window.CHATROOM_CONFIG = {
       })
       .catch(function () { /* the window is a little long today; no harm */ })
       .then(function () { recapping = false; });
+  }
+
+  var upkeeping = false;   // the quartermaster is reading
+
+  /** The second upkeep net: every few played turns, one small background
+   *  call reads the recent prose against the sheets and files what the
+   *  record missed. Same utility slot and session budget as the book;
+   *  it may only keep the ledger, never invent events. */
+  function maybeUpkeep(r) {
+    var every = state.settings.upkeep === undefined ? RP.UPKEEP_EVERY : Number(state.settings.upkeep);
+    if (upkeeping || busy || !every || r.mechanics === 'off') return;
+    if (!RP.needsUpkeep(r, every) || !RP.bookBudgetLeft(state)) return;
+    var turns = (r.messages || []).filter(RP.visible);
+    var upTo = turns.length;
+    var recent = turns.slice(Number(r.upkeepAt || 0)).slice(-10).map(function (m) {
+      return {
+        who: m.role === 'user' ? ((RP.playerCharacter(r) || {}).name || state.user.name || 'You')
+          : m.role === 'world' ? 'Narration' : charOf(r, m.charId).name,
+        text: RP.textOf(m),
+      };
+    });
+    if (recent.length < 2) { r.upkeepAt = upTo; return; }
+    upkeeping = true;
+    RP.ensurePlayerSheet(state, r);
+    callModel(RP.upkeepPrompt(r, recent), [{ role: 'user', content: 'File what the record missed.' }],
+      { tokens: 220, utility: true })
+      .then(function (reply) {
+        r.upkeepAt = upTo;
+        RP.spendBudget(state);
+        var done = RP.applyUpkeep(state, r, reply);
+        if (done.lines.length) {
+          r.messages.push({
+            id: RP.uid(), role: 'state', at: Date.now(),
+            lines: done.lines.map(function (l) { return '🧾 ' + l; }),
+          });
+          r.updated = Date.now();
+          toast('🧾 The quartermaster caught the sheets up to the story.');
+        }
+        save(); render();
+      })
+      .catch(function () { /* the next review will catch it */ })
+      .then(function () { upkeeping = false; });
   }
 
   /** Queue the last stretch of play for filing. Called every few turns. */
@@ -10787,6 +10928,8 @@ window.CHATROOM_CONFIG = {
       '<input type="number" id="f_autoplay" min="2" max="20" value="' + (state.settings.autoplay || 6) + '">' +
       '<label for="f_context">How many recent turns the model sees (default 24)</label>' +
       '<input type="number" id="f_context" min="4" max="240" value="' + (state.settings.context || 24) + '">' +
+      '<label for="f_upkeep">🧾 Sheet upkeep — the quartermaster reviews the record every N played turns (0 = off, default ' + RP.UPKEEP_EVERY + '). One small background call; shares the book\u2019s session budget.</label>' +
+      '<input type="number" id="f_upkeep" min="0" max="24" value="' + (state.settings.upkeep === undefined ? RP.UPKEEP_EVERY : state.settings.upkeep) + '">' +
       '<label for="f_historyChars">History budget, in characters — long monologues are clipped so they cannot crowd out whole turns (default ' + RP.HISTORY_BUDGET + ')</label>' +
       '<input type="number" id="f_historyChars" min="3000" max="60000" step="1000" value="' + (state.settings.historyChars || RP.HISTORY_BUDGET) + '">' +
       '<label for="f_promptBudget">System prompt budget, in characters — raise it for a model with a big context window (default ' + RP.PROMPT_BUDGET + ')</label>' +
@@ -10869,6 +11012,8 @@ window.CHATROOM_CONFIG = {
       state.settings.model = $('f_model').value.trim();
       var ctx = parseInt($('f_context').value, 10);
       if (!isNaN(ctx)) state.settings.context = Math.max(4, Math.min(240, ctx));
+      var upk = parseInt($('f_upkeep').value, 10);
+      if (!isNaN(upk)) state.settings.upkeep = Math.max(0, Math.min(24, upk));
       var hist = parseInt($('f_historyChars').value, 10);
       if (!isNaN(hist)) state.settings.historyChars = Math.max(3000, Math.min(60000, hist));
       var pbud = parseInt($('f_promptBudget').value, 10);
