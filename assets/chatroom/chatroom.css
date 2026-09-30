@@ -285,6 +285,12 @@ a { color: inherit; }
 .turn.world .globe { display: inline-grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; background: #2f3a4a; color: #fff; font-size: 12px; }
 .turn.world .bubble { background: #f7f7fa; border-left: 3px solid #2f3a4a; padding: 8px 12px; border-radius: 0 10px 10px 0; font-style: italic; }
 
+/* Macro buttons and the branch marker. */
+.speakers .macros { display: flex; gap: 5px; flex: 0 0 auto; }
+.speakers .qa.mac { font-weight: 500; padding: 5px 10px; }
+.speakers .qa.mac.add { padding: 5px 9px; color: var(--muted); }
+.chat-top .pill[disabled] { opacity: .4; cursor: default; }
+
 .speakers .sp.mine { border-color: var(--accent); background: var(--accent-soft); }
 .speakers .sp .star { margin-left: 4px; color: var(--muted); }
 .speakers .sp .star.on { color: #d8a531; }

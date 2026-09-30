@@ -287,21 +287,46 @@
     return String(url || '').replace(/\/+$/, '').replace(/\/chat\/completions$/, '') + '/models';
   }
 
+  /** Which endpoint and model a call should use. Background work — the
+   *  sequencer, the lore book, hooks — can be sent to a small fast model
+   *  while the roleplay itself goes to the big one. */
+  function routeFor(opts) {
+    var useUtility = opts && opts.utility && state.settings && state.settings.utilityModel;
+    return {
+      url: (useUtility && state.settings.utilityEndpoint) || replyUrl(),
+      model: useUtility ? state.settings.utilityModel : ((state.settings && state.settings.model) || 'local-model'),
+    };
+  }
+
+  function samplers() {
+    var s = (state.settings && state.settings.sampler) || {};
+    var out = {};
+    if (s.top_p !== undefined && s.top_p !== '') out.top_p = Number(s.top_p);
+    if (s.top_k !== undefined && s.top_k !== '') out.top_k = Number(s.top_k);
+    if (s.repeat_penalty !== undefined && s.repeat_penalty !== '') {
+      out.repeat_penalty = Number(s.repeat_penalty);
+      out.frequency_penalty = Math.max(0, Math.min(2, (Number(s.repeat_penalty) - 1) * 2));
+    }
+    if (s.min_p !== undefined && s.min_p !== '') out.min_p = Number(s.min_p);
+    return out;
+  }
+
   function callModel(system, messages, opts) {
-    var url = replyUrl();
+    var route = routeFor(opts);
+    var url = route.url;
     var temperature = (state.settings && state.settings.temperature) || 0.85;
     if (isOpenAI(url)) {
       // LM Studio, llama.cpp, Ollama's OpenAI shim, anything else that
       // speaks the same API. The system prompt is just the first message.
       return fetch(chatRoute(url), {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          model: (state.settings && state.settings.model) || 'local-model',
+        body: JSON.stringify(Object.assign({
+          model: route.model,
           messages: [{ role: 'system', content: system }].concat(messages),
           temperature: temperature,
           max_tokens: (opts && opts.tokens) || RP.lengthBlock((state.settings && state.settings.length) || 'snappy').tokens,
           stream: false,
-        }),
+        }, samplers())),
       }).then(function (r) {
         return r.json().then(function (value) {
           if (!r.ok || value.error) {
@@ -314,11 +339,11 @@
     }
     return fetch(url, {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
+      body: JSON.stringify(Object.assign({
         system: system, messages: messages,
         temperature: temperature,
         max_tokens: (opts && opts.tokens) || RP.lengthBlock((state.settings && state.settings.length) || 'snappy').tokens,
-      }),
+      }, samplers())),
     }).then(function (r) {
       return r.json().then(function (value) {
         if (!r.ok || value.error) throw new Error(value.error || ('the model server answered ' + r.status));
@@ -1032,6 +1057,34 @@
     html += '<p class="emptynote">Character cards, stories in and out, perspective replay, memory inspection, and backups.</p>';
 
     // Cards and plain text: the formats everything else in this hobby uses.
+    // Who you are, in every chat.
+    var persona = RP.personaSheet(state);
+    html += '<div class="sec-head"><h2>Your persona</h2><span class="grow"></span>' +
+      '<button class="pill" id="personaEdit">✏️ Edit</button></div>' +
+      '<p class="emptynote">One sheet, carried into every chat: who you are, what you look like, what you are ' +
+      'carrying. Separate from the archive characters — ★ star one of those in a scene and you play them, but this ' +
+      'is still you underneath.</p>' +
+      '<div class="stack"><div class="item"><b>' + esc(persona.name || 'Not written yet') + '</b>' +
+      (persona.voice ? '<div class="when">' + esc(persona.voice) + '</div>' : '') +
+      (persona.look ? '<p>' + esc(persona.look) + '</p>' : '') +
+      ((persona.items || []).length ? '<div class="tags">' + persona.items.map(function (i) {
+        return '<span class="tag">' + esc(i) + '</span>';
+      }).join('') + '</div>' : '') +
+      (persona.notes ? '<p>' + esc(persona.notes) + '</p>' : '') + '</div></div>';
+
+    // Keyword lore: exact facts, injected the moment they are named.
+    var keys = state.keywords || [];
+    html += '<div class="sec-head"><h2>Keyword lore</h2><span class="grow"></span>' +
+      '<button class="pill" id="keyAdd">＋ New trigger</button></div>' +
+      '<p class="emptynote">When one of these words turns up in the last few turns, its text goes into the prompt ' +
+      'word for word, so the model cannot invent a different version of something you have already settled. ' +
+      'A trigger wrapped in slashes is a regular expression — <code>/dark shores?/i</code>. ' +
+      keys.length + ' filed.</p>' +
+      (keys.length ? '<div class="stack">' + keys.slice().reverse().map(function (k) {
+        return '<div class="item"><b>' + esc(k.always ? 'Always on' : k.keys.join(' · ')) + '</b><p>' + esc(k.text) + '</p>' +
+          '<div class="acts"><button class="mini danger" data-keykill="' + esc(k.id) + '">Delete</button></div></div>';
+      }).join('') + '</div>' : '');
+
     // Somewhere to put the state that is not the browser's cache.
     html += '<div class="sec-head"><h2>Keeping it</h2></div>' +
       '<p class="emptynote">Everything lives in this browser’s storage, and a cleared cache takes it with it. ' +
@@ -1304,6 +1357,36 @@
         if (episode && episode.id === b.dataset.epikill) episode = null;
         save(); renderDash();
       };
+    });
+    on('personaEdit', function () {
+      var p = RP.personaSheet(state);
+      form('Your persona', [
+        { k: 'name', label: 'Name', value: p.name },
+        { k: 'voice', label: 'In one line — who are you?', value: p.voice },
+        { k: 'look', label: 'What do you look like?', type: 'area', value: p.look },
+        { k: 'items', label: 'Carrying, comma separated', value: (p.items || []).join(', ') },
+        { k: 'notes', label: 'Anything else the cast should know', type: 'area', value: p.notes },
+      ], { note: 'Handed to the model in every chat, under “THE USER PLAYS”.' }, function (v) {
+        p.name = v.name.trim(); p.voice = v.voice.trim(); p.look = v.look.trim();
+        p.items = v.items.split(',').map(function (i) { return i.trim(); }).filter(Boolean);
+        p.notes = v.notes.trim();
+        if (p.name && !(state.user.name || '').trim()) state.user.name = p.name;
+        save(); render();
+        toast('That is you now, in every chat.');
+      });
+    });
+    on('keyAdd', function () {
+      form('A trigger and its fact', [
+        { k: 'keys', label: 'Trigger words, comma separated (or /a regex/i)', value: '' },
+        { k: 'text', label: 'What is true about it — this goes in word for word', type: 'area', value: '' },
+      ], { note: 'Keep it short and exact. Fifty words of fact beats five hundred of atmosphere.' }, function (v) {
+        if (!RP.addKeyword(state, v)) { toast('It needs at least one trigger word.'); return; }
+        save(); renderDash();
+        toast('Filed — it will appear whenever that word does.');
+      });
+    });
+    box.querySelectorAll('[data-keykill]').forEach(function (b) {
+      b.onclick = function () { RP.removeKeyword(state, b.dataset.keykill); save(); renderDash(); };
     });
     on('diskSave', function () { saveToDisk('chatroom'); });
     on('diskRestore', restoreFromDisk);
@@ -1981,6 +2064,52 @@
 
   function charOf(r, id) { return (r.cast || []).filter(function (c) { return c.id === id; })[0] || castById[id] || { id: id, name: 'Character' }; }
 
+  /* ---------------------------------------------------------------- *
+   * macros — one click instead of typing "I swing at him"
+   * ---------------------------------------------------------------- */
+
+  var MACROS = [
+    { id: 'attack', icon: '🗡', label: 'Attack', mp: 0, text: 'I attack {target} with what I am holding.' },
+    { id: 'cast', icon: '✦', label: 'Cast', mp: 5, text: 'I work the magic I know at {target}, and it costs me.' },
+    { id: 'guard', icon: '🛡', label: 'Guard', mp: 0, text: 'I put myself between {target} and whatever is coming.' },
+    { id: 'talk', icon: '💬', label: 'Talk down', mp: 0, text: 'I try to talk {target} out of it, fast and plainly.' },
+    { id: 'sneak', icon: '🌑', label: 'Slip away', mp: 0, text: 'I take the chance to get out of sight.' },
+    { id: 'look', icon: '🔍', label: 'Look closer', mp: 0, text: 'I stop and look at this properly — what have I missed?' },
+  ];
+
+  function userMacros() {
+    return MACROS.concat(state.settings.macros || []);
+  }
+
+  function macroButtons(r) {
+    return '<span class="macros">' + userMacros().slice(0, 7).map(function (m) {
+      return '<button class="qa mac" data-macro="' + esc(m.id) + '" title="' + esc(m.text) + '">' +
+        esc(m.icon) + ' ' + esc(m.label) + '</button>';
+    }).join('') + '<button class="qa mac add" id="macroAdd" title="Write your own">＋</button></span>';
+  }
+
+  /** Play a macro: pick a target if the scene has one, spend what it costs,
+   *  and write the attempt — the roll then decides whether it lands. */
+  function runMacro(r, macro) {
+    var targets = RP.speakableCast(r);
+    function fire(target) {
+      var sheet = RP.playerCharacter(r) ? RP.sheetFor(r, RP.playerCharacter(r).id) : null;
+      if (macro.mp && sheet && sheet.mp) {
+        if (sheet.mp.value < macro.mp) { toast('Not enough MP — ' + sheet.mp.value + ' left, that costs ' + macro.mp + '.'); return; }
+        var line = RP.applyChange(sheet, { kind: 'mp', op: '-', value: macro.mp });
+        if (line) {
+          r.messages.push({ id: RP.uid(), role: 'state', at: Date.now(), lines: [line] });
+        }
+      }
+      $('input').value = macro.text.replace('{target}', target ? target.name : 'them');
+      $('composer').dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
+    }
+    if (!/\{target\}/.test(macro.text) || targets.length < 2) { fire(targets[0]); return; }
+    list(macro.icon + ' ' + macro.label + ' — who?', targets.map(function (c) {
+      return { label: c.name, value: c.id };
+    }), function (id) { fire(targets.filter(function (c) { return c.id === id; })[0]); });
+  }
+
   /** The roll, the state changes and any beat that fired, as one quiet
    *  strip along the bottom of the turn they belong to. */
   function metaStrip(m) {
@@ -2055,6 +2184,9 @@
       '<span class="grow"></span>' +
       (r.kind === 'group' ? '<button class="pill" id="continueBtn">➤ Continue</button>' : '') +
       (r.mechanics === 'off' ? '' : '<button class="pill' + (showStates ? ' primary' : '') + '" id="statesBtn">🩺 Party</button>') +
+      '<button class="pill" id="undoBtn" title="Undo the last turn (Ctrl+Z)"' +
+        ((r.undo || []).length ? '' : ' disabled') + '>↩</button>' +
+      '<button class="pill" id="redoBtn" title="Redo"' + ((r.redo || []).length ? '' : ' disabled') + '>↪</button>' +
       '<button class="pill" id="bookBtn">📓 Book</button>' +
       '<button class="pill" id="seqBtn">📖 Sequel</button>' +
       '<button class="pill" id="panelBtn">☰</button>';
@@ -2130,6 +2262,7 @@
             'title="' + (m.muted ? 'Muted — the model cannot see this' : 'Mute: keep it on screen, hide it from the model') + '">' +
             (m.muted ? '🙈' : '👁') + '</button>' +
           '<button data-drop="' + esc(m.id) + '" title="Delete this line">🗑</button>' +
+          '<button data-fork="' + esc(m.id) + '" title="Branch a new chat from here">🌿</button>' +
           '</div>') +
         '</article>';
     }).join('');
@@ -2150,6 +2283,7 @@
         (progress.total && progress.at < progress.total ? '<button class="qa" id="qaBeat">⏩ Next beat</button>' : '') +
         (r.mechanics === 'off' ? '' : '<button class="qa" id="qaRisk" title="Attempt something the world can refuse">🎲 Attempt…</button>') +
         '<button class="qa" id="qaAdd" title="Bring somebody into this scene">＋ New</button>' +
+        (r.mechanics === 'off' ? '' : macroButtons(r)) +
         '<button class="qa' + (autoLeft ? ' on' : '') + '" id="qaAuto" title="Let the scene play itself for a few turns">' +
           (autoLeft ? '■ Stop (' + autoLeft + ')' : '▶ Auto') + '</button>' +
       '</span>' +
@@ -2278,9 +2412,40 @@
     });
     on('backBtn', function () { state.active = ''; save(); render(); });
     on('fateBtn', function () { if ($('cpFate')) $('cpFate').click(); else openPanelFate(); });
+    on('undoBtn', function () {
+      var what = RP.undo(r);
+      save(); render();
+      toast(what ? 'Undid ' + what + '.' : 'Nothing to undo.');
+    });
+    on('redoBtn', function () {
+      var what = RP.redo(r);
+      save(); render();
+      toast(what ? 'Redid ' + what + '.' : 'Nothing to redo.');
+    });
     on('bookBtn', function () { tab = 'book'; state.active = ''; save(); render(); });
     on('qaContinue', function () { generate(); });
     on('qaBeat', function () { if ($('nextBeat')) $('nextBeat').click(); });
+    $('speakers').querySelectorAll('[data-macro]').forEach(function (b) {
+      b.onclick = function () {
+        var macro = userMacros().filter(function (m) { return m.id === b.dataset.macro; })[0];
+        if (macro) runMacro(r, macro);
+      };
+    });
+    on('macroAdd', function () {
+      form('A button of your own', [
+        { k: 'icon', label: 'Icon', value: '⚑' },
+        { k: 'label', label: 'Label', value: '' },
+        { k: 'text', label: 'What it writes — use {target} for whoever you pick', type: 'area', value: '' },
+        { k: 'mp', label: 'MP it costs (0 for none)', value: '0' },
+      ], { note: 'It writes the attempt for you; the roll still decides whether it works.' }, function (v) {
+        if (!v.label.trim() || !v.text.trim()) { toast('It needs a label and something to say.'); return; }
+        state.settings.macros = (state.settings.macros || []).concat([{
+          id: 'mac_' + RP.slug(v.label), icon: v.icon.trim() || '⚑', label: v.label.trim(),
+          text: v.text.trim(), mp: parseInt(v.mp, 10) || 0,
+        }]).slice(0, 6);
+        save(); render();
+      });
+    });
     on('qaAuto', function () {
       if (autoLeft) { autoLeft = 0; render(); toast('Stopped.'); return; }
       autoLeft = Math.max(2, Number(state.settings.autoplay || 6));
@@ -2408,6 +2573,7 @@
           note: 'Your edit replaces the line everywhere — on screen, in the model’s history, and in anything exported.',
         }, function (v) {
           if (!v.text.trim()) { toast('Empty — delete it instead if you want it gone.'); return; }
+          RP.pushUndo(r, 'the edit');
           RP.editMessage(r, msg.id, v.text.trim());
           save(); render();
         });
@@ -2425,9 +2591,23 @@
         var msg = RP.findMessage(r, b.dataset.drop);
         if (!msg) return;
         confirmThen('Delete this line?', RP.clip(RP.textOf(msg), 160), function () {
+          RP.pushUndo(r, 'that deletion');
           RP.deleteMessage(r, msg.id);
           save(); render();
         });
+      };
+    });
+    stream.querySelectorAll('[data-fork]').forEach(function (b) {
+      b.onclick = function () {
+        var copy = RP.forkRoom(state, r, b.dataset.fork, {});
+        state.active = copy.id;
+        RP.logEvent(state, {
+          kind: 'chat', roomId: copy.id, roomTitle: copy.title, when: roomDate(copy),
+          chars: copy.cast.map(function (c) { return c.id; }),
+          text: 'Branched from “' + RP.clip(r.title, 50) + '” at that line. The original is untouched.',
+        });
+        save(); render();
+        toast('🌿 Branched — the original chat is still there, whole.');
       };
     });
     stream.querySelectorAll('[data-pin]').forEach(function (b) {
@@ -2676,20 +2856,59 @@
     input.style.height = 'auto';
     var msg = { id: RP.uid(), role: 'user', text: text, at: Date.now() };
     autoLeft = 0;                       // your turn beats the autopilot
+    RP.pushUndo(r, 'your turn');
+    r.queue = [];
     r.handback = '';
     r.messages.push(msg);
     RP.rememberTurn(state, r, msg);
     r.updated = Date.now();
     save(); render();
-    generate();
+    // Stage the beat first: who answers, in what order. Then play them.
+    busy = true; render();
+    stageBeat(r).then(function (order) {
+      busy = false;
+      if (!order.length) {
+        r.handback = r.handback || 'nobody had to answer that.';
+        save(); render();
+        return;
+      }
+      r.queue = order.slice(1);
+      r.next = order[0];
+      save();
+      generate();
+    });
   }
 
   /** After a group reply, the model decides what happens next: another
    *  character answers, or the scene comes back to the player. Without this a
    *  multi-bot room is just a loop of bots talking to each other; with it the
    *  chain also has a hard ceiling (settings.maxChain) so it always returns. */
+  /** After the player writes, the scene is staged: the model says who
+   *  reacts and in what order, the page plays them, and then it stops.
+   *  One planning call buys several turns of reply. */
+  function stageBeat(r) {
+    if (state.settings.director === 'off') return Promise.resolve([]);
+    if (RP.chainLength(r) >= (state.settings.maxChain || RP.MAX_CHAIN)) return Promise.resolve([]);
+    if (RP.worldShouldSpeak(state, r)) return Promise.resolve(['world']);
+    if (!RP.speakableCast(r).length) return Promise.resolve([]);
+    function rotation() {
+      var next = RP.nextSpeaker({ kind: 'group', cast: RP.speakableCast(r), messages: r.messages, next: r.next });
+      return next ? [next.id] : [];
+    }
+    return callModel(RP.sequencePrompt(r, state, {}), [{ role: 'user', content: 'Who answers this?' }], { tokens: 60, utility: true })
+      .then(function (text) {
+        var staged = RP.parseSequence(text, r, state);
+        // A model that rambled instead of answering has not decided that
+        // nobody speaks — somebody still answers.
+        if (!staged.order.length && !staged.silent) return rotation();
+        return staged.order;
+      })
+      .catch(rotation);
+  }
+
+  /** The one-at-a-time question, still used when a chain is already running
+   *  and we only need to know whether it keeps going. */
   function direct(r, speaker) {
-    // With nobody else to speak, the world carries the scene instead.
     if (RP.worldShouldSpeak(state, r) && RP.chainLength(r) < (state.settings.maxChain || RP.MAX_CHAIN)) {
       r.next = 'world';
       return Promise.resolve(Boolean(autoLeft));
@@ -2701,13 +2920,12 @@
       r.next = '';
       return Promise.resolve(false);
     }
-    return callModel(RP.directorPrompt(r, speaker), [{ role: 'user', content: 'Who speaks next?' }], { tokens: 40 })
+    return callModel(RP.directorPrompt(r, speaker), [{ role: 'user', content: 'Who speaks next?' }], { tokens: 40, utility: true })
       .then(function (text) { return RP.parseDirector(text, r, speaker); })
       .catch(function () { return { next: 'user', reason: 'the director could not be reached' }; })
       .then(function (decision) {
         if (decision.next === 'world' && (state.settings.world || 'on') !== 'off') {
-          r.handback = '';
-          r.next = 'world';
+          r.handback = ''; r.next = 'world';
           return true;
         }
         if (decision.next === 'user') {
@@ -2717,7 +2935,7 @@
         }
         r.handback = '';
         r.next = decision.next;
-        return true;    // keep the scene running: the next character answers
+        return true;
       });
   }
 
@@ -2748,9 +2966,8 @@
     // filtered to filings whose dates have already passed in this scene.
     var recent = RP.historyFor(r, 4).map(function (m) { return m.content; }).join(' ');
     var found = RP.citableFor(archiveIndex, r, state, { query: recent + ' ' + (r.scene || ''), limit: 8 });
-    var system = worldTurn
-      ? RP.worldSystem(state, r, { fate: fate, archive: archive, citations: RP.citationBlock(found) })
-      : RP.systemFor(state, r, speaker, { fate: fate, archive: archive, citations: RP.citationBlock(found) });
+    var opts2 = { fate: fate, archive: archive, citations: RP.citationBlock(found), recent: recent };
+    var system = worldTurn ? RP.worldSystem(state, r, opts2) : RP.systemFor(state, r, speaker, opts2);
     var window = RP.contextLimit(r, (state.settings && state.settings.context) || 24);
     var history = RP.historyFor(retry ? { kind: r.kind, cast: r.cast, messages: r.messages.slice(0, opts.retryIndex) } : r, window);
     if (!history.length) history = [{ role: 'user', content: '(The scene opens. Begin in character.)' }];
@@ -2809,12 +3026,18 @@
     }).then(function (chain) {
       busy = false;
       if (!retry && autoLeft) autoLeft--;
+      // A staged beat plays itself out before anything else is decided.
+      var staged = !retry && (r.queue || []).length;
+      if (staged) { r.next = r.queue.shift(); }
       save(); render();
       if (!retry) { queueBook(r); }
-      // The next turn plays on its own when the director asked for it, or
-      // while autoplay has turns left. One at a time, always stoppable.
       if (room() !== r) { autoLeft = 0; return; }
-      if (chain || autoLeft) window.setTimeout(function () { if (autoLeft || chain) generate(); }, 500);
+      if (staged || chain || autoLeft) {
+        window.setTimeout(function () { if (staged || autoLeft || chain) generate(); }, 450);
+      } else if (!r.handback) {
+        r.handback = 'your turn.';
+        save(); render();
+      }
     });
   }
 
@@ -2874,7 +3097,7 @@
     booking = true;
     renderBookBadge();
     var known = RP.bookState(state).entries.slice(-40).map(function (e) { return e.name; });
-    callModel(RP.extractPrompt(r, job.turns, known), [{ role: 'user', content: 'File what is new.' }], { tokens: 420 })
+    callModel(RP.extractPrompt(r, job.turns, known), [{ role: 'user', content: 'File what is new.' }], { tokens: 420, utility: true })
       .then(function (text) {
         var filed = 0;
         RP.parseExtract(text).forEach(function (entry) {
@@ -3226,6 +3449,7 @@
    *  people actually run: LM Studio on its own, or the workflow server. */
   function settingsForm() {
     var current = replyUrl();
+    var sampler = (state.settings && state.settings.sampler) || {};
     openModal('<h3>Settings</h3>' +
       '<p class="sub">Point the page at whatever is running. <b>LM Studio</b> is called directly with the OpenAI API ' +
       '(make sure its server is started, and that “Enable CORS” is on in its Developer tab). The <b>workflow ' +
@@ -3259,7 +3483,18 @@
       Object.keys(RP.STYLES).map(function (k) {
         return '<option value="' + k + '"' + (state.settings.style === k ? ' selected' : '') + '>' + esc(RP.STYLES[k].name) + '</option>';
       }).join('') + '</select>' +
-      '<label for="f_temperature">Temperature</label><input type="text" id="f_temperature" value="' + esc(String(state.settings.temperature)) + '">' +
+      '<label for="f_temperature">Temperature — higher is wilder (0–1.5)</label>' +
+      '<input type="text" id="f_temperature" value="' + esc(String(state.settings.temperature)) + '">' +
+      '<label>Sampling — leave blank to let the model decide</label>' +
+      '<div class="castbar">' +
+      '<label class="mins">top_p <input type="text" id="f_top_p" value="' + esc(String(sampler.top_p === undefined ? '' : sampler.top_p)) + '" placeholder="0.9"></label>' +
+      '<label class="mins">top_k <input type="text" id="f_top_k" value="' + esc(String(sampler.top_k === undefined ? '' : sampler.top_k)) + '" placeholder="40"></label>' +
+      '<label class="mins">rep. penalty <input type="text" id="f_repeat_penalty" value="' + esc(String(sampler.repeat_penalty === undefined ? '' : sampler.repeat_penalty)) + '" placeholder="1.1"></label>' +
+      '<label class="mins">min_p <input type="text" id="f_min_p" value="' + esc(String(sampler.min_p === undefined ? '' : sampler.min_p)) + '" placeholder="0.05"></label>' +
+      '</div>' +
+      '<label for="f_utilityModel">Background model — the sequencer, the lore book, hooks (blank = the same one)</label>' +
+      '<input type="text" id="f_utilityModel" value="' + esc(state.settings.utilityModel || '') + '" placeholder="a small, fast model">' +
+      '<input type="text" id="f_utilityEndpoint" value="' + esc(state.settings.utilityEndpoint || '') + '" placeholder="its endpoint, if it is somewhere else">' +
       '<div class="actions"><button class="pill" id="mCancel">Cancel</button>' +
       '<button class="pill primary" id="mOk">Save</button></div>');
     $('mCancel').onclick = closeModal;
@@ -3316,6 +3551,14 @@
       state.settings.world = $('f_world').value;
       var auto = parseInt($('f_autoplay').value, 10);
       if (!isNaN(auto)) state.settings.autoplay = Math.max(2, Math.min(20, auto));
+      var next = {};
+      ['top_p', 'top_k', 'repeat_penalty', 'min_p'].forEach(function (k) {
+        var raw = ($('f_' + k).value || '').trim();
+        if (raw !== '' && !isNaN(parseFloat(raw))) next[k] = parseFloat(raw);
+      });
+      state.settings.sampler = next;
+      state.settings.utilityModel = $('f_utilityModel').value.trim();
+      state.settings.utilityEndpoint = $('f_utilityEndpoint').value.trim();
       state.settings.style = $('f_style').value;
       var t = parseFloat($('f_temperature').value);
       if (!isNaN(t)) state.settings.temperature = Math.max(0, Math.min(1.5, t));
@@ -3450,6 +3693,13 @@
       return;
     }
     if (typing) return;
+    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'z' && room()) {
+      e.preventDefault();
+      var what = e.shiftKey ? RP.redo(room()) : RP.undo(room());
+      save(); render();
+      toast(what ? (e.shiftKey ? 'Redid ' : 'Undid ') + what + '.' : 'Nothing to ' + (e.shiftKey ? 'redo' : 'undo') + '.');
+      return;
+    }
     if (e.key === '/') { e.preventDefault(); if ($('search')) $('search').focus(); return; }
     if (e.key === 'n' && !e.ctrlKey && !e.metaKey && !$('chatview').hidden) { e.preventDefault(); generate(); return; }
     if (e.key === '?' ) { e.preventDefault(); shortcutsHelp(); }

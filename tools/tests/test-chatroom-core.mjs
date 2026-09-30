@@ -1329,6 +1329,128 @@ check('director: WORLD is an answer it may give', (() => {
     RP.parseDirector('NEXT: WORLD', group, sans).next === 'world';
 })());
 
+// ---------- the sequencer ----------
+const seqState = RP.blankState();
+const seqRoom = RP.newRoom([sans, cutters, rebel], { youPlay: 'sans' });
+seqRoom.messages.push({ id: 's1', role: 'user', text: 'I put the ledger on the table.', at: 1 });
+const seqPrompt = RP.sequencePrompt(seqRoom, seqState, {});
+check('sequencer: it asks for an order, not a single name',
+  /ORDER: Name, Name/.test(seqPrompt) && /NOBODY/.test(seqPrompt) && /at most \d/.test(seqPrompt));
+check('sequencer: the character you play is never staged',
+  seqPrompt.includes('Never put them in the order') && !/- Sans/.test(seqPrompt));
+check('sequencer: silence is offered as a real answer',
+  /Silence is a choice/.test(seqPrompt) && /only people who have a REASON/.test(seqPrompt));
+check('sequencer: an order parses into ids, in order, without repeats', (() => {
+  const got = RP.parseSequence('ORDER: The Timber Gang, The Rebel Scout, The Timber Gang', seqRoom, seqState);
+  return got.order.join(',') === 'timber_gang,rebel_scout';
+})());
+check('sequencer: the world can be staged too',
+  RP.parseSequence('ORDER: The Timber Gang, WORLD', seqRoom, seqState).order.join(',') === 'timber_gang,world');
+check('sequencer: with the world off it is dropped from the order',
+  RP.parseSequence('ORDER: WORLD, The Timber Gang', seqRoom, { settings: { world: 'off' } }).order.join(',') === 'timber_gang');
+check('sequencer: NOBODY means nobody, and says so', (() => {
+  const got = RP.parseSequence('NOBODY', seqRoom, seqState);
+  return got.order.length === 0 && got.silent === true;
+})());
+check('sequencer: a rambling answer is not mistaken for silence', (() => {
+  const got = RP.parseSequence('Well, I think perhaps the timber gang might want to respond here.', seqRoom, seqState);
+  return got.order.length === 0 && got.unparsed === true;
+})());
+check('sequencer: it never stages more than the cap',
+  RP.parseSequence('ORDER: The Timber Gang, The Rebel Scout, WORLD, The Timber Gang, The Rebel Scout', seqRoom, seqState)
+    .order.length <= RP.SEQUENCE_MAX);
+
+// ---------- branching and undo ----------
+const forkState = RP.blankState();
+const original = RP.newRoom([sans], { title: 'The original' });
+original.messages.push(
+  { id: 'f1', role: 'user', text: 'one', at: 1 },
+  { id: 'f2', role: 'char', charId: 'sans', text: 'two', at: 2 },
+  { id: 'f3', role: 'user', text: 'three', at: 3 });
+forkState.rooms = [original];
+const branch = RP.forkRoom(forkState, original, 'f2', {});
+check('branch: a fork keeps everything up to that line and nothing after',
+  branch.messages.length === 2 && branch.messages.map(m => m.text).join(',') === 'one,two');
+check('branch: the original is untouched, and the fork is a separate chat',
+  original.messages.length === 3 && branch.id !== original.id && branch.branchOf === original.id &&
+  forkState.rooms.length === 2 && forkState.rooms[0].id === branch.id);
+check('branch: the copy is deep — editing it does not touch the original', (() => {
+  RP.editMessage(branch, branch.messages[1].id, 'changed in the branch');
+  return original.messages[1].text === 'two';
+})());
+check('undo: a snapshot rolls the chat back, and redo puts it forward again', (() => {
+  const room = RP.newRoom([sans], {});
+  room.messages.push({ id: 'u1', role: 'user', text: 'first', at: 1 });
+  RP.pushUndo(room, 'the second line');
+  room.messages.push({ id: 'u2', role: 'char', charId: 'sans', text: 'second', at: 2 });
+  const undone = RP.undo(room);
+  const rolledBack = room.messages.length === 1;
+  const redone = RP.redo(room);
+  return undone === 'the second line' && rolledBack && redone && room.messages.length === 2;
+})());
+check('undo: it restores the state sheets too, not just the words', (() => {
+  const room = RP.newRoom([sans], {});
+  room.states.sans.hp.value = 100;
+  RP.pushUndo(room, 'the wound');
+  room.states.sans.hp.value = 20;
+  RP.undo(room);
+  return room.states.sans.hp.value === 100;
+})());
+check('undo: the stack has a floor and a ceiling', (() => {
+  const room = RP.newRoom([sans], {});
+  for (let i = 0; i < 40; i++) RP.pushUndo(room, 'x' + i);
+  return room.undo.length === RP.UNDO_DEPTH && RP.undo(RP.newRoom([sans], {})) === null;
+})());
+
+// ---------- the player's own persona ----------
+const meState = RP.blankState();
+const me = RP.personaSheet(meState);
+me.name = 'Mikha the Unfiled';
+me.voice = 'a courier who reads the post';
+me.look = 'tall, sunburnt, one boot newer than the other';
+me.items = ['a satchel', 'somebody else’s key'];
+check('persona: one sheet, and it reaches the prompt', (() => {
+  const block = RP.personaBlock('', meState, RP.newRoom([sans], {}));
+  return block.includes('THE USER PLAYS') && block.includes('Mikha the Unfiled') &&
+    block.includes('one boot newer') && block.includes('somebody else’s key');
+})());
+check('persona: starring an archive character says so, without losing you', (() => {
+  const room = RP.newRoom([sans], { youPlay: 'sans' });
+  const block = RP.personaBlock('', meState, room);
+  return block.includes('Mikha the Unfiled') && block.includes('playing Sans');
+})());
+check('persona: it survives a save and comes back', (() => {
+  RP.saveState(store, meState);
+  return RP.personaSheet(RP.loadState(store)).name === 'Mikha the Unfiled';
+})());
+
+// ---------- keyword-triggered lore ----------
+const keyState = RP.blankState();
+RP.addKeyword(keyState, { keys: 'Master Sword, blade of evil', text: 'Filed as lost in 1012 BF, never as broken.' });
+RP.addKeyword(keyState, { keys: '/dark shores?/i', text: 'A province, not a beach: Darian rules it and calls himself king.' });
+RP.addKeyword(keyState, { always: true, text: 'The archive never uses real-world dates.' });
+check('keyword: a plain word triggers on a whole-word match',
+  RP.keywordBlock(keyState, 'he asked about the Master Sword again').includes('never as broken'));
+check('keyword: it does not fire on a fragment',
+  !RP.keywordBlock(keyState, 'he mastered swordsmanship').includes('never as broken'));
+check('keyword: a regular expression trigger works',
+  RP.keywordBlock(keyState, 'we sailed for the Dark Shore').includes('A province, not a beach'));
+check('keyword: an always-on entry is always there',
+  RP.keywordBlock(keyState, 'nothing in particular').includes('never uses real-world dates'));
+check('keyword: the block tells the model to use it exactly',
+  /use these exactly, do not invent around them/.test(RP.keywordBlock(keyState, 'Master Sword')));
+check('keyword: it reaches the system prompt', (() => {
+  const room = RP.newRoom([sans], {});
+  return RP.systemFor(keyState, room, sans, { recent: 'about the Master Sword' }).includes('never as broken');
+})());
+check('keyword: entries can be removed, and survive a save', (() => {
+  RP.saveState(store, keyState);
+  const round = RP.loadState(store);
+  const first = round.keywords[0].id;
+  RP.removeKeyword(round, first);
+  return round.keywords.length === 2 && !round.keywords.some(k => k.id === first);
+})());
+
 // ---------- generated pages are in sync with these sources ----------
 let built = true;
 try {

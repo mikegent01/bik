@@ -670,6 +670,71 @@ It carries the same scene, lore book, citations, script, state sheets and
 stage directions a character gets — so the world can wound somebody, walk
 someone in, or fire a beat.
 
+## The sequencer — you write, the scene answers, the scene stops
+
+A director that picks one speaker at a time turns a six-hander into a queue.
+The **sequencer** stages the whole beat instead: after you write, one small
+planning call answers
+
+```
+ORDER: The Timber Gang, WORLD          ← who reacts, in the order they react
+NOBODY                                 ← when the scene is waiting on you
+```
+
+and the page plays exactly that — one turn at a time, each with its own roll
+and stage directions — then **hands back to you**. Silence is a real answer:
+the prompt says *"only people who have a REASON to speak right now… two is
+usually plenty, one is common"*. A rambling answer is not mistaken for
+silence; one character answers and play continues. The chain ceiling and the
+Fate settings still apply, and the character you ★ play is never staged.
+
+## Branching and undo
+
+- **🌿 Branch from here** on any line copies the chat up to that point into a
+  new one. The original is untouched — *what if he had lived* costs nothing.
+- **↩ / ↪** in the header, or **Ctrl/⌘+Z** and **Ctrl/⌘+Shift+Z**, roll the
+  last turn back and forward again. Snapshots cover the messages, the cast
+  **and** the state sheets, twelve deep.
+
+## Your persona
+
+**Labs → Your persona** is one sheet — name, a line about who you are, what
+you look like, what you are carrying, anything else — and it goes into every
+chat under `THE USER PLAYS`. It is separate from the archive: ★ starring a
+character in a scene says *I am playing them tonight*, and the persona is
+still you underneath.
+
+## Keyword lore — exact facts, injected on sight
+
+**Labs → Keyword lore**. Give a fact some trigger words and, the moment one
+of them turns up in the recent turns, the fact goes into the prompt word for
+word:
+
+```
+Master Sword, blade of evil   →  Filed as lost in 1012 BF, never as broken.
+/dark shores?/i               →  A province, not a beach: Darian rules it.
+(always on)                   →  The archive never uses real-world dates.
+```
+
+Plain words match whole words only (*mastered swordsmanship* does not fire
+it); anything wrapped in slashes is a regular expression. This is the cheap,
+certain half of retrieval — the citations system does the dated, searchable
+half.
+
+## Macros — one click instead of a sentence
+
+Above the composer: **🗡 Attack · ✦ Cast · 🛡 Guard · 💬 Talk down · 🌑 Slip
+away · 🔍 Look closer**, plus **＋** for your own. A macro picks a target when
+the scene has more than one, spends the MP it costs, writes the attempt, and
+lets the Fate roll decide whether it lands.
+
+## Sampling and model routing
+
+⚙ Settings exposes **temperature, top_p, top_k, repetition penalty and
+min_p** (blank means "let the model decide"), and a **background model**: the
+sequencer, the lore book, hooks and commentary can be sent to a small fast
+model on its own endpoint while the roleplay itself goes to the big one.
+
 ## ▶ Auto
 
 Next to Continue: plays the scene by itself for a few turns (six by default,

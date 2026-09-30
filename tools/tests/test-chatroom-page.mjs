@@ -676,6 +676,85 @@ check('commentary: finished episodes are kept and can be reopened',
   $('homeBtn').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
 }
 
+// ---- the sequencer, macros, branching and undo ----
+{
+  doc.querySelector('[data-room]').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+  const roomId = savedState().active;
+  check('macros: the rail has quick actions above the composer',
+    doc.querySelectorAll('[data-macro]').length >= 5 && Boolean($('macroAdd')));
+  check('undo: the header has undo and redo', Boolean($('undoBtn')) && Boolean($('redoBtn')));
+  check('branch: every line offers a fork', doc.querySelectorAll('[data-fork]').length > 0);
+
+  const roomsBefore = savedState().rooms.length;
+  // Ids rather than a count: a background reply can land between here and
+  // the click, and that is not a failure.
+  const idsBefore = savedState().rooms.find(x => x.id === roomId).messages.map(m => m.id);
+  doc.querySelector('[data-fork]').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+  await wait(200);
+  check('branch: forking makes a new chat and leaves the original whole', (() => {
+    const s = savedState();
+    const forked = s.rooms.find(x => x.branchOf === roomId);
+    const source = s.rooms.find(x => x.id === roomId);
+    const kept = idsBefore.every(id => source.messages.some(m => m.id === id));
+    return s.rooms.length === roomsBefore + 1 && Boolean(forked) && kept &&
+      forked.messages.length <= source.messages.length && s.active === forked.id;
+  })());
+  // back to the original and take a turn through the sequencer
+  [...doc.querySelectorAll('[data-room]')].find(b => b.dataset.room === roomId)
+    .dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+  const beforeTurn = savedState().rooms.find(x => x.id === roomId).messages.length;
+  $('input').value = 'I put the ledger on the table and ask who signed it.';
+  $('composer').dispatchEvent(new win.Event('submit', { bubbles: true, cancelable: true }));
+  await until('the staged beat to play out', () => {
+    const r = savedState().rooms.find(x => x.id === roomId);
+    return !doc.querySelector('.typing') && r.messages.length > beforeTurn + 1 && !(r.queue || []).length;
+  }, 120);
+  const afterTurn = savedState().rooms.find(x => x.id === roomId);
+  check('sequencer: your turn is answered and then the scene stops',
+    afterTurn.messages.length > beforeTurn + 1 && (afterTurn.queue || []).length === 0 &&
+    (Boolean(afterTurn.handback) || doc.querySelector('.handback')));
+  check('undo: the last turn can be rolled back', (() => {
+    const before = savedState().rooms.find(x => x.id === roomId).messages.length;
+    $('undoBtn').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+    const after = savedState().rooms.find(x => x.id === roomId).messages.length;
+    $('redoBtn').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+    return after < before && savedState().rooms.find(x => x.id === roomId).messages.length === before;
+  })());
+  $('homeBtn').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+}
+
+// ---- the persona sheet and keyword lore ----
+{
+  [...doc.querySelectorAll('[data-tab]')].find(b => b.dataset.tab === 'labs').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+  check('persona: Labs has a persona sheet and a keyword board',
+    Boolean($('personaEdit')) && Boolean($('keyAdd')) && $('dashBody').textContent.includes('Keyword lore'));
+  $('personaEdit').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+  $('f_name').value = 'Mikha the Unfiled';
+  $('f_look').value = 'tall, sunburnt, one boot newer than the other';
+  $('f_items').value = 'a satchel, somebody else’s key';
+  $('mOk').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+  await wait(200);
+  check('persona: it saves, and goes into the prompt in every chat', (() => {
+    const s = savedState();
+    const block = win.RP.personaBlock('', s, s.rooms[0]);
+    return s.persona.name === 'Mikha the Unfiled' && block.includes('THE USER PLAYS') &&
+      block.includes('one boot newer') && block.includes('satchel');
+  })());
+  $('keyAdd').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+  $('f_keys').value = 'Master Sword, /dark shores?/i';
+  $('f_text').value = 'Filed as lost in 1012 BF, never as broken.';
+  $('mOk').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+  await wait(200);
+  check('keyword: a trigger is filed and fires on the word, not on a fragment', (() => {
+    const s = savedState();
+    return (s.keywords || []).length === 1 &&
+      win.RP.keywordBlock(s, 'he asked about the Master Sword').includes('never as broken') &&
+      !win.RP.keywordBlock(s, 'he mastered swordsmanship').includes('never as broken') &&
+      win.RP.keywordBlock(s, 'we sailed for the Dark Shore').includes('never as broken');
+  })());
+  [...doc.querySelectorAll('[data-tab]')].find(b => b.dataset.tab === 'discover').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+}
+
 // ---- choosing the model, and how far back it looks ----
 {
   $('settingsBtn').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
@@ -688,6 +767,9 @@ check('commentary: finished episodes are kept and can be reopened',
   $('f_modelPick').dispatchEvent(new win.Event('change', { bubbles: true }));
   check('models: picking one fills the model box', $('f_model').value === 'mock-model');
   check('models: the context window is editable', Boolean($('f_context')) && Number($('f_context').value) >= 4);
+  check('settings: the sampler and the background model are exposed',
+    Boolean($('f_top_p')) && Boolean($('f_top_k')) && Boolean($('f_repeat_penalty')) &&
+    Boolean($('f_utilityModel')));
   check('settings: reply length, the world turn and autoplay are all dials',
     Boolean($('f_length')) && [...$('f_length').options].length === 3 &&
     Boolean($('f_world')) && Boolean($('f_autoplay')));

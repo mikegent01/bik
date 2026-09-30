@@ -192,6 +192,15 @@ memory, lore, replay, backups — is documented in
   writes the card into their own filed portrait, so the file is a picture and
   a card at once; the archive's fields ride along under
   `extensions.waluipedia`.
+- **The sequencer.** You write, one small planning call decides who reacts
+  and in what order (or that nobody does), the page plays exactly that, and
+  the scene hands back. Replaces one-speaker-at-a-time turn taking.
+- **Branch and undo.** 🌿 forks a chat from any line without touching the
+  original; ↩ / Ctrl+Z rolls back the last turn, sheets included.
+- **A persona sheet** that carries across chats, **keyword lore** that
+  injects exact facts the moment a trigger word appears, **macros** above the
+  composer, and sampler controls (top_p, top_k, repetition penalty, min_p)
+  plus a separate background model for the utility calls.
 - **Snappy by default.** A reply-length dial (snappy 25–60 words / normal /
   rich) goes into both the prompt and `max_tokens`, with the world's own
   turns given one band more room than dialogue.

@@ -2918,6 +2918,10 @@
     opts = opts || {};
     var parts = [RP.worldPrompt(state, room, opts)];
     if (room.scene) parts.push('THE SCENE\n' + clip(room.scene, 900));
+    var worldKeys = RP.keywordBlock(state, opts.recent || RP.historyFor(room, 4).map(function (m) { return m.content; }).join(' '));
+    if (worldKeys) parts.push(worldKeys);
+    var keywords = RP.keywordBlock(state, opts.recent || RP.historyFor(room, 4).map(function (m) { return m.content; }).join(' '));
+    if (keywords) parts.push(keywords);
     var knowledge = RP.knowledgeBlock(state, room, opts.archive);
     if (knowledge) parts.push(knowledge);
     var book = RP.bookBlock(state, room, 10);
@@ -2944,6 +2948,254 @@
   RP.worldShouldSpeak = function (state, room) {
     if ((state.settings && state.settings.world) === 'off') return false;
     return RP.speakableCast(room).length === 0;
+  };
+
+
+  /* ------------------------------------------------------------------ *
+   * the sequencer — you write, the scene answers, the scene stops
+   *
+   * The director picks one speaker at a time, which makes a six-hander
+   * feel like a queue. The sequencer plans the whole beat: who answers
+   * this turn, in what order, and then it hands back. One planning call
+   * buys several turns of reply.
+   * ------------------------------------------------------------------ */
+
+  RP.SEQUENCE_MAX = 4;
+
+  RP.sequencePrompt = function (room, state, opts) {
+    opts = opts || {};
+    var cast = RP.speakableCast(room);
+    var recent = RP.historyFor(room, 6).map(function (m) {
+      return (m.role === 'user' ? 'PLAYER: ' : '') + clip(m.content, 300);
+    }).join('\n');
+    var you = RP.playerCharacter(room);
+    return [
+      'You are staging one beat of a group scene. Decide who reacts to what the player just did — and who does not.',
+      '',
+      'THE PEOPLE WHO CAN SPEAK',
+      cast.map(function (c) { return '- ' + c.name + (c.title ? ' — ' + c.title : ''); }).join('\n'),
+      you ? '\nThe player is playing ' + you.name + '. Never put them in the order.' : '',
+      ((state.settings && state.settings.world) !== 'off')
+        ? 'You may also use THE WORLD, which is narration: the place, the weather, an arrival, a noise.' : '',
+      '',
+      'THE LAST FEW TURNS',
+      recent,
+      '',
+      'Answer with ONE line and nothing else:',
+      'ORDER: Name, Name, WORLD',
+      '  — the people who should react, in the order they should speak, at most ' +
+        Math.min(RP.SEQUENCE_MAX, cast.length + 1) + '.',
+      'NOBODY',
+      '  — when the scene is waiting on the player and nothing needs answering.',
+      '',
+      'Rules: only people who have a REASON to speak right now — being addressed, contradicted, threatened, or ' +
+      'unable to let it stand. Silence is a choice; two people is usually plenty, and one is common. Never list the ' +
+      'same person twice.',
+    ].filter(Boolean).join('\n');
+  };
+
+  /** Read the staging back as a list of ids. Anything unrecognised means
+   *  nobody speaks, which is the safe answer. */
+  RP.parseSequence = function (text, room, state) {
+    var raw = String(text || '').trim();
+    if (/^\s*NOBODY\s*$/im.test(raw)) return { order: [], reason: 'nobody had to answer that', silent: true };
+    var line = /ORDER\s*:\s*([^\n]+)/i.exec(raw);
+    // An answer that is not in the format is not a decision to say nothing —
+    // it is a model that rambled. The caller falls back to one speaker.
+    if (!line) return { order: [], reason: 'the staging could not be read', unparsed: true };
+    var cast = RP.speakableCast(room);
+    var worldOn = !state || (state.settings && state.settings.world) !== 'off';
+    var seen = {}, order = [];
+    line[1].split(/[,;]|\band\b|→|->/).forEach(function (part) {
+      var want = part.replace(/["'.*\d)]/g, '').trim().toLowerCase();
+      if (!want || order.length >= RP.SEQUENCE_MAX) return;
+      if (/^(world|the world|narration)$/.test(want)) {
+        if (worldOn && !seen.world) { seen.world = 1; order.push('world'); }
+        return;
+      }
+      var hit = cast.filter(function (c) {
+        var name = c.name.toLowerCase();
+        return name === want || name.indexOf(want) >= 0 || want.indexOf(name) >= 0;
+      })[0];
+      if (hit && !seen[hit.id]) { seen[hit.id] = 1; order.push(hit.id); }
+    });
+    return { order: order, reason: order.length ? 'staged' : 'nobody had to answer that' };
+  };
+
+  /* ------------------------------------------------------------------ *
+   * branching and undo — the timeline is not a one-way street
+   * ------------------------------------------------------------------ */
+
+  /** Copy a chat up to and including one message. The original is left
+   *  exactly as it was: this is a fork, not a rewrite. */
+  RP.forkRoom = function (state, room, messageId, opts) {
+    opts = opts || {};
+    var at = (room.messages || []).map(function (m) { return m.id; }).indexOf(messageId);
+    if (at < 0) at = (room.messages || []).length - 1;
+    var copy = JSON.parse(JSON.stringify(room));
+    copy.id = uid();
+    copy.title = clip(opts.title || (room.title + ' — branch'), 90);
+    copy.messages = copy.messages.slice(0, at + 1).map(function (m) {
+      m.id = uid();
+      return m;
+    });
+    copy.branchOf = room.id;
+    copy.branchAt = messageId;
+    copy.created = Date.now();
+    copy.updated = Date.now();
+    copy.bookAt = Math.min(Number(room.bookAt || 0), copy.messages.filter(visible).length);
+    copy.undo = [];
+    state.rooms = [copy].concat(state.rooms || []);
+    return copy;
+  };
+
+  RP.UNDO_DEPTH = 12;
+
+  /** Remember where the chat was before something changed it. */
+  RP.pushUndo = function (room, label) {
+    room.undo = room.undo || [];
+    room.undo.push({
+      label: clip(label, 60), at: Date.now(),
+      messages: JSON.stringify(room.messages || []),
+      states: JSON.stringify(room.states || {}),
+      cast: JSON.stringify(room.cast || []),
+    });
+    if (room.undo.length > RP.UNDO_DEPTH) room.undo = room.undo.slice(-RP.UNDO_DEPTH);
+    room.redo = [];              // a new action forks away from any redo
+    return room.undo.length;
+  };
+
+  function restore(room, snap) {
+    room.messages = JSON.parse(snap.messages);
+    room.states = JSON.parse(snap.states);
+    room.cast = JSON.parse(snap.cast);
+    room.updated = Date.now();
+  }
+
+  RP.undo = function (room) {
+    if (!(room.undo || []).length) return null;
+    var snap = room.undo.pop();
+    (room.redo = room.redo || []).push({
+      label: snap.label, at: Date.now(),
+      messages: JSON.stringify(room.messages || []),
+      states: JSON.stringify(room.states || {}),
+      cast: JSON.stringify(room.cast || []),
+    });
+    restore(room, snap);
+    return snap.label || 'the last change';
+  };
+
+  RP.redo = function (room) {
+    if (!(room.redo || []).length) return null;
+    var snap = room.redo.pop();
+    (room.undo = room.undo || []).push({
+      label: snap.label, at: Date.now(),
+      messages: JSON.stringify(room.messages || []),
+      states: JSON.stringify(room.states || {}),
+      cast: JSON.stringify(room.cast || []),
+    });
+    restore(room, snap);
+    return snap.label || 'that';
+  };
+
+  /* ------------------------------------------------------------------ *
+   * the player's own persona — one sheet, every chat
+   * ------------------------------------------------------------------ */
+
+  RP.personaSheet = function (state) {
+    state.persona = state.persona || {};
+    var p = state.persona;
+    p.name = p.name || '';
+    p.look = p.look || '';
+    p.voice = p.voice || '';
+    p.items = p.items || [];
+    p.notes = p.notes || '';
+    p.hp = p.hp || null;
+    return p;
+  };
+
+  /** The block that tells the model who you are. Works whether you play an
+   *  archive character, your own invention, or nobody in particular. */
+  RP.personaBlock = function (persona, state, room) {
+    var text = String(persona || '').trim();
+    var sheet = state ? RP.personaSheet(state) : null;
+    var starred = room ? RP.playerCharacter(room) : null;
+    var lines = [];
+    if (sheet && sheet.name) {
+      lines.push(sheet.name + (sheet.voice ? ' — ' + sheet.voice : ''));
+      if (sheet.look) lines.push('Looks like: ' + sheet.look);
+      if ((sheet.items || []).length) lines.push('Carrying: ' + sheet.items.join(', '));
+      if (sheet.notes) lines.push(sheet.notes);
+    }
+    if (starred) lines.push('In this scene they are playing ' + starred.name + '.');
+    if (text) lines.push(text);
+    if (!lines.length) return '';
+    return 'THE USER PLAYS\n' + lines.join('\n') +
+      '\nAddress them as that person; never tell them what they do, say or decide.';
+  };
+
+  /* ------------------------------------------------------------------ *
+   * keyword world info — exact lore, injected the moment it is named
+   * ------------------------------------------------------------------ */
+
+  /** A lore node or book page can carry trigger words. When one shows up
+   *  in the recent turns, its text goes into the prompt verbatim, so the
+   *  model cannot invent a different version of something established. */
+  RP.addKeyword = function (state, entry) {
+    state.keywords = state.keywords || [];
+    var record = {
+      id: entry.id || uid(),
+      keys: String(entry.keys || '').split(',').map(function (k) { return k.trim(); }).filter(Boolean).slice(0, 8),
+      text: clip(entry.text, 600),
+      always: Boolean(entry.always),
+      at: Date.now(),
+    };
+    if (!record.keys.length && !record.always) return null;
+    state.keywords = state.keywords.filter(function (k) { return k.id !== record.id; });
+    state.keywords.push(record);
+    state.keywords = state.keywords.slice(-60);
+    return record;
+  };
+
+  RP.removeKeyword = function (state, id) {
+    state.keywords = (state.keywords || []).filter(function (k) { return k.id !== id; });
+    return state.keywords.length;
+  };
+
+  /** Scan text for triggers. A key beginning and ending with `/` is a
+   *  regular expression; everything else matches whole words, case-blind. */
+  RP.keywordHits = function (state, text, limit) {
+    var hay = ' ' + String(text || '').toLowerCase() + ' ';
+    var out = [];
+    (state.keywords || []).forEach(function (entry) {
+      if (out.length >= (limit || 6)) return;
+      if (entry.always) { out.push(entry); return; }
+      var hit = entry.keys.some(function (key) {
+        var re = /^\/(.+)\/([a-z]*)$/.exec(key);
+        if (re) {
+          try { return new RegExp(re[1], re[2] || 'i').test(text); } catch (e) { return false; }
+        }
+        var word = key.toLowerCase();
+        var at = hay.indexOf(word);
+        while (at >= 0) {
+          var before = hay.charAt(at - 1), after = hay.charAt(at + word.length);
+          if (!/[a-z0-9]/.test(before) && !/[a-z0-9]/.test(after)) return true;
+          at = hay.indexOf(word, at + 1);
+        }
+        return false;
+      });
+      if (hit) out.push(entry);
+    });
+    return out;
+  };
+
+  RP.keywordBlock = function (state, text, limit) {
+    var hits = RP.keywordHits(state, text, limit);
+    if (!hits.length) return '';
+    return 'ESTABLISHED FACTS ABOUT WHAT WAS JUST MENTIONED — use these exactly, do not invent around them\n' +
+      hits.map(function (entry) {
+        return '- ' + (entry.keys.length ? '[' + entry.keys[0] + '] ' : '') + entry.text;
+      }).join('\n');
   };
 
   /* ------------------------------------------------------------------ *
@@ -3964,13 +4216,15 @@
       ? RP.groupPrompt(room.cast, speaker, style)
       : RP.soloPrompt(room.cast[0] || speaker || {}, style);
     var parts = [base];
-    var persona = RP.personaBlock(room.persona || (state.user && state.user.persona) || '');
+    var persona = RP.personaBlock(room.persona || (state.user && state.user.persona) || '', state, room);
     if (persona) parts.push(persona);
     if (room.kind !== 'group' && room.scene) parts.push('THE SCENE\n' + room.scene);
     var perspective = RP.perspectiveBlock(room);
     if (perspective) parts.push(perspective);
 
     // Reference material — trimmed first when the window is tight.
+    var keywords = RP.keywordBlock(state, opts.recent || RP.historyFor(room, 4).map(function (m) { return m.content; }).join(' '));
+    if (keywords) parts.push(keywords);
     var knowledge = RP.knowledgeBlock(state, room, opts.archive);
     if (knowledge) parts.push(knowledge);
     var book = RP.bookBlock(state, room);
@@ -4143,6 +4397,8 @@
       user: { name: 'Archivist', handle: 'waluipedia', persona: '', avatar: '' },
       rooms: [], chars: [], lore: [], log: [], scenarios: [], active: '',
       book: { entries: [], queue: [], spent: 0 },   // the lore book, written as you play
+      persona: { name: '', look: '', voice: '', items: [], notes: '' },  // the player, across every chat
+      keywords: [],        // trigger words → exact lore, injected on sight
       taste: { likes: [], dislikes: [], chars: {} },   // 👍 / 👎, fed back to the model
       episodes: [],        // commentary tracks, Waluigi and Luigi at length
       newChars: [],        // characters invented during play, described not drawn
@@ -4180,6 +4436,8 @@
         if (value.usedPosts && typeof value.usedPosts === 'object') state.usedPosts = value.usedPosts;
         if (value.hooks && typeof value.hooks === 'object') state.hooks = value.hooks;
         if (value.taste && typeof value.taste === 'object') state.taste = value.taste;
+        if (value.persona && typeof value.persona === 'object') state.persona = value.persona;
+        if (Array.isArray(value.keywords)) state.keywords = value.keywords;
         if (value.book && typeof value.book === 'object') {
           state.book = { entries: value.book.entries || [], queue: [], spent: 0 };
         }
@@ -4205,6 +4463,8 @@
       newChars: (state.newChars || []).slice(0, 80),
       episodes: (state.episodes || []).slice(0, 20),
       taste: state.taste || { likes: [], dislikes: [], chars: {} },
+      persona: state.persona || {},
+      keywords: (state.keywords || []).slice(-60),
       // The queue is deliberately not saved: unfinished background work
       // should not come back to life on the next page load.
       book: { entries: (state.book && state.book.entries) || [], queue: [], spent: 0 },
@@ -4250,6 +4510,7 @@
       bundle.book = (state.book && state.book.entries) || [];
       bundle.episodes = state.episodes || [];
       bundle.taste = state.taste || null;
+      bundle.keywords = state.keywords || [];
     }
     if (want('memory')) {
       bundle.chars = state.chars || [];
@@ -4292,6 +4553,10 @@
       state.lore = mergeById(state.lore || [], data.lore, function (a, b) { return b; });
       stats.lore = state.lore.length - (replace ? 0 : loreBefore);
     }
+    if (Array.isArray(data.keywords)) {
+      state.keywords = mergeById(state.keywords || [], data.keywords, function (a, b) { return b; }).slice(-60);
+    }
+    if (data.persona && typeof data.persona === 'object' && replace) state.persona = data.persona;
     if (data.taste && typeof data.taste === 'object') {
       var mine = tasteState(state);
       state.taste = replace ? data.taste : {
