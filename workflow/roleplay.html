@@ -293,6 +293,30 @@ a { color: inherit; }
 .turn.muted .bubble { border-left: 3px solid var(--muted); padding-left: 10px; }
 .turn.imported .who b::after { content: ' · imported'; color: var(--muted); font-weight: 400; font-size: 11px; }
 
+/* The roll, the state changes and a fired beat live on the turn they
+   belong to — one card, not four. */
+.metastrip { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 7px; }
+.metastrip span {
+  background: var(--panel2); border: 1px solid var(--line); border-radius: 999px;
+  padding: 2px 9px; font-size: 11px; color: #56565f;
+}
+.metastrip .roll { background: #f4efe2; border-color: #e0d3b0; color: #7a6320; font-weight: 600; }
+.metastrip .beat { background: #fbf3e4; border-color: #e6d2a8; color: #8a6a1e; }
+.metastrip .quiet { opacity: .7; }
+.metaline { max-width: 760px; margin: 0 auto 10px; display: flex; gap: 6px; justify-content: center; }
+.metaline span { background: var(--panel2); border: 1px solid var(--line); border-radius: 999px; padding: 2px 9px; font-size: 11px; color: #56565f; }
+
+/* The world's own turn: narration, not a person. */
+.turn.world .who { color: var(--muted); }
+.turn.world .globe { display: inline-grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; background: #2f3a4a; color: #fff; font-size: 12px; }
+.turn.world .bubble { background: #f7f7fa; border-left: 3px solid #2f3a4a; padding: 8px 12px; border-radius: 0 10px 10px 0; font-style: italic; }
+
+.speakers .sp.mine { border-color: var(--accent); background: var(--accent-soft); }
+.speakers .sp .star { margin-left: 4px; color: var(--muted); }
+.speakers .sp .star.on { color: #d8a531; }
+.speakers .sp.world { font-weight: 600; }
+.speakers .qa.on { border-color: var(--bad); color: var(--bad); }
+
 .statelog { max-width: 760px; margin: 0 auto 16px; display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; }
 .statelog.fate span.roll { background: #f4efe2; border-color: #e0d3b0; color: #7a6320; font-weight: 600; }
 .cp-desc.invented { border-top: 1px dashed var(--line); margin-top: 8px; padding-top: 8px; font-size: 12.5px; }
@@ -948,6 +972,7 @@ window.CHATROOM_CONFIG = {
       // How far back the model may look in this room; 0 means "use the
       // global setting".
       contextLimit: Number(opts.contextLimit || 0),
+      youPlay: String(opts.youPlay || ''),      // the character the reader plays
       sequelOf: String(opts.sequelOf || ''),
       canon: String(opts.canon || ''),
       sequelCount: 0,
@@ -1942,6 +1967,9 @@ window.CHATROOM_CONFIG = {
       'Answer with ONE line and nothing else:',
       'NEXT: <the exact name of the character who should speak next>',
       '   — choose this when a character is being addressed, contradicted, or plainly has to answer.',
+      'WORLD',
+      '   — choose this when nobody needs to speak but the scene should move: time passing, weather, an arrival, '
+      + 'a noise, the place itself doing something.',
       'USER',
       '   — choose this when the scene is waiting on the player: they were asked something, the exchange has '
       + 'run its course, a decision is theirs, or the characters are starting to repeat each other.',
@@ -1956,10 +1984,14 @@ window.CHATROOM_CONFIG = {
       return { next: 'user', reason: 'the scene has run several turns without you' };
     }
     var value = String(text || '').trim();
+    if (/^\s*WORLD\s*$/im.test(value)) return { next: 'world', reason: 'the scene moves on its own' };
     var match = /NEXT\s*:\s*([^\n]+)/i.exec(value);
     if (!match) return { next: 'user', reason: 'the scene is waiting on you' };
     var wanted = match[1].replace(/["'.*]/g, '').trim().toLowerCase();
     if (!wanted || wanted === 'user' || wanted === 'player') return { next: 'user', reason: 'the scene is waiting on you' };
+    if (wanted === 'world' || wanted === 'the world' || wanted === 'narration') {
+      return { next: 'world', reason: 'the scene moves on its own' };
+    }
     var hit = (room.cast || []).filter(function (c) {
       return c.name.toLowerCase() === wanted || wanted.indexOf(c.name.toLowerCase()) >= 0 || c.name.toLowerCase().indexOf(wanted) >= 0;
     })[0];
@@ -3412,6 +3444,134 @@ window.CHATROOM_CONFIG = {
     };
   };
 
+
+  /* ------------------------------------------------------------------ *
+   * how long a turn should be
+   *
+   * A local model left to itself writes six paragraphs of weather. Most
+   * of a chat should be short: people talk in sentences, not essays. The
+   * world's own turns are allowed more room, because describing a place
+   * is the one job that needs it.
+   * ------------------------------------------------------------------ */
+
+  RP.LENGTHS = {
+    snappy: {
+      name: 'Snappy', words: '25 to 60 words', tokens: 180,
+      dir: 'Keep it SHORT: 25 to 60 words, one or two beats of action or speech and nothing else. No scene-setting, ' +
+        'no weather, no summarising how anyone feels about it. If there is nothing to add, say one line and stop.',
+    },
+    normal: {
+      name: 'Normal', words: '60 to 120 words', tokens: 320,
+      dir: 'Keep it tight: 60 to 120 words. One moment, played properly. Cut anything that is only atmosphere.',
+    },
+    rich: {
+      name: 'Rich', words: '150 to 260 words', tokens: 600,
+      dir: 'You have room: 150 to 260 words. Still no padding — detail that does something, not description for its ' +
+        'own sake.',
+    },
+  };
+
+  /** The length instruction for a turn. Characters get the reader's dial;
+   *  the world gets one step more room, because that is its job. */
+  RP.lengthBlock = function (level, isWorld) {
+    var keys = ['snappy', 'normal', 'rich'];
+    var at = Math.max(0, keys.indexOf(RP.LENGTHS[level] ? level : 'snappy'));
+    if (isWorld) at = Math.min(keys.length - 1, at + 1);
+    var band = RP.LENGTHS[keys[at]];
+    return { key: keys[at], tokens: band.tokens, text: 'LENGTH\n' + band.dir };
+  };
+
+  /* ------------------------------------------------------------------ *
+   * the world turn — when nobody else is in the room
+   *
+   * A scene with one player and no other characters used to sit there. The
+   * world speaks instead: it describes what is happening around you, in
+   * second person, and moves the hour along. It never speaks for you.
+   * ------------------------------------------------------------------ */
+
+  RP.WORLD = { id: 'world', name: 'The world', title: 'Narration', world: true };
+
+  /** The character the reader is playing, if they have starred one. */
+  RP.playerCharacter = function (room) {
+    if (!room || !room.youPlay) return null;
+    return (room.cast || []).filter(function (c) { return c.id === room.youPlay; })[0] || null;
+  };
+
+  /** Everyone the model may speak as — the player's own character is not
+   *  on this list. */
+  RP.speakableCast = function (room) {
+    return (room.cast || []).filter(function (c) { return c.id !== (room && room.youPlay); });
+  };
+
+  RP.markPlayer = function (room, charId) {
+    room.youPlay = room.youPlay === charId ? '' : String(charId || '');
+    if (room.next === room.youPlay) room.next = '';
+    room.updated = Date.now();
+    return room.youPlay;
+  };
+
+  /** The narrator's prompt. It is the same world, the same lore, the same
+   *  state — but it is a camera, not a person. */
+  RP.worldPrompt = function (state, room, opts) {
+    opts = opts || {};
+    var you = RP.playerCharacter(room);
+    var others = RP.speakableCast(room);
+    return [
+      'You are THE WORLD — the narration around the player, not a character in it.',
+      '',
+      'Describe what is happening: the place, the hour, what moves, what is heard, what changes. Write in the ' +
+      'PRESENT TENSE and address the player as "you".',
+      you ? 'The player is playing ' + you.name + ' — ' + clip(you.title || you.summary, 160) +
+        '. Never write their speech, their thoughts, or their decisions. Describe what happens AROUND them and what ' +
+        'they can see, hear and feel, and leave every choice to them.'
+        : 'Never write the player\u2019s speech, thoughts or decisions. Describe what happens around them.',
+      others.length
+        ? 'Other people are here: ' + others.map(function (c) { return c.name; }).join(', ') +
+          '. You may show what they are doing from the outside, but do not write their dialogue — they speak for ' +
+          'themselves on their own turns.'
+        : 'Nobody else is here. That is the point: make the emptiness do work.',
+      '',
+      'MOVE THE HOUR ALONG. Something should be different by the end of the turn: a sound, an arrival, a change in ' +
+      'the weather or the light, a thing noticed that was not noticed before. Never end on a question, never ask ' +
+      'what the player would like to do, and never summarise what has already happened.',
+      'No dialogue from the player. No stage directions in asterisks — this is narration, write it plainly.',
+    ].filter(Boolean).join('\n');
+  };
+
+  /** The whole system prompt for a world turn: the narrator brief, then the
+   *  same reference material a character gets. */
+  RP.worldSystem = function (state, room, opts) {
+    opts = opts || {};
+    var parts = [RP.worldPrompt(state, room, opts)];
+    if (room.scene) parts.push('THE SCENE\n' + clip(room.scene, 900));
+    var knowledge = RP.knowledgeBlock(state, room, opts.archive);
+    if (knowledge) parts.push(knowledge);
+    var book = RP.bookBlock(state, room, 10);
+    if (book) parts.push(book);
+    if (opts.citations) parts.push(opts.citations);
+    var script = RP.scriptBlock(room);
+    if (script) parts.push(script);
+    var memory = RP.memoryBlock(state, room.cast, room, 6);
+    if (memory) parts.push(memory);
+    var protectedFrom = parts.length;
+    if (room.mechanics !== 'off') {
+      var sheets = RP.stateBlock(room);
+      if (sheets) parts.push(sheets);
+      parts.push(RP.DIRECTIVES);
+    }
+    var fate = RP.fateBlock(opts.fate);
+    if (fate) parts.push(fate);
+    parts.push(RP.lengthBlock((state.settings && state.settings.length) || 'snappy', true).text);
+    return RP.fitPrompt(parts, opts.budget, protectedFrom);
+  };
+
+  /** Should the world take this turn? It always does when the player is
+   *  alone, and otherwise only when the director asks for it. */
+  RP.worldShouldSpeak = function (state, room) {
+    if ((state.settings && state.settings.world) === 'off') return false;
+    return RP.speakableCast(room).length === 0;
+  };
+
   /* ------------------------------------------------------------------ *
    * taste — 👍 and 👎 are training data, not decoration
    *
@@ -4463,6 +4623,7 @@ window.CHATROOM_CONFIG = {
     }
     var fateBlock = RP.fateBlock(opts.fate);
     if (fateBlock) parts.push(fateBlock);
+    parts.push(RP.lengthBlock((state.settings && state.settings.length) || 'snappy', false).text);
     return RP.fitPrompt(parts, opts.budget, protectedFrom);
   };
 
@@ -4617,6 +4778,9 @@ window.CHATROOM_CONFIG = {
       settings: {
         style: 'novel', voice: 'off', temperature: 0.85, endpoint: '',
         director: 'on',            // let the model decide who speaks next
+        length: 'snappy',          // snappy | normal | rich
+        world: 'on',               // let the world narrate when nobody else can
+        autoplay: 0,               // turns to play on their own before stopping
         book: 'on',                // write the lore book in the background
         bookEvery: 3,              // …after every N played turns
         bookBudget: RP.BOOK_BUDGET,
@@ -4864,6 +5028,7 @@ window.CHATROOM_CONFIG = {
   var castRace = '';
   var castAffil = '';
   var castView = 'all';   // all | played | unplayed | portrait | invented
+  var autoLeft = 0;       // turns still to play on their own
   var showStates = true;  // the sheets are visible in the chat by default
   var wireSort = 'newest';
   var wireView = 'all';   // all | unused | used | unfiled
@@ -5110,7 +5275,7 @@ window.CHATROOM_CONFIG = {
     return String(url || '').replace(/\/+$/, '').replace(/\/chat\/completions$/, '') + '/models';
   }
 
-  function callModel(system, messages) {
+  function callModel(system, messages, opts) {
     var url = replyUrl();
     var temperature = (state.settings && state.settings.temperature) || 0.85;
     if (isOpenAI(url)) {
@@ -5122,7 +5287,7 @@ window.CHATROOM_CONFIG = {
           model: (state.settings && state.settings.model) || 'local-model',
           messages: [{ role: 'system', content: system }].concat(messages),
           temperature: temperature,
-          max_tokens: 700,
+          max_tokens: (opts && opts.tokens) || RP.lengthBlock((state.settings && state.settings.length) || 'snappy').tokens,
           stream: false,
         }),
       }).then(function (r) {
@@ -5140,7 +5305,7 @@ window.CHATROOM_CONFIG = {
       body: JSON.stringify({
         system: system, messages: messages,
         temperature: temperature,
-        max_tokens: 700,
+        max_tokens: (opts && opts.tokens) || RP.lengthBlock((state.settings && state.settings.length) || 'snappy').tokens,
       }),
     }).then(function (r) {
       return r.json().then(function (value) {
@@ -5772,7 +5937,7 @@ window.CHATROOM_CONFIG = {
     }).join('\n');
     var covered = (episode.segments || []).filter(function (x) { return x.done; }).map(function (x) { return x.focus; });
     callModel(RP.commentaryPrompt(episode, next, { previous: previous, covered: covered }),
-      [{ role: 'user', content: 'Write part ' + next.n + '.' }])
+      [{ role: 'user', content: 'Write part ' + next.n + '.' }], { tokens: 900 })
       .then(function (text) {
         var lines = RP.parseCommentary(text);
         if (!lines.length) throw new Error('the model wrote nothing usable');
@@ -6328,7 +6493,7 @@ window.CHATROOM_CONFIG = {
     var ctx = RP.hookContext(state, scenario);
     var system = RP.hookPrompt(scenario, ctx);
     function ask(nudge) {
-      return callModel(system + (nudge || ''), [{ role: 'user', content: 'Write the opening of this scene.' }]);
+      return callModel(system + (nudge || ''), [{ role: 'user', content: 'Write the opening of this scene.' }], { tokens: 420 });
     }
     return ask('').then(function (text) {
       var hook = RP.parseHook(text, scenario);
@@ -6804,6 +6969,17 @@ window.CHATROOM_CONFIG = {
 
   function charOf(r, id) { return (r.cast || []).filter(function (c) { return c.id === id; })[0] || castById[id] || { id: id, name: 'Character' }; }
 
+  /** The roll, the state changes and any beat that fired, as one quiet
+   *  strip along the bottom of the turn they belong to. */
+  function metaStrip(m) {
+    var bits = [];
+    if (m.fate) bits.push('<span class="roll">' + esc(m.fate) + '</span>');
+    (m.changes || []).forEach(function (line) { bits.push('<span>' + esc(line) + '</span>'); });
+    if (m.beatFired) bits.push('<span class="beat">⏩ ' + esc(RP.clip(m.beatFired, 90)) + '</span>');
+    if (m.edited) bits.push('<span class="quiet">edited</span>');
+    return bits.length ? '<div class="metastrip">' + bits.join('') + '</div>' : '';
+  }
+
   /** One HP/MP bar. */
   function bar(kind, pool) {
     var pct = pool.max ? Math.round((pool.value / pool.max) * 100) : 0;
@@ -6894,17 +7070,30 @@ window.CHATROOM_CONFIG = {
     }
 
     var html = r.messages.map(function (m, i) {
-      if (m.role === 'fate') {
-        return '<div class="statelog fate"><span class="roll">' + esc(m.pill || '') + '</span></div>';
-      }
+      // Legacy rows from before the meta was folded into the turn card.
+      if (m.role === 'fate') return '<div class="metaline"><span class="roll">' + esc(m.pill || '') + '</span></div>';
       if (m.role === 'state') {
-        return '<div class="statelog">' + (m.lines || []).map(function (l) {
+        return '<div class="metaline">' + (m.lines || []).map(function (l) {
           return '<span>' + esc(l) + '</span>';
         }).join('') + '</div>';
       }
       if (m.role === 'scene') {
         return '<div class="scene-card' + (m.beat ? ' beat' : '') + '"><span class="kicker">' +
-          (m.beat ? 'Main event · beat' : 'Scene') + '</span>' + esc(RP.textOf(m)) + '</div>';
+          (m.beat ? '⏩ Beat' : 'Scene') + '</span>' + esc(RP.textOf(m)) + '</div>';
+      }
+      if (m.role === 'world') {
+        return '<article class="turn world' + (m.muted ? ' muted' : '') + '">' +
+          '<div class="who"><span class="globe">◍</span><b>The world</b>' +
+          '<button class="speak" data-speak="' + i + '" title="Read aloud">▶</button></div>' +
+          '<div class="bubble">' + RP.md(RP.textOf(m)) + '</div>' +
+          metaStrip(m) +
+          '<div class="acts">' +
+          '<button data-retry="' + i + '" title="Another take">↻</button>' +
+          '<button class="' + (m.pinned ? 'on' : '') + '" data-pin="' + i + '" title="Pin">📌</button>' +
+          '<button data-edit="' + esc(m.id) + '" title="Edit">✏️</button>' +
+          '<button class="' + (m.muted ? 'on' : '') + '" data-mute="' + esc(m.id) + '" title="Mute">' + (m.muted ? '🙈' : '👁') + '</button>' +
+          '<button data-drop="' + esc(m.id) + '" title="Delete">🗑</button>' +
+          '</div></article>';
       }
       var mine = m.role === 'user';
       var who = mine ? (state.user.name || 'You') : charOf(r, m.charId).name;
@@ -6916,6 +7105,7 @@ window.CHATROOM_CONFIG = {
         '<b>' + esc(who) + '</b>' + (mine ? '' : '<span class="badge">archive</span>') +
         (mine ? '' : '<button class="speak" data-speak="' + i + '" title="Read aloud">▶</button>') + '</div>' +
         '<div class="bubble">' + RP.md(RP.textOf(m)) + '</div>' +
+        metaStrip(m) +
         (m.error ? '<div class="acts"><span>This notice stays out of the model’s context.</span></div>' :
           '<div class="acts">' + swipes +
           (mine ? '' : '<button data-retry="' + i + '" title="Another take">↻</button>') +
@@ -6948,12 +7138,22 @@ window.CHATROOM_CONFIG = {
         (progress.total && progress.at < progress.total ? '<button class="qa" id="qaBeat">⏩ Next beat</button>' : '') +
         (r.mechanics === 'off' ? '' : '<button class="qa" id="qaRisk" title="Attempt something the world can refuse">🎲 Attempt…</button>') +
         '<button class="qa" id="qaAdd" title="Bring somebody into this scene">＋ New</button>' +
+        '<button class="qa' + (autoLeft ? ' on' : '') + '" id="qaAuto" title="Let the scene play itself for a few turns">' +
+          (autoLeft ? '■ Stop (' + autoLeft + ')' : '▶ Auto') + '</button>' +
       '</span>' +
-      (r.kind !== 'group' ? '' :
-        '<span class="emptynote">Next:</span>' + r.cast.map(function (c) {
-          var on = RP.nextSpeaker(r).id === c.id;
-          return '<button class="sp ' + (on ? 'on' : '') + '" data-speaker="' + esc(c.id) + '">' + avatar(c, 24) + esc(c.name) + '</button>';
-        }).join(''));
+      '<span class="emptynote">Next:</span>' +
+      ((state.settings.world || 'on') === 'off' ? '' :
+        '<button class="sp world ' + (r.next === 'world' ? 'on' : '') + '" data-speaker="world" ' +
+        'title="The world describes the scene and moves the hour along">◍ The world</button>') +
+      r.cast.map(function (c) {
+        var mine = r.youPlay === c.id;
+        var on = !mine && r.next === c.id;
+        return '<button class="sp ' + (on ? 'on' : '') + (mine ? ' mine' : '') + '" data-speaker="' + esc(c.id) + '">' +
+          avatar(c, 24) + esc(c.name) +
+          '<span class="star' + (mine ? ' on' : '') + '" data-star="' + esc(c.id) + '" ' +
+          'title="' + (mine ? 'You play them — the model never speaks for them' : 'Mark as the character you play') + '">' +
+          (mine ? '★' : '☆') + '</span></button>';
+      }).join('');
 
     renderPanel();
     wireChat();
@@ -7069,6 +7269,13 @@ window.CHATROOM_CONFIG = {
     on('bookBtn', function () { tab = 'book'; state.active = ''; save(); render(); });
     on('qaContinue', function () { generate(); });
     on('qaBeat', function () { if ($('nextBeat')) $('nextBeat').click(); });
+    on('qaAuto', function () {
+      if (autoLeft) { autoLeft = 0; render(); toast('Stopped.'); return; }
+      autoLeft = Math.max(2, Number(state.settings.autoplay || 6));
+      render();
+      toast('Playing ' + autoLeft + ' turns on their own — press ■ to stop, or just type.');
+      generate();
+    });
     on('qaAdd', function () {
       list('Bring somebody in', [
         { label: '🎭 From the archive — pick who walks in', value: 'cast' },
@@ -7155,7 +7362,20 @@ window.CHATROOM_CONFIG = {
     on('nextBeat', function () { if (RP.fireBeat(r)) { logBeat(r); save(); render(); } });
 
     $('speakers').querySelectorAll('[data-speaker]').forEach(function (b) {
-      b.onclick = function () { r.next = b.dataset.speaker; save(); render(); };
+      b.onclick = function (e) {
+        if (e.target && e.target.dataset && e.target.dataset.star) return;   // the star is its own control
+        if (b.dataset.speaker === r.youPlay) { toast('You play them — ☆ to hand them back to the model.'); return; }
+        r.next = b.dataset.speaker; save(); render();
+      };
+    });
+    $('speakers').querySelectorAll('[data-star]').forEach(function (b) {
+      b.onclick = function (e) {
+        e.stopPropagation();
+        var now = RP.markPlayer(r, b.dataset.star);
+        save(); render();
+        toast(now ? 'You play ' + charOf(r, now).name + ' — the model will not speak for them, and the world narrates around you.'
+          : 'Handed back to the model.');
+      };
     });
     var stream = $('stream');
     stream.querySelectorAll('[data-react]').forEach(function (b) {
@@ -7443,6 +7663,7 @@ window.CHATROOM_CONFIG = {
     input.value = '';
     input.style.height = 'auto';
     var msg = { id: RP.uid(), role: 'user', text: text, at: Date.now() };
+    autoLeft = 0;                       // your turn beats the autopilot
     r.handback = '';
     r.messages.push(msg);
     RP.rememberTurn(state, r, msg);
@@ -7456,17 +7677,27 @@ window.CHATROOM_CONFIG = {
    *  multi-bot room is just a loop of bots talking to each other; with it the
    *  chain also has a hard ceiling (settings.maxChain) so it always returns. */
   function direct(r, speaker) {
-    if (r.kind !== 'group' || r.cast.length < 2 || state.settings.director === 'off') return Promise.resolve(false);
+    // With nobody else to speak, the world carries the scene instead.
+    if (RP.worldShouldSpeak(state, r) && RP.chainLength(r) < (state.settings.maxChain || RP.MAX_CHAIN)) {
+      r.next = 'world';
+      return Promise.resolve(Boolean(autoLeft));
+    }
+    if (r.kind !== 'group' || RP.speakableCast(r).length < 2 || state.settings.director === 'off') return Promise.resolve(false);
     r.maxChain = state.settings.maxChain || RP.MAX_CHAIN;
     if (RP.chainLength(r) >= r.maxChain) {
       r.handback = 'the scene has run ' + RP.chainLength(r) + ' turns without you.';
       r.next = '';
       return Promise.resolve(false);
     }
-    return callModel(RP.directorPrompt(r, speaker), [{ role: 'user', content: 'Who speaks next?' }])
+    return callModel(RP.directorPrompt(r, speaker), [{ role: 'user', content: 'Who speaks next?' }], { tokens: 40 })
       .then(function (text) { return RP.parseDirector(text, r, speaker); })
       .catch(function () { return { next: 'user', reason: 'the director could not be reached' }; })
       .then(function (decision) {
+        if (decision.next === 'world' && (state.settings.world || 'on') !== 'off') {
+          r.handback = '';
+          r.next = 'world';
+          return true;
+        }
         if (decision.next === 'user') {
           r.handback = decision.reason + '.';
           r.next = '';
@@ -7488,7 +7719,15 @@ window.CHATROOM_CONFIG = {
     render();
 
     var retry = opts.retryIndex !== undefined ? r.messages[opts.retryIndex] : null;
-    var speaker = retry ? charOf(r, retry.charId) : RP.nextSpeaker(r);
+    // Who is up: a character, or the world itself when there is nobody else
+    // in the room (or the director asked for it).
+    var worldTurn = !retry && (opts.world || r.next === 'world' || RP.worldShouldSpeak(state, r));
+    var speaker = retry ? charOf(r, retry.charId)
+      : worldTurn ? RP.WORLD
+      : (RP.speakableCast(r).filter(function (c) { return c.id === r.next; })[0] || RP.nextSpeaker({
+          kind: r.kind, cast: RP.speakableCast(r).length ? RP.speakableCast(r) : r.cast,
+          messages: r.messages, next: r.next,
+        }));
     // Did the player just try something? Then it is not up to them whether it
     // worked. The roll happens here and is handed to the model as an order.
     var answering = !retry && RP.visible(lastVisible(r)) && lastVisible(r).role === 'user';
@@ -7497,9 +7736,9 @@ window.CHATROOM_CONFIG = {
     // filtered to filings whose dates have already passed in this scene.
     var recent = RP.historyFor(r, 4).map(function (m) { return m.content; }).join(' ');
     var found = RP.citableFor(archiveIndex, r, state, { query: recent + ' ' + (r.scene || ''), limit: 8 });
-    var system = RP.systemFor(state, r, speaker, {
-      fate: fate, archive: archive, citations: RP.citationBlock(found),
-    });
+    var system = worldTurn
+      ? RP.worldSystem(state, r, { fate: fate, archive: archive, citations: RP.citationBlock(found) })
+      : RP.systemFor(state, r, speaker, { fate: fate, archive: archive, citations: RP.citationBlock(found) });
     var window = RP.contextLimit(r, (state.settings && state.settings.context) || 24);
     var history = RP.historyFor(retry ? { kind: r.kind, cast: r.cast, messages: r.messages.slice(0, opts.retryIndex) } : r, window);
     if (!history.length) history = [{ role: 'user', content: '(The scene opens. Begin in character.)' }];
@@ -7509,6 +7748,7 @@ window.CHATROOM_CONFIG = {
       // power, walked a character in, or written one out. They are stripped
       // from the prose and applied to the record before anything renders.
       var staged = RP.parseDirectives(RP.stripSpeaker(text, speaker.name), r.cast.map(function (c) { return c.name; }));
+      r.next = '';
       var clean = staged.clean.trim();
       var changes = r.mechanics === 'off' ? { lines: [] }
         : RP.applyDirectives(state, r, staged.directives, resolveChar);
@@ -7516,25 +7756,30 @@ window.CHATROOM_CONFIG = {
         retry.alts = (retry.alts && retry.alts.length ? retry.alts : [retry.text]).concat([clean]);
         retry.alt = retry.alts.length - 1;
       } else {
-        var msg = { id: RP.uid(), role: 'char', charId: speaker.id, text: clean, at: Date.now(), alts: [clean], alt: 0 };
+        var msg = {
+          id: RP.uid(), role: worldTurn ? 'world' : 'char',
+          charId: worldTurn ? '' : speaker.id,
+          text: clean, at: Date.now(), alts: [clean], alt: 0,
+          // The roll and the state changes belong to the turn they happened
+          // in, not to three separate cards in the stream.
+          fate: fate ? fate.pill : '',
+          changes: changes.lines.slice(0, 6),
+        };
         r.messages.push(msg);
-        RP.rememberTurn(state, r, msg);
-        r.next = '';
-        if (r.kind === 'group') {
-          var after = RP.rotationAfter(r.cast, speaker.id);
+        if (!worldTurn) RP.rememberTurn(state, r, msg);
+        if (r.kind === 'group' && !worldTurn) {
+          var after = RP.rotationAfter(RP.speakableCast(r).length ? RP.speakableCast(r) : r.cast, speaker.id);
           r.next = after ? after.id : '';
         }
-        if (RP.autoAdvance(r)) { RP.fireBeat(r); logBeat(r); }
-      }
-      if (fate && !retry) {
-        // Filed before the turn it decided, so the reader can see why the
-        // scene refused them.
-        r.messages.splice(r.messages.length - 1, 0, {
-          id: RP.uid(), role: 'fate', at: Date.now(), fate: fate.key, pill: fate.pill,
-        });
-      }
-      if (changes.lines.length) {
-        r.messages.push({ id: RP.uid(), role: 'state', at: Date.now(), lines: changes.lines });
+        // A fired beat rides on the same card as the turn it interrupted.
+        if (RP.autoAdvance(r)) {
+          var beat = RP.fireBeat(r);
+          if (beat) {
+            msg.beatFired = (beat.time ? beat.time + ' — ' : '') + beat.beat;
+            r.messages = r.messages.filter(function (m) { return !(m.beat && m.at >= msg.at); });
+            logBeat(r);
+          }
+        }
       }
       r.updated = Date.now();
       if (state.settings.voice === 'on' && !retry) speak(r.messages[r.messages.length - 1], r);
@@ -7550,11 +7795,14 @@ window.CHATROOM_CONFIG = {
       });
       return false;
     }).then(function (chain) {
-      busy = false; save(); render();
+      busy = false;
+      if (!retry && autoLeft) autoLeft--;
+      save(); render();
       if (!retry) { queueBook(r); }
-      // The next character answers on their own — one turn at a time, so the
-      // reader can read it, and always stopping at the ceiling.
-      if (chain && room() === r) window.setTimeout(function () { generate(); }, 400);
+      // The next turn plays on its own when the director asked for it, or
+      // while autoplay has turns left. One at a time, always stoppable.
+      if (room() !== r) { autoLeft = 0; return; }
+      if (chain || autoLeft) window.setTimeout(function () { if (autoLeft || chain) generate(); }, 500);
     });
   }
 
@@ -7614,7 +7862,7 @@ window.CHATROOM_CONFIG = {
     booking = true;
     renderBookBadge();
     var known = RP.bookState(state).entries.slice(-40).map(function (e) { return e.name; });
-    callModel(RP.extractPrompt(r, job.turns, known), [{ role: 'user', content: 'File what is new.' }])
+    callModel(RP.extractPrompt(r, job.turns, known), [{ role: 'user', content: 'File what is new.' }], { tokens: 420 })
       .then(function (text) {
         var filed = 0;
         RP.parseExtract(text).forEach(function (entry) {
@@ -7981,6 +8229,18 @@ window.CHATROOM_CONFIG = {
       '<div class="castbar"><select id="f_modelPick"><option value="">— the models the endpoint reports —</option></select>' +
       '<button class="pill" id="setModels">↻ List models</button></div>' +
       '<input type="text" id="f_model" value="' + esc(state.settings.model || '') + '" placeholder="local-model">' +
+      '<label for="f_length">How long should a reply be?</label><select id="f_length">' +
+      Object.keys(RP.LENGTHS).map(function (k) {
+        return '<option value="' + k + '"' + ((state.settings.length || 'snappy') === k ? ' selected' : '') + '>' +
+          esc(RP.LENGTHS[k].name) + ' — ' + esc(RP.LENGTHS[k].words) + '</option>';
+      }).join('') + '</select>' +
+      '<label for="f_world">The world\u2019s own turns</label><select id="f_world">' +
+      [['on', 'On — when nobody else is here, the world describes the scene and moves the hour'],
+       ['off', 'Off — only characters speak']].map(function (o) {
+        return '<option value="' + o[0] + '"' + ((state.settings.world || 'on') === o[0] ? ' selected' : '') + '>' + esc(o[1]) + '</option>';
+      }).join('') + '</select>' +
+      '<label for="f_autoplay">▶ Auto plays this many turns before stopping</label>' +
+      '<input type="number" id="f_autoplay" min="2" max="20" value="' + (state.settings.autoplay || 6) + '">' +
       '<label for="f_context">How many recent turns the model sees (default 24)</label>' +
       '<input type="number" id="f_context" min="4" max="120" value="' + (state.settings.context || 24) + '">' +
       '<label for="f_style">Default narration style</label><select id="f_style">' +
@@ -8040,6 +8300,10 @@ window.CHATROOM_CONFIG = {
       state.settings.model = $('f_model').value.trim();
       var ctx = parseInt($('f_context').value, 10);
       if (!isNaN(ctx)) state.settings.context = Math.max(4, Math.min(120, ctx));
+      state.settings.length = $('f_length').value;
+      state.settings.world = $('f_world').value;
+      var auto = parseInt($('f_autoplay').value, 10);
+      if (!isNaN(auto)) state.settings.autoplay = Math.max(2, Math.min(20, auto));
       state.settings.style = $('f_style').value;
       var t = parseFloat($('f_temperature').value);
       if (!isNaN(t)) state.settings.temperature = Math.max(0, Math.min(1.5, t));

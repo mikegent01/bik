@@ -1274,6 +1274,61 @@ check('smart: an already-filed chat plans nothing', (() => {
   return RP.smartBacklog(bigRoom, { maxCalls: 6 }).jobs.length === 0;
 })());
 
+// ---------- how long a turn should be ----------
+check('length: three bands, and snappy is genuinely short',
+  RP.LENGTHS.snappy.tokens < RP.LENGTHS.normal.tokens && RP.LENGTHS.normal.tokens < RP.LENGTHS.rich.tokens &&
+  /25 to 60 words/.test(RP.LENGTHS.snappy.dir) && /No scene-setting/i.test(RP.LENGTHS.snappy.dir));
+check('length: the world gets one band more room than the characters', (() => {
+  const forChar = RP.lengthBlock('snappy', false);
+  const forWorld = RP.lengthBlock('snappy', true);
+  return forChar.key === 'snappy' && forWorld.key === 'normal' && forWorld.tokens > forChar.tokens;
+})());
+check('length: rich does not overflow past the top band', RP.lengthBlock('rich', true).key === 'rich');
+check('length: the instruction is in every character prompt', (() => {
+  const short = RP.blankState();
+  const room = RP.newRoom([sans, cutters], {});
+  return RP.systemFor(short, room, sans).includes('LENGTH') &&
+    RP.systemFor(short, room, sans).includes('25 to 60 words');
+})());
+
+// ---------- the world takes a turn when nobody else can ----------
+const soloState = RP.blankState();
+const soloRoom = RP.newRoom([sans], { youPlay: 'sans', scene: 'The ridge road, after midnight.' });
+check('player: starring a character takes them off the model’s list',
+  RP.playerCharacter(soloRoom).id === 'sans' && RP.speakableCast(soloRoom).length === 0);
+check('player: the star toggles back off', (() => {
+  RP.markPlayer(soloRoom, 'sans');
+  const off = RP.speakableCast(soloRoom).length === 1;
+  RP.markPlayer(soloRoom, 'sans');
+  return off && RP.speakableCast(soloRoom).length === 0;
+})());
+check('world: with nobody else in the room, the world speaks', RP.worldShouldSpeak(soloState, soloRoom) === true);
+check('world: switching it off leaves the scene to the player',
+  RP.worldShouldSpeak({ settings: { world: 'off' } }, soloRoom) === false);
+check('world: a room with somebody else in it does not need narration', (() => {
+  const two = RP.newRoom([sans, cutters], { youPlay: 'sans' });
+  return RP.worldShouldSpeak(soloState, two) === false && RP.speakableCast(two).length === 1;
+})());
+const worldSystem = RP.worldSystem(soloState, soloRoom, {});
+check('world: it is a camera, in the present tense, addressing you as you',
+  worldSystem.includes('THE WORLD') && /present tense/i.test(worldSystem) &&
+  worldSystem.includes('address the player as "you"'));
+check('world: it is forbidden from speaking for the player, by name',
+  worldSystem.includes('Sans') && /Never write their speech, their thoughts, or their decisions/.test(worldSystem));
+check('world: it is told to move the hour along and not to ask what you do',
+  /MOVE THE HOUR ALONG/.test(worldSystem) && /never ask/i.test(worldSystem));
+check('world: it still gets the scene, the state sheets and the stage directions',
+  worldSystem.includes('THE SCENE') && worldSystem.includes('CHARACTER STATE') && worldSystem.includes('STAGE DIRECTIONS'));
+check('world: and its own length band', worldSystem.includes('LENGTH') && worldSystem.includes('60 to 120 words'));
+check('director: WORLD is an answer it may give', (() => {
+  const group = RP.newRoom([sans, cutters, rebel], {});
+  group.messages.push({ id: 'w1', role: 'user', text: 'I wait.', at: 1 });
+  const prompt = RP.directorPrompt(group, sans);
+  return prompt.includes('WORLD') && /the place itself doing something/.test(prompt) &&
+    RP.parseDirector('WORLD', group, sans).next === 'world' &&
+    RP.parseDirector('NEXT: WORLD', group, sans).next === 'world';
+})());
+
 // ---------- generated pages are in sync with these sources ----------
 let built = true;
 try {

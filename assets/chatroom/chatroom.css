@@ -267,6 +267,30 @@ a { color: inherit; }
 .turn.muted .bubble { border-left: 3px solid var(--muted); padding-left: 10px; }
 .turn.imported .who b::after { content: ' · imported'; color: var(--muted); font-weight: 400; font-size: 11px; }
 
+/* The roll, the state changes and a fired beat live on the turn they
+   belong to — one card, not four. */
+.metastrip { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 7px; }
+.metastrip span {
+  background: var(--panel2); border: 1px solid var(--line); border-radius: 999px;
+  padding: 2px 9px; font-size: 11px; color: #56565f;
+}
+.metastrip .roll { background: #f4efe2; border-color: #e0d3b0; color: #7a6320; font-weight: 600; }
+.metastrip .beat { background: #fbf3e4; border-color: #e6d2a8; color: #8a6a1e; }
+.metastrip .quiet { opacity: .7; }
+.metaline { max-width: 760px; margin: 0 auto 10px; display: flex; gap: 6px; justify-content: center; }
+.metaline span { background: var(--panel2); border: 1px solid var(--line); border-radius: 999px; padding: 2px 9px; font-size: 11px; color: #56565f; }
+
+/* The world's own turn: narration, not a person. */
+.turn.world .who { color: var(--muted); }
+.turn.world .globe { display: inline-grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; background: #2f3a4a; color: #fff; font-size: 12px; }
+.turn.world .bubble { background: #f7f7fa; border-left: 3px solid #2f3a4a; padding: 8px 12px; border-radius: 0 10px 10px 0; font-style: italic; }
+
+.speakers .sp.mine { border-color: var(--accent); background: var(--accent-soft); }
+.speakers .sp .star { margin-left: 4px; color: var(--muted); }
+.speakers .sp .star.on { color: #d8a531; }
+.speakers .sp.world { font-weight: 600; }
+.speakers .qa.on { border-color: var(--bad); color: var(--bad); }
+
 .statelog { max-width: 760px; margin: 0 auto 16px; display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; }
 .statelog.fate span.roll { background: #f4efe2; border-color: #e0d3b0; color: #7a6320; font-weight: 600; }
 .cp-desc.invented { border-top: 1px dashed var(--line); margin-top: 8px; padding-top: 8px; font-size: 12.5px; }

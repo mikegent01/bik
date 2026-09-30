@@ -174,8 +174,8 @@ check('state: the model’s stage directions changed the sheet', (() => {
   // so the test asserts the direction of travel, not an exact number.
   return sheet.hp.value <= beforeHp - 25 && sheet.flags.bleeding === true;
 })());
-check('state: the change is reported in the stream and stripped from the prose',
-  doc.querySelector('.statelog:not(.fate)') && /−25 HP|-25 HP/.test(doc.querySelector('.statelog:not(.fate)').textContent) &&
+check('state: the change is reported on the turn card and stripped from the prose',
+  doc.querySelector('.turn.char .metastrip') && /−25 HP|-25 HP/.test($('stream').textContent) &&
   !doc.querySelector('.turn.char .bubble').textContent.includes('[[HP'));
 check('state: a sheet can also be edited by hand', (() => {
   doc.querySelector('.statebar .sheet').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
@@ -186,9 +186,9 @@ check('state: a sheet can also be edited by hand', (() => {
   return open && Object.values(r.states)[0].hp.value === 7;
 })());
 
-check('fate: the roll is shown to the reader and the model was told the outcome',
-  Boolean(doc.querySelector('.statelog.fate .roll')) &&
-  /Triumph|It works|price|wrench|fails|Refused/.test(doc.querySelector('.statelog.fate .roll').textContent));
+check('fate: the roll is shown on the same card as the turn it decided',
+  Boolean(doc.querySelector('.metastrip .roll')) &&
+  /Triumph|It works|price|wrench|fails|Refused/.test(doc.querySelector('.metastrip .roll').textContent));
 check('invented: a character the model made up joined the cast, described not drawn', (() => {
   const s = savedState();
   const r = s.rooms.find(x => x.id === s.active);
@@ -637,6 +637,45 @@ check('commentary: finished episodes are kept and can be reopened',
   $('homeBtn').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
 }
 
+// ---- the world's own turn, and one card per turn ----
+{
+  // A fresh one-to-one chat: starring the only character leaves nobody for
+  // the model to speak as, which is exactly when the world should step in.
+  [...doc.querySelectorAll('[data-tab]')].find(b => b.dataset.tab === 'discover').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+  doc.querySelector('.grid [data-char]').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+  await wait(300);
+  const roomId = savedState().active;
+  check('rail: the world, the star and autoplay are all on the rail',
+    Boolean(doc.querySelector('.sp.world')) && Boolean(doc.querySelector('[data-star]')) && Boolean($('qaAuto')));
+  doc.querySelector('[data-star]').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+  await wait(150);
+  check('player: starring a character records who you play',
+    Boolean(savedState().rooms.find(x => x.id === roomId).youPlay) &&
+    Boolean(doc.querySelector('.sp.mine')));
+  // With only your own character in the room, the next turn is the world's.
+  $('input').value = 'I stand outside late at night and look at the stars.';
+  $('composer').dispatchEvent(new win.Event('submit', { bubbles: true, cancelable: true }));
+  await until('the world to take the turn', () => !doc.querySelector('.typing'), 80);
+  await wait(300);
+  const worldRoom = savedState().rooms.find(x => x.id === roomId);
+  const lastTurn = worldRoom.messages[worldRoom.messages.length - 1];
+  check('world: with nobody else there, the world narrates instead of a character',
+    lastTurn.role === 'world' && Boolean(doc.querySelector('.turn.world')));
+  check('card: the roll and any state change sit on the turn, not in their own rows',
+    Boolean(doc.querySelector('.metastrip')) && doc.querySelectorAll('.metaline').length === 0);
+  check('world: it never speaks as the player’s character', (() => {
+    const prompt = win.RP.worldSystem(savedState(), worldRoom, {});
+    return /Never write their speech/.test(prompt) && prompt.includes('address the player as "you"');
+  })());
+  check('autoplay: the button arms and disarms', (() => {
+    $('qaAuto').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+    const armed = /Stop/.test($('qaAuto').textContent);
+    $('qaAuto').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+    return armed && /Auto/.test($('qaAuto').textContent);
+  })());
+  $('homeBtn').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+}
+
 // ---- choosing the model, and how far back it looks ----
 {
   $('settingsBtn').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
@@ -649,6 +688,10 @@ check('commentary: finished episodes are kept and can be reopened',
   $('f_modelPick').dispatchEvent(new win.Event('change', { bubbles: true }));
   check('models: picking one fills the model box', $('f_model').value === 'mock-model');
   check('models: the context window is editable', Boolean($('f_context')) && Number($('f_context').value) >= 4);
+  check('settings: reply length, the world turn and autoplay are all dials',
+    Boolean($('f_length')) && [...$('f_length').options].length === 3 &&
+    Boolean($('f_world')) && Boolean($('f_autoplay')));
+  $('f_length').value = 'snappy';
   $('f_context').value = '12';
   $('f_endpoint').value = `http://127.0.0.1:${SERVER_PORT}/api/roleplay`;
   $('mOk').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));

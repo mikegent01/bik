@@ -40,6 +40,7 @@
   var castRace = '';
   var castAffil = '';
   var castView = 'all';   // all | played | unplayed | portrait | invented
+  var autoLeft = 0;       // turns still to play on their own
   var showStates = true;  // the sheets are visible in the chat by default
   var wireSort = 'newest';
   var wireView = 'all';   // all | unused | used | unfiled
@@ -286,7 +287,7 @@
     return String(url || '').replace(/\/+$/, '').replace(/\/chat\/completions$/, '') + '/models';
   }
 
-  function callModel(system, messages) {
+  function callModel(system, messages, opts) {
     var url = replyUrl();
     var temperature = (state.settings && state.settings.temperature) || 0.85;
     if (isOpenAI(url)) {
@@ -298,7 +299,7 @@
           model: (state.settings && state.settings.model) || 'local-model',
           messages: [{ role: 'system', content: system }].concat(messages),
           temperature: temperature,
-          max_tokens: 700,
+          max_tokens: (opts && opts.tokens) || RP.lengthBlock((state.settings && state.settings.length) || 'snappy').tokens,
           stream: false,
         }),
       }).then(function (r) {
@@ -316,7 +317,7 @@
       body: JSON.stringify({
         system: system, messages: messages,
         temperature: temperature,
-        max_tokens: 700,
+        max_tokens: (opts && opts.tokens) || RP.lengthBlock((state.settings && state.settings.length) || 'snappy').tokens,
       }),
     }).then(function (r) {
       return r.json().then(function (value) {
@@ -948,7 +949,7 @@
     }).join('\n');
     var covered = (episode.segments || []).filter(function (x) { return x.done; }).map(function (x) { return x.focus; });
     callModel(RP.commentaryPrompt(episode, next, { previous: previous, covered: covered }),
-      [{ role: 'user', content: 'Write part ' + next.n + '.' }])
+      [{ role: 'user', content: 'Write part ' + next.n + '.' }], { tokens: 900 })
       .then(function (text) {
         var lines = RP.parseCommentary(text);
         if (!lines.length) throw new Error('the model wrote nothing usable');
@@ -1504,7 +1505,7 @@
     var ctx = RP.hookContext(state, scenario);
     var system = RP.hookPrompt(scenario, ctx);
     function ask(nudge) {
-      return callModel(system + (nudge || ''), [{ role: 'user', content: 'Write the opening of this scene.' }]);
+      return callModel(system + (nudge || ''), [{ role: 'user', content: 'Write the opening of this scene.' }], { tokens: 420 });
     }
     return ask('').then(function (text) {
       var hook = RP.parseHook(text, scenario);
@@ -1980,6 +1981,17 @@
 
   function charOf(r, id) { return (r.cast || []).filter(function (c) { return c.id === id; })[0] || castById[id] || { id: id, name: 'Character' }; }
 
+  /** The roll, the state changes and any beat that fired, as one quiet
+   *  strip along the bottom of the turn they belong to. */
+  function metaStrip(m) {
+    var bits = [];
+    if (m.fate) bits.push('<span class="roll">' + esc(m.fate) + '</span>');
+    (m.changes || []).forEach(function (line) { bits.push('<span>' + esc(line) + '</span>'); });
+    if (m.beatFired) bits.push('<span class="beat">⏩ ' + esc(RP.clip(m.beatFired, 90)) + '</span>');
+    if (m.edited) bits.push('<span class="quiet">edited</span>');
+    return bits.length ? '<div class="metastrip">' + bits.join('') + '</div>' : '';
+  }
+
   /** One HP/MP bar. */
   function bar(kind, pool) {
     var pct = pool.max ? Math.round((pool.value / pool.max) * 100) : 0;
@@ -2070,17 +2082,30 @@
     }
 
     var html = r.messages.map(function (m, i) {
-      if (m.role === 'fate') {
-        return '<div class="statelog fate"><span class="roll">' + esc(m.pill || '') + '</span></div>';
-      }
+      // Legacy rows from before the meta was folded into the turn card.
+      if (m.role === 'fate') return '<div class="metaline"><span class="roll">' + esc(m.pill || '') + '</span></div>';
       if (m.role === 'state') {
-        return '<div class="statelog">' + (m.lines || []).map(function (l) {
+        return '<div class="metaline">' + (m.lines || []).map(function (l) {
           return '<span>' + esc(l) + '</span>';
         }).join('') + '</div>';
       }
       if (m.role === 'scene') {
         return '<div class="scene-card' + (m.beat ? ' beat' : '') + '"><span class="kicker">' +
-          (m.beat ? 'Main event · beat' : 'Scene') + '</span>' + esc(RP.textOf(m)) + '</div>';
+          (m.beat ? '⏩ Beat' : 'Scene') + '</span>' + esc(RP.textOf(m)) + '</div>';
+      }
+      if (m.role === 'world') {
+        return '<article class="turn world' + (m.muted ? ' muted' : '') + '">' +
+          '<div class="who"><span class="globe">◍</span><b>The world</b>' +
+          '<button class="speak" data-speak="' + i + '" title="Read aloud">▶</button></div>' +
+          '<div class="bubble">' + RP.md(RP.textOf(m)) + '</div>' +
+          metaStrip(m) +
+          '<div class="acts">' +
+          '<button data-retry="' + i + '" title="Another take">↻</button>' +
+          '<button class="' + (m.pinned ? 'on' : '') + '" data-pin="' + i + '" title="Pin">📌</button>' +
+          '<button data-edit="' + esc(m.id) + '" title="Edit">✏️</button>' +
+          '<button class="' + (m.muted ? 'on' : '') + '" data-mute="' + esc(m.id) + '" title="Mute">' + (m.muted ? '🙈' : '👁') + '</button>' +
+          '<button data-drop="' + esc(m.id) + '" title="Delete">🗑</button>' +
+          '</div></article>';
       }
       var mine = m.role === 'user';
       var who = mine ? (state.user.name || 'You') : charOf(r, m.charId).name;
@@ -2092,6 +2117,7 @@
         '<b>' + esc(who) + '</b>' + (mine ? '' : '<span class="badge">archive</span>') +
         (mine ? '' : '<button class="speak" data-speak="' + i + '" title="Read aloud">▶</button>') + '</div>' +
         '<div class="bubble">' + RP.md(RP.textOf(m)) + '</div>' +
+        metaStrip(m) +
         (m.error ? '<div class="acts"><span>This notice stays out of the model’s context.</span></div>' :
           '<div class="acts">' + swipes +
           (mine ? '' : '<button data-retry="' + i + '" title="Another take">↻</button>') +
@@ -2124,12 +2150,22 @@
         (progress.total && progress.at < progress.total ? '<button class="qa" id="qaBeat">⏩ Next beat</button>' : '') +
         (r.mechanics === 'off' ? '' : '<button class="qa" id="qaRisk" title="Attempt something the world can refuse">🎲 Attempt…</button>') +
         '<button class="qa" id="qaAdd" title="Bring somebody into this scene">＋ New</button>' +
+        '<button class="qa' + (autoLeft ? ' on' : '') + '" id="qaAuto" title="Let the scene play itself for a few turns">' +
+          (autoLeft ? '■ Stop (' + autoLeft + ')' : '▶ Auto') + '</button>' +
       '</span>' +
-      (r.kind !== 'group' ? '' :
-        '<span class="emptynote">Next:</span>' + r.cast.map(function (c) {
-          var on = RP.nextSpeaker(r).id === c.id;
-          return '<button class="sp ' + (on ? 'on' : '') + '" data-speaker="' + esc(c.id) + '">' + avatar(c, 24) + esc(c.name) + '</button>';
-        }).join(''));
+      '<span class="emptynote">Next:</span>' +
+      ((state.settings.world || 'on') === 'off' ? '' :
+        '<button class="sp world ' + (r.next === 'world' ? 'on' : '') + '" data-speaker="world" ' +
+        'title="The world describes the scene and moves the hour along">◍ The world</button>') +
+      r.cast.map(function (c) {
+        var mine = r.youPlay === c.id;
+        var on = !mine && r.next === c.id;
+        return '<button class="sp ' + (on ? 'on' : '') + (mine ? ' mine' : '') + '" data-speaker="' + esc(c.id) + '">' +
+          avatar(c, 24) + esc(c.name) +
+          '<span class="star' + (mine ? ' on' : '') + '" data-star="' + esc(c.id) + '" ' +
+          'title="' + (mine ? 'You play them — the model never speaks for them' : 'Mark as the character you play') + '">' +
+          (mine ? '★' : '☆') + '</span></button>';
+      }).join('');
 
     renderPanel();
     wireChat();
@@ -2245,6 +2281,13 @@
     on('bookBtn', function () { tab = 'book'; state.active = ''; save(); render(); });
     on('qaContinue', function () { generate(); });
     on('qaBeat', function () { if ($('nextBeat')) $('nextBeat').click(); });
+    on('qaAuto', function () {
+      if (autoLeft) { autoLeft = 0; render(); toast('Stopped.'); return; }
+      autoLeft = Math.max(2, Number(state.settings.autoplay || 6));
+      render();
+      toast('Playing ' + autoLeft + ' turns on their own — press ■ to stop, or just type.');
+      generate();
+    });
     on('qaAdd', function () {
       list('Bring somebody in', [
         { label: '🎭 From the archive — pick who walks in', value: 'cast' },
@@ -2331,7 +2374,20 @@
     on('nextBeat', function () { if (RP.fireBeat(r)) { logBeat(r); save(); render(); } });
 
     $('speakers').querySelectorAll('[data-speaker]').forEach(function (b) {
-      b.onclick = function () { r.next = b.dataset.speaker; save(); render(); };
+      b.onclick = function (e) {
+        if (e.target && e.target.dataset && e.target.dataset.star) return;   // the star is its own control
+        if (b.dataset.speaker === r.youPlay) { toast('You play them — ☆ to hand them back to the model.'); return; }
+        r.next = b.dataset.speaker; save(); render();
+      };
+    });
+    $('speakers').querySelectorAll('[data-star]').forEach(function (b) {
+      b.onclick = function (e) {
+        e.stopPropagation();
+        var now = RP.markPlayer(r, b.dataset.star);
+        save(); render();
+        toast(now ? 'You play ' + charOf(r, now).name + ' — the model will not speak for them, and the world narrates around you.'
+          : 'Handed back to the model.');
+      };
     });
     var stream = $('stream');
     stream.querySelectorAll('[data-react]').forEach(function (b) {
@@ -2619,6 +2675,7 @@
     input.value = '';
     input.style.height = 'auto';
     var msg = { id: RP.uid(), role: 'user', text: text, at: Date.now() };
+    autoLeft = 0;                       // your turn beats the autopilot
     r.handback = '';
     r.messages.push(msg);
     RP.rememberTurn(state, r, msg);
@@ -2632,17 +2689,27 @@
    *  multi-bot room is just a loop of bots talking to each other; with it the
    *  chain also has a hard ceiling (settings.maxChain) so it always returns. */
   function direct(r, speaker) {
-    if (r.kind !== 'group' || r.cast.length < 2 || state.settings.director === 'off') return Promise.resolve(false);
+    // With nobody else to speak, the world carries the scene instead.
+    if (RP.worldShouldSpeak(state, r) && RP.chainLength(r) < (state.settings.maxChain || RP.MAX_CHAIN)) {
+      r.next = 'world';
+      return Promise.resolve(Boolean(autoLeft));
+    }
+    if (r.kind !== 'group' || RP.speakableCast(r).length < 2 || state.settings.director === 'off') return Promise.resolve(false);
     r.maxChain = state.settings.maxChain || RP.MAX_CHAIN;
     if (RP.chainLength(r) >= r.maxChain) {
       r.handback = 'the scene has run ' + RP.chainLength(r) + ' turns without you.';
       r.next = '';
       return Promise.resolve(false);
     }
-    return callModel(RP.directorPrompt(r, speaker), [{ role: 'user', content: 'Who speaks next?' }])
+    return callModel(RP.directorPrompt(r, speaker), [{ role: 'user', content: 'Who speaks next?' }], { tokens: 40 })
       .then(function (text) { return RP.parseDirector(text, r, speaker); })
       .catch(function () { return { next: 'user', reason: 'the director could not be reached' }; })
       .then(function (decision) {
+        if (decision.next === 'world' && (state.settings.world || 'on') !== 'off') {
+          r.handback = '';
+          r.next = 'world';
+          return true;
+        }
         if (decision.next === 'user') {
           r.handback = decision.reason + '.';
           r.next = '';
@@ -2664,7 +2731,15 @@
     render();
 
     var retry = opts.retryIndex !== undefined ? r.messages[opts.retryIndex] : null;
-    var speaker = retry ? charOf(r, retry.charId) : RP.nextSpeaker(r);
+    // Who is up: a character, or the world itself when there is nobody else
+    // in the room (or the director asked for it).
+    var worldTurn = !retry && (opts.world || r.next === 'world' || RP.worldShouldSpeak(state, r));
+    var speaker = retry ? charOf(r, retry.charId)
+      : worldTurn ? RP.WORLD
+      : (RP.speakableCast(r).filter(function (c) { return c.id === r.next; })[0] || RP.nextSpeaker({
+          kind: r.kind, cast: RP.speakableCast(r).length ? RP.speakableCast(r) : r.cast,
+          messages: r.messages, next: r.next,
+        }));
     // Did the player just try something? Then it is not up to them whether it
     // worked. The roll happens here and is handed to the model as an order.
     var answering = !retry && RP.visible(lastVisible(r)) && lastVisible(r).role === 'user';
@@ -2673,9 +2748,9 @@
     // filtered to filings whose dates have already passed in this scene.
     var recent = RP.historyFor(r, 4).map(function (m) { return m.content; }).join(' ');
     var found = RP.citableFor(archiveIndex, r, state, { query: recent + ' ' + (r.scene || ''), limit: 8 });
-    var system = RP.systemFor(state, r, speaker, {
-      fate: fate, archive: archive, citations: RP.citationBlock(found),
-    });
+    var system = worldTurn
+      ? RP.worldSystem(state, r, { fate: fate, archive: archive, citations: RP.citationBlock(found) })
+      : RP.systemFor(state, r, speaker, { fate: fate, archive: archive, citations: RP.citationBlock(found) });
     var window = RP.contextLimit(r, (state.settings && state.settings.context) || 24);
     var history = RP.historyFor(retry ? { kind: r.kind, cast: r.cast, messages: r.messages.slice(0, opts.retryIndex) } : r, window);
     if (!history.length) history = [{ role: 'user', content: '(The scene opens. Begin in character.)' }];
@@ -2685,6 +2760,7 @@
       // power, walked a character in, or written one out. They are stripped
       // from the prose and applied to the record before anything renders.
       var staged = RP.parseDirectives(RP.stripSpeaker(text, speaker.name), r.cast.map(function (c) { return c.name; }));
+      r.next = '';
       var clean = staged.clean.trim();
       var changes = r.mechanics === 'off' ? { lines: [] }
         : RP.applyDirectives(state, r, staged.directives, resolveChar);
@@ -2692,25 +2768,30 @@
         retry.alts = (retry.alts && retry.alts.length ? retry.alts : [retry.text]).concat([clean]);
         retry.alt = retry.alts.length - 1;
       } else {
-        var msg = { id: RP.uid(), role: 'char', charId: speaker.id, text: clean, at: Date.now(), alts: [clean], alt: 0 };
+        var msg = {
+          id: RP.uid(), role: worldTurn ? 'world' : 'char',
+          charId: worldTurn ? '' : speaker.id,
+          text: clean, at: Date.now(), alts: [clean], alt: 0,
+          // The roll and the state changes belong to the turn they happened
+          // in, not to three separate cards in the stream.
+          fate: fate ? fate.pill : '',
+          changes: changes.lines.slice(0, 6),
+        };
         r.messages.push(msg);
-        RP.rememberTurn(state, r, msg);
-        r.next = '';
-        if (r.kind === 'group') {
-          var after = RP.rotationAfter(r.cast, speaker.id);
+        if (!worldTurn) RP.rememberTurn(state, r, msg);
+        if (r.kind === 'group' && !worldTurn) {
+          var after = RP.rotationAfter(RP.speakableCast(r).length ? RP.speakableCast(r) : r.cast, speaker.id);
           r.next = after ? after.id : '';
         }
-        if (RP.autoAdvance(r)) { RP.fireBeat(r); logBeat(r); }
-      }
-      if (fate && !retry) {
-        // Filed before the turn it decided, so the reader can see why the
-        // scene refused them.
-        r.messages.splice(r.messages.length - 1, 0, {
-          id: RP.uid(), role: 'fate', at: Date.now(), fate: fate.key, pill: fate.pill,
-        });
-      }
-      if (changes.lines.length) {
-        r.messages.push({ id: RP.uid(), role: 'state', at: Date.now(), lines: changes.lines });
+        // A fired beat rides on the same card as the turn it interrupted.
+        if (RP.autoAdvance(r)) {
+          var beat = RP.fireBeat(r);
+          if (beat) {
+            msg.beatFired = (beat.time ? beat.time + ' — ' : '') + beat.beat;
+            r.messages = r.messages.filter(function (m) { return !(m.beat && m.at >= msg.at); });
+            logBeat(r);
+          }
+        }
       }
       r.updated = Date.now();
       if (state.settings.voice === 'on' && !retry) speak(r.messages[r.messages.length - 1], r);
@@ -2726,11 +2807,14 @@
       });
       return false;
     }).then(function (chain) {
-      busy = false; save(); render();
+      busy = false;
+      if (!retry && autoLeft) autoLeft--;
+      save(); render();
       if (!retry) { queueBook(r); }
-      // The next character answers on their own — one turn at a time, so the
-      // reader can read it, and always stopping at the ceiling.
-      if (chain && room() === r) window.setTimeout(function () { generate(); }, 400);
+      // The next turn plays on its own when the director asked for it, or
+      // while autoplay has turns left. One at a time, always stoppable.
+      if (room() !== r) { autoLeft = 0; return; }
+      if (chain || autoLeft) window.setTimeout(function () { if (autoLeft || chain) generate(); }, 500);
     });
   }
 
@@ -2790,7 +2874,7 @@
     booking = true;
     renderBookBadge();
     var known = RP.bookState(state).entries.slice(-40).map(function (e) { return e.name; });
-    callModel(RP.extractPrompt(r, job.turns, known), [{ role: 'user', content: 'File what is new.' }])
+    callModel(RP.extractPrompt(r, job.turns, known), [{ role: 'user', content: 'File what is new.' }], { tokens: 420 })
       .then(function (text) {
         var filed = 0;
         RP.parseExtract(text).forEach(function (entry) {
@@ -3157,6 +3241,18 @@
       '<div class="castbar"><select id="f_modelPick"><option value="">— the models the endpoint reports —</option></select>' +
       '<button class="pill" id="setModels">↻ List models</button></div>' +
       '<input type="text" id="f_model" value="' + esc(state.settings.model || '') + '" placeholder="local-model">' +
+      '<label for="f_length">How long should a reply be?</label><select id="f_length">' +
+      Object.keys(RP.LENGTHS).map(function (k) {
+        return '<option value="' + k + '"' + ((state.settings.length || 'snappy') === k ? ' selected' : '') + '>' +
+          esc(RP.LENGTHS[k].name) + ' — ' + esc(RP.LENGTHS[k].words) + '</option>';
+      }).join('') + '</select>' +
+      '<label for="f_world">The world\u2019s own turns</label><select id="f_world">' +
+      [['on', 'On — when nobody else is here, the world describes the scene and moves the hour'],
+       ['off', 'Off — only characters speak']].map(function (o) {
+        return '<option value="' + o[0] + '"' + ((state.settings.world || 'on') === o[0] ? ' selected' : '') + '>' + esc(o[1]) + '</option>';
+      }).join('') + '</select>' +
+      '<label for="f_autoplay">▶ Auto plays this many turns before stopping</label>' +
+      '<input type="number" id="f_autoplay" min="2" max="20" value="' + (state.settings.autoplay || 6) + '">' +
       '<label for="f_context">How many recent turns the model sees (default 24)</label>' +
       '<input type="number" id="f_context" min="4" max="120" value="' + (state.settings.context || 24) + '">' +
       '<label for="f_style">Default narration style</label><select id="f_style">' +
@@ -3216,6 +3312,10 @@
       state.settings.model = $('f_model').value.trim();
       var ctx = parseInt($('f_context').value, 10);
       if (!isNaN(ctx)) state.settings.context = Math.max(4, Math.min(120, ctx));
+      state.settings.length = $('f_length').value;
+      state.settings.world = $('f_world').value;
+      var auto = parseInt($('f_autoplay').value, 10);
+      if (!isNaN(auto)) state.settings.autoplay = Math.max(2, Math.min(20, auto));
       state.settings.style = $('f_style').value;
       var t = parseFloat($('f_temperature').value);
       if (!isNaN(t)) state.settings.temperature = Math.max(0, Math.min(1.5, t));

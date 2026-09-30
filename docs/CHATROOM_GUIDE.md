@@ -633,6 +633,59 @@ into this chat** takes:
 A pasted `waluipedia-chatroom-bundle` is recognised too and imported as
 chats, so a whole exported conversation can be dropped straight back in.
 
+## How long a turn is
+
+A local model left alone writes six paragraphs of weather. ⚙ **Settings →
+reply length** sets the dial, and it goes into the prompt *and* into
+`max_tokens`:
+
+| | | |
+|---|---|---|
+| **Snappy** (default) | 25–60 words | one or two beats, no scene-setting, no weather |
+| **Normal** | 60–120 words | one moment, played properly |
+| **Rich** | 150–260 words | room to breathe, still no padding |
+
+**The world gets one band more room than the characters** — describing a
+place is the one job that needs the words, and dialogue is the job that does
+not.
+
+## ◍ The world's own turn
+
+A scene where nobody else is present used to sit there waiting. Now the
+**world** takes the turn: it describes the place, the hour, what moves and
+what changes, in the present tense, addressing you as **you** — and it never
+writes your character's speech, thoughts or decisions.
+
+- **★ Star a character** in the speaker rail to say *you play them*. The
+  model stops speaking as them, and with nobody else in the room the world
+  narrates around you instead.
+- The world is on the rail as **◍ The world** — press it to hand it the next
+  turn deliberately.
+- The **director** may also choose it: `WORLD` is one of its three answers
+  (a character / the world / back to you), so a scene that has run out of
+  dialogue moves rather than stalling.
+- ⚙ turns it off entirely.
+
+It carries the same scene, lore book, citations, script, state sheets and
+stage directions a character gets — so the world can wound somebody, walk
+someone in, or fire a beat.
+
+## ▶ Auto
+
+Next to Continue: plays the scene by itself for a few turns (six by default,
+set in ⚙), one at a time, stopping when you press ■ **or the moment you type**.
+
+## One card per turn
+
+The fate roll, any state changes and a beat that fired are folded into the
+bottom of the turn they belong to as a quiet strip of chips, instead of
+three separate cards in the stream:
+
+```
+Waluigi   …prose…
+          ⚄ It works   Sans −10 HP (38/100)   ⏩ Two days after the studio
+```
+
 ## Editing what has already been said
 
 Every line in a chat carries its own controls, next to 👍 👎 📌 🧠 ↻:

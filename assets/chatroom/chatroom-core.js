@@ -346,6 +346,7 @@
       // How far back the model may look in this room; 0 means "use the
       // global setting".
       contextLimit: Number(opts.contextLimit || 0),
+      youPlay: String(opts.youPlay || ''),      // the character the reader plays
       sequelOf: String(opts.sequelOf || ''),
       canon: String(opts.canon || ''),
       sequelCount: 0,
@@ -1340,6 +1341,9 @@
       'Answer with ONE line and nothing else:',
       'NEXT: <the exact name of the character who should speak next>',
       '   — choose this when a character is being addressed, contradicted, or plainly has to answer.',
+      'WORLD',
+      '   — choose this when nobody needs to speak but the scene should move: time passing, weather, an arrival, '
+      + 'a noise, the place itself doing something.',
       'USER',
       '   — choose this when the scene is waiting on the player: they were asked something, the exchange has '
       + 'run its course, a decision is theirs, or the characters are starting to repeat each other.',
@@ -1354,10 +1358,14 @@
       return { next: 'user', reason: 'the scene has run several turns without you' };
     }
     var value = String(text || '').trim();
+    if (/^\s*WORLD\s*$/im.test(value)) return { next: 'world', reason: 'the scene moves on its own' };
     var match = /NEXT\s*:\s*([^\n]+)/i.exec(value);
     if (!match) return { next: 'user', reason: 'the scene is waiting on you' };
     var wanted = match[1].replace(/["'.*]/g, '').trim().toLowerCase();
     if (!wanted || wanted === 'user' || wanted === 'player') return { next: 'user', reason: 'the scene is waiting on you' };
+    if (wanted === 'world' || wanted === 'the world' || wanted === 'narration') {
+      return { next: 'world', reason: 'the scene moves on its own' };
+    }
     var hit = (room.cast || []).filter(function (c) {
       return c.name.toLowerCase() === wanted || wanted.indexOf(c.name.toLowerCase()) >= 0 || c.name.toLowerCase().indexOf(wanted) >= 0;
     })[0];
@@ -2810,6 +2818,134 @@
     };
   };
 
+
+  /* ------------------------------------------------------------------ *
+   * how long a turn should be
+   *
+   * A local model left to itself writes six paragraphs of weather. Most
+   * of a chat should be short: people talk in sentences, not essays. The
+   * world's own turns are allowed more room, because describing a place
+   * is the one job that needs it.
+   * ------------------------------------------------------------------ */
+
+  RP.LENGTHS = {
+    snappy: {
+      name: 'Snappy', words: '25 to 60 words', tokens: 180,
+      dir: 'Keep it SHORT: 25 to 60 words, one or two beats of action or speech and nothing else. No scene-setting, ' +
+        'no weather, no summarising how anyone feels about it. If there is nothing to add, say one line and stop.',
+    },
+    normal: {
+      name: 'Normal', words: '60 to 120 words', tokens: 320,
+      dir: 'Keep it tight: 60 to 120 words. One moment, played properly. Cut anything that is only atmosphere.',
+    },
+    rich: {
+      name: 'Rich', words: '150 to 260 words', tokens: 600,
+      dir: 'You have room: 150 to 260 words. Still no padding — detail that does something, not description for its ' +
+        'own sake.',
+    },
+  };
+
+  /** The length instruction for a turn. Characters get the reader's dial;
+   *  the world gets one step more room, because that is its job. */
+  RP.lengthBlock = function (level, isWorld) {
+    var keys = ['snappy', 'normal', 'rich'];
+    var at = Math.max(0, keys.indexOf(RP.LENGTHS[level] ? level : 'snappy'));
+    if (isWorld) at = Math.min(keys.length - 1, at + 1);
+    var band = RP.LENGTHS[keys[at]];
+    return { key: keys[at], tokens: band.tokens, text: 'LENGTH\n' + band.dir };
+  };
+
+  /* ------------------------------------------------------------------ *
+   * the world turn — when nobody else is in the room
+   *
+   * A scene with one player and no other characters used to sit there. The
+   * world speaks instead: it describes what is happening around you, in
+   * second person, and moves the hour along. It never speaks for you.
+   * ------------------------------------------------------------------ */
+
+  RP.WORLD = { id: 'world', name: 'The world', title: 'Narration', world: true };
+
+  /** The character the reader is playing, if they have starred one. */
+  RP.playerCharacter = function (room) {
+    if (!room || !room.youPlay) return null;
+    return (room.cast || []).filter(function (c) { return c.id === room.youPlay; })[0] || null;
+  };
+
+  /** Everyone the model may speak as — the player's own character is not
+   *  on this list. */
+  RP.speakableCast = function (room) {
+    return (room.cast || []).filter(function (c) { return c.id !== (room && room.youPlay); });
+  };
+
+  RP.markPlayer = function (room, charId) {
+    room.youPlay = room.youPlay === charId ? '' : String(charId || '');
+    if (room.next === room.youPlay) room.next = '';
+    room.updated = Date.now();
+    return room.youPlay;
+  };
+
+  /** The narrator's prompt. It is the same world, the same lore, the same
+   *  state — but it is a camera, not a person. */
+  RP.worldPrompt = function (state, room, opts) {
+    opts = opts || {};
+    var you = RP.playerCharacter(room);
+    var others = RP.speakableCast(room);
+    return [
+      'You are THE WORLD — the narration around the player, not a character in it.',
+      '',
+      'Describe what is happening: the place, the hour, what moves, what is heard, what changes. Write in the ' +
+      'PRESENT TENSE and address the player as "you".',
+      you ? 'The player is playing ' + you.name + ' — ' + clip(you.title || you.summary, 160) +
+        '. Never write their speech, their thoughts, or their decisions. Describe what happens AROUND them and what ' +
+        'they can see, hear and feel, and leave every choice to them.'
+        : 'Never write the player\u2019s speech, thoughts or decisions. Describe what happens around them.',
+      others.length
+        ? 'Other people are here: ' + others.map(function (c) { return c.name; }).join(', ') +
+          '. You may show what they are doing from the outside, but do not write their dialogue — they speak for ' +
+          'themselves on their own turns.'
+        : 'Nobody else is here. That is the point: make the emptiness do work.',
+      '',
+      'MOVE THE HOUR ALONG. Something should be different by the end of the turn: a sound, an arrival, a change in ' +
+      'the weather or the light, a thing noticed that was not noticed before. Never end on a question, never ask ' +
+      'what the player would like to do, and never summarise what has already happened.',
+      'No dialogue from the player. No stage directions in asterisks — this is narration, write it plainly.',
+    ].filter(Boolean).join('\n');
+  };
+
+  /** The whole system prompt for a world turn: the narrator brief, then the
+   *  same reference material a character gets. */
+  RP.worldSystem = function (state, room, opts) {
+    opts = opts || {};
+    var parts = [RP.worldPrompt(state, room, opts)];
+    if (room.scene) parts.push('THE SCENE\n' + clip(room.scene, 900));
+    var knowledge = RP.knowledgeBlock(state, room, opts.archive);
+    if (knowledge) parts.push(knowledge);
+    var book = RP.bookBlock(state, room, 10);
+    if (book) parts.push(book);
+    if (opts.citations) parts.push(opts.citations);
+    var script = RP.scriptBlock(room);
+    if (script) parts.push(script);
+    var memory = RP.memoryBlock(state, room.cast, room, 6);
+    if (memory) parts.push(memory);
+    var protectedFrom = parts.length;
+    if (room.mechanics !== 'off') {
+      var sheets = RP.stateBlock(room);
+      if (sheets) parts.push(sheets);
+      parts.push(RP.DIRECTIVES);
+    }
+    var fate = RP.fateBlock(opts.fate);
+    if (fate) parts.push(fate);
+    parts.push(RP.lengthBlock((state.settings && state.settings.length) || 'snappy', true).text);
+    return RP.fitPrompt(parts, opts.budget, protectedFrom);
+  };
+
+  /** Should the world take this turn? It always does when the player is
+   *  alone, and otherwise only when the director asks for it. */
+  RP.worldShouldSpeak = function (state, room) {
+    if ((state.settings && state.settings.world) === 'off') return false;
+    return RP.speakableCast(room).length === 0;
+  };
+
   /* ------------------------------------------------------------------ *
    * taste — 👍 and 👎 are training data, not decoration
    *
@@ -3861,6 +3997,7 @@
     }
     var fateBlock = RP.fateBlock(opts.fate);
     if (fateBlock) parts.push(fateBlock);
+    parts.push(RP.lengthBlock((state.settings && state.settings.length) || 'snappy', false).text);
     return RP.fitPrompt(parts, opts.budget, protectedFrom);
   };
 
@@ -4015,6 +4152,9 @@
       settings: {
         style: 'novel', voice: 'off', temperature: 0.85, endpoint: '',
         director: 'on',            // let the model decide who speaks next
+        length: 'snappy',          // snappy | normal | rich
+        world: 'on',               // let the world narrate when nobody else can
+        autoplay: 0,               // turns to play on their own before stopping
         book: 'on',                // write the lore book in the background
         bookEvery: 3,              // …after every N played turns
         bookBudget: RP.BOOK_BUDGET,

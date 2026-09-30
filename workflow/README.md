@@ -192,6 +192,16 @@ memory, lore, replay, backups — is documented in
   writes the card into their own filed portrait, so the file is a picture and
   a card at once; the archive's fields ride along under
   `extensions.waluipedia`.
+- **Snappy by default.** A reply-length dial (snappy 25–60 words / normal /
+  rich) goes into both the prompt and `max_tokens`, with the world's own
+  turns given one band more room than dialogue.
+- **◍ The world takes a turn.** Star the character you play and the model
+  stops speaking as them; when nobody else is in the room the world
+  describes the scene in second person and moves the hour along, and the
+  director can call on it mid-scene instead of stalling.
+- **▶ Auto** plays a few turns by itself and stops the moment you type.
+- **One card per turn.** The fate roll, state changes and fired beats are
+  chips along the bottom of the turn they belong to, not separate cards.
 - **Every line is editable.** ✏️ rewrite, 👁 mute (on screen, out of the
   model's head), 🗑 delete — plus a per-room context window, so an imported
   300-turn story does not drag on every reply.
