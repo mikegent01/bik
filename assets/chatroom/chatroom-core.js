@@ -389,7 +389,10 @@
   };
 
   function visible(msg) {
-    return msg && !msg.error && !msg.beat && (msg.role === 'user' || msg.role === 'char');
+    // Narration counts. Leaving the world's turns out of the history is why
+    // it described the same cloak and the same moon three times running.
+    return msg && !msg.error && !msg.beat &&
+      (msg.role === 'user' || msg.role === 'char' || msg.role === 'world');
   }
   RP.visible = visible;
 
@@ -403,6 +406,7 @@
       return visible(m) && !m.muted;
     }).map(function (m) {
       if (m.role === 'user') return { role: 'user', content: RP.textOf(m) };
+      if (m.role === 'world') return { role: 'assistant', content: 'Narration: ' + RP.textOf(m) };
       var name = '';
       if (group) {
         var who = (room.cast || []).filter(function (c) { return c.id === m.charId; })[0];
@@ -2877,7 +2881,86 @@
    * second person, and moves the hour along. It never speaks for you.
    * ------------------------------------------------------------------ */
 
-  RP.WORLD = { id: 'world', name: 'The world', title: 'Narration', world: true };
+  RP.WORLD = { id: 'world', name: 'The Director', title: 'Narration', world: true };
+
+  /* The narrator has a voice, and you choose which one. */
+  RP.NARRATORS = {
+    director: {
+      name: 'The Director', icon: '\u25cd', length: 'rich',
+      blurb: 'Cinematic, deadpan, neo-noir. Draws detail out and lets silence do work.',
+      dir: [
+        'You are THE DIRECTOR. Never use film words \u2014 no "cut to", no "close up", no "camera" \u2014 you get the',
+        'same effect out of prose.',
+        'SENSORY FOCUS. Point attention like a lens. When a detail matters, give it intimately: the smear of ink on a',
+        'page, the exact temperature of the wind, a watch ticking out of step.',
+        'SOUND. Use it to build. A wind that roars and then drops into a silence that is too complete, half a second',
+        'before something happens.',
+        'PACING AND REVEALS. Draw the suspense out \u2014 but never at the cost of the thing the player actually did.',
+        'DRAMATIC IRONY. Let the place react in ways the player has not noticed yet: a shadow a foot too long, birds',
+        'leaving a tree nobody touched, one footstep out of time with the others.',
+        'TONE. Deadpan, eerie, neo-noir. Treat the archive\u2019s material with complete seriousness, however silly the',
+        'names are.',
+      ].join('\n'),
+    },
+    plain: {
+      name: 'The world', icon: '\u25cd', length: 'normal',
+      blurb: 'Neutral narration: what is there, what changes, nothing louder than that.',
+      dir: 'Describe plainly and concretely. No mood-setting for its own sake, no adjectives doing the work of events.',
+    },
+    terse: {
+      name: 'The room', icon: '\u25ab', length: 'snappy',
+      blurb: 'One or two sentences. Facts, movement, and out.',
+      dir: 'Two sentences at most. What happened, and what is different now. No atmosphere, no lingering.',
+    },
+    archivist: {
+      name: 'The archive', icon: '\u00a7', length: 'normal',
+      blurb: 'Filed narration: dated, specific, dry, with the archivist\u2019s asides.',
+      dir: 'Narrate as though filing it: dated where a date is known, named objects, exact numbers, and the dry aside '
+        + 'of somebody who has written up too many of these.',
+    },
+  };
+
+  RP.narrator = function (state) {
+    var key = (state && state.settings && state.settings.narrator) || 'director';
+    return RP.NARRATORS[key] ? key : 'director';
+  };
+
+  /** What the scene has already established, so it is not established
+   *  twice. The cloak, the moon and the patio get described ONCE. */
+  RP.continuityBlock = function (room, limit) {
+    var said = (room.messages || []).filter(function (m) { return m.role === 'world' && !m.muted; }).slice(-(limit || 2));
+    if (!said.length) return '';
+    return [
+      'ALREADY DESCRIBED \u2014 this is set, and the reader has read it. Do not describe any of it again, do not rename',
+      'the place, do not re-dress the player, do not re-hang the moon. Refer back in passing at most, and spend this',
+      'turn on what is NEW.',
+      said.map(function (m) { return '- ' + clip(RP.textOf(m).replace(/[*_]/g, ''), 420); }).join('\n'),
+    ].join('\n');
+  };
+
+  /** Direct questions the player asked in character get answered once. */
+  RP.askedBlock = function (room) {
+    var msgs = (room.messages || []).filter(function (m) { return m.role === 'user'; });
+    var last = msgs[msgs.length - 1];
+    if (!last) return '';
+    var asks = RP.textOf(last).split(/(?:[.!?]|\n)+/).filter(function (line) {
+      return /\?/.test(line) || /^\s*(what|where|who|how|why|when)\b/i.test(line);
+    }).slice(0, 4);
+    if (!asks.length) return '';
+    return 'THE PLAYER ASKED THESE DIRECTLY \u2014 answer every one of them concretely inside the prose this turn, '
+      + 'and then never restate them:\n' + asks.map(function (a) { return '- ' + clip(a, 160); }).join('\n');
+  };
+
+  /** The rule that makes narration useful: it resolves what the player
+   *  actually did. Whether it goes well is the roll\u2019s business. */
+  var RESOLVE = [
+    'DO THE THING THEY DID. This is the part narration usually dodges, and dodging it is not allowed here.',
+    'If they read something, invent and show what it actually says \u2014 the real words, quoted, specific, and',
+    'relevant to what is going on. If they search, say what is found, or plainly not found. If they open, unlock,',
+    'listen, count or ask, resolve it in this turn. Never replace their action with weather.',
+    'Then, and only then, let something move.',
+    'You may make it cost them, go wrong, or turn up something they did not want \u2014 but you may not skip it.',
+  ].join('\n');
 
   /** The character the reader is playing, if they have starred one. */
   RP.playerCharacter = function (room) {
@@ -2902,29 +2985,29 @@
    *  state — but it is a camera, not a person. */
   RP.worldPrompt = function (state, room, opts) {
     opts = opts || {};
+    var voice = RP.NARRATORS[RP.narrator(state)];
     var you = RP.playerCharacter(room);
     var others = RP.speakableCast(room);
     return [
-      'You are THE WORLD — the narration around the player, not a character in it.',
+      'You are ' + voice.name.toUpperCase() + ' \u2014 the narration around the player, not a character in it.',
       '',
-      'Take what the player just wrote and PLAY IT OUT. If they said they walked outside and looked at the sky, ' +
-      'describe that night — the cold, the light, what the sky is actually doing, what the data in their hands ' +
-      'says — and then let something happen. Never restate their sentence back at them.',
+      voice.dir,
+      '',
       'Write in the PRESENT TENSE and address the player as "you".',
-      you ? 'The player is playing ' + you.name + ' — ' + clip(you.title || you.summary, 160) +
-        '. Never write their speech, their thoughts, or their decisions. Describe what happens AROUND them and what ' +
-        'they can see, hear and feel, and leave every choice to them.'
-        : 'Never write the player\u2019s speech, thoughts or decisions. Describe what happens around them.',
+      you ? 'The player is playing ' + you.name + ' \u2014 ' + clip(you.title || you.summary, 200) +
+        '. Never write their speech, their thoughts or their decisions; describe what happens around them and what '
+        + 'they can see, hear and feel, and leave every choice to them.'
+        : 'Never write the player\u2019s speech, thoughts or decisions.',
       others.length
-        ? 'Other people are here: ' + others.map(function (c) { return c.name; }).join(', ') +
-          '. You may show what they are doing from the outside, but do not write their dialogue — they speak for ' +
-          'themselves on their own turns.'
-        : 'Nobody else is here. That is the point: make the emptiness do work.',
+        ? 'Other people are here: ' + others.map(function (c) { return c.name; }).join(', ')
+          + '. Show them from the outside; they speak for themselves on their own turns.'
+        : '',
       '',
-      'MOVE THE HOUR ALONG. Something should be different by the end of the turn: a sound, an arrival, a change in ' +
-      'the weather or the light, a thing noticed that was not noticed before. Never end on a question, never ask ' +
-      'what the player would like to do, and never summarise what has already happened.',
-      'No dialogue from the player. No stage directions in asterisks — this is narration, write it plainly.',
+      RESOLVE,
+      '',
+      'Never end on a question, never ask what the player would like to do, and never summarise what has already',
+      'happened. Something should be different by the end of the turn.',
+      'No stage directions in asterisks \u2014 this is narration; write it plainly.',
     ].filter(Boolean).join('\n');
   };
 
@@ -2936,8 +3019,10 @@
     if (room.scene) parts.push('THE SCENE\n' + clip(room.scene, 900));
     var worldKeys = RP.keywordBlock(state, opts.recent || RP.historyFor(room, 4).map(function (m) { return m.content; }).join(' '));
     if (worldKeys) parts.push(worldKeys);
-    var keywords = RP.keywordBlock(state, opts.recent || RP.historyFor(room, 4).map(function (m) { return m.content; }).join(' '));
-    if (keywords) parts.push(keywords);
+    var already = RP.continuityBlock(room);
+    if (already) parts.push(already);
+    var asked = RP.askedBlock(room);
+    if (asked) parts.push(asked);
     var knowledge = RP.knowledgeBlock(state, room, opts.archive);
     if (knowledge) parts.push(knowledge);
     var book = RP.bookBlock(state, room, 10);
@@ -2955,7 +3040,9 @@
     }
     var fate = RP.fateBlock(opts.fate);
     if (fate) parts.push(fate);
-    parts.push(RP.lengthBlock((state.settings && state.settings.length) || 'snappy', true).text);
+    // The narrator carries its own length: the Director needs room, the
+    // room itself needs two sentences.
+    parts.push(RP.lengthBlock(RP.NARRATORS[RP.narrator(state)].length, false).text);
     return RP.fitPrompt(parts, opts.budget, protectedFrom);
   };
 
@@ -4433,6 +4520,7 @@
         style: 'novel', voice: 'off', temperature: 0.85, endpoint: '',
         director: 'on',            // let the model decide who speaks next
         length: 'snappy',          // snappy | normal | rich
+        narrator: 'director',      // director | plain | terse | archivist
         world: 'on',               // let the world narrate when nobody else can
         autoplay: 0,               // turns to play on their own before stopping
         book: 'on',                // write the lore book in the background

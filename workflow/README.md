@@ -204,6 +204,13 @@ memory, lore, replay, backups — is documented in
 - **Snappy by default.** A reply-length dial (snappy 25–60 words / normal /
   rich) goes into both the prompt and `max_tokens`, with the world's own
   turns given one band more room than dialogue.
+- **◍ The Director narrates.** Four voices (Director / world / room /
+  archive), the cinematic one by default. Every voice is told to *resolve
+  what the player actually did* — read the notes, show the notes — while
+  whether it goes well stays with the Fate roll. Narration is now in the
+  model's history and the scene's established details are listed back as
+  "already described", which is what stops it re-hanging the same moon every
+  turn.
 - **◍ The world takes a turn.** Star the character you play and the model
   stops speaking as them; when nobody else is in the room the world
   describes the scene in second person and moves the hour along, and the

@@ -649,7 +649,46 @@ reply length** sets the dial, and it goes into the prompt *and* into
 place is the one job that needs the words, and dialogue is the job that does
 not.
 
-## ◍ The world's own turn
+## ◍ The Director — who narrates, and how
+
+The narrator has a voice, chosen in ⚙:
+
+| | | |
+|---|---|---|
+| **◍ The Director** (default) | rich | Cinematic, deadpan, neo-noir. Sensory focus, sound used to build, dramatic irony, and it treats the archive's silliest names with complete seriousness |
+| **◍ The world** | normal | Neutral: what is there, what changes, nothing louder |
+| **▫ The room** | snappy | Two sentences. What happened, what is different |
+| **§ The archive** | normal | Filed narration — dated, named, dry asides |
+
+**It does what you told it.** The rule that makes narration useful is in
+every narrator's prompt:
+
+> *DO THE THING THEY DID. If they read something, invent and show what it
+> actually says — the real words, quoted, specific, relevant. If they search,
+> say what is found, or plainly not found. Never replace their action with
+> weather. You may make it cost them, go wrong, or turn up something they did
+> not want — **but you may not skip it**.*
+
+So reading your notes aloud produces the notes. Whether the night then goes
+well is the **Fate roll's** business, not the narrator's — that is the
+"does what I tell it, but not every time" split.
+
+**It stops repeating itself.** Two things were wrong before: narration was
+never put into the model's history (so every turn re-established the same
+cloak and the same moon, and the place quietly changed from an outpost to a
+cabin), and nothing told it what was already set. Now narration is in the
+history as `Narration: …`, it is remembered like any other turn, and
+`RP.continuityBlock` lists the last narration turns under:
+
+> *ALREADY DESCRIBED — do not describe any of it again, do not rename the
+> place, do not re-dress the player, do not re-hang the moon. Spend this turn
+> on what is NEW.*
+
+**It answers what you asked.** A player turn containing questions — *what am
+I wearing, where am I* — is pulled out and listed, to be answered concretely
+once, in prose, and then left alone.
+
+## The world's own turn
 
 A scene where nobody else is present used to sit there waiting. Now the
 **world** takes the turn: it describes the place, the hour, what moves and

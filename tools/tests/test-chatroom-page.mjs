@@ -663,6 +663,18 @@ check('commentary: finished episodes are kept and can be reopened',
     lastTurn.role === 'world' && Boolean(doc.querySelector('.turn.world')));
   check('card: the roll and any state change sit on the turn, not in their own rows',
     Boolean(doc.querySelector('.metastrip')) && doc.querySelectorAll('.metaline').length === 0);
+  check('narrator: the Director is the voice, on the card and on the rail',
+    /Director/.test($('speakers').textContent) &&
+    /Director/.test((doc.querySelector('.turn.world .who') || {}).textContent || ''));
+  check('narrator: narration is in the history now, so it stops repeating itself', (() => {
+    const r = savedState().rooms.find(x => x.id === roomId);
+    return win.RP.historyFor(r, 10).some(m => /^Narration: /.test(m.content));
+  })());
+  check('director: the brief makes it resolve what you did, and not re-describe the scene', (() => {
+    const r = savedState().rooms.find(x => x.id === roomId);
+    const prompt = win.RP.worldSystem(savedState(), r, {});
+    return /DO THE THING THEY DID/.test(prompt) && /ALREADY DESCRIBED/.test(prompt);
+  })());
   check('world: it never speaks as the player’s character', (() => {
     const prompt = win.RP.worldSystem(savedState(), worldRoom, {});
     return /Never write their speech/.test(prompt) && prompt.includes('address the player as "you"');
@@ -778,8 +790,9 @@ check('commentary: finished episodes are kept and can be reopened',
   check('settings: the sampler and the background model are exposed',
     Boolean($('f_top_p')) && Boolean($('f_top_k')) && Boolean($('f_repeat_penalty')) &&
     Boolean($('f_utilityModel')));
-  check('settings: reply length, the world turn and autoplay are all dials',
+  check('settings: reply length, the narrator, the world turn and autoplay are all dials',
     Boolean($('f_length')) && [...$('f_length').options].length === 3 &&
+    Boolean($('f_narrator')) && [...$('f_narrator').options].length === 4 &&
     Boolean($('f_world')) && Boolean($('f_autoplay')));
   $('f_length').value = 'snappy';
   $('f_context').value = '12';

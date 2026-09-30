@@ -2227,7 +2227,8 @@
       }
       if (m.role === 'world') {
         return '<article class="turn world' + (m.muted ? ' muted' : '') + '">' +
-          '<div class="who"><span class="globe">◍</span><b>The world</b>' +
+          '<div class="who"><span class="globe">' + esc(RP.NARRATORS[RP.narrator(state)].icon) + '</span>' +
+          '<b>' + esc(RP.NARRATORS[RP.narrator(state)].name) + '</b>' +
           '<button class="speak" data-speak="' + i + '" title="Read aloud">▶</button></div>' +
           '<div class="bubble">' + RP.md(RP.textOf(m)) + '</div>' +
           metaStrip(m) +
@@ -2290,7 +2291,8 @@
       '<span class="emptynote">Next:</span>' +
       ((state.settings.world || 'on') === 'off' ? '' :
         '<button class="sp world ' + (r.next === 'world' ? 'on' : '') + '" data-speaker="world" ' +
-        'title="The world describes the scene and moves the hour along">◍ The world</button>') +
+        'title="' + esc(RP.NARRATORS[RP.narrator(state)].blurb) + '">' +
+        esc(RP.NARRATORS[RP.narrator(state)].icon) + ' ' + esc(RP.NARRATORS[RP.narrator(state)].name) + '</button>') +
       r.cast.map(function (c) {
         var mine = r.youPlay === c.id;
         var on = !mine && r.next === c.id;
@@ -3007,7 +3009,8 @@
           changes: changes.lines.slice(0, 6),
         };
         r.messages.push(msg);
-        if (!worldTurn) RP.rememberTurn(state, r, msg);
+        // Narration is remembered too: it is where places get named.
+        RP.rememberTurn(state, r, msg);
         if (r.kind === 'group' && !worldTurn) {
           var after = RP.rotationAfter(RP.speakableCast(r).length ? RP.speakableCast(r) : r.cast, speaker.id);
           r.next = after ? after.id : '';
@@ -3482,7 +3485,12 @@
         return '<option value="' + k + '"' + ((state.settings.length || 'snappy') === k ? ' selected' : '') + '>' +
           esc(RP.LENGTHS[k].name) + ' — ' + esc(RP.LENGTHS[k].words) + '</option>';
       }).join('') + '</select>' +
-      '<label for="f_world">The world\u2019s own turns</label><select id="f_world">' +
+      '<label for="f_narrator">Who narrates?</label><select id="f_narrator">' +
+      Object.keys(RP.NARRATORS).map(function (k) {
+        return '<option value="' + k + '"' + (RP.narrator(state) === k ? ' selected' : '') + '>' +
+          esc(RP.NARRATORS[k].icon + ' ' + RP.NARRATORS[k].name + ' — ' + RP.NARRATORS[k].blurb) + '</option>';
+      }).join('') + '</select>' +
+      '<label for="f_world">Narration turns</label><select id="f_world">' +
       [['on', 'On — when nobody else is here, the world describes the scene and moves the hour'],
        ['off', 'Off — only characters speak']].map(function (o) {
         return '<option value="' + o[0] + '"' + ((state.settings.world || 'on') === o[0] ? ' selected' : '') + '>' + esc(o[1]) + '</option>';
@@ -3561,6 +3569,7 @@
       if (!isNaN(ctx)) state.settings.context = Math.max(4, Math.min(120, ctx));
       state.settings.length = $('f_length').value;
       state.settings.world = $('f_world').value;
+      state.settings.narrator = $('f_narrator').value;
       var auto = parseInt($('f_autoplay').value, 10);
       if (!isNaN(auto)) state.settings.autoplay = Math.max(2, Math.min(20, auto));
       var next = {};

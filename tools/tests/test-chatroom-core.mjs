@@ -1311,15 +1311,15 @@ check('world: a room with somebody else in it does not need narration', (() => {
 })());
 const worldSystem = RP.worldSystem(soloState, soloRoom, {});
 check('world: it is a camera, in the present tense, addressing you as you',
-  worldSystem.includes('THE WORLD') && /present tense/i.test(worldSystem) &&
+  /THE DIRECTOR|THE WORLD/.test(worldSystem) && /PRESENT TENSE/i.test(worldSystem) &&
   worldSystem.includes('address the player as "you"'));
 check('world: it is forbidden from speaking for the player, by name',
-  worldSystem.includes('Sans') && /Never write their speech, their thoughts, or their decisions/.test(worldSystem));
-check('world: it is told to move the hour along and not to ask what you do',
-  /MOVE THE HOUR ALONG/.test(worldSystem) && /never ask/i.test(worldSystem));
+  worldSystem.includes('Sans') && /Never write their speech, their thoughts or their decisions/.test(worldSystem));
+check('world: it is told to leave something changed and not to ask what you do',
+  /Something should be different by the end of the turn/.test(worldSystem) && /never ask/i.test(worldSystem));
 check('world: it still gets the scene, the state sheets and the stage directions',
   worldSystem.includes('THE SCENE') && worldSystem.includes('CHARACTER STATE') && worldSystem.includes('STAGE DIRECTIONS'));
-check('world: and its own length band', worldSystem.includes('LENGTH') && worldSystem.includes('60 to 120 words'));
+check('world: and its own length band', worldSystem.includes('LENGTH') && worldSystem.includes('150 to 260 words'));
 check('director: WORLD is an answer it may give', (() => {
   const group = RP.newRoom([sans, cutters, rebel], {});
   group.messages.push({ id: 'w1', role: 'user', text: 'I wait.', at: 1 });
@@ -1482,10 +1482,50 @@ check('fallback: when nobody has to answer, the world picks it up', (() => {
 })());
 check('fallback: with the world switched off, the turn comes back to you',
   RP.fallbackTurn({ settings: { world: 'off' } }, RP.newRoom([sans], {})) === '');
-check('world: it is told to play the player’s line out, not restate it', (() => {
+check('world: it is told to play the player’s line out, not dodge it', (() => {
   const prompt = RP.worldPrompt(RP.blankState(), RP.newRoom([sans], { youPlay: 'sans' }), {});
-  return /PLAY IT OUT/.test(prompt) && /Never restate their sentence back at them/.test(prompt);
+  return /DO THE THING THEY DID/.test(prompt) && /Never replace their action with weather/.test(prompt) &&
+    /invent and show what it actually says/.test(prompt);
 })());
+
+// ---------- the narrator: the Director, and no repeating itself ----------
+const dirState = RP.blankState();
+const dirRoom = RP.newRoom([sans], { youPlay: 'sans', scene: 'The patio, after midnight.' });
+dirRoom.messages.push(
+  { id: 'n1', role: 'user', text: 'I look down at my sheets and read them aloud. What am I wearing, and where am I?', at: 1 },
+  { id: 'n2', role: 'world', text: 'The air is thin and biting. You stand on the stone patio of an isolated outpost, wrapped in a fur-lined cloak.', at: 2 });
+check('narrator: the Director is the default voice',
+  RP.narrator(dirState) === 'director' && RP.NARRATORS.director.name === 'The Director');
+check('narrator: four voices, each with its own length band',
+  Object.keys(RP.NARRATORS).length === 4 && RP.NARRATORS.director.length === 'rich' &&
+  RP.NARRATORS.terse.length === 'snappy');
+const dirPrompt = RP.worldSystem(dirState, dirRoom, {});
+check('director: the cinematic brief is in the prompt, without film words',
+  dirPrompt.includes('THE DIRECTOR') && /no "cut to"/.test(dirPrompt) &&
+  /SENSORY FOCUS/.test(dirPrompt) && /DRAMATIC IRONY/.test(dirPrompt));
+check('director: it must resolve what the player actually did',
+  /DO THE THING THEY DID/.test(dirPrompt) &&
+  /invent and show what it actually says/.test(dirPrompt) &&
+  /Never replace their action with weather/.test(dirPrompt));
+check('director: it may make it go wrong, but not skip it',
+  /may make it cost them, go wrong/.test(dirPrompt) && /may not skip it/.test(dirPrompt));
+check('continuity: what was already described is named and forbidden',
+  /ALREADY DESCRIBED/.test(dirPrompt) && dirPrompt.includes('isolated outpost') &&
+  /do not re-dress the player/.test(dirPrompt));
+check('continuity: the questions the player asked are answered once',
+  /THE PLAYER ASKED THESE DIRECTLY/.test(dirPrompt) && /What am I wearing/i.test(dirPrompt));
+check('narration: it is in the history now, labelled, so it cannot repeat itself', (() => {
+  const history = RP.historyFor(dirRoom, 10);
+  return history.length === 2 && /^Narration: /.test(history[1].content);
+})());
+check('narration: it counts as a played turn', RP.counter(dirRoom) === 2);
+check('narrator: the terse voice is two sentences, the Director gets room', (() => {
+  const terse = { settings: { narrator: 'terse' } };
+  return /Two sentences at most/.test(RP.worldPrompt(terse, dirRoom, {})) &&
+    /150 to 260 words/.test(dirPrompt);
+})());
+check('narrator: an unknown voice falls back to the Director',
+  RP.narrator({ settings: { narrator: 'nonsense' } }) === 'director');
 
 // ---------- generated pages are in sync with these sources ----------
 let built = true;
