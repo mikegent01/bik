@@ -633,17 +633,57 @@ into this chat** takes:
 A pasted `waluipedia-chatroom-bundle` is recognised too and imported as
 chats, so a whole exported conversation can be dropped straight back in.
 
+## Editing what has already been said
+
+Every line in a chat carries its own controls, next to 👍 👎 📌 🧠 ↻:
+
+| | |
+|---|---|
+| ✏️ **Edit** | rewrite the line. The edit replaces it everywhere — on screen, in the model's history, in exports — and the old swipe takes are dropped, because they are no longer true |
+| 👁 / 🙈 **Mute** | keep it on screen, take it out of the model's head. Muted turns are greyed and excluded from the history the model is sent |
+| 🗑 **Delete** | gone, after a confirm |
+
+The chat's **context window** — how many recent turns the model may see — is
+in ⚙ Settings (default 24) and can be overridden per room. That, plus muting,
+is how you stop an imported 300-turn story from dragging on every reply.
+
+## Bringing somebody in mid-scene
+
+**＋ New** on the speaker rail:
+
+- **From the archive** — pick who walks in; they join the cast with a state
+  sheet of their own.
+- **Invent one** — a name, a job, a face. Kept in `state.newChars`, playable
+  again later, described rather than drawn.
+- **From a character card** — `.png` or `.json`, and they say their greeting.
+- **Let the model choose** — files a scene note and asks for the next turn;
+  the model has `[[NEW: …]]` and `[[ENTER: …]]` for exactly this, so it names
+  them, describes them, and they stay in the scene.
+
 ## Catching the lore book up on an import
 
-A long import is a lot of unread turns, and filing them costs one small model
-call per stretch — so the page **says what it will cost before spending it**:
+A long import is a lot of unread turns. Reading every three-turn stretch of a
+300-turn story would be a hundred calls, so the default is the **smart read**:
+
+- **bigger stretches** — the chunk size is worked out from the backlog and
+  the budget (30 turns a call rather than 3),
+- **the end of the chat is always read**, because that is what the next turn
+  follows on from,
+- **the rest of the budget goes on the parts that establish something** —
+  names, places, numbers, things said out loud, verbs like *signed*, *named*,
+  *burned* — and ordinary back-and-forth is skipped.
+
+313 turns: 104 calls the naive way, **6** the smart way (covering the densest
+163 turns plus the live end), or 12 to cover every single turn. The dialog
+prices both, and the number of calls **and the session budget are editable
+right there**:
 
 ```
 There are 42 unfiled turns in this chat. Reading them for places, people,
 events and a diary would take about 14 small calls — one at a time, never
 alongside a turn you are playing. You have 38 left in this session's budget.
 
-            [ Not now ]  [ File the last 4 ]  [ File all 14 ]
+            [ Not now ]  [ Read everything (104) ]  [ Smart read ]
 ```
 
 The jobs go through the same queue as live filing (one at a time, capped,

@@ -1198,6 +1198,82 @@ check('taste: excerpts from the people in this room come first', (() => {
   return block.includes('somebody else entirely');
 })());
 
+// ---------- editing what has already been said ----------
+const editRoom = RP.newRoom([sans, cutters], {});
+editRoom.messages.push(
+  { id: 'e1', role: 'user', text: 'I say the first thing.', at: 1 },
+  { id: 'e2', role: 'char', charId: 'sans', text: 'A reply I will regret.', at: 2, alts: ['A reply I will regret.', 'another take'], alt: 0 },
+  { id: 'e3', role: 'char', charId: 'timber_gang', text: 'And a third.', at: 3 });
+check('edit: a line can be rewritten, and the old takes go with it', (() => {
+  RP.editMessage(editRoom, 'e2', 'A reply I stand behind.');
+  const msg = RP.findMessage(editRoom, 'e2');
+  return msg.text === 'A reply I stand behind.' && msg.alts.length === 1 && msg.edited > 0 &&
+    RP.textOf(msg) === 'A reply I stand behind.';
+})());
+check('mute: a muted line stays on screen and leaves the model’s history', (() => {
+  RP.muteMessage(editRoom, 'e2', true);
+  const history = RP.historyFor(editRoom, 20);
+  return RP.findMessage(editRoom, 'e2').muted === true &&
+    editRoom.messages.length === 3 &&
+    !history.some(m => /stand behind/.test(m.content)) &&
+    history.some(m => /first thing/.test(m.content));
+})());
+check('mute: unmuting puts it back', (() => {
+  RP.muteMessage(editRoom, 'e2', false);
+  return RP.historyFor(editRoom, 20).some(m => /stand behind/.test(m.content));
+})());
+check('delete: one line at a time', RP.deleteMessage(editRoom, 'e3') === 1 && editRoom.messages.length === 2);
+check('delete: a whole import can be taken back out', (() => {
+  const undo = RP.newRoom([sans], {});
+  undo.messages.push({ id: 'k', role: 'user', text: 'mine', at: 1 });
+  RP.appendTranscript(undo, [{ who: 'Sans', text: 'imported one' }, { who: '', text: 'imported two' }], { divider: true });
+  undo.bookAt = 3;
+  const dropped = RP.deleteMessages(undo, m => m.imported);
+  return dropped === 3 && undo.messages.length === 1 && undo.bookAt <= 1;
+})());
+check('context: a room can be told how far back the model may look', (() => {
+  const long = RP.newRoom([sans], { contextLimit: 6 });
+  for (let i = 0; i < 30; i++) long.messages.push({ id: 'c' + i, role: i % 2 ? 'char' : 'user', charId: 'sans', text: 'turn ' + i, at: i });
+  return RP.contextLimit(long) === 6 && RP.contextLimit(RP.newRoom([sans], {}), 24) === 24 &&
+    RP.historyFor(long, RP.contextLimit(long)).length === 6;
+})());
+
+// ---------- the smart budget ----------
+const bigRoom = RP.newRoom([sans], {});
+const bigTurns = [];
+for (let i = 0; i < 300; i++) {
+  bigTurns.push(i % 40 === 0
+    ? { who: 'Sans', text: 'They named the place Ledger Row, signed the paper at 28 past, and burned the copy.' }
+    : { who: i % 2 ? 'Sans' : '', text: 'A line of ordinary back and forth, number ' + i + '.' });
+}
+RP.appendTranscript(bigRoom, bigTurns, {});
+check('smart: a 300-turn import is not 100 calls', (() => {
+  const plan = RP.smartBacklog(bigRoom, { maxCalls: 6 });
+  return plan.jobs.length === 6 && plan.chunk >= 20 && plan.covered > 100;
+})());
+check('smart: it always reads the end of the chat, because that is what play follows', (() => {
+  const plan = RP.smartBacklog(bigRoom, { maxCalls: 4 });
+  const last = plan.jobs[plan.jobs.length - 1];
+  return last.from + last.turns.length >= 299;
+})());
+check('smart: the stretches it keeps are the ones that establish things', (() => {
+  const plan = RP.smartBacklog(bigRoom, { maxCalls: 4 });
+  const dense = plan.jobs.filter(job => job.turns.some(t => /Ledger Row/.test(t.text)));
+  return dense.length >= 1;
+})());
+check('smart: the jobs come back in order, so the diary reads forwards', (() => {
+  const plan = RP.smartBacklog(bigRoom, { maxCalls: 6 });
+  return plan.jobs.every((job, i) => i === 0 || job.from > plan.jobs[i - 1].from);
+})());
+check('smart: a bigger budget covers everything', (() => {
+  const plan = RP.smartBacklog(bigRoom, { maxCalls: 20 });
+  return plan.skipped === 0 && plan.covered === plan.pending;
+})());
+check('smart: an already-filed chat plans nothing', (() => {
+  bigRoom.bookAt = bigRoom.messages.filter(RP.visible).length;
+  return RP.smartBacklog(bigRoom, { maxCalls: 6 }).jobs.length === 0;
+})());
+
 // ---------- generated pages are in sync with these sources ----------
 let built = true;
 try {

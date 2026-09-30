@@ -192,6 +192,19 @@ memory, lore, replay, backups — is documented in
   writes the card into their own filed portrait, so the file is a picture and
   a card at once; the archive's fields ride along under
   `extensions.waluipedia`.
+- **Every line is editable.** ✏️ rewrite, 👁 mute (on screen, out of the
+  model's head), 🗑 delete — plus a per-room context window, so an imported
+  300-turn story does not drag on every reply.
+- **＋ New on the speaker rail** brings somebody in mid-scene: from the
+  archive, invented on the spot, from a character card, or by asking the
+  model to write them in.
+- **Pick the model.** ⚙ lists what the endpoint has loaded and lets you
+  choose; the choice is saved with the endpoint.
+- **A smart filing budget.** Rather than one call per three turns, the
+  backlog is read in bigger stretches, always including the end of the chat,
+  spending the rest on the parts that actually establish something. 313 turns
+  costs 6 calls instead of 104, and the dialog lets you change both the call
+  count and the session budget.
 - **LM Studio without this server.** The page detects an OpenAI-style
   endpoint (`…/v1`) and calls `\/chat/completions` directly, so LM Studio on
   127.0.0.1:1234 works on its own — ⚙ has presets for both, a Test button,

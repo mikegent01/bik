@@ -343,6 +343,9 @@
       statePreset: opts.statePreset || 'rpg',
       states: {},
       mechanics: opts.mechanics === undefined ? 'on' : opts.mechanics,
+      // How far back the model may look in this room; 0 means "use the
+      // global setting".
+      contextLimit: Number(opts.contextLimit || 0),
       sequelOf: String(opts.sequelOf || ''),
       canon: String(opts.canon || ''),
       sequelCount: 0,
@@ -380,7 +383,11 @@
    *  page's own failure notices are never sent: the model sees only play. */
   RP.historyFor = function (room, limit) {
     var group = room && room.kind === 'group';
-    var out = (room && room.messages ? room.messages : []).filter(visible).map(function (m) {
+    // A muted turn stays on screen and stays out of the model's head: that
+    // is how you take something back without deleting it.
+    var out = (room && room.messages ? room.messages : []).filter(function (m) {
+      return visible(m) && !m.muted;
+    }).map(function (m) {
       if (m.role === 'user') return { role: 'user', content: RP.textOf(m) };
       var name = '';
       if (group) {
@@ -2692,6 +2699,116 @@
     };
   };
 
+
+
+  /* ------------------------------------------------------------------ *
+   * editing what has already been said
+   *
+   * Everything in a chat is the reader's to change: a line can be edited,
+   * muted (left on screen, taken out of the model's head) or deleted
+   * outright, and the room can be told how far back the model may look.
+   * ------------------------------------------------------------------ */
+
+  RP.findMessage = function (room, id) {
+    return ((room && room.messages) || []).filter(function (m) { return m.id === id; })[0] || null;
+  };
+
+  /** Rewrite a turn. The edited text becomes the take on screen; the
+   *  alternatives it had are dropped, because they are no longer true. */
+  RP.editMessage = function (room, id, text) {
+    var msg = RP.findMessage(room, id);
+    if (!msg) return null;
+    msg.text = String(text);
+    msg.alts = [msg.text];
+    msg.alt = 0;
+    msg.edited = Date.now();
+    room.updated = Date.now();
+    return msg;
+  };
+
+  /** Keep it on screen, keep it out of the prompt. */
+  RP.muteMessage = function (room, id, muted) {
+    var msg = RP.findMessage(room, id);
+    if (!msg) return null;
+    msg.muted = muted === undefined ? !msg.muted : Boolean(muted);
+    room.updated = Date.now();
+    return msg;
+  };
+
+  RP.deleteMessage = function (room, id) {
+    var before = ((room && room.messages) || []).length;
+    room.messages = (room.messages || []).filter(function (m) { return m.id !== id; });
+    room.updated = Date.now();
+    return before - room.messages.length;
+  };
+
+  /** Drop a run of turns — what an import leaves behind when you decide
+   *  you did not want it after all. */
+  RP.deleteMessages = function (room, test) {
+    var before = (room.messages || []).length;
+    room.messages = (room.messages || []).filter(function (m) { return !test(m); });
+    room.bookAt = Math.min(Number(room.bookAt || 0), (room.messages || []).filter(visible).length);
+    room.updated = Date.now();
+    return before - room.messages.length;
+  };
+
+  /** How much of the chat the model is allowed to see. */
+  RP.contextLimit = function (room, fallback) {
+    var n = Number((room && room.contextLimit) || 0);
+    return n > 0 ? n : (fallback || 24);
+  };
+
+  /* ---- smart filing: a long import does not need 104 calls ---- */
+
+  // Words that mean a turn is establishing something, rather than banter.
+  var DENSE = /\b(named?|called|signed|filed|dated|paid|killed|burned|stole|built|opened|closed|arrived|left|died|swore|agreed|refused|carried|found)\b/i;
+
+  function chunkScore(turns) {
+    var text = turns.map(function (t) { return t.text || ''; }).join(' ');
+    var score = 0;
+    score += (text.match(/\b[A-Z][a-z]{3,}\b/g) || []).length;          // names and places
+    score += (text.match(/\b\d{1,4}\b/g) || []).length * 0.5;           // dates, counts, money
+    score += (text.match(/"|“/g) || []).length * 0.3;                   // things said out loud
+    if (DENSE.test(text)) score += 6;
+    return score / Math.max(1, turns.length / 4);
+  }
+
+  /** Plan a catch-up that fits a budget. Rather than reading every stretch
+   *  of a 300-turn import, it reads BIGGER stretches, keeps the end of the
+   *  chat (which is what the next turn follows on from) and spends what is
+   *  left on the densest parts of the middle. */
+  RP.smartBacklog = function (room, opts) {
+    opts = opts || {};
+    var maxCalls = Math.max(1, Number(opts.maxCalls || 6));
+    var turns = (room.messages || []).filter(visible);
+    var from = Number(room.bookAt || 0);
+    var pending = turns.slice(from);
+    if (!pending.length) return { jobs: [], chunk: 0, covered: 0, pending: 0 };
+    // One chunk per call, sized so the whole backlog is covered — capped so
+    // a chunk still fits a small model's window.
+    var chunk = Math.min(Number(opts.maxChunk || 30), Math.max(Number(opts.minChunk || 6), Math.ceil(pending.length / maxCalls)));
+    var slices = [];
+    for (var at = 0; at < pending.length; at += chunk) {
+      slices.push({ from: from + at, turns: pending.slice(at, at + chunk) });
+    }
+    if (slices.length <= maxCalls) {
+      return { jobs: slices, chunk: chunk, covered: pending.length, pending: pending.length, skipped: 0 };
+    }
+    // Too many even then: keep the last two (the live end of the story) and
+    // pick the densest of the rest.
+    var tail = slices.slice(-2);
+    var rest = slices.slice(0, -2).map(function (slice) {
+      return { slice: slice, score: chunkScore(slice.turns) };
+    }).sort(function (a, b) { return b.score - a.score; })
+      .slice(0, Math.max(0, maxCalls - tail.length))
+      .map(function (x) { return x.slice; });
+    var picked = rest.concat(tail).sort(function (a, b) { return a.from - b.from; });
+    var covered = picked.reduce(function (n, slice) { return n + slice.turns.length; }, 0);
+    return {
+      jobs: picked, chunk: chunk, covered: covered, pending: pending.length,
+      skipped: pending.length - covered,
+    };
+  };
 
   /* ------------------------------------------------------------------ *
    * taste — 👍 and 👎 are training data, not decoration

@@ -261,6 +261,12 @@ a { color: inherit; }
 .statebar .flag.item { background: #f1f0e9; color: #6b6a5c; }
 .statebar .flag.note { background: var(--panel2); color: var(--muted); }
 
+/* An edited, muted or imported line still reads as part of the chat, but
+   says what it is. */
+.turn.muted { opacity: .55; }
+.turn.muted .bubble { border-left: 3px solid var(--muted); padding-left: 10px; }
+.turn.imported .who b::after { content: ' · imported'; color: var(--muted); font-weight: 400; font-size: 11px; }
+
 .statelog { max-width: 760px; margin: 0 auto 16px; display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; }
 .statelog.fate span.roll { background: #f4efe2; border-color: #e0d3b0; color: #7a6320; font-weight: 600; }
 .cp-desc.invented { border-top: 1px dashed var(--line); margin-top: 8px; padding-top: 8px; font-size: 12.5px; }

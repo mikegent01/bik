@@ -478,8 +478,9 @@ check('commentary: finished episodes are kept and can be reopened',
     withStory.messages.some(m => m.role === 'scene' && /imported turns from an old episode/.test(m.text || '')));
   check('import: the imported speakers are matched to the cast',
     withStory.messages.some(m => m.imported && m.role === 'char' && /rolling/.test(m.text)));
-  check('import: it offers to file the backlog, and says what it will cost',
-    !$('modalBack').hidden && /unfiled turns/.test($('modal').textContent) && /small calls/.test($('modal').textContent));
+  check('import: it offers to file the backlog, prices both ways, and lets the budget be changed',
+    !$('modalBack').hidden && /unfiled turns/.test($('modal').textContent) &&
+    /smart read/i.test($('modal').textContent) && Boolean($('f_calls')) && Boolean($('f_budget')));
   $('mOk').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
   const filed = await until('the backlog to be filed', () =>
     ((savedState().book || {}).entries || []).some(e => e.roomId === roomId), 60);
@@ -578,6 +579,82 @@ check('commentary: finished episodes are kept and can be reopened',
     const png = new Uint8Array([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a, 0, 0, 0, 0, 73, 69, 78, 68, 0, 0, 0, 0]);
     return RP.sniffImport(png).kind === 'png-plain' && RP.sniffImport(asBytes('{"half')).kind === 'json-broken';
   })());
+}
+
+// ---- the reader can edit, mute and delete individual lines ----
+{
+  doc.querySelector('[data-room]').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+  const roomId = savedState().active;
+  const before = savedState().rooms.find(x => x.id === roomId).messages.length;
+  check('lines: every reply carries edit, mute and delete',
+    doc.querySelectorAll('[data-edit]').length > 0 &&
+    doc.querySelectorAll('[data-mute]').length > 0 &&
+    doc.querySelectorAll('[data-drop]').length > 0);
+  doc.querySelector('[data-mute]').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+  await wait(150);
+  check('lines: muting keeps it on screen and takes it out of the model’s history', (() => {
+    const r = savedState().rooms.find(x => x.id === roomId);
+    const muted = r.messages.find(m => m.muted);
+    return Boolean(muted) && r.messages.length === before &&
+      Boolean(doc.querySelector('.turn.muted')) &&
+      !win.RP.historyFor(r, 200).some(m => m.content.includes(win.RP.textOf(muted)));
+  })());
+  doc.querySelector('[data-edit]').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+  $('f_text').value = 'Rewritten by hand.';
+  $('mOk').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+  await wait(150);
+  check('lines: editing replaces the text and drops the old takes', (() => {
+    const r = savedState().rooms.find(x => x.id === roomId);
+    const edited = r.messages.find(m => m.text === 'Rewritten by hand.');
+    return Boolean(edited) && edited.alts.length === 1 && edited.edited > 0;
+  })());
+  doc.querySelector('[data-drop]').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+  check('lines: deleting asks first', !$('modalBack').hidden && /Delete this line/.test($('modal').textContent));
+  $('mOk').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+  await wait(150);
+  check('lines: and then it is gone',
+    savedState().rooms.find(x => x.id === roomId).messages.length === before - 1);
+
+  // ---- bringing somebody in mid-scene ----
+  check('roster: the rail has a ＋ New button', Boolean($('qaAdd')));
+  $('qaAdd').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+  check('roster: it offers the archive, an invention, a card, or letting the model do it',
+    doc.querySelectorAll('[data-pick]').length === 4);
+  [...doc.querySelectorAll('[data-pick]')][1].dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+  $('f_name').value = 'Marguerite Oyle';
+  $('f_role').value = 'the night archivist';
+  $('f_look').value = 'wiry, sixty, ink to the elbows';
+  $('mOk').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+  await wait(200);
+  check('roster: an invented character joins the scene with a sheet and is kept', (() => {
+    const s = savedState();
+    const r = s.rooms.find(x => x.id === roomId);
+    return r.cast.some(c => c.name === 'Marguerite Oyle') &&
+      Object.values(r.states).some(x => x.name === 'Marguerite Oyle') &&
+      (s.newChars || []).some(c => c.name === 'Marguerite Oyle') &&
+      s.log.some(e => e.kind === 'roster' && /Marguerite/.test(e.text));
+  })());
+  $('homeBtn').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+}
+
+// ---- choosing the model, and how far back it looks ----
+{
+  $('settingsBtn').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+  $('f_endpoint').value = `http://127.0.0.1:${MOCK_PORT}/v1`;
+  $('setModels').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+  const listedModels = await until('the model list', () => [...$('f_modelPick').options].some(o => o.value), 40);
+  check('models: the endpoint’s models are listed and selectable',
+    listedModels && [...$('f_modelPick').options].some(o => o.value === 'mock-model'));
+  $('f_modelPick').value = 'mock-model';
+  $('f_modelPick').dispatchEvent(new win.Event('change', { bubbles: true }));
+  check('models: picking one fills the model box', $('f_model').value === 'mock-model');
+  check('models: the context window is editable', Boolean($('f_context')) && Number($('f_context').value) >= 4);
+  $('f_context').value = '12';
+  $('f_endpoint').value = `http://127.0.0.1:${SERVER_PORT}/api/roleplay`;
+  $('mOk').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+  await wait(200);
+  check('models: the choice is saved',
+    savedState().settings.model === 'mock-model' && savedState().settings.context === 12);
 }
 
 // ---- saving to disk, so a cleared cache is not the end of it ----

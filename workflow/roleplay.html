@@ -287,6 +287,12 @@ a { color: inherit; }
 .statebar .flag.item { background: #f1f0e9; color: #6b6a5c; }
 .statebar .flag.note { background: var(--panel2); color: var(--muted); }
 
+/* An edited, muted or imported line still reads as part of the chat, but
+   says what it is. */
+.turn.muted { opacity: .55; }
+.turn.muted .bubble { border-left: 3px solid var(--muted); padding-left: 10px; }
+.turn.imported .who b::after { content: ' · imported'; color: var(--muted); font-weight: 400; font-size: 11px; }
+
 .statelog { max-width: 760px; margin: 0 auto 16px; display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; }
 .statelog.fate span.roll { background: #f4efe2; border-color: #e0d3b0; color: #7a6320; font-weight: 600; }
 .cp-desc.invented { border-top: 1px dashed var(--line); margin-top: 8px; padding-top: 8px; font-size: 12.5px; }
@@ -939,6 +945,9 @@ window.CHATROOM_CONFIG = {
       statePreset: opts.statePreset || 'rpg',
       states: {},
       mechanics: opts.mechanics === undefined ? 'on' : opts.mechanics,
+      // How far back the model may look in this room; 0 means "use the
+      // global setting".
+      contextLimit: Number(opts.contextLimit || 0),
       sequelOf: String(opts.sequelOf || ''),
       canon: String(opts.canon || ''),
       sequelCount: 0,
@@ -976,7 +985,11 @@ window.CHATROOM_CONFIG = {
    *  page's own failure notices are never sent: the model sees only play. */
   RP.historyFor = function (room, limit) {
     var group = room && room.kind === 'group';
-    var out = (room && room.messages ? room.messages : []).filter(visible).map(function (m) {
+    // A muted turn stays on screen and stays out of the model's head: that
+    // is how you take something back without deleting it.
+    var out = (room && room.messages ? room.messages : []).filter(function (m) {
+      return visible(m) && !m.muted;
+    }).map(function (m) {
       if (m.role === 'user') return { role: 'user', content: RP.textOf(m) };
       var name = '';
       if (group) {
@@ -3288,6 +3301,116 @@ window.CHATROOM_CONFIG = {
     };
   };
 
+
+
+  /* ------------------------------------------------------------------ *
+   * editing what has already been said
+   *
+   * Everything in a chat is the reader's to change: a line can be edited,
+   * muted (left on screen, taken out of the model's head) or deleted
+   * outright, and the room can be told how far back the model may look.
+   * ------------------------------------------------------------------ */
+
+  RP.findMessage = function (room, id) {
+    return ((room && room.messages) || []).filter(function (m) { return m.id === id; })[0] || null;
+  };
+
+  /** Rewrite a turn. The edited text becomes the take on screen; the
+   *  alternatives it had are dropped, because they are no longer true. */
+  RP.editMessage = function (room, id, text) {
+    var msg = RP.findMessage(room, id);
+    if (!msg) return null;
+    msg.text = String(text);
+    msg.alts = [msg.text];
+    msg.alt = 0;
+    msg.edited = Date.now();
+    room.updated = Date.now();
+    return msg;
+  };
+
+  /** Keep it on screen, keep it out of the prompt. */
+  RP.muteMessage = function (room, id, muted) {
+    var msg = RP.findMessage(room, id);
+    if (!msg) return null;
+    msg.muted = muted === undefined ? !msg.muted : Boolean(muted);
+    room.updated = Date.now();
+    return msg;
+  };
+
+  RP.deleteMessage = function (room, id) {
+    var before = ((room && room.messages) || []).length;
+    room.messages = (room.messages || []).filter(function (m) { return m.id !== id; });
+    room.updated = Date.now();
+    return before - room.messages.length;
+  };
+
+  /** Drop a run of turns — what an import leaves behind when you decide
+   *  you did not want it after all. */
+  RP.deleteMessages = function (room, test) {
+    var before = (room.messages || []).length;
+    room.messages = (room.messages || []).filter(function (m) { return !test(m); });
+    room.bookAt = Math.min(Number(room.bookAt || 0), (room.messages || []).filter(visible).length);
+    room.updated = Date.now();
+    return before - room.messages.length;
+  };
+
+  /** How much of the chat the model is allowed to see. */
+  RP.contextLimit = function (room, fallback) {
+    var n = Number((room && room.contextLimit) || 0);
+    return n > 0 ? n : (fallback || 24);
+  };
+
+  /* ---- smart filing: a long import does not need 104 calls ---- */
+
+  // Words that mean a turn is establishing something, rather than banter.
+  var DENSE = /\b(named?|called|signed|filed|dated|paid|killed|burned|stole|built|opened|closed|arrived|left|died|swore|agreed|refused|carried|found)\b/i;
+
+  function chunkScore(turns) {
+    var text = turns.map(function (t) { return t.text || ''; }).join(' ');
+    var score = 0;
+    score += (text.match(/\b[A-Z][a-z]{3,}\b/g) || []).length;          // names and places
+    score += (text.match(/\b\d{1,4}\b/g) || []).length * 0.5;           // dates, counts, money
+    score += (text.match(/"|“/g) || []).length * 0.3;                   // things said out loud
+    if (DENSE.test(text)) score += 6;
+    return score / Math.max(1, turns.length / 4);
+  }
+
+  /** Plan a catch-up that fits a budget. Rather than reading every stretch
+   *  of a 300-turn import, it reads BIGGER stretches, keeps the end of the
+   *  chat (which is what the next turn follows on from) and spends what is
+   *  left on the densest parts of the middle. */
+  RP.smartBacklog = function (room, opts) {
+    opts = opts || {};
+    var maxCalls = Math.max(1, Number(opts.maxCalls || 6));
+    var turns = (room.messages || []).filter(visible);
+    var from = Number(room.bookAt || 0);
+    var pending = turns.slice(from);
+    if (!pending.length) return { jobs: [], chunk: 0, covered: 0, pending: 0 };
+    // One chunk per call, sized so the whole backlog is covered — capped so
+    // a chunk still fits a small model's window.
+    var chunk = Math.min(Number(opts.maxChunk || 30), Math.max(Number(opts.minChunk || 6), Math.ceil(pending.length / maxCalls)));
+    var slices = [];
+    for (var at = 0; at < pending.length; at += chunk) {
+      slices.push({ from: from + at, turns: pending.slice(at, at + chunk) });
+    }
+    if (slices.length <= maxCalls) {
+      return { jobs: slices, chunk: chunk, covered: pending.length, pending: pending.length, skipped: 0 };
+    }
+    // Too many even then: keep the last two (the live end of the story) and
+    // pick the densest of the rest.
+    var tail = slices.slice(-2);
+    var rest = slices.slice(0, -2).map(function (slice) {
+      return { slice: slice, score: chunkScore(slice.turns) };
+    }).sort(function (a, b) { return b.score - a.score; })
+      .slice(0, Math.max(0, maxCalls - tail.length))
+      .map(function (x) { return x.slice; });
+    var picked = rest.concat(tail).sort(function (a, b) { return a.from - b.from; });
+    var covered = picked.reduce(function (n, slice) { return n + slice.turns.length; }, 0);
+    return {
+      jobs: picked, chunk: chunk, covered: covered, pending: pending.length,
+      skipped: pending.length - covered,
+    };
+  };
 
   /* ------------------------------------------------------------------ *
    * taste — 👍 and 👎 are training data, not decoration
@@ -6536,40 +6659,72 @@ window.CHATROOM_CONFIG = {
     });
   }
 
-  /** After an import there is a backlog. Say what it would cost before
-   *  spending it — a long story is a lot of small calls. */
+  /** After an import there is a backlog. Reading every stretch of a
+   *  300-turn story is a hundred calls nobody wants to spend, so the
+   *  default is the smart plan: bigger stretches, the live end of the chat
+   *  always read, and the rest of the budget spent on the densest parts. */
   function offerCatchUp(r) {
     var plan = RP.backlogFor(r, state.settings.bookEvery);
     if ((state.settings.book || 'on') === 'off' || plan.calls < 2) return;
-    var budget = RP.bookBudgetLeft(state);
-    var calls = Math.min(plan.calls, budget, 20);
-    openModal('<h3>File this into the lore book?</h3>' +
-      '<p class="sub">There are <b>' + plan.pending + ' unfiled turns</b> in this chat. Reading them for places, ' +
-      'people, events and a diary would take about <b>' + plan.calls + ' small calls</b> — one at a time, never ' +
-      'alongside a turn you are playing. You have ' + budget + ' left in this session’s budget.</p>' +
-      '<p class="sub">Doing it now means the characters remember the imported story. Skipping it costs nothing: ' +
-      'the chat still plays, and new turns get filed as usual.</p>' +
-      '<div class="actions"><button class="pill" id="mCancel">Not now</button>' +
-      '<button class="pill" id="mSome">File the last ' + Math.min(4, calls) + '</button>' +
-      '<button class="pill primary" id="mOk">File all ' + calls + '</button></div>');
-    $('mCancel').onclick = closeModal;
-    $('mSome').onclick = function () { closeModal(); catchUp(r, Math.min(4, calls), true); };
-    $('mOk').onclick = function () { closeModal(); catchUp(r, calls, false); };
+    catchUpDialog(r);
   }
 
-  /** Queue the backlog. The worker already runs one job at a time and stops
-   *  at the budget, so this only has to fill the queue in order. */
-  function catchUp(r, calls, fromTheEnd) {
-    var jobs = RP.backlogJobs(r, state.settings.bookEvery, 40);
-    if (fromTheEnd) jobs = jobs.slice(-calls); else jobs = jobs.slice(0, calls);
-    if (!jobs.length) { toast('Nothing to file.'); return; }
+  function catchUpDialog(r) {
+    var plan = RP.backlogFor(r, state.settings.bookEvery);
+    var budget = RP.bookBudgetLeft(state);
+    var smartCalls = Math.max(1, Math.min(Number(state.settings.smartCalls || 6), budget || 6));
+    var smart = RP.smartBacklog(r, { maxCalls: smartCalls });
+    openModal('<h3>File this into the lore book?</h3>' +
+      '<p class="sub">There are <b>' + plan.pending + ' unfiled turns</b> here. Reading every short stretch would be ' +
+      '<b>' + plan.calls + ' calls</b> — which is silly for an import.</p>' +
+      '<p class="sub"><b>The smart read</b> does it in <b>' + smart.jobs.length + '</b>: bigger stretches of ' +
+      smart.chunk + ' turns, the end of the chat always read (that is what the next turn follows on from), and the ' +
+      'rest of the budget spent on the parts that actually establish something — names, places, numbers, things ' +
+      'said out loud. It covers <b>' + smart.covered + '</b> of ' + smart.pending + ' turns' +
+      (smart.skipped ? ', skipping ' + smart.skipped + ' of small talk' : '') + '.</p>' +
+      '<label for="f_calls">Calls to spend</label>' +
+      '<input type="number" id="f_calls" min="1" max="60" value="' + smart.jobs.length + '">' +
+      '<label for="f_budget">Session budget (' + budget + ' left of ' + (state.settings.bookBudget || RP.BOOK_BUDGET) + ')</label>' +
+      '<input type="number" id="f_budget" min="0" max="400" value="' + (state.settings.bookBudget || RP.BOOK_BUDGET) + '">' +
+      '<div class="actions"><button class="pill" id="mCancel">Not now</button>' +
+      '<button class="pill" id="mAll">Read everything (' + plan.calls + ')</button>' +
+      '<button class="pill primary" id="mOk">Smart read</button></div>');
+    $('mCancel').onclick = closeModal;
+    function budgetFromForm() {
+      var b = parseInt($('f_budget').value, 10);
+      if (!isNaN(b)) state.settings.bookBudget = Math.max(0, Math.min(400, b));
+    }
+    $('mOk').onclick = function () {
+      budgetFromForm();
+      var calls = Math.max(1, parseInt($('f_calls').value, 10) || smart.jobs.length);
+      state.settings.smartCalls = calls;
+      closeModal();
+      catchUp(r, RP.smartBacklog(r, { maxCalls: calls }).jobs, 'smart');
+    };
+    $('mAll').onclick = function () {
+      budgetFromForm();
+      closeModal();
+      catchUp(r, RP.backlogJobs(r, state.settings.bookEvery, 200), 'every stretch');
+    };
+  }
+
+  /** Queue whichever plan was chosen. The worker still runs one at a time
+   *  and still stops at the budget. */
+  function catchUp(r, jobs, how) {
+    if (!jobs || !jobs.length) { toast('Nothing to file.'); return; }
+    var budget = RP.bookBudgetLeft(state);
+    if (jobs.length > budget) {
+      jobs = jobs.slice(0, Math.max(1, budget));
+      toast('Budget allows ' + jobs.length + ' — raise it in ⚙ Filing if you want the rest.');
+    }
     jobs.forEach(function (job) {
       RP.queuePush(state, {
-        key: job.key, kind: 'extract', roomId: r.id, roomTitle: r.title, when: roomDate(r),
+        key: job.key || (r.id + ':catchup:' + job.from), kind: 'extract',
+        roomId: r.id, roomTitle: r.title, when: roomDate(r),
         turns: job.turns.map(function (m) {
           return {
-            who: m.role === 'user' ? (state.user.name || 'You') : charOf(r, m.charId).name,
-            text: RP.textOf(m),
+            who: m.who || (m.role === 'user' ? (state.user.name || 'You') : charOf(r, m.charId).name),
+            text: m.text !== undefined && m.role === undefined ? m.text : RP.textOf(m),
           };
         }),
       });
@@ -6578,7 +6733,7 @@ window.CHATROOM_CONFIG = {
     // again as the chat carries on.
     r.bookAt = (r.messages || []).filter(RP.visible).length;
     save(); render();
-    toast('📓 Filing ' + jobs.length + ' stretch' + (jobs.length === 1 ? '' : 'es') + ' in the background.');
+    toast('📓 Filing ' + jobs.length + ' stretch' + (jobs.length === 1 ? '' : 'es') + ' (' + how + ') in the background.');
     pumpBook();
   }
 
@@ -6755,7 +6910,8 @@ window.CHATROOM_CONFIG = {
       var who = mine ? (state.user.name || 'You') : charOf(r, m.charId).name;
       var swipes = (m.alts && m.alts.length > 1)
         ? '<span class="swipe"><button data-swipe="-1" data-i="' + i + '">‹</button>' + ((m.alt || 0) + 1) + ' / ' + m.alts.length + '<button data-swipe="1" data-i="' + i + '">›</button></span>' : '';
-      return '<article class="turn ' + (mine ? 'user' : 'char') + (m.error ? ' err' : '') + '">' +
+      return '<article class="turn ' + (mine ? 'user' : 'char') + (m.error ? ' err' : '') +
+        (m.muted ? ' muted' : '') + (m.imported ? ' imported' : '') + '">' +
         '<div class="who">' + (mine ? userAvatar(24) : avatar(charOf(r, m.charId), 24)) +
         '<b>' + esc(who) + '</b>' + (mine ? '' : '<span class="badge">archive</span>') +
         (mine ? '' : '<button class="speak" data-speak="' + i + '" title="Read aloud">▶</button>') + '</div>' +
@@ -6767,6 +6923,11 @@ window.CHATROOM_CONFIG = {
           '<button class="' + (m.react === 'down' ? 'on' : '') + '" data-react="down" data-i="' + i + '">👎</button>' +
           '<button class="' + (m.pinned ? 'on' : '') + '" data-pin="' + i + '" title="Pin">📌</button>' +
           '<button data-remember="' + i + '" title="File into the world log">🧠</button>' +
+          '<button data-edit="' + esc(m.id) + '" title="Edit this line">✏️</button>' +
+          '<button class="' + (m.muted ? 'on' : '') + '" data-mute="' + esc(m.id) + '" ' +
+            'title="' + (m.muted ? 'Muted — the model cannot see this' : 'Mute: keep it on screen, hide it from the model') + '">' +
+            (m.muted ? '🙈' : '👁') + '</button>' +
+          '<button data-drop="' + esc(m.id) + '" title="Delete this line">🗑</button>' +
           '</div>') +
         '</article>';
     }).join('');
@@ -6786,6 +6947,7 @@ window.CHATROOM_CONFIG = {
         '<button class="qa" id="qaContinue" title="Let the scene move without you (n)">➤ Continue</button>' +
         (progress.total && progress.at < progress.total ? '<button class="qa" id="qaBeat">⏩ Next beat</button>' : '') +
         (r.mechanics === 'off' ? '' : '<button class="qa" id="qaRisk" title="Attempt something the world can refuse">🎲 Attempt…</button>') +
+        '<button class="qa" id="qaAdd" title="Bring somebody into this scene">＋ New</button>' +
       '</span>' +
       (r.kind !== 'group' ? '' :
         '<span class="emptynote">Next:</span>' + r.cast.map(function (c) {
@@ -6907,6 +7069,70 @@ window.CHATROOM_CONFIG = {
     on('bookBtn', function () { tab = 'book'; state.active = ''; save(); render(); });
     on('qaContinue', function () { generate(); });
     on('qaBeat', function () { if ($('nextBeat')) $('nextBeat').click(); });
+    on('qaAdd', function () {
+      list('Bring somebody in', [
+        { label: '🎭 From the archive — pick who walks in', value: 'cast' },
+        { label: '✨ Invent one — a name, a job, a face', value: 'new' },
+        { label: '📇 From a character card (.png / .json)', value: 'card' },
+        { label: '🤖 Let the model choose and write them in', value: 'ai' },
+      ], function (pick) {
+        if (pick === 'card') { importCard(r); return; }
+        if (pick === 'cast') {
+          castPicker({
+            title: 'Who walks in?',
+            note: 'They join this scene now, with a state sheet of their own.',
+            preselect: [], suggest: false,
+          }, function (chosen) {
+            chosen.forEach(function (c) { RP.addToRoom(r, c); });
+            RP.logEvent(state, {
+              kind: 'roster', roomId: r.id, roomTitle: r.title, when: roomDate(r),
+              chars: chosen.map(function (c) { return c.id; }),
+              text: chosen.map(function (c) { return c.name; }).join(', ') + ' joined the scene.',
+            });
+            save(); render();
+            toast(chosen.map(function (c) { return c.name; }).join(', ') + ' is in the scene.');
+          });
+          return;
+        }
+        if (pick === 'new') {
+          form('Invent somebody', [
+            { k: 'name', label: 'Name', value: '' },
+            { k: 'role', label: 'What are they here for?', value: '' },
+            { k: 'look', label: 'What do they look like?', type: 'area', value: '' },
+          ], { note: 'Nobody has drawn them, so the description is the portrait. They are kept, and can be played again later.' },
+          function (v) {
+            if (!v.name.trim()) { toast('They need a name.'); return; }
+            var made = RP.normChar({
+              id: 'new_' + RP.slug(v.name), name: v.name.trim(),
+              title: v.role.trim() || 'Invented in play',
+              summary: [v.role.trim(), v.look.trim()].filter(Boolean).join(' — '),
+              handle: (state.user && state.user.handle) || 'waluipedia',
+            });
+            made.look = v.look.trim();
+            made.invented = true;
+            state.newChars = (state.newChars || []).filter(function (c) { return c.id !== made.id; });
+            state.newChars.unshift(made);
+            castById[made.id] = made;
+            cast = cast.concat([made]);
+            RP.addToRoom(r, made);
+            RP.logEvent(state, {
+              kind: 'roster', roomId: r.id, roomTitle: r.title, when: roomDate(r), chars: [made.id],
+              text: made.name + ' was invented and walked into the scene: ' + RP.clip(made.summary, 160),
+            });
+            save(); render();
+            toast(made.name + ' is in the scene.');
+          });
+          return;
+        }
+        // Let the model do it — it has the stage direction for exactly this.
+        r.messages.push({
+          id: RP.uid(), role: 'scene', at: Date.now(),
+          text: 'Somebody new arrives. Whoever speaks next brings them in — name them, describe them, and give them a reason to be here.',
+        });
+        save(); render();
+        generate();
+      });
+    });
     on('qaRisk', function () {
       form('Attempt something', [{ k: 'text', label: 'What do you try?', type: 'area', value: '' }], {
         note: 'Written as an attempt, not an outcome — the page rolls, and the scene decides whether it works. ' +
@@ -6940,6 +7166,36 @@ window.CHATROOM_CONFIG = {
         save(); render();
         if (now === 'up') toast('👍 Noted — later turns will lean this way.');
         if (now === 'down') toast('👎 Noted — later turns will avoid that. ↻ for another take.');
+      };
+    });
+    stream.querySelectorAll('[data-edit]').forEach(function (b) {
+      b.onclick = function () {
+        var msg = RP.findMessage(r, b.dataset.edit);
+        if (!msg) return;
+        form('Edit this line', [{ k: 'text', label: 'What it should say', type: 'area', value: RP.textOf(msg) }], {
+          note: 'Your edit replaces the line everywhere — on screen, in the model’s history, and in anything exported.',
+        }, function (v) {
+          if (!v.text.trim()) { toast('Empty — delete it instead if you want it gone.'); return; }
+          RP.editMessage(r, msg.id, v.text.trim());
+          save(); render();
+        });
+      };
+    });
+    stream.querySelectorAll('[data-mute]').forEach(function (b) {
+      b.onclick = function () {
+        var msg = RP.muteMessage(r, b.dataset.mute);
+        save(); render();
+        toast(msg && msg.muted ? 'Muted — it stays on screen, out of the model’s head.' : 'Unmuted.');
+      };
+    });
+    stream.querySelectorAll('[data-drop]').forEach(function (b) {
+      b.onclick = function () {
+        var msg = RP.findMessage(r, b.dataset.drop);
+        if (!msg) return;
+        confirmThen('Delete this line?', RP.clip(RP.textOf(msg), 160), function () {
+          RP.deleteMessage(r, msg.id);
+          save(); render();
+        });
       };
     });
     stream.querySelectorAll('[data-pin]').forEach(function (b) {
@@ -7105,11 +7361,12 @@ window.CHATROOM_CONFIG = {
       list('Import into “' + RP.clip(r.sceneName || r.title, 36) + '”', [
         { label: '📥 A story — paste it, or open a .txt / .md / .json file', value: 'story' },
         { label: '📇 A character card — .png or .json, they walk in and say their greeting', value: 'card' },
-        { label: '📓 File this chat into the lore book (' + RP.backlogFor(r, state.settings.bookEvery).calls + ' calls)', value: 'catchup' },
+        { label: '📓 File this chat into the lore book — smart read, about ' +
+          RP.smartBacklog(r, { maxCalls: state.settings.smartCalls || 6 }).jobs.length + ' calls', value: 'catchup' },
       ], function (pick) {
         if (pick === 'story') { importTranscript({ into: r }); return; }
         if (pick === 'card') { importCard(r); return; }
-        offerCatchUp(r);
+        catchUpDialog(r);
       });
     });
     on('cpCard', function () {
@@ -7243,7 +7500,8 @@ window.CHATROOM_CONFIG = {
     var system = RP.systemFor(state, r, speaker, {
       fate: fate, archive: archive, citations: RP.citationBlock(found),
     });
-    var history = RP.historyFor(retry ? { kind: r.kind, cast: r.cast, messages: r.messages.slice(0, opts.retryIndex) } : r, 24);
+    var window = RP.contextLimit(r, (state.settings && state.settings.context) || 24);
+    var history = RP.historyFor(retry ? { kind: r.kind, cast: r.cast, messages: r.messages.slice(0, opts.retryIndex) } : r, window);
     if (!history.length) history = [{ role: 'user', content: '(The scene opens. Begin in character.)' }];
 
     callModel(system, history).then(function (text) {
@@ -7719,7 +7977,12 @@ window.CHATROOM_CONFIG = {
       '<span class="chip" id="setState">' + (online ? 'answering' : 'no answer yet') + '</span>' +
       '</div>' +
       '<label for="f_endpoint">Endpoint</label><input type="text" id="f_endpoint" value="' + esc(state.settings.endpoint || '') + '" placeholder="' + esc(CFG.replyUrl) + '">' +
-      '<label for="f_model">Model name (LM Studio fills this in for you)</label><input type="text" id="f_model" value="' + esc(state.settings.model || '') + '" placeholder="local-model">' +
+      '<label for="f_model">Model</label>' +
+      '<div class="castbar"><select id="f_modelPick"><option value="">— the models the endpoint reports —</option></select>' +
+      '<button class="pill" id="setModels">↻ List models</button></div>' +
+      '<input type="text" id="f_model" value="' + esc(state.settings.model || '') + '" placeholder="local-model">' +
+      '<label for="f_context">How many recent turns the model sees (default 24)</label>' +
+      '<input type="number" id="f_context" min="4" max="120" value="' + (state.settings.context || 24) + '">' +
       '<label for="f_style">Default narration style</label><select id="f_style">' +
       Object.keys(RP.STYLES).map(function (k) {
         return '<option value="' + k + '"' + (state.settings.style === k ? ' selected' : '') + '>' + esc(RP.STYLES[k].name) + '</option>';
@@ -7728,11 +7991,35 @@ window.CHATROOM_CONFIG = {
       '<div class="actions"><button class="pill" id="mCancel">Cancel</button>' +
       '<button class="pill primary" id="mOk">Save</button></div>');
     $('mCancel').onclick = closeModal;
-    $('setLm').onclick = function () { $('f_endpoint').value = LM_STUDIO; };
+    // The dialog can be closed while a request is in flight, so every
+    // write back into it checks the field is still there.
+    function say(text) { if ($('setState')) $('setState').textContent = text; }
+    function listModels() {
+      if (!$('f_endpoint')) return;
+      var url = $('f_endpoint').value.trim() || CFG.replyUrl;
+      if (!isOpenAI(url)) { say('the workflow server picks the model itself'); return; }
+      say('asking…');
+      fetch(modelsRoute(url)).then(function (r) { return r.ok ? r.json() : null; }).then(function (data) {
+        var list = (data && (data.data || data.models)) || [];
+        var pick = $('f_modelPick');
+        if (!pick) return;
+        if (!list.length) { say('no models loaded'); return; }
+        pick.innerHTML = list.map(function (m) {
+          var id = String(m.id || m.name || '');
+          return '<option value="' + esc(id) + '"' + (state.settings.model === id ? ' selected' : '') + '>' + esc(id) + '</option>';
+        }).join('');
+        pick.onchange = function () { if ($('f_model')) $('f_model').value = pick.value; };
+        if ($('f_model') && !$('f_model').value) $('f_model').value = pick.value;
+        say(list.length + ' model' + (list.length === 1 ? '' : 's') + ' loaded');
+      }).catch(function () { say('no answer — is it running?'); });
+    }
+    $('setModels').onclick = listModels;
+    listModels();
+    $('setLm').onclick = function () { $('f_endpoint').value = LM_STUDIO; listModels(); };
     $('setWf').onclick = function () { $('f_endpoint').value = 'http://127.0.0.1:8787/api/roleplay'; };
     $('setTest').onclick = function () {
       var url = $('f_endpoint').value.trim() || CFG.replyUrl;
-      $('setState').textContent = 'testing…';
+      say('testing…');
       var probe = isOpenAI(url)
         ? fetch(modelsRoute(url)).then(function (r) { return r.ok ? r.json() : null; })
         : fetch(url.replace(/\/api\/roleplay$/, '/api/health')).then(function (r) { return r.ok ? r.json() : null; });
@@ -7740,19 +8027,19 @@ window.CHATROOM_CONFIG = {
         if (!data) throw new Error('no answer');
         var list = (data.data || data.models || []);
         if (list.length) {
-          $('f_model').value = $('f_model').value || String(list[0].id || list[0].name || '');
-          $('setState').textContent = 'answering · ' + list.length + ' model' + (list.length === 1 ? '' : 's') +
-            ' · ' + RP.clip(String(list[0].id || list[0].name || ''), 28);
+          if ($('f_model')) $('f_model').value = $('f_model').value || String(list[0].id || list[0].name || '');
+          say('answering · ' + list.length + ' model' + (list.length === 1 ? '' : 's') +
+            ' · ' + RP.clip(String(list[0].id || list[0].name || ''), 28));
         } else {
-          $('setState').textContent = data.lm_studio && data.lm_studio.online ? 'answering · model online' : 'answering';
+          say(data.lm_studio && data.lm_studio.online ? 'answering · model online' : 'answering');
         }
-      }).catch(function () {
-        $('setState').textContent = 'no answer — is it running?';
-      });
+      }).catch(function () { say('no answer — is it running?'); });
     };
     $('mOk').onclick = function () {
       state.settings.endpoint = $('f_endpoint').value.trim();
       state.settings.model = $('f_model').value.trim();
+      var ctx = parseInt($('f_context').value, 10);
+      if (!isNaN(ctx)) state.settings.context = Math.max(4, Math.min(120, ctx));
       state.settings.style = $('f_style').value;
       var t = parseFloat($('f_temperature').value);
       if (!isNaN(t)) state.settings.temperature = Math.max(0, Math.min(1.5, t));
