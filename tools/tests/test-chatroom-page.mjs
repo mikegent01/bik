@@ -191,12 +191,22 @@ check('state: the change is reported on the turn card and stripped from the pros
   doc.querySelector('.turn.char .metastrip') && /−25 HP|-25 HP/.test($('stream').textContent) &&
   !doc.querySelector('.turn.char .bubble').textContent.includes('[[HP'));
 check('state: a sheet can also be edited by hand', (() => {
-  doc.querySelector('.statebar .sheet').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+  // The first sheet in the bar is the reader's own pack now, so the test
+  // follows the click: whatever sheet was opened is the one that saves.
+  const clicked = doc.querySelector('.statebar .sheet');
+  const id = clicked.dataset.sheet;
+  clicked.dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
   const open = Boolean($('f_hp'));
   if (open) { $('f_hp').value = '7/100'; $('mOk').dispatchEvent(new win.MouseEvent('click', { bubbles: true })); }
   const saved = savedState();
   const r = saved.rooms.find(x => x.id === saved.active);
-  return open && Object.values(r.states)[0].hp.value === 7;
+  return open && r.states[id].hp.value === 7;
+})());
+check('state: the reader\u2019s own pack is on the bar, first and usable', (() => {
+  const you = doc.querySelector('.statebar .sheet.you');
+  return Boolean(you) && doc.querySelector('.statebar .sheet') === you &&
+    you.querySelectorAll('.kit.big .slot').length === 12 &&
+    Boolean(you.querySelector('[data-additem]'));
 })());
 
 check('fate: the roll is shown on the same card as the turn it decided',

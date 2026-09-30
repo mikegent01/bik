@@ -163,13 +163,15 @@ def lm_completion(endpoint: str, system: str, messages: list[dict[str, Any]],
 def roleplay_reply(payload: dict[str, Any]) -> dict[str, Any]:
     """Validate and run one roleplay turn. Straight to the model, nothing else."""
     system = str(payload.get("system", "")).strip()
-    if len(system) > 16000:
+    # The page budgets its own prompt (RP.PROMPT_BUDGET, settable up to 30k);
+    # this cap is the hard wall behind it, not the working limit.
+    if len(system) > 32000:
         raise ValueError("system prompt is too long")
     raw = payload.get("messages", [])
     if not isinstance(raw, list) or not raw:
         raise ValueError("messages are required")
     messages: list[dict[str, Any]] = []
-    for item in raw[-24:]:
+    for item in raw[-240:]:
         if not isinstance(item, dict):
             continue
         role = str(item.get("role", ""))
@@ -177,7 +179,10 @@ def roleplay_reply(payload: dict[str, Any]) -> dict[str, Any]:
         if role not in ("user", "assistant") or not content.strip():
             continue
         if len(content) > 16000:
-            raise ValueError("a message is too long")
+            # One runaway turn, not a reason to fail the whole call: the
+            # page clips history turns itself (RP.TURN_CLIP); anything this
+            # size is an import artefact, and the head of it still serves.
+            content = content[:16000]
         messages.append({"role": role, "content": content})
     if not messages:
         raise ValueError("no usable messages")

@@ -269,6 +269,12 @@ a { color: inherit; }
 .statebar .slot:hover:not(.empty) { border-color: var(--accent); }
 .statebar .slot .qty { position: absolute; right: 1px; bottom: 0; font-size: 8px; color: var(--muted); }
 .statebar .flag.biting { background: #fdecec; color: var(--bad); border: 1px solid #f2c9c9; font-weight: 600; }
+/* Your own sheet: first in the bar, a wider pack, and empty slots you can fill. */
+.statebar .sheet.you { border-color: var(--accent); background: #fbfaff; min-width: 250px; }
+.statebar .sheet.you .nm::after { content: 'your pack'; font-size: 10px; font-weight: 500; color: var(--muted); margin-left: auto; }
+.statebar .kit.big { grid-template-columns: repeat(6, 1fr); }
+.statebar .slot.add { cursor: pointer; color: var(--muted); font-size: 12px; font-weight: 600; }
+.statebar .slot.add:hover { border-color: var(--accent); color: var(--accent); background: #fff; }
 .tint { font-weight: 600; }
 
 .statebar .chips { display: flex; flex-wrap: wrap; gap: 4px; }

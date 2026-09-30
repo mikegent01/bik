@@ -2035,6 +2035,124 @@ check('recap: it reaches both prompts',
   RP.worldSystem(RP.blankState(), longRoom, {}).includes('THE STORY SO FAR'));
 check('recap: the turns themselves are never thrown away', longRoom.messages.length === 60);
 
+// ---------- the player's own sheet: a grid pack, a body, conditions ----------
+{
+  const st = RP.blankState();
+  st.persona.name = 'Marlow';
+  st.persona.items = ['🗝 a brass key | bent, from the ledger room', 'rope'];
+  const rm = RP.newRoom([sans], { scene: 'The vault.' });
+  const you = RP.ensurePlayerSheet(st, rm);
+  check('player: the sheet exists, named for the persona, seeded from its kit',
+    you && rm.states[RP.PLAYER_ID] === you && you.player === true && you.name === 'Marlow' &&
+    you.items.length === 2 && you.items[0].icon === '🗝' && you.items[0].note === 'bent, from the ledger room');
+  check('player: creating it twice does not double the kit',
+    RP.ensurePlayerSheet(st, rm).items.length === 2);
+  const block = RP.stateBlock(rm);
+  check('player: the model is told whose sheet it is, and what that means',
+    block.includes('Marlow (THE PLAYER)') && block.includes('🗝 a brass key') &&
+    /reader\u2019s own body and pack/.test(block));
+  // The model wounds, poisons and robs the player by name — same directions.
+  const turn = 'The wine was wrong. [[HP: Marlow -12]] [[COND: Marlow poisoned 3 -2hp | pale wine]] [[ITEM: Marlow - a brass key]]';
+  const staged = RP.parseDirectives(turn, [sans.name, you.name, 'the player']);
+  const applied = RP.applyDirectives(st, rm, staged.directives);
+  check('player: directions land on the player sheet',
+    you.hp.value === 88 && you.flags.poisoned && you.flags.poisoned.effect === '-2hp' && you.items.length === 1);
+  check('player: the poison actually bites on the tick', (() => {
+    const lines = RP.tickConditions(rm);
+    return you.hp.value === 86 && lines.some(l => l.includes('Marlow') && l.includes('poisoned'));
+  })());
+  check('player: EXIT cannot write the reader out', (() => {
+    const gone = RP.parseDirectives('[[EXIT: Marlow — enough]]', [sans.name, you.name]);
+    RP.applyDirectives(st, rm, gone.directives);
+    return rm.states[RP.PLAYER_ID].present !== false;
+  })());
+  check('player: a starred cast member IS the player — no second body',
+    (() => { const r2 = RP.newRoom([sans], {}); r2.youPlay = 'sans'; return RP.ensurePlayerSheet(st, r2) === r2.states.sans && !r2.states[RP.PLAYER_ID]; })());
+}
+
+// ---------- conditions parse with their bite, and read at a glance ----------
+check('conditions: "bleeding 3 -2hp | a deep cut" is turns, cost and note', (() => {
+  const c = RP.parseCondition('bleeding 3 -2hp | a deep cut');
+  return c.key === 'bleeding' && c.turns === 3 && c.effect === '-2hp' && c.note === 'a deep cut';
+})());
+check('conditions: a setup string carries the effect into the sheet', (() => {
+  const sheet = RP.blankSheet(sans, 'rpg', { flags: 'bleeding 3 -2hp | a deep cut; hunted' });
+  return sheet.flags.bleeding && sheet.flags.bleeding.effect === '-2hp' &&
+    sheet.flags.bleeding.turns === 3 && sheet.flags.hunted && !sheet.flags.hunted.effect;
+})());
+check('conditions: icons read at a glance, with a fallback',
+  RP.condIcon('bleeding') === '🩸' && RP.condIcon('poisoned') === '☠️' && RP.condIcon('odd_thing') === '⚠️');
+check('conditions: the prompt surfaces them as orders, not flavour', (() => {
+  const rm = RP.newRoom([sans], {});
+  rm.states.sans.flags.bleeding = { note: 'a deep cut', turns: 2, effect: '-2hp' };
+  const block = RP.stateBlock(rm);
+  return block.includes('CONDITIONS IN PLAY') && block.includes('must shape what its bearer does') &&
+    block.includes('🩸 bleeding') && block.includes('[-2hp a turn]');
+})());
+
+// ---------- the sheets answer when their things are named ----------
+check('mentions: "the key" resolves to the 🗝 on a sheet', (() => {
+  const rm = RP.newRoom([sans], {});
+  rm.states.sans.items = [RP.normItem('🗝 a brass key | bent, from the ledger room')];
+  rm.states.sans.flags.bleeding = { note: '', turns: 2, effect: '-2hp' };
+  const block = RP.mentionBlock(rm, 'I hand him the brass key and look at the bleeding.');
+  return block.includes('NAMED JUST NOW') && block.includes('🗝 a brass key') &&
+    block.includes('bent, from the ledger room') && block.includes('🩸 bleeding') &&
+    RP.mentionBlock(rm, 'Nothing of yours.') === '';
+})());
+check('mentions: they reach the turn prompt', (() => {
+  const rm = RP.newRoom([sans], {});
+  rm.states.sans.items = [RP.normItem('🗝 a brass key')];
+  return RP.systemFor(RP.blankState(), rm, sans, { mentionText: 'give me the key' }).includes('NAMED JUST NOW');
+})());
+
+// ---------- standing tints: the model picks the words and the colour ----------
+check('tints: [[TINT: words = colour]] files a standing rule', (() => {
+  const st = RP.blankState();
+  const rm = RP.newRoom([sans], {});
+  const staged = RP.parseDirectives('The wax gave. [[TINT: the seal, the wax = violet]]', [sans.name]);
+  RP.applyDirectives(st, rm, staged.directives);
+  return staged.clean === 'The wax gave.' && rm.tints.length === 2 &&
+    rm.tints[0].colour === RP.COLOURS.violet;
+})());
+check('tints: every later mention renders in that colour, hands off the hand-coloured', (() => {
+  const out = RP.applyTints('The seal broke. {red|the seal} held.', [{ text: 'the seal', colour: '#6b46c1' }]);
+  return out === '{#6b46c1|The seal} broke. {red|the seal} held.';
+})());
+check('tints: UNTINT releases the words', (() => {
+  const st = RP.blankState();
+  const rm = RP.newRoom([sans], {});
+  RP.applyDirectives(st, rm, RP.parseDirectives('[[TINT: the seal = violet]]', []).directives);
+  RP.applyDirectives(st, rm, RP.parseDirectives('[[UNTINT: the seal]]', []).directives);
+  return rm.tints.length === 0;
+})());
+check('tints: a colour the palette refuses files nothing',
+  RP.parseDirectives('[[TINT: the seal = javascript]]', []).directives.length === 0);
+check('tints: the model is told the tool exists',
+  RP.DIRECTIVES.includes('[[TINT:') && RP.soloPrompt(sans, {}).includes('[[TINT:'));
+
+// ---------- history packed by characters, not just counted by turns ----------
+check('history: one monologue cannot evict ten turns', (() => {
+  const msgs = [];
+  for (let i = 0; i < 30; i++) msgs.push({ role: i % 2 ? 'assistant' : 'user', content: 'turn ' + i + ' ' + 'w'.repeat(150) });
+  msgs[29] = { role: 'assistant', content: 'm'.repeat(9000) };
+  const packed = RP.packHistory(msgs, 4000);
+  const last = packed[packed.length - 1];
+  return last.content.length <= RP.TURN_CLIP + 1 && packed.length >= 6 &&
+    packed[packed.length - 2].content.startsWith('turn 28');
+})());
+check('history: a normal chat passes through untouched', (() => {
+  const msgs = [{ role: 'user', content: 'hello' }, { role: 'assistant', content: 'well?' }];
+  const packed = RP.packHistory(msgs, 9000);
+  return packed.length === 2 && packed[0] === msgs[0];
+})());
+check('history: newest turns win the budget', (() => {
+  const msgs = [];
+  for (let i = 0; i < 40; i++) msgs.push({ role: 'user', content: 'turn ' + i + ' ' + 'w'.repeat(400) });
+  const packed = RP.packHistory(msgs, 3000);
+  return packed.length < 40 && packed[packed.length - 1].content.startsWith('turn 39');
+})());
+
 // ---------- generated pages are in sync with these sources ----------
 let built = true;
 try {

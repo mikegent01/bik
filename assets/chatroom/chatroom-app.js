@@ -1098,7 +1098,8 @@
       (persona.voice ? '<div class="when">' + esc(persona.voice) + '</div>' : '') +
       (persona.look ? '<p>' + esc(persona.look) + '</p>' : '') +
       ((persona.items || []).length ? '<div class="tags">' + persona.items.map(function (i) {
-        return '<span class="tag">' + esc(i) + '</span>';
+        var it = RP.normItem(i);
+        return '<span class="tag">' + esc(it.icon + ' ' + it.name) + '</span>';
       }).join('') + '</div>' : '') +
       (persona.notes ? '<p>' + esc(persona.notes) + '</p>' : '') + '</div></div>';
 
@@ -1394,11 +1395,18 @@
         { k: 'name', label: 'Name', value: p.name },
         { k: 'voice', label: 'In one line — who are you?', value: p.voice },
         { k: 'look', label: 'What do you look like?', type: 'area', value: p.look },
-        { k: 'items', label: 'Carrying, comma separated', value: (p.items || []).join(', ') },
+        { k: 'items', label: 'Carrying — "🗝 a brass key | bent", one per line. This seeds your pack in every new chat.',
+          type: 'area',
+          value: (p.items || []).map(RP.normItem).map(function (i) {
+            return (i.icon ? i.icon + ' ' : '') + i.name + (i.note ? ' | ' + i.note : '');
+          }).join('\n') },
         { k: 'notes', label: 'Anything else the cast should know', type: 'area', value: p.notes },
-      ], { note: 'Handed to the model in every chat, under “THE USER PLAYS”.' }, function (v) {
+      ], { note: 'Handed to the model in every chat, under “THE USER PLAYS”. The kit becomes your pack — the grid on your own sheet — the first time a scene needs it.' }, function (v) {
         p.name = v.name.trim(); p.voice = v.voice.trim(); p.look = v.look.trim();
-        p.items = v.items.split(',').map(function (i) { return i.trim(); }).filter(Boolean);
+        p.items = v.items.split(/\n/).map(function (line) {
+          var item = RP.normItem(line);
+          return item.name ? item : null;
+        }).filter(Boolean);
         p.notes = v.notes.trim();
         if (p.name && !(state.user.name || '').trim()) state.user.name = p.name;
         save(); render();
@@ -2173,13 +2181,24 @@
       '<span class="num">' + kind.toUpperCase() + ' ' + pool.value + '/' + pool.max + '</span></span>';
   }
 
+  /** How many slots a sheet's grid shows: the reader's own pack is the
+   *  one that gets used every turn, so it gets the room. */
+  function kitSize(id) { return id === RP.PLAYER_ID ? 12 : 8; }
+
   /** The kit, as a grid you can read at a glance: what is in hand is lit,
-   *  everything else is stowed, and the empty slots keep the shape. */
+   *  everything else is stowed, and the empty slots keep the shape. On
+   *  your own pack an empty slot is a button — click it to put something
+   *  in rather than opening the whole sheet editor. */
   function kitGrid(r, id) {
     var sheet = RP.sheetFor(r, id);
     if (!sheet) return '';
-    return '<span class="kit">' + RP.gridSlots(sheet, 8).map(function (item, at) {
-      if (!item) return '<span class="slot empty"></span>';
+    var isYou = id === RP.PLAYER_ID;
+    return '<span class="kit' + (isYou ? ' big' : '') + '">' + RP.gridSlots(sheet, kitSize(id)).map(function (item, at) {
+      if (!item) {
+        return isYou
+          ? '<button class="slot empty add" data-additem="' + esc(id) + '" title="Put something in your pack">+</button>'
+          : '<span class="slot empty"></span>';
+      }
       return '<button class="slot' + (item.equipped ? ' held' : '') + '" data-item="' + esc(id) + '|' + at + '" ' +
         'title="' + esc(item.name + (item.note ? ' — ' + item.note : '')) + '">' +
         '<span class="ico">' + esc(item.icon) + '</span>' +
@@ -2195,10 +2214,10 @@
     form('State — ' + sheet.name, [
       { k: 'hp', label: 'HP (value / max, blank for none)', value: sheet.hp ? sheet.hp.value + '/' + sheet.hp.max : '' },
       { k: 'mp', label: 'MP (value / max, blank for none)', value: sheet.mp ? sheet.mp.value + '/' + sheet.mp.max : '' },
-      { k: 'flags', label: 'Conditions — "bleeding 3 | a deep cut", one per line', type: 'area',
+      { k: 'flags', label: 'Conditions — "bleeding 3 -2hp | a deep cut", one per line (turns, cost a turn, note)', type: 'area',
         value: Object.keys(sheet.flags || {}).map(function (f) {
           var c = sheet.flags[f] && typeof sheet.flags[f] === 'object' ? sheet.flags[f] : { note: '', turns: 0 };
-          return f.replace(/_/g, ' ') + (c.turns ? ' ' + c.turns : '') + (c.note ? ' | ' + c.note : '');
+          return f.replace(/_/g, ' ') + (c.turns ? ' ' + c.turns : '') + (c.effect ? ' ' + c.effect : '') + (c.note ? ' | ' + c.note : '');
         }).join('\n') },
       { k: 'items', label: 'Carrying — "a brass key | bent, from the ledger room", one per line, ✊ for in hand',
         type: 'area',
@@ -2216,12 +2235,8 @@
       sheet.mp = pool(v.mp, sheet.mp);
       sheet.flags = {};
       v.flags.split(/\n/).forEach(function (line) {
-        var parts = line.split('|');
-        var head = parts[0].trim();
-        var turns = /\s(\d{1,2})$/.exec(head);
-        if (turns) head = head.slice(0, turns.index).trim();
-        var key = RP.slug(head);
-        if (key) sheet.flags[key] = { note: (parts[1] || '').trim(), turns: turns ? Number(turns[1]) : 0 };
+        var cond = RP.parseCondition(line);
+        if (cond) sheet.flags[cond.key] = { note: cond.note, turns: cond.turns, effect: cond.effect };
       });
       sheet.items = v.items.split(/\n/).map(function (line) {
         var held = /^\s*✊\s*/.test(line);
@@ -2286,34 +2301,43 @@
         (auditFlag ? ' ' + auditFlag : '') + '</button>' +
       '<button class="pill" id="panelBtn">☰</button>';
 
-    // The sheets, visible in the chat rather than buried in a menu.
+    // The sheets, visible in the chat rather than buried in a menu. The
+    // reader's own pack renders first: it is the one they can actually use.
+    if (r.mechanics !== 'off') RP.ensurePlayerSheet(state, r);
     var sheetBar = $('statebar');
     if (sheetBar) {
       sheetBar.hidden = !showStates || r.mechanics === 'off';
       var away = Object.keys(r.states || {}).filter(function (id) {
         return r.states[id] && r.states[id].present === false;
       });
-      sheetBar.innerHTML = (!showStates ? '' : Object.keys(r.states || {}).map(function (id) {
+      var sheetIds = (r.states && r.states[RP.PLAYER_ID] ? [RP.PLAYER_ID] : [])
+        .concat(Object.keys(r.states || {}).filter(function (id) { return id !== RP.PLAYER_ID; }));
+      sheetBar.innerHTML = (!showStates ? '' : sheetIds.map(function (id) {
         var sheet = r.states[id];
         if (!sheet || sheet.present === false) return '';
+        var isYou = id === RP.PLAYER_ID;
         var who = charOf(r, id);
-        return '<button class="sheet" data-sheet="' + esc(id) + '" title="Edit state">' +
-          '<span class="here" data-here="' + esc(id) + '" title="' +
+        // NOT a <button>: the slots inside are buttons, and HTML closes a
+        // button the moment another one opens — the whole grid would be
+        // reparented out of the card. A span with the same handler is safe.
+        return '<span class="sheet' + (isYou ? ' you' : '') + '" role="button" tabindex="0" data-sheet="' + esc(id) + '" title="Edit state">' +
+          (isYou ? '<span class="here" title="You — always in the scene">🧍</span>'
+            : '<span class="here" data-here="' + esc(id) + '" title="' +
           (sheet.present === false ? 'Not in the scene — click to bring them back' : 'In the scene — click to write them out') +
-          '">' + (sheet.present === false ? '◌' : '◉') + '</span>' +
-          '<span class="nm">' + avatar(who, 22) + esc(sheet.name) + '</span>' +
+          '">' + (sheet.present === false ? '◌' : '◉') + '</span>') +
+          '<span class="nm">' + (isYou ? userAvatar(22) : avatar(who, 22)) + esc(sheet.name) + '</span>' +
           (sheet.hp ? bar('hp', sheet.hp) : '') + (sheet.mp ? bar('mp', sheet.mp) : '') +
           kitGrid(r, id) +
           '<span class="chips">' + Object.keys(sheet.flags || {}).map(function (f) {
             var cond = sheet.flags[f] && typeof sheet.flags[f] === 'object' ? sheet.flags[f] : { note: '', turns: 0 };
             return '<span class="flag' + (cond.effect ? ' biting' : '') + '" ' +
               'title="' + esc((cond.note || f.replace(/_/g, ' ')) + (cond.effect ? ' · ' + cond.effect + ' a turn' : '')) + '">' +
-              esc(f.replace(/_/g, ' ')) + (cond.turns ? ' ' + cond.turns : '') +
+              RP.condIcon(f) + ' ' + esc(f.replace(/_/g, ' ')) + (cond.turns ? ' ' + cond.turns : '') +
               (cond.effect ? ' ' + esc(cond.effect) : '') + '</span>';
           }).join('') + Object.keys(sheet.counters || {}).map(function (c) {
             return '<span class="flag num">' + esc(c.replace(/_/g, ' ')) + ' ' + sheet.counters[c] + '</span>';
           }).join('') + (sheet.status ? '<span class="flag note">' + esc(sheet.status) + '</span>' : '') + '</span>' +
-          '</button>';
+          '</span>';
       }).join('')) + (showStates && away.length
         ? '<button class="sheet away" id="showAway" title="Not in the scene — click to bring somebody back">' +
           '◌ ' + away.length + ' not here</button>' : '');
@@ -2336,7 +2360,7 @@
           '<div class="who"><span class="globe">' + esc(RP.NARRATORS[RP.narrator(state)].icon) + '</span>' +
           '<b>' + esc(RP.NARRATORS[RP.narrator(state)].name) + '</b>' +
           '<button class="speak" data-speak="' + i + '" title="Read aloud">▶</button></div>' +
-          '<div class="bubble">' + RP.md(RP.textOf(m)) + '</div>' +
+          '<div class="bubble">' + RP.md(RP.applyTints(RP.textOf(m), r.tints)) + '</div>' +
           metaStrip(m) +
           '<div class="acts">' +
           '<button data-retry="' + i + '" title="Another take">↻</button>' +
@@ -2358,7 +2382,7 @@
         '<div class="who">' + (mine ? (playing ? avatar(playing, 24) : userAvatar(24)) : avatar(charOf(r, m.charId), 24)) +
         '<b>' + esc(who) + '</b>' + (mine ? '' : '<span class="badge">archive</span>') +
         (mine ? '' : '<button class="speak" data-speak="' + i + '" title="Read aloud">▶</button>') + '</div>' +
-        '<div class="bubble">' + RP.md(RP.textOf(m)) + '</div>' +
+        '<div class="bubble">' + RP.md(RP.applyTints(RP.textOf(m), r.tints)) + '</div>' +
         ((m.ooc || []).length
           ? '<div class="metastrip">' + m.ooc.map(function (n) {
               return '<span class="ooc" title="Sent to the model, not spoken aloud">(( ' + esc(n) + ' ))</span>';
@@ -2764,13 +2788,17 @@
         e.stopPropagation();
         var parts = b.dataset.item.split('|');
         var sheet = RP.sheetFor(r, parts[0]);
-        var item = RP.gridSlots(sheet, 8)[Number(parts[1])];
+        var item = RP.gridSlots(sheet, kitSize(parts[0]))[Number(parts[1])];
         if (!item) return;
+        // Somebody to hand it to: anyone else with a sheet who is here.
+        var others = Object.keys(r.states || {}).filter(function (id) {
+          return id !== parts[0] && r.states[id] && r.states[id].present !== false;
+        });
         list(item.icon + ' ' + item.name + (item.note ? ' — ' + item.note : ''), [
           { label: item.equipped ? '🫳 Put it away' : '✊ Take it in hand', value: 'hand' },
           { label: '🎲 Use it — writes the attempt and lets the roll decide', value: 'use' },
-          { label: '🗑 Drop it', value: 'drop' },
-        ], function (pick) {
+        ].concat(others.length ? [{ label: '🎁 Hand it to somebody', value: 'give' }] : [])
+          .concat([{ label: '🗑 Drop it', value: 'drop' }]), function (pick) {
           RP.pushUndo(r, 'that change to the kit');
           if (pick === 'hand') {
             RP.applyChange(sheet, { kind: 'equip', name: item.name, op: item.equipped ? '-' : '+' });
@@ -2782,8 +2810,39 @@
             save(); render();
             return;
           }
+          if (pick === 'give') {
+            list('Who takes ' + item.name + '?', others.map(function (id) {
+              return { label: r.states[id].name, value: id };
+            }), function (to) {
+              RP.applyChange(sheet, { kind: 'item', op: '-', name: item.name });
+              RP.applyChange(r.states[to], { kind: 'item', op: '+', name: item.name, note: item.note, icon: item.icon });
+              r.updated = Date.now();
+              save(); render();
+              toast(item.icon + ' ' + item.name + ' → ' + r.states[to].name + '. The model sees it on their sheet now.');
+            });
+            return;
+          }
           $('input').value = 'I use ' + item.name + (item.note ? ' — ' + item.note : '') + '.';
           $('composer').dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
+        });
+      };
+    });
+    if (bar1) bar1.querySelectorAll('[data-additem]').forEach(function (b) {
+      b.onclick = function (e) {
+        e.stopPropagation();
+        var sheet = RP.sheetFor(r, b.dataset.additem);
+        if (!sheet) return;
+        form('Into the pack', [
+          { k: 'name', label: 'What is it? An emoji up front picks its icon — "🗝 a brass key"', value: '' },
+          { k: 'note', label: 'A note about it (optional)', value: '' },
+        ], { note: 'It lands on the sheet, so the model knows it is there from the next turn on.' }, function (v) {
+          var item = RP.normItem(v.name + (v.note.trim() ? ' | ' + v.note.trim() : ''));
+          if (!item.name) { toast('It needs a name.'); return; }
+          RP.pushUndo(r, 'that change to the kit');
+          RP.applyChange(sheet, { kind: 'item', op: '+', name: item.name, note: item.note, icon: item.icon });
+          r.updated = Date.now();
+          save(); render();
+          toast(item.icon + ' ' + item.name + ' — in the pack.');
         });
       };
     });
@@ -3274,8 +3333,18 @@
     var found = RP.citableFor(archiveIndex, r, state, { query: recent + ' ' + (r.scene || ''), limit: 6 });
     var dug = searchForTurn(r, speaker, recent);
     if (opts.searched) recent = recent + ' ' + opts.searched;
+    // The reader's own sheet, before the prompt is written: the model
+    // should never see a scene where "you" cannot bleed or carry.
+    if (r.mechanics !== 'off') RP.ensurePlayerSheet(state, r);
+    // What the player's latest words actually name — handed to the prompt
+    // so "the key" resolves to the 🗝 on a sheet, not a new invention.
+    var lastSaid = RP.textOf((r.messages || []).filter(function (m) {
+      return m.role === 'user' && !m.muted;
+    }).pop() || {});
     var opts2 = {
       fate: fate, archive: archive, recent: recent, notes: r.lastNotes || [],
+      mentionText: lastSaid,
+      budget: Number(state.settings.promptBudget) || 0,
       citations: [opts.searched || '', RP.citationBlock(found), dug.length ? RP.retrievalBlock(dug) : '']
         .filter(Boolean).join('\n\n'),
     };
@@ -3284,7 +3353,11 @@
     // NOT `window`: a local of that name shadows the global one for the
     // whole function, and every window.setTimeout in here stops working.
     var lookBack = RP.contextLimit(r, (state.settings && state.settings.context) || 24);
-    var history = RP.historyFor(retry ? { kind: r.kind, cast: r.cast, messages: r.messages.slice(0, opts.retryIndex) } : r, lookBack);
+    // Turn count first, then the character budget: a long chat should cost
+    // turns, not paragraphs, and one monologue must not evict ten turns.
+    var history = RP.packHistory(
+      RP.historyFor(retry ? { kind: r.kind, cast: r.cast, messages: r.messages.slice(0, opts.retryIndex) } : r, lookBack),
+      Number(state.settings.historyChars) || RP.HISTORY_BUDGET);
     if (!history.length) history = [{ role: 'user', content: '(The scene opens. Begin in character.)' }];
 
     /** Ask for a reply, and if the model runs out of room mid-sentence,
@@ -3320,7 +3393,10 @@
       // Stage directions first: the model may have wounded somebody, spent
       // power, walked a character in, or written one out. They are stripped
       // from the prose and applied to the record before anything renders.
-      var staged = RP.parseDirectives(text, r.cast.map(function (c) { return c.name; }));
+      var dnames = r.cast.map(function (c) { return c.name; });
+      var youSheet = RP.sheetFor(r, RP.PLAYER_ID);
+      if (youSheet) dnames.push(youSheet.name, 'the player');
+      var staged = RP.parseDirectives(text, dnames);
       r.next = '';
 
       // [[LOOKUP: …]] — it asked the archive a question rather than making
@@ -3740,7 +3816,7 @@
         '<b>' + esc(c.name) + '</b>' +
         '<label>HP %<input type="number" min="0" max="100" value="' + (cur.hpPct === undefined ? 100 : cur.hpPct) + '" data-k="hpPct"></label>' +
         '<label>MP %<input type="number" min="0" max="100" value="' + (cur.mpPct === undefined ? 100 : cur.mpPct) + '" data-k="mpPct"></label>' +
-        '<label>Conditions<input type="text" placeholder="wounded, hunted" value="' + esc(cur.flags || '') + '" data-k="flags"></label>' +
+        '<label>Conditions<input type="text" placeholder="wounded, hunted — or with a bite: bleeding 3 -2hp | a deep cut" value="' + esc(cur.flags || '') + '" data-k="flags"></label>' +
         '<label>Carrying<input type="text" placeholder="rope, lantern" value="' + esc(cur.items || '') + '" data-k="items"></label>' +
         '<label>Note<input type="text" placeholder="one arm useless" value="' + esc(cur.status || '') + '" data-k="status"></label>' +
         '</div>';
@@ -3916,7 +3992,11 @@
       '<label for="f_autoplay">▶ Auto plays this many turns before stopping</label>' +
       '<input type="number" id="f_autoplay" min="2" max="20" value="' + (state.settings.autoplay || 6) + '">' +
       '<label for="f_context">How many recent turns the model sees (default 24)</label>' +
-      '<input type="number" id="f_context" min="4" max="120" value="' + (state.settings.context || 24) + '">' +
+      '<input type="number" id="f_context" min="4" max="240" value="' + (state.settings.context || 24) + '">' +
+      '<label for="f_historyChars">History budget, in characters — long monologues are clipped so they cannot crowd out whole turns (default ' + RP.HISTORY_BUDGET + ')</label>' +
+      '<input type="number" id="f_historyChars" min="3000" max="60000" step="1000" value="' + (state.settings.historyChars || RP.HISTORY_BUDGET) + '">' +
+      '<label for="f_promptBudget">System prompt budget, in characters — raise it for a model with a big context window (default ' + RP.PROMPT_BUDGET + ')</label>' +
+      '<input type="number" id="f_promptBudget" min="6000" max="' + RP.PROMPT_BUDGET_MAX + '" step="1000" value="' + (state.settings.promptBudget || RP.PROMPT_BUDGET) + '">' +
       '<label for="f_style">Default narration style</label><select id="f_style">' +
       Object.keys(RP.STYLES).map(function (k) {
         return '<option value="' + k + '"' + (state.settings.style === k ? ' selected' : '') + '>' + esc(RP.STYLES[k].name) + '</option>';
@@ -3994,7 +4074,11 @@
       state.settings.endpoint = $('f_endpoint').value.trim();
       state.settings.model = $('f_model').value.trim();
       var ctx = parseInt($('f_context').value, 10);
-      if (!isNaN(ctx)) state.settings.context = Math.max(4, Math.min(120, ctx));
+      if (!isNaN(ctx)) state.settings.context = Math.max(4, Math.min(240, ctx));
+      var hist = parseInt($('f_historyChars').value, 10);
+      if (!isNaN(hist)) state.settings.historyChars = Math.max(3000, Math.min(60000, hist));
+      var pbud = parseInt($('f_promptBudget').value, 10);
+      if (!isNaN(pbud)) state.settings.promptBudget = Math.max(6000, Math.min(RP.PROMPT_BUDGET_MAX, pbud));
       state.settings.length = $('f_length').value;
       state.settings.world = $('f_world').value;
       state.settings.narrator = $('f_narrator').value;

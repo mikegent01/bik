@@ -86,6 +86,8 @@
     green: '#2f7d4f', teal: '#1f7a72', blue: '#2b5fb3', ice: '#4a8fc7', violet: '#6b46c1',
     purple: '#7a2fb0', pink: '#b5347c', grey: '#6b6b74', gray: '#6b6b74', black: '#1a1a1c',
     white: '#f4f4f6', rust: '#9c5221', moss: '#5c7a3f', bone: '#c8bda4',
+    crimson: '#9b1b30', ember: '#b4551f', copper: '#a56a3a', silver: '#8e9196', storm: '#4c5a6e',
+    sea: '#2e6f8e', jade: '#2f8f6f', lilac: '#8f7cc9', sand: '#a8905a', venom: '#5f8f2f', plum: '#6d3557',
   };
 
   function colourValue(name) {
@@ -124,6 +126,29 @@
     }
     flush();
     return out.filter(Boolean).join('');
+  };
+
+  /* ---- standing tints: words the model has chosen a colour for ---- */
+
+  /** The model files [[TINT: the seal, the wax = violet]] once, and those
+   *  exact words keep the colour in every turn after — reader-side, so a
+   *  tinted phrase costs the prompt nothing. Runs on the raw prose before
+   *  RP.md, and never re-colours inside a {colour|…} the writer already
+   *  chose for that sentence. */
+  RP.applyTints = function (text, tints) {
+    var rules = (tints || []).filter(function (t) { return t && t.text && colourValue(t.colour); });
+    if (!rules.length) return String(text || '');
+    rules = rules.slice().sort(function (a, b) { return String(b.text).length - String(a.text).length; });
+    return String(text || '').split(/(\{[^{}|]{1,12}\|[^{}]{1,300}\})/).map(function (chunk, at) {
+      if (at % 2) return chunk;                 // already coloured by hand
+      rules.forEach(function (t) {
+        var safe = String(t.text).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        chunk = chunk.replace(new RegExp('(^|[^{|\\w])(' + safe + ')(?![\\w}])', 'gi'), function (all, pre, hit) {
+          return pre + '{' + t.colour + '|' + hit + '}';
+        });
+      });
+      return chunk;
+    }).join('');
   };
 
   /* ------------------------------------------------------------------ *
@@ -286,9 +311,13 @@
 
   var RULES = [
     'You may colour a few words when it earns it: {red|the door is open}, {ice|her breath}, {#8e2b20|the stain}. ' +
-      'Colours available: red, blood, orange, amber, gold, green, teal, blue, ice, violet, purple, pink, grey, ' +
-      'black, white, rust, moss, bone, or any #hex. Use it for one thing that matters, not for decoration — ' +
-      'two or three words in a turn at most, and never a whole sentence.',
+      'Colours available: red, blood, crimson, orange, ember, amber, gold, copper, green, moss, jade, teal, sea, ' +
+      'blue, ice, storm, violet, purple, lilac, plum, pink, grey, silver, black, white, rust, sand, bone, venom, ' +
+      'or any #hex. Use it for one thing that matters, not for decoration — two or three words in a turn at most, ' +
+      'and never a whole sentence.',
+    'When a thing should keep its colour every time it is named — a cursed blade, a sickness, a word written in ' +
+      'blood — file it once with [[TINT: the exact words = colour]] and the page colours every later mention for ' +
+      'you. That is for things with lasting weight, two or three per scene at most.',
     'Use the material. When the archive passages, the session filing or the lore book say something that touches ' +
       'this moment, USE IT — a date, a name, a number, what somebody actually said. Quote it, argue with it, get it ' +
       'slightly wrong in character if that is truer. A scene that could have happened in any story is a wasted turn.',
@@ -1561,6 +1590,47 @@
     return slots;
   };
 
+  /* An emoji per kind of affliction, same idea as the kit icons: a sheet
+   * full of conditions should read at a glance too. */
+  RP.CONDITION_ICONS = [
+    [/bleed|cut|gash|wound/i, '🩸'], [/poison|venom|toxin/i, '☠️'], [/burn|fire|scorch|ablaze/i, '🔥'],
+    [/freez|frozen|chill|frost/i, '🧊'], [/stun|dazed|concuss/i, '💫'], [/bless|warded|shielded/i, '✨'],
+    [/curse|hex|marked/i, '🕯️'], [/fear|afraid|terrif|panick/i, '😨'], [/exhaust|tired|winded|fatigu/i, '😮‍💨'],
+    [/hidden|unseen|stealth/i, '🫥'], [/bound|chained|tied|shackl/i, '⛓️'], [/sick|ill|fever|nausea/i, '🤢'],
+    [/charm|smitten|swayed/i, '💘'], [/rage|furious|berserk/i, '😡'], [/blind/i, '🙈'], [/silenc|mute/i, '🤐'],
+    [/hunt|wanted|tracked/i, '🎯'], [/drunk|tipsy/i, '🍺'], [/broken|crack|sprain|fractur/i, '🦴'],
+  ];
+
+  RP.condIcon = function (name) {
+    var text = String(name || '').replace(/_/g, ' ');
+    for (var i = 0; i < RP.CONDITION_ICONS.length; i++) {
+      if (RP.CONDITION_ICONS[i][0].test(text)) return RP.CONDITION_ICONS[i][1];
+    }
+    return '⚠️';
+  };
+
+  /** "bleeding 3 -2hp | a deep cut across the palm" → one live condition.
+   *  The per-turn cost comes off the head first, then the turns left, and
+   *  whatever remains is the condition itself. Plain "hunted" works too —
+   *  it just never ticks. One parser for the setup forms, the sheet
+   *  editor and the COND direction, so they cannot drift apart. */
+  RP.parseCondition = function (line) {
+    var parts = String(line || '').split('|');
+    var head = parts[0].trim();
+    var effect = /\s([+-]\d{1,3}(?:hp|mp))\s*$/i.exec(head);
+    if (effect) head = head.slice(0, effect.index).trim();
+    var turns = /\s(\d{1,2})\s*$/.exec(head);
+    if (turns) head = head.slice(0, turns.index).trim();
+    var key = slug(head);
+    if (!key) return null;
+    return {
+      key: key, name: head,
+      turns: turns ? Number(turns[1]) : 0,
+      effect: effect ? effect[1].toLowerCase() : '',
+      note: clip(parts.slice(1).join('|'), 160),
+    };
+  };
+
   /** A condition has a name, a note and — if it is going to pass — a
    *  number of turns left on it. */
   RP.normCondition = function (key, value) {
@@ -1626,9 +1696,13 @@
       status: clip(setup.status, 120),
       present: setup.present === undefined ? true : Boolean(setup.present),
     };
-    String(setup.flags || '').split(',').forEach(function (f) {
-      var key = slug(f);
-      if (key) sheet.flags[key] = { note: '', turns: 0 };
+    // "bleeding 3 -2hp | a deep cut" is one condition with a bite, not
+    // three words — split on newlines and semicolons when notes are in
+    // play, commas only for the quick "wounded, hunted" shorthand.
+    var rawFlags = String(setup.flags || '');
+    (/[\n;|]/.test(rawFlags) ? rawFlags.split(/[\n;]/) : rawFlags.split(',')).forEach(function (f) {
+      var cond = RP.parseCondition(f);
+      if (cond) sheet.flags[cond.key] = { note: cond.note, turns: cond.turns, effect: cond.effect };
     });
     // Split on semicolons when notes are in play, so "a key | bent, old"
     // stays one item rather than becoming two.
@@ -1653,6 +1727,54 @@
 
   RP.sheetFor = function (room, charId) {
     return ((room && room.states) || {})[charId] || null;
+  };
+
+  /* ---- the player's own sheet: a body that can be hurt, a pack the
+   * model can see. Without this, "you" is the one person in the scene
+   * who cannot bleed, carry or lose anything. ---- */
+
+  RP.PLAYER_ID = '__you__';
+
+  /** What the scene calls the reader: the persona's name when one is
+   *  written, the account name otherwise, 'You' when nobody has said. */
+  RP.playerNameFor = function (state) {
+    var p = state && state.persona ? state.persona : null;
+    return (p && p.name) || (state && state.user && state.user.name) || 'You';
+  };
+
+  /** The reader's sheet in this room, created on first need and seeded
+   *  from the persona's kit. When the reader has starred a cast member
+   *  (youPlay) that character's sheet already IS the player, so no
+   *  second body is invented. */
+  RP.ensurePlayerSheet = function (state, room) {
+    if (!room || room.mechanics === 'off') return null;
+    room.states = room.states || {};
+    if (room.youPlay && room.states[room.youPlay]) return room.states[room.youPlay];
+    var name = RP.playerNameFor(state);
+    var sheet = room.states[RP.PLAYER_ID];
+    if (!sheet) {
+      sheet = RP.blankSheet({ id: RP.PLAYER_ID, name: name }, room.statePreset);
+      room.states[RP.PLAYER_ID] = sheet;
+    }
+    // The persona's kit seeds the pack — each entry once, ever, per room.
+    // An item written into the persona mid-scene still arrives; an item
+    // dropped in play does not creep back next render.
+    var persona = state && state.persona ? state.persona : {};
+    sheet.seeded = sheet.seeded || [];
+    (persona.items || []).forEach(function (i) {
+      var item = RP.normItem(i);
+      if (!item.name) return;
+      var key = item.name.toLowerCase();
+      if (sheet.seeded.indexOf(key) >= 0) return;
+      sheet.seeded.push(key);
+      var already = (sheet.items || []).some(function (have) {
+        return RP.normItem(have).name.toLowerCase() === key;
+      });
+      if (!already) sheet.items.push(item);
+    });
+    sheet.player = true;
+    sheet.name = name;
+    return sheet;
   };
 
   function clampPool(pool) {
@@ -1705,7 +1827,7 @@
       return sheet.name + ' — ' + String(change.name).replace(/_/g, ' ') + ': ' + sheet.counters[ckey];
     }
     if (change.kind === 'item') {
-      var item = RP.normItem({ name: change.name, note: change.note });
+      var item = RP.normItem({ name: change.name, note: change.note, icon: change.icon });
       if (!item.name) return '';
       sheet.items = (sheet.items || []).map(RP.normItem);
       var at = sheet.items.map(function (i) { return i.name.toLowerCase(); }).indexOf(item.name.toLowerCase());
@@ -1754,16 +1876,23 @@
     var sheets = Object.keys((room && room.states) || {}).map(function (k) { return room.states[k]; })
       .filter(function (s) { return s && s.present !== false; });
     if (!sheets.length) return '';
-    return 'CHARACTER STATE — this is true right now, play it. They may only use what is listed here, and a\n' +
-      'condition with a cost beside it is taking that off them every turn it lasts.\n' + sheets.map(function (s) {
+    var hasPlayer = false;
+    var active = [];    // conditions in play right now — surfaced, not buried
+    var body = sheets.map(function (s) {
+      if (s.player) hasPlayer = true;
       var bits = [];
       if (s.hp) bits.push('HP ' + s.hp.value + '/' + s.hp.max + (s.hp.value === 0 ? ' (down)' : s.hp.value <= s.hp.max * 0.3 ? ' (badly hurt)' : ''));
       if (s.mp) bits.push('MP ' + s.mp.value + '/' + s.mp.max);
       Object.keys(s.flags || {}).forEach(function (f) {
         var cond = s.flags[f] && typeof s.flags[f] === 'object' ? s.flags[f] : { note: '', turns: 0 };
-        bits.push(f.replace(/_/g, ' ') +
+        var word = f.replace(/_/g, ' ');
+        bits.push(RP.condIcon(f) + ' ' + word +
           (cond.note ? ' (' + cond.note + ')' : '') +
-          (cond.turns ? ' [' + cond.turns + ' turns left]' : ''));
+          (cond.turns ? ' [' + cond.turns + ' turns left]' : '') +
+          (cond.effect ? ' [' + cond.effect + ' a turn]' : ''));
+        active.push(s.name + ' is ' + word +
+          (cond.effect ? ', losing ' + cond.effect.replace(/^[+-]/, '') + ' every turn it lasts' : '') +
+          (cond.note ? ' — ' + cond.note : ''));
       });
       Object.keys(s.counters || {}).forEach(function (c) { bits.push(c.replace(/_/g, ' ') + ' ' + s.counters[c]); });
       var kit = (s.items || []).map(RP.normItem);
@@ -1778,8 +1907,65 @@
         }).join('; '));
       }
       if (s.status) bits.push(s.status);
-      return '- ' + s.name + ': ' + (bits.join(' · ') || 'unharmed, nothing to declare');
+      return '- ' + s.name + (s.player ? ' (THE PLAYER)' : '') + ': ' + (bits.join(' · ') || 'unharmed, nothing to declare');
     }).join('\n');
+    var out = 'CHARACTER STATE — this is true right now, play it. They may only use what is listed here, and a\n' +
+      'condition with a cost beside it is taking that off them every turn it lasts.\n' + body;
+    if (active.length) {
+      out += '\nCONDITIONS IN PLAY — these are not flavour. Each one must shape what its bearer does this turn:\n' +
+        active.slice(0, 8).map(function (l) { return '- ' + l; }).join('\n');
+    }
+    if (hasPlayer) {
+      out += '\nThe sheet marked (THE PLAYER) is the reader\u2019s own body and pack. Wound it, cost it and hand it ' +
+        'things with the same directions, using their name — but never decide what they do or say. When they name ' +
+        'a thing that is on their sheet, that is the thing they mean: its note is true and its count is real.';
+    }
+    return out;
+  };
+
+  /* ---- what the latest words actually name ---- */
+
+  var SMALL_WORDS = ' the this that with from your their there have when what where were will been they them and for you her his its our all one two of a an in on to is it ';
+
+  function saidIn(text, name) {
+    var words = String(name || '').toLowerCase().split(/[^a-z0-9]+/).filter(function (w) {
+      return w.length >= 3 && SMALL_WORDS.indexOf(' ' + w + ' ') < 0;
+    });
+    if (!words.length) return false;
+    return words.some(function (w) {
+      return new RegExp('(^|[^a-z0-9])' + w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '($|[^a-z0-9])', 'i').test(text);
+    });
+  }
+
+  /** When the player says "the key", the model is told which key, whose
+   *  it is and what is filed against it — the sheets stop being a list it
+   *  can forget the moment something on them is actually talked about. */
+  RP.mentionBlock = function (room, text) {
+    var said = String(text || '').toLowerCase();
+    if (said.replace(/\s+/g, '').length < 3) return '';
+    var hits = [];
+    Object.keys((room && room.states) || {}).forEach(function (id) {
+      var s = room.states[id];
+      if (!s || s.present === false) return;
+      var who = s.player ? s.name + ' (the player)' : s.name;
+      (s.items || []).map(RP.normItem).forEach(function (i) {
+        if (!saidIn(said, i.name)) return;
+        hits.push('- ' + i.icon + ' ' + i.name + ' — ' + who + '\u2019s, ' + (i.equipped ? 'in hand' : 'stowed') +
+          (i.qty > 1 ? ', ×' + i.qty : '') + (i.note ? ' · ' + i.note : ''));
+      });
+      Object.keys(s.flags || {}).forEach(function (f) {
+        var word = f.replace(/_/g, ' ');
+        if (!saidIn(said, word)) return;
+        var cond = s.flags[f] && typeof s.flags[f] === 'object' ? s.flags[f] : { note: '', turns: 0 };
+        hits.push('- ' + RP.condIcon(f) + ' ' + word + ' — on ' + who +
+          (cond.turns ? ', ' + cond.turns + ' turns left' : '') +
+          (cond.effect ? ', ' + cond.effect + ' a turn' : '') + (cond.note ? ' · ' + cond.note : ''));
+      });
+    });
+    if (!hits.length) return '';
+    return 'NAMED JUST NOW — the latest turn speaks of things that are really on the sheets\n' +
+      hits.slice(0, 6).join('\n') +
+      '\nTreat them exactly as filed: the note is true, the count is real, and nothing not listed exists to be used.';
   };
 
   /* ---- stage directions: how the model changes the world ---- */
@@ -1799,6 +1985,9 @@
     '      [[ITEM: Name - the brass key]] lost · [[EQUIP: Name brass key]] in hand · [[STOW: Name brass key]] away',
     '  [[USE: Name the brass key]]      spend or use one. Only ever use something that is on their sheet.',
     '  [[STATUS: Name bleeding, one arm]]  a short physical note',
+    '  [[TINT: the exact words = colour]]   those words render in that colour in every turn from now on — for',
+    '      things with lasting weight (a cursed blade, a sickness, a name). Several at once: [[TINT: the seal,',
+    '      the wax = violet]]. [[UNTINT: the seal]] releases them.',
     '  [[LOOKUP: what you want to know]]  search the archive mid-turn. The page finds the passage and hands it',
     '      back, then you write the turn again using it. Use it when you need a fact you do not have — a date, a',
     '      name, what a filing actually says — instead of inventing one.',
@@ -1808,9 +1997,11 @@
     '      Nobody has drawn them, so the description is the portrait: face, build, clothing, one memorable detail.',
     '  [[EXIT: Name — why they leave]]     write someone out when they leave, fall, or flee',
     'Only use ENTER for people the archive knows, or a clearly named newcomer. Never ENTER or EXIT the player.',
+    'The player\u2019s sheet answers to their name like anyone else\u2019s: [[HP: their name -4]], [[ITEM: their name',
+    '+ 🪙 a cut purse]], [[COND: their name poisoned 4 -1hp | pale wine]] are all fair — deciding their words is not.',
   ].join('\n');
 
-  var DIRECTIVE_RE = /\[\[\s*(HP|MP|FLAG|COND|CURE|COUNT|ITEM|USE|EQUIP|STOW|STATUS|ENTER|EXIT|NEW|SET|TIME|LOOKUP|REMEMBER)\s*:\s*([^\]]+?)\s*\]\]/gi;
+  var DIRECTIVE_RE = /\[\[\s*(HP|MP|FLAG|COND|CURE|COUNT|ITEM|USE|EQUIP|STOW|STATUS|TINT|UNTINT|ENTER|EXIT|NEW|SET|TIME|LOOKUP|REMEMBER)\s*:\s*([^\]]+?)\s*\]\]/gi;
   // Anything else in double brackets is a directive the model invented. It
   // gets stripped rather than printed at the reader: "[[TIME: 23:00]]" in
   // the middle of the prose is a bug, not a feature.
@@ -1857,6 +2048,18 @@
       }
       if (type === 'TIME') {
         out.push({ kind: 'time', body: body, value: clip(body, 60) });
+        continue;
+      }
+      if (type === 'TINT' || type === 'UNTINT') {
+        // [[TINT: the seal, the wax = violet]] — words the model wants
+        // coloured in every turn from here on. UNTINT releases them.
+        var eq = body.split(/\s*=\s*/);
+        var words = String(type === 'UNTINT' ? body : eq[0]).split(',')
+          .map(function (w) { return clip(w.trim(), 40); }).filter(Boolean).slice(0, 6);
+        var colour = type === 'UNTINT' ? '' : RP.colourValue(eq.slice(1).join('=').trim());
+        if (words.length && (type === 'UNTINT' || colour)) {
+          out.push({ kind: 'tint', body: body, names: words, colour: colour });
+        }
         continue;
       }
       if (type === 'SET') {
@@ -1957,13 +2160,22 @@
   RP.applyDirectives = function (state, room, directives, resolve) {
     RP.ensureSheets(room);
     var lines = [], entered = [], exited = [];
+    var you = (room.states || {})[RP.PLAYER_ID];
     function find(name) {
       var want = String(name || '').toLowerCase().trim();
+      // The player's sheet answers to their name, "you" and "the player" —
+      // but only exactly: fuzzy matching a name like "You" is how a turn
+      // about "the young man" wounds the reader by accident.
+      if (you && (want === 'you' || want === 'the player' || want === 'player' ||
+          want === String(you.name || '').toLowerCase())) {
+        return { id: RP.PLAYER_ID, name: you.name, player: true };
+      }
       return (room.cast || []).filter(function (c) {
         return c.name.toLowerCase() === want || c.name.toLowerCase().indexOf(want) >= 0 || want.indexOf(c.name.toLowerCase()) >= 0;
       })[0];
     }
-    var names = (room.cast || []).map(function (c) { return c.name; });
+    var names = (room.cast || []).map(function (c) { return c.name; })
+      .concat(you ? [you.name, 'the player'] : []);
     (directives || []).forEach(function (d) {
       if (d.kind === 'lookup') return;       // the page answers this one
       if (d.kind === 'remember') {
@@ -1986,6 +2198,20 @@
         var was = room.facts[key];
         room.facts[key] = d.value;
         lines.push((was ? d.name + ' is now ' : d.name + ': ') + d.value);
+        return;
+      }
+      if (d.kind === 'tint') {
+        // Standing colour: filed on the room, applied at the reader, so a
+        // tinted phrase costs the prompt nothing after this line.
+        room.tints = room.tints || [];
+        (d.names || []).forEach(function (text) {
+          var low = text.toLowerCase();
+          room.tints = room.tints.filter(function (t) { return String(t.text).toLowerCase() !== low; });
+          if (d.colour) room.tints.push({ text: text, colour: d.colour });
+        });
+        room.tints = room.tints.slice(-24);
+        lines.push('🎨 ' + (d.names || []).join(', ') +
+          (d.colour ? ' — written in colour from here on' : ' — plain again'));
         return;
       }
       if (d.kind === 'new') {
@@ -2040,7 +2266,7 @@
       }
       if (d.kind === 'exit') {
         var who = find(d.name);
-        if (!who || room.cast.length <= 1) return;
+        if (!who || who.id === RP.PLAYER_ID || room.cast.length <= 1) return;
         room.cast = room.cast.filter(function (c) { return c.id !== who.id; });
         if (room.states[who.id]) room.states[who.id].present = false;
         if (room.next === who.id) room.next = '';
@@ -3482,6 +3708,8 @@
     if (room.mechanics !== 'off') {
       var sheets = RP.stateBlock(room);
       if (sheets) parts.push(sheets);
+      var named = RP.mentionBlock(room, opts.mentionText || '');
+      if (named) parts.push(named);
       parts.push(RP.DIRECTIVES);
     }
     var fate = RP.fateBlock(opts.fate);
@@ -4025,7 +4253,21 @@
     if (sheet && sheet.name) {
       lines.push(sheet.name + (sheet.voice ? ' — ' + sheet.voice : ''));
       if (sheet.look) lines.push('Looks like: ' + sheet.look);
-      if ((sheet.items || []).length) lines.push('Carrying: ' + sheet.items.join(', '));
+      // The kit of record is the live player sheet when the room keeps
+      // one — the persona's list only seeds it. Reading the sheet here
+      // means the prompt can never say "carrying the key" after the key
+      // was handed over three turns ago.
+      var live = room && state ? RP.ensurePlayerSheet(state, room) : null;
+      // When the reader plays a starred cast member, that character's kit
+      // is already on the sheets — here we still describe the persona.
+      if (live && live.id !== RP.PLAYER_ID) live = null;
+      var kit = (live ? live.items : sheet.items) || [];
+      if (kit.length) {
+        lines.push('Carrying: ' + kit.map(function (i) {
+          var it = RP.normItem(i);
+          return it.icon + ' ' + it.name + (it.note ? ' (' + it.note + ')' : '');
+        }).join(', '));
+      }
       if (sheet.notes) lines.push(sheet.notes);
     }
     if (starred) lines.push('In this scene they are playing ' + starred.name + '.');
@@ -5198,6 +5440,8 @@
     if (room.mechanics !== 'off') {
       var sheets = RP.stateBlock(room);
       if (sheets) parts.push(sheets);
+      var named = RP.mentionBlock(room, opts.mentionText || '');
+      if (named) parts.push(named);
       parts.push(RP.DIRECTIVES);
     }
     var fateBlock = RP.fateBlock(opts.fate);
@@ -5209,8 +5453,34 @@
   };
 
   // A local model has a context window and the server refuses anything over
-  // 16k characters, so the prompt is budgeted rather than hoped about.
+  // 32k characters, so the prompt is budgeted rather than hoped about. The
+  // default suits a small window; Settings can raise it for a bigger model.
   RP.PROMPT_BUDGET = 11000;
+  RP.PROMPT_BUDGET_MAX = 30000;
+
+  /* ---- the history, packed by characters rather than counted by turns.
+   * A long chat should cost turns, not paragraphs: one 6,000-character
+   * monologue used to crowd out ten normal turns and slow the model to a
+   * crawl. Newest turns first, each clipped to a sane length, packed into
+   * a character budget — the turn COUNT limit still applies on top. ---- */
+
+  RP.HISTORY_BUDGET = 9000;
+  RP.TURN_CLIP = 1600;
+
+  RP.packHistory = function (messages, budget, minTurns) {
+    var cap = Number(budget) || RP.HISTORY_BUDGET;
+    var floor = minTurns === undefined ? 6 : minTurns;
+    var out = [], used = 0;
+    for (var i = (messages || []).length - 1; i >= 0; i--) {
+      var m = messages[i];
+      var content = String(m.content || '');
+      if (content.length > RP.TURN_CLIP) content = clip(content, RP.TURN_CLIP);
+      if (used + content.length > cap && out.length >= floor) break;
+      out.unshift(content === m.content ? m : { role: m.role, content: content });
+      used += content.length;
+    }
+    return out;
+  };
 
   /** Assemble the prompt inside the budget. The character card, the rules
    *  and the turn's own instructions are never dropped; the reference
@@ -5220,18 +5490,22 @@
     var keepFrom = protectedFrom === undefined ? parts.length : protectedFrom;
     var text = parts.join('\n\n');
     if (text.length <= cap) return text;
-    // Reference blocks, in the order they are sacrificed.
+    // Reference blocks, in the order they are sacrificed. Halving is
+    // repeated before anything is dropped outright: a block cut to a
+    // quarter still cites something, a block deleted cites nothing.
     var soft = ['FILES YOU MAY CITE', 'THE LORE BOOK', 'WHAT HAS ALREADY HAPPENED', 'ESTABLISHED LORE',
       'ALREADY HISTORY', 'THE MAIN EVENT', 'Filed description'];
-    for (var i = 0; i < soft.length && text.length > cap; i++) {
-      parts = parts.map(function (part, at) {
-        if (at >= keepFrom || part.indexOf(soft[i]) < 0) return part;
-        var lines = part.split('\n');
-        if (lines.length < 4) return part;
-        return lines.slice(0, Math.max(3, Math.floor(lines.length / 2))).join('\n') +
-          '\n… (trimmed to fit the model\u2019s window)';
-      });
-      text = parts.join('\n\n');
+    for (var pass = 0; pass < 3 && text.length > cap; pass++) {
+      for (var i = 0; i < soft.length && text.length > cap; i++) {
+        parts = parts.map(function (part, at) {
+          if (at >= keepFrom || part.indexOf(soft[i]) < 0) return part;
+          var lines = part.split('\n');
+          if (lines.length < 4) return part;
+          return lines.slice(0, Math.max(3, Math.floor(lines.length / 2))).join('\n') +
+            '\n… (trimmed to fit the model\u2019s window)';
+        });
+        text = parts.join('\n\n');
+      }
     }
     // Still too long: drop whole reference blocks, back to front, never
     // touching the character card at the head or the instructions at the end.

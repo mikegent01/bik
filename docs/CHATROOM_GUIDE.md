@@ -279,15 +279,22 @@ with mechanics on:
 ```
 [[HP: Name -12]]                damage, healing (+), or an exact value (= 30)
 [[MP: Name -5]]                 spent or recovered power
-[[COND: Name bleeding 3 | a deep cut across the palm]]   a condition, how long it lasts, what it is
+[[COND: Name bleeding 3 -2hp | a deep cut across the palm]]   a condition: turns it lasts, cost a turn, what it is
 [[CURE: Name bleeding]]                                   ends one
 [[COUNT: Name arrows -1]]                                 any counter
 [[ITEM: Name + the brass key | bent, from the ledger room]]   gained, with a note · "-" lost
 [[EQUIP: Name brass key]] / [[STOW: Name brass key]]      in hand, or put away
 [[STATUS: Name bleeding badly]] a short physical note
+[[TINT: the exact words = colour]]  those words render in that colour every turn from now on · [[UNTINT: …]]
 [[ENTER: Name — why they arrive]]   bring someone into the scene
 [[EXIT: Name — why they leave]]     write someone out
 ```
+
+The **player's own sheet answers to their name** for all of these — `[[HP:
+Marlow -4]]`, `[[ITEM: Marlow + 🪙 a cut purse]]`, `[[COND: Marlow poisoned 3
+-1hp | pale wine]]` — and `the player` works when the model forgets the name.
+The two things it can never do to the reader are **ENTER/EXIT** them and
+decide what they say.
 
 `RP.parseDirectives` strips them from the prose before the reader sees it and
 `RP.applyDirectives` applies them: pools clamp at 0 and at max, names are
@@ -459,12 +466,22 @@ way to see why a small model is struggling.
 ### The prompt is budgeted
 
 All of this competes for one context window, so `RP.fitPrompt` assembles the
-prompt under `RP.PROMPT_BUDGET` (11,000 characters — the server refuses 16k).
-Reference blocks are halved in a fixed order (citations → lore book → world
-log → lore → history → script → filed descriptions) and then dropped
-back-to-front, while the character card at the head and the instructions at
-the tail — scene state, stage directions, the fate roll — are **never**
-sacrificed.
+prompt under a budget: `RP.PROMPT_BUDGET` (11,000 characters) by default,
+raisable in **Settings → System prompt budget** up to 30,000 for a model
+with a real window (the server's hard wall behind it is 32k). Reference
+blocks are halved in a fixed order (citations → lore book → world log →
+lore → history → script → filed descriptions), the halving repeating before
+anything is dropped outright — a block cut to a quarter still cites
+something, a block deleted cites nothing — while the character card at the
+head and the instructions at the tail — scene state, stage directions, the
+fate roll — are **never** sacrificed.
+
+The chat history is budgeted the same way. On top of the turn-count setting
+(up to 240 turns), `RP.packHistory` packs the turns newest-first into a
+character budget (**Settings → History budget**, default 9,000) and clips
+any single turn at `RP.TURN_CLIP` (1,600 characters) — so one pasted-in
+monologue cannot evict ten normal turns or slow the model to a crawl, and a
+long chat costs *turns*, not paragraphs.
 
 ## 👍 / 👎 — ratings are training data
 
@@ -965,6 +982,12 @@ chat under `THE USER PLAYS`. It is separate from the archive: ★ starring a
 character in a scene says *I am playing them tonight*, and the persona is
 still you underneath.
 
+The kit is written one item per line (`🗝 a brass key | bent` — same syntax
+as everywhere else) and **seeds your pack**: the grid on your own sheet, in
+every room that keeps mechanics on. Once a room has that sheet, the
+`Carrying:` line under `THE USER PLAYS` reads from it live — the prompt can
+never claim you still carry the key you handed over three turns ago.
+
 ## Keyword lore — exact facts, injected on sight
 
 **Labs → Keyword lore**. Give a fact some trigger words and, the moment one
@@ -1048,6 +1071,28 @@ The sheet the model reads lists them the same way — *holding 🗝 a brass key 
 carrying 📄 a worn notepad; 🏮 a lantern ×2* — with the standing rule that
 **they may only use what is on the sheet**.
 
+### 🧍 Your pack
+
+The first card in the party bar is **yours**: a twelve-slot grid
+(`RP.PLAYER_ID`, the `__you__` sheet), created the first time a scene with
+mechanics needs it and **seeded from the persona's kit** — each persona entry
+seeds once per room, so an item you drop in play does not creep back, and an
+item written into the persona mid-scene still arrives. Empty slots are `+`
+buttons; full slots offer everything a cast slot does plus **🎁 hand it to
+somebody**, which moves the thing sheet-to-sheet so the model sees the
+handover. The prompt marks the sheet `(THE PLAYER)` and tells the model it
+may wound it, cost it and hand it things by name — never speak for it. When
+you ★ star a cast member, *their* sheet is you and no second body is made.
+
+### 🔎 The sheets answer when their things are named
+
+When the latest player turn names something that is really on a sheet — *"I
+give him the brass key"*, *"how bad is the bleeding?"* — the prompt gets a
+`NAMED JUST NOW` block resolving the words to the filed thing: whose it is,
+in hand or stowed, the count, the note, the turns a condition has left. The
+model is told to treat them exactly as filed rather than inventing a second
+key. Pure logic: `RP.mentionBlock(room, text)`.
+
 ## 🩸 Conditions that bite
 
 A condition can carry a **cost per turn**, and it is taken automatically for
@@ -1063,16 +1108,45 @@ Conditions with a cost are marked in red in the party bar. A condition with
 no number never expires on its own; one with no cost is still narrative
 weight the model is told about.
 
+The same syntax now works **everywhere a condition is written**, not only in
+the model's directions: the scenario setup field and the sheet editor both
+parse `bleeding 3 -2hp | a deep cut` through `RP.parseCondition`, so a scene
+can *open* with a wound that is already costing somebody. Each condition
+carries an icon by what it is called (`🩸` bleeding, `☠️` poisoned, `🔥`
+burning, `⛓️` bound, `⚠️` anything unrecognised — `RP.condIcon`), and the
+prompt gathers everything active into a `CONDITIONS IN PLAY` block with the
+order that *each one must shape what its bearer does this turn* — a bleeding
+character speaks and moves like one, or cures it on the record.
+
 ## 🎨 Colour, sparingly
 
 The model can put a few words in colour: `{red|the door is open}`,
 `{ice|her breath}`, `{#8e2b20|the stain}`. Named colours — red, blood,
-orange, amber, gold, green, teal, blue, ice, violet, purple, pink, grey,
-black, white, rust, moss, bone — or any `#hex`. Anything that is not a
+crimson, orange, ember, amber, gold, copper, green, moss, jade, teal, sea,
+blue, ice, storm, violet, purple, lilac, plum, pink, grey, silver, black,
+white, rust, sand, bone, venom — or any `#hex`. Anything that is not a
 colour is left exactly as written, and the content is escaped first, so the
 syntax cannot smuggle markup in. The rule in the prompt is *"use it for one
 thing that matters, not for decoration — two or three words in a turn at
 most, and never a whole sentence."*
+
+### Standing tints — a colour that keeps
+
+`{…|…}` colours one sentence, once. For a thing with lasting weight the
+model files a **standing tint**:
+
+```
+[[TINT: the seal, the wax = violet]]     every later mention renders violet
+[[UNTINT: the seal]]                     released
+```
+
+The rule lives on the room (`room.tints`, capped at 24) and is applied at
+render time by `RP.applyTints` — reader-side, so a tinted phrase costs the
+prompt nothing, it survives leaving and reopening the chat, and it colours
+*your* mentions of the thing too. A phrase the writer already coloured by
+hand in a sentence is left alone, and a "colour" the palette refuses files
+nothing. Filing one is reported like any other stage direction: *🎨 the
+seal — written in colour from here on.*
 
 ## 📜 Long chats stay cheap
 
