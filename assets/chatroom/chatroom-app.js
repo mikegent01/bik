@@ -287,6 +287,18 @@
     return String(url || '').replace(/\/+$/, '').replace(/\/chat\/completions$/, '') + '/models';
   }
 
+  /** What to read before writing a turn: what was just said, what this
+   *  scene is, and the filings this speaker is attached to. The passages
+   *  come back, not the files. */
+  function searchForTurn(r, speaker, recent) {
+    return RP.searchArchive(archiveIndex, [
+      recent,
+      r.sceneName || '',
+      (RP.sourceRecord(r, archive) || {}).name || '',
+      ((speaker && speaker.keyEvents) || []).join(' '),
+    ].join(' '), { limit: 3 });
+  }
+
   /** The token budget for a turn, from the length dial (the narrator gets
    *  its own band). Continuations get the same again, so a long turn can
    *  actually land. */
@@ -884,8 +896,12 @@
     if (!r) { toast('Play something first — the prompt is built per scene.'); return; }
     var speaker = RP.nextSpeaker(r);
     var recent = RP.historyFor(r, 4).map(function (m) { return m.content; }).join(' ');
-    var found = RP.citableFor(archiveIndex, r, state, { query: recent + ' ' + (r.scene || ''), limit: 8 });
-    var system = RP.systemFor(state, r, speaker, { archive: archive, citations: RP.citationBlock(found) });
+    var found = RP.citableFor(archiveIndex, r, state, { query: recent + ' ' + (r.scene || ''), limit: 6 });
+    var read = searchForTurn(r, speaker, recent);
+    var system = RP.systemFor(state, r, speaker, {
+      archive: archive,
+      citations: [RP.citationBlock(found), read.length ? RP.retrievalBlock(read) : ''].filter(Boolean).join('\n\n'),
+    });
     var blocks = system.split('\n\n').map(function (b) {
       return { head: RP.clip(b.split('\n')[0], 60), size: b.length };
     }).sort(function (a, b) { return b.size - a.size; }).slice(0, 10);
@@ -2132,6 +2148,9 @@
     if (m.fate) bits.push('<span class="roll">' + esc(m.fate) + '</span>');
     (m.changes || []).forEach(function (line) { bits.push('<span>' + esc(line) + '</span>'); });
     if (m.beatFired) bits.push('<span class="beat">⏩ ' + esc(RP.clip(m.beatFired, 90)) + '</span>');
+    (m.consulted || []).forEach(function (name) {
+      bits.push('<span class="read" title="Read out of the archive for this turn">🔎 ' + esc(RP.clip(name, 40)) + '</span>');
+    });
     if (m.edited) bits.push('<span class="quiet">edited</span>');
     return bits.length ? '<div class="metastrip">' + bits.join('') + '</div>' : '';
   }
@@ -2152,8 +2171,16 @@
     form('State — ' + sheet.name, [
       { k: 'hp', label: 'HP (value / max, blank for none)', value: sheet.hp ? sheet.hp.value + '/' + sheet.hp.max : '' },
       { k: 'mp', label: 'MP (value / max, blank for none)', value: sheet.mp ? sheet.mp.value + '/' + sheet.mp.max : '' },
-      { k: 'flags', label: 'Conditions, comma separated', value: Object.keys(sheet.flags || {}).join(', ') },
-      { k: 'items', label: 'Carrying, comma separated', value: (sheet.items || []).join(', ') },
+      { k: 'flags', label: 'Conditions — "bleeding 3 | a deep cut", one per line', type: 'area',
+        value: Object.keys(sheet.flags || {}).map(function (f) {
+          var c = sheet.flags[f] && typeof sheet.flags[f] === 'object' ? sheet.flags[f] : { note: '', turns: 0 };
+          return f.replace(/_/g, ' ') + (c.turns ? ' ' + c.turns : '') + (c.note ? ' | ' + c.note : '');
+        }).join('\n') },
+      { k: 'items', label: 'Carrying — "a brass key | bent, from the ledger room", one per line, ✊ for in hand',
+        type: 'area',
+        value: (sheet.items || []).map(RP.normItem).map(function (i) {
+          return (i.equipped ? '✊ ' : '') + i.name + (i.qty > 1 ? ' x' + i.qty : '') + (i.note ? ' | ' + i.note : '');
+        }).join('\n') },
       { k: 'status', label: 'Physical note', value: sheet.status || '' },
     ], { note: 'The model reads this before every turn and writes to it with stage directions. Changing it here changes what the scene believes.' }, function (v) {
       function pool(text, old) {
@@ -2164,8 +2191,23 @@
       sheet.hp = pool(v.hp, sheet.hp);
       sheet.mp = pool(v.mp, sheet.mp);
       sheet.flags = {};
-      v.flags.split(',').forEach(function (f) { var k = RP.slug(f); if (k) sheet.flags[k] = true; });
-      sheet.items = v.items.split(',').map(function (i) { return i.trim(); }).filter(Boolean);
+      v.flags.split(/\n/).forEach(function (line) {
+        var parts = line.split('|');
+        var head = parts[0].trim();
+        var turns = /\s(\d{1,2})$/.exec(head);
+        if (turns) head = head.slice(0, turns.index).trim();
+        var key = RP.slug(head);
+        if (key) sheet.flags[key] = { note: (parts[1] || '').trim(), turns: turns ? Number(turns[1]) : 0 };
+      });
+      sheet.items = v.items.split(/\n/).map(function (line) {
+        var held = /^\s*✊\s*/.test(line);
+        var parts = line.replace(/^\s*✊\s*/, '').split('|');
+        var head = parts[0].trim();
+        var qty = /\sx(\d{1,3})$/i.exec(head);
+        if (qty) head = head.slice(0, qty.index).trim();
+        if (!head) return null;
+        return { name: head, note: (parts[1] || '').trim(), equipped: held, qty: qty ? Number(qty[1]) : 1 };
+      }).filter(Boolean);
       sheet.status = v.status.trim();
       r.updated = Date.now();
       save(); render();
@@ -2231,11 +2273,14 @@
           '<span class="nm">' + avatar(who, 22) + esc(sheet.name) + '</span>' +
           (sheet.hp ? bar('hp', sheet.hp) : '') + (sheet.mp ? bar('mp', sheet.mp) : '') +
           '<span class="chips">' + Object.keys(sheet.flags || {}).map(function (f) {
-            return '<span class="flag">' + esc(f.replace(/_/g, ' ')) + '</span>';
+            var cond = sheet.flags[f] && typeof sheet.flags[f] === 'object' ? sheet.flags[f] : { note: '', turns: 0 };
+            return '<span class="flag" title="' + esc(cond.note || f.replace(/_/g, ' ')) + '">' +
+              esc(f.replace(/_/g, ' ')) + (cond.turns ? ' ' + cond.turns : '') + '</span>';
           }).join('') + Object.keys(sheet.counters || {}).map(function (c) {
             return '<span class="flag num">' + esc(c.replace(/_/g, ' ')) + ' ' + sheet.counters[c] + '</span>';
-          }).join('') + (sheet.items || []).map(function (i) {
-            return '<span class="flag item">' + esc(i) + '</span>';
+          }).join('') + (sheet.items || []).map(RP.normItem).map(function (i) {
+            return '<span class="flag item' + (i.equipped ? ' held' : '') + '" title="' + esc(i.note || i.name) + '">' +
+              (i.equipped ? '✊ ' : '') + esc(i.name) + (i.qty > 1 ? ' ×' + i.qty : '') + '</span>';
           }).join('') + (sheet.status ? '<span class="flag note">' + esc(sheet.status) + '</span>' : '') + '</span>' +
           '</button>';
       }).join('');
@@ -3104,10 +3149,13 @@
     // What the cast may cite: whatever the recent turns are actually about,
     // filtered to filings whose dates have already passed in this scene.
     var recent = RP.historyFor(r, 4).map(function (m) { return m.content; }).join(' ');
-    var found = RP.citableFor(archiveIndex, r, state, { query: recent + ' ' + (r.scene || ''), limit: 8 });
+    var found = RP.citableFor(archiveIndex, r, state, { query: recent + ' ' + (r.scene || ''), limit: 6 });
+    var dug = searchForTurn(r, speaker, recent);
+    if (opts.searched) recent = recent + ' ' + opts.searched;
     var opts2 = {
-      fate: fate, archive: archive, citations: RP.citationBlock(found), recent: recent,
-      notes: r.lastNotes || [],
+      fate: fate, archive: archive, recent: recent, notes: r.lastNotes || [],
+      citations: [opts.searched || '', RP.citationBlock(found), dug.length ? RP.retrievalBlock(dug) : '']
+        .filter(Boolean).join('\n\n'),
     };
     var system = worldTurn ? RP.worldSystem(state, r, opts2) : RP.systemFor(state, r, speaker, opts2);
     // NOT `window`: a local of that name shadows the global one for the
@@ -3192,6 +3240,8 @@
           // The roll and the state changes belong to the turn they happened
           // in, not to three separate cards in the stream.
           fate: fate ? fate.pill : '',
+          // What the turn was written with, so you can see it working.
+          consulted: dug.slice(0, 3).map(function (hit) { return hit.name; }),
           changes: changes.lines.slice(0, 6),
         };
         if (!String(clean || '').trim()) {
@@ -3207,6 +3257,9 @@
           var after = RP.rotationAfter(RP.speakableCast(r).length ? RP.speakableCast(r) : r.cast, speaker.id);
           r.next = after ? after.id : '';
         }
+        // Anything temporary counts down on the turn it survives.
+        var passed = r.mechanics === 'off' ? [] : RP.tickConditions(r);
+        if (passed.length) msg.changes = (msg.changes || []).concat(passed);
         // A fired beat rides on the same card as the turn it interrupted.
         if (RP.autoAdvance(r)) {
           var beat = RP.fireBeat(r);

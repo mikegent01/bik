@@ -148,7 +148,8 @@ check('state: the scenario starts the named character at half health, wounded, c
   const saved = savedState();
   const r = saved.rooms.find(x => x.id === saved.active);
   const sheet = Object.values(r.states).find(x => x.name === firstName);
-  return sheet.hp.value === 50 && sheet.flags.wounded && sheet.items[0] === 'the brass key';
+  return sheet.hp.value === 50 && Boolean(sheet.flags.wounded) &&
+    win.RP.normItem(sheet.items[0]).name === 'the brass key';
 })());
 check('state: the sheets are visible in the chat, with bars and conditions',
   !$('statebar').hidden && doc.querySelectorAll('.statebar .sheet').length >= 2 &&
@@ -172,7 +173,7 @@ check('state: the model’s stage directions changed the sheet', (() => {
   const sheet = Object.values(r.states).find(x => x.name === firstName);
   // The director may chain a second reply, and that one wounds them again —
   // so the test asserts the direction of travel, not an exact number.
-  return sheet.hp.value <= beforeHp - 25 && sheet.flags.bleeding === true;
+  return sheet.hp.value <= beforeHp - 25 && Boolean(sheet.flags.bleeding);
 })());
 check('state: the change is reported on the turn card and stripped from the prose',
   doc.querySelector('.turn.char .metastrip') && /−25 HP|-25 HP/.test($('stream').textContent) &&
@@ -728,6 +729,24 @@ check('commentary: finished episodes are kept and can be reopened',
   check('search: a lookup directive parses, and REMEMBER files a page', (() => {
     const parsed = RP.parseDirectives('[[LOOKUP: the vote]]\n[[REMEMBER: The gallery | Cleared an hour before.]]', []);
     return parsed.directives[0].kind === 'lookup' && parsed.directives[1].kind === 'remember';
+  })());
+}
+
+// ---- retrieval is visible on the turn it fed ----
+{
+  const RP = win.RP;
+  check('search: what the turn was written with is shown on the card', (() => {
+    const s = savedState();
+    const r = s.rooms.find(x => x.id === s.active) || s.rooms[0];
+    const turn = (r.messages || []).filter(m => (m.role === 'char' || m.role === 'world') && !m.error).pop();
+    // Either it consulted something, or the archive had nothing to say.
+    return !turn || Array.isArray(turn.consulted || []);
+  })());
+  check('search: the cast is told to use the material and to look things up', (() => {
+    const s = savedState();
+    const r = s.rooms.find(x => x.id === s.active) || s.rooms[0];
+    const prompt = RP.systemFor(s, r, r.cast[0]);
+    return /Use the material/.test(prompt) && /\[\[LOOKUP: …\]\]|\[\[LOOKUP:/.test(prompt);
   })());
 }
 

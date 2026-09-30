@@ -118,8 +118,9 @@ memory, lore, replay, backups — is documented in
   been played here. Playing one produces the missing account.
 - **Sequels.** 📖 Sequel in any chat carries the cast, the sheets, the pinned
   lines and the unfired beats into the next scene, and opens in the middle.
-- **Character state.** Every room keeps HP, MP, conditions, counters and
-  inventory per character, shown under 🩺 States and editable by hand. Scenario
+- **Character state.** Every room keeps HP, MP, conditions (with notes and a
+  turn count that ticks down), counters and an inventory of real items (note,
+  quantity, in hand or stowed) per character, shown under 🩺 States and editable by hand. Scenario
   setup decides what everyone walks in carrying (a battle at 50% HP with
   `wounded` set), and the model updates the sheets itself with stage
   directions — `[[HP: Name -12]]`, `[[FLAG: Name bleeding]]`, `[[ITEM: …]]` —
@@ -192,7 +193,8 @@ memory, lore, replay, backups — is documented in
   writes the card into their own filed portrait, so the file is a picture and
   a card at once; the archive's fields ride along under
   `extensions.waluipedia`.
-- **🔎 The cast can search.** Every turn, the recent lines become a query and
+- **🔎 The cast can search.** Every turn the query is the recent lines plus
+  the scene's own filing plus the speaker's filings, and
   the best matching *passages* (not summaries, not whole files) are handed to
   the model with their ids. It can also ask for itself mid-turn with
   `[[LOOKUP: …]]` — the page searches, files what it finds into the lore book

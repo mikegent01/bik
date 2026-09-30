@@ -257,7 +257,7 @@ under **🩺 States** and editable by clicking one.
 
 | Preset | What it gives |
 |---|---|
-| Story | no numbers at all — flags and notes only |
+| Story | no numbers at all — conditions and notes only |
 | Stakes | HP only |
 | RPG | HP and MP (the default) |
 
@@ -266,15 +266,24 @@ everyone walks in carrying: HP %, MP %, conditions (`wounded, hunted`),
 inventory, and a physical note. A What-If battle can start at 50% HP with
 `wounded` already true, and the model reads exactly that before its first line.
 
+**Conditions and kit have substance.** A condition is a name, a note and —
+if it passes — a count of turns that ticks down on its own
+(`sleepless (three nights of it) [2 turns left]`, and then *"no longer
+sleepless"*). An item is a name, a note about it, a quantity and whether it is
+**in hand**: `holding a worn notepad · carrying a brass key ×2 — bent, from
+the ledger room`. Both are editable by hand in the party bar, one per line.
+
 **The model writes to the sheets.** `RP.DIRECTIVES` is in every system prompt
 with mechanics on:
 
 ```
 [[HP: Name -12]]                damage, healing (+), or an exact value (= 30)
 [[MP: Name -5]]                 spent or recovered power
-[[FLAG: Name wounded]]          set a condition · "= false" clears it
-[[COUNT: Name arrows -1]]       any counter
-[[ITEM: Name + the brass key]]  gained · "-" lost
+[[COND: Name bleeding 3 | a deep cut across the palm]]   a condition, how long it lasts, what it is
+[[CURE: Name bleeding]]                                   ends one
+[[COUNT: Name arrows -1]]                                 any counter
+[[ITEM: Name + the brass key | bent, from the ledger room]]   gained, with a note · "-" lost
+[[EQUIP: Name brass key]] / [[STOW: Name brass key]]      in hand, or put away
 [[STATUS: Name bleeding badly]] a short physical note
 [[ENTER: Name — why they arrive]]   bring someone into the scene
 [[EXIT: Name — why they leave]]     write someone out
@@ -776,9 +785,14 @@ file than is here.
 
 Two ways it fires:
 
-- **Every turn, automatically.** The last few turns become the query, and the
-  top passages ride along beside the dated citations. This is what stops a
-  scene being dry: the model has the actual words in front of it.
+- **Every turn, automatically.** The query is what was just said **plus**
+  what this scene is (its filing, its name) **plus** the filings the speaking
+  character is attached to — so a quiet turn still pulls the material it
+  belongs to. The passages ride along beside the dated citations, and the
+  turn card shows a **🔎 chip per filing it read**, so you can see it
+  working. The in-character rules also now say: *"Use the material… quote it,
+  argue with it, get it slightly wrong in character if that is truer. A scene
+  that could have happened in any story is a wasted turn."*
 - **On demand, by the model.** `[[LOOKUP: what you want to know]]` is a real
   tool. The page runs the search, **files the results into the lore book**,
   shows you `🔎 looked up "…" — 3 passages filed`, and then has the model

@@ -263,6 +263,10 @@
   };
 
   var RULES = [
+    'Use the material. When the archive passages, the session filing or the lore book say something that touches ' +
+      'this moment, USE IT — a date, a name, a number, what somebody actually said. Quote it, argue with it, get it ' +
+      'slightly wrong in character if that is truer. A scene that could have happened in any story is a wasted turn.',
+    'If you need a fact you do not have, ask for it with [[LOOKUP: …]] rather than inventing one.',
     'Stay in character at all times: never mention being an AI, a model, or a chat assistant, and never break the fiction to apologise.',
     'Put actions, gestures and scene detail between asterisks like *this*. Put speech in "quotes".',
     'Write only your own character. Never speak, act or decide for the user.',
@@ -1427,6 +1431,48 @@
 
   /** A fresh sheet. `setup` overrides the start: { hpPct, mpPct, status,
    *  flags: 'wounded, hunted', items: 'rope, lantern' }. */
+  /** Items are things, not strings: a name, a note about it, whether it is
+   *  in hand, and how many. Old string inventories are upgraded on read. */
+  RP.normItem = function (value) {
+    if (value && typeof value === 'object') {
+      return {
+        name: clip(value.name, 60), note: clip(value.note, 160),
+        equipped: Boolean(value.equipped), qty: Math.max(1, Number(value.qty || 1)),
+      };
+    }
+    var text = String(value || '');
+    var split = text.split('|');
+    return { name: clip(split[0], 60), note: clip(split.slice(1).join('|'), 160), equipped: false, qty: 1 };
+  };
+
+  /** A condition has a name, a note and — if it is going to pass — a
+   *  number of turns left on it. */
+  RP.normCondition = function (key, value) {
+    if (value && typeof value === 'object') {
+      return { note: clip(value.note, 160), turns: Number(value.turns || 0) || 0 };
+    }
+    return { note: '', turns: 0 };
+  };
+
+  /** Count down anything temporary. Returns the lines to show the reader. */
+  RP.tickConditions = function (room) {
+    var lines = [];
+    Object.keys((room && room.states) || {}).forEach(function (id) {
+      var sheet = room.states[id];
+      if (!sheet || sheet.present === false) return;
+      Object.keys(sheet.flags || {}).forEach(function (key) {
+        var cond = sheet.flags[key];
+        if (!cond || typeof cond !== 'object' || !cond.turns) return;
+        cond.turns -= 1;
+        if (cond.turns <= 0) {
+          delete sheet.flags[key];
+          lines.push(sheet.name + ' is no longer ' + key.replace(/_/g, ' '));
+        }
+      });
+    });
+    return lines;
+  };
+
   RP.blankSheet = function (char, preset, setup) {
     preset = RP.STATE_PRESETS[preset] || RP.STATE_PRESETS.rpg;
     setup = setup || {};
@@ -1446,10 +1492,15 @@
       present: setup.present === undefined ? true : Boolean(setup.present),
     };
     String(setup.flags || '').split(',').forEach(function (f) {
-      var key = slug(f); if (key) sheet.flags[key] = true;
+      var key = slug(f);
+      if (key) sheet.flags[key] = { note: '', turns: 0 };
     });
-    String(setup.items || '').split(',').forEach(function (i) {
-      var item = clip(i, 40); if (item) sheet.items.push(item);
+    // Split on semicolons when notes are in play, so "a key | bent, old"
+    // stays one item rather than becoming two.
+    var rawItems = String(setup.items || '');
+    (/[;|]/.test(rawItems) ? rawItems.split(';') : rawItems.split(',')).forEach(function (i) {
+      var item = RP.normItem(i);
+      if (item.name) sheet.items.push(item);
     });
     return sheet;
   };
@@ -1496,8 +1547,13 @@
       var key = slug(change.name);
       if (!key) return '';
       var on = !(change.value === false || /^(false|off|no|clear|0)$/i.test(String(change.value)));
-      if (on) sheet.flags[key] = true; else delete sheet.flags[key];
-      return sheet.name + (on ? ' is now ' : ' is no longer ') + String(change.name).replace(/_/g, ' ');
+      if (on) {
+        sheet.flags[key] = { note: clip(change.note, 160), turns: Number(change.turns || 0) || 0 };
+      } else {
+        delete sheet.flags[key];
+      }
+      var span = on && sheet.flags[key].turns ? ' (' + sheet.flags[key].turns + ' turns)' : '';
+      return sheet.name + (on ? ' is now ' : ' is no longer ') + String(change.name).replace(/_/g, ' ') + span;
     }
     if (change.kind === 'counter') {
       var ckey = slug(change.name);
@@ -1507,17 +1563,31 @@
       return sheet.name + ' — ' + String(change.name).replace(/_/g, ' ') + ': ' + sheet.counters[ckey];
     }
     if (change.kind === 'item') {
-      var item = clip(change.name, 40);
-      if (!item) return '';
-      var at = sheet.items.map(function (i) { return i.toLowerCase(); }).indexOf(item.toLowerCase());
+      var item = RP.normItem({ name: change.name, note: change.note });
+      if (!item.name) return '';
+      sheet.items = (sheet.items || []).map(RP.normItem);
+      var at = sheet.items.map(function (i) { return i.name.toLowerCase(); }).indexOf(item.name.toLowerCase());
       if (change.op === '-') {
         if (at < 0) return '';
         sheet.items.splice(at, 1);
-        return sheet.name + ' loses ' + item;
+        return sheet.name + ' loses ' + item.name;
       }
-      if (at >= 0) return '';
+      if (at >= 0) {
+        if (item.note) sheet.items[at].note = item.note;
+        sheet.items[at].qty += 1;
+        return sheet.name + ' now has ' + sheet.items[at].qty + ' × ' + item.name;
+      }
       sheet.items.push(item);
-      return sheet.name + ' picks up ' + item;
+      return sheet.name + ' picks up ' + item.name + (item.note ? ' (' + item.note + ')' : '');
+    }
+    if (change.kind === 'equip') {
+      sheet.items = (sheet.items || []).map(RP.normItem);
+      var held = sheet.items.filter(function (i) {
+        return i.name.toLowerCase().indexOf(String(change.name).toLowerCase()) >= 0;
+      })[0];
+      if (!held) return '';
+      held.equipped = change.op !== '-';
+      return sheet.name + (held.equipped ? ' takes up ' : ' puts away ') + held.name;
     }
     if (change.kind === 'status') {
       sheet.status = clip(change.value, 120);
@@ -1535,10 +1605,22 @@
       var bits = [];
       if (s.hp) bits.push('HP ' + s.hp.value + '/' + s.hp.max + (s.hp.value === 0 ? ' (down)' : s.hp.value <= s.hp.max * 0.3 ? ' (badly hurt)' : ''));
       if (s.mp) bits.push('MP ' + s.mp.value + '/' + s.mp.max);
-      var flags = Object.keys(s.flags || {});
-      if (flags.length) bits.push(flags.map(function (f) { return f.replace(/_/g, ' '); }).join(', '));
+      Object.keys(s.flags || {}).forEach(function (f) {
+        var cond = s.flags[f] && typeof s.flags[f] === 'object' ? s.flags[f] : { note: '', turns: 0 };
+        bits.push(f.replace(/_/g, ' ') +
+          (cond.note ? ' (' + cond.note + ')' : '') +
+          (cond.turns ? ' [' + cond.turns + ' turns left]' : ''));
+      });
       Object.keys(s.counters || {}).forEach(function (c) { bits.push(c.replace(/_/g, ' ') + ' ' + s.counters[c]); });
-      if ((s.items || []).length) bits.push('carrying ' + s.items.join(', '));
+      var kit = (s.items || []).map(RP.normItem);
+      var inHand = kit.filter(function (i) { return i.equipped; });
+      if (inHand.length) bits.push('holding ' + inHand.map(function (i) { return i.name; }).join(', '));
+      var stowed = kit.filter(function (i) { return !i.equipped; });
+      if (stowed.length) {
+        bits.push('carrying ' + stowed.map(function (i) {
+          return i.name + (i.qty > 1 ? ' ×' + i.qty : '') + (i.note ? ' — ' + i.note : '');
+        }).join('; '));
+      }
       if (s.status) bits.push(s.status);
       return '- ' + s.name + ': ' + (bits.join(' · ') || 'unharmed, nothing to declare');
     }).join('\n');
@@ -1553,9 +1635,11 @@
     'in one turn, and never for something that did not happen in the turn you just wrote.',
     '  [[HP: Name -12]]                 damage, healing (+), or an exact value (= 30)',
     '  [[MP: Name -5]]                  spent or recovered power',
-    '  [[FLAG: Name wounded]]           set a condition · [[FLAG: Name wounded = false]] clears it',
+    '  [[COND: Name bleeding 3 | a deep cut across the palm]]  a condition, how many turns it lasts (leave the',
+    '      number off if it does not pass on its own), and what it actually is. [[CURE: Name bleeding]] ends it.',
     '  [[COUNT: Name arrows -1]]        any counter you need',
-    '  [[ITEM: Name + the brass key]]   gained · [[ITEM: Name - the brass key]] lost',
+    '  [[ITEM: Name + the brass key | bent, from the ledger room]]  gained, with a note about it.',
+    '      [[ITEM: Name - the brass key]] lost · [[EQUIP: Name brass key]] in hand · [[STOW: Name brass key]] away',
     '  [[STATUS: Name bleeding, one arm]]  a short physical note',
     '  [[LOOKUP: what you want to know]]  search the archive mid-turn. The page finds the passage and hands it',
     '      back, then you write the turn again using it. Use it when you need a fact you do not have — a date, a',
@@ -1568,7 +1652,7 @@
     'Only use ENTER for people the archive knows, or a clearly named newcomer. Never ENTER or EXIT the player.',
   ].join('\n');
 
-  var DIRECTIVE_RE = /\[\[\s*(HP|MP|FLAG|COUNT|ITEM|STATUS|ENTER|EXIT|NEW|SET|TIME|LOOKUP|REMEMBER)\s*:\s*([^\]]+?)\s*\]\]/gi;
+  var DIRECTIVE_RE = /\[\[\s*(HP|MP|FLAG|COND|CURE|COUNT|ITEM|EQUIP|STOW|STATUS|ENTER|EXIT|NEW|SET|TIME|LOOKUP|REMEMBER)\s*:\s*([^\]]+?)\s*\]\]/gi;
   // Anything else in double brackets is a directive the model invented. It
   // gets stripped rather than printed at the reader: "[[TIME: 23:00]]" in
   // the middle of the prose is a bug, not a feature.
@@ -1659,13 +1743,41 @@
         continue;
       }
       if (type === 'ITEM') {
+        // [[ITEM: Name + the brass key | bent, from the ledger room]]
         var item = /^([+\-])\s*(.+)$/.exec(rest);
-        if (item) out.push({ kind: 'item', body: body, who: target.name, op: item[1], name: clip(item[2], 40) });
+        if (item) {
+          var bits = item[2].split('|');
+          out.push({
+            kind: 'item', body: body, who: target.name, op: item[1],
+            name: clip(bits[0], 60), note: clip(bits.slice(1).join('|'), 160),
+          });
+        }
         continue;
       }
-      if (type === 'FLAG') {
-        var flag = /^([a-z0-9_ ]+?)(?:\s*=\s*(\S+))?\s*$/i.exec(rest);
-        if (flag) out.push({ kind: 'flag', body: body, who: target.name, name: clip(flag[1], 40), value: flag[2] === undefined ? true : flag[2] });
+      if (type === 'FLAG' || type === 'COND') {
+        // [[COND: Name bleeding 3 | a deep cut across the palm]]
+        var parts = rest.split('|');
+        var head = parts[0].trim();
+        var turns = /\s(\d{1,2})\s*$/.exec(head);
+        if (turns) head = head.slice(0, turns.index).trim();
+        var flag = /^([a-z0-9_ '-]+?)(?:\s*=\s*(\S+))?\s*$/i.exec(head);
+        if (flag) {
+          out.push({
+            kind: 'flag', body: body, who: target.name, name: clip(flag[1], 40),
+            value: flag[2] === undefined ? true : flag[2],
+            note: clip(parts.slice(1).join('|'), 160),
+            turns: turns ? Number(turns[1]) : 0,
+          });
+        }
+        continue;
+      }
+      if (type === 'CURE') {
+        out.push({ kind: 'flag', body: body, who: target.name, name: clip(rest, 40), value: false });
+        continue;
+      }
+      if (type === 'EQUIP' || type === 'STOW') {
+        out.push({ kind: 'equip', body: body, who: target.name, name: clip(rest, 60), op: type === 'STOW' ? '-' : '+' });
+        continue;
       }
     }
     var clean = String(text || '').replace(DIRECTIVE_RE, '').replace(STRAY_RE, '')
@@ -1735,10 +1847,14 @@
       }
       // Re-read the raw body now that the cast is known: "Lord Darian Marsh
       // bleeding" is one person and a condition, not two words.
-      if (d.body && d.kind !== 'enter' && d.kind !== 'exit') {
+      // Re-read the raw body only when the name we have is not somebody in
+      // the room — otherwise a CURE would come back as a FLAG being set.
+      if (d.body && d.kind !== 'enter' && d.kind !== 'exit' && d.kind !== 'new' && !find(d.who || d.name)) {
         var re = RP.splitTarget(d.body, names);
         if (re.name && re.rest) {
-          var reparsed = RP.parseDirectives('[[' + d.kind.toUpperCase().replace('COUNTER', 'COUNT') + ': ' + d.body + ']]', names).directives[0];
+          var kindWord = d.kind === 'counter' ? 'COUNT' : d.kind === 'equip' ? (d.op === '-' ? 'STOW' : 'EQUIP')
+            : d.kind === 'flag' ? (d.value === false ? 'CURE' : 'COND') : d.kind.toUpperCase();
+          var reparsed = RP.parseDirectives('[[' + kindWord + ': ' + d.body + ']]', names).directives[0];
           if (reparsed) d = reparsed;
         }
       }

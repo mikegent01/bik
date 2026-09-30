@@ -323,7 +323,7 @@ const fight = RP.newRoom([sans, cutters], {
 check('state: a scenario can start someone at half health, wounded and carrying',
   fight.states.sans.hp.value === 50 && fight.states.sans.hp.max === 100 &&
   fight.states.sans.flags.wounded && fight.states.sans.flags.hunted &&
-  fight.states.sans.items[0] === 'brass key' && fight.states.sans.status === 'one arm useless');
+  fight.states.sans.items[0].name === 'brass key' && fight.states.sans.status === 'one arm useless');
 check('state: everyone else starts whole', fight.states.timber_gang.hp.value === 100 && fight.states.timber_gang.mp.value === 50);
 check('state: the story preset carries no numbers at all', (() => {
   const quiet = RP.newRoom([sans, cutters], { statePreset: 'story' });
@@ -344,10 +344,10 @@ const applied = RP.applyDirectives(state, fight, staged.directives, () => rebel)
 check('state: damage subtracts rather than sets', fight.states.sans.hp.value === 15);
 check('state: spending power is tracked too', fight.states.sans.mp.value === 40);
 check('state: a flag can be set and another cleared in the same turn',
-  fight.states.sans.flags.bleeding === true && fight.states.sans.flags.hunted === undefined);
+  Boolean(fight.states.sans.flags.bleeding) && fight.states.sans.flags.hunted === undefined);
 check('state: counters, inventory and physical notes all land',
   fight.states.timber_gang.counters.saws === -1 &&
-  fight.states.timber_gang.items[0] === 'the broken blade' &&
+  fight.states.timber_gang.items[0].name === 'the broken blade' &&
   fight.states.timber_gang.status === 'blood to the elbow');
 check('roster: the model can walk a character into the scene',
   fight.cast.some(c => c.id === 'rebel_scout') && fight.states.rebel_scout &&
@@ -375,7 +375,59 @@ check('state: sheets survive a save and load', (() => {
   state.rooms = [fight];
   RP.saveState(store, state);
   const round = RP.loadState(store);
-  return round.rooms[0].states.sans.hp.value === 0 && round.rooms[0].states.sans.flags.bleeding;
+  return round.rooms[0].states.sans.hp.value === 0 && Boolean(round.rooms[0].states.sans.flags.bleeding);
+})());
+
+// ---- the sheets have more to say now ----
+const kitRoom = RP.newRoom([sans], { setup: { sans: { items: 'a brass key | bent, from the ledger room' } } });
+check('kit: an item carries a note about itself', (() => {
+  const item = kitRoom.states.sans.items[0];
+  return item.name === 'a brass key' && item.note.includes('ledger room') && item.qty === 1 && !item.equipped;
+})());
+check('kit: picking the same thing up twice counts it', (() => {
+  const names = kitRoom.cast.map(c => c.name);
+  RP.applyDirectives(RP.blankState(), kitRoom,
+    RP.parseDirectives('[[ITEM: Sans + a brass key]]', names).directives, () => null);
+  return kitRoom.states.sans.items[0].qty === 2;
+})());
+check('kit: something can be in hand or put away', (() => {
+  const names = kitRoom.cast.map(c => c.name);
+  RP.applyDirectives(RP.blankState(), kitRoom, RP.parseDirectives('[[EQUIP: Sans brass key]]', names).directives, () => null);
+  const held = kitRoom.states.sans.items[0].equipped;
+  RP.applyDirectives(RP.blankState(), kitRoom, RP.parseDirectives('[[STOW: Sans brass key]]', names).directives, () => null);
+  return held && !kitRoom.states.sans.items[0].equipped;
+})());
+check('conditions: one can be given a note and a count of turns', (() => {
+  const names = kitRoom.cast.map(c => c.name);
+  const lines = RP.applyDirectives(RP.blankState(), kitRoom,
+    RP.parseDirectives('[[COND: Sans bleeding 2 | a deep cut across the palm]]', names).directives, () => null).lines;
+  const cond = kitRoom.states.sans.flags.bleeding;
+  return cond.turns === 2 && cond.note.includes('deep cut') && /2 turns/.test(lines[0]);
+})());
+check('conditions: they count down and then pass', (() => {
+  const first = RP.tickConditions(kitRoom);
+  const stillThere = Boolean(kitRoom.states.sans.flags.bleeding);
+  const second = RP.tickConditions(kitRoom);
+  return first.length === 0 && stillThere && second.length === 1 &&
+    /no longer bleeding/.test(second[0]) && !kitRoom.states.sans.flags.bleeding;
+})());
+check('conditions: a lasting one is never ticked away', (() => {
+  const names = kitRoom.cast.map(c => c.name);
+  RP.applyDirectives(RP.blankState(), kitRoom, RP.parseDirectives('[[COND: Sans hunted | the Legion has his name]]', names).directives, () => null);
+  RP.tickConditions(kitRoom); RP.tickConditions(kitRoom); RP.tickConditions(kitRoom);
+  return Boolean(kitRoom.states.sans.flags.hunted);
+})());
+check('conditions: CURE ends one on the spot', (() => {
+  const names = kitRoom.cast.map(c => c.name);
+  RP.applyDirectives(RP.blankState(), kitRoom, RP.parseDirectives('[[CURE: Sans hunted]]', names).directives, () => null);
+  return !kitRoom.states.sans.flags.hunted;
+})());
+check('kit: the model is shown what is in hand, what is stowed, and for how long', (() => {
+  const names = kitRoom.cast.map(c => c.name);
+  RP.applyDirectives(RP.blankState(), kitRoom, RP.parseDirectives(
+    '[[EQUIP: Sans brass key]]\n[[COND: Sans winded 3 | ran the ridge road]]', names).directives, () => null);
+  const block = RP.stateBlock(kitRoom);
+  return /holding a brass key/.test(block) && /winded \(ran the ridge road\) \[3 turns left\]/.test(block);
 })());
 
 // ---------- hooks: strong openers, weak ones rejected ----------
