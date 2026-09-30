@@ -2287,6 +2287,49 @@ check('history: newest turns win the budget', (() => {
   })());
 }
 
+// ---------- the doorman: arrivals and departures the prose forgot ----------
+{
+  check('doorman: a never-seen name who enters or speaks is caught',
+    RP.arrivalScan('The door bangs open. Brad enters, shaking rain off his coat.', ['Sans']) === 'Brad' &&
+    RP.arrivalScan('Brad says, "Anyone order a parcel?"', ['Sans']) === 'Brad' &&
+    RP.arrivalScan('Brad: "Anyone here?"', ['Sans']) === 'Brad');
+  check('doorman: known names, mere mentions, sentence-starters and mike are not arrivals',
+    RP.arrivalScan('Sans enters the room again.', ['Sans']) === '' &&
+    RP.arrivalScan('They talk about Brad for a while.', ['Sans']) === '' &&
+    RP.arrivalScan('Suddenly the lights die.', ['Sans']) === '' &&
+    RP.arrivalScan('Mike enters and waves.', ['Sans']) === '');
+  check('doorman: an unambiguous walk-out is a departure — leaving a knife is not',
+    RP.departureScan('Brad nods once. Brad leaves.', ['Brad', 'Sans']) === 'Brad' &&
+    RP.departureScan('With a curse, Brad storms out into the rain.', ['Brad']) === 'Brad' &&
+    RP.departureScan('Brad leaves the knife on the table.', ['Brad']) === '' &&
+    RP.departureScan("Brad's patience is gone.", ['Brad']) === '');
+  check('doorman: who leaves is remembered, and returns with the same sheet', (() => {
+    const st = RP.blankState();
+    const rm = RP.newRoom([sans], {});
+    const names = () => rm.cast.map((c) => c.name);
+    RP.applyDirectives(st, rm, RP.parseDirectives('[[ENTER: Brad — a courier]]', names()).directives, null);
+    const brad = rm.cast.find((c) => c.name === 'Brad');
+    RP.applyChange(rm.states[brad.id], { kind: 'item', op: '+', name: 'sealed letter' });
+    RP.applyDirectives(st, rm, RP.parseDirectives('[[EXIT: Brad — done here]]', names()).directives, null);
+    const held = rm.away.some((c) => c.id === brad.id) && !rm.cast.some((c) => c.id === brad.id);
+    const out = RP.applyDirectives(st, rm, RP.parseDirectives('[[ENTER: Brad — back]]', names()).directives, null);
+    const b2 = rm.cast.find((c) => c.name === 'Brad');
+    return held && b2.id === brad.id &&
+      rm.states[b2.id].items.some((i) => i.name.includes('letter')) &&
+      /returns/.test(out.lines[0]);
+  })());
+  check('doorman: a fresh arrival is still dressed for the part', (() => {
+    const st = RP.blankState();
+    const rm = RP.newRoom([sans], {});
+    RP.applyDirectives(st, rm,
+      RP.parseDirectives('[[NEW: Vex | a wandering surgeon | grey gloves]]', rm.cast.map((c) => c.name)).directives, null);
+    const vex = rm.cast.find((c) => c.name === 'Vex');
+    const sheet = rm.states[vex.id];
+    return sheet && sheet.items.length >= 2 && sheet.slots >= 3 &&
+      typeof sheet.stats.might === 'number';
+  })());
+}
+
 // ---------- generated pages are in sync with these sources ----------
 let built = true;
 try {

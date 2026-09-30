@@ -1175,6 +1175,31 @@ models forget the paperwork, so two nets run behind the play:
 
 Both nets are off when mechanics are off.
 
+### 🚪 The doorman — nobody slips in or out unfiled
+
+The model is told to use `[[ENTER:]]`, `[[NEW:]]` and `[[EXIT:]]`, and when
+it does, the newcomer gets the full treatment on arrival: a sheet, HP, slots
+sized from their profile, an auto-kit dressed for the part, pseudo-stats.
+But a small model will happily write *"Brad pushes through the door"* and
+move on — leaving Brad a ghost with no sheet whose lines get misfiled. So a
+free, deterministic scan watches every reply:
+
+- **A never-seen name who arrives on a strong verb** (*enters, bursts in,
+  pushes through the door*) **or speaks an actual quoted line** (*Brad:
+  "Anyone here?"*) is filed as an ENTER on the spot — full sheet, kit and
+  all, marked `🚪 Brad enters — walked in from the prose`. Mere mentions
+  don't count (*"they talk about Brad"* brings nobody in), sentence-starters
+  like *Suddenly* and *Meanwhile* are not people, and `mike` is a GM, never
+  a character.
+- **An unambiguous walk-out** (*storms out, turns and leaves, is gone*) is
+  filed as an EXIT. *"Brad leaves the knife on the table"* is not leaving.
+  The player's character can never be walked out by prose.
+
+And leaving is not deletion: whoever exits is remembered at the door
+(`room.away`). If they come back — by directive or by prose — they return
+with **the same sheet**, still carrying whatever they walked out with. The
+card reads `returns` instead of `enters`.
+
 ## 🩸 Conditions that bite
 
 A condition can carry a **cost per turn**, and it is taken automatically for

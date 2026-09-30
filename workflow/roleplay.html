@@ -2921,6 +2921,93 @@ window.CHATROOM_CONFIG = {
     state.book.spent = (state.book.spent || 0) + 1;
   };
 
+  /* ---- the doorman: arrivals and departures the prose forgot to file ----
+     The model is told to use [[ENTER]] / [[NEW]] / [[EXIT]], but a small
+     model will happily write "Brad pushes through the door" and move on —
+     leaving Brad a ghost with no sheet whose lines get misfiled. These
+     scans are deterministic, cost nothing, and are deliberately narrow:
+     a never-seen name must ARRIVE on a strong verb or SPEAK an actual
+     quoted line; a departure must be unambiguous ("leaves the knife on
+     the table" is not leaving). */
+
+  // Words that look like names at a sentence start but never are.
+  var NOT_NAME = new RegExp('^(?:' + [
+    'The', 'A', 'An', 'He', 'She', 'It', 'They', 'We', 'You', 'I',
+    'Then', 'Now', 'But', 'And', 'So', 'Or', 'Yet', 'Still', 'Even', 'Just',
+    'Meanwhile', 'Later', 'Suddenly', 'Finally', 'Eventually', 'Once',
+    'Inside', 'Outside', 'Behind', 'Beyond', 'Above', 'Below', 'Between',
+    'Across', 'Somewhere', 'Someone', 'Somebody', 'Nobody', 'Everyone',
+    'Everybody', 'Nothing', 'Something', 'Anyone', 'Whoever',
+    'Who', 'What', 'When', 'Where', 'Why', 'How',
+    'Yes', 'No', 'Wait', 'Stop', 'Look', 'Listen', 'Okay', 'Oh', 'Ah', 'Hey', 'Well',
+    'Narration', 'Narrator', 'World', 'Mike',   // rule zero: mike is a GM, never a character
+  ].join('|') + ')\\b', 'i');
+
+  var NAME_WORD = "[A-Z][a-zA-Z'\u2019-]+";
+  var ARRIVE_RE = new RegExp(
+    '\\b(' + NAME_WORD + '(?:\\s+' + NAME_WORD + ')?)\\s+' +
+    '(?:enters|arrives|walks in\\b|steps in(?:side)?\\b|strides in\\b|bursts in\\b|' +
+    'slips in(?:side)?\\b|storms in\\b|saunters in\\b|shuffles in\\b|' +
+    'appears in the doorway|pushes through the door|' +
+    '(?:walks|steps|strides|slips) into the (?:room|hall|bar|tavern|shop|camp|clearing|light|doorway)|' +
+    'joins (?:you|the|them))', 'g');
+  var SCRIPT_RE = new RegExp(
+    '(?:^|\\n)\\s*(?:\\*\\*)?(' + NAME_WORD + '(?:\\s+' + NAME_WORD + ')?)(?:\\*\\*)?\\s*:\\s*["\u201c*A-Za-z]', 'g');
+  var SPEAKS_RE = new RegExp(
+    '\\b(' + NAME_WORD + '(?:\\s+' + NAME_WORD + ')?)\\s+' +
+    '(?:says|asks|replies|answers|calls out|mutters|rasps|drawls|growls|shouts|whispers|cuts in|interrupts)\\s*,?\\s*["\u201c]', 'g');
+
+  /** A brand-new name the prose brought on stage without filing it.
+   *  `known` is every name already accounted for (cast, player, away).
+   *  Returns one name, or ''. */
+  RP.arrivalScan = function (text, known) {
+    var have = (known || []).map(function (s) { return String(s).toLowerCase(); });
+    var seen = function (name) {
+      var low = name.toLowerCase();
+      return have.some(function (k) {
+        return k && (k.indexOf(low) >= 0 || low.indexOf(k) >= 0);
+      });
+    };
+    var ok = function (name) {
+      if (!name || name.length < 3 || NOT_NAME.test(name)) return false;
+      return !seen(name);
+    };
+    var m; var res = '';
+    ARRIVE_RE.lastIndex = 0;
+    while ((m = ARRIVE_RE.exec(String(text || ''))) !== null) {
+      if (ok(m[1])) { res = m[1]; break; }        // an arrival verb wins outright
+    }
+    if (!res) {
+      var talkers = [SCRIPT_RE, SPEAKS_RE];
+      for (var i = 0; i < talkers.length && !res; i++) {
+        talkers[i].lastIndex = 0;
+        while ((m = talkers[i].exec(String(text || ''))) !== null) {
+          if (ok(m[1])) { res = m[1]; break; }    // a spoken line means they are here
+        }
+      }
+    }
+    return res;
+  };
+
+  /** Somebody present walked out in prose. `names` is who may leave
+   *  (never the player). Returns one name, or ''. */
+  RP.departureScan = function (text, names) {
+    var body = String(text || '');
+    var esc = function (s) { return String(s).replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); };
+    for (var i = 0; i < (names || []).length; i++) {
+      var name = String(names[i] || '');
+      if (!name) continue;
+      var re = new RegExp(esc(name) + "(?!['\u2019]s)[^.!?\\n]{0,40}?\\b(?:" +
+        'walks out|storms (?:out|off)|slips (?:out|away)|hurries (?:out|off)|' +
+        'marches out|steps out(?:side)?|is gone\\b|exits\\b|departs\\b|flees\\b|' +
+        'vanishes\\b|disappears\\b|walks away|turns and leaves|' +
+        'leaves(?=\\s*[.!?,;:]|\\s+the\\s+(?:room|scene|hall|building|bar|tavern|camp|clearing|shop|house|inn|chamber)\\b|\\s+without\\b|\\s+for\\s+the\\b)' +
+        ')', 'i');
+      if (re.test(body)) return name;
+    }
+    return '';
+  };
+
   /* ---- stage directions: how the model changes the world ---- */
 
   RP.DIRECTIVES = [
@@ -3179,7 +3266,9 @@ window.CHATROOM_CONFIG = {
         made.look = d.look;          // no portrait exists; the words are it
         made.invented = true;
         room.cast.push(made);
-        room.states[made.id] = RP.outfit(room, made, RP.blankSheet(made, room.statePreset));
+        room.away = (room.away || []).filter(function (c) { return c.id !== made.id; });
+        if (room.states[made.id]) room.states[made.id].present = true;   // NEW for someone we remember is a return
+        else room.states[made.id] = RP.outfit(room, made, RP.blankSheet(made, room.statePreset));
         state.newChars = (state.newChars || []).filter(function (c) { return c.id !== made.id; });
         state.newChars.unshift(made);
         state.newChars = state.newChars.slice(0, 80);
@@ -3206,11 +3295,21 @@ window.CHATROOM_CONFIG = {
       }
       if (d.kind === 'enter') {
         if (find(d.name)) return;
-        var found = (resolve && resolve(d.name)) || RP.normChar({ name: d.name, title: 'Walked into the scene', summary: d.reason });
+        // Someone who left this room comes back as themselves — same id,
+        // same sheet, still carrying whatever they walked out with.
+        var lowName = String(d.name).toLowerCase();
+        var backIdx = (room.away || []).findIndex(function (c) {
+          var k = String(c.name || '').toLowerCase();
+          return k && (k.indexOf(lowName) >= 0 || lowName.indexOf(k) >= 0);
+        });
+        var back = backIdx >= 0 ? room.away.splice(backIdx, 1)[0] : null;
+        var found = back || (resolve && resolve(d.name)) || RP.normChar({ name: d.name, title: 'Walked into the scene', summary: d.reason });
         room.cast.push(RP.normChar(found));
-        room.states[found.id] = RP.outfit(room, found, RP.blankSheet(found, room.statePreset));
+        var kept = room.states[found.id];
+        if (kept) kept.present = true;
+        else room.states[found.id] = RP.outfit(room, found, RP.blankSheet(found, room.statePreset));
         entered.push(found);
-        lines.push(found.name + ' enters — ' + (d.reason || 'the scene called for them'));
+        lines.push(found.name + (kept ? ' returns — ' : ' enters — ') + (d.reason || 'the scene called for them'));
         RP.logEvent(state, {
           kind: 'roster', roomId: room.id, roomTitle: room.title, chars: [found.id],
           text: found.name + ' entered the scene: ' + (d.reason || 'no reason filed'),
@@ -3222,6 +3321,11 @@ window.CHATROOM_CONFIG = {
         if (!who || who.id === RP.PLAYER_ID || room.cast.length <= 1) return;
         room.cast = room.cast.filter(function (c) { return c.id !== who.id; });
         if (room.states[who.id]) room.states[who.id].present = false;
+        // Remembered at the door: if they walk back in, ENTER finds them
+        // here and hands back the same sheet instead of a fresh one.
+        room.away = (room.away || []).filter(function (c) { return c.id !== who.id; });
+        room.away.push(who);
+        room.away = room.away.slice(-24);
         if (room.next === who.id) room.next = '';
         exited.push(who);
         lines.push(who.name + ' leaves — ' + (d.reason || 'gone'));
@@ -10318,6 +10422,33 @@ window.CHATROOM_CONFIG = {
             if (have) return;
             var line = RP.applyChange(pack, { kind: 'item', op: '+', name: name });
             if (line) changes.lines.push('🎒 ' + line + ' — filed from the prose');
+          });
+        }
+      }
+      // The doorman: a never-seen name who arrives or speaks in the prose
+      // gets filed as an ENTER (a full sheet, kit and all) even when the
+      // model forgot the directive; an unambiguous walk-out is an EXIT.
+      if (r.mechanics !== 'off') {
+        var doorNames = r.cast.map(function (c) { return c.name; })
+          .concat((r.away || []).map(function (c) { return c.name; }))
+          .concat([(RP.playerCharacter(r) || {}).name || '', state.user.name || '', RP.personaSheet(state).name || '']);
+        var came = r.cast.length < 12 ? RP.arrivalScan(clean, doorNames) : '';
+        if (came) {
+          var din = RP.parseDirectives('[[ENTER: ' + came + ' — walked in from the prose]]',
+            r.cast.map(function (c) { return c.name; }));
+          RP.applyDirectives(state, r, din.directives, resolveChar).lines.forEach(function (l) {
+            changes.lines.push('🚪 ' + l);
+          });
+        }
+        var mayLeave = r.cast.filter(function (c) {
+          return c.id !== RP.PLAYER_ID && c.id !== r.youPlay && c.name !== came;
+        }).map(function (c) { return c.name; });
+        var went = RP.departureScan(clean, mayLeave);
+        if (went) {
+          var dout = RP.parseDirectives('[[EXIT: ' + went + ' — walked out in the prose]]',
+            r.cast.map(function (c) { return c.name; }));
+          RP.applyDirectives(state, r, dout.directives, resolveChar).lines.forEach(function (l) {
+            changes.lines.push('🚪 ' + l);
           });
         }
       }

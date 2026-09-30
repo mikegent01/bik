@@ -3479,6 +3479,33 @@
           });
         }
       }
+      // The doorman: a never-seen name who arrives or speaks in the prose
+      // gets filed as an ENTER (a full sheet, kit and all) even when the
+      // model forgot the directive; an unambiguous walk-out is an EXIT.
+      if (r.mechanics !== 'off') {
+        var doorNames = r.cast.map(function (c) { return c.name; })
+          .concat((r.away || []).map(function (c) { return c.name; }))
+          .concat([(RP.playerCharacter(r) || {}).name || '', state.user.name || '', RP.personaSheet(state).name || '']);
+        var came = r.cast.length < 12 ? RP.arrivalScan(clean, doorNames) : '';
+        if (came) {
+          var din = RP.parseDirectives('[[ENTER: ' + came + ' — walked in from the prose]]',
+            r.cast.map(function (c) { return c.name; }));
+          RP.applyDirectives(state, r, din.directives, resolveChar).lines.forEach(function (l) {
+            changes.lines.push('🚪 ' + l);
+          });
+        }
+        var mayLeave = r.cast.filter(function (c) {
+          return c.id !== RP.PLAYER_ID && c.id !== r.youPlay && c.name !== came;
+        }).map(function (c) { return c.name; });
+        var went = RP.departureScan(clean, mayLeave);
+        if (went) {
+          var dout = RP.parseDirectives('[[EXIT: ' + went + ' — walked out in the prose]]',
+            r.cast.map(function (c) { return c.name; }));
+          RP.applyDirectives(state, r, dout.directives, resolveChar).lines.forEach(function (l) {
+            changes.lines.push('🚪 ' + l);
+          });
+        }
+      }
       if (retry) {
         retry.alts = (retry.alts && retry.alts.length ? retry.alts : [retry.text]).concat([clean]);
         retry.alt = retry.alts.length - 1;
