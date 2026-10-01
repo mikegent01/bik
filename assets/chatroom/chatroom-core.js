@@ -686,15 +686,34 @@
     return turns - from > (every || RP.RECAP_AFTER) * 1.5;
   };
 
+  /** The recap request itself is budgeted. A grandfathered room can owe
+   *  hundreds of unfolded turns; sending them all once put 14,557 tokens
+   *  into an 8,192-token window and bought a 400 instead of a summary.
+   *  The newest of the stretch ride whole-ish; the oldest fall off with
+   *  a note saying so. recapAt still advances, so it never recurs. */
+  RP.RECAP_FOLD = 7000;
+
+  /** Out of the box the background AI is LEAN: one model call per turn —
+   *  the model writes the story; speakers rotate deterministically and
+   *  the lore book / upkeep reviewers wait for full mode. On a machine
+   *  where every call costs minutes, the pickers cost more than the prose. */
+  RP.BACKGROUND_DEFAULT = 'lean';
+
   /** The prompt that writes the recap — a small, cheap, background call. */
   RP.recapPrompt = function (room, turns, previous) {
+    var lines = []; var used = 0; var dropped = 0;
+    for (var i = (turns || []).length - 1; i >= 0; i--) {
+      var line = turns[i].who + ': ' + clip(turns[i].text, 300);
+      if (used + line.length > RP.RECAP_FOLD && lines.length) { dropped = i + 1; break; }
+      lines.unshift(line); used += line.length + 1;
+    }
     return [
       'Summarise this stretch of a roleplay session so the scene can carry on without re-reading it.',
       '',
       previous ? 'WHAT WAS ALREADY SUMMARISED (fold this in, do not repeat it separately)\n' + clip(previous, 900) : '',
       '',
-      'THE TURNS',
-      turns.map(function (t) { return t.who + ': ' + clip(t.text, 300); }).join('\n'),
+      'THE TURNS' + (dropped ? ' (the ' + dropped + ' oldest were dropped for space — mention that time passed)' : ''),
+      lines.join('\n'),
       '',
       'Write 120 to 200 words of plain past-tense prose. Keep: who did what, what was decided, what was learned,',
       'what changed hands, what was promised or refused, and anything anybody would still be angry about.',

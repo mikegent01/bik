@@ -1353,15 +1353,34 @@ window.CHATROOM_CONFIG = {
     return turns - from > (every || RP.RECAP_AFTER) * 1.5;
   };
 
+  /** The recap request itself is budgeted. A grandfathered room can owe
+   *  hundreds of unfolded turns; sending them all once put 14,557 tokens
+   *  into an 8,192-token window and bought a 400 instead of a summary.
+   *  The newest of the stretch ride whole-ish; the oldest fall off with
+   *  a note saying so. recapAt still advances, so it never recurs. */
+  RP.RECAP_FOLD = 7000;
+
+  /** Out of the box the background AI is LEAN: one model call per turn —
+   *  the model writes the story; speakers rotate deterministically and
+   *  the lore book / upkeep reviewers wait for full mode. On a machine
+   *  where every call costs minutes, the pickers cost more than the prose. */
+  RP.BACKGROUND_DEFAULT = 'lean';
+
   /** The prompt that writes the recap — a small, cheap, background call. */
   RP.recapPrompt = function (room, turns, previous) {
+    var lines = []; var used = 0; var dropped = 0;
+    for (var i = (turns || []).length - 1; i >= 0; i--) {
+      var line = turns[i].who + ': ' + clip(turns[i].text, 300);
+      if (used + line.length > RP.RECAP_FOLD && lines.length) { dropped = i + 1; break; }
+      lines.unshift(line); used += line.length + 1;
+    }
     return [
       'Summarise this stretch of a roleplay session so the scene can carry on without re-reading it.',
       '',
       previous ? 'WHAT WAS ALREADY SUMMARISED (fold this in, do not repeat it separately)\n' + clip(previous, 900) : '',
       '',
-      'THE TURNS',
-      turns.map(function (t) { return t.who + ': ' + clip(t.text, 300); }).join('\n'),
+      'THE TURNS' + (dropped ? ' (the ' + dropped + ' oldest were dropped for space — mention that time passed)' : ''),
+      lines.join('\n'),
       '',
       'Write 120 to 200 words of plain past-tense prose. Keep: who did what, what was decided, what was learned,',
       'what changed hands, what was promised or refused, and anything anybody would still be angry about.',
@@ -7494,6 +7513,12 @@ window.CHATROOM_CONFIG = {
     return RP.lengthBlock(level, false).tokens;
   }
 
+  /** Lean background AI: the model writes the story and NOTHING else.
+   *  Speakers rotate deterministically, the lore book and the upkeep
+   *  reviewer wait for full mode — on a machine where every call costs
+   *  minutes, the pickers were costing more than the prose. */
+  function leanAI() { return (state.settings.background || RP.BACKGROUND_DEFAULT) === 'lean'; }
+
   /** Which endpoint and model a call should use. Background work — the
    *  sequencer, the lore book, hooks — can be sent to a small fast model
    *  while the roleplay itself goes to the big one. */
@@ -7522,6 +7547,10 @@ window.CHATROOM_CONFIG = {
     var route = routeFor(opts);
     var url = route.url;
     var temperature = (state.settings && state.settings.temperature) || 0.85;
+    // Qwen3-family models think out loud by default and will happily spend
+    // the ENTIRE token budget on reasoning_content, returning empty prose
+    // after five minutes. Their documented soft switch turns it off.
+    if (/qwen3/i.test(String(route.model || ''))) system += '\n/no_think';
     if (isOpenAI(url)) {
       // LM Studio, llama.cpp, Ollama's OpenAI shim, anything else that
       // speaks the same API. The system prompt is just the first message.
@@ -7540,7 +7569,14 @@ window.CHATROOM_CONFIG = {
             throw new Error((value.error && (value.error.message || value.error)) || ('the model answered ' + r.status));
           }
           var choice = (value.choices || [])[0] || {};
-          return String((choice.message && choice.message.content) || choice.text || '');
+          var said = String((choice.message && choice.message.content) || choice.text || '');
+          if (!said.trim() && choice.message && String(choice.message.reasoning_content || '').trim()) {
+            // It burned the whole budget thinking and wrote nothing.
+            // Say so — a silent empty turn reads like a page bug.
+            throw new Error('the model spent its whole reply thinking and wrote no prose — ' +
+              'use a non-thinking (instruct) build, or a model where thinking can be turned off');
+          }
+          return said;
         });
       });
     }
@@ -10535,6 +10571,7 @@ window.CHATROOM_CONFIG = {
       var next = RP.nextSpeaker({ kind: 'group', cast: RP.speakableCast(r), messages: r.messages, next: r.next });
       return next ? [next.id] : [];
     }
+    if (leanAI()) return Promise.resolve(rotation());
     return callModel(RP.sequencePrompt(r, state, {}), [{ role: 'user', content: 'Who answers this?' }], { tokens: 60, utility: true })
       .then(function (text) {
         var staged = RP.parseSequence(text, r, state);
@@ -10565,6 +10602,11 @@ window.CHATROOM_CONFIG = {
     if (others.length === 1) {
       r.handback = ''; r.next = others[0].id;
       return Promise.resolve(Boolean(autoLeft));
+    }
+    if (leanAI()) {
+      var turn = RP.rotationAfter(others.length ? others : RP.speakableCast(r), speaker.id);
+      r.handback = ''; r.next = turn ? turn.id : '';
+      return Promise.resolve(Boolean(autoLeft) && Boolean(turn));
     }
     var lastMsg = (r.messages || []).slice().reverse().filter(function (m) {
       return m.role === 'char' || m.role === 'world' || m.role === 'user';
@@ -10853,7 +10895,13 @@ window.CHATROOM_CONFIG = {
       var staged = !retry && (r.queue || []).length;
       if (staged) { r.next = r.queue.shift(); }
       save(); render();
-      if (!retry) { queueBook(r); maybeRecap(r); maybeUpkeep(r); }
+      if (!retry) {
+        // Lean: the recap still runs (it is what keeps prompts small);
+        // the archivist and the quartermaster wait for full mode. The
+        // local nets — grant scan, conjure check, conditions — are free.
+        if (!leanAI()) { queueBook(r); maybeUpkeep(r); }
+        maybeRecap(r);
+      }
       if (room() !== r) { autoLeft = 0; return; }
       if (staged || chain || autoLeft) {
         window.setTimeout(function () { if (staged || autoLeft || chain) generate(); }, 450);
@@ -11577,6 +11625,11 @@ window.CHATROOM_CONFIG = {
       '</div>' +
       '<label for="f_utilityModel">Background model — the sequencer, the lore book, hooks (blank = the same one)</label>' +
       '<input type="text" id="f_utilityModel" value="' + esc(state.settings.utilityModel || '') + '" placeholder="a small, fast model">' +
+      '<label for="f_background">Background AI — lean is ONE model call per turn: speakers rotate, the lore book and upkeep wait</label>' +
+      '<select id="f_background">' +
+      '<option value="lean"' + ((state.settings.background || RP.BACKGROUND_DEFAULT) === 'lean' ? ' selected' : '') + '>Lean — the model only writes the story (best on slow machines)</option>' +
+      '<option value="full"' + (state.settings.background === 'full' ? ' selected' : '') + '>Full — model-picked speakers, auto lore book, upkeep reviews</option>' +
+      '</select>' +
       '<input type="text" id="f_utilityEndpoint" value="' + esc(state.settings.utilityEndpoint || '') + '" placeholder="its endpoint, if it is somewhere else">' +
       '<div class="actions"><button class="pill" id="mCancel">Cancel</button>' +
       '<button class="pill primary" id="mOk">Save</button></div>');
@@ -11658,6 +11711,7 @@ window.CHATROOM_CONFIG = {
       });
       state.settings.sampler = next;
       state.settings.utilityModel = $('f_utilityModel').value.trim();
+      state.settings.background = $('f_background') ? $('f_background').value : (state.settings.background || RP.BACKGROUND_DEFAULT);
       state.settings.utilityEndpoint = $('f_utilityEndpoint').value.trim();
       state.settings.style = $('f_style').value;
       var t = parseFloat($('f_temperature').value);

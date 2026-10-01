@@ -2505,6 +2505,22 @@ check('history: newest turns win the budget', (() => {
     RP.fixRoom(stFix, RP.newRoom([RP.normChar({ id: 'x', name: 'X' })], { mechanics: 'off' }), {}).length === 0);
 }
 
+// ---------- the recap request itself fits the window ----------
+{
+  // A grandfathered room can owe hundreds of unfolded turns; sending them
+  // all at once put 14,557 tokens into an 8,192-token window → HTTP 400.
+  const owed = [];
+  for (let i = 0; i < 300; i++) owed.push({ who: 'Wario', text: ('turn ' + i + ' ').repeat(40) });
+  const big = RP.recapPrompt({}, owed, 'the story so far');
+  check('recap: three hundred owed turns still fit the context window',
+    big.length <= RP.RECAP_FOLD + 900 && /oldest were dropped for space/.test(big) &&
+    big.includes('turn 299'));
+  check('recap: a normal stretch is untouched',
+    !/dropped for space/.test(RP.recapPrompt({}, owed.slice(0, 10), '')));
+  check('lean: one model call per turn is the out-of-the-box setting',
+    RP.BACKGROUND_DEFAULT === 'lean');
+}
+
 // ---------- generated pages are in sync with these sources ----------
 let built = true;
 try {

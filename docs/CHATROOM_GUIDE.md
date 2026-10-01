@@ -1280,6 +1280,32 @@ crawls. The prompt is now sized to the turn:
   a summary. That is the chunking — the model never re-reads the whole
   night.
 
+### 🍃 Lean background AI — one model call per turn, out of the box
+
+Settings → **Background AI** ships on **lean**: the model writes the
+story and *nothing else*. Speakers rotate deterministically (no
+who-speaks-next call), the auto lore book and the upkeep reviewer wait
+for **full** mode, and the rolling recap still runs — budgeted — because
+it is what keeps prompts small. Everything deterministic stays free and
+local either way: the grant scan, the thin-air check, conditions,
+arrivals and departures. On a machine where a call costs minutes, the
+pickers were costing more than the prose; flip the dial to **full** on a
+box that can afford model-picked speakers and automatic filing.
+
+Two more hard-won rules from real logs:
+
+- **The recap request is budgeted** (`RP.RECAP_FOLD`): a grandfathered
+  room owing hundreds of unfolded turns once sent 14,557 tokens into an
+  8,192-token window and got an HTTP 400 instead of a summary. Now the
+  newest of the stretch rides, the oldest drop with a note, and
+  `recapAt` advances so it never recurs.
+- **Thinking models are told not to.** Qwen3-family models will spend
+  the entire token budget on `reasoning_content` and return empty prose
+  after five minutes; the page appends their documented `/no_think`
+  switch, and if a model still burns its whole reply thinking, the error
+  says so instead of filing a silent empty turn. Prefer plain
+  *instruct* builds for this page.
+
 ### 🚀 Making the local model fast — what the page does, and what LM Studio should
 
 What the page already avoids (read from a real session's server logs):

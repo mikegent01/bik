@@ -313,6 +313,12 @@
     return RP.lengthBlock(level, false).tokens;
   }
 
+  /** Lean background AI: the model writes the story and NOTHING else.
+   *  Speakers rotate deterministically, the lore book and the upkeep
+   *  reviewer wait for full mode — on a machine where every call costs
+   *  minutes, the pickers were costing more than the prose. */
+  function leanAI() { return (state.settings.background || RP.BACKGROUND_DEFAULT) === 'lean'; }
+
   /** Which endpoint and model a call should use. Background work — the
    *  sequencer, the lore book, hooks — can be sent to a small fast model
    *  while the roleplay itself goes to the big one. */
@@ -341,6 +347,10 @@
     var route = routeFor(opts);
     var url = route.url;
     var temperature = (state.settings && state.settings.temperature) || 0.85;
+    // Qwen3-family models think out loud by default and will happily spend
+    // the ENTIRE token budget on reasoning_content, returning empty prose
+    // after five minutes. Their documented soft switch turns it off.
+    if (/qwen3/i.test(String(route.model || ''))) system += '\n/no_think';
     if (isOpenAI(url)) {
       // LM Studio, llama.cpp, Ollama's OpenAI shim, anything else that
       // speaks the same API. The system prompt is just the first message.
@@ -359,7 +369,14 @@
             throw new Error((value.error && (value.error.message || value.error)) || ('the model answered ' + r.status));
           }
           var choice = (value.choices || [])[0] || {};
-          return String((choice.message && choice.message.content) || choice.text || '');
+          var said = String((choice.message && choice.message.content) || choice.text || '');
+          if (!said.trim() && choice.message && String(choice.message.reasoning_content || '').trim()) {
+            // It burned the whole budget thinking and wrote nothing.
+            // Say so — a silent empty turn reads like a page bug.
+            throw new Error('the model spent its whole reply thinking and wrote no prose — ' +
+              'use a non-thinking (instruct) build, or a model where thinking can be turned off');
+          }
+          return said;
         });
       });
     }
@@ -3354,6 +3371,7 @@
       var next = RP.nextSpeaker({ kind: 'group', cast: RP.speakableCast(r), messages: r.messages, next: r.next });
       return next ? [next.id] : [];
     }
+    if (leanAI()) return Promise.resolve(rotation());
     return callModel(RP.sequencePrompt(r, state, {}), [{ role: 'user', content: 'Who answers this?' }], { tokens: 60, utility: true })
       .then(function (text) {
         var staged = RP.parseSequence(text, r, state);
@@ -3384,6 +3402,11 @@
     if (others.length === 1) {
       r.handback = ''; r.next = others[0].id;
       return Promise.resolve(Boolean(autoLeft));
+    }
+    if (leanAI()) {
+      var turn = RP.rotationAfter(others.length ? others : RP.speakableCast(r), speaker.id);
+      r.handback = ''; r.next = turn ? turn.id : '';
+      return Promise.resolve(Boolean(autoLeft) && Boolean(turn));
     }
     var lastMsg = (r.messages || []).slice().reverse().filter(function (m) {
       return m.role === 'char' || m.role === 'world' || m.role === 'user';
@@ -3672,7 +3695,13 @@
       var staged = !retry && (r.queue || []).length;
       if (staged) { r.next = r.queue.shift(); }
       save(); render();
-      if (!retry) { queueBook(r); maybeRecap(r); maybeUpkeep(r); }
+      if (!retry) {
+        // Lean: the recap still runs (it is what keeps prompts small);
+        // the archivist and the quartermaster wait for full mode. The
+        // local nets — grant scan, conjure check, conditions — are free.
+        if (!leanAI()) { queueBook(r); maybeUpkeep(r); }
+        maybeRecap(r);
+      }
       if (room() !== r) { autoLeft = 0; return; }
       if (staged || chain || autoLeft) {
         window.setTimeout(function () { if (staged || autoLeft || chain) generate(); }, 450);
@@ -4396,6 +4425,11 @@
       '</div>' +
       '<label for="f_utilityModel">Background model — the sequencer, the lore book, hooks (blank = the same one)</label>' +
       '<input type="text" id="f_utilityModel" value="' + esc(state.settings.utilityModel || '') + '" placeholder="a small, fast model">' +
+      '<label for="f_background">Background AI — lean is ONE model call per turn: speakers rotate, the lore book and upkeep wait</label>' +
+      '<select id="f_background">' +
+      '<option value="lean"' + ((state.settings.background || RP.BACKGROUND_DEFAULT) === 'lean' ? ' selected' : '') + '>Lean — the model only writes the story (best on slow machines)</option>' +
+      '<option value="full"' + (state.settings.background === 'full' ? ' selected' : '') + '>Full — model-picked speakers, auto lore book, upkeep reviews</option>' +
+      '</select>' +
       '<input type="text" id="f_utilityEndpoint" value="' + esc(state.settings.utilityEndpoint || '') + '" placeholder="its endpoint, if it is somewhere else">' +
       '<div class="actions"><button class="pill" id="mCancel">Cancel</button>' +
       '<button class="pill primary" id="mOk">Save</button></div>');
@@ -4477,6 +4511,7 @@
       });
       state.settings.sampler = next;
       state.settings.utilityModel = $('f_utilityModel').value.trim();
+      state.settings.background = $('f_background') ? $('f_background').value : (state.settings.background || RP.BACKGROUND_DEFAULT);
       state.settings.utilityEndpoint = $('f_utilityEndpoint').value.trim();
       state.settings.style = $('f_style').value;
       var t = parseFloat($('f_temperature').value);

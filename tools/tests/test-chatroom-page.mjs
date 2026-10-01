@@ -54,6 +54,11 @@ const dom = new JSDOM(pageHtml, {
   // The page boots as soon as its scripts parse, so the browser surfaces it
   // needs (fetch, speech synthesis) have to exist before that happens.
   beforeParse(window) {
+    // Round 12: background AI ships LEAN (RP.BACKGROUND_DEFAULT, pinned in
+    // the core suite). These tests exercise the FULL machinery — auto lore
+    // book, upkeep reviews, model-picked speakers — so the dial is seeded
+    // to full before the page boots.
+    window.localStorage.setItem('waluipedia-chatroom-v1', JSON.stringify({ settings: { background: 'full' } }));
     window.fetch = (url, opts) => fetch(new URL(url, `http://127.0.0.1:${SERVER_PORT}/`), opts);
     window.speechSynthesis = { speak() {}, cancel() {} };
     window.SpeechSynthesisUtterance = function () {};
@@ -536,6 +541,7 @@ check('commentary: finished episodes are kept and can be reopened',
   await wait(300);
   check('endpoint: the choice and the model name are saved',
     savedState().settings.endpoint.includes('/v1') && Boolean(savedState().settings.model));
+
 
   doc.querySelector('[data-char]').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
   await wait(200);
