@@ -631,6 +631,17 @@ Wario, `Sans: "…"` is Sans. A quote the prose does not attribute belongs
 to whoever is talking this turn; on a world or director turn that is
 nobody, so the narrator (Waluigi by default) reads it.
 
+**“…,” you say is YOUR line, in YOUR voice.** When the model writes the
+player's dialogue inside another character's card — *"it's my latest
+revision," you say* on a Wario turn — the reader follows the prose, not
+the nameplate: second-person attribution (`you say`, `you reply`, `You
+mutter,` …) sends that quote to the character you play. A character who
+only listens gets no voice at all; the surrounding narration reads in
+the narrator's voice. And remember the stacking trap: a speaker with
+**no studio profile** falls back to the default profile (usually
+Waluigi) — if a whole card sounds like Waluigi, press 🛠 Fix chat and
+read the receipt; it names exactly who the studio is missing.
+
 **The voice starts now, not after the whole turn is rendered.** The first
 chunk of any reading is short (~170 chars — the opening line or two), so
 playback begins almost immediately; the rest of a long turn is cut into

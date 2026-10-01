@@ -340,9 +340,19 @@
    *  snarls Wario'. A quote the prose does NOT attribute belongs to
    *  whoever is talking this turn; on a world or director turn that is
    *  nobody, so the narrator (Waluigi by default) reads it. */
-  RP.speechParts = function (text, names, speaker) {
+  /** Second-person speech verbs: the model writes the PLAYER's line as
+   *  “…,” you say — that quote belongs to the player's voice, not to
+   *  whoever's name is on the card. */
+  var YOU_VERBS = '(?:say|said|ask|asked|reply|replied|answer|answered|whisper|whispered|' +
+    'mutter|muttered|murmur|murmured|shout|shouted|yell|yelled|call out|call|called|' +
+    'snap|snapped|add|added|warn|warned|offer|offered|continue|continued|admit|admitted|' +
+    'agree|agreed|insist|insisted|demand|demanded|repeat|repeated|begin|began|' +
+    'finish|finished|manage|managed|breathe|breathed|read|reads)';
+
+  RP.speechParts = function (text, names, speaker, player) {
     var clean = RP.ttsClean(text);
     var deflt = String(speaker || '').trim();
+    var you = String(player || '').trim();
     if (!clean) return [];
     var escName = function (s) { return String(s).replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); };
     var alts = (names || []).filter(Boolean).map(String)
@@ -359,6 +369,8 @@
     var afterVerb = alts ? new RegExp('^[\\s,\u2014\u2013-]*' + SAY_VERBS + '\\s+(' + alts + ')', 'i') : null;
     var beforeName = alts ? new RegExp('(' + alts + ')[^.!?"\u201c\u201d]{0,30}' + SAY_VERBS + '\\s*[,:]?\\s*$', 'i') : null;
     var beforeColon = alts ? new RegExp('(' + alts + ')\\s*:\\s*$', 'i') : null;
+    var afterYou = you ? new RegExp('^[\\s,\u2014\u2013-]*you\\s+' + YOU_VERBS, 'i') : null;
+    var beforeYou = you ? new RegExp('\\byou\\b[^.!?"\u201c\u201d]{0,30}\\b' + YOU_VERBS + '\\s*[,:]?\\s*$', 'i') : null;
     var last = 0; var m; var any = false;
     while ((m = QUOTE_RE.exec(clean)) !== null) {
       any = true;
@@ -370,6 +382,8 @@
         : (afterVerb && (t = afterVerb.exec(after))) ? t[1]
         : (beforeName && (t = beforeName.exec(before))) ? t[1]
         : (beforeColon && (t = beforeColon.exec(before))) ? t[1]
+        : (afterYou && afterYou.test(after)) ? you
+        : (beforeYou && beforeYou.test(before)) ? you
         : '';
       push(hit || deflt, m[1]);
       last = QUOTE_RE.lastIndex;

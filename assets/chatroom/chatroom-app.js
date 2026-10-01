@@ -4097,9 +4097,11 @@
     var speaker = msg.role === 'world' ? ''
       : msg.role === 'user' ? ((RP.playerCharacter(r) || {}).name || state.user.name || '')
       : ((charOf(r, msg.charId) || {}).name || '');
-    var castNames = r.cast.map(function (c) { return c.name; })
-      .concat([(RP.playerCharacter(r) || {}).name || '', state.user.name || '']);
-    var parts = RP.speechParts(RP.textOf(msg), castNames, speaker);
+    var playing = (RP.playerCharacter(r) || {}).name || state.user.name || '';
+    var castNames = r.cast.map(function (c) { return c.name; }).concat([playing, state.user.name || '']);
+    // The fourth argument owns “…,” you say — YOUR line, YOUR voice,
+    // even when it appears inside another character's card.
+    var parts = RP.speechParts(RP.textOf(msg), castNames, speaker, playing);
     if (!parts.length) return;
     if (reader.audio) { try { reader.audio.pause(); } catch (e) { /* already gone */ } }
     if (window.speechSynthesis) window.speechSynthesis.cancel();

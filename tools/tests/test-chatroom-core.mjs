@@ -2521,6 +2521,56 @@ check('history: newest turns win the budget', (() => {
     RP.BACKGROUND_DEFAULT === 'lean');
 }
 
+// ---------- the TTS audit: every stage of the pipeline, under pressure ----------
+{
+  const vNames = ['Waluigi', 'Wario', 'Mona', 'Ashley', 'Luigi'];
+  // The reported card, verbatim shape: a Wario turn whose ONLY spoken line
+  // is the PLAYER's — “…,” you say. That quote is YOUR voice, not Wario's.
+  const reported = '*"The Tape and the Wario Files... it\'s my latest revision,"* you say, your voice steady ' +
+    'despite the chill of the night.\n\nWario stands beside you, his arms crossed, listening intently. ' +
+    'He remains silent as he processes the new details of the aftermath.';
+  const rparts = RP.speechParts(reported, vNames, 'Wario', 'Waluigi');
+  check('tts audit: “you say” inside another character\u2019s card is the player\u2019s line',
+    rparts[0].who === 'Waluigi' && /latest revision/.test(rparts[0].text));
+  check('tts audit: a character who only listens gets no voice at all',
+    !rparts.some((p) => p.who === 'Wario') && rparts.some((p) => p.who === '' && /remains silent/.test(p.text)));
+  check('tts audit: mixed dialogue splits speaker by speaker', (() => {
+    const t = RP.speechParts('"Give it back," Wario snarled. "Fine," you reply.', vNames, 'Wario', 'Waluigi');
+    return t.map((p) => p.who).join('|') === 'Wario||Waluigi|' &&
+      t[0].text === 'Give it back,' && t[2].text === 'Fine,';
+  })());
+  check('tts audit: a leading “You mutter,” works as well as a trailing one',
+    RP.speechParts('You mutter, "this cannot be right."', vNames, '', 'Waluigi')
+      .some((p) => p.who === 'Waluigi' && /cannot be right/.test(p.text)));
+  check('tts audit: unattributed speech still falls to the card\u2019s speaker',
+    RP.speechParts('He grins. "Mine now."', vNames, 'Wario', 'Waluigi')
+      .some((p) => p.who === 'Wario' && /Mine now/.test(p.text)));
+  check('tts audit: smart quotes and named attribution survive together',
+    RP.speechParts('\u201cWe trusted you,\u201d Ashley said coldly.', vNames, 'Wario', 'Waluigi')
+      .some((p) => /ashley/i.test(p.who)));
+  check('tts audit: without a player name the old contract holds (quote → card speaker)',
+    RP.speechParts('"Hm," you say.', vNames, 'Wario')[0].who === 'Wario');
+  check('tts audit: tints speak, directives and markdown stay silent', (() => {
+    const c = RP.ttsClean('**He** lifts {crimson|the seal} high. [[HP: Wario -5]] *Done.*');
+    return /the seal/.test(c) && !/\[\[/.test(c) && !/\*/.test(c) && !/crimson\|/.test(c);
+  })());
+  check('tts audit: a 12k-char storm chunks clean — nothing lost, caps held', (() => {
+    const storm = ('The lantern gutters. "Keep moving," Wario growls. The tunnel narrows ahead of them. ').repeat(140);
+    const chunks = RP.ttsChunks(storm, 450, 170);
+    const squash = (s) => s.replace(/\s+/g, '');
+    return chunks[0].length <= 170 && chunks.every((c) => c.length <= 450) &&
+      squash(chunks.join(' ')) === squash(RP.ttsClean(storm));
+  })());
+  check('tts audit: empty and whitespace-only text produce no parts and no chunks',
+    RP.speechParts('   ', vNames, 'Wario', 'Waluigi').length === 0 && RP.ttsChunks('  \n ', 450, 170).length === 0);
+  check('tts audit: the library still outranks everything and spells the voice', (() => {
+    const lib = ['Freeman', 'Luigi', 'Panicy Woman', 'Waluigi'];
+    return RP.ttsVoiceFor('WARIO', { map: {}, fallback: 'waluigi', library: lib }) === 'Waluigi' && // absent → fallback, studio casing
+      RP.ttsVoiceFor('luigi', { map: {}, fallback: 'Waluigi', library: lib }) === 'Luigi' &&        // present → case-corrected
+      RP.ttsVoiceFor('Wario', { map: {}, fallback: 'Waluigi', library: lib.concat('Wario') }) === 'Wario'; // profile saved → his own voice
+  })());
+}
+
 // ---------- generated pages are in sync with these sources ----------
 let built = true;
 try {
