@@ -2656,6 +2656,49 @@ check('history: newest turns win the budget', (() => {
     RP.parseDirectives('[[TINT: the seal = javascript]]', []).directives.length === 0);
 }
 
+// ---------- name a filing, get THAT filing — and the encouragement system ----------
+{
+  const pinIndex = [
+    { id: 'tape_files', kind: 'event', name: 'The Tape and the Wario Files', body: 'Two days after Luigi was carried into the clinic, Waluigi sat in front of a VHS tape of the brothers\u2019 hallway argument and played it on loop.', words: 'tape wario files luigi clinic' },
+    { id: 'shadow_pass', kind: 'event', name: 'The Siege of Shadow Pass', body: 'unrelated', words: 'siege shadow pass wario' },
+    { id: 'wario', kind: 'person', name: 'Wario', body: 'bio', words: 'wario' },
+  ];
+  const pinned = RP.pinNamed('I look down at the paper titled The Tape and the Wario Files - The aftermath', pinIndex, {});
+  check('pin: a filing named in the prose is pinned with its REAL opening text',
+    pinned.length === 1 && pinned[0].id === 'tape_files' && pinned[0].named === true &&
+    /VHS tape of the brothers/.test(pinned[0].snippet));
+  check('pin: short or one-word names never pin by accident',
+    RP.pinNamed('wario walks in grumbling', pinIndex, {}).length === 0);
+  check('pin: the retrieval block stars it and forbids inventing its contents', (() => {
+    const block = RP.retrievalBlock(pinned.concat([{ id: 'x', kind: 'event', name: 'Other', snippet: 's' }]));
+    return /\u2605 \[event:tape_files\]/.test(block) && /NAMED in the scene/.test(block) &&
+      /never invent its contents/.test(block) && !/\u2605 \[event:x\]/.test(block);
+  })());
+  check('pin: an unnamed scene adds no warning line',
+    !/NAMED in the scene/.test(RP.retrievalBlock([{ id: 'x', kind: 'event', name: 'Other', snippet: 's' }])));
+
+  const encState = RP.blankState();
+  const encRoom = RP.newRoom([RP.normChar({ id: 'ana', name: 'Ana Bright' })], { kind: 'group' });
+  for (let i = 0; i < 20; i++) encRoom.messages.push({ id: 'e' + i, role: i % 2 ? 'char' : 'user', charId: 'ana', text: 'talk ' + i, at: i });
+  const firstNudge = RP.encourage(encRoom);
+  check('encourage: a quiet room gets ONE conditional line — stakes first',
+    /\[\[COND:/.test(firstNudge) && /quiet scene, carry on/.test(firstNudge));
+  check('encourage: it does not nag — eight turns of silence between repeats',
+    RP.encourage(encRoom) === '' || !/COND/.test(RP.encourage(encRoom)));
+  check('encourage: compliance silences the nudge and the next tool takes its turn', (() => {
+    RP.applyDirectives(encState, encRoom,
+      RP.parseDirectives('[[HP: Ana Bright -5]]', ['Ana Bright']).directives, () => null);
+    encRoom.nudgedAt = {};
+    return (encRoom.toolAt || {}).stakes === encRoom.messages.length && /TINT/.test(RP.encourage(encRoom));
+  })());
+  check('encourage: young rooms and mechanics-off rooms are never nudged', (() => {
+    const young = RP.newRoom([RP.normChar({ id: 'b', name: 'Bo' })], {});
+    const off = RP.newRoom([RP.normChar({ id: 'c', name: 'Cy' })], { mechanics: 'off' });
+    for (let i = 0; i < 20; i++) off.messages.push({ id: 'o' + i, role: 'user', text: 't', at: i });
+    return RP.encourage(young) === '' && RP.encourage(off) === '';
+  })());
+}
+
 // ---------- generated pages are in sync with these sources ----------
 let built = true;
 try {

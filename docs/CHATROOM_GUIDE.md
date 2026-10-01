@@ -1421,6 +1421,32 @@ refused); inline `{dark red|…}` now renders. And the directive text
 finally *encourages* the tool and lists the palette, so small models
 know the legal colour words.
 
+### 📣 The encouragement system — and naming a filing out loud
+
+Two round-18 rules about how the model meets the archive:
+
+**Name a filing, get THAT filing.** The fuzzy scorer ranks on term
+breadth, so *"I read the paper titled The Tape and the Wario Files"*
+once returned three lookalikes — and the model, asked to read a paper
+it had never seen, invented one. Now any archive title that appears
+verbatim in the recent prose (two words or longer) is **pinned** to the
+top of the retrieval with the filing's own opening text (`RP.pinNamed`),
+starred ★ in the FROM THE ARCHIVE block, with an explicit rule: *when
+the player reads from it, read from THIS text — never invent its
+contents.* The verdict on "does it apply what it reads": yes, within
+arm's reach — a passage in this turn's prompt lands in this turn's
+prose; that is exactly why the named filing must actually BE there.
+
+**The encouragement system** (`RP.encourage`) is data-driven and free:
+`applyDirectives` stamps when each tool family last fired
+(`room.toolAt`), and when one has sat unused past its threshold —
+stakes 18 turns, tints 20, lore-book filings 24 — **one conditional
+line** rides the prompt: *"DIRECTOR'S NOTE: nothing has cost anyone
+anything for a long stretch… If it truly is a quiet scene, carry on."*
+Never more than one line, never twice in eight turns, silenced the
+moment the model complies, and never in young or mechanics-off rooms.
+Zero extra model calls — the lean-mode contract holds.
+
 ## 🩸 Conditions that bite
 
 A condition can carry a **cost per turn**, and it is taken automatically for

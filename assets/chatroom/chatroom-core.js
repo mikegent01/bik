@@ -2651,6 +2651,40 @@
     return '';
   };
 
+  /* ---- the encouragement system: data-driven, one line, zero calls ---- */
+
+  /** The model has tools it never reaches for unprompted. The page knows
+   *  exactly which ones have fired (applyDirectives stamps room.toolAt),
+   *  so when a tool has sat unused past its threshold, ONE line rides in
+   *  the prompt — conditional, ignorable, and it self-silences the
+   *  moment the model complies. Never more than one line; never again
+   *  within eight turns of the same nudge; never in mechanics-off rooms. */
+  RP.ENCOURAGE_AFTER = { stakes: 18, tint: 20, remember: 24 };
+  RP.encourage = function (room) {
+    if (!room || room.mechanics === 'off') return '';
+    var turns = ((room || {}).messages || []).length;
+    if (turns < 12) return '';
+    var at = room.toolAt || {};
+    var nudged = room.nudgedAt = room.nudgedAt || {};
+    var lines = {
+      stakes: 'DIRECTOR\u2019S NOTE: nothing has cost anyone anything for a long stretch. If this scene has stakes,' +
+        ' let the record show them \u2014 a [[COND:]], an [[HP:]], a price. If it truly is a quiet scene, carry on.',
+      tint: 'DIRECTOR\u2019S NOTE: nothing on stage is tinted. If something has taken on lasting weight \u2014 a relic,' +
+        ' a wound, a name \u2014 file [[TINT: the exact words = colour]] once and the page keeps it coloured.',
+      remember: 'DIRECTOR\u2019S NOTE: a long stretch with nothing filed to the lore book. If this scene settled a' +
+        ' fact worth keeping, file one [[REMEMBER: name | the fact]].',
+    };
+    var order = ['stakes', 'tint', 'remember'];
+    for (var i = 0; i < order.length; i++) {
+      var k = order[i];
+      if (turns - (at[k] || 0) < RP.ENCOURAGE_AFTER[k]) continue;
+      if (turns - (nudged[k] || -99) < 8) continue;    // do not nag
+      nudged[k] = turns;
+      return lines[k];
+    }
+    return '';
+  };
+
   /* ---- stage directions: how the model changes the world ---- */
 
   RP.DIRECTIVES = [
@@ -2867,7 +2901,11 @@
     }
     var names = (room.cast || []).map(function (c) { return c.name; })
       .concat(you ? [you.name, 'the player'] : []);
+    var turnNow = ((room || {}).messages || []).length;
+    room.toolAt = room.toolAt || {};
+    var FAMILY = { hp: 'stakes', flag: 'stakes', tint: 'tint', remember: 'remember' };
     (directives || []).forEach(function (d) {
+      if (FAMILY[d.kind]) room.toolAt[FAMILY[d.kind]] = turnNow;
       if (d.kind === 'lookup') return;       // the page answers this one
       if (d.kind === 'remember') {
         RP.bookAdd(state, {
@@ -4525,20 +4563,52 @@
       });
   };
 
+  /** A filing NAMED in the scene is not a search problem. The player
+   *  wrote “I read the paper titled The Tape and the Wario Files” and
+   *  the fuzzy scorer still handed the model three unrelated articles —
+   *  so it invented the text it was asked to read aloud. Titles that
+   *  appear verbatim in the recent prose are pinned to the top with the
+   *  filing's own opening, before any scoring happens. */
+  RP.pinNamed = function (text, index, opts) {
+    opts = opts || {};
+    var hay = ' ' + String(text || '').toLowerCase().replace(/\s+/g, ' ') + ' ';
+    if (hay.trim().length < 8) return [];
+    var when = opts.scene ? (typeof opts.scene === 'string' ? RP.parseWahDate(opts.scene) : opts.scene) : null;
+    var out = [];
+    (index || []).forEach(function (r) {
+      if (out.length >= (opts.limit || 2)) return;
+      if (r.noncanon && !opts.includeNonCanon) return;
+      if (when && r.date && RP.timeRelation(when, r.date).rel === 'future') return;
+      var name = String(r.name || '').toLowerCase().replace(/\s+/g, ' ').trim();
+      if (name.length < 8 || name.split(' ').length < 2) return;   // short names match by accident
+      if (hay.indexOf(name) < 0) return;
+      out.push({
+        id: r.id, kind: r.kind, name: r.name,
+        date: r.date ? RP.formatWahDate(r.date) : '',
+        snippet: clip(String(r.body || r.text || '').replace(/\s+/g, ' ').trim(), opts.size || 700),
+        named: true,
+      });
+    });
+    return out;
+  };
+
   /** What a search hands the model. */
   RP.retrievalBlock = function (results, query) {
     if (!results || !results.length) {
       return query ? 'YOU SEARCHED THE ARCHIVE FOR "' + clip(query, 80) + '" AND IT HAS NOTHING.\n' +
         'Say so in character rather than inventing a filing.' : '';
     }
+    var anyNamed = results.some(function (r) { return r.named; });
     return [
       'FROM THE ARCHIVE' + (query ? ' — searched just now for "' + clip(query, 80) + '"' : ' — relevant to this moment'),
       'These are real passages out of real filings. Quote them, date them, argue with them — but do not invent',
       'around them, and do not pretend to know more of the file than is here.',
+      anyNamed ? 'A filing marked ★ was NAMED in the scene. When the player reads from it or asks about it, read' +
+        ' from THIS text — never invent its contents.' : '',
       results.map(function (r) {
-        return '- [' + r.kind + ':' + r.id + '] ' + r.name + (r.date ? ' (' + r.date + ')' : '') + '\n    “' + r.snippet + '”';
+        return '- ' + (r.named ? '★ ' : '') + '[' + r.kind + ':' + r.id + '] ' + r.name + (r.date ? ' (' + r.date + ')' : '') + '\n    “' + r.snippet + '”';
       }).join('\n'),
-    ].join('\n');
+    ].filter(Boolean).join('\n');
   };
 
   /* ------------------------------------------------------------------ *

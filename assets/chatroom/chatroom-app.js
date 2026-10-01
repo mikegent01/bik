@@ -291,7 +291,12 @@
    *  scene is, and the filings this speaker is attached to. The passages
    *  come back, not the files. */
   function searchForTurn(r, speaker, recent) {
-    return RP.searchArchive(archiveIndex, [
+    var scene = RP.sceneDate(r, state, archive);
+    // A filing NAMED in the recent prose outranks every score: the player
+    // who says “I read The Tape and the Wario Files” gets THAT filing,
+    // opening text and all — not three lookalikes.
+    var named = RP.pinNamed(recent, archiveIndex, { scene: scene });
+    var hits = RP.searchArchive(archiveIndex, [
       recent,
       r.sceneName || '',
       (RP.sourceRecord(r, archive) || {}).name || '',
@@ -299,8 +304,11 @@
     ].join(' '), {
       limit: 3,
       // Nothing dated after the scene: the cast cannot read tomorrow.
-      scene: RP.sceneDate(r, state, archive),
+      scene: scene,
     });
+    var seen = {}; var out = [];
+    named.concat(hits).forEach(function (h) { if (!seen[h.id]) { seen[h.id] = 1; out.push(h); } });
+    return out.slice(0, 4);
   }
 
   /** The token budget for a turn, from the length dial (the narrator gets
@@ -3509,8 +3517,9 @@
       citations: [opts.searched || '', RP.citationBlock(found), dug.length ? RP.retrievalBlock(dug) : '']
         .filter(Boolean).join('\n\n'),
     };
+    var pep = RP.encourage(r);
     var system = (worldTurn ? RP.worldSystem(state, r, opts2) : RP.systemFor(state, r, speaker, opts2)) +
-      (opts.nudge ? '\n\n' + opts.nudge : '');
+      (opts.nudge ? '\n\n' + opts.nudge : '') + (pep ? '\n\n' + pep : '');
     // The thin-air brief fires once: the turn that answers the claim has
     // seen it, and the scene moves on.
     r.conjured = '';
