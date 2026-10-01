@@ -326,6 +326,28 @@
     return lines;
   };
 
+  /** What a model failure actually means, in words a player can act on.
+   *  Every failure used to say “check CORS” — including context overflows
+   *  and empty replies, which have nothing to do with CORS. */
+  RP.modelAdvice = function (message, openai) {
+    var m = String(message || '');
+    if (/timed out after/i.test(m)) {
+      return 'The model may be overloaded or hung — try a smaller model, or press ↻ when it has calmed down.';
+    }
+    if (/context|exceeds? the available|too (?:long|large|many tokens)/i.test(m)) {
+      return 'The request was bigger than the model’s context window — lower the history budget in ⚙, or raise the context size in LM Studio.';
+    }
+    if (/thinking and wrote no prose/i.test(m)) {
+      return 'Use a non-thinking (instruct) build — ⚙ → Test it shows whether a model thinks.';
+    }
+    if (/failed to fetch|networkerror|load failed|could not be reached|ECONNREFUSED/i.test(m)) {
+      return openai
+        ? 'If LM Studio is running, check its server is started and that “Enable CORS” is on in its Developer tab.'
+        : 'Using LM Studio directly? Open ⚙ and press “LM Studio (1234)” — no workflow server needed.';
+    }
+    return '';
+  };
+
   /** Reasoning never reaches the page. Some thinking models leak their
    *  deliberation into content as <think> blocks; if that ever gets
    *  displayed or filed it is re-sent in every later prompt and bloats

@@ -2589,6 +2589,23 @@ check('history: newest turns win the budget', (() => {
     RP.stripThink('Wario counts the coins twice.') === 'Wario counts the coins twice.');
 }
 
+// ---------- failures explain themselves — CORS is not the answer to everything ----------
+{
+  check('advice: a timeout blames the load, not CORS',
+    /overloaded or hung/.test(RP.modelAdvice('timed out after 240s', true)) &&
+    !/CORS/.test(RP.modelAdvice('timed out after 240s', true)));
+  check('advice: a context overflow points at the window, not CORS',
+    /context window/.test(RP.modelAdvice('request (14557 tokens) exceeds the available context size (8192 tokens)', true)) &&
+    !/CORS/.test(RP.modelAdvice('request exceeds the available context size', true)));
+  check('advice: an all-thinking reply points at instruct builds',
+    /instruct/.test(RP.modelAdvice('the model spent its whole reply thinking and wrote no prose — use a non-thinking (instruct) build', true)));
+  check('advice: only a network-level failure mentions CORS',
+    /CORS/.test(RP.modelAdvice('Failed to fetch', true)) &&
+    /LM Studio \(1234\)/.test(RP.modelAdvice('Failed to fetch', false)));
+  check('advice: an unknown error gets no speculation',
+    RP.modelAdvice('the model answered 500', true) === '');
+}
+
 // ---------- generated pages are in sync with these sources ----------
 let built = true;
 try {

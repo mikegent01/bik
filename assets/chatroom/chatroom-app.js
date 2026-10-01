@@ -343,9 +343,28 @@
     return out;
   }
 
+  /** A fetch that gives up: local models hang, and an unanswered request
+   *  used to block every background call behind it forever. Utility work
+   *  gets 4 minutes; a main turn gets 10 (a 31B on CPU is slow, not dead). */
+  function timedFetch(url, opts, ms) {
+    var ctl = typeof window.AbortController === 'function' ? new window.AbortController() : null;
+    var timer = ctl ? window.setTimeout(function () { ctl.abort(); }, ms) : 0;
+    var done = function (pass, value) {
+      if (timer) window.clearTimeout(timer);
+      if (pass) return value;
+      if (value && (value.name === 'AbortError' || /abort/i.test(String(value && value.message)))) {
+        throw new Error('timed out after ' + Math.round(ms / 1000) + 's');
+      }
+      throw value;
+    };
+    return fetch(url, ctl ? Object.assign({}, opts, { signal: ctl.signal }) : opts)
+      .then(function (r) { return done(true, r); }, function (e) { return done(false, e); });
+  }
+
   function callModel(system, messages, opts) {
     var route = routeFor(opts);
     var url = route.url;
+    var patience = (opts && opts.utility) ? 240000 : 600000;
     var temperature = (state.settings && state.settings.temperature) || 0.85;
     // Qwen3-family models think out loud by default and will happily spend
     // the ENTIRE token budget on reasoning_content, returning empty prose
@@ -354,7 +373,7 @@
     if (isOpenAI(url)) {
       // LM Studio, llama.cpp, Ollama's OpenAI shim, anything else that
       // speaks the same API. The system prompt is just the first message.
-      return fetch(chatRoute(url), {
+      return timedFetch(chatRoute(url), {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(Object.assign({
           model: route.model,
@@ -367,7 +386,7 @@
           // ignore it, and the /no_think soft switch rides as the backstop.
           chat_template_kwargs: { enable_thinking: false },
         }, samplers())),
-      }).then(function (r) {
+      }, patience).then(function (r) {
         return r.json().then(function (value) {
           if (!r.ok || value.error) {
             throw new Error((value.error && (value.error.message || value.error)) || ('the model answered ' + r.status));
@@ -384,14 +403,14 @@
         });
       });
     }
-    return fetch(url, {
+    return timedFetch(url, {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(Object.assign({
         system: system, messages: messages,
         temperature: temperature,
         max_tokens: (opts && opts.tokens) || RP.lengthBlock((state.settings && state.settings.length) || 'snappy').tokens,
       }, samplers())),
-    }).then(function (r) {
+    }, patience).then(function (r) {
       return r.json().then(function (value) {
         if (!r.ok || value.error) throw new Error(value.error || ('the model server answered ' + r.status));
         return RP.stripThink(String(value.text || ''));
@@ -3685,27 +3704,34 @@
       if (!retry) return direct(r, speaker);
       return false;
     }).catch(function (error) {
+      var advice = RP.modelAdvice(error.message, isOpenAI(replyUrl()));
       r.messages.push({
         id: RP.uid(), role: 'char', charId: speaker.id, error: true, at: Date.now(),
         text: 'The model did not answer: ' + error.message + '\nEndpoint: ' + replyUrl() +
-          (isOpenAI(replyUrl())
-            ? '\nIf LM Studio is running, check its server is started and that “Enable CORS” is on in its Developer tab.'
-            : '\nUsing LM Studio directly? Open ⚙ and press “LM Studio (1234)” — no workflow server needed.'),
+          (advice ? '\n' + advice : ''),
       });
-      return false;
+      // A failed turn ends the autopilot AND the background chores: the
+      // model is struggling, and the summary + archivist landing on it
+      // one second later is how one crash became three.
+      autoLeft = 0;
+      return 'FAILED';
     }).then(function (chain) {
+      var turnFailed = chain === 'FAILED';
+      if (turnFailed) chain = false;
       busy = false;
       if (!retry && autoLeft) autoLeft--;
       // A staged beat plays itself out before anything else is decided.
-      var staged = !retry && (r.queue || []).length;
+      var staged = !retry && !turnFailed && (r.queue || []).length;
       if (staged) { r.next = r.queue.shift(); }
       save(); render();
-      if (!retry) {
+      if (!retry && !turnFailed) {
         // Lean: the recap still runs (it is what keeps prompts small);
         // the archivist and the quartermaster wait for full mode. The
         // local nets — grant scan, conjure check, conditions — are free.
-        if (!leanAI()) { queueBook(r); maybeUpkeep(r); }
-        maybeRecap(r);
+        // ONE background call at a time: runChores plays them in
+        // priority order, each starting only when the last finished.
+        if (!leanAI()) queueBook(r);
+        runChores(r);
       }
       if (room() !== r) { autoLeft = 0; return; }
       if (staged || chain || autoLeft) {
@@ -3738,10 +3764,29 @@
   var booking = false;     // a background call is in flight
   var recapping = false;   // the story-so-far is being written
 
+  /** One background call at a time, full stop. The recap, the
+   *  quartermaster and the archivist used to each check only their own
+   *  flag, so all three could hit a struggling local model at the same
+   *  instant — the logs showed exactly that. Now a single roll call
+   *  gates them, they run in priority order (recap first: it is what
+   *  keeps prompts small), and each one hands the baton on as it ends. */
+  function bgQuiet() { return !busy && !booking && !recapping && !upkeeping; }
+  var choreRoom = null;
+  function runChores(r) {
+    if (r) choreRoom = r;
+    var cur = choreRoom;
+    if (!cur || !bgQuiet()) return;
+    if (maybeRecap(cur)) return;
+    if (!leanAI()) {
+      if (maybeUpkeep(cur)) return;
+      pumpBook();
+    }
+  }
+
   /** Fold the older turns into a recap so a long chat stays cheap. Runs
    *  on the background model, once, when the history outgrows the window. */
   function maybeRecap(r) {
-    if (recapping || !RP.needsRecap(r, state.settings.context || 24)) return;
+    if (!bgQuiet() || !RP.needsRecap(r, state.settings.context || 24)) return false;
     var turns = (r.messages || []).filter(RP.visible);
     var keep = Math.max(8, Math.round((state.settings.context || 24) / 2));
     var upTo = turns.length - keep;
@@ -3752,7 +3797,7 @@
         text: RP.textOf(m),
       };
     });
-    if (fold.length < 4) return;
+    if (fold.length < 4) return false;
     recapping = true;
     callModel(RP.recapPrompt(r, fold, r.recap), [{ role: 'user', content: 'Summarise it.' }],
       { tokens: 420, utility: true })
@@ -3765,7 +3810,8 @@
         toast('📜 Folded ' + fold.length + ' older turns into the story so far.');
       })
       .catch(function () { /* the window is a little long today; no harm */ })
-      .then(function () { recapping = false; });
+      .then(function () { recapping = false; runChores(); });
+    return true;
   }
 
   var upkeeping = false;   // the quartermaster is reading
@@ -3776,8 +3822,8 @@
    *  it may only keep the ledger, never invent events. */
   function maybeUpkeep(r) {
     var every = state.settings.upkeep === undefined ? RP.UPKEEP_EVERY : Number(state.settings.upkeep);
-    if (upkeeping || busy || !every || r.mechanics === 'off') return;
-    if (!RP.needsUpkeep(r, every) || !RP.bookBudgetLeft(state)) return;
+    if (!bgQuiet() || !every || r.mechanics === 'off') return false;
+    if (!RP.needsUpkeep(r, every) || !RP.bookBudgetLeft(state)) return false;
     var turns = (r.messages || []).filter(RP.visible);
     var upTo = turns.length;
     var recent = turns.slice(Number(r.upkeepAt || 0)).slice(-10).map(function (m) {
@@ -3787,7 +3833,7 @@
         text: RP.textOf(m),
       };
     });
-    if (recent.length < 2) { r.upkeepAt = upTo; return; }
+    if (recent.length < 2) { r.upkeepAt = upTo; return false; }
     upkeeping = true;
     RP.ensurePlayerSheet(state, r);
     callModel(RP.upkeepPrompt(r, recent), [{ role: 'user', content: 'File what the record missed.' }],
@@ -3806,8 +3852,14 @@
         }
         save(); render();
       })
-      .catch(function () { /* the next review will catch it */ })
-      .then(function () { upkeeping = false; });
+      .catch(function () {
+        // Advance anyway: a failed review that stays due would retry on
+        // EVERY turn — a doomed call per turn against a struggling model.
+        // The next window reviews fresh prose instead.
+        r.upkeepAt = upTo;
+      })
+      .then(function () { upkeeping = false; runChores(); });
+    return true;
   }
 
   /** Queue the last stretch of play for filing. Called every few turns. */
@@ -3837,7 +3889,7 @@
   /** Run one queued job if the page is otherwise idle and there is budget
    *  left. Never runs beside a roleplay turn — the model is one machine. */
   function pumpBook() {
-    if (booking || busy) return;
+    if (!bgQuiet()) return;
     var job = RP.queueNext(state);
     if (!job) return;
     if (!RP.bookBudgetLeft(state)) { RP.queueDone(state, job.id); render(); return; }
@@ -3865,8 +3917,9 @@
         booking = false;
         save(); render();
         // Breathe between calls so a local model is never asked to do two
-        // things at once on somebody's laptop.
-        if (RP.queueNext(state)) window.setTimeout(pumpBook, 1500);
+        // things at once on somebody's laptop — then hand the baton back
+        // to the chore chain, not just to the next book job.
+        window.setTimeout(runChores, 1500);
       });
   }
 
@@ -3911,14 +3964,16 @@
   function qwenSay(text, voice, cfg) {
     var payload = { data: [voice, text, cfg.lang, false, 0, 0.8, 0.95, 1.15, 2048] };
     function attempt(prefix) {
-      return window.fetch(cfg.endpoint + prefix + cfg.api, {
+      return timedFetch(cfg.endpoint + prefix + cfg.api, {
         method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload),
-      }).then(function (res) {
+      }, 30000).then(function (res) {
         if (!res.ok) throw new Error('HTTP ' + res.status);
         return res.json();
       }).then(function (job) {
         if (!job || !job.event_id) throw new Error('no job id');
-        return window.fetch(cfg.endpoint + prefix + cfg.api + '/' + job.event_id);
+        // Synthesis itself gets three minutes; a studio that hangs no
+        // longer freezes the whole read behind one silent chunk.
+        return timedFetch(cfg.endpoint + prefix + cfg.api + '/' + job.event_id, {}, 180000);
       }).then(function (stream) { return stream.text(); }).then(function (body) {
         // An error the STUDIO reports (bad voice, failed synthesis) is not
         // the same story as a studio that cannot be reached — the caller
@@ -4022,7 +4077,7 @@
     // First stop: the app config. The voice dropdown's `choices` there are
     // EXACTLY what the API will accept — case-sensitive, 'None' included —
     // as its refusal errors prove. One GET, no job.
-    return window.fetch(cfg.endpoint + '/config')
+    return timedFetch(cfg.endpoint + '/config', {}, 10000)
       .then(function (res) { return res.json(); })
       .then(function (conf) {
         var comps = (conf && conf.components) || [];
