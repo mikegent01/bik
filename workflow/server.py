@@ -136,6 +136,10 @@ def lm_completion(endpoint: str, system: str, messages: list[dict[str, Any]],
         "temperature": temperature,
         "max_tokens": max_tokens,
         "stream": False,
+        # Replies here are plain text tasks: thinking is off per-request.
+        # Servers that do not know the parameter ignore it; Qwen3-family
+        # templates honour it and stop burning the budget on reasoning.
+        "chat_template_kwargs": {"enable_thinking": False},
     }).encode("utf-8")
     last_error = "model did not answer"
     for attempt in (1, 2):
@@ -150,6 +154,9 @@ def lm_completion(endpoint: str, system: str, messages: list[dict[str, Any]],
                 value = json.loads(response.read())
             choices = value.get("choices", []) if isinstance(value, dict) else []
             text = choices[0].get("message", {}).get("content", "") if choices else ""
+            # A thinking model that leaks its deliberation into the reply
+            # would otherwise file it into history and re-send it forever.
+            text = re.sub(r"<think>[\s\S]*?</think>", " ", str(text), flags=re.IGNORECASE).strip()
             if str(text).strip():
                 return str(text)
             last_error = "the model returned an empty reply"

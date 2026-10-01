@@ -2575,6 +2575,20 @@ check('history: newest turns win the budget', (() => {
   })());
 }
 
+// ---------- reasoning never reaches the page, the display, or history ----------
+{
+  check('think: a leaked <think> block is stripped before anything files it',
+    RP.stripThink('<think>Let me consider who speaks…</think>Wario grins. "Mine."') === 'Wario grins. "Mine."');
+  check('think: an unopened closer drops everything before it',
+    RP.stripThink('I should reply in character.</think>"Wah," Waluigi says.') === '"Wah," Waluigi says.');
+  check('think: an unclosed opener drops everything after it',
+    RP.stripThink('"Done," he says. <think>Now, about the next turn') === '"Done," he says.');
+  check('think: several blocks, case-insensitive, all go',
+    RP.stripThink('<THINK>a</THINK>One. <think>b</think>Two.') === 'One. Two.');
+  check('think: clean prose passes through untouched',
+    RP.stripThink('Wario counts the coins twice.') === 'Wario counts the coins twice.');
+}
+
 // ---------- generated pages are in sync with these sources ----------
 let built = true;
 try {

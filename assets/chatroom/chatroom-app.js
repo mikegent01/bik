@@ -362,6 +362,10 @@
           temperature: temperature,
           max_tokens: (opts && opts.tokens) || RP.lengthBlock((state.settings && state.settings.length) || 'snappy').tokens,
           stream: false,
+          // Replies, staging, filing, summaries: simple text tasks. Thinking
+          // is off per-request; servers that do not know the parameter
+          // ignore it, and the /no_think soft switch rides as the backstop.
+          chat_template_kwargs: { enable_thinking: false },
         }, samplers())),
       }).then(function (r) {
         return r.json().then(function (value) {
@@ -369,7 +373,7 @@
             throw new Error((value.error && (value.error.message || value.error)) || ('the model answered ' + r.status));
           }
           var choice = (value.choices || [])[0] || {};
-          var said = String((choice.message && choice.message.content) || choice.text || '');
+          var said = RP.stripThink(String((choice.message && choice.message.content) || choice.text || ''));
           if (!said.trim() && choice.message && String(choice.message.reasoning_content || '').trim()) {
             // It burned the whole budget thinking and wrote nothing.
             // Say so — a silent empty turn reads like a page bug.
@@ -390,7 +394,7 @@
     }).then(function (r) {
       return r.json().then(function (value) {
         if (!r.ok || value.error) throw new Error(value.error || ('the model server answered ' + r.status));
-        return String(value.text || '');
+        return RP.stripThink(String(value.text || ''));
       });
     });
   }
@@ -4489,6 +4493,29 @@
         } else {
           say(data.lm_studio && data.lm_studio.online ? 'answering · model online' : 'answering', mine);
         }
+        // The thinking check: one tiny completion with thinking disabled.
+        // If reasoning tokens still come back, the flag did not take and
+        // every reply will burn its budget deliberating — say so NOW,
+        // in the settings panel, not five minutes into a scene.
+        if (!isOpenAI(url) || !list.length) return;
+        var m = $('f_model') ? $('f_model').value.trim() : '';
+        if (!m) return;
+        fetch(chatRoute(url), {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            model: m, stream: false, max_tokens: 40, temperature: 0,
+            chat_template_kwargs: { enable_thinking: false },
+            messages: [{ role: 'user', content: 'Reply with exactly: OK' }],
+          }),
+        }).then(function (r) { return r.json(); }).then(function (v) {
+          var usage = (v && v.usage) || {};
+          var thought = Number((usage.completion_tokens_details || {}).reasoning_tokens || 0);
+          var choice = ((v || {}).choices || [])[0] || {};
+          if (!thought && choice.message && String(choice.message.reasoning_content || '').trim()) thought = 1;
+          say($('setState').textContent + (thought
+            ? ' · ⚠ this model still THINKS (' + thought + ' reasoning tokens) — the off switch did not take; use an instruct build (e.g. qwen2.5-7b-instruct-1m)'
+            : ' · thinking off ✓'), mine);
+        }).catch(function () { /* the list already proved the endpoint */ });
       }).catch(function () { say('no answer — is it running?', mine); });
     };
     $('mOk').onclick = function () {

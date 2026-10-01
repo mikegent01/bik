@@ -1310,12 +1310,24 @@ Two more hard-won rules from real logs:
   8,192-token window and got an HTTP 400 instead of a summary. Now the
   newest of the stretch rides, the oldest drop with a note, and
   `recapAt` advances so it never recurs.
-- **Thinking models are told not to.** Qwen3-family models will spend
-  the entire token budget on `reasoning_content` and return empty prose
-  after five minutes; the page appends their documented `/no_think`
-  switch, and if a model still burns its whole reply thinking, the error
-  says so instead of filing a silent empty turn. Prefer plain
-  *instruct* builds for this page.
+- **Thinking is off for everything the app does.** Replies, staging,
+  filing and summaries are simple text tasks, so every request — from
+  the page and from `workflow/server.py` alike — carries
+  `chat_template_kwargs: { enable_thinking: false }`, with the Qwen3
+  `/no_think` soft switch riding as backstop. Servers that don't know
+  the parameter ignore it. **Prove it took**: Settings → *Test it* now
+  fires one tiny completion and reports `thinking off ✓` — or warns
+  `⚠ this model still THINKS (N reasoning tokens)`, in which case the
+  switch didn't take and the fix is an *instruct* build
+  (`qwen2.5-7b-instruct-1m`). There is no safe "thinking budget" over
+  this API: `max_tokens` covers thinking *plus* the answer, so a
+  420-token cap with 420 tokens of deliberation leaves nothing — which
+  is exactly what the logs showed. If a reply still comes back all
+  reasoning and no prose, the error says so out loud.
+- **Leaked reasoning never reaches the page.** Any `<think>…</think>`
+  block (paired, unopened or unclosed) is stripped at the door
+  (`RP.stripThink`) on both routes — never displayed, never filed,
+  never re-sent in later prompts to bloat the context.
 
 ### 🚀 Making the local model fast — what the page does, and what LM Studio should
 

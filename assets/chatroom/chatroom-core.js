@@ -326,6 +326,18 @@
     return lines;
   };
 
+  /** Reasoning never reaches the page. Some thinking models leak their
+   *  deliberation into content as <think> blocks; if that ever gets
+   *  displayed or filed it is re-sent in every later prompt and bloats
+   *  the context with the model talking to itself. Strip it at the door. */
+  RP.stripThink = function (text) {
+    return String(text || '')
+      .replace(/\s*<think>[\s\S]*?<\/think>\s*/gi, ' ')
+      .replace(/^[\s\S]*?<\/think>\s*/i, '')    // an unopened closer: everything before it was thought
+      .replace(/\s*<think>[\s\S]*$/i, '')        // an unclosed opener: everything after it is thought
+      .trim();
+  };
+
   /** What a line sounds like out loud: tints speak their words, the
    *  markdown furniture and any stray stage direction stay silent. */
   RP.ttsClean = function (text) {
