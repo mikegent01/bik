@@ -765,11 +765,28 @@ window.CHATROOM_CONFIG = {
   }
   RP.colourValue = colourValue;
 
+  /** The forgiving ear: models write “glowing violet” and “dark red”,
+   *  and a palette that silently refuses both is why nobody ever saw a
+   *  tint. Take the exact colour if it is one; otherwise find the colour
+   *  WORD inside the phrase (last one wins: “blood red” reads red).
+   *  Pure junk still returns '' — the palette refuses javascript. */
+  function colourLoose(name) {
+    var exact = colourValue(name);
+    if (exact) return exact;
+    var words = String(name || '').toLowerCase().split(/[^a-z#0-9]+/).filter(Boolean);
+    for (var i = words.length - 1; i >= 0; i--) {
+      var hit = colourValue(words[i]);
+      if (hit) return hit;
+    }
+    return '';
+  }
+  RP.colourLoose = colourLoose;
+
   function inlineMd(text) {
     return String(text)
-      // {red|the door} · {#c0392b|the door} — colour, and nothing else.
-      .replace(/\{([a-z]{3,8}|#[0-9a-f]{3,6})\|([^{}]{1,300})\}/gi, function (all, name, body) {
-        var value = colourValue(name);
+      // {red|the door} · {dark red|the door} · {#c0392b|the door}
+      .replace(/\{([a-z][a-z ]{2,14}|#[0-9a-f]{3,6})\|([^{}]{1,300})\}/gi, function (all, name, body) {
+        var value = colourLoose(name);
         return value ? '<span class="tint" style="color:' + value + '">' + body + '</span>' : all;
       })
       .replace(/\*\*([^*]+)\*\*/g, '<b>$1</b>')
@@ -3320,7 +3337,10 @@ window.CHATROOM_CONFIG = {
     '  [[STATUS: Name bleeding, one arm]]  a short physical note',
     '  [[TINT: the exact words = colour]]   those words render in that colour in every turn from now on — for',
     '      things with lasting weight (a cursed blade, a sickness, a name). Several at once: [[TINT: the seal,',
-    '      the wax = violet]]. [[UNTINT: the seal]] releases them.',
+    '      the wax = violet]]. [[UNTINT: the seal]] releases them. When something in the scene takes on lasting',
+    '      significance, tint it — one colour makes it legible at a glance. Colours: red, blood, crimson, ember,',
+    '      orange, amber, gold, copper, rust, sand, bone, moss, green, jade, venom, teal, sea, ice, blue, storm,',
+    '      silver, grey, violet, lilac, purple, plum, pink, black, white.',
     '  [[LOOKUP: what you want to know]]  search the archive mid-turn. The page finds the passage and hands it',
     '      back, then you write the turn again using it. Use it when you need a fact you do not have — a date, a',
     '      name, what a filing actually says — instead of inventing one. Never LOOKUP the scene you are standing',
@@ -3387,10 +3407,14 @@ window.CHATROOM_CONFIG = {
       if (type === 'TINT' || type === 'UNTINT') {
         // [[TINT: the seal, the wax = violet]] — words the model wants
         // coloured in every turn from here on. UNTINT releases them.
+        // Models also write 'the seal: violet' and 'glowing violet';
+        // both used to file NOTHING, silently — the reason tints were
+        // never seen in play.
         var eq = body.split(/\s*=\s*/);
+        if (eq.length < 2 && type === 'TINT') eq = body.split(/\s*:\s*(?=[^:]*$)/);
         var words = String(type === 'UNTINT' ? body : eq[0]).split(',')
           .map(function (w) { return clip(w.trim(), 40); }).filter(Boolean).slice(0, 6);
-        var colour = type === 'UNTINT' ? '' : RP.colourValue(eq.slice(1).join('=').trim());
+        var colour = type === 'UNTINT' ? '' : RP.colourLoose(eq.slice(1).join('=').trim());
         if (words.length && (type === 'UNTINT' || colour)) {
           out.push({ kind: 'tint', body: body, names: words, colour: colour });
         }

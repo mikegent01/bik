@@ -2606,6 +2606,56 @@ check('history: newest turns win the budget', (() => {
     RP.modelAdvice('the model answered 500', true) === '');
 }
 
+// ---------- the toolbox audit: every stage direction, one reply, all land ----------
+{
+  const tbCast = [RP.normChar({ id: 'ana', name: 'Ana' }), RP.normChar({ id: 'bo', name: 'Bo' })];
+  const tbState = RP.blankState();
+  const tbRoom = RP.newRoom(tbCast, { kind: 'group', kit: 'off' });
+  const everyTool = [
+    '[[HP: Ana -12]]', '[[MP: Ana -5]]', '[[HP: Bo +0]]',
+    '[[COND: Ana bleeding 3 -2hp | a deep cut]]',
+    '[[COUNT: Bo arrows -2]]',
+    '[[ITEM: Bo + 🗝 the brass key | bent]]',
+    '[[EQUIP: Bo brass key]]',
+    '[[STATUS: Ana winded, favouring one leg]]',
+    '[[TINT: the brass key: dull gold]]',                 // the model's dialect, on purpose
+    '[[SET: place = the ledger room]]',
+    '[[TIME: a little after midnight]]',
+    '[[REMEMBER: the vault | it opens with the brass key]]',
+    'Ana staggers as Bo turns {dark red|the key} in the lock.',
+  ].join('\n');
+  const tbStaged = RP.parseDirectives(everyTool, tbCast.map((c) => c.name));
+  RP.applyDirectives(tbState, tbRoom, tbStaged.directives, () => null);
+  check('toolbox: HP, MP, COND, COUNT all land from one reply',
+    tbRoom.states.ana.hp.value === 88 && tbRoom.states.ana.mp.value === 45 &&
+    Boolean(tbRoom.states.ana.flags.bleeding) && tbRoom.states.bo.counters.arrows === -2);
+  check('toolbox: ITEM arrives with its icon and note, and EQUIP puts it in hand', (() => {
+    const key = (tbRoom.states.bo.items || []).map(RP.normItem).find((i) => /brass key/.test(i.name));
+    return key && key.icon === '🗝' && /bent/.test(key.note) && key.equipped === true;
+  })());
+  check('toolbox: STATUS, SET, TIME and REMEMBER file where they belong',
+    /winded/.test(tbRoom.states.ana.status) && tbRoom.facts.place === 'the ledger room' &&
+    tbRoom.clock === 'a little after midnight' &&
+    RP.bookState(tbState).entries.some((e) => /vault/.test(e.name) && /brass key/.test(e.text)));
+  check('toolbox: the colon-form TINT files and colours the NEXT mention too', (() => {
+    const html = RP.md(RP.applyTints('She pockets the brass key.', tbRoom.tints));
+    return (tbRoom.tints || []).some((t) => t.text === 'the brass key') && /class="tint"/.test(html);
+  })());
+  check('toolbox: directives are stripped from the prose, the inline tint colours it',
+    !/\[\[/.test(tbStaged.clean) && /dark red|tint/.test(RP.md(tbStaged.clean)));
+  check('toolbox: CURE and UNTINT undo what COND and TINT did', (() => {
+    RP.applyDirectives(tbState, tbRoom,
+      RP.parseDirectives('[[CURE: Ana bleeding]]\n[[UNTINT: the brass key]]', ['Ana', 'Bo']).directives, () => null);
+    return tbRoom.states.ana.flags.bleeding === undefined &&
+      !(tbRoom.tints || []).some((t) => t.text === 'the brass key');
+  })());
+  check('toolbox: forgiving colours — descriptive phrasing lands, junk is still refused',
+    RP.colourLoose('glowing violet') === RP.COLOURS.violet &&
+    RP.colourLoose('blood red') === RP.COLOURS.red &&
+    RP.colourLoose('javascript') === '' &&
+    RP.parseDirectives('[[TINT: the seal = javascript]]', []).directives.length === 0);
+}
+
 // ---------- generated pages are in sync with these sources ----------
 let built = true;
 try {

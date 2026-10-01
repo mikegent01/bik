@@ -1391,6 +1391,36 @@ Even without the button, a stale miss no longer sticks all session: the
 speaker-missed list expires whenever a fresh library arrives (at most a
 minute), so fixing the studio fixes the voice on the next turn.
 
+### 📋 The AI's toolbox — audited
+
+Every tool the model has, what triggers it, and the suite check that
+proves it. The "toolbox" block in `test-chatroom-core.mjs` fires every
+directive in one reply and asserts each lands.
+
+| Tool | What it does | Proven by |
+|---|---|---|
+| `[[HP/MP: Name -N]]` | damage, healing, spent power on the sheets | state + toolbox checks |
+| `[[COND: Name x 3 -2hp \| note]]` / `[[CURE]]` | conditions with duration and per-turn cost | conditions + toolbox |
+| `[[COUNT: Name arrows -1]]` | arbitrary counters | toolbox |
+| `[[ITEM: Name + 🗝 x \| note]]` / `-` / `[[USE]]` / `[[EQUIP]]` / `[[STOW]]` | the pack: gain, lose, spend, hand, stow | wardrobe + toolbox |
+| `[[STATUS: Name …]]` | a short physical note | toolbox |
+| `[[TINT: words = colour]]` / `[[UNTINT]]` | standing colours — see below | tints + toolbox |
+| `{colour\|words}` inline | one-off coloured phrase in prose | tints + toolbox |
+| `[[SET: fact = value]]` / `[[TIME: …]]` | nailed-down scene facts and the clock | toolbox |
+| `[[REMEMBER: name \| fact]]` | files into the lore book | toolbox |
+| `[[LOOKUP: question]]` | mid-turn archive search (never about the current scene) | round-9 checks |
+| `[[ENTER/NEW/EXIT: Name — why]]` | cast walks in, is invented, walks out | arrivals/departures checks |
+| fate dice, stats, conjure check, grant scan | free local nets — no model call | rounds 2–3 checks |
+
+**Why tints were never seen in play (round 17).** The machinery worked;
+the model's dialect was refused silently. Three fixes: `[[TINT: the
+seal**: **violet]]` (colon instead of `=`) now files; descriptive
+colours (*glowing violet*, *blood red*) resolve to the colour word
+inside them (`RP.colourLoose` — junk like `javascript` is still
+refused); inline `{dark red|…}` now renders. And the directive text
+finally *encourages* the tool and lists the palette, so small models
+know the legal colour words.
+
 ## 🩸 Conditions that bite
 
 A condition can carry a **cost per turn**, and it is taken automatically for
