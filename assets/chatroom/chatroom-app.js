@@ -1780,12 +1780,27 @@
   /** Every import goes through here: v1 and v2 cards, PNG cards, JSONL and
    *  JSON chat logs, chatroom bundles, and plain transcripts. The file is
    *  sniffed first so a refusal can say what the file actually looked like. */
+  /** What an import actually did, in words. “Imported 0 chats” over a
+   *  bundle whose chats were already on file read like a failure — it was
+   *  a merge, and the toast should say so. */
+  function bundleReport(stats) {
+    var bits = [];
+    if (stats.rooms) bits.push(stats.rooms + ' new chat' + (stats.rooms === 1 ? '' : 's'));
+    if (stats.roomsUpdated) bits.push(stats.roomsUpdated + ' chat' + (stats.roomsUpdated === 1 ? '' : 's') + ' updated to the bundle\u2019s newer copy');
+    if (bits.length) return 'Imported ' + bits.join(' and ') + '.';
+    if (stats.roomsSame) {
+      return 'Nothing new to import \u2014 ' + (stats.roomsSame === 1 ? 'that chat is' : 'those ' + stats.roomsSame + ' chats are') +
+        ' already on file (your copy is as new or newer).';
+    }
+    return 'Imported the bundle \u2014 no chats inside it.';
+  }
+
   function importAny(bytes, fileName, intoRoom) {
     var found = RP.sniffImport(bytes);
     if (found.kind === 'bundle') {
       var stats = RP.importBundle(state, found.bundle, 'merge');
       save(); buildBoard(); render();
-      toast('Imported ' + (stats.rooms || 0) + ' chat' + (stats.rooms === 1 ? '' : 's') + ' from that bundle.');
+      toast(bundleReport(stats));
       return;
     }
     if (found.kind === 'chatlog' || found.kind === 'transcript') {
@@ -4502,7 +4517,8 @@
       file.text().then(function (text) {
         var stats = RP.importBundle(state, JSON.parse(text), mode);
         save(); render();
-        toast('Imported: ' + stats.rooms + ' chats, ' + stats.lore + ' lore, ' + stats.chars + ' memories, ' + stats.log + ' log lines.');
+        toast(bundleReport(stats) + (stats.lore || stats.chars || stats.log
+          ? ' Plus ' + (stats.lore || 0) + ' lore, ' + (stats.chars || 0) + ' memories, ' + (stats.log || 0) + ' log lines.' : ''));
       }).catch(function (error) { toast('Import failed: ' + error.message); });
     };
     input.click();

@@ -6379,6 +6379,20 @@
 
     if (Array.isArray(data.rooms)) {
       var before = (state.rooms || []).length;
+      // A chat that is already on file is not a failure — it is a merge.
+      // Count what actually happened so the toast can tell the truth
+      // instead of “Imported 0 chats” over a perfectly good bundle.
+      stats.roomsUpdated = 0;   // the bundle's copy was newer and replaced ours
+      stats.roomsSame = 0;      // already on file, ours as new or newer — kept
+      if (!replace) {
+        var have = {};
+        (state.rooms || []).forEach(function (r) { if (r && r.id) have[r.id] = r; });
+        (data.rooms || []).forEach(function (r) {
+          if (!r || !r.id || !have[r.id]) return;
+          if ((r.updated || 0) > (have[r.id].updated || 0)) stats.roomsUpdated++;
+          else stats.roomsSame++;
+        });
+      }
       state.rooms = mergeById(state.rooms || [], data.rooms, function (a, b) {
         return (b.updated || 0) >= (a.updated || 0) ? b : a;
       });

@@ -107,12 +107,23 @@ const stats = RP.importBundle(fresh, everything, 'merge');
 check('import: a bundle restores chats, lore, memory and the log', fresh.rooms.length === 3 && fresh.lore.length >= 2 && fresh.chars.length === 3 && stats.rooms === 3);
 const again = RP.importBundle(fresh, everything, 'merge');
 check('import: importing twice does not duplicate anything', fresh.rooms.length === 3 && again.rooms === 0);
+check('import: a re-import says the chats are already on file, not that nothing imported',
+  again.roomsSame === 3 && again.roomsUpdated === 0);
 
 const older = JSON.parse(JSON.stringify(everything));
 older.rooms[0].title = 'Stale copy';
 older.rooms[0].updated = 1;
-RP.importBundle(fresh, older, 'merge');
+const staleStats = RP.importBundle(fresh, older, 'merge');
 check('import: the newer copy of a chat wins a merge', fresh.rooms.find(r => r.id === everything.rooms[0].id).title !== 'Stale copy');
+check('import: a stale copy counts as already-on-file, a fresher one as updated', (() => {
+  if (staleStats.roomsSame !== 3 || staleStats.roomsUpdated !== 0) return false;
+  const fresher = JSON.parse(JSON.stringify(everything));
+  fresher.rooms[0].title = 'Fresher copy';
+  fresher.rooms[0].updated = Date.now() + 86400000;
+  const st2 = RP.importBundle(fresh, fresher, 'merge');
+  return st2.roomsUpdated === 1 && st2.rooms === 0 &&
+    fresh.rooms.find(r => r.id === everything.rooms[0].id).title === 'Fresher copy';
+})());
 
 const otherHalf = { kind: 'waluipedia-chatroom-bundle', chars: [{ id: 'sans', name: 'Sans', notes: [{ at: 9, text: 'Remembered on another machine.' }], knowledge: ['A second fact.'], relations: {} }] };
 RP.importBundle(fresh, otherHalf, 'merge');
