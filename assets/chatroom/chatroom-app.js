@@ -2565,6 +2565,7 @@
       menuItem('cpNote', '📝', 'Special instructions', (r.note || state.settings.note) ? 'set' : 'none') +
       menuItem('cpTaste', '👍', 'What I like', RP.tasteState(state).likes.length + ' / ' + RP.tasteState(state).dislikes.length) +
       menuItem('cpImport', '📥', 'Import into this chat', 'story · card') +
+      menuItem('cpFix', '🛠', 'Fix chat', 'voices · cast · sheets') +
       menuItem('cpCard', '📇', 'Character card', 'PNG · JSON') +
       menuItem('cpRename', '✏️', 'Rename chat', r.title) +
       menuItem('cpDelete', '🗑', 'Delete chat', '') +
@@ -3002,6 +3003,40 @@
     var c = r.cast[0] || {};
     var on = function (id, fn) { var node = $(id); if (node) node.onclick = fn; };
     on('cpNew', function () { r.kind === 'group' ? startGroup(r.cast, { scene: r.scene, sceneName: r.sceneName, beats: r.beats }) : startSolo(c); });
+    on('cpFix', function () {
+      // The grandfather clause: an old chat gets today's rules. Cast
+      // re-read from the archive, sheets mended, star rules re-run — and
+      // the voice caches dropped so the studio is asked again RIGHT NOW
+      // instead of whenever the last answer expires.
+      var lines = RP.fixRoom(state, r, castById);
+      voiceMisses = {};
+      libCache = { at: 0, list: null };
+      var cfg = ttsConfig();
+      voiceLibrary(cfg).then(function (lib) {
+        if (lib && lib.length) {
+          lines.push('the studio offers: ' + lib.join(', '));
+          var covered = function (nm) {
+            var low = String(nm || '').toLowerCase(); var first = low.split(/\s+/)[0];
+            return lib.some(function (v) { var vl = String(v).toLowerCase(); return vl === low || vl === first; });
+          };
+          var missing = r.cast.map(function (c) { return c.name; }).filter(function (nm) { return !covered(nm); });
+          if (missing.length) {
+            lines.push('no studio profile yet for ' + missing.join(', ') + ' — the fallback voice (' + cfg.voice +
+              ') covers them until you save one and press Refresh Library in the studio');
+          }
+        } else {
+          lines.push('the voice studio could not be reached — voices will be asked again on the next ▶');
+        }
+      }).catch(function () {
+        lines.push('the voice studio could not be reached — voices will be asked again on the next ▶');
+      }).then(function () {
+        if (!lines.length) lines.push('nothing needed fixing — this chat already matches the current systems');
+        r.messages.push({ id: RP.uid(), role: 'state', at: Date.now(),
+          lines: lines.map(function (l) { return '🛠 ' + l; }) });
+        save(); render();
+        toast('Chat brought up to date.');
+      });
+    });
     on('cpVoice', function () {
       var cfg = ttsConfig();
       form('Voice — the Qwen studio', [
@@ -3944,6 +3979,10 @@
     var keep = function (list) {
       list = (list || []).filter(function (s, i) { return s && s !== 'None' && list.indexOf(s) === i; });
       libCache = { at: Date.now(), list: list.length ? list : null };
+      // A fresh library is new evidence. A speaker who missed before the
+      // studio had their profile would stay on the fallback voice all
+      // session — the misses expire with the list they were judged by.
+      if (libCache.list) voiceMisses = {};
       return libCache.list;
     };
     // First stop: the app config. The voice dropdown's `choices` there are

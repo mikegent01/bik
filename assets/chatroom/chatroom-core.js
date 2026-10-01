@@ -278,6 +278,43 @@
     return first.charAt(0).toUpperCase() + first.slice(1);
   };
 
+  /** Grandfather an old chat onto the current systems: re-read the cast
+   *  from the archive's current profiles, mend every sheet to the current
+   *  shape, and re-run the star rules (the starred character IS the
+   *  player). Returns human lines describing what it did — the stream
+   *  shows the receipt. Play state (HP, items, history) is untouched. */
+  RP.fixRoom = function (state, room, catalog) {
+    if (!room) return [];
+    var lines = [];
+    catalog = catalog || {};
+    var refreshed = [];
+    (room.cast || []).forEach(function (c, i) {
+      var fresh = catalog[c.id];
+      if (!fresh) return;
+      var now = RP.normChar(Object.assign({}, fresh, { id: c.id }));
+      if (JSON.stringify(now) !== JSON.stringify(c)) { room.cast[i] = now; refreshed.push(now.name); }
+    });
+    if (refreshed.length) lines.push('cast re-read from the archive: ' + refreshed.join(', '));
+    var mended = 0;
+    Object.keys(room.states || {}).forEach(function (k) {
+      var sheet = room.states[k];
+      if (!sheet) return;
+      var before = JSON.stringify(sheet);
+      sheet.flags = sheet.flags || {};
+      sheet.counters = sheet.counters || {};
+      sheet.items = Array.isArray(sheet.items) ? sheet.items : [];
+      if (sheet.present === undefined) sheet.present = true;
+      if (before !== JSON.stringify(sheet)) mended++;
+    });
+    if (mended) lines.push(mended + ' sheet' + (mended === 1 ? '' : 's') + ' mended to the current shape');
+    if (room.mechanics !== 'off' && state) {
+      var pack = RP.ensurePlayerSheet(state, room);
+      if (pack) lines.push('your pack: ' + pack.name + (room.youPlay ? ' — the starred character' : ' — the persona'));
+    }
+    room.updated = Date.now();
+    return lines;
+  };
+
   /** What a line sounds like out loud: tints speak their words, the
    *  markdown furniture and any stray stage direction stay silent. */
   RP.ttsClean = function (text) {

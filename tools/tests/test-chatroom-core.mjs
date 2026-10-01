@@ -2480,6 +2480,31 @@ check('history: newest turns win the budget', (() => {
     RP.DIRECTIVES.includes('Never LOOKUP the scene'));
 }
 
+// ---------- the grandfather clause: 🛠 Fix chat brings old rooms up to date ----------
+{
+  const stFix = RP.blankState();
+  stFix.persona = { name: 'Archivist', voice: '', look: '', items: [], notes: '' };
+  const rmFix = RP.newRoom([RP.normChar({ id: 'waluigi', name: 'Waluigi' }),
+    RP.normChar({ id: 'wario', name: 'Wario', title: 'Old title', summary: 'Old summary' })], { kind: 'group' });
+  rmFix.youPlay = 'waluigi';
+  // an old room: sheets missing fields, cast copy frozen at creation
+  rmFix.states = {
+    waluigi: { id: 'waluigi', name: 'Waluigi', hp: { value: 100, max: 100 }, items: ['worn notepad'], present: true, player: true },
+    wario: { id: 'wario', name: 'Wario', hp: { value: 100, max: 100 }, player: false },
+  };
+  const linesFix = RP.fixRoom(stFix, rmFix, { wario: { id: 'wario', name: 'Wario', title: 'The Explosive Accountant', summary: 'New summary' } });
+  check('fix: the cast is re-read from the archive\u2019s current profiles',
+    rmFix.cast[1].title === 'The Explosive Accountant' && linesFix.some((l) => /cast re-read/.test(l)));
+  check('fix: old sheets are mended to the current shape without touching play state',
+    typeof rmFix.states.wario.flags === 'object' && rmFix.states.wario.present === true &&
+    rmFix.states.waluigi.items[0] === 'worn notepad' && linesFix.some((l) => /mended/.test(l)));
+  check('fix: the star rules are re-run — the starred character is the pack',
+    RP.playerSheetId(rmFix) === 'waluigi' && rmFix.states.waluigi.slots >= 12 &&
+    linesFix.some((l) => /your pack: Waluigi/.test(l)));
+  check('fix: a room with nothing to fix reports nothing',
+    RP.fixRoom(stFix, RP.newRoom([RP.normChar({ id: 'x', name: 'X' })], { mechanics: 'off' }), {}).length === 0);
+}
+
 // ---------- generated pages are in sync with these sources ----------
 let built = true;
 try {

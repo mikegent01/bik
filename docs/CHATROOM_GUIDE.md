@@ -1316,6 +1316,30 @@ generation**, which means most of the model was running on CPU:
    picker, upkeep, recaps and the lore book then run on a small fast
    model and never queue behind the big one.
 
+### 🛠 Fix chat — the grandfather clause
+
+Chats made before a feature existed don't get it retroactively — their
+cast is a snapshot from the day the room opened, their sheets predate
+newer fields, and the voice caches can hold a stale answer from before a
+studio profile existed. **Chat menu → 🛠 Fix chat** brings an old room
+up to date in one press and files a receipt in the stream:
+
+- **Cast re-read from the archive** — current profiles replace the
+  frozen copies (play state — HP, items, history — is untouched).
+- **Sheets mended** to the current shape; **star rules re-run** (the
+  starred character is your pack).
+- **Voice caches dropped and the studio asked again right now** — the
+  receipt lists exactly what the studio offers, and names any cast
+  member with no profile yet: *"no studio profile yet for Wario — the
+  fallback voice covers them until you save one and press Refresh
+  Library in the studio."* That last part matters: a profile saved
+  while the studio runs does not enter its API choices until the
+  studio's own Refresh Library / restart.
+
+Even without the button, a stale miss no longer sticks all session: the
+speaker-missed list expires whenever a fresh library arrives (at most a
+minute), so fixing the studio fixes the voice on the next turn.
+
 ## 🩸 Conditions that bite
 
 A condition can carry a **cost per turn**, and it is taken automatically for
