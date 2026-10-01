@@ -3038,8 +3038,9 @@
           };
           var missing = r.cast.map(function (c) { return c.name; }).filter(function (nm) { return !covered(nm); });
           if (missing.length) {
-            lines.push('no studio profile yet for ' + missing.join(', ') + ' — the fallback voice (' + cfg.voice +
-              ') covers them until you save one and press Refresh Library in the studio');
+            lines.push('the studio\u2019s boot list is missing ' + missing.join(', ') + ' \u2014 a profile saved while ' +
+              'the studio runs will not show here until it restarts, so their lines will ask the studio by name ' +
+              'anyway; only a refused voice falls back to ' + cfg.voice);
           }
         } else {
           lines.push('the voice studio could not be reached — voices will be asked again on the next ▶');

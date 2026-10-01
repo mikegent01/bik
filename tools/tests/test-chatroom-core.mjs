@@ -2366,13 +2366,16 @@ check('history: newest turns win the budget', (() => {
     return chunks[0] === 'One. Two.' && chunks.every((c) => c.length <= 100) &&
       RP.ttsChunks('Hello there.', 450).length === 1 && RP.ttsChunks('  ').length === 0;
   })());
-  check('tts: when the studio library answers, it is the authority — even over the map',
+  check('tts: when the studio library answers, it spells the voice — but a stale list does not mute anyone',
     RP.ttsVoiceFor('Wario Bigmouth', { library: ['Wario', 'Luigi'] }) === 'Wario' &&
     RP.ttsVoiceFor('wario', { library: ['Wario'] }) === 'Wario' &&
-    RP.ttsVoiceFor('Brad', { library: ['Wario'], fallback: 'Waluigi' }) === 'Waluigi' &&
-    RP.ttsVoiceFor('Brad', { map: { brad: 'Freeman' }, library: ['Wario', 'Freeman'] }) === 'Freeman' &&
-    // a map entry the studio does not have would be refused — fallback instead
-    RP.ttsVoiceFor('Brad', { map: { brad: 'Freeman' }, library: ['Wario'], fallback: 'Waluigi' }) === 'Waluigi');
+    // absent from the list, never tried: ask the studio anyway — /config is
+    // a boot-time snapshot and can lag the real library (round 14)
+    RP.ttsVoiceFor('Brad', { library: ['Wario'], fallback: 'Waluigi' }) === 'Brad' &&
+    RP.ttsVoiceFor('Brad', { map: { brad: 'Freeman' }, library: ['Wario'], fallback: 'Waluigi' }) === 'Freeman' &&
+    // absent AND already refused once: the fallback reads from here on
+    RP.ttsVoiceFor('Brad', { library: ['Wario'], fallback: 'Waluigi', misses: { brad: true } }) === 'Waluigi' &&
+    RP.ttsVoiceFor('Brad', { map: { brad: 'Freeman' }, library: ['Wario', 'Freeman'] }) === 'Freeman');
   check('tts: quotes are attributed to their speakers, narration to the narrator', (() => {
     const names = ['Wario', 'Sans'];
     const parts = RP.speechParts('Wario slams the table. "Pay up." Sans shrugs. "nah," Sans says.', names, 'Wario');
@@ -2402,7 +2405,7 @@ check('history: newest turns win the budget', (() => {
       RP.ttsVoiceFor('WARIO BIGMOUTH', { library: lib }) === 'Wario' &&
       RP.ttsVoiceFor('panicy woman', { library: lib }) === 'Panicy Woman' &&
       RP.ttsVoiceFor('Sans', { map: { sans: 'freeman' }, library: lib }) === 'Freeman' &&
-      RP.ttsVoiceFor('Brad', { library: lib, fallback: 'waluigi' }) === 'Waluigi' &&
+      RP.ttsVoiceFor('Brad', { library: lib, fallback: 'waluigi', misses: { brad: true } }) === 'Waluigi' &&
       RP.ttsVoiceFor('', { library: lib, fallback: 'waluigi' }) === 'Waluigi';
   })());
 }
@@ -2563,11 +2566,12 @@ check('history: newest turns win the budget', (() => {
   })());
   check('tts audit: empty and whitespace-only text produce no parts and no chunks',
     RP.speechParts('   ', vNames, 'Wario', 'Waluigi').length === 0 && RP.ttsChunks('  \n ', 450, 170).length === 0);
-  check('tts audit: the library still outranks everything and spells the voice', (() => {
+  check('tts audit: the library spells voices, a stale list gets one honest try, a miss ends it', (() => {
     const lib = ['Freeman', 'Luigi', 'Panicy Woman', 'Waluigi'];
-    return RP.ttsVoiceFor('WARIO', { map: {}, fallback: 'waluigi', library: lib }) === 'Waluigi' && // absent → fallback, studio casing
+    return RP.ttsVoiceFor('Wario', { map: {}, fallback: 'waluigi', library: lib }) === 'Wario' &&   // absent from the BOOT list → ask anyway
+      RP.ttsVoiceFor('Wario', { map: {}, fallback: 'waluigi', library: lib, misses: { wario: true } }) === 'Waluigi' && // refused once → fallback, studio casing
       RP.ttsVoiceFor('luigi', { map: {}, fallback: 'Waluigi', library: lib }) === 'Luigi' &&        // present → case-corrected
-      RP.ttsVoiceFor('Wario', { map: {}, fallback: 'Waluigi', library: lib.concat('Wario') }) === 'Wario'; // profile saved → his own voice
+      RP.ttsVoiceFor('Wario', { map: {}, fallback: 'Waluigi', library: lib.concat('Wario') }) === 'Wario'; // in the list → his own voice
   })());
 }
 

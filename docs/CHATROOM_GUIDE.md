@@ -1366,12 +1366,14 @@ up to date in one press and files a receipt in the stream:
 - **Sheets mended** to the current shape; **star rules re-run** (the
   starred character is your pack).
 - **Voice caches dropped and the studio asked again right now** — the
-  receipt lists exactly what the studio offers, and names any cast
-  member with no profile yet: *"no studio profile yet for Wario — the
-  fallback voice covers them until you save one and press Refresh
-  Library in the studio."* That last part matters: a profile saved
-  while the studio runs does not enter its API choices until the
-  studio's own Refresh Library / restart.
+  receipt lists exactly what the studio's boot list offers, and names
+  any cast member missing from it. **The boot list can lie**: Gradio's
+  `/config` is a snapshot from when the studio started, so a profile
+  saved while it runs (the studio's own library table shows it!) never
+  appears there until a restart. That is why a missing name is *not*
+  silenced: their lines ask the studio by name anyway, and only a
+  genuinely refused voice falls back — one fast error, a toast, and
+  the fallback reads from that line on.
 
 Even without the button, a stale miss no longer sticks all session: the
 speaker-missed list expires whenever a fresh library arrives (at most a

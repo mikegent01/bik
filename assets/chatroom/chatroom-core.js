@@ -270,8 +270,19 @@
     var picked = map[full.toLowerCase()] || map[first.toLowerCase()] || '';
     if (lib && lib.length) {
       // the library decides, and spells: picked name, else the speaker
-      // themselves, else the fallback — each in the studio's own casing
-      return inLib(picked) || inLib(full) || inLib(first) || inLib(fallback) || fallback;
+      // themselves — each in the studio's own casing
+      var found = inLib(picked) || inLib(full) || inLib(first);
+      if (found) return found;
+      // Absent from the list — but the list can LIE: Gradio's /config is
+      // a boot-time snapshot, and a profile saved while the studio runs
+      // (its library table shows it!) never appears there until a
+      // restart. Unless a real attempt already failed, ask the studio
+      // for the voice anyway: a refusal costs one fast error, marks the
+      // miss, and the fallback takes over from that line on.
+      if (!(opts.misses || {})[first.toLowerCase()]) {
+        return picked || first.charAt(0).toUpperCase() + first.slice(1);
+      }
+      return inLib(fallback) || fallback;
     }
     if (picked) return picked;
     if ((opts.misses || {})[first.toLowerCase()]) return fallback;

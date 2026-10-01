@@ -937,8 +937,19 @@ window.CHATROOM_CONFIG = {
     var picked = map[full.toLowerCase()] || map[first.toLowerCase()] || '';
     if (lib && lib.length) {
       // the library decides, and spells: picked name, else the speaker
-      // themselves, else the fallback — each in the studio's own casing
-      return inLib(picked) || inLib(full) || inLib(first) || inLib(fallback) || fallback;
+      // themselves — each in the studio's own casing
+      var found = inLib(picked) || inLib(full) || inLib(first);
+      if (found) return found;
+      // Absent from the list — but the list can LIE: Gradio's /config is
+      // a boot-time snapshot, and a profile saved while the studio runs
+      // (its library table shows it!) never appears there until a
+      // restart. Unless a real attempt already failed, ask the studio
+      // for the voice anyway: a refusal costs one fast error, marks the
+      // miss, and the fallback takes over from that line on.
+      if (!(opts.misses || {})[first.toLowerCase()]) {
+        return picked || first.charAt(0).toUpperCase() + first.slice(1);
+      }
+      return inLib(fallback) || fallback;
     }
     if (picked) return picked;
     if ((opts.misses || {})[first.toLowerCase()]) return fallback;
@@ -10252,8 +10263,9 @@ window.CHATROOM_CONFIG = {
           };
           var missing = r.cast.map(function (c) { return c.name; }).filter(function (nm) { return !covered(nm); });
           if (missing.length) {
-            lines.push('no studio profile yet for ' + missing.join(', ') + ' — the fallback voice (' + cfg.voice +
-              ') covers them until you save one and press Refresh Library in the studio');
+            lines.push('the studio\u2019s boot list is missing ' + missing.join(', ') + ' \u2014 a profile saved while ' +
+              'the studio runs will not show here until it restarts, so their lines will ask the studio by name ' +
+              'anyway; only a refused voice falls back to ' + cfg.voice);
           }
         } else {
           lines.push('the voice studio could not be reached — voices will be asked again on the next ▶');
