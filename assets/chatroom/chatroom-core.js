@@ -172,11 +172,27 @@
    * characters
    * ------------------------------------------------------------------ */
 
+  /** `faiths` on a record is a string on older entries and a list of
+   *  {id, role, note} objects on newer ones. Either way the card wants a
+   *  short line, never "[object Object]". */
+  function faithLine(value) {
+    if (!value) return '';
+    if (typeof value === 'string') return clip(value, 90);
+    var list = Array.isArray(value) ? value : [value];
+    return clip(list.map(function (f) {
+      if (!f) return '';
+      if (typeof f === 'string') return f;
+      var name = String(f.name || f.id || '').replace(/_/g, ' ');
+      return name + (f.role ? ' (' + f.role + ')' : '');
+    }).filter(Boolean).join('; '), 160);
+  }
+  RP.faithLine = faithLine;
+
   /** One archive record → one playable character card. */
   RP.normChar = function (record) {
     record = record || {};
     var name = clip(record.name || record.id || 'Unnamed', 60);
-    return {
+    var out = {
       id: String(record.id || slug(name) || uid()),
       name: name,
       title: clip(record.title, 200),
@@ -191,7 +207,7 @@
       // them into the prompt instead of being thrown away at load.
       description: clip(record.description, 1400),
       faction: clip(record.faction || record.membership, 80),
-      faiths: clip(record.faiths, 90),
+      faiths: faithLine(record.faiths),
       level: Number(record.level || 0) || 0,
       powerLevel: Number(record.powerLevel || 0) || 0,
       fameScore: Number(record.fameScore || 0) || 0,
@@ -206,6 +222,15 @@
       keyEvents: Array.isArray(record.keyEvents) ? record.keyEvents.slice(0, 12).map(String) : [],
       relatedArticles: Array.isArray(record.relatedArticles) ? record.relatedArticles.slice(0, 14).map(String) : [],
     };
+    // The things that make a character sound like themselves travel with
+    // them into the room. Until now a seat at the table re-read the record
+    // and dropped these — so an imported card's example dialogue, and the
+    // archive's own voice sheets, never reached the prompt.
+    if (record.voice && typeof record.voice === 'object') out.voice = record.voice;
+    if (record.card && typeof record.card === 'object') out.card = record.card;
+    if (record.look) out.look = clip(record.look, 300);
+    if (record.invented) out.invented = true;
+    return out;
   };
 
   RP.letterFor = function (name) {
@@ -564,9 +589,18 @@
    * ------------------------------------------------------------------ */
 
   RP.STYLES = {
+    voice: {
+      name: 'In character',
+      dir: 'Speak AS the character, in the FIRST PERSON, to the person in front of you — the way they would actually ' +
+        'say it out loud, in their own words and rhythm. Mostly dialogue. Small actions go between *asterisks* on ' +
+        'the same line (*slams the ledger*), never as paragraphs of description. Do not narrate yourself from the ' +
+        'outside ("Wario grunts and counts his coins") — you ARE them ("*counts the coins again* Wah. Still short."). ' +
+        'No scene-setting, no summarising the moment, no literary distance.',
+    },
     novel: {
       name: 'Novel',
-      dir: 'Write as third-person prose fiction: physical detail, quoted speech, a paragraph or three. Never narrate for the user.',
+      dir: 'Write as third-person prose fiction: physical detail, quoted speech, a paragraph or three. Never narrate for the user. ' +
+        'Every quoted line must sound like the character who says it — see VOICE.',
     },
     script: {
       name: 'Script',
@@ -582,9 +616,11 @@
     },
   };
 
+  RP.DEFAULT_STYLE = 'voice';
+
   function styleDir(opts) {
-    var style = (opts && opts.style) || 'novel';
-    return (RP.STYLES[style] || RP.STYLES.novel).dir;
+    var style = (opts && opts.style) || RP.DEFAULT_STYLE;
+    return (RP.STYLES[style] || RP.STYLES[RP.DEFAULT_STYLE]).dir;
   }
 
   /** The dossier handed to the model. The filed description is the whole
@@ -597,39 +633,154 @@
     if (char.race) lines.push('Race: ' + char.race);
     if (char.affiliation) lines.push('Affiliation: ' + char.affiliation);
     if (char.faction && char.faction !== char.affiliation) lines.push('Faction: ' + char.faction);
-    if (char.faiths) lines.push('Faith: ' + char.faiths);
+    if (char.faiths) lines.push('Faith: ' + faithLine(char.faiths));
     if (char.status) lines.push('Status right now: ' + char.status);
     if (char.fameTier) lines.push('Standing: ' + char.fameTier + (char.powerLevel ? ' · power ' + char.powerLevel : ''));
     if (char.summary) lines.push('About: ' + char.summary);
     if (char.description && !opts.short) {
-      lines.push('Filed description — play this, not a generic version of the name:');
+      // The archive is written by Waluigi ABOUT everybody else. Handed over
+      // without that warning, every character came back sounding like the
+      // encyclopaedist who filed them — dry, dated, archival.
+      lines.push(char.id === 'waluigi'
+        ? 'Filed description — written by Waluigi himself, so this IS his voice. Play it, not a generic version of the name:'
+        : 'Filed description — biography written by Waluigi, the archive\u2019s author, ABOUT this character. Use it ' +
+          'for facts, history and relationships; do NOT borrow its narrator\u2019s tone. How they actually talk is under VOICE:');
       lines.push(clip(char.description, 1400));
     }
     if (char.why) lines.push('Why they are in this scene: ' + char.why);
-    var role = RP.roleFor(char);
+    // A hand-written voice sheet outranks a guessed behaviour line.
+    var role = RP.voiceSheet(char) ? '' : RP.roleFor(char);
     if (role) lines.push('How they behave: ' + role);
     return lines.join('\n');
   }
   RP.card = card;
 
   /** A behaviour line inferred from what the archive already says. It is
-   *  deliberately blunt: small models need the instruction, not the hint. */
+   *  deliberately blunt: small models need the instruction, not the hint.
+   *  Whole words only — `ice` used to match price, juice and service, and
+   *  Wario came out "reaching for the arcane answer first". */
   RP.roleFor = function (char) {
     var text = ((char.title || '') + ' ' + (char.status || '') + ' ' + (char.summary || '') + ' ' + (char.description || '')).toLowerCase();
     var traits = [];
     function has(re, line) { if (re.test(text)) traits.push(line); }
-    has(/archivist|historian|scribe|record|librarian/, 'cites the record, dates things, corrects other people\u2019s facts');
-    has(/soldier|captain|general|commander|warlord|legion|guard|knight|paratroopa/, 'thinks in ground, orders and casualties; answers threats before questions');
-    has(/king|queen|lord|lady|prince|princess|speaker|delegate|noble|regent/, 'speaks as though the room already reports to them, and notices who does not');
-    has(/merchant|debt|gold|acquisitions|coin|profit|bank|business/, 'prices everything out loud, including favours');
-    has(/thief|looter|infiltrat|rogue|spy|smuggler/, 'checks exits, pockets what is loose, and lies smoothly when it is easier');
-    has(/mage|magic|arcane|wizard|sorcer|ice|witch|oracle/, 'reaches for the arcane answer first, and resents being asked to explain it');
-    has(/ghost|spirit|undead|revenant|corrupted|shadow/, 'is not bound by the room\u2019s rules and does not pretend to be');
-    has(/monster|beast|titan|dragon|plant|creature/, 'communicates physically before verbally');
-    has(/coward|reluctant|nervous|anxious|traumati/, 'wants to leave, says so, and stays anyway');
-    has(/comedian|jester|prank|joke|clown|chaos/, 'undercuts the serious line, especially when it is the wrong moment');
-    has(/injured|wounded|dying|bleeding|missing/, 'is hurt, and it shows in what they can and cannot do');
+    has(/\b(archivist|historian|scribe|librarian)\b|\brecords?\b/, 'cites the record, dates things, corrects other people\u2019s facts');
+    has(/\b(soldier|captain|general|commander|warlord|legion|guards?|knight|paratroopa)\b/, 'thinks in ground, orders and casualties; answers threats before questions');
+    has(/\b(king|queen|lord|lady|prince|princess|speaker|delegate|noble|regent)\b/, 'speaks as though the room already reports to them, and notices who does not');
+    has(/\b(merchant|debts?|gold|acquisitions|coins?|profit|bank|business)\b/, 'prices everything out loud, including favours');
+    has(/\b(thief|looter|infiltrat\w*|rogue|spy|smuggler)\b/, 'checks exits, pockets what is loose, and lies smoothly when it is easier');
+    has(/\b(mage|magic\w*|arcane|wizard|sorcer\w*|ice magic|witch|oracle)\b/, 'reaches for the arcane answer first, and resents being asked to explain it');
+    has(/\b(ghost|spirits?|undead|revenant|wraith|spectre|specter)\b/, 'is not bound by the room\u2019s rules and does not pretend to be');
+    has(/\b(monster|beast|titan|dragon|creature)\b/, 'communicates physically before verbally');
+    has(/\b(coward\w*|reluctant|nervous|anxious|traumati\w*)\b/, 'wants to leave, says so, and stays anyway');
+    has(/\b(comedian|jester|pranks?|jokes?|clown|chaos)\b/, 'undercuts the serious line, especially when it is the wrong moment');
+    has(/\b(injured|wounded|dying|bleeding|missing)\b/, 'is hurt, and it shows in what they can and cannot do');
     return traits.slice(0, 4).join('; ');
+  };
+
+  /* ---- voice sheets: how a character actually talks ----
+     The archive's descriptions are biography. A model given biography
+     writes biography — "Wario, the explosive accountant, considers the
+     offer" — when what you wanted was "WAH. No. Pay me." The sheet is the
+     missing half: register, tics, the things they would never say, and a
+     few lines in their mouth for the model to sit new ones beside.
+     Hand-written sheets live in Reputation-Matrix2/data/voices.json and
+     are loaded with RP.setVoices; an imported character card brings its
+     own (personality + example dialogue); everybody else gets a fallback
+     built from their record. */
+
+  RP.VOICES = {};
+
+  RP.setVoices = function (map) {
+    RP.VOICES = {};
+    Object.keys(map || {}).forEach(function (id) {
+      if (id.charAt(0) === '_' || !map[id] || typeof map[id] !== 'object') return;
+      RP.VOICES[id] = map[id];
+    });
+    return Object.keys(RP.VOICES).length;
+  };
+
+  /** Example dialogue in a Tavern/c.ai card is one block of text with
+   *  {{char}}: / {{user}}: labels. Keep the character's own lines. */
+  function linesFromExample(text, name) {
+    var out = [];
+    var own = String(name || '').toLowerCase();
+    // clip() has already folded the newlines, so the turns are found by
+    // their labels — {{char}}: / {{user}}: / Name: — wherever they sit.
+    var flat = String(text || '').replace(/<START>/gi, '\n');
+    var labelled = flat.split(/(?=(?:^|\s)(?:\{\{char\}\}|\{\{user\}\}|[A-Z][\w' .-]{0,30}):\s)/);
+    labelled.forEach(function (chunk) {
+      var line = chunk.trim();
+      if (!line || out.length >= 6) return;
+      var m = /^(\{\{char\}\}|\{\{user\}\}|[^:]{1,40}):\s*([\s\S]+)$/.exec(line);
+      if (!m) { if (line.length > 12) out.push(clip(line, 220)); return; }
+      var who = m[1].trim().toLowerCase();
+      if (who === '{{user}}' || who === 'you' || who === 'user') return;
+      if (who === '{{char}}' || !own || who === own || own.indexOf(who) === 0) {
+        out.push(clip(m[2].replace(/\{\{char\}\}/gi, name || 'they').replace(/\{\{user\}\}/gi, 'you'), 220));
+      }
+    });
+    return out.slice(0, 6);
+  }
+
+  /** The sheet for a character: their own, the archive's, or one read out
+   *  of an imported card. Null when there is nothing hand-written. */
+  RP.voiceSheet = function (char) {
+    if (!char) return null;
+    if (char.voice && typeof char.voice === 'object') return char.voice;
+    if (char.id && RP.VOICES[char.id]) return RP.VOICES[char.id];
+    var card = char.card || {};
+    if (card.mes_example || card.system_prompt) {
+      return {
+        register: clip(card.system_prompt || '', 500),
+        sounds: [], never: [],
+        lines: linesFromExample(card.mes_example, char.name),
+        fromCard: true,
+      };
+    }
+    return null;
+  };
+
+  /** The prompt section. With a sheet it is the sheet; without one it is
+   *  still a first-person instruction built from the record, which is more
+   *  than the model used to get. */
+  RP.voiceBlock = function (char) {
+    char = char || {};
+    var name = char.name || 'this character';
+    var sheet = RP.voiceSheet(char);
+    var out = ['VOICE \u2014 how ' + name + ' actually talks. This is the whole job: if the lines could be anybody\u2019s, they are wrong.'];
+    if (sheet) {
+      if (sheet.register) out.push(clip(sheet.register, 600));
+      var sounds = (sheet.sounds || []).slice(0, 6);
+      if (sounds.length) out.push('Sounds like: ' + sounds.map(function (s) { return clip(s, 160); }).join(' \u00b7 '));
+      var never = (sheet.never || []).slice(0, 5);
+      if (never.length) out.push('Never: ' + never.map(function (s) { return clip(s, 140); }).join(' \u00b7 '));
+      var lines = (sheet.lines || []).slice(0, 5);
+      if (lines.length) {
+        out.push('Lines in ' + name + '\u2019s own mouth \u2014 do not repeat them; write NEW ones that could sit beside them:');
+        lines.forEach(function (l) { out.push('  \u201c' + clip(l, 240) + '\u201d'); });
+      }
+      return out.join('\n');
+    }
+    var role = RP.roleFor(char);
+    out.push('Speak in the FIRST PERSON as ' + name + (char.title ? ', ' + char.title : '') + '. Their vocabulary comes ' +
+      'from what they are' + (char.affiliation ? ' (' + clip(char.affiliation, 80) + ')' : '') +
+      (char.race ? ' and what they are made of (' + clip(char.race, 40) + ')' : '') + ', not from a narrator.');
+    if (role) out.push('Sounds like somebody who ' + role + '.');
+    if (char.status) out.push('What is on their mind right now: ' + clip(char.status, 240));
+    out.push('Give them one verbal habit and keep it. Short lines when angry, longer when lying. Never summarise the scene \u2014 react to it.');
+    return out.join('\n');
+  };
+
+  /** The last thing the model reads before it writes. Small models weigh
+   *  the end of the prompt most, so the end is the character, not the
+   *  mechanics. */
+  RP.closingLine = function (char, style) {
+    var name = (char && char.name) || 'the character';
+    if ((style || RP.DEFAULT_STYLE) === 'voice') {
+      return 'NOW ANSWER AS ' + name.toUpperCase() + ' \u2014 first person, in their own voice from VOICE above. Not a narrator, ' +
+        'not a summary, not a description of the room. If ' + name + ' would shout, shout; if they would refuse, refuse.';
+    }
+    return 'Every line ' + name + ' speaks must sound like ' + name + ' \u2014 see VOICE above. The prose may be yours; the words are theirs.';
   };
 
   var RULES = [
@@ -660,6 +811,8 @@
       'CHARACTER CARD',
       card(char),
       '',
+      RP.voiceBlock(char),
+      '',
       'IN-CHARACTER RULES',
       RULES,
       '',
@@ -685,6 +838,8 @@
       '',
       'YOU ARE ' + who.name,
       card(who),
+      '',
+      RP.voiceBlock(who),
       '',
       'Write the next turn speaking ONLY as ' + who.name + '.',
       'START WITH ' + who.name.toUpperCase() + '. The first sentence must be ' + who.name + ' doing or saying ' +
@@ -736,7 +891,7 @@
       perspective: String(opts.perspective || ''),
       replayOf: String(opts.replayOf || ''),
       persona: String(opts.persona || ''),
-      style: String(opts.style || 'novel'),
+      style: String(opts.style || RP.DEFAULT_STYLE),
       beats: Array.isArray(opts.beats) ? opts.beats.slice(0, 24) : [],
       beatIndex: 0,
       autoBeats: opts.autoBeats === undefined ? true : Boolean(opts.autoBeats),
@@ -5175,11 +5330,30 @@
       }
       if (sheet.notes) lines.push(sheet.notes);
     }
-    if (starred) lines.push('In this scene they are playing ' + starred.name + '.');
+    if (starred) {
+      // The reader is a cast member. The model should know who is in front
+      // of it — Wario talks to his brother differently from a stranger.
+      lines.push('In this scene they ARE ' + starred.name + (starred.title ? ' \u2014 ' + clip(starred.title, 120) : '') + '.');
+      if (starred.summary) lines.push('Who that is: ' + clip(starred.summary, 320));
+      lines.push('Call them ' + starred.name + ' (or whatever you would call ' + starred.name + ' to their face). ' +
+        starred.name + '\u2019s words, actions and decisions are theirs to write, never yours.');
+    }
     if (text) lines.push(text);
     if (!lines.length) return '';
     return 'THE USER PLAYS\n' + lines.join('\n') +
       '\nAddress them as that person; never tell them what they do, say or decide.';
+  };
+
+  /** Take a seat as an archive character: they join the cast if they are
+   *  not already in it, and the star moves to them. Returns the cast
+   *  entry, or null when nothing was handed in. */
+  RP.playAs = function (room, char) {
+    if (!room || !char) return null;
+    var seat = RP.addToRoom(room, char) ? room.cast[room.cast.length - 1]
+      : (room.cast || []).filter(function (c) { return c.id === char.id; })[0];
+    if (!seat) return null;
+    if (room.youPlay !== seat.id) RP.markPlayer(room, seat.id);
+    return seat;
   };
 
   /* ------------------------------------------------------------------ *
@@ -6333,13 +6507,11 @@
    *  the blocks are ordered, so the page and the tests agree on the shape. */
   RP.systemFor = function (state, room, speaker, opts) {
     opts = opts || {};
-    var style = { style: opts.style || room.style || 'novel', scene: room.scene };
+    var style = { style: opts.style || room.style || RP.DEFAULT_STYLE, scene: room.scene };
     var base = room.kind === 'group'
       ? RP.groupPrompt(room.cast, speaker, style)
       : RP.soloPrompt(room.cast[0] || speaker || {}, style);
     var parts = [base];
-    var persona = RP.personaBlock(room.persona || (state.user && state.user.persona) || '', state, room);
-    if (persona) parts.push(persona);
     if (room.kind !== 'group' && room.scene) parts.push('THE SCENE\n' + room.scene);
     var perspective = RP.perspectiveBlock(room);
     if (perspective) parts.push(perspective);
@@ -6375,6 +6547,12 @@
     var audience = RP.audienceBlock(room, RP.normChar(speaker || {}).id,
       (state.settings && state.settings.audience) || 'on');
     if (audience) parts.push(audience);
+    // Who the reader is — Waluigi, a persona, a stranger — used to sit with
+    // the reference material and was the last block dropped on a tight
+    // window. Wario talking to his brother as if to nobody is a worse
+    // turn than one with a shorter biography, so it is kept.
+    var persona = RP.personaBlock(room.persona || (state.user && state.user.persona) || '', state, room);
+    if (persona) parts.push(persona);
     if (room.mechanics !== 'off') {
       var sheets = RP.stateBlock(room, RP.normChar(speaker || {}).id);
       if (sheets) parts.push(sheets);
@@ -6389,6 +6567,10 @@
     var ooc = RP.oocBlock(state, room, opts.notes);
     if (ooc) parts.push(ooc);
     parts.push(RP.lengthBlock((state.settings && state.settings.length) || 'snappy', false).text);
+    // Last word to the character. Two thousand characters of stage
+    // directions used to be the final thing the model read before writing
+    // Wario; now it is Wario.
+    parts.push(RP.closingLine(RP.normChar(speaker || room.cast[0] || {}), style.style));
     return RP.fitPrompt(parts, opts.budget, protectedFrom);
   };
 
@@ -6430,6 +6612,7 @@
   /** Assemble the prompt inside the budget. The character card, the rules
    *  and the turn's own instructions are never dropped; the reference
    *  material at the back is trimmed, oldest lines first, until it fits. */
+  var TRIM_NOTE = ' (trimmed to fit the model\u2019s window)';
   RP.fitPrompt = function (parts, budget, protectedFrom) {
     var cap = budget || RP.PROMPT_BUDGET;
     var keepFrom = protectedFrom === undefined ? parts.length : protectedFrom;
@@ -6445,6 +6628,17 @@
         parts = parts.map(function (part, at) {
           if (at >= keepFrom || part.indexOf(soft[i]) < 0) return part;
           var lines = part.split('\n');
+          if (at === 0) {
+            // The base prompt carries the card, the VOICE, the rules and
+            // the style in one part. Halving it by lines used to throw the
+            // rules and the voice away to save the biography; now only the
+            // description paragraph gives ground.
+            var head = -1;
+            for (var k = 0; k < lines.length; k++) { if (lines[k].indexOf('Filed description') === 0) { head = k; break; } }
+            if (head < 0 || head + 1 >= lines.length || lines[head + 1].length < 200) return part;
+            lines[head + 1] = clip(lines[head + 1].replace(TRIM_NOTE, ''), Math.floor(lines[head + 1].length / 2)) + TRIM_NOTE;
+            return lines.join('\n');
+          }
           if (lines.length < 4) return part;
           return lines.slice(0, Math.max(3, Math.floor(lines.length / 2))).join('\n') +
             '\n… (trimmed to fit the model\u2019s window)';
@@ -6460,8 +6654,55 @@
       keepFrom--; at--;
       text = parts.join('\n\n');
     }
+    // Still too long — the card and the instructions alone do not fit. The
+    // old answer was to slice the end off, which is where the stage
+    // directions and the length live. Squeeze the head instead, by degrees.
+    for (var level = 1; level <= 4 && text.length > cap; level++) {
+      parts[0] = squeezeBase(parts[0], level);
+      text = parts.join('\n\n');
+    }
     return text.length > cap ? text.slice(0, cap - 40) + '\n… (truncated)' : text;
   };
+
+  /** The base prompt with less in it, keeping what makes the character
+   *  themselves for as long as possible. Decoration goes first, the voice
+   *  last:
+   *    1  colour markup rules, the other cast members' summaries, a shorter
+   *       About and description
+   *    2  the voice's Never line, four sample lines, a short description
+   *    3  the Sounds like line, three sample lines, titles and the scene
+   *       clipped, the description down to a sentence
+   *    4  no sample lines at all — the register paragraph is the floor */
+  function squeezeBase(part, level) {
+    var lines = String(part || '').split('\n');
+    var out = [], examples = 0, inVoice = false, inCast = false;
+    for (var i = 0; i < lines.length; i++) {
+      var line = lines[i];
+      if (line.indexOf('VOICE \u2014') === 0) { inVoice = true; inCast = false; }
+      else if (line === 'THE CAST') { inCast = true; }
+      else if (/^[A-Z][A-Z \u2014-]{4,}$/.test(line.trim()) && line.trim() === line.trim().toUpperCase()) { inVoice = false; inCast = false; }
+      else if (/^YOU ARE /.test(line)) { inCast = false; }
+      if (/^    \S/.test(line)) continue;                                // a cast member's summary
+      if (/^(You may colour a few words|When a thing should keep its colour)/.test(line)) continue;  // decoration first
+      if (inVoice && /^Never:/.test(line) && level >= 2) continue;
+      if (inVoice && /^Sounds like:/.test(line) && level >= 3) continue;
+      if (inVoice && /^  \u201c/.test(line)) {
+        examples++;
+        if (level >= 4 || examples > (level >= 3 ? 3 : 4)) continue;
+      }
+      if (inVoice && level >= 4 && /own mouth/.test(line)) continue;
+      if (inCast && level >= 2 && /^- /.test(line)) line = clip(line, level >= 3 ? 90 : 140);   // name — title (affiliation)
+      if (level >= 3 && /^(Title|Affiliation|Faction): /.test(line)) line = clip(line, 110);
+      if (/^About: /.test(line)) line = clip(line, level >= 3 ? 200 : 360);
+      if (i > 0 && lines[i - 1].indexOf('Filed description') === 0) {
+        var want = level >= 3 ? 160 : level >= 2 ? 400 : 700;
+        if (line.length > want) line = clip(line.replace(TRIM_NOTE, ''), want) + TRIM_NOTE;
+      }
+      if (level >= 3 && i > 0 && lines[i - 1] === 'THE SCENE') line = clip(line, 700);   // a group prompt carries its scene
+      out.push(line);
+    }
+    return out.join('\n');
+  }
 
   /* ------------------------------------------------------------------ *
    * perspective dynamic replay
@@ -6509,7 +6750,7 @@
       perspective: opts.perspective || (cast || []).map(function (c) { return c.name; }).join(', '),
       replayOf: source.id || '',
       beats: beats,
-      style: opts.style || source.style || 'novel',
+      style: opts.style || source.style || RP.DEFAULT_STYLE,
       persona: opts.persona || '',
       opener: opts.opener || ('Replay — ' + name + ', from the perspective of ' +
         ((cast || []).map(function (c) { return c.name; }).join(', ') || 'someone else') + '.'),
@@ -6578,7 +6819,7 @@
       backfillUses: {},    // backfill id -> how many times it has been played
       usedPosts: {},   // wire post id -> where it was played
       settings: {
-        style: 'novel', voice: 'off', temperature: 0.85, endpoint: '',
+        style: RP.DEFAULT_STYLE, voice: 'off', temperature: 0.85, endpoint: '',
         director: 'on',            // let the model decide who speaks next
         length: 'snappy',          // snappy | normal | rich
         narrator: 'director',      // director | plain | terse | archivist
@@ -6620,6 +6861,21 @@
       }
     } catch (e) { /* a corrupt store is an empty store */ }
     return state;
+  };
+
+  /** One-time: chats opened before "In character" existed carry the old
+   *  default, Novel — not because anybody chose it, but because newRoom
+   *  wrote it. Move them over once, say how many, and never touch a
+   *  room again (Style is one click away for anyone who wants Novel back). */
+  RP.migrateStyle = function (state) {
+    if (!state || !state.settings || state.settings.styleMigrated) return 0;
+    var moved = 0;
+    (state.rooms || []).forEach(function (r) {
+      if (r && r.style === 'novel') { r.style = RP.DEFAULT_STYLE; moved++; }
+    });
+    if (state.settings.style === 'novel') state.settings.style = RP.DEFAULT_STYLE;
+    state.settings.styleMigrated = 1;
+    return moved;
   };
 
   /** Write the state back, newest 30 rooms only. */

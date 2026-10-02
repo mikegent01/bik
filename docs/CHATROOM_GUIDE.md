@@ -29,6 +29,7 @@ python3 tools/build-chatroom.py --check  # fail if they are stale
 | Thing | Where it lives | Who owns it |
 |---|---|---|
 | The cast | `Reputation-Matrix2/data/characters.json` | the archive |
+| How the cast talks | `Reputation-Matrix2/data/voices.json` — a voice sheet per character | the archive |
 | The scenes | `Reputation-Matrix2/data/events.json` (newest filings with a plate) | the archive |
 | The scenarios | `whatifs.json`, `events.json`, `factions.json`, `congress.json`, `wahwire/posts.json` | the archive |
 | The collections | `Reputation-Matrix2/data/collections.json` | the archive |
@@ -378,13 +379,53 @@ That is also what stops a character reminiscing about their own future.
 ## Characters play like their filing
 
 `normChar` keeps the **filed description** (up to 900 characters), the
-affiliation, faction, faith, status, standing and power level — and
-`RP.card` puts the description in the prompt under *"play this, not a generic
-version of the name"*. `RP.roleFor` adds a behaviour line inferred from the
-record itself (an archivist *cites the record and corrects your facts*; a
-commander *answers threats before questions*; the wounded *are hurt, and it
-shows*). In a group turn every other character is listed with their own
-summary, so the speaker knows who they are talking to.
+affiliation, faction, faith (as one line — *"silph corporate policy
+(Founder-adjacent)"*, never the raw objects), status, standing and power
+level — and `RP.card` puts the description in the prompt as **a biography
+written by Waluigi ABOUT the character**: use it for facts, history and
+relationships, do *not* borrow its narrator's tone. (Waluigi's own card is
+the exception: there the description *is* his voice.) In a group turn every
+other character is listed with their own summary, so the speaker knows who
+they are talking to.
+
+### Voice sheets — how they actually talk
+
+A dossier tells the model what a character *did*; it does not tell it how
+they *sound*, which is why every mouth used to come out as the same polite
+narrator. `Reputation-Matrix2/data/voices.json` holds a **voice sheet** per
+character, and `RP.voiceBlock` puts it in the prompt under `VOICE`, straight
+after the card:
+
+```json
+"wario": {
+  "register": "Loud, greedy, delighted with himself, and never once sorry. First person, in short punchy bursts…",
+  "sounds":   ["'Wah-ha-ha!' when a plan is working", "nicknames instead of names: 'string bean' (Waluigi), 'kid', 'scout'", "…"],
+  "never":    ["apologises, reflects, or explains how he feels", "does anything for free", "…"],
+  "lines":    ["I don't do chairs for free. This chair owes me money. The cushion owes me money. …", "…"]
+}
+```
+
+- **register** — one paragraph: the attitude, the person, the rhythm.
+- **sounds** — the tics: catchphrases, nicknames, what they keep coming back
+  to. Rendered as one *Sounds like:* line.
+- **never** — the anti-generic guard, rendered as one *Never:* line.
+- **lines** — real quotes from the filings (the broadcasts are the best
+  source), given to the model as *"lines in their own mouth — do not repeat
+  them; write NEW ones that could sit beside them."* Up to five are sent.
+
+A sheet replaces the behaviour line `RP.roleFor` used to infer from the
+record (that inference still covers anyone without one, now on word
+boundaries — *price* no longer makes somebody an ice mage). An **imported
+card** gets a sheet of its own from its `mes_example` / `system_prompt`, so a
+character.ai or SillyTavern export plays with its examples. The sheet is a
+data file: writing one for a character who sounds flat is a JSON edit, not a
+code change — and `voices.json` is checked by `test-chatroom-core.mjs` (every
+id must exist in `characters.json`, every sheet needs all four parts).
+
+The prompt ends on the character too: after the stage directions and the
+length, the last thing the model reads is `NOW ANSWER AS WARIO — first
+person, in their own voice from VOICE above…`, so two thousand characters of
+mechanics are no longer the final word before it writes.
 
 ## Browsing the cast
 
@@ -473,8 +514,16 @@ blocks are halved in a fixed order (citations → lore book → world log →
 lore → history → script → filed descriptions), the halving repeating before
 anything is dropped outright — a block cut to a quarter still cites
 something, a block deleted cites nothing — while the character card at the
-head and the instructions at the tail — scene state, stage directions, the
-fate roll — are **never** sacrificed.
+head and the instructions at the tail — who you play, scene state, stage
+directions, the fate roll — are **never** sacrificed. In the base prompt only
+the *filed description* paragraph is halved, never the voice or the rules.
+When the card and the instructions alone overflow (a seven-person group with
+mechanics on, at the default budget), the head is **squeezed** rather than
+the tail sliced: colour-markup rules and the others' summaries go first,
+then the voice's *Never* and *Sounds like* lines and one sample line at a
+time, and the register paragraph is the floor. Turning mechanics off for a
+pure conversation gives the voice sheet nearly five thousand characters
+back; so does a bigger budget.
 
 The chat history is budgeted the same way. On top of the turn-count setting
 (up to 240 turns), `RP.packHistory` packs the turns newest-first into a
@@ -848,6 +897,15 @@ writes your character's speech, thoughts or decisions.
 - **★ Star a character** in the speaker rail to say *you play them*. The
   model stops speaking as them, and with nobody else in the room the world
   narrates around you instead.
+- **🎭 Play as…** on the same rail seats you as *anyone in the archive*,
+  not just somebody already in the room — Waluigi, Wario, Bowser and Luigi
+  are pinned to the top of the picker. They join the cast if they were not
+  in it, the ★ moves to them, the composer, your avatar and the bottom-left
+  account all show them, and the prompt tells the model who it is talking
+  to (`THE USER PLAYS … they ARE Waluigi`). Tick **Open every new chat as
+  them** and every new room seats you automatically (`state.user.playAs`);
+  press the button again to switch, hand the seat back, or change the
+  default.
 - The world is on the rail as **◍ The world** — press it to hand it the next
   turn deliberately.
 - The **director** may also choose it: `WORLD` is one of its three answers
@@ -1108,6 +1166,20 @@ in the middle of a different night.
 ★ starring somebody means your turns are **theirs**: the label on your
 messages, the avatar beside them and the composer's placeholder all say so
 (*"Write as Lord Darian Marsh…"*) rather than showing your account name.
+The star only reaches people already in the room; **🎭 Play as…** on the
+rail reaches the whole archive (see *The world*, above) and can be made the
+default for every new chat.
+
+## Style — In character is the default
+
+**Style** in the character panel picks how a turn is written. The default is
+**In character** (`RP.DEFAULT_STYLE = 'voice'`): first person, to the person
+in front of them, mostly dialogue, small actions between *asterisks* on the
+same line, no narrating yourself from the outside. **Novel** (third-person
+prose, a paragraph or three), **Script**, **Casual** and **Archivist** are
+still one click away. Rooms that were created on the old Novel default are
+moved to In character **once** (`RP.migrateStyle`, flag
+`settings.styleMigrated`) — a room set to Novel after that stays Novel.
 
 ## ▶ Auto
 

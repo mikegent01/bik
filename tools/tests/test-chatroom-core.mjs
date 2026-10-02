@@ -700,6 +700,81 @@ check('prompt: the behaviour line follows the character, not a template',
 check('prompt: a group turn shows the rest of the cast with their own summaries',
   RP.groupPrompt([described, sans], sans, {}).includes('The Mages Guild'));
 
+// ---------- voice: the character's mouth, not just their biography ----------
+check('cast: faiths filed as objects become a line, never [object Object]', (() => {
+  const devout = RP.normChar({ id: 'devout', name: 'Devout', faiths: [{ id: 'great_maw', role: 'Refuses the title', note: 'long note' }, 'the Old Light'] });
+  return devout.faiths === 'great maw (Refuses the title); the Old Light' && !RP.card(devout).includes('[object Object]') &&
+    RP.card(devout).includes('Faith: great maw (Refuses the title)');
+})());
+check('prompt: the behaviour heuristic matches whole words — price and juice are not ice magic', (() => {
+  const grocer = RP.normChar({ id: 'grocer', name: 'Grocer', description: 'Sells juice at a fair price with good service. Makes his own choices.' });
+  const frost = RP.normChar({ id: 'frost', name: 'Frost', description: 'A master of ice magic and arcane rays.' });
+  return !/arcane/.test(RP.roleFor(grocer)) && /arcane/.test(RP.roleFor(frost));
+})());
+const voiceSheets = JSON.parse(readFileSync(new URL('Reputation-Matrix2/data/voices.json', repoRoot), 'utf8'));
+const voiceCount = RP.setVoices(voiceSheets);
+check('voices: the archive ships hand-written sheets and the loader skips the _about note',
+  voiceCount >= 10 && !RP.VOICES._about && !!RP.VOICES.wario && !!RP.VOICES.waluigi);
+check('voices: every sheet names a character that exists and carries register, sounds, never and lines', (() => {
+  const castFile = JSON.parse(readFileSync(new URL('Reputation-Matrix2/data/characters.json', repoRoot), 'utf8'));
+  const list = Array.isArray(castFile) ? castFile : castFile.characters;
+  const ids = new Set(list.map(c => c.id));
+  return Object.keys(RP.VOICES).every(id => ids.has(id) &&
+    typeof RP.VOICES[id].register === 'string' && RP.VOICES[id].register.length > 80 &&
+    Array.isArray(RP.VOICES[id].sounds) && Array.isArray(RP.VOICES[id].never) &&
+    Array.isArray(RP.VOICES[id].lines) && RP.VOICES[id].lines.length >= 4);
+})());
+const warioRecord = RP.normChar({ id: 'wario', name: 'Wario', title: 'The Explosive Accountant',
+  description: 'Waluigi has known Wario for longer than Waluigi cares to calculate. He prices everything.' });
+const warioSolo = RP.soloPrompt(warioRecord, {});
+check('voices: the solo prompt carries the sheet — register, tics, the never list and sample lines',
+  warioSolo.includes('VOICE \u2014 how Wario actually talks') && warioSolo.includes('string bean') &&
+  warioSolo.includes('Never:') && warioSolo.includes('I own the meter') &&
+  warioSolo.indexOf('VOICE \u2014') < warioSolo.indexOf('IN-CHARACTER RULES'));
+check('voices: a hand-written sheet replaces the guessed behaviour line', !warioSolo.includes('How they behave:'));
+check('voices: the filed description is flagged as Waluigi\u2019s biography, not the character\u2019s own tone',
+  warioSolo.includes('biography written by Waluigi') && warioSolo.includes('do NOT borrow its narrator'));
+check('voices: Waluigi\u2019s own description is his own voice and says so',
+  RP.card(RP.normChar({ id: 'waluigi', name: 'Waluigi', description: 'This is not bitterness. This is FACT.' })).includes('written by Waluigi himself'));
+check('voices: the group prompt carries the speaker\u2019s sheet too',
+  RP.groupPrompt([warioRecord, sans], warioRecord, {}).includes('I own the meter'));
+check('voices: a character with no sheet still gets a first-person instruction built from the record', (() => {
+  const block = RP.voiceBlock(described);
+  return block.includes('FIRST PERSON as Scribe Dewdrop') && block.includes('cites the record') && block.includes('The Mages Guild');
+})());
+check('voices: an imported card\u2019s example dialogue becomes the sheet, keeping only the character\u2019s lines', (() => {
+  const imported = RP.parseCharacterCard({ name: 'Promo Mario', description: 'A host.', personality: 'loud',
+    mes_example: '<START>\n{{user}}: hi\n{{char}}: Welcome-a to Nintendo Mania, paisanos!\n{{user}}: who are you\n{{char}}: The main host, that\u2019s who!' });
+  const room = RP.newRoom([imported], {});
+  const seated = room.cast[0];
+  const sheet = RP.voiceSheet(seated);
+  return !!seated.card && sheet && sheet.fromCard && sheet.lines.length === 2 &&
+    sheet.lines[0].includes('paisanos') && !sheet.lines.some(l => /who are you/.test(l)) &&
+    RP.soloPrompt(seated, {}).includes('paisanos');
+})());
+check('style: new rooms open in character — first person — and Novel is still there to pick', (() => {
+  const fresh = RP.newRoom([warioRecord], {});
+  return RP.DEFAULT_STYLE === 'voice' && fresh.style === 'voice' && RP.STYLES.voice.dir.includes('FIRST PERSON') &&
+    RP.STYLES.novel.dir.includes('third-person') && RP.blankState().settings.style === 'voice';
+})());
+check('prompt: the character has the last word, and it matches the style', (() => {
+  const st = RP.blankState();
+  const inVoice = RP.systemFor(st, RP.newRoom([warioRecord], {}), warioRecord, {});
+  const asNovel = RP.systemFor(st, RP.newRoom([warioRecord], { style: 'novel' }), warioRecord, {});
+  return inVoice.trim().endsWith('if they would refuse, refuse.') && inVoice.includes('NOW ANSWER AS WARIO') &&
+    asNovel.trim().endsWith('the words are theirs.') && inVoice.indexOf('NOW ANSWER AS WARIO') > inVoice.indexOf('LENGTH');
+})());
+check('play as: taking a seat adds you to the cast and stars you in one move', (() => {
+  const room = RP.newRoom([warioRecord], {});
+  const waluigi = RP.normChar({ id: 'waluigi', name: 'Waluigi', title: 'The Great and Underappreciated' });
+  const seat = RP.playAs(room, waluigi);
+  const again = RP.playAs(room, waluigi);
+  return seat && seat.id === 'waluigi' && room.youPlay === 'waluigi' && room.kind === 'group' &&
+    room.cast.length === 2 && again.id === 'waluigi' && room.youPlay === 'waluigi' &&
+    RP.speakableCast(room).map(c => c.id).join() === 'wario' &&
+    RP.personaBlock('', RP.blankState(), room).includes('they ARE Waluigi \u2014 The Great and Underappreciated');
+})());
+
 // ---------- memory is dated, twice ----------
 const datedRoom = RP.newRoom([sans], { date: '5 Aethel, 1040 BF', title: 'The ridge road' });
 RP.rememberTurn(state, datedRoom, { id: 'm1', role: 'char', charId: 'sans', text: 'the saws stopped at noon.', at: Date.now() });
@@ -987,8 +1062,57 @@ check('prompt: a heavy scene still fits the budget, keeping the instructions', (
     citations: 'FILES YOU MAY CITE\n' + Array.from({ length: 40 }, (_, i) => '- [event:e' + i + '] ' + 'q'.repeat(200)).join('\n'),
     fate: RP.rollFate(fat, heavy, { force: 'setback' }),
   });
+  // The reference material gives way — trimmed first, dropped if it must
+  // be — and the instructions, the card and the VOICE never do.
   return system.length <= RP.PROMPT_BUDGET && system.includes('STAGE DIRECTIONS') &&
-    system.includes('CHARACTER STATE') && system.includes('HOW THIS TURN RESOLVES') && system.includes('trimmed to fit');
+    system.includes('CHARACTER STATE') && system.includes('HOW THIS TURN RESOLVES') &&
+    system.includes('VOICE \u2014 how Sans actually talks') && system.includes('NOW ANSWER AS SANS') &&
+    (system.includes('trimmed to fit') || !system.includes('Place 59'));
+})());
+check('prompt: a tight window trims the filed description, not the voice or the rules', (() => {
+  const wordy = RP.normChar({ id: 'wordy', name: 'Wordy', description: ('A long filed biography. ').repeat(80) });
+  const parts = [RP.soloPrompt(wordy, {}), 'THE LORE BOOK\n' + Array.from({ length: 30 }, (_, i) => '- fact ' + i + ' ' + 'y'.repeat(60)).join('\n')];
+  const fitted = RP.fitPrompt(parts, 3200, 2);   // parts[2..] would be protected; the lore is soft
+  return fitted.length <= 3200 && fitted.includes('IN-CHARACTER RULES') && fitted.includes('STYLE') &&
+    fitted.includes('VOICE \u2014 how Wordy actually talks') && fitted.includes('trimmed to fit') &&
+    !fitted.includes('(truncated)');
+})());
+check('prompt: when the card and the instructions alone overflow, the head is squeezed and the tail survives', (() => {
+  const roster = Array.from({ length: 6 }, (_, i) => RP.normChar({ id: 'r' + i, name: 'Roster ' + i,
+    title: 'A long title that goes on for a while ' + i, affiliation: 'A long affiliation, several bodies, ' + i,
+    summary: 'A summary of some length for roster member number ' + i + '. '.repeat(3) }));
+  const warioish = RP.normChar({ id: 'wario', name: 'Wario', title: 'The Explosive Accountant', description: 'Biography. '.repeat(120) });
+  const room = RP.newRoom([warioish].concat(roster), { scene: 'The vault. '.repeat(40) });
+  const st = RP.blankState();
+  const sys = RP.systemFor(st, room, warioish, {});   // the default window, mechanics on, seven sheets
+  return sys.length <= RP.PROMPT_BUDGET && sys.includes('STAGE DIRECTIONS') && sys.includes('LENGTH') &&
+    sys.includes('NOW ANSWER AS WARIO') && sys.includes('VOICE \u2014 how Wario actually talks') &&
+    sys.includes('never once sorry') && !sys.includes('(truncated)');
+})());
+check('prompt: who the reader plays survives a tight window, and the colour rules go before the voice does', (() => {
+  const wario = RP.normChar({ id: 'wario', name: 'Wario', description: 'Biography. '.repeat(120) });
+  const waluigi = RP.normChar({ id: 'waluigi', name: 'Waluigi', title: 'The Author', summary: 'The archive\u2019s author, ROBBED.' });
+  const room = RP.newRoom([wario], {});
+  const st = RP.blankState();
+  RP.playAs(room, waluigi);
+  RP.ensurePlayerSheet(st, room);
+  st.rooms.push(room); st.active = room.id;
+  const sys = RP.systemFor(st, room, wario, { budget: 9000 });   // mechanics on: the fixed tail alone is ~6k
+  const who = sys.indexOf('THE USER PLAYS'), stage = sys.indexOf('STAGE DIRECTIONS'), close = sys.indexOf('NOW ANSWER AS WARIO');
+  return sys.length <= 9000 && who > 0 && sys.includes('they ARE Waluigi') &&
+    sys.includes('never once sorry') && (sys.match(/^  \u201c/gm) || []).length >= 3 &&
+    stage > who && close > stage && !sys.includes('You may colour') && !sys.includes('(truncated)');
+})());
+check('style: Novel chats move to In character once, and the Style picker still offers Novel', (() => {
+  const st = RP.blankState();
+  const a = RP.newRoom([RP.normChar({ id: 'wario', name: 'Wario' })], {}); a.style = 'novel';
+  const b = RP.newRoom([RP.normChar({ id: 'luigi', name: 'Luigi' })], {}); b.style = 'terse';
+  st.rooms.push(a, b); st.settings.style = 'novel';
+  const moved = RP.migrateStyle(st);
+  a.style = 'novel';                                   // the reader chose Novel again, on purpose
+  const again = RP.migrateStyle(st);
+  return moved === 1 && again === 0 && a.style === 'novel' && b.style === 'terse' &&
+    st.settings.style === RP.DEFAULT_STYLE && st.settings.styleMigrated === 1 && Boolean(RP.STYLES.novel);
 })());
 
 // ---------- commentary mode ----------
@@ -1490,7 +1614,7 @@ check('persona: one sheet, and it reaches the prompt', (() => {
 check('persona: starring an archive character says so, without losing you', (() => {
   const room = RP.newRoom([sans], { youPlay: 'sans' });
   const block = RP.personaBlock('', meState, room);
-  return block.includes('Mikha the Unfiled') && block.includes('playing Sans');
+  return block.includes('Mikha the Unfiled') && block.includes('they ARE Sans') && block.includes('Call them Sans');
 })());
 check('persona: it survives a save and comes back', (() => {
   RP.saveState(store, meState);

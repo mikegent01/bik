@@ -325,6 +325,12 @@ a { color: inherit; }
 .speakers .sp .star.on { color: #d8a531; }
 .speakers .sp.world { font-weight: 600; }
 .speakers .qa.on { border-color: var(--bad); color: var(--bad); }
+/* Who you are in the scene: the one control on the rail that is about you. */
+.speakers .sp.playas { font-weight: 600; padding: 3px 12px; border-style: dashed; color: var(--muted); }
+.speakers .sp.playas.on { border-style: solid; color: var(--text); border-color: #d8a531; background: #fff7df; padding-left: 3px; }
+.speakers .sp.playas:hover { border-color: var(--accent); color: var(--accent); }
+.pickcheck { display: flex; align-items: center; gap: 8px; margin-top: 10px; font-size: 13px; color: var(--muted); cursor: pointer; }
+.pickcheck input { width: auto; margin: 0; }
 
 .statelog { max-width: 760px; margin: 0 auto 16px; display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; }
 .statelog.fate span.roll { background: #f4efe2; border-color: #e0d3b0; color: #7a6320; font-weight: 600; }

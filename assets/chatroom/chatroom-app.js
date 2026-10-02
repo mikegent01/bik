@@ -20,6 +20,8 @@
   var $ = function (id) { return document.getElementById(id); };
 
   var state = RP.loadState(window.localStorage);
+  var styleWasMigrated = Boolean(state.settings && state.settings.styleMigrated);
+  var migratedRooms = RP.migrateStyle(state);   // Novel → In character, once
   var cast = [];          // every playable character
   var castById = {};
   var scenes = [];        // filed sessions offered as scene starters
@@ -103,6 +105,8 @@
     if (u.avatar) {
       return '<span class="' + box.cls + '" style="' + box.style + '"><img src="' + esc(u.avatar) + '" alt=""></span>';
     }
+    // No avatar of your own but a standing seat in the archive: wear it.
+    if (u.playAs && castById[u.playAs] && castById[u.playAs].image) return avatar(castById[u.playAs], size || 32);
     return '<span class="' + box.cls + '" style="' + box.style + 'background:#5b5b66">' +
       esc(RP.initialsFor(u.name || 'You')) + '</span>';
   }
@@ -133,6 +137,17 @@
       cast.forEach(function (c) { castById[c.id] = c; });
     }).catch(function (error) {
       cast = []; console.warn('cast unavailable', error);
+    }).then(loadVoices);
+  }
+
+  /** The voice sheets — how each character actually talks. Optional: a
+   *  missing file means every character gets the first-person fallback. */
+  function loadVoices() {
+    if (!CFG.voicesUrl) return Promise.resolve();
+    return getJSON(CFG.voicesUrl).then(function (data) {
+      RP.setVoices(data);
+    }).catch(function (error) {
+      console.warn('voice sheets unavailable', error);
     });
   }
 
@@ -1560,6 +1575,7 @@
    * ---------------------------------------------------------------- */
 
   function pushRoom(r) {
+    applyDefaultPlayer(r);
     state.rooms.unshift(r);
     state.active = r.id;
     RP.logEvent(state, {
@@ -1573,7 +1589,7 @@
   function startSolo(char) {
     if (!char) return;
     pushRoom(RP.newRoom([char], {
-      style: (state.settings && state.settings.style) || 'novel',
+      style: (state.settings && state.settings.style) || RP.DEFAULT_STYLE,
       persona: (state.user && state.user.persona) || '',
     }));
   }
@@ -1584,7 +1600,7 @@
     pushRoom(RP.newRoom(picked, {
       scene: opts.scene || '', sceneName: opts.sceneName || '', sceneImage: opts.sceneImage || '',
       beats: opts.beats || [], opener: opts.opener || '', date: opts.date || '',
-      style: (state.settings && state.settings.style) || 'novel',
+      style: (state.settings && state.settings.style) || RP.DEFAULT_STYLE,
       persona: (state.user && state.user.persona) || '',
       // Scenario settings: the sheets everyone walks in carrying.
       statePreset: opts.statePreset || (state.settings && state.settings.statePreset) || 'rpg',
@@ -2524,6 +2540,12 @@
           'title="Show or hide the system rows — receipts, rolls, error notices. They stay out of the model\u2019s context either way.">' +
           (state.settings.sysNotes === 'hide' ? '🧹 Notes hidden' : '🧹 Hide notes') + '</button>' +
       '</span>' +
+      // Who YOU are in this scene. The ☆ on each seat still works, but a
+      // star the size of a comma was how "I can't talk as Waluigi" happened.
+      (playingNow
+        ? '<button class="sp playas on" id="qaPlayAs" title="You play ' + esc(playingNow.name) + ' — the model never speaks for them. Click to switch or hand them back.">' +
+          avatar(playingNow, 24) + '★ You: ' + esc(playingNow.name) + '</button>'
+        : '<button class="sp playas" id="qaPlayAs" title="Take a seat as somebody from the archive — Waluigi, Wario, anyone. Your turns wear their face and name.">🎭 Play as…</button>') +
       '<span class="emptynote">Next:</span>' +
       ((state.settings.world || 'on') === 'off' ? '' :
         '<button class="sp world ' + (r.next === 'world' ? 'on' : '') + '" data-speaker="world" ' +
@@ -3041,6 +3063,27 @@
         toast(now ? 'You play ' + charOf(r, now).name + ' — the model will not speak for them, and the world narrates around you.'
           : 'Handed back to the model.');
       };
+    });
+    on('qaPlayAs', function () {
+      var playing = RP.playerCharacter(r);
+      if (!playing) { playAsPicker(r); return; }
+      var isDefault = (state.user && state.user.playAs) === playing.id;
+      list('You play ' + playing.name, [
+        { label: '🎭 Switch — play somebody else', value: 'switch' },
+        { label: isDefault ? '☆ Stop being ' + playing.name + ' in new chats' : '★ Be ' + playing.name + ' in every new chat', value: 'default' },
+        { label: '↩ Hand ' + playing.name + ' back to the model', value: 'back' },
+      ], function (pick) {
+        if (pick === 'switch') { playAsPicker(r); return; }
+        if (pick === 'default') {
+          state.user.playAs = isDefault ? '' : playing.id;
+          save(); render();
+          toast(isDefault ? 'New chats open as you again.' : 'Every new chat opens with you as ' + playing.name + '.');
+          return;
+        }
+        RP.markPlayer(r, playing.id);
+        save(); render();
+        toast(playing.name + ' handed back to the model.');
+      });
     });
     var stream = $('stream');
     stream.querySelectorAll('[data-react]').forEach(function (b) {
@@ -4474,6 +4517,56 @@
     };
   }
 
+  /* ---- playing as somebody from the archive ----
+     The reader is usually Waluigi. Until now that took four steps: ＋ New,
+     From the archive, pick him, then find the ☆. One picker now does it,
+     and can remember the choice for every chat that follows. */
+
+  /** Seat the reader as `c` in room `r`: into the cast if need be, star
+   *  on, receipt in the stream. `remember` makes it the default. */
+  function seatPlayer(r, c, remember) {
+    var wasIn = (r.cast || []).some(function (x) { return x.id === c.id; });
+    RP.pushUndo(r, 'playing as ' + c.name);
+    var seat = RP.playAs(r, c);
+    if (!seat) return;
+    RP.ensurePlayerSheet(state, r);
+    r.messages.push({ id: RP.uid(), role: 'state', at: Date.now(),
+      lines: ['🎭 You play ' + seat.name + (wasIn ? '' : ' — they join the scene') + '. The model will not speak for them.'] });
+    RP.logEvent(state, {
+      kind: 'roster', roomId: r.id, roomTitle: r.title, when: roomDate(r), chars: [seat.id],
+      text: 'The reader took the seat of ' + seat.name + '.',
+    });
+    if (remember !== undefined) state.user.playAs = remember ? seat.id : (state.user.playAs === seat.id ? '' : state.user.playAs);
+    save(); buildBoard(); render();
+    toast('You play ' + seat.name + ' — your turns wear their face, and the model writes everybody else.' +
+      (remember ? ' Every new chat will open this way.' : ''));
+  }
+
+  function playAsPicker(r) {
+    var current = RP.playerCharacter(r);
+    var def = (state.user && state.user.playAs) || '';
+    castPicker({
+      title: 'Who do you play?',
+      note: 'Take a seat as somebody from the archive. Your turns show their name and portrait, the other characters ' +
+        'talk to you as them, and the model never writes their lines.',
+      preselect: current ? [current.id] : (def && castById[def] ? [def] : []),
+      first: ['waluigi', 'wario', 'bowser', 'luigi'].concat(def ? [def] : []),
+      single: true, suggest: false, ok: 'Take the seat',
+      check: { label: 'Open every new chat as them', checked: Boolean(def) },
+    }, function (chosen, _setup, flags) {
+      seatPlayer(r, chosen[0], Boolean(flags && flags.check));
+    });
+  }
+
+  /** A new room opens with the reader already seated, when they asked
+   *  for that. Quiet: no receipt in the stream, the rail says it. */
+  function applyDefaultPlayer(r) {
+    var id = (state.user && state.user.playAs) || '';
+    if (!id || !castById[id] || !r || r.youPlay) return;
+    RP.playAs(r, castById[id]);
+    RP.ensurePlayerSheet(state, r);
+  }
+
   /** The cast picker used by group chats, scenes and replays. */
   function castPicker(opts, done) {
     var picked = (opts.preselect || []).slice();
@@ -4481,6 +4574,13 @@
     function draw() {
       var q = ($('pickSearch') && $('pickSearch').value || '').toLowerCase();
       var pool = (opts.extra || []).concat(cast);
+      // Whoever is named first in the picker's own note or title comes to
+      // the top — "Play as" wants Waluigi on screen, not under W.
+      var first = (opts.first || []).slice();
+      if (first.length) {
+        pool = first.map(function (id) { return pool.filter(function (c) { return c.id === id; })[0]; }).filter(Boolean)
+          .concat(pool.filter(function (c) { return first.indexOf(c.id) < 0; }));
+      }
       var shown = pool.filter(function (c) { return !q || c.name.toLowerCase().indexOf(q) >= 0; }).slice(0, 300);
       $('pickGrid').innerHTML = shown.map(function (c) {
         return '<button class="pick ' + (picked.indexOf(c.id) >= 0 ? 'on' : '') + '" data-pick="' + esc(c.id) + '">' +
@@ -4490,16 +4590,21 @@
         b.onclick = function () {
           var id = b.dataset.pick;
           var at = picked.indexOf(id);
-          if (at >= 0) picked.splice(at, 1); else picked.push(id);
+          if (opts.single) picked = at >= 0 ? [] : [id];
+          else if (at >= 0) picked.splice(at, 1); else picked.push(id);
           draw();
         };
       });
-      $('pickCount').textContent = picked.length + ' selected';
+      $('pickCount').textContent = opts.single
+        ? (picked.length ? (castById[picked[0]] || {}).name || '1 selected' : 'Pick one')
+        : picked.length + ' selected';
     }
     openModal('<h3>' + esc(opts.title || 'Pick a cast') + '</h3>' +
       (opts.note ? '<p class="sub">' + esc(opts.note) + '</p>' : '') +
       '<input type="text" id="pickSearch" placeholder="Search the cast">' +
       '<div class="picker" id="pickGrid"></div>' +
+      (opts.check ? '<label class="pickcheck"><input type="checkbox" id="pickCheck"' + (opts.check.checked ? ' checked' : '') + '> ' +
+        esc(opts.check.label) + '</label>' : '') +
       '<div class="actions"><span class="sub" id="pickCount" style="margin-right:auto"></span>' +
       (opts.setup ? '<button class="pill" id="pickSetup">⚔ Starting state</button>' : '') +
       (opts.suggest === false ? '' : '<button class="pill" id="pickSuggest">✨ Suggest a cast</button>') +
@@ -4512,7 +4617,8 @@
       (opts.extra || []).forEach(function (c) { extra[c.id] = c; });
       var chosen = picked.map(function (id) { return castById[id] || extra[id]; }).filter(Boolean);
       if (!chosen.length) { toast('Pick at least one character.'); return; }
-      closeModal(); done(chosen, pendingSetup);
+      var flags = { check: Boolean($('pickCheck') && $('pickCheck').checked) };
+      closeModal(); done(chosen, pendingSetup, flags);
     };
     if ($('pickSetup')) {
       $('pickSetup').onclick = function () {
@@ -4787,6 +4893,7 @@
         var replay = RP.replayRoom(state, source, picked, {
           perspective: v.perspective || picked.map(function (c) { return c.name; }).join(', '),
         });
+        applyDefaultPlayer(replay);
         state.rooms.unshift(replay);
         state.active = replay.id;
         save(); render();
@@ -4926,5 +5033,12 @@
   loadCast()
     .then(function () { return Promise.all([loadScenes(), loadWire(), loadCollections()]); })
     .then(loadArchive)
-    .then(function () { buildBoard(); render(); });
+    .then(function () {
+      buildBoard(); render();
+      if (!styleWasMigrated) save();   // the flag, so this happens once
+      if (migratedRooms) {
+        toast('✨ ' + migratedRooms + (migratedRooms === 1 ? ' chat now plays' : ' chats now play') +
+          ' “In character” — first person, in their own voice. Style in the character panel brings Novel back.');
+      }
+    });
 })();
