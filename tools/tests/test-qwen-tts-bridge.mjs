@@ -56,7 +56,7 @@ const fetchImpl = globalThis.fetch.bind(globalThis);
 
 // ---------- load the bridge ----------
 const loader = new Function('localStorage', 'document', 'Audio', 'window', 'fetch',
-  block + '\nreturn {ttsChunkText, gradioTTS, gradioAudioUrl, ReadAloud, ttsConfig, ttsSaveConfig, ttsHarvestText, ttsSelectionParts, ttsMapChunks};');
+  block + '\nreturn {ttsChunkText, gradioTTS, gradioAudioUrl, ReadAloud, ttsConfig, ttsSaveConfig, ttsHarvestText, ttsSelectionParts, ttsMapChunks, ttsWavJoin};');
 const B = loader(localStorage, document, FakeAudio, window, fetchImpl);
 
 // ---------- 1. chunker ----------
@@ -215,6 +215,32 @@ B.ReadAloud.start();
 await new Promise(r => setTimeout(r, 800));
 check('error path: surfaces a bridge error and stops',
   /unreachable/.test(document.getElementById('ra-status').textContent) && B.ReadAloud.active === false);
+
+// ---------- 5. the download joiner: WAV chunks become one file ----------
+function mkWav(rate, samples) {
+  const buf = new ArrayBuffer(44 + samples.length * 2); const v = new DataView(buf);
+  const w = (o, str) => { for (let i = 0; i < str.length; i++) v.setUint8(o + i, str.charCodeAt(i)); };
+  w(0, 'RIFF'); v.setUint32(4, 36 + samples.length * 2, true); w(8, 'WAVE');
+  w(12, 'fmt '); v.setUint32(16, 16, true); v.setUint16(20, 1, true); v.setUint16(22, 1, true);
+  v.setUint32(24, rate, true); v.setUint32(28, rate * 2, true); v.setUint16(32, 2, true); v.setUint16(34, 16, true);
+  w(36, 'data'); v.setUint32(40, samples.length * 2, true);
+  samples.forEach((x, i) => v.setInt16(44 + i * 2, x, true));
+  return buf;
+}
+{
+  const joined = B.ttsWavJoin([mkWav(24000, [1, 2, 3]), mkWav(24000, [7, 8])]);
+  const v = new DataView(joined);
+  check('download: WAV chunks join losslessly in order',
+    joined.byteLength === 44 + 10 && v.getInt16(44, true) === 1 && v.getInt16(50, true) === 7 &&
+    v.getUint32(24, true) === 24000 && v.getUint32(40, true) === 10);
+  let refusedMix = false;
+  try { B.ttsWavJoin([mkWav(24000, [1]), mkWav(48000, [1])]); } catch (e) { refusedMix = /mixed audio/.test(e.message); }
+  let refusedJunk = false;
+  try { B.ttsWavJoin([new ArrayBuffer(10)]); } catch (e) { refusedJunk = /not a WAV/.test(e.message); }
+  check('download: mixed formats and non-WAV junk are refused with plain words', refusedMix && refusedJunk);
+  check('download: the bar and the chips both offer the save button',
+    /onclick="ReadAloud\.download\(\)">⬇/.test(block) && /⬇ Save audio/.test(block));
+}
 
 srv.kill();
 console.log(ok ? 'ALL BRIDGE TESTS PASS' : 'BRIDGE TESTS FAILED');

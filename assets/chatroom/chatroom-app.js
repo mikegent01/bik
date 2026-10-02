@@ -2614,6 +2614,7 @@
       menuItem('cpTaste', '👍', 'What I like', RP.tasteState(state).likes.length + ' / ' + RP.tasteState(state).dislikes.length) +
       menuItem('cpImport', '📥', 'Import into this chat', 'story · card') +
       menuItem('cpFix', '🛠', 'Fix chat', 'voices · cast · sheets') +
+      menuItem('cpAudio', '💾', 'Chat as audio', 'one portable file') +
       menuItem('cpCard', '📇', 'Character card', 'PNG · JSON') +
       menuItem('cpRename', '✏️', 'Rename chat', r.title) +
       menuItem('cpDelete', '🗑', 'Delete chat', '') +
@@ -3051,6 +3052,7 @@
     var c = r.cast[0] || {};
     var on = function (id, fn) { var node = $(id); if (node) node.onclick = fn; };
     on('cpNew', function () { r.kind === 'group' ? startGroup(r.cast, { scene: r.scene, sceneName: r.sceneName, beats: r.beats }) : startSolo(c); });
+    on('cpAudio', function () { downloadChatAudio(r); });
     on('cpFix', function () {
       // The grandfather clause: an old chat gets today's rules. Cast
       // re-read from the archive, sheets mended, star rules re-run — and
@@ -4151,6 +4153,67 @@
           });
       })
       .catch(function () { return keep(null); });
+  }
+
+  /** The whole chat as ONE portable audio file: every turn rendered
+   *  through the studio in its own voice — the same attribution rules
+   *  as ▶ — then the WAV chunks stitched losslessly (RP.wavJoin) and
+   *  handed to the browser as a download. No encoder, no dependency;
+   *  a .wav plays on anything with a speaker. */
+  function downloadChatAudio(r) {
+    if (downloadChatAudio.busy) { toast('💾 Already rendering — one audio file at a time.'); return; }
+    var msgs = (r.messages || []).filter(RP.visible).filter(function (m) {
+      return m.role === 'char' || m.role === 'world' || m.role === 'user';
+    });
+    if (!msgs.length) { toast('Nothing to read in this chat yet.'); return; }
+    var cfg = ttsConfig();
+    downloadChatAudio.busy = true;
+    toast('💾 Rendering the whole chat through the studio — long chats take a while…');
+    voiceLibrary(cfg).then(function (lib) {
+      var narrator = cfg.map.narrator || cfg.map.world || cfg.voice;
+      var playing = (RP.playerCharacter(r) || {}).name || state.user.name || '';
+      var castNames = r.cast.map(function (c) { return c.name; }).concat([playing, state.user.name || '']);
+      var jobs = [];
+      msgs.forEach(function (m) {
+        var speaker = m.role === 'world' ? ''
+          : m.role === 'user' ? playing
+          : ((charOf(r, m.charId) || {}).name || '');
+        RP.speechParts(RP.textOf(m), castNames, speaker, playing).forEach(function (p) {
+          var v = p.who
+            ? RP.ttsVoiceFor(p.who, { map: cfg.map, fallback: cfg.voice, misses: voiceMisses, library: lib })
+            : narrator;
+          RP.ttsChunks(p.text, 450).forEach(function (c) { jobs.push({ voice: v, text: c }); });
+        });
+      });
+      if (!jobs.length) throw new Error('nothing readable in these turns');
+      var bufs = [];
+      var step = function (i) {
+        if (i >= jobs.length) {
+          var blob = new Blob([RP.wavJoin(bufs)], { type: 'audio/wav' });
+          var a = document.createElement('a');
+          a.href = URL.createObjectURL(blob);
+          a.download = (String(r.title || 'chat').replace(/[^\w\- ]+/g, '').trim().replace(/\s+/g, '-').slice(0, 80) || 'chat') + '.wav';
+          a.click();
+          window.setTimeout(function () { try { URL.revokeObjectURL(a.href); } catch (e) { /* gone */ } }, 30000);
+          toast('💾 Saved — ' + jobs.length + ' chunks stitched into one file.');
+          downloadChatAudio.busy = false;
+          return;
+        }
+        if (i && i % 4 === 0) toast('💾 ' + i + '/' + jobs.length + ' rendered…');
+        qwenSay(jobs[i].text, jobs[i].voice, cfg)
+          .then(function (url) { return window.fetch(url); })
+          .then(function (res) { if (!res.ok) throw new Error('HTTP ' + res.status); return res.arrayBuffer(); })
+          .then(function (buf) { bufs.push(buf); step(i + 1); })
+          .catch(function (e) {
+            downloadChatAudio.busy = false;
+            toast('💾 Save failed at chunk ' + (i + 1) + '/' + jobs.length + ': ' + e.message);
+          });
+      };
+      step(0);
+    }).catch(function (e) {
+      downloadChatAudio.busy = false;
+      toast('💾 Save failed: ' + ((e && e.message) || e));
+    });
   }
 
   /** A message out loud, through the local Qwen studio — every voice in

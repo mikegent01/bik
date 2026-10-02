@@ -642,6 +642,19 @@ the narrator's voice. And remember the stacking trap: a speaker with
 Waluigi) — if a whole card sounds like Waluigi, press 🛠 Fix chat and
 read the receipt; it names exactly who the studio is missing.
 
+**💾 Chat as audio — one portable file.** Chat menu → *Chat as audio*
+renders the entire chat through the studio — every turn in its own
+voice, the same attribution rules as ▶ — then stitches the WAV chunks
+losslessly (`RP.wavJoin`) into **one `.wav` download** named after the
+chat. No encoder, no dependency, plays on anything with a speaker
+(phones included). Long chats take a chunk per paragraph; progress
+arrives as toasts, and a failed chunk names itself. The article pages
+have the same power: **⬇ Save audio** next to 🔊 Read aloud, and a ⬇
+button on the reading bar. (Why `.wav`, not `.mp3`: the studio speaks
+WAV, and joining WAVs is lossless with zero dependencies — an MP3
+encoder would mean vendoring a library. If size ever matters, any
+phone or player converts a WAV in one tap.)
+
 **The voice starts now, not after the whole turn is rendered.** The first
 chunk of any reading is short (~170 chars — the opening line or two), so
 playback begins almost immediately; the rest of a long turn is cut into

@@ -381,6 +381,60 @@
     return '';
   };
 
+  /* ---- portable audio: many studio WAV chunks become one file ---- */
+
+  /** Join WAV files losslessly: parse each RIFF, demand identical audio
+   *  formats, concatenate the PCM, write one canonical 44-byte header.
+   *  No encoder, no dependency — the studio speaks WAV and so do we. */
+  function parseWav(buf) {
+    var v = new DataView(buf);
+    var tag = function (off) {
+      return String.fromCharCode(v.getUint8(off), v.getUint8(off + 1), v.getUint8(off + 2), v.getUint8(off + 3));
+    };
+    if (buf.byteLength < 44 || tag(0) !== 'RIFF' || tag(8) !== 'WAVE') throw new Error('not a WAV file');
+    var off = 12; var fmt = null; var data = null;
+    while (off + 8 <= buf.byteLength) {
+      var id = tag(off); var size = v.getUint32(off + 4, true);
+      if (id === 'fmt ') {
+        fmt = { format: v.getUint16(off + 8, true), channels: v.getUint16(off + 10, true),
+          rate: v.getUint32(off + 12, true), bits: v.getUint16(off + 22, true) };
+      }
+      if (id === 'data') data = { start: off + 8, size: Math.min(size, buf.byteLength - (off + 8)) };
+      off += 8 + size + (size % 2);
+    }
+    if (!fmt || !data) throw new Error('WAV missing fmt or data chunk');
+    return { fmt: fmt, data: data, buf: buf };
+  }
+
+  RP.wavJoin = function (buffers) {
+    if (!buffers || !buffers.length) throw new Error('nothing to join');
+    var parts = buffers.map(parseWav);
+    var f = parts[0].fmt;
+    parts.forEach(function (p) {
+      if (p.fmt.format !== f.format || p.fmt.channels !== f.channels ||
+          p.fmt.rate !== f.rate || p.fmt.bits !== f.bits) {
+        throw new Error('the studio returned mixed audio formats — cannot join losslessly');
+      }
+    });
+    var total = parts.reduce(function (n, p) { return n + p.data.size; }, 0);
+    var out = new ArrayBuffer(44 + total);
+    var v = new DataView(out);
+    var w = function (off, str) { for (var i = 0; i < str.length; i++) v.setUint8(off + i, str.charCodeAt(i)); };
+    w(0, 'RIFF'); v.setUint32(4, 36 + total, true); w(8, 'WAVE');
+    w(12, 'fmt '); v.setUint32(16, 16, true);
+    v.setUint16(20, f.format, true); v.setUint16(22, f.channels, true);
+    v.setUint32(24, f.rate, true);
+    v.setUint32(28, f.rate * f.channels * (f.bits / 8), true);
+    v.setUint16(32, f.channels * (f.bits / 8), true); v.setUint16(34, f.bits, true);
+    w(36, 'data'); v.setUint32(40, total, true);
+    var at = 44; var bytes = new Uint8Array(out);
+    parts.forEach(function (p) {
+      bytes.set(new Uint8Array(p.buf, p.data.start, p.data.size), at);
+      at += p.data.size;
+    });
+    return out;
+  };
+
   /** Reasoning never reaches the page. Some thinking models leak their
    *  deliberation into content as <think> blocks; if that ever gets
    *  displayed or filed it is re-sent in every later prompt and bloats

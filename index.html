@@ -18160,6 +18160,43 @@ function ttsConfig(){
   catch(e){ return Object.assign({}, TTS_DEFAULTS); }
 }
 function ttsSaveConfig(c){ try{ localStorage.setItem('waluipedia-tts', JSON.stringify(c)); }catch(e){} }
+/* Join studio WAV chunks losslessly into one file: parse each RIFF, demand
+   identical formats, concatenate the PCM, write one canonical header. The
+   download button runs on this — no encoder, no dependency. */
+function ttsWavJoin(buffers){
+  if(!buffers || !buffers.length) throw new Error('nothing to join');
+  const parse = (buf)=>{
+    const v = new DataView(buf);
+    const tag = o => String.fromCharCode(v.getUint8(o),v.getUint8(o+1),v.getUint8(o+2),v.getUint8(o+3));
+    if(buf.byteLength<44 || tag(0)!=='RIFF' || tag(8)!=='WAVE') throw new Error('the studio returned something that is not a WAV file');
+    let off=12, fmt=null, data=null;
+    while(off+8<=buf.byteLength){
+      const id=tag(off), size=v.getUint32(off+4,true);
+      if(id==='fmt ') fmt={format:v.getUint16(off+8,true),channels:v.getUint16(off+10,true),rate:v.getUint32(off+12,true),bits:v.getUint16(off+22,true)};
+      if(id==='data') data={start:off+8,size:Math.min(size,buf.byteLength-(off+8))};
+      off+=8+size+(size%2);
+    }
+    if(!fmt||!data) throw new Error('WAV missing fmt or data chunk');
+    return {fmt,data,buf};
+  };
+  const parts=buffers.map(parse), f=parts[0].fmt;
+  for(const p of parts){
+    if(p.fmt.format!==f.format||p.fmt.channels!==f.channels||p.fmt.rate!==f.rate||p.fmt.bits!==f.bits)
+      throw new Error('the studio returned mixed audio formats — cannot join losslessly');
+  }
+  const total=parts.reduce((n,p)=>n+p.data.size,0);
+  const out=new ArrayBuffer(44+total), v=new DataView(out);
+  const w=(o,str)=>{ for(let i=0;i<str.length;i++) v.setUint8(o+i,str.charCodeAt(i)); };
+  w(0,'RIFF'); v.setUint32(4,36+total,true); w(8,'WAVE');
+  w(12,'fmt '); v.setUint32(16,16,true);
+  v.setUint16(20,f.format,true); v.setUint16(22,f.channels,true);
+  v.setUint32(24,f.rate,true); v.setUint32(28,f.rate*f.channels*(f.bits/8),true);
+  v.setUint16(32,f.channels*(f.bits/8),true); v.setUint16(34,f.bits,true);
+  w(36,'data'); v.setUint32(40,total,true);
+  let at=44; const bytes=new Uint8Array(out);
+  for(const p of parts){ bytes.set(new Uint8Array(p.buf,p.data.start,p.data.size),at); at+=p.data.size; }
+  return out;
+}
 
 /* ---- text harvest: what "read the article" means on this page ---------- */
 function ttsHarvestNodes(){
@@ -18514,6 +18551,42 @@ const ReadAloud = {
     if(this.audio){ this.audio.onended=null; this.audio.pause(); this.audio=null; }
     this._next(tok);
   },
+  /* The whole page as one portable audio file. Renders every chunk
+     through the studio (no playback), stitches the WAVs losslessly and
+     hands the browser a download. */
+  async download(){
+    if(this._dl) return;
+    const nodes = ttsHarvestNodes();
+    const text = nodes.map(n=>n.text).join('\n\n');
+    if(!text){ ttsBarShow('Save audio'); ttsBarStatus('Nothing readable on this page','error'); return; }
+    this.stop(true);
+    const cfg = ttsConfig();
+    const chunks = ttsChunkText(text, cfg.chunk);
+    const rawTitle = String((document.querySelector('#content .art-title')||{}).textContent||'article').trim()||'article';
+    this._dl = true;
+    ttsBarShow(rawTitle);
+    try{
+      const bufs = [];
+      for(let i=0;i<chunks.length;i++){
+        ttsBarStatus('Rendering '+(i+1)+'/'+chunks.length+' for download ('+(cfg.voice||'Waluigi')+')…','synth');
+        const u = await gradioTTS(chunks[i], cfg);
+        const res = await fetch(u);
+        if(!res.ok) throw new Error('chunk '+(i+1)+' fetch failed: HTTP '+res.status);
+        bufs.push(await res.arrayBuffer());
+      }
+      const blob = new Blob([ttsWavJoin(bufs)], {type:'audio/wav'});
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = (rawTitle.replace(/[^\w\- ]+/g,'').trim().replace(/\s+/g,'-').slice(0,80)||'article')+'.wav';
+      a.click();
+      setTimeout(()=>{ try{ URL.revokeObjectURL(a.href); }catch(e){} }, 30000);
+      ttsBarStatus('Saved — '+chunks.length+' chunk'+(chunks.length===1?'':'s')+' in one .wav','done');
+      const t=this.token; setTimeout(()=>{ if(this.token===t && !this.active) ttsBarHide(); }, 6000);
+    }catch(e){
+      ttsBarStatus('Save failed: '+e.message+'. Is the Qwen3-TTS studio running at '+ttsConfig().endpoint+'?','error');
+    }
+    this._dl = false;
+  },
   /* back one chunk: _next() advances first, so land two short of current */
   prev(){
     if(!this.active) return;
@@ -18606,6 +18679,7 @@ function ttsBarEnsure(){
       <button type="button" id="ra-toggle" title="Pause / resume" onclick="ReadAloud.pause()">⏸</button>
       <button type="button" title="Next chunk" onclick="ReadAloud.skip()">⏭</button>
       <button type="button" title="Stop" onclick="ReadAloud.stop()">⏹</button>
+      <button type="button" title="Save the whole page as one audio file (.wav)" onclick="ReadAloud.download()">⬇</button>
       <button type="button" title="Bridge settings" onclick="raCfgToggle()">⚙️</button>
     </div>
     <div class="ra-cfg" id="ra-cfg" hidden>
@@ -18671,7 +18745,8 @@ async function raTestVoice(){
 }
 function readAloudChip(){
   return `<span class="chip readaloud-chip" role="button" tabindex="0" title="Read this page aloud through the local Qwen3-TTS studio (voice: Waluigi) — select text first to read only the selection" onclick="ReadAloud.start()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();ReadAloud.start()}">🔊 Read aloud</span>`+
-         `<span class="chip readaloud-chip ra-pick-chip" role="button" tabindex="0" title="Pick text: click any paragraph to start reading from there" onclick="ReadAloud.pickOn()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();ReadAloud.pickOn()}">🎯 Pick text</span>`;
+         `<span class="chip readaloud-chip ra-pick-chip" role="button" tabindex="0" title="Pick text: click any paragraph to start reading from there" onclick="ReadAloud.pickOn()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();ReadAloud.pickOn()}">🎯 Pick text</span>`+
+         `<span class="chip readaloud-chip" role="button" tabindex="0" title="Render the whole page through the studio and save it as one portable .wav" onclick="ReadAloud.download()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();ReadAloud.download()}">⬇ Save audio</span>`;
 }
 /* Navigating away stops the reading — the article the reader left is no
    longer the article being read. */

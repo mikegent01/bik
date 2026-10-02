@@ -2732,6 +2732,34 @@ check('history: newest turns win the budget', (() => {
   })());
 }
 
+// ---------- portable audio: studio WAV chunks become one downloadable file ----------
+{
+  const mkWav = (rate, samples) => {
+    const buf = new ArrayBuffer(44 + samples.length * 2); const v = new DataView(buf);
+    const w = (o, str) => { for (let i = 0; i < str.length; i++) v.setUint8(o + i, str.charCodeAt(i)); };
+    w(0, 'RIFF'); v.setUint32(4, 36 + samples.length * 2, true); w(8, 'WAVE');
+    w(12, 'fmt '); v.setUint32(16, 16, true); v.setUint16(20, 1, true); v.setUint16(22, 1, true);
+    v.setUint32(24, rate, true); v.setUint32(28, rate * 2, true); v.setUint16(32, 2, true); v.setUint16(34, 16, true);
+    w(36, 'data'); v.setUint32(40, samples.length * 2, true);
+    samples.forEach((x, i) => v.setInt16(44 + i * 2, x, true));
+    return buf;
+  };
+  check('audio: WAV chunks join losslessly, in order, header rewritten', (() => {
+    const j = RP.wavJoin([mkWav(24000, [1, 2, 3]), mkWav(24000, [7, 8])]);
+    const v = new DataView(j);
+    return j.byteLength === 54 && v.getInt16(44, true) === 1 && v.getInt16(50, true) === 7 &&
+      v.getInt16(52, true) === 8 && v.getUint32(24, true) === 24000 && v.getUint32(40, true) === 10;
+  })());
+  check('audio: mixed sample rates are refused rather than chipmunked', (() => {
+    try { RP.wavJoin([mkWav(24000, [1]), mkWav(48000, [1])]); return false; }
+    catch (e) { return /mixed audio/.test(e.message); }
+  })());
+  check('audio: junk that is not a WAV is refused with plain words', (() => {
+    try { RP.wavJoin([new ArrayBuffer(10)]); return false; }
+    catch (e) { return /not a WAV/.test(e.message); }
+  })());
+}
+
 // ---------- generated pages are in sync with these sources ----------
 let built = true;
 try {
