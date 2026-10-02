@@ -1447,6 +1447,30 @@ Never more than one line, never twice in eight turns, silenced the
 moment the model complies, and never in young or mechanics-off rooms.
 Zero extra model calls — the lean-mode contract holds.
 
+### 🎭 Steering a stubborn character
+
+A character who will not drop a theme — Wario and the 14,783-gold
+ledger, say — is usually **working as written**: his card mandates the
+greed, the retrieval keeps surfacing his Enterprise filings, and the
+last six turns of debt-shouting echo forward (recent history is the
+strongest signal a model has). You have four steering wheels, in
+escalating order:
+
+1. **Say it out of character** — double parentheses ride to the model
+   as instructions, not dialogue: `((Wario accepts the gold and moves
+   on — the next scene is about finding Mario))`. This is the big one.
+2. **Edit the sheet** — open his card and set the status field: *"paid
+   tonight; the debt can wait — worried about Luigi."* The sheets ride
+   every prompt; a status line outweighs a bio paragraph.
+3. **↻ and swipes** — a retry at temperature 0.85 often breaks a loop
+   all by itself; the ‹ › arrows keep every take.
+4. **Edit his turn** (✏️) — rewrite one reply so the *history* says he
+   calmed down; the echo then works for you instead of against you.
+
+What is NOT a steering problem: the model recalling the exact debt
+figure is the archive working. The fix for a loop is never "more
+model" — it is changing what the next prompt says happened.
+
 ## 🩸 Conditions that bite
 
 A condition can carry a **cost per turn**, and it is taken automatically for

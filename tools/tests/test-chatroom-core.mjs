@@ -2699,6 +2699,39 @@ check('history: newest turns win the budget', (() => {
   })());
 }
 
+// ---------- a phrase is not a person, a clause is not a claim ----------
+{
+  const known = ['Waluigi', 'Wario', 'Mona', 'Ashley', 'Luigi'];
+  check('scan: a bullet-list header never walks into the cast',
+    RP.arrivalScan('You are cornered.\n\n**Your Options:**\n\n1. **Search for a weapon:** look around.', known) === '' &&
+    RP.arrivalScan('**Combat Options:** pick one', known) === '' &&
+    RP.arrivalScan('Important: do not forget the key', known) === '');
+  check('scan: real arrivals and real script lines still land',
+    RP.arrivalScan('Kat bursts in through the window.', known) === 'Kat' &&
+    RP.arrivalScan('Toadsworth: "The prince is missing."', known) === 'Toadsworth');
+  const claimState = RP.blankState();
+  const claimRoom = RP.newRoom([RP.normChar({ id: 'waluigi', name: 'Waluigi' })], { kind: 'group', kit: 'off' });
+  claimRoom.youPlay = 'waluigi';
+  RP.ensurePlayerSheet(claimState, claimRoom);
+  check('claim: packing up your own unspecified stuff is not conjuring',
+    RP.conjureCheck(claimRoom, 'I quickly grab my stuff since I am alone and head inside') === null);
+  check('claim: the flagged phrase is the noun, not half the sentence', (() => {
+    const w = RP.conjureCheck(claimRoom, 'I go into my pocket and grab my wallet how much gold is in there');
+    return w && w.kind === 'conjured' && w.claim === 'wallet';
+  })());
+  check('claim: a real bluff is still caught', (() => {
+    const b = RP.conjureCheck(claimRoom, 'I pull out my bazooka and aim it');
+    return b && b.kind === 'conjured' && /bazooka/.test(b.claim);
+  })());
+  check('fix: 🛠 purges a false arrival from cast, sheets and rail', (() => {
+    claimRoom.cast.push(RP.normChar({ id: 'your_options', name: 'Your Options' }));
+    claimRoom.states.your_options = { id: 'your_options', name: 'Your Options', hp: { value: 100, max: 100 }, present: true };
+    const lines = RP.fixRoom(claimState, claimRoom, {});
+    return !claimRoom.cast.some((c) => c.id === 'your_options') && !claimRoom.states.your_options &&
+      lines.some((l) => /false arrival: Your Options/.test(l));
+  })());
+}
+
 // ---------- generated pages are in sync with these sources ----------
 let built = true;
 try {

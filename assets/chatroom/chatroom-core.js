@@ -323,6 +323,22 @@
       if (JSON.stringify(now) !== JSON.stringify(c)) { room.cast[i] = now; refreshed.push(now.name); }
     });
     if (refreshed.length) lines.push('cast re-read from the archive: ' + refreshed.join(', '));
+    // A false arrival — a list header or stray phrase the scanner once
+    // admitted — leaves the cast, the sheets and the speaker rail here.
+    var bogus = (room.cast || []).filter(function (c) {
+      return !catalog[c.id] && (NOT_NAME.test(c.name || '') || NOT_NAME_TAIL.test(c.name || ''));
+    }).map(function (c) { return c.id; });
+    if (bogus.length) {
+      var gone = [];
+      room.cast = room.cast.filter(function (c) {
+        if (bogus.indexOf(c.id) < 0) return true;
+        gone.push(c.name); return false;
+      });
+      bogus.forEach(function (id) { if (room.states) delete room.states[id]; });
+      room.away = (room.away || []).filter(function (a) { return bogus.indexOf(a && a.id) < 0; });
+      if (room.youPlay && bogus.indexOf(room.youPlay) >= 0) room.youPlay = '';
+      lines.push('removed a false arrival: ' + gone.join(', ') + ' \u2014 a phrase is not a person');
+    }
     var mended = 0;
     Object.keys(room.states || {}).forEach(function (k) {
       var sheet = room.states[k];
@@ -2456,6 +2472,13 @@
     var hit = DRAW_RE.exec(String(text || '')) || USE_RE.exec(String(text || ''));
     if (!hit) return null;
     var claim = hit[2].trim().replace(/^(own|trusty|old|good|new|little|big)\s+/i, '');
+    // The claim is a noun phrase, not half a sentence: “stuff since I am
+    // alone” and “wallet how much gold is in there” both got flagged
+    // whole. Clip at the first clause break or question word.
+    claim = claim.split(/\s+(?:since|because|and|but|then|so|as|while|before|after|when|if|how|what|where|who|which|that)\b/i)[0]
+      .replace(/[.,;:!?]+$/, '').trim();
+    // Packing up your own unspecified things is not conjuring.
+    if (/^(?:stuff|things?|belongings|everything|items|gear|supplies|bags?)$/i.test(claim)) return null;
     if (claim.length < 3 || NOT_KIT.test(claim)) return null;
     var kit = (you.items || []).map(RP.normItem);
     var claimLow = ' ' + claim.toLowerCase() + ' ';
@@ -2584,7 +2607,14 @@
     'Who', 'What', 'When', 'Where', 'Why', 'How',
     'Yes', 'No', 'Wait', 'Stop', 'Look', 'Listen', 'Okay', 'Oh', 'Ah', 'Hey', 'Well',
     'Narration', 'Narrator', 'World', 'Mike',   // rule zero: mike is a GM, never a character
+    'Your', 'My', 'Our', 'Their', 'His', 'Her', 'Its',
+    'This', 'That', 'These', 'Those', 'Each', 'Every', 'Any', 'Some', 'All', 'Both',
+    'Other', 'Another', 'Several', 'Important', 'Warning', 'Reminder', 'System', 'Option', 'Choice',
   ].join('|') + ')\\b', 'i');
+
+  // A menu is not a person. “**Your Options:**” above a numbered list once
+  // walked into the cast with a full sheet and a seat on the speaker rail.
+  var NOT_NAME_TAIL = /(?:Options?|Choices?|Notes?|Summary|Inventory|Objectives?|Actions?|Rules?|Stats?|Settings?)\s*$/i;
 
   var NAME_WORD = "[A-Z][a-zA-Z'\u2019-]+";
   var ARRIVE_RE = new RegExp(
@@ -2612,7 +2642,7 @@
       });
     };
     var ok = function (name) {
-      if (!name || name.length < 3 || NOT_NAME.test(name)) return false;
+      if (!name || name.length < 3 || NOT_NAME.test(name) || NOT_NAME_TAIL.test(name)) return false;
       return !seen(name);
     };
     var m; var res = '';
