@@ -2777,6 +2777,32 @@ check('history: newest turns win the budget', (() => {
     RP.castRemove(rmRoom, 'nobody_here') === '' && rmRoom.cast.length === 1);
 }
 
+// ---------- audience mode: the room keeps breathing, inside the same call ----------
+{
+  const audCast = ['Waluigi', 'Wario', 'Mona', 'Ashley'].map((nm) => RP.normChar({ id: nm.toLowerCase(), name: nm }));
+  const audState = RP.blankState();
+  const audRoom = RP.newRoom(audCast, { kind: 'group' });
+  audRoom.youPlay = 'waluigi';
+  check('audience: silent present cast ride as a one-beat licence — speaker and player excluded', (() => {
+    const b = RP.audienceBlock(audRoom, 'wario', 'on');
+    return /THE AUDIENCE/.test(b) && /Mona, Ashley/.test(b) &&
+      /murmur, never a speech/.test(b) && /silence is a valid reaction/.test(b) &&
+      /never answer a question that was aimed at somebody else/.test(b);
+  })());
+  check('audience: a duel has no audience, the dial turns it off, solo rooms never see it', (() => {
+    RP.setPresent(audRoom, 'mona', false); RP.setPresent(audRoom, 'ashley', false);
+    return RP.audienceBlock(audRoom, 'wario', 'on') === '' &&
+      RP.audienceBlock(audRoom, 'wario', 'off') === '' &&
+      RP.audienceBlock(RP.newRoom([audCast[0]], { kind: 'solo' }), 'x', 'on') === '';
+  })());
+  check('audience: the block rides the character system prompt and costs one block, not one call', (() => {
+    const fresh = RP.newRoom(audCast, { kind: 'group' });
+    fresh.youPlay = 'waluigi';
+    const sys = RP.systemFor(audState, fresh, audCast[1], {});
+    return /THE AUDIENCE/.test(sys) && (sys.match(/THE AUDIENCE/g) || []).length === 1;
+  })());
+}
+
 // ---------- generated pages are in sync with these sources ----------
 let built = true;
 try {

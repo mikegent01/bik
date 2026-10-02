@@ -1167,6 +1167,22 @@ into a full pack comes back as *"Grix's pack is full (6 slots) — the crown
 has nowhere to go"*, on the record, and the model plays the refusal like any
 other change line. Slots are editable per sheet.
 
+### 👥 Audience mode — nobody freezes while two people talk
+
+The classic group-chat failure: two characters lock into a
+conversation and everyone else becomes furniture — time stops for the
+rest of the room. Audience mode fixes it **inside the same model
+call**: when present cast members aren't speaking this turn, one block
+(`RP.audienceBlock`, ~120 tokens, only when an audience exists) rides
+the prompt and licenses **at most one short beat** from the room — a
+glance, a muttered half-line, a shifted weight. The rules are strict
+so the spotlight survives: a murmur never a speech, no decisions, no
+directives, never answering a question aimed at somebody else, and
+silence is explicitly a valid reaction. No extra requests, ever — the
+one-call-per-turn contract holds. A duel has no audience (two people
+present = no block), solo rooms never see it, and Settings → *Audience
+murmurs* turns it off entirely.
+
 ### 🎛 User control — the table is yours
 
 Round 23 put the cast under your fingers:

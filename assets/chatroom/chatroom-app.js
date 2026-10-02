@@ -4621,6 +4621,11 @@
        ['off', 'Off — only characters speak']].map(function (o) {
         return '<option value="' + o[0] + '"' + ((state.settings.world || 'on') === o[0] ? ' selected' : '') + '>' + esc(o[1]) + '</option>';
       }).join('') + '</select>' +
+      '<label for="f_audience">Audience murmurs — silent cast members get one short reaction beat per turn (same call, no extra cost)</label><select id="f_audience">' +
+      [['on', 'On — the room keeps breathing while two people talk'],
+       ['off', 'Off — only the speaker and the narration exist']].map(function (o) {
+        return '<option value="' + o[0] + '"' + ((state.settings.audience || 'on') === o[0] ? ' selected' : '') + '>' + esc(o[1]) + '</option>';
+      }).join('') + '</select>' +
       '<label for="f_autoplay">▶ Auto plays this many turns before stopping</label>' +
       '<input type="number" id="f_autoplay" min="2" max="20" value="' + (state.settings.autoplay || 6) + '">' +
       '<label for="f_context">How many recent turns the model sees (default 24)</label>' +
@@ -4745,6 +4750,7 @@
       if (!isNaN(pbud)) state.settings.promptBudget = Math.max(6000, Math.min(RP.PROMPT_BUDGET_MAX, pbud));
       state.settings.length = $('f_length').value;
       state.settings.world = $('f_world').value;
+      state.settings.audience = $('f_audience') ? $('f_audience').value : (state.settings.audience || 'on');
       state.settings.narrator = $('f_narrator').value;
       var auto = parseInt($('f_autoplay').value, 10);
       if (!isNaN(auto)) state.settings.autoplay = Math.max(2, Math.min(20, auto));

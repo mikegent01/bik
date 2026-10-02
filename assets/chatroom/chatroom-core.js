@@ -2735,6 +2735,30 @@
     return '';
   };
 
+  /* ---- audience mode: nobody freezes while two people talk ---- */
+
+  /** Present, silent cast members stop being furniture. One prompt
+   *  block inside the SAME call — no extra requests — licenses at most
+   *  one short reaction line from the room: a glance, a mutter, a
+   *  shifted weight. The scene keeps its spotlight; the world keeps
+   *  breathing. Off by dial, absent in solo rooms, silent when only
+   *  two are present (there is no audience in a duel). */
+  RP.audienceBlock = function (room, speakerId, setting) {
+    if (setting === 'off' || !room || room.kind !== 'group') return '';
+    var quiet = (room.cast || []).filter(function (c) {
+      if (!c || c.id === speakerId || c.id === room.youPlay) return false;
+      var sheet = room.states && room.states[c.id];
+      return !(sheet && sheet.present === false);
+    }).slice(0, 4);
+    if (!quiet.length) return '';
+    return 'THE AUDIENCE — also in the scene, not speaking this turn: ' +
+      quiet.map(function (c) { return c.name; }).join(', ') + '.\n' +
+      'They are people, not furniture. You MAY end the turn with ONE short beat from one of them — a glance,\n' +
+      'a muttered half-line, a shifted weight — a murmur, never a speech, never the spotlight. If the moment is\n' +
+      'private or the beat adds nothing, give them nothing: silence is a valid reaction. They make no decisions,\n' +
+      'file no directives, and never answer a question that was aimed at somebody else.';
+  };
+
   /* ---- the encouragement system: data-driven, one line, zero calls ---- */
 
   /** The model has tools it never reaches for unprompted. The page knows
@@ -6348,6 +6372,9 @@
     var protectedFrom = parts.length;
     var continuation = RP.continuationBlock(room);
     if (continuation) parts.push(continuation);
+    var audience = RP.audienceBlock(room, RP.normChar(speaker || {}).id,
+      (state.settings && state.settings.audience) || 'on');
+    if (audience) parts.push(audience);
     if (room.mechanics !== 'off') {
       var sheets = RP.stateBlock(room, RP.normChar(speaker || {}).id);
       if (sheets) parts.push(sheets);
