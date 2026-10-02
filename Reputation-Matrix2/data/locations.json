@@ -3428,5 +3428,33 @@
       "lord_darian_marsh",
       "alistair_marshkeeper"
     ]
+  },
+  {
+    "id": "waluigis_outpost",
+    "name": "Waluigi's Outpost",
+    "type": "Location/Residence / Private Archive Annex",
+    "region": "The slope below Wario's mountaintop residence, Mushroom Kingdom interior",
+    "controllingFaction": "Waluigi — privately held, aggressively uninsured",
+    "population": "One archivist, several hundred filings, and whatever the wind brings up the slope",
+    "climate": "Cold stone and candle smoke; night air off the mountain carries woodsmoke from the city below",
+    "summary": "The stone house where Waluigi lives and drafts. A balcony with a patio table faces the night sky and, unavoidably, Wario's residence on the peak above — a sightline that works in both directions. Inside, the main study: towering shelves, drafting tables of maps and scrolls, and the working papers of the 'No Longer Brothers' revision.",
+    "description": "Waluigi files his own address under protest, because the Debt Siege made it canon: the balcony where Revision 2 was read aloud, the heavy oak study door that stopped a W-stamped mechanical fist for exactly four strikes, and the frost scars where an Ice Storm and a borrowed Flash-Freeze sealed a scholar's own life's work behind a wall of ice to save it. The study survived. The door is a write-off. The ledger of what is owed for the frame is, per the owner, a matter for Wario's conscience, an organ whose existence remains unverified.",
+    "notableFeatures": [
+      "The balcony and patio table — direct sightline to Wario's mountaintop residence",
+      "The main study: towering shelves, drafting tables, maps and scrolls",
+      "The oak study door — splintered, frozen, and furious about both",
+      "Frost damage from the Flash-Freeze wall of 2 Aethel, 1035 BF"
+    ],
+    "status": "Standing — door and frame destroyed in the Debt Siege; research intact; owner negotiating repairs as a deductible business expense",
+    "plane": "material",
+    "planeClue": "Within sight of Wario's residence in the Mushroom Kingdom interior; Material clock throughout",
+    "planeConfidence": "high",
+    "image": "assets/images/events/debt-siege-sixty-thirty/debt-siege-01-ice-wall.jpg",
+    "relatedArticles": [
+      "the_debt_siege_and_the_sixty_thirty_split",
+      "waluigi",
+      "wario",
+      "the_tape_and_the_wario_files"
+    ]
   }
 ]

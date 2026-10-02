@@ -18050,5 +18050,155 @@
         }
       ]
     }
+  },
+  {
+    "id": "the_debt_siege_and_the_sixty_thirty_split",
+    "name": "The Debt Siege and the Sixty-Thirty Split",
+    "title": "The Debt Siege and the Sixty-Thirty Split: Wario's Claw, the Ice Wall, and the Contract of Accord",
+    "date": "2 Aethel, 1035 BF — late evening, two weeks after the Star Hill rescue",
+    "timeCode": "TC:1035-09-02/MAT",
+    "timeWindow": "2 Aethel, 1035 BF — one evening: the balcony reading, the helicopter siege of the outpost, the ice-wall defence, the negotiation, and the departure for Star Hill",
+    "era": "The Mushroom Kingdom Regency Era (1030s BF) — Mario's Disappearance Arc",
+    "type": "Session Event / Siege Negotiation / Arc Bridge",
+    "location": "Waluigi's Outpost — the balcony, the main study, and the airspace above it; below Wario's mountaintop residence",
+    "status": "Resolved into a truce — the 60/30 publishing contract is signed and held by Wario as collateral; the pair depart by helicopter for Dr. Toad's Star Hill Clinic, which Wario's informant reports under lockdown",
+    "outcome": "No blood, one door. Waluigi paid roughly 150 gold on the spot, then talked a mechanical siege down into a signed publishing accord: sixty-thirty on the 'No Longer Brothers' narrative once Luigi's testimony is recovered, the contract itself held by Wario as collateral until the first payment. The siege ended the moment the paper changed hands. The pair left together, by helicopter, for Star Hill.",
+    "summary": "Two weeks after the rescue, Waluigi read 'No Longer Brothers — Revision 2' aloud on his own balcony and Wario answered with a helicopter, a searchlight, and a W-stamped mechanical claw. Four strikes took the study door; an Ice Storm and a borrowed Flash-Freeze took it back. The shouting match found the real grievance — the 14,783-gold ledger — and the negotiation found the real exit: a 60/30 split on publication. The radio then supplied the next problem: Star Hill Clinic is reportedly locked down, with Luigi inside.",
+    "description": "*Two weeks of quiet, and then the quiet turned out to be a billing cycle. I have now defended my life's work with its own subject matter: froze the study to save the papers about the brothers who burned. The contract that ended it is the first document Wario has ever held that pays him more if I publish. I am choosing to find that reassuring, loudly, where he can hear me.*",
+    "image": "assets/images/events/debt-siege-sixty-thirty/debt-siege-01-ice-wall.jpg",
+    "imageCaption": "The study after the fourth strike: the W-claw caught in the Flash-Freeze wall, the searchlight through the window, and the Contract of Accord drying by candlelight. The painter could not hear the shouting, which was the only mercy of the evening.",
+    "keyBattles": [],
+    "notableFeatures": [
+      "'No Longer Brothers — Revision 2' read aloud on the balcony — the working title and both quoted lines are now on the record",
+      "The 14,783-gold ledger surfaces again, with the disputed 15% monthly interest Waluigi insists he never authorized",
+      "The W-stamped mechanical claw — deployed from a helicopter against a private residence over an invoice",
+      "Ice Storm (−10 MP) and the 'Atmospheric Displacement' treatise's Flash-Freeze — a scholar sealing his own study to save it",
+      "The Contract of Accord — sixty-thirty split on publication, held by Wario as collateral until the first payment",
+      "Radio chatter: Dr. Toad's Star Hill Clinic under lockdown for 'medical complications' — unverified, source is Wario's own informant"
+    ],
+    "participants": [
+      {
+        "id": "waluigi",
+        "name": "Waluigi",
+        "role": "Read the revision aloud, lost the door, held the study with Ice Storm and a borrowed Flash-Freeze, paid 150 gold down, and negotiated the sixty-thirty accord through his own ice wall"
+      },
+      {
+        "id": "wario",
+        "name": "Wario",
+        "role": "Brought a helicopter, a searchlight and a W-stamped claw to a billing dispute; stopped the fist at the word 'settlement'; took the contract as collateral and redirected the whole machine toward Star Hill"
+      }
+    ],
+    "sections": [
+      {
+        "name": "I. The Revision on the Balcony",
+        "icon": "📝",
+        "overview": "Two weeks after the clinic, the archivist worked where he always works when the work is personal: the balcony, the patio table, the night sky, and the one sightline he cannot renovate away — Wario's residence on the peak above. 'No Longer Brothers — Revision 2' went out loud into the cold, as drafts do when the drafter is alone: 'He didn't just walk away; he walked into a void where our shared history was erased by his own choice.' Lines were crossed out. The verdict was 'not refined enough for publishing.' The last line was read anyway — 'If he is no longer my brother, then I am finally free from his shadow' — and the candle went out on its own, which the record notes without interpreting.",
+        "waluigi_note": "Reading a working draft aloud is editing. Anyone who heard anything else was eavesdropping from a mountaintop."
+      },
+      {
+        "name": "II. The Light Leaves the Mountain",
+        "icon": "🚁",
+        "overview": "A flare of light from the residence above; a shape descending the slope; then the engine note that means the shape has rotors. Wario's helicopter came off the peak and banked straight for the outpost, searchlight first. The opening statement, delivered by loudhailer over a private home at night, was 'GET OUT HERE!', followed by the accusation of record: 'YOU'RE HIDING AGAIN!' The defence — 'researching! yeah researching!' — was true, and sounded exactly as guilty as true things sound at that volume. One line mattered more than the noise: 'THE DOCTOR SAYS HE CAN'T MOVE YET.' Somebody had been checking on Luigi. It was not the archivist.",
+        "waluigi_note": "He had fresher information about the patient than I did. I am filing that as the evening's first wound, because it was."
+      },
+      {
+        "name": "III. The Claw with the W",
+        "icon": "🦾",
+        "overview": "The underbelly of the helicopter opened and produced the evening's thesis: a mechanical claw, yellow and black, with a 'W' painted on the housing — a grappling fist built by a man who monogrammes his siege equipment. It took the balcony stones inches from the archivist's boots, then took the study door frame beside his head. The door won the first exchange by a thumb's width and a slammed bolt. The fist then set about winning the rematch one strike at a time, while its owner provided commentary: 'OPEN THE DOOR!'",
+        "waluigi_note": "He engraves his initial on the thing he breaks doors with. Historians will not need my help with this one."
+      },
+      {
+        "name": "IV. Ice Storm in My Own Study",
+        "icon": "❄️",
+        "overview": "Cornered between the shelves and the drafting table, with 'The Tape' pages drifting loose toward the splintered gap, the archivist made the scholar's choice: freeze the library to save it. Ice Storm took the door and the fist together — ten points of mana and most of the room's temperature. Then the shelves themselves paid rent: a treatise on Atmospheric Displacement, pulled at random and read at speed, supplied the Flash-Freeze technique, and the second casting turned frost into a sealed wall — splinters locked in place, gears screeching in a cage of ice. The research stayed dry. The door is survived by its hinges.",
+        "waluigi_note": "I defended the papers about the fire with ice. Somewhere a poet is insufferable about this and I will not be introducing you."
+      },
+      {
+        "name": "V. It Was Never About the Brothers",
+        "icon": "💰",
+        "overview": "Through the ice, the siege finally stated its business, in descending order of dignity: 'I'M SAVING THE RECORDS' — 'THEY'RE THE ONLY PROOF' — and then the truth with its coat off: 'IT'S ABOUT THE DEBT.' The 14,783-gold ledger, to the coin, exactly as Wario's own file has always carried it, now compounding at a 15% monthly interest the alleged debtor insists he never authorized and disputed through a frozen door at the top of his voice. The manic edge in the creditor — 'I am the only one looking at the numbers', by his own account sleepless for days — is filed as observed, not explained.",
+        "waluigi_note": "The figure matched his file to the coin. I dispute the interest, the principal, and the hour of collection, in that order."
+      },
+      {
+        "name": "VI. The Sixty-Thirty Split",
+        "icon": "📜",
+        "overview": "The de-escalation came in two payments. First, metal: a worn pouch, roughly 150 gold, spilled on the study floor — 'THAT'S A START' — and the fist went still at the word 'settlement' like a struck bell going quiet. Second, paper: the archivist's offer, shouted through his own ice wall, to publish the 'No Longer Brothers' narrative once Luigi's testimony is recovered, and to split the proceeds sixty-thirty. The silence that followed was the longest of the night. Then the claw withdrew, a contract was drafted at speed, passed through the breach, and accepted by pincers that handled the page like a surgeon and a thief at once: 'I'LL HOLD THE CONTRACT AS COLLATERAL UNTIL THE FIRST PAYMENT IS SETTLED.'",
+        "waluigi_note": "He is now financially invested in my publication schedule. I have made the ledger my co-author, which is the most dangerous editing decision of my career."
+      },
+      {
+        "name": "VII. The Golden Cage Report",
+        "icon": "📡",
+        "overview": "Truce signed, the machine turned purposeful. On the hovering platform, Wario's radio produced the evening's actual cliffhanger: Dr. Toad's Star Hill facility is — per a frantic voice through static — under lockdown for 'medical complications,' two weeks into a two-week rest order, with Luigi inside. Wario's reading — 'a golden cage,' 'a convenient excuse for delaying my payment' — is a creditor's reading and is filed as such. The fact beneath it, if it is a fact, belongs to the investigation: someone may have decided the patient should not be reachable. The helicopter left the outpost with both signatories aboard, heading for Star Hill.",
+        "waluigi_note": "The only source for the lockdown is an informant paid by the man who profits from urgency. I boarded anyway. File both halves of that sentence."
+      }
+    ],
+    "aftermath": "The outpost stands, minus a door and plus a frost scar. The Contract of Accord travels in Wario's keeping — the first paper he has ever held that pays him more if Waluigi publishes, which aligns the two of them more honestly than any apology could. The 150 gold is logged against a principal neither party agrees on. The next move was chosen by a radio: Star Hill Clinic, the lockdown report, and whatever 'medical complications' turns out to mean when the people saying it know they are being recorded.",
+    "effects": {
+      "wario_enterprise": 3
+    },
+    "reputationChanges": {
+      "waluigi": {
+        "wario_enterprise": 3
+      },
+      "wario": {
+        "wario_enterprise": 2,
+        "mushroom_regency": -2
+      }
+    },
+    "reputationNotes": {
+      "waluigi": "Paid on the spot under siege, then converted a hostile collection action into a signed revenue-sharing accord — the Enterprise respects nothing more than a counterparty who closes.",
+      "wario": "The Enterprise books a signed contract and a first payment; the Regency books a helicopter assault on a private residence over an invoice. Both entries are accurate."
+    },
+    "relatedArticles": [
+      "the_garden_above_the_fire",
+      "the_lava_bridge_ambush_and_the_blue_luigi",
+      "the_tape_and_the_wario_files",
+      "waluigis_outpost",
+      "dr_toads_star_hill_clinic",
+      "waluigi",
+      "wario",
+      "luigi",
+      "mario",
+      "wario_enterprise"
+    ],
+    "waluigiAssessment": "1. The siege read as a rescue of records for exactly two sentences, and as a collection action for the rest of its life. File the first reading as what Wario needed to believe and the second as what the machinery was built for.\n2. The 14,783-gold figure arrived through a frozen door matching the ledger in Wario's own file to the coin. Whatever else the man has lost — sleep, proportion, a door that was not his — the numbers have not drifted. That consistency is the most trustworthy thing about him and the most alarming.\n3. The Star Hill lockdown is radio chatter from a paid informant, relayed by a creditor who profits from urgency. It enters the investigation as a lead with a named source, not as a fact. If it proves true, the question is not 'is Luigi safe' but 'who decided he should be unreachable, and on which day of the rest order.'\n4. The sixty-thirty split is the real event here. Every prior paper between these two recorded what one of them owed the other. This is the first that pays them both for the same outcome. Watch what that does to the siege equipment.",
+    "xpAwards": [
+      {
+        "xpKey": "waluigi",
+        "articleId": "waluigi",
+        "name": "Waluigi",
+        "cat": "diplomacy",
+        "xp": 300,
+        "title": "Event — The Debt Siege and the Sixty-Thirty Split",
+        "desc": "Talked a mechanical siege down into a signed 60/30 publishing accord through his own ice wall, while the door was still losing"
+      },
+      {
+        "xpKey": "waluigi",
+        "articleId": "waluigi",
+        "name": "Waluigi",
+        "cat": "magic",
+        "xp": 150,
+        "title": "Event — The Debt Siege and the Sixty-Thirty Split",
+        "desc": "Ice Storm under fire, then a Flash-Freeze learned from a shelf mid-siege — sealed his own study rather than lose the research"
+      },
+      {
+        "xpKey": "wario",
+        "articleId": "wario",
+        "name": "Wario",
+        "cat": "chaos",
+        "xp": 200,
+        "title": "Event — The Debt Siege and the Sixty-Thirty Split",
+        "desc": "Brought a helicopter, a searchlight and a monogrammed siege claw to a billing dispute, and narrated the whole thing by loudhailer"
+      },
+      {
+        "xpKey": "wario",
+        "articleId": "wario",
+        "name": "Wario",
+        "cat": "diplomacy",
+        "xp": 100,
+        "title": "Event — The Debt Siege and the Sixty-Thirty Split",
+        "desc": "Stopped the fist at the word 'settlement', took paper instead of walls, and left with a contract that pays him to cooperate"
+      }
+    ]
   }
 ]

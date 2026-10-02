@@ -4117,7 +4117,7 @@
         "mario_disappearance"
       ],
       "opened": "4 Aethel, 1040 BF",
-      "lastFiled": "5 Aethel, 1040 BF — amended: the cut, the director, and the remote",
+      "lastFiled": "2 Aethel, 1035 BF (backfill) — the debt siege, the sixty-thirty contract, and the Star Hill lockdown report",
       "archivist": "Waluigi, Auditor-General",
       "icon": "🔥",
       "accent": "#c46b32",
@@ -4380,6 +4380,14 @@
           "objective": "Interpret the corrupted Mario's single gesture — a raised finger pointing at the Director's exit — and establish whether he is a prisoner of the show or a performer with his own script.",
           "why": "He survived the cape, the leaf, the fire, the ice, and the curtains, and used his one free moment to point the survivors at the man who owns him. Actors do not warn the audience unless they want the play to close.",
           "exhibits": []
+        },
+        {
+          "id": "lead_star_hill_lockdown",
+          "title": "The Star Hill 'lockdown'",
+          "state": "open",
+          "priority": "high",
+          "objective": "Verify the radio report that Dr. Toad's Star Hill Clinic is locked down for 'medical complications' — and whether Luigi is still inside and reachable.",
+          "why": "The only source is Wario's own paid informant, relayed over a crackling radio by a creditor who profits from urgency. If the lockdown is real, someone with authority decided the patient should not be reachable exactly as his two-week rest order expired — and that decision has an author."
         }
       ],
       "sessions": [
@@ -4424,6 +4432,12 @@
           "label": "The Cut and the Puppet Master — the button, the song, the word, and the man with the remote",
           "date": "5 Aethel, 1040 BF",
           "event": "the_cut_and_the_puppet_master"
+        },
+        {
+          "id": "s_debt_siege",
+          "label": "The Debt Siege and the Sixty-Thirty Split — the claw, the ice wall, and the contract that buys the next move",
+          "date": "2 Aethel, 1035 BF",
+          "event": "the_debt_siege_and_the_sixty_thirty_split"
         }
       ],
       "relatedEvents": [
@@ -4680,6 +4694,21 @@
           "dc": 4,
           "onRecord": "A live workstation inside the studio: four security panes, a studio map with exits this filing proves lie, and a working file headed Wario's corruption. Its operator typed that he had to find Mario and fix this, twice, before standing up with a flashlight. [[roll:4|Read the operator through his own screen|Luigi came to the studio to find his brother and stayed at the only terminal that watches everything — including, for one continuous stretch, the vent above him. He never looked up. The watchers were being watched and nobody in the room knew it.|The screen shows a man searching. It does not show who left the terminal logged in for him.]]",
           "analysis": "## Why this screen matters more than the fight\n\nThe fight was a production. This terminal is the first object in two filings that does not reset, does not perform, and does not lie: real feeds, a real map, a working file. Somebody gave the studio a nervous system, and Luigi — not the Director, not Wario — is the one who found the optic nerve.\n\nThe heading is the evidence. **Wario's corruption**, written by the brother who has the least to gain and the most to lose by naming Wario, corroborates the archive's own suspicion from the tape file: Wario is not the top of this. A file headed 'corruption' is a file about a process — who corrupted what, in what order, and who signed the budget. The Director's cigar-snap confirms the chain of command the heading implies.\n\nThe unrecovered status is the argument for urgency. The break room resets. The curtains come down on command. There is no reason to believe the maintenance room's memory survives a reset, and every reason to believe the only copy of a brother's investigation is sitting on a machine that answers to the man with the remote."
+        },
+        {
+          "id": "ex_sixty_thirty_contract",
+          "propId": "prop_sixty_thirty_contract",
+          "session": "s_debt_siege",
+          "icon": "📜",
+          "kind": "contract",
+          "category": "evidence",
+          "title": "The Contract of Accord — 60/30 split on the 'No Longer Brothers' publication",
+          "secured": "Signed 2 Aethel, 1035 BF; original held by Wario as collateral until the first payment",
+          "custody": "Drafted by Waluigi under siege and passed through the ice-wall breach; accepted by the mechanical claw and retained by Wario",
+          "visual": "<div role=\"img\" aria-label=\"A hastily inked contract page by candlelight, frost along one edge\" style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:linear-gradient(145deg,#e9e1cd,#d8ccae);border:1px solid #b1a58d;color:#302b25\"><div style=\"position:absolute;left:16px;top:14px;font-size:30px\">📜</div><div style=\"position:absolute;left:58px;top:16px;font-weight:800;letter-spacing:.06em\">CONTRACT OF ACCORD</div><div style=\"position:absolute;left:58px;top:38px;font-size:11px\">sixty–thirty &middot; collateral clause &middot; 'the fist' cessation</div><div style=\"position:absolute;left:16px;bottom:14px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#6b5d44\">Held by Wario &middot; frost-damaged edge</div><div style=\"position:absolute;right:16px;bottom:12px;font-size:22px;opacity:.5\">❄️</div></div>",
+          "dc": 3,
+          "onRecord": "One leaf, drafted in under a minute by candlelight with a mechanical fist idling outside: parties, [[roll:3|the split written as 'sixty thirty'|that is ninety. Ten points of the proceeds are unassigned, and neither signatory noticed — whoever spots the orphaned ten percent first owns the next negotiation.|a rushed hand rounds numbers. Without the original in front of you, the missing ten points stay a rumour — and the original is in Wario's keeping.]] on the 'No Longer Brothers' publication, roughly 150 gold logged as 'A START' against the disputed 14,783-gold principal, a cessation clause that names 'the fist', and a collateral clause leaving the original in Wario's keeping until the first payment. [[roll:4|frost damage along one edge|the damage crosses the ink in places — the page was written FIRST and passed through the ice wall second. The terms were composed under siege, not prepared in advance.|frost is frost. Paper near that much ice that night could have caught it anywhere.]]",
+          "analysis": "## What the hasty hand gave away\n\nThe split is written as 'sixty thirty'. That is ninety. Ten points of the proceeds are unassigned, and neither signatory noticed — one was being sieged and the other was dancing. Whoever first notices the orphaned ten percent owns the next negotiation, and the document's custody means Wario gets to read it as often as he likes.\n\nSecond reading: the accord quietly makes Luigi's testimony a *revenue event*. Two signatures now depend on reaching a patient that a radio says is locked away. If the lockdown has an author, that author just acquired two motivated adversaries — one of whom monogrammes his siege equipment."
         }
       ]
     },

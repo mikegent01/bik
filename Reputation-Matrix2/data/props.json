@@ -2515,6 +2515,22 @@
       "stamps": [
         "evidence"
       ]
+    },
+    "prop_sixty_thirty_contract": {
+      "kind": "contract",
+      "icon": "\ud83d\udcdc",
+      "title": "The Contract of Accord \u2014 the Sixty-Thirty Split",
+      "subtitle": "Drafted under siege \u00b7 one leaf \u00b7 held by Wario as collateral until the first payment",
+      "items": [],
+      "articles": [
+        "the_debt_siege_and_the_sixty_thirty_split",
+        "wario",
+        "waluigi",
+        "the_tape_and_the_wario_files",
+        "luigi"
+      ],
+      "note": "The first paper between these two that pays them both for the same outcome. Drafted in under a minute with a mechanical fist idling outside the ice; the hand is terrible and the terms are not.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">PRIVATE ACCORD &middot; drafted at Waluigi's Outpost</div><div class=\"pd-sub\">2 Aethel, 1035 BF &mdash; written through a hole in a wall of ice</div></div><div class=\"pd-meta\"><span>Parties</span><b>Waluigi (author, publisher) &middot; Wario (creditor, holder)</b><span>Subject</span><b>Publication of the 'No Longer Brothers' narrative, upon recovery of Luigi's testimony</b><span>Split</span><b>Sixty&ndash;thirty of proceeds, in the author's favour</b><span>Custody</span><b>Held by Wario as collateral until the first payment is settled</b></div><div class=\"pd-clause\"><b>Consideration:</b> approximately 150 gold tendered on signing, logged by the creditor as 'A START' against a disputed principal of 14,783 gold. The 15% monthly interest remains contested and is deliberately not ratified by this accord.</div><div class=\"pd-clause\"><b>Cessation:</b> upon signing, all collection activity against the author's residence ceases, including &mdash; the document is specific &mdash; 'the fist'.</div><div class=\"pd-quote\">Ten remaining points of the split are not accounted for in the shouted offer of 'sixty thirty'. Neither signatory has noticed yet. The archive has.</div><div class=\"pd-margin\">He asked for gold and accepted a publishing schedule. Remember that the next time somebody tells you the man only understands money. &mdash; W.</div>"
     }
   }
 }

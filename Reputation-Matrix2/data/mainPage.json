@@ -179,6 +179,18 @@
         "the_assault_on_bowsers_castle"
       ],
       "order": 2
+    },
+    {
+      "id": "debt-siege-backfill-01",
+      "label": "Historical Backfill · 2 Aethel, 1035 BF · The Debt Siege",
+      "title": "The Debt Siege and the Sixty-Thirty Split — Wario's Claw and the Contract of Accord",
+      "summary": "Two weeks after the Star Hill rescue, Wario brought a helicopter, a searchlight and a W-stamped mechanical claw to a billing dispute. Waluigi held his own study behind an ice wall, paid 150 gold down, and talked the siege into a signed 60/30 publishing accord — then the radio reported the clinic holding Luigi under lockdown.",
+      "caption": "Mario's Disappearance Arc continues · a siege that ended in a signature, not a casualty list.",
+      "image": "assets/images/events/debt-siege-sixty-thirty/debt-siege-01-ice-wall.jpg",
+      "events": [
+        "the_debt_siege_and_the_sixty_thirty_split"
+      ],
+      "order": 3
     }
   ]
 }
