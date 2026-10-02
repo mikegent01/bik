@@ -2398,7 +2398,8 @@
         // NOT a <button>: the slots inside are buttons, and HTML closes a
         // button the moment another one opens — the whole grid would be
         // reparented out of the card. A span with the same handler is safe.
-        return '<span class="sheet' + (isYou ? ' you' : '') + '" role="button" tabindex="0" data-sheet="' + esc(id) + '" title="Edit state">' +
+        return '<span class="sheet' + (isYou ? ' you' : '') + '" role="button" tabindex="0" data-sheet="' + esc(id) + '"' +
+          (isYou ? '' : ' draggable="true" data-drag="' + esc(id) + '"') + ' title="Edit state' + (isYou ? '' : ' · drag to the bench to write them out') + '">' +
           (isYou ? '<span class="here" title="You — always in the scene">🧍</span>'
             : '<span class="here" data-here="' + esc(id) + '" title="' +
           (sheet.present === false ? 'Not in the scene — click to bring them back' : 'In the scene — click to write them out') +
@@ -2419,13 +2420,20 @@
             return '<span class="flag num">' + esc(c.replace(/_/g, ' ')) + ' ' + sheet.counters[c] + '</span>';
           }).join('') + (sheet.status ? '<span class="flag note">' + esc(sheet.status) + '</span>' : '') + '</span>' +
           '</span>';
-      }).join('')) + (showStates && away.length
-        ? '<button class="sheet away" id="showAway" title="Not in the scene — click to bring somebody back">' +
-          '◌ ' + away.length + ' not here</button>' : '');
+      }).join('')) + (!showStates ? '' :
+        '<button class="sheet add" id="castAdd" title="Invite a character from the archive into this scene">＋ invite</button>' +
+        '<span class="sheet bench" id="awayBench" title="Not in the scene — drop a card here to write somebody out">◌' +
+          away.map(function (id) {
+            return '<span class="benched"><b>' + esc(r.states[id].name) + '</b>' +
+              '<button data-back="' + esc(id) + '" title="Back into the scene">↩</button>' +
+              '<button data-dropcast="' + esc(id) + '" title="Remove from this chat entirely (the archive keeps them)">✖</button></span>';
+          }).join('') + '</span>');
     }
 
+    var hideSys = state.settings.sysNotes === 'hide';
     var html = r.messages.map(function (m, i) {
       // Legacy rows from before the meta was folded into the turn card.
+      if (hideSys && (m.role === 'fate' || m.role === 'state' || m.error)) return '';
       if (m.role === 'fate') return '<div class="metaline"><span class="roll">' + esc(m.pill || '') + '</span></div>';
       if (m.role === 'state') {
         return '<div class="metaline">' + (m.lines || []).map(function (l) {
@@ -2512,6 +2520,9 @@
         (r.mechanics === 'off' ? '' : macroButtons(r)) +
         '<button class="qa' + (autoLeft ? ' on' : '') + '" id="qaAuto" title="Let the scene play itself for a few turns">' +
           (autoLeft ? '■ Stop (' + autoLeft + ')' : '▶ Auto') + '</button>' +
+        '<button class="qa' + (state.settings.sysNotes === 'hide' ? ' on' : '') + '" id="qaSys" ' +
+          'title="Show or hide the system rows — receipts, rolls, error notices. They stay out of the model\u2019s context either way.">' +
+          (state.settings.sysNotes === 'hide' ? '🧹 Notes hidden' : '🧹 Hide notes') + '</button>' +
       '</span>' +
       '<span class="emptynote">Next:</span>' +
       ((state.settings.world || 'on') === 'off' ? '' :
@@ -2764,6 +2775,10 @@
         save(); render();
       });
     });
+    on('qaSys', function () {
+      state.settings.sysNotes = state.settings.sysNotes === 'hide' ? 'show' : 'hide';
+      save(); render();
+    });
     on('qaAuto', function () {
       if (autoLeft) { autoLeft = 0; render(); toast('Stopped.'); return; }
       autoLeft = Math.max(2, Number(state.settings.autoplay || 6));
@@ -2855,17 +2870,84 @@
         editSheet(b.dataset.sheet);
       };
     });
-    on('showAway', function () {
-      var away = Object.keys(r.states || {}).filter(function (id) { return r.states[id].present === false; });
-      list('Who comes back?', away.map(function (id) {
-        return { label: r.states[id].name, value: id };
-      }), function (id) {
+    // The bench: bring somebody back, or remove their seat entirely.
+    if (bar1) bar1.querySelectorAll('[data-back]').forEach(function (b) {
+      b.onclick = function (e) {
+        e.stopPropagation();
+        RP.pushUndo(r, 'bringing ' + r.states[b.dataset.back].name + ' back');
+        RP.setPresent(r, b.dataset.back, true);
+        save(); render();
+        toast(charOf(r, b.dataset.back).name + ' is in the scene again.');
+      };
+    });
+    if (bar1) bar1.querySelectorAll('[data-dropcast]').forEach(function (b) {
+      b.onclick = function (e) {
+        e.stopPropagation();
+        var name = (r.states[b.dataset.dropcast] || {}).name || 'them';
+        if (!window.confirm('Remove ' + name + ' from this chat? The archive keeps their record; only their seat here goes.')) return;
+        RP.pushUndo(r, 'removing ' + name);
+        RP.castRemove(r, b.dataset.dropcast);
+        save(); buildBoard(); render();
+        toast(name + ' removed from this chat.');
+      };
+    });
+    // ＋ invite: the archive's own roster, minus whoever is already here.
+    on('castAdd', function () {
+      var have = {};
+      (r.cast || []).forEach(function (c) { have[c.id] = 1; });
+      var options = Object.keys(castById).filter(function (id) { return !have[id]; })
+        .map(function (id) { return { label: castById[id].name + (castById[id].title ? ' — ' + RP.clip(castById[id].title, 40) : ''), value: id }; })
+        .sort(function (a, b) { return a.label.localeCompare(b.label); });
+      list('Who joins the scene?', options, function (id) {
+        var c = RP.normChar(castById[id]);
+        RP.pushUndo(r, 'inviting ' + c.name);
+        r.cast.push(c);
+        RP.ensurePlayerSheet(state, r);
+        if (r.mechanics !== 'off' && !r.states[c.id]) {
+          r.states[c.id] = RP.outfit(r, c, RP.blankSheet(c, r.statePreset));
+        }
+        r.messages.push({ id: RP.uid(), role: 'state', at: Date.now(),
+          lines: ['🚪 ' + c.name + ' joins the scene — invited from the archive'] });
+        save(); buildBoard(); render();
+        toast(c.name + ' is in the scene.');
+      });
+    });
+    // Drag a card to the bench to write them out; drag a benched name
+    // is not needed — the ↩ does it — but a card dropped back on the
+    // main bar re-enters the scene.
+    if (bar1) {
+      bar1.querySelectorAll('[data-drag]').forEach(function (card) {
+        card.ondragstart = function (ev) {
+          ev.dataTransfer.setData('text/plain', card.dataset.drag);
+          ev.dataTransfer.effectAllowed = 'move';
+        };
+      });
+      var bench = $('awayBench');
+      if (bench) {
+        bench.ondragover = function (ev) { ev.preventDefault(); bench.classList.add('over'); };
+        bench.ondragleave = function () { bench.classList.remove('over'); };
+        bench.ondrop = function (ev) {
+          ev.preventDefault(); bench.classList.remove('over');
+          var id = ev.dataTransfer.getData('text/plain');
+          if (!id || !r.states[id] || r.states[id].present === false) return;
+          RP.pushUndo(r, 'writing ' + r.states[id].name + ' out');
+          RP.setPresent(r, id, false);
+          save(); render();
+          toast(charOf(r, id).name + ' is not here — they will not speak until they are.');
+        };
+      }
+      bar1.ondragover = function (ev) { ev.preventDefault(); };
+      bar1.ondrop = function (ev) {
+        if (ev.target && ev.target.closest && ev.target.closest('#awayBench')) return;
+        var id = ev.dataTransfer && ev.dataTransfer.getData('text/plain');
+        if (!id || !r.states[id] || r.states[id].present !== false) return;
+        ev.preventDefault();
         RP.pushUndo(r, 'bringing ' + r.states[id].name + ' back');
         RP.setPresent(r, id, true);
         save(); render();
-        toast(r.states[id].name + ' is in the scene again.');
-      });
-    });
+        toast(charOf(r, id).name + ' is in the scene again.');
+      };
+    }
     if (bar1) bar1.querySelectorAll('[data-item]').forEach(function (b) {
       b.onclick = function (e) {
         e.stopPropagation();
@@ -3736,6 +3818,11 @@
       if (staged) { r.next = r.queue.shift(); }
       save(); render();
       if (!retry && !turnFailed) {
+        // The fix button, run for free every turn: nothing to fix costs
+        // nothing; something to fix never waits for a button again. The
+        // studio probe stays manual (🛠) — this is the deterministic half.
+        var mended = RP.fixRoom(state, r, castById);
+        if (mended.length) toast('🛠 ' + mended.join(' · '));
         // Lean: the recap still runs (it is what keeps prompts small);
         // the archivist and the quartermaster wait for full mode. The
         // local nets — grant scan, conjure check, conditions — are free.

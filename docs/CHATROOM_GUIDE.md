@@ -1167,6 +1167,29 @@ into a full pack comes back as *"Grix's pack is full (6 slots) — the crown
 has nowhere to go"*, on the record, and the model plays the refusal like any
 other change line. Slots are editable per sheet.
 
+### 🎛 User control — the table is yours
+
+Round 23 put the cast under your fingers:
+
+- **＋ invite** (end of the party bar) lists the archive's roster —
+  minus whoever is already seated — and adds your pick with a sheet,
+  an outfit, and a 🚪 line in the stream.
+- **The bench**: absent characters sit visibly at the end of the bar.
+  **Drag** a card onto the bench to write somebody out; drag back (or
+  ↩) to re-enter; **✖ removes their seat entirely** (confirm first —
+  the archive record is untouched, only this chat forgets them;
+  `RP.castRemove` also clears the star and the next-up slot if they
+  held either).
+- **🧹 Hide notes** (speaker rail) collapses the system rows — fate
+  pills, 🛠 receipts, 🔎 filings, error notices — for a clean reading
+  stream. They stay out of the model's context either way; the toggle
+  only changes what *you* see.
+- **🛠 runs itself every turn** now: the deterministic half of Fix
+  chat (cast re-read, sheets mended, star rules, false-arrival purge)
+  costs nothing when there is nothing to fix, so it no longer waits
+  for a button. A real fix announces itself in a toast. The 🛠 menu
+  button remains for the full version with the studio voice probe.
+
 ### 🧍 Your pack
 
 **Starred somebody? Their sheet IS your pack.** When you ☆ a character

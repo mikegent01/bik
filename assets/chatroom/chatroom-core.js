@@ -4904,6 +4904,23 @@
     });
   };
 
+  /** Remove somebody from the room entirely: cast, sheet, away list,
+   *  and the star if it was theirs. The archive record is untouched —
+   *  this deletes a seat at the table, not a person. Returns the name. */
+  RP.castRemove = function (room, id) {
+    if (!room || !id || id === RP.PLAYER_ID) return '';
+    var name = '';
+    room.cast = (room.cast || []).filter(function (c) {
+      if (c.id !== id) return true;
+      name = c.name; return false;
+    });
+    if (room.states && room.states[id]) { name = name || room.states[id].name; delete room.states[id]; }
+    room.away = (room.away || []).filter(function (a) { return (a && a.id) !== id; });
+    if (room.youPlay === id) room.youPlay = '';
+    if (room.next === id) room.next = '';
+    return name;
+  };
+
   RP.setPresent = function (room, charId, present) {
     RP.ensureSheets(room);
     var sheet = room.states[charId];

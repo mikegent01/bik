@@ -2760,6 +2760,23 @@ check('history: newest turns win the budget', (() => {
   })());
 }
 
+// ---------- user control: a seat at the table can be removed ----------
+{
+  const rmState = RP.blankState();
+  const rmRoom = RP.newRoom([RP.normChar({ id: 'ana', name: 'Ana' }), RP.normChar({ id: 'bo', name: 'Bo' })], { kind: 'group' });
+  RP.ensurePlayerSheet(rmState, rmRoom);
+  rmRoom.youPlay = 'bo'; rmRoom.next = 'bo';
+  check('control: castRemove clears cast, sheet, star and the next-up slot', (() => {
+    const name = RP.castRemove(rmRoom, 'bo');
+    return name === 'Bo' && !rmRoom.cast.some((c) => c.id === 'bo') && !rmRoom.states.bo &&
+      rmRoom.youPlay === '' && rmRoom.next === '';
+  })());
+  check('control: the player seat can never be removed',
+    RP.castRemove(rmRoom, RP.PLAYER_ID) === '' && Boolean(rmRoom.states[RP.PLAYER_ID]));
+  check('control: removing a stranger is a quiet no-op',
+    RP.castRemove(rmRoom, 'nobody_here') === '' && rmRoom.cast.length === 1);
+}
+
 // ---------- generated pages are in sync with these sources ----------
 let built = true;
 try {
