@@ -65,26 +65,31 @@
       <div id="dashBody"></div>
     </section>
 
-    <!-- active chat: stream on the left, character panel on the right -->
+    <!-- active chat: the stage (one scene, or two side by side) and the dock -->
     <section class="chatview" id="chatview" hidden>
-      <div class="stream-wrap">
-        <div class="chat-top" id="chatTop"></div>
-        <!-- live character state: HP, MP, conditions, inventory -->
-        <div class="statebar" id="statebar" hidden></div>
-        <div class="stream" id="stream"></div>
-        <div class="composer-wrap">
-          <div class="speakers" id="speakers"></div>
-          <form class="composer" id="composer">
-            <button class="roundbtn" type="button" id="homeBtn" title="Back to Discover">⌂</button>
-            <textarea id="input" rows="1" placeholder="Write your turn — *actions in asterisks*, &quot;speech in quotes&quot;" aria-label="Your turn"></textarea>
-            <button class="send" id="send" type="submit" disabled>↑</button>
-          </form>
-          <div class="composer-note">Turns go straight to the local model. Nothing in the repository is read or written from this page.</div>
+      <div class="stage" id="stage">
+        <div class="stream-wrap scene-col front" id="frontScene">
+          <div class="chat-top" id="chatTop"></div>
+          <!-- live character state: HP, MP, conditions, inventory -->
+          <div class="statebar" id="statebar" hidden></div>
+          <div class="stream" id="stream"></div>
+          <div class="composer-wrap">
+            <div class="speakers" id="speakers"></div>
+            <form class="composer" id="composer">
+              <button class="roundbtn" type="button" id="homeBtn" title="Back to Discover">⌂</button>
+              <textarea id="input" rows="1" placeholder="Write your turn — *actions in asterisks*, &quot;speech in quotes&quot;" aria-label="Your turn"></textarea>
+              <button class="send" id="send" type="submit" disabled>↑</button>
+            </form>
+            <div class="composer-note">Turns go straight to the local model. Nothing in the repository is read or written from this page.</div>
+          </div>
         </div>
+        <!-- the linked scene: a second chat, the same hour, at the side -->
+        <aside class="sidescene scene-col side" id="sidescene" hidden></aside>
+        <!-- appears while a face is being dragged and no second scene exists yet -->
+        <div class="dropzone" id="linkDrop" hidden><b>⇄ Drop here</b><span>to start a second scene with them — happening now, side by side</span></div>
       </div>
-      <!-- the linked scene: a second chat, the same hour, at the side -->
-      <aside class="sidescene" id="sidescene" hidden></aside>
-      <aside class="charpanel" id="charpanel"></aside>
+      <!-- the dock: every system this chat runs on, one tab each -->
+      <aside class="charpanel dock" id="charpanel"></aside>
     </section>
 
   </main>

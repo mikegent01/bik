@@ -94,12 +94,46 @@ routes. Both are local, unauthenticated and write nothing.
 - **What If** — the whole board (below).
 - **Wire** — the whole wire, sortable and filterable (below).
 - **Collections** — the archive's own groupings, each one a cast in a click.
-- **The chat** — the stream, avatars, names, markdown-rendered turns
-  (`*action*`, `**bold**`, `"speech"`, `- lists`), and per-message controls:
-  👍 👎, 📌 pin, 🧠 remember, ↻ another take, and `‹ 2 / 3 ›` swipes between takes.
-- **Character panel (right)** — portrait, name, `By @handle`, interaction count,
-  and the menu: **New chat, Voice, History, Customize, Pinned, Persona, Style,
-  Memory, Replay, Script**.
+- **The chat** is a **stage** and a **dock**. The stage holds one scene,
+  or two side by side when one is linked; the dock on the right is one tab
+  per system. Nothing lives only behind an icon: every control has a word
+  on it, and anything that can be done to a person or a line can also be
+  done by dragging it.
+  - **Header** — `‹`, the scene's name and cast, then the HUD: 🕯 the
+    in-world date, 🕰 the clock, ⏩ the script's progress, 🎲 how hard
+    fate pushes, 💬 turns. On the right: **⇄ Second scene** (the other
+    scene's name once there is one), **🩺 Party** sheets, who answers you
+    (👂 / 🔒 / 🔓), ↩ ↪, ⋯ (the same scene tools as the dock's Scene tab)
+    and ☰ for the dock on a narrow screen.
+  - **The stream** — avatars, names, markdown-rendered turns (`*action*`,
+    `**bold**`, `"speech"`, `- lists`) with per-line controls: 👍 👎, 📌
+    pin, 🧠 remember, ↻ another take, `‹ 2 / 3 ›` swipes, ✏️ 👁 🗑 🌿 — and
+    a **⠿ grip** that drags the line into the other scene.
+  - **The turn bar**, two rows above the composer. *Who is up*: 🎭 Play
+    as / ★ You, then **Next:** the Director and every face in the scene
+    (click one and they speak next; drag one across the stage). *What you
+    do*: **🎬 Direct… · 🎲 Attempt… · ➤ Continue · ▶ Auto · ⏩ Next beat
+    · ＋ Bring in…**, and quietly to the right your macros, ✂ reply
+    length and 🧹 notes.
+  - **The dock** — portrait, name, `By @handle`, interaction count, then
+    the tabs:
+    - **👥 Cast** — who you play, every seat in the scene (drag to move,
+      ☆ to play them, 🚪 to write them out, click to edit the sheet), the
+      written-out bench with ↩ and ✖, **＋ Invite from the archive**,
+      **✨ Invent someone**, **🩺 Party sheets**, and the filing of whoever
+      the chat is about.
+    - **🎬 Scene** — the scene text (click to rewrite), 🕯 When, 🕰 the
+      clock, 📍 Fixed facts, ⏱ the script; the **Second scene** card;
+      *how the scene runs*: 🎲 Fate, ✂ reply length, 🎬 Director, the
+      narrator, who answers you, 👥 audience murmurs, ✨ Style, 🖌
+      Customize, 📝 special instructions; *housekeeping*: 🧾 Audit, 🎭
+      Replay, 📖 the sequel, ✎ New chat, ✏️ Rename, 🗑 Delete.
+    - **🧠 Memory** — Memory, Pinned, Persona, the lore book, History,
+      👍 👎 and *What I like*.
+    - **🔊 Voice** — the voice settings, ▶ read the last reply, 💾 the chat
+      as audio (both scenes, when linked), 🛠 Fix chat.
+    - **⬇ Share** — Export (both scenes too), the character card, Import
+      into this chat, ⚙ all settings.
 
 ## What If — a few long scenarios, composed by the page
 
@@ -1338,14 +1372,39 @@ rather than reacting in the margin, that is a second scene — see
 ### ⇄ Linked scenes — two chats, the same hour, side by side
 
 Chat A is Wario and Waluigi in the plane; chat B is the two people on the
-ground who are about to see its spotlight. **⋯ → ⇄ Link a second scene**
-links the open chat to another (an existing one, or a new one built from
-the cast picker). On a wide screen the second scene renders **at the side
-of the first**, with its own prompt, its own ➤ Continue and its own 🎬 —
-two prompts for two characters (🎭 Play as is per chat, so you can be
-Waluigi in one and nobody in the other, and the other can be left to play
-itself with ➤). **⇄ Front** swaps them; the character panel steps behind
-☰ while a scene is at the side.
+ground who are about to see its spotlight. **⇄ Second scene** in the
+header (also the Scene tab, also ⋯) is the one door, and it is built for
+the moment the split happens *mid-scene*:
+
+- **✂ Split the scene** — the dialog shows every face in the scene. Tick
+  who goes, write where they are and what is happening there ("the hangar
+  roof, the same minute — Wario has the engine open"), and the page writes
+  them out of this scene (↩ on the bench brings them back), opens the new
+  one **with their sheets and kit, the date and the clock carried**,
+  links the two, and keeps the camera here. If you play one of the people
+  who go, you go with them and the new scene comes to the front; if you
+  play nobody, *I go with them* leaves this scene to run on ➤ Continue.
+- **Drag a face** — from the rail, the Cast tab or a sheet card — and a
+  **drop zone** appears at the edge of the stage: *⇄ Drop here to start a
+  second scene with them*. Drop, and the split dialog opens with that
+  face already ticked.
+- **Other people, or an existing chat…** at the foot of the dialog is the
+  old picker: a brand-new scene from the portrait grid, or a chat you
+  already have.
+
+On a wide screen the second scene renders **at the side of the first**,
+with its own prompt, its own ➤ Continue and its own 🎬 — two prompts for
+two characters (🎭 Play as is per chat, so you can be Waluigi in one and
+nobody in the other, and the other can be left to play itself with ➤).
+**⇄ Front** swaps them; the dock steps behind ☰ while a scene is at the
+side. Once two scenes are up, **the other column is a drop target**:
+
+- **A face dropped on the other scene walks over** — written out here,
+  seated there with their sheet, and the other scene is handed a 🎬
+  direction, *"Wario walks in from the plane."*, worded by you before it
+  plays. The side column's own faces drag back the same way.
+- **A turn dropped on the other scene is carried over** — ⟶ opens with the
+  line's text, for you to reword as it is noticed there.
 
 What crosses between them, and how:
 
@@ -1369,6 +1428,17 @@ whichever scene you asked (the typing indicator shows in that column),
 and a chain staged in the side scene keeps running there while you type
 in the front one. `room.linkedTo` is mutual; **⨯ Unlink** clears both
 sides; a 🌿 branch is its own hour and is never linked.
+
+**Exports know about both.** While a scene is linked, ⬇ Export offers,
+under the single-chat choices, **⇄ Both scenes**: a markdown transcript
+and a plain-text one that **interleave the two chats by the clock**, with
+a `### ⇄ scene name` marker every time the camera moves and the 🎬
+directions and ⟶ carried-over lines kept in place (`RP.linkedTranscript`);
+a story brief that runs the two briefs back to back; and a JSON bundle
+that carries **both chats and the link** (`RP.chatExport(state, room,
+{ linked: true })` — both rooms keep their ids and `linkedTo`, so an
+import on another machine re-links them). 🔊 Voice → **Both scenes as
+audio** reads the interleaved turns into one file.
 
 ### 🎛 User control — the table is yours
 
@@ -1922,7 +1992,7 @@ can carry on from the bottom. Every chat exports as plain text as well.
 
 ## Exports, for four different readers
 
-**Character panel → ⬇** offers:
+**Dock → ⬇ Share → Export** offers:
 
 | | |
 |---|---|
@@ -1931,6 +2001,7 @@ can carry on from the bottom. Every chat exports as plain text as well.
 | 📄 **Transcript** | markdown, for filing into the wiki |
 | 📝 **Plain text** | just the turns |
 | 📇 **Character card** | PNG or JSON, as above |
+| ⇄ **Both scenes** (only while a second scene is linked) | the same transcript, plain text and brief for **the two chats together**, interleaved by the clock with a marker each time the camera moves — and a bundle carrying both rooms and the link, which re-imports linked |
 
 ## Import / export
 
@@ -1940,7 +2011,8 @@ can carry on from the bottom. Every chat exports as plain text as well.
 | Labs → Export → Chats only | `waluipedia-chats.json` | rooms only |
 | Charms / Labs → Export lore | `waluipedia-lore.json` | lore nodes only |
 | Labs → Export memory | `waluipedia-memory.json` | character memory + world log + which wire posts are played |
-| Character panel → ⬇ | `<chat>.md` | the transcript, as markdown, for filing |
+| Dock → ⬇ Share → Export | `<chat>.md` | the transcript, as markdown, for filing |
+| Dock → ⬇ Share → Export → ⇄ Both scenes | `<chat>+<other>.md` / `.txt` / `.brief.md` / `.chat.json` | two linked scenes, interleaved; the bundle carries both and the link |
 
 Import is **merge** (keep what is here, add what is missing, the newer copy of
 a chat wins, two memories of one character join) or **replace** (swap the

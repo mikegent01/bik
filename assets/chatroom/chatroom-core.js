@@ -4496,25 +4496,32 @@
   };
 
   /** The whole chat, as a file another chatroom can import. */
-  RP.chatExport = function (state, room) {
-    return {
+  RP.chatExport = function (state, room, opts) {
+    opts = opts || {};
+    // With `linked`, the second scene travels too — both rooms keep their
+    // ids and their linkedTo, so an import on another machine re-links them.
+    var other = opts.linked ? RP.linkedRoom(state, room) : null;
+    var rooms = other ? [room, other] : [room];
+    var inCast = function (id) {
+      return rooms.some(function (r) { return (r.cast || []).some(function (c) { return c.id === id; }); });
+    };
+    var inRooms = function (roomId) { return rooms.some(function (r) { return r.id === roomId; }); };
+    var out = {
       kind: 'waluipedia-chatroom-bundle',
       version: 1,
       exportedAt: new Date().toISOString(),
       user: state.user,
-      rooms: [room],
-      chars: (state.chars || []).filter(function (m) {
-        return (room.cast || []).some(function (c) { return c.id === m.id; });
-      }),
+      rooms: rooms,
+      chars: (state.chars || []).filter(function (m) { return inCast(m.id); }),
       lore: state.lore || [],
       book: ((state.book || {}).entries || []).filter(function (e) {
-        return e.roomId === room.id || !e.roomId;
+        return inRooms(e.roomId) || !e.roomId;
       }),
-      newChars: (state.newChars || []).filter(function (c) {
-        return (room.cast || []).some(function (x) { return x.id === c.id; });
-      }),
-      log: (state.log || []).filter(function (e) { return e.roomId === room.id; }),
+      newChars: (state.newChars || []).filter(function (c) { return inCast(c.id); }),
+      log: (state.log || []).filter(function (e) { return inRooms(e.roomId); }),
     };
+    if (other) out.link = { a: room.id, b: other.id, mode: room.linkMode || '' };
+    return out;
   };
 
 
@@ -7159,6 +7166,61 @@
       lines.push('**' + who + ':** ' + RP.textOf(m), '');
     });
     lines.push('---', 'Exported from Waluipedia Roleplay — ' + new Date().toISOString().slice(0, 10) + '.');
+    return lines.join('\n');
+  };
+
+  /** Two linked scenes as one transcript: every visible turn of both, in
+   *  the order they happened, with a marker each time the camera moves
+   *  from one scene to the other. Directions and carried-over things are
+   *  kept — they are how the scenes touched. `opts.plain` drops the
+   *  markdown; `opts.user` names you when you play nobody. */
+  RP.linkedTranscript = function (state, room, opts) {
+    opts = opts || {};
+    var other = RP.linkedRoom(state, room);
+    var rooms = other ? [room, other] : [room];
+    var plain = Boolean(opts.plain);
+    var nameOf = function (r) { return r.sceneName || r.title; };
+    var who = function (r, m) {
+      if (m.role === 'world') return 'Narrator';
+      if (m.role === 'user') { var you = RP.playerCharacter(r); return you ? you.name : (opts.user || 'You'); }
+      return ((r.cast || []).filter(function (c) { return c.id === m.charId; })[0] || {}).name || 'Character';
+    };
+    var all = [];
+    rooms.forEach(function (r) {
+      (r.messages || []).forEach(function (m) {
+        if (m.error) return;
+        var keep = (RP.visible(m) && (m.role === 'user' || m.role === 'char' || m.role === 'world')) ||
+          (m.role === 'scene' && m.direction);
+        if (keep) all.push({ r: r, m: m });
+      });
+    });
+    all.sort(function (a, b) { return (a.m.at || 0) - (b.m.at || 0); });
+    var bold = function (t) { return plain ? t : '**' + t + '**'; };
+    var lines = [];
+    lines.push(plain ? (nameOf(room) + (other ? ' ⇄ ' + nameOf(other) : '')).toUpperCase()
+      : '# ' + nameOf(room) + (other ? ' ⇄ ' + nameOf(other) : ''), '');
+    rooms.forEach(function (r) {
+      lines.push(bold(nameOf(r)) + ' — ' + (r.cast || []).map(function (c) { return c.name; }).join(', ') +
+        (r.scene ? (plain ? '. ' : ' — ') + RP.clip(r.scene, 220) : ''));
+    });
+    if (other) lines.push('', plain ? 'Two scenes, the same hour, interleaved by the clock.' : '*Two scenes, the same hour, interleaved by the clock.*');
+    lines.push('');
+    var cur = null;
+    all.forEach(function (e) {
+      if (e.r !== cur) {
+        cur = e.r;
+        lines.push(plain ? '— ⇄ ' + nameOf(cur) + ' —' : '### ⇄ ' + nameOf(cur), '');
+      }
+      var text = String(RP.textOf(e.m));
+      if (e.m.role === 'scene') {
+        lines.push(plain
+          ? '[' + (e.m.from ? 'Carried over from ' + e.m.from + ': ' : 'Direction: ') + text + ']'
+          : '> ' + (e.m.from ? '⟶ *from “' + e.m.from + '”* — ' : '🎬 ') + text.replace(/\n/g, '\n> '), '');
+        return;
+      }
+      lines.push((plain ? who(e.r, e.m) + ': ' : bold(who(e.r, e.m) + ':') + ' ') + text, '');
+    });
+    if (!plain) lines.push('---', 'Exported from Waluipedia Roleplay — ' + new Date().toISOString().slice(0, 10) + '.');
     return lines.join('\n');
   };
 

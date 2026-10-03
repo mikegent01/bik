@@ -2395,7 +2395,16 @@
         '<span class="stat quiet" id="bookBadge" hidden></span>' +
       '</span>' +
       '<span class="grow"></span>' +
-      (r.kind === 'group' ? '<button class="pill" id="continueBtn">➤ Continue</button>' : '') +
+      // The second scene is a first-class control, not a line in a menu:
+      // "⇄ Second scene" when there is none, the other scene's name when
+      // there is. Either way it opens the same door.
+      (function () {
+        var other = RP.linkedRoom(state, r);
+        return '<button class="pill link' + (other ? ' on' : '') + '" id="linkBtn" ' +
+          'title="' + (other ? 'Linked to “' + esc(other.sceneName || other.title) + '” — swap, carry something over, unlink'
+            : 'Start a second scene happening right now — split this cast, invite others, or link a chat you already have') + '">⇄ ' +
+          (other ? esc(RP.clip(other.sceneName || other.title, 18)) : 'Second scene') + '</button>';
+      })() +
       (r.mechanics === 'off' ? '' : '<button class="pill' + (showStates ? ' primary' : '') + '" id="statesBtn">🩺 Party</button>') +
       '<button class="pill' + (r.privacy === 'private' ? ' primary' : '') + '" id="privacyBtn" ' +
         'title="' + (r.privacy === 'private' ? 'Private: nobody else speaks until you open it again'
@@ -2503,7 +2512,10 @@
         (m.muted ? ' muted' : '') + (m.imported ? ' imported' : '') + '">' +
         '<div class="who">' + (mine ? (playing ? avatar(playing, 24) : userAvatar(24)) : avatar(charOf(r, m.charId), 24)) +
         '<b>' + esc(who) + '</b>' + (mine ? '' : '<span class="badge">archive</span>') +
-        (mine ? '' : '<button class="speak" data-speak="' + i + '" title="Read aloud">▶</button>') + '</div>' +
+        (mine ? '' : '<button class="speak" data-speak="' + i + '" title="Read aloud">▶</button>') +
+        (m.error ? '' : '<span class="grip" draggable="true" data-dragturn="' + esc(m.id) + '" ' +
+          'title="Drag this turn onto the other scene to carry it over — or to the edge of the stage to start one">⠿</span>') +
+        '</div>' +
         '<div class="bubble">' + RP.md(RP.applyTints(RP.textOf(m), r.tints)) + '</div>' +
         ((m.ooc || []).length
           ? '<div class="metastrip">' + m.ooc.map(function (n) {
@@ -2545,23 +2557,11 @@
     }
 
     // Who answers next, and the two things you always want to press.
+    // Row one: who is up — you, then the faces that can speak next (drag
+    // one to the edge of the stage to start a second scene with them).
+    // Row two: the big moves, labelled, in the order a turn usually goes.
     $('speakers').innerHTML =
-      '<span class="acts">' +
-        '<button class="qa" id="qaContinue" title="Let the scene move without you (n)">➤ Continue</button>' +
-        (progress.total && progress.at < progress.total ? '<button class="qa" id="qaBeat">⏩ Next beat</button>' : '') +
-        (r.mechanics === 'off' ? '' : '<button class="qa" id="qaRisk" title="Attempt something the world can refuse">🎲 Attempt…</button>') +
-        '<button class="qa" id="qaDirect" title="Say what happens next — not as your character, as the director. It happens this turn, and the cast deals with it.">🎬 Direct…</button>' +
-        '<button class="qa" id="qaAdd" title="Bring somebody into this scene">＋ New</button>' +
-        '<button class="qa" id="qaLength" title="How long a reply is — click to change">✂ ' + esc((RP.LENGTHS[state.settings.length] || RP.LENGTHS[RP.DEFAULT_LENGTH]).name) + '</button>' +
-        (r.mechanics === 'off' ? '' : macroButtons(r)) +
-        '<button class="qa' + (autoLeft ? ' on' : '') + '" id="qaAuto" title="Let the scene play itself for a few turns">' +
-          (autoLeft ? '■ Stop (' + autoLeft + ')' : '▶ Auto') + '</button>' +
-        '<button class="qa' + (state.settings.sysNotes === 'hide' ? ' on' : '') + '" id="qaSys" ' +
-          'title="Show or hide the system rows — receipts, rolls, error notices. They stay out of the model\u2019s context either way.">' +
-          (state.settings.sysNotes === 'hide' ? '🧹 Notes hidden' : '🧹 Hide notes') + '</button>' +
-      '</span>' +
-      // Who YOU are in this scene. The ☆ on each seat still works, but a
-      // star the size of a comma was how "I can't talk as Waluigi" happened.
+      '<div class="row who">' +
       (playingNow
         ? '<button class="sp playas on" id="qaPlayAs" title="You play ' + esc(playingNow.name) + ' — the model never speaks for them. Click to switch or hand them back.">' +
           avatar(playingNow, 24) + '★ You: ' + esc(playingNow.name) + '</button>'
@@ -2574,12 +2574,34 @@
       RP.presentCast(r).map(function (c) {
         var mine = r.youPlay === c.id;
         var on = !mine && r.next === c.id;
-        return '<button class="sp ' + (on ? 'on' : '') + (mine ? ' mine' : '') + '" data-speaker="' + esc(c.id) + '">' +
+        return '<button class="sp ' + (on ? 'on' : '') + (mine ? ' mine' : '') + '" data-speaker="' + esc(c.id) + '" ' +
+          'draggable="true" data-dragcast="' + esc(c.id) + '" ' +
+          'title="' + (mine ? 'You play them. ' : 'Click: they speak next. ') + 'Drag to the edge of the stage to start a second scene with them, or onto the other scene to send them there.">' +
           avatar(c, 24) + esc(c.name) +
           '<span class="star' + (mine ? ' on' : '') + '" data-star="' + esc(c.id) + '" ' +
           'title="' + (mine ? 'You play them — the model never speaks for them' : 'Mark as the character you play') + '">' +
           (mine ? '★' : '☆') + '</span></button>';
-      }).join('');
+      }).join('') +
+      '</div>' +
+      '<div class="row do">' +
+      '<span class="acts">' +
+        '<button class="qa" id="qaDirect" title="Say what happens next — not as your character, as the director. It happens this turn, and the cast deals with it.">🎬 Direct…</button>' +
+        (r.mechanics === 'off' ? '' : '<button class="qa" id="qaRisk" title="Attempt something the world can refuse">🎲 Attempt…</button>') +
+        '<button class="qa" id="qaContinue" title="Let the scene move without you (n)">➤ Continue</button>' +
+        '<button class="qa' + (autoLeft ? ' on' : '') + '" id="qaAuto" title="Let the scene play itself for a few turns">' +
+          (autoLeft ? '■ Stop (' + autoLeft + ')' : '▶ Auto') + '</button>' +
+        (progress.total && progress.at < progress.total ? '<button class="qa" id="qaBeat">⏩ Next beat</button>' : '') +
+        '<button class="qa" id="qaAdd" title="Bring somebody into this scene">＋ Bring in…</button>' +
+      '</span>' +
+      '<span class="grow"></span>' +
+      '<span class="acts quiet">' +
+        (r.mechanics === 'off' ? '' : macroButtons(r)) +
+        '<button class="qa" id="qaLength" title="How long a reply is — click to change">✂ ' + esc((RP.LENGTHS[state.settings.length] || RP.LENGTHS[RP.DEFAULT_LENGTH]).name) + '</button>' +
+        '<button class="qa' + (state.settings.sysNotes === 'hide' ? ' on' : '') + '" id="qaSys" ' +
+          'title="Show or hide the system rows — receipts, rolls, error notices. They stay out of the model\u2019s context either way.">' +
+          (state.settings.sysNotes === 'hide' ? '🧹 Notes hidden' : '🧹 Hide notes') + '</button>' +
+      '</span>' +
+      '</div>';
 
     renderPanel();
     renderSide(r);
@@ -2612,6 +2634,10 @@
         '<span class="title"><b>' + esc(other.sceneName || other.title) + '</b>' +
         '<span>⇄ linked · ' + esc(other.cast.map(function (c) { return c.name; }).join(' · ')) +
         (playing ? ' · you play ' + esc(playing.name) : '') + '</span></span>' +
+        '<span class="cast" title="Who is here — drag a face onto the front scene to send them over">' +
+        RP.presentCast(other).map(function (c) {
+          return '<span draggable="true" data-dragcast="' + esc(c.id) + '" data-dragroom="' + esc(other.id) + '" title="' + esc(c.name) + ' — drag onto the front scene to send them there">' + avatar(c, 22) + '</span>';
+        }).join('') + '</span>' +
         '<button class="mini" id="sideSwap" title="Bring this scene to the front; the other goes to the side">⇄ Front</button>' +
         '<button class="mini" id="sideMenu" title="Carry something over, what the scenes know of each other, unlink">⋯</button>' +
       '</div>' +
@@ -2626,7 +2652,8 @@
         var pic = m.role === 'world' ? '<span class="globe">' + esc(narrator.icon) + '</span>'
           : mine ? (playing ? avatar(playing, 20) : userAvatar(20)) : avatar(charOf(other, m.charId), 20);
         return '<div class="side-turn ' + (mine ? 'user' : m.role) + (m.muted ? ' muted' : '') + '">' +
-          '<div class="who">' + pic + '<b>' + esc(who) + '</b></div>' +
+          '<div class="who">' + pic + '<b>' + esc(who) + '</b>' +
+          '<span class="grip" draggable="true" data-dragturn="' + esc(m.id) + '" data-dragroom="' + esc(other.id) + '" title="Drag onto the front scene to carry it over">⠿</span></div>' +
           '<div class="bubble">' + RP.md(RP.applyTints(RP.textOf(m), other.tints)) + '</div></div>';
       }).join('') : '<div class="emptynote">Nothing has happened here yet. Write a turn below, or ➤ Continue to let them start.</div>') +
       (writingThere ? '<div class="typing"><em>…writing…</em></div>' : '') +
@@ -2673,8 +2700,17 @@
     if (!other) { linkPicker(r); return; }
     var name = other.sceneName || other.title;
     var sees = r.linkMode !== 'blind';
+    var walkers = function (from, to, label) {
+      var cast = RP.presentCast(from);
+      if (!cast.length) { toast('Nobody is there to send.'); return; }
+      list(label, cast.map(function (c) {
+        return { label: c.name + (from.youPlay === c.id ? ' — you play them, so you go too' : ''), value: c.id };
+      }), function (id) { walkOver(from, to, id); });
+    };
     list('⇄ Linked: “' + name + '”', [
       { label: '⇄ Bring “' + name + '” to the front — this scene goes to the side', value: 'swap' },
+      { label: '🚶 Send somebody from here over to “' + name + '”… (or drag their face across)', value: 'send' },
+      { label: '🚶 Bring somebody over from “' + name + '” into here…', value: 'fetch' },
       { label: '⟶ Carry something over from here into “' + name + '”…', value: 'carry' },
       { label: '⟵ Carry something over from “' + name + '” into here…', value: 'carryBack' },
       { label: sees ? '👁 Each scene sees the other’s last three turns, so a light or a sound can carry on its own — click to make them blind until you carry something over'
@@ -2682,6 +2718,8 @@
       { label: '⨯ Unlink — both chats stay, apart', value: 'unlink' },
     ], function (pick) {
       if (pick === 'swap') { state.active = other.id; save(); render(); return; }
+      if (pick === 'send') { walkers(r, other, '🚶 Who goes over to “' + name + '”?'); return; }
+      if (pick === 'fetch') { walkers(other, r, '🚶 Who comes over from “' + name + '”?'); return; }
       if (pick === 'carry') { carryForm(r, other); return; }
       if (pick === 'carryBack') { carryForm(other, r); return; }
       if (pick === 'mode') {
@@ -2735,7 +2773,7 @@
   /** ⟶ — what crosses from one scene into the other. Nothing does on its
    *  own: you name the thing as it is noticed THERE, and that scene plays
    *  it as a direction, this turn. */
-  function carryForm(from, to) {
+  function carryForm(from, to, preset) {
     var toName = to.sceneName || to.title;
     var fromName = from.sceneName || from.title;
     var last = RP.meanwhileLines(state, from, 1)[0] || '';
@@ -2743,7 +2781,7 @@
     var who = [{ value: 'world', label: narrator.icon + ' ' + narrator.name + ' — narrates it arriving' }]
       .concat(RP.speakableCast(to).map(function (c) { return { value: c.id, label: c.name + ' — notices it, in character' }; }));
     form('⟶ Carry over into “' + toName + '”', [
-      { k: 'text', label: 'What reaches “' + toName + '” from “' + fromName + '”? Write it as it is noticed THERE — a plane’s spotlight sweeping the yard, a crash from the next room, Wario walking in from the hangar', type: 'area', value: '' },
+      { k: 'text', label: 'What reaches “' + toName + '” from “' + fromName + '”? Write it as it is noticed THERE — a plane’s spotlight sweeping the yard, a crash from the next room, Wario walking in from the hangar', type: 'area', value: preset ? RP.clip(String(preset), 600) : '' },
       { k: 'who', label: 'Who plays it there', type: 'select', value: 'world', options: who },
     ], {
       note: (last ? 'Last thing here — ' + RP.clip(last, 160) + '. ' : '') +
@@ -2755,16 +2793,237 @@
     });
   }
 
-  /** Four ways out of a chat, for four different readers. */
+  /** ⇄ — the one door to a second scene. With none yet: split this cast
+   *  (the usual case mid-scene — "Wario goes to the plane, now"), or reach
+   *  the picker for other people and existing chats. With one already:
+   *  the link menu (swap, carry, blind, unlink). `preset.ids` pre-ticks
+   *  faces, `preset.text` pre-fills where it is — that is what a drag onto
+   *  the drop zone hands over. */
+  function secondSceneDialog(r, preset) {
+    preset = preset || {};
+    if (RP.linkedRoom(state, r)) { linkMenu(r); return; }
+    var here = RP.presentCast(r);
+    var you = RP.playerCharacter(r);
+    var pre = preset.ids || [];
+    openModal('<h3>⇄ A second scene, happening now</h3>' +
+      '<p class="sub">Something is going on somewhere else at the same hour. Pick who goes there and say where it is: ' +
+      'this scene keeps playing in front, the new one opens at the side, and each hears what the other just did.</p>' +
+      '<label>Who goes</label>' +
+      '<div class="picker portraits splitpick">' + here.map(function (c) {
+        var on = pre.indexOf(c.id) >= 0;
+        return '<button type="button" class="pick' + (on ? ' on' : '') + '" data-split="' + esc(c.id) + '">' + avatar(c, 44) +
+          '<span>' + esc(c.name) + (you && you.id === c.id ? ' ★' : '') + '</span>' +
+          (you && you.id === c.id ? '<small>you play them — you go too</small>' : '') + '</button>';
+      }).join('') + '</div>' +
+      (you ? '' : '<div class="checks"><label><input type="checkbox" id="f_yougo"> I go with them — this scene plays on without me (➤ Continue)</label></div>') +
+      '<label for="f_where">Where they are, and what is happening</label>' +
+      '<textarea id="f_where" placeholder="The hangar roof, the same minute. Wario has the plane’s engine open and the spotlight is sweeping the yard below.">' +
+      esc(preset.text || '') + '</textarea>' +
+      '<p class="sub">Whoever you pick is written out of this scene (↩ brings them back) and walks into the new one with their ' +
+      'sheet and their kit. Nobody picked? Then it is a scene with other people, or a chat you already have.</p>' +
+      '<div class="actions">' +
+        '<button class="pill" id="mLinkOther" title="A new scene with people who are not here, or a chat you already have">Other people, or an existing chat…</button>' +
+        '<span class="grow"></span>' +
+        '<button class="pill" id="mCancel">Cancel</button>' +
+        '<button class="pill primary" id="mOk">✂ Split the scene</button>' +
+      '</div>');
+    $('modal').querySelectorAll('[data-split]').forEach(function (b) {
+      b.onclick = function () { b.classList.toggle('on'); };
+    });
+    $('mCancel').onclick = closeModal;
+    $('mLinkOther').onclick = function () { closeModal(); linkPicker(r); };
+    $('mOk').onclick = function () {
+      var ids = [].map.call($('modal').querySelectorAll('[data-split].on'), function (b) { return b.dataset.split; });
+      var where = ($('f_where').value || '').trim();
+      var youGo = Boolean(you && ids.indexOf(you.id) >= 0) || Boolean($('f_yougo') && $('f_yougo').checked);
+      if (!ids.length && !youGo) { closeModal(); linkPicker(r); return; }
+      closeModal();
+      splitScene(r, ids, where || 'Somewhere else, the same hour.', youGo);
+    };
+    if ($('f_where') && !preset.text) $('f_where').focus();
+  }
+
+  /** ✂ Split: some of the people here go somewhere else, now. They are
+   *  written out of this scene, a second scene opens with them in it —
+   *  sheets, kit, the date and the clock carried — the two are linked, and
+   *  the camera stays here unless you went with them. */
+  function splitScene(r, ids, where, youGo) {
+    var moving = (r.cast || []).filter(function (c) { return ids.indexOf(c.id) >= 0; });
+    if (!moving.length && !youGo) return null;
+    RP.pushUndo(r, 'splitting the scene');
+    var fromName = r.sceneName || r.title;
+    var names = moving.map(function (c) { return c.name; });
+    var states = {};
+    moving.forEach(function (c) {
+      if (r.states && r.states[c.id]) states[c.id] = JSON.parse(JSON.stringify(r.states[c.id]));
+    });
+    if (youGo && r.states && r.states[RP.PLAYER_ID]) states[RP.PLAYER_ID] = JSON.parse(JSON.stringify(r.states[RP.PLAYER_ID]));
+    var title = RP.clip(String(where).split(/[.\n!?]/)[0].trim(), 48) || 'Meanwhile';
+    // A split with nobody from here: you alone, opposite whoever turns up.
+    var seats = moving.length ? moving : [r.cast[0]].filter(Boolean);
+    startGroup(seats, {
+      scene: where, sceneName: title, date: r.date || '',
+      statePreset: r.statePreset, mechanics: r.mechanics, states: Object.keys(states).length ? states : null,
+      opener: '⇄ Split from “' + fromName + '” — ' + (names.join(', ') || 'you') + (youGo && names.length ? ' and you' : '') + ' went here, the same hour.',
+    });
+    var b = room();
+    if (!b || b === r) return null;
+    b.clock = r.clock || '';
+    b.persona = r.persona || b.persona;
+    // The default "play as" seat may have sat somebody down who stayed behind.
+    if (b.youPlay && ids.indexOf(b.youPlay) < 0) RP.castRemove(b, b.youPlay);
+    if (!moving.length) {
+      // Nobody from here came along: the one seat was a stand-in. The scene is yours alone until somebody arrives.
+      b.cast.forEach(function (c) { if (b.states && b.states[c.id]) b.states[c.id].present = false; });
+    }
+    if (youGo) {
+      if (r.youPlay && ids.indexOf(r.youPlay) >= 0) { b.youPlay = r.youPlay; }
+      if (states[RP.PLAYER_ID]) { b.states = b.states || {}; b.states[RP.PLAYER_ID] = states[RP.PLAYER_ID]; b.states[RP.PLAYER_ID].present = true; }
+      RP.ensurePlayerSheet(state, b);
+    } else if (b.youPlay) {
+      // You stayed: nobody in the new scene is yours.
+      RP.markPlayer(b, b.youPlay);
+    }
+    moving.forEach(function (c) { if (r.states && r.states[c.id]) RP.setPresent(r, c.id, false); });
+    if (youGo) {
+      r.youPlay = '';
+      if (r.states && r.states[RP.PLAYER_ID]) r.states[RP.PLAYER_ID].present = false;
+    }
+    r.messages.push({ id: RP.uid(), role: 'state', at: Date.now(),
+      lines: ['⇄ ' + (names.join(', ') || 'You') + (youGo && names.length ? ' and you' : '') + ' left for “' + title + '” — it runs at the side, the same hour. ↩ on a seat brings them back.'] });
+    RP.linkRooms(r, b);
+    state.active = youGo ? b.id : r.id;
+    r.updated = Date.now(); b.updated = Date.now();
+    save(); buildBoard(); render();
+    toast('⇄ “' + title + '” opened at the side with ' + (names.join(', ') || 'you') + '. Drop a face across to send somebody over; ⟶ carries anything else.');
+    return b;
+  }
+
+  /** Somebody walks from one scene into the other. Written out here, seated
+   *  there with their sheet and kit, and the other scene is asked to play
+   *  their arrival this turn — the line is yours to word before it goes. */
+  function walkOver(from, to, id) {
+    var c = charOf(from, id);
+    if (!c || !c.id) return;
+    var fromName = from.sceneName || from.title;
+    var toName = to.sceneName || to.title;
+    RP.pushUndo(from, c.name + ' leaving for “' + toName + '”');
+    RP.pushUndo(to, c.name + ' arriving from “' + fromName + '”');
+    var sheet = from.states && from.states[id] ? JSON.parse(JSON.stringify(from.states[id])) : null;
+    var wasYou = from.youPlay === id;
+    if (from.states && from.states[id]) RP.setPresent(from, id, false);
+    if (!(to.cast || []).some(function (x) { return x.id === id; })) RP.addToRoom(to, c);
+    if (sheet) { to.states = to.states || {}; sheet.present = true; sheet.player = false; to.states[id] = sheet; }
+    else if (to.states && to.states[id]) to.states[id].present = true;
+    if (wasYou) {
+      from.youPlay = '';
+      if (to.youPlay !== id) { if (to.youPlay) RP.markPlayer(to, to.youPlay); RP.markPlayer(to, id); }
+      RP.ensurePlayerSheet(state, from); RP.ensurePlayerSheet(state, to);
+    }
+    from.messages.push({ id: RP.uid(), role: 'state', at: Date.now(), lines: ['🚪 ' + c.name + ' left for “' + toName + '”.'] });
+    from.updated = Date.now(); to.updated = Date.now();
+    save(); render();
+    directForm(to, c.name + ' walks in from ' + fromName + (wasYou ? '' : '') + '.', fromName);
+  }
+
+  // What is being dragged right now: a face or a turn, and which scene it
+  // came from. Kept here rather than in dataTransfer so the targets can
+  // light up while the drag is in flight.
+  var dragging = null;
+
+  /** Drag and drop across the stage. Faces (the rail, the dock, the side
+   *  column, the sheet cards) and turns (the ⠿ grip) can be picked up. With
+   *  no second scene, the drop zone at the edge of the stage appears: drop
+   *  there to start one. With a second scene, the other column lights up:
+   *  a face dropped there walks over, a turn dropped there is carried. */
+  function wireDrag(r) {
+    var view = $('chatview');
+    if (!view) return;
+    var other = RP.linkedRoom(state, r);
+    var end = function () {
+      dragging = null;
+      document.body.classList.remove('dragging-cast', 'dragging-turn');
+      view.querySelectorAll('.dragging, .over, .target').forEach(function (n) { n.classList.remove('dragging'); n.classList.remove('over'); n.classList.remove('target'); });
+    };
+    var start = function (node, d) {
+      return function (ev) {
+        dragging = d;
+        if (ev && ev.dataTransfer) { try { ev.dataTransfer.setData('text/plain', d.id); ev.dataTransfer.effectAllowed = 'move'; } catch (e) { /* older engines */ } }
+        node.classList.add('dragging');
+        document.body.classList.add(d.kind === 'cast' ? 'dragging-cast' : 'dragging-turn');
+        if (other) view.querySelectorAll('.scene-col').forEach(function (col) { if (!col.contains(node)) col.classList.add('target'); });
+      };
+    };
+    view.querySelectorAll('[data-dragcast]').forEach(function (node) {
+      node.ondragstart = start(node, { kind: 'cast', id: node.dataset.dragcast, roomId: node.dataset.dragroom || r.id });
+      node.ondragend = end;
+    });
+    // The sheet cards keep their own bench drop; they also count as faces.
+    view.querySelectorAll('.statebar [data-drag]').forEach(function (node) {
+      var go = start(node, { kind: 'cast', id: node.dataset.drag, roomId: r.id });
+      node.ondragstart = function (ev) { go(ev); };
+      node.ondragend = end;
+    });
+    view.querySelectorAll('[data-dragturn]').forEach(function (node) {
+      var src = node.dataset.dragroom && other && node.dataset.dragroom === other.id ? other : r;
+      var m = (src.messages || []).filter(function (x) { return x.id === node.dataset.dragturn; })[0];
+      var text = m ? RP.textOf(m) : '';
+      node.ondragstart = start(node, { kind: 'turn', id: node.dataset.dragturn, roomId: src.id, text: text });
+      node.ondragend = end;
+    });
+    var zone = $('linkDrop');
+    if (zone) {
+      zone.hidden = Boolean(other);
+      zone.ondragover = function (ev) { if (!dragging) return; ev.preventDefault(); zone.classList.add('over'); };
+      zone.ondragleave = function () { zone.classList.remove('over'); };
+      zone.ondrop = function (ev) {
+        ev.preventDefault();
+        var d = dragging; end();
+        if (!d) return;
+        secondSceneDialog(r, d.kind === 'cast' ? { ids: [d.id] } : { text: d.text });
+      };
+    }
+    [['frontScene', r], ['sidescene', other]].forEach(function (pair) {
+      var col = $(pair[0]);
+      if (!col) return;
+      var target = pair[1];
+      if (!other || !target) { col.ondragover = null; col.ondrop = null; col.ondragleave = null; return; }
+      col.ondragover = function (ev) {
+        if (!dragging || dragging.roomId === target.id) return;
+        ev.preventDefault(); col.classList.add('over');
+      };
+      col.ondragleave = function (ev) { if (!ev.relatedTarget || !col.contains(ev.relatedTarget)) col.classList.remove('over'); };
+      col.ondrop = function (ev) {
+        var d = dragging;
+        if (!d || d.roomId === target.id) return;
+        ev.preventDefault(); if (ev.stopPropagation) ev.stopPropagation();
+        end();
+        var source = d.roomId === r.id ? r : other;
+        if (d.kind === 'cast') walkOver(source, target, d.id);
+        else carryForm(source, target, d.text);
+      };
+    });
+  }
+
+  /** Ways out of a chat, for different readers — and, with a second scene
+   *  linked, the two together: interleaved by the clock, or one bundle. */
   function exportMenu(r, c) {
     var brief = RP.storyBrief(state, r, {});
-    list('Export “' + RP.clip(r.title, 40) + '”', [
+    var other = RP.linkedRoom(state, r);
+    var otherName = other ? (other.sceneName || other.title) : '';
+    var both = other ? RP.slug(r.title) + '+' + RP.slug(other.title) : '';
+    list('Export “' + RP.clip(r.title, 40) + '”' + (other ? ' — and “' + RP.clip(otherName, 30) + '”' : ''), [
       { label: '✍️ Story brief — trimmed for a writing model (' + Math.round(brief.length / 1000) + 'k chars, no ids, no swipes, no noise)', value: 'brief' },
       { label: '📦 Full chat — JSON another chatroom can import, with memory and lore', value: 'full' },
       { label: '📄 Transcript — markdown, for filing into the wiki', value: 'md' },
       { label: '📝 Plain text — just the turns', value: 'txt' },
       { label: '📇 ' + c.name + ' as a character card', value: 'card' },
-    ], function (pick) {
+    ].concat(other ? [
+      { label: '⇄ Both scenes — one transcript, interleaved by the clock, a marker each time the camera moves (markdown)', value: 'bothMd' },
+      { label: '⇄ Both scenes — plain text, interleaved', value: 'bothTxt' },
+      { label: '⇄ Both scenes — story brief for a writing model', value: 'bothBrief' },
+      { label: '⇄ Both scenes — JSON bundle, both chats and the link between them', value: 'bothJson' },
+    ] : []), function (pick) {
       if (pick === 'brief') { download(RP.slug(r.title) + '.brief.md', brief); toast('Trimmed to ' + brief.length + ' characters.'); return; }
       if (pick === 'full') { download(RP.slug(r.title) + '.chat.json', JSON.stringify(RP.chatExport(state, r), null, 2)); return; }
       if (pick === 'md') { download(RP.slug(r.title) + '.md', RP.transcript(r)); return; }
@@ -2775,7 +3034,15 @@
         }).join('\n\n'));
         return;
       }
-      if (pick === 'card') { exportCard(c, true); }
+      if (pick === 'card') { exportCard(c, true); return; }
+      if (pick === 'bothMd') { download(both + '.md', RP.linkedTranscript(state, r, { user: state.user.name })); return; }
+      if (pick === 'bothTxt') { download(both + '.txt', RP.linkedTranscript(state, r, { plain: true, user: state.user.name })); return; }
+      if (pick === 'bothBrief') {
+        var text = '# ' + (r.sceneName || r.title) + ' ⇄ ' + otherName + '\n\nTwo scenes, the same hour. The first:\n\n' + brief +
+          '\n\n---\n\nThe second, happening at the same time:\n\n' + RP.storyBrief(state, other, {});
+        download(both + '.brief.md', text); return;
+      }
+      if (pick === 'bothJson') { download(both + '.chat.json', JSON.stringify(RP.chatExport(state, r, { linked: true }), null, 2)); }
     });
   }
 
@@ -2792,6 +3059,12 @@
     function (v) { state.settings.fate = v.fate; save(); render(); });
   }
 
+  // The dock: every system this chat runs on, one tab each. Cast first —
+  // it is the one you reach for mid-scene: who is here, who you play, who
+  // walks out, who goes off to a second scene.
+  var dockTab = 'cast';
+  var DOCK_TABS = [['cast', '👥 Cast'], ['scene', '🎬 Scene'], ['memory', '🧠 Memory'], ['voice', '🔊 Voice'], ['share', '⬇ Share']];
+
   function renderPanel() {
     var r = room();
     var c = r.cast[0] || {};
@@ -2799,52 +3072,178 @@
     var style = RP.STYLES[r.style] || RP.STYLES.novel;
     var pinned = r.messages.filter(function (m) { return m.pinned; }).length;
     var mem = (state.chars || []).filter(function (m) { return m.id === c.id; })[0];
+    var other = RP.linkedRoom(state, r);
     $('charpanel').innerHTML =
       '<div class="cp-head">' + avatar(c, 72) + '<div class="body"><h3 title="' + esc(r.title) + '">' +
       esc(r.kind === 'group' ? RP.clip(r.sceneName || r.title, 60) : c.name) + '</h3>' +
       '<div class="by">By @' + esc(c.handle || 'waluipedia') + '</div>' +
-      '<div class="by">' + plays + (plays === 1 ? ' interaction' : ' interactions') + '</div></div></div>' +
-      '<div class="cp-row"><button class="iconbtn" id="cpSettings" title="Chat settings">⚙</button>' +
-      '<div class="votes" title="Ratings steer later turns"><button id="cpUp">👍</button><span>' +
-      RP.tasteFor(state, c.id).up + '</span><button id="cpDown">👎</button><span>' +
-      RP.tasteFor(state, c.id).down + '</span></div><span class="grow"></span>' +
-      '<button class="iconbtn" id="cpExport" title="Export transcript">⬇</button></div>' +
-      '<div class="cp-desc">' +
-      (c.title ? '<b>' + esc(c.title) + '</b><br>' : '') +
-      esc(c.status || c.summary || r.scene || 'A chat in the Waluipedia archive.') + '</div>' +
-      // People invented during play have no portrait in the archive, so the
-      // description stands in for one.
-      (r.cast.filter(function (x) { return x.invented; }).length
-        ? '<div class="cp-desc invented"><b>Described, not drawn</b>' +
-          r.cast.filter(function (x) { return x.invented; }).map(function (x) {
+      '<div class="by">' + plays + (plays === 1 ? ' interaction' : ' interactions') + ' · ' +
+      r.cast.length + (r.cast.length === 1 ? ' in the cast' : ' in the cast') + '</div></div></div>' +
+      '<div class="dock-tabs" role="tablist">' + DOCK_TABS.map(function (t) {
+        return '<button data-dock="' + t[0] + '" class="' + (dockTab === t[0] ? 'on' : '') + '" role="tab" ' +
+          'aria-selected="' + (dockTab === t[0] ? 'true' : 'false') + '">' + t[1] + '</button>';
+      }).join('') + '</div>' +
+      (dockTab === 'scene' ? dockScene(r, other, style)
+        : dockTab === 'memory' ? dockMemory(r, c, mem, pinned)
+        : dockTab === 'voice' ? dockVoice(r)
+        : dockTab === 'share' ? dockShare(r, other)
+        : dockCast(r, c, other));
+    wirePanel();
+  }
+
+  /** One seat in the Cast tab. Present seats can be dragged — to the edge
+   *  of the stage to start a second scene with them, or onto the other
+   *  scene to send them there. Clicking a seat with a sheet edits it. */
+  function seatRow(r, x, opts) {
+    opts = opts || {};
+    var sheet = (r.states || {})[x.id];
+    var sub = x.title || (x.invented ? 'invented in play' : '');
+    return '<div class="seat' + (opts.away ? ' away' : '') + (opts.you ? ' you' : '') + '"' +
+      (opts.away ? '' : ' draggable="true" data-dragcast="' + esc(x.id) + '"') +
+      (sheet ? ' data-sheet="' + esc(x.id) + '"' : '') +
+      ' title="' + (opts.away ? 'Written out of the scene — ↩ brings them back'
+        : 'Drag to the edge of the stage to start a second scene with them, or onto the other scene to send them there' +
+          (sheet ? '. Click to edit their sheet.' : '.')) + '">' +
+      avatar(x, 28) + '<span class="nm">' + esc(x.name) + (sub ? '<small>' + esc(sub) + '</small>' : '') + '</span>' +
+      (opts.you ? '<span class="tag">★ you</span>'
+        : '<button data-star="' + esc(x.id) + '" title="Play as ' + esc(x.name) + ' — the model never speaks for them">☆</button>') +
+      (opts.other && !opts.away ? '<button data-walk="' + esc(x.id) + '" title="Send them over to “' + esc(opts.other.sceneName || opts.other.title) + '” — they leave here and arrive there this turn">⇄</button>' : '') +
+      (sheet && !opts.away ? '<button data-here="' + esc(x.id) + '" title="Write them out — they stay in the chat but leave the scene">🚪</button>' : '') +
+      (sheet && opts.away ? '<button data-back="' + esc(x.id) + '" title="Bring them back into the scene">↩</button>' : '') +
+      (opts.away ? '<button data-dropcast="' + esc(x.id) + '" title="Remove their seat from this chat">✖</button>' : '') +
+      '</div>';
+  }
+
+  function dockCast(r, c, other) {
+    var you = RP.playerCharacter(r);
+    var away = Object.keys(r.states || {}).filter(function (id) {
+      return id !== RP.PLAYER_ID && r.states[id] && r.states[id].present === false;
+    });
+    var here = RP.presentCast(r);
+    var invented = r.cast.filter(function (x) { return x.invented; });
+    return '<h4>You</h4>' +
+      '<button class="seat you" id="dkPlayAs" title="' + (you ? 'Switch who you play, or hand them back' : 'Take a seat as somebody from the archive') + '">' +
+      (you ? avatar(you, 28) + '<span class="nm">You play ' + esc(you.name) + '<small>the model never speaks for them</small></span>'
+        : '<span class="nm">🎭 Play as somebody…<small>yourself for now — the cast talks to you</small></span>') +
+      '<span class="chev">›</span></button>' +
+      '<h4>In the scene (' + here.length + ')</h4>' +
+      (here.length ? here.map(function (x) { return seatRow(r, x, { you: you && you.id === x.id, other: other }); }).join('')
+        : '<p class="hint">Nobody is here — bring somebody in.</p>') +
+      (away.length ? '<h4>Written out (' + away.length + ')</h4>' + away.map(function (id) {
+        return seatRow(r, charOf(r, id), { away: true });
+      }).join('') : '') +
+      '<div class="btnrow">' +
+      '<button class="mini primary" id="dkInvite">＋ Invite from the archive</button>' +
+      '<button class="mini" id="dkInvent">✨ Invent someone</button>' +
+      (r.mechanics === 'off' ? '' : '<button class="mini" id="dkSheets">' + (showStates ? '🩺 Hide the sheets' : '🩺 Party sheets') + '</button>') +
+      '</div>' +
+      '<p class="hint">' + (other
+        ? 'Drag a face onto the other scene to send them there; drag a turn across to carry it over as a direction.'
+        : 'Drag a face to the edge of the stage to start a second scene with them — the same hour, side by side.') + '</p>' +
+      (invented.length
+        ? '<div class="cp-desc invented"><b>Described, not drawn</b>' + invented.map(function (x) {
             return '<p><b>' + esc(x.name) + '</b>' + (x.title ? ' — ' + esc(x.title) : '') +
               (x.look ? '<br>' + esc(x.look) : '') + '</p>';
           }).join('') + '</div>'
         : '') +
+      '<h4>About ' + esc(c.name || 'this chat') + '</h4>' +
+      '<div class="cp-desc">' +
+      (c.title ? '<b>' + esc(c.title) + '</b><br>' : '') +
+      esc(c.status || c.summary || r.scene || 'A chat in the Waluipedia archive.') + '</div>';
+  }
+
+  function dockScene(r, other, style) {
+    var progress = RP.beatProgress(r);
+    var facts = Object.keys(r.facts || {}).length;
+    var lengthName = (RP.LENGTHS[state.settings.length] || RP.LENGTHS[RP.DEFAULT_LENGTH]).name;
+    return '<h4>Where and when</h4>' +
+      '<div class="cp-desc" id="dkScene" title="Click to rewrite the scene">' + esc(RP.clip(r.scene || 'No scene text yet — click to write where this is happening.', 420)) + '</div>' +
       '<div class="cp-menu">' +
-      menuItem('cpNew', '✎', 'New chat', '') +
-      menuItem('cpVoice', '🔊', 'Voice', (state.settings.voice === 'on' ? 'Auto · Qwen' : 'Qwen · on tap')) +
-      menuItem('cpHistory', '🕘', 'History', RP.roomCountFor(state.rooms, c.id) + '') +
-      menuItem('cpCustomize', '🖌', 'Customize', style.name) +
-      menuItem('cpPinned', '📌', 'Pinned', String(pinned)) +
-      menuItem('cpPersona', '🧑', 'Persona', r.persona || state.user.persona || (RP.personaSheet(state).name || 'Not set')) +
-      menuItem('cpStyle', '✨', 'Style', style.name) +
-      menuItem('cpMemory', '🧠', 'Memory', mem ? String(mem.notes.length) : '0') +
-      menuItem('cpReplay', '🎭', 'Replay', 'Perspective') +
-      menuItem('cpScript', '⏱', 'Script', r.beats && r.beats.length ? (r.autoBeats ? 'Auto' : 'Manual') : 'None') +
+      menuItem('dkDate', '🕯', 'When', roomDate(r) || 'undated') +
+      (r.clock ? menuItem('dkClock', '🕰', 'Clock', r.clock) : '') +
+      menuItem('dkFacts', '📍', 'Fixed facts', facts ? String(facts) : 'none yet') +
+      menuItem('cpScript', '⏱', 'Script', r.beats && r.beats.length
+        ? (r.autoBeats ? 'Auto' : 'Manual') + ' · beat ' + progress.at + '/' + progress.total : 'None') +
+      (progress.total && progress.at < progress.total ? menuItem('dkBeat', '⏩', 'Fire the next beat', '') : '') +
+      '</div>' +
+      '<h4>Second scene</h4>' +
+      '<div class="link-card' + (other ? ' on' : '') + '">' +
+      (other ? '<b>⇄ Linked to “' + esc(other.sceneName || other.title) + '”</b>' +
+          (r.linkMode === 'blind' ? 'Blind — the scenes do not hear each other. ' : 'Each hears what the other just did. ') +
+          'Drop a face across to send them over; drop a turn across to carry it.'
+        : '<b>No second scene yet</b>Something happening elsewhere at the same time? Split this cast, invite others, or link a chat you already have.') +
+      '<div class="btnrow"><button class="mini' + (other ? '' : ' primary') + '" id="dkLink">' +
+      (other ? '⇄ Swap · carry over · unlink' : '⇄ Start a second scene') + '</button>' +
+      (other ? '<button class="mini" id="dkOpenOther">Open it in front</button>' : '') + '</div></div>' +
+      '<h4>How the scene runs</h4>' +
+      '<div class="cp-menu">' +
+      menuItem('cpFate', '🎲', 'Fate', (state.settings.fate || 'normal') === 'off' ? 'Off — you always succeed' : (state.settings.fate || 'normal')) +
+      menuItem('dkLength', '✂', 'Reply length', lengthName) +
       menuItem('cpDirector', '🎬', 'Director', state.settings.director === 'off' ? 'Off' : 'On · max ' + (state.settings.maxChain || RP.MAX_CHAIN)) +
+      menuItem('dkNarrator', RP.NARRATORS[RP.narrator(state)].icon, 'Narrator', (state.settings.world || 'on') === 'off' ? 'Off' : RP.NARRATORS[RP.narrator(state)].name) +
+      menuItem('dkPrivacy', r.privacy === 'private' ? '🔒' : r.privacy === 'open' ? '🔓' : '👂', 'Who answers you',
+        r.privacy === 'private' ? 'Nobody — alone' : r.privacy === 'open' ? 'Always' : 'Reads the room') +
+      menuItem('dkAudience', '👥', 'Audience murmurs', (state.settings.audience || 'on') === 'off' ? 'Off' : 'On') +
+      menuItem('cpStyle', '✨', 'Style', style.name) +
+      menuItem('cpCustomize', '🖌', 'Customize', style.name) +
       menuItem('cpNote', '📝', 'Special instructions', (r.note || state.settings.note) ? 'set' : 'none') +
-      menuItem('cpTaste', '👍', 'What I like', RP.tasteState(state).likes.length + ' / ' + RP.tasteState(state).dislikes.length) +
-      menuItem('cpImport', '📥', 'Import into this chat', 'story · card') +
-      menuItem('cpFix', '🛠', 'Fix chat', 'voices · cast · sheets') +
-      menuItem('cpAudio', '💾', 'Chat as audio', 'one portable file') +
-      menuItem('cpCard', '📇', 'Character card', 'PNG · JSON') +
+      '</div>' +
+      '<h4>Housekeeping</h4>' +
+      '<div class="cp-menu">' +
+      menuItem('dkAudit', '🧾', 'Audit', auditFlag ? auditFlag + ' to look at' : 'all clear') +
+      menuItem('cpReplay', '🎭', 'Replay', 'Perspective') +
+      menuItem('dkSequel', '📖', 'Write the sequel', '') +
+      menuItem('cpNew', '✎', 'New chat', 'same cast') +
       menuItem('cpRename', '✏️', 'Rename chat', r.title) +
       menuItem('cpDelete', '🗑', 'Delete chat', '') +
-      menuItem('cpFate', '🎲', 'Fate', (state.settings.fate || 'normal') === 'off' ? 'Off — you always succeed' : (state.settings.fate || 'normal')) +
+      '</div>';
+  }
+
+  function dockMemory(r, c, mem, pinned) {
+    var pages = ((state.book || {}).entries || []).filter(function (e) { return e.roomId === r.id; }).length;
+    return '<h4>What the cast remembers</h4>' +
+      '<div class="cp-menu">' +
+      menuItem('cpMemory', '🧠', 'Memory', mem ? String(mem.notes.length) : '0') +
+      menuItem('cpPinned', '📌', 'Pinned', String(pinned)) +
+      menuItem('cpPersona', '🧑', 'Persona', r.persona || state.user.persona || (RP.personaSheet(state).name || 'Not set')) +
+      menuItem('dkBook', '📓', 'Lore book', pages ? pages + ' from this chat' : 'open') +
+      menuItem('cpHistory', '🕘', 'History', RP.roomCountFor(state.rooms, c.id) + '') +
+      '</div>' +
+      '<h4>Taste</h4>' +
+      '<div class="cp-row"><div class="votes" title="Ratings steer later turns"><button id="cpUp">👍</button><span>' +
+      RP.tasteFor(state, c.id).up + '</span><button id="cpDown">👎</button><span>' +
+      RP.tasteFor(state, c.id).down + '</span></div><span class="hint">rate the last reply</span></div>' +
+      '<div class="cp-menu">' +
+      menuItem('cpTaste', '👍', 'What I like', RP.tasteState(state).likes.length + ' / ' + RP.tasteState(state).dislikes.length) +
       '</div>' +
       '<div class="cp-note">Memory is shared across chats: what is said here is remembered in the next room. Export from Labs.</div>';
-    wirePanel();
+  }
+
+  function dockVoice(r) {
+    return '<h4>Voices</h4>' +
+      '<div class="cp-menu">' +
+      menuItem('cpVoice', '🔊', 'Voice', (state.settings.voice === 'on' ? 'Auto · Qwen' : 'Qwen · on tap')) +
+      menuItem('dkReadLast', '▶', 'Read the last reply', '') +
+      menuItem('cpAudio', '💾', 'Chat as audio', 'one portable file') +
+      (RP.linkedRoom(state, r) ? menuItem('dkAudioBoth', '⇄', 'Both scenes as audio', 'interleaved by the clock') : '') +
+      menuItem('cpFix', '🛠', 'Fix chat', 'voices · cast · sheets') +
+      '</div>' +
+      '<p class="hint">Each line asks the studio for the speaker\u2019s own voice by name; a refused voice falls back to the default. ' +
+      '🛠 drops the voice caches so a profile saved since the studio started is asked for again.</p>';
+  }
+
+  function dockShare(r, other) {
+    return '<h4>Out of this page</h4>' +
+      '<div class="cp-menu">' +
+      menuItem('cpExport', '⬇', 'Export', other ? 'this scene · both scenes' : 'brief · transcript · bundle') +
+      menuItem('cpCard', '📇', 'Character card', 'PNG · JSON') +
+      menuItem('cpImport', '📥', 'Import into this chat', 'story · card') +
+      '</div>' +
+      '<h4>Settings</h4>' +
+      '<div class="cp-menu">' +
+      menuItem('cpSettings', '⚙', 'All settings', 'model · narrator · voice') +
+      '</div>' +
+      (other ? '<p class="hint">An export of both scenes interleaves the two chats by the clock, with a marker each time the camera moves.</p>' : '');
   }
 
   /** A row in the character panel. The value is shortened by CSS, not by
@@ -2854,6 +3253,112 @@
     return '<button id="' + id + '"><span class="ico">' + ico + '</span><span class="label">' + label + '</span>' +
       (value ? '<span class="value" title="' + esc(value) + '">' + esc(value) + '</span>' : '') +
       '<span class="chev">›</span></button>';
+  }
+
+  /** ＋ invite: the archive's own roster, minus whoever is already here —
+   *  reached from the sheet bar and from the dock's Cast tab. */
+  function invitePicker(r) {
+    var have = {};
+    (r.cast || []).forEach(function (c) { have[c.id] = 1; });
+    // Everyone with a portrait, plus anyone invented in play before, and
+    // a ＋ for somebody the archive has never filed.
+    var invented = (state.newChars || []).filter(function (c) { return !have[c.id] && !castById[c.id]; });
+    castPicker({
+      title: 'Who joins the scene?', portraits: true, suggest: false, ok: 'Invite', exclude: have, extra: invented,
+      note: 'Pick one or more. ＋ writes somebody new — give a name and ✨ fills in the rest.',
+      create: function (seed) { inventForm(r, seed); },
+    }, function (chosen) {
+      RP.pushUndo(r, 'inviting ' + chosen.map(function (c) { return c.name; }).join(', '));
+      chosen.forEach(function (picked) {
+        var c = RP.normChar(picked);
+        if (have[c.id]) return;
+        r.cast.push(c);
+        if (r.mechanics !== 'off' && !r.states[c.id]) {
+          r.states[c.id] = RP.outfit(r, c, RP.blankSheet(c, r.statePreset));
+        } else if (r.states[c.id]) r.states[c.id].present = true;
+        r.away = (r.away || []).filter(function (a) { return a.id !== c.id; });
+        r.messages.push({ id: RP.uid(), role: 'state', at: Date.now(),
+          lines: ['🚪 ' + c.name + ' joins the scene — invited' + (c.invented ? '' : ' from the archive')] });
+      });
+      if (r.cast.length > 1) r.kind = 'group';
+      RP.ensurePlayerSheet(state, r);
+      r.updated = Date.now();
+      save(); buildBoard(); render();
+      toast(chosen.map(function (c) { return c.name; }).join(', ') + (chosen.length > 1 ? ' are' : ' is') + ' in the scene.');
+    });
+  }
+
+  /* The scene tools: the audit, the fixed facts, the in-world date. They
+   * are reached from the header, the Scene tab of the dock and the ⋯ menu,
+   * so they live here rather than inside one wiring function. */
+  function runAudit(r) {
+    var report = RP.auditRoom(state, r, archive);
+    openModal('<h3>🧾 Audit</h3>' +
+      '<p class="sub">The scene is dated <b>' + esc(roomDate(r) || 'nothing yet') + '</b>. ' +
+      'Everything below is something that does not add up.</p>' +
+      (report.ok ? '<p class="sub">Nothing to report — the date matches the filing, everybody here has spoken ' +
+        'recently, and no page is filed after this scene.</p>' : '') +
+      (report.dates.length ? '<h4>The date</h4><div class="stack">' + report.dates.map(function (d) {
+        return '<div class="item"><b>' + esc(d.what) + ' is ' + esc(d.is) + ', should be ' + esc(d.should) + '</b>' +
+          '<p>' + esc(d.why) + '</p></div>';
+      }).join('') + '</div>' : '') +
+      (report.quiet.length ? '<h4>Not really here</h4><div class="stack">' + report.quiet.map(function (q) {
+        return '<div class="item"><b>' + esc(q.name) + '</b><p>Has not spoken or been mentioned for ' +
+          q.silence + ' turns. Writing them out stops them being staged.</p></div>';
+      }).join('') + '</div>' : '') +
+      (report.book.length ? '<h4>Filed in the future</h4><div class="stack">' + report.book.map(function (b) {
+        return '<div class="item"><b>' + esc(b.name) + '</b><p>Dated ' + esc(b.when) + ', after this scene.</p></div>';
+      }).join('') + '</div>' : '') +
+      '<div class="actions"><button class="pill" id="mCancel">Close</button>' +
+      (report.ok ? '' : '<button class="pill primary" id="mOk">Fix all of it</button>') + '</div>');
+    $('mCancel').onclick = closeModal;
+    if ($('mOk')) {
+      $('mOk').onclick = function () {
+        RP.pushUndo(r, 'the audit');
+        var done = RP.applyAudit(state, r, report, {});
+        closeModal(); save(); render();
+        toast('🧾 ' + (done.join('; ') || 'nothing to do') + '.');
+      };
+    }
+  }
+  function openFacts(r) {
+    var facts = r.facts || {};
+    var keys = Object.keys(facts);
+    openModal('<h3>What is fixed in this scene</h3>' +
+      '<p class="sub">Where you are, what you are wearing, what time it is. Once these are filed the narrator may ' +
+      'not quietly change them — no renaming the outpost into a clinic halfway through.</p>' +
+      (r.clock ? '<p class="sub">🕰 <b>' + esc(r.clock) + '</b></p>' : '') +
+      (keys.length ? '<div class="stack">' + keys.map(function (k) {
+        return '<div class="item"><b>' + esc(k.replace(/_/g, ' ')) + '</b><p>' + esc(facts[k]) + '</p>' +
+          '<div class="acts"><button class="mini danger" data-factkill="' + esc(k) + '">Forget</button></div></div>';
+      }).join('') + '</div>' : '<p class="sub">Nothing filed yet — the narrator files these as it names them.</p>') +
+      '<div class="actions"><button class="pill" id="mCancel">Close</button>' +
+      '<button class="pill primary" id="mOk">＋ Add one</button></div>');
+    $('mCancel').onclick = closeModal;
+    $('mOk').onclick = function () {
+      closeModal();
+      form('A fixed fact', [
+        { k: 'name', label: 'What kind of fact (place, wearing, weather…)', value: 'place' },
+        { k: 'value', label: 'What it is', value: '' },
+      ], {}, function (v) {
+        if (!v.value.trim()) return;
+        r.facts = r.facts || {};
+        r.facts[RP.slug(v.name) || 'fact'] = v.value.trim();
+        r.updated = Date.now(); save(); render();
+      });
+    };
+    $('modal').querySelectorAll('[data-factkill]').forEach(function (b) {
+      b.onclick = function () { delete r.facts[b.dataset.factkill]; closeModal(); save(); render(); };
+    });
+  }
+  function openDate(r) {
+    form('When is this happening?', [
+      { k: 'date', label: 'In-world date', value: roomDate(r) },
+    ], {
+      note: 'Regal Empire Standard Calendar — "5 Aethel, 1040 BF". Months run Firstlight, Chillwind, Veridia, Bloom, ' +
+        'Floria, Efferd, Highsun, Harvestide, Aethel, Darkmoon, Frostfall, Deepwinter, and BF counts up. ' +
+        'The model is told which filings are already history and which have not happened yet, measured from this date.',
+    }, function (v) { r.date = v.date.trim(); r.updated = Date.now(); save(); render(); });
   }
 
   function wireChat() {
@@ -2867,6 +3372,7 @@
         : '👂 Reading the room — quiet turns are left alone.');
     });
     on('dateBtn', function () { openDate(r); });
+    on('linkBtn', function () { secondSceneDialog(r); });
     on('sceneBtn', function () {
       list('This scene', [
         { label: '🧾 Audit — the date, the cast, the book' + (auditFlag ? ' (' + auditFlag + ' to look at)' : ' (all clear)'), value: 'audit' },
@@ -2878,7 +3384,7 @@
             : '⇄ Link a second scene — two chats side by side, the same hour'), value: 'link' },
         { label: '📖 Write the sequel', value: 'sequel' },
       ], function (pick) {
-        if (pick === 'link') { linkMenu(r); return; }
+        if (pick === 'link') { secondSceneDialog(r); return; }
         if (pick === 'audit') { runAudit(r); return; }
         if (pick === 'facts') { openFacts(r); return; }
         if (pick === 'date') { openDate(r); return; }
@@ -2886,75 +3392,6 @@
         openSequel(r);
       });
     });
-    function runAudit(r) {
-      var report = RP.auditRoom(state, r, archive);
-      openModal('<h3>🧾 Audit</h3>' +
-        '<p class="sub">The scene is dated <b>' + esc(roomDate(r) || 'nothing yet') + '</b>. ' +
-        'Everything below is something that does not add up.</p>' +
-        (report.ok ? '<p class="sub">Nothing to report — the date matches the filing, everybody here has spoken ' +
-          'recently, and no page is filed after this scene.</p>' : '') +
-        (report.dates.length ? '<h4>The date</h4><div class="stack">' + report.dates.map(function (d) {
-          return '<div class="item"><b>' + esc(d.what) + ' is ' + esc(d.is) + ', should be ' + esc(d.should) + '</b>' +
-            '<p>' + esc(d.why) + '</p></div>';
-        }).join('') + '</div>' : '') +
-        (report.quiet.length ? '<h4>Not really here</h4><div class="stack">' + report.quiet.map(function (q) {
-          return '<div class="item"><b>' + esc(q.name) + '</b><p>Has not spoken or been mentioned for ' +
-            q.silence + ' turns. Writing them out stops them being staged.</p></div>';
-        }).join('') + '</div>' : '') +
-        (report.book.length ? '<h4>Filed in the future</h4><div class="stack">' + report.book.map(function (b) {
-          return '<div class="item"><b>' + esc(b.name) + '</b><p>Dated ' + esc(b.when) + ', after this scene.</p></div>';
-        }).join('') + '</div>' : '') +
-        '<div class="actions"><button class="pill" id="mCancel">Close</button>' +
-        (report.ok ? '' : '<button class="pill primary" id="mOk">Fix all of it</button>') + '</div>');
-      $('mCancel').onclick = closeModal;
-      if ($('mOk')) {
-        $('mOk').onclick = function () {
-          RP.pushUndo(r, 'the audit');
-          var done = RP.applyAudit(state, r, report, {});
-          closeModal(); save(); render();
-          toast('🧾 ' + (done.join('; ') || 'nothing to do') + '.');
-        };
-      }
-    }
-    function openFacts(r) {
-      var facts = r.facts || {};
-      var keys = Object.keys(facts);
-      openModal('<h3>What is fixed in this scene</h3>' +
-        '<p class="sub">Where you are, what you are wearing, what time it is. Once these are filed the narrator may ' +
-        'not quietly change them — no renaming the outpost into a clinic halfway through.</p>' +
-        (r.clock ? '<p class="sub">🕰 <b>' + esc(r.clock) + '</b></p>' : '') +
-        (keys.length ? '<div class="stack">' + keys.map(function (k) {
-          return '<div class="item"><b>' + esc(k.replace(/_/g, ' ')) + '</b><p>' + esc(facts[k]) + '</p>' +
-            '<div class="acts"><button class="mini danger" data-factkill="' + esc(k) + '">Forget</button></div></div>';
-        }).join('') + '</div>' : '<p class="sub">Nothing filed yet — the narrator files these as it names them.</p>') +
-        '<div class="actions"><button class="pill" id="mCancel">Close</button>' +
-        '<button class="pill primary" id="mOk">＋ Add one</button></div>');
-      $('mCancel').onclick = closeModal;
-      $('mOk').onclick = function () {
-        closeModal();
-        form('A fixed fact', [
-          { k: 'name', label: 'What kind of fact (place, wearing, weather…)', value: 'place' },
-          { k: 'value', label: 'What it is', value: '' },
-        ], {}, function (v) {
-          if (!v.value.trim()) return;
-          r.facts = r.facts || {};
-          r.facts[RP.slug(v.name) || 'fact'] = v.value.trim();
-          r.updated = Date.now(); save(); render();
-        });
-      };
-      $('modal').querySelectorAll('[data-factkill]').forEach(function (b) {
-        b.onclick = function () { delete r.facts[b.dataset.factkill]; closeModal(); save(); render(); };
-      });
-    }
-    function openDate(r) {
-      form('When is this happening?', [
-        { k: 'date', label: 'In-world date', value: roomDate(r) },
-      ], {
-        note: 'Regal Empire Standard Calendar — "5 Aethel, 1040 BF". Months run Firstlight, Chillwind, Veridia, Bloom, ' +
-          'Floria, Efferd, Highsun, Harvestide, Aethel, Darkmoon, Frostfall, Deepwinter, and BF counts up. ' +
-          'The model is told which filings are already history and which have not happened yet, measured from this date.',
-      }, function (v) { r.date = v.date.trim(); r.updated = Date.now(); save(); render(); });
-    }
     on('backBtn', function () { state.active = ''; save(); render(); });
     on('fateBtn', function () { if ($('cpFate')) $('cpFate').click(); else openPanelFate(); });
     on('undoBtn', function () {
@@ -3062,14 +3499,17 @@
     on('statesBtn', function () { showStates = !showStates; render(); });
     on('seqBtn', function () { openSequel(room()); });
     var bar1 = $('statebar');
-    if (bar1) bar1.querySelectorAll('[data-sheet]').forEach(function (b) {
+    // Seats are drawn twice — the sheet cards in the statebar and the rows in
+    // the dock's Cast tab — and both answer to the same attributes.
+    var seats = $('chatview');
+    if (seats) seats.querySelectorAll('[data-sheet]').forEach(function (b) {
       b.onclick = function (e) {
         if (e.target && e.target.dataset && e.target.dataset.here) return;
         editSheet(b.dataset.sheet);
       };
     });
     // The bench: bring somebody back, or remove their seat entirely.
-    if (bar1) bar1.querySelectorAll('[data-back]').forEach(function (b) {
+    if (seats) seats.querySelectorAll('[data-back]').forEach(function (b) {
       b.onclick = function (e) {
         e.stopPropagation();
         RP.pushUndo(r, 'bringing ' + r.states[b.dataset.back].name + ' back');
@@ -3078,7 +3518,7 @@
         toast(charOf(r, b.dataset.back).name + ' is in the scene again.');
       };
     });
-    if (bar1) bar1.querySelectorAll('[data-dropcast]').forEach(function (b) {
+    if (seats) seats.querySelectorAll('[data-dropcast]').forEach(function (b) {
       b.onclick = function (e) {
         e.stopPropagation();
         var name = (r.states[b.dataset.dropcast] || {}).name || 'them';
@@ -3089,37 +3529,8 @@
         toast(name + ' removed from this chat.');
       };
     });
-    // ＋ invite: the archive's own roster, minus whoever is already here.
-    on('castAdd', function () {
-      var have = {};
-      (r.cast || []).forEach(function (c) { have[c.id] = 1; });
-      // Everyone with a portrait, plus anyone invented in play before, and
-      // a ＋ for somebody the archive has never filed.
-      var invented = (state.newChars || []).filter(function (c) { return !have[c.id] && !castById[c.id]; });
-      castPicker({
-        title: 'Who joins the scene?', portraits: true, suggest: false, ok: 'Invite', exclude: have, extra: invented,
-        note: 'Pick one or more. ＋ writes somebody new — give a name and ✨ fills in the rest.',
-        create: function (seed) { inventForm(r, seed); },
-      }, function (chosen) {
-        RP.pushUndo(r, 'inviting ' + chosen.map(function (c) { return c.name; }).join(', '));
-        chosen.forEach(function (picked) {
-          var c = RP.normChar(picked);
-          if (have[c.id]) return;
-          r.cast.push(c);
-          if (r.mechanics !== 'off' && !r.states[c.id]) {
-            r.states[c.id] = RP.outfit(r, c, RP.blankSheet(c, r.statePreset));
-          } else if (r.states[c.id]) r.states[c.id].present = true;
-          r.away = (r.away || []).filter(function (a) { return a.id !== c.id; });
-          r.messages.push({ id: RP.uid(), role: 'state', at: Date.now(),
-            lines: ['🚪 ' + c.name + ' joins the scene — invited' + (c.invented ? '' : ' from the archive')] });
-        });
-        if (r.cast.length > 1) r.kind = 'group';
-        RP.ensurePlayerSheet(state, r);
-        r.updated = Date.now();
-        save(); buildBoard(); render();
-        toast(chosen.map(function (c) { return c.name; }).join(', ') + (chosen.length > 1 ? ' are' : ' is') + ' in the scene.');
-      });
-    });
+    on('castAdd', function () { invitePicker(r); });
+    on('dkInvite', function () { invitePicker(r); });
     // Drag a card to the bench to write them out; drag a benched name
     // is not needed — the ↩ does it — but a card dropped back on the
     // main bar re-enters the scene.
@@ -3219,7 +3630,7 @@
         });
       };
     });
-    if (bar1) bar1.querySelectorAll('[data-here]').forEach(function (b) {
+    if (seats) seats.querySelectorAll('[data-here]').forEach(function (b) {
       b.onclick = function (e) {
         e.stopPropagation();
         RP.pushUndo(r, 'that change to the cast');
@@ -3247,7 +3658,7 @@
           : charOf(r, b.dataset.speaker).name + ' answers next — whatever you write, it is theirs to take.');
       };
     });
-    $('speakers').querySelectorAll('[data-star]').forEach(function (b) {
+    $('chatview').querySelectorAll('[data-star]').forEach(function (b) {
       b.onclick = function (e) {
         e.stopPropagation();
         var now = RP.markPlayer(r, b.dataset.star);
@@ -3362,14 +3773,74 @@
     stream.querySelectorAll('[data-speak]').forEach(function (b) {
       b.onclick = function () { speak(r.messages[+b.dataset.speak], r, { fresh: true }); };
     });
+    // Last, so nothing above re-binds a drag handle it also uses.
+    wireDrag(r);
   }
 
   function wirePanel() {
     var r = room();
     var c = r.cast[0] || {};
     var on = function (id, fn) { var node = $(id); if (node) node.onclick = fn; };
+    // The dock's tabs, and the rows that are the dock's own. Everything
+    // that is also a header or turn-bar button keeps its id and is wired
+    // once, in wireChat.
+    $('charpanel').querySelectorAll('[data-dock]').forEach(function (b) {
+      b.onclick = function () { dockTab = b.dataset.dock; render(); };
+    });
+    on('dkPlayAs', function () { playAsPicker(r); });
+    $('charpanel').querySelectorAll('[data-walk]').forEach(function (b) {
+      b.onclick = function (e) {
+        e.stopPropagation();
+        var other = RP.linkedRoom(state, r);
+        if (other) walkOver(r, other, b.dataset.walk);
+      };
+    });
+    on('dkInvent', function () { inventForm(r, ''); });
+    on('dkSheets', function () { showStates = !showStates; render(); });
+    on('dkScene', function () {
+      form('Where is this happening?', [{ k: 'scene', label: 'The scene, as the cast would see it', type: 'area', value: r.scene || '' }], {
+        note: 'This is the opening of every prompt. Change it when the camera moves for good; for something happening elsewhere at the same time, start a second scene instead.',
+      }, function (v) {
+        RP.pushUndo(r, 'rewriting the scene');
+        r.scene = v.scene.trim(); r.updated = Date.now(); save(); render();
+      });
+    });
+    on('dkDate', function () { openDate(r); });
+    on('dkClock', function () { openFacts(r); });
+    on('dkFacts', function () { openFacts(r); });
+    on('dkBeat', function () { if ($('nextBeat')) $('nextBeat').click(); });
+    on('dkLink', function () { secondSceneDialog(r); });
+    on('dkOpenOther', function () { var other = RP.linkedRoom(state, r); if (other) openRoom(other.id); });
+    on('dkLength', function () { if ($('qaLength')) $('qaLength').click(); });
+    on('dkNarrator', function () {
+      var keys = Object.keys(RP.NARRATORS);
+      list('Who narrates?', keys.map(function (k) {
+        var cur = (state.settings.world || 'on') !== 'off' && RP.narrator(state) === k;
+        return { label: (cur ? '● ' : '○ ') + RP.NARRATORS[k].icon + ' ' + RP.NARRATORS[k].name + ' — ' + RP.NARRATORS[k].blurb, value: k };
+      }).concat([{ label: ((state.settings.world || 'on') === 'off' ? '● ' : '○ ') + '✕ No narrator — only the cast speaks', value: 'off' }]), function (pick) {
+        if (pick === 'off') { state.settings.world = 'off'; }
+        else { state.settings.world = 'on'; state.settings.narrator = pick; }
+        save(); render();
+        toast(pick === 'off' ? 'The narrator is off.' : RP.NARRATORS[pick].icon + ' ' + RP.NARRATORS[pick].name + ' narrates.');
+      });
+    });
+    on('dkPrivacy', function () { if ($('privacyBtn')) $('privacyBtn').click(); });
+    on('dkAudience', function () {
+      state.settings.audience = (state.settings.audience || 'on') === 'off' ? 'on' : 'off';
+      save(); render();
+      toast(state.settings.audience === 'off' ? 'Audience murmurs off.' : 'Audience murmurs on — whoever is not speaking may react in a line.');
+    });
+    on('dkAudit', function () { runAudit(r); });
+    on('dkSequel', function () { openSequel(r); });
+    on('dkBook', function () { tab = 'book'; state.active = ''; save(); render(); });
+    on('dkReadLast', function () {
+      var last = r.messages.slice().reverse().filter(function (m) { return (m.role === 'char' || m.role === 'world') && !m.error; })[0];
+      if (!last) { toast('Nothing to read yet.'); return; }
+      speak(last, r, { fresh: true });
+    });
     on('cpNew', function () { r.kind === 'group' ? startGroup(r.cast, { scene: r.scene, sceneName: r.sceneName, beats: r.beats }) : startSolo(c); });
     on('cpAudio', function () { downloadChatAudio(r); });
+    on('dkAudioBoth', function () { downloadChatAudio(r, { both: true }); });
     on('cpFix', function () {
       // The grandfather clause: an old chat gets today's rules. Cast
       // re-read from the archive, sheets mended, star rules re-run — and
@@ -4556,24 +5027,34 @@
    *  as ▶ — then the WAV chunks stitched losslessly (RP.wavJoin) and
    *  handed to the browser as a download. No encoder, no dependency;
    *  a .wav plays on anything with a speaker. */
-  function downloadChatAudio(r) {
+  function downloadChatAudio(r, opts) {
     if (downloadChatAudio.busy) { toast('💾 Already rendering — one audio file at a time.'); return; }
-    var msgs = (r.messages || []).filter(RP.visible).filter(function (m) {
-      return m.role === 'char' || m.role === 'world' || m.role === 'user';
+    // With `both`, the linked scene's turns are read too, in the order they
+    // happened — the camera moves with the clock, as in the transcript.
+    var other = opts && opts.both ? RP.linkedRoom(state, r) : null;
+    var msgs = [];
+    (other ? [r, other] : [r]).forEach(function (src) {
+      (src.messages || []).filter(RP.visible).forEach(function (m) {
+        if (m.role === 'char' || m.role === 'world' || m.role === 'user') msgs.push({ m: m, r: src });
+      });
     });
+    if (other) msgs.sort(function (a, b) { return (a.m.at || 0) - (b.m.at || 0); });
     if (!msgs.length) { toast('Nothing to read in this chat yet.'); return; }
     var cfg = ttsConfig();
     downloadChatAudio.busy = true;
     toast('💾 Rendering the whole chat through the studio — long chats take a while…');
     voiceLibrary(cfg).then(function (lib) {
       var narrator = cfg.map.narrator || cfg.map.world || cfg.voice;
-      var playing = (RP.playerCharacter(r) || {}).name || state.user.name || '';
-      var castNames = r.cast.map(function (c) { return c.name; }).concat([playing, state.user.name || '']);
+      var playingIn = function (src) { return (RP.playerCharacter(src) || {}).name || state.user.name || ''; };
+      var castNames = (other ? r.cast.concat(other.cast) : r.cast).map(function (c) { return c.name; })
+        .concat([playingIn(r), other ? playingIn(other) : '', state.user.name || '']);
       var jobs = [];
-      msgs.forEach(function (m) {
+      msgs.forEach(function (entry) {
+        var m = entry.m;
+        var playing = playingIn(entry.r);
         var speaker = m.role === 'world' ? ''
           : m.role === 'user' ? playing
-          : ((charOf(r, m.charId) || {}).name || '');
+          : ((charOf(entry.r, m.charId) || {}).name || '');
         RP.speechParts(RP.textOf(m), castNames, speaker, playing).forEach(function (p) {
           var v = p.who
             ? RP.ttsVoiceFor(p.who, { map: cfg.map, fallback: cfg.voice, misses: voiceMisses, library: lib })
@@ -4588,7 +5069,7 @@
           var blob = new Blob([RP.wavJoin(bufs)], { type: 'audio/wav' });
           var a = document.createElement('a');
           a.href = URL.createObjectURL(blob);
-          a.download = (String(r.title || 'chat').replace(/[^\w\- ]+/g, '').trim().replace(/\s+/g, '-').slice(0, 80) || 'chat') + '.wav';
+          a.download = (String((other ? r.title + ' and ' + other.title : r.title) || 'chat').replace(/[^\w\- ]+/g, '').trim().replace(/\s+/g, '-').slice(0, 80) || 'chat') + '.wav';
           a.click();
           window.setTimeout(function () { try { URL.revokeObjectURL(a.href); } catch (e) { /* gone */ } }, 30000);
           toast('💾 Saved — ' + jobs.length + ' chunks stitched into one file.');
@@ -5106,7 +5587,7 @@
        ['off', 'Off — only characters speak']].map(function (o) {
         return '<option value="' + o[0] + '"' + ((state.settings.world || 'on') === o[0] ? ' selected' : '') + '>' + esc(o[1]) + '</option>';
       }).join('') + '</select>' +
-      '<label for="f_audience">Audience murmurs — in a group chat, the cast members who are NOT speaking this turn (and not you) may get one short reaction beat at the end of it: a glance, a muttered half-line. Same call, no extra cost; nothing shows in a two-hander, because nobody is watching. For a second scene running at the same time, link one (⋯ → ⇄).</label><select id="f_audience">' +
+      '<label for="f_audience">Audience murmurs — in a group chat, the cast members who are NOT speaking this turn (and not you) may get one short reaction beat at the end of it: a glance, a muttered half-line. Same call, no extra cost; nothing shows in a two-hander, because nobody is watching. For a second scene running at the same time, start one (⇄ Second scene, in the header).</label><select id="f_audience">' +
       [['on', 'On — the room keeps breathing while two people talk'],
        ['off', 'Off — only the speaker and the narration exist']].map(function (o) {
         return '<option value="' + o[0] + '"' + ((state.settings.audience || 'on') === o[0] ? ' selected' : '') + '>' + esc(o[1]) + '</option>';

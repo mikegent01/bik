@@ -3146,6 +3146,55 @@ check('link: blind scenes share nothing, unlink clears both sides, and a branch 
   return quiet === '' && /Rebel Scout: Down!/.test(loud) && fork.linkedTo === '' &&
     unlinked && a.linkedTo === '' && b.linkedTo === '' && RP.linkedRoom(st, b) === null;
 })());
+check('export: two linked scenes come out as one transcript, by the clock, with a marker each time the camera moves', (() => {
+  const st = RP.blankState();
+  const a = RP.newRoom([sans, cutters], { scene: 'The cockpit.', sceneName: 'The plane' });
+  const b = RP.newRoom([rebel], { scene: 'The yard below.', sceneName: 'The yard' });
+  st.rooms.push(a, b);
+  RP.linkRooms(a, b);
+  a.messages.push({ id: 'a1', role: 'user', text: 'I bank hard left.', at: 10 },
+    { id: 'a2', role: 'char', charId: 'sans', text: 'heh.', at: 20 },
+    { id: 'a3', role: 'state', lines: ['a receipt'], at: 25 },
+    { id: 'a4', role: 'char', charId: 'sans', text: 'a bad take', at: 26, error: true });
+  b.messages.push({ id: 'b1', role: 'char', charId: 'rebel_scout', text: 'Down!', at: 15 },
+    { id: 'b2', role: 'scene', direction: true, from: 'The plane', text: 'A spotlight sweeps the yard.', at: 30 },
+    { id: 'b3', role: 'world', text: 'The beam finds them.', at: 40 },
+    { id: 'b4', role: 'scene', text: 'a card for the reader', at: 41 });
+  const md = RP.linkedTranscript(st, a, { user: 'Reader' });
+  const txt = RP.linkedTranscript(st, a, { plain: true, user: 'Reader' });
+  let at = 0;
+  const sorted = ['### ⇄ The plane', 'Reader:** I bank', '### ⇄ The yard', 'Rebel Scout:** Down!', '### ⇄ The plane', 'Sans:** heh.',
+    '### ⇄ The yard', '⟶ *from “The plane”* — A spotlight', 'Narrator:** The beam'].every(t => {
+    const n = md.indexOf(t, at);
+    if (n < 0) return false;
+    at = n + t.length;
+    return true;
+  });
+  const alone = RP.linkedTranscript(st, RP.newRoom([sans], { sceneName: 'Solo' }), {});
+  return md.startsWith('# The plane ⇄ The yard') && sorted && !md.includes('a receipt') && !md.includes('a bad take') &&
+    !md.includes('a card for the reader') &&
+    txt.includes('— ⇄ The yard —') && txt.includes('[Carried over from The plane: A spotlight sweeps the yard.]') &&
+    txt.includes('Reader: I bank hard left.') && !txt.includes('**') &&
+    alone.startsWith('# Solo') && !alone.includes('⇄ ');
+})());
+check('export: a linked bundle carries both chats and the link, and re-imports linked', (() => {
+  const st = RP.blankState();
+  const a = RP.newRoom([sans], {});
+  const b = RP.newRoom([rebel], {});
+  st.rooms.push(a, b);
+  RP.linkRooms(a, b);
+  a.linkMode = 'blind'; b.linkMode = 'blind';
+  st.log = [{ id: 'l1', roomId: a.id }, { id: 'l2', roomId: b.id }, { id: 'l3', roomId: 'elsewhere' }];
+  const one = RP.chatExport(st, a);
+  const both = RP.chatExport(st, a, { linked: true });
+  const fresh = RP.blankState();
+  RP.importBundle(fresh, JSON.parse(JSON.stringify(both)), 'merge');
+  const back = fresh.rooms.find(r => r.id === a.id);
+  return one.rooms.length === 1 && !one.link && one.log.length === 1 &&
+    both.rooms.length === 2 && both.rooms[1].id === b.id && both.link.a === a.id && both.link.b === b.id &&
+    both.link.mode === 'blind' && both.log.length === 2 &&
+    back && RP.linkedRoom(fresh, back) && RP.linkedRoom(fresh, back).id === b.id;
+})());
 check('voice: a studio stream that errors is read for WHY — turned-away profile vs. a render that fell over', (() => {
   const refused = RP.studioError('event: error\ndata: {"message": "Value: Wario is not in the list of choices: [\'Freeman\', \'Luigi\']"}');
   const oom = RP.studioError('event: error\ndata: {"message": "CUDA out of memory"}');

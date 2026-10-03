@@ -68,6 +68,13 @@ const win = dom.window;
 const doc = win.document;
 
 const $ = id => doc.getElementById(id);
+// The dock (the right panel) is tabbed — Cast, Scene, Memory, Voice, Share.
+// A row lives in one tab, so a test reaches for it through its tab first.
+const dock = name => {
+  const b = doc.querySelector(`.dock-tabs [data-dock="${name}"]`);
+  if (b && !b.classList.contains('on')) b.dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+  return Boolean(b);
+};
 // The saved state, or an empty one before the first write.
 const savedState = () => JSON.parse(win.localStorage.getItem('waluipedia-chatroom-v1') || '{}');
 const until = async (label, fn, tries = 120) => {
@@ -513,7 +520,7 @@ check('commentary: finished episodes are kept and can be reopened',
   const roomId = savedState().active;
   const before = savedState().rooms.find(x => x.id === roomId).messages.length;
   $('panelBtn').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
-  check('import: the chat panel offers importing into this chat', Boolean($('cpImport')));
+  check('import: the dock’s Share tab offers importing into this chat', dock('share') && Boolean($('cpImport')));
   $('cpImport').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
   [...doc.querySelectorAll('[data-pick]')][0].dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
   check('import: the dialog defaults to “into this chat”', $('f_where').value === 'here');
@@ -534,6 +541,7 @@ check('commentary: finished episodes are kept and can be reopened',
   check('import: the room became a group, and the newcomer has a state sheet',
     withCard.kind === 'group' && Object.values(withCard.states).some(x => x.name === 'Promo Mario'));
 
+  dock('share');
   $('cpImport').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
   [...doc.querySelectorAll('[data-pick]')][0].dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
   $('f_text').value = [
@@ -609,6 +617,7 @@ check('commentary: finished episodes are kept and can be reopened',
   })());
   check('taste: the panel lists what has been kept and thrown away', (() => {
     $('panelBtn').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+    dock('memory');
     const has = Boolean($('cpTaste'));
     if (has) {
       $('cpTaste').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
@@ -845,8 +854,14 @@ check('commentary: finished episodes are kept and can be reopened',
     directed && !roomA().direction && /Direction/.test(doc.querySelector('.scene-card.direction').textContent));
   const aCount = roomA().messages.length;
   // ⇄ a second scene, side by side: the previous block's chat, which has turns.
-  $('sceneBtn').dispatchEvent(click());
-  [...doc.querySelectorAll('[data-pick]')].find(b => /Link a second scene/.test(b.textContent)).dispatchEvent(click());
+  // The header's ⇄ is the one door: a split dialog first (who goes, where),
+  // with the way to other people and existing chats at its foot.
+  $('linkBtn').dispatchEvent(click());
+  check('link: the header’s ⇄ opens the split dialog — faces to tick, where it is, and the way to other chats',
+    /happening now/i.test($('modal').textContent) &&
+    doc.querySelectorAll('[data-split]').length === win.RP.presentCast(roomA()).length &&
+    Boolean($('f_where')) && Boolean($('mLinkOther')));
+  $('mLinkOther').dispatchEvent(click());
   const picks = [...doc.querySelectorAll('[data-pick]')];
   check('link: the picker offers a new scene or an existing chat', picks.length >= 2 && /A new scene/.test(picks[0].textContent));
   picks[1].dispatchEvent(click());
@@ -897,6 +912,107 @@ check('commentary: finished episodes are kept and can be reopened',
   await wait(100);
   check('link: unlinking clears both sides and the side column goes away',
     !roomA().linkedTo && !roomB().linkedTo && $('sidescene').hidden && !$('chatview').classList.contains('linked'));
+
+  // ---- round 5: split mid-scene by drag and drop, walk somebody over, carry a turn, export both ----
+  doc.querySelector(`[data-room="${aId}"]`).dispatchEvent(click());
+  await wait(150);
+  const present = () => win.RP.presentCast(roomA());
+  const drag = (node, type) => node.dispatchEvent(new win.Event(type, { bubbles: true, cancelable: true }));
+  const faces = [...doc.querySelectorAll('#speakers .sp[data-dragcast]')];
+  check('split: every face on the rail can be picked up, and a drop zone waits at the edge of the stage',
+    savedState().active === aId && faces.length === present().length && faces.length >= 2 &&
+    Boolean($('linkDrop')) && !$('linkDrop').hidden);
+  check('split: the Cast tab seats the same people, draggable, with invite and invent spelled out', (() => {
+    dock('cast');
+    return doc.querySelectorAll('#charpanel .seat[data-dragcast]').length === present().length &&
+      Boolean($('dkInvite')) && /Invite from the archive/.test($('dkInvite').textContent) && Boolean($('dkInvent')) && Boolean($('dkPlayAs'));
+  })());
+  const mover = faces[faces.length - 1];
+  const moverId = mover.dataset.dragcast;
+  drag(mover, 'dragstart');
+  const lit = doc.body.classList.contains('dragging-cast');
+  drag($('linkDrop'), 'drop');
+  drag(mover, 'dragend');
+  check('split: dropping a face on the zone opens the split dialog with that face already ticked',
+    lit && /happening now/i.test($('modal').textContent) &&
+    [...doc.querySelectorAll('[data-split].on')].map(b => b.dataset.split).join() === moverId);
+  $('f_where').value = 'The hangar roof, the same minute. The spotlight sweeps the yard below.';
+  $('mOk').dispatchEvent(click());
+  await wait(300);
+  const cId = roomA().linkedTo;
+  const roomC = () => savedState().rooms.find(x => x.id === cId);
+  check('split: a second scene opens at the side with them in it, linked both ways, and this one stays in front',
+    Boolean(cId) && roomC().linkedTo === aId && savedState().active === aId && !$('sidescene').hidden &&
+    roomC().cast.some(c => c.id === moverId) && roomC().sceneName === 'The hangar roof, the same minute' &&
+    /spotlight/.test(roomC().scene) && $('sidescene').textContent.includes('The hangar roof'));
+  check('split: they are written out here, their sheet went with them, and the scene says so',
+    roomA().states[moverId].present === false && !present().some(c => c.id === moverId) &&
+    Boolean(roomC().states[moverId]) && roomC().states[moverId].present !== false && !roomC().youPlay &&
+    roomA().messages.some(m => m.role === 'state' && (m.lines || []).some(l => /left for “The hangar roof/.test(l))));
+  check('split: the header button now names the other scene, and the Scene tab shows the link', (() => {
+    dock('scene');
+    const ok = /hangar roof/i.test($('linkBtn').textContent) && /Linked to/.test($('charpanel').textContent) && Boolean($('dkOpenOther'));
+    dock('cast');
+    return ok;
+  })());
+  // Somebody else walks over: a face dropped on the side column.
+  const walker = doc.querySelector('#speakers .sp[data-dragcast]');
+  const walkerId = walker.dataset.dragcast;
+  drag(walker, 'dragstart');
+  const targeted = $('sidescene').classList.contains('target') && $('linkDrop').hidden;
+  drag($('sidescene'), 'drop');
+  drag(walker, 'dragend');
+  check('walk: with a second scene open the other column is the target; a face dropped there leaves here and is seated there',
+    targeted && roomA().states[walkerId].present === false && roomC().cast.some(c => c.id === walkerId) &&
+    roomC().states[walkerId].present !== false && /walks in from/.test($('f_text').value));
+  $('mOk').dispatchEvent(click());
+  const arrived = await until('the arrival to play in the side scene', () =>
+    !doc.querySelector('.typing') && roomC().messages.some(m => m.role === 'scene' && m.direction && m.from === roomA().title && /walks in from/.test(m.text)), 80);
+  await wait(200);
+  check('walk: the side scene plays the arrival as a direction that names where they came from', arrived &&
+    roomA().messages.some(m => m.role === 'state' && (m.lines || []).some(l => /left for/.test(l))));
+  check('walk: the Cast tab lists them as written out, and ↩ brings one back', (() => {
+    dock('cast');
+    const back = $('charpanel').querySelector(`[data-back="${walkerId}"]`);
+    if (!back || !/Written out/.test($('charpanel').textContent)) return false;
+    back.dispatchEvent(click());
+    return roomA().states[walkerId].present !== false && present().some(c => c.id === walkerId);
+  })());
+  // A turn carried across by its grip.
+  const grip = doc.querySelector('#stream .grip[data-dragturn]');
+  const gripped = win.RP.textOf(roomA().messages.find(m => m.id === grip.dataset.dragturn));
+  drag(grip, 'dragstart');
+  const turnLit = doc.body.classList.contains('dragging-turn');
+  drag($('sidescene'), 'drop');
+  drag(grip, 'dragend');
+  check('carry: a turn dragged onto the other scene opens ⟶ with its text ready to be worded as it is noticed there',
+    turnLit && /Carry over into/.test($('modal').textContent) && $('f_text').value.startsWith(gripped.slice(0, 40)));
+  $('mCancel').dispatchEvent(click());
+  // Exports that know about both.
+  check('export: both scenes come out as one transcript, interleaved, with a marker each time the camera moves', (() => {
+    const md = win.RP.linkedTranscript(savedState(), roomA(), { user: 'Reader' });
+    const txt = win.RP.linkedTranscript(savedState(), roomA(), { plain: true, user: 'Reader' });
+    const aName = roomA().sceneName || roomA().title;
+    const a = md.indexOf('### ⇄ ' + aName), c = md.indexOf('### ⇄ The hangar roof');
+    return a >= 0 && c > a && /⟶ \*from “/.test(md) && md.includes('I kick the hangar door in.') &&
+      txt.includes('— ⇄ The hangar roof') && !txt.includes('**') && /\[Carried over from /.test(txt);
+  })());
+  check('export: the bundle carries both chats and the link between them, and re-imports linked', (() => {
+    const b = win.RP.chatExport(savedState(), roomA(), { linked: true });
+    const fresh = { rooms: [], lore: [], chars: [], log: [] };
+    win.RP.importBundle(fresh, JSON.parse(JSON.stringify(b)), 'merge');
+    const again = fresh.rooms.find(x => x.id === aId);
+    return b.rooms.length === 2 && b.rooms[1].id === cId && b.link && b.link.a === aId && b.link.b === cId &&
+      Boolean(again) && win.RP.linkedRoom(fresh, again) && win.RP.linkedRoom(fresh, again).id === cId;
+  })());
+  check('export: the menu offers both scenes while one is linked', (() => {
+    dock('share');
+    $('cpExport').dispatchEvent(click());
+    const n = [...doc.querySelectorAll('[data-pick]')].filter(b => /Both scenes/.test(b.textContent)).length;
+    $('modalBack').dispatchEvent(click());
+    dock('cast');
+    return n === 4;
+  })());
   $('homeBtn').dispatchEvent(click());
 }
 
@@ -1141,10 +1257,29 @@ const card = doc.querySelector('[data-char]');
 const charId = card.dataset.char;
 card.dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
 check('chat: clicking a card opens the chat view', !$('chatview').hidden && $('dash').hidden);
-check('chat: the right-hand character panel carries the profile and the menu',
-  $('charpanel').textContent.includes('New chat') && $('charpanel').textContent.includes('Persona') &&
-  $('charpanel').textContent.includes('Pinned') && $('charpanel').textContent.includes('Style') &&
-  $('charpanel').innerHTML.includes('By @'));
+check('chat: the dock carries the profile and one tab per system',
+  doc.querySelectorAll('.dock-tabs [data-dock]').length === 5 && $('charpanel').innerHTML.includes('By @') &&
+  $('charpanel').textContent.includes('In the scene') && $('charpanel').textContent.includes('Invite from the archive'));
+check('chat: the Scene tab holds the scene’s rules and housekeeping, labelled', (() => {
+  dock('scene');
+  const t = $('charpanel').textContent;
+  return t.includes('Second scene') && t.includes('Fate') && t.includes('Narrator') && t.includes('New chat') &&
+    t.includes('Style') && Boolean($('dkLink')) && Boolean($('cpFate'));
+})());
+check('chat: the Memory tab holds persona, pinned lines, memory and taste', (() => {
+  dock('memory');
+  const t = $('charpanel').textContent;
+  return t.includes('Persona') && t.includes('Pinned') && t.includes('Memory') && Boolean($('cpTaste')) && Boolean($('cpUp'));
+})());
+check('chat: the Voice and Share tabs hold voices and exports', (() => {
+  dock('voice');
+  const v = Boolean($('cpVoice')) && Boolean($('cpAudio')) && Boolean($('dkReadLast'));
+  dock('share');
+  const sh = Boolean($('cpExport')) && Boolean($('cpImport')) && Boolean($('cpSettings'));
+  dock('cast');
+  return v && sh;
+})());
+check('chat: the header has one labelled button for a second scene', Boolean($('linkBtn')) && /Second scene/.test($('linkBtn').textContent));
 check('chat: the recents rail lists every chat', doc.querySelectorAll('[data-room]').length >= 4);
 
 // ---- play one turn against the mock model ----
