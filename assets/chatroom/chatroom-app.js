@@ -2019,10 +2019,6 @@
     importAny(String(text || ''), label, target);
   }
 
-  function buildFromText(text, title) {
-    buildFromTurns(RP.parseTranscript(text, {}), title);
-  }
-
   function buildFromTurns(turns, title) {
     if (!turns.length) { toast('Nothing readable in that.'); return; }
     var names = {};
@@ -2173,15 +2169,32 @@
   /** Find whoever the model just walked into the scene. Exact id, then exact
    *  name, then a contains match — and if the archive has never heard of
    *  them, the caller invents a card rather than refusing the entrance. */
+  /** The archive record a name in a stage direction means. Exact first
+   *  (id, then name, punctuation and articles aside), then the LONGEST
+   *  filed name that appears whole inside what was written — so "Lord
+   *  Verity of Trinity" finds Lord Verity and "Anastasia" no longer finds
+   *  Ana, which the old substring test did. People invented in play are
+   *  found too, with their voice and kit, so a return visit is a return. */
   function resolveChar(name) {
-    var want = String(name || '').toLowerCase().trim();
+    var tidy = function (v) {
+      return String(v || '').toLowerCase().replace(/[.\u2019'"]/g, '').replace(/[^a-z0-9]+/g, ' ').trim();
+    };
+    var raw = tidy(name);
+    var want = raw.replace(/^(the|a|an|lord|lady|dr|doctor|mr|mrs|ms|sir|old|young)\s+/, '');
     if (!want) return null;
-    if (castById[RP.slug(want)]) return castById[RP.slug(want)];
-    var exact = cast.filter(function (c) { return c.name.toLowerCase() === want; })[0];
+    var pool = cast.concat(state.newChars || []);
+    var exact = pool.filter(function (c) { return tidy(c.name) === raw; })[0];
     if (exact) return exact;
-    return cast.filter(function (c) {
-      return c.name.toLowerCase().indexOf(want) >= 0 || want.indexOf(c.name.toLowerCase()) >= 0;
-    })[0] || null;
+    if (castById[RP.slug(raw)]) return castById[RP.slug(raw)];
+    if (castById[RP.slug(want)]) return castById[RP.slug(want)];
+    // A species or a job is not a person: "a Toad" must not become Dr. Toad.
+    if (/^(toad|toads|goomba|koopa|boo|guard|guards|soldier|clerk|man|woman|stranger|figure|voice|someone|somebody)$/.test(want)) return null;
+    var forms = raw === want ? [' ' + raw + ' '] : [' ' + raw + ' ', ' ' + want + ' '];
+    var whole = pool.filter(function (c) {
+      var n = ' ' + tidy(c.name) + ' ';
+      return n.length >= 5 && forms.some(function (f) { return f.indexOf(n) >= 0 || n.indexOf(f) >= 0; });
+    }).sort(function (a, b) { return tidy(b.name).length - tidy(a.name).length; });
+    return whole[0] || null;
   }
 
   function openRoom(id) { state.active = id; save(); render(); }
@@ -2811,16 +2824,19 @@
     on('qaAdd', function () {
       list('Bring somebody in', [
         { label: '🎭 From the archive — pick who walks in', value: 'cast' },
-        { label: '✨ Invent one — a name, a job, a face', value: 'new' },
+        { label: '✨ Invent one — a name, and the model fills in the rest', value: 'new' },
         { label: '📇 From a character card (.png / .json)', value: 'card' },
         { label: '🤖 Let the model choose and write them in', value: 'ai' },
       ], function (pick) {
         if (pick === 'card') { importCard(r); return; }
         if (pick === 'cast') {
+          var here = {};
+          (r.cast || []).forEach(function (c) { here[c.id] = 1; });
           castPicker({
-            title: 'Who walks in?',
-            note: 'They join this scene now, with a state sheet of their own.',
-            preselect: [], suggest: false,
+            title: 'Who walks in?', portraits: true, suggest: false, ok: 'Bring them in', exclude: here,
+            extra: (state.newChars || []).filter(function (c) { return !here[c.id] && !castById[c.id]; }),
+            note: 'They join this scene now, with a state sheet of their own. ＋ writes somebody new.',
+            create: function (seed) { inventForm(r, seed); },
           }, function (chosen) {
             chosen.forEach(function (c) { RP.addToRoom(r, c); });
             RP.logEvent(state, {
@@ -2833,36 +2849,7 @@
           });
           return;
         }
-        if (pick === 'new') {
-          form('Invent somebody', [
-            { k: 'name', label: 'Name', value: '' },
-            { k: 'role', label: 'What are they here for?', value: '' },
-            { k: 'look', label: 'What do they look like?', type: 'area', value: '' },
-          ], { note: 'Nobody has drawn them, so the description is the portrait. They are kept, and can be played again later.' },
-          function (v) {
-            if (!v.name.trim()) { toast('They need a name.'); return; }
-            var made = RP.normChar({
-              id: 'new_' + RP.slug(v.name), name: v.name.trim(),
-              title: v.role.trim() || 'Invented in play',
-              summary: [v.role.trim(), v.look.trim()].filter(Boolean).join(' — '),
-              handle: (state.user && state.user.handle) || 'waluipedia',
-            });
-            made.look = v.look.trim();
-            made.invented = true;
-            state.newChars = (state.newChars || []).filter(function (c) { return c.id !== made.id; });
-            state.newChars.unshift(made);
-            castById[made.id] = made;
-            cast = cast.concat([made]);
-            RP.addToRoom(r, made);
-            RP.logEvent(state, {
-              kind: 'roster', roomId: r.id, roomTitle: r.title, when: roomDate(r), chars: [made.id],
-              text: made.name + ' was invented and walked into the scene: ' + RP.clip(made.summary, 160),
-            });
-            save(); render();
-            toast(made.name + ' is in the scene.');
-          });
-          return;
-        }
+        if (pick === 'new') { inventForm(r, ''); return; }
         // Let the model do it — it has the stage direction for exactly this.
         r.messages.push({
           id: RP.uid(), role: 'scene', at: Date.now(),
@@ -2917,21 +2904,31 @@
     on('castAdd', function () {
       var have = {};
       (r.cast || []).forEach(function (c) { have[c.id] = 1; });
-      var options = Object.keys(castById).filter(function (id) { return !have[id]; })
-        .map(function (id) { return { label: castById[id].name + (castById[id].title ? ' — ' + RP.clip(castById[id].title, 40) : ''), value: id }; })
-        .sort(function (a, b) { return a.label.localeCompare(b.label); });
-      list('Who joins the scene?', options, function (id) {
-        var c = RP.normChar(castById[id]);
-        RP.pushUndo(r, 'inviting ' + c.name);
-        r.cast.push(c);
+      // Everyone with a portrait, plus anyone invented in play before, and
+      // a ＋ for somebody the archive has never filed.
+      var invented = (state.newChars || []).filter(function (c) { return !have[c.id] && !castById[c.id]; });
+      castPicker({
+        title: 'Who joins the scene?', portraits: true, suggest: false, ok: 'Invite', exclude: have, extra: invented,
+        note: 'Pick one or more. ＋ writes somebody new — give a name and ✨ fills in the rest.',
+        create: function (seed) { inventForm(r, seed); },
+      }, function (chosen) {
+        RP.pushUndo(r, 'inviting ' + chosen.map(function (c) { return c.name; }).join(', '));
+        chosen.forEach(function (picked) {
+          var c = RP.normChar(picked);
+          if (have[c.id]) return;
+          r.cast.push(c);
+          if (r.mechanics !== 'off' && !r.states[c.id]) {
+            r.states[c.id] = RP.outfit(r, c, RP.blankSheet(c, r.statePreset));
+          } else if (r.states[c.id]) r.states[c.id].present = true;
+          r.away = (r.away || []).filter(function (a) { return a.id !== c.id; });
+          r.messages.push({ id: RP.uid(), role: 'state', at: Date.now(),
+            lines: ['🚪 ' + c.name + ' joins the scene — invited' + (c.invented ? '' : ' from the archive')] });
+        });
+        if (r.cast.length > 1) r.kind = 'group';
         RP.ensurePlayerSheet(state, r);
-        if (r.mechanics !== 'off' && !r.states[c.id]) {
-          r.states[c.id] = RP.outfit(r, c, RP.blankSheet(c, r.statePreset));
-        }
-        r.messages.push({ id: RP.uid(), role: 'state', at: Date.now(),
-          lines: ['🚪 ' + c.name + ' joins the scene — invited from the archive'] });
+        r.updated = Date.now();
         save(); buildBoard(); render();
-        toast(c.name + ' is in the scene.');
+        toast(chosen.map(function (c) { return c.name; }).join(', ') + (chosen.length > 1 ? ' are' : ' is') + ' in the scene.');
       });
     });
     // Drag a card to the bench to write them out; drag a benched name
@@ -3630,6 +3627,11 @@
       return m.role === 'user' && !m.muted;
     }).pop() || {});
     var fate = answering ? RP.rollFate(state, r, { text: lastSaid, conjured: r.conjured || '' }) : null;
+    // A thin-air claim is settled HERE, by that roll: the thing lands on
+    // the sheet (in hand) or the hand comes up empty, and the model is
+    // told which. It used to be left to the model, which said "you pull
+    // out the bazooka" and filed nothing.
+    var verdict = r.conjured ? RP.resolveConjure(r, r.conjured, fate) : null;
     // What the cast may cite: whatever the recent turns are actually about,
     // filtered to filings whose dates have already passed in this scene.
     var recent = RP.historyFor(r, 4).map(function (m) { return m.content; }).join(' ');
@@ -3640,6 +3642,7 @@
       fate: fate, archive: archive, recent: recent, notes: r.lastNotes || [],
       mentionText: lastSaid,
       conjured: r.conjured || '',
+      conjureVerdict: verdict,
       budget: Number(state.settings.promptBudget) || 0,
       citations: [opts.searched || '', RP.citationBlock(found), dug.length ? RP.retrievalBlock(dug) : '']
         .filter(Boolean).join('\n\n'),
@@ -3732,6 +3735,7 @@
       var clean = RP.trimDangling(staged.clean.trim());
       var changes = r.mechanics === 'off' ? { lines: [] }
         : RP.applyDirectives(state, r, staged.directives, resolveChar);
+      if (verdict && verdict.line) changes.lines.unshift(verdict.line);
       // The prose handed the player something and no [[ITEM:]] landed?
       // Filed on the spot, no model call — the first upkeep net.
       if (r.mechanics !== 'off') {
@@ -4581,11 +4585,23 @@
         pool = first.map(function (id) { return pool.filter(function (c) { return c.id === id; })[0]; }).filter(Boolean)
           .concat(pool.filter(function (c) { return first.indexOf(c.id) < 0; }));
       }
-      var shown = pool.filter(function (c) { return !q || c.name.toLowerCase().indexOf(q) >= 0; }).slice(0, 300);
-      $('pickGrid').innerHTML = shown.map(function (c) {
-        return '<button class="pick ' + (picked.indexOf(c.id) >= 0 ? 'on' : '') + '" data-pick="' + esc(c.id) + '">' +
-          avatar(c, 24) + '<span>' + esc(c.name) + '</span></button>';
+      if (opts.exclude) pool = pool.filter(function (c) { return !opts.exclude[c.id]; });
+      var shown = pool.filter(function (c) {
+        return !q || c.name.toLowerCase().indexOf(q) >= 0 || String(c.title || '').toLowerCase().indexOf(q) >= 0;
+      }).slice(0, 300);
+      var seed = q && !shown.some(function (c) { return c.name.toLowerCase() === q; }) ? $('pickSearch').value.trim() : '';
+      // The ＋ tile: a new character, seeded with whatever was typed into
+      // the search when it matched nobody.
+      var plus = !opts.create ? '' : '<button class="pick new" data-new="1" title="Somebody the archive has never filed">' +
+        '<span class="av" style="width:' + (opts.portraits ? 56 : 24) + 'px;height:' + (opts.portraits ? 56 : 24) + 'px;background:transparent;font-size:' +
+        (opts.portraits ? 30 : 16) + 'px">＋</span><span>' + (seed ? 'New: ' + esc(RP.clip(seed, 24)) : 'New character…') + '</span></button>';
+      $('pickGrid').innerHTML = plus + shown.map(function (c) {
+        return '<button class="pick ' + (picked.indexOf(c.id) >= 0 ? 'on' : '') + '" data-pick="' + esc(c.id) + '" title="' + esc(c.title || '') + '">' +
+          avatar(c, opts.portraits ? 56 : 24) + '<span>' + esc(c.name) + '</span>' +
+          (opts.portraits && c.title ? '<small>' + esc(RP.clip(c.title, 40)) + '</small>' : '') + '</button>';
       }).join('');
+      var plusBtn = $('pickGrid').querySelector('[data-new]');
+      if (plusBtn) plusBtn.onclick = function () { closeModal(); opts.create(seed); };
       $('pickGrid').querySelectorAll('[data-pick]').forEach(function (b) {
         b.onclick = function () {
           var id = b.dataset.pick;
@@ -4601,8 +4617,8 @@
     }
     openModal('<h3>' + esc(opts.title || 'Pick a cast') + '</h3>' +
       (opts.note ? '<p class="sub">' + esc(opts.note) + '</p>' : '') +
-      '<input type="text" id="pickSearch" placeholder="Search the cast">' +
-      '<div class="picker" id="pickGrid"></div>' +
+      '<input type="text" id="pickSearch" placeholder="' + (opts.create ? 'Search the cast — or type a new name' : 'Search the cast') + '">' +
+      '<div class="picker' + (opts.portraits ? ' portraits' : '') + '" id="pickGrid"></div>' +
       (opts.check ? '<label class="pickcheck"><input type="checkbox" id="pickCheck"' + (opts.check.checked ? ' checked' : '') + '> ' +
         esc(opts.check.label) + '</label>' : '') +
       '<div class="actions"><span class="sub" id="pickCount" style="margin-right:auto"></span>' +
@@ -4648,6 +4664,79 @@
       };
     }
     draw();
+  }
+
+  /** Somebody the archive never filed. A name is enough: ✨ asks the model
+   *  for the rest of the card — role, look, voice, sample lines, kit — in
+   *  a fixed template, and anything the reader already typed is kept.
+   *  Saving seats them in the room with a real sheet and a voice sheet,
+   *  and they stay in the invite grid for later scenes. */
+  function inventForm(r, seedName) {
+    var aiVoice = null;      // sounds / never / lines from the fill-in ride along with the register
+    openModal('<h3>A new character</h3>' +
+      '<p class="sub">Give a name and press ✨ — the model fills in the rest in the archive\u2019s own register. Whatever you type yourself is kept.</p>' +
+      '<label for="nc_name">Name</label><input type="text" id="nc_name" value="' + esc(seedName || '') + '" placeholder="Old Pell">' +
+      '<label for="nc_role">Who they are to this scene</label><input type="text" id="nc_role" placeholder="the pawnbroker who holds the marker">' +
+      '<label for="nc_look">What they look like</label><textarea id="nc_look" rows="2"></textarea>' +
+      '<label for="nc_voice">How they talk</label><textarea id="nc_voice" rows="2" placeholder="dry, slow, every sentence a price"></textarea>' +
+      '<p class="sub" id="nc_lines" hidden></p>' +
+      '<label for="nc_items">Carrying — commas between, an emoji first picks the icon</label><input type="text" id="nc_items" placeholder="📒 a black ledger, 🗝 a ring of small keys">' +
+      '<div class="actions"><button class="pill" id="ncFill" style="margin-right:auto">✨ Fill it in</button>' +
+      '<button class="pill" id="mCancel">Cancel</button><button class="pill primary" id="mOk">Into the scene</button></div>');
+    $('mCancel').onclick = closeModal;
+    function spec() {
+      return {
+        name: $('nc_name').value.trim(), role: $('nc_role').value.trim(), look: $('nc_look').value.trim(),
+        voice: $('nc_voice').value.trim(), items: $('nc_items').value.trim(),
+      };
+    }
+    $('ncFill').onclick = function () {
+      var want = spec();
+      if (!want.name) { toast('A name first — the rest follows from it.'); $('nc_name').focus(); return; }
+      $('ncFill').disabled = true; $('ncFill').textContent = '…writing';
+      callModel(RP.inventPrompt(want, r), [{ role: 'user', content: 'Write the card for ' + want.name + '.' }], { utility: true, tokens: 520 })
+        .then(function (text) {
+          var got = RP.parseInvented(text, want);
+          if (!$('nc_role').value.trim() && got.role) $('nc_role').value = got.role;
+          if (!$('nc_look').value.trim() && got.look) $('nc_look').value = got.look;
+          if (got.voice) {
+            if (!$('nc_voice').value.trim() && got.voice.register) $('nc_voice').value = got.voice.register;
+            aiVoice = got.voice;
+            if (got.voice.lines.length) {
+              $('nc_lines').hidden = false;
+              $('nc_lines').textContent = 'Sounds like: ' + got.voice.lines.map(function (l) { return '\u201c' + l + '\u201d'; }).join(' ');
+            }
+          }
+          if (!$('nc_items').value.trim() && got.items.length) $('nc_items').value = got.items.join(', ');
+          if (!got.role && !got.look && !got.voice && !got.items.length) toast('The model did not keep to the card — try once more, or type it in.');
+        })
+        .catch(function (err) { toast('The model could not fill it in — ' + (err && err.message ? err.message : 'no answer') + '.'); })
+        .then(function () { $('ncFill').disabled = false; $('ncFill').textContent = '✨ Fill it in'; });
+    };
+    $('mOk').onclick = function () {
+      var want = spec();
+      if (!want.name) { toast('They need a name.'); $('nc_name').focus(); return; }
+      var voice = want.voice || (aiVoice && aiVoice.register) ? {
+        register: want.voice || aiVoice.register,
+        sounds: aiVoice ? aiVoice.sounds : [], never: aiVoice ? aiVoice.never : [], lines: aiVoice ? aiVoice.lines : [],
+      } : null;
+      var items = want.items ? want.items.split(/\s*,\s*/).filter(Boolean) : [];
+      RP.pushUndo(r, 'writing in ' + want.name);
+      var made = RP.inventCharacter(state, r, {
+        name: want.name, role: want.role, look: want.look, voice: voice, items: items,
+        by: aiVoice ? 'written in by the reader, filled in by the model' : 'written in by the reader',
+      });
+      r.messages.push({ id: RP.uid(), role: 'state', at: Date.now(),
+        lines: ['🚪 ' + made.name + ' joins the scene — new' + (want.role ? ', ' + RP.clip(want.role, 60) : '')] });
+      r.updated = Date.now();
+      // On the dashboard too, like an imported card: described, not drawn.
+      castById[made.id] = made;
+      cast = cast.filter(function (c) { return c.id !== made.id; }).concat([made]);
+      closeModal();
+      save(); buildBoard(); render();
+      toast(made.name + ' is in the scene' + (voice ? ', with a voice of their own' : '') + '.');
+    };
+    $('nc_name').focus();
   }
 
   function loreForm(node) {

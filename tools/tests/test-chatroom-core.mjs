@@ -607,15 +607,34 @@ check('fate: harsh fails far more often than gentle', (() => {
   return harshBad > gentleBad * 1.5;
 })());
 check('fate: being hurt shifts the odds against you', (() => {
-  const hurt = RP.newRoom([sans, cutters], { setup: { sans: { hpPct: 10, flags: 'wounded, hunted' } } });
+  const hurt = RP.newRoom([sans, cutters], {});
+  RP.ensurePlayerSheet(RP.blankState(), hurt);
+  const me = hurt.states[RP.PLAYER_ID];
+  me.hp.value = Math.floor(me.hp.max * 0.1);
+  me.flags = { wounded: { note: '', turns: 0 }, hunted: { note: '', turns: 0 } };
   const whole = RP.newRoom([sans, cutters], {});
+  RP.ensurePlayerSheet(RP.blankState(), whole);
   let hurtBad = 0, wholeBad = 0;
   for (let i = 0; i < 200; i++) {
     const roll = i / 200;
     if (['setback', 'wrench'].includes(RP.rollFate({ settings: { fate: 'normal' } }, hurt, { roll }).key)) hurtBad++;
     if (['setback', 'wrench'].includes(RP.rollFate({ settings: { fate: 'normal' } }, whole, { roll }).key)) wholeBad++;
   }
-  return hurtBad > wholeBad;
+  const rolled = RP.rollFate({ settings: { fate: 'normal' } }, hurt, { roll: 0.5 });
+  return hurtBad > wholeBad && rolled.tilt < 0 && /badly hurt/.test(rolled.pill) && /wounded/.test(rolled.pill) &&
+    /badly hurt/.test(RP.fateBlock(rolled));
+})());
+check('fate: an ENEMY bleeding out does not count against the player', (() => {
+  const foeHurt = RP.newRoom([sans, cutters], { setup: { sans: { hpPct: 10, flags: 'wounded, hunted' } } });
+  const whole = RP.newRoom([sans, cutters], {});
+  [foeHurt, whole].forEach(rm => RP.ensurePlayerSheet(RP.blankState(), rm));
+  let a = 0, b = 0;
+  for (let i = 0; i < 200; i++) {
+    const roll = i / 200;
+    if (['setback', 'wrench'].includes(RP.rollFate({ settings: { fate: 'normal' } }, foeHurt, { roll }).key)) a++;
+    if (['setback', 'wrench'].includes(RP.rollFate({ settings: { fate: 'normal' } }, whole, { roll }).key)) b++;
+  }
+  return a === b;
 })());
 check('fate: the model is ordered, not asked, and told not to narrate the dice', (() => {
   const block = RP.fateBlock(RP.rollFate(state, fateRoom, { force: 'setback' }));
@@ -2244,6 +2263,94 @@ check('mentions: they reach the turn prompt', (() => {
   return RP.systemFor(RP.blankState(), rm, sans, { mentionText: 'give me the key' }).includes('NAMED JUST NOW');
 })());
 
+// ---------- the kit answers to the names the model actually writes ----------
+check('kit: "brass key", "the scroll" and "my blue potion" all find the thing on the sheet', (() => {
+  const sheet = { name: 'Archivist', items: ['🗝 a brass key | bent', '📜 a scroll', '🧪 blue potion', 'the iron lantern'] };
+  return RP.findItem(sheet, 'brass key').name === 'a brass key' && RP.findItem(sheet, 'the scroll').name === 'a scroll' &&
+    RP.findItem(sheet, 'my blue potion').name === 'blue potion' && RP.findItem(sheet, 'iron lantern').name === 'the iron lantern' &&
+    RP.findItem(sheet, 'lantern').name === 'the iron lantern' && RP.findItem(sheet, 'sword') === null && RP.findItem(sheet, 'the') === null;
+})());
+check('kit: losing one of a stack leaves the rest; the model\u2019s loose names remove and use the right thing', (() => {
+  const sheet = { name: 'Archivist', items: ['🪙 a purse', '🗝 a brass key | bent', '📜 a scroll'] };
+  RP.applyChange(sheet, { kind: 'item', op: '+', name: 'a purse' });
+  const one = RP.applyChange(sheet, { kind: 'item', op: '-', name: 'purse' });
+  const key = RP.applyChange(sheet, { kind: 'item', op: '-', name: 'brass key' });
+  const used = RP.applyChange(sheet, { kind: 'use', name: 'the scroll' });
+  const names = sheet.items.map(i => i.name + '×' + i.qty);
+  return /1 left/.test(one) && /loses a brass key/.test(key) && /uses 📜 a scroll/.test(used) &&
+    names.length === 1 && names[0] === 'a purse×1';
+})());
+
+// ---------- somebody new: the ＋ in the invite grid, and ENTER for a stranger ----------
+check('invent: the fill-in template parses into a card with a voice and a kit', (() => {
+  const text = 'ROLE: the pawnbroker\nLOOK: A stooped Toad in a green eyeshade.\nVOICE: Dry, slow, every sentence a price.\n' +
+    'SOUNDS LIKE: "That will cost you" / Interest is interest\nNEVER: forgive a debt / hurry\n' +
+    'LINE: "I do not lend. I remember."\nLINE: "Sign here."\nCARRYING: 📒 a black ledger, 🗝 a ring of small keys';
+  const got = RP.parseInvented(text, { name: 'Old Pell' });
+  return got.role === 'the pawnbroker' && /eyeshade/.test(got.look) && got.voice && /every sentence a price/.test(got.voice.register) &&
+    got.voice.sounds.length === 2 && got.voice.sounds[0] === 'That will cost you' && got.voice.never.length === 2 &&
+    got.voice.lines.length === 2 && got.items.length === 2 && got.items[0] === '📒 a black ledger' &&
+    /EXACTLY these lines/.test(RP.inventPrompt({ name: 'Old Pell' }, RP.newRoom([sans], {})));
+})());
+check('invent: the new character is seated with a sheet, a voice and a kit, and kept for later invites', (() => {
+  const st = RP.blankState();
+  const rm = RP.newRoom([sans], {});
+  const made = RP.inventCharacter(st, rm, {
+    name: 'Old Pell', role: 'the pawnbroker', look: 'stooped, green eyeshade',
+    voice: { register: 'Dry, slow, every sentence a price.', sounds: [], never: [], lines: ['I do not lend. I remember.'] },
+    items: ['📒 a black ledger', '🗝 a ring of small keys | bent'], by: 'written in by the reader',
+  });
+  const sheet = rm.states[made.id];
+  return made.id === 'new_old_pell' && made.invented && rm.cast.some(c => c.id === made.id) && sheet && sheet.items.length === 2 &&
+    RP.normItem(sheet.items[1]).note === 'bent' && RP.voiceBlock(made).includes('every sentence a price') &&
+    st.newChars[0].id === made.id && RP.stateBlock(rm).includes('Old Pell') &&
+    RP.systemFor(st, rm, made, {}).includes('every sentence a price');
+})());
+check('enter: a stranger who walks in is made like a NEW — sheet, seat, remembered for later', (() => {
+  const st = RP.blankState();
+  const rm = RP.newRoom([sans], {});
+  const parsed = RP.parseDirectives('*The door opens.* [[ENTER: Marguerite Oyle — the night archivist, come about the ledger]]', ['Sans']);
+  const out = RP.applyDirectives(st, rm, parsed.directives, () => null);
+  const who = rm.cast.find(c => c.name === 'Marguerite Oyle');
+  return out.entered.length === 1 && who && who.invented && rm.states[who.id] && rm.states[who.id].present !== false &&
+    st.newChars.some(c => c.id === who.id) && /enters —/.test(out.lines[0]);
+})());
+check('enter: a one-to-one chat somebody walks into becomes a group chat, and the newcomer gets their own card', (() => {
+  const st = RP.blankState();
+  const rm = RP.newRoom([sans], {});
+  const parsed = RP.parseDirectives('[[ENTER: Marguerite Oyle — about the ledger]]', ['Sans']);
+  RP.applyDirectives(st, rm, parsed.directives, () => null);
+  const who = rm.cast.find(c => c.name === 'Marguerite Oyle');
+  const sys = RP.systemFor(st, rm, who, {});
+  return rm.kind === 'group' && /NOW ANSWER AS MARGUERITE OYLE|Marguerite Oyle/.test(sys) && !/^You are Sans,/.test(sys) &&
+    RP.historyFor({ kind: rm.kind, cast: rm.cast, messages: [{ role: 'char', charId: who.id, text: 'Evening.' }] })[0].content.startsWith('Marguerite Oyle: ');
+})());
+
+// ---------- the flourish: colour is ordered on a schedule ----------
+check('flourish: every fifth turn orders exactly one coloured phrase, mechanics on or off', (() => {
+  const rm = RP.newRoom([sans], { mechanics: 'off' });
+  const st = RP.blankState();
+  const fired = []; let block = '';
+  for (let i = 0; i < 10; i++) {
+    const sys = RP.systemFor(st, rm, sans, {});
+    if (sys.includes('COLOUR, THIS TURN')) { fired.push(i); block = RP.flourishBlock(rm, null); }
+    rm.messages.push({ id: 'u' + i, role: i % 2 ? 'char' : 'user', charId: sans.id, text: 'plain words ' + i, at: 1 });
+  }
+  return fired.length === 2 && fired[0] === 4 && fired[1] === 9 &&
+    /exactly ONE phrase/.test(block) && /\{colour\|the words\}/.test(block);
+})());
+check('flourish: a triumph or a failure orders colour off-schedule, in a matching palette', (() => {
+  const rm = RP.newRoom([sans], {});
+  const win = RP.flourishBlock(rm, { key: 'triumph' });
+  const loss = RP.flourishBlock(rm, { key: 'setback' });
+  return /gold or amber/.test(win) && /blood or rust/.test(loss) && RP.flourishBlock(rm, { key: 'success' }) === '';
+})());
+check('flourish: a model already colouring on its own is left alone', (() => {
+  const rm = RP.newRoom([sans], {});
+  rm.messages.push({ id: 'c1', role: 'char', charId: sans.id, text: 'He lifts {ember|the lamp}.', at: 1 });
+  return RP.recentlyColoured(rm) && RP.flourishBlock(rm, { key: 'triumph' }) === '';
+})());
+
 // ---------- standing tints: the model picks the words and the colour ----------
 check('tints: [[TINT: words = colour]] files a standing rule', (() => {
   const st = RP.blankState();
@@ -2332,6 +2439,10 @@ check('history: newest turns win the budget', (() => {
     RP.actionStat('I try to persuade the guard') === 'sway' && RP.actionStat('I smash the crate') === 'might' &&
     RP.actionStat('I study the ledger') === 'wits' && RP.actionStat('I sneak past the dogs') === 'luck' &&
     RP.actionStat('I wait.') === '');
+  check('stats: the wider vocabulary — heave, bribe, disarm, shoot — lands on a stat too',
+    RP.actionStat('I heave the portcullis up') === 'might' && RP.actionStat('I bribe the clerk') === 'sway' &&
+    RP.actionStat('I disarm the trap') === 'wits' && RP.actionStat('I shoot the rope') === 'luck' &&
+    RP.actionStat('I look closer at the seal') === 'wits');
   check('stats: they lean on the dice, and only there', (() => {
     const st = RP.blankState();
     st.persona.name = 'Bruiser';
@@ -2379,6 +2490,21 @@ check('history: newest turns win the budget', (() => {
       if (['setback', 'refusal'].includes(RP.rollFate({ settings: { fate: 'normal' } }, rm, { roll, conjured: 'a bazooka' }).key)) bluffBad++;
     }
     return bluffBad > plainBad;
+  })());
+  check('thin air: the dice settle the claim on the page — a good roll puts it on the sheet, in hand', (() => {
+    const st2 = RP.blankState(); st2.persona.name = 'Marlow';
+    const rm2 = RP.newRoom([sans], {});
+    RP.ensurePlayerSheet(st2, rm2);
+    const good = RP.rollFate({ settings: { fate: 'normal' } }, rm2, { conjured: 'a bazooka', force: 'success' });
+    const got = RP.resolveConjure(rm2, 'a bazooka', good);
+    const kit = rm2.states[RP.PLAYER_ID].items.map(RP.normItem);
+    const bad = RP.rollFate({ settings: { fate: 'normal' } }, rm2, { conjured: 'a cannon', force: 'setback' });
+    const lost = RP.resolveConjure(rm2, 'a cannon', bad);
+    const still = rm2.states[RP.PLAYER_ID].items.map(RP.normItem);
+    return good.granted === true && got.granted && kit.some(i => i.name === 'a bazooka' && i.equipped) &&
+      bad.granted === false && lost.granted === false && !still.some(i => /cannon/.test(i.name)) &&
+      /on their sheet now/.test(RP.conjureBlock('a bazooka', got)) && /EMPTY/.test(RP.conjureBlock('a cannon', lost)) &&
+      RP.resolveConjure(rm2, 'a thing', null) === null;
   })());
   check('thin air: the brief reaches the prompt only when it fires', (() => {
     const armed = RP.systemFor(st, rm, sans, { conjured: 'a bazooka' });

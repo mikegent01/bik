@@ -784,14 +784,12 @@
   };
 
   var RULES = [
-    'You may colour a few words when it earns it: {red|the door is open}, {ice|her breath}, {#8e2b20|the stain}. ' +
+    'You may colour a few words when it earns it, inside the prose: {red|the door is open}, {ice|her breath}, {#8e2b20|the stain}. ' +
       'Colours available: red, blood, crimson, orange, ember, amber, gold, copper, green, moss, jade, teal, sea, ' +
       'blue, ice, storm, violet, purple, lilac, plum, pink, grey, silver, black, white, rust, sand, bone, venom, ' +
       'or any #hex. Use it for one thing that matters, not for decoration — two or three words in a turn at most, ' +
-      'and never a whole sentence.',
-    'When a thing should keep its colour every time it is named — a cursed blade, a sickness, a word written in ' +
-      'blood — file it once with [[TINT: the exact words = colour]] and the page colours every later mention for ' +
-      'you. That is for things with lasting weight, two or three per scene at most.',
+      'and never a whole sentence. For a thing that should stay coloured every time it is named — a cursed blade, ' +
+      'a sickness — file [[TINT: the exact words = colour]] once and the page keeps it coloured.',
     'Use the material. When the archive passages, the session filing or the lore book say something that touches ' +
       'this moment, USE IT — a date, a name, a number, what somebody actually said. Quote it, argue with it, get it ' +
       'slightly wrong in character if that is truer. A scene that could have happened in any story is a wasted turn.',
@@ -971,14 +969,6 @@
   /* ---- the rolling recap: a long chat without a long prompt ---- */
 
   RP.RECAP_AFTER = 18;      // turns of history before the old ones are folded up
-
-  /** Which turns the model still sees verbatim. Everything before the
-   *  recap point is represented by the recap itself. */
-  RP.liveTurns = function (room) {
-    var turns = (room.messages || []).filter(visible);
-    var from = Math.max(0, Number(room.recapAt || 0));
-    return turns.slice(from);
-  };
 
   /** Is it time to fold the old turns up? */
   RP.needsRecap = function (room, every) {
@@ -2166,10 +2156,10 @@
   /** Which stat an attempt leans on, from the player's own words. */
   RP.actionStat = function (text) {
     var t = ' ' + String(text || '').toLowerCase() + ' ';
-    if (/\b(hit|strike|attack|swing|punch|fight|shove|charge|force|break|smash|grapple|wrestle|kick|stab|tackle|slam|wrench|lift|drag|hold (him|her|them|it) down)\b/.test(t)) return 'might';
-    if (/\b(persuade|convince|talk|lie|bluff|charm|bargain|negotiate|plead|threaten|intimidate|order|flatter|reassure|calm|appeal|argue)\b/.test(t)) return 'sway';
-    if (/\b(search|examine|inspect|study|read|decipher|recall|remember|figure|work out|notice|listen|track|analyse|analyze|calculate|identify|diagnose)\b/.test(t)) return 'wits';
-    if (/\b(sneak|steal|pick|hide|slip|dodge|duck|gamble|climb|leap|jump|vault|escape|palm|swipe|creep)\b/.test(t)) return 'luck';
+    if (/\b(hit|strike|attack|swing|punch|fight|shove|charge|force|break|smash|grapple|wrestle|kick|stab|tackle|slam|wrench|lift|drag|hold (him|her|them|it) down|push|pull|pry|haul|heave|carry|shoulder|barge|ram|crush|bend|chop|hack|slash|cut (him|her|them|it) down|parry|block|brace|pin|restrain|strangle|choke|batter|kick (the|down)|tear|rip|bash|hurl|wrestle|overpower|hold the (door|line))\b/.test(t)) return 'might';
+    if (/\b(persuade|convince|talk|lie|bluff|charm|bargain|negotiate|plead|threaten|intimidate|order|flatter|reassure|calm|appeal|argue|beg|demand|insist|promise|offer|deal|seduce|comfort|soothe|inspire|rally|command|bribe|coax|haggle|apologi[sz]e|confess|taunt|mock|sweet[- ]talk|speech|address the|ask (him|her|them) to|tell (him|her|them) to|lie to|reason with|win (him|her|them) over)\b/.test(t)) return 'sway';
+    if (/\b(search|examine|inspect|study|read|decipher|recall|remember|figure|work out|notice|listen|track|analyse|analyze|calculate|identify|diagnose|investigate|deduce|solve|puzzle|map|plan|count|measure|translate|forge|repair|fix|mend|build|rig|disarm|appraise|spot|assess|guess|recogni[sz]e|interpret|test|check (the|for)|look (for|closer|closely|over)|scan|memori[sz]e)\b/.test(t)) return 'wits';
+    if (/\b(sneak|steal|pick|hide|slip|dodge|duck|gamble|climb|leap|jump|vault|escape|palm|swipe|creep|dash|run|sprint|flee|bolt|tumble|roll|tiptoe|shadow|pickpocket|lockpick|balance|swim|dive|catch|snatch|bet|wager|chance it|risk it|shoot|fire|aim|loose|throw|toss|fling|lob|juggle|feint|weave|sidestep|ambush|follow (him|her|them) unseen)\b/.test(t)) return 'luck';
     return '';
   };
 
@@ -2245,18 +2235,6 @@
       effect: effect ? effect[1].toLowerCase() : '',
       note: clip(parts.slice(1).join('|'), 160),
     };
-  };
-
-  /** A condition has a name, a note and — if it is going to pass — a
-   *  number of turns left on it. */
-  RP.normCondition = function (key, value) {
-    if (value && typeof value === 'object') {
-      return {
-        note: clip(value.note, 160), turns: Number(value.turns || 0) || 0,
-        effect: clip(value.effect, 40),        // "-2hp", "-1mp", "+1hp"
-      };
-    }
-    return { note: '', turns: 0, effect: '' };
   };
 
   /** What a condition does to you every turn it lasts: "-2hp" bleeds. */
@@ -2451,6 +2429,37 @@
 
   /** Apply one change to one sheet. Returns a human line for the stream, or
    *  '' when the change was refused (unknown field, dead number). */
+  /** The thing on the sheet that a name means. Exact first, then without
+   *  articles and possessives, then one inside the other, then any solid
+   *  word the two share — so "brass key", "the key" and "my bent key" all
+   *  find "🗝 a brass key | bent". Returns the live item, or null. */
+  var ITEM_FILLER = /\b(a|an|the|my|your|his|her|their|our|its|some|one|this|that|these|those|own|old|new|trusty|little|big|small)\b/g;
+  function bareName(name) {
+    return String(name || '').toLowerCase().replace(/[^a-z0-9' ]+/g, ' ').replace(ITEM_FILLER, ' ').replace(/\s+/g, ' ').trim();
+  }
+  RP.findItem = function (sheet, name) {
+    if (!sheet || !name) return null;
+    sheet.items = (sheet.items || []).map(RP.normItem);
+    var want = String(name).toLowerCase().trim();
+    var bare = bareName(name);
+    if (!bare) return null;
+    var items = sheet.items;
+    var hit = items.filter(function (i) { return i.name.toLowerCase() === want; })[0];
+    if (hit) return hit;
+    hit = items.filter(function (i) { return bareName(i.name) === bare; })[0];
+    if (hit) return hit;
+    hit = items.filter(function (i) {
+      var have = bareName(i.name);
+      return have.indexOf(bare) >= 0 || bare.indexOf(have) >= 0;
+    })[0];
+    if (hit) return hit;
+    var words = bare.split(' ').filter(function (w) { return w.length >= 3 && SMALL_WORDS.indexOf(' ' + w + ' ') < 0; });
+    return items.filter(function (i) {
+      var have = ' ' + bareName(i.name) + ' ';
+      return words.some(function (w) { return have.indexOf(' ' + w + ' ') >= 0; });
+    })[0] || null;
+  };
+
   RP.applyChange = function (sheet, change) {
     if (!sheet || !change) return '';
     var n = Number(change.value);
@@ -2499,9 +2508,17 @@
       sheet.items = (sheet.items || []).map(RP.normItem);
       var at = sheet.items.map(function (i) { return i.name.toLowerCase(); }).indexOf(item.name.toLowerCase());
       if (change.op === '-') {
-        if (at < 0) return '';
-        sheet.items.splice(at, 1);
-        return sheet.name + ' loses ' + item.name;
+        // The model writes "brass key" for "a brass key | bent", and the
+        // reader drops one purse from a stack of two. Both used to do
+        // nothing, or everything.
+        var lost = at >= 0 ? sheet.items[at] : RP.findItem(sheet, item.name);
+        if (!lost) return '';
+        if (lost.qty > 1) {
+          lost.qty -= 1;
+          return sheet.name + ' loses ' + lost.name + ' (' + lost.qty + ' left)';
+        }
+        sheet.items = sheet.items.filter(function (i) { return i !== lost; });
+        return sheet.name + ' loses ' + lost.name;
       }
       if (at >= 0) {
         if (item.note) sheet.items[at].note = item.note;
@@ -2518,9 +2535,7 @@
     }
     if (change.kind === 'use') {
       sheet.items = (sheet.items || []).map(RP.normItem);
-      var used = sheet.items.filter(function (i) {
-        return i.name.toLowerCase().indexOf(String(change.name).toLowerCase()) >= 0;
-      })[0];
+      var used = RP.findItem(sheet, change.name);
       if (!used) return '';
       used.qty -= 1;
       var gone = used.qty <= 0;
@@ -2529,9 +2544,7 @@
     }
     if (change.kind === 'equip') {
       sheet.items = (sheet.items || []).map(RP.normItem);
-      var held = sheet.items.filter(function (i) {
-        return i.name.toLowerCase().indexOf(String(change.name).toLowerCase()) >= 0;
-      })[0];
+      var held = RP.findItem(sheet, change.name);
       if (!held) return '';
       held.equipped = change.op !== '-';
       return sheet.name + (held.equipped ? ' takes up ' : ' puts away ') + held.name;
@@ -2704,9 +2717,35 @@
     return { kind: 'conjured', claim: clip(claim, 40) };
   };
 
-  /** The one-off block a conjured claim earns. Costs nothing until it fires. */
-  RP.conjureBlock = function (claim) {
+  /** Settle a thin-air claim on the page, from the roll, before the model
+   *  is asked anything. A good roll means the thing WAS within reach: it
+   *  lands on the sheet now, in hand, and the model is told so. A bad roll
+   *  means the hand comes up empty. With fate off there is no roll, and
+   *  the model keeps the call. Returns { granted, line } or null. */
+  RP.resolveConjure = function (room, claim, fate) {
+    if (!claim || !fate || fate.granted === undefined) return null;
+    var you = (room.states || {})[RP.PLAYER_ID] || (room.youPlay ? (room.states || {})[room.youPlay] : null);
+    if (!you) return null;
+    if (!fate.granted) return { granted: false, line: '🚫 ' + claim + ' — reached for, not there (' + fate.label.toLowerCase() + ')' };
+    var line = RP.applyChange(you, { kind: 'item', op: '+', name: claim, note: 'found to hand, ' + fate.label.toLowerCase() });
+    if (line) RP.applyChange(you, { kind: 'equip', op: '+', name: claim });
+    return { granted: Boolean(line), line: line ? '🎒 ' + claim + ' — it was within reach after all; on the sheet, in hand' : '🚫 ' + claim + ' — no room in the pack for it' };
+  };
+
+  /** The one-off block a conjured claim earns. Costs nothing until it
+   *  fires. `verdict` is the page's settlement when the dice are on. */
+  RP.conjureBlock = function (claim, verdict) {
     if (!claim) return '';
+    if (verdict && verdict.granted) {
+      return 'OUT OF THIN AIR — the player reached for \u201c' + claim + '\u201d, which was NOT on their sheet. The dice say it was\n' +
+        'within reach after all: it is on their sheet now, in hand. Show where it came from in one plain clause (a shelf, a\n' +
+        'fallen guard, a pocket they forgot) and carry on; the ruling above says how the attempt itself goes.';
+    }
+    if (verdict && verdict.granted === false) {
+      return 'OUT OF THIN AIR — the player claims \u201c' + claim + '\u201d; nothing like it is on their sheet, and the dice say it is\n' +
+        'not there. The hand comes up EMPTY. Nobody hands them one. Write the moment the bluff fails inside the fiction —\n' +
+        'the grab at nothing, the look on the other face — and never scold the player for trying.';
+    }
     return 'OUT OF THIN AIR — the player claims \u201c' + claim + '\u201d; nothing like it is on their sheet.\n' +
       'They do not have it. If the scene has visibly put one within their reach, hand it to them on the record\n' +
       'with [[ITEM: \u2026]] and let it work. Otherwise the claim fails inside the fiction — an empty hand, a bluff\n' +
@@ -2948,6 +2987,45 @@
     return '';
   };
 
+  /* ---- the flourish: colour on a schedule, not on a hope ----
+   * The palette rule in the base prompt is permissive ("you may colour"),
+   * it is the first thing squeezed on a tight window, and a small model
+   * reads "may" as "need not": in practice nothing was ever coloured.
+   * So every few turns, and on the turns that matter most (a triumph, a
+   * failure), ONE weighty phrase is ordered in colour, with a palette
+   * matched to the mood. It rides in the protected tail, costs ~350
+   * characters when it fires and nothing when it does not, and it works
+   * with the mechanics off too. ---- */
+
+  RP.FLOURISH_EVERY = 5;
+  var FLOURISH_PALETTE = {
+    triumph: 'gold or amber', success: 'moss, teal or amber', cost: 'ember or copper',
+    wrench: 'storm or violet', setback: 'blood or rust', refusal: 'ice or silver',
+  };
+  var FLOURISH_TURN = ['ember or amber', 'ice or storm', 'blood or rust', 'moss or jade', 'violet or plum', 'gold or copper'];
+
+  /** Did the model colour anything by itself in the last few turns? Then
+   *  it has the habit and is left alone. */
+  RP.recentlyColoured = function (room, turns) {
+    var recent = ((room && room.messages) || []).filter(visible).slice(-(turns || 3));
+    return recent.some(function (m) { return m.role !== 'user' && /\{[a-z#][a-z0-9 ]{1,14}\|[^{}]{1,300}\}/i.test(RP.textOf(m)); });
+  };
+
+  RP.flourishBlock = function (room, fate) {
+    if (!room) return '';
+    var turns = ((room.messages) || []).filter(visible).length;
+    var weighty = fate && (fate.key === 'triumph' || fate.key === 'setback');
+    var due = (turns + 1) % RP.FLOURISH_EVERY === 0;
+    if (!weighty && !due) return '';
+    if (RP.recentlyColoured(room)) return '';
+    var palette = weighty ? FLOURISH_PALETTE[fate.key]
+      : (fate && FLOURISH_PALETTE[fate.key]) || FLOURISH_TURN[Math.floor(turns / RP.FLOURISH_EVERY) % FLOURISH_TURN.length];
+    return 'COLOUR, THIS TURN — write exactly ONE phrase of this turn in colour, inside the prose, in the form ' +
+      '{colour|the words}: e.g. {ember|the lamp gutters out}. Choose the thing that carries the most weight in what ' +
+      'you write — a wound, a relic, a look, a word spoken low — two to five words, once. Everything else stays ' +
+      'plain. Suggested here: ' + palette + ' (any palette colour or #hex works).';
+  };
+
   /* ---- stage directions: how the model changes the world ---- */
 
   RP.DIRECTIVES = [
@@ -3145,6 +3223,107 @@
 
   /** Apply the stage directions to the room. `resolve(name)` finds a
    *  character in the wider archive so the model can walk somebody in. */
+  /** Somebody the archive never filed, made on the spot — by the model's
+   *  [[NEW:]] directive or by the reader's own ＋ in the invite grid. The
+   *  record is thin but real: it seats them in the room, gives them a
+   *  sheet (kit and all), keeps them in state.newChars so they can be
+   *  invited again later, and files the arrival. `spec` may carry a voice
+   *  sheet ({register, sounds, never, lines}) and a kit — the ✨ fill-in
+   *  writes those. Returns the character. */
+  RP.inventCharacter = function (state, room, spec) {
+    spec = spec || {};
+    var name = clip(String(spec.name || '').trim(), 60) || 'Stranger';
+    var role = clip(String(spec.role || spec.title || '').trim(), 200);
+    var look = clip(String(spec.look || '').trim(), 300);
+    var made = RP.normChar({
+      id: 'new_' + slug(name),
+      name: name,
+      title: role || 'Invented in play',
+      summary: clip(spec.summary || [role, look].filter(Boolean).join(' — '), 600),
+      description: clip(spec.description || '', 1400),
+      handle: (state.user && state.user.handle) || 'waluipedia',
+      voice: spec.voice && typeof spec.voice === 'object' && spec.voice.register ? spec.voice : undefined,
+    });
+    if (look) made.look = look;          // no portrait exists; the words are it
+    made.invented = true;
+    room.cast = room.cast || [];
+    room.cast = room.cast.filter(function (c) { return c.id !== made.id; });
+    room.cast.push(made);
+    if (room.cast.length > 1) room.kind = 'group';
+    room.away = (room.away || []).filter(function (c) { return c.id !== made.id; });
+    room.states = room.states || {};
+    if (room.states[made.id]) room.states[made.id].present = true;   // someone we remember is a return
+    else {
+      var kit = Array.isArray(spec.items) ? spec.items.filter(Boolean) : [];
+      room.states[made.id] = kit.length
+        ? RP.blankSheet(made, room.statePreset, { items: kit.join('; ') })
+        : RP.outfit(room, made, RP.blankSheet(made, room.statePreset));
+    }
+    state.newChars = (state.newChars || []).filter(function (c) { return c.id !== made.id; });
+    state.newChars.unshift(made);
+    state.newChars = state.newChars.slice(0, 80);
+    RP.logEvent(state, {
+      kind: 'roster', roomId: room.id, roomTitle: room.title, chars: [made.id],
+      text: made.name + ' was ' + (spec.by || 'invented in play') + ': ' + clip(made.summary, 200),
+    });
+    return made;
+  };
+
+  /** The ✨ fill-in: given a name (and whatever the reader typed), ask the
+   *  model for the rest of the card in a fixed, line-per-field template a
+   *  small model can keep to. The scene and the cast ride along so the
+   *  newcomer fits the room they are walking into. */
+  RP.inventPrompt = function (spec, room) {
+    spec = spec || {};
+    var cast = ((room && room.cast) || []).map(function (c) { return c.name + (c.title ? ' (' + clip(c.title, 50) + ')' : ''); }).slice(0, 8);
+    var given = ['role', 'look', 'voice', 'items'].filter(function (k) { return spec[k] && String(spec[k]).trim(); })
+      .map(function (k) { return '  ' + k.toUpperCase() + ' (keep this): ' + clip(String(spec[k]), 200); });
+    return [
+      'You write character cards for a roleplay set in the Waluipedia archive — Mario-world names, grudges and debts;',
+      'ground-level, specific, a little grubby; never generic fantasy. Fill in the card for ONE new character named',
+      '\u201c' + spec.name + '\u201d, who is about to walk into this scene.',
+      (room && room.scene) ? 'THE SCENE: ' + clip(room.scene, 500) : '',
+      cast.length ? 'ALREADY HERE: ' + cast.join('; ') : '',
+      given.length ? 'THE READER ALREADY WROTE:\n' + given.join('\n') : '',
+      'Answer with EXACTLY these lines, nothing before or after, no markdown:',
+      'ROLE: who they are to this scene, one line',
+      'LOOK: what they look like, one or two sentences',
+      'VOICE: how they talk — register, rhythm, tics — one or two sentences',
+      'SOUNDS LIKE: three short phrases they would say, separated by " / "',
+      'NEVER: two or three things they would never say or do, separated by " / "',
+      'LINE: one sample line of theirs, in quotes',
+      'LINE: a second sample line',
+      'LINE: a third sample line',
+      'CARRYING: two or three things they carry, separated by commas, each starting with one emoji',
+    ].filter(Boolean).join('\n');
+  };
+
+  /** Read the template back. Anything missing is left blank rather than
+   *  invented; the reader can still type it. */
+  RP.parseInvented = function (text, spec) {
+    var out = { name: (spec && spec.name) || '', role: '', look: '', voice: null, items: [] };
+    var fields = { role: '', look: '', register: '', sounds: [], never: [], lines: [] };
+    String(text || '').split(/\r?\n/).forEach(function (raw) {
+      var line = raw.replace(/^[\s*#>-]+/, '').trim();
+      var m = /^(ROLE|LOOK|VOICE|SOUNDS LIKE|NEVER|LINE|CARRYING)\s*:\s*(.+)$/i.exec(line);
+      if (!m) return;
+      var key = m[1].toUpperCase(), value = m[2].trim();
+      if (key === 'ROLE') fields.role = fields.role || clip(value, 200);
+      else if (key === 'LOOK') fields.look = fields.look || clip(value, 300);
+      else if (key === 'VOICE') fields.register = fields.register || clip(value, 400);
+      else if (key === 'SOUNDS LIKE') fields.sounds = value.split(/\s*\/\s*|\s*;\s*/).map(function (v) { return clip(v.replace(/^[\u201c"']|[\u201d"']$/g, ''), 80); }).filter(Boolean).slice(0, 4);
+      else if (key === 'NEVER') fields.never = value.split(/\s*\/\s*|\s*;\s*/).map(function (v) { return clip(v, 100); }).filter(Boolean).slice(0, 4);
+      else if (key === 'LINE') { if (fields.lines.length < 6) fields.lines.push(clip(value.replace(/^[\u201c"']|[\u201d"']$/g, ''), 240)); }
+      else if (key === 'CARRYING') out.items = value.split(/\s*,\s*/).map(function (v) { return clip(v, 60); }).filter(Boolean).slice(0, 5);
+    });
+    out.role = fields.role;
+    out.look = fields.look;
+    if (fields.register || fields.lines.length) {
+      out.voice = { register: fields.register, sounds: fields.sounds, never: fields.never, lines: fields.lines };
+    }
+    return out;
+  };
+
   RP.applyDirectives = function (state, room, directives, resolve) {
     RP.ensureSheets(room);
     var lines = [], entered = [], exited = [];
@@ -3208,28 +3387,9 @@
       }
       if (d.kind === 'new') {
         if (find(d.name)) return;
-        var made = RP.normChar({
-          id: 'new_' + slug(d.name),
-          name: d.name,
-          title: d.role || 'Invented in play',
-          summary: [d.role, d.look].filter(Boolean).join(' — '),
-          handle: (state.user && state.user.handle) || 'waluipedia',
-        });
-        made.look = d.look;          // no portrait exists; the words are it
-        made.invented = true;
-        room.cast.push(made);
-        room.away = (room.away || []).filter(function (c) { return c.id !== made.id; });
-        if (room.states[made.id]) room.states[made.id].present = true;   // NEW for someone we remember is a return
-        else room.states[made.id] = RP.outfit(room, made, RP.blankSheet(made, room.statePreset));
-        state.newChars = (state.newChars || []).filter(function (c) { return c.id !== made.id; });
-        state.newChars.unshift(made);
-        state.newChars = state.newChars.slice(0, 80);
+        var made = RP.inventCharacter(state, room, { name: d.name, role: d.role, look: d.look, by: 'invented in play' });
         entered.push(made);
         lines.push('New character — ' + made.name + (d.role ? ', ' + d.role : ''));
-        RP.logEvent(state, {
-          kind: 'roster', roomId: room.id, roomTitle: room.title, chars: [made.id],
-          text: made.name + ' was invented in play: ' + clip(made.summary, 200),
-        });
         return;
       }
       // Re-read the raw body now that the cast is known: "Lord Darian Marsh
@@ -3255,17 +3415,23 @@
           return k && (k.indexOf(lowName) >= 0 || lowName.indexOf(k) >= 0);
         });
         var back = backIdx >= 0 ? room.away.splice(backIdx, 1)[0] : null;
-        var found = back || (resolve && resolve(d.name)) || RP.normChar({ name: d.name, title: 'Walked into the scene', summary: d.reason });
-        room.cast.push(RP.normChar(found));
-        var kept = room.states[found.id];
-        if (kept) kept.present = true;
-        else room.states[found.id] = RP.outfit(room, found, RP.blankSheet(found, room.statePreset));
+        var found = back || (resolve && resolve(d.name));
+        var kept = found ? room.states[found.id] : null;
+        if (found) {
+          room.cast.push(RP.normChar(found));
+          if (kept) kept.present = true;
+          else room.states[found.id] = RP.outfit(room, found, RP.blankSheet(found, room.statePreset));
+          RP.logEvent(state, {
+            kind: 'roster', roomId: room.id, roomTitle: room.title, chars: [found.id],
+            text: found.name + ' entered the scene: ' + (d.reason || 'no reason filed'),
+          });
+        } else {
+          // Nobody the archive knows: made on the spot, like a [[NEW:]],
+          // so they keep a sheet and can be invited back into later scenes.
+          found = RP.inventCharacter(state, room, { name: d.name, role: 'Walked into the scene', summary: d.reason, by: 'walked into the scene' });
+        }
         entered.push(found);
         lines.push(found.name + (kept ? ' returns — ' : ' enters — ') + (d.reason || 'the scene called for them'));
-        RP.logEvent(state, {
-          kind: 'roster', roomId: room.id, roomTitle: room.title, chars: [found.id],
-          text: found.name + ' entered the scene: ' + (d.reason || 'no reason filed'),
-        });
         return;
       }
       if (d.kind === 'exit') {
@@ -3293,6 +3459,10 @@
       if (line) lines.push(line);
     });
     if (lines.length) room.updated = Date.now();
+    // Two people in the room is a group chat: named turns in the history,
+    // the rotation, the ensemble prompt. A one-to-one chat somebody walked
+    // into used to keep the solo card — "You are Sans" — for every speaker.
+    if ((room.cast || []).length > 1) room.kind = 'group';
     return { lines: lines, entered: entered, exited: exited };
   };
 
@@ -4719,12 +4889,14 @@
       if (sheets) parts.push(sheets);
       var named = RP.mentionBlock(room, opts.mentionText || '');
       if (named) parts.push(named);
-      var thinAir = RP.conjureBlock(opts.conjured);
+      var thinAir = RP.conjureBlock(opts.conjured, opts.conjureVerdict);
       if (thinAir) parts.push(thinAir);
       parts.push(RP.DIRECTIVES);
     }
     var fate = RP.fateBlock(opts.fate);
     if (fate) parts.push(fate);
+    var flourish = RP.flourishBlock(room, opts.fate);
+    if (flourish) parts.push(flourish);
     var worldOoc = RP.oocBlock(state, room, opts.notes);
     if (worldOoc) parts.push(worldOoc);
     // The narrator carries its own length: the Director needs room, the
@@ -6250,9 +6422,45 @@
     return keys[keys.length - 1];
   }
 
-  /** Roll for the turn. State makes it worse: somebody at low HP or carrying
-   *  conditions does not get the benefit of the doubt. `roll` is injectable
-   *  so the tests are not at the mercy of the dice. */
+  /** How far the odds lean this turn, and why. Everything that moves the
+   *  dice is listed here so the pill, the prompt and the tests all read
+   *  the same arithmetic. One pip is one notch of the table; the sum is
+   *  clamped to ±3. Only the PLAYER's own body counts against them — an
+   *  enemy bleeding out used to make the player's attempt harder, which
+   *  is backwards. */
+  RP.fateTilt = function (room, opts) {
+    opts = opts || {};
+    var why = [], plain = [], tilt = 0;    // why: pill chips · plain: words for the prose
+    var you = (room.states || {})[RP.PLAYER_ID] || (room.youPlay ? (room.states || {})[room.youPlay] : null);
+    var stat = opts.text ? RP.actionStat(opts.text) : '';
+    var score = null;
+    if (you && you.stats && stat) {
+      score = Number(you.stats[stat] === undefined ? 1 : you.stats[stat]);
+      var lean = score - 1;                       // 0 → −1, 1 → even, 2 → +1, 3 → +2
+      tilt += lean;
+      why.push(RP.STAT_ICONS[stat] + ' ' + stat + ' ' + score + (lean ? ' (' + (lean > 0 ? '+' : '−') + Math.abs(lean) + ')' : ''));
+    }
+    if (you && you.hp && you.hp.max) {
+      if (you.hp.value <= 0) { tilt -= 2; why.push('💀 down (−2)'); plain.push('down, barely conscious'); }
+      else if (you.hp.value <= you.hp.max * 0.35) { tilt -= 1; why.push('🩸 badly hurt (−1)'); plain.push('badly hurt'); }
+    }
+    var flags = you ? Object.keys(you.flags || {}) : [];
+    if (flags.length) {
+      var weight = Math.min(1, flags.length * 0.5);
+      tilt -= weight;
+      var words = flags.slice(0, 2).map(function (f) { return f.replace(/_/g, ' '); });
+      why.push(RP.condIcon(flags[0]) + ' ' + words.join(', ') + (flags.length > 2 ? ' +' + (flags.length - 2) : '') + ' (−' + weight + ')');
+      plain.push(words.join(' and '));
+    }
+    if (opts.conjured) { tilt -= 2; why.push('🚫 out of thin air (−2)'); plain.push('reaching for a thing they do not have'); }
+    tilt = Math.max(-3, Math.min(3, tilt));
+    return { tilt: tilt, why: why, plain: plain, stat: stat, score: score, you: you };
+  };
+
+  /** Roll for the turn. The difficulty picks the table; the tilt (the
+   *  player's own stat for this kind of attempt, their wounds and
+   *  conditions, a thin-air claim) slides the weights along it. `roll` is
+   *  injectable so the tests are not at the mercy of the dice. */
   RP.rollFate = function (state, room, opts) {
     opts = opts || {};
     var level = opts.level || (state.settings && state.settings.fate) || 'normal';
@@ -6260,67 +6468,60 @@
     if (!odds || room.mechanics === 'off') return null;
     var weights = {};
     Object.keys(odds).forEach(function (k) { weights[k] = odds[k]; });
-    // Hurt or burdened characters shift the odds against the player.
-    var pressure = 0;
-    Object.keys(room.states || {}).forEach(function (id) {
-      var sheet = room.states[id];
-      if (!sheet || sheet.present === false) return;
-      if (sheet.hp && sheet.hp.max && sheet.hp.value <= sheet.hp.max * 0.35) pressure++;
-      pressure += Math.min(2, Object.keys(sheet.flags || {}).length) * 0.5;
-    });
-    if (pressure > 0) {
-      var shift = Math.min(2.5, pressure);
-      weights.triumph = Math.max(1, weights.triumph - shift * 2);
-      weights.success = Math.max(2, weights.success - shift * 4);
-      weights.setback += shift * 3;
-      weights.wrench += shift * 2;
-    }
-    // The player's own numbers lean on the dice — this is the one place
-    // the pseudo-stats are spent, so the prompt never has to argue them.
-    var statTag = '';
-    var you = (room.states || {})[RP.PLAYER_ID] || (room.youPlay ? (room.states || {})[room.youPlay] : null);
-    var stat = opts.text ? RP.actionStat(opts.text) : '';
-    if (you && you.stats && stat) {
-      var score = Number(you.stats[stat] || 0);
-      var lean = (score - 1) * 1.4;           // 0 → against, 1 → neutral, 3 → in favour
-      if (lean > 0) {
-        weights.triumph += lean * 1.5;
-        weights.success += lean * 3;
-        weights.setback = Math.max(1, weights.setback - lean * 2);
-        weights.wrench = Math.max(1, weights.wrench - lean);
-      } else if (lean < 0) {
-        var drop = -lean;
-        weights.triumph = Math.max(1, weights.triumph - drop * 1.5);
-        weights.success = Math.max(2, weights.success - drop * 3);
-        weights.setback += drop * 2;
-        weights.wrench += drop;
-      }
-      statTag = ' · ' + RP.STAT_ICONS[stat] + ' ' + stat + ' ' + score;
-    }
-    // Claiming a bazooka you do not have is a bluff, and the dice know it.
-    if (opts.conjured) {
-      weights.triumph = Math.max(1, weights.triumph - 4);
-      weights.success = Math.max(2, weights.success - 8);
-      weights.setback += 8;
-      weights.refusal += 6;
-      statTag += ' · 🚫 out of thin air';
+    var lean = RP.fateTilt(room, opts);
+    var t = lean.tilt;
+    if (t > 0) {
+      weights.triumph += t * 2;
+      weights.success += t * 5;
+      weights.cost = Math.max(2, weights.cost - t);
+      weights.wrench = Math.max(1, weights.wrench - t * 1.5);
+      weights.setback = Math.max(1, weights.setback - t * 2.5);
+      weights.refusal = Math.max(1, weights.refusal - t * 0.5);
+    } else if (t < 0) {
+      var d = -t;
+      weights.triumph = Math.max(1, weights.triumph - d * 1.5);
+      weights.success = Math.max(2, weights.success - d * 5);
+      weights.wrench += d * 1.5;
+      weights.setback += d * 3;
+      weights.refusal += d * (opts.conjured ? 2 : 0.5);
     }
     var roll = opts.roll === undefined ? Math.random() : opts.roll;
     var key = opts.force || pickWeighted(weights, roll);
     var fate = RP.FATE[key];
-    return { key: key, label: fate.label, pill: fate.pill + statTag, dir: fate.dir, level: level, pressure: pressure, stat: stat, statTag: statTag };
+    // A thin-air claim is settled by the same dice: the hand comes up
+    // holding it, or it comes up empty. No second opinion from the model.
+    var granted = opts.conjured ? (key === 'triumph' || key === 'success' || key === 'cost') : undefined;
+    var tag = lean.why.length ? ' · ' + lean.why.join(' · ') : '';
+    var pressure = Math.max(0, -t);
+    return {
+      key: key, label: fate.label, pill: fate.pill + tag, dir: fate.dir, level: level,
+      pressure: pressure, tilt: t, why: lean.why, plain: lean.plain, stat: lean.stat, score: lean.score, statTag: tag,
+      conjured: opts.conjured || '', granted: granted,
+    };
   };
 
   /** What the model is told about the roll. It is written as an order, not a
-   *  suggestion, because a suggestion gets ignored. */
+   *  suggestion, because a suggestion gets ignored. The lean is named in
+   *  one line so the prose can show WHY it went the way it went. */
   RP.fateBlock = function (fate) {
     if (!fate) return '';
+    var lean = '';
+    var plain = fate.plain || [];
+    if (fate.stat) {
+      lean = 'The attempt leaned on ' + fate.stat + ' (' + fate.score + ' of 3' +
+        (fate.score >= 2 ? ', a strength' : fate.score === 0 ? ', a weakness' : '') + ')' +
+        (plain.length ? ', and they are ' + plain.join(', and ') : '') +
+        '. Let that show in HOW it goes, never as numbers.';
+    } else if (plain.length) {
+      lean = 'They are ' + plain.join(', and ') + ' — let it show in how this goes, never as numbers.';
+    }
     return [
       'HOW THIS TURN RESOLVES — this is decided already, write it as it is',
       fate.dir,
+      lean,
       'Do not narrate the dice, the odds, or the fact that anything was decided. Do not ask the player to roll.',
       'The player writes only their attempt; whether it works is not theirs to declare, and you do not owe them a yes.',
-    ].join('\n');
+    ].filter(Boolean).join('\n');
   };
 
   /* ------------------------------------------------------------------ *
@@ -6508,9 +6709,13 @@
   RP.systemFor = function (state, room, speaker, opts) {
     opts = opts || {};
     var style = { style: opts.style || room.style || RP.DEFAULT_STYLE, scene: room.scene };
+    // A solo room whose cast grew (an ENTER, an invite) is a group room
+    // now; until the flag catches up, the solo card is at least the card
+    // of whoever is actually speaking, not of whoever opened the chat.
+    var lead = (room.cast || []).filter(function (c) { return speaker && c.id === speaker.id; })[0] || room.cast[0] || speaker || {};
     var base = room.kind === 'group'
       ? RP.groupPrompt(room.cast, speaker, style)
-      : RP.soloPrompt(room.cast[0] || speaker || {}, style);
+      : RP.soloPrompt(lead, style);
     var parts = [base];
     if (room.kind !== 'group' && room.scene) parts.push('THE SCENE\n' + room.scene);
     var perspective = RP.perspectiveBlock(room);
@@ -6558,12 +6763,14 @@
       if (sheets) parts.push(sheets);
       var named = RP.mentionBlock(room, opts.mentionText || '');
       if (named) parts.push(named);
-      var thinAir = RP.conjureBlock(opts.conjured);
+      var thinAir = RP.conjureBlock(opts.conjured, opts.conjureVerdict);
       if (thinAir) parts.push(thinAir);
       parts.push(RP.DIRECTIVES);
     }
     var fateBlock = RP.fateBlock(opts.fate);
     if (fateBlock) parts.push(fateBlock);
+    var flourish = RP.flourishBlock(room, opts.fate);
+    if (flourish) parts.push(flourish);
     var ooc = RP.oocBlock(state, room, opts.notes);
     if (ooc) parts.push(ooc);
     parts.push(RP.lengthBlock((state.settings && state.settings.length) || 'snappy', false).text);

@@ -168,6 +168,49 @@ check('kit: a filled slot opens hand / use / drop', (() => {
   if (opened) $('mCancel') ? $('mCancel').dispatchEvent(new win.MouseEvent('click', { bubbles: true })) : null;
   return opened;
 })());
+check('kit: dropping an item from the slot menu actually empties the slot', (() => {
+  const before = doc.querySelectorAll('.statebar .slot:not(.empty)').length;
+  const slot = doc.querySelector('.statebar .slot:not(.empty)');
+  if (!slot) return false;
+  const parts = slot.dataset.item.split('|');
+  const saved0 = savedState();
+  const r0 = saved0.rooms.find(x => x.id === saved0.active);
+  const had = r0.states[parts[0]].items.length;
+  slot.dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+  const drop = Array.from($('modal').querySelectorAll('[data-pick]')).find(b => /Drop it/.test(b.textContent));
+  if (!drop) return false;
+  drop.dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+  const saved = savedState();
+  const r = saved.rooms.find(x => x.id === saved.active);
+  return r.states[parts[0]].items.length === had - 1 &&
+    doc.querySelectorAll('.statebar .slot:not(.empty)').length === before - 1;
+})());
+check('invite: ＋ invite opens a portrait grid of the whole archive, with a ＋ tile for somebody new', (() => {
+  $('castAdd').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+  const grid = doc.querySelector('#modal .picker.portraits');
+  const tiles = grid ? grid.querySelectorAll('.pick[data-pick]') : [];
+  const withFaces = grid ? grid.querySelectorAll('.pick[data-pick] img').length : 0;
+  const plus = grid && grid.querySelector('[data-new]');
+  return Boolean(grid) && tiles.length >= 50 && withFaces >= 20 && Boolean(plus);
+})());
+check('invite: typing an unknown name seeds the ＋ tile, and the form seats them with a sheet of their own', (() => {
+  $('pickSearch').value = 'Old Pell';
+  $('pickSearch').dispatchEvent(new win.Event('input', { bubbles: true }));
+  const plus = doc.querySelector('#modal [data-new]');
+  if (!plus || !/Old Pell/.test(plus.textContent)) return false;
+  plus.dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+  if (!$('nc_name') || $('nc_name').value !== 'Old Pell') return false;
+  $('nc_role').value = 'the pawnbroker who holds the marker';
+  $('nc_voice').value = 'Dry, slow, every sentence a price.';
+  $('nc_items').value = '📒 a black ledger, 🗝 a ring of small keys';
+  $('mOk').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+  const saved = savedState();
+  const r = saved.rooms.find(x => x.id === saved.active);
+  const who = r.cast.find(c => c.name === 'Old Pell');
+  return Boolean(who) && who.invented && r.states[who.id] && r.states[who.id].items.length === 2 &&
+    r.kind === 'group' && (saved.newChars || []).some(c => c.id === who.id) &&
+    $('statebar').textContent.includes('Old Pell');
+})());
 check('state: the sheets are visible in the chat, with bars and conditions',
   !$('statebar').hidden && doc.querySelectorAll('.statebar .sheet').length >= 2 &&
   doc.querySelector('.statebar .pool .num').textContent.includes('HP') &&
@@ -220,7 +263,7 @@ check('fate: the roll is shown on the same card as the turn it decided',
 check('invented: a character the model made up joined the cast, described not drawn', (() => {
   const s = savedState();
   const r = s.rooms.find(x => x.id === s.active);
-  const made = (r.cast || []).find(c => c.invented);
+  const made = (r.cast || []).find(c => c.invented && c.name === 'Marguerite Oyle');
   return Boolean(made) && made.look.includes('stopwatch') && !made.image && Boolean(r.states[made.id]) &&
     (s.newChars || []).some(c => c.id === made.id);
 })());
@@ -657,9 +700,10 @@ check('commentary: finished episodes are kept and can be reopened',
   check('roster: it offers the archive, an invention, a card, or letting the model do it',
     doc.querySelectorAll('[data-pick]').length === 4);
   [...doc.querySelectorAll('[data-pick]')][1].dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
-  $('f_name').value = 'Marguerite Oyle';
-  $('f_role').value = 'the night archivist';
-  $('f_look').value = 'wiry, sixty, ink to the elbows';
+  check('roster: Invent one is the ＋ form, with a ✨ fill-in', Boolean($('nc_name')) && Boolean($('ncFill')));
+  $('nc_name').value = 'Marguerite Oyle';
+  $('nc_role').value = 'the night archivist';
+  $('nc_look').value = 'wiry, sixty, ink to the elbows';
   $('mOk').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
   await wait(200);
   check('roster: an invented character joins the scene with a sheet and is kept', (() => {

@@ -219,10 +219,24 @@ never narrated as dice:
 | ⚀ Refused | the character does not do what they were asked, for a reason that fits who they are |
 
 Difficulty (character panel → **🎲 Fate**): `off` (whatever you write works),
-`gentle`, `normal` (default), `harsh`. **Being hurt shifts the odds**: low HP
-and stacked conditions push weight out of *triumph/success* and into
-*setback/wrench*. The roll is shown to the reader as a pill above the turn it
-decided, so a refusal never looks like the model being broken.
+`gentle`, `normal` (default), `harsh`. The difficulty picks the table; a
+**tilt** then slides the weights along it (`RP.fateTilt`, ±3 pips, every
+pip listed on the pill so the arithmetic is never a mystery):
+
+- the stat your attempt leans on (`RP.actionStat` reads the wording — *heave*
+  is might, *bribe* is sway, *disarm* is wits, *shoot* is luck): score 0 is
+  −1, 1 is even, 2 is +1, 3 is +2;
+- **your own body**: HP at or under 35% is −1, down is −2, conditions are
+  −½ each up to −1. Only *your* sheet counts — an enemy bleeding out used to
+  make *your* attempt harder, which was backwards;
+- a thin-air claim is −2 (see below).
+
+The roll is shown to the reader as a pill on the turn it decided — *⚃ Works
+— at a price · ⚔ might 2 (+1) · 🩸 badly hurt (−1)* — and the model is told
+the lean in words (*"the attempt leaned on might (2 of 3), and they are
+badly hurt — let that show in HOW it goes, never as numbers"*), so a refusal
+never looks like the model being broken and a strong stat is visible in the
+prose, not just the odds.
 
 ## Backfills — the lore nobody wrote
 
@@ -1205,6 +1219,16 @@ more than one, the note on hover. Clicking a slot offers **take it in hand /
 put it away / use it / drop it** — using it writes the attempt and lets the
 Fate roll decide.
 
+The sheet answers to the names people actually write. `RP.findItem` tries
+the exact name, then the name with articles and possessives stripped, then
+one inside the other, then any solid word the two share — so the model's
+`[[ITEM: Archivist - brass key]]`, `[[USE: the scroll]]` and `[[EQUIP: my
+blue potion]]` find *🗝 a brass key | bent*, *📜 a scroll* and *🧪 blue
+potion*. (They used to need the exact string and silently did nothing: the
+prose said the key was handed over and the sheet kept it — the "inventory
+is broken" bug.) Dropping one of a stack now drops **one** (*loses a purse (1
+left)*), not the whole stack.
+
 The emoji comes from what the thing is called (`🗝` for a key, `📼` for a
 tape, `📄` for papers, `🏮` for a lantern, `📦` for anything unrecognised),
 and the model can set one itself:
@@ -1317,11 +1341,17 @@ locally, before anything is sent:
 - **It is there** → it is quietly taken in hand, with a pill on your turn
   (*🗝 a brass key — on your sheet, in hand*).
 - **It is not** → the pill says so (*🚫 "a bazooka" is not on your sheet —
-  the world will answer*), the fate roll turns against the bluff, and the
-  model gets a **one-off** `OUT OF THIN AIR` block: if the scene has
-  visibly put one within reach, hand it over on the record with
-  `[[ITEM: …]]`; otherwise the claim fails *inside the fiction* — an empty
-  hand, a bluff called — played, not scolded.
+  the world will answer*), the fate roll tilts −2 against the bluff, and
+  **the same roll settles it on the page** (`RP.resolveConjure`) before the
+  model is asked anything: ⚅ ⚄ ⚃ mean it was within reach after all — it
+  lands on your sheet, in hand, with a change line on the turn (*🎒 a
+  bazooka — it was within reach after all; on the sheet, in hand*); ⚂ ⚁ ⚀
+  mean the hand comes up empty (*🚫 a bazooka — reached for, not there*).
+  The **one-off** `OUT OF THIN AIR` block then tells the model which
+  happened and how to play it — show where the thing came from in a clause,
+  or write the grab at nothing — never scold. With fate `off` there is no
+  roll, and the old wording (hand it over with `[[ITEM: …]]` if the scene
+  put one in reach, otherwise the claim fails in the fiction) stands.
 
 Scenery is not policed (*grab the railing*, *use the door* pass), the block
 costs zero prompt space until it fires, and it fires once per claim.
@@ -1336,12 +1366,14 @@ and re-derive when you rewrite it; a hand-edited value (sheet editor, `2 1
 1 0`) is never re-derived.
 
 They are spent in exactly **one place**: the fate roll. `RP.actionStat`
-reads your attempt's wording — *smash* leans on might, *persuade* on sway,
-*decipher* on wits, *sneak* on luck — and shifts the odds bands by the
-score, shown on the roll pill (*⚄ It works · ⚔ might 2*). The prompt only
-ever carries the fourteen-character chip line per sheet, with the order to
-**play the 0s and the 3s, not recite them** — accuracy without bloat, since
-the verdict the stats produced already reaches the model as the fate order.
+reads your attempt's wording — *smash, heave, pin* lean on might, *persuade,
+bribe, taunt* on sway, *decipher, disarm, look closer* on wits, *sneak,
+shoot, chance it* on luck — and the score becomes a pip of tilt, shown on
+the roll pill (*⚄ It works · ⚔ might 2 (+1)*). The prompt only ever carries
+the fourteen-character chip line per sheet, with the order to **play the 0s
+and the 3s, not recite them** — accuracy without bloat, since the verdict
+the stats produced already reaches the model as the fate order, with the
+lean named in one line.
 
 ### 🧾 The quartermaster — the sheets keep themselves
 
@@ -1632,6 +1664,22 @@ syntax cannot smuggle markup in. The rule in the prompt is *"use it for one
 thing that matters, not for decoration — two or three words in a turn at
 most, and never a whole sentence."*
 
+### The flourish — colour on a schedule, not on a hope
+
+"You may colour" is read by a small model as "need not", and the palette
+rule is the first line squeezed on a tight window — so in practice nothing
+was ever coloured. `RP.flourishBlock` fixes that deterministically: every
+fifth turn (`RP.FLOURISH_EVERY`), and on every ⚅ triumph and ⚁ failure, the
+protected tail of the prompt carries a ~350-character order — **write
+exactly ONE phrase of this turn in colour, `{colour|the words}`, two to five
+words, the thing that carries the most weight; everything else stays
+plain** — with a palette matched to the moment (gold or amber for a
+triumph, blood or rust for a failure, ice or silver for a refusal, a
+rotating pair on the scheduled turns). It works with the mechanics off, it
+costs nothing on the turns it does not fire, and if the model has coloured
+something by itself in the last three turns (`RP.recentlyColoured`) it is
+left alone — the habit is the goal, not the nagging.
+
 ### Standing tints — a colour that keeps
 
 `{…|…}` colours one sentence, once. For a thing with lasting weight the
@@ -1696,16 +1744,36 @@ is how you stop an imported 300-turn story from dragging on every reply.
 
 ## Bringing somebody in mid-scene
 
-**＋ New** on the speaker rail:
+**＋ invite** on the state bar opens a **portrait grid of the whole archive**
+— every character with their picture, searchable by name or title, anyone
+invented in play before included, several at once — and a dashed **＋** tile
+for somebody the archive has never filed (type a name that matches nobody
+and the tile becomes *New: that name*). **＋ New** on the speaker rail offers
+the same grid plus:
 
-- **From the archive** — pick who walks in; they join the cast with a state
-  sheet of their own.
-- **Invent one** — a name, a job, a face. Kept in `state.newChars`, playable
-  again later, described rather than drawn.
+- **Invent one** — the ＋ form. A name is enough: **✨ Fill it in** asks the
+  model (`RP.inventPrompt`, one utility call, a fixed line-per-field
+  template) for the role, the look, how they talk, three sample lines, what
+  they would never say and what they carry; whatever you typed yourself is
+  kept. Saving (`RP.inventCharacter`) seats them with a real sheet, the kit
+  on it, and a **voice sheet of their own** — so they sound like somebody
+  from the first line. Kept in `state.newChars`, invitable again later,
+  described rather than drawn.
 - **From a character card** — `.png` or `.json`, and they say their greeting.
 - **Let the model choose** — files a scene note and asks for the next turn;
   the model has `[[NEW: …]]` and `[[ENTER: …]]` for exactly this, so it names
   them, describes them, and they stay in the scene.
+
+Whichever door they come through, two things now hold. A name in an
+`[[ENTER:]]` is resolved against the archive **whole-word, longest name
+first**, punctuation and titles aside (*Lord Verity of Trinity* finds Lord
+Verity; *Anastasia* no longer finds Ana, which the old substring test did),
+and against the people invented in play, so a return is a return — same
+voice, same kit. A name nobody knows is made on the spot like a `[[NEW:]]`
+(sheet, seat, kept for later) instead of a bare record. And a one-to-one
+chat somebody walks into **becomes a group chat** the moment the cast is
+two: named turns in the history, the rotation, the ensemble prompt — the
+solo card ("You are Sans") used to stay on for every speaker.
 
 ## Catching the lore book up on an import
 
