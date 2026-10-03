@@ -1227,11 +1227,22 @@ check('commentary: finished episodes are kept and can be reopened',
   const cTurns = roomC().messages.filter(m => m.role === 'user' || m.role === 'char' || m.role === 'world').length;
   const cCast = roomC().cast.map(c => c.id);
   const cTitle = roomC().sceneName || roomC().title;
-  check('merge: the Scene tab and the ⇄ menu both offer it; the dialog asks which scene is the stage and words the joining', (() => {
+  check('merge: it is offered in four places while two scenes are up — the turn bar, the side scene\u2019s header, the Scene tab card (its own primary row) and first in the ⇄ menu', (() => {
     dock('scene');
-    const btn = $('dkMerge');
-    if (!btn) return false;
-    btn.dispatchEvent(click());
+    const card = $('dkMerge');
+    const inBar = $('qaMerge') && /Merge scenes/.test($('qaMerge').textContent);
+    const inSide = $('mergeBtn_b') && /Merge/.test($('mergeBtn_b').textContent);
+    const inCard = card && card.classList.contains('primary') && /Merge the two scenes into one/.test(card.textContent) &&
+      /everyone ends up in the same place/.test(card.parentNode.textContent);
+    $('linkBtn').dispatchEvent(click());
+    const first = doc.querySelector('#modal [data-pick="0"]');
+    const inMenu = first && /Merge the two scenes into one/.test(first.textContent);
+    $('mCancel').dispatchEvent(click());
+    return Boolean(inBar && inSide && inCard && inMenu);
+  })());
+  check('merge: the dialog asks which scene is the stage and words the joining', (() => {
+    dock('scene');
+    $('qaMerge').dispatchEvent(click());
     const radios = doc.querySelectorAll('#modal [name=mergeStage]');
     return !$('modalBack').hidden && /Merge the two scenes/.test($('modal').textContent) && radios.length === 2 && radios[0].checked &&
       /come in from|comes in from|become one/.test($('f_join').value) && $('f_keep').checked && $('f_play').checked;

@@ -1501,9 +1501,12 @@ running there while you type in the other. `room.linkedTo` is mutual;
 **⨯ Unlink** makes them two chats again; deleting the pair deletes both
 (unlink first to keep one); a 🌿 branch is its own hour and is never linked.
 
-**⇄ Merge into one** is the reverse of ✂. When the two groups end up in
-the same place — the plane has landed in the yard — the link menu and the
-Scene tab both offer *Merge the two scenes into one*. The dialog asks
+**⊕ Merge the two scenes into one** is the reverse of ✂. When the two
+groups end up in the same place — the plane has landed in the yard — it is
+offered wherever you already are: **⊕ Merge scenes** on the turn bar (next
+to 🌗 Meanwhile, shown only while two scenes are up), **⊕ Merge** in the
+side scene's header beside ⇄ Front, its own primary row in the Scene tab's
+*Second scene* card, and first in the ⇄ link menu. The dialog asks
 **which scene is the stage** (the other folds into it), words **how they
 come together** for you (*"Wario, Waluigi come in from the plane — the two
 groups are in one place now, and everyone can see what state the others

@@ -2333,7 +2333,8 @@
       (other ? '<button class="qa mac live' + (other.live && other.live !== 'off' ? ' on' : '') + '" id="qaMeanwhile" title="' +
         esc('One unattended beat in \u201c' + (other.title || 'the other scene') + '\u201d now' +
           (other.live && other.live !== 'off' ? ' — it also moves by itself ' + (other.live === 'every' ? 'after each of your turns here.' : 'every other turn you take here.')
-            : '. (Scene tab: let it move on its own.)')) + '">🌗 Meanwhile</button>' : '') +
+            : '. (Scene tab: let it move on its own.)')) + '">🌗 Meanwhile</button>' +
+        '<button class="qa mac merge" id="qaMerge" title="' + esc('Merge the two scenes into one — everybody in one place, both chats as one stream (the opposite of ✂ Split). ↩ undoes it.') + '">⊕ Merge scenes</button>' : '') +
       '<button class="qa mac add" id="macroAdd" title="Your buttons — add, edit, hide">＋</button></span>';
   }
 
@@ -2711,7 +2712,7 @@
       (col ? '' : (function () {
         var other = RP.linkedRoom(state, r);
         return '<button class="pill link' + (other ? ' on' : '') + '" id="linkBtn" ' +
-          'title="' + (other ? 'Linked to “' + esc(other.sceneName || other.title) + '” — send somebody over, carry something, unlink'
+          'title="' + (other ? 'Linked to “' + esc(other.sceneName || other.title) + '” — merge the two into one, send somebody over, carry something, unlink'
             : 'Start a second scene happening right now — split this cast, invite others, or link a chat you already have') + '">⇄ ' +
           (other ? esc(RP.clip(other.sceneName || other.title, 18)) : 'Second scene') + '</button>';
       })()) +
@@ -2727,7 +2728,8 @@
       '<button class="pill' + (auditFlag ? ' warn' : '') + '" id="sceneBtn" ' +
         'title="The scene: its date, its fixed facts, the audit, the book, the link, a sequel">⋯' +
         (auditFlag ? ' ' + auditFlag : '') + '</button>' +
-      (col ? '<button class="pill" id="swapBtn" title="Bring this scene to the front — the other goes to the side; nothing else changes">⇄ Front</button>'
+      (col ? '<button class="pill" id="swapBtn" title="Bring this scene to the front — the other goes to the side; nothing else changes">⇄ Front</button>' +
+          '<button class="pill merge" id="mergeBtn" title="Merge the two scenes into one — everybody in one place, both chats as one stream. ↩ undoes it.">⊕ Merge</button>'
         : '<button class="pill" id="panelBtn" title="The dock — cast, scene, memory, voice, share">☰</button>'));
 
     // The sheets, visible in the chat rather than buried in a menu. The
@@ -2949,6 +2951,7 @@
       }), function (id) { walkOver(from, to, id); });
     };
     list('⇄ Linked: “' + name + '”', [
+      { label: '⊕ Merge the two scenes into one — everybody in one place, both chats as one stream…', value: 'merge' },
       { label: '⇄ Bring “' + (forward.sceneName || forward.title) + '” to the front — the other goes to the side', value: 'swap' },
       { label: '🚶 Send somebody from here over to “' + name + '”… (or drag their face across)', value: 'send' },
       { label: '🚶 Bring somebody over from “' + name + '” into here…', value: 'fetch' },
@@ -2956,7 +2959,6 @@
       { label: '⟵ Carry something over from “' + name + '” into here…', value: 'carryBack' },
       { label: sees ? '👁 Each scene knows the other — its people, its last ' + RP.MEANWHILE_TURNS + ' turns, the shared clock — so what would carry, carries on its own. Click to make them blind until you carry something over'
                     : '🙈 The scenes are blind to each other; only ⟶ carries anything — click to let each know the other', value: 'mode' },
-      { label: '⇄ Merge the two scenes into one — everybody in one place, both chats as one stream…', value: 'merge' },
       { label: '⨯ Unlink — both scenes stay, as two separate chats', value: 'unlink' },
     ], function (pick) {
       if (pick === 'swap') { state.active = forward.id; save(); render(); return; }
@@ -3357,7 +3359,7 @@
       return who.join(', ') + (you && who.indexOf(you.name) >= 0 ? '' : '') + ' ' + (who.length === 1 ? 'comes' : 'come') + ' in from ' + from + ' — ' +
         'the two groups are in one place now, and everyone can see what state the others are in.';
     };
-    openModal('<h3>⇄ Merge the two scenes into one</h3>' +
+    openModal('<h3>⊕ Merge the two scenes into one</h3>' +
       '<p class="sub">Everybody who is in either scene is in the one scene afterwards; both chats become one stream, in the order ' +
       'they happened, with a ⇄ card wherever the camera used to cut. Sheets, kit, facts and the clock are kept. ↩ takes it back.</p>' +
       '<label>Which scene is the stage — the place they are all in now?</label>' +
@@ -3371,7 +3373,7 @@
       '<label><input type="checkbox" id="f_play" checked> Play the joining now — the Director narrates it as the next turn</label>' +
       '<label><input type="checkbox" id="f_keep" checked> Keep the folded scene in Recents as a record (unlinked, nothing lost)</label>' +
       '</div>' +
-      '<div class="actions"><button class="pill" id="mCancel">Cancel</button><button class="pill primary" id="mOk">⇄ Merge</button></div>');
+      '<div class="actions"><button class="pill" id="mCancel">Cancel</button><button class="pill primary" id="mOk">⊕ Merge</button></div>');
     var radios = $('modal').querySelectorAll('[name=mergeStage]');
     radios.forEach(function (b) {
       b.onchange = function () {
@@ -3410,7 +3412,7 @@
     dockSide = '';
     state.active = stage.id;
     save(); buildBoard(); render();
-    toast('⇄ One scene now: ' + (report.joined.length ? report.joined.join(', ') + ' joined; ' : '') + report.turns + ' turns folded in. ↩ takes it back.');
+    toast('⊕ One scene now: ' + (report.joined.length ? report.joined.join(', ') + ' joined; ' : '') + report.turns + ' turns folded in. ↩ takes it back.');
     if (opts.play && opts.text) directRoom(stage, opts.text, 'world', foldName);
     return report;
   }
@@ -3715,8 +3717,10 @@
         : '<b>No second scene yet</b>Something happening elsewhere at the same time? Split this cast, invite others, or link a chat you already have.') +
       '<div class="btnrow"><button class="mini' + (other ? '' : ' primary') + '" id="dkLink">' +
       (other ? '⇄ Swap · carry over · unlink' : '⇄ Start a second scene') + '</button>' +
-      (other ? '<button class="mini" id="dkOpenOther">Open it in front</button>' +
-        '<button class="mini" id="dkMerge" title="Fold the two scenes into one place and one stream">⇄ Merge into one</button>' : '') + '</div>' +
+      (other ? '<button class="mini" id="dkOpenOther">Open it in front</button>' : '') + '</div>' +
+      (other ? '<div class="merge-row">' +
+        '<button class="mini primary wide" id="dkMerge" title="The opposite of ✂ Split: everybody in one place, both chats as one stream. ↩ undoes it.">⊕ Merge the two scenes into one</button>' +
+        '<small>When everyone ends up in the same place. The 🎬 Director plays the joining; ↩ takes it back.</small></div>' : '') +
       (other ? '<div class="cp-menu">' +
         menuItem('dkLive', '🌗', 'The scene you are not in', !r.live || r.live === 'off' ? 'Stands still until you cross over'
           : r.live === 'every' ? 'Moves after every turn you take' : 'Moves every other turn you take') +
@@ -4143,6 +4147,8 @@
     on('qaAt', function () { var box = $c('input'); if (box) { wireMentions(box, r); box.mentionOpen(); } });
     on('qaUse', function () { useItem(r, sfx); });
     on('qaMeanwhile', function () { liveNow(r); });
+    on('qaMerge', function () { mergeDialog(r); });
+    on('mergeBtn', function () { mergeDialog(r); });
     on('macroAdd', function () {
       manageMacros(r);
     });
