@@ -65,6 +65,21 @@ what just happened, never the same beat as last time, silence allowed.
   branch answers with `Name:` paragraphs; the test proves separate cards,
   the tag, and the history line).
 
+**Round 13 follow-up (bugs from play).** The split was too narrow: only
+the *trailing* run, only present cast, exact names, only when the room
+was set to answer — so *MR L:* paragraphs, a departed character's line
+and anything after a blank line stayed inline on the speaker's card.
+Now: `RP.splitChorus(text, speakerName, names, forbidden, {narrator})` →
+`{main, pieces:[{name, kind, text}], dropped, unknown}`; any labelled
+paragraph is a block; names match by `RP.nameKey` (and unique first
+names); `generate()` passes present + away + invented + archive names and
+the narrator's; a piece for somebody outside the scene is filed through
+the `enter` directive (same sheet back, or the archive's, or a new one)
+and gets a 🚪 line; `narrator` pieces become world cards; `unknown`
+labels stay in the text. Per-card **🩺** (`runSheetAudit(r, {turn})`,
+`sheetAuditPrompt(..., {turn:true})`, the `⟶` mark) and a TTS progress
+readout on ■ Stop came in the same pass.
+
 ## 2 · Several people, one turn — the same moment
 
 **Design.** Simultaneity is a *turn order with a shared clock*, not one

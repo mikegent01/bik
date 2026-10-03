@@ -549,7 +549,7 @@
   RP.ttsClean = function (text) {
     return String(text || '')
       .replace(/\{([a-z-]+)\|([^}]*)\}/gi, '$2')
-      .replace(/\[\[[^\]]*\]\]/g, ' ')
+      .replace(/(?:\[\[|\{\{)[^\]\}\n]*(?:\]\]|\}\}|\]\}|\}\])/g, ' ')
       .replace(/[*_`#>]+/g, ' ')
       .replace(/\s+/g, ' ').trim();
   };
@@ -2895,7 +2895,7 @@
    *  skipped, so "Sans looks terrified" is not Wario afraid.
    *  Returns { key, note } or null. */
   RP.moodScan = function (text, speakerName, others) {
-    var raw = String(text || '').replace(/\[\[[^\]]*\]\]/g, ' ');
+    var raw = String(text || '').replace(/(?:\[\[|\{\{)[^\]\}\n]*(?:\]\]|\}\}|\]\}|\}\])/g, ' ');
     if (!raw.trim()) return null;
     var me = String(speakerName || '').toLowerCase().split(/\s+/)[0];
     var them = (others || []).map(function (n) { return String(n || '').toLowerCase().split(/\s+/)[0]; })
@@ -3474,7 +3474,7 @@
 
   function hurtSentences(text) {
     return String(text || '')
-      .replace(/\[\[[^\]]*\]\]/g, ' ')
+      .replace(/(?:\[\[|\{\{)[^\]\}\n]*(?:\]\]|\}\}|\]\}|\}\])/g, ' ')
       .replace(/"[^"\n]{0,400}"|\u201c[^\u201d\n]{0,400}\u201d/g, ' ')     // what people SAY about crashing is not a crash
       .split(/\n+|[.!?]+["\u201d\u2019)*_]*\s+/)
       .map(function (x) { return x.trim(); })
@@ -3707,10 +3707,11 @@
         (RP.stateBlock(room) || '(no sheets)') +
         (away.length ? '\nWritten out of this scene, waiting at the door: ' + away.join(', ') : '');
     }).join('\n\n');
+    var one = Boolean(opts.turn);
     var play = rooms.map(function (room) {
       var list = (turns && turns[room.id]) || [];
       return (two ? 'IN \u201c' + (room.title || 'untitled') + '\u201d\n' : '') +
-        (list.length ? list.map(function (t) { return t.who + ': ' + clip(t.text, 320); }).join('\n') : '(nothing played yet)');
+        (list.length ? list.map(function (t) { return (t.mark ? '\u27f6 ' : '') + t.who + ': ' + clip(t.text, t.mark ? 1400 : 320); }).join('\n') : '(nothing played yet)');
     }).join('\n\n');
     return [
       'AUDIT THE SHEETS. You are the quartermaster of a roleplay ' + (two ? 'pair of linked scenes \u2014 one story, one clock, two rooms' : 'scene') +
@@ -3727,6 +3728,13 @@
       'restate what is already right. Anyone at 0 HP is DOWN \u2014 barely conscious \u2014 and if the play has them up and',
       'acting, one of the two is wrong: either the number (SET it to what the play shows) or the prose (say so in a NOTE).',
       '',
+      one ? 'ONE TURN. Only the turn marked \u27f6 is under audit; the turns above it are context. Decide what in THAT turn' +
+        ' should have moved the record and did not \u2014 HP for a blow, a graze, a fall, a burn; Energy for a spell or a sprint;' +
+        ' a condition begun or ended; a thing taken, dropped, drawn or spent; a mood that plainly changed; somebody who' +
+        ' entered or left; time that passed \u2014 for everyone it touches, and the PLAYER\u2019s own sheet first of all: the' +
+        ' writer may not speak for the player, but the player\u2019s body took whatever the turn says it took. Where the sheet' +
+        ' already shows it, leave it. Then NOTE: lines, up to three, on this turn alone \u2014 a line that person would never' +
+        ' say, a paragraph written for somebody else, a thing the record contradicts, what the next turn must pick up.' : '',
       full ? 'FULL AUDIT. The whole scene is below, not just the last exchange. Judge the record at the root: a MAXIMUM that' +
         ' does not fit who this person is, or what the scene has made of them, is REDEFINED ([[HP: Name = current/max]],' +
         ' [[EN: Name = current/max]]); every condition is checked against the prose \u2014 cured when the play contradicts it,' +
@@ -3991,53 +3999,106 @@
    *  Returns { main, pieces: [{ name, text }], dropped: [names] } —
    *  `dropped` are beats written for somebody the model may not write
    *  (the player's character): cut, not filed. */
-  RP.splitChorus = function (text, speakerName, names, forbidden) {
+  /** A name as a key: "Mr. L", "MR L" and "mr.l" are one person. */
+  RP.nameKey = function (name) { return String(name || '').toLowerCase().replace(/[^a-z0-9]+/g, ''); };
+  var NARRATOR_ALIASES = ['narrator', 'the narrator', 'narration', 'gm', 'dm', 'the director', 'director', 'the world', 'world', 'the scene'];
+  // Labels that are not people: "Note:", "Meanwhile:", "OOC:", "Summary:".
+  var NOT_A_NAME = /^(?:note|notes|warning|translation|meanwhile|later|elsewhere|ooc|aside|edit|ps|p\.s|summary|tl;dr|status|time|location|setting|scene|mood|hp|energy|mp|action|actions|dialogue|thought|thoughts|system|reply|response|answer|option|options|choice|choices|everyone|all|both)$/i;
+  var LABEL_RE = /^\s*(?:[-*\u2022]\s+)?(?:\*\*|__|\*)?\s*\[?([A-Za-z][A-Za-z0-9.'\u2019 -]{0,40}?)\]?(?:\s*\([^)]{0,30}\))?\s*(?:\*\*|__|\*)?\s*[:\uff1a]\s*(?:\*\*|__)?\s*(.*)$/;
+  /** The room's lines, cut out of a reply. A paragraph that begins
+   *  "Name:" is somebody else's turn written inside the speaker's; it is
+   *  lifted out and handed back as a piece, so the page can file it as
+   *  that person's own card. The speaker's own name as a label is just a
+   *  label \u2014 stripped, the text kept. A paragraph written for the
+   *  player (`forbidden`) is dropped and reported. `opts.narrator` names
+   *  the narration, so "Narrator:" paragraphs come back as kind 'narrator'.
+   *  A capitalised label nobody knows comes back in `unknown` (and stays
+   *  in the text, raw, for the reader to file). Names match loosely:
+   *  "Mr. L", "MR L", "Mr.L" are one person; a first name alone will do
+   *  when it is nobody else's.
+   *  Returns { main, pieces: [{name, kind, text}], dropped, unknown }. */
+  RP.splitChorus = function (text, speakerName, names, forbidden, opts) {
+    opts = opts || {};
     var whole = String(text || '');
-    var out = { main: whole, pieces: [], dropped: [] };
-    var allowed = (names || []).filter(Boolean).map(String);
-    var banned = (forbidden || []).filter(Boolean).map(String);
-    var known = allowed.concat(banned);
-    if (!known.length || whole.indexOf(':') < 0) return out;
-    var me = String(speakerName || '').toLowerCase();
-    var lead = function (line) {
-      var m = /^\s*(?:[-*\u2022]\s+)?(?:\*\*|__|\*)?\s*([A-Za-z][A-Za-z.'\u2019 -]{0,40}?)(?:\s*\([^)]{0,30}\))?\s*(?:\*\*|__|\*)?\s*:\s*(.*)$/.exec(line);
-      if (!m) return null;
-      var name = m[1].trim().toLowerCase();
-      if (name === me) return { name: speakerName, rest: m[2], self: true };
-      var hit = known.filter(function (n) { return n.toLowerCase() === name; })[0];
-      return hit ? { name: hit, rest: m[2] } : null;
+    var out = { main: whole, pieces: [], dropped: [], unknown: [] };
+    if (whole.indexOf(':') < 0 && whole.indexOf('\uff1a') < 0) return out;
+    var me = RP.nameKey(speakerName);
+    var meFirst = RP.nameKey(String(speakerName || '').split(/\s+/)[0]);
+    var table = {}, firsts = {};
+    var add = function (n, kind) {
+      var full = RP.nameKey(n);
+      if (!full || full === me) return;
+      if (!table[full]) table[full] = { name: n, kind: kind };
+      var first = RP.nameKey(String(n).split(/\s+/)[0]);
+      if (first && first !== full && first.length >= 3) (firsts[first] = firsts[first] || []).push({ name: n, kind: kind });
     };
-    var lines = whole.split(/\n/);
-    var pieces = [], buffer = [], bufferChars = 0;
-    for (var i = lines.length - 1; i >= 0; i--) {
-      var line = lines[i];
-      if (!line.trim()) { if (buffer.length) buffer.unshift(line); continue; }
-      var led = lead(line);
-      if (led && led.self) break;                 // the speaker again: everything above is theirs
-      if (led) {
-        // A named line may claim a short continuation under it, not a
-        // page of prose: that would be the speaker's own paragraphs
-        // with a quoted "Name:" line above them.
-        if (buffer.filter(function (l) { return l.trim(); }).length > 2 || bufferChars > 420) break;
-        pieces.unshift({ name: led.name, text: [led.rest].concat(buffer).join('\n').trim() });
-        buffer = []; bufferChars = 0;
-        if (pieces.length >= 4) break;
-        continue;
-      }
-      buffer.unshift(line); bufferChars += line.length;
-      if (bufferChars > 420 && !pieces.length) break;  // just prose at the end; nothing to cut
+    (names || []).filter(Boolean).forEach(function (n) { add(String(n), 'cast'); });
+    (forbidden || []).filter(Boolean).forEach(function (n) { add(String(n), 'player'); });
+    if (opts.narrator) {
+      add(String(opts.narrator), 'narrator');
+      NARRATOR_ALIASES.forEach(function (a) { var k = RP.nameKey(a); if (!table[k]) table[k] = { name: String(opts.narrator), kind: 'narrator' }; });
     }
-    if (!pieces.length) return out;
-    var mainLines = lines.slice(0, i + 1).concat(buffer);
-    // The lines the loop stopped on (and everything above) are the main
-    // text; the buffer under them is the speaker's too.
-    if (i < 0 && !buffer.length) mainLines = [];
+    var lookup = function (label) {
+      var k = RP.nameKey(label);
+      if (!k) return null;
+      if (me && (k === me || (meFirst.length >= 3 && k === meFirst))) return { name: speakerName, kind: 'self' };
+      if (table[k]) return table[k];
+      if (firsts[k] && firsts[k].length === 1) return firsts[k][0];
+      return null;
+    };
+    var lead = function (line) {
+      var m = LABEL_RE.exec(line);
+      if (!m) return null;
+      var label = m[1].trim();
+      if (!label || NOT_A_NAME.test(label)) return null;
+      var hit = lookup(label);
+      if (hit) return { name: hit.name, kind: hit.kind, rest: m[2] };
+      // A label nobody knows, that still looks like a person: capitalised, three words at most.
+      if (/^[A-Z]/.test(label) && label.split(/\s+/).length <= 3 && /[a-z]/.test(label + 'x')) return { name: label, kind: 'unknown', rest: m[2] };
+      return null;
+    };
+    // Blocks: a labelled line opens one and owns its paragraph \u2014 up to the
+    // next blank line or the next label. Paragraphs after a blank line are
+    // the speaker's again: the room is asked for one paragraph each.
+    var lines = whole.split(/\n/);
+    var blocks = [{ kind: 'main', name: speakerName, lines: [] }];
+    var open = null;                                 // the labelled block still taking lines
+    lines.forEach(function (line) {
+      var led = line.trim() ? lead(line) : null;
+      if (led) {
+        open = { kind: led.kind, name: led.name, lines: led.rest ? [led.rest] : [] };
+        blocks.push(open);
+        return;
+      }
+      if (open && !line.trim()) { open = null; blocks.push({ kind: 'main', name: speakerName, lines: [] }); return; }
+      (open || blocks[blocks.length - 1]).lines.push(line);
+    });
+    if (!blocks.some(function (b) { return b.kind !== 'main'; })) return out;
+    var mainLines = [], pieces = [];
+    blocks.forEach(function (b) {
+      var body = b.lines.join('\n').trim();
+      if (b.kind === 'main' || b.kind === 'self') {
+        if (!body) return;
+        if (mainLines.length) mainLines.push('');
+        mainLines.push(body);
+        return;
+      }
+      // A page of prose under one label is the speaker quoting a line,
+      // not the room answering: kept where it was, label and all.
+      var tooLong = body.length > 1400 || b.lines.filter(function (l) { return l.trim(); }).length > 10;
+      if (b.kind === 'unknown' || tooLong || !body) {
+        if (b.kind === 'unknown' && body && !tooLong) out.unknown.push({ name: b.name, text: body });
+        if (mainLines.length) mainLines.push('');
+        mainLines.push((b.name + ': ' + body).trim());
+        return;
+      }
+      pieces.push({ name: b.name, kind: b.kind, text: body });
+    });
     var main = mainLines.join('\n').trim();
-    if (!main) return out;                         // nothing left for the speaker — not a chorus
+    if (!pieces.length || !main) return out;          // nothing to cut, or nothing left for the speaker
     out.main = main;
     pieces.forEach(function (piece) {
-      if (!piece.text) return;
-      if (banned.some(function (b) { return b.toLowerCase() === piece.name.toLowerCase(); })) { out.dropped.push(piece.name); return; }
+      if (piece.kind === 'player') { out.dropped.push(piece.name); return; }
       out.pieces.push(piece);
     });
     return out;
@@ -4092,7 +4153,7 @@
    *  stage directions and the colour marks taken out. */
   function freshSentences(text) {
     return String(text || '').toLowerCase()
-      .replace(/\[\[[^\]]*\]\]/g, ' ')
+      .replace(/(?:\[\[|\{\{)[^\]\}\n]*(?:\]\]|\}\}|\]\}|\}\])/g, ' ')
       .replace(/\{[a-z#][a-z0-9 ]{0,14}\|([^{}]*)\}/g, '$1')
       .replace(/[\u2019']/g, '')
       .split(/[.!?;:\u2014\n*\u201c\u201d"()]+/)
@@ -4338,11 +4399,17 @@
     '+ 🪙 a cut purse]], [[COND: their name poisoned 4 -1hp | pale wine]] are all fair — deciding their words is not.',
   ].join('\n');
 
-  var DIRECTIVE_RE = /\[\[\s*(HP|MP|EN|ENERGY|STAMINA|FLAG|COND|CURE|COUNT|ITEM|USE|EQUIP|STOW|STATUS|MOOD|TINT|UNTINT|ENTER|EXIT|NEW|SET|TIME|LOOKUP|REMEMBER)\s*:\s*([^\]]+?)\s*\]\]/gi;
+  // The brackets are read loosely on purpose. A local model closes
+  // "[[MOOD: Wario fear 3 | the helicopter}}" with braces, or opens with
+  // one bracket, or mixes the two \u2014 and a direction that is not read
+  // is a direction printed at the reader, raw, in the middle of the prose.
+  // So: [[ {{ [{ {[ [ { open; ]] }} ]} }] ] } close; a body never spans a line.
+  var DIRECTIVE_RE = /(?:\[\[|\{\{|\[\{|\{\[|\[|\{)\s*(HP|MP|EN|ENERGY|STAMINA|FLAG|COND|CURE|COUNT|ITEM|USE|EQUIP|STOW|STATUS|MOOD|TINT|UNTINT|ENTER|EXIT|NEW|SET|TIME|LOOKUP|REMEMBER)\s*:\s*([^\]\}\n]+?)\s*(?:\]\]|\}\}|\]\}|\}\]|\]|\})/gi;
   // Anything else in double brackets is a directive the model invented. It
   // gets stripped rather than printed at the reader: "[[TIME: 23:00]]" in
   // the middle of the prose is a bug, not a feature.
-  var STRAY_RE = /\[\[[^\]]*\]\]/g;
+  var STRAY_RE = /(?:\[\[|\{\{)[^\]\}\n]*(?:\]\]|\}\}|\]\}|\}\])/g;
+  RP.STRAY_RE = STRAY_RE;
 
   /** Split "Lord Darian Marsh bleeding badly" into a character and the rest.
    *  Names are matched longest-first against the people actually in the room,

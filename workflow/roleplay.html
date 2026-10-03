@@ -1464,7 +1464,7 @@ window.CHATROOM_CONFIG = {
   RP.ttsClean = function (text) {
     return String(text || '')
       .replace(/\{([a-z-]+)\|([^}]*)\}/gi, '$2')
-      .replace(/\[\[[^\]]*\]\]/g, ' ')
+      .replace(/(?:\[\[|\{\{)[^\]\}\n]*(?:\]\]|\}\}|\]\}|\}\])/g, ' ')
       .replace(/[*_`#>]+/g, ' ')
       .replace(/\s+/g, ' ').trim();
   };
@@ -3810,7 +3810,7 @@ window.CHATROOM_CONFIG = {
    *  skipped, so "Sans looks terrified" is not Wario afraid.
    *  Returns { key, note } or null. */
   RP.moodScan = function (text, speakerName, others) {
-    var raw = String(text || '').replace(/\[\[[^\]]*\]\]/g, ' ');
+    var raw = String(text || '').replace(/(?:\[\[|\{\{)[^\]\}\n]*(?:\]\]|\}\}|\]\}|\}\])/g, ' ');
     if (!raw.trim()) return null;
     var me = String(speakerName || '').toLowerCase().split(/\s+/)[0];
     var them = (others || []).map(function (n) { return String(n || '').toLowerCase().split(/\s+/)[0]; })
@@ -4389,7 +4389,7 @@ window.CHATROOM_CONFIG = {
 
   function hurtSentences(text) {
     return String(text || '')
-      .replace(/\[\[[^\]]*\]\]/g, ' ')
+      .replace(/(?:\[\[|\{\{)[^\]\}\n]*(?:\]\]|\}\}|\]\}|\}\])/g, ' ')
       .replace(/"[^"\n]{0,400}"|\u201c[^\u201d\n]{0,400}\u201d/g, ' ')     // what people SAY about crashing is not a crash
       .split(/\n+|[.!?]+["\u201d\u2019)*_]*\s+/)
       .map(function (x) { return x.trim(); })
@@ -4622,10 +4622,11 @@ window.CHATROOM_CONFIG = {
         (RP.stateBlock(room) || '(no sheets)') +
         (away.length ? '\nWritten out of this scene, waiting at the door: ' + away.join(', ') : '');
     }).join('\n\n');
+    var one = Boolean(opts.turn);
     var play = rooms.map(function (room) {
       var list = (turns && turns[room.id]) || [];
       return (two ? 'IN \u201c' + (room.title || 'untitled') + '\u201d\n' : '') +
-        (list.length ? list.map(function (t) { return t.who + ': ' + clip(t.text, 320); }).join('\n') : '(nothing played yet)');
+        (list.length ? list.map(function (t) { return (t.mark ? '\u27f6 ' : '') + t.who + ': ' + clip(t.text, t.mark ? 1400 : 320); }).join('\n') : '(nothing played yet)');
     }).join('\n\n');
     return [
       'AUDIT THE SHEETS. You are the quartermaster of a roleplay ' + (two ? 'pair of linked scenes \u2014 one story, one clock, two rooms' : 'scene') +
@@ -4642,6 +4643,13 @@ window.CHATROOM_CONFIG = {
       'restate what is already right. Anyone at 0 HP is DOWN \u2014 barely conscious \u2014 and if the play has them up and',
       'acting, one of the two is wrong: either the number (SET it to what the play shows) or the prose (say so in a NOTE).',
       '',
+      one ? 'ONE TURN. Only the turn marked \u27f6 is under audit; the turns above it are context. Decide what in THAT turn' +
+        ' should have moved the record and did not \u2014 HP for a blow, a graze, a fall, a burn; Energy for a spell or a sprint;' +
+        ' a condition begun or ended; a thing taken, dropped, drawn or spent; a mood that plainly changed; somebody who' +
+        ' entered or left; time that passed \u2014 for everyone it touches, and the PLAYER\u2019s own sheet first of all: the' +
+        ' writer may not speak for the player, but the player\u2019s body took whatever the turn says it took. Where the sheet' +
+        ' already shows it, leave it. Then NOTE: lines, up to three, on this turn alone \u2014 a line that person would never' +
+        ' say, a paragraph written for somebody else, a thing the record contradicts, what the next turn must pick up.' : '',
       full ? 'FULL AUDIT. The whole scene is below, not just the last exchange. Judge the record at the root: a MAXIMUM that' +
         ' does not fit who this person is, or what the scene has made of them, is REDEFINED ([[HP: Name = current/max]],' +
         ' [[EN: Name = current/max]]); every condition is checked against the prose \u2014 cured when the play contradicts it,' +
@@ -4906,53 +4914,106 @@ window.CHATROOM_CONFIG = {
    *  Returns { main, pieces: [{ name, text }], dropped: [names] } —
    *  `dropped` are beats written for somebody the model may not write
    *  (the player's character): cut, not filed. */
-  RP.splitChorus = function (text, speakerName, names, forbidden) {
+  /** A name as a key: "Mr. L", "MR L" and "mr.l" are one person. */
+  RP.nameKey = function (name) { return String(name || '').toLowerCase().replace(/[^a-z0-9]+/g, ''); };
+  var NARRATOR_ALIASES = ['narrator', 'the narrator', 'narration', 'gm', 'dm', 'the director', 'director', 'the world', 'world', 'the scene'];
+  // Labels that are not people: "Note:", "Meanwhile:", "OOC:", "Summary:".
+  var NOT_A_NAME = /^(?:note|notes|warning|translation|meanwhile|later|elsewhere|ooc|aside|edit|ps|p\.s|summary|tl;dr|status|time|location|setting|scene|mood|hp|energy|mp|action|actions|dialogue|thought|thoughts|system|reply|response|answer|option|options|choice|choices|everyone|all|both)$/i;
+  var LABEL_RE = /^\s*(?:[-*\u2022]\s+)?(?:\*\*|__|\*)?\s*\[?([A-Za-z][A-Za-z0-9.'\u2019 -]{0,40}?)\]?(?:\s*\([^)]{0,30}\))?\s*(?:\*\*|__|\*)?\s*[:\uff1a]\s*(?:\*\*|__)?\s*(.*)$/;
+  /** The room's lines, cut out of a reply. A paragraph that begins
+   *  "Name:" is somebody else's turn written inside the speaker's; it is
+   *  lifted out and handed back as a piece, so the page can file it as
+   *  that person's own card. The speaker's own name as a label is just a
+   *  label \u2014 stripped, the text kept. A paragraph written for the
+   *  player (`forbidden`) is dropped and reported. `opts.narrator` names
+   *  the narration, so "Narrator:" paragraphs come back as kind 'narrator'.
+   *  A capitalised label nobody knows comes back in `unknown` (and stays
+   *  in the text, raw, for the reader to file). Names match loosely:
+   *  "Mr. L", "MR L", "Mr.L" are one person; a first name alone will do
+   *  when it is nobody else's.
+   *  Returns { main, pieces: [{name, kind, text}], dropped, unknown }. */
+  RP.splitChorus = function (text, speakerName, names, forbidden, opts) {
+    opts = opts || {};
     var whole = String(text || '');
-    var out = { main: whole, pieces: [], dropped: [] };
-    var allowed = (names || []).filter(Boolean).map(String);
-    var banned = (forbidden || []).filter(Boolean).map(String);
-    var known = allowed.concat(banned);
-    if (!known.length || whole.indexOf(':') < 0) return out;
-    var me = String(speakerName || '').toLowerCase();
-    var lead = function (line) {
-      var m = /^\s*(?:[-*\u2022]\s+)?(?:\*\*|__|\*)?\s*([A-Za-z][A-Za-z.'\u2019 -]{0,40}?)(?:\s*\([^)]{0,30}\))?\s*(?:\*\*|__|\*)?\s*:\s*(.*)$/.exec(line);
-      if (!m) return null;
-      var name = m[1].trim().toLowerCase();
-      if (name === me) return { name: speakerName, rest: m[2], self: true };
-      var hit = known.filter(function (n) { return n.toLowerCase() === name; })[0];
-      return hit ? { name: hit, rest: m[2] } : null;
+    var out = { main: whole, pieces: [], dropped: [], unknown: [] };
+    if (whole.indexOf(':') < 0 && whole.indexOf('\uff1a') < 0) return out;
+    var me = RP.nameKey(speakerName);
+    var meFirst = RP.nameKey(String(speakerName || '').split(/\s+/)[0]);
+    var table = {}, firsts = {};
+    var add = function (n, kind) {
+      var full = RP.nameKey(n);
+      if (!full || full === me) return;
+      if (!table[full]) table[full] = { name: n, kind: kind };
+      var first = RP.nameKey(String(n).split(/\s+/)[0]);
+      if (first && first !== full && first.length >= 3) (firsts[first] = firsts[first] || []).push({ name: n, kind: kind });
     };
-    var lines = whole.split(/\n/);
-    var pieces = [], buffer = [], bufferChars = 0;
-    for (var i = lines.length - 1; i >= 0; i--) {
-      var line = lines[i];
-      if (!line.trim()) { if (buffer.length) buffer.unshift(line); continue; }
-      var led = lead(line);
-      if (led && led.self) break;                 // the speaker again: everything above is theirs
-      if (led) {
-        // A named line may claim a short continuation under it, not a
-        // page of prose: that would be the speaker's own paragraphs
-        // with a quoted "Name:" line above them.
-        if (buffer.filter(function (l) { return l.trim(); }).length > 2 || bufferChars > 420) break;
-        pieces.unshift({ name: led.name, text: [led.rest].concat(buffer).join('\n').trim() });
-        buffer = []; bufferChars = 0;
-        if (pieces.length >= 4) break;
-        continue;
-      }
-      buffer.unshift(line); bufferChars += line.length;
-      if (bufferChars > 420 && !pieces.length) break;  // just prose at the end; nothing to cut
+    (names || []).filter(Boolean).forEach(function (n) { add(String(n), 'cast'); });
+    (forbidden || []).filter(Boolean).forEach(function (n) { add(String(n), 'player'); });
+    if (opts.narrator) {
+      add(String(opts.narrator), 'narrator');
+      NARRATOR_ALIASES.forEach(function (a) { var k = RP.nameKey(a); if (!table[k]) table[k] = { name: String(opts.narrator), kind: 'narrator' }; });
     }
-    if (!pieces.length) return out;
-    var mainLines = lines.slice(0, i + 1).concat(buffer);
-    // The lines the loop stopped on (and everything above) are the main
-    // text; the buffer under them is the speaker's too.
-    if (i < 0 && !buffer.length) mainLines = [];
+    var lookup = function (label) {
+      var k = RP.nameKey(label);
+      if (!k) return null;
+      if (me && (k === me || (meFirst.length >= 3 && k === meFirst))) return { name: speakerName, kind: 'self' };
+      if (table[k]) return table[k];
+      if (firsts[k] && firsts[k].length === 1) return firsts[k][0];
+      return null;
+    };
+    var lead = function (line) {
+      var m = LABEL_RE.exec(line);
+      if (!m) return null;
+      var label = m[1].trim();
+      if (!label || NOT_A_NAME.test(label)) return null;
+      var hit = lookup(label);
+      if (hit) return { name: hit.name, kind: hit.kind, rest: m[2] };
+      // A label nobody knows, that still looks like a person: capitalised, three words at most.
+      if (/^[A-Z]/.test(label) && label.split(/\s+/).length <= 3 && /[a-z]/.test(label + 'x')) return { name: label, kind: 'unknown', rest: m[2] };
+      return null;
+    };
+    // Blocks: a labelled line opens one and owns its paragraph \u2014 up to the
+    // next blank line or the next label. Paragraphs after a blank line are
+    // the speaker's again: the room is asked for one paragraph each.
+    var lines = whole.split(/\n/);
+    var blocks = [{ kind: 'main', name: speakerName, lines: [] }];
+    var open = null;                                 // the labelled block still taking lines
+    lines.forEach(function (line) {
+      var led = line.trim() ? lead(line) : null;
+      if (led) {
+        open = { kind: led.kind, name: led.name, lines: led.rest ? [led.rest] : [] };
+        blocks.push(open);
+        return;
+      }
+      if (open && !line.trim()) { open = null; blocks.push({ kind: 'main', name: speakerName, lines: [] }); return; }
+      (open || blocks[blocks.length - 1]).lines.push(line);
+    });
+    if (!blocks.some(function (b) { return b.kind !== 'main'; })) return out;
+    var mainLines = [], pieces = [];
+    blocks.forEach(function (b) {
+      var body = b.lines.join('\n').trim();
+      if (b.kind === 'main' || b.kind === 'self') {
+        if (!body) return;
+        if (mainLines.length) mainLines.push('');
+        mainLines.push(body);
+        return;
+      }
+      // A page of prose under one label is the speaker quoting a line,
+      // not the room answering: kept where it was, label and all.
+      var tooLong = body.length > 1400 || b.lines.filter(function (l) { return l.trim(); }).length > 10;
+      if (b.kind === 'unknown' || tooLong || !body) {
+        if (b.kind === 'unknown' && body && !tooLong) out.unknown.push({ name: b.name, text: body });
+        if (mainLines.length) mainLines.push('');
+        mainLines.push((b.name + ': ' + body).trim());
+        return;
+      }
+      pieces.push({ name: b.name, kind: b.kind, text: body });
+    });
     var main = mainLines.join('\n').trim();
-    if (!main) return out;                         // nothing left for the speaker — not a chorus
+    if (!pieces.length || !main) return out;          // nothing to cut, or nothing left for the speaker
     out.main = main;
     pieces.forEach(function (piece) {
-      if (!piece.text) return;
-      if (banned.some(function (b) { return b.toLowerCase() === piece.name.toLowerCase(); })) { out.dropped.push(piece.name); return; }
+      if (piece.kind === 'player') { out.dropped.push(piece.name); return; }
       out.pieces.push(piece);
     });
     return out;
@@ -5007,7 +5068,7 @@ window.CHATROOM_CONFIG = {
    *  stage directions and the colour marks taken out. */
   function freshSentences(text) {
     return String(text || '').toLowerCase()
-      .replace(/\[\[[^\]]*\]\]/g, ' ')
+      .replace(/(?:\[\[|\{\{)[^\]\}\n]*(?:\]\]|\}\}|\]\}|\}\])/g, ' ')
       .replace(/\{[a-z#][a-z0-9 ]{0,14}\|([^{}]*)\}/g, '$1')
       .replace(/[\u2019']/g, '')
       .split(/[.!?;:\u2014\n*\u201c\u201d"()]+/)
@@ -5253,11 +5314,17 @@ window.CHATROOM_CONFIG = {
     '+ 🪙 a cut purse]], [[COND: their name poisoned 4 -1hp | pale wine]] are all fair — deciding their words is not.',
   ].join('\n');
 
-  var DIRECTIVE_RE = /\[\[\s*(HP|MP|EN|ENERGY|STAMINA|FLAG|COND|CURE|COUNT|ITEM|USE|EQUIP|STOW|STATUS|MOOD|TINT|UNTINT|ENTER|EXIT|NEW|SET|TIME|LOOKUP|REMEMBER)\s*:\s*([^\]]+?)\s*\]\]/gi;
+  // The brackets are read loosely on purpose. A local model closes
+  // "[[MOOD: Wario fear 3 | the helicopter}}" with braces, or opens with
+  // one bracket, or mixes the two \u2014 and a direction that is not read
+  // is a direction printed at the reader, raw, in the middle of the prose.
+  // So: [[ {{ [{ {[ [ { open; ]] }} ]} }] ] } close; a body never spans a line.
+  var DIRECTIVE_RE = /(?:\[\[|\{\{|\[\{|\{\[|\[|\{)\s*(HP|MP|EN|ENERGY|STAMINA|FLAG|COND|CURE|COUNT|ITEM|USE|EQUIP|STOW|STATUS|MOOD|TINT|UNTINT|ENTER|EXIT|NEW|SET|TIME|LOOKUP|REMEMBER)\s*:\s*([^\]\}\n]+?)\s*(?:\]\]|\}\}|\]\}|\}\]|\]|\})/gi;
   // Anything else in double brackets is a directive the model invented. It
   // gets stripped rather than printed at the reader: "[[TIME: 23:00]]" in
   // the middle of the prose is a bug, not a feature.
-  var STRAY_RE = /\[\[[^\]]*\]\]/g;
+  var STRAY_RE = /(?:\[\[|\{\{)[^\]\}\n]*(?:\]\]|\}\}|\]\}|\}\])/g;
+  RP.STRAY_RE = STRAY_RE;
 
   /** Split "Lord Darian Marsh bleeding badly" into a character and the rest.
    *  Names are matched longest-first against the people actually in the room,
@@ -12937,6 +13004,7 @@ window.CHATROOM_CONFIG = {
           metaStrip(m) +
           '<div class="acts">' +
           '<button data-retry="' + i + '" title="Another take">↻</button>' +
+          (r.mechanics === 'off' ? '' : '<button data-auditturn="' + esc(m.id) + '" title="Audit this turn against the sheets">🩺</button>') +
           '<button class="' + (m.pinned ? 'on' : '') + '" data-pin="' + i + '" title="Pin">📌</button>' +
           '<button data-edit="' + esc(m.id) + '" title="Edit">✏️</button>' +
           '<button class="' + (m.muted ? 'on' : '') + '" data-mute="' + esc(m.id) + '" title="Mute">' + (m.muted ? '🙈' : '👁') + '</button>' +
@@ -12975,6 +13043,7 @@ window.CHATROOM_CONFIG = {
         (m.error ? '<div class="acts"><span>This notice stays out of the model’s context.</span></div>' :
           '<div class="acts">' + swipes +
           (mine ? '' : '<button data-retry="' + i + '" title="Another take">↻</button>') +
+          (mine || r.mechanics === 'off' ? '' : '<button data-auditturn="' + esc(m.id) + '" title="Audit this turn against the sheets">🩺</button>') +
           '<button class="' + (m.react === 'up' ? 'on' : '') + '" data-react="up" data-i="' + i + '">👍</button>' +
           '<button class="' + (m.react === 'down' ? 'on' : '') + '" data-react="down" data-i="' + i + '">👎</button>' +
           '<button class="' + (m.pinned ? 'on' : '') + '" data-pin="' + i + '" title="Pin">📌</button>' +
@@ -14054,6 +14123,7 @@ window.CHATROOM_CONFIG = {
   function runSheetAudit(r, auditOpts) {
     auditOpts = auditOpts || {};
     var full = Boolean(auditOpts.full);
+    var one = auditOpts.turn ? String(auditOpts.turn) : '';
     if (!r || r.mechanics === 'off') { toast('The sheets are off in this scene.'); return; }
     if (auditing) { toast('🩺 The audit is still reading.'); return; }
     var other = RP.linkedRoom(state, r);
@@ -14062,18 +14132,30 @@ window.CHATROOM_CONFIG = {
     rooms.forEach(function (room) {
       RP.ensurePlayerSheet(state, room);
       var playing = RP.playerCharacter(room);
-      turns[room.id] = (room.messages || []).filter(RP.visible).slice(-(full ? RP.AUDIT_TURNS_FULL : RP.AUDIT_TURNS)).map(function (m) {
+      var seen = (room.messages || []).filter(RP.visible);
+      if (one) {
+        // One card under audit: it is marked, and the three turns before
+        // it ride along as context. The other scene is not read.
+        var at = seen.map(function (m) { return m.id; }).indexOf(one);
+        seen = room.id === r.id && at >= 0 ? seen.slice(Math.max(0, at - 3), at + 1) : [];
+      } else {
+        seen = seen.slice(-(full ? RP.AUDIT_TURNS_FULL : RP.AUDIT_TURNS));
+      }
+      turns[room.id] = seen.map(function (m) {
         return {
           who: m.role === 'user' ? ((playing && playing.name) || RP.sheetFor(room, RP.playerSheetId(room)).name || 'The player')
             : m.role === 'world' ? RP.NARRATORS[RP.narrator(state)].name : charOf(room, m.charId).name,
           text: RP.textOf(m),
+          mark: one && m.id === one ? true : undefined,
         };
       });
     });
+    if (one && !turns[r.id].some(function (t) { return t.mark; })) { toast('That turn is not on the record any more.'); return; }
     auditing = true;
-    toast((full ? '🩻 Full audit \u2014 reading the whole of ' : '🩺 Reading ') + (other ? 'both scenes' : 'the scene') + ' against the sheets…');
+    toast(one ? '🩺 Reading that turn against the sheets…'
+      : (full ? '🩻 Full audit \u2014 reading the whole of ' : '🩺 Reading ') + (other ? 'both scenes' : 'the scene') + ' against the sheets…');
     Promise.all([
-      callModel(RP.sheetAuditPrompt(rooms, turns, { full: full }), [{ role: 'user', content: full ? 'Audit the whole scene.' : 'Audit the sheets.' }],
+      callModel(RP.sheetAuditPrompt(rooms, turns, { full: full, turn: Boolean(one) }), [{ role: 'user', content: one ? 'Audit this one turn.' : full ? 'Audit the whole scene.' : 'Audit the sheets.' }],
         { tokens: full ? 900 : 480, utility: true }),
       probePortraits(rooms).catch(function () { return []; }),
     ])
@@ -14103,8 +14185,8 @@ window.CHATROOM_CONFIG = {
             ') — initials are shown in its place. Fix the file in the archive.</span></div>';
         };
         var itemsOf = function (roomId) { return preview.items.filter(function (it) { return it.roomId === roomId; }); };
-        openModal('<h3>🩺 AI audit</h3>' +
-          '<p class="sub">The model read the last ' + RP.AUDIT_TURNS + ' turns' + (other ? ' of both scenes' : '') +
+        openModal('<h3>🩺 AI audit' + (one ? ' \u2014 one turn' : full ? ' \u2014 the whole scene' : '') + '</h3>' +
+          '<p class="sub">The model read ' + (one ? 'that turn, with the three before it for context,' : full ? 'the whole scene' : 'the last ' + RP.AUDIT_TURNS + ' turns' + (other ? ' of both scenes' : '')) +
           ' against every sheet and decided what should stand. Untick anything you disagree with; nothing has changed yet.</p>' +
           rooms.map(function (room) {
             var items = itemsOf(room.id);
@@ -14518,6 +14600,9 @@ window.CHATROOM_CONFIG = {
         if (now === 'up') toast('👍 Noted — later turns will lean this way.');
         if (now === 'down') toast('👎 Noted — later turns will avoid that. ↻ for another take.');
       };
+    });
+    stream.querySelectorAll('[data-auditturn]').forEach(function (b) {
+      b.onclick = function () { runSheetAudit(r, { turn: b.getAttribute('data-auditturn') }); };
     });
     stream.querySelectorAll('[data-edit]').forEach(function (b) {
       b.onclick = function () {
@@ -15562,10 +15647,19 @@ window.CHATROOM_CONFIG = {
       // card. A beat written for the character the reader plays is cut
       // and dropped: the model may not write them.
       var playerNames = [(RP.playerCharacter(r) || {}).name || '', state.user.name || '', RP.personaSheet(state).name || ''];
-      var chorus = (!worldTurn && !retry && r.kind === 'group' && speaker && (state.settings.audience || RP.AUDIENCE_DEFAULT) !== 'off')
-        ? RP.splitChorus(clean, speaker.name, RP.presentCast(r).filter(function (c) { return c.id !== speaker.id && c.id !== r.youPlay; })
-            .map(function (c) { return c.name; }), playerNames)
-        : { main: clean, pieces: [], dropped: [] };
+      // Who a “Name:” paragraph may belong to: the people in the scene,
+      // the people who left it, the people made this session, and the
+      // archive — somebody who is not in the room and speaks up has
+      // walked in, and is filed as such below. The narration is named
+      // too, so “Narrator:” comes back as a world card, not as a
+      // character called Narrator.
+      var narratorName = (RP.NARRATORS[RP.narrator(state)] || RP.WORLD).name;
+      var chorusNames = (r.cast || []).concat(r.away || []).concat(state.newChars || []).concat(cast || [])
+        .map(function (c) { return c && c.name; })
+        .filter(function (n) { return n && (!speaker || n !== speaker.name) && playerNames.indexOf(n) < 0; });
+      var chorus = (!retry && r.kind === 'group')
+        ? RP.splitChorus(clean, worldTurn ? narratorName : speaker.name, chorusNames, playerNames, { narrator: narratorName })
+        : { main: clean, pieces: [], dropped: [], unknown: [] };
       clean = chorus.main;
       // A take that gets sent back (it wrote the player) must not leave its
       // wounds and filings behind — the sheets are put back as they were.
@@ -15803,13 +15897,36 @@ window.CHATROOM_CONFIG = {
         // The room's beats, each under the person who made it: its own
         // card, its own mood read from its own words, its own line in
         // the history. Not a footnote on the speaker's bubble.
-        chorus.pieces.forEach(function (piece) {
-          var who = RP.presentCast(r).filter(function (c) { return c.name.toLowerCase() === piece.name.toLowerCase(); })[0];
-          if (!who || !piece.text) return;
+        chorus.pieces.forEach(function (piece, pn) {
+          if (!piece.text) return;
+          // “Narrator:” inside a character’s turn is the world speaking: a world card.
+          if (piece.kind === 'narrator') {
+            var told = { id: RP.uid(), role: 'world', charId: '', text: piece.text, at: Date.now() + 1 + pn, alts: [piece.text], alt: 0, chorus: true, moment: moment ? moment.id : undefined };
+            r.messages.push(told); RP.rememberTurn(state, r, told);
+            return;
+          }
+          var who = RP.presentCast(r).filter(function (c) { return RP.nameKey(c.name) === RP.nameKey(piece.name); })[0];
+          if (!who) {
+            // Somebody who is not in the scene spoke up: they have walked
+            // in. Filed like an [[ENTER]] — the same sheet if they left
+            // earlier, the archive’s sheet if it knows them, a new one if not.
+            var reason = 'spoke up in ' + (worldTurn ? 'the narration' : speaker.name + '\u2019s turn');
+            if (r.mechanics === 'off') {
+              who = RP.addToRoom(r, resolveChar(piece.name) || RP.normChar({ id: RP.slug(piece.name), name: piece.name })) || null;
+              if (who) msg.changes = (msg.changes || []).concat(['\ud83d\udeaa ' + who.name + ' enters \u2014 ' + reason]);
+            } else {
+              var came = RP.applyDirectives(state, r, [{ kind: 'enter', name: piece.name, reason: reason }], resolveChar);
+              who = (came.entered || [])[0] || null;
+              if (who) msg.changes = (msg.changes || []).concat(came.lines.map(function (l) { return '\ud83d\udeaa ' + l; }));
+            }
+            who = who && (r.cast || []).filter(function (c) { return c.id === who.id; })[0];
+            if (!who) return;
+          }
           var card = {
-            id: RP.uid(), role: 'char', charId: who.id, text: piece.text, at: Date.now() + 1, alts: [piece.text], alt: 0,
+            id: RP.uid(), role: 'char', charId: who.id, text: piece.text, at: Date.now() + 1 + pn, alts: [piece.text], alt: 0,
             chorus: true, ambient: ambient || undefined, moment: moment ? moment.id : undefined,
           };
+          if (moment && moment.done.indexOf(who.id) < 0) moment.done.push(who.id);
           if (r.mechanics !== 'off') {
             var chorusSheet = RP.sheetFor(r, who.id);
             if (chorusSheet && !moodFiled(who.id)) {
@@ -16283,7 +16400,8 @@ window.CHATROOM_CONFIG = {
       var b = $(id);
       if (!b) return;
       b.hidden = !anythingRunning();
-      b.textContent = '■ Stop' + (downloadChatAudio.busy && downloadChatAudio.at ? ' (' + downloadChatAudio.at + ')' : '');
+      b.textContent = '■ Stop' + (downloadChatAudio.busy && downloadChatAudio.at ? ' (' + downloadChatAudio.at + ')'
+        : speak.progress ? ' \u00b7 \ud83d\udd0a ' + speak.progress : '');
     });
   }
 
@@ -16503,7 +16621,8 @@ window.CHATROOM_CONFIG = {
     reader.stop = false;
     var mine = ++speak.turn;
     reading = true; refreshStop();
-    var over = function () { if (speak.turn === mine) { reading = false; refreshStop(); } };
+    var over = function () { if (speak.turn === mine) { reading = false; speak.progress = ''; refreshStop(); } };
+    speak.progress = 'asking the studio\u2026'; refreshStop();
     voiceLibrary(cfg).then(function (lib) {
       if (reader.stop || speak.turn !== mine) { over(); return; }
       var narrator = cfg.map.narrator || cfg.map.world || cfg.voice;
@@ -16523,6 +16642,9 @@ window.CHATROOM_CONFIG = {
       };
       var step = function (i) {
         if (reader.stop || speak.turn !== mine || i >= jobs.length) { over(); return; }
+        // The button says where the reader is — a long turn is several
+        // requests, and the first one is the wait.
+        speak.progress = (jobs[i].who ? jobs[i].who + ' ' : '') + (i + 1) + '/' + jobs.length + (aheadAt === i && ahead ? '' : ' \u2026'); refreshStop();
         var cur = (aheadAt === i && ahead) ? ahead : synth(i);
         ahead = null; aheadAt = -1;
         cur.then(function (url) {
@@ -16582,6 +16704,7 @@ window.CHATROOM_CONFIG = {
     }).catch(function () { over(); });
   }
   speak.turn = 0;
+  speak.progress = '';
 
   function speakBrowser(msg, r) {
     if (!window.speechSynthesis) { toast('The Qwen studio is not answering at ' + ttsConfig().endpoint + ' and this browser has no voice of its own.'); return; }

@@ -76,6 +76,19 @@ class Handler(BaseHTTPRequestHandler):
                 "FACT: the ledger room door does not lock from the inside\n"
                 "DIARY: They went looking for a ledger and found somebody had been there first.",
             )
+        elif "ONE TURN." in all_text and "\u27f6 " in all_text:
+            # The per-card audit (🩺 on a card): one turn is marked ⟶ and
+            # the reply is about that turn only — a correction for its
+            # speaker and a note on the play, so a page test can prove the
+            # card's button reaches the same review dialog.
+            who = ""
+            for line in all_text.split("\n"):
+                if line.startswith("\u27f6 ") and ":" in line:
+                    who = line[2:].split(":", 1)[0].strip()
+            content = os.environ.get("MOCK_TURN_AUDIT_REPLY", (
+                "[[HP: {{WHO}} -2]]\n"
+                "NOTE: {{WHO}} took the hit in this turn and the sheet did not show it."
+            )).replace("{{WHO}}", who)
         elif "AUDIT THE SHEETS" in all_text:
             # The AI audit of the sheets (run by hand from the dock): it
             # answers with corrections for the first person on the sheets,
@@ -128,6 +141,16 @@ class Handler(BaseHTTPRequestHandler):
             content = (
                 "The helicopter clips the awning and slams into the pavement. "
                 "The impact throws everyone forward against the dashboard, and for a moment nobody moves."
+            )
+        elif "STAGE DIRECTIONS" in all_text and "answers from the door" in last_user:
+            # Round 13: the reply carries a paragraph by somebody who is NOT
+            # in the scene (Kamek, whom the archive knows) and one by the
+            # narrator — so a page test can prove the first walks in and
+            # gets his own card, and the second becomes a world card.
+            content = (
+                "MOCK-MODEL REPLY: *He taps the ledger twice.* \"Who else is in here?\"\n\n"
+                "Kamek: *from the doorway, broom in hand* \"You rang, and I was passing.\"\n"
+                "Narrator: The lamp gutters and steadies."
             )
         elif "STAGE DIRECTIONS" in all_text and "the room answers" in last_user:
             # The room answering (round 12): the reply ends with a beat from

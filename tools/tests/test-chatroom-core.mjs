@@ -3591,7 +3591,7 @@ check('voice: a studio stream that errors is read for WHY — turned-away profil
       /not speaking this turn: Mona, Ashley\./.test(full) && /up to TWO of them MAY answer the moment properly/.test(full) && /two to four sentences/.test(full) &&
       /never the same beat they gave last time/.test(full) && !/Waluigi/.test(full) && RP.audienceBlock(rm, 'mona', 'full').indexOf('Wario, Ashley') > 0;
   })());
-  check('the room: trailing “Name:” paragraphs are cut out of the reply and handed to that person; the player’s are dropped; mid-line names and a reply that is all names are left alone', (() => {
+  check('the room: trailing “Name:” paragraphs are cut out of the reply and handed to that person; the player’s are dropped; mid-line names are left alone; the speaker’s own label is only a label', (() => {
     const reply = '*Wario slams the desk.* "Pay up, string bean."\n*He waits, breathing through his nose.*\n\nMona: *She does not look up from the register.* "He means it this time."\n"Don\'t make him count to three."\nAshley: *rolls her eyes* "Boring."';
     const cut = RP.splitChorus(reply, 'Wario', ['Mona', 'Ashley'], ['Waluigi']);
     const player = RP.splitChorus('*He shrugs.*\nWaluigi: "I pay."', 'Wario', ['Mona'], ['Waluigi']);
@@ -3602,8 +3602,22 @@ check('voice: a studio stream that errors is read for WHY — turned-away profil
       cut.pieces[0].name === 'Mona' && /^\*She does not look up/.test(cut.pieces[0].text) && /count to three\."$/.test(cut.pieces[0].text) &&
       cut.pieces[1].name === 'Ashley' && cut.pieces[1].text === '*rolls her eyes* "Boring."' && cut.dropped.length === 0 &&
       player.main === '*He shrugs.*' && player.pieces.length === 0 && player.dropped.length === 1 && /Waluigi/.test(player.dropped[0]) &&
-      allNames.pieces.length === 0 && allNames.main.indexOf('Mona:') === 0 && mid.pieces.length === 0 && mid.main === '*He says it plainly.* Mona: "what"\nand then some more prose.' &&
+      allNames.pieces.length === 1 && allNames.pieces[0].name === 'Mona' && allNames.main === '"no"' && mid.pieces.length === 0 && mid.main === '*He says it plainly.* Mona: "what"\nand then some more prose.' &&
       own.pieces.length === 0 && own.main === '*He waits.*\nWario: "And another thing."';
+  })());
+  check('the room: names match loosely (MR L, Mr.L, a first name alone); “Narrator:” is the world’s; a label nobody knows stays in the text; a reply that is only somebody else’s lines is left whole', (() => {
+    const loose = RP.splitChorus('*He counts.*\n\nMR L: *from the stairs* "Brother."\nmona: "Not now."', 'Wario', ['Mr. L', 'Mona Pizza'], ['Waluigi']);
+    const told = RP.splitChorus('*He counts.*\n\nNarrator: The lights go out.\n**Mona:** "Who did that?"', 'Wario', ['Mona'], [], { narrator: 'The Director' });
+    const stranger = RP.splitChorus('*He counts.*\n\nGarlic Vendor: "Fresh bulbs!"', 'Wario', ['Mona'], []);
+    const theirs = RP.splitChorus('Mona: "hi"\nAshley: "no"', 'Wario', ['Mona', 'Ashley'], []);
+    const dash = RP.splitChorus('*He counts.*\n- Mona: "one"', 'Wario', ['Mona'], []);
+    return loose.pieces.length === 2 && loose.pieces[0].name === 'Mr. L' && loose.pieces[0].kind === 'cast' && /^\*from the stairs\*/.test(loose.pieces[0].text) &&
+      loose.pieces[1].name === 'Mona Pizza' && loose.main === '*He counts.*' &&
+      told.pieces.length === 2 && told.pieces[0].kind === 'narrator' && told.pieces[0].name === 'The Director' && told.pieces[0].text === 'The lights go out.' &&
+      told.pieces[1].name === 'Mona' && told.pieces[1].text === '"Who did that?"' &&
+      stranger.pieces.length === 0 && stranger.unknown.length === 1 && stranger.unknown[0].name === 'Garlic Vendor' && /Garlic Vendor: "Fresh bulbs!"/.test(stranger.main) &&
+      theirs.pieces.length === 0 && theirs.main.indexOf('Mona:') === 0 &&
+      dash.pieces.length === 1 && dash.pieces[0].text === '"one"' && RP.nameKey('Mr. L') === RP.nameKey('MR L') && RP.nameKey('mr.l') === 'mrl';
   })());
   check('the same moment: the block names who has acted and who is still to, insists nothing has landed, and rides the prompt only when asked; the history labels the turn', (() => {
     const block = RP.momentBlock(rm, wario, { same: true, done: ['Mona'], pending: ['Ashley'] });

@@ -2822,6 +2822,7 @@
           metaStrip(m) +
           '<div class="acts">' +
           '<button data-retry="' + i + '" title="Another take">↻</button>' +
+          (r.mechanics === 'off' ? '' : '<button data-auditturn="' + esc(m.id) + '" title="Audit this turn against the sheets">🩺</button>') +
           '<button class="' + (m.pinned ? 'on' : '') + '" data-pin="' + i + '" title="Pin">📌</button>' +
           '<button data-edit="' + esc(m.id) + '" title="Edit">✏️</button>' +
           '<button class="' + (m.muted ? 'on' : '') + '" data-mute="' + esc(m.id) + '" title="Mute">' + (m.muted ? '🙈' : '👁') + '</button>' +
@@ -2860,6 +2861,7 @@
         (m.error ? '<div class="acts"><span>This notice stays out of the model’s context.</span></div>' :
           '<div class="acts">' + swipes +
           (mine ? '' : '<button data-retry="' + i + '" title="Another take">↻</button>') +
+          (mine || r.mechanics === 'off' ? '' : '<button data-auditturn="' + esc(m.id) + '" title="Audit this turn against the sheets">🩺</button>') +
           '<button class="' + (m.react === 'up' ? 'on' : '') + '" data-react="up" data-i="' + i + '">👍</button>' +
           '<button class="' + (m.react === 'down' ? 'on' : '') + '" data-react="down" data-i="' + i + '">👎</button>' +
           '<button class="' + (m.pinned ? 'on' : '') + '" data-pin="' + i + '" title="Pin">📌</button>' +
@@ -3939,6 +3941,7 @@
   function runSheetAudit(r, auditOpts) {
     auditOpts = auditOpts || {};
     var full = Boolean(auditOpts.full);
+    var one = auditOpts.turn ? String(auditOpts.turn) : '';
     if (!r || r.mechanics === 'off') { toast('The sheets are off in this scene.'); return; }
     if (auditing) { toast('🩺 The audit is still reading.'); return; }
     var other = RP.linkedRoom(state, r);
@@ -3947,18 +3950,30 @@
     rooms.forEach(function (room) {
       RP.ensurePlayerSheet(state, room);
       var playing = RP.playerCharacter(room);
-      turns[room.id] = (room.messages || []).filter(RP.visible).slice(-(full ? RP.AUDIT_TURNS_FULL : RP.AUDIT_TURNS)).map(function (m) {
+      var seen = (room.messages || []).filter(RP.visible);
+      if (one) {
+        // One card under audit: it is marked, and the three turns before
+        // it ride along as context. The other scene is not read.
+        var at = seen.map(function (m) { return m.id; }).indexOf(one);
+        seen = room.id === r.id && at >= 0 ? seen.slice(Math.max(0, at - 3), at + 1) : [];
+      } else {
+        seen = seen.slice(-(full ? RP.AUDIT_TURNS_FULL : RP.AUDIT_TURNS));
+      }
+      turns[room.id] = seen.map(function (m) {
         return {
           who: m.role === 'user' ? ((playing && playing.name) || RP.sheetFor(room, RP.playerSheetId(room)).name || 'The player')
             : m.role === 'world' ? RP.NARRATORS[RP.narrator(state)].name : charOf(room, m.charId).name,
           text: RP.textOf(m),
+          mark: one && m.id === one ? true : undefined,
         };
       });
     });
+    if (one && !turns[r.id].some(function (t) { return t.mark; })) { toast('That turn is not on the record any more.'); return; }
     auditing = true;
-    toast((full ? '🩻 Full audit \u2014 reading the whole of ' : '🩺 Reading ') + (other ? 'both scenes' : 'the scene') + ' against the sheets…');
+    toast(one ? '🩺 Reading that turn against the sheets…'
+      : (full ? '🩻 Full audit \u2014 reading the whole of ' : '🩺 Reading ') + (other ? 'both scenes' : 'the scene') + ' against the sheets…');
     Promise.all([
-      callModel(RP.sheetAuditPrompt(rooms, turns, { full: full }), [{ role: 'user', content: full ? 'Audit the whole scene.' : 'Audit the sheets.' }],
+      callModel(RP.sheetAuditPrompt(rooms, turns, { full: full, turn: Boolean(one) }), [{ role: 'user', content: one ? 'Audit this one turn.' : full ? 'Audit the whole scene.' : 'Audit the sheets.' }],
         { tokens: full ? 900 : 480, utility: true }),
       probePortraits(rooms).catch(function () { return []; }),
     ])
@@ -3988,8 +4003,8 @@
             ') — initials are shown in its place. Fix the file in the archive.</span></div>';
         };
         var itemsOf = function (roomId) { return preview.items.filter(function (it) { return it.roomId === roomId; }); };
-        openModal('<h3>🩺 AI audit</h3>' +
-          '<p class="sub">The model read the last ' + RP.AUDIT_TURNS + ' turns' + (other ? ' of both scenes' : '') +
+        openModal('<h3>🩺 AI audit' + (one ? ' \u2014 one turn' : full ? ' \u2014 the whole scene' : '') + '</h3>' +
+          '<p class="sub">The model read ' + (one ? 'that turn, with the three before it for context,' : full ? 'the whole scene' : 'the last ' + RP.AUDIT_TURNS + ' turns' + (other ? ' of both scenes' : '')) +
           ' against every sheet and decided what should stand. Untick anything you disagree with; nothing has changed yet.</p>' +
           rooms.map(function (room) {
             var items = itemsOf(room.id);
@@ -4403,6 +4418,9 @@
         if (now === 'up') toast('👍 Noted — later turns will lean this way.');
         if (now === 'down') toast('👎 Noted — later turns will avoid that. ↻ for another take.');
       };
+    });
+    stream.querySelectorAll('[data-auditturn]').forEach(function (b) {
+      b.onclick = function () { runSheetAudit(r, { turn: b.getAttribute('data-auditturn') }); };
     });
     stream.querySelectorAll('[data-edit]').forEach(function (b) {
       b.onclick = function () {
@@ -5447,10 +5465,19 @@
       // card. A beat written for the character the reader plays is cut
       // and dropped: the model may not write them.
       var playerNames = [(RP.playerCharacter(r) || {}).name || '', state.user.name || '', RP.personaSheet(state).name || ''];
-      var chorus = (!worldTurn && !retry && r.kind === 'group' && speaker && (state.settings.audience || RP.AUDIENCE_DEFAULT) !== 'off')
-        ? RP.splitChorus(clean, speaker.name, RP.presentCast(r).filter(function (c) { return c.id !== speaker.id && c.id !== r.youPlay; })
-            .map(function (c) { return c.name; }), playerNames)
-        : { main: clean, pieces: [], dropped: [] };
+      // Who a “Name:” paragraph may belong to: the people in the scene,
+      // the people who left it, the people made this session, and the
+      // archive — somebody who is not in the room and speaks up has
+      // walked in, and is filed as such below. The narration is named
+      // too, so “Narrator:” comes back as a world card, not as a
+      // character called Narrator.
+      var narratorName = (RP.NARRATORS[RP.narrator(state)] || RP.WORLD).name;
+      var chorusNames = (r.cast || []).concat(r.away || []).concat(state.newChars || []).concat(cast || [])
+        .map(function (c) { return c && c.name; })
+        .filter(function (n) { return n && (!speaker || n !== speaker.name) && playerNames.indexOf(n) < 0; });
+      var chorus = (!retry && r.kind === 'group')
+        ? RP.splitChorus(clean, worldTurn ? narratorName : speaker.name, chorusNames, playerNames, { narrator: narratorName })
+        : { main: clean, pieces: [], dropped: [], unknown: [] };
       clean = chorus.main;
       // A take that gets sent back (it wrote the player) must not leave its
       // wounds and filings behind — the sheets are put back as they were.
@@ -5688,13 +5715,36 @@
         // The room's beats, each under the person who made it: its own
         // card, its own mood read from its own words, its own line in
         // the history. Not a footnote on the speaker's bubble.
-        chorus.pieces.forEach(function (piece) {
-          var who = RP.presentCast(r).filter(function (c) { return c.name.toLowerCase() === piece.name.toLowerCase(); })[0];
-          if (!who || !piece.text) return;
+        chorus.pieces.forEach(function (piece, pn) {
+          if (!piece.text) return;
+          // “Narrator:” inside a character’s turn is the world speaking: a world card.
+          if (piece.kind === 'narrator') {
+            var told = { id: RP.uid(), role: 'world', charId: '', text: piece.text, at: Date.now() + 1 + pn, alts: [piece.text], alt: 0, chorus: true, moment: moment ? moment.id : undefined };
+            r.messages.push(told); RP.rememberTurn(state, r, told);
+            return;
+          }
+          var who = RP.presentCast(r).filter(function (c) { return RP.nameKey(c.name) === RP.nameKey(piece.name); })[0];
+          if (!who) {
+            // Somebody who is not in the scene spoke up: they have walked
+            // in. Filed like an [[ENTER]] — the same sheet if they left
+            // earlier, the archive’s sheet if it knows them, a new one if not.
+            var reason = 'spoke up in ' + (worldTurn ? 'the narration' : speaker.name + '\u2019s turn');
+            if (r.mechanics === 'off') {
+              who = RP.addToRoom(r, resolveChar(piece.name) || RP.normChar({ id: RP.slug(piece.name), name: piece.name })) || null;
+              if (who) msg.changes = (msg.changes || []).concat(['\ud83d\udeaa ' + who.name + ' enters \u2014 ' + reason]);
+            } else {
+              var came = RP.applyDirectives(state, r, [{ kind: 'enter', name: piece.name, reason: reason }], resolveChar);
+              who = (came.entered || [])[0] || null;
+              if (who) msg.changes = (msg.changes || []).concat(came.lines.map(function (l) { return '\ud83d\udeaa ' + l; }));
+            }
+            who = who && (r.cast || []).filter(function (c) { return c.id === who.id; })[0];
+            if (!who) return;
+          }
           var card = {
-            id: RP.uid(), role: 'char', charId: who.id, text: piece.text, at: Date.now() + 1, alts: [piece.text], alt: 0,
+            id: RP.uid(), role: 'char', charId: who.id, text: piece.text, at: Date.now() + 1 + pn, alts: [piece.text], alt: 0,
             chorus: true, ambient: ambient || undefined, moment: moment ? moment.id : undefined,
           };
+          if (moment && moment.done.indexOf(who.id) < 0) moment.done.push(who.id);
           if (r.mechanics !== 'off') {
             var chorusSheet = RP.sheetFor(r, who.id);
             if (chorusSheet && !moodFiled(who.id)) {
@@ -6168,7 +6218,8 @@
       var b = $(id);
       if (!b) return;
       b.hidden = !anythingRunning();
-      b.textContent = '■ Stop' + (downloadChatAudio.busy && downloadChatAudio.at ? ' (' + downloadChatAudio.at + ')' : '');
+      b.textContent = '■ Stop' + (downloadChatAudio.busy && downloadChatAudio.at ? ' (' + downloadChatAudio.at + ')'
+        : speak.progress ? ' \u00b7 \ud83d\udd0a ' + speak.progress : '');
     });
   }
 
@@ -6388,7 +6439,8 @@
     reader.stop = false;
     var mine = ++speak.turn;
     reading = true; refreshStop();
-    var over = function () { if (speak.turn === mine) { reading = false; refreshStop(); } };
+    var over = function () { if (speak.turn === mine) { reading = false; speak.progress = ''; refreshStop(); } };
+    speak.progress = 'asking the studio\u2026'; refreshStop();
     voiceLibrary(cfg).then(function (lib) {
       if (reader.stop || speak.turn !== mine) { over(); return; }
       var narrator = cfg.map.narrator || cfg.map.world || cfg.voice;
@@ -6408,6 +6460,9 @@
       };
       var step = function (i) {
         if (reader.stop || speak.turn !== mine || i >= jobs.length) { over(); return; }
+        // The button says where the reader is — a long turn is several
+        // requests, and the first one is the wait.
+        speak.progress = (jobs[i].who ? jobs[i].who + ' ' : '') + (i + 1) + '/' + jobs.length + (aheadAt === i && ahead ? '' : ' \u2026'); refreshStop();
         var cur = (aheadAt === i && ahead) ? ahead : synth(i);
         ahead = null; aheadAt = -1;
         cur.then(function (url) {
@@ -6467,6 +6522,7 @@
     }).catch(function () { over(); });
   }
   speak.turn = 0;
+  speak.progress = '';
 
   function speakBrowser(msg, r) {
     if (!window.speechSynthesis) { toast('The Qwen studio is not answering at ' + ttsConfig().endpoint + ' and this browser has no voice of its own.'); return; }

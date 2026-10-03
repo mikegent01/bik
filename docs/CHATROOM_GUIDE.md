@@ -2594,6 +2594,45 @@ chat somebody walks into **becomes a group chat** the moment the cast is
 two: named turns in the history, the rotation, the ensemble prompt — the
 solo card ("You are Sans") used to stay on for every speaker.
 
+## Whoever speaks on their own line gets their own card
+
+A reply is one person's turn, but models write the room anyway — and the
+page now files all of it where it belongs instead of leaving it inline.
+
+- **Any `Name:` paragraph is lifted out** (`RP.splitChorus`), not only the
+  trailing run and not only when the room is set to answer: the setting
+  shapes the *prompt*; the split always runs in a group scene. Names match
+  loosely (`RP.nameKey`: *Mr. L*, *MR L*, *mr.l* are one person; a first
+  name alone will do when it is nobody else's; `**Mona:**`, `- Mona:` and
+  `[Mona]:` are all labels). The speaker's own name as a label is just a
+  label — stripped, the text kept.
+- **Somebody outside the scene who speaks has walked in.** A paragraph by
+  someone who left earlier, someone invented this session, or anyone in
+  the archive is filed like an `[[ENTER:]]` — same sheet if they left,
+  the archive's sheet if it knows them, a new one if not — with a 🚪 line
+  on the turn it happened in, and the paragraph becomes their card.
+- **`Narrator:` is the world speaking** — a world card under the
+  narrator's name, never a character called Narrator.
+- A label nobody knows (*Garlic Vendor:*) stays in the text, raw, for you
+  to file; a reply that is nothing but other people's lines is left whole
+  for the mislabel check; a page of prose under one label is quoting, not
+  the room, and is kept.
+- Cards filed this way count toward **the same moment** when one is
+  running, and each is read for its own mood.
+
+**🩺 on a card** audits that one turn: the model reads it (marked ⟶, with
+the three turns before it for context) against every sheet and answers
+only about that turn — what it took, what it spent, what the sheet
+already shows, and up to three notes on the play. Same preview, same
+tick-boxes, same ↩ as the dock audit; the notes ride on the next turn.
+World cards carry it too; your own lines do not (`sheetAuditPrompt(rooms,
+turns, {turn:true})`, `runSheetAudit(r, {turn: id})`).
+
+**The reader says where it is.** While a turn is being read aloud the
+■ Stop button carries the studio's progress — *asking the studio…*, then
+*Wario 2/5* as each request is rendered — so a long first request is a
+visible wait rather than a dead button.
+
 ## Catching the lore book up on an import
 
 A long import is a lot of unread turns. Reading every three-turn stretch of a

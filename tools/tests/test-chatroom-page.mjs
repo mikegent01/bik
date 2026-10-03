@@ -2018,6 +2018,80 @@ check('audit: ↩ undo takes the whole audit back — sheet, card and clock', ((
   dock('cast');
 }
 
+// ---- round 13: a “Name:” paragraph by somebody outside the scene walks them in; “Narrator:” is a world card; 🩺 on a card audits that turn ----
+{
+  const click = () => new win.MouseEvent('click', { bubbles: true });
+  const submit = () => new win.Event('submit', { bubbles: true, cancelable: true });
+  const active = () => { const s = savedState(); return s.rooms.find(x => x.id === s.active); };
+  const quiet = async (label) => until(label, () => !doc.querySelector('.typing') && !(active().queue || []).length, 120);
+  const group13 = savedState().rooms.find(x => x.kind === 'group' && x.mechanics !== 'off' &&
+    Object.keys(x.states || {}).filter(id => id !== '__you__' && id !== x.youPlay && x.states[id].present !== false).length >= 2);
+  check('round 13: a group room with the sheets on exists to test with', Boolean(group13));
+  if (group13) {
+    const row = doc.querySelector(`[data-room="${group13.id}"]`);
+    if (row) row.dispatchEvent(click());
+    await wait(200);
+  }
+  const room13 = () => active();
+  const kamekBefore = (room13().cast || []).some(c => /kamek/i.test(c.name));
+  const before13 = room13().messages.length;
+  $('input').value = 'I ask who else is in here, and somebody answers from the door.';
+  $('composer').dispatchEvent(submit());
+  await until('the arrival to be filed', () => room13().messages.slice(before13).some(m => m.chorus && m.role === 'char'), 120);
+  await quiet('the chain to settle');
+  await wait(250);
+  check('arrivals: a paragraph by somebody the scene does not have walks them in — a 🚪 line on the turn, a seat in the cast, and the paragraph as their own card', (() => {
+    const r = room13();
+    const fresh = r.messages.slice(before13);
+    const main = fresh.find(m => m.role === 'char' && !m.chorus);
+    const kamek = (r.cast || []).find(c => /kamek/i.test(c.name));
+    const card = fresh.find(m => m.chorus && m.role === 'char' && kamek && m.charId === kamek.id);
+    return Boolean(main && kamek && card) && /You rang/.test(card.text) && !/You rang/.test(main.text) && /Who else/.test(main.text) &&
+      (kamekBefore || (main.changes || []).some(l => /🚪 .*Kamek.*(enters|returns)/.test(l))) &&
+      r.states[kamek.id] && r.states[kamek.id].present !== false;
+  })());
+  check('arrivals: “Narrator:” inside the turn is the world speaking — a world card, not a character called Narrator', (() => {
+    const r = room13();
+    const fresh = r.messages.slice(before13);
+    return fresh.some(m => m.role === 'world' && m.chorus && /lamp gutters/.test(m.text)) &&
+      !(r.cast || []).some(c => /narrator/i.test(c.name)) && !fresh.some(m => m.role === 'char' && /lamp gutters/.test(m.text));
+  })());
+  check('arrivals: the cards are on the page under the right faces', (() => {
+    const cards = [...doc.querySelectorAll('.turn.chorus')];
+    const r = room13();
+    const kamek = (r.cast || []).find(c => /kamek/i.test(c.name));
+    return cards.some(c => c.querySelector('.who b') && c.querySelector('.who b').textContent === kamek.name && /You rang/.test(c.querySelector('.bubble').textContent));
+  })());
+
+  // 🩺 one card, one audit
+  const turnCards = [...doc.querySelectorAll('.turn [data-auditturn]')];
+  check('🩺 on a card: every character and world card carries an audit button of its own; the reader’s own lines do not', (() => {
+    const r = room13();
+    const ids = turnCards.map(b => b.getAttribute('data-auditturn'));
+    const own = r.messages.filter(m => m.role === 'user').map(m => m.id);
+    return turnCards.length > 0 && ids.every(id => own.indexOf(id) < 0) &&
+      r.messages.filter(m => (m.role === 'char' || m.role === 'world') && !m.error).every(m => ids.indexOf(m.id) >= 0);
+  })());
+  const r13 = room13();
+  const lastChar = r13.messages.slice().reverse().find(m => m.role === 'char' && !m.chorus && r13.states[m.charId] && r13.states[m.charId].hp.value >= 2);
+  const btn = doc.querySelector(`.turn [data-auditturn="${lastChar.id}"]`);
+  const hpBefore13 = r13.states[lastChar.charId].hp.value;
+  btn.dispatchEvent(click());
+  const oneAudit = await until('the one-turn audit to come back', () => !$('modalBack').hidden && /Apply 1 change · 1 note/.test(($('mOk') || {}).textContent || ''), 120);
+  check('🩺 on a card: one call reads that turn (with three before it for context), previews its correction and its note, and names the turn in the title',
+    oneAudit && /AI audit — one turn/.test($('modal').textContent) && /that turn, with the three before it/.test($('modal').textContent) &&
+    /took the hit in this turn/.test($('modal').textContent));
+  if (oneAudit) {
+    $('mOk').dispatchEvent(click());
+    await wait(150);
+    check('🩺 on a card: applying it moves the sheet and holds the note for the next turn, like the dock audit', (() => {
+      const r = room13();
+      return r.states[lastChar.charId].hp.value === hpBefore13 - 2 && Array.isArray(r.auditNotes) && r.auditNotes.length === 1 && $('modalBack').hidden;
+    })());
+  }
+  dock('cast');
+}
+
 // ---- the model actually received the assembled prompt ----
 const probe = await (await fetch(`http://127.0.0.1:${SERVER_PORT}/api/roleplay`, {
   method: 'POST', headers: { 'Content-Type': 'application/json' },
