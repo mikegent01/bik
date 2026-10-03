@@ -46,6 +46,8 @@ def main() -> int:
         ("references", [py, "tools/check-references.py"], ROOT),
         ("exhibits", [py, "tools/check-exhibits.py"], ROOT),
         ("investigations", [py, "tools/check-investigations.py"], ROOT),
+        # the technology ledger cites articles by quote; a quote the article lacks fails here.
+        ("technology ledger", [py, "tools/check-technology.py"], ROOT),
         ("roll registry", [py, "tools/check-rolls.py"], ROOT),
         ("battles", [py, "tools/check-battles.py"], ROOT),
         ("time codes", [py, "tools/check-timecodes.py", "--strict"], ROOT),

@@ -1,0 +1,103 @@
+/* Discovered Technology — ledger, entry pages, tension board, 3D viewers.
+   Leans on the site's own variables (--panel, --panel2, --border, --accent,
+   --accent2, --muted, --shadow) so it follows every theme without a copy. */
+
+.tech-hero{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(280px,1fr);gap:22px;align-items:stretch}
+.tech-hero h1{margin:4px 0 8px}
+.tech-hero-text p{max-width:70ch}
+.tech-stats{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0}
+.tech-stats div{background:var(--panel2);border:1px solid var(--border);border-radius:10px;padding:8px 12px;min-width:110px}
+.tech-stats b{display:block;font-size:20px;color:var(--accent2)}
+.tech-stats span{font-size:12px;color:var(--muted)}
+.tech-hero-actions{display:flex;gap:8px;flex-wrap:wrap}
+.tech-btn{background:var(--accent);color:#fff;border:1px solid transparent;border-radius:999px;padding:8px 14px;font:inherit;font-weight:700;cursor:pointer}
+.tech-btn:hover{filter:brightness(1.1)}
+.tech-btn--ghost{background:transparent;color:inherit;border-color:var(--border)}
+.tech-hero-viewer{display:flex;flex-direction:column;gap:6px;min-width:0}
+.tech-viewer{position:relative;background:radial-gradient(ellipse at 50% 35%,rgba(138,75,255,.22),rgba(0,0,0,0) 65%),var(--panel2);border:1px solid var(--border);border-radius:14px;min-height:260px;height:300px;overflow:hidden;cursor:grab;touch-action:pan-y}
+.tech-viewer:active{cursor:grabbing}
+.tech-viewer canvas{display:block;width:100%!important;height:100%!important}
+.tech-viewer--large{height:380px;margin:12px 0 4px}
+.tech-viewer-fallback{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;font-size:64px;line-height:1;color:var(--muted)}
+.tech-viewer-fallback small{font-size:12px}
+.tech-viewer-cap{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--muted)}
+.tech-viewer-cap a{cursor:pointer;color:var(--accent2)}
+.tech-viewer-help{font-size:12px;margin:0 0 14px}
+
+.tech-hotgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
+.tech-hot{display:flex;flex-direction:column;gap:6px;background:var(--panel2);border:1px solid var(--border);border-radius:12px;padding:12px;text-decoration:none;color:inherit;cursor:pointer}
+.tech-hot:hover{border-color:var(--accent);box-shadow:var(--shadow)}
+.tech-hot b{font-size:15px}
+.tech-hot small{color:var(--muted);font-size:12px}
+
+.tech-band{display:inline-block;padding:2px 9px;border-radius:999px;font-size:11.5px;font-weight:700;letter-spacing:.02em;color:#fff;background:var(--band,#888);box-shadow:0 0 0 1px rgba(0,0,0,.25) inset;vertical-align:middle;white-space:nowrap}
+.tech-gauge{position:relative;height:9px;border-radius:999px;background:var(--panel);border:1px solid var(--border);overflow:hidden}
+.tech-gauge span{display:block;height:100%;border-radius:999px;transition:width .35s ease}
+.tech-gauge i{position:absolute;top:-2px;bottom:-2px;width:2px;background:var(--border)}
+
+.tech-filters{display:flex;flex-direction:column;gap:8px;margin-bottom:14px}
+.tech-filter-row{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.tech-chip{background:var(--panel2);border:1px solid var(--border);color:inherit;border-radius:999px;padding:5px 11px;font:inherit;font-size:12.5px;cursor:pointer}
+.tech-chip:hover{border-color:var(--accent)}
+.tech-chip.is-on{background:var(--accent);border-color:var(--accent);color:#fff}
+.tech-chip[style*="--band"]{border-left:4px solid var(--band)}
+.tech-select,.tech-search{background:var(--panel2);border:1px solid var(--border);color:inherit;border-radius:8px;padding:6px 10px;font:inherit;font-size:13px}
+.tech-search{min-width:220px;flex:1}
+.tech-count{font-size:12px;color:var(--muted);margin-left:auto}
+
+.techgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+.techgrid--tight{grid-template-columns:repeat(auto-fill,minmax(240px,1fr))}
+.techtile{display:flex;gap:12px;background:var(--panel2);border:1px solid var(--border);border-left:4px solid var(--kind,var(--accent));border-radius:12px;padding:13px 14px;text-decoration:none;color:inherit;cursor:pointer;transition:.15s}
+.techtile:hover{border-color:var(--accent);border-left-color:var(--kind,var(--accent));transform:translateY(-2px);box-shadow:var(--shadow)}
+.techtile-ico{font-size:30px;line-height:1;flex:0 0 auto;width:40px;text-align:center;filter:drop-shadow(0 2px 4px rgba(0,0,0,.35))}
+.techtile-body{min-width:0;display:flex;flex-direction:column}
+.techtile .tt{font-weight:700;font-size:15px}
+.techtile .tsub{color:var(--accent2);font-size:12px;margin:2px 0 6px}
+.techtile .tsum{color:var(--muted);font-size:13px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;flex:1}
+.techtile .tmeta{display:flex;flex-wrap:wrap;gap:4px;margin-top:8px}
+.tech-p-pos{color:#ff8a80}
+.tech-p-neg{color:#8ef0bb}
+.tech-p-zero{color:var(--muted)}
+.pill.tech-p-pos{border-color:rgba(244,67,54,.5)}
+.pill.tech-p-neg{border-color:rgba(46,204,113,.5)}
+
+.tech-quote{border-left:3px solid var(--accent2);margin:10px 0;padding:8px 14px;background:var(--panel2);border-radius:0 10px 10px 0;font-style:italic}
+.tech-quote footer{font-style:normal;font-size:12.5px;color:var(--muted);margin-top:4px}
+.tech-edges{list-style:none;padding:0;margin:0 0 10px}
+.tech-edges li{padding:8px 0;border-bottom:1px dashed var(--border)}
+
+.tech-years{margin:10px 0}
+.tech-legend{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.tech-world{margin-top:10px;padding:10px 12px;border:1px solid var(--border);border-radius:10px;background:var(--panel2)}
+.tech-tboard{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+.tech-trow{background:var(--panel2);border:1px solid var(--border);border-left:5px solid var(--band,#888);border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:8px}
+.tech-trow-head{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.tech-trow-name{font-weight:800;font-size:16px;cursor:pointer}
+.tech-trow-score{margin-left:auto;font-variant-numeric:tabular-nums;font-weight:700;color:var(--accent2)}
+.tech-trow-meta{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:12px;color:var(--muted)}
+.tech-trow-drivers{display:flex;flex-direction:column;gap:3px;font-size:13px}
+.tech-trow-drivers a{cursor:pointer}
+.tech-trow-drivers b{color:var(--accent2);margin-left:4px}
+.tech-pairs{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:10px}
+.tech-pair{background:var(--panel2);border:1px solid var(--border);border-radius:12px;padding:10px 12px}
+.tech-pair-head{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-bottom:4px}
+.tech-pair-head .pill{margin-left:auto}
+.tech-pair ul{margin:0;padding-left:18px;font-size:13px;color:var(--muted)}
+.tech-pair a{cursor:pointer;color:inherit;font-weight:600}
+.tech-table-wrap{overflow:auto;border:1px solid var(--border);border-radius:10px;margin:6px 0 14px}
+.tech-table{width:100%;border-collapse:collapse;font-size:13px}
+.tech-table th,.tech-table td{padding:7px 10px;border-bottom:1px solid var(--border);text-align:left;white-space:nowrap}
+.tech-table th{background:var(--panel2);font-size:12px;color:var(--muted)}
+.tech-table a{cursor:pointer}
+.tech-howto p{font-size:13.5px}
+
+.tech-evt-panel ul{list-style:none;padding:0;margin:0}
+.tech-evt-item{padding:8px 0;border-bottom:1px dashed var(--border)}
+.tech-evt-item a{cursor:pointer}
+.tech-evt-ico{font-size:18px;margin-right:6px}
+
+@media (max-width:900px){
+  .tech-hero{grid-template-columns:1fr}
+  .tech-viewer{height:240px}
+  .tech-viewer--large{height:280px}
+}

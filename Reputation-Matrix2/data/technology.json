@@ -1,0 +1,1711 @@
+{
+  "meta": {
+    "version": 1,
+    "title": "Discovered Technology",
+    "note": "Every entry is a piece of technology the filings actually describe: what it is, where it was seen, which article saw it first and in what year. Quotes are verbatim from the source article and are checked by tools/check-technology.py. The tension figures are derived from this ledger, not authored; see docs/TECHNOLOGY_SYSTEM.md.",
+    "kinds": {
+      "weapon": {
+        "label": "Weapon",
+        "icon": "⚔️",
+        "blurb": "Things built to hurt a person."
+      },
+      "siege": {
+        "label": "Siege engine",
+        "icon": "🏗️",
+        "blurb": "Things built to open a building that did not want opening."
+      },
+      "vehicle": {
+        "label": "Vehicle",
+        "icon": "🚁",
+        "blurb": "Things that move people, and sometimes stop moving them."
+      },
+      "communications": {
+        "label": "Signals",
+        "icon": "📻",
+        "blurb": "Radios, telephones and the voices that arrive over them."
+      },
+      "device": {
+        "label": "Device",
+        "icon": "🎛️",
+        "blurb": "Instruments and hand-held machines."
+      },
+      "construct": {
+        "label": "Construct",
+        "icon": "🤖",
+        "blurb": "Machines that move on their own."
+      },
+      "magitek": {
+        "label": "Magitek",
+        "icon": "🌀",
+        "blurb": "Engineering that runs on something the Guild would like to regulate."
+      },
+      "medical": {
+        "label": "Medical",
+        "icon": "💉",
+        "blurb": "Things that put people back together, on someone's terms."
+      },
+      "infrastructure": {
+        "label": "Infrastructure",
+        "icon": "🚄",
+        "blurb": "Roads, lines, presses and pipes: the things a territory runs on."
+      }
+    },
+    "tiers": [
+      {
+        "id": "dawn",
+        "name": "Dawn Era",
+        "blurb": "Stone tools and oral tradition."
+      },
+      {
+        "id": "iron",
+        "name": "Age of Iron",
+        "blurb": "Steel, codified magic, and roads nobody can see."
+      },
+      {
+        "id": "discovery",
+        "name": "Age of Discovery",
+        "blurb": "Early blackpowder, presses and lenses."
+      },
+      {
+        "id": "industrial",
+        "name": "Industrial Era",
+        "blurb": "Engines, airframes, radio and mass production."
+      },
+      {
+        "id": "cosmic",
+        "name": "Cosmic Era",
+        "blurb": "Salvage from elsewhere: drones, reactors and planar hardware."
+      }
+    ],
+    "regions": {
+      "eastern_midlands": {
+        "name": "The Eastern Midlands (contested)",
+        "blurb": "Raventree ground outside the Mushroom Kingdom and short of the Empire: nobody's atlas page, everybody's problem."
+      }
+    },
+    "planes": {
+      "material": "Unplaced material ground",
+      "shadow": "The Shadowfell",
+      "fey": "The Feywild",
+      "mirror": "The Mirror plane",
+      "disputed": "Disputed ground"
+    },
+    "pressureScale": "-3 (settles a territory) to +3 (arms it). Authored per entry from what the filing shows the thing doing; the board multiplies it by a recency weight and sums it per territory.",
+    "recencyWeights": {
+      "sameYear": 1.0,
+      "oneYear": 0.7,
+      "withinFiveYears": 0.4,
+      "older": 0.15
+    },
+    "bands": [
+      {
+        "id": "calm",
+        "name": "Cycle of Calm",
+        "max": -1.5,
+        "color": "#4fc3f7",
+        "blurb": "Tools and medicine outnumber weapons on the record."
+      },
+      {
+        "id": "discovery",
+        "name": "Cycle of Discovery",
+        "max": 1,
+        "color": "#9c27b0",
+        "blurb": "New things on the record and nobody shooting yet."
+      },
+      {
+        "id": "tension",
+        "name": "Cycle of Tension",
+        "max": 3,
+        "color": "#ff9800",
+        "blurb": "Arms are on the ground and the filings say who is pointing them."
+      },
+      {
+        "id": "conflict",
+        "name": "Cycle of Conflict",
+        "max": 6,
+        "color": "#f44336",
+        "blurb": "Weapons have been used in the territory this cycle."
+      },
+      {
+        "id": "crisis",
+        "name": "Cycle of Crisis",
+        "max": null,
+        "color": "#b71c1c",
+        "blurb": "Siege machinery, artillery or planar hardware in play."
+      }
+    ]
+  },
+  "entries": [
+    {
+      "id": "tech_wario_transport_helicopter",
+      "name": "Wario's Transport Helicopter",
+      "kind": "vehicle",
+      "tier": "industrial",
+      "icon": "🚁",
+      "territory": {
+        "nation": "mushroom_kingdom",
+        "plane": "material",
+        "location": "waluigis_outpost",
+        "label": "Waluigi's Outpost to Star Hill, Mushroom Kingdom interior"
+      },
+      "origin": {
+        "faction": "wario_enterprise",
+        "maker": "Wario Enterprise fleet",
+        "holder": "wario"
+      },
+      "firstSeen": {
+        "event": "the_debt_siege_and_the_sixty_thirty_split",
+        "date": "2 Aethel, 1035 BF",
+        "year": 1035,
+        "timeCode": "TC:1035-09-02/MAT",
+        "confidence": "filed"
+      },
+      "sightings": [
+        {
+          "event": "the_rot_zone_at_star_hill",
+          "year": 1035,
+          "note": "Flown by Wario himself after the pilot was fired at altitude; tripped on the storehouse parapet beside Dr. Toad's clinic and rolled onto its side, burning."
+        }
+      ],
+      "status": "Wrecked - on its side on the storehouse roof at Star Hill, inside the pipe fire, red light still going",
+      "summary": "A rotor transport with a searchlight, a loudhailer and an underbelly that opens: the machine Wario answered a balcony reading with, and the machine he later put on a roof.",
+      "record": "The helicopter arrived at the outpost ahead of its own noise, flattened the archivist's coat with downdraft and opened the negotiation through a loudhailer. Two weeks of silence ended with it hovering over a patio. On the Star Hill leg Wario flew it himself, the pilot dismissed by bulldog clip and stowed in the rear hold, and the one person aboard who knew what the yellow light meant was not in the cockpit. The skid caught a parapet, the main rotor met a chimney stack, and the last blade rang on the cobbles of the clinic street.",
+      "quotes": [
+        {
+          "event": "the_debt_siege_and_the_sixty_thirty_split",
+          "text": "The shape lifted off the peak and resolved into rotors and a searchlight, and the searchlight was not sweeping the valley."
+        },
+        {
+          "event": "the_rot_zone_at_star_hill",
+          "text": "There is a pilot in the rear hold of this helicopter, fired by bulldog clip, and he is the only person aboard who knows what the yellow light means."
+        },
+        {
+          "event": "the_rot_zone_at_star_hill",
+          "text": "The helicopter did not fall; it was *tripped*."
+        }
+      ],
+      "pressure": 2,
+      "tension": [
+        {
+          "between": [
+            "wario_enterprise",
+            "mushroom_regency"
+          ],
+          "weight": 2,
+          "why": "A private transport flown by its owner into a Regency-protected clinic street, and left burning on a roof beside it."
+        }
+      ],
+      "model": {
+        "recipe": "helicopter",
+        "palette": {
+          "body": "#e0b400",
+          "trim": "#7a3fcf",
+          "glass": "#9fd3ff",
+          "rotor": "#2a2a2a"
+        }
+      },
+      "tags": [
+        "debt siege",
+        "star hill",
+        "wario enterprise",
+        "airframe"
+      ]
+    },
+    {
+      "id": "tech_w_stamped_mechanical_claw",
+      "name": "The W-Stamped Mechanical Claw",
+      "kind": "siege",
+      "tier": "industrial",
+      "icon": "🦾",
+      "territory": {
+        "nation": "mushroom_kingdom",
+        "plane": "material",
+        "location": "waluigis_outpost",
+        "label": "Waluigi's Outpost - the patio and the study door"
+      },
+      "origin": {
+        "faction": "wario_enterprise",
+        "maker": "Wario Enterprise (owner-operated, housing stamped with a single W)",
+        "holder": "wario"
+      },
+      "firstSeen": {
+        "event": "the_debt_siege_and_the_sixty_thirty_split",
+        "date": "2 Aethel, 1035 BF",
+        "year": 1035,
+        "timeCode": "TC:1035-09-02/MAT",
+        "confidence": "filed"
+      },
+      "sightings": [],
+      "status": "In service - last seen taking the Contract of Accord off a balcony with the delicacy of a pickpocket",
+      "summary": "A reinforced claw arm that drops from the helicopter's underbelly, with a smaller pincer for the fine work; it was used on a scholar's door over a 14,783-gold invoice.",
+      "record": "The underbelly opened and delivered the evening's thesis: a yellow-and-black claw on a reinforced arm, scaled like a drawbridge winch, with a W painted on the housing. It struck the study door four times, got caught in an Ice Storm, and ticked as its joints cooled. A second, smaller pincer worked the upper crack wider while the big one was frozen. The same arm later took the signed page with a care that frightened the archivist more than the four strikes had.",
+      "quotes": [
+        {
+          "event": "the_debt_siege_and_the_sixty_thirty_split",
+          "text": "A mechanical claw on a reinforced arm — yellow and black, scaled like a drawbridge winch, and painted on its housing, in case posterity should wonder whose fist was coming through a scholar's door at midnight, a single enormous 'W'."
+        },
+        {
+          "event": "the_debt_siege_and_the_sixty_thirty_split",
+          "text": "A smaller claw — pincers, delicate, horrible — poked through a crack higher up and snapped at the air, tasting the room."
+        },
+        {
+          "event": "the_debt_siege_and_the_sixty_thirty_split",
+          "text": "The great claw took the page with a delicacy that frightened me more than the four strikes had — pincers like a surgeon who moonlights as a pickpocket."
+        }
+      ],
+      "pressure": 3,
+      "tension": [
+        {
+          "between": [
+            "wario_enterprise",
+            "mushroom_regency"
+          ],
+          "weight": 3,
+          "why": "Siege machinery deployed from the air against a private residence inside the Kingdom over an invoice."
+        }
+      ],
+      "model": {
+        "recipe": "claw_arm",
+        "palette": {
+          "body": "#e0b400",
+          "stripe": "#1a1a1a",
+          "steel": "#8d8d99",
+          "mark": "#7a3fcf"
+        }
+      },
+      "tags": [
+        "debt siege",
+        "wario enterprise",
+        "siege",
+        "contract of accord"
+      ]
+    },
+    {
+      "id": "tech_enterprise_field_radio",
+      "name": "The Enterprise Field Radio",
+      "kind": "communications",
+      "tier": "industrial",
+      "icon": "📻",
+      "territory": {
+        "nation": "mushroom_kingdom",
+        "plane": "material",
+        "location": "waluigis_outpost",
+        "label": "Waluigi's Outpost - the landing platform"
+      },
+      "origin": {
+        "faction": "wario_enterprise",
+        "maker": "Wario Enterprise",
+        "holder": "wario"
+      },
+      "firstSeen": {
+        "event": "the_debt_siege_and_the_sixty_thirty_split",
+        "date": "2 Aethel, 1035 BF",
+        "year": 1035,
+        "timeCode": "TC:1035-09-02/MAT",
+        "confidence": "filed"
+      },
+      "sightings": [
+        {
+          "event": "the_rot_zone_at_star_hill",
+          "year": 1035,
+          "note": "The informant's 'private wing, high security, consciousness fluxing' arrived over this set and was never checked against anything."
+        }
+      ],
+      "status": "In service - the only source for the Star Hill lockdown report",
+      "summary": "The hand-set Wario barks REPORT into; it chose the next destination of the whole arc on the word of a paid informant.",
+      "record": "The radio supplied the next problem before the ink on the accord was dry: Star Hill Clinic locked down, Luigi inside, medical complications. Everything the pair knew about the clinic that night came through this set, relayed by a creditor who profits from urgency. The archive files it as a piece of technology because it decided where the helicopter went.",
+      "quotes": [
+        {
+          "event": "the_debt_siege_and_the_sixty_thirty_split",
+          "text": "The radio then supplied the next problem: Star Hill Clinic is reportedly locked down, with Luigi inside."
+        },
+        {
+          "event": "the_debt_siege_and_the_sixty_thirty_split",
+          "text": "The Star Hill lockdown is radio chatter from a paid informant, relayed by a creditor who profits from urgency."
+        }
+      ],
+      "pressure": 1,
+      "tension": [
+        {
+          "between": [
+            "wario_enterprise",
+            "mushroom_regency"
+          ],
+          "weight": 1,
+          "why": "Unverified radio chatter about a Regency-protected clinic moved an armed party toward it."
+        }
+      ],
+      "model": {
+        "recipe": "radio",
+        "palette": {
+          "body": "#3b2e5a",
+          "grille": "#1a1a1a",
+          "dial": "#e0b400",
+          "antenna": "#8d8d99"
+        }
+      },
+      "tags": [
+        "debt siege",
+        "wario enterprise",
+        "signals"
+      ]
+    },
+    {
+      "id": "tech_paulos_courier_pistol",
+      "name": "A Courier's Cheap Pistol",
+      "kind": "weapon",
+      "tier": "industrial",
+      "icon": "🔫",
+      "territory": {
+        "nation": "mushroom_kingdom",
+        "plane": "material",
+        "location": "dr_toads_star_hill_clinic",
+        "label": "Star Hill - the clinic's main street and the storehouse stairwell"
+      },
+      "origin": {
+        "faction": null,
+        "maker": "Unknown - cheap, and it jams",
+        "holder": "paulo"
+      },
+      "firstSeen": {
+        "event": "the_rot_zone_at_star_hill",
+        "date": "2 Aethel, 1035 BF",
+        "year": 1035,
+        "timeCode": "TC:1035-09-02/MAT",
+        "confidence": "filed"
+      },
+      "sightings": [],
+      "status": "With Paulo - jammed twice on the record, cleared or replaced once, last fired into a rotor blade a hand's width from Waluigi's ear",
+      "summary": "The pistol that came out of a courier's satchel when a man in green would not get off the route, and that clicked in Waluigi's face on the stairs.",
+      "record": "Paulo drew it in the street on the thing reciting at him, and it was the first shot of the night. On the stairwell it came round the newel post before he did and stopped a hand's width from Waluigi's face; it clicked, and the bluff about one per cent of capacity held exactly as long as a cheap pistol takes to jam. In the street afterwards a second pistol, or the same one cleared, took the lip off the fallen rotor blade beside Waluigi's ear and put him on the cobbles.",
+      "quotes": [
+        {
+          "event": "the_rot_zone_at_star_hill",
+          "text": "The courier's hand came out of the satchel holding a pistol."
+        },
+        {
+          "event": "the_rot_zone_at_star_hill",
+          "text": "The pistol clicked."
+        },
+        {
+          "event": "the_rot_zone_at_star_hill",
+          "text": "He had a second pistol, or the same one cleared, and this time he did not put it in Waluigi's face."
+        }
+      ],
+      "pressure": 2,
+      "tension": [
+        {
+          "between": [
+            "wario_enterprise",
+            "mushroom_regency"
+          ],
+          "weight": 1,
+          "why": "Gunfire in a clinic street in the Kingdom, between a courier and the pair who had just crashed on the roof."
+        }
+      ],
+      "model": {
+        "recipe": "pistol",
+        "palette": {
+          "metal": "#5b5b66",
+          "grip": "#4a2f1e",
+          "accent": "#e0b400"
+        }
+      },
+      "tags": [
+        "rot-zone",
+        "star hill",
+        "paulo",
+        "sidearm"
+      ]
+    },
+    {
+      "id": "tech_warioware_brass_telephone",
+      "name": "The WarioWare Tower Brass Telephone",
+      "kind": "communications",
+      "tier": "industrial",
+      "icon": "☎️",
+      "territory": {
+        "nation": "mushroom_kingdom",
+        "plane": "material",
+        "location": "toad_town",
+        "label": "WarioWare Tower, Toad Town"
+      },
+      "origin": {
+        "faction": "wario_enterprise",
+        "maker": "WarioWare executive fittings",
+        "holder": "wario"
+      },
+      "firstSeen": {
+        "event": "the_embassy_ambush_and_luigi_interrogation",
+        "date": "18 Harvestide, 1035 BF",
+        "year": 1035,
+        "timeCode": "TC:1035-08-18/MAT",
+        "confidence": "filed"
+      },
+      "sightings": [],
+      "status": "On the executive desk",
+      "summary": "The heavy desk set Wario snatched up to raise the four-call squad before the embassy ambush.",
+      "record": "Mobilisation for the Mage's Embassy began with a receiver torn from its cradle. The archive keeps the telephone on the ledger because the whole ambush was assembled over it, call by call, before anyone left the tower.",
+      "quotes": [
+        {
+          "event": "the_embassy_ambush_and_luigi_interrogation",
+          "text": "Wario marched directly to the heavy brass telephone on his executive desk, snatching the receiver from its cradle."
+        }
+      ],
+      "pressure": 0,
+      "tension": [
+        {
+          "between": [
+            "wario_enterprise",
+            "mages_guild"
+          ],
+          "weight": 1,
+          "why": "The ambush on the Mage's Embassy was raised over this line."
+        }
+      ],
+      "model": {
+        "recipe": "telephone",
+        "palette": {
+          "brass": "#c99a2e",
+          "body": "#2b2135",
+          "cord": "#1a1a1a"
+        }
+      },
+      "tags": [
+        "warioware",
+        "toad town",
+        "signals"
+      ]
+    },
+    {
+      "id": "tech_fawful_drone",
+      "name": "The Fawthful Drone",
+      "kind": "construct",
+      "tier": "cosmic",
+      "icon": "🛸",
+      "territory": {
+        "nation": "koopa_dominion",
+        "plane": "material",
+        "location": "bowsers_castle",
+        "label": "Bowser's Castle - the rooms beyond the throne room"
+      },
+      "origin": {
+        "faction": "fawfuls_furious_freaks",
+        "maker": "Fawful's workshop",
+        "holder": null
+      },
+      "firstSeen": {
+        "event": "the_assault_on_bowsers_castle",
+        "date": "18 Harvestide, 1035 BF",
+        "year": 1035,
+        "timeCode": "TC:1035-08-18/MAT",
+        "confidence": "filed"
+      },
+      "sightings": [],
+      "status": "Loose in the castle",
+      "summary": "A small drone of Fawful's make that turned up in the room after the throne-room breach and found a remnant force that no longer knew which destination belonged to the king.",
+      "record": "It appeared in the next room while the breach was still being argued over, and a Goomba walked toward it. The archive notes that nobody in the room asked who was watching through it.",
+      "quotes": [
+        {
+          "event": "the_assault_on_bowsers_castle",
+          "text": "A small Fawthful drone appeared in the next room."
+        },
+        {
+          "event": "the_assault_on_bowsers_castle",
+          "text": "The Goomba walked toward the Fawthful drone."
+        }
+      ],
+      "pressure": 1,
+      "tension": [
+        {
+          "between": [
+            "fawfuls_furious_freaks",
+            "koopa_troop"
+          ],
+          "weight": 2,
+          "why": "Fawful's eyes inside Bowser's castle during a breach."
+        }
+      ],
+      "model": {
+        "recipe": "drone",
+        "palette": {
+          "body": "#3d9b4f",
+          "eye": "#ff3b3b",
+          "metal": "#6c6c78"
+        }
+      },
+      "tags": [
+        "bowser's castle",
+        "fawful",
+        "surveillance"
+      ]
+    },
+    {
+      "id": "tech_green_t_birthday_musket",
+      "name": "Green T's Birthday Musket",
+      "kind": "weapon",
+      "tier": "discovery",
+      "icon": "🎯",
+      "territory": {
+        "nation": null,
+        "plane": "shadow",
+        "location": "mazebound_grove",
+        "label": "Shadeward Manor, the Shadow Estate (Shadowfell)"
+      },
+      "origin": {
+        "faction": null,
+        "maker": "Unknown - a gift from Green T",
+        "holder": "green_t"
+      },
+      "firstSeen": {
+        "event": "remi_birthday_12_Harvestside_ghost_gallery_climb",
+        "date": "12 Harvestside, 1040 BF",
+        "year": 1040,
+        "confidence": "filed"
+      },
+      "sightings": [],
+      "status": "Confiscated - Green T gave it, watched it used as a lever on a wall climb, and kept it",
+      "summary": "A blackpowder long gun given to Remi for her birthday and taken back the same night after it was used as a climbing lever.",
+      "record": "The musket entered the record as a present and left it as evidence of what presents are for. Remi used it as a lever on the exterior wall; Green T held it out, pulled her to safety with it, and then looked at the thing in his hands and did not give it back.",
+      "quotes": [
+        {
+          "event": "remi_birthday_12_Harvestside_ghost_gallery_climb",
+          "text": "Green T gave Remi a Wario-themed garlic grenade and a musket as birthday gifts and then took the musket back."
+        },
+        {
+          "event": "remi_birthday_12_Harvestside_ghost_gallery_climb",
+          "text": "He held the musket out, pulled it back with Remi hanging from it, brought her to safety, and then looked at the musket in his hands and kept it."
+        }
+      ],
+      "pressure": 1,
+      "tension": [],
+      "model": {
+        "recipe": "musket",
+        "palette": {
+          "wood": "#5a3a22",
+          "metal": "#777785",
+          "brass": "#c99a2e"
+        }
+      },
+      "tags": [
+        "shadeward manor",
+        "remi",
+        "green t",
+        "blackpowder"
+      ]
+    },
+    {
+      "id": "tech_wario_brand_garlic_grenade",
+      "name": "The Wario-Themed Garlic Grenade",
+      "kind": "weapon",
+      "tier": "industrial",
+      "icon": "🧄",
+      "territory": {
+        "nation": null,
+        "plane": "shadow",
+        "location": "mazebound_grove",
+        "label": "Shadeward Manor, the Shadow Estate (Shadowfell)"
+      },
+      "origin": {
+        "faction": "wario_enterprise",
+        "maker": "Wario-branded - provenance of the branding unrecorded",
+        "holder": "remi_akamatsu_full_backstory"
+      },
+      "firstSeen": {
+        "event": "remi_birthday_12_Harvestside_ghost_gallery_climb",
+        "date": "12 Harvestside, 1040 BF",
+        "year": 1040,
+        "confidence": "filed"
+      },
+      "sightings": [],
+      "status": "Given to Remi - not yet thrown on any filing",
+      "summary": "A hand-thrown garlic device with Wario's branding on it, given as a birthday present in the Shadowfell.",
+      "record": "Of the two birthday gifts only the grenade stayed with its recipient. The archive lists it because a Wario-branded explosive turning up in a Shadowfell manor is a supply line, and supply lines are filed.",
+      "quotes": [
+        {
+          "event": "remi_birthday_12_Harvestside_ghost_gallery_climb",
+          "text": "Green T gave Remi a Wario-themed garlic grenade and a musket as birthday gifts and then took the musket back."
+        }
+      ],
+      "pressure": 1,
+      "tension": [
+        {
+          "between": [
+            "wario_enterprise",
+            "corvinarus_family"
+          ],
+          "weight": 1,
+          "why": "Wario-branded ordnance circulating on Corvinarus-adjacent ground."
+        }
+      ],
+      "model": {
+        "recipe": "grenade",
+        "palette": {
+          "body": "#e8e0c8",
+          "band": "#e0b400",
+          "pin": "#8d8d99"
+        }
+      },
+      "tags": [
+        "shadeward manor",
+        "remi",
+        "wario brand",
+        "ordnance"
+      ]
+    },
+    {
+      "id": "tech_corvinarus_sanctum_telescope",
+      "name": "The Corvinarus Sanctum Telescope",
+      "kind": "device",
+      "tier": "discovery",
+      "icon": "🔭",
+      "territory": {
+        "nation": null,
+        "plane": "shadow",
+        "location": null,
+        "label": "Corvinarus Sanctum - the clockwork observatory and telescope platforms (Shadowfell)"
+      },
+      "origin": {
+        "faction": "corvinarus_family",
+        "maker": "The Corvinarus Sanctum's clockwork observatory",
+        "holder": null
+      },
+      "firstSeen": {
+        "event": "the_telescope_and_the_tennis_match",
+        "date": "~16 Harvestside, 1040 BF (Sanctum-relative)",
+        "year": 1040,
+        "confidence": "estimated"
+      },
+      "sightings": [],
+      "status": "In place - it shows the viewer something, and what it showed Bowser he called 'something sad'",
+      "summary": "A telescope on a platform in a collapsing clockwork observatory; Bowser looked through it and came away hurt.",
+      "record": "The party reached a telescope platform inside the sanctum. Bowser looked, pulled away, called the vision something sad, and kept walking. The archive files the instrument rather than the vision: what it shows is unverified, but the fact that it shows is on the record.",
+      "quotes": [
+        {
+          "event": "the_telescope_and_the_tennis_match",
+          "text": "They reached a telescope platform."
+        },
+        {
+          "event": "the_telescope_and_the_tennis_match",
+          "text": "The telescope hurt Bowser."
+        }
+      ],
+      "pressure": -1,
+      "tension": [],
+      "model": {
+        "recipe": "telescope",
+        "palette": {
+          "brass": "#c99a2e",
+          "tube": "#3b2e5a",
+          "lens": "#9fd3ff"
+        }
+      },
+      "tags": [
+        "corvinarus sanctum",
+        "bowser",
+        "optics"
+      ]
+    },
+    {
+      "id": "tech_bowser_portable_bullet_bill_cannon",
+      "name": "Bowser's Portable Bullet Bill Cannon",
+      "kind": "weapon",
+      "tier": "industrial",
+      "icon": "💣",
+      "territory": {
+        "nation": null,
+        "region": "eastern_midlands",
+        "plane": "material",
+        "location": "raventree_manor",
+        "label": "Raventree Manor and the Fracture Grove - Eastern Midlands, contested ground"
+      },
+      "origin": {
+        "faction": "koopa_troop",
+        "maker": "Koopa Troop ordnance",
+        "holder": "bowser"
+      },
+      "firstSeen": {
+        "event": "the_grove_of_woe_incident",
+        "date": "12-13 Harvestside, 1040 BF",
+        "year": 1040,
+        "confidence": "filed"
+      },
+      "sightings": [],
+      "status": "Carried by Bowser - produced from his shell",
+      "summary": "A shell-carried Bullet Bill launcher that Bowser produced in the Grove of Woe and patted.",
+      "record": "Bowser emerged from his shell and produced a portable Bullet Bill cannon, in capitals, because the archivist was there. It is the heaviest piece of ordnance filed on Raventree ground and it was being carried by a king who had fallen through a midnight portal a month earlier by Shadowfell reckoning.",
+      "quotes": [
+        {
+          "event": "the_grove_of_woe_incident",
+          "text": "Bowser emerged from his shell and produced a portable Bullet Bill cannon."
+        },
+        {
+          "event": "the_grove_of_woe_incident",
+          "text": "He patted the Bullet Bill cannon."
+        }
+      ],
+      "pressure": 3,
+      "tension": [
+        {
+          "between": [
+            "koopa_troop",
+            "corvinarus_family"
+          ],
+          "weight": 2,
+          "why": "Koopa artillery carried onto Corvinarus-contested ground."
+        },
+        {
+          "between": [
+            "koopa_troop",
+            "mages_guild"
+          ],
+          "weight": 1,
+          "why": "Heavy ordnance inside a Guild-watched fracture site."
+        }
+      ],
+      "model": {
+        "recipe": "cannon",
+        "palette": {
+          "barrel": "#1a1a1a",
+          "band": "#8d8d99",
+          "shell": "#2f7d32",
+          "accent": "#e0b400"
+        }
+      },
+      "tags": [
+        "grove of woe",
+        "raventree",
+        "bowser",
+        "artillery"
+      ]
+    },
+    {
+      "id": "tech_raventree_kitchen_portal_device",
+      "name": "The Kitchen Device That Could Close Every Portal",
+      "kind": "magitek",
+      "tier": "cosmic",
+      "icon": "🌀",
+      "territory": {
+        "nation": null,
+        "region": "eastern_midlands",
+        "plane": "material",
+        "location": "raventree_manor",
+        "label": "Ruined Raventree Manor - the portal kitchen approaches"
+      },
+      "origin": {
+        "faction": "mages_guild",
+        "maker": "Unknown - described by Agent L (Luigi) inside the Mages Guild room",
+        "holder": null
+      },
+      "firstSeen": {
+        "event": "thornwood_manor_silent_field_dossier",
+        "date": "1040 BF - exact date under review",
+        "year": 1040,
+        "confidence": "estimated"
+      },
+      "sightings": [],
+      "status": "Unverified - described, not seen; the largest unexamined decision in the session was waved through in four lines",
+      "summary": "A device in the manor kitchen that, by Luigi's casual account, could close the portals connecting the manor to the other planes entirely.",
+      "record": "Once weapons were lowered, the conversation turned with startling casualness to a kitchen device capable of permanently trapping an unknown number of people on a plane with no way home. Luigi's risk reading was that it would never happen. The archive files the device at the top of the magitek ledger because the thing it would do is the largest thing anything on this list would do.",
+      "quotes": [
+        {
+          "event": "thornwood_manor_silent_field_dossier",
+          "text": "Once weapons were lowered, the conversation turned immediately, and with startling casualness, to something enormous: a device in the kitchen that could close the portals connecting this location to other planes entirely."
+        }
+      ],
+      "pressure": 3,
+      "tension": [
+        {
+          "between": [
+            "mages_guild",
+            "corvinarus_family"
+          ],
+          "weight": 3,
+          "why": "A portal-closing device sitting in a manor whose other side is the Shadowfell."
+        }
+      ],
+      "model": {
+        "recipe": "portal_device",
+        "palette": {
+          "frame": "#3b2e5a",
+          "ring": "#7a3fcf",
+          "core": "#9fd3ff",
+          "brass": "#c99a2e"
+        }
+      },
+      "tags": [
+        "raventree",
+        "portals",
+        "agent l",
+        "planar"
+      ]
+    },
+    {
+      "id": "tech_agent_l_vacuum_device",
+      "name": "Agent L's Vacuum Device",
+      "kind": "device",
+      "tier": "industrial",
+      "icon": "🌪️",
+      "territory": {
+        "nation": null,
+        "region": "eastern_midlands",
+        "plane": "material",
+        "location": "raventree_manor",
+        "label": "Ruined Raventree Manor - a side room off the portal kitchen"
+      },
+      "origin": {
+        "faction": null,
+        "maker": "Unknown - carried by Luigi as Agent L",
+        "holder": "luigi"
+      },
+      "firstSeen": {
+        "event": "thornwood_manor_silent_field_dossier",
+        "date": "1040 BF - exact date under review",
+        "year": 1040,
+        "confidence": "estimated"
+      },
+      "sightings": [],
+      "status": "Carried by Agent L - pressed to a face once, then lowered",
+      "summary": "The vacuum device Luigi pressed to Ryan's face before he recognised him.",
+      "record": "Ryan entered a room and was tackled, and a vacuum device was on his face before Agent L recognised him and let go. The archive lists it as a device rather than a weapon because nobody has filed what it does when the trigger is pulled on something that is not a friend.",
+      "quotes": [
+        {
+          "event": "thornwood_manor_silent_field_dossier",
+          "text": "Entering a room, Ryan was tackled and had a vacuum device pressed to his face before Agent L — Luigi — recognized him and let go."
+        }
+      ],
+      "pressure": 0,
+      "tension": [],
+      "model": {
+        "recipe": "vacuum",
+        "palette": {
+          "body": "#c0392b",
+          "tank": "#8d8d99",
+          "hose": "#1a1a1a",
+          "nozzle": "#e0b400"
+        }
+      },
+      "tags": [
+        "raventree",
+        "luigi",
+        "agent l"
+      ]
+    },
+    {
+      "id": "tech_legion_field_syringe",
+      "name": "The Iron Legion Field Syringe",
+      "kind": "medical",
+      "tier": "industrial",
+      "icon": "💉",
+      "territory": {
+        "nation": null,
+        "plane": "shadow",
+        "location": "skittering_grove",
+        "label": "The Skittering Grove, Shadow Estate grounds (Shadowfell)"
+      },
+      "origin": {
+        "faction": "iron_legion",
+        "maker": "Iron Legion field issue",
+        "holder": null
+      },
+      "firstSeen": {
+        "event": "you_said_leave_no_one_behind",
+        "date": "1 Aethel, 1040 BF",
+        "year": 1040,
+        "timeCode": "TC:1040-09-01T01:40/SHD",
+        "confidence": "filed"
+      },
+      "sightings": [],
+      "status": "Legion issue - used on Eager in the grove",
+      "summary": "The syringe a Legion guard used on Eager after telling him to stand still; the archive files it as the Legion's procedure made physical.",
+      "record": "The Legion closed the night by closing its own loop: a guard told a wounded man to stand still and got out a syringe. Whatever was in it worked on Eager. The archivist files it as that sentence made physical - an institution that processes fear, and wounds, and objections, through procedure.",
+      "quotes": [
+        {
+          "event": "you_said_leave_no_one_behind",
+          "text": "One got out a syringe."
+        },
+        {
+          "event": "you_said_leave_no_one_behind",
+          "text": "He files the syringe now as that sentence made physical: an institution that processes fear, and wounds, and objections, through procedure."
+        }
+      ],
+      "pressure": 0,
+      "tension": [
+        {
+          "between": [
+            "iron_legion",
+            "liberated_toads"
+          ],
+          "weight": 1,
+          "why": "Legion field medicine applied to a man who asked to be put down, on the Legion's terms."
+        }
+      ],
+      "model": {
+        "recipe": "syringe",
+        "palette": {
+          "barrel": "#dfe8f0",
+          "fluid": "#4fc3f7",
+          "metal": "#8d8d99",
+          "plunger": "#2a2a2a"
+        }
+      },
+      "tags": [
+        "skittering grove",
+        "iron legion",
+        "field medicine"
+      ]
+    },
+    {
+      "id": "tech_legion_promised_airlift",
+      "name": "The Legion Airlift That Never Came",
+      "kind": "vehicle",
+      "tier": "industrial",
+      "icon": "🚁",
+      "territory": {
+        "nation": null,
+        "plane": "shadow",
+        "location": "skittering_grove",
+        "label": "The Skittering Grove, Shadow Estate grounds (Shadowfell)"
+      },
+      "origin": {
+        "faction": "iron_legion",
+        "maker": "Iron Legion - promised, not produced",
+        "holder": null
+      },
+      "firstSeen": {
+        "event": "the_airlift_that_never_came",
+        "date": "1 Aethel, 1040 BF",
+        "year": 1040,
+        "timeCode": "TC:1040-09-01T01:10/SHD",
+        "confidence": "unverified"
+      },
+      "sightings": [],
+      "status": "Unverified - nothing in the record shows one",
+      "summary": "A helicopter the Legion guards promised to a burning grove; Dan asked what a helicopter was; none arrived.",
+      "record": "The word airlift entered the grove as reassurance and left it as a description of what was promised. A Toad who had never heard of a helicopter asked what one was. The archive files the absence: a piece of technology that exists in the Legion's sentences and nowhere else on this record.",
+      "quotes": [
+        {
+          "event": "the_airlift_that_never_came",
+          "text": "Not to worry — we have a helicopter to airlift us all out of here."
+        },
+        {
+          "event": "the_airlift_that_never_came",
+          "text": "The word *airlift* describes what was promised, not what happened."
+        }
+      ],
+      "pressure": 1,
+      "tension": [
+        {
+          "between": [
+            "iron_legion",
+            "liberated_toads"
+          ],
+          "weight": 2,
+          "why": "A promised extraction that did not come, to Toads who were told to wait for it."
+        }
+      ],
+      "model": {
+        "recipe": "helicopter_ghost",
+        "palette": {
+          "body": "#8d8d99",
+          "trim": "#555566",
+          "glass": "#9fd3ff",
+          "rotor": "#2a2a2a"
+        }
+      },
+      "tags": [
+        "skittering grove",
+        "iron legion",
+        "airlift",
+        "absence"
+      ]
+    },
+    {
+      "id": "tech_directors_wired_remote",
+      "name": "The Director's Wired Remote",
+      "kind": "device",
+      "tier": "cosmic",
+      "icon": "🎛️",
+      "territory": {
+        "nation": null,
+        "plane": "disputed",
+        "location": "nintendo_mania_studio",
+        "label": "The Nintendo Mania studio - the dark hallway past the maintenance room"
+      },
+      "origin": {
+        "faction": null,
+        "maker": "Unknown - carried by the Director with the ease of long habit",
+        "holder": null
+      },
+      "firstSeen": {
+        "event": "the_cut_and_the_puppet_master",
+        "date": "5 Aethel, 1040 BF",
+        "year": 1040,
+        "timeCode": "TC:1040-09-05/MAT",
+        "confidence": "filed"
+      },
+      "sightings": [],
+      "status": "In the Director's hand - the archive's standing thought is that it could be the key to stopping everything",
+      "summary": "A small control unit with buttons and wires running from it, carried by the Director; the studio appears to run off it.",
+      "record": "Darian, alone, watched the Director pass in a dark hallway with a folder in one hand and in the other a small remote device with buttons and wires running from it. A control unit. The filing ends on the thought the archive cannot put down: that the remote could stop everything, if they can get it.",
+      "quotes": [
+        {
+          "event": "the_cut_and_the_puppet_master",
+          "text": "In the other, carried with the ease of long habit, a **small remote device with buttons and wires running from it.**"
+        },
+        {
+          "event": "the_cut_and_the_puppet_master",
+          "text": "that remote could be the key to stopping everything — if they can get it."
+        }
+      ],
+      "pressure": 2,
+      "tension": [],
+      "model": {
+        "recipe": "remote",
+        "palette": {
+          "body": "#1f1f2a",
+          "button": "#ff3b3b",
+          "button2": "#e0b400",
+          "wire": "#c0392b"
+        }
+      },
+      "tags": [
+        "nintendo mania",
+        "the director",
+        "control"
+      ]
+    },
+    {
+      "id": "tech_break_room_emergency_exit",
+      "name": "The EMERGENCY EXIT Coffee Machine",
+      "kind": "infrastructure",
+      "tier": "industrial",
+      "icon": "☕",
+      "territory": {
+        "nation": null,
+        "plane": "disputed",
+        "location": "nintendo_mania_studio",
+        "label": "The Nintendo Mania studio - the break room"
+      },
+      "origin": {
+        "faction": null,
+        "maker": "Studio fittings",
+        "holder": null
+      },
+      "firstSeen": {
+        "event": "the_cut_and_the_puppet_master",
+        "date": "5 Aethel, 1040 BF",
+        "year": 1040,
+        "timeCode": "TC:1040-09-05/MAT",
+        "confidence": "filed"
+      },
+      "sightings": [],
+      "status": "Shut off by Alistair after it had done its work on the ceiling",
+      "summary": "A button labelled EMERGENCY EXIT beside a coffee machine; pressing it made coffee, and the steam popped the ceiling vent that became the actual exit.",
+      "record": "Darian pressed the EMERGENCY EXIT button and got coffee. The scalding pot and the steam opened a ceiling vent, and the escape went up instead of out. The archive keeps it on the ledger as the studio's most honest piece of engineering: it did exactly what it said, by accident.",
+      "quotes": [
+        {
+          "event": "the_cut_and_the_puppet_master",
+          "text": "Darian presses the EMERGENCY EXIT button and gets coffee — until the steam pops a ceiling vent open, and the escape goes up instead of out."
+        }
+      ],
+      "pressure": 0,
+      "tension": [],
+      "model": {
+        "recipe": "coffee_machine",
+        "palette": {
+          "body": "#8d8d99",
+          "panel": "#1a1a1a",
+          "button": "#ff3b3b",
+          "pot": "#9fd3ff"
+        }
+      },
+      "tags": [
+        "nintendo mania",
+        "break room"
+      ]
+    },
+    {
+      "id": "tech_regal_military_airship",
+      "name": "The Regal Empire Military Airship",
+      "kind": "vehicle",
+      "tier": "industrial",
+      "icon": "🛩️",
+      "territory": {
+        "nation": "regal_empire",
+        "plane": "material",
+        "location": null,
+        "label": "Swiftsoul Keep - the upper-level airship docks, Regal Empire"
+      },
+      "origin": {
+        "faction": "regal_empire",
+        "maker": "Regal Empire military shipyards",
+        "holder": null
+      },
+      "firstSeen": {
+        "event": "session_2_ravencreek_to_swiftsoul",
+        "date": "2-26 Efferd, 1040 BF",
+        "year": 1040,
+        "confidence": "filed"
+      },
+      "sightings": [],
+      "status": "Docked under heavy guard at Swiftsoul Keep",
+      "summary": "A state-of-the-art military airship at the Keep's guarded docks - the transport the party was trying to reach when it became internationally wanted.",
+      "record": "The party went to Swiftsoul Keep looking for transport out of the region via the military airship docks. What was docked there was a state-of-the-art, military-grade Regal Empire airship, in the pristine upper levels beside the Royal military command and the magistrates' courts. The arc ended with the party as fugitives and the ship still the Empire's.",
+      "quotes": [
+        {
+          "event": "session_2_ravencreek_to_swiftsoul",
+          "text": "A state-of-the-art, military-grade Regal Empire airship."
+        },
+        {
+          "event": "session_2_ravencreek_to_swiftsoul",
+          "text": "They were heading to Swiftsoul Keep, specifically seeking transport out of the region via the heavily guarded military airship docks."
+        }
+      ],
+      "pressure": 2,
+      "tension": [
+        {
+          "between": [
+            "regal_empire",
+            "mushroom_regency"
+          ],
+          "weight": 1,
+          "why": "Military airlift capacity concentrated at the Empire's border keep."
+        }
+      ],
+      "model": {
+        "recipe": "airship",
+        "palette": {
+          "envelope": "#7a3fcf",
+          "gondola": "#3b2e5a",
+          "brass": "#c99a2e",
+          "fin": "#e0b400"
+        }
+      },
+      "tags": [
+        "swiftsoul keep",
+        "regal empire",
+        "airship"
+      ]
+    },
+    {
+      "id": "tech_maglev_express",
+      "name": "The Maglev Express",
+      "kind": "infrastructure",
+      "tier": "industrial",
+      "icon": "🚄",
+      "territory": {
+        "nation": "mushroom_kingdom",
+        "plane": "material",
+        "location": null,
+        "label": "Blackwood Junction and the line to the Clockwork Spire, Mushroom Kingdom"
+      },
+      "origin": {
+        "faction": "mages_guild",
+        "maker": "Mages' Guild transport",
+        "holder": null
+      },
+      "firstSeen": {
+        "event": "maglev_express_incident_night_one",
+        "date": "Night of Departure - approximately 11:42 PM, three days before the Clockwork Spire (963 BF)",
+        "year": 963,
+        "confidence": "estimated"
+      },
+      "sightings": [
+        {
+          "event": "clockwork_spire_expedition_chillwind_963",
+          "year": 963,
+          "note": "The expedition it was carrying reached the Guild District on Chillwind 8, 963 BF."
+        }
+      ],
+      "status": "Running - after all five pulled the lever",
+      "summary": "A Mages' Guild magnetic-levitation train with a Research & Logistics car and a Main Control Hub that answers to one large lever marked FORWARD.",
+      "record": "The Main Control Hub is the structural brain of the Maglev Express: a single large lever among unresponsive buttons and flickering dials. Five people pulled it. The archive files the train as infrastructure rather than vehicle because the line it runs on decides where the Guild can send people, and when.",
+      "quotes": [
+        {
+          "event": "maglev_express_incident_night_one",
+          "text": "The Main Control Hub is the structural brain of the Maglev Express."
+        },
+        {
+          "event": "maglev_express_incident_night_one",
+          "text": "A single large lever prominently positioned among unresponsive buttons and flickering dials."
+        },
+        {
+          "event": "maglev_express_incident_night_one",
+          "text": "Well, might as well flip this lever that says FORWARD."
+        }
+      ],
+      "pressure": -1,
+      "tension": [],
+      "model": {
+        "recipe": "train",
+        "palette": {
+          "body": "#dfe8f0",
+          "stripe": "#7a3fcf",
+          "glass": "#9fd3ff",
+          "rail": "#555566"
+        }
+      },
+      "tags": [
+        "maglev",
+        "mages guild",
+        "963 bf",
+        "transit"
+      ]
+    },
+    {
+      "id": "tech_cleaning_golem_patrol_unit_7",
+      "name": "Cleaning Golem Patrol Unit 7",
+      "kind": "construct",
+      "tier": "industrial",
+      "icon": "🤖",
+      "territory": {
+        "nation": "mushroom_kingdom",
+        "plane": "material",
+        "location": "gadd_science_laboratory",
+        "label": "Sublevel Three maintenance tunnels, Guild District, Mushroom Kingdom"
+      },
+      "origin": {
+        "faction": "mages_guild",
+        "maker": "Guild District automated maintenance",
+        "holder": null
+      },
+      "firstSeen": {
+        "event": "clockwork_spire_expedition_chillwind_963",
+        "date": "Chillwind 8, 963 BF",
+        "year": 963,
+        "confidence": "filed"
+      },
+      "sightings": [],
+      "status": "Decommissioned - precision hydraulic valve extraction by a trainee on his first deployment",
+      "summary": "A multi-ton automated construct running at degraded Long Dark capacity, blinded with a spectral flare and taken apart in under ninety seconds.",
+      "record": "The group bypassed a checkpoint through the Sublevel Three tunnels and met Cleaning Golem Patrol Unit 7. Leo blinded its optical sensors with the Prototype-X's spectral flare and disabled it by pulling the right hydraulic valve, which E. Gadd filed as considerably exceeding expectations. The archive files the golem as the Guild District's security on the day the District was failing.",
+      "quotes": [
+        {
+          "event": "clockwork_spire_expedition_chillwind_963",
+          "text": "Cleaning Golem Patrol Unit 7 decommissioned in Sublevel Three via precision hydraulic valve extraction by a trainee on his first deployment."
+        }
+      ],
+      "pressure": 1,
+      "tension": [],
+      "model": {
+        "recipe": "golem",
+        "palette": {
+          "body": "#6c6c78",
+          "joint": "#2a2a2a",
+          "eye": "#4fc3f7",
+          "brush": "#c99a2e"
+        }
+      },
+      "tags": [
+        "clockwork spire",
+        "gadd",
+        "963 bf",
+        "automaton"
+      ]
+    },
+    {
+      "id": "tech_koopa_clown_car",
+      "name": "Bowser's Koopa Clown Car",
+      "kind": "vehicle",
+      "tier": "industrial",
+      "icon": "🤡",
+      "territory": {
+        "nation": "koopa_dominion",
+        "plane": "material",
+        "location": "bowsers_castle",
+        "label": "Bowser's Castle roof, Valley of Bowser"
+      },
+      "origin": {
+        "faction": "koopa_troop",
+        "maker": "Koopa Troop",
+        "holder": "bowser"
+      },
+      "firstSeen": {
+        "event": "toadsmith_incident",
+        "date": "Approximately Highsun 22, 955 BF",
+        "year": 955,
+        "confidence": "estimated"
+      },
+      "sightings": [],
+      "status": "Parked on the castle roof as of 955 BF",
+      "summary": "The king's personal flying machine, seen by lightning on the castle roof three weeks after the assassination.",
+      "record": "The lightning that lights the valley's cavern sky showed the Clown Car's silhouette on the castle roof and then took it away again. Toadsmith considered it. The archive files it as the oldest personal aircraft on the ledger.",
+      "quotes": [
+        {
+          "event": "toadsmith_incident",
+          "text": "The lightning that perpetually illuminates the valley's cavern sky flashed in the background, briefly revealing the silhouette of Bowser's Koopa Clown Car on the castle roof before darkness swallowed it again."
+        }
+      ],
+      "pressure": 1,
+      "tension": [],
+      "model": {
+        "recipe": "clown_car",
+        "palette": {
+          "body": "#3d9b4f",
+          "face": "#f3e9d2",
+          "mouth": "#c0392b",
+          "rim": "#e0b400"
+        }
+      },
+      "tags": [
+        "bowser's castle",
+        "955 bf",
+        "koopa troop",
+        "aircraft"
+      ]
+    },
+    {
+      "id": "tech_donut_plains_warp_pipe",
+      "name": "The Donut Plains Warp Pipe",
+      "kind": "infrastructure",
+      "tier": "iron",
+      "icon": "🟢",
+      "territory": {
+        "nation": "koopa_dominion",
+        "plane": "material",
+        "location": "bowsers_castle",
+        "label": "The valley floor below Bowser's Castle, marked for Donut Plains"
+      },
+      "origin": {
+        "faction": null,
+        "maker": "Unknown - older than every faction on the ledger",
+        "holder": null
+      },
+      "firstSeen": {
+        "event": "toadsmith_incident",
+        "date": "Approximately Highsun 22, 955 BF",
+        "year": 955,
+        "confidence": "estimated"
+      },
+      "sightings": [],
+      "status": "Working - the spiral tile glows when a foot touches it",
+      "summary": "A half-buried, vine-covered pipe with the yellow-and-blue spiral of Donut Plains, at the end of a maintenance trail out of the valley.",
+      "record": "At the trail's end sat a warp pipe entrance, half-buried in dirt and covered in vines, marked with the Donut Plains spiral. The tile glowed faintly when Toadsmith's foot touched it. The archive files pipes as infrastructure: whoever maps them owns the roads nobody can see.",
+      "quotes": [
+        {
+          "event": "toadsmith_incident",
+          "text": "And at the trail's end: a warp pipe entrance, half-buried in dirt, covered in vines, marked with the yellow-and-blue spiral pattern of Donut Plains."
+        }
+      ],
+      "pressure": -1,
+      "tension": [],
+      "model": {
+        "recipe": "warp_pipe",
+        "palette": {
+          "pipe": "#2f9e44",
+          "rim": "#37b24d",
+          "tile": "#e0b400",
+          "tile2": "#4fc3f7"
+        }
+      },
+      "tags": [
+        "donut plains",
+        "955 bf",
+        "transit",
+        "pipes"
+      ]
+    },
+    {
+      "id": "tech_royal_print_shop_press",
+      "name": "The Royal Capital Printing Press",
+      "kind": "infrastructure",
+      "tier": "discovery",
+      "icon": "🖨️",
+      "territory": {
+        "nation": "mushroom_kingdom",
+        "plane": "material",
+        "location": "toad_town",
+        "label": "The print shop, Mushroom Kingdom Royal Capital"
+      },
+      "origin": {
+        "faction": "peach_loyalists",
+        "maker": "Royal Capital print shop",
+        "holder": null
+      },
+      "firstSeen": {
+        "event": "highsun_1_955_bf_the_day_of",
+        "date": "Highsun 1-4, 955 BF",
+        "year": 955,
+        "confidence": "filed"
+      },
+      "sightings": [],
+      "status": "Working, slowly - 575 pamphlets",
+      "summary": "A single slow press that printed the 575 pamphlets in the days after the assassination.",
+      "record": "Toadsworth was present for the press and the 575 pamphlets. The archive files it because the first thing a capital reaches for after a killing is a way to say so in quantity, and this one said so slowly.",
+      "quotes": [
+        {
+          "event": "highsun_1_955_bf_the_day_of",
+          "text": "A single slow printing press."
+        },
+        {
+          "event": "highsun_1_955_bf_the_day_of",
+          "text": "Toadsworth was present for the subsequent events — the printing press, the 575 pamphlets."
+        }
+      ],
+      "pressure": -1,
+      "tension": [],
+      "model": {
+        "recipe": "printing_press",
+        "palette": {
+          "frame": "#3a2a1c",
+          "iron": "#555566",
+          "paper": "#f3e9d2",
+          "ink": "#1a1a1a"
+        }
+      },
+      "tags": [
+        "royal capital",
+        "955 bf",
+        "press"
+      ]
+    },
+    {
+      "id": "tech_shroob_magitek_salvage",
+      "name": "Crashed Shroob Technology (the Regal Magitek Salvage)",
+      "kind": "magitek",
+      "tier": "cosmic",
+      "icon": "👾",
+      "territory": {
+        "nation": "regal_empire",
+        "plane": "material",
+        "location": null,
+        "label": "Proto-Regal Empire borders and the north-west Mushroom Kingdom rifts"
+      },
+      "origin": {
+        "faction": "regal_empire",
+        "maker": "Shroob - reverse-engineered by the Proto-Regal Empire",
+        "holder": null
+      },
+      "firstSeen": {
+        "event": "shroob_temporal_incursion",
+        "date": "Chronological present 950 BF; chronological past 840 BF",
+        "year": 950,
+        "confidence": "estimated"
+      },
+      "sightings": [],
+      "status": "Absorbed - it is the root of the Empire's modern Magitek arsenal",
+      "summary": "Salvage from the Shroob incursion, secured in the past by the Proto-Regal Empire and reverse-engineered into the Magitek the Empire fields today.",
+      "record": "Waluigi watched the incursion, took the temporal arbitrage, and watched the early Empire use crashed Shroob technology to jumpstart its Magitek arsenal. It is all reverse-engineered Shroob technology. The Empire secured enough of it in the past to guarantee its future and did not want anyone going back to contest the salvage claims.",
+      "quotes": [
+        {
+          "event": "shroob_temporal_incursion",
+          "text": "It is all reverse-engineered Shroob technology."
+        },
+        {
+          "event": "shroob_temporal_incursion",
+          "text": "The Proto-Regal Empire (which was rapidly becoming the modern Regal Empire) had secured enough Shroob technology in the past to guarantee their future dominance, and they did not want anyone going back to contest their salvage claims."
+        }
+      ],
+      "pressure": 2,
+      "tension": [
+        {
+          "between": [
+            "regal_empire",
+            "mushroom_regency"
+          ],
+          "weight": 2,
+          "why": "The Empire's arsenal rests on salvage taken from rifts on the Kingdom's north-west border."
+        }
+      ],
+      "model": {
+        "recipe": "magitek_core",
+        "palette": {
+          "shell": "#5b2d8e",
+          "core": "#b388ff",
+          "metal": "#8d8d99",
+          "glow": "#e040fb"
+        }
+      },
+      "tags": [
+        "shroob",
+        "regal empire",
+        "magitek",
+        "950 bf"
+      ]
+    },
+    {
+      "id": "tech_star_sprite_reactor",
+      "name": "The Star Sprite Reactor",
+      "kind": "magitek",
+      "tier": "cosmic",
+      "icon": "⚛️",
+      "territory": {
+        "nation": null,
+        "plane": "material",
+        "location": null,
+        "label": "Iron Shmolder's cave system - Star Sprite territory and the lava caverns"
+      },
+      "origin": {
+        "faction": null,
+        "maker": "Star Sprites - connected to the star shard",
+        "holder": null
+      },
+      "firstSeen": {
+        "event": "star_shard_caves_tanuki_origin",
+        "date": "Unknown - post-Planar Fracture, pre-Tanuki Incident",
+        "year": null,
+        "confidence": "unverified"
+      },
+      "sightings": [],
+      "status": "Powering up at last report - connected to the star shard",
+      "summary": "A reactor the Star Sprites were powering up, connected to the star shard, that a Hammer Bro's unit had been sent to interrupt.",
+      "record": "The Hammer Bro explained his situation: his unit was supposed to ambush the Star Sprites powering up a reactor connected to the star shard, and Fawful had imprisoned him because Fawful operated on his own agenda. The archive files the reactor without a year because the record does not have one.",
+      "quotes": [
+        {
+          "event": "star_shard_caves_tanuki_origin",
+          "text": "Their defensive preparations — powering up a reactor, attempting to summon something bigger — were proportional to the threat."
+        }
+      ],
+      "pressure": 2,
+      "tension": [
+        {
+          "between": [
+            "koopa_troop",
+            "fawfuls_furious_freaks"
+          ],
+          "weight": 1,
+          "why": "A Koopa patrol sent against the reactor was imprisoned by Fawful on his own agenda."
+        }
+      ],
+      "model": {
+        "recipe": "reactor",
+        "palette": {
+          "frame": "#555566",
+          "core": "#ffd54f",
+          "glow": "#fff176",
+          "coil": "#7a3fcf"
+        }
+      },
+      "tags": [
+        "star shard",
+        "star sprites",
+        "reactor"
+      ]
+    },
+    {
+      "id": "tech_ebott_survey_machine",
+      "name": "The Mount Ebott Survey Machine",
+      "kind": "device",
+      "tier": "cosmic",
+      "icon": "📟",
+      "territory": {
+        "nation": "monster_underground",
+        "plane": "material",
+        "location": "snowdin_town",
+        "label": "Snowdin Town, the Monster Underground, Mount Ebott"
+      },
+      "origin": {
+        "faction": "undertale_monsters",
+        "maker": "Survey instrument - repaired to a 98-percent state by Flowey",
+        "holder": null
+      },
+      "firstSeen": {
+        "event": "mount_ebott_survey_part_3",
+        "date": "Harvestide 26, 1045 BF",
+        "year": 1045,
+        "confidence": "filed"
+      },
+      "sightings": [],
+      "status": "Running - 'Functioning normally' - with its data chip extracted and in the Agent's keeping",
+      "summary": "An abandoned survey machine that fixed itself, or was fixed by a flower; the Agent kicked it, then pulled its data chip.",
+      "record": "Spotting someone near the abandoned survey machine, the Agent, Mihawk and Sans gave chase. The machine came back reading Functioning normally, and the Agent extracted the data chip - the one portable piece of evidence that can later be compared against the damaged packet, the 98-percent repair state and any future scan. Both factions left with reasons to distrust the next report.",
+      "quotes": [
+        {
+          "event": "mount_ebott_survey_part_3",
+          "text": "The Agent extracted the data chip."
+        },
+        {
+          "event": "mount_ebott_survey_part_3",
+          "text": "The Agent authorized himself as his own commanding officer to justify kicking a machine."
+        }
+      ],
+      "pressure": 1,
+      "tension": [
+        {
+          "between": [
+            "iron_legion",
+            "undertale_monsters"
+          ],
+          "weight": 2,
+          "why": "A Legion-named survey instrument, a flower who repairs it, and a data chip neither side trusts."
+        }
+      ],
+      "model": {
+        "recipe": "survey_machine",
+        "palette": {
+          "body": "#dfe8f0",
+          "screen": "#4fc3f7",
+          "leg": "#555566",
+          "light": "#ff3b3b"
+        }
+      },
+      "tags": [
+        "mount ebott",
+        "snowdin",
+        "1045 bf",
+        "survey"
+      ]
+    },
+    {
+      "id": "tech_schoolhouse_radio_that_graded_them",
+      "name": "The Radio That Graded Them First",
+      "kind": "communications",
+      "tier": "industrial",
+      "icon": "📡",
+      "territory": {
+        "nation": null,
+        "plane": "material",
+        "location": null,
+        "label": "Helicopter crash site at the tree line outside the Schoolhouse perimeter - ground unplaced on the atlas"
+      },
+      "origin": {
+        "faction": "mushroom_regency",
+        "maker": "Regency field issue - Operation POP QUIZ",
+        "holder": null
+      },
+      "firstSeen": {
+        "event": "baldi_schoolhouse_ghost_brick_insertion",
+        "date": "Operation POP QUIZ - timestamps corrupted inside the perimeter; estimated within the first ninety days after the 955 BF assassination",
+        "year": 955,
+        "confidence": "estimated"
+      },
+      "sightings": [],
+      "status": "Compromised - it answers before you ask",
+      "summary": "A Regency field radio that, when Ghost tried to raise Command from the crash site, returned a glitching whisper saying 'Correct answer' before anyone had answered anything.",
+      "record": "Ghost came to in the tilted cockpit with cracked ribs, found Brick unconscious in the troop compartment, and tried the radio. What came back was not Command. The archive files the set because a radio that grades you before you transmit is not a radio any more, and the Regency sent people in behind it.",
+      "quotes": [
+        {
+          "event": "baldi_schoolhouse_ghost_brick_insertion",
+          "text": "The radio attempt produced not Command but a distorted glitchy whisper from everywhere and nowhere saying 'Correct answer' — before Ghost and Brick had answered anything."
+        }
+      ],
+      "pressure": 1,
+      "tension": [
+        {
+          "between": [
+            "mushroom_regency",
+            "mages_guild"
+          ],
+          "weight": 1,
+          "why": "A Regency insertion against a site that has opinions about time, run on signals the Regency did not control."
+        }
+      ],
+      "model": {
+        "recipe": "radio",
+        "palette": {
+          "body": "#3b4a2f",
+          "grille": "#1a1a1a",
+          "dial": "#ff3b3b",
+          "antenna": "#8d8d99"
+        }
+      },
+      "tags": [
+        "schoolhouse",
+        "pop quiz",
+        "regency",
+        "signals"
+      ]
+    }
+  ]
+}

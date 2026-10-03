@@ -77,7 +77,7 @@ These systems make the archive feel alive. They should converge on one faction i
 - Battlefield
 - Plagues
 - Species/population
-- Research and technology
+- Research and technology — superseded: the procedural tree in `app/pages/research/` is unrouted; the root site's **Discovered Technology** ledger (`#/technology`, `docs/TECHNOLOGY_SYSTEM.md`) derives the Calm → Crisis cycle from quoted filings instead
 - Currency and commerce
 
 These are useful when their changes feed back into articles, quests, factions, and the timeline. They should emit a small set of durable world-state events instead of each system inventing its own update format.

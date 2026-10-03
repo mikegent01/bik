@@ -459,15 +459,22 @@ In this order:
    [`STORY_FORMAT_GUIDE.md` §9E](STORY_FORMAT_GUIDE.md#9e-dossier-assessments--update-what-the-factions-say).
    Verify with `python3 tools/check-assessments.py`. Most sessions move nothing
    — leave those alone.
-5. **Any other artifact** — images, standalone pages, map entries, book
+5. **Put the machines on the technology ledger.** Any weapon, vehicle,
+   instrument, line or device the prose shows *doing something* gets an
+   entry in `Reputation-Matrix2/data/technology.json` — or, if it is already
+   there, a `sightings[]` row and a `status` update. Quotes are verbatim from
+   the event text; `pressure` is read off the quotes. Verify with
+   `python3 tools/check-technology.py`. Guide:
+   [`TECHNOLOGY_SYSTEM.md`](TECHNOLOGY_SYSTEM.md).
+6. **Any other artifact** — images, standalone pages, map entries, book
    entries. All downstream, all cheap to redo.
-6. **Run the living-article growth self-check** — `python3 tools/check-story-growth.py <event_id>`.
+7. **Run the living-article growth self-check** — `python3 tools/check-story-growth.py <event_id>`.
    Review related pages, participants, predecessor events and arc files. Make
    useful edits only: status, key events, a revision/addendum, an investigation
    lead, or a reader-helpful backlink. If a queued page gains nothing, skip it;
    do not spray reciprocal links. Craft rule:
    [`STORY_FORMAT_GUIDE.md` §9F](STORY_FORMAT_GUIDE.md#9f-living-article-growth-self-check--old-pages-grow-when-new-canon-changes-them).
-7. **Write the run report.** Format:
+8. **Write the run report.** Format:
    [`RUN_REPORT_FORMAT.md`](RUN_REPORT_FORMAT.md). Every JSON touched, every
    event filed, every XP award, in one block at the end of the run.
 
@@ -489,6 +496,8 @@ In this order:
 9  SYSTEMS     → CROSS_SYSTEM_UPDATES.md pass: Pond Patrol, Regal Diet, maps,
                  currencies, WAHwire, books, songs, Bros, shop logistics
                  dossier assessments if any faction's opinion moved (both copies)
+                 technology.json entry or sighting for any machine the prose
+                 shows working · python3 tools/check-technology.py
 10 ARTIFACTS   → pending-news-articles.json → broadcast if owed
                  → tools/check-story-growth.py <event_id> → useful old-page edits
                  → run report
