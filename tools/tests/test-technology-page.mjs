@@ -49,9 +49,10 @@ const win = {
   scrollTo() {}, location: { hash: '#/technology' },
 };
 win.window = win;
+new Function('window', fs.readFileSync(path.join(ROOT, 'assets/technology/tech-gl.js'), 'utf8'))(win);
 new Function('window', fs.readFileSync(path.join(ROOT, 'assets/technology/tech-models.js'), 'utf8'))(win);
 new Function('window', fs.readFileSync(path.join(ROOT, 'assets/technology/technology.js'), 'utf8'))(win);
-const TECH = win.TECH, MODELS = win.TECH_MODELS;
+const TECH = win.TECH, MODELS = win.TECH_MODELS, GL = win.TECH_GL;
 
 console.log('\n# data');
 const entries = TECH.entries();
@@ -75,27 +76,28 @@ check('territoryName resolves nations, regions and planes',
   && /Shadowfell/.test(TECH.territoryName('plane:shadow')));
 
 console.log('\n# models');
+/* the renderer has its own suite (test-tech-gl.mjs); here only the contract the page relies on */
+const flat = (parts, out = []) => { for (const p of parts) { if (p.parts) flat(p.parts, out); else out.push(p); } return out; };
 for (const name of MODELS.names) {
-  const parts = MODELS.recipes[name]({});
-  const okParts = Array.isArray(parts) && parts.length >= 3 && parts.every(p => ['box', 'cyl', 'sph', 'cone', 'torus'].includes(p.s) && Array.isArray(p.d) && Array.isArray(p.p) && p.p.length === 3);
+  const parts = MODELS.parts(name, {});
+  const leaves = flat(parts);
+  const okParts = Array.isArray(parts) && leaves.length >= 5 && leaves.every(p => ['box', 'cyl', 'sph', 'cone', 'torus', 'lathe', 'prism'].includes(p.s) && Array.isArray(p.d) && /^#[0-9a-f]{6}$/i.test(p.c));
   if (!okParts) check(`recipe ${name} is well-formed`, false);
 }
-check(`all ${MODELS.names.length} recipes are well-formed primitive lists`, true);
-/* a tiny THREE stand-in proves build() only needs the documented surface */
-class V3 { constructor(x = 0, y = 0, z = 0) { this.x = x; this.y = y; this.z = z; } set(x, y, z) { this.x = x; this.y = y; this.z = z; return this; } sub(v) { this.x -= v.x; this.y -= v.y; this.z -= v.z; return this; } }
-class Obj { constructor() { this.position = new V3(); this.rotation = new V3(); this.scale = new V3(1, 1, 1); this.children = []; } add(c) { this.children.push(c); } }
-const FakeTHREE = {
-  Group: class extends Obj {}, Mesh: class extends Obj { constructor(g, m) { super(); this.geometry = g; this.material = m; } },
-  BoxGeometry: class {}, CylinderGeometry: class {}, SphereGeometry: class {}, ConeGeometry: class {}, TorusGeometry: class {},
-  MeshStandardMaterial: class { constructor(o) { Object.assign(this, o); } },
-  Vector3: V3,
-  Box3: class { setFromObject() { return this; } getCenter(v) { return v.set(0.1, 0.2, 0.3); } getSize(v) { return v.set(2, 1, 1); } },
-};
-const built = MODELS.build(FakeTHREE, 'helicopter', { body: '#e0b400' });
-check('build() returns a centred group with a radius and an animate()', built.group.children.length > 5 && built.radius === 1 && typeof built.animate === 'function');
-check('build() falls back to a default recipe for an unknown name', MODELS.build(FakeTHREE, 'no_such_recipe', {}).group.children.length > 0);
-built.animate(0.1);
-check('rotor parts spin when animated', built.group.children.some(m => m.rotation.y > 0 || m.rotation.x > 0));
+check(`all ${MODELS.names.length} recipes are well-formed part trees`, true);
+check('every ledger entry names a recipe that builds and renders without a browser', entries.every(e => {
+  const m = MODELS.build(e.model.recipe, e.model.palette || {});
+  const img = GL.renderSoft(m, { width: 48, height: 36, bg: [26, 20, 44, 255] });
+  let n = 0; for (let k = 0; k < img.data.length; k += 4) if (img.data[k] !== 26) n++;
+  return m.leaves.length > 5 && n > 40;
+}));
+check('build() falls back to a default recipe for an unknown name', MODELS.build('no_such_recipe', {}).leaves.length > 3);
+const built = MODELS.build('helicopter', { body: '#e0b400' });
+check('build() returns a compiled model with leaves, a radius and the recipe view', built.leaves.length > 5 && built.radius > 1 && built.view && typeof built.view.yaw === 'number');
+check('the viewer code is self-contained (no THREE, no CDN import, mountViewer uses TECH_GL)', (() => {
+  const src = fs.readFileSync(path.join(ROOT, 'assets/technology/technology.js'), 'utf8');
+  return !/THREE|jsdelivr|import\(/.test(src) && /TECH_GL/.test(src) && /mountViewer/.test(src);
+})());
 
 console.log('\n# tension');
 const W = win.DATA.technology.meta.recencyWeights;
@@ -136,7 +138,7 @@ check('ledger renders with the sidebar key technology', sidebar.last === 'techno
 check('ledger shows the hero, the pressure strip, the filters and a tile per entry',
   html.includes('Discovered Technology') && html.includes('Where the pressure is') && html.includes('tech-filters') && (html.match(/class="techtile"/g) || []).length === entries.length);
 check('tiles name the first-seen article and the territory', html.includes('The Debt Siege and the Sixty-Thirty Split') && html.includes('📍 The Mushroom Kingdom'));
-check('ledger mounts a featured viewer host with a fallback (no WebGL here)', html.includes('id="tech-viewer-featured"') && html.includes('tech-viewer-fallback'));
+check('ledger mounts a featured viewer host with a placeholder (no document here, so no canvas)', html.includes('id="tech-viewer-featured"') && html.includes('tech-viewer-fallback'));
 TECH.setFilter('kind', 'weapon');
 html = content.innerHTML;
 check('kind filter narrows the grid to weapons only', (html.match(/class="techtile"/g) || []).length === entries.filter(e => e.kind === 'weapon').length && html.includes('tech-chip is-on'));
@@ -180,7 +182,9 @@ check('search docs: one per entry, kind technology, haystack mentions the source
 
 console.log('\n# wiring');
 const index = fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8');
-check('index.html loads tech-models.js then technology.js', index.indexOf('assets/technology/tech-models.js') > 0 && index.indexOf('assets/technology/tech-models.js') < index.indexOf('assets/technology/technology.js'));
+check('index.html loads tech-gl.js, then tech-models.js, then technology.js (classic scripts, no CDN)',
+  index.indexOf('assets/technology/tech-gl.js') > 0 && index.indexOf('assets/technology/tech-gl.js') < index.indexOf('assets/technology/tech-models.js')
+  && index.indexOf('assets/technology/tech-models.js') < index.indexOf('assets/technology/technology.js') && !/three(\.module)?\.js|jsdelivr\.net\/npm\/three/.test(index));
 check('index.html links technology.css', index.includes('assets/technology/technology.css'));
 check('DATA_FILES fetches technology.json', index.includes("'filing-updates','technology']"));
 check('Router sends #/technology, #/tech and the old #/research to the ledger', index.includes("route==='technology'||route==='tech'||route==='research'"));

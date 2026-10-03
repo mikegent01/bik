@@ -33,7 +33,6 @@
 (function(){
   'use strict';
 
-  const THREE_URL_DEFAULT = 'https://cdn.jsdelivr.net/npm/three@0.160.1/build/three.module.js';
   const PLANE_LABELS = { material:'The Material plane', shadow:'The Shadowfell', fey:'The Feywild', mirror:'The Mirror plane', disputed:'Disputed ground' };
   const g = ()=>window;             /* the real window: document, rAF, WebGL */
   const doc_ = ()=>g().document || null;
@@ -372,7 +371,7 @@
           <h1 class="art-title">${esc_(e.icon||k.icon||'🔧')} ${esc_(e.name)}</h1>
           <div class="metabar">${chip(esc_(k.label))}${chip(esc_(t.name))}${chip('📍 '+esc_(placeName(e)))}${fs.year!=null?chip(esc_(String(fs.year))+' BF'):''}<span class="status-tag status-other">${esc_(e.status||'')}</span></div>
           <div class="tech-viewer tech-viewer--large" id="tech-viewer-entry" data-entry="${esc_(e.id)}"><div class="tech-viewer-fallback">${esc_(e.icon||'🔧')}<small>loading model…</small></div></div>
-          <div class="tech-viewer-help text-muted">Drag to turn it. The model is built in the browser from the recipe <code>${esc_((e.model||{}).recipe||'')}</code> — a stand-in, not a photograph.</div>
+          <div class="tech-viewer-help text-muted">Drag to turn it · ctrl+scroll or pinch to zoom · double-click to reset. Built in the browser from the recipe <code>${esc_((e.model||{}).recipe||'')}</code> (<span id="tech-viewer-entry-mode">3D</span>) — a model read off the filing, not a photograph.</div>
           <blockquote>${esc_(e.summary||'')}</blockquote>
           <h2>What the record says</h2>
           <div class="prose"><p>${esc_(e.record||'')}</p></div>
@@ -480,16 +479,12 @@
     }));
   }
 
-  /* ---------- Three.js viewer ---------- */
+  /* ---------- 3D viewer (tech-gl.js: no library, no network) ---------- */
+  /* The renderer draws with WebGL when the browser has it and with its own
+     software rasteriser on a 2D canvas when it does not, so the model is always
+     there. The icon fallback only ever appears where there is no canvas at all
+     (the node test harness). */
   const VIEWERS = [];
-  let threePromise = null;
-  function loadThree(){
-    if(g().THREE_MODULE) return Promise.resolve(g().THREE_MODULE);
-    if(threePromise) return threePromise;
-    const url = g().THREE_MODULE_URL || THREE_URL_DEFAULT;
-    threePromise = import(/* webpackIgnore: true */ url).then(m => { g().THREE_MODULE = m; return m; }).catch(err => { threePromise = null; throw err; });
-    return threePromise;
-  }
   function mountViewer(containerId, entry, opts){
     opts = opts || {};
     const host = doc_() && doc_().getElementById(containerId);
@@ -497,81 +492,33 @@
     const recipe = (entry.model||{}).recipe || 'radio';
     const palette = (entry.model||{}).palette || {};
     const fallback = (msg)=>{ host.innerHTML = `<div class="tech-viewer-fallback">${esc_(entry.icon||'🔧')}<small>${esc_(msg)}</small></div>`; };
-    const MODELS = G('TECH_MODELS');
-    if(!MODELS){ fallback('model recipes not loaded'); return null; }
-    if(typeof g().WebGLRenderingContext==='undefined' && typeof g().WebGL2RenderingContext==='undefined'){ fallback('3D needs a browser with WebGL'); return null; }
-    const state = { id: containerId, alive: true, renderer: null, raf: 0 };
+    const GL = G('TECH_GL'), MODELS = G('TECH_MODELS');
+    if(!GL || !MODELS){ fallback('model renderer not loaded'); return null; }
+    let model;
+    try{ model = MODELS.build(recipe, palette); }
+    catch(err){ fallback('model recipe failed'); try{ console.warn('[technology] recipe', recipe, err); }catch(e){} return null; }
+    let viewer = null;
+    try{
+      viewer = GL.mount(host, model, {
+        autoRotate: opts.autoRotate!==false,
+        label: (entry.name||'technology')+' — 3D model',
+        onMode: (mode)=>{ const tag = doc_() && doc_().getElementById(containerId+'-mode'); if(tag) tag.textContent = (mode==='soft') ? 'software renderer' : 'WebGL'; }
+      });
+    }catch(err){ viewer = null; try{ console.warn('[technology] viewer', err); }catch(e){} }
+    if(!viewer){ fallback('no canvas to draw on'); return null; }
+    const state = { id: containerId, viewer, model, mode: viewer.mode };
     VIEWERS.push(state);
-    loadThree().then(THREE => {
-      if(!state.alive || !doc_() || !doc_().getElementById(containerId)) return;
-      let renderer;
-      try{ renderer = new THREE.WebGLRenderer({ antialias:true, alpha:true }); }
-      catch(err){ fallback('3D is unavailable here (no WebGL context)'); return; }
-      state.renderer = renderer;
-      const w = Math.max(200, host.clientWidth||320), h = Math.max(160, host.clientHeight||240);
-      renderer.setPixelRatio(Math.min(2, g().devicePixelRatio||1));
-      renderer.setSize(w, h);
-      host.innerHTML = '';
-      host.appendChild(renderer.domElement);
-      const scene = new THREE.Scene();
-      const camera = new THREE.PerspectiveCamera(38, w/h, 0.1, 100);
-      const built = MODELS.build(THREE, recipe, palette);
-      const pivot = new THREE.Group(); pivot.add(built.group); scene.add(pivot);
-      const dist = built.radius * 3.1;
-      camera.position.set(dist*0.8, dist*0.45, dist*0.9); camera.lookAt(0,0,0);
-      scene.add(new THREE.HemisphereLight(0xffffff, 0x3a2a5c, 1.1));
-      const key = new THREE.DirectionalLight(0xffffff, 1.6); key.position.set(3,5,4); scene.add(key);
-      const rim = new THREE.DirectionalLight(0xb388ff, 0.8); rim.position.set(-4,2,-3); scene.add(rim);
-      /* a soft ground disc so the thing has somewhere to stand */
-      const disc = new THREE.Mesh(new THREE.CircleGeometry(built.radius*1.4, 48), new THREE.MeshStandardMaterial({ color:0x1b1430, roughness:1, metalness:0, transparent:true, opacity:0.55 }));
-      disc.rotation.x = -Math.PI/2; disc.position.y = -built.radius*1.02; scene.add(disc);
-      /* drag to turn, auto-rotate otherwise */
-      let dragging = false, lx = 0, ly = 0, vx = 0, idle = 0;
-      pivot.rotation.y = 0.6;
-      const onDown = (ev)=>{ dragging = true; idle = 0; const p = ev.touches?ev.touches[0]:ev; lx = p.clientX; ly = p.clientY; };
-      const onMove = (ev)=>{ if(!dragging) return; const p = ev.touches?ev.touches[0]:ev; const dx = p.clientX-lx, dy = p.clientY-ly; lx = p.clientX; ly = p.clientY; pivot.rotation.y += dx*0.01; pivot.rotation.x = Math.max(-1.2, Math.min(1.2, pivot.rotation.x + dy*0.01)); vx = dx*0.01; if(ev.cancelable && ev.touches) ev.preventDefault(); };
-      const onUp = ()=>{ dragging = false; };
-      renderer.domElement.addEventListener('mousedown', onDown); renderer.domElement.addEventListener('touchstart', onDown, {passive:true});
-      g().addEventListener('mousemove', onMove); g().addEventListener('touchmove', onMove, {passive:false});
-      g().addEventListener('mouseup', onUp); g().addEventListener('touchend', onUp);
-      state.cleanup = ()=>{ g().removeEventListener('mousemove', onMove); g().removeEventListener('touchmove', onMove); g().removeEventListener('mouseup', onUp); g().removeEventListener('touchend', onUp); };
-      let last = performance.now();
-      const loop = (now)=>{
-        if(!state.alive) return;
-        const dt = Math.min(0.05, (now-last)/1000); last = now;
-        if(!dragging){ idle += dt; if(opts.autoRotate!==false && idle > 0.4) pivot.rotation.y += dt*0.45; else pivot.rotation.y += vx; vx *= 0.9; }
-        built.animate(dt);
-        renderer.render(scene, camera);
-        state.raf = g().requestAnimationFrame(loop);
-      };
-      state.raf = g().requestAnimationFrame(loop);
-      if(typeof g().ResizeObserver==='function'){
-        state.ro = new g().ResizeObserver(()=>{ const W = host.clientWidth||w, H = host.clientHeight||h; if(W&&H){ renderer.setSize(W,H); camera.aspect = W/H; camera.updateProjectionMatrix(); } });
-        state.ro.observe(host);
-      }
-    }).catch(err => {
-      if(!state.alive) return;
-      fallback('3D model unavailable offline — the ledger still reads');
-      try{ console.warn('[technology] three.js failed to load', err); }catch(e){}
-    });
     return state;
   }
   function unmountViewers(){
-    while(VIEWERS.length){
-      const s = VIEWERS.pop();
-      s.alive = false;
-      try{ if(s.raf) g().cancelAnimationFrame(s.raf); }catch(e){}
-      try{ if(s.ro) s.ro.disconnect(); }catch(e){}
-      try{ if(s.cleanup) s.cleanup(); }catch(e){}
-      try{ if(s.renderer){ s.renderer.dispose(); const gl = s.renderer.getContext && s.renderer.getContext(); const ext = gl && gl.getExtension && gl.getExtension('WEBGL_lose_context'); if(ext) ext.loseContext(); } }catch(e){}
-    }
+    while(VIEWERS.length){ const s = VIEWERS.pop(); try{ s.viewer.destroy(); }catch(e){} }
   }
 
   window.TECH = {
     /* data */ entries, byId, forEvent, territoryKey, territoryName, placeName, yearsOnRecord, currentYear,
     /* tension */ recencyWeight, bandFor, computeTension, computeTensionForTerritory,
     /* views */ view_technology, renderLedger, renderEntry, renderTension, renderTerritory, setFilter, eventPanel, searchDocs,
-    /* 3d */ mountViewer, unmountViewers, loadThree,
+    /* 3d */ mountViewer, unmountViewers,
     /* for tests */ _tile: tile, _kindColor: kindColor
   };
 })();

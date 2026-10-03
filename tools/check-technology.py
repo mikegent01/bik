@@ -210,10 +210,16 @@ def main() -> int:
         ("TECH.searchDocs()", "Research Bureau indexes the ledger"),
         ('<script src="assets/technology/technology.js', "technology.js is loaded"),
         ('<script src="assets/technology/tech-models.js', "tech-models.js is loaded"),
+        ('<script src="assets/technology/tech-gl.js', "tech-gl.js (the renderer) is loaded"),
         ('<link rel="stylesheet" href="assets/technology/technology.css', "technology.css is linked"),
     ):
         if needle not in html:
             fail(f"index.html wiring missing: {what}")
+    gl_at = html.find('<script src="assets/technology/tech-gl.js')
+    if gl_at >= 0 and gl_at > html.find('<script src="assets/technology/tech-models.js'):
+        fail("index.html loads tech-models.js before tech-gl.js (the renderer must come first)")
+    if "three.module.js" in html or "jsdelivr.net/npm/three" in html:
+        fail("index.html still references Three.js — the viewer is self-contained (tech-gl.js)")
 
     if not quiet:
         for w in warnings:

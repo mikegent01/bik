@@ -50,11 +50,12 @@ console.log('\n-- boot');
 check('TECH module is on the page', typeof window.TECH === 'object' && typeof window.TECH.view_technology === 'function');
 check('technology.json loaded through the data loader (read via TECH, DATA is script-scoped)', window.TECH.entries().length >= 20, String(window.TECH.entries().length));
 check('TECH_MODELS recipes are on the page', window.TECH_MODELS && window.TECH_MODELS.names.length >= 20);
+check('TECH_GL (the self-contained renderer) is on the page — no Three.js, no CDN', window.TECH_GL && typeof window.TECH_GL.mount === 'function' && !window.THREE && !window.THREE_MODULE);
 
 console.log('\n-- #/technology');
 let c = await go('#/technology');
 check('ledger renders', text(c).includes('Discovered Technology') && c.querySelectorAll('.techtile').length >= 20, String(c && c.querySelectorAll('.techtile').length));
-check('featured viewer host falls back without WebGL instead of throwing', !!c.querySelector('#tech-viewer-featured .tech-viewer-fallback'));
+check('featured viewer host shows the icon fallback where no canvas exists (jsdom) instead of throwing', !!c.querySelector('#tech-viewer-featured .tech-viewer-fallback'));
 check('sidebar link is active and counted', !!window.document.querySelector('.sidebar .active, nav .active, [class*="nav"] .active') || text(window.document.body).includes('Discovered Technology'));
 
 console.log('\n-- #/technology/<entry>');

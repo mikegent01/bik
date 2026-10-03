@@ -16,7 +16,7 @@
 .tech-hero-viewer{display:flex;flex-direction:column;gap:6px;min-width:0}
 .tech-viewer{position:relative;background:radial-gradient(ellipse at 50% 35%,rgba(138,75,255,.22),rgba(0,0,0,0) 65%),var(--panel2);border:1px solid var(--border);border-radius:14px;min-height:260px;height:300px;overflow:hidden;cursor:grab;touch-action:pan-y}
 .tech-viewer:active{cursor:grabbing}
-.tech-viewer canvas{display:block;width:100%!important;height:100%!important}
+.tech-viewer canvas{display:block;width:100%!important;height:100%!important;touch-action:none;cursor:grab;user-select:none;-webkit-user-select:none}
 .tech-viewer--large{height:380px;margin:12px 0 4px}
 .tech-viewer-fallback{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;font-size:64px;line-height:1;color:var(--muted)}
 .tech-viewer-fallback small{font-size:12px}

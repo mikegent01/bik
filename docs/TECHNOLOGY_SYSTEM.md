@@ -5,8 +5,10 @@
 **Code:** `assets/technology/technology.js` (views + tension arithmetic),
 `assets/technology/tech-models.js` (3D recipes), `assets/technology/technology.css`.
 **Checks:** `python3 tools/check-technology.py` (in `check-all`),
-`node tools/tests/test-technology-page.mjs`, and the live boot
+`node tools/tests/test-technology-page.mjs`, `node tools/tests/test-tech-gl.mjs`
+(the renderer and every model, rendered), and the live boot
 `node tools/tests/technology-live-smoke.mjs` (needs `python3 -m http.server 8765`).
+To *look* at the models: `node tools/render-tech-models.mjs` → `/tmp/techpng/sheet.png`.
 
 ---
 
@@ -175,39 +177,90 @@ yet.
 
 ## The 3D models
 
-Each entry names a **recipe** in `assets/technology/tech-models.js`. A recipe
-is a list of primitive parts — box, cylinder, sphere, cone, torus — with a
-size, a position, a rotation, a palette key, and optionally `e:true`
-(emissive) or `spin:'y'` (animated: rotors, rings, brushes). `build(THREE,
-recipe, palette)` turns the list into a `THREE.Group`, centres it on its
-bounding box, and returns `{ group, radius, animate(dt) }`.
+![All 26 ledger entries rendered by the site's own software rasteriser](images/technology-models.png)
 
-Three.js (`three@0.160.1`, ES module) is **lazy-loaded from jsDelivr** the
-first time a viewer mounts — the same CDN the site already uses for Chart.js.
-Set `window.THREE_MODULE_URL` before the page scripts to point at a vendored
-copy. Without the network, or without WebGL (jsdom, file://, a locked-down
-browser), the viewer shows the entry's icon and a one-line note; the ledger
-still reads. One renderer is live at a time; `TECH.unmountViewers()` runs on
-every technology route change and disposes the context.
+Every entry names a **recipe** in `assets/technology/tech-models.js`, and the
+recipe is a real model of the thing the article describes — the helicopter
+has the W on its doors and the searchlight that found the archivist, the claw
+has its hazard stripes and the W plate, the Bullet Bill is halfway out of the
+cannon, the garlic grenade is a bulb with the pull-ring on top, the coffee
+machine wears the EXIT sign. They are low-poly and read at a glance; the entry
+page still says *a model read off the filing, not a photograph*.
 
-The models are stand-ins, and the entry page says so. They exist so a reader
-can turn the thing over — a yellow claw with a W plate, a pistol with a
-hammer, a helicopter with its door on the side — not to be looked at closely.
+**There is no library and no network.** `assets/technology/tech-gl.js` is a
+self-contained renderer (~550 lines, classic script, `window.TECH_GL`) that
+draws the same part list two ways with the same maths:
 
-### Adding a recipe
+| Path | When | What it does |
+|---|---|---|
+| **WebGL 1** | any browser with a canvas context | antialiased, per-pixel lit, premultiplied alpha over the panel's gradient; ~24 fps idle auto-rotate, pointer drag, pinch / ctrl-wheel zoom, double-click reset |
+| **software rasteriser** | WebGL refused (locked-down browser, `file://` on some engines, software-only machines) | the identical scene rasterised into a 2D canvas at ≤300 px wide, throttled to ~24 fps; the help line says *software renderer* |
+| **icon fallback** | no canvas at all (jsdom) | the entry's icon and a one-line note; the ledger still reads |
+
+The earlier Three.js-from-jsDelivr build was replaced because the sandbox
+(and any offline reader) could never load it, so the models could never be
+*seen* — and nothing that cannot be looked at can be checked. The software
+path is also what node uses: `tools/render-tech-models.mjs` renders every
+entry to PNG, and `tools/tests/test-tech-gl.mjs` renders them all again and
+measures the result.
+
+### Recipes
+
+A recipe is a function `(P) => parts[]` where `P` is the entry's palette.
+Helpers in `tech-models.js` build the parts:
+
+| Helper | Makes |
+|---|---|
+| `box(w,h,d,p,c,x)` `cyl(rTop,rBot,h,p,c,x)` `cone(r,h,p,c,x)` `sph(r,p,c,x)` `tor(R,tube,p,c,x)` | primitives at position `p` (`[x,y,z]`), colour `c` (palette key or `#hex`), extras `x` |
+| `lathe(points,p,c,x)` | surface of revolution around Y (`[[radius,height],…]`, either direction) — bulbs, bells, bowls |
+| `prism(points,depth,p,c,x)` | convex outline in XY extruded along Z (either winding) — blades, fins, hammers |
+| `bar2 / bar3(a,b,r,c,x)` | a strut from point `a` to point `b` (explicit matrix; `r2` for a taper, `caps:false` for an open cone) |
+| `tube(points,r,c,x)` | polyline of bars with ball joints — hoses, cords, smiles |
+| `helix(c,R,h,turns,n)` | points for a coiled cord |
+| `gear(R,teeth,th,c,x)` `star4(size,th,p,c,x)` `letters(text,cell,p,c,x)` | cog, four-point star, 5×5 block letters (E X I T 7 R P O W A N G L D U S M C Y 1 -) |
+| `grp(p,r,parts,x)` | a group: position / rotation / scale / `spin` / `bob` apply to the children |
+
+Extras (`x`) on any part: `r:[rx,ry,rz]` Euler rotation (applied X·Y·Z),
+`sc` scale, `e:0..1` emissive, `metal:0..1`, `a` alpha,
+`spin:'y'|{axis,speed,phase}`, `bob:{amp,speed}`, `nb:true` (leave out of
+the bounds — light beams), `ghost:true` (34 % alpha, used for the Legion's
+promised airlift). Each recipe may set `T.name.view = {yaw,pitch}` for its
+opening angle.
+
+Orientation facts that keep coming up: `rotZ(−π/2)` turns a Y-up cylinder
+into a barrel pointing **+x**; `rotX(π/2)` lays a torus flat; the camera's
+default view looks from **+x +z**, so put the face of the thing on that side.
 
 ```js
 T.my_thing = (P)=>[
-  box(1.0, 0.4, 0.6, [0, 0.2, 0], 'body'),              // w,h,d, position, palette key
-  cyl(0.05, 0.05, 1.2, [0, 0.9, 0], 'mast'),            // rTop,rBottom,h
-  box(2.0, 0.04, 0.12, [0, 1.5, 0], 'blade', {spin:'y'}),
-  sph(0.1, [0.4, 0.3, 0.3], 'lamp', {e:true}),
+  box(1.0, 0.4, 0.6, [0, 0.2, 0], 'body'),                         // w,h,d, position, palette key
+  cyl(0.05, 0.05, 1.2, [0, 0.9, 0], 'mast'),                       // rTop,rBottom,h
+  grp([0,1.5,0], null, [ box(2.0,0.04,0.12,[0,0,0],'blade'), box(0.12,0.04,2.0,[0,0,0],'blade') ], {spin:{axis:'y',speed:9}}),
+  sph(0.1, [0.4, 0.3, 0.3], 'lamp', {e:1}),
+  letters('W', 0.04, [0.51, 0.25, 0], 'mark', {r:[0,PI/2,0]}),     // faces +x
 ];
+T.my_thing.view = {yaw:0.5, pitch:0.3};
 ```
 
-Palette keys are whatever the entry's `model.palette` supplies; unknown keys
-fall back to grey. `tools/check-technology.py` parses recipe names with
-`^\s*T\.(name)\s*=` so the recipe must be declared on its own line.
+Then look at it — `node tools/render-tech-models.mjs --only my_thing --views`
+writes four angles to `/tmp/techpng/`. Palette keys are whatever the entry's
+`model.palette` supplies; unknown keys fall back to grey. `tools/check-technology.py`
+parses recipe names with `^\s*T\.(name)\s*=` so the recipe must be declared
+on its own line. Keep a model under ~8 000 triangles (`test-tech-gl.mjs`
+enforces it; the render tool prints the count).
+
+### What the renderer test proves (`tools/tests/test-tech-gl.mjs`)
+
+Primitives are watertight and wound the way their normals point (a lathe
+profile listed either way and a prism outline wound either way come out
+facing outward); the column-major matrices map axes as documented; all 26
+entries build, stay inside the triangle budget, render centred with a sane
+share of the frame, and change by under 1.5 % of pixels when back faces are
+culled (consistent winding everywhere); `mount()` returns `null` without a
+canvas, runs the software path on a 2D context, throttles, auto-rotates,
+tears down on `destroy()` and when its host leaves the DOM; and a recording
+WebGL stand-in shows the GL path sets every uniform the shaders declare with
+typed arguments and frees every buffer on dispose.
 
 ---
 
@@ -241,7 +294,8 @@ After the event is written (Step 5) and the exhibits are filed (Step 6):
    `pressure` from the table above, add `tension[]` edges only between faction
    keys that exist, and tag it with the arc name.
 4. `python3 tools/check-technology.py` — fix every line it prints.
-5. `node tools/tests/test-technology-page.mjs`.
+5. `node tools/tests/test-technology-page.mjs` and, if you touched a recipe,
+   `node tools/tests/test-tech-gl.mjs` plus a look at the render.
 6. Mention the entries in the run report under cross-system updates.
 
 The Rot-Zone filing's own pass added: `tech_paulos_courier_pistol` (new),
@@ -262,8 +316,11 @@ The Rot-Zone filing's own pass added: `tech_paulos_courier_pistol` (new),
 - **Region buckets for contested ground.** Raventree is not the Kingdom and
   not the Empire; `meta.regions.eastern_midlands` gives it its own row rather
   than lumping it into "the material plane".
-- **Lazy CDN Three.js with a plain fallback.** Matches the Chart.js precedent;
-  nothing on the page depends on the model loading.
+- **Own renderer, no CDN.** The first cut lazy-loaded Three.js from jsDelivr
+  like Chart.js; it was dropped because a reader (or this sandbox) without
+  that CDN never saw a model, and models nobody can see cannot be checked.
+  `tech-gl.js` is small, has a software path for browsers without WebGL, and
+  renders in node so the recipes are tested as pictures, not as promises.
 - **Script-scope globals.** `index.html` declares `esc`, `el`, `Router`, `DATA`
   and `CUR` with top-level `const`/`let`, which puts them in the global
   *script scope*, not on `window`. `technology.js` reaches them by name through
