@@ -100,6 +100,14 @@ class Handler(BaseHTTPRequestHandler):
                 content = "   "                                                     # nothing at all
             else:
                 content = "He turns the page and says nothing for a moment."        # fine
+        elif "STAGE DIRECTIONS" in all_text and "the aircraft crashes" in last_user:
+            # A crash narrated with NO stage directions at all — the model
+            # forgot to file the wounds — so a page test can prove the hurt
+            # ledger reads the prose and bills everyone in the scene itself.
+            content = (
+                "The helicopter clips the awning and slams into the pavement. "
+                "The impact throws everyone forward against the dashboard, and for a moment nobody moves."
+            )
         elif "STAGE DIRECTIONS" in all_text and os.environ.get("MOCK_DIRECTIVES"):
             # {{WHO}} is filled with the first character named in the prompt's
             # CHARACTER STATE block, so a test does not have to know in

@@ -3625,6 +3625,260 @@ window.CHATROOM_CONFIG = {
     }).slice(0, 2);
   };
 
+  /* ------------------------------------------------------------------ *
+   * the hurt ledger — damage filed from the prose, no model call
+   *
+   * A helicopter slammed into the pavement and nobody lost a point: the
+   * model narrated the crash and filed nothing. The quartermaster could
+   * catch it, at the price of a second call. This net is free: the prose
+   * is read for what hurts, and whoever it reaches loses a share of their
+   * max HP — so a 10-HP sheet and a 100-HP one bleed alike. The model's
+   * own [[HP:]] for a person always wins over the page's guess for them.
+   * ------------------------------------------------------------------ */
+
+  // What hurts, by how much (shares of max HP), and WHO it lands on:
+  // 'all' reaches everyone in the scene (a crash, a blast, a collapse);
+  // 'object' hits the one named or pointed at after the verb; 'subject'
+  // hits the one doing the falling; 'owner' hits whoever's arm it is.
+  // Transitive verbs refuse a plain article after them, so "kicks the
+  // door open" and "shoots the lock" are nobody's wound; a crash needs a
+  // vehicle in the sentence, so a slammed door and a crashing wave are
+  // not a helicopter.
+  var HURT_NO_OBJ = '(?!\\s+(?:the|a|an|at|out|through|off|into|up|down|open|shut|over|back|away|aside|it|its|his|her|their|my|your|wildly|blindly|air)\\b)';
+  var HURT_NO_THING = '(?!\\s+(?:the|a|an|at|out|through|off|into|up|down|open|air|nothing|only|wood|cloth|leather|stone|metal|empty)\\b)';
+  var HURT_VEHICLE = /\b(?:helicopter|chopper|heli|plane|aircraft|airplane|aeroplane|airship|zeppelin|jet|glider|balloon|shuttle|craft|vessel|ship|boat|skiff|raft|canoe|ferry|yacht|submarine|car|truck|lorry|van|bus|cab|taxi|coach|jeep|tank|train|locomotive|carriage|tram|trolley|wagon|cart|sled|sleigh|bike|bicycle|motorcycle|motorbike|scooter|pod|hull|cockpit|fuselage|elevator|lift|gondola|cable car|coaster|kart|buggy|chariot|mech|walker|dropship|lander|capsule|rocket|wreck)\b/i;
+  var HURT_SURFACE = 'wall|dashboard|glass|window|windscreen|windshield|table|floor|door|bulkhead|console|ground|pavement|rocks?|railing|bars|stone|deck|bar|pillar|post|tree|counter|shelves|shelving|cabinet|crates?|barrels?|fence|gate|wreckage|hull|side of the \\w+';
+  var HURT_RULES = [
+    { tier: 'grave', who: 'all', cause: 'the crash', pre: HURT_VEHICLE,
+      re: /\b(?:crash(?:es|ed|ing)?|slams?|slammed|smash(?:es|ed)|plough(?:s|ed)?|plows?|plowed|careens?|careened|hurtles?|hurtled|nose.?dives?|nosedived|pancakes?|pancaked|ditch(?:es|ed)|(?:goes|went|comes|came)\s+down\s+hard|hits?\s+the\s+(?:ground|water|tarmac|trees|rocks|pavement)|strikes?\s+the\s+(?:ground|water|tarmac|trees|rocks|pavement))\b(?!\s+(?:the|a|an|his|her|their|my|your|them|him|me|us|course|shut|open)\b)/i },
+    { tier: 'grave', who: 'all', cause: 'the crash',
+      re: /\b(?:impact\s+(?:is|was)?\s*(?:a\s+)?(?:violent|brutal|savage|bone|tremendous|enormous|sickening)|impact\s+(?:throws?|hurls?|slams?|flings?|tosses?|pitches?|knocks?)\s+(?:everyone|everybody|everything|them|us|all|him|her|you|me)|(?:throws?|hurls?|slams?|flings?|pitches?)\s+(?:everyone|everybody|everything|us\s+all|them\s+all|the\s+\w+\s+of\s+(?:them|us))\s+(?:forward|back|backward|sideways|against|into|across|to\s+the|off))\b/i },
+    { tier: 'grave', who: 'all', cause: 'the blast',
+      re: /\b(?:explo(?:des|ded)|detonat(?:es|ed)|(?:bomb|grenade|charge|mine|device|shell|barrel|tank|car|truck|boiler|reactor|cannon|powder|magazine|cache)\s+(?:\w+\s+)?(?:goes|went)\s+off|(?:explosion|detonation|blast|shockwave|fireball)\s+(?:\w+\s+)?(?:rips?|tears?|throws?|hurls?|hits?|slams?|knocks?|flattens?|catches|engulfs?|takes?|rocks?|shakes?|erupts?|lifts?|blows|swallows?|fills?|guts?|levels?))\b/i },
+    { tier: 'grave', who: 'all', cause: 'the collapse',
+      re: /\b(?:roof|ceiling|wall|tunnel|building|floor|tower|bridge|mine|scaffold|balcony|stairs|staircase|gallery|cave|shaft|house|barn|church|dome|arch|walkway|pier|platform)\s+(?:\w+\s+)?(?:collapses|collapsed|caves?\s+in|caved\s+in|comes?\s+down|came\s+down|gives?\s+way|gave\s+way|buckles|buckled|folds?\s+in|falls?\s+in|fell\s+in)\b/i },
+    { tier: 'grave', who: 'subject', cause: 'the fall',
+      re: /\b(?:falls?|fell|plunges?|plunged|drops?|dropped|tumbles?|tumbled)\s+(?:\w+\s+){0,3}?(?:storeys|stories|floors|from\s+the\s+(?:roof|cliff|tower|bridge|sky|window|ledge|rigging|mast|balcony|rooftop|wall)|off\s+the\s+(?:roof|cliff|bridge|tower|ledge|balcony|rooftop|wall)|down\s+the\s+(?:shaft|cliff|ravine|stairs|stairwell|well)|into\s+the\s+(?:ravine|gorge|chasm|rocks|pit|void))\b/i },
+    { tier: 'grave', who: 'subject', cause: 'the crash',
+      re: /\b(?:thrown|hurled|flung)\s+(?:clear\s+)?(?:from|out\s+of)\s+the\s+(?:wreck(?:age)?|cockpit|cab|car|saddle|plane|helicopter|carriage|truck|window)\b/i },
+    { tier: 'heavy', who: 'object', cause: 'the blade',
+      re: new RegExp('\\b(?:stabs?|stabbed|slash(?:es|ed)|impal(?:es|ed)|guts|gutted|skewers?|skewered|runs?\\s+(?=(?:him|her|them|you|me)\\s+through))' + HURT_NO_OBJ + '\\b', 'i') },
+    { tier: 'heavy', who: 'object', cause: 'the blade',
+      re: new RegExp('\\b(?:blade|axe|hatchet|sword|spear|arrow|bolt|dagger|knife|bayonet|machete|steel|edge|point)\\s+(?:bites|sinks|opens|finds|tears|lands|takes|hits|buries|catches|punches|goes)' + HURT_NO_THING + '\\b', 'i') },
+    { tier: 'heavy', who: 'object', cause: 'the shot',
+      re: new RegExp('\\b(?:shoots?)' + HURT_NO_OBJ + '\\b', 'i') },
+    { tier: 'heavy', who: 'object', cause: 'the shot',       // "shot" the verb, not the drink or the long one
+      re: new RegExp('\\b(?:[A-Z][\\w\'-]+|he|she|they|I|you|we|who|is|was|are|were|gets?|got|been|being|and|then|got)\\s+shot' + HURT_NO_OBJ + '(?!\\s+(?:of|glass|at)\\b)\\b') },
+    { tier: 'heavy', who: 'object', cause: 'the shot',
+      re: new RegExp('\\b(?:bullet|round|slug|buckshot|shrapnel)\\s+(?:hits|tears|rips|catches|takes|punches|finds|strikes|goes|opens)' + HURT_NO_THING + '\\b', 'i') },
+    { tier: 'heavy', who: 'subject', cause: 'the shot',
+      re: /\b(?:takes?|took|catches|caught)\s+(?:a|the|two|three|another)\s+(?:bullet|round|slug|arrow|bolt|blade|knife)\b/i },
+    { tier: 'heavy', who: 'subject', cause: 'the beating',
+      re: /\b(?:takes?|took)\s+(?:a|the|another)\s+(?:beating|hammering|pounding|thrashing)|beaten\s+(?:badly|bloody|senseless|half\s+to\s+death)|knocked\s+(?:out|cold|senseless|unconscious|flat|sprawling)\b/i },
+    { tier: 'heavy', who: 'object', cause: 'the beating',
+      re: new RegExp('\\b(?:knocks?\\s+(?=(?:him|her|them|you|me)\\s+(?:out|cold|senseless|flat|down|sprawling))|club(?:s|bed)|bludgeons?|bludgeoned|pummels?|pummeled|pummelled)' + HURT_NO_OBJ + '\\b', 'i') },
+    { tier: 'heavy', who: 'object', cause: 'the throw',
+      re: new RegExp('\\b(?:throws?|hurls?|flings?|slams?|smashes|drives?|rams?)\\s+(?=(?:him|her|them|you|me|\\w+)\\s+(?:\\w+\\s+)?(?:through|against|into)\\s+(?:the|a)\\s+(?:' + HURT_SURFACE + '))', 'i') },
+    { tier: 'heavy', who: 'subject', cause: 'the throw',
+      re: new RegExp('\\b(?:go(?:es)?|went|flies|flew|thrown|hurled|flung|slammed|smashed|put|sent|crash(?:es|ed)|smash(?:es|ed)|slams?)\\s+(?:\\w+\\s+)?(?:through|against|into)\\s+(?:the|a)\\s+(?:' + HURT_SURFACE + ')\\b', 'i') },
+    { tier: 'heavy', who: 'owner', cause: 'the break',
+      re: /\b(?:breaks?|broke|snaps?|snapped|shatters?|shattered|cracks?|cracked|dislocates?|dislocated)\s+(his|her|their|your|my)\s+(?:arm|leg|ribs?|nose|jaw|wrist|ankle|collarbone|skull|hand|fingers?|knee|shoulder|hip|elbow|spine|back)\b/i },
+    { tier: 'heavy', who: 'object', cause: 'the crush',
+      re: new RegExp('\\b(?:crush(?:es|ed)|tramples?|trampled|flattens?|flattened)' + HURT_NO_OBJ + '\\b', 'i') },
+    { tier: 'heavy', who: 'object', cause: 'the mauling',
+      re: new RegExp('\\b(?:mauls?|mauled|gores?|gored|savages?|savaged)' + HURT_NO_OBJ + '\\b', 'i') },
+    { tier: 'heavy', who: 'object', cause: 'the fire',
+      re: /\b(?:engulf(?:s|ed)|(?:flames?|fire)\s+(?:swallows?|takes?|catches|wraps?|climbs?))\b/i },
+    { tier: 'heavy', who: 'subject', cause: 'the fire',
+      re: /\b(?:catches|caught)\s+fire|burns?\s+(?:badly|through\s+to\s+the)\b/i },
+    { tier: 'light', who: 'object', cause: 'the blow',
+      re: new RegExp('\\b(?:punch(?:es|ed)|kicks?|kicked|slaps?|slapped|shoves?|shoved|clips?|clipped|elbowed|headbutts?|headbutted|backhands?|backhanded|cuffs?|cuffed|decked|wallops?|walloped|thumps?|thumped|clouts?|clouted|kneed|(?:hits?|strikes?|struck|catches|caught|lands|connects)\\s+(?:\\w+\\s+){0,2}?(?:in|across|on|to)\\s+the\\s+(?:face|jaw|head|ribs|gut|stomach|mouth|nose|shoulder|back|chest|temple|knee|thigh|arm|ear|eye|cheek|chin)|(?:hits?|strikes?|struck)\\s+(?=(?:him|her|them|you|me)\\b))' + HURT_NO_OBJ + '\\b', 'i') },
+    { tier: 'light', who: 'object', cause: 'the bite',
+      re: new RegExp('\\b(?:bites?|nips?|nipped|bit\\s+(?=(?:him|her|them|you|me|into)\\b))' + HURT_NO_OBJ + '\\b', 'i') },
+    { tier: 'light', who: 'object', cause: 'the burn',
+      re: new RegExp('\\b(?:scalds?|scalded|singes?|singed|burns?)' + HURT_NO_OBJ + '\\b', 'i') },
+    { tier: 'light', who: 'owner', cause: 'the burn',
+      re: /\b(?:burns?|burned|burnt|scalds?|scalded|singes?|singed|blisters?)\s+(his|her|their|your|my)\s+(?:hand|arm|palm|fingers?|face|cheek|leg|foot|skin|sleeve|hair|brow|back|neck)\b/i },
+    { tier: 'light', who: 'owner', cause: 'the cut',
+      re: /\b(?:cuts?|slices?|sliced|nicks?|nicked|gashes|gashed|scrap(?:es|ed)|graz(?:es|ed)|skins?|skinned|splits?|bloodies|bloodied|bruis(?:es|ed)|wrenches?|wrenched|twists?|twisted|sprains?|sprained|jars?|jarred)\s+(his|her|their|your|my)\s+(?:hand|arm|palm|cheek|lip|brow|leg|knee|finger|scalp|shin|elbow|knuckles|ankle|wrist|shoulder|ribs?|nose|forehead|chin|neck|side|back|thigh|foot|heel)\b/i },
+    { tier: 'light', who: 'subject', cause: 'the fall',
+      re: /\b(?:stumbles?\s+and\s+falls?|stumbled\s+and\s+fell|falls?\s+(?:hard|flat|badly|heavily)|fell\s+(?:hard|badly|heavily)|goes\s+down\s+hard|went\s+down\s+hard|takes?\s+(?:a|the)\s+(?:tumble|spill|fall)|took\s+(?:a|the)\s+(?:tumble|spill|fall))\b/i },
+    { tier: 'light', who: 'subject', cause: 'the blow',
+      re: /\b(?:takes?|took|catches|caught|eats?|ate)\s+(?:a|the|another)\s+(?:punch|kick|slap|blow|hit|elbow|knee|fist|boot|right|left|hook|jab|uppercut|headbutt|backhand)\b/i },
+  ];
+  var HURT_SHARE = { grave: [0.25, 0.45], heavy: [0.12, 0.22], light: [0.04, 0.09] };
+  // A sentence that is not a hit after all: a miss, a memory, a threat, a
+  // figure of speech, something happening far away.
+  var HURT_NOT = /\b(?:almost|nearly|barely|narrowly|just\s+misses|misses|missed|dodges?|dodged|ducks?|ducked|sidesteps?|sidestepped|parries|parried|blocks?|blocked|unharmed|unhurt|unscathed|would\s+have|could\s+have|might\s+have|should\s+have|threatens?\s+to|threatening\s+to|about\s+to|going\s+to|if\s+(?:he|she|they|you|it|we|i)\b|imagine|remember(?:s|ed|ing)?|memory|memories|dream(?:s|t|ed|ing)?|nightmare|had\s+(?:crashed|exploded|fallen|stabbed|shot|collapsed)|years?\s+ago|weeks?\s+ago|last\s+(?:time|week|year|night|month)|used\s+to|the\s+story\s+of|tale|legend|rumou?r|in\s+the\s+distance|far\s+(?:off|away|below)|miles\s+away|on\s+the\s+horizon|across\s+the\s+(?:city|valley|bay|river|water)|elsewhere|on\s+the\s+(?:radio|news|screen|television|tv|wire)|footage|pretends?|pretending|mimes?|jokes?|joking|as\s+if|like\s+(?:a|an|the)\s+(?:crash|blast|bullet|blade|bomb)|crash\s+course|market\s+crash(?:es|ed)?|(?:waves?|surf|thunder|cymbals?|music|sound|noise|applause|chord|server|system|program|computer|stock|economy|prices?)\s+(?:\w+\s+)?crash|crash(?:es|ed|ing)?\s+(?:of\s+)?(?:thunder|waves|cymbals|applause|music)|crash(?:es|ed)?\s+(?:the|a)\s+(?:party|meeting|wedding|funeral|summit)|crashes?\s+(?:on|onto|into)\s+(?:the\s+)?(?:couch|sofa|bed|chair|armchair|cot|bunk)|falls?\s+asleep|fell\s+asleep)\b/i;
+  var HURT_ALL = /^\s+(?:\w+\s+)?(?:everyone|everybody|all\s+of\s+(?:them|us|you)|both\s+of\s+(?:them|us|you)|the\s+(?:two|three|four|five)\s+of\s+(?:them|us|you)|the\s+(?:whole|entire)\s+(?:cabin|cockpit|crew|party|group|room|car|carriage))\b/i;
+  var HURT_BRACE = /\b(?:brac(?:e|es|ed|ing)|hold(?:s|ing)?\s+on(?:to)?|held\s+on(?:to)?|hang(?:s|ing)?\s+on(?:to)?|hung\s+on(?:to)?|grip(?:s|ped|ping)?\s+(?:the|onto)|strapped|seat\s?belts?|harness|cushion(?:s|ed)?|curl(?:s|ed)?\s+(?:up|into\s+a\s+ball)|cover(?:s|ed|ing)?\s+(?:my|his|her|their|your)\s+head|shield(?:s|ed)?|tuck(?:s|ed)?\s+and\s+roll|roll(?:s|ed)?\s+with|dives?\s+(?:for|behind)\s+cover|dived\s+behind|behind\s+cover|take(?:s)?\s+cover|took\s+cover|duck(?:s|ed)?\s+behind|lands?\s+on\s+(?:his|her|their|my|your)\s+feet|breaks?\s+(?:the|my|his|her|their|your)\s+fall)\b/i;
+  var HURT_SCALE = { off: 0.5, gentle: 0.6, normal: 1, harsh: 1.3 };
+
+  RP.bracedIn = function (text) { return HURT_BRACE.test(String(text || '')); };
+
+  function hurtSentences(text) {
+    return String(text || '')
+      .replace(/\[\[[^\]]*\]\]/g, ' ')
+      .replace(/"[^"\n]{0,400}"|\u201c[^\u201d\n]{0,400}\u201d/g, ' ')     // what people SAY about crashing is not a crash
+      .split(/\n+|[.!?]+["\u201d\u2019)*_]*\s+/)
+      .map(function (x) { return x.trim(); })
+      .filter(Boolean);
+  }
+  function hurtRuleIn(sentence) {
+    for (var i = 0; i < HURT_RULES.length; i++) {
+      var m = sentence.match(HURT_RULES[i].re);
+      if (m && (!HURT_RULES[i].pre || HURT_RULES[i].pre.test(sentence.slice(0, m.index)))) {
+        return { rule: HURT_RULES[i], match: m[0], at: m.index, owner: m[1] || '' };
+      }
+    }
+    return null;
+  }
+
+  /** Is there violence in this text at all? For the prompt: a short order
+   *  to file the wounds rides along only on turns that have some. Looser
+   *  than the ledger — the player's "as the aircraft crashes" counts. */
+  RP.dangerIn = function (text) {
+    var cause = '';
+    hurtSentences(text).some(function (s) {
+      if (HURT_NOT.test(s)) return false;
+      var found = hurtRuleIn(s);
+      if (found) { cause = found.rule.cause; return true; }
+      var loose = s.match(/\b(?:crash(?:es|ed|ing)?|explo(?:de|des|ded|sion)|collaps(?:es|ed|ing)|stab(?:s|bed|bing)?|shoot(?:s|ing)?|shot\s+(?:at|him|her|them|you|me|in|through|dead|down)|open(?:s|ed)?\s+fire|fir(?:es|ed|ing)\s+(?:at|on|into)|attack(?:s|ed|ing)?|ambush(?:es|ed)?|punch(?:es|ed|ing)?|swing(?:s|ing)?\s+(?:at|the\s+\w+\s+at)|charg(?:es|ed|ing)\s+(?:at|into)|tackl(?:es|ed|ing)|fall(?:s|ing)?\s+(?:from|off|down)|(?:on|catches|caught)\s+fire|burn(?:s|ing)?\s+(?:him|her|them|you|me|through|down|alive)|blast(?:s|ed)?|detonat(?:es|ed|ing)?|bomb(?:s|ed)?|grenade|crushed|drown(?:s|ed|ing)?|hit(?:s|ting)?\s+(?:him|her|them|it|the\s+\w+\s+with))\b/i);
+      if (!loose) return false;
+      var w = loose[0];
+      cause = /crash/i.test(w) ? 'the crash' : /explo|blast|detonat|bomb|grenade/i.test(w) ? 'the blast'
+        : /collaps/i.test(w) ? 'the collapse' : /fall/i.test(w) ? 'the fall' : /burn/i.test(w) ? 'the fire'
+        : /shoot|shot|fire/i.test(w) ? 'the shooting' : /drown/i.test(w) ? 'the drowning' : 'the fight';
+      return true;
+    });
+    return cause;
+  };
+
+  /** The order that rides in the protected tail on a violent turn only
+   *  (~90 tokens, nothing on a quiet one): wounds go on the record. */
+  RP.hurtBlock = function (room, text) {
+    if (!room || room.mechanics === 'off') return '';
+    var cause = RP.dangerIn(text);
+    if (!cause) return '';
+    return 'WOUNDS \u2014 there is violence in this turn (' + cause + '). Whoever it reaches is hurt ON THE RECORD, not only in the ' +
+      'prose: file [[HP: Name -N]] for each of them, N as a share of their max HP \u2014 a scrape or a shove 3\u20138%, a beating, ' +
+      'a blade or a bullet 10\u201325%, a crash, a fall from height or a blast 25\u201345%, and everyone in a crash or a blast, ' +
+      'not just one of them. If you file nothing, the page files it from your prose at those rates.';
+  };
+
+  /** Read a turn for what hurts and who it reaches.
+   *  opts: speaker (the card's character, for I/me), world (a narrator's
+   *  turn), filed (lowercase names the model already filed [[HP:]] for —
+   *  theirs wins), level (fate level, scales the amounts), braced (the
+   *  player's own turn had them holding on — their share is halved),
+   *  roll (0–1, for tests; otherwise random).
+   *  Returns [{ id, name, amount, cause, tier }], one entry per person. */
+  RP.hurtScan = function (text, room, opts) {
+    opts = opts || {};
+    if (!room || room.mechanics === 'off') return [];
+    var states = room.states || {};
+    var youId = RP.playerSheetId(room);
+    var you = states[youId];
+    var people = RP.presentCast(room).filter(function (c) { return states[c.id] && states[c.id].hp; }).map(function (c) {
+      return { id: c.id, name: c.name };
+    });
+    if (you && you.hp && you.present !== false && !people.some(function (p) { return p.id === youId; })) people.push({ id: youId, name: you.name });
+    if (!people.length) return [];
+    var filed = (opts.filed || []).map(function (n) { return String(n || '').toLowerCase().trim(); }).filter(Boolean);
+    var isFiled = function (p) {
+      var name = p.name.toLowerCase(), first = name.split(/\s+/)[0];
+      return filed.some(function (f) {
+        return f === name || f === first || (f.length > 2 && (name.indexOf(f) === 0 || f.indexOf(name) === 0)) ||
+          (p.id === youId && (f === 'you' || f === 'the player' || f === 'player'));
+      });
+    };
+    var speakerId = opts.speaker && opts.speaker.id && states[opts.speaker.id] ? opts.speaker.id : '';
+    var scale = HURT_SCALE[opts.level || 'normal'] || 1;
+    var roll = opts.roll === undefined ? Math.random() : Math.max(0, Math.min(1, Number(opts.roll) || 0));
+    var hits = {};
+    var antecedent = speakerId;       // who "he" is, until somebody else is named
+    var nameAt = function (s, p) {
+      var low = s.toLowerCase(), first = p.name.toLowerCase().split(/\s+/)[0];
+      var at = low.indexOf(p.name.toLowerCase());
+      if (at < 0 && first.length > 2) at = low.search(new RegExp('\\b' + first.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\b'));
+      return at;
+    };
+    hurtSentences(text).forEach(function (s) {
+      var named = people.map(function (p) { return { p: p, at: nameAt(s, p) }; })
+        .filter(function (x) { return x.at >= 0; })
+        .sort(function (a, b) { return a.at - b.at; });
+      var before = antecedent;
+      if (named.length) antecedent = named[named.length - 1].p.id;
+      if (HURT_NOT.test(s)) return;
+      var found = hurtRuleIn(s);
+      if (!found) return;
+      var rule = found.rule;
+      var pre = s.slice(0, found.at), post = s.slice(found.at + found.match.length);
+      // a pronoun stands for: you → the player; I → the card's speaker;
+      // he/she/they → the last person named (here or earlier)
+      var nearestIn = function (chunk, base) {          // the last of our people named in a chunk of the sentence
+        var best = '';
+        named.forEach(function (x) { if (x.at >= base && x.at < base + chunk.length) best = x.p.id; });
+        return best;
+      };
+      var pronoun = function (w, nearest) {
+        w = String(w || '').toLowerCase();
+        if (/^(?:you|your|yourself)$/.test(w)) return you ? youId : '';
+        if (/^(?:i|me|my|myself)$/.test(w)) return speakerId;
+        return nearest || before;
+      };
+      var other = function (w) {                         // him/her/them after the verb: not whoever is doing it
+        var subj = nearestIn(pre, 0);
+        if (before && before !== subj) return before;
+        var rest = named.filter(function (x) { return x.at < found.at && x.p.id !== subj; });
+        return rest.length ? rest[rest.length - 1].p.id : '';
+      };
+      var subject = function () {                        // who the sentence is about, before the verb
+        var inPre = nearestIn(pre, 0);
+        if (inPre) return inPre;
+        var pm = pre.match(/\b(I|me|my|myself|you|your|yourself|he|him|his|himself|she|her|herself|they|them|their|themselves)\b(?!.*\b(?:I|you|he|she|they|him|her|them)\b)/);
+        if (pm) return pronoun(pm[1], '');
+        if (/\w/.test(pre)) return '';                   // a door, a wave, a plant: not one of ours
+        return before || (opts.world ? '' : speakerId);
+      };
+      var targets = [];
+      if (rule.who === 'all' || HURT_ALL.test(post)) {
+        targets = people.map(function (p) { return p.id; });
+      } else if (rule.who === 'subject') {
+        targets.push(subject());
+      } else if (rule.who === 'owner') {
+        targets.push(pronoun(found.owner, nearestIn(pre, 0)));
+      } else {
+        var om = post.match(/^\s+(?:into\s+|through\s+|across\s+|at\s+)?(him|her|them|you|me|his|their|your|my|himself|herself|themselves|yourself|myself)\b/i) ||
+          found.match.match(/\b(him|her|them|you|me)\b/i);
+        var after = named.filter(function (x) { return x.at >= found.at; });
+        if (om && !(after.length && after[0].at < found.at + found.match.length + 6)) {
+          targets.push(/^(?:him|her|them)$/i.test(om[1]) ? other(om[1]) : pronoun(om[1], nearestIn(pre, 0) || ''));
+        } else if (after.length) {
+          targets.push(after[0].p.id);
+        } else if (/\b(?:is|was|are|were|am|gets?|got|getting|being|been|lies|lay)\s*(?:\w+ly\s+)?$|,\s*$/i.test(pre) || /^(?:\w+ed|shot|struck|bitten|bit)\b/i.test(found.match) && !pre.trim()) {
+          targets.push(subject());
+        }
+      }
+      var braced = HURT_BRACE.test(s);
+      var share = HURT_SHARE[rule.tier];
+      targets.forEach(function (id) {
+        var p = people.filter(function (x) { return x.id === id; })[0];
+        if (!p || isFiled(p)) return;
+        var sheet = states[id];
+        var max = Number(sheet.hp && sheet.hp.max) || 0;
+        if (!max) return;
+        var pct = share[0] + (share[1] - share[0]) * roll;
+        var soft = (braced || (id === youId && opts.braced)) ? 0.5 : 1;
+        var amount = Math.max(1, Math.round(max * pct * scale * soft));
+        var cur = hits[id];
+        if (cur && cur.amount >= amount) return;
+        hits[id] = { id: id, name: p.name, amount: amount, cause: rule.cause, tier: rule.tier };
+      });
+    });
+    return Object.keys(hits).map(function (k) { return hits[k]; });
+  };
+
   /** Is it time for the background review? Counted in played turns since
    *  the last one, like the recap and the book. */
   RP.needsUpkeep = function (room, every) {
@@ -5782,6 +6036,8 @@ window.CHATROOM_CONFIG = {
       var thinAir = RP.conjureBlock(opts.conjured, opts.conjureVerdict);
       if (thinAir) parts.push(thinAir);
       parts.push(RP.DIRECTIVES);
+      var worldWounds = RP.hurtBlock(room, String(opts.mentionText || '') + ' ' + ((room.direction && room.direction.text) || ''));
+      if (worldWounds) parts.push(worldWounds);
     }
     var fate = RP.fateBlock(opts.fate);
     if (fate) parts.push(fate);
@@ -7767,6 +8023,8 @@ window.CHATROOM_CONFIG = {
       var thinAir = RP.conjureBlock(opts.conjured, opts.conjureVerdict);
       if (thinAir) parts.push(thinAir);
       parts.push(RP.DIRECTIVES);
+      var wounds = RP.hurtBlock(room, String(opts.mentionText || '') + ' ' + ((room.direction && room.direction.text) || ''));
+      if (wounds) parts.push(wounds);
     }
     var fateBlock = RP.fateBlock(opts.fate);
     if (fateBlock) parts.push(fateBlock);
@@ -11645,6 +11903,7 @@ window.CHATROOM_CONFIG = {
       '<h4>How the scene runs</h4>' +
       '<div class="cp-menu">' +
       menuItem('cpFate', '🎲', 'Fate', (state.settings.fate || 'normal') === 'off' ? 'Off — you always succeed' : (state.settings.fate || 'normal')) +
+      menuItem('dkHurt', '💥', 'Wounds', r.mechanics === 'off' ? 'No sheets' : (state.settings.hurt || 'on') === 'off' ? 'Only what the model files' : 'Filed from the prose too') +
       menuItem('dkLength', '✂', 'Reply length', lengthName) +
       menuItem('cpDirector', '🎬', 'Director', state.settings.director === 'off' ? 'Off' : 'On · max ' + (state.settings.maxChain || RP.MAX_CHAIN)) +
       menuItem('dkNarrator', RP.NARRATORS[RP.narrator(state)].icon, 'Narrator', (state.settings.world || 'on') === 'off' ? 'Off' : RP.NARRATORS[RP.narrator(state)].name) +
@@ -12344,6 +12603,12 @@ window.CHATROOM_CONFIG = {
       save(); render();
       toast(state.settings.audience === 'off' ? 'Audience murmurs off.' : 'Audience murmurs on — whoever is not speaking may react in a line.');
     });
+    on('dkHurt', function () {
+      state.settings.hurt = (state.settings.hurt || 'on') === 'off' ? 'on' : 'off';
+      save(); render();
+      toast(state.settings.hurt === 'off' ? 'Wounds: only what the model files as [[HP:]] lands on the sheets.'
+        : 'Wounds: a crash, a blade or a blast in the prose costs HP even when the model files nothing — no extra call.');
+    });
     on('dkAudit', function () { runAudit(r); });
     on('dkSequel', function () { openSequel(r); });
     on('dkBook', function () { tab = 'book'; state.active = ''; save(); render(); });
@@ -12968,6 +13233,9 @@ window.CHATROOM_CONFIG = {
       // Last resort: if it still trails off, cut back to a full stop rather
       // than showing the reader half a sentence.
       var clean = RP.trimDangling(staged.clean.trim());
+      // A take that gets sent back (it wrote the player) must not leave its
+      // wounds and filings behind — the sheets are put back as they were.
+      var sheetsBefore = JSON.stringify(r.states || {}), castBefore = JSON.stringify(r.cast || []);
       var changes = r.mechanics === 'off' ? { lines: [] }
         : RP.applyDirectives(state, r, staged.directives, resolveChar);
       if (verdict && verdict.line) changes.lines.unshift(verdict.line);
@@ -12986,6 +13254,26 @@ window.CHATROOM_CONFIG = {
             if (line) changes.lines.push('🎒 ' + line + ' — filed from the prose');
           });
         }
+      }
+      // The hurt ledger: a crash, a blade, a blast in the prose lands on
+      // the sheets whether or not the model filed it — another free net,
+      // no model call. The model's own [[HP:]] for a person wins.
+      if (r.mechanics !== 'off' && state.settings.hurt !== 'off') {
+        RP.hurtScan(clean, r, {
+          speaker: worldTurn ? null : speaker,
+          world: worldTurn,
+          filed: staged.directives.filter(function (d) { return d.kind === 'hp'; }).map(function (d) { return d.who; }),
+          level: state.settings.fate || 'normal',
+          braced: RP.bracedIn(lastSaid),
+        }).forEach(function (h) {
+          var sheet = RP.sheetFor(r, h.id);
+          var line = sheet && RP.applyChange(sheet, { kind: 'hp', op: '-', value: h.amount });
+          if (!line) return;
+          changes.lines.push('💥 ' + line + ' — ' + h.cause + ', filed from the prose');
+          if (h.tier === 'grave' && !(sheet.flags || {}).battered) {
+            RP.applyChange(sheet, { kind: 'flag', name: 'battered', turns: 2, note: 'from ' + h.cause });
+          }
+        });
       }
       // The doorman: a never-seen name who arrives or speaks in the prose
       // gets filed as an ENTER (a full sheet, kit and all) even when the
@@ -13025,6 +13313,7 @@ window.CHATROOM_CONFIG = {
         if (check.playerVoice && !opts.reheard) {
           // Writing the player's character is not a mislabel to file away;
           // it is taken back and asked for again, once.
+          r.states = JSON.parse(sheetsBefore); r.cast = JSON.parse(castBefore);
           busy = false; save(); render();
           toast('It wrote your character — asking again.');
           window.setTimeout(function () {

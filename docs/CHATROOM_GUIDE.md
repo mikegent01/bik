@@ -358,6 +358,10 @@ whole archive — inventing a card only when the archive has never heard of them
 reported to the reader as a pill under the turn, and roster changes are filed
 in the world log.
 
+**And when the model forgets the paperwork**, the page bills the wound
+itself: a crash, a blade or a blast in the prose costs a share of max HP
+with no second call — see **💥 The hurt ledger** below.
+
 ## The wire — post browsing
 
 `Reputation-Matrix2/data/wahwire/posts.json` holds 196 filed posts. The **Wire**
@@ -1603,6 +1607,64 @@ models forget the paperwork, so two nets run behind the play:
 
 Both nets are off when mechanics are off.
 
+### 💥 The hurt ledger — a crash costs HP whether or not the model says so
+
+A helicopter went into the pavement, fate said *works — at a price*, and
+nobody lost a point: the model narrated the crash and filed no `[[HP:]]`.
+The review would have caught it six turns later, for the price of a second
+call. The hurt ledger catches it on the turn, for nothing — it is the third
+free net, in the same family as the grant scan and the doorman.
+
+**What it reads.** Every reply (never your own turn — fate decides whether
+your attempt lands; the reply's narration is what is canon). Quoted speech
+is stripped first, so Wario shouting *"CRASHING IS JUST AN UNEXPECTED
+DOWNWARD INVESTMENT!"* is noise and *"the helicopter slams into the
+pavement"* is the hit. Then sentence by sentence, three tiers:
+
+| tier | what it is | share of **max** HP |
+| --- | --- | --- |
+| grave | a crash, a blast, a collapse — reaches **everyone in the scene**; a fall from height, thrown from the wreck — the one it happens to | 25–45% |
+| heavy | a blade, a bullet, a beating, thrown through the glass, a broken arm, crushed, mauled, fire | 12–22% |
+| light | a punch, a kick, a slap, a bite, a scald, a cut hand, a hard fall | 4–9% |
+
+Shares, not points: a 10-HP sheet and a 100-HP one bleed alike. The roll
+inside the band is random; the 🎲 Fate level scales the whole thing
+(gentle ×0.6, harsh ×1.3, off ×0.5). A grave hit also files `battered` for
+two turns, which tilts fate against whoever carries it.
+
+**Who it lands on.** A blow lands on the one named or pointed at *after*
+the verb (*Wario punches Sans*, *punches him*, *the blade opens your
+sleeve*) — never on whoever is swinging. *You/your* is your sheet, *I/me*
+is the card's speaker, *he/she* is the last person named. *"Wario punches
+the wall"* hurts nobody. Each person takes one hit per turn — the worst.
+
+**What is not a hit.** A near miss (*nearly, dodges, unharmed*), a threat
+(*about to, threatens to*), a memory (*years ago, had crashed*), something
+far off (*in the distance, on the radio*), a figure of speech (*crash
+course, crashes onto the sofa*). The scan is deliberately verb-shaped —
+*"the blade"* in a sentence is nothing; *"the blade opens his sleeve"* is —
+and the crash tier wants a vehicle in the sentence, so a slammed door or a
+wave crashing on the rocks is not a helicopter. A person who *crashes
+through a window* takes a heavy hit alone; a *helicopter* that does takes
+the cabin with it.
+
+**Holding on helps.** If your own turn braced for it — *"I hold onto the
+seat as the aircraft crashes"*, *strapped in*, *behind cover*, *roll with
+it* — your share is halved. The same words in the reply's sentence halve
+everyone in it.
+
+**The model still wins.** Anyone the reply already filed `[[HP:]]` for is
+left to the model's number; the page only bills the ones it forgot. And
+on a turn where there is violence to begin with, a ~90-token `WOUNDS`
+order rides in the prompt (`RP.hurtBlock`) telling the model the rates
+and that the page will file from its prose if it does not. On a quiet
+turn that block is not sent at all.
+
+Everything it files shows on the turn card as `💥 Wario −35 HP (65/100) —
+the crash, filed from the prose`, and `↩` undoes the whole turn, wounds
+included. Scene tab → **💥 Wounds** turns the ledger off (`settings.hurt`),
+leaving only what the model files. Off when mechanics are off.
+
 ### 🚪 The doorman — nobody slips in or out unfiled
 
 The model is told to use `[[ENTER:]]`, `[[NEW:]]` and `[[EXIT:]]`, and when
@@ -1657,8 +1719,8 @@ story and *nothing else*. Speakers rotate deterministically (no
 who-speaks-next call), the auto lore book and the upkeep reviewer wait
 for **full** mode, and the rolling recap still runs — budgeted — because
 it is what keeps prompts small. Everything deterministic stays free and
-local either way: the grant scan, the thin-air check, conditions,
-arrivals and departures. On a machine where a call costs minutes, the
+local either way: the grant scan, the hurt ledger, the thin-air check,
+conditions, arrivals and departures. On a machine where a call costs minutes, the
 pickers were costing more than the prose; flip the dial to **full** on a
 box that can afford model-picked speakers and automatic filing.
 

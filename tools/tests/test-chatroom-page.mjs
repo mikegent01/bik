@@ -1388,6 +1388,61 @@ check('memory: the turn is remembered against the character',
 check('memory: opening the chat filed a line in the world log',
   stored().log.some(e => e.kind === 'chat'));
 
+// ---- the hurt ledger: a crash the model narrates but never files ----
+check('wounds: the Scene tab offers the ledger, on by default', (() => {
+  dock('scene');
+  const item = $('dkHurt');
+  const t = item ? item.textContent : '';
+  dock('cast');
+  return Boolean(item) && /Wounds/.test(t) && /from the prose/.test(t);
+})());
+const hpBefore = (() => {
+  const s = savedState();
+  const r = s.rooms.find(x => x.id === s.active);
+  const out = {};
+  Object.keys(r.states).forEach(k => { if (r.states[k].hp && r.states[k].present !== false) out[k] = r.states[k].hp.value; });
+  return out;
+})();
+check('wounds: the order to file them rides in the prompt only on a violent turn', (() => {
+  const s = savedState();
+  const r = s.rooms.find(x => x.id === s.active);
+  const who = r.cast[0];
+  const hot = win.RP.systemFor(s, r, who, { mentionText: 'I hold onto the seat as the aircraft crashes' });
+  const calm = win.RP.systemFor(s, r, who, { mentionText: 'I pour the tea and sit down.' });
+  return /WOUNDS/.test(hot) && /the crash/.test(hot) && !/WOUNDS/.test(calm);
+})());
+$('input').value = 'I hold onto the seat as the aircraft crashes';
+$('composer').dispatchEvent(new win.Event('submit', { bubbles: true, cancelable: true }));
+await until('the crash to be billed', () => /filed from the prose/.test($('stream').textContent));
+await wait(300);
+check('wounds: a crash nobody filed still costs everyone in the scene HP, on the sheets', (() => {
+  const s = savedState();
+  const r = s.rooms.find(x => x.id === s.active);
+  const ids = Object.keys(hpBefore);
+  return ids.length >= 2 && ids.every(k => r.states[k].hp.value < hpBefore[k]) &&
+    ids.every(k => Boolean(r.states[k].flags.battered));
+})());
+check('wounds: holding on halves the reader’s own share of it', (() => {
+  const s = savedState();
+  const r = s.rooms.find(x => x.id === s.active);
+  const you = win.RP.playerSheetId(r);
+  const mine = hpBefore[you] - r.states[you].hp.value;
+  const theirs = Object.keys(hpBefore).filter(k => k !== you).map(k => hpBefore[k] - r.states[k].hp.value);
+  return mine > 0 && theirs.length > 0 && theirs.every(t => Math.abs(t - mine * 2) <= 1);
+})());
+check('wounds: the receipt is on the turn card, cause and all, and the prose is untouched', (() => {
+  const strip = [...doc.querySelectorAll('.turn.char .metastrip')].pop();
+  const bubble = [...doc.querySelectorAll('.turn.char .bubble')].pop();
+  return Boolean(strip) && /💥/.test(strip.textContent) && /the crash, filed from the prose/.test(strip.textContent) &&
+    /slams into the pavement/.test(bubble.textContent);
+})());
+check('wounds: ↩ undo takes the whole crash back off the sheets', (() => {
+  $('undoBtn').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+  const s = savedState();
+  const r = s.rooms.find(x => x.id === s.active);
+  return Object.keys(hpBefore).every(k => r.states[k].hp.value === hpBefore[k]);
+})());
+
 // ---- the model actually received the assembled prompt ----
 const probe = await (await fetch(`http://127.0.0.1:${SERVER_PORT}/api/roleplay`, {
   method: 'POST', headers: { 'Content-Type': 'application/json' },

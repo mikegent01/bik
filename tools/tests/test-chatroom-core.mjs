@@ -2573,6 +2573,93 @@ check('history: newest turns win the budget', (() => {
       rm.states[RP.PLAYER_ID].items.some(i => i.name.includes('lantern')) &&
       rm.states.sans.flags.winded && rm.states.sans.flags.winded.turns === 2;
   })());
+}
+
+// ---------- the hurt ledger: wounds filed from the prose, no model call ----------
+{
+  const wario = { id: 'wario', name: 'Wario' }, waluigi = { id: 'waluigi', name: 'Waluigi' };
+  const st = RP.blankState();
+  const rm = RP.newRoom([wario, waluigi, sans], {});
+  st.rooms.push(rm);
+  RP.markPlayer(rm, 'waluigi');
+  RP.ensurePlayerSheet(st, rm);
+  const crash = '*"HOLD ON TO YOUR WALLET!"* Wario bellows. *"CRASHING IS JUST AN UNEXPECTED DOWNWARD INVESTMENT!"*\n\n' +
+    'The helicopter clips the edge of an awning with a deafening crunch as it slams into the pavement below. ' +
+    'The impact is violent, a jarring jolt that throws everything—including Wario—forward against the dashboard.\n\n' +
+    'He coughs through the smoke and kicks the shattered door open.';
+  const by = hits => Object.fromEntries(hits.map(h => [h.id, h]));
+  check('wounds: a crash the model never filed costs everyone in the scene a share of their max HP', (() => {
+    const h = by(RP.hurtScan(crash, rm, { speaker: wario, roll: 0.5 }));
+    return Object.keys(h).length === 3 && h.wario.amount === 35 && h.waluigi.amount === 35 && h.sans.amount === 35 &&
+      h.wario.tier === 'grave' && h.wario.cause === 'the crash';
+  })());
+  check('wounds: the amounts are shares, so a ten-point sheet bleeds in proportion', (() => {
+    const small = RP.newRoom([wario], {});
+    small.states.wario.hp = { value: 10, max: 10 };
+    const h = RP.hurtScan('The floor gives way and they fall two storeys.', small, { world: true, roll: 1 });
+    return h.length === 1 && h[0].amount === 5 && h[0].cause === 'the collapse';
+  })());
+  check('wounds: holding on halves the player’s share; fate scales the whole thing', (() => {
+    const soft = by(RP.hurtScan(crash, rm, { speaker: wario, roll: 0.5, braced: RP.bracedIn('I hold onto the seat as the aircraft crashes') }));
+    const harsh = by(RP.hurtScan(crash, rm, { speaker: wario, roll: 0.5, level: 'harsh' }));
+    const gentle = by(RP.hurtScan(crash, rm, { speaker: wario, roll: 0.5, level: 'gentle' }));
+    return soft.waluigi.amount === 18 && soft.wario.amount === 35 && harsh.wario.amount === 46 && gentle.wario.amount === 21 &&
+      RP.bracedIn('I brace against the bulkhead') && !RP.bracedIn('I scream');
+  })());
+  check('wounds: whoever the model already filed [[HP:]] for is left to the model', (() => {
+    const h = by(RP.hurtScan(crash, rm, { speaker: wario, roll: 0.5, filed: ['Wario'] }));
+    return !h.wario && Boolean(h.sans) && Boolean(h.waluigi);
+  })());
+  check('wounds: talk of crashing, a near miss, a memory, a far-off bang and a sofa are not hits', (() => {
+    const none = [
+      '"We nearly crashed into the sea!" Wario laughs. "Crashing is an investment."',
+      'He nearly falls from the roof, but Sans grabs his wrist.',
+      'Years ago the mine collapsed on his father.',
+      'Somewhere in the distance a building explodes.',
+      'Wario crashes onto the couch and falls asleep.',
+      'Wario punches the wall and swears.',
+      'MOCK-MODEL REPLY #3: the blade goes in.',
+    ];
+    return none.every(t => RP.hurtScan(t, rm, { speaker: wario, roll: 0.5 }).length === 0);
+  })());
+  check('wounds: a blow lands on the one named or pointed at after the verb, never on the one swinging', (() => {
+    const named = by(RP.hurtScan('Wario punches Sans in the face. Sans staggers.', rm, { speaker: wario, roll: 0.5 }));
+    const him = by(RP.hurtScan('Sans grins. Wario punches him.', rm, { speaker: wario, roll: 0.5 }));
+    const shot = by(RP.hurtScan('The bullet catches Wario in the shoulder and spins him round.', rm, { world: true, roll: 0.5 }));
+    const you = by(RP.hurtScan('He slashes at you; the blade opens your sleeve and the skin under it.', rm, { speaker: wario, roll: 0.5 }));
+    const me = by(RP.hurtScan('I go through the windscreen.', rm, { speaker: wario, roll: 0.5 }));
+    return Object.keys(named).join() === 'sans' && named.sans.amount === 7 && named.sans.tier === 'light' &&
+      Object.keys(him).join() === 'sans' &&
+      Object.keys(shot).join() === 'wario' && shot.wario.amount === 17 && shot.wario.cause === 'the shot' &&
+      Object.keys(you).join() === 'waluigi' && you.waluigi.cause === 'the blade' &&
+      Object.keys(me).join() === 'wario' && me.wario.tier === 'heavy';
+  })());
+  check('wounds: a slammed door, a crashing wave and a punched wall are nobody’s; a person through a window is only theirs', (() => {
+    const door = RP.hurtScan('The door slams into the wall behind him.', rm, { speaker: wario, roll: 0.5 });
+    const wave = RP.hurtScan('Waves crash against the rocks below the pier.', rm, { speaker: wario, roll: 0.5 });
+    const summit = RP.hurtScan('Wario crashes the summit through the front door.', rm, { speaker: wario, roll: 0.5 });
+    const shotOf = RP.hurtScan('Sans pours Wario a shot of whisky. A long shot, he says.', rm, { speaker: sans, roll: 0.5 });
+    const window = by(RP.hurtScan('Sans crashes through the window into the courtyard.', rm, { speaker: wario, roll: 0.5 }));
+    return door.length === 0 && wave.length === 0 && summit.length === 0 && shotOf.length === 0 &&
+      Object.keys(window).join() === 'sans' && window.sans.tier === 'heavy';
+  })());
+  check('wounds: one hit per person per turn — the worst of them', (() => {
+    const h = by(RP.hurtScan('Sans kicks Wario. Then the grenade explodes under the table.', rm, { world: true, roll: 0 }));
+    return h.wario.amount === 25 && h.wario.cause === 'the blast' && h.sans.amount === 25;
+  })());
+  check('wounds: a story room has no HP to lose, and a room without sheets files nothing', (() => {
+    const story = RP.newRoom([wario], { statePreset: 'story' });
+    const off = RP.newRoom([wario], { mechanics: 'off' });
+    return RP.hurtScan(crash, story, { speaker: wario }).length === 0 && RP.hurtScan(crash, off, { speaker: wario }).length === 0;
+  })());
+  check('wounds: the order to file them rides in the prompt only when the turn has violence in it', (() => {
+    const hot = RP.systemFor(st, rm, wario, { mentionText: 'I hold onto the seat as the aircraft crashes' });
+    const calm = RP.systemFor(st, rm, wario, { mentionText: 'I pour the tea and sit down.' });
+    const talk = RP.systemFor(st, rm, wario, { mentionText: '"I will crash this plane," I say, calmly.' });
+    const world = RP.worldSystem(st, rm, { mentionText: 'I hold onto the seat as the aircraft crashes' });
+    return /WOUNDS/.test(hot) && /\(the crash\)/.test(hot) && /25–45%/.test(hot) && !/WOUNDS/.test(calm) && !/WOUNDS/.test(talk) &&
+      /WOUNDS/.test(world) && RP.dangerIn('He opens fire on the car.') === 'the shooting' && RP.dangerIn('We argue about rent.') === '';
+  })());
   check('upkeep: "IN ORDER" files nothing', RP.applyUpkeep(st, rm, 'IN ORDER').lines.length === 0);
   check('upkeep: it spends from the same session budget as the book', (() => {
     const before = RP.bookBudgetLeft(st);

@@ -3301,6 +3301,7 @@
       '<h4>How the scene runs</h4>' +
       '<div class="cp-menu">' +
       menuItem('cpFate', '🎲', 'Fate', (state.settings.fate || 'normal') === 'off' ? 'Off — you always succeed' : (state.settings.fate || 'normal')) +
+      menuItem('dkHurt', '💥', 'Wounds', r.mechanics === 'off' ? 'No sheets' : (state.settings.hurt || 'on') === 'off' ? 'Only what the model files' : 'Filed from the prose too') +
       menuItem('dkLength', '✂', 'Reply length', lengthName) +
       menuItem('cpDirector', '🎬', 'Director', state.settings.director === 'off' ? 'Off' : 'On · max ' + (state.settings.maxChain || RP.MAX_CHAIN)) +
       menuItem('dkNarrator', RP.NARRATORS[RP.narrator(state)].icon, 'Narrator', (state.settings.world || 'on') === 'off' ? 'Off' : RP.NARRATORS[RP.narrator(state)].name) +
@@ -4000,6 +4001,12 @@
       save(); render();
       toast(state.settings.audience === 'off' ? 'Audience murmurs off.' : 'Audience murmurs on — whoever is not speaking may react in a line.');
     });
+    on('dkHurt', function () {
+      state.settings.hurt = (state.settings.hurt || 'on') === 'off' ? 'on' : 'off';
+      save(); render();
+      toast(state.settings.hurt === 'off' ? 'Wounds: only what the model files as [[HP:]] lands on the sheets.'
+        : 'Wounds: a crash, a blade or a blast in the prose costs HP even when the model files nothing — no extra call.');
+    });
     on('dkAudit', function () { runAudit(r); });
     on('dkSequel', function () { openSequel(r); });
     on('dkBook', function () { tab = 'book'; state.active = ''; save(); render(); });
@@ -4624,6 +4631,9 @@
       // Last resort: if it still trails off, cut back to a full stop rather
       // than showing the reader half a sentence.
       var clean = RP.trimDangling(staged.clean.trim());
+      // A take that gets sent back (it wrote the player) must not leave its
+      // wounds and filings behind — the sheets are put back as they were.
+      var sheetsBefore = JSON.stringify(r.states || {}), castBefore = JSON.stringify(r.cast || []);
       var changes = r.mechanics === 'off' ? { lines: [] }
         : RP.applyDirectives(state, r, staged.directives, resolveChar);
       if (verdict && verdict.line) changes.lines.unshift(verdict.line);
@@ -4642,6 +4652,26 @@
             if (line) changes.lines.push('🎒 ' + line + ' — filed from the prose');
           });
         }
+      }
+      // The hurt ledger: a crash, a blade, a blast in the prose lands on
+      // the sheets whether or not the model filed it — another free net,
+      // no model call. The model's own [[HP:]] for a person wins.
+      if (r.mechanics !== 'off' && state.settings.hurt !== 'off') {
+        RP.hurtScan(clean, r, {
+          speaker: worldTurn ? null : speaker,
+          world: worldTurn,
+          filed: staged.directives.filter(function (d) { return d.kind === 'hp'; }).map(function (d) { return d.who; }),
+          level: state.settings.fate || 'normal',
+          braced: RP.bracedIn(lastSaid),
+        }).forEach(function (h) {
+          var sheet = RP.sheetFor(r, h.id);
+          var line = sheet && RP.applyChange(sheet, { kind: 'hp', op: '-', value: h.amount });
+          if (!line) return;
+          changes.lines.push('💥 ' + line + ' — ' + h.cause + ', filed from the prose');
+          if (h.tier === 'grave' && !(sheet.flags || {}).battered) {
+            RP.applyChange(sheet, { kind: 'flag', name: 'battered', turns: 2, note: 'from ' + h.cause });
+          }
+        });
       }
       // The doorman: a never-seen name who arrives or speaks in the prose
       // gets filed as an ENTER (a full sheet, kit and all) even when the
@@ -4681,6 +4711,7 @@
         if (check.playerVoice && !opts.reheard) {
           // Writing the player's character is not a mislabel to file away;
           // it is taken back and asked for again, once.
+          r.states = JSON.parse(sheetsBefore); r.cast = JSON.parse(castBefore);
           busy = false; save(); render();
           toast('It wrote your character — asking again.');
           window.setTimeout(function () {
