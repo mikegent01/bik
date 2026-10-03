@@ -146,7 +146,10 @@
     var box = avatarBox(size);
     var url = imageUrl(char && char.image);
     if (url) {
-      return '<span class="' + box.cls + '" style="' + box.style + '">' +
+      // data-nm / data-tint: when the file is missing the page swaps the
+      // broken image for initials (see the error listener at the foot).
+      return '<span class="' + box.cls + '" style="' + box.style + '" data-nm="' + esc(RP.initialsFor(char && char.name)) +
+        '" data-tint="' + esc(RP.tintFor(char)) + '">' +
         '<img src="' + esc(url) + '" alt="" loading="lazy"></span>';
     }
     return '<span class="' + box.cls + '" style="' + box.style + 'background:' + RP.tintFor(char) + '">' +
@@ -2299,12 +2302,153 @@
   function userMacros() {
     return MACROS.concat(state.settings.macros || []);
   }
+  /** The buttons that show: the built-ins you have not hidden, then your own. */
+  function shownMacros() {
+    var hidden = state.settings.hiddenMacros || [];
+    return userMacros().filter(function (m) { return hidden.indexOf(m.id) < 0; });
+  }
+
+  /** What you are holding or carrying, for the 🎒 Use… button. */
+  function playerKit(r) {
+    var sheet = RP.sheetFor(r, RP.playerSheetId(r));
+    return ((sheet && sheet.items) || []).map(RP.normItem).filter(function (it) { return it.name; });
+  }
 
   function macroButtons(r) {
-    return '<span class="macros">' + userMacros().slice(0, 7).map(function (m) {
-      return '<button class="qa mac" data-macro="' + esc(m.id) + '" title="' + esc(m.text) + '">' +
-        esc(m.icon) + ' ' + esc(m.label) + '</button>';
-    }).join('') + '<button class="qa mac add" id="macroAdd" title="Write your own">＋</button></span>';
+    var you = RP.sheetFor(r, RP.playerSheetId(r));
+    var mood = you && you.mood && RP.MOODS[you.mood.key] ? you.mood : null;
+    var other = RP.linkedRoom(state, r);
+    var kit = playerKit(r);
+    return '<span class="macros">' +
+      '<button class="qa mac mood' + (mood ? ' on' : '') + '" id="qaMood"' + (mood ? ' style="' + RP.moodStyle(mood) + '"' : '') +
+        ' title="' + esc(mood ? 'You are ' + RP.moodLabel(mood) + ' — the cast reads what you do through it. Click to change or calm down.'
+          : 'How you feel going into this turn: the cast reads what you do through it (angry: a pick-up is a grab).') + '">' +
+        (mood ? esc(RP.MOODS[mood.key].icon + ' ' + RP.moodLabel(mood)) : '🎭 Mood') + '</button>' +
+      (kit.length ? '<button class="qa mac" id="qaUse" title="Use, show or hand over something you carry">🎒 Use…</button>' : '') +
+      shownMacros().slice(0, 8).map(function (m) {
+        return '<button class="qa mac" data-macro="' + esc(m.id) + '" title="' + esc(m.text) + '">' +
+          esc(m.icon) + ' ' + esc(m.label) + '</button>';
+      }).join('') +
+      (other ? '<button class="qa mac live' + (other.live && other.live !== 'off' ? ' on' : '') + '" id="qaMeanwhile" title="' +
+        esc('One unattended beat in \u201c' + (other.title || 'the other scene') + '\u201d now' +
+          (other.live && other.live !== 'off' ? ' — it also moves by itself ' + (other.live === 'every' ? 'after each of your turns here.' : 'every other turn you take here.')
+            : '. (Scene tab: let it move on its own.)')) + '">🌗 Meanwhile</button>' : '') +
+      '<button class="qa mac add" id="macroAdd" title="Your buttons — add, edit, hide">＋</button></span>';
+  }
+
+  /** 🎭 Your own mood: the world reads what you do through it. "calm" clears. */
+  function pickMood(r) {
+    var you = RP.sheetFor(r, RP.playerSheetId(r));
+    if (!you) { toast('The sheets are off in this scene.'); return; }
+    var cur = you.mood && RP.MOODS[you.mood.key] ? you.mood : null;
+    form('🎭 How you feel', [
+      { k: 'key', label: 'Feeling', type: 'select', value: cur ? cur.key : 'calm', options: [{ label: '— calm', value: 'calm' }].concat(RP.MOOD_KEYS.map(function (k) {
+        return { label: RP.MOODS[k].icon + ' ' + RP.MOODS[k].words[1], value: k };
+      })) },
+      { k: 'level', label: 'How strongly', type: 'select', value: String(cur ? cur.level : 2), options: [
+        { label: '1 — a flicker', value: '1' }, { label: '2 — plainly', value: '2' }, { label: '3 — overwhelming', value: '3' }] },
+      { k: 'note', label: 'Why (optional, the cast can read it on you)', value: cur ? cur.note || '' : '' },
+    ], { note: 'It does not write your words. It colours how the world reads what you do: angry, "I pick up the wrench" is read as a grab; afraid, a question is a plea. At 3 it costs you.', ok: 'Set' }, function (v) {
+      var line;
+      if (v.key === 'calm') {
+        if (!you.mood) { toast('You were calm already.'); return; }
+        delete you.mood; line = you.name + ' — calm again';
+      } else {
+        line = RP.moodShift(you, v.key, Number(v.level) || 2, v.note.trim(), { set: true, turn: r.messages.length });
+      }
+      if (line) r.messages.push({ id: RP.uid(), role: 'state', at: Date.now(), lines: ['🎭 ' + line] });
+      save(); render();
+    });
+  }
+
+  /** 🎒 Use…: something you carry, into the composer as an attempt. */
+  function useItem(r, sfx) {
+    var kit = playerKit(r);
+    var input = $('input' + (sfx || '')) || $('input');
+    if (!kit.length) { toast('You are not carrying anything.'); return; }
+    list('🎒 What do you reach for?', kit.map(function (it) {
+      return { label: it.icon + ' ' + it.name + (it.note ? ' — ' + it.note : ''), value: it.name };
+    }), function (name) {
+      var it = kit.filter(function (x) { return x.name === name; })[0];
+      if (!it) return;
+      list(it.icon + ' ' + it.name + ' — and?', [
+        { label: 'Use it', value: 'I use the ' + it.name + '.' },
+        { label: 'Show it', value: 'I hold up the ' + it.name + ' so they can see it.' },
+        { label: 'Hand it over', value: 'I hold out the ' + it.name + ' to {target}.' },
+        { label: 'Throw it', value: 'I throw the ' + it.name + ' at {target}.' },
+      ], function (text) {
+        var targets = RP.speakableCast(r);
+        var fire = function (target) {
+          input.value = text.replace('{target}', target ? target.name : 'them');
+          input.focus();
+        };
+        if (!/\{target\}/.test(text) || targets.length < 2) { fire(targets[0]); return; }
+        list('To whom?', targets.map(function (c) { return { label: c.name, value: c.id }; }), function (id) {
+          fire(targets.filter(function (c) { return c.id === id; })[0]);
+        });
+      });
+    });
+  }
+
+  /** ＋ Your buttons: add one, edit or delete your own, hide a built-in. */
+  function manageMacros(r) {
+    var hidden = state.settings.hiddenMacros || [];
+    var own = state.settings.macros || [];
+    openModal('<h3>Your buttons</h3>' +
+      '<p class="sub">The bar above the composer. A button writes the attempt for you — the roll still decides whether it works. ' +
+      'Hide the built-ins you never use; write up to six of your own.</p>' +
+      '<div class="stack">' + MACROS.map(function (m) {
+        var off = hidden.indexOf(m.id) >= 0;
+        return '<div class="item' + (off ? ' off' : '') + '"><b>' + esc(m.icon + ' ' + m.label) + '</b><p>' + esc(m.text) + '</p>' +
+          '<div class="acts"><button class="mini" data-machide="' + esc(m.id) + '">' + (off ? 'Show' : 'Hide') + '</button></div></div>';
+      }).join('') + own.map(function (m) {
+        return '<div class="item"><b>' + esc(m.icon + ' ' + m.label) + '</b>' + (m.mp ? ' <span class="sub">' + m.mp + ' MP</span>' : '') + '<p>' + esc(m.text) + '</p>' +
+          '<div class="acts"><button class="mini" data-macedit="' + esc(m.id) + '">Edit</button>' +
+          '<button class="mini danger" data-mackill="' + esc(m.id) + '">Delete</button></div></div>';
+      }).join('') + '</div>' +
+      '<div class="actions"><button class="pill" id="mCancel">Done</button>' +
+      (own.length < 6 ? '<button class="pill primary" id="mOk">＋ New button</button>' : '') + '</div>');
+    $('mCancel').onclick = closeModal;
+    if ($('mOk')) $('mOk').onclick = function () { closeModal(); macroForm(r, null); };
+    $('modal').querySelectorAll('[data-machide]').forEach(function (b) {
+      b.onclick = function () {
+        var id = b.getAttribute('data-machide');
+        var list2 = (state.settings.hiddenMacros || []).slice();
+        if (list2.indexOf(id) >= 0) list2.splice(list2.indexOf(id), 1); else list2.push(id);
+        state.settings.hiddenMacros = list2;
+        save(); render(); manageMacros(r);
+      };
+    });
+    $('modal').querySelectorAll('[data-macedit]').forEach(function (b) {
+      b.onclick = function () {
+        var m = own.filter(function (x) { return x.id === b.getAttribute('data-macedit'); })[0];
+        closeModal(); macroForm(r, m);
+      };
+    });
+    $('modal').querySelectorAll('[data-mackill]').forEach(function (b) {
+      b.onclick = function () {
+        state.settings.macros = own.filter(function (x) { return x.id !== b.getAttribute('data-mackill'); });
+        save(); render(); manageMacros(r);
+      };
+    });
+  }
+
+  function macroForm(r, existing) {
+    form(existing ? 'Edit your button' : 'A button of your own', [
+      { k: 'icon', label: 'Icon', value: existing ? existing.icon : '⚑' },
+      { k: 'label', label: 'Label', value: existing ? existing.label : '' },
+      { k: 'text', label: 'What it writes — use {target} for whoever you pick', type: 'area', value: existing ? existing.text : '' },
+      { k: 'mp', label: 'MP it costs (0 for none)', value: String(existing ? existing.mp || 0 : 0) },
+    ], { note: 'It writes the attempt for you; the roll still decides whether it works.', ok: existing ? 'Save' : 'Add' }, function (v) {
+      if (!v.label.trim() || !v.text.trim()) { toast('It needs a label and something to say.'); return; }
+      var next = { id: existing ? existing.id : 'mac_' + RP.slug(v.label) + '_' + Date.now().toString(36), icon: v.icon.trim() || '⚑',
+        label: v.label.trim(), text: v.text.trim(), mp: parseInt(v.mp, 10) || 0 };
+      var own = (state.settings.macros || []).slice();
+      var at = own.map(function (m) { return m.id; }).indexOf(next.id);
+      if (at >= 0) own[at] = next; else own.push(next);
+      state.settings.macros = own.slice(0, 6);
+      save(); render();
+    });
   }
 
   /** Play a macro: pick a target if the scene has one, spend what it costs,
@@ -2613,7 +2757,7 @@
             : '<span class="here" data-here="' + esc(id) + '" title="' +
           (sheet.present === false ? 'Not in the scene — click to bring them back' : 'In the scene — click to write them out') +
           '">' + (sheet.present === false ? '◌' : '◉') + '</span>') +
-          '<span class="nm">' + (isYou ? userAvatar(22) : avatar(who, 22)) + esc(sheet.name) + '</span>' +
+          '<span class="nm">' + (isYou && !who ? userAvatar(22) : avatar(who, 22)) + esc(sheet.name) + '</span>' +
           (sheet.hp ? bar('hp', sheet.hp) : '') + (sheet.mp ? bar('mp', sheet.mp) : '') +
           kitGrid(r, id) +
           '<span class="chips">' +
@@ -2659,9 +2803,10 @@
           '</span>' + esc(RP.textOf(m)) + '</div>';
       }
       if (m.role === 'world') {
-        return '<article class="turn world' + (m.muted ? ' muted' : '') + '">' +
+        return '<article class="turn world' + (m.muted ? ' muted' : '') + (m.ambient ? ' ambient' : '') + '">' +
           '<div class="who"><span class="globe">' + esc(RP.NARRATORS[RP.narrator(state)].icon) + '</span>' +
           '<b>' + esc(RP.NARRATORS[RP.narrator(state)].name) + '</b>' +
+          (m.ambient ? '<span class="meanwhile" title="This happened while you were in the other scene">🌗 meanwhile</span>' : '') +
           '<button class="speak" data-speak="' + i + '" title="Read aloud">▶</button></div>' +
           '<div class="bubble">' + RP.md(RP.applyTints(RP.textOf(m), r.tints)) + '</div>' +
           metaStrip(m) +
@@ -2681,9 +2826,11 @@
       var swipes = (m.alts && m.alts.length > 1)
         ? '<span class="swipe"><button data-swipe="-1" data-i="' + i + '">‹</button>' + ((m.alt || 0) + 1) + ' / ' + m.alts.length + '<button data-swipe="1" data-i="' + i + '">›</button></span>' : '';
       return '<article class="turn ' + (mine ? 'user' : 'char') + (m.error ? ' err' : '') +
-        (m.muted ? ' muted' : '') + (m.imported ? ' imported' : '') + moodAttrs(m) + '">' +
+        (m.muted ? ' muted' : '') + (m.imported ? ' imported' : '') + (m.ambient ? ' ambient' : '') + moodAttrs(m) + '">' +
         '<div class="who">' + (mine ? (playing ? avatar(playing, 24) : userAvatar(24)) : avatar(charOf(r, m.charId), 24)) +
         '<b>' + esc(who) + '</b>' + (mine ? '' : '<span class="badge">archive</span>') +
+        (m.ambient ? '<span class="meanwhile" title="' + (playing && m.charId === playing.id ? 'Your character acted alone while you were in the other scene'
+          : 'This happened while you were in the other scene') + '">🌗 meanwhile</span>' : '') +
         (m.mood && RP.MOODS[m.mood.key] ? '<span class="moodtag" title="How they felt as this turn ended — the box wears the colour">' +
           RP.moodIcon(m.mood) + ' ' + esc(RP.moodLabel(m.mood)) + '</span>' : '') +
         (mine ? '' : '<button class="speak" data-speak="' + i + '" title="Read aloud">▶</button>') +
@@ -3333,7 +3480,12 @@
         : '<b>No second scene yet</b>Something happening elsewhere at the same time? Split this cast, invite others, or link a chat you already have.') +
       '<div class="btnrow"><button class="mini' + (other ? '' : ' primary') + '" id="dkLink">' +
       (other ? '⇄ Swap · carry over · unlink' : '⇄ Start a second scene') + '</button>' +
-      (other ? '<button class="mini" id="dkOpenOther">Open it in front</button>' : '') + '</div></div>' +
+      (other ? '<button class="mini" id="dkOpenOther">Open it in front</button>' : '') + '</div>' +
+      (other ? '<div class="cp-menu">' +
+        menuItem('dkLive', '🌗', 'The scene you are not in', !r.live || r.live === 'off' ? 'Stands still until you cross over'
+          : r.live === 'every' ? 'Moves after every turn you take' : 'Moves every other turn you take') +
+        (r.live && r.live !== 'off' ? menuItem('dkLiveSelf', '🧍', 'Your character over there', r.liveSelf ? 'May act alone while you are away' : 'Waits for you') : '') +
+        '</div>' : '') + '</div>' +
       '<h4>How the scene runs</h4>' +
       '<div class="cp-menu">' +
       menuItem('cpFate', '🎲', 'Fate', (state.settings.fate || 'normal') === 'off' ? 'Off — you always succeed' : (state.settings.fate || 'normal')) +
@@ -3488,6 +3640,44 @@
    *  is really still in the room. Nothing lands until you say so, and ↩
    *  takes it all back. Never runs on its own. */
   var auditing = false;
+  /** Do the portraits load? Each present character's image is tried
+   *  once, quietly; a file that is gone is reported, a character who was
+   *  invented in play but has a namesake in the archive is offered that
+   *  portrait. Never blocks the audit for more than a moment. */
+  function probePortraits(rooms) {
+    var jobs = [];
+    var seen = {};
+    rooms.forEach(function (room) {
+      RP.presentCast(room).forEach(function (c) {
+        if (seen[c.id]) return;
+        seen[c.id] = true;
+        var url = imageUrl(c.image);
+        if (!url) {
+          // No portrait at all: a namesake in the archive may lend one.
+          var twin = Object.keys(castById).map(function (id) { return castById[id]; }).filter(function (k) {
+            return k && k.id !== c.id && k.image && String(k.name || '').toLowerCase() === String(c.name || '').toLowerCase();
+          })[0];
+          if (twin) jobs.push(Promise.resolve({ kind: 'adopt', roomId: room.id, charId: c.id, name: c.name, fromId: twin.id, path: twin.image }));
+          return;
+        }
+        jobs.push(new Promise(function (resolve) {
+          var done = false;
+          var img = new Image();
+          var finish = function (ok) {
+            if (done) return;
+            done = true;
+            resolve(ok ? null : { kind: 'missing', roomId: room.id, charId: c.id, name: c.name, path: c.image });
+          };
+          img.onload = function () { finish(true); };
+          img.onerror = function () { finish(false); };
+          window.setTimeout(function () { finish(true); }, 2500);   // slow is not broken
+          img.src = url;
+        }));
+      });
+    });
+    return Promise.all(jobs).then(function (found) { return found.filter(Boolean); });
+  }
+
   function runSheetAudit(r) {
     if (!r || r.mechanics === 'off') { toast('The sheets are off in this scene.'); return; }
     if (auditing) { toast('🩺 The audit is still reading.'); return; }
@@ -3507,33 +3697,73 @@
     });
     auditing = true;
     toast('🩺 Reading ' + (other ? 'both scenes' : 'the scene') + ' against the sheets…');
-    callModel(RP.sheetAuditPrompt(rooms, turns), [{ role: 'user', content: 'Audit the sheets.' }], { tokens: 420, utility: true })
-      .then(function (reply) {
+    Promise.all([
+      callModel(RP.sheetAuditPrompt(rooms, turns), [{ role: 'user', content: 'Audit the sheets.' }], { tokens: 480, utility: true }),
+      probePortraits(rooms).catch(function () { return []; }),
+    ])
+      .then(function (both) {
         auditing = false;
-        reply = String(reply || '').trim();
+        var reply = String(both[0] || '').trim();
+        var portraits = both[1] || [];
         // A dry run on copies: what WOULD change, shown before it does.
         var copies = rooms.map(function (room) { return JSON.parse(JSON.stringify(room)); });
         var stub = { log: [], book: { entries: [], queue: [] }, newChars: [], rooms: copies };
         var preview = RP.applySheetAudit(stub, copies, reply);
-        if (!preview.count) {
+        if (!preview.count && !portraits.length) {
           toast(/^IN ORDER/i.test(reply) ? '🧾 In order — the record matches the play.' : '🧾 The audit found nothing it could file.');
           return;
         }
+        var KIND_ICON = { hp: '❤', mp: '🔮', item: '🎒', take: '🎒', drop: '🎒', give: '🎒', hold: '✋', stow: '🎒', spend: '🔮',
+          cond: '🩹', status: '📝', counter: '🔢', mood: '🎭', time: '🕰', enter: '🚪', exit: '🚪' };
+        var row = function (it, n) {
+          return '<label class="item pick"><input type="checkbox" checked data-pick="' + n + '"> ' +
+            '<span>' + (KIND_ICON[it.kind] || '•') + ' ' + esc(it.line) + '</span></label>';
+        };
+        var portraitRow = function (pr, n) {
+          if (pr.kind === 'adopt') return '<label class="item pick"><input type="checkbox" checked data-portrait="' + n + '"> ' +
+            '<span>🖼 ' + esc(pr.name) + ' has no portrait — use the archive\u2019s ' + esc(pr.name) + ' portrait</span></label>';
+          return '<div class="item info"><span>🖼 ' + esc(pr.name) + '\u2019s portrait does not load (' + esc(RP.clip(pr.path, 60)) +
+            ') — initials are shown in its place. Fix the file in the archive.</span></div>';
+        };
+        var itemsOf = function (roomId) { return preview.items.filter(function (it) { return it.roomId === roomId; }); };
         openModal('<h3>🩺 AI audit</h3>' +
           '<p class="sub">The model read the last ' + RP.AUDIT_TURNS + ' turns' + (other ? ' of both scenes' : '') +
-          ' against every sheet. This is what it says the record missed. Nothing has changed yet.</p>' +
+          ' against every sheet and decided what should stand. Untick anything you disagree with; nothing has changed yet.</p>' +
           rooms.map(function (room) {
-            var lines = preview.byRoom[room.id] || [];
-            if (!lines.length) return '';
+            var items = itemsOf(room.id);
+            if (!items.length) return '';
             return (other ? '<h4>' + esc(room.title || 'untitled') + '</h4>' : '') +
-              '<div class="stack">' + lines.map(function (l) { return '<div class="item"><b>' + esc(l) + '</b></div>'; }).join('') + '</div>';
+              '<div class="stack">' + items.map(function (it) { return row(it, preview.items.indexOf(it)); }).join('') + '</div>';
           }).join('') +
+          (portraits.length ? '<h4>Portraits</h4><div class="stack">' + portraits.map(portraitRow).join('') + '</div>' : '') +
           '<div class="actions"><button class="pill" id="mCancel">Leave it</button>' +
-          '<button class="pill primary" id="mOk">Apply ' + preview.count + (preview.count === 1 ? ' change' : ' changes') + '</button></div>');
+          '<button class="pill primary" id="mOk"></button></div>');
+        var countTicked = function () {
+          var picks = Array.prototype.slice.call($('modal').querySelectorAll('[data-pick]:checked, [data-portrait]:checked'));
+          $('mOk').textContent = picks.length ? 'Apply ' + picks.length + (picks.length === 1 ? ' change' : ' changes') : 'Apply nothing';
+          $('mOk').disabled = !picks.length;
+          return picks;
+        };
+        countTicked();
+        $('modal').querySelectorAll('[data-pick], [data-portrait]').forEach(function (box) { box.onchange = countTicked; });
         $('mCancel').onclick = closeModal;
         $('mOk').onclick = function () {
+          var picks = Array.prototype.slice.call($('modal').querySelectorAll('[data-pick]:checked')).map(function (box) {
+            return preview.items[Number(box.getAttribute('data-pick'))].index;
+          });
+          var portraitPicks = Array.prototype.slice.call($('modal').querySelectorAll('[data-portrait]:checked')).map(function (box) {
+            return portraits[Number(box.getAttribute('data-portrait'))];
+          });
           rooms.forEach(function (room) { RP.pushUndo(room, 'the AI audit'); });
-          var done = RP.applySheetAudit(state, rooms, reply);
+          var done = picks.length ? RP.applySheetAudit(state, rooms, reply, { only: picks }) : { byRoom: {}, lines: [], items: [], count: 0 };
+          portraitPicks.forEach(function (pr) {
+            var room = rooms.filter(function (x) { return x.id === pr.roomId; })[0];
+            var twin = castById[pr.fromId];
+            if (!room || !twin) return;
+            room.cast.forEach(function (c) { if (c.id === pr.charId) c.image = twin.image; });
+            (done.byRoom[room.id] = done.byRoom[room.id] || []).push(pr.name + ' — wears the archive portrait');
+            done.count++;
+          });
           rooms.forEach(function (room) {
             var lines = done.byRoom[room.id] || [];
             if (!lines.length) return;
@@ -3648,20 +3878,11 @@
         if (macro) runMacro(r, macro);
       };
     });
+    on('qaMood', function () { pickMood(r); });
+    on('qaUse', function () { useItem(r, sfx); });
+    on('qaMeanwhile', function () { liveNow(r); });
     on('macroAdd', function () {
-      form('A button of your own', [
-        { k: 'icon', label: 'Icon', value: '⚑' },
-        { k: 'label', label: 'Label', value: '' },
-        { k: 'text', label: 'What it writes — use {target} for whoever you pick', type: 'area', value: '' },
-        { k: 'mp', label: 'MP it costs (0 for none)', value: '0' },
-      ], { note: 'It writes the attempt for you; the roll still decides whether it works.' }, function (v) {
-        if (!v.label.trim() || !v.text.trim()) { toast('It needs a label and something to say.'); return; }
-        state.settings.macros = (state.settings.macros || []).concat([{
-          id: 'mac_' + RP.slug(v.label), icon: v.icon.trim() || '⚑', label: v.label.trim(),
-          text: v.text.trim(), mp: parseInt(v.mp, 10) || 0,
-        }]).slice(0, 6);
-        save(); render();
-      });
+      manageMacros(r);
     });
     on('qaSys', function () {
       state.settings.sysNotes = state.settings.sysNotes === 'hide' ? 'show' : 'hide';
@@ -4091,6 +4312,26 @@
     on('dkBeat', function () { fireNextBeat(r); });
     on('dkLink', function () { secondSceneDialog(r); });
     on('dkOpenOther', function () { var other = RP.linkedRoom(state, r); if (other) openRoom(other.id); });
+    on('dkLive', function () {
+      var other = RP.linkedRoom(state, r);
+      list('🌗 The scene you are not in', [
+        { label: ((r.live || 'off') === 'off' ? '● ' : '○ ') + 'Stands still until you cross over — no extra calls', value: 'off' },
+        { label: (r.live === 'other' ? '● ' : '○ ') + 'Moves every other turn you take — one unattended beat, queued after your turn', value: 'other' },
+        { label: (r.live === 'every' ? '● ' : '○ ') + 'Moves after every turn you take — one unattended beat each time', value: 'every' },
+      ], function (pick) {
+        r.live = pick; if (other) other.live = pick;
+        save(); render();
+        toast(pick === 'off' ? '🌗 The other scene stands still while you are away.'
+          : '🌗 The other scene moves on its own — ' + (pick === 'every' ? 'after each' : 'every other') + ' turn, one beat, never two prompts at once. Your turn always cuts it.');
+      });
+    });
+    on('dkLiveSelf', function () {
+      var other = RP.linkedRoom(state, r);
+      r.liveSelf = !r.liveSelf; if (other) other.liveSelf = r.liveSelf;
+      save(); render();
+      toast(r.liveSelf ? '🧍 While you are away, the character you play in the other scene may act for themselves — small and reversible.'
+        : '🧍 Your character in the other scene waits for you.');
+    });
     on('dkLength', pickLength);
     on('dkNarrator', function () {
       var keys = Object.keys(RP.NARRATORS);
@@ -4441,7 +4682,19 @@
    *  the side. Everything that used to live in send(): the ((notes)), the
    *  thin-air check, the time-jump pause, the staging, the reply. */
   function sendText(r, text) {
-    if (!r || !text || busy) return;
+    if (!r || !text) return;
+    if (busy && ambientNow) {
+      // An unattended beat is in flight: your turn wins. Cut it, and send
+      // when the cut has landed.
+      stopAll(true);
+      var tries = 0;
+      (function again() {
+        if (!busy) { sendText(r, text); return; }
+        if (++tries < 40) window.setTimeout(again, 50);
+      })();
+      return;
+    }
+    if (busy) return;
     // ((Anything in double brackets)) is spoken to the model, not by you.
     var spoken = RP.parseOoc(text);
     var msg = {
@@ -4603,6 +4856,10 @@
     var r = opts.room || room();
     if (!r || busy || !r.cast.length) return;
     busy = true; busyRoom = r.id;
+    // 🌗 An unattended turn in the other scene: one call, no chain, no
+    // fate roll (nobody attempted anything), and your own turn cuts it.
+    var ambient = Boolean(opts.ambient);
+    ambientNow = ambient;
     r.handback = '';
     r.pinnedNext = '';                  // a rail pick is spent by the turn it chose
     render();
@@ -4616,15 +4873,21 @@
     // in the room (or the director asked for it).
     var worldTurn = retry ? retry.role === 'world'
       : (opts.world || r.next === 'world' || RP.worldShouldSpeak(state, r));
+    // Unattended, with "my character there acts alone" on: the character
+    // the reader plays joins the rotation for this one beat.
+    var playing = RP.playerCharacter(r);
+    var livePool = ambient && r.liveSelf && playing ? RP.speakableCast(r).concat([playing]) : null;
     var speaker = retry ? (retry.role === 'world' ? RP.WORLD : charOf(r, retry.charId))
       : worldTurn ? RP.WORLD
+      : livePool ? RP.nextSpeaker({ kind: 'group', cast: livePool, messages: r.messages, next: '' })
       : (RP.speakableCast(r).filter(function (c) { return c.id === r.next; })[0] || RP.nextSpeaker({
           kind: r.kind, cast: RP.speakableCast(r).length ? RP.speakableCast(r) : r.cast,
           messages: r.messages, next: r.next,
         }));
+    var ambientSelf = Boolean(ambient && playing && speaker && speaker.id === playing.id);
     // Did the player just try something? Then it is not up to them whether it
     // worked. The roll happens here and is handed to the model as an order.
-    var answering = !retry && RP.visible(lastVisible(r)) && lastVisible(r).role === 'user';
+    var answering = !retry && !ambient && RP.visible(lastVisible(r)) && lastVisible(r).role === 'user';
     // The reader's own sheet, before the roll and the prompt: the attempt's
     // wording picks the stat that leans on the dice, and a thin-air claim
     // (r.conjured, set on send) turns them against the bluff.
@@ -4649,6 +4912,7 @@
       mentionText: lastSaid,
       conjured: r.conjured || '',
       conjureVerdict: verdict,
+      ambient: ambient, ambientSelf: ambientSelf,
       budget: Number(state.settings.promptBudget) || 0,
       citations: [opts.searched || '', RP.citationBlock(found), dug.length ? RP.retrievalBlock(dug) : '']
         .filter(Boolean).join('\n\n'),
@@ -4800,6 +5064,23 @@
           }
         });
       }
+      // Beyond them: a godly or hopeless attempt moves the people who saw
+      // it — a flicker of surprise on every witness the model did not
+      // file, and a flicker of shame on the one who tried, when it went
+      // the way the dice said. The prompt orders the reaction; this makes
+      // sure the record keeps it.
+      if (r.mechanics !== 'off' && fate && fate.scale && !retry) {
+        var tried = RP.sheetFor(r, RP.playerSheetId(r));
+        RP.presentCast(r).forEach(function (c) {
+          if (c.id === r.youPlay || moodFiled(c.id)) return;
+          var seen = RP.applyChange(RP.sheetFor(r, c.id), { kind: 'mood', key: 'surprise', level: 1, note: 'the ' + fate.scale + ' attempt', turn: turnNow });
+          if (seen) changes.lines.push(seen + ' — saw it');
+        });
+        if (tried && !moodFiled(tried.id) && (fate.key === 'setback' || fate.key === 'refusal' || fate.key === 'wrench')) {
+          var felt = RP.applyChange(tried, { kind: 'mood', key: 'shame', level: 1, note: 'the ' + fate.scale + ' attempt', turn: turnNow });
+          if (felt) changes.lines.push(felt + ' — it did not work');
+        }
+      }
       // The mood: the colour of the box is how the speaker feels. When
       // the model filed no [[MOOD:]] for them, the prose is read for it —
       // free, local, one step at a time, so a feeling builds instead of
@@ -4847,7 +5128,7 @@
       } else {
         // Whose line is this, really? A small model handed six people will
         // write whoever spoke last — and sometimes the player themselves.
-        var check = worldTurn ? { ok: true }
+        var check = worldTurn || ambientSelf ? { ok: true }
           : RP.checkSpeaker(clean, speaker, RP.presentCast(r), { youPlay: r.youPlay });
         if (check.playerVoice && !opts.reheard) {
           // Writing the player's character is not a mislabel to file away;
@@ -4877,6 +5158,7 @@
           changes: changes.lines.slice(0, 6),
           // The colour of the box: how the speaker feels as this turn ends.
           mood: moodOn(r, worldTurn ? '' : saidBy.id),
+          ambient: ambient || undefined,
         };
         if (!String(clean || '').trim()) {
           // Nothing came back twice over. Say so quietly instead of filing
@@ -4910,6 +5192,7 @@
       // what was written stays, nothing is read aloud, nobody follows.
       if (epoch !== stopEpoch) { autoLeft = 0; r.queue = []; return false; }
       if (state.settings.voice === 'on' && !retry) speak(r.messages[r.messages.length - 1], r);
+      if (ambient) return false;            // one beat, no chain
       if (!retry) return direct(r, speaker);
       return false;
     }).catch(function (error) {
@@ -4934,7 +5217,7 @@
     }).then(function (chain) {
       var turnFailed = chain === 'FAILED';
       if (turnFailed) chain = false;
-      busy = false;
+      busy = false; ambientNow = false;
       if (!retry && autoLeft) autoLeft--;
       // A staged beat plays itself out before anything else is decided.
       var staged = !retry && !turnFailed && (r.queue || []).length;
@@ -4958,13 +5241,55 @@
       // The scene at the side keeps its chain; a chat you walked away from
       // does not.
       if (room() !== r && !(room() && room().linkedTo === r.id)) { autoLeft = 0; return; }
+      if (ambient) { save(); render(); return; }        // one beat; it never chains and never nags
       if (staged || chain || autoLeft) {
         window.setTimeout(function () { if (staged || autoLeft || chain) generate({ room: r }); }, 450);
-      } else if (!r.handback) {
-        r.handback = 'your turn.';
-        save(); render();
+      } else {
+        if (!r.handback) { r.handback = 'your turn.'; save(); render(); }
+        // Your turn here is done: the other scene may move once, unattended.
+        if (!turnFailed) maybeLive(r);
       }
     });
+  }
+
+  /* ---------------------------------------------------------------- *
+   * 🌗 the other scene lives — one unattended beat, queued, never two at once
+   *
+   * Two scenes, one chat: while you play in one, the other used to stand
+   * still until you crossed over. With `live` on a scene, each of your
+   * turns in the OTHER scene queues one beat here, after your turn's own
+   * chain has finished — a full prompt, so it is off by default and
+   * "every other turn" when on. With `liveSelf`, the character you play
+   * here may act for themselves while you are away. Your next turn cuts
+   * an unattended beat that is still in flight: you always win the queue.
+   * ---------------------------------------------------------------- */
+  var ambientNow = false;        // an unattended beat is in flight
+  function maybeLive(r) {
+    var other = RP.linkedRoom(state, r);
+    if (!other || !other.live || other.live === 'off' || !(other.cast || []).length) return;
+    if (busy) return;
+    other.liveTick = (other.liveTick || 0) + 1;
+    if (other.live === 'other' && other.liveTick % 2) return;
+    var epoch = stopEpoch;
+    var tries = 0;
+    (function later() {
+      window.setTimeout(function () {
+        if (busy || epoch !== stopEpoch) return;                      // you took your turn, or pressed ■
+        if (!RP.linkedRoom(state, r) || RP.linkedRoom(state, r).id !== other.id) return;   // unlinked meanwhile
+        // The lore book or the quartermaster may still be reading: the
+        // beat waits its turn in the queue rather than doubling a call.
+        if (!bgQuiet()) { if (++tries < 12) later(); return; }
+        generate({ room: other, ambient: true });
+      }, 900);
+    })();
+  }
+  /** 🌗 by hand: one unattended beat in the other scene, now. */
+  function liveNow(r) {
+    var other = RP.linkedRoom(state, r);
+    if (!other) { toast('No second scene to move.'); return; }
+    if (busy) { toast('The model is already writing — wait for it, or press ■.'); return; }
+    if (!(other.cast || []).length) { toast('Nobody is in the other scene.'); return; }
+    generate({ room: other, ambient: true });
   }
 
   /** The in-world date a room is being played on: whatever the scenario
@@ -6259,6 +6584,17 @@
   wireShell();
   render();
   checkHealth();
+  // A portrait whose file is gone shows initials, not a broken image.
+  // Image errors do not bubble; they are caught on the way down.
+  document.addEventListener('error', function (e) {
+    var img = e.target;
+    if (!img || img.tagName !== 'IMG') return;
+    var box = img.parentNode;
+    if (!box || !box.classList || !box.classList.contains('av') || !box.getAttribute('data-nm')) return;
+    box.style.background = box.getAttribute('data-tint') || '#5b5b66';
+    box.textContent = box.getAttribute('data-nm');
+    box.setAttribute('data-broken', '1');
+  }, true);
   /* ---------------------------------------------------------------- *
    * quality of life: the keys you already expect to work
    * ---------------------------------------------------------------- */

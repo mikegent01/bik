@@ -2194,9 +2194,9 @@ check('colour: nothing but a colour gets through', (() => {
   const html = RP.md('{red|<script>alert(1)</script>}');
   return !/<script/.test(html) && html.includes('&lt;script');
 })());
-check('colour: the model is no longer asked to colour words — the box carries the mood instead',
-  !/Colours available/.test(RP.groupPrompt([sans, cutters], sans, {})) &&
-  !/You may colour/.test(RP.soloPrompt(sans, {})) && !/\[\[TINT:/.test(RP.DIRECTIVES) && /\[\[MOOD:/.test(RP.DIRECTIVES));
+check('colour: the words may be coloured (a short rule, dropped first under pressure); the box carries the mood',
+  /You may colour a few words/.test(RP.soloPrompt(sans, {})) && /colour of the box is their mood; the colour of the words is yours/.test(RP.soloPrompt(sans, {})) &&
+  !/Colours available/.test(RP.groupPrompt([sans, cutters], sans, {})) && !/\[\[TINT:/.test(RP.DIRECTIVES) && /\[\[MOOD:/.test(RP.DIRECTIVES));
 
 // ---------- a long chat stays cheap ----------
 const longRoom = RP.newRoom([sans], {});
@@ -2434,12 +2434,49 @@ check('enter: a one-to-one chat somebody walks into becomes a group chat, and th
     const calm = RP.systemFor(st, rm, waluigi, {});
     return /mood: wary \(suspicion 1\/3 — the ledger\)/.test(sys) && /MOOD — Sans is wary \(suspicion 1\/3: the ledger\)/.test(sys) &&
       /questions everything, answers little/.test(sys) && /file \[\[MOOD: Sans/.test(sys) && !/MOOD — Waluigi/.test(calm) &&
-      !/COLOUR, THIS TURN/.test(sys) && RP.flourishBlock === undefined;
+      !/COLOUR, THIS TURN/.test(sys);
   })());
-  check('mood: the box wears the colour — a line, a wash that deepens with the level, and an icon', (() => {
+  check('mood: the box wears the colour — a line, a flat tint that deepens with the level, and an icon; the chip words stay short', (() => {
     const one = RP.moodStyle({ key: 'anger', level: 1 }), three = RP.moodStyle({ key: 'anger', level: 3 });
-    return /--mood-line:hsl\(4,/.test(one) && /0\.1\)/.test(one) && /0\.32\)/.test(three) && RP.moodStyle({ key: 'blorp' }) === '' &&
-      RP.moodIcon({ key: 'fear' }) === '😨' && RP.MOOD_KEYS.length === 10 && new Set(RP.MOOD_KEYS.map((k) => RP.MOODS[k].hue)).size === 10;
+    return /--mood-line:hsl\(4,/.test(one) && /--mood-bg:hsl\(4,70%,93%\)/.test(one) && /--mood-bg:hsl\(4,70%,82%\)/.test(three) &&
+      RP.moodStyle({ key: 'blorp' }) === '' && RP.moodIcon({ key: 'fear' }) === '😨' && RP.MOOD_KEYS.length === 10 &&
+      new Set(RP.MOOD_KEYS.map((k) => RP.MOODS[k].hue)).size === 10 &&
+      RP.MOOD_KEYS.every((k) => RP.MOODS[k].words.every((w) => w.split(' ').length === 1));
+  })());
+  check('flourish: a triumph or a setback orders ONE coloured phrase; a plain turn, or a model that already colours, gets nothing', (() => {
+    const quiet = RP.newRoom([sans], {});
+    const win = RP.flourishBlock(quiet, { key: 'triumph' }), loss = RP.flourishBlock(quiet, { key: 'setback' });
+    quiet.messages.push({ id: 'c1', role: 'char', charId: sans.id, text: 'the {ice|key} turns.', at: 1 });
+    return /exactly ONE phrase/.test(win) && /gold or amber/.test(win) && /blood or rust/.test(loss) &&
+      RP.flourishBlock(quiet, { key: 'success' }) === '' && RP.flourishBlock(quiet, null) === '' &&
+      RP.flourishBlock(quiet, { key: 'triumph' }) === '' && RP.recentlyColoured(quiet);
+  })());
+  check('player mood: your own feeling colours how the cast reads you — a pick-up is a grab; calm costs nothing', (() => {
+    const you = RP.ensurePlayerSheet(st, rm);
+    const calm = RP.playerMoodBlock(rm);
+    RP.moodShift(you, 'anger', 2, 'the bill', { set: true, turn: 3 });
+    const sys = RP.systemFor(st, rm, sans, {});
+    const world = RP.worldSystem(st, rm, {});
+    const out = calm === '' && /THE PLAYER\u2019S MOOD — .* is angry \(anger 2\/3: the bill\)/.test(sys) && /a pick-up is a grab/.test(sys) &&
+      /Never decide their words/.test(sys) && /THE PLAYER\u2019S MOOD/.test(world) && !/let it cost them/.test(sys);
+    RP.moodShift(you, 'anger', 3, 'the bill', { set: true, turn: 4 });
+    const hot = /let it cost them something/.test(RP.playerMoodBlock(rm));
+    delete you.mood;
+    return out && hot && RP.playerMoodBlock(rm) === '';
+  })());
+  check('body: a battered character at 28 HP is written body first — no wrench-swinging exits; whole costs nothing', (() => {
+    const ws = RP.sheetFor(rm, sans.id);
+    const whole = RP.bodyBlock(rm, sans);
+    ws.hp = { value: 28, max: 100 }; ws.flags = { battered: { note: 'the crash' } };
+    const hurt = RP.bodyBlock(rm, sans);
+    const sys = RP.systemFor(st, rm, sans, {});
+    ws.hp = { value: 0, max: 100 };
+    const down = RP.bodyBlock(rm, sans);
+    ws.hp = { value: 100, max: 100 }; ws.flags = {};
+    return whole === '' && /BODY — Sans is BADLY HURT at 28\/100 HP/.test(hurt) && /cannot sprint, swing hard/.test(hurt) &&
+      /battered \(the crash\)/.test(hurt) && /greedy and broken is not greedy and whole/.test(hurt) && /\[\[HP: Sans -N\]\]/.test(hurt) &&
+      /BODY — Sans is BADLY HURT/.test(sys) && sys.indexOf('BODY — Sans') > sys.indexOf('THE USER PLAYS') &&
+      /DOWN at 0 HP/.test(down) && RP.bodyBlock(rm, sans) === '';
   })());
   check('mood: the director\u2019s note nudges for feelings now, not for tints', (() => {
     const quiet = RP.newRoom([sans], {});
@@ -2466,15 +2503,34 @@ check('enter: a one-to-one chat somebody walks into becomes a group chat, and th
     /AUDIT THE SHEETS/.test(prompt) && /SCENE \u201cThe pavement\u201d/.test(prompt) && /SCENE \u201cThe hangar\u201d/.test(prompt) &&
     /waiting at the door: Sans/.test(prompt) && /Wario: The helicopter is on its side\./.test(prompt) && /\(nothing played yet\)/.test(prompt) &&
     /\[\[MOOD: Name anger 2 \| why\]\]/.test(prompt) && /\[\[TIME: 23:40\]\]/.test(prompt) && /reply exactly: IN ORDER/.test(prompt) &&
-    /never a new person/.test(prompt) && /player\u2019s own mood is theirs/.test(prompt));
+    /never a new person/.test(prompt) && /decide what their HP and MP should be NOW/.test(prompt) && /SET it/.test(prompt) &&
+    /\[\[HP: Name = N\]\]/.test(prompt) && /sixteen at most/.test(prompt) && /reader approves every line/.test(prompt));
   check('audit: IN ORDER changes nothing', RP.applySheetAudit(st, [a, b], 'IN ORDER').count === 0 && a.states.wario.hp.value === 100);
   const reply = '[[HP: Bowser -7]]\n[[MOOD: Wario anger 3 | the bill]]\n[[TIME: 23:40]]\n[[ENTER: Sans — back from the pavement]]\n' +
     '[[NEW: Bob | a stranger | invented]]\n[[SET: place = the moon]]\n[[REMEMBER: x | y]]\n[[STATUS: Sans soot on the face]]\n[[EXIT: Bowser — gone]]';
   const done = RP.applySheetAudit(st, [a, b], reply);
-  check('audit: each line lands in the scene that knows the name — wounds, moods, notes, the clock in both',
-    b.states.bowser.hp.value === 93 && a.states.wario.mood.key === 'anger' && a.states.wario.mood.level === 2 &&
+  check('audit: each line lands in the scene that knows the name — wounds, moods (at the pitch it decided), notes, the clock in both',
+    b.states.bowser.hp.value === 93 && a.states.wario.mood.key === 'anger' && a.states.wario.mood.level === 3 &&
     a.clock === '23:40' && b.clock === '23:40' && /soot/.test(a.states.sans.status) &&
-    done.byRoom[a.id].length === 3 && done.byRoom[b.id].length === 3 && done.count === 6);
+    done.byRoom[a.id].length === 3 && done.byRoom[b.id].length === 3 && done.count === 6 &&
+    done.items.length === 6 && done.items.every((it) => typeof it.index === 'number' && it.roomId && it.line && it.kind));
+  check('audit: the reader unticks lines — only the picked indices land, and it may SET a number outright', (() => {
+    const c = RP.newRoom([wario, bowser], {});
+    RP.ensurePlayerSheet(st, c);
+    const text = '[[HP: Wario = 40]]\n[[MOOD: Bowser anger 3 | the bill]]\n[[MP: Bowser = 5]]\n[[TIME: dawn]]';
+    const copy = JSON.parse(JSON.stringify(c));
+    const preview = RP.applySheetAudit({ log: [], book: { entries: [], queue: [] }, newChars: [], rooms: [copy] }, [copy], text);
+    const picked = RP.applySheetAudit(st, [c], text, { only: [preview.items[0].index, preview.items[3].index] });
+    return preview.items.length === 4 && c.states.wario.hp.value === 40 && !c.states.bowser.mood && c.states.bowser.mp.value !== 5 &&
+      c.clock === 'dawn' && picked.count === 2 && RP.applySheetAudit(st, [c], text, { only: [] }).count === 0;
+  })());
+  check('audit: the player\u2019s own mood may be set by the audit (the reader approves it), never by a turn\u2019s [[MOOD:]]', (() => {
+    const c = RP.newRoom([wario], {});
+    const you = RP.ensurePlayerSheet(st, c);
+    const inPlay = RP.applyDirectives(st, c, RP.parseDirectives('[[MOOD: ' + you.name + ' fear 2 | the gun]]', [you.name, 'Wario']).directives);
+    const byAudit = RP.applySheetAudit(st, [c], '[[MOOD: ' + you.name + ' fear 2 | the gun]]');
+    return !inPlay.lines.length && byAudit.count === 1 && you.mood && you.mood.key === 'fear' && you.mood.level === 2;
+  })());
   check('audit: ENTER only brings back somebody at that scene\u2019s door; EXIT writes out; nothing invents a person or a fact',
     b.cast.some((c) => c.id === 'sans') && !b.cast.some((c) => c.id === 'bowser') && b.states.bowser.present === false &&
     !a.cast.some((c) => /Bob/.test(c.name)) && !b.cast.some((c) => /Bob/.test(c.name)) && !(a.facts || {}).place && !(b.facts || {}).place &&

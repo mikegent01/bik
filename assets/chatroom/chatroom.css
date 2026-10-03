@@ -258,7 +258,7 @@ a { color: inherit; }
 /* Live character state — the sheets the model reads and writes. */
 .statebar { display: flex; gap: 10px; padding: 10px 18px; border-bottom: 1px solid var(--line); background: var(--panel2); overflow-x: auto; }
 .statebar .sheet {
-  flex: 0 0 auto; min-width: 210px; text-align: left; border: 1px solid var(--line); background: var(--panel);
+  flex: 0 0 auto; min-width: 210px; max-width: 300px; text-align: left; border: 1px solid var(--line); background: var(--panel);
   border-radius: 12px; padding: 8px 10px; cursor: pointer; display: flex; flex-direction: column; gap: 5px;
 }
 .statebar .sheet:hover { border-color: var(--accent); }
@@ -280,7 +280,7 @@ a { color: inherit; }
 .statebar .slot .qty { position: absolute; right: 1px; bottom: 0; font-size: 8px; color: var(--muted); }
 .statebar .flag.biting { background: #fdecec; color: var(--bad); border: 1px solid #f2c9c9; font-weight: 600; }
 /* Your own sheet: first in the bar, a wider pack, and empty slots you can fill. */
-.statebar .sheet.you { border-color: var(--accent); background: #fbfaff; min-width: 250px; }
+.statebar .sheet.you { border-color: var(--accent); background: #fbfaff; min-width: 250px; max-width: 340px; }
 .statebar .sheet.you .nm::after { content: 'your pack'; font-size: 10px; font-weight: 500; color: var(--muted); margin-left: auto; }
 .statebar .kit.big { grid-template-columns: repeat(6, 1fr); }
 .statebar .slot.add { cursor: pointer; color: var(--muted); font-size: 12px; font-weight: 600; }
@@ -288,20 +288,34 @@ a { color: inherit; }
 .tint { font-weight: 600; }
 
 .statebar .chips { display: flex; flex-wrap: wrap; gap: 4px; }
-.statebar .flag { background: #fdecec; color: var(--bad); border-radius: 999px; padding: 1px 7px; font-size: 11px; }
+.statebar .flag { background: #fdecec; color: var(--bad); border-radius: 999px; padding: 1px 7px; font-size: 11px; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .statebar .flag.num { background: #eef1fd; color: #3b55c8; }
 .statebar .flag.stat { background: #f0ede4; color: #6a5d33; letter-spacing: .04em; }
 .statebar .flag.item { background: #f1f0e9; color: #6b6a5c; }
 .statebar .flag.note { background: var(--panel2); color: var(--muted); }
 
-/* The colour of the box is how they feel: a firm edge and a wash that
-   deepens as the feeling builds (1–3), and the sheet wears the same colour.
-   The variables come from RP.moodStyle on the card and the sheet. */
-.turn.mooded .bubble { border-left: 3px solid var(--mood-line); background-image: linear-gradient(90deg, var(--mood-wash), transparent 72%); }
-.turn.user.mooded .bubble { border-left: 0; border-right: 3px solid var(--mood-line); background-image: linear-gradient(270deg, var(--mood-wash), transparent 72%); }
-.turn .moodtag { font-size: 11px; font-weight: 600; color: var(--mood-ink); background: var(--mood-wash); border-radius: 999px; padding: 1px 7px; }
+/* The colour of the box is how they feel: the whole bubble takes a flat
+   tint that deepens as the feeling builds (1–3), with a firm edge on the
+   speaker's side, and the sheet wears the same colour. The variables come
+   from RP.moodStyle on the card and the sheet; the words inside keep
+   whatever colour the writer gave them. */
+.turn.mooded .bubble { background: var(--mood-bg); border: 1px solid var(--mood-line); border-left-width: 4px; }
+.turn.user.mooded .bubble { border-left-width: 1px; border-right-width: 4px; }
+.turn.mooded .bubble .tint { text-shadow: 0 0 0 currentColor; }
+.turn .moodtag { font-size: 11px; font-weight: 600; color: var(--mood-ink); background: var(--mood-bg); border: 1px solid var(--mood-line); border-radius: 999px; padding: 0 7px; }
 .statebar .sheet.mooded { border-color: var(--mood-line); box-shadow: inset 3px 0 0 var(--mood-line); }
-.statebar .flag.mood { background: var(--mood-wash); color: var(--mood-ink); border: 1px solid var(--mood-line); font-weight: 600; }
+.statebar .flag.mood { background: var(--mood-bg); color: var(--mood-ink); border: 1px solid var(--mood-line); font-weight: 600; }
+/* 🌗 an unattended beat: the scene moved while you were in the other one. */
+.turn.ambient .bubble { border-style: dashed; }
+.turn .meanwhile { font-size: 11px; color: var(--muted); border: 1px dashed var(--line); border-radius: 999px; padding: 0 7px; }
+/* The reader's own mood on the bar, and the live switch. */
+.speakers .qa.mac.mood.on { background: var(--mood-bg); color: var(--mood-ink); border-color: var(--mood-line); font-weight: 600; }
+.speakers .qa.mac.live.on { border-color: #d8a531; color: #7a5a12; background: #fff7df; }
+/* The audit: tick what lands. */
+.item.pick { display: flex; gap: 8px; align-items: flex-start; cursor: pointer; }
+.item.pick input { margin: 2px 0 0; flex: 0 0 auto; }
+.item.info { color: var(--muted); font-size: 13px; }
+.item.off { opacity: .55; }
 
 /* An edited, muted or imported line still reads as part of the chat, but
    says what it is. */

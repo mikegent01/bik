@@ -89,6 +89,7 @@ class Handler(BaseHTTPRequestHandler):
                     who = line[1].split(":", 1)[0].strip()
             content = os.environ.get("MOCK_AUDIT_REPLY", (
                 "[[HP: {{WHO}} -3]]\n"
+                "[[MP: {{WHO}} = 7]]\n"
                 "[[MOOD: {{WHO}} anger 2 | the bill]]\n"
                 "[[STATUS: {{WHO}} soot on the face]]\n"
                 "[[TIME: 23:40]]\n"

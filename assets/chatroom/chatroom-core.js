@@ -820,6 +820,10 @@
   };
 
   var RULES = [
+    'You may colour a few words inside the prose when they carry weight — {red|the door is open}, {ice|her breath}, ' +
+      '{#8e2b20|the stain} — two or three words, once in a turn at most, never a whole sentence. Colours: red, blood, ' +
+      'crimson, ember, amber, gold, copper, rust, moss, green, jade, teal, sea, ice, blue, storm, violet, lilac, plum, ' +
+      'pink, grey, silver, bone, sand, black, white, or any #hex. The colour of the box is their mood; the colour of the words is yours.',
     'Use the material. When the archive passages, the session filing or the lore book say something that touches ' +
       'this moment, USE IT — a date, a name, a number, what somebody actually said. Quote it, argue with it, get it ' +
       'slightly wrong in character if that is truer. A scene that could have happened in any story is a wasted turn.',
@@ -2612,15 +2616,15 @@
                  show: 'slow, trails off, fixed on one object, flat answers' },
     shame:     { icon: '😳', hue: 300, words: ['sheepish', 'ashamed', 'humiliated'],
                  show: 'avoids names and eyes, deflects, over-explains' },
-    disgust:   { icon: '🤢', hue: 96,  words: ['put off', 'disgusted', 'revolted'],
+    disgust:   { icon: '🤢', hue: 96,  words: ['queasy', 'disgusted', 'revolted'],
                  show: 'clipped, a physical recoil, refuses to touch or engage' },
-    surprise:  { icon: '😲', hue: 26,  words: ['caught off guard', 'surprised', 'stunned'],
+    surprise:  { icon: '😲', hue: 26,  words: ['puzzled', 'surprised', 'stunned'],
                  show: 'fragments and questions, repeats what was just said' },
     affection: { icon: '🥰', hue: 335, words: ['warm', 'fond', 'devoted'],
                  show: 'softer, uses names, closes the distance, teases kindly' },
     suspicion: { icon: '🤨', hue: 176, words: ['wary', 'suspicious', 'paranoid'],
                  show: 'questions everything, answers little, watches hands' },
-    pride:     { icon: '😏', hue: 38,  words: ['pleased with themselves', 'proud', 'triumphant'],
+    pride:     { icon: '😏', hue: 38,  words: ['smug', 'proud', 'triumphant'],
                  show: 'longer sentences, lists wins, corrects people, takes the credit' },
   };
   RP.MOOD_KEYS = Object.keys(RP.MOODS);
@@ -2690,8 +2694,10 @@
     if (!mood || !RP.MOODS[mood.key]) return '';
     var hue = RP.MOODS[mood.key].hue;
     var level = Math.max(1, Math.min(3, Number(mood.level) || 1));
-    var wash = [0.1, 0.2, 0.32][level - 1];
-    return '--mood-line:hsl(' + hue + ',62%,46%);--mood-wash:hsla(' + hue + ',70%,52%,' + wash + ');--mood-ink:hsl(' + hue + ',55%,30%)';
+    var wash = [0.12, 0.22, 0.34][level - 1];
+    var light = [93, 88, 82][level - 1];       // the box itself: a flat tint, deeper with the pitch
+    return '--mood-line:hsl(' + hue + ',62%,46%);--mood-wash:hsla(' + hue + ',70%,52%,' + wash + ');' +
+      '--mood-bg:hsl(' + hue + ',70%,' + light + '%);--mood-ink:hsl(' + hue + ',55%,30%)';
   };
 
   /** Move a sheet's feeling. `level` is what was filed (1–3); the result
@@ -2813,6 +2819,83 @@
     var strong = /furious|terrified|sobs?|sobbing|weeps?|wept|heartbroken|elated|mortified|humiliat|revolt|stunned|livid|panic|rage|smirk|gloat/i.test(sample[best] || '');
     if (bestN < 2 && !strong) return null;
     return { key: best, note: clip(String(sample[best] || '').toLowerCase(), 40) };
+  };
+
+  /** An unattended turn: the reader is in the other scene, and this one
+   *  moves on its own for one beat. With `self`, the character the reader
+   *  plays here acts for themselves — small, in character, reversible. */
+  RP.liveBlock = function (room, speaker, self) {
+    if (!room) return '';
+    var playing = RP.playerCharacter(room);
+    var out = 'MEANWHILE, UNATTENDED \u2014 the reader is in the other scene right now and is not here to be answered. ' +
+      'This scene moves on its own for ONE beat: something small and true happens \u2014 a line, a move, a sound, a decision ' +
+      'that was coming anyway \u2014 the kind of thing the other scene could hear of later. Do not address the reader, do not ' +
+      'wait for them, and do not resolve anything they would want to be present for.';
+    if (self && playing && speaker && speaker.id === playing.id) {
+      out += '\nThe reader usually plays ' + playing.name + ' and has stepped away from this scene: this turn ' + playing.name +
+        ' acts for themselves \u2014 in character, small and reversible: a remark, a move, a look, a thing picked up. No big decisions, ' +
+        'nothing they could not walk back, no leaving, no promises made in their name. The reader takes ' + playing.name + ' back next turn.';
+    }
+    return out;
+  };
+
+  /** The reader's own mood, set by hand on their sheet: it does not write
+   *  their words, it colours how the world reads what they do. Nothing
+   *  when they are calm. */
+  RP.playerMoodBlock = function (room) {
+    if (!room || room.mechanics === 'off') return '';
+    var you = (room.states || {})[RP.playerSheetId(room)];
+    var mood = you && you.mood;
+    if (!mood || !RP.MOODS[mood.key]) return '';
+    var level = Math.max(1, Math.min(3, Number(mood.level) || 1));
+    var READ = {
+      anger: 'a pick-up is a grab, a question is a demand, a step is a stride, a joke has an edge',
+      fear: 'a look is a glance over the shoulder, a question is a plea, a step is a backward one',
+      joy: 'a greeting is warm, a risk is taken lightly, a refusal is laughed off',
+      grief: 'a question trails off, a hand rests on things, every answer is short and far away',
+      shame: 'eyes stay down, names are avoided, every sentence apologises for itself',
+      disgust: 'a handshake is refused, food goes untouched, every answer is clipped',
+      surprise: 'questions come in fragments, things are picked up and looked at twice',
+      affection: 'distance closes, names are used, a touch comes before a word',
+      suspicion: 'a question is a test, a gift is checked, hands are watched',
+      pride: 'a success is announced, a correction is offered, the credit is taken',
+    };
+    return 'THE PLAYER\u2019S MOOD \u2014 ' + you.name + ' is ' + RP.moodLabel(mood) + ' (' + mood.key + ' ' + level + '/3' +
+      (mood.note ? ': ' + mood.note : '') + '). Read what they do through it: ' + READ[mood.key] + '. The cast can see' +
+      ' it on them and answers THAT, not the polite version. Never decide their words \u2014 colour the world\u2019s' +
+      ' reading of them' + (level >= 3 ? ', and at this pitch let it cost them something when it would.' : '.');
+  };
+
+  /** The body outranks the will. A character at 28 HP who is "battered"
+   *  does not vault out of a wreck swinging a wrench \u2014 or if he does, he
+   *  pays for it in the same turn. Nothing when they are whole. */
+  RP.bodyBlock = function (room, char) {
+    if (!room || room.mechanics === 'off' || !char) return '';
+    var sheet = (room.states || {})[char.id];
+    if (!sheet) return '';
+    var hp = sheet.hp && sheet.hp.max ? sheet.hp.value / sheet.hp.max : 1;
+    var flags = Object.keys(sheet.flags || {}).map(function (f) {
+      var cond = sheet.flags[f] && typeof sheet.flags[f] === 'object' ? sheet.flags[f] : {};
+      return f.replace(/_/g, ' ') + (cond.note ? ' (' + cond.note + ')' : '');
+    });
+    if (hp > 0.65 && !flags.length) return '';
+    var name = char.name;
+    var state;
+    if (sheet.hp && sheet.hp.value <= 0) {
+      state = 'DOWN at 0 HP: barely conscious. A word, a crawl, a hand that will not close \u2014 nothing more. They cannot fight, run or lead.';
+    } else if (hp <= 0.35) {
+      state = 'BADLY HURT at ' + sheet.hp.value + '/' + sheet.hp.max + ' HP. Write the body first and the will second: slow and crooked, favouring the hurt side,' +
+        ' breath short; they cannot sprint, swing hard, haul themselves through a window or shout for long without paying in' +
+        ' breath or blood. A reckless move at this HP is one they feel before they finish it.';
+    } else if (hp <= 0.65) {
+      state = 'HURT at ' + sheet.hp.value + '/' + sheet.hp.max + ' HP: favouring the wound, picking the easier way, flinching from the next blow; a big effort costs breath and shows.';
+    } else {
+      state = 'whole, but not untouched.';
+    }
+    return 'BODY \u2014 ' + name + ' is ' + state +
+      (flags.length ? ' In play on them: ' + flags.join('; ') + ' \u2014 each one shapes what they can do this turn.' : '') +
+      ' Their nature does not override their body: the same person, hurt, is a different turn \u2014 greedy and broken is not greedy' +
+      ' and whole. If they push through anyway, show the cost in this turn and file it ([[HP: ' + name + ' -N]] or [[COND: ' + name + ' \u2026]]).';
   };
 
   /** The speaker's own feeling, as an order: it colours the turn. Nothing
@@ -3390,11 +3473,15 @@
     }).join('\n\n');
     return [
       'AUDIT THE SHEETS. You are the quartermaster of a roleplay ' + (two ? 'pair of linked scenes \u2014 one story, one clock, two rooms' : 'scene') +
-      '. Read the recent play against every sheet and put the record right: what the prose established but the',
-      'record missed, and what the record says that the prose has since overtaken. A hurt that landed or healed; a',
-      'thing gained, lost, handed over, spent, taken in hand or put away; a condition that began or ended; a counter',
-      'that moved; a physical note that is stale; how each person is feeling NOW and how strongly; the clock, if the',
-      'play moved it; somebody who plainly left the room and is still listed, or who is back and still written out.',
+      '. Read the recent play against every sheet and put the record right \u2014 decisively. This is the one place the',
+      'record is corrected by judgement, so judge: for EVERY person decide what their HP and MP should be NOW, given',
+      'everything that has happened to them, and when the number on the sheet does not match the story, SET it',
+      '([[HP: Name = N]], [[MP: Name = N]]) \u2014 a helicopter crash and a gunfight are not 65/100, and a night\u2019s rest is',
+      'not 12/100. Decide how each person feels now and how strongly, and file it. A condition that plainly began',
+      'or ended; a thing gained, lost, handed over, spent, taken in hand or put away; a counter that moved; a stale',
+      'physical note; the clock, if the play moved it; somebody who plainly left and is still listed, or is back',
+      'and still written out. Do not leave a wrong number standing because nobody filed it at the time; do not',
+      'restate what is already right.',
       '',
       'THE SHEETS NOW',
       sheets,
@@ -3402,15 +3489,15 @@
       'THE RECENT PLAY',
       play,
       '',
-      'Reply with stage directions only, one per line, twelve at most, the most consequential first:',
+      'Reply with stage directions only, one per line, sixteen at most, the most consequential first:',
       '  [[HP: Name -5]] · [[HP: Name = 40]] · [[MP: Name +3]] · [[COUNT: Name arrows -1]]',
       '  [[ITEM: Name + 🗝 the thing | note]] · [[ITEM: Name - the thing]] · [[EQUIP: Name the thing]] · [[STOW: Name the thing]]',
       '  [[COND: Name state 3 -1hp | why]] · [[CURE: Name state]] · [[STATUS: Name a short physical note]]',
       '  [[MOOD: Name anger 2 | why]]   anger, fear, joy, grief, shame, disgust, surprise, affection, suspicion, pride, calm; 1\u20133',
       '  [[TIME: 23:40]] · [[EXIT: Name \u2014 why]] · [[ENTER: Name \u2014 why]] (ENTER only for somebody written out of this scene)',
-      'Use the names exactly as the sheets spell them. Do not restate anything the sheets already have right. Do not',
-      'invent anything the play does not plainly show, and never a new person. The player\u2019s own mood is theirs:',
-      'leave it. If the record already matches the story, reply exactly: IN ORDER',
+      'Use the names exactly as the sheets spell them. Do not invent anything the play does not plainly show, and',
+      'never a new person. The player\u2019s own sheet is audited like any other \u2014 their wounds, kit and mood included;',
+      'the reader approves every line before it lands. If the record already matches the story, reply exactly: IN ORDER',
     ].join('\n');
   };
 
@@ -3419,9 +3506,10 @@
    *  page afterwards); ENTER is honoured only for somebody at that room's
    *  door; nothing may invent a person or rewrite a fact.
    *  Returns { byRoom: { roomId: [lines] }, lines: [all], count }. */
-  RP.applySheetAudit = function (state, rooms, reply) {
+  RP.applySheetAudit = function (state, rooms, reply, opts) {
     rooms = (rooms || []).filter(Boolean);
-    var out = { byRoom: {}, lines: [], count: 0 };
+    opts = opts || {};
+    var out = { byRoom: {}, lines: [], items: [], count: 0 };
     rooms.forEach(function (room) { out.byRoom[room.id] = []; });
     var text = String(reply || '').trim();
     if (!text || /^IN ORDER\b/i.test(text) || !rooms.length) return out;
@@ -3435,7 +3523,7 @@
     });
     var directives = RP.parseDirectives(text, names).directives.filter(function (d) {
       return RP.AUDIT_KINDS.indexOf(d.kind) >= 0;
-    }).slice(0, 12);
+    }).slice(0, 16);
     var knows = function (room, name) {
       var want = String(name || '').toLowerCase().trim();
       if (!want) return false;
@@ -3456,15 +3544,21 @@
         return low && (low.indexOf(want) >= 0 || want.indexOf(low) >= 0);
       });
     };
-    directives.forEach(function (d) {
+    // The player's own mood is theirs in play; here the reader approves
+    // every line, so the audit may move it — applyDirectives is told so.
+    directives.forEach(function (d, index) {
+      if (opts.only && opts.only.indexOf(index) < 0) return;      // the reader unticked it
       var home = null;
       if (d.kind !== 'time' && !String(d.who || d.name || '').trim()) return;
       if (d.kind === 'time') home = rooms[0];
       else if (d.kind === 'enter') home = rooms.filter(function (room) { return atDoor(room, d.name); })[0] || null;
       else home = rooms.filter(function (room) { return knows(room, d.who || d.name); })[0] || null;
       if (!home) return;
-      var done = RP.applyDirectives(state, home, [d]);
-      done.lines.forEach(function (l) { out.byRoom[home.id].push(l); out.lines.push(l); out.count++; });
+      var done = RP.applyDirectives(state, home, [d.kind === 'mood' ? Object.assign({}, d, { set: true, byAudit: true }) : d]);
+      done.lines.forEach(function (l) {
+        out.byRoom[home.id].push(l); out.lines.push(l); out.count++;
+        out.items.push({ index: index, roomId: home.id, line: l, kind: d.kind, who: d.who || d.name || '' });
+      });
       if (d.kind === 'time' && rooms.length > 1) rooms.slice(1).forEach(function (room) { room.clock = home.clock; });
     });
     return out;
@@ -3627,6 +3721,28 @@
       return lines[k];
     }
     return '';
+  };
+
+  /* ---- the flourish: one coloured phrase on the turns that matter ----
+   * "You may colour" is read by a small model as "need not", so on a
+   * triumph or a failure ONE weighty phrase is ordered in colour, in a
+   * palette matched to the moment. No schedule any more: the box carries
+   * the mood every turn; the words get colour when the dice say so. */
+  var FLOURISH_PALETTE = { triumph: 'gold or amber', setback: 'blood or rust' };
+
+  /** Did the model colour anything by itself in the last few turns? Then
+   *  it has the habit and is left alone. */
+  RP.recentlyColoured = function (room, turns) {
+    var recent = ((room && room.messages) || []).filter(visible).slice(-(turns || 3));
+    return recent.some(function (m) { return m.role !== 'user' && /\{[a-z#][a-z0-9 ]{1,14}\|[^{}]{1,300}\}/i.test(RP.textOf(m)); });
+  };
+
+  RP.flourishBlock = function (room, fate) {
+    if (!room || !fate || !FLOURISH_PALETTE[fate.key]) return '';
+    if (RP.recentlyColoured(room)) return '';
+    return 'COLOUR, THIS TURN \u2014 write exactly ONE phrase of this turn in colour, inside the prose, as {colour|the words}: ' +
+      'the thing that carries the most weight \u2014 a wound, a relic, a look, a word spoken low \u2014 two to five words, once. ' +
+      'Suggested: ' + FLOURISH_PALETTE[fate.key] + '.';
   };
 
   /* ---- stage directions: how the model changes the world ---- */
@@ -4087,7 +4203,7 @@
       var sheet = target ? room.states[target.id] : null;
       // How the reader feels is the reader's: the model's MOOD for the
       // player's sheet is dropped (the sheet form sets it by hand).
-      if (d.kind === 'mood' && sheet && (sheet.player || (target && target.player)) && !d.set) return;
+      if (d.kind === 'mood' && sheet && (sheet.player || (target && target.player)) && !d.set && !d.byAudit) return;
       if (d.kind === 'mood') d = Object.assign({}, d, { turn: turnNow });
       var line = RP.applyChange(sheet, d);
       if (line) lines.push(line);
@@ -5564,6 +5680,7 @@
     var protectedFrom = parts.length;
     var worldDirection = RP.directionBlock(room);
     if (worldDirection) parts.push(worldDirection);
+    if (opts.ambient) parts.push(RP.liveBlock(room, null, false));
     if (room.mechanics !== 'off') {
       var sheets = RP.stateBlock(room, RP.PLAYER_ID);
       if (sheets) parts.push(sheets);
@@ -5574,9 +5691,15 @@
       parts.push(RP.DIRECTIVES);
       var worldWounds = RP.hurtBlock(room, String(opts.mentionText || '') + ' ' + ((room.direction && room.direction.text) || ''));
       if (worldWounds) parts.push(worldWounds);
+      var worldBeyond = RP.beyondBlock(opts.fate);
+      if (worldBeyond) parts.push(worldBeyond);
+      var worldPlayerMood = RP.playerMoodBlock(room);
+      if (worldPlayerMood) parts.push(worldPlayerMood);
     }
     var fate = RP.fateBlock(opts.fate);
     if (fate) parts.push(fate);
+    var worldFlourish = RP.flourishBlock(room, opts.fate);
+    if (worldFlourish) parts.push(worldFlourish);
     var worldOoc = RP.oocBlock(state, room, opts.notes);
     if (worldOoc) parts.push(worldOoc);
     // The narrator carries its own length: the Director needs room, the
@@ -7103,6 +7226,38 @@
     return keys[keys.length - 1];
   }
 
+  /* ---- beyond them: godly and hopeless attempts ----
+   * "I stop time", "I lift the helicopter off him", "I kill them all at
+   * once". Left alone the dice treat these like opening a door. Read
+   * locally, for free: a godly attempt (power nobody on the sheet has) or
+   * a hopeless one (a body cannot) turns the table hard against it, and
+   * the people in the room react to the attempt itself. A sheet with MP
+   * is a caster: their magic is not godly, only the omnipotent is. */
+  var GODLY_RE = /\b(?:stop(?:s)? time|freez(?:e|es) time|rewind(?:s)? time|turn(?:s)? back time|become(?:s)? (?:a )?god|godlike|omnipoten\w+|resurrect(?:s)?|rais(?:e|es) the dead|bring(?:s)? (?:him|her|them) back (?:to life|from the dead)|read(?:s)? (?:his|her|their|everyone'?s) minds?|control(?:s)? (?:his|her|their|everyone'?s) minds?|teleport(?:s)?|open(?:s)? a portal|snap(?:s)? my fingers and|with a (?:wave|snap|flick) of my (?:hand|fingers)|wip(?:e|es) (?:them|everyone|it) (?:all )?(?:out|from existence)|kill(?:s)? (?:everyone|them all|all of them) (?:at once|instantly|with a (?:word|thought|look))|will(?:s)? (?:him|her|them|it) (?:dead|out of existence)|summon(?:s)? (?:a |an |the )?(?:dragon|army|demon|meteor|god|storm|legion|titan)|call(?:s)? down (?:lightning|fire|a storm|the heavens)|lightning from my (?:hands?|fingers|eyes)|fly (?:up|away|off|into)|take(?:s)? flight|levitat\w*|turn(?:s)? invisible|shapeshift\w*|turn(?:s)? (?:him|her|them|myself) into (?:a |an )?\w+)\b/i;
+  var HOPELESS_RE = /\b(?:(?:lift|lifts|throw|throws|hurl|hurls|catch|catches|carry|carries|flip|flips|rip|rips|tear|tears|punch(?:es)? through|kick(?:s)? down|hold(?:s)? up|pick(?:s)? up|push(?:es)? over|stop(?:s)?)\s+(?:the|a|an|that|this)\s+(?:\w+\s+){0,2}(?:helicopter|aircraft|airplane|plane|airship|zeppelin|car|truck|lorry|wagon|carriage|boat|ship|train|building|tower|wall|house|tree|boulder|mountain|bridge|gate|statue|engine|tank)|outrun(?:s)? (?:the|a|an) (?:bullet|arrow|blast|explosion|train|horse|avalanche|fire)|dodg(?:e|es) (?:every|all the|the) bullets|catch(?:es)? (?:the|a) (?:bullet|arrow|blade|sword|axe) (?:in|with) my (?:bare )?(?:hands?|teeth)|break(?:s)? (?:the|these|my) (?:chains|shackles|bars|cuffs) with my bare hands|bend(?:s)? the bars|kill(?:s)? (?:everyone|them all|all of them) (?:at once|with one (?:blow|swing|shot)|in one (?:blow|swing|move))|one[- ]punch(?:es)? (?:him|her|them|it)|punch(?:es)? (?:him|her|it) (?:through|across) the (?:wall|room|street)|jump(?:s)? (?:over|across) the (?:building|river|chasm|gorge|roof))\b/i;
+
+  var CASTER_RE = /\b(?:magic|mage|wizard|witch|sorcer\w*|spell\w*|priest\w*|cleric|shaman|necromanc\w*|conjur\w*|alchem\w*|psychic|warlock|druid|oracle|ghost|spirit|demon|god(?:dess)?|angel|fairy|enchant\w*|summon\w*)\b/i;
+  /** A caster is somebody whose record says so — not whoever has the
+   *  preset's MP bar, which is everyone. */
+  RP.isCaster = function (char, sheet) {
+    if (!char) return false;
+    var record = [char.title, char.summary, char.faction, (char.tags || []).join(' '), (char.aliases || []).join(' ')].join(' ');
+    return CASTER_RE.test(record) || Boolean(sheet && sheet.caster);
+  };
+
+  RP.attemptScale = function (text, sheet, char) {
+    var t = String(text || '');
+    if (!t.trim()) return '';
+    var caster = RP.isCaster(char, sheet);
+    if (GODLY_RE.test(t)) {
+      // A caster's own kind of magic is not godly: summoning and flight
+      // stay on the table for them; stopping time and raising the dead do not.
+      if (!caster || /time|god|omnipoten|resurrect|dead|back to life|minds?|existence|instantly|at once/i.test(t)) return 'godly';
+    }
+    if (HOPELESS_RE.test(t)) return 'hopeless';
+    return '';
+  };
+
   /** How far the odds lean this turn, and why. Everything that moves the
    *  dice is listed here so the pill, the prompt and the tests all read
    *  the same arithmetic. One pip is one notch of the table; the sum is
@@ -7134,8 +7289,11 @@
       plain.push(words.join(' and '));
     }
     if (opts.conjured) { tilt -= 2; why.push('🚫 out of thin air (−2)'); plain.push('reaching for a thing they do not have'); }
+    var scale = opts.scale === undefined ? RP.attemptScale(opts.text, you, RP.playerCharacter(room)) : opts.scale;
+    if (scale === 'godly') { tilt -= 3; why.push('🌩 godly (−3)'); plain.push('attempting what no one in this world can do'); }
+    else if (scale === 'hopeless') { tilt -= 3; why.push('🪨 hopeless (−3)'); plain.push('attempting what a body cannot do'); }
     tilt = Math.max(-3, Math.min(3, tilt));
-    return { tilt: tilt, why: why, plain: plain, stat: stat, score: score, you: you };
+    return { tilt: tilt, why: why, plain: plain, stat: stat, score: score, you: you, scale: scale || '' };
   };
 
   /** Roll for the turn. The difficulty picks the table; the tilt (the
@@ -7166,6 +7324,16 @@
       weights.setback += d * 3;
       weights.refusal += d * (opts.conjured ? 2 : 0.5);
     }
+    // Beyond them: the world does not bend. No triumph, next to no plain
+    // success; it goes wrong, sideways, or is refused.
+    if (lean.scale) {
+      weights.triumph = 0;
+      weights.success = lean.scale === 'godly' ? 1 : 2;
+      weights.cost = Math.max(2, weights.cost * 0.5);
+      weights.wrench += 6;
+      weights.setback += lean.scale === 'godly' ? 8 : 10;
+      weights.refusal += lean.scale === 'godly' ? 6 : 2;
+    }
     var roll = opts.roll === undefined ? Math.random() : opts.roll;
     var key = opts.force || pickWeighted(weights, roll);
     var fate = RP.FATE[key];
@@ -7177,8 +7345,21 @@
     return {
       key: key, label: fate.label, pill: fate.pill + tag, dir: fate.dir, level: level,
       pressure: pressure, tilt: t, why: lean.why, plain: lean.plain, stat: lean.stat, score: lean.score, statTag: tag,
-      conjured: opts.conjured || '', granted: granted,
+      conjured: opts.conjured || '', granted: granted, scale: lean.scale || '', attempt: clip(String(opts.text || ''), 120),
     };
+  };
+
+  /** The block a godly or hopeless attempt earns: the world does not
+   *  bend, and the people in the room react to the attempt itself. */
+  RP.beyondBlock = function (fate) {
+    if (!fate || !fate.scale) return '';
+    var godly = fate.scale === 'godly';
+    return 'BEYOND THEM \u2014 the player\u2019s attempt is ' + (godly ? 'GODLY: nobody in this world has that power, and they do not' :
+      'HOPELESS: a body cannot do that, and theirs is no exception') + '. The ruling below says how it goes \u2014 it does NOT work as asked. ' +
+      'Write the world not bending: ' + (godly ? 'nothing answers the gesture, or the wrong thing does' : 'the weight does not move, the body gives') +
+      '. The people in the scene react to the attempt as people would \u2014 alarm, laughter, contempt, pity, a step back \u2014 and it changes how ' +
+      'they treat the player from here: file their feelings ([[MOOD: Name \u2026]]). The attempt costs the player something real \u2014 breath, blood, ' +
+      'dignity, the moment \u2014 and you file it ([[HP:]] or [[COND:]] on their name). Never scold the player for trying; show it.';
   };
 
   /** What the model is told about the roll. It is written as an order, not a
@@ -7545,7 +7726,12 @@
     // the reference material and was the last block dropped on a tight
     // window. Wario talking to his brother as if to nobody is a worse
     // turn than one with a shorter biography, so it is kept.
-    var persona = RP.personaBlock(room.persona || (state.user && state.user.persona) || '', state, room);
+    if (opts.ambient) {
+      // Unattended: the reader is in the other scene. Their own character
+      // may be the speaker this once, so "never write them" steps aside.
+      parts.push(RP.liveBlock(room, RP.normChar(speaker || {}), opts.ambientSelf));
+    }
+    var persona = opts.ambientSelf ? '' : RP.personaBlock(room.persona || (state.user && state.user.persona) || '', state, room);
     if (persona) parts.push(persona);
     if (room.mechanics !== 'off') {
       var sheets = RP.stateBlock(room, RP.normChar(speaker || {}).id);
@@ -7557,13 +7743,23 @@
       parts.push(RP.DIRECTIVES);
       var wounds = RP.hurtBlock(room, String(opts.mentionText || '') + ' ' + ((room.direction && room.direction.text) || ''));
       if (wounds) parts.push(wounds);
-      // How the speaker feels, as an order — the colour of the box, in
-      // the prose. Nothing when they are calm.
+      var beyond = RP.beyondBlock(opts.fate);
+      if (beyond) parts.push(beyond);
+      // The reader's own mood colours how the cast reads them.
+      var playerMood = RP.playerMoodBlock(room);
+      if (playerMood) parts.push(playerMood);
+      // The speaker's body, then how they feel, as orders — the body
+      // outranks the will, the mood is the colour of the box. Nothing
+      // when they are whole and calm.
+      var body = RP.bodyBlock(room, RP.normChar(speaker || {}));
+      if (body) parts.push(body);
       var mood = RP.moodBlock(room, RP.normChar(speaker || {}));
       if (mood) parts.push(mood);
     }
     var fateBlock = RP.fateBlock(opts.fate);
     if (fateBlock) parts.push(fateBlock);
+    var flourish = RP.flourishBlock(room, opts.fate);
+    if (flourish) parts.push(flourish);
     var ooc = RP.oocBlock(state, room, opts.notes);
     if (ooc) parts.push(ooc);
     parts.push(RP.lengthBlock((state.settings && state.settings.length) || RP.DEFAULT_LENGTH, false).text);
@@ -7667,8 +7863,8 @@
   /** The base prompt with less in it, keeping what makes the character
    *  themselves for as long as possible. Decoration goes first, the voice
    *  last:
-   *    1  the other cast members' summaries, a shorter About and
-   *       description
+   *    1  the colour-markup rule, the other cast members' summaries, a
+   *       shorter About and description
    *    2  the voice's Never line, four sample lines, a short description
    *    3  the Sounds like line, three sample lines, titles and the scene
    *       clipped, the description down to a sentence
@@ -7683,6 +7879,7 @@
       else if (/^[A-Z][A-Z \u2014-]{4,}$/.test(line.trim()) && line.trim() === line.trim().toUpperCase()) { inVoice = false; inCast = false; }
       else if (/^YOU ARE /.test(line)) { inCast = false; }
       if (/^    \S/.test(line)) continue;                                // a cast member's summary
+      if (/^You may colour a few words/.test(line)) continue;              // decoration first
       if (inVoice && /^Never:/.test(line) && level >= 2) continue;
       if (inVoice && /^Sounds like:/.test(line) && level >= 3) continue;
       if (inVoice && /^  \u201c/.test(line)) {

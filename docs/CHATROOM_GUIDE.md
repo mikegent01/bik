@@ -1265,10 +1265,21 @@ half.
 
 ## Macros — one click instead of a sentence
 
-Above the composer: **🗡 Attack · ✦ Cast · 🛡 Guard · 💬 Talk down · 🌑 Slip
-away · 🔍 Look closer**, plus **＋** for your own. A macro picks a target when
-the scene has more than one, spends the MP it costs, writes the attempt, and
-lets the Fate roll decide whether it lands.
+Above the composer, right-hand side: **🎭 Mood** (yours — see *Colour is
+emotion*), **🎒 Use…** when you carry anything (pick a thing, then *use /
+show / hand over / throw* — it writes the attempt into the composer for
+you to send or edit, picking a target when the scene has more than one),
+the quick actions **🗡 Attack · ✦ Cast · 🛡 Guard · 💬 Talk down · 🌑 Slip
+away · 🔍 Look closer**, **🌗 Meanwhile** while a second scene is linked,
+and **＋**. A macro picks a target when the scene has more than one,
+spends the MP it costs, writes the attempt, and lets the Fate roll decide
+whether it lands.
+
+**＋ Your buttons** is a manager, not just a form: hide the built-ins you
+never press (they come back with *Show*), and write up to six of your
+own — each with an icon, a label, the text (use `{target}`), and an MP
+cost — then **Edit** or **Delete** them later. Hidden built-ins live in
+`settings.hiddenMacros`, your own in `settings.macros`.
 
 ## Sampling and model routing
 
@@ -1671,25 +1682,52 @@ The quartermaster is a small net on a timer. The **AI audit** is the same
 reader with the whole table in front of it, and it only runs when you
 press it: Cast tab → **🧾 AI audit**, or Scene tab → Housekeeping →
 **🩺 AI audit of the sheets**. One utility call (`RP.sheetAuditPrompt`,
-`tokens: 420`) carries **every sheet** — the whole cast, the player's
+`tokens: 480`) carries **every sheet** — the whole cast, the player's
 pack, who is written out and waiting at the door — and the last fourteen
 turns of play; with ⇄ linked scenes it carries **both** rooms, each
 labelled, as one story on one clock. The model answers in stage
 directions: the quartermaster's kinds plus `[[MOOD:]]`, `[[STATUS:]]`,
 `[[TIME:]]`, `[[EXIT:]]` for somebody plainly gone and `[[ENTER:]]` only
 for somebody at that scene's door — never `[[NEW:]]`, `[[SET:]]` or
-`[[REMEMBER:]]` (`RP.AUDIT_KINDS`), and never the player's mood. Or
-exactly `IN ORDER`.
+`[[REMEMBER:]]` (`RP.AUDIT_KINDS`). Or exactly `IN ORDER`.
 
-Nothing lands unseen: the reply is first applied to **copies** of the
-rooms and shown as a list — *Bowser −7 HP (93/100)*, *the time is
-23:40*, *😠 Wario — angry (the bill)* — with **Apply N changes** or
-**Leave it**. On apply, each line goes to the first scene that knows the
-name (`RP.applySheetAudit`; shared sheets are synced by the page as
-usual), the clock moves in both, a 🩺 card is filed in each scene's
-stream, and one `↩` takes the whole audit back — the sheets, the card
-**and the clock**, which the undo snapshot now carries. It never runs in
-the background and never counts against the lean-mode contract.
+**It judges, it does not tidy.** The audit is the one place the record is
+corrected by judgement, so the prompt tells it to: *for EVERY person
+decide what their HP and MP should be NOW, given everything that has
+happened to them, and when the number does not match the story, SET it*
+— `[[HP: Wario = 40]]`, `[[MP: Merla = 5]]` — *a helicopter crash and a
+gunfight are not 65/100, and a night's rest is not 12/100*. It decides
+how each person feels now and files it at that pitch (an audit MOOD is
+exact, not damped — the reader is about to approve it), and the
+player's own sheet is audited like any other, wounds, kit and mood
+included. Sixteen lines at most, the most consequential first.
+
+Nothing lands unseen, and nothing lands whole: the reply is first
+applied to **copies** of the rooms and shown as a list with **a tick per
+line** — *❤ Wario +12 HP (40/100)*, *🎭 😠 Wario — furious (the bill)*,
+*🕰 the time is 23:40*. Untick what you disagree with and the button
+counts down (*Apply 3 changes*); only the ticked indices are applied
+(`RP.applySheetAudit(state, rooms, reply, { only })`, which re-parses the
+same reply deterministically, so a tick always means the same line).
+On apply, each line goes to the first scene that knows the name, the
+clock moves in both, a 🩺 card is filed in each scene's stream, and one
+`↩` takes the whole audit back — sheets, card **and clock**.
+
+**Portraits too.** While the model reads, the page tries every present
+character's portrait (`new Image()`, 2.5 s, in parallel — it never holds
+the audit up). A file that does not load is listed under *Portraits* as
+a note (initials are already shown in its place — see below), and a
+character invented in play who has a namesake in the archive is offered
+that portrait as a tickable line (*🖼 Wario has no portrait — use the
+archive's Wario portrait*). The audit never runs in the background and
+never counts against the lean-mode contract.
+
+A broken portrait anywhere — a turn card, the party bar, the rail — falls
+back to the character's initials on its own: every `avatar()` frame
+carries `data-nm`/`data-tint`, and one capture-phase `error` listener
+swaps the dead image for them. The player's own card in the party bar
+wears **the character you play** (Waluigi's face, not your account's
+"A"), which it did not before.
 
 ### 🚪 The doorman — nobody slips in or out unfiled
 
@@ -1993,9 +2031,23 @@ sarcastic line cannot flip terror into joy.
 3. **A grave hit** from the hurt ledger adds a flicker of fear to whoever
    it landed on, unless the model said how they took it.
 
-**Your mood is yours.** The model's MOOD for the player's sheet is
-dropped; click your sheet to set it by hand (*"anger 2 | the bill"*, or
-*calm*), and your own turns wear that colour.
+**Your mood is yours — and it changes how the world reads you.** The
+model's MOOD for the player's sheet is dropped (only the AI audit may
+file it, and you approve that). Set it yourself: **🎭 Mood** on the bar
+above the composer (or click your sheet) — a feeling, a pitch, a why;
+*calm* clears it. Your own turns wear the colour, the button shows it
+(*😠 angry*), and the prompt gets `RP.playerMoodBlock` in the protected
+tail of both the cast's and the narrator's prompts: *THE PLAYER'S MOOD —
+Waluigi is angry (anger 2/3: the bill). Read what they do through it: a
+pick-up is a grab, a question is a demand, a step is a stride, a joke
+has an edge. The cast can see it on them and answers THAT, not the
+polite version. Never decide their words.* Each feeling has its own
+reading — afraid, a question is a plea and a step is a backward one;
+ashamed, eyes stay down and every sentence apologises for itself;
+suspicious, a gift is checked and hands are watched — and at pitch 3 the
+block adds *let it cost them something when it would*. So "I pick up the
+wrench" typed while angry is written by the room as a grab, without the
+model ever writing your line for you. Nothing when you are calm.
 
 **It drives the writing.** Every sheet line in CHARACTER STATE carries
 `mood: furious (anger 3/3 — the landing bill)`, so the others play off
@@ -2008,8 +2060,153 @@ does not switch off because the subject changes.* Each feeling has its
 own tell: fear hedges and watches the exits, grief trails off, shame
 deflects, suspicion answers little and watches hands, pride lists wins.
 
-The old `{colour|words}` and `[[TINT:]]` machinery is no longer asked
-for, but old chats still render as they did.
+**The box is theirs; the words are the writer's.** The bubble takes a
+flat tint of the mood (`--mood-bg`, 93 → 88 → 82 % lightness by pitch,
+with a firm border in the hue on the speaker's side — opaque, so it reads
+on every screen, not the faint gradient of the first cut), and inside it
+the prose may still be coloured: the short rule is back in the base
+prompt — *two or three words, once in a turn at most; the colour of the
+box is their mood; the colour of the words is yours* — and it is the
+first line squeezed when the window is tight, before any voice or sheet.
+On a **triumph** or a **setback** the dice add `RP.flourishBlock` to the
+protected tail: *write exactly ONE phrase of this turn in colour — the
+thing that carries the most weight — suggested gold or amber / blood or
+rust* — unless the model coloured something in the last three turns on
+its own (`RP.recentlyColoured`), in which case it is left alone.
+`[[TINT:]]` standing rules still parse and render for old chats.
+
+The mood chips are one word each now (*smug*, *puzzled*, *queasy*), the
+party-bar cards cap at 300 px (340 for your pack) so chips wrap instead
+of stretching the card across the bar, and a long chip is cut with an
+ellipsis rather than growing the box.
+
+### 🦴 The body outranks the will
+
+A persona block is strong on purpose — it is what keeps Wario Wario at
+turn forty. But a character at 28 HP who is *battered* used to grab a
+wrench and charge out of the wreck, because nothing in the prompt said
+the body comes first. Now it does: `RP.bodyBlock(room, char)` rides in
+the protected tail **after** the persona and before the mood, and only
+when it has something to say (hp ≤ 65 %, or any flag on the sheet):
+
+- **DOWN at 0 HP** — *barely conscious. A word, a crawl, a hand that will
+  not close — nothing more. They cannot fight, run or lead.*
+- **BADLY HURT (≤ 35 %)** — *Write the body first and the will second:
+  slow and crooked, favouring the hurt side, breath short; they cannot
+  sprint, swing hard, haul themselves through a window or shout for long
+  without paying in breath or blood. A reckless move at this HP is one
+  they feel before they finish it.*
+- **HURT (≤ 65 %)** — *favouring the wound, picking the easier way,
+  flinching from the next blow; a big effort costs breath and shows.*
+- plus every flag with its note — *battered (the crash)* — and the
+  sentence that does the work: *Their nature does not override their
+  body: the same person, hurt, is a different turn — greedy and broken
+  is not greedy and whole. If they push through anyway, show the cost in
+  this turn and file it (`[[HP: Wario -N]]` or `[[COND: Wario …]]`).*
+
+Whole and unflagged costs nothing.
+
+### 🌩 Beyond them — godly and hopeless attempts
+
+*I stop time. I lift the helicopter off him. I kill them all with a
+thought.* Left alone the dice treated these like opening a door — a
+triumph was as likely as for anything else. Now the page reads the
+attempt locally, for free (`RP.attemptScale(text, sheet, char)`): a
+**godly** attempt (stopping or rewinding time, raising the dead, reading
+or controlling minds, teleporting, flight, turning people into things,
+summoning armies, killing everyone at once) or a **hopeless** one
+(lifting or throwing a helicopter, car, boulder or building; outrunning
+a bullet; catching a blade in the teeth; bending the bars with bare
+hands; punching somebody through a wall). Somebody whose record says
+*witch*, *mage*, *spirit*, *god* and the like (`RP.isCaster`) keeps their
+own kind of magic — summoning and flight stay on the table for them;
+time, the dead and minds still do not.
+
+What it does, all in `RP.fateTilt`/`RP.rollFate`:
+
+- the tilt drops by three, with a why chip on the pill — *🌩 godly (−3)*
+  / *🪨 hopeless (−3)*;
+- the table is rewritten: **no triumph**, next to no plain success, and
+  a heavy lean to *a wrench in it*, *a setback* and (for the godly) *the
+  world refuses* — with the default odds a godly attempt comes out
+  setback ≈ 34 %, wrench ≈ 33 %, costly ≈ 18 %, refusal ≈ 15 %, success
+  ≈ 1 %;
+- `RP.beyondBlock` joins the protected tail: *the world does not bend —
+  nothing answers the gesture, or the wrong thing does / the weight does
+  not move, the body gives. The people in the scene react to the attempt
+  as people would — alarm, laughter, contempt, pity, a step back — and it
+  changes how they treat the player from here: file their feelings. The
+  attempt costs the player something real — breath, blood, dignity, the
+  moment — and you file it. Never scold the player for trying; show it.*
+- and the record keeps it even when the model forgets: every witness who
+  was not filed gets a flicker of **surprise** (*saw it*), and when the
+  roll came up setback, wrench or refusal the player's own sheet gets a
+  flicker of **shame** (*it did not work*) — so the next turns are
+  coloured by it.
+
+### 🌗 The other scene lives — one unattended beat, queued
+
+With ⇄ two scenes open, the one you were not in used to stand still
+until you crossed over. Scene tab → *Second scene* → **🌗 The scene you
+are not in**: *Stands still* (the default — no extra calls), *Moves every
+other turn you take*, or *Moves after every turn you take*. It is one
+setting for the pair, so it reads the same from either column, and the
+bar shows **🌗 Meanwhile** lit while it is on.
+
+How a beat happens — the whole point is that it is **a queue, never two
+prompts at once**:
+
+1. you take a turn here; it is answered; the Director's chain, if any,
+   runs out; your *your turn.* handback lands as usual;
+2. only then does `maybeLive` count the tick and, 900 ms later, start
+   **one** `generate({ room: other, ambient: true })` — and only if
+   nothing else is busy. If the lore book or the quartermaster is still
+   reading, the beat waits behind them (it retries every 900 ms, a dozen
+   times at most) rather than doubling a call;
+3. an unattended beat never chains, never triggers the Director, never
+   nags *your turn.*, never rolls fate (nobody attempted anything), and
+   **never triggers another unattended beat** — so two live scenes
+   cannot ping-pong;
+4. your next turn in either column **cuts a beat still in flight**:
+   `sendText` sees `busy && ambientNow`, presses ■ quietly and sends when
+   the cut has landed. You always win the queue.
+
+The beat is prompted as one: `RP.liveBlock` sits in the protected tail —
+*MEANWHILE, UNATTENDED — the reader is in the other scene right now and
+is not here to be answered. This scene moves on its own for ONE beat:
+something small and true happens — a line, a move, a sound, a decision
+that was coming anyway — the kind of thing the other scene could hear of
+later. Do not address the reader, do not wait for them, and do not
+resolve anything they would want to be present for.* The card wears a
+dashed edge and a *🌗 meanwhile* badge, and what happened crosses to the
+other scene through the usual MEANWHILE block, so you can hear of it.
+
+**🧍 Your character over there** (shown once the scene is live): *Waits
+for you* (default) or *May act alone while you are away*. With it on,
+the character you ★ play in the unattended scene joins that beat's
+rotation, and when the rotation lands on them the persona block steps
+aside for one turn and `RP.liveBlock` adds: *this turn Waluigi acts for
+themselves — in character, small and reversible: a remark, a move, a
+look, a thing picked up. No big decisions, nothing they could not walk
+back, no leaving, no promises made in their name. The reader takes
+Waluigi back next turn.* The speaker check that normally sends back a
+take for "writing the player" is skipped for that one beat, and the card
+says *your character acted alone while you were in the other scene*.
+**🌗 Meanwhile** on the bar fires one beat by hand, whenever you like,
+whatever the setting.
+
+**What it costs, honestly.** An unattended beat is a full roleplay
+prompt for the other scene — the same system prompt its own turn would
+get (about 9–10 k characters with a cast of two and a voice sheet, ≈
+2.5 k tokens) plus that scene's recent turns (≈ 1–1.5 k tokens) and a
+short reply (≈ 150–250 tokens). So *Moves after every turn* roughly
+**doubles** your token spend and, on a local model, puts a second
+generation between your turn and your next one; *every other turn* adds
+about half. It also counts as a turn for that scene's chores (recap,
+lore book, quartermaster — all gated by the lean dial as usual). That is
+why it ships **off**, why the on-switch is per pair and visible on the
+bar, and why ■ and your own turn always cut it. If you want the world
+alive but cheap: *every other turn*, 🧍 off, and lean background AI.
 
 ## 📜 Long chats stay cheap
 

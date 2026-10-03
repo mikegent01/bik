@@ -765,6 +765,18 @@ check('commentary: finished episodes are kept and can be reopened',
     return Boolean(youCard) && star && youCard.textContent.includes(star.name) &&
       doc.querySelectorAll('[data-here]').length === 0;
   })());
+  check('star: your card wears the character\u2019s face, not your account initial; a portrait that cannot load falls back to initials', (() => {
+    const youCard = doc.querySelector('.sheet.you');
+    const star = win.RP.playerCharacter(savedState().rooms.find(x => x.id === savedState().active));
+    const av = youCard && youCard.querySelector('.nm .av');
+    if (!av || !star) return false;
+    const wears = star.image ? Boolean(av.querySelector('img')) && av.querySelector('img').getAttribute('src').includes(star.image.split('/').pop()) &&
+      av.getAttribute('data-nm') === win.RP.initialsFor(star.name) : av.textContent === win.RP.initialsFor(star.name);
+    const img = av.querySelector('img');
+    if (img) img.dispatchEvent(new win.Event('error'));
+    const fell = !img || (av.textContent === win.RP.initialsFor(star.name) && !av.querySelector('img'));
+    return wears && fell && av.textContent !== 'A';
+  })());
   check('ooc: brackets in a turn are stripped from the prose and kept as instructions', (() => {
     $('input').value = 'I keep reading. ((no new characters))';
     $('composer').dispatchEvent(new win.Event('submit', { bubbles: true, cancelable: true }));
@@ -1096,6 +1108,66 @@ check('commentary: finished episodes are kept and can be reopened',
     dock('cast');
     return n === 4;
   })());
+  // ---- 🌗 the other scene lives: off by default, one queued beat, never a chain ----
+  check('live: off by default — the Scene tab offers it, the bar shows 🌗 Meanwhile only while linked, and nothing moved on its own', (() => {
+    dock('scene');
+    const item = $('dkLive');
+    const ok = Boolean(item) && /Stands still/.test(item.textContent) && !$('dkLiveSelf') && Boolean($('qaMeanwhile')) &&
+      !$('qaMeanwhile').classList.contains('on') && !roomC().messages.some(m => m.ambient) && !roomA().messages.some(m => m.ambient);
+    return ok;
+  })());
+  $('dkLive').dispatchEvent(click());
+  const everyTurn = [...doc.querySelectorAll('[data-pick]')].find(b => /after every turn/.test(b.textContent));
+  if (everyTurn) everyTurn.dispatchEvent(click());
+  check('live: one setting for the pair — both scenes carry it, the bar lights, and your character over there waits by default', (() => {
+    dock('scene');
+    return roomA().live === 'every' && roomC().live === 'every' && $('qaMeanwhile').classList.contains('on') &&
+      Boolean($('dkLiveSelf')) && /Waits for you/.test($('dkLiveSelf').textContent) && !roomA().liveSelf && !roomC().liveSelf;
+  })());
+  const cQuiet = roomC().messages.length;
+  const aQuiet = roomA().messages.length;
+  $('input').value = 'I check the hangar door for a lock.';
+  $('composer').dispatchEvent(submit());
+  const beat = await until('an unattended beat in the side scene', () =>
+    !doc.querySelector('.typing') && roomC().messages.some(m => m.ambient), 120);
+  await wait(1500);
+  check('live: after your turn here is answered, the other scene moves ONCE — one unattended beat, after the chain, flagged on the card', (() => {
+    const ambient = roomC().messages.filter(m => m.ambient);
+    const last = roomC().messages[roomC().messages.length - 1];
+    return beat && ambient.length === 1 && roomC().messages.length === cQuiet + 1 && (last.role === 'char' || last.role === 'world') && last.ambient === true &&
+      roomA().messages.length > aQuiet && !roomA().messages.some(m => m.ambient) && !roomC().handback &&
+      $('sidescene').textContent.includes('🌗 meanwhile') && Boolean($('sidescene').querySelector('.turn.ambient'));
+  })());
+  check('live: an unattended beat is prompted as one — MEANWHILE, UNATTENDED; your own character is not written unless you allow it', (() => {
+    const st = savedState();
+    const c = st.rooms.find(x => x.id === cId);
+    const sys = win.RP.systemFor(st, c, c.cast[0], { ambient: true });
+    const self = win.RP.systemFor(st, c, c.cast[0], { ambient: true, ambientSelf: true });
+    return /MEANWHILE, UNATTENDED/.test(sys) && /do not address the reader/i.test(sys) && !/acts for themselves/.test(sys) &&
+      !/THE USER PLAYS/.test(self) && win.RP.worldSystem(st, c, { ambient: true }).includes('MEANWHILE, UNATTENDED');
+  })());
+  // Your character over there may act alone: star somebody in the side scene, allow it, press 🌗 by hand.
+  const sideStar = $('speakers_b').querySelector('[data-star]');
+  sideStar.dispatchEvent(click());
+  dock('scene');
+  $('dkLiveSelf').dispatchEvent(click());
+  check('live: 🧍 your character over there may act alone — the setting is shared by the pair', roomC().liveSelf === true && roomA().liveSelf === true &&
+    Boolean(roomC().youPlay) && /May act alone/.test(($('dkLiveSelf') || {}).textContent || ''));
+  let selfActed = false;
+  for (let i = 0; i < 4 && !selfActed; i++) {
+    const before = roomC().messages.length;
+    $('qaMeanwhile').dispatchEvent(click());
+    await until('a 🌗 beat by hand', () => !doc.querySelector('.typing') && roomC().messages.length > before, 80);
+    await wait(150);
+    selfActed = roomC().messages.some(m => m.ambient && m.role === 'char' && m.charId === roomC().youPlay);
+  }
+  check('live: 🌗 Meanwhile by hand moves the other scene one beat, and the character you play there may be the one who acts', selfActed &&
+    roomC().messages.filter(m => m.ambient).length >= 2 && !roomA().messages.some(m => m.ambient));
+  $('dkLive').dispatchEvent(click());
+  const offAgain = [...doc.querySelectorAll('[data-pick]')].find(b => /Stands still/.test(b.textContent));
+  if (offAgain) offAgain.dispatchEvent(click());
+  check('live: turned off again, nothing queues', roomA().live === 'off' && roomC().live === 'off' && !$('qaMeanwhile').classList.contains('on'));
+  dock('cast');
   $('homeBtn').dispatchEvent(click());
 }
 
@@ -1142,6 +1214,65 @@ check('commentary: finished episodes are kept and can be reopened',
   const roomId = savedState().active;
   check('macros: the rail has quick actions above the composer',
     doc.querySelectorAll('[data-macro]').length >= 5 && Boolean($('macroAdd')));
+  check('macros: ＋ opens a manager — hide a built-in and the bar drops it; show it and it is back', (() => {
+    const click = () => new win.MouseEvent('click', { bubbles: true });
+    const before = doc.querySelectorAll('[data-macro]').length;
+    $('macroAdd').dispatchEvent(click());
+    const hide = $('modal').querySelector('[data-machide="look"]');
+    if (!hide || !/Your buttons/.test($('modal').textContent)) return false;
+    hide.dispatchEvent(click());
+    const hidden = !doc.querySelector('[data-macro="look"]') && doc.querySelectorAll('[data-macro]').length < before &&
+      (savedState().settings.hiddenMacros || []).includes('look');
+    $('modal').querySelector('[data-machide="look"]').dispatchEvent(click());
+    const back = Boolean(doc.querySelector('[data-macro="look"]')) && !(savedState().settings.hiddenMacros || []).includes('look');
+    $('mCancel').dispatchEvent(click());
+    return hidden && back && $('modalBack').hidden;
+  })());
+  check('macros: a button of your own can be written, edited and deleted', (() => {
+    const click = () => new win.MouseEvent('click', { bubbles: true });
+    $('macroAdd').dispatchEvent(click());
+    $('mOk').dispatchEvent(click());                       // ＋ New button
+    if (!$('f_label')) return false;
+    $('f_label').value = 'Bribe'; $('f_text').value = 'I slide a coin across to {target}.'; $('f_icon').value = '🪙';
+    $('mOk').dispatchEvent(click());
+    const own = (savedState().settings.macros || []).find(m => m.label === 'Bribe');
+    const shown = Boolean(own) && Boolean(doc.querySelector('[data-macro="' + own.id + '"]'));
+    $('macroAdd').dispatchEvent(click());
+    $('modal').querySelector('[data-macedit="' + own.id + '"]').dispatchEvent(click());
+    if (!$('f_label') || $('f_label').value !== 'Bribe') return false;
+    $('f_label').value = 'Bribe them';
+    $('mOk').dispatchEvent(click());
+    const edited = (savedState().settings.macros || []).find(m => m.id === own.id).label === 'Bribe them' &&
+      (savedState().settings.macros || []).length === 1;
+    $('macroAdd').dispatchEvent(click());
+    $('modal').querySelector('[data-mackill="' + own.id + '"]').dispatchEvent(click());
+    const gone = !(savedState().settings.macros || []).some(m => m.id === own.id) && !doc.querySelector('[data-macro="' + own.id + '"]');
+    $('mCancel').dispatchEvent(click());
+    return shown && edited && gone;
+  })());
+  check('mood: 🎭 on the bar sets YOUR mood — the sheet wears it, the bar shows it, the prompt reads your actions through it, calm clears it', (() => {
+    const click = () => new win.MouseEvent('click', { bubbles: true });
+    if (!$('qaMood') || !/Mood/.test($('qaMood').textContent)) return false;
+    $('qaMood').dispatchEvent(click());
+    if (!$('f_key')) return false;
+    $('f_key').value = 'anger'; $('f_level').value = '2'; $('f_note').value = 'the bill';
+    $('mOk').dispatchEvent(click());
+    const s = savedState();
+    const r = s.rooms.find(x => x.id === s.active);
+    const you = r.states[win.RP.playerSheetId(r)];
+    const set = Boolean(you && you.mood) && you.mood.key === 'anger' && you.mood.level === 2 && you.mood.note === 'the bill';
+    const bar = $('qaMood').classList.contains('on') && /angry/.test($('qaMood').textContent);
+    const sys = win.RP.systemFor(s, r, r.cast[0], {});
+    const read = /THE PLAYER\u2019S MOOD/.test(sys) && /a pick-up is a grab/.test(sys);
+    const filed = r.messages[r.messages.length - 1].role === 'state' && /🎭 .*angry \(the bill\)/.test(r.messages[r.messages.length - 1].lines.join(' '));
+    $('qaMood').dispatchEvent(click());
+    $('f_key').value = 'calm';
+    $('mOk').dispatchEvent(click());
+    const s2 = savedState();
+    const r2 = s2.rooms.find(x => x.id === s2.active);
+    const cleared = !r2.states[win.RP.playerSheetId(r2)].mood && !$('qaMood').classList.contains('on');
+    return set && bar && read && filed && cleared;
+  })());
   check('undo: the header has undo and redo', Boolean($('undoBtn')) && Boolean($('redoBtn')));
   check('text: nothing in the character panel is cut off mid-word', (() => {
     const bodies = [...$('charpanel').querySelectorAll('.cp-desc, .cp-head h3, .cp-head .by')];
@@ -1417,7 +1548,7 @@ check('mood: the next prompt orders the speaker to play it, and tells everyone e
   const mine = win.RP.systemFor(s, r, felt, {});
   const theirs = win.RP.systemFor(s, r, other, {});
   return Boolean(felt) && new RegExp('MOOD \u2014 ' + felt.name + ' is (irritated|angry)').test(mine) &&
-    /mood: (irritated|angry) \(anger [12]\/3 \u2014 the blade\)/.test(theirs) && !/You may colour/.test(mine) && !/\[\[TINT:/.test(mine);
+    /mood: (irritated|angry) \(anger [12]\/3 \u2014 the blade\)/.test(theirs) && /colour of the box is their mood/.test(mine) && !/\[\[TINT:/.test(mine);
 })());
 check('mood: the page reads the prose itself when nothing is filed — the mock\u2019s plain line moves nobody', (() => {
   return win.RP.moodScan('MOCK-MODEL REPLY #1: the blade goes in.', 'Anyone', []) === null &&
@@ -1499,18 +1630,27 @@ check('audit: the corrections are previewed before they land — the invented st
   const s = savedState();
   const r = s.rooms.find(x => x.id === s.active);
   return /−3 HP/.test(text) && /soot on the face/.test(text) && /the time is 23:40/.test(text) && /angry \(the bill\)|irritated \(the bill\)/.test(text) &&
-    !/Nobody Real/.test(text) && /Apply 4 changes/.test($('mOk').textContent) &&
+    !/Nobody Real/.test(text) && /Apply 5 changes/.test($('mOk').textContent) && /7\/\d+\)/.test(text) &&
+    doc.querySelectorAll('#modal [data-pick]:checked').length === 5 &&
     r.states[auditBefore.who].hp.value === auditBefore.hp && (r.clock || '') === auditBefore.clock;
+})());
+check('audit: each line has its own tick — untick the note and the button counts four', (() => {
+  const box = [...doc.querySelectorAll('#modal [data-pick]')].find(b => /soot on the face/.test(b.parentNode.textContent));
+  if (!box) return false;
+  box.checked = false;
+  box.dispatchEvent(new win.Event('change', { bubbles: true }));
+  return /Apply 4 changes/.test($('mOk').textContent);
 })());
 $('mOk').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
 await wait(200);
-check('audit: applied — the sheet, the note, the mood and the clock all moved, filed as one card in the stream', (() => {
+check('audit: applied — the sheet, the SET number, the mood (at the pitch it decided) and the clock moved; the unticked note did not', (() => {
   const s = savedState();
   const r = s.rooms.find(x => x.id === s.active);
   const sheet = r.states[auditBefore.who];
   const card = r.messages[r.messages.length - 1];
-  return $('modalBack').hidden && sheet.hp.value === auditBefore.hp - 3 && /soot on the face/.test(sheet.status) && r.clock === '23:40' &&
-    sheet.mood && sheet.mood.key === 'anger' && card.role === 'state' && card.lines.length === 4 && card.lines.every(l => /^🩺 /.test(l)) &&
+  return $('modalBack').hidden && sheet.hp.value === auditBefore.hp - 3 && !/soot on the face/.test(sheet.status || '') && r.clock === '23:40' &&
+    sheet.mp && sheet.mp.value === 7 && sheet.mood && sheet.mood.key === 'anger' && sheet.mood.level === 2 &&
+    card.role === 'state' && card.lines.length === 4 && card.lines.every(l => /^🩺 /.test(l)) &&
     !r.cast.some(c => /Nobody Real/.test(c.name)) && /🩺/.test($('stream').textContent);
 })());
 check('audit: ↩ undo takes the whole audit back — sheet, card and clock', (() => {
