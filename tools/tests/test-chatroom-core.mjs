@@ -3464,6 +3464,119 @@ check('voice: a studio stream that errors is read for WHY — turned-away profil
     bare && bare.refused && fine === null;
 })());
 
+// ---------- round 10: colour shorthand, HP redefined, the body's limits, audit notes ----------
+{
+  check('colour: a bare {word} is coloured in the speaker\u2019s mood ink; every colour shorthand the model reaches for lands', (() => {
+    const html = RP.md('I am still {pissed} enough. {red|blood} {the door|ice} {gold: the coin} {red}x{/red} [moss]y[/moss] <storm>z</storm> {a|b}');
+    return /<span class="tint mood">pissed<\/span>/.test(html) && /style="color:#c0392b">blood</.test(html) && /#4a8fc7">the door</.test(html) &&
+      /#a8862c">the coin</.test(html) && /#c0392b">x</.test(html) && /#5c7a3f">y</.test(html) && /#4c5a6e">z</.test(html) &&
+      /\{a\|b\}/.test(html) && !/\{pissed\}/.test(html) && /simply \{the stain\}/.test(RP.RULES || RP.systemFor(RP.blankState(), RP.newRoom([sans], {}), sans, {}));
+  })());
+  const st = RP.blankState();
+  const rm = RP.newRoom([sans], { title: 'The yard' });
+  st.rooms.push(rm); st.active = rm.id;
+  const you = RP.ensurePlayerSheet(st, rm);
+  check('hp: [[HP: Name = 28/80]] redefines the sheet — the maximum moves too, and the line says so', (() => {
+    const d = RP.parseDirectives('[[HP: Sans = 28/80]] [[MP: Sans 3/120]]', ['Sans']).directives;
+    const sheet = RP.sheetFor(rm, sans.id);
+    const line = RP.applyChange(sheet, d[0]);
+    const mp = RP.applyChange(sheet, d[1]);
+    const out = d[0].max === 80 && d[0].op === '=' && /Sans — HP redefined 28\/80 \(was 100\/100\)/.test(line) && sheet.hp.value === 28 && sheet.hp.max === 80 &&
+      d[1].max === 120 && sheet.mp.max === 120 && sheet.mp.value === 3 && /redefined/.test(mp) &&
+      /\[\[HP: Name = 28\/80\]\]/.test(RP.sheetAuditPrompt([rm], {})) && /NOTE:/.test(RP.sheetAuditPrompt([rm], {}));
+    sheet.hp = { value: 100, max: 100 }; sheet.mp = { value: 50, max: 50 };
+    return out;
+  })());
+  check('body: a limping player cannot parkour — the roll is tilted to the floor, the chip says why, and the prompt refuses the body before the world', (() => {
+    you.flags = { limping: { note: 'the crash', turns: 0 } };
+    const stop = RP.bodyCheck(you, 'I parkour up the side of the building.');
+    const walk = RP.bodyCheck(you, 'I walk over and talk to him.');
+    const scale = RP.attemptScale('I parkour up the side of the building.', you, null);
+    const fate = RP.rollFate(st, rm, { text: 'I parkour up the side of the building.', roll: 0.5 });
+    const beyond = RP.beyondBlock(fate);
+    const sys = RP.systemFor(st, rm, sans, {});
+    const refusals = [0, 0.3, 0.6, 0.9].map(roll => RP.rollFate(st, rm, { text: 'I parkour up the side of the building.', roll }).key);
+    const out = stop && /limping \(the crash\)/.test(stop.why) && stop.what === 'parkour' && walk === null && scale === 'unfit' &&
+      fate.scale === 'unfit' && /🩼 limping \(the crash\) \(−3\)/.test(fate.pill) && /THE BODY REFUSES — /.test(beyond) && /“parkour” is beyond/.test(beyond) &&
+      /THE PLAYER\u2019S BODY — /.test(sys) && /limping/.test(sys) && !refusals.includes('triumph') && refusals.includes('refusal') &&
+      sys.indexOf('THE PLAYER\u2019S BODY') > sys.indexOf('DIRECTIVES');
+    you.flags = {};
+    you.hp = { value: 20, max: 100 };
+    const hurt = RP.bodyCheck(you, 'I sprint after the truck.');
+    const still = RP.bodyCheck(you, 'I lie still and listen.');
+    you.hp = { value: 0, max: 100 };
+    const down = RP.bodyCheck(you, 'I stand up and shout.');
+    const crawl = RP.bodyCheck(you, 'I crawl towards the door.');
+    you.hp = { value: 100, max: 100 };
+    return out && hurt && /at 20\/100 HP/.test(hurt.why) && still === null && down && /0\/100|down/i.test(down.why) && crawl === null &&
+      RP.bodyCheck(you, 'I sprint after the truck.') === null && RP.playerBodyBlock(rm) === '';
+  })());
+  check('audit notes: NOTE lines are read (three at most), ride on the next turn as FROM THE AUDIT, and nothing is sent when there are none', (() => {
+    const notes = RP.parseAuditNotes('[[HP: Sans = 40]]\nNOTE: Sans at 28 HP should not be charging; next turn show the limp.\n- NOTE: Bowser has not spoken in ten turns.\nnote: lowercase too\nNOTE: a fourth that is dropped');
+    rm.auditNotes = notes.slice(0, 2);
+    const block = RP.auditNoteBlock(rm);
+    const sys = RP.systemFor(st, rm, sans, {});
+    const world = RP.worldSystem(st, rm, {});
+    rm.auditNotes = [];
+    return notes.length === 3 && /show the limp/.test(notes[0]) && notes[2] === 'lowercase too' && /FROM THE AUDIT/.test(block) && /show the limp/.test(block) &&
+      /FROM THE AUDIT/.test(sys) && /FROM THE AUDIT/.test(world) && RP.auditNoteBlock(rm) === '' && !/FROM THE AUDIT/.test(RP.systemFor(st, rm, sans, {})) &&
+      RP.parseAuditNotes('IN ORDER').length === 0;
+  })());
+}
+
+// ---------- round 10: ⇄ merge and @ ----------
+{
+  const wario = RP.normChar({ id: 'wario', name: 'Wario', title: 'Debt-maker' });
+  const bowser = RP.normChar({ id: 'bowser', name: 'Bowser', title: 'King' });
+  const st = RP.blankState();
+  const a = RP.newRoom([wario, sans], { kind: 'group', title: 'The pavement' });
+  const b = RP.newRoom([wario, bowser], { kind: 'group', title: 'The hangar roof' });
+  st.rooms.push(a, b); st.active = a.id; RP.linkRooms(a, b);
+  RP.ensurePlayerSheet(st, a); RP.ensurePlayerSheet(st, b);
+  st.book.entries.push({ id: 'e1', kind: 'THING', name: 'The Hangar Beast', text: 'A grey thing with too many claws, seen on the roof.', roomId: b.id, roomTitle: 'The hangar roof' });
+  check('@: what can be pointed at — here, the other scene, the lore book; the archive only once two letters are typed; a walker is “in the other scene”, not merely written out', (() => {
+    const all = RP.mentionables(st, a, { peach: { id: 'peach', name: 'Peach', title: 'Princess' } }, '');
+    const pe = RP.mentionables(st, a, { peach: { id: 'peach', name: 'Peach', title: 'Princess' } }, 'pe');
+    RP.setPresent(a, sans.id, false); RP.addToRoom(b, sans);
+    const walked = RP.mentionables(st, a, {}, 'sans')[0];
+    RP.castRemove(b, sans.id); RP.setPresent(a, sans.id, true);
+    return all.map(c => c.kind + ':' + c.name).join() === 'here:Wario,here:Sans,other:Bowser,book:The Hangar Beast' &&
+      pe.length === 1 && pe[0].kind === 'archive' && walked && walked.kind === 'other' && walked.roomId === b.id &&
+      RP.MENTION_KINDS.other === 'in the other scene';
+  })());
+  check('@: the @ signs come out, the pointers stay, a stray @nobody is left alone, and the model is told who was meant — a wall apart', (() => {
+    const cands = RP.mentionables(st, a, {}, '');
+    const parsed = RP.parseMentions('@Bowser, did you see @[The Hangar Beast]? @Sans stay. @nobody', cands);
+    const block = RP.pingBlock(st, a, parsed.mentions, {});
+    const sys = RP.systemFor(st, a, wario, { mentions: parsed.mentions, catalog: {} });
+    return parsed.clean === 'Bowser, did you see The Hangar Beast? Sans stay. @nobody' && parsed.mentions.length === 3 &&
+      parsed.mentions.map(m => m.kind).sort().join() === 'book,here,other' && /NAMED BY THE PLAYER/.test(block) &&
+      /Bowser — in the other scene right now, “The hangar roof” \(100\/100 HP\)\. A wall apart/.test(block) && /The Hangar Beast — thing, from the lore book/.test(block) &&
+      /too many claws, seen on the roof\. The same one/.test(block) && !/- Sans/.test(block) && /Nobody listed here walks in/.test(block) &&
+      /NAMED BY THE PLAYER/.test(sys) && RP.pingBlock(st, a, [], {}) === '' && RP.pingBlock(st, a, [{ id: sans.id, name: 'Sans', kind: 'here' }], {}) === '';
+  })());
+  check('⇄ merge: everybody in one place, both streams by the clock with a camera card at each cut, sheets and facts kept, the link gone, undo whole', (() => {
+    b.messages.push({ id: 'm1', role: 'user', text: 'I open the engine.', at: 1000 });
+    b.messages.push({ id: 'm2', role: 'char', charId: 'bowser', text: 'Bowser growls.', at: 2000 });
+    a.messages.push({ id: 'm3', role: 'user', text: 'I wait on the pavement.', at: 1500 });
+    a.messages.push({ id: 'm4', role: 'char', charId: 'sans', text: 'heh.', at: 2500 });
+    b.states.bowser.hp.value = 50; a.facts = { place: 'the pavement' }; b.facts = { place: 'the roof', weather: 'rain' }; b.clock = '23:40';
+    RP.pushUndo(a, 'merging');
+    a.undo[a.undo.length - 1].linkedTo = b.id;
+    const rep = RP.mergeRooms(st, a, b, {});
+    const order = a.messages.map(m => m.role === 'scene' ? '[' + m.text + ']' : m.role + ':' + RP.textOf(m)).join(' | ');
+    const merged = rep && rep.joined.join() === 'Bowser' && rep.already.join() === 'Wario' && rep.turns === 2 && rep.cards === 4 &&
+      order === '[⇄ The hangar roof] | user:I open the engine. | [⇄ The pavement] | user:I wait on the pavement. | [⇄ The hangar roof] | char:Bowser growls. | [⇄ The pavement] | char:heh. | state:' &&
+      a.cast.map(c => c.name).join() === 'Wario,Sans,Bowser' && a.states.bowser.hp.value === 50 && a.facts.place === 'the pavement' && a.facts.weather === 'rain' &&
+      a.clock === '23:40' && !a.linkedTo && !b.linkedTo && b.mergedInto === a.id && !RP.linkedRoom(st, a) &&
+      a.messages[a.messages.length - 1].role === 'state' && a.messages[a.messages.length - 1].merged && !a.recapAt && !a.recap &&
+      a.messages.filter(m => m.camera).every(m => m.role === 'scene') && !RP.historyFor(st, a).some(x => /⇄/.test(x.content || ''));
+    RP.undo(a);
+    const back = a.cast.length === 2 && !a.messages.some(m => m.camera) && a.linkedTo === b.id && RP.linkedRoom(st, a) === b && a.clock !== '23:40';
+    return merged && back;
+  })());
+}
+
 check('build: chatroom.html and workflow/roleplay.html match their sources', built);
 
 console.log(ok ? 'ALL CHATROOM CORE TESTS PASS' : 'CHATROOM CORE TESTS FAILED');

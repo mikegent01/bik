@@ -49,6 +49,7 @@
   --accent: #2c6df0;
   --accent-soft: #e8f0fe;
   --bubble: #f1f1f3;
+  --card: #ffffff;
   --danger: #c2483a;
   --ok: #1f9d55;
   --radius: 14px;
@@ -90,7 +91,7 @@ a { color: inherit; }
 
 .create {
   display: flex; align-items: center; gap: 10px; width: 100%;
-  border: 1px solid var(--line); background: #fff; border-radius: 999px;
+  border: 1px solid var(--line); background: var(--card); border-radius: 999px;
   padding: 11px 16px; cursor: pointer; font-weight: 600; box-shadow: 0 1px 2px rgba(0,0,0,.05);
 }
 .create:hover { background: var(--panel2); }
@@ -114,7 +115,7 @@ a { color: inherit; }
 .recent .name { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px; }
 .recent .kill { opacity: 0; border: 0; background: transparent; cursor: pointer; color: var(--muted); padding: 2px 4px; border-radius: 6px; }
 .recent:hover .kill { opacity: 1; }
-.recent .kill:hover { color: var(--danger); background: #fff; }
+.recent .kill:hover { color: var(--danger); background: var(--card); }
 
 .rail-foot { border-top: 1px solid var(--line); padding-top: 10px; display: flex; flex-direction: column; gap: 8px; }
 .upgrade {
@@ -155,9 +156,9 @@ a { color: inherit; }
 .dash-top .grow { flex: 1; }
 .dash-top h1 { font-size: 20px; margin: 0; }
 .dash-top p { margin: 2px 0 0; color: var(--muted); font-size: 13px; }
-.iconbtn { width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--line); background: #fff; cursor: pointer; display: grid; place-items: center; }
+.iconbtn { width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--line); background: var(--card); cursor: pointer; display: grid; place-items: center; }
 .iconbtn:hover { background: var(--panel2); }
-.pill { border: 1px solid var(--line); background: #fff; border-radius: 999px; padding: 8px 15px; cursor: pointer; font-size: 13px; font-weight: 600; }
+.pill { border: 1px solid var(--line); background: var(--card); border-radius: 999px; padding: 8px 15px; cursor: pointer; font-size: 13px; font-weight: 600; }
 .pill:hover { background: var(--panel2); }
 .pill.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
 
@@ -242,7 +243,7 @@ a { color: inherit; }
 .speakers .sp[draggable=true] { cursor: grab; }
 .speakers .sp.dragging { opacity: .5; }
 .speakers .qa {
-  border: 1px solid var(--line); background: #fff; border-radius: 999px; padding: 6px 13px; font-size: 13px;
+  border: 1px solid var(--line); background: var(--card); border-radius: 999px; padding: 6px 13px; font-size: 13px;
   cursor: pointer; font-weight: 600; color: #3a3a42;
 }
 .speakers .qa:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
@@ -297,7 +298,7 @@ a { color: inherit; }
 /* The kit, as a grid of slots. */
 .statebar .kit { display: grid; grid-template-columns: repeat(8, 1fr); gap: 3px; margin: 2px 0 4px; }
 .statebar .slot {
-  position: relative; aspect-ratio: 1; border: 1px solid var(--line); background: #fff;
+  position: relative; aspect-ratio: 1; border: 1px solid var(--line); background: var(--card);
   border-radius: 7px; display: grid; place-items: center; font-size: 13px; cursor: pointer; padding: 0;
 }
 .statebar .slot.empty { background: repeating-linear-gradient(135deg, #f6f6f8 0 4px, #fff 4px 8px); cursor: default; }
@@ -310,7 +311,7 @@ a { color: inherit; }
 .statebar .sheet.you .nm::after { content: 'your pack'; font-size: 10px; font-weight: 500; color: var(--muted); margin-left: auto; }
 .statebar .kit.big { grid-template-columns: repeat(6, 1fr); }
 .statebar .slot.add { cursor: pointer; color: var(--muted); font-size: 12px; font-weight: 600; }
-.statebar .slot.add:hover { border-color: var(--accent); color: var(--accent); background: #fff; }
+.statebar .slot.add:hover { border-color: var(--accent); color: var(--accent); background: var(--card); }
 .tint { font-weight: 600; }
 
 .statebar .chips { display: flex; flex-wrap: wrap; gap: 4px; }
@@ -328,6 +329,22 @@ a { color: inherit; }
 .turn.mooded .bubble { background: var(--mood-bg); border: 1px solid var(--mood-line); border-left-width: 4px; }
 .turn.user.mooded .bubble { border-left-width: 1px; border-right-width: 4px; }
 .turn.mooded .bubble .tint { text-shadow: 0 0 0 currentColor; }
+/* {word} with no colour named: the speaker's own mood ink (a warm red when nobody is in a mood). */
+.tint.mood { color: var(--mood-ink, #b3261e); font-weight: 600; }
+.scene-card.camera { border-left-color: var(--muted); color: var(--muted); font-size: 12px; padding: 4px 12px; margin-bottom: 14px; max-width: 320px; margin-left: 0; border-radius: 0 8px 8px 0; }
+/* @Name in a turn: a pointer to exactly who was meant. */
+.bubble a.mention { color: var(--accent); text-decoration: none; border-bottom: 1px dotted var(--accent); font-weight: 600; cursor: pointer; }
+.bubble a.mention:hover { background: var(--accent-soft); }
+.mention-pop { position: absolute; left: 14px; right: 14px; bottom: calc(100% + 6px); background: var(--card); border: 1px solid var(--line); border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,.14); padding: 6px; z-index: 30; max-height: 280px; overflow: auto; }
+.mention-pop[hidden] { display: none; }
+.modal .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 2px 16px; align-items: center; }
+.modal .grid2 label { margin: 8px 0 2px; }
+.modal .grid2 select { width: 100%; }
+@media (max-width: 640px) { .modal .grid2 { grid-template-columns: 1fr; } }
+.mention-row { display: flex; align-items: center; gap: 8px; width: 100%; border: 0; background: transparent; padding: 6px 8px; border-radius: 8px; cursor: pointer; text-align: left; font-size: 13px; }
+.mention-row.on, .mention-row:hover { background: var(--accent-soft); }
+.mention-row .kind { color: var(--muted); font-size: 11px; margin-left: auto; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 55%; }
+.turn .stamp { display: none; font-size: 11px; color: var(--muted); }
 .turn .moodtag { font-size: 11px; font-weight: 600; color: var(--mood-ink); background: var(--mood-bg); border: 1px solid var(--mood-line); border-radius: 999px; padding: 0 7px; }
 .statebar .sheet.mooded { border-color: var(--mood-line); box-shadow: inset 3px 0 0 var(--mood-line); }
 .statebar .flag.mood { background: var(--mood-bg); color: var(--mood-ink); border: 1px solid var(--mood-line); font-weight: 600; }
@@ -449,7 +466,7 @@ a { color: inherit; }
 /* Cast browser / feed filter bar. */
 .castbar { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-bottom: 12px; }
 .castbar select {
-  border: 1px solid var(--line); background: #fff; border-radius: 999px; padding: 7px 12px; font-size: 13px; outline: 0;
+  border: 1px solid var(--line); background: var(--card); border-radius: 999px; padding: 7px 12px; font-size: 13px; outline: 0;
   max-width: 230px;
 }
 .castbar .chip.clear { border-color: var(--bad); color: var(--bad); }
@@ -460,9 +477,9 @@ a { color: inherit; }
 
 .controls { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
 .controls select, .controls input[type=search] {
-  border: 1px solid var(--line); background: #fff; border-radius: 999px; padding: 7px 12px; outline: 0; font-size: 13px;
+  border: 1px solid var(--line); background: var(--card); border-radius: 999px; padding: 7px 12px; outline: 0; font-size: 13px;
 }
-.chip { border: 1px solid var(--line); background: #fff; border-radius: 999px; padding: 6px 13px; font-size: 13px; cursor: pointer; }
+.chip { border: 1px solid var(--line); background: var(--card); border-radius: 999px; padding: 6px 13px; font-size: 13px; cursor: pointer; }
 .chip.on { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); font-weight: 600; }
 
 .handback { max-width: 760px; margin: 0 auto 22px; text-align: center; color: var(--muted); font-size: 13px; }
@@ -483,7 +500,7 @@ a { color: inherit; }
 .item .tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
 .tag { background: var(--panel2); border-radius: 999px; padding: 2px 9px; font-size: 11px; color: var(--muted); }
 .item .acts { display: flex; gap: 6px; margin-top: 10px; }
-.mini { border: 1px solid var(--line); background: #fff; border-radius: 8px; padding: 4px 10px; font-size: 12px; cursor: pointer; }
+.mini { border: 1px solid var(--line); background: var(--card); border-radius: 8px; padding: 4px 10px; font-size: 12px; cursor: pointer; }
 .mini:hover { background: var(--panel2); }
 .mini.danger:hover { color: var(--danger); }
 
@@ -511,8 +528,8 @@ a { color: inherit; }
 .bubble p { margin: 0 0 10px; }
 .bubble p:last-child { margin-bottom: 0; }
 .bubble ul { margin: 0 0 10px; padding-left: 20px; }
-.bubble em { color: #4a4a55; }
-.bubble .q { color: #123; }
+.bubble em { color: var(--em, #4a4a55); }
+.bubble .q { color: var(--quote, #123); }
 .turn.err .bubble { background: #fdecea; color: #7a2a20; }
 .scene-card { max-width: 760px; margin: 0 auto 22px; border-left: 3px solid var(--accent); background: var(--panel); border-radius: 0 10px 10px 0; padding: 10px 14px; color: #3d3d44; font-size: 14px; white-space: pre-wrap; }
 .scene-card.beat { border-left-color: #c58b2c; }
@@ -533,12 +550,12 @@ a { color: inherit; }
 .charpanel { background: var(--panel); position: relative; z-index: 2; }
 
 .composer-wrap { padding: 10px 26px 18px; }
-.composer { max-width: 820px; margin: 0 auto; display: flex; align-items: flex-end; gap: 8px; border: 1px solid var(--line); background: #fff; border-radius: 22px; padding: 8px 8px 8px 16px; box-shadow: 0 1px 3px rgba(0,0,0,.06); }
+.composer { position: relative; max-width: 820px; margin: 0 auto; display: flex; align-items: flex-end; gap: 8px; border: 1px solid var(--line); background: var(--card); border-radius: 22px; padding: 8px 8px 8px 16px; box-shadow: 0 1px 3px rgba(0,0,0,.06); }
 .composer:focus-within { border-color: var(--accent); }
 .composer textarea { flex: 1; border: 0; outline: 0; resize: none; background: transparent; max-height: 150px; padding: 6px 0; }
-.composer .send { width: 36px; height: 36px; border-radius: 50%; border: 0; background: #1a1a1c; color: #fff; cursor: pointer; font-size: 17px; }
+.composer .send { width: 36px; height: 36px; border-radius: 50%; border: 0; background: var(--text); color: var(--bg); cursor: pointer; font-size: 17px; }
 .composer .send:disabled { opacity: .4; cursor: default; }
-.composer .roundbtn { width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--line); background: #fff; cursor: pointer; }
+.composer .roundbtn { width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--line); background: var(--card); cursor: pointer; }
 .composer .roundbtn:hover { background: var(--panel2); }
 .composer-note { max-width: 820px; margin: 7px auto 0; color: var(--muted); font-size: 11px; text-align: center; }
 .speakers {
@@ -551,7 +568,7 @@ a { color: inherit; }
 .speakers .emptynote { flex: 0 0 auto; margin: 0; }
 .speakers .sp {
   display: flex; align-items: center; gap: 6px; flex: 0 0 auto; max-width: 210px;
-  border: 1px solid var(--line); background: #fff; border-radius: 999px; padding: 3px 10px 3px 3px;
+  border: 1px solid var(--line); background: var(--card); border-radius: 999px; padding: 3px 10px 3px 3px;
   cursor: pointer; font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
 .speakers .sp.on { border-color: var(--accent); background: var(--accent-soft); }
@@ -564,12 +581,12 @@ a { color: inherit; }
    up (the same way it does on a small screen) unless the window is wide. */
 .sidescene { display: none; flex: 1 1 0; min-width: 0; flex-direction: column; overflow: hidden; border-left: 1px solid var(--line); background: var(--panel); }
 .sidescene .chat-top, .sidescene .composer-wrap { background: var(--panel); }
-.sidescene .chat-top .pill { background: #fff; }
+.sidescene .chat-top .pill { background: var(--card); }
 .chat-top .roundbtn.col-b { display: inline-grid; place-items: center; color: var(--accent); border-color: var(--accent); background: var(--accent-soft); cursor: default; font-size: 15px; }
 @media (min-width: 1101px) {
   .chatview.linked .sidescene:not([hidden]) { display: flex; }
   .chatview.linked .charpanel { display: none; }
-  .chatview.linked .charpanel.open { display: block; position: fixed; right: 0; top: 0; bottom: 0; background: #fff; z-index: 30; box-shadow: -8px 0 30px rgba(0,0,0,.12); }
+  .chatview.linked .charpanel.open { display: block; position: fixed; right: 0; top: 0; bottom: 0; background: var(--card); z-index: 30; box-shadow: -8px 0 30px rgba(0,0,0,.12); }
 }
 @media (min-width: 1600px) {
   .chatview.linked .charpanel { display: block; }
@@ -587,7 +604,7 @@ a { color: inherit; }
 .chat-top .pill.stop:hover { filter: brightness(1.1); }
 /* Which scene the dock is about, when two are up. */
 .dock-side { display: flex; gap: 4px; padding: 10px 14px 0; }
-.dock-side button { flex: 1 1 0; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; border: 1px solid var(--line); background: #fff; border-radius: 999px; padding: 5px 10px; font-size: 12px; cursor: pointer; }
+.dock-side button { flex: 1 1 0; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; border: 1px solid var(--line); background: var(--card); border-radius: 999px; padding: 5px 10px; font-size: 12px; cursor: pointer; }
 .dock-side button.on { border-color: var(--accent); background: var(--accent-soft); color: var(--accent); }
 /* A linked pair is one line in the recents. */
 .recent.pair .name::before { content: '⇄ '; color: var(--accent); }
@@ -634,7 +651,7 @@ body.dragging-cast .scene-col.target, body.dragging-turn .scene-col.target { out
 .dock .hint { font-size: 12px; color: var(--muted); margin: 2px 0 8px; line-height: 1.45; }
 .dock .seat {
   display: flex; align-items: center; gap: 8px; padding: 6px 8px; border-radius: 10px; border: 1px solid var(--line);
-  background: #fff; margin-bottom: 6px; cursor: grab;
+  background: var(--card); margin-bottom: 6px; cursor: grab;
 }
 .dock .seat.away { opacity: .65; border-style: dashed; cursor: default; }
 .dock .seat.you { border-color: var(--accent); background: var(--accent-soft); }
@@ -648,7 +665,7 @@ body.dragging-cast .scene-col.target, body.dragging-turn .scene-col.target { out
 .dock .btnrow .mini { padding: 6px 11px; font-size: 12px; }
 .dock .mini.primary { background: var(--accent); color: #fff; border-color: var(--accent); }
 .dock .mini.primary:hover { background: #1f5ad0; }
-.dock .link-card { border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; background: #fff; font-size: 13px; }
+.dock .link-card { border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; background: var(--card); font-size: 13px; }
 .dock .link-card b { display: block; margin-bottom: 4px; }
 .dock .link-card.on { border-color: var(--accent); background: var(--accent-soft); }
 .dock .cp-menu { border-top: 0; padding-top: 0; }
@@ -662,7 +679,7 @@ body.dragging-cast .scene-col.target, body.dragging-turn .scene-col.target { out
 .cp-head .by { color: var(--muted); font-size: 13px; }
 .cp-row { display: flex; align-items: center; gap: 8px; margin: 14px 0 10px; }
 .cp-row .grow { flex: 1; }
-.votes { display: flex; align-items: center; gap: 6px; border: 1px solid var(--line); background: #fff; border-radius: 999px; padding: 5px 12px; }
+.votes { display: flex; align-items: center; gap: 6px; border: 1px solid var(--line); background: var(--card); border-radius: 999px; padding: 5px 12px; }
 .votes button { border: 0; background: transparent; cursor: pointer; color: var(--muted); }
 .votes button.on { color: var(--accent); }
 /* Filed text is shown in full and scrolls if it is long. Cutting a status
@@ -684,18 +701,18 @@ body.dragging-cast .scene-col.target, body.dragging-turn .scene-col.target { out
 /* ---------------- modal ---------------- */
 
 .modal-back { position: fixed; inset: 0; background: rgba(20,20,25,.42); display: grid; place-items: center; padding: 24px; z-index: 40; }
-.modal { background: #fff; border-radius: 16px; width: min(720px, 100%); max-height: 86vh; overflow: auto; padding: 20px 22px; box-shadow: 0 20px 60px rgba(0,0,0,.25); }
+.modal { background: var(--card); border-radius: 16px; width: min(720px, 100%); max-height: 86vh; overflow: auto; padding: 20px 22px; box-shadow: 0 20px 60px rgba(0,0,0,.25); }
 .modal h3 { margin: 0 0 4px; font-size: 18px; }
 .modal .sub { color: var(--muted); font-size: 13px; margin: 0 0 14px; }
 .modal label { display: block; font-size: 13px; font-weight: 600; margin: 12px 0 4px; }
-.modal input[type=text], .modal textarea, .modal select { width: 100%; border: 1px solid var(--line); border-radius: 10px; padding: 9px 11px; background: #fff; outline: 0; }
+.modal input[type=text], .modal textarea, .modal select { width: 100%; border: 1px solid var(--line); border-radius: 10px; padding: 9px 11px; background: var(--card); outline: 0; }
 .modal textarea { min-height: 84px; resize: vertical; }
 .modal input:focus, .modal textarea:focus, .modal select:focus { border-color: var(--accent); }
 .modal .actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 18px; }
 .modal .checks { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 8px; font-size: 13px; }
 .modal .checks label { display: flex; align-items: center; gap: 6px; margin: 0; font-weight: 500; }
 .picker { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 8px; max-height: 44vh; overflow: auto; margin-top: 8px; }
-.pick { display: flex; align-items: center; gap: 8px; border: 1px solid var(--line); border-radius: 10px; padding: 7px 9px; cursor: pointer; background: #fff; text-align: left; }
+.pick { display: flex; align-items: center; gap: 8px; border: 1px solid var(--line); border-radius: 10px; padding: 7px 9px; cursor: pointer; background: var(--card); text-align: left; }
 .pick.on { border-color: var(--accent); background: var(--accent-soft); }
 .pick span { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 13px; }
 /* The invite grid: portraits first, names under them, a dashed ＋ for somebody new. */
@@ -706,7 +723,7 @@ body.dragging-cast .scene-col.target, body.dragging-turn .scene-col.target { out
 .pick.new { border-style: dashed; color: var(--muted); }
 .pick.new:hover { color: var(--accent); border-color: var(--accent); }
 
-.toast { position: fixed; left: 50%; transform: translateX(-50%); bottom: 22px; background: #1a1a1c; color: #fff; padding: 10px 18px; border-radius: 999px; font-size: 13px; z-index: 60; box-shadow: 0 6px 20px rgba(0,0,0,.25); }
+.toast { position: fixed; left: 50%; transform: translateX(-50%); bottom: 22px; background: var(--text); color: var(--bg); padding: 10px 18px; border-radius: 999px; font-size: 13px; z-index: 60; box-shadow: 0 6px 20px rgba(0,0,0,.25); }
 
 .status { display: flex; align-items: center; gap: 7px; color: var(--muted); font-size: 12px; }
 .dot { width: 8px; height: 8px; border-radius: 50%; background: #b9b9c0; }
@@ -716,7 +733,7 @@ body.dragging-cast .scene-col.target, body.dragging-turn .scene-col.target { out
 
 /* ---------------- narrow screens ---------------- */
 
-@media (max-width: 1100px) { .charpanel { display: none; } .charpanel.open { display: block; position: fixed; right: 0; top: 0; bottom: 0; background: #fff; z-index: 30; box-shadow: -8px 0 30px rgba(0,0,0,.12); } }
+@media (max-width: 1100px) { .charpanel { display: none; } .charpanel.open { display: block; position: fixed; right: 0; top: 0; bottom: 0; background: var(--card); z-index: 30; box-shadow: -8px 0 30px rgba(0,0,0,.12); } }
 @media (max-width: 760px) {
   .rail { position: fixed; z-index: 35; height: 100%; transform: translateX(-100%); transition: transform .18s; }
   .rail.open { transform: none; }
@@ -736,6 +753,42 @@ body.dragging-cast .scene-col.target, body.dragging-turn .scene-col.target { out
 .benched button{border:0;background:none;cursor:pointer;padding:0 2px;opacity:.7}
 .benched button:hover{opacity:1}
 .sheet[draggable="true"]{cursor:grab}
+
+/* ---- 🎨 Appearance: everything hangs off data- attributes on <html> ---- */
+[data-theme=sepia] { color-scheme: light; --bg: #f6efe2; --rail: #efe6d5; --panel: #f1e9da; --panel2: #e6dcc8; --line: #d9cdb4; --text: #2b2419; --muted: #7a6c58;
+  --accent: #9a5b1f; --accent-soft: #f1dfc6; --bubble: #efe5d2; --card: #fbf6ec; --em: #5a4a35; --quote: #3a2d1c; }
+[data-theme=dusk] { color-scheme: dark; --bg: #17171b; --rail: #1e1e24; --panel: #202027; --panel2: #2a2a32; --line: #34343d; --text: #e8e8ee; --muted: #9a9aa6;
+  --accent: #7aa2ff; --accent-soft: #263050; --bubble: #262630; --card: #2a2a33; --danger: #ff7b6e; --ok: #4fd08a; --em: #c9c9d6; --quote: #dfe6f0; }
+[data-theme=dusk] .turn.mooded .bubble { background: color-mix(in srgb, var(--mood-line) 24%, var(--bubble)); }
+[data-theme=dusk] .turn .moodtag { background: transparent; color: var(--mood-line); }
+[data-theme=dusk] .tint.mood { color: var(--mood-line, #ff8a80); }
+[data-theme=dusk] .statebar .flag { background: #4a2626; color: #ffb4ab; }
+[data-theme=dusk] .statebar .slot.empty { background: repeating-linear-gradient(135deg, #22222a 0 4px, #2a2a33 4px 8px); }
+[data-theme=dusk] .modal { box-shadow: 0 20px 60px rgba(0,0,0,.6); }
+[data-theme=dusk] .bubble .tint { filter: brightness(1.45); }
+[data-size=s] body { font-size: 13.5px; }
+[data-size=l] body { font-size: 17px; }
+[data-size=xl] body { font-size: 19px; }
+[data-size=l] .turn .who b, [data-size=xl] .turn .who b { font-size: 1em; }
+[data-font=serif] .bubble, [data-font=serif] .scene-card { font-family: Georgia, "Iowan Old Style", "Palatino Linotype", "Book Antiqua", serif; }
+[data-font=mono] .bubble { font-family: ui-monospace, "Cascadia Mono", Menlo, Consolas, monospace; font-size: .95em; }
+[data-width=narrow] .stream-inner, [data-width=narrow] .composer { max-width: 620px; }
+[data-width=narrow] .bubble { max-width: 580px; }
+[data-width=wide] .stream-inner, [data-width=wide] .composer { max-width: 1080px; }
+[data-width=wide] .bubble, [data-width=wide] .scene-card { max-width: 1000px; }
+[data-mood=soft] .turn.mooded .bubble { background: var(--bubble); border-color: var(--line); border-left-color: var(--mood-line); border-right-color: var(--mood-line); }
+[data-mood=soft] .turn.user.mooded .bubble { background: var(--accent-soft); }
+[data-mood=off] .turn.mooded .bubble { background: var(--bubble); border: 0; }
+[data-mood=off] .turn.user.mooded .bubble { background: var(--accent-soft); }
+[data-mood=off] .turn .moodtag { display: none; }
+[data-words=off] .bubble .tint { color: inherit !important; font-weight: inherit; text-shadow: none; }
+[data-badges=off] .turn .badge, [data-badges=off] .turn .meanwhile, [data-badges=off] .turn .metastrip .consulted { display: none; }
+[data-stamps=on] .turn .stamp { display: inline; }
+[data-portraits=off] .turn .who .av { display: none; }
+[data-density=compact] .turn { margin-bottom: 12px; }
+[data-density=compact] .bubble { padding: 8px 12px; border-radius: 10px; }
+[data-density=compact] .stream { padding-top: 12px; }
+[data-density=compact] .scene-card { margin-bottom: 12px; padding: 6px 12px; }
 </style>
 </head>
 <body>
@@ -946,13 +999,56 @@ window.CHATROOM_CONFIG = {
   }
   RP.colourLoose = colourLoose;
 
-  function inlineMd(text) {
+  function tintSpan(value, body) {
+    return '<span class="tint" style="color:' + value + '">' + body + '</span>';
+  }
+  /** Coloured words, in every shape a model writes them. The documented
+   *  form is {red|the door}; what actually arrives is also {the door|red},
+   *  {red: the door}, {red}the door{/red}, [red]the door[/red],
+   *  <red>the door</red> — and, most often of all, a bare {the door} with
+   *  no colour at all. A bare brace means "colour this", and the colour it
+   *  gets is the speaker's mood (the --mood-ink of the card), or a plain
+   *  ember when they are calm. Pure junk is left as written. */
+  function colourInline(text) {
     return String(text)
       // {red|the door} · {dark red|the door} · {#c0392b|the door}
       .replace(/\{([a-z][a-z ]{2,14}|#[0-9a-f]{3,6})\|([^{}]{1,300})\}/gi, function (all, name, body) {
         var value = colourLoose(name);
-        return value ? '<span class="tint" style="color:' + value + '">' + body + '</span>' : all;
+        return value ? tintSpan(value, body) : all;
       })
+      // {the door|red} — the same thing, backwards
+      .replace(/\{([^{}|]{1,300})\|([a-z][a-z ]{2,14}|#[0-9a-f]{3,6})\}/gi, function (all, body, name) {
+        var value = colourLoose(name);
+        return value ? tintSpan(value, body) : all;
+      })
+      // {red: the door}
+      .replace(/\{([a-z][a-z ]{2,14}|#[0-9a-f]{3,6}):\s*([^{}]{1,300})\}/gi, function (all, name, body) {
+        var value = colourLoose(name);
+        return value ? tintSpan(value, body) : all;
+      })
+      // {red}the door{/red} · [red]the door[/red] · <red>the door</red> (escaped by now)
+      .replace(/\{([a-z][a-z ]{2,14})\}([^{}]{1,300}?)\{\/\1\}/gi, function (all, name, body) {
+        var value = colourLoose(name);
+        return value ? tintSpan(value, body) : all;
+      })
+      .replace(/\[([a-z][a-z ]{2,14})\]([^\[\]]{1,300}?)\[\/\1\]/gi, function (all, name, body) {
+        var value = colourLoose(name);
+        return value ? tintSpan(value, body) : all;
+      })
+      .replace(/&lt;([a-z][a-z ]{2,14})&gt;([^&]{1,300}?)&lt;\/\1&gt;/gi, function (all, name, body) {
+        var value = colourLoose(name);
+        return value ? tintSpan(value, body) : all;
+      })
+      // {pissed} — no colour named: the mood's colour, or an ember
+      .replace(/\{([^{}|:\n]{1,60})\}/g, function (all, body) {
+        if (!/[a-z]/i.test(body)) return all;
+        return '<span class="tint mood">' + body + '</span>';
+      });
+  }
+  RP.colourInline = colourInline;
+
+  function inlineMd(text) {
+    return colourInline(text)
       .replace(/\*\*([^*]+)\*\*/g, '<b>$1</b>')
       .replace(/\*([^*\n]+)\*/g, '<em>$1</em>')
       .replace(/&quot;([^&]*?)&quot;/g, '<span class="q">&quot;$1&quot;</span>');
@@ -1652,9 +1748,9 @@ window.CHATROOM_CONFIG = {
 
   var RULES = [
     'You may colour a few words inside the prose when they carry weight — {red|the door is open}, {ice|her breath}, ' +
-      '{#8e2b20|the stain} — two or three words, once in a turn at most, never a whole sentence. Colours: red, blood, ' +
-      'crimson, ember, amber, gold, copper, rust, moss, green, jade, teal, sea, ice, blue, storm, violet, lilac, plum, ' +
-      'pink, grey, silver, bone, sand, black, white, or any #hex. The colour of the box is their mood; the colour of the words is yours.',
+      'or simply {the stain} to use the speaker\u2019s own mood colour — two or three words, once in a turn at most, never a ' +
+      'whole sentence. Colours: red, blood, crimson, ember, amber, gold, copper, rust, moss, green, jade, teal, sea, ice, blue, ' +
+      'storm, violet, lilac, plum, pink, grey, silver, bone, sand, black, white, or any #hex. The colour of the box is their mood; the colour of the words is yours.',
     'Use the material. When the archive passages, the session filing or the lore book say something that touches ' +
       'this moment, USE IT — a date, a name, a number, what somebody actually said. Quote it, argue with it, get it ' +
       'slightly wrong in character if that is truer. A scene that could have happened in any story is a wasted turn.',
@@ -3331,13 +3427,21 @@ window.CHATROOM_CONFIG = {
     if (change.kind === 'hp' || change.kind === 'mp') {
       var pool = sheet[change.kind];
       if (!pool || isNaN(n)) return '';
-      var before = pool.value;
+      var before = pool.value, beforeMax = pool.max;
+      // [[HP: Name = 28/80]] redefines the pool: who they are now, not a
+      // nudge to who they were. The max moves with the value.
+      var newMax = Number(change.max);
+      if (newMax > 0 && newMax !== pool.max) pool.max = Math.round(newMax);
       if (change.op === '+') pool.value += n;
       else if (change.op === '-') pool.value -= n;
       else pool.value = n;
       clampPool(pool);
-      if (pool.value === before) return '';
       var word = change.kind.toUpperCase();
+      if (pool.max !== beforeMax) {
+        return sheet.name + ' — ' + word + ' redefined ' + pool.value + '/' + pool.max + ' (was ' + before + '/' + beforeMax + ')' +
+          (change.kind === 'hp' && pool.value === 0 ? ' — down' : '');
+      }
+      if (pool.value === before) return '';
       return sheet.name + ' ' + (pool.value > before ? '+' : '−') + Math.abs(pool.value - before) + ' ' + word +
         ' (' + pool.value + '/' + pool.max + ')' + (change.kind === 'hp' && pool.value === 0 ? ' — down' : '');
     }
@@ -3697,6 +3801,32 @@ window.CHATROOM_CONFIG = {
       ' reading of them' + (level >= 3 ? ', and at this pitch let it cost them something when it would.' : '.');
   };
 
+  /** The player's own body, as a standing limit on what they can attempt.
+   *  Nothing when they are whole and unflagged. */
+  RP.playerBodyBlock = function (room) {
+    if (!room || room.mechanics === 'off') return '';
+    var you = (room.states || {})[RP.playerSheetId(room)];
+    if (!you) return '';
+    var hp = you.hp && you.hp.max ? you.hp.value / you.hp.max : 1;
+    var flags = Object.keys(you.flags || {}).map(function (f) {
+      var cond = you.flags[f] && typeof you.flags[f] === 'object' ? you.flags[f] : {};
+      return f.replace(/_/g, ' ') + (cond.note ? ' (' + cond.note + ')' : '');
+    });
+    if (hp > 0.65 && !flags.length) return '';
+    var rules = [];
+    BODY_LIMITS.forEach(function (rule) {
+      if (flags.some(function (f) { return rule.why.test(f); }) || rule.why.test(String(you.status || ''))) rules.push(rule.part);
+    });
+    var state = you.hp && you.hp.value <= 0 ? 'DOWN at 0 HP \u2014 a word, a crawl, a hand; nothing more'
+      : hp <= 0.35 ? 'BADLY HURT at ' + you.hp.value + '/' + you.hp.max + ' HP \u2014 no sprinting, climbing, vaulting, hauling or long fights; every move shows it'
+      : hp <= 0.65 ? 'HURT at ' + you.hp.value + '/' + you.hp.max + ' HP \u2014 slower, favouring the wound; a big effort costs breath and shows'
+      : 'marked';
+    return 'THE PLAYER\u2019S BODY \u2014 ' + you.name + ' is ' + state +
+      (flags.length ? '; in play on them: ' + flags.join('; ') : '') +
+      (rules.length ? '. What ' + (rules.length === 1 ? rules[0] : rules.join(' and ')) + ' cannot do, they cannot do' : '') +
+      '. What they attempt is bound by this: when they try past it, the body fails them before the world does, the people here see it, and you file the cost.';
+  };
+
   /** The body outranks the will. A character at 28 HP who is "battered"
    *  does not vault out of a wreck swinging a wrench \u2014 or if he does, he
    *  pays for it in the same turn. Nothing when they are whole. */
@@ -3833,6 +3963,115 @@ window.CHATROOM_CONFIG = {
       return new RegExp('(^|[^a-z0-9])' + w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '($|[^a-z0-9])', 'i').test(text);
     });
   }
+
+  /* ---- @ mentions: who you mean ----
+   * Type @ in the composer and pick: somebody here, somebody written out,
+   * somebody in the other scene, a thing the lore book filed (the monster
+   * from the hangar), or anyone in the archive. The @ comes out of the
+   * prose before the model sees it; what stays is a block that tells the
+   * model exactly who or what was meant and what the record says about
+   * them — so a monster met in one scene is the same monster when it is
+   * spoken of in the other. */
+  RP.MENTION_KINDS = { here: 'in the scene', away: 'written out of this scene', other: 'in the other scene', book: 'in the lore book', archive: 'in the archive' };
+
+  /** Everything @ could mean in this room, in the order the picker shows:
+   *  here, written out, the other scene, the lore book, the archive. */
+  RP.mentionables = function (state, room, catalog, query) {
+    var q = String(query || '').trim().toLowerCase();
+    var out = [];
+    var seen = {};
+    var push = function (item) {
+      var key = item.kind === 'book' ? 'book:' + item.name.toLowerCase() : item.id;
+      if (seen[key]) return;
+      if (q && item.name.toLowerCase().indexOf(q) < 0 &&
+        !String(item.note || '').toLowerCase().split(/\W+/).some(function (w) { return w && w.indexOf(q) === 0; })) return;
+      seen[key] = true;
+      out.push(item);
+    };
+    if (!room) return out;
+    var other = RP.linkedRoom(state, room);
+    RP.presentCast(room).forEach(function (c) {
+      push({ id: c.id, name: c.name, kind: 'here', roomId: room.id, note: c.title || '', image: c.image || '' });
+    });
+    // Somebody who walked over is in the other scene, not merely written out.
+    if (other) {
+      RP.presentCast(other).forEach(function (c) {
+        push({ id: c.id, name: c.name, kind: 'other', roomId: other.id, note: other.sceneName || other.title || '', image: c.image || '' });
+      });
+    }
+    (room.cast || []).forEach(function (c) {
+      var sheet = room.states && room.states[c.id];
+      if (sheet && sheet.present === false) push({ id: c.id, name: c.name, kind: 'away', roomId: room.id, note: c.title || '', image: c.image || '' });
+    });
+    (((state && state.book) || {}).entries || []).slice().reverse().forEach(function (e) {
+      if (!e || !e.name || e.kind === 'DIARY' || e.kind === 'FACT') return;
+      push({ id: 'book:' + e.id, name: e.name, kind: 'book', roomId: e.roomId || '', note: String(e.kind || '').toLowerCase() + (e.roomTitle ? ' · ' + e.roomTitle : ''), text: e.text || '' });
+    });
+    if (q.length >= 2) {
+      Object.keys(catalog || {}).forEach(function (id) {
+        var c = catalog[id];
+        if (!c || !c.name) return;
+        push({ id: c.id, name: c.name, kind: 'archive', roomId: '', note: c.title || '', image: c.image || '' });
+      });
+    }
+    return out;
+  };
+
+  /** "@Wario, did you see @The Hangar Beast?" → the @ signs come out, the
+   *  people stay. Longest names first, so @Wario Jr. is not read as @Wario.
+   *  A stray @word nobody matched stays as it was typed. */
+  RP.parseMentions = function (text, candidates) {
+    var out = { clean: String(text || ''), mentions: [] };
+    if (out.clean.indexOf('@') < 0) return out;
+    var names = (candidates || []).filter(function (c) { return c && c.name; })
+      .slice().sort(function (a, b) { return b.name.length - a.name.length; });
+    var found = {};
+    names.forEach(function (c) {
+      var safe = c.name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      var re = new RegExp('@\\[?' + safe + '\\]?(?![A-Za-z0-9])', 'gi');
+      if (!re.test(out.clean)) return;
+      out.clean = out.clean.replace(re, c.name);
+      var key = c.kind === 'book' ? 'book:' + c.name.toLowerCase() : c.id;
+      if (!found[key]) { found[key] = true; out.mentions.push({ id: c.id, name: c.name, kind: c.kind, roomId: c.roomId || '' }); }
+    });
+    return out;
+  };
+
+  /** What the model is told about who was meant. Here: nothing beyond the
+   *  sheets (they are in the prompt already). Away, elsewhere, the book or
+   *  the archive: who they are, where they are, and that they are not in
+   *  the room to answer. */
+  RP.pingBlock = function (state, room, mentions, catalog) {
+    var list = (mentions || []).filter(function (m) { return m && m.kind && m.kind !== 'here'; });
+    if (!list.length) return '';
+    var other = RP.linkedRoom(state, room);
+    var lines = list.slice(0, 5).map(function (m) {
+      if (m.kind === 'away') {
+        var sheet = room.states && room.states[m.id];
+        return '- ' + m.name + ' — written out of this scene (not here to hear it or answer)' +
+          (sheet && sheet.hp ? '; last known ' + sheet.hp.value + '/' + sheet.hp.max + ' HP' : '') + '.';
+      }
+      if (m.kind === 'other' && other) {
+        var sheetO = other.states && other.states[m.id];
+        var mood = sheetO && sheetO.mood && RP.MOODS[sheetO.mood.key] ? ', ' + RP.moodLabel(sheetO.mood) : '';
+        var last = RP.meanwhileLines(state, other, 12).filter(function (l) { return l.indexOf(m.name + ':') === 0; }).pop();
+        return '- ' + m.name + ' — in the other scene right now, “' + clip(other.sceneName || other.title, 50) + '”' +
+          (sheetO && sheetO.hp ? ' (' + sheetO.hp.value + '/' + sheetO.hp.max + ' HP' + mood + ')' : '') +
+          (last ? '; last heard there: ' + clip(last, 140) : '') + '. A wall apart: they cannot hear this unless it would carry.';
+      }
+      if (m.kind === 'book') {
+        var entry = (((state && state.book) || {}).entries || []).filter(function (e) { return e && e.name && e.name.toLowerCase() === m.name.toLowerCase(); })[0];
+        return '- ' + m.name + ' — ' + (entry ? String(entry.kind || 'filed').toLowerCase() + ', from the lore book' + (entry.roomTitle ? ' (“' + clip(entry.roomTitle, 40) + '”)' : '') +
+          ': ' + clip(entry.text, 260).replace(/[.\s]+$/, '') : 'spoken of before') + '. The same one, with the same record — not a new thing.';
+      }
+      var rec = catalog && catalog[m.id];
+      return '- ' + m.name + ' — ' + (rec ? (rec.title ? rec.title + '; ' : '') + clip(rec.summary || '', 200) : 'somebody from the archive') +
+        '. Not in this scene: they can be spoken of, not written in, unless the player brings them.';
+    });
+    return 'NAMED BY THE PLAYER — the latest turn points at these by name (@), so there is no doubt who is meant\n' +
+      lines.join('\n') +
+      '\nAnswer about THEM, as filed. Nobody listed here walks in because they were named.';
+  };
 
   /** When the player says "the key", the model is told which key, whose
    *  it is and what is filed against it — the sheets stop being a list it
@@ -4308,7 +4547,9 @@ window.CHATROOM_CONFIG = {
       'record is corrected by judgement, so judge: for EVERY person decide what their HP and MP should be NOW, given',
       'everything that has happened to them, and when the number on the sheet does not match the story, SET it',
       '([[HP: Name = N]], [[MP: Name = N]]) \u2014 a helicopter crash and a gunfight are not 65/100, and a night\u2019s rest is',
-      'not 12/100. Decide how each person feels now and how strongly, and file it. A condition that plainly began',
+      'not 12/100. When the MAXIMUM is wrong for who they are or what they have become \u2014 a dragon and a child both at',
+      '100, a man crippled for good, a pool that was never set \u2014 REDEFINE it: [[HP: Name = 28/80]] sets current and',
+      'maximum together. Decide how each person feels now and how strongly, and file it. A condition that plainly began',
       'or ended; a thing gained, lost, handed over, spent, taken in hand or put away; a counter that moved; a stale',
       'physical note; the clock, if the play moved it; somebody who plainly left and is still listed, or is back',
       'and still written out. Do not leave a wrong number standing because nobody filed it at the time; do not',
@@ -4320,16 +4561,38 @@ window.CHATROOM_CONFIG = {
       'THE RECENT PLAY',
       play,
       '',
-      'Reply with stage directions only, one per line, sixteen at most, the most consequential first:',
-      '  [[HP: Name -5]] · [[HP: Name = 40]] · [[MP: Name +3]] · [[COUNT: Name arrows -1]]',
+      'Reply with stage directions, one per line, sixteen at most, the most consequential first (then the notes):',
+      '  [[HP: Name -5]] · [[HP: Name = 40]] · [[HP: Name = 28/80]] (current/maximum) · [[MP: Name +3]] · [[COUNT: Name arrows -1]]',
       '  [[ITEM: Name + 🗝 the thing | note]] · [[ITEM: Name - the thing]] · [[EQUIP: Name the thing]] · [[STOW: Name the thing]]',
       '  [[COND: Name state 3 -1hp | why]] · [[CURE: Name state]] · [[STATUS: Name a short physical note]]',
       '  [[MOOD: Name anger 2 | why]]   anger, fear, joy, grief, shame, disgust, surprise, affection, suspicion, pride, calm; 1\u20133',
       '  [[TIME: 23:40]] · [[EXIT: Name \u2014 why]] · [[ENTER: Name \u2014 why]] (ENTER only for somebody written out of this scene)',
       'Use the names exactly as the sheets spell them. Do not invent anything the play does not plainly show, and',
       'never a new person. The player\u2019s own sheet is audited like any other \u2014 their wounds, kit and mood included;',
-      'the reader approves every line before it lands. If the record already matches the story, reply exactly: IN ORDER',
+      'the reader approves every line before it lands.',
+      '',
+      'Then, under the directions, up to three lines beginning NOTE: \u2014 what the LAST turn or two got wrong against',
+      'the record and the people (a man at 28 HP charging out of a wreck; a line that person would never say; a thread',
+      'everybody dropped; somebody who has not spoken in ten turns), and what the next turn should do instead \u2014 who',
+      'should speak, what should show, what should cost. Advice to the writer, not changes to the record; concrete,',
+      'one sentence each, naming names. If the record already matches the story and the play is sound, reply exactly: IN ORDER',
     ].join('\n');
+  };
+
+  /** The NOTE: lines of an audit reply \u2014 advice to the writer. */
+  RP.parseAuditNotes = function (reply) {
+    return String(reply || '').split(/\r?\n/).map(function (line) {
+      var hit = /^\s*(?:[-*\u2022]\s*)?NOTE\s*:\s*(.+)$/i.exec(line);
+      return hit ? clip(hit[1].trim(), 240) : '';
+    }).filter(Boolean).slice(0, 3);
+  };
+
+  /** Notes the reader approved from the audit ride the next turn, once. */
+  RP.auditNoteBlock = function (room) {
+    var notes = (room && room.auditNotes) || [];
+    if (!notes.length) return '';
+    return 'FROM THE AUDIT \u2014 notes on the last turns, for this one\n' + notes.map(function (n) { return '- ' + n; }).join('\n') +
+      '\nTake them as the table\u2019s judgement: fix what they name in this turn, without announcing it.';
   };
 
   /** Apply an audit to one scene or the linked pair. Each line lands in
@@ -4736,8 +4999,13 @@ window.CHATROOM_CONFIG = {
         continue;
       }
       if (type === 'HP' || type === 'MP') {
-        var pool = /^([+\-=])?\s*(\d+)\s*$/.exec(rest);
-        if (pool) out.push({ kind: type.toLowerCase(), body: body, who: target.name, op: pool[1] || '=', value: Number(pool[2]) });
+        // [[HP: Name -7]] · [[HP: Name = 40]] · [[HP: Name = 28/80]] (the max too)
+        var pool = /^([+\-=])?\s*(\d+)\s*(?:\/\s*(\d+))?\s*$/.exec(rest);
+        if (pool) {
+          var d = { kind: type.toLowerCase(), body: body, who: target.name, op: pool[1] || '=', value: Number(pool[2]) };
+          if (pool[3]) { d.max = Number(pool[3]); d.op = '='; }
+          out.push(d);
+        }
         continue;
       }
       if (type === 'COUNT') {
@@ -6517,6 +6785,8 @@ window.CHATROOM_CONFIG = {
       if (sheets) parts.push(sheets);
       var named = RP.mentionBlock(room, opts.mentionText || '');
       if (named) parts.push(named);
+      var pinged = RP.pingBlock(state, room, opts.mentions, opts.catalog);
+      if (pinged) parts.push(pinged);
       var thinAir = RP.conjureBlock(opts.conjured, opts.conjureVerdict);
       if (thinAir) parts.push(thinAir);
       parts.push(RP.DIRECTIVES);
@@ -6526,6 +6796,10 @@ window.CHATROOM_CONFIG = {
       if (worldBeyond) parts.push(worldBeyond);
       var worldPlayerMood = RP.playerMoodBlock(room);
       if (worldPlayerMood) parts.push(worldPlayerMood);
+      var worldPlayerBody = RP.playerBodyBlock(room);
+      if (worldPlayerBody) parts.push(worldPlayerBody);
+      var worldAuditNotes = RP.auditNoteBlock(room);
+      if (worldAuditNotes) parts.push(worldAuditNotes);
     }
     var fate = RP.fateBlock(opts.fate);
     if (fate) parts.push(fate);
@@ -7059,6 +7333,8 @@ window.CHATROOM_CONFIG = {
       states: JSON.stringify(room.states || {}),
       cast: JSON.stringify(room.cast || []),
       clock: room.clock || '',
+      youPlay: room.youPlay || '',
+      away: JSON.stringify(room.away || []),
     };
   }
 
@@ -7075,6 +7351,9 @@ window.CHATROOM_CONFIG = {
     room.states = JSON.parse(snap.states);
     room.cast = JSON.parse(snap.cast);
     if (snap.clock !== undefined) room.clock = snap.clock;
+    if (snap.youPlay !== undefined) room.youPlay = snap.youPlay || '';
+    if (snap.away !== undefined) room.away = JSON.parse(snap.away);
+    if (snap.linkedTo !== undefined) room.linkedTo = snap.linkedTo;   // a merge taken back is two scenes again
     room.updated = Date.now();
   }
 
@@ -8051,9 +8330,11 @@ window.CHATROOM_CONFIG = {
     keys.forEach(function (k) { total += weights[k]; });
     var at = roll * total;
     for (var i = 0; i < keys.length; i++) {
+      if (!(weights[keys[i]] > 0)) continue;          // an empty bucket is never drawn, not even at 0
       at -= weights[keys[i]];
       if (at <= 0) return keys[i];
     }
+    for (var j = keys.length - 1; j >= 0; j--) if (weights[keys[j]] > 0) return keys[j];
     return keys[keys.length - 1];
   }
 
@@ -8066,6 +8347,60 @@ window.CHATROOM_CONFIG = {
    * is a caster: their magic is not godly, only the omnipotent is. */
   var GODLY_RE = /\b(?:stop(?:s)? time|freez(?:e|es) time|rewind(?:s)? time|turn(?:s)? back time|become(?:s)? (?:a )?god|godlike|omnipoten\w+|resurrect(?:s)?|rais(?:e|es) the dead|bring(?:s)? (?:him|her|them) back (?:to life|from the dead)|read(?:s)? (?:his|her|their|everyone'?s) minds?|control(?:s)? (?:his|her|their|everyone'?s) minds?|teleport(?:s)?|open(?:s)? a portal|snap(?:s)? my fingers and|with a (?:wave|snap|flick) of my (?:hand|fingers)|wip(?:e|es) (?:them|everyone|it) (?:all )?(?:out|from existence)|kill(?:s)? (?:everyone|them all|all of them) (?:at once|instantly|with a (?:word|thought|look))|will(?:s)? (?:him|her|them|it) (?:dead|out of existence)|summon(?:s)? (?:a |an |the )?(?:dragon|army|demon|meteor|god|storm|legion|titan)|call(?:s)? down (?:lightning|fire|a storm|the heavens)|lightning from my (?:hands?|fingers|eyes)|fly (?:up|away|off|into)|take(?:s)? flight|levitat\w*|turn(?:s)? invisible|shapeshift\w*|turn(?:s)? (?:him|her|them|myself) into (?:a |an )?\w+)\b/i;
   var HOPELESS_RE = /\b(?:(?:lift|lifts|throw|throws|hurl|hurls|catch|catches|carry|carries|flip|flips|rip|rips|tear|tears|punch(?:es)? through|kick(?:s)? down|hold(?:s)? up|pick(?:s)? up|push(?:es)? over|stop(?:s)?)\s+(?:the|a|an|that|this)\s+(?:\w+\s+){0,2}(?:helicopter|aircraft|airplane|plane|airship|zeppelin|car|truck|lorry|wagon|carriage|boat|ship|train|building|tower|wall|house|tree|boulder|mountain|bridge|gate|statue|engine|tank)|outrun(?:s)? (?:the|a|an) (?:bullet|arrow|blast|explosion|train|horse|avalanche|fire)|dodg(?:e|es) (?:every|all the|the) bullets|catch(?:es)? (?:the|a) (?:bullet|arrow|blade|sword|axe) (?:in|with) my (?:bare )?(?:hands?|teeth)|break(?:s)? (?:the|these|my) (?:chains|shackles|bars|cuffs) with my bare hands|bend(?:s)? the bars|kill(?:s)? (?:everyone|them all|all of them) (?:at once|with one (?:blow|swing|shot)|in one (?:blow|swing|move))|one[- ]punch(?:es)? (?:him|her|them|it)|punch(?:es)? (?:him|her|it) (?:through|across) the (?:wall|room|street)|jump(?:s)? (?:over|across) the (?:building|river|chasm|gorge|roof))\b/i;
+
+  /* ---- the body gates the attempt ----
+   * A man with a broken leg does not parkour up a building; a woman with
+   * her arm in a sling does not haul herself over a wall; somebody at 20
+   * HP does not sprint four blocks. Read from the player's own sheet,
+   * locally, before the dice: the condition's words against the verbs of
+   * the attempt. A hit turns the table against it and the prompt is told
+   * the body fails before the world does. */
+  var BODY_LIMITS = [
+    { why: /\b(limp\w*|broken (?:leg|ankle|foot|knee|hip|shin)|sprained (?:ankle|knee)|twisted ankle|crippled|lame(?:d)?|shot in the (?:leg|knee|thigh|foot)|leg wound|stabbed in the (?:leg|thigh))\b/i,
+      what: /\b(?:run|runs|running|sprint\w*|dash(?:es)?|bolt(?:s)?|chase(?:s)?|parkour|climb(?:s|ing)?|scale(?:s)?|vault(?:s)?|leap(?:s)?|jump(?:s)?|hurdle(?:s)?|kick(?:s)?|dance(?:s)?|scramble(?:s)? up|outrun(?:s)?|flee(?:s)? on foot|free[- ]run\w*|roll(?:s)? across|dive(?:s)? (?:through|over|across))\b/i, part: 'that leg' },
+    { why: /\b(broken (?:arm|wrist|hand|fingers?|collarbone|ribs?)|dislocated shoulder|one[- ]armed|arm in a sling|shot in the (?:arm|shoulder|hand)|burned hands?|crushed hand|stabbed in the (?:arm|shoulder))\b/i,
+      what: /\b(?:climb(?:s|ing)?|scale(?:s)?|lift(?:s)?|haul(?:s)?|hoist(?:s)?|carry|carries|swing(?:s)?|punch(?:es)?|throw(?:s)?|hurl(?:s)?|grapple(?:s)?|wrestle(?:s)?|pull(?:s)? (?:him|her|them|myself) up|two[- ]handed|draw(?:s)? the bow|reload(?:s)?|catch(?:es)?|hang(?:s)? from)\b/i, part: 'that arm' },
+    { why: /\b(blind(?:ed)?|eyes? (?:swollen|shut|gone)|cannot see|can'?t see|lost (?:an|one|my) eye)\b/i,
+      what: /\b(?:aim(?:s)?|shoot(?:s)?|fire(?:s)? (?:at|on)|snipe(?:s)?|read(?:s)?|search(?:es)?|spot(?:s)?|look(?:s)? for|scan(?:s)?|throw(?:s)? (?:it )?at|drive(?:s)?|pick(?:s)? (?:the|a) lock)\b/i, part: 'those eyes' },
+    { why: /\b(winded|exhausted|out of breath|concuss\w*|dizzy|drunk|poisoned|feverish|hypothermi\w*|starving|dehydrated)\b/i,
+      what: /\b(?:sprint\w*|run(?:s)? (?:for|after|across|up)|climb(?:s|ing)?|parkour|vault(?:s)?|swim(?:s)? across|fight(?:s)? on|hold(?:s)? (?:him|her|them) off|outrun(?:s)?)\b/i, part: 'that body' },
+    { why: /\b(tied(?: up)?|bound|chained|shackled|handcuffed|cuffed|pinned|restrained|in irons|strapped down)\b/i,
+      what: /\b(?:run(?:s)?|walk(?:s)? (?:out|over|away)|climb(?:s)?|grab(?:s)?|draw(?:s)?|swing(?:s)?|punch(?:es)?|reach(?:es)? for|attack(?:s)?|pick(?:s)? up|throw(?:s)?|kick(?:s)? (?:the|him|her|them) (?:door|down))\b/i, part: 'those bonds' },
+  ];
+  var HURT_HEAVY_RE = /\b(?:parkour|sprint\w*|climb(?:s|ing)?|scale(?:s)? (?:the|a)|vault(?:s)?|leap(?:s)? (?:across|over|onto)|haul(?:s)?|hoist(?:s)?|charge(?:s)? (?:at|into|out)|wrestle(?:s)?|fight(?:s)? (?:him|her|them) off|carry|carries|run(?:s)? (?:after|across|up|for)|kick(?:s)? (?:the|a) door|swim(?:s)?)\b/i;
+  var DOWN_OK_RE = /\b(?:crawl|whisper|say|says|mutter|breathe|reach|blink|look|listen|cough|groan|lie|lay|hold on|grip|press)\b/i;
+
+  /** What the player's body rules out, if the attempt is one of those.
+   *  Returns null, or { why, what, part } — "limping (the crash)" /
+   *  "climb" / "that leg". */
+  RP.bodyCheck = function (sheet, text) {
+    var t = String(text || '');
+    if (!sheet || !t.trim()) return null;
+    var flags = Object.keys(sheet.flags || {}).map(function (f) {
+      var cond = sheet.flags[f] && typeof sheet.flags[f] === 'object' ? sheet.flags[f] : {};
+      return { key: f.replace(/_/g, ' '), note: cond.note || '' };
+    });
+    var status = String(sheet.status || '');
+    var hp = sheet.hp && sheet.hp.max ? sheet.hp.value / sheet.hp.max : 1;
+    if (sheet.hp && sheet.hp.value <= 0 && !DOWN_OK_RE.test(t)) {
+      return { why: 'down at 0 HP', what: clip(t.replace(/^\*|\*$/g, ''), 40), part: 'a body that is done' };
+    }
+    for (var i = 0; i < BODY_LIMITS.length; i++) {
+      var rule = BODY_LIMITS[i];
+      var hit = flags.filter(function (f) { return rule.why.test(f.key) || rule.why.test(f.note); })[0];
+      var byStatus = !hit && rule.why.test(status) ? { key: (rule.why.exec(status) || [''])[0], note: '' } : null;
+      var cause = hit || byStatus;
+      if (!cause) continue;
+      var m = rule.what.exec(t);
+      if (!m) continue;
+      return { why: cause.key + (cause.note ? ' (' + clip(cause.note, 40) + ')' : ''), what: m[0], part: rule.part };
+    }
+    if (hp <= 0.35 && sheet.hp) {
+      var heavy = HURT_HEAVY_RE.exec(t);
+      if (heavy) return { why: 'at ' + sheet.hp.value + '/' + sheet.hp.max + ' HP', what: heavy[0], part: 'what is left of them' };
+    }
+    return null;
+  };
 
   var CASTER_RE = /\b(?:magic|mage|wizard|witch|sorcer\w*|spell\w*|priest\w*|cleric|shaman|necromanc\w*|conjur\w*|alchem\w*|psychic|warlock|druid|oracle|ghost|spirit|demon|god(?:dess)?|angel|fairy|enchant\w*|summon\w*)\b/i;
   /** A caster is somebody whose record says so — not whoever has the
@@ -8086,6 +8421,7 @@ window.CHATROOM_CONFIG = {
       if (!caster || /time|god|omnipoten|resurrect|dead|back to life|minds?|existence|instantly|at once/i.test(t)) return 'godly';
     }
     if (HOPELESS_RE.test(t)) return 'hopeless';
+    if (RP.bodyCheck(sheet, t)) return 'unfit';
     return '';
   };
 
@@ -8121,10 +8457,12 @@ window.CHATROOM_CONFIG = {
     }
     if (opts.conjured) { tilt -= 2; why.push('🚫 out of thin air (−2)'); plain.push('reaching for a thing they do not have'); }
     var scale = opts.scale === undefined ? RP.attemptScale(opts.text, you, RP.playerCharacter(room)) : opts.scale;
+    var body = scale === 'unfit' ? RP.bodyCheck(you, opts.text) : null;
     if (scale === 'godly') { tilt -= 3; why.push('🌩 godly (−3)'); plain.push('attempting what no one in this world can do'); }
     else if (scale === 'hopeless') { tilt -= 3; why.push('🪨 hopeless (−3)'); plain.push('attempting what a body cannot do'); }
+    else if (scale === 'unfit') { tilt -= 3; why.push('🩼 ' + (body ? body.why : 'the body') + ' (−3)'); plain.push('attempting what their body cannot do right now'); }
     tilt = Math.max(-3, Math.min(3, tilt));
-    return { tilt: tilt, why: why, plain: plain, stat: stat, score: score, you: you, scale: scale || '' };
+    return { tilt: tilt, why: why, plain: plain, stat: stat, score: score, you: you, scale: scale || '', body: body };
   };
 
   /** Roll for the turn. The difficulty picks the table; the tilt (the
@@ -8161,9 +8499,9 @@ window.CHATROOM_CONFIG = {
       weights.triumph = 0;
       weights.success = lean.scale === 'godly' ? 1 : 2;
       weights.cost = Math.max(2, weights.cost * 0.5);
-      weights.wrench += 6;
-      weights.setback += lean.scale === 'godly' ? 8 : 10;
-      weights.refusal += lean.scale === 'godly' ? 6 : 2;
+      weights.wrench += lean.scale === 'unfit' ? 5 : 6;
+      weights.setback += lean.scale === 'godly' ? 8 : lean.scale === 'unfit' ? 9 : 10;
+      weights.refusal += lean.scale === 'godly' ? 6 : lean.scale === 'unfit' ? 1 : 2;
     }
     var roll = opts.roll === undefined ? Math.random() : opts.roll;
     var key = opts.force || pickWeighted(weights, roll);
@@ -8176,7 +8514,7 @@ window.CHATROOM_CONFIG = {
     return {
       key: key, label: fate.label, pill: fate.pill + tag, dir: fate.dir, level: level,
       pressure: pressure, tilt: t, why: lean.why, plain: lean.plain, stat: lean.stat, score: lean.score, statTag: tag,
-      conjured: opts.conjured || '', granted: granted, scale: lean.scale || '', attempt: clip(String(opts.text || ''), 120),
+      conjured: opts.conjured || '', granted: granted, scale: lean.scale || '', body: lean.body || null, attempt: clip(String(opts.text || ''), 120),
     };
   };
 
@@ -8184,6 +8522,13 @@ window.CHATROOM_CONFIG = {
    *  bend, and the people in the room react to the attempt itself. */
   RP.beyondBlock = function (fate) {
     if (!fate || !fate.scale) return '';
+    if (fate.scale === 'unfit') {
+      var b = fate.body || {};
+      return 'THE BODY REFUSES \u2014 the player is ' + (b.why || 'hurt') + ', and \u201c' + (b.what || 'that') + '\u201d is beyond ' + (b.part || 'them') +
+        ' right now. The ruling below says how it goes \u2014 it does NOT happen as asked. Write the body failing before the world does: the leg ' +
+        'folds, the grip opens, the breath goes, the wall stays where it is \u2014 and what that costs, filed ([[HP:]] or [[COND:]] on their name). ' +
+        'The people in the scene see it and act on it \u2014 a hand under the arm, a laugh, an opening taken. Never scold the player for trying; show the body.';
+    }
     var godly = fate.scale === 'godly';
     return 'BEYOND THEM \u2014 the player\u2019s attempt is ' + (godly ? 'GODLY: nobody in this world has that power, and they do not' :
       'HOPELESS: a body cannot do that, and theirs is no exception') + '. The ruling below says how it goes \u2014 it does NOT work as asked. ' +
@@ -8492,6 +8837,102 @@ window.CHATROOM_CONFIG = {
       'when the places are far apart, nothing crosses but the clock.';
   };
 
+  /* ---- ⇄ merge: two scenes fold into one ----
+   * The reverse of the split. Everybody in either scene is in the one
+   * scene now (anyone written out of both stays written out); the two
+   * streams are interleaved by the clock with a camera card wherever the
+   * source changes, so the record still reads as what it was — two
+   * places, the same hour — right up to the turn they became one place.
+   * Facts, tints and the clock are kept (the stage's win on a clash); the
+   * recap is folded away so the model re-reads the joined stream, and
+   * the lore book's count carries both halves. */
+  RP.mergeRooms = function (state, stage, folded, opts) {
+    opts = opts || {};
+    if (!stage || !folded || stage === folded || stage.id === folded.id) return null;
+    var report = { joined: [], already: [], stillAway: [], turns: 0, cards: 0 };
+    var stageName = stage.sceneName || stage.title || 'this scene';
+    var foldName = folded.sceneName || folded.title || 'the other scene';
+    stage.states = stage.states || {};
+    // 1. People. Present in either → present here; a sheet unknown here
+    //    comes over whole; a sheet in both keeps the stage's record.
+    (folded.cast || []).forEach(function (c) {
+      var had = (stage.cast || []).some(function (x) { return x.id === c.id; });
+      var theirs = folded.states && folded.states[c.id];
+      var mine = had ? stage.states[c.id] : null;
+      if (!had) RP.addToRoom(stage, c);                       // (ensureSheets gives them a blank sheet)
+      if (theirs && !mine) { stage.states[c.id] = JSON.parse(JSON.stringify(theirs)); mine = stage.states[c.id]; }
+      if (!mine) mine = stage.states[c.id];
+      var wasHere = had && mine && mine.present !== false;
+      var wasThere = theirs && theirs.present !== false;
+      if (mine) {
+        if (wasThere || wasHere) { mine.present = true; (wasHere ? report.already : report.joined).push(c.name); }
+        else { mine.present = false; report.stillAway.push(c.name); }
+        if (mine.player && c.id !== stage.youPlay) mine.player = false;
+      } else if (!had) report.joined.push(c.name);
+    });
+    // The reader's own pack: the stage's; the other's only when the stage has none.
+    if (folded.states && folded.states[RP.PLAYER_ID] && !stage.states[RP.PLAYER_ID]) {
+      stage.states[RP.PLAYER_ID] = JSON.parse(JSON.stringify(folded.states[RP.PLAYER_ID]));
+    }
+    if (!stage.youPlay && folded.youPlay && (stage.cast || []).some(function (c) { return c.id === folded.youPlay; })) {
+      stage.youPlay = folded.youPlay;
+      if (stage.states[folded.youPlay]) stage.states[folded.youPlay].player = true;
+    }
+    stage.away = (stage.away || []).concat(folded.away || []).filter(function (x, i, all) {
+      if (!x || !x.id) return false;
+      if (stage.states[x.id] && stage.states[x.id].present !== false) return false;
+      return all.map(function (y) { return y && y.id; }).indexOf(x.id) === i;
+    });
+    // 2. The streams, by the clock, with a camera card at every switch.
+    var all = [];
+    (stage.messages || []).forEach(function (m) { all.push({ r: 'a', m: m }); });
+    (folded.messages || []).forEach(function (m) {
+      var copy = JSON.parse(JSON.stringify(m));
+      copy.sceneFrom = foldName;
+      all.push({ r: 'b', m: copy });
+    });
+    all.sort(function (x, y) { return (x.m.at || 0) - (y.m.at || 0); });
+    var out = [];
+    var cur = null;
+    var seenAny = all.some(function (e) { return e.r === 'b' && RP.visible(e.m); });
+    all.forEach(function (e) {
+      if (seenAny && e.r !== cur && RP.visible(e.m)) {
+        cur = e.r;
+        out.push({ id: RP.uid(), role: 'scene', camera: true, at: (e.m.at || Date.now()) - 1,
+          text: '⇄ ' + (e.r === 'a' ? stageName : foldName) });
+        report.cards++;
+      }
+      out.push(e.m);
+    });
+    report.turns = (folded.messages || []).filter(RP.visible).length;
+    stage.messages = out;
+    // 3. What both knew.
+    stage.facts = Object.assign({}, folded.facts || {}, stage.facts || {});
+    if (!stage.clock && folded.clock) stage.clock = folded.clock;
+    if (!stage.date && folded.date) stage.date = folded.date;
+    if (folded.tints && folded.tints.length) {
+      var have = (stage.tints || []).map(function (t) { return JSON.stringify(t); });
+      stage.tints = (stage.tints || []).concat(folded.tints.filter(function (t) { return have.indexOf(JSON.stringify(t)) < 0; }));
+    }
+    if (String(opts.scene || '').trim()) stage.scene = String(opts.scene).trim();
+    else if (!stage.scene && folded.scene) stage.scene = folded.scene;
+    stage.recap = ''; stage.recapAt = 0;                      // the joined stream is re-read
+    stage.bookAt = Number(stage.bookAt || 0) + Number(folded.bookAt || 0);
+    stage.queue = []; stage.next = ''; stage.handback = '';
+    if (stage.kind !== 'group' && (stage.cast || []).length > 1) stage.kind = 'group';
+    // 4. The card that says so, and the link is spent.
+    stage.messages.push({ id: RP.uid(), role: 'state', at: Date.now(), merged: true,
+      lines: ['⇄ \u201c' + foldName + '\u201d folded into this scene' +
+        (report.joined.length ? ' \u2014 ' + report.joined.join(', ') + ' ' + (report.joined.length === 1 ? 'is' : 'are') + ' here now' : '') +
+        (report.stillAway.length ? ' (' + report.stillAway.join(', ') + ' still written out)' : '') + '.'] });
+    if (stage.linkedTo === folded.id) stage.linkedTo = '';
+    if (folded.linkedTo === stage.id) folded.linkedTo = '';
+    folded.mergedInto = stage.id;
+    stage.updated = Date.now();
+    report.stage = stage; report.folded = folded;
+    return report;
+  };
+
   /** Of two linked scenes, the one the pair is filed under: the older. */
   RP.linkPrimary = function (state, room) {
     var other = RP.linkedRoom(state, room);
@@ -8569,6 +9010,8 @@ window.CHATROOM_CONFIG = {
       if (sheets) parts.push(sheets);
       var named = RP.mentionBlock(room, opts.mentionText || '');
       if (named) parts.push(named);
+      var pinged = RP.pingBlock(state, room, opts.mentions, opts.catalog);
+      if (pinged) parts.push(pinged);
       var thinAir = RP.conjureBlock(opts.conjured, opts.conjureVerdict);
       if (thinAir) parts.push(thinAir);
       parts.push(RP.DIRECTIVES);
@@ -8579,6 +9022,10 @@ window.CHATROOM_CONFIG = {
       // The reader's own mood colours how the cast reads them.
       var playerMood = RP.playerMoodBlock(room);
       if (playerMood) parts.push(playerMood);
+      var playerBody = RP.playerBodyBlock(room);
+      if (playerBody) parts.push(playerBody);
+      var auditNotes = RP.auditNoteBlock(room);
+      if (auditNotes) parts.push(auditNotes);
       // The speaker's body, then how they feel, as orders — the body
       // outranks the will, the mood is the colour of the box. Nothing
       // when they are whole and calm.
@@ -11487,6 +11934,7 @@ window.CHATROOM_CONFIG = {
         ' title="' + esc(mood ? 'You are ' + RP.moodLabel(mood) + ' — the cast reads what you do through it. Click to change or calm down.'
           : 'How you feel going into this turn: the cast reads what you do through it (angry: a pick-up is a grab).') + '">' +
         (mood ? esc(RP.MOODS[mood.key].icon + ' ' + RP.moodLabel(mood)) : '🎭 Mood') + '</button>' +
+      '<button class="qa mac" id="qaAt" title="@ — point at exactly who you mean: someone here, written out, in the other scene, in the lore book or in the archive. Type @ in the box for the same list.">@</button>' +
       (kit.length ? '<button class="qa mac" id="qaUse" title="Use, show or hand over something you carry">🎒 Use…</button>' : '') +
       shownMacros().slice(0, 8).map(function (m) {
         return '<button class="qa mac" data-macro="' + esc(m.id) + '" title="' + esc(m.text) + '">' +
@@ -11961,6 +12409,7 @@ window.CHATROOM_CONFIG = {
         }).join('') + '</div>';
       }
       if (m.role === 'scene') {
+        if (m.camera) return '<div class="scene-card camera" title="Merged: this stretch happened in the scene named here">' + esc(RP.textOf(m)) + '</div>';
         return '<div class="scene-card' + (m.beat ? ' beat' : m.direction ? ' direction' : '') + '"><span class="kicker">' +
           (m.beat ? '⏩ Beat' : m.direction ? (m.from ? '⟶ Carried over from “' + esc(m.from) + '”' : '🎬 Direction') : 'Scene') +
           '</span>' + esc(RP.textOf(m)) + '</div>';
@@ -11968,7 +12417,7 @@ window.CHATROOM_CONFIG = {
       if (m.role === 'world') {
         return '<article class="turn world' + (m.muted ? ' muted' : '') + (m.ambient ? ' ambient' : '') + '">' +
           '<div class="who"><span class="globe">' + esc(RP.NARRATORS[RP.narrator(state)].icon) + '</span>' +
-          '<b>' + esc(RP.NARRATORS[RP.narrator(state)].name) + '</b>' +
+          '<b>' + esc(RP.NARRATORS[RP.narrator(state)].name) + '</b>' + stamp(m) +
           (m.ambient ? '<span class="meanwhile" title="This happened while you were in the other scene">🌗 meanwhile</span>' : '') +
           '<button class="speak" data-speak="' + i + '" title="Read aloud">▶</button></div>' +
           '<div class="bubble">' + RP.md(RP.applyTints(RP.textOf(m), r.tints)) + '</div>' +
@@ -11991,7 +12440,7 @@ window.CHATROOM_CONFIG = {
       return '<article class="turn ' + (mine ? 'user' : 'char') + (m.error ? ' err' : '') +
         (m.muted ? ' muted' : '') + (m.imported ? ' imported' : '') + (m.ambient ? ' ambient' : '') + moodAttrs(m) + '">' +
         '<div class="who">' + (mine ? (playing ? avatar(playing, 24) : userAvatar(24)) : avatar(charOf(r, m.charId), 24)) +
-        '<b>' + esc(who) + '</b>' + (mine ? '' : '<span class="badge">archive</span>') +
+        '<b>' + esc(who) + '</b>' + stamp(m) + (mine ? '' : '<span class="badge">archive</span>') +
         (m.ambient ? '<span class="meanwhile" title="' + (playing && m.charId === playing.id ? 'Your character acted alone while you were in the other scene'
           : 'This happened while you were in the other scene') + '">🌗 meanwhile</span>' : '') +
         (m.mood && RP.MOODS[m.mood.key] ? '<span class="moodtag" title="How they felt as this turn ended — the box wears the colour">' +
@@ -12000,7 +12449,7 @@ window.CHATROOM_CONFIG = {
         (m.error ? '' : '<span class="grip" draggable="true" data-dragturn="' + esc(m.id) + '" ' +
           'title="Drag this turn onto the other scene to carry it over — or to the edge of the stage to start one">⠿</span>') +
         '</div>' +
-        '<div class="bubble">' + RP.md(RP.applyTints(RP.textOf(m), r.tints)) + '</div>' +
+        '<div class="bubble">' + (m.mentions ? linkMentions(RP.md(RP.applyTints(RP.textOf(m), r.tints)), m.mentions) : RP.md(RP.applyTints(RP.textOf(m), r.tints))) + '</div>' +
         ((m.ooc || []).length
           ? '<div class="metastrip">' + m.ooc.map(function (n) {
               return '<span class="ooc" title="Sent to the model, not spoken aloud">(( ' + esc(n) + ' ))</span>';
@@ -12117,9 +12566,11 @@ window.CHATROOM_CONFIG = {
       { label: '⟵ Carry something over from “' + name + '” into here…', value: 'carryBack' },
       { label: sees ? '👁 Each scene knows the other — its people, its last ' + RP.MEANWHILE_TURNS + ' turns, the shared clock — so what would carry, carries on its own. Click to make them blind until you carry something over'
                     : '🙈 The scenes are blind to each other; only ⟶ carries anything — click to let each know the other', value: 'mode' },
+      { label: '⇄ Merge the two scenes into one — everybody in one place, both chats as one stream…', value: 'merge' },
       { label: '⨯ Unlink — both scenes stay, as two separate chats', value: 'unlink' },
     ], function (pick) {
       if (pick === 'swap') { state.active = forward.id; save(); render(); return; }
+      if (pick === 'merge') { mergeDialog(r); return; }
       if (pick === 'send') { walkers(r, other, '🚶 Who goes over to “' + name + '”?'); return; }
       if (pick === 'fetch') { walkers(other, r, '🚶 Who comes over from “' + name + '”?'); return; }
       if (pick === 'carry') { carryForm(r, other); return; }
@@ -12341,6 +12792,237 @@ window.CHATROOM_CONFIG = {
     save(); buildBoard(); render();
     toast('⇄ “' + title + '” opened at the side with ' + (names.join(', ') || 'you') + '. Drop a face across to send somebody over; ⟶ carries anything else.');
     return b;
+  }
+
+  /* ---------------------------------------------------------------- *
+   * @ — who you mean
+   * ---------------------------------------------------------------- */
+  /** Everything @ could point at from this room, plus archive matches
+   *  for each @word actually typed (the archive is only searched by name). */
+  function mentionCandidates(r, text) {
+    var all = RP.mentionables(state, r, castById, '');
+    var words = String(text || '').match(/@\[?([A-Za-z][\w'’.\- ]{1,40})/g) || [];
+    words.forEach(function (w) {
+      var q = w.replace(/^@\[?/, '').split(/\s+/)[0];
+      RP.mentionables(state, r, castById, q).forEach(function (c) {
+        if (!all.some(function (x) { return x.id === c.id; })) all.push(c);
+      });
+    });
+    return all;
+  }
+
+  /** A name spoken here that belongs to the other scene is heard of there:
+   *  a quiet card, so the record on both sides knows who was talked about. */
+  function pingElsewhere(r, mentions, text) {
+    var other = RP.linkedRoom(state, r);
+    if (!other) return;
+    var named = (mentions || []).filter(function (m) { return m.kind === 'other' && m.roomId === other.id; });
+    if (!named.length) return;
+    other.messages.push({ id: RP.uid(), role: 'state', at: Date.now(), ping: true,
+      lines: ['📣 ' + named.map(function (m) { return m.name; }).join(', ') + ' — named in “' + (r.sceneName || r.title) + '”: “' + RP.clip(text, 90) + '”'] });
+    other.updated = Date.now();
+  }
+
+  /** The @ picker under a composer: opens on @, filters as you type,
+   *  arrows and Enter pick, Escape closes; the @ button opens it whole. */
+  function wireMentions(input, r) {
+    if (!input) return;
+    input.mentionRoom = r;                       // the front box outlives the room it is wired for
+    if (input.dataset.mentionsWired) return;
+    input.dataset.mentionsWired = '1';
+    var pop = document.createElement('div');
+    pop.className = 'mention-pop';
+    pop.hidden = true;
+    input.parentNode.insertBefore(pop, input);
+    var items = [], at = 0, from = -1;
+    var close = function () { pop.hidden = true; items = []; from = -1; };
+    var insert = function (c) {
+      var v = input.value;
+      var head = from >= 0 ? v.slice(0, from) : v.slice(0, input.selectionStart || v.length);
+      var tail = from >= 0 ? v.slice(input.selectionStart || v.length) : v.slice(input.selectionStart || v.length);
+      var name = /\s/.test(c.name) ? '@[' + c.name + ']' : '@' + c.name;
+      input.value = head + name + ' ' + tail;
+      var caret = (head + name + ' ').length;
+      input.focus();
+      try { input.setSelectionRange(caret, caret); } catch (e) { /* older engines */ }
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+      close();
+    };
+    var draw = function () {
+      if (!items.length) { close(); return; }
+      pop.innerHTML = items.map(function (c, i) {
+        return '<button type="button" class="mention-row' + (i === at ? ' on' : '') + '" data-pick-mention="' + i + '">' +
+          (c.kind === 'book' ? '<span class="av av-24" style="width:24px;height:24px;min-width:24px;font-size:12px;background:#5b5b66">📓</span>' : avatar(c, 24)) +
+          '<b>' + esc(c.name) + '</b><span class="kind">' + esc(RP.MENTION_KINDS[c.kind] || c.kind) + (c.note ? ' · ' + esc(RP.clip(c.note, 36)) : '') + '</span></button>';
+      }).join('');
+      pop.hidden = false;
+      pop.querySelectorAll('[data-pick-mention]').forEach(function (b) {
+        b.onmousedown = function (e) { e.preventDefault(); insert(items[Number(b.getAttribute('data-pick-mention'))]); };
+      });
+    };
+    var open = function (query, start) {
+      from = start;
+      items = RP.mentionables(state, input.mentionRoom || r, castById, query).slice(0, 8);
+      at = 0;
+      draw();
+    };
+    input.addEventListener('input', function () {
+      var head = input.value.slice(0, input.selectionStart || input.value.length);
+      var hit = /(^|\s)@\[?([^\s@\]]{0,30})$/.exec(head);
+      if (!hit) { close(); return; }
+      open(hit[2], head.length - hit[0].length + hit[1].length);
+    });
+    input.addEventListener('keydown', function (e) {
+      if (pop.hidden) return;
+      if (e.key === 'ArrowDown') { e.preventDefault(); at = (at + 1) % items.length; draw(); }
+      else if (e.key === 'ArrowUp') { e.preventDefault(); at = (at - 1 + items.length) % items.length; draw(); }
+      else if (e.key === 'Enter' || e.key === 'Tab') { e.preventDefault(); e.stopImmediatePropagation(); insert(items[at]); }
+      else if (e.key === 'Escape') { e.preventDefault(); e.stopImmediatePropagation(); close(); }
+    }, true);
+    input.addEventListener('blur', function () { window.setTimeout(close, 150); });
+    input.mentionOpen = function () {
+      var v = input.value, caret = input.selectionStart || v.length;
+      var pre = v.slice(0, caret);
+      var needsSpace = pre && !/\s$/.test(pre);
+      input.value = pre + (needsSpace ? ' ' : '') + '@' + v.slice(caret);
+      var c2 = (pre + (needsSpace ? ' ' : '') + '@').length;
+      input.focus();
+      try { input.setSelectionRange(c2, c2); } catch (e) { /* older engines */ }
+      open('', c2 - 1);
+    };
+  }
+
+  /** A mentioned name in a turn card: who they are, where, and what you
+   *  can do about it from here. */
+  function mentionCard(r, m) {
+    var other = RP.linkedRoom(state, r);
+    var here = (r.cast || []).filter(function (c) { return c.id === m.id; })[0];
+    var sheet = r.states && r.states[m.id];
+    var kind = m.kind;
+    var overThere = other && RP.presentCast(other).some(function (c) { return c.id === m.id; });
+    if (here && sheet && sheet.present !== false) kind = 'here';
+    else if (overThere) kind = 'other';
+    else if (here && sheet && sheet.present === false) kind = 'away';
+    var sheetLine = function (sh) {
+      if (!sh) return '';
+      return (sh.hp ? '❤ ' + sh.hp.value + '/' + sh.hp.max + ' ' : '') + (sh.mp ? '🔮 ' + sh.mp.value + '/' + sh.mp.max + ' ' : '') +
+        (sh.mood && RP.MOODS[sh.mood.key] ? RP.MOODS[sh.mood.key].icon + ' ' + RP.moodLabel(sh.mood) + ' ' : '') +
+        Object.keys(sh.flags || {}).map(function (f) { return '· ' + f.replace(/_/g, ' '); }).join(' ');
+    };
+    var entry = kind === 'book' ? (((state.book || {}).entries || []).filter(function (e) { return e && e.name && e.name.toLowerCase() === m.name.toLowerCase(); })[0]) : null;
+    var rec = castById[m.id];
+    var body = kind === 'here' ? 'In this scene. ' + sheetLine(sheet)
+      : kind === 'away' ? 'Written out of this scene. ' + sheetLine(sheet)
+      : kind === 'other' && other ? 'In “' + esc(other.sceneName || other.title) + '” right now. ' + sheetLine(other.states && other.states[m.id])
+      : kind === 'book' ? (entry ? esc(String(entry.kind || '').toLowerCase()) + (entry.roomTitle ? ' · filed from “' + esc(entry.roomTitle) + '”' : '') + '<br>' + esc(entry.text || '') : 'In the lore book.')
+      : rec ? esc(rec.title || '') + (rec.summary ? '<br>' + esc(RP.clip(rec.summary, 240)) : '') : 'From the archive.';
+    openModal('<h3>' + (kind === 'book' ? '📓 ' : '') + esc(m.name) + '</h3>' +
+      '<p class="sub">' + esc(RP.MENTION_KINDS[kind] || kind) + '</p><p>' + body + '</p>' +
+      '<div class="actions">' +
+      (kind === 'here' ? '<button class="pill" id="mSheet">Open their sheet</button>' : '') +
+      (kind === 'away' ? '<button class="pill" id="mBack">↩ Bring them back into the scene</button>' : '') +
+      (kind === 'other' && other ? '<button class="pill" id="mWalk">🚶 Bring them over here</button><button class="pill" id="mGo">Open their scene</button>' : '') +
+      (kind === 'archive' && rec ? '<button class="pill" id="mInvite">＋ Bring them into this scene</button>' : '') +
+      '<span class="grow"></span><button class="pill primary" id="mCancel">Close</button></div>');
+    $('mCancel').onclick = closeModal;
+    if ($('mSheet')) $('mSheet').onclick = function () { closeModal(); editSheet(m.id, r); };
+    if ($('mBack')) $('mBack').onclick = function () { RP.setPresent(r, m.id, true); closeModal(); save(); render(); toast(m.name + ' is back in the scene.'); };
+    if ($('mWalk')) $('mWalk').onclick = function () { closeModal(); walkOver(other, r, m.id); };
+    if ($('mGo')) $('mGo').onclick = function () { closeModal(); openRoom(other.id); };
+    if ($('mInvite')) $('mInvite').onclick = function () {
+      RP.pushUndo(r, 'inviting ' + rec.name);
+      RP.addToRoom(r, rec);
+      closeModal(); save(); render();
+      toast(rec.name + ' joins the scene.');
+    };
+  }
+
+  /** The @names of a turn become links in its bubble. */
+  function linkMentions(html, mentions) {
+    (mentions || []).forEach(function (m) {
+      var safe = esc(m.name).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      html = html.replace(new RegExp('(?![^<]*>)' + safe), '<a class="mention" href="#" data-mention="' + esc(m.id) + '" data-mkind="' + esc(m.kind) + '" data-mname="' + esc(m.name) + '" data-mroom="' + esc(m.roomId || '') + '" title="' + esc(RP.MENTION_KINDS[m.kind] || m.kind) + ' — click for who this is">' + esc(m.name) + '</a>');
+    });
+    return html;
+  }
+
+  /** ⇄ Merge: the two scenes become one place. You say which scene is the
+   *  stage (the other folds into it), word how they come together, and
+   *  the Director plays the joining as the next turn. The reverse of ✂. */
+  function mergeDialog(r) {
+    var other = RP.linkedRoom(state, r);
+    if (!other) { toast('There is no second scene to merge.'); return; }
+    var nameOf = function (x) { return x.sceneName || x.title || 'untitled'; };
+    var joiners = function (stage, folded) {
+      return RP.presentCast(folded).filter(function (c) {
+        var mine = stage.states && stage.states[c.id];
+        return !mine || mine.present === false;
+      }).map(function (c) { return c.name; });
+    };
+    var suggest = function (stage, folded) {
+      var who = joiners(stage, folded);
+      var you = RP.playerCharacter(folded);
+      var from = nameOf(folded);
+      if (!who.length) return 'The two scenes become one: everyone is in the same place now, ' + RP.clip(stage.scene || nameOf(stage), 80) + '.';
+      return who.join(', ') + (you && who.indexOf(you.name) >= 0 ? '' : '') + ' ' + (who.length === 1 ? 'comes' : 'come') + ' in from ' + from + ' — ' +
+        'the two groups are in one place now, and everyone can see what state the others are in.';
+    };
+    openModal('<h3>⇄ Merge the two scenes into one</h3>' +
+      '<p class="sub">Everybody who is in either scene is in the one scene afterwards; both chats become one stream, in the order ' +
+      'they happened, with a ⇄ card wherever the camera used to cut. Sheets, kit, facts and the clock are kept. ↩ takes it back.</p>' +
+      '<label>Which scene is the stage — the place they are all in now?</label>' +
+      '<div class="checks">' +
+      '<label><input type="radio" name="mergeStage" value="' + esc(r.id) + '" checked> “' + esc(nameOf(r)) + '” — “' + esc(nameOf(other)) + '” folds into it</label>' +
+      '<label><input type="radio" name="mergeStage" value="' + esc(other.id) + '"> “' + esc(nameOf(other)) + '” — “' + esc(nameOf(r)) + '” folds into it</label>' +
+      '</div>' +
+      '<label for="f_join">How do they come together? (played as a 🎬 direction, so the cast deals with it)</label>' +
+      '<textarea id="f_join">' + esc(suggest(r, other)) + '</textarea>' +
+      '<div class="checks">' +
+      '<label><input type="checkbox" id="f_play" checked> Play the joining now — the Director narrates it as the next turn</label>' +
+      '<label><input type="checkbox" id="f_keep" checked> Keep the folded scene in Recents as a record (unlinked, nothing lost)</label>' +
+      '</div>' +
+      '<div class="actions"><button class="pill" id="mCancel">Cancel</button><button class="pill primary" id="mOk">⇄ Merge</button></div>');
+    var radios = $('modal').querySelectorAll('[name=mergeStage]');
+    radios.forEach(function (b) {
+      b.onchange = function () {
+        var stage = b.value === r.id ? r : other, folded = stage === r ? other : r;
+        $('f_join').value = suggest(stage, folded);
+      };
+    });
+    $('mCancel').onclick = closeModal;
+    $('mOk').onclick = function () {
+      var pick = [].filter.call(radios, function (b) { return b.checked; })[0];
+      var stage = pick && pick.value === other.id ? other : r;
+      var folded = stage === r ? other : r;
+      var text = ($('f_join').value || '').trim();
+      var play = $('f_play').checked, keep = $('f_keep').checked;
+      closeModal();
+      mergeScenes(stage, folded, { text: text, play: play, keep: keep });
+    };
+  }
+
+  function mergeScenes(stage, folded, opts) {
+    opts = opts || {};
+    if (busy) { toast('The model is writing — wait for it, or press ■.'); return null; }
+    var foldName = folded.sceneName || folded.title;
+    RP.pushUndo(stage, 'merging “' + foldName + '” into this scene');
+    stage.undo[stage.undo.length - 1].linkedTo = folded.id;      // ↩ links them again
+    RP.pushUndo(folded, 'being merged into “' + (stage.sceneName || stage.title) + '”');
+    folded.undo[folded.undo.length - 1].linkedTo = stage.id;
+    var report = RP.mergeRooms(state, stage, folded, {});
+    if (!report) return null;
+    if (opts.keep) {
+      // The record keeps its place in Recents; it is not the live scene.
+      if (!/\(merged into /.test(folded.title || '')) folded.title = (folded.title || 'untitled') + ' (merged into “' + RP.clip(stage.title, 30) + '”)';
+    } else {
+      state.rooms = state.rooms.filter(function (x) { return x.id !== folded.id; });
+    }
+    dockSide = '';
+    state.active = stage.id;
+    save(); buildBoard(); render();
+    toast('⇄ One scene now: ' + (report.joined.length ? report.joined.join(', ') + ' joined; ' : '') + report.turns + ' turns folded in. ↩ takes it back.');
+    if (opts.play && opts.text) directRoom(stage, opts.text, 'world', foldName);
+    return report;
   }
 
   /** Somebody walks from one scene into the other. Written out here, seated
@@ -12643,7 +13325,8 @@ window.CHATROOM_CONFIG = {
         : '<b>No second scene yet</b>Something happening elsewhere at the same time? Split this cast, invite others, or link a chat you already have.') +
       '<div class="btnrow"><button class="mini' + (other ? '' : ' primary') + '" id="dkLink">' +
       (other ? '⇄ Swap · carry over · unlink' : '⇄ Start a second scene') + '</button>' +
-      (other ? '<button class="mini" id="dkOpenOther">Open it in front</button>' : '') + '</div>' +
+      (other ? '<button class="mini" id="dkOpenOther">Open it in front</button>' +
+        '<button class="mini" id="dkMerge" title="Fold the two scenes into one place and one stream">⇄ Merge into one</button>' : '') + '</div>' +
       (other ? '<div class="cp-menu">' +
         menuItem('dkLive', '🌗', 'The scene you are not in', !r.live || r.live === 'off' ? 'Stands still until you cross over'
           : r.live === 'every' ? 'Moves after every turn you take' : 'Moves every other turn you take') +
@@ -12872,7 +13555,8 @@ window.CHATROOM_CONFIG = {
         var copies = rooms.map(function (room) { return JSON.parse(JSON.stringify(room)); });
         var stub = { log: [], book: { entries: [], queue: [] }, newChars: [], rooms: copies };
         var preview = RP.applySheetAudit(stub, copies, reply);
-        if (!preview.count && !portraits.length) {
+        var notes = RP.parseAuditNotes(reply);
+        if (!preview.count && !portraits.length && !notes.length) {
           toast(/^IN ORDER/i.test(reply) ? '🧾 In order — the record matches the play.' : '🧾 The audit found nothing it could file.');
           return;
         }
@@ -12899,16 +13583,25 @@ window.CHATROOM_CONFIG = {
               '<div class="stack">' + items.map(function (it) { return row(it, preview.items.indexOf(it)); }).join('') + '</div>';
           }).join('') +
           (portraits.length ? '<h4>Portraits</h4><div class="stack">' + portraits.map(portraitRow).join('') + '</div>' : '') +
+          (notes.length ? '<h4>Notes on the play</h4><p class="sub">What the audit thinks the last turns got wrong or could do better. ' +
+            'Ticked notes are handed to the model once, for the next turn in “' + esc(r.sceneName || r.title) + '” — then they are dropped.</p><div class="stack">' +
+            notes.map(function (note, n) {
+              return '<label class="item pick"><input type="checkbox" checked data-note="' + n + '"> <span>📝 ' + esc(note) + '</span></label>';
+            }).join('') + '</div>' : '') +
           '<div class="actions"><button class="pill" id="mCancel">Leave it</button>' +
           '<button class="pill primary" id="mOk"></button></div>');
         var countTicked = function () {
           var picks = Array.prototype.slice.call($('modal').querySelectorAll('[data-pick]:checked, [data-portrait]:checked'));
-          $('mOk').textContent = picks.length ? 'Apply ' + picks.length + (picks.length === 1 ? ' change' : ' changes') : 'Apply nothing';
-          $('mOk').disabled = !picks.length;
+          var noted = $('modal').querySelectorAll('[data-note]:checked').length;
+          var words = [];
+          if (picks.length) words.push(picks.length + (picks.length === 1 ? ' change' : ' changes'));
+          if (noted) words.push(noted + (noted === 1 ? ' note' : ' notes'));
+          $('mOk').textContent = words.length ? 'Apply ' + words.join(' · ') : 'Apply nothing';
+          $('mOk').disabled = !words.length;
           return picks;
         };
         countTicked();
-        $('modal').querySelectorAll('[data-pick], [data-portrait]').forEach(function (box) { box.onchange = countTicked; });
+        $('modal').querySelectorAll('[data-pick], [data-portrait], [data-note]').forEach(function (box) { box.onchange = countTicked; });
         $('mCancel').onclick = closeModal;
         $('mOk').onclick = function () {
           var picks = Array.prototype.slice.call($('modal').querySelectorAll('[data-pick]:checked')).map(function (box) {
@@ -12917,8 +13610,16 @@ window.CHATROOM_CONFIG = {
           var portraitPicks = Array.prototype.slice.call($('modal').querySelectorAll('[data-portrait]:checked')).map(function (box) {
             return portraits[Number(box.getAttribute('data-portrait'))];
           });
+          var noted = Array.prototype.slice.call($('modal').querySelectorAll('[data-note]:checked')).map(function (box) {
+            return notes[Number(box.getAttribute('data-note'))];
+          });
           rooms.forEach(function (room) { RP.pushUndo(room, 'the AI audit'); });
           var done = picks.length ? RP.applySheetAudit(state, rooms, reply, { only: picks }) : { byRoom: {}, lines: [], items: [], count: 0 };
+          // The notes ride along on the next turn of the scene that asked.
+          r.auditNotes = noted;
+          if (noted.length) {
+            (done.byRoom[r.id] = done.byRoom[r.id] || []).push(noted.length + (noted.length === 1 ? ' note' : ' notes') + ' on the play, for the next turn');
+          }
           portraitPicks.forEach(function (pr) {
             var room = rooms.filter(function (x) { return x.id === pr.roomId; })[0];
             var twin = castById[pr.fromId];
@@ -12937,7 +13638,7 @@ window.CHATROOM_CONFIG = {
             room.updated = Date.now();
           });
           closeModal(); save(); render();
-          toast('🩺 ' + done.count + (done.count === 1 ? ' correction' : ' corrections') + ' filed — ↩ takes them back.');
+          toast('🩺 ' + done.count + (done.count === 1 ? ' correction' : ' corrections') + ' filed' + (noted.length ? ', ' + noted.length + ' notes held for the next turn' : '') + ' — ↩ takes them back.');
         };
       })
       .catch(function (error) {
@@ -13024,6 +13725,13 @@ window.CHATROOM_CONFIG = {
     on('fateBtn', function () { openPanelFate(); });
     on('undoBtn', function () {
       var what = RP.undo(r);
+      var back = RP.linkedRoom(state, r);
+      if (back && back.mergedInto === r.id) {          // a merge taken back: the record is a scene again
+        delete back.mergedInto;
+        back.title = String(back.title || '').replace(/ \(merged into “[^”]*”\)$/, '');
+        back.linkedTo = r.id;
+        if (back.undo && back.undo.length && /being merged into/.test(back.undo[back.undo.length - 1].label || '')) RP.undo(back);
+      }
       save(); render();
       toast(what ? 'Undid ' + what + '.' : 'Nothing to undo.');
     });
@@ -13042,6 +13750,7 @@ window.CHATROOM_CONFIG = {
       };
     });
     on('qaMood', function () { pickMood(r); });
+    on('qaAt', function () { var box = $c('input'); if (box) { wireMentions(box, r); box.mentionOpen(); } });
     on('qaUse', function () { useItem(r, sfx); });
     on('qaMeanwhile', function () { liveNow(r); });
     on('macroAdd', function () {
@@ -13338,6 +14047,13 @@ window.CHATROOM_CONFIG = {
     stream.querySelectorAll('[data-speak]').forEach(function (b) {
       b.onclick = function () { speak(r.messages[+b.dataset.speak], r, { fresh: true }); };
     });
+    stream.querySelectorAll('[data-mention]').forEach(function (link) {
+      link.onclick = function (e) {
+        e.preventDefault();
+        mentionCard(r, { id: link.dataset.mention, kind: link.dataset.mkind, name: link.dataset.mname, roomId: link.dataset.mroom });
+      };
+    });
+    if ($c('input')) wireMentions($c('input'), r);
     // The second scene's prompt. The front one's is wired once, in
     // wireShell; this column's shell is built when the link is, so its
     // handlers are bound here — same keys, same rules.
@@ -13357,8 +14073,9 @@ window.CHATROOM_CONFIG = {
         input.style.height = Math.min(150, input.scrollHeight) + 'px';
       };
       input.onkeydown = function (e) {
-        if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); go(); }
-        if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) { e.preventDefault(); go(); }
+        if (e.key !== 'Enter') return;
+        var ctrl = e.ctrlKey || e.metaKey;
+        if (enterSends() ? (!e.shiftKey || ctrl) : ctrl) { e.preventDefault(); go(); }
       };
     }
   }
@@ -13475,6 +14192,7 @@ window.CHATROOM_CONFIG = {
     on('dkBeat', function () { fireNextBeat(r); });
     on('dkLink', function () { secondSceneDialog(r); });
     on('dkOpenOther', function () { var other = RP.linkedRoom(state, r); if (other) openRoom(other.id); });
+    on('dkMerge', function () { mergeDialog(r); });
     on('dkLive', function () {
       var other = RP.linkedRoom(state, r);
       list('🌗 The scene you are not in', [
@@ -13600,11 +14318,14 @@ window.CHATROOM_CONFIG = {
     on('cpCustomize', function () {
       form('Customize this chat', [
         { k: 'title', label: 'Chat title', value: r.title },
+        { k: 'sceneName', label: 'Scene name (the short name used in the ⇄ cards and the recents)', value: r.sceneName || '' },
         { k: 'scene', label: 'The scene', type: 'area', value: r.scene },
+        { k: 'sceneImage', label: 'Scene picture (a path under the site, e.g. Reputation-Matrix2/images/…; blank for none)', value: r.sceneImage || '' },
         { k: 'style', label: 'Narration style', type: 'select', value: r.style, options: Object.keys(RP.STYLES).map(function (k) { return { value: k, label: RP.STYLES[k].name }; }) },
         { k: 'temperature', label: 'Temperature (0–1.5)', value: String(state.settings.temperature) },
-      ], {}, function (v) {
+      ], { note: 'How the page itself looks — theme, text, widths — is under ⚙ Settings → 🎨 Appearance.' }, function (v) {
         r.title = v.title || r.title; r.scene = v.scene; r.style = v.style;
+        r.sceneName = (v.sceneName || '').trim(); r.sceneImage = (v.sceneImage || '').trim();
         var t = parseFloat(v.temperature); if (!isNaN(t)) state.settings.temperature = Math.max(0, Math.min(1.5, t));
         save(); render();
       });
@@ -13860,10 +14581,16 @@ window.CHATROOM_CONFIG = {
     if (busy) return;
     // ((Anything in double brackets)) is spoken to the model, not by you.
     var spoken = RP.parseOoc(text);
+    // @Name points at exactly who you mean — here, written out, in the
+    // other scene, in the lore book or in the archive. The @ comes out;
+    // the pointer stays on the turn and briefs the model.
+    var pinged = RP.parseMentions(spoken.clean || text, mentionCandidates(r, spoken.clean || text));
     var msg = {
-      id: RP.uid(), role: 'user', text: spoken.clean || text, at: Date.now(),
+      id: RP.uid(), role: 'user', text: pinged.clean || spoken.clean || text, at: Date.now(),
       ooc: spoken.notes.length ? spoken.notes : undefined,
+      mentions: pinged.mentions.length ? pinged.mentions : undefined,
     };
+    pingElsewhere(r, pinged.mentions, msg.text);
     r.lastNotes = spoken.notes;
     autoLeft = 0;                       // your turn beats the autopilot
     RP.pushUndo(r, 'your turn');
@@ -14055,9 +14782,10 @@ window.CHATROOM_CONFIG = {
     // wording picks the stat that leans on the dice, and a thin-air claim
     // (r.conjured, set on send) turns them against the bluff.
     if (r.mechanics !== 'off') RP.ensurePlayerSheet(state, r);
-    var lastSaid = RP.textOf((r.messages || []).filter(function (m) {
+    var lastUser = (r.messages || []).filter(function (m) {
       return m.role === 'user' && !m.muted;
-    }).pop() || {});
+    }).pop() || {};
+    var lastSaid = RP.textOf(lastUser);
     var fate = answering ? RP.rollFate(state, r, { text: lastSaid, conjured: r.conjured || '' }) : null;
     // A thin-air claim is settled HERE, by that roll: the thing lands on
     // the sheet (in hand) or the hand comes up empty, and the model is
@@ -14073,6 +14801,8 @@ window.CHATROOM_CONFIG = {
     var opts2 = {
       fate: fate, archive: archive, recent: recent, notes: r.lastNotes || [],
       mentionText: lastSaid,
+      mentions: (lastUser && lastUser.mentions) || [],
+      catalog: castById,
       conjured: r.conjured || '',
       conjureVerdict: verdict,
       ambient: ambient, ambientSelf: ambientSelf,
@@ -14331,6 +15061,8 @@ window.CHATROOM_CONFIG = {
         }
         r.messages.push(msg);
         if (directed && r.direction === directed) r.direction = null;
+        // The audit's notes briefed this turn; they are not repeated.
+        if (r.auditNotes && r.auditNotes.length && !ambient) r.auditNotes = [];
         // Narration is remembered too: it is where places get named.
         RP.rememberTurn(state, r, msg);
         if (r.kind === 'group' && !worldTurn) {
@@ -15462,6 +16194,7 @@ window.CHATROOM_CONFIG = {
       '<button class="pill' + (!isOpenAI(current) ? ' primary' : '') + '" id="setWf">🗄 Workflow server (127.0.0.1:8787)</button>' +
       '<button class="pill" id="setTest">🔌 Test it</button>' +
       '<span class="chip" id="setState">' + (online ? 'answering' : 'no answer yet') + '</span>' +
+      '<button class="pill" id="setLook" title="Theme, text size, prose face, column width, mood wash, coloured words, badges, times, Enter vs Ctrl+Enter">🎨 Appearance…</button>' +
       '</div>' +
       '<label for="f_endpoint">Endpoint</label><input type="text" id="f_endpoint" value="' + esc(state.settings.endpoint || '') + '" placeholder="' + esc(CFG.replyUrl) + '">' +
       '<label for="f_model">Model</label>' +
@@ -15555,6 +16288,7 @@ window.CHATROOM_CONFIG = {
     listModels();
     $('setLm').onclick = function () { $('f_endpoint').value = LM_STUDIO; listModels(); };
     $('setWf').onclick = function () { $('f_endpoint').value = 'http://127.0.0.1:8787/api/roleplay'; };
+    $('setLook').onclick = function () { closeModal(); lookForm(); };
     $('setTest').onclick = function () {
       var mine = probe();
       var url = $('f_endpoint').value.trim() || CFG.replyUrl;
@@ -15715,7 +16449,73 @@ window.CHATROOM_CONFIG = {
    * boot
    * ---------------------------------------------------------------- */
 
+  /* ---------------------------------------------------------------- *
+   * 🎨 Appearance — how the page looks, kept in state.settings.look
+   * ---------------------------------------------------------------- */
+  var LOOK = {
+    theme: { label: 'Theme', options: [['light', 'Light'], ['sepia', 'Sepia — paper'], ['dusk', 'Dusk — dark']] },
+    size: { label: 'Text size', options: [['s', 'Small'], ['m', 'Normal'], ['l', 'Large'], ['xl', 'Larger']] },
+    font: { label: 'Prose face', options: [['sans', 'Sans'], ['serif', 'Serif — book'], ['mono', 'Mono — typewriter']] },
+    width: { label: 'Column width', options: [['narrow', 'Narrow'], ['normal', 'Normal'], ['wide', 'Wide']] },
+    density: { label: 'Spacing', options: [['cosy', 'Cosy'], ['compact', 'Compact']] },
+    mood: { label: 'Mood colour on the boxes', options: [['full', 'Full wash'], ['soft', 'Just the edge'], ['off', 'Off']] },
+    words: { label: 'Coloured words ({like this})', options: [['on', 'Coloured'], ['off', 'Plain']] },
+    badges: { label: 'Badges on turns (archive, meanwhile, consulted)', options: [['on', 'Shown'], ['off', 'Hidden']] },
+    stamps: { label: 'Time on each turn', options: [['off', 'Hidden'], ['on', 'Shown']] },
+    portraits: { label: 'Portraits beside turns', options: [['on', 'Shown'], ['off', 'Hidden']] },
+    enter: { label: 'Send with', options: [['enter', 'Enter (Shift+Enter for a new line)'], ['ctrl', 'Ctrl+Enter (Enter for a new line)']] },
+  };
+  var LOOK_DEFAULTS = {};
+  Object.keys(LOOK).forEach(function (k) { LOOK_DEFAULTS[k] = LOOK[k].options[0][0]; });
+  LOOK_DEFAULTS.size = 'm'; LOOK_DEFAULTS.width = 'normal';
+
+  function look() {
+    var l = Object.assign({}, LOOK_DEFAULTS, state.settings.look || {});
+    Object.keys(LOOK).forEach(function (k) {
+      if (!LOOK[k].options.some(function (o) { return o[0] === l[k]; })) l[k] = LOOK_DEFAULTS[k];
+    });
+    return l;
+  }
+
+  /** The look lives on <html> as data- attributes; the stylesheet reads them. */
+  function applyLook() {
+    var l = look(), root = document.documentElement;
+    Object.keys(LOOK).forEach(function (k) {
+      if (l[k] === LOOK_DEFAULTS[k]) root.removeAttribute('data-' + k); else root.setAttribute('data-' + k, l[k]);
+    });
+  }
+
+  function stamp(m) {
+    if (look().stamps !== 'on' || !m || !m.at) return '';
+    var d = new Date(m.at);
+    var hh = String(d.getHours()).padStart(2, '0'), mm = String(d.getMinutes()).padStart(2, '0');
+    return '<span class="stamp" title="' + esc(d.toLocaleString()) + '">' + hh + ':' + mm + '</span>';
+  }
+
+  function lookForm() {
+    var l = look();
+    openModal('<h3>🎨 Appearance</h3>' +
+      '<p class="sub">How the page reads. Everything here changes as you pick it, and is kept with your settings. The mood wash and ' +
+      'the coloured words are only the look — the sheets and moods underneath are unchanged.</p>' +
+      '<div class="grid2">' + Object.keys(LOOK).map(function (k) {
+        return '<label for="lk_' + k + '">' + esc(LOOK[k].label) + '</label><select id="lk_' + k + '" data-look="' + k + '">' +
+          LOOK[k].options.map(function (o) { return '<option value="' + o[0] + '"' + (l[k] === o[0] ? ' selected' : '') + '>' + esc(o[1]) + '</option>'; }).join('') +
+          '</select>';
+      }).join('') + '</div>' +
+      '<div class="actions"><button class="pill" id="mReset">Back to the defaults</button><span class="grow"></span><button class="pill primary" id="mOk">Done</button></div>');
+    $('modal').querySelectorAll('[data-look]').forEach(function (sel) {
+      sel.onchange = function () {
+        state.settings.look = state.settings.look || {};
+        state.settings.look[sel.getAttribute('data-look')] = sel.value;
+        applyLook(); save(); render();
+      };
+    });
+    $('mReset').onclick = function () { state.settings.look = {}; applyLook(); save(); render(); lookForm(); };
+    $('mOk').onclick = closeModal;
+  }
+
   function render() {
+    applyLook();
     renderRail();
     if (room()) renderChat(); else renderDash();
     renderStatus();
@@ -15739,10 +16539,15 @@ window.CHATROOM_CONFIG = {
       input.style.height = Math.min(150, input.scrollHeight) + 'px';
     };
     input.onkeydown = function (e) {
-      if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(); }
+      if (e.key !== 'Enter') return;
+      var ctrl = e.ctrlKey || e.metaKey;
+      if (enterSends() ? (!e.shiftKey || ctrl) : ctrl) { e.preventDefault(); send(); }
     };
     $('menuBtn').onclick = function () { document.querySelector('.rail').classList.toggle('open'); };
   }
+
+  /** Enter sends by default; the Appearance settings can make it Ctrl+Enter. */
+  function enterSends() { return ((state.settings.look || {}).enter || 'enter') !== 'ctrl'; }
 
   wireShell();
   render();

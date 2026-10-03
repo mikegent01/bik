@@ -70,7 +70,7 @@ build is fully usable.
 
 | | `chatroom.html` (static) | `workflow/roleplay.html` (server) |
 |---|---|---|
-| Served by | `python3 start.py` → `http://127.0.0.1:8765/chatroom.html` | `python workflow/server.py` → `http://127.0.0.1:8787/roleplay` |
+| Served by | `python3 start.py` → `http://127.0.0.1:8765/chatroom.html` | `python workflow/server.py` (or `start.py`'s *Workflow server* tick / `--workflow`) → `http://127.0.0.1:8787/roleplay` |
 | Cast / scenes | the archive JSON, read directly | `/api/characters`, `/api/scenes` |
 | Wire / collections | the archive JSON, read directly | `/api/wahwire`, `/api/collections` |
 | What-If sources | `whatifs`/`factions`/`congress` JSON, read directly | `/api/archive` (one trimmed bundle) |
@@ -1283,6 +1283,21 @@ cost — then **Edit** or **Delete** them later. Hidden built-ins live in
 
 ## Sampling and model routing
 
+**🎨 Appearance** (⚙ Settings → *🎨 Appearance…*) is the page's own look,
+kept in `state.settings.look` and applied as `data-` attributes on
+`<html>` so the stylesheet does all the work (`applyLook()` on every
+render): **theme** (light, sepia paper, dusk dark — the dark theme
+re-mixes the mood wash so a furious box glows rather than blinds),
+**text size** (four steps), **prose face** (sans, a book serif, a
+typewriter mono), **column width**, **spacing** (cosy or compact), the
+**mood colour on the boxes** (full wash, just the edge, off), **coloured
+words** on or plain, the **badges** on turns, a **time on each turn**, the
+**portraits beside turns**, and **send with Enter or Ctrl+Enter** (with
+Enter for a new line). Every pick lands at once; *Back to the defaults*
+clears it. Per chat, **Customize** on the Scene tab now also takes the
+**scene name** (the short name the ⇄ cards and Recents use) and a **scene
+picture**.
+
 ⚙ Settings exposes **temperature, top_p, top_k, repetition penalty and
 min_p** (blank means "let the model decide"), and a **background model**: the
 sequencer, the lore book, hooks and commentary can be sent to a small fast
@@ -1485,6 +1500,56 @@ indicator shows in that column), and a chain staged in one scene keeps
 running there while you type in the other. `room.linkedTo` is mutual;
 **⨯ Unlink** makes them two chats again; deleting the pair deletes both
 (unlink first to keep one); a 🌿 branch is its own hour and is never linked.
+
+**⇄ Merge into one** is the reverse of ✂. When the two groups end up in
+the same place — the plane has landed in the yard — the link menu and the
+Scene tab both offer *Merge the two scenes into one*. The dialog asks
+**which scene is the stage** (the other folds into it), words **how they
+come together** for you (*"Wario, Waluigi come in from the plane — the two
+groups are in one place now, and everyone can see what state the others
+are in"*; edit it), and two ticks: *play the joining now* (it lands as a 🎬
+direction naming the folded scene, and the Director narrates it) and *keep
+the folded scene in Recents as a record* (default on — retitled *"… (merged
+into “…”)"*, unlinked, nothing lost; off removes it). `RP.mergeRooms` does
+the folding so that it makes sense afterwards:
+
+- **people** — present in either scene is present in the one scene; a sheet
+  the stage never had comes over whole (Bowser at 50 HP stays at 50); a
+  sheet in both keeps the stage's record (they were one sheet anyway); if
+  you starred nobody on the stage but played somebody in the folded scene,
+  you keep playing them;
+- **the chats** — both streams become **one stream in the order they
+  happened**, with a small *⇄ scene name* camera card wherever the record
+  cuts from one place to the other (the cards are shown, never sent to the
+  model), and a 🩺 state card at the end saying who joined; the recap is
+  reset so the next summary reads the whole thing;
+- **facts, tints and the clock** — unioned, the stage's winning a clash;
+  the later clock stands; the fate counters add up;
+- **↩ Undo takes the whole merge back** — the cast, the stream, the clock,
+  the link (the snapshot carries `linkedTo`, who you play and the bench),
+  and the folded record is a scene again, with its title restored.
+
+**@ — who you mean.** Type `@` in either text box and a picker opens over
+the composer: everyone **in this scene**, everyone **in the other scene**,
+anyone **written out**, the lore book's places, people, things and events,
+and — once you have typed two letters — the **archive**. Arrows and Enter
+pick (Enter picks instead of sending while the list is open), Escape
+closes, and the **@** button on the turn bar opens the same list for touch.
+Names with spaces insert as `@[The Hangar Beast]`. When the turn is sent
+`RP.parseMentions` takes the @ signs out of the prose and leaves the
+**pointers on the turn** (`msg.mentions`); in the card each name is a link
+— click it for who that is, where, and what you can do: open their sheet,
+*↩ bring them back* (written out), *🚶 bring them over here* / *open their
+scene* (the other scene), the lore entry itself, *＋ bring them into this
+scene* (archive). The model is told exactly who was meant
+(`RP.pingBlock`, right after the sheets that answer to names): *NAMED BY
+THE PLAYER — Bowser — in the other scene right now, “The hangar roof”
+(100/100 HP). A wall apart: they cannot hear this unless it would carry. …
+The Hangar Beast — thing, from the lore book: … The same one, with the
+same record — not a new thing. Answer about THEM, as filed. Nobody listed
+here walks in because they were named.* Someone in the other scene who is
+named here gets a quiet **📣 named in “…”** card over there, so both
+records know. A stray `@nobody` that matches nothing is left as typed.
 
 **Exports know about both.** While a scene is linked, ⬇ Export offers,
 under the single-chat choices, **⇄ Both scenes**: a markdown transcript
@@ -1721,6 +1786,28 @@ character invented in play who has a namesake in the archive is offered
 that portrait as a tickable line (*🖼 Wario has no portrait — use the
 archive's Wario portrait*). The audit never runs in the background and
 never counts against the lean-mode contract.
+
+**The audit may redefine, not just add and subtract.** A sheet is a
+record, and a record can be wrong at the root — a 100-HP maximum for
+somebody written as frail, a current value nobody ever set. The audit's
+toolbox carries `[[HP: Name = 28/80]]` (and the same for MP): **set the
+current and the maximum together**. `RP.parseDirectives` reads `N/M` on
+HP/MP lines, `RP.applyChange` honours the new maximum and files the line
+as *Wario — HP redefined 28/80 (was 100/100)*, and the preview shows it
+like any other tickable line. Plain `-3` and `= 7` still work as before.
+
+**It also reads the play, not only the sheets.** Under the corrections,
+**Notes on the play** lists up to three `NOTE:` lines the model wrote
+about the last turns — *Wario at 28 HP should not be charging; next turn
+show the limp*, *The player was answered by everyone at once; let one
+voice carry the next turn* — each with its own tick (counted apart from
+the changes: *Apply 4 changes · 2 notes*). Ticked notes are held on the
+scene that asked (`room.auditNotes`) and handed to the model **once**, in
+the protected tail of the very next turn (`RP.auditNoteBlock`: *FROM THE
+AUDIT — notes on the last turns, for this one … Take them as the table's
+judgement: fix what they name in this turn, without announcing it*), after
+which they are dropped. *IN ORDER* is still the whole reply when nothing
+needs doing.
 
 A broken portrait anywhere — a turn card, the party bar, the rail — falls
 back to the character's initials on its own: every `avatar()` frame
@@ -2075,6 +2162,19 @@ rust* — unless the model coloured something in the last three turns on
 its own (`RP.recentlyColoured`), in which case it is left alone.
 `[[TINT:]]` standing rules still parse and render for old chats.
 
+**Every way a model writes colour lands** (`RP.colourInline`, inside
+`RP.md`). The one the rule teaches is `{colour|words}`, but a model that
+has read the rule once will also write `{words|colour}`, `{colour: words}`,
+`{red}words{/red}`, `[red]words[/red]`, `<red>words</red>` — all of them
+colour now, where before they printed as brackets. And the commonest of
+all, bare **`{pissed}`** with no colour named, is coloured in the
+**speaker's own mood ink** (`<span class="tint mood">`, `--mood-ink` from
+the box's mood; a warm red when nobody is in a mood) — which is what the
+model meant. The rule says so: *or simply {the stain} to use the speaker's
+own mood colour*. `{a|b}` where neither side is a colour is left alone.
+🎨 Appearance can turn the coloured words off (*Plain*) without touching the
+moods underneath.
+
 The mood chips are one word each now (*smug*, *puzzled*, *queasy*), the
 party-bar cards cap at 300 px (340 for your pack) so chips wrap instead
 of stretching the card across the bar, and a long chip is cut with an
@@ -2105,6 +2205,37 @@ when it has something to say (hp ≤ 65 %, or any flag on the sheet):
   this turn and file it (`[[HP: Wario -N]]` or `[[COND: Wario …]]`).*
 
 Whole and unflagged costs nothing.
+
+### 🩼 The player's body — you cannot do what you cannot do
+
+The same rule binds the reader. A player at 20/100 HP used to *parkour up
+the side of the building* and have the dice decide like any other turn.
+Now the body is checked first (`RP.bodyCheck(sheet, text)`), from a small
+table of limits (`RP.BODY_LIMITS`): a **leg** that is broken, limping,
+hobbled or lame rules out running, sprinting, climbing, vaulting, parkour,
+leaping, kicking and dancing; an **arm or hand** broken or in a sling
+rules out climbing, hauling, swinging, punching, two-handed work;
+**blinded** rules out reading, aiming, shooting, driving, spotting;
+**exhausted/winded** rules out sprinting, climbing, hauling, long fights;
+**bound** rules out nearly everything; **0 HP** allows nothing but a word,
+a crawl, a breath; and anyone at **≤ 35 %** is held back from the heavy
+verbs. When the attempt is beyond the body:
+
+- the 🎲 roll is tilted to the floor — `RP.attemptScale` answers `unfit`,
+  no triumph is possible, plain success is rare (a leg that holds just this
+  once), the rest is a wrench, a setback or a refusal — and the chip says
+  why: **🩼 limping (the crash) (−3)**;
+- the prompt refuses the body before the world (`RP.beyondBlock`): *THE
+  BODY REFUSES — the player is limping (the crash), and “parkour” is beyond
+  that leg right now. The ruling below stands…*;
+- and whenever the player is hurt at all (hp ≤ 65 % or any flag),
+  `RP.playerBodyBlock` rides in the protected tail — *THE PLAYER'S BODY —
+  Archivist is BADLY HURT at 20/100 HP — no sprinting, climbing, vaulting,
+  hauling or long fights; every move shows it. What they attempt is bound
+  by this: when they try past it, the body fails them before the world
+  does, the people here see it, and you file the cost.*
+
+Whole costs nothing: no flag, hp above 65 %, and none of this is sent.
 
 ### 🌩 Beyond them — godly and hopeless attempts
 

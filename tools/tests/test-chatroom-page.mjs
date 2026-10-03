@@ -1168,6 +1168,101 @@ check('commentary: finished episodes are kept and can be reopened',
   if (offAgain) offAgain.dispatchEvent(click());
   check('live: turned off again, nothing queues', roomA().live === 'off' && roomC().live === 'off' && !$('qaMeanwhile').classList.contains('on'));
   dock('cast');
+
+  // ---- round 10: @ — point at exactly who you mean, across the two scenes ----
+  const overThere = win.RP.presentCast(roomC()).find(c => !(roomA().states[c.id] || {}).present || roomA().states[c.id].present === false) || win.RP.presentCast(roomC())[0];
+  check('mention: the turn bar has an @ button, and typing @ in the box opens a picker that lists here, the other scene and the lore book', (() => {
+    const hasBtn = Boolean($('qaAt'));
+    const input = $('input');
+    input.value = 'Listen, @';
+    input.setSelectionRange(input.value.length, input.value.length);
+    input.dispatchEvent(new win.Event('input', { bubbles: true }));
+    const pop = doc.querySelector('#frontScene .mention-pop, .composer .mention-pop');
+    const rows = pop ? [...pop.querySelectorAll('.mention-row')] : [];
+    const kinds = rows.map(r => r.querySelector('.kind').textContent);
+    return hasBtn && pop && !pop.hidden && rows.length >= 2 && /in the scene/.test(kinds[0]) &&
+      win.RP.mentionables(savedState(), roomA(), {}, '').some(c => c.kind === 'other' && c.id === overThere.id);
+  })());
+  check('mention: filtering by letters narrows the list; Enter in the box picks instead of sending', (() => {
+    const input = $('input');
+    const turnsBefore = roomA().messages.length;
+    input.value = 'Listen, @' + overThere.name.slice(0, 3);
+    input.setSelectionRange(input.value.length, input.value.length);
+    input.dispatchEvent(new win.Event('input', { bubbles: true }));
+    const pop = doc.querySelector('.composer .mention-pop');
+    const first = pop.querySelector('.mention-row b');
+    const kind = pop.querySelector('.mention-row .kind').textContent;
+    input.dispatchEvent(new win.KeyboardEvent('keydown', { key: 'Enter', bubbles: true, cancelable: true }));
+    const name = /\s/.test(overThere.name) ? '@[' + overThere.name + ']' : '@' + overThere.name;
+    return first && first.textContent === overThere.name && /in the other scene/.test(kind) && input.value.startsWith('Listen, ' + name + ' ') &&
+      roomA().messages.length === turnsBefore && pop.hidden;
+  })());
+  const cCardsBefore = roomC().messages.length;
+  $('input').value = $('input').value + 'is the one who owes me. Sans, back me up.';
+  $('composer').dispatchEvent(submit());
+  await until('the @ turn to be answered', () => !doc.querySelector('.typing') && roomA().messages[roomA().messages.length - 1].role !== 'user', 80);
+  check('mention: the @ comes out of the prose, the pointer stays on the turn, the name is a link, and the other scene is told', (() => {
+    const mine = roomA().messages.filter(m => m.role === 'user').pop();
+    const link = $('stream').querySelector('a.mention');
+    const ping = roomC().messages.slice(cCardsBefore).find(m => m.role === 'state' && m.ping);
+    return mine && !/@/.test(mine.text) && mine.mentions && mine.mentions.length === 1 && mine.mentions[0].id === overThere.id && mine.mentions[0].kind === 'other' &&
+      link && link.textContent === overThere.name && Boolean(ping) && new RegExp(overThere.name).test(ping.lines[0]) && /📣/.test($('sidescene').textContent);
+  })());
+  check('mention: the model was told who was meant — NAMED BY THE PLAYER, a wall apart', (() => {
+    const st = savedState();
+    const a = st.rooms.find(x => x.id === aId);
+    const mine = a.messages.filter(m => m.role === 'user').pop();
+    const sys = win.RP.systemFor(st, a, a.cast[0], { mentions: mine.mentions, catalog: {} });
+    return /NAMED BY THE PLAYER/.test(sys) && new RegExp(overThere.name + ' — in the other scene').test(sys) && /A wall apart/.test(sys);
+  })());
+  check('mention: clicking the name says where they are and offers to bring them over', (() => {
+    $('stream').querySelector('a.mention').dispatchEvent(click());
+    const ok = !$('modalBack').hidden && new RegExp(overThere.name).test($('modal').textContent) && Boolean($('mWalk')) && Boolean($('mGo'));
+    $('mCancel').dispatchEvent(click());
+    return ok;
+  })());
+
+  // ---- round 10: ⇄ merge — the two scenes become one place and one stream ----
+  const aTurns = roomA().messages.filter(m => m.role === 'user' || m.role === 'char' || m.role === 'world').length;
+  const cTurns = roomC().messages.filter(m => m.role === 'user' || m.role === 'char' || m.role === 'world').length;
+  const cCast = roomC().cast.map(c => c.id);
+  const cTitle = roomC().sceneName || roomC().title;
+  check('merge: the Scene tab and the ⇄ menu both offer it; the dialog asks which scene is the stage and words the joining', (() => {
+    dock('scene');
+    const btn = $('dkMerge');
+    if (!btn) return false;
+    btn.dispatchEvent(click());
+    const radios = doc.querySelectorAll('#modal [name=mergeStage]');
+    return !$('modalBack').hidden && /Merge the two scenes/.test($('modal').textContent) && radios.length === 2 && radios[0].checked &&
+      /come in from|comes in from|become one/.test($('f_join').value) && $('f_keep').checked && $('f_play').checked;
+  })());
+  $('f_join').value = 'The hangar door comes down and everyone is on the same floor now.';
+  $('mOk').dispatchEvent(click());
+  await until('the merge to be played', () => !doc.querySelector('.typing') && roomA().messages.some(m => m.role === 'scene' && m.direction && /same floor now/.test(m.text)) &&
+    roomA().messages[roomA().messages.length - 1].role !== 'scene', 120);
+  check('merge: one scene — everybody seated, both streams interleaved with ⇄ camera cards, the link gone, the record kept in Recents', (() => {
+    const a = roomA();
+    const folded = savedState().rooms.find(x => x.id === cId);
+    const stream = a.messages.filter(m => m.role === 'user' || m.role === 'char' || m.role === 'world');
+    const cameras = a.messages.filter(m => m.role === 'scene' && m.camera);
+    const seated = win.RP.presentCast(a).map(c => c.id);
+    return cCast.every(id => seated.includes(id)) && stream.length >= aTurns + cTurns && cameras.length >= 2 &&
+      cameras.some(m => m.text === '⇄ ' + cTitle) && !a.linkedTo && folded && folded.mergedInto === a.id && !folded.linkedTo &&
+      /merged into/.test(folded.title) && savedState().active === aId && !$('sidescene').querySelector('.stream') &&
+      a.messages.some(m => m.role === 'state' && m.merged) && $('stream').querySelectorAll('.scene-card.camera').length === cameras.length &&
+      a.messages.some(m => m.role === 'scene' && m.direction && m.from === cTitle);
+  })());
+  check('merge: the folded record is one row in Recents, filed as merged, and ↩ takes the merge back — two linked scenes again', (() => {
+    const row = doc.querySelector(`.recent[data-room="${cId}"]`);
+    const okRow = Boolean(row) && /merged into/.test(row.textContent);
+    // ↩ once per step that followed the merge (the direction, its turn), then the merge itself.
+    for (let i = 0; i < 4 && roomA().messages.some(m => m.camera); i++) $('undoBtn').dispatchEvent(click());
+    const a = roomA(), c = roomC();
+    return okRow && !a.messages.some(m => m.camera) && a.messages.filter(m => m.role === 'user' || m.role === 'char' || m.role === 'world').length === aTurns &&
+      a.linkedTo === cId && c.linkedTo === aId && !c.mergedInto && !/merged into/.test(c.title) && !$('sidescene').hidden &&
+      !a.youPlay && win.RP.presentCast(a).length < cCast.length + win.RP.presentCast(c).length;
+  })());
+  dock('cast');
   $('homeBtn').dispatchEvent(click());
 }
 
@@ -1380,6 +1475,52 @@ check('commentary: finished episodes are kept and can be reopened',
   await wait(200);
   check('models: the choice is saved',
     savedState().settings.model === 'mock-model' && savedState().settings.context === 12);
+}
+
+// ---- 🎨 appearance: theme, text, widths, the mood wash, Enter ----
+{
+  const click = () => new win.MouseEvent('click', { bubbles: true });
+  const html = doc.documentElement;
+  $('settingsBtn').dispatchEvent(click());
+  check('look: ⚙ Settings offers 🎨 Appearance, and the page ships in the light look with nothing on <html>',
+    Boolean($('setLook')) && !html.hasAttribute('data-theme') && !html.hasAttribute('data-size'));
+  $('setLook').dispatchEvent(click());
+  check('look: the Appearance modal has a dial for each of theme, size, face, width, spacing, mood wash, coloured words, badges, times, portraits and Enter',
+    ['theme', 'size', 'font', 'width', 'density', 'mood', 'words', 'badges', 'stamps', 'portraits', 'enter'].every(k => Boolean($('lk_' + k))) &&
+    [...$('lk_theme').options].map(o => o.value).join() === 'light,sepia,dusk');
+  const pick = (k, v) => { $('lk_' + k).value = v; $('lk_' + k).dispatchEvent(new win.Event('change', { bubbles: true })); };
+  pick('theme', 'dusk'); pick('size', 'l'); pick('font', 'serif'); pick('width', 'wide'); pick('mood', 'soft'); pick('words', 'off'); pick('stamps', 'on'); pick('enter', 'ctrl');
+  check('look: each pick lands on <html> at once and is saved with the settings', (() => {
+    const l = savedState().settings.look || {};
+    return html.getAttribute('data-theme') === 'dusk' && html.getAttribute('data-size') === 'l' && html.getAttribute('data-font') === 'serif' &&
+      html.getAttribute('data-width') === 'wide' && html.getAttribute('data-mood') === 'soft' && html.getAttribute('data-words') === 'off' &&
+      html.getAttribute('data-stamps') === 'on' && l.theme === 'dusk' && l.enter === 'ctrl' && !$('modalBack').hidden;
+  })());
+  check('look: the stylesheet carries the dusk and sepia palettes, the mood-word ink, and the dials it is told about', (() => {
+    const css = [...doc.querySelectorAll('style')].map(s => s.textContent).join('\n') + pageHtml;
+    return /\[data-theme=dusk\]\s*\{[^}]*color-scheme: dark/.test(css) && /\[data-theme=sepia\]/.test(css) && /\.tint\.mood\s*\{[^}]*--mood-ink/.test(css) &&
+      /\[data-words=off\] \.bubble \.tint/.test(css) && /\[data-stamps=on\] \.turn \.stamp/.test(css) && /\[data-size=l\] body/.test(css);
+  })());
+  $('mOk').dispatchEvent(click());
+  doc.querySelector('[data-room]').dispatchEvent(click());
+  await wait(150);
+  check('look: with times on, every turn card shows a clock; with Ctrl+Enter chosen, Enter alone does not send', (() => {
+    const turns = [...$('stream').querySelectorAll('.turn')];
+    const stamped = turns.length > 0 && turns.every(t => /^\d\d:\d\d$/.test((t.querySelector('.stamp') || {}).textContent || ''));
+    const before = savedState().rooms.find(x => x.id === savedState().active).messages.length;
+    $('input').value = 'A line that must not go on Enter.';
+    $('input').dispatchEvent(new win.KeyboardEvent('keydown', { key: 'Enter', bubbles: true, cancelable: true }));
+    const stayed = savedState().rooms.find(x => x.id === savedState().active).messages.length === before && $('input').value.length > 0;
+    $('input').value = '';
+    return stamped && stayed;
+  })());
+  $('settingsBtn').dispatchEvent(click());
+  $('setLook').dispatchEvent(click());
+  $('mReset').dispatchEvent(click());
+  check('look: back to the defaults clears <html> and the saved look', !html.hasAttribute('data-theme') && !html.hasAttribute('data-stamps') &&
+    Object.keys(savedState().settings.look || {}).length === 0);
+  $('mOk').dispatchEvent(click());
+  $('homeBtn').dispatchEvent(click());
 }
 
 // ---- saving to disk, so a cleared cache is not the end of it ----
@@ -1641,6 +1782,14 @@ check('audit: each line has its own tick — untick the note and the button coun
   box.dispatchEvent(new win.Event('change', { bubbles: true }));
   return /Apply 4 changes/.test($('mOk').textContent);
 })());
+check('audit: the notes on the play are listed with their own ticks, counted apart from the changes', (() => {
+  const notes = [...doc.querySelectorAll('#modal [data-note]')];
+  const first = notes.find(b => /knife to the ribs/.test(b.parentNode.textContent));
+  if (notes.length !== 2 || !first) return false;
+  first.checked = false;
+  first.dispatchEvent(new win.Event('change', { bubbles: true }));
+  return /Notes on the play/.test($('modal').textContent) && /Apply 4 changes · 1 note$/.test($('mOk').textContent);
+})());
 $('mOk').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
 await wait(200);
 check('audit: applied — the sheet, the SET number, the mood (at the pitch it decided) and the clock moved; the unticked note did not', (() => {
@@ -1650,8 +1799,15 @@ check('audit: applied — the sheet, the SET number, the mood (at the pitch it d
   const card = r.messages[r.messages.length - 1];
   return $('modalBack').hidden && sheet.hp.value === auditBefore.hp - 3 && !/soot on the face/.test(sheet.status || '') && r.clock === '23:40' &&
     sheet.mp && sheet.mp.value === 7 && sheet.mood && sheet.mood.key === 'anger' && sheet.mood.level === 2 &&
-    card.role === 'state' && card.lines.length === 4 && card.lines.every(l => /^🩺 /.test(l)) &&
+    card.role === 'state' && card.lines.length === 5 && card.lines.every(l => /^🩺 /.test(l)) &&
     !r.cast.some(c => /Nobody Real/.test(c.name)) && /🩺/.test($('stream').textContent);
+})());
+check('audit: the notes on the play are held for the next turn — one note was unticked, one rides along, and the prompt carries it once', (() => {
+  const s = savedState();
+  const r = s.rooms.find(x => x.id === s.active);
+  const sys = win.RP.systemFor(s, r, r.cast[0], {});
+  return Array.isArray(r.auditNotes) && r.auditNotes.length === 1 && /one voice carry/.test(r.auditNotes[0]) &&
+    /FROM THE AUDIT/.test(sys) && /one voice carry/.test(sys) && !/knife to the ribs/.test(sys);
 })());
 check('audit: ↩ undo takes the whole audit back — sheet, card and clock', (() => {
   $('undoBtn').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));

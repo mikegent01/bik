@@ -2324,6 +2324,7 @@
         ' title="' + esc(mood ? 'You are ' + RP.moodLabel(mood) + ' — the cast reads what you do through it. Click to change or calm down.'
           : 'How you feel going into this turn: the cast reads what you do through it (angry: a pick-up is a grab).') + '">' +
         (mood ? esc(RP.MOODS[mood.key].icon + ' ' + RP.moodLabel(mood)) : '🎭 Mood') + '</button>' +
+      '<button class="qa mac" id="qaAt" title="@ — point at exactly who you mean: someone here, written out, in the other scene, in the lore book or in the archive. Type @ in the box for the same list.">@</button>' +
       (kit.length ? '<button class="qa mac" id="qaUse" title="Use, show or hand over something you carry">🎒 Use…</button>' : '') +
       shownMacros().slice(0, 8).map(function (m) {
         return '<button class="qa mac" data-macro="' + esc(m.id) + '" title="' + esc(m.text) + '">' +
@@ -2798,6 +2799,7 @@
         }).join('') + '</div>';
       }
       if (m.role === 'scene') {
+        if (m.camera) return '<div class="scene-card camera" title="Merged: this stretch happened in the scene named here">' + esc(RP.textOf(m)) + '</div>';
         return '<div class="scene-card' + (m.beat ? ' beat' : m.direction ? ' direction' : '') + '"><span class="kicker">' +
           (m.beat ? '⏩ Beat' : m.direction ? (m.from ? '⟶ Carried over from “' + esc(m.from) + '”' : '🎬 Direction') : 'Scene') +
           '</span>' + esc(RP.textOf(m)) + '</div>';
@@ -2805,7 +2807,7 @@
       if (m.role === 'world') {
         return '<article class="turn world' + (m.muted ? ' muted' : '') + (m.ambient ? ' ambient' : '') + '">' +
           '<div class="who"><span class="globe">' + esc(RP.NARRATORS[RP.narrator(state)].icon) + '</span>' +
-          '<b>' + esc(RP.NARRATORS[RP.narrator(state)].name) + '</b>' +
+          '<b>' + esc(RP.NARRATORS[RP.narrator(state)].name) + '</b>' + stamp(m) +
           (m.ambient ? '<span class="meanwhile" title="This happened while you were in the other scene">🌗 meanwhile</span>' : '') +
           '<button class="speak" data-speak="' + i + '" title="Read aloud">▶</button></div>' +
           '<div class="bubble">' + RP.md(RP.applyTints(RP.textOf(m), r.tints)) + '</div>' +
@@ -2828,7 +2830,7 @@
       return '<article class="turn ' + (mine ? 'user' : 'char') + (m.error ? ' err' : '') +
         (m.muted ? ' muted' : '') + (m.imported ? ' imported' : '') + (m.ambient ? ' ambient' : '') + moodAttrs(m) + '">' +
         '<div class="who">' + (mine ? (playing ? avatar(playing, 24) : userAvatar(24)) : avatar(charOf(r, m.charId), 24)) +
-        '<b>' + esc(who) + '</b>' + (mine ? '' : '<span class="badge">archive</span>') +
+        '<b>' + esc(who) + '</b>' + stamp(m) + (mine ? '' : '<span class="badge">archive</span>') +
         (m.ambient ? '<span class="meanwhile" title="' + (playing && m.charId === playing.id ? 'Your character acted alone while you were in the other scene'
           : 'This happened while you were in the other scene') + '">🌗 meanwhile</span>' : '') +
         (m.mood && RP.MOODS[m.mood.key] ? '<span class="moodtag" title="How they felt as this turn ended — the box wears the colour">' +
@@ -2837,7 +2839,7 @@
         (m.error ? '' : '<span class="grip" draggable="true" data-dragturn="' + esc(m.id) + '" ' +
           'title="Drag this turn onto the other scene to carry it over — or to the edge of the stage to start one">⠿</span>') +
         '</div>' +
-        '<div class="bubble">' + RP.md(RP.applyTints(RP.textOf(m), r.tints)) + '</div>' +
+        '<div class="bubble">' + (m.mentions ? linkMentions(RP.md(RP.applyTints(RP.textOf(m), r.tints)), m.mentions) : RP.md(RP.applyTints(RP.textOf(m), r.tints))) + '</div>' +
         ((m.ooc || []).length
           ? '<div class="metastrip">' + m.ooc.map(function (n) {
               return '<span class="ooc" title="Sent to the model, not spoken aloud">(( ' + esc(n) + ' ))</span>';
@@ -2954,9 +2956,11 @@
       { label: '⟵ Carry something over from “' + name + '” into here…', value: 'carryBack' },
       { label: sees ? '👁 Each scene knows the other — its people, its last ' + RP.MEANWHILE_TURNS + ' turns, the shared clock — so what would carry, carries on its own. Click to make them blind until you carry something over'
                     : '🙈 The scenes are blind to each other; only ⟶ carries anything — click to let each know the other', value: 'mode' },
+      { label: '⇄ Merge the two scenes into one — everybody in one place, both chats as one stream…', value: 'merge' },
       { label: '⨯ Unlink — both scenes stay, as two separate chats', value: 'unlink' },
     ], function (pick) {
       if (pick === 'swap') { state.active = forward.id; save(); render(); return; }
+      if (pick === 'merge') { mergeDialog(r); return; }
       if (pick === 'send') { walkers(r, other, '🚶 Who goes over to “' + name + '”?'); return; }
       if (pick === 'fetch') { walkers(other, r, '🚶 Who comes over from “' + name + '”?'); return; }
       if (pick === 'carry') { carryForm(r, other); return; }
@@ -3178,6 +3182,237 @@
     save(); buildBoard(); render();
     toast('⇄ “' + title + '” opened at the side with ' + (names.join(', ') || 'you') + '. Drop a face across to send somebody over; ⟶ carries anything else.');
     return b;
+  }
+
+  /* ---------------------------------------------------------------- *
+   * @ — who you mean
+   * ---------------------------------------------------------------- */
+  /** Everything @ could point at from this room, plus archive matches
+   *  for each @word actually typed (the archive is only searched by name). */
+  function mentionCandidates(r, text) {
+    var all = RP.mentionables(state, r, castById, '');
+    var words = String(text || '').match(/@\[?([A-Za-z][\w'’.\- ]{1,40})/g) || [];
+    words.forEach(function (w) {
+      var q = w.replace(/^@\[?/, '').split(/\s+/)[0];
+      RP.mentionables(state, r, castById, q).forEach(function (c) {
+        if (!all.some(function (x) { return x.id === c.id; })) all.push(c);
+      });
+    });
+    return all;
+  }
+
+  /** A name spoken here that belongs to the other scene is heard of there:
+   *  a quiet card, so the record on both sides knows who was talked about. */
+  function pingElsewhere(r, mentions, text) {
+    var other = RP.linkedRoom(state, r);
+    if (!other) return;
+    var named = (mentions || []).filter(function (m) { return m.kind === 'other' && m.roomId === other.id; });
+    if (!named.length) return;
+    other.messages.push({ id: RP.uid(), role: 'state', at: Date.now(), ping: true,
+      lines: ['📣 ' + named.map(function (m) { return m.name; }).join(', ') + ' — named in “' + (r.sceneName || r.title) + '”: “' + RP.clip(text, 90) + '”'] });
+    other.updated = Date.now();
+  }
+
+  /** The @ picker under a composer: opens on @, filters as you type,
+   *  arrows and Enter pick, Escape closes; the @ button opens it whole. */
+  function wireMentions(input, r) {
+    if (!input) return;
+    input.mentionRoom = r;                       // the front box outlives the room it is wired for
+    if (input.dataset.mentionsWired) return;
+    input.dataset.mentionsWired = '1';
+    var pop = document.createElement('div');
+    pop.className = 'mention-pop';
+    pop.hidden = true;
+    input.parentNode.insertBefore(pop, input);
+    var items = [], at = 0, from = -1;
+    var close = function () { pop.hidden = true; items = []; from = -1; };
+    var insert = function (c) {
+      var v = input.value;
+      var head = from >= 0 ? v.slice(0, from) : v.slice(0, input.selectionStart || v.length);
+      var tail = from >= 0 ? v.slice(input.selectionStart || v.length) : v.slice(input.selectionStart || v.length);
+      var name = /\s/.test(c.name) ? '@[' + c.name + ']' : '@' + c.name;
+      input.value = head + name + ' ' + tail;
+      var caret = (head + name + ' ').length;
+      input.focus();
+      try { input.setSelectionRange(caret, caret); } catch (e) { /* older engines */ }
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+      close();
+    };
+    var draw = function () {
+      if (!items.length) { close(); return; }
+      pop.innerHTML = items.map(function (c, i) {
+        return '<button type="button" class="mention-row' + (i === at ? ' on' : '') + '" data-pick-mention="' + i + '">' +
+          (c.kind === 'book' ? '<span class="av av-24" style="width:24px;height:24px;min-width:24px;font-size:12px;background:#5b5b66">📓</span>' : avatar(c, 24)) +
+          '<b>' + esc(c.name) + '</b><span class="kind">' + esc(RP.MENTION_KINDS[c.kind] || c.kind) + (c.note ? ' · ' + esc(RP.clip(c.note, 36)) : '') + '</span></button>';
+      }).join('');
+      pop.hidden = false;
+      pop.querySelectorAll('[data-pick-mention]').forEach(function (b) {
+        b.onmousedown = function (e) { e.preventDefault(); insert(items[Number(b.getAttribute('data-pick-mention'))]); };
+      });
+    };
+    var open = function (query, start) {
+      from = start;
+      items = RP.mentionables(state, input.mentionRoom || r, castById, query).slice(0, 8);
+      at = 0;
+      draw();
+    };
+    input.addEventListener('input', function () {
+      var head = input.value.slice(0, input.selectionStart || input.value.length);
+      var hit = /(^|\s)@\[?([^\s@\]]{0,30})$/.exec(head);
+      if (!hit) { close(); return; }
+      open(hit[2], head.length - hit[0].length + hit[1].length);
+    });
+    input.addEventListener('keydown', function (e) {
+      if (pop.hidden) return;
+      if (e.key === 'ArrowDown') { e.preventDefault(); at = (at + 1) % items.length; draw(); }
+      else if (e.key === 'ArrowUp') { e.preventDefault(); at = (at - 1 + items.length) % items.length; draw(); }
+      else if (e.key === 'Enter' || e.key === 'Tab') { e.preventDefault(); e.stopImmediatePropagation(); insert(items[at]); }
+      else if (e.key === 'Escape') { e.preventDefault(); e.stopImmediatePropagation(); close(); }
+    }, true);
+    input.addEventListener('blur', function () { window.setTimeout(close, 150); });
+    input.mentionOpen = function () {
+      var v = input.value, caret = input.selectionStart || v.length;
+      var pre = v.slice(0, caret);
+      var needsSpace = pre && !/\s$/.test(pre);
+      input.value = pre + (needsSpace ? ' ' : '') + '@' + v.slice(caret);
+      var c2 = (pre + (needsSpace ? ' ' : '') + '@').length;
+      input.focus();
+      try { input.setSelectionRange(c2, c2); } catch (e) { /* older engines */ }
+      open('', c2 - 1);
+    };
+  }
+
+  /** A mentioned name in a turn card: who they are, where, and what you
+   *  can do about it from here. */
+  function mentionCard(r, m) {
+    var other = RP.linkedRoom(state, r);
+    var here = (r.cast || []).filter(function (c) { return c.id === m.id; })[0];
+    var sheet = r.states && r.states[m.id];
+    var kind = m.kind;
+    var overThere = other && RP.presentCast(other).some(function (c) { return c.id === m.id; });
+    if (here && sheet && sheet.present !== false) kind = 'here';
+    else if (overThere) kind = 'other';
+    else if (here && sheet && sheet.present === false) kind = 'away';
+    var sheetLine = function (sh) {
+      if (!sh) return '';
+      return (sh.hp ? '❤ ' + sh.hp.value + '/' + sh.hp.max + ' ' : '') + (sh.mp ? '🔮 ' + sh.mp.value + '/' + sh.mp.max + ' ' : '') +
+        (sh.mood && RP.MOODS[sh.mood.key] ? RP.MOODS[sh.mood.key].icon + ' ' + RP.moodLabel(sh.mood) + ' ' : '') +
+        Object.keys(sh.flags || {}).map(function (f) { return '· ' + f.replace(/_/g, ' '); }).join(' ');
+    };
+    var entry = kind === 'book' ? (((state.book || {}).entries || []).filter(function (e) { return e && e.name && e.name.toLowerCase() === m.name.toLowerCase(); })[0]) : null;
+    var rec = castById[m.id];
+    var body = kind === 'here' ? 'In this scene. ' + sheetLine(sheet)
+      : kind === 'away' ? 'Written out of this scene. ' + sheetLine(sheet)
+      : kind === 'other' && other ? 'In “' + esc(other.sceneName || other.title) + '” right now. ' + sheetLine(other.states && other.states[m.id])
+      : kind === 'book' ? (entry ? esc(String(entry.kind || '').toLowerCase()) + (entry.roomTitle ? ' · filed from “' + esc(entry.roomTitle) + '”' : '') + '<br>' + esc(entry.text || '') : 'In the lore book.')
+      : rec ? esc(rec.title || '') + (rec.summary ? '<br>' + esc(RP.clip(rec.summary, 240)) : '') : 'From the archive.';
+    openModal('<h3>' + (kind === 'book' ? '📓 ' : '') + esc(m.name) + '</h3>' +
+      '<p class="sub">' + esc(RP.MENTION_KINDS[kind] || kind) + '</p><p>' + body + '</p>' +
+      '<div class="actions">' +
+      (kind === 'here' ? '<button class="pill" id="mSheet">Open their sheet</button>' : '') +
+      (kind === 'away' ? '<button class="pill" id="mBack">↩ Bring them back into the scene</button>' : '') +
+      (kind === 'other' && other ? '<button class="pill" id="mWalk">🚶 Bring them over here</button><button class="pill" id="mGo">Open their scene</button>' : '') +
+      (kind === 'archive' && rec ? '<button class="pill" id="mInvite">＋ Bring them into this scene</button>' : '') +
+      '<span class="grow"></span><button class="pill primary" id="mCancel">Close</button></div>');
+    $('mCancel').onclick = closeModal;
+    if ($('mSheet')) $('mSheet').onclick = function () { closeModal(); editSheet(m.id, r); };
+    if ($('mBack')) $('mBack').onclick = function () { RP.setPresent(r, m.id, true); closeModal(); save(); render(); toast(m.name + ' is back in the scene.'); };
+    if ($('mWalk')) $('mWalk').onclick = function () { closeModal(); walkOver(other, r, m.id); };
+    if ($('mGo')) $('mGo').onclick = function () { closeModal(); openRoom(other.id); };
+    if ($('mInvite')) $('mInvite').onclick = function () {
+      RP.pushUndo(r, 'inviting ' + rec.name);
+      RP.addToRoom(r, rec);
+      closeModal(); save(); render();
+      toast(rec.name + ' joins the scene.');
+    };
+  }
+
+  /** The @names of a turn become links in its bubble. */
+  function linkMentions(html, mentions) {
+    (mentions || []).forEach(function (m) {
+      var safe = esc(m.name).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      html = html.replace(new RegExp('(?![^<]*>)' + safe), '<a class="mention" href="#" data-mention="' + esc(m.id) + '" data-mkind="' + esc(m.kind) + '" data-mname="' + esc(m.name) + '" data-mroom="' + esc(m.roomId || '') + '" title="' + esc(RP.MENTION_KINDS[m.kind] || m.kind) + ' — click for who this is">' + esc(m.name) + '</a>');
+    });
+    return html;
+  }
+
+  /** ⇄ Merge: the two scenes become one place. You say which scene is the
+   *  stage (the other folds into it), word how they come together, and
+   *  the Director plays the joining as the next turn. The reverse of ✂. */
+  function mergeDialog(r) {
+    var other = RP.linkedRoom(state, r);
+    if (!other) { toast('There is no second scene to merge.'); return; }
+    var nameOf = function (x) { return x.sceneName || x.title || 'untitled'; };
+    var joiners = function (stage, folded) {
+      return RP.presentCast(folded).filter(function (c) {
+        var mine = stage.states && stage.states[c.id];
+        return !mine || mine.present === false;
+      }).map(function (c) { return c.name; });
+    };
+    var suggest = function (stage, folded) {
+      var who = joiners(stage, folded);
+      var you = RP.playerCharacter(folded);
+      var from = nameOf(folded);
+      if (!who.length) return 'The two scenes become one: everyone is in the same place now, ' + RP.clip(stage.scene || nameOf(stage), 80) + '.';
+      return who.join(', ') + (you && who.indexOf(you.name) >= 0 ? '' : '') + ' ' + (who.length === 1 ? 'comes' : 'come') + ' in from ' + from + ' — ' +
+        'the two groups are in one place now, and everyone can see what state the others are in.';
+    };
+    openModal('<h3>⇄ Merge the two scenes into one</h3>' +
+      '<p class="sub">Everybody who is in either scene is in the one scene afterwards; both chats become one stream, in the order ' +
+      'they happened, with a ⇄ card wherever the camera used to cut. Sheets, kit, facts and the clock are kept. ↩ takes it back.</p>' +
+      '<label>Which scene is the stage — the place they are all in now?</label>' +
+      '<div class="checks">' +
+      '<label><input type="radio" name="mergeStage" value="' + esc(r.id) + '" checked> “' + esc(nameOf(r)) + '” — “' + esc(nameOf(other)) + '” folds into it</label>' +
+      '<label><input type="radio" name="mergeStage" value="' + esc(other.id) + '"> “' + esc(nameOf(other)) + '” — “' + esc(nameOf(r)) + '” folds into it</label>' +
+      '</div>' +
+      '<label for="f_join">How do they come together? (played as a 🎬 direction, so the cast deals with it)</label>' +
+      '<textarea id="f_join">' + esc(suggest(r, other)) + '</textarea>' +
+      '<div class="checks">' +
+      '<label><input type="checkbox" id="f_play" checked> Play the joining now — the Director narrates it as the next turn</label>' +
+      '<label><input type="checkbox" id="f_keep" checked> Keep the folded scene in Recents as a record (unlinked, nothing lost)</label>' +
+      '</div>' +
+      '<div class="actions"><button class="pill" id="mCancel">Cancel</button><button class="pill primary" id="mOk">⇄ Merge</button></div>');
+    var radios = $('modal').querySelectorAll('[name=mergeStage]');
+    radios.forEach(function (b) {
+      b.onchange = function () {
+        var stage = b.value === r.id ? r : other, folded = stage === r ? other : r;
+        $('f_join').value = suggest(stage, folded);
+      };
+    });
+    $('mCancel').onclick = closeModal;
+    $('mOk').onclick = function () {
+      var pick = [].filter.call(radios, function (b) { return b.checked; })[0];
+      var stage = pick && pick.value === other.id ? other : r;
+      var folded = stage === r ? other : r;
+      var text = ($('f_join').value || '').trim();
+      var play = $('f_play').checked, keep = $('f_keep').checked;
+      closeModal();
+      mergeScenes(stage, folded, { text: text, play: play, keep: keep });
+    };
+  }
+
+  function mergeScenes(stage, folded, opts) {
+    opts = opts || {};
+    if (busy) { toast('The model is writing — wait for it, or press ■.'); return null; }
+    var foldName = folded.sceneName || folded.title;
+    RP.pushUndo(stage, 'merging “' + foldName + '” into this scene');
+    stage.undo[stage.undo.length - 1].linkedTo = folded.id;      // ↩ links them again
+    RP.pushUndo(folded, 'being merged into “' + (stage.sceneName || stage.title) + '”');
+    folded.undo[folded.undo.length - 1].linkedTo = stage.id;
+    var report = RP.mergeRooms(state, stage, folded, {});
+    if (!report) return null;
+    if (opts.keep) {
+      // The record keeps its place in Recents; it is not the live scene.
+      if (!/\(merged into /.test(folded.title || '')) folded.title = (folded.title || 'untitled') + ' (merged into “' + RP.clip(stage.title, 30) + '”)';
+    } else {
+      state.rooms = state.rooms.filter(function (x) { return x.id !== folded.id; });
+    }
+    dockSide = '';
+    state.active = stage.id;
+    save(); buildBoard(); render();
+    toast('⇄ One scene now: ' + (report.joined.length ? report.joined.join(', ') + ' joined; ' : '') + report.turns + ' turns folded in. ↩ takes it back.');
+    if (opts.play && opts.text) directRoom(stage, opts.text, 'world', foldName);
+    return report;
   }
 
   /** Somebody walks from one scene into the other. Written out here, seated
@@ -3480,7 +3715,8 @@
         : '<b>No second scene yet</b>Something happening elsewhere at the same time? Split this cast, invite others, or link a chat you already have.') +
       '<div class="btnrow"><button class="mini' + (other ? '' : ' primary') + '" id="dkLink">' +
       (other ? '⇄ Swap · carry over · unlink' : '⇄ Start a second scene') + '</button>' +
-      (other ? '<button class="mini" id="dkOpenOther">Open it in front</button>' : '') + '</div>' +
+      (other ? '<button class="mini" id="dkOpenOther">Open it in front</button>' +
+        '<button class="mini" id="dkMerge" title="Fold the two scenes into one place and one stream">⇄ Merge into one</button>' : '') + '</div>' +
       (other ? '<div class="cp-menu">' +
         menuItem('dkLive', '🌗', 'The scene you are not in', !r.live || r.live === 'off' ? 'Stands still until you cross over'
           : r.live === 'every' ? 'Moves after every turn you take' : 'Moves every other turn you take') +
@@ -3709,7 +3945,8 @@
         var copies = rooms.map(function (room) { return JSON.parse(JSON.stringify(room)); });
         var stub = { log: [], book: { entries: [], queue: [] }, newChars: [], rooms: copies };
         var preview = RP.applySheetAudit(stub, copies, reply);
-        if (!preview.count && !portraits.length) {
+        var notes = RP.parseAuditNotes(reply);
+        if (!preview.count && !portraits.length && !notes.length) {
           toast(/^IN ORDER/i.test(reply) ? '🧾 In order — the record matches the play.' : '🧾 The audit found nothing it could file.');
           return;
         }
@@ -3736,16 +3973,25 @@
               '<div class="stack">' + items.map(function (it) { return row(it, preview.items.indexOf(it)); }).join('') + '</div>';
           }).join('') +
           (portraits.length ? '<h4>Portraits</h4><div class="stack">' + portraits.map(portraitRow).join('') + '</div>' : '') +
+          (notes.length ? '<h4>Notes on the play</h4><p class="sub">What the audit thinks the last turns got wrong or could do better. ' +
+            'Ticked notes are handed to the model once, for the next turn in “' + esc(r.sceneName || r.title) + '” — then they are dropped.</p><div class="stack">' +
+            notes.map(function (note, n) {
+              return '<label class="item pick"><input type="checkbox" checked data-note="' + n + '"> <span>📝 ' + esc(note) + '</span></label>';
+            }).join('') + '</div>' : '') +
           '<div class="actions"><button class="pill" id="mCancel">Leave it</button>' +
           '<button class="pill primary" id="mOk"></button></div>');
         var countTicked = function () {
           var picks = Array.prototype.slice.call($('modal').querySelectorAll('[data-pick]:checked, [data-portrait]:checked'));
-          $('mOk').textContent = picks.length ? 'Apply ' + picks.length + (picks.length === 1 ? ' change' : ' changes') : 'Apply nothing';
-          $('mOk').disabled = !picks.length;
+          var noted = $('modal').querySelectorAll('[data-note]:checked').length;
+          var words = [];
+          if (picks.length) words.push(picks.length + (picks.length === 1 ? ' change' : ' changes'));
+          if (noted) words.push(noted + (noted === 1 ? ' note' : ' notes'));
+          $('mOk').textContent = words.length ? 'Apply ' + words.join(' · ') : 'Apply nothing';
+          $('mOk').disabled = !words.length;
           return picks;
         };
         countTicked();
-        $('modal').querySelectorAll('[data-pick], [data-portrait]').forEach(function (box) { box.onchange = countTicked; });
+        $('modal').querySelectorAll('[data-pick], [data-portrait], [data-note]').forEach(function (box) { box.onchange = countTicked; });
         $('mCancel').onclick = closeModal;
         $('mOk').onclick = function () {
           var picks = Array.prototype.slice.call($('modal').querySelectorAll('[data-pick]:checked')).map(function (box) {
@@ -3754,8 +4000,16 @@
           var portraitPicks = Array.prototype.slice.call($('modal').querySelectorAll('[data-portrait]:checked')).map(function (box) {
             return portraits[Number(box.getAttribute('data-portrait'))];
           });
+          var noted = Array.prototype.slice.call($('modal').querySelectorAll('[data-note]:checked')).map(function (box) {
+            return notes[Number(box.getAttribute('data-note'))];
+          });
           rooms.forEach(function (room) { RP.pushUndo(room, 'the AI audit'); });
           var done = picks.length ? RP.applySheetAudit(state, rooms, reply, { only: picks }) : { byRoom: {}, lines: [], items: [], count: 0 };
+          // The notes ride along on the next turn of the scene that asked.
+          r.auditNotes = noted;
+          if (noted.length) {
+            (done.byRoom[r.id] = done.byRoom[r.id] || []).push(noted.length + (noted.length === 1 ? ' note' : ' notes') + ' on the play, for the next turn');
+          }
           portraitPicks.forEach(function (pr) {
             var room = rooms.filter(function (x) { return x.id === pr.roomId; })[0];
             var twin = castById[pr.fromId];
@@ -3774,7 +4028,7 @@
             room.updated = Date.now();
           });
           closeModal(); save(); render();
-          toast('🩺 ' + done.count + (done.count === 1 ? ' correction' : ' corrections') + ' filed — ↩ takes them back.');
+          toast('🩺 ' + done.count + (done.count === 1 ? ' correction' : ' corrections') + ' filed' + (noted.length ? ', ' + noted.length + ' notes held for the next turn' : '') + ' — ↩ takes them back.');
         };
       })
       .catch(function (error) {
@@ -3861,6 +4115,13 @@
     on('fateBtn', function () { openPanelFate(); });
     on('undoBtn', function () {
       var what = RP.undo(r);
+      var back = RP.linkedRoom(state, r);
+      if (back && back.mergedInto === r.id) {          // a merge taken back: the record is a scene again
+        delete back.mergedInto;
+        back.title = String(back.title || '').replace(/ \(merged into “[^”]*”\)$/, '');
+        back.linkedTo = r.id;
+        if (back.undo && back.undo.length && /being merged into/.test(back.undo[back.undo.length - 1].label || '')) RP.undo(back);
+      }
       save(); render();
       toast(what ? 'Undid ' + what + '.' : 'Nothing to undo.');
     });
@@ -3879,6 +4140,7 @@
       };
     });
     on('qaMood', function () { pickMood(r); });
+    on('qaAt', function () { var box = $c('input'); if (box) { wireMentions(box, r); box.mentionOpen(); } });
     on('qaUse', function () { useItem(r, sfx); });
     on('qaMeanwhile', function () { liveNow(r); });
     on('macroAdd', function () {
@@ -4175,6 +4437,13 @@
     stream.querySelectorAll('[data-speak]').forEach(function (b) {
       b.onclick = function () { speak(r.messages[+b.dataset.speak], r, { fresh: true }); };
     });
+    stream.querySelectorAll('[data-mention]').forEach(function (link) {
+      link.onclick = function (e) {
+        e.preventDefault();
+        mentionCard(r, { id: link.dataset.mention, kind: link.dataset.mkind, name: link.dataset.mname, roomId: link.dataset.mroom });
+      };
+    });
+    if ($c('input')) wireMentions($c('input'), r);
     // The second scene's prompt. The front one's is wired once, in
     // wireShell; this column's shell is built when the link is, so its
     // handlers are bound here — same keys, same rules.
@@ -4194,8 +4463,9 @@
         input.style.height = Math.min(150, input.scrollHeight) + 'px';
       };
       input.onkeydown = function (e) {
-        if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); go(); }
-        if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) { e.preventDefault(); go(); }
+        if (e.key !== 'Enter') return;
+        var ctrl = e.ctrlKey || e.metaKey;
+        if (enterSends() ? (!e.shiftKey || ctrl) : ctrl) { e.preventDefault(); go(); }
       };
     }
   }
@@ -4312,6 +4582,7 @@
     on('dkBeat', function () { fireNextBeat(r); });
     on('dkLink', function () { secondSceneDialog(r); });
     on('dkOpenOther', function () { var other = RP.linkedRoom(state, r); if (other) openRoom(other.id); });
+    on('dkMerge', function () { mergeDialog(r); });
     on('dkLive', function () {
       var other = RP.linkedRoom(state, r);
       list('🌗 The scene you are not in', [
@@ -4437,11 +4708,14 @@
     on('cpCustomize', function () {
       form('Customize this chat', [
         { k: 'title', label: 'Chat title', value: r.title },
+        { k: 'sceneName', label: 'Scene name (the short name used in the ⇄ cards and the recents)', value: r.sceneName || '' },
         { k: 'scene', label: 'The scene', type: 'area', value: r.scene },
+        { k: 'sceneImage', label: 'Scene picture (a path under the site, e.g. Reputation-Matrix2/images/…; blank for none)', value: r.sceneImage || '' },
         { k: 'style', label: 'Narration style', type: 'select', value: r.style, options: Object.keys(RP.STYLES).map(function (k) { return { value: k, label: RP.STYLES[k].name }; }) },
         { k: 'temperature', label: 'Temperature (0–1.5)', value: String(state.settings.temperature) },
-      ], {}, function (v) {
+      ], { note: 'How the page itself looks — theme, text, widths — is under ⚙ Settings → 🎨 Appearance.' }, function (v) {
         r.title = v.title || r.title; r.scene = v.scene; r.style = v.style;
+        r.sceneName = (v.sceneName || '').trim(); r.sceneImage = (v.sceneImage || '').trim();
         var t = parseFloat(v.temperature); if (!isNaN(t)) state.settings.temperature = Math.max(0, Math.min(1.5, t));
         save(); render();
       });
@@ -4697,10 +4971,16 @@
     if (busy) return;
     // ((Anything in double brackets)) is spoken to the model, not by you.
     var spoken = RP.parseOoc(text);
+    // @Name points at exactly who you mean — here, written out, in the
+    // other scene, in the lore book or in the archive. The @ comes out;
+    // the pointer stays on the turn and briefs the model.
+    var pinged = RP.parseMentions(spoken.clean || text, mentionCandidates(r, spoken.clean || text));
     var msg = {
-      id: RP.uid(), role: 'user', text: spoken.clean || text, at: Date.now(),
+      id: RP.uid(), role: 'user', text: pinged.clean || spoken.clean || text, at: Date.now(),
       ooc: spoken.notes.length ? spoken.notes : undefined,
+      mentions: pinged.mentions.length ? pinged.mentions : undefined,
     };
+    pingElsewhere(r, pinged.mentions, msg.text);
     r.lastNotes = spoken.notes;
     autoLeft = 0;                       // your turn beats the autopilot
     RP.pushUndo(r, 'your turn');
@@ -4892,9 +5172,10 @@
     // wording picks the stat that leans on the dice, and a thin-air claim
     // (r.conjured, set on send) turns them against the bluff.
     if (r.mechanics !== 'off') RP.ensurePlayerSheet(state, r);
-    var lastSaid = RP.textOf((r.messages || []).filter(function (m) {
+    var lastUser = (r.messages || []).filter(function (m) {
       return m.role === 'user' && !m.muted;
-    }).pop() || {});
+    }).pop() || {};
+    var lastSaid = RP.textOf(lastUser);
     var fate = answering ? RP.rollFate(state, r, { text: lastSaid, conjured: r.conjured || '' }) : null;
     // A thin-air claim is settled HERE, by that roll: the thing lands on
     // the sheet (in hand) or the hand comes up empty, and the model is
@@ -4910,6 +5191,8 @@
     var opts2 = {
       fate: fate, archive: archive, recent: recent, notes: r.lastNotes || [],
       mentionText: lastSaid,
+      mentions: (lastUser && lastUser.mentions) || [],
+      catalog: castById,
       conjured: r.conjured || '',
       conjureVerdict: verdict,
       ambient: ambient, ambientSelf: ambientSelf,
@@ -5168,6 +5451,8 @@
         }
         r.messages.push(msg);
         if (directed && r.direction === directed) r.direction = null;
+        // The audit's notes briefed this turn; they are not repeated.
+        if (r.auditNotes && r.auditNotes.length && !ambient) r.auditNotes = [];
         // Narration is remembered too: it is where places get named.
         RP.rememberTurn(state, r, msg);
         if (r.kind === 'group' && !worldTurn) {
@@ -6299,6 +6584,7 @@
       '<button class="pill' + (!isOpenAI(current) ? ' primary' : '') + '" id="setWf">🗄 Workflow server (127.0.0.1:8787)</button>' +
       '<button class="pill" id="setTest">🔌 Test it</button>' +
       '<span class="chip" id="setState">' + (online ? 'answering' : 'no answer yet') + '</span>' +
+      '<button class="pill" id="setLook" title="Theme, text size, prose face, column width, mood wash, coloured words, badges, times, Enter vs Ctrl+Enter">🎨 Appearance…</button>' +
       '</div>' +
       '<label for="f_endpoint">Endpoint</label><input type="text" id="f_endpoint" value="' + esc(state.settings.endpoint || '') + '" placeholder="' + esc(CFG.replyUrl) + '">' +
       '<label for="f_model">Model</label>' +
@@ -6392,6 +6678,7 @@
     listModels();
     $('setLm').onclick = function () { $('f_endpoint').value = LM_STUDIO; listModels(); };
     $('setWf').onclick = function () { $('f_endpoint').value = 'http://127.0.0.1:8787/api/roleplay'; };
+    $('setLook').onclick = function () { closeModal(); lookForm(); };
     $('setTest').onclick = function () {
       var mine = probe();
       var url = $('f_endpoint').value.trim() || CFG.replyUrl;
@@ -6552,7 +6839,73 @@
    * boot
    * ---------------------------------------------------------------- */
 
+  /* ---------------------------------------------------------------- *
+   * 🎨 Appearance — how the page looks, kept in state.settings.look
+   * ---------------------------------------------------------------- */
+  var LOOK = {
+    theme: { label: 'Theme', options: [['light', 'Light'], ['sepia', 'Sepia — paper'], ['dusk', 'Dusk — dark']] },
+    size: { label: 'Text size', options: [['s', 'Small'], ['m', 'Normal'], ['l', 'Large'], ['xl', 'Larger']] },
+    font: { label: 'Prose face', options: [['sans', 'Sans'], ['serif', 'Serif — book'], ['mono', 'Mono — typewriter']] },
+    width: { label: 'Column width', options: [['narrow', 'Narrow'], ['normal', 'Normal'], ['wide', 'Wide']] },
+    density: { label: 'Spacing', options: [['cosy', 'Cosy'], ['compact', 'Compact']] },
+    mood: { label: 'Mood colour on the boxes', options: [['full', 'Full wash'], ['soft', 'Just the edge'], ['off', 'Off']] },
+    words: { label: 'Coloured words ({like this})', options: [['on', 'Coloured'], ['off', 'Plain']] },
+    badges: { label: 'Badges on turns (archive, meanwhile, consulted)', options: [['on', 'Shown'], ['off', 'Hidden']] },
+    stamps: { label: 'Time on each turn', options: [['off', 'Hidden'], ['on', 'Shown']] },
+    portraits: { label: 'Portraits beside turns', options: [['on', 'Shown'], ['off', 'Hidden']] },
+    enter: { label: 'Send with', options: [['enter', 'Enter (Shift+Enter for a new line)'], ['ctrl', 'Ctrl+Enter (Enter for a new line)']] },
+  };
+  var LOOK_DEFAULTS = {};
+  Object.keys(LOOK).forEach(function (k) { LOOK_DEFAULTS[k] = LOOK[k].options[0][0]; });
+  LOOK_DEFAULTS.size = 'm'; LOOK_DEFAULTS.width = 'normal';
+
+  function look() {
+    var l = Object.assign({}, LOOK_DEFAULTS, state.settings.look || {});
+    Object.keys(LOOK).forEach(function (k) {
+      if (!LOOK[k].options.some(function (o) { return o[0] === l[k]; })) l[k] = LOOK_DEFAULTS[k];
+    });
+    return l;
+  }
+
+  /** The look lives on <html> as data- attributes; the stylesheet reads them. */
+  function applyLook() {
+    var l = look(), root = document.documentElement;
+    Object.keys(LOOK).forEach(function (k) {
+      if (l[k] === LOOK_DEFAULTS[k]) root.removeAttribute('data-' + k); else root.setAttribute('data-' + k, l[k]);
+    });
+  }
+
+  function stamp(m) {
+    if (look().stamps !== 'on' || !m || !m.at) return '';
+    var d = new Date(m.at);
+    var hh = String(d.getHours()).padStart(2, '0'), mm = String(d.getMinutes()).padStart(2, '0');
+    return '<span class="stamp" title="' + esc(d.toLocaleString()) + '">' + hh + ':' + mm + '</span>';
+  }
+
+  function lookForm() {
+    var l = look();
+    openModal('<h3>🎨 Appearance</h3>' +
+      '<p class="sub">How the page reads. Everything here changes as you pick it, and is kept with your settings. The mood wash and ' +
+      'the coloured words are only the look — the sheets and moods underneath are unchanged.</p>' +
+      '<div class="grid2">' + Object.keys(LOOK).map(function (k) {
+        return '<label for="lk_' + k + '">' + esc(LOOK[k].label) + '</label><select id="lk_' + k + '" data-look="' + k + '">' +
+          LOOK[k].options.map(function (o) { return '<option value="' + o[0] + '"' + (l[k] === o[0] ? ' selected' : '') + '>' + esc(o[1]) + '</option>'; }).join('') +
+          '</select>';
+      }).join('') + '</div>' +
+      '<div class="actions"><button class="pill" id="mReset">Back to the defaults</button><span class="grow"></span><button class="pill primary" id="mOk">Done</button></div>');
+    $('modal').querySelectorAll('[data-look]').forEach(function (sel) {
+      sel.onchange = function () {
+        state.settings.look = state.settings.look || {};
+        state.settings.look[sel.getAttribute('data-look')] = sel.value;
+        applyLook(); save(); render();
+      };
+    });
+    $('mReset').onclick = function () { state.settings.look = {}; applyLook(); save(); render(); lookForm(); };
+    $('mOk').onclick = closeModal;
+  }
+
   function render() {
+    applyLook();
     renderRail();
     if (room()) renderChat(); else renderDash();
     renderStatus();
@@ -6576,10 +6929,15 @@
       input.style.height = Math.min(150, input.scrollHeight) + 'px';
     };
     input.onkeydown = function (e) {
-      if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(); }
+      if (e.key !== 'Enter') return;
+      var ctrl = e.ctrlKey || e.metaKey;
+      if (enterSends() ? (!e.shiftKey || ctrl) : ctrl) { e.preventDefault(); send(); }
     };
     $('menuBtn').onclick = function () { document.querySelector('.rail').classList.toggle('open'); };
   }
+
+  /** Enter sends by default; the Appearance settings can make it Ctrl+Enter. */
+  function enterSends() { return ((state.settings.look || {}).enter || 'enter') !== 'ctrl'; }
 
   wireShell();
   render();

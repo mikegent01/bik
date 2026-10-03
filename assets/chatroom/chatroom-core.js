@@ -115,13 +115,56 @@
   }
   RP.colourLoose = colourLoose;
 
-  function inlineMd(text) {
+  function tintSpan(value, body) {
+    return '<span class="tint" style="color:' + value + '">' + body + '</span>';
+  }
+  /** Coloured words, in every shape a model writes them. The documented
+   *  form is {red|the door}; what actually arrives is also {the door|red},
+   *  {red: the door}, {red}the door{/red}, [red]the door[/red],
+   *  <red>the door</red> — and, most often of all, a bare {the door} with
+   *  no colour at all. A bare brace means "colour this", and the colour it
+   *  gets is the speaker's mood (the --mood-ink of the card), or a plain
+   *  ember when they are calm. Pure junk is left as written. */
+  function colourInline(text) {
     return String(text)
       // {red|the door} · {dark red|the door} · {#c0392b|the door}
       .replace(/\{([a-z][a-z ]{2,14}|#[0-9a-f]{3,6})\|([^{}]{1,300})\}/gi, function (all, name, body) {
         var value = colourLoose(name);
-        return value ? '<span class="tint" style="color:' + value + '">' + body + '</span>' : all;
+        return value ? tintSpan(value, body) : all;
       })
+      // {the door|red} — the same thing, backwards
+      .replace(/\{([^{}|]{1,300})\|([a-z][a-z ]{2,14}|#[0-9a-f]{3,6})\}/gi, function (all, body, name) {
+        var value = colourLoose(name);
+        return value ? tintSpan(value, body) : all;
+      })
+      // {red: the door}
+      .replace(/\{([a-z][a-z ]{2,14}|#[0-9a-f]{3,6}):\s*([^{}]{1,300})\}/gi, function (all, name, body) {
+        var value = colourLoose(name);
+        return value ? tintSpan(value, body) : all;
+      })
+      // {red}the door{/red} · [red]the door[/red] · <red>the door</red> (escaped by now)
+      .replace(/\{([a-z][a-z ]{2,14})\}([^{}]{1,300}?)\{\/\1\}/gi, function (all, name, body) {
+        var value = colourLoose(name);
+        return value ? tintSpan(value, body) : all;
+      })
+      .replace(/\[([a-z][a-z ]{2,14})\]([^\[\]]{1,300}?)\[\/\1\]/gi, function (all, name, body) {
+        var value = colourLoose(name);
+        return value ? tintSpan(value, body) : all;
+      })
+      .replace(/&lt;([a-z][a-z ]{2,14})&gt;([^&]{1,300}?)&lt;\/\1&gt;/gi, function (all, name, body) {
+        var value = colourLoose(name);
+        return value ? tintSpan(value, body) : all;
+      })
+      // {pissed} — no colour named: the mood's colour, or an ember
+      .replace(/\{([^{}|:\n]{1,60})\}/g, function (all, body) {
+        if (!/[a-z]/i.test(body)) return all;
+        return '<span class="tint mood">' + body + '</span>';
+      });
+  }
+  RP.colourInline = colourInline;
+
+  function inlineMd(text) {
+    return colourInline(text)
       .replace(/\*\*([^*]+)\*\*/g, '<b>$1</b>')
       .replace(/\*([^*\n]+)\*/g, '<em>$1</em>')
       .replace(/&quot;([^&]*?)&quot;/g, '<span class="q">&quot;$1&quot;</span>');
@@ -821,9 +864,9 @@
 
   var RULES = [
     'You may colour a few words inside the prose when they carry weight — {red|the door is open}, {ice|her breath}, ' +
-      '{#8e2b20|the stain} — two or three words, once in a turn at most, never a whole sentence. Colours: red, blood, ' +
-      'crimson, ember, amber, gold, copper, rust, moss, green, jade, teal, sea, ice, blue, storm, violet, lilac, plum, ' +
-      'pink, grey, silver, bone, sand, black, white, or any #hex. The colour of the box is their mood; the colour of the words is yours.',
+      'or simply {the stain} to use the speaker\u2019s own mood colour — two or three words, once in a turn at most, never a ' +
+      'whole sentence. Colours: red, blood, crimson, ember, amber, gold, copper, rust, moss, green, jade, teal, sea, ice, blue, ' +
+      'storm, violet, lilac, plum, pink, grey, silver, bone, sand, black, white, or any #hex. The colour of the box is their mood; the colour of the words is yours.',
     'Use the material. When the archive passages, the session filing or the lore book say something that touches ' +
       'this moment, USE IT — a date, a name, a number, what somebody actually said. Quote it, argue with it, get it ' +
       'slightly wrong in character if that is truer. A scene that could have happened in any story is a wasted turn.',
@@ -2500,13 +2543,21 @@
     if (change.kind === 'hp' || change.kind === 'mp') {
       var pool = sheet[change.kind];
       if (!pool || isNaN(n)) return '';
-      var before = pool.value;
+      var before = pool.value, beforeMax = pool.max;
+      // [[HP: Name = 28/80]] redefines the pool: who they are now, not a
+      // nudge to who they were. The max moves with the value.
+      var newMax = Number(change.max);
+      if (newMax > 0 && newMax !== pool.max) pool.max = Math.round(newMax);
       if (change.op === '+') pool.value += n;
       else if (change.op === '-') pool.value -= n;
       else pool.value = n;
       clampPool(pool);
-      if (pool.value === before) return '';
       var word = change.kind.toUpperCase();
+      if (pool.max !== beforeMax) {
+        return sheet.name + ' — ' + word + ' redefined ' + pool.value + '/' + pool.max + ' (was ' + before + '/' + beforeMax + ')' +
+          (change.kind === 'hp' && pool.value === 0 ? ' — down' : '');
+      }
+      if (pool.value === before) return '';
       return sheet.name + ' ' + (pool.value > before ? '+' : '−') + Math.abs(pool.value - before) + ' ' + word +
         ' (' + pool.value + '/' + pool.max + ')' + (change.kind === 'hp' && pool.value === 0 ? ' — down' : '');
     }
@@ -2866,6 +2917,32 @@
       ' reading of them' + (level >= 3 ? ', and at this pitch let it cost them something when it would.' : '.');
   };
 
+  /** The player's own body, as a standing limit on what they can attempt.
+   *  Nothing when they are whole and unflagged. */
+  RP.playerBodyBlock = function (room) {
+    if (!room || room.mechanics === 'off') return '';
+    var you = (room.states || {})[RP.playerSheetId(room)];
+    if (!you) return '';
+    var hp = you.hp && you.hp.max ? you.hp.value / you.hp.max : 1;
+    var flags = Object.keys(you.flags || {}).map(function (f) {
+      var cond = you.flags[f] && typeof you.flags[f] === 'object' ? you.flags[f] : {};
+      return f.replace(/_/g, ' ') + (cond.note ? ' (' + cond.note + ')' : '');
+    });
+    if (hp > 0.65 && !flags.length) return '';
+    var rules = [];
+    BODY_LIMITS.forEach(function (rule) {
+      if (flags.some(function (f) { return rule.why.test(f); }) || rule.why.test(String(you.status || ''))) rules.push(rule.part);
+    });
+    var state = you.hp && you.hp.value <= 0 ? 'DOWN at 0 HP \u2014 a word, a crawl, a hand; nothing more'
+      : hp <= 0.35 ? 'BADLY HURT at ' + you.hp.value + '/' + you.hp.max + ' HP \u2014 no sprinting, climbing, vaulting, hauling or long fights; every move shows it'
+      : hp <= 0.65 ? 'HURT at ' + you.hp.value + '/' + you.hp.max + ' HP \u2014 slower, favouring the wound; a big effort costs breath and shows'
+      : 'marked';
+    return 'THE PLAYER\u2019S BODY \u2014 ' + you.name + ' is ' + state +
+      (flags.length ? '; in play on them: ' + flags.join('; ') : '') +
+      (rules.length ? '. What ' + (rules.length === 1 ? rules[0] : rules.join(' and ')) + ' cannot do, they cannot do' : '') +
+      '. What they attempt is bound by this: when they try past it, the body fails them before the world does, the people here see it, and you file the cost.';
+  };
+
   /** The body outranks the will. A character at 28 HP who is "battered"
    *  does not vault out of a wreck swinging a wrench \u2014 or if he does, he
    *  pays for it in the same turn. Nothing when they are whole. */
@@ -3002,6 +3079,115 @@
       return new RegExp('(^|[^a-z0-9])' + w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '($|[^a-z0-9])', 'i').test(text);
     });
   }
+
+  /* ---- @ mentions: who you mean ----
+   * Type @ in the composer and pick: somebody here, somebody written out,
+   * somebody in the other scene, a thing the lore book filed (the monster
+   * from the hangar), or anyone in the archive. The @ comes out of the
+   * prose before the model sees it; what stays is a block that tells the
+   * model exactly who or what was meant and what the record says about
+   * them — so a monster met in one scene is the same monster when it is
+   * spoken of in the other. */
+  RP.MENTION_KINDS = { here: 'in the scene', away: 'written out of this scene', other: 'in the other scene', book: 'in the lore book', archive: 'in the archive' };
+
+  /** Everything @ could mean in this room, in the order the picker shows:
+   *  here, written out, the other scene, the lore book, the archive. */
+  RP.mentionables = function (state, room, catalog, query) {
+    var q = String(query || '').trim().toLowerCase();
+    var out = [];
+    var seen = {};
+    var push = function (item) {
+      var key = item.kind === 'book' ? 'book:' + item.name.toLowerCase() : item.id;
+      if (seen[key]) return;
+      if (q && item.name.toLowerCase().indexOf(q) < 0 &&
+        !String(item.note || '').toLowerCase().split(/\W+/).some(function (w) { return w && w.indexOf(q) === 0; })) return;
+      seen[key] = true;
+      out.push(item);
+    };
+    if (!room) return out;
+    var other = RP.linkedRoom(state, room);
+    RP.presentCast(room).forEach(function (c) {
+      push({ id: c.id, name: c.name, kind: 'here', roomId: room.id, note: c.title || '', image: c.image || '' });
+    });
+    // Somebody who walked over is in the other scene, not merely written out.
+    if (other) {
+      RP.presentCast(other).forEach(function (c) {
+        push({ id: c.id, name: c.name, kind: 'other', roomId: other.id, note: other.sceneName || other.title || '', image: c.image || '' });
+      });
+    }
+    (room.cast || []).forEach(function (c) {
+      var sheet = room.states && room.states[c.id];
+      if (sheet && sheet.present === false) push({ id: c.id, name: c.name, kind: 'away', roomId: room.id, note: c.title || '', image: c.image || '' });
+    });
+    (((state && state.book) || {}).entries || []).slice().reverse().forEach(function (e) {
+      if (!e || !e.name || e.kind === 'DIARY' || e.kind === 'FACT') return;
+      push({ id: 'book:' + e.id, name: e.name, kind: 'book', roomId: e.roomId || '', note: String(e.kind || '').toLowerCase() + (e.roomTitle ? ' · ' + e.roomTitle : ''), text: e.text || '' });
+    });
+    if (q.length >= 2) {
+      Object.keys(catalog || {}).forEach(function (id) {
+        var c = catalog[id];
+        if (!c || !c.name) return;
+        push({ id: c.id, name: c.name, kind: 'archive', roomId: '', note: c.title || '', image: c.image || '' });
+      });
+    }
+    return out;
+  };
+
+  /** "@Wario, did you see @The Hangar Beast?" → the @ signs come out, the
+   *  people stay. Longest names first, so @Wario Jr. is not read as @Wario.
+   *  A stray @word nobody matched stays as it was typed. */
+  RP.parseMentions = function (text, candidates) {
+    var out = { clean: String(text || ''), mentions: [] };
+    if (out.clean.indexOf('@') < 0) return out;
+    var names = (candidates || []).filter(function (c) { return c && c.name; })
+      .slice().sort(function (a, b) { return b.name.length - a.name.length; });
+    var found = {};
+    names.forEach(function (c) {
+      var safe = c.name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      var re = new RegExp('@\\[?' + safe + '\\]?(?![A-Za-z0-9])', 'gi');
+      if (!re.test(out.clean)) return;
+      out.clean = out.clean.replace(re, c.name);
+      var key = c.kind === 'book' ? 'book:' + c.name.toLowerCase() : c.id;
+      if (!found[key]) { found[key] = true; out.mentions.push({ id: c.id, name: c.name, kind: c.kind, roomId: c.roomId || '' }); }
+    });
+    return out;
+  };
+
+  /** What the model is told about who was meant. Here: nothing beyond the
+   *  sheets (they are in the prompt already). Away, elsewhere, the book or
+   *  the archive: who they are, where they are, and that they are not in
+   *  the room to answer. */
+  RP.pingBlock = function (state, room, mentions, catalog) {
+    var list = (mentions || []).filter(function (m) { return m && m.kind && m.kind !== 'here'; });
+    if (!list.length) return '';
+    var other = RP.linkedRoom(state, room);
+    var lines = list.slice(0, 5).map(function (m) {
+      if (m.kind === 'away') {
+        var sheet = room.states && room.states[m.id];
+        return '- ' + m.name + ' — written out of this scene (not here to hear it or answer)' +
+          (sheet && sheet.hp ? '; last known ' + sheet.hp.value + '/' + sheet.hp.max + ' HP' : '') + '.';
+      }
+      if (m.kind === 'other' && other) {
+        var sheetO = other.states && other.states[m.id];
+        var mood = sheetO && sheetO.mood && RP.MOODS[sheetO.mood.key] ? ', ' + RP.moodLabel(sheetO.mood) : '';
+        var last = RP.meanwhileLines(state, other, 12).filter(function (l) { return l.indexOf(m.name + ':') === 0; }).pop();
+        return '- ' + m.name + ' — in the other scene right now, “' + clip(other.sceneName || other.title, 50) + '”' +
+          (sheetO && sheetO.hp ? ' (' + sheetO.hp.value + '/' + sheetO.hp.max + ' HP' + mood + ')' : '') +
+          (last ? '; last heard there: ' + clip(last, 140) : '') + '. A wall apart: they cannot hear this unless it would carry.';
+      }
+      if (m.kind === 'book') {
+        var entry = (((state && state.book) || {}).entries || []).filter(function (e) { return e && e.name && e.name.toLowerCase() === m.name.toLowerCase(); })[0];
+        return '- ' + m.name + ' — ' + (entry ? String(entry.kind || 'filed').toLowerCase() + ', from the lore book' + (entry.roomTitle ? ' (“' + clip(entry.roomTitle, 40) + '”)' : '') +
+          ': ' + clip(entry.text, 260).replace(/[.\s]+$/, '') : 'spoken of before') + '. The same one, with the same record — not a new thing.';
+      }
+      var rec = catalog && catalog[m.id];
+      return '- ' + m.name + ' — ' + (rec ? (rec.title ? rec.title + '; ' : '') + clip(rec.summary || '', 200) : 'somebody from the archive') +
+        '. Not in this scene: they can be spoken of, not written in, unless the player brings them.';
+    });
+    return 'NAMED BY THE PLAYER — the latest turn points at these by name (@), so there is no doubt who is meant\n' +
+      lines.join('\n') +
+      '\nAnswer about THEM, as filed. Nobody listed here walks in because they were named.';
+  };
 
   /** When the player says "the key", the model is told which key, whose
    *  it is and what is filed against it — the sheets stop being a list it
@@ -3477,7 +3663,9 @@
       'record is corrected by judgement, so judge: for EVERY person decide what their HP and MP should be NOW, given',
       'everything that has happened to them, and when the number on the sheet does not match the story, SET it',
       '([[HP: Name = N]], [[MP: Name = N]]) \u2014 a helicopter crash and a gunfight are not 65/100, and a night\u2019s rest is',
-      'not 12/100. Decide how each person feels now and how strongly, and file it. A condition that plainly began',
+      'not 12/100. When the MAXIMUM is wrong for who they are or what they have become \u2014 a dragon and a child both at',
+      '100, a man crippled for good, a pool that was never set \u2014 REDEFINE it: [[HP: Name = 28/80]] sets current and',
+      'maximum together. Decide how each person feels now and how strongly, and file it. A condition that plainly began',
       'or ended; a thing gained, lost, handed over, spent, taken in hand or put away; a counter that moved; a stale',
       'physical note; the clock, if the play moved it; somebody who plainly left and is still listed, or is back',
       'and still written out. Do not leave a wrong number standing because nobody filed it at the time; do not',
@@ -3489,16 +3677,38 @@
       'THE RECENT PLAY',
       play,
       '',
-      'Reply with stage directions only, one per line, sixteen at most, the most consequential first:',
-      '  [[HP: Name -5]] · [[HP: Name = 40]] · [[MP: Name +3]] · [[COUNT: Name arrows -1]]',
+      'Reply with stage directions, one per line, sixteen at most, the most consequential first (then the notes):',
+      '  [[HP: Name -5]] · [[HP: Name = 40]] · [[HP: Name = 28/80]] (current/maximum) · [[MP: Name +3]] · [[COUNT: Name arrows -1]]',
       '  [[ITEM: Name + 🗝 the thing | note]] · [[ITEM: Name - the thing]] · [[EQUIP: Name the thing]] · [[STOW: Name the thing]]',
       '  [[COND: Name state 3 -1hp | why]] · [[CURE: Name state]] · [[STATUS: Name a short physical note]]',
       '  [[MOOD: Name anger 2 | why]]   anger, fear, joy, grief, shame, disgust, surprise, affection, suspicion, pride, calm; 1\u20133',
       '  [[TIME: 23:40]] · [[EXIT: Name \u2014 why]] · [[ENTER: Name \u2014 why]] (ENTER only for somebody written out of this scene)',
       'Use the names exactly as the sheets spell them. Do not invent anything the play does not plainly show, and',
       'never a new person. The player\u2019s own sheet is audited like any other \u2014 their wounds, kit and mood included;',
-      'the reader approves every line before it lands. If the record already matches the story, reply exactly: IN ORDER',
+      'the reader approves every line before it lands.',
+      '',
+      'Then, under the directions, up to three lines beginning NOTE: \u2014 what the LAST turn or two got wrong against',
+      'the record and the people (a man at 28 HP charging out of a wreck; a line that person would never say; a thread',
+      'everybody dropped; somebody who has not spoken in ten turns), and what the next turn should do instead \u2014 who',
+      'should speak, what should show, what should cost. Advice to the writer, not changes to the record; concrete,',
+      'one sentence each, naming names. If the record already matches the story and the play is sound, reply exactly: IN ORDER',
     ].join('\n');
+  };
+
+  /** The NOTE: lines of an audit reply \u2014 advice to the writer. */
+  RP.parseAuditNotes = function (reply) {
+    return String(reply || '').split(/\r?\n/).map(function (line) {
+      var hit = /^\s*(?:[-*\u2022]\s*)?NOTE\s*:\s*(.+)$/i.exec(line);
+      return hit ? clip(hit[1].trim(), 240) : '';
+    }).filter(Boolean).slice(0, 3);
+  };
+
+  /** Notes the reader approved from the audit ride the next turn, once. */
+  RP.auditNoteBlock = function (room) {
+    var notes = (room && room.auditNotes) || [];
+    if (!notes.length) return '';
+    return 'FROM THE AUDIT \u2014 notes on the last turns, for this one\n' + notes.map(function (n) { return '- ' + n; }).join('\n') +
+      '\nTake them as the table\u2019s judgement: fix what they name in this turn, without announcing it.';
   };
 
   /** Apply an audit to one scene or the linked pair. Each line lands in
@@ -3905,8 +4115,13 @@
         continue;
       }
       if (type === 'HP' || type === 'MP') {
-        var pool = /^([+\-=])?\s*(\d+)\s*$/.exec(rest);
-        if (pool) out.push({ kind: type.toLowerCase(), body: body, who: target.name, op: pool[1] || '=', value: Number(pool[2]) });
+        // [[HP: Name -7]] · [[HP: Name = 40]] · [[HP: Name = 28/80]] (the max too)
+        var pool = /^([+\-=])?\s*(\d+)\s*(?:\/\s*(\d+))?\s*$/.exec(rest);
+        if (pool) {
+          var d = { kind: type.toLowerCase(), body: body, who: target.name, op: pool[1] || '=', value: Number(pool[2]) };
+          if (pool[3]) { d.max = Number(pool[3]); d.op = '='; }
+          out.push(d);
+        }
         continue;
       }
       if (type === 'COUNT') {
@@ -5686,6 +5901,8 @@
       if (sheets) parts.push(sheets);
       var named = RP.mentionBlock(room, opts.mentionText || '');
       if (named) parts.push(named);
+      var pinged = RP.pingBlock(state, room, opts.mentions, opts.catalog);
+      if (pinged) parts.push(pinged);
       var thinAir = RP.conjureBlock(opts.conjured, opts.conjureVerdict);
       if (thinAir) parts.push(thinAir);
       parts.push(RP.DIRECTIVES);
@@ -5695,6 +5912,10 @@
       if (worldBeyond) parts.push(worldBeyond);
       var worldPlayerMood = RP.playerMoodBlock(room);
       if (worldPlayerMood) parts.push(worldPlayerMood);
+      var worldPlayerBody = RP.playerBodyBlock(room);
+      if (worldPlayerBody) parts.push(worldPlayerBody);
+      var worldAuditNotes = RP.auditNoteBlock(room);
+      if (worldAuditNotes) parts.push(worldAuditNotes);
     }
     var fate = RP.fateBlock(opts.fate);
     if (fate) parts.push(fate);
@@ -6228,6 +6449,8 @@
       states: JSON.stringify(room.states || {}),
       cast: JSON.stringify(room.cast || []),
       clock: room.clock || '',
+      youPlay: room.youPlay || '',
+      away: JSON.stringify(room.away || []),
     };
   }
 
@@ -6244,6 +6467,9 @@
     room.states = JSON.parse(snap.states);
     room.cast = JSON.parse(snap.cast);
     if (snap.clock !== undefined) room.clock = snap.clock;
+    if (snap.youPlay !== undefined) room.youPlay = snap.youPlay || '';
+    if (snap.away !== undefined) room.away = JSON.parse(snap.away);
+    if (snap.linkedTo !== undefined) room.linkedTo = snap.linkedTo;   // a merge taken back is two scenes again
     room.updated = Date.now();
   }
 
@@ -7220,9 +7446,11 @@
     keys.forEach(function (k) { total += weights[k]; });
     var at = roll * total;
     for (var i = 0; i < keys.length; i++) {
+      if (!(weights[keys[i]] > 0)) continue;          // an empty bucket is never drawn, not even at 0
       at -= weights[keys[i]];
       if (at <= 0) return keys[i];
     }
+    for (var j = keys.length - 1; j >= 0; j--) if (weights[keys[j]] > 0) return keys[j];
     return keys[keys.length - 1];
   }
 
@@ -7235,6 +7463,60 @@
    * is a caster: their magic is not godly, only the omnipotent is. */
   var GODLY_RE = /\b(?:stop(?:s)? time|freez(?:e|es) time|rewind(?:s)? time|turn(?:s)? back time|become(?:s)? (?:a )?god|godlike|omnipoten\w+|resurrect(?:s)?|rais(?:e|es) the dead|bring(?:s)? (?:him|her|them) back (?:to life|from the dead)|read(?:s)? (?:his|her|their|everyone'?s) minds?|control(?:s)? (?:his|her|their|everyone'?s) minds?|teleport(?:s)?|open(?:s)? a portal|snap(?:s)? my fingers and|with a (?:wave|snap|flick) of my (?:hand|fingers)|wip(?:e|es) (?:them|everyone|it) (?:all )?(?:out|from existence)|kill(?:s)? (?:everyone|them all|all of them) (?:at once|instantly|with a (?:word|thought|look))|will(?:s)? (?:him|her|them|it) (?:dead|out of existence)|summon(?:s)? (?:a |an |the )?(?:dragon|army|demon|meteor|god|storm|legion|titan)|call(?:s)? down (?:lightning|fire|a storm|the heavens)|lightning from my (?:hands?|fingers|eyes)|fly (?:up|away|off|into)|take(?:s)? flight|levitat\w*|turn(?:s)? invisible|shapeshift\w*|turn(?:s)? (?:him|her|them|myself) into (?:a |an )?\w+)\b/i;
   var HOPELESS_RE = /\b(?:(?:lift|lifts|throw|throws|hurl|hurls|catch|catches|carry|carries|flip|flips|rip|rips|tear|tears|punch(?:es)? through|kick(?:s)? down|hold(?:s)? up|pick(?:s)? up|push(?:es)? over|stop(?:s)?)\s+(?:the|a|an|that|this)\s+(?:\w+\s+){0,2}(?:helicopter|aircraft|airplane|plane|airship|zeppelin|car|truck|lorry|wagon|carriage|boat|ship|train|building|tower|wall|house|tree|boulder|mountain|bridge|gate|statue|engine|tank)|outrun(?:s)? (?:the|a|an) (?:bullet|arrow|blast|explosion|train|horse|avalanche|fire)|dodg(?:e|es) (?:every|all the|the) bullets|catch(?:es)? (?:the|a) (?:bullet|arrow|blade|sword|axe) (?:in|with) my (?:bare )?(?:hands?|teeth)|break(?:s)? (?:the|these|my) (?:chains|shackles|bars|cuffs) with my bare hands|bend(?:s)? the bars|kill(?:s)? (?:everyone|them all|all of them) (?:at once|with one (?:blow|swing|shot)|in one (?:blow|swing|move))|one[- ]punch(?:es)? (?:him|her|them|it)|punch(?:es)? (?:him|her|it) (?:through|across) the (?:wall|room|street)|jump(?:s)? (?:over|across) the (?:building|river|chasm|gorge|roof))\b/i;
+
+  /* ---- the body gates the attempt ----
+   * A man with a broken leg does not parkour up a building; a woman with
+   * her arm in a sling does not haul herself over a wall; somebody at 20
+   * HP does not sprint four blocks. Read from the player's own sheet,
+   * locally, before the dice: the condition's words against the verbs of
+   * the attempt. A hit turns the table against it and the prompt is told
+   * the body fails before the world does. */
+  var BODY_LIMITS = [
+    { why: /\b(limp\w*|broken (?:leg|ankle|foot|knee|hip|shin)|sprained (?:ankle|knee)|twisted ankle|crippled|lame(?:d)?|shot in the (?:leg|knee|thigh|foot)|leg wound|stabbed in the (?:leg|thigh))\b/i,
+      what: /\b(?:run|runs|running|sprint\w*|dash(?:es)?|bolt(?:s)?|chase(?:s)?|parkour|climb(?:s|ing)?|scale(?:s)?|vault(?:s)?|leap(?:s)?|jump(?:s)?|hurdle(?:s)?|kick(?:s)?|dance(?:s)?|scramble(?:s)? up|outrun(?:s)?|flee(?:s)? on foot|free[- ]run\w*|roll(?:s)? across|dive(?:s)? (?:through|over|across))\b/i, part: 'that leg' },
+    { why: /\b(broken (?:arm|wrist|hand|fingers?|collarbone|ribs?)|dislocated shoulder|one[- ]armed|arm in a sling|shot in the (?:arm|shoulder|hand)|burned hands?|crushed hand|stabbed in the (?:arm|shoulder))\b/i,
+      what: /\b(?:climb(?:s|ing)?|scale(?:s)?|lift(?:s)?|haul(?:s)?|hoist(?:s)?|carry|carries|swing(?:s)?|punch(?:es)?|throw(?:s)?|hurl(?:s)?|grapple(?:s)?|wrestle(?:s)?|pull(?:s)? (?:him|her|them|myself) up|two[- ]handed|draw(?:s)? the bow|reload(?:s)?|catch(?:es)?|hang(?:s)? from)\b/i, part: 'that arm' },
+    { why: /\b(blind(?:ed)?|eyes? (?:swollen|shut|gone)|cannot see|can'?t see|lost (?:an|one|my) eye)\b/i,
+      what: /\b(?:aim(?:s)?|shoot(?:s)?|fire(?:s)? (?:at|on)|snipe(?:s)?|read(?:s)?|search(?:es)?|spot(?:s)?|look(?:s)? for|scan(?:s)?|throw(?:s)? (?:it )?at|drive(?:s)?|pick(?:s)? (?:the|a) lock)\b/i, part: 'those eyes' },
+    { why: /\b(winded|exhausted|out of breath|concuss\w*|dizzy|drunk|poisoned|feverish|hypothermi\w*|starving|dehydrated)\b/i,
+      what: /\b(?:sprint\w*|run(?:s)? (?:for|after|across|up)|climb(?:s|ing)?|parkour|vault(?:s)?|swim(?:s)? across|fight(?:s)? on|hold(?:s)? (?:him|her|them) off|outrun(?:s)?)\b/i, part: 'that body' },
+    { why: /\b(tied(?: up)?|bound|chained|shackled|handcuffed|cuffed|pinned|restrained|in irons|strapped down)\b/i,
+      what: /\b(?:run(?:s)?|walk(?:s)? (?:out|over|away)|climb(?:s)?|grab(?:s)?|draw(?:s)?|swing(?:s)?|punch(?:es)?|reach(?:es)? for|attack(?:s)?|pick(?:s)? up|throw(?:s)?|kick(?:s)? (?:the|him|her|them) (?:door|down))\b/i, part: 'those bonds' },
+  ];
+  var HURT_HEAVY_RE = /\b(?:parkour|sprint\w*|climb(?:s|ing)?|scale(?:s)? (?:the|a)|vault(?:s)?|leap(?:s)? (?:across|over|onto)|haul(?:s)?|hoist(?:s)?|charge(?:s)? (?:at|into|out)|wrestle(?:s)?|fight(?:s)? (?:him|her|them) off|carry|carries|run(?:s)? (?:after|across|up|for)|kick(?:s)? (?:the|a) door|swim(?:s)?)\b/i;
+  var DOWN_OK_RE = /\b(?:crawl|whisper|say|says|mutter|breathe|reach|blink|look|listen|cough|groan|lie|lay|hold on|grip|press)\b/i;
+
+  /** What the player's body rules out, if the attempt is one of those.
+   *  Returns null, or { why, what, part } — "limping (the crash)" /
+   *  "climb" / "that leg". */
+  RP.bodyCheck = function (sheet, text) {
+    var t = String(text || '');
+    if (!sheet || !t.trim()) return null;
+    var flags = Object.keys(sheet.flags || {}).map(function (f) {
+      var cond = sheet.flags[f] && typeof sheet.flags[f] === 'object' ? sheet.flags[f] : {};
+      return { key: f.replace(/_/g, ' '), note: cond.note || '' };
+    });
+    var status = String(sheet.status || '');
+    var hp = sheet.hp && sheet.hp.max ? sheet.hp.value / sheet.hp.max : 1;
+    if (sheet.hp && sheet.hp.value <= 0 && !DOWN_OK_RE.test(t)) {
+      return { why: 'down at 0 HP', what: clip(t.replace(/^\*|\*$/g, ''), 40), part: 'a body that is done' };
+    }
+    for (var i = 0; i < BODY_LIMITS.length; i++) {
+      var rule = BODY_LIMITS[i];
+      var hit = flags.filter(function (f) { return rule.why.test(f.key) || rule.why.test(f.note); })[0];
+      var byStatus = !hit && rule.why.test(status) ? { key: (rule.why.exec(status) || [''])[0], note: '' } : null;
+      var cause = hit || byStatus;
+      if (!cause) continue;
+      var m = rule.what.exec(t);
+      if (!m) continue;
+      return { why: cause.key + (cause.note ? ' (' + clip(cause.note, 40) + ')' : ''), what: m[0], part: rule.part };
+    }
+    if (hp <= 0.35 && sheet.hp) {
+      var heavy = HURT_HEAVY_RE.exec(t);
+      if (heavy) return { why: 'at ' + sheet.hp.value + '/' + sheet.hp.max + ' HP', what: heavy[0], part: 'what is left of them' };
+    }
+    return null;
+  };
 
   var CASTER_RE = /\b(?:magic|mage|wizard|witch|sorcer\w*|spell\w*|priest\w*|cleric|shaman|necromanc\w*|conjur\w*|alchem\w*|psychic|warlock|druid|oracle|ghost|spirit|demon|god(?:dess)?|angel|fairy|enchant\w*|summon\w*)\b/i;
   /** A caster is somebody whose record says so — not whoever has the
@@ -7255,6 +7537,7 @@
       if (!caster || /time|god|omnipoten|resurrect|dead|back to life|minds?|existence|instantly|at once/i.test(t)) return 'godly';
     }
     if (HOPELESS_RE.test(t)) return 'hopeless';
+    if (RP.bodyCheck(sheet, t)) return 'unfit';
     return '';
   };
 
@@ -7290,10 +7573,12 @@
     }
     if (opts.conjured) { tilt -= 2; why.push('🚫 out of thin air (−2)'); plain.push('reaching for a thing they do not have'); }
     var scale = opts.scale === undefined ? RP.attemptScale(opts.text, you, RP.playerCharacter(room)) : opts.scale;
+    var body = scale === 'unfit' ? RP.bodyCheck(you, opts.text) : null;
     if (scale === 'godly') { tilt -= 3; why.push('🌩 godly (−3)'); plain.push('attempting what no one in this world can do'); }
     else if (scale === 'hopeless') { tilt -= 3; why.push('🪨 hopeless (−3)'); plain.push('attempting what a body cannot do'); }
+    else if (scale === 'unfit') { tilt -= 3; why.push('🩼 ' + (body ? body.why : 'the body') + ' (−3)'); plain.push('attempting what their body cannot do right now'); }
     tilt = Math.max(-3, Math.min(3, tilt));
-    return { tilt: tilt, why: why, plain: plain, stat: stat, score: score, you: you, scale: scale || '' };
+    return { tilt: tilt, why: why, plain: plain, stat: stat, score: score, you: you, scale: scale || '', body: body };
   };
 
   /** Roll for the turn. The difficulty picks the table; the tilt (the
@@ -7330,9 +7615,9 @@
       weights.triumph = 0;
       weights.success = lean.scale === 'godly' ? 1 : 2;
       weights.cost = Math.max(2, weights.cost * 0.5);
-      weights.wrench += 6;
-      weights.setback += lean.scale === 'godly' ? 8 : 10;
-      weights.refusal += lean.scale === 'godly' ? 6 : 2;
+      weights.wrench += lean.scale === 'unfit' ? 5 : 6;
+      weights.setback += lean.scale === 'godly' ? 8 : lean.scale === 'unfit' ? 9 : 10;
+      weights.refusal += lean.scale === 'godly' ? 6 : lean.scale === 'unfit' ? 1 : 2;
     }
     var roll = opts.roll === undefined ? Math.random() : opts.roll;
     var key = opts.force || pickWeighted(weights, roll);
@@ -7345,7 +7630,7 @@
     return {
       key: key, label: fate.label, pill: fate.pill + tag, dir: fate.dir, level: level,
       pressure: pressure, tilt: t, why: lean.why, plain: lean.plain, stat: lean.stat, score: lean.score, statTag: tag,
-      conjured: opts.conjured || '', granted: granted, scale: lean.scale || '', attempt: clip(String(opts.text || ''), 120),
+      conjured: opts.conjured || '', granted: granted, scale: lean.scale || '', body: lean.body || null, attempt: clip(String(opts.text || ''), 120),
     };
   };
 
@@ -7353,6 +7638,13 @@
    *  bend, and the people in the room react to the attempt itself. */
   RP.beyondBlock = function (fate) {
     if (!fate || !fate.scale) return '';
+    if (fate.scale === 'unfit') {
+      var b = fate.body || {};
+      return 'THE BODY REFUSES \u2014 the player is ' + (b.why || 'hurt') + ', and \u201c' + (b.what || 'that') + '\u201d is beyond ' + (b.part || 'them') +
+        ' right now. The ruling below says how it goes \u2014 it does NOT happen as asked. Write the body failing before the world does: the leg ' +
+        'folds, the grip opens, the breath goes, the wall stays where it is \u2014 and what that costs, filed ([[HP:]] or [[COND:]] on their name). ' +
+        'The people in the scene see it and act on it \u2014 a hand under the arm, a laugh, an opening taken. Never scold the player for trying; show the body.';
+    }
     var godly = fate.scale === 'godly';
     return 'BEYOND THEM \u2014 the player\u2019s attempt is ' + (godly ? 'GODLY: nobody in this world has that power, and they do not' :
       'HOPELESS: a body cannot do that, and theirs is no exception') + '. The ruling below says how it goes \u2014 it does NOT work as asked. ' +
@@ -7661,6 +7953,102 @@
       'when the places are far apart, nothing crosses but the clock.';
   };
 
+  /* ---- ⇄ merge: two scenes fold into one ----
+   * The reverse of the split. Everybody in either scene is in the one
+   * scene now (anyone written out of both stays written out); the two
+   * streams are interleaved by the clock with a camera card wherever the
+   * source changes, so the record still reads as what it was — two
+   * places, the same hour — right up to the turn they became one place.
+   * Facts, tints and the clock are kept (the stage's win on a clash); the
+   * recap is folded away so the model re-reads the joined stream, and
+   * the lore book's count carries both halves. */
+  RP.mergeRooms = function (state, stage, folded, opts) {
+    opts = opts || {};
+    if (!stage || !folded || stage === folded || stage.id === folded.id) return null;
+    var report = { joined: [], already: [], stillAway: [], turns: 0, cards: 0 };
+    var stageName = stage.sceneName || stage.title || 'this scene';
+    var foldName = folded.sceneName || folded.title || 'the other scene';
+    stage.states = stage.states || {};
+    // 1. People. Present in either → present here; a sheet unknown here
+    //    comes over whole; a sheet in both keeps the stage's record.
+    (folded.cast || []).forEach(function (c) {
+      var had = (stage.cast || []).some(function (x) { return x.id === c.id; });
+      var theirs = folded.states && folded.states[c.id];
+      var mine = had ? stage.states[c.id] : null;
+      if (!had) RP.addToRoom(stage, c);                       // (ensureSheets gives them a blank sheet)
+      if (theirs && !mine) { stage.states[c.id] = JSON.parse(JSON.stringify(theirs)); mine = stage.states[c.id]; }
+      if (!mine) mine = stage.states[c.id];
+      var wasHere = had && mine && mine.present !== false;
+      var wasThere = theirs && theirs.present !== false;
+      if (mine) {
+        if (wasThere || wasHere) { mine.present = true; (wasHere ? report.already : report.joined).push(c.name); }
+        else { mine.present = false; report.stillAway.push(c.name); }
+        if (mine.player && c.id !== stage.youPlay) mine.player = false;
+      } else if (!had) report.joined.push(c.name);
+    });
+    // The reader's own pack: the stage's; the other's only when the stage has none.
+    if (folded.states && folded.states[RP.PLAYER_ID] && !stage.states[RP.PLAYER_ID]) {
+      stage.states[RP.PLAYER_ID] = JSON.parse(JSON.stringify(folded.states[RP.PLAYER_ID]));
+    }
+    if (!stage.youPlay && folded.youPlay && (stage.cast || []).some(function (c) { return c.id === folded.youPlay; })) {
+      stage.youPlay = folded.youPlay;
+      if (stage.states[folded.youPlay]) stage.states[folded.youPlay].player = true;
+    }
+    stage.away = (stage.away || []).concat(folded.away || []).filter(function (x, i, all) {
+      if (!x || !x.id) return false;
+      if (stage.states[x.id] && stage.states[x.id].present !== false) return false;
+      return all.map(function (y) { return y && y.id; }).indexOf(x.id) === i;
+    });
+    // 2. The streams, by the clock, with a camera card at every switch.
+    var all = [];
+    (stage.messages || []).forEach(function (m) { all.push({ r: 'a', m: m }); });
+    (folded.messages || []).forEach(function (m) {
+      var copy = JSON.parse(JSON.stringify(m));
+      copy.sceneFrom = foldName;
+      all.push({ r: 'b', m: copy });
+    });
+    all.sort(function (x, y) { return (x.m.at || 0) - (y.m.at || 0); });
+    var out = [];
+    var cur = null;
+    var seenAny = all.some(function (e) { return e.r === 'b' && RP.visible(e.m); });
+    all.forEach(function (e) {
+      if (seenAny && e.r !== cur && RP.visible(e.m)) {
+        cur = e.r;
+        out.push({ id: RP.uid(), role: 'scene', camera: true, at: (e.m.at || Date.now()) - 1,
+          text: '⇄ ' + (e.r === 'a' ? stageName : foldName) });
+        report.cards++;
+      }
+      out.push(e.m);
+    });
+    report.turns = (folded.messages || []).filter(RP.visible).length;
+    stage.messages = out;
+    // 3. What both knew.
+    stage.facts = Object.assign({}, folded.facts || {}, stage.facts || {});
+    if (!stage.clock && folded.clock) stage.clock = folded.clock;
+    if (!stage.date && folded.date) stage.date = folded.date;
+    if (folded.tints && folded.tints.length) {
+      var have = (stage.tints || []).map(function (t) { return JSON.stringify(t); });
+      stage.tints = (stage.tints || []).concat(folded.tints.filter(function (t) { return have.indexOf(JSON.stringify(t)) < 0; }));
+    }
+    if (String(opts.scene || '').trim()) stage.scene = String(opts.scene).trim();
+    else if (!stage.scene && folded.scene) stage.scene = folded.scene;
+    stage.recap = ''; stage.recapAt = 0;                      // the joined stream is re-read
+    stage.bookAt = Number(stage.bookAt || 0) + Number(folded.bookAt || 0);
+    stage.queue = []; stage.next = ''; stage.handback = '';
+    if (stage.kind !== 'group' && (stage.cast || []).length > 1) stage.kind = 'group';
+    // 4. The card that says so, and the link is spent.
+    stage.messages.push({ id: RP.uid(), role: 'state', at: Date.now(), merged: true,
+      lines: ['⇄ \u201c' + foldName + '\u201d folded into this scene' +
+        (report.joined.length ? ' \u2014 ' + report.joined.join(', ') + ' ' + (report.joined.length === 1 ? 'is' : 'are') + ' here now' : '') +
+        (report.stillAway.length ? ' (' + report.stillAway.join(', ') + ' still written out)' : '') + '.'] });
+    if (stage.linkedTo === folded.id) stage.linkedTo = '';
+    if (folded.linkedTo === stage.id) folded.linkedTo = '';
+    folded.mergedInto = stage.id;
+    stage.updated = Date.now();
+    report.stage = stage; report.folded = folded;
+    return report;
+  };
+
   /** Of two linked scenes, the one the pair is filed under: the older. */
   RP.linkPrimary = function (state, room) {
     var other = RP.linkedRoom(state, room);
@@ -7738,6 +8126,8 @@
       if (sheets) parts.push(sheets);
       var named = RP.mentionBlock(room, opts.mentionText || '');
       if (named) parts.push(named);
+      var pinged = RP.pingBlock(state, room, opts.mentions, opts.catalog);
+      if (pinged) parts.push(pinged);
       var thinAir = RP.conjureBlock(opts.conjured, opts.conjureVerdict);
       if (thinAir) parts.push(thinAir);
       parts.push(RP.DIRECTIVES);
@@ -7748,6 +8138,10 @@
       // The reader's own mood colours how the cast reads them.
       var playerMood = RP.playerMoodBlock(room);
       if (playerMood) parts.push(playerMood);
+      var playerBody = RP.playerBodyBlock(room);
+      if (playerBody) parts.push(playerBody);
+      var auditNotes = RP.auditNoteBlock(room);
+      if (auditNotes) parts.push(auditNotes);
       // The speaker's body, then how they feel, as orders — the body
       // outranks the will, the mood is the colour of the box. Nothing
       // when they are whole and calm.

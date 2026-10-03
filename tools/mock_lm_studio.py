@@ -93,7 +93,9 @@ class Handler(BaseHTTPRequestHandler):
                 "[[MOOD: {{WHO}} anger 2 | the bill]]\n"
                 "[[STATUS: {{WHO}} soot on the face]]\n"
                 "[[TIME: 23:40]]\n"
-                "[[NEW: Nobody Real | a stranger | should be refused]]"
+                "[[NEW: Nobody Real | a stranger | should be refused]]\n"
+                "NOTE: {{WHO}} took a knife to the ribs two turns ago and should not be sprinting; show the wound.\n"
+                "NOTE: The player was answered by everyone at once; let one voice carry the next turn."
             )).replace("{{WHO}}", who)
         elif "STAGE DIRECTIONS" in all_text and os.environ.get("MOCK_ADVERSARIAL"):
             # A deliberately badly-behaved model, for tools/tests/audit-chatroom.mjs:
