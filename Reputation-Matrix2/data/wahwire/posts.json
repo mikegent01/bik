@@ -8471,6 +8471,57 @@
         }
       ],
       "status": "posted"
+    },
+    {
+      "id": "ww_who_took_my_notebook",
+      "author": "waluigi",
+      "type": "text",
+      "order": 210,
+      "date": null,
+      "timestamp": "5 Aethel, 1040 BF — filed late, about a night in 1035 the desk has only just caught up with",
+      "content": "WHO TOOK MY-A NOTEBOOK. The record says a courier named Paulo, in Star Hill's main street, after a shot that took the lip off a rotor blade beside my ear. The record also says Wario THREW it to him while I was face down. The record is correct on both counts and I have invoiced nobody because there is nobody left in the street to invoice. One scrap came back, in a thorn. It is from the back of the book. It is not about Luigi. We never reached the clinic. The hill has a name now and a courier was issued it. WAH.",
+      "likes": 912,
+      "links": [
+        {
+          "id": "the_rot_zone_at_star_hill",
+          "type": "event"
+        },
+        {
+          "id": "the_debt_siege_and_the_sixty_thirty_split",
+          "type": "event"
+        },
+        {
+          "id": "paulo",
+          "type": "character"
+        },
+        {
+          "id": "mr_l",
+          "type": "character"
+        },
+        {
+          "id": "dr_toads_star_hill_clinic",
+          "type": "location"
+        }
+      ],
+      "tags": [
+        "notebook",
+        "star hill",
+        "rot-zone",
+        "mr. l",
+        "paulo",
+        "mario disappearance"
+      ],
+      "reaction": "rage",
+      "comments": [
+        {
+          "id": "ww_who_took_my_notebook_c1",
+          "author": "wario",
+          "content": "Hostile takeover. You don't-a chase the courier. You track the paper trail. Also that book was thirty per cent mine and I want it noted that I threw the WHOLE thing.",
+          "likes": 640,
+          "topReply": true
+        }
+      ],
+      "status": "posted"
     }
   ]
 }

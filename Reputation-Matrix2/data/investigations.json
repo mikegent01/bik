@@ -4117,7 +4117,7 @@
         "mario_disappearance"
       ],
       "opened": "4 Aethel, 1040 BF",
-      "lastFiled": "2 Aethel, 1035 BF (backfill) — the debt siege, the sixty-thirty contract, and the Star Hill lockdown report",
+      "lastFiled": "2 Aethel, 1035 BF (backfill) — the rot-zone at Star Hill: the fired pilot, the roof, the man with too many hands, and the notebook in a courier's satchel",
       "archivist": "Waluigi, Auditor-General",
       "icon": "🔥",
       "accent": "#c46b32",
@@ -4155,6 +4155,10 @@
         {
           "point": "A second staged note exists, and its only reader is missing.",
           "detail": "The courier's note was read once, by Luigi, on a collapsing bridge — and Luigi went over the lava falls carrying the reading. The file now holds one note it cannot trust and one note it cannot read."
+        },
+        {
+          "point": "Star Hill was flown to for Luigi and nothing about Luigi moved.",
+          "detail": "The pair crashed beside the clinic, met Mr. L in the open and in three copies, saw a road grow a mouth, and left on foot without seeing a patient. What changed hands was Waluigi's working notebook, taken at gunpoint by a courier who had an issued word for the hill — 'rot-zone' — and a route the archive does not have. The file reads the night as custody, not rescue."
         }
       ],
       "background": [
@@ -4233,13 +4237,29 @@
           "id": "th_the_director",
           "title": "The man Wario bows to",
           "status": "open",
-          "note": "A figure in a director's cap, carrying a script, whom Wario — producer of the entire two-filing ordeal — called Boss and bowed to. He knocked Wario unconscious for exceeding his brief ('you ruined MY show') and left with a folder and a small wired remote. If Wario produces the show, the Director owns it; the file's question chain now ends at his name."
+          "note": "A figure in a director's cap, carrying a script, whom Wario — producer of the entire two-filing ordeal — called Boss and bowed to. He knocked Wario unconscious for exceeding his brief ('you ruined MY show') and left with a folder and a small wired remote. If Wario produces the show, the Director owns it; the file's question chain now ends at his name.",
+          "text": "A figure in a director's cap, carrying a script, whom Wario — producer of the entire two-filing ordeal — called Boss and bowed to. He knocked Wario unconscious for exceeding his brief ('you ruined MY show') and left with a folder and a small wired remote. If Wario produces the show, the Director owns it; the file's question chain now ends at his name.",
+          "state": "open"
         },
         {
           "id": "th_the_remote",
           "title": "A control unit for Evil Mario, or the whole studio",
           "status": "open",
-          "note": "Small, buttoned, with wires running from it, carried with the ease of long habit by a man who did not know he was watched. It would explain the costume rack — cape, leaf, fire, ice — and possibly the resetting rooms, the lying exits, and the applause track."
+          "note": "Small, buttoned, with wires running from it, carried with the ease of long habit by a man who did not know he was watched. It would explain the costume rack — cape, leaf, fire, ice — and possibly the resetting rooms, the lying exits, and the applause track.",
+          "text": "Small, buttoned, with wires running from it, carried with the ease of long habit by a man who did not know he was watched. It would explain the costume rack — cape, leaf, fire, ice — and possibly the resetting rooms, the lying exits, and the applause track.",
+          "state": "open"
+        },
+        {
+          "id": "th_rot_zone",
+          "title": "The hill had a name before the courier said it",
+          "state": "open",
+          "text": "'Rot-zone' was said flat, like a shift code, by a man who had never been to Star Hill before his route put him there. Couriers do not coin; they are issued. Somebody who dispatches through Star Hill knew what the hill had become — a road that opens, a building that changes its own length — and sent a delivery through it anyway, with a word for it and an instruction to look for 'coordinates' in a notebook of burns and verse.\n\nThe thread is the depot, not the courier. Paulo is reading Waluigi's handwriting as he walks and will know what the archivist would do next. The dispatcher has never met him.\n\n**In plain terms:** the clinic is inside a zone somebody has already mapped and named. Find the map."
+        },
+        {
+          "id": "th_mr_l_at_star_hill",
+          "title": "The other one was outside the sickroom, in triplicate, and he let them go",
+          "state": "open",
+          "text": "The first witness record of Mr. L in this archive puts him in the open, reciting, outside the building an informant says holds Luigi unconscious. He lengthened under fire, threw a courier through a window with one hand, stood on a staircase in three copies, and followed nobody. The only person he harmed shot him first. The mouth in the road came out of the ground, not out of him; he stood beside it like a man beside his own car.\n\nTwo readings survive and both are bad. He was there for the building — and the other one was standing guard, or vigil, outside his own sickroom. Or he was there for the courier's delivery — in which case the thing with too many hands and the depot that issues 'rot-zone' are on the same hill for the same reason.\n\n**In plain terms:** he was waiting for somebody, and it was not the two men with the contract. The file should learn who before that somebody arrives."
         }
       ],
       "leads": [
@@ -4386,8 +4406,43 @@
           "title": "The Star Hill 'lockdown'",
           "state": "open",
           "priority": "high",
-          "objective": "Verify the radio report that Dr. Toad's Star Hill Clinic is locked down for 'medical complications' — and whether Luigi is still inside and reachable.",
-          "why": "The only source is Wario's own paid informant, relayed over a crackling radio by a creditor who profits from urgency. If the lockdown is real, someone with authority decided the patient should not be reachable exactly as his two-week rest order expired — and that decision has an author."
+          "objective": "Verify the radio report that Dr. Toad's Star Hill Clinic is locked down for 'medical complications' — and whether Luigi is still inside and reachable. Amended 2 Aethel, 1035 BF: the informant has since upgraded the report to a 'private wing, high security, consciousness fluxing'; the pair reached the street and a stairwell next door and never saw a patient. The claim stays unverified. The clinic now sits inside what a courier called a 'rot-zone'.",
+          "why": "The only source is Wario's own paid informant, relayed over a crackling radio by a creditor who profits from urgency — and the informant's second report, delivered in flight, added architecture without adding a witness. If the lockdown is real, someone with authority decided the patient should not be reachable exactly as his two-week rest order expired — and that decision has an author. If it is not, the three phrases that flew a helicopter into a roof were worth exactly the retainer that produced them.",
+          "exhibits": [
+            "ex_notebook_custody_slip"
+          ]
+        },
+        {
+          "id": "lead_pilot_in_the_hold",
+          "title": "Go back for the man in the hold",
+          "state": "open",
+          "priority": "critical",
+          "objective": "Reach the storehouse roof beside Dr. Toad's clinic and establish whether the pilot Wario dismissed at altitude is alive, injured, or gone from the rear hold of the wreck.",
+          "why": "He was fired for saying a hospital is not a landing pad and was behind a latched gate when the roof came up. After the crash the gate was open and the hold was dark, and both men who could have looked went down a stairwell. By the Enterprise's own paper his severance was 'transport to destination' — delivered — so nobody on the company's books is missing him. The archive filed the omission as its own. A filed omission is a debt.",
+          "exhibits": [
+            "ex_pilot_termination_notice"
+          ]
+        },
+        {
+          "id": "lead_paulos_route",
+          "title": "Trace Paulo's route backward to the depot that issues 'rot-zone'",
+          "state": "open",
+          "priority": "critical",
+          "objective": "Identify who dispatches couriers through Star Hill, what delivery Paulo was carrying before the notebook joined it, and who gave him the word 'rot-zone' and the instruction to look for 'coordinates'.",
+          "why": "The notebook with the Luigi notes is in that satchel, being read. Chasing the courier means chasing a man who now knows the archivist's handwriting and habits; chasing the route means reaching the one party who knew what Star Hill had become before sending a delivery through it. The depot knows the hill. It may also know the wing.",
+          "exhibits": [
+            "ex_notebook_custody_slip",
+            "ex_notebook_scrap_thorn"
+          ]
+        },
+        {
+          "id": "lead_who_mr_l_waited_for",
+          "title": "Establish who Mr. L was waiting for at Star Hill",
+          "state": "open",
+          "priority": "high",
+          "objective": "Determine whether the figure outside the clinic was there for the building, for the courier's delivery, or for someone who had not yet arrived — and whether the 'private wing' holds Luigi, Mr. L's point of origin, or nothing.",
+          "why": "A thing with three bodies and long hands let two men with a contract walk out of its building without following. It harmed only the man who shot it. The archive's first witness record of the other one is a record of restraint, and restraint has a reason. Whatever he was waiting for is on the same hill as the only reachable brother.",
+          "exhibits": []
         }
       ],
       "sessions": [
@@ -4438,6 +4493,12 @@
           "label": "The Debt Siege and the Sixty-Thirty Split — the claw, the ice wall, and the contract that buys the next move",
           "date": "2 Aethel, 1035 BF",
           "event": "the_debt_siege_and_the_sixty_thirty_split"
+        },
+        {
+          "id": "s_rot_zone_star_hill",
+          "label": "The Rot-Zone at Star Hill — the fired pilot, the roof, the man with too many hands, and the notebook that left in a satchel",
+          "date": "2 Aethel, 1035 BF — night",
+          "event": "the_rot_zone_at_star_hill"
         }
       ],
       "relatedEvents": [
@@ -4448,7 +4509,10 @@
         "promo_mario_newspaper",
         "the_lava_bridge_ambush_and_the_blue_luigi",
         "the_garden_above_the_fire",
-        "the_tape_and_the_wario_files"
+        "the_tape_and_the_wario_files",
+        "the_cut_and_the_puppet_master",
+        "the_debt_siege_and_the_sixty_thirty_split",
+        "the_rot_zone_at_star_hill"
       ],
       "exhibits": [
         {
@@ -4709,6 +4773,51 @@
           "dc": 3,
           "onRecord": "One leaf, drafted in under a minute by candlelight with a mechanical fist idling outside: parties, [[roll:3|the split written as 'sixty thirty'|that is ninety. Ten points of the proceeds are unassigned, and neither signatory noticed — whoever spots the orphaned ten percent first owns the next negotiation.|a rushed hand rounds numbers. Without the original in front of you, the missing ten points stay a rumour — and the original is in Wario's keeping.]] on the 'No Longer Brothers' publication, roughly 150 gold logged as 'A START' against the disputed 14,783-gold principal, a cessation clause that names 'the fist', and a collateral clause leaving the original in Wario's keeping until the first payment. [[roll:4|frost damage along one edge|the damage crosses the ink in places — the page was written FIRST and passed through the ice wall second. The terms were composed under siege, not prepared in advance.|frost is frost. Paper near that much ice that night could have caught it anywhere.]]",
           "analysis": "## What the hasty hand gave away\n\nThe split is written as 'sixty thirty'. That is ninety. Ten points of the proceeds are unassigned, and neither signatory noticed — one was being sieged and the other was dancing. Whoever first notices the orphaned ten percent owns the next negotiation, and the document's custody means Wario gets to read it as often as he likes.\n\nSecond reading: the accord quietly makes Luigi's testimony a *revenue event*. Two signatures now depend on reaching a patient that a radio says is locked away. If the lockdown has an author, that author just acquired two motivated adversaries — one of whom monogrammes his siege equipment."
+        },
+        {
+          "id": "ex_notebook_scrap_thorn",
+          "propId": "prop_notebook_scrap_thorn",
+          "session": "s_rot_zone_star_hill",
+          "icon": "🌵",
+          "kind": "note",
+          "category": "evidence",
+          "title": "The scrap in the thorn — one corner of Waluigi's working notebook",
+          "secured": "Recovered by Wario from the thorn bush at the alley mouth, 2 Aethel, 1035 BF; held by Waluigi",
+          "custody": "Torn from the notebook as the courier walked past the thorn reading; the rest of the book left with him",
+          "visual": "<div role=\"img\" aria-label=\"A torn corner of lined paper caught on a thorn, lamplight behind\" style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:linear-gradient(145deg,#1f2a1f,#0f140f);border:1px solid rgba(163,230,53,.28);color:#e7e5d8\"><div style=\"position:absolute;left:16px;top:14px;font-size:30px\">🌵</div><div style=\"position:absolute;left:58px;top:16px;font-weight:800;letter-spacing:.06em\">SCRAP &middot; REAR SIGNATURES</div><div style=\"position:absolute;left:58px;top:38px;font-size:11px;color:#c7d2b8\">playing-card size &middot; torn corner inward &middot; one margin intact</div><div style=\"position:absolute;left:16px;bottom:14px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#a3b18a\">Held by Waluigi &middot; the rest is in a satchel</div><div style=\"position:absolute;right:16px;bottom:12px;font-size:22px;opacity:.5\">📓</div></div>",
+          "dc": 4,
+          "onRecord": "One corner of one ruled page, about the size of a playing card, with three partial lines in Waluigi's hand and the third struck through. [[roll:4|the tear runs from the corner inward, fibres dragged toward the margin|a page pulled by a thumb tears along the gutter; this tore as an OPEN book went past a thorn. The courier was reading the back signatures as he walked — the pages that are verse and water and a man who did not knock, not the pages that are Luigi. Whoever told him the notebook held 'coordinates' did not tell him where to look.|the corner is wet from the road and the fibres will not say which way they went. The scrap proves the book was open in the street. It does not prove which page he opened first.]] The lines are filed on the paper itself. They are not about Luigi.",
+          "analysis": "## What a torn corner says about the hand that lost it\n\nThe scrap is the only part of the notebook in the archive, and it is the wrong part — the back, where the verse lives, not the front, where the burns and the garden and the brothers are. That is good news wearing a bad face. A courier who opens a stolen book at the back is a courier who was told the book mattered and not what was in it. He was issued a target, not a page number.\n\nSecond reading: he did not notice the tear. A man checking a book for coordinates checks its edges; a man *reading* a book turns pages with his thumb and lets the hill take a corner. He was reading. Which means that by the time he reached the corner and the dark, Paulo knew more about the man he had robbed than the man knows about him — and the archive has one playing card's worth of the exchange."
+        },
+        {
+          "id": "ex_pilot_termination_notice",
+          "propId": "prop_wario_pilot_termination_notice",
+          "session": "s_rot_zone_star_hill",
+          "icon": "📎",
+          "kind": "order",
+          "category": "evidence",
+          "title": "Notice of termination — the pilot, dismissed at altitude",
+          "secured": "Unrecovered — the original is bulldog-clipped to the instrument panel of the wreck on the storehouse roof; reconstructed from memory by the archivist",
+          "custody": "Written by Wario in flight; read by Waluigi by the glow of a gauge; left with the aircraft",
+          "visual": "<div role=\"img\" aria-label=\"A yellow personnel slip under a bulldog clip on an instrument panel\" style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:linear-gradient(145deg,#f1dd8a,#d9bf5a);border:1px solid #a8893a;color:#3a2e12\"><div style=\"position:absolute;left:16px;top:14px;font-size:30px\">📎</div><div style=\"position:absolute;left:58px;top:16px;font-weight:800;letter-spacing:.06em\">NOTICE OF TERMINATION</div><div style=\"position:absolute;left:58px;top:38px;font-size:11px\">reason: REDUNDANT (OWNER FLYING) &middot; severance: REAR HOLD</div><div style=\"position:absolute;left:16px;bottom:14px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#6b5a2a\">Unrecovered &middot; still on the roof</div><div style=\"position:absolute;right:16px;bottom:12px;font-size:22px;opacity:.5\">🚁</div></div>",
+          "dc": 3,
+          "onRecord": "A square of yellow company paper, stamped, written twenty minutes before the crash: position, effective 'immediately (airborne)', reason, severance, and the exchange that caused it — 'I don't think we should land on a hospital' / 'You're right. You don't think.' [[roll:3|the severance line reads TRANSPORT TO DESTINATION (REAR HOLD)|the destination was Star Hill and the aircraft reached it, on its side, on a roof. By the Enterprise's own paper the severance was DELIVERED — which means the company's books will show this man as paid out and closed, and nobody in the Enterprise will be looking for him. The archive has to.|the line is a joke in Wario's hand and may mean nothing more than that he was pleased with himself at altitude. The man in the hold is missing either way.]]",
+          "analysis": "## The only correct opinion of the night, filed by its victim's employer\n\nStrip the joke off and the notice is a witness statement: a professional pilot, employed by the man flying, refused to land on a hospital and was removed from the controls for it. Everything that followed — the roof, the bar, the courier, the notebook — follows from a cockpit with the wrong man in it, and the paper that put him there is stamped.\n\nThe lead this exhibit opens is not about Wario's judgement; the archive has a shelf on that. It is about a *person*. The hold's gate was open after the crash and the hold was dark, and the two men who could have looked went down a stairwell instead. By the Enterprise's own filing his severance was 'transport to destination', delivered. He is therefore closed on the only books that would otherwise miss him. That is why he is first in the recommendation and why this slip is filed as evidence rather than as comedy."
+        },
+        {
+          "id": "ex_notebook_custody_slip",
+          "propId": "prop_notebook_custody_slip",
+          "session": "s_rot_zone_star_hill",
+          "icon": "📓",
+          "kind": "ledger",
+          "category": "evidence",
+          "title": "Custody slip — the working notebook, lost under duress to a courier named Paulo",
+          "secured": "Logged 3 Aethel, 1035 BF, the morning after; the object itself is in a satchel on a route the archive does not have",
+          "custody": "Waluigi's desk → Waluigi's coat → the cobbles → Wario's boot → thrown to Paulo at gunpoint → the dark end of the main street, read as he walked",
+          "visual": "<div role=\"img\" aria-label=\"A custody ledger line for a notebook, with the holder's column reading a courier's name\" style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:linear-gradient(145deg,#2a1f33,#140d1a);border:1px solid rgba(192,132,252,.3);color:#efe6f7\"><div style=\"position:absolute;left:16px;top:14px;font-size:30px\">📓</div><div style=\"position:absolute;left:58px;top:16px;font-weight:800;letter-spacing:.06em\">CUSTODY &middot; WORKING NOTEBOOK</div><div style=\"position:absolute;left:58px;top:38px;font-size:11px;color:#d8c7ea\">desk &rarr; coat &rarr; cobbles &rarr; boot &rarr; satchel</div><div style=\"position:absolute;left:16px;bottom:14px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#b794d6\">Holder: 'Paulo' &middot; route unknown</div><div style=\"position:absolute;right:16px;bottom:12px;font-size:22px;opacity:.5\">🔫</div></div>",
+          "dc": 5,
+          "onRecord": "A custody line the archive had refused to open for two weeks, by agreement with the notebook's author, now opened by its loss: contents as far as they can be stated, the chain from desk to satchel, and the holder's stated purpose — 'coordinates' to get clear of 'this rot-zone'. [[roll:5|the holder asked a book of burns and verse for COORDINATES|he was not guessing. A man who robs on instinct takes the coat with the contract in it; this one asked for a specific kind of information from a specific object and smiled at the COVER. Somebody at the other end of his route named the notebook to him before he ever saw it — which means Waluigi's working book was on a list before Star Hill, and the list has an author who knows what the archivist carries.|a frightened man with a gun asks the nearest object for a way out. 'Coordinates' may be what he calls any writing he cannot read in the dark. The slip records the demand; it cannot yet prove the demand was briefed.]]",
+          "analysis": "## Why the slip is the real exhibit and the notebook is the real event\n\nFor two weeks the archive held a notebook it would not log, because its author said a notebook is not evidence until somebody else reads it. Somebody else is reading it. The slip exists because the author's rule, applied honestly, now cuts the other way — and because a loss with a *named holder* is a loss the archive can pursue. 'Paulo' is a name said with a gun in hand, which is how most names enter this file, and it is enough to open a column.\n\nThe argument the slip carries is the one the whole session turns on. Nothing about Luigi moved at Star Hill; the informant's wing is as unverified at dawn as it was at dusk. What moved was paper, and it moved in one direction — toward a route with an owner. Read the night as a rescue and it is a failure. Read it as custody and it is the first clean evidence in this file of who is *acquiring*, and what: not the contract, not the gold, but the notes on the only reachable brother. Wario called it a hostile takeover in the street. The slip is the archive agreeing with him in writing, which it does not do lightly."
         }
       ]
     },

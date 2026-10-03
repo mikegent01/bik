@@ -2531,6 +2531,58 @@
       ],
       "note": "The first paper between these two that pays them both for the same outcome. Drafted in under a minute with a mechanical fist idling outside the ice; the hand is terrible and the terms are not.",
       "body": "<div class=\"pd-head\"><div class=\"pd-org\">PRIVATE ACCORD &middot; drafted at Waluigi's Outpost</div><div class=\"pd-sub\">2 Aethel, 1035 BF &mdash; written through a hole in a wall of ice</div></div><div class=\"pd-meta\"><span>Parties</span><b>Waluigi (author, publisher) &middot; Wario (creditor, holder)</b><span>Subject</span><b>Publication of the 'No Longer Brothers' narrative, upon recovery of Luigi's testimony</b><span>Split</span><b>Sixty&ndash;thirty of proceeds, in the author's favour</b><span>Custody</span><b>Held by Wario as collateral until the first payment is settled</b></div><div class=\"pd-clause\"><b>Consideration:</b> approximately 150 gold tendered on signing, logged by the creditor as 'A START' against a disputed principal of 14,783 gold. The 15% monthly interest remains contested and is deliberately not ratified by this accord.</div><div class=\"pd-clause\"><b>Cessation:</b> upon signing, all collection activity against the author's residence ceases, including &mdash; the document is specific &mdash; 'the fist'.</div><div class=\"pd-quote\">Ten remaining points of the split are not accounted for in the shouted offer of 'sixty thirty'. Neither signatory has noticed yet. The archive has.</div><div class=\"pd-margin\">He asked for gold and accepted a publishing schedule. Remember that the next time somebody tells you the man only understands money. &mdash; W.</div>"
+    },
+    "prop_wario_pilot_termination_notice": {
+      "kind": "order",
+      "icon": "\ud83d\udcce",
+      "title": "Notice of Termination \u2014 Pilot, Transport Helicopter (effective at altitude)",
+      "subtitle": "Wario Enterprise \u00b7 Personnel \u00b7 written in flight, bulldog-clipped to the instrument panel",
+      "items": [],
+      "articles": [
+        "the_rot_zone_at_star_hill",
+        "wario",
+        "wario_enterprise"
+      ],
+      "note": "The only document of the night that reached its destination intact. Its author flew the aircraft into a roof twenty minutes after signing it; its subject was in the rear hold when he did.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">WARIO ENTERPRISE &middot; PERSONNEL</div><div class=\"pd-sub\">Notice of termination &mdash; issued in flight, 2 Aethel, 1035 BF</div></div><div class=\"pd-meta\"><span>Position</span><b>Pilot, transport helicopter</b><span>Effective</span><b>Immediately (airborne)</b><span>Reason</span><b>REDUNDANT (OWNER FLYING)</b><span>Severance</span><b>TRANSPORT TO DESTINATION (REAR HOLD)</b><span>Signed</span><b>W. &mdash; company stamp</b></div><div class=\"pd-clause\"><b>Grounds as stated by the employee:</b> 'I don't think we should land on a hospital.' <b>Response as stated by the owner:</b> 'You're right. You don't think.'</div><div class=\"pd-clause\"><b>Severance meeting:</b> waived. The Enterprise notes that in-flight dismissal incurs no meeting-room cost and no catering.</div><div class=\"pd-clause\"><b>Return of company property:</b> the aircraft remains with the owner. The employee remains with the aircraft.</div><div class=\"pd-margin pd-margin--red\">He was right. He was the only one of us who was right about anything before midnight, and he was behind a latched gate when the roof came up. Nobody in this record went back for him. Reconstructed from memory: the original is still clipped to a panel on a storehouse roof at Star Hill. &mdash; W.</div>",
+      "stamps": [
+        "evidence"
+      ]
+    },
+    "prop_notebook_scrap_thorn": {
+      "kind": "note",
+      "icon": "\ud83c\udf35",
+      "title": "Scrap \u2014 Waluigi's Working Notebook, Recovered From a Thorn",
+      "subtitle": "One corner of one page, torn inward \u00b7 the only part of the notebook in the archive",
+      "items": [],
+      "articles": [
+        "the_rot_zone_at_star_hill",
+        "waluigi",
+        "wario"
+      ],
+      "note": "The size of a playing card. Torn from the corner inward, which is how a page leaves a book that is being read while its reader walks. From the back of the notebook. Not about Luigi.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">RECOVERED FRAGMENT</div><div class=\"pd-sub\">From the thorn bush at the alley mouth beside the storehouse, Star Hill &mdash; found by Wario, 2 Aethel, 1035 BF</div></div><div class=\"pd-meta\"><span>Object</span><b>Paper, lined, one ruled margin intact</b><span>Size</span><b>About a playing card</b><span>Tear</span><b>Corner inward; fibres dragged toward the margin</b><span>Hand</span><b>Waluigi's</b><span>Page</span><b>Rear signatures of the working notebook</b></div><div class=\"pd-quote\">&hellip;nobody brought water the first time.<br>&hellip;the second time it was him, and he did not knock.<br>&hellip;<span class=\"pd-strike\">I am not going to write down that it worked</span></div><div class=\"pd-clause\"><b>Condition:</b> one corner wet from the road. Three partial lines legible; the third struck through by the author before the page was lost. Nothing on the reverse.</div><div class=\"pd-margin\">I read it in the street and put it in the pocket with the coin without saying what it said. It is filed because the archive files what it holds. It is not about Luigi, and the courier walked off with the pages that are. &mdash; W.</div>",
+      "stamps": [
+        "evidence"
+      ]
+    },
+    "prop_notebook_custody_slip": {
+      "kind": "ledger",
+      "icon": "\ud83d\udcd3",
+      "title": "Custody Slip \u2014 The Working Notebook",
+      "subtitle": "Loss under duress \u00b7 chain of custody from the desk to the satchel",
+      "items": [],
+      "articles": [
+        "the_rot_zone_at_star_hill",
+        "waluigi",
+        "wario",
+        "paulo"
+      ],
+      "note": "The notebook Wario read aloud in a dark room is now in a courier's satchel with a route the archive does not have. Logged as a loss with a named holder, so that it can be cited and he can be found.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">WALUIPEDIA &middot; CUSTODY</div><div class=\"pd-sub\">Object: one working notebook, stitched, ruled, the author's hand throughout</div></div><div class=\"pd-meta\"><span>Object</span><b>Working notebook &mdash; Luigi notes, the brothers' argument, the Star Festival coin, verse</b><span>Last held by owner</span><b>Waluigi, until the main street at Star Hill, 2 Aethel, 1035 BF</b><span>Transfer</span><b>Under duress &mdash; thrown by Wario to an armed courier while the owner was unconscious</b><span>Present holder</span><b>A courier giving the name Paulo; route through Star Hill; destination unknown</b><span>Recovered</span><b>One scrap, rear signatures (filed separately)</b></div><div class=\"pd-clause\"><b>Contents, as far as the archive can state them:</b> notes on Luigi's burns and the rest order; the courier's note and the garden above the fire; the brothers' hallway argument as reviewed from the tape; the Star Festival coin; verse, some of it unfinished. The notebook was not logged as an exhibit before its loss, by agreement with its author. That agreement is now the archive's problem.</div><div class=\"pd-clause\"><b>Holder's stated purpose:</b> 'coordinates' to get clear of 'this rot-zone'. The holder read the notebook as he walked. The archive does not know which pages he has read.</div><div class=\"pd-quote\">Hostile takeover. You don't chase the courier. You track the paper trail.</div><div class=\"pd-margin\">Two weeks ago I would not log it because a notebook is not evidence until somebody else reads it. Somebody else is reading it. Logged. &mdash; W.</div>",
+      "stamps": [
+        "evidence"
+      ]
     }
   }
 }

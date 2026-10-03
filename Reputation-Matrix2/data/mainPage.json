@@ -1,15 +1,13 @@
 {
   "featuredArticle": {
-    "id": "judgement_in_the_grove",
+    "id": "the_rot_zone_at_star_hill",
     "type": "event",
-    "excerpt": "The party fought its way out of the web canopy and into an execution. Remi swapped the crossbow for the musket and landed two direct hits through the smoke; Dan planted himself in front of everyone including Markop and turned the spiders with a mushroom-studded holy symbol; Eager and Dan killed the ettercap between them. The Iron Legion called for pest control, retreated, and then tried to arrest Archie mid-battle, which produced a temporary alliance nobody expects to hold. Markop called down divine favour, took a scythe to the skull, and split the Scorncrow's head open while it was on its knees asking a paladin for mercy. Remi, thrown clear by Mossy, found a breathing man with a red punch mark on his forehead and had the steel defender stand on his chest. Salam went down and did not get up.",
-    "label": "Latest Filing · Session Event",
-    "title": "Judgement in the Grove: A Musket in the Smoke, the Warhammer That Would Not Hear an Appeal, and the Man Remi Found Asleep"
+    "excerpt": "Nothing the pair flew to Star Hill for was confirmed, reached, or recovered. One object changed hands: Waluigi's working notebook, taken at gunpoint by a courier with a route, a satchel, and an issued word for the hill — 'rot-zone'. The night is filed as custody, not rescue."
   },
   "latestUpdate": {
-    "id": "the_cut_and_the_puppet_master",
+    "id": "the_rot_zone_at_star_hill",
     "label": "Latest Filing · Session Event",
-    "excerpt": "A button labelled EMERGENCY EXIT makes coffee — until the steam pops a ceiling vent, and the escape goes up instead of out. In the ducts: rats, echoes, and a blue light. Under it, Luigi — alive, alone, running security feeds and notes headed Wario's corruption. Darian's rolling-pin ambush is stopped by Alistair's hand; Evil Mario comes through the door in a cape of pixelated feathers; the studio plays Plumber Man and the corrupted Mario fights to the beat of the real Mario's own song. The floor collapses; studio-uniform paratroopas catch them; Darian orders a V and Luigi yanks the cape off. A tanuki leaf, a second Wario head, a flaming pipe, fire, a fire-alarm crawl, sprinklers, ice — and then one word: CUT. The whole production stops. Curtains. A reset break room. Wario walks in to applause from an empty house — and behind everyone comes a man in a director's cap Wario calls Boss, who knocks Wario out for ruining his show. Evil Mario points at the door he left through, and in a dark hallway Darian watches the Director pass carrying a folder and a small wired remote."
+    "excerpt": "Straight from the siege, Wario fires his pilot at altitude for saying a hospital is not a landing pad, and the helicopter leg to Star Hill ends on a storehouse roof beside the clinic. In the street below: a man in Luigi's clothes reciting verse, a courier who shoots him, a mouth that opens in the road, and three copies of Mr. L on a staircase. A steel-door bar puts Wario down; Waluigi slaps him awake twice and invoices the second one. A pistol in Waluigi's face on the stairs, a bluff made with no MP at all, a fire-ladder retreat — and in the street the courier shoots the notebook's owner down and Wario throws him the book. The courier walks away reading it. Luigi is never reached. The archive keeps one scrap from a thorn, and Waluigi wakes asking who took his notebook."
   },
   "didYouKnow": [
     "...that the Scorncrow told three separate filings it was not a monster, and when Remi Akamatsu finally tested the claim with a point-blank musket, the blood under the face was human?",
@@ -38,12 +36,12 @@
   ],
   "campaignCovers": [
     {
-      "id": "the-cut-and-the-puppet-master-cover",
+      "id": "the-rot-zone-at-star-hill-cover",
       "campaign": "Mario",
-      "title": "MARIO — The Cut and the Puppet Master",
-      "caption": "The word that stopped the show. Darian — burned, soot-streaked, rolling pin still in hand — standing in the falling sprinkler water with the ice mid-advance behind him, and every weapon in the room going quiet…",
-      "image": "assets/images/events/promo-mario-studio-cut/pmc-01-cut.jpg",
-      "articleId": "the_cut_and_the_puppet_master"
+      "title": "MARIO — The Rot-Zone at Star Hill",
+      "caption": "The storehouse roof beside Dr. Toad's clinic, minutes after the skid caught the parapet.",
+      "image": "assets/images/events/rot-zone-star-hill/rot-01-roof-wreck.jpg",
+      "articleId": "the_rot_zone_at_star_hill"
     },
     {
       "id": "you-said-leave-no-one-behind-cover",
