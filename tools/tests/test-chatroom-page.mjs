@@ -306,8 +306,10 @@ check('layout: nothing in the chat column can push the page sideways',
 check('layout: a six-hander’s title is clamped, not a wall of names',
   win.getComputedStyle(doc.querySelector('.cp-head h3')).getPropertyValue('-webkit-line-clamp') === '3' &&
   doc.querySelector('.cp-head h3').textContent.length <= 64);
-check('layout: the speaker rail scrolls in one line instead of stacking',
-  win.getComputedStyle($('speakers')).overflowX === 'auto');
+check('layout: the faces row scrolls sideways on its own; the turn bar itself clips nothing (the macro row wraps)',
+  win.getComputedStyle(doc.querySelector('.speakers .row.who')).overflowX === 'auto' &&
+  win.getComputedStyle($('speakers')).overflowY === 'visible' &&
+  win.getComputedStyle(doc.querySelector('.speakers .row.do')).flexWrap === 'wrap');
 
 check('hud: the chat is a heads-up display, not a title bar',
   doc.querySelectorAll('.chat-top .stat').length >= 3 &&
@@ -1826,6 +1828,195 @@ check('audit: ↩ undo takes the whole audit back — sheet, card and clock', ((
   const r = s.rooms.find(x => x.id === s.active);
   return r.states[auditBefore.who].hp.value === auditBefore.hp && (r.clock || '') === auditBefore.clock && r.messages.length === auditBefore.turns;
 })());
+
+// ---- round 12: one settings dialog, the room answering on its own cards, the same moment, down and brought round, Energy ----
+{
+  const click = () => new win.MouseEvent('click', { bubbles: true });
+  const submit = () => new win.Event('submit', { bubbles: true, cancelable: true });
+  const active = () => { const s = savedState(); return s.rooms.find(x => x.id === s.active); };
+  const quiet = async (label) => until(label, () => !doc.querySelector('.typing') && !(active().queue || []).length, 120);
+  // ⚙ one organised dialog
+  $('settingsBtn').dispatchEvent(click());
+  check('settings: one dialog, five tabs, every dial in it — fresh turns, the room, fate, wounds, the Director, narrator, length, budgets',
+    doc.querySelectorAll('#modal .stab').length === 5 && ['f_fresh', 'f_audience', 'f_fate', 'f_hurt', 'f_director', 'f_maxChain',
+      'f_narrator', 'f_length', 'f_context', 'f_promptBudget', 'f_endpoint', 'f_model', 'f_voice'].every(id => Boolean($(id))));
+  check('settings: the tabs show one pane at a time and the Energy and down rules are explained on The scene', (() => {
+    const scene = doc.querySelector('#modal [data-stab="scene"]');
+    scene.dispatchEvent(click());
+    const paneScene = doc.querySelector('#modal [data-spane="scene"]'), paneModel = doc.querySelector('#modal [data-spane="model"]');
+    return !paneScene.hidden && paneModel.hidden && /Energy/.test(paneScene.textContent) && /down/.test(paneScene.textContent) &&
+      scene.classList.contains('on');
+  })());
+  doc.querySelector('#modal [data-stab="people"]').dispatchEvent(click());
+  check('settings: The people — the room answers in three settings, full by default; fresh turns strict by default',
+    [...$('f_audience').options].map(o => o.value).join(',') === 'off,on,full' && $('f_audience').value === 'full' &&
+    [...$('f_fresh').options].map(o => o.value).join(',') === 'strict,on,off' && $('f_fresh').value === 'strict');
+  $('f_fresh').value = 'on';
+  $('f_fate').value = 'gentle';
+  $('mOk').dispatchEvent(click());
+  check('settings: Save lands every dial — fresh turns and fate came from the one dialog',
+    $('modalBack').hidden && savedState().settings.fresh === 'on' && savedState().settings.fate === 'gentle');
+  dock('scene');
+  check('dock: the Scene tab shows the same dials as shortcuts — ♻ Fresh turns and 👥 The room answers — and the full audit',
+    Boolean($('dkFresh')) && /Guide/.test($('dkFresh').textContent) && Boolean($('dkAudience')) && /Full replies/.test($('dkAudience').textContent) &&
+    Boolean($('dkReviewFull')) && /Full audit/.test($('dkReviewFull').textContent));
+  $('dkFresh').dispatchEvent(click());
+  const strictRow = [...doc.querySelectorAll('#modal [data-pick]')].find(b => /Strict/.test(b.textContent));
+  if (strictRow) strictRow.dispatchEvent(click());
+  check('dock: the shortcut is a labelled list, not a blind toggle — Strict is back', savedState().settings.fresh === 'strict' && /Strict/.test($('dkFresh').textContent));
+  dock('cast');
+
+  // A group room with people to answer: the What-If scenario room from the top of the run.
+  const groupRoom = savedState().rooms.find(x => x.kind === 'group' &&
+    Object.keys(x.states || {}).filter(id => id !== '__you__' && id !== x.youPlay && x.states[id].present !== false).length >= 3);
+  check('round 12: a group room with at least three people in it exists to test the room with', Boolean(groupRoom));
+  if (groupRoom) {
+    const row = doc.querySelector(`[data-room="${groupRoom.id}"]`);
+    if (row) row.dispatchEvent(click());
+    await wait(200);
+  }
+  const room12 = () => active();
+  check('round 12: the room is open, with the 👥 Several… pill on the Next: row', room12() && groupRoom && room12().id === groupRoom.id && Boolean($('qaTogether')));
+
+  // 👥 the room answers — on its own cards
+  const before12 = room12().messages.length;
+  $('input').value = 'I put the invoice on the table and the room answers.';
+  $('composer').dispatchEvent(submit());
+  await until('the room to answer', () => doc.querySelector('.turn.chorus'), 120);
+  await quiet('the chain to settle');
+  await wait(250);
+  check('the room: a beat written as “Name: …” at the end of the reply is cut out and filed under that person, as their own card', (() => {
+    const r = room12();
+    const fresh = r.messages.slice(before12).filter(m => m.role === 'char');
+    const main = fresh.find(m => !m.chorus);
+    const chorus = fresh.filter(m => m.chorus);
+    if (!main || !chorus.length) return false;
+    const names = r.cast.reduce((o, c) => { o[c.id] = c.name; return o; }, {});
+    return chorus.every(m => m.charId !== main.charId && !/^\s*[A-Z][a-z]+\s*:/.test(m.text) && /looks up from the register/.test(m.text)) &&
+      !/looks up from the register/.test(main.text) && /Sign it/.test(main.text) &&
+      chorus.every(m => Boolean(names[m.charId]));
+  })());
+  check('the room: the card is a real card — the speaker’s own name and face, a 👥 tag, and its own mood colour', (() => {
+    const card = doc.querySelector('.turn.chorus');
+    const r = room12();
+    const m = r.messages.find(x => x.chorus);
+    const who = r.cast.find(c => c.id === m.charId);
+    return Boolean(card) && card.querySelector('.who b').textContent === who.name && /the room/.test(card.querySelector('.who .chorus').textContent) &&
+      /looks up from the register/.test(card.querySelector('.bubble').textContent);
+  })());
+  check('the room: the history the model reads has the beat as that person’s own line', (() => {
+    const r = room12();
+    const m = r.messages.find(x => x.chorus);
+    const who = r.cast.find(c => c.id === m.charId);
+    return win.RP.historyFor(r).some(h => h.role === 'assistant' && h.content.indexOf(who.name + ': ') === 0 && /looks up from the register/.test(h.content));
+  })());
+
+  // ⏱ several people, the same moment
+  $('qaTogether').dispatchEvent(click());
+  const boxes = [...doc.querySelectorAll('#modal [data-together]')];
+  check('several: the picker lists the people who can take the turn, with the narrator, and offers the same moment or one after another',
+    boxes.length >= 3 && boxes.some(b => b.dataset.together === 'world') && doc.querySelectorAll('#modal input[name="tgMode"]').length === 2 &&
+    /same moment/i.test($('modal').textContent));
+  const picked = boxes.filter(b => b.dataset.together !== 'world').slice(0, 2);
+  picked.forEach(b => { b.checked = true; });
+  $('mOk').dispatchEvent(click());
+  check('several: two faces are pinned as one order, the same moment, and the pill says so', (() => {
+    const r = room12();
+    return Array.isArray(r.pinnedNext) && r.pinnedNext.length === 2 && r.pinnedSame === true && /2 together/.test($('qaTogether').textContent) &&
+      doc.querySelectorAll('.speakers .sp.on[data-speaker]').length === 2;
+  })());
+  const beforeMoment = room12().messages.length;
+  $('input').value = 'I go for the door while they are still arguing.';
+  $('composer').dispatchEvent(submit());
+  await until('both turns to land', () => room12().messages.slice(beforeMoment).filter(m => m.role === 'char' && !m.chorus && m.moment).length >= 2, 160);
+  await quiet('the moment to finish');
+  await wait(250);
+  check('several: both took the turn, in the order ticked, each tagged as the same moment — the second marked “same” and the group closed after', (() => {
+    const r = room12();
+    const turns = r.messages.slice(beforeMoment).filter(m => m.role === 'char' && !m.chorus && m.moment);
+    const ids = picked.map(b => b.dataset.together);
+    return turns.length >= 2 && turns[0].charId === ids[0] && turns[1].charId === ids[1] && turns[0].moment === turns[1].moment &&
+      !turns[0].same && turns[1].same === true && !r.moment && !r.pinnedNext;
+  })());
+  check('several: the second card wears the ⏱ tag and the history says “at the same moment”', (() => {
+    const r = room12();
+    const second = r.messages.slice(beforeMoment).filter(m => m.role === 'char' && !m.chorus && m.moment)[1];
+    const card = doc.querySelector('.turn.same');
+    return Boolean(card) && /same moment/.test(card.querySelector('.who .same').textContent) &&
+      win.RP.historyFor(r).some(h => /\(at the same moment\): /.test(h.content));
+  })());
+  check('several: the prompt of the second turn is told the first has not finished — THE SAME MOMENT rides it', (() => {
+    const r = room12();
+    const who = r.cast.find(c => c.id === picked[1].dataset.together);
+    const sys = win.RP.systemFor(savedState(), r, who, { moment: { same: true, done: ['Somebody'], pending: [] } });
+    return /THE SAME MOMENT/.test(sys) && /Somebody/.test(sys) && /nothing above has landed/i.test(sys);
+  })());
+
+  // ⛑ down at 0 HP, and brought round
+  if ($('statebar').hidden) $('statesBtn').dispatchEvent(click());
+  const downSeat = [...doc.querySelectorAll('.statebar .sheet[data-sheet]')].find(el => !el.classList.contains('you') && room12().states[el.dataset.sheet] && room12().states[el.dataset.sheet].present !== false && el.dataset.sheet !== room12().youPlay);
+  const downId = downSeat ? downSeat.dataset.sheet : '';
+  if (downSeat) {
+    downSeat.dispatchEvent(click());
+    if ($('f_hp')) { $('f_hp').value = '0/100'; $('mOk').dispatchEvent(click()); }
+  }
+  check('down: a sheet put at 0 HP by hand is on the floor', Boolean(downId) && room12().states[downId].hp.value === 0);
+  const downName = downId ? room12().states[downId].name : '';
+  // pin them so they answer — and the first take has them up and roaring
+  const face = doc.querySelector(`.speakers .sp[data-speaker="${downId}"]`);
+  if (face) face.dispatchEvent(click());
+  const beforeDown = room12().messages.length;
+  $('input').value = 'You are flat on the floor, ' + downName + '. Stay there.';
+  $('composer').dispatchEvent(submit());
+  await until('the downed speaker to answer within their body', () => room12().messages.slice(beforeDown).some(m => m.role === 'char' && m.charId === downId), 160);
+  await quiet('the down turn to settle');
+  await wait(250);
+  check('down: a 0-HP speaker written leaping and roaring is sent back once, and the take that lands keeps to the floor', (() => {
+    const r = room12();
+    const theirs = r.messages.slice(beforeDown).filter(m => m.role === 'char' && m.charId === downId);
+    return theirs.length >= 1 && /coughs/.test(theirs[0].text) && !theirs.some(m => /erupts/.test(m.text)) && r.states[downId].hp.value === 0 &&
+      Boolean(r.states[downId].flags.down);
+  })());
+  check('down: the sheet wears “down” and the prompt says DOWN at 0 HP', (() => {
+    const r = room12();
+    const sys = win.RP.systemFor(savedState(), r, r.cast.find(c => c.id === downId), {});
+    return /DOWN at 0 HP/.test(sys) && /down \(at 0 HP/.test(sys);
+  })());
+  const beforeSlap = room12().messages.length;
+  $('input').value = 'I crouch and slap ' + downName + ' across the face. Wake up.';
+  $('composer').dispatchEvent(submit());
+  await until('the slap to be filed on your own card', () => room12().messages.slice(beforeSlap).some(m => m.role === 'user' && (m.changes || []).some(l => /comes round/.test(l))), 60);
+  check('revived: a slap in your own line brings them round on the spot — a sliver of HP, barely conscious, down lifted — before the model is even asked', (() => {
+    const r = room12();
+    const sheet = r.states[downId];
+    const mine = r.messages.slice(beforeSlap).find(m => m.role === 'user');
+    return sheet.hp.value > 0 && sheet.hp.value <= 10 && Boolean(sheet.flags.barely_conscious) && !sheet.flags.down &&
+      Boolean(mine) && (mine.changes || []).some(l => /comes round at \d+\/100 HP/.test(l) && /slap/.test(l));
+  })());
+  await quiet('the reply to the slap');
+  await wait(200);
+  check('revived: the receipt is on your card in the stream', /comes round at/.test($('stream').textContent));
+
+  // ⚡ Energy
+  check('energy: the bars, the cards and the sheets say ⚡ Energy, never MP', (() => {
+    const bar = doc.querySelector('.statebar .pool.mp .num');
+    const r = room12();
+    const sys = win.RP.systemFor(savedState(), r, r.cast[0], {});
+    return Boolean(bar) && /^⚡ \d+\/\d+$/.test(bar.textContent.trim()) && /Energy \d+\/\d+/.test(sys) && !/\bMP\b/.test(sys) && /\[\[EN: Name -5\]\]/.test(sys);
+  })());
+  check('energy: [[EN:]], [[STAMINA:]] and the old [[MP:]] all move the same pool', (() => {
+    const d = win.RP.parseDirectives('x [[EN: ' + downName + ' -3]] [[STAMINA: ' + downName + ' +1]] [[MP: ' + downName + ' -1]]', [downName]).directives;
+    return d.length === 3 && d.every(x => x.kind === 'mp');
+  })());
+
+  // 🩻 the full audit
+  dock('scene');
+  $('dkReviewFull').dispatchEvent(click());
+  const fullAudit = await until('the full audit to come back', () => !$('modalBack').hidden && /Apply \d+ change/.test(($('mOk') || {}).textContent || ''), 120);
+  check('full audit: one call reads the whole scene and previews its corrections like the quick one', fullAudit);
+  if (fullAudit) $('mCancel').dispatchEvent(click());
+  dock('cast');
+}
 
 // ---- the model actually received the assembled prompt ----
 const probe = await (await fetch(`http://127.0.0.1:${SERVER_PORT}/api/roleplay`, {

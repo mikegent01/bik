@@ -129,6 +129,29 @@ class Handler(BaseHTTPRequestHandler):
                 "The helicopter clips the awning and slams into the pavement. "
                 "The impact throws everyone forward against the dashboard, and for a moment nobody moves."
             )
+        elif "STAGE DIRECTIONS" in all_text and "the room answers" in last_user:
+            # The room answering (round 12): the reply ends with a beat from
+            # each person the audience block names, as its own "Name:"
+            # paragraph, so a page test can prove they are cut out of the
+            # speaker's reply and filed as their own cards.
+            names = []
+            marker = all_text.find("THE AUDIENCE")
+            if marker >= 0:
+                head = all_text[marker:].split("\n", 1)[0]
+                after = head.split("this turn:", 1)[1] if "this turn:" in head else ""
+                names = [n.strip().rstrip(".") for n in after.split(",") if n.strip()]
+            content = "MOCK-MODEL REPLY: *He puts the invoice on the table and waits.* \"Sign it.\""
+            for name in names[:2]:
+                content += (f"\n{name}: *{name} looks up from the register.* \"He means it. He has the invoice out.\" "
+                            "There is a long pause, and nobody reaches for a pen.")
+        elif "STAGE DIRECTIONS" in all_text and "flat on the floor" in last_user:
+            # A speaker at 0 HP (round 12): the first take has them up and
+            # roaring; once the page sends it back with the body spelled
+            # out, the second take keeps to the floor.
+            if "Your last attempt had them" in all_text:
+                content = "*A hand twitches against the tiles. He coughs, once, and the word does not come.* \"...wah.\""
+            else:
+                content = "*He erupts off the floor, roaring, and charges at the door with both fists up.*"
         elif "STAGE DIRECTIONS" in all_text and os.environ.get("MOCK_DIRECTIVES"):
             # {{WHO}} is filled with the first character named in the prompt's
             # CHARACTER STATE block, so a test does not have to know in

@@ -351,6 +351,26 @@ a { color: inherit; }
 /* 🌗 an unattended beat: the scene moved while you were in the other one. */
 .turn.ambient .bubble { border-style: dashed; }
 .turn .meanwhile { font-size: 11px; color: var(--muted); border: 1px dashed var(--line); border-radius: 999px; padding: 0 7px; }
+/* 👥 The room answering: its own card, set in a step from the speaker's. */
+.turn.chorus { margin-left: 26px; position: relative; }
+.turn.chorus::before { content: ''; position: absolute; left: -14px; top: 14px; bottom: 10px; width: 2px; border-radius: 2px; background: var(--line); }
+.turn .chorus { font-size: 11px; color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: 0 7px; }
+/* ⏱ Written as the same seconds as the card above. */
+.turn.same { margin-top: -4px; }
+.turn .same { font-size: 11px; color: #7a5a12; background: #fff7df; border: 1px solid #ecd9a3; border-radius: 999px; padding: 0 7px; font-weight: 600; }
+.turn.same .bubble { border-left: 3px solid #d8a531; }
+.speakers .sp.together { border-style: dashed; color: var(--muted); font-weight: 600; padding: 3px 12px; }
+.speakers .sp.together.on { border-style: solid; border-color: #d8a531; background: #fff7df; color: #7a5a12; }
+.metastrip .read.used { background: #e4f3e8; border-color: #a9d5b7; color: #1f5a35; font-weight: 600; }
+.metastrip .stale { background: #fdf0ee; border-color: #f0c7c0; color: #9a3b2d; }
+/* ⚙ Settings: one dialog, five tabs, nothing hidden behind a dock row. */
+.stabs { display: flex; gap: 4px; flex-wrap: wrap; margin: 4px 0 14px; border-bottom: 1px solid var(--line); padding-bottom: 8px; }
+.stab { border: 1px solid var(--line); background: var(--card); border-radius: 999px; padding: 6px 12px; font-size: 13px; font-weight: 600; cursor: pointer; color: var(--muted); }
+.stab.on { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
+.spane[hidden] { display: none; }
+.modal label small { display: block; font-weight: 400; color: var(--muted); margin-top: 2px; line-height: 1.4; }
+.modal label.radio { display: flex; gap: 8px; align-items: flex-start; font-weight: 400; margin: 8px 0; line-height: 1.45; }
+.modal label.radio input { margin-top: 3px; flex: 0 0 auto; }
 /* The reader's own mood on the bar, and the live switch. */
 .speakers .qa.mac.mood.on { background: var(--mood-bg); color: var(--mood-ink); border-color: var(--mood-line); font-weight: 600; }
 .speakers .qa.mac.live.on { border-color: #d8a531; color: #7a5a12; background: #fff7df; }
@@ -560,11 +580,17 @@ a { color: inherit; }
 .composer-note { max-width: 820px; margin: 7px auto 0; color: var(--muted); font-size: 11px; text-align: center; }
 .speakers {
   max-width: 820px; margin: 0 auto 8px; display: flex; gap: 6px; align-items: center;
-  overflow-x: auto; overflow-y: hidden; padding-bottom: 2px; scrollbar-width: thin;
+  overflow: visible; padding-bottom: 0; scrollbar-width: thin;
 }
 .speakers { flex-direction: column; align-items: stretch; }
-.speakers::-webkit-scrollbar { height: 6px; }
-.speakers::-webkit-scrollbar-thumb { background: #d8d8de; border-radius: 999px; }
+.speakers .row.who::-webkit-scrollbar { height: 6px; }
+.speakers .row.who::-webkit-scrollbar-thumb { background: #d8d8de; border-radius: 999px; }
+/* The faces row scrolls sideways on its own and leaves room under the pills
+   so nothing is cut off; the moves row wraps onto as many lines as it needs. */
+.speakers .row.who { padding: 2px 0 5px; }
+.speakers .row.do { flex-wrap: wrap; row-gap: 6px; align-items: center; }
+.speakers .row.do .acts { flex: 0 1 auto; min-width: 0; }
+.speakers .qa, .speakers .qa.mac { line-height: 1.35; white-space: nowrap; }
 .speakers .emptynote { flex: 0 0 auto; margin: 0; }
 .speakers .sp {
   display: flex; align-items: center; gap: 6px; flex: 0 0 auto; max-width: 210px;
@@ -1764,6 +1790,8 @@ window.CHATROOM_CONFIG = {
     'Put actions, gestures and scene detail between asterisks like *this*. Put speech in "quotes".',
     'Write only your own character. Never speak, act or decide for the user.',
     'Never end the turn with a summary or a question about what the user wants to do next unless your character would really ask it.',
+    'Every turn moves the scene: by its end something is different \u2014 a decision, a deed, a fact out. Never say again ' +
+      'what an earlier turn said; answer what JUST happened.',
   ].join('\n');
 
   /** The system prompt for a one-on-one chat. */
@@ -1923,7 +1951,7 @@ window.CHATROOM_CONFIG = {
       var name = '';
       if (group) {
         var who = (room.cast || []).filter(function (c) { return c.id === m.charId; })[0];
-        name = who ? who.name + ': ' : '';
+        name = who ? who.name + (m.same ? ' (at the same moment)' : '') + ': ' : '';
       }
       return { role: 'assistant', content: name + RP.textOf(m) };
     });
@@ -2980,7 +3008,7 @@ window.CHATROOM_CONFIG = {
   RP.STATE_PRESETS = {
     story:  { name: 'Story — no numbers', hp: 0, mp: 0 },
     stakes: { name: 'Stakes — HP only', hp: 100, mp: 0 },
-    rpg:    { name: 'RPG — HP and MP', hp: 100, mp: 50 },
+    rpg:    { name: 'RPG — HP and Energy', hp: 100, mp: 50 },
   };
 
   /** A fresh sheet. `setup` overrides the start: { hpPct, mpPct, status,
@@ -3189,7 +3217,7 @@ window.CHATROOM_CONFIG = {
   RP.parseCondition = function (line) {
     var parts = String(line || '').split('|');
     var head = parts[0].trim();
-    var effect = /\s([+-]\d{1,3}(?:hp|mp))\s*$/i.exec(head);
+    var effect = /\s([+-]\d{1,3}(?:hp|mp|en|energy|stamina))\s*$/i.exec(head);
     if (effect) head = head.slice(0, effect.index).trim();
     var turns = /\s(\d{1,2})\s*$/.exec(head);
     if (turns) head = head.slice(0, turns.index).trim();
@@ -3198,16 +3226,21 @@ window.CHATROOM_CONFIG = {
     return {
       key: key, name: head,
       turns: turns ? Number(turns[1]) : 0,
-      effect: effect ? effect[1].toLowerCase() : '',
+      effect: effect ? RP.normEffect(effect[1]) : '',
       note: clip(parts.slice(1).join('|'), 160),
     };
   };
 
   /** What a condition does to you every turn it lasts: "-2hp" bleeds. */
   RP.conditionEffect = function (effect) {
-    var hit = /^\s*([+-]?\d{1,3})\s*(hp|mp)\s*$/i.exec(String(effect || ''));
+    var hit = /^\s*([+-]?\d{1,3})\s*(hp|mp|en|energy|stamina)\s*$/i.exec(String(effect || ''));
     if (!hit) return null;
-    return { pool: hit[2].toLowerCase(), amount: Number(hit[1]) };
+    return { pool: /^hp$/i.test(hit[2]) ? 'hp' : 'mp', amount: Number(hit[1]) };
+  };
+  /** "-2en", "-1energy", "-3stamina" are all the Energy pool, which is
+   *  still called `mp` on the sheet so old saves keep working. */
+  RP.normEffect = function (effect) {
+    return String(effect || '').toLowerCase().replace(/(en|energy|stamina)$/, 'mp');
   };
 
   /** Count down anything temporary. Returns the lines to show the reader. */
@@ -3426,6 +3459,45 @@ window.CHATROOM_CONFIG = {
     })[0] || null;
   };
 
+  /* ---- the two pools. `mp` is the key on every sheet ever saved, so
+   * it stays the key; what the reader and the model see is ⚡ Energy —
+   * breath, strength and magic in one finite, slowly refilling pool. ---- */
+  RP.POOLS = {
+    hp: { word: 'HP', icon: '\u2764', directive: 'HP' },
+    mp: { word: 'Energy', icon: '\u26a1', directive: 'EN' },
+  };
+  RP.poolWord = function (kind) { return (RP.POOLS[kind] || {}).word || String(kind || '').toUpperCase(); };
+
+  /** 0 HP is a state, not just a number. The sheet wears the `down`
+   *  condition from the moment it hits 0 until something lifts it above —
+   *  a heal, a [[HP:]], a revival in the prose — and the condition goes
+   *  on its own then. Returns the line to show, or ''. */
+  RP.DOWN_NOTE = 'at 0 HP \u2014 barely conscious: a word, a crawl, a hand that will not close';
+  RP.markDown = function (sheet) {
+    if (!sheet || !sheet.hp || !sheet.hp.max) return '';
+    sheet.flags = sheet.flags || {};
+    var isDown = Number(sheet.hp.value) <= 0;
+    if (isDown && !sheet.flags.down) {
+      sheet.flags.down = { note: RP.DOWN_NOTE, turns: 0, effect: '' };
+      return sheet.name + ' is DOWN';
+    }
+    if (!isDown && sheet.flags.down) {
+      delete sheet.flags.down;
+      return sheet.name + ' is no longer down';
+    }
+    return '';
+  };
+  /** The fixer's half of it, run every turn for free: anyone at 0 HP is
+   *  marked down, anyone back above it is not. */
+  RP.fixDown = function (room) {
+    var lines = [];
+    Object.keys((room && room.states) || {}).forEach(function (id) {
+      var line = RP.markDown(room.states[id]);
+      if (line) lines.push(line);
+    });
+    return lines;
+  };
+
   RP.applyChange = function (sheet, change) {
     if (!sheet || !change) return '';
     var n = Number(change.value);
@@ -3441,14 +3513,17 @@ window.CHATROOM_CONFIG = {
       else if (change.op === '-') pool.value -= n;
       else pool.value = n;
       clampPool(pool);
-      var word = change.kind.toUpperCase();
+      var word = RP.poolWord(change.kind);
+      // Crossing 0 HP in either direction changes the sheet's state too.
+      var downLine = change.kind === 'hp' ? RP.markDown(sheet) : '';
+      var tail = change.kind === 'hp' && pool.value === 0 ? ' — down'
+        : /no longer down/.test(downLine) ? ' — back up' : '';
       if (pool.max !== beforeMax) {
-        return sheet.name + ' — ' + word + ' redefined ' + pool.value + '/' + pool.max + ' (was ' + before + '/' + beforeMax + ')' +
-          (change.kind === 'hp' && pool.value === 0 ? ' — down' : '');
+        return sheet.name + ' — ' + word + ' redefined ' + pool.value + '/' + pool.max + ' (was ' + before + '/' + beforeMax + ')' + tail;
       }
       if (pool.value === before) return '';
       return sheet.name + ' ' + (pool.value > before ? '+' : '−') + Math.abs(pool.value - before) + ' ' + word +
-        ' (' + pool.value + '/' + pool.max + ')' + (change.kind === 'hp' && pool.value === 0 ? ' — down' : '');
+        ' (' + pool.value + '/' + pool.max + ')' + tail;
     }
     if (change.kind === 'flag') {
       var key = slug(change.name);
@@ -3844,7 +3919,8 @@ window.CHATROOM_CONFIG = {
       var cond = sheet.flags[f] && typeof sheet.flags[f] === 'object' ? sheet.flags[f] : {};
       return f.replace(/_/g, ' ') + (cond.note ? ' (' + cond.note + ')' : '');
     });
-    if (hp > 0.65 && !flags.length) return '';
+    var spentOut = Boolean(sheet.mp && sheet.mp.max && sheet.mp.value <= 0);
+    if (hp > 0.65 && !flags.length && !spentOut) return '';
     var name = char.name;
     var state;
     if (sheet.hp && sheet.hp.value <= 0) {
@@ -3859,6 +3935,8 @@ window.CHATROOM_CONFIG = {
       state = 'whole, but not untouched.';
     }
     return 'BODY \u2014 ' + name + ' is ' + state +
+      (spentOut ? ' SPENT at 0 Energy: no sprinting, no spells, no big swings \u2014 hands on knees, breath first; anything that' +
+        ' costs effort this turn fails, or is paid for in HP.' : '') +
       (flags.length ? ' In play on them: ' + flags.join('; ') + ' \u2014 each one shapes what they can do this turn.' : '') +
       ' Their nature does not override their body: the same person, hurt, is a different turn \u2014 greedy and broken is not greedy' +
       ' and whole. If they push through anyway, show the cost in this turn and file it ([[HP: ' + name + ' -N]] or [[COND: ' + name + ' \u2026]]).';
@@ -3900,7 +3978,7 @@ window.CHATROOM_CONFIG = {
       var hurt = s.hp && s.hp.value < s.hp.max;
       var spent = s.mp && s.mp.value < s.mp.max;
       if (s.hp && (full || hurt)) bits.push('HP ' + s.hp.value + '/' + s.hp.max + (s.hp.value === 0 ? ' (down)' : s.hp.value <= s.hp.max * 0.3 ? ' (badly hurt)' : ''));
-      if (s.mp && (full || spent)) bits.push('MP ' + s.mp.value + '/' + s.mp.max);
+      if (s.mp && (full || spent)) bits.push('\u26a1 Energy ' + s.mp.value + '/' + s.mp.max + (s.mp.value === 0 ? ' (spent)' : s.mp.value <= s.mp.max * 0.2 ? ' (nearly spent)' : ''));
       if (full && s.stats) bits.push(RP.statLine(s.stats));
       Object.keys(s.flags || {}).forEach(function (f) {
         var cond = s.flags[f] && typeof s.flags[f] === 'object' ? s.flags[f] : { note: '', turns: 0 };
@@ -4530,11 +4608,14 @@ window.CHATROOM_CONFIG = {
 
   RP.AUDIT_KINDS = RP.UPKEEP_KINDS.concat(['time', 'exit', 'enter']);
   RP.AUDIT_TURNS = 14;
+  RP.AUDIT_TURNS_FULL = 40;      // the full audit reads the whole scene, up to this
 
   /** rooms: one scene, or the linked pair. turns: { roomId: [{who, text}] }. */
-  RP.sheetAuditPrompt = function (rooms, turns) {
+  RP.sheetAuditPrompt = function (rooms, turns, opts) {
+    opts = opts || {};
     rooms = (rooms || []).filter(Boolean);
     var two = rooms.length > 1;
+    var full = Boolean(opts.full);
     var sheets = rooms.map(function (room) {
       var away = (room.away || []).map(function (c) { return c.name; });
       return (two ? 'SCENE \u201c' + (room.title || 'untitled') + '\u201d' + (room.clock ? ' \u2014 ' + room.clock : '') + '\n' : '') +
@@ -4549,16 +4630,25 @@ window.CHATROOM_CONFIG = {
     return [
       'AUDIT THE SHEETS. You are the quartermaster of a roleplay ' + (two ? 'pair of linked scenes \u2014 one story, one clock, two rooms' : 'scene') +
       '. Read the recent play against every sheet and put the record right \u2014 decisively. This is the one place the',
-      'record is corrected by judgement, so judge: for EVERY person decide what their HP and MP should be NOW, given',
+      'record is corrected by judgement, so judge: for EVERY person decide what their HP and Energy should be NOW, given',
       'everything that has happened to them, and when the number on the sheet does not match the story, SET it',
-      '([[HP: Name = N]], [[MP: Name = N]]) \u2014 a helicopter crash and a gunfight are not 65/100, and a night\u2019s rest is',
+      '([[HP: Name = N]], [[EN: Name = N]]) \u2014 a helicopter crash and a gunfight are not 65/100, and a night\u2019s rest is',
       'not 12/100. When the MAXIMUM is wrong for who they are or what they have become \u2014 a dragon and a child both at',
       '100, a man crippled for good, a pool that was never set \u2014 REDEFINE it: [[HP: Name = 28/80]] sets current and',
       'maximum together. Decide how each person feels now and how strongly, and file it. A condition that plainly began',
       'or ended; a thing gained, lost, handed over, spent, taken in hand or put away; a counter that moved; a stale',
       'physical note; the clock, if the play moved it; somebody who plainly left and is still listed, or is back',
       'and still written out. Do not leave a wrong number standing because nobody filed it at the time; do not',
-      'restate what is already right.',
+      'restate what is already right. Anyone at 0 HP is DOWN \u2014 barely conscious \u2014 and if the play has them up and',
+      'acting, one of the two is wrong: either the number (SET it to what the play shows) or the prose (say so in a NOTE).',
+      '',
+      full ? 'FULL AUDIT. The whole scene is below, not just the last exchange. Judge the record at the root: a MAXIMUM that' +
+        ' does not fit who this person is, or what the scene has made of them, is REDEFINED ([[HP: Name = current/max]],' +
+        ' [[EN: Name = current/max]]); every condition is checked against the prose \u2014 cured when the play contradicts it,' +
+        ' filed when the play shows it; who is present is checked against every exit and entrance; the clock against every' +
+        ' passage of time; the kit against everything picked up, handed over, dropped or spent. Then the NOTE: lines, up to' +
+        ' FIVE, on what in the scene does not hold together \u2014 who could not have done what, what was forgotten, what was' +
+        ' promised and dropped, what the next turn must pick up.' : '',
       '',
       'THE SHEETS NOW',
       sheets,
@@ -4567,7 +4657,7 @@ window.CHATROOM_CONFIG = {
       play,
       '',
       'Reply with stage directions, one per line, sixteen at most, the most consequential first (then the notes):',
-      '  [[HP: Name -5]] · [[HP: Name = 40]] · [[HP: Name = 28/80]] (current/maximum) · [[MP: Name +3]] · [[COUNT: Name arrows -1]]',
+      '  [[HP: Name -5]] · [[HP: Name = 40]] · [[HP: Name = 28/80]] (current/maximum) · [[EN: Name +3]] (Energy) · [[COUNT: Name arrows -1]]',
       '  [[ITEM: Name + 🗝 the thing | note]] · [[ITEM: Name - the thing]] · [[EQUIP: Name the thing]] · [[STOW: Name the thing]]',
       '  [[COND: Name state 3 -1hp | why]] · [[CURE: Name state]] · [[STATUS: Name a short physical note]]',
       '  [[MOOD: Name anger 2 | why]]   anger, fear, joy, grief, shame, disgust, surprise, affection, suspicion, pride, calm; 1\u20133',
@@ -4576,20 +4666,20 @@ window.CHATROOM_CONFIG = {
       'never a new person. The player\u2019s own sheet is audited like any other \u2014 their wounds, kit and mood included;',
       'the reader approves every line before it lands.',
       '',
-      'Then, under the directions, up to three lines beginning NOTE: \u2014 what the LAST turn or two got wrong against',
-      'the record and the people (a man at 28 HP charging out of a wreck; a line that person would never say; a thread',
-      'everybody dropped; somebody who has not spoken in ten turns), and what the next turn should do instead \u2014 who',
+      'Then, under the directions, up to ' + (full ? 'five' : 'three') + ' lines beginning NOTE: \u2014 what the LAST turn or two got wrong against',
+      'the record and the people (a man at 28 HP charging out of a wreck; a line that person would never say; the same',
+      'beat played for the fourth turn running; a thread everybody dropped; somebody who has not spoken in ten turns), and what the next turn should do instead \u2014 who',
       'should speak, what should show, what should cost. Advice to the writer, not changes to the record; concrete,',
       'one sentence each, naming names. If the record already matches the story and the play is sound, reply exactly: IN ORDER',
-    ].join('\n');
+    ].filter(function (line, at, arr) { return line !== '' || (arr[at - 1] !== '' && at !== arr.length - 1); }).join('\n');
   };
 
   /** The NOTE: lines of an audit reply \u2014 advice to the writer. */
-  RP.parseAuditNotes = function (reply) {
+  RP.parseAuditNotes = function (reply, limit) {
     return String(reply || '').split(/\r?\n/).map(function (line) {
       var hit = /^\s*(?:[-*\u2022]\s*)?NOTE\s*:\s*(.+)$/i.exec(line);
       return hit ? clip(hit[1].trim(), 240) : '';
-    }).filter(Boolean).slice(0, 3);
+    }).filter(Boolean).slice(0, limit || 3);
   };
 
   /** Notes the reader approved from the audit ride the next turn, once. */
@@ -4767,11 +4857,21 @@ window.CHATROOM_CONFIG = {
   /* ---- audience mode: nobody freezes while two people talk ---- */
 
   /** Present, silent cast members stop being furniture. One prompt
-   *  block inside the SAME call — no extra requests — licenses at most
-   *  one short reaction line from the room: a glance, a mutter, a
-   *  shifted weight. The scene keeps its spotlight; the world keeps
-   *  breathing. Off by dial, absent in solo rooms, silent when only
-   *  two are present (there is no audience in a duel). */
+   *  block inside the SAME call — no extra requests — licenses the room
+   *  to react after the speaker's turn, each reaction as its OWN
+   *  paragraph that begins "Name:". The page then cuts those paragraphs
+   *  out (RP.splitChorus) and files each under the person who made it:
+   *  its own card, its own mood, its own line in the history. Three
+   *  settings: `on` is murmurs — one short beat; `full` lets up to two
+   *  of them answer properly, two to four sentences each. Off by dial,
+   *  absent in solo rooms, silent when only two are present (there is
+   *  no audience in a duel). */
+  RP.AUDIENCE = {
+    off:  { name: 'Off', blurb: 'only the speaker and the narration exist' },
+    on:   { name: 'Murmurs', blurb: 'one short beat from the room after the speaker, as its own card' },
+    full: { name: 'Full replies', blurb: 'up to two of the room answer properly — two to four sentences each, their own cards' },
+  };
+  RP.AUDIENCE_DEFAULT = 'full';
   RP.audienceBlock = function (room, speakerId, setting) {
     if (setting === 'off' || !room || room.kind !== 'group') return '';
     var quiet = (room.cast || []).filter(function (c) {
@@ -4780,12 +4880,285 @@ window.CHATROOM_CONFIG = {
       return !(sheet && sheet.present === false);
     }).slice(0, 4);
     if (!quiet.length) return '';
+    var speaker = (room.cast || []).filter(function (c) { return c && c.id === speakerId; })[0];
+    var sname = speaker ? speaker.name : 'the speaker';
+    var first = quiet[0].name;
+    var full = setting === 'full';
     return 'THE AUDIENCE — also in the scene, not speaking this turn: ' +
       quiet.map(function (c) { return c.name; }).join(', ') + '.\n' +
-      'They are people, not furniture. You MAY end the turn with ONE short beat from one of them — a glance,\n' +
-      'a muttered half-line, a shifted weight — a murmur, never a speech, never the spotlight. If the moment is\n' +
-      'private or the beat adds nothing, give them nothing: silence is a valid reaction. They make no decisions,\n' +
+      'They are people, not furniture. ' + (full
+        ? 'After ' + sname + '\u2019s turn is finished, up to TWO of them MAY answer the moment properly \u2014 each as their OWN\n' +
+          'paragraph, on a new line, beginning with their name and a colon (' + first + ': *what they do* \u201cwhat they say\u201d),\n' +
+          'two to four sentences: an action and a line, in their own voice, to what JUST happened \u2014 not the spotlight,\n' +
+          'not a speech, never the same beat they gave last time.'
+        : 'You MAY end the turn with ONE short beat from one of them, as its OWN paragraph on a new line, beginning with\n' +
+          'their name and a colon (' + first + ': *a glance* \u201ca muttered half-line\u201d) \u2014 a glance, a mutter, a shifted weight \u2014\n' +
+          'a murmur, never a speech, never the spotlight.') +
+      ' If the moment is\nprivate or the beat adds nothing, give them nothing: silence is a valid reaction. They make no decisions,\n' +
       'file no directives, and never answer a question that was aimed at somebody else.';
+  };
+
+  /** Cut the room's beats out of a reply. Only the TRAILING run of
+   *  paragraphs that begin "Name:" (a present cast member who is not
+   *  the speaker) is taken; a "Name:" in the middle of the prose is
+   *  script formatting and is left alone, and a reply that is nothing
+   *  but somebody else's lines is left whole for checkSpeaker.
+   *  Returns { main, pieces: [{ name, text }], dropped: [names] } —
+   *  `dropped` are beats written for somebody the model may not write
+   *  (the player's character): cut, not filed. */
+  RP.splitChorus = function (text, speakerName, names, forbidden) {
+    var whole = String(text || '');
+    var out = { main: whole, pieces: [], dropped: [] };
+    var allowed = (names || []).filter(Boolean).map(String);
+    var banned = (forbidden || []).filter(Boolean).map(String);
+    var known = allowed.concat(banned);
+    if (!known.length || whole.indexOf(':') < 0) return out;
+    var me = String(speakerName || '').toLowerCase();
+    var lead = function (line) {
+      var m = /^\s*(?:[-*\u2022]\s+)?(?:\*\*|__|\*)?\s*([A-Za-z][A-Za-z.'\u2019 -]{0,40}?)(?:\s*\([^)]{0,30}\))?\s*(?:\*\*|__|\*)?\s*:\s*(.*)$/.exec(line);
+      if (!m) return null;
+      var name = m[1].trim().toLowerCase();
+      if (name === me) return { name: speakerName, rest: m[2], self: true };
+      var hit = known.filter(function (n) { return n.toLowerCase() === name; })[0];
+      return hit ? { name: hit, rest: m[2] } : null;
+    };
+    var lines = whole.split(/\n/);
+    var pieces = [], buffer = [], bufferChars = 0;
+    for (var i = lines.length - 1; i >= 0; i--) {
+      var line = lines[i];
+      if (!line.trim()) { if (buffer.length) buffer.unshift(line); continue; }
+      var led = lead(line);
+      if (led && led.self) break;                 // the speaker again: everything above is theirs
+      if (led) {
+        // A named line may claim a short continuation under it, not a
+        // page of prose: that would be the speaker's own paragraphs
+        // with a quoted "Name:" line above them.
+        if (buffer.filter(function (l) { return l.trim(); }).length > 2 || bufferChars > 420) break;
+        pieces.unshift({ name: led.name, text: [led.rest].concat(buffer).join('\n').trim() });
+        buffer = []; bufferChars = 0;
+        if (pieces.length >= 4) break;
+        continue;
+      }
+      buffer.unshift(line); bufferChars += line.length;
+      if (bufferChars > 420 && !pieces.length) break;  // just prose at the end; nothing to cut
+    }
+    if (!pieces.length) return out;
+    var mainLines = lines.slice(0, i + 1).concat(buffer);
+    // The lines the loop stopped on (and everything above) are the main
+    // text; the buffer under them is the speaker's too.
+    if (i < 0 && !buffer.length) mainLines = [];
+    var main = mainLines.join('\n').trim();
+    if (!main) return out;                         // nothing left for the speaker — not a chorus
+    out.main = main;
+    pieces.forEach(function (piece) {
+      if (!piece.text) return;
+      if (banned.some(function (b) { return b.toLowerCase() === piece.name.toLowerCase(); })) { out.dropped.push(piece.name); return; }
+      out.pieces.push(piece);
+    });
+    return out;
+  };
+
+  /* ---- the same moment: several people act in the same seconds ----
+   * The sequencer plays staged turns one after another, and each reads
+   * the last as finished. When the reader picks several faces and asks
+   * for the same moment, every turn in that group is told so: nothing
+   * above has landed yet, write what you are doing DURING it. ---- */
+  RP.momentBlock = function (room, speaker, moment) {
+    if (!room || !speaker || !moment || !moment.same) return '';
+    var name = speaker.name || 'the speaker';
+    var done = (moment.done || []).filter(function (n) { return n && n !== name; });
+    var pending = (moment.pending || []).filter(function (n) { return n && n !== name; });
+    return 'THE SAME MOMENT \u2014 the player\u2019s last turn' +
+      (done.length ? ', and ' + done.join(', ') + '\u2019s turn' + (done.length > 1 ? 's' : '') + ' just above,' : '') +
+      (done.length ? ' happen' : ' happens') + ' AT THE SAME TIME as ' + name + '\u2019s turn \u2014 not before it. Nobody has finished; nothing above has landed or' +
+      ' been answered yet. Write what ' + name + ' is doing DURING those seconds: their own action, cutting across the others,' +
+      ' seeing theirs half-done' + (pending.length ? ' (' + pending.join(', ') + ' act in the same seconds too, written after you)' : '') +
+      '. Do not narrate the outcome of anybody else\u2019s action, do not react to it as if it were over, and do not write their words.';
+  };
+
+  /* ---- the freshness ledger: a character who repeats is a character
+   * nobody believes. Zero calls: the page reads the speaker's own last
+   * turns for the phrases, the subject and the opening they keep
+   * reaching for, and when there is something to name, ONE conditional
+   * block names it. After the reply, repeatCheck scores the new turn
+   * against the same turns; on the strict setting a stale take is sent
+   * back once, like a take that wrote the player. ---- */
+  RP.FRESH_TURNS = 12;
+  RP.FRESH = {
+    strict: { name: 'Strict', blurb: 'the ledger rides the prompt, and a turn that repeats is asked for again, once' },
+    on:     { name: 'Guide',  blurb: 'the ledger rides the prompt; what comes back is kept' },
+    off:    { name: 'Off',    blurb: 'the model is left to its habits' },
+  };
+  RP.FRESH_DEFAULT = 'strict';
+  var FRESH_STOP = {};
+  ('the a an and or but of to in on at for with from by as is are was were be been being it its he she they them his her hers ' +
+   'their you your yours i me my mine we us our ours this that these those not no so if then than there here what which who whom ' +
+   'do does did done have has had will would can could should may might must shall just very into out up down over under off ' +
+   'about again still even only also too all any some such own same other more most much many back now when where why how am ' +
+   'get got gets getting go goes going went gone come comes came say says said see sees saw seen let lets like one two yes well ' +
+   'because before after while until once ever never always every each both few little less own around through across between ' +
+   'against during without within toward towards upon onto behind beside above below him himself herself themselves itself ' +
+   'something anything nothing everything someone anyone everyone right away make makes made take takes took know knows knew ' +
+   'think thinks thought want wants look looks looked keep keeps kept put puts tell tells told give gives gave ask asks asked ' +
+   'turn turns turned hand hands head eyes face voice back feet way thing things time')
+    .split(' ').forEach(function (w) { FRESH_STOP[w] = true; });
+
+  /** The words of a text, sentence by sentence, lowercased, with the
+   *  stage directions and the colour marks taken out. */
+  function freshSentences(text) {
+    return String(text || '').toLowerCase()
+      .replace(/\[\[[^\]]*\]\]/g, ' ')
+      .replace(/\{[a-z#][a-z0-9 ]{0,14}\|([^{}]*)\}/g, '$1')
+      .replace(/[\u2019']/g, '')
+      .split(/[.!?;:\u2014\n*\u201c\u201d"()]+/)
+      .map(function (part) { return part.replace(/[^a-z0-9 -]+/g, ' ').split(/\s+/).filter(Boolean); })
+      .filter(function (words) { return words.length; });
+  }
+  function freshWords(text) {
+    return [].concat.apply([], freshSentences(text));
+  }
+  /** The n-word runs of a text that do not cross a sentence, skipping
+   *  runs made only of stopwords and numbers. */
+  function freshGrams(text, n) {
+    var out = [];
+    (Array.isArray(text) ? [text] : freshSentences(text)).forEach(function (words) {
+      for (var i = 0; i + n <= words.length; i++) {
+        var g = words.slice(i, i + n);
+        if (g.every(function (w) { return FRESH_STOP[w] || /^\d+$/.test(w); })) continue;
+        out.push(g.join(' '));
+      }
+    });
+    return out;
+  }
+
+  /** What this character keeps saying, read off their own last turns:
+   *  phrases (3- and 4-word runs used in two or more turns), subjects
+   *  (a word in half their turns that nobody else in the scene uses),
+   *  and an opening they have begun with three times or more. */
+  RP.staleBits = function (room, charId, turns, skip) {
+    var msgs = ((room && room.messages) || []).filter(function (m) { return visible(m) && !m.muted; });
+    var mine = msgs.filter(function (m) { return m.role === 'char' && m.charId === charId; }).slice(-(turns || RP.FRESH_TURNS));
+    var out = { phrases: [], themes: [], opener: '', turns: mine.length };
+    if (mine.length < 2) return out;
+    var skipWords = {};
+    ((room && room.cast) || []).forEach(function (c) {
+      String(c.name || '').toLowerCase().split(/\s+/).forEach(function (w) { if (w) skipWords[w] = true; });
+    });
+    (skip || []).forEach(function (w) { if (w) skipWords[String(w).toLowerCase()] = true; });
+    // The scene's shared vocabulary — what the OTHERS also say — is the
+    // scene's, not a tic: "helicopter" in a crash is not a repeat.
+    var shared = {};
+    msgs.slice(-24).forEach(function (m) {
+      if (m.role === 'char' && m.charId === charId) return;
+      var ws = {};
+      freshWords(RP.textOf(m)).forEach(function (w) { if (!ws[w]) { ws[w] = true; shared[w] = (shared[w] || 0) + 1; } });
+    });
+    var count = {}, wordCount = {}, openers = {};
+    mine.forEach(function (m) {
+      var text = RP.textOf(m);
+      var words = freshWords(text);
+      var seen = {};
+      [3, 4].forEach(function (n) {
+        freshGrams(text, n).forEach(function (g) { if (!seen[g]) { seen[g] = true; count[g] = (count[g] || 0) + 1; } });
+      });
+      var ws = {};
+      words.forEach(function (w) {
+        if (w.length < 3 || FRESH_STOP[w] || skipWords[w] || /^\d+$/.test(w) || ws[w]) return;
+        ws[w] = true; wordCount[w] = (wordCount[w] || 0) + 1;
+      });
+      var open = words.slice(0, 2).join(' ');
+      if (open) openers[open] = (openers[open] || 0) + 1;
+    });
+    var phrases = Object.keys(count).filter(function (g) { return count[g] >= 2; })
+      .sort(function (a, b) { return (count[b] - count[a]) || (b.length - a.length); });
+    // Longest first, and no two that overlap: "for every coin string"
+    // and "every coin string bean" are one habit, not two.
+    var kept = [], pairs = {};
+    phrases.forEach(function (g) {
+      if (kept.length >= 6) return;
+      var ws = g.split(' ');
+      var mine = [];
+      for (var i = 0; i + 2 <= ws.length; i++) mine.push(ws[i] + ' ' + ws[i + 1]);
+      if (mine.some(function (pr) { return pairs[pr]; })) return;
+      mine.forEach(function (pr) { pairs[pr] = true; });
+      kept.push(g);
+    });
+    out.phrases = kept;
+    var need = Math.max(3, Math.ceil(mine.length * 0.5));
+    out.themes = Object.keys(wordCount).filter(function (w) { return wordCount[w] >= need && (shared[w] || 0) < 2; })
+      .sort(function (a, b) { return wordCount[b] - wordCount[a]; }).slice(0, 5);
+    var topOpen = Object.keys(openers).sort(function (a, b) { return openers[b] - openers[a]; })[0];
+    if (topOpen && openers[topOpen] >= 3) out.opener = topOpen;
+    return out;
+  };
+
+  /** The conditional block: nothing on a fresh character, a named list
+   *  on a stale one. The voice sheet's own sounds are never on it —
+   *  a catchphrase is a trait; the same threat four turns running is not. */
+  RP.freshnessBlock = function (room, char, setting) {
+    if (!room || !char || setting === 'off') return '';
+    var skip = [];
+    var sheet = RP.voiceSheet(char);
+    if (sheet) {
+      (sheet.sounds || []).join(' ').toLowerCase().split(/[^a-z]+/).forEach(function (w) { if (w.length >= 3) skip.push(w); });
+    }
+    var stale = RP.staleBits(room, char.id, RP.FRESH_TURNS, skip);
+    if (!stale.phrases.length && !stale.themes.length && !stale.opener) return '';
+    var lines = ['FRESH TURN \u2014 ' + char.name + ' has started repeating themselves, and a character who repeats is one nobody believes.' +
+      ' Not to be used this turn, not even reworded:'];
+    if (stale.phrases.length) lines.push('  \u2022 these phrases: ' + stale.phrases.map(function (p) { return '\u201c' + p + '\u201d'; }).join(', '));
+    if (stale.themes.length) lines.push('  \u2022 this subject yet again: ' + stale.themes.join(', ') + ' \u2014 it has been said and the scene has heard it. Find what comes AFTER it.');
+    if (stale.opener) lines.push('  \u2022 the opening \u201c' + stale.opener + '\u2026\u201d \u2014 the last turns all began that way. Begin somewhere else.');
+    lines.push('Same person, same VOICE \u2014 but ONE move ' + char.name + ' has not made in this scene: a decision, a question that matters, an' +
+      ' admission, a plan with a first step, a thing picked up and used, a change of position or of tactic. Answer the specific thing' +
+      ' that just happened, not the situation in general, and end the turn with something changed \u2014 what they want, what they know,' +
+      ' or where they stand.');
+    return lines.join('\n');
+  };
+
+  /** Score a new turn against the same character's earlier ones: the
+   *  distinct 3-word runs it shares with them. { count, ratio, hits,
+   *  stale } — stale when a short turn leans on them or a long one is
+   *  stitched out of them. */
+  RP.repeatCheck = function (text, previous, opts) {
+    opts = opts || {};
+    var mine = {};
+    freshGrams(text, 3).forEach(function (g) { mine[g] = true; });
+    var seen = {};
+    (previous || []).forEach(function (t) { freshGrams(t, 3).forEach(function (g) { seen[g] = true; }); });
+    var hits = Object.keys(mine).filter(function (g) { return seen[g]; });
+    var total = Object.keys(mine).length;
+    var ratio = total ? hits.length / total : 0;
+    var threshold = Number(opts.threshold) || 3;
+    return {
+      hits: hits.slice(0, 8), count: hits.length, ratio: Math.round(ratio * 1000) / 1000,
+      stale: (hits.length >= threshold && ratio >= 0.08) || hits.length >= threshold * 3,
+    };
+  };
+
+  /** The earlier turns a repeat check is made against. */
+  RP.priorTurns = function (room, charId, turns) {
+    return ((room && room.messages) || []).filter(function (m) {
+      return visible(m) && !m.muted && m.role === 'char' && m.charId === charId;
+    }).slice(-(turns || RP.FRESH_TURNS)).map(function (m) { return RP.textOf(m); });
+  };
+
+  /** Which of the passages read for a turn actually surfaced in it: a
+   *  distinctive token of the passage — a capitalised word of five
+   *  letters or more that is not a cast name, a year, a number — is in
+   *  the prose. Returns their names. */
+  RP.usedMaterial = function (text, hits, skip) {
+    var t = ' ' + String(text || '').toLowerCase().replace(/[^a-z0-9]+/g, ' ') + ' ';
+    if (!t.trim()) return [];
+    var skipWords = {};
+    (skip || []).forEach(function (w) {
+      String(w || '').toLowerCase().split(/\s+/).forEach(function (x) { if (x) skipWords[x] = true; });
+    });
+    return (hits || []).filter(function (h) {
+      var src = String((h && (h.snippet || h.text)) || '') + ' ' + String((h && h.name) || '');
+      var tokens = (src.match(/\b(?:[A-Z][a-z]{4,}|\d{2,4})\b/g) || []).map(function (w) { return w.toLowerCase(); });
+      return tokens.some(function (w) { return !FRESH_STOP[w] && !skipWords[w] && t.indexOf(' ' + w + ' ') >= 0; });
+    }).map(function (h) { return h.name; });
   };
 
   /* ---- the encouragement system: data-driven, one line, zero calls ---- */
@@ -4852,9 +5225,10 @@ window.CHATROOM_CONFIG = {
     'and the page applies them to the actual record. Use them when the fiction earns them — never more than four',
     'in one turn, and never for something that did not happen in the turn you just wrote.',
     '  [[HP: Name -12]]                 damage, healing (+), or an exact value (= 30)',
-    '  [[MP: Name -5]]                  spent or recovered power',
+    '  [[EN: Name -5]]                  Energy spent (a sprint, a climb, a long fight, a spell) or recovered (+). It refills slowly;',
+    '      at 0 they are SPENT: no running, no magic, no big swings until they have had a breather.',
     '  [[COND: Name bleeding 3 -2hp | a deep cut across the palm]]  a condition: how many turns it lasts (leave',
-    '      the number off if it does not pass on its own), what it costs each turn (-2hp, -1mp — optional), and',
+    '      the number off if it does not pass on its own), what it costs each turn (-2hp, -1en — optional), and',
     '      what it actually is. [[CURE: Name bleeding]] ends it.',
     '  [[COUNT: Name arrows -1]]        any counter you need',
     '  [[ITEM: Name + 🗝 the brass key | bent, from the ledger room]]  gained, with an emoji and a note.',
@@ -4879,7 +5253,7 @@ window.CHATROOM_CONFIG = {
     '+ 🪙 a cut purse]], [[COND: their name poisoned 4 -1hp | pale wine]] are all fair — deciding their words is not.',
   ].join('\n');
 
-  var DIRECTIVE_RE = /\[\[\s*(HP|MP|FLAG|COND|CURE|COUNT|ITEM|USE|EQUIP|STOW|STATUS|MOOD|TINT|UNTINT|ENTER|EXIT|NEW|SET|TIME|LOOKUP|REMEMBER)\s*:\s*([^\]]+?)\s*\]\]/gi;
+  var DIRECTIVE_RE = /\[\[\s*(HP|MP|EN|ENERGY|STAMINA|FLAG|COND|CURE|COUNT|ITEM|USE|EQUIP|STOW|STATUS|MOOD|TINT|UNTINT|ENTER|EXIT|NEW|SET|TIME|LOOKUP|REMEMBER)\s*:\s*([^\]]+?)\s*\]\]/gi;
   // Anything else in double brackets is a directive the model invented. It
   // gets stripped rather than printed at the reader: "[[TIME: 23:00]]" in
   // the middle of the prose is a bug, not a feature.
@@ -5003,11 +5377,12 @@ window.CHATROOM_CONFIG = {
         }
         continue;
       }
-      if (type === 'HP' || type === 'MP') {
+      if (type === 'HP' || type === 'MP' || type === 'EN' || type === 'ENERGY' || type === 'STAMINA') {
         // [[HP: Name -7]] · [[HP: Name = 40]] · [[HP: Name = 28/80]] (the max too)
+        // [[EN: Name -5]] — Energy; MP/STAMINA are the same pool by other names.
         var pool = /^([+\-=])?\s*(\d+)\s*(?:\/\s*(\d+))?\s*$/.exec(rest);
         if (pool) {
-          var d = { kind: type.toLowerCase(), body: body, who: target.name, op: pool[1] || '=', value: Number(pool[2]) };
+          var d = { kind: type === 'HP' ? 'hp' : 'mp', body: body, who: target.name, op: pool[1] || '=', value: Number(pool[2]) };
           if (pool[3]) { d.max = Number(pool[3]); d.op = '='; }
           out.push(d);
         }
@@ -5040,7 +5415,7 @@ window.CHATROOM_CONFIG = {
         // the number of turns, and what is left is the condition itself.
         var parts = rest.split('|');
         var head = parts[0].trim();
-        var effect = /\s([+-]\d{1,3}(?:hp|mp))\s*$/i.exec(head);
+        var effect = /\s([+-]\d{1,3}(?:hp|mp|en|energy|stamina))\s*$/i.exec(head);
         if (effect) head = head.slice(0, effect.index).trim();
         var turns = /\s(\d{1,2})\s*$/.exec(head);
         if (turns) head = head.slice(0, turns.index).trim();
@@ -5051,7 +5426,7 @@ window.CHATROOM_CONFIG = {
             value: flag[2] === undefined ? true : flag[2],
             note: clip(parts.slice(1).join('|'), 160),
             turns: turns ? Number(turns[1]) : 0,
-            effect: effect ? effect[1].toLowerCase() : '',
+            effect: effect ? RP.normEffect(effect[1]) : '',
           });
         }
         continue;
@@ -5600,7 +5975,7 @@ window.CHATROOM_CONFIG = {
         sheets.length ? '**The state everyone is carrying in.**\n' + sheets.map(function (s) {
           var bits = [];
           if (s.hp) bits.push('HP ' + s.hp.value + '/' + s.hp.max);
-          if (s.mp) bits.push('MP ' + s.mp.value + '/' + s.mp.max);
+          if (s.mp) bits.push('Energy ' + s.mp.value + '/' + s.mp.max);
           var flags = Object.keys(s.flags || {});
           if (flags.length) bits.push(flags.join(', ').replace(/_/g, ' '));
           if ((s.items || []).length) bits.push('carrying ' + s.items.join(', '));
@@ -6297,7 +6672,7 @@ window.CHATROOM_CONFIG = {
       sheets.forEach(function (s) {
         var bits = [];
         if (s.hp) bits.push('HP ' + s.hp.value + '/' + s.hp.max);
-        if (s.mp) bits.push('MP ' + s.mp.value + '/' + s.mp.max);
+        if (s.mp) bits.push('Energy ' + s.mp.value + '/' + s.mp.max);
         var flags = Object.keys(s.flags || {});
         if (flags.length) bits.push(flags.join(', ').replace(/_/g, ' '));
         if ((s.items || []).length) bits.push('carrying ' + s.items.join(', '));
@@ -6953,6 +7328,8 @@ window.CHATROOM_CONFIG = {
       'around them, and do not pretend to know more of the file than is here.',
       anyNamed ? 'A filing marked ★ was NAMED in the scene. When the player reads from it or asks about it, read' +
         ' from THIS text — never invent its contents.' : '',
+      'Weave at least ONE concrete thing out of them into this turn — a name, a date, a number, a phrase quoted or',
+      'misquoted in character. A passage read and not used is a wasted turn.',
       results.map(function (r) {
         return '- ' + (r.named ? '★ ' : '') + '[' + r.kind + ':' + r.id + '] ' + r.name + (r.date ? ' (' + r.date + ')' : '') + '\n    “' + r.snippet + '”';
       }).join('\n'),
@@ -8375,6 +8752,118 @@ window.CHATROOM_CONFIG = {
   var HURT_HEAVY_RE = /\b(?:parkour|sprint\w*|climb(?:s|ing)?|scale(?:s)? (?:the|a)|vault(?:s)?|leap(?:s)? (?:across|over|onto)|haul(?:s)?|hoist(?:s)?|charge(?:s)? (?:at|into|out)|wrestle(?:s)?|fight(?:s)? (?:him|her|them) off|carry|carries|run(?:s)? (?:after|across|up|for)|kick(?:s)? (?:the|a) door|swim(?:s)?)\b/i;
   var DOWN_OK_RE = /\b(?:crawl|whisper|say|says|mutter|breathe|reach|blink|look|listen|cough|groan|lie|lay|hold on|grip|press)\b/i;
 
+  /* ---- Energy: breath, strength and magic in one pool. Spent by the
+   * prose when the model forgets to file it, refilled a little every
+   * quiet turn, and a hard stop at 0. ---- */
+  var EXERT_RE = /\b(?:sprint\w*|runs? (?:for|after|across|up|down|out|to)|racing|dash(?:es)? (?:for|across|to)|climb(?:s|ing)?|scal(?:e|es|ing) the|vault(?:s)?|haul(?:s|ing)?|hoist(?:s)?|drag(?:s|ging)? (?:him|her|them|the|a)|carr(?:y|ies|ying) (?:him|her|them)|swim(?:s)?|wrestl\w*|grappl\w*|fights? (?:on|off|through)|swing(?:s)? (?:the|a|his|her|my)|dig(?:s|ging)?|shoulder(?:s)? (?:the|through)|kick(?:s)? (?:the|a|down|in)|heave(?:s)?)\b/i;
+  var MAGIC_RE = /\b(?:casts?|casting|spell\w*|conjur\w*|summon\w*|hex(?:es)?|incant\w*|teleport\w*|levitat\w*|enchant\w*|fireball|(?:the|his|her|my|their) magic|channel(?:s|ing)? (?:the|a|his|her|my))\b/i;
+  /** Breath spent in the prose: a sprint or a climb, or a spell. Only
+   *  for somebody with an Energy pool. { amount, cause } or null. */
+  RP.exertScan = function (text, sheet) {
+    var t = String(text || '');
+    if (!sheet || !sheet.mp || !sheet.mp.max || !t.trim()) return null;
+    var magic = MAGIC_RE.exec(t);
+    if (magic) return { amount: Math.max(2, Math.round(sheet.mp.max * 0.12)), cause: magic[0], kind: 'magic' };
+    var hard = EXERT_RE.exec(t);
+    if (hard) return { amount: Math.max(1, Math.round(sheet.mp.max * 0.06)), cause: hard[0], kind: 'effort' };
+    return null;
+  };
+  /** Energy comes back on its own: a little every turn a sheet is not
+   *  spending it. Quiet — only the moment it is full is worth a line. */
+  RP.regenEnergy = function (room, spentIds) {
+    var spent = {};
+    (spentIds || []).forEach(function (id) { spent[id] = true; });
+    var lines = [];
+    Object.keys((room && room.states) || {}).forEach(function (id) {
+      var s = room.states[id];
+      if (!s || s.present === false || !s.mp || !s.mp.max || spent[id] || s.mp.value >= s.mp.max) return;
+      var step = Math.max(1, Math.round(s.mp.max * 0.04));
+      s.mp.value = Math.min(s.mp.max, s.mp.value + step);
+      if (s.mp.value >= s.mp.max) lines.push('\u26a1 ' + s.name + ' has their breath back (' + s.mp.value + '/' + s.mp.max + ')');
+    });
+    return lines;
+  };
+
+  /* ---- down, and brought round. 0 HP used to be a number the model
+   * read and wrote past: Wario at 0, slapped, up and shouting, 0 still
+   * on the sheet. Now a revival in the prose moves the sheet, and a
+   * speaker at 0 written on their feet is sent back once. ---- */
+  var REVIVE_RE = /\b(?:slap(?:s|ped|ping)?|shak(?:e|es|ing|en)|wakes?|woke|rous(?:e|es|ed|ing)|reviv(?:e|es|ed|ing)|resuscitat\w*|bring(?:s|ing)? (?:him|her|them|\w+) (?:round|back|to)|brought (?:him|her|them|\w+) (?:round|back|to)|smelling salts|adrenaline|epinephrine|stim(?:pack|ulant|s)?|cpr|chest compressions|mouth[- ]to[- ]mouth|heal(?:s|ed|ing)?|patch(?:es|ed|ing)? (?:him|her|them|\w+) up|bandag\w*|potion|elixir|tonic|first aid|med[- ]?kit|cold water|haul(?:s|ed|ing)? (?:him|her|them|\w+) (?:up|to (?:his|her|their) feet)|drag(?:s|ged|ging)? (?:him|her|them|\w+) (?:up|to (?:his|her|their) feet)|pull(?:s|ed|ing)? (?:him|her|them|\w+) (?:up|to (?:his|her|their) feet)|comes? (?:round|to)\b|came (?:round|to)\b)/gi;
+  /** Who at 0 HP was just brought round by the prose — a slap, salts, a
+   *  stim, a heal, a shake — by name, or by pronoun when only one person
+   *  is down. Returns [{ id, name, how }]. */
+  RP.reviveScan = function (text, room) {
+    var t = String(text || '');
+    if (!room || !t.trim()) return [];
+    var down = Object.keys(room.states || {}).map(function (id) { return room.states[id]; }).filter(function (sh) {
+      return sh && sh.present !== false && sh.hp && sh.hp.max && sh.hp.value <= 0;
+    });
+    if (!down.length) return [];
+    var found = {}, out = [];
+    REVIVE_RE.lastIndex = 0;
+    var hit;
+    while ((hit = REVIVE_RE.exec(t))) {
+      var window = t.slice(Math.max(0, hit.index - 70), hit.index + hit[0].length + 90).toLowerCase();
+      down.forEach(function (sh) {
+        if (found[sh.id]) return;
+        var name = String(sh.name || '').toLowerCase();
+        var first = name.split(/\s+/)[0];
+        var named = name && (window.indexOf(name) >= 0 ||
+          (first.length > 2 && new RegExp('\\b' + first.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\b').test(window)));
+        if (!named && down.length === 1 && /\b(?:him|her|them|his|hers|their)\b/.test(window)) named = true;
+        if (!named) return;
+        found[sh.id] = true;
+        out.push({ id: sh.id, name: sh.name, how: hit[0].toLowerCase() });
+      });
+      if (!REVIVE_RE.global) break;
+    }
+    REVIVE_RE.lastIndex = 0;
+    return out;
+  };
+  /** Bring somebody round: a sliver of HP, `down` lifted, and
+   *  `barely_conscious` for three turns so the body block keeps them
+   *  slow. Returns the line for the strip. */
+  var reviveWord = function (how) {
+    var h = String(how || '').toLowerCase();
+    if (!h) return '';
+    if (/^slap/.test(h)) return 'slapped awake';
+    if (/^shak/.test(h)) return 'shaken awake';
+    if (/water/.test(h)) return 'cold water';
+    if (/salts/.test(h)) return 'smelling salts';
+    if (/adrenaline|epinephrine|stim/.test(h)) return 'a stim';
+    if (/cpr|compressions|mouth/.test(h)) return 'resuscitated';
+    if (/heal|potion|elixir|tonic|first aid|med|bandag|patch/.test(h)) return 'patched up';
+    if (/haul|drag|pull/.test(h)) return 'hauled to their feet';
+    if (/wake|woke|rous|reviv|bring|brought|come|came/.test(h)) return 'roused';
+    return clip(h, 40);
+  };
+  RP.revive = function (sheet, how) {
+    if (!sheet || !sheet.hp || !sheet.hp.max) return '';
+    how = reviveWord(how);
+    var sliver = Math.max(1, Math.round(sheet.hp.max * 0.05));
+    if (sheet.hp.value < sliver) sheet.hp.value = sliver;
+    RP.markDown(sheet);
+    sheet.flags = sheet.flags || {};
+    sheet.flags.barely_conscious = {
+      note: 'brought round' + (how ? ' \u2014 ' + how : '') + '; no fighting, no running, hardly standing',
+      turns: 3, effect: '',
+    };
+    return '\u26d1 ' + sheet.name + ' comes round at ' + sheet.hp.value + '/' + sheet.hp.max + ' HP' + (how ? ' \u2014 ' + how : '') + '; barely conscious';
+  };
+  var VIGOUR_RE = /\b(?:leaps?|leapt|lung(?:e|es|ed)|charg(?:e|es|ed) (?:at|in|out|across|forward)|sprint\w*|vault(?:s|ed)?|swings? (?:a|the|his|her|my) \w+|swung|punch(?:es|ed)?|slam(?:s|med)? (?:a|the|his|her|my|it)|roar(?:s|ed)?|bellow(?:s|ed)?|storm(?:s|ed)? (?:out|off|over|across|in|to)|grab(?:s|bed)? (?:him|her|them|\w+) by|haul(?:s|ed)? (?:himself|herself|themselves|myself)|kick(?:s|ed)? (?:the|a|him|her|them|out)|erupt(?:s|ed)?|spring(?:s)? (?:up|to)|sprang|jump(?:s|ed)? (?:up|to)|(?:on|to) (?:his|her|their|my) feet|stands? up|stood up|bolt(?:s|ed)? (?:for|out|across|up)|tackl(?:e|es|ed)|hurl(?:s|ed)?|shov(?:e|es|ed)|march(?:es|ed)?|strid(?:e|es)|strode|shout(?:s|ed)?|yell(?:s|ed)?|scream(?:s|ed)?|snatch(?:es|ed)?|wrench(?:es|ed)? (?:free|away|the|it)|climb(?:s|ed)?|dash(?:es|ed)?)\b/i;
+  var SPENT_OK_RE = /\b(?:tries? to|tried to|attempts? to|wants? to|cannot|can'?t|couldn'?t|could not|fails?|failed|collaps\w*|slump\w*|crumpl\w*|blacks? out|too weak|will not|won'?t|gives? out|give way|falls? back|sinks? back|not enough|in (?:his|her|their|my) head|dreams?|imagin\w*|remember\w*|used to)\b/i;
+  /** A speaker at 0 HP written on their feet. null when the turn keeps
+   *  to the body, or shows the body failing; else { why, what }. */
+  RP.vigourCheck = function (text, sheet) {
+    var t = String(text || '');
+    if (!sheet || !sheet.hp || !sheet.hp.max || sheet.hp.value > 0 || !t.trim()) return null;
+    var hit = VIGOUR_RE.exec(t);
+    if (!hit) return null;
+    var around = t.slice(Math.max(0, hit.index - 90), hit.index + hit[0].length + 120);
+    if (SPENT_OK_RE.test(around)) return null;
+    return { why: sheet.name + ' is DOWN at 0 HP', what: hit[0] };
+  };
+
   /** What the player's body rules out, if the attempt is one of those.
    *  Returns null, or { why, what, part } — "limping (the crash)" /
    *  "climb" / "that leg". */
@@ -8389,6 +8878,11 @@ window.CHATROOM_CONFIG = {
     var hp = sheet.hp && sheet.hp.max ? sheet.hp.value / sheet.hp.max : 1;
     if (sheet.hp && sheet.hp.value <= 0 && !DOWN_OK_RE.test(t)) {
       return { why: 'down at 0 HP', what: clip(t.replace(/^\*|\*$/g, ''), 40), part: 'a body that is done' };
+    }
+    // Spent: no breath left for a sprint, no reserve left for a spell.
+    if (sheet.mp && sheet.mp.max && sheet.mp.value <= 0) {
+      var tired = MAGIC_RE.exec(t) || EXERT_RE.exec(t);
+      if (tired) return { why: 'spent \u2014 0 Energy', what: tired[0], part: 'the wind they have left' };
     }
     for (var i = 0; i < BODY_LIMITS.length; i++) {
       var rule = BODY_LIMITS[i];
@@ -8996,8 +9490,10 @@ window.CHATROOM_CONFIG = {
     if (continuation) parts.push(continuation);
     var direction = RP.directionBlock(room);
     if (direction) parts.push(direction);
+    var moment = RP.momentBlock(room, RP.normChar(speaker || {}), opts.moment);
+    if (moment) parts.push(moment);
     var audience = RP.audienceBlock(room, RP.normChar(speaker || {}).id,
-      (state.settings && state.settings.audience) || 'on');
+      (state.settings && state.settings.audience) || RP.AUDIENCE_DEFAULT);
     if (audience) parts.push(audience);
     // Who the reader is — Waluigi, a persona, a stranger — used to sit with
     // the reference material and was the last block dropped on a tight
@@ -9039,6 +9535,9 @@ window.CHATROOM_CONFIG = {
       var mood = RP.moodBlock(room, RP.normChar(speaker || {}));
       if (mood) parts.push(mood);
     }
+    // The freshness ledger: nothing on a character who is not repeating.
+    var fresh = RP.freshnessBlock(room, RP.normChar(speaker || {}), (state.settings && state.settings.fresh) || RP.FRESH_DEFAULT);
+    if (fresh) parts.push(fresh);
     var fateBlock = RP.fateBlock(opts.fate);
     if (fateBlock) parts.push(fateBlock);
     var flourish = RP.flourishBlock(room, opts.fate);
@@ -9163,6 +9662,7 @@ window.CHATROOM_CONFIG = {
       else if (/^YOU ARE /.test(line)) { inCast = false; }
       if (/^    \S/.test(line)) continue;                                // a cast member's summary
       if (/^You may colour a few words/.test(line)) continue;              // decoration first
+      if (level >= 3 && /^Every turn moves the scene/.test(line)) continue; // the voice lines outrank it on a tight window
       if (inVoice && /^Never:/.test(line) && level >= 2) continue;
       if (inVoice && /^Sounds like:/.test(line) && level >= 3) continue;
       if (inVoice && /^  \u201c/.test(line)) {
@@ -12019,7 +12519,7 @@ window.CHATROOM_CONFIG = {
         return '<div class="item' + (off ? ' off' : '') + '"><b>' + esc(m.icon + ' ' + m.label) + '</b><p>' + esc(m.text) + '</p>' +
           '<div class="acts"><button class="mini" data-machide="' + esc(m.id) + '">' + (off ? 'Show' : 'Hide') + '</button></div></div>';
       }).join('') + own.map(function (m) {
-        return '<div class="item"><b>' + esc(m.icon + ' ' + m.label) + '</b>' + (m.mp ? ' <span class="sub">' + m.mp + ' MP</span>' : '') + '<p>' + esc(m.text) + '</p>' +
+        return '<div class="item"><b>' + esc(m.icon + ' ' + m.label) + '</b>' + (m.mp ? ' <span class="sub">\u26a1 ' + m.mp + '</span>' : '') + '<p>' + esc(m.text) + '</p>' +
           '<div class="acts"><button class="mini" data-macedit="' + esc(m.id) + '">Edit</button>' +
           '<button class="mini danger" data-mackill="' + esc(m.id) + '">Delete</button></div></div>';
       }).join('') + '</div>' +
@@ -12055,7 +12555,7 @@ window.CHATROOM_CONFIG = {
       { k: 'icon', label: 'Icon', value: existing ? existing.icon : '⚑' },
       { k: 'label', label: 'Label', value: existing ? existing.label : '' },
       { k: 'text', label: 'What it writes — use {target} for whoever you pick', type: 'area', value: existing ? existing.text : '' },
-      { k: 'mp', label: 'MP it costs (0 for none)', value: String(existing ? existing.mp || 0 : 0) },
+      { k: 'mp', label: '\u26a1 Energy it costs (0 for none)', value: String(existing ? existing.mp || 0 : 0) },
     ], { note: 'It writes the attempt for you; the roll still decides whether it works.', ok: existing ? 'Save' : 'Add' }, function (v) {
       if (!v.label.trim() || !v.text.trim()) { toast('It needs a label and something to say.'); return; }
       var next = { id: existing ? existing.id : 'mac_' + RP.slug(v.label) + '_' + Date.now().toString(36), icon: v.icon.trim() || '⚑',
@@ -12075,7 +12575,7 @@ window.CHATROOM_CONFIG = {
     function fire(target) {
       var sheet = RP.playerCharacter(r) ? RP.sheetFor(r, RP.playerCharacter(r).id) : null;
       if (macro.mp && sheet && sheet.mp) {
-        if (sheet.mp.value < macro.mp) { toast('Not enough MP — ' + sheet.mp.value + ' left, that costs ' + macro.mp + '.'); return; }
+        if (sheet.mp.value < macro.mp) { toast('Not enough Energy \u2014 ' + sheet.mp.value + ' left, that costs ' + macro.mp + '.'); return; }
         var line = RP.applyChange(sheet, { kind: 'mp', op: '-', value: macro.mp });
         if (line) {
           r.messages.push({ id: RP.uid(), role: 'state', at: Date.now(), lines: [line] });
@@ -12113,18 +12613,24 @@ window.CHATROOM_CONFIG = {
     (m.changes || []).forEach(function (line) { bits.push('<span>' + esc(line) + '</span>'); });
     if (m.beatFired) bits.push('<span class="beat">⏩ ' + esc(RP.clip(m.beatFired, 90)) + '</span>');
     (m.consulted || []).forEach(function (name) {
-      bits.push('<span class="read" title="Read out of the archive for this turn">🔎 ' + esc(RP.clip(name, 40)) + '</span>');
+      var used = (m.used || []).indexOf(name) >= 0;
+      bits.push('<span class="read' + (used ? ' used' : '') + '" title="' + (used ? 'Read out of the archive for this turn, and something of it is in the prose'
+        : 'Read out of the archive for this turn') + '">' + (used ? '📚 ' : '🔎 ') + esc(RP.clip(name, 40)) + '</span>');
+    });
+    (m.repeats || []).forEach(function (phrase) {
+      bits.push('<span class="stale" title="Still leaning on this after being asked for a fresh turn">♻ ' + esc(RP.clip(phrase, 40)) + '</span>');
     });
     if (m.edited) bits.push('<span class="quiet">edited</span>');
     return bits.length ? '<div class="metastrip">' + bits.join('') + '</div>' : '';
   }
 
-  /** One HP/MP bar. */
+  /** One HP / Energy bar. */
   function bar(kind, pool) {
     var pct = pool.max ? Math.round((pool.value / pool.max) * 100) : 0;
-    return '<span class="pool ' + kind + (pct <= 30 ? ' low' : '') + '">' +
+    var word = kind === 'mp' ? '\u26a1' : RP.poolWord(kind);
+    return '<span class="pool ' + kind + (pct <= 30 ? ' low' : '') + '" title="' + esc(RP.poolWord(kind)) + '">' +
       '<span class="fill" style="width:' + pct + '%"></span>' +
-      '<span class="num">' + kind.toUpperCase() + ' ' + pool.value + '/' + pool.max + '</span></span>';
+      '<span class="num">' + word + ' ' + pool.value + '/' + pool.max + '</span></span>';
   }
 
   /** How many slots a sheet's grid shows: the profile decided it when the
@@ -12162,7 +12668,7 @@ window.CHATROOM_CONFIG = {
     if (!sheet) return;
     form('State — ' + sheet.name, [
       { k: 'hp', label: 'HP (value / max, blank for none)', value: sheet.hp ? sheet.hp.value + '/' + sheet.hp.max : '' },
-      { k: 'mp', label: 'MP (value / max, blank for none)', value: sheet.mp ? sheet.mp.value + '/' + sheet.mp.max : '' },
+      { k: 'mp', label: '\u26a1 Energy (value / max, blank for none) \u2014 breath, strength and magic in one pool; it refills slowly', value: sheet.mp ? sheet.mp.value + '/' + sheet.mp.max : '' },
       { k: 'flags', label: 'Conditions — "bleeding 3 -2hp | a deep cut", one per line (turns, cost a turn, note)', type: 'area',
         value: Object.keys(sheet.flags || {}).map(function (f) {
           var c = sheet.flags[f] && typeof sheet.flags[f] === 'object' ? sheet.flags[f] : { note: '', turns: 0 };
@@ -12445,11 +12951,14 @@ window.CHATROOM_CONFIG = {
       var swipes = (m.alts && m.alts.length > 1)
         ? '<span class="swipe"><button data-swipe="-1" data-i="' + i + '">‹</button>' + ((m.alt || 0) + 1) + ' / ' + m.alts.length + '<button data-swipe="1" data-i="' + i + '">›</button></span>' : '';
       return '<article class="turn ' + (mine ? 'user' : 'char') + (m.error ? ' err' : '') +
-        (m.muted ? ' muted' : '') + (m.imported ? ' imported' : '') + (m.ambient ? ' ambient' : '') + moodAttrs(m) + '">' +
+        (m.muted ? ' muted' : '') + (m.imported ? ' imported' : '') + (m.ambient ? ' ambient' : '') +
+        (m.chorus ? ' chorus' : '') + (m.same ? ' same' : '') + moodAttrs(m) + '">' +
         '<div class="who">' + (mine ? (playing ? avatar(playing, 24) : userAvatar(24)) : avatar(charOf(r, m.charId), 24)) +
         '<b>' + esc(who) + '</b>' + stamp(m) + (mine ? '' : '<span class="badge">archive</span>') +
         (m.ambient ? '<span class="meanwhile" title="' + (playing && m.charId === playing.id ? 'Your character acted alone while you were in the other scene'
           : 'This happened while you were in the other scene') + '">🌗 meanwhile</span>' : '') +
+        (m.chorus ? '<span class="chorus" title="The room answering — written in the same call as the turn above, filed under the person who said it">👥 the room</span>' : '') +
+        (m.same ? '<span class="same" title="Written as happening in the same seconds as the turn above, not after it">\u23f1 same moment</span>' : '') +
         (m.mood && RP.MOODS[m.mood.key] ? '<span class="moodtag" title="How they felt as this turn ended — the box wears the colour">' +
           RP.moodIcon(m.mood) + ' ' + esc(RP.moodLabel(m.mood)) + '</span>' : '') +
         (mine ? '' : '<button class="speak" data-speak="' + i + '" title="Read aloud">▶</button>') +
@@ -12514,7 +13023,7 @@ window.CHATROOM_CONFIG = {
         esc(RP.NARRATORS[RP.narrator(state)].icon) + ' ' + esc(RP.NARRATORS[RP.narrator(state)].name) + '</button>') +
       RP.presentCast(r).map(function (c) {
         var mine = r.youPlay === c.id;
-        var on = !mine && r.next === c.id;
+        var on = !mine && (r.next === c.id || (Array.isArray(r.pinnedNext) && r.pinnedNext.indexOf(c.id) >= 0));
         return '<button class="sp ' + (on ? 'on' : '') + (mine ? ' mine' : '') + '" data-speaker="' + esc(c.id) + '" ' +
           'draggable="true" data-dragcast="' + esc(c.id) + '" ' +
           'title="' + (mine ? 'You play them. ' : 'Click: they speak next. ') + 'Drag to the edge of the stage to start a second scene with them, or onto the other scene to send them there.">' +
@@ -12523,6 +13032,13 @@ window.CHATROOM_CONFIG = {
           'title="' + (mine ? 'You play them — the model never speaks for them' : 'Mark as the character you play') + '">' +
           (mine ? '★' : '☆') + '</span></button>';
       }).join('') +
+      (RP.speakableCast(r).length > 1 || (RP.speakableCast(r).length && (state.settings.world || 'on') !== 'off')
+        ? '<button class="sp together' + (Array.isArray(r.pinnedNext) ? ' on' : '') + '" id="qaTogether" ' +
+          'title="Pick several of them to act on your next turn \u2014 one after another, or all in the same moment (one runs while another shoots)">' +
+          (Array.isArray(r.pinnedNext)
+            ? (r.pinnedSame ? '\u23f1 ' : '\u2193 ') + r.pinnedNext.length + ' together'
+            : '👥 Several…') + '</button>'
+        : '') +
       '</div>' +
       '<div class="row do">' +
       '<span class="acts">' +
@@ -12912,7 +13428,7 @@ window.CHATROOM_CONFIG = {
     else if (here && sheet && sheet.present === false) kind = 'away';
     var sheetLine = function (sh) {
       if (!sh) return '';
-      return (sh.hp ? '❤ ' + sh.hp.value + '/' + sh.hp.max + ' ' : '') + (sh.mp ? '🔮 ' + sh.mp.value + '/' + sh.mp.max + ' ' : '') +
+      return (sh.hp ? '❤ ' + sh.hp.value + '/' + sh.hp.max + ' ' : '') + (sh.mp ? '\u26a1 ' + sh.mp.value + '/' + sh.mp.max + ' ' : '') +
         (sh.mood && RP.MOODS[sh.mood.key] ? RP.MOODS[sh.mood.key].icon + ' ' + RP.moodLabel(sh.mood) + ' ' : '') +
         Object.keys(sh.flags || {}).map(function (f) { return '· ' + f.replace(/_/g, ' '); }).join(' ');
     };
@@ -13350,7 +13866,8 @@ window.CHATROOM_CONFIG = {
       menuItem('dkNarrator', RP.NARRATORS[RP.narrator(state)].icon, 'Narrator', (state.settings.world || 'on') === 'off' ? 'Off' : RP.NARRATORS[RP.narrator(state)].name) +
       menuItem('dkPrivacy', r.privacy === 'private' ? '🔒' : r.privacy === 'open' ? '🔓' : '👂', 'Who answers you',
         r.privacy === 'private' ? 'Nobody — alone' : r.privacy === 'open' ? 'Always' : 'Reads the room') +
-      menuItem('dkAudience', '👥', 'Audience murmurs', (state.settings.audience || 'on') === 'off' ? 'Off' : 'On') +
+      menuItem('dkAudience', '👥', 'The room answers', (RP.AUDIENCE[state.settings.audience || RP.AUDIENCE_DEFAULT] || RP.AUDIENCE.on).name) +
+      menuItem('dkFresh', '\u267b', 'Fresh turns', (RP.FRESH[state.settings.fresh || RP.FRESH_DEFAULT] || RP.FRESH.strict).name) +
       menuItem('cpStyle', '✨', 'Style', style.name) +
       menuItem('cpCustomize', '🖌', 'Customize', style.name) +
       menuItem('cpNote', '📝', 'Special instructions', (r.note || state.settings.note) ? 'set' : 'none') +
@@ -13358,7 +13875,8 @@ window.CHATROOM_CONFIG = {
       '<h4>Housekeeping</h4>' +
       '<div class="cp-menu">' +
       menuItem('dkAudit', '🧾', 'Audit', (auditFlags[r.id] || 0) ? auditFlags[r.id] + ' to look at' : 'all clear') +
-      (r.mechanics === 'off' ? '' : menuItem('dkReview', '🩺', 'AI audit of the sheets', RP.linkedRoom(state, r) ? 'both scenes' : 'one call')) +
+      (r.mechanics === 'off' ? '' : menuItem('dkReview', '🩺', 'Quick audit', RP.linkedRoom(state, r) ? 'both scenes · last ' + RP.AUDIT_TURNS + ' turns' : 'last ' + RP.AUDIT_TURNS + ' turns')) +
+      (r.mechanics === 'off' ? '' : menuItem('dkReviewFull', '🩻', 'Full audit', 'whole scene · maxima · what does not add up')) +
       menuItem('cpReplay', '🎭', 'Replay', 'Perspective') +
       menuItem('dkSequel', '📖', 'Write the sequel', '') +
       menuItem('cpNew', '✎', 'New chat', 'same cast') +
@@ -13533,7 +14051,9 @@ window.CHATROOM_CONFIG = {
     return Promise.all(jobs).then(function (found) { return found.filter(Boolean); });
   }
 
-  function runSheetAudit(r) {
+  function runSheetAudit(r, auditOpts) {
+    auditOpts = auditOpts || {};
+    var full = Boolean(auditOpts.full);
     if (!r || r.mechanics === 'off') { toast('The sheets are off in this scene.'); return; }
     if (auditing) { toast('🩺 The audit is still reading.'); return; }
     var other = RP.linkedRoom(state, r);
@@ -13542,7 +14062,7 @@ window.CHATROOM_CONFIG = {
     rooms.forEach(function (room) {
       RP.ensurePlayerSheet(state, room);
       var playing = RP.playerCharacter(room);
-      turns[room.id] = (room.messages || []).filter(RP.visible).slice(-RP.AUDIT_TURNS).map(function (m) {
+      turns[room.id] = (room.messages || []).filter(RP.visible).slice(-(full ? RP.AUDIT_TURNS_FULL : RP.AUDIT_TURNS)).map(function (m) {
         return {
           who: m.role === 'user' ? ((playing && playing.name) || RP.sheetFor(room, RP.playerSheetId(room)).name || 'The player')
             : m.role === 'world' ? RP.NARRATORS[RP.narrator(state)].name : charOf(room, m.charId).name,
@@ -13551,9 +14071,10 @@ window.CHATROOM_CONFIG = {
       });
     });
     auditing = true;
-    toast('🩺 Reading ' + (other ? 'both scenes' : 'the scene') + ' against the sheets…');
+    toast((full ? '🩻 Full audit \u2014 reading the whole of ' : '🩺 Reading ') + (other ? 'both scenes' : 'the scene') + ' against the sheets…');
     Promise.all([
-      callModel(RP.sheetAuditPrompt(rooms, turns), [{ role: 'user', content: 'Audit the sheets.' }], { tokens: 480, utility: true }),
+      callModel(RP.sheetAuditPrompt(rooms, turns, { full: full }), [{ role: 'user', content: full ? 'Audit the whole scene.' : 'Audit the sheets.' }],
+        { tokens: full ? 900 : 480, utility: true }),
       probePortraits(rooms).catch(function () { return []; }),
     ])
       .then(function (both) {
@@ -13564,12 +14085,12 @@ window.CHATROOM_CONFIG = {
         var copies = rooms.map(function (room) { return JSON.parse(JSON.stringify(room)); });
         var stub = { log: [], book: { entries: [], queue: [] }, newChars: [], rooms: copies };
         var preview = RP.applySheetAudit(stub, copies, reply);
-        var notes = RP.parseAuditNotes(reply);
+        var notes = RP.parseAuditNotes(reply, full ? 5 : 3);
         if (!preview.count && !portraits.length && !notes.length) {
           toast(/^IN ORDER/i.test(reply) ? '🧾 In order — the record matches the play.' : '🧾 The audit found nothing it could file.');
           return;
         }
-        var KIND_ICON = { hp: '❤', mp: '🔮', item: '🎒', take: '🎒', drop: '🎒', give: '🎒', hold: '✋', stow: '🎒', spend: '🔮',
+        var KIND_ICON = { hp: '❤', mp: '\u26a1', item: '🎒', take: '🎒', drop: '🎒', give: '🎒', hold: '✋', stow: '🎒', spend: '\u26a1',
           cond: '🩹', status: '📝', counter: '🔢', mood: '🎭', time: '🕰', enter: '🚪', exit: '🚪' };
         var row = function (it, n) {
           return '<label class="item pick"><input type="checkbox" checked data-pick="' + n + '"> ' +
@@ -13750,7 +14271,21 @@ window.CHATROOM_CONFIG = {
       toast(what ? 'Redid ' + what + '.' : 'Nothing to redo.');
     });
     on('bookBtn', function () { tab = 'book'; state.active = ''; save(); render(); });
-    on('qaContinue', function () { generate({ room: r }); });
+    on('qaContinue', function () {
+      // ➤ with a 👥 Several pick: the whole group plays, no line needed.
+      if (Array.isArray(r.pinnedNext)) {
+        var order = pinnedOrder(r, r.pinnedNext);
+        if (order.length) {
+          r.pinnedNext = '';
+          r.queue = order.slice(1); r.next = order[0];
+          r.moment = order.length > 1 && r.pinnedSame ? { id: RP.uid(), ids: order.slice(), same: true, done: [] } : null;
+          r.pinnedSame = false;
+          save();
+        }
+      }
+      generate({ room: r });
+    });
+    on('qaTogether', function () { togetherPicker(r); });
     on('qaBeat', function () { fireNextBeat(r); });
     $c('speakers').querySelectorAll('[data-macro]').forEach(function (b) {
       b.onclick = function () {
@@ -13946,7 +14481,7 @@ window.CHATROOM_CONFIG = {
         // A pick on the rail is an order, not a hint. It used to be a hint:
         // the staging call after your next line chose again, and "Next: ◍
         // The Director" quietly became Wario answering for the fifth time.
-        r.next = b.dataset.speaker; r.pinnedNext = b.dataset.speaker; save(); render();
+        r.next = b.dataset.speaker; r.pinnedNext = b.dataset.speaker; r.pinnedSame = false; save(); render();
         toast(b.dataset.speaker === 'world'
           ? RP.NARRATORS[RP.narrator(state)].icon + ' ' + RP.NARRATORS[RP.narrator(state)].name + ' takes the next turn — write what you do, or ➤ Continue, and the scene itself answers.'
           : charOf(r, b.dataset.speaker).name + ' answers next — whatever you write, it is theirs to take.');
@@ -14239,9 +14774,27 @@ window.CHATROOM_CONFIG = {
     });
     on('dkPrivacy', function () { togglePrivacy(r); });
     on('dkAudience', function () {
-      state.settings.audience = (state.settings.audience || 'on') === 'off' ? 'on' : 'off';
-      save(); render();
-      toast(state.settings.audience === 'off' ? 'Audience murmurs off.' : 'Audience murmurs on — whoever is not speaking may react in a line.');
+      var keys = Object.keys(RP.AUDIENCE);
+      list('The room answers \u2014 what the people who are not speaking do', keys.map(function (k) {
+        var cur = (state.settings.audience || RP.AUDIENCE_DEFAULT) === k;
+        return { label: (cur ? '\u25cf ' : '\u25cb ') + RP.AUDIENCE[k].name + ' \u2014 ' + RP.AUDIENCE[k].blurb, value: k };
+      }), function (pick) {
+        state.settings.audience = pick; save(); render();
+        toast(pick === 'off' ? 'The room is quiet \u2014 only the speaker answers.'
+          : pick === 'full' ? 'Full replies \u2014 up to two of the room answer after the speaker, each on their own card.'
+          : 'Murmurs \u2014 one short beat from the room after the speaker, on its own card.');
+      });
+    });
+    on('dkFresh', function () {
+      var keys = Object.keys(RP.FRESH);
+      list('Fresh turns \u2014 what happens when a character repeats themselves', keys.map(function (k) {
+        var cur = (state.settings.fresh || RP.FRESH_DEFAULT) === k;
+        return { label: (cur ? '\u25cf ' : '\u25cb ') + RP.FRESH[k].name + ' \u2014 ' + RP.FRESH[k].blurb, value: k };
+      }), function (pick) {
+        state.settings.fresh = pick; save(); render();
+        toast(pick === 'off' ? 'Fresh turns off.' : pick === 'strict' ? 'Strict \u2014 a turn that leans on old phrases is asked for again, once.'
+          : 'Guide \u2014 the ledger of used phrases rides the prompt; the reply is kept as it comes.');
+      });
     });
     on('dkHurt', function () {
       state.settings.hurt = (state.settings.hurt || 'on') === 'off' ? 'on' : 'off';
@@ -14251,6 +14804,7 @@ window.CHATROOM_CONFIG = {
     });
     on('dkAudit', function () { runAudit(r); });
     on('dkReview', function () { runSheetAudit(r); });
+    on('dkReviewFull', function () { runSheetAudit(r, { full: true }); });
     on('dkSequel', function () { openSequel(r); });
     on('dkBook', function () { tab = 'book'; state.active = ''; save(); render(); });
     on('dkReadLast', function () {
@@ -14535,7 +15089,7 @@ window.CHATROOM_CONFIG = {
     var d = RP.setDirection(r, text, from);
     if (!d) return;
     r.messages.push({ id: RP.uid(), role: 'scene', direction: true, from: from || '', at: Date.now(), text: d.text });
-    r.queue = []; r.handback = ''; r.pinnedNext = '';
+    r.queue = []; r.moment = null; r.handback = ''; r.pinnedNext = ''; r.pinnedSame = false;
     var speakable = RP.speakableCast(r);
     var cast = speakable.some(function (c) { return c.id === who; });
     var worldOk = (state.settings.world || 'on') !== 'off';
@@ -14619,6 +15173,20 @@ window.CHATROOM_CONFIG = {
         r.conjured = claimed.claim;
         msg.changes = ['🚫 “' + claimed.claim + '” is not on your sheet — the world will answer'];
       }
+      // Brought round: a slap, salts, a stim, a heal on somebody at 0 HP
+      // moves their sheet NOW, so the reply is written to a man at 5/100
+      // and not to a number nobody updated. And your own sprint costs
+      // breath.
+      RP.reviveScan(msg.text, r).forEach(function (hit) {
+        var line = RP.revive(RP.sheetFor(r, hit.id), hit.how);
+        if (line) msg.changes = (msg.changes || []).concat([line]);
+      });
+      var mine = RP.sheetFor(r, RP.playerSheetId(r));
+      var effort = mine ? RP.exertScan(msg.text, mine) : null;
+      if (effort && mine.mp.value > 0) {
+        var spentLine = RP.applyChange(mine, { kind: 'mp', op: '-', value: effort.amount });
+        if (spentLine) msg.changes = (msg.changes || []).concat(['\u26a1 ' + spentLine + ' \u2014 ' + effort.cause]);
+      }
     }
     // A jump in time means the filed script no longer lines up with the
     // scene. Pause it rather than firing "beat 3" into a different night.
@@ -14627,6 +15195,7 @@ window.CHATROOM_CONFIG = {
       toast('⏩ The script is paused — you moved the scene on. Press ⏩ in the header to fire the next beat by hand.');
     }
     r.queue = [];
+    r.moment = null;
     r.handback = '';
     if (r.mechanics !== 'off') msg.mood = moodOn(r, RP.playerSheetId(r));
     r.messages.push(msg);
@@ -14637,13 +15206,19 @@ window.CHATROOM_CONFIG = {
     // staging call, once: you asked for them, you get them.
     var pinned = r.pinnedNext || '';
     r.pinnedNext = '';
-    var pinnedOk = pinned === 'world'
+    // 👥 Several: a list of faces is the order itself — and, when asked
+    // for, the same moment: every turn in it is written as happening in
+    // the same seconds as yours.
+    var several = Array.isArray(pinned) ? pinnedOrder(r, pinned) : [];
+    var sameMoment = several.length > 1 && r.pinnedSame;
+    r.pinnedSame = false;
+    var pinnedOk = several.length ? true : pinned === 'world'
       ? (state.settings.world || 'on') !== 'off'
       : RP.speakableCast(r).some(function (c) { return c.id === pinned; });
     // Otherwise stage the beat first: who answers, in what order. Then play them.
     busy = true; busyRoom = r.id; render();
     var epoch = stopEpoch;
-    (pinnedOk ? Promise.resolve([pinned]) : stageBeat(r)).then(function (order) {
+    (pinnedOk ? Promise.resolve(several.length ? several : [pinned]) : stageBeat(r)).then(function (order) {
       busy = false; busyRoom = null;
       if (epoch !== stopEpoch) { save(); render(); return; }   // ■ while the beat was being staged
       if (!order.length) {
@@ -14659,9 +15234,69 @@ window.CHATROOM_CONFIG = {
       }
       r.queue = order.slice(1);
       r.next = order[0];
+      if (sameMoment) r.moment = { id: RP.uid(), ids: order.slice(), same: true, done: [] };
       save();
       generate({ room: r });
     });
+  }
+
+  /** The faces a 👥 Several pick still allows: present, speakable, not
+   *  the character you play; the narrator when narration is on. */
+  function pinnedOrder(r, ids) {
+    var ok = {};
+    RP.speakableCast(r).forEach(function (c) { ok[c.id] = true; });
+    if ((state.settings.world || 'on') !== 'off') ok.world = true;
+    var seen = {};
+    return (ids || []).filter(function (id) {
+      if (!ok[id] || seen[id]) return false;
+      seen[id] = true;
+      return true;
+    });
+  }
+
+  /** 👥 Several… — tick the people who act on your next turn, and say
+   *  whether they take it in turn or in the same moment. */
+  function togetherPicker(r) {
+    var faces = RP.speakableCast(r);
+    if (!faces.length) { toast('Nobody here can take the turn.'); return; }
+    var picked = Array.isArray(r.pinnedNext) ? r.pinnedNext : (r.pinnedNext ? [r.pinnedNext] : []);
+    var worldOk = (state.settings.world || 'on') !== 'off';
+    var mode = r.togetherMode || 'same';          // the last way you asked for it; the same moment by default
+    var rowFor = function (id, name, face) {
+      return '<label class="item pick"><input type="checkbox" data-together="' + esc(id) + '"' + (picked.indexOf(id) >= 0 ? ' checked' : '') + '> ' +
+        face + '<span>' + esc(name) + '</span></label>';
+    };
+    openModal('<h3>👥 Several people, one turn</h3>' +
+      '<p class="sub">Tick who acts when you next write (or press ➤ Continue). Each gets their own card, in this order.</p>' +
+      '<div class="setup">' +
+      faces.map(function (c) { return rowFor(c.id, c.name, avatar(c, 24)); }).join('') +
+      (worldOk ? rowFor('world', RP.NARRATORS[RP.narrator(state)].icon + ' ' + RP.NARRATORS[RP.narrator(state)].name + ' \u2014 the narration', '') : '') +
+      '</div>' +
+      '<label class="radio"><input type="radio" name="tgMode" value="same"' + (mode !== 'turns' ? ' checked' : '') + '> ' +
+      '\u23f1 <b>The same moment</b> \u2014 all of it happens in the same seconds as your line: one runs while another shoots. ' +
+      'Each is told the others have not finished, and writes what they are doing DURING it.</label>' +
+      '<label class="radio"><input type="radio" name="tgMode" value="turns"' + (mode === 'turns' ? ' checked' : '') + '> ' +
+      '\u2193 <b>One after another</b> \u2014 each answers what came before, in the order ticked.</label>' +
+      '<div class="actions"><button class="pill" id="mCancel">Cancel</button>' +
+      '<button class="pill" id="mClear">Nobody \u2014 let the Director stage it</button>' +
+      '<button class="pill primary" id="mOk">Set</button></div>');
+    $('mCancel').onclick = closeModal;
+    $('mClear').onclick = function () { r.pinnedNext = ''; r.pinnedSame = false; closeModal(); save(); render(); toast('The Director stages the next beat.'); };
+    $('mOk').onclick = function () {
+      var ids = [];
+      $('modal').querySelectorAll('[data-together]').forEach(function (box) { if (box.checked) ids.push(box.dataset.together); });
+      var same = ($('modal').querySelector('input[name="tgMode"]:checked') || {}).value !== 'turns';
+      closeModal();
+      if (!ids.length) { r.pinnedNext = ''; r.pinnedSame = false; save(); render(); return; }
+      r.pinnedNext = ids.length === 1 ? ids[0] : ids;
+      r.pinnedSame = ids.length > 1 && same;
+      r.togetherMode = same ? 'same' : 'turns';
+      r.next = ids[0];
+      save(); render();
+      var names = ids.map(function (id) { return id === 'world' ? RP.NARRATORS[RP.narrator(state)].name : charOf(r, id).name; });
+      toast(ids.length === 1 ? names[0] + ' answers next.'
+        : (same ? '\u23f1 ' : '') + names.join(', ') + (same ? ' act in the same moment' : ' answer in that order') + ' \u2014 write your line, or ➤ Continue.');
+    };
   }
 
   /** After a group reply, the model decides what happens next: another
@@ -14767,7 +15402,7 @@ window.CHATROOM_CONFIG = {
 
     // A snapshot before the turn, so ↩ takes back the reply *and* whatever
     // it did to the sheets.
-    if (opts.retryIndex === undefined && !opts.searched) RP.pushUndo(r, 'that turn');
+    if (opts.retryIndex === undefined && !opts.searched && !opts.reheard) RP.pushUndo(r, 'that turn');
     var epoch = stopEpoch;
     var retry = opts.retryIndex !== undefined ? r.messages[opts.retryIndex] : null;
     // Who is up: a character, or the world itself when there is nobody else
@@ -14821,6 +15456,17 @@ window.CHATROOM_CONFIG = {
       citations: [opts.searched || '', RP.citationBlock(found), dug.length ? RP.retrievalBlock(dug) : '']
         .filter(Boolean).join('\n\n'),
     };
+    // ⏱ The same moment: this turn is one of a group written as
+    // simultaneous. Who is already on the page, who is still to come.
+    var moment = (!retry && !ambient && r.moment && r.moment.same && speaker && r.moment.ids.indexOf(speaker.id) >= 0) ? r.moment : null;
+    if (moment) {
+      var nameOf = function (id) { return id === 'world' ? RP.NARRATORS[RP.narrator(state)].name : (charOf(r, id) || {}).name || ''; };
+      opts2.moment = {
+        same: true,
+        done: moment.done.map(nameOf).filter(Boolean),
+        pending: (r.queue || []).filter(function (id) { return moment.ids.indexOf(id) >= 0; }).map(nameOf).filter(Boolean),
+      };
+    }
     var pep = RP.encourage(r);
     // A 🎬 direction rides in this prompt and is spent by the turn that
     // lands; a turn that fails or is asked again still has it.
@@ -14869,6 +15515,7 @@ window.CHATROOM_CONFIG = {
       });
     }
 
+    var spoken = null;                  // the card that is read aloud
     complete(system, history, 0).then(function (text) {
       // Stage directions first: the model may have wounded somebody, spent
       // power, walked a character in, or written one out. They are stripped
@@ -14910,6 +15557,16 @@ window.CHATROOM_CONFIG = {
       // Last resort: if it still trails off, cut back to a full stop rather
       // than showing the reader half a sentence.
       var clean = RP.trimDangling(staged.clean.trim());
+      // The room's own beats — "Mona: *a glance* …" at the end of the
+      // reply — are cut out here and filed under Mona below, as her own
+      // card. A beat written for the character the reader plays is cut
+      // and dropped: the model may not write them.
+      var playerNames = [(RP.playerCharacter(r) || {}).name || '', state.user.name || '', RP.personaSheet(state).name || ''];
+      var chorus = (!worldTurn && !retry && r.kind === 'group' && speaker && (state.settings.audience || RP.AUDIENCE_DEFAULT) !== 'off')
+        ? RP.splitChorus(clean, speaker.name, RP.presentCast(r).filter(function (c) { return c.id !== speaker.id && c.id !== r.youPlay; })
+            .map(function (c) { return c.name; }), playerNames)
+        : { main: clean, pieces: [], dropped: [] };
+      clean = chorus.main;
       // A take that gets sent back (it wrote the player) must not leave its
       // wounds and filings behind — the sheets are put back as they were.
       var sheetsBefore = JSON.stringify(r.states || {}), castBefore = JSON.stringify(r.cast || []);
@@ -14967,6 +15624,30 @@ window.CHATROOM_CONFIG = {
             if (shaken) changes.lines.push(shaken);
           }
         });
+      }
+      // ⚡ Energy: a sprint or a spell the model did not file costs breath
+      // anyway; everyone who did not spend gets a little back. ⛑ A slap,
+      // salts or a stim in the prose brings somebody at 0 HP round to a
+      // sliver — the number moves, so the next turn is written to it.
+      var spentIds = [];
+      if (r.mechanics !== 'off') {
+        staged.directives.forEach(function (d) {
+          if (d.kind !== 'mp' || d.op !== '-') return;
+          r.cast.forEach(function (c) { if (c.name === d.who) spentIds.push(c.id); });
+        });
+        if (!worldTurn && speaker && speaker.id !== RP.PLAYER_ID && spentIds.indexOf(speaker.id) < 0) {
+          var enSheet = RP.sheetFor(r, speaker.id);
+          var effort = enSheet ? RP.exertScan(clean, enSheet) : null;
+          if (effort && enSheet.mp.value > 0) {
+            var enLine = RP.applyChange(enSheet, { kind: 'mp', op: '-', value: effort.amount });
+            if (enLine) { changes.lines.push('\u26a1 ' + enLine + ' \u2014 ' + effort.cause + ', filed from the prose'); spentIds.push(speaker.id); }
+          }
+        }
+        RP.reviveScan(clean + '\n' + chorus.pieces.map(function (pc) { return pc.text; }).join('\n'), r).forEach(function (hit) {
+          var line = RP.revive(RP.sheetFor(r, hit.id), hit.how);
+          if (line) changes.lines.push(line + ', filed from the prose');
+        });
+        RP.fixDown(r).forEach(function (line) { changes.lines.push('\u26d1 ' + line); });
       }
       // Beyond them: a godly or hopeless attempt moves the people who saw
       // it — a flicker of surprise on every witness the model did not
@@ -15038,12 +15719,50 @@ window.CHATROOM_CONFIG = {
           // Writing the player's character is not a mislabel to file away;
           // it is taken back and asked for again, once.
           r.states = JSON.parse(sheetsBefore); r.cast = JSON.parse(castBefore);
+          r.next = speaker.id;
           busy = false; save(); render();
           toast('It wrote your character — asking again.');
           window.setTimeout(function () {
             generate({ room: r, reheard: true, nudge: 'Your last attempt wrote ' + check.actual.name +
               ', who is the PLAYER\u2019s character. Never write their words, thoughts or actions. Write ' +
               speaker.name + '\u2019s turn instead, and begin with ' + speaker.name + '.' });
+          }, 150);
+          return false;
+        }
+        // ⛑ A speaker at 0 HP written leaping and roaring: the body
+        // outranks the prose. Sent back once, with the body spelled out.
+        var downSheet = r.mechanics !== 'off' && !worldTurn && !ambientSelf && speaker.id !== RP.PLAYER_ID ? RP.sheetFor(r, speaker.id) : null;
+        var vigour = downSheet ? RP.vigourCheck(clean, downSheet) : null;
+        if (vigour && !opts.reheard) {
+          r.states = JSON.parse(sheetsBefore); r.cast = JSON.parse(castBefore);
+          r.next = speaker.id;
+          busy = false; save(); render();
+          toast('⛑ ' + speaker.name + ' is down at 0 HP — asking again, inside that body.');
+          window.setTimeout(function () {
+            generate({ room: r, reheard: true, nudge: speaker.name + ' is DOWN at 0 HP \u2014 barely conscious. Your last attempt had them \u201c' +
+              vigour.what + '\u201d, which that body cannot do. Write the turn again inside it: a word, a crawl, a hand that will not close,' +
+              ' an effort that fails before it is finished \u2014 nothing more. If somebody brings them round, say how, and still they are' +
+              ' barely there.' });
+          }, 150);
+          return false;
+        }
+        // ♻ A take stitched out of the character's own earlier turns is
+        // sent back once (strict), with the phrases named.
+        var freshMode = state.settings.fresh || RP.FRESH_DEFAULT;
+        var repeats = null;
+        if (freshMode !== 'off' && !worldTurn && !ambient && speaker.id !== RP.PLAYER_ID) {
+          var prior = RP.priorTurns(r, speaker.id, RP.FRESH_TURNS);
+          if (prior.length >= 2) repeats = RP.repeatCheck(clean, prior);
+        }
+        if (repeats && repeats.stale && freshMode === 'strict' && !opts.reheard) {
+          r.states = JSON.parse(sheetsBefore); r.cast = JSON.parse(castBefore);
+          r.next = speaker.id;
+          busy = false; save(); render();
+          toast('♻ ' + speaker.name + ' repeated themselves — asking for a fresh turn.');
+          window.setTimeout(function () {
+            generate({ room: r, reheard: true, nudge: 'Your last attempt repeated what ' + speaker.name + ' has already said in this scene \u2014 ' +
+              repeats.hits.slice(0, 4).map(function (h) { return '\u201c' + h + '\u201d'; }).join(', ') + '. Write the turn again: none of those' +
+              ' phrases or their rewordings, a different move, and something changed by the end of it. Same person, same voice, new turn.' });
           }, 150);
           return false;
         }
@@ -15057,20 +15776,51 @@ window.CHATROOM_CONFIG = {
           // The roll and the state changes belong to the turn they happened
           // in, not to three separate cards in the stream.
           fate: fate ? fate.pill : '',
-          // What the turn was written with, so you can see it working.
+          // What the turn was written with, so you can see it working —
+          // and which of it actually surfaced in the prose.
           consulted: dug.slice(0, 3).map(function (hit) { return hit.name; }),
+          used: RP.usedMaterial(clean, dug.slice(0, 3), r.cast.map(function (c) { return c.name; }).concat(playerNames)),
           changes: changes.lines.slice(0, 6),
           // The colour of the box: how the speaker feels as this turn ends.
           mood: moodOn(r, worldTurn ? '' : saidBy.id),
           ambient: ambient || undefined,
+          // Still leaning on old phrases after being asked again: shown, not hidden.
+          repeats: repeats && repeats.stale ? repeats.hits.slice(0, 3) : undefined,
+          // One of several turns written as the same seconds.
+          moment: moment ? moment.id : undefined,
+          same: moment && moment.done.length ? true : undefined,
         };
+        if (moment) moment.done.push(saidBy.id);
+        if (chorus.dropped.length) msg.changes = (msg.changes || []).concat(['✂ cut a line written for ' + chorus.dropped.join(', ') + ' — your character']);
         if (!String(clean || '').trim()) {
           // Nothing came back twice over. Say so quietly instead of filing
           // an empty card under somebody's name.
           toast(speaker.name + ' had nothing to say — press ↻, or write your turn.');
           return false;
         }
+        spoken = msg;
         r.messages.push(msg);
+        // The room's beats, each under the person who made it: its own
+        // card, its own mood read from its own words, its own line in
+        // the history. Not a footnote on the speaker's bubble.
+        chorus.pieces.forEach(function (piece) {
+          var who = RP.presentCast(r).filter(function (c) { return c.name.toLowerCase() === piece.name.toLowerCase(); })[0];
+          if (!who || !piece.text) return;
+          var card = {
+            id: RP.uid(), role: 'char', charId: who.id, text: piece.text, at: Date.now() + 1, alts: [piece.text], alt: 0,
+            chorus: true, ambient: ambient || undefined, moment: moment ? moment.id : undefined,
+          };
+          if (r.mechanics !== 'off') {
+            var chorusSheet = RP.sheetFor(r, who.id);
+            if (chorusSheet && !moodFiled(who.id)) {
+              var feltToo = RP.moodScan(piece.text, who.name, r.cast.map(function (c) { return c.name; }));
+              if (feltToo) RP.applyChange(chorusSheet, { kind: 'mood', key: feltToo.key, level: 1, note: feltToo.note, turn: turnNow });
+            }
+            card.mood = moodOn(r, who.id);
+          }
+          r.messages.push(card);
+          RP.rememberTurn(state, r, card);
+        });
         if (directed && r.direction === directed) r.direction = null;
         // The audit's notes briefed this turn; they are not repeated.
         if (r.auditNotes && r.auditNotes.length && !ambient) r.auditNotes = [];
@@ -15081,7 +15831,7 @@ window.CHATROOM_CONFIG = {
           r.next = after ? after.id : '';
         }
         // Anything temporary counts down on the turn it survives.
-        var passed = r.mechanics === 'off' ? [] : RP.tickConditions(r).concat(RP.tickMoods(r, turnNow));
+        var passed = r.mechanics === 'off' ? [] : RP.tickConditions(r).concat(RP.tickMoods(r, turnNow)).concat(RP.regenEnergy(r, spentIds));
         if (passed.length) msg.changes = (msg.changes || []).concat(passed);
         // A fired beat rides on the same card as the turn it interrupted.
         if (RP.autoAdvance(r)) {
@@ -15096,8 +15846,8 @@ window.CHATROOM_CONFIG = {
       r.updated = Date.now();
       // ■ landed while the tail of this reply was still being asked for:
       // what was written stays, nothing is read aloud, nobody follows.
-      if (epoch !== stopEpoch) { autoLeft = 0; r.queue = []; return false; }
-      if (state.settings.voice === 'on' && !retry) speak(r.messages[r.messages.length - 1], r);
+      if (epoch !== stopEpoch) { autoLeft = 0; r.queue = []; r.moment = null; return false; }
+      if (state.settings.voice === 'on' && !retry) speak(spoken, r);
       if (ambient) return false;            // one beat, no chain
       if (!retry) return direct(r, speaker);
       return false;
@@ -15106,7 +15856,7 @@ window.CHATROOM_CONFIG = {
         // ■ Stop: the request was cut on purpose. Nothing is filed, the
         // snapshot taken for this turn is dropped, and the chain ends.
         if (!retry && !opts.searched && (r.undo || []).length && r.undo[r.undo.length - 1].label === 'that turn') r.undo.pop();
-        autoLeft = 0; r.queue = [];
+        autoLeft = 0; r.queue = []; r.moment = null;
         return 'FAILED';
       }
       var advice = RP.modelAdvice(error.message, isOpenAI(replyUrl()));
@@ -15128,6 +15878,7 @@ window.CHATROOM_CONFIG = {
       // A staged beat plays itself out before anything else is decided.
       var staged = !retry && !turnFailed && (r.queue || []).length;
       if (staged) { r.next = r.queue.shift(); }
+      if (!staged) r.moment = null;
       save(); render();
       if (epoch !== stopEpoch) { autoLeft = 0; return; }   // ■ — no chores, no chain, no handback nag
       if (!retry && !turnFailed) {
@@ -15545,7 +16296,7 @@ window.CHATROOM_CONFIG = {
     inflight.slice().forEach(function (c) { c.stopped = true; try { c.abort(); } catch (e) { /* already done */ } });
     inflight = [];
     autoLeft = 0;
-    (state.rooms || []).forEach(function (r) { if (r && r.queue && r.queue.length) r.queue = []; });
+    (state.rooms || []).forEach(function (r) { if (r && r.queue && r.queue.length) r.queue = []; if (r && r.moment) r.moment = null; });
     var wasRendering = downloadChatAudio.busy;
     downloadChatAudio.cancel = true;
     reader.stop = true;
@@ -16193,10 +16944,30 @@ window.CHATROOM_CONFIG = {
 
   /** Where the model lives. Two presets, because two things are what
    *  people actually run: LM Studio on its own, or the workflow server. */
-  function settingsForm() {
+  var settingsTab = 'model';
+  function settingsForm(openTab) {
     var current = replyUrl();
     var sampler = (state.settings && state.settings.sampler) || {};
+    var sel = function (id, label, value, options, help) {
+      return '<label for="' + id + '">' + label + (help ? '<small>' + help + '</small>' : '') + '</label><select id="' + id + '">' +
+        options.map(function (o) {
+          return '<option value="' + esc(o[0]) + '"' + (String(value) === String(o[0]) ? ' selected' : '') + '>' + esc(o[1]) + '</option>';
+        }).join('') + '</select>';
+    };
+    var num = function (id, label, value, min, max, step, help) {
+      return '<label for="' + id + '">' + label + (help ? '<small>' + help + '</small>' : '') + '</label>' +
+        '<input type="number" id="' + id + '" min="' + min + '" max="' + max + '"' + (step ? ' step="' + step + '"' : '') + ' value="' + esc(String(value)) + '">';
+    };
+    var TABS = [['model', '🖥 Model'], ['scene', '🎬 The scene'], ['people', '👥 The people'], ['memory', '🧠 Memory & budget'], ['look', '🎨 Appearance']];
+    var tabNow = openTab || settingsTab || 'model';
     openModal('<h3>Settings</h3>' +
+      '<p class="sub">Everything the page runs on, in one place. The same dials sit on the 🎬 Scene tab of the dock as shortcuts.</p>' +
+      '<div class="stabs">' + TABS.map(function (t) {
+        return '<button class="stab' + (tabNow === t[0] ? ' on' : '') + '" data-stab="' + t[0] + '">' + t[1] + '</button>';
+      }).join('') + '</div>' +
+
+      // ---- the model ----
+      '<section class="spane" data-spane="model"' + (tabNow === 'model' ? '' : ' hidden') + '>' +
       '<p class="sub">Point the page at whatever is running. <b>LM Studio</b> is called directly with the OpenAI API ' +
       '(make sure its server is started, and that “Enable CORS” is on in its Developer tab). The <b>workflow ' +
       'server</b> adds the archive routes and the disk saves, and forwards to LM Studio itself.</p>' +
@@ -16205,47 +16976,12 @@ window.CHATROOM_CONFIG = {
       '<button class="pill' + (!isOpenAI(current) ? ' primary' : '') + '" id="setWf">🗄 Workflow server (127.0.0.1:8787)</button>' +
       '<button class="pill" id="setTest">🔌 Test it</button>' +
       '<span class="chip" id="setState">' + (online ? 'answering' : 'no answer yet') + '</span>' +
-      '<button class="pill" id="setLook" title="Theme, text size, prose face, column width, mood wash, coloured words, badges, times, Enter vs Ctrl+Enter">🎨 Appearance…</button>' +
       '</div>' +
       '<label for="f_endpoint">Endpoint</label><input type="text" id="f_endpoint" value="' + esc(state.settings.endpoint || '') + '" placeholder="' + esc(CFG.replyUrl) + '">' +
       '<label for="f_model">Model</label>' +
       '<div class="castbar"><select id="f_modelPick"><option value="">— the models the endpoint reports —</option></select>' +
       '<button class="pill" id="setModels">↻ List models</button></div>' +
       '<input type="text" id="f_model" value="' + esc(state.settings.model || '') + '" placeholder="local-model">' +
-      '<label for="f_length">How long should a reply be? “Let the scene decide” keeps a retort short and gives a reveal its paragraphs; the others pin a band. Also on the ✂ button under the chat.</label><select id="f_length">' +
-      Object.keys(RP.LENGTHS).map(function (k) {
-        return '<option value="' + k + '"' + ((state.settings.length || RP.DEFAULT_LENGTH) === k ? ' selected' : '') + '>' +
-          esc(RP.LENGTHS[k].name) + ' — ' + esc(RP.LENGTHS[k].words) + '</option>';
-      }).join('') + '</select>' +
-      '<label for="f_narrator">Who narrates?</label><select id="f_narrator">' +
-      Object.keys(RP.NARRATORS).map(function (k) {
-        return '<option value="' + k + '"' + (RP.narrator(state) === k ? ' selected' : '') + '>' +
-          esc(RP.NARRATORS[k].icon + ' ' + RP.NARRATORS[k].name + ' — ' + RP.NARRATORS[k].blurb) + '</option>';
-      }).join('') + '</select>' +
-      '<label for="f_world">Narration turns</label><select id="f_world">' +
-      [['on', 'On — when nobody else is here, the world describes the scene and moves the hour'],
-       ['off', 'Off — only characters speak']].map(function (o) {
-        return '<option value="' + o[0] + '"' + ((state.settings.world || 'on') === o[0] ? ' selected' : '') + '>' + esc(o[1]) + '</option>';
-      }).join('') + '</select>' +
-      '<label for="f_audience">Audience murmurs — in a group chat, the cast members who are NOT speaking this turn (and not you) may get one short reaction beat at the end of it: a glance, a muttered half-line. Same call, no extra cost; nothing shows in a two-hander, because nobody is watching. For a second scene running at the same time, start one (⇄ Second scene, in the header).</label><select id="f_audience">' +
-      [['on', 'On — the room keeps breathing while two people talk'],
-       ['off', 'Off — only the speaker and the narration exist']].map(function (o) {
-        return '<option value="' + o[0] + '"' + ((state.settings.audience || 'on') === o[0] ? ' selected' : '') + '>' + esc(o[1]) + '</option>';
-      }).join('') + '</select>' +
-      '<label for="f_autoplay">▶ Auto plays this many turns before stopping</label>' +
-      '<input type="number" id="f_autoplay" min="2" max="20" value="' + (state.settings.autoplay || 6) + '">' +
-      '<label for="f_context">How many recent turns the model sees (default 24)</label>' +
-      '<input type="number" id="f_context" min="4" max="240" value="' + (state.settings.context || 24) + '">' +
-      '<label for="f_upkeep">🧾 Sheet upkeep — the quartermaster reviews the record every N played turns (0 = off, default ' + RP.UPKEEP_EVERY + '). One small background call; shares the book\u2019s session budget.</label>' +
-      '<input type="number" id="f_upkeep" min="0" max="24" value="' + (state.settings.upkeep === undefined ? RP.UPKEEP_EVERY : state.settings.upkeep) + '">' +
-      '<label for="f_historyChars">History budget, in characters — long monologues are clipped so they cannot crowd out whole turns (default ' + RP.HISTORY_BUDGET + ')</label>' +
-      '<input type="number" id="f_historyChars" min="3000" max="60000" step="1000" value="' + (state.settings.historyChars || RP.HISTORY_BUDGET) + '">' +
-      '<label for="f_promptBudget">System prompt budget, in characters — raise it for a model with a big context window (default ' + RP.PROMPT_BUDGET + ')</label>' +
-      '<input type="number" id="f_promptBudget" min="6000" max="' + RP.PROMPT_BUDGET_MAX + '" step="1000" value="' + (state.settings.promptBudget || RP.PROMPT_BUDGET) + '">' +
-      '<label for="f_style">Default narration style</label><select id="f_style">' +
-      Object.keys(RP.STYLES).map(function (k) {
-        return '<option value="' + k + '"' + (state.settings.style === k ? ' selected' : '') + '>' + esc(RP.STYLES[k].name) + '</option>';
-      }).join('') + '</select>' +
       '<label for="f_temperature">Temperature — higher is wilder (0–1.5)</label>' +
       '<input type="text" id="f_temperature" value="' + esc(String(state.settings.temperature)) + '">' +
       '<label>Sampling — leave blank to let the model decide</label>' +
@@ -16255,16 +16991,88 @@ window.CHATROOM_CONFIG = {
       '<label class="mins">rep. penalty <input type="text" id="f_repeat_penalty" value="' + esc(String(sampler.repeat_penalty === undefined ? '' : sampler.repeat_penalty)) + '" placeholder="1.1"></label>' +
       '<label class="mins">min_p <input type="text" id="f_min_p" value="' + esc(String(sampler.min_p === undefined ? '' : sampler.min_p)) + '" placeholder="0.05"></label>' +
       '</div>' +
-      '<label for="f_utilityModel">Background model — the sequencer, the lore book, hooks (blank = the same one)</label>' +
-      '<input type="text" id="f_utilityModel" value="' + esc(state.settings.utilityModel || '') + '" placeholder="a small, fast model">' +
+      '<h4>Background AI</h4>' +
       '<label for="f_background">Background AI — lean is ONE model call per turn: speakers rotate, the lore book and upkeep wait</label>' +
       '<select id="f_background">' +
       '<option value="lean"' + ((state.settings.background || RP.BACKGROUND_DEFAULT) === 'lean' ? ' selected' : '') + '>Lean — the model only writes the story (best on slow machines)</option>' +
       '<option value="full"' + (state.settings.background === 'full' ? ' selected' : '') + '>Full — model-picked speakers, auto lore book, upkeep reviews</option>' +
       '</select>' +
+      '<label for="f_utilityModel">Background model — the sequencer, the lore book, hooks, the audit (blank = the same one)</label>' +
+      '<input type="text" id="f_utilityModel" value="' + esc(state.settings.utilityModel || '') + '" placeholder="a small, fast model">' +
       '<input type="text" id="f_utilityEndpoint" value="' + esc(state.settings.utilityEndpoint || '') + '" placeholder="its endpoint, if it is somewhere else">' +
+      '</section>' +
+
+      // ---- the scene ----
+      '<section class="spane" data-spane="scene"' + (tabNow === 'scene' ? '' : ' hidden') + '>' +
+      sel('f_length', 'How long a reply is', state.settings.length || RP.DEFAULT_LENGTH, Object.keys(RP.LENGTHS).map(function (k) {
+        return [k, RP.LENGTHS[k].name + ' — ' + RP.LENGTHS[k].words];
+      }), '“Let the scene decide” keeps a retort short and gives a reveal its paragraphs; the others pin a band. Also on the ✂ button under the chat.') +
+      sel('f_style', 'Narration style', state.settings.style || '', Object.keys(RP.STYLES).map(function (k) { return [k, RP.STYLES[k].name]; })) +
+      sel('f_narrator', 'Who narrates', RP.narrator(state), Object.keys(RP.NARRATORS).map(function (k) {
+        return [k, RP.NARRATORS[k].icon + ' ' + RP.NARRATORS[k].name + ' — ' + RP.NARRATORS[k].blurb];
+      })) +
+      sel('f_world', 'Narration turns', state.settings.world || 'on', [
+        ['on', 'On — when nobody else is here, the world describes the scene and moves the hour'],
+        ['off', 'Off — only characters speak']]) +
+      sel('f_director', 'Director — after a reply, who speaks next?', state.settings.director || 'on', [
+        ['on', 'The model decides — characters answer each other, then hand back to me'],
+        ['off', 'Always me — one reply per turn']],
+        'In a group chat the model stages who reacts to your line and in what order; it hands back on its own, and always at the ceiling below. You can always pick faces yourself on the Next: row — several at once with 👥 Several.') +
+      num('f_maxChain', 'Never more than this many character turns before it comes back to me', state.settings.maxChain || RP.MAX_CHAIN, 1, 12) +
+      num('f_autoplay', '▶ Auto plays this many turns before stopping', state.settings.autoplay || 6, 2, 20) +
+      sel('f_fate', '🎲 Fate — how often the world pushes back', state.settings.fate || 'normal', [
+        ['off', 'Off — whatever you write, works'],
+        ['gentle', 'Gentle — mostly you, occasionally a price'],
+        ['normal', 'Normal — costs and wrenches are common, failure happens'],
+        ['harsh', 'Harsh — the world is against you and the cast argues back']],
+        'Before each reply to something you attempted, the page rolls and tells the model how it resolves. Being wounded or spent shifts the odds against you.') +
+      sel('f_hurt', '💥 Wounds', state.settings.hurt || 'on', [
+        ['on', 'Filed from the prose too — a crash, a blade or a blast costs HP even when the model files nothing'],
+        ['off', 'Only what the model files as [[HP:]] lands on the sheets']]) +
+      '<p class="sub">⚡ <b>Energy</b> is one pool for breath, strength and magic: a sprint, a climb, a long fight or a spell costs some (filed by the model, or read from the prose), it refills a little every quiet turn, and at 0 the body refuses. ' +
+      '0 HP is <b>down</b>: barely conscious until something brings them round — a slap, salts, a stim, a heal — which the page files on its own.</p>' +
+      '</section>' +
+
+      // ---- the people ----
+      '<section class="spane" data-spane="people"' + (tabNow === 'people' ? '' : ' hidden') + '>' +
+      sel('f_fresh', '♻ Fresh turns — when a character starts repeating themselves', state.settings.fresh || RP.FRESH_DEFAULT, Object.keys(RP.FRESH).map(function (k) {
+        return [k, RP.FRESH[k].name + ' — ' + RP.FRESH[k].blurb];
+      }), 'The page keeps a ledger of the phrases, the subject and the opening each character has leaned on over their last ' + RP.FRESH_TURNS +
+        ' turns. When there is something on it, the prompt names it and asks for one new move; on Strict, a reply that still leans on the old phrases is sent back once. No extra calls.') +
+      sel('f_audience', '👥 The room answers — the people who are NOT speaking this turn', state.settings.audience || RP.AUDIENCE_DEFAULT, Object.keys(RP.AUDIENCE).map(function (k) {
+        return [k, RP.AUDIENCE[k].name + ' — ' + RP.AUDIENCE[k].blurb];
+      }), 'Same call, no extra cost. Each reaction is cut out of the speaker\u2019s reply and filed under the person who made it — its own card, its own mood, its own voice in the history. Nothing shows in a two-hander, because nobody is watching.') +
+      '<p class="sub">To have several people act on the same beat — one running while another shoots — press <b>👥 Several…</b> on the Next: row, tick them, and choose <b>the same moment</b>. Each is written as happening in the same seconds, not one after the other.</p>' +
+      sel('f_voice', '🔊 Voice', state.settings.voice === 'on' ? 'on' : 'off', [
+        ['off', 'On tap — ▶ on a card reads it'],
+        ['on', 'Auto — every reply is read aloud as it lands']]) +
+      '</section>' +
+
+      // ---- memory & budget ----
+      '<section class="spane" data-spane="memory"' + (tabNow === 'memory' ? '' : ' hidden') + '>' +
+      num('f_context', 'How many recent turns the model sees (default 24)', state.settings.context || 24, 4, 240) +
+      num('f_historyChars', 'History budget, in characters — long monologues are clipped so they cannot crowd out whole turns (default ' + RP.HISTORY_BUDGET + ')', state.settings.historyChars || RP.HISTORY_BUDGET, 3000, 60000, 1000) +
+      num('f_promptBudget', 'System prompt budget, in characters — raise it for a model with a big context window (default ' + RP.PROMPT_BUDGET + ')', state.settings.promptBudget || RP.PROMPT_BUDGET, 6000, RP.PROMPT_BUDGET_MAX, 1000) +
+      num('f_upkeep', '🧾 Sheet upkeep — the quartermaster reviews the record every N played turns (0 = off, default ' + RP.UPKEEP_EVERY + ')', state.settings.upkeep === undefined ? RP.UPKEEP_EVERY : state.settings.upkeep, 0, 24, 0,
+        'One small background call; shares the book\u2019s session budget. The deterministic half — down at 0 HP, revivals, Energy from the prose, wounds from the prose — runs every turn for free.') +
+      '<p class="sub">The archive is read for every turn (🔎 on the card) and the model is asked to weave one concrete thing out of it; a card shows 📚 when it did.</p>' +
+      '</section>' +
+
+      // ---- appearance ----
+      '<section class="spane" data-spane="look"' + (tabNow === 'look' ? '' : ' hidden') + '>' +
+      '<p class="sub">Theme, text size, prose face, column width, mood wash, coloured words, badges, times, Enter vs Ctrl+Enter.</p>' +
+      '<button class="pill" id="setLook">🎨 Open Appearance…</button>' +
+      '</section>' +
+
       '<div class="actions"><button class="pill" id="mCancel">Cancel</button>' +
       '<button class="pill primary" id="mOk">Save</button></div>');
+    $('modal').querySelectorAll('[data-stab]').forEach(function (b) {
+      b.onclick = function () {
+        settingsTab = b.dataset.stab;
+        $('modal').querySelectorAll('[data-stab]').forEach(function (x) { x.classList.toggle('on', x === b); });
+        $('modal').querySelectorAll('[data-spane]').forEach(function (p) { p.hidden = p.dataset.spane !== b.dataset.stab; });
+      };
+    });
     $('mCancel').onclick = closeModal;
     // The dialog can be closed while a request is in flight, and two probes
     // can be in flight at once (the automatic one on open, and Test it).
@@ -16357,7 +17165,14 @@ window.CHATROOM_CONFIG = {
       if (!isNaN(pbud)) state.settings.promptBudget = Math.max(6000, Math.min(RP.PROMPT_BUDGET_MAX, pbud));
       state.settings.length = $('f_length').value;
       state.settings.world = $('f_world').value;
-      state.settings.audience = $('f_audience') ? $('f_audience').value : (state.settings.audience || 'on');
+      state.settings.audience = $('f_audience') ? $('f_audience').value : (state.settings.audience || RP.AUDIENCE_DEFAULT);
+      state.settings.fresh = $('f_fresh') ? $('f_fresh').value : (state.settings.fresh || RP.FRESH_DEFAULT);
+      state.settings.fate = $('f_fate') ? $('f_fate').value : (state.settings.fate || 'normal');
+      state.settings.hurt = $('f_hurt') ? $('f_hurt').value : (state.settings.hurt || 'on');
+      state.settings.director = $('f_director') ? $('f_director').value : (state.settings.director || 'on');
+      state.settings.voice = $('f_voice') ? $('f_voice').value : state.settings.voice;
+      var chain = $('f_maxChain') ? parseInt($('f_maxChain').value, 10) : NaN;
+      if (!isNaN(chain)) state.settings.maxChain = Math.max(1, Math.min(12, chain));
       state.settings.narrator = $('f_narrator').value;
       var auto = parseInt($('f_autoplay').value, 10);
       if (!isNaN(auto)) state.settings.autoplay = Math.max(2, Math.min(20, auto));

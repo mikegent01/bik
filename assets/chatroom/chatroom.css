@@ -325,6 +325,26 @@ a { color: inherit; }
 /* 🌗 an unattended beat: the scene moved while you were in the other one. */
 .turn.ambient .bubble { border-style: dashed; }
 .turn .meanwhile { font-size: 11px; color: var(--muted); border: 1px dashed var(--line); border-radius: 999px; padding: 0 7px; }
+/* 👥 The room answering: its own card, set in a step from the speaker's. */
+.turn.chorus { margin-left: 26px; position: relative; }
+.turn.chorus::before { content: ''; position: absolute; left: -14px; top: 14px; bottom: 10px; width: 2px; border-radius: 2px; background: var(--line); }
+.turn .chorus { font-size: 11px; color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: 0 7px; }
+/* ⏱ Written as the same seconds as the card above. */
+.turn.same { margin-top: -4px; }
+.turn .same { font-size: 11px; color: #7a5a12; background: #fff7df; border: 1px solid #ecd9a3; border-radius: 999px; padding: 0 7px; font-weight: 600; }
+.turn.same .bubble { border-left: 3px solid #d8a531; }
+.speakers .sp.together { border-style: dashed; color: var(--muted); font-weight: 600; padding: 3px 12px; }
+.speakers .sp.together.on { border-style: solid; border-color: #d8a531; background: #fff7df; color: #7a5a12; }
+.metastrip .read.used { background: #e4f3e8; border-color: #a9d5b7; color: #1f5a35; font-weight: 600; }
+.metastrip .stale { background: #fdf0ee; border-color: #f0c7c0; color: #9a3b2d; }
+/* ⚙ Settings: one dialog, five tabs, nothing hidden behind a dock row. */
+.stabs { display: flex; gap: 4px; flex-wrap: wrap; margin: 4px 0 14px; border-bottom: 1px solid var(--line); padding-bottom: 8px; }
+.stab { border: 1px solid var(--line); background: var(--card); border-radius: 999px; padding: 6px 12px; font-size: 13px; font-weight: 600; cursor: pointer; color: var(--muted); }
+.stab.on { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
+.spane[hidden] { display: none; }
+.modal label small { display: block; font-weight: 400; color: var(--muted); margin-top: 2px; line-height: 1.4; }
+.modal label.radio { display: flex; gap: 8px; align-items: flex-start; font-weight: 400; margin: 8px 0; line-height: 1.45; }
+.modal label.radio input { margin-top: 3px; flex: 0 0 auto; }
 /* The reader's own mood on the bar, and the live switch. */
 .speakers .qa.mac.mood.on { background: var(--mood-bg); color: var(--mood-ink); border-color: var(--mood-line); font-weight: 600; }
 .speakers .qa.mac.live.on { border-color: #d8a531; color: #7a5a12; background: #fff7df; }
@@ -534,11 +554,17 @@ a { color: inherit; }
 .composer-note { max-width: 820px; margin: 7px auto 0; color: var(--muted); font-size: 11px; text-align: center; }
 .speakers {
   max-width: 820px; margin: 0 auto 8px; display: flex; gap: 6px; align-items: center;
-  overflow-x: auto; overflow-y: hidden; padding-bottom: 2px; scrollbar-width: thin;
+  overflow: visible; padding-bottom: 0; scrollbar-width: thin;
 }
 .speakers { flex-direction: column; align-items: stretch; }
-.speakers::-webkit-scrollbar { height: 6px; }
-.speakers::-webkit-scrollbar-thumb { background: #d8d8de; border-radius: 999px; }
+.speakers .row.who::-webkit-scrollbar { height: 6px; }
+.speakers .row.who::-webkit-scrollbar-thumb { background: #d8d8de; border-radius: 999px; }
+/* The faces row scrolls sideways on its own and leaves room under the pills
+   so nothing is cut off; the moves row wraps onto as many lines as it needs. */
+.speakers .row.who { padding: 2px 0 5px; }
+.speakers .row.do { flex-wrap: wrap; row-gap: 6px; align-items: center; }
+.speakers .row.do .acts { flex: 0 1 auto; min-width: 0; }
+.speakers .qa, .speakers .qa.mac { line-height: 1.35; white-space: nowrap; }
 .speakers .emptynote { flex: 0 0 auto; margin: 0; }
 .speakers .sp {
   display: flex; align-items: center; gap: 6px; flex: 0 0 auto; max-width: 210px;

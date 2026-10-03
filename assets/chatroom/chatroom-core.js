@@ -875,6 +875,8 @@
     'Put actions, gestures and scene detail between asterisks like *this*. Put speech in "quotes".',
     'Write only your own character. Never speak, act or decide for the user.',
     'Never end the turn with a summary or a question about what the user wants to do next unless your character would really ask it.',
+    'Every turn moves the scene: by its end something is different \u2014 a decision, a deed, a fact out. Never say again ' +
+      'what an earlier turn said; answer what JUST happened.',
   ].join('\n');
 
   /** The system prompt for a one-on-one chat. */
@@ -1034,7 +1036,7 @@
       var name = '';
       if (group) {
         var who = (room.cast || []).filter(function (c) { return c.id === m.charId; })[0];
-        name = who ? who.name + ': ' : '';
+        name = who ? who.name + (m.same ? ' (at the same moment)' : '') + ': ' : '';
       }
       return { role: 'assistant', content: name + RP.textOf(m) };
     });
@@ -2091,7 +2093,7 @@
   RP.STATE_PRESETS = {
     story:  { name: 'Story — no numbers', hp: 0, mp: 0 },
     stakes: { name: 'Stakes — HP only', hp: 100, mp: 0 },
-    rpg:    { name: 'RPG — HP and MP', hp: 100, mp: 50 },
+    rpg:    { name: 'RPG — HP and Energy', hp: 100, mp: 50 },
   };
 
   /** A fresh sheet. `setup` overrides the start: { hpPct, mpPct, status,
@@ -2300,7 +2302,7 @@
   RP.parseCondition = function (line) {
     var parts = String(line || '').split('|');
     var head = parts[0].trim();
-    var effect = /\s([+-]\d{1,3}(?:hp|mp))\s*$/i.exec(head);
+    var effect = /\s([+-]\d{1,3}(?:hp|mp|en|energy|stamina))\s*$/i.exec(head);
     if (effect) head = head.slice(0, effect.index).trim();
     var turns = /\s(\d{1,2})\s*$/.exec(head);
     if (turns) head = head.slice(0, turns.index).trim();
@@ -2309,16 +2311,21 @@
     return {
       key: key, name: head,
       turns: turns ? Number(turns[1]) : 0,
-      effect: effect ? effect[1].toLowerCase() : '',
+      effect: effect ? RP.normEffect(effect[1]) : '',
       note: clip(parts.slice(1).join('|'), 160),
     };
   };
 
   /** What a condition does to you every turn it lasts: "-2hp" bleeds. */
   RP.conditionEffect = function (effect) {
-    var hit = /^\s*([+-]?\d{1,3})\s*(hp|mp)\s*$/i.exec(String(effect || ''));
+    var hit = /^\s*([+-]?\d{1,3})\s*(hp|mp|en|energy|stamina)\s*$/i.exec(String(effect || ''));
     if (!hit) return null;
-    return { pool: hit[2].toLowerCase(), amount: Number(hit[1]) };
+    return { pool: /^hp$/i.test(hit[2]) ? 'hp' : 'mp', amount: Number(hit[1]) };
+  };
+  /** "-2en", "-1energy", "-3stamina" are all the Energy pool, which is
+   *  still called `mp` on the sheet so old saves keep working. */
+  RP.normEffect = function (effect) {
+    return String(effect || '').toLowerCase().replace(/(en|energy|stamina)$/, 'mp');
   };
 
   /** Count down anything temporary. Returns the lines to show the reader. */
@@ -2537,6 +2544,45 @@
     })[0] || null;
   };
 
+  /* ---- the two pools. `mp` is the key on every sheet ever saved, so
+   * it stays the key; what the reader and the model see is ⚡ Energy —
+   * breath, strength and magic in one finite, slowly refilling pool. ---- */
+  RP.POOLS = {
+    hp: { word: 'HP', icon: '\u2764', directive: 'HP' },
+    mp: { word: 'Energy', icon: '\u26a1', directive: 'EN' },
+  };
+  RP.poolWord = function (kind) { return (RP.POOLS[kind] || {}).word || String(kind || '').toUpperCase(); };
+
+  /** 0 HP is a state, not just a number. The sheet wears the `down`
+   *  condition from the moment it hits 0 until something lifts it above —
+   *  a heal, a [[HP:]], a revival in the prose — and the condition goes
+   *  on its own then. Returns the line to show, or ''. */
+  RP.DOWN_NOTE = 'at 0 HP \u2014 barely conscious: a word, a crawl, a hand that will not close';
+  RP.markDown = function (sheet) {
+    if (!sheet || !sheet.hp || !sheet.hp.max) return '';
+    sheet.flags = sheet.flags || {};
+    var isDown = Number(sheet.hp.value) <= 0;
+    if (isDown && !sheet.flags.down) {
+      sheet.flags.down = { note: RP.DOWN_NOTE, turns: 0, effect: '' };
+      return sheet.name + ' is DOWN';
+    }
+    if (!isDown && sheet.flags.down) {
+      delete sheet.flags.down;
+      return sheet.name + ' is no longer down';
+    }
+    return '';
+  };
+  /** The fixer's half of it, run every turn for free: anyone at 0 HP is
+   *  marked down, anyone back above it is not. */
+  RP.fixDown = function (room) {
+    var lines = [];
+    Object.keys((room && room.states) || {}).forEach(function (id) {
+      var line = RP.markDown(room.states[id]);
+      if (line) lines.push(line);
+    });
+    return lines;
+  };
+
   RP.applyChange = function (sheet, change) {
     if (!sheet || !change) return '';
     var n = Number(change.value);
@@ -2552,14 +2598,17 @@
       else if (change.op === '-') pool.value -= n;
       else pool.value = n;
       clampPool(pool);
-      var word = change.kind.toUpperCase();
+      var word = RP.poolWord(change.kind);
+      // Crossing 0 HP in either direction changes the sheet's state too.
+      var downLine = change.kind === 'hp' ? RP.markDown(sheet) : '';
+      var tail = change.kind === 'hp' && pool.value === 0 ? ' — down'
+        : /no longer down/.test(downLine) ? ' — back up' : '';
       if (pool.max !== beforeMax) {
-        return sheet.name + ' — ' + word + ' redefined ' + pool.value + '/' + pool.max + ' (was ' + before + '/' + beforeMax + ')' +
-          (change.kind === 'hp' && pool.value === 0 ? ' — down' : '');
+        return sheet.name + ' — ' + word + ' redefined ' + pool.value + '/' + pool.max + ' (was ' + before + '/' + beforeMax + ')' + tail;
       }
       if (pool.value === before) return '';
       return sheet.name + ' ' + (pool.value > before ? '+' : '−') + Math.abs(pool.value - before) + ' ' + word +
-        ' (' + pool.value + '/' + pool.max + ')' + (change.kind === 'hp' && pool.value === 0 ? ' — down' : '');
+        ' (' + pool.value + '/' + pool.max + ')' + tail;
     }
     if (change.kind === 'flag') {
       var key = slug(change.name);
@@ -2955,7 +3004,8 @@
       var cond = sheet.flags[f] && typeof sheet.flags[f] === 'object' ? sheet.flags[f] : {};
       return f.replace(/_/g, ' ') + (cond.note ? ' (' + cond.note + ')' : '');
     });
-    if (hp > 0.65 && !flags.length) return '';
+    var spentOut = Boolean(sheet.mp && sheet.mp.max && sheet.mp.value <= 0);
+    if (hp > 0.65 && !flags.length && !spentOut) return '';
     var name = char.name;
     var state;
     if (sheet.hp && sheet.hp.value <= 0) {
@@ -2970,6 +3020,8 @@
       state = 'whole, but not untouched.';
     }
     return 'BODY \u2014 ' + name + ' is ' + state +
+      (spentOut ? ' SPENT at 0 Energy: no sprinting, no spells, no big swings \u2014 hands on knees, breath first; anything that' +
+        ' costs effort this turn fails, or is paid for in HP.' : '') +
       (flags.length ? ' In play on them: ' + flags.join('; ') + ' \u2014 each one shapes what they can do this turn.' : '') +
       ' Their nature does not override their body: the same person, hurt, is a different turn \u2014 greedy and broken is not greedy' +
       ' and whole. If they push through anyway, show the cost in this turn and file it ([[HP: ' + name + ' -N]] or [[COND: ' + name + ' \u2026]]).';
@@ -3011,7 +3063,7 @@
       var hurt = s.hp && s.hp.value < s.hp.max;
       var spent = s.mp && s.mp.value < s.mp.max;
       if (s.hp && (full || hurt)) bits.push('HP ' + s.hp.value + '/' + s.hp.max + (s.hp.value === 0 ? ' (down)' : s.hp.value <= s.hp.max * 0.3 ? ' (badly hurt)' : ''));
-      if (s.mp && (full || spent)) bits.push('MP ' + s.mp.value + '/' + s.mp.max);
+      if (s.mp && (full || spent)) bits.push('\u26a1 Energy ' + s.mp.value + '/' + s.mp.max + (s.mp.value === 0 ? ' (spent)' : s.mp.value <= s.mp.max * 0.2 ? ' (nearly spent)' : ''));
       if (full && s.stats) bits.push(RP.statLine(s.stats));
       Object.keys(s.flags || {}).forEach(function (f) {
         var cond = s.flags[f] && typeof s.flags[f] === 'object' ? s.flags[f] : { note: '', turns: 0 };
@@ -3641,11 +3693,14 @@
 
   RP.AUDIT_KINDS = RP.UPKEEP_KINDS.concat(['time', 'exit', 'enter']);
   RP.AUDIT_TURNS = 14;
+  RP.AUDIT_TURNS_FULL = 40;      // the full audit reads the whole scene, up to this
 
   /** rooms: one scene, or the linked pair. turns: { roomId: [{who, text}] }. */
-  RP.sheetAuditPrompt = function (rooms, turns) {
+  RP.sheetAuditPrompt = function (rooms, turns, opts) {
+    opts = opts || {};
     rooms = (rooms || []).filter(Boolean);
     var two = rooms.length > 1;
+    var full = Boolean(opts.full);
     var sheets = rooms.map(function (room) {
       var away = (room.away || []).map(function (c) { return c.name; });
       return (two ? 'SCENE \u201c' + (room.title || 'untitled') + '\u201d' + (room.clock ? ' \u2014 ' + room.clock : '') + '\n' : '') +
@@ -3660,16 +3715,25 @@
     return [
       'AUDIT THE SHEETS. You are the quartermaster of a roleplay ' + (two ? 'pair of linked scenes \u2014 one story, one clock, two rooms' : 'scene') +
       '. Read the recent play against every sheet and put the record right \u2014 decisively. This is the one place the',
-      'record is corrected by judgement, so judge: for EVERY person decide what their HP and MP should be NOW, given',
+      'record is corrected by judgement, so judge: for EVERY person decide what their HP and Energy should be NOW, given',
       'everything that has happened to them, and when the number on the sheet does not match the story, SET it',
-      '([[HP: Name = N]], [[MP: Name = N]]) \u2014 a helicopter crash and a gunfight are not 65/100, and a night\u2019s rest is',
+      '([[HP: Name = N]], [[EN: Name = N]]) \u2014 a helicopter crash and a gunfight are not 65/100, and a night\u2019s rest is',
       'not 12/100. When the MAXIMUM is wrong for who they are or what they have become \u2014 a dragon and a child both at',
       '100, a man crippled for good, a pool that was never set \u2014 REDEFINE it: [[HP: Name = 28/80]] sets current and',
       'maximum together. Decide how each person feels now and how strongly, and file it. A condition that plainly began',
       'or ended; a thing gained, lost, handed over, spent, taken in hand or put away; a counter that moved; a stale',
       'physical note; the clock, if the play moved it; somebody who plainly left and is still listed, or is back',
       'and still written out. Do not leave a wrong number standing because nobody filed it at the time; do not',
-      'restate what is already right.',
+      'restate what is already right. Anyone at 0 HP is DOWN \u2014 barely conscious \u2014 and if the play has them up and',
+      'acting, one of the two is wrong: either the number (SET it to what the play shows) or the prose (say so in a NOTE).',
+      '',
+      full ? 'FULL AUDIT. The whole scene is below, not just the last exchange. Judge the record at the root: a MAXIMUM that' +
+        ' does not fit who this person is, or what the scene has made of them, is REDEFINED ([[HP: Name = current/max]],' +
+        ' [[EN: Name = current/max]]); every condition is checked against the prose \u2014 cured when the play contradicts it,' +
+        ' filed when the play shows it; who is present is checked against every exit and entrance; the clock against every' +
+        ' passage of time; the kit against everything picked up, handed over, dropped or spent. Then the NOTE: lines, up to' +
+        ' FIVE, on what in the scene does not hold together \u2014 who could not have done what, what was forgotten, what was' +
+        ' promised and dropped, what the next turn must pick up.' : '',
       '',
       'THE SHEETS NOW',
       sheets,
@@ -3678,7 +3742,7 @@
       play,
       '',
       'Reply with stage directions, one per line, sixteen at most, the most consequential first (then the notes):',
-      '  [[HP: Name -5]] · [[HP: Name = 40]] · [[HP: Name = 28/80]] (current/maximum) · [[MP: Name +3]] · [[COUNT: Name arrows -1]]',
+      '  [[HP: Name -5]] · [[HP: Name = 40]] · [[HP: Name = 28/80]] (current/maximum) · [[EN: Name +3]] (Energy) · [[COUNT: Name arrows -1]]',
       '  [[ITEM: Name + 🗝 the thing | note]] · [[ITEM: Name - the thing]] · [[EQUIP: Name the thing]] · [[STOW: Name the thing]]',
       '  [[COND: Name state 3 -1hp | why]] · [[CURE: Name state]] · [[STATUS: Name a short physical note]]',
       '  [[MOOD: Name anger 2 | why]]   anger, fear, joy, grief, shame, disgust, surprise, affection, suspicion, pride, calm; 1\u20133',
@@ -3687,20 +3751,20 @@
       'never a new person. The player\u2019s own sheet is audited like any other \u2014 their wounds, kit and mood included;',
       'the reader approves every line before it lands.',
       '',
-      'Then, under the directions, up to three lines beginning NOTE: \u2014 what the LAST turn or two got wrong against',
-      'the record and the people (a man at 28 HP charging out of a wreck; a line that person would never say; a thread',
-      'everybody dropped; somebody who has not spoken in ten turns), and what the next turn should do instead \u2014 who',
+      'Then, under the directions, up to ' + (full ? 'five' : 'three') + ' lines beginning NOTE: \u2014 what the LAST turn or two got wrong against',
+      'the record and the people (a man at 28 HP charging out of a wreck; a line that person would never say; the same',
+      'beat played for the fourth turn running; a thread everybody dropped; somebody who has not spoken in ten turns), and what the next turn should do instead \u2014 who',
       'should speak, what should show, what should cost. Advice to the writer, not changes to the record; concrete,',
       'one sentence each, naming names. If the record already matches the story and the play is sound, reply exactly: IN ORDER',
-    ].join('\n');
+    ].filter(function (line, at, arr) { return line !== '' || (arr[at - 1] !== '' && at !== arr.length - 1); }).join('\n');
   };
 
   /** The NOTE: lines of an audit reply \u2014 advice to the writer. */
-  RP.parseAuditNotes = function (reply) {
+  RP.parseAuditNotes = function (reply, limit) {
     return String(reply || '').split(/\r?\n/).map(function (line) {
       var hit = /^\s*(?:[-*\u2022]\s*)?NOTE\s*:\s*(.+)$/i.exec(line);
       return hit ? clip(hit[1].trim(), 240) : '';
-    }).filter(Boolean).slice(0, 3);
+    }).filter(Boolean).slice(0, limit || 3);
   };
 
   /** Notes the reader approved from the audit ride the next turn, once. */
@@ -3878,11 +3942,21 @@
   /* ---- audience mode: nobody freezes while two people talk ---- */
 
   /** Present, silent cast members stop being furniture. One prompt
-   *  block inside the SAME call — no extra requests — licenses at most
-   *  one short reaction line from the room: a glance, a mutter, a
-   *  shifted weight. The scene keeps its spotlight; the world keeps
-   *  breathing. Off by dial, absent in solo rooms, silent when only
-   *  two are present (there is no audience in a duel). */
+   *  block inside the SAME call — no extra requests — licenses the room
+   *  to react after the speaker's turn, each reaction as its OWN
+   *  paragraph that begins "Name:". The page then cuts those paragraphs
+   *  out (RP.splitChorus) and files each under the person who made it:
+   *  its own card, its own mood, its own line in the history. Three
+   *  settings: `on` is murmurs — one short beat; `full` lets up to two
+   *  of them answer properly, two to four sentences each. Off by dial,
+   *  absent in solo rooms, silent when only two are present (there is
+   *  no audience in a duel). */
+  RP.AUDIENCE = {
+    off:  { name: 'Off', blurb: 'only the speaker and the narration exist' },
+    on:   { name: 'Murmurs', blurb: 'one short beat from the room after the speaker, as its own card' },
+    full: { name: 'Full replies', blurb: 'up to two of the room answer properly — two to four sentences each, their own cards' },
+  };
+  RP.AUDIENCE_DEFAULT = 'full';
   RP.audienceBlock = function (room, speakerId, setting) {
     if (setting === 'off' || !room || room.kind !== 'group') return '';
     var quiet = (room.cast || []).filter(function (c) {
@@ -3891,12 +3965,285 @@
       return !(sheet && sheet.present === false);
     }).slice(0, 4);
     if (!quiet.length) return '';
+    var speaker = (room.cast || []).filter(function (c) { return c && c.id === speakerId; })[0];
+    var sname = speaker ? speaker.name : 'the speaker';
+    var first = quiet[0].name;
+    var full = setting === 'full';
     return 'THE AUDIENCE — also in the scene, not speaking this turn: ' +
       quiet.map(function (c) { return c.name; }).join(', ') + '.\n' +
-      'They are people, not furniture. You MAY end the turn with ONE short beat from one of them — a glance,\n' +
-      'a muttered half-line, a shifted weight — a murmur, never a speech, never the spotlight. If the moment is\n' +
-      'private or the beat adds nothing, give them nothing: silence is a valid reaction. They make no decisions,\n' +
+      'They are people, not furniture. ' + (full
+        ? 'After ' + sname + '\u2019s turn is finished, up to TWO of them MAY answer the moment properly \u2014 each as their OWN\n' +
+          'paragraph, on a new line, beginning with their name and a colon (' + first + ': *what they do* \u201cwhat they say\u201d),\n' +
+          'two to four sentences: an action and a line, in their own voice, to what JUST happened \u2014 not the spotlight,\n' +
+          'not a speech, never the same beat they gave last time.'
+        : 'You MAY end the turn with ONE short beat from one of them, as its OWN paragraph on a new line, beginning with\n' +
+          'their name and a colon (' + first + ': *a glance* \u201ca muttered half-line\u201d) \u2014 a glance, a mutter, a shifted weight \u2014\n' +
+          'a murmur, never a speech, never the spotlight.') +
+      ' If the moment is\nprivate or the beat adds nothing, give them nothing: silence is a valid reaction. They make no decisions,\n' +
       'file no directives, and never answer a question that was aimed at somebody else.';
+  };
+
+  /** Cut the room's beats out of a reply. Only the TRAILING run of
+   *  paragraphs that begin "Name:" (a present cast member who is not
+   *  the speaker) is taken; a "Name:" in the middle of the prose is
+   *  script formatting and is left alone, and a reply that is nothing
+   *  but somebody else's lines is left whole for checkSpeaker.
+   *  Returns { main, pieces: [{ name, text }], dropped: [names] } —
+   *  `dropped` are beats written for somebody the model may not write
+   *  (the player's character): cut, not filed. */
+  RP.splitChorus = function (text, speakerName, names, forbidden) {
+    var whole = String(text || '');
+    var out = { main: whole, pieces: [], dropped: [] };
+    var allowed = (names || []).filter(Boolean).map(String);
+    var banned = (forbidden || []).filter(Boolean).map(String);
+    var known = allowed.concat(banned);
+    if (!known.length || whole.indexOf(':') < 0) return out;
+    var me = String(speakerName || '').toLowerCase();
+    var lead = function (line) {
+      var m = /^\s*(?:[-*\u2022]\s+)?(?:\*\*|__|\*)?\s*([A-Za-z][A-Za-z.'\u2019 -]{0,40}?)(?:\s*\([^)]{0,30}\))?\s*(?:\*\*|__|\*)?\s*:\s*(.*)$/.exec(line);
+      if (!m) return null;
+      var name = m[1].trim().toLowerCase();
+      if (name === me) return { name: speakerName, rest: m[2], self: true };
+      var hit = known.filter(function (n) { return n.toLowerCase() === name; })[0];
+      return hit ? { name: hit, rest: m[2] } : null;
+    };
+    var lines = whole.split(/\n/);
+    var pieces = [], buffer = [], bufferChars = 0;
+    for (var i = lines.length - 1; i >= 0; i--) {
+      var line = lines[i];
+      if (!line.trim()) { if (buffer.length) buffer.unshift(line); continue; }
+      var led = lead(line);
+      if (led && led.self) break;                 // the speaker again: everything above is theirs
+      if (led) {
+        // A named line may claim a short continuation under it, not a
+        // page of prose: that would be the speaker's own paragraphs
+        // with a quoted "Name:" line above them.
+        if (buffer.filter(function (l) { return l.trim(); }).length > 2 || bufferChars > 420) break;
+        pieces.unshift({ name: led.name, text: [led.rest].concat(buffer).join('\n').trim() });
+        buffer = []; bufferChars = 0;
+        if (pieces.length >= 4) break;
+        continue;
+      }
+      buffer.unshift(line); bufferChars += line.length;
+      if (bufferChars > 420 && !pieces.length) break;  // just prose at the end; nothing to cut
+    }
+    if (!pieces.length) return out;
+    var mainLines = lines.slice(0, i + 1).concat(buffer);
+    // The lines the loop stopped on (and everything above) are the main
+    // text; the buffer under them is the speaker's too.
+    if (i < 0 && !buffer.length) mainLines = [];
+    var main = mainLines.join('\n').trim();
+    if (!main) return out;                         // nothing left for the speaker — not a chorus
+    out.main = main;
+    pieces.forEach(function (piece) {
+      if (!piece.text) return;
+      if (banned.some(function (b) { return b.toLowerCase() === piece.name.toLowerCase(); })) { out.dropped.push(piece.name); return; }
+      out.pieces.push(piece);
+    });
+    return out;
+  };
+
+  /* ---- the same moment: several people act in the same seconds ----
+   * The sequencer plays staged turns one after another, and each reads
+   * the last as finished. When the reader picks several faces and asks
+   * for the same moment, every turn in that group is told so: nothing
+   * above has landed yet, write what you are doing DURING it. ---- */
+  RP.momentBlock = function (room, speaker, moment) {
+    if (!room || !speaker || !moment || !moment.same) return '';
+    var name = speaker.name || 'the speaker';
+    var done = (moment.done || []).filter(function (n) { return n && n !== name; });
+    var pending = (moment.pending || []).filter(function (n) { return n && n !== name; });
+    return 'THE SAME MOMENT \u2014 the player\u2019s last turn' +
+      (done.length ? ', and ' + done.join(', ') + '\u2019s turn' + (done.length > 1 ? 's' : '') + ' just above,' : '') +
+      (done.length ? ' happen' : ' happens') + ' AT THE SAME TIME as ' + name + '\u2019s turn \u2014 not before it. Nobody has finished; nothing above has landed or' +
+      ' been answered yet. Write what ' + name + ' is doing DURING those seconds: their own action, cutting across the others,' +
+      ' seeing theirs half-done' + (pending.length ? ' (' + pending.join(', ') + ' act in the same seconds too, written after you)' : '') +
+      '. Do not narrate the outcome of anybody else\u2019s action, do not react to it as if it were over, and do not write their words.';
+  };
+
+  /* ---- the freshness ledger: a character who repeats is a character
+   * nobody believes. Zero calls: the page reads the speaker's own last
+   * turns for the phrases, the subject and the opening they keep
+   * reaching for, and when there is something to name, ONE conditional
+   * block names it. After the reply, repeatCheck scores the new turn
+   * against the same turns; on the strict setting a stale take is sent
+   * back once, like a take that wrote the player. ---- */
+  RP.FRESH_TURNS = 12;
+  RP.FRESH = {
+    strict: { name: 'Strict', blurb: 'the ledger rides the prompt, and a turn that repeats is asked for again, once' },
+    on:     { name: 'Guide',  blurb: 'the ledger rides the prompt; what comes back is kept' },
+    off:    { name: 'Off',    blurb: 'the model is left to its habits' },
+  };
+  RP.FRESH_DEFAULT = 'strict';
+  var FRESH_STOP = {};
+  ('the a an and or but of to in on at for with from by as is are was were be been being it its he she they them his her hers ' +
+   'their you your yours i me my mine we us our ours this that these those not no so if then than there here what which who whom ' +
+   'do does did done have has had will would can could should may might must shall just very into out up down over under off ' +
+   'about again still even only also too all any some such own same other more most much many back now when where why how am ' +
+   'get got gets getting go goes going went gone come comes came say says said see sees saw seen let lets like one two yes well ' +
+   'because before after while until once ever never always every each both few little less own around through across between ' +
+   'against during without within toward towards upon onto behind beside above below him himself herself themselves itself ' +
+   'something anything nothing everything someone anyone everyone right away make makes made take takes took know knows knew ' +
+   'think thinks thought want wants look looks looked keep keeps kept put puts tell tells told give gives gave ask asks asked ' +
+   'turn turns turned hand hands head eyes face voice back feet way thing things time')
+    .split(' ').forEach(function (w) { FRESH_STOP[w] = true; });
+
+  /** The words of a text, sentence by sentence, lowercased, with the
+   *  stage directions and the colour marks taken out. */
+  function freshSentences(text) {
+    return String(text || '').toLowerCase()
+      .replace(/\[\[[^\]]*\]\]/g, ' ')
+      .replace(/\{[a-z#][a-z0-9 ]{0,14}\|([^{}]*)\}/g, '$1')
+      .replace(/[\u2019']/g, '')
+      .split(/[.!?;:\u2014\n*\u201c\u201d"()]+/)
+      .map(function (part) { return part.replace(/[^a-z0-9 -]+/g, ' ').split(/\s+/).filter(Boolean); })
+      .filter(function (words) { return words.length; });
+  }
+  function freshWords(text) {
+    return [].concat.apply([], freshSentences(text));
+  }
+  /** The n-word runs of a text that do not cross a sentence, skipping
+   *  runs made only of stopwords and numbers. */
+  function freshGrams(text, n) {
+    var out = [];
+    (Array.isArray(text) ? [text] : freshSentences(text)).forEach(function (words) {
+      for (var i = 0; i + n <= words.length; i++) {
+        var g = words.slice(i, i + n);
+        if (g.every(function (w) { return FRESH_STOP[w] || /^\d+$/.test(w); })) continue;
+        out.push(g.join(' '));
+      }
+    });
+    return out;
+  }
+
+  /** What this character keeps saying, read off their own last turns:
+   *  phrases (3- and 4-word runs used in two or more turns), subjects
+   *  (a word in half their turns that nobody else in the scene uses),
+   *  and an opening they have begun with three times or more. */
+  RP.staleBits = function (room, charId, turns, skip) {
+    var msgs = ((room && room.messages) || []).filter(function (m) { return visible(m) && !m.muted; });
+    var mine = msgs.filter(function (m) { return m.role === 'char' && m.charId === charId; }).slice(-(turns || RP.FRESH_TURNS));
+    var out = { phrases: [], themes: [], opener: '', turns: mine.length };
+    if (mine.length < 2) return out;
+    var skipWords = {};
+    ((room && room.cast) || []).forEach(function (c) {
+      String(c.name || '').toLowerCase().split(/\s+/).forEach(function (w) { if (w) skipWords[w] = true; });
+    });
+    (skip || []).forEach(function (w) { if (w) skipWords[String(w).toLowerCase()] = true; });
+    // The scene's shared vocabulary — what the OTHERS also say — is the
+    // scene's, not a tic: "helicopter" in a crash is not a repeat.
+    var shared = {};
+    msgs.slice(-24).forEach(function (m) {
+      if (m.role === 'char' && m.charId === charId) return;
+      var ws = {};
+      freshWords(RP.textOf(m)).forEach(function (w) { if (!ws[w]) { ws[w] = true; shared[w] = (shared[w] || 0) + 1; } });
+    });
+    var count = {}, wordCount = {}, openers = {};
+    mine.forEach(function (m) {
+      var text = RP.textOf(m);
+      var words = freshWords(text);
+      var seen = {};
+      [3, 4].forEach(function (n) {
+        freshGrams(text, n).forEach(function (g) { if (!seen[g]) { seen[g] = true; count[g] = (count[g] || 0) + 1; } });
+      });
+      var ws = {};
+      words.forEach(function (w) {
+        if (w.length < 3 || FRESH_STOP[w] || skipWords[w] || /^\d+$/.test(w) || ws[w]) return;
+        ws[w] = true; wordCount[w] = (wordCount[w] || 0) + 1;
+      });
+      var open = words.slice(0, 2).join(' ');
+      if (open) openers[open] = (openers[open] || 0) + 1;
+    });
+    var phrases = Object.keys(count).filter(function (g) { return count[g] >= 2; })
+      .sort(function (a, b) { return (count[b] - count[a]) || (b.length - a.length); });
+    // Longest first, and no two that overlap: "for every coin string"
+    // and "every coin string bean" are one habit, not two.
+    var kept = [], pairs = {};
+    phrases.forEach(function (g) {
+      if (kept.length >= 6) return;
+      var ws = g.split(' ');
+      var mine = [];
+      for (var i = 0; i + 2 <= ws.length; i++) mine.push(ws[i] + ' ' + ws[i + 1]);
+      if (mine.some(function (pr) { return pairs[pr]; })) return;
+      mine.forEach(function (pr) { pairs[pr] = true; });
+      kept.push(g);
+    });
+    out.phrases = kept;
+    var need = Math.max(3, Math.ceil(mine.length * 0.5));
+    out.themes = Object.keys(wordCount).filter(function (w) { return wordCount[w] >= need && (shared[w] || 0) < 2; })
+      .sort(function (a, b) { return wordCount[b] - wordCount[a]; }).slice(0, 5);
+    var topOpen = Object.keys(openers).sort(function (a, b) { return openers[b] - openers[a]; })[0];
+    if (topOpen && openers[topOpen] >= 3) out.opener = topOpen;
+    return out;
+  };
+
+  /** The conditional block: nothing on a fresh character, a named list
+   *  on a stale one. The voice sheet's own sounds are never on it —
+   *  a catchphrase is a trait; the same threat four turns running is not. */
+  RP.freshnessBlock = function (room, char, setting) {
+    if (!room || !char || setting === 'off') return '';
+    var skip = [];
+    var sheet = RP.voiceSheet(char);
+    if (sheet) {
+      (sheet.sounds || []).join(' ').toLowerCase().split(/[^a-z]+/).forEach(function (w) { if (w.length >= 3) skip.push(w); });
+    }
+    var stale = RP.staleBits(room, char.id, RP.FRESH_TURNS, skip);
+    if (!stale.phrases.length && !stale.themes.length && !stale.opener) return '';
+    var lines = ['FRESH TURN \u2014 ' + char.name + ' has started repeating themselves, and a character who repeats is one nobody believes.' +
+      ' Not to be used this turn, not even reworded:'];
+    if (stale.phrases.length) lines.push('  \u2022 these phrases: ' + stale.phrases.map(function (p) { return '\u201c' + p + '\u201d'; }).join(', '));
+    if (stale.themes.length) lines.push('  \u2022 this subject yet again: ' + stale.themes.join(', ') + ' \u2014 it has been said and the scene has heard it. Find what comes AFTER it.');
+    if (stale.opener) lines.push('  \u2022 the opening \u201c' + stale.opener + '\u2026\u201d \u2014 the last turns all began that way. Begin somewhere else.');
+    lines.push('Same person, same VOICE \u2014 but ONE move ' + char.name + ' has not made in this scene: a decision, a question that matters, an' +
+      ' admission, a plan with a first step, a thing picked up and used, a change of position or of tactic. Answer the specific thing' +
+      ' that just happened, not the situation in general, and end the turn with something changed \u2014 what they want, what they know,' +
+      ' or where they stand.');
+    return lines.join('\n');
+  };
+
+  /** Score a new turn against the same character's earlier ones: the
+   *  distinct 3-word runs it shares with them. { count, ratio, hits,
+   *  stale } — stale when a short turn leans on them or a long one is
+   *  stitched out of them. */
+  RP.repeatCheck = function (text, previous, opts) {
+    opts = opts || {};
+    var mine = {};
+    freshGrams(text, 3).forEach(function (g) { mine[g] = true; });
+    var seen = {};
+    (previous || []).forEach(function (t) { freshGrams(t, 3).forEach(function (g) { seen[g] = true; }); });
+    var hits = Object.keys(mine).filter(function (g) { return seen[g]; });
+    var total = Object.keys(mine).length;
+    var ratio = total ? hits.length / total : 0;
+    var threshold = Number(opts.threshold) || 3;
+    return {
+      hits: hits.slice(0, 8), count: hits.length, ratio: Math.round(ratio * 1000) / 1000,
+      stale: (hits.length >= threshold && ratio >= 0.08) || hits.length >= threshold * 3,
+    };
+  };
+
+  /** The earlier turns a repeat check is made against. */
+  RP.priorTurns = function (room, charId, turns) {
+    return ((room && room.messages) || []).filter(function (m) {
+      return visible(m) && !m.muted && m.role === 'char' && m.charId === charId;
+    }).slice(-(turns || RP.FRESH_TURNS)).map(function (m) { return RP.textOf(m); });
+  };
+
+  /** Which of the passages read for a turn actually surfaced in it: a
+   *  distinctive token of the passage — a capitalised word of five
+   *  letters or more that is not a cast name, a year, a number — is in
+   *  the prose. Returns their names. */
+  RP.usedMaterial = function (text, hits, skip) {
+    var t = ' ' + String(text || '').toLowerCase().replace(/[^a-z0-9]+/g, ' ') + ' ';
+    if (!t.trim()) return [];
+    var skipWords = {};
+    (skip || []).forEach(function (w) {
+      String(w || '').toLowerCase().split(/\s+/).forEach(function (x) { if (x) skipWords[x] = true; });
+    });
+    return (hits || []).filter(function (h) {
+      var src = String((h && (h.snippet || h.text)) || '') + ' ' + String((h && h.name) || '');
+      var tokens = (src.match(/\b(?:[A-Z][a-z]{4,}|\d{2,4})\b/g) || []).map(function (w) { return w.toLowerCase(); });
+      return tokens.some(function (w) { return !FRESH_STOP[w] && !skipWords[w] && t.indexOf(' ' + w + ' ') >= 0; });
+    }).map(function (h) { return h.name; });
   };
 
   /* ---- the encouragement system: data-driven, one line, zero calls ---- */
@@ -3963,9 +4310,10 @@
     'and the page applies them to the actual record. Use them when the fiction earns them — never more than four',
     'in one turn, and never for something that did not happen in the turn you just wrote.',
     '  [[HP: Name -12]]                 damage, healing (+), or an exact value (= 30)',
-    '  [[MP: Name -5]]                  spent or recovered power',
+    '  [[EN: Name -5]]                  Energy spent (a sprint, a climb, a long fight, a spell) or recovered (+). It refills slowly;',
+    '      at 0 they are SPENT: no running, no magic, no big swings until they have had a breather.',
     '  [[COND: Name bleeding 3 -2hp | a deep cut across the palm]]  a condition: how many turns it lasts (leave',
-    '      the number off if it does not pass on its own), what it costs each turn (-2hp, -1mp — optional), and',
+    '      the number off if it does not pass on its own), what it costs each turn (-2hp, -1en — optional), and',
     '      what it actually is. [[CURE: Name bleeding]] ends it.',
     '  [[COUNT: Name arrows -1]]        any counter you need',
     '  [[ITEM: Name + 🗝 the brass key | bent, from the ledger room]]  gained, with an emoji and a note.',
@@ -3990,7 +4338,7 @@
     '+ 🪙 a cut purse]], [[COND: their name poisoned 4 -1hp | pale wine]] are all fair — deciding their words is not.',
   ].join('\n');
 
-  var DIRECTIVE_RE = /\[\[\s*(HP|MP|FLAG|COND|CURE|COUNT|ITEM|USE|EQUIP|STOW|STATUS|MOOD|TINT|UNTINT|ENTER|EXIT|NEW|SET|TIME|LOOKUP|REMEMBER)\s*:\s*([^\]]+?)\s*\]\]/gi;
+  var DIRECTIVE_RE = /\[\[\s*(HP|MP|EN|ENERGY|STAMINA|FLAG|COND|CURE|COUNT|ITEM|USE|EQUIP|STOW|STATUS|MOOD|TINT|UNTINT|ENTER|EXIT|NEW|SET|TIME|LOOKUP|REMEMBER)\s*:\s*([^\]]+?)\s*\]\]/gi;
   // Anything else in double brackets is a directive the model invented. It
   // gets stripped rather than printed at the reader: "[[TIME: 23:00]]" in
   // the middle of the prose is a bug, not a feature.
@@ -4114,11 +4462,12 @@
         }
         continue;
       }
-      if (type === 'HP' || type === 'MP') {
+      if (type === 'HP' || type === 'MP' || type === 'EN' || type === 'ENERGY' || type === 'STAMINA') {
         // [[HP: Name -7]] · [[HP: Name = 40]] · [[HP: Name = 28/80]] (the max too)
+        // [[EN: Name -5]] — Energy; MP/STAMINA are the same pool by other names.
         var pool = /^([+\-=])?\s*(\d+)\s*(?:\/\s*(\d+))?\s*$/.exec(rest);
         if (pool) {
-          var d = { kind: type.toLowerCase(), body: body, who: target.name, op: pool[1] || '=', value: Number(pool[2]) };
+          var d = { kind: type === 'HP' ? 'hp' : 'mp', body: body, who: target.name, op: pool[1] || '=', value: Number(pool[2]) };
           if (pool[3]) { d.max = Number(pool[3]); d.op = '='; }
           out.push(d);
         }
@@ -4151,7 +4500,7 @@
         // the number of turns, and what is left is the condition itself.
         var parts = rest.split('|');
         var head = parts[0].trim();
-        var effect = /\s([+-]\d{1,3}(?:hp|mp))\s*$/i.exec(head);
+        var effect = /\s([+-]\d{1,3}(?:hp|mp|en|energy|stamina))\s*$/i.exec(head);
         if (effect) head = head.slice(0, effect.index).trim();
         var turns = /\s(\d{1,2})\s*$/.exec(head);
         if (turns) head = head.slice(0, turns.index).trim();
@@ -4162,7 +4511,7 @@
             value: flag[2] === undefined ? true : flag[2],
             note: clip(parts.slice(1).join('|'), 160),
             turns: turns ? Number(turns[1]) : 0,
-            effect: effect ? effect[1].toLowerCase() : '',
+            effect: effect ? RP.normEffect(effect[1]) : '',
           });
         }
         continue;
@@ -4711,7 +5060,7 @@
         sheets.length ? '**The state everyone is carrying in.**\n' + sheets.map(function (s) {
           var bits = [];
           if (s.hp) bits.push('HP ' + s.hp.value + '/' + s.hp.max);
-          if (s.mp) bits.push('MP ' + s.mp.value + '/' + s.mp.max);
+          if (s.mp) bits.push('Energy ' + s.mp.value + '/' + s.mp.max);
           var flags = Object.keys(s.flags || {});
           if (flags.length) bits.push(flags.join(', ').replace(/_/g, ' '));
           if ((s.items || []).length) bits.push('carrying ' + s.items.join(', '));
@@ -5408,7 +5757,7 @@
       sheets.forEach(function (s) {
         var bits = [];
         if (s.hp) bits.push('HP ' + s.hp.value + '/' + s.hp.max);
-        if (s.mp) bits.push('MP ' + s.mp.value + '/' + s.mp.max);
+        if (s.mp) bits.push('Energy ' + s.mp.value + '/' + s.mp.max);
         var flags = Object.keys(s.flags || {});
         if (flags.length) bits.push(flags.join(', ').replace(/_/g, ' '));
         if ((s.items || []).length) bits.push('carrying ' + s.items.join(', '));
@@ -6064,6 +6413,8 @@
       'around them, and do not pretend to know more of the file than is here.',
       anyNamed ? 'A filing marked ★ was NAMED in the scene. When the player reads from it or asks about it, read' +
         ' from THIS text — never invent its contents.' : '',
+      'Weave at least ONE concrete thing out of them into this turn — a name, a date, a number, a phrase quoted or',
+      'misquoted in character. A passage read and not used is a wasted turn.',
       results.map(function (r) {
         return '- ' + (r.named ? '★ ' : '') + '[' + r.kind + ':' + r.id + '] ' + r.name + (r.date ? ' (' + r.date + ')' : '') + '\n    “' + r.snippet + '”';
       }).join('\n'),
@@ -7486,6 +7837,118 @@
   var HURT_HEAVY_RE = /\b(?:parkour|sprint\w*|climb(?:s|ing)?|scale(?:s)? (?:the|a)|vault(?:s)?|leap(?:s)? (?:across|over|onto)|haul(?:s)?|hoist(?:s)?|charge(?:s)? (?:at|into|out)|wrestle(?:s)?|fight(?:s)? (?:him|her|them) off|carry|carries|run(?:s)? (?:after|across|up|for)|kick(?:s)? (?:the|a) door|swim(?:s)?)\b/i;
   var DOWN_OK_RE = /\b(?:crawl|whisper|say|says|mutter|breathe|reach|blink|look|listen|cough|groan|lie|lay|hold on|grip|press)\b/i;
 
+  /* ---- Energy: breath, strength and magic in one pool. Spent by the
+   * prose when the model forgets to file it, refilled a little every
+   * quiet turn, and a hard stop at 0. ---- */
+  var EXERT_RE = /\b(?:sprint\w*|runs? (?:for|after|across|up|down|out|to)|racing|dash(?:es)? (?:for|across|to)|climb(?:s|ing)?|scal(?:e|es|ing) the|vault(?:s)?|haul(?:s|ing)?|hoist(?:s)?|drag(?:s|ging)? (?:him|her|them|the|a)|carr(?:y|ies|ying) (?:him|her|them)|swim(?:s)?|wrestl\w*|grappl\w*|fights? (?:on|off|through)|swing(?:s)? (?:the|a|his|her|my)|dig(?:s|ging)?|shoulder(?:s)? (?:the|through)|kick(?:s)? (?:the|a|down|in)|heave(?:s)?)\b/i;
+  var MAGIC_RE = /\b(?:casts?|casting|spell\w*|conjur\w*|summon\w*|hex(?:es)?|incant\w*|teleport\w*|levitat\w*|enchant\w*|fireball|(?:the|his|her|my|their) magic|channel(?:s|ing)? (?:the|a|his|her|my))\b/i;
+  /** Breath spent in the prose: a sprint or a climb, or a spell. Only
+   *  for somebody with an Energy pool. { amount, cause } or null. */
+  RP.exertScan = function (text, sheet) {
+    var t = String(text || '');
+    if (!sheet || !sheet.mp || !sheet.mp.max || !t.trim()) return null;
+    var magic = MAGIC_RE.exec(t);
+    if (magic) return { amount: Math.max(2, Math.round(sheet.mp.max * 0.12)), cause: magic[0], kind: 'magic' };
+    var hard = EXERT_RE.exec(t);
+    if (hard) return { amount: Math.max(1, Math.round(sheet.mp.max * 0.06)), cause: hard[0], kind: 'effort' };
+    return null;
+  };
+  /** Energy comes back on its own: a little every turn a sheet is not
+   *  spending it. Quiet — only the moment it is full is worth a line. */
+  RP.regenEnergy = function (room, spentIds) {
+    var spent = {};
+    (spentIds || []).forEach(function (id) { spent[id] = true; });
+    var lines = [];
+    Object.keys((room && room.states) || {}).forEach(function (id) {
+      var s = room.states[id];
+      if (!s || s.present === false || !s.mp || !s.mp.max || spent[id] || s.mp.value >= s.mp.max) return;
+      var step = Math.max(1, Math.round(s.mp.max * 0.04));
+      s.mp.value = Math.min(s.mp.max, s.mp.value + step);
+      if (s.mp.value >= s.mp.max) lines.push('\u26a1 ' + s.name + ' has their breath back (' + s.mp.value + '/' + s.mp.max + ')');
+    });
+    return lines;
+  };
+
+  /* ---- down, and brought round. 0 HP used to be a number the model
+   * read and wrote past: Wario at 0, slapped, up and shouting, 0 still
+   * on the sheet. Now a revival in the prose moves the sheet, and a
+   * speaker at 0 written on their feet is sent back once. ---- */
+  var REVIVE_RE = /\b(?:slap(?:s|ped|ping)?|shak(?:e|es|ing|en)|wakes?|woke|rous(?:e|es|ed|ing)|reviv(?:e|es|ed|ing)|resuscitat\w*|bring(?:s|ing)? (?:him|her|them|\w+) (?:round|back|to)|brought (?:him|her|them|\w+) (?:round|back|to)|smelling salts|adrenaline|epinephrine|stim(?:pack|ulant|s)?|cpr|chest compressions|mouth[- ]to[- ]mouth|heal(?:s|ed|ing)?|patch(?:es|ed|ing)? (?:him|her|them|\w+) up|bandag\w*|potion|elixir|tonic|first aid|med[- ]?kit|cold water|haul(?:s|ed|ing)? (?:him|her|them|\w+) (?:up|to (?:his|her|their) feet)|drag(?:s|ged|ging)? (?:him|her|them|\w+) (?:up|to (?:his|her|their) feet)|pull(?:s|ed|ing)? (?:him|her|them|\w+) (?:up|to (?:his|her|their) feet)|comes? (?:round|to)\b|came (?:round|to)\b)/gi;
+  /** Who at 0 HP was just brought round by the prose — a slap, salts, a
+   *  stim, a heal, a shake — by name, or by pronoun when only one person
+   *  is down. Returns [{ id, name, how }]. */
+  RP.reviveScan = function (text, room) {
+    var t = String(text || '');
+    if (!room || !t.trim()) return [];
+    var down = Object.keys(room.states || {}).map(function (id) { return room.states[id]; }).filter(function (sh) {
+      return sh && sh.present !== false && sh.hp && sh.hp.max && sh.hp.value <= 0;
+    });
+    if (!down.length) return [];
+    var found = {}, out = [];
+    REVIVE_RE.lastIndex = 0;
+    var hit;
+    while ((hit = REVIVE_RE.exec(t))) {
+      var window = t.slice(Math.max(0, hit.index - 70), hit.index + hit[0].length + 90).toLowerCase();
+      down.forEach(function (sh) {
+        if (found[sh.id]) return;
+        var name = String(sh.name || '').toLowerCase();
+        var first = name.split(/\s+/)[0];
+        var named = name && (window.indexOf(name) >= 0 ||
+          (first.length > 2 && new RegExp('\\b' + first.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\b').test(window)));
+        if (!named && down.length === 1 && /\b(?:him|her|them|his|hers|their)\b/.test(window)) named = true;
+        if (!named) return;
+        found[sh.id] = true;
+        out.push({ id: sh.id, name: sh.name, how: hit[0].toLowerCase() });
+      });
+      if (!REVIVE_RE.global) break;
+    }
+    REVIVE_RE.lastIndex = 0;
+    return out;
+  };
+  /** Bring somebody round: a sliver of HP, `down` lifted, and
+   *  `barely_conscious` for three turns so the body block keeps them
+   *  slow. Returns the line for the strip. */
+  var reviveWord = function (how) {
+    var h = String(how || '').toLowerCase();
+    if (!h) return '';
+    if (/^slap/.test(h)) return 'slapped awake';
+    if (/^shak/.test(h)) return 'shaken awake';
+    if (/water/.test(h)) return 'cold water';
+    if (/salts/.test(h)) return 'smelling salts';
+    if (/adrenaline|epinephrine|stim/.test(h)) return 'a stim';
+    if (/cpr|compressions|mouth/.test(h)) return 'resuscitated';
+    if (/heal|potion|elixir|tonic|first aid|med|bandag|patch/.test(h)) return 'patched up';
+    if (/haul|drag|pull/.test(h)) return 'hauled to their feet';
+    if (/wake|woke|rous|reviv|bring|brought|come|came/.test(h)) return 'roused';
+    return clip(h, 40);
+  };
+  RP.revive = function (sheet, how) {
+    if (!sheet || !sheet.hp || !sheet.hp.max) return '';
+    how = reviveWord(how);
+    var sliver = Math.max(1, Math.round(sheet.hp.max * 0.05));
+    if (sheet.hp.value < sliver) sheet.hp.value = sliver;
+    RP.markDown(sheet);
+    sheet.flags = sheet.flags || {};
+    sheet.flags.barely_conscious = {
+      note: 'brought round' + (how ? ' \u2014 ' + how : '') + '; no fighting, no running, hardly standing',
+      turns: 3, effect: '',
+    };
+    return '\u26d1 ' + sheet.name + ' comes round at ' + sheet.hp.value + '/' + sheet.hp.max + ' HP' + (how ? ' \u2014 ' + how : '') + '; barely conscious';
+  };
+  var VIGOUR_RE = /\b(?:leaps?|leapt|lung(?:e|es|ed)|charg(?:e|es|ed) (?:at|in|out|across|forward)|sprint\w*|vault(?:s|ed)?|swings? (?:a|the|his|her|my) \w+|swung|punch(?:es|ed)?|slam(?:s|med)? (?:a|the|his|her|my|it)|roar(?:s|ed)?|bellow(?:s|ed)?|storm(?:s|ed)? (?:out|off|over|across|in|to)|grab(?:s|bed)? (?:him|her|them|\w+) by|haul(?:s|ed)? (?:himself|herself|themselves|myself)|kick(?:s|ed)? (?:the|a|him|her|them|out)|erupt(?:s|ed)?|spring(?:s)? (?:up|to)|sprang|jump(?:s|ed)? (?:up|to)|(?:on|to) (?:his|her|their|my) feet|stands? up|stood up|bolt(?:s|ed)? (?:for|out|across|up)|tackl(?:e|es|ed)|hurl(?:s|ed)?|shov(?:e|es|ed)|march(?:es|ed)?|strid(?:e|es)|strode|shout(?:s|ed)?|yell(?:s|ed)?|scream(?:s|ed)?|snatch(?:es|ed)?|wrench(?:es|ed)? (?:free|away|the|it)|climb(?:s|ed)?|dash(?:es|ed)?)\b/i;
+  var SPENT_OK_RE = /\b(?:tries? to|tried to|attempts? to|wants? to|cannot|can'?t|couldn'?t|could not|fails?|failed|collaps\w*|slump\w*|crumpl\w*|blacks? out|too weak|will not|won'?t|gives? out|give way|falls? back|sinks? back|not enough|in (?:his|her|their|my) head|dreams?|imagin\w*|remember\w*|used to)\b/i;
+  /** A speaker at 0 HP written on their feet. null when the turn keeps
+   *  to the body, or shows the body failing; else { why, what }. */
+  RP.vigourCheck = function (text, sheet) {
+    var t = String(text || '');
+    if (!sheet || !sheet.hp || !sheet.hp.max || sheet.hp.value > 0 || !t.trim()) return null;
+    var hit = VIGOUR_RE.exec(t);
+    if (!hit) return null;
+    var around = t.slice(Math.max(0, hit.index - 90), hit.index + hit[0].length + 120);
+    if (SPENT_OK_RE.test(around)) return null;
+    return { why: sheet.name + ' is DOWN at 0 HP', what: hit[0] };
+  };
+
   /** What the player's body rules out, if the attempt is one of those.
    *  Returns null, or { why, what, part } — "limping (the crash)" /
    *  "climb" / "that leg". */
@@ -7500,6 +7963,11 @@
     var hp = sheet.hp && sheet.hp.max ? sheet.hp.value / sheet.hp.max : 1;
     if (sheet.hp && sheet.hp.value <= 0 && !DOWN_OK_RE.test(t)) {
       return { why: 'down at 0 HP', what: clip(t.replace(/^\*|\*$/g, ''), 40), part: 'a body that is done' };
+    }
+    // Spent: no breath left for a sprint, no reserve left for a spell.
+    if (sheet.mp && sheet.mp.max && sheet.mp.value <= 0) {
+      var tired = MAGIC_RE.exec(t) || EXERT_RE.exec(t);
+      if (tired) return { why: 'spent \u2014 0 Energy', what: tired[0], part: 'the wind they have left' };
     }
     for (var i = 0; i < BODY_LIMITS.length; i++) {
       var rule = BODY_LIMITS[i];
@@ -8107,8 +8575,10 @@
     if (continuation) parts.push(continuation);
     var direction = RP.directionBlock(room);
     if (direction) parts.push(direction);
+    var moment = RP.momentBlock(room, RP.normChar(speaker || {}), opts.moment);
+    if (moment) parts.push(moment);
     var audience = RP.audienceBlock(room, RP.normChar(speaker || {}).id,
-      (state.settings && state.settings.audience) || 'on');
+      (state.settings && state.settings.audience) || RP.AUDIENCE_DEFAULT);
     if (audience) parts.push(audience);
     // Who the reader is — Waluigi, a persona, a stranger — used to sit with
     // the reference material and was the last block dropped on a tight
@@ -8150,6 +8620,9 @@
       var mood = RP.moodBlock(room, RP.normChar(speaker || {}));
       if (mood) parts.push(mood);
     }
+    // The freshness ledger: nothing on a character who is not repeating.
+    var fresh = RP.freshnessBlock(room, RP.normChar(speaker || {}), (state.settings && state.settings.fresh) || RP.FRESH_DEFAULT);
+    if (fresh) parts.push(fresh);
     var fateBlock = RP.fateBlock(opts.fate);
     if (fateBlock) parts.push(fateBlock);
     var flourish = RP.flourishBlock(room, opts.fate);
@@ -8274,6 +8747,7 @@
       else if (/^YOU ARE /.test(line)) { inCast = false; }
       if (/^    \S/.test(line)) continue;                                // a cast member's summary
       if (/^You may colour a few words/.test(line)) continue;              // decoration first
+      if (level >= 3 && /^Every turn moves the scene/.test(line)) continue; // the voice lines outrank it on a tight window
       if (inVoice && /^Never:/.test(line) && level >= 2) continue;
       if (inVoice && /^Sounds like:/.test(line) && level >= 3) continue;
       if (inVoice && /^  \u201c/.test(line)) {
