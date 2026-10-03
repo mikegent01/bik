@@ -89,11 +89,23 @@ run to view the site.
 ### Running it — `python3 start.py`
 
 ```bash
-python3 start.py                                      # serve + open the browser (+ the TTS studio)
+python3 start.py                                      # the launcher window (tkinter); terminal mode where there is no display
+python3 start.py --no-gui                             # terminal mode: serve + open the browser (+ the TTS studio)
+python3 start.py --no-gui --workflow                  # …and run workflow/server.py (chat saves, archive routes, LM Studio bridge)
 python3 start.py --route "#/article/the_belly_of_the_beast"
 python3 start.py --no-browser --host 0.0.0.0 --port 9000
 python3 start.py --no-tts                             # serve without launching the TTS studio
 ```
+
+The **launcher window** is the default wherever tkinter and a display exist
+(double-click `start.py` on Windows). It has a tick for each thing that can
+run — the site, the workflow server, and the **Qwen3-TTS studio, which stays
+off unless you tick it** — a port and a "reachable from other machines"
+tick, what to open the browser on (home, the chatroom, a route), **▶ Start /
+■ Stop**, status lights for the site, the workflow server, LM Studio and the
+studio (probed every two seconds), buttons that open each, and a log pane
+with the servers' lines. *Remember these ticks* keeps them in
+`~/.waluipedia-start.json`; closing the window stops everything it started.
 
 `start.py` sits in the repository root, serves the archive over HTTP and opens
 the home page for you. **Use it rather than double-clicking `index.html`.**
@@ -104,10 +116,11 @@ script also sends `Cache-Control: no-store`, which kills the "I filed it but the
 page shows the old version" problem. Ctrl-C to stop; it writes nothing and
 builds nothing.
 
-If `Downloads/qw/Run Qwen3 TTS.bat` exists, `start.py` launches it in its own
-window on the way up so the local Qwen3-TTS studio (the voice behind
-**Read aloud**) is warming while the site opens — both run, side by side. If
-the studio's port already answers, or the bat is not there, the site starts
+If `Downloads/qw/Run Qwen3 TTS.bat` exists, terminal mode launches it in its
+own window on the way up so the local Qwen3-TTS studio (the voice behind
+**Read aloud**) is warming while the site opens — both run, side by side
+(`--no-tts` to skip it; in the window it is a tick, off by default). If the
+studio's port already answers, or the bat is not there, the site starts
 anyway and Read aloud simply needs the studio started by hand.
 
 ## Intake first — decide what the data becomes
@@ -275,7 +288,7 @@ Seven habits explain nearly every decision in this repository:
 | Path | What it is |
 |---|---|
 | `index.html` | The Waluipedia shell: router, article renderer, home feed, operator toolkit |
-| `Reputation-Matrix2/data/` | Canonical data — `events.json`, `characters.json`, books, clans, broadcasts |
+| `Reputation-Matrix2/data/` | Canonical data — `events.json`, `characters.json`, `voices.json` (how the cast talks, for the chatroom), books, clans, broadcasts |
 | `Reputation-Matrix2/app/pages/standalone/` | Self-contained pages (field journal, simulator, RNN broadcast) |
 | `Reputation-Matrix2/app/core/` | Shared renderers, including `rakasha-news.js` (The Blood-Echo broadsheet) |
 | `Reputation-Matrix2/animation_frames/` | Rakasha News Network anchor sprites and title card |

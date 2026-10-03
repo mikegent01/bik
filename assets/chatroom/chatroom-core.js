@@ -115,13 +115,56 @@
   }
   RP.colourLoose = colourLoose;
 
-  function inlineMd(text) {
+  function tintSpan(value, body) {
+    return '<span class="tint" style="color:' + value + '">' + body + '</span>';
+  }
+  /** Coloured words, in every shape a model writes them. The documented
+   *  form is {red|the door}; what actually arrives is also {the door|red},
+   *  {red: the door}, {red}the door{/red}, [red]the door[/red],
+   *  <red>the door</red> — and, most often of all, a bare {the door} with
+   *  no colour at all. A bare brace means "colour this", and the colour it
+   *  gets is the speaker's mood (the --mood-ink of the card), or a plain
+   *  ember when they are calm. Pure junk is left as written. */
+  function colourInline(text) {
     return String(text)
       // {red|the door} · {dark red|the door} · {#c0392b|the door}
       .replace(/\{([a-z][a-z ]{2,14}|#[0-9a-f]{3,6})\|([^{}]{1,300})\}/gi, function (all, name, body) {
         var value = colourLoose(name);
-        return value ? '<span class="tint" style="color:' + value + '">' + body + '</span>' : all;
+        return value ? tintSpan(value, body) : all;
       })
+      // {the door|red} — the same thing, backwards
+      .replace(/\{([^{}|]{1,300})\|([a-z][a-z ]{2,14}|#[0-9a-f]{3,6})\}/gi, function (all, body, name) {
+        var value = colourLoose(name);
+        return value ? tintSpan(value, body) : all;
+      })
+      // {red: the door}
+      .replace(/\{([a-z][a-z ]{2,14}|#[0-9a-f]{3,6}):\s*([^{}]{1,300})\}/gi, function (all, name, body) {
+        var value = colourLoose(name);
+        return value ? tintSpan(value, body) : all;
+      })
+      // {red}the door{/red} · [red]the door[/red] · <red>the door</red> (escaped by now)
+      .replace(/\{([a-z][a-z ]{2,14})\}([^{}]{1,300}?)\{\/\1\}/gi, function (all, name, body) {
+        var value = colourLoose(name);
+        return value ? tintSpan(value, body) : all;
+      })
+      .replace(/\[([a-z][a-z ]{2,14})\]([^\[\]]{1,300}?)\[\/\1\]/gi, function (all, name, body) {
+        var value = colourLoose(name);
+        return value ? tintSpan(value, body) : all;
+      })
+      .replace(/&lt;([a-z][a-z ]{2,14})&gt;([^&]{1,300}?)&lt;\/\1&gt;/gi, function (all, name, body) {
+        var value = colourLoose(name);
+        return value ? tintSpan(value, body) : all;
+      })
+      // {pissed} — no colour named: the mood's colour, or an ember
+      .replace(/\{([^{}|:\n]{1,60})\}/g, function (all, body) {
+        if (!/[a-z]/i.test(body)) return all;
+        return '<span class="tint mood">' + body + '</span>';
+      });
+  }
+  RP.colourInline = colourInline;
+
+  function inlineMd(text) {
+    return colourInline(text)
       .replace(/\*\*([^*]+)\*\*/g, '<b>$1</b>')
       .replace(/\*([^*\n]+)\*/g, '<em>$1</em>')
       .replace(/&quot;([^&]*?)&quot;/g, '<span class="q">&quot;$1&quot;</span>');
@@ -172,11 +215,27 @@
    * characters
    * ------------------------------------------------------------------ */
 
+  /** `faiths` on a record is a string on older entries and a list of
+   *  {id, role, note} objects on newer ones. Either way the card wants a
+   *  short line, never "[object Object]". */
+  function faithLine(value) {
+    if (!value) return '';
+    if (typeof value === 'string') return clip(value, 90);
+    var list = Array.isArray(value) ? value : [value];
+    return clip(list.map(function (f) {
+      if (!f) return '';
+      if (typeof f === 'string') return f;
+      var name = String(f.name || f.id || '').replace(/_/g, ' ');
+      return name + (f.role ? ' (' + f.role + ')' : '');
+    }).filter(Boolean).join('; '), 160);
+  }
+  RP.faithLine = faithLine;
+
   /** One archive record → one playable character card. */
   RP.normChar = function (record) {
     record = record || {};
     var name = clip(record.name || record.id || 'Unnamed', 60);
-    return {
+    var out = {
       id: String(record.id || slug(name) || uid()),
       name: name,
       title: clip(record.title, 200),
@@ -191,7 +250,7 @@
       // them into the prompt instead of being thrown away at load.
       description: clip(record.description, 1400),
       faction: clip(record.faction || record.membership, 80),
-      faiths: clip(record.faiths, 90),
+      faiths: faithLine(record.faiths),
       level: Number(record.level || 0) || 0,
       powerLevel: Number(record.powerLevel || 0) || 0,
       fameScore: Number(record.fameScore || 0) || 0,
@@ -206,6 +265,15 @@
       keyEvents: Array.isArray(record.keyEvents) ? record.keyEvents.slice(0, 12).map(String) : [],
       relatedArticles: Array.isArray(record.relatedArticles) ? record.relatedArticles.slice(0, 14).map(String) : [],
     };
+    // The things that make a character sound like themselves travel with
+    // them into the room. Until now a seat at the table re-read the record
+    // and dropped these — so an imported card's example dialogue, and the
+    // archive's own voice sheets, never reached the prompt.
+    if (record.voice && typeof record.voice === 'object') out.voice = record.voice;
+    if (record.card && typeof record.card === 'object') out.card = record.card;
+    if (record.look) out.look = clip(record.look, 300);
+    if (record.invented) out.invented = true;
+    return out;
   };
 
   RP.letterFor = function (name) {
@@ -304,6 +372,35 @@
     if (picked) return picked;
     if ((opts.misses || {})[first.toLowerCase()]) return fallback;
     return first.charAt(0).toUpperCase() + first.slice(1);
+  };
+
+  /** What the studio's SSE stream said when it did not finish — and
+   *  whether that was the VOICE being turned away or the synthesis itself
+   *  falling over. Gradio refuses a profile its dropdown has not been told
+   *  about with "Value: Wario is not in the list of choices"; a CUDA
+   *  hiccup, a timeout or an empty render says something else entirely,
+   *  and for a whole session the page used to treat both the same: one
+   *  bad render and Wario spoke in Waluigi's voice until a page reload.
+   *  Returns null when the stream completed. */
+  RP.studioError = function (body) {
+    var text = String(body || '');
+    if (!/event:\s*error/.test(text)) return null;
+    var said = /event:\s*error\s*\n(?:id:[^\n]*\n)?data:\s*([^\n]*)/.exec(text);
+    var raw = said ? said[1].trim() : '';
+    var message = '';
+    if (raw && raw !== 'null') {
+      try {
+        var parsed = JSON.parse(raw);
+        message = typeof parsed === 'string' ? parsed
+          : (parsed && (parsed.message || parsed.error || parsed.detail || parsed.msg)) || '';
+      } catch (e) { message = raw; }
+    }
+    message = String(message || '').replace(/\s+/g, ' ').trim();
+    var refused = /not in the list|not a valid (choice|voice|value)|unknown (voice|profile|speaker)|no such (voice|profile)|(voice|profile)[^.]{0,40}(not found|does not exist|doesn\u2019t exist|doesn't exist)|invalid (voice|profile)/i.test(message);
+    return {
+      message: message || 'the studio reported an error',
+      refused: refused,
+    };
   };
 
   /** Grandfather an old chat onto the current systems: re-read the cast
@@ -452,7 +549,7 @@
   RP.ttsClean = function (text) {
     return String(text || '')
       .replace(/\{([a-z-]+)\|([^}]*)\}/gi, '$2')
-      .replace(/\[\[[^\]]*\]\]/g, ' ')
+      .replace(/(?:\[\[|\{\{)[^\]\}\n]*(?:\]\]|\}\}|\]\}|\}\])/g, ' ')
       .replace(/[*_`#>]+/g, ' ')
       .replace(/\s+/g, ' ').trim();
   };
@@ -481,11 +578,18 @@
     'agree|agreed|insist|insisted|demand|demanded|repeat|repeated|begin|began|' +
     'finish|finished|manage|managed|breathe|breathed|read|reads)';
 
-  RP.speechParts = function (text, names, speaker, player) {
+  RP.speechParts = function (text, names, speaker, player, opts) {
     var clean = RP.ttsClean(text);
     var deflt = String(speaker || '').trim();
     var you = String(player || '').trim();
     if (!clean) return [];
+    // opts.mode 'turn': the whole turn in ONE voice — the speaker's for a
+    // character's card, the narrator's for the world's — so the studio is
+    // asked for a few sentence-sized chunks instead of a request per quote,
+    // which is what made a line with six short quotes crawl. The page's
+    // default. 'quotes' (this function's default): each quote in its
+    // speaker's voice, narration in the narrator's.
+    if (opts && opts.mode === 'turn') return [{ who: deflt, text: clean }];
     var escName = function (s) { return String(s).replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); };
     var alts = (names || []).filter(Boolean).map(String)
       .sort(function (a, b) { return b.length - a.length; }).map(escName).join('|');
@@ -564,9 +668,18 @@
    * ------------------------------------------------------------------ */
 
   RP.STYLES = {
+    voice: {
+      name: 'In character',
+      dir: 'Speak AS the character, in the FIRST PERSON, to the person in front of you — the way they would actually ' +
+        'say it out loud, in their own words and rhythm. Mostly dialogue. Small actions go between *asterisks* on ' +
+        'the same line (*slams the ledger*), never as paragraphs of description. Do not narrate yourself from the ' +
+        'outside ("Wario grunts and counts his coins") — you ARE them ("*counts the coins again* Wah. Still short."). ' +
+        'No scene-setting, no summarising the moment, no literary distance.',
+    },
     novel: {
       name: 'Novel',
-      dir: 'Write as third-person prose fiction: physical detail, quoted speech, a paragraph or three. Never narrate for the user.',
+      dir: 'Write as third-person prose fiction: physical detail, quoted speech, a paragraph or three. Never narrate for the user. ' +
+        'Every quoted line must sound like the character who says it — see VOICE.',
     },
     script: {
       name: 'Script',
@@ -582,9 +695,11 @@
     },
   };
 
+  RP.DEFAULT_STYLE = 'voice';
+
   function styleDir(opts) {
-    var style = (opts && opts.style) || 'novel';
-    return (RP.STYLES[style] || RP.STYLES.novel).dir;
+    var style = (opts && opts.style) || RP.DEFAULT_STYLE;
+    return (RP.STYLES[style] || RP.STYLES[RP.DEFAULT_STYLE]).dir;
   }
 
   /** The dossier handed to the model. The filed description is the whole
@@ -597,50 +712,161 @@
     if (char.race) lines.push('Race: ' + char.race);
     if (char.affiliation) lines.push('Affiliation: ' + char.affiliation);
     if (char.faction && char.faction !== char.affiliation) lines.push('Faction: ' + char.faction);
-    if (char.faiths) lines.push('Faith: ' + char.faiths);
+    if (char.faiths) lines.push('Faith: ' + faithLine(char.faiths));
     if (char.status) lines.push('Status right now: ' + char.status);
     if (char.fameTier) lines.push('Standing: ' + char.fameTier + (char.powerLevel ? ' · power ' + char.powerLevel : ''));
     if (char.summary) lines.push('About: ' + char.summary);
     if (char.description && !opts.short) {
-      lines.push('Filed description — play this, not a generic version of the name:');
+      // The archive is written by Waluigi ABOUT everybody else. Handed over
+      // without that warning, every character came back sounding like the
+      // encyclopaedist who filed them — dry, dated, archival.
+      lines.push(char.id === 'waluigi'
+        ? 'Filed description — written by Waluigi himself, so this IS his voice. Play it, not a generic version of the name:'
+        : 'Filed description — biography written by Waluigi, the archive\u2019s author, ABOUT this character. Use it ' +
+          'for facts, history and relationships; do NOT borrow its narrator\u2019s tone. How they actually talk is under VOICE:');
       lines.push(clip(char.description, 1400));
     }
     if (char.why) lines.push('Why they are in this scene: ' + char.why);
-    var role = RP.roleFor(char);
+    // A hand-written voice sheet outranks a guessed behaviour line.
+    var role = RP.voiceSheet(char) ? '' : RP.roleFor(char);
     if (role) lines.push('How they behave: ' + role);
     return lines.join('\n');
   }
   RP.card = card;
 
   /** A behaviour line inferred from what the archive already says. It is
-   *  deliberately blunt: small models need the instruction, not the hint. */
+   *  deliberately blunt: small models need the instruction, not the hint.
+   *  Whole words only — `ice` used to match price, juice and service, and
+   *  Wario came out "reaching for the arcane answer first". */
   RP.roleFor = function (char) {
     var text = ((char.title || '') + ' ' + (char.status || '') + ' ' + (char.summary || '') + ' ' + (char.description || '')).toLowerCase();
     var traits = [];
     function has(re, line) { if (re.test(text)) traits.push(line); }
-    has(/archivist|historian|scribe|record|librarian/, 'cites the record, dates things, corrects other people\u2019s facts');
-    has(/soldier|captain|general|commander|warlord|legion|guard|knight|paratroopa/, 'thinks in ground, orders and casualties; answers threats before questions');
-    has(/king|queen|lord|lady|prince|princess|speaker|delegate|noble|regent/, 'speaks as though the room already reports to them, and notices who does not');
-    has(/merchant|debt|gold|acquisitions|coin|profit|bank|business/, 'prices everything out loud, including favours');
-    has(/thief|looter|infiltrat|rogue|spy|smuggler/, 'checks exits, pockets what is loose, and lies smoothly when it is easier');
-    has(/mage|magic|arcane|wizard|sorcer|ice|witch|oracle/, 'reaches for the arcane answer first, and resents being asked to explain it');
-    has(/ghost|spirit|undead|revenant|corrupted|shadow/, 'is not bound by the room\u2019s rules and does not pretend to be');
-    has(/monster|beast|titan|dragon|plant|creature/, 'communicates physically before verbally');
-    has(/coward|reluctant|nervous|anxious|traumati/, 'wants to leave, says so, and stays anyway');
-    has(/comedian|jester|prank|joke|clown|chaos/, 'undercuts the serious line, especially when it is the wrong moment');
-    has(/injured|wounded|dying|bleeding|missing/, 'is hurt, and it shows in what they can and cannot do');
+    has(/\b(archivist|historian|scribe|librarian)\b|\brecords?\b/, 'cites the record, dates things, corrects other people\u2019s facts');
+    has(/\b(soldier|captain|general|commander|warlord|legion|guards?|knight|paratroopa)\b/, 'thinks in ground, orders and casualties; answers threats before questions');
+    has(/\b(king|queen|lord|lady|prince|princess|speaker|delegate|noble|regent)\b/, 'speaks as though the room already reports to them, and notices who does not');
+    has(/\b(merchant|debts?|gold|acquisitions|coins?|profit|bank|business)\b/, 'prices everything out loud, including favours');
+    has(/\b(thief|looter|infiltrat\w*|rogue|spy|smuggler)\b/, 'checks exits, pockets what is loose, and lies smoothly when it is easier');
+    has(/\b(mage|magic\w*|arcane|wizard|sorcer\w*|ice magic|witch|oracle)\b/, 'reaches for the arcane answer first, and resents being asked to explain it');
+    has(/\b(ghost|spirits?|undead|revenant|wraith|spectre|specter)\b/, 'is not bound by the room\u2019s rules and does not pretend to be');
+    has(/\b(monster|beast|titan|dragon|creature)\b/, 'communicates physically before verbally');
+    has(/\b(coward\w*|reluctant|nervous|anxious|traumati\w*)\b/, 'wants to leave, says so, and stays anyway');
+    has(/\b(comedian|jester|pranks?|jokes?|clown|chaos)\b/, 'undercuts the serious line, especially when it is the wrong moment');
+    has(/\b(injured|wounded|dying|bleeding|missing)\b/, 'is hurt, and it shows in what they can and cannot do');
     return traits.slice(0, 4).join('; ');
   };
 
+  /* ---- voice sheets: how a character actually talks ----
+     The archive's descriptions are biography. A model given biography
+     writes biography — "Wario, the explosive accountant, considers the
+     offer" — when what you wanted was "WAH. No. Pay me." The sheet is the
+     missing half: register, tics, the things they would never say, and a
+     few lines in their mouth for the model to sit new ones beside.
+     Hand-written sheets live in Reputation-Matrix2/data/voices.json and
+     are loaded with RP.setVoices; an imported character card brings its
+     own (personality + example dialogue); everybody else gets a fallback
+     built from their record. */
+
+  RP.VOICES = {};
+
+  RP.setVoices = function (map) {
+    RP.VOICES = {};
+    Object.keys(map || {}).forEach(function (id) {
+      if (id.charAt(0) === '_' || !map[id] || typeof map[id] !== 'object') return;
+      RP.VOICES[id] = map[id];
+    });
+    return Object.keys(RP.VOICES).length;
+  };
+
+  /** Example dialogue in a Tavern/c.ai card is one block of text with
+   *  {{char}}: / {{user}}: labels. Keep the character's own lines. */
+  function linesFromExample(text, name) {
+    var out = [];
+    var own = String(name || '').toLowerCase();
+    // clip() has already folded the newlines, so the turns are found by
+    // their labels — {{char}}: / {{user}}: / Name: — wherever they sit.
+    var flat = String(text || '').replace(/<START>/gi, '\n');
+    var labelled = flat.split(/(?=(?:^|\s)(?:\{\{char\}\}|\{\{user\}\}|[A-Z][\w' .-]{0,30}):\s)/);
+    labelled.forEach(function (chunk) {
+      var line = chunk.trim();
+      if (!line || out.length >= 6) return;
+      var m = /^(\{\{char\}\}|\{\{user\}\}|[^:]{1,40}):\s*([\s\S]+)$/.exec(line);
+      if (!m) { if (line.length > 12) out.push(clip(line, 220)); return; }
+      var who = m[1].trim().toLowerCase();
+      if (who === '{{user}}' || who === 'you' || who === 'user') return;
+      if (who === '{{char}}' || !own || who === own || own.indexOf(who) === 0) {
+        out.push(clip(m[2].replace(/\{\{char\}\}/gi, name || 'they').replace(/\{\{user\}\}/gi, 'you'), 220));
+      }
+    });
+    return out.slice(0, 6);
+  }
+
+  /** The sheet for a character: their own, the archive's, or one read out
+   *  of an imported card. Null when there is nothing hand-written. */
+  RP.voiceSheet = function (char) {
+    if (!char) return null;
+    if (char.voice && typeof char.voice === 'object') return char.voice;
+    if (char.id && RP.VOICES[char.id]) return RP.VOICES[char.id];
+    var card = char.card || {};
+    if (card.mes_example || card.system_prompt) {
+      return {
+        register: clip(card.system_prompt || '', 500),
+        sounds: [], never: [],
+        lines: linesFromExample(card.mes_example, char.name),
+        fromCard: true,
+      };
+    }
+    return null;
+  };
+
+  /** The prompt section. With a sheet it is the sheet; without one it is
+   *  still a first-person instruction built from the record, which is more
+   *  than the model used to get. */
+  RP.voiceBlock = function (char) {
+    char = char || {};
+    var name = char.name || 'this character';
+    var sheet = RP.voiceSheet(char);
+    var out = ['VOICE \u2014 how ' + name + ' actually talks. This is the whole job: if the lines could be anybody\u2019s, they are wrong.'];
+    if (sheet) {
+      if (sheet.register) out.push(clip(sheet.register, 600));
+      var sounds = (sheet.sounds || []).slice(0, 6);
+      if (sounds.length) out.push('Sounds like: ' + sounds.map(function (s) { return clip(s, 160); }).join(' \u00b7 '));
+      var never = (sheet.never || []).slice(0, 5);
+      if (never.length) out.push('Never: ' + never.map(function (s) { return clip(s, 140); }).join(' \u00b7 '));
+      var lines = (sheet.lines || []).slice(0, 5);
+      if (lines.length) {
+        out.push('Lines in ' + name + '\u2019s own mouth \u2014 do not repeat them; write NEW ones that could sit beside them:');
+        lines.forEach(function (l) { out.push('  \u201c' + clip(l, 240) + '\u201d'); });
+      }
+      return out.join('\n');
+    }
+    var role = RP.roleFor(char);
+    out.push('Speak in the FIRST PERSON as ' + name + (char.title ? ', ' + char.title : '') + '. Their vocabulary comes ' +
+      'from what they are' + (char.affiliation ? ' (' + clip(char.affiliation, 80) + ')' : '') +
+      (char.race ? ' and what they are made of (' + clip(char.race, 40) + ')' : '') + ', not from a narrator.');
+    if (role) out.push('Sounds like somebody who ' + role + '.');
+    if (char.status) out.push('What is on their mind right now: ' + clip(char.status, 240));
+    out.push('Give them one verbal habit and keep it. Short lines when angry, longer when lying. Never summarise the scene \u2014 react to it.');
+    return out.join('\n');
+  };
+
+  /** The last thing the model reads before it writes. Small models weigh
+   *  the end of the prompt most, so the end is the character, not the
+   *  mechanics. */
+  RP.closingLine = function (char, style) {
+    var name = (char && char.name) || 'the character';
+    if ((style || RP.DEFAULT_STYLE) === 'voice') {
+      return 'NOW ANSWER AS ' + name.toUpperCase() + ' \u2014 first person, in their own voice from VOICE above. Not a narrator, ' +
+        'not a summary, not a description of the room. If ' + name + ' would shout, shout; if they would refuse, refuse.';
+    }
+    return 'Every line ' + name + ' speaks must sound like ' + name + ' \u2014 see VOICE above. The prose may be yours; the words are theirs.';
+  };
+
   var RULES = [
-    'You may colour a few words when it earns it: {red|the door is open}, {ice|her breath}, {#8e2b20|the stain}. ' +
-      'Colours available: red, blood, crimson, orange, ember, amber, gold, copper, green, moss, jade, teal, sea, ' +
-      'blue, ice, storm, violet, purple, lilac, plum, pink, grey, silver, black, white, rust, sand, bone, venom, ' +
-      'or any #hex. Use it for one thing that matters, not for decoration — two or three words in a turn at most, ' +
-      'and never a whole sentence.',
-    'When a thing should keep its colour every time it is named — a cursed blade, a sickness, a word written in ' +
-      'blood — file it once with [[TINT: the exact words = colour]] and the page colours every later mention for ' +
-      'you. That is for things with lasting weight, two or three per scene at most.',
+    'You may colour a few words inside the prose when they carry weight — {red|the door is open}, {ice|her breath}, ' +
+      'or simply {the stain} to use the speaker\u2019s own mood colour — two or three words, once in a turn at most, never a ' +
+      'whole sentence. Colours: red, blood, crimson, ember, amber, gold, copper, rust, moss, green, jade, teal, sea, ice, blue, ' +
+      'storm, violet, lilac, plum, pink, grey, silver, bone, sand, black, white, or any #hex. The colour of the box is their mood; the colour of the words is yours.',
     'Use the material. When the archive passages, the session filing or the lore book say something that touches ' +
       'this moment, USE IT — a date, a name, a number, what somebody actually said. Quote it, argue with it, get it ' +
       'slightly wrong in character if that is truer. A scene that could have happened in any story is a wasted turn.',
@@ -649,6 +875,8 @@
     'Put actions, gestures and scene detail between asterisks like *this*. Put speech in "quotes".',
     'Write only your own character. Never speak, act or decide for the user.',
     'Never end the turn with a summary or a question about what the user wants to do next unless your character would really ask it.',
+    'Every turn moves the scene: by its end something is different \u2014 a decision, a deed, a fact out. Never say again ' +
+      'what an earlier turn said; answer what JUST happened.',
   ].join('\n');
 
   /** The system prompt for a one-on-one chat. */
@@ -659,6 +887,8 @@
       '',
       'CHARACTER CARD',
       card(char),
+      '',
+      RP.voiceBlock(char),
       '',
       'IN-CHARACTER RULES',
       RULES,
@@ -685,6 +915,8 @@
       '',
       'YOU ARE ' + who.name,
       card(who),
+      '',
+      RP.voiceBlock(who),
       '',
       'Write the next turn speaking ONLY as ' + who.name + '.',
       'START WITH ' + who.name.toUpperCase() + '. The first sentence must be ' + who.name + ' doing or saying ' +
@@ -736,7 +968,7 @@
       perspective: String(opts.perspective || ''),
       replayOf: String(opts.replayOf || ''),
       persona: String(opts.persona || ''),
-      style: String(opts.style || 'novel'),
+      style: String(opts.style || RP.DEFAULT_STYLE),
       beats: Array.isArray(opts.beats) ? opts.beats.slice(0, 24) : [],
       beatIndex: 0,
       autoBeats: opts.autoBeats === undefined ? true : Boolean(opts.autoBeats),
@@ -804,7 +1036,7 @@
       var name = '';
       if (group) {
         var who = (room.cast || []).filter(function (c) { return c.id === m.charId; })[0];
-        name = who ? who.name + ': ' : '';
+        name = who ? who.name + (m.same ? ' (at the same moment)' : '') + ': ' : '';
       }
       return { role: 'assistant', content: name + RP.textOf(m) };
     });
@@ -816,14 +1048,6 @@
   /* ---- the rolling recap: a long chat without a long prompt ---- */
 
   RP.RECAP_AFTER = 18;      // turns of history before the old ones are folded up
-
-  /** Which turns the model still sees verbatim. Everything before the
-   *  recap point is represented by the recap itself. */
-  RP.liveTurns = function (room) {
-    var turns = (room.messages || []).filter(visible);
-    var from = Math.max(0, Number(room.recapAt || 0));
-    return turns.slice(from);
-  };
 
   /** Is it time to fold the old turns up? */
   RP.needsRecap = function (room, every) {
@@ -1869,7 +2093,7 @@
   RP.STATE_PRESETS = {
     story:  { name: 'Story — no numbers', hp: 0, mp: 0 },
     stakes: { name: 'Stakes — HP only', hp: 100, mp: 0 },
-    rpg:    { name: 'RPG — HP and MP', hp: 100, mp: 50 },
+    rpg:    { name: 'RPG — HP and Energy', hp: 100, mp: 50 },
   };
 
   /** A fresh sheet. `setup` overrides the start: { hpPct, mpPct, status,
@@ -2011,10 +2235,10 @@
   /** Which stat an attempt leans on, from the player's own words. */
   RP.actionStat = function (text) {
     var t = ' ' + String(text || '').toLowerCase() + ' ';
-    if (/\b(hit|strike|attack|swing|punch|fight|shove|charge|force|break|smash|grapple|wrestle|kick|stab|tackle|slam|wrench|lift|drag|hold (him|her|them|it) down)\b/.test(t)) return 'might';
-    if (/\b(persuade|convince|talk|lie|bluff|charm|bargain|negotiate|plead|threaten|intimidate|order|flatter|reassure|calm|appeal|argue)\b/.test(t)) return 'sway';
-    if (/\b(search|examine|inspect|study|read|decipher|recall|remember|figure|work out|notice|listen|track|analyse|analyze|calculate|identify|diagnose)\b/.test(t)) return 'wits';
-    if (/\b(sneak|steal|pick|hide|slip|dodge|duck|gamble|climb|leap|jump|vault|escape|palm|swipe|creep)\b/.test(t)) return 'luck';
+    if (/\b(hit|strike|attack|swing|punch|fight|shove|charge|force|break|smash|grapple|wrestle|kick|stab|tackle|slam|wrench|lift|drag|hold (him|her|them|it) down|push|pull|pry|haul|heave|carry|shoulder|barge|ram|crush|bend|chop|hack|slash|cut (him|her|them|it) down|parry|block|brace|pin|restrain|strangle|choke|batter|kick (the|down)|tear|rip|bash|hurl|wrestle|overpower|hold the (door|line))\b/.test(t)) return 'might';
+    if (/\b(persuade|convince|talk|lie|bluff|charm|bargain|negotiate|plead|threaten|intimidate|order|flatter|reassure|calm|appeal|argue|beg|demand|insist|promise|offer|deal|seduce|comfort|soothe|inspire|rally|command|bribe|coax|haggle|apologi[sz]e|confess|taunt|mock|sweet[- ]talk|speech|address the|ask (him|her|them) to|tell (him|her|them) to|lie to|reason with|win (him|her|them) over)\b/.test(t)) return 'sway';
+    if (/\b(search|examine|inspect|study|read|decipher|recall|remember|figure|work out|notice|listen|track|analyse|analyze|calculate|identify|diagnose|investigate|deduce|solve|puzzle|map|plan|count|measure|translate|forge|repair|fix|mend|build|rig|disarm|appraise|spot|assess|guess|recogni[sz]e|interpret|test|check (the|for)|look (for|closer|closely|over)|scan|memori[sz]e)\b/.test(t)) return 'wits';
+    if (/\b(sneak|steal|pick|hide|slip|dodge|duck|gamble|climb|leap|jump|vault|escape|palm|swipe|creep|dash|run|sprint|flee|bolt|tumble|roll|tiptoe|shadow|pickpocket|lockpick|balance|swim|dive|catch|snatch|bet|wager|chance it|risk it|shoot|fire|aim|loose|throw|toss|fling|lob|juggle|feint|weave|sidestep|ambush|follow (him|her|them) unseen)\b/.test(t)) return 'luck';
     return '';
   };
 
@@ -2078,7 +2302,7 @@
   RP.parseCondition = function (line) {
     var parts = String(line || '').split('|');
     var head = parts[0].trim();
-    var effect = /\s([+-]\d{1,3}(?:hp|mp))\s*$/i.exec(head);
+    var effect = /\s([+-]\d{1,3}(?:hp|mp|en|energy|stamina))\s*$/i.exec(head);
     if (effect) head = head.slice(0, effect.index).trim();
     var turns = /\s(\d{1,2})\s*$/.exec(head);
     if (turns) head = head.slice(0, turns.index).trim();
@@ -2087,28 +2311,21 @@
     return {
       key: key, name: head,
       turns: turns ? Number(turns[1]) : 0,
-      effect: effect ? effect[1].toLowerCase() : '',
+      effect: effect ? RP.normEffect(effect[1]) : '',
       note: clip(parts.slice(1).join('|'), 160),
     };
   };
 
-  /** A condition has a name, a note and — if it is going to pass — a
-   *  number of turns left on it. */
-  RP.normCondition = function (key, value) {
-    if (value && typeof value === 'object') {
-      return {
-        note: clip(value.note, 160), turns: Number(value.turns || 0) || 0,
-        effect: clip(value.effect, 40),        // "-2hp", "-1mp", "+1hp"
-      };
-    }
-    return { note: '', turns: 0, effect: '' };
-  };
-
   /** What a condition does to you every turn it lasts: "-2hp" bleeds. */
   RP.conditionEffect = function (effect) {
-    var hit = /^\s*([+-]?\d{1,3})\s*(hp|mp)\s*$/i.exec(String(effect || ''));
+    var hit = /^\s*([+-]?\d{1,3})\s*(hp|mp|en|energy|stamina)\s*$/i.exec(String(effect || ''));
     if (!hit) return null;
-    return { pool: hit[2].toLowerCase(), amount: Number(hit[1]) };
+    return { pool: /^hp$/i.test(hit[2]) ? 'hp' : 'mp', amount: Number(hit[1]) };
+  };
+  /** "-2en", "-1energy", "-3stamina" are all the Energy pool, which is
+   *  still called `mp` on the sheet so old saves keep working. */
+  RP.normEffect = function (effect) {
+    return String(effect || '').toLowerCase().replace(/(en|energy|stamina)$/, 'mp');
   };
 
   /** Count down anything temporary. Returns the lines to show the reader. */
@@ -2296,21 +2513,102 @@
 
   /** Apply one change to one sheet. Returns a human line for the stream, or
    *  '' when the change was refused (unknown field, dead number). */
+  /** The thing on the sheet that a name means. Exact first, then without
+   *  articles and possessives, then one inside the other, then any solid
+   *  word the two share — so "brass key", "the key" and "my bent key" all
+   *  find "🗝 a brass key | bent". Returns the live item, or null. */
+  var ITEM_FILLER = /\b(a|an|the|my|your|his|her|their|our|its|some|one|this|that|these|those|own|old|new|trusty|little|big|small)\b/g;
+  function bareName(name) {
+    return String(name || '').toLowerCase().replace(/[^a-z0-9' ]+/g, ' ').replace(ITEM_FILLER, ' ').replace(/\s+/g, ' ').trim();
+  }
+  RP.findItem = function (sheet, name) {
+    if (!sheet || !name) return null;
+    sheet.items = (sheet.items || []).map(RP.normItem);
+    var want = String(name).toLowerCase().trim();
+    var bare = bareName(name);
+    if (!bare) return null;
+    var items = sheet.items;
+    var hit = items.filter(function (i) { return i.name.toLowerCase() === want; })[0];
+    if (hit) return hit;
+    hit = items.filter(function (i) { return bareName(i.name) === bare; })[0];
+    if (hit) return hit;
+    hit = items.filter(function (i) {
+      var have = bareName(i.name);
+      return have.indexOf(bare) >= 0 || bare.indexOf(have) >= 0;
+    })[0];
+    if (hit) return hit;
+    var words = bare.split(' ').filter(function (w) { return w.length >= 3 && SMALL_WORDS.indexOf(' ' + w + ' ') < 0; });
+    return items.filter(function (i) {
+      var have = ' ' + bareName(i.name) + ' ';
+      return words.some(function (w) { return have.indexOf(' ' + w + ' ') >= 0; });
+    })[0] || null;
+  };
+
+  /* ---- the two pools. `mp` is the key on every sheet ever saved, so
+   * it stays the key; what the reader and the model see is ⚡ Energy —
+   * breath, strength and magic in one finite, slowly refilling pool. ---- */
+  RP.POOLS = {
+    hp: { word: 'HP', icon: '\u2764', directive: 'HP' },
+    mp: { word: 'Energy', icon: '\u26a1', directive: 'EN' },
+  };
+  RP.poolWord = function (kind) { return (RP.POOLS[kind] || {}).word || String(kind || '').toUpperCase(); };
+
+  /** 0 HP is a state, not just a number. The sheet wears the `down`
+   *  condition from the moment it hits 0 until something lifts it above —
+   *  a heal, a [[HP:]], a revival in the prose — and the condition goes
+   *  on its own then. Returns the line to show, or ''. */
+  RP.DOWN_NOTE = 'at 0 HP \u2014 barely conscious: a word, a crawl, a hand that will not close';
+  RP.markDown = function (sheet) {
+    if (!sheet || !sheet.hp || !sheet.hp.max) return '';
+    sheet.flags = sheet.flags || {};
+    var isDown = Number(sheet.hp.value) <= 0;
+    if (isDown && !sheet.flags.down) {
+      sheet.flags.down = { note: RP.DOWN_NOTE, turns: 0, effect: '' };
+      return sheet.name + ' is DOWN';
+    }
+    if (!isDown && sheet.flags.down) {
+      delete sheet.flags.down;
+      return sheet.name + ' is no longer down';
+    }
+    return '';
+  };
+  /** The fixer's half of it, run every turn for free: anyone at 0 HP is
+   *  marked down, anyone back above it is not. */
+  RP.fixDown = function (room) {
+    var lines = [];
+    Object.keys((room && room.states) || {}).forEach(function (id) {
+      var line = RP.markDown(room.states[id]);
+      if (line) lines.push(line);
+    });
+    return lines;
+  };
+
   RP.applyChange = function (sheet, change) {
     if (!sheet || !change) return '';
     var n = Number(change.value);
     if (change.kind === 'hp' || change.kind === 'mp') {
       var pool = sheet[change.kind];
       if (!pool || isNaN(n)) return '';
-      var before = pool.value;
+      var before = pool.value, beforeMax = pool.max;
+      // [[HP: Name = 28/80]] redefines the pool: who they are now, not a
+      // nudge to who they were. The max moves with the value.
+      var newMax = Number(change.max);
+      if (newMax > 0 && newMax !== pool.max) pool.max = Math.round(newMax);
       if (change.op === '+') pool.value += n;
       else if (change.op === '-') pool.value -= n;
       else pool.value = n;
       clampPool(pool);
+      var word = RP.poolWord(change.kind);
+      // Crossing 0 HP in either direction changes the sheet's state too.
+      var downLine = change.kind === 'hp' ? RP.markDown(sheet) : '';
+      var tail = change.kind === 'hp' && pool.value === 0 ? ' — down'
+        : /no longer down/.test(downLine) ? ' — back up' : '';
+      if (pool.max !== beforeMax) {
+        return sheet.name + ' — ' + word + ' redefined ' + pool.value + '/' + pool.max + ' (was ' + before + '/' + beforeMax + ')' + tail;
+      }
       if (pool.value === before) return '';
-      var word = change.kind.toUpperCase();
       return sheet.name + ' ' + (pool.value > before ? '+' : '−') + Math.abs(pool.value - before) + ' ' + word +
-        ' (' + pool.value + '/' + pool.max + ')' + (change.kind === 'hp' && pool.value === 0 ? ' — down' : '');
+        ' (' + pool.value + '/' + pool.max + ')' + tail;
     }
     if (change.kind === 'flag') {
       var key = slug(change.name);
@@ -2344,9 +2642,17 @@
       sheet.items = (sheet.items || []).map(RP.normItem);
       var at = sheet.items.map(function (i) { return i.name.toLowerCase(); }).indexOf(item.name.toLowerCase());
       if (change.op === '-') {
-        if (at < 0) return '';
-        sheet.items.splice(at, 1);
-        return sheet.name + ' loses ' + item.name;
+        // The model writes "brass key" for "a brass key | bent", and the
+        // reader drops one purse from a stack of two. Both used to do
+        // nothing, or everything.
+        var lost = at >= 0 ? sheet.items[at] : RP.findItem(sheet, item.name);
+        if (!lost) return '';
+        if (lost.qty > 1) {
+          lost.qty -= 1;
+          return sheet.name + ' loses ' + lost.name + ' (' + lost.qty + ' left)';
+        }
+        sheet.items = sheet.items.filter(function (i) { return i !== lost; });
+        return sheet.name + ' loses ' + lost.name;
       }
       if (at >= 0) {
         if (item.note) sheet.items[at].note = item.note;
@@ -2363,9 +2669,7 @@
     }
     if (change.kind === 'use') {
       sheet.items = (sheet.items || []).map(RP.normItem);
-      var used = sheet.items.filter(function (i) {
-        return i.name.toLowerCase().indexOf(String(change.name).toLowerCase()) >= 0;
-      })[0];
+      var used = RP.findItem(sheet, change.name);
       if (!used) return '';
       used.qty -= 1;
       var gone = used.qty <= 0;
@@ -2374,9 +2678,7 @@
     }
     if (change.kind === 'equip') {
       sheet.items = (sheet.items || []).map(RP.normItem);
-      var held = sheet.items.filter(function (i) {
-        return i.name.toLowerCase().indexOf(String(change.name).toLowerCase()) >= 0;
-      })[0];
+      var held = RP.findItem(sheet, change.name);
       if (!held) return '';
       held.equipped = change.op !== '-';
       return sheet.name + (held.equipped ? ' takes up ' : ' puts away ') + held.name;
@@ -2385,7 +2687,359 @@
       sheet.status = clip(change.value, 120);
       return sheet.name + ' — ' + sheet.status;
     }
+    if (change.kind === 'mood') {
+      return RP.moodShift(sheet, change.key || change.name, change.level, change.note, { jump: change.jump, set: change.set, turn: change.turn });
+    }
     return '';
+  };
+
+  /* ------------------------------------------------------------------ *
+   * mood — the colour of the box is how they feel
+   *
+   * One feeling per sheet, 1–3: a flicker, the plain thing, overwhelming.
+   * It does not swing with every line: a new feeling starts at 1 and
+   * climbs one step per turn that feeds it; a different feeling has to
+   * wear the standing one down first unless it is a shock; two quiet
+   * turns take a step off; at 0 they are calm again. The model files
+   * [[MOOD:]], the page reads the prose when it forgets, and the turn
+   * card and the sheet wear the colour.
+   * ------------------------------------------------------------------ */
+
+  RP.MOODS = {
+    anger:     { icon: '😠', hue: 4,   words: ['irritated', 'angry', 'furious'],
+                 show: 'short hard sentences, interrupts, no jokes land, acts before thinking' },
+    fear:      { icon: '😨', hue: 262, words: ['uneasy', 'afraid', 'terrified'],
+                 show: 'hedges and repeats, watches the exits, startles, bargains' },
+    joy:       { icon: '😄', hue: 48,  words: ['pleased', 'happy', 'elated'],
+                 show: 'expansive and generous, laughs easily, says yes, forgives' },
+    grief:     { icon: '😢', hue: 214, words: ['low', 'sad', 'heartbroken'],
+                 show: 'slow, trails off, fixed on one object, flat answers' },
+    shame:     { icon: '😳', hue: 300, words: ['sheepish', 'ashamed', 'humiliated'],
+                 show: 'avoids names and eyes, deflects, over-explains' },
+    disgust:   { icon: '🤢', hue: 96,  words: ['queasy', 'disgusted', 'revolted'],
+                 show: 'clipped, a physical recoil, refuses to touch or engage' },
+    surprise:  { icon: '😲', hue: 26,  words: ['puzzled', 'surprised', 'stunned'],
+                 show: 'fragments and questions, repeats what was just said' },
+    affection: { icon: '🥰', hue: 335, words: ['warm', 'fond', 'devoted'],
+                 show: 'softer, uses names, closes the distance, teases kindly' },
+    suspicion: { icon: '🤨', hue: 176, words: ['wary', 'suspicious', 'paranoid'],
+                 show: 'questions everything, answers little, watches hands' },
+    pride:     { icon: '😏', hue: 38,  words: ['smug', 'proud', 'triumphant'],
+                 show: 'longer sentences, lists wins, corrects people, takes the credit' },
+  };
+  RP.MOOD_KEYS = Object.keys(RP.MOODS);
+  RP.MOOD_FADE = 2;      // quiet turns per step down
+
+  // What the model (or the reader) may call a feeling → which one it is,
+  // and how hard a word it was (1–3). "furious" is anger at 3.
+  var MOOD_WORDS = {
+    anger: { 1: 'irritated irritation annoyed annoyance cross frustrated frustration impatient', 2: 'angry anger mad resentful indignant hostile bitter sullen',
+      3: 'furious fury enraged rage livid seething incensed apoplectic' },
+    fear: { 1: 'uneasy unease nervous worried worry apprehensive tense jumpy', 2: 'afraid fear scared frightened anxious anxiety alarmed dread',
+      3: 'terrified terror panicked panic petrified horrified horror' },
+    joy: { 1: 'pleased content amused relieved relief cheerful', 2: 'happy happiness glad joy joyful delighted delight excited excitement',
+      3: 'elated ecstatic overjoyed thrilled gleeful giddy jubilant' },
+    grief: { 1: 'low wistful melancholy weary downcast subdued', 2: 'sad sadness sorrow sorrowful unhappy mournful lonely dejected hurt',
+      3: 'heartbroken grief grieving grief-stricken devastated despair despairing inconsolable bereft' },
+    shame: { 1: 'sheepish awkward embarrassed embarrassment self-conscious', 2: 'ashamed shame guilty guilt regretful remorse remorseful contrite',
+      3: 'humiliated humiliation mortified disgraced' },
+    disgust: { 1: 'put-off distaste squeamish', 2: 'disgusted disgust repulsed contempt contemptuous scornful scorn sickened',
+      3: 'revolted revulsion nauseated loathing' },
+    surprise: { 1: 'puzzled confused bewildered baffled curious', 2: 'surprised surprise startled taken-aback astonished',
+      3: 'stunned shocked shock amazed dumbfounded thunderstruck' },
+    affection: { 1: 'warm warmth friendly kind grateful gratitude', 2: 'fond fondness affectionate affection tender tenderness caring protective',
+      3: 'devoted loving love adoring smitten besotted' },
+    suspicion: { 1: 'wary guarded sceptical skeptical doubtful cautious', 2: 'suspicious suspicion distrustful distrust mistrustful mistrust',
+      3: 'paranoid paranoia' },
+    pride: { 1: 'satisfied confident self-satisfied', 2: 'proud pride smug cocky boastful vain superior',
+      3: 'triumphant triumph exultant gloating' },
+  };
+  var MOOD_LOOKUP = {};
+  Object.keys(MOOD_WORDS).forEach(function (key) {
+    [1, 2, 3].forEach(function (level) {
+      MOOD_WORDS[key][level].split(/\s+/).forEach(function (w) { MOOD_LOOKUP[w] = { key: key, level: level }; });
+    });
+  });
+  var MOOD_CALM = /^(?:calm|neutral|settled|composed|steady|serene|fine|okay|ok|at ease|relaxed|even|level|none|nothing|clear)$/;
+
+  /** "furious" → { key: 'anger', level: 3 }; "anger" → level 2; "calm" →
+   *  { key: 'calm' }; junk → null. A whole phrase is searched word by word,
+   *  last feeling word wins. */
+  RP.moodWord = function (text) {
+    var words = String(text || '').toLowerCase().replace(/[^a-z\- ]+/g, ' ').trim();
+    if (!words) return null;
+    if (MOOD_CALM.test(words)) return { key: 'calm', level: 0 };
+    var hit = null;
+    words.split(/\s+/).forEach(function (w) {
+      if (RP.MOODS[w]) hit = { key: w, level: 2 };
+      else if (MOOD_LOOKUP[w]) hit = MOOD_LOOKUP[w];
+      else if (MOOD_CALM.test(w)) hit = { key: 'calm', level: 0 };
+    });
+    return hit;
+  };
+
+  /** How a mood reads: "furious", "afraid", "a little uneasy". */
+  RP.moodLabel = function (mood) {
+    if (!mood || !RP.MOODS[mood.key]) return 'calm';
+    var level = Math.max(1, Math.min(3, Number(mood.level) || 1));
+    return RP.MOODS[mood.key].words[level - 1];
+  };
+  RP.moodIcon = function (mood) {
+    return mood && RP.MOODS[mood.key] ? RP.MOODS[mood.key].icon : '😶';
+  };
+
+  /** The colour: a CSS custom-property string for the box that carries
+   *  it — a firm line and a wash that deepens with the level. */
+  RP.moodStyle = function (mood) {
+    if (!mood || !RP.MOODS[mood.key]) return '';
+    var hue = RP.MOODS[mood.key].hue;
+    var level = Math.max(1, Math.min(3, Number(mood.level) || 1));
+    var wash = [0.12, 0.22, 0.34][level - 1];
+    var light = [93, 88, 82][level - 1];       // the box itself: a flat tint, deeper with the pitch
+    return '--mood-line:hsl(' + hue + ',62%,46%);--mood-wash:hsla(' + hue + ',70%,52%,' + wash + ');' +
+      '--mood-bg:hsl(' + hue + ',70%,' + light + '%);--mood-ink:hsl(' + hue + ',55%,30%)';
+  };
+
+  /** Move a sheet's feeling. `level` is what was filed (1–3); the result
+   *  is damped: a new feeling starts at 1 (2 for a shock or a 3 filed), the
+   *  same feeling climbs one step (two for a shock), a different feeling
+   *  wears the standing one down a step before it can take over. `calm`
+   *  takes a step off. `set` (by hand) writes exactly what was asked.
+   *  Returns the receipt line, or '' when nothing moved. */
+  RP.moodShift = function (sheet, key, level, note, opts) {
+    if (!sheet) return '';
+    opts = opts || {};
+    key = String(key || '').toLowerCase();
+    var cur = sheet.mood && RP.MOODS[sheet.mood.key] ? sheet.mood : null;
+    var turn = Number(opts.turn) || 0;
+    var want = Math.max(0, Math.min(3, Math.round(Number(level) || 0)));
+    var name = sheet.name;
+    var describe = function (m) { return RP.moodIcon(m) + ' ' + name + ' — ' + RP.moodLabel(m) + (m.note ? ' (' + m.note + ')' : ''); };
+    if (key === 'calm' || !key) {
+      if (!cur) return '';
+      if (opts.set || cur.level <= 1) { delete sheet.mood; return '😶 ' + name + ' settles'; }
+      sheet.mood = { key: cur.key, level: cur.level - 1, note: cur.note, held: 0, at: turn };
+      return describe(sheet.mood) + ' — easing';
+    }
+    if (!RP.MOODS[key]) return '';
+    if (!want) want = 2;
+    if (opts.set) {
+      sheet.mood = { key: key, level: Math.max(1, want), note: clip(note, 80), held: 0, at: turn };
+      return describe(sheet.mood);
+    }
+    var shock = Boolean(opts.jump) || want >= 3;
+    if (!cur) {
+      sheet.mood = { key: key, level: shock ? 2 : 1, note: clip(note, 80), held: 0, at: turn };
+      return describe(sheet.mood);
+    }
+    if (cur.key === key) {
+      var next = Math.min(3, cur.level + (shock ? 2 : 1));
+      if (want < cur.level && !shock) next = cur.level;        // a smaller word does not cool it; the turns do
+      var moved = next !== cur.level;
+      sheet.mood = { key: key, level: next, note: clip(note || cur.note, 80), held: 0, at: turn };
+      return moved ? describe(sheet.mood) + (next === 3 ? ' — overwhelming' : ' — building') : '';
+    }
+    if (shock) {
+      sheet.mood = { key: key, level: 2, note: clip(note, 80), held: 0, at: turn };
+      return describe(sheet.mood) + ' — ' + RP.moodLabel(cur) + ' no longer';
+    }
+    // The standing feeling resists: it loses a step, and only when it is
+    // spent does the new one take the room.
+    if (cur.level > 1) {
+      sheet.mood = { key: cur.key, level: cur.level - 1, note: cur.note, held: 0, at: turn };
+      return describe(sheet.mood) + ' — ' + key + ' pulling at it';
+    }
+    sheet.mood = { key: key, level: 1, note: clip(note, 80), held: 0, at: turn };
+    return describe(sheet.mood) + ' — the ' + cur.key + ' gone';
+  };
+
+  /** Feelings fade when nothing feeds them: a step off after MOOD_FADE
+   *  quiet turns, calm at 0. Called once a turn with the conditions.
+   *  Returns the lines worth saying (only the ones that end). */
+  RP.tickMoods = function (room, turn) {
+    var lines = [];
+    Object.keys((room && room.states) || {}).forEach(function (id) {
+      var sheet = room.states[id];
+      if (!sheet || sheet.present === false || !sheet.mood) return;
+      if (!RP.MOODS[sheet.mood.key]) { delete sheet.mood; return; }
+      if (turn !== undefined && sheet.mood.at === turn) return;      // fed this turn
+      sheet.mood.held = (Number(sheet.mood.held) || 0) + 1;
+      if (sheet.mood.held < RP.MOOD_FADE) return;
+      sheet.mood.held = 0;
+      sheet.mood.level = (Number(sheet.mood.level) || 1) - 1;
+      if (sheet.mood.level <= 0) {
+        lines.push('😶 ' + sheet.name + ' settles — the ' + sheet.mood.key + ' is spent');
+        delete sheet.mood;
+      }
+    });
+    return lines;
+  };
+
+  // How a feeling shows in prose, for the turns the model files nothing.
+  var MOOD_CUES = {
+    anger: /\b(?:bellows?|bellowed|snarls?|snarled|growls?|growled|snaps?\s+(?:at|back)|spits?\s+(?:out|the\s+words)|roars?|roared|barks?|barked|seeth(?:es|ing)|glares?|glared|glowers?|fum(?:es|ing)|hiss(?:es|ed)|through\s+(?:gritted|clenched)\s+teeth|clench(?:es|ed)\s+(?:his|her|their)\s+(?:fists?|jaw)|slams?\s+(?:a|his|her|their)\s+(?:fist|hand|palm)|scowls?|scowled|jabs?\s+a\s+finger|shouts?|shouted|yells?|yelled|snarl|furious|fury|rage|livid|seething|angry|GET\s+OUT|SHUT\s+UP)\b/,
+    fear: /\b(?:trembl(?:es|ing|ed)|shiver(?:s|ing|ed)|flinch(?:es|ed)|whimper(?:s|ed)|backs?\s+away|backed\s+away|swallows?\s+hard|stammer(?:s|ed|ing)|goes\s+pale|went\s+pale|blanch(?:es|ed)|freez(?:es|ing)\s+(?:up|in\s+place)|afraid|fear|terrified|terror|panic(?:s|ked|king)?|scared|nervous(?:ly)?|glanc(?:es|ing)\s+at\s+the\s+(?:door|exit|window)|heart\s+(?:hammering|pounding|racing)|breath\s+catch(?:es|ing)|dread|cower(?:s|ed|ing))\b/,
+    joy: /\b(?:laughs?|laughed|laughing|grins?|grinned|grinning|beams?|beamed|beaming|chuckl(?:es|ed|ing)|giggl(?:es|ed|ing)|whoops?|delighted|delight|happy|happily|glee(?:ful)?|cheers?|cheered|lights?\s+up|lit\s+up|claps?\s+(?:his|her|their)\s+hands|brightens?|brightened|elated|thrilled)\b/,
+    grief: /\b(?:sobs?|sobbed|sobbing|weeps?|wept|weeping|tears?\s+(?:well|spill|run|roll|slide)|cries|cried|crying|mourns?|mourning|grief|grieving|sad(?:ly|ness)?|hollow(?:ly)?|stares?\s+at\s+nothing|voice\s+(?:breaks|cracks|catches)|slumps?|slumped|heartbroken|miss(?:es|ed)\s+(?:him|her|them)\b|wipes?\s+(?:his|her|their)\s+eyes)\b/,
+    shame: /\b(?:flush(?:es|ed|ing)|blush(?:es|ed|ing)|redden(?:s|ed|ing)|looks?\s+away|looked\s+away|can(?:not|'t)\s+meet\s+(?:his|her|their|your)\s+eyes?|ashamed|shame|embarrass(?:ed|ment)|mumbl(?:es|ed|ing)|sheepish(?:ly)?|hangs?\s+(?:his|her|their)\s+head|apologi[sz](?:es|ed|ing)|mortified|humiliat(?:ed|ion))\b/,
+    disgust: /\b(?:wrinkl(?:es|ed|ing)\s+(?:his|her|their)\s+nose|recoils?|recoiled|grimac(?:es|ed|ing)|disgust(?:ed|ing)?|revolt(?:ed|ing)|sneers?|sneered|curls?\s+(?:his|her|their)\s+lip|gags?|gagged|retch(?:es|ed)|contempt|loath(?:es|ing)|repuls(?:ed|ive))\b/,
+    surprise: /\b(?:blinks?|blinked|gapes?|gaped|jaw\s+drops?|eyes?\s+widen(?:s|ed)?|startled|stunned|gasps?|gasped|surprised?|shock(?:ed)?|astonish(?:ed|ment)|does\s+a\s+double\s+take|stares?,?\s+open-mouthed|wait,?\s+what)\b/,
+    affection: /\b(?:softens?|softened|squeez(?:es|ed|ing)\s+(?:his|her|their|your)\s+(?:hand|shoulder|arm)|tender(?:ly|ness)?|gently|fond(?:ly|ness)?|warmly|smiles?\s+softly|pulls?\s+(?:him|her|them|you)\s+(?:close|in)|kiss(?:es|ed)|hugs?|hugged|embrac(?:es|ed)|my\s+dear|strok(?:es|ed|ing)\s+(?:his|her|their|your)\s+hair|protective(?:ly)?)\b/,
+    suspicion: /\b(?:narrows?\s+(?:his|her|their)\s+eyes|eyes\s+narrow(?:ed|ing)?|suspicious(?:ly)?|suspicion|wary|warily|studies\s+(?:him|her|them|you)|do(?:es)?n[’']?t\s+trust|watch(?:es|ing)\s+(?:him|her|them|you)\s+(?:carefully|closely)|guarded|sidelong|what\s+are\s+you\s+(?:really\s+)?after|why\s+would\s+you)\b/,
+    pride: /\b(?:smirks?|smirked|smirking|puffs?\s+(?:out\s+)?(?:his|her|their)\s+chest|proud(?:ly)?|smug(?:ly)?|triumphant(?:ly)?|preens?|preened|struts?|strutted|told\s+you\s+so|crows?|crowed|gloats?|gloated|chin\s+(?:up|lifted|raised))\b/,
+  };
+
+  /** What a turn's prose says its speaker feels: the feeling with the
+   *  most cues, two at least, or one strong word. Sentences that are about
+   *  somebody else in the scene (named, and the speaker is not) are
+   *  skipped, so "Sans looks terrified" is not Wario afraid.
+   *  Returns { key, note } or null. */
+  RP.moodScan = function (text, speakerName, others) {
+    var raw = String(text || '').replace(/(?:\[\[|\{\{)[^\]\}\n]*(?:\]\]|\}\}|\]\}|\}\])/g, ' ');
+    if (!raw.trim()) return null;
+    var me = String(speakerName || '').toLowerCase().split(/\s+/)[0];
+    var them = (others || []).map(function (n) { return String(n || '').toLowerCase().split(/\s+/)[0]; })
+      .filter(function (n) { return n && n.length > 2 && n !== me; });
+    var score = {}, sample = {};
+    raw.split(/\n+|[.!?]+["\u201d\u2019)*_]*\s+/).forEach(function (sentence) {
+      var low = sentence.toLowerCase();
+      var aboutOther = them.some(function (n) { return new RegExp('\\b' + n.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\b').test(low); }) &&
+        !(me && new RegExp('\\b' + me.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\b').test(low)) && !/\bI\b|\bmy\b/.test(sentence);
+      if (aboutOther) return;
+      Object.keys(MOOD_CUES).forEach(function (key) {
+        var re = new RegExp(MOOD_CUES[key].source, 'gi');
+        var m, n = 0;
+        while ((m = re.exec(sentence))) { n++; if (!sample[key]) sample[key] = m[0]; if (n > 6) break; }
+        if (n) score[key] = (score[key] || 0) + n;
+      });
+    });
+    var best = '', bestN = 0;
+    Object.keys(score).forEach(function (k) { if (score[k] > bestN) { best = k; bestN = score[k]; } });
+    if (!best) return null;
+    var strong = /furious|terrified|sobs?|sobbing|weeps?|wept|heartbroken|elated|mortified|humiliat|revolt|stunned|livid|panic|rage|smirk|gloat/i.test(sample[best] || '');
+    if (bestN < 2 && !strong) return null;
+    return { key: best, note: clip(String(sample[best] || '').toLowerCase(), 40) };
+  };
+
+  /** An unattended turn: the reader is in the other scene, and this one
+   *  moves on its own for one beat. With `self`, the character the reader
+   *  plays here acts for themselves — small, in character, reversible. */
+  RP.liveBlock = function (room, speaker, self) {
+    if (!room) return '';
+    var playing = RP.playerCharacter(room);
+    var out = 'MEANWHILE, UNATTENDED \u2014 the reader is in the other scene right now and is not here to be answered. ' +
+      'This scene moves on its own for ONE beat: something small and true happens \u2014 a line, a move, a sound, a decision ' +
+      'that was coming anyway \u2014 the kind of thing the other scene could hear of later. Do not address the reader, do not ' +
+      'wait for them, and do not resolve anything they would want to be present for.';
+    if (self && playing && speaker && speaker.id === playing.id) {
+      out += '\nThe reader usually plays ' + playing.name + ' and has stepped away from this scene: this turn ' + playing.name +
+        ' acts for themselves \u2014 in character, small and reversible: a remark, a move, a look, a thing picked up. No big decisions, ' +
+        'nothing they could not walk back, no leaving, no promises made in their name. The reader takes ' + playing.name + ' back next turn.';
+    }
+    return out;
+  };
+
+  /** The reader's own mood, set by hand on their sheet: it does not write
+   *  their words, it colours how the world reads what they do. Nothing
+   *  when they are calm. */
+  RP.playerMoodBlock = function (room) {
+    if (!room || room.mechanics === 'off') return '';
+    var you = (room.states || {})[RP.playerSheetId(room)];
+    var mood = you && you.mood;
+    if (!mood || !RP.MOODS[mood.key]) return '';
+    var level = Math.max(1, Math.min(3, Number(mood.level) || 1));
+    var READ = {
+      anger: 'a pick-up is a grab, a question is a demand, a step is a stride, a joke has an edge',
+      fear: 'a look is a glance over the shoulder, a question is a plea, a step is a backward one',
+      joy: 'a greeting is warm, a risk is taken lightly, a refusal is laughed off',
+      grief: 'a question trails off, a hand rests on things, every answer is short and far away',
+      shame: 'eyes stay down, names are avoided, every sentence apologises for itself',
+      disgust: 'a handshake is refused, food goes untouched, every answer is clipped',
+      surprise: 'questions come in fragments, things are picked up and looked at twice',
+      affection: 'distance closes, names are used, a touch comes before a word',
+      suspicion: 'a question is a test, a gift is checked, hands are watched',
+      pride: 'a success is announced, a correction is offered, the credit is taken',
+    };
+    return 'THE PLAYER\u2019S MOOD \u2014 ' + you.name + ' is ' + RP.moodLabel(mood) + ' (' + mood.key + ' ' + level + '/3' +
+      (mood.note ? ': ' + mood.note : '') + '). Read what they do through it: ' + READ[mood.key] + '. The cast can see' +
+      ' it on them and answers THAT, not the polite version. Never decide their words \u2014 colour the world\u2019s' +
+      ' reading of them' + (level >= 3 ? ', and at this pitch let it cost them something when it would.' : '.');
+  };
+
+  /** The player's own body, as a standing limit on what they can attempt.
+   *  Nothing when they are whole and unflagged. */
+  RP.playerBodyBlock = function (room) {
+    if (!room || room.mechanics === 'off') return '';
+    var you = (room.states || {})[RP.playerSheetId(room)];
+    if (!you) return '';
+    var hp = you.hp && you.hp.max ? you.hp.value / you.hp.max : 1;
+    var flags = Object.keys(you.flags || {}).map(function (f) {
+      var cond = you.flags[f] && typeof you.flags[f] === 'object' ? you.flags[f] : {};
+      return f.replace(/_/g, ' ') + (cond.note ? ' (' + cond.note + ')' : '');
+    });
+    if (hp > 0.65 && !flags.length) return '';
+    var rules = [];
+    BODY_LIMITS.forEach(function (rule) {
+      if (flags.some(function (f) { return rule.why.test(f); }) || rule.why.test(String(you.status || ''))) rules.push(rule.part);
+    });
+    var state = you.hp && you.hp.value <= 0 ? 'DOWN at 0 HP \u2014 a word, a crawl, a hand; nothing more'
+      : hp <= 0.35 ? 'BADLY HURT at ' + you.hp.value + '/' + you.hp.max + ' HP \u2014 no sprinting, climbing, vaulting, hauling or long fights; every move shows it'
+      : hp <= 0.65 ? 'HURT at ' + you.hp.value + '/' + you.hp.max + ' HP \u2014 slower, favouring the wound; a big effort costs breath and shows'
+      : 'marked';
+    return 'THE PLAYER\u2019S BODY \u2014 ' + you.name + ' is ' + state +
+      (flags.length ? '; in play on them: ' + flags.join('; ') : '') +
+      (rules.length ? '. What ' + (rules.length === 1 ? rules[0] : rules.join(' and ')) + ' cannot do, they cannot do' : '') +
+      '. What they attempt is bound by this: when they try past it, the body fails them before the world does, the people here see it, and you file the cost.';
+  };
+
+  /** The body outranks the will. A character at 28 HP who is "battered"
+   *  does not vault out of a wreck swinging a wrench \u2014 or if he does, he
+   *  pays for it in the same turn. Nothing when they are whole. */
+  RP.bodyBlock = function (room, char) {
+    if (!room || room.mechanics === 'off' || !char) return '';
+    var sheet = (room.states || {})[char.id];
+    if (!sheet) return '';
+    var hp = sheet.hp && sheet.hp.max ? sheet.hp.value / sheet.hp.max : 1;
+    var flags = Object.keys(sheet.flags || {}).map(function (f) {
+      var cond = sheet.flags[f] && typeof sheet.flags[f] === 'object' ? sheet.flags[f] : {};
+      return f.replace(/_/g, ' ') + (cond.note ? ' (' + cond.note + ')' : '');
+    });
+    var spentOut = Boolean(sheet.mp && sheet.mp.max && sheet.mp.value <= 0);
+    if (hp > 0.65 && !flags.length && !spentOut) return '';
+    var name = char.name;
+    var state;
+    if (sheet.hp && sheet.hp.value <= 0) {
+      state = 'DOWN at 0 HP: barely conscious. A word, a crawl, a hand that will not close \u2014 nothing more. They cannot fight, run or lead.';
+    } else if (hp <= 0.35) {
+      state = 'BADLY HURT at ' + sheet.hp.value + '/' + sheet.hp.max + ' HP. Write the body first and the will second: slow and crooked, favouring the hurt side,' +
+        ' breath short; they cannot sprint, swing hard, haul themselves through a window or shout for long without paying in' +
+        ' breath or blood. A reckless move at this HP is one they feel before they finish it.';
+    } else if (hp <= 0.65) {
+      state = 'HURT at ' + sheet.hp.value + '/' + sheet.hp.max + ' HP: favouring the wound, picking the easier way, flinching from the next blow; a big effort costs breath and shows.';
+    } else {
+      state = 'whole, but not untouched.';
+    }
+    return 'BODY \u2014 ' + name + ' is ' + state +
+      (spentOut ? ' SPENT at 0 Energy: no sprinting, no spells, no big swings \u2014 hands on knees, breath first; anything that' +
+        ' costs effort this turn fails, or is paid for in HP.' : '') +
+      (flags.length ? ' In play on them: ' + flags.join('; ') + ' \u2014 each one shapes what they can do this turn.' : '') +
+      ' Their nature does not override their body: the same person, hurt, is a different turn \u2014 greedy and broken is not greedy' +
+      ' and whole. If they push through anyway, show the cost in this turn and file it ([[HP: ' + name + ' -N]] or [[COND: ' + name + ' \u2026]]).';
+  };
+
+  /** The speaker's own feeling, as an order: it colours the turn. Nothing
+   *  when they are calm — the block costs zero on a quiet sheet. */
+  RP.moodBlock = function (room, char) {
+    if (!room || room.mechanics === 'off' || !char) return '';
+    var sheet = (room.states || {})[char.id];
+    var mood = sheet && sheet.mood;
+    if (!mood || !RP.MOODS[mood.key]) return '';
+    var level = Math.max(1, Math.min(3, Number(mood.level) || 1));
+    return 'MOOD \u2014 ' + char.name + ' is ' + RP.moodLabel(mood) + ' (' + mood.key + ' ' + level + '/3' +
+      (mood.note ? ': ' + mood.note : '') + '). It colours this whole turn \u2014 ' + RP.MOODS[mood.key].show +
+      (level >= 3 ? ' \u2014 and at this pitch it decides what they do, not just how they say it.' : '.') +
+      ' It does not switch off because the subject changes; it eases only if the scene gives it reason.' +
+      ' If this turn moves it, file [[MOOD: ' + char.name + ' \u2026]].';
   };
 
   /** The sheets, as the model sees them. */
@@ -2409,7 +3063,7 @@
       var hurt = s.hp && s.hp.value < s.hp.max;
       var spent = s.mp && s.mp.value < s.mp.max;
       if (s.hp && (full || hurt)) bits.push('HP ' + s.hp.value + '/' + s.hp.max + (s.hp.value === 0 ? ' (down)' : s.hp.value <= s.hp.max * 0.3 ? ' (badly hurt)' : ''));
-      if (s.mp && (full || spent)) bits.push('MP ' + s.mp.value + '/' + s.mp.max);
+      if (s.mp && (full || spent)) bits.push('\u26a1 Energy ' + s.mp.value + '/' + s.mp.max + (s.mp.value === 0 ? ' (spent)' : s.mp.value <= s.mp.max * 0.2 ? ' (nearly spent)' : ''));
       if (full && s.stats) bits.push(RP.statLine(s.stats));
       Object.keys(s.flags || {}).forEach(function (f) {
         var cond = s.flags[f] && typeof s.flags[f] === 'object' ? s.flags[f] : { note: '', turns: 0 };
@@ -2435,6 +3089,10 @@
         }).join('; '));
       }
       if (s.status) bits.push(s.status);
+      if (s.mood && RP.MOODS[s.mood.key]) {
+        bits.push('mood: ' + RP.moodLabel(s.mood) + ' (' + s.mood.key + ' ' + Math.max(1, Math.min(3, Number(s.mood.level) || 1)) + '/3' +
+          (s.mood.note ? ' — ' + s.mood.note : '') + ')');
+      }
       if (!full && !bits.length) { quiet.push(s.name); return ''; }
       return '- ' + s.name + (s.player ? ' (THE PLAYER)' : '') + ': ' + (bits.join(' · ') || 'unharmed, nothing to declare');
     }).filter(Boolean).join('\n');
@@ -2446,7 +3104,8 @@
       'condition with a cost beside it is taking that off them every turn it lasts. Reach for the kit only when\n' +
       'the moment calls for it — never inventory it in prose — and nothing joins a sheet that the scene did not\n' +
       'visibly put there. ⚔🧠🗣🍀 are might, wits, sway and luck, 0–3: they lean on the dice, so play the 0s\n' +
-      'and the 3s, do not recite them.\n' + body;
+      'and the 3s, do not recite them. A mood on a sheet is how that person is right now — play it, and\n' +
+      'play off it.\n' + body;
     if (active.length) {
       out += '\nCONDITIONS IN PLAY — these are not flavour. Each one must shape what its bearer does this turn:\n' +
         active.slice(0, 8).map(function (l) { return '- ' + l; }).join('\n');
@@ -2472,6 +3131,115 @@
       return new RegExp('(^|[^a-z0-9])' + w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '($|[^a-z0-9])', 'i').test(text);
     });
   }
+
+  /* ---- @ mentions: who you mean ----
+   * Type @ in the composer and pick: somebody here, somebody written out,
+   * somebody in the other scene, a thing the lore book filed (the monster
+   * from the hangar), or anyone in the archive. The @ comes out of the
+   * prose before the model sees it; what stays is a block that tells the
+   * model exactly who or what was meant and what the record says about
+   * them — so a monster met in one scene is the same monster when it is
+   * spoken of in the other. */
+  RP.MENTION_KINDS = { here: 'in the scene', away: 'written out of this scene', other: 'in the other scene', book: 'in the lore book', archive: 'in the archive' };
+
+  /** Everything @ could mean in this room, in the order the picker shows:
+   *  here, written out, the other scene, the lore book, the archive. */
+  RP.mentionables = function (state, room, catalog, query) {
+    var q = String(query || '').trim().toLowerCase();
+    var out = [];
+    var seen = {};
+    var push = function (item) {
+      var key = item.kind === 'book' ? 'book:' + item.name.toLowerCase() : item.id;
+      if (seen[key]) return;
+      if (q && item.name.toLowerCase().indexOf(q) < 0 &&
+        !String(item.note || '').toLowerCase().split(/\W+/).some(function (w) { return w && w.indexOf(q) === 0; })) return;
+      seen[key] = true;
+      out.push(item);
+    };
+    if (!room) return out;
+    var other = RP.linkedRoom(state, room);
+    RP.presentCast(room).forEach(function (c) {
+      push({ id: c.id, name: c.name, kind: 'here', roomId: room.id, note: c.title || '', image: c.image || '' });
+    });
+    // Somebody who walked over is in the other scene, not merely written out.
+    if (other) {
+      RP.presentCast(other).forEach(function (c) {
+        push({ id: c.id, name: c.name, kind: 'other', roomId: other.id, note: other.sceneName || other.title || '', image: c.image || '' });
+      });
+    }
+    (room.cast || []).forEach(function (c) {
+      var sheet = room.states && room.states[c.id];
+      if (sheet && sheet.present === false) push({ id: c.id, name: c.name, kind: 'away', roomId: room.id, note: c.title || '', image: c.image || '' });
+    });
+    (((state && state.book) || {}).entries || []).slice().reverse().forEach(function (e) {
+      if (!e || !e.name || e.kind === 'DIARY' || e.kind === 'FACT') return;
+      push({ id: 'book:' + e.id, name: e.name, kind: 'book', roomId: e.roomId || '', note: String(e.kind || '').toLowerCase() + (e.roomTitle ? ' · ' + e.roomTitle : ''), text: e.text || '' });
+    });
+    if (q.length >= 2) {
+      Object.keys(catalog || {}).forEach(function (id) {
+        var c = catalog[id];
+        if (!c || !c.name) return;
+        push({ id: c.id, name: c.name, kind: 'archive', roomId: '', note: c.title || '', image: c.image || '' });
+      });
+    }
+    return out;
+  };
+
+  /** "@Wario, did you see @The Hangar Beast?" → the @ signs come out, the
+   *  people stay. Longest names first, so @Wario Jr. is not read as @Wario.
+   *  A stray @word nobody matched stays as it was typed. */
+  RP.parseMentions = function (text, candidates) {
+    var out = { clean: String(text || ''), mentions: [] };
+    if (out.clean.indexOf('@') < 0) return out;
+    var names = (candidates || []).filter(function (c) { return c && c.name; })
+      .slice().sort(function (a, b) { return b.name.length - a.name.length; });
+    var found = {};
+    names.forEach(function (c) {
+      var safe = c.name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      var re = new RegExp('@\\[?' + safe + '\\]?(?![A-Za-z0-9])', 'gi');
+      if (!re.test(out.clean)) return;
+      out.clean = out.clean.replace(re, c.name);
+      var key = c.kind === 'book' ? 'book:' + c.name.toLowerCase() : c.id;
+      if (!found[key]) { found[key] = true; out.mentions.push({ id: c.id, name: c.name, kind: c.kind, roomId: c.roomId || '' }); }
+    });
+    return out;
+  };
+
+  /** What the model is told about who was meant. Here: nothing beyond the
+   *  sheets (they are in the prompt already). Away, elsewhere, the book or
+   *  the archive: who they are, where they are, and that they are not in
+   *  the room to answer. */
+  RP.pingBlock = function (state, room, mentions, catalog) {
+    var list = (mentions || []).filter(function (m) { return m && m.kind && m.kind !== 'here'; });
+    if (!list.length) return '';
+    var other = RP.linkedRoom(state, room);
+    var lines = list.slice(0, 5).map(function (m) {
+      if (m.kind === 'away') {
+        var sheet = room.states && room.states[m.id];
+        return '- ' + m.name + ' — written out of this scene (not here to hear it or answer)' +
+          (sheet && sheet.hp ? '; last known ' + sheet.hp.value + '/' + sheet.hp.max + ' HP' : '') + '.';
+      }
+      if (m.kind === 'other' && other) {
+        var sheetO = other.states && other.states[m.id];
+        var mood = sheetO && sheetO.mood && RP.MOODS[sheetO.mood.key] ? ', ' + RP.moodLabel(sheetO.mood) : '';
+        var last = RP.meanwhileLines(state, other, 12).filter(function (l) { return l.indexOf(m.name + ':') === 0; }).pop();
+        return '- ' + m.name + ' — in the other scene right now, “' + clip(other.sceneName || other.title, 50) + '”' +
+          (sheetO && sheetO.hp ? ' (' + sheetO.hp.value + '/' + sheetO.hp.max + ' HP' + mood + ')' : '') +
+          (last ? '; last heard there: ' + clip(last, 140) : '') + '. A wall apart: they cannot hear this unless it would carry.';
+      }
+      if (m.kind === 'book') {
+        var entry = (((state && state.book) || {}).entries || []).filter(function (e) { return e && e.name && e.name.toLowerCase() === m.name.toLowerCase(); })[0];
+        return '- ' + m.name + ' — ' + (entry ? String(entry.kind || 'filed').toLowerCase() + ', from the lore book' + (entry.roomTitle ? ' (“' + clip(entry.roomTitle, 40) + '”)' : '') +
+          ': ' + clip(entry.text, 260).replace(/[.\s]+$/, '') : 'spoken of before') + '. The same one, with the same record — not a new thing.';
+      }
+      var rec = catalog && catalog[m.id];
+      return '- ' + m.name + ' — ' + (rec ? (rec.title ? rec.title + '; ' : '') + clip(rec.summary || '', 200) : 'somebody from the archive') +
+        '. Not in this scene: they can be spoken of, not written in, unless the player brings them.';
+    });
+    return 'NAMED BY THE PLAYER — the latest turn points at these by name (@), so there is no doubt who is meant\n' +
+      lines.join('\n') +
+      '\nAnswer about THEM, as filed. Nobody listed here walks in because they were named.';
+  };
 
   /** When the player says "the key", the model is told which key, whose
    *  it is and what is filed against it — the sheets stop being a list it
@@ -2549,9 +3317,35 @@
     return { kind: 'conjured', claim: clip(claim, 40) };
   };
 
-  /** The one-off block a conjured claim earns. Costs nothing until it fires. */
-  RP.conjureBlock = function (claim) {
+  /** Settle a thin-air claim on the page, from the roll, before the model
+   *  is asked anything. A good roll means the thing WAS within reach: it
+   *  lands on the sheet now, in hand, and the model is told so. A bad roll
+   *  means the hand comes up empty. With fate off there is no roll, and
+   *  the model keeps the call. Returns { granted, line } or null. */
+  RP.resolveConjure = function (room, claim, fate) {
+    if (!claim || !fate || fate.granted === undefined) return null;
+    var you = (room.states || {})[RP.PLAYER_ID] || (room.youPlay ? (room.states || {})[room.youPlay] : null);
+    if (!you) return null;
+    if (!fate.granted) return { granted: false, line: '🚫 ' + claim + ' — reached for, not there (' + fate.label.toLowerCase() + ')' };
+    var line = RP.applyChange(you, { kind: 'item', op: '+', name: claim, note: 'found to hand, ' + fate.label.toLowerCase() });
+    if (line) RP.applyChange(you, { kind: 'equip', op: '+', name: claim });
+    return { granted: Boolean(line), line: line ? '🎒 ' + claim + ' — it was within reach after all; on the sheet, in hand' : '🚫 ' + claim + ' — no room in the pack for it' };
+  };
+
+  /** The one-off block a conjured claim earns. Costs nothing until it
+   *  fires. `verdict` is the page's settlement when the dice are on. */
+  RP.conjureBlock = function (claim, verdict) {
     if (!claim) return '';
+    if (verdict && verdict.granted) {
+      return 'OUT OF THIN AIR — the player reached for \u201c' + claim + '\u201d, which was NOT on their sheet. The dice say it was\n' +
+        'within reach after all: it is on their sheet now, in hand. Show where it came from in one plain clause (a shelf, a\n' +
+        'fallen guard, a pocket they forgot) and carry on; the ruling above says how the attempt itself goes.';
+    }
+    if (verdict && verdict.granted === false) {
+      return 'OUT OF THIN AIR — the player claims \u201c' + claim + '\u201d; nothing like it is on their sheet, and the dice say it is\n' +
+        'not there. The hand comes up EMPTY. Nobody hands them one. Write the moment the bluff fails inside the fiction —\n' +
+        'the grab at nothing, the look on the other face — and never scold the player for trying.';
+    }
     return 'OUT OF THIN AIR — the player claims \u201c' + claim + '\u201d; nothing like it is on their sheet.\n' +
       'They do not have it. If the scene has visibly put one within their reach, hand it to them on the record\n' +
       'with [[ITEM: \u2026]] and let it work. Otherwise the claim fails inside the fiction — an empty hand, a bluff\n' +
@@ -2570,7 +3364,7 @@
    *      missed. It may only keep the ledger — never invent events. */
 
   RP.UPKEEP_EVERY = 6;              // played turns between reviews; 0 turns it off
-  RP.UPKEEP_KINDS = ['hp', 'mp', 'flag', 'item', 'use', 'equip', 'status', 'counter'];
+  RP.UPKEEP_KINDS = ['hp', 'mp', 'flag', 'item', 'use', 'equip', 'status', 'counter', 'mood'];
 
   /** "presses the lantern into your hands", "hands you a brass key" —
    *  a grant the reply narrated at the player. Deliberately narrow: an
@@ -2585,6 +3379,260 @@
     return out.filter(function (name) {
       return name.length >= 3 && !NOT_KIT.test(name);
     }).slice(0, 2);
+  };
+
+  /* ------------------------------------------------------------------ *
+   * the hurt ledger — damage filed from the prose, no model call
+   *
+   * A helicopter slammed into the pavement and nobody lost a point: the
+   * model narrated the crash and filed nothing. The quartermaster could
+   * catch it, at the price of a second call. This net is free: the prose
+   * is read for what hurts, and whoever it reaches loses a share of their
+   * max HP — so a 10-HP sheet and a 100-HP one bleed alike. The model's
+   * own [[HP:]] for a person always wins over the page's guess for them.
+   * ------------------------------------------------------------------ */
+
+  // What hurts, by how much (shares of max HP), and WHO it lands on:
+  // 'all' reaches everyone in the scene (a crash, a blast, a collapse);
+  // 'object' hits the one named or pointed at after the verb; 'subject'
+  // hits the one doing the falling; 'owner' hits whoever's arm it is.
+  // Transitive verbs refuse a plain article after them, so "kicks the
+  // door open" and "shoots the lock" are nobody's wound; a crash needs a
+  // vehicle in the sentence, so a slammed door and a crashing wave are
+  // not a helicopter.
+  var HURT_NO_OBJ = '(?!\\s+(?:the|a|an|at|out|through|off|into|up|down|open|shut|over|back|away|aside|it|its|his|her|their|my|your|wildly|blindly|air)\\b)';
+  var HURT_NO_THING = '(?!\\s+(?:the|a|an|at|out|through|off|into|up|down|open|air|nothing|only|wood|cloth|leather|stone|metal|empty)\\b)';
+  var HURT_VEHICLE = /\b(?:helicopter|chopper|heli|plane|aircraft|airplane|aeroplane|airship|zeppelin|jet|glider|balloon|shuttle|craft|vessel|ship|boat|skiff|raft|canoe|ferry|yacht|submarine|car|truck|lorry|van|bus|cab|taxi|coach|jeep|tank|train|locomotive|carriage|tram|trolley|wagon|cart|sled|sleigh|bike|bicycle|motorcycle|motorbike|scooter|pod|hull|cockpit|fuselage|elevator|lift|gondola|cable car|coaster|kart|buggy|chariot|mech|walker|dropship|lander|capsule|rocket|wreck)\b/i;
+  var HURT_SURFACE = 'wall|dashboard|glass|window|windscreen|windshield|table|floor|door|bulkhead|console|ground|pavement|rocks?|railing|bars|stone|deck|bar|pillar|post|tree|counter|shelves|shelving|cabinet|crates?|barrels?|fence|gate|wreckage|hull|side of the \\w+';
+  var HURT_RULES = [
+    { tier: 'grave', who: 'all', cause: 'the crash', pre: HURT_VEHICLE,
+      re: /\b(?:crash(?:es|ed|ing)?|slams?|slammed|smash(?:es|ed)|plough(?:s|ed)?|plows?|plowed|careens?|careened|hurtles?|hurtled|nose.?dives?|nosedived|pancakes?|pancaked|ditch(?:es|ed)|(?:goes|went|comes|came)\s+down\s+hard|hits?\s+the\s+(?:ground|water|tarmac|trees|rocks|pavement)|strikes?\s+the\s+(?:ground|water|tarmac|trees|rocks|pavement))\b(?!\s+(?:the|a|an|his|her|their|my|your|them|him|me|us|course|shut|open)\b)/i },
+    { tier: 'grave', who: 'all', cause: 'the crash',
+      re: /\b(?:impact\s+(?:is|was)?\s*(?:a\s+)?(?:violent|brutal|savage|bone|tremendous|enormous|sickening)|impact\s+(?:throws?|hurls?|slams?|flings?|tosses?|pitches?|knocks?)\s+(?:everyone|everybody|everything|them|us|all|him|her|you|me)|(?:throws?|hurls?|slams?|flings?|pitches?)\s+(?:everyone|everybody|everything|us\s+all|them\s+all|the\s+\w+\s+of\s+(?:them|us))\s+(?:forward|back|backward|sideways|against|into|across|to\s+the|off))\b/i },
+    { tier: 'grave', who: 'all', cause: 'the blast',
+      re: /\b(?:explo(?:des|ded)|detonat(?:es|ed)|(?:bomb|grenade|charge|mine|device|shell|barrel|tank|car|truck|boiler|reactor|cannon|powder|magazine|cache)\s+(?:\w+\s+)?(?:goes|went)\s+off|(?:explosion|detonation|blast|shockwave|fireball)\s+(?:\w+\s+)?(?:rips?|tears?|throws?|hurls?|hits?|slams?|knocks?|flattens?|catches|engulfs?|takes?|rocks?|shakes?|erupts?|lifts?|blows|swallows?|fills?|guts?|levels?))\b/i },
+    { tier: 'grave', who: 'all', cause: 'the collapse',
+      re: /\b(?:roof|ceiling|wall|tunnel|building|floor|tower|bridge|mine|scaffold|balcony|stairs|staircase|gallery|cave|shaft|house|barn|church|dome|arch|walkway|pier|platform)\s+(?:\w+\s+)?(?:collapses|collapsed|caves?\s+in|caved\s+in|comes?\s+down|came\s+down|gives?\s+way|gave\s+way|buckles|buckled|folds?\s+in|falls?\s+in|fell\s+in)\b/i },
+    { tier: 'grave', who: 'subject', cause: 'the fall',
+      re: /\b(?:falls?|fell|plunges?|plunged|drops?|dropped|tumbles?|tumbled)\s+(?:\w+\s+){0,3}?(?:storeys|stories|floors|from\s+the\s+(?:roof|cliff|tower|bridge|sky|window|ledge|rigging|mast|balcony|rooftop|wall)|off\s+the\s+(?:roof|cliff|bridge|tower|ledge|balcony|rooftop|wall)|down\s+the\s+(?:shaft|cliff|ravine|stairs|stairwell|well)|into\s+the\s+(?:ravine|gorge|chasm|rocks|pit|void))\b/i },
+    { tier: 'grave', who: 'subject', cause: 'the crash',
+      re: /\b(?:thrown|hurled|flung)\s+(?:clear\s+)?(?:from|out\s+of)\s+the\s+(?:wreck(?:age)?|cockpit|cab|car|saddle|plane|helicopter|carriage|truck|window)\b/i },
+    { tier: 'heavy', who: 'object', cause: 'the blade',
+      re: new RegExp('\\b(?:stabs?|stabbed|slash(?:es|ed)|impal(?:es|ed)|guts|gutted|skewers?|skewered|runs?\\s+(?=(?:him|her|them|you|me)\\s+through))' + HURT_NO_OBJ + '\\b', 'i') },
+    { tier: 'heavy', who: 'object', cause: 'the blade',
+      re: new RegExp('\\b(?:blade|axe|hatchet|sword|spear|arrow|bolt|dagger|knife|bayonet|machete|steel|edge|point)\\s+(?:bites|sinks|opens|finds|tears|lands|takes|hits|buries|catches|punches|goes)' + HURT_NO_THING + '\\b', 'i') },
+    { tier: 'heavy', who: 'object', cause: 'the shot',
+      re: new RegExp('\\b(?:shoots?)' + HURT_NO_OBJ + '\\b', 'i') },
+    { tier: 'heavy', who: 'object', cause: 'the shot',       // "shot" the verb, not the drink or the long one
+      re: new RegExp('\\b(?:[A-Z][\\w\'-]+|he|she|they|I|you|we|who|is|was|are|were|gets?|got|been|being|and|then|got)\\s+shot' + HURT_NO_OBJ + '(?!\\s+(?:of|glass|at)\\b)\\b') },
+    { tier: 'heavy', who: 'object', cause: 'the shot',
+      re: new RegExp('\\b(?:bullet|round|slug|buckshot|shrapnel)\\s+(?:hits|tears|rips|catches|takes|punches|finds|strikes|goes|opens)' + HURT_NO_THING + '\\b', 'i') },
+    { tier: 'heavy', who: 'subject', cause: 'the shot',
+      re: /\b(?:takes?|took|catches|caught)\s+(?:a|the|two|three|another)\s+(?:bullet|round|slug|arrow|bolt|blade|knife)\b/i },
+    { tier: 'heavy', who: 'subject', cause: 'the beating',
+      re: /\b(?:takes?|took)\s+(?:a|the|another)\s+(?:beating|hammering|pounding|thrashing)|beaten\s+(?:badly|bloody|senseless|half\s+to\s+death)|knocked\s+(?:out|cold|senseless|unconscious|flat|sprawling)\b/i },
+    { tier: 'heavy', who: 'object', cause: 'the beating',
+      re: new RegExp('\\b(?:knocks?\\s+(?=(?:him|her|them|you|me)\\s+(?:out|cold|senseless|flat|down|sprawling))|club(?:s|bed)|bludgeons?|bludgeoned|pummels?|pummeled|pummelled)' + HURT_NO_OBJ + '\\b', 'i') },
+    { tier: 'heavy', who: 'object', cause: 'the throw',
+      re: new RegExp('\\b(?:throws?|hurls?|flings?|slams?|smashes|drives?|rams?)\\s+(?=(?:him|her|them|you|me|\\w+)\\s+(?:\\w+\\s+)?(?:through|against|into)\\s+(?:the|a)\\s+(?:' + HURT_SURFACE + '))', 'i') },
+    { tier: 'heavy', who: 'subject', cause: 'the throw',
+      re: new RegExp('\\b(?:go(?:es)?|went|flies|flew|thrown|hurled|flung|slammed|smashed|put|sent|crash(?:es|ed)|smash(?:es|ed)|slams?)\\s+(?:\\w+\\s+)?(?:through|against|into)\\s+(?:the|a)\\s+(?:' + HURT_SURFACE + ')\\b', 'i') },
+    { tier: 'heavy', who: 'owner', cause: 'the break',
+      re: /\b(?:breaks?|broke|snaps?|snapped|shatters?|shattered|cracks?|cracked|dislocates?|dislocated)\s+(his|her|their|your|my)\s+(?:arm|leg|ribs?|nose|jaw|wrist|ankle|collarbone|skull|hand|fingers?|knee|shoulder|hip|elbow|spine|back)\b/i },
+    { tier: 'heavy', who: 'object', cause: 'the crush',
+      re: new RegExp('\\b(?:crush(?:es|ed)|tramples?|trampled|flattens?|flattened)' + HURT_NO_OBJ + '\\b', 'i') },
+    { tier: 'heavy', who: 'object', cause: 'the mauling',
+      re: new RegExp('\\b(?:mauls?|mauled|gores?|gored|savages?|savaged)' + HURT_NO_OBJ + '\\b', 'i') },
+    { tier: 'heavy', who: 'object', cause: 'the fire',
+      re: /\b(?:engulf(?:s|ed)|(?:flames?|fire)\s+(?:swallows?|takes?|catches|wraps?|climbs?))\b/i },
+    { tier: 'heavy', who: 'subject', cause: 'the fire',
+      re: /\b(?:catches|caught)\s+fire|burns?\s+(?:badly|through\s+to\s+the)\b/i },
+    { tier: 'light', who: 'object', cause: 'the blow',
+      re: new RegExp('\\b(?:punch(?:es|ed)|kicks?|kicked|slaps?|slapped|shoves?|shoved|clips?|clipped|elbowed|headbutts?|headbutted|backhands?|backhanded|cuffs?|cuffed|decked|wallops?|walloped|thumps?|thumped|clouts?|clouted|kneed|(?:hits?|strikes?|struck|catches|caught|lands|connects)\\s+(?:\\w+\\s+){0,2}?(?:in|across|on|to)\\s+the\\s+(?:face|jaw|head|ribs|gut|stomach|mouth|nose|shoulder|back|chest|temple|knee|thigh|arm|ear|eye|cheek|chin)|(?:hits?|strikes?|struck)\\s+(?=(?:him|her|them|you|me)\\b))' + HURT_NO_OBJ + '\\b', 'i') },
+    { tier: 'light', who: 'object', cause: 'the bite',
+      re: new RegExp('\\b(?:bites?|nips?|nipped|bit\\s+(?=(?:him|her|them|you|me|into)\\b))' + HURT_NO_OBJ + '\\b', 'i') },
+    { tier: 'light', who: 'object', cause: 'the burn',
+      re: new RegExp('\\b(?:scalds?|scalded|singes?|singed|burns?)' + HURT_NO_OBJ + '\\b', 'i') },
+    { tier: 'light', who: 'owner', cause: 'the burn',
+      re: /\b(?:burns?|burned|burnt|scalds?|scalded|singes?|singed|blisters?)\s+(his|her|their|your|my)\s+(?:hand|arm|palm|fingers?|face|cheek|leg|foot|skin|sleeve|hair|brow|back|neck)\b/i },
+    { tier: 'light', who: 'owner', cause: 'the cut',
+      re: /\b(?:cuts?|slices?|sliced|nicks?|nicked|gashes|gashed|scrap(?:es|ed)|graz(?:es|ed)|skins?|skinned|splits?|bloodies|bloodied|bruis(?:es|ed)|wrenches?|wrenched|twists?|twisted|sprains?|sprained|jars?|jarred)\s+(his|her|their|your|my)\s+(?:hand|arm|palm|cheek|lip|brow|leg|knee|finger|scalp|shin|elbow|knuckles|ankle|wrist|shoulder|ribs?|nose|forehead|chin|neck|side|back|thigh|foot|heel)\b/i },
+    { tier: 'light', who: 'subject', cause: 'the fall',
+      re: /\b(?:stumbles?\s+and\s+falls?|stumbled\s+and\s+fell|falls?\s+(?:hard|flat|badly|heavily)|fell\s+(?:hard|badly|heavily)|goes\s+down\s+hard|went\s+down\s+hard|takes?\s+(?:a|the)\s+(?:tumble|spill|fall)|took\s+(?:a|the)\s+(?:tumble|spill|fall))\b/i },
+    { tier: 'light', who: 'subject', cause: 'the blow',
+      re: /\b(?:takes?|took|catches|caught|eats?|ate)\s+(?:a|the|another)\s+(?:punch|kick|slap|blow|hit|elbow|knee|fist|boot|right|left|hook|jab|uppercut|headbutt|backhand)\b/i },
+  ];
+  var HURT_SHARE = { grave: [0.25, 0.45], heavy: [0.12, 0.22], light: [0.04, 0.09] };
+  // A sentence that is not a hit after all: a miss, a memory, a threat, a
+  // figure of speech, something happening far away.
+  var HURT_NOT = /\b(?:almost|nearly|barely|narrowly|just\s+misses|misses|missed|dodges?|dodged|ducks?|ducked|sidesteps?|sidestepped|parries|parried|blocks?|blocked|unharmed|unhurt|unscathed|would\s+have|could\s+have|might\s+have|should\s+have|threatens?\s+to|threatening\s+to|about\s+to|going\s+to|if\s+(?:he|she|they|you|it|we|i)\b|imagine|remember(?:s|ed|ing)?|memory|memories|dream(?:s|t|ed|ing)?|nightmare|had\s+(?:crashed|exploded|fallen|stabbed|shot|collapsed)|years?\s+ago|weeks?\s+ago|last\s+(?:time|week|year|night|month)|used\s+to|the\s+story\s+of|tale|legend|rumou?r|in\s+the\s+distance|far\s+(?:off|away|below)|miles\s+away|on\s+the\s+horizon|across\s+the\s+(?:city|valley|bay|river|water)|elsewhere|on\s+the\s+(?:radio|news|screen|television|tv|wire)|footage|pretends?|pretending|mimes?|jokes?|joking|as\s+if|like\s+(?:a|an|the)\s+(?:crash|blast|bullet|blade|bomb)|crash\s+course|market\s+crash(?:es|ed)?|(?:waves?|surf|thunder|cymbals?|music|sound|noise|applause|chord|server|system|program|computer|stock|economy|prices?)\s+(?:\w+\s+)?crash|crash(?:es|ed|ing)?\s+(?:of\s+)?(?:thunder|waves|cymbals|applause|music)|crash(?:es|ed)?\s+(?:the|a)\s+(?:party|meeting|wedding|funeral|summit)|crashes?\s+(?:on|onto|into)\s+(?:the\s+)?(?:couch|sofa|bed|chair|armchair|cot|bunk)|falls?\s+asleep|fell\s+asleep)\b/i;
+  var HURT_ALL = /^\s+(?:\w+\s+)?(?:everyone|everybody|all\s+of\s+(?:them|us|you)|both\s+of\s+(?:them|us|you)|the\s+(?:two|three|four|five)\s+of\s+(?:them|us|you)|the\s+(?:whole|entire)\s+(?:cabin|cockpit|crew|party|group|room|car|carriage))\b/i;
+  var HURT_BRACE = /\b(?:brac(?:e|es|ed|ing)|hold(?:s|ing)?\s+on(?:to)?|held\s+on(?:to)?|hang(?:s|ing)?\s+on(?:to)?|hung\s+on(?:to)?|grip(?:s|ped|ping)?\s+(?:the|onto)|strapped|seat\s?belts?|harness|cushion(?:s|ed)?|curl(?:s|ed)?\s+(?:up|into\s+a\s+ball)|cover(?:s|ed|ing)?\s+(?:my|his|her|their|your)\s+head|shield(?:s|ed)?|tuck(?:s|ed)?\s+and\s+roll|roll(?:s|ed)?\s+with|dives?\s+(?:for|behind)\s+cover|dived\s+behind|behind\s+cover|take(?:s)?\s+cover|took\s+cover|duck(?:s|ed)?\s+behind|lands?\s+on\s+(?:his|her|their|my|your)\s+feet|breaks?\s+(?:the|my|his|her|their|your)\s+fall)\b/i;
+  var HURT_SCALE = { off: 0.5, gentle: 0.6, normal: 1, harsh: 1.3 };
+
+  RP.bracedIn = function (text) { return HURT_BRACE.test(String(text || '')); };
+
+  function hurtSentences(text) {
+    return String(text || '')
+      .replace(/(?:\[\[|\{\{)[^\]\}\n]*(?:\]\]|\}\}|\]\}|\}\])/g, ' ')
+      .replace(/"[^"\n]{0,400}"|\u201c[^\u201d\n]{0,400}\u201d/g, ' ')     // what people SAY about crashing is not a crash
+      .split(/\n+|[.!?]+["\u201d\u2019)*_]*\s+/)
+      .map(function (x) { return x.trim(); })
+      .filter(Boolean);
+  }
+  function hurtRuleIn(sentence) {
+    for (var i = 0; i < HURT_RULES.length; i++) {
+      var m = sentence.match(HURT_RULES[i].re);
+      if (m && (!HURT_RULES[i].pre || HURT_RULES[i].pre.test(sentence.slice(0, m.index)))) {
+        return { rule: HURT_RULES[i], match: m[0], at: m.index, owner: m[1] || '' };
+      }
+    }
+    return null;
+  }
+
+  /** Is there violence in this text at all? For the prompt: a short order
+   *  to file the wounds rides along only on turns that have some. Looser
+   *  than the ledger — the player's "as the aircraft crashes" counts. */
+  RP.dangerIn = function (text) {
+    var cause = '';
+    hurtSentences(text).some(function (s) {
+      if (HURT_NOT.test(s)) return false;
+      var found = hurtRuleIn(s);
+      if (found) { cause = found.rule.cause; return true; }
+      var loose = s.match(/\b(?:crash(?:es|ed|ing)?|explo(?:de|des|ded|sion)|collaps(?:es|ed|ing)|stab(?:s|bed|bing)?|shoot(?:s|ing)?|shot\s+(?:at|him|her|them|you|me|in|through|dead|down)|open(?:s|ed)?\s+fire|fir(?:es|ed|ing)\s+(?:at|on|into)|attack(?:s|ed|ing)?|ambush(?:es|ed)?|punch(?:es|ed|ing)?|swing(?:s|ing)?\s+(?:at|the\s+\w+\s+at)|charg(?:es|ed|ing)\s+(?:at|into)|tackl(?:es|ed|ing)|fall(?:s|ing)?\s+(?:from|off|down)|(?:on|catches|caught)\s+fire|burn(?:s|ing)?\s+(?:him|her|them|you|me|through|down|alive)|blast(?:s|ed)?|detonat(?:es|ed|ing)?|bomb(?:s|ed)?|grenade|crushed|drown(?:s|ed|ing)?|hit(?:s|ting)?\s+(?:him|her|them|it|the\s+\w+\s+with))\b/i);
+      if (!loose) return false;
+      var w = loose[0];
+      cause = /crash/i.test(w) ? 'the crash' : /explo|blast|detonat|bomb|grenade/i.test(w) ? 'the blast'
+        : /collaps/i.test(w) ? 'the collapse' : /fall/i.test(w) ? 'the fall' : /burn/i.test(w) ? 'the fire'
+        : /shoot|shot|fire/i.test(w) ? 'the shooting' : /drown/i.test(w) ? 'the drowning' : 'the fight';
+      return true;
+    });
+    return cause;
+  };
+
+  /** The order that rides in the protected tail on a violent turn only
+   *  (~90 tokens, nothing on a quiet one): wounds go on the record. */
+  RP.hurtBlock = function (room, text) {
+    if (!room || room.mechanics === 'off') return '';
+    var cause = RP.dangerIn(text);
+    if (!cause) return '';
+    return 'WOUNDS \u2014 there is violence in this turn (' + cause + '). Whoever it reaches is hurt ON THE RECORD, not only in the ' +
+      'prose: file [[HP: Name -N]] for each of them, N as a share of their max HP \u2014 a scrape or a shove 3\u20138%, a beating, ' +
+      'a blade or a bullet 10\u201325%, a crash, a fall from height or a blast 25\u201345%, and everyone in a crash or a blast, ' +
+      'not just one of them. If you file nothing, the page files it from your prose at those rates.';
+  };
+
+  /** Read a turn for what hurts and who it reaches.
+   *  opts: speaker (the card's character, for I/me), world (a narrator's
+   *  turn), filed (lowercase names the model already filed [[HP:]] for —
+   *  theirs wins), level (fate level, scales the amounts), braced (the
+   *  player's own turn had them holding on — their share is halved),
+   *  roll (0–1, for tests; otherwise random).
+   *  Returns [{ id, name, amount, cause, tier }], one entry per person. */
+  RP.hurtScan = function (text, room, opts) {
+    opts = opts || {};
+    if (!room || room.mechanics === 'off') return [];
+    var states = room.states || {};
+    var youId = RP.playerSheetId(room);
+    var you = states[youId];
+    var people = RP.presentCast(room).filter(function (c) { return states[c.id] && states[c.id].hp; }).map(function (c) {
+      return { id: c.id, name: c.name };
+    });
+    if (you && you.hp && you.present !== false && !people.some(function (p) { return p.id === youId; })) people.push({ id: youId, name: you.name });
+    if (!people.length) return [];
+    var filed = (opts.filed || []).map(function (n) { return String(n || '').toLowerCase().trim(); }).filter(Boolean);
+    var isFiled = function (p) {
+      var name = p.name.toLowerCase(), first = name.split(/\s+/)[0];
+      return filed.some(function (f) {
+        return f === name || f === first || (f.length > 2 && (name.indexOf(f) === 0 || f.indexOf(name) === 0)) ||
+          (p.id === youId && (f === 'you' || f === 'the player' || f === 'player'));
+      });
+    };
+    var speakerId = opts.speaker && opts.speaker.id && states[opts.speaker.id] ? opts.speaker.id : '';
+    var scale = HURT_SCALE[opts.level || 'normal'] || 1;
+    var roll = opts.roll === undefined ? Math.random() : Math.max(0, Math.min(1, Number(opts.roll) || 0));
+    var hits = {};
+    var antecedent = speakerId;       // who "he" is, until somebody else is named
+    var nameAt = function (s, p) {
+      var low = s.toLowerCase(), first = p.name.toLowerCase().split(/\s+/)[0];
+      var at = low.indexOf(p.name.toLowerCase());
+      if (at < 0 && first.length > 2) at = low.search(new RegExp('\\b' + first.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\b'));
+      return at;
+    };
+    hurtSentences(text).forEach(function (s) {
+      var named = people.map(function (p) { return { p: p, at: nameAt(s, p) }; })
+        .filter(function (x) { return x.at >= 0; })
+        .sort(function (a, b) { return a.at - b.at; });
+      var before = antecedent;
+      if (named.length) antecedent = named[named.length - 1].p.id;
+      if (HURT_NOT.test(s)) return;
+      var found = hurtRuleIn(s);
+      if (!found) return;
+      var rule = found.rule;
+      var pre = s.slice(0, found.at), post = s.slice(found.at + found.match.length);
+      // a pronoun stands for: you → the player; I → the card's speaker;
+      // he/she/they → the last person named (here or earlier)
+      var nearestIn = function (chunk, base) {          // the last of our people named in a chunk of the sentence
+        var best = '';
+        named.forEach(function (x) { if (x.at >= base && x.at < base + chunk.length) best = x.p.id; });
+        return best;
+      };
+      var pronoun = function (w, nearest) {
+        w = String(w || '').toLowerCase();
+        if (/^(?:you|your|yourself)$/.test(w)) return you ? youId : '';
+        if (/^(?:i|me|my|myself)$/.test(w)) return speakerId;
+        return nearest || before;
+      };
+      var other = function (w) {                         // him/her/them after the verb: not whoever is doing it
+        var subj = nearestIn(pre, 0);
+        if (before && before !== subj) return before;
+        var rest = named.filter(function (x) { return x.at < found.at && x.p.id !== subj; });
+        return rest.length ? rest[rest.length - 1].p.id : '';
+      };
+      var subject = function () {                        // who the sentence is about, before the verb
+        var inPre = nearestIn(pre, 0);
+        if (inPre) return inPre;
+        var pm = pre.match(/\b(I|me|my|myself|you|your|yourself|he|him|his|himself|she|her|herself|they|them|their|themselves)\b(?!.*\b(?:I|you|he|she|they|him|her|them)\b)/);
+        if (pm) return pronoun(pm[1], '');
+        if (/\w/.test(pre)) return '';                   // a door, a wave, a plant: not one of ours
+        return before || (opts.world ? '' : speakerId);
+      };
+      var targets = [];
+      if (rule.who === 'all' || HURT_ALL.test(post)) {
+        targets = people.map(function (p) { return p.id; });
+      } else if (rule.who === 'subject') {
+        targets.push(subject());
+      } else if (rule.who === 'owner') {
+        targets.push(pronoun(found.owner, nearestIn(pre, 0)));
+      } else {
+        var om = post.match(/^\s+(?:into\s+|through\s+|across\s+|at\s+)?(him|her|them|you|me|his|their|your|my|himself|herself|themselves|yourself|myself)\b/i) ||
+          found.match.match(/\b(him|her|them|you|me)\b/i);
+        var after = named.filter(function (x) { return x.at >= found.at; });
+        if (om && !(after.length && after[0].at < found.at + found.match.length + 6)) {
+          targets.push(/^(?:him|her|them)$/i.test(om[1]) ? other(om[1]) : pronoun(om[1], nearestIn(pre, 0) || ''));
+        } else if (after.length) {
+          targets.push(after[0].p.id);
+        } else if (/\b(?:is|was|are|were|am|gets?|got|getting|being|been|lies|lay)\s*(?:\w+ly\s+)?$|,\s*$/i.test(pre) || /^(?:\w+ed|shot|struck|bitten|bit)\b/i.test(found.match) && !pre.trim()) {
+          targets.push(subject());
+        }
+      }
+      var braced = HURT_BRACE.test(s);
+      var share = HURT_SHARE[rule.tier];
+      targets.forEach(function (id) {
+        var p = people.filter(function (x) { return x.id === id; })[0];
+        if (!p || isFiled(p)) return;
+        var sheet = states[id];
+        var max = Number(sheet.hp && sheet.hp.max) || 0;
+        if (!max) return;
+        var pct = share[0] + (share[1] - share[0]) * roll;
+        var soft = (braced || (id === youId && opts.braced)) ? 0.5 : 1;
+        var amount = Math.max(1, Math.round(max * pct * scale * soft));
+        var cur = hits[id];
+        if (cur && cur.amount >= amount) return;
+        hits[id] = { id: id, name: p.name, amount: amount, cause: rule.cause, tier: rule.tier };
+      });
+    });
+    return Object.keys(hits).map(function (k) { return hits[k]; });
   };
 
   /** Is it time for the background review? Counted in played turns since
@@ -2632,6 +3680,170 @@
     }).slice(0, 6);
     if (!directives.length) return { lines: [] };
     return { lines: RP.applyDirectives(state, room, directives).lines };
+  };
+
+  /* ---- the AI audit: on demand, every sheet, every scene ----
+     The quartermaster above is a small net on a timer. This is the same
+     reader with the whole table in front of it, run by hand: all the
+     sheets (both scenes when two are linked), the recent play of each,
+     and licence to put the record right — wounds, kit, conditions,
+     moods, notes, the clock, who is actually still in the room. It still
+     cannot invent people or facts, and everything it files is shown
+     before it lands and undone in one step. */
+
+  RP.AUDIT_KINDS = RP.UPKEEP_KINDS.concat(['time', 'exit', 'enter']);
+  RP.AUDIT_TURNS = 14;
+  RP.AUDIT_TURNS_FULL = 40;      // the full audit reads the whole scene, up to this
+
+  /** rooms: one scene, or the linked pair. turns: { roomId: [{who, text}] }. */
+  RP.sheetAuditPrompt = function (rooms, turns, opts) {
+    opts = opts || {};
+    rooms = (rooms || []).filter(Boolean);
+    var two = rooms.length > 1;
+    var full = Boolean(opts.full);
+    var sheets = rooms.map(function (room) {
+      var away = (room.away || []).map(function (c) { return c.name; });
+      return (two ? 'SCENE \u201c' + (room.title || 'untitled') + '\u201d' + (room.clock ? ' \u2014 ' + room.clock : '') + '\n' : '') +
+        (RP.stateBlock(room) || '(no sheets)') +
+        (away.length ? '\nWritten out of this scene, waiting at the door: ' + away.join(', ') : '');
+    }).join('\n\n');
+    var one = Boolean(opts.turn);
+    var play = rooms.map(function (room) {
+      var list = (turns && turns[room.id]) || [];
+      return (two ? 'IN \u201c' + (room.title || 'untitled') + '\u201d\n' : '') +
+        (list.length ? list.map(function (t) { return (t.mark ? '\u27f6 ' : '') + t.who + ': ' + clip(t.text, t.mark ? 1400 : 320); }).join('\n') : '(nothing played yet)');
+    }).join('\n\n');
+    return [
+      'AUDIT THE SHEETS. You are the quartermaster of a roleplay ' + (two ? 'pair of linked scenes \u2014 one story, one clock, two rooms' : 'scene') +
+      '. Read the recent play against every sheet and put the record right \u2014 decisively. This is the one place the',
+      'record is corrected by judgement, so judge: for EVERY person decide what their HP and Energy should be NOW, given',
+      'everything that has happened to them, and when the number on the sheet does not match the story, SET it',
+      '([[HP: Name = N]], [[EN: Name = N]]) \u2014 a helicopter crash and a gunfight are not 65/100, and a night\u2019s rest is',
+      'not 12/100. When the MAXIMUM is wrong for who they are or what they have become \u2014 a dragon and a child both at',
+      '100, a man crippled for good, a pool that was never set \u2014 REDEFINE it: [[HP: Name = 28/80]] sets current and',
+      'maximum together. Decide how each person feels now and how strongly, and file it. A condition that plainly began',
+      'or ended; a thing gained, lost, handed over, spent, taken in hand or put away; a counter that moved; a stale',
+      'physical note; the clock, if the play moved it; somebody who plainly left and is still listed, or is back',
+      'and still written out. Do not leave a wrong number standing because nobody filed it at the time; do not',
+      'restate what is already right. Anyone at 0 HP is DOWN \u2014 barely conscious \u2014 and if the play has them up and',
+      'acting, one of the two is wrong: either the number (SET it to what the play shows) or the prose (say so in a NOTE).',
+      '',
+      one ? 'ONE TURN. Only the turn marked \u27f6 is under audit; the turns above it are context. Decide what in THAT turn' +
+        ' should have moved the record and did not \u2014 HP for a blow, a graze, a fall, a burn; Energy for a spell or a sprint;' +
+        ' a condition begun or ended; a thing taken, dropped, drawn or spent; a mood that plainly changed; somebody who' +
+        ' entered or left; time that passed \u2014 for everyone it touches, and the PLAYER\u2019s own sheet first of all: the' +
+        ' writer may not speak for the player, but the player\u2019s body took whatever the turn says it took. Where the sheet' +
+        ' already shows it, leave it. Then NOTE: lines, up to three, on this turn alone \u2014 a line that person would never' +
+        ' say, a paragraph written for somebody else, a thing the record contradicts, what the next turn must pick up.' : '',
+      full ? 'FULL AUDIT. The whole scene is below, not just the last exchange. Judge the record at the root: a MAXIMUM that' +
+        ' does not fit who this person is, or what the scene has made of them, is REDEFINED ([[HP: Name = current/max]],' +
+        ' [[EN: Name = current/max]]); every condition is checked against the prose \u2014 cured when the play contradicts it,' +
+        ' filed when the play shows it; who is present is checked against every exit and entrance; the clock against every' +
+        ' passage of time; the kit against everything picked up, handed over, dropped or spent. Then the NOTE: lines, up to' +
+        ' FIVE, on what in the scene does not hold together \u2014 who could not have done what, what was forgotten, what was' +
+        ' promised and dropped, what the next turn must pick up.' : '',
+      '',
+      'THE SHEETS NOW',
+      sheets,
+      '',
+      'THE RECENT PLAY',
+      play,
+      '',
+      'Reply with stage directions, one per line, sixteen at most, the most consequential first (then the notes):',
+      '  [[HP: Name -5]] · [[HP: Name = 40]] · [[HP: Name = 28/80]] (current/maximum) · [[EN: Name +3]] (Energy) · [[COUNT: Name arrows -1]]',
+      '  [[ITEM: Name + 🗝 the thing | note]] · [[ITEM: Name - the thing]] · [[EQUIP: Name the thing]] · [[STOW: Name the thing]]',
+      '  [[COND: Name state 3 -1hp | why]] · [[CURE: Name state]] · [[STATUS: Name a short physical note]]',
+      '  [[MOOD: Name anger 2 | why]]   anger, fear, joy, grief, shame, disgust, surprise, affection, suspicion, pride, calm; 1\u20133',
+      '  [[TIME: 23:40]] · [[EXIT: Name \u2014 why]] · [[ENTER: Name \u2014 why]] (ENTER only for somebody written out of this scene)',
+      'Use the names exactly as the sheets spell them. Do not invent anything the play does not plainly show, and',
+      'never a new person. The player\u2019s own sheet is audited like any other \u2014 their wounds, kit and mood included;',
+      'the reader approves every line before it lands.',
+      '',
+      'Then, under the directions, up to ' + (full ? 'five' : 'three') + ' lines beginning NOTE: \u2014 what the LAST turn or two got wrong against',
+      'the record and the people (a man at 28 HP charging out of a wreck; a line that person would never say; the same',
+      'beat played for the fourth turn running; a thread everybody dropped; somebody who has not spoken in ten turns), and what the next turn should do instead \u2014 who',
+      'should speak, what should show, what should cost. Advice to the writer, not changes to the record; concrete,',
+      'one sentence each, naming names. If the record already matches the story and the play is sound, reply exactly: IN ORDER',
+    ].filter(function (line, at, arr) { return line !== '' || (arr[at - 1] !== '' && at !== arr.length - 1); }).join('\n');
+  };
+
+  /** The NOTE: lines of an audit reply \u2014 advice to the writer. */
+  RP.parseAuditNotes = function (reply, limit) {
+    return String(reply || '').split(/\r?\n/).map(function (line) {
+      var hit = /^\s*(?:[-*\u2022]\s*)?NOTE\s*:\s*(.+)$/i.exec(line);
+      return hit ? clip(hit[1].trim(), 240) : '';
+    }).filter(Boolean).slice(0, limit || 3);
+  };
+
+  /** Notes the reader approved from the audit ride the next turn, once. */
+  RP.auditNoteBlock = function (room) {
+    var notes = (room && room.auditNotes) || [];
+    if (!notes.length) return '';
+    return 'FROM THE AUDIT \u2014 notes on the last turns, for this one\n' + notes.map(function (n) { return '- ' + n; }).join('\n') +
+      '\nTake them as the table\u2019s judgement: fix what they name in this turn, without announcing it.';
+  };
+
+  /** Apply an audit to one scene or the linked pair. Each line lands in
+   *  the first scene that knows the name (shared sheets are synced by the
+   *  page afterwards); ENTER is honoured only for somebody at that room's
+   *  door; nothing may invent a person or rewrite a fact.
+   *  Returns { byRoom: { roomId: [lines] }, lines: [all], count }. */
+  RP.applySheetAudit = function (state, rooms, reply, opts) {
+    rooms = (rooms || []).filter(Boolean);
+    opts = opts || {};
+    var out = { byRoom: {}, lines: [], items: [], count: 0 };
+    rooms.forEach(function (room) { out.byRoom[room.id] = []; });
+    var text = String(reply || '').trim();
+    if (!text || /^IN ORDER\b/i.test(text) || !rooms.length) return out;
+    var names = [];
+    rooms.forEach(function (room) {
+      var you = (room.states || {})[RP.PLAYER_ID];
+      (room.cast || []).forEach(function (c) { names.push(c.name); });
+      Object.keys(room.states || {}).forEach(function (k) { if (room.states[k] && room.states[k].name) names.push(room.states[k].name); });
+      (room.away || []).forEach(function (c) { names.push(c.name); });
+      if (you) names.push(you.name, 'the player');
+    });
+    var directives = RP.parseDirectives(text, names).directives.filter(function (d) {
+      return RP.AUDIT_KINDS.indexOf(d.kind) >= 0;
+    }).slice(0, 16);
+    var knows = function (room, name) {
+      var want = String(name || '').toLowerCase().trim();
+      if (!want) return false;
+      var you = (room.states || {})[RP.PLAYER_ID];
+      if (you && (want === 'you' || want === 'the player' || want === String(you.name || '').toLowerCase())) return true;
+      return (room.cast || []).some(function (c) {
+        var low = c.name.toLowerCase();
+        return low === want || low.indexOf(want) >= 0 || want.indexOf(low) >= 0;
+      }) || Object.keys(room.states || {}).some(function (k) {
+        var low = String((room.states[k] || {}).name || '').toLowerCase();
+        return low && (low === want || low.indexOf(want) >= 0 || want.indexOf(low) >= 0);
+      });
+    };
+    var atDoor = function (room, name) {
+      var want = String(name || '').toLowerCase().trim();
+      return (room.away || []).some(function (c) {
+        var low = String(c.name || '').toLowerCase();
+        return low && (low.indexOf(want) >= 0 || want.indexOf(low) >= 0);
+      });
+    };
+    // The player's own mood is theirs in play; here the reader approves
+    // every line, so the audit may move it — applyDirectives is told so.
+    directives.forEach(function (d, index) {
+      if (opts.only && opts.only.indexOf(index) < 0) return;      // the reader unticked it
+      var home = null;
+      if (d.kind !== 'time' && !String(d.who || d.name || '').trim()) return;
+      if (d.kind === 'time') home = rooms[0];
+      else if (d.kind === 'enter') home = rooms.filter(function (room) { return atDoor(room, d.name); })[0] || null;
+      else home = rooms.filter(function (room) { return knows(room, d.who || d.name); })[0] || null;
+      if (!home) return;
+      var done = RP.applyDirectives(state, home, [d.kind === 'mood' ? Object.assign({}, d, { set: true, byAudit: true }) : d]);
+      done.lines.forEach(function (l) {
+        out.byRoom[home.id].push(l); out.lines.push(l); out.count++;
+        out.items.push({ index: index, roomId: home.id, line: l, kind: d.kind, who: d.who || d.name || '' });
+      });
+      if (d.kind === 'time' && rooms.length > 1) rooms.slice(1).forEach(function (room) { room.clock = home.clock; });
+    });
+    return out;
   };
 
   /** One background call spent, whoever spent it — the book and the
@@ -2738,11 +3950,21 @@
   /* ---- audience mode: nobody freezes while two people talk ---- */
 
   /** Present, silent cast members stop being furniture. One prompt
-   *  block inside the SAME call — no extra requests — licenses at most
-   *  one short reaction line from the room: a glance, a mutter, a
-   *  shifted weight. The scene keeps its spotlight; the world keeps
-   *  breathing. Off by dial, absent in solo rooms, silent when only
-   *  two are present (there is no audience in a duel). */
+   *  block inside the SAME call — no extra requests — licenses the room
+   *  to react after the speaker's turn, each reaction as its OWN
+   *  paragraph that begins "Name:". The page then cuts those paragraphs
+   *  out (RP.splitChorus) and files each under the person who made it:
+   *  its own card, its own mood, its own line in the history. Three
+   *  settings: `on` is murmurs — one short beat; `full` lets up to two
+   *  of them answer properly, two to four sentences each. Off by dial,
+   *  absent in solo rooms, silent when only two are present (there is
+   *  no audience in a duel). */
+  RP.AUDIENCE = {
+    off:  { name: 'Off', blurb: 'only the speaker and the narration exist' },
+    on:   { name: 'Murmurs', blurb: 'one short beat from the room after the speaker, as its own card' },
+    full: { name: 'Full replies', blurb: 'up to two of the room answer properly — two to four sentences each, their own cards' },
+  };
+  RP.AUDIENCE_DEFAULT = 'full';
   RP.audienceBlock = function (room, speakerId, setting) {
     if (setting === 'off' || !room || room.kind !== 'group') return '';
     var quiet = (room.cast || []).filter(function (c) {
@@ -2751,12 +3973,338 @@
       return !(sheet && sheet.present === false);
     }).slice(0, 4);
     if (!quiet.length) return '';
+    var speaker = (room.cast || []).filter(function (c) { return c && c.id === speakerId; })[0];
+    var sname = speaker ? speaker.name : 'the speaker';
+    var first = quiet[0].name;
+    var full = setting === 'full';
     return 'THE AUDIENCE — also in the scene, not speaking this turn: ' +
       quiet.map(function (c) { return c.name; }).join(', ') + '.\n' +
-      'They are people, not furniture. You MAY end the turn with ONE short beat from one of them — a glance,\n' +
-      'a muttered half-line, a shifted weight — a murmur, never a speech, never the spotlight. If the moment is\n' +
-      'private or the beat adds nothing, give them nothing: silence is a valid reaction. They make no decisions,\n' +
+      'They are people, not furniture. ' + (full
+        ? 'After ' + sname + '\u2019s turn is finished, up to TWO of them MAY answer the moment properly \u2014 each as their OWN\n' +
+          'paragraph, on a new line, beginning with their name and a colon (' + first + ': *what they do* \u201cwhat they say\u201d),\n' +
+          'two to four sentences: an action and a line, in their own voice, to what JUST happened \u2014 not the spotlight,\n' +
+          'not a speech, never the same beat they gave last time.'
+        : 'You MAY end the turn with ONE short beat from one of them, as its OWN paragraph on a new line, beginning with\n' +
+          'their name and a colon (' + first + ': *a glance* \u201ca muttered half-line\u201d) \u2014 a glance, a mutter, a shifted weight \u2014\n' +
+          'a murmur, never a speech, never the spotlight.') +
+      ' If the moment is\nprivate or the beat adds nothing, give them nothing: silence is a valid reaction. They make no decisions,\n' +
       'file no directives, and never answer a question that was aimed at somebody else.';
+  };
+
+  /** Cut the room's beats out of a reply. Only the TRAILING run of
+   *  paragraphs that begin "Name:" (a present cast member who is not
+   *  the speaker) is taken; a "Name:" in the middle of the prose is
+   *  script formatting and is left alone, and a reply that is nothing
+   *  but somebody else's lines is left whole for checkSpeaker.
+   *  Returns { main, pieces: [{ name, text }], dropped: [names] } —
+   *  `dropped` are beats written for somebody the model may not write
+   *  (the player's character): cut, not filed. */
+  /** A name as a key: "Mr. L", "MR L" and "mr.l" are one person. */
+  RP.nameKey = function (name) { return String(name || '').toLowerCase().replace(/[^a-z0-9]+/g, ''); };
+  var NARRATOR_ALIASES = ['narrator', 'the narrator', 'narration', 'gm', 'dm', 'the director', 'director', 'the world', 'world', 'the scene'];
+  // Labels that are not people: "Note:", "Meanwhile:", "OOC:", "Summary:".
+  var NOT_A_NAME = /^(?:note|notes|warning|translation|meanwhile|later|elsewhere|ooc|aside|edit|ps|p\.s|summary|tl;dr|status|time|location|setting|scene|mood|hp|energy|mp|action|actions|dialogue|thought|thoughts|system|reply|response|answer|option|options|choice|choices|everyone|all|both)$/i;
+  var LABEL_RE = /^\s*(?:[-*\u2022]\s+)?(?:\*\*|__|\*)?\s*\[?([A-Za-z][A-Za-z0-9.'\u2019 -]{0,40}?)\]?(?:\s*\([^)]{0,30}\))?\s*(?:\*\*|__|\*)?\s*[:\uff1a]\s*(?:\*\*|__)?\s*(.*)$/;
+  /** The room's lines, cut out of a reply. A paragraph that begins
+   *  "Name:" is somebody else's turn written inside the speaker's; it is
+   *  lifted out and handed back as a piece, so the page can file it as
+   *  that person's own card. The speaker's own name as a label is just a
+   *  label \u2014 stripped, the text kept. A paragraph written for the
+   *  player (`forbidden`) is dropped and reported. `opts.narrator` names
+   *  the narration, so "Narrator:" paragraphs come back as kind 'narrator'.
+   *  A capitalised label nobody knows comes back in `unknown` (and stays
+   *  in the text, raw, for the reader to file). Names match loosely:
+   *  "Mr. L", "MR L", "Mr.L" are one person; a first name alone will do
+   *  when it is nobody else's.
+   *  Returns { main, pieces: [{name, kind, text}], dropped, unknown }. */
+  RP.splitChorus = function (text, speakerName, names, forbidden, opts) {
+    opts = opts || {};
+    var whole = String(text || '');
+    var out = { main: whole, pieces: [], dropped: [], unknown: [] };
+    if (whole.indexOf(':') < 0 && whole.indexOf('\uff1a') < 0) return out;
+    var me = RP.nameKey(speakerName);
+    var meFirst = RP.nameKey(String(speakerName || '').split(/\s+/)[0]);
+    var table = {}, firsts = {};
+    var add = function (n, kind) {
+      var full = RP.nameKey(n);
+      if (!full || full === me) return;
+      if (!table[full]) table[full] = { name: n, kind: kind };
+      var first = RP.nameKey(String(n).split(/\s+/)[0]);
+      if (first && first !== full && first.length >= 3) (firsts[first] = firsts[first] || []).push({ name: n, kind: kind });
+    };
+    (names || []).filter(Boolean).forEach(function (n) { add(String(n), 'cast'); });
+    (forbidden || []).filter(Boolean).forEach(function (n) { add(String(n), 'player'); });
+    if (opts.narrator) {
+      add(String(opts.narrator), 'narrator');
+      NARRATOR_ALIASES.forEach(function (a) { var k = RP.nameKey(a); if (!table[k]) table[k] = { name: String(opts.narrator), kind: 'narrator' }; });
+    }
+    var lookup = function (label) {
+      var k = RP.nameKey(label);
+      if (!k) return null;
+      if (me && (k === me || (meFirst.length >= 3 && k === meFirst))) return { name: speakerName, kind: 'self' };
+      if (table[k]) return table[k];
+      if (firsts[k] && firsts[k].length === 1) return firsts[k][0];
+      return null;
+    };
+    var lead = function (line) {
+      var m = LABEL_RE.exec(line);
+      if (!m) return null;
+      var label = m[1].trim();
+      if (!label || NOT_A_NAME.test(label)) return null;
+      var hit = lookup(label);
+      if (hit) return { name: hit.name, kind: hit.kind, rest: m[2] };
+      // A label nobody knows, that still looks like a person: capitalised, three words at most.
+      if (/^[A-Z]/.test(label) && label.split(/\s+/).length <= 3 && /[a-z]/.test(label + 'x')) return { name: label, kind: 'unknown', rest: m[2] };
+      return null;
+    };
+    // Blocks: a labelled line opens one and owns its paragraph \u2014 up to the
+    // next blank line or the next label. Paragraphs after a blank line are
+    // the speaker's again: the room is asked for one paragraph each.
+    var lines = whole.split(/\n/);
+    var blocks = [{ kind: 'main', name: speakerName, lines: [] }];
+    var open = null;                                 // the labelled block still taking lines
+    lines.forEach(function (line) {
+      var led = line.trim() ? lead(line) : null;
+      if (led) {
+        open = { kind: led.kind, name: led.name, lines: led.rest ? [led.rest] : [] };
+        blocks.push(open);
+        return;
+      }
+      if (open && !line.trim()) { open = null; blocks.push({ kind: 'main', name: speakerName, lines: [] }); return; }
+      (open || blocks[blocks.length - 1]).lines.push(line);
+    });
+    if (!blocks.some(function (b) { return b.kind !== 'main'; })) return out;
+    var mainLines = [], pieces = [];
+    blocks.forEach(function (b) {
+      var body = b.lines.join('\n').trim();
+      if (b.kind === 'main' || b.kind === 'self') {
+        if (!body) return;
+        if (mainLines.length) mainLines.push('');
+        mainLines.push(body);
+        return;
+      }
+      // A page of prose under one label is the speaker quoting a line,
+      // not the room answering: kept where it was, label and all.
+      var tooLong = body.length > 1400 || b.lines.filter(function (l) { return l.trim(); }).length > 10;
+      if (b.kind === 'unknown' || tooLong || !body) {
+        if (b.kind === 'unknown' && body && !tooLong) out.unknown.push({ name: b.name, text: body });
+        if (mainLines.length) mainLines.push('');
+        mainLines.push((b.name + ': ' + body).trim());
+        return;
+      }
+      pieces.push({ name: b.name, kind: b.kind, text: body });
+    });
+    var main = mainLines.join('\n').trim();
+    if (!pieces.length || !main) return out;          // nothing to cut, or nothing left for the speaker
+    out.main = main;
+    pieces.forEach(function (piece) {
+      if (piece.kind === 'player') { out.dropped.push(piece.name); return; }
+      out.pieces.push(piece);
+    });
+    return out;
+  };
+
+  /* ---- the same moment: several people act in the same seconds ----
+   * The sequencer plays staged turns one after another, and each reads
+   * the last as finished. When the reader picks several faces and asks
+   * for the same moment, every turn in that group is told so: nothing
+   * above has landed yet, write what you are doing DURING it. ---- */
+  RP.momentBlock = function (room, speaker, moment) {
+    if (!room || !speaker || !moment || !moment.same) return '';
+    var name = speaker.name || 'the speaker';
+    var done = (moment.done || []).filter(function (n) { return n && n !== name; });
+    var pending = (moment.pending || []).filter(function (n) { return n && n !== name; });
+    return 'THE SAME MOMENT \u2014 the player\u2019s last turn' +
+      (done.length ? ', and ' + done.join(', ') + '\u2019s turn' + (done.length > 1 ? 's' : '') + ' just above,' : '') +
+      (done.length ? ' happen' : ' happens') + ' AT THE SAME TIME as ' + name + '\u2019s turn \u2014 not before it. Nobody has finished; nothing above has landed or' +
+      ' been answered yet. Write what ' + name + ' is doing DURING those seconds: their own action, cutting across the others,' +
+      ' seeing theirs half-done' + (pending.length ? ' (' + pending.join(', ') + ' act in the same seconds too, written after you)' : '') +
+      '. Do not narrate the outcome of anybody else\u2019s action, do not react to it as if it were over, and do not write their words.';
+  };
+
+  /* ---- the freshness ledger: a character who repeats is a character
+   * nobody believes. Zero calls: the page reads the speaker's own last
+   * turns for the phrases, the subject and the opening they keep
+   * reaching for, and when there is something to name, ONE conditional
+   * block names it. After the reply, repeatCheck scores the new turn
+   * against the same turns; on the strict setting a stale take is sent
+   * back once, like a take that wrote the player. ---- */
+  RP.FRESH_TURNS = 12;
+  RP.FRESH = {
+    strict: { name: 'Strict', blurb: 'the ledger rides the prompt, and a turn that repeats is asked for again, once' },
+    on:     { name: 'Guide',  blurb: 'the ledger rides the prompt; what comes back is kept' },
+    off:    { name: 'Off',    blurb: 'the model is left to its habits' },
+  };
+  RP.FRESH_DEFAULT = 'strict';
+  var FRESH_STOP = {};
+  ('the a an and or but of to in on at for with from by as is are was were be been being it its he she they them his her hers ' +
+   'their you your yours i me my mine we us our ours this that these those not no so if then than there here what which who whom ' +
+   'do does did done have has had will would can could should may might must shall just very into out up down over under off ' +
+   'about again still even only also too all any some such own same other more most much many back now when where why how am ' +
+   'get got gets getting go goes going went gone come comes came say says said see sees saw seen let lets like one two yes well ' +
+   'because before after while until once ever never always every each both few little less own around through across between ' +
+   'against during without within toward towards upon onto behind beside above below him himself herself themselves itself ' +
+   'something anything nothing everything someone anyone everyone right away make makes made take takes took know knows knew ' +
+   'think thinks thought want wants look looks looked keep keeps kept put puts tell tells told give gives gave ask asks asked ' +
+   'turn turns turned hand hands head eyes face voice back feet way thing things time')
+    .split(' ').forEach(function (w) { FRESH_STOP[w] = true; });
+
+  /** The words of a text, sentence by sentence, lowercased, with the
+   *  stage directions and the colour marks taken out. */
+  function freshSentences(text) {
+    return String(text || '').toLowerCase()
+      .replace(/(?:\[\[|\{\{)[^\]\}\n]*(?:\]\]|\}\}|\]\}|\}\])/g, ' ')
+      .replace(/\{[a-z#][a-z0-9 ]{0,14}\|([^{}]*)\}/g, '$1')
+      .replace(/[\u2019']/g, '')
+      .split(/[.!?;:\u2014\n*\u201c\u201d"()]+/)
+      .map(function (part) { return part.replace(/[^a-z0-9 -]+/g, ' ').split(/\s+/).filter(Boolean); })
+      .filter(function (words) { return words.length; });
+  }
+  function freshWords(text) {
+    return [].concat.apply([], freshSentences(text));
+  }
+  /** The n-word runs of a text that do not cross a sentence, skipping
+   *  runs made only of stopwords and numbers. */
+  function freshGrams(text, n) {
+    var out = [];
+    (Array.isArray(text) ? [text] : freshSentences(text)).forEach(function (words) {
+      for (var i = 0; i + n <= words.length; i++) {
+        var g = words.slice(i, i + n);
+        if (g.every(function (w) { return FRESH_STOP[w] || /^\d+$/.test(w); })) continue;
+        out.push(g.join(' '));
+      }
+    });
+    return out;
+  }
+
+  /** What this character keeps saying, read off their own last turns:
+   *  phrases (3- and 4-word runs used in two or more turns), subjects
+   *  (a word in half their turns that nobody else in the scene uses),
+   *  and an opening they have begun with three times or more. */
+  RP.staleBits = function (room, charId, turns, skip) {
+    var msgs = ((room && room.messages) || []).filter(function (m) { return visible(m) && !m.muted; });
+    var mine = msgs.filter(function (m) { return m.role === 'char' && m.charId === charId; }).slice(-(turns || RP.FRESH_TURNS));
+    var out = { phrases: [], themes: [], opener: '', turns: mine.length };
+    if (mine.length < 2) return out;
+    var skipWords = {};
+    ((room && room.cast) || []).forEach(function (c) {
+      String(c.name || '').toLowerCase().split(/\s+/).forEach(function (w) { if (w) skipWords[w] = true; });
+    });
+    (skip || []).forEach(function (w) { if (w) skipWords[String(w).toLowerCase()] = true; });
+    // The scene's shared vocabulary — what the OTHERS also say — is the
+    // scene's, not a tic: "helicopter" in a crash is not a repeat.
+    var shared = {};
+    msgs.slice(-24).forEach(function (m) {
+      if (m.role === 'char' && m.charId === charId) return;
+      var ws = {};
+      freshWords(RP.textOf(m)).forEach(function (w) { if (!ws[w]) { ws[w] = true; shared[w] = (shared[w] || 0) + 1; } });
+    });
+    var count = {}, wordCount = {}, openers = {};
+    mine.forEach(function (m) {
+      var text = RP.textOf(m);
+      var words = freshWords(text);
+      var seen = {};
+      [3, 4].forEach(function (n) {
+        freshGrams(text, n).forEach(function (g) { if (!seen[g]) { seen[g] = true; count[g] = (count[g] || 0) + 1; } });
+      });
+      var ws = {};
+      words.forEach(function (w) {
+        if (w.length < 3 || FRESH_STOP[w] || skipWords[w] || /^\d+$/.test(w) || ws[w]) return;
+        ws[w] = true; wordCount[w] = (wordCount[w] || 0) + 1;
+      });
+      var open = words.slice(0, 2).join(' ');
+      if (open) openers[open] = (openers[open] || 0) + 1;
+    });
+    var phrases = Object.keys(count).filter(function (g) { return count[g] >= 2; })
+      .sort(function (a, b) { return (count[b] - count[a]) || (b.length - a.length); });
+    // Longest first, and no two that overlap: "for every coin string"
+    // and "every coin string bean" are one habit, not two.
+    var kept = [], pairs = {};
+    phrases.forEach(function (g) {
+      if (kept.length >= 6) return;
+      var ws = g.split(' ');
+      var mine = [];
+      for (var i = 0; i + 2 <= ws.length; i++) mine.push(ws[i] + ' ' + ws[i + 1]);
+      if (mine.some(function (pr) { return pairs[pr]; })) return;
+      mine.forEach(function (pr) { pairs[pr] = true; });
+      kept.push(g);
+    });
+    out.phrases = kept;
+    var need = Math.max(3, Math.ceil(mine.length * 0.5));
+    out.themes = Object.keys(wordCount).filter(function (w) { return wordCount[w] >= need && (shared[w] || 0) < 2; })
+      .sort(function (a, b) { return wordCount[b] - wordCount[a]; }).slice(0, 5);
+    var topOpen = Object.keys(openers).sort(function (a, b) { return openers[b] - openers[a]; })[0];
+    if (topOpen && openers[topOpen] >= 3) out.opener = topOpen;
+    return out;
+  };
+
+  /** The conditional block: nothing on a fresh character, a named list
+   *  on a stale one. The voice sheet's own sounds are never on it —
+   *  a catchphrase is a trait; the same threat four turns running is not. */
+  RP.freshnessBlock = function (room, char, setting) {
+    if (!room || !char || setting === 'off') return '';
+    var skip = [];
+    var sheet = RP.voiceSheet(char);
+    if (sheet) {
+      (sheet.sounds || []).join(' ').toLowerCase().split(/[^a-z]+/).forEach(function (w) { if (w.length >= 3) skip.push(w); });
+    }
+    var stale = RP.staleBits(room, char.id, RP.FRESH_TURNS, skip);
+    if (!stale.phrases.length && !stale.themes.length && !stale.opener) return '';
+    var lines = ['FRESH TURN \u2014 ' + char.name + ' has started repeating themselves, and a character who repeats is one nobody believes.' +
+      ' Not to be used this turn, not even reworded:'];
+    if (stale.phrases.length) lines.push('  \u2022 these phrases: ' + stale.phrases.map(function (p) { return '\u201c' + p + '\u201d'; }).join(', '));
+    if (stale.themes.length) lines.push('  \u2022 this subject yet again: ' + stale.themes.join(', ') + ' \u2014 it has been said and the scene has heard it. Find what comes AFTER it.');
+    if (stale.opener) lines.push('  \u2022 the opening \u201c' + stale.opener + '\u2026\u201d \u2014 the last turns all began that way. Begin somewhere else.');
+    lines.push('Same person, same VOICE \u2014 but ONE move ' + char.name + ' has not made in this scene: a decision, a question that matters, an' +
+      ' admission, a plan with a first step, a thing picked up and used, a change of position or of tactic. Answer the specific thing' +
+      ' that just happened, not the situation in general, and end the turn with something changed \u2014 what they want, what they know,' +
+      ' or where they stand.');
+    return lines.join('\n');
+  };
+
+  /** Score a new turn against the same character's earlier ones: the
+   *  distinct 3-word runs it shares with them. { count, ratio, hits,
+   *  stale } — stale when a short turn leans on them or a long one is
+   *  stitched out of them. */
+  RP.repeatCheck = function (text, previous, opts) {
+    opts = opts || {};
+    var mine = {};
+    freshGrams(text, 3).forEach(function (g) { mine[g] = true; });
+    var seen = {};
+    (previous || []).forEach(function (t) { freshGrams(t, 3).forEach(function (g) { seen[g] = true; }); });
+    var hits = Object.keys(mine).filter(function (g) { return seen[g]; });
+    var total = Object.keys(mine).length;
+    var ratio = total ? hits.length / total : 0;
+    var threshold = Number(opts.threshold) || 3;
+    return {
+      hits: hits.slice(0, 8), count: hits.length, ratio: Math.round(ratio * 1000) / 1000,
+      stale: (hits.length >= threshold && ratio >= 0.08) || hits.length >= threshold * 3,
+    };
+  };
+
+  /** The earlier turns a repeat check is made against. */
+  RP.priorTurns = function (room, charId, turns) {
+    return ((room && room.messages) || []).filter(function (m) {
+      return visible(m) && !m.muted && m.role === 'char' && m.charId === charId;
+    }).slice(-(turns || RP.FRESH_TURNS)).map(function (m) { return RP.textOf(m); });
+  };
+
+  /** Which of the passages read for a turn actually surfaced in it: a
+   *  distinctive token of the passage — a capitalised word of five
+   *  letters or more that is not a cast name, a year, a number — is in
+   *  the prose. Returns their names. */
+  RP.usedMaterial = function (text, hits, skip) {
+    var t = ' ' + String(text || '').toLowerCase().replace(/[^a-z0-9]+/g, ' ') + ' ';
+    if (!t.trim()) return [];
+    var skipWords = {};
+    (skip || []).forEach(function (w) {
+      String(w || '').toLowerCase().split(/\s+/).forEach(function (x) { if (x) skipWords[x] = true; });
+    });
+    return (hits || []).filter(function (h) {
+      var src = String((h && (h.snippet || h.text)) || '') + ' ' + String((h && h.name) || '');
+      var tokens = (src.match(/\b(?:[A-Z][a-z]{4,}|\d{2,4})\b/g) || []).map(function (w) { return w.toLowerCase(); });
+      return tokens.some(function (w) { return !FRESH_STOP[w] && !skipWords[w] && t.indexOf(' ' + w + ' ') >= 0; });
+    }).map(function (h) { return h.name; });
   };
 
   /* ---- the encouragement system: data-driven, one line, zero calls ---- */
@@ -2767,7 +4315,7 @@
    *  the prompt — conditional, ignorable, and it self-silences the
    *  moment the model complies. Never more than one line; never again
    *  within eight turns of the same nudge; never in mechanics-off rooms. */
-  RP.ENCOURAGE_AFTER = { stakes: 18, tint: 20, remember: 24 };
+  RP.ENCOURAGE_AFTER = { stakes: 18, mood: 14, remember: 24 };
   RP.encourage = function (room) {
     if (!room || room.mechanics === 'off') return '';
     var turns = ((room || {}).messages || []).length;
@@ -2777,12 +4325,12 @@
     var lines = {
       stakes: 'DIRECTOR\u2019S NOTE: nothing has cost anyone anything for a long stretch. If this scene has stakes,' +
         ' let the record show them \u2014 a [[COND:]], an [[HP:]], a price. If it truly is a quiet scene, carry on.',
-      tint: 'DIRECTOR\u2019S NOTE: nothing on stage is tinted. If something has taken on lasting weight \u2014 a relic,' +
-        ' a wound, a name \u2014 file [[TINT: the exact words = colour]] once and the page keeps it coloured.',
+      mood: 'DIRECTOR\u2019S NOTE: nobody\u2019s feelings have moved on the record for a long stretch. If this scene' +
+        ' has touched anyone, file one [[MOOD: Name feeling 2 | why]] \u2014 the page lets it build and fade.',
       remember: 'DIRECTOR\u2019S NOTE: a long stretch with nothing filed to the lore book. If this scene settled a' +
         ' fact worth keeping, file one [[REMEMBER: name | the fact]].',
     };
-    var order = ['stakes', 'tint', 'remember'];
+    var order = ['stakes', 'mood', 'remember'];
     for (var i = 0; i < order.length; i++) {
       var k = order[i];
       if (turns - (at[k] || 0) < RP.ENCOURAGE_AFTER[k]) continue;
@@ -2793,6 +4341,28 @@
     return '';
   };
 
+  /* ---- the flourish: one coloured phrase on the turns that matter ----
+   * "You may colour" is read by a small model as "need not", so on a
+   * triumph or a failure ONE weighty phrase is ordered in colour, in a
+   * palette matched to the moment. No schedule any more: the box carries
+   * the mood every turn; the words get colour when the dice say so. */
+  var FLOURISH_PALETTE = { triumph: 'gold or amber', setback: 'blood or rust' };
+
+  /** Did the model colour anything by itself in the last few turns? Then
+   *  it has the habit and is left alone. */
+  RP.recentlyColoured = function (room, turns) {
+    var recent = ((room && room.messages) || []).filter(visible).slice(-(turns || 3));
+    return recent.some(function (m) { return m.role !== 'user' && /\{[a-z#][a-z0-9 ]{1,14}\|[^{}]{1,300}\}/i.test(RP.textOf(m)); });
+  };
+
+  RP.flourishBlock = function (room, fate) {
+    if (!room || !fate || !FLOURISH_PALETTE[fate.key]) return '';
+    if (RP.recentlyColoured(room)) return '';
+    return 'COLOUR, THIS TURN \u2014 write exactly ONE phrase of this turn in colour, inside the prose, as {colour|the words}: ' +
+      'the thing that carries the most weight \u2014 a wound, a relic, a look, a word spoken low \u2014 two to five words, once. ' +
+      'Suggested: ' + FLOURISH_PALETTE[fate.key] + '.';
+  };
+
   /* ---- stage directions: how the model changes the world ---- */
 
   RP.DIRECTIVES = [
@@ -2801,21 +4371,20 @@
     'and the page applies them to the actual record. Use them when the fiction earns them — never more than four',
     'in one turn, and never for something that did not happen in the turn you just wrote.',
     '  [[HP: Name -12]]                 damage, healing (+), or an exact value (= 30)',
-    '  [[MP: Name -5]]                  spent or recovered power',
+    '  [[EN: Name -5]]                  Energy spent (a sprint, a climb, a long fight, a spell) or recovered (+). It refills slowly;',
+    '      at 0 they are SPENT: no running, no magic, no big swings until they have had a breather.',
     '  [[COND: Name bleeding 3 -2hp | a deep cut across the palm]]  a condition: how many turns it lasts (leave',
-    '      the number off if it does not pass on its own), what it costs each turn (-2hp, -1mp — optional), and',
+    '      the number off if it does not pass on its own), what it costs each turn (-2hp, -1en — optional), and',
     '      what it actually is. [[CURE: Name bleeding]] ends it.',
     '  [[COUNT: Name arrows -1]]        any counter you need',
     '  [[ITEM: Name + 🗝 the brass key | bent, from the ledger room]]  gained, with an emoji and a note.',
     '      [[ITEM: Name - the brass key]] lost · [[EQUIP: Name brass key]] in hand · [[STOW: Name brass key]] away',
     '  [[USE: Name the brass key]]      spend or use one. Only ever use something that is on their sheet.',
     '  [[STATUS: Name bleeding, one arm]]  a short physical note',
-    '  [[TINT: the exact words = colour]]   those words render in that colour in every turn from now on — for',
-    '      things with lasting weight (a cursed blade, a sickness, a name). Several at once: [[TINT: the seal,',
-    '      the wax = violet]]. [[UNTINT: the seal]] releases them. When something in the scene takes on lasting',
-    '      significance, tint it — one colour makes it legible at a glance. Colours: red, blood, crimson, ember,',
-    '      orange, amber, gold, copper, rust, sand, bone, moss, green, jade, venom, teal, sea, ice, blue, storm,',
-    '      silver, grey, violet, lilac, purple, plum, pink, black, white.',
+    '  [[MOOD: Name anger 2 | why]]     how they feel now — anger, fear, joy, grief, shame, disgust, surprise,',
+    '      affection, suspicion, pride, or calm — and how much: 1 a flicker, 2 the plain thing, 3 overwhelming.',
+    '      File it when THIS turn moved somebody\u2019s feeling; the page lets a feeling build over turns and fade on',
+    '      its own, so file what the scene did, not decoration. Never the player\u2019s mood — that is theirs.',
     '  [[LOOKUP: what you want to know]]  search the archive mid-turn. The page finds the passage and hands it',
     '      back, then you write the turn again using it. Use it when you need a fact you do not have — a date, a',
     '      name, what a filing actually says — instead of inventing one. Never LOOKUP the scene you are standing',
@@ -2830,11 +4399,17 @@
     '+ 🪙 a cut purse]], [[COND: their name poisoned 4 -1hp | pale wine]] are all fair — deciding their words is not.',
   ].join('\n');
 
-  var DIRECTIVE_RE = /\[\[\s*(HP|MP|FLAG|COND|CURE|COUNT|ITEM|USE|EQUIP|STOW|STATUS|TINT|UNTINT|ENTER|EXIT|NEW|SET|TIME|LOOKUP|REMEMBER)\s*:\s*([^\]]+?)\s*\]\]/gi;
+  // The brackets are read loosely on purpose. A local model closes
+  // "[[MOOD: Wario fear 3 | the helicopter}}" with braces, or opens with
+  // one bracket, or mixes the two \u2014 and a direction that is not read
+  // is a direction printed at the reader, raw, in the middle of the prose.
+  // So: [[ {{ [{ {[ [ { open; ]] }} ]} }] ] } close; a body never spans a line.
+  var DIRECTIVE_RE = /(?:\[\[|\{\{|\[\{|\{\[|\[|\{)\s*(HP|MP|EN|ENERGY|STAMINA|FLAG|COND|CURE|COUNT|ITEM|USE|EQUIP|STOW|STATUS|MOOD|TINT|UNTINT|ENTER|EXIT|NEW|SET|TIME|LOOKUP|REMEMBER)\s*:\s*([^\]\}\n]+?)\s*(?:\]\]|\}\}|\]\}|\}\]|\]|\})/gi;
   // Anything else in double brackets is a directive the model invented. It
   // gets stripped rather than printed at the reader: "[[TIME: 23:00]]" in
   // the middle of the prose is a bug, not a feature.
-  var STRAY_RE = /\[\[[^\]]*\]\]/g;
+  var STRAY_RE = /(?:\[\[|\{\{)[^\]\}\n]*(?:\]\]|\}\}|\]\}|\}\])/g;
+  RP.STRAY_RE = STRAY_RE;
 
   /** Split "Lord Darian Marsh bleeding badly" into a character and the rest.
    *  Names are matched longest-first against the people actually in the room,
@@ -2926,9 +4501,43 @@
         if (rest) out.push({ kind: 'status', body: body, who: target.name, value: rest });
         continue;
       }
-      if (type === 'HP' || type === 'MP') {
-        var pool = /^([+\-=])?\s*(\d+)\s*$/.exec(rest);
-        if (pool) out.push({ kind: type.toLowerCase(), body: body, who: target.name, op: pool[1] || '=', value: Number(pool[2]) });
+      if (type === 'MOOD') {
+        // [[MOOD: Wario anger 2 | the landing bill]] · [[MOOD: Wario furious]] · [[MOOD: Wario calm]]
+        var moodParts = rest.split('|');
+        var moodHead = moodParts[0].trim();
+        var moodLevel = /\s(\d)\s*(?:\/\s*3)?\s*$/.exec(moodHead);
+        if (moodLevel) moodHead = moodHead.slice(0, moodLevel.index).trim();
+        var feeling = RP.moodWord(moodHead);
+        var moodWho = target.name;
+        if (!feeling) {
+          // [[MOOD: furious | the bill]] · [[MOOD: anger 2]] — no name at
+          // all: the whole head is the feeling, and the page gives it to
+          // the speaker.
+          moodParts = body.split('|');
+          moodHead = moodParts[0].trim();
+          moodLevel = /\s(\d)\s*(?:\/\s*3)?\s*$/.exec(moodHead);
+          if (moodLevel) moodHead = moodHead.slice(0, moodLevel.index).trim();
+          feeling = RP.moodWord(moodHead);
+          if (feeling) moodWho = '';
+        }
+        if (feeling) {
+          out.push({
+            kind: 'mood', body: body, who: moodWho, key: feeling.key,
+            level: moodLevel ? Number(moodLevel[1]) : feeling.level,
+            note: clip(moodParts.slice(1).join('|').trim(), 80),
+          });
+        }
+        continue;
+      }
+      if (type === 'HP' || type === 'MP' || type === 'EN' || type === 'ENERGY' || type === 'STAMINA') {
+        // [[HP: Name -7]] · [[HP: Name = 40]] · [[HP: Name = 28/80]] (the max too)
+        // [[EN: Name -5]] — Energy; MP/STAMINA are the same pool by other names.
+        var pool = /^([+\-=])?\s*(\d+)\s*(?:\/\s*(\d+))?\s*$/.exec(rest);
+        if (pool) {
+          var d = { kind: type === 'HP' ? 'hp' : 'mp', body: body, who: target.name, op: pool[1] || '=', value: Number(pool[2]) };
+          if (pool[3]) { d.max = Number(pool[3]); d.op = '='; }
+          out.push(d);
+        }
         continue;
       }
       if (type === 'COUNT') {
@@ -2958,7 +4567,7 @@
         // the number of turns, and what is left is the condition itself.
         var parts = rest.split('|');
         var head = parts[0].trim();
-        var effect = /\s([+-]\d{1,3}(?:hp|mp))\s*$/i.exec(head);
+        var effect = /\s([+-]\d{1,3}(?:hp|mp|en|energy|stamina))\s*$/i.exec(head);
         if (effect) head = head.slice(0, effect.index).trim();
         var turns = /\s(\d{1,2})\s*$/.exec(head);
         if (turns) head = head.slice(0, turns.index).trim();
@@ -2969,7 +4578,7 @@
             value: flag[2] === undefined ? true : flag[2],
             note: clip(parts.slice(1).join('|'), 160),
             turns: turns ? Number(turns[1]) : 0,
-            effect: effect ? effect[1].toLowerCase() : '',
+            effect: effect ? RP.normEffect(effect[1]) : '',
           });
         }
         continue;
@@ -2990,6 +4599,107 @@
 
   /** Apply the stage directions to the room. `resolve(name)` finds a
    *  character in the wider archive so the model can walk somebody in. */
+  /** Somebody the archive never filed, made on the spot — by the model's
+   *  [[NEW:]] directive or by the reader's own ＋ in the invite grid. The
+   *  record is thin but real: it seats them in the room, gives them a
+   *  sheet (kit and all), keeps them in state.newChars so they can be
+   *  invited again later, and files the arrival. `spec` may carry a voice
+   *  sheet ({register, sounds, never, lines}) and a kit — the ✨ fill-in
+   *  writes those. Returns the character. */
+  RP.inventCharacter = function (state, room, spec) {
+    spec = spec || {};
+    var name = clip(String(spec.name || '').trim(), 60) || 'Stranger';
+    var role = clip(String(spec.role || spec.title || '').trim(), 200);
+    var look = clip(String(spec.look || '').trim(), 300);
+    var made = RP.normChar({
+      id: 'new_' + slug(name),
+      name: name,
+      title: role || 'Invented in play',
+      summary: clip(spec.summary || [role, look].filter(Boolean).join(' — '), 600),
+      description: clip(spec.description || '', 1400),
+      handle: (state.user && state.user.handle) || 'waluipedia',
+      voice: spec.voice && typeof spec.voice === 'object' && spec.voice.register ? spec.voice : undefined,
+    });
+    if (look) made.look = look;          // no portrait exists; the words are it
+    made.invented = true;
+    room.cast = room.cast || [];
+    room.cast = room.cast.filter(function (c) { return c.id !== made.id; });
+    room.cast.push(made);
+    if (room.cast.length > 1) room.kind = 'group';
+    room.away = (room.away || []).filter(function (c) { return c.id !== made.id; });
+    room.states = room.states || {};
+    if (room.states[made.id]) room.states[made.id].present = true;   // someone we remember is a return
+    else {
+      var kit = Array.isArray(spec.items) ? spec.items.filter(Boolean) : [];
+      room.states[made.id] = kit.length
+        ? RP.blankSheet(made, room.statePreset, { items: kit.join('; ') })
+        : RP.outfit(room, made, RP.blankSheet(made, room.statePreset));
+    }
+    state.newChars = (state.newChars || []).filter(function (c) { return c.id !== made.id; });
+    state.newChars.unshift(made);
+    state.newChars = state.newChars.slice(0, 80);
+    RP.logEvent(state, {
+      kind: 'roster', roomId: room.id, roomTitle: room.title, chars: [made.id],
+      text: made.name + ' was ' + (spec.by || 'invented in play') + ': ' + clip(made.summary, 200),
+    });
+    return made;
+  };
+
+  /** The ✨ fill-in: given a name (and whatever the reader typed), ask the
+   *  model for the rest of the card in a fixed, line-per-field template a
+   *  small model can keep to. The scene and the cast ride along so the
+   *  newcomer fits the room they are walking into. */
+  RP.inventPrompt = function (spec, room) {
+    spec = spec || {};
+    var cast = ((room && room.cast) || []).map(function (c) { return c.name + (c.title ? ' (' + clip(c.title, 50) + ')' : ''); }).slice(0, 8);
+    var given = ['role', 'look', 'voice', 'items'].filter(function (k) { return spec[k] && String(spec[k]).trim(); })
+      .map(function (k) { return '  ' + k.toUpperCase() + ' (keep this): ' + clip(String(spec[k]), 200); });
+    return [
+      'You write character cards for a roleplay set in the Waluipedia archive — Mario-world names, grudges and debts;',
+      'ground-level, specific, a little grubby; never generic fantasy. Fill in the card for ONE new character named',
+      '\u201c' + spec.name + '\u201d, who is about to walk into this scene.',
+      (room && room.scene) ? 'THE SCENE: ' + clip(room.scene, 500) : '',
+      cast.length ? 'ALREADY HERE: ' + cast.join('; ') : '',
+      given.length ? 'THE READER ALREADY WROTE:\n' + given.join('\n') : '',
+      'Answer with EXACTLY these lines, nothing before or after, no markdown:',
+      'ROLE: who they are to this scene, one line',
+      'LOOK: what they look like, one or two sentences',
+      'VOICE: how they talk — register, rhythm, tics — one or two sentences',
+      'SOUNDS LIKE: three short phrases they would say, separated by " / "',
+      'NEVER: two or three things they would never say or do, separated by " / "',
+      'LINE: one sample line of theirs, in quotes',
+      'LINE: a second sample line',
+      'LINE: a third sample line',
+      'CARRYING: two or three things they carry, separated by commas, each starting with one emoji',
+    ].filter(Boolean).join('\n');
+  };
+
+  /** Read the template back. Anything missing is left blank rather than
+   *  invented; the reader can still type it. */
+  RP.parseInvented = function (text, spec) {
+    var out = { name: (spec && spec.name) || '', role: '', look: '', voice: null, items: [] };
+    var fields = { role: '', look: '', register: '', sounds: [], never: [], lines: [] };
+    String(text || '').split(/\r?\n/).forEach(function (raw) {
+      var line = raw.replace(/^[\s*#>-]+/, '').trim();
+      var m = /^(ROLE|LOOK|VOICE|SOUNDS LIKE|NEVER|LINE|CARRYING)\s*:\s*(.+)$/i.exec(line);
+      if (!m) return;
+      var key = m[1].toUpperCase(), value = m[2].trim();
+      if (key === 'ROLE') fields.role = fields.role || clip(value, 200);
+      else if (key === 'LOOK') fields.look = fields.look || clip(value, 300);
+      else if (key === 'VOICE') fields.register = fields.register || clip(value, 400);
+      else if (key === 'SOUNDS LIKE') fields.sounds = value.split(/\s*\/\s*|\s*;\s*/).map(function (v) { return clip(v.replace(/^[\u201c"']|[\u201d"']$/g, ''), 80); }).filter(Boolean).slice(0, 4);
+      else if (key === 'NEVER') fields.never = value.split(/\s*\/\s*|\s*;\s*/).map(function (v) { return clip(v, 100); }).filter(Boolean).slice(0, 4);
+      else if (key === 'LINE') { if (fields.lines.length < 6) fields.lines.push(clip(value.replace(/^[\u201c"']|[\u201d"']$/g, ''), 240)); }
+      else if (key === 'CARRYING') out.items = value.split(/\s*,\s*/).map(function (v) { return clip(v, 60); }).filter(Boolean).slice(0, 5);
+    });
+    out.role = fields.role;
+    out.look = fields.look;
+    if (fields.register || fields.lines.length) {
+      out.voice = { register: fields.register, sounds: fields.sounds, never: fields.never, lines: fields.lines };
+    }
+    return out;
+  };
+
   RP.applyDirectives = function (state, room, directives, resolve) {
     RP.ensureSheets(room);
     var lines = [], entered = [], exited = [];
@@ -3011,10 +4721,11 @@
       .concat(you ? [you.name, 'the player'] : []);
     var turnNow = ((room || {}).messages || []).length;
     room.toolAt = room.toolAt || {};
-    var FAMILY = { hp: 'stakes', flag: 'stakes', tint: 'tint', remember: 'remember' };
+    var FAMILY = { hp: 'stakes', flag: 'stakes', mood: 'mood', remember: 'remember' };
     (directives || []).forEach(function (d) {
       if (FAMILY[d.kind]) room.toolAt[FAMILY[d.kind]] = turnNow;
       if (d.kind === 'lookup') return;       // the page answers this one
+      if (d.kind === 'mood' && !d.who) return;   // nameless: the page names the speaker first, or it is nobody's
       if (d.kind === 'remember') {
         RP.bookAdd(state, {
           kind: 'fact', name: d.name, text: d.value,
@@ -3053,28 +4764,9 @@
       }
       if (d.kind === 'new') {
         if (find(d.name)) return;
-        var made = RP.normChar({
-          id: 'new_' + slug(d.name),
-          name: d.name,
-          title: d.role || 'Invented in play',
-          summary: [d.role, d.look].filter(Boolean).join(' — '),
-          handle: (state.user && state.user.handle) || 'waluipedia',
-        });
-        made.look = d.look;          // no portrait exists; the words are it
-        made.invented = true;
-        room.cast.push(made);
-        room.away = (room.away || []).filter(function (c) { return c.id !== made.id; });
-        if (room.states[made.id]) room.states[made.id].present = true;   // NEW for someone we remember is a return
-        else room.states[made.id] = RP.outfit(room, made, RP.blankSheet(made, room.statePreset));
-        state.newChars = (state.newChars || []).filter(function (c) { return c.id !== made.id; });
-        state.newChars.unshift(made);
-        state.newChars = state.newChars.slice(0, 80);
+        var made = RP.inventCharacter(state, room, { name: d.name, role: d.role, look: d.look, by: 'invented in play' });
         entered.push(made);
         lines.push('New character — ' + made.name + (d.role ? ', ' + d.role : ''));
-        RP.logEvent(state, {
-          kind: 'roster', roomId: room.id, roomTitle: room.title, chars: [made.id],
-          text: made.name + ' was invented in play: ' + clip(made.summary, 200),
-        });
         return;
       }
       // Re-read the raw body now that the cast is known: "Lord Darian Marsh
@@ -3100,17 +4792,23 @@
           return k && (k.indexOf(lowName) >= 0 || lowName.indexOf(k) >= 0);
         });
         var back = backIdx >= 0 ? room.away.splice(backIdx, 1)[0] : null;
-        var found = back || (resolve && resolve(d.name)) || RP.normChar({ name: d.name, title: 'Walked into the scene', summary: d.reason });
-        room.cast.push(RP.normChar(found));
-        var kept = room.states[found.id];
-        if (kept) kept.present = true;
-        else room.states[found.id] = RP.outfit(room, found, RP.blankSheet(found, room.statePreset));
+        var found = back || (resolve && resolve(d.name));
+        var kept = found ? room.states[found.id] : null;
+        if (found) {
+          room.cast.push(RP.normChar(found));
+          if (kept) kept.present = true;
+          else room.states[found.id] = RP.outfit(room, found, RP.blankSheet(found, room.statePreset));
+          RP.logEvent(state, {
+            kind: 'roster', roomId: room.id, roomTitle: room.title, chars: [found.id],
+            text: found.name + ' entered the scene: ' + (d.reason || 'no reason filed'),
+          });
+        } else {
+          // Nobody the archive knows: made on the spot, like a [[NEW:]],
+          // so they keep a sheet and can be invited back into later scenes.
+          found = RP.inventCharacter(state, room, { name: d.name, role: 'Walked into the scene', summary: d.reason, by: 'walked into the scene' });
+        }
         entered.push(found);
         lines.push(found.name + (kept ? ' returns — ' : ' enters — ') + (d.reason || 'the scene called for them'));
-        RP.logEvent(state, {
-          kind: 'roster', roomId: room.id, roomTitle: room.title, chars: [found.id],
-          text: found.name + ' entered the scene: ' + (d.reason || 'no reason filed'),
-        });
         return;
       }
       if (d.kind === 'exit') {
@@ -3134,10 +4832,18 @@
       }
       var target = find(d.who || d.name);
       var sheet = target ? room.states[target.id] : null;
+      // How the reader feels is the reader's: the model's MOOD for the
+      // player's sheet is dropped (the sheet form sets it by hand).
+      if (d.kind === 'mood' && sheet && (sheet.player || (target && target.player)) && !d.set && !d.byAudit) return;
+      if (d.kind === 'mood') d = Object.assign({}, d, { turn: turnNow });
       var line = RP.applyChange(sheet, d);
       if (line) lines.push(line);
     });
     if (lines.length) room.updated = Date.now();
+    // Two people in the room is a group chat: named turns in the history,
+    // the rotation, the ensemble prompt. A one-to-one chat somebody walked
+    // into used to keep the solo card — "You are Sans" — for every speaker.
+    if ((room.cast || []).length > 1) room.kind = 'group';
     return { lines: lines, entered: entered, exited: exited };
   };
 
@@ -3421,7 +5127,7 @@
         sheets.length ? '**The state everyone is carrying in.**\n' + sheets.map(function (s) {
           var bits = [];
           if (s.hp) bits.push('HP ' + s.hp.value + '/' + s.hp.max);
-          if (s.mp) bits.push('MP ' + s.mp.value + '/' + s.mp.max);
+          if (s.mp) bits.push('Energy ' + s.mp.value + '/' + s.mp.max);
           var flags = Object.keys(s.flags || {});
           if (flags.length) bits.push(flags.join(', ').replace(/_/g, ' '));
           if ((s.items || []).length) bits.push('carrying ' + s.items.join(', '));
@@ -4118,7 +5824,7 @@
       sheets.forEach(function (s) {
         var bits = [];
         if (s.hp) bits.push('HP ' + s.hp.value + '/' + s.hp.max);
-        if (s.mp) bits.push('MP ' + s.mp.value + '/' + s.mp.max);
+        if (s.mp) bits.push('Energy ' + s.mp.value + '/' + s.mp.max);
         var flags = Object.keys(s.flags || {});
         if (flags.length) bits.push(flags.join(', ').replace(/_/g, ' '));
         if ((s.items || []).length) bits.push('carrying ' + s.items.join(', '));
@@ -4142,25 +5848,32 @@
   };
 
   /** The whole chat, as a file another chatroom can import. */
-  RP.chatExport = function (state, room) {
-    return {
+  RP.chatExport = function (state, room, opts) {
+    opts = opts || {};
+    // With `linked`, the second scene travels too — both rooms keep their
+    // ids and their linkedTo, so an import on another machine re-links them.
+    var other = opts.linked ? RP.linkedRoom(state, room) : null;
+    var rooms = other ? [room, other] : [room];
+    var inCast = function (id) {
+      return rooms.some(function (r) { return (r.cast || []).some(function (c) { return c.id === id; }); });
+    };
+    var inRooms = function (roomId) { return rooms.some(function (r) { return r.id === roomId; }); };
+    var out = {
       kind: 'waluipedia-chatroom-bundle',
       version: 1,
       exportedAt: new Date().toISOString(),
       user: state.user,
-      rooms: [room],
-      chars: (state.chars || []).filter(function (m) {
-        return (room.cast || []).some(function (c) { return c.id === m.id; });
-      }),
+      rooms: rooms,
+      chars: (state.chars || []).filter(function (m) { return inCast(m.id); }),
       lore: state.lore || [],
       book: ((state.book || {}).entries || []).filter(function (e) {
-        return e.roomId === room.id || !e.roomId;
+        return inRooms(e.roomId) || !e.roomId;
       }),
-      newChars: (state.newChars || []).filter(function (c) {
-        return (room.cast || []).some(function (x) { return x.id === c.id; });
-      }),
-      log: (state.log || []).filter(function (e) { return e.roomId === room.id; }),
+      newChars: (state.newChars || []).filter(function (c) { return inCast(c.id); }),
+      log: (state.log || []).filter(function (e) { return inRooms(e.roomId); }),
     };
+    if (other) out.link = { a: room.id, b: other.id, mode: room.linkMode || '' };
+    return out;
   };
 
 
@@ -4299,7 +6012,24 @@
       dir: 'Write 8 to 14 SENTENCES — two or three short paragraphs. Count them, and stop at the end of a sentence. ' +
         'Detail that does something, not description for its own sake.',
     },
+    // The band that is not a band: the model sizes the turn to the moment.
+    // A retort stays a retort; a reveal, a move, a new room gets the space
+    // it needs. The old snappy voice at the small end, room at the big one.
+    adaptive: {
+      name: 'Let the scene decide', words: '2 sentences to 2 paragraphs, as the moment asks', sentences: [2, 12], tokens: 1000,
+      dir: 'SIZE THE TURN TO THE MOMENT. A quick exchange — a retort, an answer, a look — is 2 or 3 SENTENCES. A turn ' +
+        'where something HAPPENS — a move, a reveal, a new place, a plan or a fight turning — takes a paragraph, two at ' +
+        'most (12 sentences). Decide which before you write; never pad a small moment, never rush a big one.',
+    },
   };
+  RP.DEFAULT_LENGTH = 'adaptive';
+
+  /* Whatever the band, a turn has to DO something. The small models this
+   * runs on will happily shout a quip back for twenty turns while nothing
+   * in the room changes; this rides in the protected tail of every prompt
+   * so the length instruction never reads as "be brief and say nothing". */
+  RP.MOVE_RULE = 'WHATEVER THE LENGTH, MOVE THE SCENE: answer the specific thing just said or done, and leave one concrete ' +
+    'thing changed — a decision, a door, a price, a name given up. A quip, a shout or a reaction on its own is not a turn.';
 
   /** Did the model run out of room rather than finish? A reply that ends
    *  without terminal punctuation, inside an open quote, or on a comma or a
@@ -4360,12 +6090,21 @@
    *  the world gets one step more room, because that is its job. */
   RP.lengthBlock = function (level, isWorld) {
     var keys = ['snappy', 'normal', 'rich'];
-    var at = Math.max(0, keys.indexOf(RP.LENGTHS[level] ? level : 'snappy'));
-    if (isWorld) at = Math.min(keys.length - 1, at + 1);
-    var band = RP.LENGTHS[keys[at]];
+    var key;
+    if (level === 'adaptive') {
+      // Sized to the moment either way: a world turn that only needs two
+      // sentences gets two, one that opens a new place gets its paragraphs.
+      key = 'adaptive';
+    } else {
+      var at = Math.max(0, keys.indexOf(RP.LENGTHS[level] ? level : 'snappy'));
+      if (isWorld) at = Math.min(keys.length - 1, at + 1);
+      key = keys[at];
+    }
+    var band = RP.LENGTHS[key];
     return {
-      key: keys[at], tokens: band.tokens,
+      key: key, tokens: band.tokens,
       text: 'LENGTH\n' + band.dir +
+        '\n' + RP.MOVE_RULE +
         '\nTHE LAST SENTENCE MUST BE A WHOLE SENTENCE. Count as you go, and when you reach the last one, finish it ' +
         'and stop. Never end on a comma, a conjunction, or an open quotation mark. A turn that trails off ' +
         'mid-clause is a broken turn — it is better to write one sentence fewer and land it.',
@@ -4422,6 +6161,15 @@
   RP.narrator = function (state) {
     var key = (state && state.settings && state.settings.narrator) || 'director';
     return RP.NARRATORS[key] ? key : 'director';
+  };
+
+  /** The band a world turn is written in: the narrator's own, unless the
+   *  reader has let the scene decide — then the Director sizes to the
+   *  moment too. The terse room stays terse; that is its whole point. */
+  RP.worldLength = function (state) {
+    var voice = RP.NARRATORS[RP.narrator(state)] || RP.NARRATORS.director;
+    var set = (state && state.settings && state.settings.length) || RP.DEFAULT_LENGTH;
+    return (set === 'adaptive' && voice.length !== 'snappy') ? 'adaptive' : voice.length;
   };
 
   /** The facts a scene has nailed down: where you are, what you are
@@ -4537,6 +6285,8 @@
     opts = opts || {};
     var parts = [RP.worldPrompt(state, room, opts)];
     if (room.scene) parts.push('THE SCENE\n' + clip(room.scene, 900));
+    var worldMeanwhile = RP.meanwhileBlock(state, room);
+    if (worldMeanwhile) parts.push(worldMeanwhile);
     var worldSource = RP.sourceBlock(room, opts.archive);
     if (worldSource) parts.push(worldSource);
     var worldKeys = RP.keywordBlock(state, opts.recent || RP.historyFor(room, 4).map(function (m) { return m.content; }).join(' '));
@@ -4559,22 +6309,39 @@
     var memory = RP.memoryBlock(state, room.cast, room, 6);
     if (memory) parts.push(memory);
     var protectedFrom = parts.length;
+    var worldDirection = RP.directionBlock(room);
+    if (worldDirection) parts.push(worldDirection);
+    if (opts.ambient) parts.push(RP.liveBlock(room, null, false));
     if (room.mechanics !== 'off') {
       var sheets = RP.stateBlock(room, RP.PLAYER_ID);
       if (sheets) parts.push(sheets);
       var named = RP.mentionBlock(room, opts.mentionText || '');
       if (named) parts.push(named);
-      var thinAir = RP.conjureBlock(opts.conjured);
+      var pinged = RP.pingBlock(state, room, opts.mentions, opts.catalog);
+      if (pinged) parts.push(pinged);
+      var thinAir = RP.conjureBlock(opts.conjured, opts.conjureVerdict);
       if (thinAir) parts.push(thinAir);
       parts.push(RP.DIRECTIVES);
+      var worldWounds = RP.hurtBlock(room, String(opts.mentionText || '') + ' ' + ((room.direction && room.direction.text) || ''));
+      if (worldWounds) parts.push(worldWounds);
+      var worldBeyond = RP.beyondBlock(opts.fate);
+      if (worldBeyond) parts.push(worldBeyond);
+      var worldPlayerMood = RP.playerMoodBlock(room);
+      if (worldPlayerMood) parts.push(worldPlayerMood);
+      var worldPlayerBody = RP.playerBodyBlock(room);
+      if (worldPlayerBody) parts.push(worldPlayerBody);
+      var worldAuditNotes = RP.auditNoteBlock(room);
+      if (worldAuditNotes) parts.push(worldAuditNotes);
     }
     var fate = RP.fateBlock(opts.fate);
     if (fate) parts.push(fate);
+    var worldFlourish = RP.flourishBlock(room, opts.fate);
+    if (worldFlourish) parts.push(worldFlourish);
     var worldOoc = RP.oocBlock(state, room, opts.notes);
     if (worldOoc) parts.push(worldOoc);
     // The narrator carries its own length: the Director needs room, the
     // room itself needs two sentences.
-    parts.push(RP.lengthBlock(RP.NARRATORS[RP.narrator(state)].length, false).text);
+    parts.push(RP.lengthBlock(RP.worldLength(state), false).text);
     return RP.fitPrompt(parts, opts.budget, protectedFrom);
   };
 
@@ -4713,6 +6480,8 @@
       'around them, and do not pretend to know more of the file than is here.',
       anyNamed ? 'A filing marked ★ was NAMED in the scene. When the player reads from it or asks about it, read' +
         ' from THIS text — never invent its contents.' : '',
+      'Weave at least ONE concrete thing out of them into this turn — a name, a date, a number, a phrase quoted or',
+      'misquoted in character. A passage read and not used is a wasted turn.',
       results.map(function (r) {
         return '- ' + (r.named ? '★ ' : '') + '[' + r.kind + ':' + r.id + '] ' + r.name + (r.date ? ' (' + r.date + ')' : '') + '\n    “' + r.snippet + '”';
       }).join('\n'),
@@ -5075,6 +6844,9 @@
     });
     copy.branchOf = room.id;
     copy.branchAt = messageId;
+    copy.linkedTo = '';            // a branch is its own hour; the link stays with the original
+    copy.direction = null;
+    copy.pinnedNext = '';
     copy.created = Date.now();
     copy.updated = Date.now();
     copy.bookAt = Math.min(Number(room.bookAt || 0), copy.messages.filter(visible).length);
@@ -5086,14 +6858,23 @@
   RP.UNDO_DEPTH = 12;
 
   /** Remember where the chat was before something changed it. */
-  RP.pushUndo = function (room, label) {
-    room.undo = room.undo || [];
-    room.undo.push({
-      label: clip(label, 60), at: Date.now(),
+  // What one step back restores: the turns, the sheets, the cast and the
+  // clock (the AI audit may move it).
+  function snapshot(room, label) {
+    return {
+      label: label, at: Date.now(),
       messages: JSON.stringify(room.messages || []),
       states: JSON.stringify(room.states || {}),
       cast: JSON.stringify(room.cast || []),
-    });
+      clock: room.clock || '',
+      youPlay: room.youPlay || '',
+      away: JSON.stringify(room.away || []),
+    };
+  }
+
+  RP.pushUndo = function (room, label) {
+    room.undo = room.undo || [];
+    room.undo.push(snapshot(room, clip(label, 60)));
     if (room.undo.length > RP.UNDO_DEPTH) room.undo = room.undo.slice(-RP.UNDO_DEPTH);
     room.redo = [];              // a new action forks away from any redo
     return room.undo.length;
@@ -5103,18 +6884,17 @@
     room.messages = JSON.parse(snap.messages);
     room.states = JSON.parse(snap.states);
     room.cast = JSON.parse(snap.cast);
+    if (snap.clock !== undefined) room.clock = snap.clock;
+    if (snap.youPlay !== undefined) room.youPlay = snap.youPlay || '';
+    if (snap.away !== undefined) room.away = JSON.parse(snap.away);
+    if (snap.linkedTo !== undefined) room.linkedTo = snap.linkedTo;   // a merge taken back is two scenes again
     room.updated = Date.now();
   }
 
   RP.undo = function (room) {
     if (!(room.undo || []).length) return null;
     var snap = room.undo.pop();
-    (room.redo = room.redo || []).push({
-      label: snap.label, at: Date.now(),
-      messages: JSON.stringify(room.messages || []),
-      states: JSON.stringify(room.states || {}),
-      cast: JSON.stringify(room.cast || []),
-    });
+    (room.redo = room.redo || []).push(snapshot(room, snap.label));
     restore(room, snap);
     return snap.label || 'the last change';
   };
@@ -5122,12 +6902,7 @@
   RP.redo = function (room) {
     if (!(room.redo || []).length) return null;
     var snap = room.redo.pop();
-    (room.undo = room.undo || []).push({
-      label: snap.label, at: Date.now(),
-      messages: JSON.stringify(room.messages || []),
-      states: JSON.stringify(room.states || {}),
-      cast: JSON.stringify(room.cast || []),
-    });
+    (room.undo = room.undo || []).push(snapshot(room, snap.label));
     restore(room, snap);
     return snap.label || 'that';
   };
@@ -5175,11 +6950,30 @@
       }
       if (sheet.notes) lines.push(sheet.notes);
     }
-    if (starred) lines.push('In this scene they are playing ' + starred.name + '.');
+    if (starred) {
+      // The reader is a cast member. The model should know who is in front
+      // of it — Wario talks to his brother differently from a stranger.
+      lines.push('In this scene they ARE ' + starred.name + (starred.title ? ' \u2014 ' + clip(starred.title, 120) : '') + '.');
+      if (starred.summary) lines.push('Who that is: ' + clip(starred.summary, 320));
+      lines.push('Call them ' + starred.name + ' (or whatever you would call ' + starred.name + ' to their face). ' +
+        starred.name + '\u2019s words, actions and decisions are theirs to write, never yours.');
+    }
     if (text) lines.push(text);
     if (!lines.length) return '';
     return 'THE USER PLAYS\n' + lines.join('\n') +
       '\nAddress them as that person; never tell them what they do, say or decide.';
+  };
+
+  /** Take a seat as an archive character: they join the cast if they are
+   *  not already in it, and the star moves to them. Returns the cast
+   *  entry, or null when nothing was handed in. */
+  RP.playAs = function (room, char) {
+    if (!room || !char) return null;
+    var seat = RP.addToRoom(room, char) ? room.cast[room.cast.length - 1]
+      : (room.cast || []).filter(function (c) { return c.id === char.id; })[0];
+    if (!seat) return null;
+    if (room.youPlay !== seat.id) RP.markPlayer(room, seat.id);
+    return seat;
   };
 
   /* ------------------------------------------------------------------ *
@@ -6070,15 +7864,262 @@
     keys.forEach(function (k) { total += weights[k]; });
     var at = roll * total;
     for (var i = 0; i < keys.length; i++) {
+      if (!(weights[keys[i]] > 0)) continue;          // an empty bucket is never drawn, not even at 0
       at -= weights[keys[i]];
       if (at <= 0) return keys[i];
     }
+    for (var j = keys.length - 1; j >= 0; j--) if (weights[keys[j]] > 0) return keys[j];
     return keys[keys.length - 1];
   }
 
-  /** Roll for the turn. State makes it worse: somebody at low HP or carrying
-   *  conditions does not get the benefit of the doubt. `roll` is injectable
-   *  so the tests are not at the mercy of the dice. */
+  /* ---- beyond them: godly and hopeless attempts ----
+   * "I stop time", "I lift the helicopter off him", "I kill them all at
+   * once". Left alone the dice treat these like opening a door. Read
+   * locally, for free: a godly attempt (power nobody on the sheet has) or
+   * a hopeless one (a body cannot) turns the table hard against it, and
+   * the people in the room react to the attempt itself. A sheet with MP
+   * is a caster: their magic is not godly, only the omnipotent is. */
+  var GODLY_RE = /\b(?:stop(?:s)? time|freez(?:e|es) time|rewind(?:s)? time|turn(?:s)? back time|become(?:s)? (?:a )?god|godlike|omnipoten\w+|resurrect(?:s)?|rais(?:e|es) the dead|bring(?:s)? (?:him|her|them) back (?:to life|from the dead)|read(?:s)? (?:his|her|their|everyone'?s) minds?|control(?:s)? (?:his|her|their|everyone'?s) minds?|teleport(?:s)?|open(?:s)? a portal|snap(?:s)? my fingers and|with a (?:wave|snap|flick) of my (?:hand|fingers)|wip(?:e|es) (?:them|everyone|it) (?:all )?(?:out|from existence)|kill(?:s)? (?:everyone|them all|all of them) (?:at once|instantly|with a (?:word|thought|look))|will(?:s)? (?:him|her|them|it) (?:dead|out of existence)|summon(?:s)? (?:a |an |the )?(?:dragon|army|demon|meteor|god|storm|legion|titan)|call(?:s)? down (?:lightning|fire|a storm|the heavens)|lightning from my (?:hands?|fingers|eyes)|fly (?:up|away|off|into)|take(?:s)? flight|levitat\w*|turn(?:s)? invisible|shapeshift\w*|turn(?:s)? (?:him|her|them|myself) into (?:a |an )?\w+)\b/i;
+  var HOPELESS_RE = /\b(?:(?:lift|lifts|throw|throws|hurl|hurls|catch|catches|carry|carries|flip|flips|rip|rips|tear|tears|punch(?:es)? through|kick(?:s)? down|hold(?:s)? up|pick(?:s)? up|push(?:es)? over|stop(?:s)?)\s+(?:the|a|an|that|this)\s+(?:\w+\s+){0,2}(?:helicopter|aircraft|airplane|plane|airship|zeppelin|car|truck|lorry|wagon|carriage|boat|ship|train|building|tower|wall|house|tree|boulder|mountain|bridge|gate|statue|engine|tank)|outrun(?:s)? (?:the|a|an) (?:bullet|arrow|blast|explosion|train|horse|avalanche|fire)|dodg(?:e|es) (?:every|all the|the) bullets|catch(?:es)? (?:the|a) (?:bullet|arrow|blade|sword|axe) (?:in|with) my (?:bare )?(?:hands?|teeth)|break(?:s)? (?:the|these|my) (?:chains|shackles|bars|cuffs) with my bare hands|bend(?:s)? the bars|kill(?:s)? (?:everyone|them all|all of them) (?:at once|with one (?:blow|swing|shot)|in one (?:blow|swing|move))|one[- ]punch(?:es)? (?:him|her|them|it)|punch(?:es)? (?:him|her|it) (?:through|across) the (?:wall|room|street)|jump(?:s)? (?:over|across) the (?:building|river|chasm|gorge|roof))\b/i;
+
+  /* ---- the body gates the attempt ----
+   * A man with a broken leg does not parkour up a building; a woman with
+   * her arm in a sling does not haul herself over a wall; somebody at 20
+   * HP does not sprint four blocks. Read from the player's own sheet,
+   * locally, before the dice: the condition's words against the verbs of
+   * the attempt. A hit turns the table against it and the prompt is told
+   * the body fails before the world does. */
+  var BODY_LIMITS = [
+    { why: /\b(limp\w*|broken (?:leg|ankle|foot|knee|hip|shin)|sprained (?:ankle|knee)|twisted ankle|crippled|lame(?:d)?|shot in the (?:leg|knee|thigh|foot)|leg wound|stabbed in the (?:leg|thigh))\b/i,
+      what: /\b(?:run|runs|running|sprint\w*|dash(?:es)?|bolt(?:s)?|chase(?:s)?|parkour|climb(?:s|ing)?|scale(?:s)?|vault(?:s)?|leap(?:s)?|jump(?:s)?|hurdle(?:s)?|kick(?:s)?|dance(?:s)?|scramble(?:s)? up|outrun(?:s)?|flee(?:s)? on foot|free[- ]run\w*|roll(?:s)? across|dive(?:s)? (?:through|over|across))\b/i, part: 'that leg' },
+    { why: /\b(broken (?:arm|wrist|hand|fingers?|collarbone|ribs?)|dislocated shoulder|one[- ]armed|arm in a sling|shot in the (?:arm|shoulder|hand)|burned hands?|crushed hand|stabbed in the (?:arm|shoulder))\b/i,
+      what: /\b(?:climb(?:s|ing)?|scale(?:s)?|lift(?:s)?|haul(?:s)?|hoist(?:s)?|carry|carries|swing(?:s)?|punch(?:es)?|throw(?:s)?|hurl(?:s)?|grapple(?:s)?|wrestle(?:s)?|pull(?:s)? (?:him|her|them|myself) up|two[- ]handed|draw(?:s)? the bow|reload(?:s)?|catch(?:es)?|hang(?:s)? from)\b/i, part: 'that arm' },
+    { why: /\b(blind(?:ed)?|eyes? (?:swollen|shut|gone)|cannot see|can'?t see|lost (?:an|one|my) eye)\b/i,
+      what: /\b(?:aim(?:s)?|shoot(?:s)?|fire(?:s)? (?:at|on)|snipe(?:s)?|read(?:s)?|search(?:es)?|spot(?:s)?|look(?:s)? for|scan(?:s)?|throw(?:s)? (?:it )?at|drive(?:s)?|pick(?:s)? (?:the|a) lock)\b/i, part: 'those eyes' },
+    { why: /\b(winded|exhausted|out of breath|concuss\w*|dizzy|drunk|poisoned|feverish|hypothermi\w*|starving|dehydrated)\b/i,
+      what: /\b(?:sprint\w*|run(?:s)? (?:for|after|across|up)|climb(?:s|ing)?|parkour|vault(?:s)?|swim(?:s)? across|fight(?:s)? on|hold(?:s)? (?:him|her|them) off|outrun(?:s)?)\b/i, part: 'that body' },
+    { why: /\b(tied(?: up)?|bound|chained|shackled|handcuffed|cuffed|pinned|restrained|in irons|strapped down)\b/i,
+      what: /\b(?:run(?:s)?|walk(?:s)? (?:out|over|away)|climb(?:s)?|grab(?:s)?|draw(?:s)?|swing(?:s)?|punch(?:es)?|reach(?:es)? for|attack(?:s)?|pick(?:s)? up|throw(?:s)?|kick(?:s)? (?:the|him|her|them) (?:door|down))\b/i, part: 'those bonds' },
+  ];
+  var HURT_HEAVY_RE = /\b(?:parkour|sprint\w*|climb(?:s|ing)?|scale(?:s)? (?:the|a)|vault(?:s)?|leap(?:s)? (?:across|over|onto)|haul(?:s)?|hoist(?:s)?|charge(?:s)? (?:at|into|out)|wrestle(?:s)?|fight(?:s)? (?:him|her|them) off|carry|carries|run(?:s)? (?:after|across|up|for)|kick(?:s)? (?:the|a) door|swim(?:s)?)\b/i;
+  var DOWN_OK_RE = /\b(?:crawl|whisper|say|says|mutter|breathe|reach|blink|look|listen|cough|groan|lie|lay|hold on|grip|press)\b/i;
+
+  /* ---- Energy: breath, strength and magic in one pool. Spent by the
+   * prose when the model forgets to file it, refilled a little every
+   * quiet turn, and a hard stop at 0. ---- */
+  var EXERT_RE = /\b(?:sprint\w*|runs? (?:for|after|across|up|down|out|to)|racing|dash(?:es)? (?:for|across|to)|climb(?:s|ing)?|scal(?:e|es|ing) the|vault(?:s)?|haul(?:s|ing)?|hoist(?:s)?|drag(?:s|ging)? (?:him|her|them|the|a)|carr(?:y|ies|ying) (?:him|her|them)|swim(?:s)?|wrestl\w*|grappl\w*|fights? (?:on|off|through)|swing(?:s)? (?:the|a|his|her|my)|dig(?:s|ging)?|shoulder(?:s)? (?:the|through)|kick(?:s)? (?:the|a|down|in)|heave(?:s)?)\b/i;
+  var MAGIC_RE = /\b(?:casts?|casting|spell\w*|conjur\w*|summon\w*|hex(?:es)?|incant\w*|teleport\w*|levitat\w*|enchant\w*|fireball|(?:the|his|her|my|their) magic|channel(?:s|ing)? (?:the|a|his|her|my))\b/i;
+  /** Breath spent in the prose: a sprint or a climb, or a spell. Only
+   *  for somebody with an Energy pool. { amount, cause } or null. */
+  RP.exertScan = function (text, sheet) {
+    var t = String(text || '');
+    if (!sheet || !sheet.mp || !sheet.mp.max || !t.trim()) return null;
+    var magic = MAGIC_RE.exec(t);
+    if (magic) return { amount: Math.max(2, Math.round(sheet.mp.max * 0.12)), cause: magic[0], kind: 'magic' };
+    var hard = EXERT_RE.exec(t);
+    if (hard) return { amount: Math.max(1, Math.round(sheet.mp.max * 0.06)), cause: hard[0], kind: 'effort' };
+    return null;
+  };
+  /** Energy comes back on its own: a little every turn a sheet is not
+   *  spending it. Quiet — only the moment it is full is worth a line. */
+  RP.regenEnergy = function (room, spentIds) {
+    var spent = {};
+    (spentIds || []).forEach(function (id) { spent[id] = true; });
+    var lines = [];
+    Object.keys((room && room.states) || {}).forEach(function (id) {
+      var s = room.states[id];
+      if (!s || s.present === false || !s.mp || !s.mp.max || spent[id] || s.mp.value >= s.mp.max) return;
+      var step = Math.max(1, Math.round(s.mp.max * 0.04));
+      s.mp.value = Math.min(s.mp.max, s.mp.value + step);
+      if (s.mp.value >= s.mp.max) lines.push('\u26a1 ' + s.name + ' has their breath back (' + s.mp.value + '/' + s.mp.max + ')');
+    });
+    return lines;
+  };
+
+  /* ---- down, and brought round. 0 HP used to be a number the model
+   * read and wrote past: Wario at 0, slapped, up and shouting, 0 still
+   * on the sheet. Now a revival in the prose moves the sheet, and a
+   * speaker at 0 written on their feet is sent back once. ---- */
+  var REVIVE_RE = /\b(?:slap(?:s|ped|ping)?|shak(?:e|es|ing|en)|wakes?|woke|rous(?:e|es|ed|ing)|reviv(?:e|es|ed|ing)|resuscitat\w*|bring(?:s|ing)? (?:him|her|them|\w+) (?:round|back|to)|brought (?:him|her|them|\w+) (?:round|back|to)|smelling salts|adrenaline|epinephrine|stim(?:pack|ulant|s)?|cpr|chest compressions|mouth[- ]to[- ]mouth|heal(?:s|ed|ing)?|patch(?:es|ed|ing)? (?:him|her|them|\w+) up|bandag\w*|potion|elixir|tonic|first aid|med[- ]?kit|cold water|haul(?:s|ed|ing)? (?:him|her|them|\w+) (?:up|to (?:his|her|their) feet)|drag(?:s|ged|ging)? (?:him|her|them|\w+) (?:up|to (?:his|her|their) feet)|pull(?:s|ed|ing)? (?:him|her|them|\w+) (?:up|to (?:his|her|their) feet)|comes? (?:round|to)\b|came (?:round|to)\b)/gi;
+  /** Who at 0 HP was just brought round by the prose — a slap, salts, a
+   *  stim, a heal, a shake — by name, or by pronoun when only one person
+   *  is down. Returns [{ id, name, how }]. */
+  RP.reviveScan = function (text, room) {
+    var t = String(text || '');
+    if (!room || !t.trim()) return [];
+    var down = Object.keys(room.states || {}).map(function (id) { return room.states[id]; }).filter(function (sh) {
+      return sh && sh.present !== false && sh.hp && sh.hp.max && sh.hp.value <= 0;
+    });
+    if (!down.length) return [];
+    var found = {}, out = [];
+    REVIVE_RE.lastIndex = 0;
+    var hit;
+    while ((hit = REVIVE_RE.exec(t))) {
+      var window = t.slice(Math.max(0, hit.index - 70), hit.index + hit[0].length + 90).toLowerCase();
+      down.forEach(function (sh) {
+        if (found[sh.id]) return;
+        var name = String(sh.name || '').toLowerCase();
+        var first = name.split(/\s+/)[0];
+        var named = name && (window.indexOf(name) >= 0 ||
+          (first.length > 2 && new RegExp('\\b' + first.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\b').test(window)));
+        if (!named && down.length === 1 && /\b(?:him|her|them|his|hers|their)\b/.test(window)) named = true;
+        if (!named) return;
+        found[sh.id] = true;
+        out.push({ id: sh.id, name: sh.name, how: hit[0].toLowerCase() });
+      });
+      if (!REVIVE_RE.global) break;
+    }
+    REVIVE_RE.lastIndex = 0;
+    return out;
+  };
+  /** Bring somebody round: a sliver of HP, `down` lifted, and
+   *  `barely_conscious` for three turns so the body block keeps them
+   *  slow. Returns the line for the strip. */
+  var reviveWord = function (how) {
+    var h = String(how || '').toLowerCase();
+    if (!h) return '';
+    if (/^slap/.test(h)) return 'slapped awake';
+    if (/^shak/.test(h)) return 'shaken awake';
+    if (/water/.test(h)) return 'cold water';
+    if (/salts/.test(h)) return 'smelling salts';
+    if (/adrenaline|epinephrine|stim/.test(h)) return 'a stim';
+    if (/cpr|compressions|mouth/.test(h)) return 'resuscitated';
+    if (/heal|potion|elixir|tonic|first aid|med|bandag|patch/.test(h)) return 'patched up';
+    if (/haul|drag|pull/.test(h)) return 'hauled to their feet';
+    if (/wake|woke|rous|reviv|bring|brought|come|came/.test(h)) return 'roused';
+    return clip(h, 40);
+  };
+  RP.revive = function (sheet, how) {
+    if (!sheet || !sheet.hp || !sheet.hp.max) return '';
+    how = reviveWord(how);
+    var sliver = Math.max(1, Math.round(sheet.hp.max * 0.05));
+    if (sheet.hp.value < sliver) sheet.hp.value = sliver;
+    RP.markDown(sheet);
+    sheet.flags = sheet.flags || {};
+    sheet.flags.barely_conscious = {
+      note: 'brought round' + (how ? ' \u2014 ' + how : '') + '; no fighting, no running, hardly standing',
+      turns: 3, effect: '',
+    };
+    return '\u26d1 ' + sheet.name + ' comes round at ' + sheet.hp.value + '/' + sheet.hp.max + ' HP' + (how ? ' \u2014 ' + how : '') + '; barely conscious';
+  };
+  var VIGOUR_RE = /\b(?:leaps?|leapt|lung(?:e|es|ed)|charg(?:e|es|ed) (?:at|in|out|across|forward)|sprint\w*|vault(?:s|ed)?|swings? (?:a|the|his|her|my) \w+|swung|punch(?:es|ed)?|slam(?:s|med)? (?:a|the|his|her|my|it)|roar(?:s|ed)?|bellow(?:s|ed)?|storm(?:s|ed)? (?:out|off|over|across|in|to)|grab(?:s|bed)? (?:him|her|them|\w+) by|haul(?:s|ed)? (?:himself|herself|themselves|myself)|kick(?:s|ed)? (?:the|a|him|her|them|out)|erupt(?:s|ed)?|spring(?:s)? (?:up|to)|sprang|jump(?:s|ed)? (?:up|to)|(?:on|to) (?:his|her|their|my) feet|stands? up|stood up|bolt(?:s|ed)? (?:for|out|across|up)|tackl(?:e|es|ed)|hurl(?:s|ed)?|shov(?:e|es|ed)|march(?:es|ed)?|strid(?:e|es)|strode|shout(?:s|ed)?|yell(?:s|ed)?|scream(?:s|ed)?|snatch(?:es|ed)?|wrench(?:es|ed)? (?:free|away|the|it)|climb(?:s|ed)?|dash(?:es|ed)?)\b/i;
+  var SPENT_OK_RE = /\b(?:tries? to|tried to|attempts? to|wants? to|cannot|can'?t|couldn'?t|could not|fails?|failed|collaps\w*|slump\w*|crumpl\w*|blacks? out|too weak|will not|won'?t|gives? out|give way|falls? back|sinks? back|not enough|in (?:his|her|their|my) head|dreams?|imagin\w*|remember\w*|used to)\b/i;
+  /** A speaker at 0 HP written on their feet. null when the turn keeps
+   *  to the body, or shows the body failing; else { why, what }. */
+  RP.vigourCheck = function (text, sheet) {
+    var t = String(text || '');
+    if (!sheet || !sheet.hp || !sheet.hp.max || sheet.hp.value > 0 || !t.trim()) return null;
+    var hit = VIGOUR_RE.exec(t);
+    if (!hit) return null;
+    var around = t.slice(Math.max(0, hit.index - 90), hit.index + hit[0].length + 120);
+    if (SPENT_OK_RE.test(around)) return null;
+    return { why: sheet.name + ' is DOWN at 0 HP', what: hit[0] };
+  };
+
+  /** What the player's body rules out, if the attempt is one of those.
+   *  Returns null, or { why, what, part } — "limping (the crash)" /
+   *  "climb" / "that leg". */
+  RP.bodyCheck = function (sheet, text) {
+    var t = String(text || '');
+    if (!sheet || !t.trim()) return null;
+    var flags = Object.keys(sheet.flags || {}).map(function (f) {
+      var cond = sheet.flags[f] && typeof sheet.flags[f] === 'object' ? sheet.flags[f] : {};
+      return { key: f.replace(/_/g, ' '), note: cond.note || '' };
+    });
+    var status = String(sheet.status || '');
+    var hp = sheet.hp && sheet.hp.max ? sheet.hp.value / sheet.hp.max : 1;
+    if (sheet.hp && sheet.hp.value <= 0 && !DOWN_OK_RE.test(t)) {
+      return { why: 'down at 0 HP', what: clip(t.replace(/^\*|\*$/g, ''), 40), part: 'a body that is done' };
+    }
+    // Spent: no breath left for a sprint, no reserve left for a spell.
+    if (sheet.mp && sheet.mp.max && sheet.mp.value <= 0) {
+      var tired = MAGIC_RE.exec(t) || EXERT_RE.exec(t);
+      if (tired) return { why: 'spent \u2014 0 Energy', what: tired[0], part: 'the wind they have left' };
+    }
+    for (var i = 0; i < BODY_LIMITS.length; i++) {
+      var rule = BODY_LIMITS[i];
+      var hit = flags.filter(function (f) { return rule.why.test(f.key) || rule.why.test(f.note); })[0];
+      var byStatus = !hit && rule.why.test(status) ? { key: (rule.why.exec(status) || [''])[0], note: '' } : null;
+      var cause = hit || byStatus;
+      if (!cause) continue;
+      var m = rule.what.exec(t);
+      if (!m) continue;
+      return { why: cause.key + (cause.note ? ' (' + clip(cause.note, 40) + ')' : ''), what: m[0], part: rule.part };
+    }
+    if (hp <= 0.35 && sheet.hp) {
+      var heavy = HURT_HEAVY_RE.exec(t);
+      if (heavy) return { why: 'at ' + sheet.hp.value + '/' + sheet.hp.max + ' HP', what: heavy[0], part: 'what is left of them' };
+    }
+    return null;
+  };
+
+  var CASTER_RE = /\b(?:magic|mage|wizard|witch|sorcer\w*|spell\w*|priest\w*|cleric|shaman|necromanc\w*|conjur\w*|alchem\w*|psychic|warlock|druid|oracle|ghost|spirit|demon|god(?:dess)?|angel|fairy|enchant\w*|summon\w*)\b/i;
+  /** A caster is somebody whose record says so — not whoever has the
+   *  preset's MP bar, which is everyone. */
+  RP.isCaster = function (char, sheet) {
+    if (!char) return false;
+    var record = [char.title, char.summary, char.faction, (char.tags || []).join(' '), (char.aliases || []).join(' ')].join(' ');
+    return CASTER_RE.test(record) || Boolean(sheet && sheet.caster);
+  };
+
+  RP.attemptScale = function (text, sheet, char) {
+    var t = String(text || '');
+    if (!t.trim()) return '';
+    var caster = RP.isCaster(char, sheet);
+    if (GODLY_RE.test(t)) {
+      // A caster's own kind of magic is not godly: summoning and flight
+      // stay on the table for them; stopping time and raising the dead do not.
+      if (!caster || /time|god|omnipoten|resurrect|dead|back to life|minds?|existence|instantly|at once/i.test(t)) return 'godly';
+    }
+    if (HOPELESS_RE.test(t)) return 'hopeless';
+    if (RP.bodyCheck(sheet, t)) return 'unfit';
+    return '';
+  };
+
+  /** How far the odds lean this turn, and why. Everything that moves the
+   *  dice is listed here so the pill, the prompt and the tests all read
+   *  the same arithmetic. One pip is one notch of the table; the sum is
+   *  clamped to ±3. Only the PLAYER's own body counts against them — an
+   *  enemy bleeding out used to make the player's attempt harder, which
+   *  is backwards. */
+  RP.fateTilt = function (room, opts) {
+    opts = opts || {};
+    var why = [], plain = [], tilt = 0;    // why: pill chips · plain: words for the prose
+    var you = (room.states || {})[RP.PLAYER_ID] || (room.youPlay ? (room.states || {})[room.youPlay] : null);
+    var stat = opts.text ? RP.actionStat(opts.text) : '';
+    var score = null;
+    if (you && you.stats && stat) {
+      score = Number(you.stats[stat] === undefined ? 1 : you.stats[stat]);
+      var lean = score - 1;                       // 0 → −1, 1 → even, 2 → +1, 3 → +2
+      tilt += lean;
+      why.push(RP.STAT_ICONS[stat] + ' ' + stat + ' ' + score + (lean ? ' (' + (lean > 0 ? '+' : '−') + Math.abs(lean) + ')' : ''));
+    }
+    if (you && you.hp && you.hp.max) {
+      if (you.hp.value <= 0) { tilt -= 2; why.push('💀 down (−2)'); plain.push('down, barely conscious'); }
+      else if (you.hp.value <= you.hp.max * 0.35) { tilt -= 1; why.push('🩸 badly hurt (−1)'); plain.push('badly hurt'); }
+    }
+    var flags = you ? Object.keys(you.flags || {}) : [];
+    if (flags.length) {
+      var weight = Math.min(1, flags.length * 0.5);
+      tilt -= weight;
+      var words = flags.slice(0, 2).map(function (f) { return f.replace(/_/g, ' '); });
+      why.push(RP.condIcon(flags[0]) + ' ' + words.join(', ') + (flags.length > 2 ? ' +' + (flags.length - 2) : '') + ' (−' + weight + ')');
+      plain.push(words.join(' and '));
+    }
+    if (opts.conjured) { tilt -= 2; why.push('🚫 out of thin air (−2)'); plain.push('reaching for a thing they do not have'); }
+    var scale = opts.scale === undefined ? RP.attemptScale(opts.text, you, RP.playerCharacter(room)) : opts.scale;
+    var body = scale === 'unfit' ? RP.bodyCheck(you, opts.text) : null;
+    if (scale === 'godly') { tilt -= 3; why.push('🌩 godly (−3)'); plain.push('attempting what no one in this world can do'); }
+    else if (scale === 'hopeless') { tilt -= 3; why.push('🪨 hopeless (−3)'); plain.push('attempting what a body cannot do'); }
+    else if (scale === 'unfit') { tilt -= 3; why.push('🩼 ' + (body ? body.why : 'the body') + ' (−3)'); plain.push('attempting what their body cannot do right now'); }
+    tilt = Math.max(-3, Math.min(3, tilt));
+    return { tilt: tilt, why: why, plain: plain, stat: stat, score: score, you: you, scale: scale || '', body: body };
+  };
+
+  /** Roll for the turn. The difficulty picks the table; the tilt (the
+   *  player's own stat for this kind of attempt, their wounds and
+   *  conditions, a thin-air claim) slides the weights along it. `roll` is
+   *  injectable so the tests are not at the mercy of the dice. */
   RP.rollFate = function (state, room, opts) {
     opts = opts || {};
     var level = opts.level || (state.settings && state.settings.fate) || 'normal';
@@ -6086,67 +8127,90 @@
     if (!odds || room.mechanics === 'off') return null;
     var weights = {};
     Object.keys(odds).forEach(function (k) { weights[k] = odds[k]; });
-    // Hurt or burdened characters shift the odds against the player.
-    var pressure = 0;
-    Object.keys(room.states || {}).forEach(function (id) {
-      var sheet = room.states[id];
-      if (!sheet || sheet.present === false) return;
-      if (sheet.hp && sheet.hp.max && sheet.hp.value <= sheet.hp.max * 0.35) pressure++;
-      pressure += Math.min(2, Object.keys(sheet.flags || {}).length) * 0.5;
-    });
-    if (pressure > 0) {
-      var shift = Math.min(2.5, pressure);
-      weights.triumph = Math.max(1, weights.triumph - shift * 2);
-      weights.success = Math.max(2, weights.success - shift * 4);
-      weights.setback += shift * 3;
-      weights.wrench += shift * 2;
+    var lean = RP.fateTilt(room, opts);
+    var t = lean.tilt;
+    if (t > 0) {
+      weights.triumph += t * 2;
+      weights.success += t * 5;
+      weights.cost = Math.max(2, weights.cost - t);
+      weights.wrench = Math.max(1, weights.wrench - t * 1.5);
+      weights.setback = Math.max(1, weights.setback - t * 2.5);
+      weights.refusal = Math.max(1, weights.refusal - t * 0.5);
+    } else if (t < 0) {
+      var d = -t;
+      weights.triumph = Math.max(1, weights.triumph - d * 1.5);
+      weights.success = Math.max(2, weights.success - d * 5);
+      weights.wrench += d * 1.5;
+      weights.setback += d * 3;
+      weights.refusal += d * (opts.conjured ? 2 : 0.5);
     }
-    // The player's own numbers lean on the dice — this is the one place
-    // the pseudo-stats are spent, so the prompt never has to argue them.
-    var statTag = '';
-    var you = (room.states || {})[RP.PLAYER_ID] || (room.youPlay ? (room.states || {})[room.youPlay] : null);
-    var stat = opts.text ? RP.actionStat(opts.text) : '';
-    if (you && you.stats && stat) {
-      var score = Number(you.stats[stat] || 0);
-      var lean = (score - 1) * 1.4;           // 0 → against, 1 → neutral, 3 → in favour
-      if (lean > 0) {
-        weights.triumph += lean * 1.5;
-        weights.success += lean * 3;
-        weights.setback = Math.max(1, weights.setback - lean * 2);
-        weights.wrench = Math.max(1, weights.wrench - lean);
-      } else if (lean < 0) {
-        var drop = -lean;
-        weights.triumph = Math.max(1, weights.triumph - drop * 1.5);
-        weights.success = Math.max(2, weights.success - drop * 3);
-        weights.setback += drop * 2;
-        weights.wrench += drop;
-      }
-      statTag = ' · ' + RP.STAT_ICONS[stat] + ' ' + stat + ' ' + score;
-    }
-    // Claiming a bazooka you do not have is a bluff, and the dice know it.
-    if (opts.conjured) {
-      weights.triumph = Math.max(1, weights.triumph - 4);
-      weights.success = Math.max(2, weights.success - 8);
-      weights.setback += 8;
-      weights.refusal += 6;
-      statTag += ' · 🚫 out of thin air';
+    // Beyond them: the world does not bend. No triumph, next to no plain
+    // success; it goes wrong, sideways, or is refused.
+    if (lean.scale) {
+      weights.triumph = 0;
+      weights.success = lean.scale === 'godly' ? 1 : 2;
+      weights.cost = Math.max(2, weights.cost * 0.5);
+      weights.wrench += lean.scale === 'unfit' ? 5 : 6;
+      weights.setback += lean.scale === 'godly' ? 8 : lean.scale === 'unfit' ? 9 : 10;
+      weights.refusal += lean.scale === 'godly' ? 6 : lean.scale === 'unfit' ? 1 : 2;
     }
     var roll = opts.roll === undefined ? Math.random() : opts.roll;
     var key = opts.force || pickWeighted(weights, roll);
     var fate = RP.FATE[key];
-    return { key: key, label: fate.label, pill: fate.pill + statTag, dir: fate.dir, level: level, pressure: pressure, stat: stat, statTag: statTag };
+    // A thin-air claim is settled by the same dice: the hand comes up
+    // holding it, or it comes up empty. No second opinion from the model.
+    var granted = opts.conjured ? (key === 'triumph' || key === 'success' || key === 'cost') : undefined;
+    var tag = lean.why.length ? ' · ' + lean.why.join(' · ') : '';
+    var pressure = Math.max(0, -t);
+    return {
+      key: key, label: fate.label, pill: fate.pill + tag, dir: fate.dir, level: level,
+      pressure: pressure, tilt: t, why: lean.why, plain: lean.plain, stat: lean.stat, score: lean.score, statTag: tag,
+      conjured: opts.conjured || '', granted: granted, scale: lean.scale || '', body: lean.body || null, attempt: clip(String(opts.text || ''), 120),
+    };
+  };
+
+  /** The block a godly or hopeless attempt earns: the world does not
+   *  bend, and the people in the room react to the attempt itself. */
+  RP.beyondBlock = function (fate) {
+    if (!fate || !fate.scale) return '';
+    if (fate.scale === 'unfit') {
+      var b = fate.body || {};
+      return 'THE BODY REFUSES \u2014 the player is ' + (b.why || 'hurt') + ', and \u201c' + (b.what || 'that') + '\u201d is beyond ' + (b.part || 'them') +
+        ' right now. The ruling below says how it goes \u2014 it does NOT happen as asked. Write the body failing before the world does: the leg ' +
+        'folds, the grip opens, the breath goes, the wall stays where it is \u2014 and what that costs, filed ([[HP:]] or [[COND:]] on their name). ' +
+        'The people in the scene see it and act on it \u2014 a hand under the arm, a laugh, an opening taken. Never scold the player for trying; show the body.';
+    }
+    var godly = fate.scale === 'godly';
+    return 'BEYOND THEM \u2014 the player\u2019s attempt is ' + (godly ? 'GODLY: nobody in this world has that power, and they do not' :
+      'HOPELESS: a body cannot do that, and theirs is no exception') + '. The ruling below says how it goes \u2014 it does NOT work as asked. ' +
+      'Write the world not bending: ' + (godly ? 'nothing answers the gesture, or the wrong thing does' : 'the weight does not move, the body gives') +
+      '. The people in the scene react to the attempt as people would \u2014 alarm, laughter, contempt, pity, a step back \u2014 and it changes how ' +
+      'they treat the player from here: file their feelings ([[MOOD: Name \u2026]]). The attempt costs the player something real \u2014 breath, blood, ' +
+      'dignity, the moment \u2014 and you file it ([[HP:]] or [[COND:]] on their name). Never scold the player for trying; show it.';
   };
 
   /** What the model is told about the roll. It is written as an order, not a
-   *  suggestion, because a suggestion gets ignored. */
+   *  suggestion, because a suggestion gets ignored. The lean is named in
+   *  one line so the prose can show WHY it went the way it went. */
   RP.fateBlock = function (fate) {
     if (!fate) return '';
+    var lean = '';
+    var plain = fate.plain || [];
+    if (fate.stat) {
+      lean = 'The attempt leaned on ' + fate.stat + ' (' + fate.score + ' of 3' +
+        (fate.score >= 2 ? ', a strength' : fate.score === 0 ? ', a weakness' : '') + ')' +
+        (plain.length ? ', and they are ' + plain.join(', and ') : '') +
+        '. Let that show in HOW it goes, never as numbers.';
+    } else if (plain.length) {
+      lean = 'They are ' + plain.join(', and ') + ' — let it show in how this goes, never as numbers.';
+    }
     return [
       'HOW THIS TURN RESOLVES — this is decided already, write it as it is',
       fate.dir,
+      lean,
       'Do not narrate the dice, the odds, or the fact that anything was decided. Do not ask the player to roll.',
       'The player writes only their attempt; whether it works is not theirs to declare, and you do not owe them a yes.',
-    ].join('\n');
+    ].filter(Boolean).join('\n');
   };
 
   /* ------------------------------------------------------------------ *
@@ -6329,20 +8393,224 @@
     ].join('\n');
   };
 
+  /* ------------------------------------------------------------------ *
+   * direction — the reader as director
+   *
+   * "Make the ceiling come down" typed as a turn is the player's character
+   * saying it, and a small model answers the words. A DIRECTION is not
+   * said by anyone: it is filed on the room, rides in the protected tail
+   * of the next prompt as a thing that happens, and is spent by that turn.
+   * The ◍ Director turn and the ⟶ carry-over between linked scenes both
+   * arrive this way.
+   * ------------------------------------------------------------------ */
+
+  RP.setDirection = function (room, text, from) {
+    if (!room) return null;
+    var clean = String(text || '').trim();
+    if (!clean) { room.direction = null; return null; }
+    room.direction = { text: clip(clean, 600), from: from || '', at: Date.now() };
+    return room.direction;
+  };
+
+  RP.directionBlock = function (room) {
+    var d = room && room.direction;
+    var text = d && String(d.text || '').trim();
+    if (!text) return '';
+    return 'THE READER DIRECTS THIS TURN' + (d.from ? ' (carried over from the scene \u201c' + clip(d.from, 60) + '\u201d)' : '') + '\n' +
+      text + '\n' +
+      'This is not a suggestion and not a question: it HAPPENS, now, in this turn, as written and in full. Show it ' +
+      'landing — the concrete thing, where it comes from, what it does to the room — and the people here dealing ' +
+      'with it in character. Do not delay it, soften it, argue with it or explain it away, and never call it a ' +
+      'direction. Everything else about the turn (who speaks, the dice, the rules below) still applies.';
+  };
+
+  /* ------------------------------------------------------------------ *
+   * linked scenes — two chats, the same hour, a wall apart
+   *
+   * Chat A is Wario and Waluigi flying the plane; chat B is the two people
+   * on the ground who see its spotlight. Each room may be linked to one
+   * other (room.linkedTo, mutual). The page shows them side by side; the
+   * prompt shows each the other's last turns so a light, a sound or a
+   * person walking over can carry — and nothing else does. Nothing plays
+   * on its own: the reader drives both, and ⟶ carries a thing over by hand.
+   * ------------------------------------------------------------------ */
+
+  RP.MEANWHILE_TURNS = 8;
+
+  RP.linkedRoom = function (state, room) {
+    if (!room || !room.linkedTo || room.linkedTo === room.id) return null;
+    return ((state && state.rooms) || []).filter(function (x) { return x && x.id === room.linkedTo; })[0] || null;
+  };
+
+  RP.linkRooms = function (a, b) {
+    if (!a || !b || a === b || a.id === b.id) return false;
+    a.linkedTo = b.id; b.linkedTo = a.id;
+    return true;
+  };
+
+  RP.unlinkRoom = function (state, room) {
+    var other = RP.linkedRoom(state, room);
+    if (other && other.linkedTo === room.id) other.linkedTo = '';
+    if (room) room.linkedTo = '';
+    return Boolean(other);
+  };
+
+  /** The last few turns of the linked room, as "Name: line" — what this
+   *  scene could plausibly be hearing through the wall. */
+  RP.meanwhileLines = function (state, other, limit) {
+    var playing = RP.playerCharacter(other);
+    var you = (playing && playing.name) || (state && state.user && state.user.name) || 'the reader';
+    return ((other && other.messages) || []).filter(function (m) {
+      return visible(m) && !m.muted && (m.role === 'user' || m.role === 'char' || m.role === 'world');
+    }).slice(-(limit || RP.MEANWHILE_TURNS)).map(function (m) {
+      var who = m.role === 'user' ? you
+        : m.role === 'world' ? 'The scene'
+        : (((other.cast || []).filter(function (c) { return c.id === m.charId; })[0] || {}).name || 'Someone');
+      return who + ': ' + clip(String(RP.textOf(m)).replace(/\s+/g, ' '), 220);
+    });
+  };
+
+  RP.meanwhileBlock = function (state, room) {
+    var other = RP.linkedRoom(state, room);
+    if (!other || room.linkMode === 'blind') return '';
+    var lines = RP.meanwhileLines(state, other);
+    if (!lines.length) lines = ['(nothing has happened there yet)'];
+    var cast = RP.presentCast(other).map(function (c) { return c.name; }).join(', ');
+    var you = RP.playerCharacter(other);
+    return 'MEANWHILE, IN THE OTHER SCENE OF THIS SAME HOUR \u2014 \u201c' + clip(other.sceneName || other.title || 'elsewhere', 60) + '\u201d' +
+      (cast ? ' (there right now: ' + cast + (you ? '; the reader plays ' + you.name + ' there' : '') + ')' : '') + '\n' +
+      (other.scene ? 'Where: ' + clip(String(other.scene).replace(/\s+/g, ' '), 200) + '\n' : '') +
+      lines.join('\n') + '\n' +
+      'Both scenes are one story, one world, one clock: what is established there is true here too \u2014 an engine that ' +
+      'died there is dead, a shot fired there was fired. Its people are THERE, not here, and its lines are not yours to ' +
+      'retell or answer. What crosses is what physically would, judged by how close the two places are: light, sound, ' +
+      'smoke, a tremor, a radio, shouting, somebody walking from there to here \u2014 when it would be noticed, notice it; ' +
+      'when the places are far apart, nothing crosses but the clock.';
+  };
+
+  /* ---- ⇄ merge: two scenes fold into one ----
+   * The reverse of the split. Everybody in either scene is in the one
+   * scene now (anyone written out of both stays written out); the two
+   * streams are interleaved by the clock with a camera card wherever the
+   * source changes, so the record still reads as what it was — two
+   * places, the same hour — right up to the turn they became one place.
+   * Facts, tints and the clock are kept (the stage's win on a clash); the
+   * recap is folded away so the model re-reads the joined stream, and
+   * the lore book's count carries both halves. */
+  RP.mergeRooms = function (state, stage, folded, opts) {
+    opts = opts || {};
+    if (!stage || !folded || stage === folded || stage.id === folded.id) return null;
+    var report = { joined: [], already: [], stillAway: [], turns: 0, cards: 0 };
+    var stageName = stage.sceneName || stage.title || 'this scene';
+    var foldName = folded.sceneName || folded.title || 'the other scene';
+    stage.states = stage.states || {};
+    // 1. People. Present in either → present here; a sheet unknown here
+    //    comes over whole; a sheet in both keeps the stage's record.
+    (folded.cast || []).forEach(function (c) {
+      var had = (stage.cast || []).some(function (x) { return x.id === c.id; });
+      var theirs = folded.states && folded.states[c.id];
+      var mine = had ? stage.states[c.id] : null;
+      if (!had) RP.addToRoom(stage, c);                       // (ensureSheets gives them a blank sheet)
+      if (theirs && !mine) { stage.states[c.id] = JSON.parse(JSON.stringify(theirs)); mine = stage.states[c.id]; }
+      if (!mine) mine = stage.states[c.id];
+      var wasHere = had && mine && mine.present !== false;
+      var wasThere = theirs && theirs.present !== false;
+      if (mine) {
+        if (wasThere || wasHere) { mine.present = true; (wasHere ? report.already : report.joined).push(c.name); }
+        else { mine.present = false; report.stillAway.push(c.name); }
+        if (mine.player && c.id !== stage.youPlay) mine.player = false;
+      } else if (!had) report.joined.push(c.name);
+    });
+    // The reader's own pack: the stage's; the other's only when the stage has none.
+    if (folded.states && folded.states[RP.PLAYER_ID] && !stage.states[RP.PLAYER_ID]) {
+      stage.states[RP.PLAYER_ID] = JSON.parse(JSON.stringify(folded.states[RP.PLAYER_ID]));
+    }
+    if (!stage.youPlay && folded.youPlay && (stage.cast || []).some(function (c) { return c.id === folded.youPlay; })) {
+      stage.youPlay = folded.youPlay;
+      if (stage.states[folded.youPlay]) stage.states[folded.youPlay].player = true;
+    }
+    stage.away = (stage.away || []).concat(folded.away || []).filter(function (x, i, all) {
+      if (!x || !x.id) return false;
+      if (stage.states[x.id] && stage.states[x.id].present !== false) return false;
+      return all.map(function (y) { return y && y.id; }).indexOf(x.id) === i;
+    });
+    // 2. The streams, by the clock, with a camera card at every switch.
+    var all = [];
+    (stage.messages || []).forEach(function (m) { all.push({ r: 'a', m: m }); });
+    (folded.messages || []).forEach(function (m) {
+      var copy = JSON.parse(JSON.stringify(m));
+      copy.sceneFrom = foldName;
+      all.push({ r: 'b', m: copy });
+    });
+    all.sort(function (x, y) { return (x.m.at || 0) - (y.m.at || 0); });
+    var out = [];
+    var cur = null;
+    var seenAny = all.some(function (e) { return e.r === 'b' && RP.visible(e.m); });
+    all.forEach(function (e) {
+      if (seenAny && e.r !== cur && RP.visible(e.m)) {
+        cur = e.r;
+        out.push({ id: RP.uid(), role: 'scene', camera: true, at: (e.m.at || Date.now()) - 1,
+          text: '⇄ ' + (e.r === 'a' ? stageName : foldName) });
+        report.cards++;
+      }
+      out.push(e.m);
+    });
+    report.turns = (folded.messages || []).filter(RP.visible).length;
+    stage.messages = out;
+    // 3. What both knew.
+    stage.facts = Object.assign({}, folded.facts || {}, stage.facts || {});
+    if (!stage.clock && folded.clock) stage.clock = folded.clock;
+    if (!stage.date && folded.date) stage.date = folded.date;
+    if (folded.tints && folded.tints.length) {
+      var have = (stage.tints || []).map(function (t) { return JSON.stringify(t); });
+      stage.tints = (stage.tints || []).concat(folded.tints.filter(function (t) { return have.indexOf(JSON.stringify(t)) < 0; }));
+    }
+    if (String(opts.scene || '').trim()) stage.scene = String(opts.scene).trim();
+    else if (!stage.scene && folded.scene) stage.scene = folded.scene;
+    stage.recap = ''; stage.recapAt = 0;                      // the joined stream is re-read
+    stage.bookAt = Number(stage.bookAt || 0) + Number(folded.bookAt || 0);
+    stage.queue = []; stage.next = ''; stage.handback = '';
+    if (stage.kind !== 'group' && (stage.cast || []).length > 1) stage.kind = 'group';
+    // 4. The card that says so, and the link is spent.
+    stage.messages.push({ id: RP.uid(), role: 'state', at: Date.now(), merged: true,
+      lines: ['⇄ \u201c' + foldName + '\u201d folded into this scene' +
+        (report.joined.length ? ' \u2014 ' + report.joined.join(', ') + ' ' + (report.joined.length === 1 ? 'is' : 'are') + ' here now' : '') +
+        (report.stillAway.length ? ' (' + report.stillAway.join(', ') + ' still written out)' : '') + '.'] });
+    if (stage.linkedTo === folded.id) stage.linkedTo = '';
+    if (folded.linkedTo === stage.id) folded.linkedTo = '';
+    folded.mergedInto = stage.id;
+    stage.updated = Date.now();
+    report.stage = stage; report.folded = folded;
+    return report;
+  };
+
+  /** Of two linked scenes, the one the pair is filed under: the older. */
+  RP.linkPrimary = function (state, room) {
+    var other = RP.linkedRoom(state, room);
+    if (!other) return room;
+    var a = room.created || 0, b = other.created || 0;
+    if (a !== b) return a < b ? room : other;
+    return String(room.id) < String(other.id) ? room : other;
+  };
+
   /** Assemble the whole system prompt for one turn. This is the only place
    *  the blocks are ordered, so the page and the tests agree on the shape. */
   RP.systemFor = function (state, room, speaker, opts) {
     opts = opts || {};
-    var style = { style: opts.style || room.style || 'novel', scene: room.scene };
+    var style = { style: opts.style || room.style || RP.DEFAULT_STYLE, scene: room.scene };
+    // A solo room whose cast grew (an ENTER, an invite) is a group room
+    // now; until the flag catches up, the solo card is at least the card
+    // of whoever is actually speaking, not of whoever opened the chat.
+    var lead = (room.cast || []).filter(function (c) { return speaker && c.id === speaker.id; })[0] || room.cast[0] || speaker || {};
     var base = room.kind === 'group'
       ? RP.groupPrompt(room.cast, speaker, style)
-      : RP.soloPrompt(room.cast[0] || speaker || {}, style);
+      : RP.soloPrompt(lead, style);
     var parts = [base];
-    var persona = RP.personaBlock(room.persona || (state.user && state.user.persona) || '', state, room);
-    if (persona) parts.push(persona);
     if (room.kind !== 'group' && room.scene) parts.push('THE SCENE\n' + room.scene);
     var perspective = RP.perspectiveBlock(room);
     if (perspective) parts.push(perspective);
+    var meanwhile = RP.meanwhileBlock(state, room);
+    if (meanwhile) parts.push(meanwhile);
 
     // Reference material — trimmed first when the window is tight.
     var source = RP.sourceBlock(room, opts.archive);
@@ -6372,23 +8640,67 @@
     var protectedFrom = parts.length;
     var continuation = RP.continuationBlock(room);
     if (continuation) parts.push(continuation);
+    var direction = RP.directionBlock(room);
+    if (direction) parts.push(direction);
+    var moment = RP.momentBlock(room, RP.normChar(speaker || {}), opts.moment);
+    if (moment) parts.push(moment);
     var audience = RP.audienceBlock(room, RP.normChar(speaker || {}).id,
-      (state.settings && state.settings.audience) || 'on');
+      (state.settings && state.settings.audience) || RP.AUDIENCE_DEFAULT);
     if (audience) parts.push(audience);
+    // Who the reader is — Waluigi, a persona, a stranger — used to sit with
+    // the reference material and was the last block dropped on a tight
+    // window. Wario talking to his brother as if to nobody is a worse
+    // turn than one with a shorter biography, so it is kept.
+    if (opts.ambient) {
+      // Unattended: the reader is in the other scene. Their own character
+      // may be the speaker this once, so "never write them" steps aside.
+      parts.push(RP.liveBlock(room, RP.normChar(speaker || {}), opts.ambientSelf));
+    }
+    var persona = opts.ambientSelf ? '' : RP.personaBlock(room.persona || (state.user && state.user.persona) || '', state, room);
+    if (persona) parts.push(persona);
     if (room.mechanics !== 'off') {
       var sheets = RP.stateBlock(room, RP.normChar(speaker || {}).id);
       if (sheets) parts.push(sheets);
       var named = RP.mentionBlock(room, opts.mentionText || '');
       if (named) parts.push(named);
-      var thinAir = RP.conjureBlock(opts.conjured);
+      var pinged = RP.pingBlock(state, room, opts.mentions, opts.catalog);
+      if (pinged) parts.push(pinged);
+      var thinAir = RP.conjureBlock(opts.conjured, opts.conjureVerdict);
       if (thinAir) parts.push(thinAir);
       parts.push(RP.DIRECTIVES);
+      var wounds = RP.hurtBlock(room, String(opts.mentionText || '') + ' ' + ((room.direction && room.direction.text) || ''));
+      if (wounds) parts.push(wounds);
+      var beyond = RP.beyondBlock(opts.fate);
+      if (beyond) parts.push(beyond);
+      // The reader's own mood colours how the cast reads them.
+      var playerMood = RP.playerMoodBlock(room);
+      if (playerMood) parts.push(playerMood);
+      var playerBody = RP.playerBodyBlock(room);
+      if (playerBody) parts.push(playerBody);
+      var auditNotes = RP.auditNoteBlock(room);
+      if (auditNotes) parts.push(auditNotes);
+      // The speaker's body, then how they feel, as orders — the body
+      // outranks the will, the mood is the colour of the box. Nothing
+      // when they are whole and calm.
+      var body = RP.bodyBlock(room, RP.normChar(speaker || {}));
+      if (body) parts.push(body);
+      var mood = RP.moodBlock(room, RP.normChar(speaker || {}));
+      if (mood) parts.push(mood);
     }
+    // The freshness ledger: nothing on a character who is not repeating.
+    var fresh = RP.freshnessBlock(room, RP.normChar(speaker || {}), (state.settings && state.settings.fresh) || RP.FRESH_DEFAULT);
+    if (fresh) parts.push(fresh);
     var fateBlock = RP.fateBlock(opts.fate);
     if (fateBlock) parts.push(fateBlock);
+    var flourish = RP.flourishBlock(room, opts.fate);
+    if (flourish) parts.push(flourish);
     var ooc = RP.oocBlock(state, room, opts.notes);
     if (ooc) parts.push(ooc);
-    parts.push(RP.lengthBlock((state.settings && state.settings.length) || 'snappy', false).text);
+    parts.push(RP.lengthBlock((state.settings && state.settings.length) || RP.DEFAULT_LENGTH, false).text);
+    // Last word to the character. Two thousand characters of stage
+    // directions used to be the final thing the model read before writing
+    // Wario; now it is Wario.
+    parts.push(RP.closingLine(RP.normChar(speaker || room.cast[0] || {}), style.style));
     return RP.fitPrompt(parts, opts.budget, protectedFrom);
   };
 
@@ -6430,6 +8742,7 @@
   /** Assemble the prompt inside the budget. The character card, the rules
    *  and the turn's own instructions are never dropped; the reference
    *  material at the back is trimmed, oldest lines first, until it fits. */
+  var TRIM_NOTE = ' (trimmed to fit the model\u2019s window)';
   RP.fitPrompt = function (parts, budget, protectedFrom) {
     var cap = budget || RP.PROMPT_BUDGET;
     var keepFrom = protectedFrom === undefined ? parts.length : protectedFrom;
@@ -6445,6 +8758,17 @@
         parts = parts.map(function (part, at) {
           if (at >= keepFrom || part.indexOf(soft[i]) < 0) return part;
           var lines = part.split('\n');
+          if (at === 0) {
+            // The base prompt carries the card, the VOICE, the rules and
+            // the style in one part. Halving it by lines used to throw the
+            // rules and the voice away to save the biography; now only the
+            // description paragraph gives ground.
+            var head = -1;
+            for (var k = 0; k < lines.length; k++) { if (lines[k].indexOf('Filed description') === 0) { head = k; break; } }
+            if (head < 0 || head + 1 >= lines.length || lines[head + 1].length < 200) return part;
+            lines[head + 1] = clip(lines[head + 1].replace(TRIM_NOTE, ''), Math.floor(lines[head + 1].length / 2)) + TRIM_NOTE;
+            return lines.join('\n');
+          }
           if (lines.length < 4) return part;
           return lines.slice(0, Math.max(3, Math.floor(lines.length / 2))).join('\n') +
             '\n… (trimmed to fit the model\u2019s window)';
@@ -6460,8 +8784,56 @@
       keepFrom--; at--;
       text = parts.join('\n\n');
     }
+    // Still too long — the card and the instructions alone do not fit. The
+    // old answer was to slice the end off, which is where the stage
+    // directions and the length live. Squeeze the head instead, by degrees.
+    for (var level = 1; level <= 4 && text.length > cap; level++) {
+      parts[0] = squeezeBase(parts[0], level);
+      text = parts.join('\n\n');
+    }
     return text.length > cap ? text.slice(0, cap - 40) + '\n… (truncated)' : text;
   };
+
+  /** The base prompt with less in it, keeping what makes the character
+   *  themselves for as long as possible. Decoration goes first, the voice
+   *  last:
+   *    1  the colour-markup rule, the other cast members' summaries, a
+   *       shorter About and description
+   *    2  the voice's Never line, four sample lines, a short description
+   *    3  the Sounds like line, three sample lines, titles and the scene
+   *       clipped, the description down to a sentence
+   *    4  no sample lines at all — the register paragraph is the floor */
+  function squeezeBase(part, level) {
+    var lines = String(part || '').split('\n');
+    var out = [], examples = 0, inVoice = false, inCast = false;
+    for (var i = 0; i < lines.length; i++) {
+      var line = lines[i];
+      if (line.indexOf('VOICE \u2014') === 0) { inVoice = true; inCast = false; }
+      else if (line === 'THE CAST') { inCast = true; }
+      else if (/^[A-Z][A-Z \u2014-]{4,}$/.test(line.trim()) && line.trim() === line.trim().toUpperCase()) { inVoice = false; inCast = false; }
+      else if (/^YOU ARE /.test(line)) { inCast = false; }
+      if (/^    \S/.test(line)) continue;                                // a cast member's summary
+      if (/^You may colour a few words/.test(line)) continue;              // decoration first
+      if (level >= 3 && /^Every turn moves the scene/.test(line)) continue; // the voice lines outrank it on a tight window
+      if (inVoice && /^Never:/.test(line) && level >= 2) continue;
+      if (inVoice && /^Sounds like:/.test(line) && level >= 3) continue;
+      if (inVoice && /^  \u201c/.test(line)) {
+        examples++;
+        if (level >= 4 || examples > (level >= 3 ? 3 : 4)) continue;
+      }
+      if (inVoice && level >= 4 && /own mouth/.test(line)) continue;
+      if (inCast && level >= 2 && /^- /.test(line)) line = clip(line, level >= 3 ? 90 : 140);   // name — title (affiliation)
+      if (level >= 3 && /^(Title|Affiliation|Faction): /.test(line)) line = clip(line, 110);
+      if (/^About: /.test(line)) line = clip(line, level >= 3 ? 200 : 360);
+      if (i > 0 && lines[i - 1].indexOf('Filed description') === 0) {
+        var want = level >= 3 ? 160 : level >= 2 ? 400 : 700;
+        if (line.length > want) line = clip(line.replace(TRIM_NOTE, ''), want) + TRIM_NOTE;
+      }
+      if (level >= 3 && i > 0 && lines[i - 1] === 'THE SCENE') line = clip(line, 700);   // a group prompt carries its scene
+      out.push(line);
+    }
+    return out.join('\n');
+  }
 
   /* ------------------------------------------------------------------ *
    * perspective dynamic replay
@@ -6509,7 +8881,7 @@
       perspective: opts.perspective || (cast || []).map(function (c) { return c.name; }).join(', '),
       replayOf: source.id || '',
       beats: beats,
-      style: opts.style || source.style || 'novel',
+      style: opts.style || source.style || RP.DEFAULT_STYLE,
       persona: opts.persona || '',
       opener: opts.opener || ('Replay — ' + name + ', from the perspective of ' +
         ((cast || []).map(function (c) { return c.name; }).join(', ') || 'someone else') + '.'),
@@ -6547,6 +8919,61 @@
     return lines.join('\n');
   };
 
+  /** Two linked scenes as one transcript: every visible turn of both, in
+   *  the order they happened, with a marker each time the camera moves
+   *  from one scene to the other. Directions and carried-over things are
+   *  kept — they are how the scenes touched. `opts.plain` drops the
+   *  markdown; `opts.user` names you when you play nobody. */
+  RP.linkedTranscript = function (state, room, opts) {
+    opts = opts || {};
+    var other = RP.linkedRoom(state, room);
+    var rooms = other ? [room, other] : [room];
+    var plain = Boolean(opts.plain);
+    var nameOf = function (r) { return r.sceneName || r.title; };
+    var who = function (r, m) {
+      if (m.role === 'world') return 'Narrator';
+      if (m.role === 'user') { var you = RP.playerCharacter(r); return you ? you.name : (opts.user || 'You'); }
+      return ((r.cast || []).filter(function (c) { return c.id === m.charId; })[0] || {}).name || 'Character';
+    };
+    var all = [];
+    rooms.forEach(function (r) {
+      (r.messages || []).forEach(function (m) {
+        if (m.error) return;
+        var keep = (RP.visible(m) && (m.role === 'user' || m.role === 'char' || m.role === 'world')) ||
+          (m.role === 'scene' && m.direction);
+        if (keep) all.push({ r: r, m: m });
+      });
+    });
+    all.sort(function (a, b) { return (a.m.at || 0) - (b.m.at || 0); });
+    var bold = function (t) { return plain ? t : '**' + t + '**'; };
+    var lines = [];
+    lines.push(plain ? (nameOf(room) + (other ? ' ⇄ ' + nameOf(other) : '')).toUpperCase()
+      : '# ' + nameOf(room) + (other ? ' ⇄ ' + nameOf(other) : ''), '');
+    rooms.forEach(function (r) {
+      lines.push(bold(nameOf(r)) + ' — ' + (r.cast || []).map(function (c) { return c.name; }).join(', ') +
+        (r.scene ? (plain ? '. ' : ' — ') + RP.clip(r.scene, 220) : ''));
+    });
+    if (other) lines.push('', plain ? 'Two scenes, the same hour, interleaved by the clock.' : '*Two scenes, the same hour, interleaved by the clock.*');
+    lines.push('');
+    var cur = null;
+    all.forEach(function (e) {
+      if (e.r !== cur) {
+        cur = e.r;
+        lines.push(plain ? '— ⇄ ' + nameOf(cur) + ' —' : '### ⇄ ' + nameOf(cur), '');
+      }
+      var text = String(RP.textOf(e.m));
+      if (e.m.role === 'scene') {
+        lines.push(plain
+          ? '[' + (e.m.from ? 'Carried over from ' + e.m.from + ': ' : 'Direction: ') + text + ']'
+          : '> ' + (e.m.from ? '⟶ *from “' + e.m.from + '”* — ' : '🎬 ') + text.replace(/\n/g, '\n> '), '');
+        return;
+      }
+      lines.push((plain ? who(e.r, e.m) + ': ' : bold(who(e.r, e.m) + ':') + ' ') + text, '');
+    });
+    if (!plain) lines.push('---', 'Exported from Waluipedia Roleplay — ' + new Date().toISOString().slice(0, 10) + '.');
+    return lines.join('\n');
+  };
+
   /** Recents, in the buckets the sidebar shows. */
   RP.groupBuckets = function (rooms) {
     var midnight = new Date(new Date().toDateString()).getTime();
@@ -6578,9 +9005,9 @@
       backfillUses: {},    // backfill id -> how many times it has been played
       usedPosts: {},   // wire post id -> where it was played
       settings: {
-        style: 'novel', voice: 'off', temperature: 0.85, endpoint: '',
+        style: RP.DEFAULT_STYLE, voice: 'off', temperature: 0.85, endpoint: '',
         director: 'on',            // let the model decide who speaks next
-        length: 'snappy',          // snappy | normal | rich
+        length: RP.DEFAULT_LENGTH, // snappy | normal | rich | adaptive (the scene decides)
         narrator: 'director',      // director | plain | terse | archivist
         world: 'on',               // let the world narrate when nobody else can
         autoplay: 0,               // turns to play on their own before stopping
@@ -6620,6 +9047,32 @@
       }
     } catch (e) { /* a corrupt store is an empty store */ }
     return state;
+  };
+
+  /** One-time: chats opened before "In character" existed carry the old
+   *  default, Novel — not because anybody chose it, but because newRoom
+   *  wrote it. Move them over once, say how many, and never touch a
+   *  room again (Style is one click away for anyone who wants Novel back). */
+  RP.migrateStyle = function (state) {
+    if (!state || !state.settings || state.settings.styleMigrated) return 0;
+    var moved = 0;
+    (state.rooms || []).forEach(function (r) {
+      if (r && r.style === 'novel') { r.style = RP.DEFAULT_STYLE; moved++; }
+    });
+    if (state.settings.style === 'novel') state.settings.style = RP.DEFAULT_STYLE;
+    state.settings.styleMigrated = 1;
+    return moved;
+  };
+
+  /** The length setting began life as 'snappy', saved into every browser
+   *  as a default nobody chose; now the scene decides. Runs once: a
+   *  reader who later pins Snappy on purpose keeps it. */
+  RP.migrateLength = function (state) {
+    if (!state || !state.settings || state.settings.lengthMigrated) return false;
+    state.settings.lengthMigrated = 1;
+    if (state.settings.length && state.settings.length !== 'snappy') return false;
+    state.settings.length = RP.DEFAULT_LENGTH;
+    return true;
   };
 
   /** Write the state back, newest 30 rooms only. */

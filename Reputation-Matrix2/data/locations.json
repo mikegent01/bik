@@ -3240,15 +3240,19 @@
     "controllingFaction": "Independent medical practice under Mushroom Kingdom civil protection",
     "population": "Small staff, anxious patients, and at least one doctor who insists Dr. Toad is his real name",
     "climate": "Cool hill air outside; lamplight, clean dressings, and antiseptic inside",
-    "status": "Active — treated Luigi after the compound lava-falls rescue, 18 Harvestide, 1035 BF",
+    "status": "Unreached — reported locked down with a 'private wing' as of 2 Aethel, 1035 BF; the street outside grew a mouth, the storehouse beside it took a helicopter on its roof, and a courier called the whole hill a 'rot-zone'",
     "summary": "A small Star Hill clinic where Wario's crew carried Luigi after recovering him from Bowser's lava outflow. Dr. Toad diagnosed serious but treatable burns, possible trauma delirium, and a strict ban on adventuring that Luigi immediately looked offended by.",
-    "description": "Dr. Toad's clinic sits close enough to the Star Hill roads that a group can reach it from the volcanic passages while still smelling of sulfur. The place is not a hospital palace; it is a practical night clinic — white sheets, glass bottles, clean bandages, a front desk that can panic at the sight of Wario carrying a limp plumber, and a physician cheerful enough to survive Waluigi asking if his name is actually Dr. Toad. On the night of 18 Harvestide, 1035 BF, it became the first quiet room after Bowser's compound: Luigi on the table, Wario blocking the doorway, Mona explaining too fast, Ashley hovering through an open window, and Waluigi pretending not to stand guard.",
+    "description": "Dr. Toad's clinic sits close enough to the Star Hill roads that a group can reach it from the volcanic passages while still smelling of sulfur. The place is not a hospital palace; it is a practical night clinic — white sheets, glass bottles, clean bandages, a front desk that can panic at the sight of Wario carrying a limp plumber, and a physician cheerful enough to survive Waluigi asking if his name is actually Dr. Toad. On the night of 18 Harvestide, 1035 BF, it became the first quiet room after Bowser's compound: Luigi on the table, Wario blocking the doorway, Mona explaining too fast, Ashley hovering through an open window, and Waluigi pretending not to stand guard.\n\n**2 Aethel, 1035 BF — the night the hill got a new name.** Two weeks after Luigi was carried in, a helicopter came for him and never reached the door. It caught its skid on the parapet of the storehouse next door, laid its rotor across the chimney and came to rest on its side on the roof, where a cracked fuel line burned on the stone and lit the clinic red. In the main street below, a man in Luigi's clothes recited verse at a courier; the courier shot him; the man lengthened, the cobbles split, and something with teeth and an eye on a stalk came up through the road and looked around. The courier went through the clinic's front window and came out of the storehouse stairwell. The storehouse itself would not keep its length — its stairwell grew while two men climbed it — and three copies of the man in green watched them leave by the fire ladder. The clinic's private wing, its patient, and its doctor were never seen. The courier's word for the hill was 'rot-zone', said like a word he had been issued.",
     "notableFeatures": [
       "Front desk with a regrettably loud triage Toad",
       "Emergency table where Luigi was treated for second-degree burns",
       "Clean dressings and Mushroom Kingdom burn salves",
       "Window used by Ashley rather than the door, because of course",
-      "The first room after the rescue where nobody was standing over lava"
+      "The first room after the rescue where nobody was standing over lava",
+      "The flat storehouse roof next door, with a helicopter on its side against the chimney and a termination notice still clipped to the panel",
+      "The mouth in the main street — a seam of pink under a lid of broken cobbles, with an eye that looked around, in front of the clinic door",
+      "The front window, broken from the outside by a courier arriving at speed, and never repaired on the record",
+      "The storehouse stairwell that was longer on the way down than on the way up"
     ],
     "relatedArticles": [
       "the_garden_above_the_fire",
@@ -3261,7 +3265,10 @@
       "jimmy_t",
       "dr_toad",
       "kat",
-      "ana"
+      "ana",
+      "the_rot_zone_at_star_hill",
+      "paulo",
+      "mr_l"
     ],
     "plane": "material",
     "planeConfidence": "high",

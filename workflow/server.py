@@ -212,6 +212,24 @@ def _clip(value: Any, limit: int) -> str:
     return " ".join(str(value or "").split())[:limit]
 
 
+def _faiths(value: Any, limit: int = 160) -> str:
+    """`faiths` is a string on old records and a list of {id, role, note}
+    objects on new ones; the prompt wants one short line either way."""
+    if not value:
+        return ""
+    if isinstance(value, str):
+        return _clip(value, limit)
+    parts: list[str] = []
+    for item in value if isinstance(value, list) else [value]:
+        if isinstance(item, str):
+            parts.append(item)
+        elif isinstance(item, dict):
+            name = str(item.get("name") or item.get("id") or "").replace("_", " ")
+            role = str(item.get("role") or "")
+            parts.append(f"{name} ({role})" if role else name)
+    return _clip("; ".join(p for p in parts if p), limit)
+
+
 def archive_cast() -> dict[str, Any]:
     """The wiki's own characters, served as the roleplay starter cast."""
     path = RM_ROOT / "data" / "characters.json"
@@ -237,7 +255,7 @@ def archive_cast() -> dict[str, Any]:
             # away; the rest are what the cast browser sorts and filters on.
             "description": _clip(record.get("description"), 900),
             "faction": _clip(record.get("faction") or record.get("membership"), 80),
-            "faiths": _clip(record.get("faiths"), 90),
+            "faiths": _faiths(record.get("faiths")),
             "level": record.get("level"),
             "powerLevel": record.get("powerLevel"),
             "fameScore": record.get("fameScore"),

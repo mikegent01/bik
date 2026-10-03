@@ -43,6 +43,7 @@ STATIC_CONFIG = """<script>
 window.CHATROOM_CONFIG = {
   mode: 'static',
   castUrl: 'Reputation-Matrix2/data/characters.json',
+  voicesUrl: 'Reputation-Matrix2/data/voices.json',
   scenesUrl: 'Reputation-Matrix2/data/events.json',
   wireUrl: 'Reputation-Matrix2/data/wahwire/posts.json',
   wireProfilesUrl: 'Reputation-Matrix2/data/wahwire/profiles.json',
@@ -67,6 +68,7 @@ SERVER_CONFIG = """<script>
 window.CHATROOM_CONFIG = {
   mode: 'server',
   castUrl: '/api/characters',
+  voicesUrl: '/rm/data/voices.json',
   scenesUrl: '/api/scenes',
   wireUrl: '/api/wahwire',
   wireProfilesUrl: '',

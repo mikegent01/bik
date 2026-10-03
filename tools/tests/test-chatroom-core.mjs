@@ -607,15 +607,34 @@ check('fate: harsh fails far more often than gentle', (() => {
   return harshBad > gentleBad * 1.5;
 })());
 check('fate: being hurt shifts the odds against you', (() => {
-  const hurt = RP.newRoom([sans, cutters], { setup: { sans: { hpPct: 10, flags: 'wounded, hunted' } } });
+  const hurt = RP.newRoom([sans, cutters], {});
+  RP.ensurePlayerSheet(RP.blankState(), hurt);
+  const me = hurt.states[RP.PLAYER_ID];
+  me.hp.value = Math.floor(me.hp.max * 0.1);
+  me.flags = { wounded: { note: '', turns: 0 }, hunted: { note: '', turns: 0 } };
   const whole = RP.newRoom([sans, cutters], {});
+  RP.ensurePlayerSheet(RP.blankState(), whole);
   let hurtBad = 0, wholeBad = 0;
   for (let i = 0; i < 200; i++) {
     const roll = i / 200;
     if (['setback', 'wrench'].includes(RP.rollFate({ settings: { fate: 'normal' } }, hurt, { roll }).key)) hurtBad++;
     if (['setback', 'wrench'].includes(RP.rollFate({ settings: { fate: 'normal' } }, whole, { roll }).key)) wholeBad++;
   }
-  return hurtBad > wholeBad;
+  const rolled = RP.rollFate({ settings: { fate: 'normal' } }, hurt, { roll: 0.5 });
+  return hurtBad > wholeBad && rolled.tilt < 0 && /badly hurt/.test(rolled.pill) && /wounded/.test(rolled.pill) &&
+    /badly hurt/.test(RP.fateBlock(rolled));
+})());
+check('fate: an ENEMY bleeding out does not count against the player', (() => {
+  const foeHurt = RP.newRoom([sans, cutters], { setup: { sans: { hpPct: 10, flags: 'wounded, hunted' } } });
+  const whole = RP.newRoom([sans, cutters], {});
+  [foeHurt, whole].forEach(rm => RP.ensurePlayerSheet(RP.blankState(), rm));
+  let a = 0, b = 0;
+  for (let i = 0; i < 200; i++) {
+    const roll = i / 200;
+    if (['setback', 'wrench'].includes(RP.rollFate({ settings: { fate: 'normal' } }, foeHurt, { roll }).key)) a++;
+    if (['setback', 'wrench'].includes(RP.rollFate({ settings: { fate: 'normal' } }, whole, { roll }).key)) b++;
+  }
+  return a === b;
 })());
 check('fate: the model is ordered, not asked, and told not to narrate the dice', (() => {
   const block = RP.fateBlock(RP.rollFate(state, fateRoom, { force: 'setback' }));
@@ -699,6 +718,81 @@ check('prompt: the behaviour line follows the character, not a template',
     !== RP.roleFor(described));
 check('prompt: a group turn shows the rest of the cast with their own summaries',
   RP.groupPrompt([described, sans], sans, {}).includes('The Mages Guild'));
+
+// ---------- voice: the character's mouth, not just their biography ----------
+check('cast: faiths filed as objects become a line, never [object Object]', (() => {
+  const devout = RP.normChar({ id: 'devout', name: 'Devout', faiths: [{ id: 'great_maw', role: 'Refuses the title', note: 'long note' }, 'the Old Light'] });
+  return devout.faiths === 'great maw (Refuses the title); the Old Light' && !RP.card(devout).includes('[object Object]') &&
+    RP.card(devout).includes('Faith: great maw (Refuses the title)');
+})());
+check('prompt: the behaviour heuristic matches whole words — price and juice are not ice magic', (() => {
+  const grocer = RP.normChar({ id: 'grocer', name: 'Grocer', description: 'Sells juice at a fair price with good service. Makes his own choices.' });
+  const frost = RP.normChar({ id: 'frost', name: 'Frost', description: 'A master of ice magic and arcane rays.' });
+  return !/arcane/.test(RP.roleFor(grocer)) && /arcane/.test(RP.roleFor(frost));
+})());
+const voiceSheets = JSON.parse(readFileSync(new URL('Reputation-Matrix2/data/voices.json', repoRoot), 'utf8'));
+const voiceCount = RP.setVoices(voiceSheets);
+check('voices: the archive ships hand-written sheets and the loader skips the _about note',
+  voiceCount >= 10 && !RP.VOICES._about && !!RP.VOICES.wario && !!RP.VOICES.waluigi);
+check('voices: every sheet names a character that exists and carries register, sounds, never and lines', (() => {
+  const castFile = JSON.parse(readFileSync(new URL('Reputation-Matrix2/data/characters.json', repoRoot), 'utf8'));
+  const list = Array.isArray(castFile) ? castFile : castFile.characters;
+  const ids = new Set(list.map(c => c.id));
+  return Object.keys(RP.VOICES).every(id => ids.has(id) &&
+    typeof RP.VOICES[id].register === 'string' && RP.VOICES[id].register.length > 80 &&
+    Array.isArray(RP.VOICES[id].sounds) && Array.isArray(RP.VOICES[id].never) &&
+    Array.isArray(RP.VOICES[id].lines) && RP.VOICES[id].lines.length >= 4);
+})());
+const warioRecord = RP.normChar({ id: 'wario', name: 'Wario', title: 'The Explosive Accountant',
+  description: 'Waluigi has known Wario for longer than Waluigi cares to calculate. He prices everything.' });
+const warioSolo = RP.soloPrompt(warioRecord, {});
+check('voices: the solo prompt carries the sheet — register, tics, the never list and sample lines',
+  warioSolo.includes('VOICE \u2014 how Wario actually talks') && warioSolo.includes('string bean') &&
+  warioSolo.includes('Never:') && warioSolo.includes('I own the meter') &&
+  warioSolo.indexOf('VOICE \u2014') < warioSolo.indexOf('IN-CHARACTER RULES'));
+check('voices: a hand-written sheet replaces the guessed behaviour line', !warioSolo.includes('How they behave:'));
+check('voices: the filed description is flagged as Waluigi\u2019s biography, not the character\u2019s own tone',
+  warioSolo.includes('biography written by Waluigi') && warioSolo.includes('do NOT borrow its narrator'));
+check('voices: Waluigi\u2019s own description is his own voice and says so',
+  RP.card(RP.normChar({ id: 'waluigi', name: 'Waluigi', description: 'This is not bitterness. This is FACT.' })).includes('written by Waluigi himself'));
+check('voices: the group prompt carries the speaker\u2019s sheet too',
+  RP.groupPrompt([warioRecord, sans], warioRecord, {}).includes('I own the meter'));
+check('voices: a character with no sheet still gets a first-person instruction built from the record', (() => {
+  const block = RP.voiceBlock(described);
+  return block.includes('FIRST PERSON as Scribe Dewdrop') && block.includes('cites the record') && block.includes('The Mages Guild');
+})());
+check('voices: an imported card\u2019s example dialogue becomes the sheet, keeping only the character\u2019s lines', (() => {
+  const imported = RP.parseCharacterCard({ name: 'Promo Mario', description: 'A host.', personality: 'loud',
+    mes_example: '<START>\n{{user}}: hi\n{{char}}: Welcome-a to Nintendo Mania, paisanos!\n{{user}}: who are you\n{{char}}: The main host, that\u2019s who!' });
+  const room = RP.newRoom([imported], {});
+  const seated = room.cast[0];
+  const sheet = RP.voiceSheet(seated);
+  return !!seated.card && sheet && sheet.fromCard && sheet.lines.length === 2 &&
+    sheet.lines[0].includes('paisanos') && !sheet.lines.some(l => /who are you/.test(l)) &&
+    RP.soloPrompt(seated, {}).includes('paisanos');
+})());
+check('style: new rooms open in character — first person — and Novel is still there to pick', (() => {
+  const fresh = RP.newRoom([warioRecord], {});
+  return RP.DEFAULT_STYLE === 'voice' && fresh.style === 'voice' && RP.STYLES.voice.dir.includes('FIRST PERSON') &&
+    RP.STYLES.novel.dir.includes('third-person') && RP.blankState().settings.style === 'voice';
+})());
+check('prompt: the character has the last word, and it matches the style', (() => {
+  const st = RP.blankState();
+  const inVoice = RP.systemFor(st, RP.newRoom([warioRecord], {}), warioRecord, {});
+  const asNovel = RP.systemFor(st, RP.newRoom([warioRecord], { style: 'novel' }), warioRecord, {});
+  return inVoice.trim().endsWith('if they would refuse, refuse.') && inVoice.includes('NOW ANSWER AS WARIO') &&
+    asNovel.trim().endsWith('the words are theirs.') && inVoice.indexOf('NOW ANSWER AS WARIO') > inVoice.indexOf('LENGTH');
+})());
+check('play as: taking a seat adds you to the cast and stars you in one move', (() => {
+  const room = RP.newRoom([warioRecord], {});
+  const waluigi = RP.normChar({ id: 'waluigi', name: 'Waluigi', title: 'The Great and Underappreciated' });
+  const seat = RP.playAs(room, waluigi);
+  const again = RP.playAs(room, waluigi);
+  return seat && seat.id === 'waluigi' && room.youPlay === 'waluigi' && room.kind === 'group' &&
+    room.cast.length === 2 && again.id === 'waluigi' && room.youPlay === 'waluigi' &&
+    RP.speakableCast(room).map(c => c.id).join() === 'wario' &&
+    RP.personaBlock('', RP.blankState(), room).includes('they ARE Waluigi \u2014 The Great and Underappreciated');
+})());
 
 // ---------- memory is dated, twice ----------
 const datedRoom = RP.newRoom([sans], { date: '5 Aethel, 1040 BF', title: 'The ridge road' });
@@ -987,8 +1081,57 @@ check('prompt: a heavy scene still fits the budget, keeping the instructions', (
     citations: 'FILES YOU MAY CITE\n' + Array.from({ length: 40 }, (_, i) => '- [event:e' + i + '] ' + 'q'.repeat(200)).join('\n'),
     fate: RP.rollFate(fat, heavy, { force: 'setback' }),
   });
+  // The reference material gives way — trimmed first, dropped if it must
+  // be — and the instructions, the card and the VOICE never do.
   return system.length <= RP.PROMPT_BUDGET && system.includes('STAGE DIRECTIONS') &&
-    system.includes('CHARACTER STATE') && system.includes('HOW THIS TURN RESOLVES') && system.includes('trimmed to fit');
+    system.includes('CHARACTER STATE') && system.includes('HOW THIS TURN RESOLVES') &&
+    system.includes('VOICE \u2014 how Sans actually talks') && system.includes('NOW ANSWER AS SANS') &&
+    (system.includes('trimmed to fit') || !system.includes('Place 59'));
+})());
+check('prompt: a tight window trims the filed description, not the voice or the rules', (() => {
+  const wordy = RP.normChar({ id: 'wordy', name: 'Wordy', description: ('A long filed biography. ').repeat(80) });
+  const parts = [RP.soloPrompt(wordy, {}), 'THE LORE BOOK\n' + Array.from({ length: 30 }, (_, i) => '- fact ' + i + ' ' + 'y'.repeat(60)).join('\n')];
+  const fitted = RP.fitPrompt(parts, 3200, 2);   // parts[2..] would be protected; the lore is soft
+  return fitted.length <= 3200 && fitted.includes('IN-CHARACTER RULES') && fitted.includes('STYLE') &&
+    fitted.includes('VOICE \u2014 how Wordy actually talks') && fitted.includes('trimmed to fit') &&
+    !fitted.includes('(truncated)');
+})());
+check('prompt: when the card and the instructions alone overflow, the head is squeezed and the tail survives', (() => {
+  const roster = Array.from({ length: 6 }, (_, i) => RP.normChar({ id: 'r' + i, name: 'Roster ' + i,
+    title: 'A long title that goes on for a while ' + i, affiliation: 'A long affiliation, several bodies, ' + i,
+    summary: 'A summary of some length for roster member number ' + i + '. '.repeat(3) }));
+  const warioish = RP.normChar({ id: 'wario', name: 'Wario', title: 'The Explosive Accountant', description: 'Biography. '.repeat(120) });
+  const room = RP.newRoom([warioish].concat(roster), { scene: 'The vault. '.repeat(40) });
+  const st = RP.blankState();
+  const sys = RP.systemFor(st, room, warioish, {});   // the default window, mechanics on, seven sheets
+  return sys.length <= RP.PROMPT_BUDGET && sys.includes('STAGE DIRECTIONS') && sys.includes('LENGTH') &&
+    sys.includes('NOW ANSWER AS WARIO') && sys.includes('VOICE \u2014 how Wario actually talks') &&
+    sys.includes('never once sorry') && !sys.includes('(truncated)');
+})());
+check('prompt: who the reader plays survives a tight window, and the colour rules go before the voice does', (() => {
+  const wario = RP.normChar({ id: 'wario', name: 'Wario', description: 'Biography. '.repeat(120) });
+  const waluigi = RP.normChar({ id: 'waluigi', name: 'Waluigi', title: 'The Author', summary: 'The archive\u2019s author, ROBBED.' });
+  const room = RP.newRoom([wario], {});
+  const st = RP.blankState();
+  RP.playAs(room, waluigi);
+  RP.ensurePlayerSheet(st, room);
+  st.rooms.push(room); st.active = room.id;
+  const sys = RP.systemFor(st, room, wario, { budget: 9000 });   // mechanics on: the fixed tail alone is ~6k
+  const who = sys.indexOf('THE USER PLAYS'), stage = sys.indexOf('STAGE DIRECTIONS'), close = sys.indexOf('NOW ANSWER AS WARIO');
+  return sys.length <= 9000 && who > 0 && sys.includes('they ARE Waluigi') &&
+    sys.includes('never once sorry') && (sys.match(/^  \u201c/gm) || []).length >= 3 &&
+    stage > who && close > stage && !sys.includes('You may colour') && !sys.includes('(truncated)');
+})());
+check('style: Novel chats move to In character once, and the Style picker still offers Novel', (() => {
+  const st = RP.blankState();
+  const a = RP.newRoom([RP.normChar({ id: 'wario', name: 'Wario' })], {}); a.style = 'novel';
+  const b = RP.newRoom([RP.normChar({ id: 'luigi', name: 'Luigi' })], {}); b.style = 'terse';
+  st.rooms.push(a, b); st.settings.style = 'novel';
+  const moved = RP.migrateStyle(st);
+  a.style = 'novel';                                   // the reader chose Novel again, on purpose
+  const again = RP.migrateStyle(st);
+  return moved === 1 && again === 0 && a.style === 'novel' && b.style === 'terse' &&
+    st.settings.style === RP.DEFAULT_STYLE && st.settings.styleMigrated === 1 && Boolean(RP.STYLES.novel);
 })());
 
 // ---------- commentary mode ----------
@@ -1349,11 +1492,35 @@ check('length: the world gets one band more room than the characters', (() => {
   return forChar.key === 'snappy' && forWorld.key === 'normal' && forWorld.tokens > forChar.tokens;
 })());
 check('length: rich does not overflow past the top band', RP.lengthBlock('rich', true).key === 'rich');
-check('length: the instruction is in every character prompt', (() => {
+check('length: the instruction is in every character prompt — the scene decides by default, a pinned band is obeyed', (() => {
   const short = RP.blankState();
   const room = RP.newRoom([sans, cutters], {});
   const prompt = RP.systemFor(short, room, sans);
-  return prompt.includes('LENGTH') && prompt.includes('2 to 4 SENTENCES');
+  short.settings.length = 'snappy';
+  const pinned = RP.systemFor(short, room, sans);
+  return prompt.includes('LENGTH') && prompt.includes('SIZE THE TURN TO THE MOMENT') && !prompt.includes('2 to 4 SENTENCES') &&
+    pinned.includes('2 to 4 SENTENCES') && !pinned.includes('SIZE THE TURN');
+})());
+check('length: "let the scene decide" is a real band, the default, and the migration moves only the old default', (() => {
+  const a = RP.LENGTHS.adaptive;
+  const fresh = RP.blankState();
+  const oldDefault = { settings: { length: 'snappy' } };
+  const chosen = { settings: { length: 'rich' } };
+  const unset = { settings: {} };
+  return RP.DEFAULT_LENGTH === 'adaptive' && fresh.settings.length === 'adaptive' &&
+    a.tokens >= RP.LENGTHS.normal.tokens && a.tokens <= RP.LENGTHS.rich.tokens && a.sentences[0] === 2 &&
+    /2 or 3 SENTENCES/.test(a.dir) && /12 sentences/.test(a.dir) &&
+    RP.lengthBlock('adaptive', false).key === 'adaptive' && RP.lengthBlock('adaptive', true).key === 'adaptive' &&
+    RP.migrateLength(oldDefault) === true && oldDefault.settings.length === 'adaptive' &&
+    RP.migrateLength(oldDefault) === false &&                      // once
+    RP.migrateLength(chosen) === false && chosen.settings.length === 'rich' &&
+    RP.migrateLength(unset) === true && unset.settings.length === 'adaptive';
+})());
+check('length: every band carries the move-the-scene rule, so short never means empty', (() => {
+  return ['snappy', 'normal', 'rich', 'adaptive'].every(k => {
+    const t = RP.lengthBlock(k, false).text;
+    return /MOVE THE SCENE/.test(t) && /A quip, a shout or a reaction on its own is not a turn/.test(t);
+  }) && RP.MOVE_RULE.length < 300;
 })());
 check('length: sentences are counted, so the page can tell when it overran',
   RP.sentenceCount('One. Two! Three? Four') === 4 && RP.sentenceCount('') === 0);
@@ -1392,7 +1559,13 @@ check('world: it still gets the scene, the state sheets and the stage directions
   worldSystem.includes('THE SCENE') && worldSystem.includes('CHARACTER STATE') && worldSystem.includes('STAGE DIRECTIONS'));
 // The Director's band came down a notch on purpose: 1200-token world turns
 // were five-minute generations on a local model (round 9).
-check('world: and its own length band', worldSystem.includes('LENGTH') && worldSystem.includes('4 to 7 SENTENCES'));
+check('world: and its own length band — the Director sizes to the moment too, unless a band is pinned', (() => {
+  const pinned = RP.worldSystem(Object.assign({}, soloState, { settings: Object.assign({}, soloState.settings, { length: 'snappy' }) }), soloRoom, {});
+  const terse = { settings: { length: 'adaptive', narrator: 'terse' } };
+  return worldSystem.includes('LENGTH') && worldSystem.includes('SIZE THE TURN TO THE MOMENT') &&
+    pinned.includes('4 to 7 SENTENCES') && RP.worldLength(terse) === 'snappy' &&
+    RP.worldLength({ settings: { length: 'adaptive' } }) === 'adaptive' && RP.worldLength({ settings: { length: 'rich' } }) === 'normal';
+})());
 check('director: WORLD is an answer it may give', (() => {
   const group = RP.newRoom([sans, cutters, rebel], {});
   group.messages.push({ id: 'w1', role: 'user', text: 'I wait.', at: 1 });
@@ -1490,7 +1663,7 @@ check('persona: one sheet, and it reaches the prompt', (() => {
 check('persona: starring an archive character says so, without losing you', (() => {
   const room = RP.newRoom([sans], { youPlay: 'sans' });
   const block = RP.personaBlock('', meState, room);
-  return block.includes('Mikha the Unfiled') && block.includes('playing Sans');
+  return block.includes('Mikha the Unfiled') && block.includes('they ARE Sans') && block.includes('Call them Sans');
 })());
 check('persona: it survives a save and comes back', (() => {
   RP.saveState(store, meState);
@@ -1594,8 +1767,9 @@ check('narration: it is in the history now, labelled, so it cannot repeat itself
 check('narration: it counts as a played turn', RP.counter(dirRoom) === 2);
 check('narrator: the terse voice is two sentences, the Director gets room', (() => {
   const terse = { settings: { narrator: 'terse' } };
+  const pinnedDir = RP.worldSystem({ settings: { length: 'snappy' } }, dirRoom, {});
   return /Two sentences at most/.test(RP.worldPrompt(terse, dirRoom, {})) &&
-    /4 to 7 SENTENCES/.test(dirPrompt);
+    /SIZE THE TURN TO THE MOMENT/.test(dirPrompt) && /4 to 7 SENTENCES/.test(pinnedDir);
 })());
 check('narrator: an unknown voice falls back to the Director',
   RP.narrator({ settings: { narrator: 'nonsense' } }) === 'director');
@@ -2020,9 +2194,9 @@ check('colour: nothing but a colour gets through', (() => {
   const html = RP.md('{red|<script>alert(1)</script>}');
   return !/<script/.test(html) && html.includes('&lt;script');
 })());
-check('colour: the model is told the palette, and told not to overdo it',
-  /Colours available: red, blood/.test(RP.groupPrompt([sans, cutters], sans, {})) &&
-  /two or three words in a turn at most/.test(RP.soloPrompt(sans, {})));
+check('colour: the words may be coloured (a short rule, dropped first under pressure); the box carries the mood',
+  /You may colour a few words/.test(RP.soloPrompt(sans, {})) && /colour of the box is their mood; the colour of the words is yours/.test(RP.soloPrompt(sans, {})) &&
+  !/Colours available/.test(RP.groupPrompt([sans, cutters], sans, {})) && !/\[\[TINT:/.test(RP.DIRECTIVES) && /\[\[MOOD:/.test(RP.DIRECTIVES));
 
 // ---------- a long chat stays cheap ----------
 const longRoom = RP.newRoom([sans], {});
@@ -2120,6 +2294,261 @@ check('mentions: they reach the turn prompt', (() => {
   return RP.systemFor(RP.blankState(), rm, sans, { mentionText: 'give me the key' }).includes('NAMED JUST NOW');
 })());
 
+// ---------- the kit answers to the names the model actually writes ----------
+check('kit: "brass key", "the scroll" and "my blue potion" all find the thing on the sheet', (() => {
+  const sheet = { name: 'Archivist', items: ['🗝 a brass key | bent', '📜 a scroll', '🧪 blue potion', 'the iron lantern'] };
+  return RP.findItem(sheet, 'brass key').name === 'a brass key' && RP.findItem(sheet, 'the scroll').name === 'a scroll' &&
+    RP.findItem(sheet, 'my blue potion').name === 'blue potion' && RP.findItem(sheet, 'iron lantern').name === 'the iron lantern' &&
+    RP.findItem(sheet, 'lantern').name === 'the iron lantern' && RP.findItem(sheet, 'sword') === null && RP.findItem(sheet, 'the') === null;
+})());
+check('kit: losing one of a stack leaves the rest; the model\u2019s loose names remove and use the right thing', (() => {
+  const sheet = { name: 'Archivist', items: ['🪙 a purse', '🗝 a brass key | bent', '📜 a scroll'] };
+  RP.applyChange(sheet, { kind: 'item', op: '+', name: 'a purse' });
+  const one = RP.applyChange(sheet, { kind: 'item', op: '-', name: 'purse' });
+  const key = RP.applyChange(sheet, { kind: 'item', op: '-', name: 'brass key' });
+  const used = RP.applyChange(sheet, { kind: 'use', name: 'the scroll' });
+  const names = sheet.items.map(i => i.name + '×' + i.qty);
+  return /1 left/.test(one) && /loses a brass key/.test(key) && /uses 📜 a scroll/.test(used) &&
+    names.length === 1 && names[0] === 'a purse×1';
+})());
+
+// ---------- somebody new: the ＋ in the invite grid, and ENTER for a stranger ----------
+check('invent: the fill-in template parses into a card with a voice and a kit', (() => {
+  const text = 'ROLE: the pawnbroker\nLOOK: A stooped Toad in a green eyeshade.\nVOICE: Dry, slow, every sentence a price.\n' +
+    'SOUNDS LIKE: "That will cost you" / Interest is interest\nNEVER: forgive a debt / hurry\n' +
+    'LINE: "I do not lend. I remember."\nLINE: "Sign here."\nCARRYING: 📒 a black ledger, 🗝 a ring of small keys';
+  const got = RP.parseInvented(text, { name: 'Old Pell' });
+  return got.role === 'the pawnbroker' && /eyeshade/.test(got.look) && got.voice && /every sentence a price/.test(got.voice.register) &&
+    got.voice.sounds.length === 2 && got.voice.sounds[0] === 'That will cost you' && got.voice.never.length === 2 &&
+    got.voice.lines.length === 2 && got.items.length === 2 && got.items[0] === '📒 a black ledger' &&
+    /EXACTLY these lines/.test(RP.inventPrompt({ name: 'Old Pell' }, RP.newRoom([sans], {})));
+})());
+check('invent: the new character is seated with a sheet, a voice and a kit, and kept for later invites', (() => {
+  const st = RP.blankState();
+  const rm = RP.newRoom([sans], {});
+  const made = RP.inventCharacter(st, rm, {
+    name: 'Old Pell', role: 'the pawnbroker', look: 'stooped, green eyeshade',
+    voice: { register: 'Dry, slow, every sentence a price.', sounds: [], never: [], lines: ['I do not lend. I remember.'] },
+    items: ['📒 a black ledger', '🗝 a ring of small keys | bent'], by: 'written in by the reader',
+  });
+  const sheet = rm.states[made.id];
+  return made.id === 'new_old_pell' && made.invented && rm.cast.some(c => c.id === made.id) && sheet && sheet.items.length === 2 &&
+    RP.normItem(sheet.items[1]).note === 'bent' && RP.voiceBlock(made).includes('every sentence a price') &&
+    st.newChars[0].id === made.id && RP.stateBlock(rm).includes('Old Pell') &&
+    RP.systemFor(st, rm, made, {}).includes('every sentence a price');
+})());
+check('enter: a stranger who walks in is made like a NEW — sheet, seat, remembered for later', (() => {
+  const st = RP.blankState();
+  const rm = RP.newRoom([sans], {});
+  const parsed = RP.parseDirectives('*The door opens.* [[ENTER: Marguerite Oyle — the night archivist, come about the ledger]]', ['Sans']);
+  const out = RP.applyDirectives(st, rm, parsed.directives, () => null);
+  const who = rm.cast.find(c => c.name === 'Marguerite Oyle');
+  return out.entered.length === 1 && who && who.invented && rm.states[who.id] && rm.states[who.id].present !== false &&
+    st.newChars.some(c => c.id === who.id) && /enters —/.test(out.lines[0]);
+})());
+check('enter: a one-to-one chat somebody walks into becomes a group chat, and the newcomer gets their own card', (() => {
+  const st = RP.blankState();
+  const rm = RP.newRoom([sans], {});
+  const parsed = RP.parseDirectives('[[ENTER: Marguerite Oyle — about the ledger]]', ['Sans']);
+  RP.applyDirectives(st, rm, parsed.directives, () => null);
+  const who = rm.cast.find(c => c.name === 'Marguerite Oyle');
+  const sys = RP.systemFor(st, rm, who, {});
+  return rm.kind === 'group' && /NOW ANSWER AS MARGUERITE OYLE|Marguerite Oyle/.test(sys) && !/^You are Sans,/.test(sys) &&
+    RP.historyFor({ kind: rm.kind, cast: rm.cast, messages: [{ role: 'char', charId: who.id, text: 'Evening.' }] })[0].content.startsWith('Marguerite Oyle: ');
+})());
+
+// ---------- mood: the colour of the box is how they feel ----------
+{
+  const wario = RP.normChar({ id: 'wario', name: 'Wario' });
+  const waluigi = RP.normChar({ id: 'waluigi', name: 'Waluigi' });
+  const st = RP.blankState();
+  const rm = RP.newRoom([wario, waluigi, sans], {});
+  st.rooms.push(rm); st.active = rm.id;
+  RP.markPlayer(rm, 'waluigi'); RP.ensurePlayerSheet(st, rm);
+  const W = rm.states.wario;
+  check('mood: a feeling word is read with its strength — furious is anger at 3, calm is calm, junk is nothing', (() => {
+    const a = RP.moodWord('furious'), b = RP.moodWord('a little uneasy'), c = RP.moodWord('calm'), d = RP.moodWord('blorp');
+    return a.key === 'anger' && a.level === 3 && b.key === 'fear' && b.level === 1 && c.key === 'calm' && d === null;
+  })());
+  check('mood: a new feeling starts as a flicker and builds one step a turn, never swinging', (() => {
+    const l1 = RP.moodShift(W, 'anger', 2, 'the bill', { turn: 1 });
+    const l2 = RP.moodShift(W, 'anger', 2, '', { turn: 2 });
+    const l3 = RP.moodShift(W, 'anger', 1, '', { turn: 3 });
+    return /irritated/.test(l1) && W.mood.level === 2 && /angry.*building/.test(l2) && l3 === '' && W.mood.level === 2 && W.mood.note === 'the bill';
+  })());
+  check('mood: a different feeling wears the standing one down before it takes over', (() => {
+    const l1 = RP.moodShift(W, 'fear', 2, 'the drop', { turn: 4 });
+    const worn = W.mood.key + ' ' + W.mood.level;
+    const l2 = RP.moodShift(W, 'fear', 2, 'the drop', { turn: 5 });
+    return /irritated.*fear pulling at it/.test(l1) && worn === 'anger 1' &&
+      /uneasy.*the anger gone/.test(l2) && W.mood.key === 'fear' && W.mood.level === 1;
+  })());
+  check('mood: a shock — a 3 filed — replaces the feeling at once, at 2, never straight to 3', (() => {
+    const line = RP.moodShift(W, 'joy', 3, 'the money', { turn: 6 });
+    return /happy.*uneasy no longer/.test(line) && W.mood.key === 'joy' && W.mood.level === 2;
+  })());
+  check('mood: calm takes a step off; set by hand writes exactly what was asked', (() => {
+    const eased = RP.moodShift(W, 'calm', 0, '', { turn: 7 });
+    RP.moodShift(W, 'pride', 3, 'the deal', { set: true, turn: 7 });
+    return /pleased.*easing/.test(eased) && W.mood.key === 'pride' && W.mood.level === 3 && RP.moodLabel(W.mood) === 'triumphant';
+  })());
+  check('mood: it fades on its own — a step off every two quiet turns, calm at zero, and a fed turn resets the count', (() => {
+    W.mood = { key: 'anger', level: 2, note: '', held: 0, at: 10 };
+    const t1 = RP.tickMoods(rm, 11), t2 = RP.tickMoods(rm, 12);
+    const afterTwo = W.mood.level;
+    RP.tickMoods(rm, 13);
+    RP.moodShift(W, 'anger', 2, '', { turn: 14 });        // fed: the count restarts
+    RP.tickMoods(rm, 14);                                  // the turn it was fed on does not count
+    const fed = W.mood.level + '/' + W.mood.held;
+    RP.tickMoods(rm, 15); RP.tickMoods(rm, 16); RP.tickMoods(rm, 17);
+    const gone = RP.tickMoods(rm, 18);
+    return t1.length === 0 && t2.length === 0 && afterTwo === 1 && fed === '2/0' && !W.mood && /Wario settles/.test(gone[0]);
+  })());
+  check('mood: [[MOOD: Name feeling 2 | why]] parses with its level and note; the player\u2019s mood is theirs and dropped', (() => {
+    const staged = RP.parseDirectives('*He slams the door.* [[MOOD: Wario anger 2 | the bill]] [[MOOD: Waluigi afraid 2]] [[MOOD: Sans suspicious | the ledger]] [[MOOD: Sans blorp]]',
+      ['Wario', 'Waluigi', 'Sans']);
+    const d = staged.directives;
+    delete W.mood;
+    const done = RP.applyDirectives(st, rm, d);
+    return staged.clean === '*He slams the door.*' && d.length === 3 && d[0].kind === 'mood' && d[0].key === 'anger' && d[0].level === 2 && d[0].note === 'the bill' &&
+      W.mood.key === 'anger' && W.mood.level === 1 && !rm.states.waluigi.mood && rm.states.sans.mood.key === 'suspicion' &&
+      done.lines.some((l) => /Wario — irritated \(the bill\)/.test(l)) && rm.toolAt.mood === rm.messages.length;
+  })());
+  check('mood: a nameless [[MOOD: furious | why]] parses for the page to hand to the speaker, and lands on nobody by itself', (() => {
+    const d = RP.parseDirectives('[[MOOD: furious | the bill]] [[MOOD: fear 3/3 | the drop]] [[MOOD: ominous]]', ['Wario']).directives;
+    const before = JSON.stringify(rm.states);
+    RP.applyDirectives(st, rm, d);
+    return d.length === 2 && d[0].who === '' && d[0].key === 'anger' && d[0].level === 3 && d[0].note === 'the bill' &&
+      d[1].key === 'fear' && d[1].level === 3 && JSON.stringify(rm.states) === before;
+  })());
+  check('mood: the prose is read when the model files nothing — two cues or one strong word, speaker only', (() => {
+    const angry = RP.moodScan('*Wario slams his fist on the dashboard.* "GET OUT OF MY HELICOPTER!" he bellows, glaring at the pilot.', 'Wario', ['Sans', 'Waluigi']);
+    const other = RP.moodScan('Sans looks terrified. Sans trembles and backs away from the wreck.', 'Wario', ['Sans', 'Waluigi']);
+    const plain = RP.moodScan('He turns the page and says nothing for a moment.', 'Wario', ['Sans']);
+    const strong = RP.moodScan('Wario sobs once, into his sleeve.', 'Wario', ['Sans']);
+    const mock = RP.moodScan('MOCK-MODEL REPLY #3: the blade goes in.', 'Wario', ['Sans']);
+    return angry && angry.key === 'anger' && other === null && plain === null && strong && strong.key === 'grief' && mock === null;
+  })());
+  check('mood: the sheets show it, the speaker gets it as an order, a calm speaker costs nothing', (() => {
+    const sys = RP.systemFor(st, rm, sans, {});
+    const calm = RP.systemFor(st, rm, waluigi, {});
+    return /mood: wary \(suspicion 1\/3 — the ledger\)/.test(sys) && /MOOD — Sans is wary \(suspicion 1\/3: the ledger\)/.test(sys) &&
+      /questions everything, answers little/.test(sys) && /file \[\[MOOD: Sans/.test(sys) && !/MOOD — Waluigi/.test(calm) &&
+      !/COLOUR, THIS TURN/.test(sys);
+  })());
+  check('mood: the box wears the colour — a line, a flat tint that deepens with the level, and an icon; the chip words stay short', (() => {
+    const one = RP.moodStyle({ key: 'anger', level: 1 }), three = RP.moodStyle({ key: 'anger', level: 3 });
+    return /--mood-line:hsl\(4,/.test(one) && /--mood-bg:hsl\(4,70%,93%\)/.test(one) && /--mood-bg:hsl\(4,70%,82%\)/.test(three) &&
+      RP.moodStyle({ key: 'blorp' }) === '' && RP.moodIcon({ key: 'fear' }) === '😨' && RP.MOOD_KEYS.length === 10 &&
+      new Set(RP.MOOD_KEYS.map((k) => RP.MOODS[k].hue)).size === 10 &&
+      RP.MOOD_KEYS.every((k) => RP.MOODS[k].words.every((w) => w.split(' ').length === 1));
+  })());
+  check('flourish: a triumph or a setback orders ONE coloured phrase; a plain turn, or a model that already colours, gets nothing', (() => {
+    const quiet = RP.newRoom([sans], {});
+    const win = RP.flourishBlock(quiet, { key: 'triumph' }), loss = RP.flourishBlock(quiet, { key: 'setback' });
+    quiet.messages.push({ id: 'c1', role: 'char', charId: sans.id, text: 'the {ice|key} turns.', at: 1 });
+    return /exactly ONE phrase/.test(win) && /gold or amber/.test(win) && /blood or rust/.test(loss) &&
+      RP.flourishBlock(quiet, { key: 'success' }) === '' && RP.flourishBlock(quiet, null) === '' &&
+      RP.flourishBlock(quiet, { key: 'triumph' }) === '' && RP.recentlyColoured(quiet);
+  })());
+  check('player mood: your own feeling colours how the cast reads you — a pick-up is a grab; calm costs nothing', (() => {
+    const you = RP.ensurePlayerSheet(st, rm);
+    const calm = RP.playerMoodBlock(rm);
+    RP.moodShift(you, 'anger', 2, 'the bill', { set: true, turn: 3 });
+    const sys = RP.systemFor(st, rm, sans, {});
+    const world = RP.worldSystem(st, rm, {});
+    const out = calm === '' && /THE PLAYER\u2019S MOOD — .* is angry \(anger 2\/3: the bill\)/.test(sys) && /a pick-up is a grab/.test(sys) &&
+      /Never decide their words/.test(sys) && /THE PLAYER\u2019S MOOD/.test(world) && !/let it cost them/.test(sys);
+    RP.moodShift(you, 'anger', 3, 'the bill', { set: true, turn: 4 });
+    const hot = /let it cost them something/.test(RP.playerMoodBlock(rm));
+    delete you.mood;
+    return out && hot && RP.playerMoodBlock(rm) === '';
+  })());
+  check('body: a battered character at 28 HP is written body first — no wrench-swinging exits; whole costs nothing', (() => {
+    const ws = RP.sheetFor(rm, sans.id);
+    const whole = RP.bodyBlock(rm, sans);
+    ws.hp = { value: 28, max: 100 }; ws.flags = { battered: { note: 'the crash' } };
+    const hurt = RP.bodyBlock(rm, sans);
+    const sys = RP.systemFor(st, rm, sans, {});
+    ws.hp = { value: 0, max: 100 };
+    const down = RP.bodyBlock(rm, sans);
+    ws.hp = { value: 100, max: 100 }; ws.flags = {};
+    return whole === '' && /BODY — Sans is BADLY HURT at 28\/100 HP/.test(hurt) && /cannot sprint, swing hard/.test(hurt) &&
+      /battered \(the crash\)/.test(hurt) && /greedy and broken is not greedy and whole/.test(hurt) && /\[\[HP: Sans -N\]\]/.test(hurt) &&
+      /BODY — Sans is BADLY HURT/.test(sys) && sys.indexOf('BODY — Sans') > sys.indexOf('THE USER PLAYS') &&
+      /DOWN at 0 HP/.test(down) && RP.bodyBlock(rm, sans) === '';
+  })());
+  check('mood: the director\u2019s note nudges for feelings now, not for tints', (() => {
+    const quiet = RP.newRoom([sans], {});
+    for (let i = 0; i < 20; i++) quiet.messages.push({ id: 'q' + i, role: i % 2 ? 'char' : 'user', charId: sans.id, text: 'plain words ' + i, at: 1 });
+    quiet.toolAt = { stakes: 19, remember: 19 };
+    const note = RP.encourage(quiet);
+    return /\[\[MOOD: Name feeling 2/.test(note) && !/TINT/.test(note) && RP.ENCOURAGE_AFTER.tint === undefined;
+  })());
+  check('mood: the quartermaster may file a feeling it saw the record miss', RP.UPKEEP_KINDS.includes('mood'));
+}
+
+// ---------- the AI audit: every sheet, every scene, one call, by hand ----------
+{
+  const wario = RP.normChar({ id: 'wario', name: 'Wario' });
+  const bowser = RP.normChar({ id: 'bowser', name: 'Bowser' });
+  const st = RP.blankState();
+  const a = RP.newRoom([wario, sans], { title: 'The pavement' });
+  const b = RP.newRoom([wario, bowser], { title: 'The hangar' });
+  st.rooms.push(a, b); st.active = a.id;
+  RP.ensurePlayerSheet(st, a); RP.ensurePlayerSheet(st, b);
+  b.away = [{ id: 'sans', name: 'Sans' }];
+  const prompt = RP.sheetAuditPrompt([a, b], { [a.id]: [{ who: 'Wario', text: 'The helicopter is on its side.' }], [b.id]: [] });
+  check('audit: the prompt carries every sheet of both scenes, who is at the door, the recent play, and the allowed tools',
+    /AUDIT THE SHEETS/.test(prompt) && /SCENE \u201cThe pavement\u201d/.test(prompt) && /SCENE \u201cThe hangar\u201d/.test(prompt) &&
+    /waiting at the door: Sans/.test(prompt) && /Wario: The helicopter is on its side\./.test(prompt) && /\(nothing played yet\)/.test(prompt) &&
+    /\[\[MOOD: Name anger 2 \| why\]\]/.test(prompt) && /\[\[TIME: 23:40\]\]/.test(prompt) && /reply exactly: IN ORDER/.test(prompt) &&
+    /never a new person/.test(prompt) && /decide what their HP and Energy should be NOW/.test(prompt) && /SET it/.test(prompt) &&
+    /\[\[HP: Name = N\]\]/.test(prompt) && /sixteen at most/.test(prompt) && /reader approves every line/.test(prompt));
+  check('audit: IN ORDER changes nothing', RP.applySheetAudit(st, [a, b], 'IN ORDER').count === 0 && a.states.wario.hp.value === 100);
+  const reply = '[[HP: Bowser -7]]\n[[MOOD: Wario anger 3 | the bill]]\n[[TIME: 23:40]]\n[[ENTER: Sans — back from the pavement]]\n' +
+    '[[NEW: Bob | a stranger | invented]]\n[[SET: place = the moon]]\n[[REMEMBER: x | y]]\n[[STATUS: Sans soot on the face]]\n[[EXIT: Bowser — gone]]';
+  const done = RP.applySheetAudit(st, [a, b], reply);
+  check('audit: each line lands in the scene that knows the name — wounds, moods (at the pitch it decided), notes, the clock in both',
+    b.states.bowser.hp.value === 93 && a.states.wario.mood.key === 'anger' && a.states.wario.mood.level === 3 &&
+    a.clock === '23:40' && b.clock === '23:40' && /soot/.test(a.states.sans.status) &&
+    done.byRoom[a.id].length === 3 && done.byRoom[b.id].length === 3 && done.count === 6 &&
+    done.items.length === 6 && done.items.every((it) => typeof it.index === 'number' && it.roomId && it.line && it.kind));
+  check('audit: the reader unticks lines — only the picked indices land, and it may SET a number outright', (() => {
+    const c = RP.newRoom([wario, bowser], {});
+    RP.ensurePlayerSheet(st, c);
+    const text = '[[HP: Wario = 40]]\n[[MOOD: Bowser anger 3 | the bill]]\n[[MP: Bowser = 5]]\n[[TIME: dawn]]';
+    const copy = JSON.parse(JSON.stringify(c));
+    const preview = RP.applySheetAudit({ log: [], book: { entries: [], queue: [] }, newChars: [], rooms: [copy] }, [copy], text);
+    const picked = RP.applySheetAudit(st, [c], text, { only: [preview.items[0].index, preview.items[3].index] });
+    return preview.items.length === 4 && c.states.wario.hp.value === 40 && !c.states.bowser.mood && c.states.bowser.mp.value !== 5 &&
+      c.clock === 'dawn' && picked.count === 2 && RP.applySheetAudit(st, [c], text, { only: [] }).count === 0;
+  })());
+  check('audit: the player\u2019s own mood may be set by the audit (the reader approves it), never by a turn\u2019s [[MOOD:]]', (() => {
+    const c = RP.newRoom([wario], {});
+    const you = RP.ensurePlayerSheet(st, c);
+    const inPlay = RP.applyDirectives(st, c, RP.parseDirectives('[[MOOD: ' + you.name + ' fear 2 | the gun]]', [you.name, 'Wario']).directives);
+    const byAudit = RP.applySheetAudit(st, [c], '[[MOOD: ' + you.name + ' fear 2 | the gun]]');
+    return !inPlay.lines.length && byAudit.count === 1 && you.mood && you.mood.key === 'fear' && you.mood.level === 2;
+  })());
+  check('audit: ENTER only brings back somebody at that scene\u2019s door; EXIT writes out; nothing invents a person or a fact',
+    b.cast.some((c) => c.id === 'sans') && !b.cast.some((c) => c.id === 'bowser') && b.states.bowser.present === false &&
+    !a.cast.some((c) => /Bob/.test(c.name)) && !b.cast.some((c) => /Bob/.test(c.name)) && !(a.facts || {}).place && !(b.facts || {}).place &&
+    !(st.book.entries || []).length);
+  check('audit: the kinds it may file are the quartermaster\u2019s plus the clock and the door',
+    RP.AUDIT_KINDS.includes('mood') && RP.AUDIT_KINDS.includes('time') && RP.AUDIT_KINDS.includes('exit') && !RP.AUDIT_KINDS.includes('new') &&
+    !RP.AUDIT_KINDS.includes('set') && RP.AUDIT_TURNS >= 10);
+  check('audit: one step back restores the sheets AND the clock', (() => {
+    const c = RP.newRoom([wario], {});
+    c.clock = 'noon';
+    RP.pushUndo(c, 'the AI audit');
+    RP.applySheetAudit(st, [c], '[[HP: Wario -40]]\n[[TIME: midnight]]');
+    const moved = c.states.wario.hp.value === 60 && c.clock === 'midnight';
+    RP.undo(c);
+    return moved && c.states.wario.hp.value === 100 && c.clock === 'noon';
+  })());
+}
+
 // ---------- standing tints: the model picks the words and the colour ----------
 check('tints: [[TINT: words = colour]] files a standing rule', (() => {
   const st = RP.blankState();
@@ -2142,8 +2571,9 @@ check('tints: UNTINT releases the words', (() => {
 })());
 check('tints: a colour the palette refuses files nothing',
   RP.parseDirectives('[[TINT: the seal = javascript]]', []).directives.length === 0);
-check('tints: the model is told the tool exists',
-  RP.DIRECTIVES.includes('[[TINT:') && RP.soloPrompt(sans, {}).includes('[[TINT:'));
+check('tints: the model is no longer told to tint — old filings still render, new ones are still honoured if a model writes one',
+  !RP.DIRECTIVES.includes('[[TINT:') && !RP.soloPrompt(sans, {}).includes('[[TINT:') &&
+  RP.parseDirectives('[[TINT: the seal = violet]]', []).directives.length === 1);
 
 // ---------- history packed by characters, not just counted by turns ----------
 check('history: one monologue cannot evict ten turns', (() => {
@@ -2208,6 +2638,10 @@ check('history: newest turns win the budget', (() => {
     RP.actionStat('I try to persuade the guard') === 'sway' && RP.actionStat('I smash the crate') === 'might' &&
     RP.actionStat('I study the ledger') === 'wits' && RP.actionStat('I sneak past the dogs') === 'luck' &&
     RP.actionStat('I wait.') === '');
+  check('stats: the wider vocabulary — heave, bribe, disarm, shoot — lands on a stat too',
+    RP.actionStat('I heave the portcullis up') === 'might' && RP.actionStat('I bribe the clerk') === 'sway' &&
+    RP.actionStat('I disarm the trap') === 'wits' && RP.actionStat('I shoot the rope') === 'luck' &&
+    RP.actionStat('I look closer at the seal') === 'wits');
   check('stats: they lean on the dice, and only there', (() => {
     const st = RP.blankState();
     st.persona.name = 'Bruiser';
@@ -2256,6 +2690,21 @@ check('history: newest turns win the budget', (() => {
     }
     return bluffBad > plainBad;
   })());
+  check('thin air: the dice settle the claim on the page — a good roll puts it on the sheet, in hand', (() => {
+    const st2 = RP.blankState(); st2.persona.name = 'Marlow';
+    const rm2 = RP.newRoom([sans], {});
+    RP.ensurePlayerSheet(st2, rm2);
+    const good = RP.rollFate({ settings: { fate: 'normal' } }, rm2, { conjured: 'a bazooka', force: 'success' });
+    const got = RP.resolveConjure(rm2, 'a bazooka', good);
+    const kit = rm2.states[RP.PLAYER_ID].items.map(RP.normItem);
+    const bad = RP.rollFate({ settings: { fate: 'normal' } }, rm2, { conjured: 'a cannon', force: 'setback' });
+    const lost = RP.resolveConjure(rm2, 'a cannon', bad);
+    const still = rm2.states[RP.PLAYER_ID].items.map(RP.normItem);
+    return good.granted === true && got.granted && kit.some(i => i.name === 'a bazooka' && i.equipped) &&
+      bad.granted === false && lost.granted === false && !still.some(i => /cannon/.test(i.name)) &&
+      /on their sheet now/.test(RP.conjureBlock('a bazooka', got)) && /EMPTY/.test(RP.conjureBlock('a cannon', lost)) &&
+      RP.resolveConjure(rm2, 'a thing', null) === null;
+  })());
   check('thin air: the brief reaches the prompt only when it fires', (() => {
     const armed = RP.systemFor(st, rm, sans, { conjured: 'a bazooka' });
     const calm = RP.systemFor(st, rm, sans, {});
@@ -2291,6 +2740,93 @@ check('history: newest turns win the budget', (() => {
     return done.lines.length === 2 && rm.cast.length === 1 && !(rm.tints || []).length &&
       rm.states[RP.PLAYER_ID].items.some(i => i.name.includes('lantern')) &&
       rm.states.sans.flags.winded && rm.states.sans.flags.winded.turns === 2;
+  })());
+}
+
+// ---------- the hurt ledger: wounds filed from the prose, no model call ----------
+{
+  const wario = { id: 'wario', name: 'Wario' }, waluigi = { id: 'waluigi', name: 'Waluigi' };
+  const st = RP.blankState();
+  const rm = RP.newRoom([wario, waluigi, sans], {});
+  st.rooms.push(rm);
+  RP.markPlayer(rm, 'waluigi');
+  RP.ensurePlayerSheet(st, rm);
+  const crash = '*"HOLD ON TO YOUR WALLET!"* Wario bellows. *"CRASHING IS JUST AN UNEXPECTED DOWNWARD INVESTMENT!"*\n\n' +
+    'The helicopter clips the edge of an awning with a deafening crunch as it slams into the pavement below. ' +
+    'The impact is violent, a jarring jolt that throws everything—including Wario—forward against the dashboard.\n\n' +
+    'He coughs through the smoke and kicks the shattered door open.';
+  const by = hits => Object.fromEntries(hits.map(h => [h.id, h]));
+  check('wounds: a crash the model never filed costs everyone in the scene a share of their max HP', (() => {
+    const h = by(RP.hurtScan(crash, rm, { speaker: wario, roll: 0.5 }));
+    return Object.keys(h).length === 3 && h.wario.amount === 35 && h.waluigi.amount === 35 && h.sans.amount === 35 &&
+      h.wario.tier === 'grave' && h.wario.cause === 'the crash';
+  })());
+  check('wounds: the amounts are shares, so a ten-point sheet bleeds in proportion', (() => {
+    const small = RP.newRoom([wario], {});
+    small.states.wario.hp = { value: 10, max: 10 };
+    const h = RP.hurtScan('The floor gives way and they fall two storeys.', small, { world: true, roll: 1 });
+    return h.length === 1 && h[0].amount === 5 && h[0].cause === 'the collapse';
+  })());
+  check('wounds: holding on halves the player’s share; fate scales the whole thing', (() => {
+    const soft = by(RP.hurtScan(crash, rm, { speaker: wario, roll: 0.5, braced: RP.bracedIn('I hold onto the seat as the aircraft crashes') }));
+    const harsh = by(RP.hurtScan(crash, rm, { speaker: wario, roll: 0.5, level: 'harsh' }));
+    const gentle = by(RP.hurtScan(crash, rm, { speaker: wario, roll: 0.5, level: 'gentle' }));
+    return soft.waluigi.amount === 18 && soft.wario.amount === 35 && harsh.wario.amount === 46 && gentle.wario.amount === 21 &&
+      RP.bracedIn('I brace against the bulkhead') && !RP.bracedIn('I scream');
+  })());
+  check('wounds: whoever the model already filed [[HP:]] for is left to the model', (() => {
+    const h = by(RP.hurtScan(crash, rm, { speaker: wario, roll: 0.5, filed: ['Wario'] }));
+    return !h.wario && Boolean(h.sans) && Boolean(h.waluigi);
+  })());
+  check('wounds: talk of crashing, a near miss, a memory, a far-off bang and a sofa are not hits', (() => {
+    const none = [
+      '"We nearly crashed into the sea!" Wario laughs. "Crashing is an investment."',
+      'He nearly falls from the roof, but Sans grabs his wrist.',
+      'Years ago the mine collapsed on his father.',
+      'Somewhere in the distance a building explodes.',
+      'Wario crashes onto the couch and falls asleep.',
+      'Wario punches the wall and swears.',
+      'MOCK-MODEL REPLY #3: the blade goes in.',
+    ];
+    return none.every(t => RP.hurtScan(t, rm, { speaker: wario, roll: 0.5 }).length === 0);
+  })());
+  check('wounds: a blow lands on the one named or pointed at after the verb, never on the one swinging', (() => {
+    const named = by(RP.hurtScan('Wario punches Sans in the face. Sans staggers.', rm, { speaker: wario, roll: 0.5 }));
+    const him = by(RP.hurtScan('Sans grins. Wario punches him.', rm, { speaker: wario, roll: 0.5 }));
+    const shot = by(RP.hurtScan('The bullet catches Wario in the shoulder and spins him round.', rm, { world: true, roll: 0.5 }));
+    const you = by(RP.hurtScan('He slashes at you; the blade opens your sleeve and the skin under it.', rm, { speaker: wario, roll: 0.5 }));
+    const me = by(RP.hurtScan('I go through the windscreen.', rm, { speaker: wario, roll: 0.5 }));
+    return Object.keys(named).join() === 'sans' && named.sans.amount === 7 && named.sans.tier === 'light' &&
+      Object.keys(him).join() === 'sans' &&
+      Object.keys(shot).join() === 'wario' && shot.wario.amount === 17 && shot.wario.cause === 'the shot' &&
+      Object.keys(you).join() === 'waluigi' && you.waluigi.cause === 'the blade' &&
+      Object.keys(me).join() === 'wario' && me.wario.tier === 'heavy';
+  })());
+  check('wounds: a slammed door, a crashing wave and a punched wall are nobody’s; a person through a window is only theirs', (() => {
+    const door = RP.hurtScan('The door slams into the wall behind him.', rm, { speaker: wario, roll: 0.5 });
+    const wave = RP.hurtScan('Waves crash against the rocks below the pier.', rm, { speaker: wario, roll: 0.5 });
+    const summit = RP.hurtScan('Wario crashes the summit through the front door.', rm, { speaker: wario, roll: 0.5 });
+    const shotOf = RP.hurtScan('Sans pours Wario a shot of whisky. A long shot, he says.', rm, { speaker: sans, roll: 0.5 });
+    const window = by(RP.hurtScan('Sans crashes through the window into the courtyard.', rm, { speaker: wario, roll: 0.5 }));
+    return door.length === 0 && wave.length === 0 && summit.length === 0 && shotOf.length === 0 &&
+      Object.keys(window).join() === 'sans' && window.sans.tier === 'heavy';
+  })());
+  check('wounds: one hit per person per turn — the worst of them', (() => {
+    const h = by(RP.hurtScan('Sans kicks Wario. Then the grenade explodes under the table.', rm, { world: true, roll: 0 }));
+    return h.wario.amount === 25 && h.wario.cause === 'the blast' && h.sans.amount === 25;
+  })());
+  check('wounds: a story room has no HP to lose, and a room without sheets files nothing', (() => {
+    const story = RP.newRoom([wario], { statePreset: 'story' });
+    const off = RP.newRoom([wario], { mechanics: 'off' });
+    return RP.hurtScan(crash, story, { speaker: wario }).length === 0 && RP.hurtScan(crash, off, { speaker: wario }).length === 0;
+  })());
+  check('wounds: the order to file them rides in the prompt only when the turn has violence in it', (() => {
+    const hot = RP.systemFor(st, rm, wario, { mentionText: 'I hold onto the seat as the aircraft crashes' });
+    const calm = RP.systemFor(st, rm, wario, { mentionText: 'I pour the tea and sit down.' });
+    const talk = RP.systemFor(st, rm, wario, { mentionText: '"I will crash this plane," I say, calmly.' });
+    const world = RP.worldSystem(st, rm, { mentionText: 'I hold onto the seat as the aircraft crashes' });
+    return /WOUNDS/.test(hot) && /\(the crash\)/.test(hot) && /25–45%/.test(hot) && !/WOUNDS/.test(calm) && !/WOUNDS/.test(talk) &&
+      /WOUNDS/.test(world) && RP.dangerIn('He opens fire on the car.') === 'the shooting' && RP.dangerIn('We argue about rent.') === '';
   })());
   check('upkeep: "IN ORDER" files nothing', RP.applyUpkeep(st, rm, 'IN ORDER').lines.length === 0);
   check('upkeep: it spends from the same session budget as the book', (() => {
@@ -2689,7 +3225,7 @@ check('history: newest turns win the budget', (() => {
     RP.applyDirectives(encState, encRoom,
       RP.parseDirectives('[[HP: Ana Bright -5]]', ['Ana Bright']).directives, () => null);
     encRoom.nudgedAt = {};
-    return (encRoom.toolAt || {}).stakes === encRoom.messages.length && /TINT/.test(RP.encourage(encRoom));
+    return (encRoom.toolAt || {}).stakes === encRoom.messages.length && /\[\[MOOD:/.test(RP.encourage(encRoom));
   })());
   check('encourage: young rooms and mechanics-off rooms are never nudged', (() => {
     const young = RP.newRoom([RP.normChar({ id: 'b', name: 'Bo' })], {});
@@ -2808,6 +3344,393 @@ let built = true;
 try {
   execFileSync('python3', ['tools/build-chatroom.py', '--check'], { cwd: repoRoot, stdio: 'pipe' });
 } catch (e) { built = false; console.log(String(e.stdout || '')); }
+// ---------- round 4: direction, linked scenes, the studio's refusals ----------
+check('direction: 🎬 files on the room, rides the protected tail of both prompts, and is clipped', (() => {
+  const st = RP.blankState();
+  const r = RP.newRoom([sans, cutters], { scene: 'The hangar.' });
+  st.rooms.push(r); st.active = r.id;
+  const d = RP.setDirection(r, '  The ceiling gives way. ' + 'x'.repeat(900));
+  const charSys = RP.systemFor(st, r, sans, { budget: 4000 });
+  const worldSys = RP.worldSystem(st, r, { budget: 4000 });
+  const i = charSys.indexOf('THE READER DIRECTS THIS TURN');
+  return d && d.text.length <= 601 && i > 0 && i > charSys.indexOf('IN-CHARACTER RULES') &&
+    /it HAPPENS, now, in this turn/.test(charSys) && /never call it a direction/.test(charSys) &&
+    worldSys.includes('THE READER DIRECTS THIS TURN') && worldSys.includes('The ceiling gives way') &&
+    RP.setDirection(r, '   ') === null && r.direction === null && !RP.directionBlock(r);
+})());
+check('direction: a carried-over one names the scene it came from', (() => {
+  const r = RP.newRoom([sans], {});
+  RP.setDirection(r, 'A spotlight sweeps the yard from above.', 'Wario & Waluigi — the plane');
+  return /carried over from the scene “Wario & Waluigi — the plane”/.test(RP.directionBlock(r));
+})());
+check('link: two rooms link both ways, see each other’s last turns, and only what would carry may cross', (() => {
+  const st = RP.blankState();
+  const a = RP.newRoom([sans, cutters], { scene: 'The cockpit.' });
+  const b = RP.newRoom([rebel], { scene: 'The yard below.' });
+  st.rooms.push(a, b);
+  a.messages.push({ id: 'a1', role: 'user', text: 'I bank hard left and hit the spotlight.', at: 1 },
+    { id: 'a2', role: 'char', charId: 'sans', text: 'heh. nice.', at: 2 },
+    { id: 'a3', role: 'scene', text: 'a card for the reader', at: 3 },
+    { id: 'a4', role: 'world', text: 'The beam swings down over the yard.', at: 4 });
+  const ok = RP.linkRooms(a, b);
+  const block = RP.meanwhileBlock(st, b);
+  const sysB = RP.systemFor(st, b, rebel, {});
+  const worldB = RP.worldSystem(st, b, {});
+  const linesA = RP.meanwhileLines(st, a);
+  return ok && a.linkedTo === b.id && b.linkedTo === a.id && RP.linkedRoom(st, a) === b &&
+    /MEANWHILE, IN THE OTHER SCENE/.test(block) && block.includes('The cockpit') && block.includes('Sans: heh. nice.') &&
+    block.includes('The scene: The beam swings') && !block.includes('a card for the reader') &&
+    /What crosses is what physically would/.test(block) && /not yours to retell or answer/.test(block) &&
+    sysB.includes('MEANWHILE, IN THE OTHER SCENE') && worldB.includes('MEANWHILE, IN THE OTHER SCENE') &&
+    linesA.length === 3 && !RP.linkRooms(a, a) &&
+    // b has no turns yet: a still knows it is there, who is in it, and that nothing has happened
+    /nothing has happened there yet/.test(RP.meanwhileBlock(st, a)) && /there right now: Rebel Scout/.test(RP.meanwhileBlock(st, a)) &&
+    /one clock/.test(block);
+})());
+check('link: blind scenes share nothing, unlink clears both sides, and a branch is its own hour', (() => {
+  const st = RP.blankState();
+  const a = RP.newRoom([sans], {});
+  const b = RP.newRoom([rebel], {});
+  st.rooms.push(a, b);
+  b.messages.push({ id: 'b1', role: 'char', charId: 'rebel_scout', text: 'Down!', at: 1 });
+  RP.linkRooms(a, b);
+  a.linkMode = 'blind';
+  const quiet = RP.meanwhileBlock(st, a);
+  a.linkMode = '';
+  const loud = RP.meanwhileBlock(st, a);
+  const fork = RP.forkRoom(st, a, 'nope', {});
+  const unlinked = RP.unlinkRoom(st, a);
+  return quiet === '' && /Rebel Scout: Down!/.test(loud) && fork.linkedTo === '' &&
+    unlinked && a.linkedTo === '' && b.linkedTo === '' && RP.linkedRoom(st, b) === null;
+})());
+check('export: two linked scenes come out as one transcript, by the clock, with a marker each time the camera moves', (() => {
+  const st = RP.blankState();
+  const a = RP.newRoom([sans, cutters], { scene: 'The cockpit.', sceneName: 'The plane' });
+  const b = RP.newRoom([rebel], { scene: 'The yard below.', sceneName: 'The yard' });
+  st.rooms.push(a, b);
+  RP.linkRooms(a, b);
+  a.messages.push({ id: 'a1', role: 'user', text: 'I bank hard left.', at: 10 },
+    { id: 'a2', role: 'char', charId: 'sans', text: 'heh.', at: 20 },
+    { id: 'a3', role: 'state', lines: ['a receipt'], at: 25 },
+    { id: 'a4', role: 'char', charId: 'sans', text: 'a bad take', at: 26, error: true });
+  b.messages.push({ id: 'b1', role: 'char', charId: 'rebel_scout', text: 'Down!', at: 15 },
+    { id: 'b2', role: 'scene', direction: true, from: 'The plane', text: 'A spotlight sweeps the yard.', at: 30 },
+    { id: 'b3', role: 'world', text: 'The beam finds them.', at: 40 },
+    { id: 'b4', role: 'scene', text: 'a card for the reader', at: 41 });
+  const md = RP.linkedTranscript(st, a, { user: 'Reader' });
+  const txt = RP.linkedTranscript(st, a, { plain: true, user: 'Reader' });
+  let at = 0;
+  const sorted = ['### ⇄ The plane', 'Reader:** I bank', '### ⇄ The yard', 'Rebel Scout:** Down!', '### ⇄ The plane', 'Sans:** heh.',
+    '### ⇄ The yard', '⟶ *from “The plane”* — A spotlight', 'Narrator:** The beam'].every(t => {
+    const n = md.indexOf(t, at);
+    if (n < 0) return false;
+    at = n + t.length;
+    return true;
+  });
+  const alone = RP.linkedTranscript(st, RP.newRoom([sans], { sceneName: 'Solo' }), {});
+  return md.startsWith('# The plane ⇄ The yard') && sorted && !md.includes('a receipt') && !md.includes('a bad take') &&
+    !md.includes('a card for the reader') &&
+    txt.includes('— ⇄ The yard —') && txt.includes('[Carried over from The plane: A spotlight sweeps the yard.]') &&
+    txt.includes('Reader: I bank hard left.') && !txt.includes('**') &&
+    alone.startsWith('# Solo') && !alone.includes('⇄ ');
+})());
+check('export: a linked bundle carries both chats and the link, and re-imports linked', (() => {
+  const st = RP.blankState();
+  const a = RP.newRoom([sans], {});
+  const b = RP.newRoom([rebel], {});
+  st.rooms.push(a, b);
+  RP.linkRooms(a, b);
+  a.linkMode = 'blind'; b.linkMode = 'blind';
+  st.log = [{ id: 'l1', roomId: a.id }, { id: 'l2', roomId: b.id }, { id: 'l3', roomId: 'elsewhere' }];
+  const one = RP.chatExport(st, a);
+  const both = RP.chatExport(st, a, { linked: true });
+  const fresh = RP.blankState();
+  RP.importBundle(fresh, JSON.parse(JSON.stringify(both)), 'merge');
+  const back = fresh.rooms.find(r => r.id === a.id);
+  return one.rooms.length === 1 && !one.link && one.log.length === 1 &&
+    both.rooms.length === 2 && both.rooms[1].id === b.id && both.link.a === a.id && both.link.b === b.id &&
+    both.link.mode === 'blind' && both.log.length === 2 &&
+    back && RP.linkedRoom(fresh, back) && RP.linkedRoom(fresh, back).id === b.id;
+})());
+check('voice: a studio stream that errors is read for WHY — turned-away profile vs. a render that fell over', (() => {
+  const refused = RP.studioError('event: error\ndata: {"message": "Value: Wario is not in the list of choices: [\'Freeman\', \'Luigi\']"}');
+  const oom = RP.studioError('event: error\ndata: {"message": "CUDA out of memory"}');
+  const mute = RP.studioError('event: error\ndata: null');
+  const bare = RP.studioError('event: error\ndata: "voice profile not found"');
+  const fine = RP.studioError('event: complete\ndata: [1, {"url": "http://x/a.wav"}, "ok"]');
+  return refused && refused.refused && /Wario is not in the list/.test(refused.message) &&
+    oom && !oom.refused && oom.message === 'CUDA out of memory' &&
+    mute && !mute.refused && /reported an error/.test(mute.message) &&
+    bare && bare.refused && fine === null;
+})());
+
+// ---------- round 10: colour shorthand, HP redefined, the body's limits, audit notes ----------
+{
+  check('colour: a bare {word} is coloured in the speaker\u2019s mood ink; every colour shorthand the model reaches for lands', (() => {
+    const html = RP.md('I am still {pissed} enough. {red|blood} {the door|ice} {gold: the coin} {red}x{/red} [moss]y[/moss] <storm>z</storm> {a|b}');
+    return /<span class="tint mood">pissed<\/span>/.test(html) && /style="color:#c0392b">blood</.test(html) && /#4a8fc7">the door</.test(html) &&
+      /#a8862c">the coin</.test(html) && /#c0392b">x</.test(html) && /#5c7a3f">y</.test(html) && /#4c5a6e">z</.test(html) &&
+      /\{a\|b\}/.test(html) && !/\{pissed\}/.test(html) && /simply \{the stain\}/.test(RP.RULES || RP.systemFor(RP.blankState(), RP.newRoom([sans], {}), sans, {}));
+  })());
+  const st = RP.blankState();
+  const rm = RP.newRoom([sans], { title: 'The yard' });
+  st.rooms.push(rm); st.active = rm.id;
+  const you = RP.ensurePlayerSheet(st, rm);
+  check('hp: [[HP: Name = 28/80]] redefines the sheet — the maximum moves too, and the line says so', (() => {
+    const d = RP.parseDirectives('[[HP: Sans = 28/80]] [[MP: Sans 3/120]]', ['Sans']).directives;
+    const sheet = RP.sheetFor(rm, sans.id);
+    const line = RP.applyChange(sheet, d[0]);
+    const mp = RP.applyChange(sheet, d[1]);
+    const out = d[0].max === 80 && d[0].op === '=' && /Sans — HP redefined 28\/80 \(was 100\/100\)/.test(line) && sheet.hp.value === 28 && sheet.hp.max === 80 &&
+      d[1].max === 120 && sheet.mp.max === 120 && sheet.mp.value === 3 && /redefined/.test(mp) &&
+      /\[\[HP: Name = 28\/80\]\]/.test(RP.sheetAuditPrompt([rm], {})) && /NOTE:/.test(RP.sheetAuditPrompt([rm], {}));
+    sheet.hp = { value: 100, max: 100 }; sheet.mp = { value: 50, max: 50 };
+    return out;
+  })());
+  check('body: a limping player cannot parkour — the roll is tilted to the floor, the chip says why, and the prompt refuses the body before the world', (() => {
+    you.flags = { limping: { note: 'the crash', turns: 0 } };
+    const stop = RP.bodyCheck(you, 'I parkour up the side of the building.');
+    const walk = RP.bodyCheck(you, 'I walk over and talk to him.');
+    const scale = RP.attemptScale('I parkour up the side of the building.', you, null);
+    const fate = RP.rollFate(st, rm, { text: 'I parkour up the side of the building.', roll: 0.5 });
+    const beyond = RP.beyondBlock(fate);
+    const sys = RP.systemFor(st, rm, sans, {});
+    const refusals = [0, 0.3, 0.6, 0.9].map(roll => RP.rollFate(st, rm, { text: 'I parkour up the side of the building.', roll }).key);
+    const out = stop && /limping \(the crash\)/.test(stop.why) && stop.what === 'parkour' && walk === null && scale === 'unfit' &&
+      fate.scale === 'unfit' && /🩼 limping \(the crash\) \(−3\)/.test(fate.pill) && /THE BODY REFUSES — /.test(beyond) && /“parkour” is beyond/.test(beyond) &&
+      /THE PLAYER\u2019S BODY — /.test(sys) && /limping/.test(sys) && !refusals.includes('triumph') && refusals.includes('refusal') &&
+      sys.indexOf('THE PLAYER\u2019S BODY') > sys.indexOf('DIRECTIVES');
+    you.flags = {};
+    you.hp = { value: 20, max: 100 };
+    const hurt = RP.bodyCheck(you, 'I sprint after the truck.');
+    const still = RP.bodyCheck(you, 'I lie still and listen.');
+    you.hp = { value: 0, max: 100 };
+    const down = RP.bodyCheck(you, 'I stand up and shout.');
+    const crawl = RP.bodyCheck(you, 'I crawl towards the door.');
+    you.hp = { value: 100, max: 100 };
+    return out && hurt && /at 20\/100 HP/.test(hurt.why) && still === null && down && /0\/100|down/i.test(down.why) && crawl === null &&
+      RP.bodyCheck(you, 'I sprint after the truck.') === null && RP.playerBodyBlock(rm) === '';
+  })());
+  check('audit notes: NOTE lines are read (three at most), ride on the next turn as FROM THE AUDIT, and nothing is sent when there are none', (() => {
+    const notes = RP.parseAuditNotes('[[HP: Sans = 40]]\nNOTE: Sans at 28 HP should not be charging; next turn show the limp.\n- NOTE: Bowser has not spoken in ten turns.\nnote: lowercase too\nNOTE: a fourth that is dropped');
+    rm.auditNotes = notes.slice(0, 2);
+    const block = RP.auditNoteBlock(rm);
+    const sys = RP.systemFor(st, rm, sans, {});
+    const world = RP.worldSystem(st, rm, {});
+    rm.auditNotes = [];
+    return notes.length === 3 && /show the limp/.test(notes[0]) && notes[2] === 'lowercase too' && /FROM THE AUDIT/.test(block) && /show the limp/.test(block) &&
+      /FROM THE AUDIT/.test(sys) && /FROM THE AUDIT/.test(world) && RP.auditNoteBlock(rm) === '' && !/FROM THE AUDIT/.test(RP.systemFor(st, rm, sans, {})) &&
+      RP.parseAuditNotes('IN ORDER').length === 0;
+  })());
+}
+
+// ---------- round 10: ⇄ merge and @ ----------
+{
+  const wario = RP.normChar({ id: 'wario', name: 'Wario', title: 'Debt-maker' });
+  const bowser = RP.normChar({ id: 'bowser', name: 'Bowser', title: 'King' });
+  const st = RP.blankState();
+  const a = RP.newRoom([wario, sans], { kind: 'group', title: 'The pavement' });
+  const b = RP.newRoom([wario, bowser], { kind: 'group', title: 'The hangar roof' });
+  st.rooms.push(a, b); st.active = a.id; RP.linkRooms(a, b);
+  RP.ensurePlayerSheet(st, a); RP.ensurePlayerSheet(st, b);
+  st.book.entries.push({ id: 'e1', kind: 'THING', name: 'The Hangar Beast', text: 'A grey thing with too many claws, seen on the roof.', roomId: b.id, roomTitle: 'The hangar roof' });
+  check('@: what can be pointed at — here, the other scene, the lore book; the archive only once two letters are typed; a walker is “in the other scene”, not merely written out', (() => {
+    const all = RP.mentionables(st, a, { peach: { id: 'peach', name: 'Peach', title: 'Princess' } }, '');
+    const pe = RP.mentionables(st, a, { peach: { id: 'peach', name: 'Peach', title: 'Princess' } }, 'pe');
+    RP.setPresent(a, sans.id, false); RP.addToRoom(b, sans);
+    const walked = RP.mentionables(st, a, {}, 'sans')[0];
+    RP.castRemove(b, sans.id); RP.setPresent(a, sans.id, true);
+    return all.map(c => c.kind + ':' + c.name).join() === 'here:Wario,here:Sans,other:Bowser,book:The Hangar Beast' &&
+      pe.length === 1 && pe[0].kind === 'archive' && walked && walked.kind === 'other' && walked.roomId === b.id &&
+      RP.MENTION_KINDS.other === 'in the other scene';
+  })());
+  check('@: the @ signs come out, the pointers stay, a stray @nobody is left alone, and the model is told who was meant — a wall apart', (() => {
+    const cands = RP.mentionables(st, a, {}, '');
+    const parsed = RP.parseMentions('@Bowser, did you see @[The Hangar Beast]? @Sans stay. @nobody', cands);
+    const block = RP.pingBlock(st, a, parsed.mentions, {});
+    const sys = RP.systemFor(st, a, wario, { mentions: parsed.mentions, catalog: {} });
+    return parsed.clean === 'Bowser, did you see The Hangar Beast? Sans stay. @nobody' && parsed.mentions.length === 3 &&
+      parsed.mentions.map(m => m.kind).sort().join() === 'book,here,other' && /NAMED BY THE PLAYER/.test(block) &&
+      /Bowser — in the other scene right now, “The hangar roof” \(100\/100 HP\)\. A wall apart/.test(block) && /The Hangar Beast — thing, from the lore book/.test(block) &&
+      /too many claws, seen on the roof\. The same one/.test(block) && !/- Sans/.test(block) && /Nobody listed here walks in/.test(block) &&
+      /NAMED BY THE PLAYER/.test(sys) && RP.pingBlock(st, a, [], {}) === '' && RP.pingBlock(st, a, [{ id: sans.id, name: 'Sans', kind: 'here' }], {}) === '';
+  })());
+  check('⇄ merge: everybody in one place, both streams by the clock with a camera card at each cut, sheets and facts kept, the link gone, undo whole', (() => {
+    b.messages.push({ id: 'm1', role: 'user', text: 'I open the engine.', at: 1000 });
+    b.messages.push({ id: 'm2', role: 'char', charId: 'bowser', text: 'Bowser growls.', at: 2000 });
+    a.messages.push({ id: 'm3', role: 'user', text: 'I wait on the pavement.', at: 1500 });
+    a.messages.push({ id: 'm4', role: 'char', charId: 'sans', text: 'heh.', at: 2500 });
+    b.states.bowser.hp.value = 50; a.facts = { place: 'the pavement' }; b.facts = { place: 'the roof', weather: 'rain' }; b.clock = '23:40';
+    RP.pushUndo(a, 'merging');
+    a.undo[a.undo.length - 1].linkedTo = b.id;
+    const rep = RP.mergeRooms(st, a, b, {});
+    const order = a.messages.map(m => m.role === 'scene' ? '[' + m.text + ']' : m.role + ':' + RP.textOf(m)).join(' | ');
+    const merged = rep && rep.joined.join() === 'Bowser' && rep.already.join() === 'Wario' && rep.turns === 2 && rep.cards === 4 &&
+      order === '[⇄ The hangar roof] | user:I open the engine. | [⇄ The pavement] | user:I wait on the pavement. | [⇄ The hangar roof] | char:Bowser growls. | [⇄ The pavement] | char:heh. | state:' &&
+      a.cast.map(c => c.name).join() === 'Wario,Sans,Bowser' && a.states.bowser.hp.value === 50 && a.facts.place === 'the pavement' && a.facts.weather === 'rain' &&
+      a.clock === '23:40' && !a.linkedTo && !b.linkedTo && b.mergedInto === a.id && !RP.linkedRoom(st, a) &&
+      a.messages[a.messages.length - 1].role === 'state' && a.messages[a.messages.length - 1].merged && !a.recapAt && !a.recap &&
+      a.messages.filter(m => m.camera).every(m => m.role === 'scene') && !RP.historyFor(st, a).some(x => /⇄/.test(x.content || ''));
+    RP.undo(a);
+    const back = a.cast.length === 2 && !a.messages.some(m => m.camera) && a.linkedTo === b.id && RP.linkedRoom(st, a) === b && a.clock !== '23:40';
+    return merged && back;
+  })());
+}
+
+// ---- round 12: the room on its own cards, the same moment, fresh turns, down and brought round, Energy, the full audit ----
+{
+  const st = RP.blankState();
+  const four = ['Waluigi', 'Wario', 'Mona', 'Ashley'].map(nm => RP.normChar({ id: nm.toLowerCase(), name: nm }));
+  const rm = RP.newRoom(four, { kind: 'group', title: 'The ledger room' });
+  rm.youPlay = 'waluigi';
+  const wario = four[1], mona = four[2];
+  check('the room: three settings, full by default — off says nothing, on asks for a murmur, full asks for proper replies on their own “Name:” paragraphs', (() => {
+    const off = RP.audienceBlock(rm, 'wario', 'off'), on = RP.audienceBlock(rm, 'wario', 'on'), full = RP.audienceBlock(rm, 'wario', 'full');
+    return RP.AUDIENCE_DEFAULT === 'full' && Object.keys(RP.AUDIENCE).join() === 'off,on,full' && off === '' &&
+      /not speaking this turn: Mona, Ashley\./.test(on) && /ONE short beat/.test(on) && /a murmur, never a speech/.test(on) &&
+      /not speaking this turn: Mona, Ashley\./.test(full) && /up to TWO of them MAY answer the moment properly/.test(full) && /two to four sentences/.test(full) &&
+      /never the same beat they gave last time/.test(full) && !/Waluigi/.test(full) && RP.audienceBlock(rm, 'mona', 'full').indexOf('Wario, Ashley') > 0;
+  })());
+  check('the room: trailing “Name:” paragraphs are cut out of the reply and handed to that person; the player’s are dropped; mid-line names are left alone; the speaker’s own label is only a label', (() => {
+    const reply = '*Wario slams the desk.* "Pay up, string bean."\n*He waits, breathing through his nose.*\n\nMona: *She does not look up from the register.* "He means it this time."\n"Don\'t make him count to three."\nAshley: *rolls her eyes* "Boring."';
+    const cut = RP.splitChorus(reply, 'Wario', ['Mona', 'Ashley'], ['Waluigi']);
+    const player = RP.splitChorus('*He shrugs.*\nWaluigi: "I pay."', 'Wario', ['Mona'], ['Waluigi']);
+    const allNames = RP.splitChorus('Mona: "hi"\nWario: "no"', 'Wario', ['Mona'], []);
+    const mid = RP.splitChorus('*He says it plainly.* Mona: "what"\nand then some more prose.', 'Wario', ['Mona'], []);
+    const own = RP.splitChorus('*He waits.*\nWario: "And another thing."', 'Wario', ['Mona'], []);
+    return cut.main === '*Wario slams the desk.* "Pay up, string bean."\n*He waits, breathing through his nose.*' && cut.pieces.length === 2 &&
+      cut.pieces[0].name === 'Mona' && /^\*She does not look up/.test(cut.pieces[0].text) && /count to three\."$/.test(cut.pieces[0].text) &&
+      cut.pieces[1].name === 'Ashley' && cut.pieces[1].text === '*rolls her eyes* "Boring."' && cut.dropped.length === 0 &&
+      player.main === '*He shrugs.*' && player.pieces.length === 0 && player.dropped.length === 1 && /Waluigi/.test(player.dropped[0]) &&
+      allNames.pieces.length === 1 && allNames.pieces[0].name === 'Mona' && allNames.main === '"no"' && mid.pieces.length === 0 && mid.main === '*He says it plainly.* Mona: "what"\nand then some more prose.' &&
+      own.pieces.length === 0 && own.main === '*He waits.*\nWario: "And another thing."';
+  })());
+  check('the room: names match loosely (MR L, Mr.L, a first name alone); “Narrator:” is the world’s; a label nobody knows stays in the text; a reply that is only somebody else’s lines is left whole', (() => {
+    const loose = RP.splitChorus('*He counts.*\n\nMR L: *from the stairs* "Brother."\nmona: "Not now."', 'Wario', ['Mr. L', 'Mona Pizza'], ['Waluigi']);
+    const told = RP.splitChorus('*He counts.*\n\nNarrator: The lights go out.\n**Mona:** "Who did that?"', 'Wario', ['Mona'], [], { narrator: 'The Director' });
+    const stranger = RP.splitChorus('*He counts.*\n\nGarlic Vendor: "Fresh bulbs!"', 'Wario', ['Mona'], []);
+    const theirs = RP.splitChorus('Mona: "hi"\nAshley: "no"', 'Wario', ['Mona', 'Ashley'], []);
+    const dash = RP.splitChorus('*He counts.*\n- Mona: "one"', 'Wario', ['Mona'], []);
+    return loose.pieces.length === 2 && loose.pieces[0].name === 'Mr. L' && loose.pieces[0].kind === 'cast' && /^\*from the stairs\*/.test(loose.pieces[0].text) &&
+      loose.pieces[1].name === 'Mona Pizza' && loose.main === '*He counts.*' &&
+      told.pieces.length === 2 && told.pieces[0].kind === 'narrator' && told.pieces[0].name === 'The Director' && told.pieces[0].text === 'The lights go out.' &&
+      told.pieces[1].name === 'Mona' && told.pieces[1].text === '"Who did that?"' &&
+      stranger.pieces.length === 0 && stranger.unknown.length === 1 && stranger.unknown[0].name === 'Garlic Vendor' && /Garlic Vendor: "Fresh bulbs!"/.test(stranger.main) &&
+      theirs.pieces.length === 0 && theirs.main.indexOf('Mona:') === 0 &&
+      dash.pieces.length === 1 && dash.pieces[0].text === '"one"' && RP.nameKey('Mr. L') === RP.nameKey('MR L') && RP.nameKey('mr.l') === 'mrl';
+  })());
+  check('the same moment: the block names who has acted and who is still to, insists nothing has landed, and rides the prompt only when asked; the history labels the turn', (() => {
+    const block = RP.momentBlock(rm, wario, { same: true, done: ['Mona'], pending: ['Ashley'] });
+    const alone = RP.momentBlock(rm, wario, { same: true, done: [], pending: [] });
+    const turns = RP.momentBlock(rm, wario, { same: false, done: ['Mona'], pending: [] });
+    const sys = RP.systemFor(st, rm, wario, { moment: { same: true, done: ['Mona'], pending: ['Ashley'] } });
+    const calm = RP.systemFor(st, rm, wario, {});
+    rm.messages.push({ id: 'x1', role: 'char', charId: 'mona', text: 'She runs for the door.', at: 1, moment: 'g1' });
+    rm.messages.push({ id: 'x2', role: 'char', charId: 'wario', text: 'He fires twice.', at: 2, moment: 'g1', same: true });
+    const hist = RP.historyFor(rm);
+    rm.messages = [];
+    return /THE SAME MOMENT/.test(block) && /Mona’s turn just above, happen AT THE SAME TIME as Wario’s turn/.test(block) &&
+      /Nobody has finished; nothing above has landed/.test(block) && /Ashley act in the same seconds too, written after you/.test(block) &&
+      /do not write their words/.test(block) && /last turn happens AT THE SAME TIME/.test(alone) && !/just above/.test(alone) && turns === '' &&
+      /THE SAME MOMENT/.test(sys) && sys.indexOf('THE SAME MOMENT') < sys.indexOf('STAGE DIRECTIONS') && !/THE SAME MOMENT/.test(calm) &&
+      hist.some(h => h.content === 'Wario (at the same moment): He fires twice.') && hist.some(h => h.content === 'Mona: She runs for the door.');
+  })());
+  // fresh turns
+  const say = (id, text, i) => rm.messages.push({ id: 'f' + id + i, role: 'char', charId: id, text, at: 1000 + i });
+  for (let i = 0; i < 6; i++) {
+    say('wario', 'WAH! I will sue you for every coin, string bean! The invoice says you owe me a premium asset fee. *He waves the invoice.* Sign the invoice or I sue.', i * 3);
+    rm.messages.push({ id: 'u' + i, role: 'user', text: 'I shrug and look at the helicopter.', at: 1001 + i * 3 });
+    say('mona', ['The helicopter is still burning.', '"Nobody is signing anything."', 'She counts the till again, slowly.', '"Where did the pilot go?"', 'A siren, far off, getting no closer.', 'She slides the register shut.'][i], i * 3 + 2);
+  }
+  check('fresh turns: a character who has worn the same phrases, subject and opener for turns is told exactly what not to use; one who has not gets nothing; off says nothing', (() => {
+    const bits = RP.staleBits(rm, 'wario');
+    const block = RP.freshnessBlock(rm, wario, 'strict');
+    const soft = RP.freshnessBlock(rm, wario, 'on');
+    return RP.FRESH_DEFAULT === 'strict' && Object.keys(RP.FRESH).join() === 'strict,on,off' && bits.turns === 6 &&
+      bits.phrases.includes('a premium asset fee') && bits.themes.includes('sue') && bits.themes.includes('invoice') === false && bits.opener === 'wah i' &&
+      /FRESH TURN — Wario has started repeating themselves/.test(block) && /“a premium asset fee”/.test(block) && /this subject yet again: sue, coin, invoice/.test(block) &&
+      /the opening “wah i…”/.test(block) && /ONE move Wario has not made in this scene/.test(block) && /end the turn with something changed/.test(block) &&
+      soft.length > 0 && soft.length <= block.length && RP.freshnessBlock(rm, wario, 'off') === '' && RP.freshnessBlock(rm, mona, 'strict') === '';
+  })());
+  check('fresh turns: the block rides the prompt in the protected tail, and a reply that is the old beats again is caught while a new move is not', (() => {
+    const sys = RP.systemFor(st, rm, wario, {});
+    const prior = RP.priorTurns(rm, 'wario');
+    const stale = RP.repeatCheck('I will sue you for every coin, you owe me a premium asset fee.', prior);
+    const fresh = RP.repeatCheck('*He sits down on the kerb and takes his hat off.* "Fine. Keep the chopper. I want the ledger, and your brother\'s name on it."', prior);
+    const nothing = RP.repeatCheck('Anything at all.', []);
+    return /FRESH TURN/.test(sys) && sys.indexOf('FRESH TURN') > sys.indexOf('STAGE DIRECTIONS') && prior.length === 6 &&
+      stale.stale === true && stale.ratio > 0.5 && stale.hits.includes('a premium asset') && fresh.stale === false && fresh.hits.length === 0 && nothing.stale === false &&
+      RP.FRESH_TURNS === 12;
+  })());
+  rm.messages = [];
+  check('used material: a filing whose words come back in the reply is named; one that does not is not', (() => {
+    const hits = [{ name: 'Ridge filing', snippet: 'The ridge road floods every autumn, the concession knows it.' }, { name: 'Other', snippet: 'Nothing about Marguerite here.' }];
+    const used = RP.usedMaterial('"The Ridge Road floods every autumn," he says.', hits, ['Wario']);
+    return used.length === 1 && used[0] === 'Ridge filing' && RP.usedMaterial('He says nothing.', hits, []).length === 0;
+  })());
+  // down, and brought round
+  const w = rm.states.wario;
+  check('down: HP reaching 0 marks the sheet down, with the note the prompt reads; back above 0 clears it', (() => {
+    const line = RP.applyChange(w, { kind: 'hp', op: '-', value: 500 });
+    const flagged = Boolean(w.flags.down) && /barely conscious/.test(w.flags.down.note) && w.flags.down.turns === 0;
+    const body = RP.bodyBlock(rm, wario);
+    const sys = RP.systemFor(st, rm, wario, {});
+    const up = RP.applyChange(w, { kind: 'hp', op: '=', value: 30 });
+    const cleared = !w.flags.down;
+    return /Wario −100 HP \(0\/100\) — down/.test(line) && flagged && /DOWN at 0 HP: barely conscious/.test(body) && /cannot fight, run or lead/.test(body) &&
+      /DOWN at 0 HP/.test(sys) && /Wario \+30 HP \(30\/100\) — back up/.test(up) && cleared && RP.fixDown(rm).length === 0;
+  })());
+  check('down: a sheet put at 0 by hand is picked up by the sweep; the prompt says DOWN; the dock blurb exists', (() => {
+    w.hp.value = 0; delete w.flags.down;
+    const lines = RP.fixDown(rm);
+    return lines.length === 1 && lines[0] === 'Wario is DOWN' && Boolean(w.flags.down) && /DOWN at 0 HP/.test(RP.systemFor(st, rm, wario, {})) && typeof RP.DOWN_NOTE === 'string';
+  })());
+  check('revived: a slap, water or smelling salts in the player’s own line brings a downed person round — a sliver of HP, barely conscious for three turns, down lifted — and nobody who is up', (() => {
+    const found = RP.reviveScan('I crouch and slap Wario across the face. "Wake up, fatso."', rm);
+    const nobody = RP.reviveScan('I wake up and stretch.', rm);
+    const mine = RP.reviveScan('I slap Mona awake.', rm);          // Mona is at full HP
+    const line = RP.revive(w, found[0].how);
+    const after = w.hp.value === 5 && !w.flags.down && Boolean(w.flags.barely_conscious) && w.flags.barely_conscious.turns === 3;
+    const water = RP.reviveScan('I throw a bucket of water over Wario.', rm);     // he is up now — nothing to revive
+    return found.length === 1 && found[0].id === 'wario' && found[0].how === 'slap' && nobody.length === 0 && mine.length === 0 &&
+      line === '⛑ Wario comes round at 5/100 HP — slapped awake; barely conscious' && /slapped awake/.test(w.flags.barely_conscious.note) && after && water.length === 0;
+  })());
+  check('vigour: a downed speaker written leaping and roaring is caught; a crawl, a cough or a word is not; nobody who is up is checked', (() => {
+    RP.applyChange(w, { kind: 'hp', op: '-', value: 50 });
+    const roar = RP.vigourCheck('*Wario erupts off the floor, roaring.* "WAH!"', w);
+    const crawl = RP.vigourCheck('*Wario tries to stand up and cannot; his hand will not close.* "...wah."', w);
+    const cough = RP.vigourCheck('*He coughs, and reaches for the coin.*', w);
+    RP.applyChange(w, { kind: 'hp', op: '=', value: 40 });
+    const up = RP.vigourCheck('*Wario erupts off the floor, roaring.*', w);
+    return roar && /DOWN at 0 HP/.test(roar.why) && roar.what === 'erupts' && crawl === null && cough === null && up === null;
+  })());
+  // ⚡ Energy
+  check('energy: one pool, named Energy — [[EN:]], [[STAMINA:]] and the old [[MP:]] all move it, a condition can drain it, and the directive line says so', (() => {
+    const d = RP.parseDirectives('text [[EN: Wario -5]] [[STAMINA: Mona +2]] [[MP: Ashley -1]] [[COND: Mona winded 2 -1en | ran]]', four.map(c => c.name)).directives;
+    const line = RP.applyChange(w, { kind: 'mp', op: '-', value: 5 });
+    const sys = RP.systemFor(st, rm, wario, {});
+    return d.length === 4 && d.slice(0, 3).every(x => x.kind === 'mp') && d[3].effect === '-1mp' && /Wario −5 Energy \(45\/50\)/.test(line) &&
+      /\[\[EN: Name -5\]\]/.test(sys) && /Energy \d+\/\d+/.test(sys) && !/\bMP\b/.test(sys) && /Energy/.test(RP.stateBlock(rm, 'wario'));
+  })());
+  check('energy: effort and magic in the prose cost it, talk does not, and the pool climbs back for everyone who did not spend it this turn', (() => {
+    const run = RP.exertScan('*He sprints for the door.*', w), hex = RP.exertScan('*She casts a hex at the lock.*', w), talk = RP.exertScan('"Hello."', w);
+    w.mp.value = 20; rm.states.mona.mp.value = 20;
+    const lines = RP.regenEnergy(rm, ['wario']);
+    const monaUp = rm.states.mona.mp.value, warioHeld = w.mp.value;
+    rm.states.mona.mp.value = rm.states.mona.mp.max - 1;
+    const back = RP.regenEnergy(rm, []);
+    return run && run.kind === 'effort' && run.amount === 3 && run.cause === 'sprints' && hex && hex.kind === 'magic' && hex.amount > run.amount && talk === null &&
+      lines.length === 0 && monaUp === 22 && warioHeld === 20 && back.some(l => /⚡ Mona has their breath back \(50\/50\)/.test(l)) && w.mp.value === 22;
+  })());
+  check('full audit: the prompt reads more turns, judges the record at the root, and asks for up to five notes; the quick one does not', (() => {
+    const quick = RP.sheetAuditPrompt([rm], { [rm.id]: [] }, {});
+    const full = RP.sheetAuditPrompt([rm], { [rm.id]: [] }, { full: true });
+    const notes = RP.parseAuditNotes('NOTE: one\nNOTE: two\nNOTE: three\nNOTE: four\nNOTE: five\nNOTE: six', 5);
+    return /HP and Energy/.test(full) && /FULL AUDIT/.test(full) && /up to FIVE/.test(full) && /\[\[EN: Name = current\/max\]\]/.test(full) &&
+      !/FULL AUDIT/.test(quick) && /Anyone at 0 HP is DOWN/.test(quick) && RP.AUDIT_TURNS_FULL === 40 && notes.length === 5;
+  })());
+}
+
 check('build: chatroom.html and workflow/roleplay.html match their sources', built);
 
 console.log(ok ? 'ALL CHATROOM CORE TESTS PASS' : 'CHATROOM CORE TESTS FAILED');

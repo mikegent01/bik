@@ -20,6 +20,10 @@
   var $ = function (id) { return document.getElementById(id); };
 
   var state = RP.loadState(window.localStorage);
+  var styleWasMigrated = Boolean(state.settings && state.settings.styleMigrated);
+  var migratedRooms = RP.migrateStyle(state);   // Novel → In character, once
+  var lengthWasMigrated = Boolean(state.settings && state.settings.lengthMigrated);
+  var migratedLength = RP.migrateLength(state); // Snappy-by-default → the scene decides, once
   var cast = [];          // every playable character
   var castById = {};
   var scenes = [];        // filed sessions offered as scene starters
@@ -33,6 +37,7 @@
   var comStyle = 'podcast';
   var comMins = 25;
   var speaking = false;
+  var busyRoom = '';      // which room the turn in flight belongs to (the front one, or the linked scene)
   var bookKind = 'all';
   var logKind = 'all';
   var castSort = 'name';
@@ -54,8 +59,59 @@
    * ---------------------------------------------------------------- */
 
   function save() {
+    syncLinked();
     RP.saveState(window.localStorage, state);
     window.setTimeout(autosave, 0);      // never in the way of a render
+  }
+
+  /** Two linked scenes are one world. Anyone with a sheet in both — HP,
+   *  kit, conditions, counters; not where they are or who plays them — has
+   *  the same sheet in each, and the clock and the date are one. The side
+   *  that changed since the last save wins, so a wound taken in the hangar
+   *  is on the sheet in the cockpit before the next line is written. */
+  var sheetSigs = {};
+  var LOCAL_KEYS = { present: 1, player: 1 };
+  function sheetSig(sheet) {
+    var copy = {};
+    Object.keys(sheet || {}).forEach(function (k) { if (!LOCAL_KEYS[k]) copy[k] = sheet[k]; });
+    return JSON.stringify(copy);
+  }
+  function syncLinked() {
+    var seen = {};
+    (state.rooms || []).forEach(function (a) {
+      var b = RP.linkedRoom(state, a);
+      if (!b || seen[a.id] || seen[b.id]) return;
+      seen[a.id] = seen[b.id] = true;
+      var sa = sheetSigs[a.id] || (sheetSigs[a.id] = {});
+      var sb = sheetSigs[b.id] || (sheetSigs[b.id] = {});
+      // Which side moved since the last look; a tie goes to the busier scene.
+      var pickA = function (key, ja, jb) {
+        var changedA = sa[key] !== undefined && sa[key] !== ja;
+        var changedB = sb[key] !== undefined && sb[key] !== jb;
+        if (changedA !== changedB) return changedA;
+        return (a.updated || 0) >= (b.updated || 0);
+      };
+      Object.keys(a.states || {}).forEach(function (id) {
+        if (!b.states || !b.states[id]) return;
+        var ja = sheetSig(a.states[id]), jb = sheetSig(b.states[id]);
+        if (ja === jb) { sa[id] = sb[id] = ja; return; }
+        var fromA = pickA(id, ja, jb);
+        var src = fromA ? a.states[id] : b.states[id];
+        var dst = fromA ? b.states[id] : a.states[id];
+        Object.keys(dst).forEach(function (k) { if (!LOCAL_KEYS[k]) delete dst[k]; });
+        Object.keys(src).forEach(function (k) { if (!LOCAL_KEYS[k]) dst[k] = JSON.parse(JSON.stringify(src[k])); });
+        sa[id] = sb[id] = sheetSig(src);
+      });
+      var ca = JSON.stringify([a.clock || '', a.date || '']), cb = JSON.stringify([b.clock || '', b.date || '']);
+      if (ca !== cb) {
+        var clockFromA = pickA('__clock__', ca, cb);
+        var from = clockFromA ? a : b, to = clockFromA ? b : a;
+        if (from.clock) to.clock = from.clock; else delete to.clock;
+        if (from.date) to.date = from.date; else delete to.date;
+        ca = cb = JSON.stringify([from.clock || '', from.date || '']);
+      }
+      sa.__clock__ = sb.__clock__ = ca;
+    });
   }
   function room() { return (state.rooms || []).filter(function (r) { return r.id === state.active; })[0] || null; }
   function esc(v) { return RP.esc(v); }
@@ -90,7 +146,10 @@
     var box = avatarBox(size);
     var url = imageUrl(char && char.image);
     if (url) {
-      return '<span class="' + box.cls + '" style="' + box.style + '">' +
+      // data-nm / data-tint: when the file is missing the page swaps the
+      // broken image for initials (see the error listener at the foot).
+      return '<span class="' + box.cls + '" style="' + box.style + '" data-nm="' + esc(RP.initialsFor(char && char.name)) +
+        '" data-tint="' + esc(RP.tintFor(char)) + '">' +
         '<img src="' + esc(url) + '" alt="" loading="lazy"></span>';
     }
     return '<span class="' + box.cls + '" style="' + box.style + 'background:' + RP.tintFor(char) + '">' +
@@ -103,6 +162,8 @@
     if (u.avatar) {
       return '<span class="' + box.cls + '" style="' + box.style + '"><img src="' + esc(u.avatar) + '" alt=""></span>';
     }
+    // No avatar of your own but a standing seat in the archive: wear it.
+    if (u.playAs && castById[u.playAs] && castById[u.playAs].image) return avatar(castById[u.playAs], size || 32);
     return '<span class="' + box.cls + '" style="' + box.style + 'background:#5b5b66">' +
       esc(RP.initialsFor(u.name || 'You')) + '</span>';
   }
@@ -133,6 +194,17 @@
       cast.forEach(function (c) { castById[c.id] = c; });
     }).catch(function (error) {
       cast = []; console.warn('cast unavailable', error);
+    }).then(loadVoices);
+  }
+
+  /** The voice sheets — how each character actually talks. Optional: a
+   *  missing file means every character gets the first-person fallback. */
+  function loadVoices() {
+    if (!CFG.voicesUrl) return Promise.resolve();
+    return getJSON(CFG.voicesUrl).then(function (data) {
+      RP.setVoices(data);
+    }).catch(function (error) {
+      console.warn('voice sheets unavailable', error);
     });
   }
 
@@ -316,8 +388,8 @@
    *  actually land. */
   function tokensFor(isWorld) {
     var level = isWorld
-      ? RP.NARRATORS[RP.narrator(state)].length
-      : (state.settings && state.settings.length) || 'snappy';
+      ? RP.worldLength(state)
+      : (state.settings && state.settings.length) || RP.DEFAULT_LENGTH;
     return RP.lengthBlock(level, false).tokens;
   }
 
@@ -354,13 +426,20 @@
   /** A fetch that gives up: local models hang, and an unanswered request
    *  used to block every background call behind it forever. Utility work
    *  gets 4 minutes; a main turn gets 10 (a 31B on CPU is slow, not dead). */
+  // Every request in flight, so ■ Stop can cut them all at once: the
+  // model's reply, the chores queued behind it, the studio rendering a line.
+  var inflight = [];
+  var stopEpoch = 0;       // bumped by ■ — anything staged before it does not go on
   function timedFetch(url, opts, ms) {
     var ctl = typeof window.AbortController === 'function' ? new window.AbortController() : null;
+    if (ctl) inflight.push(ctl);
     var timer = ctl ? window.setTimeout(function () { ctl.abort(); }, ms) : 0;
     var done = function (pass, value) {
       if (timer) window.clearTimeout(timer);
+      if (ctl) inflight = inflight.filter(function (c) { return c !== ctl; });
       if (pass) return value;
       if (value && (value.name === 'AbortError' || /abort/i.test(String(value && value.message)))) {
+        if (ctl && ctl.stopped) { var halt = new Error('stopped'); halt.stopped = true; throw halt; }
         throw new Error('timed out after ' + Math.round(ms / 1000) + 's');
       }
       throw value;
@@ -387,7 +466,7 @@
           model: route.model,
           messages: [{ role: 'system', content: system }].concat(messages),
           temperature: temperature,
-          max_tokens: (opts && opts.tokens) || RP.lengthBlock((state.settings && state.settings.length) || 'snappy').tokens,
+          max_tokens: (opts && opts.tokens) || RP.lengthBlock((state.settings && state.settings.length) || RP.DEFAULT_LENGTH).tokens,
           stream: false,
           // Replies, staging, filing, summaries: simple text tasks. Thinking
           // is off per-request; servers that do not know the parameter
@@ -416,7 +495,7 @@
       body: JSON.stringify(Object.assign({
         system: system, messages: messages,
         temperature: temperature,
-        max_tokens: (opts && opts.tokens) || RP.lengthBlock((state.settings && state.settings.length) || 'snappy').tokens,
+        max_tokens: (opts && opts.tokens) || RP.lengthBlock((state.settings && state.settings.length) || RP.DEFAULT_LENGTH).tokens,
       }, samplers())),
     }, patience).then(function (r) {
       return r.json().then(function (value) {
@@ -501,15 +580,27 @@
     var buckets = RP.groupBuckets(state.rooms || []);
     var labels = { today: 'Today', yesterday: 'Yesterday', month: 'This Month', older: 'Older' };
     var html = '';
+    var shown = {};
     ['today', 'yesterday', 'month', 'older'].forEach(function (key) {
       if (!buckets[key].length) return;
-      html += '<h4>' + labels[key] + '</h4>';
-      html += buckets[key].map(function (r) {
-        var face = r.cast && r.cast[0] ? r.cast[0] : { name: r.title };
-        return '<div class="recent ' + (r.id === state.active ? 'on' : '') + '" data-room="' + esc(r.id) + '">' +
-          avatar(face, 32) + '<span class="name">' + esc(r.title) + '</span>' +
-          '<button class="kill" data-kill="' + esc(r.id) + '" title="Delete chat">✕</button></div>';
+      var rows = buckets[key].map(function (r) {
+        // Two linked scenes are one chat here: one row, "A ⇄ B", filed
+        // under the older of the two; opening it brings that one up front
+        // with the other at its side.
+        if (shown[r.id]) return '';
+        var other = RP.linkedRoom(state, r);
+        var first = other ? RP.linkPrimary(state, r) : r;
+        var second = other ? (first === r ? other : r) : null;
+        shown[r.id] = true; if (other) shown[other.id] = true;
+        var face = first.cast && first.cast[0] ? first.cast[0] : { name: first.title };
+        var on = r.id === state.active || (other && other.id === state.active);
+        return '<div class="recent' + (on ? ' on' : '') + (other ? ' pair' : '') + '" data-room="' + esc(first.id) + '"' +
+          (other ? ' title="Two scenes, one chat: “' + esc(first.sceneName || first.title) + '” and “' + esc(second.sceneName || second.title) + '”"' : '') + '>' +
+          avatar(face, 32) + '<span class="name">' + esc(other ? (first.sceneName || first.title) + ' ⇄ ' + (second.sceneName || second.title) : r.title) + '</span>' +
+          '<button class="kill" data-kill="' + esc(first.id) + '" title="' + (other ? 'Delete both scenes' : 'Delete chat') + '">✕</button></div>';
       }).join('');
+      if (!rows) return;
+      html += '<h4>' + labels[key] + '</h4>' + rows;
     });
     $('recents').innerHTML = html || '<div class="emptynote">No chats yet. Pick a character to start one.</div>';
     $('recents').querySelectorAll('[data-room]').forEach(function (node) {
@@ -523,9 +614,14 @@
         e.stopPropagation();
         var id = b.dataset.kill;
         var target = (state.rooms || []).filter(function (r) { return r.id === id; })[0];
-        if (!target || !window.confirm('Delete "' + target.title + '"? The chat goes; its memory and lore stay.')) return;
-        state.rooms = state.rooms.filter(function (r) { return r.id !== id; });
-        if (state.active === id) state.active = '';
+        if (!target) return;
+        var other = RP.linkedRoom(state, target);
+        if (!window.confirm(other
+          ? 'Delete both scenes — "' + target.title + '" and "' + other.title + '"? The chat goes; its memory and lore stay.'
+          : 'Delete "' + target.title + '"? The chat goes; its memory and lore stay.')) return;
+        var gone = other ? [id, other.id] : [id];
+        state.rooms = state.rooms.filter(function (r) { return gone.indexOf(r.id) < 0; });
+        if (gone.indexOf(state.active) >= 0) state.active = '';
         save(); render();
       };
     });
@@ -1560,6 +1656,7 @@
    * ---------------------------------------------------------------- */
 
   function pushRoom(r) {
+    applyDefaultPlayer(r);
     state.rooms.unshift(r);
     state.active = r.id;
     RP.logEvent(state, {
@@ -1573,7 +1670,7 @@
   function startSolo(char) {
     if (!char) return;
     pushRoom(RP.newRoom([char], {
-      style: (state.settings && state.settings.style) || 'novel',
+      style: (state.settings && state.settings.style) || RP.DEFAULT_STYLE,
       persona: (state.user && state.user.persona) || '',
     }));
   }
@@ -1584,7 +1681,7 @@
     pushRoom(RP.newRoom(picked, {
       scene: opts.scene || '', sceneName: opts.sceneName || '', sceneImage: opts.sceneImage || '',
       beats: opts.beats || [], opener: opts.opener || '', date: opts.date || '',
-      style: (state.settings && state.settings.style) || 'novel',
+      style: (state.settings && state.settings.style) || RP.DEFAULT_STYLE,
       persona: (state.user && state.user.persona) || '',
       // Scenario settings: the sheets everyone walks in carrying.
       statePreset: opts.statePreset || (state.settings && state.settings.statePreset) || 'rpg',
@@ -2003,10 +2100,6 @@
     importAny(String(text || ''), label, target);
   }
 
-  function buildFromText(text, title) {
-    buildFromTurns(RP.parseTranscript(text, {}), title);
-  }
-
   function buildFromTurns(turns, title) {
     if (!turns.length) { toast('Nothing readable in that.'); return; }
     var names = {};
@@ -2157,15 +2250,32 @@
   /** Find whoever the model just walked into the scene. Exact id, then exact
    *  name, then a contains match — and if the archive has never heard of
    *  them, the caller invents a card rather than refusing the entrance. */
+  /** The archive record a name in a stage direction means. Exact first
+   *  (id, then name, punctuation and articles aside), then the LONGEST
+   *  filed name that appears whole inside what was written — so "Lord
+   *  Verity of Trinity" finds Lord Verity and "Anastasia" no longer finds
+   *  Ana, which the old substring test did. People invented in play are
+   *  found too, with their voice and kit, so a return visit is a return. */
   function resolveChar(name) {
-    var want = String(name || '').toLowerCase().trim();
+    var tidy = function (v) {
+      return String(v || '').toLowerCase().replace(/[.\u2019'"]/g, '').replace(/[^a-z0-9]+/g, ' ').trim();
+    };
+    var raw = tidy(name);
+    var want = raw.replace(/^(the|a|an|lord|lady|dr|doctor|mr|mrs|ms|sir|old|young)\s+/, '');
     if (!want) return null;
-    if (castById[RP.slug(want)]) return castById[RP.slug(want)];
-    var exact = cast.filter(function (c) { return c.name.toLowerCase() === want; })[0];
+    var pool = cast.concat(state.newChars || []);
+    var exact = pool.filter(function (c) { return tidy(c.name) === raw; })[0];
     if (exact) return exact;
-    return cast.filter(function (c) {
-      return c.name.toLowerCase().indexOf(want) >= 0 || want.indexOf(c.name.toLowerCase()) >= 0;
-    })[0] || null;
+    if (castById[RP.slug(raw)]) return castById[RP.slug(raw)];
+    if (castById[RP.slug(want)]) return castById[RP.slug(want)];
+    // A species or a job is not a person: "a Toad" must not become Dr. Toad.
+    if (/^(toad|toads|goomba|koopa|boo|guard|guards|soldier|clerk|man|woman|stranger|figure|voice|someone|somebody)$/.test(want)) return null;
+    var forms = raw === want ? [' ' + raw + ' '] : [' ' + raw + ' ', ' ' + want + ' '];
+    var whole = pool.filter(function (c) {
+      var n = ' ' + tidy(c.name) + ' ';
+      return n.length >= 5 && forms.some(function (f) { return f.indexOf(n) >= 0 || n.indexOf(f) >= 0; });
+    }).sort(function (a, b) { return tidy(b.name).length - tidy(a.name).length; });
+    return whole[0] || null;
   }
 
   function openRoom(id) { state.active = id; save(); render(); }
@@ -2192,12 +2302,155 @@
   function userMacros() {
     return MACROS.concat(state.settings.macros || []);
   }
+  /** The buttons that show: the built-ins you have not hidden, then your own. */
+  function shownMacros() {
+    var hidden = state.settings.hiddenMacros || [];
+    return userMacros().filter(function (m) { return hidden.indexOf(m.id) < 0; });
+  }
+
+  /** What you are holding or carrying, for the 🎒 Use… button. */
+  function playerKit(r) {
+    var sheet = RP.sheetFor(r, RP.playerSheetId(r));
+    return ((sheet && sheet.items) || []).map(RP.normItem).filter(function (it) { return it.name; });
+  }
 
   function macroButtons(r) {
-    return '<span class="macros">' + userMacros().slice(0, 7).map(function (m) {
-      return '<button class="qa mac" data-macro="' + esc(m.id) + '" title="' + esc(m.text) + '">' +
-        esc(m.icon) + ' ' + esc(m.label) + '</button>';
-    }).join('') + '<button class="qa mac add" id="macroAdd" title="Write your own">＋</button></span>';
+    var you = RP.sheetFor(r, RP.playerSheetId(r));
+    var mood = you && you.mood && RP.MOODS[you.mood.key] ? you.mood : null;
+    var other = RP.linkedRoom(state, r);
+    var kit = playerKit(r);
+    return '<span class="macros">' +
+      '<button class="qa mac mood' + (mood ? ' on' : '') + '" id="qaMood"' + (mood ? ' style="' + RP.moodStyle(mood) + '"' : '') +
+        ' title="' + esc(mood ? 'You are ' + RP.moodLabel(mood) + ' — the cast reads what you do through it. Click to change or calm down.'
+          : 'How you feel going into this turn: the cast reads what you do through it (angry: a pick-up is a grab).') + '">' +
+        (mood ? esc(RP.MOODS[mood.key].icon + ' ' + RP.moodLabel(mood)) : '🎭 Mood') + '</button>' +
+      '<button class="qa mac" id="qaAt" title="@ — point at exactly who you mean: someone here, written out, in the other scene, in the lore book or in the archive. Type @ in the box for the same list.">@</button>' +
+      (kit.length ? '<button class="qa mac" id="qaUse" title="Use, show or hand over something you carry">🎒 Use…</button>' : '') +
+      shownMacros().slice(0, 8).map(function (m) {
+        return '<button class="qa mac" data-macro="' + esc(m.id) + '" title="' + esc(m.text) + '">' +
+          esc(m.icon) + ' ' + esc(m.label) + '</button>';
+      }).join('') +
+      (other ? '<button class="qa mac live' + (other.live && other.live !== 'off' ? ' on' : '') + '" id="qaMeanwhile" title="' +
+        esc('One unattended beat in \u201c' + (other.title || 'the other scene') + '\u201d now' +
+          (other.live && other.live !== 'off' ? ' — it also moves by itself ' + (other.live === 'every' ? 'after each of your turns here.' : 'every other turn you take here.')
+            : '. (Scene tab: let it move on its own.)')) + '">🌗 Meanwhile</button>' +
+        '<button class="qa mac merge" id="qaMerge" title="' + esc('Merge the two scenes into one — everybody in one place, both chats as one stream (the opposite of ✂ Split). ↩ undoes it.') + '">⊕ Merge scenes</button>' : '') +
+      '<button class="qa mac add" id="macroAdd" title="Your buttons — add, edit, hide">＋</button></span>';
+  }
+
+  /** 🎭 Your own mood: the world reads what you do through it. "calm" clears. */
+  function pickMood(r) {
+    var you = RP.sheetFor(r, RP.playerSheetId(r));
+    if (!you) { toast('The sheets are off in this scene.'); return; }
+    var cur = you.mood && RP.MOODS[you.mood.key] ? you.mood : null;
+    form('🎭 How you feel', [
+      { k: 'key', label: 'Feeling', type: 'select', value: cur ? cur.key : 'calm', options: [{ label: '— calm', value: 'calm' }].concat(RP.MOOD_KEYS.map(function (k) {
+        return { label: RP.MOODS[k].icon + ' ' + RP.MOODS[k].words[1], value: k };
+      })) },
+      { k: 'level', label: 'How strongly', type: 'select', value: String(cur ? cur.level : 2), options: [
+        { label: '1 — a flicker', value: '1' }, { label: '2 — plainly', value: '2' }, { label: '3 — overwhelming', value: '3' }] },
+      { k: 'note', label: 'Why (optional, the cast can read it on you)', value: cur ? cur.note || '' : '' },
+    ], { note: 'It does not write your words. It colours how the world reads what you do: angry, "I pick up the wrench" is read as a grab; afraid, a question is a plea. At 3 it costs you.', ok: 'Set' }, function (v) {
+      var line;
+      if (v.key === 'calm') {
+        if (!you.mood) { toast('You were calm already.'); return; }
+        delete you.mood; line = you.name + ' — calm again';
+      } else {
+        line = RP.moodShift(you, v.key, Number(v.level) || 2, v.note.trim(), { set: true, turn: r.messages.length });
+      }
+      if (line) r.messages.push({ id: RP.uid(), role: 'state', at: Date.now(), lines: ['🎭 ' + line] });
+      save(); render();
+    });
+  }
+
+  /** 🎒 Use…: something you carry, into the composer as an attempt. */
+  function useItem(r, sfx) {
+    var kit = playerKit(r);
+    var input = $('input' + (sfx || '')) || $('input');
+    if (!kit.length) { toast('You are not carrying anything.'); return; }
+    list('🎒 What do you reach for?', kit.map(function (it) {
+      return { label: it.icon + ' ' + it.name + (it.note ? ' — ' + it.note : ''), value: it.name };
+    }), function (name) {
+      var it = kit.filter(function (x) { return x.name === name; })[0];
+      if (!it) return;
+      list(it.icon + ' ' + it.name + ' — and?', [
+        { label: 'Use it', value: 'I use the ' + it.name + '.' },
+        { label: 'Show it', value: 'I hold up the ' + it.name + ' so they can see it.' },
+        { label: 'Hand it over', value: 'I hold out the ' + it.name + ' to {target}.' },
+        { label: 'Throw it', value: 'I throw the ' + it.name + ' at {target}.' },
+      ], function (text) {
+        var targets = RP.speakableCast(r);
+        var fire = function (target) {
+          input.value = text.replace('{target}', target ? target.name : 'them');
+          input.focus();
+        };
+        if (!/\{target\}/.test(text) || targets.length < 2) { fire(targets[0]); return; }
+        list('To whom?', targets.map(function (c) { return { label: c.name, value: c.id }; }), function (id) {
+          fire(targets.filter(function (c) { return c.id === id; })[0]);
+        });
+      });
+    });
+  }
+
+  /** ＋ Your buttons: add one, edit or delete your own, hide a built-in. */
+  function manageMacros(r) {
+    var hidden = state.settings.hiddenMacros || [];
+    var own = state.settings.macros || [];
+    openModal('<h3>Your buttons</h3>' +
+      '<p class="sub">The bar above the composer. A button writes the attempt for you — the roll still decides whether it works. ' +
+      'Hide the built-ins you never use; write up to six of your own.</p>' +
+      '<div class="stack">' + MACROS.map(function (m) {
+        var off = hidden.indexOf(m.id) >= 0;
+        return '<div class="item' + (off ? ' off' : '') + '"><b>' + esc(m.icon + ' ' + m.label) + '</b><p>' + esc(m.text) + '</p>' +
+          '<div class="acts"><button class="mini" data-machide="' + esc(m.id) + '">' + (off ? 'Show' : 'Hide') + '</button></div></div>';
+      }).join('') + own.map(function (m) {
+        return '<div class="item"><b>' + esc(m.icon + ' ' + m.label) + '</b>' + (m.mp ? ' <span class="sub">\u26a1 ' + m.mp + '</span>' : '') + '<p>' + esc(m.text) + '</p>' +
+          '<div class="acts"><button class="mini" data-macedit="' + esc(m.id) + '">Edit</button>' +
+          '<button class="mini danger" data-mackill="' + esc(m.id) + '">Delete</button></div></div>';
+      }).join('') + '</div>' +
+      '<div class="actions"><button class="pill" id="mCancel">Done</button>' +
+      (own.length < 6 ? '<button class="pill primary" id="mOk">＋ New button</button>' : '') + '</div>');
+    $('mCancel').onclick = closeModal;
+    if ($('mOk')) $('mOk').onclick = function () { closeModal(); macroForm(r, null); };
+    $('modal').querySelectorAll('[data-machide]').forEach(function (b) {
+      b.onclick = function () {
+        var id = b.getAttribute('data-machide');
+        var list2 = (state.settings.hiddenMacros || []).slice();
+        if (list2.indexOf(id) >= 0) list2.splice(list2.indexOf(id), 1); else list2.push(id);
+        state.settings.hiddenMacros = list2;
+        save(); render(); manageMacros(r);
+      };
+    });
+    $('modal').querySelectorAll('[data-macedit]').forEach(function (b) {
+      b.onclick = function () {
+        var m = own.filter(function (x) { return x.id === b.getAttribute('data-macedit'); })[0];
+        closeModal(); macroForm(r, m);
+      };
+    });
+    $('modal').querySelectorAll('[data-mackill]').forEach(function (b) {
+      b.onclick = function () {
+        state.settings.macros = own.filter(function (x) { return x.id !== b.getAttribute('data-mackill'); });
+        save(); render(); manageMacros(r);
+      };
+    });
+  }
+
+  function macroForm(r, existing) {
+    form(existing ? 'Edit your button' : 'A button of your own', [
+      { k: 'icon', label: 'Icon', value: existing ? existing.icon : '⚑' },
+      { k: 'label', label: 'Label', value: existing ? existing.label : '' },
+      { k: 'text', label: 'What it writes — use {target} for whoever you pick', type: 'area', value: existing ? existing.text : '' },
+      { k: 'mp', label: '\u26a1 Energy it costs (0 for none)', value: String(existing ? existing.mp || 0 : 0) },
+    ], { note: 'It writes the attempt for you; the roll still decides whether it works.', ok: existing ? 'Save' : 'Add' }, function (v) {
+      if (!v.label.trim() || !v.text.trim()) { toast('It needs a label and something to say.'); return; }
+      var next = { id: existing ? existing.id : 'mac_' + RP.slug(v.label) + '_' + Date.now().toString(36), icon: v.icon.trim() || '⚑',
+        label: v.label.trim(), text: v.text.trim(), mp: parseInt(v.mp, 10) || 0 };
+      var own = (state.settings.macros || []).slice();
+      var at = own.map(function (m) { return m.id; }).indexOf(next.id);
+      if (at >= 0) own[at] = next; else own.push(next);
+      state.settings.macros = own.slice(0, 6);
+      save(); render();
+    });
   }
 
   /** Play a macro: pick a target if the scene has one, spend what it costs,
@@ -2207,7 +2460,7 @@
     function fire(target) {
       var sheet = RP.playerCharacter(r) ? RP.sheetFor(r, RP.playerCharacter(r).id) : null;
       if (macro.mp && sheet && sheet.mp) {
-        if (sheet.mp.value < macro.mp) { toast('Not enough MP — ' + sheet.mp.value + ' left, that costs ' + macro.mp + '.'); return; }
+        if (sheet.mp.value < macro.mp) { toast('Not enough Energy \u2014 ' + sheet.mp.value + ' left, that costs ' + macro.mp + '.'); return; }
         var line = RP.applyChange(sheet, { kind: 'mp', op: '-', value: macro.mp });
         if (line) {
           r.messages.push({ id: RP.uid(), role: 'state', at: Date.now(), lines: [line] });
@@ -2224,24 +2477,45 @@
 
   /** The roll, the state changes and any beat that fired, as one quiet
    *  strip along the bottom of the turn they belong to. */
+  /** The mood on a sheet right now, as the snapshot a turn card keeps. */
+  function moodOn(r, id) {
+    var sheet = id ? RP.sheetFor(r, id) : null;
+    if (!sheet || !sheet.mood || !RP.MOODS[sheet.mood.key]) return undefined;
+    return { key: sheet.mood.key, level: Math.max(1, Math.min(3, Number(sheet.mood.level) || 1)) };
+  }
+
+  /** The attributes that colour a turn card by the feeling it was written
+   *  in: a class and the CSS variables. Empty when nobody felt anything. */
+  function moodAttrs(m) {
+    var style = m && m.mood ? RP.moodStyle(m.mood) : '';
+    return style ? ' mooded" style="' + style + '" data-mood="' + esc(m.mood.key) + '" title="' +
+      esc(RP.moodLabel(m.mood)) + ' (' + esc(m.mood.key) + ' ' + m.mood.level + '/3)' : '';
+  }
+
   function metaStrip(m) {
     var bits = [];
     if (m.fate) bits.push('<span class="roll">' + esc(m.fate) + '</span>');
     (m.changes || []).forEach(function (line) { bits.push('<span>' + esc(line) + '</span>'); });
     if (m.beatFired) bits.push('<span class="beat">⏩ ' + esc(RP.clip(m.beatFired, 90)) + '</span>');
     (m.consulted || []).forEach(function (name) {
-      bits.push('<span class="read" title="Read out of the archive for this turn">🔎 ' + esc(RP.clip(name, 40)) + '</span>');
+      var used = (m.used || []).indexOf(name) >= 0;
+      bits.push('<span class="read' + (used ? ' used' : '') + '" title="' + (used ? 'Read out of the archive for this turn, and something of it is in the prose'
+        : 'Read out of the archive for this turn') + '">' + (used ? '📚 ' : '🔎 ') + esc(RP.clip(name, 40)) + '</span>');
+    });
+    (m.repeats || []).forEach(function (phrase) {
+      bits.push('<span class="stale" title="Still leaning on this after being asked for a fresh turn">♻ ' + esc(RP.clip(phrase, 40)) + '</span>');
     });
     if (m.edited) bits.push('<span class="quiet">edited</span>');
     return bits.length ? '<div class="metastrip">' + bits.join('') + '</div>' : '';
   }
 
-  /** One HP/MP bar. */
+  /** One HP / Energy bar. */
   function bar(kind, pool) {
     var pct = pool.max ? Math.round((pool.value / pool.max) * 100) : 0;
-    return '<span class="pool ' + kind + (pct <= 30 ? ' low' : '') + '">' +
+    var word = kind === 'mp' ? '\u26a1' : RP.poolWord(kind);
+    return '<span class="pool ' + kind + (pct <= 30 ? ' low' : '') + '" title="' + esc(RP.poolWord(kind)) + '">' +
       '<span class="fill" style="width:' + pct + '%"></span>' +
-      '<span class="num">' + kind.toUpperCase() + ' ' + pool.value + '/' + pool.max + '</span></span>';
+      '<span class="num">' + word + ' ' + pool.value + '/' + pool.max + '</span></span>';
   }
 
   /** How many slots a sheet's grid shows: the profile decided it when the
@@ -2273,13 +2547,13 @@
   }
 
   /** Edit a sheet by hand — the model is not the only one allowed to. */
-  function editSheet(id) {
-    var r = room();
+  function editSheet(id, r) {
+    r = r || room();
     var sheet = RP.sheetFor(r, id);
     if (!sheet) return;
     form('State — ' + sheet.name, [
       { k: 'hp', label: 'HP (value / max, blank for none)', value: sheet.hp ? sheet.hp.value + '/' + sheet.hp.max : '' },
-      { k: 'mp', label: 'MP (value / max, blank for none)', value: sheet.mp ? sheet.mp.value + '/' + sheet.mp.max : '' },
+      { k: 'mp', label: '\u26a1 Energy (value / max, blank for none) \u2014 breath, strength and magic in one pool; it refills slowly', value: sheet.mp ? sheet.mp.value + '/' + sheet.mp.max : '' },
       { k: 'flags', label: 'Conditions — "bleeding 3 -2hp | a deep cut", one per line (turns, cost a turn, note)', type: 'area',
         value: Object.keys(sheet.flags || {}).map(function (f) {
           var c = sheet.flags[f] && typeof sheet.flags[f] === 'object' ? sheet.flags[f] : { note: '', turns: 0 };
@@ -2294,6 +2568,9 @@
         value: sheet.stats ? RP.STAT_KEYS.map(function (k) { return sheet.stats[k]; }).join(' ') : '' },
       { k: 'slots', label: 'Pack slots (3–12)', value: String(sheet.slots || '') },
       { k: 'status', label: 'Physical note', value: sheet.status || '' },
+      { k: 'mood', label: 'Mood — "anger 2 | the bill" (' + RP.MOOD_KEYS.join(', ') + '; 1 a flicker, 3 overwhelming), or calm',
+        value: sheet.mood && RP.MOODS[sheet.mood.key]
+          ? sheet.mood.key + ' ' + sheet.mood.level + (sheet.mood.note ? ' | ' + sheet.mood.note : '') : '' },
     ], { note: 'The model reads this before every turn and writes to it with stage directions. Changing it here changes what the scene believes.' }, function (v) {
       function pool(text, old) {
         var hit = /^\s*(\d+)\s*\/\s*(\d+)\s*$/.exec(text);
@@ -2325,29 +2602,96 @@
       var slots = parseInt(v.slots, 10);
       if (!isNaN(slots)) sheet.slots = Math.max(3, Math.min(12, slots));
       sheet.status = v.status.trim();
+      var moodText = v.mood.split('|');
+      var moodHead = moodText[0].trim();
+      var moodLevel = /\s(\d)\s*$/.exec(moodHead);
+      var feeling = RP.moodWord(moodLevel ? moodHead.slice(0, moodLevel.index) : moodHead);
+      if (!moodHead || (feeling && feeling.key === 'calm')) delete sheet.mood;
+      else if (feeling) {
+        RP.applyChange(sheet, { kind: 'mood', key: feeling.key, level: moodLevel ? Number(moodLevel[1]) : feeling.level,
+          note: (moodText[1] || '').trim(), set: true, turn: r.messages.length });
+      }
       r.updated = Date.now();
       save(); render();
     });
   }
 
-  var auditFlag = 0;
+  var auditFlags = {};
 
+  /** The chat: one scene, or — linked — two full scenes side by side, one
+   *  chat. Each column is the whole experience (header, sheets, stream,
+   *  turn bar, its own prompt); the dock serves whichever you point it at. */
   function renderChat() {
     var r = room();
     $('dash').hidden = true;
     $('chatview').hidden = false;
+    var other = RP.linkedRoom(state, r);
+    $('chatview').classList.toggle('linked', Boolean(other));
+    ensureSideShell(other);
+    renderScene(r, '');
+    if (other) renderScene(other, 'b');
+    renderPanel();
+    wireChat(r, '');
+    if (other) wireChat(other, 'b');
+    wireDrag(r);
+  }
 
+  /** The second column is built once and kept — its textarea has to
+   *  survive renders, like the front one's — and taken down with the link. */
+  function ensureSideShell(other) {
+    var side = $('sidescene');
+    if (!side) return;
+    side.hidden = !other;
+    if (!other) { side.innerHTML = ''; side.dataset.room = ''; return; }
+    if (side.dataset.room === other.id && $('composer_b')) return;
+    side.dataset.room = other.id;
+    side.innerHTML =
+      '<div class="chat-top" id="chatTop_b"></div>' +
+      '<div class="statebar" id="statebar_b" hidden></div>' +
+      '<div class="stream" id="stream_b"></div>' +
+      '<div class="composer-wrap">' +
+        '<div class="speakers" id="speakers_b"></div>' +
+        '<form class="composer" id="composer_b">' +
+          '<textarea id="input_b" rows="1" placeholder="Your turn in this scene" aria-label="Your turn in the second scene"></textarea>' +
+          '<button class="send" id="send_b" type="submit" disabled>↑</button>' +
+        '</form>' +
+      '</div>';
+  }
+
+  /** Every id a column renders gets the column's suffix, so two scenes can
+   *  share one page and one set of handlers. */
+  function suffixIds(node, sfx) {
+    node.querySelectorAll('[id]').forEach(function (n) {
+      if (n.id.slice(-sfx.length) !== sfx) n.id += sfx;
+    });
+  }
+
+  /** One scene column. `col` is '' for the front scene and 'b' for the
+   *  linked one; the two differ only in the ‹ back / ☰ dock buttons (front)
+   *  and the ⇄ Front swap (side). */
+  function renderScene(r, col) {
+    var sfx = col ? '_' + col : '';
+    var $c = function (id) { return $(id + sfx); };
+    var put = function (id, html) {
+      var node = $c(id);
+      if (!node) return null;
+      node.innerHTML = html;
+      if (sfx) suffixIds(node, sfx);
+      return node;
+    };
     var face = r.cast[0] || {};
     var progress = RP.beatProgress(r);
     var turnCount = (r.messages || []).filter(RP.visible).length;
     // A quiet count of what does not add up, refreshed as the scene plays.
     var scan = RP.auditRoom(state, r, archive);
-    auditFlag = scan.dates.length + scan.quiet.length + scan.book.length;
+    var auditFlag = scan.dates.length + scan.quiet.length + scan.book.length;
+    auditFlags[r.id] = auditFlag;
     var fateLevel = state.settings.fate || 'normal';
     // A heads-up display rather than a title bar: where you are, when you
     // are, how far the script has run, how dangerous the world is set to be.
-    $('chatTop').innerHTML =
-      '<button class="roundbtn" id="backBtn" title="Back to Discover (Esc)">‹</button>' +
+    put('chatTop',
+      (col ? '<span class="roundbtn col-b" title="The second scene — happening at the same time as the first">⇄</span>'
+        : '<button class="roundbtn" id="backBtn" title="Back to Discover (Esc)">‹</button>') +
       avatar(face, 34) +
       '<span class="title"><b>' + esc(r.sceneName || r.title) + '</b>' +
       '<span>' + esc(r.kind === 'group' ? r.cast.map(function (c) { return c.name; }).join(' · ') : (face.title || '')) + '</span></span>' +
@@ -2363,7 +2707,21 @@
         '<span class="stat quiet" id="bookBadge" hidden></span>' +
       '</span>' +
       '<span class="grow"></span>' +
-      (r.kind === 'group' ? '<button class="pill" id="continueBtn">➤ Continue</button>' : '') +
+      // ■ — the one control that must always be reachable: it cuts the
+      // reply being written, the autopilot, a line being read, a chat
+      // being rendered to audio. Hidden until something is running.
+      '<button class="pill stop" id="stopBtn" title="Stop — the reply being written, the autopilot, a line being read, the audio render (Esc)"' +
+        (anythingRunning() ? '' : ' hidden') + '>■ Stop</button>' +
+      // The second scene is a first-class control, not a line in a menu:
+      // "⇄ Second scene" when there is none, the other scene's name when
+      // there is. Either way it opens the same door.
+      (col ? '' : (function () {
+        var other = RP.linkedRoom(state, r);
+        return '<button class="pill link' + (other ? ' on' : '') + '" id="linkBtn" ' +
+          'title="' + (other ? 'Linked to “' + esc(other.sceneName || other.title) + '” — merge the two into one, send somebody over, carry something, unlink'
+            : 'Start a second scene happening right now — split this cast, invite others, or link a chat you already have') + '">⇄ ' +
+          (other ? esc(RP.clip(other.sceneName || other.title, 18)) : 'Second scene') + '</button>';
+      })()) +
       (r.mechanics === 'off' ? '' : '<button class="pill' + (showStates ? ' primary' : '') + '" id="statesBtn">🩺 Party</button>') +
       '<button class="pill' + (r.privacy === 'private' ? ' primary' : '') + '" id="privacyBtn" ' +
         'title="' + (r.privacy === 'private' ? 'Private: nobody else speaks until you open it again'
@@ -2374,14 +2732,16 @@
         ((r.undo || []).length ? '' : ' disabled') + '>↩</button>' +
       '<button class="pill" id="redoBtn" title="Redo"' + ((r.redo || []).length ? '' : ' disabled') + '>↪</button>' +
       '<button class="pill' + (auditFlag ? ' warn' : '') + '" id="sceneBtn" ' +
-        'title="The scene: its date, its fixed facts, the audit, the book, a sequel">⋯' +
+        'title="The scene: its date, its fixed facts, the audit, the book, the link, a sequel">⋯' +
         (auditFlag ? ' ' + auditFlag : '') + '</button>' +
-      '<button class="pill" id="panelBtn">☰</button>';
+      (col ? '<button class="pill" id="swapBtn" title="Bring this scene to the front — the other goes to the side; nothing else changes">⇄ Front</button>' +
+          '<button class="pill merge" id="mergeBtn" title="Merge the two scenes into one — everybody in one place, both chats as one stream. ↩ undoes it.">⊕ Merge</button>'
+        : '<button class="pill" id="panelBtn" title="The dock — cast, scene, memory, voice, share">☰</button>'));
 
     // The sheets, visible in the chat rather than buried in a menu. The
     // reader's own pack renders first: it is the one they can actually use.
     if (r.mechanics !== 'off') RP.ensurePlayerSheet(state, r);
-    var sheetBar = $('statebar');
+    var sheetBar = $c('statebar');
     if (sheetBar) {
       sheetBar.hidden = !showStates || r.mechanics === 'off';
       var playerId = RP.playerSheetId(r);
@@ -2398,16 +2758,21 @@
         // NOT a <button>: the slots inside are buttons, and HTML closes a
         // button the moment another one opens — the whole grid would be
         // reparented out of the card. A span with the same handler is safe.
-        return '<span class="sheet' + (isYou ? ' you' : '') + '" role="button" tabindex="0" data-sheet="' + esc(id) + '"' +
+        var moodStyle = sheet.mood ? RP.moodStyle(sheet.mood) : '';
+        return '<span class="sheet' + (isYou ? ' you' : '') + (moodStyle ? ' mooded' : '') + '" role="button" tabindex="0" data-sheet="' + esc(id) + '"' +
+          (moodStyle ? ' style="' + moodStyle + '"' : '') +
           (isYou ? '' : ' draggable="true" data-drag="' + esc(id) + '"') + ' title="Edit state' + (isYou ? '' : ' · drag to the bench to write them out') + '">' +
           (isYou ? '<span class="here" title="You — always in the scene">🧍</span>'
             : '<span class="here" data-here="' + esc(id) + '" title="' +
           (sheet.present === false ? 'Not in the scene — click to bring them back' : 'In the scene — click to write them out') +
           '">' + (sheet.present === false ? '◌' : '◉') + '</span>') +
-          '<span class="nm">' + (isYou ? userAvatar(22) : avatar(who, 22)) + esc(sheet.name) + '</span>' +
+          '<span class="nm">' + (isYou && !who ? userAvatar(22) : avatar(who, 22)) + esc(sheet.name) + '</span>' +
           (sheet.hp ? bar('hp', sheet.hp) : '') + (sheet.mp ? bar('mp', sheet.mp) : '') +
           kitGrid(r, id) +
           '<span class="chips">' +
+          (moodStyle ? '<span class="flag mood" title="' + esc('How they feel — ' + sheet.mood.key + ' ' + sheet.mood.level + '/3' +
+              (sheet.mood.note ? ' · ' + sheet.mood.note : '') + '. Builds while the scene feeds it, fades when it stops.') + '">' +
+            RP.moodIcon(sheet.mood) + ' ' + esc(RP.moodLabel(sheet.mood)) + '</span>' : '') +
           (sheet.stats ? '<span class="flag stat" title="might · wits · sway · luck (0–3) — they lean on the dice when your attempt uses them">' +
             esc(RP.statLine(sheet.stats)) + '</span>' : '') +
           Object.keys(sheet.flags || {}).map(function (f) {
@@ -2428,6 +2793,7 @@
               '<button data-back="' + esc(id) + '" title="Back into the scene">↩</button>' +
               '<button data-dropcast="' + esc(id) + '" title="Remove from this chat entirely (the archive keeps them)">✖</button></span>';
           }).join('') + '</span>');
+      if (sfx) suffixIds(sheetBar, sfx);
     }
 
     var hideSys = state.settings.sysNotes === 'hide';
@@ -2441,18 +2807,22 @@
         }).join('') + '</div>';
       }
       if (m.role === 'scene') {
-        return '<div class="scene-card' + (m.beat ? ' beat' : '') + '"><span class="kicker">' +
-          (m.beat ? '⏩ Beat' : 'Scene') + '</span>' + esc(RP.textOf(m)) + '</div>';
+        if (m.camera) return '<div class="scene-card camera" title="Merged: this stretch happened in the scene named here">' + esc(RP.textOf(m)) + '</div>';
+        return '<div class="scene-card' + (m.beat ? ' beat' : m.direction ? ' direction' : '') + '"><span class="kicker">' +
+          (m.beat ? '⏩ Beat' : m.direction ? (m.from ? '⟶ Carried over from “' + esc(m.from) + '”' : '🎬 Direction') : 'Scene') +
+          '</span>' + esc(RP.textOf(m)) + '</div>';
       }
       if (m.role === 'world') {
-        return '<article class="turn world' + (m.muted ? ' muted' : '') + '">' +
+        return '<article class="turn world' + (m.muted ? ' muted' : '') + (m.ambient ? ' ambient' : '') + '">' +
           '<div class="who"><span class="globe">' + esc(RP.NARRATORS[RP.narrator(state)].icon) + '</span>' +
-          '<b>' + esc(RP.NARRATORS[RP.narrator(state)].name) + '</b>' +
+          '<b>' + esc(RP.NARRATORS[RP.narrator(state)].name) + '</b>' + stamp(m) +
+          (m.ambient ? '<span class="meanwhile" title="This happened while you were in the other scene">🌗 meanwhile</span>' : '') +
           '<button class="speak" data-speak="' + i + '" title="Read aloud">▶</button></div>' +
           '<div class="bubble">' + RP.md(RP.applyTints(RP.textOf(m), r.tints)) + '</div>' +
           metaStrip(m) +
           '<div class="acts">' +
           '<button data-retry="' + i + '" title="Another take">↻</button>' +
+          (r.mechanics === 'off' ? '' : '<button data-auditturn="' + esc(m.id) + '" title="Audit this turn against the sheets">🩺</button>') +
           '<button class="' + (m.pinned ? 'on' : '') + '" data-pin="' + i + '" title="Pin">📌</button>' +
           '<button data-edit="' + esc(m.id) + '" title="Edit">✏️</button>' +
           '<button class="' + (m.muted ? 'on' : '') + '" data-mute="' + esc(m.id) + '" title="Mute">' + (m.muted ? '🙈' : '👁') + '</button>' +
@@ -2467,11 +2837,21 @@
       var swipes = (m.alts && m.alts.length > 1)
         ? '<span class="swipe"><button data-swipe="-1" data-i="' + i + '">‹</button>' + ((m.alt || 0) + 1) + ' / ' + m.alts.length + '<button data-swipe="1" data-i="' + i + '">›</button></span>' : '';
       return '<article class="turn ' + (mine ? 'user' : 'char') + (m.error ? ' err' : '') +
-        (m.muted ? ' muted' : '') + (m.imported ? ' imported' : '') + '">' +
+        (m.muted ? ' muted' : '') + (m.imported ? ' imported' : '') + (m.ambient ? ' ambient' : '') +
+        (m.chorus ? ' chorus' : '') + (m.same ? ' same' : '') + moodAttrs(m) + '">' +
         '<div class="who">' + (mine ? (playing ? avatar(playing, 24) : userAvatar(24)) : avatar(charOf(r, m.charId), 24)) +
-        '<b>' + esc(who) + '</b>' + (mine ? '' : '<span class="badge">archive</span>') +
-        (mine ? '' : '<button class="speak" data-speak="' + i + '" title="Read aloud">▶</button>') + '</div>' +
-        '<div class="bubble">' + RP.md(RP.applyTints(RP.textOf(m), r.tints)) + '</div>' +
+        '<b>' + esc(who) + '</b>' + stamp(m) + (mine ? '' : '<span class="badge">archive</span>') +
+        (m.ambient ? '<span class="meanwhile" title="' + (playing && m.charId === playing.id ? 'Your character acted alone while you were in the other scene'
+          : 'This happened while you were in the other scene') + '">🌗 meanwhile</span>' : '') +
+        (m.chorus ? '<span class="chorus" title="The room answering — written in the same call as the turn above, filed under the person who said it">👥 the room</span>' : '') +
+        (m.same ? '<span class="same" title="Written as happening in the same seconds as the turn above, not after it">\u23f1 same moment</span>' : '') +
+        (m.mood && RP.MOODS[m.mood.key] ? '<span class="moodtag" title="How they felt as this turn ended — the box wears the colour">' +
+          RP.moodIcon(m.mood) + ' ' + esc(RP.moodLabel(m.mood)) + '</span>' : '') +
+        (mine ? '' : '<button class="speak" data-speak="' + i + '" title="Read aloud">▶</button>') +
+        (m.error ? '' : '<span class="grip" draggable="true" data-dragturn="' + esc(m.id) + '" ' +
+          'title="Drag this turn onto the other scene to carry it over — or to the edge of the stage to start one">⠿</span>') +
+        '</div>' +
+        '<div class="bubble">' + (m.mentions ? linkMentions(RP.md(RP.applyTints(RP.textOf(m), r.tints)), m.mentions) : RP.md(RP.applyTints(RP.textOf(m), r.tints))) + '</div>' +
         ((m.ooc || []).length
           ? '<div class="metastrip">' + m.ooc.map(function (n) {
               return '<span class="ooc" title="Sent to the model, not spoken aloud">(( ' + esc(n) + ' ))</span>';
@@ -2481,6 +2861,7 @@
         (m.error ? '<div class="acts"><span>This notice stays out of the model’s context.</span></div>' :
           '<div class="acts">' + swipes +
           (mine ? '' : '<button data-retry="' + i + '" title="Another take">↻</button>') +
+          (mine || r.mechanics === 'off' ? '' : '<button data-auditturn="' + esc(m.id) + '" title="Audit this turn against the sheets">🩺</button>') +
           '<button class="' + (m.react === 'up' ? 'on' : '') + '" data-react="up" data-i="' + i + '">👍</button>' +
           '<button class="' + (m.react === 'down' ? 'on' : '') + '" data-react="down" data-i="' + i + '">👎</button>' +
           '<button class="' + (m.pinned ? 'on' : '') + '" data-pin="' + i + '" title="Pin">📌</button>' +
@@ -2498,32 +2879,30 @@
       html = '<div class="emptynote">Say something, or press ➤ Continue to let ' +
         esc((r.cast[0] || {}).name || 'them') + ' open the scene.</div>';
     }
-    var handback = (!busy && r.handback)
+    var writingHere = busy && (!busyRoom || busyRoom === r.id);
+    var handback = (!writingHere && r.handback)
       ? '<div class="handback"><b>Your turn.</b> ' + esc(r.handback) + '</div>' : '';
-    $('stream').innerHTML = '<div class="stream-inner">' + html + handback +
-      (busy ? '<div class="turn typing"><em>…writing…</em></div>' : '') + '</div>';
-    $('stream').scrollTop = $('stream').scrollHeight;
+    put('stream', '<div class="stream-inner">' + html + handback +
+      (writingHere ? '<div class="turn typing"><em>…writing…</em></div>' : '') + '</div>');
+    $c('stream').scrollTop = $c('stream').scrollHeight;
     var playingNow = RP.playerCharacter(r);
-    if ($('input')) {
-      $('input').placeholder = playingNow
+    if ($c('input')) {
+      $c('input').placeholder = (playingNow
         ? 'Write as ' + playingNow.name + ' — *actions in asterisks*, "speech in quotes"'
-        : 'Write your turn — *actions in asterisks*, "speech in quotes"';
+        : 'Write your turn — *actions in asterisks*, "speech in quotes"') +
+        (col ? ' — in “' + RP.clip(r.sceneName || r.title, 30) + '”' : '');
     }
 
     // Who answers next, and the two things you always want to press.
-    $('speakers').innerHTML =
-      '<span class="acts">' +
-        '<button class="qa" id="qaContinue" title="Let the scene move without you (n)">➤ Continue</button>' +
-        (progress.total && progress.at < progress.total ? '<button class="qa" id="qaBeat">⏩ Next beat</button>' : '') +
-        (r.mechanics === 'off' ? '' : '<button class="qa" id="qaRisk" title="Attempt something the world can refuse">🎲 Attempt…</button>') +
-        '<button class="qa" id="qaAdd" title="Bring somebody into this scene">＋ New</button>' +
-        (r.mechanics === 'off' ? '' : macroButtons(r)) +
-        '<button class="qa' + (autoLeft ? ' on' : '') + '" id="qaAuto" title="Let the scene play itself for a few turns">' +
-          (autoLeft ? '■ Stop (' + autoLeft + ')' : '▶ Auto') + '</button>' +
-        '<button class="qa' + (state.settings.sysNotes === 'hide' ? ' on' : '') + '" id="qaSys" ' +
-          'title="Show or hide the system rows — receipts, rolls, error notices. They stay out of the model\u2019s context either way.">' +
-          (state.settings.sysNotes === 'hide' ? '🧹 Notes hidden' : '🧹 Hide notes') + '</button>' +
-      '</span>' +
+    // Row one: who is up — you, then the faces that can speak next (drag
+    // one to the edge of the stage to start a second scene with them).
+    // Row two: the big moves, labelled, in the order a turn usually goes.
+    put('speakers',
+      '<div class="row who">' +
+      (playingNow
+        ? '<button class="sp playas on" id="qaPlayAs" title="You play ' + esc(playingNow.name) + ' — the model never speaks for them. Click to switch or hand them back.">' +
+          avatar(playingNow, 24) + '★ You: ' + esc(playingNow.name) + '</button>'
+        : '<button class="sp playas" id="qaPlayAs" title="Take a seat as somebody from the archive — Waluigi, Wario, anyone. Your turns wear their face and name.">🎭 Play as…</button>') +
       '<span class="emptynote">Next:</span>' +
       ((state.settings.world || 'on') === 'off' ? '' :
         '<button class="sp world ' + (r.next === 'world' ? 'on' : '') + '" data-speaker="world" ' +
@@ -2531,28 +2910,664 @@
         esc(RP.NARRATORS[RP.narrator(state)].icon) + ' ' + esc(RP.NARRATORS[RP.narrator(state)].name) + '</button>') +
       RP.presentCast(r).map(function (c) {
         var mine = r.youPlay === c.id;
-        var on = !mine && r.next === c.id;
-        return '<button class="sp ' + (on ? 'on' : '') + (mine ? ' mine' : '') + '" data-speaker="' + esc(c.id) + '">' +
+        var on = !mine && (r.next === c.id || (Array.isArray(r.pinnedNext) && r.pinnedNext.indexOf(c.id) >= 0));
+        return '<button class="sp ' + (on ? 'on' : '') + (mine ? ' mine' : '') + '" data-speaker="' + esc(c.id) + '" ' +
+          'draggable="true" data-dragcast="' + esc(c.id) + '" ' +
+          'title="' + (mine ? 'You play them. ' : 'Click: they speak next. ') + 'Drag to the edge of the stage to start a second scene with them, or onto the other scene to send them there.">' +
           avatar(c, 24) + esc(c.name) +
           '<span class="star' + (mine ? ' on' : '') + '" data-star="' + esc(c.id) + '" ' +
           'title="' + (mine ? 'You play them — the model never speaks for them' : 'Mark as the character you play') + '">' +
           (mine ? '★' : '☆') + '</span></button>';
-      }).join('');
-
-    renderPanel();
-    wireChat();
+      }).join('') +
+      (RP.speakableCast(r).length > 1 || (RP.speakableCast(r).length && (state.settings.world || 'on') !== 'off')
+        ? '<button class="sp together' + (Array.isArray(r.pinnedNext) ? ' on' : '') + '" id="qaTogether" ' +
+          'title="Pick several of them to act on your next turn \u2014 one after another, or all in the same moment (one runs while another shoots)">' +
+          (Array.isArray(r.pinnedNext)
+            ? (r.pinnedSame ? '\u23f1 ' : '\u2193 ') + r.pinnedNext.length + ' together'
+            : '👥 Several…') + '</button>'
+        : '') +
+      '</div>' +
+      '<div class="row do">' +
+      '<span class="acts">' +
+        '<button class="qa" id="qaDirect" title="Say what happens next — not as your character, as the director. It happens this turn, and the cast deals with it.">🎬 Direct…</button>' +
+        (r.mechanics === 'off' ? '' : '<button class="qa" id="qaRisk" title="Attempt something the world can refuse">🎲 Attempt…</button>') +
+        '<button class="qa" id="qaContinue" title="Let the scene move without you (n)">➤ Continue</button>' +
+        '<button class="qa' + (autoLeft ? ' on' : '') + '" id="qaAuto" title="Let the scene play itself for a few turns">' +
+          (autoLeft ? '■ Stop (' + autoLeft + ')' : '▶ Auto') + '</button>' +
+        (progress.total && progress.at < progress.total ? '<button class="qa" id="qaBeat">⏩ Next beat</button>' : '') +
+        '<button class="qa" id="qaAdd" title="Bring somebody into this scene">＋ Bring in…</button>' +
+      '</span>' +
+      '<span class="grow"></span>' +
+      '<span class="acts quiet">' +
+        (r.mechanics === 'off' ? '' : macroButtons(r)) +
+        '<button class="qa" id="qaLength" title="How long a reply is — click to change">✂ ' + esc((RP.LENGTHS[state.settings.length] || RP.LENGTHS[RP.DEFAULT_LENGTH]).name) + '</button>' +
+        '<button class="qa' + (state.settings.sysNotes === 'hide' ? ' on' : '') + '" id="qaSys" ' +
+          'title="Show or hide the system rows — receipts, rolls, error notices. They stay out of the model\u2019s context either way.">' +
+          (state.settings.sysNotes === 'hide' ? '🧹 Notes hidden' : '🧹 Hide notes') + '</button>' +
+      '</span>' +
+      '</div>');
   }
 
-  /** Four ways out of a chat, for four different readers. */
+  /* ---------------------------------------------------------------- *
+   * the linked scene — two scenes of one chat, the same hour, side by side
+   * ---------------------------------------------------------------- */
+
+  /** ⇄ in the header and the scene menu: swap, send somebody over, carry
+   *  something, what the scenes know of each other, unlink. */
+  function linkMenu(r) {
+    var other = RP.linkedRoom(state, r);
+    if (!other) { linkPicker(r); return; }
+    var name = other.sceneName || other.title;
+    var sees = r.linkMode !== 'blind';
+    var front = room();
+    var forward = front && front.id === r.id ? other : r;   // whichever is at the side comes forward
+    var walkers = function (from, to, label) {
+      var cast = RP.presentCast(from);
+      if (!cast.length) { toast('Nobody is there to send.'); return; }
+      list(label, cast.map(function (c) {
+        return { label: c.name + (from.youPlay === c.id ? ' — you play them, so you go too' : ''), value: c.id };
+      }), function (id) { walkOver(from, to, id); });
+    };
+    list('⇄ Linked: “' + name + '”', [
+      { label: '⊕ Merge the two scenes into one — everybody in one place, both chats as one stream…', value: 'merge' },
+      { label: '⇄ Bring “' + (forward.sceneName || forward.title) + '” to the front — the other goes to the side', value: 'swap' },
+      { label: '🚶 Send somebody from here over to “' + name + '”… (or drag their face across)', value: 'send' },
+      { label: '🚶 Bring somebody over from “' + name + '” into here…', value: 'fetch' },
+      { label: '⟶ Carry something over from here into “' + name + '”…', value: 'carry' },
+      { label: '⟵ Carry something over from “' + name + '” into here…', value: 'carryBack' },
+      { label: sees ? '👁 Each scene knows the other — its people, its last ' + RP.MEANWHILE_TURNS + ' turns, the shared clock — so what would carry, carries on its own. Click to make them blind until you carry something over'
+                    : '🙈 The scenes are blind to each other; only ⟶ carries anything — click to let each know the other', value: 'mode' },
+      { label: '⨯ Unlink — both scenes stay, as two separate chats', value: 'unlink' },
+    ], function (pick) {
+      if (pick === 'swap') { state.active = forward.id; save(); render(); return; }
+      if (pick === 'merge') { mergeDialog(r); return; }
+      if (pick === 'send') { walkers(r, other, '🚶 Who goes over to “' + name + '”?'); return; }
+      if (pick === 'fetch') { walkers(other, r, '🚶 Who comes over from “' + name + '”?'); return; }
+      if (pick === 'carry') { carryForm(r, other); return; }
+      if (pick === 'carryBack') { carryForm(other, r); return; }
+      if (pick === 'mode') {
+        var mode = sees ? 'blind' : '';
+        r.linkMode = mode; other.linkMode = mode;
+        save(); render();
+        toast(mode ? '🙈 Blind — nothing crosses until you carry it over.' : '👁 Each scene now sees the other’s last turns.');
+        return;
+      }
+      RP.unlinkRoom(state, r);
+      dockSide = '';
+      save(); buildBoard(); render();
+      toast('⨯ Unlinked. Both scenes are in your recents, as two chats.');
+    });
+  }
+
+  /** Every chat you have, newest first, with a filter box — not a dozen of
+   *  them. A chat already linked elsewhere can be taken: it leaves that
+   *  pair (you are asked). */
+  function linkPicker(r) {
+    var others = (state.rooms || []).filter(function (x) {
+      return x && x.id !== r.id && (x.cast || []).length;
+    }).sort(function (a, b) { return (b.updated || 0) - (a.updated || 0); });
+    var rowOf = function (x) {
+      var elsewhere = RP.linkedRoom(state, x);
+      return '<button class="item" style="text-align:left;cursor:pointer" data-link="' + esc(x.id) + '">' +
+        esc(x.sceneName || x.title) + ' · ' + esc(x.cast.map(function (c) { return c.name; }).join(', ')) +
+        ' · ' + RP.counter(x) + ' turns' + (elsewhere ? ' · ⇄ already linked to “' + esc(elsewhere.sceneName || elsewhere.title) + '”' : '') + '</button>';
+    };
+    openModal('<h3>⇄ Link a second scene — side by side, the same hour</h3>' +
+      '<p class="sub">Two scenes of one story: they share the clock, the sheets of anyone in both, and each knows what the other is doing.</p>' +
+      '<div class="stack">' +
+      '<button class="item primary" style="text-align:left;cursor:pointer" data-link="__new">＋ A new scene — pick who is there</button>' +
+      (others.length > 6 ? '<input type="search" id="linkFind" placeholder="Find a chat — by name or who is in it" aria-label="Find a chat">' : '') +
+      '<div id="linkRows">' + others.map(rowOf).join('') + '</div>' +
+      (others.length ? '' : '<p class="sub">No other chats yet — start a new scene.</p>') +
+      '</div><div class="actions"><button class="pill" id="mCancel">Close</button></div>');
+    $('mCancel').onclick = closeModal;
+    var find = $('linkFind');
+    var wire = function () {
+      $('modal').querySelectorAll('[data-link]').forEach(function (b) {
+        b.onclick = function () { closeModal(); pick(b.dataset.link); };
+      });
+    };
+    if (find) {
+      find.oninput = function () {
+        var q = find.value.trim().toLowerCase();
+        $('linkRows').innerHTML = others.filter(function (x) {
+          return !q || ((x.sceneName || '') + ' ' + x.title + ' ' + x.cast.map(function (c) { return c.name; }).join(' ')).toLowerCase().indexOf(q) >= 0;
+        }).map(rowOf).join('');
+        wire();
+      };
+      find.focus();
+    }
+    wire();
+    function pick(id) {
+      var linked = function (b) {
+        var elsewhere = RP.linkedRoom(state, b);
+        if (elsewhere) RP.unlinkRoom(state, b);
+        RP.linkRooms(r, b);
+        state.active = r.id;
+        syncLinked(true);
+        save(); buildBoard(); render();
+        toast('⇄ “' + (b.sceneName || b.title) + '” runs beside this one — same hour, same world. Each scene knows the other; ⟶ carries a thing over by hand.');
+      };
+      if (id === '__new') {
+        castPicker({
+          title: 'Who is in the second scene?', portraits: true, suggest: false, ok: 'Open it at the side',
+          note: 'Two or more people and it can play without you (➤ Continue); one and you play opposite them. ' +
+            'To play somebody there yourself, bring it to the front (⇄) and use 🎭 Play as.',
+        }, function (chosen) {
+          if (!chosen.length) return;
+          startGroup(chosen, {});
+          var b = room();
+          if (!b || b === r) return;
+          linked(b);
+        });
+        return;
+      }
+      var b = (state.rooms || []).filter(function (x) { return x.id === id; })[0];
+      if (!b) return;
+      var elsewhere = RP.linkedRoom(state, b);
+      if (elsewhere) {
+        confirmThen('Take “' + (b.sceneName || b.title) + '” from its pair?',
+          'It is linked to “' + (elsewhere.sceneName || elsewhere.title) + '” now. Linking it here leaves that one on its own.',
+          function () { linked(b); }, { ok: 'Link it here', no: 'Leave it' });
+        return;
+      }
+      linked(b);
+    }
+  }
+
+  /** ⟶ — what crosses from one scene into the other. Nothing does on its
+   *  own: you name the thing as it is noticed THERE, and that scene plays
+   *  it as a direction, this turn. */
+  function carryForm(from, to, preset) {
+    var toName = to.sceneName || to.title;
+    var fromName = from.sceneName || from.title;
+    var last = RP.meanwhileLines(state, from, 1)[0] || '';
+    var narrator = RP.NARRATORS[RP.narrator(state)];
+    var who = [{ value: 'world', label: narrator.icon + ' ' + narrator.name + ' — narrates it arriving' }]
+      .concat(RP.speakableCast(to).map(function (c) { return { value: c.id, label: c.name + ' — notices it, in character' }; }));
+    form('⟶ Carry over into “' + toName + '”', [
+      { k: 'text', label: 'What reaches “' + toName + '” from “' + fromName + '”? Write it as it is noticed THERE — a plane’s spotlight sweeping the yard, a crash from the next room, Wario walking in from the hangar', type: 'area', value: preset ? RP.clip(String(preset), 600) : '' },
+      { k: 'who', label: 'Who plays it there', type: 'select', value: 'world', options: who },
+    ], {
+      note: (last ? 'Last thing here — ' + RP.clip(last, 160) + '. ' : '') +
+        'The other scene plays it as a thing that happens, this turn, and its people deal with it. Nothing crosses on its own.',
+      ok: '⟶ Carry it over',
+    }, function (v) {
+      if (!v.text.trim()) return;
+      directRoom(to, v.text.trim(), v.who, fromName);
+    });
+  }
+
+  /** ⇄ — the one door to a second scene. With none yet: split this cast
+   *  (the usual case mid-scene — "Wario goes to the plane, now"), or reach
+   *  the picker for other people and existing chats. With one already:
+   *  the link menu (swap, carry, blind, unlink). `preset.ids` pre-ticks
+   *  faces, `preset.text` pre-fills where it is — that is what a drag onto
+   *  the drop zone hands over. */
+  function secondSceneDialog(r, preset) {
+    preset = preset || {};
+    if (RP.linkedRoom(state, r)) { linkMenu(r); return; }
+    var here = RP.presentCast(r);
+    var you = RP.playerCharacter(r);
+    var pre = preset.ids || [];
+    openModal('<h3>⇄ A second scene, happening now</h3>' +
+      '<p class="sub">Something is going on somewhere else at the same hour. Pick who goes there and say where it is: ' +
+      'this scene keeps playing in front, the new one opens at the side, and each hears what the other just did.</p>' +
+      '<label>Who goes</label>' +
+      '<div class="picker portraits splitpick">' + here.map(function (c) {
+        var on = pre.indexOf(c.id) >= 0;
+        return '<button type="button" class="pick' + (on ? ' on' : '') + '" data-split="' + esc(c.id) + '">' + avatar(c, 44) +
+          '<span>' + esc(c.name) + (you && you.id === c.id ? ' ★' : '') + '</span>' +
+          (you && you.id === c.id ? '<small>you play them — you go too</small>' : '') + '</button>';
+      }).join('') + '</div>' +
+      (you ? '' : '<div class="checks"><label><input type="checkbox" id="f_yougo"> I go with them — this scene plays on without me (➤ Continue)</label></div>') +
+      '<label for="f_where">Where they are, and what is happening</label>' +
+      '<textarea id="f_where" placeholder="The hangar roof, the same minute. Wario has the plane’s engine open and the spotlight is sweeping the yard below.">' +
+      esc(preset.text || '') + '</textarea>' +
+      '<p class="sub">Whoever you pick is written out of this scene (↩ brings them back) and walks into the new one with their ' +
+      'sheet and their kit. Nobody picked? Then it is a scene with other people, or a chat you already have.</p>' +
+      '<div class="actions">' +
+        '<button class="pill" id="mLinkOther" title="A new scene with people who are not here, or a chat you already have">Other people, or an existing chat…</button>' +
+        '<span class="grow"></span>' +
+        '<button class="pill" id="mCancel">Cancel</button>' +
+        '<button class="pill primary" id="mOk">✂ Split the scene</button>' +
+      '</div>');
+    $('modal').querySelectorAll('[data-split]').forEach(function (b) {
+      b.onclick = function () { b.classList.toggle('on'); };
+    });
+    $('mCancel').onclick = closeModal;
+    $('mLinkOther').onclick = function () { closeModal(); linkPicker(r); };
+    $('mOk').onclick = function () {
+      var ids = [].map.call($('modal').querySelectorAll('[data-split].on'), function (b) { return b.dataset.split; });
+      var where = ($('f_where').value || '').trim();
+      var youGo = Boolean(you && ids.indexOf(you.id) >= 0) || Boolean($('f_yougo') && $('f_yougo').checked);
+      if (!ids.length && !youGo) { closeModal(); linkPicker(r); return; }
+      closeModal();
+      splitScene(r, ids, where || 'Somewhere else, the same hour.', youGo);
+    };
+    if ($('f_where') && !preset.text) $('f_where').focus();
+  }
+
+  /** ✂ Split: some of the people here go somewhere else, now. They are
+   *  written out of this scene, a second scene opens with them in it —
+   *  sheets, kit, the date and the clock carried — the two are linked, and
+   *  the camera stays here unless you went with them. */
+  function splitScene(r, ids, where, youGo) {
+    var moving = (r.cast || []).filter(function (c) { return ids.indexOf(c.id) >= 0; });
+    if (!moving.length && !youGo) return null;
+    RP.pushUndo(r, 'splitting the scene');
+    var fromName = r.sceneName || r.title;
+    var names = moving.map(function (c) { return c.name; });
+    var states = {};
+    moving.forEach(function (c) {
+      if (r.states && r.states[c.id]) states[c.id] = JSON.parse(JSON.stringify(r.states[c.id]));
+    });
+    if (youGo && r.states && r.states[RP.PLAYER_ID]) states[RP.PLAYER_ID] = JSON.parse(JSON.stringify(r.states[RP.PLAYER_ID]));
+    var title = RP.clip(String(where).split(/[.\n!?]/)[0].trim(), 48) || 'Meanwhile';
+    // A split with nobody from here: you alone, opposite whoever turns up.
+    var seats = moving.length ? moving : [r.cast[0]].filter(Boolean);
+    startGroup(seats, {
+      scene: where, sceneName: title, date: r.date || '',
+      statePreset: r.statePreset, mechanics: r.mechanics, states: Object.keys(states).length ? states : null,
+      opener: '⇄ Split from “' + fromName + '” — ' + (names.join(', ') || 'you') + (youGo && names.length ? ' and you' : '') + ' went here, the same hour.',
+    });
+    var b = room();
+    if (!b || b === r) return null;
+    b.clock = r.clock || '';
+    b.persona = r.persona || b.persona;
+    // The default "play as" seat may have sat somebody down who stayed behind.
+    if (b.youPlay && ids.indexOf(b.youPlay) < 0) RP.castRemove(b, b.youPlay);
+    if (!moving.length) {
+      // Nobody from here came along: the one seat was a stand-in. The scene is yours alone until somebody arrives.
+      b.cast.forEach(function (c) { if (b.states && b.states[c.id]) b.states[c.id].present = false; });
+    }
+    if (youGo) {
+      if (r.youPlay && ids.indexOf(r.youPlay) >= 0) { b.youPlay = r.youPlay; }
+      if (states[RP.PLAYER_ID]) { b.states = b.states || {}; b.states[RP.PLAYER_ID] = states[RP.PLAYER_ID]; b.states[RP.PLAYER_ID].present = true; }
+      RP.ensurePlayerSheet(state, b);
+    } else if (b.youPlay) {
+      // You stayed: nobody in the new scene is yours.
+      RP.markPlayer(b, b.youPlay);
+    }
+    moving.forEach(function (c) { if (r.states && r.states[c.id]) RP.setPresent(r, c.id, false); });
+    if (youGo) {
+      r.youPlay = '';
+      if (r.states && r.states[RP.PLAYER_ID]) r.states[RP.PLAYER_ID].present = false;
+    }
+    r.messages.push({ id: RP.uid(), role: 'state', at: Date.now(),
+      lines: ['⇄ ' + (names.join(', ') || 'You') + (youGo && names.length ? ' and you' : '') + ' left for “' + title + '” — it runs at the side, the same hour. ↩ on a seat brings them back.'] });
+    RP.linkRooms(r, b);
+    state.active = youGo ? b.id : r.id;
+    r.updated = Date.now(); b.updated = Date.now();
+    save(); buildBoard(); render();
+    toast('⇄ “' + title + '” opened at the side with ' + (names.join(', ') || 'you') + '. Drop a face across to send somebody over; ⟶ carries anything else.');
+    return b;
+  }
+
+  /* ---------------------------------------------------------------- *
+   * @ — who you mean
+   * ---------------------------------------------------------------- */
+  /** Everything @ could point at from this room, plus archive matches
+   *  for each @word actually typed (the archive is only searched by name). */
+  function mentionCandidates(r, text) {
+    var all = RP.mentionables(state, r, castById, '');
+    var words = String(text || '').match(/@\[?([A-Za-z][\w'’.\- ]{1,40})/g) || [];
+    words.forEach(function (w) {
+      var q = w.replace(/^@\[?/, '').split(/\s+/)[0];
+      RP.mentionables(state, r, castById, q).forEach(function (c) {
+        if (!all.some(function (x) { return x.id === c.id; })) all.push(c);
+      });
+    });
+    return all;
+  }
+
+  /** A name spoken here that belongs to the other scene is heard of there:
+   *  a quiet card, so the record on both sides knows who was talked about. */
+  function pingElsewhere(r, mentions, text) {
+    var other = RP.linkedRoom(state, r);
+    if (!other) return;
+    var named = (mentions || []).filter(function (m) { return m.kind === 'other' && m.roomId === other.id; });
+    if (!named.length) return;
+    other.messages.push({ id: RP.uid(), role: 'state', at: Date.now(), ping: true,
+      lines: ['📣 ' + named.map(function (m) { return m.name; }).join(', ') + ' — named in “' + (r.sceneName || r.title) + '”: “' + RP.clip(text, 90) + '”'] });
+    other.updated = Date.now();
+  }
+
+  /** The @ picker under a composer: opens on @, filters as you type,
+   *  arrows and Enter pick, Escape closes; the @ button opens it whole. */
+  function wireMentions(input, r) {
+    if (!input) return;
+    input.mentionRoom = r;                       // the front box outlives the room it is wired for
+    if (input.dataset.mentionsWired) return;
+    input.dataset.mentionsWired = '1';
+    var pop = document.createElement('div');
+    pop.className = 'mention-pop';
+    pop.hidden = true;
+    input.parentNode.insertBefore(pop, input);
+    var items = [], at = 0, from = -1;
+    var close = function () { pop.hidden = true; items = []; from = -1; };
+    var insert = function (c) {
+      var v = input.value;
+      var head = from >= 0 ? v.slice(0, from) : v.slice(0, input.selectionStart || v.length);
+      var tail = from >= 0 ? v.slice(input.selectionStart || v.length) : v.slice(input.selectionStart || v.length);
+      var name = /\s/.test(c.name) ? '@[' + c.name + ']' : '@' + c.name;
+      input.value = head + name + ' ' + tail;
+      var caret = (head + name + ' ').length;
+      input.focus();
+      try { input.setSelectionRange(caret, caret); } catch (e) { /* older engines */ }
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+      close();
+    };
+    var draw = function () {
+      if (!items.length) { close(); return; }
+      pop.innerHTML = items.map(function (c, i) {
+        return '<button type="button" class="mention-row' + (i === at ? ' on' : '') + '" data-pick-mention="' + i + '">' +
+          (c.kind === 'book' ? '<span class="av av-24" style="width:24px;height:24px;min-width:24px;font-size:12px;background:#5b5b66">📓</span>' : avatar(c, 24)) +
+          '<b>' + esc(c.name) + '</b><span class="kind">' + esc(RP.MENTION_KINDS[c.kind] || c.kind) + (c.note ? ' · ' + esc(RP.clip(c.note, 36)) : '') + '</span></button>';
+      }).join('');
+      pop.hidden = false;
+      pop.querySelectorAll('[data-pick-mention]').forEach(function (b) {
+        b.onmousedown = function (e) { e.preventDefault(); insert(items[Number(b.getAttribute('data-pick-mention'))]); };
+      });
+    };
+    var open = function (query, start) {
+      from = start;
+      items = RP.mentionables(state, input.mentionRoom || r, castById, query).slice(0, 8);
+      at = 0;
+      draw();
+    };
+    input.addEventListener('input', function () {
+      var head = input.value.slice(0, input.selectionStart || input.value.length);
+      var hit = /(^|\s)@\[?([^\s@\]]{0,30})$/.exec(head);
+      if (!hit) { close(); return; }
+      open(hit[2], head.length - hit[0].length + hit[1].length);
+    });
+    input.addEventListener('keydown', function (e) {
+      if (pop.hidden) return;
+      if (e.key === 'ArrowDown') { e.preventDefault(); at = (at + 1) % items.length; draw(); }
+      else if (e.key === 'ArrowUp') { e.preventDefault(); at = (at - 1 + items.length) % items.length; draw(); }
+      else if (e.key === 'Enter' || e.key === 'Tab') { e.preventDefault(); e.stopImmediatePropagation(); insert(items[at]); }
+      else if (e.key === 'Escape') { e.preventDefault(); e.stopImmediatePropagation(); close(); }
+    }, true);
+    input.addEventListener('blur', function () { window.setTimeout(close, 150); });
+    input.mentionOpen = function () {
+      var v = input.value, caret = input.selectionStart || v.length;
+      var pre = v.slice(0, caret);
+      var needsSpace = pre && !/\s$/.test(pre);
+      input.value = pre + (needsSpace ? ' ' : '') + '@' + v.slice(caret);
+      var c2 = (pre + (needsSpace ? ' ' : '') + '@').length;
+      input.focus();
+      try { input.setSelectionRange(c2, c2); } catch (e) { /* older engines */ }
+      open('', c2 - 1);
+    };
+  }
+
+  /** A mentioned name in a turn card: who they are, where, and what you
+   *  can do about it from here. */
+  function mentionCard(r, m) {
+    var other = RP.linkedRoom(state, r);
+    var here = (r.cast || []).filter(function (c) { return c.id === m.id; })[0];
+    var sheet = r.states && r.states[m.id];
+    var kind = m.kind;
+    var overThere = other && RP.presentCast(other).some(function (c) { return c.id === m.id; });
+    if (here && sheet && sheet.present !== false) kind = 'here';
+    else if (overThere) kind = 'other';
+    else if (here && sheet && sheet.present === false) kind = 'away';
+    var sheetLine = function (sh) {
+      if (!sh) return '';
+      return (sh.hp ? '❤ ' + sh.hp.value + '/' + sh.hp.max + ' ' : '') + (sh.mp ? '\u26a1 ' + sh.mp.value + '/' + sh.mp.max + ' ' : '') +
+        (sh.mood && RP.MOODS[sh.mood.key] ? RP.MOODS[sh.mood.key].icon + ' ' + RP.moodLabel(sh.mood) + ' ' : '') +
+        Object.keys(sh.flags || {}).map(function (f) { return '· ' + f.replace(/_/g, ' '); }).join(' ');
+    };
+    var entry = kind === 'book' ? (((state.book || {}).entries || []).filter(function (e) { return e && e.name && e.name.toLowerCase() === m.name.toLowerCase(); })[0]) : null;
+    var rec = castById[m.id];
+    var body = kind === 'here' ? 'In this scene. ' + sheetLine(sheet)
+      : kind === 'away' ? 'Written out of this scene. ' + sheetLine(sheet)
+      : kind === 'other' && other ? 'In “' + esc(other.sceneName || other.title) + '” right now. ' + sheetLine(other.states && other.states[m.id])
+      : kind === 'book' ? (entry ? esc(String(entry.kind || '').toLowerCase()) + (entry.roomTitle ? ' · filed from “' + esc(entry.roomTitle) + '”' : '') + '<br>' + esc(entry.text || '') : 'In the lore book.')
+      : rec ? esc(rec.title || '') + (rec.summary ? '<br>' + esc(RP.clip(rec.summary, 240)) : '') : 'From the archive.';
+    openModal('<h3>' + (kind === 'book' ? '📓 ' : '') + esc(m.name) + '</h3>' +
+      '<p class="sub">' + esc(RP.MENTION_KINDS[kind] || kind) + '</p><p>' + body + '</p>' +
+      '<div class="actions">' +
+      (kind === 'here' ? '<button class="pill" id="mSheet">Open their sheet</button>' : '') +
+      (kind === 'away' ? '<button class="pill" id="mBack">↩ Bring them back into the scene</button>' : '') +
+      (kind === 'other' && other ? '<button class="pill" id="mWalk">🚶 Bring them over here</button><button class="pill" id="mGo">Open their scene</button>' : '') +
+      (kind === 'archive' && rec ? '<button class="pill" id="mInvite">＋ Bring them into this scene</button>' : '') +
+      '<span class="grow"></span><button class="pill primary" id="mCancel">Close</button></div>');
+    $('mCancel').onclick = closeModal;
+    if ($('mSheet')) $('mSheet').onclick = function () { closeModal(); editSheet(m.id, r); };
+    if ($('mBack')) $('mBack').onclick = function () { RP.setPresent(r, m.id, true); closeModal(); save(); render(); toast(m.name + ' is back in the scene.'); };
+    if ($('mWalk')) $('mWalk').onclick = function () { closeModal(); walkOver(other, r, m.id); };
+    if ($('mGo')) $('mGo').onclick = function () { closeModal(); openRoom(other.id); };
+    if ($('mInvite')) $('mInvite').onclick = function () {
+      RP.pushUndo(r, 'inviting ' + rec.name);
+      RP.addToRoom(r, rec);
+      closeModal(); save(); render();
+      toast(rec.name + ' joins the scene.');
+    };
+  }
+
+  /** The @names of a turn become links in its bubble. */
+  function linkMentions(html, mentions) {
+    (mentions || []).forEach(function (m) {
+      var safe = esc(m.name).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      html = html.replace(new RegExp('(?![^<]*>)' + safe), '<a class="mention" href="#" data-mention="' + esc(m.id) + '" data-mkind="' + esc(m.kind) + '" data-mname="' + esc(m.name) + '" data-mroom="' + esc(m.roomId || '') + '" title="' + esc(RP.MENTION_KINDS[m.kind] || m.kind) + ' — click for who this is">' + esc(m.name) + '</a>');
+    });
+    return html;
+  }
+
+  /** ⇄ Merge: the two scenes become one place. You say which scene is the
+   *  stage (the other folds into it), word how they come together, and
+   *  the Director plays the joining as the next turn. The reverse of ✂. */
+  function mergeDialog(r) {
+    var other = RP.linkedRoom(state, r);
+    if (!other) { toast('There is no second scene to merge.'); return; }
+    var nameOf = function (x) { return x.sceneName || x.title || 'untitled'; };
+    var joiners = function (stage, folded) {
+      return RP.presentCast(folded).filter(function (c) {
+        var mine = stage.states && stage.states[c.id];
+        return !mine || mine.present === false;
+      }).map(function (c) { return c.name; });
+    };
+    var suggest = function (stage, folded) {
+      var who = joiners(stage, folded);
+      var you = RP.playerCharacter(folded);
+      var from = nameOf(folded);
+      if (!who.length) return 'The two scenes become one: everyone is in the same place now, ' + RP.clip(stage.scene || nameOf(stage), 80) + '.';
+      return who.join(', ') + (you && who.indexOf(you.name) >= 0 ? '' : '') + ' ' + (who.length === 1 ? 'comes' : 'come') + ' in from ' + from + ' — ' +
+        'the two groups are in one place now, and everyone can see what state the others are in.';
+    };
+    openModal('<h3>⊕ Merge the two scenes into one</h3>' +
+      '<p class="sub">Everybody who is in either scene is in the one scene afterwards; both chats become one stream, in the order ' +
+      'they happened, with a ⇄ card wherever the camera used to cut. Sheets, kit, facts and the clock are kept. ↩ takes it back.</p>' +
+      '<label>Which scene is the stage — the place they are all in now?</label>' +
+      '<div class="checks">' +
+      '<label><input type="radio" name="mergeStage" value="' + esc(r.id) + '" checked> “' + esc(nameOf(r)) + '” — “' + esc(nameOf(other)) + '” folds into it</label>' +
+      '<label><input type="radio" name="mergeStage" value="' + esc(other.id) + '"> “' + esc(nameOf(other)) + '” — “' + esc(nameOf(r)) + '” folds into it</label>' +
+      '</div>' +
+      '<label for="f_join">How do they come together? (played as a 🎬 direction, so the cast deals with it)</label>' +
+      '<textarea id="f_join">' + esc(suggest(r, other)) + '</textarea>' +
+      '<div class="checks">' +
+      '<label><input type="checkbox" id="f_play" checked> Play the joining now — the Director narrates it as the next turn</label>' +
+      '<label><input type="checkbox" id="f_keep" checked> Keep the folded scene in Recents as a record (unlinked, nothing lost)</label>' +
+      '</div>' +
+      '<div class="actions"><button class="pill" id="mCancel">Cancel</button><button class="pill primary" id="mOk">⊕ Merge</button></div>');
+    var radios = $('modal').querySelectorAll('[name=mergeStage]');
+    radios.forEach(function (b) {
+      b.onchange = function () {
+        var stage = b.value === r.id ? r : other, folded = stage === r ? other : r;
+        $('f_join').value = suggest(stage, folded);
+      };
+    });
+    $('mCancel').onclick = closeModal;
+    $('mOk').onclick = function () {
+      var pick = [].filter.call(radios, function (b) { return b.checked; })[0];
+      var stage = pick && pick.value === other.id ? other : r;
+      var folded = stage === r ? other : r;
+      var text = ($('f_join').value || '').trim();
+      var play = $('f_play').checked, keep = $('f_keep').checked;
+      closeModal();
+      mergeScenes(stage, folded, { text: text, play: play, keep: keep });
+    };
+  }
+
+  function mergeScenes(stage, folded, opts) {
+    opts = opts || {};
+    if (busy) { toast('The model is writing — wait for it, or press ■.'); return null; }
+    var foldName = folded.sceneName || folded.title;
+    RP.pushUndo(stage, 'merging “' + foldName + '” into this scene');
+    stage.undo[stage.undo.length - 1].linkedTo = folded.id;      // ↩ links them again
+    RP.pushUndo(folded, 'being merged into “' + (stage.sceneName || stage.title) + '”');
+    folded.undo[folded.undo.length - 1].linkedTo = stage.id;
+    var report = RP.mergeRooms(state, stage, folded, {});
+    if (!report) return null;
+    if (opts.keep) {
+      // The record keeps its place in Recents; it is not the live scene.
+      if (!/\(merged into /.test(folded.title || '')) folded.title = (folded.title || 'untitled') + ' (merged into “' + RP.clip(stage.title, 30) + '”)';
+    } else {
+      state.rooms = state.rooms.filter(function (x) { return x.id !== folded.id; });
+    }
+    dockSide = '';
+    state.active = stage.id;
+    save(); buildBoard(); render();
+    toast('⊕ One scene now: ' + (report.joined.length ? report.joined.join(', ') + ' joined; ' : '') + report.turns + ' turns folded in. ↩ takes it back.');
+    if (opts.play && opts.text) directRoom(stage, opts.text, 'world', foldName);
+    return report;
+  }
+
+  /** Somebody walks from one scene into the other. Written out here, seated
+   *  there with their sheet and kit, and the other scene is asked to play
+   *  their arrival this turn — the line is yours to word before it goes. */
+  function walkOver(from, to, id) {
+    var c = charOf(from, id);
+    if (!c || !c.id) return;
+    var fromName = from.sceneName || from.title;
+    var toName = to.sceneName || to.title;
+    RP.pushUndo(from, c.name + ' leaving for “' + toName + '”');
+    RP.pushUndo(to, c.name + ' arriving from “' + fromName + '”');
+    var sheet = from.states && from.states[id] ? JSON.parse(JSON.stringify(from.states[id])) : null;
+    var wasYou = from.youPlay === id;
+    if (from.states && from.states[id]) RP.setPresent(from, id, false);
+    if (!(to.cast || []).some(function (x) { return x.id === id; })) RP.addToRoom(to, c);
+    if (sheet) { to.states = to.states || {}; sheet.present = true; sheet.player = false; to.states[id] = sheet; }
+    else if (to.states && to.states[id]) to.states[id].present = true;
+    if (wasYou) {
+      from.youPlay = '';
+      if (to.youPlay !== id) { if (to.youPlay) RP.markPlayer(to, to.youPlay); RP.markPlayer(to, id); }
+      RP.ensurePlayerSheet(state, from); RP.ensurePlayerSheet(state, to);
+    }
+    from.messages.push({ id: RP.uid(), role: 'state', at: Date.now(), lines: ['🚪 ' + c.name + ' left for “' + toName + '”.'] });
+    from.updated = Date.now(); to.updated = Date.now();
+    save(); render();
+    directForm(to, c.name + ' walks in from ' + fromName + (wasYou ? '' : '') + '.', fromName);
+  }
+
+  // What is being dragged right now: a face or a turn, and which scene it
+  // came from. Kept here rather than in dataTransfer so the targets can
+  // light up while the drag is in flight.
+  var dragging = null;
+
+  /** Drag and drop across the stage. Faces (the rail, the dock, the side
+   *  column, the sheet cards) and turns (the ⠿ grip) can be picked up. With
+   *  no second scene, the drop zone at the edge of the stage appears: drop
+   *  there to start one. With a second scene, the other column lights up:
+   *  a face dropped there walks over, a turn dropped there is carried. */
+  function wireDrag(r) {
+    var view = $('chatview');
+    if (!view) return;
+    var other = RP.linkedRoom(state, r);
+    var end = function () {
+      dragging = null;
+      document.body.classList.remove('dragging-cast', 'dragging-turn');
+      view.querySelectorAll('.dragging, .over, .target').forEach(function (n) { n.classList.remove('dragging'); n.classList.remove('over'); n.classList.remove('target'); });
+    };
+    var start = function (node, d) {
+      return function (ev) {
+        dragging = d;
+        if (ev && ev.dataTransfer) { try { ev.dataTransfer.setData('text/plain', d.id); ev.dataTransfer.effectAllowed = 'move'; } catch (e) { /* older engines */ } }
+        node.classList.add('dragging');
+        document.body.classList.add(d.kind === 'cast' ? 'dragging-cast' : 'dragging-turn');
+        if (other) view.querySelectorAll('.scene-col').forEach(function (col) { if (!col.contains(node)) col.classList.add('target'); });
+      };
+    };
+    // Which scene a face or a turn belongs to is where it was drawn: the
+    // side column is the linked scene's, the dock is whichever it serves.
+    var srcOf = function (node) {
+      if (node.dataset.dragroom && other && node.dataset.dragroom === other.id) return other;
+      if (other && node.closest && node.closest('#sidescene')) return other;
+      if (node.closest && node.closest('#charpanel')) return dockRoom();
+      return r;
+    };
+    view.querySelectorAll('[data-dragcast]').forEach(function (node) {
+      node.ondragstart = start(node, { kind: 'cast', id: node.dataset.dragcast, roomId: srcOf(node).id });
+      node.ondragend = end;
+    });
+    // The sheet cards keep their own bench drop; they also count as faces.
+    view.querySelectorAll('.statebar [data-drag]').forEach(function (node) {
+      var go = start(node, { kind: 'cast', id: node.dataset.drag, roomId: srcOf(node).id });
+      node.ondragstart = function (ev) { go(ev); };
+      node.ondragend = end;
+    });
+    view.querySelectorAll('[data-dragturn]').forEach(function (node) {
+      var src = srcOf(node);
+      var m = (src.messages || []).filter(function (x) { return x.id === node.dataset.dragturn; })[0];
+      var text = m ? RP.textOf(m) : '';
+      node.ondragstart = start(node, { kind: 'turn', id: node.dataset.dragturn, roomId: src.id, text: text });
+      node.ondragend = end;
+    });
+    var zone = $('linkDrop');
+    if (zone) {
+      zone.hidden = Boolean(other);
+      zone.ondragover = function (ev) { if (!dragging) return; ev.preventDefault(); zone.classList.add('over'); };
+      zone.ondragleave = function () { zone.classList.remove('over'); };
+      zone.ondrop = function (ev) {
+        ev.preventDefault();
+        var d = dragging; end();
+        if (!d) return;
+        secondSceneDialog(r, d.kind === 'cast' ? { ids: [d.id] } : { text: d.text });
+      };
+    }
+    [['frontScene', r], ['sidescene', other]].forEach(function (pair) {
+      var col = $(pair[0]);
+      if (!col) return;
+      var target = pair[1];
+      if (!other || !target) { col.ondragover = null; col.ondrop = null; col.ondragleave = null; return; }
+      col.ondragover = function (ev) {
+        if (!dragging || dragging.roomId === target.id) return;
+        ev.preventDefault(); col.classList.add('over');
+      };
+      col.ondragleave = function (ev) { if (!ev.relatedTarget || !col.contains(ev.relatedTarget)) col.classList.remove('over'); };
+      col.ondrop = function (ev) {
+        var d = dragging;
+        if (!d || d.roomId === target.id) return;
+        ev.preventDefault(); if (ev.stopPropagation) ev.stopPropagation();
+        end();
+        var source = d.roomId === r.id ? r : other;
+        if (d.kind === 'cast') walkOver(source, target, d.id);
+        else carryForm(source, target, d.text);
+      };
+    });
+  }
+
+  /** Ways out of a chat, for different readers — and, with a second scene
+   *  linked, the two together: interleaved by the clock, or one bundle. */
   function exportMenu(r, c) {
     var brief = RP.storyBrief(state, r, {});
-    list('Export “' + RP.clip(r.title, 40) + '”', [
+    var other = RP.linkedRoom(state, r);
+    var otherName = other ? (other.sceneName || other.title) : '';
+    var both = other ? RP.slug(r.title) + '+' + RP.slug(other.title) : '';
+    list('Export “' + RP.clip(r.title, 40) + '”' + (other ? ' — and “' + RP.clip(otherName, 30) + '”' : ''), [
       { label: '✍️ Story brief — trimmed for a writing model (' + Math.round(brief.length / 1000) + 'k chars, no ids, no swipes, no noise)', value: 'brief' },
       { label: '📦 Full chat — JSON another chatroom can import, with memory and lore', value: 'full' },
       { label: '📄 Transcript — markdown, for filing into the wiki', value: 'md' },
       { label: '📝 Plain text — just the turns', value: 'txt' },
       { label: '📇 ' + c.name + ' as a character card', value: 'card' },
-    ], function (pick) {
+    ].concat(other ? [
+      { label: '⇄ Both scenes — one transcript, interleaved by the clock, a marker each time the camera moves (markdown)', value: 'bothMd' },
+      { label: '⇄ Both scenes — plain text, interleaved', value: 'bothTxt' },
+      { label: '⇄ Both scenes — story brief for a writing model', value: 'bothBrief' },
+      { label: '⇄ Both scenes — JSON bundle, both chats and the link between them', value: 'bothJson' },
+    ] : []), function (pick) {
       if (pick === 'brief') { download(RP.slug(r.title) + '.brief.md', brief); toast('Trimmed to ' + brief.length + ' characters.'); return; }
       if (pick === 'full') { download(RP.slug(r.title) + '.chat.json', JSON.stringify(RP.chatExport(state, r), null, 2)); return; }
       if (pick === 'md') { download(RP.slug(r.title) + '.md', RP.transcript(r)); return; }
@@ -2563,7 +3578,15 @@
         }).join('\n\n'));
         return;
       }
-      if (pick === 'card') { exportCard(c, true); }
+      if (pick === 'card') { exportCard(c, true); return; }
+      if (pick === 'bothMd') { download(both + '.md', RP.linkedTranscript(state, r, { user: state.user.name })); return; }
+      if (pick === 'bothTxt') { download(both + '.txt', RP.linkedTranscript(state, r, { plain: true, user: state.user.name })); return; }
+      if (pick === 'bothBrief') {
+        var text = '# ' + (r.sceneName || r.title) + ' ⇄ ' + otherName + '\n\nTwo scenes, the same hour. The first:\n\n' + brief +
+          '\n\n---\n\nThe second, happening at the same time:\n\n' + RP.storyBrief(state, other, {});
+        download(both + '.brief.md', text); return;
+      }
+      if (pick === 'bothJson') { download(both + '.chat.json', JSON.stringify(RP.chatExport(state, r, { linked: true }), null, 2)); }
     });
   }
 
@@ -2576,63 +3599,224 @@
           { value: 'normal', label: 'Normal — costs and wrenches are common, failure happens' },
           { value: 'harsh', label: 'Harsh — the world is against you and the cast argues back' },
         ] },
-    ], { note: 'Rolled before each reply to something you attempted, and handed to the model as an instruction.' },
+    ], { note: 'Before each reply to something you attempted, the page rolls and tells the model how it resolves: it works, it works at a price, something cuts across it, it fails, or the character simply refuses you. The model is told not to narrate the dice — and being wounded shifts the odds against you.' },
     function (v) { state.settings.fate = v.fate; save(); render(); });
   }
 
-  function renderPanel() {
+  // The dock: every system this chat runs on, one tab each. Cast first —
+  // it is the one you reach for mid-scene: who is here, who you play, who
+  // walks out, who goes off to a second scene.
+  var dockTab = 'cast';
+  var DOCK_TABS = [['cast', '👥 Cast'], ['scene', '🎬 Scene'], ['memory', '🧠 Memory'], ['voice', '🔊 Voice'], ['share', '⬇ Share']];
+  // With two scenes up, the dock serves one of them at a time: '' is the
+  // front scene, 'b' the one at the side.
+  var dockSide = '';
+  function dockRoom() {
     var r = room();
+    if (!r) return r;
+    var other = RP.linkedRoom(state, r);
+    return dockSide === 'b' && other ? other : r;
+  }
+
+  function renderPanel() {
+    var r = dockRoom();
     var c = r.cast[0] || {};
     var plays = interactions(c.id);
     var style = RP.STYLES[r.style] || RP.STYLES.novel;
     var pinned = r.messages.filter(function (m) { return m.pinned; }).length;
     var mem = (state.chars || []).filter(function (m) { return m.id === c.id; })[0];
+    var other = RP.linkedRoom(state, r);
+    var front = room();
     $('charpanel').innerHTML =
+      (other ? '<div class="dock-side" role="tablist" title="Two scenes are up — which one the dock is about">' +
+        [[front, ''], [RP.linkedRoom(state, front), 'b']].map(function (pair) {
+          return '<button data-dockside="' + pair[1] + '" role="tab" class="' + ((dockSide === 'b') === (pair[1] === 'b') ? 'on' : '') + '">' +
+            (pair[1] ? '⇄ ' : '') + esc(RP.clip(pair[0].sceneName || pair[0].title, 22)) + '</button>';
+        }).join('') + '</div>' : '') +
       '<div class="cp-head">' + avatar(c, 72) + '<div class="body"><h3 title="' + esc(r.title) + '">' +
       esc(r.kind === 'group' ? RP.clip(r.sceneName || r.title, 60) : c.name) + '</h3>' +
       '<div class="by">By @' + esc(c.handle || 'waluipedia') + '</div>' +
-      '<div class="by">' + plays + (plays === 1 ? ' interaction' : ' interactions') + '</div></div></div>' +
-      '<div class="cp-row"><button class="iconbtn" id="cpSettings" title="Chat settings">⚙</button>' +
-      '<div class="votes" title="Ratings steer later turns"><button id="cpUp">👍</button><span>' +
-      RP.tasteFor(state, c.id).up + '</span><button id="cpDown">👎</button><span>' +
-      RP.tasteFor(state, c.id).down + '</span></div><span class="grow"></span>' +
-      '<button class="iconbtn" id="cpExport" title="Export transcript">⬇</button></div>' +
-      '<div class="cp-desc">' +
-      (c.title ? '<b>' + esc(c.title) + '</b><br>' : '') +
-      esc(c.status || c.summary || r.scene || 'A chat in the Waluipedia archive.') + '</div>' +
-      // People invented during play have no portrait in the archive, so the
-      // description stands in for one.
-      (r.cast.filter(function (x) { return x.invented; }).length
-        ? '<div class="cp-desc invented"><b>Described, not drawn</b>' +
-          r.cast.filter(function (x) { return x.invented; }).map(function (x) {
+      '<div class="by">' + plays + (plays === 1 ? ' interaction' : ' interactions') + ' · ' +
+      r.cast.length + (r.cast.length === 1 ? ' in the cast' : ' in the cast') + '</div></div></div>' +
+      '<div class="dock-tabs" role="tablist">' + DOCK_TABS.map(function (t) {
+        return '<button data-dock="' + t[0] + '" class="' + (dockTab === t[0] ? 'on' : '') + '" role="tab" ' +
+          'aria-selected="' + (dockTab === t[0] ? 'true' : 'false') + '">' + t[1] + '</button>';
+      }).join('') + '</div>' +
+      (dockTab === 'scene' ? dockScene(r, other, style)
+        : dockTab === 'memory' ? dockMemory(r, c, mem, pinned)
+        : dockTab === 'voice' ? dockVoice(r)
+        : dockTab === 'share' ? dockShare(r, other)
+        : dockCast(r, c, other));
+    wirePanel();
+  }
+
+  /** One seat in the Cast tab. Present seats can be dragged — to the edge
+   *  of the stage to start a second scene with them, or onto the other
+   *  scene to send them there. Clicking a seat with a sheet edits it. */
+  function seatRow(r, x, opts) {
+    opts = opts || {};
+    var sheet = (r.states || {})[x.id];
+    var sub = x.title || (x.invented ? 'invented in play' : '');
+    return '<div class="seat' + (opts.away ? ' away' : '') + (opts.you ? ' you' : '') + '"' +
+      (opts.away ? '' : ' draggable="true" data-dragcast="' + esc(x.id) + '"') +
+      (sheet ? ' data-sheet="' + esc(x.id) + '"' : '') +
+      ' title="' + (opts.away ? 'Written out of the scene — ↩ brings them back'
+        : 'Drag to the edge of the stage to start a second scene with them, or onto the other scene to send them there' +
+          (sheet ? '. Click to edit their sheet.' : '.')) + '">' +
+      avatar(x, 28) + '<span class="nm">' + esc(x.name) + (sub ? '<small>' + esc(sub) + '</small>' : '') + '</span>' +
+      (opts.you ? '<span class="tag">★ you</span>'
+        : '<button data-star="' + esc(x.id) + '" title="Play as ' + esc(x.name) + ' — the model never speaks for them">☆</button>') +
+      (opts.other && !opts.away ? '<button data-walk="' + esc(x.id) + '" title="Send them over to “' + esc(opts.other.sceneName || opts.other.title) + '” — they leave here and arrive there this turn">⇄</button>' : '') +
+      (sheet && !opts.away ? '<button data-here="' + esc(x.id) + '" title="Write them out — they stay in the chat but leave the scene">🚪</button>' : '') +
+      (sheet && opts.away ? '<button data-back="' + esc(x.id) + '" title="Bring them back into the scene">↩</button>' : '') +
+      (opts.away ? '<button data-dropcast="' + esc(x.id) + '" title="Remove their seat from this chat">✖</button>' : '') +
+      '</div>';
+  }
+
+  function dockCast(r, c, other) {
+    var you = RP.playerCharacter(r);
+    var away = Object.keys(r.states || {}).filter(function (id) {
+      return id !== RP.PLAYER_ID && r.states[id] && r.states[id].present === false;
+    });
+    var here = RP.presentCast(r);
+    var invented = r.cast.filter(function (x) { return x.invented; });
+    return '<h4>You</h4>' +
+      '<button class="seat you" id="dkPlayAs" title="' + (you ? 'Switch who you play, or hand them back' : 'Take a seat as somebody from the archive') + '">' +
+      (you ? avatar(you, 28) + '<span class="nm">You play ' + esc(you.name) + '<small>the model never speaks for them</small></span>'
+        : '<span class="nm">🎭 Play as somebody…<small>yourself for now — the cast talks to you</small></span>') +
+      '<span class="chev">›</span></button>' +
+      '<h4>In the scene (' + here.length + ')</h4>' +
+      (here.length ? here.map(function (x) { return seatRow(r, x, { you: you && you.id === x.id, other: other }); }).join('')
+        : '<p class="hint">Nobody is here — bring somebody in.</p>') +
+      (away.length ? '<h4>Written out (' + away.length + ')</h4>' + away.map(function (id) {
+        return seatRow(r, charOf(r, id), { away: true });
+      }).join('') : '') +
+      '<div class="btnrow">' +
+      '<button class="mini primary" id="dkInvite">＋ Invite from the archive</button>' +
+      '<button class="mini" id="dkInvent">✨ Invent someone</button>' +
+      (r.mechanics === 'off' ? '' : '<button class="mini" id="dkSheets">' + (showStates ? '🩺 Hide the sheets' : '🩺 Party sheets') + '</button>') +
+      (r.mechanics === 'off' ? '' : '<button class="mini" id="dkReview" title="One model call: it reads the recent play against every sheet' +
+        (other ? ' in both scenes' : '') + ' and proposes corrections — wounds, kit, conditions, moods, the clock, who is still here. You see them before they land.">🧾 AI audit</button>') +
+      '</div>' +
+      '<p class="hint">' + (other
+        ? 'Drag a face onto the other scene to send them there; drag a turn across to carry it over as a direction.'
+        : 'Drag a face to the edge of the stage to start a second scene with them — the same hour, side by side.') + '</p>' +
+      (invented.length
+        ? '<div class="cp-desc invented"><b>Described, not drawn</b>' + invented.map(function (x) {
             return '<p><b>' + esc(x.name) + '</b>' + (x.title ? ' — ' + esc(x.title) : '') +
               (x.look ? '<br>' + esc(x.look) : '') + '</p>';
           }).join('') + '</div>'
         : '') +
+      '<h4>About ' + esc(c.name || 'this chat') + '</h4>' +
+      '<div class="cp-desc">' +
+      (c.title ? '<b>' + esc(c.title) + '</b><br>' : '') +
+      esc(c.status || c.summary || r.scene || 'A chat in the Waluipedia archive.') + '</div>';
+  }
+
+  function dockScene(r, other, style) {
+    var progress = RP.beatProgress(r);
+    var facts = Object.keys(r.facts || {}).length;
+    var lengthName = (RP.LENGTHS[state.settings.length] || RP.LENGTHS[RP.DEFAULT_LENGTH]).name;
+    return '<h4>Where and when</h4>' +
+      '<div class="cp-desc" id="dkScene" title="Click to rewrite the scene">' + esc(RP.clip(r.scene || 'No scene text yet — click to write where this is happening.', 420)) + '</div>' +
       '<div class="cp-menu">' +
-      menuItem('cpNew', '✎', 'New chat', '') +
-      menuItem('cpVoice', '🔊', 'Voice', (state.settings.voice === 'on' ? 'Auto · Qwen' : 'Qwen · on tap')) +
-      menuItem('cpHistory', '🕘', 'History', RP.roomCountFor(state.rooms, c.id) + '') +
-      menuItem('cpCustomize', '🖌', 'Customize', style.name) +
-      menuItem('cpPinned', '📌', 'Pinned', String(pinned)) +
-      menuItem('cpPersona', '🧑', 'Persona', r.persona || state.user.persona || (RP.personaSheet(state).name || 'Not set')) +
-      menuItem('cpStyle', '✨', 'Style', style.name) +
-      menuItem('cpMemory', '🧠', 'Memory', mem ? String(mem.notes.length) : '0') +
-      menuItem('cpReplay', '🎭', 'Replay', 'Perspective') +
-      menuItem('cpScript', '⏱', 'Script', r.beats && r.beats.length ? (r.autoBeats ? 'Auto' : 'Manual') : 'None') +
+      menuItem('dkDate', '🕯', 'When', roomDate(r) || 'undated') +
+      (r.clock ? menuItem('dkClock', '🕰', 'Clock', r.clock) : '') +
+      menuItem('dkFacts', '📍', 'Fixed facts', facts ? String(facts) : 'none yet') +
+      menuItem('cpScript', '⏱', 'Script', r.beats && r.beats.length
+        ? (r.autoBeats ? 'Auto' : 'Manual') + ' · beat ' + progress.at + '/' + progress.total : 'None') +
+      (progress.total && progress.at < progress.total ? menuItem('dkBeat', '⏩', 'Fire the next beat', '') : '') +
+      '</div>' +
+      '<h4>Second scene</h4>' +
+      '<div class="link-card' + (other ? ' on' : '') + '">' +
+      (other ? '<b>⇄ Linked to “' + esc(other.sceneName || other.title) + '”</b>' +
+          (r.linkMode === 'blind' ? 'Blind — the scenes do not hear each other. ' : 'Each hears what the other just did. ') +
+          'Drop a face across to send them over; drop a turn across to carry it.'
+        : '<b>No second scene yet</b>Something happening elsewhere at the same time? Split this cast, invite others, or link a chat you already have.') +
+      '<div class="btnrow"><button class="mini' + (other ? '' : ' primary') + '" id="dkLink">' +
+      (other ? '⇄ Swap · carry over · unlink' : '⇄ Start a second scene') + '</button>' +
+      (other ? '<button class="mini" id="dkOpenOther">Open it in front</button>' : '') + '</div>' +
+      (other ? '<div class="merge-row">' +
+        '<button class="mini primary wide" id="dkMerge" title="The opposite of ✂ Split: everybody in one place, both chats as one stream. ↩ undoes it.">⊕ Merge the two scenes into one</button>' +
+        '<small>When everyone ends up in the same place. The 🎬 Director plays the joining; ↩ takes it back.</small></div>' : '') +
+      (other ? '<div class="cp-menu">' +
+        menuItem('dkLive', '🌗', 'The scene you are not in', !r.live || r.live === 'off' ? 'Stands still until you cross over'
+          : r.live === 'every' ? 'Moves after every turn you take' : 'Moves every other turn you take') +
+        (r.live && r.live !== 'off' ? menuItem('dkLiveSelf', '🧍', 'Your character over there', r.liveSelf ? 'May act alone while you are away' : 'Waits for you') : '') +
+        '</div>' : '') + '</div>' +
+      '<h4>How the scene runs</h4>' +
+      '<div class="cp-menu">' +
+      menuItem('cpFate', '🎲', 'Fate', (state.settings.fate || 'normal') === 'off' ? 'Off — you always succeed' : (state.settings.fate || 'normal')) +
+      menuItem('dkHurt', '💥', 'Wounds', r.mechanics === 'off' ? 'No sheets' : (state.settings.hurt || 'on') === 'off' ? 'Only what the model files' : 'Filed from the prose too') +
+      menuItem('dkLength', '✂', 'Reply length', lengthName) +
       menuItem('cpDirector', '🎬', 'Director', state.settings.director === 'off' ? 'Off' : 'On · max ' + (state.settings.maxChain || RP.MAX_CHAIN)) +
+      menuItem('dkNarrator', RP.NARRATORS[RP.narrator(state)].icon, 'Narrator', (state.settings.world || 'on') === 'off' ? 'Off' : RP.NARRATORS[RP.narrator(state)].name) +
+      menuItem('dkPrivacy', r.privacy === 'private' ? '🔒' : r.privacy === 'open' ? '🔓' : '👂', 'Who answers you',
+        r.privacy === 'private' ? 'Nobody — alone' : r.privacy === 'open' ? 'Always' : 'Reads the room') +
+      menuItem('dkAudience', '👥', 'The room answers', (RP.AUDIENCE[state.settings.audience || RP.AUDIENCE_DEFAULT] || RP.AUDIENCE.on).name) +
+      menuItem('dkFresh', '\u267b', 'Fresh turns', (RP.FRESH[state.settings.fresh || RP.FRESH_DEFAULT] || RP.FRESH.strict).name) +
+      menuItem('cpStyle', '✨', 'Style', style.name) +
+      menuItem('cpCustomize', '🖌', 'Customize', style.name) +
       menuItem('cpNote', '📝', 'Special instructions', (r.note || state.settings.note) ? 'set' : 'none') +
-      menuItem('cpTaste', '👍', 'What I like', RP.tasteState(state).likes.length + ' / ' + RP.tasteState(state).dislikes.length) +
-      menuItem('cpImport', '📥', 'Import into this chat', 'story · card') +
-      menuItem('cpFix', '🛠', 'Fix chat', 'voices · cast · sheets') +
-      menuItem('cpAudio', '💾', 'Chat as audio', 'one portable file') +
-      menuItem('cpCard', '📇', 'Character card', 'PNG · JSON') +
+      '</div>' +
+      '<h4>Housekeeping</h4>' +
+      '<div class="cp-menu">' +
+      menuItem('dkAudit', '🧾', 'Audit', (auditFlags[r.id] || 0) ? auditFlags[r.id] + ' to look at' : 'all clear') +
+      (r.mechanics === 'off' ? '' : menuItem('dkReview', '🩺', 'Quick audit', RP.linkedRoom(state, r) ? 'both scenes · last ' + RP.AUDIT_TURNS + ' turns' : 'last ' + RP.AUDIT_TURNS + ' turns')) +
+      (r.mechanics === 'off' ? '' : menuItem('dkReviewFull', '🩻', 'Full audit', 'whole scene · maxima · what does not add up')) +
+      menuItem('cpReplay', '🎭', 'Replay', 'Perspective') +
+      menuItem('dkSequel', '📖', 'Write the sequel', '') +
+      menuItem('cpNew', '✎', 'New chat', 'same cast') +
       menuItem('cpRename', '✏️', 'Rename chat', r.title) +
       menuItem('cpDelete', '🗑', 'Delete chat', '') +
-      menuItem('cpFate', '🎲', 'Fate', (state.settings.fate || 'normal') === 'off' ? 'Off — you always succeed' : (state.settings.fate || 'normal')) +
+      '</div>';
+  }
+
+  function dockMemory(r, c, mem, pinned) {
+    var pages = ((state.book || {}).entries || []).filter(function (e) { return e.roomId === r.id; }).length;
+    return '<h4>What the cast remembers</h4>' +
+      '<div class="cp-menu">' +
+      menuItem('cpMemory', '🧠', 'Memory', mem ? String(mem.notes.length) : '0') +
+      menuItem('cpPinned', '📌', 'Pinned', String(pinned)) +
+      menuItem('cpPersona', '🧑', 'Persona', r.persona || state.user.persona || (RP.personaSheet(state).name || 'Not set')) +
+      menuItem('dkBook', '📓', 'Lore book', pages ? pages + ' from this chat' : 'open') +
+      menuItem('cpHistory', '🕘', 'History', RP.roomCountFor(state.rooms, c.id) + '') +
+      '</div>' +
+      '<h4>Taste</h4>' +
+      '<div class="cp-row"><div class="votes" title="Ratings steer later turns"><button id="cpUp">👍</button><span>' +
+      RP.tasteFor(state, c.id).up + '</span><button id="cpDown">👎</button><span>' +
+      RP.tasteFor(state, c.id).down + '</span></div><span class="hint">rate the last reply</span></div>' +
+      '<div class="cp-menu">' +
+      menuItem('cpTaste', '👍', 'What I like', RP.tasteState(state).likes.length + ' / ' + RP.tasteState(state).dislikes.length) +
       '</div>' +
       '<div class="cp-note">Memory is shared across chats: what is said here is remembered in the next room. Export from Labs.</div>';
-    wirePanel();
+  }
+
+  function dockVoice(r) {
+    return '<h4>Voices</h4>' +
+      '<div class="cp-menu">' +
+      menuItem('cpVoice', '🔊', 'Voice', (state.settings.voice === 'on' ? 'Auto · Qwen' : 'Qwen · on tap')) +
+      menuItem('dkReadLast', '▶', 'Read the last reply', '') +
+      menuItem('cpAudio', '💾', 'Chat as audio', 'one portable file') +
+      (RP.linkedRoom(state, r) ? menuItem('dkAudioBoth', '⇄', 'Both scenes as audio', 'interleaved by the clock') : '') +
+      menuItem('cpFix', '🛠', 'Fix chat', 'voices · cast · sheets') +
+      '</div>' +
+      '<p class="hint">Each line asks the studio for the speaker\u2019s own voice by name; a refused voice falls back to the default. ' +
+      '🛠 drops the voice caches so a profile saved since the studio started is asked for again.</p>';
+  }
+
+  function dockShare(r, other) {
+    return '<h4>Out of this page</h4>' +
+      '<div class="cp-menu">' +
+      menuItem('cpExport', '⬇', 'Export', other ? 'this scene · both scenes' : 'brief · transcript · bundle') +
+      menuItem('cpCard', '📇', 'Character card', 'PNG · JSON') +
+      menuItem('cpImport', '📥', 'Import into this chat', 'story · card') +
+      '</div>' +
+      '<h4>Settings</h4>' +
+      '<div class="cp-menu">' +
+      menuItem('cpSettings', '⚙', 'All settings', 'model · narrator · voice') +
+      '</div>' +
+      (other ? '<p class="hint">An export of both scenes interleaves the two chats by the clock, with a marker each time the camera moves.</p>' : '');
   }
 
   /** A row in the character panel. The value is shortened by CSS, not by
@@ -2644,25 +3828,322 @@
       '<span class="chev">›</span></button>';
   }
 
-  function wireChat() {
-    var r = room();
-    var on = function (id, fn) { var node = $(id); if (node) node.onclick = fn; };
-    on('privacyBtn', function () {
-      r.privacy = r.privacy === 'private' ? 'open' : r.privacy === 'open' ? '' : 'private';
-      save(); render();
-      toast(r.privacy === 'private' ? '🔒 Private — nobody else will speak until you open it.'
-        : r.privacy === 'open' ? '🔓 Open — the scene answers even when you are muttering.'
-        : '👂 Reading the room — quiet turns are left alone.');
+  /** ＋ invite: the archive's own roster, minus whoever is already here —
+   *  reached from the sheet bar and from the dock's Cast tab. */
+  function invitePicker(r) {
+    var have = {};
+    (r.cast || []).forEach(function (c) { have[c.id] = 1; });
+    // Everyone with a portrait, plus anyone invented in play before, and
+    // a ＋ for somebody the archive has never filed.
+    var invented = (state.newChars || []).filter(function (c) { return !have[c.id] && !castById[c.id]; });
+    castPicker({
+      title: 'Who joins the scene?', portraits: true, suggest: false, ok: 'Invite', exclude: have, extra: invented,
+      note: 'Pick one or more. ＋ writes somebody new — give a name and ✨ fills in the rest.',
+      create: function (seed) { inventForm(r, seed); },
+    }, function (chosen) {
+      RP.pushUndo(r, 'inviting ' + chosen.map(function (c) { return c.name; }).join(', '));
+      chosen.forEach(function (picked) {
+        var c = RP.normChar(picked);
+        if (have[c.id]) return;
+        r.cast.push(c);
+        if (r.mechanics !== 'off' && !r.states[c.id]) {
+          r.states[c.id] = RP.outfit(r, c, RP.blankSheet(c, r.statePreset));
+        } else if (r.states[c.id]) r.states[c.id].present = true;
+        r.away = (r.away || []).filter(function (a) { return a.id !== c.id; });
+        r.messages.push({ id: RP.uid(), role: 'state', at: Date.now(),
+          lines: ['🚪 ' + c.name + ' joins the scene — invited' + (c.invented ? '' : ' from the archive')] });
+      });
+      if (r.cast.length > 1) r.kind = 'group';
+      RP.ensurePlayerSheet(state, r);
+      r.updated = Date.now();
+      save(); buildBoard(); render();
+      toast(chosen.map(function (c) { return c.name; }).join(', ') + (chosen.length > 1 ? ' are' : ' is') + ' in the scene.');
     });
+  }
+
+  /* The scene tools: the audit, the fixed facts, the in-world date. They
+   * are reached from the header, the Scene tab of the dock and the ⋯ menu,
+   * so they live here rather than inside one wiring function. */
+  function runAudit(r) {
+    var report = RP.auditRoom(state, r, archive);
+    openModal('<h3>🧾 Audit</h3>' +
+      '<p class="sub">The scene is dated <b>' + esc(roomDate(r) || 'nothing yet') + '</b>. ' +
+      'Everything below is something that does not add up.</p>' +
+      (report.ok ? '<p class="sub">Nothing to report — the date matches the filing, everybody here has spoken ' +
+        'recently, and no page is filed after this scene.</p>' : '') +
+      (report.dates.length ? '<h4>The date</h4><div class="stack">' + report.dates.map(function (d) {
+        return '<div class="item"><b>' + esc(d.what) + ' is ' + esc(d.is) + ', should be ' + esc(d.should) + '</b>' +
+          '<p>' + esc(d.why) + '</p></div>';
+      }).join('') + '</div>' : '') +
+      (report.quiet.length ? '<h4>Not really here</h4><div class="stack">' + report.quiet.map(function (q) {
+        return '<div class="item"><b>' + esc(q.name) + '</b><p>Has not spoken or been mentioned for ' +
+          q.silence + ' turns. Writing them out stops them being staged.</p></div>';
+      }).join('') + '</div>' : '') +
+      (report.book.length ? '<h4>Filed in the future</h4><div class="stack">' + report.book.map(function (b) {
+        return '<div class="item"><b>' + esc(b.name) + '</b><p>Dated ' + esc(b.when) + ', after this scene.</p></div>';
+      }).join('') + '</div>' : '') +
+      '<div class="actions"><button class="pill" id="mCancel">Close</button>' +
+      (report.ok ? '' : '<button class="pill primary" id="mOk">Fix all of it</button>') + '</div>');
+    $('mCancel').onclick = closeModal;
+    if ($('mOk')) {
+      $('mOk').onclick = function () {
+        RP.pushUndo(r, 'the audit');
+        var done = RP.applyAudit(state, r, report, {});
+        closeModal(); save(); render();
+        toast('🧾 ' + (done.join('; ') || 'nothing to do') + '.');
+      };
+    }
+  }
+  /** The AI audit, by hand: one model call reads the recent play of this
+   *  scene (both scenes, when linked) against every sheet and proposes
+   *  corrections — wounds, kit, conditions, moods, notes, the clock, who
+   *  is really still in the room. Nothing lands until you say so, and ↩
+   *  takes it all back. Never runs on its own. */
+  var auditing = false;
+  /** Do the portraits load? Each present character's image is tried
+   *  once, quietly; a file that is gone is reported, a character who was
+   *  invented in play but has a namesake in the archive is offered that
+   *  portrait. Never blocks the audit for more than a moment. */
+  function probePortraits(rooms) {
+    var jobs = [];
+    var seen = {};
+    rooms.forEach(function (room) {
+      RP.presentCast(room).forEach(function (c) {
+        if (seen[c.id]) return;
+        seen[c.id] = true;
+        var url = imageUrl(c.image);
+        if (!url) {
+          // No portrait at all: a namesake in the archive may lend one.
+          var twin = Object.keys(castById).map(function (id) { return castById[id]; }).filter(function (k) {
+            return k && k.id !== c.id && k.image && String(k.name || '').toLowerCase() === String(c.name || '').toLowerCase();
+          })[0];
+          if (twin) jobs.push(Promise.resolve({ kind: 'adopt', roomId: room.id, charId: c.id, name: c.name, fromId: twin.id, path: twin.image }));
+          return;
+        }
+        jobs.push(new Promise(function (resolve) {
+          var done = false;
+          var img = new Image();
+          var finish = function (ok) {
+            if (done) return;
+            done = true;
+            resolve(ok ? null : { kind: 'missing', roomId: room.id, charId: c.id, name: c.name, path: c.image });
+          };
+          img.onload = function () { finish(true); };
+          img.onerror = function () { finish(false); };
+          window.setTimeout(function () { finish(true); }, 2500);   // slow is not broken
+          img.src = url;
+        }));
+      });
+    });
+    return Promise.all(jobs).then(function (found) { return found.filter(Boolean); });
+  }
+
+  function runSheetAudit(r, auditOpts) {
+    auditOpts = auditOpts || {};
+    var full = Boolean(auditOpts.full);
+    var one = auditOpts.turn ? String(auditOpts.turn) : '';
+    if (!r || r.mechanics === 'off') { toast('The sheets are off in this scene.'); return; }
+    if (auditing) { toast('🩺 The audit is still reading.'); return; }
+    var other = RP.linkedRoom(state, r);
+    var rooms = other ? [r, other] : [r];
+    var turns = {};
+    rooms.forEach(function (room) {
+      RP.ensurePlayerSheet(state, room);
+      var playing = RP.playerCharacter(room);
+      var seen = (room.messages || []).filter(RP.visible);
+      if (one) {
+        // One card under audit: it is marked, and the three turns before
+        // it ride along as context. The other scene is not read.
+        var at = seen.map(function (m) { return m.id; }).indexOf(one);
+        seen = room.id === r.id && at >= 0 ? seen.slice(Math.max(0, at - 3), at + 1) : [];
+      } else {
+        seen = seen.slice(-(full ? RP.AUDIT_TURNS_FULL : RP.AUDIT_TURNS));
+      }
+      turns[room.id] = seen.map(function (m) {
+        return {
+          who: m.role === 'user' ? ((playing && playing.name) || RP.sheetFor(room, RP.playerSheetId(room)).name || 'The player')
+            : m.role === 'world' ? RP.NARRATORS[RP.narrator(state)].name : charOf(room, m.charId).name,
+          text: RP.textOf(m),
+          mark: one && m.id === one ? true : undefined,
+        };
+      });
+    });
+    if (one && !turns[r.id].some(function (t) { return t.mark; })) { toast('That turn is not on the record any more.'); return; }
+    auditing = true;
+    toast(one ? '🩺 Reading that turn against the sheets…'
+      : (full ? '🩻 Full audit \u2014 reading the whole of ' : '🩺 Reading ') + (other ? 'both scenes' : 'the scene') + ' against the sheets…');
+    Promise.all([
+      callModel(RP.sheetAuditPrompt(rooms, turns, { full: full, turn: Boolean(one) }), [{ role: 'user', content: one ? 'Audit this one turn.' : full ? 'Audit the whole scene.' : 'Audit the sheets.' }],
+        { tokens: full ? 900 : 480, utility: true }),
+      probePortraits(rooms).catch(function () { return []; }),
+    ])
+      .then(function (both) {
+        auditing = false;
+        var reply = String(both[0] || '').trim();
+        var portraits = both[1] || [];
+        // A dry run on copies: what WOULD change, shown before it does.
+        var copies = rooms.map(function (room) { return JSON.parse(JSON.stringify(room)); });
+        var stub = { log: [], book: { entries: [], queue: [] }, newChars: [], rooms: copies };
+        var preview = RP.applySheetAudit(stub, copies, reply);
+        var notes = RP.parseAuditNotes(reply, full ? 5 : 3);
+        if (!preview.count && !portraits.length && !notes.length) {
+          toast(/^IN ORDER/i.test(reply) ? '🧾 In order — the record matches the play.' : '🧾 The audit found nothing it could file.');
+          return;
+        }
+        var KIND_ICON = { hp: '❤', mp: '\u26a1', item: '🎒', take: '🎒', drop: '🎒', give: '🎒', hold: '✋', stow: '🎒', spend: '\u26a1',
+          cond: '🩹', status: '📝', counter: '🔢', mood: '🎭', time: '🕰', enter: '🚪', exit: '🚪' };
+        var row = function (it, n) {
+          return '<label class="item pick"><input type="checkbox" checked data-pick="' + n + '"> ' +
+            '<span>' + (KIND_ICON[it.kind] || '•') + ' ' + esc(it.line) + '</span></label>';
+        };
+        var portraitRow = function (pr, n) {
+          if (pr.kind === 'adopt') return '<label class="item pick"><input type="checkbox" checked data-portrait="' + n + '"> ' +
+            '<span>🖼 ' + esc(pr.name) + ' has no portrait — use the archive\u2019s ' + esc(pr.name) + ' portrait</span></label>';
+          return '<div class="item info"><span>🖼 ' + esc(pr.name) + '\u2019s portrait does not load (' + esc(RP.clip(pr.path, 60)) +
+            ') — initials are shown in its place. Fix the file in the archive.</span></div>';
+        };
+        var itemsOf = function (roomId) { return preview.items.filter(function (it) { return it.roomId === roomId; }); };
+        openModal('<h3>🩺 AI audit' + (one ? ' \u2014 one turn' : full ? ' \u2014 the whole scene' : '') + '</h3>' +
+          '<p class="sub">The model read ' + (one ? 'that turn, with the three before it for context,' : full ? 'the whole scene' : 'the last ' + RP.AUDIT_TURNS + ' turns' + (other ? ' of both scenes' : '')) +
+          ' against every sheet and decided what should stand. Untick anything you disagree with; nothing has changed yet.</p>' +
+          rooms.map(function (room) {
+            var items = itemsOf(room.id);
+            if (!items.length) return '';
+            return (other ? '<h4>' + esc(room.title || 'untitled') + '</h4>' : '') +
+              '<div class="stack">' + items.map(function (it) { return row(it, preview.items.indexOf(it)); }).join('') + '</div>';
+          }).join('') +
+          (portraits.length ? '<h4>Portraits</h4><div class="stack">' + portraits.map(portraitRow).join('') + '</div>' : '') +
+          (notes.length ? '<h4>Notes on the play</h4><p class="sub">What the audit thinks the last turns got wrong or could do better. ' +
+            'Ticked notes are handed to the model once, for the next turn in “' + esc(r.sceneName || r.title) + '” — then they are dropped.</p><div class="stack">' +
+            notes.map(function (note, n) {
+              return '<label class="item pick"><input type="checkbox" checked data-note="' + n + '"> <span>📝 ' + esc(note) + '</span></label>';
+            }).join('') + '</div>' : '') +
+          '<div class="actions"><button class="pill" id="mCancel">Leave it</button>' +
+          '<button class="pill primary" id="mOk"></button></div>');
+        var countTicked = function () {
+          var picks = Array.prototype.slice.call($('modal').querySelectorAll('[data-pick]:checked, [data-portrait]:checked'));
+          var noted = $('modal').querySelectorAll('[data-note]:checked').length;
+          var words = [];
+          if (picks.length) words.push(picks.length + (picks.length === 1 ? ' change' : ' changes'));
+          if (noted) words.push(noted + (noted === 1 ? ' note' : ' notes'));
+          $('mOk').textContent = words.length ? 'Apply ' + words.join(' · ') : 'Apply nothing';
+          $('mOk').disabled = !words.length;
+          return picks;
+        };
+        countTicked();
+        $('modal').querySelectorAll('[data-pick], [data-portrait], [data-note]').forEach(function (box) { box.onchange = countTicked; });
+        $('mCancel').onclick = closeModal;
+        $('mOk').onclick = function () {
+          var picks = Array.prototype.slice.call($('modal').querySelectorAll('[data-pick]:checked')).map(function (box) {
+            return preview.items[Number(box.getAttribute('data-pick'))].index;
+          });
+          var portraitPicks = Array.prototype.slice.call($('modal').querySelectorAll('[data-portrait]:checked')).map(function (box) {
+            return portraits[Number(box.getAttribute('data-portrait'))];
+          });
+          var noted = Array.prototype.slice.call($('modal').querySelectorAll('[data-note]:checked')).map(function (box) {
+            return notes[Number(box.getAttribute('data-note'))];
+          });
+          rooms.forEach(function (room) { RP.pushUndo(room, 'the AI audit'); });
+          var done = picks.length ? RP.applySheetAudit(state, rooms, reply, { only: picks }) : { byRoom: {}, lines: [], items: [], count: 0 };
+          // The notes ride along on the next turn of the scene that asked.
+          r.auditNotes = noted;
+          if (noted.length) {
+            (done.byRoom[r.id] = done.byRoom[r.id] || []).push(noted.length + (noted.length === 1 ? ' note' : ' notes') + ' on the play, for the next turn');
+          }
+          portraitPicks.forEach(function (pr) {
+            var room = rooms.filter(function (x) { return x.id === pr.roomId; })[0];
+            var twin = castById[pr.fromId];
+            if (!room || !twin) return;
+            room.cast.forEach(function (c) { if (c.id === pr.charId) c.image = twin.image; });
+            (done.byRoom[room.id] = done.byRoom[room.id] || []).push(pr.name + ' — wears the archive portrait');
+            done.count++;
+          });
+          rooms.forEach(function (room) {
+            var lines = done.byRoom[room.id] || [];
+            if (!lines.length) return;
+            room.messages.push({
+              id: RP.uid(), role: 'state', at: Date.now(),
+              lines: lines.map(function (l) { return '🩺 ' + l; }),
+            });
+            room.updated = Date.now();
+          });
+          closeModal(); save(); render();
+          toast('🩺 ' + done.count + (done.count === 1 ? ' correction' : ' corrections') + ' filed' + (noted.length ? ', ' + noted.length + ' notes held for the next turn' : '') + ' — ↩ takes them back.');
+        };
+      })
+      .catch(function (error) {
+        auditing = false;
+        if (error && error.stopped) return;
+        toast('🩺 The audit could not reach the model: ' + RP.clip(String((error && error.message) || error), 120));
+      });
+  }
+
+  function openFacts(r) {
+    var facts = r.facts || {};
+    var keys = Object.keys(facts);
+    openModal('<h3>What is fixed in this scene</h3>' +
+      '<p class="sub">Where you are, what you are wearing, what time it is. Once these are filed the narrator may ' +
+      'not quietly change them — no renaming the outpost into a clinic halfway through.</p>' +
+      (r.clock ? '<p class="sub">🕰 <b>' + esc(r.clock) + '</b></p>' : '') +
+      (keys.length ? '<div class="stack">' + keys.map(function (k) {
+        return '<div class="item"><b>' + esc(k.replace(/_/g, ' ')) + '</b><p>' + esc(facts[k]) + '</p>' +
+          '<div class="acts"><button class="mini danger" data-factkill="' + esc(k) + '">Forget</button></div></div>';
+      }).join('') + '</div>' : '<p class="sub">Nothing filed yet — the narrator files these as it names them.</p>') +
+      '<div class="actions"><button class="pill" id="mCancel">Close</button>' +
+      '<button class="pill primary" id="mOk">＋ Add one</button></div>');
+    $('mCancel').onclick = closeModal;
+    $('mOk').onclick = function () {
+      closeModal();
+      form('A fixed fact', [
+        { k: 'name', label: 'What kind of fact (place, wearing, weather…)', value: 'place' },
+        { k: 'value', label: 'What it is', value: '' },
+      ], {}, function (v) {
+        if (!v.value.trim()) return;
+        r.facts = r.facts || {};
+        r.facts[RP.slug(v.name) || 'fact'] = v.value.trim();
+        r.updated = Date.now(); save(); render();
+      });
+    };
+    $('modal').querySelectorAll('[data-factkill]').forEach(function (b) {
+      b.onclick = function () { delete r.facts[b.dataset.factkill]; closeModal(); save(); render(); };
+    });
+  }
+  function openDate(r) {
+    form('When is this happening?', [
+      { k: 'date', label: 'In-world date', value: roomDate(r) },
+    ], {
+      note: 'Regal Empire Standard Calendar — "5 Aethel, 1040 BF". Months run Firstlight, Chillwind, Veridia, Bloom, ' +
+        'Floria, Efferd, Highsun, Harvestide, Aethel, Darkmoon, Frostfall, Deepwinter, and BF counts up. ' +
+        'The model is told which filings are already history and which have not happened yet, measured from this date.',
+    }, function (v) { r.date = v.date.trim(); r.updated = Date.now(); save(); render(); });
+  }
+
+  /** The controls one scene column answers to. `col` is '' for the front
+   *  scene, 'b' for the linked one: the same handlers, bound to that
+   *  column's ids and that column's room. */
+  function wireChat(r, col) {
+    var sfx = col ? '_' + col : '';
+    var $c = function (id) { return $(id + sfx); };
+    var box = col ? $('sidescene') : $('frontScene');
+    var on = function (id, fn) { var node = $c(id); if (node) node.onclick = fn; };
+    var auditFlag = auditFlags[r.id] || 0;
+    on('stopBtn', function () { stopAll(); });
+    on('swapBtn', function () { state.active = r.id; save(); render(); });
+    on('privacyBtn', function () { togglePrivacy(r); });
     on('dateBtn', function () { openDate(r); });
+    on('linkBtn', function () { secondSceneDialog(r); });
     on('sceneBtn', function () {
       list('This scene', [
         { label: '🧾 Audit — the date, the cast, the book' + (auditFlag ? ' (' + auditFlag + ' to look at)' : ' (all clear)'), value: 'audit' },
         { label: '📍 Fixed facts — place, clothing, time' + (Object.keys(r.facts || {}).length ? ' (' + Object.keys(r.facts).length + ')' : ''), value: 'facts' },
         { label: '🕯 When is this happening — ' + (roomDate(r) || 'undated'), value: 'date' },
         { label: '📓 The lore book', value: 'book' },
+        { label: (RP.linkedRoom(state, r)
+            ? '⇄ Linked to “' + (RP.linkedRoom(state, r).sceneName || RP.linkedRoom(state, r).title) + '” — carry over, swap, unlink'
+            : '⇄ Link a second scene — two chats side by side, the same hour'), value: 'link' },
         { label: '📖 Write the sequel', value: 'sequel' },
       ], function (pick) {
+        if (pick === 'link') { secondSceneDialog(r); return; }
         if (pick === 'audit') { runAudit(r); return; }
         if (pick === 'facts') { openFacts(r); return; }
         if (pick === 'date') { openDate(r); return; }
@@ -2670,79 +4151,17 @@
         openSequel(r);
       });
     });
-    function runAudit(r) {
-      var report = RP.auditRoom(state, r, archive);
-      openModal('<h3>🧾 Audit</h3>' +
-        '<p class="sub">The scene is dated <b>' + esc(roomDate(r) || 'nothing yet') + '</b>. ' +
-        'Everything below is something that does not add up.</p>' +
-        (report.ok ? '<p class="sub">Nothing to report — the date matches the filing, everybody here has spoken ' +
-          'recently, and no page is filed after this scene.</p>' : '') +
-        (report.dates.length ? '<h4>The date</h4><div class="stack">' + report.dates.map(function (d) {
-          return '<div class="item"><b>' + esc(d.what) + ' is ' + esc(d.is) + ', should be ' + esc(d.should) + '</b>' +
-            '<p>' + esc(d.why) + '</p></div>';
-        }).join('') + '</div>' : '') +
-        (report.quiet.length ? '<h4>Not really here</h4><div class="stack">' + report.quiet.map(function (q) {
-          return '<div class="item"><b>' + esc(q.name) + '</b><p>Has not spoken or been mentioned for ' +
-            q.silence + ' turns. Writing them out stops them being staged.</p></div>';
-        }).join('') + '</div>' : '') +
-        (report.book.length ? '<h4>Filed in the future</h4><div class="stack">' + report.book.map(function (b) {
-          return '<div class="item"><b>' + esc(b.name) + '</b><p>Dated ' + esc(b.when) + ', after this scene.</p></div>';
-        }).join('') + '</div>' : '') +
-        '<div class="actions"><button class="pill" id="mCancel">Close</button>' +
-        (report.ok ? '' : '<button class="pill primary" id="mOk">Fix all of it</button>') + '</div>');
-      $('mCancel').onclick = closeModal;
-      if ($('mOk')) {
-        $('mOk').onclick = function () {
-          RP.pushUndo(r, 'the audit');
-          var done = RP.applyAudit(state, r, report, {});
-          closeModal(); save(); render();
-          toast('🧾 ' + (done.join('; ') || 'nothing to do') + '.');
-        };
-      }
-    }
-    function openFacts(r) {
-      var facts = r.facts || {};
-      var keys = Object.keys(facts);
-      openModal('<h3>What is fixed in this scene</h3>' +
-        '<p class="sub">Where you are, what you are wearing, what time it is. Once these are filed the narrator may ' +
-        'not quietly change them — no renaming the outpost into a clinic halfway through.</p>' +
-        (r.clock ? '<p class="sub">🕰 <b>' + esc(r.clock) + '</b></p>' : '') +
-        (keys.length ? '<div class="stack">' + keys.map(function (k) {
-          return '<div class="item"><b>' + esc(k.replace(/_/g, ' ')) + '</b><p>' + esc(facts[k]) + '</p>' +
-            '<div class="acts"><button class="mini danger" data-factkill="' + esc(k) + '">Forget</button></div></div>';
-        }).join('') + '</div>' : '<p class="sub">Nothing filed yet — the narrator files these as it names them.</p>') +
-        '<div class="actions"><button class="pill" id="mCancel">Close</button>' +
-        '<button class="pill primary" id="mOk">＋ Add one</button></div>');
-      $('mCancel').onclick = closeModal;
-      $('mOk').onclick = function () {
-        closeModal();
-        form('A fixed fact', [
-          { k: 'name', label: 'What kind of fact (place, wearing, weather…)', value: 'place' },
-          { k: 'value', label: 'What it is', value: '' },
-        ], {}, function (v) {
-          if (!v.value.trim()) return;
-          r.facts = r.facts || {};
-          r.facts[RP.slug(v.name) || 'fact'] = v.value.trim();
-          r.updated = Date.now(); save(); render();
-        });
-      };
-      $('modal').querySelectorAll('[data-factkill]').forEach(function (b) {
-        b.onclick = function () { delete r.facts[b.dataset.factkill]; closeModal(); save(); render(); };
-      });
-    }
-    function openDate(r) {
-      form('When is this happening?', [
-        { k: 'date', label: 'In-world date', value: roomDate(r) },
-      ], {
-        note: 'Regal Empire Standard Calendar — "5 Aethel, 1040 BF". Months run Firstlight, Chillwind, Veridia, Bloom, ' +
-          'Floria, Efferd, Highsun, Harvestide, Aethel, Darkmoon, Frostfall, Deepwinter, and BF counts up. ' +
-          'The model is told which filings are already history and which have not happened yet, measured from this date.',
-      }, function (v) { r.date = v.date.trim(); r.updated = Date.now(); save(); render(); });
-    }
     on('backBtn', function () { state.active = ''; save(); render(); });
-    on('fateBtn', function () { if ($('cpFate')) $('cpFate').click(); else openPanelFate(); });
+    on('fateBtn', function () { openPanelFate(); });
     on('undoBtn', function () {
       var what = RP.undo(r);
+      var back = RP.linkedRoom(state, r);
+      if (back && back.mergedInto === r.id) {          // a merge taken back: the record is a scene again
+        delete back.mergedInto;
+        back.title = String(back.title || '').replace(/ \(merged into “[^”]*”\)$/, '');
+        back.linkedTo = r.id;
+        if (back.undo && back.undo.length && /being merged into/.test(back.undo[back.undo.length - 1].label || '')) RP.undo(back);
+      }
       save(); render();
       toast(what ? 'Undid ' + what + '.' : 'Nothing to undo.');
     });
@@ -2752,28 +4171,36 @@
       toast(what ? 'Redid ' + what + '.' : 'Nothing to redo.');
     });
     on('bookBtn', function () { tab = 'book'; state.active = ''; save(); render(); });
-    on('qaContinue', function () { generate(); });
-    on('qaBeat', function () { if ($('nextBeat')) $('nextBeat').click(); });
-    $('speakers').querySelectorAll('[data-macro]').forEach(function (b) {
+    on('qaContinue', function () {
+      // ➤ with a 👥 Several pick: the whole group plays, no line needed.
+      if (Array.isArray(r.pinnedNext)) {
+        var order = pinnedOrder(r, r.pinnedNext);
+        if (order.length) {
+          r.pinnedNext = '';
+          r.queue = order.slice(1); r.next = order[0];
+          r.moment = order.length > 1 && r.pinnedSame ? { id: RP.uid(), ids: order.slice(), same: true, done: [] } : null;
+          r.pinnedSame = false;
+          save();
+        }
+      }
+      generate({ room: r });
+    });
+    on('qaTogether', function () { togetherPicker(r); });
+    on('qaBeat', function () { fireNextBeat(r); });
+    $c('speakers').querySelectorAll('[data-macro]').forEach(function (b) {
       b.onclick = function () {
         var macro = userMacros().filter(function (m) { return m.id === b.dataset.macro; })[0];
         if (macro) runMacro(r, macro);
       };
     });
+    on('qaMood', function () { pickMood(r); });
+    on('qaAt', function () { var box = $c('input'); if (box) { wireMentions(box, r); box.mentionOpen(); } });
+    on('qaUse', function () { useItem(r, sfx); });
+    on('qaMeanwhile', function () { liveNow(r); });
+    on('qaMerge', function () { mergeDialog(r); });
+    on('mergeBtn', function () { mergeDialog(r); });
     on('macroAdd', function () {
-      form('A button of your own', [
-        { k: 'icon', label: 'Icon', value: '⚑' },
-        { k: 'label', label: 'Label', value: '' },
-        { k: 'text', label: 'What it writes — use {target} for whoever you pick', type: 'area', value: '' },
-        { k: 'mp', label: 'MP it costs (0 for none)', value: '0' },
-      ], { note: 'It writes the attempt for you; the roll still decides whether it works.' }, function (v) {
-        if (!v.label.trim() || !v.text.trim()) { toast('It needs a label and something to say.'); return; }
-        state.settings.macros = (state.settings.macros || []).concat([{
-          id: 'mac_' + RP.slug(v.label), icon: v.icon.trim() || '⚑', label: v.label.trim(),
-          text: v.text.trim(), mp: parseInt(v.mp, 10) || 0,
-        }]).slice(0, 6);
-        save(); render();
-      });
+      manageMacros(r);
     });
     on('qaSys', function () {
       state.settings.sysNotes = state.settings.sysNotes === 'hide' ? 'show' : 'hide';
@@ -2784,21 +4211,24 @@
       autoLeft = Math.max(2, Number(state.settings.autoplay || 6));
       render();
       toast('Playing ' + autoLeft + ' turns on their own — press ■ to stop, or just type.');
-      generate();
+      generate({ room: r });
     });
     on('qaAdd', function () {
       list('Bring somebody in', [
         { label: '🎭 From the archive — pick who walks in', value: 'cast' },
-        { label: '✨ Invent one — a name, a job, a face', value: 'new' },
+        { label: '✨ Invent one — a name, and the model fills in the rest', value: 'new' },
         { label: '📇 From a character card (.png / .json)', value: 'card' },
         { label: '🤖 Let the model choose and write them in', value: 'ai' },
       ], function (pick) {
         if (pick === 'card') { importCard(r); return; }
         if (pick === 'cast') {
+          var here = {};
+          (r.cast || []).forEach(function (c) { here[c.id] = 1; });
           castPicker({
-            title: 'Who walks in?',
-            note: 'They join this scene now, with a state sheet of their own.',
-            preselect: [], suggest: false,
+            title: 'Who walks in?', portraits: true, suggest: false, ok: 'Bring them in', exclude: here,
+            extra: (state.newChars || []).filter(function (c) { return !here[c.id] && !castById[c.id]; }),
+            note: 'They join this scene now, with a state sheet of their own. ＋ writes somebody new.',
+            create: function (seed) { inventForm(r, seed); },
           }, function (chosen) {
             chosen.forEach(function (c) { RP.addToRoom(r, c); });
             RP.logEvent(state, {
@@ -2811,45 +4241,15 @@
           });
           return;
         }
-        if (pick === 'new') {
-          form('Invent somebody', [
-            { k: 'name', label: 'Name', value: '' },
-            { k: 'role', label: 'What are they here for?', value: '' },
-            { k: 'look', label: 'What do they look like?', type: 'area', value: '' },
-          ], { note: 'Nobody has drawn them, so the description is the portrait. They are kept, and can be played again later.' },
-          function (v) {
-            if (!v.name.trim()) { toast('They need a name.'); return; }
-            var made = RP.normChar({
-              id: 'new_' + RP.slug(v.name), name: v.name.trim(),
-              title: v.role.trim() || 'Invented in play',
-              summary: [v.role.trim(), v.look.trim()].filter(Boolean).join(' — '),
-              handle: (state.user && state.user.handle) || 'waluipedia',
-            });
-            made.look = v.look.trim();
-            made.invented = true;
-            state.newChars = (state.newChars || []).filter(function (c) { return c.id !== made.id; });
-            state.newChars.unshift(made);
-            castById[made.id] = made;
-            cast = cast.concat([made]);
-            RP.addToRoom(r, made);
-            RP.logEvent(state, {
-              kind: 'roster', roomId: r.id, roomTitle: r.title, when: roomDate(r), chars: [made.id],
-              text: made.name + ' was invented and walked into the scene: ' + RP.clip(made.summary, 160),
-            });
-            save(); render();
-            toast(made.name + ' is in the scene.');
-          });
-          return;
-        }
-        // Let the model do it — it has the stage direction for exactly this.
-        r.messages.push({
-          id: RP.uid(), role: 'scene', at: Date.now(),
-          text: 'Somebody new arrives. Whoever speaks next brings them in — name them, describe them, and give them a reason to be here.',
-        });
-        save(); render();
-        generate();
+        if (pick === 'new') { inventForm(r, ''); return; }
+        // Let the model do it — as a direction, so it actually reaches the
+        // prompt: a scene card on its own is for the reader, not the model.
+        directRoom(r, 'Somebody new arrives. Bring them in on this turn — name them, describe them in a sentence, ' +
+          'and give them a reason to be here — with the [[NEW: Name | why | look]] direction.', '', '');
       });
     });
+    on('qaDirect', function () { directForm(r, '', ''); });
+    on('qaLength', pickLength);
     on('qaRisk', function () {
       form('Attempt something', [{ k: 'text', label: 'What do you try?', type: 'area', value: '' }], {
         note: 'Written as an attempt, not an outcome — the page rolls, and the scene decides whether it works. ' +
@@ -2857,61 +4257,17 @@
         ok: 'Try it',
       }, function (v) {
         if (!v.text.trim()) return;
-        $('input').value = v.text.trim();
-        $('composer').dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
+        $c('input').value = v.text.trim();
+        $c('composer').dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
       });
     });
     on('statesBtn', function () { showStates = !showStates; render(); });
-    on('seqBtn', function () { openSequel(room()); });
-    var bar1 = $('statebar');
-    if (bar1) bar1.querySelectorAll('[data-sheet]').forEach(function (b) {
-      b.onclick = function (e) {
-        if (e.target && e.target.dataset && e.target.dataset.here) return;
-        editSheet(b.dataset.sheet);
-      };
-    });
-    // The bench: bring somebody back, or remove their seat entirely.
-    if (bar1) bar1.querySelectorAll('[data-back]').forEach(function (b) {
-      b.onclick = function (e) {
-        e.stopPropagation();
-        RP.pushUndo(r, 'bringing ' + r.states[b.dataset.back].name + ' back');
-        RP.setPresent(r, b.dataset.back, true);
-        save(); render();
-        toast(charOf(r, b.dataset.back).name + ' is in the scene again.');
-      };
-    });
-    if (bar1) bar1.querySelectorAll('[data-dropcast]').forEach(function (b) {
-      b.onclick = function (e) {
-        e.stopPropagation();
-        var name = (r.states[b.dataset.dropcast] || {}).name || 'them';
-        if (!window.confirm('Remove ' + name + ' from this chat? The archive keeps their record; only their seat here goes.')) return;
-        RP.pushUndo(r, 'removing ' + name);
-        RP.castRemove(r, b.dataset.dropcast);
-        save(); buildBoard(); render();
-        toast(name + ' removed from this chat.');
-      };
-    });
-    // ＋ invite: the archive's own roster, minus whoever is already here.
-    on('castAdd', function () {
-      var have = {};
-      (r.cast || []).forEach(function (c) { have[c.id] = 1; });
-      var options = Object.keys(castById).filter(function (id) { return !have[id]; })
-        .map(function (id) { return { label: castById[id].name + (castById[id].title ? ' — ' + RP.clip(castById[id].title, 40) : ''), value: id }; })
-        .sort(function (a, b) { return a.label.localeCompare(b.label); });
-      list('Who joins the scene?', options, function (id) {
-        var c = RP.normChar(castById[id]);
-        RP.pushUndo(r, 'inviting ' + c.name);
-        r.cast.push(c);
-        RP.ensurePlayerSheet(state, r);
-        if (r.mechanics !== 'off' && !r.states[c.id]) {
-          r.states[c.id] = RP.outfit(r, c, RP.blankSheet(c, r.statePreset));
-        }
-        r.messages.push({ id: RP.uid(), role: 'state', at: Date.now(),
-          lines: ['🚪 ' + c.name + ' joins the scene — invited from the archive'] });
-        save(); buildBoard(); render();
-        toast(c.name + ' is in the scene.');
-      });
-    });
+    on('seqBtn', function () { openSequel(r); });
+    var bar1 = $c('statebar');
+    // Seats are drawn twice — the sheet cards in the statebar and the rows in
+    // the dock's Cast tab — and both answer to the same attributes.
+    wireSeats(box, r);
+    on('castAdd', function () { invitePicker(r); });
     // Drag a card to the bench to write them out; drag a benched name
     // is not needed — the ↩ does it — but a card dropped back on the
     // main bar re-enters the scene.
@@ -2922,12 +4278,14 @@
           ev.dataTransfer.effectAllowed = 'move';
         };
       });
-      var bench = $('awayBench');
+      var bench = $c('awayBench');
       if (bench) {
         bench.ondragover = function (ev) { ev.preventDefault(); bench.classList.add('over'); };
         bench.ondragleave = function () { bench.classList.remove('over'); };
         bench.ondrop = function (ev) {
-          ev.preventDefault(); bench.classList.remove('over');
+          bench.classList.remove('over');
+          if (dragging && dragging.roomId && dragging.roomId !== r.id) return;   // from the other scene: the column takes it (walk over)
+          ev.preventDefault();
           var id = ev.dataTransfer.getData('text/plain');
           if (!id || !r.states[id] || r.states[id].present === false) return;
           RP.pushUndo(r, 'writing ' + r.states[id].name + ' out');
@@ -2938,7 +4296,8 @@
       }
       bar1.ondragover = function (ev) { ev.preventDefault(); };
       bar1.ondrop = function (ev) {
-        if (ev.target && ev.target.closest && ev.target.closest('#awayBench')) return;
+        if (ev.target && ev.target.closest && ev.target.closest('.bench')) return;
+        if (dragging && dragging.roomId && dragging.roomId !== r.id) return;
         var id = ev.dataTransfer && ev.dataTransfer.getData('text/plain');
         if (!id || !r.states[id] || r.states[id].present !== false) return;
         ev.preventDefault();
@@ -2987,8 +4346,8 @@
             });
             return;
           }
-          $('input').value = 'I use ' + item.name + (item.note ? ' — ' + item.note : '') + '.';
-          $('composer').dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
+          $c('input').value = 'I use ' + item.name + (item.note ? ' — ' + item.note : '') + '.';
+          $c('composer').dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
         });
       };
     });
@@ -3011,38 +4370,45 @@
         });
       };
     });
-    if (bar1) bar1.querySelectorAll('[data-here]').forEach(function (b) {
-      b.onclick = function (e) {
-        e.stopPropagation();
-        RP.pushUndo(r, 'that change to the cast');
-        var here = RP.setPresent(r, b.dataset.here, undefined);
-        save(); render();
-        toast(here ? charOf(r, b.dataset.here).name + ' is in the scene.'
-          : charOf(r, b.dataset.here).name + ' is not here — they will not speak until they are.');
-      };
-    });
     on('panelBtn', function () { $('charpanel').classList.toggle('open'); });
-    on('continueBtn', function () { generate(); });
-    on('nextBeat', function () {
-      r.beatsPaused = false; if (RP.fireBeat(r)) { logBeat(r); save(); render(); } });
+    on('continueBtn', function () { generate({ room: r }); });
+    on('nextBeat', function () { fireNextBeat(r); });
 
-    $('speakers').querySelectorAll('[data-speaker]').forEach(function (b) {
+    $c('speakers').querySelectorAll('[data-speaker]').forEach(function (b) {
       b.onclick = function (e) {
         if (e.target && e.target.dataset && e.target.dataset.star) return;   // the star is its own control
         if (b.dataset.speaker === r.youPlay) { toast('You play them — ☆ to hand them back to the model.'); return; }
-        r.next = b.dataset.speaker; save(); render();
+        // A pick on the rail is an order, not a hint. It used to be a hint:
+        // the staging call after your next line chose again, and "Next: ◍
+        // The Director" quietly became Wario answering for the fifth time.
+        r.next = b.dataset.speaker; r.pinnedNext = b.dataset.speaker; r.pinnedSame = false; save(); render();
+        toast(b.dataset.speaker === 'world'
+          ? RP.NARRATORS[RP.narrator(state)].icon + ' ' + RP.NARRATORS[RP.narrator(state)].name + ' takes the next turn — write what you do, or ➤ Continue, and the scene itself answers.'
+          : charOf(r, b.dataset.speaker).name + ' answers next — whatever you write, it is theirs to take.');
       };
     });
-    $('speakers').querySelectorAll('[data-star]').forEach(function (b) {
-      b.onclick = function (e) {
-        e.stopPropagation();
-        var now = RP.markPlayer(r, b.dataset.star);
+    on('qaPlayAs', function () {
+      var playing = RP.playerCharacter(r);
+      if (!playing) { playAsPicker(r); return; }
+      var isDefault = (state.user && state.user.playAs) === playing.id;
+      list('You play ' + playing.name, [
+        { label: '🎭 Switch — play somebody else', value: 'switch' },
+        { label: isDefault ? '☆ Stop being ' + playing.name + ' in new chats' : '★ Be ' + playing.name + ' in every new chat', value: 'default' },
+        { label: '↩ Hand ' + playing.name + ' back to the model', value: 'back' },
+      ], function (pick) {
+        if (pick === 'switch') { playAsPicker(r); return; }
+        if (pick === 'default') {
+          state.user.playAs = isDefault ? '' : playing.id;
+          save(); render();
+          toast(isDefault ? 'New chats open as you again.' : 'Every new chat opens with you as ' + playing.name + '.');
+          return;
+        }
+        RP.markPlayer(r, playing.id);
         save(); render();
-        toast(now ? 'You play ' + charOf(r, now).name + ' — the model will not speak for them, and the world narrates around you.'
-          : 'Handed back to the model.');
-      };
+        toast(playing.name + ' handed back to the model.');
+      });
     });
-    var stream = $('stream');
+    var stream = $c('stream');
     stream.querySelectorAll('[data-react]').forEach(function (b) {
       b.onclick = function () {
         var m = r.messages[+b.dataset.i];
@@ -3052,6 +4418,9 @@
         if (now === 'up') toast('👍 Noted — later turns will lean this way.');
         if (now === 'down') toast('👎 Noted — later turns will avoid that. ↻ for another take.');
       };
+    });
+    stream.querySelectorAll('[data-auditturn]').forEach(function (b) {
+      b.onclick = function () { runSheetAudit(r, { turn: b.getAttribute('data-auditturn') }); };
     });
     stream.querySelectorAll('[data-edit]').forEach(function (b) {
       b.onclick = function () {
@@ -3122,26 +4491,240 @@
       };
     });
     stream.querySelectorAll('[data-retry]').forEach(function (b) {
-      b.onclick = function () { generate({ retryIndex: +b.dataset.retry }); };
+      b.onclick = function () { generate({ room: r, retryIndex: +b.dataset.retry }); };
     });
     stream.querySelectorAll('[data-speak]').forEach(function (b) {
       b.onclick = function () { speak(r.messages[+b.dataset.speak], r, { fresh: true }); };
     });
+    stream.querySelectorAll('[data-mention]').forEach(function (link) {
+      link.onclick = function (e) {
+        e.preventDefault();
+        mentionCard(r, { id: link.dataset.mention, kind: link.dataset.mkind, name: link.dataset.mname, roomId: link.dataset.mroom });
+      };
+    });
+    if ($c('input')) wireMentions($c('input'), r);
+    // The second scene's prompt. The front one's is wired once, in
+    // wireShell; this column's shell is built when the link is, so its
+    // handlers are bound here — same keys, same rules.
+    if (col) {
+      var input = $c('input');
+      var go = function () {
+        var text = input.value.trim();
+        if (!text || busy) return;
+        input.value = ''; input.style.height = 'auto';
+        $c('send').disabled = true;
+        sendText(r, text);
+      };
+      $c('composer').onsubmit = function (e) { e.preventDefault(); go(); };
+      input.oninput = function () {
+        $c('send').disabled = !input.value.trim();
+        input.style.height = 'auto';
+        input.style.height = Math.min(150, input.scrollHeight) + 'px';
+      };
+      input.onkeydown = function (e) {
+        if (e.key !== 'Enter') return;
+        var ctrl = e.ctrlKey || e.metaKey;
+        if (enterSends() ? (!e.shiftKey || ctrl) : ctrl) { e.preventDefault(); go(); }
+      };
+    }
+  }
+
+  /** The seats — sheet cards in a column's statebar, rows in the dock's
+   *  Cast tab — answer to the same attributes wherever they are drawn. */
+  function wireSeats(container, r) {
+    if (!container) return;
+    container.querySelectorAll('[data-sheet]').forEach(function (b) {
+      b.onclick = function (e) {
+        if (e.target && e.target.dataset && e.target.dataset.here) return;
+        editSheet(b.dataset.sheet, r);
+      };
+    });
+    // The bench: bring somebody back, or remove their seat entirely.
+    container.querySelectorAll('[data-back]').forEach(function (b) {
+      b.onclick = function (e) {
+        e.stopPropagation();
+        RP.pushUndo(r, 'bringing ' + r.states[b.dataset.back].name + ' back');
+        RP.setPresent(r, b.dataset.back, true);
+        save(); render();
+        toast(charOf(r, b.dataset.back).name + ' is in the scene again.');
+      };
+    });
+    container.querySelectorAll('[data-dropcast]').forEach(function (b) {
+      b.onclick = function (e) {
+        e.stopPropagation();
+        var name = (r.states[b.dataset.dropcast] || {}).name || 'them';
+        if (!window.confirm('Remove ' + name + ' from this chat? The archive keeps their record; only their seat here goes.')) return;
+        RP.pushUndo(r, 'removing ' + name);
+        RP.castRemove(r, b.dataset.dropcast);
+        save(); buildBoard(); render();
+        toast(name + ' removed from this chat.');
+      };
+    });
+    container.querySelectorAll('[data-here]').forEach(function (b) {
+      b.onclick = function (e) {
+        e.stopPropagation();
+        RP.pushUndo(r, 'that change to the cast');
+        var here = RP.setPresent(r, b.dataset.here, undefined);
+        save(); render();
+        toast(here ? charOf(r, b.dataset.here).name + ' is in the scene.'
+          : charOf(r, b.dataset.here).name + ' is not here — they will not speak until they are.');
+      };
+    });
+    container.querySelectorAll('[data-star]').forEach(function (b) {
+      b.onclick = function (e) {
+        e.stopPropagation();
+        var now = RP.markPlayer(r, b.dataset.star);
+        save(); render();
+        toast(now ? 'You play ' + charOf(r, now).name + ' — the model will not speak for them, and the world narrates around you.'
+          : 'Handed back to the model.');
+      };
+    });
+  }
+
+  /** Header and dock share these; both scenes do too. */
+  function togglePrivacy(r) {
+    r.privacy = r.privacy === 'private' ? 'open' : r.privacy === 'open' ? '' : 'private';
+    save(); render();
+    toast(r.privacy === 'private' ? '🔒 Private — nobody else will speak until you open it.'
+      : r.privacy === 'open' ? '🔓 Open — the scene answers even when you are muttering.'
+      : '👂 Reading the room — quiet turns are left alone.');
+  }
+  function pickLength() {
+    var keys = Object.keys(RP.LENGTHS);
+    list('How long should a reply be?', keys.map(function (k) {
+      var cur = (state.settings.length || RP.DEFAULT_LENGTH) === k;
+      return { label: (cur ? '● ' : '○ ') + RP.LENGTHS[k].name + ' — ' + RP.LENGTHS[k].words, value: k };
+    }), function (pick) {
+      state.settings.length = pick; save(); render();
+      toast('✂ ' + RP.LENGTHS[pick].name + (pick === 'adaptive' ? ' — a retort stays short, a reveal gets its paragraphs.' : ' — ' + RP.LENGTHS[pick].words + '.'));
+    });
+  }
+  function fireNextBeat(r) {
+    r.beatsPaused = false;
+    if (RP.fireBeat(r)) { logBeat(r); save(); render(); }
   }
 
   function wirePanel() {
-    var r = room();
+    var r = dockRoom();
     var c = r.cast[0] || {};
     var on = function (id, fn) { var node = $(id); if (node) node.onclick = fn; };
+    // The dock's tabs, and the rows that are the dock's own.
+    $('charpanel').querySelectorAll('[data-dock]').forEach(function (b) {
+      b.onclick = function () { dockTab = b.dataset.dock; render(); };
+    });
+    $('charpanel').querySelectorAll('[data-dockside]').forEach(function (b) {
+      b.onclick = function () { dockSide = b.dataset.dockside; render(); };
+    });
+    wireSeats($('charpanel'), r);
+    on('dkInvite', function () { invitePicker(r); });
+    on('dkPlayAs', function () { playAsPicker(r); });
+    $('charpanel').querySelectorAll('[data-walk]').forEach(function (b) {
+      b.onclick = function (e) {
+        e.stopPropagation();
+        var other = RP.linkedRoom(state, r);
+        if (other) walkOver(r, other, b.dataset.walk);
+      };
+    });
+    on('dkInvent', function () { inventForm(r, ''); });
+    on('dkSheets', function () { showStates = !showStates; render(); });
+    on('dkScene', function () {
+      form('Where is this happening?', [{ k: 'scene', label: 'The scene, as the cast would see it', type: 'area', value: r.scene || '' }], {
+        note: 'This is the opening of every prompt. Change it when the camera moves for good; for something happening elsewhere at the same time, start a second scene instead.',
+      }, function (v) {
+        RP.pushUndo(r, 'rewriting the scene');
+        r.scene = v.scene.trim(); r.updated = Date.now(); save(); render();
+      });
+    });
+    on('dkDate', function () { openDate(r); });
+    on('dkClock', function () { openFacts(r); });
+    on('dkFacts', function () { openFacts(r); });
+    on('dkBeat', function () { fireNextBeat(r); });
+    on('dkLink', function () { secondSceneDialog(r); });
+    on('dkOpenOther', function () { var other = RP.linkedRoom(state, r); if (other) openRoom(other.id); });
+    on('dkMerge', function () { mergeDialog(r); });
+    on('dkLive', function () {
+      var other = RP.linkedRoom(state, r);
+      list('🌗 The scene you are not in', [
+        { label: ((r.live || 'off') === 'off' ? '● ' : '○ ') + 'Stands still until you cross over — no extra calls', value: 'off' },
+        { label: (r.live === 'other' ? '● ' : '○ ') + 'Moves every other turn you take — one unattended beat, queued after your turn', value: 'other' },
+        { label: (r.live === 'every' ? '● ' : '○ ') + 'Moves after every turn you take — one unattended beat each time', value: 'every' },
+      ], function (pick) {
+        r.live = pick; if (other) other.live = pick;
+        save(); render();
+        toast(pick === 'off' ? '🌗 The other scene stands still while you are away.'
+          : '🌗 The other scene moves on its own — ' + (pick === 'every' ? 'after each' : 'every other') + ' turn, one beat, never two prompts at once. Your turn always cuts it.');
+      });
+    });
+    on('dkLiveSelf', function () {
+      var other = RP.linkedRoom(state, r);
+      r.liveSelf = !r.liveSelf; if (other) other.liveSelf = r.liveSelf;
+      save(); render();
+      toast(r.liveSelf ? '🧍 While you are away, the character you play in the other scene may act for themselves — small and reversible.'
+        : '🧍 Your character in the other scene waits for you.');
+    });
+    on('dkLength', pickLength);
+    on('dkNarrator', function () {
+      var keys = Object.keys(RP.NARRATORS);
+      list('Who narrates?', keys.map(function (k) {
+        var cur = (state.settings.world || 'on') !== 'off' && RP.narrator(state) === k;
+        return { label: (cur ? '● ' : '○ ') + RP.NARRATORS[k].icon + ' ' + RP.NARRATORS[k].name + ' — ' + RP.NARRATORS[k].blurb, value: k };
+      }).concat([{ label: ((state.settings.world || 'on') === 'off' ? '● ' : '○ ') + '✕ No narrator — only the cast speaks', value: 'off' }]), function (pick) {
+        if (pick === 'off') { state.settings.world = 'off'; }
+        else { state.settings.world = 'on'; state.settings.narrator = pick; }
+        save(); render();
+        toast(pick === 'off' ? 'The narrator is off.' : RP.NARRATORS[pick].icon + ' ' + RP.NARRATORS[pick].name + ' narrates.');
+      });
+    });
+    on('dkPrivacy', function () { togglePrivacy(r); });
+    on('dkAudience', function () {
+      var keys = Object.keys(RP.AUDIENCE);
+      list('The room answers \u2014 what the people who are not speaking do', keys.map(function (k) {
+        var cur = (state.settings.audience || RP.AUDIENCE_DEFAULT) === k;
+        return { label: (cur ? '\u25cf ' : '\u25cb ') + RP.AUDIENCE[k].name + ' \u2014 ' + RP.AUDIENCE[k].blurb, value: k };
+      }), function (pick) {
+        state.settings.audience = pick; save(); render();
+        toast(pick === 'off' ? 'The room is quiet \u2014 only the speaker answers.'
+          : pick === 'full' ? 'Full replies \u2014 up to two of the room answer after the speaker, each on their own card.'
+          : 'Murmurs \u2014 one short beat from the room after the speaker, on its own card.');
+      });
+    });
+    on('dkFresh', function () {
+      var keys = Object.keys(RP.FRESH);
+      list('Fresh turns \u2014 what happens when a character repeats themselves', keys.map(function (k) {
+        var cur = (state.settings.fresh || RP.FRESH_DEFAULT) === k;
+        return { label: (cur ? '\u25cf ' : '\u25cb ') + RP.FRESH[k].name + ' \u2014 ' + RP.FRESH[k].blurb, value: k };
+      }), function (pick) {
+        state.settings.fresh = pick; save(); render();
+        toast(pick === 'off' ? 'Fresh turns off.' : pick === 'strict' ? 'Strict \u2014 a turn that leans on old phrases is asked for again, once.'
+          : 'Guide \u2014 the ledger of used phrases rides the prompt; the reply is kept as it comes.');
+      });
+    });
+    on('dkHurt', function () {
+      state.settings.hurt = (state.settings.hurt || 'on') === 'off' ? 'on' : 'off';
+      save(); render();
+      toast(state.settings.hurt === 'off' ? 'Wounds: only what the model files as [[HP:]] lands on the sheets.'
+        : 'Wounds: a crash, a blade or a blast in the prose costs HP even when the model files nothing — no extra call.');
+    });
+    on('dkAudit', function () { runAudit(r); });
+    on('dkReview', function () { runSheetAudit(r); });
+    on('dkReviewFull', function () { runSheetAudit(r, { full: true }); });
+    on('dkSequel', function () { openSequel(r); });
+    on('dkBook', function () { tab = 'book'; state.active = ''; save(); render(); });
+    on('dkReadLast', function () {
+      var last = r.messages.slice().reverse().filter(function (m) { return (m.role === 'char' || m.role === 'world') && !m.error; })[0];
+      if (!last) { toast('Nothing to read yet.'); return; }
+      speak(last, r, { fresh: true });
+    });
     on('cpNew', function () { r.kind === 'group' ? startGroup(r.cast, { scene: r.scene, sceneName: r.sceneName, beats: r.beats }) : startSolo(c); });
     on('cpAudio', function () { downloadChatAudio(r); });
+    on('dkAudioBoth', function () { downloadChatAudio(r, { both: true }); });
     on('cpFix', function () {
       // The grandfather clause: an old chat gets today's rules. Cast
       // re-read from the archive, sheets mended, star rules re-run — and
       // the voice caches dropped so the studio is asked again RIGHT NOW
       // instead of whenever the last answer expires.
       var lines = RP.fixRoom(state, r, castById);
-      voiceMisses = {};
+      voiceMisses = {}; voiceRetried = {};
       libCache = { at: 0, list: null };
       var cfg = ttsConfig();
       voiceLibrary(cfg).then(function (lib) {
@@ -3177,13 +4760,18 @@
           value: state.settings.voice === 'on' ? 'on' : 'off',
           options: [{ value: 'off', label: 'Only when I press ▶ on a message' },
                     { value: 'on', label: 'Every reply, as it lands' }] },
+        { k: 'parts', label: 'How a turn is cut for the studio', type: 'select',
+          value: state.settings.voiceParts || 'turn',
+          options: [{ value: 'turn', label: 'By turn — the whole reply in the speaker’s voice, a few sentence-sized requests (fast)' },
+                    { value: 'quotes', label: 'By quote — every quote in its speaker’s voice, narration in the narrator’s (one request per quote; slow on chatty lines)' }] },
         { k: 'fallback', label: 'Fallback voice — a saved profile in the studio; also reads narration', value: cfg.voice },
         { k: 'map', label: 'Voice map, for the exceptions — one per line: character = profile (e.g. sans = Freeman)', type: 'area', value: state.settings.ttsVoices || '' },
-      ], { note: 'Every ▶ speaks through your local Qwen3-TTS studio — the same bridge as the site’s 🔊 Read aloud, using the endpoint and model from its ⚙️. A speaker is linked to a saved voice profile by first name on its own: when Wario talks, the studio’s “Wario” profile reads the line. No profile under that name? The fallback voice covers them until you save one in the Voice Studio.' }, function (v) {
+      ], { note: 'Every ▶ speaks through your local Qwen3-TTS studio — the same bridge as the site’s 🔊 Read aloud, using the endpoint and model from its ⚙️. A speaker is linked to a saved voice profile by first name on its own: when Wario talks, the studio’s “Wario” profile reads the line. No profile under that name? The fallback voice covers them until you save one in the Voice Studio. ■ Stop in the header (or Esc) cuts a reading or a render at any point.' }, function (v) {
         state.settings.voice = v.mode;
+        state.settings.voiceParts = v.parts;
         state.settings.voiceDefault = v.fallback.trim();
         state.settings.ttsVoices = v.map;
-        voiceMisses = {};
+        voiceMisses = {}; voiceRetried = {};
         libCache = { at: 0, list: null };
         save(); render();
         toast(v.mode === 'on' ? '🔊 Replies read themselves — each in their own voice.' : '🔊 Voices on tap — ▶ on any message.');
@@ -3198,11 +4786,14 @@
     on('cpCustomize', function () {
       form('Customize this chat', [
         { k: 'title', label: 'Chat title', value: r.title },
+        { k: 'sceneName', label: 'Scene name (the short name used in the ⇄ cards and the recents)', value: r.sceneName || '' },
         { k: 'scene', label: 'The scene', type: 'area', value: r.scene },
+        { k: 'sceneImage', label: 'Scene picture (a path under the site, e.g. Reputation-Matrix2/images/…; blank for none)', value: r.sceneImage || '' },
         { k: 'style', label: 'Narration style', type: 'select', value: r.style, options: Object.keys(RP.STYLES).map(function (k) { return { value: k, label: RP.STYLES[k].name }; }) },
         { k: 'temperature', label: 'Temperature (0–1.5)', value: String(state.settings.temperature) },
-      ], {}, function (v) {
+      ], { note: 'How the page itself looks — theme, text, widths — is under ⚙ Settings → 🎨 Appearance.' }, function (v) {
         r.title = v.title || r.title; r.scene = v.scene; r.style = v.style;
+        r.sceneName = (v.sceneName || '').trim(); r.sceneImage = (v.sceneImage || '').trim();
         var t = parseFloat(v.temperature); if (!isNaN(t)) state.settings.temperature = Math.max(0, Math.min(1.5, t));
         save(); render();
       });
@@ -3285,28 +4876,20 @@
       });
     });
     on('cpDelete', function () {
-      confirmThen('Delete “' + RP.clip(r.title, 40) + '”?',
-        'The transcript goes; the memories and world-log lines it filed stay, because other chats depend on them.',
+      var pair = RP.linkedRoom(state, r);
+      confirmThen(pair ? 'Delete both scenes — “' + RP.clip(r.title, 30) + '” and “' + RP.clip(pair.title, 30) + '”?' : 'Delete “' + RP.clip(r.title, 40) + '”?',
+        'The transcript goes; the memories and world-log lines it filed stay, because other chats depend on them.' +
+        (pair ? ' To keep one of the two, ⨯ Unlink first (⇄ in the header).' : ''),
         function () {
-          state.rooms = (state.rooms || []).filter(function (x) { return x.id !== r.id; });
+          var gone = pair ? [r.id, pair.id] : [r.id];
+          state.rooms = (state.rooms || []).filter(function (x) { return gone.indexOf(x.id) < 0; });
           state.active = '';
-          save(); render();
-          toast('Chat deleted. Its memories are still in the log.');
+          dockSide = '';
+          save(); buildBoard(); render();
+          toast(pair ? 'Both scenes deleted. Their memories are still in the log.' : 'Chat deleted. Its memories are still in the log.');
         });
     });
-    on('cpFate', function () {
-      form('Fate', [
-        { k: 'fate', label: 'How often does the world push back?', type: 'select', value: state.settings.fate || 'normal',
-          options: [
-            { value: 'off', label: 'Off — whatever you write, works' },
-            { value: 'gentle', label: 'Gentle — mostly you, occasionally a price' },
-            { value: 'normal', label: 'Normal — costs and wrenches are common, failure happens' },
-            { value: 'harsh', label: 'Harsh — the world is against you and the cast argues back' },
-          ] },
-      ], { note: 'Before each reply to something you attempted, the page rolls and tells the model how it resolves: it works, it works at a price, something cuts across it, it fails, or the character simply refuses you. The model is told not to narrate the dice — and being wounded shifts the odds against you.' }, function (v) {
-        state.settings.fate = v.fate; save(); render();
-      });
-    });
+    on('cpFate', openPanelFate);
     on('cpExport', function () { exportMenu(r, c); });
     on('cpImport', function () {
       list('Import into “' + RP.clip(r.sceneName || r.title, 36) + '”', [
@@ -3401,19 +4984,81 @@
     });
   }
 
+  /** 🎬 — the reader as director. What you type is not said by anyone: it
+   *  is filed on the room, rides in the protected tail of the next prompt
+   *  as a thing that happens, and is spent by that turn. `who` is who
+   *  plays it landing: 'world' for the narration, or a cast id. */
+  function directRoom(r, text, who, from) {
+    var d = RP.setDirection(r, text, from);
+    if (!d) return;
+    r.messages.push({ id: RP.uid(), role: 'scene', direction: true, from: from || '', at: Date.now(), text: d.text });
+    r.queue = []; r.moment = null; r.handback = ''; r.pinnedNext = ''; r.pinnedSame = false;
+    var speakable = RP.speakableCast(r);
+    var cast = speakable.some(function (c) { return c.id === who; });
+    var worldOk = (state.settings.world || 'on') !== 'off';
+    r.next = cast ? who : (worldOk ? 'world' : (speakable[0] || {}).id || '');
+    r.updated = Date.now();
+    autoLeft = 0;
+    save(); render();
+    generate({ room: r, world: r.next === 'world' });
+  }
+
+  function directForm(r, preset, from) {
+    var narrator = RP.NARRATORS[RP.narrator(state)];
+    var who = [{ value: 'world', label: narrator.icon + ' ' + narrator.name + ' — narrates it landing' }]
+      .concat(RP.speakableCast(r).map(function (c) { return { value: c.id, label: c.name + ' — reacts to it, in character' }; }));
+    form('🎬 Direct the scene', [
+      { k: 'text', label: 'What happens next? Write it as a fact, not a request — “the ceiling gives way”, “a siren starts up across the street”, “Wario finds the ledger is blank”', type: 'area', value: preset || '' },
+      { k: 'who', label: 'Who plays it', type: 'select', value: 'world', options: who },
+    ], {
+      note: 'Nobody says this — it goes to the model as a thing that happens, this turn, and the cast deals with it in ' +
+        'character. For a nudge rather than an event, ((double brackets)) inside your own turn do the quieter version.' +
+        (from ? ' Carried over from “' + from + '”.' : ''),
+      ok: '🎬 Action',
+    }, function (v) {
+      if (!v.text.trim()) return;
+      directRoom(r, v.text.trim(), v.who, from || '');
+    });
+  }
+
   function send() {
     var input = $('input');
     var text = input.value.trim();
     if (!text || busy) return;
-    var r = room();
     input.value = '';
     input.style.height = 'auto';
+    sendText(room(), text);
+  }
+
+  /** One turn of yours into a room — the front one, or the linked scene at
+   *  the side. Everything that used to live in send(): the ((notes)), the
+   *  thin-air check, the time-jump pause, the staging, the reply. */
+  function sendText(r, text) {
+    if (!r || !text) return;
+    if (busy && ambientNow) {
+      // An unattended beat is in flight: your turn wins. Cut it, and send
+      // when the cut has landed.
+      stopAll(true);
+      var tries = 0;
+      (function again() {
+        if (!busy) { sendText(r, text); return; }
+        if (++tries < 40) window.setTimeout(again, 50);
+      })();
+      return;
+    }
+    if (busy) return;
     // ((Anything in double brackets)) is spoken to the model, not by you.
     var spoken = RP.parseOoc(text);
+    // @Name points at exactly who you mean — here, written out, in the
+    // other scene, in the lore book or in the archive. The @ comes out;
+    // the pointer stays on the turn and briefs the model.
+    var pinged = RP.parseMentions(spoken.clean || text, mentionCandidates(r, spoken.clean || text));
     var msg = {
-      id: RP.uid(), role: 'user', text: spoken.clean || text, at: Date.now(),
+      id: RP.uid(), role: 'user', text: pinged.clean || spoken.clean || text, at: Date.now(),
       ooc: spoken.notes.length ? spoken.notes : undefined,
+      mentions: pinged.mentions.length ? pinged.mentions : undefined,
     };
+    pingElsewhere(r, pinged.mentions, msg.text);
     r.lastNotes = spoken.notes;
     autoLeft = 0;                       // your turn beats the autopilot
     RP.pushUndo(r, 'your turn');
@@ -3431,6 +5076,20 @@
         r.conjured = claimed.claim;
         msg.changes = ['🚫 “' + claimed.claim + '” is not on your sheet — the world will answer'];
       }
+      // Brought round: a slap, salts, a stim, a heal on somebody at 0 HP
+      // moves their sheet NOW, so the reply is written to a man at 5/100
+      // and not to a number nobody updated. And your own sprint costs
+      // breath.
+      RP.reviveScan(msg.text, r).forEach(function (hit) {
+        var line = RP.revive(RP.sheetFor(r, hit.id), hit.how);
+        if (line) msg.changes = (msg.changes || []).concat([line]);
+      });
+      var mine = RP.sheetFor(r, RP.playerSheetId(r));
+      var effort = mine ? RP.exertScan(msg.text, mine) : null;
+      if (effort && mine.mp.value > 0) {
+        var spentLine = RP.applyChange(mine, { kind: 'mp', op: '-', value: effort.amount });
+        if (spentLine) msg.changes = (msg.changes || []).concat(['\u26a1 ' + spentLine + ' \u2014 ' + effort.cause]);
+      }
     }
     // A jump in time means the filed script no longer lines up with the
     // scene. Pause it rather than firing "beat 3" into a different night.
@@ -3439,15 +5098,32 @@
       toast('⏩ The script is paused — you moved the scene on. Press ⏩ in the header to fire the next beat by hand.');
     }
     r.queue = [];
+    r.moment = null;
     r.handback = '';
+    if (r.mechanics !== 'off') msg.mood = moodOn(r, RP.playerSheetId(r));
     r.messages.push(msg);
     RP.rememberTurn(state, r, msg);
     r.updated = Date.now();
     save(); render();
-    // Stage the beat first: who answers, in what order. Then play them.
-    busy = true; render();
-    stageBeat(r).then(function (order) {
-      busy = false;
+    // An explicit pick on the rail — "◍ The Director", "Wario" — beats the
+    // staging call, once: you asked for them, you get them.
+    var pinned = r.pinnedNext || '';
+    r.pinnedNext = '';
+    // 👥 Several: a list of faces is the order itself — and, when asked
+    // for, the same moment: every turn in it is written as happening in
+    // the same seconds as yours.
+    var several = Array.isArray(pinned) ? pinnedOrder(r, pinned) : [];
+    var sameMoment = several.length > 1 && r.pinnedSame;
+    r.pinnedSame = false;
+    var pinnedOk = several.length ? true : pinned === 'world'
+      ? (state.settings.world || 'on') !== 'off'
+      : RP.speakableCast(r).some(function (c) { return c.id === pinned; });
+    // Otherwise stage the beat first: who answers, in what order. Then play them.
+    busy = true; busyRoom = r.id; render();
+    var epoch = stopEpoch;
+    (pinnedOk ? Promise.resolve(several.length ? several : [pinned]) : stageBeat(r)).then(function (order) {
+      busy = false; busyRoom = null;
+      if (epoch !== stopEpoch) { save(); render(); return; }   // ■ while the beat was being staged
       if (!order.length) {
         // Nobody had to answer — so the world picks it up and describes
         // what you just did. A scene should never simply stop.
@@ -3461,9 +5137,69 @@
       }
       r.queue = order.slice(1);
       r.next = order[0];
+      if (sameMoment) r.moment = { id: RP.uid(), ids: order.slice(), same: true, done: [] };
       save();
-      generate();
+      generate({ room: r });
     });
+  }
+
+  /** The faces a 👥 Several pick still allows: present, speakable, not
+   *  the character you play; the narrator when narration is on. */
+  function pinnedOrder(r, ids) {
+    var ok = {};
+    RP.speakableCast(r).forEach(function (c) { ok[c.id] = true; });
+    if ((state.settings.world || 'on') !== 'off') ok.world = true;
+    var seen = {};
+    return (ids || []).filter(function (id) {
+      if (!ok[id] || seen[id]) return false;
+      seen[id] = true;
+      return true;
+    });
+  }
+
+  /** 👥 Several… — tick the people who act on your next turn, and say
+   *  whether they take it in turn or in the same moment. */
+  function togetherPicker(r) {
+    var faces = RP.speakableCast(r);
+    if (!faces.length) { toast('Nobody here can take the turn.'); return; }
+    var picked = Array.isArray(r.pinnedNext) ? r.pinnedNext : (r.pinnedNext ? [r.pinnedNext] : []);
+    var worldOk = (state.settings.world || 'on') !== 'off';
+    var mode = r.togetherMode || 'same';          // the last way you asked for it; the same moment by default
+    var rowFor = function (id, name, face) {
+      return '<label class="item pick"><input type="checkbox" data-together="' + esc(id) + '"' + (picked.indexOf(id) >= 0 ? ' checked' : '') + '> ' +
+        face + '<span>' + esc(name) + '</span></label>';
+    };
+    openModal('<h3>👥 Several people, one turn</h3>' +
+      '<p class="sub">Tick who acts when you next write (or press ➤ Continue). Each gets their own card, in this order.</p>' +
+      '<div class="setup">' +
+      faces.map(function (c) { return rowFor(c.id, c.name, avatar(c, 24)); }).join('') +
+      (worldOk ? rowFor('world', RP.NARRATORS[RP.narrator(state)].icon + ' ' + RP.NARRATORS[RP.narrator(state)].name + ' \u2014 the narration', '') : '') +
+      '</div>' +
+      '<label class="radio"><input type="radio" name="tgMode" value="same"' + (mode !== 'turns' ? ' checked' : '') + '> ' +
+      '\u23f1 <b>The same moment</b> \u2014 all of it happens in the same seconds as your line: one runs while another shoots. ' +
+      'Each is told the others have not finished, and writes what they are doing DURING it.</label>' +
+      '<label class="radio"><input type="radio" name="tgMode" value="turns"' + (mode === 'turns' ? ' checked' : '') + '> ' +
+      '\u2193 <b>One after another</b> \u2014 each answers what came before, in the order ticked.</label>' +
+      '<div class="actions"><button class="pill" id="mCancel">Cancel</button>' +
+      '<button class="pill" id="mClear">Nobody \u2014 let the Director stage it</button>' +
+      '<button class="pill primary" id="mOk">Set</button></div>');
+    $('mCancel').onclick = closeModal;
+    $('mClear').onclick = function () { r.pinnedNext = ''; r.pinnedSame = false; closeModal(); save(); render(); toast('The Director stages the next beat.'); };
+    $('mOk').onclick = function () {
+      var ids = [];
+      $('modal').querySelectorAll('[data-together]').forEach(function (box) { if (box.checked) ids.push(box.dataset.together); });
+      var same = ($('modal').querySelector('input[name="tgMode"]:checked') || {}).value !== 'turns';
+      closeModal();
+      if (!ids.length) { r.pinnedNext = ''; r.pinnedSame = false; save(); render(); return; }
+      r.pinnedNext = ids.length === 1 ? ids[0] : ids;
+      r.pinnedSame = ids.length > 1 && same;
+      r.togetherMode = same ? 'same' : 'turns';
+      r.next = ids[0];
+      save(); render();
+      var names = ids.map(function (id) { return id === 'world' ? RP.NARRATORS[RP.narrator(state)].name : charOf(r, id).name; });
+      toast(ids.length === 1 ? names[0] + ' answers next.'
+        : (same ? '\u23f1 ' : '') + names.join(', ') + (same ? ' act in the same moment' : ' answer in that order') + ' \u2014 write your line, or ➤ Continue.');
+    };
   }
 
   /** After a group reply, the model decides what happens next: another
@@ -3556,37 +5292,55 @@
   /** One reply. `retryIndex` regenerates an existing turn as a new swipe. */
   function generate(opts) {
     opts = opts || {};
-    var r = room();
+    var r = opts.room || room();
     if (!r || busy || !r.cast.length) return;
-    busy = true;
+    busy = true; busyRoom = r.id;
+    // 🌗 An unattended turn in the other scene: one call, no chain, no
+    // fate roll (nobody attempted anything), and your own turn cuts it.
+    var ambient = Boolean(opts.ambient);
+    ambientNow = ambient;
     r.handback = '';
+    r.pinnedNext = '';                  // a rail pick is spent by the turn it chose
     render();
 
     // A snapshot before the turn, so ↩ takes back the reply *and* whatever
     // it did to the sheets.
-    if (opts.retryIndex === undefined && !opts.searched) RP.pushUndo(r, 'that turn');
+    if (opts.retryIndex === undefined && !opts.searched && !opts.reheard) RP.pushUndo(r, 'that turn');
+    var epoch = stopEpoch;
     var retry = opts.retryIndex !== undefined ? r.messages[opts.retryIndex] : null;
     // Who is up: a character, or the world itself when there is nobody else
     // in the room (or the director asked for it).
     var worldTurn = retry ? retry.role === 'world'
       : (opts.world || r.next === 'world' || RP.worldShouldSpeak(state, r));
+    // Unattended, with "my character there acts alone" on: the character
+    // the reader plays joins the rotation for this one beat.
+    var playing = RP.playerCharacter(r);
+    var livePool = ambient && r.liveSelf && playing ? RP.speakableCast(r).concat([playing]) : null;
     var speaker = retry ? (retry.role === 'world' ? RP.WORLD : charOf(r, retry.charId))
       : worldTurn ? RP.WORLD
+      : livePool ? RP.nextSpeaker({ kind: 'group', cast: livePool, messages: r.messages, next: '' })
       : (RP.speakableCast(r).filter(function (c) { return c.id === r.next; })[0] || RP.nextSpeaker({
           kind: r.kind, cast: RP.speakableCast(r).length ? RP.speakableCast(r) : r.cast,
           messages: r.messages, next: r.next,
         }));
+    var ambientSelf = Boolean(ambient && playing && speaker && speaker.id === playing.id);
     // Did the player just try something? Then it is not up to them whether it
     // worked. The roll happens here and is handed to the model as an order.
-    var answering = !retry && RP.visible(lastVisible(r)) && lastVisible(r).role === 'user';
+    var answering = !retry && !ambient && RP.visible(lastVisible(r)) && lastVisible(r).role === 'user';
     // The reader's own sheet, before the roll and the prompt: the attempt's
     // wording picks the stat that leans on the dice, and a thin-air claim
     // (r.conjured, set on send) turns them against the bluff.
     if (r.mechanics !== 'off') RP.ensurePlayerSheet(state, r);
-    var lastSaid = RP.textOf((r.messages || []).filter(function (m) {
+    var lastUser = (r.messages || []).filter(function (m) {
       return m.role === 'user' && !m.muted;
-    }).pop() || {});
+    }).pop() || {};
+    var lastSaid = RP.textOf(lastUser);
     var fate = answering ? RP.rollFate(state, r, { text: lastSaid, conjured: r.conjured || '' }) : null;
+    // A thin-air claim is settled HERE, by that roll: the thing lands on
+    // the sheet (in hand) or the hand comes up empty, and the model is
+    // told which. It used to be left to the model, which said "you pull
+    // out the bazooka" and filed nothing.
+    var verdict = r.conjured ? RP.resolveConjure(r, r.conjured, fate) : null;
     // What the cast may cite: whatever the recent turns are actually about,
     // filtered to filings whose dates have already passed in this scene.
     var recent = RP.historyFor(r, 4).map(function (m) { return m.content; }).join(' ');
@@ -3596,12 +5350,30 @@
     var opts2 = {
       fate: fate, archive: archive, recent: recent, notes: r.lastNotes || [],
       mentionText: lastSaid,
+      mentions: (lastUser && lastUser.mentions) || [],
+      catalog: castById,
       conjured: r.conjured || '',
+      conjureVerdict: verdict,
+      ambient: ambient, ambientSelf: ambientSelf,
       budget: Number(state.settings.promptBudget) || 0,
       citations: [opts.searched || '', RP.citationBlock(found), dug.length ? RP.retrievalBlock(dug) : '']
         .filter(Boolean).join('\n\n'),
     };
+    // ⏱ The same moment: this turn is one of a group written as
+    // simultaneous. Who is already on the page, who is still to come.
+    var moment = (!retry && !ambient && r.moment && r.moment.same && speaker && r.moment.ids.indexOf(speaker.id) >= 0) ? r.moment : null;
+    if (moment) {
+      var nameOf = function (id) { return id === 'world' ? RP.NARRATORS[RP.narrator(state)].name : (charOf(r, id) || {}).name || ''; };
+      opts2.moment = {
+        same: true,
+        done: moment.done.map(nameOf).filter(Boolean),
+        pending: (r.queue || []).filter(function (id) { return moment.ids.indexOf(id) >= 0; }).map(nameOf).filter(Boolean),
+      };
+    }
     var pep = RP.encourage(r);
+    // A 🎬 direction rides in this prompt and is spent by the turn that
+    // lands; a turn that fails or is asked again still has it.
+    var directed = r.direction || null;
     var system = (worldTurn ? RP.worldSystem(state, r, opts2) : RP.systemFor(state, r, speaker, opts2)) +
       (opts.nudge ? '\n\n' + opts.nudge : '') + (pep ? '\n\n' + pep : '');
     // The thin-air brief fires once: the turn that answers the claim has
@@ -3646,6 +5418,7 @@
       });
     }
 
+    var spoken = null;                  // the card that is read aloud
     complete(system, history, 0).then(function (text) {
       // Stage directions first: the model may have wounded somebody, spent
       // power, walked a character in, or written one out. They are stripped
@@ -3680,15 +5453,47 @@
         });
         busy = false; save(); render();
         window.setTimeout(function () {
-          generate({ searched: RP.retrievalBlock(results, asked.query) });
+          generate({ room: r, searched: RP.retrievalBlock(results, asked.query) });
         }, 200);
         return false;
       }
       // Last resort: if it still trails off, cut back to a full stop rather
       // than showing the reader half a sentence.
       var clean = RP.trimDangling(staged.clean.trim());
+      // The room's own beats — "Mona: *a glance* …" at the end of the
+      // reply — are cut out here and filed under Mona below, as her own
+      // card. A beat written for the character the reader plays is cut
+      // and dropped: the model may not write them.
+      var playerNames = [(RP.playerCharacter(r) || {}).name || '', state.user.name || '', RP.personaSheet(state).name || ''];
+      // Who a “Name:” paragraph may belong to: the people in the scene,
+      // the people who left it, the people made this session, and the
+      // archive — somebody who is not in the room and speaks up has
+      // walked in, and is filed as such below. The narration is named
+      // too, so “Narrator:” comes back as a world card, not as a
+      // character called Narrator.
+      var narratorName = (RP.NARRATORS[RP.narrator(state)] || RP.WORLD).name;
+      var chorusNames = (r.cast || []).concat(r.away || []).concat(state.newChars || []).concat(cast || [])
+        .map(function (c) { return c && c.name; })
+        .filter(function (n) { return n && (!speaker || n !== speaker.name) && playerNames.indexOf(n) < 0; });
+      var chorus = (!retry && r.kind === 'group')
+        ? RP.splitChorus(clean, worldTurn ? narratorName : speaker.name, chorusNames, playerNames, { narrator: narratorName })
+        : { main: clean, pieces: [], dropped: [], unknown: [] };
+      clean = chorus.main;
+      // A take that gets sent back (it wrote the player) must not leave its
+      // wounds and filings behind — the sheets are put back as they were.
+      var sheetsBefore = JSON.stringify(r.states || {}), castBefore = JSON.stringify(r.cast || []);
+      var turnNow = r.messages.length;     // the turn the moods are fed on
+      // A [[MOOD:]] with no name is the speaker's own.
+      staged.directives.forEach(function (d) {
+        if (d.kind === 'mood' && !d.who && speaker && !worldTurn) d.who = speaker.name;
+      });
       var changes = r.mechanics === 'off' ? { lines: [] }
         : RP.applyDirectives(state, r, staged.directives, resolveChar);
+      var moodFiled = function (id) {
+        var sheet = RP.sheetFor(r, id);
+        return Boolean(sheet && sheet.mood && sheet.mood.at === turnNow);
+      };
+      if (verdict && verdict.line) changes.lines.unshift(verdict.line);
       // The prose handed the player something and no [[ITEM:]] landed?
       // Filed on the spot, no model call — the first upkeep net.
       if (r.mechanics !== 'off') {
@@ -3703,6 +5508,88 @@
             var line = RP.applyChange(pack, { kind: 'item', op: '+', name: name });
             if (line) changes.lines.push('🎒 ' + line + ' — filed from the prose');
           });
+        }
+      }
+      // The hurt ledger: a crash, a blade, a blast in the prose lands on
+      // the sheets whether or not the model filed it — another free net,
+      // no model call. The model's own [[HP:]] for a person wins.
+      if (r.mechanics !== 'off' && state.settings.hurt !== 'off') {
+        RP.hurtScan(clean, r, {
+          speaker: worldTurn ? null : speaker,
+          world: worldTurn,
+          filed: staged.directives.filter(function (d) { return d.kind === 'hp'; }).map(function (d) { return d.who; }),
+          level: state.settings.fate || 'normal',
+          braced: RP.bracedIn(lastSaid),
+        }).forEach(function (h) {
+          var sheet = RP.sheetFor(r, h.id);
+          var line = sheet && RP.applyChange(sheet, { kind: 'hp', op: '-', value: h.amount });
+          if (!line) return;
+          changes.lines.push('💥 ' + line + ' — ' + h.cause + ', filed from the prose');
+          if (h.tier === 'grave' && !(sheet.flags || {}).battered) {
+            RP.applyChange(sheet, { kind: 'flag', name: 'battered', turns: 2, note: 'from ' + h.cause });
+          }
+          // A grave hurt shakes anyone it lands on — a flicker of fear,
+          // unless the model said how they took it. The reader's own
+          // feeling stays theirs.
+          if (h.tier === 'grave' && !sheet.player && !moodFiled(h.id)) {
+            var shaken = RP.applyChange(sheet, { kind: 'mood', key: 'fear', level: 1, note: h.cause, turn: turnNow });
+            if (shaken) changes.lines.push(shaken);
+          }
+        });
+      }
+      // ⚡ Energy: a sprint or a spell the model did not file costs breath
+      // anyway; everyone who did not spend gets a little back. ⛑ A slap,
+      // salts or a stim in the prose brings somebody at 0 HP round to a
+      // sliver — the number moves, so the next turn is written to it.
+      var spentIds = [];
+      if (r.mechanics !== 'off') {
+        staged.directives.forEach(function (d) {
+          if (d.kind !== 'mp' || d.op !== '-') return;
+          r.cast.forEach(function (c) { if (c.name === d.who) spentIds.push(c.id); });
+        });
+        if (!worldTurn && speaker && speaker.id !== RP.PLAYER_ID && spentIds.indexOf(speaker.id) < 0) {
+          var enSheet = RP.sheetFor(r, speaker.id);
+          var effort = enSheet ? RP.exertScan(clean, enSheet) : null;
+          if (effort && enSheet.mp.value > 0) {
+            var enLine = RP.applyChange(enSheet, { kind: 'mp', op: '-', value: effort.amount });
+            if (enLine) { changes.lines.push('\u26a1 ' + enLine + ' \u2014 ' + effort.cause + ', filed from the prose'); spentIds.push(speaker.id); }
+          }
+        }
+        RP.reviveScan(clean + '\n' + chorus.pieces.map(function (pc) { return pc.text; }).join('\n'), r).forEach(function (hit) {
+          var line = RP.revive(RP.sheetFor(r, hit.id), hit.how);
+          if (line) changes.lines.push(line + ', filed from the prose');
+        });
+        RP.fixDown(r).forEach(function (line) { changes.lines.push('\u26d1 ' + line); });
+      }
+      // Beyond them: a godly or hopeless attempt moves the people who saw
+      // it — a flicker of surprise on every witness the model did not
+      // file, and a flicker of shame on the one who tried, when it went
+      // the way the dice said. The prompt orders the reaction; this makes
+      // sure the record keeps it.
+      if (r.mechanics !== 'off' && fate && fate.scale && !retry) {
+        var tried = RP.sheetFor(r, RP.playerSheetId(r));
+        RP.presentCast(r).forEach(function (c) {
+          if (c.id === r.youPlay || moodFiled(c.id)) return;
+          var seen = RP.applyChange(RP.sheetFor(r, c.id), { kind: 'mood', key: 'surprise', level: 1, note: 'the ' + fate.scale + ' attempt', turn: turnNow });
+          if (seen) changes.lines.push(seen + ' — saw it');
+        });
+        if (tried && !moodFiled(tried.id) && (fate.key === 'setback' || fate.key === 'refusal' || fate.key === 'wrench')) {
+          var felt = RP.applyChange(tried, { kind: 'mood', key: 'shame', level: 1, note: 'the ' + fate.scale + ' attempt', turn: turnNow });
+          if (felt) changes.lines.push(felt + ' — it did not work');
+        }
+      }
+      // The mood: the colour of the box is how the speaker feels. When
+      // the model filed no [[MOOD:]] for them, the prose is read for it —
+      // free, local, one step at a time, so a feeling builds instead of
+      // swinging — and the feeling then rides on the card.
+      if (r.mechanics !== 'off' && !worldTurn && speaker && speaker.id !== RP.PLAYER_ID && speaker.id !== r.youPlay) {
+        var moodSheet = RP.sheetFor(r, speaker.id);
+        if (moodSheet && !moodFiled(speaker.id)) {
+          var felt = RP.moodScan(clean, speaker.name, r.cast.map(function (c) { return c.name; }));
+          if (felt) {
+            var moodLine = RP.applyChange(moodSheet, { kind: 'mood', key: felt.key, level: 1, note: felt.note, turn: turnNow });
+            if (moodLine) changes.lines.push(moodLine + ' — read from the prose');
+          }
         }
       }
       // The doorman: a never-seen name who arrives or speaks in the prose
@@ -3738,17 +5625,56 @@
       } else {
         // Whose line is this, really? A small model handed six people will
         // write whoever spoke last — and sometimes the player themselves.
-        var check = worldTurn ? { ok: true }
+        var check = worldTurn || ambientSelf ? { ok: true }
           : RP.checkSpeaker(clean, speaker, RP.presentCast(r), { youPlay: r.youPlay });
         if (check.playerVoice && !opts.reheard) {
           // Writing the player's character is not a mislabel to file away;
           // it is taken back and asked for again, once.
+          r.states = JSON.parse(sheetsBefore); r.cast = JSON.parse(castBefore);
+          r.next = speaker.id;
           busy = false; save(); render();
           toast('It wrote your character — asking again.');
           window.setTimeout(function () {
-            generate({ reheard: true, nudge: 'Your last attempt wrote ' + check.actual.name +
+            generate({ room: r, reheard: true, nudge: 'Your last attempt wrote ' + check.actual.name +
               ', who is the PLAYER\u2019s character. Never write their words, thoughts or actions. Write ' +
               speaker.name + '\u2019s turn instead, and begin with ' + speaker.name + '.' });
+          }, 150);
+          return false;
+        }
+        // ⛑ A speaker at 0 HP written leaping and roaring: the body
+        // outranks the prose. Sent back once, with the body spelled out.
+        var downSheet = r.mechanics !== 'off' && !worldTurn && !ambientSelf && speaker.id !== RP.PLAYER_ID ? RP.sheetFor(r, speaker.id) : null;
+        var vigour = downSheet ? RP.vigourCheck(clean, downSheet) : null;
+        if (vigour && !opts.reheard) {
+          r.states = JSON.parse(sheetsBefore); r.cast = JSON.parse(castBefore);
+          r.next = speaker.id;
+          busy = false; save(); render();
+          toast('⛑ ' + speaker.name + ' is down at 0 HP — asking again, inside that body.');
+          window.setTimeout(function () {
+            generate({ room: r, reheard: true, nudge: speaker.name + ' is DOWN at 0 HP \u2014 barely conscious. Your last attempt had them \u201c' +
+              vigour.what + '\u201d, which that body cannot do. Write the turn again inside it: a word, a crawl, a hand that will not close,' +
+              ' an effort that fails before it is finished \u2014 nothing more. If somebody brings them round, say how, and still they are' +
+              ' barely there.' });
+          }, 150);
+          return false;
+        }
+        // ♻ A take stitched out of the character's own earlier turns is
+        // sent back once (strict), with the phrases named.
+        var freshMode = state.settings.fresh || RP.FRESH_DEFAULT;
+        var repeats = null;
+        if (freshMode !== 'off' && !worldTurn && !ambient && speaker.id !== RP.PLAYER_ID) {
+          var prior = RP.priorTurns(r, speaker.id, RP.FRESH_TURNS);
+          if (prior.length >= 2) repeats = RP.repeatCheck(clean, prior);
+        }
+        if (repeats && repeats.stale && freshMode === 'strict' && !opts.reheard) {
+          r.states = JSON.parse(sheetsBefore); r.cast = JSON.parse(castBefore);
+          r.next = speaker.id;
+          busy = false; save(); render();
+          toast('♻ ' + speaker.name + ' repeated themselves — asking for a fresh turn.');
+          window.setTimeout(function () {
+            generate({ room: r, reheard: true, nudge: 'Your last attempt repeated what ' + speaker.name + ' has already said in this scene \u2014 ' +
+              repeats.hits.slice(0, 4).map(function (h) { return '\u201c' + h + '\u201d'; }).join(', ') + '. Write the turn again: none of those' +
+              ' phrases or their rewordings, a different move, and something changed by the end of it. Same person, same voice, new turn.' });
           }, 150);
           return false;
         }
@@ -3762,17 +5688,77 @@
           // The roll and the state changes belong to the turn they happened
           // in, not to three separate cards in the stream.
           fate: fate ? fate.pill : '',
-          // What the turn was written with, so you can see it working.
+          // What the turn was written with, so you can see it working —
+          // and which of it actually surfaced in the prose.
           consulted: dug.slice(0, 3).map(function (hit) { return hit.name; }),
+          used: RP.usedMaterial(clean, dug.slice(0, 3), r.cast.map(function (c) { return c.name; }).concat(playerNames)),
           changes: changes.lines.slice(0, 6),
+          // The colour of the box: how the speaker feels as this turn ends.
+          mood: moodOn(r, worldTurn ? '' : saidBy.id),
+          ambient: ambient || undefined,
+          // Still leaning on old phrases after being asked again: shown, not hidden.
+          repeats: repeats && repeats.stale ? repeats.hits.slice(0, 3) : undefined,
+          // One of several turns written as the same seconds.
+          moment: moment ? moment.id : undefined,
+          same: moment && moment.done.length ? true : undefined,
         };
+        if (moment) moment.done.push(saidBy.id);
+        if (chorus.dropped.length) msg.changes = (msg.changes || []).concat(['✂ cut a line written for ' + chorus.dropped.join(', ') + ' — your character']);
         if (!String(clean || '').trim()) {
           // Nothing came back twice over. Say so quietly instead of filing
           // an empty card under somebody's name.
           toast(speaker.name + ' had nothing to say — press ↻, or write your turn.');
           return false;
         }
+        spoken = msg;
         r.messages.push(msg);
+        // The room's beats, each under the person who made it: its own
+        // card, its own mood read from its own words, its own line in
+        // the history. Not a footnote on the speaker's bubble.
+        chorus.pieces.forEach(function (piece, pn) {
+          if (!piece.text) return;
+          // “Narrator:” inside a character’s turn is the world speaking: a world card.
+          if (piece.kind === 'narrator') {
+            var told = { id: RP.uid(), role: 'world', charId: '', text: piece.text, at: Date.now() + 1 + pn, alts: [piece.text], alt: 0, chorus: true, moment: moment ? moment.id : undefined };
+            r.messages.push(told); RP.rememberTurn(state, r, told);
+            return;
+          }
+          var who = RP.presentCast(r).filter(function (c) { return RP.nameKey(c.name) === RP.nameKey(piece.name); })[0];
+          if (!who) {
+            // Somebody who is not in the scene spoke up: they have walked
+            // in. Filed like an [[ENTER]] — the same sheet if they left
+            // earlier, the archive’s sheet if it knows them, a new one if not.
+            var reason = 'spoke up in ' + (worldTurn ? 'the narration' : speaker.name + '\u2019s turn');
+            if (r.mechanics === 'off') {
+              who = RP.addToRoom(r, resolveChar(piece.name) || RP.normChar({ id: RP.slug(piece.name), name: piece.name })) || null;
+              if (who) msg.changes = (msg.changes || []).concat(['\ud83d\udeaa ' + who.name + ' enters \u2014 ' + reason]);
+            } else {
+              var came = RP.applyDirectives(state, r, [{ kind: 'enter', name: piece.name, reason: reason }], resolveChar);
+              who = (came.entered || [])[0] || null;
+              if (who) msg.changes = (msg.changes || []).concat(came.lines.map(function (l) { return '\ud83d\udeaa ' + l; }));
+            }
+            who = who && (r.cast || []).filter(function (c) { return c.id === who.id; })[0];
+            if (!who) return;
+          }
+          var card = {
+            id: RP.uid(), role: 'char', charId: who.id, text: piece.text, at: Date.now() + 1 + pn, alts: [piece.text], alt: 0,
+            chorus: true, ambient: ambient || undefined, moment: moment ? moment.id : undefined,
+          };
+          if (moment && moment.done.indexOf(who.id) < 0) moment.done.push(who.id);
+          if (r.mechanics !== 'off') {
+            var chorusSheet = RP.sheetFor(r, who.id);
+            if (chorusSheet && !moodFiled(who.id)) {
+              var feltToo = RP.moodScan(piece.text, who.name, r.cast.map(function (c) { return c.name; }));
+              if (feltToo) RP.applyChange(chorusSheet, { kind: 'mood', key: feltToo.key, level: 1, note: feltToo.note, turn: turnNow });
+            }
+            card.mood = moodOn(r, who.id);
+          }
+          r.messages.push(card);
+          RP.rememberTurn(state, r, card);
+        });
+        if (directed && r.direction === directed) r.direction = null;
+        // The audit's notes briefed this turn; they are not repeated.
+        if (r.auditNotes && r.auditNotes.length && !ambient) r.auditNotes = [];
         // Narration is remembered too: it is where places get named.
         RP.rememberTurn(state, r, msg);
         if (r.kind === 'group' && !worldTurn) {
@@ -3780,7 +5766,7 @@
           r.next = after ? after.id : '';
         }
         // Anything temporary counts down on the turn it survives.
-        var passed = r.mechanics === 'off' ? [] : RP.tickConditions(r);
+        var passed = r.mechanics === 'off' ? [] : RP.tickConditions(r).concat(RP.tickMoods(r, turnNow)).concat(RP.regenEnergy(r, spentIds));
         if (passed.length) msg.changes = (msg.changes || []).concat(passed);
         // A fired beat rides on the same card as the turn it interrupted.
         if (RP.autoAdvance(r)) {
@@ -3793,10 +5779,21 @@
         }
       }
       r.updated = Date.now();
-      if (state.settings.voice === 'on' && !retry) speak(r.messages[r.messages.length - 1], r);
+      // ■ landed while the tail of this reply was still being asked for:
+      // what was written stays, nothing is read aloud, nobody follows.
+      if (epoch !== stopEpoch) { autoLeft = 0; r.queue = []; r.moment = null; return false; }
+      if (state.settings.voice === 'on' && !retry) speak(spoken, r);
+      if (ambient) return false;            // one beat, no chain
       if (!retry) return direct(r, speaker);
       return false;
     }).catch(function (error) {
+      if (error && error.stopped) {
+        // ■ Stop: the request was cut on purpose. Nothing is filed, the
+        // snapshot taken for this turn is dropped, and the chain ends.
+        if (!retry && !opts.searched && (r.undo || []).length && r.undo[r.undo.length - 1].label === 'that turn') r.undo.pop();
+        autoLeft = 0; r.queue = []; r.moment = null;
+        return 'FAILED';
+      }
       var advice = RP.modelAdvice(error.message, isOpenAI(replyUrl()));
       r.messages.push({
         id: RP.uid(), role: 'char', charId: speaker.id, error: true, at: Date.now(),
@@ -3811,12 +5808,14 @@
     }).then(function (chain) {
       var turnFailed = chain === 'FAILED';
       if (turnFailed) chain = false;
-      busy = false;
+      busy = false; ambientNow = false;
       if (!retry && autoLeft) autoLeft--;
       // A staged beat plays itself out before anything else is decided.
       var staged = !retry && !turnFailed && (r.queue || []).length;
       if (staged) { r.next = r.queue.shift(); }
+      if (!staged) r.moment = null;
       save(); render();
+      if (epoch !== stopEpoch) { autoLeft = 0; return; }   // ■ — no chores, no chain, no handback nag
       if (!retry && !turnFailed) {
         // The fix button, run for free every turn: nothing to fix costs
         // nothing; something to fix never waits for a button again. The
@@ -3831,14 +5830,58 @@
         if (!leanAI()) queueBook(r);
         runChores(r);
       }
-      if (room() !== r) { autoLeft = 0; return; }
+      // The scene at the side keeps its chain; a chat you walked away from
+      // does not.
+      if (room() !== r && !(room() && room().linkedTo === r.id)) { autoLeft = 0; return; }
+      if (ambient) { save(); render(); return; }        // one beat; it never chains and never nags
       if (staged || chain || autoLeft) {
-        window.setTimeout(function () { if (staged || autoLeft || chain) generate(); }, 450);
-      } else if (!r.handback) {
-        r.handback = 'your turn.';
-        save(); render();
+        window.setTimeout(function () { if (staged || autoLeft || chain) generate({ room: r }); }, 450);
+      } else {
+        if (!r.handback) { r.handback = 'your turn.'; save(); render(); }
+        // Your turn here is done: the other scene may move once, unattended.
+        if (!turnFailed) maybeLive(r);
       }
     });
+  }
+
+  /* ---------------------------------------------------------------- *
+   * 🌗 the other scene lives — one unattended beat, queued, never two at once
+   *
+   * Two scenes, one chat: while you play in one, the other used to stand
+   * still until you crossed over. With `live` on a scene, each of your
+   * turns in the OTHER scene queues one beat here, after your turn's own
+   * chain has finished — a full prompt, so it is off by default and
+   * "every other turn" when on. With `liveSelf`, the character you play
+   * here may act for themselves while you are away. Your next turn cuts
+   * an unattended beat that is still in flight: you always win the queue.
+   * ---------------------------------------------------------------- */
+  var ambientNow = false;        // an unattended beat is in flight
+  function maybeLive(r) {
+    var other = RP.linkedRoom(state, r);
+    if (!other || !other.live || other.live === 'off' || !(other.cast || []).length) return;
+    if (busy) return;
+    other.liveTick = (other.liveTick || 0) + 1;
+    if (other.live === 'other' && other.liveTick % 2) return;
+    var epoch = stopEpoch;
+    var tries = 0;
+    (function later() {
+      window.setTimeout(function () {
+        if (busy || epoch !== stopEpoch) return;                      // you took your turn, or pressed ■
+        if (!RP.linkedRoom(state, r) || RP.linkedRoom(state, r).id !== other.id) return;   // unlinked meanwhile
+        // The lore book or the quartermaster may still be reading: the
+        // beat waits its turn in the queue rather than doubling a call.
+        if (!bgQuiet()) { if (++tries < 12) later(); return; }
+        generate({ room: other, ambient: true });
+      }, 900);
+    })();
+  }
+  /** 🌗 by hand: one unattended beat in the other scene, now. */
+  function liveNow(r) {
+    var other = RP.linkedRoom(state, r);
+    if (!other) { toast('No second scene to move.'); return; }
+    if (busy) { toast('The model is already writing — wait for it, or press ■.'); return; }
+    if (!(other.cast || []).length) { toast('Nobody is in the other scene.'); return; }
+    generate({ room: other, ambient: true });
   }
 
   /** The in-world date a room is being played on: whatever the scenario
@@ -4035,6 +6078,7 @@
    * ---------------------------------------------------------------- */
 
   var reader = { stop: false, audio: null };
+  var reading = false;     // a turn is being read aloud (speak), as opposed to an episode (speaking)
 
   function ttsConfig() {
     var saved = {};
@@ -4056,6 +6100,9 @@
   // Profiles the studio turned out not to have, this session — those
   // speakers go straight to the fallback instead of failing twice.
   var voiceMisses = {};
+  // Voices the studio has already been asked about twice (one failure, one
+  // library refresh, one retry) — the retry is not repeated every line.
+  var voiceRetried = {};
 
   /** One line through the studio — the same Gradio surface the main site's
    *  read-aloud bridge uses (docs/QWEN_TTS_BRIDGE.md). */
@@ -4076,8 +6123,13 @@
         // An error the STUDIO reports (bad voice, failed synthesis) is not
         // the same story as a studio that cannot be reached — the caller
         // needs to know which one it is before blaming a voice profile.
-        var studioSaid = function (message) { var e = new Error(message); e.studio = true; return e; };
-        if (/event:\s*error/.test(body)) throw studioSaid('the studio reported an error');
+        var studioSaid = function (message, refused) {
+          var e = new Error(message); e.studio = true; e.refused = Boolean(refused); return e;
+        };
+        // …and a voice the studio TURNED AWAY ("not in the list of
+        // choices") is not the same story as a render that fell over.
+        var failed = RP.studioError(body);
+        if (failed) throw studioSaid(failed.message, failed.refused);
         var done = /event:\s*complete\s*\ndata:\s*(.+)/.exec(body);
         if (!done) throw studioSaid('the studio closed the stream without finishing');
         var payloadOut = JSON.parse(done[1]);
@@ -4151,8 +6203,44 @@
     reader.stop = true;
     if (reader.audio) { try { reader.audio.pause(); } catch (e) { /* already gone */ } }
     if (window.speechSynthesis) window.speechSynthesis.cancel();
-    speaking = false;
+    speaking = false; reading = false;
     render();
+  }
+
+  /** Is anything running that a ■ should be able to stop? */
+  function anythingRunning() {
+    return Boolean(busy || autoLeft || speaking || reading || downloadChatAudio.busy);
+  }
+  /** The ■ buttons follow the flags without a full render — the audio
+   *  renderer and the reader flip them between turns. */
+  function refreshStop() {
+    ['stopBtn', 'stopBtn_b'].forEach(function (id) {
+      var b = $(id);
+      if (!b) return;
+      b.hidden = !anythingRunning();
+      b.textContent = '■ Stop' + (downloadChatAudio.busy && downloadChatAudio.at ? ' (' + downloadChatAudio.at + ')'
+        : speak.progress ? ' \u00b7 \ud83d\udd0a ' + speak.progress : '');
+    });
+  }
+
+  /** ■ — everything, now: the reply being written, the chain behind it,
+   *  the autopilot, a line being read, a chat being rendered to audio.
+   *  Nothing half-done is filed. */
+  function stopAll(quiet) {
+    stopEpoch += 1;
+    var cut = inflight.length;
+    inflight.slice().forEach(function (c) { c.stopped = true; try { c.abort(); } catch (e) { /* already done */ } });
+    inflight = [];
+    autoLeft = 0;
+    (state.rooms || []).forEach(function (r) { if (r && r.queue && r.queue.length) r.queue = []; if (r && r.moment) r.moment = null; });
+    var wasRendering = downloadChatAudio.busy;
+    downloadChatAudio.cancel = true;
+    reader.stop = true;
+    if (reader.audio) { try { reader.audio.pause(); } catch (e) { /* already gone */ } }
+    if (window.speechSynthesis) window.speechSynthesis.cancel();
+    speaking = false; reading = false;
+    refreshStop();
+    if (!quiet) toast('■ Stopped' + (wasRendering ? ' — the audio file was not written' : cut ? ' — the model was cut off mid-reply' : '') + '.');
   }
 
   /** What voices does the studio ACTUALLY have? Ask its own library —
@@ -4161,17 +6249,18 @@
    *  Best effort: any failure returns null and the guess path takes
    *  over. Cached for a minute so a chatty scene asks once. */
   var libCache = { at: 0, list: null };
+  function keepLibrary(list) {
+    list = (list || []).filter(function (s, i) { return s && s !== 'None' && list.indexOf(s) === i; });
+    libCache = { at: Date.now(), list: list.length ? list : null };
+    // A fresh library is new evidence. A speaker who missed before the
+    // studio had their profile would stay on the fallback voice all
+    // session — the misses expire with the list they were judged by.
+    if (libCache.list) voiceMisses = {};
+    return libCache.list;
+  }
   function voiceLibrary(cfg) {
     if (libCache.at && Date.now() - libCache.at < 60000) return Promise.resolve(libCache.list);
-    var keep = function (list) {
-      list = (list || []).filter(function (s, i) { return s && s !== 'None' && list.indexOf(s) === i; });
-      libCache = { at: Date.now(), list: list.length ? list : null };
-      // A fresh library is new evidence. A speaker who missed before the
-      // studio had their profile would stay on the fallback voice all
-      // session — the misses expire with the list they were judged by.
-      if (libCache.list) voiceMisses = {};
-      return libCache.list;
-    };
+    var keep = keepLibrary;
     // First stop: the app config. The voice dropdown's `choices` there are
     // EXACTLY what the API will accept — case-sensitive, 'None' included —
     // as its refusal errors prove. One GET, no job.
@@ -4247,25 +6336,37 @@
    *  as ▶ — then the WAV chunks stitched losslessly (RP.wavJoin) and
    *  handed to the browser as a download. No encoder, no dependency;
    *  a .wav plays on anything with a speaker. */
-  function downloadChatAudio(r) {
+  function downloadChatAudio(r, opts) {
     if (downloadChatAudio.busy) { toast('💾 Already rendering — one audio file at a time.'); return; }
-    var msgs = (r.messages || []).filter(RP.visible).filter(function (m) {
-      return m.role === 'char' || m.role === 'world' || m.role === 'user';
+    // With `both`, the linked scene's turns are read too, in the order they
+    // happened — the camera moves with the clock, as in the transcript.
+    var other = opts && opts.both ? RP.linkedRoom(state, r) : null;
+    var msgs = [];
+    (other ? [r, other] : [r]).forEach(function (src) {
+      (src.messages || []).filter(RP.visible).forEach(function (m) {
+        if (m.role === 'char' || m.role === 'world' || m.role === 'user') msgs.push({ m: m, r: src });
+      });
     });
+    if (other) msgs.sort(function (a, b) { return (a.m.at || 0) - (b.m.at || 0); });
     if (!msgs.length) { toast('Nothing to read in this chat yet.'); return; }
     var cfg = ttsConfig();
-    downloadChatAudio.busy = true;
-    toast('💾 Rendering the whole chat through the studio — long chats take a while…');
+    downloadChatAudio.busy = true; downloadChatAudio.cancel = false; downloadChatAudio.at = '';
+    refreshStop();
+    var finish = function () { downloadChatAudio.busy = false; downloadChatAudio.at = ''; refreshStop(); };
+    toast('💾 Rendering the whole chat through the studio — long chats take a while. ■ Stop cuts it at any point.');
     voiceLibrary(cfg).then(function (lib) {
       var narrator = cfg.map.narrator || cfg.map.world || cfg.voice;
-      var playing = (RP.playerCharacter(r) || {}).name || state.user.name || '';
-      var castNames = r.cast.map(function (c) { return c.name; }).concat([playing, state.user.name || '']);
+      var playingIn = function (src) { return (RP.playerCharacter(src) || {}).name || state.user.name || ''; };
+      var castNames = (other ? r.cast.concat(other.cast) : r.cast).map(function (c) { return c.name; })
+        .concat([playingIn(r), other ? playingIn(other) : '', state.user.name || '']);
       var jobs = [];
-      msgs.forEach(function (m) {
+      msgs.forEach(function (entry) {
+        var m = entry.m;
+        var playing = playingIn(entry.r);
         var speaker = m.role === 'world' ? ''
           : m.role === 'user' ? playing
-          : ((charOf(r, m.charId) || {}).name || '');
-        RP.speechParts(RP.textOf(m), castNames, speaker, playing).forEach(function (p) {
+          : ((charOf(entry.r, m.charId) || {}).name || '');
+        RP.speechParts(RP.textOf(m), castNames, speaker, playing, { mode: state.settings.voiceParts || 'turn' }).forEach(function (p) {
           var v = p.who
             ? RP.ttsVoiceFor(p.who, { map: cfg.map, fallback: cfg.voice, misses: voiceMisses, library: lib })
             : narrator;
@@ -4275,15 +6376,21 @@
       if (!jobs.length) throw new Error('nothing readable in these turns');
       var bufs = [];
       var step = function (i) {
+        if (downloadChatAudio.cancel) {
+          finish();
+          toast('■ Stopped — ' + i + '/' + jobs.length + ' chunks rendered, no file written.');
+          return;
+        }
+        downloadChatAudio.at = i + '/' + jobs.length; refreshStop();
         if (i >= jobs.length) {
           var blob = new Blob([RP.wavJoin(bufs)], { type: 'audio/wav' });
           var a = document.createElement('a');
           a.href = URL.createObjectURL(blob);
-          a.download = (String(r.title || 'chat').replace(/[^\w\- ]+/g, '').trim().replace(/\s+/g, '-').slice(0, 80) || 'chat') + '.wav';
+          a.download = (String((other ? r.title + ' and ' + other.title : r.title) || 'chat').replace(/[^\w\- ]+/g, '').trim().replace(/\s+/g, '-').slice(0, 80) || 'chat') + '.wav';
           a.click();
           window.setTimeout(function () { try { URL.revokeObjectURL(a.href); } catch (e) { /* gone */ } }, 30000);
           toast('💾 Saved — ' + jobs.length + ' chunks stitched into one file.');
-          downloadChatAudio.busy = false;
+          finish();
           return;
         }
         if (i && i % 4 === 0) toast('💾 ' + i + '/' + jobs.length + ' rendered…');
@@ -4292,13 +6399,15 @@
           .then(function (res) { if (!res.ok) throw new Error('HTTP ' + res.status); return res.arrayBuffer(); })
           .then(function (buf) { bufs.push(buf); step(i + 1); })
           .catch(function (e) {
-            downloadChatAudio.busy = false;
+            finish();
+            if (e && e.stopped) { toast('■ Stopped — ' + i + '/' + jobs.length + ' chunks rendered, no file written.'); return; }
             toast('💾 Save failed at chunk ' + (i + 1) + '/' + jobs.length + ': ' + e.message);
           });
       };
       step(0);
     }).catch(function (e) {
-      downloadChatAudio.busy = false;
+      finish();
+      if (e && e.stopped) { toast('■ Stopped — no file written.'); return; }
       toast('💾 Save failed: ' + ((e && e.message) || e));
     });
   }
@@ -4311,7 +6420,7 @@
    *  fresh — earlier misses are forgiven and retried. */
   function speak(msg, r, opts) {
     if (!msg) return;
-    if (opts && opts.fresh) { voiceMisses = {}; libCache = { at: 0, list: null }; }
+    if (opts && opts.fresh) { voiceMisses = {}; voiceRetried = {}; libCache = { at: 0, list: null }; }
     var cfg = ttsConfig();
     var speaker = msg.role === 'world' ? ''
       : msg.role === 'user' ? ((RP.playerCharacter(r) || {}).name || state.user.name || '')
@@ -4319,15 +6428,21 @@
     var playing = (RP.playerCharacter(r) || {}).name || state.user.name || '';
     var castNames = r.cast.map(function (c) { return c.name; }).concat([playing, state.user.name || '']);
     // The fourth argument owns “…,” you say — YOUR line, YOUR voice,
-    // even when it appears inside another character's card.
-    var parts = RP.speechParts(RP.textOf(msg), castNames, speaker, playing);
+    // even when it appears inside another character's card. The fifth is
+    // how the turn is cut for the studio: one voice for the whole turn
+    // (the default — a handful of sentence-sized requests), or a voice
+    // per quote (one request per quote, which crawls on chatty lines).
+    var parts = RP.speechParts(RP.textOf(msg), castNames, speaker, playing, { mode: state.settings.voiceParts || 'turn' });
     if (!parts.length) return;
     if (reader.audio) { try { reader.audio.pause(); } catch (e) { /* already gone */ } }
     if (window.speechSynthesis) window.speechSynthesis.cancel();
     reader.stop = false;
     var mine = ++speak.turn;
+    reading = true; refreshStop();
+    var over = function () { if (speak.turn === mine) { reading = false; speak.progress = ''; refreshStop(); } };
+    speak.progress = 'asking the studio\u2026'; refreshStop();
     voiceLibrary(cfg).then(function (lib) {
-      if (reader.stop || speak.turn !== mine) return;
+      if (reader.stop || speak.turn !== mine) { over(); return; }
       var narrator = cfg.map.narrator || cfg.map.world || cfg.voice;
       var jobs = [];
       parts.forEach(function (p) {
@@ -4338,13 +6453,16 @@
         // the rest of a long turn is still synthesizing behind it.
         RP.ttsChunks(p.text, 450, jobs.length ? 0 : 170).forEach(function (c) { jobs.push({ voice: v, text: c, who: p.who }); });
       });
-      if (!jobs.length) return;
+      if (!jobs.length) { over(); return; }
       var ahead = null; var aheadAt = -1;
       var synth = function (i) {
         return i < jobs.length ? qwenSay(jobs[i].text, jobs[i].voice, cfg) : Promise.resolve(null);
       };
       var step = function (i) {
-        if (reader.stop || speak.turn !== mine || i >= jobs.length) return;
+        if (reader.stop || speak.turn !== mine || i >= jobs.length) { over(); return; }
+        // The button says where the reader is — a long turn is several
+        // requests, and the first one is the wait.
+        speak.progress = (jobs[i].who ? jobs[i].who + ' ' : '') + (i + 1) + '/' + jobs.length + (aheadAt === i && ahead ? '' : ' \u2026'); refreshStop();
         var cur = (aheadAt === i && ahead) ? ahead : synth(i);
         ahead = null; aheadAt = -1;
         cur.then(function (url) {
@@ -4354,27 +6472,57 @@
           return playUrl(url);
         }).then(function () { step(i + 1); })
           .catch(function (e) {
-            if (reader.stop || speak.turn !== mine) return;
+            if (reader.stop || speak.turn !== mine || (e && e.stopped)) { over(); return; }
             ahead = null; aheadAt = -1;
             if (e && e.studio && jobs[i].voice !== cfg.voice) {
-              // The studio answered but refused this voice: remember the
-              // miss, let the fallback read this speaker's lines instead.
-              voiceMisses[String(jobs[i].who).split(/\s+/)[0].toLowerCase()] = true;
-              toast('The studio refused the “' + jobs[i].voice + '” voice — ' + cfg.voice +
-                ' reads for ' + (jobs[i].who || 'them') + ' for now.');
               var missed = jobs[i].voice;
-              jobs.forEach(function (j) { if (j.voice === missed) j.voice = cfg.voice; });
+              var key = String(jobs[i].who || '').split(/\s+/)[0].toLowerCase();
+              if (!voiceRetried[missed]) {
+                // First failure for this voice this session. Whatever it
+                // was — a profile saved after the studio booted (the API
+                // turns it away until the library is refreshed) or a render
+                // that simply fell over — the answer is the same: refresh
+                // the studio's library, the way its own button does, and
+                // ask once more. It used to give up here, and one bad
+                // render put Wario in Waluigi's voice until a page reload.
+                voiceRetried[missed] = true;
+                toast('The studio stumbled on the “' + missed + '” voice (' + e.message + ') — refreshing its library and trying once more.');
+                libCache = { at: 0, list: null };
+                libraryFromEndpoint(cfg, keepLibrary).catch(function () { return null; }).then(function () {
+                  if (reader.stop || speak.turn !== mine) return;
+                  step(i);
+                });
+                return;
+              }
+              if (e.refused) {
+                // Turned away twice: the studio has no such profile. The
+                // miss is remembered and the fallback reads this speaker.
+                voiceMisses[key] = true;
+                toast('The studio has no “' + missed + '” voice — ' + cfg.voice + ' reads for ' + (jobs[i].who || 'them') +
+                  ' for now. Save a profile under that name in the Voice Studio, press its Refresh Library (or restart it), then ▶ again.');
+                jobs.forEach(function (j) { if (j.voice === missed) j.voice = cfg.voice; });
+                step(i);
+                return;
+              }
+              // The voice is real; the render failed. This one line goes to
+              // the fallback, and the speaker is asked for again next time —
+              // a hiccup is not a missing profile.
+              toast('The studio failed on ' + (jobs[i].who || 'this') + '’s line (' + e.message + ') — ' + cfg.voice +
+                ' reads this one; “' + missed + '” is asked for again next line.');
+              jobs[i].voice = cfg.voice;
               step(i);
               return;
             }
-            if (e && e.studio) { toast('The Qwen studio errored: ' + e.message); return; }
+            if (e && e.studio) { over(); toast('The Qwen studio errored: ' + e.message + ' — press ▶ to try the line again.'); return; }
+            over();
             speakBrowser(msg, r);
           });
       };
       step(0);
-    });
+    }).catch(function () { over(); });
   }
   speak.turn = 0;
+  speak.progress = '';
 
   function speakBrowser(msg, r) {
     if (!window.speechSynthesis) { toast('The Qwen studio is not answering at ' + ttsConfig().endpoint + ' and this browser has no voice of its own.'); return; }
@@ -4418,10 +6566,11 @@
     };
   }
 
-  function confirmThen(title, note, done) {
+  function confirmThen(title, note, done, labels) {
+    labels = labels || {};
     openModal('<h3>' + esc(title) + '</h3><p class="sub">' + esc(note) + '</p>' +
-      '<div class="actions"><button class="pill" id="mCancel">Keep it</button>' +
-      '<button class="pill danger" id="mOk">Delete</button></div>');
+      '<div class="actions"><button class="pill" id="mCancel">' + esc(labels.no || 'Keep it') + '</button>' +
+      '<button class="pill ' + (labels.ok ? 'primary' : 'danger') + '" id="mOk">' + esc(labels.ok || 'Delete') + '</button></div>');
     $('mCancel').onclick = closeModal;
     $('mOk').onclick = function () { closeModal(); done(); };
   }
@@ -4474,6 +6623,56 @@
     };
   }
 
+  /* ---- playing as somebody from the archive ----
+     The reader is usually Waluigi. Until now that took four steps: ＋ New,
+     From the archive, pick him, then find the ☆. One picker now does it,
+     and can remember the choice for every chat that follows. */
+
+  /** Seat the reader as `c` in room `r`: into the cast if need be, star
+   *  on, receipt in the stream. `remember` makes it the default. */
+  function seatPlayer(r, c, remember) {
+    var wasIn = (r.cast || []).some(function (x) { return x.id === c.id; });
+    RP.pushUndo(r, 'playing as ' + c.name);
+    var seat = RP.playAs(r, c);
+    if (!seat) return;
+    RP.ensurePlayerSheet(state, r);
+    r.messages.push({ id: RP.uid(), role: 'state', at: Date.now(),
+      lines: ['🎭 You play ' + seat.name + (wasIn ? '' : ' — they join the scene') + '. The model will not speak for them.'] });
+    RP.logEvent(state, {
+      kind: 'roster', roomId: r.id, roomTitle: r.title, when: roomDate(r), chars: [seat.id],
+      text: 'The reader took the seat of ' + seat.name + '.',
+    });
+    if (remember !== undefined) state.user.playAs = remember ? seat.id : (state.user.playAs === seat.id ? '' : state.user.playAs);
+    save(); buildBoard(); render();
+    toast('You play ' + seat.name + ' — your turns wear their face, and the model writes everybody else.' +
+      (remember ? ' Every new chat will open this way.' : ''));
+  }
+
+  function playAsPicker(r) {
+    var current = RP.playerCharacter(r);
+    var def = (state.user && state.user.playAs) || '';
+    castPicker({
+      title: 'Who do you play?',
+      note: 'Take a seat as somebody from the archive. Your turns show their name and portrait, the other characters ' +
+        'talk to you as them, and the model never writes their lines.',
+      preselect: current ? [current.id] : (def && castById[def] ? [def] : []),
+      first: ['waluigi', 'wario', 'bowser', 'luigi'].concat(def ? [def] : []),
+      single: true, suggest: false, ok: 'Take the seat',
+      check: { label: 'Open every new chat as them', checked: Boolean(def) },
+    }, function (chosen, _setup, flags) {
+      seatPlayer(r, chosen[0], Boolean(flags && flags.check));
+    });
+  }
+
+  /** A new room opens with the reader already seated, when they asked
+   *  for that. Quiet: no receipt in the stream, the rail says it. */
+  function applyDefaultPlayer(r) {
+    var id = (state.user && state.user.playAs) || '';
+    if (!id || !castById[id] || !r || r.youPlay) return;
+    RP.playAs(r, castById[id]);
+    RP.ensurePlayerSheet(state, r);
+  }
+
   /** The cast picker used by group chats, scenes and replays. */
   function castPicker(opts, done) {
     var picked = (opts.preselect || []).slice();
@@ -4481,25 +6680,49 @@
     function draw() {
       var q = ($('pickSearch') && $('pickSearch').value || '').toLowerCase();
       var pool = (opts.extra || []).concat(cast);
-      var shown = pool.filter(function (c) { return !q || c.name.toLowerCase().indexOf(q) >= 0; }).slice(0, 300);
-      $('pickGrid').innerHTML = shown.map(function (c) {
-        return '<button class="pick ' + (picked.indexOf(c.id) >= 0 ? 'on' : '') + '" data-pick="' + esc(c.id) + '">' +
-          avatar(c, 24) + '<span>' + esc(c.name) + '</span></button>';
+      // Whoever is named first in the picker's own note or title comes to
+      // the top — "Play as" wants Waluigi on screen, not under W.
+      var first = (opts.first || []).slice();
+      if (first.length) {
+        pool = first.map(function (id) { return pool.filter(function (c) { return c.id === id; })[0]; }).filter(Boolean)
+          .concat(pool.filter(function (c) { return first.indexOf(c.id) < 0; }));
+      }
+      if (opts.exclude) pool = pool.filter(function (c) { return !opts.exclude[c.id]; });
+      var shown = pool.filter(function (c) {
+        return !q || c.name.toLowerCase().indexOf(q) >= 0 || String(c.title || '').toLowerCase().indexOf(q) >= 0;
+      }).slice(0, 300);
+      var seed = q && !shown.some(function (c) { return c.name.toLowerCase() === q; }) ? $('pickSearch').value.trim() : '';
+      // The ＋ tile: a new character, seeded with whatever was typed into
+      // the search when it matched nobody.
+      var plus = !opts.create ? '' : '<button class="pick new" data-new="1" title="Somebody the archive has never filed">' +
+        '<span class="av" style="width:' + (opts.portraits ? 56 : 24) + 'px;height:' + (opts.portraits ? 56 : 24) + 'px;background:transparent;font-size:' +
+        (opts.portraits ? 30 : 16) + 'px">＋</span><span>' + (seed ? 'New: ' + esc(RP.clip(seed, 24)) : 'New character…') + '</span></button>';
+      $('pickGrid').innerHTML = plus + shown.map(function (c) {
+        return '<button class="pick ' + (picked.indexOf(c.id) >= 0 ? 'on' : '') + '" data-pick="' + esc(c.id) + '" title="' + esc(c.title || '') + '">' +
+          avatar(c, opts.portraits ? 56 : 24) + '<span>' + esc(c.name) + '</span>' +
+          (opts.portraits && c.title ? '<small>' + esc(RP.clip(c.title, 40)) + '</small>' : '') + '</button>';
       }).join('');
+      var plusBtn = $('pickGrid').querySelector('[data-new]');
+      if (plusBtn) plusBtn.onclick = function () { closeModal(); opts.create(seed); };
       $('pickGrid').querySelectorAll('[data-pick]').forEach(function (b) {
         b.onclick = function () {
           var id = b.dataset.pick;
           var at = picked.indexOf(id);
-          if (at >= 0) picked.splice(at, 1); else picked.push(id);
+          if (opts.single) picked = at >= 0 ? [] : [id];
+          else if (at >= 0) picked.splice(at, 1); else picked.push(id);
           draw();
         };
       });
-      $('pickCount').textContent = picked.length + ' selected';
+      $('pickCount').textContent = opts.single
+        ? (picked.length ? (castById[picked[0]] || {}).name || '1 selected' : 'Pick one')
+        : picked.length + ' selected';
     }
     openModal('<h3>' + esc(opts.title || 'Pick a cast') + '</h3>' +
       (opts.note ? '<p class="sub">' + esc(opts.note) + '</p>' : '') +
-      '<input type="text" id="pickSearch" placeholder="Search the cast">' +
-      '<div class="picker" id="pickGrid"></div>' +
+      '<input type="text" id="pickSearch" placeholder="' + (opts.create ? 'Search the cast — or type a new name' : 'Search the cast') + '">' +
+      '<div class="picker' + (opts.portraits ? ' portraits' : '') + '" id="pickGrid"></div>' +
+      (opts.check ? '<label class="pickcheck"><input type="checkbox" id="pickCheck"' + (opts.check.checked ? ' checked' : '') + '> ' +
+        esc(opts.check.label) + '</label>' : '') +
       '<div class="actions"><span class="sub" id="pickCount" style="margin-right:auto"></span>' +
       (opts.setup ? '<button class="pill" id="pickSetup">⚔ Starting state</button>' : '') +
       (opts.suggest === false ? '' : '<button class="pill" id="pickSuggest">✨ Suggest a cast</button>') +
@@ -4512,7 +6735,8 @@
       (opts.extra || []).forEach(function (c) { extra[c.id] = c; });
       var chosen = picked.map(function (id) { return castById[id] || extra[id]; }).filter(Boolean);
       if (!chosen.length) { toast('Pick at least one character.'); return; }
-      closeModal(); done(chosen, pendingSetup);
+      var flags = { check: Boolean($('pickCheck') && $('pickCheck').checked) };
+      closeModal(); done(chosen, pendingSetup, flags);
     };
     if ($('pickSetup')) {
       $('pickSetup').onclick = function () {
@@ -4542,6 +6766,79 @@
       };
     }
     draw();
+  }
+
+  /** Somebody the archive never filed. A name is enough: ✨ asks the model
+   *  for the rest of the card — role, look, voice, sample lines, kit — in
+   *  a fixed template, and anything the reader already typed is kept.
+   *  Saving seats them in the room with a real sheet and a voice sheet,
+   *  and they stay in the invite grid for later scenes. */
+  function inventForm(r, seedName) {
+    var aiVoice = null;      // sounds / never / lines from the fill-in ride along with the register
+    openModal('<h3>A new character</h3>' +
+      '<p class="sub">Give a name and press ✨ — the model fills in the rest in the archive\u2019s own register. Whatever you type yourself is kept.</p>' +
+      '<label for="nc_name">Name</label><input type="text" id="nc_name" value="' + esc(seedName || '') + '" placeholder="Old Pell">' +
+      '<label for="nc_role">Who they are to this scene</label><input type="text" id="nc_role" placeholder="the pawnbroker who holds the marker">' +
+      '<label for="nc_look">What they look like</label><textarea id="nc_look" rows="2"></textarea>' +
+      '<label for="nc_voice">How they talk</label><textarea id="nc_voice" rows="2" placeholder="dry, slow, every sentence a price"></textarea>' +
+      '<p class="sub" id="nc_lines" hidden></p>' +
+      '<label for="nc_items">Carrying — commas between, an emoji first picks the icon</label><input type="text" id="nc_items" placeholder="📒 a black ledger, 🗝 a ring of small keys">' +
+      '<div class="actions"><button class="pill" id="ncFill" style="margin-right:auto">✨ Fill it in</button>' +
+      '<button class="pill" id="mCancel">Cancel</button><button class="pill primary" id="mOk">Into the scene</button></div>');
+    $('mCancel').onclick = closeModal;
+    function spec() {
+      return {
+        name: $('nc_name').value.trim(), role: $('nc_role').value.trim(), look: $('nc_look').value.trim(),
+        voice: $('nc_voice').value.trim(), items: $('nc_items').value.trim(),
+      };
+    }
+    $('ncFill').onclick = function () {
+      var want = spec();
+      if (!want.name) { toast('A name first — the rest follows from it.'); $('nc_name').focus(); return; }
+      $('ncFill').disabled = true; $('ncFill').textContent = '…writing';
+      callModel(RP.inventPrompt(want, r), [{ role: 'user', content: 'Write the card for ' + want.name + '.' }], { utility: true, tokens: 520 })
+        .then(function (text) {
+          var got = RP.parseInvented(text, want);
+          if (!$('nc_role').value.trim() && got.role) $('nc_role').value = got.role;
+          if (!$('nc_look').value.trim() && got.look) $('nc_look').value = got.look;
+          if (got.voice) {
+            if (!$('nc_voice').value.trim() && got.voice.register) $('nc_voice').value = got.voice.register;
+            aiVoice = got.voice;
+            if (got.voice.lines.length) {
+              $('nc_lines').hidden = false;
+              $('nc_lines').textContent = 'Sounds like: ' + got.voice.lines.map(function (l) { return '\u201c' + l + '\u201d'; }).join(' ');
+            }
+          }
+          if (!$('nc_items').value.trim() && got.items.length) $('nc_items').value = got.items.join(', ');
+          if (!got.role && !got.look && !got.voice && !got.items.length) toast('The model did not keep to the card — try once more, or type it in.');
+        })
+        .catch(function (err) { toast('The model could not fill it in — ' + (err && err.message ? err.message : 'no answer') + '.'); })
+        .then(function () { $('ncFill').disabled = false; $('ncFill').textContent = '✨ Fill it in'; });
+    };
+    $('mOk').onclick = function () {
+      var want = spec();
+      if (!want.name) { toast('They need a name.'); $('nc_name').focus(); return; }
+      var voice = want.voice || (aiVoice && aiVoice.register) ? {
+        register: want.voice || aiVoice.register,
+        sounds: aiVoice ? aiVoice.sounds : [], never: aiVoice ? aiVoice.never : [], lines: aiVoice ? aiVoice.lines : [],
+      } : null;
+      var items = want.items ? want.items.split(/\s*,\s*/).filter(Boolean) : [];
+      RP.pushUndo(r, 'writing in ' + want.name);
+      var made = RP.inventCharacter(state, r, {
+        name: want.name, role: want.role, look: want.look, voice: voice, items: items,
+        by: aiVoice ? 'written in by the reader, filled in by the model' : 'written in by the reader',
+      });
+      r.messages.push({ id: RP.uid(), role: 'state', at: Date.now(),
+        lines: ['🚪 ' + made.name + ' joins the scene — new' + (want.role ? ', ' + RP.clip(want.role, 60) : '')] });
+      r.updated = Date.now();
+      // On the dashboard too, like an imported card: described, not drawn.
+      castById[made.id] = made;
+      cast = cast.filter(function (c) { return c.id !== made.id; }).concat([made]);
+      closeModal();
+      save(); buildBoard(); render();
+      toast(made.name + ' is in the scene' + (voice ? ', with a voice of their own' : '') + '.');
+    };
+    $('nc_name').focus();
   }
 
   function loreForm(node) {
@@ -4588,10 +6885,30 @@
 
   /** Where the model lives. Two presets, because two things are what
    *  people actually run: LM Studio on its own, or the workflow server. */
-  function settingsForm() {
+  var settingsTab = 'model';
+  function settingsForm(openTab) {
     var current = replyUrl();
     var sampler = (state.settings && state.settings.sampler) || {};
+    var sel = function (id, label, value, options, help) {
+      return '<label for="' + id + '">' + label + (help ? '<small>' + help + '</small>' : '') + '</label><select id="' + id + '">' +
+        options.map(function (o) {
+          return '<option value="' + esc(o[0]) + '"' + (String(value) === String(o[0]) ? ' selected' : '') + '>' + esc(o[1]) + '</option>';
+        }).join('') + '</select>';
+    };
+    var num = function (id, label, value, min, max, step, help) {
+      return '<label for="' + id + '">' + label + (help ? '<small>' + help + '</small>' : '') + '</label>' +
+        '<input type="number" id="' + id + '" min="' + min + '" max="' + max + '"' + (step ? ' step="' + step + '"' : '') + ' value="' + esc(String(value)) + '">';
+    };
+    var TABS = [['model', '🖥 Model'], ['scene', '🎬 The scene'], ['people', '👥 The people'], ['memory', '🧠 Memory & budget'], ['look', '🎨 Appearance']];
+    var tabNow = openTab || settingsTab || 'model';
     openModal('<h3>Settings</h3>' +
+      '<p class="sub">Everything the page runs on, in one place. The same dials sit on the 🎬 Scene tab of the dock as shortcuts.</p>' +
+      '<div class="stabs">' + TABS.map(function (t) {
+        return '<button class="stab' + (tabNow === t[0] ? ' on' : '') + '" data-stab="' + t[0] + '">' + t[1] + '</button>';
+      }).join('') + '</div>' +
+
+      // ---- the model ----
+      '<section class="spane" data-spane="model"' + (tabNow === 'model' ? '' : ' hidden') + '>' +
       '<p class="sub">Point the page at whatever is running. <b>LM Studio</b> is called directly with the OpenAI API ' +
       '(make sure its server is started, and that “Enable CORS” is on in its Developer tab). The <b>workflow ' +
       'server</b> adds the archive routes and the disk saves, and forwards to LM Studio itself.</p>' +
@@ -4606,40 +6923,6 @@
       '<div class="castbar"><select id="f_modelPick"><option value="">— the models the endpoint reports —</option></select>' +
       '<button class="pill" id="setModels">↻ List models</button></div>' +
       '<input type="text" id="f_model" value="' + esc(state.settings.model || '') + '" placeholder="local-model">' +
-      '<label for="f_length">How long should a reply be?</label><select id="f_length">' +
-      Object.keys(RP.LENGTHS).map(function (k) {
-        return '<option value="' + k + '"' + ((state.settings.length || 'snappy') === k ? ' selected' : '') + '>' +
-          esc(RP.LENGTHS[k].name) + ' — ' + esc(RP.LENGTHS[k].words) + '</option>';
-      }).join('') + '</select>' +
-      '<label for="f_narrator">Who narrates?</label><select id="f_narrator">' +
-      Object.keys(RP.NARRATORS).map(function (k) {
-        return '<option value="' + k + '"' + (RP.narrator(state) === k ? ' selected' : '') + '>' +
-          esc(RP.NARRATORS[k].icon + ' ' + RP.NARRATORS[k].name + ' — ' + RP.NARRATORS[k].blurb) + '</option>';
-      }).join('') + '</select>' +
-      '<label for="f_world">Narration turns</label><select id="f_world">' +
-      [['on', 'On — when nobody else is here, the world describes the scene and moves the hour'],
-       ['off', 'Off — only characters speak']].map(function (o) {
-        return '<option value="' + o[0] + '"' + ((state.settings.world || 'on') === o[0] ? ' selected' : '') + '>' + esc(o[1]) + '</option>';
-      }).join('') + '</select>' +
-      '<label for="f_audience">Audience murmurs — silent cast members get one short reaction beat per turn (same call, no extra cost)</label><select id="f_audience">' +
-      [['on', 'On — the room keeps breathing while two people talk'],
-       ['off', 'Off — only the speaker and the narration exist']].map(function (o) {
-        return '<option value="' + o[0] + '"' + ((state.settings.audience || 'on') === o[0] ? ' selected' : '') + '>' + esc(o[1]) + '</option>';
-      }).join('') + '</select>' +
-      '<label for="f_autoplay">▶ Auto plays this many turns before stopping</label>' +
-      '<input type="number" id="f_autoplay" min="2" max="20" value="' + (state.settings.autoplay || 6) + '">' +
-      '<label for="f_context">How many recent turns the model sees (default 24)</label>' +
-      '<input type="number" id="f_context" min="4" max="240" value="' + (state.settings.context || 24) + '">' +
-      '<label for="f_upkeep">🧾 Sheet upkeep — the quartermaster reviews the record every N played turns (0 = off, default ' + RP.UPKEEP_EVERY + '). One small background call; shares the book\u2019s session budget.</label>' +
-      '<input type="number" id="f_upkeep" min="0" max="24" value="' + (state.settings.upkeep === undefined ? RP.UPKEEP_EVERY : state.settings.upkeep) + '">' +
-      '<label for="f_historyChars">History budget, in characters — long monologues are clipped so they cannot crowd out whole turns (default ' + RP.HISTORY_BUDGET + ')</label>' +
-      '<input type="number" id="f_historyChars" min="3000" max="60000" step="1000" value="' + (state.settings.historyChars || RP.HISTORY_BUDGET) + '">' +
-      '<label for="f_promptBudget">System prompt budget, in characters — raise it for a model with a big context window (default ' + RP.PROMPT_BUDGET + ')</label>' +
-      '<input type="number" id="f_promptBudget" min="6000" max="' + RP.PROMPT_BUDGET_MAX + '" step="1000" value="' + (state.settings.promptBudget || RP.PROMPT_BUDGET) + '">' +
-      '<label for="f_style">Default narration style</label><select id="f_style">' +
-      Object.keys(RP.STYLES).map(function (k) {
-        return '<option value="' + k + '"' + (state.settings.style === k ? ' selected' : '') + '>' + esc(RP.STYLES[k].name) + '</option>';
-      }).join('') + '</select>' +
       '<label for="f_temperature">Temperature — higher is wilder (0–1.5)</label>' +
       '<input type="text" id="f_temperature" value="' + esc(String(state.settings.temperature)) + '">' +
       '<label>Sampling — leave blank to let the model decide</label>' +
@@ -4649,16 +6932,88 @@
       '<label class="mins">rep. penalty <input type="text" id="f_repeat_penalty" value="' + esc(String(sampler.repeat_penalty === undefined ? '' : sampler.repeat_penalty)) + '" placeholder="1.1"></label>' +
       '<label class="mins">min_p <input type="text" id="f_min_p" value="' + esc(String(sampler.min_p === undefined ? '' : sampler.min_p)) + '" placeholder="0.05"></label>' +
       '</div>' +
-      '<label for="f_utilityModel">Background model — the sequencer, the lore book, hooks (blank = the same one)</label>' +
-      '<input type="text" id="f_utilityModel" value="' + esc(state.settings.utilityModel || '') + '" placeholder="a small, fast model">' +
+      '<h4>Background AI</h4>' +
       '<label for="f_background">Background AI — lean is ONE model call per turn: speakers rotate, the lore book and upkeep wait</label>' +
       '<select id="f_background">' +
       '<option value="lean"' + ((state.settings.background || RP.BACKGROUND_DEFAULT) === 'lean' ? ' selected' : '') + '>Lean — the model only writes the story (best on slow machines)</option>' +
       '<option value="full"' + (state.settings.background === 'full' ? ' selected' : '') + '>Full — model-picked speakers, auto lore book, upkeep reviews</option>' +
       '</select>' +
+      '<label for="f_utilityModel">Background model — the sequencer, the lore book, hooks, the audit (blank = the same one)</label>' +
+      '<input type="text" id="f_utilityModel" value="' + esc(state.settings.utilityModel || '') + '" placeholder="a small, fast model">' +
       '<input type="text" id="f_utilityEndpoint" value="' + esc(state.settings.utilityEndpoint || '') + '" placeholder="its endpoint, if it is somewhere else">' +
+      '</section>' +
+
+      // ---- the scene ----
+      '<section class="spane" data-spane="scene"' + (tabNow === 'scene' ? '' : ' hidden') + '>' +
+      sel('f_length', 'How long a reply is', state.settings.length || RP.DEFAULT_LENGTH, Object.keys(RP.LENGTHS).map(function (k) {
+        return [k, RP.LENGTHS[k].name + ' — ' + RP.LENGTHS[k].words];
+      }), '“Let the scene decide” keeps a retort short and gives a reveal its paragraphs; the others pin a band. Also on the ✂ button under the chat.') +
+      sel('f_style', 'Narration style', state.settings.style || '', Object.keys(RP.STYLES).map(function (k) { return [k, RP.STYLES[k].name]; })) +
+      sel('f_narrator', 'Who narrates', RP.narrator(state), Object.keys(RP.NARRATORS).map(function (k) {
+        return [k, RP.NARRATORS[k].icon + ' ' + RP.NARRATORS[k].name + ' — ' + RP.NARRATORS[k].blurb];
+      })) +
+      sel('f_world', 'Narration turns', state.settings.world || 'on', [
+        ['on', 'On — when nobody else is here, the world describes the scene and moves the hour'],
+        ['off', 'Off — only characters speak']]) +
+      sel('f_director', 'Director — after a reply, who speaks next?', state.settings.director || 'on', [
+        ['on', 'The model decides — characters answer each other, then hand back to me'],
+        ['off', 'Always me — one reply per turn']],
+        'In a group chat the model stages who reacts to your line and in what order; it hands back on its own, and always at the ceiling below. You can always pick faces yourself on the Next: row — several at once with 👥 Several.') +
+      num('f_maxChain', 'Never more than this many character turns before it comes back to me', state.settings.maxChain || RP.MAX_CHAIN, 1, 12) +
+      num('f_autoplay', '▶ Auto plays this many turns before stopping', state.settings.autoplay || 6, 2, 20) +
+      sel('f_fate', '🎲 Fate — how often the world pushes back', state.settings.fate || 'normal', [
+        ['off', 'Off — whatever you write, works'],
+        ['gentle', 'Gentle — mostly you, occasionally a price'],
+        ['normal', 'Normal — costs and wrenches are common, failure happens'],
+        ['harsh', 'Harsh — the world is against you and the cast argues back']],
+        'Before each reply to something you attempted, the page rolls and tells the model how it resolves. Being wounded or spent shifts the odds against you.') +
+      sel('f_hurt', '💥 Wounds', state.settings.hurt || 'on', [
+        ['on', 'Filed from the prose too — a crash, a blade or a blast costs HP even when the model files nothing'],
+        ['off', 'Only what the model files as [[HP:]] lands on the sheets']]) +
+      '<p class="sub">⚡ <b>Energy</b> is one pool for breath, strength and magic: a sprint, a climb, a long fight or a spell costs some (filed by the model, or read from the prose), it refills a little every quiet turn, and at 0 the body refuses. ' +
+      '0 HP is <b>down</b>: barely conscious until something brings them round — a slap, salts, a stim, a heal — which the page files on its own.</p>' +
+      '</section>' +
+
+      // ---- the people ----
+      '<section class="spane" data-spane="people"' + (tabNow === 'people' ? '' : ' hidden') + '>' +
+      sel('f_fresh', '♻ Fresh turns — when a character starts repeating themselves', state.settings.fresh || RP.FRESH_DEFAULT, Object.keys(RP.FRESH).map(function (k) {
+        return [k, RP.FRESH[k].name + ' — ' + RP.FRESH[k].blurb];
+      }), 'The page keeps a ledger of the phrases, the subject and the opening each character has leaned on over their last ' + RP.FRESH_TURNS +
+        ' turns. When there is something on it, the prompt names it and asks for one new move; on Strict, a reply that still leans on the old phrases is sent back once. No extra calls.') +
+      sel('f_audience', '👥 The room answers — the people who are NOT speaking this turn', state.settings.audience || RP.AUDIENCE_DEFAULT, Object.keys(RP.AUDIENCE).map(function (k) {
+        return [k, RP.AUDIENCE[k].name + ' — ' + RP.AUDIENCE[k].blurb];
+      }), 'Same call, no extra cost. Each reaction is cut out of the speaker\u2019s reply and filed under the person who made it — its own card, its own mood, its own voice in the history. Nothing shows in a two-hander, because nobody is watching.') +
+      '<p class="sub">To have several people act on the same beat — one running while another shoots — press <b>👥 Several…</b> on the Next: row, tick them, and choose <b>the same moment</b>. Each is written as happening in the same seconds, not one after the other.</p>' +
+      sel('f_voice', '🔊 Voice', state.settings.voice === 'on' ? 'on' : 'off', [
+        ['off', 'On tap — ▶ on a card reads it'],
+        ['on', 'Auto — every reply is read aloud as it lands']]) +
+      '</section>' +
+
+      // ---- memory & budget ----
+      '<section class="spane" data-spane="memory"' + (tabNow === 'memory' ? '' : ' hidden') + '>' +
+      num('f_context', 'How many recent turns the model sees (default 24)', state.settings.context || 24, 4, 240) +
+      num('f_historyChars', 'History budget, in characters — long monologues are clipped so they cannot crowd out whole turns (default ' + RP.HISTORY_BUDGET + ')', state.settings.historyChars || RP.HISTORY_BUDGET, 3000, 60000, 1000) +
+      num('f_promptBudget', 'System prompt budget, in characters — raise it for a model with a big context window (default ' + RP.PROMPT_BUDGET + ')', state.settings.promptBudget || RP.PROMPT_BUDGET, 6000, RP.PROMPT_BUDGET_MAX, 1000) +
+      num('f_upkeep', '🧾 Sheet upkeep — the quartermaster reviews the record every N played turns (0 = off, default ' + RP.UPKEEP_EVERY + ')', state.settings.upkeep === undefined ? RP.UPKEEP_EVERY : state.settings.upkeep, 0, 24, 0,
+        'One small background call; shares the book\u2019s session budget. The deterministic half — down at 0 HP, revivals, Energy from the prose, wounds from the prose — runs every turn for free.') +
+      '<p class="sub">The archive is read for every turn (🔎 on the card) and the model is asked to weave one concrete thing out of it; a card shows 📚 when it did.</p>' +
+      '</section>' +
+
+      // ---- appearance ----
+      '<section class="spane" data-spane="look"' + (tabNow === 'look' ? '' : ' hidden') + '>' +
+      '<p class="sub">Theme, text size, prose face, column width, mood wash, coloured words, badges, times, Enter vs Ctrl+Enter.</p>' +
+      '<button class="pill" id="setLook">🎨 Open Appearance…</button>' +
+      '</section>' +
+
       '<div class="actions"><button class="pill" id="mCancel">Cancel</button>' +
       '<button class="pill primary" id="mOk">Save</button></div>');
+    $('modal').querySelectorAll('[data-stab]').forEach(function (b) {
+      b.onclick = function () {
+        settingsTab = b.dataset.stab;
+        $('modal').querySelectorAll('[data-stab]').forEach(function (x) { x.classList.toggle('on', x === b); });
+        $('modal').querySelectorAll('[data-spane]').forEach(function (p) { p.hidden = p.dataset.spane !== b.dataset.stab; });
+      };
+    });
     $('mCancel').onclick = closeModal;
     // The dialog can be closed while a request is in flight, and two probes
     // can be in flight at once (the automatic one on open, and Test it).
@@ -4693,6 +7048,7 @@
     listModels();
     $('setLm').onclick = function () { $('f_endpoint').value = LM_STUDIO; listModels(); };
     $('setWf').onclick = function () { $('f_endpoint').value = 'http://127.0.0.1:8787/api/roleplay'; };
+    $('setLook').onclick = function () { closeModal(); lookForm(); };
     $('setTest').onclick = function () {
       var mine = probe();
       var url = $('f_endpoint').value.trim() || CFG.replyUrl;
@@ -4750,7 +7106,14 @@
       if (!isNaN(pbud)) state.settings.promptBudget = Math.max(6000, Math.min(RP.PROMPT_BUDGET_MAX, pbud));
       state.settings.length = $('f_length').value;
       state.settings.world = $('f_world').value;
-      state.settings.audience = $('f_audience') ? $('f_audience').value : (state.settings.audience || 'on');
+      state.settings.audience = $('f_audience') ? $('f_audience').value : (state.settings.audience || RP.AUDIENCE_DEFAULT);
+      state.settings.fresh = $('f_fresh') ? $('f_fresh').value : (state.settings.fresh || RP.FRESH_DEFAULT);
+      state.settings.fate = $('f_fate') ? $('f_fate').value : (state.settings.fate || 'normal');
+      state.settings.hurt = $('f_hurt') ? $('f_hurt').value : (state.settings.hurt || 'on');
+      state.settings.director = $('f_director') ? $('f_director').value : (state.settings.director || 'on');
+      state.settings.voice = $('f_voice') ? $('f_voice').value : state.settings.voice;
+      var chain = $('f_maxChain') ? parseInt($('f_maxChain').value, 10) : NaN;
+      if (!isNaN(chain)) state.settings.maxChain = Math.max(1, Math.min(12, chain));
       state.settings.narrator = $('f_narrator').value;
       var auto = parseInt($('f_autoplay').value, 10);
       if (!isNaN(auto)) state.settings.autoplay = Math.max(2, Math.min(20, auto));
@@ -4787,6 +7150,7 @@
         var replay = RP.replayRoom(state, source, picked, {
           perspective: v.perspective || picked.map(function (c) { return c.name; }).join(', '),
         });
+        applyDefaultPlayer(replay);
         state.rooms.unshift(replay);
         state.active = replay.id;
         save(); render();
@@ -4852,7 +7216,73 @@
    * boot
    * ---------------------------------------------------------------- */
 
+  /* ---------------------------------------------------------------- *
+   * 🎨 Appearance — how the page looks, kept in state.settings.look
+   * ---------------------------------------------------------------- */
+  var LOOK = {
+    theme: { label: 'Theme', options: [['light', 'Light'], ['sepia', 'Sepia — paper'], ['dusk', 'Dusk — dark']] },
+    size: { label: 'Text size', options: [['s', 'Small'], ['m', 'Normal'], ['l', 'Large'], ['xl', 'Larger']] },
+    font: { label: 'Prose face', options: [['sans', 'Sans'], ['serif', 'Serif — book'], ['mono', 'Mono — typewriter']] },
+    width: { label: 'Column width', options: [['narrow', 'Narrow'], ['normal', 'Normal'], ['wide', 'Wide']] },
+    density: { label: 'Spacing', options: [['cosy', 'Cosy'], ['compact', 'Compact']] },
+    mood: { label: 'Mood colour on the boxes', options: [['full', 'Full wash'], ['soft', 'Just the edge'], ['off', 'Off']] },
+    words: { label: 'Coloured words ({like this})', options: [['on', 'Coloured'], ['off', 'Plain']] },
+    badges: { label: 'Badges on turns (archive, meanwhile, consulted)', options: [['on', 'Shown'], ['off', 'Hidden']] },
+    stamps: { label: 'Time on each turn', options: [['off', 'Hidden'], ['on', 'Shown']] },
+    portraits: { label: 'Portraits beside turns', options: [['on', 'Shown'], ['off', 'Hidden']] },
+    enter: { label: 'Send with', options: [['enter', 'Enter (Shift+Enter for a new line)'], ['ctrl', 'Ctrl+Enter (Enter for a new line)']] },
+  };
+  var LOOK_DEFAULTS = {};
+  Object.keys(LOOK).forEach(function (k) { LOOK_DEFAULTS[k] = LOOK[k].options[0][0]; });
+  LOOK_DEFAULTS.size = 'm'; LOOK_DEFAULTS.width = 'normal';
+
+  function look() {
+    var l = Object.assign({}, LOOK_DEFAULTS, state.settings.look || {});
+    Object.keys(LOOK).forEach(function (k) {
+      if (!LOOK[k].options.some(function (o) { return o[0] === l[k]; })) l[k] = LOOK_DEFAULTS[k];
+    });
+    return l;
+  }
+
+  /** The look lives on <html> as data- attributes; the stylesheet reads them. */
+  function applyLook() {
+    var l = look(), root = document.documentElement;
+    Object.keys(LOOK).forEach(function (k) {
+      if (l[k] === LOOK_DEFAULTS[k]) root.removeAttribute('data-' + k); else root.setAttribute('data-' + k, l[k]);
+    });
+  }
+
+  function stamp(m) {
+    if (look().stamps !== 'on' || !m || !m.at) return '';
+    var d = new Date(m.at);
+    var hh = String(d.getHours()).padStart(2, '0'), mm = String(d.getMinutes()).padStart(2, '0');
+    return '<span class="stamp" title="' + esc(d.toLocaleString()) + '">' + hh + ':' + mm + '</span>';
+  }
+
+  function lookForm() {
+    var l = look();
+    openModal('<h3>🎨 Appearance</h3>' +
+      '<p class="sub">How the page reads. Everything here changes as you pick it, and is kept with your settings. The mood wash and ' +
+      'the coloured words are only the look — the sheets and moods underneath are unchanged.</p>' +
+      '<div class="grid2">' + Object.keys(LOOK).map(function (k) {
+        return '<label for="lk_' + k + '">' + esc(LOOK[k].label) + '</label><select id="lk_' + k + '" data-look="' + k + '">' +
+          LOOK[k].options.map(function (o) { return '<option value="' + o[0] + '"' + (l[k] === o[0] ? ' selected' : '') + '>' + esc(o[1]) + '</option>'; }).join('') +
+          '</select>';
+      }).join('') + '</div>' +
+      '<div class="actions"><button class="pill" id="mReset">Back to the defaults</button><span class="grow"></span><button class="pill primary" id="mOk">Done</button></div>');
+    $('modal').querySelectorAll('[data-look]').forEach(function (sel) {
+      sel.onchange = function () {
+        state.settings.look = state.settings.look || {};
+        state.settings.look[sel.getAttribute('data-look')] = sel.value;
+        applyLook(); save(); render();
+      };
+    });
+    $('mReset').onclick = function () { state.settings.look = {}; applyLook(); save(); render(); lookForm(); };
+    $('mOk').onclick = closeModal;
+  }
+
   function render() {
+    applyLook();
     renderRail();
     if (room()) renderChat(); else renderDash();
     renderStatus();
@@ -4876,14 +7306,30 @@
       input.style.height = Math.min(150, input.scrollHeight) + 'px';
     };
     input.onkeydown = function (e) {
-      if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(); }
+      if (e.key !== 'Enter') return;
+      var ctrl = e.ctrlKey || e.metaKey;
+      if (enterSends() ? (!e.shiftKey || ctrl) : ctrl) { e.preventDefault(); send(); }
     };
     $('menuBtn').onclick = function () { document.querySelector('.rail').classList.toggle('open'); };
   }
 
+  /** Enter sends by default; the Appearance settings can make it Ctrl+Enter. */
+  function enterSends() { return ((state.settings.look || {}).enter || 'enter') !== 'ctrl'; }
+
   wireShell();
   render();
   checkHealth();
+  // A portrait whose file is gone shows initials, not a broken image.
+  // Image errors do not bubble; they are caught on the way down.
+  document.addEventListener('error', function (e) {
+    var img = e.target;
+    if (!img || img.tagName !== 'IMG') return;
+    var box = img.parentNode;
+    if (!box || !box.classList || !box.classList.contains('av') || !box.getAttribute('data-nm')) return;
+    box.style.background = box.getAttribute('data-tint') || '#5b5b66';
+    box.textContent = box.getAttribute('data-nm');
+    box.setAttribute('data-broken', '1');
+  }, true);
   /* ---------------------------------------------------------------- *
    * quality of life: the keys you already expect to work
    * ---------------------------------------------------------------- */
@@ -4891,10 +7337,15 @@
     var typing = /^(INPUT|TEXTAREA|SELECT)$/.test((e.target || {}).tagName || '');
     if (e.key === 'Escape') {
       if (!$('modalBack').hidden) { closeModal(); return; }
+      if (anythingRunning()) { stopAll(); return; }
       if (!$('chatview').hidden) { $('homeBtn').click(); return; }
     }
     if (e.key === 'Enter' && (e.ctrlKey || e.metaKey) && $('input') === document.activeElement) {
       e.preventDefault(); $('composer').dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
+      return;
+    }
+    if (e.key === 'Enter' && (e.ctrlKey || e.metaKey) && $('input_b') && $('input_b') === document.activeElement) {
+      e.preventDefault(); $('composer_b').dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
       return;
     }
     if (typing) return;
@@ -4926,5 +7377,18 @@
   loadCast()
     .then(function () { return Promise.all([loadScenes(), loadWire(), loadCollections()]); })
     .then(loadArchive)
-    .then(function () { buildBoard(); render(); });
+    .then(function () {
+      buildBoard(); render();
+      if (!styleWasMigrated || !lengthWasMigrated) save();   // the flags, so this happens once
+      if (migratedRooms) {
+        toast('✨ ' + migratedRooms + (migratedRooms === 1 ? ' chat now plays' : ' chats now play') +
+          ' “In character” — first person, in their own voice. Style in the character panel brings Novel back.');
+      }
+      if (migratedLength) {
+        window.setTimeout(function () {
+          toast('✂ Replies now size themselves to the moment — a retort stays short, a reveal gets its paragraph. ' +
+            '⚙ Settings → “How long should a reply be?” pins a length again.');
+        }, migratedRooms ? 4000 : 600);
+      }
+    });
 })();
