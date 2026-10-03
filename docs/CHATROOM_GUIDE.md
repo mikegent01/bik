@@ -338,7 +338,7 @@ with mechanics on:
 [[ITEM: Name + the brass key | bent, from the ledger room]]   gained, with a note · "-" lost
 [[EQUIP: Name brass key]] / [[STOW: Name brass key]]      in hand, or put away
 [[STATUS: Name bleeding badly]] a short physical note
-[[TINT: the exact words = colour]]  those words render in that colour every turn from now on · [[UNTINT: …]]
+[[MOOD: Name anger 2 | why]]    how they feel now, 1–3 — see 🎨 Colour is emotion
 [[ENTER: Name — why they arrive]]   bring someone into the scene
 [[EXIT: Name — why they leave]]     write someone out
 ```
@@ -575,9 +575,9 @@ directions, the fate roll — are **never** sacrificed. In the base prompt only
 the *filed description* paragraph is halved, never the voice or the rules.
 When the card and the instructions alone overflow (a seven-person group with
 mechanics on, at the default budget), the head is **squeezed** rather than
-the tail sliced: colour-markup rules and the others' summaries go first,
-then the voice's *Never* and *Sounds like* lines and one sample line at a
-time, and the register paragraph is the floor. Turning mechanics off for a
+the tail sliced: the others' summaries go first, then the voice's *Never*
+and *Sounds like* lines and one sample line at a time, and the register
+paragraph is the floor. Turning mechanics off for a
 pure conversation gives the voice sheet nearly five thousand characters
 back; so does a bigger budget.
 
@@ -1665,6 +1665,32 @@ the crash, filed from the prose`, and `↩` undoes the whole turn, wounds
 included. Scene tab → **💥 Wounds** turns the ledger off (`settings.hurt`),
 leaving only what the model files. Off when mechanics are off.
 
+### 🩺 The AI audit — every sheet, every scene, one call, by hand
+
+The quartermaster is a small net on a timer. The **AI audit** is the same
+reader with the whole table in front of it, and it only runs when you
+press it: Cast tab → **🧾 AI audit**, or Scene tab → Housekeeping →
+**🩺 AI audit of the sheets**. One utility call (`RP.sheetAuditPrompt`,
+`tokens: 420`) carries **every sheet** — the whole cast, the player's
+pack, who is written out and waiting at the door — and the last fourteen
+turns of play; with ⇄ linked scenes it carries **both** rooms, each
+labelled, as one story on one clock. The model answers in stage
+directions: the quartermaster's kinds plus `[[MOOD:]]`, `[[STATUS:]]`,
+`[[TIME:]]`, `[[EXIT:]]` for somebody plainly gone and `[[ENTER:]]` only
+for somebody at that scene's door — never `[[NEW:]]`, `[[SET:]]` or
+`[[REMEMBER:]]` (`RP.AUDIT_KINDS`), and never the player's mood. Or
+exactly `IN ORDER`.
+
+Nothing lands unseen: the reply is first applied to **copies** of the
+rooms and shown as a list — *Bowser −7 HP (93/100)*, *the time is
+23:40*, *😠 Wario — angry (the bill)* — with **Apply N changes** or
+**Leave it**. On apply, each line goes to the first scene that knows the
+name (`RP.applySheetAudit`; shared sheets are synced by the page as
+usual), the clock moves in both, a 🩺 card is filed in each scene's
+stream, and one `↩` takes the whole audit back — the sheets, the card
+**and the clock**, which the undo snapshot now carries. It never runs in
+the background and never counts against the lean-mode contract.
+
 ### 🚪 The doorman — nobody slips in or out unfiled
 
 The model is told to use `[[ENTER:]]`, `[[NEW:]]` and `[[EXIT:]]`, and when
@@ -1825,22 +1851,21 @@ directive in one reply and asserts each lands.
 | `[[COUNT: Name arrows -1]]` | arbitrary counters | toolbox |
 | `[[ITEM: Name + 🗝 x \| note]]` / `-` / `[[USE]]` / `[[EQUIP]]` / `[[STOW]]` | the pack: gain, lose, spend, hand, stow | wardrobe + toolbox |
 | `[[STATUS: Name …]]` | a short physical note | toolbox |
-| `[[TINT: words = colour]]` / `[[UNTINT]]` | standing colours — see below | tints + toolbox |
-| `{colour\|words}` inline | one-off coloured phrase in prose | tints + toolbox |
+| `[[MOOD: Name anger 2 \| why]]` | how somebody feels, damped and fading — the colour of their box | mood checks |
+| `[[TINT]]` / `{colour\|words}` inline | legacy: no longer asked for; still parsed and rendered for old chats | tints + toolbox |
 | `[[SET: fact = value]]` / `[[TIME: …]]` | nailed-down scene facts and the clock | toolbox |
 | `[[REMEMBER: name \| fact]]` | files into the lore book | toolbox |
 | `[[LOOKUP: question]]` | mid-turn archive search (never about the current scene) | round-9 checks |
 | `[[ENTER/NEW/EXIT: Name — why]]` | cast walks in, is invented, walks out | arrivals/departures checks |
 | fate dice, stats, conjure check, grant scan | free local nets — no model call | rounds 2–3 checks |
 
-**Why tints were never seen in play (round 17).** The machinery worked;
-the model's dialect was refused silently. Three fixes: `[[TINT: the
-seal**: **violet]]` (colon instead of `=`) now files; descriptive
-colours (*glowing violet*, *blood red*) resolve to the colour word
-inside them (`RP.colourLoose` — junk like `javascript` is still
-refused); inline `{dark red|…}` now renders. And the directive text
-finally *encourages* the tool and lists the palette, so small models
-know the legal colour words.
+**Why tints are legacy.** Round 17 fixed the parsing and
+the palette, and the colour tools still went unused in play — a small
+model does not decorate on request. The prompt no longer asks for
+them (the palette rule, the flourish and the TINT lines are gone, which
+is a net saving); the parser and the renderer keep them so old chats
+still read as they did. Colour now has one meaning: **the box is the
+colour of the feeling** — see 🎨 Colour is emotion.
 
 ### 📣 The encouragement system — and naming a filing out loud
 
@@ -1861,7 +1886,7 @@ prose; that is exactly why the named filing must actually BE there.
 **The encouragement system** (`RP.encourage`) is data-driven and free:
 `applyDirectives` stamps when each tool family last fired
 (`room.toolAt`), and when one has sat unused past its threshold —
-stakes 18 turns, tints 20, lore-book filings 24 — **one conditional
+stakes 18 turns, moods 14, lore-book filings 24 — **one conditional
 line** rides the prompt: *"DIRECTOR'S NOTE: nothing has cost anyone
 anything for a long stretch… If it truly is a quiet scene, carry on."*
 Never more than one line, never twice in eight turns, silenced the
@@ -1917,51 +1942,74 @@ prompt gathers everything active into a `CONDITIONS IN PLAY` block with the
 order that *each one must shape what its bearer does this turn* — a bleeding
 character speaks and moves like one, or cures it on the record.
 
-## 🎨 Colour, sparingly
+## 🎨 Colour is emotion
 
-The model can put a few words in colour: `{red|the door is open}`,
-`{ice|her breath}`, `{#8e2b20|the stain}`. Named colours — red, blood,
-crimson, orange, ember, amber, gold, copper, green, moss, jade, teal, sea,
-blue, ice, storm, violet, purple, lilac, plum, pink, grey, silver, black,
-white, rust, sand, bone, venom — or any `#hex`. Anything that is not a
-colour is left exactly as written, and the content is escaped first, so the
-syntax cannot smuggle markup in. The rule in the prompt is *"use it for one
-thing that matters, not for decoration — two or three words in a turn at
-most, and never a whole sentence."*
+The colour of a turn's box is **how its speaker feels**, and the sheet in
+the 🩺 Party bar wears the same colour with a chip — *😠 angry*. Ten
+feelings, each with a hue, and calm, which is no colour at all:
 
-### The flourish — colour on a schedule, not on a hope
+| | | | | |
+|---|---|---|---|---|
+| 😠 anger — red | 😨 fear — violet | 😄 joy — gold | 😢 grief — blue | 😳 shame — mauve |
+| 🤢 disgust — green | 😲 surprise — orange | 🥰 affection — pink | 🤨 suspicion — teal | 😏 pride — amber |
 
-"You may colour" is read by a small model as "need not", and the palette
-rule is the first line squeezed on a tight window — so in practice nothing
-was ever coloured. `RP.flourishBlock` fixes that deterministically: every
-fifth turn (`RP.FLOURISH_EVERY`), and on every ⚅ triumph and ⚁ failure, the
-protected tail of the prompt carries a ~350-character order — **write
-exactly ONE phrase of this turn in colour, `{colour|the words}`, two to five
-words, the thing that carries the most weight; everything else stays
-plain** — with a palette matched to the moment (gold or amber for a
-triumph, blood or rust for a failure, ice or silver for a refusal, a
-rotating pair on the scheduled turns). It works with the mechanics off, it
-costs nothing on the turns it does not fire, and if the model has coloured
-something by itself in the last three turns (`RP.recentlyColoured`) it is
-left alone — the habit is the goal, not the nagging.
+Each has three pitches — **1** a flicker (*irritated*), **2** the plain
+thing (*angry*), **3** overwhelming (*furious*) — and the pitch is the
+depth of the wash on the box (`RP.moodStyle`: a firm edge in the hue and
+a tint that deepens 10 → 20 → 32 %).
 
-### Standing tints — a colour that keeps
+**It does not swing.** `RP.moodShift` is deliberately damped, so a mood
+is a weather system and not a light switch:
 
-`{…|…}` colours one sentence, once. For a thing with lasting weight the
-model files a **standing tint**:
+- a new feeling starts at **1**, whatever was filed; the same feeling
+  filed again climbs **one step a turn**, to 3 at most;
+- a *different* feeling has to **wear the standing one down** first — it
+  takes a step off, and only when that is spent does the new one take
+  the room, at 1;
+- a **shock** (a 3 filed, or a grave hit) replaces the feeling at once,
+  at 2 — never straight to 3;
+- *calm* takes a step off; nothing fed for **two turns** takes a step
+  off (`RP.tickMoods`, with the conditions); at 0 they settle and the
+  card says so once: *😶 Wario settles — the anger is spent*.
 
-```
-[[TINT: the seal, the wax = violet]]     every later mention renders violet
-[[UNTINT: the seal]]                     released
-```
+So anger 3 lasts six quiet turns before Wario is himself again, and one
+sarcastic line cannot flip terror into joy.
 
-The rule lives on the room (`room.tints`, capped at 24) and is applied at
-render time by `RP.applyTints` — reader-side, so a tinted phrase costs the
-prompt nothing, it survives leaving and reopening the chat, and it colours
-*your* mentions of the thing too. A phrase the writer already coloured by
-hand in a sentence is left alone, and a "colour" the palette refuses files
-nothing. Filing one is reported like any other stage direction: *🎨 the
-seal — written in colour from here on.*
+**Three ways a feeling moves**, cheapest first:
+
+1. **The model files it** — `[[MOOD: Wario anger 2 | the landing bill]]`,
+   or just `[[MOOD: Wario furious]]` (the word carries its pitch:
+   *furious* is anger 3, *uneasy* fear 1 — `RP.moodWord`). The MOOD line
+   in STAGE DIRECTIONS replaced the TINT lines, so the prompt did not
+   grow; the director's note nudges for it after fourteen flat turns.
+2. **The page reads the prose** when the model files nothing for the
+   speaker — `RP.moodScan`, zero tokens: a lexicon of cues per feeling
+   (*bellows, slams his fist, through gritted teeth* → anger; *trembles,
+   backs away, swallows hard* → fear; *sobs, voice breaks* → grief…).
+   Two cues, or one strong word, move the speaker **one step**; a
+   sentence about somebody else in the scene is skipped, so *Sans looks
+   terrified* is not Wario afraid. Only the speaker's own sheet, never
+   the narrator's turns.
+3. **A grave hit** from the hurt ledger adds a flicker of fear to whoever
+   it landed on, unless the model said how they took it.
+
+**Your mood is yours.** The model's MOOD for the player's sheet is
+dropped; click your sheet to set it by hand (*"anger 2 | the bill"*, or
+*calm*), and your own turns wear that colour.
+
+**It drives the writing.** Every sheet line in CHARACTER STATE carries
+`mood: furious (anger 3/3 — the landing bill)`, so the others play off
+it; and the speaker gets a short order in the protected tail
+(`RP.moodBlock`, ~60 tokens, nothing when they are calm): *MOOD — Wario
+is furious (anger 3/3: the landing bill). It colours this whole turn —
+short hard sentences, interrupts, no jokes land, acts before thinking —
+and at this pitch it decides what they do, not just how they say it. It
+does not switch off because the subject changes.* Each feeling has its
+own tell: fear hedges and watches the exits, grief trails off, shame
+deflects, suspicion answers little and watches hands, pride lists wins.
+
+The old `{colour|words}` and `[[TINT:]]` machinery is no longer asked
+for, but old chats still render as they did.
 
 ## 📜 Long chats stay cheap
 

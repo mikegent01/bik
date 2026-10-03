@@ -76,6 +76,24 @@ class Handler(BaseHTTPRequestHandler):
                 "FACT: the ledger room door does not lock from the inside\n"
                 "DIARY: They went looking for a ledger and found somebody had been there first.",
             )
+        elif "AUDIT THE SHEETS" in all_text:
+            # The AI audit of the sheets (run by hand from the dock): it
+            # answers with corrections for the first person on the sheets,
+            # so a page test can prove they are previewed, applied across
+            # the sheets and the clock, and undone in one step.
+            who = ""
+            marker = all_text.find("CHARACTER STATE")
+            if marker >= 0:
+                line = all_text[marker:].split("- ", 1)
+                if len(line) > 1:
+                    who = line[1].split(":", 1)[0].strip()
+            content = os.environ.get("MOCK_AUDIT_REPLY", (
+                "[[HP: {{WHO}} -3]]\n"
+                "[[MOOD: {{WHO}} anger 2 | the bill]]\n"
+                "[[STATUS: {{WHO}} soot on the face]]\n"
+                "[[TIME: 23:40]]\n"
+                "[[NEW: Nobody Real | a stranger | should be refused]]"
+            )).replace("{{WHO}}", who)
         elif "STAGE DIRECTIONS" in all_text and os.environ.get("MOCK_ADVERSARIAL"):
             # A deliberately badly-behaved model, for tools/tests/audit-chatroom.mjs:
             # it writes the wrong character, stops mid-sentence, invents its

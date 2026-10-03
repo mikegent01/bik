@@ -820,12 +820,6 @@
   };
 
   var RULES = [
-    'You may colour a few words when it earns it, inside the prose: {red|the door is open}, {ice|her breath}, {#8e2b20|the stain}. ' +
-      'Colours available: red, blood, crimson, orange, ember, amber, gold, copper, green, moss, jade, teal, sea, ' +
-      'blue, ice, storm, violet, purple, lilac, plum, pink, grey, silver, black, white, rust, sand, bone, venom, ' +
-      'or any #hex. Use it for one thing that matters, not for decoration — two or three words in a turn at most, ' +
-      'and never a whole sentence. For a thing that should stay coloured every time it is named — a cursed blade, ' +
-      'a sickness — file [[TINT: the exact words = colour]] once and the page keeps it coloured.',
     'Use the material. When the archive passages, the session filing or the lore book say something that touches ' +
       'this moment, USE IT — a date, a name, a number, what somebody actually said. Quote it, argue with it, get it ' +
       'slightly wrong in character if that is truer. A scene that could have happened in any story is a wasted turn.',
@@ -2589,7 +2583,251 @@
       sheet.status = clip(change.value, 120);
       return sheet.name + ' — ' + sheet.status;
     }
+    if (change.kind === 'mood') {
+      return RP.moodShift(sheet, change.key || change.name, change.level, change.note, { jump: change.jump, set: change.set, turn: change.turn });
+    }
     return '';
+  };
+
+  /* ------------------------------------------------------------------ *
+   * mood — the colour of the box is how they feel
+   *
+   * One feeling per sheet, 1–3: a flicker, the plain thing, overwhelming.
+   * It does not swing with every line: a new feeling starts at 1 and
+   * climbs one step per turn that feeds it; a different feeling has to
+   * wear the standing one down first unless it is a shock; two quiet
+   * turns take a step off; at 0 they are calm again. The model files
+   * [[MOOD:]], the page reads the prose when it forgets, and the turn
+   * card and the sheet wear the colour.
+   * ------------------------------------------------------------------ */
+
+  RP.MOODS = {
+    anger:     { icon: '😠', hue: 4,   words: ['irritated', 'angry', 'furious'],
+                 show: 'short hard sentences, interrupts, no jokes land, acts before thinking' },
+    fear:      { icon: '😨', hue: 262, words: ['uneasy', 'afraid', 'terrified'],
+                 show: 'hedges and repeats, watches the exits, startles, bargains' },
+    joy:       { icon: '😄', hue: 48,  words: ['pleased', 'happy', 'elated'],
+                 show: 'expansive and generous, laughs easily, says yes, forgives' },
+    grief:     { icon: '😢', hue: 214, words: ['low', 'sad', 'heartbroken'],
+                 show: 'slow, trails off, fixed on one object, flat answers' },
+    shame:     { icon: '😳', hue: 300, words: ['sheepish', 'ashamed', 'humiliated'],
+                 show: 'avoids names and eyes, deflects, over-explains' },
+    disgust:   { icon: '🤢', hue: 96,  words: ['put off', 'disgusted', 'revolted'],
+                 show: 'clipped, a physical recoil, refuses to touch or engage' },
+    surprise:  { icon: '😲', hue: 26,  words: ['caught off guard', 'surprised', 'stunned'],
+                 show: 'fragments and questions, repeats what was just said' },
+    affection: { icon: '🥰', hue: 335, words: ['warm', 'fond', 'devoted'],
+                 show: 'softer, uses names, closes the distance, teases kindly' },
+    suspicion: { icon: '🤨', hue: 176, words: ['wary', 'suspicious', 'paranoid'],
+                 show: 'questions everything, answers little, watches hands' },
+    pride:     { icon: '😏', hue: 38,  words: ['pleased with themselves', 'proud', 'triumphant'],
+                 show: 'longer sentences, lists wins, corrects people, takes the credit' },
+  };
+  RP.MOOD_KEYS = Object.keys(RP.MOODS);
+  RP.MOOD_FADE = 2;      // quiet turns per step down
+
+  // What the model (or the reader) may call a feeling → which one it is,
+  // and how hard a word it was (1–3). "furious" is anger at 3.
+  var MOOD_WORDS = {
+    anger: { 1: 'irritated irritation annoyed annoyance cross frustrated frustration impatient', 2: 'angry anger mad resentful indignant hostile bitter sullen',
+      3: 'furious fury enraged rage livid seething incensed apoplectic' },
+    fear: { 1: 'uneasy unease nervous worried worry apprehensive tense jumpy', 2: 'afraid fear scared frightened anxious anxiety alarmed dread',
+      3: 'terrified terror panicked panic petrified horrified horror' },
+    joy: { 1: 'pleased content amused relieved relief cheerful', 2: 'happy happiness glad joy joyful delighted delight excited excitement',
+      3: 'elated ecstatic overjoyed thrilled gleeful giddy jubilant' },
+    grief: { 1: 'low wistful melancholy weary downcast subdued', 2: 'sad sadness sorrow sorrowful unhappy mournful lonely dejected hurt',
+      3: 'heartbroken grief grieving grief-stricken devastated despair despairing inconsolable bereft' },
+    shame: { 1: 'sheepish awkward embarrassed embarrassment self-conscious', 2: 'ashamed shame guilty guilt regretful remorse remorseful contrite',
+      3: 'humiliated humiliation mortified disgraced' },
+    disgust: { 1: 'put-off distaste squeamish', 2: 'disgusted disgust repulsed contempt contemptuous scornful scorn sickened',
+      3: 'revolted revulsion nauseated loathing' },
+    surprise: { 1: 'puzzled confused bewildered baffled curious', 2: 'surprised surprise startled taken-aback astonished',
+      3: 'stunned shocked shock amazed dumbfounded thunderstruck' },
+    affection: { 1: 'warm warmth friendly kind grateful gratitude', 2: 'fond fondness affectionate affection tender tenderness caring protective',
+      3: 'devoted loving love adoring smitten besotted' },
+    suspicion: { 1: 'wary guarded sceptical skeptical doubtful cautious', 2: 'suspicious suspicion distrustful distrust mistrustful mistrust',
+      3: 'paranoid paranoia' },
+    pride: { 1: 'satisfied confident self-satisfied', 2: 'proud pride smug cocky boastful vain superior',
+      3: 'triumphant triumph exultant gloating' },
+  };
+  var MOOD_LOOKUP = {};
+  Object.keys(MOOD_WORDS).forEach(function (key) {
+    [1, 2, 3].forEach(function (level) {
+      MOOD_WORDS[key][level].split(/\s+/).forEach(function (w) { MOOD_LOOKUP[w] = { key: key, level: level }; });
+    });
+  });
+  var MOOD_CALM = /^(?:calm|neutral|settled|composed|steady|serene|fine|okay|ok|at ease|relaxed|even|level|none|nothing|clear)$/;
+
+  /** "furious" → { key: 'anger', level: 3 }; "anger" → level 2; "calm" →
+   *  { key: 'calm' }; junk → null. A whole phrase is searched word by word,
+   *  last feeling word wins. */
+  RP.moodWord = function (text) {
+    var words = String(text || '').toLowerCase().replace(/[^a-z\- ]+/g, ' ').trim();
+    if (!words) return null;
+    if (MOOD_CALM.test(words)) return { key: 'calm', level: 0 };
+    var hit = null;
+    words.split(/\s+/).forEach(function (w) {
+      if (RP.MOODS[w]) hit = { key: w, level: 2 };
+      else if (MOOD_LOOKUP[w]) hit = MOOD_LOOKUP[w];
+      else if (MOOD_CALM.test(w)) hit = { key: 'calm', level: 0 };
+    });
+    return hit;
+  };
+
+  /** How a mood reads: "furious", "afraid", "a little uneasy". */
+  RP.moodLabel = function (mood) {
+    if (!mood || !RP.MOODS[mood.key]) return 'calm';
+    var level = Math.max(1, Math.min(3, Number(mood.level) || 1));
+    return RP.MOODS[mood.key].words[level - 1];
+  };
+  RP.moodIcon = function (mood) {
+    return mood && RP.MOODS[mood.key] ? RP.MOODS[mood.key].icon : '😶';
+  };
+
+  /** The colour: a CSS custom-property string for the box that carries
+   *  it — a firm line and a wash that deepens with the level. */
+  RP.moodStyle = function (mood) {
+    if (!mood || !RP.MOODS[mood.key]) return '';
+    var hue = RP.MOODS[mood.key].hue;
+    var level = Math.max(1, Math.min(3, Number(mood.level) || 1));
+    var wash = [0.1, 0.2, 0.32][level - 1];
+    return '--mood-line:hsl(' + hue + ',62%,46%);--mood-wash:hsla(' + hue + ',70%,52%,' + wash + ');--mood-ink:hsl(' + hue + ',55%,30%)';
+  };
+
+  /** Move a sheet's feeling. `level` is what was filed (1–3); the result
+   *  is damped: a new feeling starts at 1 (2 for a shock or a 3 filed), the
+   *  same feeling climbs one step (two for a shock), a different feeling
+   *  wears the standing one down a step before it can take over. `calm`
+   *  takes a step off. `set` (by hand) writes exactly what was asked.
+   *  Returns the receipt line, or '' when nothing moved. */
+  RP.moodShift = function (sheet, key, level, note, opts) {
+    if (!sheet) return '';
+    opts = opts || {};
+    key = String(key || '').toLowerCase();
+    var cur = sheet.mood && RP.MOODS[sheet.mood.key] ? sheet.mood : null;
+    var turn = Number(opts.turn) || 0;
+    var want = Math.max(0, Math.min(3, Math.round(Number(level) || 0)));
+    var name = sheet.name;
+    var describe = function (m) { return RP.moodIcon(m) + ' ' + name + ' — ' + RP.moodLabel(m) + (m.note ? ' (' + m.note + ')' : ''); };
+    if (key === 'calm' || !key) {
+      if (!cur) return '';
+      if (opts.set || cur.level <= 1) { delete sheet.mood; return '😶 ' + name + ' settles'; }
+      sheet.mood = { key: cur.key, level: cur.level - 1, note: cur.note, held: 0, at: turn };
+      return describe(sheet.mood) + ' — easing';
+    }
+    if (!RP.MOODS[key]) return '';
+    if (!want) want = 2;
+    if (opts.set) {
+      sheet.mood = { key: key, level: Math.max(1, want), note: clip(note, 80), held: 0, at: turn };
+      return describe(sheet.mood);
+    }
+    var shock = Boolean(opts.jump) || want >= 3;
+    if (!cur) {
+      sheet.mood = { key: key, level: shock ? 2 : 1, note: clip(note, 80), held: 0, at: turn };
+      return describe(sheet.mood);
+    }
+    if (cur.key === key) {
+      var next = Math.min(3, cur.level + (shock ? 2 : 1));
+      if (want < cur.level && !shock) next = cur.level;        // a smaller word does not cool it; the turns do
+      var moved = next !== cur.level;
+      sheet.mood = { key: key, level: next, note: clip(note || cur.note, 80), held: 0, at: turn };
+      return moved ? describe(sheet.mood) + (next === 3 ? ' — overwhelming' : ' — building') : '';
+    }
+    if (shock) {
+      sheet.mood = { key: key, level: 2, note: clip(note, 80), held: 0, at: turn };
+      return describe(sheet.mood) + ' — ' + RP.moodLabel(cur) + ' no longer';
+    }
+    // The standing feeling resists: it loses a step, and only when it is
+    // spent does the new one take the room.
+    if (cur.level > 1) {
+      sheet.mood = { key: cur.key, level: cur.level - 1, note: cur.note, held: 0, at: turn };
+      return describe(sheet.mood) + ' — ' + key + ' pulling at it';
+    }
+    sheet.mood = { key: key, level: 1, note: clip(note, 80), held: 0, at: turn };
+    return describe(sheet.mood) + ' — the ' + cur.key + ' gone';
+  };
+
+  /** Feelings fade when nothing feeds them: a step off after MOOD_FADE
+   *  quiet turns, calm at 0. Called once a turn with the conditions.
+   *  Returns the lines worth saying (only the ones that end). */
+  RP.tickMoods = function (room, turn) {
+    var lines = [];
+    Object.keys((room && room.states) || {}).forEach(function (id) {
+      var sheet = room.states[id];
+      if (!sheet || sheet.present === false || !sheet.mood) return;
+      if (!RP.MOODS[sheet.mood.key]) { delete sheet.mood; return; }
+      if (turn !== undefined && sheet.mood.at === turn) return;      // fed this turn
+      sheet.mood.held = (Number(sheet.mood.held) || 0) + 1;
+      if (sheet.mood.held < RP.MOOD_FADE) return;
+      sheet.mood.held = 0;
+      sheet.mood.level = (Number(sheet.mood.level) || 1) - 1;
+      if (sheet.mood.level <= 0) {
+        lines.push('😶 ' + sheet.name + ' settles — the ' + sheet.mood.key + ' is spent');
+        delete sheet.mood;
+      }
+    });
+    return lines;
+  };
+
+  // How a feeling shows in prose, for the turns the model files nothing.
+  var MOOD_CUES = {
+    anger: /\b(?:bellows?|bellowed|snarls?|snarled|growls?|growled|snaps?\s+(?:at|back)|spits?\s+(?:out|the\s+words)|roars?|roared|barks?|barked|seeth(?:es|ing)|glares?|glared|glowers?|fum(?:es|ing)|hiss(?:es|ed)|through\s+(?:gritted|clenched)\s+teeth|clench(?:es|ed)\s+(?:his|her|their)\s+(?:fists?|jaw)|slams?\s+(?:a|his|her|their)\s+(?:fist|hand|palm)|scowls?|scowled|jabs?\s+a\s+finger|shouts?|shouted|yells?|yelled|snarl|furious|fury|rage|livid|seething|angry|GET\s+OUT|SHUT\s+UP)\b/,
+    fear: /\b(?:trembl(?:es|ing|ed)|shiver(?:s|ing|ed)|flinch(?:es|ed)|whimper(?:s|ed)|backs?\s+away|backed\s+away|swallows?\s+hard|stammer(?:s|ed|ing)|goes\s+pale|went\s+pale|blanch(?:es|ed)|freez(?:es|ing)\s+(?:up|in\s+place)|afraid|fear|terrified|terror|panic(?:s|ked|king)?|scared|nervous(?:ly)?|glanc(?:es|ing)\s+at\s+the\s+(?:door|exit|window)|heart\s+(?:hammering|pounding|racing)|breath\s+catch(?:es|ing)|dread|cower(?:s|ed|ing))\b/,
+    joy: /\b(?:laughs?|laughed|laughing|grins?|grinned|grinning|beams?|beamed|beaming|chuckl(?:es|ed|ing)|giggl(?:es|ed|ing)|whoops?|delighted|delight|happy|happily|glee(?:ful)?|cheers?|cheered|lights?\s+up|lit\s+up|claps?\s+(?:his|her|their)\s+hands|brightens?|brightened|elated|thrilled)\b/,
+    grief: /\b(?:sobs?|sobbed|sobbing|weeps?|wept|weeping|tears?\s+(?:well|spill|run|roll|slide)|cries|cried|crying|mourns?|mourning|grief|grieving|sad(?:ly|ness)?|hollow(?:ly)?|stares?\s+at\s+nothing|voice\s+(?:breaks|cracks|catches)|slumps?|slumped|heartbroken|miss(?:es|ed)\s+(?:him|her|them)\b|wipes?\s+(?:his|her|their)\s+eyes)\b/,
+    shame: /\b(?:flush(?:es|ed|ing)|blush(?:es|ed|ing)|redden(?:s|ed|ing)|looks?\s+away|looked\s+away|can(?:not|'t)\s+meet\s+(?:his|her|their|your)\s+eyes?|ashamed|shame|embarrass(?:ed|ment)|mumbl(?:es|ed|ing)|sheepish(?:ly)?|hangs?\s+(?:his|her|their)\s+head|apologi[sz](?:es|ed|ing)|mortified|humiliat(?:ed|ion))\b/,
+    disgust: /\b(?:wrinkl(?:es|ed|ing)\s+(?:his|her|their)\s+nose|recoils?|recoiled|grimac(?:es|ed|ing)|disgust(?:ed|ing)?|revolt(?:ed|ing)|sneers?|sneered|curls?\s+(?:his|her|their)\s+lip|gags?|gagged|retch(?:es|ed)|contempt|loath(?:es|ing)|repuls(?:ed|ive))\b/,
+    surprise: /\b(?:blinks?|blinked|gapes?|gaped|jaw\s+drops?|eyes?\s+widen(?:s|ed)?|startled|stunned|gasps?|gasped|surprised?|shock(?:ed)?|astonish(?:ed|ment)|does\s+a\s+double\s+take|stares?,?\s+open-mouthed|wait,?\s+what)\b/,
+    affection: /\b(?:softens?|softened|squeez(?:es|ed|ing)\s+(?:his|her|their|your)\s+(?:hand|shoulder|arm)|tender(?:ly|ness)?|gently|fond(?:ly|ness)?|warmly|smiles?\s+softly|pulls?\s+(?:him|her|them|you)\s+(?:close|in)|kiss(?:es|ed)|hugs?|hugged|embrac(?:es|ed)|my\s+dear|strok(?:es|ed|ing)\s+(?:his|her|their|your)\s+hair|protective(?:ly)?)\b/,
+    suspicion: /\b(?:narrows?\s+(?:his|her|their)\s+eyes|eyes\s+narrow(?:ed|ing)?|suspicious(?:ly)?|suspicion|wary|warily|studies\s+(?:him|her|them|you)|do(?:es)?n[’']?t\s+trust|watch(?:es|ing)\s+(?:him|her|them|you)\s+(?:carefully|closely)|guarded|sidelong|what\s+are\s+you\s+(?:really\s+)?after|why\s+would\s+you)\b/,
+    pride: /\b(?:smirks?|smirked|smirking|puffs?\s+(?:out\s+)?(?:his|her|their)\s+chest|proud(?:ly)?|smug(?:ly)?|triumphant(?:ly)?|preens?|preened|struts?|strutted|told\s+you\s+so|crows?|crowed|gloats?|gloated|chin\s+(?:up|lifted|raised))\b/,
+  };
+
+  /** What a turn's prose says its speaker feels: the feeling with the
+   *  most cues, two at least, or one strong word. Sentences that are about
+   *  somebody else in the scene (named, and the speaker is not) are
+   *  skipped, so "Sans looks terrified" is not Wario afraid.
+   *  Returns { key, note } or null. */
+  RP.moodScan = function (text, speakerName, others) {
+    var raw = String(text || '').replace(/\[\[[^\]]*\]\]/g, ' ');
+    if (!raw.trim()) return null;
+    var me = String(speakerName || '').toLowerCase().split(/\s+/)[0];
+    var them = (others || []).map(function (n) { return String(n || '').toLowerCase().split(/\s+/)[0]; })
+      .filter(function (n) { return n && n.length > 2 && n !== me; });
+    var score = {}, sample = {};
+    raw.split(/\n+|[.!?]+["\u201d\u2019)*_]*\s+/).forEach(function (sentence) {
+      var low = sentence.toLowerCase();
+      var aboutOther = them.some(function (n) { return new RegExp('\\b' + n.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\b').test(low); }) &&
+        !(me && new RegExp('\\b' + me.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\b').test(low)) && !/\bI\b|\bmy\b/.test(sentence);
+      if (aboutOther) return;
+      Object.keys(MOOD_CUES).forEach(function (key) {
+        var re = new RegExp(MOOD_CUES[key].source, 'gi');
+        var m, n = 0;
+        while ((m = re.exec(sentence))) { n++; if (!sample[key]) sample[key] = m[0]; if (n > 6) break; }
+        if (n) score[key] = (score[key] || 0) + n;
+      });
+    });
+    var best = '', bestN = 0;
+    Object.keys(score).forEach(function (k) { if (score[k] > bestN) { best = k; bestN = score[k]; } });
+    if (!best) return null;
+    var strong = /furious|terrified|sobs?|sobbing|weeps?|wept|heartbroken|elated|mortified|humiliat|revolt|stunned|livid|panic|rage|smirk|gloat/i.test(sample[best] || '');
+    if (bestN < 2 && !strong) return null;
+    return { key: best, note: clip(String(sample[best] || '').toLowerCase(), 40) };
+  };
+
+  /** The speaker's own feeling, as an order: it colours the turn. Nothing
+   *  when they are calm — the block costs zero on a quiet sheet. */
+  RP.moodBlock = function (room, char) {
+    if (!room || room.mechanics === 'off' || !char) return '';
+    var sheet = (room.states || {})[char.id];
+    var mood = sheet && sheet.mood;
+    if (!mood || !RP.MOODS[mood.key]) return '';
+    var level = Math.max(1, Math.min(3, Number(mood.level) || 1));
+    return 'MOOD \u2014 ' + char.name + ' is ' + RP.moodLabel(mood) + ' (' + mood.key + ' ' + level + '/3' +
+      (mood.note ? ': ' + mood.note : '') + '). It colours this whole turn \u2014 ' + RP.MOODS[mood.key].show +
+      (level >= 3 ? ' \u2014 and at this pitch it decides what they do, not just how they say it.' : '.') +
+      ' It does not switch off because the subject changes; it eases only if the scene gives it reason.' +
+      ' If this turn moves it, file [[MOOD: ' + char.name + ' \u2026]].';
   };
 
   /** The sheets, as the model sees them. */
@@ -2639,6 +2877,10 @@
         }).join('; '));
       }
       if (s.status) bits.push(s.status);
+      if (s.mood && RP.MOODS[s.mood.key]) {
+        bits.push('mood: ' + RP.moodLabel(s.mood) + ' (' + s.mood.key + ' ' + Math.max(1, Math.min(3, Number(s.mood.level) || 1)) + '/3' +
+          (s.mood.note ? ' — ' + s.mood.note : '') + ')');
+      }
       if (!full && !bits.length) { quiet.push(s.name); return ''; }
       return '- ' + s.name + (s.player ? ' (THE PLAYER)' : '') + ': ' + (bits.join(' · ') || 'unharmed, nothing to declare');
     }).filter(Boolean).join('\n');
@@ -2650,7 +2892,8 @@
       'condition with a cost beside it is taking that off them every turn it lasts. Reach for the kit only when\n' +
       'the moment calls for it — never inventory it in prose — and nothing joins a sheet that the scene did not\n' +
       'visibly put there. ⚔🧠🗣🍀 are might, wits, sway and luck, 0–3: they lean on the dice, so play the 0s\n' +
-      'and the 3s, do not recite them.\n' + body;
+      'and the 3s, do not recite them. A mood on a sheet is how that person is right now — play it, and\n' +
+      'play off it.\n' + body;
     if (active.length) {
       out += '\nCONDITIONS IN PLAY — these are not flavour. Each one must shape what its bearer does this turn:\n' +
         active.slice(0, 8).map(function (l) { return '- ' + l; }).join('\n');
@@ -2800,7 +3043,7 @@
    *      missed. It may only keep the ledger — never invent events. */
 
   RP.UPKEEP_EVERY = 6;              // played turns between reviews; 0 turns it off
-  RP.UPKEEP_KINDS = ['hp', 'mp', 'flag', 'item', 'use', 'equip', 'status', 'counter'];
+  RP.UPKEEP_KINDS = ['hp', 'mp', 'flag', 'item', 'use', 'equip', 'status', 'counter', 'mood'];
 
   /** "presses the lantern into your hands", "hands you a brass key" —
    *  a grant the reply narrated at the player. Deliberately narrow: an
@@ -3118,6 +3361,115 @@
     return { lines: RP.applyDirectives(state, room, directives).lines };
   };
 
+  /* ---- the AI audit: on demand, every sheet, every scene ----
+     The quartermaster above is a small net on a timer. This is the same
+     reader with the whole table in front of it, run by hand: all the
+     sheets (both scenes when two are linked), the recent play of each,
+     and licence to put the record right — wounds, kit, conditions,
+     moods, notes, the clock, who is actually still in the room. It still
+     cannot invent people or facts, and everything it files is shown
+     before it lands and undone in one step. */
+
+  RP.AUDIT_KINDS = RP.UPKEEP_KINDS.concat(['time', 'exit', 'enter']);
+  RP.AUDIT_TURNS = 14;
+
+  /** rooms: one scene, or the linked pair. turns: { roomId: [{who, text}] }. */
+  RP.sheetAuditPrompt = function (rooms, turns) {
+    rooms = (rooms || []).filter(Boolean);
+    var two = rooms.length > 1;
+    var sheets = rooms.map(function (room) {
+      var away = (room.away || []).map(function (c) { return c.name; });
+      return (two ? 'SCENE \u201c' + (room.title || 'untitled') + '\u201d' + (room.clock ? ' \u2014 ' + room.clock : '') + '\n' : '') +
+        (RP.stateBlock(room) || '(no sheets)') +
+        (away.length ? '\nWritten out of this scene, waiting at the door: ' + away.join(', ') : '');
+    }).join('\n\n');
+    var play = rooms.map(function (room) {
+      var list = (turns && turns[room.id]) || [];
+      return (two ? 'IN \u201c' + (room.title || 'untitled') + '\u201d\n' : '') +
+        (list.length ? list.map(function (t) { return t.who + ': ' + clip(t.text, 320); }).join('\n') : '(nothing played yet)');
+    }).join('\n\n');
+    return [
+      'AUDIT THE SHEETS. You are the quartermaster of a roleplay ' + (two ? 'pair of linked scenes \u2014 one story, one clock, two rooms' : 'scene') +
+      '. Read the recent play against every sheet and put the record right: what the prose established but the',
+      'record missed, and what the record says that the prose has since overtaken. A hurt that landed or healed; a',
+      'thing gained, lost, handed over, spent, taken in hand or put away; a condition that began or ended; a counter',
+      'that moved; a physical note that is stale; how each person is feeling NOW and how strongly; the clock, if the',
+      'play moved it; somebody who plainly left the room and is still listed, or who is back and still written out.',
+      '',
+      'THE SHEETS NOW',
+      sheets,
+      '',
+      'THE RECENT PLAY',
+      play,
+      '',
+      'Reply with stage directions only, one per line, twelve at most, the most consequential first:',
+      '  [[HP: Name -5]] · [[HP: Name = 40]] · [[MP: Name +3]] · [[COUNT: Name arrows -1]]',
+      '  [[ITEM: Name + 🗝 the thing | note]] · [[ITEM: Name - the thing]] · [[EQUIP: Name the thing]] · [[STOW: Name the thing]]',
+      '  [[COND: Name state 3 -1hp | why]] · [[CURE: Name state]] · [[STATUS: Name a short physical note]]',
+      '  [[MOOD: Name anger 2 | why]]   anger, fear, joy, grief, shame, disgust, surprise, affection, suspicion, pride, calm; 1\u20133',
+      '  [[TIME: 23:40]] · [[EXIT: Name \u2014 why]] · [[ENTER: Name \u2014 why]] (ENTER only for somebody written out of this scene)',
+      'Use the names exactly as the sheets spell them. Do not restate anything the sheets already have right. Do not',
+      'invent anything the play does not plainly show, and never a new person. The player\u2019s own mood is theirs:',
+      'leave it. If the record already matches the story, reply exactly: IN ORDER',
+    ].join('\n');
+  };
+
+  /** Apply an audit to one scene or the linked pair. Each line lands in
+   *  the first scene that knows the name (shared sheets are synced by the
+   *  page afterwards); ENTER is honoured only for somebody at that room's
+   *  door; nothing may invent a person or rewrite a fact.
+   *  Returns { byRoom: { roomId: [lines] }, lines: [all], count }. */
+  RP.applySheetAudit = function (state, rooms, reply) {
+    rooms = (rooms || []).filter(Boolean);
+    var out = { byRoom: {}, lines: [], count: 0 };
+    rooms.forEach(function (room) { out.byRoom[room.id] = []; });
+    var text = String(reply || '').trim();
+    if (!text || /^IN ORDER\b/i.test(text) || !rooms.length) return out;
+    var names = [];
+    rooms.forEach(function (room) {
+      var you = (room.states || {})[RP.PLAYER_ID];
+      (room.cast || []).forEach(function (c) { names.push(c.name); });
+      Object.keys(room.states || {}).forEach(function (k) { if (room.states[k] && room.states[k].name) names.push(room.states[k].name); });
+      (room.away || []).forEach(function (c) { names.push(c.name); });
+      if (you) names.push(you.name, 'the player');
+    });
+    var directives = RP.parseDirectives(text, names).directives.filter(function (d) {
+      return RP.AUDIT_KINDS.indexOf(d.kind) >= 0;
+    }).slice(0, 12);
+    var knows = function (room, name) {
+      var want = String(name || '').toLowerCase().trim();
+      if (!want) return false;
+      var you = (room.states || {})[RP.PLAYER_ID];
+      if (you && (want === 'you' || want === 'the player' || want === String(you.name || '').toLowerCase())) return true;
+      return (room.cast || []).some(function (c) {
+        var low = c.name.toLowerCase();
+        return low === want || low.indexOf(want) >= 0 || want.indexOf(low) >= 0;
+      }) || Object.keys(room.states || {}).some(function (k) {
+        var low = String((room.states[k] || {}).name || '').toLowerCase();
+        return low && (low === want || low.indexOf(want) >= 0 || want.indexOf(low) >= 0);
+      });
+    };
+    var atDoor = function (room, name) {
+      var want = String(name || '').toLowerCase().trim();
+      return (room.away || []).some(function (c) {
+        var low = String(c.name || '').toLowerCase();
+        return low && (low.indexOf(want) >= 0 || want.indexOf(low) >= 0);
+      });
+    };
+    directives.forEach(function (d) {
+      var home = null;
+      if (d.kind !== 'time' && !String(d.who || d.name || '').trim()) return;
+      if (d.kind === 'time') home = rooms[0];
+      else if (d.kind === 'enter') home = rooms.filter(function (room) { return atDoor(room, d.name); })[0] || null;
+      else home = rooms.filter(function (room) { return knows(room, d.who || d.name); })[0] || null;
+      if (!home) return;
+      var done = RP.applyDirectives(state, home, [d]);
+      done.lines.forEach(function (l) { out.byRoom[home.id].push(l); out.lines.push(l); out.count++; });
+      if (d.kind === 'time' && rooms.length > 1) rooms.slice(1).forEach(function (room) { room.clock = home.clock; });
+    });
+    return out;
+  };
+
   /** One background call spent, whoever spent it — the book and the
    *  quartermaster share the same session budget. */
   RP.spendBudget = function (state) {
@@ -3251,7 +3603,7 @@
    *  the prompt — conditional, ignorable, and it self-silences the
    *  moment the model complies. Never more than one line; never again
    *  within eight turns of the same nudge; never in mechanics-off rooms. */
-  RP.ENCOURAGE_AFTER = { stakes: 18, tint: 20, remember: 24 };
+  RP.ENCOURAGE_AFTER = { stakes: 18, mood: 14, remember: 24 };
   RP.encourage = function (room) {
     if (!room || room.mechanics === 'off') return '';
     var turns = ((room || {}).messages || []).length;
@@ -3261,12 +3613,12 @@
     var lines = {
       stakes: 'DIRECTOR\u2019S NOTE: nothing has cost anyone anything for a long stretch. If this scene has stakes,' +
         ' let the record show them \u2014 a [[COND:]], an [[HP:]], a price. If it truly is a quiet scene, carry on.',
-      tint: 'DIRECTOR\u2019S NOTE: nothing on stage is tinted. If something has taken on lasting weight \u2014 a relic,' +
-        ' a wound, a name \u2014 file [[TINT: the exact words = colour]] once and the page keeps it coloured.',
+      mood: 'DIRECTOR\u2019S NOTE: nobody\u2019s feelings have moved on the record for a long stretch. If this scene' +
+        ' has touched anyone, file one [[MOOD: Name feeling 2 | why]] \u2014 the page lets it build and fade.',
       remember: 'DIRECTOR\u2019S NOTE: a long stretch with nothing filed to the lore book. If this scene settled a' +
         ' fact worth keeping, file one [[REMEMBER: name | the fact]].',
     };
-    var order = ['stakes', 'tint', 'remember'];
+    var order = ['stakes', 'mood', 'remember'];
     for (var i = 0; i < order.length; i++) {
       var k = order[i];
       if (turns - (at[k] || 0) < RP.ENCOURAGE_AFTER[k]) continue;
@@ -3275,45 +3627,6 @@
       return lines[k];
     }
     return '';
-  };
-
-  /* ---- the flourish: colour on a schedule, not on a hope ----
-   * The palette rule in the base prompt is permissive ("you may colour"),
-   * it is the first thing squeezed on a tight window, and a small model
-   * reads "may" as "need not": in practice nothing was ever coloured.
-   * So every few turns, and on the turns that matter most (a triumph, a
-   * failure), ONE weighty phrase is ordered in colour, with a palette
-   * matched to the mood. It rides in the protected tail, costs ~350
-   * characters when it fires and nothing when it does not, and it works
-   * with the mechanics off too. ---- */
-
-  RP.FLOURISH_EVERY = 5;
-  var FLOURISH_PALETTE = {
-    triumph: 'gold or amber', success: 'moss, teal or amber', cost: 'ember or copper',
-    wrench: 'storm or violet', setback: 'blood or rust', refusal: 'ice or silver',
-  };
-  var FLOURISH_TURN = ['ember or amber', 'ice or storm', 'blood or rust', 'moss or jade', 'violet or plum', 'gold or copper'];
-
-  /** Did the model colour anything by itself in the last few turns? Then
-   *  it has the habit and is left alone. */
-  RP.recentlyColoured = function (room, turns) {
-    var recent = ((room && room.messages) || []).filter(visible).slice(-(turns || 3));
-    return recent.some(function (m) { return m.role !== 'user' && /\{[a-z#][a-z0-9 ]{1,14}\|[^{}]{1,300}\}/i.test(RP.textOf(m)); });
-  };
-
-  RP.flourishBlock = function (room, fate) {
-    if (!room) return '';
-    var turns = ((room.messages) || []).filter(visible).length;
-    var weighty = fate && (fate.key === 'triumph' || fate.key === 'setback');
-    var due = (turns + 1) % RP.FLOURISH_EVERY === 0;
-    if (!weighty && !due) return '';
-    if (RP.recentlyColoured(room)) return '';
-    var palette = weighty ? FLOURISH_PALETTE[fate.key]
-      : (fate && FLOURISH_PALETTE[fate.key]) || FLOURISH_TURN[Math.floor(turns / RP.FLOURISH_EVERY) % FLOURISH_TURN.length];
-    return 'COLOUR, THIS TURN — write exactly ONE phrase of this turn in colour, inside the prose, in the form ' +
-      '{colour|the words}: e.g. {ember|the lamp gutters out}. Choose the thing that carries the most weight in what ' +
-      'you write — a wound, a relic, a look, a word spoken low — two to five words, once. Everything else stays ' +
-      'plain. Suggested here: ' + palette + ' (any palette colour or #hex works).';
   };
 
   /* ---- stage directions: how the model changes the world ---- */
@@ -3333,12 +3646,10 @@
     '      [[ITEM: Name - the brass key]] lost · [[EQUIP: Name brass key]] in hand · [[STOW: Name brass key]] away',
     '  [[USE: Name the brass key]]      spend or use one. Only ever use something that is on their sheet.',
     '  [[STATUS: Name bleeding, one arm]]  a short physical note',
-    '  [[TINT: the exact words = colour]]   those words render in that colour in every turn from now on — for',
-    '      things with lasting weight (a cursed blade, a sickness, a name). Several at once: [[TINT: the seal,',
-    '      the wax = violet]]. [[UNTINT: the seal]] releases them. When something in the scene takes on lasting',
-    '      significance, tint it — one colour makes it legible at a glance. Colours: red, blood, crimson, ember,',
-    '      orange, amber, gold, copper, rust, sand, bone, moss, green, jade, venom, teal, sea, ice, blue, storm,',
-    '      silver, grey, violet, lilac, purple, plum, pink, black, white.',
+    '  [[MOOD: Name anger 2 | why]]     how they feel now — anger, fear, joy, grief, shame, disgust, surprise,',
+    '      affection, suspicion, pride, or calm — and how much: 1 a flicker, 2 the plain thing, 3 overwhelming.',
+    '      File it when THIS turn moved somebody\u2019s feeling; the page lets a feeling build over turns and fade on',
+    '      its own, so file what the scene did, not decoration. Never the player\u2019s mood — that is theirs.',
     '  [[LOOKUP: what you want to know]]  search the archive mid-turn. The page finds the passage and hands it',
     '      back, then you write the turn again using it. Use it when you need a fact you do not have — a date, a',
     '      name, what a filing actually says — instead of inventing one. Never LOOKUP the scene you are standing',
@@ -3353,7 +3664,7 @@
     '+ 🪙 a cut purse]], [[COND: their name poisoned 4 -1hp | pale wine]] are all fair — deciding their words is not.',
   ].join('\n');
 
-  var DIRECTIVE_RE = /\[\[\s*(HP|MP|FLAG|COND|CURE|COUNT|ITEM|USE|EQUIP|STOW|STATUS|TINT|UNTINT|ENTER|EXIT|NEW|SET|TIME|LOOKUP|REMEMBER)\s*:\s*([^\]]+?)\s*\]\]/gi;
+  var DIRECTIVE_RE = /\[\[\s*(HP|MP|FLAG|COND|CURE|COUNT|ITEM|USE|EQUIP|STOW|STATUS|MOOD|TINT|UNTINT|ENTER|EXIT|NEW|SET|TIME|LOOKUP|REMEMBER)\s*:\s*([^\]]+?)\s*\]\]/gi;
   // Anything else in double brackets is a directive the model invented. It
   // gets stripped rather than printed at the reader: "[[TIME: 23:00]]" in
   // the middle of the prose is a bug, not a feature.
@@ -3447,6 +3758,34 @@
       var rest = target.rest;
       if (type === 'STATUS') {
         if (rest) out.push({ kind: 'status', body: body, who: target.name, value: rest });
+        continue;
+      }
+      if (type === 'MOOD') {
+        // [[MOOD: Wario anger 2 | the landing bill]] · [[MOOD: Wario furious]] · [[MOOD: Wario calm]]
+        var moodParts = rest.split('|');
+        var moodHead = moodParts[0].trim();
+        var moodLevel = /\s(\d)\s*(?:\/\s*3)?\s*$/.exec(moodHead);
+        if (moodLevel) moodHead = moodHead.slice(0, moodLevel.index).trim();
+        var feeling = RP.moodWord(moodHead);
+        var moodWho = target.name;
+        if (!feeling) {
+          // [[MOOD: furious | the bill]] · [[MOOD: anger 2]] — no name at
+          // all: the whole head is the feeling, and the page gives it to
+          // the speaker.
+          moodParts = body.split('|');
+          moodHead = moodParts[0].trim();
+          moodLevel = /\s(\d)\s*(?:\/\s*3)?\s*$/.exec(moodHead);
+          if (moodLevel) moodHead = moodHead.slice(0, moodLevel.index).trim();
+          feeling = RP.moodWord(moodHead);
+          if (feeling) moodWho = '';
+        }
+        if (feeling) {
+          out.push({
+            kind: 'mood', body: body, who: moodWho, key: feeling.key,
+            level: moodLevel ? Number(moodLevel[1]) : feeling.level,
+            note: clip(moodParts.slice(1).join('|').trim(), 80),
+          });
+        }
         continue;
       }
       if (type === 'HP' || type === 'MP') {
@@ -3635,10 +3974,11 @@
       .concat(you ? [you.name, 'the player'] : []);
     var turnNow = ((room || {}).messages || []).length;
     room.toolAt = room.toolAt || {};
-    var FAMILY = { hp: 'stakes', flag: 'stakes', tint: 'tint', remember: 'remember' };
+    var FAMILY = { hp: 'stakes', flag: 'stakes', mood: 'mood', remember: 'remember' };
     (directives || []).forEach(function (d) {
       if (FAMILY[d.kind]) room.toolAt[FAMILY[d.kind]] = turnNow;
       if (d.kind === 'lookup') return;       // the page answers this one
+      if (d.kind === 'mood' && !d.who) return;   // nameless: the page names the speaker first, or it is nobody's
       if (d.kind === 'remember') {
         RP.bookAdd(state, {
           kind: 'fact', name: d.name, text: d.value,
@@ -3745,6 +4085,10 @@
       }
       var target = find(d.who || d.name);
       var sheet = target ? room.states[target.id] : null;
+      // How the reader feels is the reader's: the model's MOOD for the
+      // player's sheet is dropped (the sheet form sets it by hand).
+      if (d.kind === 'mood' && sheet && (sheet.player || (target && target.player)) && !d.set) return;
+      if (d.kind === 'mood') d = Object.assign({}, d, { turn: turnNow });
       var line = RP.applyChange(sheet, d);
       if (line) lines.push(line);
     });
@@ -5233,8 +5577,6 @@
     }
     var fate = RP.fateBlock(opts.fate);
     if (fate) parts.push(fate);
-    var flourish = RP.flourishBlock(room, opts.fate);
-    if (flourish) parts.push(flourish);
     var worldOoc = RP.oocBlock(state, room, opts.notes);
     if (worldOoc) parts.push(worldOoc);
     // The narrator carries its own length: the Director needs room, the
@@ -5754,14 +6096,21 @@
   RP.UNDO_DEPTH = 12;
 
   /** Remember where the chat was before something changed it. */
-  RP.pushUndo = function (room, label) {
-    room.undo = room.undo || [];
-    room.undo.push({
-      label: clip(label, 60), at: Date.now(),
+  // What one step back restores: the turns, the sheets, the cast and the
+  // clock (the AI audit may move it).
+  function snapshot(room, label) {
+    return {
+      label: label, at: Date.now(),
       messages: JSON.stringify(room.messages || []),
       states: JSON.stringify(room.states || {}),
       cast: JSON.stringify(room.cast || []),
-    });
+      clock: room.clock || '',
+    };
+  }
+
+  RP.pushUndo = function (room, label) {
+    room.undo = room.undo || [];
+    room.undo.push(snapshot(room, clip(label, 60)));
     if (room.undo.length > RP.UNDO_DEPTH) room.undo = room.undo.slice(-RP.UNDO_DEPTH);
     room.redo = [];              // a new action forks away from any redo
     return room.undo.length;
@@ -5771,18 +6120,14 @@
     room.messages = JSON.parse(snap.messages);
     room.states = JSON.parse(snap.states);
     room.cast = JSON.parse(snap.cast);
+    if (snap.clock !== undefined) room.clock = snap.clock;
     room.updated = Date.now();
   }
 
   RP.undo = function (room) {
     if (!(room.undo || []).length) return null;
     var snap = room.undo.pop();
-    (room.redo = room.redo || []).push({
-      label: snap.label, at: Date.now(),
-      messages: JSON.stringify(room.messages || []),
-      states: JSON.stringify(room.states || {}),
-      cast: JSON.stringify(room.cast || []),
-    });
+    (room.redo = room.redo || []).push(snapshot(room, snap.label));
     restore(room, snap);
     return snap.label || 'the last change';
   };
@@ -5790,12 +6135,7 @@
   RP.redo = function (room) {
     if (!(room.redo || []).length) return null;
     var snap = room.redo.pop();
-    (room.undo = room.undo || []).push({
-      label: snap.label, at: Date.now(),
-      messages: JSON.stringify(room.messages || []),
-      states: JSON.stringify(room.states || {}),
-      cast: JSON.stringify(room.cast || []),
-    });
+    (room.undo = room.undo || []).push(snapshot(room, snap.label));
     restore(room, snap);
     return snap.label || 'that';
   };
@@ -7217,11 +7557,13 @@
       parts.push(RP.DIRECTIVES);
       var wounds = RP.hurtBlock(room, String(opts.mentionText || '') + ' ' + ((room.direction && room.direction.text) || ''));
       if (wounds) parts.push(wounds);
+      // How the speaker feels, as an order — the colour of the box, in
+      // the prose. Nothing when they are calm.
+      var mood = RP.moodBlock(room, RP.normChar(speaker || {}));
+      if (mood) parts.push(mood);
     }
     var fateBlock = RP.fateBlock(opts.fate);
     if (fateBlock) parts.push(fateBlock);
-    var flourish = RP.flourishBlock(room, opts.fate);
-    if (flourish) parts.push(flourish);
     var ooc = RP.oocBlock(state, room, opts.notes);
     if (ooc) parts.push(ooc);
     parts.push(RP.lengthBlock((state.settings && state.settings.length) || RP.DEFAULT_LENGTH, false).text);
@@ -7325,8 +7667,8 @@
   /** The base prompt with less in it, keeping what makes the character
    *  themselves for as long as possible. Decoration goes first, the voice
    *  last:
-   *    1  colour markup rules, the other cast members' summaries, a shorter
-   *       About and description
+   *    1  the other cast members' summaries, a shorter About and
+   *       description
    *    2  the voice's Never line, four sample lines, a short description
    *    3  the Sounds like line, three sample lines, titles and the scene
    *       clipped, the description down to a sentence
@@ -7341,7 +7683,6 @@
       else if (/^[A-Z][A-Z \u2014-]{4,}$/.test(line.trim()) && line.trim() === line.trim().toUpperCase()) { inVoice = false; inCast = false; }
       else if (/^YOU ARE /.test(line)) { inCast = false; }
       if (/^    \S/.test(line)) continue;                                // a cast member's summary
-      if (/^(You may colour a few words|When a thing should keep its colour)/.test(line)) continue;  // decoration first
       if (inVoice && /^Never:/.test(line) && level >= 2) continue;
       if (inVoice && /^Sounds like:/.test(line) && level >= 3) continue;
       if (inVoice && /^  \u201c/.test(line)) {

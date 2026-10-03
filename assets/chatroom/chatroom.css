@@ -294,6 +294,15 @@ a { color: inherit; }
 .statebar .flag.item { background: #f1f0e9; color: #6b6a5c; }
 .statebar .flag.note { background: var(--panel2); color: var(--muted); }
 
+/* The colour of the box is how they feel: a firm edge and a wash that
+   deepens as the feeling builds (1–3), and the sheet wears the same colour.
+   The variables come from RP.moodStyle on the card and the sheet. */
+.turn.mooded .bubble { border-left: 3px solid var(--mood-line); background-image: linear-gradient(90deg, var(--mood-wash), transparent 72%); }
+.turn.user.mooded .bubble { border-left: 0; border-right: 3px solid var(--mood-line); background-image: linear-gradient(270deg, var(--mood-wash), transparent 72%); }
+.turn .moodtag { font-size: 11px; font-weight: 600; color: var(--mood-ink); background: var(--mood-wash); border-radius: 999px; padding: 1px 7px; }
+.statebar .sheet.mooded { border-color: var(--mood-line); box-shadow: inset 3px 0 0 var(--mood-line); }
+.statebar .flag.mood { background: var(--mood-wash); color: var(--mood-ink); border: 1px solid var(--mood-line); font-weight: 600; }
+
 /* An edited, muted or imported line still reads as part of the chat, but
    says what it is. */
 .turn.muted { opacity: .55; }

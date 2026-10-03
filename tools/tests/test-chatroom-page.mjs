@@ -28,7 +28,7 @@ procs.push(spawn('python3', ['tools/mock_lm_studio.py', String(MOCK_PORT)], {
   cwd: repoRoot, stdio: 'ignore',
   env: {
     ...process.env,
-    MOCK_DIRECTIVES: '[[HP: {{WHO}} -25]]\n[[FLAG: {{WHO}} bleeding]]\n' +
+    MOCK_DIRECTIVES: '[[HP: {{WHO}} -25]]\n[[FLAG: {{WHO}} bleeding]]\n[[MOOD: {{WHO}} anger 2 | the blade]]\n' +
       '[[NEW: Marguerite Oyle | the studio night archivist | wiry, sixty, ink to the elbows, a stopwatch on a bootlace]]',
   },
 }));
@@ -1388,6 +1388,42 @@ check('memory: the turn is remembered against the character',
 check('memory: opening the chat filed a line in the world log',
   stored().log.some(e => e.kind === 'chat'));
 
+// ---- mood: the colour of the box is how they feel ----
+check('mood: the model\u2019s [[MOOD:]] lands on the sheet as a flicker first, never the full pitch at once', (() => {
+  const s = savedState();
+  const r = s.rooms.find(x => x.id === s.active);
+  const first = Object.keys(r.states).map(k => r.states[k]).find(sh => sh.mood);
+  return Boolean(first) && first.mood.key === 'anger' && first.mood.level >= 1 && first.mood.level <= 2 && first.mood.note === 'the blade';
+})());
+check('mood: the turn card wears the colour — a class, the CSS variables, and the feeling in its title', (() => {
+  const card = doc.querySelector('.turn.char.mooded');
+  return Boolean(card) && /--mood-line:hsl\(4,/.test(card.getAttribute('style') || '') && /--mood-wash/.test(card.getAttribute('style') || '') &&
+    card.getAttribute('data-mood') === 'anger' && /irritated|angry/.test(card.getAttribute('title') || '');
+})());
+check('mood: the sheet shows the feeling as a chip and wears the same colour', (() => {
+  if ($('statebar').hidden) $('statesBtn').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));   // 🩺 Party
+  const sheet = doc.querySelector('.statebar .sheet.mooded');
+  const chip = sheet && sheet.querySelector('.flag.mood');
+  const shown = Boolean(sheet && chip) && /😠/.test(chip.textContent) && /irritated|angry/.test(chip.textContent) &&
+    /--mood-line/.test(sheet.getAttribute('style') || '');
+  $('statesBtn').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));                             // as it was
+  return shown;
+})());
+check('mood: the next prompt orders the speaker to play it, and tells everyone else how they are', (() => {
+  const s = savedState();
+  const r = s.rooms.find(x => x.id === s.active);
+  const felt = r.cast.find(c => r.states[c.id] && r.states[c.id].mood);
+  const other = r.cast.find(c => c.id !== felt.id) || felt;
+  const mine = win.RP.systemFor(s, r, felt, {});
+  const theirs = win.RP.systemFor(s, r, other, {});
+  return Boolean(felt) && new RegExp('MOOD \u2014 ' + felt.name + ' is (irritated|angry)').test(mine) &&
+    /mood: (irritated|angry) \(anger [12]\/3 \u2014 the blade\)/.test(theirs) && !/You may colour/.test(mine) && !/\[\[TINT:/.test(mine);
+})());
+check('mood: the page reads the prose itself when nothing is filed — the mock\u2019s plain line moves nobody', (() => {
+  return win.RP.moodScan('MOCK-MODEL REPLY #1: the blade goes in.', 'Anyone', []) === null &&
+    win.RP.moodScan('*She slams the ledger shut.* "Get out," she snarls.', 'Anyone', []).key === 'anger';
+})());
+
 // ---- the hurt ledger: a crash the model narrates but never files ----
 check('wounds: the Scene tab offers the ledger, on by default', (() => {
   dock('scene');
@@ -1441,6 +1477,47 @@ check('wounds: ↩ undo takes the whole crash back off the sheets', (() => {
   const s = savedState();
   const r = s.rooms.find(x => x.id === s.active);
   return Object.keys(hpBefore).every(k => r.states[k].hp.value === hpBefore[k]);
+})());
+
+// ---- the AI audit: one call, every sheet, previewed, applied, undone ----
+const auditBefore = (() => {
+  const s = savedState();
+  const r = s.rooms.find(x => x.id === s.active);
+  return { hp: r.states[r.cast[0].id].hp.value, clock: r.clock || '', turns: r.messages.length, who: r.cast[0].id };
+})();
+check('audit: the Cast tab and the Scene tab both offer the AI audit, and nothing runs it on its own', (() => {
+  dock('scene');
+  const inScene = Boolean($('dkReview'));
+  dock('cast');
+  const inCast = Boolean($('dkReview'));
+  return inScene && inCast && /AI audit/.test($('dkReview').textContent) && $('modalBack').hidden;
+})());
+$('dkReview').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+await until('the audit preview', () => !$('modalBack').hidden && /AI audit/.test($('modal').textContent) && Boolean($('mOk')));
+check('audit: the corrections are previewed before they land — the invented stranger is refused', (() => {
+  const text = $('modal').textContent;
+  const s = savedState();
+  const r = s.rooms.find(x => x.id === s.active);
+  return /−3 HP/.test(text) && /soot on the face/.test(text) && /the time is 23:40/.test(text) && /angry \(the bill\)|irritated \(the bill\)/.test(text) &&
+    !/Nobody Real/.test(text) && /Apply 4 changes/.test($('mOk').textContent) &&
+    r.states[auditBefore.who].hp.value === auditBefore.hp && (r.clock || '') === auditBefore.clock;
+})());
+$('mOk').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+await wait(200);
+check('audit: applied — the sheet, the note, the mood and the clock all moved, filed as one card in the stream', (() => {
+  const s = savedState();
+  const r = s.rooms.find(x => x.id === s.active);
+  const sheet = r.states[auditBefore.who];
+  const card = r.messages[r.messages.length - 1];
+  return $('modalBack').hidden && sheet.hp.value === auditBefore.hp - 3 && /soot on the face/.test(sheet.status) && r.clock === '23:40' &&
+    sheet.mood && sheet.mood.key === 'anger' && card.role === 'state' && card.lines.length === 4 && card.lines.every(l => /^🩺 /.test(l)) &&
+    !r.cast.some(c => /Nobody Real/.test(c.name)) && /🩺/.test($('stream').textContent);
+})());
+check('audit: ↩ undo takes the whole audit back — sheet, card and clock', (() => {
+  $('undoBtn').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
+  const s = savedState();
+  const r = s.rooms.find(x => x.id === s.active);
+  return r.states[auditBefore.who].hp.value === auditBefore.hp && (r.clock || '') === auditBefore.clock && r.messages.length === auditBefore.turns;
 })());
 
 // ---- the model actually received the assembled prompt ----

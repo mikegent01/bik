@@ -2331,6 +2331,21 @@
 
   /** The roll, the state changes and any beat that fired, as one quiet
    *  strip along the bottom of the turn they belong to. */
+  /** The mood on a sheet right now, as the snapshot a turn card keeps. */
+  function moodOn(r, id) {
+    var sheet = id ? RP.sheetFor(r, id) : null;
+    if (!sheet || !sheet.mood || !RP.MOODS[sheet.mood.key]) return undefined;
+    return { key: sheet.mood.key, level: Math.max(1, Math.min(3, Number(sheet.mood.level) || 1)) };
+  }
+
+  /** The attributes that colour a turn card by the feeling it was written
+   *  in: a class and the CSS variables. Empty when nobody felt anything. */
+  function moodAttrs(m) {
+    var style = m && m.mood ? RP.moodStyle(m.mood) : '';
+    return style ? ' mooded" style="' + style + '" data-mood="' + esc(m.mood.key) + '" title="' +
+      esc(RP.moodLabel(m.mood)) + ' (' + esc(m.mood.key) + ' ' + m.mood.level + '/3)' : '';
+  }
+
   function metaStrip(m) {
     var bits = [];
     if (m.fate) bits.push('<span class="roll">' + esc(m.fate) + '</span>');
@@ -2401,6 +2416,9 @@
         value: sheet.stats ? RP.STAT_KEYS.map(function (k) { return sheet.stats[k]; }).join(' ') : '' },
       { k: 'slots', label: 'Pack slots (3–12)', value: String(sheet.slots || '') },
       { k: 'status', label: 'Physical note', value: sheet.status || '' },
+      { k: 'mood', label: 'Mood — "anger 2 | the bill" (' + RP.MOOD_KEYS.join(', ') + '; 1 a flicker, 3 overwhelming), or calm',
+        value: sheet.mood && RP.MOODS[sheet.mood.key]
+          ? sheet.mood.key + ' ' + sheet.mood.level + (sheet.mood.note ? ' | ' + sheet.mood.note : '') : '' },
     ], { note: 'The model reads this before every turn and writes to it with stage directions. Changing it here changes what the scene believes.' }, function (v) {
       function pool(text, old) {
         var hit = /^\s*(\d+)\s*\/\s*(\d+)\s*$/.exec(text);
@@ -2432,6 +2450,15 @@
       var slots = parseInt(v.slots, 10);
       if (!isNaN(slots)) sheet.slots = Math.max(3, Math.min(12, slots));
       sheet.status = v.status.trim();
+      var moodText = v.mood.split('|');
+      var moodHead = moodText[0].trim();
+      var moodLevel = /\s(\d)\s*$/.exec(moodHead);
+      var feeling = RP.moodWord(moodLevel ? moodHead.slice(0, moodLevel.index) : moodHead);
+      if (!moodHead || (feeling && feeling.key === 'calm')) delete sheet.mood;
+      else if (feeling) {
+        RP.applyChange(sheet, { kind: 'mood', key: feeling.key, level: moodLevel ? Number(moodLevel[1]) : feeling.level,
+          note: (moodText[1] || '').trim(), set: true, turn: r.messages.length });
+      }
       r.updated = Date.now();
       save(); render();
     });
@@ -2578,7 +2605,9 @@
         // NOT a <button>: the slots inside are buttons, and HTML closes a
         // button the moment another one opens — the whole grid would be
         // reparented out of the card. A span with the same handler is safe.
-        return '<span class="sheet' + (isYou ? ' you' : '') + '" role="button" tabindex="0" data-sheet="' + esc(id) + '"' +
+        var moodStyle = sheet.mood ? RP.moodStyle(sheet.mood) : '';
+        return '<span class="sheet' + (isYou ? ' you' : '') + (moodStyle ? ' mooded' : '') + '" role="button" tabindex="0" data-sheet="' + esc(id) + '"' +
+          (moodStyle ? ' style="' + moodStyle + '"' : '') +
           (isYou ? '' : ' draggable="true" data-drag="' + esc(id) + '"') + ' title="Edit state' + (isYou ? '' : ' · drag to the bench to write them out') + '">' +
           (isYou ? '<span class="here" title="You — always in the scene">🧍</span>'
             : '<span class="here" data-here="' + esc(id) + '" title="' +
@@ -2588,6 +2617,9 @@
           (sheet.hp ? bar('hp', sheet.hp) : '') + (sheet.mp ? bar('mp', sheet.mp) : '') +
           kitGrid(r, id) +
           '<span class="chips">' +
+          (moodStyle ? '<span class="flag mood" title="' + esc('How they feel — ' + sheet.mood.key + ' ' + sheet.mood.level + '/3' +
+              (sheet.mood.note ? ' · ' + sheet.mood.note : '') + '. Builds while the scene feeds it, fades when it stops.') + '">' +
+            RP.moodIcon(sheet.mood) + ' ' + esc(RP.moodLabel(sheet.mood)) + '</span>' : '') +
           (sheet.stats ? '<span class="flag stat" title="might · wits · sway · luck (0–3) — they lean on the dice when your attempt uses them">' +
             esc(RP.statLine(sheet.stats)) + '</span>' : '') +
           Object.keys(sheet.flags || {}).map(function (f) {
@@ -2649,9 +2681,11 @@
       var swipes = (m.alts && m.alts.length > 1)
         ? '<span class="swipe"><button data-swipe="-1" data-i="' + i + '">‹</button>' + ((m.alt || 0) + 1) + ' / ' + m.alts.length + '<button data-swipe="1" data-i="' + i + '">›</button></span>' : '';
       return '<article class="turn ' + (mine ? 'user' : 'char') + (m.error ? ' err' : '') +
-        (m.muted ? ' muted' : '') + (m.imported ? ' imported' : '') + '">' +
+        (m.muted ? ' muted' : '') + (m.imported ? ' imported' : '') + moodAttrs(m) + '">' +
         '<div class="who">' + (mine ? (playing ? avatar(playing, 24) : userAvatar(24)) : avatar(charOf(r, m.charId), 24)) +
         '<b>' + esc(who) + '</b>' + (mine ? '' : '<span class="badge">archive</span>') +
+        (m.mood && RP.MOODS[m.mood.key] ? '<span class="moodtag" title="How they felt as this turn ended — the box wears the colour">' +
+          RP.moodIcon(m.mood) + ' ' + esc(RP.moodLabel(m.mood)) + '</span>' : '') +
         (mine ? '' : '<button class="speak" data-speak="' + i + '" title="Read aloud">▶</button>') +
         (m.error ? '' : '<span class="grip" draggable="true" data-dragturn="' + esc(m.id) + '" ' +
           'title="Drag this turn onto the other scene to carry it over — or to the edge of the stage to start one">⠿</span>') +
@@ -3259,6 +3293,8 @@
       '<button class="mini primary" id="dkInvite">＋ Invite from the archive</button>' +
       '<button class="mini" id="dkInvent">✨ Invent someone</button>' +
       (r.mechanics === 'off' ? '' : '<button class="mini" id="dkSheets">' + (showStates ? '🩺 Hide the sheets' : '🩺 Party sheets') + '</button>') +
+      (r.mechanics === 'off' ? '' : '<button class="mini" id="dkReview" title="One model call: it reads the recent play against every sheet' +
+        (other ? ' in both scenes' : '') + ' and proposes corrections — wounds, kit, conditions, moods, the clock, who is still here. You see them before they land.">🧾 AI audit</button>') +
       '</div>' +
       '<p class="hint">' + (other
         ? 'Drag a face onto the other scene to send them there; drag a turn across to carry it over as a direction.'
@@ -3315,6 +3351,7 @@
       '<h4>Housekeeping</h4>' +
       '<div class="cp-menu">' +
       menuItem('dkAudit', '🧾', 'Audit', (auditFlags[r.id] || 0) ? auditFlags[r.id] + ' to look at' : 'all clear') +
+      (r.mechanics === 'off' ? '' : menuItem('dkReview', '🩺', 'AI audit of the sheets', RP.linkedRoom(state, r) ? 'both scenes' : 'one call')) +
       menuItem('cpReplay', '🎭', 'Replay', 'Perspective') +
       menuItem('dkSequel', '📖', 'Write the sequel', '') +
       menuItem('cpNew', '✎', 'New chat', 'same cast') +
@@ -3445,6 +3482,78 @@
       };
     }
   }
+  /** The AI audit, by hand: one model call reads the recent play of this
+   *  scene (both scenes, when linked) against every sheet and proposes
+   *  corrections — wounds, kit, conditions, moods, notes, the clock, who
+   *  is really still in the room. Nothing lands until you say so, and ↩
+   *  takes it all back. Never runs on its own. */
+  var auditing = false;
+  function runSheetAudit(r) {
+    if (!r || r.mechanics === 'off') { toast('The sheets are off in this scene.'); return; }
+    if (auditing) { toast('🩺 The audit is still reading.'); return; }
+    var other = RP.linkedRoom(state, r);
+    var rooms = other ? [r, other] : [r];
+    var turns = {};
+    rooms.forEach(function (room) {
+      RP.ensurePlayerSheet(state, room);
+      var playing = RP.playerCharacter(room);
+      turns[room.id] = (room.messages || []).filter(RP.visible).slice(-RP.AUDIT_TURNS).map(function (m) {
+        return {
+          who: m.role === 'user' ? ((playing && playing.name) || RP.sheetFor(room, RP.playerSheetId(room)).name || 'The player')
+            : m.role === 'world' ? RP.NARRATORS[RP.narrator(state)].name : charOf(room, m.charId).name,
+          text: RP.textOf(m),
+        };
+      });
+    });
+    auditing = true;
+    toast('🩺 Reading ' + (other ? 'both scenes' : 'the scene') + ' against the sheets…');
+    callModel(RP.sheetAuditPrompt(rooms, turns), [{ role: 'user', content: 'Audit the sheets.' }], { tokens: 420, utility: true })
+      .then(function (reply) {
+        auditing = false;
+        reply = String(reply || '').trim();
+        // A dry run on copies: what WOULD change, shown before it does.
+        var copies = rooms.map(function (room) { return JSON.parse(JSON.stringify(room)); });
+        var stub = { log: [], book: { entries: [], queue: [] }, newChars: [], rooms: copies };
+        var preview = RP.applySheetAudit(stub, copies, reply);
+        if (!preview.count) {
+          toast(/^IN ORDER/i.test(reply) ? '🧾 In order — the record matches the play.' : '🧾 The audit found nothing it could file.');
+          return;
+        }
+        openModal('<h3>🩺 AI audit</h3>' +
+          '<p class="sub">The model read the last ' + RP.AUDIT_TURNS + ' turns' + (other ? ' of both scenes' : '') +
+          ' against every sheet. This is what it says the record missed. Nothing has changed yet.</p>' +
+          rooms.map(function (room) {
+            var lines = preview.byRoom[room.id] || [];
+            if (!lines.length) return '';
+            return (other ? '<h4>' + esc(room.title || 'untitled') + '</h4>' : '') +
+              '<div class="stack">' + lines.map(function (l) { return '<div class="item"><b>' + esc(l) + '</b></div>'; }).join('') + '</div>';
+          }).join('') +
+          '<div class="actions"><button class="pill" id="mCancel">Leave it</button>' +
+          '<button class="pill primary" id="mOk">Apply ' + preview.count + (preview.count === 1 ? ' change' : ' changes') + '</button></div>');
+        $('mCancel').onclick = closeModal;
+        $('mOk').onclick = function () {
+          rooms.forEach(function (room) { RP.pushUndo(room, 'the AI audit'); });
+          var done = RP.applySheetAudit(state, rooms, reply);
+          rooms.forEach(function (room) {
+            var lines = done.byRoom[room.id] || [];
+            if (!lines.length) return;
+            room.messages.push({
+              id: RP.uid(), role: 'state', at: Date.now(),
+              lines: lines.map(function (l) { return '🩺 ' + l; }),
+            });
+            room.updated = Date.now();
+          });
+          closeModal(); save(); render();
+          toast('🩺 ' + done.count + (done.count === 1 ? ' correction' : ' corrections') + ' filed — ↩ takes them back.');
+        };
+      })
+      .catch(function (error) {
+        auditing = false;
+        if (error && error.stopped) return;
+        toast('🩺 The audit could not reach the model: ' + RP.clip(String((error && error.message) || error), 120));
+      });
+  }
+
   function openFacts(r) {
     var facts = r.facts || {};
     var keys = Object.keys(facts);
@@ -4008,6 +4117,7 @@
         : 'Wounds: a crash, a blade or a blast in the prose costs HP even when the model files nothing — no extra call.');
     });
     on('dkAudit', function () { runAudit(r); });
+    on('dkReview', function () { runSheetAudit(r); });
     on('dkSequel', function () { openSequel(r); });
     on('dkBook', function () { tab = 'book'; state.active = ''; save(); render(); });
     on('dkReadLast', function () {
@@ -4364,6 +4474,7 @@
     }
     r.queue = [];
     r.handback = '';
+    if (r.mechanics !== 'off') msg.mood = moodOn(r, RP.playerSheetId(r));
     r.messages.push(msg);
     RP.rememberTurn(state, r, msg);
     r.updated = Date.now();
@@ -4634,8 +4745,17 @@
       // A take that gets sent back (it wrote the player) must not leave its
       // wounds and filings behind — the sheets are put back as they were.
       var sheetsBefore = JSON.stringify(r.states || {}), castBefore = JSON.stringify(r.cast || []);
+      var turnNow = r.messages.length;     // the turn the moods are fed on
+      // A [[MOOD:]] with no name is the speaker's own.
+      staged.directives.forEach(function (d) {
+        if (d.kind === 'mood' && !d.who && speaker && !worldTurn) d.who = speaker.name;
+      });
       var changes = r.mechanics === 'off' ? { lines: [] }
         : RP.applyDirectives(state, r, staged.directives, resolveChar);
+      var moodFiled = function (id) {
+        var sheet = RP.sheetFor(r, id);
+        return Boolean(sheet && sheet.mood && sheet.mood.at === turnNow);
+      };
       if (verdict && verdict.line) changes.lines.unshift(verdict.line);
       // The prose handed the player something and no [[ITEM:]] landed?
       // Filed on the spot, no model call — the first upkeep net.
@@ -4671,7 +4791,28 @@
           if (h.tier === 'grave' && !(sheet.flags || {}).battered) {
             RP.applyChange(sheet, { kind: 'flag', name: 'battered', turns: 2, note: 'from ' + h.cause });
           }
+          // A grave hurt shakes anyone it lands on — a flicker of fear,
+          // unless the model said how they took it. The reader's own
+          // feeling stays theirs.
+          if (h.tier === 'grave' && !sheet.player && !moodFiled(h.id)) {
+            var shaken = RP.applyChange(sheet, { kind: 'mood', key: 'fear', level: 1, note: h.cause, turn: turnNow });
+            if (shaken) changes.lines.push(shaken);
+          }
         });
+      }
+      // The mood: the colour of the box is how the speaker feels. When
+      // the model filed no [[MOOD:]] for them, the prose is read for it —
+      // free, local, one step at a time, so a feeling builds instead of
+      // swinging — and the feeling then rides on the card.
+      if (r.mechanics !== 'off' && !worldTurn && speaker && speaker.id !== RP.PLAYER_ID && speaker.id !== r.youPlay) {
+        var moodSheet = RP.sheetFor(r, speaker.id);
+        if (moodSheet && !moodFiled(speaker.id)) {
+          var felt = RP.moodScan(clean, speaker.name, r.cast.map(function (c) { return c.name; }));
+          if (felt) {
+            var moodLine = RP.applyChange(moodSheet, { kind: 'mood', key: felt.key, level: 1, note: felt.note, turn: turnNow });
+            if (moodLine) changes.lines.push(moodLine + ' — read from the prose');
+          }
+        }
       }
       // The doorman: a never-seen name who arrives or speaks in the prose
       // gets filed as an ENTER (a full sheet, kit and all) even when the
@@ -4734,6 +4875,8 @@
           // What the turn was written with, so you can see it working.
           consulted: dug.slice(0, 3).map(function (hit) { return hit.name; }),
           changes: changes.lines.slice(0, 6),
+          // The colour of the box: how the speaker feels as this turn ends.
+          mood: moodOn(r, worldTurn ? '' : saidBy.id),
         };
         if (!String(clean || '').trim()) {
           // Nothing came back twice over. Say so quietly instead of filing
@@ -4750,7 +4893,7 @@
           r.next = after ? after.id : '';
         }
         // Anything temporary counts down on the turn it survives.
-        var passed = r.mechanics === 'off' ? [] : RP.tickConditions(r);
+        var passed = r.mechanics === 'off' ? [] : RP.tickConditions(r).concat(RP.tickMoods(r, turnNow));
         if (passed.length) msg.changes = (msg.changes || []).concat(passed);
         // A fired beat rides on the same card as the turn it interrupted.
         if (RP.autoAdvance(r)) {

@@ -2194,9 +2194,9 @@ check('colour: nothing but a colour gets through', (() => {
   const html = RP.md('{red|<script>alert(1)</script>}');
   return !/<script/.test(html) && html.includes('&lt;script');
 })());
-check('colour: the model is told the palette, and told not to overdo it',
-  /Colours available: red, blood/.test(RP.groupPrompt([sans, cutters], sans, {})) &&
-  /two or three words in a turn at most/.test(RP.soloPrompt(sans, {})));
+check('colour: the model is no longer asked to colour words — the box carries the mood instead',
+  !/Colours available/.test(RP.groupPrompt([sans, cutters], sans, {})) &&
+  !/You may colour/.test(RP.soloPrompt(sans, {})) && !/\[\[TINT:/.test(RP.DIRECTIVES) && /\[\[MOOD:/.test(RP.DIRECTIVES));
 
 // ---------- a long chat stays cheap ----------
 const longRoom = RP.newRoom([sans], {});
@@ -2357,30 +2357,141 @@ check('enter: a one-to-one chat somebody walks into becomes a group chat, and th
     RP.historyFor({ kind: rm.kind, cast: rm.cast, messages: [{ role: 'char', charId: who.id, text: 'Evening.' }] })[0].content.startsWith('Marguerite Oyle: ');
 })());
 
-// ---------- the flourish: colour is ordered on a schedule ----------
-check('flourish: every fifth turn orders exactly one coloured phrase, mechanics on or off', (() => {
-  const rm = RP.newRoom([sans], { mechanics: 'off' });
+// ---------- mood: the colour of the box is how they feel ----------
+{
+  const wario = RP.normChar({ id: 'wario', name: 'Wario' });
+  const waluigi = RP.normChar({ id: 'waluigi', name: 'Waluigi' });
   const st = RP.blankState();
-  const fired = []; let block = '';
-  for (let i = 0; i < 10; i++) {
+  const rm = RP.newRoom([wario, waluigi, sans], {});
+  st.rooms.push(rm); st.active = rm.id;
+  RP.markPlayer(rm, 'waluigi'); RP.ensurePlayerSheet(st, rm);
+  const W = rm.states.wario;
+  check('mood: a feeling word is read with its strength — furious is anger at 3, calm is calm, junk is nothing', (() => {
+    const a = RP.moodWord('furious'), b = RP.moodWord('a little uneasy'), c = RP.moodWord('calm'), d = RP.moodWord('blorp');
+    return a.key === 'anger' && a.level === 3 && b.key === 'fear' && b.level === 1 && c.key === 'calm' && d === null;
+  })());
+  check('mood: a new feeling starts as a flicker and builds one step a turn, never swinging', (() => {
+    const l1 = RP.moodShift(W, 'anger', 2, 'the bill', { turn: 1 });
+    const l2 = RP.moodShift(W, 'anger', 2, '', { turn: 2 });
+    const l3 = RP.moodShift(W, 'anger', 1, '', { turn: 3 });
+    return /irritated/.test(l1) && W.mood.level === 2 && /angry.*building/.test(l2) && l3 === '' && W.mood.level === 2 && W.mood.note === 'the bill';
+  })());
+  check('mood: a different feeling wears the standing one down before it takes over', (() => {
+    const l1 = RP.moodShift(W, 'fear', 2, 'the drop', { turn: 4 });
+    const worn = W.mood.key + ' ' + W.mood.level;
+    const l2 = RP.moodShift(W, 'fear', 2, 'the drop', { turn: 5 });
+    return /irritated.*fear pulling at it/.test(l1) && worn === 'anger 1' &&
+      /uneasy.*the anger gone/.test(l2) && W.mood.key === 'fear' && W.mood.level === 1;
+  })());
+  check('mood: a shock — a 3 filed — replaces the feeling at once, at 2, never straight to 3', (() => {
+    const line = RP.moodShift(W, 'joy', 3, 'the money', { turn: 6 });
+    return /happy.*uneasy no longer/.test(line) && W.mood.key === 'joy' && W.mood.level === 2;
+  })());
+  check('mood: calm takes a step off; set by hand writes exactly what was asked', (() => {
+    const eased = RP.moodShift(W, 'calm', 0, '', { turn: 7 });
+    RP.moodShift(W, 'pride', 3, 'the deal', { set: true, turn: 7 });
+    return /pleased.*easing/.test(eased) && W.mood.key === 'pride' && W.mood.level === 3 && RP.moodLabel(W.mood) === 'triumphant';
+  })());
+  check('mood: it fades on its own — a step off every two quiet turns, calm at zero, and a fed turn resets the count', (() => {
+    W.mood = { key: 'anger', level: 2, note: '', held: 0, at: 10 };
+    const t1 = RP.tickMoods(rm, 11), t2 = RP.tickMoods(rm, 12);
+    const afterTwo = W.mood.level;
+    RP.tickMoods(rm, 13);
+    RP.moodShift(W, 'anger', 2, '', { turn: 14 });        // fed: the count restarts
+    RP.tickMoods(rm, 14);                                  // the turn it was fed on does not count
+    const fed = W.mood.level + '/' + W.mood.held;
+    RP.tickMoods(rm, 15); RP.tickMoods(rm, 16); RP.tickMoods(rm, 17);
+    const gone = RP.tickMoods(rm, 18);
+    return t1.length === 0 && t2.length === 0 && afterTwo === 1 && fed === '2/0' && !W.mood && /Wario settles/.test(gone[0]);
+  })());
+  check('mood: [[MOOD: Name feeling 2 | why]] parses with its level and note; the player\u2019s mood is theirs and dropped', (() => {
+    const staged = RP.parseDirectives('*He slams the door.* [[MOOD: Wario anger 2 | the bill]] [[MOOD: Waluigi afraid 2]] [[MOOD: Sans suspicious | the ledger]] [[MOOD: Sans blorp]]',
+      ['Wario', 'Waluigi', 'Sans']);
+    const d = staged.directives;
+    delete W.mood;
+    const done = RP.applyDirectives(st, rm, d);
+    return staged.clean === '*He slams the door.*' && d.length === 3 && d[0].kind === 'mood' && d[0].key === 'anger' && d[0].level === 2 && d[0].note === 'the bill' &&
+      W.mood.key === 'anger' && W.mood.level === 1 && !rm.states.waluigi.mood && rm.states.sans.mood.key === 'suspicion' &&
+      done.lines.some((l) => /Wario — irritated \(the bill\)/.test(l)) && rm.toolAt.mood === rm.messages.length;
+  })());
+  check('mood: a nameless [[MOOD: furious | why]] parses for the page to hand to the speaker, and lands on nobody by itself', (() => {
+    const d = RP.parseDirectives('[[MOOD: furious | the bill]] [[MOOD: fear 3/3 | the drop]] [[MOOD: ominous]]', ['Wario']).directives;
+    const before = JSON.stringify(rm.states);
+    RP.applyDirectives(st, rm, d);
+    return d.length === 2 && d[0].who === '' && d[0].key === 'anger' && d[0].level === 3 && d[0].note === 'the bill' &&
+      d[1].key === 'fear' && d[1].level === 3 && JSON.stringify(rm.states) === before;
+  })());
+  check('mood: the prose is read when the model files nothing — two cues or one strong word, speaker only', (() => {
+    const angry = RP.moodScan('*Wario slams his fist on the dashboard.* "GET OUT OF MY HELICOPTER!" he bellows, glaring at the pilot.', 'Wario', ['Sans', 'Waluigi']);
+    const other = RP.moodScan('Sans looks terrified. Sans trembles and backs away from the wreck.', 'Wario', ['Sans', 'Waluigi']);
+    const plain = RP.moodScan('He turns the page and says nothing for a moment.', 'Wario', ['Sans']);
+    const strong = RP.moodScan('Wario sobs once, into his sleeve.', 'Wario', ['Sans']);
+    const mock = RP.moodScan('MOCK-MODEL REPLY #3: the blade goes in.', 'Wario', ['Sans']);
+    return angry && angry.key === 'anger' && other === null && plain === null && strong && strong.key === 'grief' && mock === null;
+  })());
+  check('mood: the sheets show it, the speaker gets it as an order, a calm speaker costs nothing', (() => {
     const sys = RP.systemFor(st, rm, sans, {});
-    if (sys.includes('COLOUR, THIS TURN')) { fired.push(i); block = RP.flourishBlock(rm, null); }
-    rm.messages.push({ id: 'u' + i, role: i % 2 ? 'char' : 'user', charId: sans.id, text: 'plain words ' + i, at: 1 });
-  }
-  return fired.length === 2 && fired[0] === 4 && fired[1] === 9 &&
-    /exactly ONE phrase/.test(block) && /\{colour\|the words\}/.test(block);
-})());
-check('flourish: a triumph or a failure orders colour off-schedule, in a matching palette', (() => {
-  const rm = RP.newRoom([sans], {});
-  const win = RP.flourishBlock(rm, { key: 'triumph' });
-  const loss = RP.flourishBlock(rm, { key: 'setback' });
-  return /gold or amber/.test(win) && /blood or rust/.test(loss) && RP.flourishBlock(rm, { key: 'success' }) === '';
-})());
-check('flourish: a model already colouring on its own is left alone', (() => {
-  const rm = RP.newRoom([sans], {});
-  rm.messages.push({ id: 'c1', role: 'char', charId: sans.id, text: 'He lifts {ember|the lamp}.', at: 1 });
-  return RP.recentlyColoured(rm) && RP.flourishBlock(rm, { key: 'triumph' }) === '';
-})());
+    const calm = RP.systemFor(st, rm, waluigi, {});
+    return /mood: wary \(suspicion 1\/3 — the ledger\)/.test(sys) && /MOOD — Sans is wary \(suspicion 1\/3: the ledger\)/.test(sys) &&
+      /questions everything, answers little/.test(sys) && /file \[\[MOOD: Sans/.test(sys) && !/MOOD — Waluigi/.test(calm) &&
+      !/COLOUR, THIS TURN/.test(sys) && RP.flourishBlock === undefined;
+  })());
+  check('mood: the box wears the colour — a line, a wash that deepens with the level, and an icon', (() => {
+    const one = RP.moodStyle({ key: 'anger', level: 1 }), three = RP.moodStyle({ key: 'anger', level: 3 });
+    return /--mood-line:hsl\(4,/.test(one) && /0\.1\)/.test(one) && /0\.32\)/.test(three) && RP.moodStyle({ key: 'blorp' }) === '' &&
+      RP.moodIcon({ key: 'fear' }) === '😨' && RP.MOOD_KEYS.length === 10 && new Set(RP.MOOD_KEYS.map((k) => RP.MOODS[k].hue)).size === 10;
+  })());
+  check('mood: the director\u2019s note nudges for feelings now, not for tints', (() => {
+    const quiet = RP.newRoom([sans], {});
+    for (let i = 0; i < 20; i++) quiet.messages.push({ id: 'q' + i, role: i % 2 ? 'char' : 'user', charId: sans.id, text: 'plain words ' + i, at: 1 });
+    quiet.toolAt = { stakes: 19, remember: 19 };
+    const note = RP.encourage(quiet);
+    return /\[\[MOOD: Name feeling 2/.test(note) && !/TINT/.test(note) && RP.ENCOURAGE_AFTER.tint === undefined;
+  })());
+  check('mood: the quartermaster may file a feeling it saw the record miss', RP.UPKEEP_KINDS.includes('mood'));
+}
+
+// ---------- the AI audit: every sheet, every scene, one call, by hand ----------
+{
+  const wario = RP.normChar({ id: 'wario', name: 'Wario' });
+  const bowser = RP.normChar({ id: 'bowser', name: 'Bowser' });
+  const st = RP.blankState();
+  const a = RP.newRoom([wario, sans], { title: 'The pavement' });
+  const b = RP.newRoom([wario, bowser], { title: 'The hangar' });
+  st.rooms.push(a, b); st.active = a.id;
+  RP.ensurePlayerSheet(st, a); RP.ensurePlayerSheet(st, b);
+  b.away = [{ id: 'sans', name: 'Sans' }];
+  const prompt = RP.sheetAuditPrompt([a, b], { [a.id]: [{ who: 'Wario', text: 'The helicopter is on its side.' }], [b.id]: [] });
+  check('audit: the prompt carries every sheet of both scenes, who is at the door, the recent play, and the allowed tools',
+    /AUDIT THE SHEETS/.test(prompt) && /SCENE \u201cThe pavement\u201d/.test(prompt) && /SCENE \u201cThe hangar\u201d/.test(prompt) &&
+    /waiting at the door: Sans/.test(prompt) && /Wario: The helicopter is on its side\./.test(prompt) && /\(nothing played yet\)/.test(prompt) &&
+    /\[\[MOOD: Name anger 2 \| why\]\]/.test(prompt) && /\[\[TIME: 23:40\]\]/.test(prompt) && /reply exactly: IN ORDER/.test(prompt) &&
+    /never a new person/.test(prompt) && /player\u2019s own mood is theirs/.test(prompt));
+  check('audit: IN ORDER changes nothing', RP.applySheetAudit(st, [a, b], 'IN ORDER').count === 0 && a.states.wario.hp.value === 100);
+  const reply = '[[HP: Bowser -7]]\n[[MOOD: Wario anger 3 | the bill]]\n[[TIME: 23:40]]\n[[ENTER: Sans — back from the pavement]]\n' +
+    '[[NEW: Bob | a stranger | invented]]\n[[SET: place = the moon]]\n[[REMEMBER: x | y]]\n[[STATUS: Sans soot on the face]]\n[[EXIT: Bowser — gone]]';
+  const done = RP.applySheetAudit(st, [a, b], reply);
+  check('audit: each line lands in the scene that knows the name — wounds, moods, notes, the clock in both',
+    b.states.bowser.hp.value === 93 && a.states.wario.mood.key === 'anger' && a.states.wario.mood.level === 2 &&
+    a.clock === '23:40' && b.clock === '23:40' && /soot/.test(a.states.sans.status) &&
+    done.byRoom[a.id].length === 3 && done.byRoom[b.id].length === 3 && done.count === 6);
+  check('audit: ENTER only brings back somebody at that scene\u2019s door; EXIT writes out; nothing invents a person or a fact',
+    b.cast.some((c) => c.id === 'sans') && !b.cast.some((c) => c.id === 'bowser') && b.states.bowser.present === false &&
+    !a.cast.some((c) => /Bob/.test(c.name)) && !b.cast.some((c) => /Bob/.test(c.name)) && !(a.facts || {}).place && !(b.facts || {}).place &&
+    !(st.book.entries || []).length);
+  check('audit: the kinds it may file are the quartermaster\u2019s plus the clock and the door',
+    RP.AUDIT_KINDS.includes('mood') && RP.AUDIT_KINDS.includes('time') && RP.AUDIT_KINDS.includes('exit') && !RP.AUDIT_KINDS.includes('new') &&
+    !RP.AUDIT_KINDS.includes('set') && RP.AUDIT_TURNS >= 10);
+  check('audit: one step back restores the sheets AND the clock', (() => {
+    const c = RP.newRoom([wario], {});
+    c.clock = 'noon';
+    RP.pushUndo(c, 'the AI audit');
+    RP.applySheetAudit(st, [c], '[[HP: Wario -40]]\n[[TIME: midnight]]');
+    const moved = c.states.wario.hp.value === 60 && c.clock === 'midnight';
+    RP.undo(c);
+    return moved && c.states.wario.hp.value === 100 && c.clock === 'noon';
+  })());
+}
 
 // ---------- standing tints: the model picks the words and the colour ----------
 check('tints: [[TINT: words = colour]] files a standing rule', (() => {
@@ -2404,8 +2515,9 @@ check('tints: UNTINT releases the words', (() => {
 })());
 check('tints: a colour the palette refuses files nothing',
   RP.parseDirectives('[[TINT: the seal = javascript]]', []).directives.length === 0);
-check('tints: the model is told the tool exists',
-  RP.DIRECTIVES.includes('[[TINT:') && RP.soloPrompt(sans, {}).includes('[[TINT:'));
+check('tints: the model is no longer told to tint — old filings still render, new ones are still honoured if a model writes one',
+  !RP.DIRECTIVES.includes('[[TINT:') && !RP.soloPrompt(sans, {}).includes('[[TINT:') &&
+  RP.parseDirectives('[[TINT: the seal = violet]]', []).directives.length === 1);
 
 // ---------- history packed by characters, not just counted by turns ----------
 check('history: one monologue cannot evict ten turns', (() => {
@@ -3057,7 +3169,7 @@ check('history: newest turns win the budget', (() => {
     RP.applyDirectives(encState, encRoom,
       RP.parseDirectives('[[HP: Ana Bright -5]]', ['Ana Bright']).directives, () => null);
     encRoom.nudgedAt = {};
-    return (encRoom.toolAt || {}).stakes === encRoom.messages.length && /TINT/.test(RP.encourage(encRoom));
+    return (encRoom.toolAt || {}).stakes === encRoom.messages.length && /\[\[MOOD:/.test(RP.encourage(encRoom));
   })());
   check('encourage: young rooms and mechanics-off rooms are never nudged', (() => {
     const young = RP.newRoom([RP.normChar({ id: 'b', name: 'Bo' })], {});
