@@ -331,6 +331,35 @@
     return first.charAt(0).toUpperCase() + first.slice(1);
   };
 
+  /** What the studio's SSE stream said when it did not finish — and
+   *  whether that was the VOICE being turned away or the synthesis itself
+   *  falling over. Gradio refuses a profile its dropdown has not been told
+   *  about with "Value: Wario is not in the list of choices"; a CUDA
+   *  hiccup, a timeout or an empty render says something else entirely,
+   *  and for a whole session the page used to treat both the same: one
+   *  bad render and Wario spoke in Waluigi's voice until a page reload.
+   *  Returns null when the stream completed. */
+  RP.studioError = function (body) {
+    var text = String(body || '');
+    if (!/event:\s*error/.test(text)) return null;
+    var said = /event:\s*error\s*\n(?:id:[^\n]*\n)?data:\s*([^\n]*)/.exec(text);
+    var raw = said ? said[1].trim() : '';
+    var message = '';
+    if (raw && raw !== 'null') {
+      try {
+        var parsed = JSON.parse(raw);
+        message = typeof parsed === 'string' ? parsed
+          : (parsed && (parsed.message || parsed.error || parsed.detail || parsed.msg)) || '';
+      } catch (e) { message = raw; }
+    }
+    message = String(message || '').replace(/\s+/g, ' ').trim();
+    var refused = /not in the list|not a valid (choice|voice|value)|unknown (voice|profile|speaker)|no such (voice|profile)|(voice|profile)[^.]{0,40}(not found|does not exist|doesn\u2019t exist|doesn't exist)|invalid (voice|profile)/i.test(message);
+    return {
+      message: message || 'the studio reported an error',
+      refused: refused,
+    };
+  };
+
   /** Grandfather an old chat onto the current systems: re-read the cast
    *  from the archive's current profiles, mend every sheet to the current
    *  shape, and re-run the star rules (the starred character IS the
@@ -4624,7 +4653,24 @@
       dir: 'Write 8 to 14 SENTENCES — two or three short paragraphs. Count them, and stop at the end of a sentence. ' +
         'Detail that does something, not description for its own sake.',
     },
+    // The band that is not a band: the model sizes the turn to the moment.
+    // A retort stays a retort; a reveal, a move, a new room gets the space
+    // it needs. The old snappy voice at the small end, room at the big one.
+    adaptive: {
+      name: 'Let the scene decide', words: '2 sentences to 2 paragraphs, as the moment asks', sentences: [2, 12], tokens: 1000,
+      dir: 'SIZE THE TURN TO THE MOMENT. A quick exchange — a retort, an answer, a look — is 2 or 3 SENTENCES. A turn ' +
+        'where something HAPPENS — a move, a reveal, a new place, a plan or a fight turning — takes a paragraph, two at ' +
+        'most (12 sentences). Decide which before you write; never pad a small moment, never rush a big one.',
+    },
   };
+  RP.DEFAULT_LENGTH = 'adaptive';
+
+  /* Whatever the band, a turn has to DO something. The small models this
+   * runs on will happily shout a quip back for twenty turns while nothing
+   * in the room changes; this rides in the protected tail of every prompt
+   * so the length instruction never reads as "be brief and say nothing". */
+  RP.MOVE_RULE = 'WHATEVER THE LENGTH, MOVE THE SCENE: answer the specific thing just said or done, and leave one concrete ' +
+    'thing changed — a decision, a door, a price, a name given up. A quip, a shout or a reaction on its own is not a turn.';
 
   /** Did the model run out of room rather than finish? A reply that ends
    *  without terminal punctuation, inside an open quote, or on a comma or a
@@ -4685,12 +4731,21 @@
    *  the world gets one step more room, because that is its job. */
   RP.lengthBlock = function (level, isWorld) {
     var keys = ['snappy', 'normal', 'rich'];
-    var at = Math.max(0, keys.indexOf(RP.LENGTHS[level] ? level : 'snappy'));
-    if (isWorld) at = Math.min(keys.length - 1, at + 1);
-    var band = RP.LENGTHS[keys[at]];
+    var key;
+    if (level === 'adaptive') {
+      // Sized to the moment either way: a world turn that only needs two
+      // sentences gets two, one that opens a new place gets its paragraphs.
+      key = 'adaptive';
+    } else {
+      var at = Math.max(0, keys.indexOf(RP.LENGTHS[level] ? level : 'snappy'));
+      if (isWorld) at = Math.min(keys.length - 1, at + 1);
+      key = keys[at];
+    }
+    var band = RP.LENGTHS[key];
     return {
-      key: keys[at], tokens: band.tokens,
+      key: key, tokens: band.tokens,
       text: 'LENGTH\n' + band.dir +
+        '\n' + RP.MOVE_RULE +
         '\nTHE LAST SENTENCE MUST BE A WHOLE SENTENCE. Count as you go, and when you reach the last one, finish it ' +
         'and stop. Never end on a comma, a conjunction, or an open quotation mark. A turn that trails off ' +
         'mid-clause is a broken turn — it is better to write one sentence fewer and land it.',
@@ -4747,6 +4802,15 @@
   RP.narrator = function (state) {
     var key = (state && state.settings && state.settings.narrator) || 'director';
     return RP.NARRATORS[key] ? key : 'director';
+  };
+
+  /** The band a world turn is written in: the narrator's own, unless the
+   *  reader has let the scene decide — then the Director sizes to the
+   *  moment too. The terse room stays terse; that is its whole point. */
+  RP.worldLength = function (state) {
+    var voice = RP.NARRATORS[RP.narrator(state)] || RP.NARRATORS.director;
+    var set = (state && state.settings && state.settings.length) || RP.DEFAULT_LENGTH;
+    return (set === 'adaptive' && voice.length !== 'snappy') ? 'adaptive' : voice.length;
   };
 
   /** The facts a scene has nailed down: where you are, what you are
@@ -4862,6 +4926,8 @@
     opts = opts || {};
     var parts = [RP.worldPrompt(state, room, opts)];
     if (room.scene) parts.push('THE SCENE\n' + clip(room.scene, 900));
+    var worldMeanwhile = RP.meanwhileBlock(state, room);
+    if (worldMeanwhile) parts.push(worldMeanwhile);
     var worldSource = RP.sourceBlock(room, opts.archive);
     if (worldSource) parts.push(worldSource);
     var worldKeys = RP.keywordBlock(state, opts.recent || RP.historyFor(room, 4).map(function (m) { return m.content; }).join(' '));
@@ -4884,6 +4950,8 @@
     var memory = RP.memoryBlock(state, room.cast, room, 6);
     if (memory) parts.push(memory);
     var protectedFrom = parts.length;
+    var worldDirection = RP.directionBlock(room);
+    if (worldDirection) parts.push(worldDirection);
     if (room.mechanics !== 'off') {
       var sheets = RP.stateBlock(room, RP.PLAYER_ID);
       if (sheets) parts.push(sheets);
@@ -4901,7 +4969,7 @@
     if (worldOoc) parts.push(worldOoc);
     // The narrator carries its own length: the Director needs room, the
     // room itself needs two sentences.
-    parts.push(RP.lengthBlock(RP.NARRATORS[RP.narrator(state)].length, false).text);
+    parts.push(RP.lengthBlock(RP.worldLength(state), false).text);
     return RP.fitPrompt(parts, opts.budget, protectedFrom);
   };
 
@@ -5402,6 +5470,9 @@
     });
     copy.branchOf = room.id;
     copy.branchAt = messageId;
+    copy.linkedTo = '';            // a branch is its own hour; the link stays with the original
+    copy.direction = null;
+    copy.pinnedNext = '';
     copy.created = Date.now();
     copy.updated = Date.now();
     copy.bookAt = Math.min(Number(room.bookAt || 0), copy.messages.filter(visible).length);
@@ -6704,6 +6775,98 @@
     ].join('\n');
   };
 
+  /* ------------------------------------------------------------------ *
+   * direction — the reader as director
+   *
+   * "Make the ceiling come down" typed as a turn is the player's character
+   * saying it, and a small model answers the words. A DIRECTION is not
+   * said by anyone: it is filed on the room, rides in the protected tail
+   * of the next prompt as a thing that happens, and is spent by that turn.
+   * The ◍ Director turn and the ⟶ carry-over between linked scenes both
+   * arrive this way.
+   * ------------------------------------------------------------------ */
+
+  RP.setDirection = function (room, text, from) {
+    if (!room) return null;
+    var clean = String(text || '').trim();
+    if (!clean) { room.direction = null; return null; }
+    room.direction = { text: clip(clean, 600), from: from || '', at: Date.now() };
+    return room.direction;
+  };
+
+  RP.directionBlock = function (room) {
+    var d = room && room.direction;
+    var text = d && String(d.text || '').trim();
+    if (!text) return '';
+    return 'THE READER DIRECTS THIS TURN' + (d.from ? ' (carried over from the scene \u201c' + clip(d.from, 60) + '\u201d)' : '') + '\n' +
+      text + '\n' +
+      'This is not a suggestion and not a question: it HAPPENS, now, in this turn, as written and in full. Show it ' +
+      'landing — the concrete thing, where it comes from, what it does to the room — and the people here dealing ' +
+      'with it in character. Do not delay it, soften it, argue with it or explain it away, and never call it a ' +
+      'direction. Everything else about the turn (who speaks, the dice, the rules below) still applies.';
+  };
+
+  /* ------------------------------------------------------------------ *
+   * linked scenes — two chats, the same hour, a wall apart
+   *
+   * Chat A is Wario and Waluigi flying the plane; chat B is the two people
+   * on the ground who see its spotlight. Each room may be linked to one
+   * other (room.linkedTo, mutual). The page shows them side by side; the
+   * prompt shows each the other's last turns so a light, a sound or a
+   * person walking over can carry — and nothing else does. Nothing plays
+   * on its own: the reader drives both, and ⟶ carries a thing over by hand.
+   * ------------------------------------------------------------------ */
+
+  RP.MEANWHILE_TURNS = 3;
+
+  RP.linkedRoom = function (state, room) {
+    if (!room || !room.linkedTo || room.linkedTo === room.id) return null;
+    return ((state && state.rooms) || []).filter(function (x) { return x && x.id === room.linkedTo; })[0] || null;
+  };
+
+  RP.linkRooms = function (a, b) {
+    if (!a || !b || a === b || a.id === b.id) return false;
+    a.linkedTo = b.id; b.linkedTo = a.id;
+    return true;
+  };
+
+  RP.unlinkRoom = function (state, room) {
+    var other = RP.linkedRoom(state, room);
+    if (other && other.linkedTo === room.id) other.linkedTo = '';
+    if (room) room.linkedTo = '';
+    return Boolean(other);
+  };
+
+  /** The last few turns of the linked room, as "Name: line" — what this
+   *  scene could plausibly be hearing through the wall. */
+  RP.meanwhileLines = function (state, other, limit) {
+    var playing = RP.playerCharacter(other);
+    var you = (playing && playing.name) || (state && state.user && state.user.name) || 'the reader';
+    return ((other && other.messages) || []).filter(function (m) {
+      return visible(m) && !m.muted && (m.role === 'user' || m.role === 'char' || m.role === 'world');
+    }).slice(-(limit || RP.MEANWHILE_TURNS)).map(function (m) {
+      var who = m.role === 'user' ? you
+        : m.role === 'world' ? 'The scene'
+        : (((other.cast || []).filter(function (c) { return c.id === m.charId; })[0] || {}).name || 'Someone');
+      return who + ': ' + clip(String(RP.textOf(m)).replace(/\s+/g, ' '), 220);
+    });
+  };
+
+  RP.meanwhileBlock = function (state, room) {
+    var other = RP.linkedRoom(state, room);
+    if (!other || room.linkMode === 'blind') return '';
+    var lines = RP.meanwhileLines(state, other);
+    if (!lines.length) return '';
+    var cast = (other.cast || []).map(function (c) { return c.name; }).join(', ');
+    return 'MEANWHILE, IN A LINKED SCENE \u2014 \u201c' + clip(other.sceneName || other.title || 'elsewhere', 60) + '\u201d' +
+      (cast ? ' (' + cast + ')' : '') + ', happening at the SAME TIME, somewhere near enough to matter\n' +
+      (other.scene ? 'Where: ' + clip(String(other.scene).replace(/\s+/g, ' '), 160) + '\n' : '') +
+      lines.join('\n') + '\n' +
+      'That scene is not yours to narrate and its people are not here. Only what would genuinely carry across \u2014 a ' +
+      'light, a sound, smoke, a tremor, somebody walking from there to here \u2014 may reach this scene, and only if it ' +
+      'plausibly would. Never retell it, never answer it, never move its people.';
+  };
+
   /** Assemble the whole system prompt for one turn. This is the only place
    *  the blocks are ordered, so the page and the tests agree on the shape. */
   RP.systemFor = function (state, room, speaker, opts) {
@@ -6720,6 +6883,8 @@
     if (room.kind !== 'group' && room.scene) parts.push('THE SCENE\n' + room.scene);
     var perspective = RP.perspectiveBlock(room);
     if (perspective) parts.push(perspective);
+    var meanwhile = RP.meanwhileBlock(state, room);
+    if (meanwhile) parts.push(meanwhile);
 
     // Reference material — trimmed first when the window is tight.
     var source = RP.sourceBlock(room, opts.archive);
@@ -6749,6 +6914,8 @@
     var protectedFrom = parts.length;
     var continuation = RP.continuationBlock(room);
     if (continuation) parts.push(continuation);
+    var direction = RP.directionBlock(room);
+    if (direction) parts.push(direction);
     var audience = RP.audienceBlock(room, RP.normChar(speaker || {}).id,
       (state.settings && state.settings.audience) || 'on');
     if (audience) parts.push(audience);
@@ -6773,7 +6940,7 @@
     if (flourish) parts.push(flourish);
     var ooc = RP.oocBlock(state, room, opts.notes);
     if (ooc) parts.push(ooc);
-    parts.push(RP.lengthBlock((state.settings && state.settings.length) || 'snappy', false).text);
+    parts.push(RP.lengthBlock((state.settings && state.settings.length) || RP.DEFAULT_LENGTH, false).text);
     // Last word to the character. Two thousand characters of stage
     // directions used to be the final thing the model read before writing
     // Wario; now it is Wario.
@@ -7028,7 +7195,7 @@
       settings: {
         style: RP.DEFAULT_STYLE, voice: 'off', temperature: 0.85, endpoint: '',
         director: 'on',            // let the model decide who speaks next
-        length: 'snappy',          // snappy | normal | rich
+        length: RP.DEFAULT_LENGTH, // snappy | normal | rich | adaptive (the scene decides)
         narrator: 'director',      // director | plain | terse | archivist
         world: 'on',               // let the world narrate when nobody else can
         autoplay: 0,               // turns to play on their own before stopping
@@ -7083,6 +7250,17 @@
     if (state.settings.style === 'novel') state.settings.style = RP.DEFAULT_STYLE;
     state.settings.styleMigrated = 1;
     return moved;
+  };
+
+  /** The length setting began life as 'snappy', saved into every browser
+   *  as a default nobody chose; now the scene decides. Runs once: a
+   *  reader who later pins Snappy on purpose keeps it. */
+  RP.migrateLength = function (state) {
+    if (!state || !state.settings || state.settings.lengthMigrated) return false;
+    state.settings.lengthMigrated = 1;
+    if (state.settings.length && state.settings.length !== 'snappy') return false;
+    state.settings.length = RP.DEFAULT_LENGTH;
+    return true;
   };
 
   /** Write the state back, newest 30 rooms only. */

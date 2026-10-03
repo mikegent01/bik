@@ -455,6 +455,7 @@ a { color: inherit; }
 .turn.err .bubble { background: #fdecea; color: #7a2a20; }
 .scene-card { max-width: 760px; margin: 0 auto 22px; border-left: 3px solid var(--accent); background: var(--panel); border-radius: 0 10px 10px 0; padding: 10px 14px; color: #3d3d44; font-size: 14px; white-space: pre-wrap; }
 .scene-card.beat { border-left-color: #c58b2c; }
+.scene-card.direction { border-left-color: #7a4fd1; }
 .scene-card .kicker { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin-bottom: 3px; }
 
 .acts { display: flex; align-items: center; gap: 4px; margin-top: 7px; color: var(--muted); font-size: 13px; }
@@ -492,6 +493,38 @@ a { color: inherit; }
   cursor: pointer; font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
 .speakers .sp.on { border-color: var(--accent); background: var(--accent-soft); }
+
+/* ---------------- the linked scene, at the side ---------------- */
+
+/* Two chats, the same hour. The front scene keeps the full stream; the
+   linked one gets a narrower column with its own prompt. It needs the
+   width, so the character panel steps back behind ☰ while a scene is at
+   the side — the same way it does on a small screen. */
+.sidescene { display: none; flex: 0 0 38%; max-width: 540px; min-width: 0; flex-direction: column; border-left: 1px solid var(--line); background: var(--panel); }
+.side-top { display: flex; align-items: center; gap: 8px; padding: 10px 14px; border-bottom: 1px solid var(--line); background: #fff; }
+.side-top .title { flex: 1; min-width: 0; }
+.side-top .title b { display: block; font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.side-top .title span { color: var(--muted); font-size: 11px; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.side-stream { flex: 1; overflow: auto; padding: 14px; min-height: 0; }
+.side-turn { margin: 0 0 12px; }
+.side-turn .who { display: flex; align-items: center; gap: 6px; margin-bottom: 3px; font-size: 12px; }
+.side-turn .bubble { padding: 8px 11px; border-radius: 10px; font-size: 13px; max-width: none; }
+.side-turn.user .bubble { background: var(--accent-soft); }
+.side-turn.world .bubble { background: #fff; border: 1px solid var(--line); }
+.side-stream .scene-card { font-size: 12px; margin-bottom: 12px; }
+.side-stream .typing { color: var(--muted); font-size: 12px; }
+.side-acts { display: flex; gap: 6px; flex-wrap: wrap; padding: 8px 14px 0; }
+.side-acts .qa { padding: 4px 10px; font-size: 12px; }
+.side-composer { display: flex; align-items: flex-end; gap: 6px; margin: 8px 14px 14px; border: 1px solid var(--line); background: #fff; border-radius: 18px; padding: 6px 6px 6px 12px; }
+.side-composer:focus-within { border-color: var(--accent); }
+.side-composer textarea { flex: 1; border: 0; outline: 0; resize: none; background: transparent; max-height: 120px; padding: 4px 0; font-size: 13px; }
+.side-composer .send { width: 30px; height: 30px; border-radius: 50%; border: 0; background: #1a1a1c; color: #fff; cursor: pointer; }
+.side-composer .send:disabled { opacity: .4; cursor: default; }
+@media (min-width: 1101px) {
+  .chatview.linked .sidescene:not([hidden]) { display: flex; }
+  .chatview.linked .charpanel { display: none; }
+  .chatview.linked .charpanel.open { display: block; position: fixed; right: 0; top: 0; bottom: 0; background: #fff; z-index: 30; box-shadow: -8px 0 30px rgba(0,0,0,.12); }
+}
 
 /* ---------------- right character panel ---------------- */
 

@@ -359,9 +359,10 @@ check('recents: a chat reopens from the rail', !$('chatview').hidden);
 // ---- the sequel carries the scene forward ----
 check('scene menu: the header keeps one button for the scene tools', Boolean($('sceneBtn')));
 $('sceneBtn').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
-check('scene menu: audit, facts, date, book and sequel are all in it',
-  [...doc.querySelectorAll('[data-pick]')].length === 5 &&
-  /Audit/.test($('modal').textContent) && /Fixed facts/.test($('modal').textContent));
+check('scene menu: audit, facts, date, book, a second scene and sequel are all in it',
+  [...doc.querySelectorAll('[data-pick]')].length === 6 &&
+  /Audit/.test($('modal').textContent) && /Fixed facts/.test($('modal').textContent) &&
+  /Link a second scene/.test($('modal').textContent));
 [...doc.querySelectorAll('[data-pick]')].find(b => /sequel/i.test(b.textContent))
   .dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
 $('mOk').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
@@ -798,6 +799,107 @@ check('commentary: finished episodes are kept and can be reopened',
   $('homeBtn').dispatchEvent(new win.MouseEvent('click', { bubbles: true }));
 }
 
+// ---- round 4: the Director on demand, 🎬 direction, and a linked scene ----
+{
+  const click = () => new win.MouseEvent('click', { bubbles: true });
+  const submit = () => new win.Event('submit', { bubbles: true, cancelable: true });
+  // A fresh one-to-one chat with the model on the other side. Picking ◍ on
+  // the rail used to be a hint the staging call overrode; now it is who
+  // answers your next line.
+  [...doc.querySelectorAll('[data-tab]')].find(b => b.dataset.tab === 'discover').dispatchEvent(click());
+  [...doc.querySelectorAll('.grid [data-char]')][1].dispatchEvent(click());
+  await wait(300);
+  const aId = savedState().active;
+  const roomA = () => savedState().rooms.find(x => x.id === aId);
+  check('rail: ✂ length and 🎬 Direct sit on the rail, and the scene decides the length by default',
+    Boolean($('qaLength')) && /scene decide/i.test($('qaLength').textContent) && Boolean($('qaDirect')));
+  doc.querySelector('.sp.world').dispatchEvent(click());
+  await wait(100);
+  check('director: picking ◍ on the rail pins the next turn to the Director', roomA().pinnedNext === 'world' && roomA().next === 'world');
+  $('input').value = 'I kick the hangar door in.';
+  $('composer').dispatchEvent(submit());
+  const directorAnswered = await until('the Director to answer the pinned turn', () => {
+    const last = roomA().messages.filter(m => m.role === 'char' || m.role === 'world').pop();
+    return !doc.querySelector('.typing') && last && last.role === 'world';
+  }, 80);
+  await wait(200);
+  check('director: the pinned Director takes the turn instead of the character, and the pin is spent',
+    directorAnswered && !roomA().pinnedNext);
+  // 🎬 — what you type is not said by anyone; it happens, and it is spent.
+  $('qaDirect').dispatchEvent(click());
+  check('direct: the form asks what happens and who plays it, the Director first', (() => {
+    // (the mock's [[NEW: Marguerite Oyle]] rides every turn, so the cast may already be two)
+    const options = [...$('f_who').options];
+    return Boolean($('f_text')) && options.length === 1 + roomA().cast.length && $('f_who').value === 'world' &&
+      /Director/.test(options[0].textContent);
+  })());
+  $('f_text').value = 'The lights go out across the whole street.';
+  $('mOk').dispatchEvent(click());
+  const directed = await until('the direction to play', () => {
+    const last = roomA().messages.filter(m => m.role === 'char' || m.role === 'world').pop();
+    return !doc.querySelector('.typing') && Boolean(doc.querySelector('.scene-card.direction')) &&
+      last && last.role === 'world' && /saw the direction/.test(last.text);
+  }, 80);
+  await wait(200);
+  check('direct: a 🎬 card is filed, the Director plays it, the model saw it, and it is spent by that turn',
+    directed && !roomA().direction && /Direction/.test(doc.querySelector('.scene-card.direction').textContent));
+  const aCount = roomA().messages.length;
+  // ⇄ a second scene, side by side: the previous block's chat, which has turns.
+  $('sceneBtn').dispatchEvent(click());
+  [...doc.querySelectorAll('[data-pick]')].find(b => /Link a second scene/.test(b.textContent)).dispatchEvent(click());
+  const picks = [...doc.querySelectorAll('[data-pick]')];
+  check('link: the picker offers a new scene or an existing chat', picks.length >= 2 && /A new scene/.test(picks[0].textContent));
+  picks[1].dispatchEvent(click());
+  await wait(200);
+  const bId = roomA().linkedTo;
+  const roomB = () => savedState().rooms.find(x => x.id === bId);
+  check('link: the two chats are linked both ways, the front one stays in front, and the second shows at the side',
+    Boolean(bId) && roomB().linkedTo === aId && savedState().active === aId &&
+    !$('sidescene').hidden && $('chatview').classList.contains('linked') && Boolean($('sideInput')) &&
+    $('sidescene').textContent.includes(roomB().title));
+  check('link: each scene’s prompt carries the other’s last turns, and only what would carry may cross', (() => {
+    const sysA = win.RP.systemFor(savedState(), roomA(), roomA().cast[0], {});
+    const sysB = win.RP.worldSystem(savedState(), roomB(), {});
+    return /MEANWHILE, IN A LINKED SCENE/.test(sysA) && /Only what would genuinely carry across/.test(sysA) &&
+      /MEANWHILE, IN A LINKED SCENE/.test(sysB) && sysB.includes('I kick the hangar door in.');
+  })());
+  const bBefore = roomB().messages.length;
+  $('sideInput').value = 'Did you hear that?';
+  $('sideComposer').dispatchEvent(submit());
+  const sideAnswered = await until('the side scene to answer', () =>
+    !doc.querySelector('.typing') && roomB().messages.length >= bBefore + 2, 80);
+  await wait(200);
+  check('link: a turn written at the side lands in the side scene and is answered there; the front scene is untouched',
+    sideAnswered && roomB().messages.filter(m => m.role === 'user').pop().text === 'Did you hear that?' &&
+    savedState().active === aId && roomA().messages.length === aCount &&
+    $('sidescene').textContent.includes('Did you hear that?'));
+  // ⟶ nothing crosses on its own; this does, by hand, as a direction there.
+  $('sideCarry').dispatchEvent(click());
+  check('carry: the form names both scenes and asks who plays it there',
+    /Carry over into/.test($('modal').textContent) && Boolean($('f_text')) && Boolean($('f_who')));
+  $('f_text').value = 'A crash from the hangar next door, and every light flickers.';
+  $('mOk').dispatchEvent(click());
+  const carried = await until('the carried direction to play', () =>
+    !doc.querySelector('.typing') && roomB().messages.some(m => m.role === 'scene' && m.direction && m.from), 80);
+  await wait(200);
+  check('carry: it lands in the other scene as a direction that names where it came from, and plays at once', (() => {
+    const card = roomB().messages.filter(m => m.role === 'scene' && m.direction).pop();
+    const after = roomB().messages.filter(m => m.role === 'world' || m.role === 'char').pop();
+    return carried && card && card.from === roomA().title && /crash from the hangar/.test(card.text) &&
+      after && after.at > card.at && /saw the direction/.test(after.text) && !roomB().direction;
+  })());
+  $('sideSwap').dispatchEvent(click());
+  await wait(100);
+  check('link: ⇄ brings the side scene to the front and the other to the side',
+    savedState().active === bId && !$('sidescene').hidden && $('sidescene').textContent.includes(roomA().title));
+  $('sideMenu').dispatchEvent(click());
+  [...doc.querySelectorAll('[data-pick]')].find(b => /Unlink/.test(b.textContent)).dispatchEvent(click());
+  await wait(100);
+  check('link: unlinking clears both sides and the side column goes away',
+    !roomA().linkedTo && !roomB().linkedTo && $('sidescene').hidden && !$('chatview').classList.contains('linked'));
+  $('homeBtn').dispatchEvent(click());
+}
+
 // ---- the model can search the archive mid-turn ----
 {
   const RP = win.RP;
@@ -937,8 +1039,8 @@ check('commentary: finished episodes are kept and can be reopened',
   check('settings: the sampler and the background model are exposed',
     Boolean($('f_top_p')) && Boolean($('f_top_k')) && Boolean($('f_repeat_penalty')) &&
     Boolean($('f_utilityModel')));
-  check('settings: reply length, the narrator, the world turn and autoplay are all dials',
-    Boolean($('f_length')) && [...$('f_length').options].length === 3 &&
+  check('settings: reply length (four bands, the scene deciding by default), the narrator, the world turn and autoplay are all dials',
+    Boolean($('f_length')) && [...$('f_length').options].length === 4 && $('f_length').value === 'adaptive' &&
     Boolean($('f_narrator')) && [...$('f_narrator').options].length === 4 &&
     Boolean($('f_world')) && Boolean($('f_autoplay')));
   $('f_length').value = 'snappy';

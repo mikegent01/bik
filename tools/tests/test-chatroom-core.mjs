@@ -1492,11 +1492,35 @@ check('length: the world gets one band more room than the characters', (() => {
   return forChar.key === 'snappy' && forWorld.key === 'normal' && forWorld.tokens > forChar.tokens;
 })());
 check('length: rich does not overflow past the top band', RP.lengthBlock('rich', true).key === 'rich');
-check('length: the instruction is in every character prompt', (() => {
+check('length: the instruction is in every character prompt — the scene decides by default, a pinned band is obeyed', (() => {
   const short = RP.blankState();
   const room = RP.newRoom([sans, cutters], {});
   const prompt = RP.systemFor(short, room, sans);
-  return prompt.includes('LENGTH') && prompt.includes('2 to 4 SENTENCES');
+  short.settings.length = 'snappy';
+  const pinned = RP.systemFor(short, room, sans);
+  return prompt.includes('LENGTH') && prompt.includes('SIZE THE TURN TO THE MOMENT') && !prompt.includes('2 to 4 SENTENCES') &&
+    pinned.includes('2 to 4 SENTENCES') && !pinned.includes('SIZE THE TURN');
+})());
+check('length: "let the scene decide" is a real band, the default, and the migration moves only the old default', (() => {
+  const a = RP.LENGTHS.adaptive;
+  const fresh = RP.blankState();
+  const oldDefault = { settings: { length: 'snappy' } };
+  const chosen = { settings: { length: 'rich' } };
+  const unset = { settings: {} };
+  return RP.DEFAULT_LENGTH === 'adaptive' && fresh.settings.length === 'adaptive' &&
+    a.tokens >= RP.LENGTHS.normal.tokens && a.tokens <= RP.LENGTHS.rich.tokens && a.sentences[0] === 2 &&
+    /2 or 3 SENTENCES/.test(a.dir) && /12 sentences/.test(a.dir) &&
+    RP.lengthBlock('adaptive', false).key === 'adaptive' && RP.lengthBlock('adaptive', true).key === 'adaptive' &&
+    RP.migrateLength(oldDefault) === true && oldDefault.settings.length === 'adaptive' &&
+    RP.migrateLength(oldDefault) === false &&                      // once
+    RP.migrateLength(chosen) === false && chosen.settings.length === 'rich' &&
+    RP.migrateLength(unset) === true && unset.settings.length === 'adaptive';
+})());
+check('length: every band carries the move-the-scene rule, so short never means empty', (() => {
+  return ['snappy', 'normal', 'rich', 'adaptive'].every(k => {
+    const t = RP.lengthBlock(k, false).text;
+    return /MOVE THE SCENE/.test(t) && /A quip, a shout or a reaction on its own is not a turn/.test(t);
+  }) && RP.MOVE_RULE.length < 300;
 })());
 check('length: sentences are counted, so the page can tell when it overran',
   RP.sentenceCount('One. Two! Three? Four') === 4 && RP.sentenceCount('') === 0);
@@ -1535,7 +1559,13 @@ check('world: it still gets the scene, the state sheets and the stage directions
   worldSystem.includes('THE SCENE') && worldSystem.includes('CHARACTER STATE') && worldSystem.includes('STAGE DIRECTIONS'));
 // The Director's band came down a notch on purpose: 1200-token world turns
 // were five-minute generations on a local model (round 9).
-check('world: and its own length band', worldSystem.includes('LENGTH') && worldSystem.includes('4 to 7 SENTENCES'));
+check('world: and its own length band — the Director sizes to the moment too, unless a band is pinned', (() => {
+  const pinned = RP.worldSystem(Object.assign({}, soloState, { settings: Object.assign({}, soloState.settings, { length: 'snappy' }) }), soloRoom, {});
+  const terse = { settings: { length: 'adaptive', narrator: 'terse' } };
+  return worldSystem.includes('LENGTH') && worldSystem.includes('SIZE THE TURN TO THE MOMENT') &&
+    pinned.includes('4 to 7 SENTENCES') && RP.worldLength(terse) === 'snappy' &&
+    RP.worldLength({ settings: { length: 'adaptive' } }) === 'adaptive' && RP.worldLength({ settings: { length: 'rich' } }) === 'normal';
+})());
 check('director: WORLD is an answer it may give', (() => {
   const group = RP.newRoom([sans, cutters, rebel], {});
   group.messages.push({ id: 'w1', role: 'user', text: 'I wait.', at: 1 });
@@ -1737,8 +1767,9 @@ check('narration: it is in the history now, labelled, so it cannot repeat itself
 check('narration: it counts as a played turn', RP.counter(dirRoom) === 2);
 check('narrator: the terse voice is two sentences, the Director gets room', (() => {
   const terse = { settings: { narrator: 'terse' } };
+  const pinnedDir = RP.worldSystem({ settings: { length: 'snappy' } }, dirRoom, {});
   return /Two sentences at most/.test(RP.worldPrompt(terse, dirRoom, {})) &&
-    /4 to 7 SENTENCES/.test(dirPrompt);
+    /SIZE THE TURN TO THE MOMENT/.test(dirPrompt) && /4 to 7 SENTENCES/.test(pinnedDir);
 })());
 check('narrator: an unknown voice falls back to the Director',
   RP.narrator({ settings: { narrator: 'nonsense' } }) === 'director');
@@ -3058,6 +3089,75 @@ let built = true;
 try {
   execFileSync('python3', ['tools/build-chatroom.py', '--check'], { cwd: repoRoot, stdio: 'pipe' });
 } catch (e) { built = false; console.log(String(e.stdout || '')); }
+// ---------- round 4: direction, linked scenes, the studio's refusals ----------
+check('direction: 🎬 files on the room, rides the protected tail of both prompts, and is clipped', (() => {
+  const st = RP.blankState();
+  const r = RP.newRoom([sans, cutters], { scene: 'The hangar.' });
+  st.rooms.push(r); st.active = r.id;
+  const d = RP.setDirection(r, '  The ceiling gives way. ' + 'x'.repeat(900));
+  const charSys = RP.systemFor(st, r, sans, { budget: 4000 });
+  const worldSys = RP.worldSystem(st, r, { budget: 4000 });
+  const i = charSys.indexOf('THE READER DIRECTS THIS TURN');
+  return d && d.text.length <= 601 && i > 0 && i > charSys.indexOf('IN-CHARACTER RULES') &&
+    /it HAPPENS, now, in this turn/.test(charSys) && /never call it a direction/.test(charSys) &&
+    worldSys.includes('THE READER DIRECTS THIS TURN') && worldSys.includes('The ceiling gives way') &&
+    RP.setDirection(r, '   ') === null && r.direction === null && !RP.directionBlock(r);
+})());
+check('direction: a carried-over one names the scene it came from', (() => {
+  const r = RP.newRoom([sans], {});
+  RP.setDirection(r, 'A spotlight sweeps the yard from above.', 'Wario & Waluigi — the plane');
+  return /carried over from the scene “Wario & Waluigi — the plane”/.test(RP.directionBlock(r));
+})());
+check('link: two rooms link both ways, see each other’s last turns, and only what would carry may cross', (() => {
+  const st = RP.blankState();
+  const a = RP.newRoom([sans, cutters], { scene: 'The cockpit.' });
+  const b = RP.newRoom([rebel], { scene: 'The yard below.' });
+  st.rooms.push(a, b);
+  a.messages.push({ id: 'a1', role: 'user', text: 'I bank hard left and hit the spotlight.', at: 1 },
+    { id: 'a2', role: 'char', charId: 'sans', text: 'heh. nice.', at: 2 },
+    { id: 'a3', role: 'scene', text: 'a card for the reader', at: 3 },
+    { id: 'a4', role: 'world', text: 'The beam swings down over the yard.', at: 4 });
+  const ok = RP.linkRooms(a, b);
+  const block = RP.meanwhileBlock(st, b);
+  const sysB = RP.systemFor(st, b, rebel, {});
+  const worldB = RP.worldSystem(st, b, {});
+  const linesA = RP.meanwhileLines(st, a);
+  return ok && a.linkedTo === b.id && b.linkedTo === a.id && RP.linkedRoom(st, a) === b &&
+    /MEANWHILE, IN A LINKED SCENE/.test(block) && block.includes('The cockpit') && block.includes('Sans: heh. nice.') &&
+    block.includes('The scene: The beam swings') && !block.includes('a card for the reader') &&
+    /Only what would genuinely carry across/.test(block) && /Never retell it/.test(block) &&
+    sysB.includes('MEANWHILE, IN A LINKED SCENE') && worldB.includes('MEANWHILE, IN A LINKED SCENE') &&
+    linesA.length === 3 && !RP.linkRooms(a, a) &&
+    !RP.meanwhileBlock(st, a);                                   // b has no turns yet: nothing to hear
+})());
+check('link: blind scenes share nothing, unlink clears both sides, and a branch is its own hour', (() => {
+  const st = RP.blankState();
+  const a = RP.newRoom([sans], {});
+  const b = RP.newRoom([rebel], {});
+  st.rooms.push(a, b);
+  b.messages.push({ id: 'b1', role: 'char', charId: 'rebel_scout', text: 'Down!', at: 1 });
+  RP.linkRooms(a, b);
+  a.linkMode = 'blind';
+  const quiet = RP.meanwhileBlock(st, a);
+  a.linkMode = '';
+  const loud = RP.meanwhileBlock(st, a);
+  const fork = RP.forkRoom(st, a, 'nope', {});
+  const unlinked = RP.unlinkRoom(st, a);
+  return quiet === '' && /Rebel Scout: Down!/.test(loud) && fork.linkedTo === '' &&
+    unlinked && a.linkedTo === '' && b.linkedTo === '' && RP.linkedRoom(st, b) === null;
+})());
+check('voice: a studio stream that errors is read for WHY — turned-away profile vs. a render that fell over', (() => {
+  const refused = RP.studioError('event: error\ndata: {"message": "Value: Wario is not in the list of choices: [\'Freeman\', \'Luigi\']"}');
+  const oom = RP.studioError('event: error\ndata: {"message": "CUDA out of memory"}');
+  const mute = RP.studioError('event: error\ndata: null');
+  const bare = RP.studioError('event: error\ndata: "voice profile not found"');
+  const fine = RP.studioError('event: complete\ndata: [1, {"url": "http://x/a.wav"}, "ok"]');
+  return refused && refused.refused && /Wario is not in the list/.test(refused.message) &&
+    oom && !oom.refused && oom.message === 'CUDA out of memory' &&
+    mute && !mute.refused && /reported an error/.test(mute.message) &&
+    bare && bare.refused && fine === null;
+})());
+
 check('build: chatroom.html and workflow/roleplay.html match their sources', built);
 
 console.log(ok ? 'ALL CHATROOM CORE TESTS PASS' : 'CHATROOM CORE TESTS FAILED');

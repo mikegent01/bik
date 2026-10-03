@@ -681,11 +681,24 @@ Every voice sent — matched name, map entry, or fallback — is corrected to
 the studio's own casing (`wario` goes out as `Wario`), and a name not in
 the list goes straight to the fallback instead of erroring. If the config
 can't be read the refresh-library endpoint is tried, then the first-name
-guess; a voice the studio refuses is only remembered as missing for the
-session — **a manual ▶ always starts fresh**, so saving a new profile and
-pressing play again picks it up immediately. (A profile saved while the
-studio is running may need its Refresh Library button — or a restart —
-before the studio's own API accepts it.)
+guess.
+
+**A failed line is read for *why* before anybody is blamed.** The studio's
+error stream is parsed (`RP.studioError`): *"Value: Wario is not in the
+list of choices"* is the profile being **turned away**; *CUDA out of
+memory*, a timeout or an empty render is the **synthesis** falling over.
+Both used to be treated as "the studio refused Wario" and Wario spoke in
+Waluigi's voice until a page reload. Now, the first time a voice fails in a
+session, the page **refreshes the studio's own library** (the same thing
+as its Refresh Library button — a profile saved while the studio runs is
+not accepted by its API until then) and **asks once more**. Only a voice
+turned away *twice* is remembered as missing, with a toast that says what
+to do (save the profile under that name, Refresh Library or restart the
+studio, ▶ again). A render that fell over gives that one line to the
+fallback and asks for the real voice again on the next one. **A manual ▶
+always starts fresh** — misses, retries and the cached library are all
+forgotten — so saving a new profile and pressing play again picks it up
+immediately.
 
 **Every voice in the turn.** A turn is not one mouth: narration is read by
 the narrator's voice, and each quoted line is spoken by whoever the prose
@@ -799,24 +812,39 @@ chats, so a whole exported conversation can be dropped straight back in.
 
 ## How long a turn is
 
-A local model left alone writes six paragraphs of weather. ⚙ **Settings →
-reply length** sets the dial, and it goes into the prompt *and* into
-`max_tokens`:
+A local model left alone writes six paragraphs of weather. The dial is on
+the **✂ button under the chat** and in ⚙ **Settings → reply length**, and it
+goes into the prompt *and* into `max_tokens`:
 
 | | | |
 |---|---|---|
-| **Snappy** (default) | **2–4 sentences** | one or two beats, no scene-setting, no weather |
+| **Let the scene decide** (default) | **2 sentences to 2 paragraphs** | the model sizes the turn to the moment: a retort stays 2–3 sentences, a move / reveal / new place gets a paragraph, two at most |
+| **Snappy** | **2–4 sentences** | one or two beats, no scene-setting, no weather |
 | **Normal** | **4–7 sentences** | one moment, played properly |
 | **Rich** | **8–14 sentences** | two or three short paragraphs |
 
 Sentences, not words: a count a small model can actually hold while it
-writes. The token cap is a **safety net** (420 / 700 / 1,200), deliberately
-larger than the band needs, so the limit is never the thing that ends a
-turn.
+writes. The token cap is a **safety net** (1,000 / 420 / 700 / 1,200),
+deliberately larger than the band needs, so the limit is never the thing
+that ends a turn.
 
-**The world gets one band more room than the characters** — describing a
-place is the one job that needs the words, and dialogue is the job that does
-not.
+**Let the scene decide** is the old snappy voice at the small end with room
+at the big one — the answer to "the replies are good but short" without
+turning every retort into a paragraph. It replaced Snappy as the default
+once (`RP.migrateLength`, a toast says so); a length you pin afterwards
+stays pinned.
+
+**Whatever the band, the turn has to move.** `RP.MOVE_RULE` rides in the
+length block of every prompt: *answer the specific thing just said or done,
+and leave one concrete thing changed — a decision, a door, a price, a name
+given up. A quip, a shout or a reaction on its own is not a turn.* Twenty
+turns of characters shouting back at each other while nothing in the room
+changed is what this is for.
+
+**The world gets one band more room than the characters** when a band is
+pinned — describing a place is the one job that needs the words. With the
+scene deciding, the Director sizes to the moment too; ▫ The room stays two
+sentences, because that is its whole point.
 
 ## A turn always finishes its sentence
 
@@ -1094,6 +1122,28 @@ every turn and are never trimmed to fit.
 
 ## The sequencer — you write, the scene answers, the scene stops
 
+**A pick on the rail is an order.** `Next: ◍ The Director · Wario · …`
+under the composer is not only a readout: click a face (or the Director)
+and whatever you write next is **theirs to answer** — the staging call is
+skipped for that one turn (`room.pinnedNext`, spent by the turn it chose).
+It used to be a hint the sequencer overrode, which is how "I picked the
+Director and Wario answered for the fifth time" happened. The pick also
+works with ➤ Continue.
+
+**🎬 Direct… — the reader as director.** What you type into the composer
+is said by your character, and a small model answers the words — "the
+ceiling comes down" becomes Wario arguing about ceilings. **🎬 Direct…**
+on the rail is the other channel: what happens next, written as a fact,
+and who plays it landing (the Director narrates it, or a cast member
+reacts to it in character). It is filed on the room (`RP.setDirection`),
+rides the **protected tail** of the next prompt as *THE READER DIRECTS
+THIS TURN — it HAPPENS, now, as written, in full; never call it a
+direction*, shows as a 🎬 card for you, and is **spent by the turn that
+lands** (a failed or re-asked turn still has it). `((double brackets))`
+inside your own turn remain the quieter version — a note, not an event.
+*＋ New → Let the model choose* uses the same channel now; before, that
+request was a card only you could see.
+
 A director that picks one speaker at a time turns a six-hander into a queue.
 The **sequencer** stages the whole beat instead: after you write, one small
 planning call answers
@@ -1278,6 +1328,47 @@ silence is explicitly a valid reaction. No extra requests, ever — the
 one-call-per-turn contract holds. A duel has no audience (two people
 present = no block), solo rooms never see it, and Settings → *Audience
 murmurs* turns it off entirely.
+
+So: **nothing shows in a two-hander, by design** — you as Waluigi opposite
+Wario has nobody watching. It appears the moment a third person is in the
+cast and not speaking. For *other people doing things at the same time*,
+rather than reacting in the margin, that is a second scene — see
+**⇄ Linked scenes** below.
+
+### ⇄ Linked scenes — two chats, the same hour, side by side
+
+Chat A is Wario and Waluigi in the plane; chat B is the two people on the
+ground who are about to see its spotlight. **⋯ → ⇄ Link a second scene**
+links the open chat to another (an existing one, or a new one built from
+the cast picker). On a wide screen the second scene renders **at the side
+of the first**, with its own prompt, its own ➤ Continue and its own 🎬 —
+two prompts for two characters (🎭 Play as is per chat, so you can be
+Waluigi in one and nobody in the other, and the other can be left to play
+itself with ➤). **⇄ Front** swaps them; the character panel steps behind
+☰ while a scene is at the side.
+
+What crosses between them, and how:
+
+- **Each scene sees the other's last three turns** (`RP.meanwhileBlock`,
+  in the reference material of both the character and the Director
+  prompt): *MEANWHILE, IN A LINKED SCENE — happening at the SAME TIME,
+  near enough to matter … Only what would genuinely carry across — a
+  light, a sound, smoke, a tremor, somebody walking from there to here —
+  may reach this scene, and only if it plausibly would. Never retell it,
+  never answer it, never move its people.* So the spotlight from A can
+  turn up in B on its own, but B's people do not start narrating the
+  cockpit. **🙈** in the link menu makes the two blind to each other.
+- **⟶ Carry over…** is the by-hand version, and the one that is certain:
+  you write what reaches the other scene *as it is noticed there* — "a
+  crash from the hangar next door, every light flickers" — and it lands
+  in the other chat as a 🎬 direction that names where it came from, and
+  plays at once. Nothing crosses on its own.
+
+Nothing plays on its own either: one turn is generated at a time, in
+whichever scene you asked (the typing indicator shows in that column),
+and a chain staged in the side scene keeps running there while you type
+in the front one. `room.linkedTo` is mutual; **⨯ Unlink** clears both
+sides; a 🌿 branch is its own hour and is never linked.
 
 ### 🎛 User control — the table is yours
 

@@ -122,6 +122,10 @@ class Handler(BaseHTTPRequestHandler):
                 f"MOCK-MODEL REPLY #{int(time.time() * 1000) % 100000}: I read your context "
                 f"({len(last_user)} chars) and I am writing this reply myself."
             )
+        # A 🎬 direction in the prompt is echoed back, so a page test can
+        # prove the direction reached the model and was spent by the turn.
+        if "THE READER DIRECTS THIS TURN" in all_text and "MOCK-MODEL REPLY" in content:
+            content += " (The mock saw the direction.)"
         body = json.dumps({"choices": [{"message": {"role": "assistant", "content": content}}]}).encode()
         self.send_response(200)
         self.send_header("Content-Type", "application/json")
