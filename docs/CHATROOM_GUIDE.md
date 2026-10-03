@@ -95,16 +95,20 @@ routes. Both are local, unauthenticated and write nothing.
 - **Wire** — the whole wire, sortable and filterable (below).
 - **Collections** — the archive's own groupings, each one a cast in a click.
 - **The chat** is a **stage** and a **dock**. The stage holds one scene,
-  or two side by side when one is linked; the dock on the right is one tab
-  per system. Nothing lives only behind an icon: every control has a word
-  on it, and anything that can be done to a person or a line can also be
-  done by dragging it.
+  or **two full scene columns** when one is linked — each with the whole
+  header, sheets, stream, turn bar and its own prompt; the dock on the
+  right is one tab per system and serves whichever scene you point it at.
+  Nothing lives only behind an icon: every control has a word on it, and
+  anything that can be done to a person or a line can also be done by
+  dragging it.
   - **Header** — `‹`, the scene's name and cast, then the HUD: 🕯 the
     in-world date, 🕰 the clock, ⏩ the script's progress, 🎲 how hard
-    fate pushes, 💬 turns. On the right: **⇄ Second scene** (the other
-    scene's name once there is one), **🩺 Party** sheets, who answers you
-    (👂 / 🔒 / 🔓), ↩ ↪, ⋯ (the same scene tools as the dock's Scene tab)
-    and ☰ for the dock on a narrow screen.
+    fate pushes, 💬 turns. On the right: **■ Stop** (only while something
+    runs — a reply, the autopilot, a reading, an audio render; Esc too),
+    **⇄ Second scene** (the other scene's name once there is one), **🩺
+    Party** sheets, who answers you (👂 / 🔒 / 🔓), ↩ ↪, ⋯ (the same scene
+    tools as the dock's Scene tab) and ☰ for the dock on a narrow screen;
+    the second scene's column has **⇄ Front** in its place.
   - **The stream** — avatars, names, markdown-rendered turns (`*action*`,
     `**bold**`, `"speech"`, `- lists`) with per-line controls: 👍 👎, 📌
     pin, 🧠 remember, ↻ another take, `‹ 2 / 3 ›` swipes, ✏️ 👁 🗑 🌿 — and
@@ -686,6 +690,25 @@ Episodes are saved (newest first), export as a markdown script or plain text,
 and travel in the lore bundle.
 
 ## 🔊 Voices — every mouth through the Qwen studio
+
+**How a turn is cut for the studio** (Voice tab → 🔊 Voice): **by turn**,
+the default, reads the whole reply in the speaker's voice — a character's
+card in theirs, the world's in the narrator's — as a few sentence-sized
+requests (`RP.ttsChunks`, 450 characters, a 170-character lead so the
+voice starts early). **By quote** is the old attribution: every quote in
+its speaker's voice and the narration between them in the narrator's,
+which is one studio request per quote and crawled on a line with six
+short quotes — that was the "hang". `RP.speechParts(text, names,
+speaker, player, { mode })` is the switch.
+
+**■ Stop.** The header grows a red **■ Stop** (both columns, when two
+scenes are up; **Esc** does the same) the moment anything is running:
+the reply being written, the chain and the autopilot behind it, a line
+being read aloud, or **💾 Chat as audio** rendering a long chat. It cuts
+all of it — every request in flight is aborted (`stopAll`), nothing
+half-written is filed (a cut turn leaves no error card and no undo
+entry; a cut render writes no file and says how far it got), and the
+chores and the chain behind the turn do not start.
 
 Every ▶ on a message — and every reply, when voice is set to auto — speaks
 through your **local Qwen3-TTS Enhanced Studio**, the same bridge as the
@@ -1369,12 +1392,14 @@ cast and not speaking. For *other people doing things at the same time*,
 rather than reacting in the margin, that is a second scene — see
 **⇄ Linked scenes** below.
 
-### ⇄ Linked scenes — two chats, the same hour, side by side
+### ⇄ Linked scenes — one chat, two scenes, the same hour
 
-Chat A is Wario and Waluigi in the plane; chat B is the two people on the
-ground who are about to see its spotlight. **⇄ Second scene** in the
-header (also the Scene tab, also ⋯) is the one door, and it is built for
-the moment the split happens *mid-scene*:
+Plot A is Wario and Waluigi in the plane; plot B is the two people on the
+ground who are about to see its spotlight. They are **one chat with two
+scenes**, not two chats: one line in the recents (*The plane ⇄ The yard*),
+one world, one clock, and both columns are the full experience. **⇄ Second
+scene** in the header (also the Scene tab, also ⋯) is the one door, and it
+is built for the moment the split happens *mid-scene*:
 
 - **✂ Split the scene** — the dialog shows every face in the scene. Tick
   who goes, write where they are and what is happening there ("the hangar
@@ -1389,15 +1414,22 @@ the moment the split happens *mid-scene*:
   second scene with them*. Drop, and the split dialog opens with that
   face already ticked.
 - **Other people, or an existing chat…** at the foot of the dialog is the
-  old picker: a brand-new scene from the portrait grid, or a chat you
-  already have.
+  picker: a brand-new scene from the portrait grid, or **any chat you
+  have** — every one of them, newest first, with a find box once there are
+  more than six. A chat already paired elsewhere can be taken (the page
+  asks first; it leaves that pair).
 
-On a wide screen the second scene renders **at the side of the first**,
-with its own prompt, its own ➤ Continue and its own 🎬 — two prompts for
-two characters (🎭 Play as is per chat, so you can be Waluigi in one and
-nobody in the other, and the other can be left to play itself with ➤).
-**⇄ Front** swaps them; the dock steps behind ☰ while a scene is at the
-side. Once two scenes are up, **the other column is a drop target**:
+On a wide screen the second scene renders **at the side of the first as a
+whole column** — the same header (date, clock, fate, 🩺 Party, 👂, ↩ ↪, ⋯),
+the same sheet cards with their kits, the same stream with every per-turn
+control, the same two-row turn bar (🎭 Play as, Next:, 🎬 Direct, 🎲
+Attempt, ➤ Continue, ▶ Auto, ＋ Bring in, the macros, ✂) and **its own
+prompt**. Only the text boxes are separate: a turn written in a column
+goes to that scene. The two differ in one button — the front has ‹ and ☰,
+the side has **⇄ Front**, which swaps them. The dock serves whichever
+scene you point it at (a two-way switch at its top names them) and steps
+behind ☰ while two scenes are up unless the window is very wide. Once two
+scenes are up, **the other column is a drop target**:
 
 - **A face dropped on the other scene walks over** — written out here,
   seated there with their sheet, and the other scene is handed a 🎬
@@ -1406,28 +1438,38 @@ side. Once two scenes are up, **the other column is a drop target**:
 - **A turn dropped on the other scene is carried over** — ⟶ opens with the
   line's text, for you to reword as it is noticed there.
 
-What crosses between them, and how:
+What the two share, without a button:
 
-- **Each scene sees the other's last three turns** (`RP.meanwhileBlock`,
-  in the reference material of both the character and the Director
-  prompt): *MEANWHILE, IN A LINKED SCENE — happening at the SAME TIME,
-  near enough to matter … Only what would genuinely carry across — a
-  light, a sound, smoke, a tremor, somebody walking from there to here —
-  may reach this scene, and only if it plausibly would. Never retell it,
-  never answer it, never move its people.* So the spotlight from A can
-  turn up in B on its own, but B's people do not start narrating the
-  cockpit. **🙈** in the link menu makes the two blind to each other.
-- **⟶ Carry over…** is the by-hand version, and the one that is certain:
-  you write what reaches the other scene *as it is noticed there* — "a
-  crash from the hangar next door, every light flickers" — and it lands
-  in the other chat as a 🎬 direction that names where it came from, and
-  plays at once. Nothing crosses on its own.
+- **One world, one clock.** Anyone with a sheet in both scenes has **one
+  sheet**: HP lost in the hangar is gone on the cockpit's copy before the
+  next line is written; a key handed over there is in the pack here.
+  Where they are (◉/◌) and who plays them stay per scene — the same
+  person cannot stand in both places. The clock and the date are one too.
+  (`syncLinked`, run on every save: the side that changed since the last
+  save wins; a tie goes to the busier scene.)
+- **Each scene knows the other** (`RP.meanwhileBlock`, in the reference
+  material of both the character and the Director prompt): who is there
+  right now, who you play there, where it is, and its last **eight**
+  turns — *MEANWHILE, IN THE OTHER SCENE OF THIS SAME HOUR … Both scenes
+  are one story, one world, one clock: what is established there is true
+  here too. Its people are THERE, not here, and its lines are not yours to
+  retell or answer. What crosses is what physically would, judged by how
+  close the two places are — light, sound, smoke, a tremor, a radio,
+  shouting, somebody walking from there to here.* Before the other scene
+  has a turn, the block still names it (*nothing has happened there yet*),
+  so a scene never plays as if it were alone. **🙈** in the link menu makes
+  the two blind to each other.
+- **⟶ Carry over…** is the by-hand version, for the thing you want to be
+  certain lands: you write what reaches the other scene *as it is noticed
+  there* — "a crash from the hangar next door, every light flickers" — and
+  it lands in the other scene as a 🎬 direction that names where it came
+  from, and plays at once.
 
-Nothing plays on its own either: one turn is generated at a time, in
-whichever scene you asked (the typing indicator shows in that column),
-and a chain staged in the side scene keeps running there while you type
-in the front one. `room.linkedTo` is mutual; **⨯ Unlink** clears both
-sides; a 🌿 branch is its own hour and is never linked.
+One turn is generated at a time, in whichever scene you asked (the typing
+indicator shows in that column), and a chain staged in one scene keeps
+running there while you type in the other. `room.linkedTo` is mutual;
+**⨯ Unlink** makes them two chats again; deleting the pair deletes both
+(unlink first to keep one); a 🌿 branch is its own hour and is never linked.
 
 **Exports know about both.** While a scene is linked, ⬇ Export offers,
 under the single-chat choices, **⇄ Both scenes**: a markdown transcript

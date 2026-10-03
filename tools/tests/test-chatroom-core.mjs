@@ -3123,12 +3123,14 @@ check('link: two rooms link both ways, see each other’s last turns, and only w
   const worldB = RP.worldSystem(st, b, {});
   const linesA = RP.meanwhileLines(st, a);
   return ok && a.linkedTo === b.id && b.linkedTo === a.id && RP.linkedRoom(st, a) === b &&
-    /MEANWHILE, IN A LINKED SCENE/.test(block) && block.includes('The cockpit') && block.includes('Sans: heh. nice.') &&
+    /MEANWHILE, IN THE OTHER SCENE/.test(block) && block.includes('The cockpit') && block.includes('Sans: heh. nice.') &&
     block.includes('The scene: The beam swings') && !block.includes('a card for the reader') &&
-    /Only what would genuinely carry across/.test(block) && /Never retell it/.test(block) &&
-    sysB.includes('MEANWHILE, IN A LINKED SCENE') && worldB.includes('MEANWHILE, IN A LINKED SCENE') &&
+    /What crosses is what physically would/.test(block) && /not yours to retell or answer/.test(block) &&
+    sysB.includes('MEANWHILE, IN THE OTHER SCENE') && worldB.includes('MEANWHILE, IN THE OTHER SCENE') &&
     linesA.length === 3 && !RP.linkRooms(a, a) &&
-    !RP.meanwhileBlock(st, a);                                   // b has no turns yet: nothing to hear
+    // b has no turns yet: a still knows it is there, who is in it, and that nothing has happened
+    /nothing has happened there yet/.test(RP.meanwhileBlock(st, a)) && /there right now: Rebel Scout/.test(RP.meanwhileBlock(st, a)) &&
+    /one clock/.test(block);
 })());
 check('link: blind scenes share nothing, unlink clears both sides, and a branch is its own hour', (() => {
   const st = RP.blankState();

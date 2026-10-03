@@ -535,11 +535,18 @@
     'agree|agreed|insist|insisted|demand|demanded|repeat|repeated|begin|began|' +
     'finish|finished|manage|managed|breathe|breathed|read|reads)';
 
-  RP.speechParts = function (text, names, speaker, player) {
+  RP.speechParts = function (text, names, speaker, player, opts) {
     var clean = RP.ttsClean(text);
     var deflt = String(speaker || '').trim();
     var you = String(player || '').trim();
     if (!clean) return [];
+    // opts.mode 'turn': the whole turn in ONE voice — the speaker's for a
+    // character's card, the narrator's for the world's — so the studio is
+    // asked for a few sentence-sized chunks instead of a request per quote,
+    // which is what made a line with six short quotes crawl. The page's
+    // default. 'quotes' (this function's default): each quote in its
+    // speaker's voice, narration in the narrator's.
+    if (opts && opts.mode === 'turn') return [{ who: deflt, text: clean }];
     var escName = function (s) { return String(s).replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); };
     var alts = (names || []).filter(Boolean).map(String)
       .sort(function (a, b) { return b.length - a.length; }).map(escName).join('|');
@@ -6824,7 +6831,7 @@
    * on its own: the reader drives both, and ⟶ carries a thing over by hand.
    * ------------------------------------------------------------------ */
 
-  RP.MEANWHILE_TURNS = 3;
+  RP.MEANWHILE_TURNS = 8;
 
   RP.linkedRoom = function (state, room) {
     if (!room || !room.linkedTo || room.linkedTo === room.id) return null;
@@ -6863,15 +6870,27 @@
     var other = RP.linkedRoom(state, room);
     if (!other || room.linkMode === 'blind') return '';
     var lines = RP.meanwhileLines(state, other);
-    if (!lines.length) return '';
-    var cast = (other.cast || []).map(function (c) { return c.name; }).join(', ');
-    return 'MEANWHILE, IN A LINKED SCENE \u2014 \u201c' + clip(other.sceneName || other.title || 'elsewhere', 60) + '\u201d' +
-      (cast ? ' (' + cast + ')' : '') + ', happening at the SAME TIME, somewhere near enough to matter\n' +
-      (other.scene ? 'Where: ' + clip(String(other.scene).replace(/\s+/g, ' '), 160) + '\n' : '') +
+    if (!lines.length) lines = ['(nothing has happened there yet)'];
+    var cast = RP.presentCast(other).map(function (c) { return c.name; }).join(', ');
+    var you = RP.playerCharacter(other);
+    return 'MEANWHILE, IN THE OTHER SCENE OF THIS SAME HOUR \u2014 \u201c' + clip(other.sceneName || other.title || 'elsewhere', 60) + '\u201d' +
+      (cast ? ' (there right now: ' + cast + (you ? '; the reader plays ' + you.name + ' there' : '') + ')' : '') + '\n' +
+      (other.scene ? 'Where: ' + clip(String(other.scene).replace(/\s+/g, ' '), 200) + '\n' : '') +
       lines.join('\n') + '\n' +
-      'That scene is not yours to narrate and its people are not here. Only what would genuinely carry across \u2014 a ' +
-      'light, a sound, smoke, a tremor, somebody walking from there to here \u2014 may reach this scene, and only if it ' +
-      'plausibly would. Never retell it, never answer it, never move its people.';
+      'Both scenes are one story, one world, one clock: what is established there is true here too \u2014 an engine that ' +
+      'died there is dead, a shot fired there was fired. Its people are THERE, not here, and its lines are not yours to ' +
+      'retell or answer. What crosses is what physically would, judged by how close the two places are: light, sound, ' +
+      'smoke, a tremor, a radio, shouting, somebody walking from there to here \u2014 when it would be noticed, notice it; ' +
+      'when the places are far apart, nothing crosses but the clock.';
+  };
+
+  /** Of two linked scenes, the one the pair is filed under: the older. */
+  RP.linkPrimary = function (state, room) {
+    var other = RP.linkedRoom(state, room);
+    if (!other) return room;
+    var a = room.created || 0, b = other.created || 0;
+    if (a !== b) return a < b ? room : other;
+    return String(room.id) < String(other.id) ? room : other;
   };
 
   /** Assemble the whole system prompt for one turn. This is the only place

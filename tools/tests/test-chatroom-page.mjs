@@ -862,25 +862,46 @@ check('commentary: finished episodes are kept and can be reopened',
     doc.querySelectorAll('[data-split]').length === win.RP.presentCast(roomA()).length &&
     Boolean($('f_where')) && Boolean($('mLinkOther')));
   $('mLinkOther').dispatchEvent(click());
-  const picks = [...doc.querySelectorAll('[data-pick]')];
-  check('link: the picker offers a new scene or an existing chat', picks.length >= 2 && /A new scene/.test(picks[0].textContent));
+  const picks = [...doc.querySelectorAll('[data-link]')];
+  const recentsBefore = doc.querySelectorAll('#recents [data-room]').length;
+  check('link: the picker offers a new scene and EVERY other chat — no cap — newest first',
+    picks.length === 1 + savedState().rooms.filter(x => x.id !== aId && x.cast.length).length &&
+    /A new scene/.test(picks[0].textContent));
   picks[1].dispatchEvent(click());
   await wait(200);
   const bId = roomA().linkedTo;
   const roomB = () => savedState().rooms.find(x => x.id === bId);
   check('link: the two chats are linked both ways, the front one stays in front, and the second shows at the side',
     Boolean(bId) && roomB().linkedTo === aId && savedState().active === aId &&
-    !$('sidescene').hidden && $('chatview').classList.contains('linked') && Boolean($('sideInput')) &&
+    !$('sidescene').hidden && $('chatview').classList.contains('linked') && Boolean($('input_b')) &&
     $('sidescene').textContent.includes(roomB().title));
+  check('link: the side column is the whole experience — header, sheets, stream, turn bar, its own prompt — no second dock or back button', (() => {
+    const ids = ['chatTop_b', 'statebar_b', 'stream_b', 'speakers_b', 'composer_b', 'input_b', 'send_b', 'qaContinue_b',
+      'qaDirect_b', 'qaPlayAs_b', 'qaAuto_b', 'qaLength_b', 'privacyBtn_b', 'sceneBtn_b', 'swapBtn_b', 'undoBtn_b', 'dateBtn_b', 'fateBtn_b', 'stopBtn_b'];
+    return ids.every(id => Boolean($(id))) && !$('panelBtn_b') && !$('backBtn_b') && !$('linkBtn_b') &&
+      $('speakers_b').querySelectorAll('[data-speaker]').length >= 1 &&
+      doc.querySelectorAll('#frontScene [id$="_b"]').length === 0 && $('stopBtn').hidden && $('stopBtn_b').hidden;
+  })());
+  check('link: two full columns, and still not one duplicated id on the page', (() => {
+    const seen = {}; const dupes = [];
+    doc.querySelectorAll('[id]').forEach(n => { if (seen[n.id]) dupes.push(n.id); seen[n.id] = 1; });
+    return dupes.length === 0;
+  })());
+  check('link: the recents file the pair as ONE chat — “A ⇄ B”, under the older of the two', (() => {
+    const rows = [...doc.querySelectorAll('#recents [data-room]')];
+    const row = rows.find(n => n.classList.contains('pair'));
+    return rows.length === recentsBefore - 1 && Boolean(row) && /⇄/.test(row.textContent) &&
+      row.dataset.room === win.RP.linkPrimary(savedState(), roomA()).id;
+  })());
   check('link: each scene’s prompt carries the other’s last turns, and only what would carry may cross', (() => {
     const sysA = win.RP.systemFor(savedState(), roomA(), roomA().cast[0], {});
     const sysB = win.RP.worldSystem(savedState(), roomB(), {});
-    return /MEANWHILE, IN A LINKED SCENE/.test(sysA) && /Only what would genuinely carry across/.test(sysA) &&
-      /MEANWHILE, IN A LINKED SCENE/.test(sysB) && sysB.includes('I kick the hangar door in.');
+    return /MEANWHILE, IN THE OTHER SCENE/.test(sysA) && /What crosses is what physically would/.test(sysA) &&
+      /MEANWHILE, IN THE OTHER SCENE/.test(sysB) && sysB.includes('I kick the hangar door in.');
   })());
   const bBefore = roomB().messages.length;
-  $('sideInput').value = 'Did you hear that?';
-  $('sideComposer').dispatchEvent(submit());
+  $('input_b').value = 'Did you hear that?';
+  $('composer_b').dispatchEvent(submit());
   const sideAnswered = await until('the side scene to answer', () =>
     !doc.querySelector('.typing') && roomB().messages.length >= bBefore + 2, 80);
   await wait(200);
@@ -888,8 +909,37 @@ check('commentary: finished episodes are kept and can be reopened',
     sideAnswered && roomB().messages.filter(m => m.role === 'user').pop().text === 'Did you hear that?' &&
     savedState().active === aId && roomA().messages.length === aCount &&
     $('sidescene').textContent.includes('Did you hear that?'));
-  // ⟶ nothing crosses on its own; this does, by hand, as a direction there.
-  $('sideCarry').dispatchEvent(click());
+  // ■ Stop: a turn started at the front, cut before the model answers.
+  const aBeforeStop = roomA().messages.length;
+  $('input').value = 'Wait — everybody stop.';
+  $('composer').dispatchEvent(submit());
+  const stopShown = Boolean(doc.querySelector('#frontScene .typing')) && !$('stopBtn').hidden && !$('stopBtn_b').hidden;
+  $('stopBtn').dispatchEvent(click());
+  await wait(500);
+  check('stop: ■ shows in both columns while a reply is being written, and cuts it — no reply, no error card, the turn stays yours',
+    stopShown && !doc.querySelector('.typing') && $('stopBtn').hidden &&
+    roomA().messages.length === aBeforeStop + 1 && roomA().messages[roomA().messages.length - 1].role === 'user' &&
+    !roomA().messages.some(m => m.error));
+  // The side column's own controls act on the side scene.
+  const aNow = roomA().messages.length, bNow = roomB().messages.length;
+  $('qaContinue_b').dispatchEvent(click());
+  const bWent = await until('the side scene to continue on its own', () =>
+    !doc.querySelector('.typing') && roomB().messages.length > bNow, 80);
+  await wait(150);
+  check('link: ➤ Continue in the side column plays a turn THERE — the front scene is untouched',
+    bWent && roomA().messages.length === aNow && roomB().messages.filter(m => m.role === 'char' || m.role === 'world').pop().at > Date.now() - 20000);
+  check('link: 🩺 Party in the side column opens the side scene’s sheets, with that column’s own ids', (() => {
+    if (!$('statesBtn_b')) return roomB().mechanics === 'off';
+    if ($('statebar_b').hidden) $('statesBtn_b').dispatchEvent(click());
+    const ok = !$('statebar_b').hidden && Boolean($('castAdd_b')) && Boolean($('awayBench_b')) &&
+      $('statebar_b').querySelectorAll('[data-sheet]').length >= 1 && !$('statebar').hidden;
+    $('statesBtn').dispatchEvent(click());
+    return ok && $('statebar_b').hidden;
+  })());
+  // ⟶ nothing crosses on its own; this does, by hand, as a direction there:
+  // the header's ⇄ is the door to it once a scene is linked.
+  $('linkBtn').dispatchEvent(click());
+  [...doc.querySelectorAll('[data-pick]')].find(b => /Carry something over from here/.test(b.textContent)).dispatchEvent(click());
   check('carry: the form names both scenes and asks who plays it there',
     /Carry over into/.test($('modal').textContent) && Boolean($('f_text')) && Boolean($('f_who')));
   $('f_text').value = 'A crash from the hangar next door, and every light flickers.';
@@ -903,15 +953,31 @@ check('commentary: finished episodes are kept and can be reopened',
     return carried && card && card.from === roomA().title && /crash from the hangar/.test(card.text) &&
       after && after.at > card.at && /saw the direction/.test(after.text) && !roomB().direction;
   })());
-  $('sideSwap').dispatchEvent(click());
+  $('swapBtn_b').dispatchEvent(click());
   await wait(100);
-  check('link: ⇄ brings the side scene to the front and the other to the side',
-    savedState().active === bId && !$('sidescene').hidden && $('sidescene').textContent.includes(roomA().title));
-  $('sideMenu').dispatchEvent(click());
+  check('link: ⇄ Front brings the side scene to the front and the other to the side — and the typed draft at the side survives', (() => {
+    $('input_b').value = 'a draft, half written';
+    win.dispatchEvent(new win.Event('resize'));
+    return savedState().active === bId && !$('sidescene').hidden && $('sidescene').textContent.includes(roomA().title) &&
+      $('input_b').value === 'a draft, half written';
+  })());
+  check('dock: with two scenes up the dock says which one it is about, and can be pointed at the other', (() => {
+    const sides = [...doc.querySelectorAll('#charpanel [data-dockside]')];
+    if (sides.length !== 2) return false;
+    sides[1].dispatchEvent(click());
+    dock('cast');
+    const ok = doc.querySelector('#charpanel [data-dockside="b"]').classList.contains('on') &&
+      doc.querySelectorAll('#charpanel .seat[data-dragcast]').length === win.RP.presentCast(roomA()).length;
+    doc.querySelector('#charpanel [data-dockside=""]').dispatchEvent(click());
+    return ok;
+  })());
+  $('sceneBtn_b').dispatchEvent(click());
+  [...doc.querySelectorAll('[data-pick]')].find(b => /Linked to/.test(b.textContent)).dispatchEvent(click());
   [...doc.querySelectorAll('[data-pick]')].find(b => /Unlink/.test(b.textContent)).dispatchEvent(click());
   await wait(100);
-  check('link: unlinking clears both sides and the side column goes away',
-    !roomA().linkedTo && !roomB().linkedTo && $('sidescene').hidden && !$('chatview').classList.contains('linked'));
+  check('link: unlinking (from the side column’s ⋯) clears both sides and the side column goes away',
+    !roomA().linkedTo && !roomB().linkedTo && $('sidescene').hidden && !$('chatview').classList.contains('linked') &&
+    !$('input_b'));
 
   // ---- round 5: split mid-scene by drag and drop, walk somebody over, carry a turn, export both ----
   doc.querySelector(`[data-room="${aId}"]`).dispatchEvent(click());
@@ -949,6 +1015,23 @@ check('commentary: finished episodes are kept and can be reopened',
     roomA().states[moverId].present === false && !present().some(c => c.id === moverId) &&
     Boolean(roomC().states[moverId]) && roomC().states[moverId].present !== false && !roomC().youPlay &&
     roomA().messages.some(m => m.role === 'state' && (m.lines || []).some(l => /left for “The hangar roof/.test(l))));
+  check('sync: a sheet shared by both scenes is ONE sheet — HP set here is HP there; where they are is not copied', (() => {
+    dock('cast');
+    const seat = $('charpanel').querySelector(`[data-sheet="${moverId}"]`);
+    if (!seat) return false;
+    seat.dispatchEvent(click());
+    if (!$('f_hp')) return false;
+    $('f_hp').value = '3/10';
+    $('mOk').dispatchEvent(click());
+    const a = roomA().states[moverId], c = roomC().states[moverId];
+    return Boolean(a.hp) && a.hp.value === 3 && Boolean(c.hp) && c.hp.value === 3 && c.hp.max === 10 &&
+      a.present === false && c.present !== false;
+  })());
+  check('meanwhile: each scene’s prompt names who is in the other right now, and that the two share one clock', (() => {
+    const stateNow = savedState();
+    const block = win.RP.meanwhileBlock(stateNow, stateNow.rooms.find(x => x.id === aId));
+    return block.includes('there right now') && /one clock/.test(block) && block.includes('The hangar roof');
+  })());
   check('split: the header button now names the other scene, and the Scene tab shows the link', (() => {
     dock('scene');
     const ok = /hangar roof/i.test($('linkBtn').textContent) && /Linked to/.test($('charpanel').textContent) && Boolean($('dkOpenOther'));

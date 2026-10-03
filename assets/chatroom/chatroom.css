@@ -509,37 +509,39 @@ a { color: inherit; }
 
 /* ---------------- the linked scene, at the side ---------------- */
 
-/* Two chats, the same hour. The front scene keeps the full stream; the
-   linked one gets a narrower column with its own prompt. It needs the
-   width, so the character panel steps back behind ☰ while a scene is at
-   the side — the same way it does on a small screen. */
-.sidescene { display: none; flex: 0 0 38%; max-width: 540px; min-width: 0; flex-direction: column; border-left: 1px solid var(--line); background: var(--panel); }
-.side-top { display: flex; align-items: center; gap: 8px; padding: 10px 14px; border-bottom: 1px solid var(--line); background: #fff; }
-.side-top .title { flex: 1; min-width: 0; }
-.side-top .title b { display: block; font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.side-top .title span { color: var(--muted); font-size: 11px; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.side-stream { flex: 1; overflow: auto; padding: 14px; min-height: 0; }
-.side-turn { margin: 0 0 12px; }
-.side-turn .who { display: flex; align-items: center; gap: 6px; margin-bottom: 3px; font-size: 12px; }
-.side-turn .bubble { padding: 8px 11px; border-radius: 10px; font-size: 13px; max-width: none; }
-.side-turn.user .bubble { background: var(--accent-soft); }
-.side-turn.world .bubble { background: #fff; border: 1px solid var(--line); }
-.side-stream .scene-card { font-size: 12px; margin-bottom: 12px; }
-.side-stream .typing { color: var(--muted); font-size: 12px; }
-.side-acts { display: flex; gap: 6px; flex-wrap: wrap; padding: 8px 14px 0; }
-.side-acts .qa { padding: 4px 10px; font-size: 12px; }
-.side-composer { display: flex; align-items: flex-end; gap: 6px; margin: 8px 14px 14px; border: 1px solid var(--line); background: #fff; border-radius: 18px; padding: 6px 6px 6px 12px; }
-.side-composer:focus-within { border-color: var(--accent); }
-.side-composer textarea { flex: 1; border: 0; outline: 0; resize: none; background: transparent; max-height: 120px; padding: 4px 0; font-size: 13px; }
-.side-composer .send { width: 30px; height: 30px; border-radius: 50%; border: 0; background: #1a1a1c; color: #fff; cursor: pointer; }
-.side-composer .send:disabled { opacity: .4; cursor: default; }
+/* Two scenes, one chat. Both columns are the whole experience — header,
+   sheets, stream, turn bar, their own prompt — and share the width
+   equally. They need it, so the dock steps back behind ☰ while two are
+   up (the same way it does on a small screen) unless the window is wide. */
+.sidescene { display: none; flex: 1 1 0; min-width: 0; flex-direction: column; overflow: hidden; border-left: 1px solid var(--line); background: var(--panel); }
+.sidescene .chat-top, .sidescene .composer-wrap { background: var(--panel); }
+.sidescene .chat-top .pill { background: #fff; }
+.chat-top .roundbtn.col-b { display: inline-grid; place-items: center; color: var(--accent); border-color: var(--accent); background: var(--accent-soft); cursor: default; font-size: 15px; }
 @media (min-width: 1101px) {
   .chatview.linked .sidescene:not([hidden]) { display: flex; }
   .chatview.linked .charpanel { display: none; }
   .chatview.linked .charpanel.open { display: block; position: fixed; right: 0; top: 0; bottom: 0; background: #fff; z-index: 30; box-shadow: -8px 0 30px rgba(0,0,0,.12); }
 }
-.side-top .cast { display: flex; gap: 2px; }
-.side-top .cast .av { cursor: grab; }
+@media (min-width: 1600px) {
+  .chatview.linked .charpanel { display: block; }
+}
+/* Two headers side by side have half the room: the HUD and the pills wrap
+   under the title instead of squeezing it to nothing. */
+.chatview.linked .chat-top { flex-wrap: wrap; row-gap: 6px; padding: 8px 14px; }
+.chatview.linked .chat-top .title { flex: 1 1 160px; }
+.chatview.linked .chat-top .hud { flex-basis: 100%; order: 3; }
+.chatview.linked .stream { padding: 18px 20px 8px; }
+.chatview.linked .composer-wrap { padding: 8px 18px 14px; }
+.chatview.linked .composer-note { display: none; }
+/* ■ — red, and only there while something runs. */
+.chat-top .pill.stop { border-color: var(--bad); color: #fff; background: var(--bad); font-weight: 600; white-space: nowrap; }
+.chat-top .pill.stop:hover { filter: brightness(1.1); }
+/* Which scene the dock is about, when two are up. */
+.dock-side { display: flex; gap: 4px; padding: 10px 14px 0; }
+.dock-side button { flex: 1 1 0; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; border: 1px solid var(--line); background: #fff; border-radius: 999px; padding: 5px 10px; font-size: 12px; cursor: pointer; }
+.dock-side button.on { border-color: var(--accent); background: var(--accent-soft); color: var(--accent); }
+/* A linked pair is one line in the recents. */
+.recent.pair .name::before { content: '⇄ '; color: var(--accent); }
 
 /* ---- drag and drop between scenes ----
    A face (the rail, the dock, the side column's cast) or a turn card can
