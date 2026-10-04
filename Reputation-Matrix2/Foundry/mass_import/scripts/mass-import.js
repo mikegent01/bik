@@ -412,7 +412,8 @@ export function buildPlan(raw, { actors = [], rootFolder = "", keepIds = true, m
     return {
       key: String(i), name: d.name ?? "(unnamed)", type: d.type ?? "?", id: d._id ?? null,
       folderPath: known ? [...prefix, ...e.folderPath] : [...prefix], folderKnown: known,
-      status: existing ? "update" : "new", existingId: existing ? (existing.id ?? existing._id) : null,
+      status: existing ? (existing.type && d.type && existing.type !== d.type ? "replace" : "update") : "new",
+      existingId: existing ? (existing.id ?? existing._id) : null, existingType: existing?.type ?? null,
       existingName: existing?.name ?? null, include: true, items: (d.items ?? []).length,
       img: d.img ?? null, sourceFile: d.flags?.[MODULE_ID]?.sourceFile ?? null,
     };
@@ -456,14 +457,14 @@ export function editsFromForm(form) {
 }
 
 export function planHtml(plan, { source = "", ignored = [] } = {}) {
-  const counts = { new: 0, update: 0 };
+  const counts = { new: 0, update: 0, replace: 0 };
   plan.forEach((r) => { counts[r.status] = (counts[r.status] ?? 0) + 1; });
   const rows = plan.map((r) => `<tr class="wmi-row wmi-${r.status}" data-key="${escapeHtml(r.key)}" data-status="${r.status}">
       <td><input type="checkbox" name="inc:${escapeHtml(r.key)}" ${r.include ? "checked" : ""}></td>
       <td><input type="text" name="name:${escapeHtml(r.key)}" value="${escapeHtml(r.name)}" title="${escapeHtml(r.sourceFile ?? (r.id ?? ""))}"></td>
       <td>${escapeHtml(r.type)}</td>
       <td><input type="text" name="folder:${escapeHtml(r.key)}" value="${escapeHtml(r.folderPath.join(" / "))}" placeholder="root"></td>
-      <td class="wmi-status">${r.status === "update" ? `update${r.existingName && r.existingName !== r.name ? ` <small>(${escapeHtml(r.existingName)})</small>` : ""}` : "new"}</td>
+      <td class="wmi-status">${r.status === "update" ? `update${r.existingName && r.existingName !== r.name ? ` <small>(${escapeHtml(r.existingName)})</small>` : ""}` : (r.status === "replace" ? `replace <small>(${escapeHtml(r.existingType ?? "?")} → ${escapeHtml(r.type)})</small>` : "new")}</td>
     </tr>`).join("");
   const F = "const f=this.closest('form');";
   const vis = "[...f.querySelectorAll('tr.wmi-row')].filter(tr=>tr.style.display!=='none')";
@@ -477,7 +478,7 @@ export function planHtml(plan, { source = "", ignored = [] } = {}) {
       ${tool("all", `${F}for(const tr of ${vis})tr.querySelector('input[type=checkbox]').checked=true;`, "tick every visible row")}
       ${tool("none", `${F}for(const tr of ${vis})tr.querySelector('input[type=checkbox]').checked=false;`, "untick every visible row")}
       ${tool("only new", `${F}for(const tr of ${vis})tr.querySelector('input[type=checkbox]').checked=tr.dataset.status==='new';`, "tick the actors this world does not have yet")}
-      ${tool("only updates", `${F}for(const tr of ${vis})tr.querySelector('input[type=checkbox]').checked=tr.dataset.status==='update';`, "tick the actors that already exist here")}
+      ${tool("only updates", `${F}for(const tr of ${vis})tr.querySelector('input[type=checkbox]').checked=(tr.dataset.status==='update'||tr.dataset.status==='replace');`, "tick the actors that already exist here")}
       <input type="text" class="wmi-setfolder" placeholder="folder for the ticked rows, e.g. Imports / Cast">
       ${tool("set folder", `${F}const v=f.querySelector('.wmi-setfolder').value;for(const tr of ${vis}){if(tr.querySelector('input[type=checkbox]').checked)tr.querySelector('input[name^=folder]').value=v;}`, "replace the folder of every ticked visible row")}
       ${tool("prefix", `${F}const v=f.querySelector('.wmi-setfolder').value;for(const tr of ${vis}){if(!tr.querySelector('input[type=checkbox]').checked)continue;const i=tr.querySelector('input[name^=folder]');i.value=[v,i.value].filter(Boolean).join(' / ');}`, "put the ticked rows' folders under this one")}
@@ -605,6 +606,7 @@ const DEFAULTS = {
   skipPlayerCharacters: false,
   overwriteOwnership: false, // keep the world's ownership on updates
   replaceEmbedded: true,     // delete items/effects that the import no longer has
+  replaceOnTypeChange: true, // same id, different type (npc -> character): delete + recreate under the same id
   progress: true,
 };
 
@@ -622,7 +624,7 @@ export async function importPayload(raw, options = {}) {
   const o = { ...DEFAULTS, ...options };
   const Actor = G().Actor;
   const { entries, meta } = normalizeImport(raw);
-  const report = { created: [], updated: [], skipped: [], failed: [], foldersCreated: [], missingImages: [], dryRun: o.dryRun, meta };
+  const report = { created: [], updated: [], replaced: [], skipped: [], failed: [], foldersCreated: [], missingImages: [], dryRun: o.dryRun, meta };
   const folderCache = new Map();
   const prefix = splitPath(o.rootFolder);
   const batchIds = new Set(entries.map((e) => e.data?._id).filter(Boolean));
@@ -648,6 +650,28 @@ export async function importPayload(raw, options = {}) {
       if (existing && o.mode === "create") { report.skipped.push({ actor: label, reason: "exists (create-only)" }); continue; }
       if (!existing && o.mode === "update") { report.skipped.push({ actor: label, reason: "not found (update-only)" }); continue; }
       if (o.checkImages) await checkImages(data, o.fixMissingImages, report, label);
+
+      if (existing && existing.type && data.type && existing.type !== data.type) {
+        // A document's type cannot be updated in place (an NPC statblock that
+        // became a player character, say). Recreate it under the same id so
+        // every token, journal link and ownership grant keeps resolving.
+        if (!o.replaceOnTypeChange) {
+          report.skipped.push({ actor: label, reason: `type differs (world ${existing.type}, import ${data.type}) — replace on type change is off` });
+          continue;
+        }
+        const keptFolder = (known || path.length) ? folderId : (existing.folder?.id ?? existing.folder ?? null);
+        const keptOwnership = (o.overwriteOwnership && data.ownership) ? data.ownership : clone(existing.ownership ?? data.ownership ?? { default: 0 });
+        const createData = { ...data, _id: existing.id ?? existing._id, folder: keptFolder, ownership: keptOwnership };
+        createData.flags = mergeFlags(existing.flags, data.flags);
+        const row = { actor: label, id: createData._id, from: existing.type, to: data.type, folder: folderLabel };
+        if (!o.dryRun) {
+          await existing.delete();
+          const created = await Actor.create(createData, { keepId: true, keepEmbeddedIds: true });
+          row.id = created?.id ?? created?._id ?? createData._id;
+        }
+        report.replaced.push(row);
+        continue;
+      }
 
       if (existing) {
         if (!o.dryRun) {
@@ -686,6 +710,7 @@ export async function importFromUrl(url, options = {}) {
 
 export function summarize(report) {
   const parts = [`${report.created.length} created`, `${report.updated.length} updated`];
+  if (report.replaced?.length) parts.push(`${report.replaced.length} replaced`);
   if (report.skipped.length) parts.push(`${report.skipped.length} skipped`);
   if (report.failed.length) parts.push(`${report.failed.length} FAILED`);
   if (report.foldersCreated.length) parts.push(`${report.foldersCreated.length} folders`);
@@ -802,6 +827,7 @@ export async function openImportDialog(preset = {}) {
       <label><input type="checkbox" name="review" ${(preset.review ?? true) ? "checked" : ""}> <b>review first</b> — list every actor; untick, rename, move folders before anything changes</label>
       <label><input type="checkbox" name="matchByName" ${checked("matchByName")}> match by name + type when no id matches</label>
       <label><input type="checkbox" name="replaceEmbedded" ${checked("replaceEmbedded")}> remove items/effects the import no longer has</label>
+      <label><input type="checkbox" name="replaceOnTypeChange" ${checked("replaceOnTypeChange")}> replace an actor whose type changed (NPC → character) under the same id</label>
       <label><input type="checkbox" name="overwriteOwnership" ${checked("overwriteOwnership")}> overwrite ownership (off = keep the world's)</label>
       <label><input type="checkbox" name="skipPlayerCharacters" ${checked("skipPlayerCharacters")}> skip player characters</label>
       <label><input type="checkbox" name="checkImages" ${checked("checkImages")}> check that every image exists on the server</label>
@@ -863,6 +889,7 @@ export function reportHtml(report) {
     <details ${report.missingImages.length ? "open" : ""}><summary>Missing images (${report.missingImages.length})</summary>${li(report.missingImages, (r) => `${escapeHtml(r.actor)} · ${escapeHtml(r.where)} · <code>${escapeHtml(r.path)}</code>`)}</details>
     <details><summary>Created (${report.created.length})</summary>${li(report.created, (r) => `${escapeHtml(r.actor)} → ${escapeHtml(r.folder || "root")}`)}</details>
     <details><summary>Updated (${report.updated.length})</summary>${li(report.updated, (r) => `${escapeHtml(r.actor)} → ${escapeHtml(r.folder || "root")}`)}</details>
+    <details ${report.replaced?.length ? "open" : ""}><summary>Replaced — same id, new type (${report.replaced?.length ?? 0})</summary>${li(report.replaced ?? [], (r) => `${escapeHtml(r.actor)} · ${escapeHtml(r.from)} → ${escapeHtml(r.to)} → ${escapeHtml(r.folder || "root")}`)}</details>
     <details><summary>Skipped (${report.skipped.length})</summary>${li(report.skipped, (r) => `${escapeHtml(r.actor)} — ${escapeHtml(r.reason)}`)}</details>
     <details><summary>Folders created (${report.foldersCreated.length})</summary>${li(report.foldersCreated, (r) => escapeHtml(r))}</details>
   </div>`;

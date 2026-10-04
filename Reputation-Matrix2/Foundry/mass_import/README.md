@@ -10,7 +10,7 @@ existing ones updated in place (same `_id`), every image path checked, and a
 report. Together with `tools/foundry-bridge.py` this turns "add characters to
 the game" into a loop of *export → edit in the repo → import*.
 
-Module id: `waluipedia-mass-import`, version 1.1. Core v12–v14, any game
+Module id: `waluipedia-mass-import`, version 1.2. Core v12–v14, any game
 system (built and tested against dnd5e 5.x on core v14).
 
 ## Where the import-all files are
@@ -90,7 +90,8 @@ source** (Configure Settings → Module Settings), so a recurring import is
 | Keep ids | on | New actors are created with the `_id` from the file, so the next import finds them again. Turn off only if you *want* duplicates. |
 | Match by name + type | on | Actors without an id (or whose id is not in the world) are matched by `name` + `type` before being created — but never to an actor that is itself part of the same import, so two different "Guard" statblocks in one export stay two actors. |
 | Replace embedded | on | Items and active effects are synced to the file: same `_id` → update, new → create, missing from the file → **deleted**. Off = only create/update, never delete. |
-| Overwrite ownership | off | Keep the world's permission settings on existing actors. |
+| Replace on type change | on | An actor whose `_id` exists in the world with a **different type** (an NPC statblock that became a `character` sheet, say) cannot be updated in place — Foundry never changes a document's type. The module deletes it and recreates it **under the same id**, keeping the world's folder and ownership and merging flags, so tokens, journal links and player access keep resolving. The review table shows these rows as `replace (npc → character)`. Off = such rows are skipped and reported. |
+| Overwrite ownership | off | Keep the world's permission settings on existing actors (and on replacements). |
 | Skip player characters | off | Leave `type: character` actors alone (handy when a packet of NPCs happens to include PCs). |
 | Check images | on | `HEAD`-requests every `img` / token / item image path and lists the ones the server does not have. |
 | Fix missing images | off | Replace missing image paths with Foundry's placeholders (`icons/svg/mystery-man.svg` / `icons/svg/item-bag.svg`) instead of importing broken links. |
@@ -127,7 +128,13 @@ Updating an existing actor sends the whole document with `recursive: false`, so
 Foundry after the export is lost if the file still has the old value. Export
 first, edit, import. Exceptions: `flags` are merged (other modules' flags
 survive), `ownership` is kept unless "Overwrite ownership" is ticked, `_stats`
-is never written.
+is never written. A type change (`npc` → `character`) is the one thing an
+update cannot express: with "Replace on type change" on (the default) the
+actor is deleted and recreated under the same `_id`, with the world's folder,
+ownership and other modules' flags carried over; the report lists it under
+"Replaced". Player characters that were run off NPC statblocks are promoted
+this way — `tools/promote-player-sheets.py` writes the character sheets into
+the world mirror, the next import swaps them in.
 
 ## Export into the Data folder, import it back
 

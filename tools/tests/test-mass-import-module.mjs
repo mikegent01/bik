@@ -17,7 +17,7 @@ const check = (label, cond, extra = '') => (cond ? ok : fail).push(label + (extr
 // ---------------------------------------------------------------- manifest
 const manifest = JSON.parse(fs.readFileSync(path.join(MOD_DIR, 'module.json'), 'utf8'));
 check('module id is stable', manifest.id === 'waluipedia-mass-import', manifest.id);
-check('version 1.1 (Data folders + review table)', /^1\.[1-9]/.test(manifest.version) && /Data/.test(manifest.description), manifest.version);
+check('version 1.2 (Data folders + review table + replace on type change)', /^1\.([2-9]|\d{2,})/.test(manifest.version) && /Data/.test(manifest.description) && /same id/.test(manifest.description), manifest.version);
 check('manifest loads the script and stylesheet', manifest.esmodules?.includes('scripts/mass-import.js') && manifest.styles?.includes('styles/mass-import.css'));
 check('every manifest file exists', [...manifest.esmodules, ...manifest.styles].every((f) => fs.existsSync(path.join(MOD_DIR, f))));
 check('compatibility spans v12..v14', Number(manifest.compatibility.minimum) <= 12 && Number(manifest.compatibility.verified) >= 14);
@@ -74,6 +74,8 @@ class Actor {
   }
   get folder() { return this.folderId ? game.folders.get(this.folderId) : null; }
   get img() { return this._data.img; }
+  get ownership() { return this._data.ownership; }
+  async delete() { game.actors.delete(this.id); return this; }
   toObject() { return { ...structuredClone(this._data), folder: this.folderId, items: this.items.contents.map((i) => i.toObject()), effects: this.effects.contents.map((e) => structuredClone(e)) }; }
   static async create(data, opts = {}) {
     const d = structuredClone(data);
@@ -400,6 +402,45 @@ fpCalls.length = 0;
 const fakeForm = { elements: { url: { value: 'https://x/y.json' } } };
 mod.pickDataPath(fakeForm, 'folder');
 check('pickDataPath opens a folder picker and writes the choice into the url box', fpCalls[0]?.[0] === 'new' && fpCalls[0][1] === 'folder' && fpCalls[0][2] === '' && fakeForm.elements.url.value === 'npc/waluipedia/picked');
+
+// ------------------------------------- replace on type change (npc -> character)
+// A player character that sat in the world as an NPC statblock: the import
+// carries the same id with type "character". Foundry cannot update a
+// document's type, so the module deletes and recreates under the same id,
+// keeping the world's folder and ownership.
+{
+  game.actors.clear(); game.folders.clear();
+  const playersFolder = await Folder.create({ name: 'Players', type: 'Actor', folder: null });
+  await Actor.create({ _id: 'S1aaaaaaaaaaaaaa', name: 'Salam', type: 'npc', folder: playersFolder.id, img: 'icons/svg/mystery-man.svg',
+    ownership: { default: 0, GMaaaaaaaaaaaaaa: 3, P1aaaaaaaaaaaaaa: 3 }, flags: { 'scene-packer': { hash: 'abc' } },
+    items: [{ _id: 'I9aaaaaaaaaaaaaa', name: 'Light Crossbow', type: 'weapon' }] }, { keepId: true });
+  const promoted = { actors: [{ _id: 'S1aaaaaaaaaaaaaa', name: 'Salam', type: 'character', img: 'icons/svg/mystery-man.svg', ownership: { default: 0 },
+    flags: { 'waluipedia-sheets': { promoted: { mode: 'convert' } }, 'waluipedia-mass-import': { folderPath: ['Players'] } },
+    items: [{ _id: 'I9aaaaaaaaaaaaaa', name: 'Light Crossbow', type: 'weapon' }, { _id: 'I8aaaaaaaaaaaaaa', name: 'Ranger', type: 'class', system: { levels: 3 } }] }] };
+  const plan = mod.buildPlan(promoted, { actors: game.actors.contents });
+  check('buildPlan marks a same-id, different-type row as "replace" with the world type', plan[0].status === 'replace' && plan[0].existingType === 'npc' && plan[0].existingId === 'S1aaaaaaaaaaaaaa');
+  check('planHtml shows the replace row with the type change', mod.planHtml(plan).includes('replace <small>(npc → character)</small>'));
+  const dry = await mod.importPayload(promoted, { dryRun: true, checkImages: false });
+  check('dry run reports the replacement without touching the actor', dry.replaced.length === 1 && dry.replaced[0].from === 'npc' && dry.replaced[0].to === 'character' && game.actors.get('S1aaaaaaaaaaaaaa').type === 'npc');
+  const off = await mod.importPayload(promoted, { replaceOnTypeChange: false, checkImages: false });
+  check('replaceOnTypeChange=false skips with the reason', off.skipped.length === 1 && /type differs/.test(off.skipped[0].reason) && game.actors.get('S1aaaaaaaaaaaaaa').type === 'npc');
+  const rep = await mod.importPayload(promoted, { checkImages: false });
+  const salam = game.actors.get('S1aaaaaaaaaaaaaa');
+  check('the actor is recreated under the same id as a character', rep.replaced.length === 1 && rep.created.length === 0 && rep.updated.length === 0 && salam?.type === 'character' && game.actors.size === 1);
+  check('…keeping the world folder and ownership (the players keep access)', salam.folderId === playersFolder.id && game.folders.size === 1 && salam.ownership.P1aaaaaaaaaaaaaa === 3 && salam.ownership.GMaaaaaaaaaaaaaa === 3, JSON.stringify({ folder: salam.folderId, want: playersFolder.id, own: salam.ownership }));
+  check('…merging flags instead of wiping other modules', salam.flags['scene-packer']?.hash === 'abc' && salam.flags['waluipedia-sheets']?.promoted?.mode === 'convert');
+  check('…with the new class item on board', salam.items.get('I8aaaaaaaaaaaaaa')?.name === 'Ranger' && salam.items.size === 2);
+  check('summarize counts replacements', mod.summarize(rep) === '0 created, 0 updated, 1 replaced');
+  check('report HTML lists the replacement', mod.reportHtml(rep).includes('Replaced — same id, new type (1)') && mod.reportHtml(rep).includes('npc → character'));
+  const again = await mod.importPayload(promoted, { checkImages: false });
+  check('a second import of the same packet is a plain update', again.replaced.length === 0 && again.updated.length === 1 && game.actors.size === 1);
+  const own = await mod.importPayload({ actors: [{ ...promoted.actors[0], type: 'npc' }] }, { checkImages: false, overwriteOwnership: true });
+  check('overwriteOwnership applies the import ownership on a replacement', own.replaced.length === 1 && game.actors.get('S1aaaaaaaaaaaaaa').ownership.P1aaaaaaaaaaaaaa === undefined);
+  const legacy = structuredClone(promoted.actors[0]); delete legacy.flags['waluipedia-mass-import']; legacy.folder = 'nope000000000000';
+  const rl = await mod.importPayload({ actors: [legacy] }, { checkImages: false });
+  check('an entry with only an unresolvable folder id keeps the world folder on replacement', rl.replaced.length === 1 && game.actors.get('S1aaaaaaaaaaaaaa').type === 'character' && game.actors.get('S1aaaaaaaaaaaaaa').folderId === playersFolder.id);
+  game.actors.clear(); game.folders.clear();
+}
 
 // ------------------------------------------- optional: a real world export
 // WMI_EXPORT=/path/to/<world>-all-actors.json node tools/tests/test-mass-import-module.mjs
