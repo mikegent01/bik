@@ -1,8 +1,8 @@
 {
   "id": "waluipedia-mass-import",
   "title": "Waluipedia Mass Import / Export",
-  "description": "Export every actor (with its folder path) to one JSON or into a Data-folder tree (one file per actor, subfolders = Actors folders), and import a JSON, a repo packet, a URL, or a whole Data directory back in: subfolders detected, a review table to untick / rename / move before anything changes, folders rebuilt, existing actors updated in place by id (recreated under the same id when their type changed, e.g. an NPC promoted to a player character), images checked. One-click Sync: finds the newest Waluipedia packet (Foundry Data folder, then the start.py launcher, then GitHub), imports it into its folders, applies the changes and shows a summary. The Foundry end of the Waluipedia repo bridge (tools/foundry-bridge.py).",
-  "version": "1.3.0",
+  "description": "Export every actor (with its folder path) to one JSON or into a Data-folder tree (one file per actor, subfolders = Actors folders), and import a JSON, a repo packet, a URL, or a whole Data directory back in: subfolders detected, a review table to untick / rename / move before anything changes, folders rebuilt, existing actors updated in place by id (recreated under the same id when their type changed, e.g. an NPC promoted to a player character), images checked. One-click Sync: finds the newest Waluipedia packet (Foundry Data folder, then the start.py launcher, then GitHub), imports it into its folders, applies the changes and shows a summary. Updates are diffs (an unchanged actor is not written; no spurious activity churn), item identifiers dnd5e would reject are repaired, folders arrive in the colours the packet carries, and the suite's tags (website group, pc/npc, role, creature type) show as chips in the Actors sidebar. The Foundry end of the Waluipedia repo bridge (tools/foundry-bridge.py).",
+  "version": "1.4.0",
   "authors": [
     {
       "name": "Waluipedia"

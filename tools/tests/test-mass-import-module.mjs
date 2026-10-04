@@ -17,7 +17,7 @@ const check = (label, cond, extra = '') => (cond ? ok : fail).push(label + (extr
 // ---------------------------------------------------------------- manifest
 const manifest = JSON.parse(fs.readFileSync(path.join(MOD_DIR, 'module.json'), 'utf8'));
 check('module id is stable', manifest.id === 'waluipedia-mass-import', manifest.id);
-check('version 1.3 (Data folders + review table + replace on type change + one-click Sync)', /^1\.([3-9]|\d{2,})/.test(manifest.version) && /Data/.test(manifest.description) && /same id/.test(manifest.description) && /[Ss]ync/.test(manifest.description), manifest.version);
+check('version 1.4 (diff updates + identifier repair + folder colours + tags, on top of Data folders, review table, replace on type change, one-click Sync)', /^1\.([4-9]|\d{2,})/.test(manifest.version) && /diffs/.test(manifest.description) && /chips/.test(manifest.description) && /Data/.test(manifest.description) && /same id/.test(manifest.description) && /[Ss]ync/.test(manifest.description), manifest.version);
 check('manifest loads the script and stylesheet', manifest.esmodules?.includes('scripts/mass-import.js') && manifest.styles?.includes('styles/mass-import.css'));
 check('every manifest file exists', [...manifest.esmodules, ...manifest.styles].every((f) => fs.existsSync(path.join(MOD_DIR, f))));
 check('compatibility spans v12..v14', Number(manifest.compatibility.minimum) <= 12 && Number(manifest.compatibility.verified) >= 14);
@@ -58,9 +58,21 @@ class Folder {
     game.folders.set(f.id, f);
     return f;
   }
+  async update(data) { const { folder, ...rest } = data; Object.assign(this, rest); if (folder !== undefined) this.parentId = folder; return this; }
+}
+// Foundry's update semantics: partial, recursive merge; "-=key": null deletes.
+function applyUpdate(target, changes) {
+  for (const [k, v] of Object.entries(changes ?? {})) {
+    if (k.startsWith('-=')) { delete target[k.slice(2)]; continue; }
+    const plain = (x) => x !== null && typeof x === 'object' && !Array.isArray(x);
+    if (plain(v) && plain(target[k])) applyUpdate(target[k], v);
+    else target[k] = structuredClone(v);
+  }
+  return target;
 }
 class Item {
   constructor(data) { this._data = structuredClone(data); this.id = data._id; this.name = data.name; }
+  get flags() { return this._data.flags ?? {}; }
   toObject() { return structuredClone(this._data); }
 }
 class Actor {
@@ -87,10 +99,12 @@ class Actor {
   }
   async update(data, opts) {
     this.updates++;
+    this.lastUpdate = structuredClone(data);
+    this.lastUpdateOptions = opts;
     const { folder, items, effects, ...rest } = data;
-    Object.assign(this._data, rest);
+    applyUpdate(this._data, rest);
     if (rest.name) this.name = rest.name;
-    if (rest.flags) this.flags = structuredClone(rest.flags);
+    if (rest.flags) this.flags = structuredClone(this._data.flags);
     if (folder !== undefined) this.folderId = folder;
     return this;
   }
@@ -100,12 +114,21 @@ class Actor {
       if (type === 'Item') this.items.set(id, new Item({ ...d, _id: id })); else this.effects.set(id, { ...d, _id: id });
     }
   }
-  async updateEmbeddedDocuments(type, arr) {
+  async updateEmbeddedDocuments(type, arr, opts = {}) {
+    (this.embeddedUpdates ??= []).push({ type, arr: structuredClone(arr), opts });
     for (const d of arr) {
-      if (type === 'Item') this.items.set(d._id, new Item(d)); else this.effects.set(d._id, structuredClone(d));
+      if (type === 'Item') { const it = this.items.get(d._id); if (!it) throw new Error(`Item ${d._id} does not exist!`); applyUpdate(it._data, d); it.name = it._data.name; }
+      else { const e = this.effects.get(d._id); if (!e) throw new Error(`ActiveEffect ${d._id} does not exist!`); applyUpdate(e, d); }
     }
   }
-  async deleteEmbeddedDocuments(type, ids) { for (const id of ids) (type === 'Item' ? this.items : this.effects).delete(id); }
+  async deleteEmbeddedDocuments(type, ids) {
+    (this.embeddedDeletes ??= []).push({ type, ids: [...ids] });
+    for (const id of ids) {
+      const coll = type === 'Item' ? this.items : this.effects;
+      if (!coll.has(id)) throw new Error(`${type} ${id} does not exist!`);
+      coll.delete(id);
+    }
+  }
 }
 const game = {
   world: { id: 'test-world' }, system: { id: 'dnd5e', version: '5.3.3' }, version: '13.346',
@@ -123,7 +146,8 @@ const fetched = [];
 globalThis.fetch = async (url, init = {}) => {
   fetched.push([url, init.method ?? 'GET']);
   if (url.startsWith('https://example.test/')) return { ok: true, status: 200, json: async () => remotePayload };
-  return { ok: serverFiles.has(decodeURI(url)), status: serverFiles.has(decodeURI(url)) ? 200 : 404 };
+  const file = decodeURIComponent(url); // a real server decodes %2B too
+  return { ok: serverFiles.has(file), status: serverFiles.has(file) ? 200 : 404 };
 };
 let remotePayload = null;
 
@@ -288,7 +312,7 @@ game.user.isGM = true;
 // ----------------------------------------------------------- report html
 const html = mod.reportHtml(rb);
 check('report HTML escapes and lists missing images', html.includes('portraits/nope.png') && html.includes('Missing images (3)'));
-check('summarize reads well', mod.summarize(r2) === '0 created, 2 updated');
+check('summarize reads well (and says what was left alone)', /^0 created, 2 updated( \(\d unchanged\))?$/.test(mod.summarize(r2)), mod.summarize(r2));
 
 // ------------------------------------------------- the Data folder (v1.1)
 // A fake FilePicker over an in-memory Data tree: browse / createDirectory /
@@ -547,6 +571,124 @@ check('pickDataPath opens a folder picker and writes the choice into the url box
   game.actors.clear(); game.folders.clear();
 }
 
+// ------------------------------------------------------------- v1.4
+// Diff updates, dnd5e's cached spells, identifier repair, folder colours,
+// once-only URL encoding, tag chips, the v13 progress notification.
+{
+  const d = mod.docDiff;
+  check('docDiff: identical documents give an empty update', Object.keys(d({ a: 1, system: { x: [1, 2], y: { z: 'q' } } }, { a: 1, system: { x: [1, 2], y: { z: 'q' } } })).length === 0);
+  check('docDiff: only the changed leaf is sent', JSON.stringify(d({ system: { hp: { value: 3, max: 9 }, ac: 12 } }, { system: { hp: { value: 5, max: 9 }, ac: 12 } })) === '{"system":{"hp":{"value":5}}}');
+  check('docDiff: schema keys the import lacks are left alone (no deletions)', Object.keys(d({ system: { identifier: 'toad', hp: 1 } }, { system: { hp: 1 } })).length === 0);
+  check('docDiff: flags, ownership and the activities map get -=key deletions', JSON.stringify(d({ flags: { x: { a: 1, b: 2 } }, ownership: { u1: 3 }, system: { activities: { A1: { t: 1 }, A2: { t: 2 } } } }, { flags: { x: { a: 1 } }, ownership: {}, system: { activities: { A1: { t: 1 } } } })) === '{"flags":{"x":{"-=b":null}},"ownership":{"-=u1":null},"system":{"activities":{"-=A2":null}}}');
+  check('docDiff: arrays are replaced whole, _id never moves', JSON.stringify(d({ _id: 'a', list: [1, 2] }, { _id: 'b', list: [1, 3] })) === '{"list":[1,3]}');
+
+  game.actors.clear(); game.folders.clear();
+  const spellbook = { _id: 'S1aaaaaaaaaaaaaa', name: 'Fire Bolt', type: 'spell', img: 'icons/svg/item-bag.svg', system: { level: 0 }, flags: { dnd5e: { cachedFor: '.Item.F1aaaaaaaaaaaaaa.Activity.ACT1aaaaaaaaaaaa' } } };
+  const castFeat = { _id: 'F1aaaaaaaaaaaaaa', name: 'Innate Casting', type: 'feat', img: 'icons/svg/item-bag.svg', system: { activities: { ACT1aaaaaaaaaaaa: { type: 'cast', spell: { uuid: 'Compendium.x.y' } } } }, flags: {} };
+  const sword = { _id: 'W1aaaaaaaaaaaaaa', name: 'Sword', type: 'weapon', img: 'icons/svg/item-bag.svg', system: { activities: { ATK1aaaaaaaaaaaa: { type: 'attack' } }, quantity: 1 }, flags: {} };
+  const mage = { _id: 'M1aaaaaaaaaaaaaa', name: 'Court Mage', type: 'npc', img: 'icons/svg/mystery-man.svg', system: { attributes: { hp: { value: 20, max: 20 } }, details: { cr: 2 } }, flags: {}, items: [castFeat, spellbook, sword], effects: [] };
+  const packet = { format: 'waluipedia-actors/1', folders: [{ _id: 'FO1', name: 'Mages', type: 'Actor', folder: null, color: '#8a2be2', path: ['Mages'] }], actors: [{ ...mage, flags: { 'waluipedia-mass-import': { folderPath: ['Mages'] } } }] };
+  const first = await mod.importPayload(packet, { checkImages: false, progress: false });
+  const live = game.actors.get(mage._id);
+  check('v1.4: a new folder is created in the colour the packet carries', game.folders.contents.find((f) => f.name === 'Mages')?.color === '#8a2be2' && first.foldersStyled.length === 1);
+  const second = await mod.importPayload(packet, { checkImages: false, progress: false });
+  check('v1.4: re-importing the same actor writes nothing (no actor update, no embedded calls)', live.updates === 0 && !live.embeddedUpdates && !live.embeddedDeletes && second.unchanged === 1 && second.updated[0].changed === false && second.updated[0].items.unchanged === 3, JSON.stringify(second.updated[0]));
+  check('v1.4: summarize says so', /\(1 unchanged\)/.test(mod.summarize(second)), mod.summarize(second));
+  // HP changed on the actor, the sword's quantity changed, the feat's activity changed
+  const edited = structuredClone(packet);
+  edited.actors[0].system.attributes.hp.value = 7;
+  edited.actors[0].items[2].system.quantity = 2;
+  edited.actors[0].items[0].system.activities.ACT1aaaaaaaaaaaa.spell.uuid = 'Compendium.x.z';
+  const third = await mod.importPayload(edited, { checkImages: false, progress: false });
+  check('v1.4: the actor update is the diff alone', live.updates === 1 && JSON.stringify(live.lastUpdate) === '{"system":{"attributes":{"hp":{"value":7}}}}' && live.lastUpdateOptions === undefined, JSON.stringify(live.lastUpdate));
+  const calls = live.embeddedUpdates ?? [];
+  check('v1.4: plain item changes go in one batch, an activity change in a call of its own', calls.length === 2 && calls[0].arr.length === 1 && calls[0].arr[0]._id === sword._id && JSON.stringify(calls[0].arr[0].system) === '{"quantity":2}' && calls[1].arr.length === 1 && calls[1].arr[0]._id === castFeat._id && calls[1].arr[0].system.activities.ACT1aaaaaaaaaaaa.spell.uuid === 'Compendium.x.z' && third.updated[0].items.updated === 2 && third.updated[0].items.unchanged === 1, JSON.stringify(calls));
+  // the Cast feat goes away: its cached spell is dnd5e's to delete, not ours
+  const pruned = structuredClone(packet);
+  pruned.actors[0].items = [sword];
+  const fourth = await mod.importPayload(pruned, { checkImages: false, progress: false });
+  check('v1.4: deleting a Cast item leaves its cached spell to the system (no double delete)', fourth.failed.length === 0 && live.embeddedDeletes.at(-1).ids.join() === castFeat._id && fourth.updated[0].items.deleted === 1, JSON.stringify(live.embeddedDeletes));
+  // a cached spell whose owner stays is deleted normally
+  live.items.set(spellbook._id, new Item(spellbook));
+  const fifth = await mod.importPayload(pruned, { checkImages: false, progress: false });
+  check('v1.4: an orphaned cached spell is still removed', fifth.failed.length === 0 && !live.items.has(spellbook._id) && fifth.updated[0].items.deleted === 1);
+
+  // identifiers
+  const eager = { _id: 'E1aaaaaaaaaaaaaa', name: 'Eager', type: 'character', img: 'icons/svg/mystery-man.svg', system: {}, flags: {}, items: [
+    { _id: 'R1aaaaaaaaaaaaaa', name: 'Toad — Eager Variant', type: 'race', img: 'icons/svg/item-bag.svg', system: { identifier: 'toad-—-eager-variant' } },
+    { _id: 'B1aaaaaaaaaaaaaa', name: 'Disaster Inc. Catastrophe Scout', type: 'background', img: 'icons/svg/item-bag.svg', system: { identifier: 'disaster-inc.-catastrophe-scout' } },
+    { _id: 'Q1aaaaaaaaaaaaaa', name: "Dead Person's Shoes", type: 'equipment', img: 'icons/svg/item-bag.svg', system: { identifier: "dead-person's-shoes" } },
+    { _id: 'C1aaaaaaaaaaaaaa', name: 'Fighter', type: 'class', img: 'icons/svg/item-bag.svg', system: { identifier: 'fighter' } },
+    { _id: 'U1aaaaaaaaaaaaaa', name: 'Champion', type: 'subclass', img: 'icons/svg/item-bag.svg', system: { identifier: 'champion', classIdentifier: 'fighter (2014)' } },
+  ] };
+  check('slugifyIdentifier matches what dnd5e derives from a name', mod.slugifyIdentifier('Toad — Eager Variant') === 'toad-eager-variant' && mod.slugifyIdentifier("Dead Person's Shoes") === 'dead-persons-shoes' && mod.slugifyIdentifier('Disaster Inc. Catastrophe Scout') === 'disaster-inc-catastrophe-scout' && mod.slugifyIdentifier('Wild Surge — Unstable Aura') === 'wild-surge-unstable-aura' && mod.slugifyIdentifier('Éclair à la crème') === 'eclair-a-la-creme');
+  const rep = await mod.importPayload({ actors: [eager] }, { checkImages: false, progress: false });
+  const liveEager = game.actors.get(eager._id);
+  const ids = liveEager.items.contents.map((i) => i.toObject().system.identifier);
+  check('v1.4: invalid identifiers are repaired on import, valid ones untouched', ids.join() === 'toad-eager-variant,disaster-inc-catastrophe-scout,dead-persons-shoes,fighter,champion' && liveEager.items.get('U1aaaaaaaaaaaaaa').toObject().system.classIdentifier === 'fighter-2014', ids.join());
+  check('v1.4: the repairs are reported and summarised', rep.repaired.length === 1 && rep.repaired[0].repairs.length === 4 && /4 identifiers repaired/.test(mod.summarize(rep)) && mod.reportHtml(rep).includes('Repaired identifiers (4)') && mod.reportHtml(rep).includes('toad-eager-variant'), mod.summarize(rep));
+  const noRepair = await mod.importPayload({ actors: [structuredClone(eager)] }, { checkImages: false, progress: false, repairIdentifiers: false });
+  check('v1.4: repairIdentifiers:false leaves them as they came (and the update is then a real diff)', noRepair.repaired.length === 0 && liveEager.items.get('R1aaaaaaaaaaaaaa').toObject().system.identifier === 'toad-—-eager-variant');
+
+  // folder colours on existing colourless folders + explicit folderStyles map
+  const plain = await Folder.create({ name: 'Bestiary', type: 'Actor', folder: null });
+  const beast = { _id: 'A9aaaaaaaaaaaaaa', name: 'Black Bear', type: 'npc', img: 'icons/svg/mystery-man.svg', system: {}, flags: { 'waluipedia-mass-import': { folderPath: ['Bestiary', 'Beast'] } }, items: [], effects: [] };
+  const styled = await mod.importPayload({ actors: [beast], folderStyles: { 'Bestiary': { color: '#6c757d' }, 'Bestiary / Beast': { color: '#556b2f', description: 'Animals' } } }, { checkImages: false, progress: false });
+  check('v1.4: a colourless existing folder is painted, the new child born coloured with its description', game.folders.get(plain.id).color === '#6c757d' && game.folders.contents.find((f) => f.name === 'Beast')?.color === '#556b2f' && game.folders.contents.find((f) => f.name === 'Beast')?.description === 'Animals' && styled.foldersStyled.length === 2, JSON.stringify(styled.foldersStyled));
+  await game.folders.get(plain.id).update({ color: '#000000' });
+  await mod.importPayload({ actors: [beast], folderStyles: { 'Bestiary': { color: '#ffffff' } } }, { checkImages: false, progress: false });
+  check("v1.4: a folder the GM coloured keeps the GM's colour", game.folders.get(plain.id).color === '#000000');
+  const dry = await mod.importPayload({ actors: [{ ...beast, _id: 'A8aaaaaaaaaaaaaa', name: 'Brown Bear', flags: { 'waluipedia-mass-import': { folderPath: ['Zoo'] } } }], folderStyles: { Zoo: { color: '#123456' } } }, { checkImages: false, progress: false, dryRun: true });
+  check('v1.4: dry run paints nothing', dry.foldersStyled.length === 0 && !game.folders.contents.find((f) => f.name === 'Zoo'));
+
+  // image URLs: encode once; wildcards skipped
+  fetched.length = 0;
+  serverFiles.add('npc/MLSS+BM_Art_-_Fawful.png');
+  const fawful = { _id: 'A7aaaaaaaaaaaaaa', name: 'Fawful', type: 'npc', img: 'npc/MLSS%2BBM_Art_-_Fawful.png', prototypeToken: { texture: { src: 'modules/x/tokens/guard*.webp' } }, system: {}, flags: {}, items: [{ _id: 'I7aaaaaaaaaaaaaa', name: 'Hat', type: 'equipment', img: 'portraits/with space.png', system: {} }], effects: [] };
+  const img = await mod.importPayload({ actors: [fawful] }, { progress: false });
+  const heads = fetched.filter(([, m]) => m === 'HEAD').map(([u]) => u);
+  check('v1.4: an already-encoded path is fetched as is (no %252B), a raw one encoded once, wildcards not at all', heads.includes('npc/MLSS%2BBM_Art_-_Fawful.png') && heads.includes('portraits/with%20space.png') && !heads.some((u) => u.includes('guard')) && img.missingImages.length === 1 && img.missingImages[0].path === 'portraits/with space.png', JSON.stringify(heads));
+  check('isWildcardPath', mod.isWildcardPath('a/b*.webp') && mod.isWildcardPath('a/{x,y}.webp') && !mod.isWildcardPath('a/b.webp'));
+
+  // tag chips
+  const tagged = await Actor.create({ _id: 'T1aaaaaaaaaaaaaa', name: 'Tagged', type: 'npc', system: {}, flags: { 'waluipedia-sheets': { tags: ['Iron Legion', 'npc', 'soldier', 'humanoid'], color: '#adb5bd' } }, items: [] }, { keepId: true });
+  check('tagsOf reads the suite flag', mod.tagsOf(tagged).join() === 'Iron Legion,npc,soldier,humanoid' && mod.tagsOf(live).length === 0);
+  const mkEl = (tag) => ({ tag, className: '', children: [], style: { vars: {}, setProperty(k, v) { this.vars[k] = v; } }, set textContent(v) { this._t = v; }, get textContent() { return this._t; }, appendChild(c) { this.children.push(c); return c; } });
+  const doc = { createElement: mkEl };
+  const mkLi = (id, cls = 'directory-item entry actor', name = true) => ({
+    classList: { contains: (c) => cls.split(' ').includes(c) }, dataset: { entryId: id }, ownerDocument: doc, children: [], decorated: null,
+    querySelector(sel) { if (sel === '.wmi-tags') return this.decorated; return name ? { appendChild: (c) => { this.decorated = c; } } : null; },
+    appendChild(c) { this.decorated = c; },
+  });
+  const lis = [mkLi('T1aaaaaaaaaaaaaa'), mkLi(live.id), mkLi('nope', 'directory-item folder')];
+  const root = { querySelectorAll: (sel) => (sel === 'li.directory-item' ? lis : []) };
+  const n = mod.decorateDirectory(root, game.actors);
+  const chips = lis[0].decorated;
+  check('decorateDirectory adds up to three chips (+N) only to tagged entries, once', n === 1 && chips.className === 'wmi-tags' && chips.children.map((c) => c.textContent).join('|') === 'Iron Legion|npc|soldier|+1' && chips.style.vars['--wmi-tag'] === '#adb5bd' && lis[1].decorated === null && mod.decorateDirectory(root, game.actors) === 0, JSON.stringify(chips?.children?.map((c) => c.textContent)));
+  settings.set('waluipedia-mass-import.showTags', false);
+  const lis2 = [mkLi('T1aaaaaaaaaaaaaa')];
+  globalThis.Hooks.call('renderActorDirectory', {}, { querySelectorAll: () => lis2, querySelector: () => null });
+  check('the showTags client setting switches the chips off', lis2[0].decorated === null);
+  settings.set('waluipedia-mass-import.showTags', true);
+  globalThis.Hooks.call('renderActorDirectory', {}, { querySelectorAll: () => lis2, querySelector: () => null });
+  check('…and on (players see chips too, buttons stay GM-only)', lis2[0].decorated?.className === 'wmi-tags');
+
+  // progress: the v13 notification, never the deprecated scene-navigation bar
+  const notes = [];
+  let navCalls = 0;
+  globalThis.SceneNavigation = { displayProgressBar: () => { navCalls++; } };
+  ui.notifications.info = (msg, opts) => { const note = { msg, opts, updates: [], update(u) { this.updates.push(u); } }; notes.push(note); return note; };
+  const many = { actors: Array.from({ length: 6 }, (_, i) => ({ _id: `P${String(i).padStart(15, '0')}`, name: `Pawn ${i}`, type: 'npc', img: 'icons/svg/mystery-man.svg', system: {}, flags: {}, items: [] })) };
+  await mod.importPayload(many, { checkImages: false });
+  check('v1.4: progress uses ui.notifications.info({progress:true}).update with pct 0..1 — SceneNavigation.displayProgressBar is never called', navCalls === 0 && notes.length === 1 && notes[0].opts?.progress === true && notes[0].updates.length === 7 && notes[0].updates.every((u) => u.pct >= 0 && u.pct <= 1) && notes[0].updates.at(-1).pct === 1, JSON.stringify(notes.map((n) => n.updates.length)));
+  ui.notifications.info = (msg) => 1; // v12: info() returns an id, no update()
+  await mod.importPayload(many, { checkImages: false });
+  check('v1.4: on v12 it falls back to the scene-navigation bar', navCalls > 0);
+  delete globalThis.SceneNavigation;
+  ui.notifications.info = () => {};
+  check('v1.4: folderCounts groups the summary rows by folder', JSON.stringify(mod.folderCounts([{ folder: 'B' }, { folder: 'A' }, { folder: 'B' }, { folder: '' }])) === '[["A",1],["B",2],["root",1]]');
+}
+
 // ------------------------------------------- optional: a real world export
 // WMI_EXPORT=/path/to/<world>-all-actors.json node tools/tests/test-mass-import-module.mjs
 if (process.env.WMI_EXPORT) {
@@ -560,6 +702,7 @@ if (process.env.WMI_EXPORT) {
   check(`real export: ${n} actors import without failures`, r1.failed.length === 0 && r1.created.length === n, JSON.stringify(r1.failed.slice(0, 3)));
   check('real export: second import updates everything, creates nothing', r2.created.length === 0 && r2.updated.length === n && game.actors.size === n);
   check('real export: embedded sync is a no-op on an unchanged re-import', r2.updated.every((u) => u.items.created === 0 && u.items.deleted === 0));
+  check('real export: a second import writes nothing at all (every actor unchanged, no actor or item update calls)', r2.unchanged === n && r2.updated.every((u) => u.changed === false) && game.actors.contents.every((a) => a.updates === 0 && !a.embeddedUpdates), `${r2.unchanged}/${n} unchanged; ${r2.updated.filter((u) => u.changed).slice(0, 3).map((u) => u.actor).join(', ')}`);
   check('real export: image check runs over every path without throwing', r3.failed.length === 0);
   console.log(`real export: ${n} actors, ${game.folders.size} folders created, ${r3.missingImages.length} image paths not on the (fake) server, ${Date.now() - t0} ms`);
 }

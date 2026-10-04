@@ -19,6 +19,12 @@
  *            items and effects are synced, so re-importing never duplicates.
  *            Images are HEAD-checked against the server and reported (or
  *            swapped for a placeholder on request). Dry run available.
+ *            Updates are DIFFS (v1.4): an actor or item identical to the
+ *            import is not written at all; dnd5e's activities map and the
+ *            flags get real deletions; item identifiers the system would
+ *            reject ("toad-—-eager-variant") are slugified and reported.
+ *            Folders take the colour the packet carries; actors tagged by the
+ *            suite (flags["waluipedia-sheets"].tags) show chips in the sidebar.
  *
  *   Sync     ONE CLICK: find the newest Waluipedia packet — in the Foundry Data
  *            folder (where tools/sheets-suite.py publishes it), else on the
@@ -57,6 +63,88 @@ const notify = (kind, msg) => {
   else console.log(`[${MODULE_ID}] ${kind}: ${msg}`);
 };
 const escapeHtml = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+
+/* ---------------------------------------------------------- diffs & co */
+
+const isPlain = (v) => v !== null && typeof v === "object" && !Array.isArray(v);
+/** Structural equality for JSON-shaped data (what toObject() gives). */
+export function deepEqual(a, b) {
+  if (a === b) return true;
+  if (typeof a !== typeof b || a === null || b === null || typeof a !== "object") return a !== a && b !== b; // NaN
+  if (Array.isArray(a) !== Array.isArray(b)) return false;
+  if (Array.isArray(a)) return a.length === b.length && a.every((v, i) => deepEqual(v, b[i]));
+  const ka = Object.keys(a).filter((k) => a[k] !== undefined), kb = Object.keys(b).filter((k) => b[k] !== undefined);
+  return ka.length === kb.length && ka.every((k) => k in b && deepEqual(a[k], b[k]));
+}
+/**
+ * Free-form maps, where a key the import does not have means "remove it":
+ * flags (any depth), ownership, dnd5e's activities map (an ActivitiesField —
+ * removing one is `system.activities.-=id`) and an actor's tool proficiencies.
+ * Everything else is schema: keys are only ever set, never deleted.
+ */
+const FREEFORM = /^(flags(\..*)?|ownership|system\.activities|system\.tools)$/;
+/**
+ * Pure: the update that turns `before` (a document's toObject()) into `after`
+ * — nothing when they agree. Nested plain objects recurse, arrays are
+ * compared whole, `_id` never moves, and only FREEFORM maps get `-=key`
+ * deletions. Sending this instead of the whole document (the old
+ * `{diff: false, recursive: false}`) keeps dnd5e's activity bookkeeping quiet:
+ * a full-document update looked like a change to every Cast activity, so the
+ * system deleted and recreated every cached spell on every import — and,
+ * because it notes those ids on the *shared* operation options, every other
+ * item in the batch tried to delete them again ("Item X does not exist!").
+ */
+export function docDiff(before, after, path = "") {
+  const out = {};
+  const b = isPlain(before) ? before : {};
+  const a = isPlain(after) ? after : {};
+  for (const [k, v] of Object.entries(a)) {
+    if (k === "_id" || k.startsWith("-=") || v === undefined) continue;
+    const here = path ? `${path}.${k}` : k;
+    if (isPlain(v) && isPlain(b[k])) {
+      const inner = docDiff(b[k], v, here);
+      if (Object.keys(inner).length) out[k] = inner;
+    } else if (!deepEqual(b[k], v)) out[k] = clone(v);
+  }
+  if (FREEFORM.test(path)) for (const k of Object.keys(b)) if (!(k in a) && !k.startsWith("-=")) out[`-=${k}`] = null;
+  return out;
+}
+
+/** dnd5e accepts identifiers matching this and rejects the whole item otherwise. */
+export const IDENTIFIER = /^[a-z0-9_-]+$/i;
+/** What dnd5e itself would derive from a name: lower-case ASCII, dashes between words. */
+export function slugifyIdentifier(text) {
+  return String(text ?? "").normalize("NFKD").replace(/[\u0300-\u036f]/g, "").toLowerCase()
+    .replace(/['\u2019]/g, "").replace(/[^a-z0-9_]+/g, "-").replace(/-+/g, "-").replace(/^-|-$/g, "");
+}
+/**
+ * Fix, in place, every embedded item identifier the system would refuse
+ * ("toad-—-eager-variant", "disaster-inc.-catastrophe-scout": players' own
+ * exports carry them, and an invalid embedded item is an invisible document
+ * that logs an error on every world load). Returns the repairs made.
+ */
+export function repairIdentifiers(data) {
+  const repairs = [];
+  for (const it of data?.items ?? []) {
+    const sys = it?.system;
+    if (!isPlain(sys)) continue;
+    for (const key of ["identifier", "classIdentifier", "sourceClass"]) {
+      const v = sys[key];
+      if (typeof v !== "string" || !v || IDENTIFIER.test(v)) continue;
+      const to = slugifyIdentifier(v) || slugifyIdentifier(it.name) || "item";
+      sys[key] = to;
+      repairs.push({ item: it.name ?? "?", key, from: v, to });
+    }
+  }
+  return repairs;
+}
+
+/** The suite's tags on an actor (flags["waluipedia-sheets"].tags), as strings. */
+export function tagsOf(actor) {
+  const flags = actor?.flags ?? actor?._source?.flags ?? {};
+  const t = flags?.["waluipedia-sheets"]?.tags;
+  return Array.isArray(t) ? t.map((x) => String(x ?? "").trim()).filter(Boolean) : [];
+}
 
 /** "A / B / C" or "A/B/C" -> ["A", "B", "C"] */
 export function splitPath(text) {
@@ -205,7 +293,17 @@ export function normalizeImport(raw) {
     }
     return { data: a, folderPath };
   });
-  return { meta, folders, entries };
+  // folder colours / descriptions, by path: the module's own export carries
+  // them per folder; the suite's packets add an explicit folderStyles map
+  const folderStyles = {};
+  for (const f of folders) {
+    if (!f || typeof f !== "object") continue;
+    const p = Array.isArray(f.path) ? f.path.map(String) : (byId.has(f._id) ? folderPathOf(f, byId) : null);
+    if (!p?.length || !(f.color || f.description)) continue;
+    folderStyles[p.join(" / ")] = { color: f.color ?? null, description: f.description ?? null };
+  }
+  if (isPlain(raw?.folderStyles)) for (const [k, v] of Object.entries(raw.folderStyles)) if (isPlain(v)) folderStyles[splitPath(k).join(" / ")] = { color: v.color ?? null, description: v.description ?? null };
+  return { meta, folders, entries, folderStyles };
 }
 
 async function fetchJson(source) {
@@ -544,12 +642,18 @@ async function imageExists(path) {
   if (imageCache.has(path)) return imageCache.get(path);
   let ok = false;
   try {
-    const res = await G().fetch(encodeURI(path), { method: "HEAD", cache: "no-store" });
+    // Foundry stores paths already URL-encoded ("npc/MLSS%2BBM_Art.png"):
+    // encode only when the path has no escapes yet, never twice (%252B).
+    const url = /%[0-9A-Fa-f]{2}/.test(path) ? path : encodeURI(path);
+    const res = await G().fetch(url, { method: "HEAD", cache: "no-store" });
     ok = !!res?.ok;
   } catch (err) { ok = false; }
   imageCache.set(path, ok);
   return ok;
 }
+
+/** A wildcard token image ("tokens/guard*.webp", "{a,b}.webp") — one of many files, not HEAD-checkable. */
+export const isWildcardPath = (p) => typeof p === "string" && /[*?{]/.test(p);
 
 export function imagePathsOf(data) {
   const out = [];
@@ -563,6 +667,7 @@ export function imagePathsOf(data) {
 async function checkImages(data, fix, report, label) {
   const missing = [];
   for (const { where, path } of imagePathsOf(data)) {
+    if (isWildcardPath(path)) continue;
     if (await imageExists(path)) continue;
     missing.push({ actor: label, where, path });
     if (!fix) continue;
@@ -574,24 +679,40 @@ async function checkImages(data, fix, report, label) {
   return missing;
 }
 
-/** Create the folder chain for `path`, reusing existing folders by name. */
-export async function ensureFolderPath(path, { cache, dryRun, report }) {
+/**
+ * Create the folder chain for `path`, reusing existing folders by name. With
+ * `styles` ({"A / B": {color, description}}) a new folder is born in its
+ * colour and an existing folder that has none is painted (`restyle`).
+ */
+export async function ensureFolderPath(path, { cache, dryRun, report, styles = null, restyle = true }) {
   const game = G().game, Folder = G().Folder;
   let parentId = null;
   for (let i = 0; i < path.length; i++) {
     const key = path.slice(0, i + 1).join(" / ");
     if (cache.has(key)) { parentId = cache.get(key); continue; }
     const name = path[i];
+    const style = styles?.[key] ?? null;
     const all = game.folders.contents ?? [...game.folders.values()];
     const existing = all.find((f) => f.type === "Actor" && f.name === name
       && ((f.folder?.id ?? f.folder?._id ?? f.folder ?? null) === parentId));
     let id;
-    if (existing) id = existing.id ?? existing._id;
+    if (existing) {
+      id = existing.id ?? existing._id;
+      const current = existing.color?.css ?? (typeof existing.color === "string" ? existing.color : null);
+      if (restyle && style?.color && !current && !dryRun && typeof existing.update === "function") {
+        try { await existing.update({ color: style.color }); report.foldersStyled?.push(key); }
+        catch (err) { console.warn(`[${MODULE_ID}] folder colour ${key}:`, err); }
+      }
+    }
     else if (dryRun) { id = `dry:${key}`; report.foldersCreated.push(key); }
     else {
-      const created = await Folder.create({ name, type: "Actor", folder: parentId, sorting: "a" });
+      const data = { name, type: "Actor", folder: parentId, sorting: "a" };
+      if (style?.color) data.color = style.color;
+      if (style?.description) data.description = style.description;
+      const created = await Folder.create(data);
       id = created.id ?? created._id;
       report.foldersCreated.push(key);
+      if (style?.color) report.foldersStyled?.push(key);
     }
     cache.set(key, id);
     parentId = id;
@@ -624,17 +745,50 @@ function findExisting(data, folderId, o, batchIds = new Set()) {
   return candidates.find((a) => sameFolder(a, folderId)) ?? candidates[0];
 }
 
+/** The item a dnd5e cached spell belongs to (flags.dnd5e.cachedFor = ".Item.<id>.Activity.<id>"). */
+const cachedSpellOwner = (obj) => {
+  const cf = obj?.flags?.dnd5e?.cachedFor;
+  const m = typeof cf === "string" ? cf.match(/\.Item\.([A-Za-z0-9]{16})\.Activity\./) : null;
+  return m ? m[1] : null;
+};
+
+/**
+ * Bring an actor's embedded collection to what the import has: delete what it
+ * lacks (with `replace`), update only documents that differ — and only the
+ * fields that differ (docDiff) — then create the rest with their ids.
+ *  - Cached spells of a Cast item that is itself being deleted are left to
+ *    dnd5e: Item5e#_onDelete removes them (without awaiting), and deleting
+ *    them here as well is the "Item X does not exist!" race.
+ *  - An item whose activities change is updated in a call of its own: dnd5e
+ *    keeps the cached-spell ids it must remove on the shared batch options,
+ *    so two such items in one call would trip over each other.
+ */
 async function syncEmbedded(actor, collection, docName, incoming, replace) {
-  const existing = actor[collection]?.contents ?? [...(actor[collection]?.values?.() ?? [])];
-  const existingIds = new Set(existing.map((d) => d.id ?? d._id));
+  const coll = actor[collection];
+  const docs = coll?.contents ?? [...(coll?.values?.() ?? [])];
+  const existing = new Map(docs.map((d) => [d.id ?? d._id, d.toObject ? d.toObject() : clone(d)]));
   const incomingIds = new Set(incoming.filter((d) => d._id).map((d) => d._id));
-  const toDelete = replace ? existing.map((d) => d.id ?? d._id).filter((id) => !incomingIds.has(id)) : [];
-  const toUpdate = incoming.filter((d) => d._id && existingIds.has(d._id));
-  const toCreate = incoming.filter((d) => !d._id || !existingIds.has(d._id));
-  if (toDelete.length) await actor.deleteEmbeddedDocuments(docName, toDelete);
-  if (toUpdate.length) await actor.updateEmbeddedDocuments(docName, toUpdate, { diff: false, recursive: false });
-  if (toCreate.length) await actor.createEmbeddedDocuments(docName, toCreate, { keepId: true });
-  return { deleted: toDelete.length, updated: toUpdate.length, created: toCreate.length };
+  const stats = { deleted: 0, updated: 0, created: 0, unchanged: 0 };
+  const going = new Set(replace ? [...existing.keys()].filter((id) => !incomingIds.has(id)) : []);
+  const toDelete = [...going].filter((id) => { const owner = cachedSpellOwner(existing.get(id)); return !(owner && going.has(owner)); });
+  const batch = [], solo = [];
+  for (const d of incoming) {
+    if (!d._id || !existing.has(d._id)) continue;
+    const diff = docDiff(existing.get(d._id), d);
+    if (!Object.keys(diff).length) { stats.unchanged++; continue; }
+    (isPlain(diff.system) && "activities" in diff.system ? solo : batch).push({ _id: d._id, ...diff });
+  }
+  const toCreate = incoming.filter((d) => !d._id || !existing.has(d._id));
+  if (toDelete.length) {
+    const live = toDelete.filter((id) => (typeof coll?.has === "function" ? coll.has(id) : true));
+    if (live.length) await actor.deleteEmbeddedDocuments(docName, live);
+    stats.deleted = live.length;
+  }
+  if (batch.length) await actor.updateEmbeddedDocuments(docName, batch);
+  for (const one of solo) await actor.updateEmbeddedDocuments(docName, [one]);
+  stats.updated = batch.length + solo.length;
+  if (toCreate.length) { await actor.createEmbeddedDocuments(docName, toCreate, { keepId: true }); stats.created = toCreate.length; }
+  return stats;
 }
 
 function mergeFlags(existingFlags, incomingFlags) {
@@ -657,13 +811,31 @@ const DEFAULTS = {
   overwriteOwnership: false, // keep the world's ownership on updates
   replaceEmbedded: true,     // delete items/effects that the import no longer has
   replaceOnTypeChange: true, // same id, different type (npc -> character): delete + recreate under the same id
+  colorFolders: true,        // paint new folders (and colourless existing ones) in the packet's colours
+  repairIdentifiers: true,   // slugify item identifiers dnd5e would reject (reported)
   progress: true,
 };
 
+let progressNote = null;
+/** v13+: a progress notification (ui.notifications.info(…, {progress: true}).update); v12: the scene-navigation bar. */
 function progress(label, pct) {
   const g = G();
-  const nav = g.SceneNavigation ?? g.foundry?.applications?.ui?.SceneNavigation;
-  try { nav?.displayProgressBar?.({ label, pct: Math.round(pct) }); } catch (err) { /* cosmetic */ }
+  const n = g.ui?.notifications;
+  try {
+    if (typeof n?.info === "function") {
+      if (!progressNote || (progressNote.done && pct < 100)) {
+        const note = n.info(label, { progress: true, console: false });
+        progressNote = (note && typeof note.update === "function") ? note : null;
+      }
+      if (progressNote) {
+        progressNote.update({ pct: Math.max(0, Math.min(1, pct / 100)), message: label });
+        if (pct >= 100) progressNote.done = true;
+        return;
+      }
+    }
+    const nav = g.SceneNavigation ?? g.foundry?.applications?.ui?.SceneNavigation;
+    nav?.displayProgressBar?.({ label, pct: Math.round(pct) });
+  } catch (err) { /* cosmetic */ }
 }
 
 /**
@@ -673,8 +845,8 @@ function progress(label, pct) {
 export async function importPayload(raw, options = {}) {
   const o = { ...DEFAULTS, ...options };
   const Actor = G().Actor;
-  const { entries, meta } = normalizeImport(raw);
-  const report = { created: [], updated: [], replaced: [], skipped: [], failed: [], foldersCreated: [], missingImages: [], dryRun: o.dryRun, meta };
+  const { entries, meta, folderStyles } = normalizeImport(raw);
+  const report = { created: [], updated: [], replaced: [], skipped: [], failed: [], foldersCreated: [], foldersStyled: [], missingImages: [], repaired: [], unchanged: 0, dryRun: o.dryRun, meta };
   const folderCache = new Map();
   const prefix = splitPath(o.rootFolder);
   const batchIds = new Set(entries.map((e) => e.data?._id).filter(Boolean));
@@ -687,12 +859,13 @@ export async function importPayload(raw, options = {}) {
     const label = `${data.name} [${data.type}]`;
     try {
       if (o.skipPlayerCharacters && data.type === "character") { report.skipped.push({ actor: label, reason: "player character" }); continue; }
+      if (o.repairIdentifiers) { const fixes = repairIdentifiers(data); if (fixes.length) report.repaired.push({ actor: label, repairs: fixes }); }
       // folderPath null = the file only has a folder id we cannot name (old macro
       // export). Existing actors then keep their folder; new ones go into that
       // folder if this world has it (same-world re-import), else the root/prefix.
       const known = Array.isArray(entry.folderPath);
       const path = known ? [...prefix, ...entry.folderPath] : [...prefix];
-      let folderId = path.length ? await ensureFolderPath(path, { cache: folderCache, dryRun: o.dryRun, report }) : null;
+      let folderId = path.length ? await ensureFolderPath(path, { cache: folderCache, dryRun: o.dryRun, report, styles: folderStyles, restyle: o.colorFolders }) : null;
       const hintId = typeof data.folder === "string" ? data.folder : (data.folder?.id ?? null);
       if (!known && !path.length && hintId && game.folders?.get?.(hintId)) folderId = hintId;
       const existing = findExisting(data, folderId, o, batchIds);
@@ -725,14 +898,18 @@ export async function importPayload(raw, options = {}) {
 
       if (existing) {
         if (!o.dryRun) {
-          const { _id, items = [], effects = [], _stats, ownership, folder, ...rest } = data;
-          const update = { ...rest, flags: mergeFlags(existing.flags, rest.flags) };
-          if (known || path.length) update.folder = folderId;
-          if (o.overwriteOwnership && ownership) update.ownership = ownership;
-          await existing.update(update, { diff: false, recursive: false });
+          const { _id, items = [], effects = [], _stats, ownership, folder, type, ...rest } = data;
+          const want = { ...rest, flags: mergeFlags(existing.flags, rest.flags) };
+          if (o.overwriteOwnership && ownership) want.ownership = ownership;
+          // only what differs: an untouched actor is not written at all
+          const update = docDiff(existing.toObject ? existing.toObject() : existing, want);
+          if ((known || path.length) && !sameFolder(existing, folderId)) update.folder = folderId;
+          if (Object.keys(update).length) await existing.update(update);
           const items_ = await syncEmbedded(existing, "items", "Item", items, o.replaceEmbedded);
           const effects_ = await syncEmbedded(existing, "effects", "ActiveEffect", effects, o.replaceEmbedded);
-          report.updated.push({ actor: label, id: existing.id ?? existing._id, folder: folderLabel, items: items_, effects: effects_ });
+          const changed = Object.keys(update).length > 0 || [items_, effects_].some((s) => s.deleted || s.updated || s.created);
+          if (!changed) report.unchanged++;
+          report.updated.push({ actor: label, id: existing.id ?? existing._id, folder: folderLabel, items: items_, effects: effects_, changed });
         } else report.updated.push({ actor: label, id: existing.id ?? existing._id, folder: folderLabel });
       } else {
         const createData = { ...data, folder: folderId };
@@ -764,8 +941,12 @@ export function summarize(report) {
   if (report.skipped.length) parts.push(`${report.skipped.length} skipped`);
   if (report.failed.length) parts.push(`${report.failed.length} FAILED`);
   if (report.foldersCreated.length) parts.push(`${report.foldersCreated.length} folders`);
+  if (report.foldersStyled?.length) parts.push(`${report.foldersStyled.length} coloured`);
+  if (report.repaired?.length) parts.push(`${report.repaired.reduce((n, r) => n + r.repairs.length, 0)} identifiers repaired`);
   if (report.missingImages.length) parts.push(`${report.missingImages.length} missing images`);
-  return (report.dryRun ? "DRY RUN — " : "") + parts.join(", ");
+  let text = parts.join(", ");
+  if (report.unchanged) text += ` (${report.unchanged} unchanged)`;
+  return (report.dryRun ? "DRY RUN — " : "") + text;
 }
 
 function announce(report) {
@@ -943,8 +1124,24 @@ export function reportHtml(report) {
     <details><summary>Updated (${report.updated.length})</summary>${li(report.updated, (r) => `${escapeHtml(r.actor)} → ${escapeHtml(r.folder || "root")}`)}</details>
     <details ${report.replaced?.length ? "open" : ""}><summary>Replaced — same id, new type (${report.replaced?.length ?? 0})</summary>${li(report.replaced ?? [], (r) => `${escapeHtml(r.actor)} · ${escapeHtml(r.from)} → ${escapeHtml(r.to)} → ${escapeHtml(r.folder || "root")}`)}</details>
     <details><summary>Skipped (${report.skipped.length})</summary>${li(report.skipped, (r) => `${escapeHtml(r.actor)} — ${escapeHtml(r.reason)}`)}</details>
+    ${repairedHtml(report)}
     <details><summary>Folders created (${report.foldersCreated.length})</summary>${li(report.foldersCreated, (r) => escapeHtml(r))}</details>
   </div>`;
+}
+
+/** Identifiers slugified on the way in — the item is now valid and visible on the sheet. */
+export function repairedHtml(report) {
+  const rows = report.repaired ?? [];
+  if (!rows.length) return "";
+  const n = rows.reduce((t, r) => t + r.repairs.length, 0);
+  return `<details open><summary>Repaired identifiers (${n})</summary><ul>${rows.map((r) => r.repairs.map((x) => `<li>${escapeHtml(r.actor)} · ${escapeHtml(x.item)} · <code>${escapeHtml(x.key)}</code> <s>${escapeHtml(x.from)}</s> → <code>${escapeHtml(x.to)}</code></li>`).join("")).join("")}</ul><p class="notes">dnd5e refuses an item whose identifier is not letters, digits, - or _; the players' exports carried these, which is why those items were invisible on the sheets and errored on every world load.</p></details>`;
+}
+
+/** The Actors sidebar after a sync: folder → how many of the imported actors live there. */
+export function folderCounts(rows) {
+  const counts = new Map();
+  for (const r of rows ?? []) counts.set(r.folder || "root", (counts.get(r.folder || "root") ?? 0) + 1);
+  return [...counts.entries()].sort((a, b) => a[0].localeCompare(b[0]));
 }
 
 async function showHtml(title, content, width = 600) {
@@ -1111,8 +1308,9 @@ export function syncSummaryHtml(report) {
     <details ${fresh.length ? "open" : ""}><summary>New (${fresh.length})</summary>${li(fresh, row)}</details>
     <details><summary>Unchanged (${same.length})</summary>${li(same, (r) => `<li>${escapeHtml(r.name)}</li>`)}</details>
     <details ${report.failed.length ? "open" : ""}><summary>Failed (${report.failed.length})</summary>${li(report.failed, (r) => `<li>${escapeHtml(r.actor)} — ${escapeHtml(r.error)}</li>`)}</details>
-    <details ${report.missingImages.length ? "open" : ""}><summary>Missing images (${report.missingImages.length})</summary>${li(report.missingImages, (r) => `<li>${escapeHtml(r.actor)} · ${escapeHtml(r.where)} · <code>${escapeHtml(r.path)}</code></li>`)}</details>
-    <details><summary>Folders created (${report.foldersCreated.length})</summary>${li(report.foldersCreated, (r) => `<li>${escapeHtml(r)}</li>`)}</details>
+    ${repairedHtml(report)}
+    <details ${report.missingImages.length ? "open" : ""}><summary>Missing images (${report.missingImages.length})</summary>${li(report.missingImages, (r) => `<li>${escapeHtml(r.actor)} · ${escapeHtml(r.where)} · <code>${escapeHtml(r.path)}</code></li>`)}<p class="notes">Paths the server answered 404 for. Bare file names and <code>modules/…</code> paths come from someone else's Data folder; set the portrait on the sheet or tick <i>fix missing images</i> in Mass import.</p></details>
+    <details><summary>Folders (${folderCounts(rows).length}${report.foldersCreated.length ? `, ${report.foldersCreated.length} new` : ""}${report.foldersStyled?.length ? `, ${report.foldersStyled.length} coloured` : ""})</summary><ul>${folderCounts(rows).map(([f, n]) => `<li>${escapeHtml(f)} <small>${n}</small>${report.foldersCreated.includes(f) ? " <small>(new)</small>" : ""}</li>`).join("")}</ul></details>
     <details><summary>Where it looked</summary><ul>${tried}</ul></details>
   </div>`;
 }
@@ -1206,8 +1404,43 @@ export function injectButtons(root) {
   return true;
 }
 
+/**
+ * Tag chips in the Actors sidebar: flags["waluipedia-sheets"].tags (the suite's
+ * organizer writes them — the website group, pc/npc, role, creature type, …),
+ * tinted with flags["waluipedia-sheets"].color when the actor has one.
+ */
+export function decorateDirectory(root, actors, { max = 3 } = {}) {
+  if (!root?.querySelectorAll || !actors) return 0;
+  let n = 0;
+  const get = (id) => (typeof actors.get === "function" ? actors.get(id) : null);
+  for (const li of root.querySelectorAll("li.directory-item")) {
+    if (li.classList.contains("folder") || li.querySelector(".wmi-tags")) continue;
+    const id = li.dataset?.entryId ?? li.dataset?.documentId ?? li.getAttribute?.("data-entry-id") ?? li.getAttribute?.("data-document-id");
+    const actor = id ? get(id) : null;
+    const tags = tagsOf(actor);
+    if (!tags.length) continue;
+    const doc = li.ownerDocument ?? G().document;
+    const wrap = doc.createElement("span");
+    wrap.className = "wmi-tags";
+    wrap.title = tags.join(" · ");
+    const color = actor?.flags?.["waluipedia-sheets"]?.color;
+    if (typeof color === "string" && /^#[0-9a-f]{6}$/i.test(color)) wrap.style.setProperty("--wmi-tag", color);
+    for (const t of tags.slice(0, max)) {
+      const chip = doc.createElement("span");
+      chip.className = "wmi-tag";
+      chip.textContent = t;
+      wrap.appendChild(chip);
+    }
+    if (tags.length > max) { const more = doc.createElement("span"); more.className = "wmi-tag wmi-more"; more.textContent = `+${tags.length - max}`; wrap.appendChild(more); }
+    (li.querySelector(".entry-name, .document-name, h4") ?? li).appendChild(wrap);
+    n++;
+  }
+  return n;
+}
+
 export const api = {
   MODULE_ID, FORMAT, RAW_BASE, KNOWN_PACKETS, packetUrl,
+  docDiff, deepEqual, repairIdentifiers, slugifyIdentifier, tagsOf, decorateDirectory, folderCounts,
   exportAllActors, exportToDataFolder, exportTree, openExportDialog, buildExportPayload,
   importPayload, importFile, importFromUrl, importFromDataPath, openImportDialog,
   loadSource, loadSourceDetailed, loadDataPath, assembleDirectory, walkData, browseData, pickDataPath,
@@ -1233,6 +1466,7 @@ export function register() {
       reg("syncLauncher", "Sync: launcher URL", "The start.py static server — tried when the Data folder has no packet.", { type: String, default: SYNC_DEFAULTS.launcher });
       reg("syncBranch", "Sync: GitHub branch", "Last resort: the committed world manifest and actor files on this branch of mikegent01/bik.", { type: String, default: SYNC_DEFAULTS.branch });
       reg("syncReview", "Sync: review first", "Show the review table before every sync (shift-click the button does it once).", { type: Boolean, default: SYNC_DEFAULTS.review });
+      g.game.settings.register(MODULE_ID, "showTags", { name: "Tag chips in the Actors sidebar", hint: "Show the Waluipedia tags (website group, pc/npc, role, creature type) next to each actor's name.", scope: "client", config: true, type: Boolean, default: true });
     } catch (err) { console.warn(`[${MODULE_ID}] settings`, err); }
   });
   g.Hooks.once("ready", () => {
@@ -1242,8 +1476,11 @@ export function register() {
     console.log(`[${MODULE_ID}] ready — game.modules.get("${MODULE_ID}").api`);
   });
   g.Hooks.on("renderActorDirectory", (app, html) => {
-    if (!g.game?.user?.isGM) return;
     const root = (typeof g.HTMLElement === "function" && html instanceof g.HTMLElement) ? html : (html?.[0] ?? html);
+    let showTags = true;
+    try { showTags = g.game.settings.get(MODULE_ID, "showTags") !== false; } catch (err) { showTags = true; }
+    if (showTags) { try { decorateDirectory(root, g.game?.actors); } catch (err) { console.warn(`[${MODULE_ID}] tags`, err); } }
+    if (!g.game?.user?.isGM) return;
     injectButtons(root);
   });
 }
