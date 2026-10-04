@@ -144,11 +144,11 @@ whole of it (nine sheets pinned, two already matched).
 - **Hjumpik's level-up is the player's.** The sheet has 25,342 XP and
   Fighter 6; level 7 (and the subclass/feature choices) must be taken in
   Foundry. The tool warns on every pass until it is.
-- **The GM imports.** Nothing reaches the live world until *Mass import →
-  URL* runs against `players-import.json` (the review table shows Bowser,
-  Wario and Salam as `replace (npc → character)`); Bowser's player then
-  needs *Owner* on the replaced actor's permissions if the GM's statblock
-  had none.
+- **The GM imports.** Nothing reaches the live world until the GM presses
+  **Sync** in Foundry (see the addendum — it replaced *Mass import → URL*;
+  Bowser, Wario and Salam show as `replaced`); Bowser's player then needs
+  *Owner* on the replaced actor's permissions if the GM's statblock had
+  none.
 - **Wario Barbarian 6 and Bowser's build are the intake sheets' guesses**,
   recorded as such in `actors/README.md`; if the players disagree, their
   edits in Foundry win on the next export — the promoter never overwrites a
@@ -158,3 +158,56 @@ whole of it (nine sheets pinned, two already matched).
 - **Green T** is off-ledger and stays that way until the GM says otherwise.
 - `docs/legacy/reputation-matrix2/shadeward.txt` (uploaded alongside the
   export) was not used by this run.
+
+## 7. Addendum — the first import on the GM's machine (same day, later)
+
+### What happened
+
+The GM pasted the URL of `data/sheets.json` into *Mass import → URL* and got
+an uncaught promise (`Not an actor export…` thrown inside
+`normalizeImport`); the files in the checkout "were not being edited" and
+"the actual folder was untouched". Three things were true at once:
+
+1. `sheets.json` is the site's sheet *index*, not a packet. The module was
+   right to refuse it, wrong to do so with an uncaught error and no pointer
+   to the right file (`players-import.json`).
+2. The suite had only ever written the **repo**. Nothing it made was in
+   `C:\Users\mikeg\AppData\Local\FoundryVTT\Data`, where Foundry reads
+   `img` paths and where a packet can be read without a URL.
+3. An earlier import with the 1.0.0 module put every NPC at the root —
+   entries without `flags.waluipedia-mass-import.folderPath` go to the root,
+   and that module did not read directories as folders.
+
+Also found: the GM's own commit `e6d3cf2` had regenerated `data/sheets.json`
+on Windows with backslash paths (`actors\worlds\midlands\…`) — the builder
+used `os.path.relpath` without normalising, and `check-sheets.py` accepted
+them.
+
+### What was done
+
+| Piece | Commit | Detail |
+| --- | --- | --- |
+| Windows paths | `faae437` | builder emits `/` always; `check-sheets.py` fails on a backslash; `data/sheets.json` regenerated; every ledgered player sheet carries `flags.waluipedia-sheets.ledger = {xpKey, xp, level}` so the module can show the level-up hint |
+| Suite publishes into Foundry Data | `c858e75`, `0110a17` | `find_foundry_data()` (flag → `WALUIPEDIA_FOUNDRY_DATA` → `FOUNDRY_VTT_DATA_PATH` → `Config/options.json` → OS default); `step_publish` copies the packets to `npc/waluipedia/<world>/` (+ `packets.json` with the stamps), the cast packet to `npc/waluipedia/cast/`, the module to `modules/waluipedia-mass-import/` (identical to the checkout) and the 185 repo-held images the sheets reference to `portraits/` and `assets/…` (copies — symlinks need admin on Windows). `start.py --foundry-data`, a pref and a GUI entry. 20 tests |
+| Module 1.3.0 — one-click **Sync** | `5b808ba` | Actors sidebar → *Sync*: Data folder → launcher → GitHub (manifest + `Players/*.json`), first that answers; folders from `folderPath`; create / update by id / replace on type change; summary dialog + GM whisper with per-actor XP, class line, ± items, folder moves, *Level up at the table*; help dialog with the three URLs when nothing answers; `sheets.json` / `manifest.json` refused with a message; import errors caught. 123 module tests |
+
+### What the GM does now
+
+1. `git pull` on the branch (or merge PR #89), then `python3 start.py` — the
+   suite's pass prints `publish : C:\Users\mikeg\AppData\Local\FoundryVTT\Data (found) — …`,
+   `module : waluipedia-mass-import 1.0.0 -> 1.3.0 installed … reload Foundry (F5)`
+   and `images : install-images: 185 copied …`. If it prints `not found`,
+   give the folder once: `python3 start.py --foundry-data "C:\Users\mikeg\AppData\Local\FoundryVTT\Data"`
+   (remembered).
+2. In Foundry: F5, **Game Settings → Manage Modules** → tick *Waluipedia
+   Mass Import / Export* (once), then **Actors → Sync**. Read the summary.
+3. Hjumpik's player takes level 7.
+
+### Not done
+
+- The gh-pages zip and the GitHub fallback serve the *merged* branch; until
+  PR #89 merges, the module on the GM's machine comes from the suite's
+  publish step, and Sync's third route (GitHub) finds the older sheets.
+- The NPCs already sitting at the root of the GM's world are not moved by
+  a `players` sync; a `world` sync (Module Settings → *Sync: what* → world)
+  moves every actor the export knows into its folder.

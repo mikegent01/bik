@@ -143,11 +143,48 @@ covers the mirror's export → `apply --write`; a later export already carries
 the table's version of those items), **check**, **build**
 (`build-character-sheets.py`), **combine** (`worlds/<world>/import.json` and
 `worlds/<world>/players-import.json` — the Players folder only — both
-git-ignored build artefacts) and **verify** (`check-sheets.py`,
-`promote-player-sheets.py --check`). It ends by printing the URLs: the
-sheets page and the packet to paste into **Mass import → URL**
+git-ignored build artefacts), **publish** (below) and **verify**
+(`check-sheets.py`, `promote-player-sheets.py --check`). It ends by printing
+the URLs: the sheets page and the packet to paste into **Mass import → URL**
 (`http://127.0.0.1:8765/Reputation-Matrix2/actors/worlds/midlands/players-import.json`;
-`start.py` sends `Access-Control-Allow-Origin: *` so Foundry can fetch it).
+`start.py` sends `Access-Control-Allow-Origin: *` so Foundry can fetch it) —
+though with the publish step and the module's **Sync** button no URL is
+needed any more.
+
+#### Publish: the suite writes into your Foundry Data folder
+
+Everything above only touched the checkout; Foundry never saw a thing until
+a URL was pasted — and the wrong URL (`data/sheets.json`, the site's sheet
+*index*) gave an uncaught error. Now every pass also **publishes**:
+
+| What | Where in `<FoundryVTT>/Data` | Why |
+| --- | --- | --- |
+| `players-import.json`, `import.json`, `manifest.json`, `packets.json` (stamps + the other places the same packet lives) | `npc/waluipedia/<world>/` | the module's **Sync** button reads this first — same origin, no URL, no CORS |
+| `cast/import.json` (+ `packets.json`) | `npc/waluipedia/cast/` | Sync's `cast` scope offline |
+| the Mass Import module, kept identical to `Reputation-Matrix2/Foundry/mass_import/` | `modules/waluipedia-mass-import/` | the published zip on gh-pages lags until the branch merges; this is always the version in the checkout — reload Foundry (F5) when the pass says so, enable it once under *Manage Modules* |
+| every image the sheets reference (`portraits/*`, `assets/images/**`, …) that lives in the repo | `portraits/`, `assets/…` (same relative paths) | Foundry serves `img` paths from Data; a path that is not there is a broken token. Copies, not symlinks (symlinks need admin / developer mode on Windows). dnd5e/core icon paths are left alone |
+
+The Data folder is **found automatically**: `--foundry-data DIR` (also
+`start.py --foundry-data DIR`, or the entry in the launcher window),
+`WALUIPEDIA_FOUNDRY_DATA`, Foundry's own `FOUNDRY_VTT_DATA_PATH` (the folder
+above `Data`), the `dataPath` in `Config/options.json`, then the OS default
+(`%LOCALAPPDATA%\FoundryVTT\Data` on Windows, `~/.local/share/FoundryVTT/Data`
+on Linux, `~/Library/Application Support/FoundryVTT/Data` on macOS). A path
+that has no `worlds/ systems/ modules/` inside is reported, never written
+to. Not found → the pass says so and Sync in Foundry falls back to the
+launcher URL, then GitHub. `--no-publish`, `--no-module-install`,
+`--no-images` switch the parts off; `--check` only reports what it would
+copy.
+
+Then in Foundry: **Actors sidebar → Sync** (module ≥ 1.3). It finds the
+packet (Data → launcher → GitHub), rebuilds the folders from each actor's
+`folderPath` (no more "all NPCs at the root" — that happened when actors were
+imported without the flag), creates what is missing, updates the rest in
+place by id, replaces an NPC statblock with the character sheet under the
+same id when the type changed, and shows a summary: replaced / changed / new
+/ unchanged, per actor the XP change, class line, items gained or lost,
+folder moves, a *Level up at the table* banner when the ledger is ahead of
+the sheet, and where it looked. Shift-click for the review table first.
 
 Under `--watch` a pass that blows up is reported like a failed step and the
 watcher stays up for the next export. On Windows a piped stdout is cp1252,

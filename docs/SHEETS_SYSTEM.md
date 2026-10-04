@@ -290,19 +290,40 @@ to `tech_grove_electric_sphere`, mechanics unestablished) and Feyward Dan's
 Table).
 
 `tools/sheets-suite.py` runs the whole loop — intake, split, promote,
-changes, check, build, combine, verify — once, under `--watch` (what
-`start.py`'s **Character sheets** tick starts; it re-runs when an export,
-`Players.json` or a changes file changes) or as `--check` (read-only, run by
-`tools/check-all.py`). The packets it combines
+changes, check, build, combine, publish, verify — once, under `--watch`
+(what `start.py`'s **Character sheets** tick starts; it re-runs when an
+export, `Players.json` or a changes file changes) or as `--check`
+(read-only, run by `tools/check-all.py`). The packets it combines
 (`worlds/<world>/import.json`, `worlds/<world>/players-import.json`) are
 git-ignored and served by `start.py` with `Access-Control-Allow-Origin: *`
 for **Mass import → URL**. `tools/tests/test-sheets-suite.py` is the proof.
 
-The GM's side of the loop, in Foundry, after a pass: *Mass import → URL*
-`http://127.0.0.1:8765/Reputation-Matrix2/actors/worlds/midlands/players-import.json`,
-review table (Bowser / Wario / Salam show as `replace (npc → character)`),
-import; then the level-ups the XP now allows (Hjumpik 6 → 7) are the
-players' to take.
+**Publish** is the step that reaches Foundry without a URL. The suite finds
+the Foundry Data folder (`--foundry-data`, `WALUIPEDIA_FOUNDRY_DATA`,
+`FOUNDRY_VTT_DATA_PATH`, `Config/options.json`'s `dataPath`, the OS default
+— `%LOCALAPPDATA%\FoundryVTT\Data` on Windows) and writes three things
+there: the packets (`npc/waluipedia/<world>/players-import.json`,
+`import.json`, `manifest.json`, `packets.json` with the stamps; the cast
+packet under `npc/waluipedia/cast/`), the Mass Import module itself
+(`modules/waluipedia-mass-import/`, kept identical to the checkout — the
+gh-pages zip lags until the branch merges), and every repo-held image the
+sheets reference, copied to the same relative paths (`portraits/…`,
+`assets/images/…`) because Foundry serves `img` from Data and nowhere else.
+Copies, not symlinks (Windows). Nothing in the repo moves.
+
+The GM's side, in Foundry, is now **one click: Actors sidebar → Sync**
+(module 1.3). It looks in the Data folder first, then the launcher URL
+(`http://127.0.0.1:8765/Reputation-Matrix2/actors/worlds/midlands/players-import.json`),
+then GitHub (the committed `manifest.json` + `Players/*.json` on
+`gh-pages`), takes the first that answers, rebuilds the folders from each
+actor's `folderPath`, creates / updates in place / replaces by type
+(Bowser / Wario / Salam: `npc → character`, same id, ownership kept) and
+ends with a summary — replaced, changed, new, unchanged; per actor the XP
+change, class line, `+ The Electric Sphere`, folder moves; a *Level up at
+the table* line when the ledger is ahead (Hjumpik 6 → 7 is the players'
+to take) — whispered to the GMs in chat as well. Shift-click = review table
+first. A wrong file given to *Mass import* (the site's `sheets.json`, a
+`manifest.json`) is refused with a message naming the right one.
 
 ## Decisions
 
