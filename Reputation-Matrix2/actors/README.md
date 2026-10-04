@@ -124,8 +124,9 @@ docstring at the top of the bridge. The 955 packet below ships its
 [`worlds/midlands/`](worlds/README.md) from `midlands-all-actors.json`.
 
 The rest of the cast — every character article without a real export —
-lives in [`cast/`](cast/README.md): 152 NPC sheets generated from the
-articles by `tools/build-character-sheets.py`, with their own `import.json`
+lives in [`cast/`](cast/README.md): 152 sheets generated from the articles
+by `tools/build-character-sheets.py` — 118 NPC stat blocks and 34
+player-character sheets for the hand-authored main cast — with their own `import.json`
 (folders *Waluipedia Cast / <group>*). The site renders all of these at
 `#/sheets`; only Disaster Inc. sheets are public there, the rest need debug
 mode — see [`docs/SHEETS_SYSTEM.md`](../../docs/SHEETS_SYSTEM.md).

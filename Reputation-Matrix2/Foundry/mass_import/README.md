@@ -20,7 +20,7 @@ The repo ships ready-made packets. In the Import dialog they are in the
 
 | Packet | File in the repo | Raw URL (paste into *URL / Data path*) |
 | --- | --- | --- |
-| **Waluipedia Cast** — every generated character sheet (152 NPCs, folders *Waluipedia Cast / <group>*) | `Reputation-Matrix2/actors/cast/import.json` | `https://raw.githubusercontent.com/mikegent01/bik/gh-pages/Reputation-Matrix2/actors/cast/import.json` |
+| **Waluipedia Cast** — every generated character sheet (152: 118 NPCs and 34 main-cast player characters, folders *Waluipedia Cast / <group>*) | `Reputation-Matrix2/actors/cast/import.json` | `https://raw.githubusercontent.com/mikegent01/bik/gh-pages/Reputation-Matrix2/actors/cast/import.json` |
 | **Peach's Castle 955 BF** — the court + Bowser's incursion (30) | `Reputation-Matrix2/actors/peachs-castle-955/import.json` | `https://raw.githubusercontent.com/mikegent01/bik/gh-pages/Reputation-Matrix2/actors/peachs-castle-955/import.json` |
 | **Your live world** (`midlands`) — split one file per actor | `Reputation-Matrix2/actors/worlds/midlands/` (a directory, no single file) | import it **as a directory**: link the repo into Data with `python3 tools/foundry-studio.py link` and give the dialog `npc/waluipedia/actors/worlds/midlands` |
 | One character | any `fvtt-Actor-*.json` — also the *Download Foundry JSON* button on `#/sheets/<id>` | the sheet page prints its own *Mass Import URL* |

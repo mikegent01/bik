@@ -104,6 +104,9 @@ I.update({
     "cannon": "icons/weapons/artillery/cannon-engraved.webp",
     "whip": "icons/weapons/misc/whip-red-yellow.webp",
     "scimitar": "icons/weapons/swords/scimitar-worn-blue.webp",
+    # player-character sheets: class, species and background items
+    "upgrade": "icons/skills/melee/weapons-crossed-swords-white-blue.webp",
+    "species": "icons/environment/people/group.webp",
 })
 
 ABILITY_KEYS = ("str", "dex", "con", "int", "wis", "cha")
@@ -1006,6 +1009,77 @@ BESPOKE = {
 }
 
 
+# ------------------------------------------ the bespoke cast play as PCs
+#
+# A player may sit down as any of the main cast, so every hand-authored
+# sheet is a dnd5e *character* (class, species and background items, hit
+# points by hit die, proficiency by level) rather than an npc stat block.
+# The level is the XP ledger's level; where the ledger has no entry the
+# sheet's authored CR stands in (rounded up, never below 1).
+#
+#   id: (class, subclass, hit die, spell progression, casting ability,
+#        species item name, background item name)
+#
+# Subclasses only materialise at level 3 (the 2024 rule) — a level 2 entry
+# keeps its choice here for the day the ledger catches up.
+PC_BUILD = {
+    "asgore": ("Paladin", "Oath of Devotion", 10, "half", "cha", "Boss Monster", "Noble"),
+    "bones": ("Rogue", "Assassin", 8, "none", "", "Unknown (humanoid)", "Criminal"),
+    "bryan": ("Cleric", "War Domain", 8, "full", "wis", "Toad", "Acolyte"),
+    "captain_syrup": ("Rogue", "Swashbuckler", 8, "none", "", "Human", "Sailor"),
+    "captain_toadette": ("Fighter", "Battle Master", 10, "none", "", "Toad", "Soldier"),
+    "chancellor_toadsworth": ("Bard", "College of Eloquence", 8, "full", "cha", "Toad", "Noble"),
+    "chief_thornpaw": ("Ranger", "Hunter", 10, "half", "wis", "Rakasha", "Outlander"),
+    "dan": ("Fighter", "Champion", 10, "none", "", "Toad", "Soldier"),
+    "director_mario": ("Bard", "College of Whispers", 8, "full", "cha", "Studio Copy", "Entertainer"),
+    "evil_mario": ("Monk", "Warrior of the Elements", 8, "none", "", "Studio Copy", "Entertainer"),
+    "fawthful": ("Artificer", "Artillerist", 8, "artificer", "int", "Unknown (humanoid)", "Sage"),
+    "flowey": ("Warlock", "Great Old One Patron", 8, "pact", "cha", "Underground Flower", "Hermit"),
+    "kamek": ("Wizard", "Evoker", 6, "full", "int", "Magikoopa", "Courtier"),
+    "king_boo": ("Warlock", "Fiend Patron", 8, "pact", "cha", "Boo", "Noble"),
+    "king_dedede": ("Fighter", "Champion", 10, "none", "", "Dreamland Penguin", "Noble"),
+    "king_k_rool": ("Fighter", "Champion", 10, "none", "", "Kremling", "Noble"),
+    "kirby": ("Barbarian", "Path of the Wild Heart", 12, "none", "", "Dreamland Puffball", "Folk Hero"),
+    "luigi": ("Ranger", "Monster Slayer", 10, "half", "wis", "Human", "Guild Artisan"),
+    "marcus_ashford": ("Rogue", "Mastermind", 8, "none", "", "Human (apparent)", "Courtier"),
+    "mario": ("Monk", "Warrior of the Open Hand", 8, "none", "", "Human", "Folk Hero"),
+    "meta_knight": ("Fighter", "Battle Master", 10, "none", "", "Dreamlander", "Soldier"),
+    "mimbus": ("Barbarian", "Path of the Berserker", 12, "none", "", "Unknown (humanoid)", "Soldier"),
+    "mr_l": ("Rogue", "Arcane Trickster", 8, "third", "int", "Human (allegedly)", "Entertainer"),
+    "mystic_morel": ("Bard", "College of Lore", 8, "full", "cha", "Toad", "Charlatan"),
+    "orangus_cornelius": ("Paladin", "Oath of Conquest", 10, "half", "cha", "Vampire", "Noble"),
+    "papyrus": ("Fighter", "Champion", 10, "none", "", "Skeleton (Bone-Line kin)", "Soldier"),
+    "paulo": ("Rogue", "Scout", 8, "none", "", "Human (apparent)", "Urchin"),
+    "princess_daisy": ("Paladin", "Oath of the Crown", 10, "half", "cha", "Human", "Noble"),
+    "professor_e_gadd": ("Artificer", "Artillerist", 8, "artificer", "int", "Human", "Sage"),
+    "sans": ("Rogue", "Phantom", 8, "none", "", "Skeleton (Bone-Line kin)", "Entertainer"),
+    "speaker_l": ("Bard", "College of Eloquence", 8, "full", "cha", "Toad", "Noble"),
+    "the_archivist": ("Wizard", "Order of Scribes", 6, "full", "int", "Unknown (possibly vampire)", "Sage"),
+    "toriel": ("Cleric", "Life Domain", 8, "full", "wis", "Boss Monster", "Noble"),
+    "vivian_corvinarus": ("Sorcerer", "Shadow Sorcery", 6, "full", "cha", "Unknown (presents as Toad)", "Charlatan"),
+}
+
+# weapon / armor proficiency groups per class (dnd5e trait keys)
+CLASS_PROFS = {
+    "Artificer": (["sim"], ["lgt", "med", "shl"]),
+    "Barbarian": (["sim", "mar"], ["lgt", "med", "shl"]),
+    "Bard": (["sim"], ["lgt"]),
+    "Cleric": (["sim"], ["lgt", "med", "shl"]),
+    "Fighter": (["sim", "mar"], ["lgt", "med", "hvy", "shl"]),
+    "Monk": (["sim"], []),
+    "Paladin": (["sim", "mar"], ["lgt", "med", "hvy", "shl"]),
+    "Ranger": (["sim", "mar"], ["lgt", "med", "shl"]),
+    "Rogue": (["sim"], ["lgt"]),
+    "Sorcerer": (["sim"], []),
+    "Warlock": (["sim"], ["lgt"]),
+    "Wizard": (["sim"], []),
+}
+
+# XP at the start of each level (dnd5e's own table), 1..20
+XP_FOR_LEVEL = [0, 300, 900, 2700, 6500, 14000, 23000, 34000, 48000, 64000, 85000, 100000, 120000,
+                140000, 165000, 195000, 225000, 265000, 305000, 355000]
+
+
 # ------------------------------------------------------------- the engine
 
 def ability_mod(score):
@@ -1036,6 +1110,77 @@ def hit_points(cr, size, con, mult):
     bonus = n * con
     formula = f"{n}d{die}" + (f" + {bonus}" if bonus > 0 else (f" - {-bonus}" if bonus < 0 else ""))
     return total, formula
+
+
+def pc_level(cr, level):
+    """A bespoke sheet's character level: the XP ledger's, else its authored CR."""
+    if level is not None:
+        return max(1, int(level))
+    return max(1, math.ceil(cr))
+
+
+def pc_hit_points(level, die, con, mult):
+    """Class hit points: the die maxed at level 1, its average after, CON every level."""
+    avg = die // 2 + 1
+    total = die + con + (level - 1) * (avg + con)
+    total = max(1, round(total * mult))
+    bonus = con * level
+    formula = f"{level}d{die}" + (f" + {bonus}" if bonus > 0 else (f" - {-bonus}" if bonus < 0 else ""))
+    return total, formula
+
+
+def pc_slug(name):
+    return re.sub(r"[^a-z0-9]+", "-", name.lower()).strip("-")
+
+
+def class_items(owner, build, level, walk, type_value):
+    """The class / subclass / species / background items a dnd5e character needs."""
+    cls, sub, die, prog, cast, species, background = build
+    desc = lambda html: {"value": html, "chat": ""}
+    src = {"custom": "Waluipedia campaign", "revision": 1, "rules": "2024"}
+    items = [{
+        "_id": sid(owner, "class", cls), "name": cls, "type": "class", "img": I["upgrade"],
+        "system": {
+            "description": desc(f"<p>{esc(cls)} — the class this sheet reads the record as. Levels follow the XP ledger.</p>"),
+            "source": dict(src), "identifier": pc_slug(cls), "levels": level,
+            "hd": {"denomination": f"d{die}", "spent": 0, "additional": ""},
+            "advancement": [], "startingEquipment": [], "properties": [],
+            "primaryAbility": {"value": [], "all": True},
+            "spellcasting": {"progression": prog, "ability": cast, "preparation": {"formula": ""}},
+        },
+        "effects": [], "flags": {}, "sort": 0, "ownership": {"default": 0},
+    }]
+    if sub and level >= 3:
+        items.append({
+            "_id": sid(owner, "subclass", sub), "name": sub, "type": "subclass", "img": I["upgrade"],
+            "system": {
+                "description": desc(f"<p>{esc(sub)} ({esc(cls)}).</p>"), "source": dict(src),
+                "identifier": pc_slug(sub), "classIdentifier": pc_slug(cls), "advancement": [],
+                "spellcasting": {"progression": "none", "ability": "", "preparation": {"formula": ""}},
+            },
+            "effects": [], "flags": {}, "sort": 0, "ownership": {"default": 0},
+        })
+    items.append({
+        "_id": sid(owner, "race", species), "name": species, "type": "race", "img": I["species"],
+        "system": {
+            "description": desc(f"<p>{esc(species)}, as the article files it.</p>"), "source": dict(src),
+            "identifier": pc_slug(species), "advancement": [],
+            "movement": {"walk": walk, "units": "ft", "hover": False, "ignoredDifficultTerrain": []},
+            "senses": {"units": "ft", "special": "", "ranges": {"darkvision": None, "blindsight": None,
+                                                                 "tremorsense": None, "truesight": None}},
+            "type": {"value": type_value, "subtype": ""},
+        },
+        "effects": [], "flags": {}, "sort": 0, "ownership": {"default": 0},
+    })
+    items.append({
+        "_id": sid(owner, "background", background), "name": background, "type": "background", "img": I["scroll"],
+        "system": {
+            "description": desc(f"<p>{esc(background)} — the life the article describes before the table.</p>"),
+            "source": dict(src), "identifier": pc_slug(background), "advancement": [], "startingEquipment": [],
+        },
+        "effects": [], "flags": {}, "sort": 0, "ownership": {"default": 0},
+    })
+    return items
 
 
 def pick_cr(role, level, power):
@@ -1165,17 +1310,23 @@ def esc(s):
             .replace('"', "&quot;"))
 
 
-def kicker(c, level, power, cr, role, bespoke):
+def kicker(c, level, power, cr, role, bespoke, pc=None):
     ledger = (f"XP ledger: level {level}, power rating {power}" if level is not None
               else "no XP ledger entry; archetype default")
     how = "hand-authored from the article" if bespoke else "generated from the article's own words"
+    if pc:
+        cls, lvl = pc
+        reading = (f"{ledger} → a level {lvl} {cls} player-character sheet (a player may take this seat; "
+                   f"the authored CR {cr_label(cr)} stands in where the ledger is silent)")
+    else:
+        reading = f"{ledger} → CR {cr_label(cr)} as a {ROLE_LABEL[role]}"
     return (f"<p><em>Waluipedia cast sheet — {esc(c.get('name'))}.</em> Built by <code>{SELF}</code>, "
-            f"{how}. {ledger} → CR {cr_label(cr)} as a {ROLE_LABEL[role]}. Numbers are a GM-ready reading of "
+            f"{how}. {reading}. Numbers are a GM-ready reading of "
             f"the record, not a filed stat line; the article stays the authority. Archive date 1040 BF.</p>")
 
 
-def biography(c, level, power, cr, role, evidence, bespoke):
-    parts = [kicker(c, level, power, cr, role, bespoke)]
+def biography(c, level, power, cr, role, evidence, bespoke, pc=None):
+    parts = [kicker(c, level, power, cr, role, bespoke, pc)]
     head = []
     if c.get("title"):
         head.append(f"<strong>{esc(c['title'])}</strong>")
@@ -1268,6 +1419,98 @@ def npc_doc(*, slug, c, name, img, size, sc, saves, trained, ac, hp, hp_formula,
     return doc
 
 
+def pc_doc(*, slug, c, name, img, size, sc, saves, trained, ac, hp, hp_formula, cr, walk, fly, swim, hover,
+           dv, langs, type_value, alignment, bio, items, di, dr, dr_bypass, ci, disposition,
+           group, evidence, role, level, power, build, pc_lvl):
+    """A dnd5e *character* for a bespoke sheet: class items first, then the authored kit."""
+    cls, sub, die, prog, cast, species, background = build
+    owner = "cast:" + slug
+    head = class_items(owner, build, pc_lvl, walk, type_value)
+    ids = {it["type"]: it["_id"] for it in head}
+    wprof, aprof = CLASS_PROFS[cls]
+    doc = {
+        "_id": sid("cast", slug),
+        "name": name,
+        "type": "character",
+        "img": img,
+        "system": {
+            "currency": {"pp": 0, "gp": 0, "ep": 0, "sp": 0, "cp": 0},
+            "abilities": P955.abilities(dict(zip(ABILITY_KEYS, sc)), saves),
+            "skills": P955.skills(trained),
+            "tools": {},
+            "spells": {},
+            "bonuses": {},
+            "resources": {},
+            "favorites": [],
+            "bastion": {"name": "", "description": ""},
+            "attributes": {
+                "ac": {"flat": ac, "calc": "natural", "formula": ""},
+                "hp": {"value": hp, "max": hp, "temp": None, "tempmax": 0, "bonuses": {}},
+                "movement": {"walk": str(walk), "units": "ft", "hover": hover, "burrow": "0", "climb": "0",
+                             "fly": str(fly), "swim": str(swim), "ignoredDifficultTerrain": []},
+                "senses": {"units": "ft", "ranges": {"darkvision": dv}, "special": ""},
+                "init": {"ability": "", "roll": P955.blank_roll(), "bonus": ""},
+                "attunement": {"max": 3},
+                "spellcasting": cast,
+                "exhaustion": 0,
+                "inspiration": False,
+                "concentration": {"ability": "", "roll": P955.blank_roll(), "bonuses": {"save": ""}, "limit": 1},
+                "loyalty": {},
+                "death": {"roll": P955.blank_roll(), "success": 0, "failure": 0, "bonuses": {"save": ""}},
+            },
+            "details": {
+                "alignment": alignment,
+                "race": ids["race"],
+                "background": ids["background"],
+                "originalClass": ids["class"],
+                "xp": {"value": XP_FOR_LEVEL[min(pc_lvl, 20) - 1]},
+                "trait": "", "ideal": "", "bond": "", "flaw": "",
+                "appearance": "", "eyes": "", "hair": "", "skin": "", "height": "", "weight": "",
+                "age": "", "gender": "", "faith": "",
+                "biography": {"value": bio, "public": ""},
+            },
+            "traits": {
+                "size": size,
+                "languages": {"value": list(langs), "custom": "", "communication": {}},
+                "weaponProf": {"value": list(wprof), "custom": "", "mastery": {"value": [], "bonus": []}},
+                "armorProf": {"value": list(aprof), "custom": ""},
+                "ci": {"value": list(ci), "custom": "", "bypasses": []},
+                "di": {"value": list(di), "custom": "", "bypasses": []},
+                "dr": {"value": list(dr), "custom": "", "bypasses": list(dr_bypass)},
+                "dv": {"value": [], "custom": "", "bypasses": []},
+                "dm": {"amount": {}, "bypasses": []},
+            },
+            "source": {"custom": "Waluipedia campaign", "revision": 1, "rules": "2024"},
+        },
+        "prototypeToken": {
+            "name": name, "displayName": 0, "actorLink": True,
+            "width": 2 if size in ("lg",) else (3 if size == "huge" else 1),
+            "height": 2 if size in ("lg",) else (3 if size == "huge" else 1),
+            "texture": {"src": img, "anchorX": 0.5, "anchorY": 0.5, "fit": "contain", "scaleX": 1, "scaleY": 1,
+                        "tint": "#ffffff", "alphaThreshold": 0.75},
+            "lockRotation": False, "rotation": 0, "alpha": 1,
+            "disposition": disposition, "displayBars": 0,
+            "bar1": {"attribute": "attributes.hp"}, "bar2": {"attribute": None},
+        },
+        "items": head + items,
+        "effects": [],
+        "folder": None,
+        "ownership": {"default": 0},
+        "flags": {
+            MODULE_ID: {"folderPath": [FOLDER_ROOT, group], "source": SELF},
+            SHEETS_FLAG: {"characterId": c["id"], "generated": True, "bespoke": True, "role": role,
+                          "ledger": {"level": level, "powerLevel": power}, "evidence": evidence,
+                          "pc": {"level": pc_lvl, "class": cls, "subclass": sub if pc_lvl >= 3 else None,
+                                 "cr": cr, "hitDie": f"d{die}", "formula": hp_formula}},
+        },
+        "_stats": {"coreVersion": "14.365", "systemId": "dnd5e", "systemVersion": "5.3.3",
+                   "compendiumSource": None, "duplicateSource": None},
+    }
+    for i, item in enumerate(doc["items"]):
+        item["sort"] = 100000 * (i + 1)
+    return doc
+
+
 def build_generated(c, xp, party, group):
     cid = c["id"]
     text = article_text(c)
@@ -1282,6 +1525,14 @@ def build_generated(c, xp, party, group):
     prof, base_ac, _, atk_bonus, _, dc = CR_TABLE[cr]
     sc = tuple(spec["sc"]) if spec else scale_scores(tmpl["sc"], cr)
     mods = dict(zip(ABILITY_KEYS, (ability_mod(s) for s in sc)))
+    build = PC_BUILD.get(cid) if spec else None
+    if spec and not build:
+        raise SystemExit(f"{cid}: bespoke sheet has no PC_BUILD entry (class / species / background)")
+    pc_lvl = pc_level(cr, level) if build else None
+    if build:
+        # a player-character sheet: proficiency and save DCs follow the level, not the CR table
+        prof = 2 + (pc_lvl - 1) // 4
+        dc = 8 + prof + max(ability_mod(s) for s in sc)
     saves = tuple(spec.get("saves", tmpl["saves"])) if spec else tmpl["saves"]
     trained = dict(spec.get("skills", tmpl["skills"])) if spec else dict(tmpl["skills"])
     size = (spec.get("size") if spec else None) or sp["size"]
@@ -1292,7 +1543,10 @@ def build_generated(c, xp, party, group):
     dv = spec.get("dv", sp["dv"]) if spec else sp["dv"]
     ac = spec.get("ac") if spec and spec.get("ac") is not None else max(10, base_ac + tmpl["ac"] + (1 if mods["dex"] >= 3 else 0))
     hp_mult = spec.get("hp_mult", 1.0) if spec else tmpl["hp"]
-    hp, hp_formula = hit_points(cr, size, mods["con"], hp_mult)
+    if build:
+        hp, hp_formula = pc_hit_points(pc_lvl, build[2], mods["con"], hp_mult)
+    else:
+        hp, hp_formula = hit_points(cr, size, mods["con"], hp_mult)
     type_value = spec.get("type_value", sp["type"]) if spec else sp["type"]
     type_subtype = spec.get("type_subtype", sp["subtype"]) if spec else sp["subtype"]
     align = spec.get("align", "Neutral") if spec else ("Unaligned" if sp["type"] in ("beast", "construct") else "Neutral")
@@ -1310,7 +1564,7 @@ def build_generated(c, xp, party, group):
     pri = "dex" if mods["dex"] > mods["str"] else "str"
     cast_mod = max(mods["int"], mods["wis"], mods["cha"])
     ctx = dict(dc=dc, prof=prof, atk=prof + cast_mod,
-               sneak=f"{max(1, int(cr) // 2 + 1)}d6", heal=f"1d8 + {max(1, mods['wis'])}",
+               sneak=f"{(pc_lvl + 1) // 2 if build else max(1, int(cr) // 2 + 1)}d6", heal=f"1d8 + {max(1, mods['wis'])}",
                firedmg=f"{dice_for(cr, 8)[0] + 1}d8", brutal=f"{dice_for(cr, 6)[0]}d6",
                uses="3", slots=spell_slots(cr), dslots=divine_slots(cr))
 
@@ -1344,6 +1598,22 @@ def build_generated(c, xp, party, group):
                 raise SystemExit(f"{cid}: feature {f['name']} quote not found: {f['q']}")
             items.append(feat(owner, f["name"], I[f["icon"]], f["html"], uses=f.get("uses")))
             add_evidence(f["name"], q)
+        # the kit reads as class kit on a player-character sheet
+        for it in items:
+            if it["type"] == "weapon":
+                it["system"]["proficient"] = 1
+            elif it["type"] == "feat":
+                it["system"]["type"] = {"value": "class", "subtype": ""}
+                if it["name"] == "Multiattack":
+                    it["name"] = "Extra Attack"
+                    for ev in evidence:
+                        if ev["feature"] == "Multiattack":
+                            ev["feature"] = "Extra Attack"
+                    if pc_lvl < 5:
+                        it["system"]["description"]["value"] += (
+                            "<p><em>Arrives early:</em> the class table grants this at level 5; the article's "
+                            "record of how this character fights put it on the sheet now. The GM may hold it.</p>")
+                    it["_id"] = sid(owner, "feat", "Extra Attack")
     else:
         wname, wq = pick_weapon(role, text)
         if wname == "rapier" and sp["subtype"] == "Toad":
@@ -1406,6 +1676,13 @@ def build_generated(c, xp, party, group):
     img, _ = portrait_of(c)
     hay = " ".join([c.get("affiliation") or "", c.get("title") or "", c.get("status") or ""]).lower()
     disposition = 1 if party else (-1 if any(k in hay for k in DISC_HOSTILE) else 0)
+    if build:
+        bio = biography(c, level, power, cr, role, evidence, True, pc=(build[0], pc_lvl))
+        return pc_doc(slug=cid, c=c, name=c.get("name") or cid, img=img, size=size, sc=sc, saves=saves,
+                      trained=trained, ac=ac, hp=hp, hp_formula=hp_formula, cr=cr, walk=walk, fly=fly, swim=swim,
+                      hover=hover, dv=dv, langs=sp["langs"], type_value=type_value, alignment=align, bio=bio,
+                      items=items, di=di, dr=dr, dr_bypass=dr_bypass, ci=ci, disposition=disposition, group=group,
+                      evidence=evidence, role=role, level=level, power=power, build=build, pc_lvl=pc_lvl)
     bio = biography(c, level, power, cr, role, evidence, bool(spec))
     doc = npc_doc(slug=cid, c=c, name=c.get("name") or cid, img=img, size=size, sc=sc, saves=saves, trained=trained,
                   ac=ac, hp=hp, hp_formula=hp_formula, cr=cr, walk=walk, fly=fly, swim=swim, hover=hover, dv=dv,
@@ -1459,6 +1736,9 @@ def summarize_actor(doc):
         out["classes"] = [f"{n} {l}" for n, l in classes]
         species = [it.get("name") for it in doc.get("items") or [] if it.get("type") == "race"]
         out["species"] = species[0] if species else None
+        pc = ((doc.get("flags") or {}).get(SHEETS_FLAG) or {}).get("pc")
+        if pc:
+            out["pc"] = dict(pc)
     else:
         out["cr"] = det.get("cr")
         t = det.get("type") or {}
@@ -1572,7 +1852,8 @@ def build_all():
             "generator": SELF,
             "note": ("Every character article mapped to a Foundry dnd5e sheet. source=live is the user's world mirror, "
                      "intake the PC packet, era the 955 BF packet, generated this builder. party=true sheets are public; "
-                     "the rest show only while Settings → Developer → debug mode is on. CR never exceeds the XP ledger level."),
+                     "the rest show only while Settings → Developer → debug mode is on. CR never exceeds the XP ledger level; "
+                     "the hand-authored main cast are player-character sheets at the ledger level."),
             "visibility": {"public": "party", "debug": "all"},
             "folderRoot": FOLDER_ROOT,
             "castImport": "actors/cast/import.json",
@@ -1592,17 +1873,37 @@ def render(doc):
 
 def validate(slug, actor, lib):
     problems = []
-    if actor["type"] != "npc":
+    bespoke = actor["flags"][SHEETS_FLAG]["bespoke"]
+    if bespoke and actor["type"] != "character":
+        problems.append("bespoke sheets are player characters (type character)")
+    if not bespoke and actor["type"] != "npc":
         problems.append("type must be npc")
     if not re.match(r"^[A-Za-z0-9]{16}$", actor.get("_id") or ""):
         problems.append("actor _id must be 16 alphanumerics")
-    if actor["prototypeToken"]["actorLink"]:
-        problems.append("prototype token must be unlinked")
+    if actor["prototypeToken"]["actorLink"] != bespoke:
+        problems.append("prototype token must be linked for a PC and unlinked for an NPC")
     imgs = [actor["img"], actor["prototypeToken"]["texture"]["src"]]
+    kinds = {}
     for it in actor["items"]:
         imgs.append(it["img"])
         if it["type"] in ("race", "class", "subclass", "background"):
-            problems.append(f"NPC must not carry a {it['type']} item: {it['name']}")
+            kinds[it["type"]] = kinds.get(it["type"], 0) + 1
+            if not bespoke:
+                problems.append(f"NPC must not carry a {it['type']} item: {it['name']}")
+    if bespoke:
+        for k in ("class", "race", "background"):
+            if kinds.get(k) != 1:
+                problems.append(f"PC sheet needs exactly one {k} item (has {kinds.get(k, 0)})")
+        lvl = actor["flags"][SHEETS_FLAG]["ledger"]["level"]
+        got = sum(it["system"]["levels"] for it in actor["items"] if it["type"] == "class")
+        if lvl is not None and got != lvl:
+            problems.append(f"class level {got} is not the ledger level {lvl}")
+        if kinds.get("subclass") and got < 3:
+            problems.append("subclass before level 3")
+        for it in actor["items"]:
+            if it["type"] == "subclass" and it["system"]["classIdentifier"] != next(
+                    c["system"]["identifier"] for c in actor["items"] if c["type"] == "class"):
+                problems.append("subclass does not match the class identifier")
     for p in imgs:
         if p == PLACEHOLDER or p in lib or os.path.exists(os.path.join(RM, p)):
             continue
@@ -1612,8 +1913,8 @@ def validate(slug, actor, lib):
         problems.append("duplicate item _id")
     if actor["system"]["attributes"]["hp"]["max"] <= 0:
         problems.append("hp must be positive")
-    cr = actor["system"]["details"]["cr"]
     lvl = actor["flags"][SHEETS_FLAG]["ledger"]["level"]
+    cr = actor["system"]["details"].get("cr", actor["flags"][SHEETS_FLAG].get("pc", {}).get("cr"))
     if lvl is not None and cr > lvl:
         problems.append(f"cr {cr} exceeds ledger level {lvl}")
     return [f"{slug}: {p}" for p in problems]

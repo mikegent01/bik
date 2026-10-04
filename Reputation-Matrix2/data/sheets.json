@@ -1,7 +1,7 @@
 {
   "meta": {
     "generator": "tools/build-character-sheets.py",
-    "note": "Every character article mapped to a Foundry dnd5e sheet. source=live is the user's world mirror, intake the PC packet, era the 955 BF packet, generated this builder. party=true sheets are public; the rest show only while Settings → Developer → debug mode is on. CR never exceeds the XP ledger level.",
+    "note": "Every character article mapped to a Foundry dnd5e sheet. source=live is the user's world mirror, intake the PC packet, era the 955 BF packet, generated this builder. party=true sheets are public; the rest show only while Settings → Developer → debug mode is on. CR never exceeds the XP ledger level; the hand-authored main cast are player-character sheets at the ledger level.",
     "visibility": {
       "public": "party",
       "debug": "all"
@@ -384,7 +384,7 @@
           "source": "article"
         },
         {
-          "feature": "Multiattack",
+          "feature": "Extra Attack",
           "quote": "As a monarch, Asgore commands absolute rule over the subterranean domain, yet this authority is a heavy crown to wear; he is not merely a ruler by choice, but a guardian bound by duty.",
           "source": "article"
         },
@@ -399,7 +399,7 @@
           "source": "article"
         }
       ],
-      "kind": "npc",
+      "kind": "pc",
       "abilities": {
         "str": 18,
         "dex": 10,
@@ -408,13 +408,24 @@
         "wis": 15,
         "cha": 16
       },
-      "hp": 42,
+      "hp": 22,
       "speed": "30",
       "size": "lg",
-      "items": 5,
+      "items": 8,
       "ac": 15,
-      "cr": 2,
-      "type": "monstrosity (Underground monster)"
+      "level": 2,
+      "classes": [
+        "Paladin 2"
+      ],
+      "species": "Boss Monster",
+      "pc": {
+        "level": 2,
+        "class": "Paladin",
+        "subclass": null,
+        "cr": 2,
+        "hitDie": "d10",
+        "formula": "2d10 + 6"
+      }
     },
     {
       "id": "ashley",
@@ -650,7 +661,7 @@
           "source": "article"
         }
       ],
-      "kind": "npc",
+      "kind": "pc",
       "abilities": {
         "str": 12,
         "dex": 18,
@@ -659,13 +670,24 @@
         "wis": 15,
         "cha": 14
       },
-      "hp": 77,
+      "hp": 33,
       "speed": "30",
       "size": "med",
-      "items": 5,
+      "items": 9,
       "ac": 15,
-      "cr": 4,
-      "type": "humanoid"
+      "level": 5,
+      "classes": [
+        "Rogue 5"
+      ],
+      "species": "Unknown (humanoid)",
+      "pc": {
+        "level": 5,
+        "class": "Rogue",
+        "subclass": "Assassin",
+        "cr": 4,
+        "hitDie": "d8",
+        "formula": "5d8 + 5"
+      }
     },
     {
       "id": "boss_knuckles",
@@ -936,7 +958,7 @@
           "source": "article"
         }
       ],
-      "kind": "npc",
+      "kind": "pc",
       "abilities": {
         "str": 14,
         "dex": 10,
@@ -945,13 +967,24 @@
         "wis": 18,
         "cha": 13
       },
-      "hp": 60,
+      "hp": 24,
       "speed": "25",
       "size": "sm",
-      "items": 4,
+      "items": 8,
       "ac": 15,
-      "cr": 3,
-      "type": "humanoid (Toad)"
+      "level": 3,
+      "classes": [
+        "Cleric 3"
+      ],
+      "species": "Toad",
+      "pc": {
+        "level": 3,
+        "class": "Cleric",
+        "subclass": "War Domain",
+        "cr": 3,
+        "hitDie": "d8",
+        "formula": "3d8 + 6"
+      }
     },
     {
       "id": "bully_t",
@@ -1159,7 +1192,7 @@
           "source": "article"
         }
       ],
-      "kind": "npc",
+      "kind": "pc",
       "abilities": {
         "str": 13,
         "dex": 17,
@@ -1168,13 +1201,24 @@
         "wis": 12,
         "cha": 16
       },
-      "hp": 45,
+      "hp": 17,
       "speed": "30",
       "size": "med",
-      "items": 5,
+      "items": 8,
       "ac": 15,
-      "cr": 2,
-      "type": "humanoid (human)"
+      "level": 2,
+      "classes": [
+        "Rogue 2"
+      ],
+      "species": "Human",
+      "pc": {
+        "level": 2,
+        "class": "Rogue",
+        "subclass": null,
+        "cr": 2,
+        "hitDie": "d8",
+        "formula": "2d8 + 4"
+      }
     },
     {
       "id": "captain_toadette",
@@ -1206,7 +1250,7 @@
           "source": "article"
         },
         {
-          "feature": "Multiattack",
+          "feature": "Extra Attack",
           "quote": "Captain Toadette is the military commander of the Peach Loyalists and the scariest person in the Mushroom Kingdom who isn't a dimensional horror or a kaiju.",
           "source": "article"
         },
@@ -1221,7 +1265,7 @@
           "source": "article"
         }
       ],
-      "kind": "npc",
+      "kind": "pc",
       "abilities": {
         "str": 15,
         "dex": 16,
@@ -1230,13 +1274,24 @@
         "wis": 14,
         "cha": 15
       },
-      "hp": 60,
+      "hp": 28,
       "speed": "25",
       "size": "sm",
-      "items": 5,
+      "items": 9,
       "ac": 16,
-      "cr": 3,
-      "type": "humanoid (Toad)"
+      "level": 3,
+      "classes": [
+        "Fighter 3"
+      ],
+      "species": "Toad",
+      "pc": {
+        "level": 3,
+        "class": "Fighter",
+        "subclass": "Battle Master",
+        "cr": 3,
+        "hitDie": "d10",
+        "formula": "3d10 + 6"
+      }
     },
     {
       "id": "chancellor_toadsworth",
@@ -1273,7 +1328,7 @@
           "source": "article"
         }
       ],
-      "kind": "npc",
+      "kind": "pc",
       "abilities": {
         "str": 9,
         "dex": 10,
@@ -1282,13 +1337,24 @@
         "wis": 14,
         "cha": 16
       },
-      "hp": 21,
+      "hp": 18,
       "speed": "25",
       "size": "sm",
-      "items": 3,
+      "items": 7,
       "ac": 11,
-      "cr": 0.5,
-      "type": "humanoid (Toad)"
+      "level": 3,
+      "classes": [
+        "Bard 3"
+      ],
+      "species": "Toad",
+      "pc": {
+        "level": 3,
+        "class": "Bard",
+        "subclass": "College of Eloquence",
+        "cr": 0.5,
+        "hitDie": "d8",
+        "formula": "3d8"
+      }
     },
     {
       "id": "chief_thornpaw",
@@ -1320,7 +1386,7 @@
           "source": "article"
         },
         {
-          "feature": "Multiattack",
+          "feature": "Extra Attack",
           "quote": "The Rakasha Who Loved a Princess",
           "source": "article"
         },
@@ -1335,7 +1401,7 @@
           "source": "article"
         }
       ],
-      "kind": "npc",
+      "kind": "pc",
       "abilities": {
         "str": 17,
         "dex": 14,
@@ -1344,13 +1410,24 @@
         "wis": 15,
         "cha": 14
       },
-      "hp": 60,
+      "hp": 40,
       "speed": "35",
       "size": "med",
-      "items": 5,
+      "items": 9,
       "ac": 15,
-      "cr": 3,
-      "type": "humanoid (Rakasha)"
+      "level": 4,
+      "classes": [
+        "Ranger 4"
+      ],
+      "species": "Rakasha",
+      "pc": {
+        "level": 4,
+        "class": "Ranger",
+        "subclass": "Hunter",
+        "cr": 3,
+        "hitDie": "d10",
+        "formula": "4d10 + 12"
+      }
     },
     {
       "id": "color_division_black",
@@ -1637,7 +1714,7 @@
           "source": "article"
         },
         {
-          "feature": "Multiattack",
+          "feature": "Extra Attack",
           "quote": "The Man Who Lost His Arm (And His Mind, Temporarily)",
           "source": "article"
         },
@@ -1652,7 +1729,7 @@
           "source": "article"
         }
       ],
-      "kind": "npc",
+      "kind": "pc",
       "abilities": {
         "str": 16,
         "dex": 13,
@@ -1661,13 +1738,24 @@
         "wis": 11,
         "cha": 12
       },
-      "hp": 84,
+      "hp": 74,
       "speed": "25",
       "size": "sm",
-      "items": 4,
+      "items": 8,
       "ac": 15,
-      "cr": 4,
-      "type": "humanoid (Toad)"
+      "level": 7,
+      "classes": [
+        "Fighter 7"
+      ],
+      "species": "Toad",
+      "pc": {
+        "level": 7,
+        "class": "Fighter",
+        "subclass": "Champion",
+        "cr": 4,
+        "hitDie": "d10",
+        "formula": "7d10 + 21"
+      }
     },
     {
       "id": "dan_the_toad",
@@ -1904,7 +1992,7 @@
           "source": "article"
         }
       ],
-      "kind": "npc",
+      "kind": "pc",
       "abilities": {
         "str": 12,
         "dex": 13,
@@ -1913,13 +2001,24 @@
         "wis": 16,
         "cha": 18
       },
-      "hp": 58,
+      "hp": 24,
       "speed": "30",
       "size": "med",
-      "items": 4,
+      "items": 8,
       "ac": 13,
-      "cr": 3,
-      "type": "construct (studio copy)"
+      "level": 3,
+      "classes": [
+        "Bard 3"
+      ],
+      "species": "Studio Copy",
+      "pc": {
+        "level": 3,
+        "class": "Bard",
+        "subclass": "College of Whispers",
+        "cr": 3,
+        "hitDie": "d8",
+        "formula": "3d8 + 6"
+      }
     },
     {
       "id": "director_vale",
@@ -2415,7 +2514,7 @@
           "source": "article"
         },
         {
-          "feature": "Multiattack",
+          "feature": "Extra Attack",
           "quote": "The corrupted Mario who stepped out of the studio's television, wearing a cape of shadowy pixelated feathers and moving like a special effect.",
           "source": "article"
         },
@@ -2435,7 +2534,7 @@
           "source": "article"
         }
       ],
-      "kind": "npc",
+      "kind": "pc",
       "abilities": {
         "str": 16,
         "dex": 18,
@@ -2444,13 +2543,24 @@
         "wis": 11,
         "cha": 14
       },
-      "hp": 84,
+      "hp": 34,
       "speed": "40",
       "size": "med",
-      "items": 6,
+      "items": 10,
       "ac": 15,
-      "cr": 4,
-      "type": "construct (studio copy)"
+      "level": 4,
+      "classes": [
+        "Monk 4"
+      ],
+      "species": "Studio Copy",
+      "pc": {
+        "level": 4,
+        "class": "Monk",
+        "subclass": "Warrior of the Elements",
+        "cr": 4,
+        "hitDie": "d8",
+        "formula": "4d8 + 8"
+      }
     },
     {
       "id": "fawful",
@@ -2510,7 +2620,7 @@
           "source": "article"
         },
         {
-          "feature": "Multiattack",
+          "feature": "Extra Attack",
           "quote": "Unknown — hostile commander",
           "source": "article"
         },
@@ -2530,7 +2640,7 @@
           "source": "article"
         }
       ],
-      "kind": "npc",
+      "kind": "pc",
       "abilities": {
         "str": 12,
         "dex": 15,
@@ -2539,13 +2649,24 @@
         "wis": 13,
         "cha": 16
       },
-      "hp": 77,
+      "hp": 31,
       "speed": "30",
       "size": "sm",
-      "items": 5,
+      "items": 9,
       "ac": 14,
-      "cr": 4,
-      "type": "humanoid"
+      "level": 4,
+      "classes": [
+        "Artificer 4"
+      ],
+      "species": "Unknown (humanoid)",
+      "pc": {
+        "level": 4,
+        "class": "Artificer",
+        "subclass": "Artillerist",
+        "cr": 4,
+        "hitDie": "d8",
+        "formula": "4d8 + 8"
+      }
     },
     {
       "id": "flowey",
@@ -2577,7 +2698,7 @@
           "source": "article"
         },
         {
-          "feature": "Multiattack",
+          "feature": "Extra Attack",
           "quote": "His soul split apart, each fragment warped beyond recognition.",
           "source": "article"
         },
@@ -2597,7 +2718,7 @@
           "source": "article"
         }
       ],
-      "kind": "npc",
+      "kind": "pc",
       "abilities": {
         "str": 8,
         "dex": 16,
@@ -2606,13 +2727,24 @@
         "wis": 12,
         "cha": 15
       },
-      "hp": 60,
+      "hp": 24,
       "speed": "20",
       "size": "sm",
-      "items": 6,
+      "items": 10,
       "ac": 13,
-      "cr": 3,
-      "type": "plant"
+      "level": 3,
+      "classes": [
+        "Warlock 3"
+      ],
+      "species": "Underground Flower",
+      "pc": {
+        "level": 3,
+        "class": "Warlock",
+        "subclass": "Great Old One Patron",
+        "cr": 3,
+        "hitDie": "d8",
+        "formula": "3d8 + 6"
+      }
     },
     {
       "id": "forgemaster_ironspore",
@@ -3757,7 +3889,7 @@
           "source": "article"
         }
       ],
-      "kind": "npc",
+      "kind": "pc",
       "abilities": {
         "str": 8,
         "dex": 12,
@@ -3766,13 +3898,24 @@
         "wis": 13,
         "cha": 12
       },
-      "hp": 45,
+      "hp": 10,
       "speed": "30",
       "size": "med",
-      "items": 3,
+      "items": 6,
       "ac": 12,
-      "cr": 2,
-      "type": "humanoid (Koopa)"
+      "level": 2,
+      "classes": [
+        "Wizard 2"
+      ],
+      "species": "Magikoopa",
+      "pc": {
+        "level": 2,
+        "class": "Wizard",
+        "subclass": null,
+        "cr": 2,
+        "hitDie": "d6",
+        "formula": "2d6"
+      }
     },
     {
       "id": "kat",
@@ -3913,7 +4056,7 @@
           "source": "article"
         }
       ],
-      "kind": "npc",
+      "kind": "pc",
       "abilities": {
         "str": 10,
         "dex": 14,
@@ -3922,13 +4065,24 @@
         "wis": 12,
         "cha": 18
       },
-      "hp": 44,
+      "hp": 15,
       "speed": "0",
       "size": "med",
-      "items": 5,
+      "items": 8,
       "ac": 13,
-      "cr": 2,
-      "type": "undead (Boo)"
+      "level": 2,
+      "classes": [
+        "Warlock 2"
+      ],
+      "species": "Boo",
+      "pc": {
+        "level": 2,
+        "class": "Warlock",
+        "subclass": null,
+        "cr": 2,
+        "hitDie": "d8",
+        "formula": "2d8 + 2"
+      }
     },
     {
       "id": "king_dedede",
@@ -3965,7 +4119,7 @@
           "source": "article"
         }
       ],
-      "kind": "npc",
+      "kind": "pc",
       "abilities": {
         "str": 18,
         "dex": 10,
@@ -3974,13 +4128,24 @@
         "wis": 10,
         "cha": 14
       },
-      "hp": 52,
+      "hp": 26,
       "speed": "30",
       "size": "med",
-      "items": 3,
+      "items": 6,
       "ac": 14,
-      "cr": 2,
-      "type": "humanoid (Dreamlander)"
+      "level": 2,
+      "classes": [
+        "Fighter 2"
+      ],
+      "species": "Dreamland Penguin",
+      "pc": {
+        "level": 2,
+        "class": "Fighter",
+        "subclass": null,
+        "cr": 2,
+        "hitDie": "d10",
+        "formula": "2d10 + 6"
+      }
     },
     {
       "id": "king_k_rool",
@@ -4022,7 +4187,7 @@
           "source": "article"
         }
       ],
-      "kind": "npc",
+      "kind": "pc",
       "abilities": {
         "str": 18,
         "dex": 10,
@@ -4031,13 +4196,24 @@
         "wis": 10,
         "cha": 14
       },
-      "hp": 42,
+      "hp": 17,
       "speed": "30",
       "size": "lg",
-      "items": 4,
+      "items": 7,
       "ac": 14,
-      "cr": 1,
-      "type": "humanoid (Kremling)"
+      "level": 1,
+      "classes": [
+        "Fighter 1"
+      ],
+      "species": "Kremling",
+      "pc": {
+        "level": 1,
+        "class": "Fighter",
+        "subclass": null,
+        "cr": 1,
+        "hitDie": "d10",
+        "formula": "1d10 + 3"
+      }
     },
     {
       "id": "kirby",
@@ -4079,7 +4255,7 @@
           "source": "article"
         }
       ],
-      "kind": "npc",
+      "kind": "pc",
       "abilities": {
         "str": 14,
         "dex": 16,
@@ -4088,13 +4264,24 @@
         "wis": 12,
         "cha": 14
       },
-      "hp": 39,
+      "hp": 20,
       "speed": "30",
       "size": "sm",
-      "items": 4,
+      "items": 7,
       "ac": 13,
-      "cr": 1,
-      "type": "aberration"
+      "level": 1,
+      "classes": [
+        "Barbarian 1"
+      ],
+      "species": "Dreamland Puffball",
+      "pc": {
+        "level": 1,
+        "class": "Barbarian",
+        "subclass": null,
+        "cr": 1,
+        "hitDie": "d12",
+        "formula": "1d12 + 3"
+      }
     },
     {
       "id": "koffin_k",
@@ -4665,7 +4852,7 @@
           "source": "article"
         }
       ],
-      "kind": "npc",
+      "kind": "pc",
       "abilities": {
         "str": 12,
         "dex": 17,
@@ -4674,13 +4861,24 @@
         "wis": 15,
         "cha": 11
       },
-      "hp": 71,
+      "hp": 37,
       "speed": "35",
       "size": "med",
-      "items": 6,
+      "items": 10,
       "ac": 14,
-      "cr": 4,
-      "type": "humanoid (human)"
+      "level": 5,
+      "classes": [
+        "Ranger 5"
+      ],
+      "species": "Human",
+      "pc": {
+        "level": 5,
+        "class": "Ranger",
+        "subclass": "Monster Slayer",
+        "cr": 4,
+        "hitDie": "d10",
+        "formula": "5d10 + 5"
+      }
     },
     {
       "id": "lyranth",
@@ -4789,7 +4987,7 @@
           "source": "article"
         }
       ],
-      "kind": "npc",
+      "kind": "pc",
       "abilities": {
         "str": 12,
         "dex": 16,
@@ -4798,13 +4996,24 @@
         "wis": 16,
         "cha": 17
       },
-      "hp": 60,
+      "hp": 21,
       "speed": "30",
       "size": "med",
-      "items": 4,
+      "items": 8,
       "ac": 14,
-      "cr": 3,
-      "type": "humanoid (human)"
+      "level": 3,
+      "classes": [
+        "Rogue 3"
+      ],
+      "species": "Human (apparent)",
+      "pc": {
+        "level": 3,
+        "class": "Rogue",
+        "subclass": "Mastermind",
+        "cr": 3,
+        "hitDie": "d8",
+        "formula": "3d8 + 3"
+      }
     },
     {
       "id": "mario",
@@ -4836,7 +5045,7 @@
           "source": "article"
         },
         {
-          "feature": "Multiattack",
+          "feature": "Extra Attack",
           "quote": "The red-capped plumber who could jump higher than physics should allow, who stomped Bowser's schemes into the ground repeatedly, who was so synonymous with heroism that his NAME became a verb.",
           "source": "article"
         },
@@ -4856,7 +5065,7 @@
           "source": "article"
         }
       ],
-      "kind": "npc",
+      "kind": "pc",
       "abilities": {
         "str": 16,
         "dex": 18,
@@ -4865,13 +5074,24 @@
         "wis": 13,
         "cha": 15
       },
-      "hp": 105,
+      "hp": 47,
       "speed": "40",
       "size": "med",
-      "items": 6,
+      "items": 10,
       "ac": 15,
-      "cr": 5,
-      "type": "humanoid (human)"
+      "level": 5,
+      "classes": [
+        "Monk 5"
+      ],
+      "species": "Human",
+      "pc": {
+        "level": 5,
+        "class": "Monk",
+        "subclass": "Warrior of the Open Hand",
+        "cr": 5,
+        "hitDie": "d8",
+        "formula": "5d8 + 15"
+      }
     },
     {
       "id": "markop",
@@ -4989,7 +5209,7 @@
           "source": "article"
         },
         {
-          "feature": "Multiattack",
+          "feature": "Extra Attack",
           "quote": "It's also completely dependent on one masked warrior never taking a sick day.",
           "source": "article"
         },
@@ -5004,7 +5224,7 @@
           "source": "article"
         }
       ],
-      "kind": "npc",
+      "kind": "pc",
       "abilities": {
         "str": 14,
         "dex": 18,
@@ -5013,13 +5233,24 @@
         "wis": 15,
         "cha": 12
       },
-      "hp": 44,
+      "hp": 20,
       "speed": "30",
       "size": "sm",
-      "items": 4,
+      "items": 7,
       "ac": 16,
-      "cr": 2,
-      "type": "humanoid"
+      "level": 2,
+      "classes": [
+        "Fighter 2"
+      ],
+      "species": "Dreamlander",
+      "pc": {
+        "level": 2,
+        "class": "Fighter",
+        "subclass": null,
+        "cr": 2,
+        "hitDie": "d10",
+        "formula": "2d10 + 4"
+      }
     },
     {
       "id": "miles_edgeworth",
@@ -5098,7 +5329,7 @@
           "source": "article"
         },
         {
-          "feature": "Multiattack",
+          "feature": "Extra Attack",
           "quote": "Unknown — hostile operative",
           "source": "article"
         },
@@ -5108,7 +5339,7 @@
           "source": "article"
         }
       ],
-      "kind": "npc",
+      "kind": "pc",
       "abilities": {
         "str": 18,
         "dex": 12,
@@ -5117,13 +5348,24 @@
         "wis": 12,
         "cha": 8
       },
-      "hp": 75,
+      "hp": 42,
       "speed": "30",
       "size": "med",
-      "items": 3,
+      "items": 7,
       "ac": 14,
-      "cr": 3,
-      "type": "humanoid"
+      "level": 3,
+      "classes": [
+        "Barbarian 3"
+      ],
+      "species": "Unknown (humanoid)",
+      "pc": {
+        "level": 3,
+        "class": "Barbarian",
+        "subclass": "Path of the Berserker",
+        "cr": 3,
+        "hitDie": "d12",
+        "formula": "3d12 + 9"
+      }
     },
     {
       "id": "misono_mika",
@@ -5334,7 +5576,7 @@
           "source": "article"
         },
         {
-          "feature": "Multiattack",
+          "feature": "Extra Attack",
           "quote": "The Green Thunder — Or The Shadow Luigi Cannot Escape",
           "source": "article"
         },
@@ -5354,7 +5596,7 @@
           "source": "article"
         }
       ],
-      "kind": "npc",
+      "kind": "pc",
       "abilities": {
         "str": 12,
         "dex": 18,
@@ -5363,13 +5605,24 @@
         "wis": 12,
         "cha": 15
       },
-      "hp": 60,
+      "hp": 21,
       "speed": "40",
       "size": "med",
-      "items": 5,
+      "items": 9,
       "ac": 15,
-      "cr": 3,
-      "type": "humanoid (human)"
+      "level": 3,
+      "classes": [
+        "Rogue 3"
+      ],
+      "species": "Human (allegedly)",
+      "pc": {
+        "level": 3,
+        "class": "Rogue",
+        "subclass": "Arcane Trickster",
+        "cr": 3,
+        "hitDie": "d8",
+        "formula": "3d8 + 3"
+      }
     },
     {
       "id": "my_brother",
@@ -5587,7 +5840,7 @@
           "source": "article"
         }
       ],
-      "kind": "npc",
+      "kind": "pc",
       "abilities": {
         "str": 8,
         "dex": 16,
@@ -5596,13 +5849,24 @@
         "wis": 16,
         "cha": 17
       },
-      "hp": 58,
+      "hp": 27,
       "speed": "25",
       "size": "sm",
-      "items": 5,
+      "items": 9,
       "ac": 13,
-      "cr": 3,
-      "type": "humanoid (Toad)"
+      "level": 4,
+      "classes": [
+        "Bard 4"
+      ],
+      "species": "Toad",
+      "pc": {
+        "level": 4,
+        "class": "Bard",
+        "subclass": "College of Lore",
+        "cr": 3,
+        "hitDie": "d8",
+        "formula": "4d8 + 4"
+      }
     },
     {
       "id": "nerd_t",
@@ -5761,7 +6025,7 @@
           "source": "article"
         },
         {
-          "feature": "Multiattack",
+          "feature": "Extra Attack",
           "quote": "Vampire (Giant Bat Form)",
           "source": "article"
         },
@@ -5781,7 +6045,7 @@
           "source": "article"
         }
       ],
-      "kind": "npc",
+      "kind": "pc",
       "abilities": {
         "str": 18,
         "dex": 16,
@@ -5790,13 +6054,24 @@
         "wis": 14,
         "cha": 18
       },
-      "hp": 97,
+      "hp": 49,
       "speed": "30",
       "size": "med",
-      "items": 6,
+      "items": 10,
       "ac": 16,
-      "cr": 5,
-      "type": "undead (vampire)"
+      "level": 5,
+      "classes": [
+        "Paladin 5"
+      ],
+      "species": "Vampire",
+      "pc": {
+        "level": 5,
+        "class": "Paladin",
+        "subclass": "Oath of Conquest",
+        "cr": 5,
+        "hitDie": "d10",
+        "formula": "5d10 + 15"
+      }
     },
     {
       "id": "orvinder_danos",
@@ -5872,7 +6147,7 @@
           "source": "article"
         }
       ],
-      "kind": "npc",
+      "kind": "pc",
       "abilities": {
         "str": 13,
         "dex": 14,
@@ -5881,13 +6156,24 @@
         "wis": 9,
         "cha": 15
       },
-      "hp": 22,
+      "hp": 11,
       "speed": "30",
       "size": "med",
-      "items": 4,
+      "items": 7,
       "ac": 13,
-      "cr": 0.5,
-      "type": "monstrosity (Bone-Line kin)"
+      "level": 1,
+      "classes": [
+        "Fighter 1"
+      ],
+      "species": "Skeleton (Bone-Line kin)",
+      "pc": {
+        "level": 1,
+        "class": "Fighter",
+        "subclass": null,
+        "cr": 0.5,
+        "hitDie": "d10",
+        "formula": "1d10 + 1"
+      }
     },
     {
       "id": "parson_pellinost",
@@ -5986,7 +6272,7 @@
           "source": "article"
         }
       ],
-      "kind": "npc",
+      "kind": "pc",
       "abilities": {
         "str": 11,
         "dex": 16,
@@ -5995,13 +6281,24 @@
         "wis": 15,
         "cha": 12
       },
-      "hp": 44,
+      "hp": 15,
       "speed": "40",
       "size": "med",
-      "items": 5,
+      "items": 8,
       "ac": 14,
-      "cr": 2,
-      "type": "humanoid (human)"
+      "level": 2,
+      "classes": [
+        "Rogue 2"
+      ],
+      "species": "Human (apparent)",
+      "pc": {
+        "level": 2,
+        "class": "Rogue",
+        "subclass": null,
+        "cr": 2,
+        "hitDie": "d8",
+        "formula": "2d8 + 2"
+      }
     },
     {
       "id": "pet_rock",
@@ -6246,7 +6543,7 @@
           "source": "article"
         }
       ],
-      "kind": "npc",
+      "kind": "pc",
       "abilities": {
         "str": 14,
         "dex": 13,
@@ -6255,13 +6552,24 @@
         "wis": 14,
         "cha": 17
       },
-      "hp": 45,
+      "hp": 28,
       "speed": "30",
       "size": "med",
-      "items": 3,
+      "items": 7,
       "ac": 14,
-      "cr": 2,
-      "type": "humanoid (human)"
+      "level": 3,
+      "classes": [
+        "Paladin 3"
+      ],
+      "species": "Human",
+      "pc": {
+        "level": 3,
+        "class": "Paladin",
+        "subclass": "Oath of the Crown",
+        "cr": 2,
+        "hitDie": "d10",
+        "formula": "3d10 + 6"
+      }
     },
     {
       "id": "princess_peach",
@@ -6336,7 +6644,7 @@
           "source": "article"
         }
       ],
-      "kind": "npc",
+      "kind": "pc",
       "abilities": {
         "str": 7,
         "dex": 12,
@@ -6345,13 +6653,24 @@
         "wis": 14,
         "cha": 11
       },
-      "hp": 31,
+      "hp": 18,
       "speed": "25",
       "size": "med",
-      "items": 4,
+      "items": 8,
       "ac": 11,
-      "cr": 1,
-      "type": "humanoid (human)"
+      "level": 3,
+      "classes": [
+        "Artificer 3"
+      ],
+      "species": "Human",
+      "pc": {
+        "level": 3,
+        "class": "Artificer",
+        "subclass": "Artillerist",
+        "cr": 1,
+        "hitDie": "d8",
+        "formula": "3d8"
+      }
     },
     {
       "id": "prunsel",
@@ -7163,7 +7482,7 @@
           "source": "article"
         }
       ],
-      "kind": "npc",
+      "kind": "pc",
       "abilities": {
         "str": 8,
         "dex": 15,
@@ -7172,13 +7491,24 @@
         "wis": 16,
         "cha": 15
       },
-      "hp": 9,
+      "hp": 2,
       "speed": "25",
       "size": "med",
-      "items": 4,
+      "items": 7,
       "ac": 12,
-      "cr": 1,
-      "type": "monstrosity (Bone-Line kin)"
+      "level": 1,
+      "classes": [
+        "Rogue 1"
+      ],
+      "species": "Skeleton (Bone-Line kin)",
+      "pc": {
+        "level": 1,
+        "class": "Rogue",
+        "subclass": null,
+        "cr": 1,
+        "hitDie": "d8",
+        "formula": "1d8"
+      }
     },
     {
       "id": "sans_deltarune",
@@ -7608,7 +7938,7 @@
           "source": "article"
         }
       ],
-      "kind": "npc",
+      "kind": "pc",
       "abilities": {
         "str": 10,
         "dex": 12,
@@ -7617,13 +7947,24 @@
         "wis": 14,
         "cha": 17
       },
-      "hp": 31,
+      "hp": 21,
       "speed": "25",
       "size": "sm",
-      "items": 3,
+      "items": 7,
       "ac": 12,
-      "cr": 1,
-      "type": "humanoid (Toad)"
+      "level": 3,
+      "classes": [
+        "Bard 3"
+      ],
+      "species": "Toad",
+      "pc": {
+        "level": 3,
+        "class": "Bard",
+        "subclass": "College of Eloquence",
+        "cr": 1,
+        "hitDie": "d8",
+        "formula": "3d8 + 3"
+      }
     },
     {
       "id": "speaker_rivers",
@@ -7925,7 +8266,7 @@
           "source": "article"
         }
       ],
-      "kind": "npc",
+      "kind": "pc",
       "abilities": {
         "str": 10,
         "dex": 13,
@@ -7934,13 +8275,24 @@
         "wis": 16,
         "cha": 15
       },
-      "hp": 58,
+      "hp": 20,
       "speed": "30",
       "size": "med",
-      "items": 4,
+      "items": 8,
       "ac": 13,
-      "cr": 3,
-      "type": "undead (vampire)"
+      "level": 3,
+      "classes": [
+        "Wizard 3"
+      ],
+      "species": "Unknown (possibly vampire)",
+      "pc": {
+        "level": 3,
+        "class": "Wizard",
+        "subclass": "Order of Scribes",
+        "cr": 3,
+        "hitDie": "d6",
+        "formula": "3d6 + 6"
+      }
     },
     {
       "id": "the_hallway_reinforcement_guard",
@@ -8598,7 +8950,7 @@
           "source": "article"
         }
       ],
-      "kind": "npc",
+      "kind": "pc",
       "abilities": {
         "str": 14,
         "dex": 10,
@@ -8607,13 +8959,24 @@
         "wis": 17,
         "cha": 16
       },
-      "hp": 30,
+      "hp": 10,
       "speed": "30",
       "size": "lg",
-      "items": 4,
+      "items": 7,
       "ac": 13,
-      "cr": 1,
-      "type": "monstrosity (Underground monster)"
+      "level": 1,
+      "classes": [
+        "Cleric 1"
+      ],
+      "species": "Boss Monster",
+      "pc": {
+        "level": 1,
+        "class": "Cleric",
+        "subclass": null,
+        "cr": 1,
+        "hitDie": "d8",
+        "formula": "1d8 + 2"
+      }
     },
     {
       "id": "tymnas",
@@ -8873,7 +9236,7 @@
           "source": "article"
         }
       ],
-      "kind": "npc",
+      "kind": "pc",
       "abilities": {
         "str": 10,
         "dex": 15,
@@ -8882,13 +9245,24 @@
         "wis": 13,
         "cha": 16
       },
-      "hp": 58,
+      "hp": 17,
       "speed": "30",
       "size": "sm",
-      "items": 4,
+      "items": 8,
       "ac": 13,
-      "cr": 3,
-      "type": "humanoid (Toad)"
+      "level": 3,
+      "classes": [
+        "Sorcerer 3"
+      ],
+      "species": "Unknown (presents as Toad)",
+      "pc": {
+        "level": 3,
+        "class": "Sorcerer",
+        "subclass": "Shadow Sorcery",
+        "cr": 3,
+        "hitDie": "d6",
+        "formula": "3d6 + 3"
+      }
     },
     {
       "id": "waluigi",

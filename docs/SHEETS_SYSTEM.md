@@ -85,8 +85,9 @@ meta      generator, note, visibility {public:'party', debug:'all'},
 sheets[]  id, name, title, sheetName, source, file, alternates[],
           party, partyWhy, group, portrait, ledger {level, powerLevel},
           kind pc|npc, abilities {str..cha}, hp, speed, size, items, ac,
-          acApprox, cr | level+classes, type,
+          acApprox, cr | level+classes+species, type,
           + for generated: role, bespoke, evidence[{feature, quote, source}]
+          + for generated PCs: pc {level, class, subclass, cr, hitDie, formula}
 skipped[] id, name, reason
 ```
 
@@ -104,9 +105,10 @@ Foundry icon path — the actor's `img` lives in a different namespace.
 ## How a generated sheet is built
 
 The builder reads the article (`summary`, `description`, `title`, `status`,
-`affiliation`, `race`, `type`) and the XP ledger, and produces a dnd5e NPC the
-same way the 955 BF builder does (it imports that module for `attack()`,
-`feat()`, `sid()` and the icon library check).
+`affiliation`, `race`, `type`) and the XP ledger, and produces a dnd5e actor
+the same way the 955 BF builder does (it imports that module for `attack()`,
+`feat()`, `sid()` and the icon library check): an NPC stat block for the
+templated cast, a **player-character sheet** for the hand-authored main cast.
 
 **Level → CR.** The XP ledger is authoritative for how strong a character is.
 A generated CR is derived from the ledger level and **never exceeds it**;
@@ -129,27 +131,50 @@ sheet page prints the evidence list under the stat block, and
 normalisation as the builder) — **a quote that stops matching fails the
 build.**
 
-**Bespoke sheets (34).** The main cast is hand-authored in `BESPOKE`: Mario,
-Luigi, Daisy, Kamek, King Boo, Kirby, Dedede, Meta Knight, E. Gadd, Mr. L,
-Bryan, Mystic Morel, Chief Thornpaw, Captain Toadette, Chancellor Toadsworth,
-Dan, Bones, Orangus Cornelius, Vivian Corvinarus, Sans, Papyrus, Toriel,
-Asgore, Flowey, King K. Rool, Captain Syrup, Speaker L, Evil Mario, Director
-Mario, Fawthful, Mimbus, Paulo, the Archivist, Marcus Ashford. Their features
-are written, but each one still names a quote (`q=[...]`) that must exist in
-the article, so the evidence rule holds for them too. Mario: CR 5, AC 15,
-105 HP, speed 40 — Stomp (knock-prone on a running approach), Prodigious
-Leap, Wing Cap 1/day, *Diminished* (eighty-five years of silence as a level
-of exhaustion), *Missing Since 1039 BF* (the sheet says it is a
-reconstruction). Luigi: CR 4 — Poltergust strobe & suction, Fear as Method,
-Containment Procedure, Guild Contractor, *The Shadow Called L*.
+**Bespoke sheets (34) are player characters.** The main cast is hand-authored
+in `BESPOKE`: Mario, Luigi, Daisy, Kamek, King Boo, Kirby, Dedede, Meta
+Knight, E. Gadd, Mr. L, Bryan, Mystic Morel, Chief Thornpaw, Captain
+Toadette, Chancellor Toadsworth, Dan, Bones, Orangus Cornelius, Vivian
+Corvinarus, Sans, Papyrus, Toriel, Asgore, Flowey, King K. Rool, Captain
+Syrup, Speaker L, Evil Mario, Director Mario, Fawthful, Mimbus, Paulo, the
+Archivist, Marcus Ashford. A player may sit down as any of them, so each is a
+dnd5e `type:"character"` sheet, not an NPC stat block: `PC_BUILD` names the
+class, subclass, hit die, spell progression, species and background;
+`pc_doc()` writes the class / subclass / species / background items the
+system needs (`details.race` / `background` / `originalClass` point at
+them, like the live PC exports), a linked prototype token, weapon and armour
+proficiencies by class, XP at the level threshold. **The class level is the
+XP ledger level**; where the ledger is silent the authored CR stands in
+(rounded up, never below 1 — `pc_level()`). Hit points come from the hit
+die and Constitution (`pc_hit_points()`), proficiency and save DCs from the
+level, and the authored kit stays: weapons are marked proficient,
+*Multiattack* becomes *Extra Attack* (flagged *arrives early* under level
+5), features read as class features. A subclass appears from level 3 (the
+2024 rule). The authored CR is kept in `flags["waluipedia-sheets"].pc.cr`
+and the old rule still holds for it: never above the ledger level. Their
+features are written, but each one still names a quote (`q=[...]`) that
+must exist in the article, so the evidence rule holds for them too. Mario:
+Monk 5 (Warrior of the Open Hand), AC 15, 47 HP, speed 40 — Stomp
+(knock-prone on a running approach), Prodigious Leap, Extra Attack, Wing Cap
+1/day, *Diminished* (eighty-five years of silence as a level of
+exhaustion), *Missing Since 1039 BF* (the sheet says it is a
+reconstruction). Luigi: Ranger 5 (Monster Slayer) — Poltergust strobe &
+suction, Fear as Method, Containment Procedure, Guild Contractor, *The
+Shadow Called L*. No spells are invented: a caster's class item carries the
+progression and ability so the slots compute in Foundry, and the player
+picks the spells at the table.
 
 **Actor rules** (from [`actors/README.md`](../Reputation-Matrix2/actors/README.md)):
-`type:"npc"`, one file per character, deterministic 16-character ids
-(`sid("cast", id)`), unlinked prototype tokens, no race/class/subclass/
-background items, no invented magic items, icons verified against the image
-library, portraits linked from `Reputation-Matrix2/portraits/`. The builder's
-`--check` must round-trip JSON-equal; `tools/foundry-bridge.py check
-Reputation-Matrix2/actors/cast` and the sanitizer both pass on the output.
+one file per character, deterministic 16-character ids (`sid("cast", id)`),
+no invented magic items, icons verified against the image library, portraits
+linked from `Reputation-Matrix2/portraits/`. Templated sheets: `type:"npc"`,
+unlinked prototype tokens, no race/class/subclass/background items.
+Hand-authored sheets: `type:"character"`, linked token, exactly one class,
+species and background item (a subclass from level 3), class level = ledger
+level. The builder's `--check` must round-trip JSON-equal;
+`tools/foundry-bridge.py check Reputation-Matrix2/actors/cast` and the
+sanitizer both pass on the output, and `tools/check-sheets.py` enforces both
+rule sets.
 
 ## Where it shows up
 

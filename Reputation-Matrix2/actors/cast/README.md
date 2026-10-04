@@ -1,7 +1,9 @@
 # The cast — generated sheets for every character without a real export
 
-152 dnd5e NPC actors, one per character article that has no live-world
-export, PC intake sheet or 955 BF era sheet. **Generated, not exported:**
+152 dnd5e actors, one per character article that has no live-world
+export, PC intake sheet or 955 BF era sheet — 118 NPC stat blocks from the
+archetype templates and **34 player-character sheets** for the hand-authored
+main cast (a player may sit down as any of them). **Generated, not exported:**
 `tools/build-character-sheets.py` writes every file here from the article's
 own words and the XP ledger, deterministically (`--check` must round-trip).
 Do not hand-edit a file in this directory — change the article, a
@@ -9,7 +11,7 @@ Do not hand-edit a file in this directory — change the article, a
 
 | File | What |
 |---|---|
-| `fvtt-Actor-<character id>.json` | one actor, `type:"npc"`, unlinked token, id `sid("cast", <id>)` |
+| `fvtt-Actor-<character id>.json` | one actor, id `sid("cast", <id>)` — templated: `type:"npc"`, unlinked token; hand-authored: `type:"character"`, linked token, class / species / background items |
 | `import.json` | all 152 combined by `tools/foundry-bridge.py combine`, folders *Waluipedia Cast / <group>* |
 
 Import the packet with the [Mass Import module](../../Foundry/mass_import/README.md)
@@ -31,13 +33,23 @@ rebuild after an article changes updates the actors in place.
   on the site under *Evidence*. `tools/check-sheets.py` fails if a quote is
   no longer in the article.
 - **34 hand-authored sheets** for the main cast (`bespoke: true` in the
-  flag): Mario, Luigi, Daisy, Kamek, King Boo, Kirby, Dedede, Meta Knight,
-  E. Gadd, Mr. L, the Bone-Line, the Dark Shores court, and so on — still
-  bound to quotes.
+  flag) are **player-character sheets**: Mario (Monk 5), Luigi (Ranger 5),
+  Daisy (Paladin 3), Kamek (Wizard 2), King Boo (Warlock 2), Kirby
+  (Barbarian 1), Dedede, Meta Knight, E. Gadd (Artificer 3), Mr. L, the
+  Bone-Line, the Dark Shores court, and so on — still bound to quotes. The
+  class level **is the XP ledger level**; with no ledger row the authored CR
+  stands in (rounded up, never below 1). `PC_BUILD` in the builder names the
+  class, subclass (from level 3), hit die, spell progression, species and
+  background; hit points come from the hit die and Constitution; the
+  authored kit stays (weapons marked proficient, *Multiattack* reads as
+  *Extra Attack*, flagged *arrives early* under level 5). The authored CR
+  is kept in `flags["waluipedia-sheets"].pc.cr` and still never exceeds the
+  ledger level.
 - Icons verified against the image library
   (`tools/item sheet examples/image paths.txt`); portraits linked from
-  `Reputation-Matrix2/portraits/`; no race/class/subclass/background items,
-  no invented magic items.
+  `Reputation-Matrix2/portraits/`; no race/class/subclass/background items
+  on the NPC stat blocks, exactly one of each (plus an optional subclass) on
+  the PC sheets, no invented magic items.
 
 Six characters are skipped on purpose and listed in `data/sheets.json`
 under `skipped[]`: the GM record (`mike`), the collectives (`miser_family`,

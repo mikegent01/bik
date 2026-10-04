@@ -9,9 +9,13 @@ What it proves
                skipped with a reason; nothing is both, nothing is neither
     files      every indexed sheet file exists, parses, and is the type the
                index says (pc <-> character, npc <-> npc)
-    rules      generated actors are NPCs with unlinked tokens, deterministic
+    rules      templated actors are NPCs with unlinked tokens, deterministic
                16-char ids, no race/class/subclass/background items, and a CR
-               that never exceeds the XP ledger level the site prints
+               that never exceeds the XP ledger level the site prints;
+               hand-authored (bespoke) actors are player characters — linked
+               token, exactly one class / species / background item, class
+               level equal to the XP ledger level (the authored CR when the
+               ledger is silent, never above the ledger either way)
     evidence   every quote on a generated sheet is still verbatim in the
                character's article (same normalisation as the builder)
     party      the public set is exactly the entries the builder's party rule
@@ -73,6 +77,7 @@ def main():
 
     # files, rules, evidence, party
     generated = 0
+    pcs = 0
     for e in sheets:
         cid = e["id"]
         path = os.path.join(RM, e["file"])
@@ -96,21 +101,44 @@ def main():
             flags = (actor.get("flags") or {}).get(B.SHEETS_FLAG) or {}
             if flags.get("characterId") != cid:
                 problems.append(f"{cid}: generated actor is not flagged for this character")
-            if actor.get("type") != "npc":
-                problems.append(f"{cid}: generated actor must be an npc")
+            bespoke = bool(flags.get("bespoke"))
+            if bespoke != (cid in B.PC_BUILD) or bespoke != (cid in B.BESPOKE):
+                problems.append(f"{cid}: bespoke flag disagrees with the builder's BESPOKE / PC_BUILD tables")
+            if actor.get("type") != ("character" if bespoke else "npc"):
+                problems.append(f"{cid}: {'hand-authored sheets are player characters' if bespoke else 'templated sheets are npcs'}, "
+                                f"not {actor.get('type')}")
             if not re.match(r"^[A-Za-z0-9]{16}$", actor.get("_id") or ""):
                 problems.append(f"{cid}: bad actor _id")
-            if (actor.get("prototypeToken") or {}).get("actorLink"):
-                problems.append(f"{cid}: generated token must be unlinked")
+            if bool((actor.get("prototypeToken") or {}).get("actorLink")) != bespoke:
+                problems.append(f"{cid}: token must be {'linked for a PC' if bespoke else 'unlinked for an NPC'}")
+            kinds = {}
             for it in actor.get("items") or []:
                 if it.get("type") in ("race", "class", "subclass", "background"):
-                    problems.append(f"{cid}: NPC carries a {it['type']} item")
-            cr = ((actor.get("system") or {}).get("details") or {}).get("cr")
+                    kinds[it["type"]] = kinds.get(it["type"], 0) + 1
+                    if not bespoke:
+                        problems.append(f"{cid}: NPC carries a {it['type']} item")
             lvl = (xp.get(cid) or {}).get("level")
+            if bespoke:
+                pcs += 1
+                for k in ("class", "race", "background"):
+                    if kinds.get(k) != 1:
+                        problems.append(f"{cid}: PC sheet needs exactly one {k} item (has {kinds.get(k, 0)})")
+                got = sum(((it.get("system") or {}).get("levels") or 0) for it in actor.get("items") or []
+                          if it.get("type") == "class")
+                want = B.pc_level((flags.get("pc") or {}).get("cr", 1), lvl)
+                if got != want:
+                    problems.append(f"{cid}: class level {got} != {'ledger level' if lvl is not None else 'authored CR'} {want}")
+                if e.get("level") != got:
+                    problems.append(f"{cid}: index level {e.get('level')} != actor level {got}")
+                if kinds.get("subclass") and got < 3:
+                    problems.append(f"{cid}: subclass before level 3")
+                cr = (flags.get("pc") or {}).get("cr")
+            else:
+                cr = ((actor.get("system") or {}).get("details") or {}).get("cr")
+                if e.get("cr") != cr:
+                    problems.append(f"{cid}: index CR {e.get('cr')} != actor CR {cr}")
             if lvl is not None and cr is not None and cr > lvl:
                 problems.append(f"{cid}: CR {cr} exceeds XP ledger level {lvl}")
-            if e.get("cr") != cr:
-                problems.append(f"{cid}: index CR {e.get('cr')} != actor CR {cr}")
             fields = B.article_text(chars[cid])
             evidence = e.get("evidence") or []
             if not evidence:
@@ -120,7 +148,7 @@ def main():
                     problems.append(f"{cid}: quote no longer in the article: {ev.get('quote', '')[:80]!r}")
             if "<" in json.dumps(e.get("evidence") or [], ensure_ascii=False) and "<p" in json.dumps(e.get("evidence")):
                 problems.append(f"{cid}: evidence contains markup")
-        party, why = B.is_party(chars[cid], xp, e.get("kind"))
+        party, why = B.is_party(chars[cid], xp, "npc" if e.get("source") == "generated" else e.get("kind"))
         if bool(e.get("party")) != party:
             problems.append(f"{cid}: party flag {e.get('party')} disagrees with the builder's rule ({party}: {why})")
         if e.get("party") and not (e.get("partyWhy") or "").strip():
@@ -179,7 +207,8 @@ def main():
         print("\n".join(problems))
         print(f"check-sheets: {len(problems)} problem(s)")
         return 1
-    print(f"check-sheets: ok ({len(sheets)} sheets, {generated} generated, {len(party_ids)} public, {len(skipped)} skipped)")
+    print(f"check-sheets: ok ({len(sheets)} sheets, {generated} generated of which {pcs} player characters, "
+          f"{len(party_ids)} public, {len(skipped)} skipped)")
     return 0
 
 

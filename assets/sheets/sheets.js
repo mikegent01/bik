@@ -335,7 +335,9 @@
     const dbg = debugOn() && !e.party;
     const ledger = e.ledger || {};
     const how = e.source === 'generated'
-      ? `Generated from this article by <code>tools/build-character-sheets.py</code>${ledger.level != null ? ` — XP ledger level ${esc(ledger.level)}, so CR ${esc(crLabel(e.cr))} (never above the ledger)` : ' — no ledger entry, archetype default'}.`
+      ? (e.kind === 'pc'
+        ? `Hand-authored from this article by <code>tools/build-character-sheets.py</code> as a player-character sheet — level ${esc(e.level)} ${esc((e.classes || []).map(c => c.replace(/ \d+$/, '')).join(' / ') || 'adventurer')}${ledger.level != null ? ' (the XP ledger level)' : ' (no ledger entry; the authored CR ' + esc(crLabel(e.pc && e.pc.cr)) + ' stands in)'}.`
+        : `Generated from this article by <code>tools/build-character-sheets.py</code>${ledger.level != null ? ` — XP ledger level ${esc(ledger.level)}, so CR ${esc(crLabel(e.cr))} (never above the ledger)` : ' — no ledger entry, archetype default'}.`)
       : `${esc(SOURCE_LABEL[e.source] || e.source)} — the Foundry actor this character actually plays with.`;
     return `<section class="cs-panel${dbg ? ' cs-panel--restricted' : ''}">
       <div class="cs-panel-head"><h2>📜 Character sheet</h2><div class="cs-card-badges">${kindBadge(e)} ${sourceBadge(e)} ${partyBadge(e)}</div></div>
@@ -423,7 +425,7 @@
           <h1>${esc(e.name)}</h1>
           <p class="cs-detail-title">${esc(e.title || '')}</p>
           <div class="cs-card-badges">${kindBadge(e)} ${sourceBadge(e)} ${partyBadge(e)}${e.bespoke ? ' <span class="cs-badge cs-badge--bespoke">Hand-authored</span>' : ''}</div>
-          <p class="cs-note">${ledger.level != null ? `XP ledger: level ${esc(ledger.level)}${ledger.powerLevel != null ? ', power rating ' + esc(ledger.powerLevel) : ''}. ` : 'No XP ledger entry. '}${e.source === 'generated' ? `Generated as a ${esc(e.role || 'character')} — CR ${esc(crLabel(e.cr))}, which never exceeds the ledger level.` : `${esc(SOURCE_LABEL[e.source] || e.source)}: <code>${esc(e.file)}</code>.`}${e.partyWhy ? ` Party: ${esc(e.partyWhy)}.` : ''}</p>
+          <p class="cs-note">${ledger.level != null ? `XP ledger: level ${esc(ledger.level)}${ledger.powerLevel != null ? ', power rating ' + esc(ledger.powerLevel) : ''}. ` : 'No XP ledger entry. '}${e.source === 'generated' ? (e.kind === 'pc' ? `Hand-authored as a player-character sheet — level ${esc(e.level)} ${esc((e.classes || []).map(c => c.replace(/ \d+$/, '')).join(' / ') || 'adventurer')}, the ledger level${e.pc && e.pc.cr != null ? ` (authored CR ${esc(crLabel(e.pc.cr))}, never above it)` : ''}; a player may take this seat.` : `Generated as a ${esc(e.role || 'character')} — CR ${esc(crLabel(e.cr))}, which never exceeds the ledger level.`) : `${esc(SOURCE_LABEL[e.source] || e.source)}: <code>${esc(e.file)}</code>.`}${e.partyWhy ? ` Party: ${esc(e.partyWhy)}.` : ''}</p>
           <div class="cs-panel-actions">
             <button type="button" class="cs-btn" onclick="Router.go('${art}')">Open the article</button>
             <a class="cs-btn cs-btn--ghost" href="${esc(fileUrl(e))}" download>Download Foundry JSON</a>

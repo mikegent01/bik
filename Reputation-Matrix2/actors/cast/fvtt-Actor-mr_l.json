@@ -1,9 +1,16 @@
 {
   "_id": "jpJLBz44urU5RjVO",
   "name": "Mr. L",
-  "type": "npc",
+  "type": "character",
   "img": "portraits/mr_l.jpg",
   "system": {
+    "currency": {
+      "pp": 0,
+      "gp": 0,
+      "ep": 0,
+      "sp": 0,
+      "cp": 0
+    },
     "abilities": {
       "str": {
         "value": 12,
@@ -143,126 +150,6 @@
           }
         }
       }
-    },
-    "attributes": {
-      "ac": {
-        "flat": 15,
-        "calc": "natural",
-        "formula": ""
-      },
-      "hp": {
-        "value": 60,
-        "max": 60,
-        "formula": "11d8 + 11",
-        "temp": null,
-        "tempmax": null
-      },
-      "movement": {
-        "walk": "40",
-        "units": "ft",
-        "hover": false,
-        "burrow": "0",
-        "climb": "0",
-        "fly": "0",
-        "swim": "0",
-        "ignoredDifficultTerrain": []
-      },
-      "senses": {
-        "units": "ft",
-        "ranges": {
-          "darkvision": 0
-        },
-        "special": ""
-      },
-      "init": {
-        "ability": "",
-        "roll": {
-          "min": null,
-          "max": null,
-          "mode": 0
-        },
-        "bonus": ""
-      },
-      "attunement": {
-        "max": 3
-      },
-      "spellcasting": "",
-      "exhaustion": 0,
-      "concentration": {
-        "ability": "",
-        "roll": {
-          "min": null,
-          "max": null,
-          "mode": 0
-        },
-        "bonuses": {
-          "save": ""
-        },
-        "limit": 1
-      },
-      "loyalty": {},
-      "hd": {
-        "spent": 0
-      },
-      "death": {
-        "roll": {
-          "min": null,
-          "max": null,
-          "mode": 0
-        },
-        "success": 0,
-        "failure": 0,
-        "bonuses": {
-          "save": ""
-        }
-      }
-    },
-    "details": {
-      "alignment": "Chaotic Neutral",
-      "type": {
-        "value": "humanoid",
-        "subtype": "human"
-      },
-      "cr": 3,
-      "biography": {
-        "value": "<p><em>Waluipedia cast sheet — Mr. L.</em> Built by <code>tools/build-character-sheets.py</code>, hand-authored from the article. XP ledger: level 3, power rating 4 → CR 3 as a operative. Numbers are a GM-ready reading of the record, not a filed stat line; the article stays the authority. Archive date 1040 BF.</p><p><strong>The Green Thunder — Or The Shadow Luigi Cannot Escape</strong> — Unknown dimensional entity (historical) / Possibly still active (concerning)</p><p>Status: Officially suppressed — but the warrant suggests otherwise, and a backfilled 1035 record now has him in the open outside Star Hill Clinic: reciting, lengthening under fire, and watching from a staircase in three copies</p><p>Mr. L is either Luigi's darkest chapter or Luigi's truest self, depending on who you ask and how much you trust the official narrative. The Regency claims Mr. L was a temporary condition—Luigi brainwashed by dimensional forces, used as a weapon against the Mushroom Kingdom, eventually freed and returned to normal. The warrant charging Luigi with 'residual Mr. L activities' suggests the Regency does not fully believe their own story. The Loyalists claim Mr. L proves Luigi was always compromised and should never be trusted. Luigi himself went SILENT when asked if Mr. L did something evil—a silence witnessed by multiple parties at the ruined manor convergence. Waluigi has spent considerable effort investigating the Mr. L incident, and what Waluigi has found raises more questions than it answers. Was Luigi truly a puppet with someone else pulling the strings? Was Mr. L a separate personality that emerged under stress? Was the 'brainwashing' actually an AWAKENING of something that was always present? And most disturbingly—does Mr. L's existence connect to Mario's disappearance in ways that no one wants to acknowledge? Waluigi does not know. Waluigi is not sure anyone knows. But Waluigi is going to document every theory, every fragment of evidence, and every disturbing implication until the truth emerges or Waluigi runs out of paper. WAH.</p><h3>Evidence</h3><ul><li><strong>Green Thunder Strike</strong> — “The Green Thunder — Or The Shadow Luigi Cannot Escape”</li><li><strong>Multiattack</strong> — “The Green Thunder — Or The Shadow Luigi Cannot Escape”</li><li><strong>Three Copies</strong> — “Officially suppressed — but the warrant suggests otherwise, and a backfilled 1035 record now has him in the open outside Star Hill Clinic: reciting, lengthening under fire, and watching from a staircase in three copies”</li><li><strong>Reciter</strong> — “Officially suppressed — but the warrant suggests otherwise, and a backfilled 1035 record now has him in the open outside Star Hill Clinic: reciting, lengthening under fire, and watching from a staircase in three copies”</li><li><strong>Luigi's Shadow</strong> — “Mr. L is either Luigi's darkest chapter or Luigi's truest self, depending on who you ask and how much you trust the official narrative.”</li></ul><p>Article: <code>#/article/mr_l</code> (characters). Site sheet: <code>#/sheets/mr_l</code>.</p>",
-        "public": ""
-      }
-    },
-    "traits": {
-      "size": "med",
-      "languages": {
-        "value": [
-          "common"
-        ],
-        "custom": "",
-        "communication": {}
-      },
-      "ci": {
-        "value": [],
-        "custom": "",
-        "bypasses": []
-      },
-      "di": {
-        "value": [],
-        "custom": "",
-        "bypasses": []
-      },
-      "dr": {
-        "value": [],
-        "custom": "",
-        "bypasses": []
-      },
-      "dv": {
-        "value": [],
-        "custom": "",
-        "bypasses": []
-      },
-      "dm": {
-        "amount": {},
-        "bypasses": []
-      },
-      "important": false
     },
     "skills": {
       "acr": {
@@ -500,27 +387,172 @@
         }
       }
     },
+    "tools": {},
+    "spells": {},
+    "bonuses": {},
+    "resources": {},
+    "favorites": [],
+    "bastion": {
+      "name": "",
+      "description": ""
+    },
+    "attributes": {
+      "ac": {
+        "flat": 15,
+        "calc": "natural",
+        "formula": ""
+      },
+      "hp": {
+        "value": 21,
+        "max": 21,
+        "temp": null,
+        "tempmax": 0,
+        "bonuses": {}
+      },
+      "movement": {
+        "walk": "40",
+        "units": "ft",
+        "hover": false,
+        "burrow": "0",
+        "climb": "0",
+        "fly": "0",
+        "swim": "0",
+        "ignoredDifficultTerrain": []
+      },
+      "senses": {
+        "units": "ft",
+        "ranges": {
+          "darkvision": 0
+        },
+        "special": ""
+      },
+      "init": {
+        "ability": "",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonus": ""
+      },
+      "attunement": {
+        "max": 3
+      },
+      "spellcasting": "int",
+      "exhaustion": 0,
+      "inspiration": false,
+      "concentration": {
+        "ability": "",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "save": ""
+        },
+        "limit": 1
+      },
+      "loyalty": {},
+      "death": {
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "success": 0,
+        "failure": 0,
+        "bonuses": {
+          "save": ""
+        }
+      }
+    },
+    "details": {
+      "alignment": "Chaotic Neutral",
+      "race": "6f4wL6Tae1A5yxdS",
+      "background": "EUph0XtC0WeFs8An",
+      "originalClass": "7RfBQX1VC1GEOgyX",
+      "xp": {
+        "value": 900
+      },
+      "trait": "",
+      "ideal": "",
+      "bond": "",
+      "flaw": "",
+      "appearance": "",
+      "eyes": "",
+      "hair": "",
+      "skin": "",
+      "height": "",
+      "weight": "",
+      "age": "",
+      "gender": "",
+      "faith": "",
+      "biography": {
+        "value": "<p><em>Waluipedia cast sheet — Mr. L.</em> Built by <code>tools/build-character-sheets.py</code>, hand-authored from the article. XP ledger: level 3, power rating 4 → a level 3 Rogue player-character sheet (a player may take this seat; the authored CR 3 stands in where the ledger is silent). Numbers are a GM-ready reading of the record, not a filed stat line; the article stays the authority. Archive date 1040 BF.</p><p><strong>The Green Thunder — Or The Shadow Luigi Cannot Escape</strong> — Unknown dimensional entity (historical) / Possibly still active (concerning)</p><p>Status: Officially suppressed — but the warrant suggests otherwise, and a backfilled 1035 record now has him in the open outside Star Hill Clinic: reciting, lengthening under fire, and watching from a staircase in three copies</p><p>Mr. L is either Luigi's darkest chapter or Luigi's truest self, depending on who you ask and how much you trust the official narrative. The Regency claims Mr. L was a temporary condition—Luigi brainwashed by dimensional forces, used as a weapon against the Mushroom Kingdom, eventually freed and returned to normal. The warrant charging Luigi with 'residual Mr. L activities' suggests the Regency does not fully believe their own story. The Loyalists claim Mr. L proves Luigi was always compromised and should never be trusted. Luigi himself went SILENT when asked if Mr. L did something evil—a silence witnessed by multiple parties at the ruined manor convergence. Waluigi has spent considerable effort investigating the Mr. L incident, and what Waluigi has found raises more questions than it answers. Was Luigi truly a puppet with someone else pulling the strings? Was Mr. L a separate personality that emerged under stress? Was the 'brainwashing' actually an AWAKENING of something that was always present? And most disturbingly—does Mr. L's existence connect to Mario's disappearance in ways that no one wants to acknowledge? Waluigi does not know. Waluigi is not sure anyone knows. But Waluigi is going to document every theory, every fragment of evidence, and every disturbing implication until the truth emerges or Waluigi runs out of paper. WAH.</p><h3>Evidence</h3><ul><li><strong>Green Thunder Strike</strong> — “The Green Thunder — Or The Shadow Luigi Cannot Escape”</li><li><strong>Extra Attack</strong> — “The Green Thunder — Or The Shadow Luigi Cannot Escape”</li><li><strong>Three Copies</strong> — “Officially suppressed — but the warrant suggests otherwise, and a backfilled 1035 record now has him in the open outside Star Hill Clinic: reciting, lengthening under fire, and watching from a staircase in three copies”</li><li><strong>Reciter</strong> — “Officially suppressed — but the warrant suggests otherwise, and a backfilled 1035 record now has him in the open outside Star Hill Clinic: reciting, lengthening under fire, and watching from a staircase in three copies”</li><li><strong>Luigi's Shadow</strong> — “Mr. L is either Luigi's darkest chapter or Luigi's truest self, depending on who you ask and how much you trust the official narrative.”</li></ul><p>Article: <code>#/article/mr_l</code> (characters). Site sheet: <code>#/sheets/mr_l</code>.</p>",
+        "public": ""
+      }
+    },
+    "traits": {
+      "size": "med",
+      "languages": {
+        "value": [
+          "common"
+        ],
+        "custom": "",
+        "communication": {}
+      },
+      "weaponProf": {
+        "value": [
+          "sim"
+        ],
+        "custom": "",
+        "mastery": {
+          "value": [],
+          "bonus": []
+        }
+      },
+      "armorProf": {
+        "value": [
+          "lgt"
+        ],
+        "custom": ""
+      },
+      "ci": {
+        "value": [],
+        "custom": "",
+        "bypasses": []
+      },
+      "di": {
+        "value": [],
+        "custom": "",
+        "bypasses": []
+      },
+      "dr": {
+        "value": [],
+        "custom": "",
+        "bypasses": []
+      },
+      "dv": {
+        "value": [],
+        "custom": "",
+        "bypasses": []
+      },
+      "dm": {
+        "amount": {},
+        "bypasses": []
+      }
+    },
     "source": {
       "custom": "Waluipedia campaign",
       "revision": 1,
       "rules": "2024"
-    },
-    "currency": {
-      "pp": 0,
-      "gp": 0,
-      "ep": 0,
-      "sp": 0,
-      "cp": 0
-    },
-    "bonuses": {},
-    "tools": {},
-    "spells": {},
-    "resources": {}
+    }
   },
   "prototypeToken": {
     "name": "Mr. L",
     "displayName": 0,
-    "actorLink": false,
+    "actorLink": true,
     "width": 1,
     "height": 1,
     "texture": {
@@ -546,6 +578,154 @@
     }
   },
   "items": [
+    {
+      "_id": "7RfBQX1VC1GEOgyX",
+      "name": "Rogue",
+      "type": "class",
+      "img": "icons/skills/melee/weapons-crossed-swords-white-blue.webp",
+      "system": {
+        "description": {
+          "value": "<p>Rogue — the class this sheet reads the record as. Levels follow the XP ledger.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "revision": 1,
+          "rules": "2024"
+        },
+        "identifier": "rogue",
+        "levels": 3,
+        "hd": {
+          "denomination": "d8",
+          "spent": 0,
+          "additional": ""
+        },
+        "advancement": [],
+        "startingEquipment": [],
+        "properties": [],
+        "primaryAbility": {
+          "value": [],
+          "all": true
+        },
+        "spellcasting": {
+          "progression": "third",
+          "ability": "int",
+          "preparation": {
+            "formula": ""
+          }
+        }
+      },
+      "effects": [],
+      "flags": {},
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "_id": "u25bsFCBflUIPqd0",
+      "name": "Arcane Trickster",
+      "type": "subclass",
+      "img": "icons/skills/melee/weapons-crossed-swords-white-blue.webp",
+      "system": {
+        "description": {
+          "value": "<p>Arcane Trickster (Rogue).</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "revision": 1,
+          "rules": "2024"
+        },
+        "identifier": "arcane-trickster",
+        "classIdentifier": "rogue",
+        "advancement": [],
+        "spellcasting": {
+          "progression": "none",
+          "ability": "",
+          "preparation": {
+            "formula": ""
+          }
+        }
+      },
+      "effects": [],
+      "flags": {},
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "_id": "6f4wL6Tae1A5yxdS",
+      "name": "Human (allegedly)",
+      "type": "race",
+      "img": "icons/environment/people/group.webp",
+      "system": {
+        "description": {
+          "value": "<p>Human (allegedly), as the article files it.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "revision": 1,
+          "rules": "2024"
+        },
+        "identifier": "human-allegedly",
+        "advancement": [],
+        "movement": {
+          "walk": 40,
+          "units": "ft",
+          "hover": false,
+          "ignoredDifficultTerrain": []
+        },
+        "senses": {
+          "units": "ft",
+          "special": "",
+          "ranges": {
+            "darkvision": null,
+            "blindsight": null,
+            "tremorsense": null,
+            "truesight": null
+          }
+        },
+        "type": {
+          "value": "humanoid",
+          "subtype": ""
+        }
+      },
+      "effects": [],
+      "flags": {},
+      "sort": 300000,
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "_id": "EUph0XtC0WeFs8An",
+      "name": "Entertainer",
+      "type": "background",
+      "img": "icons/sundries/scrolls/scroll-bound-white-tan.webp",
+      "system": {
+        "description": {
+          "value": "<p>Entertainer — the life the article describes before the table.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "revision": 1,
+          "rules": "2024"
+        },
+        "identifier": "entertainer",
+        "advancement": [],
+        "startingEquipment": []
+      },
+      "effects": [],
+      "flags": {},
+      "sort": 400000,
+      "ownership": {
+        "default": 0
+      }
+    },
     {
       "_id": "ou78ImJ52ROGYmuY",
       "name": "Green Thunder Strike",
@@ -638,7 +818,7 @@
         },
         "container": null,
         "equipped": true,
-        "proficient": null,
+        "proficient": 1,
         "identifier": "",
         "attuned": false,
         "ammunition": {},
@@ -737,23 +917,23 @@
       },
       "effects": [],
       "flags": {},
-      "sort": 100000,
+      "sort": 500000,
       "ownership": {
         "default": 0
       }
     },
     {
-      "_id": "nsykuoIKDEfQpmvc",
-      "name": "Multiattack",
+      "_id": "M1Rq7nm0QaJ9B3Pg",
+      "name": "Extra Attack",
       "type": "feat",
       "img": "icons/skills/melee/strike-slashes-orange.webp",
       "system": {
         "description": {
-          "value": "<p>Mr. L makes two Green Thunder Strikes.</p>",
+          "value": "<p>Mr. L makes two Green Thunder Strikes.</p><p><em>Arrives early:</em> the class table grants this at level 5; the article's record of how this character fights put it on the sheet now. The GM may hold it.</p>",
           "chat": ""
         },
         "type": {
-          "value": "monster",
+          "value": "class",
           "subtype": ""
         },
         "activation": {},
@@ -777,7 +957,7 @@
       },
       "effects": [],
       "flags": {},
-      "sort": 200000,
+      "sort": 600000,
       "ownership": {
         "default": 0
       }
@@ -793,7 +973,7 @@
           "chat": ""
         },
         "type": {
-          "value": "monster",
+          "value": "class",
           "subtype": ""
         },
         "activation": {},
@@ -822,7 +1002,7 @@
       },
       "effects": [],
       "flags": {},
-      "sort": 300000,
+      "sort": 700000,
       "ownership": {
         "default": 0
       }
@@ -838,7 +1018,7 @@
           "chat": ""
         },
         "type": {
-          "value": "monster",
+          "value": "class",
           "subtype": ""
         },
         "activation": {},
@@ -862,7 +1042,7 @@
       },
       "effects": [],
       "flags": {},
-      "sort": 400000,
+      "sort": 800000,
       "ownership": {
         "default": 0
       }
@@ -878,7 +1058,7 @@
           "chat": ""
         },
         "type": {
-          "value": "monster",
+          "value": "class",
           "subtype": ""
         },
         "activation": {},
@@ -902,7 +1082,7 @@
       },
       "effects": [],
       "flags": {},
-      "sort": 500000,
+      "sort": 900000,
       "ownership": {
         "default": 0
       }
@@ -937,7 +1117,7 @@
           "source": "article"
         },
         {
-          "feature": "Multiattack",
+          "feature": "Extra Attack",
           "quote": "The Green Thunder — Or The Shadow Luigi Cannot Escape",
           "source": "article"
         },
@@ -956,7 +1136,15 @@
           "quote": "Mr. L is either Luigi's darkest chapter or Luigi's truest self, depending on who you ask and how much you trust the official narrative.",
           "source": "article"
         }
-      ]
+      ],
+      "pc": {
+        "level": 3,
+        "class": "Rogue",
+        "subclass": "Arcane Trickster",
+        "cr": 3,
+        "hitDie": "d8",
+        "formula": "3d8 + 3"
+      }
     }
   },
   "_stats": {
