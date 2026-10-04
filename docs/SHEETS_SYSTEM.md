@@ -290,7 +290,7 @@ to `tech_grove_electric_sphere`, mechanics unestablished) and Feyward Dan's
 Table).
 
 `tools/sheets-suite.py` runs the whole loop — intake, split, promote,
-changes, check, build, combine, publish, verify — once, under `--watch`
+changes, organize, check, build, combine, publish, verify — once, under `--watch`
 (what `start.py`'s **Character sheets** tick starts; it re-runs when an
 export, `Players.json` or a changes file changes) or as `--check`
 (read-only, run by `tools/check-all.py`). The packets it combines
@@ -324,6 +324,23 @@ the table* line when the ledger is ahead (Hjumpik 6 → 7 is the players'
 to take) — whispered to the GMs in chat as well. Shift-click = review table
 first. A wrong file given to *Mass import* (the site's `sheets.json`, a
 `manifest.json`) is refused with a message naming the right one.
+
+**Folders, tags, colours** (module 1.4, `tools/organize-actors.py`). The
+world's Actors sidebar is sorted the way this page is: `Players`, one
+folder per website group (`Disaster Inc`, `Iron Legion`, `Koopa Troop`,
+`Mushroom Regency & Kingdom`, `Mages' Guild`, `Shadow Estate & House
+Corvinarus`, `Fawful's Furious Freaks`, `Overgrown Manor`, `Elsewhere`, …)
+in the site's faction colours, and `Bestiary / ⟨creature type⟩` for the
+generic statblocks. The organizer's rules live in
+[`actors/folders.json`](../Reputation-Matrix2/actors/folders.json) and are
+explained in [`actors/README.md`](../Reputation-Matrix2/actors/README.md#organize-folders-like-the-website-tags-colours-toolsorganize-actorspy);
+every actor carries `flags["waluipedia-sheets"].tags` (group, pc/npc, role,
+creature type, origin folder) and `.color`, which the module draws as chips
+in the sidebar. A folder the GM made and coloured, or an actor the GM moved
+after the organizer filed it, is left alone. The same pass also made the
+Sync quiet: updates are diffs (an unchanged actor is not written), the
+players' broken item identifiers are repaired before import, and the
+deprecated progress bar is gone — see the module README's *1.4* table.
 
 ## Decisions
 

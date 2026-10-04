@@ -6,6 +6,7 @@
   "actorCount": 30,
   "folderCount": 3,
   "unresolvedFolderActors": 0,
+  "folderStyles": {},
   "folders": [
     {
       "_id": "zkElJXf3QQJTv7xv",
@@ -15,6 +16,7 @@
       "sorting": "a",
       "sort": 0,
       "color": null,
+      "description": null,
       "path": [
         "Peach's Castle 955 BF"
       ]
@@ -27,6 +29,7 @@
       "sorting": "a",
       "sort": 0,
       "color": null,
+      "description": null,
       "path": [
         "Peach's Castle 955 BF",
         "Bowser's Incursion"
@@ -40,6 +43,7 @@
       "sorting": "a",
       "sort": 0,
       "color": null,
+      "description": null,
       "path": [
         "Peach's Castle 955 BF",
         "The Court"

@@ -211,3 +211,65 @@ them.
 - The NPCs already sitting at the root of the GM's world are not moved by
   a `players` sync; a `world` sync (Module Settings → *Sync: what* → world)
   moves every actor the export knows into its folder.
+
+## 8. Addendum — the first world-scope Sync worked, loudly (same day, later still)
+
+### What happened
+
+`15 created, 133 updated, 3 replaced, 13 folders, 18 missing images` — the
+right result, under a console full of noise. Each line traced to a cause:
+
+| Console | Cause | Where it was fixed |
+| --- | --- | --- |
+| `Item "…" does not exist!` — dozens of uncaught promises from dnd5e `item.mjs:1151` | the module updated every actor as a whole document (`diff: false`); to dnd5e every item then looked like an activities change, so `onUpdateActivities` deleted and recreated the cached spells of every Cast item — and because dnd5e notes the ids to remove on the *shared* batch options, every other item in the same batch tried to delete them again | module 1.4: diff updates, one call per item whose activities change, cached spells of a deleted Cast item left to the system |
+| `Invalid embedded document data … identifier may only contain …` on `VudZ3W313Y4FILs0` (Eager) and `IlzuThuR8upTtqtF` (Feyward Dan) | the *players'* own exports carry `toad-—-eager-variant`, `disaster-inc.-catastrophe-scout`, `dead-person's-shoes`; dnd5e 5.3's `IdentifierField` refuses them and the item becomes invisible | `foundry-bridge.py split` repairs (`slug_identifier`, recorded in `manifest.identifiersRepaired`), `check` fails on any that remain, `sanitize-foundry-actor.py` gained `rule_identifiers`, the module slugifies whatever still arrives and reports it. 7 repaired in the mirror; Eager's and Dan's import-ready files rewritten by the intake chain |
+| `SceneNavigation.displayProgressBar is deprecated` | v12 API | `ui.notifications.info(…, {progress: true})` on v13+ |
+| 404 `npc/MLSS%252BBM_Art_-_Fawful.png` | Foundry stores paths already encoded; the module encoded them again | encoded once; wildcard token paths skipped. The remaining 404s are real and the GM's: bare file names (`1709761629520545.jpg`, Markop's and Salam's portrait uploads) and `modules/house-divided/…` wildcards from another Data folder |
+| 45 actors at the root, 13 folders | the packet mirrored the world as it was | **the organizer** (below) |
+
+The request on top: *more aggressive folders — tags, sort them all like the
+website, colour-code if needed*.
+
+### What was done
+
+| Piece | Commit | Detail |
+| --- | --- | --- |
+| Module 1.4.0 | `9015d7d` | `docDiff` updates (unchanged actors not written; `-=key` only for `flags`, `ownership`, `system.activities`, `system.tools`); identifier repair; v13 progress; encoding fixed; **tags as sidebar chips** (`flags["waluipedia-sheets"].tags`, tinted with the folder colour, client setting to hide); **folder colours** from `folders[].color` / `folderStyles` (new folders coloured, colourless ones painted, the GM's own colours kept); Sync summary gains *Repaired identifiers* and a *Folders* section. Test fake rewritten (dnd5e cascade, `Folder#update`, `decodeURIComponent`); 151 tests, +5 against the real export, +4 against the real packet |
+| `actors/folders.json` + `tools/organize-actors.py` | this commit | the scheme (`waluipedia-folders/1`) and the pass: `Players` (kept) → website index (direct or alternate) → name rules → folder rules (`A House Divided / Characters of …` → Overgrown Manor) → a GM folder named like a group → `Bestiary / ⟨creature type⟩`. Files move with their actors, the manifest follows, empty GM directories go, placement remembered in `flags["waluipedia-sheets"].organized` so a later GM move is respected (`--force` overrides). 137 of 151 moved: 23 folders, nothing at the root |
+| Tags + colours everywhere | this commit | organizer writes `tags` / `color` on the mirror; the builder writes them on the 156 generated sheets and the 3 era versions; `foundry-bridge.py combine` writes `folders[].color` / `description` / `folderStyles` (24 coloured folders in the cast packet, 22 in the world packet); `folders.json` in `SKIP_FILES` |
+| Suite | this commit | `organize` step after changes, before check / build / combine; `--check` runs it read-only; `check-all` runs `organize-actors.py --check` and the new `tools/tests/test-organize-actors.py` (43) |
+| Docs | this commit | module README 1.4 table, `actors/README.md` *Organize* section, `SHEETS_SYSTEM.md`, this addendum |
+
+Verified: module tests 151 / 156 (`WMI_EXPORT`) / 160 (`WMI_PACKET`: the
+real packet over the real world — 0 created, 148 changed, 3 replaced, 22
+folders, 31 coloured, second import unchanged); bridge 51; suite 108;
+organize 43; `check-sheets.py`; `check-all` (only the standing grove check
+fails); the Peach's Castle 955 packet regenerated for the new `folderStyles`
+field.
+
+### What the GM does now
+
+1. Run `start.py` (or `python3 tools/sheets-suite.py`) once — the suite
+   organizes the mirror, publishes the packets and installs module **1.4.0**
+   (`module : waluipedia-mass-import 1.3.0 -> 1.4.0 installed … reload Foundry (F5)`).
+2. F5 in Foundry, **Actors → Sync** with *Sync: what* still on **world**
+   (set last time). Expect roughly `0 created, ~148 changed, 22 new
+   folders, 31 coloured`, no red lines; the summary lists the folders. A
+   second click should say everything is unchanged.
+3. 11 of the 13 old folders are now empty (`A House Divided` and its
+   seven sub-folders, `Creatures`, `Flower`, `Important`; `Players` and
+   `Iron Legion` stay in use) — left for the GM to delete, the module never
+   deletes folders.
+4. Markop's and Salam's portraits: the players uploaded bare file names
+   (`1709761629520545.jpg`, `ofmfwui4eg0jvc28-generated_image-removebg-preview.webp`);
+   set the sheet image to a path under Data and the 404s stop.
+
+### Not done
+
+- Tags are flags + sidebar chips: Foundry has no native actor tags, so there
+  is no filter box; the folder tree and the search field do that job.
+- Generic statblocks are filed by creature type only. A statblock that is
+  really faction-bound but named generically (`Guard`) stays in the GM
+  folder it was in only if that folder is named like a website group;
+  otherwise it is Bestiary / Humanoid until a name rule or an article says
+  otherwise — add a line to `folders.json` and rerun.

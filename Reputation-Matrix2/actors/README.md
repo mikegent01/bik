@@ -140,16 +140,59 @@ repo-root copy or the newest `<world>-all-actors*.json` in Downloads, copied
 into the root — → `split --prune`), **promote** (below), **changes** (every
 [`changes/*.json`](changes/) whose `appliesTo.exportedAtOrBefore` still
 covers the mirror's export → `apply --write`; a later export already carries
-the table's version of those items), **check**, **build**
-(`build-character-sheets.py`), **combine** (`worlds/<world>/import.json` and
-`worlds/<world>/players-import.json` — the Players folder only — both
-git-ignored build artefacts), **publish** (below) and **verify**
-(`check-sheets.py`, `promote-player-sheets.py --check`). It ends by printing
+the table's version of those items), **organize** (below: every actor into
+the folder the website would put it in, tags and a colour on each),
+**check**, **build** (`build-character-sheets.py`), **combine**
+(`worlds/<world>/import.json` and `worlds/<world>/players-import.json` — the
+Players folder only — both git-ignored build artefacts), **publish** (below)
+and **verify** (`check-sheets.py`, `promote-player-sheets.py --check`,
+`organize-actors.py --check`). It ends by printing
 the URLs: the sheets page and the packet to paste into **Mass import → URL**
 (`http://127.0.0.1:8765/Reputation-Matrix2/actors/worlds/midlands/players-import.json`;
 `start.py` sends `Access-Control-Allow-Origin: *` so Foundry can fetch it) —
 though with the publish step and the module's **Sync** button no URL is
 needed any more.
+
+#### Organize: folders like the website, tags, colours (`tools/organize-actors.py`)
+
+The first full-world Sync put 45 actors at the root and the rest in the
+13 folders the world happened to have. The organizer sorts the mirror the
+way the site's `#/sheets` page sorts its cast, and the import carries the
+result into Foundry (file moves = folder moves, by id). The scheme is
+[`folders.json`](folders.json) (`waluipedia-folders/1`):
+
+| Folder | Who goes there | Colour |
+| --- | --- | --- |
+| `Players` | the party's `character` sheets and whatever the GM already keeps there (Wario's Motorbike); never re-filed | gold |
+| one folder per website group — `Disaster Inc`, `Iron Legion`, `Koopa Troop`, `Mushroom Regency & Kingdom`, `Mages' Guild`, `Shadow Estate & House Corvinarus`, `Fawful's Furious Freaks`, `Overgrown Manor`, `Elsewhere`, … (the builder's `GROUPS`) | an actor the sheet index (`data/sheets.json`) knows — directly or as an *alternate* of an article — goes to its article's group; else a **name rule** (`Goomba`, `Koopa`, `Hammer Bro`, `Magikoopa`, `Shy Guy` → Koopa Troop; `Palace Guard`, `Royal Guard`, `Castle Chambermaid` → Mushroom Regency; `Legionnaire` → Iron Legion; `Corvinarus`, `Onyx` → Shadow Estate; `Fawful`, `Cackletta`, `Midbus` → the Freaks); else a **folder rule** (`A House Divided / Characters of …` → Overgrown Manor) | the site's faction colour (`data/factionColors.json`) |
+| a GM folder that *is* named like a website group (`Iron Legion`) | stays, and is coloured | the group's colour |
+| `Bestiary / ⟨creature type⟩` | everything else — generic statblocks, by `system.details.type.value` (the 14 dnd5e types; `custom`/blank → `Other`) | a shade per type |
+
+Precedence: `keep` folders (Players) → website index → name rules → folder
+rules → a GM folder named like a group → Bestiary. An actor the GM **moves
+after** the organizer filed it (the next export says so) is left where the
+GM put it — the placement is remembered in
+`flags["waluipedia-sheets"].organized = {path, basis, from}` and only
+re-filed when the basis changes (a new article about a Bestiary creature
+promotes it) or with `--force`. Emptied GM directories are removed, the
+manifest follows the moves, and a second pass changes nothing (`--check`
+proves it in `check-all`).
+
+Each actor also gets **tags** — `flags["waluipedia-sheets"].tags = [website
+group or folder, pc|npc, role, party, creature type, the folder it came
+from]` — and the folder's **colour** in `flags["waluipedia-sheets"].color`.
+Foundry has no actor tags, so the module (1.4) draws them as chips next to
+the name in the Actors sidebar, tinted with the colour; `combine` writes the
+folder colours and descriptions into the packet (`folders[].color`,
+`folderStyles`) and the module paints new and colourless folders with them
+(a folder the GM coloured himself keeps its colour). The cast packet's
+`Waluipedia Cast / ⟨group⟩` folders are coloured the same way.
+
+```bash
+python3 tools/organize-actors.py                 # file the midlands mirror (what the suite runs)
+python3 tools/organize-actors.py --check         # read-only; exit 1 if anything would move or change
+python3 tools/organize-actors.py --force         # re-file actors the GM moved since
+```
 
 #### Publish: the suite writes into your Foundry Data folder
 

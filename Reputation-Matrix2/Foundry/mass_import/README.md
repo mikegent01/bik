@@ -10,8 +10,26 @@ existing ones updated in place (same `_id`), every image path checked, and a
 report. Together with `tools/foundry-bridge.py` this turns "add characters to
 the game" into a loop of *export → edit in the repo → import*.
 
-Module id: `waluipedia-mass-import`, version 1.3. Core v12–v14, any game
+Module id: `waluipedia-mass-import`, version 1.4. Core v12–v14, any game
 system (built and tested against dnd5e 5.x on core v14).
+
+## 1.4 — clean syncs, folders like the website, tags
+
+The first full-world Sync of the midlands world worked but was noisy; 1.4
+answers every line of that console:
+
+| What you saw | Why | Now |
+| --- | --- | --- |
+| `Item "X" does not exist!` (uncaught, dozens of times, from `item.mjs:1151`) | Updates were sent as whole documents (`diff: false`). To dnd5e every item then looked like a change to its activities; the system deleted and recreated every cached Cast spell, and because it notes those ids on the *shared* batch options, every other item in the batch tried to delete the same ids again. | Updates are **diffs**: an actor or item identical to the packet is not written at all; only the fields that differ are sent; `flags`, `ownership` and dnd5e's activities map get real `-=key` deletions; an item whose activities change is updated in a call of its own; the cached spells of a Cast item that is itself being deleted are left to the system. A second Sync of the same packet writes nothing and says `(151 unchanged)`. |
+| `Invalid embedded document data` / `identifier … may only contain …` on actors `VudZ3W313Y4FILs0` (Eager) and `IlzuThuR8upTtqtF` (Feyward Dan) | The players' own exports carried identifiers like `toad-—-eager-variant`, `disaster-inc.-catastrophe-scout`, `dead-person's-shoes`; dnd5e refuses them, the item becomes invisible on the sheet and the world logs it on every load. | `tools/foundry-bridge.py split` repairs them in the mirror (`toad-eager-variant`), `check` fails on any that remain, the intake sanitizer fixes them before they ever reach a packet, and the module slugifies whatever still arrives — reported under **Repaired identifiers**. One Sync and the errors stop. |
+| `SceneNavigation.displayProgressBar is deprecated` | The v12 progress bar. | `ui.notifications.info(…, {progress: true})` with `.update()` on v13+; the old bar only on v12. |
+| 404 for `npc/MLSS%252BBM_Art_-_Fawful.png` | Foundry stores image paths already URL-encoded; the check encoded them again. | Encoded once. Wildcard token paths (`guard*.webp`, `{a,b}.webp`) are not checked at all. The remaining "missing images" are real: bare file names and `modules/house-divided/…` paths from someone else's Data folder. |
+| Everything in 13 folders, 45 actors at the root | The packet mirrored the world as it was. | The suite's **organize** step (`tools/organize-actors.py`, rules in `actors/folders.json`) files every actor the way the website's `#/sheets` page does — *Players*, one folder per website group, *Bestiary / ⟨creature type⟩* — and the packet carries the **folder colours** (the site's faction colours). New folders are born coloured; your existing colourless folders are painted; a folder you coloured yourself keeps its colour. |
+| No way to see what an actor *is* from the sidebar | — | **Tags.** The organizer writes `flags["waluipedia-sheets"].tags` (website group, `pc`/`npc`, role, creature type, the folder it came from) and the module shows them as chips next to the name in the Actors sidebar, tinted with the folder colour. Client setting *Tag chips in the Actors sidebar* switches them off. |
+
+The Sync summary gained **Repaired identifiers** and a **Folders** section
+(folder → how many of the synced actors live there, which are new, which were
+coloured).
 
 ## Sync — one click (v1.3)
 
@@ -134,6 +152,8 @@ source** (Configure Settings → Module Settings), so a recurring import is
 | Skip player characters | off | Leave `type: character` actors alone (handy when a packet of NPCs happens to include PCs). |
 | Check images | on | `HEAD`-requests every `img` / token / item image path and lists the ones the server does not have. |
 | Fix missing images | off | Replace missing image paths with Foundry's placeholders (`icons/svg/mystery-man.svg` / `icons/svg/item-bag.svg`) instead of importing broken links. |
+| Colour folders | on (API `colorFolders`) | New folders take the colour / description the packet carries (`folders[].color`, `folderStyles`); existing folders with no colour are painted; a folder you coloured yourself is never changed. |
+| Repair identifiers | on (API `repairIdentifiers`) | Item identifiers dnd5e would reject are slugified on the way in and listed in the report. |
 | Root folder | empty | Prefix for every folder path, e.g. `Imports / Session 42` → `Imports / Session 42 / Peach's Castle 955 BF / The Court`. |
 | Review first | on | Show the review table before importing (see above). Off = import straight away, as 1.0 did. |
 | Dry run | off | Compute and report everything, change nothing. |
@@ -166,13 +186,18 @@ the module fetches the files it names).
 
 ## Update semantics (read this once)
 
-Updating an existing actor sends the whole document with `recursive: false`, so
-**system data is replaced wholesale** by what is in the file — that is the point
-(the repo is the source of truth) but it also means a hit-point change made in
-Foundry after the export is lost if the file still has the old value. Export
-first, edit, import. Exceptions: `flags` are merged (other modules' flags
-survive), `ownership` is kept unless "Overwrite ownership" is ticked, `_stats`
-is never written. A type change (`npc` → `character`) is the one thing an
+Updating an existing actor sends **the difference** between the world's
+document and the file (`docDiff` in the API): nothing at all when they agree,
+otherwise only the fields that differ — the file is the source of truth, so a
+hit-point change made in Foundry after the export is still overwritten if the
+file has the old value (export first, edit, import), but an untouched actor
+costs no database write, no hooks, no activity churn. Keys the file does not
+have are left alone, except in the free-form maps where "missing" means
+"removed": `flags`, `ownership`, dnd5e's `system.activities` and the actor's
+`system.tools` get `-=key` deletions. Items and effects follow the same rule
+(same `_id` → diff, new → create, missing → delete). Exceptions: `flags` are
+merged (other modules' flags survive), `ownership` is kept unless "Overwrite
+ownership" is ticked, `_stats` is never written. A type change (`npc` → `character`) is the one thing an
 update cannot express: with "Replace on type change" on (the default) the
 actor is deleted and recreated under the same `_id`, with the world's folder,
 ownership and other modules' flags carried over; the report lists it under
@@ -247,6 +272,12 @@ After `link`, the Import dialog's *Data path* `npc/waluipedia/actors/cast`
 token at the linked art.
 
 ## API
+
+New in 1.4: `docDiff(before, after)`, `deepEqual`, `repairIdentifiers(actorData)`,
+`slugifyIdentifier(text)`, `tagsOf(actor)`, `decorateDirectory(root, actors)`,
+`folderCounts(rows)`; `importPayload` options `colorFolders`, `repairIdentifiers`;
+report fields `foldersStyled`, `repaired`, `unchanged`, and `changed` on every
+`updated` row.
 
 ```js
 const api = game.modules.get("waluipedia-mass-import").api;  // also globalThis.waluipedia_mass_import
