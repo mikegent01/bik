@@ -1,57 +1,6 @@
 {
   "_comment": "Events filed but not yet aired on the Rakasha News Network. Append {id, filed, note} the moment an event is filed (step 7 of docs/SESSION_FILING_PROCESS.md). When pending[] reaches `threshold`, write the next tools/rnn-scripts/epNNN.json covering those events, then clear pending[] to [] and set lastEpisode. Ground truth is `python3 tools/build-rnn-broadcast.py --unaired`; if this file and that disagree, --unaired is right.",
   "threshold": 10,
-  "lastEpisode": "rnn-004",
-  "pending": [
-    {
-      "id": "the_garden_above_the_fire",
-      "filed": "5 Aethel, 1040 BF",
-      "note": "Luigi recovered in 1035 sequel filing; superstars quote preserved; garden-above-fire lead opened."
-    },
-    {
-      "id": "feyward_i_cant_afford_not_to_care",
-      "filed": "2 Aethel, 922 BF (Feyward clock)",
-      "note": "Colour Division retrieval; sword-slash second killer; overgrowth answers to Carnivorous."
-    },
-    {
-      "id": "the_shepherds_garden_and_the_three_week_clock",
-      "filed": "5 Aethel, 1040 BF",
-      "note": "Oracle discloses he warned Peach before the assassination and believes she wanted to die; describes the sealed room, broken locks and dead guards. Three-week planar-tether countdown opened. Mushroom Regency named as trafficking sentient people abroad for weapons — uncorroborated, hostile single source, but specific."
-    },
-    {
-      "id": "bowser_throne_room_compromise",
-      "filed": "5 Aethel, 1040 BF — archival backfill of 18 Harvestide, 1035 BF",
-      "note": "Backfilled the false Bowser Jr. session: the Jester and Mimbus exposed, Fawthful tied to the compromised castle, and Cackletta opened the throne-room battle. Historical source date: 18 Harvestide, 1035 BF; do not broadcast as a present assault."
-    },
-    {
-      "id": "the_assault_on_bowsers_castle",
-      "filed": "5 Aethel, 1040 BF — archival backfill of 18 Harvestide, 1035 BF",
-      "note": "Dragon assault on Bowser’s Castle: retreat order, fire breath, ground pound, Magikoopa evacuation, traitors, Hammer Bro withdrawal, breached wall, and ruler-then-god claim. Historical source date: 18 Harvestide, 1035 BF; do not broadcast as a present assault."
-    },
-    {
-      "id": "you_said_leave_no_one_behind",
-      "filed": "1 Aethel, 1040 BF — continuation of the airlift night",
-      "note": "The Legion code turned around: Salam released awake on Markop's words, posted as sentry on the motorbike with a scream for a signal; an Iron Legion man runs past in panic; Archie bitten by the giant green spider through Dan's shield; the Legion heals Eager with a syringe."
-    },
-    {
-      "id": "the_cut_and_the_puppet_master",
-      "filed": "5 Aethel, 1040 BF — continuing the promo encounter, filed the same night as its amendment",
-      "note": "The EMERGENCY EXIT button made coffee; the escape went up through the ceiling; Luigi found alive at a terminal running notes on Wario's corruption; the corrupted Mario fought to the music before CUT stopped the whole show; a Director was revealed above Wario, carrying a small wired remote."
-    },
-    {
-      "id": "the_debt_siege_and_the_sixty_thirty_split",
-      "filed": "2 Aethel, 1035 BF (backfill) — the evening after the two-week rest order expired",
-      "note": "Wario answered a balcony reading with a helicopter and a W-stamped claw; Waluigi held the study with an Ice Storm and a borrowed Flash-Freeze; the shouting found the 14,783-gold ledger and the negotiation found a 60/30 publishing split; the radio reported Star Hill Clinic locked down with Luigi inside."
-    },
-    {
-      "id": "the_rot_zone_at_star_hill",
-      "filed": "2 Aethel, 1035 BF (backfill) — the same night, the helicopter leg to Star Hill",
-      "note": "Wario fired his pilot at altitude and flew the helicopter into a storehouse roof beside the clinic; Mr. L seen in the open in three copies; a mouth opened in the road; a courier named Paulo put a gun to Waluigi's head, called the hill a rot-zone, and left with Waluigi's working notebook after Wario threw it to him. Luigi was never reached."
-    },
-    {
-      "id": "the_unlocked_cell_955_bf",
-      "filed": "Efferd, 955 BF (filed 1040 — backfill session)",
-      "note": "The Arrangement witnessed a month early: unlocked cell, Fawful–Koopa handshake with the Guild watching, Bowser one-shot by a Guild orb, the Chamberlain's dispatch order, Toad Lee's father, Fawful's Bean Badge and the vacuum shroom."
-    }
-  ]
+  "lastEpisode": "rnn-005",
+  "pending": []
 }

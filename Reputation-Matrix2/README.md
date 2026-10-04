@@ -3,19 +3,19 @@
 <!-- RNN:LAST-WEEK:START -->
 ## 📺 Last Week on the Rakasha News Network
 
-> **EP 004 — Ten Unaired Nights, and Wario Takes the Chair**  
-> Hunt Day AETHEL 5, 1040 BF · covering ten unaired nights, oldest first — 872 BF to 1045 BF, aired Aethel 5 with the desk’s apologies for the backlog · runtime 6:34  
-> **Whisper-in-Wind**, Death Speaker, Spirit-Walker Clan · **Waluigi**, Host, Waluigi Chat · encyclopaedist of the unthanked · **Wario**, Guest — drove the fraud, reversed into it, billed nobody · **Bowser**, Caller — billing the longhouse for one (1) wall
+> **EP 005 — The Unlocked Cell, and the King Takes the Chair**  
+> Hunt Day AETHEL 5, 1040 BF — late edition · covering fifteen unaired nights, oldest first — a dungeon in 955 BF to a room full of socks in 1045 BF, aired the same Hunt Day as the fourth because the desk had already stopped apologising · runtime 6:48  
+> **Whisper-in-Wind**, Death Speaker, Spirit-Walker Clan · **Waluigi**, Host, Waluigi Chat · encyclopaedist of the unthanked · **Wario**, Caller — thirty per cent of a notebook, on the shell-phone · **Bowser**, Guest — came through the wall uninvited, 955 BF; lost a throne room, 1035; refused a trap, 922 by the Feyward clock
 
 **▶ [Watch the broadcast](../Reputation-Matrix2/app/pages/standalone/rakasha-news-network.html)** — the jungle bulletin first, then the late slot: WALUIGI CHAT, composited live from `animation_frames/` and `portraits/player/sprite-sheets/`.
 
 | Segment | Story | Cold open line |
 |---|---|---|
 | **COLD OPEN** | Rakasha News Network | Iron rusts. Flesh rots. Maps lie. Only the Hunt remains. |
-| **THE JUNGLE SEES ALL** | Ten Nights, Oldest First | In the house with no exits, one hundred sixty-eight years cold: a soldier walked in on orders hi… |
-| **WALUIGI CHAT** | The Brother Who Drove the Fraud | Good Aethel, late slot. This is Waluigi Chat, and tonight’s guest drove a fraud through a guarde… |
-| **THE CALLER** | The Bill for One (1) Wall | We have a caller — the shell-phone lit up like a fire alarm. State your name for the minutes, ca… |
-| **SIGN OFF** | Sign Off | The longhouse is returned. Ten nights aired, none of them behaved, and the yellow one is still i… |
+| **THE JUNGLE SEES ALL** | Fifteen Nights, Oldest First | Eighty-five years cold, in the castle of the Mushroom Queen, one in the morning, the kart races … |
+| **WALUIGI CHAT** | The King Who Was Not Invited | Good Aethel, late slot. This is Waluigi Chat, and tonight's guest has been through more walls th… |
+| **THE CALLER** | Thirty Per Cent of a Notebook | The shell-phone. Of course the shell-phone. State your name for the minutes, caller, and state i… |
+| **SIGN OFF** | Sign Off | The longhouse is returned. Fifteen nights aired; one guest came in through the door for once, an… |
 
 *Cadence: **one episode per ~10 filed events, not one per event.** File the session, add the event id to `../tools/rnn-scripts/pending-news-articles.json`, and when the list reaches ten write the next script in `../tools/rnn-scripts/` and run `python3 tools/build-rnn-broadcast.py`. Full rules: [`docs/RNN_BROADCAST_GUIDE.md`](../docs/RNN_BROADCAST_GUIDE.md). The newest episode always sits here.*
 

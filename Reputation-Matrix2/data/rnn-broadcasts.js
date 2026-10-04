@@ -3,8 +3,8 @@
    Rebuild:        python3 tools/build-rnn-broadcast.py
    Format:         the network — Rakasha bulletin, then Waluigi Chat (docs/RNN_BROADCAST_GUIDE.md). */
 window.RNN_BROADCASTS = {
-  "generated": "2026-09-09",
-  "latest": "rnn-004",
+  "generated": "2026-10-04",
+  "latest": "rnn-005",
   "cadence": "The network format: a short Rakasha bulletin, then Waluigi Chat in the late slot. One episode per ~10 filed events. See docs/RNN_BROADCAST_GUIDE.md.",
   "episodes": [
     {
@@ -1316,6 +1316,354 @@ window.RNN_BROADCASTS = {
         }
       ],
       "runtimeMs": 393640
+    },
+    {
+      "id": "rnn-005",
+      "number": 5,
+      "title": "The Unlocked Cell, and the King Takes the Chair",
+      "airWeek": "1040-AETHEL-W5",
+      "recordedOn": "2026-10-04",
+      "huntDay": "AETHEL 5, 1040 BF — late edition",
+      "covering": "fifteen unaired nights, oldest first — a dungeon in 955 BF to a room full of socks in 1045 BF, aired the same Hunt Day as the fourth because the desk had already stopped apologising",
+      "anchorName": "Whisper-in-Wind",
+      "anchorRole": "Death Speaker, Spirit-Walker Clan",
+      "fieldName": "Acolyte Dan",
+      "fieldRole": "Runner of the Cold Roads",
+      "cast": {
+        "anchor": {
+          "name": "Whisper-in-Wind",
+          "role": "Death Speaker, Spirit-Walker Clan",
+          "art": {
+            "kind": "frames",
+            "dir": "animation_frames/"
+          }
+        },
+        "waluigi": {
+          "name": "Waluigi",
+          "role": "Host, Waluigi Chat · encyclopaedist of the unthanked",
+          "art": {
+            "kind": "pose",
+            "dir": "portraits/player/sprite-sheets/poses/waluigi/",
+            "defaultPose": "02-idle-right"
+          }
+        },
+        "bowser": {
+          "name": "Bowser",
+          "role": "Guest — came through the wall uninvited, 955 BF; lost a throne room, 1035; refused a trap, 922 by the Feyward clock",
+          "art": {
+            "kind": "pose",
+            "dir": "portraits/player/sprite-sheets/poses/bowser/",
+            "defaultPose": "01-idle-front"
+          }
+        },
+        "wario": {
+          "name": "Wario",
+          "role": "Caller — thirty per cent of a notebook, on the shell-phone",
+          "art": {
+            "kind": "pose",
+            "dir": "portraits/player/sprite-sheets/poses/wario/",
+            "defaultPose": "01-idle-front"
+          }
+        }
+      },
+      "sourceEvents": [
+        "the_unlocked_cell_955_bf",
+        "feyward_i_cant_afford_not_to_care",
+        "the_shepherds_garden_and_the_three_week_clock",
+        "bowser_throne_room_compromise",
+        "the_assault_on_bowsers_castle",
+        "the_garden_above_the_fire",
+        "the_tape_and_the_wario_files",
+        "the_debt_siege_and_the_sixty_thirty_split",
+        "the_rot_zone_at_star_hill",
+        "judgement_in_the_grove",
+        "the_airlift_that_never_came",
+        "you_said_leave_no_one_behind",
+        "the_cut_and_the_puppet_master",
+        "the_roll_call_at_trinity",
+        "snowdin_bone_line_registry"
+      ],
+      "ticker": [
+        "A CELL THAT WAS NEVER LOCKED — A KOOPA SAID 'OH, IT'S YOU' TO THE WRONG VISITOR, 955 BF",
+        "ONE SMALL ORB, ONE KING ON THE FLOOR — THE HALL CHEERED THE HOODS THAT HAD JUST SHAKEN A BEAN'S HAND",
+        "'DISPATCH OF THEM' — A TOAD IN A NEW SUIT GAVE THE GUILD A KILLING IN PUBLIC; THE BOLT MISSED",
+        "THE SCARECROW DIED ON ITS KNEES — THE LEGION TOOK A SLEEPING MAN ON ITS CODE AND GAVE HIM BACK ON THE SAME CODE",
+        "THE HELICOPTER LEFT WITH THE PILOT IN THE HOLD — THE NOTEBOOK LEFT IN A SATCHEL",
+        "ELEVEN STUDENTS ANSWERED A ROLL — ONE OF THEM HAD WEAPONS CLEARANCE AND THE ADVISOR SAID SO",
+        "A SKELETON DENIED HIS FAMILY NAME BY NAME — THEN THE WHOLE FAMILY WALKED IN AND LEFT THE SOCKS"
+      ],
+      "segments": [
+        {
+          "slug": "COLD OPEN",
+          "type": "titlecard",
+          "set": "newsdesk",
+          "title": "Rakasha News Network",
+          "lines": [
+            {
+              "expression": "normal",
+              "text": "Iron rusts. Flesh rots. Maps lie. Only the Hunt remains.",
+              "duration": 4100
+            },
+            {
+              "expression": "eyebrowraised",
+              "text": "This is the Rakasha News Network. Hunt Day five of Aethel, late edition — the fourth bulletin had not finished cooling when the desk received a dungeon from eighty-five years ago and fourteen more nights behind it. Fifteen. Oldest first. The jungle read the oldest twice and then went to check its own doors.",
+              "duration": 11000
+            }
+          ]
+        },
+        {
+          "slug": "THE JUNGLE SEES ALL",
+          "type": "anchor",
+          "set": "newsdesk",
+          "title": "Fifteen Nights, Oldest First",
+          "lines": [
+            {
+              "expression": "normal",
+              "text": "Eighty-five years cold, in the castle of the Mushroom Queen, one in the morning, the kart races on. A ceremonial guard with a lantern was lectured off his post by a Toad in a new suit who said he had the keys to every door, and was then walked down to a cell that was not locked. The prisoner was a Koopa. The prisoner said: so you finally came to free me — oh. It's you. The escort died standing. Then a bean shook the Koopa's hand with three Guild hoods behind him, and the hoods said the Guild was already in place and would not act yet.",
+              "duration": 11000
+            },
+            {
+              "expression": "concerned",
+              "text": "Same night, one floor up. A wall came in and the Koopa King announced himself through the dust — uninvited to the meeting, asking for the Queen, and, when the bean's name was said, asking who that was. The Captain of the Palace Guard stood in the fire and was not there afterwards. One hood raised one small orb and the King went down in one, and the hall of Toads cheered the hoods. The guard said the Guild works with the bean. The Toad with the keys said: like a lost dog — dispatch of them. The bolt missed. Five hours of drain later the guard reached a bean shop and found the prisoner already sitting in it, and the Guild already holding his son. The desk notes the word the Guild used for what it was not doing to the child, and does not repeat it.",
+              "duration": 11000
+            },
+            {
+              "expression": "normal",
+              "text": "By the Feyward clock, one hundred eighteen years cold, two nights in the manor. The first: a treant at full height behind a door, a Revel fighting its own members, a Toad who missed a bomb throw and a veteran who picked the bomb up — and four Legion operatives introducing themselves by colour and taking a Toad and the tall one as leverage against an overdue contract. The second: the Koopa King and the Oracle talked instead of fighting. The Oracle fished a boot out of nothing and said both Oracles are fated to die. The King called the sanctum a dumb space garden, refused the Astral Shore on a king's intuition, caught the Oracle watching the Queen through a floating eye, and bought three weeks. Then he stepped onto the circle and landed alone in a basement with a bowl of blood, a lever he did not pull, and a room full of caged Goombas.",
+              "duration": 11000
+            },
+            {
+              "expression": "mouthslightlyopen",
+              "text": "Five years cold, Harvestide eighteen, the King's own castle. A false heir had been walked into the throne room and the garrison had changed sides around it. A jester, the hand beside the usurper, a bean with an extra syllable. Then a dragon came through the window and the wall, the King ordered his own throne room evacuated, breathed fire and broke the floor, and faced the bean and the cloud at the hole where his wall had been while the Magikoopas carried out whoever they could carry. The desk counts the throne room breached, not the grounds. Walls, for this guest, are a recurring item.",
+              "duration": 11000
+            },
+            {
+              "expression": "normal",
+              "text": "Same Harvestide, same night, the lava moat below the compound. The tall one's crew woke a tied impostor, took the hallway argument out of him, and followed a yellow cape back to the fire. Two who had followed without permission were right first: the green brother was alive and burned, in the volcanic tunnels, saying the star is not lost — find the garden above the fire. They carried him to the clinic on Star Hill. He asked whether they were still superstars. Two days later the tall one sat in a dark room and played the hallway tape six times by the filing's count and more by his own, and the yellow one came in without knocking and stayed two days. A gold coin was found taped under a note on the bed. The desk reports the coin and not the poem.",
+              "duration": 11000
+            },
+            {
+              "expression": "eyebrowraised",
+              "text": "Two weeks after that, two nights cold, the tall one's balcony. He read a revision aloud and the yellow one answered with a helicopter, a searchlight, and a mechanical claw with a W on it. Four strikes took the study door; ice took it back; the shouting found a ledger of fourteen thousand seven hundred eighty-three gold and the negotiation found a sixty-thirty split on publication, signed. Then they flew for Star Hill in the same helicopter, with the pilot fired at altitude and stowed in the hold. The man with too many hands was reciting in the clinic street. The road opened a mouth. The helicopter clipped a roof. A courier named Paulo put a pistol to the tall one's head and left with his notebook, because the yellow one threw it to him. One scrap came back in a thorn. The jungle has the thorn's measurements.",
+              "duration": 11000
+            },
+            {
+              "expression": "concerned",
+              "text": "The grove, Hunt Day one, three filings without a break between them. The scarecrow died on its knees asking a paladin for mercy; the paladin split its head and kept the scythe. A Legion guard put the sleeping Salam on his shoulder and left against three objections, on the code — no man left behind — and promised a helicopter, and the Toad asked what a helicopter was. No helicopter came. The girl from the barrel stripped a ruined dress, took a chain shirt off a body, took an axe, and walked out alone. The indebted one circled his last high spell and threw it at a bush, and the grove burned a second time. Passage out of Anamatar's den was sold for her student card.",
+              "duration": 11000
+            },
+            {
+              "expression": "normal",
+              "text": "Then the paladin rode the yellow one's motorbike into the trees and into Salam, and turned the Legion's own code around: you said leave no one behind, right. The awake man was released, ordered to rest, and posted on the bike as sentry with a Legion guard beside him. The retreat is back through the tree. The signal is a scream. The filing ends before anybody screams. The desk has listened to the recording to the end and confirms the silence.",
+              "duration": 11000
+            },
+            {
+              "expression": "mouthslightlyopen",
+              "text": "The studio, Hunt Day five. An emergency exit that served coffee, a vent that opened upward, rats, a blue light, and under it the green brother — alive, alone, at a maintenance computer, with notes on the yellow one's corruption. A false red brother in a cape of pixel feathers fought to the real one's song; the floor gave way; three uniformed paratroopas caught the fall; a V formation took the cape off. Then a man said CUT and the building obeyed him. A director in a cap knocked the yellow one out for ruining the show. The desk notes that the only word the studio answers to was not said by anybody the jungle was rooting for.",
+              "duration": 11000
+            },
+            {
+              "expression": "normal",
+              "text": "Same Hunt Day, a classroom in a city the archive had never been inside. A new advisor took a roll and eleven students answered it — the one who claimed the front desk, the one with the chocolate, the one who quieted the room without raising her voice, the one in the back row with weapons clearance, the one who admitted nobody had ever explained any of this to him. The advisor spelled an acronym, agreed it sounded stupid, confessed a mishandled diplomatic programme, refused a question about weapons, and disclosed one student's clearance in front of the others. Two chocolates and a crumpled pamphlet changed hands. Nothing else did.",
+              "duration": 11000
+            },
+            {
+              "expression": "eyebrowraised",
+              "text": "And the youngest, posted from five years hence, Harvestide thirty, 1045. Twenty-eight dossiers cite a household registry that had never been written. The tall one spent a monitored hour getting it from the one witness who would not perform for him, and the witness denied the family tree name by name — until a brother by archival lineage code arrived with citations and had him sign a blank box. The paper burned blue. Every name on it walked into the room. A tall shadow stood at the back. Then all of it was gone, and the witness was alone in a room full of socks with his brother shouting about a ceiling fan. The tall one holds the recording. The jungle has seen all fifteen. The jungle would like, for once, a locked door.",
+              "duration": 11000
+            }
+          ]
+        },
+        {
+          "slug": "WALUIGI CHAT",
+          "type": "talk",
+          "set": "talkset",
+          "title": "The King Who Was Not Invited",
+          "articleId": "the_unlocked_cell_955_bf",
+          "lines": [
+            {
+              "speaker": "waluigi",
+              "pose": "09-talk-calm",
+              "text": "Good Aethel, late slot. This is Waluigi Chat, and tonight's guest has been through more walls than doors, lost a throne room to a false child and a bean with an extra syllable, told an Oracle its sanctum was a dumb space garden, and — eighty-five years ago, by one account, filed yesterday — came through the wall of Peach's Castle to a meeting nobody had invited him to. The King. The wall-shaped King. Bowser.",
+              "duration": 11000
+            },
+            {
+              "speaker": "bowser",
+              "pose": "01-idle-front",
+              "text": "I was INVITED. By ME. That's how invitations work when you're the King — you walk through the wall and the invitation is the wall. Also this chair is too small. Everything you own is too small. Get on with it, noodle.",
+              "duration": 11000
+            },
+            {
+              "speaker": "waluigi",
+              "pose": "11-point-accuse",
+              "text": "Your own words, by the account: 'I wasn't invited to the meeting.' Shouted. Through dust. At a hall of Toads watching a kart race. You announced yourself with SURPRISE, IT'S ME, looked for the brothers, and were disappointed they weren't there. You wanted them there. On the record — why?",
+              "duration": 11000
+            },
+            {
+              "speaker": "bowser",
+              "pose": "13-surprised",
+              "text": "Because a meeting without ME in it is a meeting ABOUT me, and a meeting about me without the plumbers in it is just Toads TALKING. I came to be the agenda. I came to be taken to Peach. I SAID take me to Peach. Nobody took me to Peach. Somebody took me to the FLOOR.",
+              "duration": 11000
+            },
+            {
+              "speaker": "waluigi",
+              "pose": "09-talk-calm",
+              "text": "One hood. One small orb, held up, not thrown. You went down in one, King, in front of witnesses, and the hall cheered the hood. The same hoods who, twenty minutes earlier, had been in the dungeon of that building watching a Koopa shake Fawful's hand. Did you know the Guild was downstairs?",
+              "duration": 11000
+            },
+            {
+              "speaker": "bowser",
+              "pose": "15-hurt",
+              "text": "I didn't know there WAS a downstairs. I didn't know there was a BEAN. Somebody in the smoke said a name and I said WHO, and I meant it, and I'd say it again. I knew the Toads, I knew the plumbers, I knew Peach. That was the whole list. Nobody told me the list had a basement.",
+              "duration": 11000
+            },
+            {
+              "speaker": "waluigi",
+              "pose": "12-smug",
+              "text": "I'm going to read you a sentence from the dungeon, King, because you weren't in the room. 'Never thought I'd work with a bean.' Said by a Koopa. One of yours — shell, the lot — sitting in an unlocked cell, waiting for a friend, holding a fat vial that the bean later said was for YOU. The plan in the shop was to feed you a mushroom so you'd inhale the brothers. You were the appliance.",
+              "duration": 11000
+            },
+            {
+              "speaker": "bowser",
+              "pose": "13-surprised",
+              "text": "A KOOPA? One of— no. No. I don't have a Koopa who talks to beans. I have Koopas who talk to ME. If one of mine was in a cell with the door open, he was in it because I hadn't noticed him yet, and I'm noticing him NOW. Write that down. Write down that the King is noticing.",
+              "duration": 11000
+            },
+            {
+              "speaker": "waluigi",
+              "pose": "14-shrug",
+              "text": "Noted. The King is noticing, eighty-five years late. Different castle, your own this time, Harvestide eighteen, 1035. A false Bowser Junior walked into your throne room and the garrison changed sides around it. Then Fawthful brought a dragon through the window and the wall. You ordered your own throne room evacuated. The King evacuated the King's room. Give the longhouse that moment.",
+              "duration": 11000
+            },
+            {
+              "speaker": "bowser",
+              "pose": "10-point-route",
+              "text": "I didn't EVACUATE. I REDEPLOYED. There's a route — there's always a route, I had the Magikoopas on the route, the Hammer Bro held the line out, and I stood at the hole in MY wall and looked at a bean and his hand-man and made them look at me. Fire. Ground pound. The floor remembers. The throne room is a ROOM. The King is wherever the King is standing.",
+              "duration": 11000
+            },
+            {
+              "speaker": "waluigi",
+              "pose": "10-talk-wild",
+              "text": "A false child! You woke up on your own throne and the fake heir had already let the jester in! Twice now a bean has been inside your walls before you knew there was a bean, and both times the first thing anybody heard from you was fire! Is that a strategy, King, or a reflex?!",
+              "duration": 11000
+            },
+            {
+              "speaker": "bowser",
+              "pose": "16-victory",
+              "text": "It's a BRAND. Fire first, questions when the smoke clears, and the smoke never clears, so — no questions. You want a King who notices beans, go interview a Toad. You've got one on the wire already, the little one who reads. He noticed plenty. Look where noticing got his father.",
+              "duration": 11000
+            },
+            {
+              "speaker": "waluigi",
+              "pose": "11-point-accuse",
+              "text": "Leave the boy out of the chair. He's on the wire because I put him there and he'll speak when he's asked in daylight. The Feyward, then — the clock that runs backwards. You and the Oracle, no fight, the most anybody has ever got out of that creature in one sitting. It said both Oracles are fated to die. It said it warned Peach and she didn't listen. You asked why you were in the B plot.",
+              "duration": 11000
+            },
+            {
+              "speaker": "bowser",
+              "pose": "09-read-map",
+              "text": "Because I WAS in the B plot! A boot out of thin air, a shepherd tending his garden, eyeballs floating around spying on — on her — and me standing there like a stage hand. So I did the thing kings do. I refused the trap. I caught the eyeball. I bought three weeks and I said I'd keep the Legion off the Feyward MYSELF. Then I stepped on the circle and it dropped me in a basement with a bowl of blood and a lever I did not pull. I did NOT pull it. Put THAT in your book. The King saw a lever and left it.",
+              "duration": 11000
+            },
+            {
+              "speaker": "waluigi",
+              "pose": "09-talk-calm",
+              "text": "A lever not pulled. A room full of caged Goombas you did not open. A trap refused on intuition. Three weeks bought. I've filed eighty-five years of you, King, and the only times the record shows you not breaking something are the times the thing in front of you was hers.",
+              "duration": 11000
+            },
+            {
+              "speaker": "bowser",
+              "pose": "15-hurt",
+              "text": "...The chair is too small. I said that already. Say the next thing.",
+              "duration": 5120
+            },
+            {
+              "speaker": "waluigi",
+              "pose": "15-despair",
+              "text": "The next thing is the one the bulletin couldn't ask. Efferd, 955. You came through the wall asking to be taken to her. A month later the kingdom wrote you down as her murderer, next to a bean you'd never heard of, and the hall that cheered the orb cheered that too. So — when the orb put you on the floor, King, and the Toads were clapping over your head: who did you think had won? Don't answer on air. The desk pays by the word and the word is expensive tonight. That is the show — stay for the wire.",
+              "duration": 11000
+            }
+          ]
+        },
+        {
+          "slug": "THE CALLER",
+          "type": "talk",
+          "set": "talkset",
+          "title": "Thirty Per Cent of a Notebook",
+          "lines": [
+            {
+              "speaker": "waluigi",
+              "pose": "13-aghast",
+              "text": "The shell-phone. Of course the shell-phone. State your name for the minutes, caller, and state it like a man who has not already been on this programme.",
+              "duration": 9880
+            },
+            {
+              "speaker": "wario",
+              "phone": true,
+              "callerName": "CALLER",
+              "callerRole": "on the shell-phone · sixty-thirty, signed, and the notebook is a publication",
+              "pose": "01-idle-front",
+              "text": "WARIO. Majority stakeholder in this conversation. Two things. One: the notebook that walked off up Star Hill in a courier's satchel? Sixty-thirty, signed, your balcony, my claw. Thirty per cent of that notebook is MINE and I want it on the air that I'm owed thirty per cent of whatever Paulo is reading.",
+              "duration": 11000
+            },
+            {
+              "speaker": "waluigi",
+              "pose": "11-point-accuse",
+              "text": "You THREW it to him! I was face down in the street with a pistol at my head and you threw my working notebook to the man holding the pistol! That is not a publication, brother, that is a DELIVERY!",
+              "duration": 11000
+            },
+            {
+              "speaker": "wario",
+              "phone": true,
+              "callerName": "CALLER",
+              "callerRole": "on the shell-phone · sixty-thirty, signed, and the notebook is a publication",
+              "pose": "01-idle-front",
+              "text": "Hostile takeover. You don't chase the courier, you track the paper trail, I've SAID this. Two: the tape. Six times you played it, you said. It was more. I was THERE for more. I'm not billing for the two days. I'm billing for the chair I sat in for the two days. Send the chair.",
+              "duration": 11000
+            },
+            {
+              "speaker": "waluigi",
+              "pose": "12-smug",
+              "text": "The chair is mine, the notebook was mine, the thorn that brought the scrap back is on my desk and the scrap is poetry, caller — the back of the book. Your thirty per cent of a stolen notebook is thirty per cent of a page about a garden. The invoice is DENIED and the poem is not for sale.",
+              "duration": 11000
+            },
+            {
+              "speaker": "wario",
+              "phone": true,
+              "callerName": "CALLER",
+              "callerRole": "on the shell-phone · sixty-thirty, signed, and the notebook is a publication",
+              "pose": "01-idle-front",
+              "text": "Poems are publications. Thirty per cent. Also tell the big guy in your chair the wall was never my department— *click*",
+              "duration": 7840
+            },
+            {
+              "speaker": "waluigi",
+              "pose": "14-shrug",
+              "text": "He hung up on himself. The longhouse recognises the caller, denies the invoice, and will not be forwarding a motorbike to the King. WAH. Goodnight, herds. Lock something.",
+              "duration": 10220
+            }
+          ]
+        },
+        {
+          "slug": "SIGN OFF",
+          "type": "anchor",
+          "set": "newsdesk",
+          "title": "Sign Off",
+          "lines": [
+            {
+              "expression": "normal",
+              "text": "The longhouse is returned. Fifteen nights aired; one guest came in through the door for once, and the ushers have asked the desk to note that the door survived. The jungle saw all of it.",
+              "duration": 11000
+            },
+            {
+              "expression": "normal",
+              "text": "Count the keys before you count the guards. Ask who left the cell open, and for whom. Only the Hunt remains.",
+              "duration": 7840
+            }
+          ]
+        }
+      ],
+      "runtimeMs": 408000
     }
   ]
 };
