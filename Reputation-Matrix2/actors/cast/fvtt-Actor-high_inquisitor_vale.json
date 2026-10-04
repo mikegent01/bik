@@ -863,7 +863,15 @@
           "quote": "Until then, let it suffice to know that should one ever find themselves face-to-face with High Inquisitor Vale, they would do well to pray for mercy before it is too late – for judgment hangs over them like a sword of",
           "source": "article"
         }
-      ]
+      ],
+      "tags": [
+        "The Underground",
+        "npc",
+        "priest",
+        "monstrosity",
+        "generated"
+      ],
+      "color": "#2F4F4F"
     }
   },
   "_stats": {

@@ -1134,6 +1134,13 @@
           "source": "article"
         }
       ],
+      "tags": [
+        "Fawthful's Forces",
+        "pc",
+        "officer",
+        "generated"
+      ],
+      "color": "#3CB371",
       "pc": {
         "level": 4,
         "class": "Artificer",

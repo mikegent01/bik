@@ -861,7 +861,15 @@
           "quote": "Azusa's eyes sharpened, and the record describes it precisely: like a blade being drawn from a sheath so smooth you'd miss it if you blinked.",
           "source": "article"
         }
-      ]
+      ],
+      "tags": [
+        "Trinity Academy",
+        "npc",
+        "student",
+        "humanoid",
+        "generated"
+      ],
+      "color": "#F08080"
     }
   },
   "_stats": {

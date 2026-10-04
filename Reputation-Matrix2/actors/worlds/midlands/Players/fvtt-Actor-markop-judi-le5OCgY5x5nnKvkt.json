@@ -25104,7 +25104,12 @@
         "xpKey": "markop",
         "xp": 37769,
         "level": 8
-      }
+      },
+      "tags": [
+        "Disaster Inc.",
+        "pc"
+      ],
+      "color": "#D4A017"
     }
   },
   "_stats": {

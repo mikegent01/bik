@@ -825,7 +825,15 @@
           "quote": "Merric arrived behaving as though he had always been part of Disaster Inc., offered live commentary on Markop's fighting technique, and generally conducted himself with the serene confidence of someone who has never",
           "source": "article"
         }
-      ]
+      ],
+      "tags": [
+        "Shadow Estate & House Corvinarus",
+        "npc",
+        "soldier",
+        "beast",
+        "generated"
+      ],
+      "color": "#8B0000"
     }
   },
   "_stats": {

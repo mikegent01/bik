@@ -1045,6 +1045,13 @@
           "source": "article"
         }
       ],
+      "tags": [
+        "Liberated Toads",
+        "pc",
+        "noble",
+        "generated"
+      ],
+      "color": "#87CEEB",
       "pc": {
         "level": 3,
         "class": "Bard",

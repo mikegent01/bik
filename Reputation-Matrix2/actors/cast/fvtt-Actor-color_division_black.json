@@ -821,7 +821,15 @@
           "quote": "Colour Division, Iron Legion Special Forces - the One Who Recognised the Onesie",
           "source": "article"
         }
-      ]
+      ],
+      "tags": [
+        "Iron Legion",
+        "npc",
+        "soldier",
+        "humanoid",
+        "generated"
+      ],
+      "color": "#ADB5BD"
     }
   },
   "_stats": {

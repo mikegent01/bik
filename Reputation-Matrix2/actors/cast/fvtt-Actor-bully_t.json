@@ -821,7 +821,15 @@
           "quote": "The Toad Who Weaponized Heckling For Morale",
           "source": "article"
         }
-      ]
+      ],
+      "tags": [
+        "Liberated Toads",
+        "npc",
+        "soldier",
+        "humanoid",
+        "generated"
+      ],
+      "color": "#87CEEB"
     }
   },
   "_stats": {

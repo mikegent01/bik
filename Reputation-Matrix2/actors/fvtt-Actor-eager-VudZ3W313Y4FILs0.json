@@ -974,7 +974,7 @@
           "rules": "2014",
           "revision": 1
         },
-        "identifier": "fighting-style-—-archery",
+        "identifier": "fighting-style-archery",
         "properties": [],
         "activities": {},
         "uses": {
@@ -2776,7 +2776,7 @@
             "otherActivityAsParentType": true
           }
         },
-        "identifier": "dead-person's-shoes",
+        "identifier": "dead-persons-shoes",
         "attuned": false,
         "crew": {
           "value": []
@@ -3020,7 +3020,7 @@
             "otherActivityAsParentType": true
           }
         },
-        "identifier": "dead-person's-pants",
+        "identifier": "dead-persons-pants",
         "attuned": false,
         "crew": {
           "value": []

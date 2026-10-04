@@ -1297,6 +1297,13 @@
           "source": "article"
         }
       ],
+      "tags": [
+        "Disaster Inc.",
+        "pc",
+        "rogue",
+        "generated"
+      ],
+      "color": "#D4A017",
       "pc": {
         "level": 5,
         "class": "Rogue",

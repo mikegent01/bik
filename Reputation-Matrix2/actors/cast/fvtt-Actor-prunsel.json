@@ -821,7 +821,15 @@
           "quote": "The household knows better, because the reflection stayed for eleven minutes, and because Sans, reviewing the team's footage with unusual seriousness, pointed out what the surveyors had missed: the eye was not looking",
           "source": "article"
         }
-      ]
+      ],
+      "tags": [
+        "Snowdin Bone-Line",
+        "npc",
+        "soldier",
+        "monstrosity",
+        "generated"
+      ],
+      "color": "#B0E0E6"
     }
   },
   "_stats": {

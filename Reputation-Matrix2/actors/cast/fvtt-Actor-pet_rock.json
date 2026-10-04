@@ -908,7 +908,15 @@
           "quote": "The household complains on its behalf, loudly, in policy, in writing, in a plan that assigns it a carrier and a slot and a priority, because someone in the family should be carried without ever having to ask, and the",
           "source": "article"
         }
-      ]
+      ],
+      "tags": [
+        "Snowdin Bone-Line",
+        "npc",
+        "civilian",
+        "monstrosity",
+        "generated"
+      ],
+      "color": "#B0E0E6"
     }
   },
   "_stats": {

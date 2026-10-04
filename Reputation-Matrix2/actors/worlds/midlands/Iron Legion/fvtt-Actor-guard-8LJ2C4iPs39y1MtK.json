@@ -1204,6 +1204,21 @@
       "folderPath": [
         "Iron Legion"
       ]
+    },
+    "waluipedia-sheets": {
+      "tags": [
+        "Iron Legion",
+        "npc",
+        "humanoid"
+      ],
+      "color": "#ADB5BD",
+      "organized": {
+        "path": [
+          "Iron Legion"
+        ],
+        "basis": "gm-group",
+        "from": null
+      }
     }
   },
   "_stats": {

@@ -906,7 +906,15 @@
           "quote": "He described himself and Scooby as diplomatic solution kind of guys.",
           "source": "article"
         }
-      ]
+      ],
+      "tags": [
+        "Trinity Academy",
+        "npc",
+        "student",
+        "humanoid",
+        "generated"
+      ],
+      "color": "#F08080"
     }
   },
   "_stats": {

@@ -863,7 +863,15 @@
           "quote": "Edgeworth's argument against Archie will emphasize: - Archie's known proficiency in Evocation (Fire) magic - Historical records of fire-related incidents (though these may have been accidental) - The 'Grade D' residue",
           "source": "article"
         }
-      ]
+      ],
+      "tags": [
+        "Elsewhere",
+        "npc",
+        "noble",
+        "humanoid",
+        "generated"
+      ],
+      "color": "#6C757D"
     }
   },
   "_stats": {

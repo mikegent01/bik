@@ -908,7 +908,15 @@
           "quote": "He reluctantly agreed to accompany a lone Iron Legion agent into the heart of Mount Ebott after recognizing the sigil of a division that was supposedly wiped out nearly a century ago.",
           "source": "article"
         }
-      ]
+      ],
+      "tags": [
+        "Elsewhere",
+        "npc",
+        "soldier",
+        "humanoid",
+        "generated"
+      ],
+      "color": "#6C757D"
     }
   },
   "_stats": {

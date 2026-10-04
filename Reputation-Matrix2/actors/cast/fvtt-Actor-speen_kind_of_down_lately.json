@@ -863,7 +863,15 @@
           "quote": "He read it in the violet-coat corner, with Lazybones on one side and Papyrus hovering, pretending not to hover, and when he finished, he said — and the chronicle records this as the file's single annotated quote, the",
           "source": "article"
         }
-      ]
+      ],
+      "tags": [
+        "Snowdin Bone-Line",
+        "npc",
+        "civilian",
+        "monstrosity",
+        "generated"
+      ],
+      "color": "#B0E0E6"
     }
   },
   "_stats": {

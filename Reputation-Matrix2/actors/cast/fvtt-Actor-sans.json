@@ -1054,6 +1054,13 @@
           "source": "article"
         }
       ],
+      "tags": [
+        "Snowdin Bone-Line",
+        "pc",
+        "rogue",
+        "generated"
+      ],
+      "color": "#B0E0E6",
       "pc": {
         "level": 1,
         "class": "Rogue",

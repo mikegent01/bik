@@ -742,8 +742,47 @@ def rule_detail_pointers(actor, report, opts):
             )
 
 
+IDENTIFIER_RE = re.compile(r"^[a-z0-9_-]+$", re.I)
+
+
+def slug_identifier(text):
+    """dnd5e's own derivation (String#slugify strict): lower-case ASCII, one
+    dash between words, apostrophes dropped."""
+    import unicodedata
+    t = unicodedata.normalize("NFKD", str(text or ""))
+    t = "".join(ch for ch in t if not unicodedata.combining(ch)).lower()
+    t = t.replace("'", "").replace("\u2019", "")
+    t = re.sub(r"[^a-z0-9_]+", "-", t)
+    return re.sub(r"-+", "-", t).strip("-")
+
+
+def rule_identifiers(actor, report, opts):
+    """system.identifier (and classIdentifier / sourceClass) must be
+    letters, digits, - or _.
+
+    Players' own exports carry naive slugs ("toad-—-eager-variant",
+    "disaster-inc.-catastrophe-scout", "dead-person's-shoes"): dnd5e's
+    IdentifierField rejects them, the item becomes an invalid document the
+    sheet cannot show, and the world logs the error on every load. Slugify
+    them the way the system would have.
+    """
+    for it in actor.get("items") or []:
+        sysd = it.get("system") if isinstance(it, dict) else None
+        if not isinstance(sysd, dict):
+            continue
+        for key in ("identifier", "classIdentifier", "sourceClass"):
+            val = sysd.get(key)
+            if not (isinstance(val, str) and val) or IDENTIFIER_RE.match(val):
+                continue
+            after = slug_identifier(val) or slug_identifier(it.get("name")) or "item"
+            sysd[key] = after
+            report.add("invalid-identifier", True, label(it),
+                       "system.%s %r -> %r" % (key, val, after))
+
+
 RULES = (
     rule_item_ids,
+    rule_identifiers,
     rule_singletons,
     rule_clear_species,
     rule_detail_pointers,

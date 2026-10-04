@@ -865,7 +865,15 @@
           "quote": "The Custodian Who Wants the Planes Severed",
           "source": "title"
         }
-      ]
+      ],
+      "tags": [
+        "Shadow Estate & House Corvinarus",
+        "npc",
+        "caster",
+        "humanoid",
+        "generated"
+      ],
+      "color": "#8B0000"
     }
   },
   "_stats": {

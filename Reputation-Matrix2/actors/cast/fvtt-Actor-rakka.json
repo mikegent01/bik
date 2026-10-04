@@ -925,7 +925,15 @@
           "quote": "What IS known about Rakka: - They operate from a hidden temple deep in the enchanted woods, protected by magic that discourages outside contact - They employ agents for tasks requiring discretion, specific skills, and",
           "source": "article"
         }
-      ]
+      ],
+      "tags": [
+        "Rakasha & the Feywild",
+        "npc",
+        "caster",
+        "undead",
+        "generated"
+      ],
+      "color": "#D2B48C"
     }
   },
   "_stats": {

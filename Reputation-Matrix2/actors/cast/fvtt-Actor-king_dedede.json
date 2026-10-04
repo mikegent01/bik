@@ -1016,6 +1016,13 @@
           "source": "article"
         }
       ],
+      "tags": [
+        "Dreamland",
+        "pc",
+        "boss",
+        "generated"
+      ],
+      "color": "#FFB7C5",
       "pc": {
         "level": 2,
         "class": "Fighter",

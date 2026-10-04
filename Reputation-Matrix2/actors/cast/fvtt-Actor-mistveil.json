@@ -910,7 +910,15 @@
           "quote": "What is consistent across accounts: Infiltration Expertise: Mistveil can adopt personas convincingly enough to pass in hostile environments.",
           "source": "article"
         }
-      ]
+      ],
+      "tags": [
+        "Peach Loyalists",
+        "npc",
+        "rogue",
+        "humanoid",
+        "generated"
+      ],
+      "color": "#FFDAB9"
     }
   },
   "_stats": {

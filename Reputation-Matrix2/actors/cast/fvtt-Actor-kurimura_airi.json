@@ -906,7 +906,15 @@
           "quote": "Airi screamed with joy.",
           "source": "article"
         }
-      ]
+      ],
+      "tags": [
+        "Trinity Academy",
+        "npc",
+        "student",
+        "humanoid",
+        "generated"
+      ],
+      "color": "#F08080"
     }
   },
   "_stats": {

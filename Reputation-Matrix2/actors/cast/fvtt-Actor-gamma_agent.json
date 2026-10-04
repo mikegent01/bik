@@ -818,7 +818,15 @@
           "quote": "Iron Legion (Gamma Division)",
           "source": "article"
         }
-      ]
+      ],
+      "tags": [
+        "Iron Legion",
+        "npc",
+        "soldier",
+        "humanoid",
+        "generated"
+      ],
+      "color": "#ADB5BD"
     }
   },
   "_stats": {

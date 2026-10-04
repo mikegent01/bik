@@ -979,7 +979,7 @@
           "rules": "2014",
           "revision": 1
         },
-        "identifier": "toad-—-eager-variant",
+        "identifier": "toad-eager-variant",
         "advancement": {},
         "movement": {
           "units": "ft",
@@ -1039,7 +1039,7 @@
           "rules": "2014",
           "revision": 1
         },
-        "identifier": "disaster-inc.-catastrophe-scout",
+        "identifier": "disaster-inc-catastrophe-scout",
         "advancement": {},
         "startingEquipment": []
       },
@@ -1082,7 +1082,7 @@
           "rules": "2014",
           "revision": 1
         },
-        "identifier": "fighting-style-—-archery",
+        "identifier": "fighting-style-archery",
         "properties": [],
         "activities": {},
         "uses": {
@@ -2884,7 +2884,7 @@
             "otherActivityAsParentType": true
           }
         },
-        "identifier": "dead-person's-shoes",
+        "identifier": "dead-persons-shoes",
         "attuned": false,
         "crew": {
           "value": []
@@ -3128,7 +3128,7 @@
             "otherActivityAsParentType": true
           }
         },
-        "identifier": "dead-person's-pants",
+        "identifier": "dead-persons-pants",
         "attuned": false,
         "crew": {
           "value": []
@@ -12244,7 +12244,12 @@
         "xpKey": "eager",
         "xp": 4860,
         "level": 4
-      }
+      },
+      "tags": [
+        "Disaster Inc.",
+        "pc"
+      ],
+      "color": "#D4A017"
     }
   },
   "_stats": {

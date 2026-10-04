@@ -821,7 +821,15 @@
           "quote": "Active — survived the corridor night",
           "source": "article"
         }
-      ]
+      ],
+      "tags": [
+        "Overgrown Manor",
+        "npc",
+        "soldier",
+        "humanoid",
+        "generated"
+      ],
+      "color": "#6B8E23"
     }
   },
   "_stats": {

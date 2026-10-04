@@ -8,573 +8,617 @@
   "source": "midlands-all-actors.json",
   "actorCount": 151,
   "folders": [
-    "A House Divided / Characters of the Feyward Manor",
-    "A House Divided / Characters of the Planar Sanctum",
-    "A House Divided / Characters of the Ruined Manor",
-    "A House Divided / Characters of the Shadeward Manor",
-    "A House Divided / Creatures of the Feyward Manor",
-    "A House Divided / Creatures of the Ruined Manor",
-    "A House Divided / Creatures of the Shadeward Manor",
-    "Creatures",
-    "Flower",
-    "Important",
+    "Bestiary / Aberration",
+    "Bestiary / Beast",
+    "Bestiary / Construct",
+    "Bestiary / Dragon",
+    "Bestiary / Elemental",
+    "Bestiary / Fey",
+    "Bestiary / Fiend",
+    "Bestiary / Humanoid",
+    "Bestiary / Monstrosity",
+    "Bestiary / Ooze",
+    "Bestiary / Other",
+    "Bestiary / Plant",
+    "Bestiary / Undead",
+    "Disaster Inc.",
+    "Elsewhere",
+    "Fawful's Furious Freaks",
     "Iron Legion",
-    "Players"
+    "Koopa Troop",
+    "Mages' Guild",
+    "Mushroom Regency & Kingdom",
+    "Overgrown Manor",
+    "Players",
+    "Shadow Estate & House Corvinarus"
+  ],
+  "identifiersRepaired": [
+    {
+      "actor": "Eager",
+      "item": "Toad — Eager Variant",
+      "key": "identifier",
+      "from": "toad-—-eager-variant",
+      "to": "toad-eager-variant"
+    },
+    {
+      "actor": "Eager",
+      "item": "Disaster Inc. Catastrophe Scout",
+      "key": "identifier",
+      "from": "disaster-inc.-catastrophe-scout",
+      "to": "disaster-inc-catastrophe-scout"
+    },
+    {
+      "actor": "Eager",
+      "item": "Fighting Style — Archery",
+      "key": "identifier",
+      "from": "fighting-style-—-archery",
+      "to": "fighting-style-archery"
+    },
+    {
+      "actor": "Eager",
+      "item": "Dead Person's Shoes",
+      "key": "identifier",
+      "from": "dead-person's-shoes",
+      "to": "dead-persons-shoes"
+    },
+    {
+      "actor": "Eager",
+      "item": "Dead Person's Pants",
+      "key": "identifier",
+      "from": "dead-person's-pants",
+      "to": "dead-persons-pants"
+    },
+    {
+      "actor": "Feyward Dan",
+      "item": "Toad — Feyward Variant",
+      "key": "identifier",
+      "from": "toad-—-feyward-variant",
+      "to": "toad-feyward-variant"
+    },
+    {
+      "actor": "Feyward Dan",
+      "item": "Wild Surge — Unstable Aura",
+      "key": "identifier",
+      "from": "wild-surge-—-unstable-aura",
+      "to": "wild-surge-unstable-aura"
+    }
   ],
   "unresolvedFolderIds": {},
   "note": "",
   "actors": [
     {
-      "name": "Chirneros",
+      "name": "Eyes that Bite",
       "type": "npc",
-      "_id": "PfrU5EHMjzhKIN8p",
-      "file": "A House Divided/Characters of the Feyward Manor/fvtt-Actor-chirneros-PfrU5EHMjzhKIN8p.json"
+      "_id": "QS7mzeYI7mCB0Shv",
+      "file": "Bestiary/Aberration/fvtt-Actor-eyes-that-bite-QS7mzeYI7mCB0Shv.json"
     },
     {
-      "name": "Elscieth",
+      "name": "Black Bear",
       "type": "npc",
-      "_id": "X4yeHCCN9izB7j5Q",
-      "file": "A House Divided/Characters of the Feyward Manor/fvtt-Actor-elscieth-X4yeHCCN9izB7j5Q.json"
-    },
-    {
-      "name": "Herniva",
-      "type": "npc",
-      "_id": "oiZ5IzMQpzR8cFLk",
-      "file": "A House Divided/Characters of the Feyward Manor/fvtt-Actor-herniva-oiZ5IzMQpzR8cFLk.json"
-    },
-    {
-      "name": "Red Scullion",
-      "type": "npc",
-      "_id": "lTZ4zPnZtKS1jHjX",
-      "file": "A House Divided/Characters of the Feyward Manor/fvtt-Actor-red-scullion-lTZ4zPnZtKS1jHjX.json"
-    },
-    {
-      "name": "Saedia",
-      "type": "npc",
-      "_id": "9ZpxboHICNZBYhQu",
-      "file": "A House Divided/Characters of the Feyward Manor/fvtt-Actor-saedia-9ZpxboHICNZBYhQu.json"
-    },
-    {
-      "name": "Stuckina Bogg",
-      "type": "npc",
-      "_id": "PPfGzsDDoUa8r6je",
-      "file": "A House Divided/Characters of the Feyward Manor/fvtt-Actor-stuckina-bogg-PPfGzsDDoUa8r6je.json"
-    },
-    {
-      "name": "Sylvaria",
-      "type": "npc",
-      "_id": "h0g8nVSDHjwhvoKB",
-      "file": "A House Divided/Characters of the Feyward Manor/fvtt-Actor-sylvaria-h0g8nVSDHjwhvoKB.json"
-    },
-    {
-      "name": "The Revel",
-      "type": "npc",
-      "_id": "X4vtehnvPo43XEXD",
-      "file": "A House Divided/Characters of the Feyward Manor/fvtt-Actor-the-revel-X4vtehnvPo43XEXD.json"
-    },
-    {
-      "name": "Thorne",
-      "type": "npc",
-      "_id": "k62SbeNQdbOpwsXo",
-      "file": "A House Divided/Characters of the Feyward Manor/fvtt-Actor-thorne-k62SbeNQdbOpwsXo.json"
-    },
-    {
-      "name": "Thystle",
-      "type": "npc",
-      "_id": "fuz9FcyUjfS1nZHy",
-      "file": "A House Divided/Characters of the Feyward Manor/fvtt-Actor-thystle-fuz9FcyUjfS1nZHy.json"
-    },
-    {
-      "name": "Woodfellow",
-      "type": "npc",
-      "_id": "wjOpEZuULYW3cYR1",
-      "file": "A House Divided/Characters of the Feyward Manor/fvtt-Actor-woodfellow-wjOpEZuULYW3cYR1.json"
-    },
-    {
-      "name": "Corvinarus Abomination",
-      "type": "npc",
-      "_id": "Xxf80BJeTCVKhIao",
-      "file": "A House Divided/Characters of the Planar Sanctum/fvtt-Actor-corvinarus-abomination-Xxf80BJeTCVKhIao.json"
-    },
-    {
-      "name": "Darius Corvinarus",
-      "type": "npc",
-      "_id": "cEaCmjp4Fxfa3ftH",
-      "file": "A House Divided/Characters of the Planar Sanctum/fvtt-Actor-darius-corvinarus-cEaCmjp4Fxfa3ftH.json"
-    },
-    {
-      "name": "Fey Crystal Tether",
-      "type": "npc",
-      "_id": "5aBfVyHdXKw8oJXb",
-      "file": "A House Divided/Characters of the Planar Sanctum/fvtt-Actor-fey-crystal-tether-5aBfVyHdXKw8oJXb.json"
-    },
-    {
-      "name": "Shadow Crystal Tether",
-      "type": "npc",
-      "_id": "HSfcDhqYWOyVdZqb",
-      "file": "A House Divided/Characters of the Planar Sanctum/fvtt-Actor-shadow-crystal-tether-HSfcDhqYWOyVdZqb.json"
-    },
-    {
-      "name": "Aemenor Evenflight",
-      "type": "npc",
-      "_id": "rQqL4xsmIO1shEka",
-      "file": "A House Divided/Characters of the Ruined Manor/fvtt-Actor-aemenor-evenflight-rQqL4xsmIO1shEka.json"
-    },
-    {
-      "name": "Byscilla Danos",
-      "type": "npc",
-      "_id": "vvcaOaq7cKHA6cxR",
-      "file": "A House Divided/Characters of the Ruined Manor/fvtt-Actor-byscilla-danos-vvcaOaq7cKHA6cxR.json"
-    },
-    {
-      "name": "Hargram Fidger",
-      "type": "npc",
-      "_id": "FgXUotvhVhzA61yh",
-      "file": "A House Divided/Characters of the Ruined Manor/fvtt-Actor-hargram-fidger-FgXUotvhVhzA61yh.json"
-    },
-    {
-      "name": "Manderaz the Mad",
-      "type": "npc",
-      "_id": "8P1SRvoYZGxulQMT",
-      "file": "A House Divided/Characters of the Ruined Manor/fvtt-Actor-manderaz-the-mad-8P1SRvoYZGxulQMT.json"
-    },
-    {
-      "name": "Orvinder Danos",
-      "type": "npc",
-      "_id": "bcvcZ10ZzNQTAaSC",
-      "file": "A House Divided/Characters of the Ruined Manor/fvtt-Actor-orvinder-danos-bcvcZ10ZzNQTAaSC.json"
-    },
-    {
-      "name": "Perrius Annmatar",
-      "type": "npc",
-      "_id": "G9CLr70iR4k2pl5l",
-      "file": "A House Divided/Characters of the Ruined Manor/fvtt-Actor-perrius-annmatar-G9CLr70iR4k2pl5l.json"
-    },
-    {
-      "name": "Rhak the Lost",
-      "type": "npc",
-      "_id": "jmLsq8r3jF3QEPL9",
-      "file": "A House Divided/Characters of the Ruined Manor/fvtt-Actor-rhak-the-lost-jmLsq8r3jF3QEPL9.json"
-    },
-    {
-      "name": "Usk",
-      "type": "npc",
-      "_id": "I8HET6eCUvhMILDP",
-      "file": "A House Divided/Characters of the Ruined Manor/fvtt-Actor-usk-I8HET6eCUvhMILDP.json"
-    },
-    {
-      "name": "Usk (Shattered)",
-      "type": "npc",
-      "_id": "numGvhXBimwHEO3d",
-      "file": "A House Divided/Characters of the Ruined Manor/fvtt-Actor-usk-shattered-numGvhXBimwHEO3d.json"
-    },
-    {
-      "name": "Kryn Corvinarus",
-      "type": "npc",
-      "_id": "CnaNkZZQmowYRqWS",
-      "file": "A House Divided/Characters of the Shadeward Manor/fvtt-Actor-kryn-corvinarus-CnaNkZZQmowYRqWS.json"
-    },
-    {
-      "name": "Lyranth the Sculptor",
-      "type": "npc",
-      "_id": "0Y1HB4Cua7nsM2wV",
-      "file": "A House Divided/Characters of the Shadeward Manor/fvtt-Actor-lyranth-the-sculptor-0Y1HB4Cua7nsM2wV.json"
-    },
-    {
-      "name": "Tymnas",
-      "type": "npc",
-      "_id": "HHRNpgk9VhQeuNCN",
-      "file": "A House Divided/Characters of the Shadeward Manor/fvtt-Actor-tymnas-HHRNpgk9VhQeuNCN.json"
-    },
-    {
-      "name": "Vaxillus Loumaal",
-      "type": "npc",
-      "_id": "WzeQ8waID9uqv1HZ",
-      "file": "A House Divided/Characters of the Shadeward Manor/fvtt-Actor-vaxillus-loumaal-WzeQ8waID9uqv1HZ.json"
-    },
-    {
-      "name": "Vivesna Corvinarus",
-      "type": "npc",
-      "_id": "PzJIrTDpLyWNboVH",
-      "file": "A House Divided/Characters of the Shadeward Manor/fvtt-Actor-vivesna-corvinarus-PzJIrTDpLyWNboVH.json"
-    },
-    {
-      "name": "Vostolas the Archivist",
-      "type": "npc",
-      "_id": "PqZa1Q0bYx0LvnSQ",
-      "file": "A House Divided/Characters of the Shadeward Manor/fvtt-Actor-vostolas-the-archivist-PqZa1Q0bYx0LvnSQ.json"
+      "_id": "C04YpnHjyu4oh0X8",
+      "file": "Bestiary/Beast/fvtt-Actor-black-bear-C04YpnHjyu4oh0X8.json"
     },
     {
       "name": "Bramblefly",
       "type": "npc",
       "_id": "ROKRxPal9owBGzCk",
-      "file": "A House Divided/Creatures of the Feyward Manor/fvtt-Actor-bramblefly-ROKRxPal9owBGzCk.json"
-    },
-    {
-      "name": "Centaur",
-      "type": "npc",
-      "_id": "AvtMhZFWnIXKNy08",
-      "file": "A House Divided/Creatures of the Feyward Manor/fvtt-Actor-centaur-AvtMhZFWnIXKNy08.json"
-    },
-    {
-      "name": "Feyward House Guard",
-      "type": "npc",
-      "_id": "7FK7hQIzljzUv3E2",
-      "file": "A House Divided/Creatures of the Feyward Manor/fvtt-Actor-feyward-house-guard-7FK7hQIzljzUv3E2.json"
-    },
-    {
-      "name": "Flowering Shambler",
-      "type": "npc",
-      "_id": "IJscfSM70waHu6cW",
-      "file": "A House Divided/Creatures of the Feyward Manor/fvtt-Actor-flowering-shambler-IJscfSM70waHu6cW.json"
-    },
-    {
-      "name": "Goblin Line Cook",
-      "type": "npc",
-      "_id": "A83TjD6cXIC2pgNj",
-      "file": "A House Divided/Creatures of the Feyward Manor/fvtt-Actor-goblin-line-cook-A83TjD6cXIC2pgNj.json"
-    },
-    {
-      "name": "Goblin Staff",
-      "type": "npc",
-      "_id": "56r4YGpMU1CigK3P",
-      "file": "A House Divided/Creatures of the Feyward Manor/fvtt-Actor-goblin-staff-56r4YGpMU1CigK3P.json"
-    },
-    {
-      "name": "Hobgoblin",
-      "type": "npc",
-      "_id": "qqtbtdwINX8iyrJw",
-      "file": "A House Divided/Creatures of the Feyward Manor/fvtt-Actor-hobgoblin-qqtbtdwINX8iyrJw.json"
-    },
-    {
-      "name": "Satyr",
-      "type": "npc",
-      "_id": "JAGLrypngiEfoMLU",
-      "file": "A House Divided/Creatures of the Feyward Manor/fvtt-Actor-satyr-JAGLrypngiEfoMLU.json"
-    },
-    {
-      "name": "Satyr Bard",
-      "type": "npc",
-      "_id": "757OMr4xLhFEkgNP",
-      "file": "A House Divided/Creatures of the Feyward Manor/fvtt-Actor-satyr-bard-757OMr4xLhFEkgNP.json"
-    },
-    {
-      "name": "Satyr Berserker",
-      "type": "npc",
-      "_id": "fUL0n0b7BfZchOWp",
-      "file": "A House Divided/Creatures of the Feyward Manor/fvtt-Actor-satyr-berserker-fUL0n0b7BfZchOWp.json"
-    },
-    {
-      "name": "Satyr Druid",
-      "type": "npc",
-      "_id": "vFIK4IKz6sUj7bKW",
-      "file": "A House Divided/Creatures of the Feyward Manor/fvtt-Actor-satyr-druid-vFIK4IKz6sUj7bKW.json"
-    },
-    {
-      "name": "Satyr Rogue",
-      "type": "npc",
-      "_id": "CBtJ9cAzoH3YF0aJ",
-      "file": "A House Divided/Creatures of the Feyward Manor/fvtt-Actor-satyr-rogue-CBtJ9cAzoH3YF0aJ.json"
-    },
-    {
-      "name": "Satyr Scout",
-      "type": "npc",
-      "_id": "v02ojTfZZIHitZoM",
-      "file": "A House Divided/Creatures of the Feyward Manor/fvtt-Actor-satyr-scout-v02ojTfZZIHitZoM.json"
-    },
-    {
-      "name": "Satyr Sorcerer",
-      "type": "npc",
-      "_id": "xaudiZjL87Pz80Bv",
-      "file": "A House Divided/Creatures of the Feyward Manor/fvtt-Actor-satyr-sorcerer-xaudiZjL87Pz80Bv.json"
-    },
-    {
-      "name": "Satyr Swordfighter",
-      "type": "npc",
-      "_id": "FcDF29J4oF5EV18z",
-      "file": "A House Divided/Creatures of the Feyward Manor/fvtt-Actor-satyr-swordfighter-FcDF29J4oF5EV18z.json"
-    },
-    {
-      "name": "Spirit Charger",
-      "type": "npc",
-      "_id": "iEqA3GniwwLkmbtM",
-      "file": "A House Divided/Creatures of the Feyward Manor/fvtt-Actor-spirit-charger-iEqA3GniwwLkmbtM.json"
-    },
-    {
-      "name": "Spirit Hunter",
-      "type": "npc",
-      "_id": "FpO1OsbkYzVKKBgk",
-      "file": "A House Divided/Creatures of the Feyward Manor/fvtt-Actor-spirit-hunter-FpO1OsbkYzVKKBgk.json"
-    },
-    {
-      "name": "Spirit Striker",
-      "type": "npc",
-      "_id": "pnXsAJ7xHsCwulsu",
-      "file": "A House Divided/Creatures of the Feyward Manor/fvtt-Actor-spirit-striker-pnXsAJ7xHsCwulsu.json"
-    },
-    {
-      "name": "Spriggan Gladiator",
-      "type": "npc",
-      "_id": "uZQRUzPRcKYjJY4S",
-      "file": "A House Divided/Creatures of the Feyward Manor/fvtt-Actor-spriggan-gladiator-uZQRUzPRcKYjJY4S.json"
-    },
-    {
-      "name": "Sprite Archer",
-      "type": "npc",
-      "_id": "5KzDeEDMtrrgb58B",
-      "file": "A House Divided/Creatures of the Feyward Manor/fvtt-Actor-sprite-archer-5KzDeEDMtrrgb58B.json"
-    },
-    {
-      "name": "Sprite Sorcerer",
-      "type": "npc",
-      "_id": "d9iIK7yY1Gykaq3h",
-      "file": "A House Divided/Creatures of the Feyward Manor/fvtt-Actor-sprite-sorcerer-d9iIK7yY1Gykaq3h.json"
-    },
-    {
-      "name": "Sprite Warrior",
-      "type": "npc",
-      "_id": "RVNmaLddSDWZm4xA",
-      "file": "A House Divided/Creatures of the Feyward Manor/fvtt-Actor-sprite-warrior-RVNmaLddSDWZm4xA.json"
-    },
-    {
-      "name": "The Ravenous Host",
-      "type": "npc",
-      "_id": "cuIbliWBwzc9UegA",
-      "file": "A House Divided/Creatures of the Feyward Manor/fvtt-Actor-the-ravenous-host-cuIbliWBwzc9UegA.json"
-    },
-    {
-      "name": "Arcane Wraith",
-      "type": "npc",
-      "_id": "x28laoC4NPE7abQC",
-      "file": "A House Divided/Creatures of the Ruined Manor/fvtt-Actor-arcane-wraith-x28laoC4NPE7abQC.json"
-    },
-    {
-      "name": "Coat of Constricting",
-      "type": "npc",
-      "_id": "aOQF8AJSw2yZbSfy",
-      "file": "A House Divided/Creatures of the Ruined Manor/fvtt-Actor-coat-of-constricting-aOQF8AJSw2yZbSfy.json"
+      "file": "Bestiary/Beast/fvtt-Actor-bramblefly-ROKRxPal9owBGzCk.json"
     },
     {
       "name": "Colossal Spider",
       "type": "npc",
       "_id": "C0TKUDtIprhxOZD5",
-      "file": "A House Divided/Creatures of the Ruined Manor/fvtt-Actor-colossal-spider-C0TKUDtIprhxOZD5.json"
-    },
-    {
-      "name": "Ettercap",
-      "type": "npc",
-      "_id": "TuAQ3qWD9KwrQJAo",
-      "file": "A House Divided/Creatures of the Ruined Manor/fvtt-Actor-ettercap-TuAQ3qWD9KwrQJAo.json"
-    },
-    {
-      "name": "Ghostly Remnant",
-      "type": "npc",
-      "_id": "uKRhhZUFKGz9ykI3",
-      "file": "A House Divided/Creatures of the Ruined Manor/fvtt-Actor-ghostly-remnant-uKRhhZUFKGz9ykI3.json"
+      "file": "Bestiary/Beast/fvtt-Actor-colossal-spider-C0TKUDtIprhxOZD5.json"
     },
     {
       "name": "Giant Green Spider",
       "type": "npc",
       "_id": "pNEOaqxDMmUbzR8H",
-      "file": "A House Divided/Creatures of the Ruined Manor/fvtt-Actor-giant-green-spider-pNEOaqxDMmUbzR8H.json"
+      "file": "Bestiary/Beast/fvtt-Actor-giant-green-spider-pNEOaqxDMmUbzR8H.json"
     },
     {
       "name": "Giant Wolf Spider",
       "type": "npc",
       "_id": "v6dM0lxmenwJlksD",
-      "file": "A House Divided/Creatures of the Ruined Manor/fvtt-Actor-giant-wolf-spider-v6dM0lxmenwJlksD.json"
-    },
-    {
-      "name": "Housebound",
-      "type": "npc",
-      "_id": "OIVtnbNiNbCi0gEa",
-      "file": "A House Divided/Creatures of the Ruined Manor/fvtt-Actor-housebound-OIVtnbNiNbCi0gEa.json"
-    },
-    {
-      "name": "Manor Wight",
-      "type": "npc",
-      "_id": "aaEXnW2WjmAh4yDt",
-      "file": "A House Divided/Creatures of the Ruined Manor/fvtt-Actor-manor-wight-aaEXnW2WjmAh4yDt.json"
-    },
-    {
-      "name": "Ruined Manor",
-      "type": "npc",
-      "_id": "dIXHXuGTzaAhFKxl",
-      "file": "A House Divided/Creatures of the Ruined Manor/fvtt-Actor-ruined-manor-dIXHXuGTzaAhFKxl.json"
-    },
-    {
-      "name": "Rust Monster",
-      "type": "npc",
-      "_id": "bb0qcet6nsl4UG8u",
-      "file": "A House Divided/Creatures of the Ruined Manor/fvtt-Actor-rust-monster-bb0qcet6nsl4UG8u.json"
-    },
-    {
-      "name": "Shard Stalker",
-      "type": "npc",
-      "_id": "A60ns8tMmTdrXI6U",
-      "file": "A House Divided/Creatures of the Ruined Manor/fvtt-Actor-shard-stalker-A60ns8tMmTdrXI6U.json"
-    },
-    {
-      "name": "Shard Stalker Reflection",
-      "type": "npc",
-      "_id": "sAlVajLX9CxaRp5R",
-      "file": "A House Divided/Creatures of the Ruined Manor/fvtt-Actor-shard-stalker-reflection-sAlVajLX9CxaRp5R.json"
-    },
-    {
-      "name": "Specter",
-      "type": "npc",
-      "_id": "X8DHcJ3V5B2CnLCt",
-      "file": "A House Divided/Creatures of the Ruined Manor/fvtt-Actor-specter-X8DHcJ3V5B2CnLCt.json"
-    },
-    {
-      "name": "Spectral Dancers",
-      "type": "npc",
-      "_id": "YDh7G709fK7wIEPH",
-      "file": "A House Divided/Creatures of the Ruined Manor/fvtt-Actor-spectral-dancers-YDh7G709fK7wIEPH.json"
-    },
-    {
-      "name": "Swarm of Books",
-      "type": "npc",
-      "_id": "iAk602TrDJ8kSxR0",
-      "file": "A House Divided/Creatures of the Ruined Manor/fvtt-Actor-swarm-of-books-iAk602TrDJ8kSxR0.json"
-    },
-    {
-      "name": "Swarm of Spiders",
-      "type": "npc",
-      "_id": "dXFPHhTbg87ClkKq",
-      "file": "A House Divided/Creatures of the Ruined Manor/fvtt-Actor-swarm-of-spiders-dXFPHhTbg87ClkKq.json"
-    },
-    {
-      "name": "Voluminous Ochre Jelly",
-      "type": "npc",
-      "_id": "xVo7PZHPMz3JGB12",
-      "file": "A House Divided/Creatures of the Ruined Manor/fvtt-Actor-voluminous-ochre-jelly-xVo7PZHPMz3JGB12.json"
-    },
-    {
-      "name": "Waltzgeist",
-      "type": "npc",
-      "_id": "SQbXXUNXUspXZrYs",
-      "file": "A House Divided/Creatures of the Ruined Manor/fvtt-Actor-waltzgeist-SQbXXUNXUspXZrYs.json"
-    },
-    {
-      "name": "Archivist Imp",
-      "type": "npc",
-      "_id": "bJgZOZ5iHgDCFTtx",
-      "file": "A House Divided/Creatures of the Shadeward Manor/fvtt-Actor-archivist-imp-bJgZOZ5iHgDCFTtx.json"
-    },
-    {
-      "name": "Boneless Dancer",
-      "type": "npc",
-      "_id": "JVsWNiZCt5WVd3A8",
-      "file": "A House Divided/Creatures of the Shadeward Manor/fvtt-Actor-boneless-dancer-JVsWNiZCt5WVd3A8.json"
+      "file": "Bestiary/Beast/fvtt-Actor-giant-wolf-spider-v6dM0lxmenwJlksD.json"
     },
     {
       "name": "Great Shadowmaw",
       "type": "npc",
       "_id": "pfW9eiJczWW5ANhx",
-      "file": "A House Divided/Creatures of the Shadeward Manor/fvtt-Actor-great-shadowmaw-pfW9eiJczWW5ANhx.json"
-    },
-    {
-      "name": "Mazebound",
-      "type": "npc",
-      "_id": "GhITCy3jMBMKdPFP",
-      "file": "A House Divided/Creatures of the Shadeward Manor/fvtt-Actor-mazebound-GhITCy3jMBMKdPFP.json"
-    },
-    {
-      "name": "Onyx Knight",
-      "type": "npc",
-      "_id": "btK5H0Qx6iUX3v2w",
-      "file": "A House Divided/Creatures of the Shadeward Manor/fvtt-Actor-onyx-knight-btK5H0Qx6iUX3v2w.json"
-    },
-    {
-      "name": "Shadow",
-      "type": "npc",
-      "_id": "5muAGgpHQDtXl3qo",
-      "file": "A House Divided/Creatures of the Shadeward Manor/fvtt-Actor-shadow-5muAGgpHQDtXl3qo.json"
-    },
-    {
-      "name": "Shadow Servant",
-      "type": "npc",
-      "_id": "SEWZsTBN4pIPoTu0",
-      "file": "A House Divided/Creatures of the Shadeward Manor/fvtt-Actor-shadow-servant-SEWZsTBN4pIPoTu0.json"
+      "file": "Bestiary/Beast/fvtt-Actor-great-shadowmaw-pfW9eiJczWW5ANhx.json"
     },
     {
       "name": "Shadowtusk",
       "type": "npc",
       "_id": "RfKDLGMKmWwC9qOF",
-      "file": "A House Divided/Creatures of the Shadeward Manor/fvtt-Actor-shadowtusk-RfKDLGMKmWwC9qOF.json"
+      "file": "Bestiary/Beast/fvtt-Actor-shadowtusk-RfKDLGMKmWwC9qOF.json"
     },
     {
-      "name": "The Scorncrow",
+      "name": "Swarm of Spiders",
       "type": "npc",
-      "_id": "w5NiTfaf6NZp9tAH",
-      "file": "A House Divided/Creatures of the Shadeward Manor/fvtt-Actor-the-scorncrow-w5NiTfaf6NZp9tAH.json"
+      "_id": "dXFPHhTbg87ClkKq",
+      "file": "Bestiary/Beast/fvtt-Actor-swarm-of-spiders-dXFPHhTbg87ClkKq.json"
     },
     {
-      "name": "The Tree of Woe",
+      "name": "Coat of Constricting",
       "type": "npc",
-      "_id": "IqZjrAdSvJdC6qfO",
-      "file": "A House Divided/Creatures of the Shadeward Manor/fvtt-Actor-the-tree-of-woe-IqZjrAdSvJdC6qfO.json"
+      "_id": "aOQF8AJSw2yZbSfy",
+      "file": "Bestiary/Construct/fvtt-Actor-coat-of-constricting-aOQF8AJSw2yZbSfy.json"
     },
     {
-      "name": "Wraith",
+      "name": "Adult Copper Dragon",
       "type": "npc",
-      "_id": "5406wJog3mq1bkeI",
-      "file": "A House Divided/Creatures of the Shadeward Manor/fvtt-Actor-wraith-5406wJog3mq1bkeI.json"
+      "_id": "hzlJebzFO8JUcXKR",
+      "file": "Bestiary/Dragon/fvtt-Actor-adult-copper-dragon-hzlJebzFO8JUcXKR.json"
     },
     {
-      "name": "Wretched Hound",
+      "name": "Dust Mephit",
       "type": "npc",
-      "_id": "RPXEkB8NdH3jBPiK",
-      "file": "A House Divided/Creatures of the Shadeward Manor/fvtt-Actor-wretched-hound-RPXEkB8NdH3jBPiK.json"
+      "_id": "lCsJHgu1ARA9Ztz1",
+      "file": "Bestiary/Elemental/fvtt-Actor-dust-mephit-lCsJHgu1ARA9Ztz1.json"
     },
     {
-      "name": "Eyes that Bite",
+      "name": "Centaur",
       "type": "npc",
-      "_id": "QS7mzeYI7mCB0Shv",
-      "file": "Creatures/fvtt-Actor-eyes-that-bite-QS7mzeYI7mCB0Shv.json"
+      "_id": "AvtMhZFWnIXKNy08",
+      "file": "Bestiary/Fey/fvtt-Actor-centaur-AvtMhZFWnIXKNy08.json"
+    },
+    {
+      "name": "Goblin Warrior",
+      "type": "npc",
+      "_id": "hq3aG7mbK9L9LE86",
+      "file": "Bestiary/Fey/fvtt-Actor-goblin-warrior-hq3aG7mbK9L9LE86.json"
+    },
+    {
+      "name": "Green Hag",
+      "type": "npc",
+      "_id": "Izqb9KzyZZlSL4j7",
+      "file": "Bestiary/Fey/fvtt-Actor-green-hag-Izqb9KzyZZlSL4j7.json"
+    },
+    {
+      "name": "Hobgoblin",
+      "type": "npc",
+      "_id": "qqtbtdwINX8iyrJw",
+      "file": "Bestiary/Fey/fvtt-Actor-hobgoblin-qqtbtdwINX8iyrJw.json"
+    },
+    {
+      "name": "Hobgoblin Warrior",
+      "type": "npc",
+      "_id": "4BpweQBMswdd6gyp",
+      "file": "Bestiary/Fey/fvtt-Actor-hobgoblin-warrior-4BpweQBMswdd6gyp.json"
+    },
+    {
+      "name": "Hobgoblin Warrior",
+      "type": "npc",
+      "_id": "6ciCT0pfEnkEvfRj",
+      "file": "Bestiary/Fey/fvtt-Actor-hobgoblin-warrior-6ciCT0pfEnkEvfRj.json"
+    },
+    {
+      "name": "Satyr",
+      "type": "npc",
+      "_id": "DdOhSRkF8cYvlvEJ",
+      "file": "Bestiary/Fey/fvtt-Actor-satyr-DdOhSRkF8cYvlvEJ.json"
+    },
+    {
+      "name": "Satyr",
+      "type": "npc",
+      "_id": "JAGLrypngiEfoMLU",
+      "file": "Bestiary/Fey/fvtt-Actor-satyr-JAGLrypngiEfoMLU.json"
+    },
+    {
+      "name": "Satyr Bard",
+      "type": "npc",
+      "_id": "757OMr4xLhFEkgNP",
+      "file": "Bestiary/Fey/fvtt-Actor-satyr-bard-757OMr4xLhFEkgNP.json"
+    },
+    {
+      "name": "Satyr Berserker",
+      "type": "npc",
+      "_id": "fUL0n0b7BfZchOWp",
+      "file": "Bestiary/Fey/fvtt-Actor-satyr-berserker-fUL0n0b7BfZchOWp.json"
+    },
+    {
+      "name": "Satyr Druid",
+      "type": "npc",
+      "_id": "vFIK4IKz6sUj7bKW",
+      "file": "Bestiary/Fey/fvtt-Actor-satyr-druid-vFIK4IKz6sUj7bKW.json"
+    },
+    {
+      "name": "Satyr Rogue",
+      "type": "npc",
+      "_id": "CBtJ9cAzoH3YF0aJ",
+      "file": "Bestiary/Fey/fvtt-Actor-satyr-rogue-CBtJ9cAzoH3YF0aJ.json"
+    },
+    {
+      "name": "Satyr Scout",
+      "type": "npc",
+      "_id": "v02ojTfZZIHitZoM",
+      "file": "Bestiary/Fey/fvtt-Actor-satyr-scout-v02ojTfZZIHitZoM.json"
+    },
+    {
+      "name": "Satyr Sorcerer",
+      "type": "npc",
+      "_id": "xaudiZjL87Pz80Bv",
+      "file": "Bestiary/Fey/fvtt-Actor-satyr-sorcerer-xaudiZjL87Pz80Bv.json"
+    },
+    {
+      "name": "Satyr Swordfighter",
+      "type": "npc",
+      "_id": "FcDF29J4oF5EV18z",
+      "file": "Bestiary/Fey/fvtt-Actor-satyr-swordfighter-FcDF29J4oF5EV18z.json"
+    },
+    {
+      "name": "Spirit Charger",
+      "type": "npc",
+      "_id": "iEqA3GniwwLkmbtM",
+      "file": "Bestiary/Fey/fvtt-Actor-spirit-charger-iEqA3GniwwLkmbtM.json"
+    },
+    {
+      "name": "Spirit Hunter",
+      "type": "npc",
+      "_id": "FpO1OsbkYzVKKBgk",
+      "file": "Bestiary/Fey/fvtt-Actor-spirit-hunter-FpO1OsbkYzVKKBgk.json"
+    },
+    {
+      "name": "Spirit Striker",
+      "type": "npc",
+      "_id": "pnXsAJ7xHsCwulsu",
+      "file": "Bestiary/Fey/fvtt-Actor-spirit-striker-pnXsAJ7xHsCwulsu.json"
+    },
+    {
+      "name": "Sprite Archer",
+      "type": "npc",
+      "_id": "5KzDeEDMtrrgb58B",
+      "file": "Bestiary/Fey/fvtt-Actor-sprite-archer-5KzDeEDMtrrgb58B.json"
+    },
+    {
+      "name": "Sprite Sorcerer",
+      "type": "npc",
+      "_id": "d9iIK7yY1Gykaq3h",
+      "file": "Bestiary/Fey/fvtt-Actor-sprite-sorcerer-d9iIK7yY1Gykaq3h.json"
+    },
+    {
+      "name": "Sprite Warrior",
+      "type": "npc",
+      "_id": "RVNmaLddSDWZm4xA",
+      "file": "Bestiary/Fey/fvtt-Actor-sprite-warrior-RVNmaLddSDWZm4xA.json"
+    },
+    {
+      "name": "The Ravenous Host",
+      "type": "npc",
+      "_id": "cuIbliWBwzc9UegA",
+      "file": "Bestiary/Fey/fvtt-Actor-the-ravenous-host-cuIbliWBwzc9UegA.json"
+    },
+    {
+      "name": "Archivist Imp",
+      "type": "npc",
+      "_id": "bJgZOZ5iHgDCFTtx",
+      "file": "Bestiary/Fiend/fvtt-Actor-archivist-imp-bJgZOZ5iHgDCFTtx.json"
+    },
+    {
+      "name": "Bandit",
+      "type": "npc",
+      "_id": "2pZO6gQ1ykHCb0ug",
+      "file": "Bestiary/Humanoid/fvtt-Actor-bandit-2pZO6gQ1ykHCb0ug.json"
+    },
+    {
+      "name": "Berserker",
+      "type": "npc",
+      "_id": "mY01QrfjFBZ0XHAq",
+      "file": "Bestiary/Humanoid/fvtt-Actor-berserker-mY01QrfjFBZ0XHAq.json"
+    },
+    {
+      "name": "Cultist",
+      "type": "npc",
+      "_id": "vi1IvHUDzDdT6ZAn",
+      "file": "Bestiary/Humanoid/fvtt-Actor-cultist-vi1IvHUDzDdT6ZAn.json"
+    },
+    {
+      "name": "Feyward House Guard",
+      "type": "npc",
+      "_id": "7FK7hQIzljzUv3E2",
+      "file": "Bestiary/Humanoid/fvtt-Actor-feyward-house-guard-7FK7hQIzljzUv3E2.json"
+    },
+    {
+      "name": "Goblin Line Cook",
+      "type": "npc",
+      "_id": "A83TjD6cXIC2pgNj",
+      "file": "Bestiary/Humanoid/fvtt-Actor-goblin-line-cook-A83TjD6cXIC2pgNj.json"
+    },
+    {
+      "name": "Goblin Staff",
+      "type": "npc",
+      "_id": "56r4YGpMU1CigK3P",
+      "file": "Bestiary/Humanoid/fvtt-Actor-goblin-staff-56r4YGpMU1CigK3P.json"
+    },
+    {
+      "name": "Guard",
+      "type": "npc",
+      "_id": "oowBq6Vak4ky6dmp",
+      "file": "Bestiary/Humanoid/fvtt-Actor-guard-oowBq6Vak4ky6dmp.json"
+    },
+    {
+      "name": "Knight",
+      "type": "npc",
+      "_id": "3J8i4nu6k0pg3AjL",
+      "file": "Bestiary/Humanoid/fvtt-Actor-knight-3J8i4nu6k0pg3AjL.json"
+    },
+    {
+      "name": "Mage",
+      "type": "npc",
+      "_id": "BPMXrVGAPzawfLyl",
+      "file": "Bestiary/Humanoid/fvtt-Actor-mage-BPMXrVGAPzawfLyl.json"
+    },
+    {
+      "name": "Shadow Servant",
+      "type": "npc",
+      "_id": "SEWZsTBN4pIPoTu0",
+      "file": "Bestiary/Humanoid/fvtt-Actor-shadow-servant-SEWZsTBN4pIPoTu0.json"
+    },
+    {
+      "name": "Ankheg",
+      "type": "npc",
+      "_id": "t5Cs0fUER4rc0t7v",
+      "file": "Bestiary/Monstrosity/fvtt-Actor-ankheg-t5Cs0fUER4rc0t7v.json"
+    },
+    {
+      "name": "Ettercap",
+      "type": "npc",
+      "_id": "TuAQ3qWD9KwrQJAo",
+      "file": "Bestiary/Monstrosity/fvtt-Actor-ettercap-TuAQ3qWD9KwrQJAo.json"
     },
     {
       "name": "Eyestalk of Gzemnid",
       "type": "npc",
       "_id": "aS8TNGfFjkPb14e2",
-      "file": "Creatures/fvtt-Actor-eyestalk-of-gzemnid-aS8TNGfFjkPb14e2.json"
+      "file": "Bestiary/Monstrosity/fvtt-Actor-eyestalk-of-gzemnid-aS8TNGfFjkPb14e2.json"
+    },
+    {
+      "name": "Rust Monster",
+      "type": "npc",
+      "_id": "bb0qcet6nsl4UG8u",
+      "file": "Bestiary/Monstrosity/fvtt-Actor-rust-monster-bb0qcet6nsl4UG8u.json"
+    },
+    {
+      "name": "Shard Stalker",
+      "type": "npc",
+      "_id": "A60ns8tMmTdrXI6U",
+      "file": "Bestiary/Monstrosity/fvtt-Actor-shard-stalker-A60ns8tMmTdrXI6U.json"
+    },
+    {
+      "name": "Shard Stalker Reflection",
+      "type": "npc",
+      "_id": "sAlVajLX9CxaRp5R",
+      "file": "Bestiary/Monstrosity/fvtt-Actor-shard-stalker-reflection-sAlVajLX9CxaRp5R.json"
+    },
+    {
+      "name": "Voluminous Ochre Jelly",
+      "type": "npc",
+      "_id": "xVo7PZHPMz3JGB12",
+      "file": "Bestiary/Ooze/fvtt-Actor-voluminous-ochre-jelly-xVo7PZHPMz3JGB12.json"
+    },
+    {
+      "name": "Arcane Eye",
+      "type": "npc",
+      "_id": "IcDQ0xxkj5FtaNIc",
+      "file": "Bestiary/Other/fvtt-Actor-arcane-eye-IcDQ0xxkj5FtaNIc.json"
+    },
+    {
+      "name": "Conjured Animals",
+      "type": "npc",
+      "_id": "phbSpectralAnima",
+      "file": "Bestiary/Other/fvtt-Actor-conjured-animals-phbSpectralAnima.json"
+    },
+    {
+      "name": "Joseph Lee",
+      "type": "npc",
+      "_id": "i81gKchy0m427tAl",
+      "file": "Bestiary/Other/fvtt-Actor-joseph-lee-i81gKchy0m427tAl.json"
+    },
+    {
+      "name": "Non-Player Character",
+      "type": "npc",
+      "_id": "8W7RJohiHMoHxORK",
+      "file": "Bestiary/Other/fvtt-Actor-non-player-character-8W7RJohiHMoHxORK.json"
+    },
+    {
+      "name": "Ruined Manor",
+      "type": "npc",
+      "_id": "dIXHXuGTzaAhFKxl",
+      "file": "Bestiary/Other/fvtt-Actor-ruined-manor-dIXHXuGTzaAhFKxl.json"
+    },
+    {
+      "name": "The Tree of Woe",
+      "type": "npc",
+      "_id": "IqZjrAdSvJdC6qfO",
+      "file": "Bestiary/Other/fvtt-Actor-the-tree-of-woe-IqZjrAdSvJdC6qfO.json"
     },
     {
       "name": "Awakened Shrub",
       "type": "npc",
       "_id": "tx1hgMMKbCL9CV8n",
-      "file": "Flower/fvtt-Actor-awakened-shrub-tx1hgMMKbCL9CV8n.json"
+      "file": "Bestiary/Plant/fvtt-Actor-awakened-shrub-tx1hgMMKbCL9CV8n.json"
+    },
+    {
+      "name": "Flowering Shambler",
+      "type": "npc",
+      "_id": "IJscfSM70waHu6cW",
+      "file": "Bestiary/Plant/fvtt-Actor-flowering-shambler-IJscfSM70waHu6cW.json"
     },
     {
       "name": "Shambling Mound",
       "type": "npc",
       "_id": "EF8DIx38HTqr5jVV",
-      "file": "Flower/fvtt-Actor-shambling-mound-EF8DIx38HTqr5jVV.json"
+      "file": "Bestiary/Plant/fvtt-Actor-shambling-mound-EF8DIx38HTqr5jVV.json"
+    },
+    {
+      "name": "Shrieker Fungus",
+      "type": "npc",
+      "_id": "lsRNYDrRuB91yVHY",
+      "file": "Bestiary/Plant/fvtt-Actor-shrieker-fungus-lsRNYDrRuB91yVHY.json"
+    },
+    {
+      "name": "Spriggan Gladiator",
+      "type": "npc",
+      "_id": "uZQRUzPRcKYjJY4S",
+      "file": "Bestiary/Plant/fvtt-Actor-spriggan-gladiator-uZQRUzPRcKYjJY4S.json"
     },
     {
       "name": "Treant",
       "type": "npc",
       "_id": "1OJKLEQo967YncPt",
-      "file": "Flower/fvtt-Actor-treant-1OJKLEQo967YncPt.json"
+      "file": "Bestiary/Plant/fvtt-Actor-treant-1OJKLEQo967YncPt.json"
+    },
+    {
+      "name": "Treant",
+      "type": "npc",
+      "_id": "mmTreant00000000",
+      "file": "Bestiary/Plant/fvtt-Actor-treant-mmTreant00000000.json"
+    },
+    {
+      "name": "Violet Fungus",
+      "type": "npc",
+      "_id": "S55ybuiR19IADptX",
+      "file": "Bestiary/Plant/fvtt-Actor-violet-fungus-S55ybuiR19IADptX.json"
     },
     {
       "name": "Violet Fungus",
       "type": "npc",
       "_id": "ThJ4cLHC6TtUOmMU",
-      "file": "Flower/fvtt-Actor-violet-fungus-ThJ4cLHC6TtUOmMU.json"
+      "file": "Bestiary/Plant/fvtt-Actor-violet-fungus-ThJ4cLHC6TtUOmMU.json"
     },
     {
-      "name": "Lady Aurelian Corvinarus",
+      "name": "Arcane Wraith",
       "type": "npc",
-      "_id": "1Qt9AgFULweeVAoa",
-      "file": "Important/fvtt-Actor-lady-aurelian-corvinarus-1Qt9AgFULweeVAoa.json"
+      "_id": "x28laoC4NPE7abQC",
+      "file": "Bestiary/Undead/fvtt-Actor-arcane-wraith-x28laoC4NPE7abQC.json"
+    },
+    {
+      "name": "Boneless Dancer",
+      "type": "npc",
+      "_id": "JVsWNiZCt5WVd3A8",
+      "file": "Bestiary/Undead/fvtt-Actor-boneless-dancer-JVsWNiZCt5WVd3A8.json"
+    },
+    {
+      "name": "Ghostly Remnant",
+      "type": "npc",
+      "_id": "uKRhhZUFKGz9ykI3",
+      "file": "Bestiary/Undead/fvtt-Actor-ghostly-remnant-uKRhhZUFKGz9ykI3.json"
+    },
+    {
+      "name": "Housebound",
+      "type": "npc",
+      "_id": "OIVtnbNiNbCi0gEa",
+      "file": "Bestiary/Undead/fvtt-Actor-housebound-OIVtnbNiNbCi0gEa.json"
+    },
+    {
+      "name": "Manor Wight",
+      "type": "npc",
+      "_id": "aaEXnW2WjmAh4yDt",
+      "file": "Bestiary/Undead/fvtt-Actor-manor-wight-aaEXnW2WjmAh4yDt.json"
+    },
+    {
+      "name": "Mazebound",
+      "type": "npc",
+      "_id": "GhITCy3jMBMKdPFP",
+      "file": "Bestiary/Undead/fvtt-Actor-mazebound-GhITCy3jMBMKdPFP.json"
+    },
+    {
+      "name": "Shadow",
+      "type": "npc",
+      "_id": "5muAGgpHQDtXl3qo",
+      "file": "Bestiary/Undead/fvtt-Actor-shadow-5muAGgpHQDtXl3qo.json"
+    },
+    {
+      "name": "Specter",
+      "type": "npc",
+      "_id": "X8DHcJ3V5B2CnLCt",
+      "file": "Bestiary/Undead/fvtt-Actor-specter-X8DHcJ3V5B2CnLCt.json"
+    },
+    {
+      "name": "Spectral Dancers",
+      "type": "npc",
+      "_id": "YDh7G709fK7wIEPH",
+      "file": "Bestiary/Undead/fvtt-Actor-spectral-dancers-YDh7G709fK7wIEPH.json"
+    },
+    {
+      "name": "Swarm of Books",
+      "type": "npc",
+      "_id": "iAk602TrDJ8kSxR0",
+      "file": "Bestiary/Undead/fvtt-Actor-swarm-of-books-iAk602TrDJ8kSxR0.json"
+    },
+    {
+      "name": "Waltzgeist",
+      "type": "npc",
+      "_id": "SQbXXUNXUspXZrYs",
+      "file": "Bestiary/Undead/fvtt-Actor-waltzgeist-SQbXXUNXUspXZrYs.json"
+    },
+    {
+      "name": "Wraith",
+      "type": "npc",
+      "_id": "5406wJog3mq1bkeI",
+      "file": "Bestiary/Undead/fvtt-Actor-wraith-5406wJog3mq1bkeI.json"
+    },
+    {
+      "name": "Wretched Hound",
+      "type": "npc",
+      "_id": "RPXEkB8NdH3jBPiK",
+      "file": "Bestiary/Undead/fvtt-Actor-wretched-hound-RPXEkB8NdH3jBPiK.json"
     },
     {
       "name": "Steel Defender",
       "type": "npc",
       "_id": "Q8InPZPmhqhpOY7g",
-      "file": "Important/fvtt-Actor-steel-defender-Q8InPZPmhqhpOY7g.json"
+      "file": "Disaster Inc/fvtt-Actor-steel-defender-Q8InPZPmhqhpOY7g.json"
+    },
+    {
+      "name": "Usk",
+      "type": "npc",
+      "_id": "I8HET6eCUvhMILDP",
+      "file": "Disaster Inc/fvtt-Actor-usk-I8HET6eCUvhMILDP.json"
+    },
+    {
+      "name": "Usk (Shattered)",
+      "type": "npc",
+      "_id": "numGvhXBimwHEO3d",
+      "file": "Disaster Inc/fvtt-Actor-usk-shattered-numGvhXBimwHEO3d.json"
+    },
+    {
+      "name": "The Scorncrow",
+      "type": "npc",
+      "_id": "w5NiTfaf6NZp9tAH",
+      "file": "Elsewhere/fvtt-Actor-the-scorncrow-w5NiTfaf6NZp9tAH.json"
+    },
+    {
+      "name": "Cackletta, the Beanbean Witch",
+      "type": "npc",
+      "_id": "v2nBQtjAmgp2jJyv",
+      "file": "Fawful's Furious Freaks/fvtt-Actor-cackletta-the-beanbean-witch-v2nBQtjAmgp2jJyv.json"
+    },
+    {
+      "name": "Fawful, the Fury",
+      "type": "npc",
+      "_id": "8XZhZJbuYOvBBwfK",
+      "file": "Fawful's Furious Freaks/fvtt-Actor-fawful-the-fury-8XZhZJbuYOvBBwfK.json"
+    },
+    {
+      "name": "Midbus, the Blizzard Fist",
+      "type": "npc",
+      "_id": "pzYkmjtf2FAvFcdz",
+      "file": "Fawful's Furious Freaks/fvtt-Actor-midbus-the-blizzard-fist-pzYkmjtf2FAvFcdz.json"
+    },
+    {
+      "name": "Aemenor Evenflight",
+      "type": "npc",
+      "_id": "rQqL4xsmIO1shEka",
+      "file": "Iron Legion/fvtt-Actor-aemenor-evenflight-rQqL4xsmIO1shEka.json"
+    },
+    {
+      "name": "Byscilla Danos",
+      "type": "npc",
+      "_id": "vvcaOaq7cKHA6cxR",
+      "file": "Iron Legion/fvtt-Actor-byscilla-danos-vvcaOaq7cKHA6cxR.json"
     },
     {
       "name": "Guard",
@@ -583,10 +627,226 @@
       "file": "Iron Legion/fvtt-Actor-guard-8LJ2C4iPs39y1MtK.json"
     },
     {
+      "name": "Hargram Fidger",
+      "type": "npc",
+      "_id": "FgXUotvhVhzA61yh",
+      "file": "Iron Legion/fvtt-Actor-hargram-fidger-FgXUotvhVhzA61yh.json"
+    },
+    {
       "name": "Knight",
       "type": "npc",
       "_id": "6gu9DJG0mvrBfrR8",
       "file": "Iron Legion/fvtt-Actor-knight-6gu9DJG0mvrBfrR8.json"
+    },
+    {
+      "name": "Manderaz the Mad",
+      "type": "npc",
+      "_id": "8P1SRvoYZGxulQMT",
+      "file": "Iron Legion/fvtt-Actor-manderaz-the-mad-8P1SRvoYZGxulQMT.json"
+    },
+    {
+      "name": "Rhak the Lost",
+      "type": "npc",
+      "_id": "jmLsq8r3jF3QEPL9",
+      "file": "Iron Legion/fvtt-Actor-rhak-the-lost-jmLsq8r3jF3QEPL9.json"
+    },
+    {
+      "name": "Bowser, Warlord of Darkland",
+      "type": "npc",
+      "_id": "d1qwl5RJ3yk6THBe",
+      "file": "Koopa Troop/fvtt-Actor-bowser-warlord-of-darkland-d1qwl5RJ3yk6THBe.json"
+    },
+    {
+      "name": "Goomba (Conscript Infantry)",
+      "type": "npc",
+      "_id": "maImarxazCJpMIIl",
+      "file": "Koopa Troop/fvtt-Actor-goomba-conscript-infantry-maImarxazCJpMIIl.json"
+    },
+    {
+      "name": "Hammer Bro (Elite Infantry)",
+      "type": "npc",
+      "_id": "j3LA23Bugz03B88A",
+      "file": "Koopa Troop/fvtt-Actor-hammer-bro-elite-infantry-j3LA23Bugz03B88A.json"
+    },
+    {
+      "name": "Koopa Troopa (Standard Infantry)",
+      "type": "npc",
+      "_id": "RUZIZZynYJgE58vw",
+      "file": "Koopa Troop/fvtt-Actor-koopa-troopa-standard-infantry-RUZIZZynYJgE58vw.json"
+    },
+    {
+      "name": "Koopatrol",
+      "type": "npc",
+      "_id": "22hYWvbxZwLuebUn",
+      "file": "Koopa Troop/fvtt-Actor-koopatrol-22hYWvbxZwLuebUn.json"
+    },
+    {
+      "name": "Magikoopa (Battle Mage)",
+      "type": "npc",
+      "_id": "7VmH5xlrVjB1simi",
+      "file": "Koopa Troop/fvtt-Actor-magikoopa-battle-mage-7VmH5xlrVjB1simi.json"
+    },
+    {
+      "name": "Mages' Guild Adept (Hooded)",
+      "type": "npc",
+      "_id": "KzGh4fOS5MyySgSM",
+      "file": "Mages' Guild/fvtt-Actor-mages-guild-adept-hooded-KzGh4fOS5MyySgSM.json"
+    },
+    {
+      "name": "Castle Chambermaid",
+      "type": "npc",
+      "_id": "4ySsVWpa8rE1UEsI",
+      "file": "Mushroom Regency & Kingdom/fvtt-Actor-castle-chambermaid-4ySsVWpa8rE1UEsI.json"
+    },
+    {
+      "name": "Luigi",
+      "type": "npc",
+      "_id": "BU8KaiZulAXZVAX7",
+      "file": "Mushroom Regency & Kingdom/fvtt-Actor-luigi-BU8KaiZulAXZVAX7.json"
+    },
+    {
+      "name": "Mario",
+      "type": "npc",
+      "_id": "2CLH4XZlYcwHVXJf",
+      "file": "Mushroom Regency & Kingdom/fvtt-Actor-mario-2CLH4XZlYcwHVXJf.json"
+    },
+    {
+      "name": "Palace Guard at Attention",
+      "type": "npc",
+      "_id": "SWf5Nc5afoNXl6dI",
+      "file": "Mushroom Regency & Kingdom/fvtt-Actor-palace-guard-at-attention-SWf5Nc5afoNXl6dI.json"
+    },
+    {
+      "name": "Palace Guard Recruit",
+      "type": "npc",
+      "_id": "5blPuqwzSrGEGl6E",
+      "file": "Mushroom Regency & Kingdom/fvtt-Actor-palace-guard-recruit-5blPuqwzSrGEGl6E.json"
+    },
+    {
+      "name": "Palace Guard Sergeant",
+      "type": "npc",
+      "_id": "ZtxEXSyJ3xNBh0eC",
+      "file": "Mushroom Regency & Kingdom/fvtt-Actor-palace-guard-sergeant-ZtxEXSyJ3xNBh0eC.json"
+    },
+    {
+      "name": "Palace Heavy Guard",
+      "type": "npc",
+      "_id": "lQkHGvpXoOdbB0KR",
+      "file": "Mushroom Regency & Kingdom/fvtt-Actor-palace-heavy-guard-lQkHGvpXoOdbB0KR.json"
+    },
+    {
+      "name": "Palace Night Watch",
+      "type": "npc",
+      "_id": "9UInBdI0DUPwALMM",
+      "file": "Mushroom Regency & Kingdom/fvtt-Actor-palace-night-watch-9UInBdI0DUPwALMM.json"
+    },
+    {
+      "name": "Palace Veteran Guard",
+      "type": "npc",
+      "_id": "rmbpc4QjNQwF6PpK",
+      "file": "Mushroom Regency & Kingdom/fvtt-Actor-palace-veteran-guard-rmbpc4QjNQwF6PpK.json"
+    },
+    {
+      "name": "Princess Peach (955 BF)",
+      "type": "npc",
+      "_id": "nqeVTVa1etXKR2J4",
+      "file": "Mushroom Regency & Kingdom/fvtt-Actor-princess-peach-955-bf-nqeVTVa1etXKR2J4.json"
+    },
+    {
+      "name": "Toadsworth the Elder, Royal Chamberlain (955 BF)",
+      "type": "npc",
+      "_id": "oHLrMdbccIJx6YgS",
+      "file": "Mushroom Regency & Kingdom/fvtt-Actor-toadsworth-the-elder-royal-chamberlain-955-bf-oHLrMdbccIJx6YgS.json"
+    },
+    {
+      "name": "Chirneros",
+      "type": "npc",
+      "_id": "PfrU5EHMjzhKIN8p",
+      "file": "Overgrown Manor/fvtt-Actor-chirneros-PfrU5EHMjzhKIN8p.json"
+    },
+    {
+      "name": "Elscieth",
+      "type": "npc",
+      "_id": "X4yeHCCN9izB7j5Q",
+      "file": "Overgrown Manor/fvtt-Actor-elscieth-X4yeHCCN9izB7j5Q.json"
+    },
+    {
+      "name": "Fey Crystal Tether",
+      "type": "npc",
+      "_id": "5aBfVyHdXKw8oJXb",
+      "file": "Overgrown Manor/fvtt-Actor-fey-crystal-tether-5aBfVyHdXKw8oJXb.json"
+    },
+    {
+      "name": "Herniva",
+      "type": "npc",
+      "_id": "oiZ5IzMQpzR8cFLk",
+      "file": "Overgrown Manor/fvtt-Actor-herniva-oiZ5IzMQpzR8cFLk.json"
+    },
+    {
+      "name": "Perrius Annmatar",
+      "type": "npc",
+      "_id": "G9CLr70iR4k2pl5l",
+      "file": "Overgrown Manor/fvtt-Actor-perrius-annmatar-G9CLr70iR4k2pl5l.json"
+    },
+    {
+      "name": "Red Scullion",
+      "type": "npc",
+      "_id": "lTZ4zPnZtKS1jHjX",
+      "file": "Overgrown Manor/fvtt-Actor-red-scullion-lTZ4zPnZtKS1jHjX.json"
+    },
+    {
+      "name": "Saedia",
+      "type": "npc",
+      "_id": "9ZpxboHICNZBYhQu",
+      "file": "Overgrown Manor/fvtt-Actor-saedia-9ZpxboHICNZBYhQu.json"
+    },
+    {
+      "name": "Shadow Crystal Tether",
+      "type": "npc",
+      "_id": "HSfcDhqYWOyVdZqb",
+      "file": "Overgrown Manor/fvtt-Actor-shadow-crystal-tether-HSfcDhqYWOyVdZqb.json"
+    },
+    {
+      "name": "Stuckina Bogg",
+      "type": "npc",
+      "_id": "PPfGzsDDoUa8r6je",
+      "file": "Overgrown Manor/fvtt-Actor-stuckina-bogg-PPfGzsDDoUa8r6je.json"
+    },
+    {
+      "name": "Sylvaria",
+      "type": "npc",
+      "_id": "h0g8nVSDHjwhvoKB",
+      "file": "Overgrown Manor/fvtt-Actor-sylvaria-h0g8nVSDHjwhvoKB.json"
+    },
+    {
+      "name": "The Revel",
+      "type": "npc",
+      "_id": "X4vtehnvPo43XEXD",
+      "file": "Overgrown Manor/fvtt-Actor-the-revel-X4vtehnvPo43XEXD.json"
+    },
+    {
+      "name": "Thorne",
+      "type": "npc",
+      "_id": "k62SbeNQdbOpwsXo",
+      "file": "Overgrown Manor/fvtt-Actor-thorne-k62SbeNQdbOpwsXo.json"
+    },
+    {
+      "name": "Thystle",
+      "type": "npc",
+      "_id": "fuz9FcyUjfS1nZHy",
+      "file": "Overgrown Manor/fvtt-Actor-thystle-fuz9FcyUjfS1nZHy.json"
+    },
+    {
+      "name": "Vostolas the Archivist",
+      "type": "npc",
+      "_id": "PqZa1Q0bYx0LvnSQ",
+      "file": "Overgrown Manor/fvtt-Actor-vostolas-the-archivist-PqZa1Q0bYx0LvnSQ.json"
+    },
+    {
+      "name": "Woodfellow",
+      "type": "npc",
+      "_id": "wjOpEZuULYW3cYR1",
+      "file": "Overgrown Manor/fvtt-Actor-woodfellow-wjOpEZuULYW3cYR1.json"
     },
     {
       "name": "Archie Miser",
@@ -611,6 +871,12 @@
       "type": "character",
       "_id": "IlzuThuR8upTtqtF",
       "file": "Players/fvtt-Actor-feyward-dan-IlzuThuR8upTtqtF.json"
+    },
+    {
+      "name": "Green T",
+      "type": "character",
+      "_id": "mj7kizwZ5R7FtGg6",
+      "file": "Players/fvtt-Actor-green-t-mj7kizwZ5R7FtGg6.json"
     },
     {
       "name": "Hjumpik Deldkur",
@@ -661,274 +927,70 @@
       "file": "Players/fvtt-Actor-warios-motorbike-y1amANPSbK9exY41.json"
     },
     {
-      "name": "Adult Copper Dragon",
+      "name": "Corvinarus Abomination",
       "type": "npc",
-      "_id": "hzlJebzFO8JUcXKR",
-      "file": "fvtt-Actor-adult-copper-dragon-hzlJebzFO8JUcXKR.json"
+      "_id": "Xxf80BJeTCVKhIao",
+      "file": "Shadow Estate & House Corvinarus/fvtt-Actor-corvinarus-abomination-Xxf80BJeTCVKhIao.json"
     },
     {
-      "name": "Ankheg",
+      "name": "Darius Corvinarus",
       "type": "npc",
-      "_id": "t5Cs0fUER4rc0t7v",
-      "file": "fvtt-Actor-ankheg-t5Cs0fUER4rc0t7v.json"
+      "_id": "cEaCmjp4Fxfa3ftH",
+      "file": "Shadow Estate & House Corvinarus/fvtt-Actor-darius-corvinarus-cEaCmjp4Fxfa3ftH.json"
     },
     {
-      "name": "Arcane Eye",
+      "name": "Kryn Corvinarus",
       "type": "npc",
-      "_id": "IcDQ0xxkj5FtaNIc",
-      "file": "fvtt-Actor-arcane-eye-IcDQ0xxkj5FtaNIc.json"
+      "_id": "CnaNkZZQmowYRqWS",
+      "file": "Shadow Estate & House Corvinarus/fvtt-Actor-kryn-corvinarus-CnaNkZZQmowYRqWS.json"
     },
     {
-      "name": "Bandit",
+      "name": "Lady Aurelian Corvinarus",
       "type": "npc",
-      "_id": "2pZO6gQ1ykHCb0ug",
-      "file": "fvtt-Actor-bandit-2pZO6gQ1ykHCb0ug.json"
+      "_id": "1Qt9AgFULweeVAoa",
+      "file": "Shadow Estate & House Corvinarus/fvtt-Actor-lady-aurelian-corvinarus-1Qt9AgFULweeVAoa.json"
     },
     {
-      "name": "Berserker",
+      "name": "Lyranth the Sculptor",
       "type": "npc",
-      "_id": "mY01QrfjFBZ0XHAq",
-      "file": "fvtt-Actor-berserker-mY01QrfjFBZ0XHAq.json"
+      "_id": "0Y1HB4Cua7nsM2wV",
+      "file": "Shadow Estate & House Corvinarus/fvtt-Actor-lyranth-the-sculptor-0Y1HB4Cua7nsM2wV.json"
     },
     {
-      "name": "Black Bear",
+      "name": "Onyx Knight",
       "type": "npc",
-      "_id": "C04YpnHjyu4oh0X8",
-      "file": "fvtt-Actor-black-bear-C04YpnHjyu4oh0X8.json"
+      "_id": "btK5H0Qx6iUX3v2w",
+      "file": "Shadow Estate & House Corvinarus/fvtt-Actor-onyx-knight-btK5H0Qx6iUX3v2w.json"
     },
     {
-      "name": "Bowser, Warlord of Darkland",
+      "name": "Orvinder Danos",
       "type": "npc",
-      "_id": "d1qwl5RJ3yk6THBe",
-      "file": "fvtt-Actor-bowser-warlord-of-darkland-d1qwl5RJ3yk6THBe.json"
-    },
-    {
-      "name": "Cackletta, the Beanbean Witch",
-      "type": "npc",
-      "_id": "v2nBQtjAmgp2jJyv",
-      "file": "fvtt-Actor-cackletta-the-beanbean-witch-v2nBQtjAmgp2jJyv.json"
-    },
-    {
-      "name": "Castle Chambermaid",
-      "type": "npc",
-      "_id": "4ySsVWpa8rE1UEsI",
-      "file": "fvtt-Actor-castle-chambermaid-4ySsVWpa8rE1UEsI.json"
-    },
-    {
-      "name": "Conjured Animals",
-      "type": "npc",
-      "_id": "phbSpectralAnima",
-      "file": "fvtt-Actor-conjured-animals-phbSpectralAnima.json"
-    },
-    {
-      "name": "Cultist",
-      "type": "npc",
-      "_id": "vi1IvHUDzDdT6ZAn",
-      "file": "fvtt-Actor-cultist-vi1IvHUDzDdT6ZAn.json"
-    },
-    {
-      "name": "Dust Mephit",
-      "type": "npc",
-      "_id": "lCsJHgu1ARA9Ztz1",
-      "file": "fvtt-Actor-dust-mephit-lCsJHgu1ARA9Ztz1.json"
-    },
-    {
-      "name": "Fawful, the Fury",
-      "type": "npc",
-      "_id": "8XZhZJbuYOvBBwfK",
-      "file": "fvtt-Actor-fawful-the-fury-8XZhZJbuYOvBBwfK.json"
-    },
-    {
-      "name": "Goblin Warrior",
-      "type": "npc",
-      "_id": "hq3aG7mbK9L9LE86",
-      "file": "fvtt-Actor-goblin-warrior-hq3aG7mbK9L9LE86.json"
-    },
-    {
-      "name": "Goomba (Conscript Infantry)",
-      "type": "npc",
-      "_id": "maImarxazCJpMIIl",
-      "file": "fvtt-Actor-goomba-conscript-infantry-maImarxazCJpMIIl.json"
-    },
-    {
-      "name": "Green Hag",
-      "type": "npc",
-      "_id": "Izqb9KzyZZlSL4j7",
-      "file": "fvtt-Actor-green-hag-Izqb9KzyZZlSL4j7.json"
-    },
-    {
-      "name": "Green T",
-      "type": "character",
-      "_id": "mj7kizwZ5R7FtGg6",
-      "file": "fvtt-Actor-green-t-mj7kizwZ5R7FtGg6.json"
-    },
-    {
-      "name": "Guard",
-      "type": "npc",
-      "_id": "oowBq6Vak4ky6dmp",
-      "file": "fvtt-Actor-guard-oowBq6Vak4ky6dmp.json"
-    },
-    {
-      "name": "Hammer Bro (Elite Infantry)",
-      "type": "npc",
-      "_id": "j3LA23Bugz03B88A",
-      "file": "fvtt-Actor-hammer-bro-elite-infantry-j3LA23Bugz03B88A.json"
-    },
-    {
-      "name": "Hobgoblin Warrior",
-      "type": "npc",
-      "_id": "4BpweQBMswdd6gyp",
-      "file": "fvtt-Actor-hobgoblin-warrior-4BpweQBMswdd6gyp.json"
-    },
-    {
-      "name": "Hobgoblin Warrior",
-      "type": "npc",
-      "_id": "6ciCT0pfEnkEvfRj",
-      "file": "fvtt-Actor-hobgoblin-warrior-6ciCT0pfEnkEvfRj.json"
-    },
-    {
-      "name": "Joseph Lee",
-      "type": "npc",
-      "_id": "i81gKchy0m427tAl",
-      "file": "fvtt-Actor-joseph-lee-i81gKchy0m427tAl.json"
-    },
-    {
-      "name": "Knight",
-      "type": "npc",
-      "_id": "3J8i4nu6k0pg3AjL",
-      "file": "fvtt-Actor-knight-3J8i4nu6k0pg3AjL.json"
-    },
-    {
-      "name": "Koopa Troopa (Standard Infantry)",
-      "type": "npc",
-      "_id": "RUZIZZynYJgE58vw",
-      "file": "fvtt-Actor-koopa-troopa-standard-infantry-RUZIZZynYJgE58vw.json"
-    },
-    {
-      "name": "Koopatrol",
-      "type": "npc",
-      "_id": "22hYWvbxZwLuebUn",
-      "file": "fvtt-Actor-koopatrol-22hYWvbxZwLuebUn.json"
-    },
-    {
-      "name": "Luigi",
-      "type": "npc",
-      "_id": "BU8KaiZulAXZVAX7",
-      "file": "fvtt-Actor-luigi-BU8KaiZulAXZVAX7.json"
-    },
-    {
-      "name": "Mage",
-      "type": "npc",
-      "_id": "BPMXrVGAPzawfLyl",
-      "file": "fvtt-Actor-mage-BPMXrVGAPzawfLyl.json"
-    },
-    {
-      "name": "Mages' Guild Adept (Hooded)",
-      "type": "npc",
-      "_id": "KzGh4fOS5MyySgSM",
-      "file": "fvtt-Actor-mages-guild-adept-hooded-KzGh4fOS5MyySgSM.json"
-    },
-    {
-      "name": "Magikoopa (Battle Mage)",
-      "type": "npc",
-      "_id": "7VmH5xlrVjB1simi",
-      "file": "fvtt-Actor-magikoopa-battle-mage-7VmH5xlrVjB1simi.json"
-    },
-    {
-      "name": "Mario",
-      "type": "npc",
-      "_id": "2CLH4XZlYcwHVXJf",
-      "file": "fvtt-Actor-mario-2CLH4XZlYcwHVXJf.json"
-    },
-    {
-      "name": "Midbus, the Blizzard Fist",
-      "type": "npc",
-      "_id": "pzYkmjtf2FAvFcdz",
-      "file": "fvtt-Actor-midbus-the-blizzard-fist-pzYkmjtf2FAvFcdz.json"
-    },
-    {
-      "name": "Non-Player Character",
-      "type": "npc",
-      "_id": "8W7RJohiHMoHxORK",
-      "file": "fvtt-Actor-non-player-character-8W7RJohiHMoHxORK.json"
-    },
-    {
-      "name": "Palace Guard at Attention",
-      "type": "npc",
-      "_id": "SWf5Nc5afoNXl6dI",
-      "file": "fvtt-Actor-palace-guard-at-attention-SWf5Nc5afoNXl6dI.json"
-    },
-    {
-      "name": "Palace Guard Recruit",
-      "type": "npc",
-      "_id": "5blPuqwzSrGEGl6E",
-      "file": "fvtt-Actor-palace-guard-recruit-5blPuqwzSrGEGl6E.json"
-    },
-    {
-      "name": "Palace Guard Sergeant",
-      "type": "npc",
-      "_id": "ZtxEXSyJ3xNBh0eC",
-      "file": "fvtt-Actor-palace-guard-sergeant-ZtxEXSyJ3xNBh0eC.json"
-    },
-    {
-      "name": "Palace Heavy Guard",
-      "type": "npc",
-      "_id": "lQkHGvpXoOdbB0KR",
-      "file": "fvtt-Actor-palace-heavy-guard-lQkHGvpXoOdbB0KR.json"
-    },
-    {
-      "name": "Palace Night Watch",
-      "type": "npc",
-      "_id": "9UInBdI0DUPwALMM",
-      "file": "fvtt-Actor-palace-night-watch-9UInBdI0DUPwALMM.json"
-    },
-    {
-      "name": "Palace Veteran Guard",
-      "type": "npc",
-      "_id": "rmbpc4QjNQwF6PpK",
-      "file": "fvtt-Actor-palace-veteran-guard-rmbpc4QjNQwF6PpK.json"
-    },
-    {
-      "name": "Princess Peach (955 BF)",
-      "type": "npc",
-      "_id": "nqeVTVa1etXKR2J4",
-      "file": "fvtt-Actor-princess-peach-955-bf-nqeVTVa1etXKR2J4.json"
-    },
-    {
-      "name": "Satyr",
-      "type": "npc",
-      "_id": "DdOhSRkF8cYvlvEJ",
-      "file": "fvtt-Actor-satyr-DdOhSRkF8cYvlvEJ.json"
-    },
-    {
-      "name": "Shrieker Fungus",
-      "type": "npc",
-      "_id": "lsRNYDrRuB91yVHY",
-      "file": "fvtt-Actor-shrieker-fungus-lsRNYDrRuB91yVHY.json"
+      "_id": "bcvcZ10ZzNQTAaSC",
+      "file": "Shadow Estate & House Corvinarus/fvtt-Actor-orvinder-danos-bcvcZ10ZzNQTAaSC.json"
     },
     {
       "name": "The Oracle",
       "type": "npc",
       "_id": "66Pn5S4ciDgDx46Q",
-      "file": "fvtt-Actor-the-oracle-66Pn5S4ciDgDx46Q.json"
+      "file": "Shadow Estate & House Corvinarus/fvtt-Actor-the-oracle-66Pn5S4ciDgDx46Q.json"
     },
     {
-      "name": "Toadsworth the Elder, Royal Chamberlain (955 BF)",
+      "name": "Tymnas",
       "type": "npc",
-      "_id": "oHLrMdbccIJx6YgS",
-      "file": "fvtt-Actor-toadsworth-the-elder-royal-chamberlain-955-bf-oHLrMdbccIJx6YgS.json"
+      "_id": "HHRNpgk9VhQeuNCN",
+      "file": "Shadow Estate & House Corvinarus/fvtt-Actor-tymnas-HHRNpgk9VhQeuNCN.json"
     },
     {
-      "name": "Treant",
+      "name": "Vaxillus Loumaal",
       "type": "npc",
-      "_id": "mmTreant00000000",
-      "file": "fvtt-Actor-treant-mmTreant00000000.json"
+      "_id": "WzeQ8waID9uqv1HZ",
+      "file": "Shadow Estate & House Corvinarus/fvtt-Actor-vaxillus-loumaal-WzeQ8waID9uqv1HZ.json"
     },
     {
-      "name": "Violet Fungus",
+      "name": "Vivesna Corvinarus",
       "type": "npc",
-      "_id": "S55ybuiR19IADptX",
-      "file": "fvtt-Actor-violet-fungus-S55ybuiR19IADptX.json"
+      "_id": "PzJIrTDpLyWNboVH",
+      "file": "Shadow Estate & House Corvinarus/fvtt-Actor-vivesna-corvinarus-PzJIrTDpLyWNboVH.json"
     }
   ]
 }

@@ -959,7 +959,7 @@
           "rules": "2014",
           "revision": 1
         },
-        "identifier": "toad-—-feyward-variant",
+        "identifier": "toad-feyward-variant",
         "advancement": {},
         "movement": {
           "units": "ft",
@@ -1122,7 +1122,7 @@
           "rules": "2014",
           "revision": 1
         },
-        "identifier": "wild-surge-—-unstable-aura",
+        "identifier": "wild-surge-unstable-aura",
         "properties": [],
         "activities": {},
         "uses": {
@@ -13047,7 +13047,12 @@
         "xpKey": "dan_the_toad",
         "xp": 1960,
         "level": 3
-      }
+      },
+      "tags": [
+        "Disaster Inc.",
+        "pc"
+      ],
+      "color": "#D4A017"
     }
   },
   "_stats": {

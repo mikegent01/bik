@@ -820,7 +820,15 @@
           "quote": "The Poisoner",
           "source": "article"
         }
-      ]
+      ],
+      "tags": [
+        "Disaster Inc.",
+        "npc",
+        "rogue",
+        "humanoid",
+        "generated"
+      ],
+      "color": "#D4A017"
     }
   },
   "_stats": {

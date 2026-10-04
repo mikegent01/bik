@@ -820,7 +820,15 @@
           "quote": "The Ninja Twin Who Saw the Burns",
           "source": "title"
         }
-      ]
+      ],
+      "tags": [
+        "Wario's Enterprise & WarioWare",
+        "npc",
+        "rogue",
+        "humanoid",
+        "generated"
+      ],
+      "color": "#FFAC1C"
     }
   },
   "_stats": {

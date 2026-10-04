@@ -11812,7 +11812,12 @@
         "xpKey": "toad_lee",
         "xp": 6090,
         "level": 4
-      }
+      },
+      "tags": [
+        "Disaster Inc.",
+        "pc"
+      ],
+      "color": "#D4A017"
     }
   },
   "_stats": {

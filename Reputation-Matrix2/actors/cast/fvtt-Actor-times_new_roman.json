@@ -910,7 +910,15 @@
           "quote": "The chronicle's least formal pages record who cried at which puzzle, whose first spaghetti attempt was structurally unsound, and exactly when Sans's puns became a household hazard.",
           "source": "article"
         }
-      ]
+      ],
+      "tags": [
+        "Snowdin Bone-Line",
+        "npc",
+        "scholar",
+        "monstrosity",
+        "generated"
+      ],
+      "color": "#B0E0E6"
     }
   },
   "_stats": {

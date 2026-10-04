@@ -1344,6 +1344,13 @@
           "source": "article"
         }
       ],
+      "tags": [
+        "Shadow Estate & House Corvinarus",
+        "pc",
+        "boss",
+        "generated"
+      ],
+      "color": "#8B0000",
       "pc": {
         "level": 5,
         "class": "Paladin",

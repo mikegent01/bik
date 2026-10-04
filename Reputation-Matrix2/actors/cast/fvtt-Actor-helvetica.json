@@ -863,7 +863,15 @@
           "quote": "Helvetica designs signs, patrol notices, and puzzle instructions readable through a snowstorm.",
           "source": "article"
         }
-      ]
+      ],
+      "tags": [
+        "Snowdin Bone-Line",
+        "npc",
+        "civilian",
+        "monstrosity",
+        "generated"
+      ],
+      "color": "#B0E0E6"
     }
   },
   "_stats": {

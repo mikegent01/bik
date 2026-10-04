@@ -816,7 +816,15 @@
           "quote": "Active — student, Classroom 2-B; stood down from his claim of dominion after a final warning, and reacted to the SCHALE disclosure with undisguised hunger",
           "source": "article"
         }
-      ]
+      ],
+      "tags": [
+        "Trinity Academy",
+        "npc",
+        "student",
+        "humanoid",
+        "generated"
+      ],
+      "color": "#F08080"
     }
   },
   "_stats": {

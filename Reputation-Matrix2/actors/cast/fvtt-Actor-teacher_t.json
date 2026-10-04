@@ -818,7 +818,15 @@
           "quote": "Teacher T survived the barrel trafficking horror and emerged with the deeply inconvenient belief that language should help people understand what is happening to them.",
           "source": "article"
         }
-      ]
+      ],
+      "tags": [
+        "Liberated Toads",
+        "npc",
+        "noble",
+        "humanoid",
+        "generated"
+      ],
+      "color": "#87CEEB"
     }
   },
   "_stats": {

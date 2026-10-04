@@ -908,7 +908,15 @@
           "quote": "The chronicle has tracked the counts for two seasons and confirmed the record: zero error, including a dinner that seated fourteen where thirteen were expected, the fourteenth being a lost traveler who knocked at",
           "source": "article"
         }
-      ]
+      ],
+      "tags": [
+        "Snowdin Bone-Line",
+        "npc",
+        "civilian",
+        "monstrosity",
+        "generated"
+      ],
+      "color": "#B0E0E6"
     }
   },
   "_stats": {

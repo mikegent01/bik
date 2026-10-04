@@ -863,7 +863,15 @@
           "quote": "Given the charge up the wall walk on the morning of 1 Aethel, 922 BF, he led it, shouted RED ALERT twice, and put two longsword strokes into a goblin on his own side.",
           "source": "article"
         }
-      ]
+      ],
+      "tags": [
+        "Overgrown Manor",
+        "npc",
+        "soldier",
+        "humanoid",
+        "generated"
+      ],
+      "color": "#6B8E23"
     }
   },
   "_stats": {

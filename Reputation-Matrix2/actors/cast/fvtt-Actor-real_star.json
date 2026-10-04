@@ -863,7 +863,15 @@
           "quote": "Performances require notice, an audience count, and at least one relative willing to say 'that's enough, thank you,' a duty that rotates because no one can do it twice in a row without feeling like a villain.",
           "source": "article"
         }
-      ]
+      ],
+      "tags": [
+        "Snowdin Bone-Line",
+        "npc",
+        "civilian",
+        "monstrosity",
+        "generated"
+      ],
+      "color": "#B0E0E6"
     }
   },
   "_stats": {

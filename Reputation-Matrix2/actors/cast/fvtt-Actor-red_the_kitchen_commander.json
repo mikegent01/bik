@@ -866,7 +866,15 @@
           "quote": "Active - holding the kitchen of the Overgrown Manor; cooking",
           "source": "article"
         }
-      ]
+      ],
+      "tags": [
+        "Rakasha & the Feywild",
+        "npc",
+        "soldier",
+        "fey",
+        "generated"
+      ],
+      "color": "#D2B48C"
     }
   },
   "_stats": {

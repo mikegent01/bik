@@ -6,6 +6,88 @@
   "actorCount": 159,
   "folderCount": 23,
   "unresolvedFolderActors": 0,
+  "folderStyles": {
+    "Waluipedia Cast / Dark Shores": {
+      "color": "#36454F",
+      "description": null
+    },
+    "Waluipedia Cast / Disaster Inc.": {
+      "color": "#D4A017",
+      "description": "The party and its hangers-on."
+    },
+    "Waluipedia Cast / Dreamland": {
+      "color": "#FFB7C5",
+      "description": null
+    },
+    "Waluipedia Cast / Elsewhere": {
+      "color": "#6C757D",
+      "description": "Characters the site files under no faction."
+    },
+    "Waluipedia Cast / Fawthful's Forces": {
+      "color": "#3CB371",
+      "description": null
+    },
+    "Waluipedia Cast / Iron Legion": {
+      "color": "#ADB5BD",
+      "description": null
+    },
+    "Waluipedia Cast / Koopa Troop": {
+      "color": "#006400",
+      "description": null
+    },
+    "Waluipedia Cast / Kremling Krew & the Black Sugar Pirates": {
+      "color": "#808000",
+      "description": null
+    },
+    "Waluipedia Cast / Liberated Toads": {
+      "color": "#87CEEB",
+      "description": null
+    },
+    "Waluipedia Cast / Mages' Guild": {
+      "color": "#8A2BE2",
+      "description": null
+    },
+    "Waluipedia Cast / Mushroom Regency & Kingdom": {
+      "color": "#4169E1",
+      "description": null
+    },
+    "Waluipedia Cast / Nintendo Mania Studio": {
+      "color": "#FF6F61",
+      "description": null
+    },
+    "Waluipedia Cast / Overgrown Manor": {
+      "color": "#6B8E23",
+      "description": null
+    },
+    "Waluipedia Cast / Peach Loyalists": {
+      "color": "#FFDAB9",
+      "description": null
+    },
+    "Waluipedia Cast / Rakasha & the Feywild": {
+      "color": "#D2B48C",
+      "description": null
+    },
+    "Waluipedia Cast / Shadow Estate & House Corvinarus": {
+      "color": "#8B0000",
+      "description": null
+    },
+    "Waluipedia Cast / Snowdin Bone-Line": {
+      "color": "#B0E0E6",
+      "description": null
+    },
+    "Waluipedia Cast / The Underground": {
+      "color": "#2F4F4F",
+      "description": null
+    },
+    "Waluipedia Cast / Trinity Academy": {
+      "color": "#F08080",
+      "description": null
+    },
+    "Waluipedia Cast / Wario's Enterprise & WarioWare": {
+      "color": "#FFAC1C",
+      "description": null
+    }
+  },
   "folders": [
     {
       "_id": "K947GxsTVQaqvbua",
@@ -15,6 +97,7 @@
       "sorting": "a",
       "sort": 0,
       "color": null,
+      "description": null,
       "path": [
         "Waluipedia Cast"
       ]
@@ -26,7 +109,8 @@
       "folder": "K947GxsTVQaqvbua",
       "sorting": "a",
       "sort": 0,
-      "color": null,
+      "color": "#36454F",
+      "description": null,
       "path": [
         "Waluipedia Cast",
         "Dark Shores"
@@ -39,7 +123,8 @@
       "folder": "K947GxsTVQaqvbua",
       "sorting": "a",
       "sort": 0,
-      "color": null,
+      "color": "#D4A017",
+      "description": "The party and its hangers-on.",
       "path": [
         "Waluipedia Cast",
         "Disaster Inc."
@@ -53,6 +138,7 @@
       "sorting": "a",
       "sort": 0,
       "color": null,
+      "description": null,
       "path": [
         "Waluipedia Cast",
         "Disaster Inc.",
@@ -66,7 +152,8 @@
       "folder": "K947GxsTVQaqvbua",
       "sorting": "a",
       "sort": 0,
-      "color": null,
+      "color": "#FFB7C5",
+      "description": null,
       "path": [
         "Waluipedia Cast",
         "Dreamland"
@@ -79,7 +166,8 @@
       "folder": "K947GxsTVQaqvbua",
       "sorting": "a",
       "sort": 0,
-      "color": null,
+      "color": "#6C757D",
+      "description": "Characters the site files under no faction.",
       "path": [
         "Waluipedia Cast",
         "Elsewhere"
@@ -92,7 +180,8 @@
       "folder": "K947GxsTVQaqvbua",
       "sorting": "a",
       "sort": 0,
-      "color": null,
+      "color": "#3CB371",
+      "description": null,
       "path": [
         "Waluipedia Cast",
         "Fawthful's Forces"
@@ -105,7 +194,8 @@
       "folder": "K947GxsTVQaqvbua",
       "sorting": "a",
       "sort": 0,
-      "color": null,
+      "color": "#ADB5BD",
+      "description": null,
       "path": [
         "Waluipedia Cast",
         "Iron Legion"
@@ -118,7 +208,8 @@
       "folder": "K947GxsTVQaqvbua",
       "sorting": "a",
       "sort": 0,
-      "color": null,
+      "color": "#006400",
+      "description": null,
       "path": [
         "Waluipedia Cast",
         "Koopa Troop"
@@ -131,7 +222,8 @@
       "folder": "K947GxsTVQaqvbua",
       "sorting": "a",
       "sort": 0,
-      "color": null,
+      "color": "#808000",
+      "description": null,
       "path": [
         "Waluipedia Cast",
         "Kremling Krew & the Black Sugar Pirates"
@@ -144,7 +236,8 @@
       "folder": "K947GxsTVQaqvbua",
       "sorting": "a",
       "sort": 0,
-      "color": null,
+      "color": "#87CEEB",
+      "description": null,
       "path": [
         "Waluipedia Cast",
         "Liberated Toads"
@@ -157,7 +250,8 @@
       "folder": "K947GxsTVQaqvbua",
       "sorting": "a",
       "sort": 0,
-      "color": null,
+      "color": "#8A2BE2",
+      "description": null,
       "path": [
         "Waluipedia Cast",
         "Mages' Guild"
@@ -170,7 +264,8 @@
       "folder": "K947GxsTVQaqvbua",
       "sorting": "a",
       "sort": 0,
-      "color": null,
+      "color": "#4169E1",
+      "description": null,
       "path": [
         "Waluipedia Cast",
         "Mushroom Regency & Kingdom"
@@ -184,6 +279,7 @@
       "sorting": "a",
       "sort": 0,
       "color": null,
+      "description": null,
       "path": [
         "Waluipedia Cast",
         "Mushroom Regency & Kingdom",
@@ -197,7 +293,8 @@
       "folder": "K947GxsTVQaqvbua",
       "sorting": "a",
       "sort": 0,
-      "color": null,
+      "color": "#FF6F61",
+      "description": null,
       "path": [
         "Waluipedia Cast",
         "Nintendo Mania Studio"
@@ -210,7 +307,8 @@
       "folder": "K947GxsTVQaqvbua",
       "sorting": "a",
       "sort": 0,
-      "color": null,
+      "color": "#6B8E23",
+      "description": null,
       "path": [
         "Waluipedia Cast",
         "Overgrown Manor"
@@ -223,7 +321,8 @@
       "folder": "K947GxsTVQaqvbua",
       "sorting": "a",
       "sort": 0,
-      "color": null,
+      "color": "#FFDAB9",
+      "description": null,
       "path": [
         "Waluipedia Cast",
         "Peach Loyalists"
@@ -236,7 +335,8 @@
       "folder": "K947GxsTVQaqvbua",
       "sorting": "a",
       "sort": 0,
-      "color": null,
+      "color": "#D2B48C",
+      "description": null,
       "path": [
         "Waluipedia Cast",
         "Rakasha & the Feywild"
@@ -249,7 +349,8 @@
       "folder": "K947GxsTVQaqvbua",
       "sorting": "a",
       "sort": 0,
-      "color": null,
+      "color": "#8B0000",
+      "description": null,
       "path": [
         "Waluipedia Cast",
         "Shadow Estate & House Corvinarus"
@@ -262,7 +363,8 @@
       "folder": "K947GxsTVQaqvbua",
       "sorting": "a",
       "sort": 0,
-      "color": null,
+      "color": "#B0E0E6",
+      "description": null,
       "path": [
         "Waluipedia Cast",
         "Snowdin Bone-Line"
@@ -275,7 +377,8 @@
       "folder": "K947GxsTVQaqvbua",
       "sorting": "a",
       "sort": 0,
-      "color": null,
+      "color": "#2F4F4F",
+      "description": null,
       "path": [
         "Waluipedia Cast",
         "The Underground"
@@ -288,7 +391,8 @@
       "folder": "K947GxsTVQaqvbua",
       "sorting": "a",
       "sort": 0,
-      "color": null,
+      "color": "#F08080",
+      "description": null,
       "path": [
         "Waluipedia Cast",
         "Trinity Academy"
@@ -301,7 +405,8 @@
       "folder": "K947GxsTVQaqvbua",
       "sorting": "a",
       "sort": 0,
-      "color": null,
+      "color": "#FFAC1C",
+      "description": null,
       "path": [
         "Waluipedia Cast",
         "Wario's Enterprise & WarioWare"
@@ -1174,7 +1279,15 @@
               "quote": "He inventories rooms, boosts his lord into ceilings, and stopped a rolling pin mid-swing on the hunch that the man under it was not the enemy.",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "Dark Shores",
+            "npc",
+            "noble",
+            "humanoid",
+            "generated"
+          ],
+          "color": "#36454F"
         }
       },
       "_stats": {
@@ -2050,7 +2163,15 @@
               "quote": "A lord of the Dark Shores who fell out of the sky onto the Nintendo Mania pilot set with his steward and has spent two filings learning the studio's grammar: the exits lie, the applause is recorded, and the building",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "Dark Shores",
+            "npc",
+            "noble",
+            "humanoid",
+            "generated"
+          ],
+          "color": "#36454F"
         }
       },
       "_stats": {
@@ -3360,6 +3481,13 @@
               "source": "article"
             }
           ],
+          "tags": [
+            "Disaster Inc.",
+            "pc",
+            "rogue",
+            "generated"
+          ],
+          "color": "#D4A017",
           "pc": {
             "level": 5,
             "class": "Rogue",
@@ -4200,7 +4328,15 @@
               "quote": "The Poisoner",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "Disaster Inc.",
+            "npc",
+            "rogue",
+            "humanoid",
+            "generated"
+          ],
+          "color": "#D4A017"
         }
       },
       "_stats": {
@@ -5034,7 +5170,15 @@
               "quote": "Ryan is the person who jumped off the Vigilance during the Iron Sky Breach rather than be captured by the Iron Legion.",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "Disaster Inc.",
+            "npc",
+            "soldier",
+            "humanoid",
+            "generated"
+          ],
+          "color": "#D4A017"
         }
       },
       "_stats": {
@@ -5908,7 +6052,15 @@
               "quote": "Remi had to hold her position with only her mechanical dog as backup.",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "Disaster Inc.",
+            "npc",
+            "rogue",
+            "humanoid",
+            "generated"
+          ],
+          "color": "#D4A017"
         }
       },
       "_stats": {
@@ -7359,6 +7511,14 @@
               "source": "article"
             }
           ],
+          "tags": [
+            "Disaster Inc.",
+            "pc",
+            "boss",
+            "generated",
+            "955 BF"
+          ],
+          "color": "#D4A017",
           "pc": {
             "level": 8,
             "class": "Fighter",
@@ -8401,6 +8561,13 @@
               "source": "article"
             }
           ],
+          "tags": [
+            "Dreamland",
+            "pc",
+            "boss",
+            "generated"
+          ],
+          "color": "#FFB7C5",
           "pc": {
             "level": 2,
             "class": "Fighter",
@@ -9483,6 +9650,13 @@
               "source": "article"
             }
           ],
+          "tags": [
+            "Dreamland",
+            "pc",
+            "hero",
+            "generated"
+          ],
+          "color": "#FFB7C5",
           "pc": {
             "level": 1,
             "class": "Barbarian",
@@ -10563,6 +10737,13 @@
               "source": "article"
             }
           ],
+          "tags": [
+            "Dreamland",
+            "pc",
+            "officer",
+            "generated"
+          ],
+          "color": "#FFB7C5",
           "pc": {
             "level": 2,
             "class": "Fighter",
@@ -11419,7 +11600,15 @@
               "quote": "Ghost / hostile spirit",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "Elsewhere",
+            "npc",
+            "spirit",
+            "undead",
+            "generated"
+          ],
+          "color": "#6C757D"
         }
       },
       "_stats": {
@@ -12253,7 +12442,15 @@
               "quote": "The Mazebound Who Knew Remi's Name",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "Elsewhere",
+            "npc",
+            "soldier",
+            "humanoid",
+            "generated"
+          ],
+          "color": "#6C757D"
         }
       },
       "_stats": {
@@ -13359,6 +13556,13 @@
               "source": "article"
             }
           ],
+          "tags": [
+            "Elsewhere",
+            "pc",
+            "priest",
+            "generated"
+          ],
+          "color": "#6C757D",
           "pc": {
             "level": 3,
             "class": "Cleric",
@@ -14197,7 +14401,15 @@
               "quote": "The Clearance Badge Who Called the Unauthorized Mission",
               "source": "title"
             }
-          ]
+          ],
+          "tags": [
+            "Elsewhere",
+            "npc",
+            "noble",
+            "humanoid",
+            "generated"
+          ],
+          "color": "#6C757D"
         }
       },
       "_stats": {
@@ -15118,7 +15330,15 @@
               "quote": "He reluctantly agreed to accompany a lone Iron Legion agent into the heart of Mount Ebott after recognizing the sigil of a division that was supposedly wiped out nearly a century ago.",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "Elsewhere",
+            "npc",
+            "soldier",
+            "humanoid",
+            "generated"
+          ],
+          "color": "#6C757D"
         }
       },
       "_stats": {
@@ -16046,7 +16266,15 @@
               "quote": "The hat—custom made, carefully maintained, one of Waluigi's most treasured possessions—was SPLATTERED.",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "Elsewhere",
+            "npc",
+            "soldier",
+            "humanoid",
+            "generated"
+          ],
+          "color": "#6C757D"
         }
       },
       "_stats": {
@@ -16924,7 +17152,15 @@
               "quote": "The Veridian Grove Druid Circle stood apart from the vampire-werewolf conflicts, the Guild schemes, and the Kingdom's sometimes brutal pragmatism.",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "Elsewhere",
+            "npc",
+            "caster",
+            "humanoid",
+            "generated"
+          ],
+          "color": "#6C757D"
         }
       },
       "_stats": {
@@ -17818,7 +18054,15 @@
               "quote": "Gabriel is the child whose spirit was bound to Freddy Fazbear, the lead performer of the original five animatronics at the Hurricane Freddy Fazbear's Pizza — the franchise's crown jewel, and the place where the original",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "Elsewhere",
+            "npc",
+            "spirit",
+            "undead",
+            "generated"
+          ],
+          "color": "#6C757D"
         }
       },
       "_stats": {
@@ -18694,7 +18938,15 @@
               "quote": "On one night in Efferd, 955 BF he jumped four times because the Mario brothers were coming, got lost five times in the right direction, and ended up in the dungeon corridor where a Koopa who was never locked in shook",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "Elsewhere",
+            "npc",
+            "soldier",
+            "humanoid",
+            "generated"
+          ],
+          "color": "#6C757D"
         }
       },
       "_stats": {
@@ -19826,6 +20078,13 @@
               "source": "article"
             }
           ],
+          "tags": [
+            "Elsewhere",
+            "pc",
+            "spirit",
+            "generated"
+          ],
+          "color": "#6C757D",
           "pc": {
             "level": 2,
             "class": "Warlock",
@@ -20709,7 +20968,15 @@
               "quote": "Bloomia survived the assassination night only because a figure known as 'The Silent One' sacrificed themselves in the servant passages to hold off Mages' Guild assassins.",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "Elsewhere",
+            "npc",
+            "noble",
+            "humanoid",
+            "generated"
+          ],
+          "color": "#6C757D"
         }
       },
       "_stats": {
@@ -21632,7 +21899,15 @@
               "quote": "The mansion answers each decision with a new complication: a looping route, a stolen phone, a charged vial, and finally a duplicate with the same face and knife.",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "Elsewhere",
+            "npc",
+            "rogue",
+            "humanoid",
+            "generated"
+          ],
+          "color": "#6C757D"
         }
       },
       "_stats": {
@@ -22463,7 +22738,15 @@
               "quote": "By dawn the Mages' Guild had the boy and described it as protection.",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "Elsewhere",
+            "npc",
+            "civilian",
+            "humanoid",
+            "generated"
+          ],
+          "color": "#6C757D"
         }
       },
       "_stats": {
@@ -23339,7 +23622,15 @@
               "quote": "Edgeworth's argument against Archie will emphasize: - Archie's known proficiency in Evocation (Fire) magic - Historical records of fire-related incidents (though these may have been accidental) - The 'Grade D' residue",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "Elsewhere",
+            "npc",
+            "noble",
+            "humanoid",
+            "generated"
+          ],
+          "color": "#6C757D"
         }
       },
       "_stats": {
@@ -24489,6 +24780,13 @@
               "source": "article"
             }
           ],
+          "tags": [
+            "Elsewhere",
+            "pc",
+            "rogue",
+            "generated"
+          ],
+          "color": "#6C757D",
           "pc": {
             "level": 3,
             "class": "Rogue",
@@ -25641,6 +25939,13 @@
               "source": "article"
             }
           ],
+          "tags": [
+            "Elsewhere",
+            "pc",
+            "caster",
+            "generated"
+          ],
+          "color": "#6C757D",
           "pc": {
             "level": 4,
             "class": "Bard",
@@ -26921,6 +27226,13 @@
               "source": "article"
             }
           ],
+          "tags": [
+            "Elsewhere",
+            "pc",
+            "rogue",
+            "generated"
+          ],
+          "color": "#6C757D",
           "pc": {
             "level": 2,
             "class": "Rogue",
@@ -27763,7 +28075,15 @@
               "quote": "The Dwarf Who Wanted to Fight Without an Arm",
               "source": "title"
             }
-          ]
+          ],
+          "tags": [
+            "Elsewhere",
+            "npc",
+            "soldier",
+            "humanoid",
+            "generated"
+          ],
+          "color": "#6C757D"
         }
       },
       "_stats": {
@@ -28594,7 +28914,15 @@
               "quote": "The Mansion Owner Alice Loved",
               "source": "title"
             }
-          ]
+          ],
+          "tags": [
+            "Elsewhere",
+            "npc",
+            "noble",
+            "humanoid",
+            "generated"
+          ],
+          "color": "#6C757D"
         }
       },
       "_stats": {
@@ -29428,7 +29756,15 @@
               "quote": "The battle record calls the engagement that followed 'Robinson & The Dragon': one side unaligned with Robinson as its only named commander, the other the Iron Brigade of the Iron Legion.",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "Elsewhere",
+            "npc",
+            "soldier",
+            "monstrosity",
+            "generated"
+          ],
+          "color": "#6C757D"
         }
       },
       "_stats": {
@@ -30309,7 +30645,15 @@
               "quote": "The Captain Who Stood Between the Fire and the Stair",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "Elsewhere",
+            "npc",
+            "officer",
+            "humanoid",
+            "generated"
+          ],
+          "color": "#6C757D"
         }
       },
       "_stats": {
@@ -31187,7 +31531,15 @@
               "quote": "Lady Bloomia's testimony (if authentic) describes this handprint as 'too large for a toad, too small for a koopa.",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "Elsewhere",
+            "npc",
+            "rogue",
+            "humanoid",
+            "generated"
+          ],
+          "color": "#6C757D"
         }
       },
       "_stats": {
@@ -32334,6 +32686,13 @@
               "source": "article"
             }
           ],
+          "tags": [
+            "Fawthful's Forces",
+            "pc",
+            "officer",
+            "generated"
+          ],
+          "color": "#3CB371",
           "pc": {
             "level": 4,
             "class": "Artificer",
@@ -33399,6 +33758,13 @@
               "source": "article"
             }
           ],
+          "tags": [
+            "Fawthful's Forces",
+            "pc",
+            "soldier",
+            "generated"
+          ],
+          "color": "#3CB371",
           "pc": {
             "level": 3,
             "class": "Barbarian",
@@ -34239,7 +34605,15 @@
               "quote": "The False Heir's Laugh",
               "source": "title"
             }
-          ]
+          ],
+          "tags": [
+            "Fawthful's Forces",
+            "npc",
+            "rogue",
+            "humanoid",
+            "generated"
+          ],
+          "color": "#3CB371"
         }
       },
       "_stats": {
@@ -35073,7 +35447,15 @@
               "quote": "Colour Division, Iron Legion Special Forces - the One Who Recognised the Onesie",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "Iron Legion",
+            "npc",
+            "soldier",
+            "humanoid",
+            "generated"
+          ],
+          "color": "#ADB5BD"
         }
       },
       "_stats": {
@@ -35951,7 +36333,15 @@
               "quote": "\"Speak now, or forever hold your peace!\" he roared, his voice shaking the walls.",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "Iron Legion",
+            "npc",
+            "officer",
+            "humanoid",
+            "generated"
+          ],
+          "color": "#ADB5BD"
         }
       },
       "_stats": {
@@ -36835,7 +37225,15 @@
               "quote": "Unknown — possessed an Iron Legion rank insignia ring, which raises more questions than it answers",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "Iron Legion",
+            "npc",
+            "soldier",
+            "humanoid",
+            "generated"
+          ],
+          "color": "#ADB5BD"
         }
       },
       "_stats": {
@@ -37761,7 +38159,15 @@
               "quote": "General Ironhand is the commander of the Iron Legion and the person responsible for Order 120—the execution of all Toad prisoners in Legion custody.",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "Iron Legion",
+            "npc",
+            "officer",
+            "humanoid",
+            "generated"
+          ],
+          "color": "#ADB5BD"
         }
       },
       "_stats": {
@@ -38687,7 +39093,15 @@
               "quote": "July lightened the load; he says so himself, loudly, to anyone who calls him self-made.",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "Iron Legion",
+            "npc",
+            "officer",
+            "humanoid",
+            "generated"
+          ],
+          "color": "#ADB5BD"
         }
       },
       "_stats": {
@@ -39518,7 +39932,15 @@
               "quote": "Iron Legion — Gamma Division",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "Iron Legion",
+            "npc",
+            "officer",
+            "humanoid",
+            "generated"
+          ],
+          "color": "#ADB5BD"
         }
       },
       "_stats": {
@@ -40402,7 +40824,15 @@
               "quote": "Fedora Villain / Accidental Iron Legion Recruit",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "Iron Legion",
+            "npc",
+            "soldier",
+            "monstrosity",
+            "generated"
+          ],
+          "color": "#ADB5BD"
         }
       },
       "_stats": {
@@ -41233,7 +41663,15 @@
               "quote": "Iron Legion (Gamma Division)",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "Iron Legion",
+            "npc",
+            "soldier",
+            "humanoid",
+            "generated"
+          ],
+          "color": "#ADB5BD"
         }
       },
       "_stats": {
@@ -42066,7 +42504,15 @@
               "quote": "From Leashed Agent to Indentured Archivist",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "Iron Legion",
+            "npc",
+            "rogue",
+            "humanoid",
+            "generated"
+          ],
+          "color": "#ADB5BD"
         }
       },
       "_stats": {
@@ -42901,7 +43347,15 @@
               "quote": "Iron Legion / Raventree Manor garrison",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "Iron Legion",
+            "npc",
+            "soldier",
+            "humanoid",
+            "generated"
+          ],
+          "color": "#ADB5BD"
         }
       },
       "_stats": {
@@ -43921,6 +44375,13 @@
               "source": "article"
             }
           ],
+          "tags": [
+            "Koopa Troop",
+            "pc",
+            "caster",
+            "generated"
+          ],
+          "color": "#006400",
           "pc": {
             "level": 2,
             "class": "Wizard",
@@ -45207,6 +45668,13 @@
               "source": "article"
             }
           ],
+          "tags": [
+            "Kremling Krew & the Black Sugar Pirates",
+            "pc",
+            "officer",
+            "generated"
+          ],
+          "color": "#808000",
           "pc": {
             "level": 2,
             "class": "Rogue",
@@ -46443,6 +46911,13 @@
               "source": "article"
             }
           ],
+          "tags": [
+            "Kremling Krew & the Black Sugar Pirates",
+            "pc",
+            "boss",
+            "generated"
+          ],
+          "color": "#808000",
           "pc": {
             "level": 1,
             "class": "Fighter",
@@ -47284,7 +47759,15 @@
               "quote": "The Toad Who Weaponized Heckling For Morale",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "Liberated Toads",
+            "npc",
+            "soldier",
+            "humanoid",
+            "generated"
+          ],
+          "color": "#87CEEB"
         }
       },
       "_stats": {
@@ -48115,7 +48598,15 @@
               "quote": "Pond Patrol Commander",
               "source": "title"
             }
-          ]
+          ],
+          "tags": [
+            "Liberated Toads",
+            "npc",
+            "officer",
+            "humanoid",
+            "generated"
+          ],
+          "color": "#87CEEB"
         }
       },
       "_stats": {
@@ -48996,7 +49487,15 @@
               "quote": "The Medic Who Was Given a Sickle",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "Liberated Toads",
+            "npc",
+            "healer",
+            "humanoid",
+            "generated"
+          ],
+          "color": "#87CEEB"
         }
       },
       "_stats": {
@@ -50100,6 +50599,13 @@
               "source": "article"
             }
           ],
+          "tags": [
+            "Liberated Toads",
+            "pc",
+            "soldier",
+            "generated"
+          ],
+          "color": "#87CEEB",
           "pc": {
             "level": 7,
             "class": "Fighter",
@@ -50938,7 +51444,15 @@
               "quote": "Barrel Survivor Councilor",
               "source": "title"
             }
-          ]
+          ],
+          "tags": [
+            "Liberated Toads",
+            "npc",
+            "noble",
+            "humanoid",
+            "generated"
+          ],
+          "color": "#87CEEB"
         }
       },
       "_stats": {
@@ -51771,7 +52285,15 @@
               "quote": "Ironspore is the council voice most likely to ask whether a heroic plan can actually be fed, repaired, and carried.",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "Liberated Toads",
+            "npc",
+            "scholar",
+            "humanoid",
+            "generated"
+          ],
+          "color": "#87CEEB"
         }
       },
       "_stats": {
@@ -52647,7 +53169,15 @@
               "quote": "Geek T survived the Vigilance and attached themself to the Liberated Toads' practical recovery work, mostly by fixing small things, labeling supplies, and turning morale into objects people can hold.",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "Liberated Toads",
+            "npc",
+            "noble",
+            "humanoid",
+            "generated"
+          ],
+          "color": "#87CEEB"
         }
       },
       "_stats": {
@@ -53485,7 +54015,15 @@
               "quote": "Leads the Menders' medical and trauma-care work.",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "Liberated Toads",
+            "npc",
+            "healer",
+            "humanoid",
+            "generated"
+          ],
+          "color": "#87CEEB"
         }
       },
       "_stats": {
@@ -54316,7 +54854,15 @@
               "quote": "The Spreadsheet Toad of Brand Warfare",
               "source": "title"
             }
-          ]
+          ],
+          "tags": [
+            "Liberated Toads",
+            "npc",
+            "noble",
+            "humanoid",
+            "generated"
+          ],
+          "color": "#87CEEB"
         }
       },
       "_stats": {
@@ -55237,7 +55783,15 @@
               "quote": "When the Vigilance descended into chaos, the loud voices asked who should lead.",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "Liberated Toads",
+            "npc",
+            "noble",
+            "humanoid",
+            "generated"
+          ],
+          "color": "#87CEEB"
         }
       },
       "_stats": {
@@ -56068,7 +56622,15 @@
               "quote": "As archivist and fact-checker, Dewdrop operates with meticulous precision, cross-referencing accounts, scrutinizing evidence, and refusing to accept plausible deniability at face value.",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "Liberated Toads",
+            "npc",
+            "noble",
+            "humanoid",
+            "generated"
+          ],
+          "color": "#87CEEB"
         }
       },
       "_stats": {
@@ -57126,6 +57688,13 @@
               "source": "article"
             }
           ],
+          "tags": [
+            "Liberated Toads",
+            "pc",
+            "noble",
+            "generated"
+          ],
+          "color": "#87CEEB",
           "pc": {
             "level": 3,
             "class": "Bard",
@@ -58054,7 +58623,15 @@
               "quote": "Where Speaker L argued, Rivers acts, and the archive is not yet agreed on whether that is an improvement.",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "Liberated Toads",
+            "npc",
+            "noble",
+            "humanoid",
+            "generated"
+          ],
+          "color": "#87CEEB"
         }
       },
       "_stats": {
@@ -58885,7 +59462,15 @@
               "quote": "Teacher T survived the barrel trafficking horror and emerged with the deeply inconvenient belief that language should help people understand what is happening to them.",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "Liberated Toads",
+            "npc",
+            "noble",
+            "humanoid",
+            "generated"
+          ],
+          "color": "#87CEEB"
         }
       },
       "_stats": {
@@ -59718,7 +60303,15 @@
               "quote": "Seventh Seat, Iron Legion Spy, Defected Day 16",
               "source": "title"
             }
-          ]
+          ],
+          "tags": [
+            "Liberated Toads",
+            "npc",
+            "rogue",
+            "humanoid",
+            "generated"
+          ],
+          "color": "#87CEEB"
         }
       },
       "_stats": {
@@ -60549,7 +61142,15 @@
               "quote": "Wardens Councilor",
               "source": "title"
             }
-          ]
+          ],
+          "tags": [
+            "Liberated Toads",
+            "npc",
+            "officer",
+            "humanoid",
+            "generated"
+          ],
+          "color": "#87CEEB"
         }
       },
       "_stats": {
@@ -61475,7 +62076,15 @@
               "quote": "You can't appeal to her ideology because she doesn't seem to have one beyond 'profitable efficiency.' You can't exploit her emotions because she doesn't display any.",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "Mages' Guild",
+            "npc",
+            "officer",
+            "humanoid",
+            "generated"
+          ],
+          "color": "#8A2BE2"
         }
       },
       "_stats": {
@@ -62308,7 +62917,15 @@
               "quote": "The Guild Man with Gambling Debts",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "Mages' Guild",
+            "npc",
+            "rogue",
+            "humanoid",
+            "generated"
+          ],
+          "color": "#8A2BE2"
         }
       },
       "_stats": {
@@ -63184,7 +63801,15 @@
               "quote": "The Repo-Mage of Healthcare",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "Mages' Guild",
+            "npc",
+            "caster",
+            "humanoid",
+            "generated"
+          ],
+          "color": "#8A2BE2"
         }
       },
       "_stats": {
@@ -64062,7 +64687,15 @@
               "quote": "Operates inside Mages' Guild ground and says plainly that he dislikes the Guild",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "Mages' Guild",
+            "npc",
+            "caster",
+            "humanoid",
+            "generated"
+          ],
+          "color": "#8A2BE2"
         }
       },
       "_stats": {
@@ -64940,7 +65573,15 @@
               "quote": "Unknown employer — worked with Fawful by his own word ('never thought I'd work with a bean'); moved through Peach's Castle and the Mages' Guild's company without being stopped",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "Mages' Guild",
+            "npc",
+            "caster",
+            "humanoid",
+            "generated"
+          ],
+          "color": "#8A2BE2"
         }
       },
       "_stats": {
@@ -65863,7 +66504,15 @@
               "quote": "She did not negotiate.",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "Mages' Guild",
+            "npc",
+            "rogue",
+            "humanoid",
+            "generated"
+          ],
+          "color": "#8A2BE2"
         }
       },
       "_stats": {
@@ -66786,7 +67435,15 @@
               "quote": "Mages' Guild (Senior Enforcer)",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "Mages' Guild",
+            "npc",
+            "caster",
+            "humanoid",
+            "generated"
+          ],
+          "color": "#8A2BE2"
         }
       },
       "_stats": {
@@ -67755,7 +68412,15 @@
               "quote": "The Divine Daughter",
               "source": "title"
             }
-          ]
+          ],
+          "tags": [
+            "Mages' Guild",
+            "npc",
+            "priest",
+            "humanoid",
+            "generated"
+          ],
+          "color": "#8A2BE2"
         }
       },
       "_stats": {
@@ -68812,6 +69477,13 @@
               "source": "article"
             }
           ],
+          "tags": [
+            "Mushroom Regency & Kingdom",
+            "pc",
+            "noble",
+            "generated"
+          ],
+          "color": "#4169E1",
           "pc": {
             "level": 3,
             "class": "Bard",
@@ -69702,7 +70374,15 @@
               "quote": "A Star Hill doctor who treated Luigi's burns after the lava-falls rescue, diagnosed pain-and-exhaustion delirium, and prescribed clean dressings, fluids, rest, and no adventuring.",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "Mushroom Regency & Kingdom",
+            "npc",
+            "healer",
+            "humanoid",
+            "generated"
+          ],
+          "color": "#4169E1"
         }
       },
       "_stats": {
@@ -71051,6 +71731,13 @@
               "source": "article"
             }
           ],
+          "tags": [
+            "Mushroom Regency & Kingdom",
+            "pc",
+            "hero",
+            "generated"
+          ],
+          "color": "#4169E1",
           "pc": {
             "level": 5,
             "class": "Ranger",
@@ -72251,6 +72938,13 @@
               "source": "article"
             }
           ],
+          "tags": [
+            "Mushroom Regency & Kingdom",
+            "pc",
+            "hero",
+            "generated"
+          ],
+          "color": "#4169E1",
           "pc": {
             "level": 5,
             "class": "Monk",
@@ -73314,6 +74008,13 @@
               "source": "article"
             }
           ],
+          "tags": [
+            "Mushroom Regency & Kingdom",
+            "pc",
+            "noble",
+            "generated"
+          ],
+          "color": "#4169E1",
           "pc": {
             "level": 3,
             "class": "Paladin",
@@ -74423,6 +75124,13 @@
               "source": "article"
             }
           ],
+          "tags": [
+            "Mushroom Regency & Kingdom",
+            "pc",
+            "scholar",
+            "generated"
+          ],
+          "color": "#4169E1",
           "pc": {
             "level": 3,
             "class": "Artificer",
@@ -75829,6 +76537,14 @@
               "source": "article"
             }
           ],
+          "tags": [
+            "Mushroom Regency & Kingdom",
+            "pc",
+            "hero",
+            "generated",
+            "955 BF"
+          ],
+          "color": "#4169E1",
           "pc": {
             "level": 4,
             "class": "Ranger",
@@ -77332,6 +78048,14 @@
               "source": "article"
             }
           ],
+          "tags": [
+            "Mushroom Regency & Kingdom",
+            "pc",
+            "hero",
+            "generated",
+            "955 BF"
+          ],
+          "color": "#4169E1",
           "pc": {
             "level": 5,
             "class": "Monk",
@@ -78452,6 +79176,13 @@
               "source": "article"
             }
           ],
+          "tags": [
+            "Nintendo Mania Studio",
+            "pc",
+            "noble",
+            "generated"
+          ],
+          "color": "#FF6F61",
           "pc": {
             "level": 3,
             "class": "Bard",
@@ -79809,6 +80540,13 @@
               "source": "article"
             }
           ],
+          "tags": [
+            "Nintendo Mania Studio",
+            "pc",
+            "boss",
+            "generated"
+          ],
+          "color": "#FF6F61",
           "pc": {
             "level": 4,
             "class": "Monk",
@@ -80647,7 +81385,15 @@
               "quote": "The Waiter",
               "source": "title"
             }
-          ]
+          ],
+          "tags": [
+            "Overgrown Manor",
+            "npc",
+            "civilian",
+            "humanoid",
+            "generated"
+          ],
+          "color": "#6B8E23"
         }
       },
       "_stats": {
@@ -81524,7 +82270,15 @@
               "quote": "Mustered into Hjumpik's battalion on the morning of 1 Aethel, 922 BF, he was the first of the six into the awakened shrub — carried the last three paces by Randall and running the rest himself, two kitchen knives in his",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "Overgrown Manor",
+            "npc",
+            "civilian",
+            "humanoid",
+            "generated"
+          ],
+          "color": "#6B8E23"
         }
       },
       "_stats": {
@@ -82358,7 +83112,15 @@
               "quote": "Active — survived the corridor night",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "Overgrown Manor",
+            "npc",
+            "soldier",
+            "humanoid",
+            "generated"
+          ],
+          "color": "#6B8E23"
         }
       },
       "_stats": {
@@ -83192,7 +83954,15 @@
               "quote": "The Bait Who Lived, and Then Took Point",
               "source": "title"
             }
-          ]
+          ],
+          "tags": [
+            "Overgrown Manor",
+            "npc",
+            "soldier",
+            "fey",
+            "generated"
+          ],
+          "color": "#6B8E23"
         }
       },
       "_stats": {
@@ -84068,7 +84838,15 @@
               "quote": "Given the charge up the wall walk on the morning of 1 Aethel, 922 BF, he led it, shouted RED ALERT twice, and put two longsword strokes into a goblin on his own side.",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "Overgrown Manor",
+            "npc",
+            "soldier",
+            "humanoid",
+            "generated"
+          ],
+          "color": "#6B8E23"
         }
       },
       "_stats": {
@@ -84948,7 +85726,15 @@
               "quote": "Active — survived the corridor night; two recorded attacks on the shambling mound",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "Overgrown Manor",
+            "npc",
+            "soldier",
+            "humanoid",
+            "generated"
+          ],
+          "color": "#6B8E23"
         }
       },
       "_stats": {
@@ -85832,7 +86618,15 @@
               "quote": "Toad (field-called the Black Bear)",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "Peach Loyalists",
+            "npc",
+            "soldier",
+            "humanoid",
+            "generated"
+          ],
+          "color": "#FFDAB9"
         }
       },
       "_stats": {
@@ -87141,6 +87935,13 @@
               "source": "article"
             }
           ],
+          "tags": [
+            "Peach Loyalists",
+            "pc",
+            "officer",
+            "generated"
+          ],
+          "color": "#FFDAB9",
           "pc": {
             "level": 3,
             "class": "Fighter",
@@ -88031,7 +88832,15 @@
               "quote": "Embercap is the Field Commander of the Peach Loyalists, the toad who leads assaults from the front while Captain Toadette plans them from behind.",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "Peach Loyalists",
+            "npc",
+            "officer",
+            "humanoid",
+            "generated"
+          ],
+          "color": "#FFDAB9"
         }
       },
       "_stats": {
@@ -88954,7 +89763,15 @@
               "quote": "What is consistent across accounts: Infiltration Expertise: Mistveil can adopt personas convincingly enough to pass in hostile environments.",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "Peach Loyalists",
+            "npc",
+            "rogue",
+            "humanoid",
+            "generated"
+          ],
+          "color": "#FFDAB9"
         }
       },
       "_stats": {
@@ -90263,6 +91080,13 @@
               "source": "article"
             }
           ],
+          "tags": [
+            "Rakasha & the Feywild",
+            "pc",
+            "officer",
+            "generated"
+          ],
+          "color": "#D2B48C",
           "pc": {
             "level": 4,
             "class": "Ranger",
@@ -91208,7 +92032,15 @@
               "quote": "What IS known about Rakka: - They operate from a hidden temple deep in the enchanted woods, protected by magic that discourages outside contact - They employ agents for tasks requiring discretion, specific skills, and",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "Rakasha & the Feywild",
+            "npc",
+            "caster",
+            "undead",
+            "generated"
+          ],
+          "color": "#D2B48C"
         }
       },
       "_stats": {
@@ -92087,7 +92919,15 @@
               "quote": "Active - holding the kitchen of the Overgrown Manor; cooking",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "Rakasha & the Feywild",
+            "npc",
+            "soldier",
+            "fey",
+            "generated"
+          ],
+          "color": "#D2B48C"
         }
       },
       "_stats": {
@@ -92918,7 +93758,15 @@
               "quote": "Told that Red's cooking withers the plants on contact, he asked the obvious question that four adventurers had failed to ask in two days: why not put the soup in a bomb?",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "Rakasha & the Feywild",
+            "npc",
+            "soldier",
+            "fey",
+            "generated"
+          ],
+          "color": "#D2B48C"
         }
       },
       "_stats": {
@@ -93752,7 +94600,15 @@
               "quote": "Field Observations",
               "source": "title"
             }
-          ]
+          ],
+          "tags": [
+            "Rakasha & the Feywild",
+            "npc",
+            "soldier",
+            "fey",
+            "generated"
+          ],
+          "color": "#D2B48C"
         }
       },
       "_stats": {
@@ -94630,7 +95486,15 @@
               "quote": "The Custodian Who Wants the Planes Severed",
               "source": "title"
             }
-          ]
+          ],
+          "tags": [
+            "Shadow Estate & House Corvinarus",
+            "npc",
+            "caster",
+            "humanoid",
+            "generated"
+          ],
+          "color": "#8B0000"
         }
       },
       "_stats": {
@@ -95733,6 +96597,13 @@
               "source": "article"
             }
           ],
+          "tags": [
+            "Shadow Estate & House Corvinarus",
+            "pc",
+            "rogue",
+            "generated"
+          ],
+          "color": "#8B0000",
           "pc": {
             "level": 3,
             "class": "Rogue",
@@ -96578,7 +97449,15 @@
               "quote": "Merric arrived behaving as though he had always been part of Disaster Inc., offered live commentary on Markop's fighting technique, and generally conducted himself with the serene confidence of someone who has never",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "Shadow Estate & House Corvinarus",
+            "npc",
+            "soldier",
+            "beast",
+            "generated"
+          ],
+          "color": "#8B0000"
         }
       },
       "_stats": {
@@ -97935,6 +98814,13 @@
               "source": "article"
             }
           ],
+          "tags": [
+            "Shadow Estate & House Corvinarus",
+            "pc",
+            "boss",
+            "generated"
+          ],
+          "color": "#8B0000",
           "pc": {
             "level": 5,
             "class": "Paladin",
@@ -98816,7 +99702,15 @@
               "quote": "The Vampire Who Entered on an Imp's Invitation",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "Shadow Estate & House Corvinarus",
+            "npc",
+            "monster",
+            "undead",
+            "generated"
+          ],
+          "color": "#8B0000"
         }
       },
       "_stats": {
@@ -99647,7 +100541,15 @@
               "quote": "He speaks with deeply skeleton-appropriate timing, joined the party during the Shadow Estate servant corridor sequence, and survived the rooftop escape by grabbing onto Remi during Feather Fall.",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "Shadow Estate & House Corvinarus",
+            "npc",
+            "civilian",
+            "monstrosity",
+            "generated"
+          ],
+          "color": "#8B0000"
         }
       },
       "_stats": {
@@ -100570,7 +101472,15 @@
               "quote": "Waluigi hates riddles that stand in doorways.",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "Shadow Estate & House Corvinarus",
+            "npc",
+            "rogue",
+            "humanoid",
+            "generated"
+          ],
+          "color": "#8B0000"
         }
       },
       "_stats": {
@@ -101668,6 +102578,13 @@
               "source": "article"
             }
           ],
+          "tags": [
+            "Shadow Estate & House Corvinarus",
+            "pc",
+            "scholar",
+            "generated"
+          ],
+          "color": "#8B0000",
           "pc": {
             "level": 3,
             "class": "Wizard",
@@ -102549,7 +103466,15 @@
               "quote": "Asked why it bothered impersonating the lady rather than simply killing everyone, it said it needed to move some puzzle pieces into place, and then it said the line this archive will be quoting for a year - the beauty",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "Shadow Estate & House Corvinarus",
+            "npc",
+            "monster",
+            "plant",
+            "generated"
+          ],
+          "color": "#8B0000"
         }
       },
       "_stats": {
@@ -103647,6 +104572,13 @@
               "source": "article"
             }
           ],
+          "tags": [
+            "Shadow Estate & House Corvinarus",
+            "pc",
+            "caster",
+            "generated"
+          ],
+          "color": "#8B0000",
           "pc": {
             "level": 3,
             "class": "Sorcerer",
@@ -104573,7 +105505,15 @@
               "quote": "Baby Bones treats every adult as a potential carrier and every puzzle piece as a toy.",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "Snowdin Bone-Line",
+            "npc",
+            "civilian",
+            "monstrosity",
+            "generated"
+          ],
+          "color": "#B0E0E6"
         }
       },
       "_stats": {
@@ -105452,7 +106392,15 @@
               "quote": "The household watches the two of them across the dinner table and waits, and does not push, and has agreed — in the only unanimous decision of the season — that when it happens, it will happen at dinner, with the whole",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "Snowdin Bone-Line",
+            "npc",
+            "soldier",
+            "monstrosity",
+            "generated"
+          ],
+          "color": "#B0E0E6"
         }
       },
       "_stats": {
@@ -106373,7 +107321,15 @@
               "quote": "Cursive writes invitations for Baby Bones, repair requests for Dirty Brother, and peaceable replies to people rude to Papyrus.",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "Snowdin Bone-Line",
+            "npc",
+            "civilian",
+            "monstrosity",
+            "generated"
+          ],
+          "color": "#B0E0E6"
         }
       },
       "_stats": {
@@ -107207,7 +108163,15 @@
               "quote": "He has stood watch through blizzards, evacuations, registry disputes, and three kitchen fires; he takes his meals at the household table; he knows every relative's schedule by heart.",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "Snowdin Bone-Line",
+            "npc",
+            "soldier",
+            "monstrosity",
+            "generated"
+          ],
+          "color": "#B0E0E6"
         }
       },
       "_stats": {
@@ -108128,7 +109092,15 @@
               "quote": "A soot-covered relation who repairs boiler shafts, chimneys, and old puzzle mechanisms.",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "Snowdin Bone-Line",
+            "npc",
+            "civilian",
+            "monstrosity",
+            "generated"
+          ],
+          "color": "#B0E0E6"
         }
       },
       "_stats": {
@@ -109049,7 +110021,15 @@
               "quote": "The household finds this either hoarding or prophecy, and the record keeps siding with prophecy at inconvenient intervals.",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "Snowdin Bone-Line",
+            "npc",
+            "civilian",
+            "monstrosity",
+            "generated"
+          ],
+          "color": "#B0E0E6"
         }
       },
       "_stats": {
@@ -109970,7 +110950,15 @@
               "quote": "The chronicle has tracked the counts for two seasons and confirmed the record: zero error, including a dinner that seated fourteen where thirteen were expected, the fourteenth being a lost traveler who knocked at",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "Snowdin Bone-Line",
+            "npc",
+            "civilian",
+            "monstrosity",
+            "generated"
+          ],
+          "color": "#B0E0E6"
         }
       },
       "_stats": {
@@ -110891,7 +111879,15 @@
               "quote": "Entries that end mid-sentence are not accidents in his keeping: they mark where the family agreed to stop speaking.",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "Snowdin Bone-Line",
+            "npc",
+            "civilian",
+            "monstrosity",
+            "generated"
+          ],
+          "color": "#B0E0E6"
         }
       },
       "_stats": {
@@ -111813,7 +112809,15 @@
               "quote": "The lights flickered, or the lights didn't, and the room felt larger for a moment, or the room felt smaller, and then it was over, and the cousin bowed.",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "Snowdin Bone-Line",
+            "npc",
+            "civilian",
+            "monstrosity",
+            "generated"
+          ],
+          "color": "#B0E0E6"
         }
       },
       "_stats": {
@@ -112689,7 +113693,15 @@
               "quote": "Helvetica designs signs, patrol notices, and puzzle instructions readable through a snowstorm.",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "Snowdin Bone-Line",
+            "npc",
+            "civilian",
+            "monstrosity",
+            "generated"
+          ],
+          "color": "#B0E0E6"
         }
       },
       "_stats": {
@@ -113610,7 +114622,15 @@
               "quote": "The survey expedition's arrival registered at the blanket nest before it registered anywhere else in Snowdin — Lazybones knew the team's schedule, size, and equipment list two days before the town guard posted it, and",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "Snowdin Bone-Line",
+            "npc",
+            "civilian",
+            "monstrosity",
+            "generated"
+          ],
+          "color": "#B0E0E6"
         }
       },
       "_stats": {
@@ -114531,7 +115551,15 @@
               "quote": "He walked the expedition's perimeter during the second week — openly, cheerfully, in full view of the survey team's observers, who logged him in their camp record as 'staff, local' and then could not explain the entry",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "Snowdin Bone-Line",
+            "npc",
+            "civilian",
+            "monstrosity",
+            "generated"
+          ],
+          "color": "#B0E0E6"
         }
       },
       "_stats": {
@@ -115452,7 +116480,15 @@
               "quote": "The survey season made him essential in the way crises make couriers essential, and he rose to it with a seriousness that made the household's chest ache.",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "Snowdin Bone-Line",
+            "npc",
+            "civilian",
+            "monstrosity",
+            "generated"
+          ],
+          "color": "#B0E0E6"
         }
       },
       "_stats": {
@@ -116373,7 +117409,15 @@
               "quote": "His appearances cluster in places the family has agreed to be careful about: sealed rooms, broken save points, and the margins of photographs where someone is almost looking at the camera.",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "Snowdin Bone-Line",
+            "npc",
+            "civilian",
+            "monstrosity",
+            "generated"
+          ],
+          "color": "#B0E0E6"
         }
       },
       "_stats": {
@@ -117206,7 +118250,15 @@
               "quote": "He was among the first to recognize that the anomalies around Mount Ebott are not ordinary Underground magic but something structural — doors, he says, in a house with too many walls.",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "Snowdin Bone-Line",
+            "npc",
+            "caster",
+            "monstrosity",
+            "generated"
+          ],
+          "color": "#B0E0E6"
         }
       },
       "_stats": {
@@ -118277,6 +119329,13 @@
               "source": "article"
             }
           ],
+          "tags": [
+            "Snowdin Bone-Line",
+            "pc",
+            "soldier",
+            "generated"
+          ],
+          "color": "#B0E0E6",
           "pc": {
             "level": 1,
             "class": "Fighter",
@@ -119205,7 +120264,15 @@
               "quote": "The household complains on its behalf, loudly, in policy, in writing, in a plan that assigns it a carrier and a slot and a priority, because someone in the family should be carried without ever having to ask, and the",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "Snowdin Bone-Line",
+            "npc",
+            "civilian",
+            "monstrosity",
+            "generated"
+          ],
+          "color": "#B0E0E6"
         }
       },
       "_stats": {
@@ -120126,7 +121193,15 @@
               "quote": "He kept a visible list of small returning normalcies — the heater fixed, the deliveries running, the Friday dinner on — and checked them off where Baby Bones could see.",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "Snowdin Bone-Line",
+            "npc",
+            "civilian",
+            "monstrosity",
+            "generated"
+          ],
+          "color": "#B0E0E6"
         }
       },
       "_stats": {
@@ -120960,7 +122035,15 @@
               "quote": "The household knows better, because the reflection stayed for eleven minutes, and because Sans, reviewing the team's footage with unusual seriousness, pointed out what the surveyors had missed: the eye was not looking",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "Snowdin Bone-Line",
+            "npc",
+            "soldier",
+            "monstrosity",
+            "generated"
+          ],
+          "color": "#B0E0E6"
         }
       },
       "_stats": {
@@ -121881,7 +122964,15 @@
               "quote": "Quantity handles work requiring many hands: moving furniture, building puzzles, and carrying soup for crowds.",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "Snowdin Bone-Line",
+            "npc",
+            "civilian",
+            "monstrosity",
+            "generated"
+          ],
+          "color": "#B0E0E6"
         }
       },
       "_stats": {
@@ -122757,7 +123848,15 @@
               "quote": "Performances require notice, an audience count, and at least one relative willing to say 'that's enough, thank you,' a duty that rotates because no one can do it twice in a row without feeling like a villain.",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "Snowdin Bone-Line",
+            "npc",
+            "civilian",
+            "monstrosity",
+            "generated"
+          ],
+          "color": "#B0E0E6"
         }
       },
       "_stats": {
@@ -123824,6 +124923,13 @@
               "source": "article"
             }
           ],
+          "tags": [
+            "Snowdin Bone-Line",
+            "pc",
+            "rogue",
+            "generated"
+          ],
+          "color": "#B0E0E6",
           "pc": {
             "level": 1,
             "class": "Rogue",
@@ -124752,7 +125858,15 @@
               "quote": "No one laughs loudly, because the date is not a prediction but a memory: he has lived past it, in his world, and the ledger has simply kept its own calendar.",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "Snowdin Bone-Line",
+            "npc",
+            "civilian",
+            "monstrosity",
+            "generated"
+          ],
+          "color": "#B0E0E6"
         }
       },
       "_stats": {
@@ -125628,7 +126742,15 @@
               "quote": "He read it in the violet-coat corner, with Lazybones on one side and Papyrus hovering, pretending not to hover, and when he finished, he said — and the chronicle records this as the file's single annotated quote, the",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "Snowdin Bone-Line",
+            "npc",
+            "civilian",
+            "monstrosity",
+            "generated"
+          ],
+          "color": "#B0E0E6"
         }
       },
       "_stats": {
@@ -126462,7 +127584,15 @@
               "quote": "It stood in the air like a fact, gray-white and steady, and beside it, a gray figure, silent, already turning to walk into the storm as if the walking had been agreed on long ago.",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "Snowdin Bone-Line",
+            "npc",
+            "soldier",
+            "monstrosity",
+            "generated"
+          ],
+          "color": "#B0E0E6"
         }
       },
       "_stats": {
@@ -127385,7 +128515,15 @@
               "quote": "The chronicle's least formal pages record who cried at which puzzle, whose first spaghetti attempt was structurally unsound, and exactly when Sans's puns became a household hazard.",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "Snowdin Bone-Line",
+            "npc",
+            "scholar",
+            "monstrosity",
+            "generated"
+          ],
+          "color": "#B0E0E6"
         }
       },
       "_stats": {
@@ -128306,7 +129444,15 @@
               "quote": "His inventory reads like a siege plan conducted by a cook — blankets, medicine, lantern oil, and emergency noodles organized by urgency, season, and how many people are likely to show up hungry.",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "Snowdin Bone-Line",
+            "npc",
+            "civilian",
+            "monstrosity",
+            "generated"
+          ],
+          "color": "#B0E0E6"
         }
       },
       "_stats": {
@@ -129184,7 +130330,15 @@
               "quote": "The Gaster Branch remains unresolved in the registry not because the family has stopped looking, but because every lead so far points at a door no one has agreed to open.",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "Snowdin Bone-Line",
+            "npc",
+            "scholar",
+            "monstrosity",
+            "generated"
+          ],
+          "color": "#B0E0E6"
         }
       },
       "_stats": {
@@ -130463,6 +131617,13 @@
               "source": "article"
             }
           ],
+          "tags": [
+            "The Underground",
+            "pc",
+            "boss",
+            "generated"
+          ],
+          "color": "#2F4F4F",
           "pc": {
             "level": 2,
             "class": "Paladin",
@@ -131299,7 +132460,15 @@
               "quote": "Needs Faction Review — XP Ledger Stub",
               "source": "title"
             }
-          ]
+          ],
+          "tags": [
+            "The Underground",
+            "npc",
+            "brute",
+            "monstrosity",
+            "generated"
+          ],
+          "color": "#2F4F4F"
         }
       },
       "_stats": {
@@ -132128,7 +133297,15 @@
               "quote": "Crossbones may be a punchline to jokesters, but to Waluigi he stands as testament to the enduring power of storytelling itself - even when that story is one of defeat and reinvention.",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "The Underground",
+            "npc",
+            "monster",
+            "monstrosity",
+            "generated"
+          ],
+          "color": "#2F4F4F"
         }
       },
       "_stats": {
@@ -133479,6 +134656,13 @@
               "source": "article"
             }
           ],
+          "tags": [
+            "The Underground",
+            "pc",
+            "monster",
+            "generated"
+          ],
+          "color": "#2F4F4F",
           "pc": {
             "level": 3,
             "class": "Warlock",
@@ -134362,7 +135546,15 @@
               "quote": "Until then, let it suffice to know that should one ever find themselves face-to-face with High Inquisitor Vale, they would do well to pray for mercy before it is too late – for judgment hangs over them like a sword of",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "The Underground",
+            "npc",
+            "priest",
+            "monstrosity",
+            "generated"
+          ],
+          "color": "#2F4F4F"
         }
       },
       "_stats": {
@@ -135191,7 +136383,15 @@
               "quote": "Toad Network Review Stub",
               "source": "title"
             }
-          ]
+          ],
+          "tags": [
+            "The Underground",
+            "npc",
+            "monster",
+            "monstrosity",
+            "generated"
+          ],
+          "color": "#2F4F4F"
         }
       },
       "_stats": {
@@ -136267,6 +137467,13 @@
               "source": "article"
             }
           ],
+          "tags": [
+            "The Underground",
+            "pc",
+            "priest",
+            "generated"
+          ],
+          "color": "#2F4F4F",
           "pc": {
             "level": 1,
             "class": "Cleric",
@@ -137103,7 +138310,15 @@
               "quote": "He confirmed a Canterlot diplomatic programme, confirmed it was supposed to be quiet, and admitted someone had dropped the ball on security protocols.",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "Trinity Academy",
+            "npc",
+            "student",
+            "humanoid",
+            "generated"
+          ],
+          "color": "#F08080"
         }
       },
       "_stats": {
@@ -137932,7 +139147,15 @@
               "quote": "Everything Hanae says is delivered at a volume the record repeatedly describes as barely existing.",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "Trinity Academy",
+            "npc",
+            "student",
+            "humanoid",
+            "generated"
+          ],
+          "color": "#F08080"
         }
       },
       "_stats": {
@@ -138761,7 +139984,15 @@
               "quote": "The One Who Finished Page Six",
               "source": "title"
             }
-          ]
+          ],
+          "tags": [
+            "Trinity Academy",
+            "npc",
+            "student",
+            "humanoid",
+            "generated"
+          ],
+          "color": "#F08080"
         }
       },
       "_stats": {
@@ -139637,7 +140868,15 @@
               "quote": "People don't care about gadgets or uniforms.",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "Trinity Academy",
+            "npc",
+            "student",
+            "humanoid",
+            "generated"
+          ],
+          "color": "#F08080"
         }
       },
       "_stats": {
@@ -140466,7 +141705,15 @@
               "quote": "The record describes her eyes as sharp enough to cut glass and her attention as a predator sizing up whether something is worth the effort of killing.",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "Trinity Academy",
+            "npc",
+            "student",
+            "humanoid",
+            "generated"
+          ],
+          "color": "#F08080"
         }
       },
       "_stats": {
@@ -141385,7 +142632,15 @@
               "quote": "Airi screamed with joy.",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "Trinity Academy",
+            "npc",
+            "student",
+            "humanoid",
+            "generated"
+          ],
+          "color": "#F08080"
         }
       },
       "_stats": {
@@ -142214,7 +143469,15 @@
               "quote": "Active — student, Classroom 2-B; stood down from his claim of dominion after a final warning, and reacted to the SCHALE disclosure with undisguised hunger",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "Trinity Academy",
+            "npc",
+            "student",
+            "humanoid",
+            "generated"
+          ],
+          "color": "#F08080"
         }
       },
       "_stats": {
@@ -143043,7 +144306,15 @@
               "quote": "The Princess Of The Front Row",
               "source": "title"
             }
-          ]
+          ],
+          "tags": [
+            "Trinity Academy",
+            "npc",
+            "student",
+            "humanoid",
+            "generated"
+          ],
+          "color": "#F08080"
         }
       },
       "_stats": {
@@ -143876,7 +145147,15 @@
               "quote": "He confirmed a diplomatic programme with Canterlot, confirmed it was meant to be quiet, and said that students seeing it meant someone dropped the ball on security protocols.",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "Trinity Academy",
+            "npc",
+            "scholar",
+            "humanoid",
+            "generated"
+          ],
+          "color": "#F08080"
         }
       },
       "_stats": {
@@ -144795,7 +146074,15 @@
               "quote": "He described himself and Scooby as diplomatic solution kind of guys.",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "Trinity Academy",
+            "npc",
+            "student",
+            "humanoid",
+            "generated"
+          ],
+          "color": "#F08080"
         }
       },
       "_stats": {
@@ -145669,7 +146956,15 @@
               "quote": "Azusa's eyes sharpened, and the record describes it precisely: like a blade being drawn from a sheath so smooth you'd miss it if you blinked.",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "Trinity Academy",
+            "npc",
+            "student",
+            "humanoid",
+            "generated"
+          ],
+          "color": "#F08080"
         }
       },
       "_stats": {
@@ -146502,7 +147797,15 @@
               "quote": "The Ninja Twin Who Saw the Burns",
               "source": "title"
             }
-          ]
+          ],
+          "tags": [
+            "Wario's Enterprise & WarioWare",
+            "npc",
+            "rogue",
+            "humanoid",
+            "generated"
+          ],
+          "color": "#FFAC1C"
         }
       },
       "_stats": {
@@ -147335,7 +148638,15 @@
               "quote": "Worked him over with an enchanted broom, mounted it when he still would not name himself, and took him for the ride that ended with him unconscious, tied up, and out of jokes.",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "Wario's Enterprise & WarioWare",
+            "npc",
+            "caster",
+            "humanoid",
+            "generated"
+          ],
+          "color": "#FFAC1C"
         }
       },
       "_stats": {
@@ -148166,7 +149477,15 @@
               "quote": "WarioWare Crew",
               "source": "title"
             }
-          ]
+          ],
+          "tags": [
+            "Wario's Enterprise & WarioWare",
+            "npc",
+            "civilian",
+            "humanoid",
+            "generated"
+          ],
+          "color": "#FFAC1C"
         }
       },
       "_stats": {
@@ -149087,7 +150406,15 @@
               "quote": "Waluigi met Jory Dobbs for eighteen hours and can describe him completely: cheap boots with good laces, a woollen hat that did not survive the cave, a kit-bag containing sandwiches, a spare shirt, one stolen passport",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "Wario's Enterprise & WarioWare",
+            "npc",
+            "civilian",
+            "humanoid",
+            "generated"
+          ],
+          "color": "#FFAC1C"
         }
       },
       "_stats": {
@@ -149920,7 +151247,15 @@
               "quote": "She and Ana followed because their friends ran into danger; Wario yelled because that is his love language when someone makes the correct stupid decision before he approves it.",
               "source": "article"
             }
-          ]
+          ],
+          "tags": [
+            "Wario's Enterprise & WarioWare",
+            "npc",
+            "rogue",
+            "humanoid",
+            "generated"
+          ],
+          "color": "#FFAC1C"
         }
       },
       "_stats": {
@@ -150751,7 +152086,15 @@
               "quote": "WarioWare Crew",
               "source": "title"
             }
-          ]
+          ],
+          "tags": [
+            "Wario's Enterprise & WarioWare",
+            "npc",
+            "civilian",
+            "humanoid",
+            "generated"
+          ],
+          "color": "#FFAC1C"
         }
       },
       "_stats": {

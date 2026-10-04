@@ -12315,7 +12315,12 @@
         "xpKey": "bowser",
         "xp": 35292,
         "level": 8
-      }
+      },
+      "tags": [
+        "Disaster Inc.",
+        "pc"
+      ],
+      "color": "#D4A017"
     },
     "waluipedia-mass-import": {
       "folderPath": [

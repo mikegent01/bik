@@ -861,7 +861,15 @@
           "quote": "Asked why it bothered impersonating the lady rather than simply killing everyone, it said it needed to move some puzzle pieces into place, and then it said the line this archive will be quoting for a year - the beauty",
           "source": "article"
         }
-      ]
+      ],
+      "tags": [
+        "Shadow Estate & House Corvinarus",
+        "npc",
+        "monster",
+        "plant",
+        "generated"
+      ],
+      "color": "#8B0000"
     }
   },
   "_stats": {

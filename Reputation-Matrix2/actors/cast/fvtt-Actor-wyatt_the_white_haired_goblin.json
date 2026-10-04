@@ -867,7 +867,15 @@
           "quote": "Active — survived the corridor night; two recorded attacks on the shambling mound",
           "source": "article"
         }
-      ]
+      ],
+      "tags": [
+        "Overgrown Manor",
+        "npc",
+        "soldier",
+        "humanoid",
+        "generated"
+      ],
+      "color": "#6B8E23"
     }
   },
   "_stats": {

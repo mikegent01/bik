@@ -818,7 +818,15 @@
           "quote": "He speaks with deeply skeleton-appropriate timing, joined the party during the Shadow Estate servant corridor sequence, and survived the rooftop escape by grabbing onto Remi during Feather Fall.",
           "source": "article"
         }
-      ]
+      ],
+      "tags": [
+        "Shadow Estate & House Corvinarus",
+        "npc",
+        "civilian",
+        "monstrosity",
+        "generated"
+      ],
+      "color": "#8B0000"
     }
   },
   "_stats": {

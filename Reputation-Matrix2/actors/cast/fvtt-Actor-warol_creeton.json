@@ -822,7 +822,15 @@
           "quote": "Iron Legion / Raventree Manor garrison",
           "source": "article"
         }
-      ]
+      ],
+      "tags": [
+        "Iron Legion",
+        "npc",
+        "soldier",
+        "humanoid",
+        "generated"
+      ],
+      "color": "#ADB5BD"
     }
   },
   "_stats": {

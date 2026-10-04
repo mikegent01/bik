@@ -865,7 +865,15 @@
           "quote": "The Veridian Grove Druid Circle stood apart from the vampire-werewolf conflicts, the Guild schemes, and the Kingdom's sometimes brutal pragmatism.",
           "source": "article"
         }
-      ]
+      ],
+      "tags": [
+        "Elsewhere",
+        "npc",
+        "caster",
+        "humanoid",
+        "generated"
+      ],
+      "color": "#6C757D"
     }
   },
   "_stats": {

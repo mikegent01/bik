@@ -863,7 +863,15 @@
           "quote": "Geek T survived the Vigilance and attached themself to the Liberated Toads' practical recovery work, mostly by fixing small things, labeling supplies, and turning morale into objects people can hold.",
           "source": "article"
         }
-      ]
+      ],
+      "tags": [
+        "Liberated Toads",
+        "npc",
+        "noble",
+        "humanoid",
+        "generated"
+      ],
+      "color": "#87CEEB"
     }
   },
   "_stats": {

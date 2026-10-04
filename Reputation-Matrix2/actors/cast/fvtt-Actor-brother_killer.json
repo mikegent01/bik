@@ -866,7 +866,15 @@
           "quote": "The household watches the two of them across the dinner table and waits, and does not push, and has agreed — in the only unanimous decision of the season — that when it happens, it will happen at dinner, with the whole",
           "source": "article"
         }
-      ]
+      ],
+      "tags": [
+        "Snowdin Bone-Line",
+        "npc",
+        "soldier",
+        "monstrosity",
+        "generated"
+      ],
+      "color": "#B0E0E6"
     }
   },
   "_stats": {

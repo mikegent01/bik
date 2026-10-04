@@ -863,7 +863,15 @@
           "quote": "The Repo-Mage of Healthcare",
           "source": "article"
         }
-      ]
+      ],
+      "tags": [
+        "Mages' Guild",
+        "npc",
+        "caster",
+        "humanoid",
+        "generated"
+      ],
+      "color": "#8A2BE2"
     }
   },
   "_stats": {

@@ -820,7 +820,15 @@
           "quote": "The False Heir's Laugh",
           "source": "title"
         }
-      ]
+      ],
+      "tags": [
+        "Fawthful's Forces",
+        "npc",
+        "rogue",
+        "humanoid",
+        "generated"
+      ],
+      "color": "#3CB371"
     }
   },
   "_stats": {

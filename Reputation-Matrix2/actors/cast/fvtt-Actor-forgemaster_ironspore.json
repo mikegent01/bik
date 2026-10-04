@@ -820,7 +820,15 @@
           "quote": "Ironspore is the council voice most likely to ask whether a heroic plan can actually be fed, repaired, and carried.",
           "source": "article"
         }
-      ]
+      ],
+      "tags": [
+        "Liberated Toads",
+        "npc",
+        "scholar",
+        "humanoid",
+        "generated"
+      ],
+      "color": "#87CEEB"
     }
   },
   "_stats": {

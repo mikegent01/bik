@@ -906,7 +906,15 @@
           "quote": "Baby Bones treats every adult as a potential carrier and every puzzle piece as a toy.",
           "source": "article"
         }
-      ]
+      ],
+      "tags": [
+        "Snowdin Bone-Line",
+        "npc",
+        "civilian",
+        "monstrosity",
+        "generated"
+      ],
+      "color": "#B0E0E6"
     }
   },
   "_stats": {

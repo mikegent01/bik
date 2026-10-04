@@ -821,7 +821,15 @@
           "quote": "Field Observations",
           "source": "title"
         }
-      ]
+      ],
+      "tags": [
+        "Rakasha & the Feywild",
+        "npc",
+        "soldier",
+        "fey",
+        "generated"
+      ],
+      "color": "#D2B48C"
     }
   },
   "_stats": {

@@ -881,7 +881,15 @@
           "quote": "Gabriel is the child whose spirit was bound to Freddy Fazbear, the lead performer of the original five animatronics at the Hurricane Freddy Fazbear's Pizza — the franchise's crown jewel, and the place where the original",
           "source": "article"
         }
-      ]
+      ],
+      "tags": [
+        "Elsewhere",
+        "npc",
+        "spirit",
+        "undead",
+        "generated"
+      ],
+      "color": "#6C757D"
     }
   },
   "_stats": {

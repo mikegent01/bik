@@ -4317,7 +4317,12 @@
         "xpKey": "wario",
         "xp": 18370,
         "level": 6
-      }
+      },
+      "tags": [
+        "Disaster Inc.",
+        "pc"
+      ],
+      "color": "#D4A017"
     },
     "waluipedia-mass-import": {
       "folderPath": [

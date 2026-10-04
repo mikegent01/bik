@@ -908,7 +908,15 @@
           "quote": "Waluigi met Jory Dobbs for eighteen hours and can describe him completely: cheap boots with good laces, a woollen hat that did not survive the cave, a kit-bag containing sandwiches, a spare shirt, one stolen passport",
           "source": "article"
         }
-      ]
+      ],
+      "tags": [
+        "Wario's Enterprise & WarioWare",
+        "npc",
+        "civilian",
+        "humanoid",
+        "generated"
+      ],
+      "color": "#FFAC1C"
     }
   },
   "_stats": {

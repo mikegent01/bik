@@ -818,7 +818,15 @@
           "quote": "WarioWare Crew",
           "source": "title"
         }
-      ]
+      ],
+      "tags": [
+        "Wario's Enterprise & WarioWare",
+        "npc",
+        "civilian",
+        "humanoid",
+        "generated"
+      ],
+      "color": "#FFAC1C"
     }
   },
   "_stats": {

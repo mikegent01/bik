@@ -868,7 +868,15 @@
           "quote": "The Captain Who Stood Between the Fire and the Stair",
           "source": "article"
         }
-      ]
+      ],
+      "tags": [
+        "Elsewhere",
+        "npc",
+        "officer",
+        "humanoid",
+        "generated"
+      ],
+      "color": "#6C757D"
     }
   },
   "_stats": {

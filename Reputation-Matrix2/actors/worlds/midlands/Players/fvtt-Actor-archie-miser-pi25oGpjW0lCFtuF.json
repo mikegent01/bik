@@ -20103,7 +20103,12 @@
         "xpKey": "archie_miser",
         "xp": 21030,
         "level": 6
-      }
+      },
+      "tags": [
+        "Disaster Inc.",
+        "pc"
+      ],
+      "color": "#D4A017"
     }
   },
   "_stats": {

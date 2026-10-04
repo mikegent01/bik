@@ -908,7 +908,15 @@
           "quote": "He walked the expedition's perimeter during the second week — openly, cheerfully, in full view of the survey team's observers, who logged him in their camp record as 'staff, local' and then could not explain the entry",
           "source": "article"
         }
-      ]
+      ],
+      "tags": [
+        "Snowdin Bone-Line",
+        "npc",
+        "civilian",
+        "monstrosity",
+        "generated"
+      ],
+      "color": "#B0E0E6"
     }
   },
   "_stats": {

@@ -908,7 +908,15 @@
           "quote": "The survey expedition's arrival registered at the blanket nest before it registered anywhere else in Snowdin — Lazybones knew the team's schedule, size, and equipment list two days before the town guard posted it, and",
           "source": "article"
         }
-      ]
+      ],
+      "tags": [
+        "Snowdin Bone-Line",
+        "npc",
+        "civilian",
+        "monstrosity",
+        "generated"
+      ],
+      "color": "#B0E0E6"
     }
   },
   "_stats": {

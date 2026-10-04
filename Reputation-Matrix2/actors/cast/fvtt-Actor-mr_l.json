@@ -1137,6 +1137,13 @@
           "source": "article"
         }
       ],
+      "tags": [
+        "Elsewhere",
+        "pc",
+        "rogue",
+        "generated"
+      ],
+      "color": "#6C757D",
       "pc": {
         "level": 3,
         "class": "Rogue",

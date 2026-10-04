@@ -1132,6 +1132,13 @@
           "source": "article"
         }
       ],
+      "tags": [
+        "Elsewhere",
+        "pc",
+        "caster",
+        "generated"
+      ],
+      "color": "#6C757D",
       "pc": {
         "level": 4,
         "class": "Bard",

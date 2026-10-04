@@ -1007,6 +1007,13 @@
           "source": "article"
         }
       ],
+      "tags": [
+        "Koopa Troop",
+        "pc",
+        "caster",
+        "generated"
+      ],
+      "color": "#006400",
       "pc": {
         "level": 2,
         "class": "Wizard",

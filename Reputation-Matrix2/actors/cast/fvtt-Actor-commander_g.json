@@ -913,7 +913,15 @@
           "quote": "You can't appeal to her ideology because she doesn't seem to have one beyond 'profitable efficiency.' You can't exploit her emotions because she doesn't display any.",
           "source": "article"
         }
-      ]
+      ],
+      "tags": [
+        "Mages' Guild",
+        "npc",
+        "officer",
+        "humanoid",
+        "generated"
+      ],
+      "color": "#8A2BE2"
     }
   },
   "_stats": {

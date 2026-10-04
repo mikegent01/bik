@@ -1045,6 +1045,13 @@
           "source": "article"
         }
       ],
+      "tags": [
+        "Fawthful's Forces",
+        "pc",
+        "soldier",
+        "generated"
+      ],
+      "color": "#3CB371",
       "pc": {
         "level": 3,
         "class": "Barbarian",

@@ -908,7 +908,15 @@
           "quote": "Cursive writes invitations for Baby Bones, repair requests for Dirty Brother, and peaceable replies to people rude to Papyrus.",
           "source": "article"
         }
-      ]
+      ],
+      "tags": [
+        "Snowdin Bone-Line",
+        "npc",
+        "civilian",
+        "monstrosity",
+        "generated"
+      ],
+      "color": "#B0E0E6"
     }
   },
   "_stats": {

@@ -1159,6 +1159,14 @@
       "folderPath": [
         "Players"
       ]
+    },
+    "waluipedia-sheets": {
+      "tags": [
+        "Players",
+        "npc",
+        "construct"
+      ],
+      "color": "#D4A017"
     }
   },
   "_stats": {

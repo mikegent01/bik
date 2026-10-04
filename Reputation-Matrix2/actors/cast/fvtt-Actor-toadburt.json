@@ -820,7 +820,15 @@
           "quote": "From Leashed Agent to Indentured Archivist",
           "source": "article"
         }
-      ]
+      ],
+      "tags": [
+        "Iron Legion",
+        "npc",
+        "rogue",
+        "humanoid",
+        "generated"
+      ],
+      "color": "#ADB5BD"
     }
   },
   "_stats": {

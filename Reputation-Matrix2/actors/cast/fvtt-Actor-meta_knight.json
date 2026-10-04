@@ -1060,6 +1060,13 @@
           "source": "article"
         }
       ],
+      "tags": [
+        "Dreamland",
+        "pc",
+        "officer",
+        "generated"
+      ],
+      "color": "#FFB7C5",
       "pc": {
         "level": 2,
         "class": "Fighter",

@@ -836,7 +836,15 @@
           "quote": "Ghost / hostile spirit",
           "source": "article"
         }
-      ]
+      ],
+      "tags": [
+        "Elsewhere",
+        "npc",
+        "spirit",
+        "undead",
+        "generated"
+      ],
+      "color": "#6C757D"
     }
   },
   "_stats": {

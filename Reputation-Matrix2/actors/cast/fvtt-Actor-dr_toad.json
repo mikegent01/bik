@@ -870,7 +870,15 @@
           "quote": "A Star Hill doctor who treated Luigi's burns after the lava-falls rescue, diagnosed pain-and-exhaustion delirium, and prescribed clean dressings, fluids, rest, and no adventuring.",
           "source": "article"
         }
-      ]
+      ],
+      "tags": [
+        "Mushroom Regency & Kingdom",
+        "npc",
+        "healer",
+        "humanoid",
+        "generated"
+      ],
+      "color": "#4169E1"
     }
   },
   "_stats": {

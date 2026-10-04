@@ -861,7 +861,15 @@
           "quote": "Remi had to hold her position with only her mechanical dog as backup.",
           "source": "article"
         }
-      ]
+      ],
+      "tags": [
+        "Disaster Inc.",
+        "npc",
+        "rogue",
+        "humanoid",
+        "generated"
+      ],
+      "color": "#D4A017"
     }
   },
   "_stats": {

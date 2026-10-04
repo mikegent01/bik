@@ -820,7 +820,15 @@
           "quote": "Worked him over with an enchanted broom, mounted it when he still would not name himself, and took him for the ride that ended with him unconscious, tied up, and out of jokes.",
           "source": "article"
         }
-      ]
+      ],
+      "tags": [
+        "Wario's Enterprise & WarioWare",
+        "npc",
+        "caster",
+        "humanoid",
+        "generated"
+      ],
+      "color": "#FFAC1C"
     }
   },
   "_stats": {

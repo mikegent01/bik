@@ -825,7 +825,15 @@
           "quote": "Leads the Menders' medical and trauma-care work.",
           "source": "article"
         }
-      ]
+      ],
+      "tags": [
+        "Liberated Toads",
+        "npc",
+        "healer",
+        "humanoid",
+        "generated"
+      ],
+      "color": "#87CEEB"
     }
   },
   "_stats": {

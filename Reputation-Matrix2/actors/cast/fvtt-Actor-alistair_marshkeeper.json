@@ -863,7 +863,15 @@
           "quote": "He inventories rooms, boosts his lord into ceilings, and stopped a rolling pin mid-swing on the hunch that the man under it was not the enemy.",
           "source": "article"
         }
-      ]
+      ],
+      "tags": [
+        "Dark Shores",
+        "npc",
+        "noble",
+        "humanoid",
+        "generated"
+      ],
+      "color": "#36454F"
     }
   },
   "_stats": {

@@ -864,7 +864,15 @@
           "quote": "Mustered into Hjumpik's battalion on the morning of 1 Aethel, 922 BF, he was the first of the six into the awakened shrub — carried the last three paces by Randall and running the rest himself, two kitchen knives in his",
           "source": "article"
         }
-      ]
+      ],
+      "tags": [
+        "Overgrown Manor",
+        "npc",
+        "civilian",
+        "humanoid",
+        "generated"
+      ],
+      "color": "#6B8E23"
     }
   },
   "_stats": {

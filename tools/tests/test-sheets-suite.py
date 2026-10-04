@@ -135,7 +135,8 @@ check("Salam: standard array, saves and class HP as recorded",
 check("Salam: the assumptions are written into the biography for the player", "Promoted from an NPC statblock" in salam["system"]["details"]["biography"]["value"])
 check("Salam: the NPC automation flag is gone", "5e-npc-combat-automation" not in salam["flags"])
 bowser = by_id["9u5pnP0zaqw8AQQv"][1]
-check("Bowser: the Darkland warlord statblock is untouched", read(mirror / "fvtt-Actor-bowser-warlord-of-darkland-d1qwl5RJ3yk6THBe.json")["type"] == "npc")
+warlord = next(iter(mirror.rglob("fvtt-Actor-bowser-warlord-of-darkland-d1qwl5RJ3yk6THBe.json")), None)
+check("Bowser: the Darkland warlord statblock is untouched (filed under Koopa Troop by the organizer)", warlord is not None and read(warlord)["type"] == "npc" and warlord.parent.name == "Koopa Troop")
 check("Bowser: the GM's duplicate became the intake PC sheet (Tortle Fighter 8)", any(it["type"] == "race" and it["name"] == "Tortle" for it in bowser["items"]))
 wario = by_id["dEhGeFofEfnIG24J"][1]
 check("Wario: Barbarian pinned to the ledger level, not the intake's guess", wario["system"]["details"]["xp"]["value"] == 18370 and xp["wario"]["level"] == 6)
@@ -180,6 +181,15 @@ helptext = subprocess.run([PY, str(ROOT / "start.py"), "--help"], cwd=ROOT, stdo
 check("start.py --help documents --sheets / --no-sheets", helptext.returncode == 0 and "--no-sheets" in helptext.stdout and "--sheets" in helptext.stdout)
 readme = (ROOT / "README.md").read_text(encoding="utf-8")
 check("README names the suite under start.py", "sheets-suite.py" in readme)
+
+# ---- the organize step: folders + tags the way the website sorts its cast ----
+suite_src = (ROOT / "tools/sheets-suite.py").read_text(encoding="utf-8")
+one_pass_src = suite_src[suite_src.find("def one_pass("):suite_src.find("# ----", suite_src.find("def one_pass("))]
+check("the pass organizes after promote + changes and before check / build / combine (so the index and packets see the new folders)",
+      suite.TOOLS.get("organize") == "tools/organize-actors.py"
+      and 0 < one_pass_src.find('TOOLS["promote"]]') < one_pass_src.find("step_changes(") < one_pass_src.find('TOOLS["organize"]') < one_pass_src.find('"check", mirror') < one_pass_src.find('TOOLS["build"]') < one_pass_src.find("step_combine("))
+check("--check runs the organizer read-only", '["--check"]' in one_pass_src.split('TOOLS["organize"]')[1].split("\n")[0])
+check("the scheme the organizer and combine read is committed", (ROOT / "Reputation-Matrix2/actors/folders.json").exists())
 
 # ---- Windows: a piped stdout is cp1252 there, and cp1252 cannot spell "→" ----
 # (the first run under start.py on Windows died twice on that arrow: the
@@ -230,9 +240,10 @@ with tempfile.TemporaryDirectory() as tmp:
     check("a dataPath in Config/options.json is tried before the default", cands[0] == os.path.join(tmp, "elsewhere", "Data") and cands[1] == data, cands)
 
     before, ver, changed = suite.install_module(data, True)
-    check("install_module copies the module into <Data>/modules/<id> (version from module.json)", before is None and ver == "1.3.0" and "module.json" in changed
+    MODULE_VERSION = json.loads((ROOT / "Reputation-Matrix2" / "Foundry" / "mass_import" / "module.json").read_text(encoding="utf-8"))["version"]
+    check("install_module copies the module into <Data>/modules/<id> (version from module.json)", before is None and ver == MODULE_VERSION and "module.json" in changed
           and os.path.exists(os.path.join(data, "modules", suite.MODULE_ID, "scripts", "mass-import.js")) and os.path.exists(os.path.join(data, "modules", suite.MODULE_ID, "macros", "sync-from-waluipedia.js")))
-    check("…a second install changes nothing; the version read back is the repo's", suite.install_module(data, True) == ("1.3.0", "1.3.0", []))
+    check("…a second install changes nothing; the version read back is the repo's", suite.install_module(data, True) == (MODULE_VERSION, MODULE_VERSION, []))
 
     # a fake checkout with a tiny world mirror + cast packet, so the paths/URLs in packets.json can be checked exactly
     froot = os.path.join(tmp, "bik")

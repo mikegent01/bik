@@ -816,7 +816,15 @@
           "quote": "Crossbones may be a punchline to jokesters, but to Waluigi he stands as testament to the enduring power of storytelling itself - even when that story is one of defeat and reinvention.",
           "source": "article"
         }
-      ]
+      ],
+      "tags": [
+        "The Underground",
+        "npc",
+        "monster",
+        "monstrosity",
+        "generated"
+      ],
+      "color": "#2F4F4F"
     }
   },
   "_stats": {

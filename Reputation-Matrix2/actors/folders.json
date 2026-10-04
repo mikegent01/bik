@@ -1,0 +1,175 @@
+{
+  "format": "waluipedia-folders/1",
+  "note": "How the Actors sidebar mirrors the website. tools/organize-actors.py files every actor of the world mirror by these rules (Players for the party, one folder per website group for every character the site knows, Bestiary / <creature type> for generic statblocks), writes the tags, and tools/foundry-bridge.py combine paints the folders. Colours come from data/factionColors.json where the site has one. Edit this file, never the actor files; `keep` lists folder trees the organizer never touches. `nameRules` route statblocks by name (Goomba → Koopa Troop); `folderRules` route the rest of a GM folder tree by path prefix (the manor adventure's named characters → Overgrown Manor); generic creatures fall through to Bestiary / <type>.",
+  "players": {
+    "folder": "Players",
+    "color": "#D4A017",
+    "description": "The party's own character sheets (the suite keeps them at the ledger level)."
+  },
+  "bestiary": {
+    "folder": "Bestiary",
+    "color": "#8B7355",
+    "description": "Statblocks the website has no article for, by creature type.",
+    "types": {
+      "aberration": "#5D3FD3",
+      "beast": "#556B2F",
+      "celestial": "#FFD700",
+      "construct": "#8B8682",
+      "dragon": "#B22222",
+      "elemental": "#20B2AA",
+      "fey": "#DA70D6",
+      "fiend": "#8B0000",
+      "giant": "#A0522D",
+      "humanoid": "#4682B4",
+      "monstrosity": "#CD5C5C",
+      "ooze": "#9ACD32",
+      "plant": "#228B22",
+      "undead": "#483D8B",
+      "other": "#8B7355"
+    }
+  },
+  "groups": {
+    "Disaster Inc.": {
+      "color": "#D4A017",
+      "faction": "disaster_inc",
+      "description": "The party and its hangers-on."
+    },
+    "Liberated Toads": {
+      "color": "#87CEEB",
+      "faction": "liberated_toads"
+    },
+    "Iron Legion": {
+      "color": "#ADB5BD",
+      "faction": "iron_legion"
+    },
+    "Gamma Division": {
+      "color": "#8A96A3",
+      "faction": "gamma_division"
+    },
+    "Trinity Academy": {
+      "color": "#F08080",
+      "faction": null
+    },
+    "Peach Loyalists": {
+      "color": "#FFDAB9",
+      "faction": "peach_loyalists"
+    },
+    "Mushroom Regency & Kingdom": {
+      "color": "#4169E1",
+      "faction": "mushroom_regency"
+    },
+    "Koopa Troop": {
+      "color": "#006400",
+      "faction": "koopa_troop"
+    },
+    "Fawful's Furious Freaks": {
+      "color": "#32CD32",
+      "faction": "fawfuls_furious_freaks"
+    },
+    "Fawthful's Forces": {
+      "color": "#3CB371",
+      "faction": null
+    },
+    "Nintendo Mania Studio": {
+      "color": "#FF6F61",
+      "faction": null
+    },
+    "Wario's Enterprise & WarioWare": {
+      "color": "#FFAC1C",
+      "faction": "wario_land"
+    },
+    "Mages' Guild": {
+      "color": "#8A2BE2",
+      "faction": "mages_guild"
+    },
+    "Shadow Estate & House Corvinarus": {
+      "color": "#8B0000",
+      "faction": "onyx_hand"
+    },
+    "Dreamland": {
+      "color": "#FFB7C5",
+      "faction": null
+    },
+    "The Underground": {
+      "color": "#2F4F4F",
+      "faction": "undertale_monsters"
+    },
+    "Snowdin Bone-Line": {
+      "color": "#B0E0E6",
+      "faction": "undertale_monsters"
+    },
+    "Kremling Krew & the Black Sugar Pirates": {
+      "color": "#808000",
+      "faction": "kremling_krew"
+    },
+    "Rakasha & the Feywild": {
+      "color": "#D2B48C",
+      "faction": "rakasha_clans"
+    },
+    "Dark Shores": {
+      "color": "#36454F",
+      "faction": null
+    },
+    "Overgrown Manor": {
+      "color": "#6B8E23",
+      "faction": null
+    },
+    "Millennium Science School": {
+      "color": "#00CED1",
+      "faction": null
+    },
+    "Elsewhere": {
+      "color": "#6C757D",
+      "faction": "unaligned",
+      "description": "Characters the site files under no faction."
+    }
+  },
+  "nameRules": {
+    "Koopa Troop": [
+      "goomba",
+      "koopa",
+      "koopatrol",
+      "hammer bro",
+      "magikoopa",
+      "bowser",
+      "shy guy",
+      "bob-omb",
+      "boo "
+    ],
+    "Mushroom Regency & Kingdom": [
+      "palace guard",
+      "palace heavy guard",
+      "palace night watch",
+      "palace veteran",
+      "castle chambermaid",
+      "toadsworth",
+      "princess peach",
+      "royal guard"
+    ],
+    "Mages' Guild": [
+      "mages' guild",
+      "mages guild"
+    ],
+    "Iron Legion": [
+      "iron legion",
+      "legionnaire"
+    ],
+    "Shadow Estate & House Corvinarus": [
+      "corvinarus",
+      "onyx "
+    ],
+    "Fawful's Furious Freaks": [
+      "fawful",
+      "cackletta",
+      "midbus"
+    ]
+  },
+  "folderRules": {
+    "Overgrown Manor": [
+      "A House Divided / Characters of"
+    ]
+  },
+  "keep": [
+    "Players"
+  ]
+}

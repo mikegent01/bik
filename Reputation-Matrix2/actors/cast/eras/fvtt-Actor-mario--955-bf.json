@@ -1477,6 +1477,14 @@
           "source": "article"
         }
       ],
+      "tags": [
+        "Mushroom Regency & Kingdom",
+        "pc",
+        "hero",
+        "generated",
+        "955 BF"
+      ],
+      "color": "#4169E1",
       "pc": {
         "level": 5,
         "class": "Monk",

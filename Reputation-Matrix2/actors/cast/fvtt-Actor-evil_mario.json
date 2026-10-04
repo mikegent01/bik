@@ -1337,6 +1337,13 @@
           "source": "article"
         }
       ],
+      "tags": [
+        "Nintendo Mania Studio",
+        "pc",
+        "boss",
+        "generated"
+      ],
+      "color": "#FF6F61",
       "pc": {
         "level": 4,
         "class": "Monk",

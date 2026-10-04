@@ -816,7 +816,15 @@
           "quote": "Needs Faction Review — XP Ledger Stub",
           "source": "title"
         }
-      ]
+      ],
+      "tags": [
+        "The Underground",
+        "npc",
+        "brute",
+        "monstrosity",
+        "generated"
+      ],
+      "color": "#2F4F4F"
     }
   },
   "_stats": {

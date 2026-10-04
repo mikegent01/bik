@@ -1044,6 +1044,13 @@
           "source": "article"
         }
       ],
+      "tags": [
+        "Mushroom Regency & Kingdom",
+        "pc",
+        "noble",
+        "generated"
+      ],
+      "color": "#4169E1",
       "pc": {
         "level": 3,
         "class": "Bard",

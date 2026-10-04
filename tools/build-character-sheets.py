@@ -1341,7 +1341,7 @@ GROUPS = [
     ("Liberated Toads", ["liberated toad", "pond patrol"]),
     ("Mushroom Regency & Kingdom", ["regency", "mushroom kingdom", "sarasaland", "royal science"]),
     ("Koopa Troop", ["koopa troop", "darkland", "bowser's castle"]),
-    ("Fawful's Furious Freaks", ["furious freaks", "beanbean"]),
+    ("Fawful's Furious Freaks", ["furious freaks", "beanbean", "fawful's forces"]),
     ("Fawthful's Forces", ["fawthful"]),
     ("Nintendo Mania Studio", ["nintendo mania", "studio"]),
     ("Wario's Enterprise & WarioWare", ["wario", "warioware", "diamond city"]),
@@ -1357,6 +1357,31 @@ GROUPS = [
     ("Overgrown Manor", ["overgrown manor", "manor household", "ruined manor"]),
     ("Millennium Science School", ["millennium", "science school"]),
 ]
+
+
+FOLDER_SCHEME = BRIDGE.load_folder_scheme()
+
+
+def sheet_tags(group, kind, role, type_value=None, extra=()):
+    """flags[waluipedia-sheets].tags — the chips the Mass Import module shows in
+    the Actors sidebar: website group, pc/npc, role, creature type, provenance."""
+    tags = [group, kind]
+    if role:
+        tags.append(str(role))
+    if kind == "npc" and type_value:
+        tags.append(str(type_value).lower())
+    tags.extend(extra)
+    out = []
+    for t in tags:
+        if t and t not in out:
+            out.append(t)
+    return out
+
+
+def group_color(group):
+    style = (FOLDER_SCHEME.get("groups") or {}).get(group) or {}
+    color = style.get("color")
+    return color.upper() if isinstance(color, str) else None
 
 
 def group_of(c, party):
@@ -1528,7 +1553,8 @@ def npc_doc(*, slug, c, name, img, size, sc, saves, trained, ac, hp, hp_formula,
         "flags": {
             MODULE_ID: {"folderPath": [FOLDER_ROOT, group], "source": SELF},
             SHEETS_FLAG: {"characterId": c["id"], "generated": True, "bespoke": bool(bespoke), "role": role,
-                          "ledger": {"level": level, "powerLevel": power}, "evidence": evidence},
+                          "ledger": {"level": level, "powerLevel": power}, "evidence": evidence,
+                          "tags": sheet_tags(group, "npc", role, type_value, ("generated",)), "color": group_color(group)},
         },
         "_stats": {"coreVersion": "14.365", "systemId": "dnd5e", "systemVersion": "5.3.3",
                    "compendiumSource": None, "duplicateSource": None},
@@ -1619,6 +1645,7 @@ def pc_doc(*, slug, c, name, img, size, sc, saves, trained, ac, hp, hp_formula, 
             MODULE_ID: {"folderPath": [FOLDER_ROOT, group], "source": SELF},
             SHEETS_FLAG: {"characterId": c["id"], "generated": True, "bespoke": True, "role": role,
                           "ledger": {"level": level, "powerLevel": power}, "evidence": evidence,
+                          "tags": sheet_tags(group, "pc", role, None, ("generated",)), "color": group_color(group),
                           "pc": {"level": pc_lvl, "class": cls, "subclass": sub if pc_lvl >= 3 else None,
                                  "cr": cr, "hitDie": f"d{die}", "formula": hp_formula}},
         },
@@ -1810,6 +1837,7 @@ def build_generated(c, xp, party, group, era=None):
                      group=group, evidence=evidence, role=role, level=level, power=power, build=build, pc_lvl=pc_lvl)
         if era:
             doc["flags"][SHEETS_FLAG]["era"] = {k: era[k] for k in ("version", "era", "label", "when")}
+            doc["flags"][SHEETS_FLAG]["tags"] = sheet_tags(group, "pc", role, None, ("generated", era["era"]))
             doc["flags"][MODULE_ID]["folderPath"] = [FOLDER_ROOT, group, era["era"]]
         return doc
     bio = biography(c, level, power, cr, role, evidence, bool(spec))

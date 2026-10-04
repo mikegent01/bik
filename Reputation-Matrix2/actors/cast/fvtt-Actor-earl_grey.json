@@ -915,7 +915,15 @@
           "quote": "The hat—custom made, carefully maintained, one of Waluigi's most treasured possessions—was SPLATTERED.",
           "source": "article"
         }
-      ]
+      ],
+      "tags": [
+        "Elsewhere",
+        "npc",
+        "soldier",
+        "humanoid",
+        "generated"
+      ],
+      "color": "#6C757D"
     }
   },
   "_stats": {

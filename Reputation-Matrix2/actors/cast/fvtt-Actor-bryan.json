@@ -1093,6 +1093,13 @@
           "source": "article"
         }
       ],
+      "tags": [
+        "Elsewhere",
+        "pc",
+        "priest",
+        "generated"
+      ],
+      "color": "#6C757D",
       "pc": {
         "level": 3,
         "class": "Cleric",

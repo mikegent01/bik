@@ -816,7 +816,15 @@
           "quote": "The Princess Of The Front Row",
           "source": "title"
         }
-      ]
+      ],
+      "tags": [
+        "Trinity Academy",
+        "npc",
+        "student",
+        "humanoid",
+        "generated"
+      ],
+      "color": "#F08080"
     }
   },
   "_stats": {

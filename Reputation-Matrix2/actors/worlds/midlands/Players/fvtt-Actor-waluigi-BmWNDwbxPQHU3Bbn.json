@@ -8081,7 +8081,12 @@
         "xpKey": "waluigi",
         "xp": 11911,
         "level": 5
-      }
+      },
+      "tags": [
+        "Disaster Inc.",
+        "pc"
+      ],
+      "color": "#D4A017"
     }
   },
   "_stats": {

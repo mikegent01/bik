@@ -910,7 +910,15 @@
           "quote": "Mages' Guild (Senior Enforcer)",
           "source": "article"
         }
-      ]
+      ],
+      "tags": [
+        "Mages' Guild",
+        "npc",
+        "caster",
+        "humanoid",
+        "generated"
+      ],
+      "color": "#8A2BE2"
     }
   },
   "_stats": {

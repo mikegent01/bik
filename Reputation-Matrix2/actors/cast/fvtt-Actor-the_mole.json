@@ -820,7 +820,15 @@
           "quote": "Seventh Seat, Iron Legion Spy, Defected Day 16",
           "source": "title"
         }
-      ]
+      ],
+      "tags": [
+        "Liberated Toads",
+        "npc",
+        "rogue",
+        "humanoid",
+        "generated"
+      ],
+      "color": "#87CEEB"
     }
   },
   "_stats": {

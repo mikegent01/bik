@@ -1266,6 +1266,13 @@
           "source": "article"
         }
       ],
+      "tags": [
+        "The Underground",
+        "pc",
+        "boss",
+        "generated"
+      ],
+      "color": "#2F4F4F",
       "pc": {
         "level": 2,
         "class": "Paladin",

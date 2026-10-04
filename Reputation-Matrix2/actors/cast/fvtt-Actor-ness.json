@@ -820,7 +820,15 @@
           "quote": "He was among the first to recognize that the anomalies around Mount Ebott are not ordinary Underground magic but something structural — doors, he says, in a house with too many walls.",
           "source": "article"
         }
-      ]
+      ],
+      "tags": [
+        "Snowdin Bone-Line",
+        "npc",
+        "caster",
+        "monstrosity",
+        "generated"
+      ],
+      "color": "#B0E0E6"
     }
   },
   "_stats": {

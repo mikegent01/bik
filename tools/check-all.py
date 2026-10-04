@@ -124,6 +124,11 @@ def main() -> int:
         # NPC statblocks) at ledger XP, the spoils files are scoped to their
         # export, the suite start.py runs passes its read-only check.
         ("player sheets promoted + ledger XP", [py, "tools/promote-player-sheets.py", "--check"], ROOT),
+        # The mirror is sorted the way the website organizes its cast (folders
+        # from actors/folders.json, tags + colours on every actor) and the
+        # organizer's rules, the identifier hygiene and the folder colours hold.
+        ("actors organized like the website", [py, "tools/organize-actors.py", "--check", "--quiet"], ROOT),
+        ("organize actors", [py, "tools/tests/test-organize-actors.py"], ROOT),
         ("character sheet suite", [py, "tools/tests/test-sheets-suite.py"], ROOT),
         # Judgement in the Grove: the event, its battle, and the front-page
         # wiring (latestUpdate/featured/Current fronts/SITE_UPDATES) all come

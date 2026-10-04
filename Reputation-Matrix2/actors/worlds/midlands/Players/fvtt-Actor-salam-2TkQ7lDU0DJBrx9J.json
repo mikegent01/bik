@@ -1773,7 +1773,12 @@
         "xpKey": "salam",
         "xp": 2220,
         "level": 3
-      }
+      },
+      "tags": [
+        "Disaster Inc.",
+        "pc"
+      ],
+      "color": "#D4A017"
     }
   },
   "_stats": {

@@ -820,7 +820,15 @@
           "quote": "She and Ana followed because their friends ran into danger; Wario yelled because that is his love language when someone makes the correct stupid decision before he approves it.",
           "source": "article"
         }
-      ]
+      ],
+      "tags": [
+        "Wario's Enterprise & WarioWare",
+        "npc",
+        "rogue",
+        "humanoid",
+        "generated"
+      ],
+      "color": "#FFAC1C"
     }
   },
   "_stats": {

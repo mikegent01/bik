@@ -705,6 +705,21 @@ if (process.env.WMI_EXPORT) {
   check('real export: a second import writes nothing at all (every actor unchanged, no actor or item update calls)', r2.unchanged === n && r2.updated.every((u) => u.changed === false) && game.actors.contents.every((a) => a.updates === 0 && !a.embeddedUpdates), `${r2.unchanged}/${n} unchanged; ${r2.updated.filter((u) => u.changed).slice(0, 3).map((u) => u.actor).join(', ')}`);
   check('real export: image check runs over every path without throwing', r3.failed.length === 0);
   console.log(`real export: ${n} actors, ${game.folders.size} folders created, ${r3.missingImages.length} image paths not on the (fake) server, ${Date.now() - t0} ms`);
+  // WMI_PACKET=Reputation-Matrix2/actors/worlds/midlands/import.json — the suite's organized packet on top of the GM's world
+  if (process.env.WMI_PACKET) {
+    const packet = JSON.parse(fs.readFileSync(process.env.WMI_PACKET, 'utf8'));
+    const r4 = await mod.importPayload(packet, { checkImages: false, progress: false });
+    const moved = r4.updated.filter((u) => u.changed).length;
+    const coloured = game.folders.contents.filter((f) => f.color).length;
+    check(`real packet: imports over the real world without failures (${r4.created.length} created, ${r4.updated.length} updated, ${r4.replaced.length} replaced)`, r4.failed.length === 0, JSON.stringify(r4.failed.slice(0, 3)));
+    const eagerLive = game.actors.contents.find((a) => a.name === 'Eager');
+    const badLeft = eagerLive ? eagerLive.items.contents.map((i) => i.toObject().system?.identifier).filter((v) => typeof v === 'string' && v && !/^[a-z0-9_-]+$/i.test(v)) : ['no Eager'];
+    check('real packet: the identifiers the players broke are valid in the world afterwards (the suite repaired the packet; the diff update carried them over)', badLeft.length === 0 && r4.repaired.length === 0, badLeft.join());
+    check('real packet: the website folders exist and are coloured', coloured >= 20 && game.folders.contents.some((f) => f.name === 'Bestiary' && f.color) && game.folders.contents.some((f) => f.name === 'Koopa Troop' && f.color === '#006400'), `${coloured} coloured`);
+    const r5 = await mod.importPayload(packet, { checkImages: false, progress: false });
+    check('real packet: a second import of the same packet changes nothing', r5.unchanged === r5.updated.length && r5.created.length === 0 && r5.failed.length === 0, mod.summarize(r5));
+    console.log(`real packet: ${r4.created.length} created, ${moved} changed, ${r4.replaced.length} replaced, ${r4.foldersCreated.length} folders, ${coloured} coloured, ${mod.summarize(r5)}`);
+  }
 }
 
 console.log(`mass import module: ${ok.length} ok, ${fail.length} failed`);

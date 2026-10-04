@@ -871,7 +871,15 @@
           "quote": "Toad (field-called the Black Bear)",
           "source": "article"
         }
-      ]
+      ],
+      "tags": [
+        "Peach Loyalists",
+        "npc",
+        "soldier",
+        "humanoid",
+        "generated"
+      ],
+      "color": "#FFDAB9"
     }
   },
   "_stats": {

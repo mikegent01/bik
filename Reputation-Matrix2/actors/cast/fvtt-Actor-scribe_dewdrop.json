@@ -818,7 +818,15 @@
           "quote": "As archivist and fact-checker, Dewdrop operates with meticulous precision, cross-referencing accounts, scrutinizing evidence, and refusing to accept plausible deniability at face value.",
           "source": "article"
         }
-      ]
+      ],
+      "tags": [
+        "Liberated Toads",
+        "npc",
+        "noble",
+        "humanoid",
+        "generated"
+      ],
+      "color": "#87CEEB"
     }
   },
   "_stats": {

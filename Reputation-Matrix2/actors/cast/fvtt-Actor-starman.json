@@ -821,7 +821,15 @@
           "quote": "It stood in the air like a fact, gray-white and steady, and beside it, a gray figure, silent, already turning to walk into the storm as if the walking had been agreed on long ago.",
           "source": "article"
         }
-      ]
+      ],
+      "tags": [
+        "Snowdin Bone-Line",
+        "npc",
+        "soldier",
+        "monstrosity",
+        "generated"
+      ],
+      "color": "#B0E0E6"
     }
   },
   "_stats": {

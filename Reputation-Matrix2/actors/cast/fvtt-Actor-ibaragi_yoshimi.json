@@ -816,7 +816,15 @@
           "quote": "The One Who Finished Page Six",
           "source": "title"
         }
-      ]
+      ],
+      "tags": [
+        "Trinity Academy",
+        "npc",
+        "student",
+        "humanoid",
+        "generated"
+      ],
+      "color": "#F08080"
     }
   },
   "_stats": {

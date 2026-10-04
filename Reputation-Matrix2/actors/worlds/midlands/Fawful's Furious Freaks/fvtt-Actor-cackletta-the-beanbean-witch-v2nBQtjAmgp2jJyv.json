@@ -1,0 +1,1470 @@
+{
+  "name": "Cackletta, the Beanbean Witch",
+  "type": "npc",
+  "_id": "v2nBQtjAmgp2jJyv",
+  "img": "npc/tripplet.webp",
+  "system": {
+    "abilities": {
+      "str": {
+        "value": 10,
+        "proficient": 0,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "max": null,
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "dex": {
+        "value": 16,
+        "proficient": 1,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "max": null,
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "con": {
+        "value": 18,
+        "proficient": 1,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "max": null,
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "int": {
+        "value": 20,
+        "proficient": 1,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "max": null,
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "wis": {
+        "value": 16,
+        "proficient": 1,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "max": null,
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "cha": {
+        "value": 18,
+        "proficient": 1,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "max": null,
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      }
+    },
+    "attributes": {
+      "ac": {
+        "flat": 18,
+        "calc": "natural",
+        "formula": ""
+      },
+      "hp": {
+        "value": 180,
+        "max": 180,
+        "formula": "20d8 + 80",
+        "temp": null,
+        "tempmax": null
+      },
+      "movement": {
+        "walk": "30",
+        "units": "ft",
+        "fly": "40",
+        "hover": true,
+        "ignoredDifficultTerrain": []
+      },
+      "senses": {
+        "units": "ft",
+        "ranges": {
+          "darkvision": 120
+        },
+        "special": ""
+      },
+      "init": {
+        "ability": "",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonus": ""
+      },
+      "attunement": {
+        "max": 3
+      },
+      "spellcasting": "",
+      "exhaustion": 0,
+      "concentration": {
+        "ability": "",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "save": ""
+        },
+        "limit": 1
+      },
+      "loyalty": {},
+      "hd": {
+        "spent": 0
+      },
+      "death": {
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "success": 0,
+        "failure": 0,
+        "bonuses": {
+          "save": ""
+        }
+      },
+      "price": {
+        "value": null,
+        "denomination": "gp"
+      },
+      "spell": {
+        "level": 0
+      }
+    },
+    "details": {
+      "alignment": "neutral evil",
+      "type": {
+        "value": "undead",
+        "subtype": "beanish (soul-bound revenant)"
+      },
+      "cr": 14,
+      "biography": {
+        "value": "<h1>Cackletta — The Witch Who Refused to Stay Dead</h1><p>Cackletta was supposed to be finished. The Beanbean Kingdom Crisis of 1012 BF ended with her defeat at the hands of Mario and Luigi—the brothers working as genuine partners for the first time, their combined abilities destroying a witch whose individual power exceeded either of them alone. Her body was destroyed. Her spirit was dispersed. Her plans for the Beanstar were undone. Fawful escaped. History moved on. Everyone agreed that Cackletta was dead in the specific, permanent, irreversible way that defeated villains are supposed to be dead.</p><p>Everyone was wrong.</p><p>Cackletta's death was not the clean elimination that official records describe. Beanish witchcraft operates on principles that the Mages' Guild's magical taxonomy doesn't adequately categorize—not arcane, not divine, not primal, but something older that predates the classifications themselves. Beanish witches don't store their power in their bodies the way conventional spellcasters do. They distribute it across networks of enchanted objects, bound spirits, and sympathetic connections that persist after physical death. Destroying the body destroys the PRIMARY vessel but doesn't eliminate the distributed network. The network persists. The connections persist. And given enough time, enough ambient magical energy, and enough of the specific kind of hatred that transcends mortality, the network can reconstruct what was destroyed.</p><p>Cackletta has been reconstructing for twenty-eight years. Not physically—she doesn't have a body yet, and the reconstruction process has been slower and more painful than she anticipated. She exists as a soul-bound consciousness distributed across the remnants of her enchantment network, anchored to the Beanbean Kingdom's magical infrastructure through connections that the kingdom's current rulers don't know exist. She perceives the world through the objects she enchanted decades ago: mirrors in the palace, statues in the capital, the Beanstar itself (which was never fully cleansed of her influence despite the kingdom's best efforts). She sees fragments. She hears echoes. She knows enough to be angry and not enough to act on that anger directly.</p><p>What Cackletta wants is simple and absolute: revenge against the brothers who destroyed her, restoration of the power she lost, and completion of the plan that the Beanbean Crisis interrupted. The plan involved the Beanstar—an artifact of wish-granting power that Cackletta intended to activate using Princess Peach's voice as a resonant catalyst. The voice theft was not random cruelty; it was a specific magical requirement that Cackletta's research identified as necessary for Beanstar activation. Without the voice, the Beanstar cannot be fully awakened. With it, the Beanstar grants wishes of cosmic scope—the kind of wishes that reshape kingdoms, rewrite histories, and transform failed witches into something that cannot be defeated again.</p><p>The twenty-eight years of reconstruction have changed Cackletta in ways that living witches don't experience. Existing as distributed consciousness for decades has given her perspective on the magical architecture of the region that physical beings cannot access—she has perceived the dimensional barriers from WITHIN them, felt the Chaos Heart Crisis's damage to planar structure from a position where planes overlap, and watched the Star Shards' cosmic influence from the spaces between realities where scattered souls drift. She understands things about the current crisis that no other entity understands, because no other entity has spent twenty-eight years observing reality from the gaps in reality's structure.</p><p>Her relationship with Fawful has evolved during her discorporation. She was his mistress. He was her assistant. The hierarchy was absolute and unquestioned during the Beanbean Crisis—Fawful served because Cackletta commanded, and the arrangement worked because Fawful's genius required direction that his emotional instability couldn't provide independently. But Fawful has spent twenty-eight years becoming something that doesn't need direction anymore. He has built an empire. He has allied with dragons. He has consumed a Dark Star fragment. He has become, in every measurable way, more powerful and more dangerous than Cackletta was at her peak.</p><p>Cackletta knows this. She has watched through her distributed network as her former assistant surpassed her, and the watching has produced an emotion that combines pride (she trained him), resentment (he exceeded her), and a specific kind of terror (if he realizes she's reconstructing and decides he prefers her dead, she cannot defend herself). Fawful's \"completion\" may or may not involve Cackletta. If it does, she might be restored to physical form through his efforts. If it doesn't, she might be a loose end that his completion is designed to permanently eliminate.</p><p>The party may encounter Cackletta's influence without encountering Cackletta directly. Her distributed consciousness can affect enchanted objects she's connected to—mirrors that show things they shouldn't, statues that whisper, reflections that don't match the reflected. She can communicate through these connections, delivering messages that sound like the building itself is speaking. She can manipulate perceptions in small ways—making corridors seem longer, making rooms seem emptier, making allies seem slightly untrustworthy through adjustments to shadow and sound that operate below conscious awareness.</p><p>If the party encounters a Beanbean-origin magical object—something connected to Cackletta's original enchantment network—they are within her reach. Whether her reach is helpful, harmful, or something more complicated depends on whether their objectives align with hers. Cackletta will help anyone who might lead her to Fawful, to the Beanstar, or to a physical vessel she can inhabit. She will hinder anyone who threatens her reconstruction or who serves interests she considers opposed to her restoration. And she will observe everyone, constantly, through every connected object, building understanding of a world she can perceive but cannot yet touch.</p>",
+        "public": "She isn't here. She's in the mirrors, in the statues, in the enchanted objects that nobody thought to cleanse. She's watching through glass that was never just glass. She's been watching for twenty-eight years."
+      },
+      "race": "Beanish (Soul-Bound Revenant)",
+      "ideal": "",
+      "bond": "",
+      "flaw": "",
+      "habitat": {
+        "value": [],
+        "custom": ""
+      },
+      "treasure": {
+        "value": []
+      }
+    },
+    "traits": {
+      "size": "med",
+      "languages": {
+        "value": [
+          "common",
+          "beanish",
+          "sylvan",
+          "deep speech",
+          "abyssal"
+        ],
+        "custom": "",
+        "communication": {}
+      },
+      "ci": {
+        "value": [
+          "charmed",
+          "exhaustion",
+          "frightened",
+          "paralyzed",
+          "poisoned",
+          "stunned"
+        ],
+        "custom": ""
+      },
+      "di": {
+        "value": [
+          "poison",
+          "necrotic"
+        ],
+        "custom": "",
+        "bypasses": []
+      },
+      "dr": {
+        "value": [
+          "acid",
+          "cold",
+          "fire",
+          "lightning",
+          "thunder",
+          "bludgeoning",
+          "piercing",
+          "slashing"
+        ],
+        "custom": "",
+        "bypasses": []
+      },
+      "dv": {
+        "value": [
+          "radiant"
+        ],
+        "custom": "",
+        "bypasses": []
+      },
+      "dm": {
+        "amount": {},
+        "bypasses": []
+      },
+      "important": false
+    },
+    "skills": {
+      "arc": {
+        "value": 2,
+        "ability": "int",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "dec": {
+        "value": 2,
+        "ability": "cha",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "his": {
+        "value": 2,
+        "ability": "int",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "ins": {
+        "value": 2,
+        "ability": "wis",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "prc": {
+        "value": 2,
+        "ability": "wis",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      }
+    },
+    "source": {
+      "custom": "Custom NPC",
+      "revision": 1,
+      "rules": "2024"
+    },
+    "currency": {
+      "pp": 0,
+      "gp": 0,
+      "ep": 0,
+      "sp": 0,
+      "cp": 0
+    },
+    "bonuses": {
+      "mwak": {
+        "attack": "",
+        "damage": ""
+      },
+      "rwak": {
+        "attack": "",
+        "damage": ""
+      },
+      "msak": {
+        "attack": "",
+        "damage": ""
+      },
+      "rsak": {
+        "attack": "",
+        "damage": ""
+      },
+      "abilities": {
+        "check": "",
+        "save": "",
+        "skill": ""
+      },
+      "spell": {
+        "dc": ""
+      }
+    },
+    "tools": {},
+    "spells": {
+      "spell1": {
+        "value": 0
+      },
+      "spell2": {
+        "value": 0
+      },
+      "spell3": {
+        "value": 0
+      },
+      "spell4": {
+        "value": 0
+      },
+      "spell5": {
+        "value": 0
+      },
+      "spell6": {
+        "value": 0
+      },
+      "spell7": {
+        "value": 0
+      },
+      "spell8": {
+        "value": 0
+      },
+      "spell9": {
+        "value": 0
+      },
+      "pact": {
+        "value": 0
+      }
+    },
+    "resources": {
+      "legact": {
+        "max": 0,
+        "spent": 0
+      },
+      "legres": {
+        "max": 0,
+        "spent": 0
+      },
+      "lair": {
+        "value": false,
+        "initiative": null,
+        "inside": false
+      }
+    }
+  },
+  "prototypeToken": {
+    "name": "Cackletta, the Beanbean Witch",
+    "displayName": 0,
+    "actorLink": false,
+    "width": 1,
+    "height": 1,
+    "depth": 1,
+    "texture": {
+      "src": "npc/tripplet.webp",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "fit": "contain",
+      "scaleX": 1,
+      "scaleY": 1,
+      "tint": "#ffffff",
+      "alphaThreshold": 0.75
+    },
+    "lockRotation": false,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 0,
+    "bar1": {
+      "attribute": "attributes.hp"
+    },
+    "bar2": {
+      "attribute": null
+    },
+    "light": {
+      "negative": false,
+      "priority": 0,
+      "alpha": 0.5,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      }
+    },
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": {},
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 1,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null,
+    "flags": {},
+    "randomImg": false,
+    "appendNumber": false,
+    "prependAdjective": false
+  },
+  "items": [
+    {
+      "name": "Distributed Consciousness (Current State)",
+      "type": "feat",
+      "img": "icons/magic/perception/eye-ringed-glow-angry-large-teal.webp",
+      "system": {
+        "description": {
+          "value": "<p>Cackletta does not currently possess a physical body. She exists as a consciousness distributed across her surviving enchantment network—objects she enchanted before her defeat that retain enough of her magical signature to serve as anchor points for her soul. This state provides extraordinary perception and near-total invulnerability, but prevents direct physical action.</p><p>Through her network, Cackletta can perceive the surroundings of any enchanted object she's connected to within a 30-foot radius. She can simultaneously monitor multiple objects across vast distances, giving her awareness that spans the Beanbean Kingdom and potentially extends into Mushroom Kingdom territory where Beanbean-origin objects have been traded, stolen, or abandoned. She sees fragments rather than complete pictures—a mirror shows what's in front of it, a statue perceives its immediate environment, the Beanstar provides flashes of cosmic awareness that are overwhelming rather than useful.</p><p>Cackletta cannot be targeted by conventional attacks, spells, or effects while in this state. She has no physical form to damage. Destroying one of her anchor objects reduces her network's coverage but doesn't harm her consciousness—it simply forces redistribution across remaining anchors. Destroying ALL her anchor objects would finally kill her permanently, but identifying every enchanted object she's connected to across two kingdoms and twenty-eight years of magical residue would require resources that nobody currently possesses.</p><p>The vulnerability of this state is inability to act physically. Cackletta can observe, communicate, and make minor environmental modifications (shadows moving wrong, sounds distorting slightly, perceptions being nudged), but she cannot cast spells, attack enemies, or interact with the physical world in ways that produce meaningful force. She needs a body—or a vessel, or a host—to become an active participant rather than a passive observer.</p>",
+          "chat": "<p>She is everywhere her mirrors see, everywhere her statues stand, everywhere an object she touched twenty-eight years ago still carries her fingerprint. She cannot touch you. She can watch you. For now, watching is all she has.</p>"
+        },
+        "activities": {},
+        "uses": {
+          "spent": 0,
+          "recovery": []
+        },
+        "advancement": {},
+        "identifier": "",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false
+        },
+        "properties": [],
+        "requirements": "",
+        "type": {
+          "value": "",
+          "subtype": ""
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1790388178501,
+        "modifiedTime": 1790388178501,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_id": "ccq0lOcoUMr0dHuR",
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "name": "Whisper Through Objects",
+      "type": "feat",
+      "img": "icons/magic/sonic/explosion-impact-shock-wave.webp",
+      "system": {
+        "description": {
+          "value": "<p>Cackletta can communicate through any enchanted object in her network, producing sounds that seem to originate from the object itself—whispers from mirrors, murmurs from statues, barely audible words from enchanted jewelry or tools. The communication requires a creature to be within 10 feet of the anchor object and produces sound that only the targeted creature can hear (others perceive faint, indistinct noise but cannot make out words).</p><p>The whispers are Cackletta's primary tool for influencing events she cannot physically affect. She can provide information (accurate, though filtered through her own interests), offer deals (she has knowledge to trade for assistance with her restoration), issue threats (difficult to enforce without a body, but the knowledge that a dead witch is watching you through every mirror is itself unsettling enough to modify behavior), and manipulate (planting ideas and emotional responses through carefully chosen words that target discovered vulnerabilities).</p><p>A creature that hears Cackletta's whispers must succeed on a DC 17 Wisdom saving throw or be unsettled—disadvantage on Wisdom checks for 1 hour as the experience of being spoken to by a dead witch through a decorative mirror disrupts cognitive stability. Creatures that succeed on the save are immune to the unsettling effect for 24 hours but can still hear and converse with Cackletta normally.</p>",
+          "chat": "<p>The mirror whispers. The statue murmurs. Somewhere in the glass and stone, a voice that should have been silent for twenty-eight years says your name and knows more about you than you'd like.</p>"
+        },
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "utility",
+            "activation": {
+              "type": "action",
+              "value": 1,
+              "condition": "",
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "concentration": false,
+              "units": "inst",
+              "special": "",
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "units": "self",
+              "special": "",
+              "override": false
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "",
+                "type": "",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "roll": {
+              "formula": "",
+              "name": "",
+              "prompt": false,
+              "visible": false
+            },
+            "img": null,
+            "sort": 0,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "otherActivityId": null,
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityAsParentType": true
+          }
+        },
+        "uses": {
+          "spent": 0,
+          "recovery": [],
+          "max": ""
+        },
+        "advancement": {},
+        "identifier": "",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false,
+          "level": null
+        },
+        "properties": [],
+        "requirements": "",
+        "type": {
+          "value": "",
+          "subtype": ""
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1790388178501,
+        "modifiedTime": 1790393305705,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {
+        "dnd5e": {
+          "persistSourceMigration": true
+        }
+      },
+      "_id": "CZzFKgdDmjrujrse",
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "name": "Perception Manipulation (Minor)",
+      "type": "feat",
+      "img": "icons/magic/control/silhouette-hold-beam-blue.webp",
+      "system": {
+        "description": {
+          "value": "<p>Through her anchor objects, Cackletta can make subtle modifications to the perceptions of creatures within 30 feet. These modifications are subliminal—they operate below conscious awareness, adjusting what people see, hear, and feel without producing effects obvious enough to trigger suspicion. Shadows lean wrong. Sounds arrive from slightly incorrect directions. Allies' expressions seem slightly hostile when viewed in peripheral vision. Corridors feel longer than they are. Rooms feel emptier than they should. The modifications don't create illusions—they adjust real perceptions in ways that produce emotional responses without generating verifiable evidence of tampering.</p><p>Once per hour per anchor object, Cackletta can attempt a more substantial manipulation: making one creature within 30 feet of the object believe it heard, saw, or felt something specific. The target must succeed on a DC 17 Wisdom saving throw or accept the false perception as genuine for 1 round. The perception must be plausible—Cackletta can make someone think they heard a footstep behind them but not make them think a dragon appeared in the room. The purpose is distraction, misdirection, and the gradual erosion of trust between allies who start perceiving threats that only they can detect.</p>",
+          "chat": "<p>The shadow falls wrong. The sound comes from the wrong direction. Something about the room feels slightly off in ways you can't quite identify. She's adjusting reality's presentation, one perception at a time.</p>"
+        },
+        "activities": {},
+        "uses": {
+          "spent": 0,
+          "recovery": []
+        },
+        "advancement": {},
+        "identifier": "",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false
+        },
+        "properties": [],
+        "requirements": "",
+        "type": {
+          "value": "",
+          "subtype": ""
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1790388178501,
+        "modifiedTime": 1790388178501,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_id": "cH7v3zHJEAaqiatS",
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "name": "Soul Projection (Costly)",
+      "type": "feat",
+      "img": "icons/magic/unholy/hand-light-green.webp",
+      "system": {
+        "description": {
+          "value": "<p>Once per day, Cackletta can project a visible manifestation of herself from a single anchor object—a ghostly, translucent image of the Beanbean Witch as she appeared in life, hovering near the object with enough substance to be perceived by all creatures within 60 feet. The projection lasts for up to 10 minutes and allows Cackletta to communicate openly, make gestures, display emotional expressions, and generally interact as though she were physically present.</p><p>The projection cannot physically interact with the environment—it cannot touch, attack, carry objects, or affect anything material. It can, however, cast one spell per projection: a single spell from Cackletta's known spell list, delivered through the projection as though Cackletta were physically present at that location. The spell uses her statistics and save DCs. After casting, the projection immediately dissipates as the energy expenditure exceeds what her distributed state can sustain.</p><p>Using Soul Projection costs Cackletta a portion of her reconstructive progress. Each use delays her eventual physical restoration by approximately one week. She uses the ability sparingly and only when the tactical or strategic value of direct interaction exceeds the cost of delayed restoration. This limitation means the party might encounter the projection once or twice, but frequent contact is unsustainable for Cackletta's recovery timeline.</p>",
+          "chat": "<p>She appears—translucent, flickering, recognizable to anyone who knows what the Beanbean Witch looked like in life. She is here, briefly, at cost, for purposes she considers worth the price.</p>"
+        },
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "utility",
+            "activation": {
+              "type": "action",
+              "value": 1,
+              "condition": "",
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "concentration": false,
+              "units": "inst",
+              "special": "",
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "units": "self",
+              "special": "",
+              "override": false
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "",
+                "type": "",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "roll": {
+              "formula": "",
+              "name": "",
+              "prompt": false,
+              "visible": false
+            },
+            "img": null,
+            "sort": 0,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "otherActivityId": null,
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityAsParentType": true
+          }
+        },
+        "uses": {
+          "spent": 0,
+          "recovery": [],
+          "max": ""
+        },
+        "advancement": {},
+        "identifier": "",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false,
+          "level": null
+        },
+        "properties": [],
+        "requirements": "",
+        "type": {
+          "value": "",
+          "subtype": ""
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1790388178501,
+        "modifiedTime": 1790393309315,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {
+        "dnd5e": {
+          "persistSourceMigration": true
+        }
+      },
+      "_id": "zlacMz1lc5QWWtpY",
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "name": "Known Spells (Soul Projection Only)",
+      "type": "feat",
+      "img": "icons/magic/symbols/arrowhead-green.webp",
+      "system": {
+        "description": {
+          "value": "<p>When using Soul Projection, Cackletta can cast one of the following spells before the projection dissipates. These spells represent the remnants of her living magical repertoire, reduced by her distributed state to single-use capability per manifestation:</p><p><strong>Lightning Strike:</strong> A bolt of green lightning targets one creature within 120 feet. The target must make a DC 18 Dexterity saving throw, taking 8d8 lightning damage on a failure or half on a success. The lightning is green—Cackletta's signature color—and leaves a lingering ozone smell that persists for hours.</p><p><strong>Voice Theft:</strong> Cackletta targets one creature within 30 feet that she can see. The target must succeed on a DC 18 Charisma saving throw or lose the ability to speak for 24 hours. The stolen voice manifests as a visible wisp of energy that flows into Cackletta's projection before the projection dissipates. The voice theft was Cackletta's original plan for Peach—stealing the voice needed to activate the Beanstar. She retains the capability and the intent.</p><p><strong>Possession Attempt:</strong> Cackletta attempts to possess a creature within 5 feet of her projection. The target must succeed on a DC 18 Charisma saving throw or be possessed by Cackletta for up to 1 hour. While possessed, Cackletta controls the target's body and has access to its physical capabilities but not its memories or skills beyond basic motor function. The possession ends if the target takes damage equal to or exceeding half its hit point maximum. A successful possession gives Cackletta temporary physical form—the vessel she desperately needs—though the possession is temporary and the host retains no memory of events during possession.</p><p><strong>Beanstar Resonance:</strong> Cackletta sends a pulse of energy toward the Beanstar's location, regardless of distance. The pulse doesn't affect the Beanstar directly but serves as a beacon that reveals the Beanstar's current position to Cackletta with pinpoint accuracy for 24 hours. She uses this to track the artifact she needs to complete her original plan.</p>",
+          "chat": "<p>One spell. One chance. She's been saving it for twenty-eight years. Whatever she casts, she means it.</p>"
+        },
+        "activities": {},
+        "uses": {
+          "spent": 0,
+          "recovery": [],
+          "max": ""
+        },
+        "advancement": {},
+        "identifier": "",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false,
+          "level": null
+        },
+        "properties": [],
+        "requirements": "",
+        "type": {
+          "value": "",
+          "subtype": ""
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1790388178501,
+        "modifiedTime": 1790393287956,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_id": "yAR6YUxgtNkJgpVF",
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "name": "The Beanstar Connection",
+      "type": "feat",
+      "img": "icons/magic/light/explosion-star-glow-yellow.webp",
+      "system": {
+        "description": {
+          "value": "<p>Cackletta's connection to the Beanstar—the wish-granting artifact at the center of the Beanbean Kingdom Crisis—has persisted through her death and reconstruction. The Beanstar was never fully cleansed of her influence because cleansing Beanstar-level artifacts requires understanding that the Beanbean Kingdom's current scholars don't possess. The connection is weak—Cackletta can sense the Beanstar's general location and emotional state (Beanstars have emotional states, which is something that disturbs scholars who study them) but cannot manipulate it directly from her distributed state.</p><p>The Beanstar is essential to Cackletta's ultimate objective. Activated with the proper resonant catalyst—Princess Peach's voice was the original plan, though Cackletta has spent twenty-eight years considering alternatives—the Beanstar grants wishes of cosmic scope. Cackletta's wish has not changed since 1012: full physical restoration, power that exceeds what she possessed in life, and protection against the kind of defeat that the Mario Brothers inflicted. She wants to come back BETTER, and she wants to ensure she never dies again.</p><p>Whether the Beanstar connection is relevant to the current crisis depends on whether the artifact is accessible and whether Cackletta can obtain the resonant catalyst she needs. Peach's voice is no longer available—the original Peach is dead. But the secret child, if one exists, might carry vocal properties inherited from the mother. The Rakasha bloodline that Thornpaw introduced might produce harmonic frequencies that substitute for pure Peach-lineage voice. Or the dimensional instability at Raventree Manor might produce conditions where the Beanstar can be activated through alternative methods that stable dimensions wouldn't allow.</p>",
+          "chat": "<p>The Beanstar waits. It waited during her life. It waited during her death. It will wait during her reconstruction. But eventually, waiting ends and wishing begins.</p>"
+        },
+        "activities": {},
+        "uses": {
+          "spent": 0,
+          "recovery": []
+        },
+        "advancement": {},
+        "identifier": "",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false
+        },
+        "properties": [],
+        "requirements": "",
+        "type": {
+          "value": "",
+          "subtype": ""
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1790388178501,
+        "modifiedTime": 1790388178501,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_id": "hvQn7Q0wmV8MXHFG",
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "name": "The Fawful Problem",
+      "type": "feat",
+      "img": "icons/magic/death/projectile-skull-flaming-green.webp",
+      "system": {
+        "description": {
+          "value": "<p>Fawful was Cackletta's assistant. Fawful is now an empire-builder with dragon allies and a Dark Star fragment. The power dynamic has inverted, and Cackletta is terrified by this inversion in ways that her pride refuses to acknowledge.</p><p>She trained him. She shaped his genius. She directed his capabilities toward objectives that served her plans. And then she died, and he spent twenty-eight years becoming something she never anticipated: an independent power whose capabilities exceed hers even at her peak. The assistant surpassed the mistress. The tool became the wielder. And Cackletta, watching from her distributed network, has been forced to confront the possibility that her student doesn't need her anymore—and might actively prefer her dead.</p><p>Fawful's \"completion\" is the variable that Cackletta cannot assess. If the completion involves restoring her—if Fawful's twenty-eight years of preparation include returning his mistress to physical form—then Cackletta's reconstruction timeline accelerates dramatically. If the completion involves something else—if Fawful has moved beyond needing Cackletta and considers her distributed consciousness a loose end—then the completion might be designed to eliminate her permanently.</p><p>Cackletta is hedging. She's pursuing restoration through her own network's gradual reconstruction while simultaneously seeking allies who might help her if Fawful turns hostile. The party represents a potential hedge—creatures capable enough to oppose Fawful if necessary and naive enough about Beanbean politics to be manipulated into serving Cackletta's interests without realizing whose interests they're serving.</p>",
+          "chat": "<p>She made him. He surpassed her. And now the creator watches the creation from gaps in reality, wondering whether reunion means restoration or elimination.</p>"
+        },
+        "activities": {},
+        "uses": {
+          "spent": 0,
+          "recovery": [],
+          "max": ""
+        },
+        "advancement": {},
+        "identifier": "",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false,
+          "level": null
+        },
+        "properties": [],
+        "requirements": "",
+        "type": {
+          "value": "",
+          "subtype": ""
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1790388178501,
+        "modifiedTime": 1790393292979,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_id": "OicBg346phHsuttx",
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "name": "Anchor Objects (Known Locations)",
+      "type": "feat",
+      "img": "icons/magic/symbols/mask-yellow-orange.webp",
+      "system": {
+        "description": {
+          "value": "<p>Cackletta's distributed consciousness is anchored to enchanted objects she created or modified during her lifetime. The following anchor locations have been identified through intelligence gathering, though the list is certainly incomplete:</p><p><strong>Beanbean Palace Mirrors (3):</strong> Ornate mirrors installed during Cackletta's period of influence over the Beanbean court. The mirrors were supposedly cleansed after her defeat but retain traces of her enchantment that are sufficient for consciousness anchoring.</p><p><strong>Capital District Statues (5-7):</strong> Decorative statues throughout the Beanbean capital that Cackletta enchanted as surveillance points during her rise to power. Most have been relocated or damaged over the decades, but enough survive to provide coverage of the capital's main thoroughfares.</p><p><strong>The Beanstar (1):</strong> The wish-granting artifact retains Cackletta's influence despite multiple cleansing attempts. The connection is strongest here but also most monitored by Beanbean authorities.</p><p><strong>Traded/Stolen Objects (Unknown number):</strong> Objects from Cackletta's collection that were sold, looted, or traded after her defeat, now scattered across two kingdoms. These provide unpredictable, fragmentary coverage of locations that Cackletta couldn't have anticipated accessing.</p><p>Destroying an anchor object requires identifying it as enchanted (DC 15 Intelligence (Arcana) check), then either dispelling its enchantment (DC 18 spellcasting check) or physically destroying it (most anchor objects have AC 12-15 and 20-40 HP). Cackletta feels the destruction of each anchor as a jolt of pain and can identify who destroyed it and where, making anchor destruction a declaration of hostility that she will respond to through whatever means her limited capabilities allow.</p>",
+          "chat": "<p>She is anchored to things that nobody remembers enchanting, scattered across kingdoms by commerce and chaos. Finding them all would take years. Missing even one leaves her a window.</p>"
+        },
+        "activities": {},
+        "uses": {
+          "spent": 0,
+          "recovery": [],
+          "max": ""
+        },
+        "advancement": {},
+        "identifier": "",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false,
+          "level": null
+        },
+        "properties": [],
+        "requirements": "",
+        "type": {
+          "value": "",
+          "subtype": ""
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1790388178501,
+        "modifiedTime": 1790393298098,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_id": "r5Vqmv6YUqtICL8j",
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "name": "Radiant Vulnerability",
+      "type": "feat",
+      "img": "icons/magic/holy/chalice-glowing-yellow-blue.webp",
+      "system": {
+        "description": {
+          "value": "<p>Cackletta's soul-bound state makes her vulnerable to radiant damage in ways that her living form was not. Radiant energy disrupts the connections between her distributed consciousness nodes, causing pain, temporary perception loss, and—if concentrated enough—permanent severance of anchor connections. A radiant damage source brought within 10 feet of an anchor object forces Cackletta to make a DC 15 Constitution saving throw or lose connection to that anchor for 24 hours, blinding her to everything within that anchor's perception range.</p><p>Sustained radiant exposure (3 or more rounds of radiant damage near the same anchor) can permanently sever the connection, destroying the anchor's usefulness without physically destroying the object. This is the most efficient method of reducing Cackletta's network, though it requires knowing which objects are anchors and maintaining radiant output long enough for the severance to complete.</p><p>Star Shard bearers produce ambient radiant energy that Cackletta finds extremely uncomfortable. Bryan's presence within 120 feet of any anchor object causes the object to vibrate visibly, a reaction that would identify it as an anchor to anyone who knows what to look for. The God Toad's proximity would probably destroy anchors automatically, though Cackletta ensures she never anchors to objects in locations where the God Toad might appear.</p>",
+          "chat": "<p>Light hurts her—not sunlight or firelight, but the specific light of divine purpose, radiant energy that burns connections she needs to continue existing.</p>"
+        },
+        "activities": {},
+        "uses": {
+          "spent": 0,
+          "recovery": [],
+          "max": ""
+        },
+        "advancement": {},
+        "identifier": "",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false,
+          "level": null
+        },
+        "properties": [],
+        "requirements": "",
+        "type": {
+          "value": "",
+          "subtype": ""
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1790388178501,
+        "modifiedTime": 1790393302024,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_id": "bltLBZxTxjKdTD87",
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "name": "Twenty-Eight Years of Observation",
+      "type": "feat",
+      "img": "icons/skills/social/diplomacy-handshake-blue.webp",
+      "system": {
+        "description": {
+          "value": "<p>Twenty-eight years of existing as distributed consciousness has given Cackletta knowledge that no living being possesses. She has observed the dimensional barriers from within. She has perceived the Chaos Heart Crisis's damage to planar structure from the gaps between planes. She has watched the Star Shards' cosmic influence from a position where mortal perception cannot reach. She understands things about reality's architecture that even the God Toad might not fully grasp, because the God Toad exists WITHIN reality while Cackletta exists in the spaces BETWEEN realities.</p><p>This knowledge is her primary trading asset. She can offer information about dimensional mechanics, planar instability, the Chaos Heart's residual effects, the Star Shards' collective purpose, and the approaching end-of-month events that she's been observing from perspectives unavailable to physical beings. The information is accurate—Cackletta doesn't need to lie when the truth is valuable enough to purchase what she needs.</p><p>What she needs is a body. What she trades for is assistance toward that goal. The exchange is straightforward: dimensional knowledge for physical restoration. Whether the party considers this exchange acceptable depends on how much they need the knowledge and how much they trust a dead witch who has been watching them through mirrors they didn't know were watching.</p>",
+          "chat": "<p>Twenty-eight years of watching from the gaps between worlds. She knows things about reality that reality doesn't know about itself. The knowledge is for sale. The price is a body.</p>"
+        },
+        "activities": {},
+        "uses": {
+          "spent": 0,
+          "recovery": []
+        },
+        "advancement": {},
+        "identifier": "",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false
+        },
+        "properties": [],
+        "requirements": "",
+        "type": {
+          "value": "",
+          "subtype": ""
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1790388178501,
+        "modifiedTime": 1790388178501,
+        "lastModifiedBy": "7BMT1Aux3QVtq027",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_id": "CZDsRqtO3tnMB8tD",
+      "ownership": {
+        "default": 0
+      }
+    }
+  ],
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "7BMT1Aux3QVtq027": 3
+  },
+  "flags": {
+    "scene-packer": {
+      "hash": "e164915c7cbe5e7308de62ef8cd272df1e8859fd"
+    },
+    "5e-npc-combat-automation": {
+      "aiProfile": {
+        "archetypes": [
+          "undead-disciplined",
+          "undead-disciplined",
+          "tactician"
+        ],
+        "reasons": [
+          "Creature type \"undead\" → undead-mindless",
+          "Keyword \"shadow\" in name/biography → undead-disciplined",
+          "INT 20 ≥ 8 → upgraded undead to undead-disciplined",
+          "INT 20 ≥ 16 → tactician overlay"
+        ],
+        "confidence": 1,
+        "version": 3,
+        "timestamp": 1790388178581,
+        "manuallyOverridden": false
+      }
+    },
+    "waluipedia-mass-import": {
+      "folderPath": [
+        "Fawful's Furious Freaks"
+      ]
+    },
+    "waluipedia-sheets": {
+      "tags": [
+        "Fawful's Furious Freaks",
+        "npc",
+        "undead"
+      ],
+      "color": "#32CD32",
+      "organized": {
+        "path": [
+          "Fawful's Furious Freaks"
+        ],
+        "basis": "website",
+        "from": []
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "dnd5e",
+    "systemVersion": "5.3.3",
+    "createdTime": 1790388178501,
+    "modifiedTime": 1790388178583,
+    "lastModifiedBy": "7BMT1Aux3QVtq027",
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": {
+      "worldId": "dnd-part-2",
+      "uuid": "Actor.8z7uPMyNqUHPSXwV",
+      "coreVersion": "14.367",
+      "systemId": "dnd5e",
+      "systemVersion": "5.3.3"
+    }
+  }
+}

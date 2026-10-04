@@ -865,7 +865,15 @@
           "quote": "Unknown employer — worked with Fawful by his own word ('never thought I'd work with a bean'); moved through Peach's Castle and the Mages' Guild's company without being stopped",
           "source": "article"
         }
-      ]
+      ],
+      "tags": [
+        "Mages' Guild",
+        "npc",
+        "caster",
+        "humanoid",
+        "generated"
+      ],
+      "color": "#8A2BE2"
     }
   },
   "_stats": {

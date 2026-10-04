@@ -908,7 +908,15 @@
           "quote": "The survey season made him essential in the way crises make couriers essential, and he rose to it with a seriousness that made the household's chest ache.",
           "source": "article"
         }
-      ]
+      ],
+      "tags": [
+        "Snowdin Bone-Line",
+        "npc",
+        "civilian",
+        "monstrosity",
+        "generated"
+      ],
+      "color": "#B0E0E6"
     }
   },
   "_stats": {

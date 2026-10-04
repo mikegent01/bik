@@ -1063,6 +1063,13 @@
           "source": "article"
         }
       ],
+      "tags": [
+        "The Underground",
+        "pc",
+        "priest",
+        "generated"
+      ],
+      "color": "#2F4F4F",
       "pc": {
         "level": 1,
         "class": "Cleric",

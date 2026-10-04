@@ -821,7 +821,15 @@
           "quote": "Ryan is the person who jumped off the Vigilance during the Iron Sky Breach rather than be captured by the Iron Legion.",
           "source": "article"
         }
-      ]
+      ],
+      "tags": [
+        "Disaster Inc.",
+        "npc",
+        "soldier",
+        "humanoid",
+        "generated"
+      ],
+      "color": "#D4A017"
     }
   },
   "_stats": {

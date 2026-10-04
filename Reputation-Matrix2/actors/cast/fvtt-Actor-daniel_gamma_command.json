@@ -865,7 +865,15 @@
           "quote": "\"Speak now, or forever hold your peace!\" he roared, his voice shaking the walls.",
           "source": "article"
         }
-      ]
+      ],
+      "tags": [
+        "Iron Legion",
+        "npc",
+        "officer",
+        "humanoid",
+        "generated"
+      ],
+      "color": "#ADB5BD"
     }
   },
   "_stats": {

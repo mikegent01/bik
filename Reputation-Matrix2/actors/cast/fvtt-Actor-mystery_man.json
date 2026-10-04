@@ -908,7 +908,15 @@
           "quote": "His appearances cluster in places the family has agreed to be careful about: sealed rooms, broken save points, and the margins of photographs where someone is almost looking at the camera.",
           "source": "article"
         }
-      ]
+      ],
+      "tags": [
+        "Snowdin Bone-Line",
+        "npc",
+        "civilian",
+        "monstrosity",
+        "generated"
+      ],
+      "color": "#B0E0E6"
     }
   },
   "_stats": {

@@ -908,7 +908,15 @@
           "quote": "A soot-covered relation who repairs boiler shafts, chimneys, and old puzzle mechanisms.",
           "source": "article"
         }
-      ]
+      ],
+      "tags": [
+        "Snowdin Bone-Line",
+        "npc",
+        "civilian",
+        "monstrosity",
+        "generated"
+      ],
+      "color": "#B0E0E6"
     }
   },
   "_stats": {

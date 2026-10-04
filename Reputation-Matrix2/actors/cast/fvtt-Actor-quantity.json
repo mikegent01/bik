@@ -908,7 +908,15 @@
           "quote": "Quantity handles work requiring many hands: moving furniture, building puzzles, and carrying soup for crowds.",
           "source": "article"
         }
-      ]
+      ],
+      "tags": [
+        "Snowdin Bone-Line",
+        "npc",
+        "civilian",
+        "monstrosity",
+        "generated"
+      ],
+      "color": "#B0E0E6"
     }
   },
   "_stats": {

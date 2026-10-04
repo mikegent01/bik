@@ -871,7 +871,15 @@
           "quote": "Unknown — possessed an Iron Legion rank insignia ring, which raises more questions than it answers",
           "source": "article"
         }
-      ]
+      ],
+      "tags": [
+        "Iron Legion",
+        "npc",
+        "soldier",
+        "humanoid",
+        "generated"
+      ],
+      "color": "#ADB5BD"
     }
   },
   "_stats": {

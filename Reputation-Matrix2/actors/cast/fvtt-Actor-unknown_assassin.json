@@ -865,7 +865,15 @@
           "quote": "Lady Bloomia's testimony (if authentic) describes this handprint as 'too large for a toad, too small for a koopa.",
           "source": "article"
         }
-      ]
+      ],
+      "tags": [
+        "Elsewhere",
+        "npc",
+        "rogue",
+        "humanoid",
+        "generated"
+      ],
+      "color": "#6C757D"
     }
   },
   "_stats": {

@@ -818,7 +818,15 @@
           "quote": "Barrel Survivor Councilor",
           "source": "title"
         }
-      ]
+      ],
+      "tags": [
+        "Liberated Toads",
+        "npc",
+        "noble",
+        "humanoid",
+        "generated"
+      ],
+      "color": "#87CEEB"
     }
   },
   "_stats": {

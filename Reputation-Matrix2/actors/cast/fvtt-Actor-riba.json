@@ -818,7 +818,15 @@
           "quote": "The Mansion Owner Alice Loved",
           "source": "title"
         }
-      ]
+      ],
+      "tags": [
+        "Elsewhere",
+        "npc",
+        "noble",
+        "humanoid",
+        "generated"
+      ],
+      "color": "#6C757D"
     }
   },
   "_stats": {

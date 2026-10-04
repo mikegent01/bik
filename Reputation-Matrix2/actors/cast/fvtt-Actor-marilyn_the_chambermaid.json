@@ -818,7 +818,15 @@
           "quote": "By dawn the Mages' Guild had the boy and described it as protection.",
           "source": "article"
         }
-      ]
+      ],
+      "tags": [
+        "Elsewhere",
+        "npc",
+        "civilian",
+        "humanoid",
+        "generated"
+      ],
+      "color": "#6C757D"
     }
   },
   "_stats": {

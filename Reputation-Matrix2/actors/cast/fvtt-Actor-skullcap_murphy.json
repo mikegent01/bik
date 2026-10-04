@@ -816,7 +816,15 @@
           "quote": "Toad Network Review Stub",
           "source": "title"
         }
-      ]
+      ],
+      "tags": [
+        "The Underground",
+        "npc",
+        "monster",
+        "monstrosity",
+        "generated"
+      ],
+      "color": "#2F4F4F"
     }
   },
   "_stats": {

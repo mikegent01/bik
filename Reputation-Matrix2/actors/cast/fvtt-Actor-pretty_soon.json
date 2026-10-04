@@ -908,7 +908,15 @@
           "quote": "He kept a visible list of small returning normalcies — the heater fixed, the deliveries running, the Friday dinner on — and checked them off where Baby Bones could see.",
           "source": "article"
         }
-      ]
+      ],
+      "tags": [
+        "Snowdin Bone-Line",
+        "npc",
+        "civilian",
+        "monstrosity",
+        "generated"
+      ],
+      "color": "#B0E0E6"
     }
   },
   "_stats": {

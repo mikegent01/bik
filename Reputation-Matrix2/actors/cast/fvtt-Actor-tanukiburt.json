@@ -910,7 +910,15 @@
           "quote": "Waluigi hates riddles that stand in doorways.",
           "source": "article"
         }
-      ]
+      ],
+      "tags": [
+        "Shadow Estate & House Corvinarus",
+        "npc",
+        "rogue",
+        "humanoid",
+        "generated"
+      ],
+      "color": "#8B0000"
     }
   },
   "_stats": {

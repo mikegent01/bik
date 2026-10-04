@@ -956,7 +956,15 @@
           "quote": "The Divine Daughter",
           "source": "title"
         }
-      ]
+      ],
+      "tags": [
+        "Mages' Guild",
+        "npc",
+        "priest",
+        "humanoid",
+        "generated"
+      ],
+      "color": "#8A2BE2"
     }
   },
   "_stats": {

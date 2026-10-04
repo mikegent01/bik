@@ -818,7 +818,15 @@
           "quote": "The Clearance Badge Who Called the Unauthorized Mission",
           "source": "title"
         }
-      ]
+      ],
+      "tags": [
+        "Elsewhere",
+        "npc",
+        "noble",
+        "humanoid",
+        "generated"
+      ],
+      "color": "#6C757D"
     }
   },
   "_stats": {

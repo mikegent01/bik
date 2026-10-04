@@ -908,7 +908,15 @@
           "quote": "No one laughs loudly, because the date is not a prediction but a memory: he has lived past it, in his world, and the ledger has simply kept its own calendar.",
           "source": "article"
         }
-      ]
+      ],
+      "tags": [
+        "Snowdin Bone-Line",
+        "npc",
+        "civilian",
+        "monstrosity",
+        "generated"
+      ],
+      "color": "#B0E0E6"
     }
   },
   "_stats": {

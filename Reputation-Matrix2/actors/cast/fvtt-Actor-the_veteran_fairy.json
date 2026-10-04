@@ -821,7 +821,15 @@
           "quote": "The Bait Who Lived, and Then Took Point",
           "source": "title"
         }
-      ]
+      ],
+      "tags": [
+        "Overgrown Manor",
+        "npc",
+        "soldier",
+        "fey",
+        "generated"
+      ],
+      "color": "#6B8E23"
     }
   },
   "_stats": {

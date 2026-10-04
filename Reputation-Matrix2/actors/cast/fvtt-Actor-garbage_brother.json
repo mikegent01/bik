@@ -908,7 +908,15 @@
           "quote": "The household finds this either hoarding or prophecy, and the record keeps siding with prophecy at inconvenient intervals.",
           "source": "article"
         }
-      ]
+      ],
+      "tags": [
+        "Snowdin Bone-Line",
+        "npc",
+        "civilian",
+        "monstrosity",
+        "generated"
+      ],
+      "color": "#B0E0E6"
     }
   },
   "_stats": {

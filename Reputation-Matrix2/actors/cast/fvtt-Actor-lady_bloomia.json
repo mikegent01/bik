@@ -863,7 +863,15 @@
           "quote": "Bloomia survived the assassination night only because a figure known as 'The Silent One' sacrificed themselves in the servant passages to hold off Mages' Guild assassins.",
           "source": "article"
         }
-      ]
+      ],
+      "tags": [
+        "Elsewhere",
+        "npc",
+        "noble",
+        "humanoid",
+        "generated"
+      ],
+      "color": "#6C757D"
     }
   },
   "_stats": {

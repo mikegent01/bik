@@ -1090,6 +1090,13 @@
           "source": "article"
         }
       ],
+      "tags": [
+        "Shadow Estate & House Corvinarus",
+        "pc",
+        "rogue",
+        "generated"
+      ],
+      "color": "#8B0000",
       "pc": {
         "level": 3,
         "class": "Rogue",

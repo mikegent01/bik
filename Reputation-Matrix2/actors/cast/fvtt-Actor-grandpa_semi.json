@@ -908,7 +908,15 @@
           "quote": "Entries that end mid-sentence are not accidents in his keeping: they mark where the family agreed to stop speaking.",
           "source": "article"
         }
-      ]
+      ],
+      "tags": [
+        "Snowdin Bone-Line",
+        "npc",
+        "civilian",
+        "monstrosity",
+        "generated"
+      ],
+      "color": "#B0E0E6"
     }
   },
   "_stats": {

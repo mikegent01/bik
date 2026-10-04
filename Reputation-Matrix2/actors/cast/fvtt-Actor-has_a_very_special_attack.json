@@ -909,7 +909,15 @@
           "quote": "The lights flickered, or the lights didn't, and the room felt larger for a moment, or the room felt smaller, and then it was over, and the cousin bowed.",
           "source": "article"
         }
-      ]
+      ],
+      "tags": [
+        "Snowdin Bone-Line",
+        "npc",
+        "civilian",
+        "monstrosity",
+        "generated"
+      ],
+      "color": "#B0E0E6"
     }
   },
   "_stats": {

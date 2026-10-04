@@ -816,7 +816,15 @@
           "quote": "The record describes her eyes as sharp enough to cut glass and her attention as a predator sizing up whether something is worth the effort of killing.",
           "source": "article"
         }
-      ]
+      ],
+      "tags": [
+        "Trinity Academy",
+        "npc",
+        "student",
+        "humanoid",
+        "generated"
+      ],
+      "color": "#F08080"
     }
   },
   "_stats": {

@@ -1062,6 +1062,13 @@
           "source": "article"
         }
       ],
+      "tags": [
+        "Dreamland",
+        "pc",
+        "hero",
+        "generated"
+      ],
+      "color": "#FFB7C5",
       "pc": {
         "level": 1,
         "class": "Barbarian",

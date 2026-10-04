@@ -62,7 +62,11 @@ SERVER_ROOTS = ("icons/", "systems/", "modules/", "ui/", "cards/", "fonts/", "so
 # not have is really missing (as opposed to a GM upload we merely cannot see).
 REPO_ROOTS = ("portraits/",)
 IMAGE_EXTS = (".png", ".webp", ".jpg", ".jpeg", ".gif", ".svg")
-SKIP_FILES = {"manifest.json", "import.json", "players-import.json", "export.json", "folders.json", "changes.json"}
+SKIP_FILES = {"manifest.json", "import.json", "players-import.json", "export.json", "folders.json", "changes.json", "packets.json"}
+# dnd5e's IdentifierField: anything else makes the whole embedded item invalid
+IDENTIFIER_RE = re.compile(r"^[a-z0-9_-]+$", re.I)
+IDENTIFIER_KEYS = ("identifier", "classIdentifier", "sourceClass")
+DEFAULT_FOLDER_SCHEME = os.path.join(RM, "actors", "folders.json")
 
 DEFAULT_PORTRAITS = os.path.join(RM, "portraits")
 DEFAULT_CHARACTERS = os.path.join(RM, "data", "characters.json")
@@ -87,6 +91,86 @@ def slugify(name):
     slug = str(name).lower().replace("'", "").replace("\u2019", "")
     slug = re.sub(r"[^a-z0-9]+", "-", slug).strip("-")
     return slug or "actor"
+
+
+def slug_identifier(text):
+    """What dnd5e derives from a name (String#slugify strict): lower-case
+    ASCII, one dash between words, apostrophes dropped, nothing else."""
+    import unicodedata
+    t = unicodedata.normalize("NFKD", str(text or ""))
+    t = "".join(ch for ch in t if not unicodedata.combining(ch)).lower()
+    t = t.replace("'", "").replace("\u2019", "")
+    t = re.sub(r"[^a-z0-9_]+", "-", t)
+    t = re.sub(r"-+", "-", t).strip("-")
+    return t
+
+
+def invalid_identifiers(doc):
+    """[(item, key, value)] for every embedded item identifier dnd5e would refuse."""
+    out = []
+    for it in doc.get("items") or []:
+        sysd = it.get("system") if isinstance(it, dict) else None
+        if not isinstance(sysd, dict):
+            continue
+        for key in IDENTIFIER_KEYS:
+            val = sysd.get(key)
+            if isinstance(val, str) and val and not IDENTIFIER_RE.match(val):
+                out.append((it, key, val))
+    return out
+
+
+def repair_identifiers(doc):
+    """Slugify, in place, the identifiers dnd5e would refuse ("toad-—-eager-variant"
+    from a player's own export). Returns [(item name, key, before, after)]."""
+    fixes = []
+    for it, key, val in invalid_identifiers(doc):
+        after = slug_identifier(val) or slug_identifier(it.get("name")) or "item"
+        it["system"][key] = after
+        fixes.append((it.get("name") or "?", key, val, after))
+    return fixes
+
+
+def load_folder_scheme(path=DEFAULT_FOLDER_SCHEME):
+    """actors/folders.json — folder colours / descriptions by path. {} when absent."""
+    try:
+        scheme = read_json(path)
+    except (OSError, ValueError):
+        return {}
+    return scheme if isinstance(scheme, dict) else {}
+
+
+def folder_styles(scheme, paths):
+    """{"A / B": {"color", "description"}} for every folder chain in `paths`
+    (lists of names) the scheme has a colour for: Players, Bestiary and its
+    creature types, the website groups (top level or under any one parent,
+    e.g. "Waluipedia Cast / Iron Legion")."""
+    if not scheme:
+        return {}
+    players = scheme.get("players") or {}
+    bestiary = scheme.get("bestiary") or {}
+    groups = scheme.get("groups") or {}
+    types = bestiary.get("types") or {}
+    styles = {}
+    for path in paths:
+        for i in range(len(path or [])):
+            chain = list(path[: i + 1])
+            key = " / ".join(chain)
+            if key in styles:
+                continue
+            name = chain[-1]
+            style = None
+            if name == players.get("folder") and len(chain) == 1:
+                style = players
+            elif name == bestiary.get("folder") and len(chain) == 1:
+                style = bestiary
+            elif len(chain) == 2 and chain[0] == bestiary.get("folder"):
+                color = types.get(name.lower())
+                style = {"color": color} if color else None
+            elif name in groups and len(chain) <= 2 and (len(chain) == 1 or chain[0] != bestiary.get("folder")):
+                style = groups[name]
+            if style and (style.get("color") or style.get("description")):
+                styles[key] = {"color": style.get("color"), "description": style.get("description")}
+    return styles
 
 
 def dir_name(folder_name):
@@ -237,11 +321,14 @@ def split(export_path, out_dir, flat=False, prune=False):
     raw = read_json(export_path)
     meta, folders, actors = normalize_payload(raw)
     folders_by_id = {f.get("_id"): f for f in folders if isinstance(f, dict)}
-    written, paths, unresolved = [], [], {}
+    written, paths, unresolved, repaired = [], [], {}, []
     kept = [a for a in actors if isinstance(a, dict) and a.get("name")]
     for actor in kept:
         path = folder_path_of(actor, folders_by_id)
         doc = copy.deepcopy(actor)
+        # an invalid identifier is an invisible item in Foundry: fix it in the
+        # mirror so the next import puts a valid one back
+        repaired.extend((actor.get("name"), *f) for f in repair_identifiers(doc))
         if path is None:
             # folder id without a name: keep the id, stamp nothing, file at the top
             unresolved[actor.get("folder")] = unresolved.get(actor.get("folder"), 0) + 1
@@ -263,6 +350,7 @@ def split(export_path, out_dir, flat=False, prune=False):
         "source": os.path.relpath(os.path.abspath(export_path), ROOT).replace(os.sep, "/"),
         "actorCount": len(written),
         "folders": sorted({p for p in paths if p}),
+        "identifiersRepaired": [{"actor": a, "item": i, "key": k, "from": b, "to": t} for a, i, k, b, t in repaired],
         "unresolvedFolderIds": dict(sorted(unresolved.items())),
         "note": ("" if not unresolved else
                  f"{sum(unresolved.values())} actor(s) carry a folder id this export gives no name for; "
@@ -287,8 +375,9 @@ def split(export_path, out_dir, flat=False, prune=False):
 
 # ------------------------------------------------------------------ combine
 
-def combine(dirs, folder_prefix=None, world=None, ignore_dirs=False):
+def combine(dirs, folder_prefix=None, world=None, ignore_dirs=False, scheme=None):
     prefix = [p.strip() for p in str(folder_prefix or "").split("/") if p.strip()]
+    scheme = load_folder_scheme() if scheme is None else scheme
     rows = []
     for path, rel_parts in actor_files(dirs):
         doc = load_actor_file(path)
@@ -309,6 +398,7 @@ def combine(dirs, folder_prefix=None, world=None, ignore_dirs=False):
     rows.sort(key=lambda r: (r[0] is None, r[0] or [], r[1], r[2]))
 
     folders, folder_ids = [], {}
+    styles = folder_styles(scheme, [r[0] for r in rows if r[0]])
     for fpath, *_ in rows:
         for i in range(len(fpath or [])):
             chain = tuple(fpath[: i + 1])
@@ -316,9 +406,11 @@ def combine(dirs, folder_prefix=None, world=None, ignore_dirs=False):
                 continue
             fid = sid("folder", "/".join(chain))
             folder_ids[chain] = fid
+            style = styles.get(" / ".join(chain)) or {}
             folders.append({"_id": fid, "name": chain[-1], "type": "Actor",
                             "folder": folder_ids.get(chain[:-1]), "sorting": "a",
-                            "sort": 0, "color": None, "path": list(chain)})
+                            "sort": 0, "color": style.get("color"), "description": style.get("description"),
+                            "path": list(chain)})
     actors, seen_ids, dupes = [], {}, []
     unresolved = 0
     for fpath, name, aid, doc, path in rows:
@@ -342,6 +434,7 @@ def combine(dirs, folder_prefix=None, world=None, ignore_dirs=False):
         "actorCount": len(actors),
         "folderCount": len(folders),
         "unresolvedFolderActors": unresolved,
+        "folderStyles": styles,
         "folders": folders,
         "actors": actors,
     }
@@ -628,6 +721,9 @@ def check(dirs, image_lib=DEFAULT_IMAGE_LIB, strict_images=False):
         for it in doc.get("items") or []:
             if isinstance(it, dict) and it.get("type") in ("race", "class", "subclass", "background") and doc.get("type") == "npc":
                 warnings.append(f"{rel}: npc carries a {it['type']} item ({it.get('name')})")
+        for it, key, val in invalid_identifiers(doc):
+            errors.append(f"{rel}: item {it.get('name')!r} system.{key} {val!r} is not letters/digits/-/_ — dnd5e rejects the item "
+                          f"(split repairs this; expected {slug_identifier(val) or slug_identifier(it.get('name'))!r})")
         images = [("img", doc.get("img")), ("token", ((doc.get("prototypeToken") or {}).get("texture") or {}).get("src"))]
         images += [(f"item:{it.get('name')}", it.get("img")) for it in doc.get("items") or [] if isinstance(it, dict)]
         unknown_here = []
@@ -733,8 +829,11 @@ def main(argv=None):
             print(f"  wrote {os.path.relpath(w, ROOT)}")
         for w in pruned:
             print(f"  pruned {os.path.relpath(w, ROOT)}")
+        for r in manifest["identifiersRepaired"]:
+            print(f"  repaired {r['actor']} · {r['item']} · {r['key']} {r['from']!r} -> {r['to']!r}")
         print(f"split: {len(written)} actors from {manifest['exportedFrom'] or args.export} "
-              f"into {len(manifest['folders'])} folder path(s) -> {args.out}")
+              f"into {len(manifest['folders'])} folder path(s) -> {args.out}"
+              + (f", {len(manifest['identifiersRepaired'])} identifier(s) repaired" if manifest["identifiersRepaired"] else ""))
         return 0
 
     if args.cmd == "combine":
@@ -753,7 +852,8 @@ def main(argv=None):
             print(f"OK combine: {args.out} current ({payload['actorCount']} actors, {payload['folderCount']} folders)")
             return 0
         write_text(args.out, text)
-        print(f"combine: {payload['actorCount']} actors, {payload['folderCount']} folders -> {args.out}")
+        print(f"combine: {payload['actorCount']} actors, {payload['folderCount']} folders"
+              f" ({sum(1 for f in payload['folders'] if f.get('color'))} coloured) -> {args.out}")
         return 1 if dupes else 0
 
     if args.cmd == "link-images":

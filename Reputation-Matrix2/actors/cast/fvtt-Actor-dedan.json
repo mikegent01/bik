@@ -821,7 +821,15 @@
           "quote": "He has stood watch through blizzards, evacuations, registry disputes, and three kitchen fires; he takes his meals at the household table; he knows every relative's schedule by heart.",
           "source": "article"
         }
-      ]
+      ],
+      "tags": [
+        "Snowdin Bone-Line",
+        "npc",
+        "soldier",
+        "monstrosity",
+        "generated"
+      ],
+      "color": "#B0E0E6"
     }
   },
   "_stats": {

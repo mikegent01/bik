@@ -908,7 +908,15 @@
           "quote": "Where Speaker L argued, Rivers acts, and the archive is not yet agreed on whether that is an improvement.",
           "source": "article"
         }
-      ]
+      ],
+      "tags": [
+        "Liberated Toads",
+        "npc",
+        "noble",
+        "humanoid",
+        "generated"
+      ],
+      "color": "#87CEEB"
     }
   },
   "_stats": {

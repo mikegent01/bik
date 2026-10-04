@@ -822,7 +822,15 @@
           "quote": "The Dwarf Who Wanted to Fight Without an Arm",
           "source": "title"
         }
-      ]
+      ],
+      "tags": [
+        "Elsewhere",
+        "npc",
+        "soldier",
+        "humanoid",
+        "generated"
+      ],
+      "color": "#6C757D"
     }
   },
   "_stats": {

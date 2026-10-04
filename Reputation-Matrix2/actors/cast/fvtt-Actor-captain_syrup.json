@@ -1266,6 +1266,13 @@
           "source": "article"
         }
       ],
+      "tags": [
+        "Kremling Krew & the Black Sugar Pirates",
+        "pc",
+        "officer",
+        "generated"
+      ],
+      "color": "#808000",
       "pc": {
         "level": 2,
         "class": "Rogue",

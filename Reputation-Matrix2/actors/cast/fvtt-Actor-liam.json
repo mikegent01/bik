@@ -910,7 +910,15 @@
           "quote": "The mansion answers each decision with a new complication: a looping route, a stolen phone, a charged vial, and finally a duplicate with the same face and knife.",
           "source": "article"
         }
-      ]
+      ],
+      "tags": [
+        "Elsewhere",
+        "npc",
+        "rogue",
+        "humanoid",
+        "generated"
+      ],
+      "color": "#6C757D"
     }
   },
   "_stats": {

@@ -816,7 +816,15 @@
           "quote": "He confirmed a Canterlot diplomatic programme, confirmed it was supposed to be quiet, and admitted someone had dropped the ball on security protocols.",
           "source": "article"
         }
-      ]
+      ],
+      "tags": [
+        "Trinity Academy",
+        "npc",
+        "student",
+        "humanoid",
+        "generated"
+      ],
+      "color": "#F08080"
     }
   },
   "_stats": {

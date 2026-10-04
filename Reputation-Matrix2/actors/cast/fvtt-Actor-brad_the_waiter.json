@@ -818,7 +818,15 @@
           "quote": "The Waiter",
           "source": "title"
         }
-      ]
+      ],
+      "tags": [
+        "Overgrown Manor",
+        "npc",
+        "civilian",
+        "humanoid",
+        "generated"
+      ],
+      "color": "#6B8E23"
     }
   },
   "_stats": {

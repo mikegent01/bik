@@ -1216,6 +1216,13 @@
           "source": "article"
         }
       ],
+      "tags": [
+        "Kremling Krew & the Black Sugar Pirates",
+        "pc",
+        "boss",
+        "generated"
+      ],
+      "color": "#808000",
       "pc": {
         "level": 1,
         "class": "Fighter",

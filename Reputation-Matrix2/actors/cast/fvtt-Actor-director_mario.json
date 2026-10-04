@@ -1094,6 +1094,13 @@
           "source": "article"
         }
       ],
+      "tags": [
+        "Nintendo Mania Studio",
+        "pc",
+        "noble",
+        "generated"
+      ],
+      "color": "#FF6F61",
       "pc": {
         "level": 3,
         "class": "Bard",

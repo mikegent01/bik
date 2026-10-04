@@ -865,7 +865,15 @@
           "quote": "The Gaster Branch remains unresolved in the registry not because the family has stopped looking, but because every lead so far points at a door no one has agreed to open.",
           "source": "article"
         }
-      ]
+      ],
+      "tags": [
+        "Snowdin Bone-Line",
+        "npc",
+        "scholar",
+        "monstrosity",
+        "generated"
+      ],
+      "color": "#B0E0E6"
     }
   },
   "_stats": {

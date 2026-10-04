@@ -821,7 +821,15 @@
           "quote": "The battle record calls the engagement that followed 'Robinson & The Dragon': one side unaligned with Robinson as its only named commander, the other the Iron Brigade of the Iron Legion.",
           "source": "article"
         }
-      ]
+      ],
+      "tags": [
+        "Elsewhere",
+        "npc",
+        "soldier",
+        "monstrosity",
+        "generated"
+      ],
+      "color": "#6C757D"
     }
   },
   "_stats": {

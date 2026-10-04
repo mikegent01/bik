@@ -17685,7 +17685,12 @@
         "xpKey": "hjumpik",
         "xp": 25342,
         "level": 7
-      }
+      },
+      "tags": [
+        "Disaster Inc.",
+        "pc"
+      ],
+      "color": "#D4A017"
     }
   },
   "_stats": {

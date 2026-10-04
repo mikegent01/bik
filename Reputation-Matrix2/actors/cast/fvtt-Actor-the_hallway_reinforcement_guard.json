@@ -818,7 +818,15 @@
           "quote": "Told that Red's cooking withers the plants on contact, he asked the obvious question that four adventurers had failed to ask in two days: why not put the soup in a bomb?",
           "source": "article"
         }
-      ]
+      ],
+      "tags": [
+        "Rakasha & the Feywild",
+        "npc",
+        "soldier",
+        "fey",
+        "generated"
+      ],
+      "color": "#D2B48C"
     }
   },
   "_stats": {

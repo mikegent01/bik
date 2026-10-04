@@ -865,7 +865,15 @@
           "quote": "Operates inside Mages' Guild ground and says plainly that he dislikes the Guild",
           "source": "article"
         }
-      ]
+      ],
+      "tags": [
+        "Mages' Guild",
+        "npc",
+        "caster",
+        "humanoid",
+        "generated"
+      ],
+      "color": "#8A2BE2"
     }
   },
   "_stats": {

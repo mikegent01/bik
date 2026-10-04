@@ -100,6 +100,7 @@ TOOLS = {
     "fix_intake": "tools/fix-players-intake.py",
     "split_players": "tools/split-players.py",
     "rebuild_actors": "tools/rebuild-actors.py",
+    "organize": "tools/organize-actors.py",
 }
 
 
@@ -508,6 +509,8 @@ def one_pass(world, write, port, downloads=None, foundry=None):
     if write:
         ok = run([TOOLS["promote"]], "promote")[0] and ok
     ok = step_changes(world, write) and ok
+    # folders + tags the way the website organizes its cast (actors/folders.json)
+    ok = run([TOOLS["organize"], "--world", world, "--quiet"] + ([] if write else ["--check"]), "organize")[0] and ok
     ok = run([TOOLS["bridge"], "check", mirror], "check")[0] and ok
     ok = run([TOOLS["build"]] + ([] if write else ["--check"]), "build")[0] and ok
     ok = step_combine(world, write) and ok

@@ -908,7 +908,15 @@
           "quote": "When the Vigilance descended into chaos, the loud voices asked who should lead.",
           "source": "article"
         }
-      ]
+      ],
+      "tags": [
+        "Liberated Toads",
+        "npc",
+        "noble",
+        "humanoid",
+        "generated"
+      ],
+      "color": "#87CEEB"
     }
   },
   "_stats": {

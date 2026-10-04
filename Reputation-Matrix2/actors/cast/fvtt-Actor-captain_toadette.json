@@ -1296,6 +1296,13 @@
           "source": "article"
         }
       ],
+      "tags": [
+        "Peach Loyalists",
+        "pc",
+        "officer",
+        "generated"
+      ],
+      "color": "#FFDAB9",
       "pc": {
         "level": 3,
         "class": "Fighter",

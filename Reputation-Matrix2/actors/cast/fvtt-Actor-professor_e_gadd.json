@@ -1089,6 +1089,13 @@
           "source": "article"
         }
       ],
+      "tags": [
+        "Mushroom Regency & Kingdom",
+        "pc",
+        "scholar",
+        "generated"
+      ],
+      "color": "#4169E1",
       "pc": {
         "level": 3,
         "class": "Artificer",

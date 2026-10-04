@@ -816,7 +816,15 @@
           "quote": "Everything Hanae says is delivered at a volume the record repeatedly describes as barely existing.",
           "source": "article"
         }
-      ]
+      ],
+      "tags": [
+        "Trinity Academy",
+        "npc",
+        "student",
+        "humanoid",
+        "generated"
+      ],
+      "color": "#F08080"
     }
   },
   "_stats": {

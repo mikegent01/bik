@@ -1296,6 +1296,13 @@
           "source": "article"
         }
       ],
+      "tags": [
+        "Rakasha & the Feywild",
+        "pc",
+        "officer",
+        "generated"
+      ],
+      "color": "#D2B48C",
       "pc": {
         "level": 4,
         "class": "Ranger",

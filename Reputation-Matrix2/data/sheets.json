@@ -45,7 +45,7 @@
       "title": "The Scarred Elf Sent To Charm A Pyromaniac",
       "sheetName": "Aemenor Evenflight",
       "source": "live",
-      "file": "actors/worlds/midlands/A House Divided/Characters of the Ruined Manor/fvtt-Actor-aemenor-evenflight-rQqL4xsmIO1shEka.json",
+      "file": "actors/worlds/midlands/Iron Legion/fvtt-Actor-aemenor-evenflight-rQqL4xsmIO1shEka.json",
       "alternates": [],
       "party": false,
       "partyWhy": "",
@@ -1148,7 +1148,7 @@
       "title": "The Commander Who Drags People By Their Ears",
       "sheetName": "Byscilla Danos",
       "source": "live",
-      "file": "actors/worlds/midlands/A House Divided/Characters of the Ruined Manor/fvtt-Actor-byscilla-danos-vvcaOaq7cKHA6cxR.json",
+      "file": "actors/worlds/midlands/Iron Legion/fvtt-Actor-byscilla-danos-vvcaOaq7cKHA6cxR.json",
       "alternates": [],
       "party": false,
       "partyWhy": "",
@@ -1183,7 +1183,7 @@
       "title": "The Witch at the Opening of the Battle",
       "sheetName": "Cackletta, the Beanbean Witch",
       "source": "live",
-      "file": "actors/worlds/midlands/fvtt-Actor-cackletta-the-beanbean-witch-v2nBQtjAmgp2jJyv.json",
+      "file": "actors/worlds/midlands/Fawful's Furious Freaks/fvtt-Actor-cackletta-the-beanbean-witch-v2nBQtjAmgp2jJyv.json",
       "alternates": [],
       "party": false,
       "partyWhy": "",
@@ -2758,11 +2758,11 @@
       "title": "The Cackling Conqueror",
       "sheetName": "Fawful, the Fury",
       "source": "live",
-      "file": "actors/worlds/midlands/fvtt-Actor-fawful-the-fury-8XZhZJbuYOvBBwfK.json",
+      "file": "actors/worlds/midlands/Fawful's Furious Freaks/fvtt-Actor-fawful-the-fury-8XZhZJbuYOvBBwfK.json",
       "alternates": [],
       "party": false,
       "partyWhy": "",
-      "group": "Elsewhere",
+      "group": "Fawful's Furious Freaks",
       "portrait": "portraits/fawful.png",
       "ledger": {
         "level": 5,
@@ -3379,7 +3379,7 @@
       "title": "The Giant from the Children's Table",
       "sheetName": "Green T",
       "source": "live",
-      "file": "actors/worlds/midlands/fvtt-Actor-green-t-mj7kizwZ5R7FtGg6.json",
+      "file": "actors/worlds/midlands/Players/fvtt-Actor-green-t-mj7kizwZ5R7FtGg6.json",
       "alternates": [],
       "party": true,
       "partyWhy": "player character sheet",
@@ -3471,7 +3471,7 @@
       "title": "The Pit Fighter Who Filed Paperwork",
       "sheetName": "Hargram Fidger",
       "source": "live",
-      "file": "actors/worlds/midlands/A House Divided/Characters of the Ruined Manor/fvtt-Actor-hargram-fidger-FgXUotvhVhzA61yh.json",
+      "file": "actors/worlds/midlands/Iron Legion/fvtt-Actor-hargram-fidger-FgXUotvhVhzA61yh.json",
       "alternates": [],
       "party": false,
       "partyWhy": "",
@@ -4776,7 +4776,7 @@
       "title": "The Weaver of the Three Threads",
       "sheetName": "Lady Aurelian Corvinarus",
       "source": "live",
-      "file": "actors/worlds/midlands/Important/fvtt-Actor-lady-aurelian-corvinarus-1Qt9AgFULweeVAoa.json",
+      "file": "actors/worlds/midlands/Shadow Estate & House Corvinarus/fvtt-Actor-lady-aurelian-corvinarus-1Qt9AgFULweeVAoa.json",
       "alternates": [
         {
           "file": "actors/fvtt-Actor-lady-aurelian-corvinarus-PC.json",
@@ -5096,7 +5096,7 @@
       "file": "actors/cast/fvtt-Actor-luigi.json",
       "alternates": [
         {
-          "file": "actors/worlds/midlands/fvtt-Actor-luigi-BU8KaiZulAXZVAX7.json",
+          "file": "actors/worlds/midlands/Mushroom Regency & Kingdom/fvtt-Actor-luigi-BU8KaiZulAXZVAX7.json",
           "name": "Luigi",
           "source": "live",
           "kind": "npc"
@@ -5254,7 +5254,7 @@
       "title": "The Stone Artist",
       "sheetName": "Lyranth the Sculptor",
       "source": "live",
-      "file": "actors/worlds/midlands/A House Divided/Characters of the Shadeward Manor/fvtt-Actor-lyranth-the-sculptor-0Y1HB4Cua7nsM2wV.json",
+      "file": "actors/worlds/midlands/Shadow Estate & House Corvinarus/fvtt-Actor-lyranth-the-sculptor-0Y1HB4Cua7nsM2wV.json",
       "alternates": [],
       "party": false,
       "partyWhy": "",
@@ -5288,7 +5288,7 @@
       "title": "The Hobgoblin Who Hits Himself",
       "sheetName": "Manderaz the Mad",
       "source": "live",
-      "file": "actors/worlds/midlands/A House Divided/Characters of the Ruined Manor/fvtt-Actor-manderaz-the-mad-8P1SRvoYZGxulQMT.json",
+      "file": "actors/worlds/midlands/Iron Legion/fvtt-Actor-manderaz-the-mad-8P1SRvoYZGxulQMT.json",
       "alternates": [],
       "party": false,
       "partyWhy": "",
@@ -5443,7 +5443,7 @@
       "file": "actors/cast/fvtt-Actor-mario.json",
       "alternates": [
         {
-          "file": "actors/worlds/midlands/fvtt-Actor-mario-2CLH4XZlYcwHVXJf.json",
+          "file": "actors/worlds/midlands/Mushroom Regency & Kingdom/fvtt-Actor-mario-2CLH4XZlYcwHVXJf.json",
           "name": "Mario",
           "source": "live",
           "kind": "npc"
@@ -6044,7 +6044,7 @@
       "title": "The Stolen Construct",
       "sheetName": "Steel Defender",
       "source": "live",
-      "file": "actors/worlds/midlands/Important/fvtt-Actor-steel-defender-Q8InPZPmhqhpOY7g.json",
+      "file": "actors/worlds/midlands/Disaster Inc/fvtt-Actor-steel-defender-Q8InPZPmhqhpOY7g.json",
       "alternates": [],
       "party": true,
       "partyWhy": "affiliation: Disaster Inc. (acquired through 'creative procurement')",
@@ -6609,7 +6609,7 @@
       "title": "The Barrister Who Cannot Lie",
       "sheetName": "Orvinder Danos",
       "source": "live",
-      "file": "actors/worlds/midlands/A House Divided/Characters of the Ruined Manor/fvtt-Actor-orvinder-danos-bcvcZ10ZzNQTAaSC.json",
+      "file": "actors/worlds/midlands/Shadow Estate & House Corvinarus/fvtt-Actor-orvinder-danos-bcvcZ10ZzNQTAaSC.json",
       "alternates": [],
       "party": false,
       "partyWhy": "",
@@ -7116,7 +7116,7 @@
       "title": "The Fallen Monarch",
       "sheetName": "Princess Peach (955 BF)",
       "source": "live",
-      "file": "actors/worlds/midlands/fvtt-Actor-princess-peach-955-bf-nqeVTVa1etXKR2J4.json",
+      "file": "actors/worlds/midlands/Mushroom Regency & Kingdom/fvtt-Actor-princess-peach-955-bf-nqeVTVa1etXKR2J4.json",
       "alternates": [
         {
           "file": "actors/peachs-castle-955/fvtt-Actor-pc955-princess-peach-955.json",
@@ -7685,7 +7685,7 @@
       "title": "The Orc Who Cries Before Battle",
       "sheetName": "Rhak the Lost",
       "source": "live",
-      "file": "actors/worlds/midlands/A House Divided/Characters of the Ruined Manor/fvtt-Actor-rhak-the-lost-jmLsq8r3jF3QEPL9.json",
+      "file": "actors/worlds/midlands/Iron Legion/fvtt-Actor-rhak-the-lost-jmLsq8r3jF3QEPL9.json",
       "alternates": [],
       "party": false,
       "partyWhy": "",
@@ -8142,7 +8142,7 @@
       "title": "The Thing That Insists It Is Not A Monster",
       "sheetName": "The Scorncrow",
       "source": "live",
-      "file": "actors/worlds/midlands/A House Divided/Creatures of the Shadeward Manor/fvtt-Actor-the-scorncrow-w5NiTfaf6NZp9tAH.json",
+      "file": "actors/worlds/midlands/Elsewhere/fvtt-Actor-the-scorncrow-w5NiTfaf6NZp9tAH.json",
       "alternates": [],
       "party": false,
       "partyWhy": "",
@@ -9080,7 +9080,7 @@
       "title": "The Metaphysical Custodian of Raventree Manor",
       "sheetName": "The Oracle",
       "source": "live",
-      "file": "actors/worlds/midlands/fvtt-Actor-the-oracle-66Pn5S4ciDgDx46Q.json",
+      "file": "actors/worlds/midlands/Shadow Estate & House Corvinarus/fvtt-Actor-the-oracle-66Pn5S4ciDgDx46Q.json",
       "alternates": [
         {
           "file": "actors/fvtt-Actor-the-oracle.json",
@@ -9531,7 +9531,7 @@
       "title": "The Chamberlain Who May Have Betrayed Everything",
       "sheetName": "Toadsworth the Elder, Royal Chamberlain (955 BF)",
       "source": "live",
-      "file": "actors/worlds/midlands/fvtt-Actor-toadsworth-the-elder-royal-chamberlain-955-bf-oHLrMdbccIJx6YgS.json",
+      "file": "actors/worlds/midlands/Mushroom Regency & Kingdom/fvtt-Actor-toadsworth-the-elder-royal-chamberlain-955-bf-oHLrMdbccIJx6YgS.json",
       "alternates": [
         {
           "file": "actors/peachs-castle-955/fvtt-Actor-pc955-toadsworth-the-elder-955.json",
@@ -9641,7 +9641,7 @@
       "title": "The Groundskeeper Who Lost Track of Time",
       "sheetName": "Tymnas",
       "source": "live",
-      "file": "actors/worlds/midlands/A House Divided/Characters of the Shadeward Manor/fvtt-Actor-tymnas-HHRNpgk9VhQeuNCN.json",
+      "file": "actors/worlds/midlands/Shadow Estate & House Corvinarus/fvtt-Actor-tymnas-HHRNpgk9VhQeuNCN.json",
       "alternates": [],
       "party": false,
       "partyWhy": "",
@@ -9729,10 +9729,10 @@
       "title": "The One Who Lost a Finger",
       "sheetName": "Usk",
       "source": "live",
-      "file": "actors/worlds/midlands/A House Divided/Characters of the Ruined Manor/fvtt-Actor-usk-I8HET6eCUvhMILDP.json",
+      "file": "actors/worlds/midlands/Disaster Inc/fvtt-Actor-usk-I8HET6eCUvhMILDP.json",
       "alternates": [
         {
-          "file": "actors/worlds/midlands/A House Divided/Characters of the Ruined Manor/fvtt-Actor-usk-shattered-numGvhXBimwHEO3d.json",
+          "file": "actors/worlds/midlands/Disaster Inc/fvtt-Actor-usk-shattered-numGvhXBimwHEO3d.json",
           "name": "Usk (Shattered)",
           "source": "live",
           "kind": "npc"
@@ -9829,7 +9829,7 @@
       "title": "The Taxidermy Enthusiast Remi Used as a Ladder",
       "sheetName": "Vaxillus Loumaal",
       "source": "live",
-      "file": "actors/worlds/midlands/A House Divided/Characters of the Shadeward Manor/fvtt-Actor-vaxillus-loumaal-WzeQ8waID9uqv1HZ.json",
+      "file": "actors/worlds/midlands/Shadow Estate & House Corvinarus/fvtt-Actor-vaxillus-loumaal-WzeQ8waID9uqv1HZ.json",
       "alternates": [],
       "party": false,
       "partyWhy": "",

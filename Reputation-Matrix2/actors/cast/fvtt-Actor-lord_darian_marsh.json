@@ -863,7 +863,15 @@
           "quote": "A lord of the Dark Shores who fell out of the sky onto the Nintendo Mania pilot set with his steward and has spent two filings learning the studio's grammar: the exits lie, the applause is recorded, and the building",
           "source": "article"
         }
-      ]
+      ],
+      "tags": [
+        "Dark Shores",
+        "npc",
+        "noble",
+        "humanoid",
+        "generated"
+      ],
+      "color": "#36454F"
     }
   },
   "_stats": {

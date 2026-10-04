@@ -861,7 +861,15 @@
           "quote": "The Vampire Who Entered on an Imp's Invitation",
           "source": "article"
         }
-      ]
+      ],
+      "tags": [
+        "Shadow Estate & House Corvinarus",
+        "npc",
+        "monster",
+        "undead",
+        "generated"
+      ],
+      "color": "#8B0000"
     }
   },
   "_stats": {

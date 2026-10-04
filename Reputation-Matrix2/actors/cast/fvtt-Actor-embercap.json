@@ -870,7 +870,15 @@
           "quote": "Embercap is the Field Commander of the Peach Loyalists, the toad who leads assaults from the front while Captain Toadette plans them from behind.",
           "source": "article"
         }
-      ]
+      ],
+      "tags": [
+        "Peach Loyalists",
+        "npc",
+        "officer",
+        "humanoid",
+        "generated"
+      ],
+      "color": "#FFDAB9"
     }
   },
   "_stats": {
