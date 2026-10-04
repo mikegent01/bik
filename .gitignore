@@ -39,3 +39,12 @@ Reputation-Matrix2/assets/images/locations/_sheets/
 # scratch (regenerate, then re-slice with tools/slice-field-sheet.py).
 Reputation-Matrix2/assets/images/field-sheets/_sheets/
 workflow/saves/
+
+# World-mirror import packets: tools/sheets-suite.py combines
+# Reputation-Matrix2/actors/worlds/<world>/ into these for Foundry to fetch off
+# the local server (start.py). They are rebuilt on every pass from the actor
+# files that ARE committed, and a whole-world packet is megabytes of
+# duplicate; never commit them. (The cast and 955 packets stay committed —
+# their module.json / KNOWN_PACKETS URLs point at them.)
+Reputation-Matrix2/actors/worlds/*/import.json
+Reputation-Matrix2/actors/worlds/*/players-import.json

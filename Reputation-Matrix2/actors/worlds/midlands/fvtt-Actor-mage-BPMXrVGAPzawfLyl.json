@@ -7051,7 +7051,11 @@
     }
   ],
   "folder": "oq65o5ZsauMtb1JY",
-  "flags": {},
+  "flags": {
+    "waluipedia-mass-import": {
+      "folderPath": []
+    }
+  },
   "_stats": {
     "duplicateSource": null,
     "exportSource": null,

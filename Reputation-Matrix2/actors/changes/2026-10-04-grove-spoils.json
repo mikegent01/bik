@@ -1,0 +1,111 @@
+{
+  "_README": [
+    "Spoils of war for tools/foundry-bridge.py apply — the live world mirror after the Skittering Grove arc",
+    "(judgement_in_the_grove -> the_airlift_that_never_came -> you_said_leave_no_one_behind -> the_way_i_started_it).",
+    "Apply:  python3 tools/foundry-bridge.py apply Reputation-Matrix2/actors/changes/2026-10-04-grove-spoils.json Reputation-Matrix2/actors/worlds/midlands --write",
+    "tools/sheets-suite.py applies it on each pass while the mirror's export is not newer than appliesTo.exportedAtOrBefore",
+    "(a later export already carries the table's version of these items); items are matched by id, so re-applying is a no-op.",
+    "XP is not set here: tools/promote-player-sheets.py pins every player sheet to the XP ledger (const XP_SUMMARY in index.html).",
+    "Spoils already on the exported sheets (Markop's motorbike, Remi's and Archie's grove kit) are not repeated;",
+    "the two items below are the ones the record files and the sheets lacked."
+  ],
+  "appliesTo": {"world": "midlands", "exportedAtOrBefore": "2026-10-04T17:21:43.770Z"},
+  "changes": [
+    {
+      "match": {"_id": "VudZ3W313Y4FILs0", "name": "Eager"},
+      "addItems": [
+        {
+          "name": "The Electric Sphere",
+          "type": "equipment",
+          "img": "icons/magic/lightning/orb-ball-blue.webp",
+          "system": {
+            "description": {
+              "value": "<p>A sphere that hums, picked up by Eager at the end of the grove floor fight on 1 Aethel, 1040 BF; the record says it was powered during the giant battle by Archie Miser's electric magic. The archive has no earlier sighting and files the claim as stated.</p><p><em>Mechanics not yet established at the table. Carried out of the Skittering Grove by Eager, on two hit points. Technology file: tech_grove_electric_sphere.</em></p>",
+              "chat": ""
+            },
+            "source": {"custom": "Waluipedia campaign — The Way I Started It", "revision": 1, "rules": "2024"},
+            "identifier": "the-electric-sphere",
+            "quantity": 1,
+            "weight": {"value": 3, "units": "lb"},
+            "price": {"value": 0, "denomination": "gp"},
+            "attunement": "",
+            "attuned": false,
+            "equipped": false,
+            "rarity": "",
+            "identified": false,
+            "unidentified": {"description": "<p>A humming sphere out of the Skittering Grove.</p>"},
+            "container": null,
+            "cover": null,
+            "crewed": false,
+            "uses": {"max": "", "recovery": [], "spent": 0},
+            "armor": {"value": null, "dex": null},
+            "hp": {"value": 0, "max": 0, "dt": null, "conditions": ""},
+            "speed": {"value": null, "conditions": "", "units": "ft"},
+            "strength": null,
+            "proficient": null,
+            "type": {"value": "trinket", "baseItem": ""},
+            "properties": [],
+            "activities": {}
+          },
+          "effects": [],
+          "flags": {
+            "waluipedia": {
+              "technology": "tech_grove_electric_sphere",
+              "event": "the_way_i_started_it",
+              "filedOn": "2026-10-04",
+              "note": "spoil of the grove floor fight; the thing hums and nothing else about it is established"
+            }
+          },
+          "folder": null,
+          "ownership": {"default": 0}
+        }
+      ]
+    },
+    {
+      "match": {"_id": "IlzuThuR8upTtqtF", "name": "Feyward Dan"},
+      "addItems": [
+        {
+          "name": "Injury: Sprained Thumb (one week)",
+          "type": "feat",
+          "img": "icons/skills/wounds/anatomy-bone-joint.webp",
+          "system": {
+            "description": {
+              "value": "<p><strong>Permanent Injury Table, row 59 — Sprained Thumb</strong> (Minor injury). Rolled on 1 Aethel, 1040 BF after falling to zero on the grove floor and coming back up.</p><p>You cannot fight with two weapons, and attack rolls with a versatile weapon used two-handed are made at disadvantage.</p><p><em>Cure: rest — one week. Duration: one week. Remove this feature when the week is up.</em></p>",
+              "chat": ""
+            },
+            "source": {"custom": "Waluipedia campaign — Permanent Injury Table", "revision": 1, "rules": "2024"},
+            "identifier": "injury-sprained-thumb",
+            "properties": [],
+            "activities": {},
+            "uses": {"spent": 0, "recovery": []},
+            "advancement": {},
+            "crewed": false,
+            "enchant": {},
+            "prerequisites": {"items": [], "repeatable": false},
+            "requirements": "",
+            "type": {"value": "", "subtype": ""}
+          },
+          "effects": [],
+          "flags": {
+            "waluipedia": {
+              "injury": {
+                "table": "permanent_injury_d100",
+                "ref": "injury_059",
+                "roll": 59,
+                "injuryType": "Sprained Thumb",
+                "category": "Minor injury",
+                "event": "the_way_i_started_it",
+                "date": "1 Aethel, 1040 BF",
+                "duration": "One week.",
+                "cure": "Rest — one week."
+              },
+              "filedOn": "2026-10-04"
+            }
+          },
+          "folder": null,
+          "ownership": {"default": 0}
+        }
+      ]
+    }
+  ]
+}

@@ -1299,7 +1299,11 @@
   ],
   "effects": [],
   "folder": "EypLbRzz5Hphlv5M",
-  "flags": {},
+  "flags": {
+    "waluipedia-mass-import": {
+      "folderPath": []
+    }
+  },
   "_stats": {
     "duplicateSource": null,
     "exportSource": null,

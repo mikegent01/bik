@@ -8232,6 +8232,9 @@
   "flags": {
     "dnd5e": {
       "showTokenPortrait": false
+    },
+    "waluipedia-mass-import": {
+      "folderPath": []
     }
   },
   "_stats": {

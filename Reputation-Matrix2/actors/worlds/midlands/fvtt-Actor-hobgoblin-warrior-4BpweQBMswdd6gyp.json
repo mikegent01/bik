@@ -1604,6 +1604,9 @@
   "flags": {
     "scene-packer": {
       "hash": "a8862d932b512b5aa6193d13b449c54f98244a0f"
+    },
+    "waluipedia-mass-import": {
+      "folderPath": []
     }
   },
   "_stats": {

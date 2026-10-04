@@ -62,7 +62,7 @@ SERVER_ROOTS = ("icons/", "systems/", "modules/", "ui/", "cards/", "fonts/", "so
 # not have is really missing (as opposed to a GM upload we merely cannot see).
 REPO_ROOTS = ("portraits/",)
 IMAGE_EXTS = (".png", ".webp", ".jpg", ".jpeg", ".gif", ".svg")
-SKIP_FILES = {"manifest.json", "import.json", "export.json", "folders.json", "changes.json"}
+SKIP_FILES = {"manifest.json", "import.json", "players-import.json", "export.json", "folders.json", "changes.json"}
 
 DEFAULT_PORTRAITS = os.path.join(RM, "portraits")
 DEFAULT_CHARACTERS = os.path.join(RM, "data", "characters.json")

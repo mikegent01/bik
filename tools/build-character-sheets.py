@@ -174,23 +174,34 @@ def load_image_lib():
 def existing_actor_files():
     """Every hand-made / imported actor file: (relpath from RM, doc)."""
     out = []
-    for base, sub in ((ACTORS, ""), (os.path.join(ACTORS, "peachs-castle-955"), "peachs-castle-955"),
-                      (os.path.join(ACTORS, "worlds", "midlands"), "worlds/midlands")):
+    for base, sub, walk in ((ACTORS, "", False), (os.path.join(ACTORS, "peachs-castle-955"), "peachs-castle-955", False),
+                            (os.path.join(ACTORS, "worlds", "midlands"), "worlds/midlands", True)):
         if not os.path.isdir(base):
             continue
-        for fn in sorted(os.listdir(base)):
+        # A world mirror split from a module export is a tree: one directory
+        # per Foundry folder (Players/, Important/, ...). Walk it; the flat
+        # intake and era packets stay flat.
+        found = []
+        if walk:
+            for cur, subdirs, files in os.walk(base):
+                subdirs.sort()
+                relsub = os.path.relpath(cur, base)
+                for fn in files:
+                    found.append((fn, os.path.join(cur, fn), (relsub + "/" if relsub != "." else "") + fn))
+        else:
+            found = [(fn, os.path.join(base, fn), fn) for fn in os.listdir(base)]
+        for fn, path, relname in sorted(found, key=lambda t: t[2]):
             if not fn.startswith("fvtt-Actor-") or not fn.endswith(".json"):
                 continue
             if "-NO-SPECIES" in fn:
                 continue  # a derived variant of the same sheet, not another sheet
-            path = os.path.join(base, fn)
             try:
                 doc = read_json(path)
             except Exception:
                 continue
             if not isinstance(doc, dict) or not doc.get("name"):
                 continue
-            rel = "actors/" + (sub + "/" if sub else "") + fn
+            rel = "actors/" + (sub + "/" if sub else "") + relname
             out.append((rel, doc))
     return out
 
@@ -1897,13 +1908,10 @@ def match_existing(characters, files):
 
         def rank(pair):
             rel, doc = pair
-            r = SOURCE_RANK[source_of(rel)]
-            # the Bowser PC intake sheet stays primary (the live world only has the warlord NPC)
-            if c["id"] == "bowser" and doc.get("type") == "character":
-                r = -1
-            if c["id"] == "wario" and doc.get("type") == "character":
-                r = -1
-            return (r, 0 if doc.get("type") == "character" else 1, rel)
+            # live > intake > era; within a source a player-character sheet
+            # beats an NPC statblock of the same name (the rule that player
+            # characters carry character sheets, not NPC ones)
+            return (SOURCE_RANK[source_of(rel)], 0 if doc.get("type") == "character" else 1, rel)
         uniq.sort(key=rank)
         out[c["id"]] = uniq
     return out
@@ -1953,7 +1961,15 @@ def build_all():
             continue
         level, power = level_of(xp, cid)
         portrait = site_portrait(c)
-        if cid in existing:
+        statblock_alternates = []
+        if cid in existing and existing[cid][0][1].get("type") != "character" and cid in BESPOKE:
+            # Only NPC statblocks on file for a hand-authored main-cast member
+            # (the GM's live statblock for Mario, say). Player characters carry
+            # character sheets, so the bespoke PC sheet stays primary and the
+            # statblocks ride along as alternates instead of displacing it.
+            statblock_alternates = [{"file": r, "name": d.get("name"), "source": source_of(r), "kind": "npc"}
+                                    for r, d in existing[cid]]
+        elif cid in existing:
             rel, doc = existing[cid][0]
             summ = summarize_actor(doc)
             party, why = is_party(c, xp, summ["kind"])
@@ -1975,7 +1991,7 @@ def build_all():
         generated.append((cid, doc))
         summ = summarize_actor(doc)
         entry = {"id": cid, "name": c.get("name"), "title": c.get("title") or "", "sheetName": doc["name"],
-                 "source": "generated", "file": rel, "alternates": [], "party": party, "partyWhy": why,
+                 "source": "generated", "file": rel, "alternates": statblock_alternates, "party": party, "partyWhy": why,
                  "group": group, "portrait": portrait, "ledger": {"level": level, "powerLevel": power},
                  "role": doc["flags"][SHEETS_FLAG]["role"], "bespoke": doc["flags"][SHEETS_FLAG]["bespoke"],
                  "evidence": doc["flags"][SHEETS_FLAG]["evidence"]}
