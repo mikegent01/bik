@@ -6083,5 +6083,161 @@
     },
     "image": "assets/images/events/judgement-in-the-grove/jig-01-warhammer.jpg",
     "imageCaption": "The Skittering Grove, where the Scorncrow was brought down on its knees."
+  },
+  {
+    "id": "the_grove_floor_battle",
+    "name": "The Grove Floor (The Fall of Feyward Dan, the Whispered Fireball, and the Fist)",
+    "date": "1 Aethel, 1040 BF — straight on from the sentry arrangement, the Shadowfell clock past two in the morning",
+    "location": "The Skittering Grove — the grove floor between the fires and the stump (Shadowfell)",
+    "type": "Grove battle / last stand / fighting withdrawal concluded",
+    "status": "Concluded — the giant green spider and the ettercaps are dead; the party is going back to the stump to rest",
+    "result": "Party victory at cost: the giant green spider and every ettercap on the grove floor killed; Feyward Dan dropped to zero hit points and recovered; Eager left on two hit points; Archie out of spells. No deaths.",
+    "engagement": {
+      "combatants": 9,
+      "ledgerWindow": "the Skittering Grove, continuous from the sentry arrangement of 1 Aethel, 1040 BF on the Shadowfell clock",
+      "scale": "A squad-level engagement in three movements: a scattering from the stump, a last spell over a fallen man, and a clean-up ended by hand."
+    },
+    "belligerents": {
+      "attackers": {
+        "name": "Disaster Inc. & the Liberated Toads",
+        "factionId": "disaster_inc",
+        "commander": "Markop",
+        "combatants": [
+          {
+            "name": "Markop",
+            "leader": true,
+            "fate": "wounded",
+            "role": "held the stump, revved the motorbike past an ettercap, healed Eager, killed the last ettercap with his fist",
+            "fateNote": "bleeding; 'healthier than the other guys'"
+          },
+          {
+            "name": "Eager",
+            "fate": "wounded",
+            "role": "killed the giant green spider; wrestled the ettercap off Dan and threw him clear; final stand took one of the last two",
+            "fateNote": "two hit points left; carried the electric sphere out"
+          },
+          {
+            "name": "Archie Miser",
+            "fate": "stood",
+            "role": "put Dan's body down and whispered Fireball over it",
+            "fateNote": "woozy, out of spells"
+          },
+          {
+            "name": "Feyward Dan",
+            "fate": "fell",
+            "role": "dropped the longsword for the shield to defend the party",
+            "fateNote": "webbed, fell at zero, dropped again on the catch, healed up by Salam; Permanent Injury Table 59 — Sprained Thumb"
+          },
+          {
+            "name": "Salam",
+            "fate": "stood",
+            "role": "fired from the bike, then put the bow down and healed Dan up",
+            "fateNote": "called weak by the Toads"
+          }
+        ]
+      },
+      "defenders": {
+        "name": "The brood of the Skittering Grove",
+        "factionId": "unaligned",
+        "commander": "The giant green spider",
+        "combatants": [
+          {
+            "name": "The giant green spider",
+            "leader": true,
+            "fate": "fell",
+            "role": "the grove's best fighter, two filings unwounded",
+            "fateNote": "killed by Eager, past the fires, with no ceremony the record kept"
+          },
+          {
+            "name": "Ettercaps",
+            "fate": "fell",
+            "role": "webbed Dan and dropped him; closed on Archie",
+            "fateNote": "one left in the dust by the motorbike, the rest killed by the whispered Fireball, Eager's final stand and Markop's fist"
+          }
+        ]
+      }
+    },
+    "casualties": "No deaths on the party side. Feyward Dan to zero hit points and recovered (Permanent Injury Table 59 — Sprained Thumb, one week); Eager to two hit points; Archie spent; Markop bleeding. The giant green spider and every ettercap on the grove floor killed.",
+    "summary": "The sentry arrangement failed exactly as the archive said it would — the stump was the plan and everyone ran from it — and the grove fight was won anyway: Eager killed the giant green spider, Dan took the shield and fell for it, Archie whispered the first real Fireball on his record over Dan's body, Eager's final stand took one of the last two ettercaps, and Markop, who never left the stump, killed the last one with his fist.",
+    "description": "Continuous from the sentry arrangement. Archie ran deeper in; Eager followed and killed the giant green spider. Dan, one-armed, dropped the longsword for the shield. Markop watched the party run from the stump and stayed at it, revving the motorbike; Salam fired from the bike; Markop left an ettercap in the dust. Dan was webbed and fell; Archie screamed — the pact's signal, meaning something else. Eager wrestled the ettercap off Dan and threw him to Archie, who missed the catch, held the body, thought about running, put it down and whispered Fireball. Two ettercaps left; Eager's final stand took one; Eager stumbled backwards into Markop ('Hello.'); Salam healed Dan; Eager survived the next hit on Markop's healing with two hit points; Markop pushed Eager aside and killed the last ettercap with his fist. 'What about Remi? We can't rest now' lost to the Toads: back to the stump.",
+    "keyMoments": [
+      {
+        "time": "opening",
+        "who": "Eager",
+        "act": "Follows Archie deeper in and kills the giant green spider",
+        "result": "the grove's best fighter dead, past the fires, with no ceremony the record kept"
+      },
+      {
+        "time": "opening",
+        "who": "Feyward Dan",
+        "act": "Drops the longsword and takes up the one-handed shield",
+        "result": "one arm, one tool: the one that protects other people"
+      },
+      {
+        "time": "middle",
+        "who": "Markop",
+        "act": "Stays at the stump while the party runs from it and revs the motorbike",
+        "result": "an ettercap left in the dust; the plan held at one point"
+      },
+      {
+        "time": "middle",
+        "who": "Archie Miser",
+        "act": "Puts Dan's body down and whispers Fireball",
+        "result": "the ettercaps' ring broken; Archie out of spells"
+      },
+      {
+        "time": "closing",
+        "who": "Eager",
+        "act": "Final stand on one of the last two, then walks backwards into Markop",
+        "result": "'Hello.' — two hit points left after the next hit"
+      },
+      {
+        "time": "closing",
+        "who": "Salam",
+        "act": "Puts the bow down and heals Dan up",
+        "result": "Dan back on his feet"
+      },
+      {
+        "time": "closing",
+        "who": "Markop",
+        "act": "Pushes Eager aside and kills the last ettercap with his fist",
+        "result": "the grove floor fight concluded"
+      }
+    ],
+    "aftermath": "The grove is fought through and the party is going back to the stump to rest. Dan's thumb is splinted for a week (Permanent Injury Table 59). Eager has the electric sphere. The Iron Legion appears nowhere in the record of the fight.",
+    "waluigiAssessment": "The plan held at exactly one point and nobody went to it. The table's own post-mortem — Archie spent every crowd-control spell and everyone left — is the correct one; the archive declines to improve on it.",
+    "relatedArticles": [
+      "the_way_i_started_it",
+      "you_said_leave_no_one_behind",
+      "judgement_in_the_grove_battle",
+      "skittering_grove",
+      "markop",
+      "eager",
+      "archie_miser",
+      "dan_the_toad",
+      "salam"
+    ],
+    "reputationChanges": {
+      "eager": {
+        "liberated_toads": 4
+      },
+      "archie_miser": {
+        "liberated_toads": 3
+      },
+      "salam": {
+        "liberated_toads": 2
+      },
+      "markop": {
+        "liberated_toads": -1
+      }
+    },
+    "effects": {
+      "liberated_toads": 1
+    },
+    "reputationNotes": {
+      "_record": "Standing moved only among the Toads, who went back to the stump with the people who had just bled for them."
+    },
+    "image": "assets/images/events/the-way-i-started-it/twisi-04-the-fist.jpg",
+    "imageCaption": "The last ettercap had one hit point. Markop had a fist."
   }
 ]

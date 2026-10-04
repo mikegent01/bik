@@ -2972,7 +2972,7 @@
     "controllingFaction": "The Scorncrow's brood — ettercaps and giant green spiders; an Iron Legion detachment also present inside, unexplained",
     "population": "Uncountable arachnids; an unknown number of wrapped victims, beast and man; at least one Legion contingent and one webbed guard",
     "climate": "Windless, lightless, and warm the way a mouth is warm; fire magic burns weaker here than it should",
-    "status": "Active hazard — the party is inside it, the jaws are shut behind them, and the exit Archie made is sealed",
+    "status": "Fought through — the giant green spider and the ettercaps on the grove floor are dead; the party is back at the stump, battered, resting; the Legion's position after the fight is unrecorded and the way up is still the stump",
     "summary": "The Skittering Grove is what is inside the Scorncrow's tree — and it is the Silent Grove, the same web-choked forest the party cleared after banishing the Arachnid Matriarch. Markop recognised it on arrival and walked to the stump they had stacked the loot on. You reach it by rope, through the tree's jaws, down a pit that a thrown torch does not measure. The archive now holds one grove with two entrances: a walk across Raventree Manor's grounds, and a scarecrow's mouth in the Shadowfell.",
     "description": "Markop recognised it before anyone else did, and what he recognised is the whole entry: this is the Silent Grove. The party cleared it. They are standing in it again, inside something that was growing in a field an hour ago.\n\n**The Approach**\nThere is no door. There is a mouth. When Markop pried the jaws of the trunk open he saw darkness first and a giant pit second, in that order, which is the order things arrive in here. The party threw a torch in as a test. The torch came back out of the trunk — and on the inside, Remi heard voices saying *there's a fire, someone's causing a fire, they're going to burn us all down*. That is the whole location in one exchange: you cannot sound it, and something in it is talking about you.\n\n**The Heart**\nAt the centre stands a great, towering tree with vast branches reaching out to form a canopy over the area. Its boughs are coated in thick webs that are an unnerving mockery of foliage, and hanging from them are the forms of wrapped creatures, both beast and man, dangling like macabre fruit. The tree is long dead — some terrible malady killed it from the inside out years ago. Its dark roots jut from grey earth that no longer nourishes it, and its great arms serve as home to an unimaginable host of creeping, crawling arachnids that accost anything which wanders into their domain.\n\n**What Lives Here**\nGiant green spiders that fight with webs before they fight with fangs. Ettercaps that reel their targets in on a strand and open with a multiattack. And — filed with the discomfort it deserves — Legion soldiers, inside, alongside the brood, on ground no Legion column marched to.\n\n**Fire**\nArchie's fire bolt scarred the bark and did nothing else. Fire magic is weakened in this domain, which the wizard tested twice before believing it and then answered by emptying every reserve he had into a single cast. The tree took it. The exit did not survive.\n\n**It Is the Silent Grove**\nIt is not a second one. Markop recognised it on arrival and named it: this is the Silent Grove, the web-choked forest on Raventree Manor's northwestern boundary where the party banished the Arachnid Matriarch. Same great dead tree, same web canopy, same grey earth. He walked to the broad flat stump at the roots — the stump the loot was stacked on that night, the War Mage's Staff he claimed on Archie's behalf, the Web-Woven Scale, the three healing potions — put a hand on it, and said so out loud. Nobody else in the party recognised it.\n\n**Waluigi's Assessment**\nSo the archive is holding two facts that do not fit in the same box. The Silent Grove is on Raventree Manor's grounds and you reach it by walking. The Silent Grove is also inside the Scorncrow's tree and you reach it by rope, through a mouth, in the Shadowfell. Both are filed. Both are attested. Waluigi is not going to pretend that a place he helped clear has stayed cleared, or stayed put, and the open question is not whether this grove moved — it is whether it was ever only in one place. The Legion are standing in it. Somebody should ask how they walk there. WAH.",
     "notableFeatures": [
@@ -2984,7 +2984,8 @@
       "Grey earth that no longer nourishes the roots jutting out of it",
       "Fire magic is measurably weakened inside",
       "Ettercaps, giant green spiders, and an unexplained Iron Legion presence",
-      "Voices inside that react to what the party does outside"
+      "Voices inside that react to what the party does outside",
+      "The stump — the tree of the grove and the way back up; the sentry arrangement's rally point, which everyone ran from and one centaur held, and where the party went back to rest when the grove floor was done"
     ],
     "relatedArticles": [
       "the_belly_of_the_beast",
@@ -2994,7 +2995,8 @@
       "markop",
       "remi_akamatsu_full_backstory",
       "archie_miser",
-      "wario"
+      "wario",
+      "the_way_i_started_it"
     ],
     "image": "assets/images/events/belly-of-the-beast/belly-05-skittering-grove.jpg",
     "plane": "shadow",

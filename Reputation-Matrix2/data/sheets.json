@@ -1942,7 +1942,7 @@
       "party": true,
       "partyWhy": "player character sheet",
       "group": "Disaster Inc.",
-      "portrait": "portraits/dan.png",
+      "portrait": "portraits/dan_grove_splinted.png",
       "ledger": {
         "level": 3,
         "powerLevel": 5

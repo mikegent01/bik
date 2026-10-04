@@ -570,6 +570,39 @@
   ];
   T.guild_orb.view = {yaw:0.4, pitch:0.25};
 
+  /* Wario's motorbike: two fat tyres, a purple frame, the yellow tank with the W,
+     a low seat, forks and bars, one lamp. Front wheel +X. The thing has been
+     stalled, crashed and sat on; the wheels turn anyway. */
+  T.motorbike = (P)=>[
+    grp([0,0,0],null,[
+      grp([0.72,0.36,0],null,[tor(0.3,0.1,[0,0,0],'tyre',{r:[X,0,0]}), cyl(0.2,0.2,0.08,[0,0,0],'metal',{r:[X,0,0]})],{spin:{axis:'z',speed:-6}}),
+      grp([-0.72,0.36,0],null,[tor(0.3,0.1,[0,0,0],'tyre',{r:[X,0,0]}), cyl(0.2,0.2,0.08,[0,0,0],'metal',{r:[X,0,0]})],{spin:{axis:'z',speed:-6}}),
+      bar2([-0.6,0.42],[0.1,0.9],0.07,'frame',{depth:0.1}), bar2([0.1,0.9],[0.6,0.5],0.07,'frame',{depth:0.1}),
+      bar2([-0.6,0.42],[0.5,0.42],0.07,'frame',{depth:0.1}),
+      bar2([0.52,0.44],[0.78,1.02],0.05,'metal',{depth:0.05, z:0.08}), bar2([0.52,0.44],[0.78,1.02],0.05,'metal',{depth:0.05, z:-0.08}),
+      sph(0.3,[0.05,1.0,0],'tank',{sc:[1.5,0.75,0.9]}), letters('W',0.03,[0.05,1.0,0.3],'#5a2d82'),
+      box(0.55,0.1,0.3,[-0.45,0.92,0],'seat'), box(0.1,0.22,0.3,[-0.75,0.98,0],'seat'),
+      cyl(0.03,0.03,0.6,[0.8,1.08,0],'metal',{r:[X,0,0]}), sph(0.05,[0.8,1.08,0.32],'#2a2a2a'), sph(0.05,[0.8,1.08,-0.32],'#2a2a2a'),
+      sph(0.12,[0.95,0.86,0],'lamp',{e:0.5}),
+      box(0.4,0.3,0.3,[-0.1,0.5,0],'metal'), cyl(0.05,0.05,0.9,[-0.45,0.4,0.2],'metal',{r:[0,0,X*0.95]}),
+      cyl(0.04,0.04,0.4,[-0.05,0.3,0.25],'metal',{r:[X,0,0]}), cyl(0.04,0.04,0.4,[-0.05,0.3,-0.25],'metal',{r:[X,0,0]}),
+    ],{bob:{amp:0.015,speed:9}}),
+  ];
+  T.motorbike.view = {yaw:0.55, pitch:0.22};
+
+  /* The electric sphere Eager carried out of the grove: a glass sphere in a
+     metal cage with a core that will not stop humming, on a three-foot stand. */
+  T.charged_sphere = (P)=>[
+    lathe([[0,0],[0.3,0],[0.32,0.06],[0.12,0.1],[0.1,0.42],[0.26,0.5],[0,0.5]],[0,0,0],'shell',{seg:24}),
+    grp([0,0.98,0],null,[
+      sph(0.42,[0,0,0],'glass',{a:0.45}), sph(0.16,[0,0,0],'core',{e:0.9}),
+      ...[0,1,2,3,4,5].map(i=>sph(0.04,[Math.sin(ring(i,6))*0.3,Math.cos(ring(i,6)*2)*0.12,Math.cos(ring(i,6))*0.3],'arc',{e:0.8})),
+      tor(0.44,0.025,[0,0,0],'band',{r:[X,0,0]}), tor(0.44,0.025,[0,0,0],'band',{r:[0,0,X]}), tor(0.44,0.025,[0,0,0],'band'),
+    ],{spin:{axis:'y',speed:0.8}, bob:{amp:0.03,speed:1.6}}),
+    ...[0,1,2].map(i=>cyl(0.03,0.03,0.4,[Math.sin(ring(i,3))*0.26,0.6,Math.cos(ring(i,3))*0.26],'shell',{r:[Math.cos(ring(i,3))*0.35,0,-Math.sin(ring(i,3))*0.35]})),
+  ];
+  T.charged_sphere.view = {yaw:0.4, pitch:0.25};
+
   /* ---------- builder ---------- */
   /* Resolve palette keys to colours (recursively through groups) and hand the
      part list to the renderer in tech-gl.js, which returns a compiled model

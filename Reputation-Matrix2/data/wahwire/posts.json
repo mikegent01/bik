@@ -8586,6 +8586,100 @@
         }
       ],
       "status": "posted"
+    },
+    {
+      "id": "ww_twisi_archie",
+      "author": "archie_miser",
+      "type": "text",
+      "order": 212,
+      "date": null,
+      "timestamp": "1 Aethel, 1040 BF",
+      "content": "Put a friend down on the ground so I could stand up. Said the thing I have been saving since the first day. Whispered the word. It worked. The book is empty now — hands shaking, tree spinning, two of them still standing when the light went. Eager had one, Markop had the other. For the record I was not crying. The grove is very smoky.",
+      "likes": 688,
+      "links": [
+        {
+          "id": "the_way_i_started_it",
+          "type": "event"
+        },
+        {
+          "id": "dan_the_toad",
+          "type": "character"
+        },
+        {
+          "id": "eager",
+          "type": "character"
+        }
+      ],
+      "tags": [
+        "skitteringgrove",
+        "fireball",
+        "signaturespell",
+        "outofspells"
+      ],
+      "reaction": "spent",
+      "comments": [
+        {
+          "id": "ww_twisi_a_c1",
+          "author": "waluigi",
+          "content": "He has threatened the archive with that spell for forty filings, at volume. The first one he actually cast, he whispered, over a man he had just set down. Waluigi files the volume and nothing else.",
+          "likes": 902,
+          "topReply": true
+        },
+        {
+          "id": "ww_twisi_a_c2",
+          "author": "markop",
+          "content": "You are not useless. You are out of spells. I was at the tree the whole time, by the way. The tree. Where I said.",
+          "likes": 377
+        }
+      ],
+      "status": "posted"
+    },
+    {
+      "id": "ww_twisi_eager",
+      "author": "eager",
+      "type": "text",
+      "order": 213,
+      "date": null,
+      "timestamp": "1 Aethel, 1040 BF",
+      "content": "Killed the big one. Got the spider-man thing off Dan and threw Dan to Archie. Archie dropped him. Took one of the last two. Walked backwards into a horse. Two hit points. Picked up a ball that hums. Markop punched the last one so I did not have to. Not dead. That is the update. Going back to the stump, apparently, which I am told was the plan.",
+      "likes": 754,
+      "links": [
+        {
+          "id": "the_way_i_started_it",
+          "type": "event"
+        },
+        {
+          "id": "markop",
+          "type": "character"
+        },
+        {
+          "id": "dan_the_toad",
+          "type": "character"
+        }
+      ],
+      "tags": [
+        "skitteringgrove",
+        "twohitpoints",
+        "greenspider",
+        "thestump"
+      ],
+      "reaction": "battered",
+      "comments": [
+        {
+          "id": "ww_twisi_e_c1",
+          "author": "waluigi",
+          "content": "The grove's best fighter attended two filings unwounded and died to this man between sentences. The archive opened its file and closed it in the same line, which is one more line than it gave Eager's hit points. Two.",
+          "likes": 811,
+          "topReply": true
+        },
+        {
+          "id": "ww_twisi_e_c2",
+          "author": "salam",
+          "content": "I put the bow down to heal Dan and got called weak for it in the same minute. Rest well at the stump. Somebody has to be the guard again and I notice it is going to be me.",
+          "likes": 298
+        }
+      ],
+      "status": "posted"
     }
   ]
 }

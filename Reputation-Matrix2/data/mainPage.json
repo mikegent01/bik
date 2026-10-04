@@ -1,13 +1,13 @@
 {
   "featuredArticle": {
-    "id": "the_unlocked_cell_955_bf",
+    "id": "the_way_i_started_it",
     "type": "event",
-    "excerpt": "The Arrangement, which the capital file has held for fifteen years as a dead chamberlain's disputed journal, is on the record as a corridor with people in it: a Koopa out of an unlocked cell, Fawful's hand in his, the Guild already in place, and the Chamberlain giving a kill order out loud to a hall that had just cheered the people he gave it to. One witness. A ceremonial guard. His son is in the Guild's care."
+    "excerpt": "The grove floor is fought through and nobody died. The plan held at exactly one point — the stump — and nobody went to it; the signal fired and meant something else; the first real Fireball on Archie's record was whispered over a friend's body with nothing behind it. The table held its own post-mortem: Archie spent every crowd-control spell and everyone left. The archive underlines it a third time and gets out of the way."
   },
   "latestUpdate": {
-    "id": "the_unlocked_cell_955_bf",
-    "label": "Latest Filing · Session Event · 955 BF",
-    "excerpt": "One in the morning at Peach's Castle, a month before the assassination. A ceremonial guard jumps four times because the Mario brothers are coming, gets lectured by a Toadsworth in a new suit who has the keys to every door, gets lost five times in the right direction — past his own small son at the dining-hall table — and is walked down to a dungeon cell that was never locked. The prisoner is a Koopa expecting a friend; the escort falls dead; Fawful shakes the Koopa's hand with three Mages' Guild hoods behind him. Bowser comes through the wall, kills the captain, asks for Peach and has never heard of Fawful; one small Guild orb puts him down and the hall cheers the Guild; the brothers are late. The guard says the Guild works with Fawful and the Chamberlain tells the Guild to dispatch of him. Five hours of drains and one stomped Goomba later he is in Fawful's Bean Badge, where the Guild has his son, Fawful has a Guild cloak and a vacuum shroom, and the only escort on offer is the people he has just said he does not trust."
+    "id": "the_way_i_started_it",
+    "label": "Latest Filing · Session Event · 1040 BF",
+    "excerpt": "Straight on from the sentry arrangement. Eager kills the giant green spider; Dan, one-armed, drops the longsword for the shield; Markop watches the whole party run from the stump the plan was built around and stays at it, revving Wario's motorbike. Dan is webbed and falls — the scream the last filing was listening for gets made, by Archie, for Dan, and it is not the signal. Archie puts the body down, faces the ettercaps and whispers Fireball: 'I'll end this journey the way I started it, with my signature spell.' Eager's final stand, two hit points, 'Hello.' into Markop's flank, Salam's hands on Dan, and the last ettercap ended by a centaur's fist. Back to the stump, not after Remi. The Permanent Injury Table hands a one-armed paladin row 59 — Sprained Thumb."
   },
   "didYouKnow": [
     "...that the Scorncrow told three separate filings it was not a monster, and when Remi Akamatsu finally tested the claim with a point-blank musket, the blood under the face was human?",
@@ -36,20 +36,20 @@
   ],
   "campaignCovers": [
     {
+      "id": "the-way-i-started-it-cover",
+      "campaign": "Shadeward",
+      "title": "SHADEWARD — The Way I Started It",
+      "caption": "The way he started it. Archie Miser rising off the grove floor with the webbed body of Feyward Dan set down behind him, the fire just blooming in his hand, three ettercaps coming out of the smoke — and, far…",
+      "image": "assets/images/events/the-way-i-started-it/twisi-01-fireball-whispered.jpg",
+      "articleId": "the_way_i_started_it"
+    },
+    {
       "id": "the-unlocked-cell-955-bf-cover",
       "campaign": "Mario",
       "title": "MARIO — The Unlocked Cell",
       "caption": "The dungeon corridor under Peach's Castle as the account places it: the cell door standing open, the Koopa out of it and shaking Fawful's hand, three Mages' Guild hoods arriving behind them with their hands…",
       "image": "assets/images/events/the-unlocked-cell-955/cell-01-the-handshake.jpg",
       "articleId": "the_unlocked_cell_955_bf"
-    },
-    {
-      "id": "you-said-leave-no-one-behind-cover",
-      "campaign": "Shadeward",
-      "title": "SHADEWARD — You Said Leave No One Behind, Right?",
-      "caption": "The release, with the grove still burning behind it. Markop beside the motorbike and the tree he rode it into; the Legion guard's gauntlets open and off Salam, who is awake and on his own feet for the first…",
-      "image": "assets/images/events/you-said-leave-no-one-behind/ylnb-01-code-returned.jpg",
-      "articleId": "you_said_leave_no_one_behind"
     },
     {
       "id": "snowdin-bone-line-registry-cover",

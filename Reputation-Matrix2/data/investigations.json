@@ -166,7 +166,7 @@
         "raventree_manor"
       ],
       "opened": "23 Harvestide, 1040 BF",
-      "lastFiled": "1 Aethel, 1040 BF — amended: the code returned, a sentry arrangement at the motorbike, and the Legion's syringe",
+      "lastFiled": "1 Aethel, 1040 BF — amended: the grove floor fought through, the whispered Fireball, Feyward Dan's fall and row 59, and the vote for the stump over Remi",
       "archivist": "Waluigi, Auditor-General",
       "icon": "🏚️",
       "accent": "#8a4bff",
@@ -277,7 +277,7 @@
           "id": "thread_disputed_casualty",
           "title": "Who holds Eager, and on what authority",
           "status": "open",
-          "note": "A Legion guard removed an unconscious party member on the code — no man left behind — over the objection of Archie, Feyward Dan and Markop, and over the man's own request to be put down. Resolved in part on 1 Aethel: Salam woke, Markop returned the code — 'you said leave no one behind, right?' — and the Legion let him go and left a guard waiting at the motorbike with him. The custody question is closed; the authority question is not — a guard later tried to move Salam off the bike ('stand still, you worm') and was refused."
+          "note": "A Legion guard removed an unconscious party member on the code — no man left behind — over the objection of Archie, Feyward Dan and Markop, and over the man's own request to be put down. Resolved in part on 1 Aethel: Salam woke, Markop returned the code — 'you said leave no one behind, right?' — and the Legion let him go and left a guard waiting at the motorbike with him. The custody question is closed; the authority question is not — a guard later tried to move Salam off the bike ('stand still, you worm') and was refused. Amended again: the authority question went unanswered because the Legion went unrecorded — while the grove floor was fought, no guard's hand is on anybody. Salam left the post he had been given to heal Dan, and nobody stopped him."
         },
         {
           "id": "thread_no_helicopter",
@@ -289,7 +289,13 @@
           "id": "thread_what_the_legion_ran_from",
           "title": "What made an Iron Legion soldier run",
           "status": "open",
-          "note": "A Legion man ran past Markop in open panic while the guards were still treating the grove as their ground. Nothing in the record names the cause. The three Toads are running toward the same deeper grove."
+          "note": "A Legion man ran past Markop in open panic while the guards were still treating the grove as their ground. Nothing in the record names the cause. The three Toads are running toward the same deeper grove. Amended 1 Aethel, later: the grove floor was fought through by the party alone — the Legion appears nowhere in the record of the fight, not the guard at the bike, not the medic, not the running man. The ettercaps and the giant green spider are now candidates for what he ran from, and they are dead. Nothing confirms it; the thread stays open."
+        },
+        {
+          "id": "thread_remi_after_the_grove",
+          "title": "What about Remi",
+          "status": "open",
+          "note": "Markop's question — 'what about Remi, we can't rest now' — was the only mention of Remi on the grove floor and it lost the vote: back to the stump. Remi, Wario and Mossy are on the far side of Anamatar's passage with a student ID traded for the way. The record does not show Markop agreeing to the vote."
         }
       ],
       "leads": [
@@ -714,7 +720,7 @@
           "title": "Map the retreat through the tree of the grove",
           "status": "open",
           "priority": "high",
-          "why": "Markop named the tree as the rally route — 'we're going back through the tree' — and the party roped down into the grove through it. Nobody has filed whether the way up is still open, or what two fires have done to it.",
+          "why": "Markop named the tree as the rally route — 'we're going back through the tree' — and the party roped down into the grove through it. Nobody has filed whether the way up is still open, or what two fires have done to it. Amended after the grove floor: the Toads are back in the conversation and voted for the stump — the record does not show when the three who ran upward came down, or whether these are they; the stump is the way up and the party is resting at it.",
           "exhibits": []
         },
         {
@@ -722,15 +728,39 @@
           "title": "Confirm whether the three Toads fully disengaged",
           "status": "open",
           "priority": "medium",
-          "why": "They said they would run upwards, deeper into the grove, and fully disengage if it turned south. The filing closes without them on the record, in a grove that just frightened the Iron Legion.",
+          "why": "They said they would run upwards, deeper into the grove, and fully disengage if it turned south. The filing closes without them on the record, in a grove that just frightened the Iron Legion. Amended after the grove floor: the Toads are back in the conversation and voted for the stump — the record does not show when the three who ran upward came down, or whether these are they; the stump is the way up and the party is resting at it.",
           "exhibits": []
         },
         {
           "id": "lead_green_spider",
           "title": "Open a file on the giant green spider",
+          "status": "closed",
+          "priority": "medium",
+          "why": "It closed on Markop one filing ago and bit Archie through Dan's shield in this one. Two filings, two victims, no wound on it anywhere in the record. The grove's best fighter has no page. CLOSED 1 Aethel, later: Eager killed it, past the fires, with no ceremony the record kept. The file is opened and closed in the same sentence of the filing; the spider's two filings of unwounded menace are its page.",
+          "exhibits": []
+        },
+        {
+          "id": "lead_electric_sphere",
+          "title": "What Eager carried out of the grove",
           "status": "open",
           "priority": "medium",
-          "why": "It closed on Markop one filing ago and bit Archie through Dan's shield in this one. Two filings, two victims, no wound on it anywhere in the record. The grove's best fighter has no page.",
+          "why": "The record says the electric sphere was powered during the giant battle by Archie's electric magic. The archive has no earlier sighting of it and files the claim as stated. It is in the hands of a scout with two hit points.",
+          "exhibits": []
+        },
+        {
+          "id": "lead_the_week_at_the_stump",
+          "title": "Can the party rest a week at the stump",
+          "status": "open",
+          "priority": "high",
+          "why": "Dan's thumb is a week on the rule; Eager is on two hit points; Archie has no spells; Salam is weak. The stump is inside a grove the Legion treated as its ground and the record has lost track of the Legion. A rest at the stump is a plan with the same shape as the last one.",
+          "exhibits": []
+        },
+        {
+          "id": "lead_the_scream_pact",
+          "title": "Retire the scream as a signal",
+          "status": "open",
+          "priority": "low",
+          "why": "The signal was made — by Archie, for Dan — and nobody retreated on it, because it meant something else. The arrangement is spent and should not be reused without a new word.",
           "exhibits": []
         }
       ],
@@ -842,6 +872,12 @@
           "label": "You said leave no one behind, right? — the code turned around, the sentry at the bike, and the syringe",
           "date": "1 Aethel, 1040 BF",
           "event": "you_said_leave_no_one_behind"
+        },
+        {
+          "id": "s_the_way_i_started_it",
+          "label": "The Way I Started It — the scream made for the wrong reason, the whispered Fireball over Dan's body, two hit points, and the fist that closed the grove",
+          "date": "1 Aethel, 1040 BF",
+          "event": "the_way_i_started_it"
         }
       ],
       "relatedEvents": [
@@ -863,7 +899,8 @@
         "feyward_i_cant_afford_not_to_care",
         "judgement_in_the_grove",
         "the_shepherds_garden_and_the_three_week_clock",
-        "the_airlift_that_never_came"
+        "the_airlift_that_never_came",
+        "the_way_i_started_it"
       ],
       "exhibits": [
         {

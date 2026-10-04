@@ -1845,6 +1845,151 @@
         "bowser",
         "arrangement"
       ]
+    },
+    {
+      "id": "tech_warios_motorbike",
+      "name": "Wario's Motorbike",
+      "kind": "vehicle",
+      "tier": "industrial",
+      "icon": "🏍️",
+      "territory": {
+        "nation": null,
+        "plane": "shadow",
+        "location": "skittering_grove",
+        "label": "The Skittering Grove, Shadow Estate grounds (Shadowfell)"
+      },
+      "origin": {
+        "faction": null,
+        "maker": "Wario (WarioWare stock, by every sign)",
+        "holder": "markop"
+      },
+      "firstSeen": {
+        "event": "the_scorncrow_skirmish",
+        "date": "30 Harvestide, 1040 BF",
+        "year": 1040,
+        "timeCode": "TC:1040-08-30T23:20/SHD",
+        "confidence": "filed"
+      },
+      "sightings": [
+        {
+          "event": "the_scorncrow_skirmish",
+          "year": 1040,
+          "note": "Stalled in the undergrowth of the grove battlefield while the Scorncrow escaped in smoke and crow-feathers."
+        },
+        {
+          "event": "you_said_leave_no_one_behind",
+          "year": 1040,
+          "note": "Markop's first ride: into the trees, then into Salam. Then the sentry post — Salam and a Legion guard posted on it with a bow."
+        },
+        {
+          "event": "the_way_i_started_it",
+          "year": 1040,
+          "note": "Revved at the stump while the party ran from it; left an ettercap in the dust — the machine's first useful act since it hit a tree."
+        }
+      ],
+      "status": "At the stump with Markop; Wario on the far side of a passage",
+      "summary": "Wario's motorbike, left behind when Wario went through Anamatar's passage, rammed into a tree by a centaur on his first ride, used as a sentry post, and finally revved at the stump hard enough to leave an ettercap in the dust.",
+      "record": "The archive has filed this machine stalled, crashed and sat on before it filed it moving. On the grove floor Markop stood at the stump the plan was built around, watched the party run from it, and revved; Salam fired from the saddle; the bike left an ettercap behind. It is the only piece of the sentry arrangement, apart from the man on it, that did what it was for.",
+      "quotes": [
+        {
+          "event": "the_way_i_started_it",
+          "text": "He stayed. He revved the motorbike."
+        },
+        {
+          "event": "the_way_i_started_it",
+          "text": "Markop revved again and left an ettercap in the dust, which the archive files as the machine's first useful act since it hit a tree."
+        }
+      ],
+      "pressure": 0,
+      "tension": [
+        {
+          "between": [
+            "disaster_inc",
+            "iron_legion"
+          ],
+          "weight": 1,
+          "why": "The sentry post the Legion was asked to share, and then was not on the record for."
+        }
+      ],
+      "model": {
+        "recipe": "motorbike",
+        "palette": {
+          "frame": "#5a2d82",
+          "tank": "#f2c200",
+          "metal": "#8d8d99",
+          "tyre": "#1e1e22",
+          "seat": "#2a2a2a",
+          "lamp": "#fff1b0"
+        }
+      },
+      "tags": [
+        "skittering grove",
+        "wario",
+        "sentry post",
+        "the stump"
+      ]
+    },
+    {
+      "id": "tech_grove_electric_sphere",
+      "name": "The Electric Sphere",
+      "kind": "magitek",
+      "tier": "cosmic",
+      "icon": "⚡",
+      "territory": {
+        "nation": null,
+        "plane": "shadow",
+        "location": "skittering_grove",
+        "label": "The Skittering Grove, Shadow Estate grounds (Shadowfell)"
+      },
+      "origin": {
+        "faction": null,
+        "maker": "Unknown — charged, the record says, by Archie Miser's electric magic during the giant battle",
+        "holder": "eager"
+      },
+      "firstSeen": {
+        "event": "the_way_i_started_it",
+        "date": "1 Aethel, 1040 BF",
+        "year": 1040,
+        "timeCode": "TC:1040-09-01T02:00/SHD",
+        "confidence": "filed"
+      },
+      "sightings": [],
+      "status": "Carried out of the grove by Eager, on two hit points",
+      "summary": "A sphere that hums, picked up by Eager at the end of the grove floor fight; the record says it was powered during the giant battle by Archie's electric magic. The archive has no earlier sighting and files the claim as stated.",
+      "record": "The archive would prefer a provenance. It has a sentence: the sphere was powered during the giant battle by Archie's electric magic. Archie's lightning is on the record elsewhere - the electric spear at the door, the strikes the Shadow Estate account calls significant because they were not fire - and the giant battle is on the record; a sphere charged in it is not. It surfaced when a scout with two hit points had a reason to pick it up. The entry is filed with the gap stated and a lead opened in the arc file.",
+      "quotes": [
+        {
+          "event": "the_way_i_started_it",
+          "text": "Somewhere in this Eager picked up the electric sphere — the record says it was powered during the giant battle by Archie's electric magic, and the archive has no earlier sighting of the thing and says so."
+        }
+      ],
+      "pressure": 1,
+      "tension": [
+        {
+          "between": [
+            "disaster_inc",
+            "mages_guild"
+          ],
+          "weight": 1,
+          "why": "A charged arcane object leaving a grove in a scout's hands, with a Guild warrant already on the man whose magic charged it."
+        }
+      ],
+      "model": {
+        "recipe": "charged_sphere",
+        "palette": {
+          "shell": "#6a7ba8",
+          "glass": "#bfe8ff",
+          "core": "#7df3ff",
+          "band": "#c9a227",
+          "arc": "#e6fbff"
+        }
+      },
+      "tags": [
+        "skittering grove",
+        "archie miser",
+        "lightning",
+        "eager"
+      ]
     }
   ]
 }
