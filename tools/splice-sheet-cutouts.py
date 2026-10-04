@@ -149,6 +149,38 @@ SHEETS["pc-court"] = {
         "chambermaid", "cook-toque", "cook-kerchief", "mage-a",
         "herald-trumpet", "page-scroll", "mage-b", "mage-c"], "court"),
 }
+# Bowser's incursion force (the "interloper interrupts the council" scene).
+# Sheet A is a true 2x2 at 1024x1024 (dividers x=509-514, y=509-514).
+# Sheet B came back as an irregular 4-over-2 layout at 1408x768 with two
+# duplicate cells (second Boo, second Lakitu); only the four distinct units are
+# spliced, picking the larger bottom-row Lakitu.
+SHEETS["pc-bowser-a"] = {
+    "source": _PC / "bowser-incursion-sheet-a.png",
+    "tiles": _grid_tiles([(4, 506), (518, 1020)], [(4, 506), (518, 1020)], [
+        "koopatrol", "bob-omb-sapper", "paratroopa-spear", "sledge-bro"], "foe"),
+}
+SHEETS["pc-bowser-b"] = {
+    "source": _PC / "bowser-incursion-sheet-b.png",
+    "tiles": [
+        dict(key="r1c1", box=(4, 5, 346, 378), mode="neural", out=_PC / "foe-dry-bones.png"),
+        dict(key="r1c2", box=(358, 5, 698, 378), mode="neural", out=_PC / "foe-boo.png"),
+        dict(key="r2c1", box=(4, 390, 698, 764), mode="neural", out=_PC / "foe-chargin-chuck.png"),
+        dict(key="r2c2", box=(710, 390, 1404, 764), mode="neural", out=_PC / "foe-lakitu.png"),
+    ],
+}
+# Token cutouts for the already-committed Hunyuan base plates of the rest of
+# Bowser's force (Rule 0: reuse archive art). Sources stay where they are; only
+# the transparent cutouts land in the 955 packet.
+_TROOPS = ROOT / "docs" / "3d-reference" / "bowser-troops"
+for _name, _src in (("koopa-troopa", _TROOPS / "koopa-troopa-base.png"),
+                    ("goomba", _TROOPS / "goomba-base.png"),
+                    ("hammer-bro", _TROOPS / "hammer-bro-base.png"),
+                    ("magikoopa", _TROOPS / "magikoopa-base.png"),
+                    ("bowser", ROOT / "docs" / "3d-reference" / "beanbean-battle" / "bowser-base.png")):
+    SHEETS[f"pc-foe-{_name}"] = {
+        "source": _src,
+        "tiles": [dict(key="plate", box=None, mode="neural", out=_PC / f"foe-{_name}.png")],
+    }
 for _name, _file in (("peach", "princess-peach-base.png"),
                      ("toadsworth-elder", "toadsworth-elder-base.png"),
                      ("guard-captain", "guard-captain-base.png")):

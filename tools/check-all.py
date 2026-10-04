@@ -94,6 +94,11 @@ def main() -> int:
         # Green T's playable Foundry sheet is generated, not hand-edited; this
         # also re-validates every icon path against the image-path library.
         ("green t actor", [py, "tools/build-green-t-actor.py", "--check"], ROOT),
+        # Peach's Castle 955 BF: thirty era NPC sheets (court + Bowser's
+        # incursion force) come out of one deterministic generator; icons are
+        # re-validated against the image-path library and tokens against the
+        # installed cutouts.
+        ("peachs castle 955 actors", [py, "tools/build-peachs-castle-955-actors.py", "--check"], ROOT),
         # Judgement in the Grove: the event, its battle, and the front-page
         # wiring (latestUpdate/featured/Current fronts/SITE_UPDATES) all come
         # out of one generator, because the previous session was filed and
