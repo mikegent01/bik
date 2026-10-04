@@ -16,11 +16,14 @@ it.
     python3 start.py --route "#/article/the_belly_of_the_beast"
     python3 start.py --host 0.0.0.0  # expose on the network / in a container
     python3 start.py --workflow      # also run workflow/server.py (chat + model bridge)
+    python3 start.py --no-sheets     # skip the character-sheet suite (tools/sheets-suite.py --watch)
 
 The launcher window has a tick per thing that can run — the site, the workflow
-server (chat + LM Studio bridge), the Qwen3-TTS studio (off unless you tick
-it) — a start/stop button, live status lights for each port, and a log pane.
-Your ticks are remembered in ~/.waluipedia-start.json.
+server (chat + LM Studio bridge), the character-sheet suite (the GM's Foundry
+export → world mirror → player sheets at ledger XP → sheets.json + the import
+packets Foundry pulls back), the Qwen3-TTS studio (off unless you tick it) —
+a start/stop button, live status lights for each, and a log pane. Your ticks
+are remembered in ~/.waluipedia-start.json.
 
 Ctrl-C to stop (terminal mode). Nothing is built — this only serves the
 repository as it already exists.
@@ -61,6 +64,13 @@ TTS_PORT = 7860
 WORKFLOW_SCRIPT = ROOT / "workflow" / "server.py"
 WORKFLOW_PORT = 8787
 LM_STUDIO_PORT = 1234
+# The character-sheet suite (tools/sheets-suite.py --watch): splits a fresh
+# Foundry export into the world mirror, keeps player characters on character
+# sheets at ledger XP, applies the spoils files, rebuilds data/sheets.json and
+# the import packets, and re-runs whenever an export lands. Foundry fetches the
+# packets off this server, hence the CORS header on the static handler.
+SHEETS_SCRIPT = ROOT / "tools" / "sheets-suite.py"
+SHEETS_ROUTE = "#/sheets"
 # The launcher window remembers its ticks here.
 PREFS_PATH = Path.home() / ".waluipedia-start.json"
 
@@ -77,6 +87,9 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         # classic "I filed it but the page still shows the old one" bug.
         self.send_header("Cache-Control", "no-store, must-revalidate")
         self.send_header("Expires", "0")
+        # Foundry (another origin: localhost:30000, a Forge host) fetches the
+        # actor packets the sheet suite builds straight off this server.
+        self.send_header("Access-Control-Allow-Origin", "*")
         super().end_headers()
 
     def guess_type(self, path):
@@ -285,6 +298,34 @@ def launch_workflow(port: int, host: str, lm_url: str = "", say=print):
     return proc
 
 
+def launch_sheets_suite(site_port: int, say=print):
+    """Run tools/sheets-suite.py --watch as a child, its lines going to `say`.
+    Returns the Popen (or None when it cannot start)."""
+    if not SHEETS_SCRIPT.is_file():
+        say("  sheets : %s is missing — the sheets page still serves the committed data/sheets.json" % SHEETS_SCRIPT)
+        return None
+    env = dict(os.environ)
+    env.setdefault("PYTHONUNBUFFERED", "1")
+    try:
+        proc = subprocess.Popen(
+            [sys.executable, str(SHEETS_SCRIPT), "--watch", "--port", str(site_port)], cwd=str(ROOT), env=env,
+            stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, bufsize=1,
+        )
+    except Exception as exc:
+        say("  sheets : could not start the character-sheet suite (%s)" % exc)
+        return None
+
+    def pump():
+        try:
+            for line in proc.stdout:
+                say("  sheets | " + line.rstrip())
+        except Exception:
+            pass
+    threading.Thread(target=pump, daemon=True).start()
+    say("  sheets : character-sheet suite watching for exports (tools/sheets-suite.py --watch); sheets at http://localhost:%d/%s" % (site_port, SHEETS_ROUTE))
+    return proc
+
+
 def stop_process(proc, say=print) -> None:
     if proc is None or proc.poll() is not None:
         return
@@ -302,7 +343,7 @@ def stop_process(proc, say=print) -> None:
 # Remembered choices for the window
 # --------------------------------------------------------------------------
 PREF_DEFAULTS = {
-    "site": True, "workflow": True, "tts": False, "browser": True,
+    "site": True, "workflow": True, "sheets": True, "tts": False, "browser": True,
     "port": DEFAULT_PORT, "workflow_port": WORKFLOW_PORT, "expose": False,
     "lm_url": "", "open": "home", "route": "",
 }
@@ -370,6 +411,10 @@ def run_gui(args) -> int:
         prefs["tts"] = False
     if args.workflow:
         prefs["workflow"] = True
+    if args.no_sheets:
+        prefs["sheets"] = False
+    elif args.sheets:
+        prefs["sheets"] = True
     if args.route:
         prefs["open"], prefs["route"] = "route", args.route
     elif args.page and args.page != "index.html":
@@ -387,13 +432,14 @@ def run_gui(args) -> int:
         style.theme_use("clam" if sys.platform.startswith("linux") else style.theme_use())
 
     lines = queue.Queue()
-    state = {"httpd": None, "thread": None, "workflow": None, "running": False, "port": prefs["port"]}
+    state = {"httpd": None, "thread": None, "workflow": None, "sheets": None, "running": False, "port": prefs["port"]}
 
     def say(text: str) -> None:
         lines.put(str(text))
 
     v_site = tk.BooleanVar(value=prefs["site"])
     v_workflow = tk.BooleanVar(value=prefs["workflow"])
+    v_sheets = tk.BooleanVar(value=prefs["sheets"])
     v_tts = tk.BooleanVar(value=prefs["tts"])
     v_browser = tk.BooleanVar(value=prefs["browser"])
     v_expose = tk.BooleanVar(value=prefs["expose"])
@@ -426,6 +472,9 @@ def run_gui(args) -> int:
     ttk.Label(row, text="LM Studio address (blank = 127.0.0.1:1234)").pack(side="left", padx=(24, 4))
     ttk.Entry(row, textvariable=v_lm, width=34).pack(side="left")
 
+    row = ttk.Frame(box); row.pack(fill="x", padx=8, pady=3)
+    ttk.Checkbutton(row, text="Character sheets — split the GM's Foundry export, player sheets at ledger XP, spoils, sheets.json, import packets; re-runs when an export lands", variable=v_sheets).pack(side="left")
+
     bat = next((b for b in tts_bat_candidates() if b.is_file()), None)
     row = ttk.Frame(box); row.pack(fill="x", padx=8, pady=3)
     ttk.Checkbutton(row, text="Qwen3-TTS studio (Read aloud) — only when you want the voice; it is heavy", variable=v_tts).pack(side="left")
@@ -441,7 +490,7 @@ def run_gui(args) -> int:
     status = ttk.LabelFrame(root, text="Status (probed every two seconds)")
     status.pack(fill="x", **pad)
     lights = {}
-    for key, label in (("site", "site"), ("workflow", "workflow server"), ("lm", "LM Studio"), ("tts", "Qwen3-TTS")):
+    for key, label in (("site", "site"), ("workflow", "workflow server"), ("sheets", "character sheets"), ("lm", "LM Studio"), ("tts", "Qwen3-TTS")):
         cell = ttk.Frame(status); cell.pack(side="left", padx=10, pady=6)
         dot = tk.Label(cell, text="●", fg="#999", font=("TkDefaultFont", 12)); dot.pack(side="left")
         ttk.Label(cell, text=label).pack(side="left", padx=(4, 0))
@@ -455,6 +504,7 @@ def run_gui(args) -> int:
     ttk.Separator(buttons, orient="vertical").pack(side="left", fill="y", padx=10)
     b_site = ttk.Button(buttons, text="Open the site"); b_site.pack(side="left")
     b_chat = ttk.Button(buttons, text="Open the chatroom"); b_chat.pack(side="left", padx=(6, 0))
+    b_sheets = ttk.Button(buttons, text="Open the sheets"); b_sheets.pack(side="left", padx=(6, 0))
     b_tts = ttk.Button(buttons, text="Open the TTS studio"); b_tts.pack(side="left", padx=(6, 0))
     b_prefs = ttk.Button(buttons, text="Remember these ticks"); b_prefs.pack(side="right")
 
@@ -468,8 +518,8 @@ def run_gui(args) -> int:
             except Exception:
                 return fallback
         return {
-            "site": bool(v_site.get()), "workflow": bool(v_workflow.get()), "tts": bool(v_tts.get()),
-            "browser": bool(v_browser.get()), "expose": bool(v_expose.get()),
+            "site": bool(v_site.get()), "workflow": bool(v_workflow.get()), "sheets": bool(v_sheets.get()),
+            "tts": bool(v_tts.get()), "browser": bool(v_browser.get()), "expose": bool(v_expose.get()),
             "port": num(v_port, DEFAULT_PORT), "workflow_port": num(v_wport, WORKFLOW_PORT),
             "lm_url": v_lm.get().strip(), "open": v_open.get(), "route": v_route.get().strip(),
         }
@@ -502,6 +552,8 @@ def run_gui(args) -> int:
                 say("  note   : bound to 0.0.0.0 — reachable from other machines")
         if p["workflow"]:
             state["workflow"] = launch_workflow(p["workflow_port"], host, p["lm_url"], say)
+        if p["sheets"]:
+            state["sheets"] = launch_sheets_suite(state["port"], say)
         if p["tts"]:
             launch_tts_studio(say)
         ts_ip = tailscale_ipv4()
@@ -543,6 +595,10 @@ def run_gui(args) -> int:
             stop_process(state["workflow"], say)
             state["workflow"] = None
             say("  chat   : workflow server stopped")
+        if state["sheets"] is not None:
+            stop_process(state["sheets"], say)
+            state["sheets"] = None
+            say("  sheets : character-sheet suite stopped")
         state["running"] = False
         b_start.configure(state="normal"); b_stop.configure(state="disabled")
 
@@ -551,6 +607,9 @@ def run_gui(args) -> int:
 
     def open_chat():
         webbrowser.open(chat_url(state["port"], current_prefs()["workflow_port"]))
+
+    def open_sheets():
+        webbrowser.open(site_url("", SHEETS_ROUTE))
 
     def open_tts():
         webbrowser.open("http://%s:%d/" % (TTS_HOST, TTS_PORT))
@@ -564,6 +623,7 @@ def run_gui(args) -> int:
         up = {
             "site": state["httpd"] is not None or port_open("127.0.0.1", p["port"]),
             "workflow": port_open("127.0.0.1", p["workflow_port"]),
+            "sheets": state["sheets"] is not None and state["sheets"].poll() is None,
             "lm": port_open("127.0.0.1", LM_STUDIO_PORT),
             "tts": port_open(TTS_HOST, TTS_PORT),
         }
@@ -593,6 +653,7 @@ def run_gui(args) -> int:
     b_stop.configure(command=stop)
     b_site.configure(command=open_site)
     b_chat.configure(command=open_chat)
+    b_sheets.configure(command=open_sheets)
     b_tts.configure(command=open_tts)
     b_prefs.configure(command=remember)
     root.protocol("WM_DELETE_WINDOW", on_close)
@@ -632,6 +693,12 @@ def main() -> int:
                              "archive routes and LM Studio bridge) on %d" % WORKFLOW_PORT)
     parser.add_argument("--workflow-port", type=int, default=WORKFLOW_PORT,
                         help="port for the workflow server (default %d)" % WORKFLOW_PORT)
+    sheets = parser.add_mutually_exclusive_group()
+    sheets.add_argument("--sheets", action="store_true",
+                        help="run the character-sheet suite (tools/sheets-suite.py --watch) — "
+                             "the default; the flag only overrides a remembered 'off' tick")
+    sheets.add_argument("--no-sheets", action="store_true",
+                        help="do not run the character-sheet suite")
     mode = parser.add_mutually_exclusive_group()
     mode.add_argument("--gui", action="store_true",
                       help="open the launcher window (the default where tkinter and a display exist)")
@@ -663,6 +730,9 @@ def main() -> int:
     workflow = None
     if args.workflow:
         workflow = launch_workflow(args.workflow_port, args.host)
+    sheets_suite = None
+    if not args.no_sheets:
+        sheets_suite = launch_sheets_suite(port)
     if not args.no_tts:
         launch_tts_studio()
     print_tailnet_tip(port, args.host)
@@ -688,6 +758,7 @@ def main() -> int:
         print("\nStopped.")
     finally:
         stop_process(workflow)
+        stop_process(sheets_suite)
     return 0
 
 

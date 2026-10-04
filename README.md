@@ -95,17 +95,35 @@ python3 start.py --no-gui --workflow                  # …and run workflow/serv
 python3 start.py --route "#/article/the_belly_of_the_beast"
 python3 start.py --no-browser --host 0.0.0.0 --port 9000
 python3 start.py --no-tts                             # serve without launching the TTS studio
+python3 start.py --no-sheets                          # serve without the character-sheet suite
 ```
 
 The **launcher window** is the default wherever tkinter and a display exist
 (double-click `start.py` on Windows). It has a tick for each thing that can
-run — the site, the workflow server, and the **Qwen3-TTS studio, which stays
-off unless you tick it** — a port and a "reachable from other machines"
-tick, what to open the browser on (home, the chatroom, a route), **▶ Start /
-■ Stop**, status lights for the site, the workflow server, LM Studio and the
-studio (probed every two seconds), buttons that open each, and a log pane
-with the servers' lines. *Remember these ticks* keeps them in
+run — the site, the workflow server, the **character-sheet suite**, and the
+**Qwen3-TTS studio, which stays off unless you tick it** — a port and a
+"reachable from other machines" tick, what to open the browser on (home, the
+chatroom, a route), **▶ Start / ■ Stop**, status lights for the site, the
+workflow server, the sheet suite, LM Studio and the studio (probed every two
+seconds), buttons that open each (including *Open the sheets* → `#/sheets`),
+and a log pane with the servers' lines. *Remember these ticks* keeps them in
 `~/.waluipedia-start.json`; closing the window stops everything it started.
+
+The **character-sheet suite** (`tools/sheets-suite.py --watch`, on by default,
+`--no-sheets` to skip) is the Foundry loop as one process: when the GM's
+export (`<world>-all-actors.json`, in the repo root or freshly landed in
+Downloads) is newer than the world mirror it is split into
+`Reputation-Matrix2/actors/worlds/<world>/`; player characters are kept on
+`character` sheets (never NPC statblocks) with XP pinned to the ledger
+(`tools/promote-player-sheets.py`); the spoils files in
+`Reputation-Matrix2/actors/changes/` are applied; `data/sheets.json` and the
+cast packet are rebuilt; and two import packets are combined for Foundry to
+pull straight off this server (`…/worlds/<world>/players-import.json` for the
+Players folder, `…/import.json` for the whole world — paste the printed URL
+into **Mass import → URL**; the server sends `Access-Control-Allow-Origin: *`
+so Foundry can fetch it). It re-runs whenever an export, `Players.json` or a
+changes file changes; `python3 tools/sheets-suite.py --check` is the
+read-only pass `tools/check-all.py` runs. See `docs/SHEETS_SYSTEM.md`.
 
 `start.py` sits in the repository root, serves the archive over HTTP and opens
 the home page for you. **Use it rather than double-clicking `index.html`.**

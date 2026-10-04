@@ -123,6 +123,56 @@ docstring at the top of the bridge. The 955 packet below ships its
 `midlands` world is already split under
 [`worlds/midlands/`](worlds/README.md) from `midlands-all-actors.json`.
 
+### The suite: `tools/sheets-suite.py` (what `start.py` runs)
+
+Steps 1–4 above, plus the sheet rules, as one process that `start.py` starts
+with the site (tick **Character sheets**; `--no-sheets` to skip):
+
+```bash
+python3 tools/sheets-suite.py            # one pass
+python3 tools/sheets-suite.py --watch    # re-run when an export / Players.json / a changes file changes (start.py does this)
+python3 tools/sheets-suite.py --check    # read-only; what tools/check-all.py runs
+```
+
+A pass: **intake** (`Players.json` newer than its originals → the intake
+chain), **split** (an export newer than the mirror's `manifest.json` — the
+repo-root copy or the newest `<world>-all-actors*.json` in Downloads, copied
+into the root — → `split --prune`), **promote** (below), **changes** (every
+[`changes/*.json`](changes/) whose `appliesTo.exportedAtOrBefore` still
+covers the mirror's export → `apply --write`; a later export already carries
+the table's version of those items), **check**, **build**
+(`build-character-sheets.py`), **combine** (`worlds/<world>/import.json` and
+`worlds/<world>/players-import.json` — the Players folder only — both
+git-ignored build artefacts) and **verify** (`check-sheets.py`,
+`promote-player-sheets.py --check`). It ends by printing the URLs: the
+sheets page and the packet to paste into **Mass import → URL**
+(`http://127.0.0.1:8765/Reputation-Matrix2/actors/worlds/midlands/players-import.json`;
+`start.py` sends `Access-Control-Allow-Origin: *` so Foundry can fetch it).
+
+### Player characters carry character sheets: `tools/promote-player-sheets.py`
+
+The rule, enforced by the suite's verify step and `check-all`: **nothing
+under `worlds/<world>/Players/` is an `npc` statblock** except the
+companions (Steel Defender, Wario's Motorbike), and every player sheet's
+`details.xp.value` is the XP ledger's (`const XP_SUMMARY` in `index.html`;
+Green T is exempt — the GM runs him off-ledger at Tea Merchant 6 / Bard 6,
+100000 XP, and the check says so). The 2026-10-04 export had three players
+on statblocks; the tool rewrote them in place, **under their live ids**, so
+the module's replace-on-type-change swaps them in with every token, link
+and ownership grant intact:
+
+| Actor | Live id | Mode | What happened |
+| --- | --- | --- | --- |
+| Bowser | `9u5pnP0zaqw8AQQv` | replace | The GM's duplicate of the Darkland warlord statblock stood in for the player's Bowser. The intake PC sheet (`fvtt-Actor-bowser-kzNSSjAedvhKTfZC.json`, Tortle Fighter 8) took the live id, folder *Players*, the GM's art and ownership; XP 35292. The warlord NPC is untouched. |
+| Wario | `dEhGeFofEfnIG24J` | replace | The NPC statblock (CR 7) became the intake PC sheet (Human Barbarian, Path of the Berserker); the Barbarian level follows the ledger (**6**, not the intake's 7), XP 18370, hit points as the statblock had them, `npc/wario.png` kept. |
+| Salam | `2TkQ7lDU0DJBrx9J` | convert | A CR 1 shadowtoad statblock and no PC sheet anywhere. Built from the statblock and the record: Ranger 3 (Hunter), Toad, background Liberated Toad, standard array (DEX 15, WIS 14, CON 13, STR 12, INT 10, CHA 8), saves STR/DEX, Stealth / Survival / Perception / Insight / Nature, HP 25 (3d10 + 3), XP 2220; crossbow, leather, torch and bolts kept; spells left to the player (Cure Wounds is on record). Every assumption is in `flags.waluipedia-sheets.promoted` and the biography. |
+
+Once a promoted actor comes back from Foundry as a `character` the tool
+leaves it alone apart from the XP pin — the world owns everything the
+ledger does not. Sheet levels are never changed by the tool: a sheet below
+its ledger level (Hjumpik, Fighter 6 at 25342 XP) is a warning that reads
+"level up in Foundry".
+
 [`tools/foundry-studio.py`](../../tools/foundry-studio.py) — the **Foundry++
 character editor suite** — is the art side of the same loop: `sort` names,
 factions and files the loose portraits / tokens / cut-outs / audio in your

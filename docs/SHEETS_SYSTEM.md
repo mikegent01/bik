@@ -31,16 +31,18 @@ The Character Sheets system closes that gap in one deterministic pass:
 
 | Source | Count | What it is |
 |---|---|---|
-| `live` | 26 | the user's real world export, mirrored in `actors/worlds/midlands/` |
-| `intake` | 4 | the PC packet (`actors/fvtt-Actor-*.json`) — Bowser, Wario, Azure, Orange T |
-| `era` | 2 | the 955 BF court (`actors/peachs-castle-955/`) — Peach, Toadsworth the Elder |
-| `generated` | 152 | built by `tools/build-character-sheets.py` from the article's own text — 118 NPC stat blocks, 34 main-cast player characters |
+| `live` | 30 | the GM's real world export (2026-10-04), mirrored in `actors/worlds/midlands/` with its folder tree — the twelve player characters in `Players/`, the 955 BF court the GM imported, the manors' casts |
+| `intake` | 2 | the PC packet (`actors/fvtt-Actor-*.json`) — Azure, Orange T (Bowser's and Wario's intake sheets now ride as alternates under their live sheets) |
+| `era` | 0 | the 955 BF court packet (`actors/peachs-castle-955/`) is in the live world now; its files remain alternates |
+| `generated` | 156 | built by `tools/build-character-sheets.py` from the article's own text — 122 NPC stat blocks, 34 main-cast player characters |
 | skipped | 6 | deliberately not statted — the GM, the collectives, a cosmic entity |
 | *past selves* | 3 | era versions under a character (`versions[]`): Mario, Luigi and Bowser in 955 BF — `actors/cast/eras/` |
 
-Every one of the 184 is a dnd5e actor file that imports through the
+(`meta.counts` in `sheets.json` is the live tally; this table is the state
+on 2026-10-04 and `tools/check-sheets.py` fails when the committed counts go
+stale.) Every one of the 188 is a dnd5e actor file that imports through the
 [Mass Import module](../Reputation-Matrix2/Foundry/mass_import/README.md), and
-the 152 generated ones plus the past selves ship together as
+the 156 generated ones plus the past selves ship together as
 `actors/cast/import.json` (folders: *Waluipedia Cast / <group>*, past selves
 under *<group> / 955 BF*).
 
@@ -57,9 +59,11 @@ already keeps:
    `index.html`'s `XP_SUMMARY` (the same table the Characters tab prints);
 2. the article's `affiliation` field naming Disaster Inc.
 
-Seventeen sheets pass: Archie, Bones, Bowser, Dan (the Toad), Eager, Green T,
-Hjumpik, Markop, Mossy, Remi, Roger, Ryan, Smoking J, Toad Lee, Usk, Waluigi,
-Wario. They are grouped under *Disaster Inc.* and each entry carries a
+Eighteen sheets pass: Archie, Bones, Bowser, Dan (the Toad), Eager, Green T,
+Hjumpik, Markop, Mossy, Remi, Roger, Ryan, Salam, Smoking J, Toad Lee, Usk,
+Waluigi, Wario (a live `character` sheet admits its owner too — that is how
+Salam joined when his statblock was promoted). They are grouped under
+*Disaster Inc.* and each entry carries a
 `partyWhy` saying which fact admitted it. `tools/check-sheets.py` fails if
 the committed flag disagrees with the rule, so nobody can be made public by
 editing the JSON.
@@ -71,11 +75,11 @@ appear and disappear with it. What debug mode changes:
 
 | | public | debug |
 |---|---|---|
-| `#/sheets` list | the 17 party cards, one line saying how many more exist | every card, dashed borders on restricted ones, a striped **DEBUG MODE** banner |
+| `#/sheets` list | the 18 party cards, one line saying how many more exist | every card, dashed borders on restricted ones, a striped **DEBUG MODE** banner |
 | `#/sheets/<id>` | party sheets render; the rest show a *Restricted sheet* notice | every sheet renders; restricted ones under the banner |
 | character article panel | party characters get the panel; the rest get **nothing** — no stub, no lock icon | every character gets the panel; restricted ones carry a ribbon; skipped characters get a one-line *No sheet on purpose* |
 | Research Bureau | sheet records for party characters only | all of them |
-| sidebar count | 17 | 184 |
+| sidebar count | 18 | 188 |
 | Settings → Developer | a *Character sheets* row stating the rule and the restricted count, with an *Open sheets* button | the same row, saying it is ON |
 
 ## The index (`sheets.json`)
@@ -98,11 +102,17 @@ character's **past selves** (`{version, era, label, when, file, name, kind,
 level, classes, species, hp, ac, evidence[], …}` — see *Past selves* below)
 and `alternates[]` the other actor files that resolve to the same character
 (Remi's PC intake copy next to her live export, Lady Aurelian's PC build next
-to her NPC statblock). The
-primary is chosen by rank *live > intake > era*, with two pinned exceptions
-the comments explain (Bowser's and Wario's PC intake sheets stay primary
-because the live world only holds their NPC versions). `-NO-SPECIES` variants
-are not sheets of their own and are never indexed.
+to her NPC statblock, the GM's live Mario statblock under the hand-authored
+Mario). The primary is chosen by rank *live > intake > era*, and within a
+source a `character` sheet beats an `npc` one of the same name. One rule sits
+above the rank: **a hand-authored main-cast member (`BESPOKE`) is never
+displaced by an NPC statblock** — when the only existing files for Mario or
+Luigi are the GM's live stat blocks, the generated PC sheet stays primary and
+the stat blocks ride as alternates (the page folds them into the version
+strip). Player characters in the live world are kept on `character` sheets
+by `tools/promote-player-sheets.py` (see *The live-world loop* below), so no
+pin is needed for Bowser or Wario any more. `-NO-SPECIES` variants are not
+sheets of their own and are never indexed.
 
 `portrait` is the article's own image (local file or external URL), never a
 Foundry icon path — the actor's `img` lives in a different namespace.
@@ -198,8 +208,8 @@ the Mushroom Kingdom, Annoyingly Heroic), Luigi (Ranger 4 — Hammer, Green
 Fireball, Scuttle Jump, The Second Brother, Afraid Often, Startles, Sports
 Appearances), Bowser (Fighter 8 — Claws, Shell Bash, Fire Breath 5–6, The
 Shell, Indestructible, Kidnapper of Princesses, King of the Koopas). Versions
-apply to existing sheets too: Bowser's present self is still his PC intake
-export, with the 955 BF self beside it.
+apply to existing sheets too: Bowser's present self is his live character
+sheet (the intake PC promoted into the world), with the 955 BF self beside it.
 
 ## Where it shows up
 
@@ -244,8 +254,55 @@ re-derived. If someone joins or leaves Disaster Inc. in `XP_SUMMARY` or
 is toggled by hand.
 
 Never run the builder *to replace* a live/intake/era sheet: it does not
-write those files, it only indexes them. The Bowser PC sheet and the live PC
-sheets are the players' own.
+write those files, it only indexes them. The live PC sheets are the players'
+own; the two things the archive does write into them are below.
+
+## The live-world loop (the sheet suite under `start.py`)
+
+The GM's export is the input; the archive owns two facts about a player
+sheet and nothing else:
+
+1. **Player characters carry `character` sheets, never NPC statblocks.**
+   `tools/promote-player-sheets.py` rewrites a player's statblock as a
+   character sheet *under its live id* (so the Mass Import module's
+   replace-on-type-change swaps it in with tokens, links and ownership
+   intact). Three were promoted on 2026-10-04 — Bowser (the GM's warlord
+   duplicate → the intake PC sheet), Wario (statblock → the intake PC sheet,
+   Barbarian level from the ledger) and Salam (no PC sheet anywhere →
+   Ranger 3 built from the statblock and the record, every assumption
+   written into `flags.waluipedia-sheets.promoted` and the biography). The
+   table in [`actors/README.md`](../Reputation-Matrix2/actors/README.md#player-characters-carry-character-sheets-toolspromote-player-sheetspy)
+   has the detail. `--check` fails if anything under `Players/` is an NPC
+   (companions excepted) and never touches levels — a sheet below its ledger
+   level is a *level up in Foundry* warning.
+2. **XP is the ledger's.** Every pass pins `system.details.xp.value` of
+   every player sheet in `Players/` to `XP_SUMMARY`, so a session filing's
+   `xpAwards` reach the sheets without anyone typing numbers. Green T is the
+   listed exemption (the GM runs him at Tea Merchant 6 / Bard 6, 100000 XP).
+
+Spoils of war travel as dated changes files in
+`Reputation-Matrix2/actors/changes/` (`addItems` by id, scoped with
+`appliesTo.exportedAtOrBefore` to the export they were written against, so a
+later export — which already carries the table's version — is not
+re-touched). The Grove file adds Eager's *Electric Sphere* (trinket, flagged
+to `tech_grove_electric_sphere`, mechanics unestablished) and Feyward Dan's
+*Injury: Sprained Thumb* (row 59, one week, flagged to the Permanent Injury
+Table).
+
+`tools/sheets-suite.py` runs the whole loop — intake, split, promote,
+changes, check, build, combine, verify — once, under `--watch` (what
+`start.py`'s **Character sheets** tick starts; it re-runs when an export,
+`Players.json` or a changes file changes) or as `--check` (read-only, run by
+`tools/check-all.py`). The packets it combines
+(`worlds/<world>/import.json`, `worlds/<world>/players-import.json`) are
+git-ignored and served by `start.py` with `Access-Control-Allow-Origin: *`
+for **Mass import → URL**. `tools/tests/test-sheets-suite.py` is the proof.
+
+The GM's side of the loop, in Foundry, after a pass: *Mass import → URL*
+`http://127.0.0.1:8765/Reputation-Matrix2/actors/worlds/midlands/players-import.json`,
+review table (Bowser / Wario / Salam show as `replace (npc → character)`),
+import; then the level-ups the XP now allows (Hjumpik 6 → 7) are the
+players' to take.
 
 ## Decisions
 

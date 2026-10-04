@@ -120,6 +120,11 @@ def main() -> int:
         # the party visibility set and the index.html wiring are all proved.
         ("character sheets", [py, "tools/check-sheets.py"], ROOT),
         ("character sheets cast packet", [py, "tools/foundry-bridge.py", "check", "Reputation-Matrix2/actors/cast"], ROOT),
+        # The live-world loop: player characters carry character sheets (never
+        # NPC statblocks) at ledger XP, the spoils files are scoped to their
+        # export, the suite start.py runs passes its read-only check.
+        ("player sheets promoted + ledger XP", [py, "tools/promote-player-sheets.py", "--check"], ROOT),
+        ("character sheet suite", [py, "tools/tests/test-sheets-suite.py"], ROOT),
         # Judgement in the Grove: the event, its battle, and the front-page
         # wiring (latestUpdate/featured/Current fronts/SITE_UPDATES) all come
         # out of one generator, because the previous session was filed and

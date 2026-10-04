@@ -93,7 +93,10 @@ check('every hand-authored sheet is a PC with class, species and background; eve
   index.sheets.filter(s => s.source === 'generated').every(s => s.bespoke ? (s.kind === 'pc' && s.level >= 1 && s.classes.length === 1 && s.species) : s.kind === 'npc'));
 check('PC level is the ledger level wherever the ledger has one', index.sheets.filter(s => s.source === 'generated' && s.bespoke && s.ledger.level != null).every(s => s.level === s.ledger.level));
 check('a generated PC renders as a character sheet with its class line', (() => { const e = CS.byCharacter('mario'); const actor = JSON.parse(fs.readFileSync(path.join(RM, e.file), 'utf8')); const html = CS.pcSheet(actor, e); return /Level 5 Monk 5 \(Warrior of the Open Hand\)/.test(html) && /Extra Attack/.test(html) && !/Multiattack/.test(html); })());
-check('Bowser keeps his PC intake sheet (never replaced)', CS.byCharacter('bowser').source === 'intake' && CS.byCharacter('bowser').kind === 'pc');
+check('Bowser carries the live character sheet (promoted from the GM\'s NPC copy) with the intake PC as an alternate', CS.byCharacter('bowser').source === 'live' && CS.byCharacter('bowser').kind === 'pc' && (CS.byCharacter('bowser').alternates || []).some(a => a.source === 'intake' && a.kind === 'pc'));
+check('Wario and Salam carry live character sheets, never NPC statblocks', ['wario', 'salam'].every(id => CS.byCharacter(id).source === 'live' && CS.byCharacter(id).kind === 'pc'));
+check('every live player-character entry in the public set is a PC sheet (companions excepted)', index.sheets.filter(s => s.party && s.source === 'live' && !['mossy', 'usk'].includes(s.id)).every(s => s.kind === 'pc'));
+check('the GM\'s live statblocks for Mario and Luigi ride as alternates under the hand-authored PC sheets', ['mario', 'luigi'].every(id => (CS.byCharacter(id).alternates || []).some(a => a.source === 'live' && a.kind === 'npc')));
 check('Remi keeps the live-world export', CS.byCharacter('remi_akamatsu_full_backstory').source === 'live');
 const party = index.sheets.filter(s => s.party);
 check('public set is grouped under Disaster Inc. and matches meta.party', party.every(s => s.group === 'Disaster Inc.') && party.map(s => s.id).sort().join() === [...index.meta.party].sort().join());
@@ -164,7 +167,7 @@ check('Princess Peach (955 BF era sheet) renders with alternates listed', /cs-al
 
 console.log('\n# past selves (era versions)');
 const marioV = CS.versionsOf(CS.byCharacter('mario'));
-check('Mario carries two versions: now and 955 BF', marioV.length === 2 && marioV[0].key === 'now' && marioV[1].key === '955-bf' && marioV[1].file === 'actors/cast/eras/fvtt-Actor-mario--955-bf.json');
+check('Mario carries three versions: now, 955 BF and the GM\'s live statblock', marioV.length === 3 && marioV[0].key === 'now' && marioV[1].key === '955-bf' && marioV[1].file === 'actors/cast/eras/fvtt-Actor-mario--955-bf.json' && marioV[2].key === 'alt-1' && marioV[2].source === 'live' && marioV[2].kind === 'npc');
 check('era versions never exceed the ledger level', index.sheets.every(s => (s.versions || []).every(v => v.kind === 'pc' && (s.ledger.level == null || v.level <= s.ledger.level))));
 check('meta.counts.eras counts every version', index.meta.counts.eras === index.sheets.reduce((n, s) => n + (s.versions || []).length, 0) && index.meta.counts.eras >= 3);
 CS.view_sheets('mario/955-bf');

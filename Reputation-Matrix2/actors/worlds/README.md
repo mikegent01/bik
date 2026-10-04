@@ -9,7 +9,7 @@ sessions; `combine` turns a directory back into one `import.json` for the
 
 | World | Source export | Actors | Notes |
 | --- | --- | --- | --- |
-| [`midlands/`](midlands/manifest.json) | `midlands-all-actors.json` (repo root) | 136 — 10 player characters, 126 NPCs | Exported 2026-10-04 with the old macro, so it has folder **ids** but no folder names: every file sits at the top level and keeps its `folder` id, and the module leaves those actors where they are on import. The first export made with the module (or `macros/export-all-actors.js`) carries the names — re-run `split --prune` and the tree sorts itself into named directories. |
+| [`midlands/`](midlands/manifest.json) | `midlands-all-actors.json` (repo root) | 151 — 12 player characters (+ Wario's Motorbike), 138 NPCs | Exported 2026-10-04 17:21Z with the module, so the tree has the world's folder names: `Players/`, `Important/`, `Creatures/`, `Flower/`, `Iron Legion/`, `A House Divided/<manor>…`, and the GM's loose actors at the top level. Three players sat in it as NPC statblocks (Bowser's GM copy, Wario, Salam); `tools/promote-player-sheets.py` rewrote them as `character` sheets under their live ids and the manifest rows follow — see [`../README.md`](../README.md#player-characters-carry-character-sheets-toolspromote-player-sheetspy). Spoils applied from [`../changes/`](../changes/). The suite (`tools/sheets-suite.py`) re-splits automatically when a newer export lands. |
 
 The flat `Reputation-Matrix2/actors/` files are the *repaired* intake copies
 (sanitized from `Players.json`, see the README there); a world mirror is the
@@ -34,7 +34,11 @@ python3 tools/foundry-bridge.py install-images Reputation-Matrix2/actors/worlds/
 
 `import.json` for a whole world is a 15 MB build artifact — regenerate it,
 don't commit it (the 955 packet commits its small one because it is served
-to Foundry straight from GitHub).
+to Foundry straight from GitHub). `tools/sheets-suite.py` builds it, and a
+`players-import.json` of the Players folder alone, on every pass; both are
+git-ignored and served by `start.py` at
+`http://127.0.0.1:8765/Reputation-Matrix2/actors/worlds/<world>/…` for
+**Mass import → URL**.
 
 `link-images` only rewrites **placeholder** images and **missing** repo paths
 (`portraits/…` the repo does not have). Paths it cannot see — `npc/…`,
