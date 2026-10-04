@@ -179,10 +179,43 @@ check("start.py --help documents --sheets / --no-sheets", helptext.returncode ==
 readme = (ROOT / "README.md").read_text(encoding="utf-8")
 check("README names the suite under start.py", "sheets-suite.py" in readme)
 
+# ---- Windows: a piped stdout is cp1252 there, and cp1252 cannot spell "→" ----
+# (the first run under start.py on Windows died twice on that arrow: the
+# builder step after it had written everything, then the watcher itself)
+check("the suite hands every child tool UTF-8 streams", suite.CHILD_ENV.get("PYTHONIOENCODING") == "utf-8" and suite.CHILD_ENV.get("PYTHONUTF8") == "1")
+check("the suite decodes its children as UTF-8, never the code page", 'encoding="utf-8"' in (ROOT / "tools/sheets-suite.py").read_text(encoding="utf-8").split("def run(")[1].split("def ")[0])
+builder_src = (ROOT / "tools/build-character-sheets.py").read_text(encoding="utf-8")
+builder_main = builder_src[builder_src.rfind("def main("):]
+check("the builder's own report lines survive a cp1252 terminal", all(
+    all(ord(ch) < 128 or ch.encode("cp1252", errors="ignore") for ch in line)
+    for line in builder_main.splitlines() if "print(" in line or line.strip().startswith('f"')))
+check("start.py reads the suite as UTF-8 and tells it to speak UTF-8",
+      'env["PYTHONIOENCODING"] = "utf-8"' in start and 'encoding="utf-8", errors="replace"' in start.split("def launch_sheets_suite")[1].split("def ")[0]
+      and 'sys.stdout.reconfigure(line_buffering=True, errors="replace")' in start.split("def main(")[1])
+# the watcher outlives a pass that blows up
+_said = []
+_orig_say, _orig_pass = suite.say, suite.one_pass
+suite.say = _said.append
+suite.one_pass = lambda *a, **k: (_ for _ in ()).throw(RuntimeError("boom in a step"))
+try:
+    survived = suite.guarded_pass("midlands", 8765, "") is False
+finally:
+    suite.say, suite.one_pass = _orig_say, _orig_pass
+check("a crash inside a watched pass is reported, not fatal", survived and any("RuntimeError: boom in a step" in t for t in _said), " | ".join(_said)[:300])
+
 # ---- the suite's own check pass -------------------------------------------
 t0 = time.time()
 run = subprocess.run([PY, str(ROOT / "tools/sheets-suite.py"), "--check"], cwd=ROOT, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
 check("tools/sheets-suite.py --check passes (nothing stale, nothing written)", run.returncode == 0 and "done" in run.stdout, run.stdout[-600:])
+# the same pass with the parent's stdout forced to cp1252 (what Windows does
+# to a redirected stdout): still green, still UTF-8 on the wire
+cp = subprocess.run([PY, str(ROOT / "tools/sheets-suite.py"), "--check"], cwd=ROOT, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+                    env=dict(os.environ, PYTHONIOENCODING="cp1252", PYTHONUTF8="0"))
+try:
+    cp_text = cp.stdout.decode("utf-8")
+except UnicodeDecodeError:
+    cp_text = ""
+check("the check pass is green and UTF-8 even when the terminal is cp1252", cp.returncode == 0 and "done" in cp_text and "—" in cp_text and "UnicodeEncodeError" not in cp_text, cp.stdout[-400:].decode("utf-8", "replace"))
 pro = subprocess.run([PY, str(ROOT / "tools/promote-player-sheets.py"), "--check"], cwd=ROOT, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
 check("tools/promote-player-sheets.py --check passes and flags Hjumpik's pending level-up", pro.returncode == 0 and "Hjumpik" in pro.stdout and "level up in Foundry" in pro.stdout, pro.stdout[-400:])
 

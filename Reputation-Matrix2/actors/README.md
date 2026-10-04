@@ -149,6 +149,13 @@ sheets page and the packet to paste into **Mass import → URL**
 (`http://127.0.0.1:8765/Reputation-Matrix2/actors/worlds/midlands/players-import.json`;
 `start.py` sends `Access-Control-Allow-Origin: *` so Foundry can fetch it).
 
+Under `--watch` a pass that blows up is reported like a failed step and the
+watcher stays up for the next export. On Windows a piped stdout is cp1252,
+which cannot spell `→`: the suite speaks UTF-8 on its own streams, runs
+every child tool with `PYTHONIOENCODING=utf-8` / `PYTHONUTF8=1` and decodes
+them as UTF-8, and `start.py` reads it the same way — no code page can
+kill a pass.
+
 ### Player characters carry character sheets: `tools/promote-player-sheets.py`
 
 The rule, enforced by the suite's verify step and `check-all`: **nothing

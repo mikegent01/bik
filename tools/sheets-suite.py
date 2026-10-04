@@ -47,6 +47,7 @@ import shutil
 import subprocess
 import sys
 import time
+import traceback
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 RM = os.path.join(ROOT, "Reputation-Matrix2")
@@ -57,6 +58,24 @@ PLAYERS_JSON = os.path.join(ROOT, "Players.json")
 DEFAULT_WORLD = "midlands"
 DEFAULT_PORT = 8765
 PY = sys.executable
+
+# Windows hands a *piped* stdout the ANSI code page (cp1252), which has no
+# "→": under start.py the first arrow raised UnicodeEncodeError, the builder
+# step was reported FAIL after it had already written everything, and the
+# watcher died on its own packet line. The suite therefore speaks UTF-8 on
+# its own streams, tells every child tool to do the same (PYTHONIOENCODING
+# for its prints, PYTHONUTF8 for any file it opens without an encoding),
+# decodes the children as UTF-8, and never dies on a character the terminal
+# cannot show.
+CHILD_ENV = dict(os.environ, PYTHONIOENCODING="utf-8", PYTHONUTF8="1")
+
+
+def utf8_streams():
+    for stream in (sys.stdout, sys.stderr):
+        try:
+            stream.reconfigure(encoding="utf-8", errors="replace")
+        except (AttributeError, ValueError):
+            pass
 
 TOOLS = {
     "bridge": "tools/foundry-bridge.py",
@@ -80,7 +99,8 @@ def read_json(path):
 
 def run(argv, label, check=True):
     """Run a repo tool, stream nothing, return (ok, tail of output)."""
-    proc = subprocess.run([PY] + argv, cwd=ROOT, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
+    proc = subprocess.run([PY] + argv, cwd=ROOT, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+                          encoding="utf-8", errors="replace", env=CHILD_ENV)
     out = (proc.stdout or "").rstrip()
     tail = out.splitlines()[-1] if out else ""
     ok = proc.returncode == 0
@@ -296,9 +316,21 @@ def watch_inputs(world, downloads=None):
     return out
 
 
+def guarded_pass(world, port, downloads=None):
+    """A pass under --watch: a crash is reported like a failed step and the
+    watcher stays up for the next export."""
+    try:
+        return one_pass(world, True, port, downloads)
+    except Exception as exc:  # noqa: BLE001 — anything; the watcher must survive
+        say(f"  FAILED   : {type(exc).__name__}: {exc}")
+        for line in traceback.format_exc().rstrip().splitlines()[-6:]:
+            say("            " + line)
+        return False
+
+
 def watch(world, port, interval, downloads=None):
     seen = watch_inputs(world, downloads)
-    one_pass(world, True, port, downloads)
+    guarded_pass(world, port, downloads)
     say(f"  watching : {len(seen)} input file(s) every {interval:g}s — Ctrl-C to stop")
     while True:
         time.sleep(interval)
@@ -310,7 +342,7 @@ def watch(world, port, interval, downloads=None):
             # let a download finish landing before reading it
             time.sleep(1.0)
             seen = watch_inputs(world, downloads)
-            one_pass(world, True, port, downloads)
+            guarded_pass(world, port, downloads)
 
 
 def main(argv=None):
@@ -322,6 +354,7 @@ def main(argv=None):
     ap.add_argument("--check", action="store_true", help="verify only; write nothing")
     ap.add_argument("--downloads", default=None, help="folder to scan for fresh exports (default ~/Downloads; '' = none)")
     args = ap.parse_args(argv)
+    utf8_streams()
     downloads = args.downloads if args.downloads is not None else None
     if args.downloads == "":
         downloads = ""

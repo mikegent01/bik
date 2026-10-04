@@ -306,10 +306,14 @@ def launch_sheets_suite(site_port: int, say=print):
         return None
     env = dict(os.environ)
     env.setdefault("PYTHONUNBUFFERED", "1")
+    # Windows gives a piped child cp1252, which cannot spell the suite's "→";
+    # the child prints UTF-8 and is read as UTF-8, whatever the code page.
+    env["PYTHONIOENCODING"] = "utf-8"
+    env["PYTHONUTF8"] = "1"
     try:
         proc = subprocess.Popen(
             [sys.executable, str(SHEETS_SCRIPT), "--watch", "--port", str(site_port)], cwd=str(ROOT), env=env,
-            stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, bufsize=1,
+            stdout=subprocess.PIPE, stderr=subprocess.STDOUT, encoding="utf-8", errors="replace", bufsize=1,
         )
     except Exception as exc:
         say("  sheets : could not start the character-sheet suite (%s)" % exc)
@@ -708,7 +712,9 @@ def main() -> int:
                         help="(window) press Start on open")
     args = parser.parse_args()
     with contextlib.suppress(Exception):
-        sys.stdout.reconfigure(line_buffering=True)   # the address shows up even when piped to a log
+        # the address shows up even when piped to a log, and a glyph the
+        # terminal's code page lacks (the suite's "→") becomes "?" instead of a crash
+        sys.stdout.reconfigure(line_buffering=True, errors="replace")
 
     check_root()
     if args.gui or (not args.no_gui and gui_available()):

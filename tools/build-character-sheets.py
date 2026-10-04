@@ -2168,7 +2168,7 @@ def main(argv=None):
     write_text(os.path.join(CAST, "import.json"), combine_cast())
     c = index["meta"]["counts"]
     print(f"wrote {c['generated']} generated sheets and {c['eras']} era versions, index of {c['sheets']} "
-          f"({c['party']} party, {c['skipped']} skipped) → {os.path.relpath(SHEETS_JSON, ROOT)}")
+          f"({c['party']} party, {c['skipped']} skipped) -> {os.path.relpath(SHEETS_JSON, ROOT)}")
     return 0
 
 
