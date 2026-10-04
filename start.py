@@ -17,6 +17,7 @@ it.
     python3 start.py --host 0.0.0.0  # expose on the network / in a container
     python3 start.py --workflow      # also run workflow/server.py (chat + model bridge)
     python3 start.py --no-sheets     # skip the character-sheet suite (tools/sheets-suite.py --watch)
+    python3 start.py --foundry-data "C:/Users/me/AppData/Local/FoundryVTT/Data"   # where the suite publishes for Foundry (found automatically otherwise)
 
 The launcher window has a tick per thing that can run — the site, the workflow
 server (chat + LM Studio bridge), the character-sheet suite (the GM's Foundry
@@ -298,9 +299,12 @@ def launch_workflow(port: int, host: str, lm_url: str = "", say=print):
     return proc
 
 
-def launch_sheets_suite(site_port: int, say=print):
+def launch_sheets_suite(site_port: int, say=print, foundry_data: str = ""):
     """Run tools/sheets-suite.py --watch as a child, its lines going to `say`.
-    Returns the Popen (or None when it cannot start)."""
+    `foundry_data` (blank = let the suite find it) is the Foundry Data folder
+    the suite publishes packets, the module and the art into — what the Sync
+    button in Foundry reads first. Returns the Popen (or None when it cannot
+    start)."""
     if not SHEETS_SCRIPT.is_file():
         say("  sheets : %s is missing — the sheets page still serves the committed data/sheets.json" % SHEETS_SCRIPT)
         return None
@@ -312,7 +316,8 @@ def launch_sheets_suite(site_port: int, say=print):
     env["PYTHONUTF8"] = "1"
     try:
         proc = subprocess.Popen(
-            [sys.executable, str(SHEETS_SCRIPT), "--watch", "--port", str(site_port)], cwd=str(ROOT), env=env,
+            [sys.executable, str(SHEETS_SCRIPT), "--watch", "--port", str(site_port)]
+            + (["--foundry-data", foundry_data] if foundry_data else []), cwd=str(ROOT), env=env,
             stdout=subprocess.PIPE, stderr=subprocess.STDOUT, encoding="utf-8", errors="replace", bufsize=1,
         )
     except Exception as exc:
@@ -349,7 +354,7 @@ def stop_process(proc, say=print) -> None:
 PREF_DEFAULTS = {
     "site": True, "workflow": True, "sheets": True, "tts": False, "browser": True,
     "port": DEFAULT_PORT, "workflow_port": WORKFLOW_PORT, "expose": False,
-    "lm_url": "", "open": "home", "route": "",
+    "lm_url": "", "open": "home", "route": "", "foundry_data": "",
 }
 
 
@@ -419,6 +424,8 @@ def run_gui(args) -> int:
         prefs["sheets"] = False
     elif args.sheets:
         prefs["sheets"] = True
+    if args.foundry_data:
+        prefs["foundry_data"] = args.foundry_data
     if args.route:
         prefs["open"], prefs["route"] = "route", args.route
     elif args.page and args.page != "index.html":
@@ -450,6 +457,7 @@ def run_gui(args) -> int:
     v_port = tk.StringVar(value=str(prefs["port"]))
     v_wport = tk.StringVar(value=str(prefs["workflow_port"]))
     v_lm = tk.StringVar(value=prefs["lm_url"])
+    v_fd = tk.StringVar(value=prefs.get("foundry_data", ""))
     v_open = tk.StringVar(value=prefs["open"])
     v_route = tk.StringVar(value=prefs["route"])
 
@@ -478,6 +486,10 @@ def run_gui(args) -> int:
 
     row = ttk.Frame(box); row.pack(fill="x", padx=8, pady=3)
     ttk.Checkbutton(row, text="Character sheets — split the GM's Foundry export, player sheets at ledger XP, spoils, sheets.json, import packets; re-runs when an export lands", variable=v_sheets).pack(side="left")
+
+    row = ttk.Frame(box); row.pack(fill="x", padx=8, pady=3)
+    ttk.Label(row, text="Foundry Data folder (blank = find it; packets, the module and the art are published there for the Sync button)").pack(side="left", padx=(24, 4))
+    ttk.Entry(row, textvariable=v_fd, width=34).pack(side="left")
 
     bat = next((b for b in tts_bat_candidates() if b.is_file()), None)
     row = ttk.Frame(box); row.pack(fill="x", padx=8, pady=3)
@@ -526,6 +538,7 @@ def run_gui(args) -> int:
             "tts": bool(v_tts.get()), "browser": bool(v_browser.get()), "expose": bool(v_expose.get()),
             "port": num(v_port, DEFAULT_PORT), "workflow_port": num(v_wport, WORKFLOW_PORT),
             "lm_url": v_lm.get().strip(), "open": v_open.get(), "route": v_route.get().strip(),
+            "foundry_data": v_fd.get().strip().strip('"'),
         }
 
     def site_url(page: str = "", route: str = "") -> str:
@@ -557,7 +570,7 @@ def run_gui(args) -> int:
         if p["workflow"]:
             state["workflow"] = launch_workflow(p["workflow_port"], host, p["lm_url"], say)
         if p["sheets"]:
-            state["sheets"] = launch_sheets_suite(state["port"], say)
+            state["sheets"] = launch_sheets_suite(state["port"], say, p.get("foundry_data", ""))
         if p["tts"]:
             launch_tts_studio(say)
         ts_ip = tailscale_ipv4()
@@ -703,6 +716,11 @@ def main() -> int:
                              "the default; the flag only overrides a remembered 'off' tick")
     sheets.add_argument("--no-sheets", action="store_true",
                         help="do not run the character-sheet suite")
+    parser.add_argument("--foundry-data", default="", metavar="DIR",
+                        help="your Foundry VTT Data folder (…/FoundryVTT/Data); the suite publishes the packets, "
+                             "the Mass Import module and the art there so Sync in Foundry needs no URL. "
+                             "Blank = the suite finds it (WALUIPEDIA_FOUNDRY_DATA, the usual AppData / "
+                             "~/.local/share / Library paths)")
     mode = parser.add_mutually_exclusive_group()
     mode.add_argument("--gui", action="store_true",
                       help="open the launcher window (the default where tkinter and a display exist)")
@@ -738,7 +756,7 @@ def main() -> int:
         workflow = launch_workflow(args.workflow_port, args.host)
     sheets_suite = None
     if not args.no_sheets:
-        sheets_suite = launch_sheets_suite(port)
+        sheets_suite = launch_sheets_suite(port, foundry_data=args.foundry_data)
     if not args.no_tts:
         launch_tts_studio()
     print_tailnet_tip(port, args.host)

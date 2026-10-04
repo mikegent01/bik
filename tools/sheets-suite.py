@@ -378,6 +378,39 @@ def packets_info(world, port, packet_files, published_at):
     }
 
 
+def publish_cast(foundry_data, port, write, stamp):
+    """The committed cast packet (actors/cast/import.json) goes next to the
+    world packets so Sync's `cast` scope works offline too. Returns the list of
+    files copied (empty when current or when the packet is missing)."""
+    src = os.path.join(ACTORS, "cast", "import.json")
+    if not os.path.exists(src):
+        return []
+    dest = os.path.join(foundry_data, *PACKET_DIR.split("/"), "cast")
+    dst = os.path.join(dest, "import.json")
+    if not write:
+        return [] if same_file(src, dst) else ["cast/import.json"]
+    os.makedirs(dest, exist_ok=True)
+    copied = []
+    if not same_file(src, dst):
+        shutil.copy2(src, dst)
+        copied.append("cast/import.json")
+    info = {
+        "format": "waluipedia-packets/1",
+        "world": "cast",
+        "publishedAt": stamp,
+        "publishedBy": "tools/sheets-suite.py",
+        "packets": {"cast": "import.json"},
+        "launcher": {"cast": f"http://127.0.0.1:{port}/Reputation-Matrix2/actors/cast/import.json"},
+        "github": {"cast": f"{RAW_BASE}Reputation-Matrix2/actors/cast/import.json"},
+    }
+    tmp = os.path.join(dest, "packets.json.tmp")
+    with open(tmp, "w", encoding="utf-8") as fh:
+        json.dump(info, fh, indent=2, ensure_ascii=False)
+        fh.write("\n")
+    os.replace(tmp, os.path.join(dest, "packets.json"))
+    return copied
+
+
 def step_publish(world, write, port, foundry_data, how, install=True, images=True):
     """Put the packets where Foundry can see them without a URL — the Data
     folder — keep the Mass Import module there current, and copy the repo-held
@@ -411,6 +444,7 @@ def step_publish(world, write, port, foundry_data, how, install=True, images=Tru
         fh.write("\n")
     os.replace(tmp, info_path)
     rel_dest = os.path.relpath(dest, foundry_data).replace(os.sep, "/")
+    copied += publish_cast(foundry_data, port, True, stamp)
     say(f"  publish  : {foundry_data} ({how}) — {', '.join(copied) if copied else 'packets unchanged'} -> {rel_dest}/  (Sync reads {rel_dest}/players-import.json)")
     if install:
         try:

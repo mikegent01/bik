@@ -9,7 +9,9 @@ split step uses, the appliesTo filter on changes files, the promoted sheets
 in the midlands mirror (character type, live id, folder, ownership kept,
 ledger XP, promotion record), the rule that nothing under Players/ is an
 NPC statblock, the spoils that reached the sheets, start.py's wiring
-(tick, light, button, flags, CORS header) and finally the suite's own
+(tick, light, button, flags, CORS header), the publish step that puts the
+packets, the module and the art into the Foundry Data folder the suite finds
+(what the module's Sync button reads first) and finally the suite's own
 --check pass.
 
     python3 tools/tests/test-sheets-suite.py
@@ -202,6 +204,83 @@ try:
 finally:
     suite.say, suite.one_pass = _orig_say, _orig_pass
 check("a crash inside a watched pass is reported, not fatal", survived and any("RuntimeError: boom in a step" in t for t in _said), " | ".join(_said)[:300])
+
+# ---- publishing into the Foundry Data folder (what Sync reads first) -----
+# The GM imported the wrong file by URL and nothing in Foundry's Data folder
+# moved: until now the suite only wrote the repo. Now it finds the Data
+# folder, puts the packets + the module + the art there, and Foundry's Sync
+# button reads them without a URL.
+with tempfile.TemporaryDirectory() as tmp:
+    data = os.path.join(tmp, "FoundryVTT", "Data")
+    for d in ("worlds", "systems", "modules"):
+        os.makedirs(os.path.join(data, d))
+    check("find_foundry_data: an explicit --foundry-data wins and is validated", suite.find_foundry_data(data, {}) == (data, "--foundry-data"))
+    check("find_foundry_data: the folder above Data (what Foundry calls the user data path) is accepted", suite.find_foundry_data(os.path.join(tmp, "FoundryVTT"), {})[0] == data)
+    check("find_foundry_data: WALUIPEDIA_FOUNDRY_DATA / FOUNDRY_VTT_DATA_PATH", suite.find_foundry_data(None, {"WALUIPEDIA_FOUNDRY_DATA": data}) == (data, "WALUIPEDIA_FOUNDRY_DATA")
+          and suite.find_foundry_data(None, {"FOUNDRY_VTT_DATA_PATH": os.path.join(tmp, "FoundryVTT")}) == (data, "FOUNDRY_VTT_DATA_PATH"))
+    wrong = suite.find_foundry_data(tmp, {})
+    check("find_foundry_data: a path that is not a Data folder is reported, never written to", wrong[0] is None and "not a Foundry Data folder" in wrong[1], wrong[1])
+    check("find_foundry_data: nothing given, nothing there -> (None, 'not found')", suite.find_foundry_data(None, {"HOME": tmp, "LOCALAPPDATA": tmp}) == (None, "not found") or suite.find_foundry_data(None, {"HOME": tmp, "LOCALAPPDATA": tmp})[1] == "found")
+    cands = suite.foundry_data_candidates(home="C:/Users/mikeg", sysname="Windows", environ={"LOCALAPPDATA": "C:/Users/mikeg/AppData/Local"})
+    check("the Windows default is %LOCALAPPDATA%/FoundryVTT/Data", cands == [os.path.join("C:/Users/mikeg/AppData/Local", "FoundryVTT", "Data")], cands)
+    os.makedirs(os.path.join(tmp, "FoundryVTT", "Config"))
+    with open(os.path.join(tmp, "FoundryVTT", "Config", "options.json"), "w", encoding="utf-8") as fh:
+        json.dump({"dataPath": os.path.join(tmp, "elsewhere")}, fh)
+    cands = suite.foundry_data_candidates(home=tmp, sysname="Windows", environ={"LOCALAPPDATA": tmp})
+    check("a dataPath in Config/options.json is tried before the default", cands[0] == os.path.join(tmp, "elsewhere", "Data") and cands[1] == data, cands)
+
+    before, ver, changed = suite.install_module(data, True)
+    check("install_module copies the module into <Data>/modules/<id> (version from module.json)", before is None and ver == "1.3.0" and "module.json" in changed
+          and os.path.exists(os.path.join(data, "modules", suite.MODULE_ID, "scripts", "mass-import.js")) and os.path.exists(os.path.join(data, "modules", suite.MODULE_ID, "macros", "sync-from-waluipedia.js")))
+    check("…a second install changes nothing; the version read back is the repo's", suite.install_module(data, True) == ("1.3.0", "1.3.0", []))
+
+    # a fake checkout with a tiny world mirror + cast packet, so the paths/URLs in packets.json can be checked exactly
+    froot = os.path.join(tmp, "bik")
+    fworlds = os.path.join(froot, "Reputation-Matrix2", "actors", "worlds")
+    world = "testworld"
+    os.makedirs(os.path.join(fworlds, world, "Players"))
+    os.makedirs(os.path.join(froot, "Reputation-Matrix2", "actors", "cast"))
+    actor = {"_id": "Ea1aaaaaaaaaaaaa", "name": "Eager", "type": "character", "flags": {"waluipedia-mass-import": {"folderPath": ["Players"]}}, "system": {}, "items": []}
+    for rel, doc in ((os.path.join(world, "manifest.json"), {"format": "waluipedia-actors/1", "exportedFrom": world, "exportedAt": "2026-10-04T17:21:43.770Z", "actors": [{"name": "Eager", "type": "character", "_id": actor["_id"], "file": "Players/fvtt-Actor-eager.json"}]}),
+                     (os.path.join(world, "players-import.json"), {"format": "waluipedia-actors/1", "exportedFrom": world, "actors": [actor]}),
+                     (os.path.join(world, "import.json"), {"format": "waluipedia-actors/1", "exportedFrom": world, "actors": [actor]}),
+                     (os.path.join("..", "cast", "import.json"), {"format": "waluipedia-actors/1", "exportedFrom": "waluipedia", "actors": []})):
+        with open(os.path.join(fworlds, rel), "w", encoding="utf-8") as fh:
+            json.dump(doc, fh)
+    saved = (suite.ROOT, suite.ACTORS, suite.WORLDS, suite.say)
+    said = []
+    suite.ROOT, suite.ACTORS, suite.WORLDS, suite.say = froot, os.path.dirname(fworlds), fworlds, said.append
+    try:
+        ok1 = suite.step_publish(world, True, 8765, data, "--foundry-data", install=False, images=False)
+        first = list(said); said.clear()
+        ok2 = suite.step_publish(world, True, 8765, data, "--foundry-data", install=False, images=False)
+        second = list(said); said.clear()
+        ok3 = suite.step_publish(world, False, 8765, data, "--foundry-data", install=False, images=False)
+        checked = list(said); said.clear()
+        ok4 = suite.step_publish(world, True, 8765, None, "not found", install=False, images=False)
+        nowhere = list(said)
+    finally:
+        suite.ROOT, suite.ACTORS, suite.WORLDS, suite.say = saved
+    dest = os.path.join(data, "npc", "waluipedia", world)
+    check("step_publish copies players-import.json, import.json and manifest.json into <Data>/npc/waluipedia/<world>/", ok1 and all(os.path.exists(os.path.join(dest, f)) for f in ("players-import.json", "import.json", "manifest.json", "packets.json")), " | ".join(first))
+    check("…and tells the GM where Sync reads", any("Sync reads npc/waluipedia/testworld/players-import.json" in t for t in first) and any("players-import.json, import.json, manifest.json, cast/import.json" in t for t in first), " | ".join(first))
+    info = read(os.path.join(dest, "packets.json"))
+    check("packets.json: stamps + every other place the same packet lives (launcher URLs, GitHub manifest)", info["format"] == "waluipedia-packets/1" and info["world"] == world and info["exportedAt"] == "2026-10-04T17:21:43.770Z" and info["publishedBy"] == "tools/sheets-suite.py"
+          and info["packets"] == {"players": "players-import.json", "world": "import.json", "manifest": "manifest.json"}
+          and info["launcher"]["players"] == f"http://127.0.0.1:8765/Reputation-Matrix2/actors/worlds/{world}/players-import.json"
+          and info["launcher"]["world"] == f"http://127.0.0.1:8765/Reputation-Matrix2/actors/worlds/{world}/import.json"
+          and info["github"]["manifest"] == f"https://raw.githubusercontent.com/mikegent01/bik/gh-pages/Reputation-Matrix2/actors/worlds/{world}/manifest.json", json.dumps(info))
+    check("packets.json uses forward slashes whatever the OS", "\\" not in json.dumps(info))
+    cast_info_path = os.path.join(data, "npc", "waluipedia", "cast", "packets.json")
+    check("the cast packet is published next to it (Sync's `cast` scope works offline)", os.path.exists(os.path.join(data, "npc", "waluipedia", "cast", "import.json")) and os.path.exists(cast_info_path)
+          and read(cast_info_path)["github"]["cast"] == "https://raw.githubusercontent.com/mikegent01/bik/gh-pages/Reputation-Matrix2/actors/cast/import.json")
+    check("a second pass with the same packets copies nothing and says so", ok2 and any("packets unchanged" in t for t in second), " | ".join(second))
+    check("under --check the publish step only reports what it would copy", ok3 and any("would copy" in t for t in checked) and not any("->" in t and "unchanged" in t for t in checked), " | ".join(checked))
+    check("with no Data folder the step explains the fallbacks (launcher URL, then GitHub) and passes", ok4 and any("falls back to the launcher URL, then GitHub" in t and "--foundry-data" in t for t in nowhere), " | ".join(nowhere))
+    check("step_publish never writes the repo", not os.path.exists(os.path.join(fworlds, world, "packets.json")))
+
+check("start.py passes --foundry-data through to the suite (flag, remembered pref, GUI entry)", '"--foundry-data", foundry_data' in start and '"foundry_data": ""' in start and 'v_fd = tk.StringVar' in start and 'parser.add_argument("--foundry-data"' in start)
+check("start.py --help documents --foundry-data", "--foundry-data DIR" in helptext.stdout)
 
 # ---- the suite's own check pass -------------------------------------------
 t0 = time.time()
