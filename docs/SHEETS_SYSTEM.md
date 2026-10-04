@@ -34,13 +34,15 @@ The Character Sheets system closes that gap in one deterministic pass:
 | `live` | 26 | the user's real world export, mirrored in `actors/worlds/midlands/` |
 | `intake` | 4 | the PC packet (`actors/fvtt-Actor-*.json`) — Bowser, Wario, Azure, Orange T |
 | `era` | 2 | the 955 BF court (`actors/peachs-castle-955/`) — Peach, Toadsworth the Elder |
-| `generated` | 152 | built by `tools/build-character-sheets.py` from the article's own text |
+| `generated` | 152 | built by `tools/build-character-sheets.py` from the article's own text — 118 NPC stat blocks, 34 main-cast player characters |
 | skipped | 6 | deliberately not statted — the GM, the collectives, a cosmic entity |
+| *past selves* | 3 | era versions under a character (`versions[]`): Mario, Luigi and Bowser in 955 BF — `actors/cast/eras/` |
 
 Every one of the 184 is a dnd5e actor file that imports through the
 [Mass Import module](../Reputation-Matrix2/Foundry/mass_import/README.md), and
-the 152 generated ones ship together as `actors/cast/import.json`
-(folders: *Waluipedia Cast / <group>*).
+the 152 generated ones plus the past selves ship together as
+`actors/cast/import.json` (folders: *Waluipedia Cast / <group>*, past selves
+under *<group> / 955 BF*).
 
 ## The visibility rule
 
@@ -91,9 +93,12 @@ sheets[]  id, name, title, sheetName, source, file, alternates[],
 skipped[] id, name, reason
 ```
 
-`file` is relative to `Reputation-Matrix2/`; `alternates[]` lists the other
-actor files that resolve to the same character (Remi's PC intake copy next to
-her live export, Lady Aurelian's PC build next to her NPC statblock). The
+`file` is relative to `Reputation-Matrix2/`; `versions[]` lists the
+character's **past selves** (`{version, era, label, when, file, name, kind,
+level, classes, species, hp, ac, evidence[], …}` — see *Past selves* below)
+and `alternates[]` the other actor files that resolve to the same character
+(Remi's PC intake copy next to her live export, Lady Aurelian's PC build next
+to her NPC statblock). The
 primary is chosen by rank *live > intake > era*, with two pinned exceptions
 the comments explain (Bowser's and Wario's PC intake sheets stay primary
 because the live world only holds their NPC versions). `-NO-SPECIES` variants
@@ -176,6 +181,26 @@ level. The builder's `--check` must round-trip JSON-equal;
 sanitizer both pass on the output, and `tools/check-sheets.py` enforces both
 rule sets.
 
+**Past selves (era versions).** `ERAS` holds the earlier selves a character
+can carry — one entry per version with `version`, `era`, `label`, `when`
+(one sentence placing it), an explicit `level`, the same spec fields as a
+`BESPOKE` entry and its own `pc=` tuple. `build_eras()` builds each through
+`build_generated(…, era=…)`: a player-character sheet named *Name (955 BF)*,
+id `sid("cast", "<id>--<version>")`, file
+`actors/cast/eras/fvtt-Actor-<id>--<version>.json`, folder *Waluipedia Cast /
+<group> / <era>*, flag `waluipedia-sheets.era {version, era, label, when}`.
+Rules: **an era level never exceeds the ledger level** (the builder and the
+checker both refuse it — a past self cannot hold more experience than the
+present one; a prime shows in the kit), every feature quotes the article,
+evidence is re-checked like any generated sheet. Shipped: Mario (Monk 5 —
+Fire Flower, Super Mushroom, Eight Worlds' Stamina, Always Near Peach, Hero of
+the Mushroom Kingdom, Annoyingly Heroic), Luigi (Ranger 4 — Hammer, Green
+Fireball, Scuttle Jump, The Second Brother, Afraid Often, Startles, Sports
+Appearances), Bowser (Fighter 8 — Claws, Shell Bash, Fire Breath 5–6, The
+Shell, Indestructible, Kidnapper of Princesses, King of the Koopas). Versions
+apply to existing sheets too: Bowser's present self is still his PC intake
+export, with the 955 BF self beside it.
+
 ## Where it shows up
 
 - **Sidebar** — *📜 Character Sheets* with the visible count.
@@ -185,6 +210,12 @@ rule sets.
   for generated ones, the ledger level that capped the CR.
 - **`#/sheets`** — hero with counts, search box, group chips, cards grouped
   by faction; a footer explaining the generated sheets and the import loop.
+- **`#/sheets/<id>/<version>`** — a past self: the same page with the
+  version's header, a **version strip** (*Now — 1040 BF*, each era version,
+  and the other real files the archive holds for the person), the era note
+  (*an era version never exceeds the ledger level*), that version's evidence
+  and download / raw / Mass Import links. The strip also appears on the
+  present sheet whenever a character carries more than one.
 - **`#/sheets/<id>`** — portrait, badges (PC/NPC, source, Disaster Inc. or
   Restricted, Hand-authored), download / raw / **Mass Import URL** (the
   `raw.githubusercontent.com` path the module's *Import by URL* accepts), then

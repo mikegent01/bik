@@ -12,6 +12,7 @@
       "characters": 190,
       "sheets": 184,
       "generated": 152,
+      "eras": 3,
       "existing": 32,
       "party": 17,
       "skipped": 6
@@ -69,7 +70,8 @@
       "ac": 13,
       "acApprox": true,
       "cr": 0.5,
-      "type": "humanoid"
+      "type": "humanoid",
+      "versions": []
     },
     {
       "id": "alice",
@@ -116,7 +118,8 @@
       "items": 2,
       "ac": 13,
       "cr": 1,
-      "type": "undead (spirit)"
+      "type": "undead (spirit)",
+      "versions": []
     },
     {
       "id": "alistair_marshkeeper",
@@ -168,7 +171,8 @@
       "items": 3,
       "ac": 10,
       "cr": 0.125,
-      "type": "humanoid (human)"
+      "type": "humanoid (human)",
+      "versions": []
     },
     {
       "id": "ana",
@@ -215,7 +219,8 @@
       "items": 2,
       "ac": 14,
       "cr": 1,
-      "type": "humanoid (human)"
+      "type": "humanoid (human)",
+      "versions": []
     },
     {
       "id": "archie_miser",
@@ -258,7 +263,8 @@
       "classes": [
         "Wizard 6"
       ],
-      "species": "Human"
+      "species": "Human",
+      "versions": []
     },
     {
       "id": "asa_hanko",
@@ -305,7 +311,8 @@
       "items": 2,
       "ac": 10,
       "cr": 0,
-      "type": "humanoid (human)"
+      "type": "humanoid (human)",
+      "versions": []
     },
     {
       "id": "asagao_hanae",
@@ -352,7 +359,8 @@
       "items": 2,
       "ac": 10,
       "cr": 0,
-      "type": "humanoid (human)"
+      "type": "humanoid (human)",
+      "versions": []
     },
     {
       "id": "asgore",
@@ -425,7 +433,8 @@
         "cr": 2,
         "hitDie": "d10",
         "formula": "2d10 + 6"
-      }
+      },
+      "versions": []
     },
     {
       "id": "ashley",
@@ -472,7 +481,8 @@
       "items": 2,
       "ac": 12,
       "cr": 2,
-      "type": "humanoid (human)"
+      "type": "humanoid (human)",
+      "versions": []
     },
     {
       "id": "azure_rakasha",
@@ -505,7 +515,8 @@
       "items": 12,
       "ac": 16,
       "cr": 7,
-      "type": "fey (rakasha spirit-walker (theater-touched))"
+      "type": "fey (rakasha spirit-walker (theater-touched))",
+      "versions": []
     },
     {
       "id": "baby_bones",
@@ -562,7 +573,8 @@
       "items": 4,
       "ac": 10,
       "cr": 0.125,
-      "type": "monstrosity (Bone-Line kin)"
+      "type": "monstrosity (Bone-Line kin)",
+      "versions": []
     },
     {
       "id": "big_r",
@@ -614,7 +626,8 @@
       "items": 3,
       "ac": 14,
       "cr": 1,
-      "type": "humanoid (Toad)"
+      "type": "humanoid (Toad)",
+      "versions": []
     },
     {
       "id": "bones",
@@ -687,7 +700,8 @@
         "cr": 4,
         "hitDie": "d8",
         "formula": "5d8 + 5"
-      }
+      },
+      "versions": []
     },
     {
       "id": "boss_knuckles",
@@ -734,7 +748,8 @@
       "items": 2,
       "ac": 13,
       "cr": 0.5,
-      "type": "monstrosity (Underground monster)"
+      "type": "monstrosity (Underground monster)",
+      "versions": []
     },
     {
       "id": "boundy",
@@ -781,7 +796,8 @@
       "items": 2,
       "ac": 14,
       "cr": 0.5,
-      "type": "humanoid (Mazebound)"
+      "type": "humanoid (Mazebound)",
+      "versions": []
     },
     {
       "id": "bowser",
@@ -817,7 +833,88 @@
       "classes": [
         "Fighter 8"
       ],
-      "species": "Tortle"
+      "species": "Tortle",
+      "versions": [
+        {
+          "version": "955-bf",
+          "era": "955 BF",
+          "label": "Bowser, King of the Koopas",
+          "when": "The sovereign who kidnapped princesses and conquered kingdoms, eighty-five years before he held the door for Disaster Inc. — the Koopa Troop at full strength, the castle intact, fire in the throat.",
+          "file": "actors/cast/eras/fvtt-Actor-bowser--955-bf.json",
+          "name": "Bowser (955 BF)",
+          "source": "generated",
+          "bespoke": true,
+          "evidence": [
+            {
+              "feature": "Claws",
+              "quote": "Bowser is a giant turtle who breathes fire, wants things, and takes them.",
+              "source": "article"
+            },
+            {
+              "feature": "Bowser's Shell Bash",
+              "quote": "When Orangus Cornelius threatened to turn Bowser's shell into a soup bowl, diplomacy ended because YOU DO NOT THREATEN BOWSER'S SHELL.",
+              "source": "article"
+            },
+            {
+              "feature": "Fire Breath (Recharge 5–6)",
+              "quote": "Bowser is a giant turtle who breathes fire, wants things, and takes them.",
+              "source": "article"
+            },
+            {
+              "feature": "Extra Attack",
+              "quote": "Bowser operates on simple logic: see problem, hit problem, problem either stops being a problem or gets hit again.",
+              "source": "article"
+            },
+            {
+              "feature": "The Shell",
+              "quote": "When Orangus Cornelius threatened to turn Bowser's shell into a soup bowl, diplomacy ended because YOU DO NOT THREATEN BOWSER'S SHELL.",
+              "source": "article"
+            },
+            {
+              "feature": "Indestructible",
+              "quote": "Bowser is the most INDESTRUCTIBLE.",
+              "source": "article"
+            },
+            {
+              "feature": "Kidnapper of Princesses",
+              "quote": "Bowser is traditionally an ANTAGONIST—kidnapping princesses, conquering kingdoms, generally being the obstacle that heroes overcome.",
+              "source": "article"
+            },
+            {
+              "feature": "King of the Koopas",
+              "quote": "- Koopa sovereignty: every alliance with Bowser is also a negotiation with a kingdom.",
+              "source": "article"
+            }
+          ],
+          "kind": "pc",
+          "abilities": {
+            "str": 20,
+            "dex": 10,
+            "con": 18,
+            "int": 9,
+            "wis": 11,
+            "cha": 15
+          },
+          "hp": 84,
+          "speed": "30",
+          "size": "lg",
+          "items": 12,
+          "ac": 17,
+          "level": 8,
+          "classes": [
+            "Fighter 8"
+          ],
+          "species": "Koopa (King-sized)",
+          "pc": {
+            "level": 8,
+            "class": "Fighter",
+            "subclass": "Champion",
+            "cr": 8,
+            "hitDie": "d10",
+            "formula": "8d10 + 32"
+          }
+        }
+      ]
     },
     {
       "id": "brad_the_waiter",
@@ -864,7 +961,8 @@
       "items": 2,
       "ac": 10,
       "cr": 0.125,
-      "type": "humanoid"
+      "type": "humanoid",
+      "versions": []
     },
     {
       "id": "brother_killer",
@@ -916,7 +1014,8 @@
       "items": 3,
       "ac": 14,
       "cr": 0.5,
-      "type": "monstrosity (Bone-Line kin)"
+      "type": "monstrosity (Bone-Line kin)",
+      "versions": []
     },
     {
       "id": "bryan",
@@ -984,7 +1083,8 @@
         "cr": 3,
         "hitDie": "d8",
         "formula": "3d8 + 6"
-      }
+      },
+      "versions": []
     },
     {
       "id": "bully_t",
@@ -1031,7 +1131,8 @@
       "items": 2,
       "ac": 14,
       "cr": 0.5,
-      "type": "humanoid (Toad)"
+      "type": "humanoid (Toad)",
+      "versions": []
     },
     {
       "id": "byscilla_danos",
@@ -1065,7 +1166,8 @@
       "ac": 15,
       "acApprox": true,
       "cr": 0.5,
-      "type": "humanoid (Any Race)"
+      "type": "humanoid (Any Race)",
+      "versions": []
     },
     {
       "id": "cackletta",
@@ -1098,7 +1200,8 @@
       "items": 10,
       "ac": 18,
       "cr": 14,
-      "type": "undead (beanish (soul-bound revenant))"
+      "type": "undead (beanish (soul-bound revenant))",
+      "versions": []
     },
     {
       "id": "captain_fernback",
@@ -1145,7 +1248,8 @@
       "items": 2,
       "ac": 14,
       "cr": 0.5,
-      "type": "humanoid (Toad)"
+      "type": "humanoid (Toad)",
+      "versions": []
     },
     {
       "id": "captain_syrup",
@@ -1218,7 +1322,8 @@
         "cr": 2,
         "hitDie": "d8",
         "formula": "2d8 + 4"
-      }
+      },
+      "versions": []
     },
     {
       "id": "captain_toadette",
@@ -1291,7 +1396,8 @@
         "cr": 3,
         "hitDie": "d10",
         "formula": "3d10 + 6"
-      }
+      },
+      "versions": []
     },
     {
       "id": "chancellor_toadsworth",
@@ -1354,7 +1460,8 @@
         "cr": 0.5,
         "hitDie": "d8",
         "formula": "3d8"
-      }
+      },
+      "versions": []
     },
     {
       "id": "chief_thornpaw",
@@ -1427,7 +1534,8 @@
         "cr": 3,
         "hitDie": "d10",
         "formula": "4d10 + 12"
-      }
+      },
+      "versions": []
     },
     {
       "id": "color_division_black",
@@ -1474,7 +1582,8 @@
       "items": 2,
       "ac": 14,
       "cr": 0.5,
-      "type": "humanoid"
+      "type": "humanoid",
+      "versions": []
     },
     {
       "id": "commander_g",
@@ -1531,7 +1640,8 @@
       "items": 4,
       "ac": 14,
       "cr": 1,
-      "type": "humanoid (human)"
+      "type": "humanoid (human)",
+      "versions": []
     },
     {
       "id": "creek_medic",
@@ -1583,7 +1693,8 @@
       "items": 3,
       "ac": 11,
       "cr": 0.25,
-      "type": "humanoid (Toad)"
+      "type": "humanoid (Toad)",
+      "versions": []
     },
     {
       "id": "crossbones",
@@ -1630,7 +1741,8 @@
       "items": 2,
       "ac": 13,
       "cr": 0.5,
-      "type": "monstrosity (Underground monster)"
+      "type": "monstrosity (Underground monster)",
+      "versions": []
     },
     {
       "id": "cursive",
@@ -1687,7 +1799,8 @@
       "items": 4,
       "ac": 10,
       "cr": 0.125,
-      "type": "monstrosity (Bone-Line kin)"
+      "type": "monstrosity (Bone-Line kin)",
+      "versions": []
     },
     {
       "id": "dan",
@@ -1755,7 +1868,8 @@
         "cr": 4,
         "hitDie": "d10",
         "formula": "7d10 + 21"
-      }
+      },
+      "versions": []
     },
     {
       "id": "dan_the_toad",
@@ -1799,7 +1913,8 @@
       "classes": [
         "Paladin 3"
       ],
-      "species": "Toad — Feyward Variant"
+      "species": "Toad — Feyward Variant",
+      "versions": []
     },
     {
       "id": "daniel_gamma_command",
@@ -1851,7 +1966,8 @@
       "items": 3,
       "ac": 14,
       "cr": 0.5,
-      "type": "humanoid (human)"
+      "type": "humanoid (human)",
+      "versions": []
     },
     {
       "id": "darno_spriggon",
@@ -1903,7 +2019,8 @@
       "items": 3,
       "ac": 14,
       "cr": 2,
-      "type": "humanoid"
+      "type": "humanoid",
+      "versions": []
     },
     {
       "id": "dedan",
@@ -1950,7 +2067,8 @@
       "items": 2,
       "ac": 14,
       "cr": 0.5,
-      "type": "monstrosity (Bone-Line kin)"
+      "type": "monstrosity (Bone-Line kin)",
+      "versions": []
     },
     {
       "id": "director_mario",
@@ -2018,7 +2136,8 @@
         "cr": 3,
         "hitDie": "d8",
         "formula": "3d8 + 6"
-      }
+      },
+      "versions": []
     },
     {
       "id": "director_vale",
@@ -2065,7 +2184,8 @@
       "items": 2,
       "ac": 10,
       "cr": 0.125,
-      "type": "humanoid (human)"
+      "type": "humanoid (human)",
+      "versions": []
     },
     {
       "id": "dirty_brother",
@@ -2122,7 +2242,8 @@
       "items": 4,
       "ac": 10,
       "cr": 0.125,
-      "type": "monstrosity (Bone-Line kin)"
+      "type": "monstrosity (Bone-Line kin)",
+      "versions": []
     },
     {
       "id": "dr_toad",
@@ -2174,7 +2295,8 @@
       "items": 3,
       "ac": 11,
       "cr": 0.25,
-      "type": "humanoid (Toad)"
+      "type": "humanoid (Toad)",
+      "versions": []
     },
     {
       "id": "dracule_mihawk",
@@ -2231,7 +2353,8 @@
       "items": 4,
       "ac": 14,
       "cr": 0.5,
-      "type": "humanoid (human)"
+      "type": "humanoid (human)",
+      "versions": []
     },
     {
       "id": "eager",
@@ -2274,7 +2397,8 @@
       "classes": [
         "Rogue 4"
       ],
-      "species": "Toad — Eager Variant"
+      "species": "Toad — Eager Variant",
+      "versions": []
     },
     {
       "id": "earl_grey",
@@ -2331,7 +2455,8 @@
       "items": 4,
       "ac": 14,
       "cr": 1,
-      "type": "humanoid"
+      "type": "humanoid",
+      "versions": []
     },
     {
       "id": "elder_meadowlight",
@@ -2383,7 +2508,8 @@
       "items": 3,
       "ac": 12,
       "cr": 1,
-      "type": "humanoid (human)"
+      "type": "humanoid (human)",
+      "versions": []
     },
     {
       "id": "elder_mudcap",
@@ -2430,7 +2556,8 @@
       "items": 2,
       "ac": 10,
       "cr": 0.125,
-      "type": "humanoid (Toad)"
+      "type": "humanoid (Toad)",
+      "versions": []
     },
     {
       "id": "embercap",
@@ -2482,7 +2609,8 @@
       "items": 3,
       "ac": 14,
       "cr": 1,
-      "type": "humanoid (Toad)"
+      "type": "humanoid (Toad)",
+      "versions": []
     },
     {
       "id": "evil_mario",
@@ -2560,7 +2688,8 @@
         "cr": 4,
         "hitDie": "d8",
         "formula": "4d8 + 8"
-      }
+      },
+      "versions": []
     },
     {
       "id": "fawful",
@@ -2593,7 +2722,8 @@
       "items": 14,
       "ac": 18,
       "cr": 14,
-      "type": "humanoid (beanish)"
+      "type": "humanoid (beanish)",
+      "versions": []
     },
     {
       "id": "fawthful",
@@ -2666,7 +2796,8 @@
         "cr": 4,
         "hitDie": "d8",
         "formula": "4d8 + 8"
-      }
+      },
+      "versions": []
     },
     {
       "id": "flowey",
@@ -2744,7 +2875,8 @@
         "cr": 3,
         "hitDie": "d8",
         "formula": "3d8 + 6"
-      }
+      },
+      "versions": []
     },
     {
       "id": "forgemaster_ironspore",
@@ -2791,7 +2923,8 @@
       "items": 2,
       "ac": 10,
       "cr": 0.125,
-      "type": "humanoid (Toad)"
+      "type": "humanoid (Toad)",
+      "versions": []
     },
     {
       "id": "gabriel_freddy",
@@ -2843,7 +2976,8 @@
       "items": 3,
       "ac": 13,
       "cr": 1,
-      "type": "undead (spirit)"
+      "type": "undead (spirit)",
+      "versions": []
     },
     {
       "id": "gamma_agent",
@@ -2890,7 +3024,8 @@
       "items": 2,
       "ac": 14,
       "cr": 0.5,
-      "type": "humanoid (human)"
+      "type": "humanoid (human)",
+      "versions": []
     },
     {
       "id": "garbage_brother",
@@ -2947,7 +3082,8 @@
       "items": 4,
       "ac": 10,
       "cr": 0.125,
-      "type": "monstrosity (Bone-Line kin)"
+      "type": "monstrosity (Bone-Line kin)",
+      "versions": []
     },
     {
       "id": "gee_lady",
@@ -3004,7 +3140,8 @@
       "items": 4,
       "ac": 10,
       "cr": 0.125,
-      "type": "monstrosity (Bone-Line kin)"
+      "type": "monstrosity (Bone-Line kin)",
+      "versions": []
     },
     {
       "id": "geek_t",
@@ -3056,7 +3193,8 @@
       "items": 3,
       "ac": 10,
       "cr": 0.125,
-      "type": "humanoid (Toad)"
+      "type": "humanoid (Toad)",
+      "versions": []
     },
     {
       "id": "general_ironhand",
@@ -3113,7 +3251,8 @@
       "items": 4,
       "ac": 14,
       "cr": 1,
-      "type": "humanoid (human)"
+      "type": "humanoid (human)",
+      "versions": []
     },
     {
       "id": "grandpa_semi",
@@ -3170,7 +3309,8 @@
       "items": 4,
       "ac": 10,
       "cr": 0.125,
-      "type": "monstrosity (Bone-Line kin)"
+      "type": "monstrosity (Bone-Line kin)",
+      "versions": []
     },
     {
       "id": "green_t",
@@ -3208,7 +3348,8 @@
         "Tea Merchant 6",
         "Bard 6"
       ],
-      "species": "Toad — Giant-Blooded"
+      "species": "Toad — Giant-Blooded",
+      "versions": []
     },
     {
       "id": "hank_the_goblin_butler",
@@ -3260,7 +3401,8 @@
       "items": 3,
       "ac": 10,
       "cr": 0.125,
-      "type": "humanoid (goblinoid)"
+      "type": "humanoid (goblinoid)",
+      "versions": []
     },
     {
       "id": "hargram_fidger",
@@ -3294,7 +3436,8 @@
       "ac": 13,
       "acApprox": true,
       "cr": 0.5,
-      "type": "humanoid"
+      "type": "humanoid",
+      "versions": []
     },
     {
       "id": "has_a_very_special_attack",
@@ -3351,7 +3494,8 @@
       "items": 4,
       "ac": 10,
       "cr": 0.125,
-      "type": "monstrosity (Bone-Line kin)"
+      "type": "monstrosity (Bone-Line kin)",
+      "versions": []
     },
     {
       "id": "healer_mistpetal",
@@ -3398,7 +3542,8 @@
       "items": 2,
       "ac": 11,
       "cr": 0.25,
-      "type": "humanoid (Toad)"
+      "type": "humanoid (Toad)",
+      "versions": []
     },
     {
       "id": "helvetica",
@@ -3450,7 +3595,8 @@
       "items": 3,
       "ac": 10,
       "cr": 0.125,
-      "type": "monstrosity (Bone-Line kin)"
+      "type": "monstrosity (Bone-Line kin)",
+      "versions": []
     },
     {
       "id": "high_inquisitor_vale",
@@ -3502,7 +3648,8 @@
       "items": 3,
       "ac": 13,
       "cr": 0.5,
-      "type": "monstrosity (Underground monster)"
+      "type": "monstrosity (Underground monster)",
+      "versions": []
     },
     {
       "id": "hjumpik",
@@ -3545,7 +3692,8 @@
       "classes": [
         "Fighter 6"
       ],
-      "species": "Mountain Dwarf"
+      "species": "Mountain Dwarf",
+      "versions": []
     },
     {
       "id": "ibaragi_yoshimi",
@@ -3592,7 +3740,8 @@
       "items": 2,
       "ac": 10,
       "cr": 0,
-      "type": "humanoid (human)"
+      "type": "humanoid (human)",
+      "versions": []
     },
     {
       "id": "iochi_mari",
@@ -3644,7 +3793,8 @@
       "items": 3,
       "ac": 10,
       "cr": 0,
-      "type": "humanoid (human)"
+      "type": "humanoid (human)",
+      "versions": []
     },
     {
       "id": "jack_melvus_miser",
@@ -3701,7 +3851,8 @@
       "items": 4,
       "ac": 14,
       "cr": 2,
-      "type": "humanoid (human)"
+      "type": "humanoid (human)",
+      "versions": []
     },
     {
       "id": "jamesly",
@@ -3748,7 +3899,8 @@
       "items": 2,
       "ac": 14,
       "cr": 0.5,
-      "type": "humanoid (human)"
+      "type": "humanoid (human)",
+      "versions": []
     },
     {
       "id": "jimmy_t",
@@ -3795,7 +3947,8 @@
       "items": 2,
       "ac": 10,
       "cr": 0,
-      "type": "humanoid (human)"
+      "type": "humanoid (human)",
+      "versions": []
     },
     {
       "id": "jory_dobbs",
@@ -3852,7 +4005,8 @@
       "items": 4,
       "ac": 11,
       "cr": 0.5,
-      "type": "humanoid (human)"
+      "type": "humanoid (human)",
+      "versions": []
     },
     {
       "id": "kamek",
@@ -3915,7 +4069,8 @@
         "cr": 2,
         "hitDie": "d6",
         "formula": "2d6"
-      }
+      },
+      "versions": []
     },
     {
       "id": "kat",
@@ -3962,7 +4117,8 @@
       "items": 2,
       "ac": 14,
       "cr": 1,
-      "type": "humanoid (human)"
+      "type": "humanoid (human)",
+      "versions": []
     },
     {
       "id": "kenzaki_tsurugi",
@@ -4009,7 +4165,8 @@
       "items": 2,
       "ac": 10,
       "cr": 0,
-      "type": "humanoid (human)"
+      "type": "humanoid (human)",
+      "versions": []
     },
     {
       "id": "king_boo",
@@ -4082,7 +4239,8 @@
         "cr": 2,
         "hitDie": "d8",
         "formula": "2d8 + 2"
-      }
+      },
+      "versions": []
     },
     {
       "id": "king_dedede",
@@ -4145,7 +4303,8 @@
         "cr": 2,
         "hitDie": "d10",
         "formula": "2d10 + 6"
-      }
+      },
+      "versions": []
     },
     {
       "id": "king_k_rool",
@@ -4213,7 +4372,8 @@
         "cr": 1,
         "hitDie": "d10",
         "formula": "1d10 + 3"
-      }
+      },
+      "versions": []
     },
     {
       "id": "kirby",
@@ -4281,7 +4441,8 @@
         "cr": 1,
         "hitDie": "d12",
         "formula": "1d12 + 3"
-      }
+      },
+      "versions": []
     },
     {
       "id": "koffin_k",
@@ -4333,7 +4494,8 @@
       "items": 3,
       "ac": 14,
       "cr": 2,
-      "type": "monstrosity (Underground monster)"
+      "type": "monstrosity (Underground monster)",
+      "versions": []
     },
     {
       "id": "kurimura_airi",
@@ -4390,7 +4552,8 @@
       "items": 4,
       "ac": 10,
       "cr": 0,
-      "type": "humanoid (human)"
+      "type": "humanoid (human)",
+      "versions": []
     },
     {
       "id": "kyle_coinsoul",
@@ -4437,7 +4600,8 @@
       "items": 2,
       "ac": 14,
       "cr": 1,
-      "type": "humanoid (human)"
+      "type": "humanoid (human)",
+      "versions": []
     },
     {
       "id": "kyrn",
@@ -4489,7 +4653,8 @@
       "items": 3,
       "ac": 12,
       "cr": 1,
-      "type": "humanoid"
+      "type": "humanoid",
+      "versions": []
     },
     {
       "id": "lady_aurelian",
@@ -4535,7 +4700,8 @@
       "items": 43,
       "ac": 16,
       "cr": 8,
-      "type": "fey (archfey-touched)"
+      "type": "fey (archfey-touched)",
+      "versions": []
     },
     {
       "id": "lady_bloomia",
@@ -4587,7 +4753,8 @@
       "items": 3,
       "ac": 12,
       "cr": 0.5,
-      "type": "humanoid (Toad)"
+      "type": "humanoid (Toad)",
+      "versions": []
     },
     {
       "id": "lazybones",
@@ -4644,7 +4811,8 @@
       "items": 4,
       "ac": 10,
       "cr": 0.125,
-      "type": "monstrosity (Bone-Line kin)"
+      "type": "monstrosity (Bone-Line kin)",
+      "versions": []
     },
     {
       "id": "liam",
@@ -4701,7 +4869,8 @@
       "items": 4,
       "ac": 14,
       "cr": 1,
-      "type": "humanoid (human)"
+      "type": "humanoid (human)",
+      "versions": []
     },
     {
       "id": "lord_darian_marsh",
@@ -4753,7 +4922,8 @@
       "items": 3,
       "ac": 10,
       "cr": 0.125,
-      "type": "humanoid (human)"
+      "type": "humanoid (human)",
+      "versions": []
     },
     {
       "id": "lord_verity",
@@ -4800,7 +4970,8 @@
       "items": 2,
       "ac": 10,
       "cr": 0,
-      "type": "humanoid (human)"
+      "type": "humanoid (human)",
+      "versions": []
     },
     {
       "id": "luigi",
@@ -4878,7 +5049,83 @@
         "cr": 4,
         "hitDie": "d10",
         "formula": "5d10 + 5"
-      }
+      },
+      "versions": [
+        {
+          "version": "955-bf",
+          "era": "955 BF",
+          "label": "Luigi, the second brother",
+          "when": "Before the Poltergust. Sports appearances, heroic support, the brother behind the brother — already afraid often, already going anyway.",
+          "file": "actors/cast/eras/fvtt-Actor-luigi--955-bf.json",
+          "name": "Luigi (955 BF)",
+          "source": "generated",
+          "bespoke": true,
+          "evidence": [
+            {
+              "feature": "Hammer",
+              "quote": "This is why Luigi's records are uneven: sports appearances, ghost incidents, heroic support, then sudden gaps, Mr. L references, Guild contracts, and medical testimony.",
+              "source": "article"
+            },
+            {
+              "feature": "Green Fireball",
+              "quote": "This is why Luigi's records are uneven: sports appearances, ghost incidents, heroic support, then sudden gaps, Mr. L references, Guild contracts, and medical testimony.",
+              "source": "article"
+            },
+            {
+              "feature": "Scuttle Jump",
+              "quote": "A person defined as the second brother can disappear in plain sight because institutions file him under support, not center.",
+              "source": "article"
+            },
+            {
+              "feature": "The Second Brother",
+              "quote": "A person defined as the second brother can disappear in plain sight because institutions file him under support, not center.",
+              "source": "article"
+            },
+            {
+              "feature": "Afraid Often",
+              "quote": "Luigi is afraid often.",
+              "source": "article"
+            },
+            {
+              "feature": "Startles",
+              "quote": "He shakes, complains, startles, and then points the Poltergust at the ghost anyway.",
+              "source": "article"
+            },
+            {
+              "feature": "Sports Appearances",
+              "quote": "This is why Luigi's records are uneven: sports appearances, ghost incidents, heroic support, then sudden gaps, Mr. L references, Guild contracts, and medical testimony.",
+              "source": "article"
+            }
+          ],
+          "kind": "pc",
+          "abilities": {
+            "str": 12,
+            "dex": 17,
+            "con": 13,
+            "int": 13,
+            "wis": 14,
+            "cha": 11
+          },
+          "hp": 32,
+          "speed": "35",
+          "size": "med",
+          "items": 11,
+          "ac": 14,
+          "level": 4,
+          "classes": [
+            "Ranger 4"
+          ],
+          "species": "Human",
+          "pc": {
+            "level": 4,
+            "class": "Ranger",
+            "subclass": "Monster Slayer",
+            "cr": 3,
+            "hitDie": "d10",
+            "formula": "4d10 + 4"
+          }
+        }
+      ]
     },
     {
       "id": "lyranth",
@@ -4911,7 +5158,8 @@
       "items": 7,
       "ac": 16,
       "cr": 7,
-      "type": "monstrosity"
+      "type": "monstrosity",
+      "versions": []
     },
     {
       "id": "manderaz_the_mad",
@@ -4945,7 +5193,8 @@
       "ac": 18,
       "acApprox": true,
       "cr": 0.5,
-      "type": "humanoid (Goblinoid)"
+      "type": "humanoid (Goblinoid)",
+      "versions": []
     },
     {
       "id": "marcus_ashford",
@@ -5013,7 +5262,8 @@
         "cr": 3,
         "hitDie": "d8",
         "formula": "3d8 + 3"
-      }
+      },
+      "versions": []
     },
     {
       "id": "mario",
@@ -5091,7 +5341,93 @@
         "cr": 5,
         "hitDie": "d8",
         "formula": "5d8 + 15"
-      }
+      },
+      "versions": [
+        {
+          "version": "955-bf",
+          "era": "955 BF",
+          "label": "Mario at his height",
+          "when": "The year Peach died. Before Highsun 1 the hero was always near her, and the routine still held: Bowser kidnaps Peach, Mario stomps through eight worlds, Peach bakes a cake.",
+          "file": "actors/cast/eras/fvtt-Actor-mario--955-bf.json",
+          "name": "Mario (955 BF)",
+          "source": "generated",
+          "bespoke": true,
+          "evidence": [
+            {
+              "feature": "Stomp",
+              "quote": "He had rescued her from Bowser so many times that it had become almost ROUTINE—Bowser kidnaps Peach, Mario stomps through eight worlds, Mario defeats Bowser, Peach bakes Mario a cake.",
+              "source": "article"
+            },
+            {
+              "feature": "Fire Flower",
+              "quote": "He had rescued her from Bowser so many times that it had become almost ROUTINE—Bowser kidnaps Peach, Mario stomps through eight worlds, Mario defeats Bowser, Peach bakes Mario a cake.",
+              "source": "article"
+            },
+            {
+              "feature": "Prodigious Leap",
+              "quote": "The red-capped plumber who could jump higher than physics should allow, who stomped Bowser's schemes into the ground repeatedly, who was so synonymous with heroism that his NAME became a verb.",
+              "source": "article"
+            },
+            {
+              "feature": "Extra Attack",
+              "quote": "He had rescued her from Bowser so many times that it had become almost ROUTINE—Bowser kidnaps Peach, Mario stomps through eight worlds, Mario defeats Bowser, Peach bakes Mario a cake.",
+              "source": "article"
+            },
+            {
+              "feature": "Super Mushroom (1/Day)",
+              "quote": "He had rescued her from Bowser so many times that it had become almost ROUTINE—Bowser kidnaps Peach, Mario stomps through eight worlds, Mario defeats Bowser, Peach bakes Mario a cake.",
+              "source": "article"
+            },
+            {
+              "feature": "Eight Worlds' Stamina",
+              "quote": "He had rescued her from Bowser so many times that it had become almost ROUTINE—Bowser kidnaps Peach, Mario stomps through eight worlds, Mario defeats Bowser, Peach bakes Mario a cake.",
+              "source": "article"
+            },
+            {
+              "feature": "Always Near Peach",
+              "quote": "Mario was ALWAYS near Peach.",
+              "source": "article"
+            },
+            {
+              "feature": "Hero of the Mushroom Kingdom",
+              "quote": "The hero of the Mushroom Kingdom was being quietly ERASED from public memory.",
+              "source": "article"
+            },
+            {
+              "feature": "Annoyingly Heroic",
+              "quote": "The man is annoyingly heroic to his core.",
+              "source": "article"
+            }
+          ],
+          "kind": "pc",
+          "abilities": {
+            "str": 16,
+            "dex": 18,
+            "con": 16,
+            "int": 11,
+            "wis": 13,
+            "cha": 16
+          },
+          "hp": 47,
+          "speed": "40",
+          "size": "med",
+          "items": 13,
+          "ac": 15,
+          "level": 5,
+          "classes": [
+            "Monk 5"
+          ],
+          "species": "Human",
+          "pc": {
+            "level": 5,
+            "class": "Monk",
+            "subclass": "Warrior of the Open Hand",
+            "cr": 5,
+            "hitDie": "d8",
+            "formula": "5d8 + 15"
+          }
+        }
+      ]
     },
     {
       "id": "markop",
@@ -5135,7 +5471,8 @@
       "classes": [
         "Paladin 8"
       ],
-      "species": "Centaur"
+      "species": "Centaur",
+      "versions": []
     },
     {
       "id": "merric",
@@ -5182,7 +5519,8 @@
       "items": 2,
       "ac": 14,
       "cr": 1,
-      "type": "beast"
+      "type": "beast",
+      "versions": []
     },
     {
       "id": "meta_knight",
@@ -5250,7 +5588,8 @@
         "cr": 2,
         "hitDie": "d10",
         "formula": "2d10 + 4"
-      }
+      },
+      "versions": []
     },
     {
       "id": "miles_edgeworth",
@@ -5302,7 +5641,8 @@
       "items": 3,
       "ac": 12,
       "cr": 0.5,
-      "type": "humanoid (human)"
+      "type": "humanoid (human)",
+      "versions": []
     },
     {
       "id": "mimbus",
@@ -5365,7 +5705,8 @@
         "cr": 3,
         "hitDie": "d12",
         "formula": "3d12 + 9"
-      }
+      },
+      "versions": []
     },
     {
       "id": "misono_mika",
@@ -5412,7 +5753,8 @@
       "items": 2,
       "ac": 10,
       "cr": 0,
-      "type": "humanoid (human)"
+      "type": "humanoid (human)",
+      "versions": []
     },
     {
       "id": "mistveil",
@@ -5469,7 +5811,8 @@
       "items": 4,
       "ac": 14,
       "cr": 2,
-      "type": "humanoid (Toad)"
+      "type": "humanoid (Toad)",
+      "versions": []
     },
     {
       "id": "mona",
@@ -5516,7 +5859,8 @@
       "items": 2,
       "ac": 10,
       "cr": 0,
-      "type": "humanoid (human)"
+      "type": "humanoid (human)",
+      "versions": []
     },
     {
       "id": "mossy",
@@ -5549,7 +5893,8 @@
       "items": 4,
       "ac": 15,
       "cr": null,
-      "type": "construct"
+      "type": "construct",
+      "versions": []
     },
     {
       "id": "mr_l",
@@ -5622,7 +5967,8 @@
         "cr": 3,
         "hitDie": "d8",
         "formula": "3d8 + 3"
-      }
+      },
+      "versions": []
     },
     {
       "id": "my_brother",
@@ -5679,7 +6025,8 @@
       "items": 4,
       "ac": 10,
       "cr": 0.125,
-      "type": "monstrosity (Bone-Line kin)"
+      "type": "monstrosity (Bone-Line kin)",
+      "versions": []
     },
     {
       "id": "my_little_brother",
@@ -5736,7 +6083,8 @@
       "items": 4,
       "ac": 10,
       "cr": 0.125,
-      "type": "monstrosity (Bone-Line kin)"
+      "type": "monstrosity (Bone-Line kin)",
+      "versions": []
     },
     {
       "id": "mystery_man",
@@ -5793,7 +6141,8 @@
       "items": 4,
       "ac": 10,
       "cr": 0.125,
-      "type": "monstrosity (Bone-Line kin)"
+      "type": "monstrosity (Bone-Line kin)",
+      "versions": []
     },
     {
       "id": "mystic_morel",
@@ -5866,7 +6215,8 @@
         "cr": 3,
         "hitDie": "d8",
         "formula": "4d8 + 4"
-      }
+      },
+      "versions": []
     },
     {
       "id": "nerd_t",
@@ -5913,7 +6263,8 @@
       "items": 2,
       "ac": 10,
       "cr": 0.125,
-      "type": "humanoid (Toad)"
+      "type": "humanoid (Toad)",
+      "versions": []
     },
     {
       "id": "ness",
@@ -5960,7 +6311,8 @@
       "items": 2,
       "ac": 12,
       "cr": 0.5,
-      "type": "monstrosity (Bone-Line kin)"
+      "type": "monstrosity (Bone-Line kin)",
+      "versions": []
     },
     {
       "id": "orange_t",
@@ -5993,7 +6345,8 @@
       "items": 7,
       "ac": 13,
       "cr": 2,
-      "type": "humanoid (toad)"
+      "type": "humanoid (toad)",
+      "versions": []
     },
     {
       "id": "orangus_cornelius",
@@ -6071,7 +6424,8 @@
         "cr": 5,
         "hitDie": "d10",
         "formula": "5d10 + 15"
-      }
+      },
+      "versions": []
     },
     {
       "id": "orvinder_danos",
@@ -6105,7 +6459,8 @@
       "ac": 16,
       "acApprox": true,
       "cr": 0.5,
-      "type": "humanoid (Any Race)"
+      "type": "humanoid (Any Race)",
+      "versions": []
     },
     {
       "id": "papyrus",
@@ -6173,7 +6528,8 @@
         "cr": 0.5,
         "hitDie": "d10",
         "formula": "1d10 + 1"
-      }
+      },
+      "versions": []
     },
     {
       "id": "parson_pellinost",
@@ -6225,7 +6581,8 @@
       "items": 3,
       "ac": 12,
       "cr": 1,
-      "type": "humanoid"
+      "type": "humanoid",
+      "versions": []
     },
     {
       "id": "paulo",
@@ -6298,7 +6655,8 @@
         "cr": 2,
         "hitDie": "d8",
         "formula": "2d8 + 2"
-      }
+      },
+      "versions": []
     },
     {
       "id": "pet_rock",
@@ -6355,7 +6713,8 @@
       "items": 4,
       "ac": 10,
       "cr": 0.125,
-      "type": "monstrosity (Bone-Line kin)"
+      "type": "monstrosity (Bone-Line kin)",
+      "versions": []
     },
     {
       "id": "pierce_anamatar",
@@ -6407,7 +6766,8 @@
       "items": 3,
       "ac": 12,
       "cr": 2,
-      "type": "humanoid"
+      "type": "humanoid",
+      "versions": []
     },
     {
       "id": "piktor_deldkur_the_third",
@@ -6454,7 +6814,8 @@
       "items": 2,
       "ac": 14,
       "cr": 0.5,
-      "type": "humanoid (dwarf)"
+      "type": "humanoid (dwarf)",
+      "versions": []
     },
     {
       "id": "pretty_soon",
@@ -6511,7 +6872,8 @@
       "items": 4,
       "ac": 10,
       "cr": 0.125,
-      "type": "monstrosity (Bone-Line kin)"
+      "type": "monstrosity (Bone-Line kin)",
+      "versions": []
     },
     {
       "id": "princess_daisy",
@@ -6569,7 +6931,8 @@
         "cr": 2,
         "hitDie": "d10",
         "formula": "3d10 + 6"
-      }
+      },
+      "versions": []
     },
     {
       "id": "princess_peach",
@@ -6602,7 +6965,8 @@
       "items": 5,
       "ac": 13,
       "cr": 2,
-      "type": "humanoid (human)"
+      "type": "humanoid (human)",
+      "versions": []
     },
     {
       "id": "professor_e_gadd",
@@ -6670,7 +7034,8 @@
         "cr": 1,
         "hitDie": "d8",
         "formula": "3d8"
-      }
+      },
+      "versions": []
     },
     {
       "id": "prunsel",
@@ -6717,7 +7082,8 @@
       "items": 2,
       "ac": 14,
       "cr": 0.5,
-      "type": "monstrosity (Bone-Line kin)"
+      "type": "monstrosity (Bone-Line kin)",
+      "versions": []
     },
     {
       "id": "quantity",
@@ -6774,7 +7140,8 @@
       "items": 4,
       "ac": 10,
       "cr": 0.125,
-      "type": "monstrosity (Bone-Line kin)"
+      "type": "monstrosity (Bone-Line kin)",
+      "versions": []
     },
     {
       "id": "rakka",
@@ -6826,7 +7193,8 @@
       "items": 4,
       "ac": 12,
       "cr": 2,
-      "type": "undead (spirit)"
+      "type": "undead (spirit)",
+      "versions": []
     },
     {
       "id": "randall_the_house_guard",
@@ -6873,7 +7241,8 @@
       "items": 2,
       "ac": 14,
       "cr": 0.5,
-      "type": "humanoid"
+      "type": "humanoid",
+      "versions": []
     },
     {
       "id": "randell_vampire",
@@ -6925,7 +7294,8 @@
       "items": 3,
       "ac": 13,
       "cr": 0.5,
-      "type": "undead (vampire)"
+      "type": "undead (vampire)",
+      "versions": []
     },
     {
       "id": "rattles",
@@ -6972,7 +7342,8 @@
       "items": 2,
       "ac": 11,
       "cr": 0.5,
-      "type": "monstrosity (Bone-Line kin)"
+      "type": "monstrosity (Bone-Line kin)",
+      "versions": []
     },
     {
       "id": "real_star",
@@ -7024,7 +7395,8 @@
       "items": 3,
       "ac": 10,
       "cr": 0.125,
-      "type": "monstrosity (Bone-Line kin)"
+      "type": "monstrosity (Bone-Line kin)",
+      "versions": []
     },
     {
       "id": "red_the_kitchen_commander",
@@ -7076,7 +7448,8 @@
       "items": 3,
       "ac": 14,
       "cr": 0.5,
-      "type": "fey"
+      "type": "fey",
+      "versions": []
     },
     {
       "id": "remi_akamatsu_full_backstory",
@@ -7120,7 +7493,8 @@
       "classes": [
         "Artificer 7"
       ],
-      "species": "Human"
+      "species": "Human",
+      "versions": []
     },
     {
       "id": "rhak_the_lost",
@@ -7154,7 +7528,8 @@
       "ac": 13,
       "acApprox": true,
       "cr": 0.5,
-      "type": "humanoid (Orc)"
+      "type": "humanoid (Orc)",
+      "versions": []
     },
     {
       "id": "riba",
@@ -7201,7 +7576,8 @@
       "items": 2,
       "ac": 10,
       "cr": 0.125,
-      "type": "humanoid (human)"
+      "type": "humanoid (human)",
+      "versions": []
     },
     {
       "id": "robinson",
@@ -7248,7 +7624,8 @@
       "items": 2,
       "ac": 14,
       "cr": 0.5,
-      "type": "monstrosity (centaur)"
+      "type": "monstrosity (centaur)",
+      "versions": []
     },
     {
       "id": "rodger",
@@ -7305,7 +7682,8 @@
       "items": 4,
       "ac": 10,
       "cr": 0.125,
-      "type": "humanoid (Toad)"
+      "type": "humanoid (Toad)",
+      "versions": []
     },
     {
       "id": "roger",
@@ -7352,7 +7730,8 @@
       "items": 2,
       "ac": 14,
       "cr": 1,
-      "type": "humanoid"
+      "type": "humanoid",
+      "versions": []
     },
     {
       "id": "ryan",
@@ -7399,7 +7778,8 @@
       "items": 2,
       "ac": 14,
       "cr": 1,
-      "type": "humanoid (human)"
+      "type": "humanoid (human)",
+      "versions": []
     },
     {
       "id": "salam",
@@ -7440,7 +7820,8 @@
       "ac": 13,
       "acApprox": true,
       "cr": 1,
-      "type": ""
+      "type": "",
+      "versions": []
     },
     {
       "id": "sans",
@@ -7508,7 +7889,8 @@
         "cr": 1,
         "hitDie": "d8",
         "formula": "1d8"
-      }
+      },
+      "versions": []
     },
     {
       "id": "sans_deltarune",
@@ -7565,7 +7947,8 @@
       "items": 4,
       "ac": 10,
       "cr": 0.125,
-      "type": "monstrosity (Bone-Line kin)"
+      "type": "monstrosity (Bone-Line kin)",
+      "versions": []
     },
     {
       "id": "scorncrow",
@@ -7599,7 +7982,8 @@
       "ac": 16,
       "acApprox": true,
       "cr": 8,
-      "type": "humanoid"
+      "type": "humanoid",
+      "versions": []
     },
     {
       "id": "scribe_dewdrop",
@@ -7646,7 +8030,8 @@
       "items": 2,
       "ac": 10,
       "cr": 0.125,
-      "type": "humanoid (Toad)"
+      "type": "humanoid (Toad)",
+      "versions": []
     },
     {
       "id": "sensei",
@@ -7693,7 +8078,8 @@
       "items": 2,
       "ac": 10,
       "cr": 0.125,
-      "type": "humanoid (human)"
+      "type": "humanoid (human)",
+      "versions": []
     },
     {
       "id": "shaggy",
@@ -7750,7 +8136,8 @@
       "items": 4,
       "ac": 10,
       "cr": 0,
-      "type": "humanoid (human)"
+      "type": "humanoid (human)",
+      "versions": []
     },
     {
       "id": "shirasu_azusa",
@@ -7802,7 +8189,8 @@
       "items": 3,
       "ac": 10,
       "cr": 0,
-      "type": "humanoid (human)"
+      "type": "humanoid (human)",
+      "versions": []
     },
     {
       "id": "skullcap_murphy",
@@ -7849,7 +8237,8 @@
       "items": 2,
       "ac": 13,
       "cr": 0.5,
-      "type": "monstrosity (Underground monster)"
+      "type": "monstrosity (Underground monster)",
+      "versions": []
     },
     {
       "id": "smoking_j",
@@ -7901,7 +8290,8 @@
       "items": 3,
       "ac": 14,
       "cr": 1,
-      "type": "humanoid"
+      "type": "humanoid",
+      "versions": []
     },
     {
       "id": "speaker_l",
@@ -7964,7 +8354,8 @@
         "cr": 1,
         "hitDie": "d8",
         "formula": "3d8 + 3"
-      }
+      },
+      "versions": []
     },
     {
       "id": "speaker_rivers",
@@ -8021,7 +8412,8 @@
       "items": 4,
       "ac": 10,
       "cr": 0.125,
-      "type": "humanoid (Toad)"
+      "type": "humanoid (Toad)",
+      "versions": []
     },
     {
       "id": "speen_kind_of_down_lately",
@@ -8073,7 +8465,8 @@
       "items": 3,
       "ac": 10,
       "cr": 0.125,
-      "type": "monstrosity (Bone-Line kin)"
+      "type": "monstrosity (Bone-Line kin)",
+      "versions": []
     },
     {
       "id": "starman",
@@ -8120,7 +8513,8 @@
       "items": 2,
       "ac": 14,
       "cr": 0.5,
-      "type": "monstrosity (Bone-Line kin)"
+      "type": "monstrosity (Bone-Line kin)",
+      "versions": []
     },
     {
       "id": "tanukiburt",
@@ -8177,7 +8571,8 @@
       "items": 4,
       "ac": 14,
       "cr": 1,
-      "type": "humanoid"
+      "type": "humanoid",
+      "versions": []
     },
     {
       "id": "teacher_t",
@@ -8224,7 +8619,8 @@
       "items": 2,
       "ac": 10,
       "cr": 0.125,
-      "type": "humanoid (Toad)"
+      "type": "humanoid (Toad)",
+      "versions": []
     },
     {
       "id": "the_archivist",
@@ -8292,7 +8688,8 @@
         "cr": 3,
         "hitDie": "d6",
         "formula": "3d6 + 6"
-      }
+      },
+      "versions": []
     },
     {
       "id": "the_hallway_reinforcement_guard",
@@ -8339,7 +8736,8 @@
       "items": 2,
       "ac": 14,
       "cr": 0.5,
-      "type": "fey"
+      "type": "fey",
+      "versions": []
     },
     {
       "id": "the_mole",
@@ -8386,7 +8784,8 @@
       "items": 2,
       "ac": 14,
       "cr": 0.5,
-      "type": "humanoid (Toad)"
+      "type": "humanoid (Toad)",
+      "versions": []
     },
     {
       "id": "the_mushroom_room_guard",
@@ -8433,7 +8832,8 @@
       "items": 2,
       "ac": 14,
       "cr": 0.5,
-      "type": "fey"
+      "type": "fey",
+      "versions": []
     },
     {
       "id": "the_oracle",
@@ -8473,7 +8873,8 @@
       "items": 7,
       "ac": 16,
       "cr": 8,
-      "type": "humanoid (oracle (identity disputed))"
+      "type": "humanoid (oracle (identity disputed))",
+      "versions": []
     },
     {
       "id": "the_plant_lady",
@@ -8525,7 +8926,8 @@
       "items": 3,
       "ac": 13,
       "cr": 2,
-      "type": "plant"
+      "type": "plant",
+      "versions": []
     },
     {
       "id": "the_veteran_fairy",
@@ -8572,7 +8974,8 @@
       "items": 2,
       "ac": 14,
       "cr": 0.5,
-      "type": "fey"
+      "type": "fey",
+      "versions": []
     },
     {
       "id": "thejestergoomba",
@@ -8619,7 +9022,8 @@
       "items": 2,
       "ac": 14,
       "cr": 1,
-      "type": "humanoid"
+      "type": "humanoid",
+      "versions": []
     },
     {
       "id": "thornbury",
@@ -8676,7 +9080,8 @@
       "items": 4,
       "ac": 14,
       "cr": 1,
-      "type": "humanoid (human)"
+      "type": "humanoid (human)",
+      "versions": []
     },
     {
       "id": "times_new_roman",
@@ -8733,7 +9138,8 @@
       "items": 4,
       "ac": 10,
       "cr": 0.125,
-      "type": "monstrosity (Bone-Line kin)"
+      "type": "monstrosity (Bone-Line kin)",
+      "versions": []
     },
     {
       "id": "timmy_the_house_guard",
@@ -8785,7 +9191,8 @@
       "items": 3,
       "ac": 14,
       "cr": 0.5,
-      "type": "humanoid"
+      "type": "humanoid",
+      "versions": []
     },
     {
       "id": "toad_lee",
@@ -8828,7 +9235,8 @@
       "classes": [
         "Warden 4"
       ],
-      "species": "Bullywug"
+      "species": "Bullywug",
+      "versions": []
     },
     {
       "id": "toadburt",
@@ -8875,7 +9283,8 @@
       "items": 2,
       "ac": 14,
       "cr": 1,
-      "type": "humanoid (Toad)"
+      "type": "humanoid (Toad)",
+      "versions": []
     },
     {
       "id": "toadsworth_sr",
@@ -8908,7 +9317,8 @@
       "items": 4,
       "ac": 11,
       "cr": 1,
-      "type": "humanoid (toad)"
+      "type": "humanoid (toad)",
+      "versions": []
     },
     {
       "id": "toriel",
@@ -8976,7 +9386,8 @@
         "cr": 1,
         "hitDie": "d8",
         "formula": "1d8 + 2"
-      }
+      },
+      "versions": []
     },
     {
       "id": "tymnas",
@@ -9010,7 +9421,8 @@
       "ac": 14,
       "acApprox": true,
       "cr": 2,
-      "type": "fey (Satyr)"
+      "type": "fey (Satyr)",
+      "versions": []
     },
     {
       "id": "unknown_assassin",
@@ -9062,7 +9474,8 @@
       "items": 3,
       "ac": 14,
       "cr": 1,
-      "type": "humanoid (human)"
+      "type": "humanoid (human)",
+      "versions": []
     },
     {
       "id": "usk",
@@ -9103,7 +9516,8 @@
       "ac": 13,
       "acApprox": true,
       "cr": 2,
-      "type": "humanoid (Elf)"
+      "type": "humanoid (Elf)",
+      "versions": []
     },
     {
       "id": "valorian_stormweave",
@@ -9160,7 +9574,8 @@
       "items": 4,
       "ac": 12,
       "cr": 1,
-      "type": "humanoid (human)"
+      "type": "humanoid (human)",
+      "versions": []
     },
     {
       "id": "vaxillus_the_beastmaster",
@@ -9194,7 +9609,8 @@
       "ac": 17,
       "acApprox": true,
       "cr": 8,
-      "type": "humanoid"
+      "type": "humanoid",
+      "versions": []
     },
     {
       "id": "vivian_corvinarus",
@@ -9262,7 +9678,8 @@
         "cr": 3,
         "hitDie": "d6",
         "formula": "3d6 + 3"
-      }
+      },
+      "versions": []
     },
     {
       "id": "waluigi",
@@ -9306,7 +9723,8 @@
       "classes": [
         "Wizard 5"
       ],
-      "species": "Darakhul (Human/Half-Elf Heritage)"
+      "species": "Darakhul (Human/Half-Elf Heritage)",
+      "versions": []
     },
     {
       "id": "warden_thornshell",
@@ -9353,7 +9771,8 @@
       "items": 2,
       "ac": 14,
       "cr": 0.5,
-      "type": "humanoid (Toad)"
+      "type": "humanoid (Toad)",
+      "versions": []
     },
     {
       "id": "wario",
@@ -9396,7 +9815,8 @@
       "classes": [
         "Barbarian 7"
       ],
-      "species": "Human"
+      "species": "Human",
+      "versions": []
     },
     {
       "id": "warol_creeton",
@@ -9443,7 +9863,8 @@
       "items": 2,
       "ac": 14,
       "cr": 0.5,
-      "type": "humanoid (goblinoid)"
+      "type": "humanoid (goblinoid)",
+      "versions": []
     },
     {
       "id": "will",
@@ -9500,7 +9921,8 @@
       "items": 4,
       "ac": 10,
       "cr": 0.125,
-      "type": "monstrosity (Bone-Line kin)"
+      "type": "monstrosity (Bone-Line kin)",
+      "versions": []
     },
     {
       "id": "wing_gaster",
@@ -9552,7 +9974,8 @@
       "items": 3,
       "ac": 10,
       "cr": 0.125,
-      "type": "monstrosity (Bone-Line kin)"
+      "type": "monstrosity (Bone-Line kin)",
+      "versions": []
     },
     {
       "id": "wyatt_the_white_haired_goblin",
@@ -9604,7 +10027,8 @@
       "items": 3,
       "ac": 14,
       "cr": 0.5,
-      "type": "humanoid (goblinoid)"
+      "type": "humanoid (goblinoid)",
+      "versions": []
     },
     {
       "id": "xo",
@@ -9666,7 +10090,8 @@
       "items": 5,
       "ac": 13,
       "cr": 1,
-      "type": "humanoid (human)"
+      "type": "humanoid (human)",
+      "versions": []
     }
   ],
   "skipped": [

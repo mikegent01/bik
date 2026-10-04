@@ -72,6 +72,11 @@ check('Bowser sheet renders the PC summary after fetch', !!c.querySelector('.cs-
 c = await go('#/sheets/waluigi');
 await sleep(1500);
 check('Waluigi (live world export) renders as a PC summary', !!c.querySelector('.cs-block--pc') && text(c).includes('Waluigi'));
+c = await go('#/sheets/bowser/955-bf');
+await sleep(1500);
+check('Bowser (955 BF) — a public past self — renders with the version strip and Fire Breath', !!c.querySelector('.cs-versions') && !!c.querySelector('.cs-version.is-active') && text(c).includes('Bowser (955 BF)') && text(c).includes('Fire Breath') && /Level\s*8\s*Fighter/.test(text(c)));
+c = await go('#/sheets/mario/955-bf');
+check('Mario (955 BF) is locked in public like his present self', !!c.querySelector('.cs-locked') && !c.querySelector('#cs-sheet-body'));
 let hits = typeof window.search === 'function' ? window.search('mario sheet', { category: 'all', limit: 30 }) : [];
 check('Research Bureau does not surface restricted sheets', !hits.some(h => h.kind === 'sheet' && h.id === 'mario'));
 hits = typeof window.search === 'function' ? window.search('bowser sheet', { category: 'all', limit: 30 }) : [];

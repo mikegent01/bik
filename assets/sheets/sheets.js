@@ -61,6 +61,18 @@
   }
   function fileUrl(entry){ return pathPrefix() + entry.file; }
   function rawUrl(entry){ return RAW_BASE + entry.file; }
+  /* Every sheet a character carries: the one for now first, then the built
+     era versions (#/sheets/<id>/<version>), then the other real files the
+     archive holds for the same person (intake next to a live export, the
+     955 BF packet sheet). Each row can be rendered in place of the main one. */
+  function versionsOf(e){
+    const now = { key:'now', label:'Now — 1040 BF', era:'1040 BF', file:e.file, name:e.sheetName || e.name, kind:e.kind, source:e.source,
+      level:e.level, classes:e.classes, cr:e.cr, hp:e.hp, ac:e.ac, evidence:e.evidence, when:'' };
+    const eras = (e.versions || []).map(v => Object.assign({}, v, { key:v.version, label:v.label + ' — ' + v.era }));
+    const alts = (e.alternates || []).map((a, i) => Object.assign({ era:a.source === 'era' ? '955 BF' : '', when:'', evidence:[] }, a, { key:'alt-' + (i + 1), label:(SOURCE_LABEL[a.source] || a.source) + ' — ' + a.name }));
+    return [now].concat(eras, alts);
+  }
+  function versionOf(e, key){ return versionsOf(e).find(v => v.key === key) || null; }
   function portraitUrl(entry){
     const src = entry.portrait || '';
     if(!src) return '';
@@ -410,42 +422,52 @@
     const inp = node && node.querySelector && node.querySelector('.cs-search');
     if(inp && typeof inp.focus === 'function' && patch && 'q' in patch){ inp.focus(); try{ inp.setSelectionRange(inp.value.length, inp.value.length); }catch(e){} }
   }
-  function detailHtml(e){
+  function versionStrip(e, v){
+    const vs = versionsOf(e);
+    if(vs.length < 2) return '';
+    return `<nav class="cs-versions" aria-label="Versions of this sheet">${vs.map(x => `<a class="cs-version${x.key === v.key ? ' is-active' : ''}" onclick="Router.go('#/sheets/${esc(e.id)}${x.key === 'now' ? '' : '/' + esc(x.key)}')">${esc(x.label)}<small>${esc(x.kind === 'pc' ? 'PC · L' + (x.level != null ? x.level : '?') : 'NPC · CR ' + crLabel(x.cr))}</small></a>`).join('')}</nav>`;
+  }
+  function detailHtml(e, v){
+    v = v || versionOf(e, 'now');
     const img = portraitUrl(e);
     const dbg = debugOn() && !e.party;
     const ledger = e.ledger || {};
-    const ev = e.evidence || [];
+    const ev = (v.key === 'now' ? e.evidence : v.evidence) || [];
     const art = `#/article/${encodeURIComponent(e.id)}`;
+    const isEra = v.key !== 'now' && !!v.version;
     return `<div class="cs-wrap">
       ${dbg ? debugBanner('This sheet is restricted.') : ''}
       <div class="cs-detail-head">
         <div class="cs-detail-img">${img ? `<img src="${esc(img)}" alt="${esc(e.name)}" onerror="this.style.display='none'">` : '<span>📜</span>'}</div>
         <div class="cs-detail-text">
           <div class="cs-crumbs"><a onclick="Router.go('#/sheets')">Character Sheets</a> › ${esc(e.group)}</div>
-          <h1>${esc(e.name)}</h1>
-          <p class="cs-detail-title">${esc(e.title || '')}</p>
-          <div class="cs-card-badges">${kindBadge(e)} ${sourceBadge(e)} ${partyBadge(e)}${e.bespoke ? ' <span class="cs-badge cs-badge--bespoke">Hand-authored</span>' : ''}</div>
+          <h1>${esc(v.key === 'now' ? e.name : v.name)}</h1>
+          <p class="cs-detail-title">${esc(isEra ? v.label : (e.title || ''))}</p>
+          <div class="cs-card-badges">${kindBadge(v.key === 'now' ? e : v)} ${sourceBadge(v.key === 'now' ? e : v)} ${partyBadge(e)}${(v.key === 'now' ? e.bespoke : v.bespoke) ? ' <span class="cs-badge cs-badge--bespoke">Hand-authored</span>' : ''}${isEra ? ` <span class="cs-badge cs-badge--era">${esc(v.era)}</span>` : ''}</div>
+          ${versionStrip(e, v)}
+          ${isEra ? `<p class="cs-note cs-note--era"><b>${esc(v.era)}.</b> ${esc(v.when || '')} Level ${esc(v.level)} ${esc((v.classes || []).map(c => c.replace(/ \d+$/, '')).join(' / '))} — an era version never exceeds the ledger level${ledger.level != null ? ` (${esc(ledger.level)})` : ''}: a past self holds no more experience than the present one.</p>` : ''}
           <p class="cs-note">${ledger.level != null ? `XP ledger: level ${esc(ledger.level)}${ledger.powerLevel != null ? ', power rating ' + esc(ledger.powerLevel) : ''}. ` : 'No XP ledger entry. '}${e.source === 'generated' ? (e.kind === 'pc' ? `Hand-authored as a player-character sheet — level ${esc(e.level)} ${esc((e.classes || []).map(c => c.replace(/ \d+$/, '')).join(' / ') || 'adventurer')}, the ledger level${e.pc && e.pc.cr != null ? ` (authored CR ${esc(crLabel(e.pc.cr))}, never above it)` : ''}; a player may take this seat.` : `Generated as a ${esc(e.role || 'character')} — CR ${esc(crLabel(e.cr))}, which never exceeds the ledger level.`) : `${esc(SOURCE_LABEL[e.source] || e.source)}: <code>${esc(e.file)}</code>.`}${e.partyWhy ? ` Party: ${esc(e.partyWhy)}.` : ''}</p>
           <div class="cs-panel-actions">
             <button type="button" class="cs-btn" onclick="Router.go('${art}')">Open the article</button>
-            <a class="cs-btn cs-btn--ghost" href="${esc(fileUrl(e))}" download>Download Foundry JSON</a>
-            <a class="cs-btn cs-btn--ghost" href="${esc(fileUrl(e))}" target="_blank" rel="noopener">View raw</a>
+            <a class="cs-btn cs-btn--ghost" href="${esc(fileUrl(v))}" download>Download Foundry JSON</a>
+            <a class="cs-btn cs-btn--ghost" href="${esc(fileUrl(v))}" target="_blank" rel="noopener">View raw</a>
           </div>
-          <label class="cs-import"><span>Mass Import URL</span><input type="text" readonly value="${esc(rawUrl(e))}" onclick="this.select()"></label>
+          <label class="cs-import"><span>Mass Import URL</span><input type="text" readonly value="${esc(rawUrl(v))}" onclick="this.select()"></label>
         </div>
       </div>
       <div id="cs-sheet-body" class="cs-body"><p class="cs-loading">Loading the sheet…</p></div>
       ${ev.length ? `<section class="cs-evidence"><h2>Evidence</h2><p class="cs-note">Every generated feature is tied to a line of the article. <code>tools/check-sheets.py</code> fails if a quote stops matching.</p><ul>${ev.map(x => `<li><b>${esc(x.feature)}</b> — “${esc(x.quote)}”${x.source === 'title' ? ' <small>(article header)</small>' : ''}</li>`).join('')}</ul></section>` : ''}
-      ${(e.alternates||[]).length ? `<section class="cs-alts"><h2>Other sheets for this character</h2><ul>${e.alternates.map(a => `<li>${esc(a.name)} — ${esc(SOURCE_LABEL[a.source] || a.source)}, ${esc(a.kind === 'pc' ? 'PC' : 'NPC')} · <a href="${esc(pathPrefix() + a.file)}" download>Foundry JSON</a></li>`).join('')}</ul></section>` : ''}
+      ${versionsOf(e).length > 1 ? `<section class="cs-alts"><h2>Every sheet this character carries</h2><ul>${versionsOf(e).map(x => `<li>${x.key === v.key ? '<b>' : ''}${esc(x.label)}${x.key === v.key ? '</b> (shown)' : ''} — ${esc(SOURCE_LABEL[x.source] || x.source)}, ${esc(x.kind === 'pc' ? 'PC' : 'NPC')} · <a onclick="Router.go('#/sheets/${esc(e.id)}${x.key === 'now' ? '' : '/' + esc(x.key)}')">open</a> · <a href="${esc(pathPrefix() + x.file)}" download>Foundry JSON</a></li>`).join('')}</ul></section>` : ''}
     </div>`;
   }
-  function mountDetail(e){
+  function mountDetail(e, v){
+    v = v || versionOf(e, 'now');
     const host = g().document && g().document.getElementById('cs-sheet-body');
     if(!host) return;
-    loadActor(e).then(actor => {
-      host.innerHTML = actor.type === 'character' ? pcSheet(actor, e) : statBlock(actor, e);
+    loadActor(v).then(actor => {
+      host.innerHTML = actor.type === 'character' ? pcSheet(actor, v) : statBlock(actor, v);
     }).catch(err => {
-      host.innerHTML = `<p class="cs-loading">The sheet file could not be loaded (${esc(err && err.message || err)}). It is in the repository at <code>Reputation-Matrix2/${esc(e.file)}</code>.</p>`;
+      host.innerHTML = `<p class="cs-loading">The sheet file could not be loaded (${esc(err && err.message || err)}). It is in the repository at <code>Reputation-Matrix2/${esc(v.file)}</code>.</p>`;
     });
   }
   const CACHE = {};
@@ -460,7 +482,9 @@
   function view_sheets(arg){
     sidebar('sheets');
     const node = content();
-    const id = decodeURIComponent(String(arg || '').split('/')[0] || '');
+    const segs = String(arg || '').split('/');
+    const id = decodeURIComponent(segs[0] || '');
+    const verKey = decodeURIComponent(segs[1] || '') || 'now';
     if(!node) return;
     if(!id){ node.innerHTML = listHtml(); if(g().scrollTo) g().scrollTo(0,0); return; }
     const e = byCharacter(id);
@@ -473,9 +497,14 @@
       node.innerHTML = `<div class="cs-wrap"><h1>📜 ${esc(e.name)}</h1>${restrictedNotice()}<p><a onclick="Router.go('#/sheets')">Back to the sheets</a> · <a onclick="Router.go('#/article/${esc(e.id)}')">Open the article</a></p></div>`;
       return;
     }
-    node.innerHTML = detailHtml(e);
+    const v = versionOf(e, verKey);
+    if(!v){
+      node.innerHTML = `<div class="cs-wrap"><h1>📜 ${esc(e.name)}</h1><p>No version <code>${esc(verKey)}</code> of this sheet. ${versionsOf(e).map(x => `<a onclick="Router.go('#/sheets/${esc(e.id)}${x.key === 'now' ? '' : '/' + esc(x.key)}')">${esc(x.label)}</a>`).join(' · ')}</p></div>`;
+      return;
+    }
+    node.innerHTML = detailHtml(e, v);
     if(g().scrollTo) g().scrollTo(0,0);
-    mountDetail(e);
+    mountDetail(e, v);
   }
 
   /* ---------- search ---------- */
@@ -498,6 +527,6 @@
     meta, all, skipped, byCharacter, skipReason, visible, listVisible, restrictedCount, debugOn,
     fileUrl, rawUrl, portraitUrl, loadActor,
     statBlock, pcSheet, attackLine, featureBlock, clean, profFor, crLabel,
-    characterPanel, card, listHtml, detailHtml, setFilter, view_sheets, searchDocs, refreshSearch,
+    characterPanel, card, listHtml, detailHtml, setFilter, view_sheets, searchDocs, refreshSearch, versionsOf, versionOf,
   };
 })();

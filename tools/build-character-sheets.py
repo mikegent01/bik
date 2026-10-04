@@ -1080,6 +1080,105 @@ XP_FOR_LEVEL = [0, 300, 900, 2700, 6500, 14000, 23000, 34000, 48000, 64000, 8500
                 140000, 165000, 195000, 225000, 265000, 305000, 355000]
 
 
+# ------------------------------------------------ past selves (era versions)
+#
+# A character can carry more than one sheet: the one for now (1040 BF) and
+# earlier selves for sessions played in the past — the 955 BF table, when
+# Peach was alive. Era versions are built exactly like the bespoke sheets
+# (player characters, every feature bound to a quote from the article) and
+# live in actors/cast/eras/, one file per version, indexed under the
+# character's `versions[]` and served at #/sheets/<id>/<version>.
+#
+# Levels: an era version never exceeds the XP ledger level either — a past
+# self cannot hold more experience than the present one. A prime-era sheet
+# shows its prime in the kit, not in the level.
+ERAS = {
+    "mario": [dict(
+        version="955-bf", era="955 BF", label="Mario at his height",
+        when="The year Peach died. Before Highsun 1 the hero was always near her, and the routine still held: "
+             "Bowser kidnaps Peach, Mario stomps through eight worlds, Peach bakes a cake.",
+        level=5, role="hero", cr=5, align="Lawful Good", sc=(16, 18, 16, 11, 13, 16), saves=("dex", "con"),
+        skills={"acr": 2, "ath": 1, "prc": 1, "per": 1}, walk=40, ac=15, hp_mult=1.1,
+        pc=("Monk", "Warrior of the Open Hand", 8, "none", "", "Human", "Folk Hero"),
+        weapons=[
+            _w("Stomp", "fists", "<p>A leaping stomp from above. If Mario moved at least 10 feet straight toward the target first, the target must succeed on a DC 15 Strength save or be knocked prone.</p>",
+               q=["stomps through eight worlds"], dmg=(2, 6, ["bludgeoning"]), ability="dex", wtype="natural"),
+            _w("Fire Flower", "fireball", "<p>A bouncing fireball thrown from the palm (range 60/120 ft.). On a hit the target also catches alight for 1d4 fire damage at the start of its next turn unless it or another creature uses an action to put it out.</p>",
+               q=["rescued her from Bowser so many times"], dmg=(2, 6, ["fire"]), ability="dex", kind="ranged", wtype="natural", rng=(60, 120)),
+        ],
+        features=[
+            _f("Prodigious Leap", "up", "<p>Mario's long jump is 30 feet and his high jump 20 feet, with or without a running start. He can jump as part of his movement and takes no damage from falls of 60 feet or less.</p>",
+               q=["jump higher than physics should allow"]),
+            _f("Multiattack", "strike", "<p>Mario makes two Stomp attacks, or one Stomp and one Fire Flower attack.</p>", q=["stomps through eight worlds"]),
+            _f("Super Mushroom (1/Day)", "heal", "<p>As a bonus action Mario eats a Super Mushroom: he regains 2d10 + 5 hit points and is Large until the end of his next turn, with advantage on Strength checks and saves while he is.</p>",
+               q=["Peach bakes Mario a cake"], uses=("1", "day")),
+            _f("Eight Worlds' Stamina", "run", "<p>Mario ignores the first level of exhaustion he would gain each day, and a short rest restores him as a long rest would once per day. (The 1040 BF sheet replaces this with <em>Diminished</em>.)</p>",
+               q=["stomps through eight worlds"]),
+            _f("Always Near Peach", "shield", "<p>When a creature Mario can see attacks Princess Peach or an ally within 5 feet of him, Mario can use his reaction to impose disadvantage on the attack roll; if it still hits, he can take the damage instead.</p>",
+               q=["Mario was ALWAYS near Peach"]),
+            _f("Hero of the Mushroom Kingdom", "banner", "<p>Toads and Mushroom Kingdom citizens who can see Mario have advantage on saving throws against being frightened. Once per long rest, as an action, he rallies: up to six allies within 30 feet gain temporary hit points equal to his level plus his Charisma modifier.</p>",
+               q=["The hero of the Mushroom Kingdom"], uses=("1", "lr")),
+            _f("Annoyingly Heroic", "star", "<p>Mario cannot willingly abandon an innocent in danger he can see. He has advantage on saving throws against effects that would make him flee or stand aside.</p>",
+               q=["annoyingly heroic to his core"]),
+        ]),
+    ],
+    "luigi": [dict(
+        version="955-bf", era="955 BF", label="Luigi, the second brother",
+        when="Before the Poltergust. Sports appearances, heroic support, the brother behind the brother — "
+             "already afraid often, already going anyway.",
+        level=4, role="hero", cr=3, align="Neutral Good", sc=(12, 17, 13, 13, 14, 11), saves=("dex", "wis"),
+        skills={"acr": 1, "ath": 1, "prc": 1, "ste": 1}, walk=35, ac=14,
+        pc=("Ranger", "Monster Slayer", 10, "half", "wis", "Human", "Folk Hero"),
+        weapons=[
+            _w("Hammer", "hammer", "<p>The brothers' hammer — a plumber's tool swung two-handed at whatever Mario did not reach first.</p>",
+               q=["heroic support"]),
+            _w("Green Fireball", "fireball", "<p>A high-bouncing green fireball (range 60/120 ft.). It can ricochet once off a wall or floor to reach a target behind cover.</p>",
+               q=["sports appearances"], dmg=(1, 10, ["fire"]), ability="dex", kind="ranged", wtype="natural", rng=(60, 120)),
+        ],
+        features=[
+            _f("Scuttle Jump", "up", "<p>Luigi's high jump is 25 feet — higher than his brother's — and his long jump 25 feet, with or without a running start. He can flutter his legs to fall at 60 feet per round and take no damage from the landing.</p>",
+               q=["the second brother can disappear in plain sight"]),
+            _f("The Second Brother", "handshake", "<p>Luigi can take the Help action as a bonus action when the ally he helps is Mario or a creature Mario is fighting.</p>",
+               q=["the second brother can disappear in plain sight"]),
+            _f("Afraid Often", "fear", "<p>Luigi can be frightened and still act: while frightened he keeps his actions and reactions but his speed cannot exceed 20 feet, and he has advantage on Dexterity saving throws against the source of his fear. (By 1040 BF this is <em>Fear as Method</em>.)</p>",
+               q=["Luigi is afraid often"]),
+            _f("Startles", "eye", "<p>Luigi cannot be surprised while conscious, and he adds his Wisdom modifier to initiative rolls.</p>",
+               q=["He shakes, complains, startles"]),
+            _f("Sports Appearances", "run", "<p>Proficient with karts and other land vehicles, tennis rackets and golf clubs (treat as clubs), and with Athletics checks made to race. Kart night counts.</p>",
+               q=["sports appearances, ghost incidents, heroic support"]),
+        ]),
+    ],
+    "bowser": [dict(
+        version="955-bf", era="955 BF", label="Bowser, King of the Koopas",
+        when="The sovereign who kidnapped princesses and conquered kingdoms, eighty-five years before he held "
+             "the door for Disaster Inc. — the Koopa Troop at full strength, the castle intact, fire in the throat.",
+        level=8, role="boss", cr=8, align="Chaotic Evil", sc=(20, 10, 18, 9, 11, 15), saves=("str", "con"),
+        skills={"ath": 2, "itm": 2}, walk=30, ac=17, size="lg",
+        pc=("Fighter", "Champion", 10, "none", "", "Koopa (King-sized)", "Noble"),
+        weapons=[
+            _w("Claws", "claws", "<p>Two swipes of a king's claws; a creature hit by both in one turn is grappled (escape DC 17).</p>",
+               q=["giant turtle who breathes fire"], dmg=(2, 6, ["slashing"])),
+            _w("Bowser's Shell Bash", "slam", "<p>Bowser tucks in and bashes. A Large or smaller target hit by it is pushed 10 feet away.</p>",
+               q=["DO NOT THREATEN BOWSER"], dmg=(2, 8, ["bludgeoning"])),
+        ],
+        features=[
+            _f("Fire Breath (Recharge 5–6)", "fireball", "<p>Bowser exhales fire in a 30-foot cone. Each creature in it makes a DC 16 Dexterity saving throw, taking 8d6 fire damage on a failure or half as much on a success. Flammable objects in the cone ignite.</p>",
+               q=["breathes fire"], uses=("1", "recharge", "5")),
+            _f("Multiattack", "strike", "<p>See problem, hit problem: Bowser makes two Claw attacks, or one Claw and one Shell Bash.</p>",
+               q=["see problem, hit problem"]),
+            _f("The Shell", "shield", "<p>As a bonus action Bowser withdraws into his shell: his AC becomes 21 and he has resistance to bludgeoning, piercing and slashing damage until he emerges (another bonus action), but his speed is 0 and he cannot attack. Threaten the shell and he comes out swinging — he emerges for free when a creature within 5 feet attacks him.</p>",
+               q=["DO NOT THREATEN BOWSER"]),
+            _f("Indestructible", "ward", "<p>When Bowser is reduced to 0 hit points but not killed outright, he drops to 1 hit point instead and roars. Once per long rest.</p>",
+               q=["the most INDESTRUCTIBLE"], uses=("1", "lr")),
+            _f("Kidnapper of Princesses", "chains", "<p>Bowser's speed is not halved while he grapples or carries a Medium or smaller creature, and he can carry one such creature while flying in the Koopa Clown Car (not on this sheet).</p>",
+               q=["kidnapping princesses, conquering kingdoms"]),
+            _f("King of the Koopas", "crown", "<p>Koopa Troop creatures within 60 feet that can hear Bowser have advantage on saving throws against being frightened, and once per turn Bowser can use a bonus action to let one of them make a weapon attack as a reaction.</p>",
+               q=["Koopa sovereignty"]),
+        ]),
+    ],
+}
+
+
 # ------------------------------------------------------------- the engine
 
 def ability_mod(score):
@@ -1310,11 +1409,16 @@ def esc(s):
             .replace('"', "&quot;"))
 
 
-def kicker(c, level, power, cr, role, bespoke, pc=None):
+def kicker(c, level, power, cr, role, bespoke, pc=None, era=None):
     ledger = (f"XP ledger: level {level}, power rating {power}" if level is not None
               else "no XP ledger entry; archetype default")
     how = "hand-authored from the article" if bespoke else "generated from the article's own words"
-    if pc:
+    if pc and era:
+        cls, lvl = pc
+        reading = (f"{ledger} → a level {lvl} {cls} player-character sheet for <strong>{esc(era['era'])}</strong> "
+                   f"({esc(era['label'])}; never above the ledger level — a past self holds no more experience "
+                   f"than the present one). {esc(era['when'])}")
+    elif pc:
         cls, lvl = pc
         reading = (f"{ledger} → a level {lvl} {cls} player-character sheet (a player may take this seat; "
                    f"the authored CR {cr_label(cr)} stands in where the ledger is silent)")
@@ -1325,8 +1429,8 @@ def kicker(c, level, power, cr, role, bespoke, pc=None):
             f"the record, not a filed stat line; the article stays the authority. Archive date 1040 BF.</p>")
 
 
-def biography(c, level, power, cr, role, evidence, bespoke, pc=None):
-    parts = [kicker(c, level, power, cr, role, bespoke, pc)]
+def biography(c, level, power, cr, role, evidence, bespoke, pc=None, era=None):
+    parts = [kicker(c, level, power, cr, role, bespoke, pc, era)]
     head = []
     if c.get("title"):
         head.append(f"<strong>{esc(c['title'])}</strong>")
@@ -1341,8 +1445,9 @@ def biography(c, level, power, cr, role, evidence, bespoke, pc=None):
     if evidence:
         parts.append("<h3>Evidence</h3><ul>" + "".join(
             f"<li><strong>{esc(ev['feature'])}</strong> — “{esc(ev['quote'])}”</li>" for ev in evidence) + "</ul>")
+    sheet = f"#/sheets/{esc(c['id'])}" + (f"/{esc(era['version'])}" if era else "")
     parts.append(f"<p>Article: <code>#/article/{esc(c['id'])}</code> (characters). "
-                 f"Site sheet: <code>#/sheets/{esc(c['id'])}</code>.</p>")
+                 f"Site sheet: <code>{sheet}</code>.</p>")
     return "".join(parts)
 
 
@@ -1511,11 +1616,11 @@ def pc_doc(*, slug, c, name, img, size, sc, saves, trained, ac, hp, hp_formula, 
     return doc
 
 
-def build_generated(c, xp, party, group):
+def build_generated(c, xp, party, group, era=None):
     cid = c["id"]
     text = article_text(c)
     level, power = level_of(xp, cid)
-    spec = BESPOKE.get(cid)
+    spec = era or BESPOKE.get(cid)
     role = spec["role"] if spec else classify(c)
     sp = species_of(c)
     cr = spec["cr"] if spec else pick_cr(role, level, power)
@@ -1525,10 +1630,14 @@ def build_generated(c, xp, party, group):
     prof, base_ac, _, atk_bonus, _, dc = CR_TABLE[cr]
     sc = tuple(spec["sc"]) if spec else scale_scores(tmpl["sc"], cr)
     mods = dict(zip(ABILITY_KEYS, (ability_mod(s) for s in sc)))
-    build = PC_BUILD.get(cid) if spec else None
+    build = (era["pc"] if era else PC_BUILD.get(cid)) if spec else None
     if spec and not build:
         raise SystemExit(f"{cid}: bespoke sheet has no PC_BUILD entry (class / species / background)")
     pc_lvl = pc_level(cr, level) if build else None
+    if era:
+        pc_lvl = int(era["level"])
+        if level is not None and pc_lvl > level:
+            raise SystemExit(f"{cid} ({era['version']}): era level {pc_lvl} exceeds the ledger level {level}")
     if build:
         # a player-character sheet: proficiency and save DCs follow the level, not the CR table
         prof = 2 + (pc_lvl - 1) // 4
@@ -1559,7 +1668,8 @@ def build_generated(c, xp, party, group):
     elif sp["construct"]:
         di, ci = ["poison", "psychic"], ["charmed", "exhaustion", "frightened", "paralyzed", "petrified", "poisoned"]
 
-    owner = "cast:" + cid
+    slug = cid + ("--" + era["version"] if era else "")
+    owner = "cast:" + slug
     items, evidence = [], []
     pri = "dex" if mods["dex"] > mods["str"] else "str"
     cast_mod = max(mods["int"], mods["wis"], mods["cha"])
@@ -1677,12 +1787,17 @@ def build_generated(c, xp, party, group):
     hay = " ".join([c.get("affiliation") or "", c.get("title") or "", c.get("status") or ""]).lower()
     disposition = 1 if party else (-1 if any(k in hay for k in DISC_HOSTILE) else 0)
     if build:
-        bio = biography(c, level, power, cr, role, evidence, True, pc=(build[0], pc_lvl))
-        return pc_doc(slug=cid, c=c, name=c.get("name") or cid, img=img, size=size, sc=sc, saves=saves,
-                      trained=trained, ac=ac, hp=hp, hp_formula=hp_formula, cr=cr, walk=walk, fly=fly, swim=swim,
-                      hover=hover, dv=dv, langs=sp["langs"], type_value=type_value, alignment=align, bio=bio,
-                      items=items, di=di, dr=dr, dr_bypass=dr_bypass, ci=ci, disposition=disposition, group=group,
-                      evidence=evidence, role=role, level=level, power=power, build=build, pc_lvl=pc_lvl)
+        bio = biography(c, level, power, cr, role, evidence, True, pc=(build[0], pc_lvl), era=era)
+        name = c.get("name") or cid
+        doc = pc_doc(slug=slug, c=c, name=f"{name} ({era['era']})" if era else name, img=img, size=size, sc=sc,
+                     saves=saves, trained=trained, ac=ac, hp=hp, hp_formula=hp_formula, cr=cr, walk=walk, fly=fly,
+                     swim=swim, hover=hover, dv=dv, langs=sp["langs"], type_value=type_value, alignment=align,
+                     bio=bio, items=items, di=di, dr=dr, dr_bypass=dr_bypass, ci=ci, disposition=disposition,
+                     group=group, evidence=evidence, role=role, level=level, power=power, build=build, pc_lvl=pc_lvl)
+        if era:
+            doc["flags"][SHEETS_FLAG]["era"] = {k: era[k] for k in ("version", "era", "label", "when")}
+            doc["flags"][MODULE_ID]["folderPath"] = [FOLDER_ROOT, group, era["era"]]
+        return doc
     bio = biography(c, level, power, cr, role, evidence, bool(spec))
     doc = npc_doc(slug=cid, c=c, name=c.get("name") or cid, img=img, size=size, sc=sc, saves=saves, trained=trained,
                   ac=ac, hp=hp, hp_formula=hp_formula, cr=cr, walk=walk, fly=fly, swim=swim, hover=hover, dv=dv,
@@ -1800,6 +1915,28 @@ def norm_name(n):
     return re.sub(r"[^a-z0-9]+", " ", n).strip()
 
 
+def cast_path(slug):
+    """Where a generated actor lives: the cast folder, era versions under eras/."""
+    if "--" in slug:
+        return os.path.join(CAST, "eras", f"fvtt-Actor-{slug}.json")
+    return os.path.join(CAST, f"fvtt-Actor-{slug}.json")
+
+
+def build_eras(c, xp, party, group, generated):
+    """Build every era version of a character; returns the index rows."""
+    rows = []
+    for era in ERAS.get(c["id"], []):
+        doc = build_generated(c, xp, party, group, era=era)
+        slug = c["id"] + "--" + era["version"]
+        generated.append((slug, doc))
+        row = {"version": era["version"], "era": era["era"], "label": era["label"], "when": era["when"],
+               "file": os.path.relpath(cast_path(slug), RM).replace(os.sep, "/"), "name": doc["name"],
+               "source": "generated", "bespoke": True, "evidence": doc["flags"][SHEETS_FLAG]["evidence"]}
+        row.update(summarize_actor(doc))
+        rows.append(row)
+    return rows
+
+
 def build_all():
     characters = load_characters()
     xp = load_xp_summary()
@@ -1828,6 +1965,7 @@ def build_all():
                      "portrait": portrait,
                      "ledger": {"level": level, "powerLevel": power}}
             entry.update(summ)
+            entry["versions"] = build_eras(c, xp, party, group_of(c, party), generated)
             entries.append(entry)
             continue
         party, why = is_party(c, xp, "npc")
@@ -1842,6 +1980,7 @@ def build_all():
                  "role": doc["flags"][SHEETS_FLAG]["role"], "bespoke": doc["flags"][SHEETS_FLAG]["bespoke"],
                  "evidence": doc["flags"][SHEETS_FLAG]["evidence"]}
         entry.update(summ)
+        entry["versions"] = build_eras(c, xp, party, group, generated)
         entries.append(entry)
     ids = [d["_id"] for _, d in generated]
     if len(ids) != len(set(ids)):
@@ -1857,8 +1996,11 @@ def build_all():
             "visibility": {"public": "party", "debug": "all"},
             "folderRoot": FOLDER_ROOT,
             "castImport": "actors/cast/import.json",
-            "counts": {"characters": len(characters), "sheets": len(entries), "generated": len(generated),
-                       "existing": len(entries) - len(generated), "party": len(party_ids), "skipped": len(skipped)},
+            "counts": {"characters": len(characters), "sheets": len(entries),
+                       "generated": len(generated) - sum(len(e["versions"]) for e in entries),
+                       "eras": sum(len(e["versions"]) for e in entries),
+                       "existing": len(entries) - len(generated) + sum(len(e["versions"]) for e in entries),
+                       "party": len(party_ids), "skipped": len(skipped)},
             "party": party_ids,
         },
         "sheets": entries,
@@ -1896,7 +2038,10 @@ def validate(slug, actor, lib):
                 problems.append(f"PC sheet needs exactly one {k} item (has {kinds.get(k, 0)})")
         lvl = actor["flags"][SHEETS_FLAG]["ledger"]["level"]
         got = sum(it["system"]["levels"] for it in actor["items"] if it["type"] == "class")
-        if lvl is not None and got != lvl:
+        if actor["flags"][SHEETS_FLAG].get("era"):
+            if lvl is not None and got > lvl:
+                problems.append(f"era level {got} exceeds the ledger level {lvl}")
+        elif lvl is not None and got != lvl:
             problems.append(f"class level {got} is not the ledger level {lvl}")
         if kinds.get("subclass") and got < 3:
             problems.append("subclass before level 3")
@@ -1963,7 +2108,7 @@ def main(argv=None):
 
     expected = {}
     for slug, doc in generated:
-        expected[os.path.join(CAST, f"fvtt-Actor-{slug}.json")] = render(doc)
+        expected[cast_path(slug)] = render(doc)
     expected[SHEETS_JSON] = render(index)
 
     if args.check:
@@ -1977,10 +2122,11 @@ def main(argv=None):
                 continue
             if cur != text:
                 drift.append(f"stale: {os.path.relpath(path, ROOT)}")
-        want = {os.path.basename(p) for p in expected if p.startswith(CAST)}
-        for fn in sorted(os.listdir(CAST)) if os.path.isdir(CAST) else []:
-            if fn.startswith("fvtt-Actor-") and fn not in want:
-                drift.append(f"stray: Reputation-Matrix2/actors/cast/{fn}")
+        want = {p for p in expected if p.startswith(CAST)}
+        for d in (CAST, os.path.join(CAST, "eras")):
+            for fn in sorted(os.listdir(d)) if os.path.isdir(d) else []:
+                if fn.startswith("fvtt-Actor-") and os.path.join(d, fn) not in want:
+                    drift.append(f"stray: {os.path.relpath(os.path.join(d, fn), ROOT)}")
         try:
             with open(os.path.join(CAST, "import.json"), encoding="utf-8") as fh:
                 if fh.read() != combine_cast():
@@ -1992,20 +2138,21 @@ def main(argv=None):
             print(f"character sheets: {len(drift)} file(s) drift — run python3 {SELF}")
             return 1
         c = index["meta"]["counts"]
-        print(f"character sheets: ok ({c['sheets']} sheets, {c['generated']} generated, {c['party']} party, {c['skipped']} skipped)")
+        print(f"character sheets: ok ({c['sheets']} sheets, {c['generated']} generated, {c['eras']} era versions, "
+              f"{c['party']} party, {c['skipped']} skipped)")
         return 0
 
     for path, text in expected.items():
         write_text(path, text)
-    if os.path.isdir(CAST):
-        want = {os.path.basename(p) for p in expected if p.startswith(CAST)}
-        for fn in os.listdir(CAST):
-            if fn.startswith("fvtt-Actor-") and fn not in want:
-                os.remove(os.path.join(CAST, fn))
+    want = {p for p in expected if p.startswith(CAST)}
+    for d in (CAST, os.path.join(CAST, "eras")):
+        for fn in os.listdir(d) if os.path.isdir(d) else []:
+            if fn.startswith("fvtt-Actor-") and os.path.join(d, fn) not in want:
+                os.remove(os.path.join(d, fn))
     write_text(os.path.join(CAST, "import.json"), combine_cast())
     c = index["meta"]["counts"]
-    print(f"wrote {c['generated']} generated sheets, index of {c['sheets']} ({c['party']} party, {c['skipped']} skipped) → "
-          f"{os.path.relpath(SHEETS_JSON, ROOT)}")
+    print(f"wrote {c['generated']} generated sheets and {c['eras']} era versions, index of {c['sheets']} "
+          f"({c['party']} party, {c['skipped']} skipped) → {os.path.relpath(SHEETS_JSON, ROOT)}")
     return 0
 
 

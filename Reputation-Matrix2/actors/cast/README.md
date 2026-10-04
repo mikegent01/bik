@@ -12,7 +12,8 @@ Do not hand-edit a file in this directory — change the article, a
 | File | What |
 |---|---|
 | `fvtt-Actor-<character id>.json` | one actor, id `sid("cast", <id>)` — templated: `type:"npc"`, unlinked token; hand-authored: `type:"character"`, linked token, class / species / background items |
-| `import.json` | all 152 combined by `tools/foundry-bridge.py combine`, folders *Waluipedia Cast / <group>* |
+| `eras/fvtt-Actor-<character id>--<version>.json` | a **past self** of a character (`mario--955-bf`, `luigi--955-bf`, `bowser--955-bf`): a player-character sheet for a session set in that year, folders *Waluipedia Cast / <group> / 955 BF*, served at `#/sheets/<id>/<version>` |
+| `import.json` | all of the above combined by `tools/foundry-bridge.py combine` (the bridge walks `eras/`), folders *Waluipedia Cast / <group>* |
 
 Import the packet with the [Mass Import module](../../Foundry/mass_import/README.md)
 (upload `import.json`, or *Import by URL* with
@@ -50,6 +51,21 @@ rebuild after an article changes updates the actors in place.
   `Reputation-Matrix2/portraits/`; no race/class/subclass/background items
   on the NPC stat blocks, exactly one of each (plus an optional subclass) on
   the PC sheets, no invented magic items.
+
+**Past selves.** `ERAS` in the builder holds the earlier versions a character
+can carry — today the 955 BF table, the year Peach died: *Mario at his
+height* (Monk 5 — Stomp, Fire Flower, Super Mushroom, Eight Worlds' Stamina,
+Always Near Peach, Hero of the Mushroom Kingdom), *Luigi, the second
+brother* (Ranger 4 — Hammer, Green Fireball, Scuttle Jump, The Second
+Brother, Afraid Often, Startles, Sports Appearances) and *Bowser, King of the
+Koopas* (Fighter 8 — Claws, Shell Bash, Fire Breath, The Shell,
+Indestructible, Kidnapper of Princesses, King of the Koopas). They are built
+like the bespoke sheets — player characters, every feature bound to a quote —
+and **an era version never exceeds the ledger level**: a past self holds no
+more experience than the present one, so a prime shows in the kit, not the
+level. The index lists them under the character's `versions[]`; the site
+shows a version strip on the sheet page (the 955 BF packet sheets and the
+intake-next-to-live files fold into the same strip).
 
 Six characters are skipped on purpose and listed in `data/sheets.json`
 under `skipped[]`: the GM record (`mike`), the collectives (`miser_family`,

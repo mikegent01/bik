@@ -31,7 +31,7 @@ export const FORMAT = "waluipedia-actors/1";
 export const RAW_BASE = "https://raw.githubusercontent.com/mikegent01/bik/gh-pages/";
 /** The repo's ready-made import-all files (the Import dialog lists them). */
 export const KNOWN_PACKETS = [
-  { id: "cast", label: "Waluipedia Cast — every generated character sheet (152)", path: "Reputation-Matrix2/actors/cast/import.json" },
+  { id: "cast", label: "Waluipedia Cast — every generated character sheet (152, plus the 955 BF past selves)", path: "Reputation-Matrix2/actors/cast/import.json" },
   { id: "peachs-castle-955", label: "Peach's Castle 955 BF — the court + Bowser's incursion (30)", path: "Reputation-Matrix2/actors/peachs-castle-955/import.json" },
 ];
 export const packetUrl = (p) => RAW_BASE + p.path;

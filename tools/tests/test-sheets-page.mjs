@@ -162,6 +162,28 @@ CS.view_sheets('princess_peach');
 await settle();
 check('Princess Peach (955 BF era sheet) renders with alternates listed', /cs-alts/.test(content().innerHTML) || /Challenge/.test(body().innerHTML));
 
+console.log('\n# past selves (era versions)');
+const marioV = CS.versionsOf(CS.byCharacter('mario'));
+check('Mario carries two versions: now and 955 BF', marioV.length === 2 && marioV[0].key === 'now' && marioV[1].key === '955-bf' && marioV[1].file === 'actors/cast/eras/fvtt-Actor-mario--955-bf.json');
+check('era versions never exceed the ledger level', index.sheets.every(s => (s.versions || []).every(v => v.kind === 'pc' && (s.ledger.level == null || v.level <= s.ledger.level))));
+check('meta.counts.eras counts every version', index.meta.counts.eras === index.sheets.reduce((n, s) => n + (s.versions || []).length, 0) && index.meta.counts.eras >= 3);
+CS.view_sheets('mario/955-bf');
+html = content().innerHTML;
+check('#/sheets/mario/955-bf renders the 955 BF header with the version strip', /Mario \(955 BF\)/.test(html) && /cs-versions/.test(html) && /cs-version is-active/.test(html) && /955 BF/.test(html) && /a past self holds no more experience/.test(html) && /fvtt-Actor-mario--955-bf\.json/.test(html));
+await settle();
+html = body().innerHTML;
+check('Mario (955 BF) sheet: Level 5 Monk, Fire Flower, Super Mushroom, Always Near Peach, no Diminished', /Level 5 Monk 5/.test(html) && /Fire Flower/.test(html) && /Super Mushroom/.test(html) && /Always Near Peach/.test(html) && !/<b>Diminished\.<\/b>/.test(html) && !/Missing Since 1039/.test(html));
+check('the 955 BF evidence is the era sheet\'s, quoted from the article', /stomps through eight worlds/.test(content().innerHTML) && !/Missing Since 1039/.test(content().innerHTML));
+CS.view_sheets('bowser/955-bf');
+await settle();
+check('Bowser (955 BF) is a level 8 Fighter with Fire Breath and The Shell, folded under the public Bowser', /Level 8 Fighter 8 \(Champion\)/.test(body().innerHTML) && /Fire Breath/.test(body().innerHTML) && /The Shell/.test(body().innerHTML) && CS.byCharacter('bowser').party === true);
+CS.view_sheets('luigi/955-bf');
+await settle();
+check('Luigi (955 BF) is a level 4 Ranger — under the ledger — with the Hammer and Sports Appearances', /Level 4 Ranger 4 \(Monster Slayer\)/.test(body().innerHTML) && /Hammer/.test(body().innerHTML) && /Sports Appearances/.test(body().innerHTML));
+CS.view_sheets('mario/nope');
+check('an unknown version lists the versions instead of a sheet', /No version/.test(content().innerHTML) && /955 BF/.test(content().innerHTML) && !/id="cs-sheet-body"/.test(content().innerHTML));
+check('Peach\'s packet sheet shows up as a version row (alternates fold into the strip)', CS.versionsOf(CS.byCharacter('princess_peach')).length >= 1 && CS.versionsOf(CS.byCharacter('green_t')).some(v => /^alt-/.test(v.key)) === ((CS.byCharacter('green_t').alternates || []).length > 0));
+
 console.log('\n# render every indexed actor');
 let rendered = 0, failed = [];
 for (const e of index.sheets) {

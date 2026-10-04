@@ -9,6 +9,9 @@ What it proves
                skipped with a reason; nothing is both, nothing is neither
     files      every indexed sheet file exists, parses, and is the type the
                index says (pc <-> character, npc <-> npc)
+    eras       every era version (versions[]) exists, is a player-character
+               sheet flagged for its character and version, sits at or below
+               the XP ledger level, and carries verbatim evidence
     rules      templated actors are NPCs with unlinked tokens, deterministic
                16-char ids, no race/class/subclass/background items, and a CR
                that never exceeds the XP ledger level the site prints;
@@ -78,6 +81,7 @@ def main():
     # files, rules, evidence, party
     generated = 0
     pcs = 0
+    eras = 0
     for e in sheets:
         cid = e["id"]
         path = os.path.join(RM, e["file"])
@@ -148,6 +152,34 @@ def main():
                     problems.append(f"{cid}: quote no longer in the article: {ev.get('quote', '')[:80]!r}")
             if "<" in json.dumps(e.get("evidence") or [], ensure_ascii=False) and "<p" in json.dumps(e.get("evidence")):
                 problems.append(f"{cid}: evidence contains markup")
+        for v in e.get("versions") or []:
+            eras += 1
+            vpath = os.path.join(RM, v.get("file") or "")
+            if not os.path.isfile(vpath):
+                problems.append(f"{cid}/{v.get('version')}: era file missing: {v.get('file')}")
+                continue
+            try:
+                with open(vpath, encoding="utf-8") as fh:
+                    va = json.load(fh)
+            except Exception as exc:  # noqa: BLE001
+                problems.append(f"{cid}/{v.get('version')}: era file does not parse: {exc}")
+                continue
+            vflags = (va.get("flags") or {}).get(B.SHEETS_FLAG) or {}
+            if vflags.get("characterId") != cid or (vflags.get("era") or {}).get("version") != v.get("version"):
+                problems.append(f"{cid}/{v.get('version')}: era actor is not flagged for this character and version")
+            if va.get("type") != "character" or v.get("kind") != "pc":
+                problems.append(f"{cid}/{v.get('version')}: era versions are player-character sheets")
+            vl = sum(((it.get("system") or {}).get("levels") or 0) for it in va.get("items") or [] if it.get("type") == "class")
+            lvl = (xp.get(cid) or {}).get("level")
+            if lvl is not None and vl > lvl:
+                problems.append(f"{cid}/{v.get('version')}: era level {vl} exceeds XP ledger level {lvl}")
+            if v.get("level") != vl:
+                problems.append(f"{cid}/{v.get('version')}: index level {v.get('level')} != actor level {vl}")
+            if not (v.get("evidence") or []):
+                problems.append(f"{cid}/{v.get('version')}: era sheet carries no evidence")
+            for ev in v.get("evidence") or []:
+                if not B.quote_present(B.article_text(chars[cid]), ev.get("quote", "")):
+                    problems.append(f"{cid}/{v.get('version')}: quote no longer in the article: {ev.get('quote', '')[:80]!r}")
         party, why = B.is_party(chars[cid], xp, "npc" if e.get("source") == "generated" else e.get("kind"))
         if bool(e.get("party")) != party:
             problems.append(f"{cid}: party flag {e.get('party')} disagrees with the builder's rule ({party}: {why})")
@@ -171,8 +203,10 @@ def main():
         with open(packet, encoding="utf-8") as fh:
             pk = json.load(fh)
         n = len(pk.get("actors") or [])
-        if n != generated:
-            problems.append(f"import.json carries {n} actors, the index says {generated} generated")
+        if n != generated + eras:
+            problems.append(f"import.json carries {n} actors, the index says {generated} generated + {eras} era versions")
+        if (meta.get("counts") or {}).get("eras") != eras:
+            problems.append(f"meta.counts.eras {(meta.get('counts') or {}).get('eras')} != {eras} versions indexed")
         folders = pk.get("folders") or []
         if not any(f.get("name") == meta.get("folderRoot") for f in folders):
             problems.append("import.json has no root folder for the cast")
@@ -208,7 +242,7 @@ def main():
         print(f"check-sheets: {len(problems)} problem(s)")
         return 1
     print(f"check-sheets: ok ({len(sheets)} sheets, {generated} generated of which {pcs} player characters, "
-          f"{len(party_ids)} public, {len(skipped)} skipped)")
+          f"{eras} era versions, {len(party_ids)} public, {len(skipped)} skipped)")
     return 0
 
 
