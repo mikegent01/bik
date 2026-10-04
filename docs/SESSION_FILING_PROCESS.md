@@ -102,6 +102,10 @@ Same discipline, against `Reputation-Matrix2/data/characters.json`.
   affiliation, summary, description) before the event references them.
 □ Existing character → amend status / affiliation if the session moved them.
 □ Every id you intend to put in participants[] resolves.
+□ Afterwards: python3 tools/build-character-sheets.py — every character
+  gets a Foundry sheet (generated from the article unless a real export
+  exists); check the --list line for the role, then tools/check-sheets.py.
+  Only Disaster Inc. sheets are public; see SHEETS_SYSTEM.md.
 ```
 
 ### The naming gate
@@ -466,15 +470,19 @@ In this order:
    the event text; `pressure` is read off the quotes. Verify with
    `python3 tools/check-technology.py`. Guide:
    [`TECHNOLOGY_SYSTEM.md`](TECHNOLOGY_SYSTEM.md).
-6. **Any other artifact** — images, standalone pages, map entries, book
+6. **Rebuild the character sheets.** New or changed character articles
+   feed `python3 tools/build-character-sheets.py`; evidence quotes are
+   re-found and Disaster Inc. visibility re-derived. Verify with
+   `python3 tools/check-sheets.py`. Guide: [`SHEETS_SYSTEM.md`](SHEETS_SYSTEM.md).
+7. **Any other artifact** — images, standalone pages, map entries, book
    entries. All downstream, all cheap to redo.
-7. **Run the living-article growth self-check** — `python3 tools/check-story-growth.py <event_id>`.
+8. **Run the living-article growth self-check** — `python3 tools/check-story-growth.py <event_id>`.
    Review related pages, participants, predecessor events and arc files. Make
    useful edits only: status, key events, a revision/addendum, an investigation
    lead, or a reader-helpful backlink. If a queued page gains nothing, skip it;
    do not spray reciprocal links. Craft rule:
    [`STORY_FORMAT_GUIDE.md` §9F](STORY_FORMAT_GUIDE.md#9f-living-article-growth-self-check--old-pages-grow-when-new-canon-changes-them).
-8. **Write the run report.** Format:
+9. **Write the run report.** Format:
    [`RUN_REPORT_FORMAT.md`](RUN_REPORT_FORMAT.md). Every JSON touched, every
    event filed, every XP award, in one block at the end of the run.
 
@@ -498,6 +506,8 @@ In this order:
                  dossier assessments if any faction's opinion moved (both copies)
                  technology.json entry or sighting for any machine the prose
                  shows working · python3 tools/check-technology.py
+                 tools/build-character-sheets.py for new/changed characters
+                 · python3 tools/check-sheets.py
 10 ARTIFACTS   → pending-news-articles.json → broadcast if owed
                  → tools/check-story-growth.py <event_id> → useful old-page edits
                  → run report

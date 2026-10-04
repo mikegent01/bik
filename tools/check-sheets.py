@@ -1,0 +1,187 @@
+#!/usr/bin/env python3
+"""Check the Character Sheets system: the index, the generated actors, the
+quotes and the site wiring.
+
+    python3 tools/check-sheets.py
+
+What it proves
+    coverage   every character article is either in sheets.json or listed as
+               skipped with a reason; nothing is both, nothing is neither
+    files      every indexed sheet file exists, parses, and is the type the
+               index says (pc <-> character, npc <-> npc)
+    rules      generated actors are NPCs with unlinked tokens, deterministic
+               16-char ids, no race/class/subclass/background items, and a CR
+               that never exceeds the XP ledger level the site prints
+    evidence   every quote on a generated sheet is still verbatim in the
+               character's article (same normalisation as the builder)
+    party      the public set is exactly the entries the builder's party rule
+               produces; nobody outside Disaster Inc. is public
+    packet     actors/cast/import.json is the combined packet of the folder
+    wiring     index.html loads sheets.js/css, carries the data key, the
+               route, the sidebar link, the article panel, the settings row,
+               the search kind and the debug hook
+    fresh      the committed files match a fresh build (--check round-trip)
+
+Exit status 1 on any failure; prints one line per problem.
+"""
+import importlib.util
+import json
+import os
+import re
+import subprocess
+import sys
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+RM = os.path.join(ROOT, "Reputation-Matrix2")
+SHEETS_JSON = os.path.join(RM, "data", "sheets.json")
+INDEX_HTML = os.path.join(ROOT, "index.html")
+
+
+def load_builder():
+    spec = importlib.util.spec_from_file_location("build_character_sheets",
+                                                  os.path.join(ROOT, "tools", "build-character-sheets.py"))
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod
+
+
+def main():
+    problems = []
+    B = load_builder()
+    chars = {c["id"]: c for c in B.load_characters()}
+    xp = B.load_xp_summary()
+    with open(SHEETS_JSON, encoding="utf-8") as fh:
+        index = json.load(fh)
+    sheets = index.get("sheets") or []
+    skipped = index.get("skipped") or []
+    ids = [s["id"] for s in sheets]
+    skip_ids = [s["id"] for s in skipped]
+
+    # coverage
+    if len(ids) != len(set(ids)):
+        problems.append("duplicate ids in sheets.json")
+    both = set(ids) & set(skip_ids)
+    for cid in sorted(both):
+        problems.append(f"{cid}: both indexed and skipped")
+    for cid in sorted(set(chars) - set(ids) - set(skip_ids)):
+        problems.append(f"{cid}: character has neither a sheet nor a skip reason")
+    for cid in sorted((set(ids) | set(skip_ids)) - set(chars)):
+        problems.append(f"{cid}: in sheets.json but not in characters.json")
+    for s in skipped:
+        if not (s.get("reason") or "").strip():
+            problems.append(f"{s.get('id')}: skipped without a reason")
+
+    # files, rules, evidence, party
+    generated = 0
+    for e in sheets:
+        cid = e["id"]
+        path = os.path.join(RM, e["file"])
+        if not os.path.exists(path):
+            problems.append(f"{cid}: sheet file missing: {e['file']}")
+            continue
+        try:
+            with open(path, encoding="utf-8") as fh:
+                actor = json.load(fh)
+        except Exception as exc:  # noqa: BLE001
+            problems.append(f"{cid}: sheet file does not parse: {exc}")
+            continue
+        kind = "pc" if actor.get("type") == "character" else "npc"
+        if kind != e.get("kind"):
+            problems.append(f"{cid}: index says {e.get('kind')} but the actor is {actor.get('type')}")
+        for a in e.get("alternates") or []:
+            if not os.path.exists(os.path.join(RM, a["file"])):
+                problems.append(f"{cid}: alternate file missing: {a['file']}")
+        if e.get("source") == "generated":
+            generated += 1
+            flags = (actor.get("flags") or {}).get(B.SHEETS_FLAG) or {}
+            if flags.get("characterId") != cid:
+                problems.append(f"{cid}: generated actor is not flagged for this character")
+            if actor.get("type") != "npc":
+                problems.append(f"{cid}: generated actor must be an npc")
+            if not re.match(r"^[A-Za-z0-9]{16}$", actor.get("_id") or ""):
+                problems.append(f"{cid}: bad actor _id")
+            if (actor.get("prototypeToken") or {}).get("actorLink"):
+                problems.append(f"{cid}: generated token must be unlinked")
+            for it in actor.get("items") or []:
+                if it.get("type") in ("race", "class", "subclass", "background"):
+                    problems.append(f"{cid}: NPC carries a {it['type']} item")
+            cr = ((actor.get("system") or {}).get("details") or {}).get("cr")
+            lvl = (xp.get(cid) or {}).get("level")
+            if lvl is not None and cr is not None and cr > lvl:
+                problems.append(f"{cid}: CR {cr} exceeds XP ledger level {lvl}")
+            if e.get("cr") != cr:
+                problems.append(f"{cid}: index CR {e.get('cr')} != actor CR {cr}")
+            fields = B.article_text(chars[cid])
+            evidence = e.get("evidence") or []
+            if not evidence:
+                problems.append(f"{cid}: generated sheet carries no evidence")
+            for ev in evidence:
+                if not B.quote_present(fields, ev.get("quote", "")):
+                    problems.append(f"{cid}: quote no longer in the article: {ev.get('quote', '')[:80]!r}")
+            if "<" in json.dumps(e.get("evidence") or [], ensure_ascii=False) and "<p" in json.dumps(e.get("evidence")):
+                problems.append(f"{cid}: evidence contains markup")
+        party, why = B.is_party(chars[cid], xp, e.get("kind"))
+        if bool(e.get("party")) != party:
+            problems.append(f"{cid}: party flag {e.get('party')} disagrees with the builder's rule ({party}: {why})")
+        if e.get("party") and not (e.get("partyWhy") or "").strip():
+            problems.append(f"{cid}: public sheet without a partyWhy")
+        if e.get("party") and e.get("group") != "Disaster Inc.":
+            problems.append(f"{cid}: public sheet is not grouped under Disaster Inc.")
+    meta = index.get("meta") or {}
+    party_ids = sorted(s["id"] for s in sheets if s.get("party"))
+    if sorted(meta.get("party") or []) != party_ids:
+        problems.append("meta.party does not match the public entries")
+    counts = meta.get("counts") or {}
+    if counts.get("sheets") != len(sheets) or counts.get("skipped") != len(skipped) or counts.get("generated") != generated:
+        problems.append("meta.counts are stale")
+
+    # packet
+    packet = os.path.join(RM, "actors", "cast", "import.json")
+    if not os.path.exists(packet):
+        problems.append("actors/cast/import.json missing")
+    else:
+        with open(packet, encoding="utf-8") as fh:
+            pk = json.load(fh)
+        n = len(pk.get("actors") or [])
+        if n != generated:
+            problems.append(f"import.json carries {n} actors, the index says {generated} generated")
+        folders = pk.get("folders") or []
+        if not any(f.get("name") == meta.get("folderRoot") for f in folders):
+            problems.append("import.json has no root folder for the cast")
+
+    # wiring
+    with open(INDEX_HTML, encoding="utf-8") as fh:
+        html = fh.read()
+    for needle, what in [
+        ('assets/sheets/sheets.js', "sheets.js script tag"),
+        ('assets/sheets/sheets.css', "sheets.css link"),
+        ("'technology','sheets']", "sheets in DATA_FILES"),
+        ("route==='sheets'", "Router route"),
+        ("label:'Character Sheets'", "sidebar link"),
+        ("CAST_SHEETS.characterPanel(item)", "character article panel"),
+        ("row('📜','Character sheets'", "settings row"),
+        ("CAST_SHEETS.searchDocs()", "search docs"),
+        ("d.kind==='sheet')return 'Sheet'", "search type label"),
+        ("Router.go('#/sheets/'+encodeURIComponent(d.id))", "search result route"),
+        ("CAST_SHEETS.refreshSearch()", "debug toggle hook"),
+        ('"route": "#/sheets"', "SITE_UPDATES card"),
+    ]:
+        if needle not in html:
+            problems.append(f"index.html wiring missing: {what}")
+
+    # fresh
+    r = subprocess.run([sys.executable, os.path.join(ROOT, "tools", "build-character-sheets.py"), "--check"],
+                       capture_output=True, text=True)
+    if r.returncode != 0:
+        problems.append("builder --check failed: " + (r.stdout.strip().splitlines() or ["?"])[-1])
+
+    if problems:
+        print("\n".join(problems))
+        print(f"check-sheets: {len(problems)} problem(s)")
+        return 1
+    print(f"check-sheets: ok ({len(sheets)} sheets, {generated} generated, {len(party_ids)} public, {len(skipped)} skipped)")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

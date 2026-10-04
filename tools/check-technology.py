@@ -203,7 +203,7 @@ def main() -> int:
     # wiring in index.html
     html = (ROOT / "index.html").read_text(encoding="utf-8")
     for needle, what in (
-        ("'filing-updates','technology']", "DATA_FILES carries 'technology'"),
+        ("'filing-updates','technology'", "DATA_FILES carries 'technology'"),
         ("route==='technology'", "Router handles #/technology"),
         ("label:'Discovered Technology'", "sidebar carries the Discovered Technology link"),
         ("TECH.eventPanel(item.id)", "event apparatus band carries the Technology tab"),

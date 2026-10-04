@@ -20,6 +20,7 @@ the trigger table. Run it after every filing, alongside `ARTICLE_QA.md`.
 | **Any new filing at all** | a **WAHwire post** — the wire is live and every post is in-voice | `Reputation-Matrix2/data/wahwire/posts.json` (shape below) |
 | **A song, anthem, shanty, or hymn performed or quoted** | the songs archive | `Reputation-Matrix2/data/songs-data.js` — full lyrics, `sourceId` links back to the filing |
 | **A machine, weapon, vehicle, instrument or device shown doing something** | the Discovered Technology ledger — a new entry, or a `sightings[]` row and a `status` change on an existing one; verbatim quotes only | `Reputation-Matrix2/data/technology.json`; `python3 tools/check-technology.py`; see [`TECHNOLOGY_SYSTEM.md`](TECHNOLOGY_SYSTEM.md) |
+| **A new character article, or an existing one whose status / affiliation / text changed** | the Character Sheets index — a generated dnd5e sheet per character, evidence quotes re-found, Disaster Inc. visibility re-derived | `python3 tools/build-character-sheets.py` then `python3 tools/check-sheets.py`; main cast gets a `BESPOKE` entry; see [`SHEETS_SYSTEM.md`](SHEETS_SYSTEM.md) |
 | **A book, codex, pamphlet, or manuscript that matters** | the library | `Reputation-Matrix2/data/books.json` (+ `books-data.js`) — the book links to its article and its owner |
 
 The rule under all of them: **if the trigger fires, the update ships with

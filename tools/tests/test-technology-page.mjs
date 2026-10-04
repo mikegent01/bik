@@ -186,7 +186,7 @@ check('index.html loads tech-gl.js, then tech-models.js, then technology.js (cla
   index.indexOf('assets/technology/tech-gl.js') > 0 && index.indexOf('assets/technology/tech-gl.js') < index.indexOf('assets/technology/tech-models.js')
   && index.indexOf('assets/technology/tech-models.js') < index.indexOf('assets/technology/technology.js') && !/three(\.module)?\.js|jsdelivr\.net\/npm\/three/.test(index));
 check('index.html links technology.css', index.includes('assets/technology/technology.css'));
-check('DATA_FILES fetches technology.json', index.includes("'filing-updates','technology']"));
+check('DATA_FILES fetches technology.json', /'filing-updates','technology'[,\]]/.test(index));
 check('Router sends #/technology, #/tech and the old #/research to the ledger', index.includes("route==='technology'||route==='tech'||route==='research'"));
 check('sidebar carries a Discovered Technology link with a count', index.includes("label:'Discovered Technology'") && index.includes('DATA.technology.entries'));
 check('event apparatus band adds the Technology tab', index.includes("add('tech','🔬','Technology'"));

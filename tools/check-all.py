@@ -106,10 +106,16 @@ def main() -> int:
         ("peachs castle 955 import.json", [py, "tools/foundry-bridge.py", "combine",
                                            "Reputation-Matrix2/actors/peachs-castle-955",
                                            "--out", "Reputation-Matrix2/actors/peachs-castle-955/import.json",
-                                           "--check"], ROOT),
+                                           "--world", "peachs-castle-955", "--check"], ROOT),
         ("foundry module zip", [py, "tools/build-foundry-module-zip.py", "--check"], ROOT),
         # Live world mirrors (split from the end-of-session export) stay importable.
         ("foundry world mirrors", [py, "tools/foundry-bridge.py", "check", "Reputation-Matrix2/actors/worlds"], ROOT),
+        # Character Sheets: every character article maps to a Foundry actor
+        # (live export, PC intake, 955 era sheet, or one generated from the
+        # article's own words); the index, the quotes, the CR-vs-ledger rule,
+        # the party visibility set and the index.html wiring are all proved.
+        ("character sheets", [py, "tools/check-sheets.py"], ROOT),
+        ("character sheets cast packet", [py, "tools/foundry-bridge.py", "check", "Reputation-Matrix2/actors/cast"], ROOT),
         # Judgement in the Grove: the event, its battle, and the front-page
         # wiring (latestUpdate/featured/Current fronts/SITE_UPDATES) all come
         # out of one generator, because the previous session was filed and
@@ -123,6 +129,7 @@ def main() -> int:
         checks.append(("Bros discovery test", ["node", "tools/tests/test_bros_discovery.mjs"], RM))
         checks.append(("Foundry ATB module", ["node", "tools/tests/test-active-time-battle-module.mjs"], ROOT))
         checks.append(("Foundry mass import module", ["node", "tools/tests/test-mass-import-module.mjs"], ROOT))
+        checks.append(("character sheets page", ["node", "tools/tests/test-sheets-page.mjs"], ROOT))
         # Search quality: pure functions extracted from index.html, run against
         # the real data. No server needed, unlike the live jsdom counterpart
         # (tools/tests/test-search-live.mjs, which needs :8765).
