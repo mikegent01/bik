@@ -17,12 +17,12 @@ const check = (label, cond, extra = '') => (cond ? ok : fail).push(label + (extr
 // ---------------------------------------------------------------- manifest
 const manifest = JSON.parse(fs.readFileSync(path.join(MOD_DIR, 'module.json'), 'utf8'));
 check('module id is stable', manifest.id === 'waluipedia-mass-import', manifest.id);
-check('version 1.2 (Data folders + review table + replace on type change)', /^1\.([2-9]|\d{2,})/.test(manifest.version) && /Data/.test(manifest.description) && /same id/.test(manifest.description), manifest.version);
+check('version 1.3 (Data folders + review table + replace on type change + one-click Sync)', /^1\.([3-9]|\d{2,})/.test(manifest.version) && /Data/.test(manifest.description) && /same id/.test(manifest.description) && /[Ss]ync/.test(manifest.description), manifest.version);
 check('manifest loads the script and stylesheet', manifest.esmodules?.includes('scripts/mass-import.js') && manifest.styles?.includes('styles/mass-import.css'));
 check('every manifest file exists', [...manifest.esmodules, ...manifest.styles].every((f) => fs.existsSync(path.join(MOD_DIR, f))));
 check('compatibility spans v12..v14', Number(manifest.compatibility.minimum) <= 12 && Number(manifest.compatibility.verified) >= 14);
 check('manifest + download URLs point at the module folder / zip', manifest.manifest.endsWith('/mass_import/module.json') && manifest.download.endsWith('/mass_import.zip'));
-for (const m of ['export-all-actors.js', 'import-all-actors.js', 'import-peachs-castle-955.js', 'import-from-data-folder.js', 'export-to-data-folder.js']) {
+for (const m of ['export-all-actors.js', 'import-all-actors.js', 'import-peachs-castle-955.js', 'import-from-data-folder.js', 'export-to-data-folder.js', 'sync-from-waluipedia.js']) {
   const src = fs.readFileSync(path.join(MOD_DIR, 'macros', m), 'utf8');
   const wrapped = spawnSync(process.execPath, ['-e', 'new Function("game","ui","foundry", "return (async()=>{" + process.argv[1] + "})()")', src], { encoding: 'utf8' });
   check(`macro ${m} parses as a script macro body`, wrapped.status === 0, wrapped.stderr.trim());
@@ -132,6 +132,7 @@ const mod = await import(pathToFileURL(path.join(MOD_DIR, 'scripts/mass-import.j
 check('module registers init/ready/renderActorDirectory hooks', ['init', 'ready', 'renderActorDirectory'].every((h) => hooks[h]?.length));
 globalThis.Hooks.call('init');
 check('init registers the defaultSource world setting', settings.has('waluipedia-mass-import.defaultSource'));
+check('init registers the sync settings with the documented defaults', settings.get('waluipedia-mass-import.syncWorld') === 'midlands' && settings.get('waluipedia-mass-import.syncScope') === 'players' && settings.get('waluipedia-mass-import.syncPacketDir') === 'npc/waluipedia' && settings.get('waluipedia-mass-import.syncLauncher') === 'http://127.0.0.1:8765/' && settings.get('waluipedia-mass-import.syncBranch') === 'gh-pages' && settings.get('waluipedia-mass-import.syncReview') === false);
 globalThis.Hooks.call('ready');
 check('ready exposes the api on the module', modules.get('waluipedia-mass-import').api?.importPayload === mod.importPayload);
 
@@ -277,7 +278,7 @@ const fakeHeader = {
   insertAdjacentHTML(where, html) { this.html += html; },
 };
 const fakeRoot = { querySelector: (sel) => (sel.includes('.header-actions') ? fakeHeader : null) };
-check('injectButtons adds import + export buttons once', mod.injectButtons(fakeRoot) === true && clicks.sort().join() === '.wmi-export,.wmi-import' && mod.injectButtons(fakeRoot) === false);
+check('injectButtons adds sync + import + export buttons once', mod.injectButtons(fakeRoot) === true && clicks.sort().join() === '.wmi-export,.wmi-import,.wmi-sync' && mod.injectButtons(fakeRoot) === false);
 game.user.isGM = false;
 const playerHeader = { html: '', querySelector: () => null, insertAdjacentHTML(w, h) { this.html += h; } };
 globalThis.Hooks.call('renderActorDirectory', {}, { querySelector: () => playerHeader });
@@ -439,6 +440,110 @@ check('pickDataPath opens a folder picker and writes the choice into the url box
   const legacy = structuredClone(promoted.actors[0]); delete legacy.flags['waluipedia-mass-import']; legacy.folder = 'nope000000000000';
   const rl = await mod.importPayload({ actors: [legacy] }, { checkImages: false });
   check('an entry with only an unresolvable folder id keeps the world folder on replacement', rl.replaced.length === 1 && game.actors.get('S1aaaaaaaaaaaaaa').type === 'character' && game.actors.get('S1aaaaaaaaaaaaaa').folderId === playersFolder.id);
+  game.actors.clear(); game.folders.clear();
+}
+
+// ------------------------------------------------- one click: Sync (v1.3)
+// The GM pressed Mass import on data/sheets.json and got an uncaught
+// promise; then wanted "a single click: find the file, import, folders,
+// changes, summary". The packet is looked for in the Data folder (where the
+// suite publishes it), then on the launcher, then on GitHub via the committed
+// manifest + actor files.
+{
+  const sheetIndex = JSON.parse(fs.readFileSync(path.resolve('Reputation-Matrix2/data/sheets.json'), 'utf8'));
+  let msg = ''; try { mod.normalizeImport(sheetIndex); } catch (e) { msg = e.message; }
+  check('the site\'s sheets.json is refused with a message that names Sync and the right file', /sheet index/.test(msg) && /Sync/.test(msg) && /players-import\.json/.test(msg), msg);
+  check('isSheetIndex / isManifest tell the two apart from packets', mod.isSheetIndex(sheetIndex) && !mod.isManifest(sheetIndex) && mod.isManifest({ actors: [{ name: 'X', type: 'npc', _id: 'A', file: 'Players/x.json' }] }) && !mod.isManifest({ actors: [{ name: 'X', type: 'npc', _id: 'A', system: {} }] }));
+  let mmsg = ''; try { mod.normalizeImport({ format: 'waluipedia-actors/1', actors: [{ name: 'X', type: 'npc', _id: 'A', file: 'Players/x.json' }] }); } catch (e) { mmsg = e.message; }
+  check('a manifest uploaded as a file explains itself instead of importing empty actors', /manifest/.test(mmsg) && /next to it/.test(mmsg), mmsg);
+
+  const cands = mod.syncCandidates({ world: 'midlands', scope: 'players', packetDir: 'npc/waluipedia', launcher: 'http://127.0.0.1:8765', branch: 'gh-pages' });
+  check('sync looks in Data, then the launcher, then GitHub — in that order', cands.map((c) => c.source).join() === 'data,launcher,github'
+    && cands[0].url === 'npc/waluipedia/midlands/players-import.json' && cands[0].info === 'npc/waluipedia/midlands/packets.json'
+    && cands[1].url === 'http://127.0.0.1:8765/Reputation-Matrix2/actors/worlds/midlands/players-import.json'
+    && cands[2].url === 'https://raw.githubusercontent.com/mikegent01/bik/gh-pages/Reputation-Matrix2/actors/worlds/midlands/manifest.json' && cands[2].manifest === true && cands[2].folder === 'Players', JSON.stringify(cands));
+  const wc = mod.syncCandidates({ scope: 'world' });
+  check('scope=world takes the whole import.json and the whole manifest', wc[0].url === 'npc/waluipedia/midlands/import.json' && wc[2].folder === null);
+  const cc = mod.syncCandidates({ scope: 'cast', branch: 'main' });
+  check('scope=cast takes the committed cast packet (branch honoured)', cc[0].url === 'npc/waluipedia/cast/import.json' && cc[2].url === 'https://raw.githubusercontent.com/mikegent01/bik/main/Reputation-Matrix2/actors/cast/import.json' && !cc[2].manifest);
+
+  // a fake world: Bowser as the GM's NPC statblock in Players/, Eager already a character, Waluigi untouched
+  game.actors.clear(); game.folders.clear();
+  const players = await Folder.create({ name: 'Players', type: 'Actor', folder: null });
+  await Actor.create({ _id: 'Bo1aaaaaaaaaaaaa', name: 'Bowser', type: 'npc', folder: players.id, img: 'icons/svg/mystery-man.svg', ownership: { default: 0, P1aaaaaaaaaaaaaa: 3 },
+    system: { details: { cr: 9 }, attributes: { hp: { max: 150 } } }, items: [{ _id: 'Ib1aaaaaaaaaaaaa', name: 'Claws', type: 'weapon' }] }, { keepId: true });
+  await Actor.create({ _id: 'Ea1aaaaaaaaaaaaa', name: 'Eager', type: 'character', folder: null, img: 'icons/svg/mystery-man.svg',
+    system: { details: { xp: { value: 4860 } }, attributes: { hp: { max: 25 } } }, items: [{ _id: 'Ie1aaaaaaaaaaaaa', name: 'Rogue', type: 'class', system: { levels: 4 } }] }, { keepId: true });
+  await Actor.create({ _id: 'Wa1aaaaaaaaaaaaa', name: 'Waluigi', type: 'character', folder: players.id, img: 'icons/svg/mystery-man.svg',
+    system: { details: { xp: { value: 11911 } }, attributes: { hp: { max: 30 } } }, items: [{ _id: 'Iw1aaaaaaaaaaaaa', name: 'Wizard', type: 'class', system: { levels: 5 } }] }, { keepId: true });
+  const pf = { 'waluipedia-mass-import': { folderPath: ['Players'] } };
+  const packet = { format: 'waluipedia-actors/1', exportedFrom: 'midlands', actors: [
+    { _id: 'Bo1aaaaaaaaaaaaa', name: 'Bowser', type: 'character', img: 'icons/svg/mystery-man.svg', ownership: { default: 0 },
+      flags: { ...pf, 'waluipedia-sheets': { promoted: { mode: 'replace' }, ledger: { xpKey: 'bowser', xp: 35292, level: 8 } } },
+      system: { details: { xp: { value: 35292 } }, attributes: { hp: { max: 92 } } },
+      items: [{ _id: 'Ib1aaaaaaaaaaaaa', name: 'Claws', type: 'weapon' }, { _id: 'Ib2aaaaaaaaaaaaa', name: 'Fighter', type: 'class', system: { levels: 8 } }] },
+    { _id: 'Ea1aaaaaaaaaaaaa', name: 'Eager', type: 'character', img: 'icons/svg/mystery-man.svg', flags: { ...pf, 'waluipedia-sheets': { ledger: { xpKey: 'eager', xp: 4860, level: 4 } } },
+      system: { details: { xp: { value: 4860 } }, attributes: { hp: { max: 25 } } },
+      items: [{ _id: 'Ie1aaaaaaaaaaaaa', name: 'Rogue', type: 'class', system: { levels: 4 } }, { _id: 'Ie2aaaaaaaaaaaaa', name: 'The Electric Sphere', type: 'loot', img: 'icons/svg/item-bag.svg' }] },
+    { _id: 'Wa1aaaaaaaaaaaaa', name: 'Waluigi', type: 'character', img: 'icons/svg/mystery-man.svg', flags: { ...pf, 'waluipedia-sheets': { ledger: { xpKey: 'waluigi', xp: 11911, level: 5 } } },
+      system: { details: { xp: { value: 11911 } }, attributes: { hp: { max: 30 } } },
+      items: [{ _id: 'Iw1aaaaaaaaaaaaa', name: 'Wizard', type: 'class', system: { levels: 5 } }] },
+    { _id: 'Hj1aaaaaaaaaaaaa', name: 'Hjumpik Deldkur', type: 'character', img: 'icons/svg/mystery-man.svg', flags: { ...pf, 'waluipedia-sheets': { ledger: { xpKey: 'hjumpik', xp: 25342, level: 7 } } },
+      system: { details: { xp: { value: 25342 } }, attributes: { hp: { max: 60 } } },
+      items: [{ _id: 'Ih1aaaaaaaaaaaaa', name: 'Fighter', type: 'class', system: { levels: 6 } }] },
+  ] };
+  const packetsJson = { format: 'waluipedia-packets/1', world: 'midlands', exportedAt: '2026-10-04T17:21:43.770Z', publishedAt: '2026-10-04T18:00:00+0000' };
+
+  // Data has nothing, the launcher is down, GitHub has the manifest + files
+  const ghBase = 'https://raw.githubusercontent.com/mikegent01/bik/gh-pages/Reputation-Matrix2/actors/worlds/midlands/';
+  const ghFiles = new Map([[`${ghBase}manifest.json`, { format: 'waluipedia-actors/1', exportedFrom: 'midlands', exportedAt: '2026-10-04T17:21:43.770Z',
+    actors: [...packet.actors.map((a) => ({ name: a.name, type: a.type, _id: a._id, file: `Players/fvtt-Actor-${a.name.toLowerCase().replace(/[^a-z]+/g, '-')}-${a._id}.json` })),
+      { name: 'Aemenor Evenflight', type: 'npc', _id: 'Ae1aaaaaaaaaaaaa', file: 'A House Divided/Characters of the Ruined Manor/fvtt-Actor-aemenor.json' }] }]]);
+  for (const a of packet.actors) ghFiles.set(`${ghBase}Players/fvtt-Actor-${a.name.toLowerCase().replace(/[^a-z]+/g, '-')}-${a._id}.json`, { ...a, flags: { 'waluipedia-sheets': a.flags['waluipedia-sheets'] } });
+  const prevFetch = globalThis.fetch;
+  const log = [];
+  let dataHas = false;
+  globalThis.fetch = async (url, init = {}) => {
+    const key = decodeURI(url);
+    log.push(key);
+    if ((init.method ?? 'GET') === 'HEAD') return prevFetch(url, init);
+    if (key === 'npc/waluipedia/midlands/players-import.json' && dataHas) return { ok: true, status: 200, json: async () => structuredClone(packet) };
+    if (key === 'npc/waluipedia/midlands/packets.json' && dataHas) return { ok: true, status: 200, json: async () => packetsJson };
+    if (key.startsWith('http://127.0.0.1:8765/')) throw new TypeError('Failed to fetch');
+    if (ghFiles.has(key)) return { ok: true, status: 200, json: async () => structuredClone(ghFiles.get(key)) };
+    return { ok: false, status: 404 };
+  };
+  const chats = [];
+  globalThis.ChatMessage = { create: async (d) => { chats.push(d); return d; }, getWhisperRecipients: () => [{ id: 'GMaaaaaaaaaaaaaa' }] };
+
+  const r = await mod.syncFromWaluipedia({ options: { checkImages: false } });
+  check('sync falls through Data and the launcher to GitHub', r && r.sync.used.source === 'github' && r.sync.attempts.map((a) => `${a.source}:${a.ok}`).join() === 'data:false,launcher:false,github:true', JSON.stringify(r?.sync?.attempts));
+  check('the GitHub route fetches only the Players files the manifest lists', r.files.length === 4 && r.files.every((f) => f.startsWith('Players/')) && !log.some((u) => u.includes('aemenor')));
+  check('…and imports them into the Players folder (no root dump)', game.actors.contents.every((a) => a.folder?.name === 'Players') && game.folders.size === 1, game.actors.contents.map((a) => `${a.name}:${a.folder?.name}`).join());
+  check('Bowser: NPC statblock replaced by the character sheet under the same id, ownership kept', r.replaced.length === 1 && game.actors.get('Bo1aaaaaaaaaaaaa').type === 'character' && game.actors.get('Bo1aaaaaaaaaaaaa').ownership.P1aaaaaaaaaaaaaa === 3);
+  const rows = Object.fromEntries(r.changes.map((c) => [c.name, c]));
+  check('summary row: Bowser replaced — type, XP, class line', rows.Bowser.status === 'replaced' && rows.Bowser.notes.includes('npc → character') && rows.Bowser.notes.includes('XP — → 35,292') && rows.Bowser.notes.includes('Fighter 8'), JSON.stringify(rows.Bowser));
+  check('summary row: Eager — the spoil arrived and she moved into Players', rows.Eager.status === 'updated' && rows.Eager.notes.includes('+ The Electric Sphere') && rows.Eager.notes.includes('moved to Players'), JSON.stringify(rows.Eager));
+  check('summary row: Waluigi unchanged', rows.Waluigi.status === 'unchanged' && rows.Waluigi.notes.length === 0, JSON.stringify(rows.Waluigi));
+  check('summary row: Hjumpik new, with the level-up the ledger allows (a hint, not a change)', rows['Hjumpik Deldkur'].status === 'new' && rows['Hjumpik Deldkur'].levelUp === 'ledger level 7 — level up (sheet is level 6)' && !rows['Hjumpik Deldkur'].notes.some((n) => n.startsWith('ledger')), JSON.stringify(rows['Hjumpik Deldkur']));
+  const sh = mod.syncSummaryHtml(r);
+  check('summary HTML: counts, level-up banner, the source, where it looked', sh.includes('1 created, 2 updated, 1 replaced') && sh.includes('Level up at the table') && sh.includes('Hjumpik Deldkur') && sh.includes('GitHub (gh-pages)') && sh.includes('export 2026-10-04T17:21:43.770Z') && sh.includes('✘ Foundry Data folder') && sh.includes('✔ GitHub'));
+  check('the summary is whispered to the GMs as a chat message', chats.length === 1 && chats[0].whisper.join() === 'GMaaaaaaaaaaaaaa' && chats[0].content.includes('Replaced'));
+
+  // second click: Data now has the packet (the suite ran) — nothing changes, Data wins, the stamps show
+  dataHas = true; log.length = 0;
+  const r2 = await mod.syncFromWaluipedia({ options: { checkImages: false } });
+  check('with the packet published, Sync reads the Data folder first and never touches the network', r2.sync.used.source === 'data' && !log.some((u) => u.startsWith('http')) && r2.sync.info?.publishedAt === '2026-10-04T18:00:00+0000');
+  check('a second sync of the same packet changes nothing and says so (the ledger hint stays)', r2.changes.every((c) => c.status === 'unchanged') && r2.replaced.length === 0 && r2.created.length === 0 && game.actors.size === 4 && r2.changes.find((c) => c.name === 'Hjumpik Deldkur').levelUp !== null, JSON.stringify(r2.changes.map((c) => [c.name, c.status, c.notes])));
+  check('dry run syncs report without writing or chatting', (await mod.syncFromWaluipedia({ options: { checkImages: false, dryRun: true } })).dryRun === true && chats.length === 2);
+
+  // nothing anywhere: a help dialog, no exception, nothing changed
+  dataHas = false; ghFiles.clear();
+  const none = await mod.syncFromWaluipedia({ options: { checkImages: false } });
+  check('with no packet anywhere Sync returns null, changes nothing and names every place it looked', none === null && game.actors.size === 4);
+  check('syncHelpHtml tells the GM what to run', /start\.py/.test(mod.syncHelpHtml([{ label: 'Foundry Data folder', url: 'x', error: 'HTTP 404' }], mod.syncSettings())) && /--foundry-data/.test(mod.syncHelpHtml([], mod.syncSettings())));
+  globalThis.fetch = prevFetch;
+  delete globalThis.ChatMessage;
   game.actors.clear(); game.folders.clear();
 }
 

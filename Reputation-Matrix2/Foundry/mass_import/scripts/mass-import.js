@@ -20,6 +20,15 @@
  *            Images are HEAD-checked against the server and reported (or
  *            swapped for a placeholder on request). Dry run available.
  *
+ *   Sync     ONE CLICK: find the newest Waluipedia packet — in the Foundry Data
+ *            folder (where tools/sheets-suite.py publishes it), else on the
+ *            start.py launcher, else on GitHub (the committed world manifest
+ *            and its actor files) — import it into its folders, apply what
+ *            changed (player characters replacing their NPC statblocks, XP at
+ *            the ledger, spoils of war), and show a summary: what each actor
+ *            gained, who has a level-up waiting, where it looked. Shift-click
+ *            reviews first.
+ *
  * Buttons appear in the Actors sidebar header for the GM; the same functions
  * are on game.modules.get("waluipedia-mass-import").api for macros. All Foundry
  * globals are looked up at call time so the pure parts can be unit-tested in
@@ -166,8 +175,16 @@ const slug = (s) => String(s).toLowerCase().replace(/'/g, "").replace(/[^a-z0-9]
  * Accept any of the supported shapes and return {meta, folders, entries}
  * where entries = [{data, folderPath}].
  */
+/** Waluipedia's site index (data/sheets.json) — the one file people reach for by mistake. */
+export const isSheetIndex = (raw) => !!(raw && typeof raw === "object" && Array.isArray(raw.sheets) && raw.meta && !Array.isArray(raw.actors));
+/** A world manifest (manifest.json next to split actor files): rows of {name, type, _id, file}. */
+export const isManifest = (raw) => !!(raw && typeof raw === "object" && Array.isArray(raw.actors) && raw.actors.length > 0
+  && raw.actors.every((a) => a && typeof a === "object" && typeof a.file === "string" && a.system === undefined && a.items === undefined));
+
 export function normalizeImport(raw) {
   let meta = {}, folders = [], actors = [];
+  if (isSheetIndex(raw)) throw new Error("This is Waluipedia's sheet index (data/sheets.json), not an actor packet — nothing in it can be imported. Click Sync instead, or import players-import.json (Data: npc/waluipedia/<world>/players-import.json · launcher: http://127.0.0.1:8765/Reputation-Matrix2/actors/worlds/<world>/players-import.json)");
+  if (isManifest(raw)) throw new Error("This is a world manifest (manifest.json): the actor files sit next to it. Give its URL or Data path and they are fetched for you — a manifest uploaded on its own cannot be");
   if (Array.isArray(raw)) actors = raw;
   else if (raw && Array.isArray(raw.actors)) {
     ({ actors } = raw);
@@ -206,13 +223,46 @@ async function fetchJson(source) {
 export async function loadSource(opts = {}) {
   return (await loadSourceDetailed(opts)).raw;
 }
-export async function loadSourceDetailed({ file, url, folderMode = "dirs", source = "data" } = {}) {
+export async function loadSourceDetailed({ file, url, folderMode = "dirs", source = "data", manifestFolder = null } = {}) {
   if (file) return { raw: JSON.parse(await file.text()), files: [file.name], ignored: [], kind: "file" };
   const src = String(url ?? "").trim();
   if (!src) throw new Error("Choose a file, pick a Data path, or give a URL");
-  if (/^https?:\/\//i.test(src) || isJsonName(src)) return { raw: await fetchJson(src), files: [src], ignored: [], kind: /^https?:/i.test(src) ? "url" : "data-file" };
+  if (/^https?:\/\//i.test(src) || isJsonName(src)) {
+    const kind = /^https?:/i.test(src) ? "url" : "data-file";
+    const raw = await fetchJson(src);
+    if (isManifest(raw)) return { ...(await loadManifest(src, { folder: manifestFolder })), kind };
+    return { raw, files: [src], ignored: [], kind };
+  }
   const loaded = await loadDataPath(src, { folderMode, source });
   return { ...loaded, kind: "data-directory" };
+}
+
+/**
+ * A world manifest (what tools/foundry-bridge.py split writes next to the
+ * actor files, and what the repo commits — the packets themselves are not
+ * committed): fetch every file it lists, relative to the manifest, and
+ * assemble them with the directories as folders. `folder` keeps only the
+ * files under one directory ("Players").
+ */
+export async function loadManifest(url, { folder = null, onProgress } = {}) {
+  const raw = await fetchJson(url);
+  if (!isManifest(raw)) throw new Error(`${url}: not a world manifest`);
+  const base = String(url).replace(/[^/]*$/, "");
+  const prefix = folder ? `${trimSlashes(folder)}/` : "";
+  const rows = raw.actors.filter((r) => !prefix || r.file.startsWith(prefix));
+  if (!rows.length) throw new Error(`${url}: no actor files under ${folder}`);
+  const files = [], ignored = [];
+  let n = 0;
+  for (const r of rows) {
+    const target = base + r.file.split("/").map(encodeURIComponent).join("/");
+    try { files.push({ path: r.file, raw: await fetchJson(target) }); }
+    catch (err) { ignored.push({ path: r.file, reason: err.message }); }
+    onProgress?.(++n, rows.length);
+  }
+  const assembled = assembleDirectory(files, { base: "", folderMode: "dirs", world: raw.exportedFrom ?? null });
+  assembled.payload.exportedAt = raw.exportedAt ?? null;
+  assembled.payload.assembledFrom = url;
+  return { raw: assembled.payload, files: files.map((f) => f.path), ignored: [...ignored, ...assembled.ignored], kind: "manifest", exportedAt: raw.exportedAt ?? null };
 }
 
 /* ------------------------------------------------------ the Data folder */
@@ -854,7 +904,9 @@ export async function openImportDialog(preset = {}) {
     options.rootFolder = "";
     if (!raw.actors.length) { notify("warn", "Mass import: nothing ticked"); return null; }
   }
-  const report = await importPayload(raw, options);
+  let report;
+  try { report = await importPayload(raw, options); }
+  catch (err) { notify("error", `Mass import: ${err.message}`); console.error(`[${MODULE_ID}]`, err); return null; }
   report.source = sourceLabel;
   report.files = loaded.files;
   report.ignored = loaded.ignored;
@@ -895,16 +947,246 @@ export function reportHtml(report) {
   </div>`;
 }
 
-async function showReport(report) {
+async function showHtml(title, content, width = 600) {
   const g = G();
   const DialogV2 = g.foundry?.applications?.api?.DialogV2;
-  const title = report.dryRun ? "Mass import — dry run" : "Mass import — report";
   if (DialogV2) {
-    return DialogV2.wait({ window: { title }, content: reportHtml(report), rejectClose: false, position: { width: 600 },
+    return DialogV2.wait({ window: { title }, content, rejectClose: false, position: { width },
       buttons: [{ action: "ok", label: "Close", icon: "fas fa-check", default: true }] });
   }
-  if (g.Dialog) return new g.Dialog({ title, content: reportHtml(report), buttons: { ok: { label: "Close" } } }, { width: 600 }).render(true);
+  if (g.Dialog) return new g.Dialog({ title, content, buttons: { ok: { label: "Close" } } }, { width }).render(true);
   return null;
+}
+
+async function showReport(report) {
+  return showHtml(report.dryRun ? "Mass import — dry run" : "Mass import — report", reportHtml(report));
+}
+
+/* ------------------------------------------------------------------ sync */
+
+export const SYNC_DEFAULTS = {
+  world: "midlands",
+  scope: "players",             // players | world | cast
+  packetDir: "npc/waluipedia",  // inside Data: where tools/sheets-suite.py publishes the packets
+  launcher: "http://127.0.0.1:8765/",
+  branch: "gh-pages",
+  review: false,
+};
+export const SYNC_SCOPES = {
+  players: "the player characters (the Players folder)",
+  world: "the whole world mirror",
+  cast: "the generated Waluipedia cast",
+};
+const SYNC_SETTING_KEYS = { world: "syncWorld", scope: "syncScope", packetDir: "syncPacketDir", launcher: "syncLauncher", branch: "syncBranch", review: "syncReview" };
+
+function syncSetting(key) {
+  try {
+    const v = G().game.settings.get(MODULE_ID, SYNC_SETTING_KEYS[key]);
+    return (v === undefined || v === null || v === "") ? SYNC_DEFAULTS[key] : v;
+  } catch (err) { return SYNC_DEFAULTS[key]; }
+}
+
+/** The world's sync settings, with explicit overrides on top (macros, shift-click). */
+export function syncSettings(overrides = {}) {
+  const out = {};
+  for (const k of Object.keys(SYNC_DEFAULTS)) out[k] = overrides[k] !== undefined ? overrides[k] : syncSetting(k);
+  return out;
+}
+
+/**
+ * Pure: where a packet can be, in the order Sync tries them.
+ *   data      the Foundry Data folder — fetched same-origin, no URL to type;
+ *             tools/sheets-suite.py puts it there every pass
+ *   launcher  the start.py static server on this machine
+ *   github    the committed world manifest + its actor files (the combined
+ *             packets are build artefacts and are not committed); for the
+ *             cast, the committed packet itself
+ */
+export function syncCandidates(s = {}) {
+  const o = { ...SYNC_DEFAULTS, ...s };
+  const dir = trimSlashes(o.packetDir || SYNC_DEFAULTS.packetDir);
+  const launcher = String(o.launcher || SYNC_DEFAULTS.launcher).trim().replace(/\/+$/, "") + "/";
+  const raw = `https://raw.githubusercontent.com/mikegent01/bik/${o.branch || SYNC_DEFAULTS.branch}/`;
+  if (o.scope === "cast") {
+    const rel = "Reputation-Matrix2/actors/cast/import.json";
+    return [
+      { source: "data", label: "Foundry Data folder", url: `${dir}/cast/import.json`, info: `${dir}/cast/packets.json` },
+      { source: "launcher", label: "start.py launcher", url: launcher + rel },
+      { source: "github", label: `GitHub (${o.branch})`, url: raw + rel },
+    ];
+  }
+  const file = o.scope === "world" ? "import.json" : "players-import.json";
+  const rel = `Reputation-Matrix2/actors/worlds/${o.world}/`;
+  return [
+    { source: "data", label: "Foundry Data folder", url: `${dir}/${o.world}/${file}`, info: `${dir}/${o.world}/packets.json` },
+    { source: "launcher", label: "start.py launcher", url: `${launcher}${rel}${file}`, info: `${launcher}${rel}manifest.json` },
+    { source: "github", label: `GitHub (${o.branch})`, url: `${raw}${rel}manifest.json`, manifest: true, folder: o.scope === "world" ? null : "Players" },
+  ];
+}
+
+/** Pure: the facts the summary compares, from a plain actor object. */
+export function actorFacts(data) {
+  const sys = data.system ?? {};
+  const items = (data.items ?? []).map((i) => ({ name: i?.name, type: i?.type, levels: i?.system?.levels }));
+  const classes = items.filter((i) => i.type === "class" && Number(i.levels) > 0);
+  const level = classes.length ? classes.reduce((n, c) => n + Number(c.levels), 0) : (sys.details?.level ?? null);
+  const cr = sys.details?.cr;
+  return {
+    id: data._id ?? data.id ?? null, name: data.name, type: data.type,
+    xp: sys.details?.xp?.value ?? null, level,
+    classLine: classes.map((c) => `${c.name} ${c.levels}`).join(" / ") || (cr !== undefined && cr !== null && data.type === "npc" ? `CR ${cr}` : ""),
+    hp: sys.attributes?.hp?.max ?? null,
+    items: items.map((i) => i.name).filter(Boolean),
+    folderPath: Array.isArray(data.flags?.[MODULE_ID]?.folderPath) ? data.flags[MODULE_ID].folderPath : null,
+    ledger: data.flags?.["waluipedia-sheets"]?.ledger ?? null,
+    promoted: data.flags?.["waluipedia-sheets"]?.promoted?.mode ?? null,
+  };
+}
+
+function docFacts(actor) {
+  const f = actorFacts(actor.toObject ? actor.toObject() : actor);
+  f.id = actor.id ?? actor._id ?? f.id;
+  f.folderPath = folderPathOf(actor.folder && typeof actor.folder === "object" ? actor.folder : null);
+  return f;
+}
+
+/** The world's actors as facts, by id and by name+type. */
+export function snapshotWorld(actors) {
+  const byId = new Map(), byKey = new Map();
+  for (const a of actors ?? []) {
+    const f = docFacts(a);
+    if (f.id) byId.set(f.id, f);
+    byKey.set(`${f.name}\u0000${f.type}`, f);
+  }
+  return { byId, byKey };
+}
+
+const fmtN = (n) => (n === null || n === undefined ? "—" : Number(n).toLocaleString("en-US"));
+
+/**
+ * Pure: one row per imported actor — what the sync did to it, in words.
+ * `before`/`after` are snapshotWorld() results; `report` is importPayload's.
+ */
+export function syncChanges(entries, before, after, report) {
+  const failed = new Set((report?.failed ?? []).map((f) => f.actor));
+  return entries.map(({ data }) => {
+    const want = actorFacts(data);
+    const key = `${want.name}\u0000${want.type}`;
+    const was = (want.id && before.byId.get(want.id)) || before.byKey.get(key) || null;
+    const now = (want.id && after.byId.get(want.id)) || after.byKey.get(key) || null;
+    const notes = [];
+    let status = failed.has(`${data.name} [${data.type}]`) ? "failed" : (!was ? "new" : (was.type !== want.type ? "replaced" : "updated"));
+    if (was && was.type !== want.type) notes.push(`${was.type} → ${want.type}`);
+    if (want.xp !== null && (!was || was.xp !== want.xp)) notes.push(`XP ${was ? fmtN(was.xp) : "—"} → ${fmtN(want.xp)}`);
+    if (want.classLine && (!was || was.classLine !== want.classLine)) notes.push(want.classLine);
+    // a hint, not a change: the ledger (authoritative) is ahead of the sheet
+    const levelUp = (want.ledger && want.level !== null && Number(want.ledger.level) > Number(want.level)) ? `ledger level ${want.ledger.level} — level up (sheet is level ${want.level})` : null;
+    if (was && want.hp !== null && was.hp !== want.hp) notes.push(`HP ${fmtN(was.hp)} → ${fmtN(want.hp)}`);
+    const added = was ? want.items.filter((n) => !was.items.includes(n)) : [];
+    const removed = was ? was.items.filter((n) => !want.items.includes(n)) : [];
+    if (added.length) notes.push(`+ ${added.join(", ")}`);
+    if (removed.length) notes.push(`− ${removed.join(", ")}`);
+    const folder = ((now?.folderPath?.length ? now.folderPath : want.folderPath) ?? []).join(" / ") || "root";
+    if (was && now && was.folderPath && now.folderPath && was.folderPath.join("/") !== now.folderPath.join("/")) notes.push(`moved to ${folder}`);
+    if (status === "updated" && !notes.length) status = "unchanged";
+    return { name: data.name, type: data.type, id: want.id, status, folder, notes, levelUp, promoted: want.promoted, ledger: want.ledger, items: want.items.length };
+  });
+}
+
+export function syncSummaryHtml(report) {
+  const s = report.sync ?? {};
+  const rows = report.changes ?? [];
+  const by = (st) => rows.filter((r) => r.status === st);
+  const li = (list, fmt) => (list.length ? `<ul>${list.map(fmt).join("")}</ul>` : "<p class='notes'>none</p>");
+  const row = (r) => `<li><b>${escapeHtml(r.name)}</b> <small>${escapeHtml(r.type)}</small>${r.notes.length ? ` — ${escapeHtml(r.notes.join(" · "))}` : ""}${r.levelUp ? ` <span class="wmi-levelup">⬆ ${escapeHtml(r.levelUp)}</span>` : ""} <small class="wmi-folder">→ ${escapeHtml(r.folder)}</small></li>`;
+  const tried = (s.attempts ?? []).map((a) => `<li>${a.ok ? "✔" : "✘"} ${escapeHtml(a.label)} <code>${escapeHtml(a.url)}</code>${a.ok ? "" : ` — ${escapeHtml(a.error ?? "")}`}</li>`).join("");
+  const stamps = [s.exportedAt ? `export ${escapeHtml(s.exportedAt)}` : null, s.info?.publishedAt ? `published ${escapeHtml(s.info.publishedAt)}` : null].filter(Boolean).join(" · ");
+  const levelUps = rows.filter((r) => r.levelUp);
+  const replaced = by("replaced"), changed = by("updated"), fresh = by("new"), same = by("unchanged");
+  return `<div class="wmi-report wmi-sync">
+    <p><strong>${escapeHtml(summarize(report))}</strong><br><small>${escapeHtml(SYNC_SCOPES[s.scope] ?? s.scope ?? "")} · from ${escapeHtml(s.used?.label ?? "?")}${stamps ? ` · ${stamps}` : ""}</small></p>
+    ${levelUps.length ? `<p class="wmi-levelup">⬆ Level up at the table: ${levelUps.map((r) => `<b>${escapeHtml(r.name)}</b> (${escapeHtml(r.levelUp)})`).join(", ")}</p>` : ""}
+    <details ${replaced.length ? "open" : ""}><summary>Replaced — NPC statblock → character sheet, same id (${replaced.length})</summary>${li(replaced, row)}</details>
+    <details ${changed.length ? "open" : ""}><summary>Changed (${changed.length})</summary>${li(changed, row)}</details>
+    <details ${fresh.length ? "open" : ""}><summary>New (${fresh.length})</summary>${li(fresh, row)}</details>
+    <details><summary>Unchanged (${same.length})</summary>${li(same, (r) => `<li>${escapeHtml(r.name)}</li>`)}</details>
+    <details ${report.failed.length ? "open" : ""}><summary>Failed (${report.failed.length})</summary>${li(report.failed, (r) => `<li>${escapeHtml(r.actor)} — ${escapeHtml(r.error)}</li>`)}</details>
+    <details ${report.missingImages.length ? "open" : ""}><summary>Missing images (${report.missingImages.length})</summary>${li(report.missingImages, (r) => `<li>${escapeHtml(r.actor)} · ${escapeHtml(r.where)} · <code>${escapeHtml(r.path)}</code></li>`)}</details>
+    <details><summary>Folders created (${report.foldersCreated.length})</summary>${li(report.foldersCreated, (r) => `<li>${escapeHtml(r)}</li>`)}</details>
+    <details><summary>Where it looked</summary><ul>${tried}</ul></details>
+  </div>`;
+}
+
+export function syncHelpHtml(attempts, s = {}) {
+  const tried = attempts.map((a) => `<li>✘ ${escapeHtml(a.label)} <code>${escapeHtml(a.url)}</code> — ${escapeHtml(a.error ?? "")}</li>`).join("");
+  return `<div class="wmi-report wmi-sync">
+    <p><strong>No packet found for ${escapeHtml(SYNC_SCOPES[s.scope] ?? s.scope ?? "")}</strong> (world <code>${escapeHtml(s.world ?? "")}</code>). Nothing was changed.</p>
+    <ul>${tried}</ul>
+    <p class="notes">Fixes, in order: <b>run <code>start.py</code></b> with <i>Character sheets</i> ticked — it publishes the packet into your Foundry Data folder (<code>${escapeHtml(s.packetDir ?? "")}/${escapeHtml(s.world ?? "")}/</code>) and serves it at the launcher URL; if Foundry's Data lives somewhere unusual, start it with <code>--foundry-data &lt;path&gt;</code> or set <code>WALUIPEDIA_FOUNDRY_DATA</code>; the GitHub source only has what is merged into <code>${escapeHtml(s.branch ?? "")}</code>. Settings: <i>Configure Settings → Waluipedia Mass Import</i>.</p>
+  </div>`;
+}
+
+async function postSyncChat(report) {
+  const g = G();
+  const CM = g.ChatMessage;
+  if (!CM?.create) return null;
+  let whisper = [];
+  try { whisper = CM.getWhisperRecipients ? CM.getWhisperRecipients("GM").map((u) => u.id) : []; } catch (err) { whisper = []; }
+  try { return await CM.create({ content: syncSummaryHtml(report), whisper, speaker: { alias: "Waluipedia sync" } }); }
+  catch (err) { console.warn(`[${MODULE_ID}] chat summary`, err); return null; }
+}
+
+/**
+ * ONE CLICK. Find the packet (Data → launcher → GitHub), import it into its
+ * folders, apply what changed, show the summary (and whisper it to the GMs so
+ * it stays in the chat log). overrides: any SYNC_DEFAULTS key, plus
+ * `options` for importPayload (dryRun, checkImages, ...).
+ */
+export async function syncFromWaluipedia(overrides = {}) {
+  const g = G();
+  const s = syncSettings(overrides);
+  const attempts = [];
+  let loaded = null, used = null;
+  for (const c of syncCandidates(s)) {
+    try {
+      const l = c.manifest ? await loadManifest(c.url, { folder: c.folder }) : await loadSourceDetailed({ url: c.url, manifestFolder: c.folder ?? null });
+      normalizeImport(l.raw);
+      loaded = l; used = c; attempts.push({ ...c, ok: true });
+      break;
+    } catch (err) { attempts.push({ ...c, ok: false, error: err?.message ?? String(err) }); }
+  }
+  if (!used) {
+    notify("error", "Sync: no Waluipedia packet found — nothing changed (see the dialog)");
+    await showHtml("Sync — nothing to import", syncHelpHtml(attempts, s), 620);
+    return null;
+  }
+  let info = null;
+  if (used.info) { try { info = await fetchJson(used.info); } catch (err) { info = null; } }
+  const exportedAt = info?.exportedAt ?? loaded.exportedAt ?? loaded.raw?.exportedAt ?? null;
+  const worldActors = () => g.game?.actors?.contents ?? [...(g.game?.actors?.values?.() ?? [])];
+  let raw = loaded.raw;
+  const options = { ...DEFAULTS, ...(overrides.options ?? {}) };
+  if (s.review) {
+    const plan = buildPlan(raw, { actors: worldActors(), rootFolder: "", keepIds: options.keepIds, matchByName: options.matchByName });
+    const picked = await showForm({ title: `Sync — review (${plan.length})`, content: planHtml(plan, { source: used.url, ignored: loaded.ignored }), okLabel: options.dryRun ? "Dry run" : "Sync ticked", okIcon: "fas fa-sync-alt", width: 900 });
+    if (!picked) return null;
+    raw = applyPlanEdits(raw, plan, editsFromForm(picked));
+    if (!raw.actors.length) { notify("warn", "Sync: nothing ticked"); return null; }
+  }
+  const before = snapshotWorld(worldActors());
+  let report;
+  try { report = await importPayload(raw, options); }
+  catch (err) { notify("error", `Sync: ${err.message}`); console.error(`[${MODULE_ID}]`, err); return null; }
+  const after = snapshotWorld(worldActors());
+  report.source = used.url;
+  report.files = loaded.files;
+  report.ignored = loaded.ignored;
+  report.changes = syncChanges(normalizeImport(raw).entries, before, after, report);
+  report.sync = { used, attempts, info, exportedAt, scope: s.scope, world: s.world };
+  announce(report);
+  if (!report.dryRun) await postSyncChat(report);
+  await showHtml(report.dryRun ? "Sync — dry run" : "Sync — summary", syncSummaryHtml(report), 660);
+  return report;
 }
 
 /* ----------------------------------------------------------------- hooks */
@@ -914,9 +1196,11 @@ export function injectButtons(root) {
   const header = root.querySelector(".header-actions, .action-buttons, .directory-header");
   if (!header || header.querySelector(".wmi-buttons")) return false;
   header.insertAdjacentHTML("beforeend", `<div class="wmi-buttons">
+      <button type="button" class="wmi-sync" title="One click: find the newest Waluipedia packet (your Foundry Data folder → the start.py launcher → GitHub), import it into its folders, apply the changes, show a summary. Shift-click to review the list first."><i class="fas fa-sync-alt"></i> Sync</button>
       <button type="button" class="wmi-import" title="Import many actors — a JSON, a repo packet, a URL, or a Data directory (subfolders → folders); review table first; existing actors updated in place"><i class="fas fa-file-import"></i> Mass import</button>
       <button type="button" class="wmi-export" title="Export every actor with its folder path — one JSON download, or a tree inside your Data folder"><i class="fas fa-file-export"></i> Mass export</button>
     </div>`);
+  header.querySelector(".wmi-sync")?.addEventListener("click", (ev) => syncFromWaluipedia(ev?.shiftKey ? { review: true } : {}));
   header.querySelector(".wmi-import")?.addEventListener("click", () => openImportDialog());
   header.querySelector(".wmi-export")?.addEventListener("click", () => openExportDialog());
   return true;
@@ -928,6 +1212,8 @@ export const api = {
   importPayload, importFile, importFromUrl, importFromDataPath, openImportDialog,
   loadSource, loadSourceDetailed, loadDataPath, assembleDirectory, walkData, browseData, pickDataPath,
   buildPlan, applyPlanEdits, planHtml, normalizeImport, summarize,
+  syncFromWaluipedia, syncCandidates, syncSettings, syncChanges, syncSummaryHtml, snapshotWorld, actorFacts,
+  loadManifest, isManifest, isSheetIndex, SYNC_DEFAULTS, SYNC_SCOPES,
 };
 
 export function register() {
@@ -940,6 +1226,13 @@ export function register() {
         hint: "URL or Data path pre-filled in the import dialog — e.g. the raw GitHub URL of the repo's import.json.",
         scope: "world", config: true, type: String, default: "",
       });
+      const reg = (key, name, hint, extra) => g.game.settings.register(MODULE_ID, key, { name, hint, scope: "world", config: true, ...extra });
+      reg("syncWorld", "Sync: world id", "The world the Waluipedia mirror is split from (actors/worlds/<world>/).", { type: String, default: SYNC_DEFAULTS.world });
+      reg("syncScope", "Sync: what to import", "players = the Players folder only (the default; never touches your NPC edits) · world = the whole mirror · cast = the generated Waluipedia cast.", { type: String, default: SYNC_DEFAULTS.scope, choices: { players: "Player characters (Players folder)", world: "Whole world mirror", cast: "Generated Waluipedia cast" } });
+      reg("syncPacketDir", "Sync: packet folder inside Data", "Where tools/sheets-suite.py publishes the packets (default npc/waluipedia — Sync looks here first, no URL needed).", { type: String, default: SYNC_DEFAULTS.packetDir });
+      reg("syncLauncher", "Sync: launcher URL", "The start.py static server — tried when the Data folder has no packet.", { type: String, default: SYNC_DEFAULTS.launcher });
+      reg("syncBranch", "Sync: GitHub branch", "Last resort: the committed world manifest and actor files on this branch of mikegent01/bik.", { type: String, default: SYNC_DEFAULTS.branch });
+      reg("syncReview", "Sync: review first", "Show the review table before every sync (shift-click the button does it once).", { type: Boolean, default: SYNC_DEFAULTS.review });
     } catch (err) { console.warn(`[${MODULE_ID}] settings`, err); }
   });
   g.Hooks.once("ready", () => {

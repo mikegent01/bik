@@ -10,8 +10,46 @@ existing ones updated in place (same `_id`), every image path checked, and a
 report. Together with `tools/foundry-bridge.py` this turns "add characters to
 the game" into a loop of *export → edit in the repo → import*.
 
-Module id: `waluipedia-mass-import`, version 1.2. Core v12–v14, any game
+Module id: `waluipedia-mass-import`, version 1.3. Core v12–v14, any game
 system (built and tested against dnd5e 5.x on core v14).
+
+## Sync — one click (v1.3)
+
+**Actors sidebar → Sync.** No file to pick, no URL to paste. The module looks
+for the newest Waluipedia packet in three places, in this order, and uses the
+first that answers:
+
+| # | Where | What it reads | When it is there |
+| --- | --- | --- | --- |
+| 1 | **your Foundry Data folder** — `npc/waluipedia/<world>/players-import.json` (+ `packets.json` for the stamps) | the packet the suite published | after `start.py` / `tools/sheets-suite.py` ran on this machine (it finds the Data folder itself — `--foundry-data` overrides) |
+| 2 | **the launcher** — `http://127.0.0.1:8765/Reputation-Matrix2/actors/worlds/<world>/players-import.json` | the same packet straight from the checkout | while `start.py` is running |
+| 3 | **GitHub** — `raw.githubusercontent.com/mikegent01/bik/<branch>/…/worlds/<world>/manifest.json`, then each `Players/*.json` it lists | the committed sheets | always, once the branch is merged (packets themselves are not committed; the manifest + per-actor files are) |
+
+Then it does what Mass import does — folders rebuilt from the packet's
+`folderPath`, missing actors created, existing ones updated in place by id,
+an NPC statblock **replaced by the character sheet under the same id** when
+the type changed (ownership kept) — and ends with a **summary**: replaced /
+changed / new / unchanged, per actor the XP change, the class line, items
+gained (`+ The Electric Sphere`) or lost, folder moves, a **⬆ Level up at the
+table** banner when the ledger is ahead of the sheet, and *where it looked*.
+The same summary is whispered to the GMs in chat (one message per sync;
+not on dry runs).
+
+* **Shift-click Sync** to get the review table first.
+* **Scopes** (Module Settings → *Sync: what*): `players` (default — the
+  `Players/` folder: the 12 player-character sheets at ledger levels),
+  `world` (every actor of the world export), `cast` (the committed Waluipedia
+  Cast packet — 152 generated sheets).
+* Settings: world (`midlands`), packet dir in Data (`npc/waluipedia`), launcher
+  URL, GitHub branch (`gh-pages`), review-first.
+* If nothing answers, Sync changes nothing and shows the three URLs it tried
+  with the error for each and what to run (`start.py`, or
+  `python3 tools/sheets-suite.py --foundry-data "<Data>"`).
+* Wrong file in **Mass import** (the site's `data/sheets.json`, or a
+  `manifest.json`) is now refused with a message that names the right file
+  instead of an uncaught error.
+* Macro: `macros/sync-from-waluipedia.js` (`SCOPE` at the top); API:
+  `game.modules.get("waluipedia-mass-import").api.syncFromWaluipedia({ scope, world, review, options })`.
 
 ## Where the import-all files are
 
@@ -50,6 +88,7 @@ In the **Actors** sidebar header, next to "Create Actor":
 
 | Button | What it does |
 | --- | --- |
+| **Sync** | One click: find the newest packet (Data folder → launcher → GitHub), import into folders, apply changes, summary. Shift-click = review table first. See *Sync — one click* above. |
 | **Mass export** | Dialog: optional folder subtree, optional type filter (character/npc/vehicle/group), and a **destination**: *Download one JSON* (`<world>-all-actors.json`) or *Write into the Foundry Data folder* — a tree under `npc/waluipedia/<world>/` with one file per actor in subfolders mirroring your Actors sidebar, plus `import.json` with everything. |
 | **Mass import** | Dialog: source = **JSON file** from disk, a **repo packet** from the dropdown, a **URL** (GitHub raw works — CORS is open there), or **a path inside your Foundry Data folder** — either one `.json` or **a directory** (📁 button browses; every `.json` under it is read, **subfolders are detected** and become the Actors folders). Then the **review table**. Options below. Prints a report afterwards and logs the full result object to the console. |
 
@@ -119,6 +158,11 @@ ever moved to the root just because the file did not say where it belongs.
 2. The old macro export: `{ exportedFrom, system, exportedAt, actors }`
 3. A bare array of actors (what `Players.json` in the repo is)
 4. A single actor JSON (a `fvtt-Actor-*.json` file)
+
+Refused with a plain message (nothing happens): the site's `data/sheets.json`
+(the sheet *index* — use Sync, or `players-import.json`), and a
+`manifest.json` (a *list* of files — give its URL or Data path instead and
+the module fetches the files it names).
 
 ## Update semantics (read this once)
 
@@ -214,17 +258,21 @@ await api.importFromDataPath("npc/waluipedia/cast", { folderMode: "dirs", ...opt
 await api.importPayload(jsonObject, options);           // the workhorse
 api.openImportDialog({ url: "npc/waluipedia/cast" });     // pre-filled dialog (review table included)
 api.KNOWN_PACKETS;                                        // the repo packets the dropdown lists
+await api.syncFromWaluipedia({ scope: "players", review: false, options: { dryRun: false } });  // v1.3 one click; returns the report (+ report.changes, report.sync) or null
+api.syncCandidates(api.syncSettings());                   // pure: the three places Sync will look, in order
+await api.loadManifest(url, { folder: "Players" });       // a manifest.json + the actor files it lists → a payload
 // pure helpers, unit-tested: api.assembleDirectory(files, {base, folderMode}), api.buildPlan(raw, {actors, rootFolder}),
 // api.applyPlanEdits(raw, plan, edits), api.exportTree(payload, {dir, combined, tree}), api.loadDataPath(path)
 ```
 
-The result object: `{ created, updated, skipped, failed, foldersCreated, missingImages, dryRun, meta, source, files, ignored }`.
+The result object: `{ created, updated, skipped, failed, foldersCreated, missingImages, dryRun, meta, source, files, ignored }`
+— plus, from Sync, `changes` (one row per actor: `status`, `notes[]`, `levelUp`, `folder`) and `sync` (`used`, `attempts`, `info`, `exportedAt`, `scope`, `world`).
 
 Macros (ready to paste into a script macro) live in `macros/`:
 `export-all-actors.js` (works even without the module — falls back to inline
 code that still records folder paths), `export-to-data-folder.js`,
 `import-all-actors.js`, `import-from-data-folder.js`,
-`import-peachs-castle-955.js`.
+`import-peachs-castle-955.js`, `sync-from-waluipedia.js`.
 
 ## The session loop with `tools/foundry-bridge.py`
 
