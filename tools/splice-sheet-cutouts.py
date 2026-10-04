@@ -12,6 +12,12 @@ Built for the grid art added in the "Hunyuan-ready Bowser battle bases" pass:
     Wooden Shield) previously shared one image. They now get one cutout each
     (``bones-longsword.png`` etc.) so ``install_bones_assets.py`` can map every
     item to its own transparent icon.
+  * ``docs/3d-reference/peachs-castle-955/`` — the Peach's Castle (955 BF)
+    packet: two Toad-guard sheets (4x2 and 2x2), a 4x2 household sheet, and
+    three single full-body plates (Peach, Toadsworth the Elder, the Guard
+    Captain). Sheets are cut per cell; the plates are cut as one tile each and
+    ALSO saved as a square backdrop-kept plate (``*-plate.png``) because
+    Hunyuan takes either form.
 
 How backgrounds are removed
 ---------------------------
@@ -104,6 +110,53 @@ SHEETS = {
         ],
     },
 }
+
+
+# -- Peach's Castle, 955 BF packet ------------------------------------------
+# All generated sheets are 1408x768. The 4x2 sheets have divider lines at
+# x=350-356 / 701-706 / 1052-1057 and y=382-386; the 2x2 sheet at x=701-706 and
+# y=381-386 (measured by column/row darkness scan). Boxes stop 2-3px short.
+_PC = ROOT / "docs" / "3d-reference" / "peachs-castle-955"
+_COLS4 = [(4, 348), (358, 699), (708, 1050), (1059, 1400)]
+_ROWS2 = [(5, 380), (388, 763)]
+
+
+def _grid_tiles(cols, rows, names, prefix):
+    tiles = []
+    i = 0
+    for r, (y0, y1) in enumerate(rows):
+        for c, (x0, x1) in enumerate(cols):
+            tiles.append(dict(key=f"r{r + 1}c{c + 1}", box=(x0, y0, x1, y1), mode="neural",
+                              out=_PC / f"{prefix}-{names[i]}.png"))
+            i += 1
+    return tiles
+
+
+SHEETS["pc-guards-a"] = {
+    "source": _PC / "toad-guards-sheet-a.png",
+    "tiles": _grid_tiles(_COLS4, _ROWS2, [
+        "gate-halberd", "door-spear-a", "door-spear-b", "attention-a",
+        "attention-b", "sergeant", "crossbow-a", "crossbow-b"], "guard"),
+}
+SHEETS["pc-guards-b"] = {
+    "source": _PC / "toad-guards-sheet-b.png",
+    "tiles": _grid_tiles([(4, 699), (708, 1404)], [(4, 379), (388, 764)], [
+        "nightwatch-lantern", "pike-towershield", "recruit-horn", "veteran-mace"], "guard"),
+}
+SHEETS["pc-court"] = {
+    "source": _PC / "castle-court-sheet.png",
+    "tiles": _grid_tiles(_COLS4, _ROWS2, [
+        "chambermaid", "cook-toque", "cook-kerchief", "mage-a",
+        "herald-trumpet", "page-scroll", "mage-b", "mage-c"], "court"),
+}
+for _name, _file in (("peach", "princess-peach-base.png"),
+                     ("toadsworth-elder", "toadsworth-elder-base.png"),
+                     ("guard-captain", "guard-captain-base.png")):
+    SHEETS[f"pc-{_name}"] = {
+        "source": _PC / _file,
+        "tiles": [dict(key="plate", box=None, mode="neural",
+                       out=_PC / f"{_name}-cutout.png", plate=_PC / f"{_name}-plate.png")],
+    }
 
 _session = None
 GRABCUT_SEED = 20260926
@@ -270,7 +323,34 @@ def checkerboard(pil_img: Image.Image, cell: int = 32) -> Image.Image:
     return bg
 
 
-def process_tile(tile_img: Image.Image, cfg: dict, model_path: Path) -> Image.Image:
+def plate_crop(tile: Image.Image, fg: np.ndarray, pad: int = 48) -> Image.Image:
+    """Square crop around the figure that KEEPS the studio backdrop.
+
+    The margin is filled with the backdrop colour sampled from the tile's
+    corners, so a wide landscape plate becomes the 1:1 single-figure plate the
+    earlier packets used, without a transparent edge.
+    """
+    rgb = np.asarray(tile.convert("RGB"))
+    ys, xs = np.where(fg > 0)
+    if len(xs) == 0:
+        raise SystemExit(f"empty mask for plate of size {tile.size}; adjust its config")
+    h, w = rgb.shape[:2]
+    y0, y1 = max(0, ys.min() - pad), min(h, ys.max() + pad + 1)
+    x0, x1 = max(0, xs.min() - pad), min(w, xs.max() + pad + 1)
+    side = max(y1 - y0, x1 - x0)
+    corners = np.concatenate([rgb[:12, :12].reshape(-1, 3), rgb[:12, -12:].reshape(-1, 3),
+                              rgb[-12:, :12].reshape(-1, 3), rgb[-12:, -12:].reshape(-1, 3)])
+    bgc = np.median(corners, axis=0).astype(np.uint8)
+    canvas = np.empty((side, side, 3), np.uint8)
+    canvas[:] = bgc
+    crop = rgb[y0:y1, x0:x1]
+    oy, ox = (side - crop.shape[0]) // 2, (side - crop.shape[1]) // 2
+    canvas[oy:oy + crop.shape[0], ox:ox + crop.shape[1]] = crop
+    return Image.fromarray(canvas, "RGB")
+
+
+def process_tile(tile_img: Image.Image, cfg: dict, model_path: Path):
+    """Return (transparent cutout, foreground mask) for one tile."""
     prob = u2netp_probs(tile_img, model_path)
     if cfg["mode"] == "seeded":
         fg = seeded_grabcut_mask(tile_img, prob,
@@ -278,7 +358,7 @@ def process_tile(tile_img: Image.Image, cfg: dict, model_path: Path) -> Image.Im
                                  kill_polys=cfg.get("kill_polys", ()))
     else:
         fg = neural_mask(prob)
-    return finish_tile(tile_img, fg)
+    return finish_tile(tile_img, fg), fg
 
 
 def main() -> int:
@@ -304,12 +384,16 @@ def main() -> int:
             if out_path.exists() and not args.force:
                 print(f"  SKIP {out_path.relative_to(ROOT)} (exists; use --force)")
                 continue
-            tile = src.crop(cfg["box"])
-            cutout = process_tile(tile, cfg, model_path)
+            tile = src.crop(cfg["box"]) if cfg.get("box") else src
+            cutout, fg = process_tile(tile, cfg, model_path)
             out_path.parent.mkdir(parents=True, exist_ok=True)
             cutout.save(out_path)
             print(f"  WROTE {out_path.relative_to(ROOT)} {cutout.size[0]}x{cutout.size[1]}px")
             written += 1
+            if cfg.get("plate"):
+                plate = plate_crop(tile, fg)
+                plate.save(cfg["plate"])
+                print(f"  WROTE {cfg['plate'].relative_to(ROOT)} {plate.size[0]}x{plate.size[1]}px (backdrop kept)")
             if args.qa_dir:
                 args.qa_dir.mkdir(parents=True, exist_ok=True)
                 checkerboard(cutout).convert("RGB").save(
