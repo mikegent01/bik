@@ -104,7 +104,7 @@
 
   <!-- the injury drum: same mechanism as the sentencing reel, second table -->
   <div class="cap-reel-wrap cap-injwrap" id="capInjWrap">
-    <div class="cap-drumlabel">&#129701; The Consequence Table &middot; d100</div>
+    <div class="cap-drumlabel">&#129701; The Consequence Table &middot; d100 <label class="cap-tierlab">Tier <select id="capTier" class="cap-tier" aria-label="Injury table tier"></select></label></div>
     <div class="cap-reel" id="capInjReel">
       <div class="cap-window"></div>
       <div class="cap-strip" id="capInjStrip"></div>
@@ -211,7 +211,7 @@
   <div class="cap-note">
     <b>On this docket.</b> The sentencing reel carries 89 punishments ported from
     the Wheel of Regret prototype. The consequence table is the archive's own
-    d100 injury table, read live from <code>injuries.json</code> &mdash; 1 is death
+    d100 injury table, read live from <code>injuries.json</code> and its tier tables (<code>injuryTables.json</code>: Venom &amp; Web, Fire &amp; Blast &mdash; pick the one that matches what did the harm) &mdash; 1 is death
     and 100 is the luck of the survivor, and a higher severity drags the roll
     towards the low end, but nothing is guaranteed in either direction. Two place names on the reel, <b>Lockeweald</b> and <b>Allelon</b>,
     do not appear anywhere else in the archive and are flagged as unverified

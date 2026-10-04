@@ -1,0 +1,1027 @@
+{
+  "_README": {
+    "what": "Venom & Web: a hand-authored tier of the Permanent Injury Table — one hundred d100 rows for harm done by venom & web, worst at 1 and best at 100.",
+    "when": "Roll it instead of the Permanent Injury Table when the thing that dropped you was a spider, an ettercap, a snake, a poisoned blade, a sting, a fey toxin or a web — anything that got into the blood or wrapped the body.",
+    "contract": "Exactly 100 rows, d100 1-100 in order, categories in the shared band order, every injuryType unique within the table AND across every table on the registry (injuryTables.json). `cure` is the LOWEST rung of the shared cure ladder in injuries.json; `duration` is how long it lasts without it. Checked by tools/generate-injury-table.py --check.",
+    "status": "Hand-authored and locked. Edit rows by hand, keep the count at 100, run the check."
+  },
+  "schemaVersion": 2,
+  "id": "venom_and_web_d100",
+  "title": "Venom & Web",
+  "tier": "Venom & Web",
+  "description": "What a bite, a sting or a cocoon leaves behind. Low is worse: the bottom is the venom winning, the teens are nerves and lungs that never recover, the middle is weeks of a body clearing poison, the top is a blood that learned something.",
+  "status": "authored",
+  "locked": true,
+  "authoredOn": "2026-10-04",
+  "rules": [
+    "A result is a story consequence, not a replacement for a GM ruling. Reroll or override anything that would ruin the table's fun or a player's night.",
+    "Roll d100 straight. The Injury Desk's death-save handoff and the Casino's survival roll skip row 1 (Death), because the saves already answered that question.",
+    "Low is worse. Rows 1-56 are the price of surviving; 57-70 are a bad week; 71-92 are marks, trauma and oddities; 93-100 are the luck of the survivor.",
+    "The cure listed is the LOWEST rung of the shared ladder (injuries.json cureLadder) that removes the row. Anything stronger works too.",
+    "Pick the tier table by what did the harm. If nothing on the registry fits, the Permanent Injury Table is the default and always applies."
+  ],
+  "bands": [
+    {
+      "from": 1,
+      "to": 1,
+      "category": "Death",
+      "note": "The one row the survival handoff skips."
+    },
+    {
+      "from": 2,
+      "to": 4,
+      "category": "Quicker death",
+      "note": "Alive, and dying on a schedule unless the cure arrives."
+    },
+    {
+      "from": 5,
+      "to": 10,
+      "category": "Lose a limb",
+      "note": "Regenerate or live with it."
+    },
+    {
+      "from": 11,
+      "to": 22,
+      "category": "Severe injury",
+      "note": "The body is not going to be the same."
+    },
+    {
+      "from": 23,
+      "to": 38,
+      "category": "Major injury",
+      "note": "Weeks, a healer, or second-level magic."
+    },
+    {
+      "from": 39,
+      "to": 56,
+      "category": "Injury",
+      "note": "A fortnight of being worse at something."
+    },
+    {
+      "from": 57,
+      "to": 70,
+      "category": "Minor injury",
+      "note": "A bad week."
+    },
+    {
+      "from": 71,
+      "to": 75,
+      "category": "Facial scarring",
+      "note": "People will ask."
+    },
+    {
+      "from": 76,
+      "to": 78,
+      "category": "Memorable scars",
+      "note": "Shirts off, there is a story."
+    },
+    {
+      "from": 79,
+      "to": 80,
+      "category": "Severe mental trauma",
+      "note": "The fear outlasts the wound."
+    },
+    {
+      "from": 81,
+      "to": 86,
+      "category": "Mental trauma",
+      "note": "Months, or a season of care."
+    },
+    {
+      "from": 87,
+      "to": 88,
+      "category": "Flavour effect",
+      "note": "No rule. A detail."
+    },
+    {
+      "from": 89,
+      "to": 92,
+      "category": "Special effect",
+      "note": "Something that should not have happened, did."
+    },
+    {
+      "from": 93,
+      "to": 97,
+      "category": "Minor boon",
+      "note": "The luck of the survivor."
+    },
+    {
+      "from": 98,
+      "to": 98,
+      "category": "Survivability",
+      "note": "The body learned."
+    },
+    {
+      "from": 99,
+      "to": 100,
+      "category": "Survivability+",
+      "note": "The table owes you one."
+    }
+  ],
+  "cureLadder": {
+    "inherits": "permanent_injury_d100",
+    "note": "The ladder is shared: see injuries.json cureLadder. Treatment rows state their Medicine DC inline."
+  },
+  "entries": [
+    {
+      "d100": 1,
+      "category": "Death",
+      "injuryType": "The Venom Wins",
+      "description": "You stop. The venom reached the heart before anyone reached you; no saving throw was ever going to argue with it.",
+      "cure": "Raise Dead / Resurrection / a 1-Up Mushroom",
+      "duration": "Permanent.",
+      "notes": "Row 1 is skipped by the death-save handoff."
+    },
+    {
+      "d100": 2,
+      "category": "Quicker death",
+      "injuryType": "Hollowed Out",
+      "description": "The venom is eating what keeps you alive. Your hit point maximum is halved now, and drops by a further 1d6 after every long rest until the cure arrives. At zero you die quietly in your sleep.",
+      "cure": "Greater Restoration",
+      "duration": "Weeks at most without the cure.",
+      "notes": ""
+    },
+    {
+      "d100": 3,
+      "category": "Quicker death",
+      "injuryType": "The Cocoon",
+      "description": "You were wrapped and hung and the silk's enzyme had started on you before the rescue. Your lungs are burned from the inside: you cannot hold your breath, every Dash costs a level of exhaustion, and a second cocooning kills you outright.",
+      "cure": "Heal",
+      "duration": "Permanent without the cure.",
+      "notes": ""
+    },
+    {
+      "d100": 4,
+      "category": "Quicker death",
+      "injuryType": "Thin Blood",
+      "description": "An anticoagulant venom that never left. Any hit that deals piercing or slashing damage keeps bleeding for 1d4 damage at the end of each of your turns until someone spends an action and a DC 12 Wisdom (Medicine) check to bind it.",
+      "cure": "Lesser Restoration",
+      "duration": "One month without the cure.",
+      "notes": ""
+    },
+    {
+      "d100": 5,
+      "category": "Lose a limb",
+      "injuryType": "Black Arm, Weapon Side",
+      "description": "The bitten arm turned black to the shoulder within the hour and was taken off to save the rest of you. You have one arm, and it is the one you did not fight with.",
+      "cure": "Regenerate",
+      "duration": "Permanent.",
+      "notes": ""
+    },
+    {
+      "d100": 6,
+      "category": "Lose a limb",
+      "injuryType": "Black Arm, Off Side",
+      "description": "Necrosis took the off arm above the elbow. No shield, no two-handed weapons, no climbing without a check.",
+      "cure": "Regenerate",
+      "duration": "Permanent.",
+      "notes": ""
+    },
+    {
+      "d100": 7,
+      "category": "Lose a limb",
+      "injuryType": "Hand to the Rot",
+      "description": "The hand that was bitten could not be saved. You can wield one thing at a time and nothing that needs two hands.",
+      "cure": "Regenerate",
+      "duration": "Permanent.",
+      "notes": ""
+    },
+    {
+      "d100": 8,
+      "category": "Lose a limb",
+      "injuryType": "Leg Lost to Necrosis",
+      "description": "The leg below the knee went dark and then went altogether. Speed 20 feet on a crutch or peg; prone whenever you are knocked and cannot stand without a hand.",
+      "cure": "Regenerate",
+      "duration": "Permanent.",
+      "notes": ""
+    },
+    {
+      "d100": 9,
+      "category": "Lose a limb",
+      "injuryType": "Foot Gone to Rot",
+      "description": "The bitten foot was amputated at the ankle. Speed reduced by 10 feet; disadvantage on Dexterity (Acrobatics) checks and on saves against being knocked prone.",
+      "cure": "Regenerate",
+      "duration": "Permanent.",
+      "notes": ""
+    },
+    {
+      "d100": 10,
+      "category": "Lose a limb",
+      "injuryType": "Fingers to the Fang",
+      "description": "Lose 1d3 fingers from the bitten hand. With two or more gone you cannot use that hand for fine work, somatic components or a bowstring.",
+      "cure": "Regenerate",
+      "duration": "Permanent.",
+      "notes": ""
+    },
+    {
+      "d100": 11,
+      "category": "Severe injury",
+      "injuryType": "Web-Scarred Lungs",
+      "description": "Silk fibres went down with every breath you fought for in the cocoon. Your speed is reduced by 10 feet, you cannot take the Dash action twice in one minute, and smoke or dust forces a Constitution save (DC 12) or you are incapacitated by coughing for a round.",
+      "cure": "Heal",
+      "duration": "Permanent without the cure.",
+      "notes": ""
+    },
+    {
+      "d100": 12,
+      "category": "Severe injury",
+      "injuryType": "Palsied Face",
+      "description": "The neurotoxin let one side of your face go. You have disadvantage on Charisma (Persuasion) and (Performance) checks, and spells with a verbal component fail on a natural 1 on the attack roll or the target's save.",
+      "cure": "Greater Restoration",
+      "duration": "Permanent without the cure.",
+      "notes": ""
+    },
+    {
+      "d100": 13,
+      "category": "Severe injury",
+      "injuryType": "Venom Blind",
+      "description": "Spat venom took your sight. You are blinded. The eyes are still there, which is why Heal and not Regenerate.",
+      "cure": "Heal",
+      "duration": "Permanent without the cure.",
+      "notes": ""
+    },
+    {
+      "d100": 14,
+      "category": "Severe injury",
+      "injuryType": "Numb Hands",
+      "description": "The venom burned the nerves in both hands. Disadvantage on attack rolls with finesse weapons, on Dexterity (Sleight of Hand) checks and on checks with thieves' tools; somatic components are lost on a natural 1.",
+      "cure": "Greater Restoration",
+      "duration": "Permanent without the cure.",
+      "notes": ""
+    },
+    {
+      "d100": 15,
+      "category": "Severe injury",
+      "injuryType": "Spider's Fever",
+      "description": "A relapsing fever the bite left behind. Each dawn roll a d6: on a 1 you have one level of exhaustion that no rest removes until the next dawn. Lesser Restoration ends an episode; only the higher cure ends the disease.",
+      "cure": "Greater Restoration",
+      "duration": "Permanent without the cure.",
+      "notes": "Lesser Restoration buys a day."
+    },
+    {
+      "d100": 16,
+      "category": "Severe injury",
+      "injuryType": "Swollen Throat",
+      "description": "The airway never fully opened again. You speak only in a whisper, cannot shout or sing, and must succeed on a DC 10 Constitution save to cast a spell with a verbal component.",
+      "cure": "Heal",
+      "duration": "Permanent without the cure.",
+      "notes": ""
+    },
+    {
+      "d100": 17,
+      "category": "Severe injury",
+      "injuryType": "Paralysed Side",
+      "description": "One arm and one leg answer slowly. Your speed is halved, you have disadvantage on Strength and Dexterity checks, and you cannot use a shield.",
+      "cure": "Greater Restoration",
+      "duration": "Permanent without the cure.",
+      "notes": ""
+    },
+    {
+      "d100": 18,
+      "category": "Severe injury",
+      "injuryType": "Claw Rot",
+      "description": "The ettercap's claw opened a wound that will not close. Your hit point maximum is reduced by 10 until it is cut back to clean tissue (Treatment, DC 15) and allowed a month.",
+      "cure": "Treatment",
+      "duration": "One month after the treatment; permanent without it.",
+      "notes": ""
+    },
+    {
+      "d100": 19,
+      "category": "Severe injury",
+      "injuryType": "Shaking Venom",
+      "description": "A tremor that never stops. Ranged attack rolls beyond 30 feet are made at disadvantage, and you cannot take the Ready action with a ranged weapon.",
+      "cure": "Greater Restoration",
+      "duration": "Permanent without the cure.",
+      "notes": ""
+    },
+    {
+      "d100": 20,
+      "category": "Severe injury",
+      "injuryType": "Brittle Bones",
+      "description": "The venom leached the bones. You take double damage from falls, and any bludgeoning critical hit against you breaks a limb of the GM's choice, splinted and useless for four weeks.",
+      "cure": "Greater Restoration",
+      "duration": "Permanent without the cure.",
+      "notes": ""
+    },
+    {
+      "d100": 21,
+      "category": "Severe injury",
+      "injuryType": "Silk in the Wound",
+      "description": "A wound sealed over a plug of web. It festers in cycles: disadvantage on Constitution saving throws, and whenever you take poison damage you gain a level of exhaustion.",
+      "cure": "Treatment",
+      "duration": "Two weeks after it is opened and cleaned (DC 15); permanent without.",
+      "notes": ""
+    },
+    {
+      "d100": 22,
+      "category": "Severe injury",
+      "injuryType": "Venom Heart",
+      "description": "The heart took the worst of it. Whenever you would gain one level of exhaustion you gain two, and exhaustion level 5 kills you rather than reducing your speed to 0.",
+      "cure": "Greater Restoration",
+      "duration": "Permanent without the cure.",
+      "notes": ""
+    },
+    {
+      "d100": 23,
+      "category": "Major injury",
+      "injuryType": "Deaf from the Toxin",
+      "description": "The venom reached the inner ear. You are deafened.",
+      "cure": "Lesser Restoration",
+      "duration": "One month without the cure.",
+      "notes": ""
+    },
+    {
+      "d100": 24,
+      "category": "Major injury",
+      "injuryType": "Spit-Blind in One Eye",
+      "description": "Venom in one eye. You are blinded in it: disadvantage on ranged attacks beyond 30 feet and on Wisdom (Perception) checks that rely on sight.",
+      "cure": "Lesser Restoration",
+      "duration": "One month without the cure.",
+      "notes": ""
+    },
+    {
+      "d100": 25,
+      "category": "Major injury",
+      "injuryType": "Fang Through the Palm",
+      "description": "A mandible went clean through the hand. You cannot hold a shield or use a two-handed weapon until it heals.",
+      "cure": "Treatment",
+      "duration": "Three weeks after treatment (DC 13); six without.",
+      "notes": ""
+    },
+    {
+      "d100": 26,
+      "category": "Major injury",
+      "injuryType": "Webbed Shut",
+      "description": "Silk enzyme glued the eyes. You are blinded until the lids are cleaned (Treatment, DC 12, one hour), and have disadvantage on sight-based Wisdom (Perception) checks for two weeks after.",
+      "cure": "Treatment",
+      "duration": "Two weeks after the cleaning.",
+      "notes": ""
+    },
+    {
+      "d100": 27,
+      "category": "Major injury",
+      "injuryType": "Cramping Venom",
+      "description": "Muscle cramps in waves. Your speed is reduced by 10 feet and you have disadvantage on Strength (Athletics) checks.",
+      "cure": "Lesser Restoration",
+      "duration": "Two weeks without the cure.",
+      "notes": ""
+    },
+    {
+      "d100": 28,
+      "category": "Major injury",
+      "injuryType": "Bitten Calf",
+      "description": "The calf is swollen hard. Your speed is reduced by 5 feet and you cannot take the Dash action.",
+      "cure": "Treatment",
+      "duration": "Two weeks after treatment (DC 12); four without.",
+      "notes": ""
+    },
+    {
+      "d100": 29,
+      "category": "Major injury",
+      "injuryType": "Pierced Cheek",
+      "description": "A fang went through the cheek. Spells with a verbal component fail on a natural 1 on any d20 you roll for them, and you have disadvantage on Charisma (Performance) checks.",
+      "cure": "Treatment",
+      "duration": "Three weeks.",
+      "notes": ""
+    },
+    {
+      "d100": 30,
+      "category": "Major injury",
+      "injuryType": "The Venom Dreams",
+      "description": "Hallucinations whenever you sleep. A long rest restores only half your Hit Dice, and you cannot benefit from Trance or similar.",
+      "cure": "Lesser Restoration",
+      "duration": "Two weeks without the cure.",
+      "notes": ""
+    },
+    {
+      "d100": 31,
+      "category": "Major injury",
+      "injuryType": "Swollen Joint",
+      "description": "A bitten elbow or knee swollen stiff and bound. Your Armour Class is reduced by 2 while it is bound.",
+      "cure": "Rest",
+      "duration": "Three weeks.",
+      "notes": ""
+    },
+    {
+      "d100": 32,
+      "category": "Major injury",
+      "injuryType": "Spider Rash",
+      "description": "Hives across the whole body. Disadvantage on Constitution saving throws and on Dexterity (Stealth) checks, because you scratch.",
+      "cure": "Lesser Restoration",
+      "duration": "Ten days without the cure.",
+      "notes": ""
+    },
+    {
+      "d100": 33,
+      "category": "Major injury",
+      "injuryType": "Bleeding Gums",
+      "description": "The anticoagulant is still in you. Each time you take piercing or slashing damage you take a further 1 damage at the end of each of your turns until you receive any healing.",
+      "cure": "Lesser Restoration",
+      "duration": "Two weeks without the cure.",
+      "notes": ""
+    },
+    {
+      "d100": 34,
+      "category": "Major injury",
+      "injuryType": "Lame from the Bite",
+      "description": "A bitten foot you cannot put weight on. You cannot move more than 20 feet on your turn.",
+      "cure": "Treatment",
+      "duration": "Two weeks after treatment (DC 12); four without.",
+      "notes": ""
+    },
+    {
+      "d100": 35,
+      "category": "Major injury",
+      "injuryType": "Weak Grip",
+      "description": "Venom in the forearm. You have disadvantage on checks to grapple or to escape a grapple, and on attack rolls with heavy weapons.",
+      "cure": "Rest",
+      "duration": "Three weeks.",
+      "notes": ""
+    },
+    {
+      "d100": 36,
+      "category": "Major injury",
+      "injuryType": "Venom Fog",
+      "description": "The mind is slow. Disadvantage on Intelligence and Wisdom checks, and you cannot change your prepared spells.",
+      "cure": "Lesser Restoration",
+      "duration": "Three weeks without the cure.",
+      "notes": ""
+    },
+    {
+      "d100": 37,
+      "category": "Major injury",
+      "injuryType": "Cold Sweats",
+      "description": "The venom left the nerves raw. Disadvantage on saving throws against being frightened and on Constitution saves to maintain concentration.",
+      "cure": "Lesser Restoration",
+      "duration": "Two weeks without the cure.",
+      "notes": ""
+    },
+    {
+      "d100": 38,
+      "category": "Major injury",
+      "injuryType": "Burst Vessels",
+      "description": "Venom burst the vessels in both eyes. Beyond 60 feet everything is a smear: ranged attacks beyond 30 feet are at disadvantage.",
+      "cure": "Rest",
+      "duration": "Three weeks.",
+      "notes": ""
+    },
+    {
+      "d100": 39,
+      "category": "Injury",
+      "injuryType": "Swollen Tongue",
+      "description": "You slur. Disadvantage on Charisma (Deception) and (Persuasion) checks.",
+      "cure": "Rest",
+      "duration": "Ten days.",
+      "notes": ""
+    },
+    {
+      "d100": 40,
+      "category": "Injury",
+      "injuryType": "Bite Fever",
+      "description": "One level of exhaustion that no rest removes until the fever breaks.",
+      "cure": "Lesser Restoration",
+      "duration": "Ten days without the cure.",
+      "notes": ""
+    },
+    {
+      "d100": 41,
+      "category": "Injury",
+      "injuryType": "Pins and Needles",
+      "description": "The bitten hand buzzes. Disadvantage on Dexterity (Sleight of Hand) checks and on checks with thieves' tools.",
+      "cure": "Rest",
+      "duration": "Two weeks.",
+      "notes": ""
+    },
+    {
+      "d100": 42,
+      "category": "Injury",
+      "injuryType": "Weeping Punctures",
+      "description": "Two fang holes that will not stay closed. Disadvantage on Constitution saving throws against disease.",
+      "cure": "Treatment",
+      "duration": "Two weeks after treatment (DC 10); a month without.",
+      "notes": ""
+    },
+    {
+      "d100": 43,
+      "category": "Injury",
+      "injuryType": "Sensitised",
+      "description": "The venom primed you for the next one. Any poison damage you take is increased by 1d4.",
+      "cure": "Lesser Restoration",
+      "duration": "Two weeks without the cure.",
+      "notes": ""
+    },
+    {
+      "d100": 44,
+      "category": "Injury",
+      "injuryType": "Web Burn",
+      "description": "Silk friction burn the length of the forearm. Disadvantage on ability checks that use that arm.",
+      "cure": "Rest",
+      "duration": "Ten days.",
+      "notes": ""
+    },
+    {
+      "d100": 45,
+      "category": "Injury",
+      "injuryType": "Twisted in the Web",
+      "description": "You wrenched your back fighting the silk. Wearing heavy armour for a day costs a level of exhaustion.",
+      "cure": "Rest",
+      "duration": "Two weeks.",
+      "notes": ""
+    },
+    {
+      "d100": 46,
+      "category": "Injury",
+      "injuryType": "Venom Migraine",
+      "description": "Bright light splits the head. You have disadvantage on attack rolls while in bright light.",
+      "cure": "Rest",
+      "duration": "Two weeks.",
+      "notes": ""
+    },
+    {
+      "d100": 47,
+      "category": "Injury",
+      "injuryType": "Stung Eyelid",
+      "description": "One eye swollen shut. Disadvantage on sight-based Wisdom (Perception) checks and on ranged attack rolls.",
+      "cure": "Rest",
+      "duration": "One week.",
+      "notes": ""
+    },
+    {
+      "d100": 48,
+      "category": "Injury",
+      "injuryType": "Crushed Wind",
+      "description": "The ettercap's grip bruised everything under the ribs. Your hit point maximum is reduced by 5.",
+      "cure": "Rest",
+      "duration": "Two weeks.",
+      "notes": ""
+    },
+    {
+      "d100": 49,
+      "category": "Injury",
+      "injuryType": "Hung Too Long",
+      "description": "Stiff from hanging in the web. Disadvantage on initiative rolls.",
+      "cure": "Rest",
+      "duration": "One week.",
+      "notes": ""
+    },
+    {
+      "d100": 50,
+      "category": "Injury",
+      "injuryType": "Lingering Poison",
+      "description": "Your body does not clear it. Any poisoned condition you suffer lasts twice as long.",
+      "cure": "Lesser Restoration",
+      "duration": "Two weeks without the cure.",
+      "notes": ""
+    },
+    {
+      "d100": 51,
+      "category": "Injury",
+      "injuryType": "Bitten Wrist",
+      "description": "The drawing wrist. Ranged weapon attack rolls are made at disadvantage.",
+      "cure": "Treatment",
+      "duration": "Two weeks after treatment (DC 12); four without.",
+      "notes": ""
+    },
+    {
+      "d100": 52,
+      "category": "Injury",
+      "injuryType": "Milky Vision",
+      "description": "The venom washed the colour out. You cannot distinguish colours, and have disadvantage on Intelligence (Investigation) checks that depend on sight.",
+      "cure": "Lesser Restoration",
+      "duration": "Two weeks without the cure.",
+      "notes": ""
+    },
+    {
+      "d100": 53,
+      "category": "Injury",
+      "injuryType": "Toxin Tremor",
+      "description": "A fine shake in the legs. Disadvantage on Dexterity saving throws.",
+      "cure": "Lesser Restoration",
+      "duration": "Two weeks without the cure.",
+      "notes": ""
+    },
+    {
+      "d100": 54,
+      "category": "Injury",
+      "injuryType": "Spider Cough",
+      "description": "Silk in the chest. You cannot hold your breath, and you have disadvantage on Dexterity (Stealth) checks because of the coughing.",
+      "cure": "Treatment",
+      "duration": "Two weeks after treatment (DC 12); four without.",
+      "notes": ""
+    },
+    {
+      "d100": 55,
+      "category": "Injury",
+      "injuryType": "Blister on the Sole",
+      "description": "A bite under the foot. Your speed is reduced by 5 feet.",
+      "cure": "Rest",
+      "duration": "One week.",
+      "notes": ""
+    },
+    {
+      "d100": 56,
+      "category": "Injury",
+      "injuryType": "Venom Shock",
+      "description": "The body remembers the first bite. You have disadvantage on your first attack roll in each combat.",
+      "cure": "Rest",
+      "duration": "Two weeks.",
+      "notes": ""
+    },
+    {
+      "d100": 57,
+      "category": "Minor injury",
+      "injuryType": "Two Small Holes",
+      "description": "A clean bite that needs cleaning daily: a DC 8 Wisdom (Medicine) check each morning, or it becomes Weeping Punctures (42).",
+      "cure": "Rest",
+      "duration": "One week.",
+      "notes": ""
+    },
+    {
+      "d100": 58,
+      "category": "Minor injury",
+      "injuryType": "Sticky",
+      "description": "Silk residue in your hair and clothes. Disadvantage on Dexterity (Stealth) checks until you get an hour, hot water and soap.",
+      "cure": "Rest",
+      "duration": "One day — or one bath.",
+      "notes": ""
+    },
+    {
+      "d100": 59,
+      "category": "Minor injury",
+      "injuryType": "The Itch",
+      "description": "The bite itches without pause. Disadvantage on Constitution saves to maintain concentration.",
+      "cure": "Rest",
+      "duration": "Three days.",
+      "notes": ""
+    },
+    {
+      "d100": 60,
+      "category": "Minor injury",
+      "injuryType": "Swollen Lip",
+      "description": "Bitten on the mouth. Disadvantage on Charisma (Performance) checks.",
+      "cure": "Rest",
+      "duration": "Five days.",
+      "notes": ""
+    },
+    {
+      "d100": 61,
+      "category": "Minor injury",
+      "injuryType": "Numb Toe",
+      "description": "A toe you cannot feel. Disadvantage on Dexterity (Acrobatics) checks.",
+      "cure": "Rest",
+      "duration": "One week.",
+      "notes": ""
+    },
+    {
+      "d100": 62,
+      "category": "Minor injury",
+      "injuryType": "Urticating Hairs",
+      "description": "Spider hairs in the skin of the hands. Disadvantage on Dexterity (Sleight of Hand) checks.",
+      "cure": "Rest",
+      "duration": "Four days.",
+      "notes": ""
+    },
+    {
+      "d100": 63,
+      "category": "Minor injury",
+      "injuryType": "Web in the Ear",
+      "description": "A plug of silk in one ear. Disadvantage on hearing-based Wisdom (Perception) checks until it is flushed (Treatment, DC 8).",
+      "cure": "Treatment",
+      "duration": "Ten minutes with a healer; a week without.",
+      "notes": ""
+    },
+    {
+      "d100": 64,
+      "category": "Minor injury",
+      "injuryType": "Pricked Thumb",
+      "description": "A fang caught the thumb. Disadvantage on checks with thieves' tools.",
+      "cure": "Rest",
+      "duration": "One week.",
+      "notes": ""
+    },
+    {
+      "d100": 65,
+      "category": "Minor injury",
+      "injuryType": "Venom Nausea",
+      "description": "Nothing stays down. Any potion you drink in the next day has a 50 percent chance to come back up with no effect.",
+      "cure": "Rest",
+      "duration": "One day.",
+      "notes": ""
+    },
+    {
+      "d100": 66,
+      "category": "Minor injury",
+      "injuryType": "Silk-Burned Palm",
+      "description": "The web took the skin off your palm. Climbing costs you triple movement instead of double.",
+      "cure": "Rest",
+      "duration": "One week.",
+      "notes": ""
+    },
+    {
+      "d100": 67,
+      "category": "Minor injury",
+      "injuryType": "Fang Nick",
+      "description": "A nick on the neck that will scar small. You take 1 extra damage from the next poison effect that hits you.",
+      "cure": "Rest",
+      "duration": "One week.",
+      "notes": ""
+    },
+    {
+      "d100": 68,
+      "category": "Minor injury",
+      "injuryType": "Groggy",
+      "description": "The last of the venom. Disadvantage on initiative rolls.",
+      "cure": "Rest",
+      "duration": "Three days.",
+      "notes": ""
+    },
+    {
+      "d100": 69,
+      "category": "Minor injury",
+      "injuryType": "Web Welt",
+      "description": "A welt across the eyes where the strand hit. Disadvantage on sight-based Wisdom (Perception) checks.",
+      "cure": "Rest",
+      "duration": "Two days.",
+      "notes": ""
+    },
+    {
+      "d100": 70,
+      "category": "Minor injury",
+      "injuryType": "A Spider in the Boot",
+      "description": "Nothing lasting. You check every boot before you put it on for the rest of your life.",
+      "cure": "Rest",
+      "duration": "None.",
+      "notes": ""
+    },
+    {
+      "d100": 71,
+      "category": "Facial scarring",
+      "injuryType": "Fang Marks on the Cheek",
+      "description": "Two puckered holes under the cheekbone. Advantage on Charisma (Intimidation) checks against anyone who has seen an ettercap; disadvantage on Charisma (Persuasion) checks with children.",
+      "cure": "Regenerate",
+      "duration": "Permanent.",
+      "notes": ""
+    },
+    {
+      "d100": 72,
+      "category": "Facial scarring",
+      "injuryType": "Venom-Black Lips",
+      "description": "The lips stayed dark. Strangers assume poisoner: disadvantage on Charisma (Persuasion) checks with merchants and guards who do not know you.",
+      "cure": "Regenerate",
+      "duration": "Permanent.",
+      "notes": ""
+    },
+    {
+      "d100": 73,
+      "category": "Facial scarring",
+      "injuryType": "Spit-Scarred Eye",
+      "description": "The eye clouded white but sees. Advantage on Charisma (Intimidation) checks; disadvantage on Charisma (Deception) checks, because everyone looks at the eye.",
+      "cure": "Regenerate",
+      "duration": "Permanent.",
+      "notes": ""
+    },
+    {
+      "d100": 74,
+      "category": "Facial scarring",
+      "injuryType": "The Web Line",
+      "description": "A thin white line where a strand cut across the face. Cosmetic. People trace it with their eyes while you talk.",
+      "cure": "Regenerate",
+      "duration": "Permanent.",
+      "notes": ""
+    },
+    {
+      "d100": 75,
+      "category": "Facial scarring",
+      "injuryType": "Swollen Forever",
+      "description": "One cheek never went down. Disadvantage on Charisma (Performance) checks.",
+      "cure": "Regenerate",
+      "duration": "Permanent.",
+      "notes": ""
+    },
+    {
+      "d100": 76,
+      "category": "Memorable scars",
+      "injuryType": "Fang Holes in the Shoulder",
+      "description": "Two deep dimples that show through a thin shirt. Cosmetic.",
+      "cure": "Regenerate",
+      "duration": "Permanent.",
+      "notes": ""
+    },
+    {
+      "d100": 77,
+      "category": "Memorable scars",
+      "injuryType": "Silk-Bleached Patch",
+      "description": "A patch of skin across the back bleached white in the pattern of the web. Cosmetic, and unmistakable.",
+      "cure": "Regenerate",
+      "duration": "Permanent.",
+      "notes": ""
+    },
+    {
+      "d100": 78,
+      "category": "Memorable scars",
+      "injuryType": "The Necrosis Map",
+      "description": "A black-edged scar where the rot was cut out before it spread. Healers recognise the work; so do people who have buried someone it was not cut out of.",
+      "cure": "Regenerate",
+      "duration": "Permanent.",
+      "notes": ""
+    },
+    {
+      "d100": 79,
+      "category": "Severe mental trauma",
+      "injuryType": "Arachnophobia, Clinical",
+      "description": "You are frightened of any spider larger than a hand while it is within 30 feet of you, unless you succeed on a DC 15 Wisdom saving throw at the start of your turn.",
+      "cure": "Greater Restoration",
+      "duration": "Months — or a season of care.",
+      "notes": ""
+    },
+    {
+      "d100": 80,
+      "category": "Severe mental trauma",
+      "injuryType": "Buried in Silk",
+      "description": "The cocoon stays with you. You cannot enter a space narrower than 5 feet without a DC 13 Wisdom saving throw or be frightened until you leave it.",
+      "cure": "Greater Restoration",
+      "duration": "Months — or a season of care.",
+      "notes": ""
+    },
+    {
+      "d100": 81,
+      "category": "Mental trauma",
+      "injuryType": "The Tickle",
+      "description": "You feel webs on your skin that are not there. Disadvantage on Dexterity (Stealth) checks: you keep brushing them off.",
+      "cure": "Greater Restoration",
+      "duration": "Months — or a season of care.",
+      "notes": ""
+    },
+    {
+      "d100": 82,
+      "category": "Mental trauma",
+      "injuryType": "Count the Legs",
+      "description": "You check every corner before you enter. Disadvantage on initiative rolls in enclosed spaces.",
+      "cure": "Greater Restoration",
+      "duration": "Months — or a season of care.",
+      "notes": ""
+    },
+    {
+      "d100": 83,
+      "category": "Mental trauma",
+      "injuryType": "Web Dreams",
+      "description": "Forests are not restful. A long rest taken under trees restores only half your Hit Dice.",
+      "cure": "Greater Restoration",
+      "duration": "Months — or a season of care.",
+      "notes": ""
+    },
+    {
+      "d100": 84,
+      "category": "Mental trauma",
+      "injuryType": "Fang Flinch",
+      "description": "Disadvantage on saving throws against being frightened by a beast or monstrosity.",
+      "cure": "Greater Restoration",
+      "duration": "Months — or a season of care.",
+      "notes": ""
+    },
+    {
+      "d100": 85,
+      "category": "Mental trauma",
+      "injuryType": "Sleep with a Blade",
+      "description": "You sleep badly. On each long rest roll a d6: on a 1 you gain no benefit from it.",
+      "cure": "Greater Restoration",
+      "duration": "Months — or a season of care.",
+      "notes": ""
+    },
+    {
+      "d100": 86,
+      "category": "Mental trauma",
+      "injuryType": "Cannot Be Held",
+      "description": "Being grappled is being wrapped. While grappled you are also frightened of the creature grappling you.",
+      "cure": "Greater Restoration",
+      "duration": "Months — or a season of care.",
+      "notes": ""
+    },
+    {
+      "d100": 87,
+      "category": "Flavour effect",
+      "injuryType": "Spider Sense",
+      "description": "The hair on your arms rises when there is a web within 30 feet. No rule attaches; the GM may give you a hint a round early.",
+      "cure": "Remove Curse",
+      "duration": "Permanent — if you wanted it gone.",
+      "notes": ""
+    },
+    {
+      "d100": 88,
+      "category": "Flavour effect",
+      "injuryType": "The Bite Pattern",
+      "description": "The bite healed in a ring of pale dots that grove-folk and ettercap hunters recognise on sight. They treat you as one of theirs, which is not always a compliment.",
+      "cure": "Remove Curse",
+      "duration": "Permanent.",
+      "notes": ""
+    },
+    {
+      "d100": 89,
+      "category": "Special effect",
+      "injuryType": "The Venom Stayed",
+      "description": "Once per long rest you can coat a blade in your own blood: the next hit deals an extra 1d4 poison damage. You have disadvantage on saving throws against poison.",
+      "cure": "Remove Curse",
+      "duration": "Permanent without the cure.",
+      "notes": ""
+    },
+    {
+      "d100": 90,
+      "category": "Special effect",
+      "injuryType": "Silk Glands, Minor",
+      "description": "Your sweat is faintly adhesive. Advantage on ability checks made to climb; disadvantage on Dexterity (Sleight of Hand) checks.",
+      "cure": "Remove Curse",
+      "duration": "Permanent without the cure.",
+      "notes": ""
+    },
+    {
+      "d100": 91,
+      "category": "Special effect",
+      "injuryType": "Eight-Eyed Dreams",
+      "description": "You dream what the nearest spider sees. Once a week the GM gives you one true image of a spider-haunted place.",
+      "cure": "Remove Curse",
+      "duration": "Permanent without the cure.",
+      "notes": ""
+    },
+    {
+      "d100": 92,
+      "category": "Special effect",
+      "injuryType": "Ettercap's Whisper",
+      "description": "You understand, but cannot speak, the clicking of ettercaps. They notice you noticing.",
+      "cure": "Remove Curse",
+      "duration": "Permanent without the cure.",
+      "notes": ""
+    },
+    {
+      "d100": 93,
+      "category": "Minor boon",
+      "injuryType": "Antibodies",
+      "description": "The bite that nearly killed you taught your blood something. Advantage on saving throws against poison from beasts and monstrosities.",
+      "cure": "Rest",
+      "duration": "Permanent. Nobody cures this.",
+      "notes": ""
+    },
+    {
+      "d100": 94,
+      "category": "Minor boon",
+      "injuryType": "Clean Bite",
+      "description": "The bite healed clean and fast. The next time you are poisoned, the condition ends at the start of your next turn.",
+      "cure": "Rest",
+      "duration": "Until used.",
+      "notes": ""
+    },
+    {
+      "d100": 95,
+      "category": "Minor boon",
+      "injuryType": "Slips the Web",
+      "description": "Advantage on checks made to escape being restrained by webs, nets or similar.",
+      "cure": "Rest",
+      "duration": "Permanent.",
+      "notes": ""
+    },
+    {
+      "d100": 96,
+      "category": "Minor boon",
+      "injuryType": "The Grove Knows You",
+      "description": "Spiders of animal intelligence do not attack you first if another target is available.",
+      "cure": "Rest",
+      "duration": "Permanent.",
+      "notes": ""
+    },
+    {
+      "d100": 97,
+      "category": "Minor boon",
+      "injuryType": "Silk Sense",
+      "description": "You can always tell by touch whether a web was spun within the last hour.",
+      "cure": "Rest",
+      "duration": "Permanent.",
+      "notes": ""
+    },
+    {
+      "d100": 98,
+      "category": "Survivability",
+      "injuryType": "Venom-Proof",
+      "description": "Resistance to poison damage.",
+      "cure": "Rest",
+      "duration": "Permanent.",
+      "notes": ""
+    },
+    {
+      "d100": 99,
+      "category": "Survivability+",
+      "injuryType": "Molted",
+      "description": "Once, when poison damage would reduce you to 0 hit points, you drop to 1 instead and shed every poison effect on you. Then the row is spent.",
+      "cure": "Rest",
+      "duration": "Until used.",
+      "notes": ""
+    },
+    {
+      "d100": 100,
+      "category": "Survivability+",
+      "injuryType": "The Spider's Share",
+      "description": "You stand up at 1 hit point, and the creature that dropped you takes poison damage equal to your hit point maximum as its own venom turns in its glands.",
+      "cure": "Rest",
+      "duration": "Once.",
+      "notes": "The 1-Up of this table."
+    }
+  ]
+}

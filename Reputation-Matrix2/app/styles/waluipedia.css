@@ -324,6 +324,9 @@ html[data-theme="light"] header.topbar{background:linear-gradient(90deg,rgba(255
 .inj-handoff{margin-top:12px;padding:13px 15px;border-radius:10px;
   background:rgba(241,196,15,.09);border:1px solid rgba(241,196,15,.4)}
 .inj-handoff-t{font-size:13.5px;font-weight:700;color:#ffe08a;margin-bottom:9px}
+.inj-tierpick{margin:4px 0 10px;padding:10px 12px;border-radius:10px;border:1px dashed rgba(255,224,138,.35);background:rgba(255,255,255,.03)}
+.inj-tiers .pill{cursor:pointer;user-select:none}
+.inj-tiers .pill.active{background:#ffe08a;color:#1a1408;border-color:#ffe08a;font-weight:700}
 .inj-kicker{font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
 .inj-result{animation:injIn .3s ease}
 @keyframes injIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}

@@ -22,6 +22,7 @@
 
   var state = {
     sentences: [], effects: [], bands: [], injuries: [],
+    tables: [], tableId: 'permanent_injury_d100', tableCache: {},
     coins: 0, spins: 5, spinning: false,
     sentence: null, consequence: null,
     accepted: false, buffs: {}, log: [],
@@ -39,13 +40,19 @@
   }
 
   function boot() {
-    Promise.all([loadJSON('crimeAndPunishment.json'), loadJSON('injuries.json')])
+    // The registry of tier tables is optional on disk; the default table is not.
+    var registry = loadJSON('injuryTables.json').catch(function () { return null; });
+    Promise.all([loadJSON('crimeAndPunishment.json'), loadJSON('injuries.json'), registry])
       .then(function (res) {
-        var cap = res[0], inj = res[1];
+        var cap = res[0], inj = res[1], reg = res[2];
         state.sentences = cap.sentences || [];
         state.effects = cap.effects || [];
         state.bands = cap.severityBands || [];
         state.injuries = (inj.entries || []).filter(function (e) { return e && e.injuryType; });
+        state.tables = (reg && reg.tables) || [];
+        state.tableId = (reg && reg['default']) || 'permanent_injury_d100';
+        state.tableCache[state.tableId] = inj;
+        renderTierPicker();
         renderReel();
         renderInjuryReel();
         renderFilter();
@@ -114,6 +121,43 @@
     if (c.indexOf('special') > -1 || c.indexOf('flavour') > -1) return '#3498db';
     if (c.indexOf('scar') > -1) return '#d4a853';
     return '#7f8c8d';
+  }
+
+  // ------------------------------------------------------ the tier picker
+  // One drum, several tables. The registry (injuryTables.json) names them and
+  // says when each applies; picking one swaps the rows under the same drum.
+  function renderTierPicker() {
+    var sel = el('capTier');
+    if (!sel) return;
+    if (state.tables.length < 2) { sel.style.display = 'none'; return; }
+    sel.innerHTML = state.tables.map(function (t) {
+      return '<option value="' + esc(t.id) + '"' + (t.id === state.tableId ? ' selected' : '') + '>' +
+        esc((t.icon ? t.icon + ' ' : '') + t.title + ' · ' + t.tier) + '</option>';
+    }).join('');
+    sel.title = tierWhen(state.tableId);
+    sel.onchange = function () { selectTier(sel.value); };
+  }
+  function tierWhen(id) {
+    var t = state.tables.filter(function (x) { return x.id === id; })[0];
+    return t ? t.when : '';
+  }
+  function selectTier(id) {
+    if (state.spinning) { el('capTier').value = state.tableId; return; }
+    var t = state.tables.filter(function (x) { return x.id === id; })[0];
+    if (!t) return;
+    var ready = state.tableCache[id] ? Promise.resolve(state.tableCache[id]) : loadJSON(t.file);
+    ready.then(function (data) {
+      state.tableCache[id] = data;
+      state.tableId = id;
+      state.injuries = (data.entries || []).filter(function (e) { return e && e.injuryType; });
+      state.consequence = null;
+      renderTierPicker();
+      renderInjuryReel();
+      renderFilter();
+      renderTable();
+      paint();
+      log('Tier: ' + t.title + ' — ' + t.when, true);
+    }).catch(function (e) { log('Could not load ' + t.title + ': ' + e.message, true); });
   }
 
   function renderInjuryReel() {

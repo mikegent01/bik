@@ -40,6 +40,7 @@ def main() -> int:
     checks: list[tuple[str, list[str], Path]] = [
         ("local paths", [py, "tools/check-local-paths.py"], ROOT),
         ("injury table", [py, "tools/generate-injury-table.py", "--check"], ROOT),
+        ("injury table tiers", [py, "tools/tests/test-injury-tables.py"], ROOT),
         ("wahbabel data", [py, "tools/build-wahbabel.py", "--check"], ROOT),
         ("duplicate records", [py, "tools/check-duplicates.py"], ROOT),
         ("references", [py, "tools/check-references.py"], ROOT),

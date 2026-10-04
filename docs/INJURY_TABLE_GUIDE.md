@@ -58,6 +58,91 @@ old `tools/dedupe-injury-table.py` repair tool is gone; its repeat guards
 (no duplicate names, no roll numerals, no name family more than twice) live in
 the validator now.
 
+## Tiers — one table per kind of harm
+
+"Roll on the injury table" meant one table until 2026-10-04. Now there is a
+**registry**, `Reputation-Matrix2/data/injuryTables.json`, and each entry on
+it is a full, hand-authored d100 table keyed to the *source* of the harm. The
+Permanent Injury Table stays the default — the generic blade, claw and fall —
+and the tiers sit beside it, not above it:
+
+| id | file | tier | icon | roll it when |
+|---|---|---|---|---|
+| `permanent_injury_d100` | `injuries.json` | Steel & Claw | 🩹 | anything not covered below — the default |
+| `venom_and_web_d100` | `injury-tables/venom-and-web.json` | Venom & Web | 🕷️ | bites, stings, spit, poison, cocoons, anything that dropped you with venom in it (the Skittering Grove) |
+| `fire_and_blast_d100` | `injury-tables/fire-and-blast.json` | Fire & Blast | 🔥 | fire, lava, Bob-omb and powder blasts, lightning spheres, steam, anything that cooked you or threw you |
+
+`planned[]` on the registry lists tiers that are named but **not written**
+(Arcane Backlash & Planar; Falls, Crush & Machines; Mind, Fey & Dread). Nothing
+rolls on a plan; a planned tier becomes real only when its 100 rows exist and
+pass the check.
+
+**What every tier shares with the default**: the same seven fields in the same
+order, the same sixteen bands tiling 1–100, low is worse, row 1 is Death
+(skipped by the handoffs exactly like the default's), row 100 is that tier's
+1-Up analogue ("The Spider's Share", "Phoenix Step"), and the cure ladder —
+tiers carry `"cureLadder": {"inherits": "permanent_injury_d100"}` rather than
+a copy. **What differs** is every row: a tier is not the default with the
+nouns swapped. Venom & Web is about what poison does over time (the itch, the
+numb hand, the cocoon that never quite left the lungs) and what a web does to
+a body that fought it; Fire & Blast is about cauterised stumps, flash-blind
+eyes, blast-deaf ears, the lungful of steam and the shrapnel that stayed.
+
+### How duplicates are stopped
+
+`tools/generate-injury-table.py --check` validates the registry and *every*
+table on it, then runs the **cross-table duplicate guard** over all rows of
+all tables together. It fails the whole check when:
+
+1. an `injuryType` repeats across two tables (case- and punctuation-blind) —
+   the default already owns "Lost Eye", "Scorched Eyes", "Burned Hands",
+   "Infected Bite" and the like, so a tier has to name its version
+   differently *and* mean something different by it;
+2. two rows have identical description text; or
+3. two rows share a mechanic fingerprint — the description with stop-words
+   removed — at a Jaccard overlap of 0.75 or more (rows with fewer than six
+   content words are too short to compare and are skipped). A row that is
+   another row's mechanic with the nouns swapped is a duplicate; rewrite it
+   so it *does* something different, do not just rename it.
+
+The guard also runs within a single table, which is how the default's own
+"Wrenched Knee" was caught repeating "Crushed Toes" and rewritten.
+`tools/tests/test-injury-tables.py` plants each kind of duplicate in an
+in-memory copy and proves the guard reports it, and
+`tools/tests/injury-tiers-live-smoke.mjs` (needs the 8765 static server)
+boots the three readers in jsdom and switches tiers.
+
+### Adding a tier
+
+1. Write `Reputation-Matrix2/data/injury-tables/<slug>.json` by hand: copy the
+   top-level shape of an existing tier (`id` is `<slug>_d100`, `schemaVersion`
+   2, `status: "authored"`, `locked: true`, `bands` identical to the default,
+   `cureLadder: {"inherits": "permanent_injury_d100"}`) and author **exactly
+   100 rows** in band order. Death at 1, the 1-Up analogue at 100.
+2. Add it to `tables[]` in `injuryTables.json` with `id`, `file`, `title`,
+   `tier`, `icon`, `when` (one sentence a GM reads to decide whether this is
+   the table). Remove it from `planned[]` if it was there. The default must
+   stay first.
+3. `python3 tools/generate-injury-table.py --check`. Fix every pair the guard
+   names by rewriting the newer row's mechanic.
+4. No reader needs code: `index.html`, the standalone desk and the Casino all
+   read the registry at runtime and add a chip/option per table.
+
+### Rolling and assigning on a tier
+
+```bash
+python3 tools/generate-injury-table.py --roll --survived --table venom_and_web_d100
+python3 tools/generate-injury-table.py --result 59 --table venom_and_web_d100 --character dan_the_toad
+python3 tools/generate-injury-table.py --list --table fire_and_blast_d100 --band "Lose a limb"
+```
+
+A reference written from a tier names it and uses the tier's slug in its id —
+`{"table": "venom_and_web_d100", "roll": 59, "injuryId": "venom_and_web_059"}`
+— while default-table references keep `injury_NNN`. `injuryPanel` in
+`index.html` resolves the row on whichever table the reference names (lazy-
+loading the tier files the first time one is needed) and tags the entry with
+the tier title.
+
 ## Player surfaces
 
 - **Wario's Casino** — `Reputation-Matrix2/app/pages/crime-and-punishment/crime-and-punishment.html`.
@@ -65,13 +150,19 @@ the validator now.
   roll towards the low (dangerous) end, never guaranteeing anything. The ward
   tab runs death saves; a survivor rolls the table **minus row 1**, because
   the saves already decided they live. The searchable table lives here too.
+  A **Tier** select in the drum label swaps the rows under the same drum;
+  the default is always loaded first and the registry is optional.
 - **`#/injuries`** in `index.html` — the Injury Desk route: death saves, the
   survival handoff (also skips row 1), the full table, and the moved-to-Casino
-  notice for old links.
+  notice for old links. The tier chips ("What did the harm?") sit above the
+  die and on the table tab; the handoff button and the rolled card name the
+  tier when it is not the default. The registry is fetched lazily — it is not
+  in `DATA_FILES`, so a missing registry costs nothing on boot.
 - **Standalone desk** — `Reputation-Matrix2/app/pages/standalone/injury-desk.html`:
   spinner, search, category filter, copyable result, and the assignment
-  command. All three read the JSON at runtime; no rebuild is needed after an
-  edit.
+  command (which carries `--table` on a tier). `#table=<id>` in the URL opens
+  that tier; character pages link to it. All three read the JSON at runtime;
+  no rebuild is needed after an edit.
 
 ## Character integration
 
@@ -104,7 +195,8 @@ renders the panel from the reference (`injuryPanel` in `index.html`).
 `tools/check-all.py` and at both ends of `tools/overnight-run.py`:
 
 ```bash
-python3 tools/generate-injury-table.py --check                 # the whole contract + band summary
+python3 tools/generate-injury-table.py --check                 # registry + every table + the duplicate guard
+python3 tools/generate-injury-table.py --table <id> ...          # any of the below on a tier (default: the registry default)
 python3 tools/generate-injury-table.py --list [--band "Injury"] # d100, category, name, lowest cure
 python3 tools/generate-injury-table.py --roll [--survived]
 python3 tools/generate-injury-table.py --dice 3d100             # repeated rolls; any NdM wraps onto 1-100
@@ -117,11 +209,13 @@ bands that tile 1–100 in order with the single Death band at row 1, exactly
 row's category matching its band, non-empty name/description/cure/duration,
 names unique (case-insensitive) with no roll numerals and no family more than
 twice, descriptions 20–400 characters, cross-references like "(07)"
-resolving, and no row naming the GM.
+resolving, and no row naming the GM — per table — and then the cross-table
+duplicate guard described under *Tiers*. `cureLadder` may be the ladder
+itself (the default) or `{"inherits": "permanent_injury_d100"}` (a tier).
 
 ## Editing the table
 
-Edit `injuries.json` by hand, keep a row's slot (its `d100` is its identity
+Edit `injuries.json` (or a tier file) by hand, keep a row's slot (its `d100` is its identity
 everywhere in the app and in character references), keep the band order, and
 run `--check`. If a row must move bands, update `bands` too. Do not add a
 101st row: the Casino drum, the desk, the tests and the character references

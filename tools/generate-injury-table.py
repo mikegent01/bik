@@ -1,18 +1,23 @@
 #!/usr/bin/env python3
-"""Validate, roll, list and assign the Permanent Injury Table.
+"""Validate, roll, list and assign the injury tables — the Permanent Injury
+Table and every tier on the registry.
 
-`Reputation-Matrix2/data/injuries.json` is hand-authored and locked: exactly
-one hundred d100 rows, worst at 1 and best at 100, in declared category bands.
-The old machine-generated table (343 rows of template repeats, later culled to
-204) was wiped on 2026-10-04; the genkit `injury-table` generator is retired
-and refuses to write a locked table. This tool is the contract's keeper.
+`Reputation-Matrix2/data/injuryTables.json` lists the tables. Each one is
+hand-authored and locked: exactly one hundred d100 rows, worst at 1 and best
+at 100, in the shared category bands. The default table lives in
+`Reputation-Matrix2/data/injuries.json`; the tiers — one per kind of harm
+(Venom & Web, Fire & Blast, …) — live under `data/injury-tables/`. The old
+machine-generated table was wiped on 2026-10-04; the genkit `injury-table`
+generator is retired and refuses to write a locked table. This tool is the
+contract's keeper, and the duplicate guard: no injury name and no mechanic
+may repeat across ANY two tables on the registry.
 
-  python3 tools/generate-injury-table.py --check              # validate the whole table
-  python3 tools/generate-injury-table.py --list [--band "Major injury"]
-  python3 tools/generate-injury-table.py --roll [--survived]  # one d100 (--survived skips row 1)
-  python3 tools/generate-injury-table.py --result 15
+  python3 tools/generate-injury-table.py --check                  # every table + the cross-table guard
+  python3 tools/generate-injury-table.py --list [--table venom_and_web_d100] [--band "Major injury"]
+  python3 tools/generate-injury-table.py --roll [--survived] [--table fire_and_blast_d100]
+  python3 tools/generate-injury-table.py --result 15 --table venom_and_web_d100
   python3 tools/generate-injury-table.py --dice 3d100
-  python3 tools/generate-injury-table.py --result 15 --character luigi [--dry-run]
+  python3 tools/generate-injury-table.py --result 15 --character luigi [--table <id>] [--dry-run]
 """
 from __future__ import annotations
 
@@ -24,8 +29,11 @@ from collections import Counter
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-TABLE = ROOT / "Reputation-Matrix2/data/injuries.json"
-CHARS = ROOT / "Reputation-Matrix2/data/characters.json"
+DATA = ROOT / "Reputation-Matrix2/data"
+TABLE = DATA / "injuries.json"
+REGISTRY = DATA / "injuryTables.json"
+CHARS = DATA / "characters.json"
+DEFAULT_TABLE = "permanent_injury_d100"
 
 ROWS = 100
 FIELDS = ("d100", "category", "injuryType", "description", "cure", "duration", "notes")
@@ -39,6 +47,14 @@ FAMILY_CAP = 2
 PREFIX_CAP = 12
 GM_NAME = re.compile(r"\bmike\b", re.IGNORECASE)
 CROSS_REF = re.compile(r"\((\d{2})\)")
+# The cross-table duplicate guard. A mechanic fingerprint is the description
+# with stop-words removed; two rows whose fingerprints overlap this much are
+# the same row wearing two names, and the whole registry fails.
+FINGERPRINT_STOP = frozenset(
+    "the a an and or of to you your is are in on with for by at it its that this until from be as any one "
+    "each no not have has made make while than then there which who when".split())
+FINGERPRINT_MIN_TOKENS = 6
+FINGERPRINT_JACCARD = 0.75
 
 
 class TableError(SystemExit):
@@ -49,17 +65,66 @@ def _fail(msg: str) -> None:
     raise TableError(f"injury table: {msg}")
 
 
-def load_table() -> dict:
-    """Load and validate the authored table; return its data."""
+def load_registry() -> dict:
+    """Load and shape-check the table registry; return it."""
     try:
-        data = json.loads(TABLE.read_text(encoding="utf-8"))
+        reg = json.loads(REGISTRY.read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError) as exc:
-        _fail(f"could not read {TABLE.name}: {exc}")
+        _fail(f"could not read {REGISTRY.name}: {exc}")
+    tables = reg.get("tables") if isinstance(reg, dict) else None
+    if not isinstance(tables, list) or not tables:
+        _fail("injuryTables.json needs a non-empty tables[] list")
+    ids = [t.get("id") for t in tables]
+    if len(set(ids)) != len(ids):
+        _fail(f"registry table ids repeat: {[i for i, c in Counter(ids).items() if c > 1]}")
+    if reg.get("default") not in ids:
+        _fail(f"registry default {reg.get('default')!r} is not on the list")
+    if ids[0] != reg["default"]:
+        _fail("the default table must be first on the registry")
+    for t in tables:
+        for key in ("id", "file", "title", "tier", "when"):
+            if not isinstance(t.get(key), str) or not t[key].strip():
+                _fail(f"registry row {t.get('id')!r} needs a string {key!r}")
+        if not re.fullmatch(r"[a-z][a-z0-9_]*_d100", t["id"]):
+            _fail(f"registry id {t['id']!r} must be slug_d100")
+        if not (DATA / t["file"]).exists():
+            _fail(f"registry row {t['id']!r} points at a missing file {t['file']!r}")
+        if t.get("status") not in (None, "authored"):
+            _fail(f"registry row {t['id']!r} has status {t['status']!r}; only authored tables are listed — a planned tier goes under planned[]")
+    return reg
+
+
+def table_path(table_id: str | None = None) -> tuple[str, Path]:
+    """Resolve a table id (default: the registry default) to its file."""
+    reg = load_registry()
+    table_id = table_id or reg["default"]
+    for t in reg["tables"]:
+        if t["id"] == table_id:
+            return table_id, DATA / t["file"]
+    _fail(f"unknown table {table_id!r}; registry has {[t['id'] for t in reg['tables']]}")
+
+
+def load_table(table_id: str | None = None, path: Path | None = None) -> dict:
+    """Load and validate one authored table; return its data."""
+    if path is None:
+        table_id, path = table_path(table_id)
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        _fail(f"could not read {path.name}: {exc}")
     if not isinstance(data, dict):
         _fail("top level must be an object")
     for key in TOP_LEVEL:
         if key not in data:
-            _fail(f"missing top-level key {key!r}")
+            _fail(f"{path.name}: missing top-level key {key!r}")
+    if table_id and data.get("id", DEFAULT_TABLE) != table_id:
+        _fail(f"{path.name} says id={data.get('id')!r} but the registry lists it as {table_id!r}")
+    ladder = data["cureLadder"]
+    if isinstance(ladder, dict):
+        if ladder.get("inherits") != DEFAULT_TABLE:
+            _fail(f"{path.name}: cureLadder must be the ladder itself or {{inherits: {DEFAULT_TABLE!r}}}")
+    elif not isinstance(ladder, list) or not ladder:
+        _fail(f"{path.name}: cureLadder must be a non-empty list or an inherits reference")
     if data["schemaVersion"] != 2:
         _fail(f"schemaVersion must be 2, got {data['schemaVersion']!r}")
     if data["status"] != "authored" or data["locked"] is not True:
@@ -143,6 +208,56 @@ def load_table() -> dict:
     return data
 
 
+def fingerprint(text: str) -> frozenset[str]:
+    """The mechanic of a row: its description minus stop-words."""
+    words = re.findall(r"[a-z0-9']+", str(text or "").lower())
+    return frozenset(w for w in words if w not in FINGERPRINT_STOP and len(w) > 2)
+
+
+def norm_name(name: str) -> str:
+    return re.sub(r"[^a-z0-9]+", " ", str(name or "").lower()).strip()
+
+
+def cross_table_guard(tables: dict[str, dict]) -> list[str]:
+    """Names and mechanics may not repeat across any two tables (or within one)."""
+    problems: list[str] = []
+    rows = [(tid, e["d100"], e["injuryType"], e["description"]) for tid, data in tables.items() for e in data["entries"]]
+    seen: dict[str, tuple[str, int]] = {}
+    for tid, n, name, _ in rows:
+        key = norm_name(name)
+        if key in seen and seen[key][0] != tid:
+            problems.append(f"duplicate injury name {name!r}: {seen[key][0]} #{seen[key][1]} and {tid} #{n}")
+        seen.setdefault(key, (tid, n))
+    descs: dict[str, tuple[str, int]] = {}
+    prints = [(tid, n, name, fingerprint(d), " ".join(str(d).lower().split())) for tid, n, name, d in rows]
+    for tid, n, name, fp, d in prints:
+        if d in descs and descs[d] != (tid, n):
+            problems.append(f"identical mechanic text: {descs[d][0]} #{descs[d][1]} and {tid} #{n} ({name!r})")
+        descs.setdefault(d, (tid, n))
+    for i in range(len(prints)):
+        ta, na, nma, fa, _ = prints[i]
+        if len(fa) < FINGERPRINT_MIN_TOKENS:
+            continue
+        for j in range(i + 1, len(prints)):
+            tb, nb, nmb, fb, _ = prints[j]
+            if len(fb) < FINGERPRINT_MIN_TOKENS:
+                continue
+            jac = len(fa & fb) / len(fa | fb)
+            if jac >= FINGERPRINT_JACCARD:
+                problems.append(f"near-duplicate mechanic ({jac:.2f}): {ta} #{na} {nma!r} and {tb} #{nb} {nmb!r}")
+    return problems
+
+
+def check_all() -> tuple[dict, dict[str, dict]]:
+    """Validate the registry, every table on it, and the cross-table guard."""
+    reg = load_registry()
+    tables = {t["id"]: load_table(t["id"], DATA / t["file"]) for t in reg["tables"]}
+    problems = cross_table_guard(tables)
+    if problems:
+        _fail("duplicate guard failed:\n  " + "\n  ".join(problems))
+    return reg, tables
+
+
 def entry_for_roll(data: dict, roll: int) -> dict:
     """Return one validated row for an integer d100 result."""
     if not isinstance(roll, int) or not 1 <= roll <= ROWS:
@@ -181,7 +296,13 @@ def roll_dice(data: dict, spec: str) -> list[int]:
     return [(secrets.randbelow(sides) % ROWS) + 1 for _ in range(count)]
 
 
-def assign(character_id: str, entry: dict, dry_run: bool = False) -> tuple[dict, dict]:
+def injury_ref_id(table_id: str, roll: int) -> str:
+    """`injury_059` on the default table (the pre-registry shape), `venom_and_web_059` on a tier."""
+    prefix = "injury" if table_id == DEFAULT_TABLE else re.sub(r"_d100$", "", table_id)
+    return f"{prefix}_{roll:03d}"
+
+
+def assign(character_id: str, entry: dict, dry_run: bool = False, table_id: str = DEFAULT_TABLE) -> tuple[dict, dict]:
     """Append a compact injury reference to a character, unless --dry-run is used."""
     try:
         characters = json.loads(CHARS.read_text(encoding="utf-8"))
@@ -190,7 +311,7 @@ def assign(character_id: str, entry: dict, dry_run: bool = False) -> tuple[dict,
     character = next((c for c in characters if c.get("id") == character_id), None)
     if not character:
         raise SystemExit(f"unknown character id: {character_id}")
-    ref = {"table": "permanent_injury_d100", "roll": entry["d100"], "injuryId": f"injury_{entry['d100']:03d}", "status": "active"}
+    ref = {"table": table_id, "roll": entry["d100"], "injuryId": injury_ref_id(table_id, entry["d100"]), "status": "active"}
     if not dry_run:
         character.setdefault("injuries", []).append(ref)
         CHARS.write_text(json.dumps(characters, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
@@ -198,7 +319,7 @@ def assign(character_id: str, entry: dict, dry_run: bool = False) -> tuple[dict,
 
 
 def summary(data: dict) -> str:
-    lines = [f"OK: {ROWS} authored injury rows, locked; bands in order"]
+    lines = [f"OK: {data.get('title', 'Permanent Injury Table')} ({data.get('id', DEFAULT_TABLE)}) — {ROWS} authored injury rows, locked; bands in order"]
     for band in data["bands"]:
         lines.append(f"  {band['from']:>3}-{band['to']:<3} {band['category']:<22} {band['to'] - band['from'] + 1:>2} rows")
     return "\n".join(lines)
@@ -225,11 +346,22 @@ def main() -> None:
     parser.add_argument("--result", type=int, help="use a chosen result (1 to 100)")
     parser.add_argument("--character", help="character id to receive the result reference")
     parser.add_argument("--dry-run", action="store_true", help="show an assignment without writing characters.json")
+    parser.add_argument("--table", help=f"table id from injuryTables.json (default: the registry default, {DEFAULT_TABLE})")
     args = parser.parse_args()
-    data = load_table()
     acting = args.roll or args.result or args.dice or args.list
     if args.check or not acting:
-        print(summary(data))
+        reg, tables = check_all()
+        total = sum(len(t["entries"]) for t in tables.values())
+        print(f"OK: {len(tables)} authored injury tables on the registry, {total} rows, no duplicate names or mechanics across tables")
+        for t in reg["tables"]:
+            print(f"  {t['id']:<26} {t['title']:<24} tier: {t['tier']}")
+        if reg.get("planned"):
+            print(f"  planned (not rollable): {', '.join(p['tier'] for p in reg['planned'])}")
+        if not acting:
+            print(summary(tables[args.table or reg["default"]]))
+            return
+    table_id, _path = table_path(args.table)
+    data = load_table(table_id)
     if args.list:
         print(listing(data, args.band))
     if args.dice and (args.roll or args.result):
@@ -240,7 +372,7 @@ def main() -> None:
         print(json.dumps({"dice": args.dice, "rolls": rolls, "entries": entries}, ensure_ascii=False, indent=2))
         if args.character:
             for entry in entries:
-                assign(args.character, entry, dry_run=args.dry_run)
+                assign(args.character, entry, dry_run=args.dry_run, table_id=table_id)
             print(f"{'would assign' if args.dry_run else 'assigned'} {len(entries)} injuries to {args.character}")
     elif args.roll or args.result:
         roll = choose_roll(data, args.result, survived=args.survived)
@@ -248,9 +380,9 @@ def main() -> None:
             entry = entry_for_roll(data, roll)
         except ValueError as exc:
             raise SystemExit(str(exc)) from exc
-        print(json.dumps(entry, ensure_ascii=False, indent=2))
+        print(json.dumps(dict(entry, table=table_id), ensure_ascii=False, indent=2))
         if args.character:
-            character, ref = assign(args.character, entry, dry_run=args.dry_run)
+            character, ref = assign(args.character, entry, dry_run=args.dry_run, table_id=table_id)
             print(f"{'would assign' if args.dry_run else 'assigned'} {character['id']}: {ref['injuryId']} — {entry['injuryType']}")
 
 

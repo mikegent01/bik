@@ -15723,11 +15723,51 @@ function wbToggleInline(id){
    Death saves are the 5e rule, run honestly: three successes stabilise, three
    failures kill, a natural 1 counts as two failures, a natural 20 revives at
    1 HP. Nothing here overrides a GM. */
-let _injState={succ:0,fail:0,log:[],done:null,rolled:null};
+let _injState={succ:0,fail:0,log:[],done:null,rolled:null,tableId:'permanent_injury_d100',tab:'saves'};
 
+/* Tier tables. injuries.json is the default and ships in DATA; the registry
+   (injuryTables.json) and the tier files (data/injury-tables/*.json) are
+   fetched the first time the desk or an injured character's page needs them.
+   Every table is 100 hand-authored rows; tools/generate-injury-table.py
+   --check guarantees no name or mechanic repeats across any two of them. */
+const INJURY_DEFAULT_TABLE='permanent_injury_d100';
+let INJURY_TIERS=null, _injTiersLoading=null;
+function loadInjuryTiers(){
+  if(INJURY_TIERS) return Promise.resolve(INJURY_TIERS);
+  if(_injTiersLoading) return _injTiersLoading;
+  const grab=async(p)=>{ try{ const r=await fetch(pathPrefix+'data/'+p,{cache:'no-cache'}); return r.ok?await r.json():null; }catch(e){ return null; } };
+  _injTiersLoading=(async()=>{
+    const reg=await grab('injuryTables.json');
+    const tables={}; tables[INJURY_DEFAULT_TABLE]=DATA.injuries||{};
+    const list=(reg&&Array.isArray(reg.tables)&&reg.tables.length)?reg.tables:[{id:INJURY_DEFAULT_TABLE,file:'injuries.json',title:'Permanent Injury Table',tier:'Steel & Claw',icon:'🩹',when:'The default table.'}];
+    await Promise.all(list.filter(t=>t.id!==INJURY_DEFAULT_TABLE).map(async t=>{ const d=await grab(t.file); if(d&&Array.isArray(d.entries)) tables[t.id]=d; }));
+    INJURY_TIERS={reg:{default:(reg&&reg.default)||INJURY_DEFAULT_TABLE,tables:list.filter(t=>tables[t.id])},tables};
+    return INJURY_TIERS;
+  })();
+  return _injTiersLoading;
+}
+function injuryTierList(){ return INJURY_TIERS?INJURY_TIERS.reg.tables:[]; }
+function injuryTierMeta(id){ return injuryTierList().find(t=>t.id===id)||null; }
+function injuryTableData(id){
+  id=id||_injState.tableId||INJURY_DEFAULT_TABLE;
+  if(id===INJURY_DEFAULT_TABLE) return DATA.injuries||{};
+  return (INJURY_TIERS&&INJURY_TIERS.tables[id])||null;
+}
 function injuryTable(){
-  const d=DATA.injuries||{};
-  return (d.entries||[]).filter(e=>e&&e.injuryType);
+  const d=injuryTableData();
+  return ((d&&d.entries)||[]).filter(e=>e&&e.injuryType);
+}
+function selectInjuryTier(id){
+  if(!injuryTableData(id)) return;
+  _injState.tableId=id; _injState.rolled=null; _injState.fromSave=false;
+  view_injuries(_injState.tab==='saves'?'saves':'table');
+}
+function injuryTierChips(){
+  const tiers=injuryTierList();
+  if(tiers.length<2) return '';
+  const cur=injuryTierMeta(_injState.tableId)||tiers[0];
+  return `<div class="chips inj-tiers" style="margin-top:10px">${tiers.map(t=>`<span class="pill${t.id===_injState.tableId?' active':''}" style="cursor:pointer" onclick="selectInjuryTier('${esc(t.id)}')" title="${esc(t.when||'')}">${esc(t.icon||'')} ${esc(t.title)} · ${esc(t.tier||'')}</span>`).join('')}</div>
+    <p class="text-muted" style="font-size:12.5px;margin:6px 0 0"><b>${esc(cur.title)}</b> — ${esc(cur.when||'')}</p>`;
 }
 function injuryCategories(){
   const m={};
@@ -15787,7 +15827,7 @@ function rollSurvivalInjury(){
   view_injuries('saves');
   setTimeout(()=>{const n=document.getElementById('injRolled');if(n)n.scrollIntoView({behavior:'smooth',block:'center'});},60);
 }
-function resetDeathSaves(){ _injState={succ:0,fail:0,log:[],done:null,rolled:null,rolling:false,fromSave:false,lastRoll:null}; view_injuries('saves'); }
+function resetDeathSaves(){ _injState={succ:0,fail:0,log:[],done:null,rolled:null,rolling:false,fromSave:false,lastRoll:null,tableId:_injState.tableId||INJURY_DEFAULT_TABLE,tab:'saves'}; view_injuries('saves'); }
 
 function rollInjury(){
   const t=injuryTable();
@@ -15800,11 +15840,14 @@ function rollInjury(){
 
 function view_injuries(tab){
   renderSidebar('injuries');
-  const d=DATA.injuries||{};
+  tab=tab||'saves';
+  _injState.tab=tab;
+  if(!INJURY_TIERS) loadInjuryTiers().then(()=>{ if(String(location.hash||'').startsWith('#/injuries')) view_injuries(_injState.tab); });
+  const d=injuryTableData()||DATA.injuries||{};
   const table=injuryTable();
   const cats=injuryCategories();
-  tab=tab||'saves';
   const S=_injState;
+  const tierMeta=injuryTierMeta(S.tableId);
 
   const pip=(n,on,cls)=>{let h='';for(let i=0;i<3;i++)h+=`<span class="inj-pip ${i<n?('on '+cls):''}"></span>`;return h;};
 
@@ -15817,7 +15860,7 @@ function view_injuries(tab){
     'CONSCIOUS — natural 20. Back up at 1 hit point, and something still gave.'}</div>
     ${survived&&!S.rolled?`<div class="inj-handoff">
       <div class="inj-handoff-t">You lived. Now find out what it cost.</div>
-      <button class="inj-btn" onclick="rollSurvivalInjury()">Roll the permanent injury</button>
+      <button class="inj-btn" onclick="rollSurvivalInjury()">Roll the permanent injury${tierMeta&&tierMeta.id!==INJURY_DEFAULT_TABLE?` · ${esc(tierMeta.title)}`:''}</button>
     </div>`:''}`:'';
 
   const savesTab=`
@@ -15828,6 +15871,7 @@ function view_injuries(tab){
         Three successes and you stabilise; three failures and you do not. A natural 1
         counts as two failures, a natural 20 puts you back up at 1 hit point.
       </p>
+      ${injuryTierChips()?`<div class="inj-tierpick"><div class="text-muted" style="font-size:12px;letter-spacing:.08em;text-transform:uppercase">What did the harm? — pick the injury table before the handoff</div>${injuryTierChips()}</div>`:''}
       <div class="inj-dieWrap">
         <div class="inj-die ${S.rolling?'rolling':''}" id="injDie">${S.lastRoll||'d20'}</div>
       </div>
@@ -15848,7 +15892,7 @@ function view_injuries(tab){
     return `<div class="card inj-result ${injSeverityClass(e.category)}" id="injRolled">
       ${kicker?`<div class="inj-kicker">${esc(kicker)}</div>`:''}
       <div class="inj-d100">d${esc(String(e.d100||'?'))}</div>
-      <div class="inj-cat">${esc(e.category||'')}</div>
+      <div class="inj-cat">${esc(e.category||'')}${tierMeta&&tierMeta.id!==INJURY_DEFAULT_TABLE?` · ${esc(tierMeta.title)}`:''}</div>
       <h3 style="margin:4px 0 8px">${esc(e.injuryType||'')}</h3>
       <p style="font-size:13.5px;line-height:1.6;margin:0">${esc(e.description||'')}</p>
       <div class="inj-cure">Lowest cure: <b>${esc(e.cure||'unrecorded')}</b>${e.duration?` · duration <b>${esc(e.duration)}</b>`:''}</div>
@@ -15857,7 +15901,7 @@ function view_injuries(tab){
   const rolled=S.rolled?`
     <div class="card inj-result ${injSeverityClass(S.rolled.category)}" id="injRolled">
       <div class="inj-d100">d${esc(String(S.rolled.d100||'?'))}</div>
-      <div class="inj-cat">${esc(S.rolled.category||'')}</div>
+      <div class="inj-cat">${esc(S.rolled.category||'')}${tierMeta&&tierMeta.id!==INJURY_DEFAULT_TABLE?` · ${esc(tierMeta.title)}`:''}</div>
       <h3 style="margin:4px 0 8px">${esc(S.rolled.injuryType||'')}</h3>
       <p style="font-size:13.5px;line-height:1.6;margin:0">${esc(S.rolled.description||'')}</p>
       <div class="inj-cure">Lowest cure: <b>${esc(S.rolled.cure||'unrecorded')}</b>${S.rolled.duration?` · duration <b>${esc(S.rolled.duration)}</b>`:''}</div>
@@ -15875,6 +15919,7 @@ function view_injuries(tab){
     <div class="card inj-card">
       <h2 style="margin-top:0">🦴 ${esc(d.title||'Permanent Injury Table')}</h2>
       <p class="text-muted" style="font-size:13px;margin-top:0">${esc(d.description||'')}</p>
+      ${injuryTierChips()}
       <div class="inj-btns"><button class="inj-btn" onclick="rollInjury()">Roll on the table</button></div>
       <div class="chips" style="margin-top:10px">${cats.map(([c,n])=>`<span class="pill ${injSeverityClass(c)}">${esc(c)} · ${n}</span>`).join('')}</div>
     </div>
@@ -15899,7 +15944,7 @@ function view_injuries(tab){
       <b>Hand-authored table.</b> ${table.length} rows, low is worse: 1 is death, the twenties are
       the body never being the same, the fifties heal in weeks, the nineties are the luck of the
       survivor. Every row names its lowest cure. Locked — edit <code>injuries.json</code> by hand and
-      run <code>tools/generate-injury-table.py --check</code>.
+      run <code>tools/generate-injury-table.py --check</code>.${injuryTierList().length>1?` <b>Tiers:</b> ${injuryTierList().length} tables of 100 on the registry (<code>injuryTables.json</code>), each keyed to what did the harm; the check refuses any name or mechanic that repeats across two of them.`:''}
     </div>`:'';
 
   el('content').innerHTML=`
@@ -16055,8 +16100,19 @@ function view_rakashaNews(epArg){
 function injuryPanel(item){
   const refs=Array.isArray(item.injuries)?item.injuries:[];
   if(!refs.length) return '';
-  const entries=(DATA.injuries&&DATA.injuries.entries)||[];
-  const rows=refs.map(ref=>{const e=entries.find(x=>x.d100===Number(ref.roll)); if(!e)return `<li>Unknown injury reference: ${esc(ref.injuryId||ref.roll)}</li>`; return `<li><a href="${pathPrefix}app/pages/standalone/injury-desk.html#injury-${e.d100}"><strong>d100 ${e.d100} · ${esc(e.injuryType)}</strong></a><span class="text-muted"> — ${esc(e.description)} Cure: ${esc(e.cure)} · ${esc(e.duration)}${ref.status&&ref.status!=='active'?` · ${esc(ref.status)}`:''}</span></li>`;}).join('');
+  // A reference names its table (tier); older rows without one are the default.
+  if(!INJURY_TIERS&&refs.some(r=>r.table&&r.table!==INJURY_DEFAULT_TABLE)) loadInjuryTiers().then(()=>{ if(String(location.hash||'').includes(encodeURIComponent(item.id))||String(location.hash||'').includes(item.id)) Router.render(); });
+  const rows=refs.map(ref=>{
+    const tid=ref.table||INJURY_DEFAULT_TABLE;
+    const td=injuryTableData(tid);
+    const entries=(td&&td.entries)||[];
+    const e=entries.find(x=>x.d100===Number(ref.roll));
+    const meta=injuryTierMeta(tid);
+    const tierTag=tid!==INJURY_DEFAULT_TABLE?` <span class="pill" title="${esc((meta&&meta.when)||'')}">${esc((meta&&meta.title)||tid)}</span>`:'';
+    const desk=`${pathPrefix}app/pages/standalone/injury-desk.html#table=${encodeURIComponent(tid)}`;
+    if(!e) return `<li><a href="${desk}"><strong>d100 ${esc(String(ref.roll))}</strong></a>${tierTag}<span class="text-muted"> — ${td?`unknown row ${esc(ref.injuryId||ref.roll)}`:'tier table loading… open the Injury Desk for the row'}</span></li>`;
+    const when=ref.event?` <a href="#/article/${encodeURIComponent(ref.event)}" class="text-muted">(${esc(ref.date||'filed')})</a>`:'';
+    return `<li><a href="${desk}"><strong>d100 ${e.d100} · ${esc(e.injuryType)}</strong></a>${tierTag}<span class="text-muted"> — ${esc(e.description)} Cure: ${esc(e.cure)} · ${esc(e.duration)}${ref.status&&ref.status!=='active'?` · ${esc(ref.status)}`:''}${ref.note?` · ${esc(ref.note)}`:''}</span>${when}</li>`;}).join('');
   return `<section class="event-details-section injury-character-panel"><h4>🩹 Permanent injuries <a class="chip" href="${pathPrefix}app/pages/standalone/injury-desk.html">Open Injury Desk</a></h4><ul>${rows}</ul></section>`;
 }
 /* --- previous / next session nav ------------------------------------------

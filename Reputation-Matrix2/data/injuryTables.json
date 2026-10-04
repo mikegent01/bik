@@ -1,0 +1,51 @@
+{
+  "_README": {
+    "what": "The injury table registry: every hand-authored d100 injury table the archive rolls on, the default first. Each tier is keyed to what did the harm, so its rows can be specific instead of generic.",
+    "contract": "Every table on this list has exactly 100 rows, status 'authored', locked true, the shared band order, and names and mechanics that do not repeat ANY other table on the list. tools/generate-injury-table.py --check validates all of them together and fails on a duplicate name, a near-duplicate description or a repeated mechanic fingerprint across tables.",
+    "how_to_add": "Author a new 100-row file under data/injury-tables/, add a row here, run the check. Generated rows are refused; the schema has no room for a 'temporary' table.",
+    "how_to_roll": "python3 tools/generate-injury-table.py --roll --table venom_and_web_d100 (or --result N --table <id> --character <id>). The Injury Desk, the standalone desk and Wario's Casino read this file and let the reader pick the tier.",
+    "assignment": "A character's injuries[] row records {table, roll, injuryId, status}; the article page resolves the row from the named table. Rows without a table field are the default table (schema before 2026-10-04)."
+  },
+  "schemaVersion": 1,
+  "default": "permanent_injury_d100",
+  "tables": [
+    {
+      "id": "permanent_injury_d100",
+      "file": "injuries.json",
+      "title": "Permanent Injury Table",
+      "tier": "Steel & Claw",
+      "icon": "🩹",
+      "when": "The default. Blades, claws, falls in a fight, blunt force — anything the fiction does not pin on a specific kind of harm. Always applies when nothing else fits."
+    },
+    {
+      "id": "venom_and_web_d100",
+      "file": "injury-tables/venom-and-web.json",
+      "title": "Venom & Web",
+      "tier": "Venom & Web",
+      "icon": "🕷️",
+      "when": "Spiders, ettercaps, snakes, poisoned blades, stings, fey toxins, cocoons and webs — anything that got into the blood or wrapped the body."
+    },
+    {
+      "id": "fire_and_blast_d100",
+      "file": "injury-tables/fire-and-blast.json",
+      "title": "Fire & Blast",
+      "tier": "Fire & Blast",
+      "icon": "🔥",
+      "when": "Fireballs, grenades, muskets at arm's length, lightning, steam, burning groves and explosions — anything that cooked, flashed or threw you."
+    }
+  ],
+  "planned": [
+    {
+      "tier": "Arcane Backlash & Planar",
+      "note": "Wild magic, null cages, planar tears, the Mirror plane, curses. Not authored yet; nothing rolls on a plan."
+    },
+    {
+      "tier": "Falls, Crush & Machines",
+      "note": "Motorbikes, helicopters, airship wrecks, siege engines, claws, heights. Not authored yet."
+    },
+    {
+      "tier": "Mind, Fey & Dread",
+      "note": "Fey bargains, dream duels, the Scorncrow's tree, memory. Not authored yet."
+    }
+  ]
+}

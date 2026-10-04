@@ -634,7 +634,7 @@
       "d100": 53,
       "category": "Injury",
       "injuryType": "Wrenched Knee",
-      "description": "Your speed is reduced by 5 feet and Dexterity (Acrobatics) checks are made at disadvantage.",
+      "description": "The knee gives without warning. You have disadvantage on Dexterity saving throws, and standing up from prone costs all of your movement.",
       "cure": "Rest — three weeks; Lesser Restoration ends it at once.",
       "duration": "Three weeks, or until cured.",
       "notes": ""

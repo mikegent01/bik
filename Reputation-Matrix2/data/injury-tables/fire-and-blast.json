@@ -1,0 +1,1027 @@
+{
+  "_README": {
+    "what": "Fire & Blast: a hand-authored tier of the Permanent Injury Table — one hundred d100 rows for harm done by fire & blast, worst at 1 and best at 100.",
+    "when": "Roll it instead of the Permanent Injury Table when the thing that dropped you was a Fireball, a grenade, a musket at arm's length, lightning, steam, a burning grove or any explosion — anything that cooked, flashed or threw you.",
+    "contract": "Exactly 100 rows, d100 1-100 in order, categories in the shared band order, every injuryType unique within the table AND across every table on the registry (injuryTables.json). `cure` is the LOWEST rung of the shared cure ladder in injuries.json; `duration` is how long it lasts without it. Checked by tools/generate-injury-table.py --check.",
+    "status": "Hand-authored and locked. Edit rows by hand, keep the count at 100, run the check."
+  },
+  "schemaVersion": 2,
+  "id": "fire_and_blast_d100",
+  "title": "Fire & Blast",
+  "tier": "Fire & Blast",
+  "description": "What fire, lightning, powder and pressure leave behind. Low is worse: the bottom is ash, the teens are burned lungs and lost eyes, the middle is weeks of blisters and ringing, the top is a body that learned to stand in it.",
+  "status": "authored",
+  "locked": true,
+  "authoredOn": "2026-10-04",
+  "rules": [
+    "A result is a story consequence, not a replacement for a GM ruling. Reroll or override anything that would ruin the table's fun or a player's night.",
+    "Roll d100 straight. The Injury Desk's death-save handoff and the Casino's survival roll skip row 1 (Death), because the saves already answered that question.",
+    "Low is worse. Rows 1-56 are the price of surviving; 57-70 are a bad week; 71-92 are marks, trauma and oddities; 93-100 are the luck of the survivor.",
+    "The cure listed is the LOWEST rung of the shared ladder (injuries.json cureLadder) that removes the row. Anything stronger works too.",
+    "Pick the tier table by what did the harm. If nothing on the registry fits, the Permanent Injury Table is the default and always applies."
+  ],
+  "bands": [
+    {
+      "from": 1,
+      "to": 1,
+      "category": "Death",
+      "note": "The one row the survival handoff skips."
+    },
+    {
+      "from": 2,
+      "to": 4,
+      "category": "Quicker death",
+      "note": "Alive, and dying on a schedule unless the cure arrives."
+    },
+    {
+      "from": 5,
+      "to": 10,
+      "category": "Lose a limb",
+      "note": "Regenerate or live with it."
+    },
+    {
+      "from": 11,
+      "to": 22,
+      "category": "Severe injury",
+      "note": "The body is not going to be the same."
+    },
+    {
+      "from": 23,
+      "to": 38,
+      "category": "Major injury",
+      "note": "Weeks, a healer, or second-level magic."
+    },
+    {
+      "from": 39,
+      "to": 56,
+      "category": "Injury",
+      "note": "A fortnight of being worse at something."
+    },
+    {
+      "from": 57,
+      "to": 70,
+      "category": "Minor injury",
+      "note": "A bad week."
+    },
+    {
+      "from": 71,
+      "to": 75,
+      "category": "Facial scarring",
+      "note": "People will ask."
+    },
+    {
+      "from": 76,
+      "to": 78,
+      "category": "Memorable scars",
+      "note": "Shirts off, there is a story."
+    },
+    {
+      "from": 79,
+      "to": 80,
+      "category": "Severe mental trauma",
+      "note": "The fear outlasts the wound."
+    },
+    {
+      "from": 81,
+      "to": 86,
+      "category": "Mental trauma",
+      "note": "Months, or a season of care."
+    },
+    {
+      "from": 87,
+      "to": 88,
+      "category": "Flavour effect",
+      "note": "No rule. A detail."
+    },
+    {
+      "from": 89,
+      "to": 92,
+      "category": "Special effect",
+      "note": "Something that should not have happened, did."
+    },
+    {
+      "from": 93,
+      "to": 97,
+      "category": "Minor boon",
+      "note": "The luck of the survivor."
+    },
+    {
+      "from": 98,
+      "to": 98,
+      "category": "Survivability",
+      "note": "The body learned."
+    },
+    {
+      "from": 99,
+      "to": 100,
+      "category": "Survivability+",
+      "note": "The table owes you one."
+    }
+  ],
+  "cureLadder": {
+    "inherits": "permanent_injury_d100",
+    "note": "The ladder is shared: see injuries.json cureLadder. Treatment rows state their Medicine DC inline."
+  },
+  "entries": [
+    {
+      "d100": 1,
+      "category": "Death",
+      "injuryType": "Ash",
+      "description": "There is a shape where you were and nothing in it to raise. Raise Dead needs a body; this needs the other kind of miracle.",
+      "cure": "True Resurrection / a 1-Up Mushroom",
+      "duration": "Permanent.",
+      "notes": "Row 1 is skipped by the death-save handoff."
+    },
+    {
+      "d100": 2,
+      "category": "Quicker death",
+      "injuryType": "Cooked Lungs",
+      "description": "You breathed the fire in. Your hit point maximum is halved and drops by a further 1d6 after every long rest until the cure; at zero you drown on dry land.",
+      "cure": "Heal",
+      "duration": "Weeks at most without the cure.",
+      "notes": ""
+    },
+    {
+      "d100": 3,
+      "category": "Quicker death",
+      "injuryType": "Shrapnel in the Heart",
+      "description": "A fragment is creeping toward the heart. Each time you take a critical hit, make a DC 15 Constitution saving throw or drop to 0 hit points. Surgery (Treatment, DC 20) can take it out; Heal can too.",
+      "cure": "Treatment",
+      "duration": "Until it is out.",
+      "notes": ""
+    },
+    {
+      "d100": 4,
+      "category": "Quicker death",
+      "injuryType": "Third Degree, Everywhere",
+      "description": "Burned over most of the body. You cannot wear armour, your hit point maximum is reduced by 2d10, and you have one level of exhaustion that nothing short of the cure removes.",
+      "cure": "Regenerate",
+      "duration": "Permanent without the cure.",
+      "notes": ""
+    },
+    {
+      "d100": 5,
+      "category": "Lose a limb",
+      "injuryType": "Arm Taken by the Blast, Weapon Side",
+      "description": "The arm you fought with went with the explosion. You have one arm and it is the other one.",
+      "cure": "Regenerate",
+      "duration": "Permanent.",
+      "notes": ""
+    },
+    {
+      "d100": 6,
+      "category": "Lose a limb",
+      "injuryType": "Off Arm Gone to the Fire",
+      "description": "The off arm was burned past saving and taken at the elbow. No shield, no two-handed weapons.",
+      "cure": "Regenerate",
+      "duration": "Permanent.",
+      "notes": ""
+    },
+    {
+      "d100": 7,
+      "category": "Lose a limb",
+      "injuryType": "Hand Blown Off",
+      "description": "You were holding it when it went. You can wield one thing at a time and nothing that needs two hands.",
+      "cure": "Regenerate",
+      "duration": "Permanent.",
+      "notes": ""
+    },
+    {
+      "d100": 8,
+      "category": "Lose a limb",
+      "injuryType": "Leg Taken at the Knee",
+      "description": "Shrapnel opened the leg and the surgeon finished it. Speed 20 feet on a peg; you cannot stand from prone without a hand or an action and a DC 10 Strength check.",
+      "cure": "Regenerate",
+      "duration": "Permanent.",
+      "notes": ""
+    },
+    {
+      "d100": 9,
+      "category": "Lose a limb",
+      "injuryType": "Foot Burned Off",
+      "description": "The foot could not be saved. Your speed is reduced by 10 feet and you have disadvantage on saves against being knocked prone.",
+      "cure": "Regenerate",
+      "duration": "Permanent.",
+      "notes": ""
+    },
+    {
+      "d100": 10,
+      "category": "Lose a limb",
+      "injuryType": "Fingers to the Fuse",
+      "description": "The fuse hand. Lose 1d3 fingers, cauterised as they went, so no bleeding and no feeling in what is left: disadvantage on checks with any tool held in that hand, and you cannot draw a bow.",
+      "cure": "Regenerate",
+      "duration": "Permanent.",
+      "notes": ""
+    },
+    {
+      "d100": 11,
+      "category": "Severe injury",
+      "injuryType": "Flash-Blind",
+      "description": "The flash took the eyes. You are blinded; the eyes are there, so Heal and not Regenerate.",
+      "cure": "Heal",
+      "duration": "Permanent without the cure.",
+      "notes": ""
+    },
+    {
+      "d100": 12,
+      "category": "Severe injury",
+      "injuryType": "Blast-Deaf",
+      "description": "Both eardrums went with the boom and did not come back. You are deafened.",
+      "cure": "Heal",
+      "duration": "Permanent without the cure.",
+      "notes": ""
+    },
+    {
+      "d100": 13,
+      "category": "Severe injury",
+      "injuryType": "Smoke Lungs",
+      "description": "The smoke scarred what the fire did not reach. You cannot take the Dash action twice in one minute, and any further smoke forces a DC 12 Constitution save or you are incapacitated by coughing until the end of your next turn.",
+      "cure": "Greater Restoration",
+      "duration": "Permanent without the cure.",
+      "notes": ""
+    },
+    {
+      "d100": 14,
+      "category": "Severe injury",
+      "injuryType": "Melted Hand",
+      "description": "The fingers fused. You cannot do fine work with that hand, cannot use it for somatic components, and attack rolls with a weapon held in it are at disadvantage.",
+      "cure": "Regenerate",
+      "duration": "Permanent without the cure.",
+      "notes": ""
+    },
+    {
+      "d100": 15,
+      "category": "Severe injury",
+      "injuryType": "Half-Dark",
+      "description": "The flash burned the retinas. You cannot see at all in dim light and treat darkness as magical darkness.",
+      "cure": "Heal",
+      "duration": "Permanent without the cure.",
+      "notes": ""
+    },
+    {
+      "d100": 16,
+      "category": "Severe injury",
+      "injuryType": "Shrapnel Spine",
+      "description": "A fragment sits against the spine. Your speed is halved and you have disadvantage on Dexterity saving throws. Heal will remove it; so will surgery that might kill you.",
+      "cure": "Heal",
+      "duration": "Permanent without the cure.",
+      "notes": ""
+    },
+    {
+      "d100": 17,
+      "category": "Severe injury",
+      "injuryType": "Lightning Heart",
+      "description": "The bolt went through the chest. Whenever you take lightning or thunder damage you must succeed on a DC 12 Constitution save or be stunned until the end of your next turn.",
+      "cure": "Greater Restoration",
+      "duration": "Permanent without the cure.",
+      "notes": ""
+    },
+    {
+      "d100": 18,
+      "category": "Severe injury",
+      "injuryType": "Blast Wall",
+      "description": "The pressure wave caved the ribs. Your hit point maximum is reduced by 10.",
+      "cure": "Heal",
+      "duration": "Permanent without the cure.",
+      "notes": ""
+    },
+    {
+      "d100": 19,
+      "category": "Severe injury",
+      "injuryType": "Burned Airway",
+      "description": "You inhaled flame. You speak only in a whisper and must succeed on a DC 10 Constitution save to cast a spell with a verbal component.",
+      "cure": "Heal",
+      "duration": "Permanent without the cure.",
+      "notes": ""
+    },
+    {
+      "d100": 20,
+      "category": "Severe injury",
+      "injuryType": "Scorched Nerves",
+      "description": "The burns healed; the pain did not. Disadvantage on Constitution saves to maintain concentration.",
+      "cure": "Greater Restoration",
+      "duration": "Permanent without the cure.",
+      "notes": ""
+    },
+    {
+      "d100": 21,
+      "category": "Severe injury",
+      "injuryType": "Fused Knee",
+      "description": "Scar tissue locked the knee straight. Your speed is reduced by 10 feet and you cannot stand from prone without help.",
+      "cure": "Regenerate",
+      "duration": "Permanent without the cure.",
+      "notes": ""
+    },
+    {
+      "d100": 22,
+      "category": "Severe injury",
+      "injuryType": "Powder-Blind in One Eye",
+      "description": "A powder flash burned one eye out. Disadvantage on ranged attacks beyond 30 feet and on sight-based Wisdom (Perception) checks.",
+      "cure": "Regenerate",
+      "duration": "Permanent.",
+      "notes": ""
+    },
+    {
+      "d100": 23,
+      "category": "Major injury",
+      "injuryType": "Concussed by the Blast",
+      "description": "The wave rattled the brain. Disadvantage on Intelligence checks and on Constitution saves to maintain concentration.",
+      "cure": "Rest",
+      "duration": "Four weeks.",
+      "notes": ""
+    },
+    {
+      "d100": 24,
+      "category": "Major injury",
+      "injuryType": "Perforated by the Boom",
+      "description": "Both eardrums burst. You are deafened until they knit.",
+      "cure": "Lesser Restoration",
+      "duration": "One month without the cure.",
+      "notes": ""
+    },
+    {
+      "d100": 25,
+      "category": "Major injury",
+      "injuryType": "Second-Degree Arms",
+      "description": "Both arms blistered to the shoulder. You cannot wear armour heavier than light.",
+      "cure": "Treatment",
+      "duration": "Three weeks after treatment (DC 13); six without.",
+      "notes": ""
+    },
+    {
+      "d100": 26,
+      "category": "Major injury",
+      "injuryType": "Burned Soles",
+      "description": "You ran across it. Your speed is reduced by 10 feet.",
+      "cure": "Treatment",
+      "duration": "Three weeks after treatment (DC 12); six without.",
+      "notes": ""
+    },
+    {
+      "d100": 27,
+      "category": "Major injury",
+      "injuryType": "Shrapnel Shoulder",
+      "description": "A fragment in the joint. Attack rolls with that arm are at disadvantage until it is cut out (Treatment, DC 15) and the wound given two weeks.",
+      "cure": "Treatment",
+      "duration": "Two weeks after the surgery; permanent without it.",
+      "notes": ""
+    },
+    {
+      "d100": 28,
+      "category": "Major injury",
+      "injuryType": "Smoke Poisoning",
+      "description": "One level of exhaustion that no rest removes until the lungs clear.",
+      "cure": "Lesser Restoration",
+      "duration": "Two weeks without the cure.",
+      "notes": ""
+    },
+    {
+      "d100": 29,
+      "category": "Major injury",
+      "injuryType": "Flash Burn Eyes",
+      "description": "Everything past 30 feet is a glare. Disadvantage on sight-based Wisdom (Perception) checks and on ranged attacks beyond 30 feet.",
+      "cure": "Lesser Restoration",
+      "duration": "Two weeks without the cure.",
+      "notes": ""
+    },
+    {
+      "d100": 30,
+      "category": "Major injury",
+      "injuryType": "Cracked Sternum",
+      "description": "The blast cracked the breastbone. You cannot take the Dash action.",
+      "cure": "Treatment",
+      "duration": "Four weeks after treatment (DC 12); eight without.",
+      "notes": ""
+    },
+    {
+      "d100": 31,
+      "category": "Major injury",
+      "injuryType": "Blistered Palms",
+      "description": "Both palms blistered raw. Attack rolls are made at disadvantage, and somatic components fail on a natural 1.",
+      "cure": "Treatment",
+      "duration": "Two weeks after treatment (DC 12); four without.",
+      "notes": ""
+    },
+    {
+      "d100": 32,
+      "category": "Major injury",
+      "injuryType": "Blast Lung",
+      "description": "Pressure injury to the lungs. You cannot hold your breath and have disadvantage on Constitution saving throws.",
+      "cure": "Lesser Restoration",
+      "duration": "Three weeks without the cure.",
+      "notes": ""
+    },
+    {
+      "d100": 33,
+      "category": "Major injury",
+      "injuryType": "Thrown by the Blast",
+      "description": "You landed on your back thirty feet away. Disadvantage on Dexterity saving throws.",
+      "cure": "Rest",
+      "duration": "Three weeks.",
+      "notes": ""
+    },
+    {
+      "d100": 34,
+      "category": "Major injury",
+      "injuryType": "Lightning Arm",
+      "description": "The bolt went down one arm and left it numb under a fern of red scars. Disadvantage on attack rolls and checks with that arm.",
+      "cure": "Lesser Restoration",
+      "duration": "Three weeks without the cure.",
+      "notes": ""
+    },
+    {
+      "d100": 35,
+      "category": "Major injury",
+      "injuryType": "Steam-Scalded Throat",
+      "description": "Boiling steam down the throat. You can only whisper, and spells with a verbal component fail on a natural 1 on any d20 you roll for them.",
+      "cure": "Lesser Restoration",
+      "duration": "Two weeks without the cure.",
+      "notes": ""
+    },
+    {
+      "d100": 36,
+      "category": "Major injury",
+      "injuryType": "Embedded Grit",
+      "description": "Powder grit under the skin that shifts when you move. The first critical hit you take each day deals an extra 1d4 damage as it tears.",
+      "cure": "Treatment",
+      "duration": "Three weeks after it is picked out (DC 14); permanent without.",
+      "notes": ""
+    },
+    {
+      "d100": 37,
+      "category": "Major injury",
+      "injuryType": "Burn Fever",
+      "description": "The burns went bad. Your hit point maximum is reduced by 5 and you have one level of exhaustion.",
+      "cure": "Lesser Restoration",
+      "duration": "Two weeks without the cure.",
+      "notes": ""
+    },
+    {
+      "d100": 38,
+      "category": "Major injury",
+      "injuryType": "Shell-Shaken",
+      "description": "You hear the boom in every silence. Disadvantage on initiative rolls.",
+      "cure": "Rest",
+      "duration": "Three weeks.",
+      "notes": ""
+    },
+    {
+      "d100": 39,
+      "category": "Injury",
+      "injuryType": "Burned Forearm",
+      "description": "A burn the length of the forearm. Disadvantage on Strength (Athletics) checks.",
+      "cure": "Rest",
+      "duration": "Two weeks.",
+      "notes": ""
+    },
+    {
+      "d100": 40,
+      "category": "Injury",
+      "injuryType": "Hot Shrapnel in the Calf",
+      "description": "A fragment in the calf, cauterised on the way in. Your speed is reduced by 5 feet.",
+      "cure": "Treatment",
+      "duration": "Two weeks after treatment (DC 10); a month without.",
+      "notes": ""
+    },
+    {
+      "d100": 41,
+      "category": "Injury",
+      "injuryType": "Blast Headache",
+      "description": "A headache behind the eyes that does not lift. Disadvantage on Constitution saves to maintain concentration.",
+      "cure": "Rest",
+      "duration": "Ten days.",
+      "notes": ""
+    },
+    {
+      "d100": 42,
+      "category": "Injury",
+      "injuryType": "Blistered Feet",
+      "description": "You cannot take the Dash action.",
+      "cure": "Rest",
+      "duration": "Ten days.",
+      "notes": ""
+    },
+    {
+      "d100": 43,
+      "category": "Injury",
+      "injuryType": "Powder-Burned Hands",
+      "description": "Black speckled burns across the backs of both hands. Disadvantage on Dexterity (Sleight of Hand) checks and on checks with any tool.",
+      "cure": "Rest",
+      "duration": "Two weeks.",
+      "notes": ""
+    },
+    {
+      "d100": 44,
+      "category": "Injury",
+      "injuryType": "Smoke Voice",
+      "description": "Hoarse to a rasp. Disadvantage on Charisma (Performance) and (Persuasion) checks.",
+      "cure": "Rest",
+      "duration": "Ten days.",
+      "notes": ""
+    },
+    {
+      "d100": 45,
+      "category": "Injury",
+      "injuryType": "Lightning Numbness",
+      "description": "The fingers do not feel. Disadvantage on Dexterity checks that need fine control.",
+      "cure": "Lesser Restoration",
+      "duration": "Two weeks without the cure.",
+      "notes": ""
+    },
+    {
+      "d100": 46,
+      "category": "Injury",
+      "injuryType": "Spark in the Eye",
+      "description": "A spark burned a spot into one eye. Ranged attack rolls beyond 60 feet are at disadvantage.",
+      "cure": "Rest",
+      "duration": "Two weeks.",
+      "notes": ""
+    },
+    {
+      "d100": 47,
+      "category": "Injury",
+      "injuryType": "Burned Scalp",
+      "description": "You cannot wear a helmet; if your Armour Class counted one, reduce it by 1.",
+      "cure": "Rest",
+      "duration": "Two weeks.",
+      "notes": ""
+    },
+    {
+      "d100": 48,
+      "category": "Injury",
+      "injuryType": "Cracked Teeth",
+      "description": "You clenched when it went off. Eating takes twice as long and you regain one fewer Hit Die from each long rest.",
+      "cure": "Treatment",
+      "duration": "Two weeks after treatment (DC 10); a month without.",
+      "notes": ""
+    },
+    {
+      "d100": 49,
+      "category": "Injury",
+      "injuryType": "Landed Badly",
+      "description": "You came down on the shoulder. Attack rolls with heavy weapons are at disadvantage.",
+      "cure": "Rest",
+      "duration": "Two weeks.",
+      "notes": ""
+    },
+    {
+      "d100": 50,
+      "category": "Injury",
+      "injuryType": "Streaming Eyes",
+      "description": "Smoke-raw eyes that will not stop watering. Disadvantage on sight-based Wisdom (Perception) checks.",
+      "cure": "Rest",
+      "duration": "One week.",
+      "notes": ""
+    },
+    {
+      "d100": 51,
+      "category": "Injury",
+      "injuryType": "Burned Seat",
+      "description": "You sat in it. You cannot ride or sit a saddle.",
+      "cure": "Rest",
+      "duration": "Two weeks.",
+      "notes": ""
+    },
+    {
+      "d100": 52,
+      "category": "Injury",
+      "injuryType": "Fused Buckle",
+      "description": "A belt buckle heated and burned its shape into your hip. Disadvantage on Dexterity (Acrobatics) checks.",
+      "cure": "Rest",
+      "duration": "Two weeks.",
+      "notes": ""
+    },
+    {
+      "d100": 53,
+      "category": "Injury",
+      "injuryType": "Cinder in the Ear",
+      "description": "Disadvantage on hearing-based Wisdom (Perception) checks until it is flushed out (Treatment, DC 10).",
+      "cure": "Treatment",
+      "duration": "Ten minutes with a healer; two weeks without.",
+      "notes": ""
+    },
+    {
+      "d100": 54,
+      "category": "Injury",
+      "injuryType": "Hot Hilt",
+      "description": "Your own weapon's grip branded the palm. Attack rolls with that weapon are at disadvantage.",
+      "cure": "Rest",
+      "duration": "Two weeks.",
+      "notes": ""
+    },
+    {
+      "d100": 55,
+      "category": "Injury",
+      "injuryType": "Blast Bruising",
+      "description": "Bruised from the pressure wave across the whole trunk. Your hit point maximum is reduced by 5.",
+      "cure": "Rest",
+      "duration": "Ten days.",
+      "notes": ""
+    },
+    {
+      "d100": 56,
+      "category": "Injury",
+      "injuryType": "Shock Through the Teeth",
+      "description": "The lightning left you jumpy. Disadvantage on saving throws against being stunned.",
+      "cure": "Lesser Restoration",
+      "duration": "Two weeks without the cure.",
+      "notes": ""
+    },
+    {
+      "d100": 57,
+      "category": "Minor injury",
+      "injuryType": "Hair Gone",
+      "description": "Eyebrows, lashes and most of the hair burned off. Disadvantage on Charisma (Persuasion) checks with strangers, who cannot stop staring.",
+      "cure": "Rest",
+      "duration": "One week, then it grows.",
+      "notes": ""
+    },
+    {
+      "d100": 58,
+      "category": "Minor injury",
+      "injuryType": "Soot Lungs",
+      "description": "A cough you cannot suppress. Disadvantage on Dexterity (Stealth) checks.",
+      "cure": "Rest",
+      "duration": "Three days.",
+      "notes": ""
+    },
+    {
+      "d100": 59,
+      "category": "Minor injury",
+      "injuryType": "Powder Specks",
+      "description": "Grey specks of unburnt powder under the skin of the face. Cosmetic; a week of itching. See 88 if they never fade.",
+      "cure": "Rest",
+      "duration": "One week.",
+      "notes": ""
+    },
+    {
+      "d100": 60,
+      "category": "Minor injury",
+      "injuryType": "Warm Hilt",
+      "description": "The grip is still too hot to hold properly. A minus 1 penalty on attack rolls with your main weapon.",
+      "cure": "Rest",
+      "duration": "Three days.",
+      "notes": ""
+    },
+    {
+      "d100": 61,
+      "category": "Minor injury",
+      "injuryType": "Ear Pop",
+      "description": "Disadvantage on hearing-based Wisdom (Perception) checks.",
+      "cure": "Rest",
+      "duration": "Two days.",
+      "notes": ""
+    },
+    {
+      "d100": 62,
+      "category": "Minor injury",
+      "injuryType": "Blistered Trigger Finger",
+      "description": "Attack rolls with firearms and crossbows are at disadvantage.",
+      "cure": "Rest",
+      "duration": "Five days.",
+      "notes": ""
+    },
+    {
+      "d100": 63,
+      "category": "Minor injury",
+      "injuryType": "Smoke Headache",
+      "description": "Disadvantage on Intelligence checks.",
+      "cure": "Rest",
+      "duration": "Two days.",
+      "notes": ""
+    },
+    {
+      "d100": 64,
+      "category": "Minor injury",
+      "injuryType": "Red Face",
+      "description": "A flash burn across the face. Disadvantage on Charisma (Deception) checks; you look guilty of something.",
+      "cure": "Rest",
+      "duration": "Four days.",
+      "notes": ""
+    },
+    {
+      "d100": 65,
+      "category": "Minor injury",
+      "injuryType": "Blistered Lip",
+      "description": "Spells with a verbal component fail on a natural 1 on any d20 you roll for them.",
+      "cure": "Rest",
+      "duration": "Three days.",
+      "notes": ""
+    },
+    {
+      "d100": 66,
+      "category": "Minor injury",
+      "injuryType": "Static",
+      "description": "The lightning left you charged. Your hair stands up and your clothes crackle: disadvantage on Dexterity (Stealth) checks.",
+      "cure": "Rest",
+      "duration": "Two days.",
+      "notes": ""
+    },
+    {
+      "d100": 67,
+      "category": "Minor injury",
+      "injuryType": "Powder in the Eye",
+      "description": "Disadvantage on sight-based Wisdom (Perception) checks.",
+      "cure": "Rest",
+      "duration": "One day.",
+      "notes": ""
+    },
+    {
+      "d100": 68,
+      "category": "Minor injury",
+      "injuryType": "Scorched Sleeve, Scorched Arm",
+      "description": "Disadvantage on Strength (Athletics) checks with that arm.",
+      "cure": "Rest",
+      "duration": "Four days.",
+      "notes": ""
+    },
+    {
+      "d100": 69,
+      "category": "Minor injury",
+      "injuryType": "Flash Spots",
+      "description": "Spots in your vision. Disadvantage on initiative rolls.",
+      "cure": "Rest",
+      "duration": "One day.",
+      "notes": ""
+    },
+    {
+      "d100": 70,
+      "category": "Minor injury",
+      "injuryType": "Smells of Smoke",
+      "description": "Nothing lasting. Beasts with keen smell notice you first for a week, and so does everyone in a tavern.",
+      "cure": "Rest",
+      "duration": "One week.",
+      "notes": ""
+    },
+    {
+      "d100": 71,
+      "category": "Facial scarring",
+      "injuryType": "Burn Across the Jaw",
+      "description": "A tight shiny burn scar along the jawline. Advantage on Charisma (Intimidation) checks against anyone who has stood near a fire they did not light.",
+      "cure": "Regenerate",
+      "duration": "Permanent.",
+      "notes": ""
+    },
+    {
+      "d100": 72,
+      "category": "Facial scarring",
+      "injuryType": "The Fireball's Kiss",
+      "description": "A blast-shaped scar, pale centre and ragged edge, across one side of the face. Cosmetic. People who know the spell know what made it.",
+      "cure": "Regenerate",
+      "duration": "Permanent.",
+      "notes": ""
+    },
+    {
+      "d100": 73,
+      "category": "Facial scarring",
+      "injuryType": "Eyebrows Gone for Good",
+      "description": "They did not grow back. Disadvantage on Charisma (Deception) checks: your face reads wrong.",
+      "cure": "Regenerate",
+      "duration": "Permanent.",
+      "notes": ""
+    },
+    {
+      "d100": 74,
+      "category": "Facial scarring",
+      "injuryType": "Melted Ear",
+      "description": "One ear a knot of scar. Cosmetic; disadvantage on hearing-based Wisdom (Perception) checks on that side.",
+      "cure": "Regenerate",
+      "duration": "Permanent.",
+      "notes": ""
+    },
+    {
+      "d100": 75,
+      "category": "Facial scarring",
+      "injuryType": "Lightning Fern",
+      "description": "A fern of fine red branching lines across the cheek and neck where the bolt left. Cosmetic, and the kind of thing people reach out to touch.",
+      "cure": "Regenerate",
+      "duration": "Permanent.",
+      "notes": ""
+    },
+    {
+      "d100": 76,
+      "category": "Memorable scars",
+      "injuryType": "Shrapnel Constellation",
+      "description": "A scatter of small white scars across the chest where the fragments were picked out. Cosmetic.",
+      "cure": "Regenerate",
+      "duration": "Permanent.",
+      "notes": ""
+    },
+    {
+      "d100": 77,
+      "category": "Memorable scars",
+      "injuryType": "The Back That Took It",
+      "description": "The whole back is burn scar from the blast you turned away from. Cosmetic; shirts off, nobody asks twice.",
+      "cure": "Regenerate",
+      "duration": "Permanent.",
+      "notes": ""
+    },
+    {
+      "d100": 78,
+      "category": "Memorable scars",
+      "injuryType": "Buckle Brand",
+      "description": "The shape of your own buckle burned into the skin. Cosmetic, and specific enough to identify you.",
+      "cure": "Regenerate",
+      "duration": "Permanent.",
+      "notes": ""
+    },
+    {
+      "d100": 79,
+      "category": "Severe mental trauma",
+      "injuryType": "Pyrophobia",
+      "description": "You are frightened of any open flame larger than a torch while within 10 feet of it, unless you succeed on a DC 15 Wisdom saving throw at the start of your turn.",
+      "cure": "Greater Restoration",
+      "duration": "Months — or a season of care.",
+      "notes": ""
+    },
+    {
+      "d100": 80,
+      "category": "Severe mental trauma",
+      "injuryType": "The Boom Again",
+      "description": "Any sudden loud noise within 60 feet forces a DC 13 Wisdom saving throw or you are stunned until the end of your next turn.",
+      "cure": "Greater Restoration",
+      "duration": "Months — or a season of care.",
+      "notes": ""
+    },
+    {
+      "d100": 81,
+      "category": "Mental trauma",
+      "injuryType": "Flinch at Sparks",
+      "description": "Whenever fire damage is dealt to you, you have disadvantage on attack rolls until the end of your next turn.",
+      "cure": "Greater Restoration",
+      "duration": "Months — or a season of care.",
+      "notes": ""
+    },
+    {
+      "d100": 82,
+      "category": "Mental trauma",
+      "injuryType": "Cannot Sleep Near Fire",
+      "description": "You gain no benefit from a long rest taken within 30 feet of an open flame.",
+      "cure": "Greater Restoration",
+      "duration": "Months — or a season of care.",
+      "notes": ""
+    },
+    {
+      "d100": 83,
+      "category": "Mental trauma",
+      "injuryType": "Smells It Everywhere",
+      "description": "You smell smoke that is not there. Disadvantage on Wisdom (Perception) checks that rely on smell, and on Wisdom (Insight) checks while anything is burning nearby.",
+      "cure": "Greater Restoration",
+      "duration": "Months — or a season of care.",
+      "notes": ""
+    },
+    {
+      "d100": 84,
+      "category": "Mental trauma",
+      "injuryType": "Counts the Exits",
+      "description": "You cannot settle in a room without a second way out. Disadvantage on initiative rolls in a room with one door.",
+      "cure": "Greater Restoration",
+      "duration": "Months — or a season of care.",
+      "notes": ""
+    },
+    {
+      "d100": 85,
+      "category": "Mental trauma",
+      "injuryType": "Cold Hands Always",
+      "description": "You cannot get warm. Disadvantage on Constitution saving throws against cold.",
+      "cure": "Greater Restoration",
+      "duration": "Months — or a season of care.",
+      "notes": ""
+    },
+    {
+      "d100": 86,
+      "category": "Mental trauma",
+      "injuryType": "Dreams of Burning",
+      "description": "On each long rest roll a d6: on a 1 you wake at the worst of it and gain no benefit from the rest.",
+      "cure": "Greater Restoration",
+      "duration": "Months — or a season of care.",
+      "notes": ""
+    },
+    {
+      "d100": 87,
+      "category": "Flavour effect",
+      "injuryType": "Fire Knows You",
+      "description": "The burn scars itch whenever a fire is lit within 60 feet. No rule attaches; you always know.",
+      "cure": "Remove Curse",
+      "duration": "Permanent — if you wanted it gone.",
+      "notes": ""
+    },
+    {
+      "d100": 88,
+      "category": "Flavour effect",
+      "injuryType": "Powder Freckles",
+      "description": "The specks never faded. Soldiers and gunsmiths read them as a mark of someone who has been close to a misfire and lived.",
+      "cure": "Remove Curse",
+      "duration": "Permanent.",
+      "notes": ""
+    },
+    {
+      "d100": 89,
+      "category": "Special effect",
+      "injuryType": "Ember Blood",
+      "description": "Once per long rest you can breathe out a puff of sparks that lights a torch, a fuse or a campfire. You take 1 extra damage from any fire effect.",
+      "cure": "Remove Curse",
+      "duration": "Permanent without the cure.",
+      "notes": ""
+    },
+    {
+      "d100": 90,
+      "category": "Special effect",
+      "injuryType": "Static Soul",
+      "description": "Metal sparks when you touch it. Advantage on saving throws against lightning; disadvantage on Dexterity (Stealth) checks while wearing or carrying metal.",
+      "cure": "Remove Curse",
+      "duration": "Permanent without the cure.",
+      "notes": ""
+    },
+    {
+      "d100": 91,
+      "category": "Special effect",
+      "injuryType": "The Blast Memory",
+      "description": "You recall every explosion you have ever witnessed in perfect detail. The GM may give you something nobody else saw.",
+      "cure": "Remove Curse",
+      "duration": "Permanent without the cure.",
+      "notes": ""
+    },
+    {
+      "d100": 92,
+      "category": "Special effect",
+      "injuryType": "Fuse Sense",
+      "description": "You can hear a lit fuse within 60 feet through any amount of noise.",
+      "cure": "Remove Curse",
+      "duration": "Permanent without the cure.",
+      "notes": ""
+    },
+    {
+      "d100": 93,
+      "category": "Minor boon",
+      "injuryType": "Thick Skin",
+      "description": "Resistance to fire damage from nonmagical sources: campfires, lamps, burning oil, a hot pan.",
+      "cure": "Rest",
+      "duration": "Permanent. Nobody cures this.",
+      "notes": ""
+    },
+    {
+      "d100": 94,
+      "category": "Minor boon",
+      "injuryType": "Blast-Hardened Ears",
+      "description": "Advantage on saving throws against being deafened.",
+      "cure": "Rest",
+      "duration": "Permanent.",
+      "notes": ""
+    },
+    {
+      "d100": 95,
+      "category": "Minor boon",
+      "injuryType": "Steady After the Boom",
+      "description": "Advantage on Constitution saves to maintain concentration when the damage is fire or thunder.",
+      "cure": "Rest",
+      "duration": "Permanent.",
+      "notes": ""
+    },
+    {
+      "d100": 96,
+      "category": "Minor boon",
+      "injuryType": "Walked Out of It",
+      "description": "Advantage on Dexterity saving throws against area effects you can see coming.",
+      "cure": "Rest",
+      "duration": "Permanent.",
+      "notes": ""
+    },
+    {
+      "d100": 97,
+      "category": "Minor boon",
+      "injuryType": "Through the Smoke",
+      "description": "An area heavily obscured by smoke is only lightly obscured for you.",
+      "cure": "Rest",
+      "duration": "Permanent.",
+      "notes": ""
+    },
+    {
+      "d100": 98,
+      "category": "Survivability",
+      "injuryType": "Fireproof",
+      "description": "Resistance to fire damage.",
+      "cure": "Rest",
+      "duration": "Permanent.",
+      "notes": ""
+    },
+    {
+      "d100": 99,
+      "category": "Survivability+",
+      "injuryType": "The Blast Rolled Off",
+      "description": "Once, when an area effect would reduce you to 0 hit points, you take no damage from it instead. Then the row is spent.",
+      "cure": "Rest",
+      "duration": "Until used.",
+      "notes": ""
+    },
+    {
+      "d100": 100,
+      "category": "Survivability+",
+      "injuryType": "Phoenix Step",
+      "description": "You stand up at 1 hit point and every flame within 30 feet, including the magical kind, goes out.",
+      "cure": "Rest",
+      "duration": "Once.",
+      "notes": "The 1-Up of this table."
+    }
+  ]
+}
