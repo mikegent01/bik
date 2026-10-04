@@ -13041,6 +13041,13 @@
       "folderPath": [
         "Players"
       ]
+    },
+    "waluipedia-sheets": {
+      "ledger": {
+        "xpKey": "dan_the_toad",
+        "xp": 1960,
+        "level": 3
+      }
     }
   },
   "_stats": {

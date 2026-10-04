@@ -369,7 +369,11 @@ def run_write(xp):
 
 
 def pin_ledger_xp(xp):
-    """Every player sheet in Players/ carries the ledger XP; rewrite the ones that drifted."""
+    """Every player sheet in Players/ carries the ledger XP; rewrite the ones that drifted.
+
+    The ledger row also rides on the sheet as ``flags.waluipedia-sheets.ledger``
+    (xpKey, xp, level) so the Foundry module's sync summary can say "sheet
+    level 6, ledger level 7 — level up" without knowing the archive."""
     log = []
     for p in sorted(glob.glob(os.path.join(PLAYERS_DIR, "fvtt-Actor-*.json"))):
         doc = read_json(p)
@@ -377,12 +381,16 @@ def pin_ledger_xp(xp):
         if not key or doc.get("type") != "character":
             continue
         value, level = ledger_xp(xp, key)
-        if xp_value(doc) == value:
+        want_flag = {"xpKey": key, "xp": value, "level": level}
+        scope = (doc.get("flags") or {}).get(SHEETS_FLAG) or {}
+        if xp_value(doc) == value and scope.get("ledger") == want_flag:
             continue
         before = xp_value(doc)
         doc.setdefault("system", {}).setdefault("details", {})["xp"] = {"value": value}
+        doc.setdefault("flags", {}).setdefault(SHEETS_FLAG, {})["ledger"] = want_flag
         write_json(p, doc)
-        log.append(f"{doc['name']}: xp {before} -> {value} (ledger level {level})")
+        log.append(f"{doc['name']}: xp {before} -> {value} (ledger level {level})" if before != value
+                   else f"{doc['name']}: ledger flag written (level {level}, {value} xp)")
     return log
 
 

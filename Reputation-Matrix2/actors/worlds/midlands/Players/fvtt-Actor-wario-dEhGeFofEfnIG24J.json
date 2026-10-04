@@ -4312,6 +4312,11 @@
         },
         "xp": 18370,
         "ledgerLevel": 6
+      },
+      "ledger": {
+        "xpKey": "wario",
+        "xp": 18370,
+        "level": 6
       }
     },
     "waluipedia-mass-import": {

@@ -29248,6 +29248,13 @@
       "folderPath": [
         "Players"
       ]
+    },
+    "waluipedia-sheets": {
+      "ledger": {
+        "xpKey": "remi_akamatsu_full_backstory",
+        "xp": 31258,
+        "level": 7
+      }
     }
   },
   "_stats": {

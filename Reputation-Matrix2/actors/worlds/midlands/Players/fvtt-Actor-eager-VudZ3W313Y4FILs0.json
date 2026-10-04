@@ -12238,6 +12238,13 @@
       "folderPath": [
         "Players"
       ]
+    },
+    "waluipedia-sheets": {
+      "ledger": {
+        "xpKey": "eager",
+        "xp": 4860,
+        "level": 4
+      }
     }
   },
   "_stats": {

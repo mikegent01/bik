@@ -20097,6 +20097,13 @@
       "folderPath": [
         "Players"
       ]
+    },
+    "waluipedia-sheets": {
+      "ledger": {
+        "xpKey": "archie_miser",
+        "xp": 21030,
+        "level": 6
+      }
     }
   },
   "_stats": {

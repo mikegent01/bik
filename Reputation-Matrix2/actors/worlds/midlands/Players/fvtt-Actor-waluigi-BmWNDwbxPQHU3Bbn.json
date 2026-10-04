@@ -8075,6 +8075,13 @@
       "folderPath": [
         "Players"
       ]
+    },
+    "waluipedia-sheets": {
+      "ledger": {
+        "xpKey": "waluigi",
+        "xp": 11911,
+        "level": 5
+      }
     }
   },
   "_stats": {

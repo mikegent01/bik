@@ -12310,6 +12310,11 @@
         },
         "xp": 35292,
         "ledgerLevel": 8
+      },
+      "ledger": {
+        "xpKey": "bowser",
+        "xp": 35292,
+        "level": 8
       }
     },
     "waluipedia-mass-import": {

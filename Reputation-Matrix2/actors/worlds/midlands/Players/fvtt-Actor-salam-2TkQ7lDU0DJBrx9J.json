@@ -1768,6 +1768,11 @@
           "Spells are the player's to pick in Foundry: a half caster knows three at level 3; Cure Wounds is on record.",
           "Kit, art, token, folder and ownership kept exactly as the GM built them."
         ]
+      },
+      "ledger": {
+        "xpKey": "salam",
+        "xp": 2220,
+        "level": 3
       }
     }
   },

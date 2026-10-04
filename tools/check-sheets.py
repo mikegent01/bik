@@ -84,6 +84,11 @@ def main():
     eras = 0
     for e in sheets:
         cid = e["id"]
+        # the index is fetched by URL: a backslash from a Windows build is a
+        # 404 on the site even though os.path.join would still find the file
+        for f in [e["file"]] + [a.get("file") for a in e.get("alternates") or []] + [v.get("file") for v in e.get("versions") or []]:
+            if f and "\\" in f:
+                problems.append(f"{cid}: backslash in sheet path (built on Windows without normalising?): {f}")
         path = os.path.join(RM, e["file"])
         if not os.path.exists(path):
             problems.append(f"{cid}: sheet file missing: {e['file']}")

@@ -185,7 +185,10 @@ def existing_actor_files():
         if walk:
             for cur, subdirs, files in os.walk(base):
                 subdirs.sort()
-                relsub = os.path.relpath(cur, base)
+                # index paths are URLs: forward slashes whatever os.sep is
+                # (a Windows build once wrote "A House Divided\\Characters..."
+                # into sheets.json and the site could not fetch those sheets)
+                relsub = os.path.relpath(cur, base).replace(os.sep, "/").replace("\\", "/")
                 for fn in files:
                     found.append((fn, os.path.join(cur, fn), (relsub + "/" if relsub != "." else "") + fn))
         else:
