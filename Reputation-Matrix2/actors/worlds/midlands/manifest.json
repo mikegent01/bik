@@ -1,0 +1,850 @@
+{
+  "format": "legacy-macro",
+  "exportedFrom": "midlands",
+  "exportedAt": "2026-10-04T01:15:02.646Z",
+  "system": "dnd5e",
+  "systemVersion": null,
+  "coreVersion": null,
+  "source": "midlands-all-actors.json",
+  "actorCount": 136,
+  "folders": [],
+  "unresolvedFolderIds": {
+    "0A40B9PdH5WzraZl": 11,
+    "36r8qm2aE4k6QTnW": 1,
+    "3rpAjlIiO6X688Ck": 6,
+    "5Q4w3VVb0sOc5DgD": 2,
+    "9mmdDqYZFLIJBacj": 1,
+    "EypLbRzz5Hphlv5M": 5,
+    "J8DnjiUveS1FZZ6n": 23,
+    "M29yXvtlop30CcjP": 4,
+    "M4z9M3EfqK9PqTSc": 2,
+    "OWq9j30lFHJQBqKI": 12,
+    "OavhmiE8PDHGFQWI": 19,
+    "Yhd3V7M5GlXJMDlA": 4,
+    "mSjiQ0a7M8it70qu": 1,
+    "oq65o5ZsauMtb1JY": 2,
+    "v85pcrJBfAwwqTrf": 2,
+    "xmXOrBADA4LyJOGl": 1,
+    "yHWl5WjWuswIaAdF": 9,
+    "zW3g7ZwVjNkwzEQ4": 11
+  },
+  "note": "116 actor(s) carry a folder id this export gives no name for; they keep that id (the module leaves them where they are). Re-export with the Waluipedia Mass Import module to get named folders here.",
+  "actors": [
+    {
+      "name": "Adult Copper Dragon",
+      "type": "npc",
+      "_id": "hzlJebzFO8JUcXKR",
+      "file": "fvtt-Actor-adult-copper-dragon-hzlJebzFO8JUcXKR.json"
+    },
+    {
+      "name": "Aemenor Evenflight",
+      "type": "npc",
+      "_id": "rQqL4xsmIO1shEka",
+      "file": "fvtt-Actor-aemenor-evenflight-rQqL4xsmIO1shEka.json"
+    },
+    {
+      "name": "Ankheg",
+      "type": "npc",
+      "_id": "t5Cs0fUER4rc0t7v",
+      "file": "fvtt-Actor-ankheg-t5Cs0fUER4rc0t7v.json"
+    },
+    {
+      "name": "Arcane Eye",
+      "type": "npc",
+      "_id": "IcDQ0xxkj5FtaNIc",
+      "file": "fvtt-Actor-arcane-eye-IcDQ0xxkj5FtaNIc.json"
+    },
+    {
+      "name": "Arcane Wraith",
+      "type": "npc",
+      "_id": "x28laoC4NPE7abQC",
+      "file": "fvtt-Actor-arcane-wraith-x28laoC4NPE7abQC.json"
+    },
+    {
+      "name": "Archie Miser",
+      "type": "character",
+      "_id": "pi25oGpjW0lCFtuF",
+      "file": "fvtt-Actor-archie-miser-pi25oGpjW0lCFtuF.json"
+    },
+    {
+      "name": "Archivist Imp",
+      "type": "npc",
+      "_id": "bJgZOZ5iHgDCFTtx",
+      "file": "fvtt-Actor-archivist-imp-bJgZOZ5iHgDCFTtx.json"
+    },
+    {
+      "name": "Awakened Shrub",
+      "type": "npc",
+      "_id": "tx1hgMMKbCL9CV8n",
+      "file": "fvtt-Actor-awakened-shrub-tx1hgMMKbCL9CV8n.json"
+    },
+    {
+      "name": "Bandit",
+      "type": "npc",
+      "_id": "2pZO6gQ1ykHCb0ug",
+      "file": "fvtt-Actor-bandit-2pZO6gQ1ykHCb0ug.json"
+    },
+    {
+      "name": "Berserker",
+      "type": "npc",
+      "_id": "mY01QrfjFBZ0XHAq",
+      "file": "fvtt-Actor-berserker-mY01QrfjFBZ0XHAq.json"
+    },
+    {
+      "name": "Black Bear",
+      "type": "npc",
+      "_id": "C04YpnHjyu4oh0X8",
+      "file": "fvtt-Actor-black-bear-C04YpnHjyu4oh0X8.json"
+    },
+    {
+      "name": "Boneless Dancer",
+      "type": "npc",
+      "_id": "JVsWNiZCt5WVd3A8",
+      "file": "fvtt-Actor-boneless-dancer-JVsWNiZCt5WVd3A8.json"
+    },
+    {
+      "name": "Bowser, Warlord of Darkland",
+      "type": "npc",
+      "_id": "d1qwl5RJ3yk6THBe",
+      "file": "fvtt-Actor-bowser-warlord-of-darkland-d1qwl5RJ3yk6THBe.json"
+    },
+    {
+      "name": "Bramblefly",
+      "type": "npc",
+      "_id": "ROKRxPal9owBGzCk",
+      "file": "fvtt-Actor-bramblefly-ROKRxPal9owBGzCk.json"
+    },
+    {
+      "name": "Byscilla Danos",
+      "type": "npc",
+      "_id": "vvcaOaq7cKHA6cxR",
+      "file": "fvtt-Actor-byscilla-danos-vvcaOaq7cKHA6cxR.json"
+    },
+    {
+      "name": "Cackletta, the Beanbean Witch",
+      "type": "npc",
+      "_id": "v2nBQtjAmgp2jJyv",
+      "file": "fvtt-Actor-cackletta-the-beanbean-witch-v2nBQtjAmgp2jJyv.json"
+    },
+    {
+      "name": "Centaur",
+      "type": "npc",
+      "_id": "AvtMhZFWnIXKNy08",
+      "file": "fvtt-Actor-centaur-AvtMhZFWnIXKNy08.json"
+    },
+    {
+      "name": "Chirneros",
+      "type": "npc",
+      "_id": "PfrU5EHMjzhKIN8p",
+      "file": "fvtt-Actor-chirneros-PfrU5EHMjzhKIN8p.json"
+    },
+    {
+      "name": "Coat of Constricting",
+      "type": "npc",
+      "_id": "aOQF8AJSw2yZbSfy",
+      "file": "fvtt-Actor-coat-of-constricting-aOQF8AJSw2yZbSfy.json"
+    },
+    {
+      "name": "Colossal Spider",
+      "type": "npc",
+      "_id": "C0TKUDtIprhxOZD5",
+      "file": "fvtt-Actor-colossal-spider-C0TKUDtIprhxOZD5.json"
+    },
+    {
+      "name": "Conjured Animals",
+      "type": "npc",
+      "_id": "phbSpectralAnima",
+      "file": "fvtt-Actor-conjured-animals-phbSpectralAnima.json"
+    },
+    {
+      "name": "Corvinarus Abomination",
+      "type": "npc",
+      "_id": "Xxf80BJeTCVKhIao",
+      "file": "fvtt-Actor-corvinarus-abomination-Xxf80BJeTCVKhIao.json"
+    },
+    {
+      "name": "Cultist",
+      "type": "npc",
+      "_id": "vi1IvHUDzDdT6ZAn",
+      "file": "fvtt-Actor-cultist-vi1IvHUDzDdT6ZAn.json"
+    },
+    {
+      "name": "Darius Corvinarus",
+      "type": "npc",
+      "_id": "cEaCmjp4Fxfa3ftH",
+      "file": "fvtt-Actor-darius-corvinarus-cEaCmjp4Fxfa3ftH.json"
+    },
+    {
+      "name": "Dust Mephit",
+      "type": "npc",
+      "_id": "lCsJHgu1ARA9Ztz1",
+      "file": "fvtt-Actor-dust-mephit-lCsJHgu1ARA9Ztz1.json"
+    },
+    {
+      "name": "Eager",
+      "type": "character",
+      "_id": "VudZ3W313Y4FILs0",
+      "file": "fvtt-Actor-eager-VudZ3W313Y4FILs0.json"
+    },
+    {
+      "name": "Elscieth",
+      "type": "npc",
+      "_id": "X4yeHCCN9izB7j5Q",
+      "file": "fvtt-Actor-elscieth-X4yeHCCN9izB7j5Q.json"
+    },
+    {
+      "name": "Ettercap",
+      "type": "npc",
+      "_id": "TuAQ3qWD9KwrQJAo",
+      "file": "fvtt-Actor-ettercap-TuAQ3qWD9KwrQJAo.json"
+    },
+    {
+      "name": "Eyes that Bite",
+      "type": "npc",
+      "_id": "QS7mzeYI7mCB0Shv",
+      "file": "fvtt-Actor-eyes-that-bite-QS7mzeYI7mCB0Shv.json"
+    },
+    {
+      "name": "Eyestalk of Gzemnid",
+      "type": "npc",
+      "_id": "aS8TNGfFjkPb14e2",
+      "file": "fvtt-Actor-eyestalk-of-gzemnid-aS8TNGfFjkPb14e2.json"
+    },
+    {
+      "name": "Fawful, the Fury",
+      "type": "npc",
+      "_id": "8XZhZJbuYOvBBwfK",
+      "file": "fvtt-Actor-fawful-the-fury-8XZhZJbuYOvBBwfK.json"
+    },
+    {
+      "name": "Fey Crystal Tether",
+      "type": "npc",
+      "_id": "5aBfVyHdXKw8oJXb",
+      "file": "fvtt-Actor-fey-crystal-tether-5aBfVyHdXKw8oJXb.json"
+    },
+    {
+      "name": "Feyward Dan",
+      "type": "character",
+      "_id": "IlzuThuR8upTtqtF",
+      "file": "fvtt-Actor-feyward-dan-IlzuThuR8upTtqtF.json"
+    },
+    {
+      "name": "Feyward House Guard",
+      "type": "npc",
+      "_id": "7FK7hQIzljzUv3E2",
+      "file": "fvtt-Actor-feyward-house-guard-7FK7hQIzljzUv3E2.json"
+    },
+    {
+      "name": "Flowering Shambler",
+      "type": "npc",
+      "_id": "IJscfSM70waHu6cW",
+      "file": "fvtt-Actor-flowering-shambler-IJscfSM70waHu6cW.json"
+    },
+    {
+      "name": "Ghostly Remnant",
+      "type": "npc",
+      "_id": "uKRhhZUFKGz9ykI3",
+      "file": "fvtt-Actor-ghostly-remnant-uKRhhZUFKGz9ykI3.json"
+    },
+    {
+      "name": "Giant Green Spider",
+      "type": "npc",
+      "_id": "pNEOaqxDMmUbzR8H",
+      "file": "fvtt-Actor-giant-green-spider-pNEOaqxDMmUbzR8H.json"
+    },
+    {
+      "name": "Giant Wolf Spider",
+      "type": "npc",
+      "_id": "v6dM0lxmenwJlksD",
+      "file": "fvtt-Actor-giant-wolf-spider-v6dM0lxmenwJlksD.json"
+    },
+    {
+      "name": "Goblin Line Cook",
+      "type": "npc",
+      "_id": "A83TjD6cXIC2pgNj",
+      "file": "fvtt-Actor-goblin-line-cook-A83TjD6cXIC2pgNj.json"
+    },
+    {
+      "name": "Goblin Staff",
+      "type": "npc",
+      "_id": "56r4YGpMU1CigK3P",
+      "file": "fvtt-Actor-goblin-staff-56r4YGpMU1CigK3P.json"
+    },
+    {
+      "name": "Goblin Warrior",
+      "type": "npc",
+      "_id": "hq3aG7mbK9L9LE86",
+      "file": "fvtt-Actor-goblin-warrior-hq3aG7mbK9L9LE86.json"
+    },
+    {
+      "name": "Goomba (Conscript Infantry)",
+      "type": "npc",
+      "_id": "maImarxazCJpMIIl",
+      "file": "fvtt-Actor-goomba-conscript-infantry-maImarxazCJpMIIl.json"
+    },
+    {
+      "name": "Great Shadowmaw",
+      "type": "npc",
+      "_id": "pfW9eiJczWW5ANhx",
+      "file": "fvtt-Actor-great-shadowmaw-pfW9eiJczWW5ANhx.json"
+    },
+    {
+      "name": "Green Hag",
+      "type": "npc",
+      "_id": "Izqb9KzyZZlSL4j7",
+      "file": "fvtt-Actor-green-hag-Izqb9KzyZZlSL4j7.json"
+    },
+    {
+      "name": "Green T",
+      "type": "character",
+      "_id": "mj7kizwZ5R7FtGg6",
+      "file": "fvtt-Actor-green-t-mj7kizwZ5R7FtGg6.json"
+    },
+    {
+      "name": "Guard",
+      "type": "npc",
+      "_id": "8LJ2C4iPs39y1MtK",
+      "file": "fvtt-Actor-guard-8LJ2C4iPs39y1MtK.json"
+    },
+    {
+      "name": "Guard",
+      "type": "npc",
+      "_id": "oowBq6Vak4ky6dmp",
+      "file": "fvtt-Actor-guard-oowBq6Vak4ky6dmp.json"
+    },
+    {
+      "name": "Hammer Bro (Elite Infantry)",
+      "type": "npc",
+      "_id": "j3LA23Bugz03B88A",
+      "file": "fvtt-Actor-hammer-bro-elite-infantry-j3LA23Bugz03B88A.json"
+    },
+    {
+      "name": "Hargram Fidger",
+      "type": "npc",
+      "_id": "FgXUotvhVhzA61yh",
+      "file": "fvtt-Actor-hargram-fidger-FgXUotvhVhzA61yh.json"
+    },
+    {
+      "name": "Herniva",
+      "type": "npc",
+      "_id": "oiZ5IzMQpzR8cFLk",
+      "file": "fvtt-Actor-herniva-oiZ5IzMQpzR8cFLk.json"
+    },
+    {
+      "name": "Hjumpik Deldkur",
+      "type": "character",
+      "_id": "Qir5aDX8bkL5lt1c",
+      "file": "fvtt-Actor-hjumpik-deldkur-Qir5aDX8bkL5lt1c.json"
+    },
+    {
+      "name": "Hobgoblin",
+      "type": "npc",
+      "_id": "qqtbtdwINX8iyrJw",
+      "file": "fvtt-Actor-hobgoblin-qqtbtdwINX8iyrJw.json"
+    },
+    {
+      "name": "Hobgoblin Warrior",
+      "type": "npc",
+      "_id": "4BpweQBMswdd6gyp",
+      "file": "fvtt-Actor-hobgoblin-warrior-4BpweQBMswdd6gyp.json"
+    },
+    {
+      "name": "Hobgoblin Warrior",
+      "type": "npc",
+      "_id": "6ciCT0pfEnkEvfRj",
+      "file": "fvtt-Actor-hobgoblin-warrior-6ciCT0pfEnkEvfRj.json"
+    },
+    {
+      "name": "Housebound",
+      "type": "npc",
+      "_id": "OIVtnbNiNbCi0gEa",
+      "file": "fvtt-Actor-housebound-OIVtnbNiNbCi0gEa.json"
+    },
+    {
+      "name": "Knight",
+      "type": "npc",
+      "_id": "3J8i4nu6k0pg3AjL",
+      "file": "fvtt-Actor-knight-3J8i4nu6k0pg3AjL.json"
+    },
+    {
+      "name": "Knight",
+      "type": "npc",
+      "_id": "6gu9DJG0mvrBfrR8",
+      "file": "fvtt-Actor-knight-6gu9DJG0mvrBfrR8.json"
+    },
+    {
+      "name": "Koopa Troopa (Standard Infantry)",
+      "type": "npc",
+      "_id": "RUZIZZynYJgE58vw",
+      "file": "fvtt-Actor-koopa-troopa-standard-infantry-RUZIZZynYJgE58vw.json"
+    },
+    {
+      "name": "Kryn Corvinarus",
+      "type": "npc",
+      "_id": "CnaNkZZQmowYRqWS",
+      "file": "fvtt-Actor-kryn-corvinarus-CnaNkZZQmowYRqWS.json"
+    },
+    {
+      "name": "Lady Aurelian Corvinarus",
+      "type": "npc",
+      "_id": "1Qt9AgFULweeVAoa",
+      "file": "fvtt-Actor-lady-aurelian-corvinarus-1Qt9AgFULweeVAoa.json"
+    },
+    {
+      "name": "Lyranth the Sculptor",
+      "type": "npc",
+      "_id": "0Y1HB4Cua7nsM2wV",
+      "file": "fvtt-Actor-lyranth-the-sculptor-0Y1HB4Cua7nsM2wV.json"
+    },
+    {
+      "name": "Mage",
+      "type": "npc",
+      "_id": "BPMXrVGAPzawfLyl",
+      "file": "fvtt-Actor-mage-BPMXrVGAPzawfLyl.json"
+    },
+    {
+      "name": "Magikoopa (Battle Mage)",
+      "type": "npc",
+      "_id": "7VmH5xlrVjB1simi",
+      "file": "fvtt-Actor-magikoopa-battle-mage-7VmH5xlrVjB1simi.json"
+    },
+    {
+      "name": "Manderaz the Mad",
+      "type": "npc",
+      "_id": "8P1SRvoYZGxulQMT",
+      "file": "fvtt-Actor-manderaz-the-mad-8P1SRvoYZGxulQMT.json"
+    },
+    {
+      "name": "Manor Wight",
+      "type": "npc",
+      "_id": "aaEXnW2WjmAh4yDt",
+      "file": "fvtt-Actor-manor-wight-aaEXnW2WjmAh4yDt.json"
+    },
+    {
+      "name": "Markop Judi",
+      "type": "character",
+      "_id": "le5OCgY5x5nnKvkt",
+      "file": "fvtt-Actor-markop-judi-le5OCgY5x5nnKvkt.json"
+    },
+    {
+      "name": "Mazebound",
+      "type": "npc",
+      "_id": "GhITCy3jMBMKdPFP",
+      "file": "fvtt-Actor-mazebound-GhITCy3jMBMKdPFP.json"
+    },
+    {
+      "name": "Midbus, the Blizzard Fist",
+      "type": "npc",
+      "_id": "pzYkmjtf2FAvFcdz",
+      "file": "fvtt-Actor-midbus-the-blizzard-fist-pzYkmjtf2FAvFcdz.json"
+    },
+    {
+      "name": "Onyx Knight",
+      "type": "npc",
+      "_id": "btK5H0Qx6iUX3v2w",
+      "file": "fvtt-Actor-onyx-knight-btK5H0Qx6iUX3v2w.json"
+    },
+    {
+      "name": "Orvinder Danos",
+      "type": "npc",
+      "_id": "bcvcZ10ZzNQTAaSC",
+      "file": "fvtt-Actor-orvinder-danos-bcvcZ10ZzNQTAaSC.json"
+    },
+    {
+      "name": "Perrius Annmatar",
+      "type": "npc",
+      "_id": "G9CLr70iR4k2pl5l",
+      "file": "fvtt-Actor-perrius-annmatar-G9CLr70iR4k2pl5l.json"
+    },
+    {
+      "name": "Player Character",
+      "type": "character",
+      "_id": "9UInBdI0DUPwALMM",
+      "file": "fvtt-Actor-player-character-9UInBdI0DUPwALMM.json"
+    },
+    {
+      "name": "Red Scullion",
+      "type": "npc",
+      "_id": "lTZ4zPnZtKS1jHjX",
+      "file": "fvtt-Actor-red-scullion-lTZ4zPnZtKS1jHjX.json"
+    },
+    {
+      "name": "Remi",
+      "type": "character",
+      "_id": "wBy4aV2AGHNqT4l1",
+      "file": "fvtt-Actor-remi-wBy4aV2AGHNqT4l1.json"
+    },
+    {
+      "name": "Rhak the Lost",
+      "type": "npc",
+      "_id": "jmLsq8r3jF3QEPL9",
+      "file": "fvtt-Actor-rhak-the-lost-jmLsq8r3jF3QEPL9.json"
+    },
+    {
+      "name": "Ruined Manor",
+      "type": "npc",
+      "_id": "dIXHXuGTzaAhFKxl",
+      "file": "fvtt-Actor-ruined-manor-dIXHXuGTzaAhFKxl.json"
+    },
+    {
+      "name": "Rust Monster",
+      "type": "npc",
+      "_id": "bb0qcet6nsl4UG8u",
+      "file": "fvtt-Actor-rust-monster-bb0qcet6nsl4UG8u.json"
+    },
+    {
+      "name": "Saedia",
+      "type": "npc",
+      "_id": "9ZpxboHICNZBYhQu",
+      "file": "fvtt-Actor-saedia-9ZpxboHICNZBYhQu.json"
+    },
+    {
+      "name": "Salam",
+      "type": "npc",
+      "_id": "2TkQ7lDU0DJBrx9J",
+      "file": "fvtt-Actor-salam-2TkQ7lDU0DJBrx9J.json"
+    },
+    {
+      "name": "Satyr",
+      "type": "npc",
+      "_id": "DdOhSRkF8cYvlvEJ",
+      "file": "fvtt-Actor-satyr-DdOhSRkF8cYvlvEJ.json"
+    },
+    {
+      "name": "Satyr",
+      "type": "npc",
+      "_id": "JAGLrypngiEfoMLU",
+      "file": "fvtt-Actor-satyr-JAGLrypngiEfoMLU.json"
+    },
+    {
+      "name": "Satyr Bard",
+      "type": "npc",
+      "_id": "757OMr4xLhFEkgNP",
+      "file": "fvtt-Actor-satyr-bard-757OMr4xLhFEkgNP.json"
+    },
+    {
+      "name": "Satyr Berserker",
+      "type": "npc",
+      "_id": "fUL0n0b7BfZchOWp",
+      "file": "fvtt-Actor-satyr-berserker-fUL0n0b7BfZchOWp.json"
+    },
+    {
+      "name": "Satyr Druid",
+      "type": "npc",
+      "_id": "vFIK4IKz6sUj7bKW",
+      "file": "fvtt-Actor-satyr-druid-vFIK4IKz6sUj7bKW.json"
+    },
+    {
+      "name": "Satyr Rogue",
+      "type": "npc",
+      "_id": "CBtJ9cAzoH3YF0aJ",
+      "file": "fvtt-Actor-satyr-rogue-CBtJ9cAzoH3YF0aJ.json"
+    },
+    {
+      "name": "Satyr Scout",
+      "type": "npc",
+      "_id": "v02ojTfZZIHitZoM",
+      "file": "fvtt-Actor-satyr-scout-v02ojTfZZIHitZoM.json"
+    },
+    {
+      "name": "Satyr Sorcerer",
+      "type": "npc",
+      "_id": "xaudiZjL87Pz80Bv",
+      "file": "fvtt-Actor-satyr-sorcerer-xaudiZjL87Pz80Bv.json"
+    },
+    {
+      "name": "Satyr Swordfighter",
+      "type": "npc",
+      "_id": "FcDF29J4oF5EV18z",
+      "file": "fvtt-Actor-satyr-swordfighter-FcDF29J4oF5EV18z.json"
+    },
+    {
+      "name": "Shadow",
+      "type": "npc",
+      "_id": "5muAGgpHQDtXl3qo",
+      "file": "fvtt-Actor-shadow-5muAGgpHQDtXl3qo.json"
+    },
+    {
+      "name": "Shadow Crystal Tether",
+      "type": "npc",
+      "_id": "HSfcDhqYWOyVdZqb",
+      "file": "fvtt-Actor-shadow-crystal-tether-HSfcDhqYWOyVdZqb.json"
+    },
+    {
+      "name": "Shadow Servant",
+      "type": "npc",
+      "_id": "SEWZsTBN4pIPoTu0",
+      "file": "fvtt-Actor-shadow-servant-SEWZsTBN4pIPoTu0.json"
+    },
+    {
+      "name": "Shadowtusk",
+      "type": "npc",
+      "_id": "RfKDLGMKmWwC9qOF",
+      "file": "fvtt-Actor-shadowtusk-RfKDLGMKmWwC9qOF.json"
+    },
+    {
+      "name": "Shambling Mound",
+      "type": "npc",
+      "_id": "EF8DIx38HTqr5jVV",
+      "file": "fvtt-Actor-shambling-mound-EF8DIx38HTqr5jVV.json"
+    },
+    {
+      "name": "Shard Stalker",
+      "type": "npc",
+      "_id": "A60ns8tMmTdrXI6U",
+      "file": "fvtt-Actor-shard-stalker-A60ns8tMmTdrXI6U.json"
+    },
+    {
+      "name": "Shard Stalker Reflection",
+      "type": "npc",
+      "_id": "sAlVajLX9CxaRp5R",
+      "file": "fvtt-Actor-shard-stalker-reflection-sAlVajLX9CxaRp5R.json"
+    },
+    {
+      "name": "Shrieker Fungus",
+      "type": "npc",
+      "_id": "lsRNYDrRuB91yVHY",
+      "file": "fvtt-Actor-shrieker-fungus-lsRNYDrRuB91yVHY.json"
+    },
+    {
+      "name": "Specter",
+      "type": "npc",
+      "_id": "X8DHcJ3V5B2CnLCt",
+      "file": "fvtt-Actor-specter-X8DHcJ3V5B2CnLCt.json"
+    },
+    {
+      "name": "Spectral Dancers",
+      "type": "npc",
+      "_id": "YDh7G709fK7wIEPH",
+      "file": "fvtt-Actor-spectral-dancers-YDh7G709fK7wIEPH.json"
+    },
+    {
+      "name": "Spirit Charger",
+      "type": "npc",
+      "_id": "iEqA3GniwwLkmbtM",
+      "file": "fvtt-Actor-spirit-charger-iEqA3GniwwLkmbtM.json"
+    },
+    {
+      "name": "Spirit Hunter",
+      "type": "npc",
+      "_id": "FpO1OsbkYzVKKBgk",
+      "file": "fvtt-Actor-spirit-hunter-FpO1OsbkYzVKKBgk.json"
+    },
+    {
+      "name": "Spirit Striker",
+      "type": "npc",
+      "_id": "pnXsAJ7xHsCwulsu",
+      "file": "fvtt-Actor-spirit-striker-pnXsAJ7xHsCwulsu.json"
+    },
+    {
+      "name": "Spriggan Gladiator",
+      "type": "npc",
+      "_id": "uZQRUzPRcKYjJY4S",
+      "file": "fvtt-Actor-spriggan-gladiator-uZQRUzPRcKYjJY4S.json"
+    },
+    {
+      "name": "Sprite Archer",
+      "type": "npc",
+      "_id": "5KzDeEDMtrrgb58B",
+      "file": "fvtt-Actor-sprite-archer-5KzDeEDMtrrgb58B.json"
+    },
+    {
+      "name": "Sprite Sorcerer",
+      "type": "npc",
+      "_id": "d9iIK7yY1Gykaq3h",
+      "file": "fvtt-Actor-sprite-sorcerer-d9iIK7yY1Gykaq3h.json"
+    },
+    {
+      "name": "Sprite Warrior",
+      "type": "npc",
+      "_id": "RVNmaLddSDWZm4xA",
+      "file": "fvtt-Actor-sprite-warrior-RVNmaLddSDWZm4xA.json"
+    },
+    {
+      "name": "Steel Defender",
+      "type": "npc",
+      "_id": "Q8InPZPmhqhpOY7g",
+      "file": "fvtt-Actor-steel-defender-Q8InPZPmhqhpOY7g.json"
+    },
+    {
+      "name": "Stuckina Bogg",
+      "type": "npc",
+      "_id": "PPfGzsDDoUa8r6je",
+      "file": "fvtt-Actor-stuckina-bogg-PPfGzsDDoUa8r6je.json"
+    },
+    {
+      "name": "Swarm of Books",
+      "type": "npc",
+      "_id": "iAk602TrDJ8kSxR0",
+      "file": "fvtt-Actor-swarm-of-books-iAk602TrDJ8kSxR0.json"
+    },
+    {
+      "name": "Swarm of Spiders",
+      "type": "npc",
+      "_id": "dXFPHhTbg87ClkKq",
+      "file": "fvtt-Actor-swarm-of-spiders-dXFPHhTbg87ClkKq.json"
+    },
+    {
+      "name": "Sylvaria",
+      "type": "npc",
+      "_id": "h0g8nVSDHjwhvoKB",
+      "file": "fvtt-Actor-sylvaria-h0g8nVSDHjwhvoKB.json"
+    },
+    {
+      "name": "The Oracle",
+      "type": "npc",
+      "_id": "66Pn5S4ciDgDx46Q",
+      "file": "fvtt-Actor-the-oracle-66Pn5S4ciDgDx46Q.json"
+    },
+    {
+      "name": "The Ravenous Host",
+      "type": "npc",
+      "_id": "cuIbliWBwzc9UegA",
+      "file": "fvtt-Actor-the-ravenous-host-cuIbliWBwzc9UegA.json"
+    },
+    {
+      "name": "The Revel",
+      "type": "npc",
+      "_id": "X4vtehnvPo43XEXD",
+      "file": "fvtt-Actor-the-revel-X4vtehnvPo43XEXD.json"
+    },
+    {
+      "name": "The Scorncrow",
+      "type": "npc",
+      "_id": "w5NiTfaf6NZp9tAH",
+      "file": "fvtt-Actor-the-scorncrow-w5NiTfaf6NZp9tAH.json"
+    },
+    {
+      "name": "The Tree of Woe",
+      "type": "npc",
+      "_id": "IqZjrAdSvJdC6qfO",
+      "file": "fvtt-Actor-the-tree-of-woe-IqZjrAdSvJdC6qfO.json"
+    },
+    {
+      "name": "Thorne",
+      "type": "npc",
+      "_id": "k62SbeNQdbOpwsXo",
+      "file": "fvtt-Actor-thorne-k62SbeNQdbOpwsXo.json"
+    },
+    {
+      "name": "Thystle",
+      "type": "npc",
+      "_id": "fuz9FcyUjfS1nZHy",
+      "file": "fvtt-Actor-thystle-fuz9FcyUjfS1nZHy.json"
+    },
+    {
+      "name": "Toad Lee",
+      "type": "character",
+      "_id": "mEqlzuZoafEdiApl",
+      "file": "fvtt-Actor-toad-lee-mEqlzuZoafEdiApl.json"
+    },
+    {
+      "name": "Treant",
+      "type": "npc",
+      "_id": "1OJKLEQo967YncPt",
+      "file": "fvtt-Actor-treant-1OJKLEQo967YncPt.json"
+    },
+    {
+      "name": "Treant",
+      "type": "npc",
+      "_id": "mmTreant00000000",
+      "file": "fvtt-Actor-treant-mmTreant00000000.json"
+    },
+    {
+      "name": "Tymnas",
+      "type": "npc",
+      "_id": "HHRNpgk9VhQeuNCN",
+      "file": "fvtt-Actor-tymnas-HHRNpgk9VhQeuNCN.json"
+    },
+    {
+      "name": "Usk",
+      "type": "npc",
+      "_id": "I8HET6eCUvhMILDP",
+      "file": "fvtt-Actor-usk-I8HET6eCUvhMILDP.json"
+    },
+    {
+      "name": "Usk (Shattered)",
+      "type": "npc",
+      "_id": "numGvhXBimwHEO3d",
+      "file": "fvtt-Actor-usk-shattered-numGvhXBimwHEO3d.json"
+    },
+    {
+      "name": "Vaxillus Loumaal",
+      "type": "npc",
+      "_id": "WzeQ8waID9uqv1HZ",
+      "file": "fvtt-Actor-vaxillus-loumaal-WzeQ8waID9uqv1HZ.json"
+    },
+    {
+      "name": "Violet Fungus",
+      "type": "npc",
+      "_id": "S55ybuiR19IADptX",
+      "file": "fvtt-Actor-violet-fungus-S55ybuiR19IADptX.json"
+    },
+    {
+      "name": "Violet Fungus",
+      "type": "npc",
+      "_id": "ThJ4cLHC6TtUOmMU",
+      "file": "fvtt-Actor-violet-fungus-ThJ4cLHC6TtUOmMU.json"
+    },
+    {
+      "name": "Vivesna Corvinarus",
+      "type": "npc",
+      "_id": "PzJIrTDpLyWNboVH",
+      "file": "fvtt-Actor-vivesna-corvinarus-PzJIrTDpLyWNboVH.json"
+    },
+    {
+      "name": "Voluminous Ochre Jelly",
+      "type": "npc",
+      "_id": "xVo7PZHPMz3JGB12",
+      "file": "fvtt-Actor-voluminous-ochre-jelly-xVo7PZHPMz3JGB12.json"
+    },
+    {
+      "name": "Vostolas the Archivist",
+      "type": "npc",
+      "_id": "PqZa1Q0bYx0LvnSQ",
+      "file": "fvtt-Actor-vostolas-the-archivist-PqZa1Q0bYx0LvnSQ.json"
+    },
+    {
+      "name": "Waltzgeist",
+      "type": "npc",
+      "_id": "SQbXXUNXUspXZrYs",
+      "file": "fvtt-Actor-waltzgeist-SQbXXUNXUspXZrYs.json"
+    },
+    {
+      "name": "Waluigi",
+      "type": "character",
+      "_id": "BmWNDwbxPQHU3Bbn",
+      "file": "fvtt-Actor-waluigi-BmWNDwbxPQHU3Bbn.json"
+    },
+    {
+      "name": "Wario",
+      "type": "npc",
+      "_id": "dEhGeFofEfnIG24J",
+      "file": "fvtt-Actor-wario-dEhGeFofEfnIG24J.json"
+    },
+    {
+      "name": "Wario's Motorbike",
+      "type": "npc",
+      "_id": "y1amANPSbK9exY41",
+      "file": "fvtt-Actor-warios-motorbike-y1amANPSbK9exY41.json"
+    },
+    {
+      "name": "Woodfellow",
+      "type": "npc",
+      "_id": "wjOpEZuULYW3cYR1",
+      "file": "fvtt-Actor-woodfellow-wjOpEZuULYW3cYR1.json"
+    },
+    {
+      "name": "Wraith",
+      "type": "npc",
+      "_id": "5406wJog3mq1bkeI",
+      "file": "fvtt-Actor-wraith-5406wJog3mq1bkeI.json"
+    },
+    {
+      "name": "Wretched Hound",
+      "type": "npc",
+      "_id": "RPXEkB8NdH3jBPiK",
+      "file": "fvtt-Actor-wretched-hound-RPXEkB8NdH3jBPiK.json"
+    }
+  ]
+}

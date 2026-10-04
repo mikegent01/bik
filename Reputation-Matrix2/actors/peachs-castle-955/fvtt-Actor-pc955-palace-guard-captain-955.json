@@ -1,4 +1,5 @@
 {
+  "_id": "9x7nrIxYnyxX1963",
   "name": "Captain of the Palace Guard (955 BF)",
   "type": "npc",
   "img": "portraits/peachs-castle-955/guard-captain.png",
@@ -914,7 +915,15 @@
   "ownership": {
     "default": 0
   },
-  "flags": {},
+  "flags": {
+    "waluipedia-mass-import": {
+      "folderPath": [
+        "Peach's Castle 955 BF",
+        "The Court"
+      ],
+      "source": "tools/build-peachs-castle-955-actors.py"
+    }
+  },
   "_stats": {
     "coreVersion": "14.365",
     "systemId": "dnd5e",

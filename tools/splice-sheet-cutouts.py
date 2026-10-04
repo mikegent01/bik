@@ -15,9 +15,10 @@ Built for the grid art added in the "Hunyuan-ready Bowser battle bases" pass:
   * ``docs/3d-reference/peachs-castle-955/`` — the Peach's Castle (955 BF)
     packet: two Toad-guard sheets (4x2 and 2x2), a 4x2 household sheet, and
     three single full-body plates (Peach, Toadsworth the Elder, the Guard
-    Captain). Sheets are cut per cell; the plates are cut as one tile each and
-    ALSO saved as a square backdrop-kept plate (``*-plate.png``) because
-    Hunyuan takes either form.
+    Captain). Sheets are cut per cell and ALSO written whole with every
+    backdrop removed (``*-nobg.png``); the plates are cut as one tile each and
+    ALSO saved as a square transparent plate (``*-plate.png``, figure centred
+    with margin) because Hunyuan takes either framing.
 
 How backgrounds are removed
 ---------------------------
@@ -134,17 +135,20 @@ def _grid_tiles(cols, rows, names, prefix):
 
 SHEETS["pc-guards-a"] = {
     "source": _PC / "toad-guards-sheet-a.png",
+    "nobg": _PC / "toad-guards-sheet-a-nobg.png",
     "tiles": _grid_tiles(_COLS4, _ROWS2, [
         "gate-halberd", "door-spear-a", "door-spear-b", "attention-a",
         "attention-b", "sergeant", "crossbow-a", "crossbow-b"], "guard"),
 }
 SHEETS["pc-guards-b"] = {
     "source": _PC / "toad-guards-sheet-b.png",
+    "nobg": _PC / "toad-guards-sheet-b-nobg.png",
     "tiles": _grid_tiles([(4, 699), (708, 1404)], [(4, 379), (388, 764)], [
         "nightwatch-lantern", "pike-towershield", "recruit-horn", "veteran-mace"], "guard"),
 }
 SHEETS["pc-court"] = {
     "source": _PC / "castle-court-sheet.png",
+    "nobg": _PC / "castle-court-sheet-nobg.png",
     "tiles": _grid_tiles(_COLS4, _ROWS2, [
         "chambermaid", "cook-toque", "cook-kerchief", "mage-a",
         "herald-trumpet", "page-scroll", "mage-b", "mage-c"], "court"),
@@ -156,11 +160,13 @@ SHEETS["pc-court"] = {
 # spliced, picking the larger bottom-row Lakitu.
 SHEETS["pc-bowser-a"] = {
     "source": _PC / "bowser-incursion-sheet-a.png",
+    "nobg": _PC / "bowser-incursion-sheet-a-nobg.png",
     "tiles": _grid_tiles([(4, 506), (518, 1020)], [(4, 506), (518, 1020)], [
         "koopatrol", "bob-omb-sapper", "paratroopa-spear", "sledge-bro"], "foe"),
 }
 SHEETS["pc-bowser-b"] = {
     "source": _PC / "bowser-incursion-sheet-b.png",
+    "nobg": _PC / "bowser-incursion-sheet-b-nobg.png",
     "tiles": [
         dict(key="r1c1", box=(4, 5, 346, 378), mode="neural", out=_PC / "foe-dry-bones.png"),
         dict(key="r1c2", box=(358, 5, 698, 378), mode="neural", out=_PC / "foe-boo.png"),
@@ -303,8 +309,9 @@ def seeded_grabcut_mask(tile: Image.Image, prob: np.ndarray,
 # Shared finishing: components, holes, feather, trim, square pad
 # ---------------------------------------------------------------------------
 
-def finish_tile(tile: Image.Image, fg: np.ndarray,
-                keep_ratio: float = 0.03, max_hole_ratio: float = 0.015) -> Image.Image:
+def tile_alpha(fg: np.ndarray, keep_ratio: float = 0.03,
+               max_hole_ratio: float = 0.015) -> np.ndarray:
+    """Cleaned 8-bit alpha for one tile: biggest components, filled, blurred."""
     n, lbl, stats, _ = cv2.connectedComponentsWithStats(fg, 8)
     keep = np.zeros_like(fg)
     if n > 1:
@@ -324,8 +331,12 @@ def finish_tile(tile: Image.Image, fg: np.ndarray,
         if sh[i, cv2.CC_STAT_AREA] > max_hole_ratio * max(body_area, 1):
             out[lhl == i] = 0
     alpha = (out * 255).astype(np.uint8)
-    alpha = cv2.GaussianBlur(alpha, (0, 0), 1.0)
+    return cv2.GaussianBlur(alpha, (0, 0), 1.0)
 
+
+def finish_tile(tile: Image.Image, fg: np.ndarray,
+                keep_ratio: float = 0.03, max_hole_ratio: float = 0.015) -> Image.Image:
+    alpha = tile_alpha(fg, keep_ratio, max_hole_ratio)
     rgba = np.dstack([np.asarray(tile.convert("RGB")), alpha])
     ys, xs = np.where(alpha > 8)
     if len(xs) == 0:
@@ -356,29 +367,37 @@ def checkerboard(pil_img: Image.Image, cell: int = 32) -> Image.Image:
 
 
 def plate_crop(tile: Image.Image, fg: np.ndarray, pad: int = 48) -> Image.Image:
-    """Square crop around the figure that KEEPS the studio backdrop.
+    """Square TRANSPARENT plate around the figure.
 
-    The margin is filled with the backdrop colour sampled from the tile's
-    corners, so a wide landscape plate becomes the 1:1 single-figure plate the
-    earlier packets used, without a transparent edge.
+    Same framing as the earlier backdrop-kept plates (figure centred with a
+    generous margin) but the studio backdrop is matted out, so the plate drops
+    straight into a token frame or a Hunyuan session that wants a clean alpha.
     """
+    alpha = tile_alpha(fg)
     rgb = np.asarray(tile.convert("RGB"))
-    ys, xs = np.where(fg > 0)
+    ys, xs = np.where(alpha > 8)
     if len(xs) == 0:
         raise SystemExit(f"empty mask for plate of size {tile.size}; adjust its config")
     h, w = rgb.shape[:2]
     y0, y1 = max(0, ys.min() - pad), min(h, ys.max() + pad + 1)
     x0, x1 = max(0, xs.min() - pad), min(w, xs.max() + pad + 1)
     side = max(y1 - y0, x1 - x0)
-    corners = np.concatenate([rgb[:12, :12].reshape(-1, 3), rgb[:12, -12:].reshape(-1, 3),
-                              rgb[-12:, :12].reshape(-1, 3), rgb[-12:, -12:].reshape(-1, 3)])
-    bgc = np.median(corners, axis=0).astype(np.uint8)
-    canvas = np.empty((side, side, 3), np.uint8)
-    canvas[:] = bgc
-    crop = rgb[y0:y1, x0:x1]
+    canvas = np.zeros((side, side, 4), np.uint8)
+    crop = np.dstack([rgb, alpha])[y0:y1, x0:x1]
     oy, ox = (side - crop.shape[0]) // 2, (side - crop.shape[1]) // 2
     canvas[oy:oy + crop.shape[0], ox:ox + crop.shape[1]] = crop
-    return Image.fromarray(canvas, "RGB")
+    return Image.fromarray(canvas, "RGBA")
+
+
+def nobg_sheet(src: Image.Image, alphas: list) -> Image.Image:
+    """The whole sheet with its backdrop removed: every tile's alpha pasted back
+    at its box, dividers and gutters left fully transparent."""
+    rgb = np.asarray(src.convert("RGB"))
+    full = np.zeros(rgb.shape[:2], np.uint8)
+    for box, alpha in alphas:
+        x0, y0, x1, y1 = box if box else (0, 0, rgb.shape[1], rgb.shape[0])
+        full[y0:y1, x0:x1] = np.maximum(full[y0:y1, x0:x1], alpha)
+    return Image.fromarray(np.dstack([rgb, full]), "RGBA")
 
 
 def process_tile(tile_img: Image.Image, cfg: dict, model_path: Path):
@@ -411,13 +430,22 @@ def main() -> int:
     for name in names:
         sheet = SHEETS[name]
         src = Image.open(sheet["source"]).convert("RGB")
+        nobg_path: Path | None = sheet.get("nobg")
+        want_nobg = bool(nobg_path) and (args.force or not nobg_path.exists())
+        alphas = []
         for cfg in sheet["tiles"]:
             out_path: Path = cfg["out"]
-            if out_path.exists() and not args.force:
+            skip = out_path.exists() and not args.force
+            if skip and not want_nobg:
                 print(f"  SKIP {out_path.relative_to(ROOT)} (exists; use --force)")
                 continue
             tile = src.crop(cfg["box"]) if cfg.get("box") else src
             cutout, fg = process_tile(tile, cfg, model_path)
+            if want_nobg:
+                alphas.append((cfg.get("box"), tile_alpha(fg)))
+            if skip:
+                print(f"  SKIP {out_path.relative_to(ROOT)} (exists; use --force)")
+                continue
             out_path.parent.mkdir(parents=True, exist_ok=True)
             cutout.save(out_path)
             print(f"  WROTE {out_path.relative_to(ROOT)} {cutout.size[0]}x{cutout.size[1]}px")
@@ -425,11 +453,15 @@ def main() -> int:
             if cfg.get("plate"):
                 plate = plate_crop(tile, fg)
                 plate.save(cfg["plate"])
-                print(f"  WROTE {cfg['plate'].relative_to(ROOT)} {plate.size[0]}x{plate.size[1]}px (backdrop kept)")
+                print(f"  WROTE {cfg['plate'].relative_to(ROOT)} {plate.size[0]}x{plate.size[1]}px (transparent plate)")
             if args.qa_dir:
                 args.qa_dir.mkdir(parents=True, exist_ok=True)
                 checkerboard(cutout).convert("RGB").save(
                     args.qa_dir / f"{name}_{cfg['key']}_checker.jpg", quality=92)
+        if want_nobg and alphas:
+            sheet_png = nobg_sheet(src, alphas)
+            sheet_png.save(nobg_path)
+            print(f"  WROTE {nobg_path.relative_to(ROOT)} {sheet_png.size[0]}x{sheet_png.size[1]}px (whole sheet, background removed)")
     print(f"Done. {written} cutout(s) written.")
     if args.qa_dir:
         print(f"QA renders in {args.qa_dir}")

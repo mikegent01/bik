@@ -99,6 +99,17 @@ def main() -> int:
         # re-validated against the image-path library and tokens against the
         # installed cutouts.
         ("peachs castle 955 actors", [py, "tools/build-peachs-castle-955-actors.py", "--check"], ROOT),
+        # Foundry mass import: the Python bridge (split/combine/link-images/
+        # apply/check/install-images), the one-file import packet for the 955
+        # roster, and the module zip that the manifest URL downloads.
+        ("foundry bridge", [py, "tools/tests/test-foundry-bridge.py"], ROOT),
+        ("peachs castle 955 import.json", [py, "tools/foundry-bridge.py", "combine",
+                                           "Reputation-Matrix2/actors/peachs-castle-955",
+                                           "--out", "Reputation-Matrix2/actors/peachs-castle-955/import.json",
+                                           "--check"], ROOT),
+        ("foundry module zip", [py, "tools/build-foundry-module-zip.py", "--check"], ROOT),
+        # Live world mirrors (split from the end-of-session export) stay importable.
+        ("foundry world mirrors", [py, "tools/foundry-bridge.py", "check", "Reputation-Matrix2/actors/worlds"], ROOT),
         # Judgement in the Grove: the event, its battle, and the front-page
         # wiring (latestUpdate/featured/Current fronts/SITE_UPDATES) all come
         # out of one generator, because the previous session was filed and
@@ -111,6 +122,7 @@ def main() -> int:
     if shutil.which("node"):
         checks.append(("Bros discovery test", ["node", "tools/tests/test_bros_discovery.mjs"], RM))
         checks.append(("Foundry ATB module", ["node", "tools/tests/test-active-time-battle-module.mjs"], ROOT))
+        checks.append(("Foundry mass import module", ["node", "tools/tests/test-mass-import-module.mjs"], ROOT))
         # Search quality: pure functions extracted from index.html, run against
         # the real data. No server needed, unlike the live jsdom counterpart
         # (tools/tests/test-search-live.mjs, which needs :8765).

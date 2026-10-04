@@ -64,9 +64,11 @@ test fails on drift between the live entry and the generated file.
 
 **Bridge:** `python3 tools/split-players.py --watch` polls Players.json
 and re-splits + rebuilds whenever it changes, so the import-ready files
-stay fresh while the export is being edited. Honest limitation: this
-refreshes the files on disk — nothing can push data into a live Foundry
-world, so the DM still imports the `fvtt-Actor-*.json` files by hand.
+stay fresh while the export is being edited. Nothing can push data into a
+live Foundry world from outside, but the import side is no longer one file
+at a time — see **Mass import / export** below: one click in Foundry
+imports a whole packet (folders included) from a file, a GitHub raw URL or
+the Data folder.
 
 Regenerate any single file:
 
@@ -75,6 +77,51 @@ cd Reputation-Matrix2/actors
 python3 ../../tools/sanitize-foundry-actor.py original-fvtt-Actor-NAME.json \
   --write fvtt-Actor-NAME.json
 ```
+
+## Mass import / export — the session loop
+
+The Foundry module [`../Foundry/mass_import/`](../Foundry/mass_import/README.md)
+(`waluipedia-mass-import`, install via the manifest URL
+`https://mikegent01.github.io/bik/Reputation-Matrix2/Foundry/mass_import/module.json`)
+adds **Export all** / **Import** buttons to the Actors sidebar. Export writes
+`<world>-all-actors.json` with every actor **and its folder path**
+(`flags["waluipedia-mass-import"].folderPath`); Import takes that file — or
+the old macro export, a bare array like `Players.json`, or a single
+`fvtt-Actor-*.json` — recreates the folders, creates missing actors with
+their `_id` kept, updates existing ones in place, syncs items/effects, and
+checks every image path against the server. The old
+`game.actors.contents.map(a => a.toObject())` macro export still imports (it
+just has no folders; everything lands in the root or under "Root folder").
+
+[`tools/foundry-bridge.py`](../../tools/foundry-bridge.py) is the repo side
+(stdlib only, tested by `tools/tests/test-foundry-bridge.py`):
+
+```bash
+# 1. split the end-of-session export into one file per actor, directories = folders
+python3 tools/foundry-bridge.py split ~/Downloads/<world>-all-actors.json \
+    --out Reputation-Matrix2/actors/worlds/<world> --prune
+# 2. connect images: characters.json portraits, portraits/<slug>.*, the image library
+python3 tools/foundry-bridge.py link-images Reputation-Matrix2/actors/worlds/<world> --write
+# 3. implement changes/states/items from a small changes.json (or edit the JSON by hand)
+python3 tools/foundry-bridge.py apply changes.json Reputation-Matrix2/actors/worlds/<world> --write
+python3 tools/foundry-bridge.py check Reputation-Matrix2/actors/worlds/<world>
+# 4. combine into one import packet and copy the PNGs it references into Foundry Data
+python3 tools/foundry-bridge.py combine Reputation-Matrix2/actors/worlds/<world> \
+    --out Reputation-Matrix2/actors/worlds/<world>/import.json --world <world>
+python3 tools/foundry-bridge.py install-images Reputation-Matrix2/actors/worlds/<world> \
+    --foundry-data "/path/to/FoundryVTT/Data"
+```
+
+Then **Import** the `import.json` in Foundry (upload it, paste its GitHub raw
+URL once the branch is pushed, or point at a copy inside Data). Moving an
+actor between folders is editing `folderPath` (or moving the file: `combine`
+derives the path from the directory when the flag is absent). A
+`changes.json` is a list of `{match, set, unset, rename, folderPath,
+addItems, removeItems, addEffects, removeEffects, delete}` entries — see the
+docstring at the top of the bridge. The 955 packet below ships its
+`import.json` pre-built (`check-all` keeps it current), and the live
+`midlands` world is already split under
+[`worlds/midlands/`](worlds/README.md) from `midlands-all-actors.json`.
 
 ## What was repaired
 
@@ -445,6 +492,12 @@ touches them. Tokens are the cutouts under `portraits/peachs-castle-955/`.
 python3 ../../tools/build-peachs-castle-955-actors.py            # write
 python3 ../../tools/build-peachs-castle-955-actors.py --check    # verify
 ```
+
+Every file carries a stable `_id` and a folder path (`Peach's Castle 955 BF /
+The Court` or `/ Bowser's Incursion`), and
+[`peachs-castle-955/import.json`](peachs-castle-955/import.json) is the
+combined packet for the mass-import module — one Import, thirty actors in two
+folders, re-importable without duplicates.
 
 The 955 Bowser is a scene NPC. The present-day Bowser is still the player
 character above — never import one over the other.

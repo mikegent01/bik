@@ -13,9 +13,11 @@ square PNG). Feed Hunyuan one cutout (or one plate) at a time; never the sheet.
 
 ## Full-body plates (the three characters)
 
-Each character comes as a square backdrop-kept **plate** (the form the Bowser /
-Fawful / Cackletta bases used) and a transparent **cutout**. Use whichever your
-Hunyuan session takes better; they are the same picture.
+Each character comes as a square **plate** (the framing the Bowser / Fawful /
+Cackletta bases used — now with the backdrop removed, so it is a transparent
+PNG with the figure centred and room around it) and a tighter transparent
+**cutout**. Use whichever your Hunyuan session takes better; they are the same
+picture. The original backdrops survive only in the `*-base.png` sources.
 
 | Character | Plate | Cutout | Construction points to preserve |
 |---|---|---|---|
@@ -23,8 +25,15 @@ Hunyuan session takes better; they are the same picture.
 | **Toadsworth the Elder** — Royal Chamberlain | [toadsworth-elder-plate.png](toadsworth-elder-plate.png) | [toadsworth-elder-cutout.png](toadsworth-elder-cutout.png) | Built from the archive portrait `Reputation-Matrix2/portraits/toadsworth_sr.jpg`: pale beige-grey cap with cream spots, round spectacles, large white moustache, charcoal cloak with a round brooch. Added below the portrait: purple waistcoat with gold buttons, brown bow tie, white gloves, mushroom-handled cane, pocket watch. In 955 he is the Chamberlain, not yet Regent. |
 | **Captain of the Palace Guard** — generic officer | [guard-captain-plate.png](guard-captain-plate.png) | [guard-captain-cutout.png](guard-captain-cutout.png) | Same livery as the guard sheets in officer grade: plumed silver kettle helm over the red-spotted cap, breastplate and pauldrons, crimson sash, sabre, sealed order. Grey moustache, stern. An unnamed role, not a filed character. |
 
-Source plates as generated (1408 × 768, landscape): `princess-peach-base.png`,
-`toadsworth-elder-base.png`, `guard-captain-base.png`.
+Source plates as generated (1408 × 768, landscape, backdrop kept):
+`princess-peach-base.png`, `toadsworth-elder-base.png`, `guard-captain-base.png`.
+
+**Background-free sheets.** Every contact sheet also exists as `*-nobg.png`
+(same grid, every cell's backdrop removed, transparent PNG):
+`toad-guards-sheet-a-nobg.png`, `toad-guards-sheet-b-nobg.png`,
+`castle-court-sheet-nobg.png`, `bowser-incursion-sheet-a-nobg.png`,
+`bowser-incursion-sheet-b-nobg.png`. The originals with their studio
+backdrops stay as the references the cutouts are measured against.
 
 ## Toad palace guards (12 cutouts from two sheets)
 
@@ -156,4 +165,5 @@ done
 ```
 
 Deterministic; `--force` to overwrite, `--qa-dir /tmp/cutout-qa` for
-checkerboard renders.
+checkerboard renders. Grid sheets also write the `*-nobg.png` sheet; the three
+character sheets write a transparent `*-plate.png` beside the cutout.

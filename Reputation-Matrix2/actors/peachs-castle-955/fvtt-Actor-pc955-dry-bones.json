@@ -1,4 +1,5 @@
 {
+  "_id": "hDOhSJotIpcQxl44",
   "name": "Dry Bones",
   "type": "npc",
   "img": "portraits/peachs-castle-955/foe-dry-bones.png",
@@ -989,7 +990,15 @@
   "ownership": {
     "default": 0
   },
-  "flags": {},
+  "flags": {
+    "waluipedia-mass-import": {
+      "folderPath": [
+        "Peach's Castle 955 BF",
+        "Bowser's Incursion"
+      ],
+      "source": "tools/build-peachs-castle-955-actors.py"
+    }
+  },
   "_stats": {
     "coreVersion": "14.365",
     "systemId": "dnd5e",

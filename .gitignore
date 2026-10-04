@@ -1,5 +1,8 @@
 _art_preview.html
 *.zip
+# …except the Foundry module archives tools/build-foundry-module-zip.py builds:
+# each module.json "download" URL points at one, so gh-pages has to serve it.
+!Reputation-Matrix2/Foundry/*.zip
 
 # Generator drafts: unverified output, never canon, never committed
 Reputation-Matrix2/tools/.generated/

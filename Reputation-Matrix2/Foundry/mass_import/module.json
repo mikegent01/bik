@@ -1,0 +1,24 @@
+{
+  "id": "waluipedia-mass-import",
+  "title": "Waluipedia Mass Import / Export",
+  "description": "Export every actor (with its folder path) to one JSON, and import a JSON of many actors back in: folders rebuilt, existing actors updated in place by id, images checked. The Foundry end of the Waluipedia repo bridge (tools/foundry-bridge.py).",
+  "version": "1.0.0",
+  "authors": [
+    {
+      "name": "Waluipedia"
+    }
+  ],
+  "esmodules": [
+    "scripts/mass-import.js"
+  ],
+  "styles": [
+    "styles/mass-import.css"
+  ],
+  "compatibility": {
+    "minimum": "12",
+    "verified": "14"
+  },
+  "url": "https://github.com/mikegent01/bik/tree/gh-pages/Reputation-Matrix2/Foundry/mass_import",
+  "manifest": "https://mikegent01.github.io/bik/Reputation-Matrix2/Foundry/mass_import/module.json",
+  "download": "https://mikegent01.github.io/bik/Reputation-Matrix2/Foundry/mass_import.zip"
+}

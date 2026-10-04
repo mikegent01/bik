@@ -28,6 +28,11 @@ Design rules (same as tools/build-sanctum-npcs.py):
     the 955 BF interloper is a separate era statblock and must never replace it.
   * Nothing here is a filed event. The council scene is a GM scene kit; the
     canon anchor is events.json `highsun_1_955_bf_the_day_of`.
+  * Every actor carries a deterministic `_id` and a
+    `flags.waluipedia-mass-import.folderPath`, so the mass-import module
+    (Reputation-Matrix2/foundry/mass-import) files them into
+    "Peach's Castle 955 BF / The Court | Bowser's Incursion" and re-imports
+    update in place instead of duplicating.
 
 Usage:
     python3 tools/build-peachs-castle-955-actors.py            # write
@@ -49,6 +54,13 @@ PORTRAITS = os.path.join(RM, "portraits", "peachs-castle-955")
 IMAGE_LIB = os.path.join(RM, "tools", "item sheet examples", "image paths.txt")
 TOKEN_PREFIX = "portraits/peachs-castle-955/"
 FOUNDRY_ID = re.compile(r"^[A-Za-z0-9]{16}$")
+# Folder placement for the mass-import module (Reputation-Matrix2/foundry/
+# mass-import): the flag scope is the module id, so Foundry keeps it on import
+# and `tools/foundry-bridge.py combine` can rebuild the folder tree from it.
+MODULE_ID = "waluipedia-mass-import"
+FOLDER_ROOT = "Peach's Castle 955 BF"
+FOLDERS = {"court": [FOLDER_ROOT, "The Court"],
+           "incursion": [FOLDER_ROOT, "Bowser's Incursion"]}
 
 ABILITY_KEYS = ("str", "dex", "con", "int", "wis", "cha")
 SKILL_ABILITY = {
@@ -228,6 +240,7 @@ def npc(*, slug, name, token, side, size, sc, prof_saves=(), trained=None,
         resources=None, token_size=1):
     img = TOKEN_PREFIX + token
     doc = {
+        "_id": sid("actor", slug),
         "name": name,
         "type": "npc",
         "img": img,
@@ -300,7 +313,8 @@ def npc(*, slug, name, token, side, size, sc, prof_saves=(), trained=None,
         "effects": [],
         "folder": None,
         "ownership": {"default": 0},
-        "flags": {},
+        "flags": {MODULE_ID: {"folderPath": list(FOLDERS[side]),
+                              "source": "tools/build-peachs-castle-955-actors.py"}},
         "_stats": {"coreVersion": "14.365", "systemId": "dnd5e",
                    "systemVersion": "5.3.3", "compendiumSource": None,
                    "duplicateSource": None},
@@ -1239,6 +1253,8 @@ def validate(slug, actor, lib):
     problems = []
     if actor["type"] != "npc":
         problems.append("type must be npc")
+    if not FOUNDRY_ID.match(actor.get("_id") or ""):
+        problems.append("actor _id must be 16 alphanumerics")
     if actor["prototypeToken"]["actorLink"]:
         problems.append("prototype token must be unlinked")
     imgs = [actor["img"], actor["prototypeToken"]["texture"]["src"]]
@@ -1278,6 +1294,9 @@ def build_all():
     slugs = [s for s, _ in actors]
     if len(slugs) != len(set(slugs)):
         raise SystemExit("duplicate actor slug")
+    ids = [d["_id"] for _, d in actors]
+    if len(ids) != len(set(ids)):
+        raise SystemExit("actor _id collision")
     return actors
 
 

@@ -1,4 +1,5 @@
 {
+  "_id": "izfxhm0u7Gt46Ksj",
   "name": "Lakitu Spotter",
   "type": "npc",
   "img": "portraits/peachs-castle-955/foe-lakitu.png",
@@ -866,7 +867,15 @@
   "ownership": {
     "default": 0
   },
-  "flags": {},
+  "flags": {
+    "waluipedia-mass-import": {
+      "folderPath": [
+        "Peach's Castle 955 BF",
+        "Bowser's Incursion"
+      ],
+      "source": "tools/build-peachs-castle-955-actors.py"
+    }
+  },
   "_stats": {
     "coreVersion": "14.365",
     "systemId": "dnd5e",
