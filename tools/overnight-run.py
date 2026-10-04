@@ -3,9 +3,9 @@
 
 The run is deliberately an orchestrator, not a second content generator:
 - the Mages' Guild generator remains the owner of Codex generation;
-- the injury generator remains the owner of the temporary injury table;
-- this file validates the injury contract, runs the Codex overnight pass, and
-  validates again so a future AI injury replacement can be added as one stage.
+- the Permanent Injury Table is hand-authored and locked (no generator owns
+  it any more); this file validates its contract before and after the run so
+  an unattended pass can never be the thing that quietly changed it.
 
 Examples:
   python3 tools/overnight-run.py --plan
@@ -28,7 +28,6 @@ INJURY = ROOT / "tools" / "generate-injury-table.py"
 MAGES = ROOT / "tools" / "gen-mages-guild-code.py"
 ALL_SYSTEMS = ROOT / "Reputation-Matrix2" / "tools" / "generate_all.py"
 EXPAND = ROOT / "tools" / "expand-waluipedia.py"
-DEDUPE_INJURY = ROOT / "tools" / "dedupe-injury-table.py"
 WAHBABEL = ROOT / "tools" / "build-wahbabel.py"
 UNLINKED = ROOT / "tools" / "fix-unlinked-members.py"
 MIX_SYSTEMS = "wahwire-author,shop_items,reputation,faction-dossiers,crafting,abilities"
@@ -119,7 +118,6 @@ def main() -> int:
             if args.past_events:
                 print(f"  after rounds: expand-waluipedia past events ({args.past_events})")
             print("  Codex emoji audit")
-            print("  injury repeat audit (template families, roman numerals)")
             print("  unlinked collection members: repoint + worklist")
             print("  injury contract after run")
             if args.infinite:
@@ -183,11 +181,9 @@ def main() -> int:
                 return 1
         if run("Codex emoji audit", [PYTHON, str(MAGES), "--check-emoji"]):
             return 1
-        # Data-hygiene stages. Both are deterministic and use no AI, so they are
-        # safe to run unattended. Neither invents content: the injury pass only
-        # removes duplicate rows, and the member pass only repoints ids it can
-        # prove, writing anything ambiguous to a worklist for a human.
-        run("injury repeat audit", [PYTHON, str(DEDUPE_INJURY), "--report"])
+        # Data-hygiene stage. Deterministic, no AI, safe unattended: the member
+        # pass only repoints ids it can prove, writing anything ambiguous to a
+        # worklist for a human.
         run("unlinked members: safe repoints", [PYTHON, str(UNLINKED), "--write"])
         run("unlinked members: worklist", [PYTHON, str(UNLINKED), "--worklist"])
         return run("injury contract after run", injury_check)
@@ -223,11 +219,9 @@ def main() -> int:
             past_cmd += ["--model", args.model]
         stages.append(("expand-waluipedia: sparse foreign past events", past_cmd))
     stages.append(("Codex emoji audit", [PYTHON, str(MAGES), "--check-emoji"]))
-    # Data-hygiene stages. Deterministic, no AI, safe unattended. Neither
-    # invents content: the injury pass only reports duplicate template families,
-    # and the member pass only repoints ids it can prove, writing anything
-    # ambiguous to a worklist for a human to decide.
-    stages.append(("injury repeat audit", [PYTHON, str(DEDUPE_INJURY), "--report"]))
+    # Data-hygiene stages. Deterministic, no AI, safe unattended: the member
+    # pass only repoints ids it can prove, writing anything ambiguous to a
+    # worklist for a human to decide.
     stages.append(("wahbabel rebuild", [PYTHON, str(WAHBABEL), "--write"]))
     stages.append(("unlinked members: safe repoints", [PYTHON, str(UNLINKED), "--write"]))
     stages.append(("unlinked members: worklist", [PYTHON, str(UNLINKED), "--worklist"]))

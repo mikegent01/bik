@@ -1,31 +1,82 @@
-# Permanent Injury Desk
+# Permanent Injury Table
 
-The injury desk is a d100 consequence table for lasting injuries, recovery, scars,
-mental trauma, and survivability twists.
+The Permanent Injury Table is a hand-authored d100 consequence table for
+injuries that outlast the fight: lost limbs, the body never being the same,
+bad weeks, scars, trauma, oddities, and — at the top end — the luck of the
+survivor. It is **low is worse**: 1 is death, 100 is the 1-Up.
 
 ## Source of truth
 
-`Reputation-Matrix2/data/injuries.json` contains exactly 100 ordered **temporary** entries. Each entry has a stable roll, category, injury type, effect, lowest listed cure, duration, optional notes, and `temporary: true`. These rows are placeholders for a future AI-generated replacement; do not silently replace them or remove the temporary marker. Do not duplicate the rules text in a character.
+`Reputation-Matrix2/data/injuries.json` — `schemaVersion` 2, `status`
+`"authored"`, `locked: true`, and **exactly 100 rows** in declared bands:
 
-## Player surface
+| d100 | Band | Rows | What it means |
+|---|---|---|---|
+| 1 | Death | 1 | the blow was more than the body |
+| 2–4 | Quicker death | 3 | permanent fragilities around death saves |
+| 5–10 | Lose a limb | 6 | arm, hand, leg, foot, fingers — Regenerate territory |
+| 11–22 | Severe injury | 12 | eye, throat, lung, spine, hip, skull; hit-point-maximum losses |
+| 23–38 | Major injury | 16 | breaks that take weeks, nerve damage, the weakened heart |
+| 39–56 | Injury | 18 | two to four weeks of disadvantage; infections |
+| 57–70 | Minor injury | 14 | a bad week; 70 is "A Scratch" |
+| 71–75 | Facial scarring | 5 | distinguishing marks with social mechanics |
+| 76–78 | Memorable scars | 3 | the story on the skin |
+| 79–80 | Severe mental trauma | 2 | Shattered Nerve, Night Terrors |
+| 81–86 | Mental trauma | 6 | the Flinch, Phobia, Survivor's Silence, Hypervigilance, Battle Shakes, Short Fuse |
+| 87–88 | Flavour effect | 2 | Weather Knee, White Streak |
+| 89–92 | Special effect | 4 | the Scar Remembers, Starlight in the Wound, Arcane Tinnitus, Iron Splinter |
+| 93–97 | Minor boon | 5 | small permanent upsides |
+| 98 | Survivability | 1 | Hard to Kill (death saves succeed on 9+) |
+| 99–100 | Survivability+ | 2 | Relentless, The 1-Up |
 
-Open `Reputation-Matrix2/app/pages/standalone/injury-desk.html`. The desk provides:
+Every row has exactly these fields, in this order: `d100`, `category`,
+`injuryType`, `description`, `cure`, `duration`, `notes`. The field names are
+read live by `index.html` (`#/injuries` and the character injury panel),
+Wario's Casino, the standalone desk and the validator — do not rename them.
 
-- a random d100 spinner;
-- searchable and category-filtered rows;
-- a result card with effect, cure, duration, and notes;
-- copyable result text;
-- character links using the normal `#/article/<character-id>` route;
-- a canonical assignment command for attaching the result to a character.
+**Mechanics** use fifth-edition vocabulary: advantage/disadvantage, exhaustion
+levels, the Dash action, death saving throws, hit point maximum, Wisdom
+(Medicine) DCs. **`cure` is the lowest rung of the ladder that removes the
+row**; anything stronger works too. The ladder is in the file as
+`cureLadder`: Rest → Treatment (a healer and a DC) → Lesser Restoration →
+Remove Curse → Greater Restoration → Heal → Regenerate → Raise Dead /
+Resurrection / a 1-Up Mushroom. Setting hooks in `notes` point only at filed
+canon (Dr. Toad's Star Hill Clinic, the Menders, the Mages' Guild, Toadstool
+Tonic, the 1-Up Mushroom). Rows that say "treat as" another row borrow that
+row's mechanics, never its cure.
 
-The page loads the JSON source at runtime, so changing a table entry does not
-require rebuilding a generated HTML data bundle.
+### History
+
+The first table was machine-generated (a 7B model through `genkit`): 343 rows
+of which 125 began "Veilbound Vein", disambiguated with roman numerals, with
+contradictory durations and cures. A deterministic cull got it to 204. On
+2026-10-04 the slate was wiped and the hundred rows above were written by hand.
+The genkit `injury-table` system is **retired**: it stays registered (so the
+id still resolves and the dashboard card explains itself) but is disabled,
+reports zero pending work for a locked table, and refuses to write one. The
+old `tools/dedupe-injury-table.py` repair tool is gone; its repeat guards
+(no duplicate names, no roll numerals, no name family more than twice) live in
+the validator now.
+
+## Player surfaces
+
+- **Wario's Casino** — `Reputation-Matrix2/app/pages/crime-and-punishment/crime-and-punishment.html`.
+  The consequence drum rolls the table after a sentence; severity drags the
+  roll towards the low (dangerous) end, never guaranteeing anything. The ward
+  tab runs death saves; a survivor rolls the table **minus row 1**, because
+  the saves already decided they live. The searchable table lives here too.
+- **`#/injuries`** in `index.html` — the Injury Desk route: death saves, the
+  survival handoff (also skips row 1), the full table, and the moved-to-Casino
+  notice for old links.
+- **Standalone desk** — `Reputation-Matrix2/app/pages/standalone/injury-desk.html`:
+  spinner, search, category filter, copyable result, and the assignment
+  command. All three read the JSON at runtime; no rebuild is needed after an
+  edit.
 
 ## Character integration
 
-The table's contract remains 100 rows, but rolling is not capped at one roll or at a single d100 pass. The CLI accepts `d100`, `2d100`, `100d100`, and any `NdM` (up to 10,000 rolls); results wrap safely onto the available d100 table. After 100d100, run another batch or increase `N`—there is no artificial “stop at 100” batch boundary.
-
-A character may carry an `injuries` array. Each item is a small reference:
+A character may carry an `injuries` array of compact references; the effect
+text lives in the table, once:
 
 ```json
 {
@@ -36,61 +87,53 @@ A character may carry an `injuries` array. Each item is a small reference:
 }
 ```
 
-Assign one from the command line:
-
 ```bash
-python3 tools/generate-injury-table.py --result 15 --character luigi
+python3 tools/generate-injury-table.py --result 15 --character luigi            # a chosen row
+python3 tools/generate-injury-table.py --roll --survived --character luigi      # death-save handoff (skips row 1)
+python3 tools/generate-injury-table.py --result 15 --character luigi --dry-run  # show, do not write
 ```
 
-Use `--roll --character <id>` for a random result. The command validates the
-whole table before writing and updates `data/characters.json`; it never copies
-the effect text into the character record. A later healing pass can change the
-reference's `status` to `healed` without losing the original roll.
+The command validates the whole table before writing and never copies the
+effect text into the character record. A healing pass changes the reference's
+`status` to `healed` without losing the original roll. The character page
+renders the panel from the reference (`injuryPanel` in `index.html`).
 
-## Python tool functions
+## The validator
 
-`load_table()` validates the file, metadata, all required fields, the 1–100 order,
-and every temporary marker. `entry_for_roll()` rejects values outside 1–100.
-`choose_roll()` uses an explicitly supplied result or a cryptographically secure
-random d100. `assign()` resolves the character, builds only a compact reference,
-and supports `dry_run` so a test cannot modify the character file. `main()` exposes
-these operations through `--check`, `--roll`, `--result`, `--character`, and
-`--dry-run`.
+`tools/generate-injury-table.py` is the contract's keeper and runs in
+`tools/check-all.py` and at both ends of `tools/overnight-run.py`:
+
+```bash
+python3 tools/generate-injury-table.py --check                 # the whole contract + band summary
+python3 tools/generate-injury-table.py --list [--band "Injury"] # d100, category, name, lowest cure
+python3 tools/generate-injury-table.py --roll [--survived]
+python3 tools/generate-injury-table.py --dice 3d100             # repeated rolls; any NdM wraps onto 1-100
+```
+
+`--check` enforces: schema 2, `status: "authored"`, `locked: true`, no
+generated-era fields (`temporary`, `_generated`, `_repair`, `replacement`),
+bands that tile 1–100 in order with the single Death band at row 1, exactly
+100 rows with exactly the seven fields in order, `d100` consecutive, each
+row's category matching its band, non-empty name/description/cure/duration,
+names unique (case-insensitive) with no roll numerals and no family more than
+twice, descriptions 20–400 characters, cross-references like "(07)"
+resolving, and no row naming the GM.
+
+## Editing the table
+
+Edit `injuries.json` by hand, keep a row's slot (its `d100` is its identity
+everywhere in the app and in character references), keep the band order, and
+run `--check`. If a row must move bands, update `bands` too. Do not add a
+101st row: the Casino drum, the desk, the tests and the character references
+all assume d100 1–100. The GM overrides any row the fiction or a player's
+comfort requires; the table is a game instrument, not medical advice.
 
 ## Overnight orchestration
 
-`gen-mages-guild-code.py --overnight` is a finite Codex generation mode; it is
-not itself a forever daemon, and it does not currently repair injury entries.
-The single unattended entry point is `tools/overnight-run.py`. It validates the
-temporary injury contract, runs the Mages' Guild Codex generator, then validates
-the injury contract again. This keeps a future AI injury replacement as an
-explicit stage instead of silently mixing two generators.
-
-```bash
-python3 tools/overnight-run.py --plan
-python3 tools/overnight-run.py --base-url http://127.0.0.1:1234/v1 --target 400
-```
-
-Use `--skip-mages` to validate only the injury table. The future replacement
-stage should change `status` only after review and should preserve the d100,
-character-reference, cure, and duration contracts.
-
-## Verification
-
-```bash
-python3 tools/generate-injury-table.py --check
-python3 tools/generate-injury-table.py --dice 2d100
-python3 tools/generate-injury-table.py --dice 100d100 --dry-run
-python3 tools/overnight-run.py --plan
-python3 -m json.tool Reputation-Matrix2/data/injuries.json >/dev/null
-python3 -m json.tool Reputation-Matrix2/data/characters.json >/dev/null
-```
-
-The image supplied for the feature is a visual reference for the table's shape;
-it is not treated as a generated site asset. The table is intentionally a game
-instrument, not medical advice, and the GM should override a result when the
-fiction or player safety requires it.
-
+`tools/overnight-run.py` validates the injury contract before and after every
+run so an unattended pass can never be the thing that quietly changed the
+table. No generator owns the table any more; `--only injury-table` is a no-op
+by design.
 
 ## Other overnight candidates
 

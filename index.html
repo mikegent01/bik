@@ -15714,7 +15714,8 @@ function wbToggleInline(id){
 }
 
 /* ===== Injury Desk — death saving throws + the d100 consequence table =====
-   Data: Reputation-Matrix2/data/injuries.json (343 entries).
+   Data: Reputation-Matrix2/data/injuries.json (100 hand-authored rows, worst
+   at 1 and best at 100; status "authored", locked — see docs/INJURY_TABLE_GUIDE.md).
    The table's own rules text has referenced "the spinner on the Injury Desk"
    since it was written, but no such page existed and the table had no route
    at all. This is that page.
@@ -15887,11 +15888,18 @@ function view_injuries(tab){
       </div>
     </div>`;
 
+  // The table was machine-drafted once (343 rows, mostly one template repeated);
+  // it is hand-authored and locked now. Keep the flag honest either way.
   const warn=d.status==='temporary'?`
     <div class="card inj-warn">
       <b>⚠ These entries are provisional.</b> ${esc(d.replacement||'')}
-      They are machine-drafted reference text, kept because a table with 343 usable
-      rows beats an empty one, and flagged so nobody mistakes them for filed canon.
+      They are machine-drafted reference text and flagged so nobody mistakes them for filed canon.
+    </div>`:d.status==='authored'?`
+    <div class="card" style="font-size:12.5px">
+      <b>Hand-authored table.</b> ${table.length} rows, low is worse: 1 is death, the twenties are
+      the body never being the same, the fifties heal in weeks, the nineties are the luck of the
+      survivor. Every row names its lowest cure. Locked — edit <code>injuries.json</code> by hand and
+      run <code>tools/generate-injury-table.py --check</code>.
     </div>`:'';
 
   el('content').innerHTML=`

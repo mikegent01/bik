@@ -1,3287 +1,1066 @@
 {
-  "schemaVersion": 1,
-  "title": "Permanent Injury Spinner",
-  "description": "A d100 table for lasting injuries. Roll when the fiction calls for a permanent consequence; the lowest listed cure is the least powerful treatment that removes the condition.",
+  "_README": {
+    "what": "The Permanent Injury Table: one hundred hand-authored d100 rows, worst at 1 and best at 100.",
+    "when": "Roll it when the fiction calls for a lasting consequence: after surviving death saves (the Injury Desk and Wario's Casino hand off to it, skipping row 1), after a Casino sentence, or whenever the GM says so.",
+    "contract": "Exactly 100 rows, d100 1-100 in order, categories in the band order below, every injuryType unique, no roll numerals. `cure` is the LOWEST rung of the ladder that removes the row; `duration` is how long it lasts without that cure. Field names are read live by index.html (#/injuries, character injury panels), the Casino drum, the standalone desk and tools/generate-injury-table.py — do not rename them.",
+    "status": "authored and locked. The old machine-generated table (343 rows, mostly 'Veilbound Vein' template repeats, later culled to 204) was wiped on 2026-10-04 and replaced by this one. The genkit `injury-table` generator is retired and refuses to write a locked table; edit this file by hand and run `python3 tools/generate-injury-table.py --check`.",
+    "mechanics": "Fifth-edition vocabulary: advantage/disadvantage, exhaustion levels, the Dash action, death saving throws, hit point maximum, DCs for Wisdom (Medicine). Spell names are the cure ladder. A GM overrides any row the fiction or the player's comfort requires.",
+    "references": "Setting hooks in notes are to filed canon only: Dr. Toad's Star Hill Clinic (dr_toads_star_hill_clinic), the Menders (Liberated Toads healer cohort), the Mages' Guild, Toadstool Tonic, the 1-Up Mushroom."
+  },
+  "schemaVersion": 2,
+  "title": "Permanent Injury Table",
+  "description": "A d100 table for injuries that outlast the fight. Low is worse: 1 is death, the twenties are the body never being the same, the fifties heal in weeks, the nineties are the luck of the survivor. Every row names its lowest cure and how long it lasts without one.",
+  "status": "authored",
+  "locked": true,
+  "authoredOn": "2026-10-04",
   "rules": [
-    "A result is a story consequence, not a replacement for a GM ruling.",
-    "Roll d100, or use the spinner on the Injury Desk.",
-    "The character record may reference injury ids in its injuries array.",
-    "Cures and durations are deliberately explicit so the result can be linked, audited, and healed later."
+    "A result is a story consequence, not a replacement for a GM ruling. Reroll or override anything that would ruin the table's fun or a player's night.",
+    "Roll d100 straight. The Injury Desk's death-save handoff and the Casino's survival roll skip row 1 (Death), because the saves already answered that question.",
+    "Low is worse. Rows 1-56 are the price of surviving; 57-70 are a bad week; 71-92 are marks, trauma and oddities; 93-100 are the luck of the survivor.",
+    "The cure listed is the LOWEST rung that removes the row. Anything stronger on the ladder works too: Regenerate fixes everything Greater Restoration fixes, a 1-Up Mushroom fixes everything.",
+    "Rows that say 'treat as' another row borrow that row's mechanics, never its cure.",
+    "A character record references a result by d100 in its injuries array (see docs/INJURY_TABLE_GUIDE.md). The effect text lives here, once."
+  ],
+  "bands": [
+    {
+      "category": "Death",
+      "from": 1,
+      "to": 1,
+      "rows": 1
+    },
+    {
+      "category": "Quicker death",
+      "from": 2,
+      "to": 4,
+      "rows": 3
+    },
+    {
+      "category": "Lose a limb",
+      "from": 5,
+      "to": 10,
+      "rows": 6
+    },
+    {
+      "category": "Severe injury",
+      "from": 11,
+      "to": 22,
+      "rows": 12
+    },
+    {
+      "category": "Major injury",
+      "from": 23,
+      "to": 38,
+      "rows": 16
+    },
+    {
+      "category": "Injury",
+      "from": 39,
+      "to": 56,
+      "rows": 18
+    },
+    {
+      "category": "Minor injury",
+      "from": 57,
+      "to": 70,
+      "rows": 14
+    },
+    {
+      "category": "Facial scarring",
+      "from": 71,
+      "to": 75,
+      "rows": 5
+    },
+    {
+      "category": "Memorable scars",
+      "from": 76,
+      "to": 78,
+      "rows": 3
+    },
+    {
+      "category": "Severe mental trauma",
+      "from": 79,
+      "to": 80,
+      "rows": 2
+    },
+    {
+      "category": "Mental trauma",
+      "from": 81,
+      "to": 86,
+      "rows": 6
+    },
+    {
+      "category": "Flavour effect",
+      "from": 87,
+      "to": 88,
+      "rows": 2
+    },
+    {
+      "category": "Special effect",
+      "from": 89,
+      "to": 92,
+      "rows": 4
+    },
+    {
+      "category": "Minor boon",
+      "from": 93,
+      "to": 97,
+      "rows": 5
+    },
+    {
+      "category": "Survivability",
+      "from": 98,
+      "to": 98,
+      "rows": 1
+    },
+    {
+      "category": "Survivability+",
+      "from": 99,
+      "to": 100,
+      "rows": 2
+    }
+  ],
+  "cureLadder": [
+    {
+      "rung": 1,
+      "cure": "Rest",
+      "means": "Time alone; the duration says how long. Bed, food and nobody hitting you."
+    },
+    {
+      "rung": 2,
+      "cure": "Treatment",
+      "means": "A healer with a kit and the stated Wisdom (Medicine) DC — Dr. Toad's Star Hill Clinic, a Mender, or a party member with the proficiency — followed by the stated weeks."
+    },
+    {
+      "rung": 3,
+      "cure": "Lesser Restoration",
+      "means": "Second-level magic: blindness, deafness, disease, poison, and the table's infections and short-term injuries."
+    },
+    {
+      "rung": 4,
+      "cure": "Remove Curse",
+      "means": "Third-level magic. Quiets the table's special effects even though none of them is formally a curse."
+    },
+    {
+      "rung": 5,
+      "cure": "Greater Restoration",
+      "means": "Fifth-level magic: hit point maximum, nerve damage, exhaustion that will not lift, and the mental trauma band when a season of care is not available."
+    },
+    {
+      "rung": 6,
+      "cure": "Heal",
+      "means": "Sixth-level magic: cures the throat, the eyes and the ears and knits any broken bone at once."
+    },
+    {
+      "rung": 7,
+      "cure": "Regenerate",
+      "means": "Seventh-level magic: regrows limbs, eyes, organs and skin. In this kingdom that means the Mages' Guild, a Potion of Regeneration, or a favour nobody should owe."
+    },
+    {
+      "rung": 8,
+      "cure": "Raise Dead / Resurrection / a 1-Up Mushroom",
+      "means": "Row 1 only. The 1-Up works on the spot; Raise Dead has ten days; Resurrection has a century."
+    }
   ],
   "entries": [
     {
       "d100": 1,
       "category": "Death",
-      "injuryType": "Fatal Head Trauma",
-      "description": "Your head is shattered beyond repair; you are instantly rendered unconscious and die from massive brain damage.",
-      "cure": "Resurrection/Reincarnate",
-      "duration": "Forever",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T17:22:35+00:00"
-      }
+      "injuryType": "The Last Breath",
+      "description": "The blow was simply more than the body. You die now, where you fall — no death saving throws, no last words unless the GM is feeling generous.",
+      "cure": "Raise Dead within ten days; Resurrection after that; a 1-Up Mushroom on the spot.",
+      "duration": "Permanent until cured.",
+      "notes": "If this row comes up off the death-save handoff, the saves already answered the question — reroll. The Casino's survival roll and the Injury Desk both skip it there."
     },
     {
       "d100": 2,
-      "category": "Facial scarring",
-      "injuryType": "Partial Eye Loss",
-      "description": "You are blind in that eye but retain your other senses and can still communicate effectively.",
-      "cure": "Regenerate or a successful Surgery check with a DC of 15.",
-      "duration": "Forever",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T17:22:47+00:00"
-      }
+      "category": "Quicker death",
+      "injuryType": "Two Failures",
+      "description": "Something in you has one fewer chance left. From now on two failed death saving throws kill you, not three.",
+      "cure": "Greater Restoration.",
+      "duration": "Permanent until cured.",
+      "notes": "The cruellest permanent row. Tell the player plainly and write it on the sheet where the whole table can see it."
     },
     {
       "d100": 3,
-      "category": "Facial scarring",
-      "injuryType": "Nose Obliteration",
-      "description": "Your nose is gone, leaving a permanent scar and causing you to breathe through your mouth.",
-      "cure": "Regenerate",
-      "duration": "Forever",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T17:22:51+00:00"
-      }
+      "category": "Quicker death",
+      "injuryType": "The Open Door",
+      "description": "Death found the way in once and remembers it. Whenever you drop to 0 hit points you begin with one failed death saving throw already marked.",
+      "cure": "Greater Restoration.",
+      "duration": "Permanent until cured.",
+      "notes": ""
     },
     {
       "d100": 4,
-      "category": "Facial scarring",
-      "injuryType": "Earlobe Amputation",
-      "description": "You are left with an unsightly scar where your earlobe used to be, affecting your appearance and social interactions.",
-      "cure": "Regenerate or cosmetic surgery",
-      "duration": "Forever",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T17:22:56+00:00"
-      }
+      "category": "Quicker death",
+      "injuryType": "Bleeder",
+      "description": "Your blood will not clot. While you are dying, a Wisdom (Medicine) check cannot stabilise you — only a healer's kit or magic can — and any damage you take at 0 hit points counts as two failed death saves.",
+      "cure": "Lesser Restoration.",
+      "duration": "Permanent until cured.",
+      "notes": "Dr. Toad's Star Hill Clinic and the Menders can treat each episode, not the condition."
     },
     {
       "d100": 5,
-      "category": "Facial scarring",
-      "injuryType": "Cheek disfigurement",
-      "description": "Your left cheek is permanently scarred and deformed, altering your appearance significantly.",
-      "cure": "Regenerate",
-      "duration": "Forever",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T17:23:04+00:00"
-      }
+      "category": "Lose a limb",
+      "injuryType": "Lost Arm, Weapon Side",
+      "description": "Severed or crushed past saving, at the shoulder, on the side you fight with. You cannot use two-handed weapons or a shield together with a weapon, and Strength (Athletics) checks that need two hands — climbing, grappling, hauling — are made at disadvantage.",
+      "cure": "Regenerate.",
+      "duration": "Permanent until cured.",
+      "notes": "A smith-made prosthesis restores carrying and steadying, not weapon work or fine manipulation."
     },
     {
       "d100": 6,
       "category": "Lose a limb",
-      "injuryType": "Amputated Arm",
-      "description": "Your right arm is severed at the shoulder; you can only perform one-handed actions and face a -2 penalty to all one-handed tasks.",
-      "cure": "Regenerate",
-      "duration": "Forever",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T17:23:13+00:00"
-      }
+      "injuryType": "Lost Arm, Off Side",
+      "description": "The off-side arm is gone at the shoulder. No shields, no two-handed weapons, no two-weapon fighting; one-handed fighting and somatic components are unaffected.",
+      "cure": "Regenerate.",
+      "duration": "Permanent until cured.",
+      "notes": ""
     },
     {
       "d100": 7,
       "category": "Lose a limb",
-      "injuryType": "Amputated Leg",
-      "description": "Every step causes excruciating pain and a -2 penalty to movement speed; you must remain stationary for at least 1 hour after moving.",
-      "cure": "Regenerate limb, major surgery",
-      "duration": "Forever",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T17:23:23+00:00"
-      }
+      "injuryType": "Lost Hand",
+      "description": "Taken at the wrist. You cannot fight with two weapons or use a two-handed weapon, and checks with thieves' tools or Dexterity (Sleight of Hand) are made at disadvantage. A fitted hook or clamp lets you strap on a shield.",
+      "cure": "Regenerate.",
+      "duration": "Permanent until cured.",
+      "notes": ""
     },
     {
       "d100": 8,
       "category": "Lose a limb",
-      "injuryType": "Amputation of the Left Hand",
-      "description": "You lose the use of your left hand for intricate tasks and are unable to wield two-handed weapons effectively.",
-      "cure": "Prosthetic or Regeneration",
-      "duration": "Forever",
-      "notes": "Shields and crossbows are allowed on the left side.",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T17:23:47+00:00"
-      }
+      "injuryType": "Lost Leg",
+      "description": "Above the knee. On a crutch your speed is 5 feet; with a fitted peg or prosthesis it is 20 feet and you cannot take the Dash action. Dexterity saving throws and Dexterity (Acrobatics) checks are made at disadvantage.",
+      "cure": "Regenerate.",
+      "duration": "Permanent until cured.",
+      "notes": "Mounts, carts and a strong friend's shoulder all still work. The Menders fit pegs; a good one takes a fortnight to learn."
     },
     {
       "d100": 9,
       "category": "Lose a limb",
-      "injuryType": "Foot Amputation",
-      "description": "You limp painfully, reducing your mobility and requiring constant care to prevent infection.",
-      "cure": "Prosthetic or Regeneration",
-      "duration": "Forever",
-      "notes": "Regular cleaning and maintenance are crucial to avoid complications.",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T17:23:37+00:00"
-      }
+      "injuryType": "Lost Foot",
+      "description": "Gone at the ankle. Your speed is reduced by 10 feet (5 feet with a fitted prosthesis), and Strength (Athletics) checks to run or jump and Dexterity (Acrobatics) checks to balance are made at disadvantage.",
+      "cure": "Regenerate.",
+      "duration": "Permanent until cured.",
+      "notes": ""
     },
     {
       "d100": 10,
-      "category": "Quicker death",
-      "injuryType": "Painful Demise",
-      "description": "All nearby allies must succeed on a DC12 CON save or succumb to the pain, offering aid and comfort in their efforts to alleviate your suffering.",
-      "cure": "Surviving a successful DC15 CON check from an ally",
-      "duration": "Until conscious",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T17:23:56+00:00"
-      }
+      "category": "Lose a limb",
+      "injuryType": "Lost Fingers",
+      "description": "Two or three fingers from one hand. The grip holds, but you cannot draw a bow (crossbows are fine) and checks with thieves' tools, an instrument, or Dexterity (Sleight of Hand) are made at disadvantage.",
+      "cure": "Regenerate.",
+      "duration": "Permanent until cured.",
+      "notes": ""
     },
     {
       "d100": 11,
-      "category": "Quicker death",
-      "injuryType": "Swift Release",
-      "description": "You are in excruciating pain and only moments away from death. At the end of each long rest, you can make a DC15 CON saving throw; on a success, you survive another day.",
-      "cure": "Death",
-      "duration": "Until dead or cured by DM's fiat",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T17:24:06+00:00"
-      }
+      "category": "Severe injury",
+      "injuryType": "Lost Eye",
+      "description": "One eye is gone. You have disadvantage on Wisdom (Perception) checks that rely on sight and on ranged attack rolls against targets more than 30 feet away.",
+      "cure": "Regenerate.",
+      "duration": "Permanent until cured.",
+      "notes": "An eyepatch, obviously."
     },
     {
       "d100": 12,
-      "category": "Quicker death",
-      "injuryType": "Swift Collapse",
-      "description": "You instantly collapse and have disadvantage on all ability checks and saving throws until you are stabilized.",
-      "cure": "DC15 Medicine check to stabilize",
-      "duration": "Until stabilized",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T17:24:12+00:00"
-      }
+      "category": "Severe injury",
+      "injuryType": "Crushed Throat",
+      "description": "You can speak only in a rasping whisper that carries about 10 feet. Spells with verbal components still work, but Charisma checks that depend on your voice — Persuasion, Performance, Intimidation — are made at disadvantage.",
+      "cure": "Heal or Regenerate.",
+      "duration": "Permanent until cured.",
+      "notes": ""
     },
     {
       "d100": 13,
-      "category": "Quicker death",
-      "injuryType": "Quick Collapse",
-      "description": "The victim rapidly weakens and collapses, increasing the chance of fatal outcomes on death saving throws.",
-      "cure": "DC20 Medicine check to stabilize",
-      "duration": "Until stabilized or dies",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T17:24:17+00:00"
-      }
+      "category": "Severe injury",
+      "injuryType": "Punctured Lung",
+      "description": "One lung never reinflated properly. You can hold your breath for half the usual time, and whenever you take the Dash action on two consecutive turns you must succeed on a DC 10 Constitution saving throw or gain one level of exhaustion.",
+      "cure": "Regenerate.",
+      "duration": "Permanent until cured.",
+      "notes": "Greater Restoration removes the exhaustion but not the lung."
     },
     {
       "d100": 14,
-      "category": "Quicker death",
-      "injuryType": "Fatal Strangulation",
-      "description": "You choke on your own blood, immediately suffering a failed death saving throw.",
-      "cure": "DC18 Medicine check or receive immediate medical attention",
-      "duration": "Until stable",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T17:24:21+00:00"
-      }
+      "category": "Severe injury",
+      "injuryType": "Broken Back",
+      "description": "The spine took it. Your speed is halved, you cannot take the Dash action, you cannot wear heavy armour, and Dexterity saving throws are made at disadvantage.",
+      "cure": "Regenerate.",
+      "duration": "Permanent until cured.",
+      "notes": "A season in the Menders' care gets most people from a chair to a cane; the GM may lift the Dash ban after that, not the rest."
     },
     {
       "d100": 15,
       "category": "Severe injury",
-      "injuryType": "Injured Spinal Column",
-      "description": "The player's lower body becomes paralyzed and they are confined to a wheelchair until their spine can be healed.",
-      "cure": "Greater Restoration or 6th-level Heal spell",
-      "duration": "2d8 weeks",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T17:24:28+00:00"
-      }
+      "injuryType": "Shattered Knee",
+      "description": "The joint was reassembled from pieces. Your speed is reduced by 10 feet, you can take the Dash action only once per combat, and Dexterity (Acrobatics) and climbing checks are made at disadvantage.",
+      "cure": "Treatment — a surgeon's reset (DC 15 Wisdom (Medicine)) followed by eight weeks off it; Greater Restoration ends it at once.",
+      "duration": "Permanent until cured.",
+      "notes": ""
     },
     {
       "d100": 16,
       "category": "Severe injury",
-      "injuryType": "Torn Muscles",
-      "description": "Endures excruciating pain and suffers disadvantage on all Strength-based actions.",
-      "cure": "Healing spell at 3rd level or higher",
-      "duration": "4d6 weeks",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T17:24:44+00:00"
-      }
+      "injuryType": "Ruined Hand",
+      "description": "The hand is there but the tendons are not: it can hold, it cannot grip. Treat it as Lost Hand (07) for weapons, tools and Sleight of Hand.",
+      "cure": "Treatment — a surgeon's repair (DC 15 Wisdom (Medicine)) and six weeks splinted; Greater Restoration ends it at once.",
+      "duration": "Permanent until cured.",
+      "notes": "Cheaper to fix than an amputation, which is the only good news."
     },
     {
       "d100": 17,
       "category": "Severe injury",
-      "injuryType": "Torn Achilles Tendon",
-      "description": "Your leg feels weak and heavy, hampering your movement and agility. You suffer disadvantage on Dexterity (Athletics) checks.",
-      "cure": "A 5th-level healing spell or 4 weeks of bed rest and physical therapy.",
-      "duration": "2d8 weeks",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T17:24:40+00:00"
-      }
+      "injuryType": "Burned Over",
+      "description": "A third of your skin is scar now. Your hit point maximum is reduced by 1d8 (rolled once), and Constitution saving throws against heat, fire and exhaustion from heat are made at disadvantage.",
+      "cure": "Regenerate.",
+      "duration": "Permanent until cured.",
+      "notes": "Greater Restoration restores the hit points; only Regenerate gives the skin back."
     },
     {
       "d100": 18,
       "category": "Severe injury",
-      "injuryType": "Fractured Skull",
-      "description": "Suffers from constant headaches and is limited to using only one hand.",
-      "cure": "Healing spell of at least 3rd level or a successful surgery.",
-      "duration": "2d8 weeks",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T17:24:57+00:00"
-      }
+      "injuryType": "Torn Inside",
+      "description": "Something was damaged that no bandage reaches. Your hit point maximum is reduced by an amount equal to your level.",
+      "cure": "Greater Restoration.",
+      "duration": "Permanent until cured.",
+      "notes": "Dr. Toad can keep it from getting worse. He will say so, cheerfully, and mean it."
     },
     {
       "d100": 19,
       "category": "Severe injury",
-      "injuryType": "Shattered Spine",
-      "description": "Your spine is fractured in such a way that any attempt to move your legs without assistance results in intense pain and a DC20 Strength check failure.",
-      "cure": "Greater Restoration spell",
-      "duration": "4d12 weeks",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T17:24:53+00:00"
-      }
+      "injuryType": "Smashed Hip",
+      "description": "Your speed is reduced by 10 feet, you cannot take the Dash action, and Dexterity saving throws are made at disadvantage. Stairs are a decision.",
+      "cure": "Treatment — a surgeon's reset (DC 18 Wisdom (Medicine)) and twelve weeks in a bed; Regenerate ends it at once.",
+      "duration": "Permanent until cured.",
+      "notes": ""
     },
     {
       "d100": 20,
       "category": "Severe injury",
-      "injuryType": "Fatal Hemorrhage",
-      "description": "You endure a steady loss of vitality; each dawn, your hit point maximum decreases by 2 points until fully exhausted.",
-      "cure": "4th level healing spell or 3 doses of Bloodroot Extract",
-      "duration": "Until cured",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T17:25:02+00:00"
-      }
+      "injuryType": "Dead Arm",
+      "description": "The arm is still attached and the nerves are not. It hangs. Treat it as Lost Arm, Off Side (06) — or Weapon Side (05) if that is the one it took.",
+      "cure": "Greater Restoration.",
+      "duration": "Permanent until cured.",
+      "notes": "Nerve, not bone: cheaper to cure than an amputation, and it looks exactly as bad."
     },
     {
       "d100": 21,
       "category": "Severe injury",
-      "injuryType": "Collapsed Lung",
-      "description": "You must endure a perpetual state of breathlessness and reduced lung capacity, requiring daily treatments to manage the symptoms. Only a powerful healing spell can cure this condition.",
-      "cure": "4th level healing spell",
-      "duration": "Forever until cured",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T17:25:06+00:00"
-      }
+      "injuryType": "Rotting Wound",
+      "description": "The wound has turned and keeps turning. At each dawn make a DC 12 Constitution saving throw; on a failure your hit point maximum drops by 1d6 until cured. Three failures in a row and the limb has to come off (roll 05-10).",
+      "cure": "Lesser Restoration, or Treatment — a healer with a kit succeeding on a DC 15 Wisdom (Medicine) check on three consecutive days.",
+      "duration": "Until cured; the lost hit points return with Greater Restoration or a month of real rest.",
+      "notes": "Fatal in a season if ignored. Nobody ignores it twice."
     },
     {
       "d100": 22,
       "category": "Severe injury",
-      "injuryType": "Crushed Spine",
-      "description": "Your spine is fractured in multiple places, rendering you immobile and unable to take actions or bonus actions until fully healed.",
-      "cure": "4th level healing spell",
-      "duration": "2d8 weeks",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T17:25:10+00:00"
-      }
+      "injuryType": "Skull Fracture",
+      "description": "The head took a blow it should not have survived. Intelligence and Wisdom checks are made at disadvantage, and whenever you take a critical hit you must succeed on a DC 12 Constitution saving throw or be stunned until the end of your next turn.",
+      "cure": "Greater Restoration.",
+      "duration": "Permanent until cured.",
+      "notes": ""
     },
     {
       "d100": 23,
-      "category": "Severe injury",
-      "injuryType": "Paralyzed Limbs",
-      "description": "The victim's arms and legs are permanently paralyzed, rendering them unable to move or use these limbs for any function.",
-      "cure": "Greater Restoration or a Wish spell",
-      "duration": "Forever",
-      "notes": "Seek magical aid immediately as paralysis can lead to atrophy.",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T17:25:16+00:00"
-      }
+      "category": "Major injury",
+      "injuryType": "Deafened",
+      "description": "Both eardrums burst. You are deafened: you automatically fail checks that require hearing, and you cannot hear your allies' warnings. You can still speak, so verbal components work.",
+      "cure": "Lesser Restoration.",
+      "duration": "Permanent until cured.",
+      "notes": ""
     },
     {
       "d100": 24,
-      "category": "Severe injury",
-      "injuryType": "Ruptured Kidney",
-      "description": "You endure persistent pain and must make a DC 15 Constitution save at the start of each hour; failure results in doubling your movement speed until you rest.",
-      "cure": "A 4th level healing spell or equivalent magical effect",
-      "duration": "2d8 weeks, with hourly checks",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T17:25:20+00:00"
-      }
+      "category": "Major injury",
+      "injuryType": "Burst Eardrum",
+      "description": "One ear is a wall of silence and ringing. Wisdom (Perception) checks that rely on hearing are made at disadvantage, and you cannot tell which direction a sound came from.",
+      "cure": "Rest — six weeks; Lesser Restoration ends it at once.",
+      "duration": "Six weeks, or until cured.",
+      "notes": ""
     },
     {
       "d100": 25,
       "category": "Major injury",
-      "injuryType": "Dazing Concussion",
-      "description": "Sustains a severe concussion that clouds the mind and leaves you disoriented, imposing disadvantage on all concentration-related activities.",
-      "cure": "A successful DC14 Cure Wounds spell or similar spell",
-      "duration": "2d6 days",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T17:25:24+00:00"
-      }
+      "injuryType": "Scorched Eyes",
+      "description": "Burned by light, acid or sand. You are blinded.",
+      "cure": "Lesser Restoration or Heal.",
+      "duration": "Permanent until cured.",
+      "notes": "Without magic, a clinic can save some sight in 2d4 weeks; the GM may then downgrade this to Lost Eye (11) or Clouded Eye (46)."
     },
     {
       "d100": 26,
       "category": "Major injury",
-      "injuryType": "Shattered Jugular",
-      "description": "Your throat is grievously torn, leaving you unable to speak or swallow without excruciating pain.",
-      "cure": "Greater Restoration or a successful Wish spell",
-      "duration": "1d8 weeks",
-      "notes": "Seek immediate treatment; delays may lead to infection and further complications.",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T17:25:29+00:00"
-      }
+      "injuryType": "Broken Ribs",
+      "description": "Every breath is a negotiation. Strength (Athletics) checks and Constitution saving throws to maintain concentration are made at disadvantage, and you cannot take the Dash action.",
+      "cure": "Rest — four weeks, bound; Heal or Regenerate ends it at once.",
+      "duration": "Four weeks, or until cured.",
+      "notes": ""
     },
     {
       "d100": 27,
       "category": "Major injury",
-      "injuryType": "Liver Failure",
-      "description": "Your abdomen swells as your liver begins to shut down completely.",
-      "cure": "Greater Restoration or a Wish spell",
-      "duration": "1d8 weeks",
-      "notes": "Affects digestion and energy levels.",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T17:25:33+00:00"
-      }
+      "injuryType": "Broken Leg",
+      "description": "Splinted and slow. Your speed is halved and you cannot take the Dash action.",
+      "cure": "Rest — six weeks (eight if no healer set it within a day); Heal or Regenerate ends it at once.",
+      "duration": "Six to eight weeks, or until cured.",
+      "notes": ""
     },
     {
       "d100": 28,
       "category": "Major injury",
-      "injuryType": "Severed Patellar Ligament",
-      "description": "You limp severely and find it difficult to stand steadily. Attempting to sprint or jump causes intense pain, requiring a DC18 CON saving throw or you fall prone.",
-      "cure": "4th level heal spell",
-      "duration": "2d6 days",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T17:25:38+00:00"
-      }
+      "injuryType": "Broken Arm",
+      "description": "In a sling and useless. You cannot use that arm: no shield, no two-handed weapon, no two-weapon fighting. Somatic components work with the other hand.",
+      "cure": "Rest — six weeks; Heal or Regenerate ends it at once.",
+      "duration": "Six weeks, or until cured.",
+      "notes": ""
     },
     {
       "d100": 29,
       "category": "Major injury",
-      "injuryType": "Blunt Brain Injury",
-      "description": "Your mind feels clouded; every time you cast a spell, it takes an action to concentrate and you must succeed on a Wisdom saving throw or lose the spell.",
-      "cure": "A successful Wish spell or 4th level cure wounds spell",
-      "duration": "Until cured",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T17:25:42+00:00"
-      }
+      "injuryType": "Concussion",
+      "description": "The world is slightly to the left of where you reach for it. Intelligence checks, Wisdom checks and Constitution saving throws to maintain concentration are made at disadvantage, and a second blow to the head while concussed knocks you unconscious for 1 minute.",
+      "cure": "Rest — two weeks, in the dark if possible; Lesser Restoration ends it at once.",
+      "duration": "Two weeks, or until cured.",
+      "notes": ""
     },
     {
       "d100": 30,
       "category": "Major injury",
-      "injuryType": "Torn Quadriceps",
-      "description": "Your right leg feels heavy and weak, significantly hampering your mobility and speed in combat.",
-      "cure": "A 5th level Heal spell or 4 weeks of bed rest and physical therapy.",
-      "duration": "2d8 days",
-      "notes": "Pain is excruciating during movement. Avoid intense activities until fully healed.",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T17:25:46+00:00"
-      }
+      "injuryType": "Torn Shoulder",
+      "description": "Dislocated, and the joint tore on the way out. You cannot raise that arm above the shoulder: attack rolls with two-handed weapons and Strength (Athletics) checks to climb are made at disadvantage.",
+      "cure": "Treatment — a healer resetting it (DC 12 Wisdom (Medicine)) and four weeks strapped; Greater Restoration ends it at once.",
+      "duration": "Four weeks once set; permanent until cured if it is never set.",
+      "notes": ""
     },
     {
       "d100": 31,
       "category": "Major injury",
-      "injuryType": "Torn Hamstring",
-      "description": "Your powerful lower leg muscles are damaged, making it impossible to run or perform any activity requiring significant leg strength. This severely limits your mobility and physical capabilities.",
-      "cure": "3rd level heal spell or equivalent magic item",
-      "duration": "2d6 days of rest and treatment",
-      "notes": "While recovering, you are limited to walking only short distances with aid.",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T17:25:51+00:00"
-      }
+      "injuryType": "Crushed Hand",
+      "description": "The bones are gravel in a splint. For the duration the hand cannot grip anything: treat it as Lost Hand (07).",
+      "cure": "Rest — six weeks; Heal or Regenerate ends it at once.",
+      "duration": "Six weeks, or until cured.",
+      "notes": ""
     },
     {
       "d100": 32,
       "category": "Major injury",
-      "injuryType": "Crushed Hand",
-      "description": "Your right hand is mangled, rendering it nearly useless for fine motor tasks and unable to wield heavy weapons.",
-      "cure": "2nd level heal or a successful surgery check",
-      "duration": "3d10 days",
-      "notes": "Consider using the hand cautiously even after healing as it may still be less dexterous.",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T17:25:55+00:00"
-      }
+      "injuryType": "Gut Wound",
+      "description": "Infection is waiting in it. Until cured you regain no hit points from spending Hit Dice, and at the end of each long rest you must succeed on a DC 12 Constitution saving throw or gain one level of exhaustion.",
+      "cure": "Lesser Restoration, or Treatment — a healer with a kit succeeding on a DC 15 Wisdom (Medicine) check on three consecutive days.",
+      "duration": "Until cured.",
+      "notes": ""
     },
     {
       "d100": 33,
       "category": "Major injury",
-      "injuryType": "Mangled Ankle",
-      "description": "Your ankle swells to twice its normal size, severely restricting your mobility and balance.",
-      "cure": "2nd level heal or magic item healing property",
-      "duration": "1d8 weeks",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T17:25:59+00:00"
-      }
+      "injuryType": "Dead Fingers",
+      "description": "The nerve to the fingers was cut. Checks with thieves' tools, Dexterity (Sleight of Hand) checks and attack rolls with finesse weapons held in that hand are made at disadvantage.",
+      "cure": "Greater Restoration.",
+      "duration": "Permanent until cured.",
+      "notes": ""
     },
     {
       "d100": 34,
       "category": "Major injury",
-      "injuryType": "Grave Bowel Trauma",
-      "description": "Every day, you must endure excruciating pain and perform a short rest to avoid further internal bleeding.",
-      "cure": "Fourth level healing magic or successful surgery at an apothecary.",
-      "duration": "2d10 days",
-      "notes": "Seek help immediately; prolonged suffering can lead to fatal complications.",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T17:26:04+00:00"
-      }
+      "injuryType": "Lame Foot",
+      "description": "A tendon healed short. Your speed is reduced by 5 feet and Dexterity (Acrobatics) checks are made at disadvantage.",
+      "cure": "Treatment — a surgeon lengthening the tendon (DC 15 Wisdom (Medicine)) and eight weeks off it; Greater Restoration ends it at once.",
+      "duration": "Permanent until cured.",
+      "notes": ""
     },
     {
       "d100": 35,
-      "category": "Injury",
-      "injuryType": "Mild Traumatic Brain Injury",
-      "description": "Every time you cast a spell, you must succeed on a DC12 concentration check or risk losing your spell slot.",
-      "cure": "Complete bed rest for 3 days and a successful DC15 Wisdom (Medicine) check",
-      "duration": "1 week",
-      "notes": "Avoid strenuous activities until fully recovered to prevent worsening the injury.",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T17:26:08+00:00"
-      }
+      "category": "Major injury",
+      "injuryType": "Shaking Hands",
+      "description": "A tremor that never fully stops. Ranged attack rolls and any check that needs steady hands — lockpicking, surgery, lettering, pouring a potion into someone else — are made at disadvantage.",
+      "cure": "Greater Restoration.",
+      "duration": "Permanent until cured.",
+      "notes": ""
     },
     {
       "d100": 36,
-      "category": "Injury",
-      "injuryType": "Hazy Vision",
-      "description": "Your vision is blurred, making it difficult to focus on small details and reducing your ability to perceive the environment accurately.",
-      "cure": "A 2nd level healing spell or a week of rest in a darkened room.",
-      "duration": "1d4 days",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T17:26:13+00:00"
-      }
+      "category": "Major injury",
+      "injuryType": "Weakened Heart",
+      "description": "It skips when it is frightened, and it is frightened by pain. Whenever you take 15 or more damage from a single source you must succeed on a DC 10 Constitution saving throw or be incapacitated until the end of your next turn.",
+      "cure": "Greater Restoration.",
+      "duration": "Permanent until cured.",
+      "notes": ""
     },
     {
       "d100": 37,
-      "category": "Injury",
-      "injuryType": "Nasal Mutilation",
-      "description": "Your nose is severely disfigured, impairing your sense of smell and causing a constant runny nose.",
-      "cure": "Major surgery or successful cosmetic surgery roll",
-      "duration": "Permanent, unless cured",
-      "notes": "Social interactions may become challenging due to the appearance.",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T17:26:18+00:00"
-      }
+      "category": "Major injury",
+      "injuryType": "Chronic Pain",
+      "description": "The old break never stopped talking. Constitution saving throws to maintain concentration are made at disadvantage, and after any forced march or night without a bed you have disadvantage on all ability checks until you finish a long rest.",
+      "cure": "Greater Restoration.",
+      "duration": "Permanent until cured.",
+      "notes": "Toadstool Tonic and similar take the edge off for an evening. They do not cure it."
     },
     {
       "d100": 38,
-      "category": "Injury",
-      "injuryType": "Gut Laceration",
-      "description": "Every time you engage in combat or strenuous activity, you must succeed on a DC12 CON save to avoid passing out from the pain.",
-      "cure": "Greater restoration spell",
-      "duration": "Until cured",
-      "notes": "During this time, you are at risk of further damage if exposed to hostile conditions.",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T17:26:22+00:00"
-      }
+      "category": "Major injury",
+      "injuryType": "Scarred Lungs",
+      "description": "Smoke, spores or Bowser's breath. You cannot hold your breath for more than one round, and Constitution saving throws against inhaled poisons and gases are made at disadvantage.",
+      "cure": "Greater Restoration.",
+      "duration": "Permanent until cured.",
+      "notes": ""
     },
     {
       "d100": 39,
       "category": "Injury",
-      "injuryType": "Renal Contusion",
-      "description": "Each time you perform an action, you must succeed on a DC12 Constitution saving throw or fall to the ground in pain.",
-      "cure": "A 3rd-level healing spell",
-      "duration": "Until cured",
-      "notes": "Avoid strenuous activities during this time.",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T17:26:26+00:00"
-      }
+      "injuryType": "Sprained Wrist",
+      "description": "Attack rolls and ability checks that use that hand are made at disadvantage.",
+      "cure": "Rest — two weeks; Lesser Restoration ends it at once.",
+      "duration": "Two weeks, or until cured.",
+      "notes": ""
     },
     {
       "d100": 40,
       "category": "Injury",
-      "injuryType": "Frozen Spinal Constraint",
-      "description": "Your spine becomes rigid, immobilizing your legs and causing excruciating pain.",
-      "cure": "Greater restoration or a successful Wish spell",
-      "duration": "Until the cause is removed; permanent without treatment",
-      "notes": "This injury does not heal on its own.",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T17:26:30+00:00"
-      }
+      "injuryType": "Twisted Ankle",
+      "description": "Your speed is reduced by 10 feet.",
+      "cure": "Rest — two weeks; Lesser Restoration ends it at once.",
+      "duration": "Two weeks, or until cured.",
+      "notes": ""
     },
     {
       "d100": 41,
       "category": "Injury",
-      "injuryType": "Liver Contusion",
-      "description": "The liver is bruised, causing a persistent poisoned state that saps vitality.",
-      "cure": "Greater Restoration or 4th level Heal spell",
-      "duration": "2d8 weeks",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T17:26:35+00:00"
-      }
+      "injuryType": "Cracked Ribs",
+      "description": "Strength (Athletics) checks and Constitution saving throws to maintain concentration are made at disadvantage.",
+      "cure": "Rest — three weeks; Lesser Restoration ends it at once.",
+      "duration": "Three weeks, or until cured.",
+      "notes": ""
     },
     {
       "d100": 42,
       "category": "Injury",
-      "injuryType": "Blinding Shadow",
-      "description": "The world around you darkens, and you are left in a perpetual state of near-total blindness.",
-      "cure": "Greater Restoration",
-      "duration": "2d8 weeks",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T17:26:39+00:00"
-      }
+      "injuryType": "Deep Cut",
+      "description": "Stitched, badly, in the field. Whenever you roll a 1 on an attack roll or a Strength (Athletics) check the stitches tear and you take 1d4 damage.",
+      "cure": "Rest — two weeks; Lesser Restoration ends it at once.",
+      "duration": "Two weeks, or until cured.",
+      "notes": ""
     },
     {
       "d100": 43,
       "category": "Injury",
-      "injuryType": "Sensorineural Hearing Loss",
-      "description": "You suffer from profound hearing loss in your right ear, making it difficult to understand speech at normal volumes.",
-      "cure": "Greater restoration or similar magic",
-      "duration": "Long rest for one week",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T17:26:43+00:00"
-      }
+      "injuryType": "Blood Loss",
+      "description": "You gain two levels of exhaustion. A long rest removes only one of them per day, and the first will not lift without a full meal.",
+      "cure": "Rest and food — two long rests; Lesser Restoration ends it at once.",
+      "duration": "Two days, or until cured.",
+      "notes": ""
     },
     {
       "d100": 44,
       "category": "Injury",
-      "injuryType": "Rib Sprain",
-      "description": "Each time you attempt to use your Strength in combat or movement, you must succeed on a DC15 CON save; otherwise, you are immobilized for the duration of the action.",
-      "cure": "Magical healing or two long rests",
-      "duration": "2d8 weeks",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T17:26:48+00:00"
-      }
+      "injuryType": "Hairline Fracture",
+      "description": "The bone is cracked, not broken, and it reminds you. Attack rolls with two-handed weapons and Strength checks to lift or drag are made at disadvantage.",
+      "cure": "Rest — three weeks; Lesser Restoration ends it at once.",
+      "duration": "Three weeks, or until cured.",
+      "notes": ""
     },
     {
       "d100": 45,
       "category": "Injury",
-      "injuryType": "Deep Laceration",
-      "description": "At the end of each round while conscious, you suffer a sharp pain and incur 1d4 slashing damage.",
-      "cure": "Magical healing or successful Surgery check",
-      "duration": "2d8 weeks",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T17:26:52+00:00"
-      }
+      "injuryType": "Burned Hands",
+      "description": "Bandaged to the wrist. You can hold a weapon or a shield and nothing fiddlier: no somatic components, no thieves' tools, and Dexterity (Sleight of Hand) checks are made at disadvantage.",
+      "cure": "Rest — two weeks; Lesser Restoration ends it at once.",
+      "duration": "Two weeks, or until cured.",
+      "notes": ""
     },
     {
       "d100": 46,
       "category": "Injury",
-      "injuryType": "Wrist Sprain",
-      "description": "Your right wrist is stiff and painful, hampering your ability to perform delicate gestures required for spellcasting. You must make a DC12 DEX save before each attempt; failure results in the spell failing.",
-      "cure": "Healing magic or long rest",
-      "duration": "2d6 days",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T17:26:57+00:00"
-      }
+      "injuryType": "Clouded Eye",
+      "description": "One eye sees shapes and light, not detail. Wisdom (Perception) checks that rely on sight are made at disadvantage.",
+      "cure": "Rest — four weeks; Lesser Restoration ends it at once.",
+      "duration": "Four weeks, or until cured.",
+      "notes": "If it has not cleared in a season it will not: convert to Lost Eye (11)."
     },
     {
       "d100": 47,
       "category": "Injury",
-      "injuryType": "Twisted Ankle",
-      "description": "Your step is unsteady; each movement feels like walking on hot coals, and you risk tripping with every cautious step.",
-      "cure": "Rest and healing magic",
-      "duration": "2d8 weeks",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T17:27:01+00:00"
-      }
+      "injuryType": "Crushed Toes",
+      "description": "Your speed is reduced by 5 feet and Dexterity (Acrobatics) checks to balance are made at disadvantage.",
+      "cure": "Rest — four weeks; Lesser Restoration ends it at once.",
+      "duration": "Four weeks, or until cured.",
+      "notes": ""
     },
     {
       "d100": 48,
       "category": "Injury",
-      "injuryType": "Torn Bicep Muscle",
-      "description": "Your bicep is severely strained, causing you to have disadvantage on all Strength checks and saving throws involving your right arm.",
-      "cure": "Magical healing or 3 days of rest and light activity",
-      "duration": "2d8 weeks",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T17:27:06+00:00"
-      }
+      "injuryType": "Pulled Back",
+      "description": "You cannot carry more than half your carrying capacity, and Strength checks are made at disadvantage.",
+      "cure": "Rest — two weeks; Lesser Restoration ends it at once.",
+      "duration": "Two weeks, or until cured.",
+      "notes": ""
     },
     {
       "d100": 49,
       "category": "Injury",
-      "injuryType": "Tense Thigh Strain",
-      "description": "Your right thigh feels tight and painful; you risk falling if you run or sprint. Any movement that strains your leg forces you to make a DEX saving throw.",
-      "cure": "Magical healing or two weeks of bed rest",
-      "duration": "2d8 weeks",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T17:27:18+00:00"
-      }
+      "injuryType": "Dislocated Jaw",
+      "description": "Popped back in, but it clicks and aches. Charisma (Persuasion) and Charisma (Performance) checks are made at disadvantage and you can eat only soft food. Verbal components are unaffected.",
+      "cure": "Rest — one week; Lesser Restoration ends it at once.",
+      "duration": "One week, or until cured.",
+      "notes": ""
     },
     {
       "d100": 50,
-      "category": "Severe mental trauma",
-      "injuryType": "Nightmarish Fear",
-      "description": "Each night, you must make a DC15 WIS save to avoid being overwhelmed by debilitating fear when encountering the source of your phobia.",
-      "cure": "DC25 Psychology check or successful DC20 Medicine check each week for 4 weeks",
-      "duration": "Until cured",
-      "notes": "Weekly checks are required; failure increases fear sensitivity.",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T17:27:15+00:00"
-      }
+      "category": "Injury",
+      "injuryType": "Infected Bite",
+      "description": "Whatever bit you was not clean. At each dawn make a DC 11 Constitution saving throw; on a failure you gain one level of exhaustion that rest will not remove until the infection is gone.",
+      "cure": "Lesser Restoration, or Treatment — a healer with a kit succeeding on a DC 13 Wisdom (Medicine) check on three consecutive days.",
+      "duration": "Until cured.",
+      "notes": ""
     },
     {
       "d100": 51,
-      "category": "Severe mental trauma",
-      "injuryType": "Melancholic Despair",
-      "description": "You feel an overwhelming sense of worthlessness and are at a -2 penalty on all social interactions.",
-      "cure": "DC15 Psychology check each week",
-      "duration": "Until cured",
-      "notes": "One psychology check per week to lift the despair.",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T17:27:31+00:00"
-      }
+      "category": "Injury",
+      "injuryType": "Bruised Kidney",
+      "description": "Constitution saving throws are made at disadvantage, and you regain hit points from only half your Hit Dice during a short rest.",
+      "cure": "Rest — two weeks; Lesser Restoration ends it at once.",
+      "duration": "Two weeks, or until cured.",
+      "notes": ""
     },
     {
       "d100": 52,
-      "category": "Severe mental trauma",
-      "injuryType": "Tormented Sleep",
-      "description": "You are plagued by vivid nightmares every night, forcing you to make a DC15 Wisdom save before each Short Rest. On failure, you become exhausted until the end of your next Long Rest.",
-      "cure": "DC20 Medicine check per day",
-      "duration": "Until cured",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T17:27:46+00:00"
-      }
+      "category": "Injury",
+      "injuryType": "Torn Ear",
+      "description": "Half the ear is hanging by a flap. Wisdom (Perception) checks that rely on hearing are made at disadvantage while it heals; when it has healed it is notched for good.",
+      "cure": "Rest — two weeks; Lesser Restoration ends it at once.",
+      "duration": "Two weeks, or until cured; the notch is permanent.",
+      "notes": ""
     },
     {
       "d100": 53,
-      "category": "Severe mental trauma",
-      "injuryType": "Recurring Nightmares",
-      "description": "You are haunted by vivid, recurring nightmares that plague your sleep, forcing you to make a DC14 Wisdom save at the start of every night. Failure results in a state of heightened anxiety and one point of exhaustion.",
-      "cure": "DC18 Medicine or Psychology check each week",
-      "duration": "Until cured",
-      "notes": "One check per week is required for treatment.",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T17:27:42+00:00"
-      }
+      "category": "Injury",
+      "injuryType": "Wrenched Knee",
+      "description": "Your speed is reduced by 5 feet and Dexterity (Acrobatics) checks are made at disadvantage.",
+      "cure": "Rest — three weeks; Lesser Restoration ends it at once.",
+      "duration": "Three weeks, or until cured.",
+      "notes": ""
     },
     {
       "d100": 54,
-      "category": "Severe mental trauma",
-      "injuryType": "Alcoholism",
-      "description": "You are haunted by the memory of your addiction, affecting your judgment.",
-      "cure": "Pass a DC15 Medicine check each week to regain control.",
-      "duration": "Until cured",
-      "notes": "One check per week.",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T17:27:59+00:00"
-      }
+      "category": "Injury",
+      "injuryType": "Bruised Lung",
+      "description": "You cannot catch your breath. You cannot take the Dash action on two consecutive turns, and Constitution checks for sustained exertion are made at disadvantage.",
+      "cure": "Rest — two weeks; Lesser Restoration ends it at once.",
+      "duration": "Two weeks, or until cured.",
+      "notes": ""
     },
     {
       "d100": 55,
-      "category": "Mental trauma",
-      "injuryType": "Selective Memory Loss",
-      "description": "You can no longer recall the events of a crucial battle, as if they were shrouded in a thick fog.",
-      "cure": "No cure; the lost memories may never return.",
-      "duration": "Forever",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T17:27:55+00:00"
-      }
+      "category": "Injury",
+      "injuryType": "Smashed Nose",
+      "description": "You breathe through your mouth and sleep like a sawmill. Wisdom (Perception) checks that rely on smell and Dexterity (Stealth) checks while resting are made at disadvantage.",
+      "cure": "Rest — three weeks; Lesser Restoration ends it at once.",
+      "duration": "Three weeks, or until cured; the nose stays crooked.",
+      "notes": ""
     },
     {
       "d100": 56,
-      "category": "Mental trauma",
-      "injuryType": "Paralyzing Fright",
-      "description": "You are overcome by an intense and paralyzing fear, unable to move or act for the duration of a short rest.",
-      "cure": "Short rest in a safe environment",
-      "duration": "Until short rest",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T17:28:04+00:00"
-      }
+      "category": "Injury",
+      "injuryType": "Shock",
+      "description": "The body has not caught up with what happened to it. You gain two levels of exhaustion, removed normally.",
+      "cure": "Rest — a long rest per level; Lesser Restoration ends it at once.",
+      "duration": "Two days, or until cured.",
+      "notes": ""
     },
     {
       "d100": 57,
-      "category": "Mental trauma",
-      "injuryType": "Phobic Regression",
-      "description": "You become overwhelmed by extreme fear whenever you encounter a creature that resembles the source of your trauma. This terror compels you to flee, even if it means leaving comrades behind.",
-      "cure": "One long rest away from all sources of trauma",
-      "duration": "Until the end of the session",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T17:28:08+00:00"
-      }
+      "category": "Minor injury",
+      "injuryType": "Stitches",
+      "description": "Eight of them, across the forearm. Strength (Athletics) checks are made at disadvantage for a week, and they itch.",
+      "cure": "Rest — one week.",
+      "duration": "One week.",
+      "notes": ""
     },
     {
       "d100": 58,
-      "category": "Mental trauma",
-      "injuryType": "Shadowed Mind",
-      "description": "You suffer from constant dread and fear, reducing your initiative by 2 until you rest for a day.",
-      "cure": "A week of meditation or equivalent calming activities.",
-      "duration": "Until you rest for a full day",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T17:28:21+00:00"
-      }
+      "category": "Minor injury",
+      "injuryType": "Slow to Rise",
+      "description": "Bruised to the bone and stiff with it. Initiative rolls are made at disadvantage.",
+      "cure": "Rest — one week.",
+      "duration": "One week.",
+      "notes": ""
     },
     {
       "d100": 59,
-      "category": "Mental trauma",
-      "injuryType": "Echoing Fear",
-      "description": "You are haunted by vivid, recurring nightmares that interfere with your ability to focus and make decisions.",
-      "cure": "One long rest and a successful DC 15 Wisdom (Insight) check.",
-      "duration": "Until short rest or cured",
-      "notes": "The GM may require you to make additional checks if the fear recurs.",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T17:28:17+00:00"
-      }
+      "category": "Minor injury",
+      "injuryType": "Sprained Thumb",
+      "description": "You cannot fight with two weapons, and attack rolls with a versatile weapon used two-handed are made at disadvantage.",
+      "cure": "Rest — one week.",
+      "duration": "One week.",
+      "notes": ""
     },
     {
       "d100": 60,
-      "category": "Mental trauma",
-      "injuryType": "Shattered Confidence",
-      "description": "You suffer from severe self-doubt and must make a DC15 Will save each day. On failure, you lose the use of your primary weapon or tool for the next encounter.",
-      "cure": "Completion of a successful task using your primary weapon or tool.",
-      "duration": "Until end of next session",
-      "notes": "GM note: This injury can be cured by demonstrating competence in your chosen field.",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T17:28:26+00:00"
-      }
+      "category": "Minor injury",
+      "injuryType": "Chipped Tooth",
+      "description": "No mechanical effect. Cold drinks hurt and the smile is slightly different.",
+      "cure": "A tooth-smith's fitting; most people keep it.",
+      "duration": "Permanent.",
+      "notes": ""
     },
     {
       "d100": 61,
-      "category": "Mental trauma",
-      "injuryType": "Frozen Mind",
-      "description": "Every morning you must make a DC15 WIS save to avoid losing your place in the conversation, often resulting in social blunders.",
-      "cure": "A successful DC20 INT check provided by another creature.",
-      "duration": "Until short rest",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T17:28:30+00:00"
-      }
+      "category": "Minor injury",
+      "injuryType": "Split Scalp",
+      "description": "It bled like a fountain and needed four stitches. No effect after the first day except the bandage, a headache, and a permanent part in your hair.",
+      "cure": "Rest — one week.",
+      "duration": "One week; the part is permanent.",
+      "notes": ""
     },
     {
       "d100": 62,
-      "category": "Mental trauma",
-      "injuryType": "Skeptical Mind",
-      "description": "You become deeply distrustful of your companions and surroundings, constantly questioning their intentions. At the start of each of your turns, you must succeed on a DC14 WIS save or believe that someone in sight is trying to deceive you and react with hostility.",
-      "cure": "Long rest",
-      "duration": "2d8 weeks",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T17:28:35+00:00"
-      }
+      "category": "Minor injury",
+      "injuryType": "Torn Nails",
+      "description": "Three fingernails ripped back. Dexterity (Sleight of Hand) checks and checks with thieves' tools are made at disadvantage.",
+      "cure": "Rest — one week.",
+      "duration": "One week.",
+      "notes": ""
     },
     {
       "d100": 63,
-      "category": "Mental trauma",
-      "injuryType": "Phobic Retreat",
-      "description": "At the start of each of your turns, you must make a DC15 WIS save. On failure, you immediately Dash to safety if possible.",
-      "cure": "Calm spell or similar magic",
-      "duration": "Until cured",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T17:28:48+00:00"
-      }
+      "category": "Minor injury",
+      "injuryType": "Sore Everything",
+      "description": "You gain one level of exhaustion, removed normally.",
+      "cure": "Rest — one long rest.",
+      "duration": "One day.",
+      "notes": ""
     },
     {
       "d100": 64,
-      "category": "Mental trauma",
-      "injuryType": "Ragebound",
-      "description": "You lose all reason and target the nearest living creature within reach with unbridled fury, attacking without regard for your allies or enemies.",
-      "cure": "Concentration by a trusted ally for 1 hour",
-      "duration": "2d8 weeks unless cured",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T17:28:44+00:00"
-      }
+      "category": "Minor injury",
+      "injuryType": "Rolled Ankle",
+      "description": "Your speed is reduced by 5 feet.",
+      "cure": "Rest — one week.",
+      "duration": "One week.",
+      "notes": ""
     },
     {
       "d100": 65,
       "category": "Minor injury",
-      "injuryType": "Stretched Hamstring",
-      "description": "Your stride is significantly reduced by 15 feet until healed.",
-      "cure": "Rest and minor healing magic",
-      "duration": "2d6 days",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T17:28:52+00:00"
-      }
+      "injuryType": "Blood in the Eye",
+      "description": "A burst vessel: one eye is solid red. Charisma (Persuasion) checks are made at disadvantage and Charisma (Intimidation) checks with advantage while it lasts.",
+      "cure": "Rest — two weeks.",
+      "duration": "Two weeks.",
+      "notes": ""
     },
     {
       "d100": 66,
       "category": "Minor injury",
-      "injuryType": "Stiffened Joint",
-      "description": "Your favored arm becomes temporarily cumbersome, slowing your actions and impeding dexterity-based tasks.",
-      "cure": "Rest and a potion of healing",
-      "duration": "1d6 days",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T17:28:57+00:00"
-      }
+      "injuryType": "Bitten Tongue",
+      "description": "You lisp. Charisma (Deception) and Charisma (Performance) checks are made at disadvantage. Verbal components are unaffected, if less dignified.",
+      "cure": "Rest — one week.",
+      "duration": "One week.",
+      "notes": ""
     },
     {
       "d100": 67,
       "category": "Minor injury",
-      "injuryType": "Sensory Muffledness",
-      "description": "Your hearing becomes significantly muffled, making it difficult to discern detailed sounds.",
-      "cure": "Rest and quiet environment for 2d6 hours",
-      "duration": "1 hour",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T17:29:02+00:00"
-      }
+      "injuryType": "Singed",
+      "description": "Eyebrows, lashes and the front of your hair are gone. No mechanical effect; everyone will mention it.",
+      "cure": "Rest — a month of regrowth.",
+      "duration": "One month.",
+      "notes": ""
     },
     {
       "d100": 68,
       "category": "Minor injury",
-      "injuryType": "Swollen Tongue",
-      "description": "Your tongue swells to twice its normal size, making it difficult to speak and swallow. You are unable to eat or drink normally.",
-      "cure": "Major healing spell or 2d8 weeks of bed rest",
-      "duration": "2d8 weeks",
-      "notes": "Speak softly to avoid strain on your vocal cords.",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T17:29:07+00:00"
-      }
+      "injuryType": "Ringing Ears",
+      "description": "Wisdom (Perception) checks that rely on hearing are made at disadvantage.",
+      "cure": "Rest — three days.",
+      "duration": "Three days.",
+      "notes": ""
     },
     {
       "d100": 69,
       "category": "Minor injury",
-      "injuryType": "Groinal Throb",
-      "description": "Each morning for the next week, you must make a DC14 CON save or be immobile due to excruciating pain.",
-      "cure": "Rest and bandage application (Healer skill check)",
-      "duration": "1 week",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T17:29:11+00:00"
-      }
+      "injuryType": "Wrenched Shoulder",
+      "description": "Attack rolls with two-handed weapons are made at disadvantage.",
+      "cure": "Rest — three days.",
+      "duration": "Three days.",
+      "notes": ""
     },
     {
       "d100": 70,
       "category": "Minor injury",
-      "injuryType": "Sticky Scarring",
-      "description": "Each time you use your reaction to interrupt an attack or cast a spell, you must succeed on a DC10 CON save or lose it immediately.",
-      "cure": "Magical healing",
-      "duration": "Until cured",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T17:29:16+00:00"
-      }
+      "injuryType": "A Scratch",
+      "description": "It bled more than it mattered. No mechanical effect. It will not even scar.",
+      "cure": "None needed.",
+      "duration": "Instant.",
+      "notes": ""
     },
     {
       "d100": 71,
-      "category": "Minor injury",
-      "injuryType": "Migraine",
-      "description": "You experience a throbbing headache that clouds your vision and makes it difficult to focus, causing you to lose concentration on spells.",
-      "cure": "A short rest or the use of an appropriate potion",
-      "duration": "1 hour",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T17:29:20+00:00"
-      }
+      "category": "Facial scarring",
+      "injuryType": "Cheek Opened to the Ear",
+      "description": "A scar from the corner of the mouth to the ear that no one forgets. Checks to disguise yourself or pass as someone else are made at disadvantage; Charisma (Intimidation) checks against commoners are made with advantage.",
+      "cure": "Regenerate.",
+      "duration": "Permanent.",
+      "notes": "Counts as a distinguishing mark on any wanted notice."
     },
     {
       "d100": 72,
-      "category": "Minor injury",
-      "injuryType": "Shoulder Dislocation",
-      "description": "Your shoulder feels out of joint and reduces your strength by -2.",
-      "cure": "A successful DC15 Medicine check or healing magic restores it.",
-      "duration": "Until cured",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T17:29:33+00:00"
-      }
+      "category": "Facial scarring",
+      "injuryType": "Split Lip",
+      "description": "The upper lip healed with a notch in it. Charisma (Performance) checks to sing are made at disadvantage; nothing else, except that you whistle now whether you mean to or not.",
+      "cure": "Regenerate.",
+      "duration": "Permanent.",
+      "notes": ""
     },
     {
       "d100": 73,
-      "category": "Minor injury",
-      "injuryType": "Jammed Finger",
-      "description": "Your finger is immobilized, causing a -2 penalty to ranged attack rolls.",
-      "cure": "A successful DC15 Medicine check or healing magic.",
-      "duration": "Until cured",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T17:29:38+00:00"
-      }
+      "category": "Facial scarring",
+      "injuryType": "Nose Tip Gone",
+      "description": "Bitten, frozen or cut off. You breathe through your mouth when you sleep; a distinguishing mark on any wanted notice. No other mechanical effect.",
+      "cure": "Regenerate.",
+      "duration": "Permanent.",
+      "notes": ""
     },
     {
       "d100": 74,
-      "category": "Minor injury",
-      "injuryType": "Blurred Vision",
-      "description": "Temporary cloudiness in your vision causing you to see double and reducing your perception by half on sight-based checks.",
-      "cure": "Rest for 1d6 hours or a successful DC10 Medicine check.",
-      "duration": "2d8 hours, Instant with rest or treatment",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T17:29:42+00:00"
-      }
+      "category": "Facial scarring",
+      "injuryType": "Missing Teeth",
+      "description": "The front ones. Charisma (Persuasion) checks with the gentry are made at disadvantage until a tooth-smith fits ivory; after that, nothing but the whistle.",
+      "cure": "A tooth-smith's fitting for the Persuasion penalty; Regenerate for the teeth.",
+      "duration": "Permanent until cured.",
+      "notes": ""
     },
     {
       "d100": 75,
-      "category": "Flavour effect",
-      "injuryType": "Torn Garments",
-      "description": "Your clothing is in tatters, leaving you exposed to the elements and the gaze of others.",
-      "cure": "A tailor's needle or similar repair kit.",
-      "duration": "Instantly repaired with a long rest and basic tools.",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T17:29:55+00:00"
-      }
+      "category": "Facial scarring",
+      "injuryType": "The Brow That Does Not Move",
+      "description": "A burn across the forehead tightened the skin: one eyebrow is fixed in place and you read as angry at rest. Charisma (Persuasion) checks with strangers are made at disadvantage and Charisma (Intimidation) checks with advantage.",
+      "cure": "Regenerate.",
+      "duration": "Permanent.",
+      "notes": ""
     },
     {
       "d100": 76,
-      "category": "Flavour effect",
-      "injuryType": "Truncated Tresses",
-      "description": "Your hair is now significantly shorter than before, but it does not impair your appearance or function.",
-      "cure": "None; this effect is permanent.",
-      "duration": "Forever",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T17:29:51+00:00"
-      }
+      "category": "Memorable scars",
+      "injuryType": "Rope Down the Back",
+      "description": "A ridge of scar from shoulder blade to hip. It pulls in the cold. No mechanical effect except that Charisma (Intimidation) checks are made with advantage when it is on show.",
+      "cure": "None — nobody wants one.",
+      "duration": "Permanent.",
+      "notes": ""
     },
     {
       "d100": 77,
-      "category": "Flavour effect",
-      "injuryType": "Scarred Memorial",
-      "description": "A permanent reminder of your battle; a scar that tells the tale of your resilience and survival.",
-      "cure": "None",
-      "duration": "Forever",
-      "notes": "Emphasize the narrative importance of this injury. It's not just a physical mark, but a symbol of enduring strength.",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T17:30:00+00:00"
-      }
+      "category": "Memorable scars",
+      "injuryType": "Branded by the Thing",
+      "description": "The wound healed in the shape of what made it — a Bob-omb's fuse-burn, a Bullet Bill's rifling, the ring of a Guild sigil, a claw's four lines. Anyone who knows the mark knows the story. No mechanical effect.",
+      "cure": "None — nobody wants one.",
+      "duration": "Permanent.",
+      "notes": "Write the thing on the sheet. The GM will use it."
     },
     {
       "d100": 78,
-      "category": "Flavour effect",
-      "injuryType": "Armor Marring Scar",
-      "description": "A telltale mark that endures even when the body heals—your armor bears witness to your ordeal.",
-      "cure": "None",
-      "duration": "Instant",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T17:30:04+00:00"
-      }
+      "category": "Memorable scars",
+      "injuryType": "Hands That Tell It",
+      "description": "Knuckles and palms gone white with old cuts. Charisma (Deception) checks to pass as someone who has never fought are made at disadvantage; Charisma (Persuasion) checks with soldiers, guards and anyone else who reads hands are made with advantage.",
+      "cure": "None — nobody wants one.",
+      "duration": "Permanent.",
+      "notes": ""
     },
     {
       "d100": 79,
-      "category": "Special effect",
-      "injuryType": "Convenient Cushion",
-      "description": "When you fall, the ground arranges itself to be a soft and cushioned bed of leaves and moss, ensuring minimal impact upon landing.",
-      "cure": "Instant with rest",
-      "duration": "Instant",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T17:30:10+00:00"
-      }
+      "category": "Severe mental trauma",
+      "injuryType": "Shattered Nerve",
+      "description": "The first time you take damage in any combat you must succeed on a DC 12 Wisdom saving throw or be frightened of the attacker until the end of your next turn.",
+      "cure": "Care — a season (three months) among people you trust, or Greater Restoration; Calm Emotions quiets it for an hour.",
+      "duration": "Permanent until cured.",
+      "notes": "Not funny. Play it straight and let the party cover for them."
     },
     {
       "d100": 80,
-      "category": "Special effect",
-      "injuryType": "Artifact Corruption",
-      "description": "One of your treasured magical artifacts begins to malfunction and lose its powers over time.",
-      "cure": "Restoration magic, such as Greater Restoration, can reverse this effect.",
-      "duration": "2d8 weeks",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T17:30:14+00:00"
-      }
+      "category": "Severe mental trauma",
+      "injuryType": "Night Terrors",
+      "description": "You wake screaming and you do not go back. At the end of each long rest make a DC 10 Wisdom saving throw; on a failure you regain only half the Hit Dice you would have and gain no other benefit from the rest.",
+      "cure": "Care — a season (three months) among people you trust, or Greater Restoration; Calm Emotions quiets it for an hour.",
+      "duration": "Permanent until cured.",
+      "notes": "A trusted ally awake beside the bed gives advantage on the save."
     },
     {
       "d100": 81,
-      "category": "Special effect",
-      "injuryType": "Arcane Activation",
-      "description": "Instantly activate a random magic item you are carrying or in your inventory, potentially triggering its effects without needing to use an action.",
-      "cure": "None",
-      "duration": "Instant",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T17:30:19+00:00"
-      }
+      "category": "Mental trauma",
+      "injuryType": "The Flinch",
+      "description": "Your body decides before you do. Initiative rolls and the first attack roll you make in each combat are made at disadvantage.",
+      "cure": "Care — a season (three months) among people you trust, or Greater Restoration; Calm Emotions quiets it for an hour.",
+      "duration": "Permanent until cured.",
+      "notes": ""
     },
     {
       "d100": 82,
-      "category": "Special effect",
-      "injuryType": "Sleeping Sentinel",
-      "description": "While you are unconscious, a nearby ally, guided by the GM, delivers one attack roll against you as a bonus action.",
-      "cure": "None",
-      "duration": "Until unconscious",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T17:30:23+00:00"
-      }
+      "category": "Mental trauma",
+      "injuryType": "Phobia",
+      "description": "Of the thing that did it — fire, deep water, heights, the dark, Bullet Bills, a particular laugh. When you start your turn able to see it you must succeed on a DC 11 Wisdom saving throw or be frightened of it until the start of your next turn.",
+      "cure": "Care — a season (three months) among people you trust, or Greater Restoration; Calm Emotions quiets it for an hour.",
+      "duration": "Permanent until cured.",
+      "notes": "The GM names the thing from the fiction. It should be something that will come up again."
     },
     {
       "d100": 83,
-      "category": "Special effect",
-      "injuryType": "Guarded Flank",
-      "description": "While wearing armour, any attack made against you provides a +1 bonus to your AC for the next round.",
-      "cure": "None",
-      "duration": "Instantaneous effect lasting one combat round",
-      "notes": "Note that this might encourage foes to target others in combat.",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T17:30:28+00:00"
-      }
+      "category": "Mental trauma",
+      "injuryType": "Survivor's Silence",
+      "description": "You do not talk about it and you do not talk much. Charisma (Persuasion) checks are made at disadvantage; you cannot be the party's face until this heals.",
+      "cure": "Care — a season (three months) among people you trust, or Greater Restoration; Calm Emotions quiets it for an hour.",
+      "duration": "Permanent until cured.",
+      "notes": ""
     },
     {
       "d100": 84,
-      "category": "Special effect",
-      "injuryType": "Iron Grip",
-      "description": "Incorporate the power of a vise within your grasp, inflicting a grapple check against any who seek to free you. Should you succeed, they are slammed to the ground beside you.",
-      "cure": "Breaking the Grasp successfully in a new grapple check or disarming action.",
-      "duration": "1 round",
-      "notes": "This grip can only be removed by defeating your hold through combat.",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T17:30:33+00:00"
-      }
+      "category": "Mental trauma",
+      "injuryType": "Hypervigilance",
+      "description": "You cannot rest where you cannot see the door. A long rest in the open or in an unfamiliar place gives you no benefit unless an ally you trust keeps watch the whole night. While awake you cannot be surprised.",
+      "cure": "Care — a season (three months) among people you trust, or Greater Restoration; Calm Emotions quiets it for an hour.",
+      "duration": "Permanent until cured.",
+      "notes": ""
     },
     {
       "d100": 85,
-      "category": "Minor boon",
-      "injuryType": "Momentary Insight",
-      "description": "For the next hour, you gain insight into your opponent's next action and can react to it immediately.",
-      "cure": "None",
-      "duration": "1 hour",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T17:30:36+00:00"
-      }
+      "category": "Mental trauma",
+      "injuryType": "Battle Shakes",
+      "description": "It comes after, not during. At the end of each combat make a DC 10 Constitution saving throw; on a failure you gain one level of exhaustion, and for the next hour any check that needs steady hands is made at disadvantage.",
+      "cure": "Care — a season (three months) among people you trust, or Greater Restoration; Calm Emotions quiets it for an hour.",
+      "duration": "Permanent until cured.",
+      "notes": ""
     },
     {
       "d100": 86,
-      "category": "Minor boon",
-      "injuryType": "Momentary Relief",
-      "description": "For the next hour, you feel a wave of calm and safety as though nothing could possibly harm you.",
-      "cure": "None",
-      "duration": "1 hour",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T17:30:42+00:00"
-      }
+      "category": "Mental trauma",
+      "injuryType": "Short Fuse",
+      "description": "Wisdom (Insight) checks are made at disadvantage and Charisma (Intimidation) checks with advantage. When someone insults you to your face you must succeed on a DC 10 Wisdom saving throw or answer in kind, whatever the room.",
+      "cure": "Care — a season (three months) among people you trust, or Greater Restoration; Calm Emotions quiets it for an hour.",
+      "duration": "Permanent until cured.",
+      "notes": ""
     },
     {
       "d100": 87,
-      "category": "Minor boon",
-      "injuryType": "Bounce Higher",
-      "description": "Your next successful leap or jump is doubled in height and distance.",
-      "cure": "None",
-      "duration": "Until short rest",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T17:30:46+00:00"
-      }
+      "category": "Flavour effect",
+      "injuryType": "Weather Knee",
+      "description": "The old break aches before rain. You have advantage on Wisdom (Survival) checks to predict the weather within a day.",
+      "cure": "None — nobody wants one.",
+      "duration": "Permanent.",
+      "notes": ""
     },
     {
       "d100": 88,
-      "category": "Minor boon",
-      "injuryType": "Blinding Focus",
-      "description": "Your next attack hits with a stunning precision, guaranteeing critical success.",
-      "cure": "None",
-      "duration": "Until short/long rest",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T17:30:51+00:00"
-      }
+      "category": "Flavour effect",
+      "injuryType": "White Streak",
+      "description": "A lock of hair, fur or cap-spot went white where the wound was. No mechanical effect; a distinguishing mark on any wanted notice, and a very good story.",
+      "cure": "None — nobody wants one.",
+      "duration": "Permanent.",
+      "notes": ""
     },
     {
       "d100": 89,
-      "category": "Minor boon",
-      "injuryType": "Recharged Spirit",
-      "description": "Your determination is unwavering; you gain advantage on will saves and resistances to fear effects until the end of your next short rest.",
-      "cure": "A short rest",
-      "duration": "Until the end of your next short rest",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T17:30:59+00:00"
-      }
+      "category": "Special effect",
+      "injuryType": "The Scar Remembers",
+      "description": "The wound aches when the kind of creature or thing that gave it is within 30 feet. The GM rolls in secret: it is right three times in four, and it does not say where.",
+      "cure": "Remove Curse quiets it, though it is not strictly a curse.",
+      "duration": "Permanent until cured.",
+      "notes": ""
     },
     {
       "d100": 90,
-      "category": "Memorable scars",
-      "injuryType": "Gore-Scarred Chest",
-      "description": "A deep scar runs down the center of your chest, leaving a constant reminder of your ordeal and granting you advantage on Intimidation checks.",
-      "cure": "None",
-      "duration": "Forever",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T17:59:37+00:00"
-      }
+      "category": "Special effect",
+      "injuryType": "Starlight in the Wound",
+      "description": "It closed under a Star shower, or near something that should not have been glowing. While you are below half your hit points the scar sheds dim light in a 5-foot radius: Dexterity (Stealth) checks in darkness are made at disadvantage, and healers find you very easily.",
+      "cure": "Remove Curse dims it; Greater Restoration ends it.",
+      "duration": "Permanent until cured.",
+      "notes": ""
     },
     {
       "d100": 91,
-      "category": "Memorable scars",
-      "injuryType": "Memorable Gash Scar",
-      "description": "Gain a +2 bonus to all Charisma checks and saving throws involving persuasion or performance.",
-      "cure": "None",
-      "duration": "Forever",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T17:59:44+00:00"
-      }
+      "category": "Special effect",
+      "injuryType": "Arcane Tinnitus",
+      "description": "A hum in the ears whenever a spell is cast within 30 feet. You cannot tell by whom or what, and Wisdom (Perception) checks that rely on hearing are made at disadvantage until the start of your next turn.",
+      "cure": "Greater Restoration. Most people keep it.",
+      "duration": "Permanent until cured.",
+      "notes": "In the capital, with the Guild everywhere, this is either a warning system or a migraine."
     },
     {
       "d100": 92,
-      "category": "Memorable scars",
-      "injuryType": "Majestic Warscar",
-      "description": "Gain +1 bonus to Intimidate checks and rolls with heavy armor; scars are a testament to your bravery.",
-      "cure": "None",
-      "duration": "Forever",
-      "notes": "Must be wearing heavy armor for the bonuses to apply.",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T17:59:50+00:00"
-      }
+      "category": "Special effect",
+      "injuryType": "Iron Splinter",
+      "description": "A sliver of whatever hit you stayed in, too deep to cut out. Constitution saving throws against lightning damage are made at disadvantage, and Detect Magic shows you faintly.",
+      "cure": "Regenerate pushes it out.",
+      "duration": "Permanent until cured.",
+      "notes": ""
     },
     {
       "d100": 93,
-      "category": "Survivability",
-      "injuryType": "Feigned Weakness",
-      "description": "Your body's pain signals override your combat instincts, causing you to fall and feign incapacitation as soon as the fight begins.",
-      "cure": "Restoration spell or similar magic",
-      "duration": "Until conscious",
-      "notes": "GMs may rule that enemies can shake you awake if they suspect it is a ruse.",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T17:59:57+00:00"
-      }
+      "category": "Minor boon",
+      "injuryType": "Clean Heal",
+      "description": "It closed without a mark, and the hard part taught you something. You have advantage on Wisdom (Medicine) checks to treat the kind of wound you took.",
+      "cure": "None — it is yours.",
+      "duration": "Permanent.",
+      "notes": ""
     },
     {
       "d100": 94,
-      "category": "Survivability",
-      "injuryType": "Incognito Wound",
-      "description": "Your wounds are so severe they seem almost non-existent to others, allowing you to slip unnoticed even in the most dire circumstances.",
-      "cure": "Rest and healing magic",
-      "duration": "2d8 weeks",
-      "notes": "Enemies may underestimate your condition, giving you a chance to escape or surprise them.",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T18:00:05+00:00"
-      }
+      "category": "Minor boon",
+      "injuryType": "Harder Than It Looked",
+      "description": "The bone knit thick. Your hit point maximum increases by 2.",
+      "cure": "None — it is yours.",
+      "duration": "Permanent.",
+      "notes": ""
     },
     {
       "d100": 95,
-      "category": "Survivability",
-      "injuryType": "Resilient Vitality",
-      "description": "You can recover from a critical hit as if it were merely a minor wound, but you still count as having taken damage.",
-      "cure": "A long rest or successful Medicine check (DC 15)",
-      "duration": "Until stabilized after the encounter",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T18:00:11+00:00"
-      }
+      "category": "Minor boon",
+      "injuryType": "Does Not Scare Easy",
+      "description": "You have seen the worst of it and it was survivable. You have advantage on saving throws against being frightened.",
+      "cure": "None — it is yours.",
+      "duration": "Permanent.",
+      "notes": ""
     },
     {
       "d100": 96,
-      "category": "Survivability",
-      "injuryType": "Vital Resurgence",
-      "description": "Gains a second chance when on the brink of death, effectively reducing the chances of succumbing to fatal wounds.",
-      "cure": "None",
-      "duration": "Until stable or conscious",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T18:00:32+00:00"
-      }
+      "category": "Minor boon",
+      "injuryType": "An Earned Drink",
+      "description": "The scar and the story that goes with it. Charisma (Persuasion) checks with soldiers, guards and anyone who has bled for a living are made with advantage.",
+      "cure": "None — it is yours.",
+      "duration": "Permanent.",
+      "notes": "Free drinks remain the GM's call."
     },
     {
       "d100": 97,
-      "category": "Survivability",
-      "injuryType": "Resilient Fortitude",
-      "description": "Gains an additional successful death saving throw and can make a second attempt if failing the first.",
-      "cure": "None",
-      "duration": "Until stable/conscious",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T18:00:25+00:00"
-      }
+      "category": "Minor boon",
+      "injuryType": "Steady Under Fire",
+      "description": "Pain is just information now. You have advantage on Constitution saving throws to maintain concentration when you take damage.",
+      "cure": "None — it is yours.",
+      "duration": "Permanent.",
+      "notes": ""
     },
     {
       "d100": 98,
-      "category": "Survivability+",
-      "injuryType": "Fortuitous Respite",
-      "description": "You will be stabilized after a successful death save and receive an immediate second chance at life.",
-      "cure": "None",
-      "duration": "Until stable",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T18:00:39+00:00"
-      }
+      "category": "Survivability",
+      "injuryType": "Hard to Kill",
+      "description": "Your body has learned the trick of not stopping. You succeed on a death saving throw on a roll of 9 or higher.",
+      "cure": "None — it is yours.",
+      "duration": "Permanent.",
+      "notes": ""
     },
     {
       "d100": 99,
       "category": "Survivability+",
-      "injuryType": "Unyielding Stasis",
-      "description": "Your body remains in a state of suspended animation until medical attention can be provided.",
-      "cure": "Immediate emergency care and resuscitation efforts",
-      "duration": "Instantly enters stasis; lasts until treated",
-      "notes": "Players must act quickly to prevent permanent brain damage.",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T18:00:46+00:00"
-      }
+      "injuryType": "Relentless",
+      "description": "Once per long rest, when damage would reduce you to 0 hit points but not kill you outright, you drop to 1 hit point instead.",
+      "cure": "None — it is yours.",
+      "duration": "Permanent.",
+      "notes": ""
     },
     {
       "d100": 100,
       "category": "Survivability+",
-      "injuryType": "Adrenaline Surge",
-      "description": "At the beginning of each of your turns, you gain an extra action and a +1 bonus to hit on all attacks until your next short or long rest.",
-      "cure": "None",
-      "duration": "Until your next short or long rest",
-      "notes": "While this surge gives you an edge in combat, it leaves you exhausted afterward.",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T18:00:52+00:00"
-      }
-    },
-    {
-      "d100": 101,
-      "category": "Severe injury",
-      "injuryType": "Iron Veined Limb",
-      "description": "Your limb becomes encased in a network of iron-like veins that give you heightened strength but restrict movement.",
-      "cure": "Major surgery or removal by an Artisan Surgeon.",
-      "duration": "Permanent, unless cured.",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T18:00:59+00:00"
-      }
-    },
-    {
-      "d100": 102,
-      "category": "Special effect",
-      "injuryType": "Spectral Bind",
-      "description": "Your flesh mends only to be consumed by ethereal chains that bind your movements, halving your speed and imposing disadvantage on all Dexterity checks.",
-      "cure": "Restoration spell or a successful Wish spell",
-      "duration": "Instant",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T18:01:06+00:00"
-      }
-    },
-    {
-      "d100": 103,
-      "category": "Special effect",
-      "injuryType": "Silent Sentinel",
-      "description": "Your body harbors a hidden sentinel that can attack any enemy within reach during combat, striking with your proficiency in melee attacks.",
-      "cure": "Major surgery and a week of bed rest",
-      "duration": "Permanent until cured",
-      "notes": "The sentinel only activates when you are engaged in combat. Enemies may not be aware of its presence.",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T18:01:14+00:00"
-      }
-    },
-    {
-      "d100": 104,
-      "category": "Severe injury",
-      "injuryType": "Shattered Vein",
-      "description": "Your veins are left with a permanent jagged scar, causing blood to clot unpredictably.",
-      "cure": "Major surgery and two months of rest and recovery",
-      "duration": "Forever",
-      "notes": "Avoid strenuous activities. The scars can be hidden with armor.",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T18:01:48+00:00"
-      }
-    },
-    {
-      "d100": 105,
-      "category": "Special effect",
-      "injuryType": "Echoing Silence",
-      "description": "Your voice becomes muffled and indistinct to all but yourself, a permanent reminder of your past struggles.",
-      "cure": "Major Restoration Ritual (3d6 hours)",
-      "duration": "Forever",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T18:01:27+00:00"
-      }
-    },
-    {
-      "d100": 106,
-      "category": "Special effect",
-      "injuryType": "Ethereal Echo",
-      "description": "Your voice becomes a haunting echo that can be heard by allies within 30 feet, but not enemies.",
-      "cure": "Remove with a successful spell save against a dispelling magic effect.",
-      "duration": "Instant",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T18:01:40+00:00"
-      }
-    },
-    {
-      "d100": 107,
-      "category": "Severe injury",
-      "injuryType": "Twisted Limb",
-      "description": "Your arm or leg is permanently misshapen, granting you an advantage on saving throws related to being grabbed but dealing disadvantage to Dexterity (Acrobatics) checks.",
-      "cure": "Surgery and a year of careful physiotherapy.",
-      "duration": "Forever",
-      "notes": "May require multiple surgeries for optimal alignment.",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T18:01:56+00:00"
-      }
-    },
-    {
-      "d100": 108,
-      "category": "Special effect",
-      "injuryType": "Shadowed Aura",
-      "description": "A dark shadow clings to your body, radiating an aura that saps the vitality of those who gaze upon it for more than a minute.",
-      "cure": "Major Restoration spell or equivalent magic",
-      "duration": "Instantaneous, but reoccurs if not cured",
-      "notes": "Those affected by the Shadowed Aura must save against a DC 15 Wisdom saving throw or take 2d6 necrotic damage per minute they remain in your presence.",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T18:02:02+00:00"
-      }
-    },
-    {
-      "d100": 109,
-      "category": "Special effect",
-      "injuryType": "Frostbound Touch",
-      "description": "Your skin turns a pale blue, and you gain the ability to inflict frost damage upon touch for 1d6 cold damage plus your Constitution modifier.",
-      "cure": "Healing Staff or successful Cure spell",
-      "duration": "Permanent with monthly checks to stabilize",
-      "notes": "Monthly checks are required to prevent the condition from worsening into a state of permanent ice corruption.",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T18:02:09+00:00"
-      }
-    },
-    {
-      "d100": 110,
-      "category": "Memorable scars",
-      "injuryType": "Crystalline Scar",
-      "description": "Your skin becomes permanently marred by iridescent, crystalline growths that pulse with a faint, otherworldly light.",
-      "cure": "Major surgery and 4d12 weeks of rest",
-      "duration": "Forever",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T18:02:15+00:00"
-      }
-    },
-    {
-      "d100": 111,
-      "category": "Severe injury",
-      "injuryType": "Obsidian Heart",
-      "description": "A shard of obsidian lodges in your heart, causing constant pain and weakening your vital functions.",
-      "cure": "Major surgery or a successful removal by an Archmage.",
-      "duration": "Forever unless cured",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T18:02:22+00:00"
-      }
-    },
-    {
-      "d100": 112,
-      "category": "Facial scarring",
-      "injuryType": "Obscured Vision",
-      "description": "A patch of skin on your face is permanently discolored, obscuring vision in that eye.",
-      "cure": "Major surgery or magical removal at the cost of a week's rest and 500 gp.",
-      "duration": "Forever",
-      "notes": "This may hinder close combat but offers no tactical advantage.",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T18:02:29+00:00"
-      }
-    },
-    {
-      "d100": 113,
-      "category": "Facial scarring",
-      "injuryType": "Obscured Insight",
-      "description": "Your eyesight remains unimpaired, but you gain a permanent, unsettling gaze that unnerves those who look upon you.",
-      "cure": "Major surgery and 1 year of rest",
-      "duration": "Forever",
-      "notes": "Players may choose to role-play the psychological effects this has on interactions with NPCs.",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T18:02:36+00:00"
-      }
-    },
-    {
-      "d100": 114,
-      "category": "Severe injury",
-      "injuryType": "Phantom Pain Limb",
-      "description": "The lost limb continues to be felt, causing constant pain and phantom sensations.",
-      "cure": "Major surgery or a replacement limb with magic augmentation (at GM discretion).",
-      "duration": "Forever unless cured",
-      "notes": "This injury can only occur once per character.",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T18:02:42+00:00"
-      }
-    },
-    {
-      "d100": 115,
-      "category": "Special effect",
-      "injuryType": "Ethereal Touch",
-      "description": "Your touch becomes incorporeal, affecting only creatures with physical form. Allies may ignore your presence in combat.",
-      "cure": "Dispel Magic",
-      "duration": "Instant",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T18:02:49+00:00"
-      }
-    },
-    {
-      "d100": 116,
-      "category": "Special effect",
-      "injuryType": "Ominous Miasma",
-      "description": "A noxious aura that spreads a foul stench and clouds the mind, hindering perception and inspiring fear in others.",
-      "cure": "A thorough cleansing ritual or a successful DC 15 Medicine check.",
-      "duration": "2d6 days",
-      "notes": "The emanation can be detected within 30 feet by anyone not successfully resisting the effect.",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T18:02:57+00:00"
-      }
-    },
-    {
-      "d100": 117,
-      "category": "Special effect",
-      "injuryType": "Ethereal Reprisal",
-      "description": "You feel a phantom presence reacting to hostile actions within 30 feet.",
-      "cure": "2d6 weeks of rest and ritual purification.",
-      "duration": "2d8 weeks",
-      "notes": "Enemies may sense your ethereal retribution. Allies should be cautious.",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T18:03:17+00:00"
-      }
-    },
-    {
-      "d100": 118,
-      "category": "Special effect",
-      "injuryType": "Ethereal Veil",
-      "description": "Your body is suffused with a ghostly aura, making you nearly invisible to all but those who know where and how to look.",
-      "cure": "Major Restoration spell or equivalent magic item",
-      "duration": "Permanent unless cured",
-      "notes": "Only creatures trained in the art of detection can see through your ethereal veil.",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T18:03:37+00:00"
-      }
-    },
-    {
-      "d100": 119,
-      "category": "Severe injury",
-      "injuryType": "Phantom Veil",
-      "description": "You are constantly plagued by the sensation of a phantom limb, which can only be alleviated with rigorous concentration and meditation.",
-      "cure": "A week of uninterrupted meditation in a sacred location.",
-      "duration": "2d10 weeks",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T18:03:31+00:00"
-      }
-    },
-    {
-      "d100": 120,
-      "category": "Severe injury",
-      "injuryType": "Spectral Wound",
-      "description": "A ghostly wound that bleeds an unseen fluid, causing constant pain and leaving an ethereal trail wherever you move.",
-      "cure": "Restoration spell or similar magic",
-      "duration": "Instant, but reappears after 1d6 days if not permanently cured",
-      "notes": "The spectral blood can be stopped by a successful DC 20 Medicine check.",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T18:03:45+00:00"
-      }
-    },
-    {
-      "d100": 121,
-      "category": "Severe injury",
-      "injuryType": "Flesh Woven Stone",
-      "description": "Your flesh has been replaced by an impenetrable stone, rendering you immobile and impervious to most attacks.",
-      "cure": "Major surgery or a successful Wish spell",
-      "duration": "Forever unless cured",
-      "notes": "This condition is both a boon and a curse. While it protects from harm, it also prevents movement.",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T18:03:51+00:00"
-      }
-    },
-    {
-      "d100": 122,
-      "category": "Special effect",
-      "injuryType": "Ethereal Resonance",
-      "description": "Your body hums with an otherworldly resonance, making it difficult for you to remain unseen or unheard by those with keen senses.",
-      "cure": "Complete rest and a successful DC 20 Medicine check.",
-      "duration": "Long rest",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T18:04:11+00:00"
-      }
-    },
-    {
-      "d100": 123,
-      "category": "Special effect",
-      "injuryType": "Phantom Embrace",
-      "description": "Your body becomes entwined with a spectral embrace that only you can feel, causing constant discomfort and affecting your movements.",
-      "cure": "Restoration spell or successful DC 20 Medicine check after 1 week of rest.",
-      "duration": "Long rest each day for 4 weeks",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T18:04:18+00:00"
-      }
-    },
-    {
-      "d100": 124,
-      "category": "Severe injury",
-      "injuryType": "Chillborn Flesh",
-      "description": "Your skin turns permanently frostbitten, causing constant pain and making you susceptible to cold temperatures.",
-      "cure": "Major surgery and a month of healing with a restful environment.",
-      "duration": "Forever",
-      "notes": "Avoids direct contact with cold elements or risk severe injury.",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T18:04:51+00:00"
-      }
-    },
-    {
-      "d100": 125,
-      "category": "Severe injury",
-      "injuryType": "Frostbound Vein",
-      "description": "A vein in your body becomes encased in ice, reducing your stamina by 2d4 until thawed.",
-      "cure": "Cold resistance potion or successful healing spell (DC15)",
-      "duration": "2d8 weeks",
-      "notes": "Avoid cold environments to prevent further damage.",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T18:04:44+00:00"
-      }
-    },
-    {
-      "d100": 126,
-      "category": "Severe injury",
-      "injuryType": "Phantom Limb",
-      "description": "You feel a constant pain from a limb that no longer exists, as if it were still attached to your body.",
-      "cure": "Major restoration or Wish spell",
-      "duration": "Forever, unless cured",
-      "notes": "The phantom limb is real and can be fought with physical therapy or magical means.",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T18:04:56+00:00"
-      }
-    },
-    {
-      "d100": 127,
-      "category": "Special effect",
-      "injuryType": "Forsaken Veil",
-      "description": "A ghostly cloak envelopes your form, visible only to allies within 30 feet. It grants +2 AC but you can't enter areas of total cover.",
-      "cure": "Dismiss with a successful DC 15 Arcana check or after 1d4 weeks.",
-      "duration": "Until dismissed or the duration ends",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T18:05:15+00:00"
-      }
-    },
-    {
-      "d100": 128,
-      "category": "Special effect",
-      "injuryType": "Chronal Anomaly",
-      "description": "Your flesh becomes unstable, shifting and warping with each passing moment, causing discomfort and unpredictable physical changes.",
-      "cure": "Restoration spell or a successful DC 25 Medicine check by another healer.",
-      "duration": "1d6 weeks",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T18:05:09+00:00"
-      }
-    },
-    {
-      "d100": 129,
-      "category": "Special effect",
-      "injuryType": "Veilbound Mind",
-      "description": "Your mind becomes entwined with the veil, granting you insight into hidden truths but at a cost to your sanity.",
-      "cure": "Complete a year and a day of meditation and isolation from the veiled world.",
-      "duration": "Forever, unless cured",
-      "notes": "Players may gain temporary bonuses to Insight checks in certain environments, but lose 1d4 Wisdom permanently.",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T18:05:23+00:00"
-      }
-    },
-    {
-      "d100": 130,
-      "category": "Special effect",
-      "injuryType": "Spectral Touch",
-      "description": "Your skin becomes a vessel for spectral presences, attracting minor ethereal creatures that you can neither control nor shake off without a major ritual.",
-      "cure": "Major Restoration spell or equivalent magical intervention",
-      "duration": "Permanent until cured",
-      "notes": "While the presence is there, you are always aware of its proximity and feel its touch.",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T18:05:29+00:00"
-      }
-    },
-    {
-      "d100": 131,
-      "category": "Severe injury",
-      "injuryType": "Echoing Wound",
-      "description": "An invisible scar pulses with a faint glow, causing constant pain and a nagging ache.",
-      "cure": "Major rest and 50 gp worth of healing magic.",
-      "duration": "2d10 weeks",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T18:05:49+00:00"
-      }
-    },
-    {
-      "d100": 132,
-      "category": "Severe injury",
-      "injuryType": "Glowing Corruption",
-      "description": "A festering growth of living darkness consumes your flesh, emitting a cold, eerie light.",
-      "cure": "Elixir of Resurrection and a week of rest in a Holy Ground.",
-      "duration": "Forever until cured",
-      "notes": "Avoid contact with water or it spreads faster.",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T18:05:42+00:00"
-      }
-    },
-    {
-      "d100": 133,
-      "category": "Special effect",
-      "injuryType": "Ethereal Echoes",
-      "description": "You hear an eternal echo of your last spoken word, disrupting focus and communication.",
-      "cure": "Complete Silence Ritual",
-      "duration": "Forever",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-31T03:40:25+00:00"
-      }
-    },
-    {
-      "d100": 134,
-      "category": "Special effect",
-      "injuryType": "Mystic Veil Binding",
-      "description": "Your body is suffused with a mystic aura that disrupts your concentration, reducing your spellcasting ability by half.",
-      "cure": "Major rest and a successful DC 18 Wisdom (Medicine) check",
-      "duration": "2d8 weeks",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-31T03:40:26+00:00"
-      }
-    },
-    {
-      "d100": 135,
-      "category": "Special effect",
-      "injuryType": "Spectral Veil Over Mind",
-      "description": "The mind is cloaked in a spectral veil, confusing thoughts and memories. Only clear thinking can pierce the mist.",
-      "cure": "A day of uninterrupted meditation or study",
-      "duration": "Instant",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-31T03:40:27+00:00"
-      }
-    },
-    {
-      "d100": 136,
-      "category": "Special effect",
-      "injuryType": "Mystic Veil Entanglement",
-      "description": "Your body becomes entwined with an ethereal veil that disrupts your alignment and magic. Your spells are unstable, and you suffer a -2 penalty to all spell checks.",
-      "cure": "A successful Wish or Miracle spell cast by another character.",
-      "duration": "Forever",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-31T03:40:29+00:00"
-      }
-    },
-    {
-      "d100": 137,
-      "category": "Special effect",
-      "injuryType": "Spectral Mender's Curse",
-      "description": "Your flesh mends only to shift the wound elsewhere.",
-      "cure": "Major restoration spell",
-      "duration": "2d8 weeks",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-31T03:40:28+00:00"
-      }
-    },
-    {
-      "d100": 138,
-      "category": "Severe injury",
-      "injuryType": "Galebound Limb",
-      "description": "Your limb becomes as brittle as bone and can shatter under minimal stress. You suffer -2 to Strength checks.",
-      "cure": "Restoration spell or a successful Craft Medicine check with DC 15",
-      "duration": "Instantly cured, but re-injury lasts until long rest",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-31T03:40:31+00:00"
-      }
-    },
-    {
-      "d100": 139,
-      "category": "Special effect",
-      "injuryType": "Ethereal Paralysis",
-      "description": "Your body becomes partially ethereal, causing you to float at a height of one foot above the ground. This makes it difficult for others to touch or grapple you.",
-      "cure": "Major rest and an Ethereal Anchor spell",
-      "duration": "2d8 weeks",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-31T03:40:31+00:00"
-      }
-    },
-    {
-      "d100": 140,
-      "category": "Special effect",
-      "injuryType": "Spectral Veil Over Heart",
-      "description": "A spectral veil obscures the heart's rhythm, causing palpitations and a weakening of resolve.",
-      "cure": "Restoration spell or equivalent magical treatment",
-      "duration": "Instant relief with cure",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-31T03:40:34+00:00"
-      }
-    },
-    {
-      "d100": 141,
-      "category": "Special effect",
-      "injuryType": "Mystic Veil Infusion",
-      "description": "A permanent veil of mysticism cloaks your form, granting you supernatural sight within 30 feet but causing you to be disoriented in bright or chaotic environments.",
-      "cure": "Removing the Mystic Veil Binding (129)",
-      "duration": "Forever",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-31T03:40:34+00:00"
-      }
-    },
-    {
-      "d100": 142,
-      "category": "Severe injury",
-      "injuryType": "Chilled Heart",
-      "description": "Your heart feels like it is encased in ice, impeding your ability to feel warmth.",
-      "cure": "Warmth infusion or a successful DC 30 Medicine check.",
-      "duration": "2d8 weeks",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-31T03:40:39+00:00"
-      }
-    },
-    {
-      "d100": 143,
-      "category": "Special effect",
-      "injuryType": "Veilbound Echoes",
-      "description": "Your body is intertwined with a phantom echo that mimics your voice and movements.",
-      "cure": "Dispel Magic spell",
-      "duration": "2d8 weeks",
-      "notes": "The echoes cannot be silenced or ignored.",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-31T03:40:36+00:00"
-      }
-    },
-    {
-      "d100": 144,
-      "category": "Special effect",
-      "injuryType": "Spectral Veil Entanglement",
-      "description": "Your body becomes entangled in an invisible spectral web, hampering your movements and reducing Dexterity by 2.",
-      "cure": "Rest for 1 week and a successful DC 20 Medicine check.",
-      "duration": "Until cured or removed by magic.",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-31T03:40:39+00:00"
-      }
-    },
-    {
-      "d100": 145,
-      "category": "Special effect",
-      "injuryType": "Blinding Veil",
-      "description": "Your vision is clouded by an ever-present veil of shadow that distorts your perception. Enemies appear as distorted shadows.",
-      "cure": "Major restoration, greater restoration, or a wish spell.",
-      "duration": "Forever, but fades with time and effort to dispel it.",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-31T03:40:44+00:00"
-      }
-    },
-    {
-      "d100": 146,
-      "category": "Special effect",
-      "injuryType": "Mystic Veil Over Voice",
-      "description": "Your voice is warped by an otherworldly veil, rendering you unintelligible to all but those who can see through the mystical distortion.",
-      "cure": "Restoration spell or a successful DC 20 Charisma (Performance) check",
-      "duration": "Instant",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-31T03:40:41+00:00"
-      }
-    },
-    {
-      "d100": 147,
-      "category": "Severe injury",
-      "injuryType": "Bone Whisperer",
-      "description": "Your bones now whisper cryptic messages that only you can hear. They drain your concentration and may interfere with magical effects.",
-      "cure": "Complete bone realignment surgery and a month of rest in a quiet environment.",
-      "duration": "2d8 weeks",
-      "notes": "GM note: Consider the messages as interruptions during combat or spellcasting.",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-31T03:40:44+00:00"
-      }
-    },
-    {
-      "d100": 148,
-      "category": "Severe injury",
-      "injuryType": "Frozen Veil Over Blood",
-      "description": "Your blood runs as cold as ice, congealing and slowing your body's functions. You are immune to fire-based damage.",
-      "cure": "A successful Medicine check or a Frost Mastery spell of at least 5th level.",
-      "duration": "2d8 weeks",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-31T03:40:47+00:00"
-      }
-    },
-    {
-      "d100": 149,
-      "category": "Special effect",
-      "injuryType": "Soul Echo Weakness",
-      "description": "Your soul hums with a foreign echo, sapping your resolve. Your morale suffers in combat.",
-      "cure": "A week of meditation and rest to restore harmony within.",
-      "duration": "2d8 weeks",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-31T03:40:47+00:00"
-      }
-    },
-    {
-      "d100": 150,
-      "category": "Special effect",
-      "injuryType": "Spectral Veil Over Sight",
-      "description": "Your vision becomes fragmented and hazy, as if seen through a veil of mist.",
-      "cure": "2d6 hours of rest or an hour under bright light",
-      "duration": "Instant",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-31T03:41:33+00:00"
-      }
-    },
-    {
-      "d100": 151,
-      "category": "Severe injury",
-      "injuryType": "Echoing Bone Weakness",
-      "description": "Your bones seem to whisper secrets of the past. They fracture easily and emit a constant eerie glow.",
-      "cure": "Spectral Bone Mender ritual, performed by an Arcane Healer",
-      "duration": "Forever",
-      "notes": "Players must avoid areas with strong magical fields.",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-31T03:40:50+00:00"
-      }
-    },
-    {
-      "d100": 152,
-      "category": "Severe injury",
-      "injuryType": "Ethereal Wound",
-      "description": "A searing pain that pulses every hour, causing a -1 penalty to all saving throws. The wound bleeds ethereally.",
-      "cure": "Major Restoration spell",
-      "duration": "2d8 weeks",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-31T03:43:01+00:00"
-      }
-    },
-    {
-      "d100": 153,
-      "category": "Special effect",
-      "injuryType": "Veilbound Silence",
-      "description": "Your voice is muffled and indistinct to others. They can still hear you but understand you with difficulty.",
-      "cure": "Spectral Mender's Cure, Long rest",
-      "duration": "2d8 weeks",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-31T03:43:44+00:00"
-      }
-    },
-    {
-      "d100": 154,
-      "category": "Special effect",
-      "injuryType": "Spectral Veil Over Ears",
-      "description": "You hear only whispers and echoes, as if the world has dimmed into a spectral dream.",
-      "cure": "Silent Ritual or equivalent magic",
-      "duration": "2d8 weeks",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-31T03:45:11+00:00"
-      }
-    },
-    {
-      "d100": 155,
-      "category": "Severe injury",
-      "injuryType": "Spectral Veil Over Hand",
-      "description": "Your hand is cloaked in an ethereal veil that impairs your dexterity.",
-      "cure": "A successful DC 15 Arcana check or access to a Lesser Restoration spell.",
-      "duration": "2d8 weeks",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-31T03:45:54+00:00"
-      }
-    },
-    {
-      "d100": 156,
-      "category": "Special effect",
-      "injuryType": "Veilbound Silence Echoes",
-      "description": "You hear the faint whispers of those you've harmed, haunting your every moment.",
-      "cure": "Silent Veil Remedy or removal of the source of the echo.",
-      "duration": "Forever unless cured",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-31T03:46:36+00:00"
-      }
-    },
-    {
-      "d100": 157,
-      "category": "Severe injury",
-      "injuryType": "Veilbound Limb Malady",
-      "description": "Your limb is encased in an ever-present veil that impedes movement and grants no strength. It feels heavy and sluggish.",
-      "cure": "Major restoration spell or equivalent magic item",
-      "duration": "2d8 weeks",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-31T03:46:38+00:00"
-      }
-    },
-    {
-      "d100": 158,
-      "category": "Severe injury",
-      "injuryType": "Veilbound Shadow Hand",
-      "description": "Your hand is shrouded in shadow, halving your dexterity and imposing disadvantage on stealth checks.",
-      "cure": "Major Surgery or Restoration spell",
-      "duration": "2d8 weeks",
-      "notes": "The shadow recedes with rest, but full function returns only after treatment.",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-31T03:46:39+00:00"
-      }
-    },
-    {
-      "d100": 159,
-      "category": "Special effect",
-      "injuryType": "Veilbound Echoed Voice",
-      "description": "Your voice echoes with otherworldly tones, confusing allies and drawing the attention of fiends.",
-      "cure": "Silencing potion or 3d6 hours of rest in a consecrated location",
-      "duration": "2d8 weeks",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-31T03:46:42+00:00"
-      }
-    },
-    {
-      "d100": 160,
-      "category": "Special effect",
-      "injuryType": "Bone Veil Entanglement",
-      "description": "Your bones are intertwined with spectral threads that limit your mobility and slow your attacks.",
-      "cure": "A successful DC 18 Medicine check or the Dispel Magic spell.",
-      "duration": "Instant",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-31T03:46:42+00:00"
-      }
-    },
-    {
-      "d100": 161,
-      "category": "Special effect",
-      "injuryType": "Ethereal Veil Touch",
-      "description": "Your skin becomes permeable to ethereal entities; they can touch you at will.",
-      "cure": "A successful caster level check against DC 18 or a week of seclusion.",
-      "duration": "2d6 weeks",
-      "notes": "Avoid places with powerful ethereal presences.",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-31T03:46:44+00:00"
-      }
-    },
-    {
-      "d100": 162,
-      "category": "Severe injury",
-      "injuryType": "Veilbound Vein Weakness",
-      "description": "Your veins pulse with an eerie glow, sapping your strength and making you vulnerable to cold climates.",
-      "cure": "A week of herbal remedies and warm baths restores the normal flow of blood.",
-      "duration": "2d8 weeks",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-31T03:46:45+00:00"
-      }
-    },
-    {
-      "d100": 163,
-      "category": "Severe injury",
-      "injuryType": "Veilbound Vein Mutation",
-      "description": "Your veins have been warped by the spectral veil, causing erratic blood flow and severe pain.",
-      "cure": "Major Restoration or successful Surgery (DC 25)",
-      "duration": "2d8 weeks",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-31T03:46:48+00:00"
-      }
-    },
-    {
-      "d100": 164,
-      "category": "Severe injury",
-      "injuryType": "Veilbound Vein Malady",
-      "description": "Your veins pulse with an eerie, spectral light, draining your vitality and leaving you susceptible to cold-based attacks.",
-      "cure": "Restoration spell or equivalent magic",
-      "duration": "2d8 weeks",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-31T03:46:48+00:00"
-      }
-    },
-    {
-      "d100": 165,
-      "category": "Severe injury",
-      "injuryType": "Veilbound Vein Malformation",
-      "description": "A twisted network of veins causes constant pain and unpredictable bursts of ethereal energy.",
-      "cure": "Surgery and 4d8 weeks of rest to realign the malformed vessels.",
-      "duration": "2d8 weeks",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-31T03:46:54+00:00"
-      }
-    },
-    {
-      "d100": 166,
-      "category": "Severe injury",
-      "injuryType": "Veilbound Vein Collapse",
-      "description": "A pulsating void opens in your veins, causing severe hemorrhaging and excruciating pain.",
-      "cure": "Major surgery or a successful DC 25 Medicine check by another healer.",
-      "duration": "2d8 weeks",
-      "notes": "May require multiple sessions of treatment.",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-31T03:46:51+00:00"
-      }
-    },
-    {
-      "d100": 167,
-      "category": "Severe injury",
-      "injuryType": "Veilbound Vein Echoes",
-      "description": "Your veins pulse with ethereal echoes that drain your strength and stamina.",
-      "cure": "Complete rest and a successful DC 20 Wisdom (Medicine) check.",
-      "duration": "2d8 weeks",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-31T03:46:57+00:00"
-      }
-    },
-    {
-      "d100": 168,
-      "category": "Severe injury",
-      "injuryType": "Echoing Veil Wound",
-      "description": "A deep wound that pulses with spectral echoes, causing pain and disorientation.",
-      "cure": "Major surgery followed by a month of bed rest and healing magic.",
-      "duration": "2d8 weeks",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-31T04:04:58+00:00"
-      }
-    },
-    {
-      "d100": 169,
-      "category": "Severe injury",
-      "injuryType": "Veilbound Vein Rupture",
-      "description": "Your veins spasm uncontrollably, causing severe pain and potential organ failure.",
-      "cure": "Major surgery or 6 months of bed rest with constant monitoring.",
-      "duration": "Forever (can be mitigated but never fully cured)",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-31T04:05:13+00:00"
-      }
-    },
-    {
-      "d100": 170,
-      "category": "Severe injury",
-      "injuryType": "Veilbound Vein Fragmentation",
-      "description": "Your veins fray and tear, causing excruciating pain. Blood flow becomes erratic.",
-      "cure": "Surgery by a master healer or equivalent magical means",
-      "duration": "2d8 weeks",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-31T04:05:21+00:00"
-      }
-    },
-    {
-      "d100": 171,
-      "category": "Severe injury",
-      "injuryType": "Veilbound Vein Liquefaction",
-      "description": "Your veins liquefy, causing a constant, excruciating pain. Blood flows sluggishly and can leak through your skin.",
-      "cure": "Major surgery or successful casting of Greater Regeneration spell",
-      "duration": "2d8 weeks",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-31T04:05:35+00:00"
-      }
-    },
-    {
-      "d100": 172,
-      "category": "Severe injury",
-      "injuryType": "Veilbound Vein Syndrome",
-      "description": "A strange malady that causes the veins to shift and mutate, altering blood flow.",
-      "cure": "Major Restoration Spell or equivalent magic",
-      "duration": "2d8 weeks",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-31T04:05:42+00:00"
-      }
-    },
-    {
-      "d100": 173,
-      "category": "Severe injury",
-      "injuryType": "Veilbound Heart Weakness",
-      "description": "Your heart feels like it's encased in an ethereal shroud, causing palpitations and shortness of breath.",
-      "cure": "A successful Restoration spell or similar magic that heals major wounds.",
-      "duration": "2d8 weeks",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-31T04:05:49+00:00"
-      }
-    },
-    {
-      "d100": 174,
-      "category": "Severe injury",
-      "injuryType": "Veilbound Vein Paralysis",
-      "description": "Your veins stiffen, causing temporary paralysis in one limb.",
-      "cure": "A Long rest and a successful Medicine check.",
-      "duration": "2d8 weeks",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-31T04:05:56+00:00"
-      }
-    },
-    {
-      "d100": 175,
-      "category": "Severe injury",
-      "injuryType": "Veilbound Vein Anomaly",
-      "description": "A pulsating growth in your arm disrupts your strength, reducing it by half.",
-      "cure": "Surgery and 1d4 months of rest",
-      "duration": "2d8 weeks",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-31T04:06:04+00:00"
-      }
-    },
-    {
-      "d100": 176,
-      "category": "Severe injury",
-      "injuryType": "Bone Veil Fracture",
-      "description": "Your bones are entangled with ethereal strands that twist and fracture at your every move. They heal but never quite return to their original form.",
-      "cure": "Long rest, then a month of bed rest under the guidance of a healer or druid.",
-      "duration": "2d8 weeks",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-31T04:06:26+00:00"
-      }
-    },
-    {
-      "d100": 177,
-      "category": "Severe injury",
-      "injuryType": "Heart Veil Fragment",
-      "description": "A fragment of the heart veil lodges in your chest cavity, causing chronic pain and irregular heartbeat.",
-      "cure": "Major surgery with a Heart Veil specialist or successful DC 25 Medicine check.",
-      "duration": "Long rest per day until cured",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-09-01T23:36:44+00:00"
-      }
-    },
-    {
-      "d100": 178,
-      "category": "Severe injury",
-      "injuryType": "Echoing Veil Blindness",
-      "description": "You begin to see the world through the Veil, where shadows and distortions are constant.",
-      "cure": "Major Restoration spell or similar magic effect",
-      "duration": "2d8 weeks",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-09-01T23:37:53+00:00"
-      }
-    },
-    {
-      "d100": 179,
-      "category": "Severe injury",
-      "injuryType": "Echoing Veil Paralysis",
-      "description": "You feel a phantom pain in your limbs, as if the Veil whispers of past wounds.",
-      "cure": "Rest and 40 gold piece treatment for 3 weeks",
-      "duration": "2d8 weeks",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-09-01T23:38:49+00:00"
-      }
-    },
-    {
-      "d100": 180,
-      "category": "Severe injury",
-      "injuryType": "Echoing Veil Fever",
-      "description": "A persistent fever that only breaks at dawn, draining your strength.",
-      "cure": "Rest and a potion of cure disease.",
-      "duration": "Instant recovery upon resting through the night.",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-09-01T23:38:57+00:00"
-      }
-    },
-    {
-      "d100": 181,
-      "category": "Severe injury",
-      "injuryType": "Echoing Veil Hemorrhage",
-      "description": "A constant flow of dark veils leaks from the wound, draining your strength.",
-      "cure": "Complete healing and removal of all Veilbound Vein anomalies.",
-      "duration": "Forever, unless cured",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-09-02T01:20:40+00:00"
-      }
-    },
-    {
-      "d100": 182,
-      "category": "Severe injury",
-      "injuryType": "Echoing Veil Paralysis",
-      "description": "Your body's movements are increasingly hindered; even simple tasks require conscious effort.",
-      "cure": "2d8 days of rest and a successful Medicine check (DC 15)",
-      "duration": "4d6 weeks",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-09-02T01:21:31+00:00"
-      }
-    },
-    {
-      "d100": 183,
-      "category": "Severe injury",
-      "injuryType": "Echoing Veil Syndrome",
-      "description": "Your body begins to resonate with the Echoing Veil, causing unpredictable moments of disorientation and heightened sensitivity to magical auras.",
-      "cure": "2d8 weeks of rest in an environment free from magic",
-      "duration": "2d8 weeks",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-09-02T01:22:09+00:00"
-      }
-    },
-    {
-      "d100": 184,
-      "category": "Severe injury",
-      "injuryType": "Bone Shatter Syndrome",
-      "description": "Your bones are perpetually fractured and heal slowly. They break easily with minimal exertion.",
-      "cure": "8 sessions of bone magic, +4 Con saving throws for 2d8 weeks",
-      "duration": "2d8 weeks",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-09-02T01:22:53+00:00"
-      }
-    },
-    {
-      "d100": 185,
-      "category": "Severe injury",
-      "injuryType": "Echoing Veil Necrosis",
-      "description": "Your flesh begins to rot from the inside out, necrotic sores spreading rapidly across your body.",
-      "cure": "Surgical removal and a month of antiseptic treatment by a master healer.",
-      "duration": "2d8 weeks",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-09-02T01:23:01+00:00"
-      }
-    },
-    {
-      "d100": 186,
-      "category": "Severe injury",
-      "injuryType": "Echoing Veil Infestant",
-      "description": "A parasitic growth from the Veil binds to your skin, draining vitality and causing intense pain.",
-      "cure": "Removal by a Veilbound Healer or extensive surgery.",
-      "duration": "2d8 weeks",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-09-02T01:23:14+00:00"
-      }
-    },
-    {
-      "d100": 187,
-      "category": "Severe injury",
-      "injuryType": "Bone Shatter Syndrome",
-      "description": "Your bones are permanently misaligned, causing chronic pain and reducing your movement speed by one step.",
-      "cure": "Major surgery or a level 50 healer's intervention lasting no less than 4 weeks.",
-      "duration": "Forever",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-09-02T01:23:22+00:00"
-      }
-    },
-    {
-      "d100": 188,
-      "category": "Severe injury",
-      "injuryType": "Echoing Veil Rot",
-      "description": "Your flesh decays from the inside out, causing necrotic wounds that spread rapidly.",
-      "cure": "Major surgery and 1d8 months of magical treatment",
-      "duration": "2d8 months",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-09-02T01:23:29+00:00"
-      }
-    },
-    {
-      "d100": 189,
-      "category": "Severe injury",
-      "injuryType": "Echoing Veil Abscess",
-      "description": "A festering abscess forms beneath the skin, causing severe pain and disfigurement.",
-      "cure": "Major surgery or 4 weeks of rest",
-      "duration": "2d8 weeks",
-      "notes": "The abscess can be dangerous if left untreated.",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-09-02T01:23:45+00:00"
-      }
-    },
-    {
-      "d100": 190,
-      "category": "Severe injury",
-      "injuryType": "Echoing Veil Corruption",
-      "description": "Your body's cells begin to mutate under the influence of the veiled realm. Tissue becomes brittle and discolored.",
-      "cure": "Major surgery or successful casting of Greater Restoration spell",
-      "duration": "2d8 weeks",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-09-02T01:23:52+00:00"
-      }
-    },
-    {
-      "d100": 191,
-      "category": "Severe injury",
-      "injuryType": "Spectral Bone Spire",
-      "description": "A shard of bone pierces your spine, causing excruciating pain and debilitating mobility.",
-      "cure": "Major surgery with a specialized blade, followed by long rest for 2d8 weeks.",
-      "duration": "2d8 weeks",
-      "notes": "The spire may regenerate if not fully removed. Seek a master surgeon immediately.",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-09-02T01:25:16+00:00"
-      }
-    },
-    {
-      "d100": 192,
-      "category": "Severe injury",
-      "injuryType": "Shadowed Sinew Twine",
-      "description": "Your muscles twitch uncontrollably, causing you to collapse in painful spasms.",
-      "cure": "Major Surgery and a week of bed rest",
-      "duration": "2d8 weeks",
-      "notes": "Avoid strenuous activities until fully healed.",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-09-02T01:27:42+00:00"
-      }
-    },
-    {
-      "d100": 193,
-      "category": "Severe injury",
-      "injuryType": "Shadow Veil Paralysis",
-      "description": "Your body becomes enshrouded in a spectral veil, causing you to lose the ability to move freely.",
-      "cure": "Major healing spell or removal of all veils affecting the body part.",
-      "duration": "2d8 weeks",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-09-02T01:28:00+00:00"
-      }
-    },
-    {
-      "d100": 194,
-      "category": "Severe injury",
-      "injuryType": "Silent Sinew Scar",
-      "description": "Your muscles grow rigid and painful, preventing any movement for hours. They must be manually stretched to relieve.",
-      "cure": "Long rest",
-      "duration": "2d8 weeks",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-09-02T01:28:30+00:00"
-      }
-    },
-    {
-      "d100": 195,
-      "category": "Severe injury",
-      "injuryType": "Silent Veil Corruption",
-      "description": "A silent malady gnaws at your flesh, causing necrotic decay that spreads invisibly.",
-      "cure": "2d8 weeks of treatment with a potent healing salve and rest in seclusion.",
-      "duration": "2d8 weeks",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-09-02T01:29:30+00:00"
-      }
-    },
-    {
-      "d100": 196,
-      "category": "Severe injury",
-      "injuryType": "Phantom Veil Affliction",
-      "description": "Your body begins to shift between realities, causing you to hallucinate and suffer from spatial disorientation.",
-      "cure": "A successful DC 18 Medicine check or a full rest in the Veilbound realm.",
-      "duration": "2d8 weeks",
-      "notes": "Avoiding the Veilbound realm can exacerbate the condition.",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-09-02T01:29:49+00:00"
-      }
-    },
-    {
-      "d100": 197,
-      "category": "Severe injury",
-      "injuryType": "Silent Veil Paranoia",
-      "description": "You experience constant auditory hallucinations of whispers and commands, driving you to act on them.",
-      "cure": "A successful DC 20 Psychology check or a week of meditation in silence.",
-      "duration": "2d8 weeks",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-09-02T01:30:18+00:00"
-      }
-    },
-    {
-      "d100": 198,
-      "category": "Severe injury",
-      "injuryType": "Ethereal Embrace Scar",
-      "description": "Your flesh becomes entwined with ethereal tendrils that drain your life force over time.",
-      "cure": "2d6 weeks of intensive magical extraction and a successful DC 30 Medicine check.",
-      "duration": "2d8 weeks",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-09-02T01:30:36+00:00"
-      }
-    },
-    {
-      "d100": 199,
-      "category": "Severe injury",
-      "injuryType": "Phantom Veil Miasma",
-      "description": "You feel a creeping malaise, as if the veil itself has poisoned your soul. Your sanity and perception are forever altered.",
-      "cure": "2d8 weeks of therapy and 40 gold pieces for ritual purification",
-      "duration": "Forever",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-09-02T01:32:37+00:00"
-      }
-    },
-    {
-      "d100": 200,
-      "category": "Severe injury",
-      "injuryType": "Mendacious Veil Corruption",
-      "description": "Your skin begins to warp and twist, distorting the appearance of your body. The deformity is both visible and unsettling.",
-      "cure": "Major surgery or a successful Restoration spell",
-      "duration": "2d8 weeks",
-      "notes": "Patients must remain immobile during treatment.",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-09-02T01:33:32+00:00"
-      }
-    },
-    {
-      "d100": 201,
-      "category": "Severe injury",
-      "injuryType": "Cursed Veil Embrace",
-      "description": "Your skin darkens and becomes rigid, resembling a twisted veil, impeding movement.",
-      "cure": "Major restoration spell or successful surgery by a master healer.",
-      "duration": "2d8 weeks",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-09-02T01:33:44+00:00"
-      }
-    },
-    {
-      "d100": 202,
-      "category": "Severe injury",
-      "injuryType": "Mystic Veil Embrace",
-      "description": "Your skin becomes permanently entwined with the Veil, granting you magical insight but causing chronic fatigue.",
-      "cure": "Arcane restoration and a week of bed rest",
-      "duration": "2d8 weeks",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-09-02T01:48:58+00:00"
-      }
-    },
-    {
-      "d100": 203,
-      "category": "Severe injury",
-      "injuryType": "Frostbound Vein Shatter",
-      "description": "Your veins congeal into brittle shards, causing severe pain and reducing your maximum HP by half.",
-      "cure": "Major Restoration spell or equivalent",
-      "duration": "Instant",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-09-02T01:49:16+00:00"
-      }
-    },
-    {
-      "d100": 204,
-      "category": "Severe injury",
-      "injuryType": "Frostbound Veil Writhing",
-      "description": "Your skin is consumed by icy tendrils that constrict and cause severe pain. The cold spreads uncontrollably.",
-      "cure": "Major surgery or a successful DC 20 Con saving throw.",
-      "duration": "Forever, unless cured",
-      "notes": "Consider the character to have disadvantage on all Constitution checks and saves until cured.",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-09-02T01:49:40+00:00"
-      }
+      "injuryType": "The 1-Up",
+      "description": "Something — a Star, a Mushroom, pure spite — refused. You wake at your hit point maximum with all your Hit Dice restored and no lasting harm of any kind. It happens once.",
+      "cure": "None — it is yours.",
+      "duration": "Instant.",
+      "notes": "Write it in the character file with the date. The table owes you nothing after this."
     }
-  ],
-  "status": "temporary",
-  "replacement": "These 100 reference entries are temporary and may be replaced by a future AI-generated table after review.",
-  "_repair": {
-    "tool": "tools/dedupe-injury-table.py",
-    "no_ai": true,
-    "removed": 139,
-    "familyCap": 2,
-    "prefixCap": 12,
-    "note": "Rows were removed, never rewritten. The generator had collapsed onto one noun phrase and disambiguated with roman numerals; the surplus members of each over-used family were culled and the sequence renumbered."
-  }
+  ]
 }

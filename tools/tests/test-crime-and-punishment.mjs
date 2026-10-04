@@ -65,10 +65,11 @@ check('bands do not overlap', (() => {
 console.log('\n-- the consequence table joins cleanly');
 
 const entries = (inj.entries || []).filter(e => e && e.injuryType);
-// The table was culled from 343 to 204 by tools/dedupe-injury-table.py:
-// 125 rows were 'Veilbound Vein ...' template repeats. The floor is what a
-// usable consequence table needs, not what the generator happened to emit.
-check('injury entries load', entries.length >= 150, `${entries.length}`);
+// The generated table (343 rows, mostly 'Veilbound Vein ...' repeats, later
+// culled to 204) was wiped and hand-authored: exactly 100 rows, locked.
+check('injury entries load', entries.length === 100, `${entries.length}`);
+check('the table is the hand-authored, locked one',
+  inj.status === 'authored' && inj.locked === true, `${inj.status}`);
 check('every entry has a category and description',
   entries.every(e => e.category && e.description));
 check('every entry has a cure', entries.every(e => e.cure));
@@ -76,8 +77,15 @@ check('the page reads injuries.json live, not a copy',
   js.includes("loadJSON('injuries.json')") && !('consequences' in cap),
   'the table was duplicated into crimeAndPunishment.json');
 
-// The roll is biased by severity but must stay inside the table.
+// The roll is biased by severity but must stay inside the table. The table
+// runs worst-first (row 1 is Death), so a grave sentence must drag the roll
+// DOWN; the first version added the bias and sent murderers to the boons.
 console.log('\n-- the severity bias stays in range');
+check('row 1 is Death and row 100 is the survivor end',
+  /^death$/i.test(entries[0].category) && /surviv/i.test(entries[99].category));
+check('severity drags the consequence roll towards the dangerous end',
+  /roll = Math\.max\(1, roll - \(/.test(js) && !/roll \+ \(Math\.random/.test(js),
+  'the bias must subtract, not add');
 {
   const max = entries.length;
   let out = 0;
@@ -171,6 +179,9 @@ check('a natural 20 revives', /r === 20[\s\S]{0,60}revived/.test(js));
 check('only survivors roll a consequence',
   /ward\.done === 'stable' \|\| ward\.done === 'revived'/.test(js),
   'the dead should not be handed an injury roll');
+check('a ward survivor never rolls the Death row',
+  /function wardCost[\s\S]{0,900}!== 'death'/.test(js),
+  'the saves already decided they live; row 1 would be double jeopardy');
 
 console.log(`\n${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);

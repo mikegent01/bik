@@ -4,7 +4,7 @@
     "phases": "A verdict has two halves. The reel decides the SENTENCE (what the court makes you do). The injury table decides the CONSEQUENCE (what it costs your body).",
     "sentences": "Ported from the standalone Wheel of Regret prototype (incoming/). 89 sentences across mild/moderate/severe/weird/special, severity 1-10.",
     "effects": "20 game-effect spaces: coins, spins, rerolls, temporary modifiers. These are not punishments.",
-    "consequences": "Read live from injuries.json (343 entries, d100 1-345). Not duplicated here.",
+    "consequences": "Read live from injuries.json (100 hand-authored rows, d100 1-100, low is worse). Not duplicated here.",
     "canon_note": "Place names were audited against the archive. Mighdural, Swiftsoul, Ravencreek, Edgeshade and Veilwood all appear in filed material. LOCKEWEALD and ALLELON appear nowhere else in data/ and are flagged as unverified rather than silently rewritten.",
     "no_ai": "This file is a deterministic port of hand-written prototype data. No text was generated."
   },

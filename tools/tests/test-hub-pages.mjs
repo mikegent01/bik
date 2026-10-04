@@ -2,8 +2,9 @@
  * Hub pages: Injury Desk, RNN newsdesk, collection shelves.
  *
  * Systems that existed as data but had no working surface:
- *   - injuries.json had 343 entries, NO route, and its own rules text
- *     referenced an "Injury Desk" page that did not exist.
+ *   - injuries.json had 343 generated entries, NO route, and its own rules
+ *     text referenced an "Injury Desk" page that did not exist. (The table
+ *     has since been wiped and hand-authored: 100 rows, locked.)
  *   - the RNN had covered 17 of 113 events and nothing showed the backlog or
  *     told a reader an article had been on air.
  * Collections were pruned by owner vote, then reinstated 2026-09-07 as
@@ -90,7 +91,11 @@ console.log(`\n${events.length} events · ${rnn.episodes.length} episodes\n`);
 console.log('-- injury desk');
 
 const entries = (injuries.entries || []).filter(e => e && e.injuryType);
-check('the table has entries', entries.length >= 150, `${entries.length}`);
+check('the table is exactly the 100-row authored contract',
+  entries.length === 100 && injuries.status === 'authored' && injuries.locked === true,
+  `${entries.length} rows, status ${injuries.status}`);
+check('row 1 is the single Death row the survival handoff skips',
+  entries[0].category === 'Death' && entries.filter(e => e.category === 'Death').length === 1);
 check('the Injury Desk has a route', /route==='injuries'/.test(main),
   'injuries.json still has no page');
 check('death saves are implemented', /function rollDeathSave/.test(main));

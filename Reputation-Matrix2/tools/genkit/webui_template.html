@@ -141,7 +141,7 @@
           <button id="go" class="btn">Start</button>
           <button id="halt" class="ghost" disabled>Stop</button>
         </div>
-        <p class="hint">Injury Table, Locations, Events and Battles are real generate-all systems — set their mix % (0 skips) and press Start. Open their tabs to hand-edit records; Save writes the data files.</p>
+        <p class="hint">Locations, Events and Battles are real generate-all systems — set their mix % (0 skips) and press Start. Open their tabs to hand-edit records; Save writes the data files. The Injury Table is hand-authored and locked: its generator is retired, its tab is an editor only, and Validate enforces the 100-row contract.</p>
         <div class="meta-card" style="margin-top:14px">
           <b>Overnight run</b>
           <label>Stop after (hours)</label>
@@ -514,7 +514,7 @@ class Editor{
   }
   add(){
     let rec;
-    if(this.objectWithEntries){ rec={d100:this.records.length+1,category:'',injuryType:'',description:'',cure:'',duration:'',notes:'',temporary:true}; }
+    if(this.objectWithEntries){ rec={d100:this.records.length+1,category:'',injuryType:'',description:'',cure:'',duration:'',notes:''}; }
     else { rec={}; const probe=this.records[0]||{}; for(const k of Object.keys(probe)) rec[k]=(typeof probe[k]==='number')?0:(Array.isArray(probe[k])?[]:(typeof probe[k]==='object'&&probe[k]!==null)?{}:''); }
     this.records.push(rec); this.dirty=true; markDirty(); this.renderList();
     this.select(this.records.length-1);
@@ -530,7 +530,7 @@ class Editor{
   }
   renumber(){
     if(!this.objectWithEntries) return;
-    this.records.forEach((e,i)=>{ e.d100=i+1; if(e.temporary===undefined) e.temporary=true; });
+    this.records.forEach((e,i)=>{ e.d100=i+1; delete e.temporary; delete e._generated; });
     this.dirty=true; markDirty(); this.render(); toast('Renumbered d100 1–'+(this.records.length),'ok');
   }
   async roll(){

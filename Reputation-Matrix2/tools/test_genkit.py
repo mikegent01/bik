@@ -1067,8 +1067,11 @@ check("normal all-systems runs include faction dossiers",
 check("quality-gated generators participate in normal runs",
       {"shop_items", "wahwire-author", "wahwire-discuss", "bros_attacks"}
       <= enabled_ids)
-check("Injury Table, Locations, Events and Battles are live popcorn systems",
-      {"injury-table", "locations", "events", "battles"} <= enabled_ids)
+check("Locations, Events and Battles are live popcorn systems",
+      {"locations", "events", "battles"} <= enabled_ids)
+check("the injury-table generator is retired, not deleted",
+      "injury-table" not in enabled_ids and "injury-table" in {s.id for s in registry},
+      "the hand-authored table must never be a generation target again")
 
 # --- shop items: a duplicate name goes BACK TO THE MODEL, it is not renamed
 # in code. Appending "Mark II" in the repair hook is what shipped 412 suffixed
@@ -1599,8 +1602,16 @@ check("a battledate without a year is repaired to a legal past date",
       fixed_date is not None and "BF" in str(fixed_date.get("date")),
       str(fixed_date and fixed_date.get("date")))
 
-check("injury pending includes unstamped rows plus floor deficit",
-      desk.injuries_pending() >= 100)
+# The live table is hand-authored and locked (status=authored). The sandbox
+# copies it, so the retired generator must see no work and refuse to write.
+check("a locked injury table has no pending work",
+      desk.injury_table_locked() and desk.injuries_pending() == 0
+      and desk.injuries_next_tasks(5) == [])
+_locked = desk.injuries_apply(inj_task, inj)
+check("the retired injury generator refuses to write a locked table",
+      _locked.ok is False and "locked" in _locked.detail, _locked.detail)
+check("the injury floor is the 100-row contract, not a growth target",
+      desk.INJURY_FLOOR == 100, str(desk.INJURY_FLOOR))
 check("location pending is the archive floor minus live cards",
       desk.locations_pending() == max(0, desk.LOCATION_FLOOR - len(desk._load_list(desk.LOCATIONS))))
 check("event and battle pending follow the same floor rule",

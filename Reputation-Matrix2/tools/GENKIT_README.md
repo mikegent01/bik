@@ -55,7 +55,7 @@ CLI and GUI recompute every count from source data. The cycle currently includes
 | 1 | `wahwire-discuss` | participant-grounded replies with verbatim evidence and fixed emotions |
 | 1 | `wahwire-profile` | complete account biographies and follow graphs |
 | 1 | `bros_attacks` | record only source beats that name both partners together; sync accepted techniques to Foundry |
-| 1 | `injury-table` | rewrite each temporary d100 injury row in place; keep the 1–100 contract |
+| off | `injury-table` | retired — the d100 table is hand-authored and locked (100 rows); the spec stays registered so the id resolves, has no pending work, and refuses to write |
 | 1 | `locations` | append source-aware location cards until the archive floor is met |
 | 1 | `events` | append source-aware foreign past events until the archive floor is met |
 | 1 | `battles` | append source-aware foreign past battles until the archive floor is met |
@@ -169,15 +169,17 @@ that bookkeeping two workers prune the same post simultaneously.
 `--gui` opens a control panel with live per-system counters, a log, and
 worker/limit/temperature controls. `--web` forces the browser dashboard.
 
-The web dashboard is also a **data desk**. **Injury Table**, **Locations**,
-**Events**, and **Battles** are first-class popcorn systems — they appear in
-the mix % list (editable, not locked), and **Start** runs them through
-`generate_all` like every other system. Isolate one with `--only locations`
-or by setting the others to 0. Their tabs remain a hand-editor: change any
-field or record and **Save** writes straight back to `Reputation-Matrix2/data/`.
-Each editor supports add, delete, search/filter, and a JSON-aware field
-renderer for nested arrays/objects. The Injury Table tab adds a d100 **Roll**
-simulator and a **Validate** button that shells out to
+The web dashboard is also a **data desk**. **Locations**, **Events**, and
+**Battles** are first-class popcorn systems — they appear in the mix % list
+(editable, not locked), and **Start** runs them through `generate_all` like
+every other system. Isolate one with `--only locations` or by setting the
+others to 0. Their tabs remain a hand-editor: change any field or record and
+**Save** writes straight back to `Reputation-Matrix2/data/`. Each editor
+supports add, delete, search/filter, and a JSON-aware field renderer for
+nested arrays/objects. The **Injury Table** tab is an editor only — the table
+is hand-authored and locked (exactly 100 rows, see
+`docs/INJURY_TABLE_GUIDE.md`) and its generator is retired; the tab adds a
+d100 **Roll** simulator and a **Validate** button that shells out to
 `tools/generate-injury-table.py --check`; the Locations tab's Validate runs
 `Reputation-Matrix2/tools/generate_locations.py --check`. Pending counts in
 the control panel are live work remaining, pulled from the data files on

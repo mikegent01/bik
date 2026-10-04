@@ -1,20 +1,25 @@
-"""Injury Table, Locations, Events and Battles — first-class generate_all systems.
+"""Locations, Events and Battles — first-class generate_all systems — and the
+retired Injury Table generator.
 
-These four used to sit in the dashboard as disabled "(tool)" rows with locked
-mix weights. They are now ordinary popcorn systems: set a mix percentage and
-Start (or `python generate_all.py --only locations`) actually generates.
+Locations, Events and Battles used to sit in the dashboard as disabled
+"(tool)" rows with locked mix weights. They are ordinary popcorn systems now:
+set a mix percentage and Start (or `python generate_all.py --only locations`)
+actually generates. Pending work is live, derived from the data files:
 
-Pending work is live, derived from the data files:
-
-  * injury-table  — each of the 100 d100 rows still lacking `_generated`
   * locations     — cards short of LOCATION_FLOOR
   * events        — records short of EVENT_FLOOR
   * battles       — records short of BATTLE_FLOOR
 
 Generated archive cards are stamped `Generated — review` so they never pretend
-to be hand-filed canon. Injury rewrites keep `temporary: true` and the d100
-slot so `tools/generate-injury-table.py --check` still passes until a human
-reviews the table.
+to be hand-filed canon.
+
+The injury-table system is RETIRED. It once rewrote "temporary" d100 rows and
+then appended new ones towards a 10,000-row floor, which is how the table
+reached 343 rows of "Veilbound Vein Anomaly XXXIV". On 2026-10-04 the table
+was wiped and hand-authored (100 rows, `status: "authored"`, `locked: true`).
+The spec stays registered, disabled, so old `--only injury-table` invocations
+and the dashboard card explain themselves instead of 404ing; `pending` is 0
+for a locked table and `apply` refuses to write one.
 """
 from __future__ import annotations
 import re
@@ -46,7 +51,7 @@ NATIONS = ROOT / "data" / "nations.json"
 LOCATION_FLOOR = 60
 EVENT_FLOOR = 120
 BATTLE_FLOOR = 75
-INJURY_FLOOR = 10000
+INJURY_FLOOR = 100  # the table contract; never append past it
 
 _SNAKE = re.compile(r"^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$")
 _LOCK = threading.Lock()
@@ -225,12 +230,28 @@ def _disambiguate_id(raw: dict[str, Any], taken: set[str], why: str) -> dict[str
 
 
 # ---------------------------------------------------------------------------
-# injury-table — rewrite one temporary d100 row at a time
+# injury-table — RETIRED. Kept registered (disabled) so the id still resolves.
 # ---------------------------------------------------------------------------
+
+INJURY_LOCKED_DETAIL = (
+    "injuries.json is hand-authored and locked (status=authored); the injury-table "
+    "generator is retired. Edit the file by hand and run tools/generate-injury-table.py --check."
+)
+
 
 def _injury_store() -> dict[str, Any]:
     data = read_json(INJURIES, default={})
     return data if isinstance(data, dict) else {}
+
+
+def injury_table_locked(store: dict[str, Any] | None = None) -> bool:
+    """True unless the table explicitly says it is a temporary generated draft.
+
+    Locked is the default reading: a missing file, a missing status, or any
+    status other than "temporary" all mean the generator keeps its hands off.
+    """
+    store = _injury_store() if store is None else store
+    return bool(store.get("locked")) or store.get("status") != "temporary"
 
 
 def _injury_entries() -> list[dict[str, Any]]:
@@ -239,10 +260,14 @@ def _injury_entries() -> list[dict[str, Any]]:
 
 
 def _pending_injuries() -> list[dict[str, Any]]:
+    if injury_table_locked():
+        return []
     return [row for row in _injury_entries() if not isinstance(row.get("_generated"), dict)]
 
 
 def injuries_pending() -> int:
+    if injury_table_locked():
+        return 0
     have = len(_injury_entries())
     rewrites = len(_pending_injuries())
     return rewrites + max(0, INJURY_FLOOR - have)
@@ -250,6 +275,8 @@ def injuries_pending() -> int:
 
 def injuries_next_tasks(count: int) -> list[Task]:
     tasks: list[Task] = []
+    if injury_table_locked():
+        return tasks
     for row in _pending_injuries():
         if len(tasks) >= count:
             return tasks
@@ -396,6 +423,8 @@ def injuries_repair(task: Task, raw: dict[str, Any], why: str) -> dict[str, Any]
 def injuries_apply(task: Task, record: dict[str, Any]) -> TaskResult:
     with _LOCK:
         store = _injury_store()
+        if injury_table_locked(store):
+            return TaskResult(task=task, ok=False, detail=INJURY_LOCKED_DETAIL)
         entries = store.get("entries")
         if not isinstance(entries, list):
             return TaskResult(task=task, ok=False, detail="injuries.json has no entries")
@@ -431,9 +460,10 @@ def injuries_apply(task: Task, record: dict[str, Any]) -> TaskResult:
 
 INJURY_SPEC = SystemSpec(
     id="injury-table",
-    title="Injury Table · expand and rewrite",
-    summary="Rewrite temporary injury rows, then append new ones past 100.",
+    title="Injury Table · retired (hand-authored, locked)",
+    summary="The d100 table is hand-authored and locked; this system has no pending work and refuses to write it.",
     stage=1,
+    enabled=False,
     next_tasks=injuries_next_tasks,
     build_prompt=injuries_build_prompt,
     validate=injuries_validate,

@@ -69,9 +69,9 @@ _CHECK_CMDS = {
 
 
 AUXILIARY_GENERATORS = [
-    {"id": "injury-table", "title": "Injury Table",
-     "summary": "Popcorn system `injury-table` — mix % in Generate, or hand-edit in the Injury Table tab",
-     "command": "python generate_all.py --only injury-table"},
+    {"id": "injury-table", "title": "Injury Table (hand-authored, locked)",
+     "summary": "Retired generator. The 100-row d100 table is authored by hand; edit it in the Injury Table tab or in data/injuries.json, then Validate",
+     "command": "python3 tools/generate-injury-table.py --check"},
     {"id": "new-events", "title": "Events",
      "summary": "Popcorn system `events` — mix % in Generate, or hand-edit in the Events tab",
      "command": "python generate_all.py --only events"},

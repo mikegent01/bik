@@ -369,13 +369,14 @@
     if (!state.sentence || state.consequence) return;
     var sev = state.sentence.severity || 1;
 
-    // Severity biases the d100 upward, but never guarantees an outcome: a
-    // trivial sentence can still go wrong and a grave one can still be
+    // The table runs worst-first: 1 is death, 100 is the luck of the survivor.
+    // Severity therefore drags the d100 DOWN, but never guarantees an outcome:
+    // a trivial sentence can still go wrong and a grave one can still be
     // survived. Clamped to the table's real index range.
     var max = state.injuries.length;
     var roll = 1 + Math.floor(Math.random() * max);
     var bias = Math.floor((sev / 10) * max * 0.45);
-    roll = Math.min(max, roll + (Math.random() < 0.65 ? bias : 0));
+    roll = Math.max(1, roll - (Math.random() < 0.65 ? bias : 0));
 
     var entry = state.injuries[roll - 1] || state.injuries[state.injuries.length - 1];
 
@@ -661,8 +662,14 @@
     if (state.spinning || !state.injuries.length) return;
     showTab('floor');
     // The floor's roller needs a sentence to bias from; a ward survivor has
-    // none, so roll the table flat.
-    var entry = state.injuries[Math.floor(Math.random() * state.injuries.length)];
+    // none, so roll the table flat -- minus row 1. The saves already decided
+    // that this character lives; handing them "Death" now would be double
+    // jeopardy, and the wiki's Injury Desk makes the same exclusion.
+    var pool = state.injuries.filter(function (e) {
+      return String(e.category || '').toLowerCase() !== 'death';
+    });
+    if (!pool.length) return;
+    var entry = pool[Math.floor(Math.random() * pool.length)];
     state.spinning = true;
     el('capConsequence').classList.remove('show');
     var wrap = el('capInjWrap');
