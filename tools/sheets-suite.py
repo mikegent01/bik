@@ -24,6 +24,14 @@ One pass, in order (each step is skipped when there is nothing to do):
             players-import.json (the Players folder only) — the packets the
             Mass Import module fetches off the local server. Both are
             git-ignored build artefacts.
+  publish   into Foundry's own Data folder when it can be found (--foundry-data,
+            WALUIPEDIA_FOUNDRY_DATA, FOUNDRY_VTT_DATA_PATH, or the OS default
+            such as %LOCALAPPDATA%\FoundryVTT\Data): the packets + manifest +
+            packets.json under Data/npc/waluipedia/<world>/ (the module's
+            Sync button reads them from there, no URL needed), the Mass
+            Import module itself under Data/modules/ (so Foundry runs the
+            version in this checkout), and the repo-held portraits the sheets
+            reference (foundry-bridge.py install-images).
   verify    ``check-sheets.py`` and ``promote-player-sheets.py --check``.
 
 Then it prints where everything is served (the site's #/sheets route and the
@@ -43,6 +51,7 @@ import argparse
 import glob
 import json
 import os
+import platform
 import shutil
 import subprocess
 import sys
@@ -58,6 +67,12 @@ PLAYERS_JSON = os.path.join(ROOT, "Players.json")
 DEFAULT_WORLD = "midlands"
 DEFAULT_PORT = 8765
 PY = sys.executable
+MODULE_ID = "waluipedia-mass-import"
+MODULE_SRC = os.path.join(RM, "Foundry", "mass_import")
+# Inside Foundry's Data folder: where the packets go (the module's Sync
+# button looks here first) — next to the studio's npc/waluipedia/{art,actors}.
+PACKET_DIR = "npc/waluipedia"
+RAW_BASE = "https://raw.githubusercontent.com/mikegent01/bik/gh-pages/"
 
 # Windows hands a *piped* stdout the ANSI code page (cp1252), which has no
 # "→": under start.py the first arrow raised UnicodeEncodeError, the builder
@@ -245,6 +260,176 @@ def step_changes(world, write):
     return ok
 
 
+# --------------------------------------------------------- Foundry's Data
+
+def looks_like_foundry_data(path):
+    """Foundry's user-data `Data` folder: it holds worlds/, systems/ or modules/."""
+    return bool(path) and os.path.isdir(path) and any(os.path.isdir(os.path.join(path, d)) for d in ("worlds", "systems", "modules"))
+
+
+def foundry_data_candidates(home=None, sysname=None, environ=None):
+    """Where Foundry keeps user data by OS (Config/options.json's dataPath first)."""
+    env = os.environ if environ is None else environ
+    home = home or os.path.expanduser("~")
+    sysname = sysname or platform.system()
+    roots = []
+    if sysname == "Windows":
+        roots.append(os.path.join(env.get("LOCALAPPDATA") or os.path.join(home, "AppData", "Local"), "FoundryVTT"))
+    elif sysname == "Darwin":
+        roots.append(os.path.join(home, "Library", "Application Support", "FoundryVTT"))
+    else:
+        roots += [os.path.join(home, ".local", "share", "FoundryVTT"), os.path.join(home, "foundrydata"), "/home/foundry/foundrydata"]
+    out = []
+    for root in roots:
+        try:
+            custom = read_json(os.path.join(root, "Config", "options.json")).get("dataPath")
+        except (OSError, ValueError, AttributeError):
+            custom = None
+        if custom:
+            out.append(os.path.join(os.path.expanduser(str(custom)), "Data"))
+        out.append(os.path.join(root, "Data"))
+    return out
+
+
+def find_foundry_data(explicit=None, environ=None):
+    """(path, how): --foundry-data, WALUIPEDIA_FOUNDRY_DATA, FOUNDRY_VTT_DATA_PATH
+    (Foundry's own variable, the folder ABOVE Data), then the OS default.
+    `how` says which; a given path that is not a Data folder is reported."""
+    env = os.environ if environ is None else environ
+    for how, cand in (("--foundry-data", explicit), ("WALUIPEDIA_FOUNDRY_DATA", env.get("WALUIPEDIA_FOUNDRY_DATA")),
+                      ("FOUNDRY_VTT_DATA_PATH", env.get("FOUNDRY_VTT_DATA_PATH"))):
+        if not cand:
+            continue
+        cand = os.path.expanduser(os.path.expandvars(str(cand).strip().strip('"')))
+        if looks_like_foundry_data(cand):
+            return cand, how
+        if looks_like_foundry_data(os.path.join(cand, "Data")):
+            return os.path.join(cand, "Data"), how
+        return None, f"{how} = {cand} is not a Foundry Data folder (no worlds/ systems/ modules/ inside)"
+    for cand in foundry_data_candidates(environ=env):
+        if looks_like_foundry_data(cand):
+            return cand, "found"
+    return None, "not found"
+
+
+def same_file(a, b):
+    try:
+        if os.path.getsize(a) != os.path.getsize(b):
+            return False
+        with open(a, "rb") as fa, open(b, "rb") as fb:
+            return fa.read() == fb.read()
+    except OSError:
+        return False
+
+
+def module_files():
+    """Every file of the module as shipped in the repo: (abs path, rel path)."""
+    out = []
+    for cur, subdirs, files in os.walk(MODULE_SRC):
+        subdirs.sort()
+        for fn in sorted(files):
+            full = os.path.join(cur, fn)
+            out.append((full, os.path.relpath(full, MODULE_SRC).replace(os.sep, "/")))
+    return out
+
+
+def installed_module_version(foundry_data):
+    try:
+        return read_json(os.path.join(foundry_data, "modules", MODULE_ID, "module.json")).get("version")
+    except (OSError, ValueError, AttributeError):
+        return None
+
+
+def install_module(foundry_data, write):
+    """Keep <Data>/modules/waluipedia-mass-import/ identical to the repo's module.
+    Returns (installed version before, repo version, changed rel paths)."""
+    before = installed_module_version(foundry_data)
+    repo_version = read_json(os.path.join(MODULE_SRC, "module.json")).get("version")
+    dest = os.path.join(foundry_data, "modules", MODULE_ID)
+    changed = []
+    for src, rel in module_files():
+        dst = os.path.join(dest, *rel.split("/"))
+        if same_file(src, dst):
+            continue
+        changed.append(rel)
+        if write:
+            os.makedirs(os.path.dirname(dst), exist_ok=True)
+            shutil.copy2(src, dst)
+    return before, repo_version, changed
+
+
+def published_dir(foundry_data, world):
+    return os.path.join(foundry_data, *PACKET_DIR.split("/"), world)
+
+
+def packets_info(world, port, packet_files, published_at):
+    """What <Data>/npc/waluipedia/<world>/packets.json says: stamps the module
+    shows in its summary, and the other places the same packet can be found."""
+    u = urls(world, port)
+    return {
+        "format": "waluipedia-packets/1",
+        "world": world,
+        "exportedAt": mirror_stamp(world),
+        "publishedAt": published_at,
+        "publishedBy": "tools/sheets-suite.py",
+        "packets": {k: os.path.basename(v) for k, v in packet_files.items()},
+        "launcher": {"players": u["players"], "world": u["world"], "sheets": u["sheets"]},
+        "github": {"manifest": f"{RAW_BASE}Reputation-Matrix2/actors/worlds/{world}/manifest.json"},
+    }
+
+
+def step_publish(world, write, port, foundry_data, how, install=True, images=True):
+    """Put the packets where Foundry can see them without a URL — the Data
+    folder — keep the Mass Import module there current, and copy the repo-held
+    art the sheets reference. Nothing here touches the repo."""
+    if not foundry_data:
+        say(f"  publish  : Foundry Data folder {how} — Sync in Foundry falls back to the launcher URL, then GitHub"
+            "  (point at it with --foundry-data or WALUIPEDIA_FOUNDRY_DATA)")
+        return True
+    whole, pl = packet_paths(world)
+    dest = published_dir(foundry_data, world)
+    packet_files = {"players": pl, "world": whole, "manifest": os.path.join(WORLDS, world, "manifest.json")}
+    present = {k: v for k, v in packet_files.items() if os.path.exists(v)}
+    if not write:
+        before, repo_version, changed = install_module(foundry_data, False)
+        say(f"  publish  : Foundry Data {how}: {foundry_data} — would copy {', '.join(os.path.basename(v) for v in present.values()) or 'nothing'} to {os.path.relpath(dest, foundry_data)}"
+            + (f"; module {before or 'absent'} -> {repo_version} ({len(changed)} file(s))" if changed else f"; module {repo_version} current"))
+        return True
+    ok = True
+    os.makedirs(dest, exist_ok=True)
+    copied = []
+    for key, src in present.items():
+        dst = os.path.join(dest, os.path.basename(src))
+        if not same_file(src, dst):
+            shutil.copy2(src, dst)
+            copied.append(os.path.basename(src))
+    stamp = time.strftime("%Y-%m-%dT%H:%M:%S%z")
+    info_path = os.path.join(dest, "packets.json")
+    tmp = info_path + ".tmp"
+    with open(tmp, "w", encoding="utf-8") as fh:
+        json.dump(packets_info(world, port, present, stamp), fh, indent=2, ensure_ascii=False)
+        fh.write("\n")
+    os.replace(tmp, info_path)
+    rel_dest = os.path.relpath(dest, foundry_data).replace(os.sep, "/")
+    say(f"  publish  : {foundry_data} ({how}) — {', '.join(copied) if copied else 'packets unchanged'} -> {rel_dest}/  (Sync reads {rel_dest}/players-import.json)")
+    if install:
+        try:
+            before, repo_version, changed = install_module(foundry_data, True)
+        except OSError as exc:
+            say(f"  module   : could not write modules/{MODULE_ID}: {exc}")
+            ok = False
+        else:
+            if changed:
+                say(f"  module   : {MODULE_ID} {before or 'absent'} -> {repo_version} installed under modules/ ({len(changed)} file(s)) — reload Foundry (F5)"
+                    + ("; enable it under Game Settings -> Manage Modules" if not before else ""))
+            else:
+                say(f"  module   : {MODULE_ID} {repo_version} is current")
+    if images:
+        dirs = [d for d in (os.path.join(WORLDS, world), os.path.join(ACTORS, "cast"), os.path.join(ACTORS, "peachs-castle-955")) if os.path.isdir(d)]
+        ok = run([TOOLS["bridge"], "install-images"] + [os.path.relpath(d, ROOT) for d in dirs] + ["--foundry-data", foundry_data], "images", check=False)[0] and ok
+    return ok
+
+
 def packet_paths(world):
     base = os.path.join(WORLDS, world)
     return os.path.join(base, "import.json"), os.path.join(base, "players-import.json")
@@ -274,7 +459,9 @@ def urls(world, port):
     }
 
 
-def one_pass(world, write, port, downloads=None):
+def one_pass(world, write, port, downloads=None, foundry=None):
+    """foundry: {"data": explicit path or None, "install": bool, "images": bool, "publish": bool}"""
+    f = {"data": None, "install": True, "images": True, "publish": True, **(foundry or {})}
     t0 = time.time()
     say(f"sheets-suite: {'pass' if write else 'check'} for world {world!r} — {time.strftime('%H:%M:%S')}")
     mirror = os.path.relpath(os.path.join(WORLDS, world), ROOT)
@@ -290,12 +477,16 @@ def one_pass(world, write, port, downloads=None):
     ok = run([TOOLS["bridge"], "check", mirror], "check")[0] and ok
     ok = run([TOOLS["build"]] + ([] if write else ["--check"]), "build")[0] and ok
     ok = step_combine(world, write) and ok
+    if f["publish"]:
+        data_dir, how = find_foundry_data(f["data"])
+        ok = step_publish(world, write, port, data_dir, how, install=f["install"], images=f["images"]) and ok
     ok = run([TOOLS["check_sheets"]], "verify")[0] and ok
     ok = run([TOOLS["promote"], "--check"], "verify")[0] and ok
     u = urls(world, port)
     say(f"  {'done' if ok else 'FAILED'}     : {time.time() - t0:.1f}s")
     if write:
         say(f"  sheets   : {u['sheets']}")
+        say(f"  foundry  : Actors sidebar -> Sync (one click: finds the packet in Data, else {u['players']}, else GitHub; folders, changes, summary)")
         say(f"  packet   : {u['players']}  (Mass import → URL: the Players folder)")
         say(f"  packet   : {u['world']}  (the whole world)")
     return ok
@@ -316,11 +507,11 @@ def watch_inputs(world, downloads=None):
     return out
 
 
-def guarded_pass(world, port, downloads=None):
+def guarded_pass(world, port, downloads=None, foundry=None):
     """A pass under --watch: a crash is reported like a failed step and the
     watcher stays up for the next export."""
     try:
-        return one_pass(world, True, port, downloads)
+        return one_pass(world, True, port, downloads, foundry)
     except Exception as exc:  # noqa: BLE001 — anything; the watcher must survive
         say(f"  FAILED   : {type(exc).__name__}: {exc}")
         for line in traceback.format_exc().rstrip().splitlines()[-6:]:
@@ -328,9 +519,9 @@ def guarded_pass(world, port, downloads=None):
         return False
 
 
-def watch(world, port, interval, downloads=None):
+def watch(world, port, interval, downloads=None, foundry=None):
     seen = watch_inputs(world, downloads)
-    guarded_pass(world, port, downloads)
+    guarded_pass(world, port, downloads, foundry)
     say(f"  watching : {len(seen)} input file(s) every {interval:g}s — Ctrl-C to stop")
     while True:
         time.sleep(interval)
@@ -342,7 +533,7 @@ def watch(world, port, interval, downloads=None):
             # let a download finish landing before reading it
             time.sleep(1.0)
             seen = watch_inputs(world, downloads)
-            guarded_pass(world, port, downloads)
+            guarded_pass(world, port, downloads, foundry)
 
 
 def main(argv=None):
@@ -353,20 +544,26 @@ def main(argv=None):
     ap.add_argument("--interval", type=float, default=2.0, help="seconds between polls in --watch (default 2)")
     ap.add_argument("--check", action="store_true", help="verify only; write nothing")
     ap.add_argument("--downloads", default=None, help="folder to scan for fresh exports (default ~/Downloads; '' = none)")
+    ap.add_argument("--foundry-data", default=None, metavar="DIR",
+                    help="Foundry's Data folder (default: WALUIPEDIA_FOUNDRY_DATA, FOUNDRY_VTT_DATA_PATH, then the OS default, e.g. %%LOCALAPPDATA%%\\FoundryVTT\\Data)")
+    ap.add_argument("--no-publish", action="store_true", help="do not copy the packets / module / art into Foundry's Data folder")
+    ap.add_argument("--no-module-install", action="store_true", help="publish the packets but leave Data/modules alone")
+    ap.add_argument("--no-images", action="store_true", help="publish without copying the repo's portraits into Data")
     args = ap.parse_args(argv)
     utf8_streams()
     downloads = args.downloads if args.downloads is not None else None
     if args.downloads == "":
         downloads = ""
+    foundry = {"data": args.foundry_data, "publish": not args.no_publish, "install": not args.no_module_install, "images": not args.no_images}
     if args.check:
-        return 0 if one_pass(args.world, False, args.port, downloads) else 1
+        return 0 if one_pass(args.world, False, args.port, downloads, foundry) else 1
     if args.watch:
         try:
-            watch(args.world, args.port, args.interval, downloads)
+            watch(args.world, args.port, args.interval, downloads, foundry)
         except KeyboardInterrupt:
             say("\nsheets-suite: stopped")
         return 0
-    return 0 if one_pass(args.world, True, args.port, downloads) else 1
+    return 0 if one_pass(args.world, True, args.port, downloads, foundry) else 1
 
 
 if __name__ == "__main__":
