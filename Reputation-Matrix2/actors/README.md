@@ -123,6 +123,18 @@ docstring at the top of the bridge. The 955 packet below ships its
 `midlands` world is already split under
 [`worlds/midlands/`](worlds/README.md) from `midlands-all-actors.json`.
 
+[`tools/foundry-studio.py`](../../tools/foundry-studio.py) — the **Foundry++
+character editor suite** — is the art side of the same loop: `sort` names,
+factions and files the loose portraits / tokens / cut-outs / audio in your
+image folder (`<kind>/<faction>/<slug>[--<version>].<ext>` + a manifest),
+`rename` / `edit` / `delete` keep it tidy, `link` puts that library **and this
+`actors/` tree** inside Foundry's Data folder (`Data/npc/waluipedia/actors`,
+`…/art/<faction>/<slug>/token.webp`), `versions <id>` lists a character's
+present sheet and past selves and `--stub` prints a pasteable `ERAS` entry,
+`adopt` promotes a library portrait to `portraits/<id>.*`, and `changes`
+writes the bridge `apply` file that points actors at the linked art. Tested by
+`tools/tests/test-foundry-studio.py`; the module README has the walkthrough.
+
 The rest of the cast — every character article without a real export —
 lives in [`cast/`](cast/README.md): 152 sheets generated from the articles
 by `tools/build-character-sheets.py` — 118 NPC stat blocks and 34

@@ -149,6 +149,52 @@ combine / link-images`, or point `tools/foundry-studio.py` at it. Writing uses
 Foundry's own upload API (`.json` is an allowed upload type), one request per
 file; 150 actors take a few seconds.
 
+## The art folder: `tools/foundry-studio.py` (Foundry++ character editor suite)
+
+The portraits, tokens and cut-outs live in a folder that fills up faster than
+it gets named — `bonesclean.webp`, `danm.png`, `court-mage-a.png`, a dozen
+`<hash>-removebg-preview.png`. The studio (stdlib Python, runs on Windows as
+`py tools\foundry-studio.py …`) turns that folder into a library Foundry can
+address, and connects the repo's actor trees to the Data folder:
+
+```bash
+python3 tools/foundry-studio.py scan  <folder>              # what is loose, what the archive thinks each one is
+python3 tools/foundry-studio.py sort  <folder>              # per file: name → kind → faction → version; files it
+python3 tools/foundry-studio.py list  <folder> [--faction koopa_troop] [--kind tokens]
+python3 tools/foundry-studio.py rename <folder> bear "Bear Guard"      # files follow the name
+python3 tools/foundry-studio.py edit   <folder> bear_guard --faction iron_legion --character bowser --version 955-bf
+python3 tools/foundry-studio.py delete <folder> bear_guard/portraits   # to _trash/ unless --forever
+python3 tools/foundry-studio.py link   <folder> [--data "%LOCALAPPDATA%\FoundryVTT\Data"]
+python3 tools/foundry-studio.py unlink
+python3 tools/foundry-studio.py versions bowser [--stub 1000-bf]      # now, the past selves, a pasteable ERAS entry
+python3 tools/foundry-studio.py adopt  <folder> bones                  # library portrait → Reputation-Matrix2/portraits/bones.webp
+python3 tools/foundry-studio.py changes <folder> --out changes.json    # bridge `apply` file: img + token → the linked art
+```
+
+`sort` suggests names from `characters.json` and the 955 roster (`danm` → Dan
+86 %, `court-chambermaid` → Castle Chambermaid), guesses the kind from the
+folder or the name (`-removebg-preview` = token), defaults the faction from
+the XP ledger, and moves each file to `<kind>/<faction>/<slug>[--<version>].<ext>`,
+remembering everything in `foundry-studio.json`. Enter accepts, `s` skips, `d`
+trashes, `q` stops; `--answers file.json` replaces the keyboard, `--auto` takes
+only the sure suggestions (≥ 85 %).
+
+`link` creates, inside Foundry's Data folder:
+
+```
+Data/npc/waluipedia/actors/…                      → Reputation-Matrix2/actors (the repo tree: cast/, worlds/midlands/, peachs-castle-955/)
+Data/npc/waluipedia/art/<faction>/<slug>/portrait.png · token.webp · icon.png · bg.jpg · ai.png
+Data/npc/waluipedia/audio/<faction>/<slug>.mp3
+```
+
+Symlinks where the OS allows them; on Windows a directory falls back to a
+junction and a file to a hard link, then to a copy (`--copy` forces copies).
+`studio-links.json` records what was made so `unlink` removes exactly that.
+After `link`, the Import dialog's *Data path* `npc/waluipedia/actors/cast`
+(or `…/worlds/midlands`) is a real directory, and `changes` writes the
+`foundry-bridge.py apply` file that points each matching actor's `img` and
+token at the linked art.
+
 ## API
 
 ```js

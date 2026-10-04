@@ -108,6 +108,10 @@ def main() -> int:
                                            "--out", "Reputation-Matrix2/actors/peachs-castle-955/import.json",
                                            "--world", "peachs-castle-955", "--check"], ROOT),
         ("foundry module zip", [py, "tools/build-foundry-module-zip.py", "--check"], ROOT),
+        # Foundry++ studio: sorting the art folder, the manifest, the Data
+        # folder links, the version/era helpers — exercised on a throwaway
+        # library shaped like the real mess.
+        ("foundry studio", [py, "tools/tests/test-foundry-studio.py"], ROOT),
         # Live world mirrors (split from the end-of-session export) stay importable.
         ("foundry world mirrors", [py, "tools/foundry-bridge.py", "check", "Reputation-Matrix2/actors/worlds"], ROOT),
         # Character Sheets: every character article maps to a Foundry actor
